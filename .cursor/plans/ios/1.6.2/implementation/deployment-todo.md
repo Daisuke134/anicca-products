@@ -6,14 +6,14 @@
 
 | # | タスク | ステータス | 依存 | 詳細 |
 |---|--------|-----------|------|------|
-| P1-1 | x-research-skill を Claude Code にインストール | ⬜ | - | `.claude/skills/x-research` にクローン |
+| P1-1 | x-research-skill を Claude Code にインストール | ✅ | - | `.claude/skills/x-research` にクローン |
 | P1-2 | x-research-skill を OpenClaw VPS にインストール | ⬜ | P1-1 | `/home/anicca/.openclaw/skills/x-research` + X_BEARER_TOKEN |
-| P1-3 | feature/closed-loop-ops → dev マージ | ⬜ | P1-1,P1-2 | 408テスト PASS 確認済み |
-| P1-4 | Railway Staging デプロイ確認 | ⬜ | P1-3 | dev push → 自動デプロイ |
-| P1-5 | DB Migration 実行（Staging） | ⬜ | P1-4 | `sql/20260208_add_ops_tables.sql` + seed 2ファイル |
-| P1-6 | VPS Heartbeat Cron 追加 | ⬜ | P1-5 | `*/5 * * * *` で `/api/ops/heartbeat` を叩く |
-| P1-7 | X API 実接続（post_x Executor） | ⬜ | P1-5 | X API v2 OAuth 2.0、投稿エンドポイント |
-| P1-8 | 手動テスト: Proposal → Mission → X投稿 | ⬜ | P1-6,P1-7 | 初回ループ1周の動作確認 |
+| P1-3 | feature/closed-loop-ops → dev マージ | ✅ | P1-1,P1-2 | 408テスト PASS → dev マージ完了 |
+| P1-4 | Railway Staging デプロイ確認 | ✅ | P1-3 | dev push → 自動デプロイ → /health OK |
+| P1-5 | DB Migration 実行（Staging） | ✅ | P1-4 | Prisma migrate deploy → 7テーブル作成 + seed |
+| P1-6 | VPS Heartbeat Cron 追加 | ✅ | P1-5 | `*/5 * * * *` crontab → heartbeat OK |
+| P1-7 | X API 実接続（post_x Executor） | ✅ | P1-5 | Blotato API (account 11852) → X投稿成功 |
+| P1-8 | 手動テスト: Proposal → Mission → X投稿 | ✅ | P1-6,P1-7 | 3ステップ全成功: draft→verify→post_x |
 | P1-9 | fetch_metrics Executor 実接続 | ⬜ | P1-7 | X API でエンゲージメント取得 |
 | P1-10 | 48h Trigger テスト | ⬜ | P1-8,P1-9 | 投稿→48h後→自動メトリクス取得→Thompson更新 |
 
