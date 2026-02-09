@@ -135,38 +135,40 @@ interface ExecutionResult {
 
 // --- Railway API Client 詳細（P0 #9 解消）---
 // Mockable Interfaces の railwayApiClient を詳細化
+type SaveHookResult =
+  | { status: 'created'; id: string; text: string; createdAt: string }
+  | { status: 'duplicate'; existingId: string };
+
 interface RailwayApiClient {
   getHooks(): Promise<{ hooks: Hook[] }>;
-  saveHook(hook: HookSavePayload): Promise<{ id: string; createdAt: string }>;
+  saveHook(hook: HookSavePayload): Promise<SaveHookResult>;
   emitEvent(event: EventPayload): Promise<{ id: string }>;
 }
 
 interface HookSavePayload {
-  content: string;
-  problemType: ProblemType;
+  text: string;                     // HookSaveSchema.text（max 500 chars）
+  targetProblemTypes: ProblemType[]; // HookSaveSchema.targetProblemTypes（配列）
   source: 'trend-hunter';
-  metadata: {
-    contentType: 'empathy' | 'solution';
+  platform: 'x' | 'tiktok' | 'both'; // HookSaveSchema.platform
+  contentType: 'empathy' | 'solution'; // HookSaveSchema.contentType
+  idempotencyKey?: string;           // DLQリトライ時の重複防止キー（オプション）
+  metadata?: {
     trendSource: HookCandidate['trendSource'];
-    allProblemTypes: ProblemType[];
-    platform: 'x' | 'tiktok' | 'both';
     angle: string;
   };
-  idempotencyKey: string;           // DLQリトライ時の重複防止キー（JSON body に含める）
 }
 
 interface Hook {
   id: string;
-  content: string;
-  problemType: ProblemType;
+  text: string;                      // DB: hook_candidates.text
+  targetProblemTypes: ProblemType[];  // DB: hook_candidates.target_problem_types
   source: string;
-  metadata: Record<string, unknown>;
+  platform: string;
+  xSampleSize: number;
+  xEngagementRate: number;
+  tiktokSampleSize: number;
+  tiktokLikeRate: number;
   createdAt: string;
-  stats: {
-    impressions: number;
-    engagements: number;
-    score: number;
-  };
 }
 
 interface EventPayload {
@@ -267,6 +269,7 @@ interface EventPayload {
 | 38 | `test_orchestrator_duplicate_skip` | railwayApiClient.getHooks → 既存hookと類似度0.9 | 保存スキップ、ログに記録 | 重複チェック |
 | 39 | `test_orchestrator_railway_save_fail` | railwayApiClient.saveHook → Error | DLQに書き込み、次回リトライ | 保存失敗 |
 | 40 | `test_orchestrator_rotation` | executionCount=0, 1, 2 を順に実行 | 各グループの ProblemType で検索される | ローテーション |
+| 41 | `test_orchestrator_duplicate_server_response` | railwayApiClient.saveHook → `{ status: 'duplicate', existingId: 'xxx' }` | savedCount不変、skippedDuplicates+1、hook_savedイベント未発行 | サーバー側重複応答 |
 
 ---
 

@@ -1,3 +1,8 @@
+---
+name: ralph-autonomous-dev
+description: Enables autonomous development loops that run until all tasks pass. Use when the user says "until done", "keep going", "finish this", "終わるまでやれ", or requests long-running autonomous iteration with fix_plan.md tracking.
+---
+
 # Ralph-Style Autonomous Development Skill
 
 ## When to Use This Skill

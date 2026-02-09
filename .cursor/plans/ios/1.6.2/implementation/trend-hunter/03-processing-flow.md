@@ -371,7 +371,7 @@ const HOOK_PROMPT = `
 // 1. 既存hookを取得
 const existingHooks = await exec(`curl -s \
   -H "Authorization: Bearer ${ANICCA_AGENT_TOKEN}" \
-  "https://anicca-proxy-staging.up.railway.app/api/agent/hooks"`);
+  "${API_BASE_URL}/api/agent/hooks"`);
 
 // 2. Jaccard bi-gram 類似度関数（07-mock-data-validation.md「重複判定アルゴリズム」と同一実装）
 // VPS skill 内で自己完結させるためインライン定義
@@ -395,55 +395,68 @@ function jaccardBigram(text1, text2) {
 // 3. 各候補に対して重複チェック
 for (const candidate of hookCandidates) {
   // テキスト類似度チェック: Jaccard bi-gram（LLM呼び出しなし、最速）
-  // 閾値 0.7 以上 = 重複とみなす（既存hookの content フィールドと比較）
+  // 閾値 0.7 以上 = 重複とみなす（既存hookの text フィールドと比較）
+  // ★ API レスポンスのフィールド名は `text`（04-api-routes-security.md HookSaveSchema 準拠）
   // hook数が1000件超になったらコサイン類似度（TF-IDF）に移行を検討
   const maxSimilarity = existingHooks.hooks
-    .map(h => jaccardBigram(candidate.content, h.content))
+    .map(h => jaccardBigram(candidate.content, h.text))
     .reduce((max, s) => Math.max(max, s), 0);
   const isDuplicate = maxSimilarity >= 0.7; // SIMILARITY_THRESHOLD
 
   if (!isDuplicate) {
     // 3. Railway DB に保存
+    // ★ HookSaveSchema 準拠（04-api-routes-security.md §POST /api/agent/hooks）:
+    //   text: string (max 500), targetProblemTypes: string[] (min 1),
+    //   source: string, platform: 'x'|'tiktok'|'both', contentType: 'empathy'|'solution',
+    //   metadata: Record<string, unknown> (optional)
     await exec(`curl -s -X POST \
       -H "Authorization: Bearer ${ANICCA_AGENT_TOKEN}" \
       -H "Content-Type: application/json" \
-      "https://anicca-proxy-staging.up.railway.app/api/agent/hooks" \
+      "${API_BASE_URL}/api/agent/hooks" \
       -d '${JSON.stringify({
-        content: candidate.content,
-        problemType: candidate.problemTypes[0], // 主要ProblemType
+        text: candidate.content,
+        targetProblemTypes: candidate.problemTypes,
         source: "trend-hunter",
+        platform: candidate.platform || "both",
+        contentType: candidate.contentType,
         metadata: {
-          contentType: candidate.contentType,
           trendSource: candidate.trendSource,
-          allProblemTypes: candidate.problemTypes,
-          platform: candidate.platform,
           angle: candidate.angle,
         }
       })}'`);
   }
 }
 
-// 4. イベント発行（closed-loop-ops Reaction Matrix との接続点）
+// 4. イベント収集（closed-loop-ops Reaction Matrix との接続点）
 // → closed-loop-ops/08-event-trigger-system.md の Reaction Matrix が
-//   source='trend-hunter', kind='hooks_saved' を監視し、
-//   x-poster や app-nudge-sender への提案を自動生成する
-// イベント発行はRailway API POST /api/ops/events 経由
-await exec(`curl -s -X POST \
-  -H "Authorization: Bearer ${ANICCA_AGENT_TOKEN}" \
-  -H "Content-Type: application/json" \
-  "https://anicca-proxy-staging.up.railway.app/api/ops/events" \
-  -d '${JSON.stringify({
+//   source='trend-hunter', kind='hook_saved', tags=['hook_candidate','found'] を監視し、
+//   x-poster に evaluate_hook 提案を自動生成する
+// ★ イベント発行経路: body.events が唯一の正規経路
+//   直接 POST /api/ops/events は禁止。VPS Worker が step/complete で一括送信する。
+//   (05-step-executors.md run_trend_scan 参照)
+// ★ hook ごとに個別イベント（04-config-integration.md の正規仕様に準拠）
+const collectedEvents = [];
+for (const hook of savedHooks) {
+  collectedEvents.push({
     source: "trend-hunter",
-    kind: "hooks_saved",
-    tags: ["hook", "saved", "trend-hunter"],
+    kind: "hook_saved",
+    tags: ["hook_candidate", "found"],
     payload: {
-      savedCount,
-      empathyCount,
-      solutionCount,
-      targetTypes,
-      hookIds: savedHookIds, // 保存したhookのID配列
+      hookId: hook.id,
+      hookType: hook.contentType,
+      targetTypes: hook.targetProblemTypes,
     }
-  })}'`);
+  });
+}
+// サマリーイベント（監視用）
+collectedEvents.push({
+  source: "trend-hunter",
+  kind: "scan_completed",
+  tags: ["scan", "completed"],
+  payload: { savedCount, empathyCount, solutionCount, targetTypes }
+});
+// → collectedEvents は VPS Worker に返却され、
+//   PATCH /api/ops/step/:id/complete の body.events として送信される
 
 // 5. Slack #trends に結果サマリー
 await slack.send('#trends',

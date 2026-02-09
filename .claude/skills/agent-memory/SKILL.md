@@ -1,3 +1,8 @@
+---
+name: agent-memory
+description: Persists knowledge across conversations in a local memory store. Use when the user says "remember", "memorize", "recall", or when important discoveries, decisions, or learnings should be saved for future sessions.
+---
+
 # Agent Memory
 
 会話をまたいで知識を保存する永続的なメモリ空間。

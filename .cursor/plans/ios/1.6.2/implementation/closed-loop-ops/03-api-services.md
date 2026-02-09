@@ -16,6 +16,9 @@
 
 import { prisma } from '../../lib/prisma.js';
 import { logger } from '../../lib/logger.js';
+import { checkCapGate } from './capGateService.js';
+import { getPolicy } from './policyService.js';
+import { emitEvent } from './eventEmitter.js';
 
 /**
  * 提案作成 + Cap Gate + Auto-Approve + Mission生成
@@ -338,7 +341,7 @@ export async function emitEvent(source, kind, tags, payload = {}, missionId = nu
 
 ### 6.5 Heartbeat エンドポイント
 
-> **VPS の crontab から5分毎に呼ばれる**: `*/5 * * * * curl -s -H "Authorization: Bearer $ANICCA_AGENT_TOKEN" https://anicca-proxy-staging.up.railway.app/api/ops/heartbeat`
+> **VPS の crontab から5分毎に呼ばれる**: `*/5 * * * * curl -s -H "Authorization: Bearer $ANICCA_AGENT_TOKEN" ${API_BASE_URL}/api/ops/heartbeat`
 
 ```javascript
 // apps/api/src/routes/ops/heartbeat.js

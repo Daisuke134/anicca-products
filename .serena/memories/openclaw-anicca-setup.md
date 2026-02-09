@@ -57,8 +57,8 @@ event_subscriptions:
 
 | トークン | 場所 |
 |---------|------|
-| Bot Token (`xoxb-...`) | `~/.openclaw/openclaw.json` → `channels.slack.botToken` |
-| App Token (`xapp-...`) | `~/.openclaw/openclaw.json` → `channels.slack.appToken` |
+| Bot Token (`<SLACK_BOT_TOKEN>`) | `~/.openclaw/openclaw.json` → `channels.slack.botToken` |
+| App Token (`<SLACK_APP_TOKEN>`) | `~/.openclaw/openclaw.json` → `channels.slack.appToken` |
 
 ---
 

@@ -118,4 +118,25 @@ export function selectHook(candidates) {
   return { hook: selected.hook, strategy: 'exploit', score: selected.score };
 }
 
+/**
+ * Platform-aware Thompson Sampling for closed-loop ops.
+ * Uses pre-computed successCount/failureCount per candidate.
+ *
+ * @param {Array<{id: string, text: string, successCount: number, failureCount: number}>} candidates
+ * @returns {object} selected candidate (raw object, not wrapped)
+ */
+export function selectHookThompson(candidates) {
+  if (!candidates || candidates.length === 0) return null;
+
+  const scored = candidates.map(c => {
+    const alpha = (c.successCount || 0) + 1;
+    const beta = (c.failureCount || 0) + 1;
+    const score = betaSample(alpha, beta);
+    return { candidate: c, score };
+  });
+
+  scored.sort((a, b) => b.score - a.score);
+  return scored[0].candidate;
+}
+
 export { EXPLORE_PROBABILITY, betaSample, gammaSample };

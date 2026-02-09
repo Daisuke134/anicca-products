@@ -1,8 +1,11 @@
 # Anicca Closed-Loop Ops Layer 実装仕様書
 
+> **⚠️ ARCHIVE — 実装時は `closed-loop-ops/` サブフォルダの分割版を参照すること。**
+> **このファイルは分割前のマスターであり、分割版との差異がある場合は分割版が正（canonical）。**
+>
 > **目的**: VoxYZ 閉ループアーキテクチャを Anicca 1.6.2 に適用し、Cron一方通行から Event-driven 循環システムへ移行する
 > **最終更新**: 2026-02-08
-> **ステータス**: ドラフト
+> **ステータス**: アーカイブ（分割版が canonical）
 > **参照元**: VoxYZ記事 (`vox.md`)、1.6.2-ultimate-spec.md、既存 Prisma schema
 > **前提**: Railway PostgreSQL（Supabase不使用）、OpenClaw VPS (46.225.70.241)、Railway API (Node.js)
 
@@ -72,7 +75,7 @@ Railway PostgreSQL = All State（共有記憶）
 > - `@db.Uuid @default(dbgenerated("gen_random_uuid()"))`
 > - `@db.Timestamptz @default(now())`
 > - `@map("snake_case")`, `@@map("table_names")`
-> - FK制約なし（アプリ層で整合性担保）— 既存パターンと一致
+> - FK制約あり（`REFERENCES ... ON DELETE CASCADE/SET NULL`）— 親削除時に子レコードも削除。Prisma `@relation(onDelete: Cascade)` と SQL `REFERENCES` が対応
 
 ### 2.1 ops_proposals
 
@@ -344,7 +347,7 @@ INSERT INTO ops_policy (key, value) VALUES
   ('tiktok_daily_quota', '{ "limit": 1 }'),
   ('nudge_daily_quota', '{ "limit": 10 }'),
   ('x_autopost', '{ "enabled": true }'),
-  ('tiktok_autopost', '{ "enabled": true }'),
+  ('tiktok_autopost', '{ "enabled": false }'),  -- Phase A では無効。Phase B で UPDATE ... SET enabled=true
   ('worker_policy', '{ "vps_only": true }'),
   ('buddhist_verification', '{ "enabled": true, "min_score": 3, "max_retries": 3 }'),
   ('stale_threshold_min', '{ "value": 30 }'),
@@ -2251,7 +2254,7 @@ import { logger } from '../../../lib/logger.js';
 /**
  * trend-hunter が見つけた hook_candidate を x-poster が評価
  *
- * Input: { eventId: string } (hook_candidate:found イベントから)
+ * Input: { eventId: string } (hook_saved イベントの eventId。Reaction Matrix が payload.hookId → eventId を注入)
  * Output: { evaluation: string, shouldPost: boolean }
  */
 export async function executeEvaluateHook({ input, proposalPayload }) {
@@ -2316,10 +2319,10 @@ step.stepKind を確認
     +----> ...
     |
     v
-PATCH /api/ops/step/:id/complete { status, output }
+PATCH /api/ops/step/:id/complete { status, output, events }
     |
     v
-Railway API が output を DB に保存 → 次のステップの input になる
+Railway API が output を DB に保存 + body.events があればイベント発行 → 次のステップの input になる
 ```
 
 > **重要**: Railway API 側の executor はロジックの「定義」。VPS Worker は SKILL.md に従って
@@ -2452,10 +2455,11 @@ router.patch('/step/:id/complete', async (req, res) => {
     }
   });
 
-  // ★ 追加: output に events があればイベントを発行
+  // ★ 追加: body.events があればイベントを発行（正規版は 05-step-executors.md §16.3 参照）
+  const { events: bodyEvents } = parsed.data;
   const { emitEvent } = await import('../../services/ops/eventEmitter.js');
-  if (output?.events && Array.isArray(output.events)) {
-    for (const evt of output.events) {
+  if (bodyEvents && Array.isArray(bodyEvents)) {
+    for (const evt of bodyEvents) {
       await emitEvent(
         step.mission.proposal.skillName,
         evt.kind,
@@ -2758,7 +2762,7 @@ export default router;
 |---|--------|------|---------------|-----------|
 | 1 | x-poster | 直接 X API 呼び出し + Slack 報告 | Proposal → Mission → Steps (draft→verify→post) | 中 |
 | 2 | tiktok-poster | 直接 TikTok API 呼び出し + Slack 報告 | Proposal → Mission → Steps (draft→verify→post) | 中 |
-| 3 | trend-hunter | web_search → hook_candidates INSERT | Proposal → Mission → Step (detect_suffering) | 低 |
+| 3 | trend-hunter | web_search → hook_candidates INSERT | Proposal → Mission → Step (run_trend_scan) — 単一ステップ内で4ソース収集→フィルタ→hook生成→保存→イベント発行を全実行 | 低 |
 | 4 | suffering-detector | Moltbook 検索 → 返信 | Proposal → Mission → Step (detect_suffering) | 低 |
 | 5 | app-nudge-sender | 直接 Push通知 | Proposal → Mission → Steps (draft_nudge→send_nudge) | 中 |
 
@@ -3658,7 +3662,7 @@ VPS (~/.openclaw/workspace/skills/):
 | 12.11 | Heartbeat ルーター実装（監視込み） | T19, T41-T42 PASS | ⬜ |
 | 12.12 | Proposal/Step ルーター実装（data pass込み） | T20-T29 全PASS | ⬜ |
 | 12.13 | opsAuth ミドルウェア実装 | T26-T27 PASS | ⬜ |
-| **12.14** | **Step Executor Registry + 11個の executor** | **T34-T37 PASS** | ⬜ |
+| **12.14** | **Step Executor Registry + 12個の executor** | **T34-T37, T44-T53, T61 PASS** | ⬜ |
 | **12.15** | **approvalNotifier + approvalHandler 実装** | **T30-T33 PASS** | ⬜ |
 | **12.16** | **Approval API ルーター実装** | **T32-T33 PASS** | ⬜ |
 | **12.17** | **insightPromoter.js 実装** | **手動テストで WisdomPattern に昇格確認** | ⬜ |

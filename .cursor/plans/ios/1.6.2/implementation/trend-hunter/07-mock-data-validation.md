@@ -252,26 +252,22 @@
 
 ### Railway API — GET /api/agent/hooks レスポンス（期待）
 
+> **正本**: `closed-loop-ops/04-api-routes-security.md` HookSaveSchema
+
 ```json
 {
   "hooks": [
     {
       "id": "hook_001",
-      "content": "毎晩同じ約束を自分にして、毎晩破る。6年間ずっとこれ。",
-      "problemType": "staying_up_late",
+      "text": "毎晩同じ約束を自分にして、毎晩破る。6年間ずっとこれ。",
+      "targetProblemTypes": ["staying_up_late"],
       "source": "trend-hunter",
-      "metadata": {
-        "contentType": "empathy",
-        "trendSource": { "platform": "x", "url": "https://x.com/..." },
-        "allProblemTypes": ["staying_up_late"],
-        "platform": "x"
-      },
-      "createdAt": "2026-02-07T05:00:00Z",
-      "stats": {
-        "impressions": 0,
-        "engagements": 0,
-        "score": 0
-      }
+      "platform": "x",
+      "xSampleSize": 0,
+      "xEngagementRate": 0,
+      "tiktokSampleSize": 0,
+      "tiktokLikeRate": 0,
+      "createdAt": "2026-02-07T05:00:00Z"
     }
   ]
 }
@@ -279,6 +275,7 @@
 
 ### Railway API — POST /api/agent/hooks リクエスト仕様（C3解消）
 
+> **正本**: `closed-loop-ops/04-api-routes-security.md` HookSaveSchema
 > **エンドポイント契約**: trend-hunter が hook を保存する際の POST リクエスト仕様
 
 ```json
@@ -287,43 +284,41 @@
   "auth": "Authorization: Bearer ${ANICCA_AGENT_TOKEN}",
   "content_type": "application/json",
   "request_body_example": {
-    "content": "毎晩同じ約束を自分にして、毎晩破る。6年間ずっとこれ。",
-    "problemType": "staying_up_late",
+    "text": "毎晩同じ約束を自分にして、毎晩破る。6年間ずっとこれ。",
+    "targetProblemTypes": ["staying_up_late"],
     "source": "trend-hunter",
+    "platform": "x",
+    "contentType": "empathy",
     "idempotencyKey": "hook-1707300000000-a1b2c3",
     "metadata": {
-      "contentType": "empathy",
       "trendSource": {
         "platform": "x",
         "url": "https://x.com/testuser/status/1846987139428634858",
         "hashtags": ["夜更かし", "寝れない"],
         "metrics": { "likes": 50000, "retweets": 12000 }
       },
-      "allProblemTypes": ["staying_up_late"],
-      "platform": "x",
       "angle": "夜更かしの当事者共感"
     }
   },
   "response_201_created": {
     "id": "hook_abc123",
-    "content": "...",
+    "text": "毎晩同じ約束を自分にして、毎晩破る。6年間ずっとこれ。",
     "createdAt": "2026-02-08T05:00:00Z"
   },
   "response_200_duplicate": {
     "status": "duplicate",
-    "existingId": "hook_abc123",
-    "message": "Hook with idempotencyKey already exists"
+    "existingId": "hook_abc123"
   },
   "response_400_validation": {
     "error": "validation",
-    "message": "content is required and must be <= 500 characters"
+    "message": "text is required and must be <= 500 characters"
   }
 }
 ```
 
-**idempotencyKey**: JSON bodyに含める（ヘッダーではない）。同一キーの2回目以降は200 + duplicate（エラーではない）。
-**必須フィールド**: `content`, `problemType`, `source`
-**任意フィールド**: `idempotencyKey`, `metadata`
+**idempotencyKey**: JSON bodyに含める（ヘッダーではない）。同一キーまたは同一textの2回目以降は200 + duplicate（エラーではない）。
+**必須フィールド**: `text`, `targetProblemTypes`, `contentType`
+**任意フィールド**: `idempotencyKey`, `source`（default: 'trend-hunter'）, `platform`（default: 'both'）, `metadata`
 
 > **実装**: trend-hunter 実装前に Railway API 側でこのエンドポイントを作成する必要がある。
 

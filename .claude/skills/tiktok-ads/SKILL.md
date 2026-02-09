@@ -1,3 +1,8 @@
+---
+name: tiktok-ads
+description: TikTok advertising strategy and optimization best practices for Anicca. Covers budget scaling, creative strategy, campaign structure, and stop-loss decisions. Use when analyzing TikTok ad performance, adjusting budgets, creating ad creatives, or evaluating campaign KPIs.
+---
+
 # TikTok Ads Best Practices Skill
 
 ## Overview

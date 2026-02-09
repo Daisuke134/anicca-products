@@ -2,7 +2,7 @@
 
 > **目的**: 13 ProblemType に関連するバイラルコンテンツをマルチソースから検出し、Aniccaの投稿hookに変換する
 > **最終更新**: 2026-02-08
-> **ステータス**: ドラフト（レビュー中）
+> **ステータス**: GUI作業完了（2026-02-08）— 実装準備OK
 > **参照**: `1.6.2-ultimate-spec.md` の Phase 3 (3.2 trend-hunter)
 
 ---
@@ -16,9 +16,9 @@
 
 | # | サービス | 作業内容 | 所要時間 | 手順 | 取得するもの | 完了 |
 |---|---------|---------|---------|------|------------|------|
-| 1 | **TwitterAPI.io** | アカウント登録 + APIキー取得 | 2分 | ① https://twitterapi.io/ にアクセス → ② 「Sign in with Google」クリック → ③ ダッシュボードでAPIキーをコピー | `TWITTERAPI_KEY` | ⬜ |
-| 2 | **reddapi.dev** | アカウント登録 + Liteプラン契約 + APIキー生成 | 5分 | ① https://reddapi.dev/auth にアクセス → ② Google/GitHubでログイン → ③ Liteプラン($9.90/月)購入 → ④ /account でAPIキー生成 | `REDDAPI_API_KEY` | ⬜ |
-| 3 | **VPS環境変数追加** | 取得したキーをVPSの.envに追加 | 1分 | `ssh anicca@46.225.70.241` → `.env` に2つのキーを追記 → Gateway再起動 | - | ⬜ |
+| 1 | **TwitterAPI.io** | アカウント登録 + APIキー取得 | 2分 | ① https://twitterapi.io/ にアクセス → ② 「Sign in with Google」クリック → ③ ダッシュボードでAPIキーをコピー | `TWITTERAPI_KEY` | ✅（2026-02-08） |
+| 2 | **reddapi.dev** | アカウント登録 + Liteプラン契約 + APIキー生成 | 5分 | ① https://reddapi.dev/auth にアクセス → ② Google/GitHubでログイン → ③ Liteプラン($9.90/月)購入 → ④ /account でAPIキー生成 | `REDDAPI_API_KEY` | ✅（2026-02-08） |
+| 3 | **VPS環境変数追加** | 取得したキーをVPSの.envに追加 | 1分 | `ssh anicca@46.225.70.241` → `.env` に2つのキーを追記 → Gateway再起動 | - | ✅（エージェント実行予定） |
 
 ### GUI作業が不要なもの（確認済み）
 

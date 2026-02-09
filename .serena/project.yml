@@ -113,3 +113,4 @@ encoding: utf-8
 # Note that when using the JetBrains backend, language servers are not used and this list is correspondingly ignored.
 languages:
 - typescript
+- swift

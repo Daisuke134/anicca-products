@@ -1,6 +1,6 @@
 ---
 name: decisive-agent
-description: Enforces decisive decision-making. Search best practices, decide on ONE option, provide reasoning. NEVER ask user to choose.
+description: Enforces decisive decision-making by searching best practices, choosing ONE option, and providing reasoning. Use when making architectural decisions, technology selections, library choices, or any situation where multiple valid approaches exist. NEVER presents options for the user to choose.
 ---
 
 # Decisive Agent Workflow

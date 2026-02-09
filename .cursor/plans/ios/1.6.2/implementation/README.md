@@ -5,6 +5,144 @@
 
 ---
 
+## 開発環境（実装完了 — レビュー待ち）
+
+| 項目 | 値 |
+|------|-----|
+| **ワークツリーパス** | `/Users/cbns03/Downloads/anicca-closed-loop-ops` |
+| **ブランチ** | `feature/closed-loop-ops` |
+| **ベースブランチ** | `dev` |
+| **作業状態** | 実装完了・レビュー待ち |
+| **Codexレビュー（Spec）** | ok: true（10 iterations, 2026-02-08） |
+| **テスト結果** | 396/396 PASS（54テストファイル） |
+
+### チーム構成（3エージェント並列）
+
+| エージェント | 担当 | 対象ファイル/ディレクトリ |
+|-------------|------|----------------------|
+| **data-layer** | Prisma schema + API routes + services | `apps/api/prisma/`, `apps/api/src/routes/agent/`, `apps/api/src/services/ops/` |
+| **executors** | Step executors + Event/Trigger system + Heartbeat | `apps/api/src/services/ops/executors/`, `apps/api/src/services/ops/eventEmitter.js`, `apps/api/src/jobs/` |
+| **trend-hunter** | trend-hunter VPS skill (OpenClaw) | VPS: `/usr/lib/node_modules/openclaw/skills/trend-hunter/` |
+
+### レビューエージェントへの注意
+
+- **このワークツリーで作業すること**（devブランチを直接触らない）
+- Spec は `.cursor/plans/ios/1.6.2/implementation/` 配下
+- テストマトリックス: `closed-loop-ops/10-test-matrix-checklist.md` (T1-T67) + `trend-hunter/06-test-matrix.md` (#1-#49)
+- コード品質レビューは `feature/closed-loop-ops` ブランチの差分に対して実行
+
+---
+
+## 実装結果（完了）
+
+> **完了日時**: 2026-02-08
+
+### エージェント別ステータス
+
+| エージェント | 担当 | 状態 | 実装ファイル | テストファイル |
+|-------------|------|------|------------|-------------|
+| **data-layer** | Prisma + API routes + Core services | ✅ 完了 | 15 | 8 |
+| **executors** | Step executors + Heartbeat | ✅ 完了 | 13 | 13 |
+| **trend-hunter** | trend-hunter パイプライン | ✅ 完了 | 13 | 11 |
+
+### テスト結果
+
+| 項目 | 値 |
+|------|-----|
+| テストファイル数 | 54（既存 + 新規） |
+| テスト総数 | 396 |
+| 通過 | 396 |
+| 失敗 | 0 |
+| 実行時間 | 3.47s |
+
+### 実装ファイル一覧
+
+#### Prisma Schema + Migration
+
+| ファイル | 内容 |
+|---------|------|
+| `apps/api/prisma/schema.prisma` | 7 ops テーブル + HookCandidate拡張 |
+| `apps/api/sql/` | Seed data (ops_policy) |
+
+#### Core Services (`apps/api/src/services/ops/`)
+
+| ファイル | 機能 |
+|---------|------|
+| `proposalService.js` | createProposalAndMaybeAutoApprove() |
+| `capGates.js` | checkCapGate() — per-skill日次制限 |
+| `eventEmitter.js` | emitEvent(source, kind, tags, payload, missionId) |
+| `policyService.js` | getPolicy() / updatePolicy() — キャッシュ付き |
+| `reactionProcessor.js` | processReactionQueue() — cooldown制御 |
+| `triggerEvaluator.js` | evaluateTriggers() — delay_min / 二重発火防止 |
+| `staleRecovery.js` | recoverStaleSteps() — 30分タイムアウト |
+| `insightPromoter.js` | promoteInsights() |
+
+#### API Routes (`apps/api/src/routes/ops/`)
+
+| ファイル | エンドポイント |
+|---------|-------------|
+| `index.js` | POST proposals, GET step/next, PATCH step/:id/complete |
+| `heartbeat.js` | GET /api/ops/heartbeat (5分間隔) |
+| `events.js` | POST /api/ops/events |
+
+#### Step Executors (`apps/api/src/services/ops/stepExecutors/`)
+
+| ファイル | Step Kind |
+|---------|----------|
+| `registry.js` | 12 executor マッピング |
+| `executeDraftContent.js` | draft_content |
+| `executeVerifyContent.js` | verify_content |
+| `executePostX.js` | post_x |
+| `executePostTiktok.js` | post_tiktok |
+| `executeFetchMetrics.js` | fetch_metrics |
+| `executeAnalyzeEngagement.js` | analyze_engagement |
+| `executeDetectSuffering.js` | detect_suffering |
+| `executeDiagnose.js` | diagnose |
+| `executeDraftNudge.js` | draft_nudge |
+| `executeSendNudge.js` | send_nudge |
+| `executeEvaluateHook.js` | evaluate_hook |
+| `executeRunTrendScan.js` | run_trend_scan |
+
+#### trend-hunter (`apps/api/src/services/ops/trend-hunter/`)
+
+| ファイル | 機能 |
+|---------|------|
+| `config.js` | ProblemType辞書 + データソース設定 |
+| `index.js` | エントリポイント |
+| `orchestrator.js` | メインパイプライン: collect → filter → generate → save |
+| `queryBuilder.js` | ProblemType → 検索クエリ変換 |
+| `rotationSelector.js` | 3グループ固定ローテーション |
+| `thompsonSampling.js` | Beta分布サンプリング (Jöhnk's algorithm) |
+| `textSimilarity.js` | Jaccard bi-gram >= 0.7 重複検出 |
+| `viralityFilter.js` | バイラリティスコアフィルター |
+| `twitterResponseParser.js` | X/Twitter レスポンス正規化 |
+| `redditResponseParser.js` | Reddit レスポンス正規化 |
+| `tiktokResponseParser.js` | TikTok レスポンス正規化 |
+| `slackFormatter.js` | Slack Block Kit フォーマッター |
+| `dlqHandler.js` | DLQ (max_retries=3, exponential backoff) |
+
+#### Middleware + Utilities
+
+| ファイル | 機能 |
+|---------|------|
+| `apps/api/src/middleware/opsAuth.js` | OPS_AUTH_TOKEN 認証 |
+| `apps/api/src/services/verifier.js` | コンテンツ品質検証 |
+| `apps/api/src/services/hookSelector.js` | platform-aware Thompson Sampling (更新) |
+| `apps/api/src/lib/llm.js` | OpenAI wrapper |
+| `apps/api/src/lib/logger.js` | ロガー |
+| `apps/api/src/routes/agent/hooks.js` | POST /api/agent/hooks (HookSaveSchema) |
+
+### 次のステップ
+
+| # | タスク | 状態 |
+|---|--------|------|
+| 1 | codex-review（実装コード GATE 3） | 次に実行 |
+| 2 | dev にマージ | レビュー後 |
+| 3 | Prisma migration 実行（Staging） | マージ後 |
+| 4 | VPS Worker 設定 + OpenClaw skill デプロイ | マージ後 |
+
+---
+
 ## ディレクトリ構成
 
 ```
@@ -65,7 +203,7 @@ implementation/
 │   suffering-detector   Executor Registry           59テスト
 │   app-nudge-sender     Slack承認フロー             Thompson Sampling
 │   memU サービス        監視/アラート               DLQリトライ
-│   評価フレームワーク   テスト43本                   コスト~$22/月
+│   評価フレームワーク   テスト61本                   コスト~$22/月
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -98,7 +236,7 @@ implementation/
 
 | ステップ | 参照先 |
 |---------|-------|
-| 1. テストマトリックス確認 | `closed-loop-ops/10-test-matrix-checklist.md` (T1〜T43) + `trend-hunter/06-test-matrix.md` (#1〜#40) |
+| 1. テストマトリックス確認 | `closed-loop-ops/10-test-matrix-checklist.md` (T1〜T67) + `trend-hunter/06-test-matrix.md` (#1〜#40) |
 | 2. テスト基盤セットアップ | `closed-loop-ops/10-test-matrix-checklist.md` (Vitest + Prisma Mock) |
 | 3. RED: テスト作成 | テスト名とカバー対象がマトリックスに記載済み |
 | 4. GREEN: 実装 | 各コンポーネントファイル参照 |

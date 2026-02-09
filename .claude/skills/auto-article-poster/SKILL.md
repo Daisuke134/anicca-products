@@ -1,3 +1,8 @@
+---
+name: auto-article-poster
+description: Generates Build-in-Public articles and saves drafts to note.com. Use when the user asks to write a note article, summarize weekly development progress, or create a Build-in-Public blog post.
+---
+
 # Auto Article Poster
 
 Aniccaが自律的にBuild in Public記事を生成し、note.comに下書き保存するスキル。

@@ -91,6 +91,38 @@ await prisma.dependentTable.upsert({ ... });
 | 内部URL vs Proxy URL | 内部は Railway 内のみ。外部アクセスは Proxy URL |
 | DB資格情報は `.env.proxy` に保存 | 毎回ユーザーに聞かない |
 
+---
+
+## Railway サービス名・URL
+
+### サービス名
+
+| 環境 | API | Cron |
+|------|-----|------|
+| **Staging** | `API` | `nudge-cron` |
+| **Production** | `API` | `nudge-cronp`（末尾に`p`） |
+
+### 環境変数
+
+| 変数 | API (Staging/Prod) | nudge-cron (Staging) | nudge-cronp (Prod) |
+|------|-------------------|---------------------|-------------------|
+| `CRON_MODE` | なし | `nudges` | `nudges` |
+| `PROXY_BASE_URL` | あり | なし | なし |
+| `DATABASE_URL` | あり | あり（internal） | あり（internal） |
+| `OPENAI_API_KEY` | あり | あり | あり |
+| `ANTHROPIC_API_KEY` | あり | なし | なし |
+
+**`CRON_MODE`** は truthy チェック（`!!process.env.CRON_MODE`）。
+
+### URL
+
+| 環境 | URL |
+|------|-----|
+| Staging | `anicca-proxy-staging.up.railway.app` |
+| Production | `anicca-proxy-production.up.railway.app` |
+
+**注意:** `anicca-api-production` ではない。`anicca-proxy-production` が正しいURL。
+
 ### GHA + Railway 並行テストのフロー
 
 ```

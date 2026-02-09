@@ -1,3 +1,8 @@
+---
+name: build-in-public
+description: Generates and posts "Day X of building Anicca" tweets on X (Twitter). Use when the user asks to post a development update, share progress on X, or create a Build-in-Public tweet.
+---
+
 # Build in Public - X自動投稿スキル
 
 Build in Public の「Day X of building Anicca」形式のX投稿を自動生成・投稿する。

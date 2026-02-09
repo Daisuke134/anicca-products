@@ -1,6 +1,6 @@
 ---
 name: remotion-best-practices
-description: Best practices for Remotion - Video creation in React
+description: Best practices for Remotion video creation in React. Use when writing, reviewing, or debugging Remotion compositions, animations, sequences, or video rendering pipelines.
 metadata:
   tags: remotion, video, react, animation, composition
 ---

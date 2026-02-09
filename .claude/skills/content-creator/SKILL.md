@@ -1,3 +1,8 @@
+---
+name: content-creator
+description: Generates daily development reports and converts them into social media content for X, TikTok, and note.com. Use when the user asks to write a daily report, summarize today's work, create SNS posts, or convert development logs into shareable content.
+---
+
 # Content Creator
 
 日報の自動生成とSNSコンテンツへの変換を行うスキル。

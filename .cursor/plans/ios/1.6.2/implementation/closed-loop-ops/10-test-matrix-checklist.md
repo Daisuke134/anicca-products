@@ -5,70 +5,79 @@
 
 ---
 
-## テストマトリックス（T1-T60）
+## テストマトリックス（T1-T67）
 
-| # | テスト対象 | テスト名 | 種別 | カバー |
-|---|-----------|---------|------|--------|
-| T1 | Proposal Service | `test_createProposal_accepted` | Unit | 正常系 — auto-approve対象 |
-| T2 | Proposal Service | `test_createProposal_rejected_capGate` | Unit | Cap Gateリジェクト |
-| T3 | Proposal Service | `test_createProposal_pending_noAutoApprove` | Unit | auto-approve対象外 → pending |
-| T4 | Proposal Service | `test_createProposal_dailyLimit` | Unit | 日次100件上限 |
-| T5 | Cap Gate | `test_postXGate_quotaReached` | Unit | X日次クォータ |
-| T6 | Cap Gate | `test_postXGate_disabled` | Unit | x_autopost=false |
-| T7 | Cap Gate | `test_sendNudgeGate_quotaReached` | Unit | Nudge日次クォータ |
-| T8 | Policy Service | `test_getPolicy_cached` | Unit | キャッシュヒット |
-| T9 | Policy Service | `test_setPolicy_invalidatesCache` | Unit | キャッシュ無効化 |
-| T10 | Trigger Evaluator | `test_evaluateTriggers_fireOnMatch` | Unit | イベント合致→提案生成 |
-| T11 | Trigger Evaluator | `test_evaluateTriggers_cooldown` | Unit | クールダウン内→スキップ |
-| T12 | Trigger Evaluator | `test_evaluateTriggers_delayCondition` | Unit | delay_min 未到達→スキップ |
-| T13 | Reaction Processor | `test_processReactionQueue_createProposal` | Unit | pending→提案生成 |
-| T14 | Reaction Matrix | `test_evaluateReactionMatrix_probability` | Unit | 確率判定 |
-| T15 | Reaction Matrix | `test_evaluateReactionMatrix_cooldown` | Unit | クールダウン内→スキップ |
-| T16 | Stale Recovery | `test_recoverStaleSteps_markFailed` | Unit | 30分超→failed |
-| T17 | Stale Recovery | `test_maybeFinalizeMission_allSucceeded` | Unit | 全ステップ成功→mission succeeded |
-| T18 | Stale Recovery | `test_maybeFinalizeMission_anyFailed` | Unit | 1つfailed→mission failed |
-| T19 | Heartbeat API | `test_heartbeat_returns200` | Integration | 正常レスポンス |
-| T20 | Proposal API | `test_proposal_validInput` | Integration | Zodバリデーション |
-| T21 | Proposal API | `test_proposal_invalidInput` | Integration | バリデーションエラー |
-| T22 | Step Next API | `test_stepNext_noSteps` | Integration | ステップなし→null |
-| T23 | Step Next API | `test_stepNext_claimStep` | Integration | ステップ取得+running更新 |
-| T24 | Step Complete API | `test_stepComplete_succeeded` | Integration | 成功報告 |
-| T25 | Step Complete API | `test_stepComplete_missionFinalized` | Integration | ミッション最終化 |
-| T26 | Auth | `test_opsAuth_rejectNoToken` | Unit | トークンなし→401 |
-| T27 | Auth | `test_opsAuth_rejectBadToken` | Unit | 不正トークン→401 |
-| **T28** | **Step Data Pass** | `test_stepNext_injectsPreviousOutput` | **Unit** | **前ステップoutput注入** |
-| **T29** | **Step Data Pass** | `test_stepNext_blocksPendingPrevStep` | **Unit** | **前ステップ未完了→ブロック** |
-| **T30** | **Approval** | `test_approveProposal_createsMission` | **Unit** | **承認→Mission作成** |
-| **T31** | **Approval** | `test_rejectProposal_updatesStatus` | **Unit** | **リジェクト→status更新** |
-| **T32** | **Approval API** | `test_slackApproval_approve` | **Integration** | **Slack承認エンドポイント** |
-| **T33** | **Approval API** | `test_slackApproval_reject` | **Integration** | **Slackリジェクトエンドポイント** |
-| **T34** | **Executor** | `test_executeDraftContent_returnsContent` | **Unit** | **下書き生成** |
-| **T35** | **Executor** | `test_executeVerifyContent_passes` | **Unit** | **検証合格** |
-| **T36** | **Executor** | `test_executeVerifyContent_failsAfterRetries` | **Unit** | **検証不合格** |
-| **T37** | **Executor** | `test_executorRegistry_unknownKind` | **Unit** | **未知step_kind** |
-| **T38** | **emitEvent** | `test_emitEvent_triggersReactionMatrix` | **Unit** | **Reaction Matrix自動評価** |
-| **T39** | **Trigger** | `test_delayMin_tooEarly` | **Unit** | **delay_min未到達** |
-| **T40** | **Trigger** | `test_delayMin_tooOld` | **Unit** | **delay_min×2超過** |
-| **T41** | **Monitor** | `test_checkOpsHealth_alertOnSpike` | **Unit** | **失敗スパイクアラート** |
-| **T42** | **Monitor** | `test_checkOpsHealth_noAlertBelowThreshold` | **Unit** | **閾値未満→アラートなし** |
-| **T43** | **Summary API** | `test_dailySummary_returns24hData` | **Integration** | **日次サマリー** |
-| **T44** | **Executor: post_x** | `test_executePostX_createsXPost` | **Unit** | **XPost DB記録 + イベント発行** |
-| **T45** | **Executor: post_tiktok** | `test_executePostTiktok_createsTiktokPost` | **Unit** | **TiktokPost DB記録 + イベント発行** |
-| **T46** | **Executor: fetch_metrics** | `test_executeFetchMetrics_xBigIntConversion` | **Unit** | **BigInt→Number変換 + メトリクス計算** |
-| **T47** | **Executor: fetch_metrics** | `test_executeFetchMetrics_tiktokMetrics` | **Unit** | **TikTokメトリクス取得** |
-| **T48** | **Executor: analyze_engagement** | `test_executeAnalyzeEngagement_highThreshold` | **Unit** | **5%閾値判定 + hookスコア更新** |
-| **T49** | **Executor: diagnose** | `test_executeDiagnose_extractsFailedSteps` | **Unit** | **失敗ステップ抽出 + LLM診断** |
-| **T50** | **Executor: detect_suffering** | `test_executeDetectSuffering_passthrough` | **Unit** | **VWSパススルー構造** |
-| **T51** | **Executor: draft_nudge** | `test_executeDraftNudge_topSeveritySelection` | **Unit** | **最高severity選択 + 50文字制限** |
-| **T52** | **Executor: send_nudge** | `test_executeSendNudge_skipsWhenNoContent` | **Unit** | **nudgeContent空→skipped=true** |
-| **T53** | **Executor: evaluate_hook** | `test_executeEvaluateHook_shouldPostDecision` | **Unit** | **LLM評価 + shouldPost判定** |
-| **T54** | **callLLM** | `test_callLLM_returnsString` | **Unit** | **LLM呼び出し正常系** |
-| **T55** | **callLLM** | `test_callLLM_throwsOnFailure` | **Unit** | **LLM呼び出しエラー系** |
-| **T56** | **verifier** | `test_verifyWithRegeneration_passesOnFirstTry` | **Unit** | **初回合格** |
-| **T57** | **verifier** | `test_verifyWithRegeneration_regeneratesOnFailure` | **Unit** | **再生成フロー** |
-| **T58** | **verifier** | `test_verifyWithRegeneration_failsAfterMaxRetries` | **Unit** | **最大回数超過→失敗** |
-| **T59** | **SAFE-T** | `test_scoreContent_crisisDetection` | **Unit** | **危機表現→score=0 + crisis flag** |
-| **T60** | **SAFE-T** | `test_detectSuffering_crisisEvent` | **Unit** | **severity>=0.9→crisis:detected イベント** |
+> **TDD対応**: 各テストに入力/前提と期待結果を明記。テストファースト時にassert対象が一意に決まる。
+
+| # | テスト対象 | テスト名 | 種別 | 入力/前提 | 期待結果 |
+|---|-----------|---------|------|----------|---------|
+| T1 | Proposal Service | `test_createProposal_accepted` | Unit | skillName='x-poster', steps=[draft_content, verify_content, post_x] | status='accepted', missionId != null |
+| T2 | Proposal Service | `test_createProposal_rejected_capGate` | Unit | skillName='x-poster', 当日X投稿3件済み | status='rejected', rejectReason='x_daily_quota' |
+| T3 | Proposal Service | `test_createProposal_pending_noAutoApprove` | Unit | steps に post_x 含む（Kill Switch対象） | status='pending', missionId == null |
+| T4 | Proposal Service | `test_createProposal_dailyLimit` | Unit | 当日提案100件済み | status='rejected', rejectReason='daily_proposal_limit' |
+| T5 | Cap Gate | `test_postXGate_quotaReached` | Unit | policy.x_daily_quota.limit=3, 当日X投稿3件 | return false |
+| T6 | Cap Gate | `test_postXGate_disabled` | Unit | policy.x_autopost.enabled=false | return false |
+| T7 | Cap Gate | `test_sendNudgeGate_quotaReached` | Unit | policy.nudge_daily_quota.limit=10, 当日Nudge10件 | return false |
+| T8 | Policy Service | `test_getPolicy_cached` | Unit | getPolicy('auto_approve') を2回呼ぶ | DB query 1回のみ（2回目はキャッシュ） |
+| T9 | Policy Service | `test_setPolicy_invalidatesCache` | Unit | getPolicy → setPolicy → getPolicy | 3回目は新しい値を返す |
+| T10 | Trigger Evaluator | `test_evaluateTriggers_fireOnMatch` | Unit | trigger rule event_kind='tweet_posted', 合致イベントあり | createProposalAndMaybeAutoApprove が呼ばれる |
+| T11 | Trigger Evaluator | `test_evaluateTriggers_cooldown` | Unit | lastFiredAt=1分前, cooldownMin=60 | スキップ（提案生成なし） |
+| T12 | Trigger Evaluator | `test_evaluateTriggers_delayCondition` | Unit | delay_min=1440, イベント発生10分前 | スキップ（delay未到達） |
+| T13 | Reaction Processor | `test_processReactionQueue_createProposal` | Unit | status='pending' のReactionレコード1件 | createProposal呼出 + status='processed' |
+| T14 | Reaction Matrix | `test_evaluateReactionMatrix_probability` | Unit | probability=0.3, Math.random=0.2 | Reaction生成される |
+| T15 | Reaction Matrix | `test_evaluateReactionMatrix_cooldown` | Unit | cooldown=120, 前回発火60分前 | Reaction生成されない |
+| T16 | Stale Recovery | `test_recoverStaleSteps_markFailed` | Unit | step.reservedAt=35分前, threshold=30 | status='failed', lastError含む |
+| T17 | Stale Recovery | `test_maybeFinalizeMission_allSucceeded` | Unit | 全steps.status='succeeded' | mission.status='succeeded' |
+| T18 | Stale Recovery | `test_maybeFinalizeMission_anyFailed` | Unit | 1つのstep.status='failed' | mission.status='failed' + mission:failed イベント |
+| T19 | Heartbeat API | `test_heartbeat_returns200` | Integration | GET /api/ops/heartbeat, 有効token | 200 + { evaluated, promoted, recovered } |
+| T20 | Proposal API | `test_proposal_validInput` | Integration | POST /api/ops/proposal, 正常JSON | 200/201 + proposalId |
+| T21 | Proposal API | `test_proposal_invalidInput` | Integration | POST /api/ops/proposal, skillName欠落 | 400 + Zodエラー |
+| T22 | Step Next API | `test_stepNext_noSteps` | Integration | GET /api/ops/step/next, queuedステップなし | 200 + null |
+| T23 | Step Next API | `test_stepNext_claimStep` | Integration | GET /api/ops/step/next, queuedステップ1件 | 200 + step + status='running' |
+| T24 | Step Complete API | `test_stepComplete_succeeded` | Integration | PATCH /step/:id/complete, status='succeeded' | 200 + output保存 |
+| T25 | Step Complete API | `test_stepComplete_missionFinalized` | Integration | 最終step完了報告 | mission.status='succeeded' |
+| T26 | Auth | `test_opsAuth_rejectNoToken` | Unit | Authorization header なし | 401 |
+| T27 | Auth | `test_opsAuth_rejectBadToken` | Unit | Authorization: Bearer invalid | 401 |
+| T28 | Step Data Pass | `test_stepNext_injectsPreviousOutput` | Unit | step_order=1, 前step.output={content:'x'} | input に content='x' が含まれる |
+| T29 | Step Data Pass | `test_stepNext_blocksPendingPrevStep` | Unit | step_order=1, 前step.status='running' | null（ブロック） |
+| T30 | Approval | `test_approveProposal_createsMission` | Unit | proposal.status='pending', approve=true | mission作成 + proposal.status='accepted' |
+| T31 | Approval | `test_rejectProposal_updatesStatus` | Unit | proposal.status='pending', approve=false | proposal.status='rejected' |
+| T32 | Approval API | `test_slackApproval_approve` | Integration | POST /api/ops/approval action='approve' | proposal accepted + mission created |
+| T33 | Approval API | `test_slackApproval_reject` | Integration | POST /api/ops/approval action='reject' | proposal rejected |
+| T34 | Executor | `test_executeDraftContent_returnsContent` | Unit | mock callLLM='生成文', mock hookSelector | output.content != null, output.hookId != null |
+| T35 | Executor | `test_executeVerifyContent_passes` | Unit | mock verifier score=4 | output.passed=true, output.verificationScore=4 |
+| T36 | Executor | `test_executeVerifyContent_failsAfterRetries` | Unit | mock verifier score=1 (3回) | output.passed=false, attempts=3 |
+| T37 | Executor | `test_executorRegistry_unknownKind` | Unit | getExecutor('nonexistent') | Error thrown: 'Unknown step_kind' |
+| T38 | emitEvent | `test_emitEvent_triggersReactionMatrix` | Unit | emit 'tweet_posted', matrix has matching pattern | Reaction レコード作成 |
+| T39 | Trigger | `test_delayMin_tooEarly` | Unit | delay_min=1440, イベント発生10分前 | trigger発火しない |
+| T40 | Trigger | `test_delayMin_tooOld` | Unit | delay_min=1440, イベント発生3000分前 | trigger発火しない（window超過） |
+| T41 | Monitor | `test_checkOpsHealth_alertOnSpike` | Unit | 1時間内に failed step 6件（閾値5） | Slack通知呼出 |
+| T42 | Monitor | `test_checkOpsHealth_noAlertBelowThreshold` | Unit | 1時間内に failed step 3件（閾値5） | Slack通知なし |
+| T43 | Summary API | `test_dailySummary_returns24hData` | Integration | GET /api/ops/summary/daily | 200 + proposalCount, missionCount, successRate |
+| T44 | Executor: post_x | `test_executePostX_createsXPost` | Unit | mock Blotato API成功 | output.postId != null, events=[tweet_posted] |
+| T45 | Executor: post_tiktok | `test_executePostTiktok_createsTiktokPost` | Unit | mock Blotato API成功 | output.postId != null, events=[tiktok_posted] |
+| T46 | Executor: fetch_metrics | `test_executeFetchMetrics_xBigIntConversion` | Unit | mock X API返却(BigInt tweet_id) | output.metrics.impressions=Number |
+| T47 | Executor: fetch_metrics | `test_executeFetchMetrics_tiktokMetrics` | Unit | mock Apify返却 | output.metrics.engagementRate=Number |
+| T48 | Executor: analyze_engagement | `test_executeAnalyzeEngagement_highThreshold` | Unit | metrics.engagementRate=0.06 | output.isHighEngagement=true, hookスコア更新 |
+| T49 | Executor: diagnose | `test_executeDiagnose_extractsFailedSteps` | Unit | mission with 1 failed step | output.failedSteps.length=1, output.diagnosis != null |
+| T50 | Executor: detect_suffering | `test_executeDetectSuffering_passthrough` | Unit | mock web_search結果 | output.detections is Array |
+| T51 | Executor: draft_nudge | `test_executeDraftNudge_topSeveritySelection` | Unit | detections=[{severity:0.8},{severity:0.6}] | 最高severity(0.8)を選択, content.length<=50 |
+| T52 | Executor: send_nudge | `test_executeSendNudge_skipsWhenNoContent` | Unit | input.nudgeContent=null | output.skipped=true, events=[] |
+| T53 | Executor: evaluate_hook | `test_executeEvaluateHook_shouldPostDecision` | Unit | mock LLM='true', hookCandidate存在 | output.shouldPost=true, events=[hook:approved_for_post] |
+| T54 | callLLM | `test_callLLM_returnsString` | Unit | mock OpenAI応答='hello' | return 'hello' |
+| T55 | callLLM | `test_callLLM_throwsOnFailure` | Unit | mock OpenAI API Error | Error thrown |
+| T56 | verifier | `test_verifyWithRegeneration_passesOnFirstTry` | Unit | mock scorer score=4 | passed=true, attempts=1 |
+| T57 | verifier | `test_verifyWithRegeneration_regeneratesOnFailure` | Unit | mock scorer: 1回目score=2, 2回目score=4 | passed=true, attempts=2 |
+| T58 | verifier | `test_verifyWithRegeneration_failsAfterMaxRetries` | Unit | mock scorer score=1 (3回連続) | passed=false, attempts=3 |
+| T59 | SAFE-T | `test_scoreContent_crisisDetection` | Unit | content='死にたい' | score=0, crisis=true |
+| T60 | SAFE-T | `test_detectSuffering_crisisEvent` | Unit | detection.severity=0.95 | emitEvent('crisis:detected') 呼出 |
+| **T61** | **Executor: run_trend_scan** | `test_executeRunTrendScan_interfaceShape` | **Unit** | **空input** | **output.savedCount=Number, output.sources=Array** |
+| T62 | Hook API Contract | `test_hookSave_normalCreation` | Integration | POST /api/agent/hooks, 正常HookSaveSchema準拠JSON | 201 + { id, text, createdAt } |
+| T63 | Hook API Contract | `test_hookSave_duplicateText` | Integration | POST /api/agent/hooks, 既存hookと同一text | 200 + { status: 'duplicate', existingId } |
+| T64 | Hook API Contract | `test_hookSave_idempotencyKey` | Integration | POST /api/agent/hooks, 同じidempotencyKeyで2回送信 | 1回目: 201, 2回目: 200 + duplicate |
+| T65 | Hook API Contract | `test_hookSave_invalidSchema` | Integration | POST /api/agent/hooks, targetProblemTypes欠落 | 400 + Zodエラー |
+| T66 | Event API Contract | `test_eventPost_hookSaved` | Integration | POST /api/ops/events, kind='hook_saved', tags=['hook_candidate','found'] | 201 + Reaction生成確認 |
+| T67 | Event API Contract | `test_eventPost_scanCompleted` | Integration | POST /api/ops/events, kind='scan_completed', tags=['scan','completed'] | 201 + Reaction生成なし |
 
 ---
 
@@ -143,7 +152,7 @@ cd apps/api && npx vitest                        # ウォッチモード
 | 12.11 | Heartbeat ルーター実装（監視込み） | T19, T41-T42 PASS | ⬜ |
 | 12.12 | Proposal/Step ルーター実装（data pass込み） | T20-T29 全PASS | ⬜ |
 | 12.13 | opsAuth ミドルウェア実装 | T26-T27 PASS | ⬜ |
-| **12.14** | **Step Executor Registry + 11個の executor** | **T34-T37, T44-T53 PASS** | ⬜ |
+| **12.14** | **Step Executor Registry + 12個の executor** | **T34-T37, T44-T53, T61 PASS** | ⬜ |
 | **12.15** | **approvalNotifier + approvalHandler 実装** | **T30-T33 PASS** | ⬜ |
 | **12.16** | **Approval API ルーター実装** | **T32-T33 PASS** | ⬜ |
 | **12.17** | **insightPromoter.js 実装** | **手動テストで WisdomPattern に昇格確認** | ⬜ |
@@ -230,6 +239,7 @@ apps/api/
                 ├── executeDraftNudge.js
                 ├── executeSendNudge.js
                 ├── executeEvaluateHook.js
+                ├── executeRunTrendScan.js
                 └── __tests__/
                     ├── registry.test.js
                     ├── executeDraftContent.test.js
@@ -242,7 +252,8 @@ apps/api/
                     ├── executeDetectSuffering.test.js
                     ├── executeDraftNudge.test.js
                     ├── executeSendNudge.test.js
-                    └── executeEvaluateHook.test.js
+                    ├── executeEvaluateHook.test.js
+                    └── executeRunTrendScan.test.js
     ├── lib/
     │   ├── llm.js
     │   └── __tests__/

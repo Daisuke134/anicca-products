@@ -281,6 +281,12 @@ model HookCandidate {
   slackSampleSize       Int?      @map("slack_sample_size")
   slackHighPerformer    Boolean?  @map("slack_high_performer")
 
+  // 1.6.2: Closed-loop ops extensions
+  platform        String?   @db.VarChar(20)  // 'x', 'tiktok', 'both'
+  contentType     String?   @db.VarChar(20) @map("content_type")  // 'empathy', 'solution'
+  idempotencyKey  String?   @db.VarChar(128) @unique @map("idempotency_key")
+  metadata        Json?     @db.JsonB
+
   tiktokPosts TiktokPost[]
   xPosts      XPost[]
 
@@ -436,4 +442,121 @@ model AgentAuditLog {
 // Note: 既存の HookCandidate model に以下のカラムを追加済み:
 // - moltbookUpvoteRate, moltbookSampleSize, moltbookHighPerformer
 // - slackReactionRate, slackSampleSize, slackHighPerformer
+
+// -----------------------------
+// 1.6.2 Closed-Loop Ops
+// -----------------------------
+
+model OpsProposal {
+  id           String    @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
+  skillName    String    @db.VarChar(50) @map("skill_name")
+  source       String    @db.VarChar(20)
+  status       String    @db.VarChar(20) @default("pending")
+  title        String    @db.VarChar(500)
+  payload      Json      @db.JsonB @default("{}")
+  rejectReason String?   @db.Text @map("reject_reason")
+  createdAt    DateTime  @db.Timestamptz @default(now()) @map("created_at")
+  resolvedAt   DateTime? @db.Timestamptz @map("resolved_at")
+
+  missions OpsMission[]
+
+  @@index([status])
+  @@index([skillName])
+  @@index([createdAt(sort: Desc)])
+  @@map("ops_proposals")
+}
+
+model OpsMission {
+  id          String    @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
+  proposalId  String    @db.Uuid @map("proposal_id")
+  status      String    @db.VarChar(20) @default("running")
+  createdAt   DateTime  @db.Timestamptz @default(now()) @map("created_at")
+  completedAt DateTime? @db.Timestamptz @map("completed_at")
+
+  proposal OpsProposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+  steps    OpsMissionStep[]
+  events   OpsEvent[]
+
+  @@index([status])
+  @@index([createdAt(sort: Desc)])
+  @@map("ops_missions")
+}
+
+model OpsMissionStep {
+  id          String    @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
+  missionId   String    @db.Uuid @map("mission_id")
+  stepKind    String    @db.VarChar(50) @map("step_kind")
+  stepOrder   Int       @map("step_order")
+  status      String    @db.VarChar(20) @default("queued")
+  input       Json?     @db.JsonB
+  output      Json?     @db.JsonB
+  lastError   String?   @db.Text @map("last_error")
+  reservedAt  DateTime? @db.Timestamptz @map("reserved_at")
+  completedAt DateTime? @db.Timestamptz @map("completed_at")
+  createdAt   DateTime  @db.Timestamptz @default(now()) @map("created_at")
+
+  mission OpsMission @relation(fields: [missionId], references: [id], onDelete: Cascade)
+
+  @@index([missionId, stepOrder])
+  @@index([status])
+  @@index([reservedAt])
+  @@map("ops_mission_steps")
+}
+
+model OpsEvent {
+  id        String    @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
+  source    String    @db.VarChar(50)
+  kind      String    @db.VarChar(100)
+  tags      String[]  @default([])
+  payload   Json?     @db.JsonB
+  missionId String?   @db.Uuid @map("mission_id")
+  createdAt DateTime  @db.Timestamptz @default(now()) @map("created_at")
+
+  mission   OpsMission? @relation(fields: [missionId], references: [id], onDelete: SetNull)
+  reactions OpsReaction[]
+
+  @@index([kind])
+  @@index([source])
+  @@index([createdAt(sort: Desc)])
+  @@map("ops_events")
+}
+
+model OpsPolicy {
+  key       String   @id @db.VarChar(100)
+  value     Json     @db.JsonB
+  updatedAt DateTime @db.Timestamptz @default(now()) @updatedAt @map("updated_at")
+
+  @@map("ops_policy")
+}
+
+model OpsTriggerRule {
+  id              String    @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
+  name            String    @db.VarChar(100) @unique
+  eventKind       String    @db.VarChar(100) @map("event_kind")
+  condition       Json      @db.JsonB @default("{}")
+  proposalTemplate Json     @db.JsonB @map("proposal_template")
+  cooldownMin     Int       @default(60) @map("cooldown_min")
+  enabled         Boolean   @default(true)
+  lastFiredAt     DateTime? @db.Timestamptz @map("last_fired_at")
+  createdAt       DateTime  @db.Timestamptz @default(now()) @map("created_at")
+
+  @@index([eventKind])
+  @@map("ops_trigger_rules")
+}
+
+model OpsReaction {
+  id          String    @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
+  eventId     String    @db.Uuid @map("event_id")
+  targetSkill String    @db.VarChar(50) @map("target_skill")
+  actionType  String    @db.VarChar(50) @map("action_type")
+  status      String    @db.VarChar(20) @default("pending")
+  createdAt   DateTime  @db.Timestamptz @default(now()) @map("created_at")
+  processedAt DateTime? @db.Timestamptz @map("processed_at")
+
+  event OpsEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+  @@index([createdAt(sort: Desc)])
+  @@map("ops_reactions")
+}
 

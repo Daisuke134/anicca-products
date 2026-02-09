@@ -143,7 +143,7 @@ Codex exec失敗時（タイムアウト・API障害・その他）:
 
 | 引数 | 既定 | 説明 |
 |-----|-----|-----|
-| max_iters | 5 | 最大反復（上限5） |
+| max_iters | 10 | 最大反復（上限10） |
 | review_focus | - | 重点観点 |
 | diff_range | HEAD | 比較範囲 |
 | parallelism | 3 | large時並列度（上限5） |

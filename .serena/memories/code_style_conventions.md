@@ -37,7 +37,4 @@
 - FK依存upsertの前に存在チェック（P2003防止）
 
 ## テスト
-- TDD: RED → GREEN → REFACTOR
-- AAA: Arrange-Act-Assert
-- 80%カバレッジ目標
-- テストは変更した部分のみ
+テスト方針は `.claude/rules/testing-strategy.md` を参照（単一正本）。

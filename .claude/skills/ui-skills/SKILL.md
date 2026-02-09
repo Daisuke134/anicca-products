@@ -1,6 +1,6 @@
 ---
 name: ui-skills
-description: Opinionated constraints for building better interfaces with agents.
+description: Applies opinionated UI/UX constraints for building better interfaces. Use when creating, reviewing, or modifying SwiftUI views, web UI components, landing pages, onboarding flows, or any user-facing interface design.
 ---
 
 # UI Skills

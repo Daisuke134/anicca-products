@@ -11,7 +11,7 @@
 > - `@db.Uuid @default(dbgenerated("gen_random_uuid()"))`
 > - `@db.Timestamptz @default(now())`
 > - `@map("snake_case")`, `@@map("table_names")`
-> - FK制約なし（アプリ層で整合性担保）— 既存パターンと一致
+> - FK制約あり（`REFERENCES ... ON DELETE CASCADE`）— 親削除時に子レコードも削除。Prisma `@relation(onDelete: Cascade)` と SQL `REFERENCES` が対応
 
 ### 2.1 ops_proposals
 
@@ -48,6 +48,7 @@ model OpsMission {
 
   proposal    OpsProposal @relation(fields: [proposalId], references: [id], onDelete: Cascade)
   steps       OpsMissionStep[]
+  events      OpsEvent[]
 
   @@index([status])
   @@index([createdAt(sort: Desc)])
@@ -91,6 +92,9 @@ model OpsEvent {
   payload     Json?    @db.JsonB
   missionId   String?  @db.Uuid @map("mission_id")
   createdAt   DateTime @db.Timestamptz @default(now()) @map("created_at")
+
+  mission     OpsMission? @relation(fields: [missionId], references: [id], onDelete: SetNull)
+  reactions   OpsReaction[]
 
   @@index([kind])
   @@index([source])
@@ -141,6 +145,8 @@ model OpsReaction {
   status      String    @db.VarChar(20) @default("pending")
   createdAt   DateTime  @db.Timestamptz @default(now()) @map("created_at")
   processedAt DateTime? @db.Timestamptz @map("processed_at")
+
+  event       OpsEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
   @@index([status])
   @@index([createdAt(sort: Desc)])
@@ -213,7 +219,7 @@ CREATE TABLE ops_events (
   kind VARCHAR(100) NOT NULL,
   tags TEXT[] DEFAULT '{}',
   payload JSONB,
-  mission_id UUID,
+  mission_id UUID REFERENCES ops_missions(id) ON DELETE SET NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
@@ -246,7 +252,7 @@ CREATE INDEX idx_ops_trigger_rules_event_kind ON ops_trigger_rules (event_kind);
 -- 7. ops_reactions
 CREATE TABLE ops_reactions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  event_id UUID NOT NULL,
+  event_id UUID NOT NULL REFERENCES ops_events(id) ON DELETE CASCADE,
   target_skill VARCHAR(50) NOT NULL,
   action_type VARCHAR(50) NOT NULL,
   status VARCHAR(20) NOT NULL DEFAULT 'pending',
@@ -279,7 +285,7 @@ INSERT INTO ops_policy (key, value) VALUES
   ('tiktok_daily_quota', '{ "limit": 1 }'),
   ('nudge_daily_quota', '{ "limit": 10 }'),
   ('x_autopost', '{ "enabled": true }'),
-  ('tiktok_autopost', '{ "enabled": true }'),
+  ('tiktok_autopost', '{ "enabled": false }'),  -- Phase A では無効。Phase B で UPDATE ... SET enabled=true
   ('worker_policy', '{ "vps_only": true }'),
   ('buddhist_verification', '{ "enabled": true, "min_score": 3, "max_retries": 3 }'),
   ('stale_threshold_min', '{ "value": 30 }'),
@@ -315,7 +321,8 @@ INSERT INTO ops_policy (key, value) VALUES
         "target": "x-poster",
         "type": "evaluate_hook",
         "probability": 0.5,
-        "cooldown": 240
+        "cooldown": 240,
+        "payload_template": { "eventId": "{{id}}" }
       },
       {
         "source": "x-poster",

@@ -16,6 +16,7 @@ import feedbackRouter from './feedback.js';
 import contentRouter from './content.js';
 import deletionRouter from './deletion.js';
 import postsRouter from './posts.js';
+import hooksRouter from './hooks.js';
 
 const router = Router();
 
@@ -29,5 +30,7 @@ router.use('/feedback', feedbackRouter);
 router.use('/content', contentRouter);
 router.use('/deletion', deletionRouter);
 router.use('/posts', postsRouter);
+// 1.6.2: Hooks also available at /api/agent/hooks (backward compat with /api/ops/hooks)
+router.use(hooksRouter);
 
 export default router;

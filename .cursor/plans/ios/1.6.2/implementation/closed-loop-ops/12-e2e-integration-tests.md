@@ -7,7 +7,7 @@
 
 ## 目的
 
-T1-T60 は個別コンポーネントの正当性を検証する（Unit/Integration）。
+T1-T67 は個別コンポーネントの正当性を検証する（Unit/Integration）。
 このマトリックスは **スキル間の閉ループが正しく循環するか** を検証する。
 
 ---
@@ -46,7 +46,7 @@ B1 ──→ B2 ──→ B3 ──→ B4 ──→ B5
 
 | # | テスト名 | シナリオ | 期待結果 |
 |---|---------|---------|---------|
-| I6 | `test_step_complete_emits_event` | post_x Step を succeeded + output.events あり | ops_events に tweet_posted イベント記録 |
+| I6 | `test_step_complete_emits_event` | post_x Step を succeeded + body.events あり | ops_events に tweet_posted イベント記録 |
 | I7 | `test_event_triggers_reaction` | tweet_posted イベント発行 | ops_reactions に analyze_engagement リアクション追加（probability依存） |
 | I8 | `test_suffering_detected_emits_event` | detect_suffering Step を succeeded + output.detections (severity >= 0.6) | ops_events に suffering_detected イベント記録 |
 | I9 | `test_mission_failed_emits_event` | Mission 全体が failed | ops_events に mission:failed イベント記録 |
@@ -97,6 +97,7 @@ it('should fire trigger after delay_min', async () => {
 | I19 | `e2e_reaction_chain` | suffering_detected → Reaction Queue → draft_nudge + send_nudge Proposal | 1. suffering_detected イベント挿入 2. Heartbeat 3. Reaction処理確認 | Nudge Proposal 作成 |
 | I20 | `e2e_stale_recovery` | Step を running のまま35分放置 → Heartbeat | 1. Step を running + reservedAt=35分前 に設定 2. Heartbeat | Step が failed に回復 |
 | I21 | `e2e_approval_flow` | post_x 含む Proposal → pending → Slack承認 → Mission開始 | 1. POST Proposal (post_x含む) 2. POST /api/ops/approval (approve) | Mission作成 + Steps queued |
+| I22 | `e2e_trend_hunter_loop` | Cron → trend-hunter Proposal → run_trend_scan Step → hook_saved + scan_completed イベント → evaluate_hook Reaction | 1. POST /api/ops/proposal (trend-hunter, run_trend_scan) 2. Step実行+complete (body.events=[hook_saved, scan_completed]) 3. Heartbeat で Reaction 処理確認 | hook_saved/scan_completed イベント記録 + evaluate_hook Reaction 生成 |
 
 ---
 
@@ -104,11 +105,11 @@ it('should fire trigger after delay_min', async () => {
 
 | テスト種別 | 境界 | 実行タイミング | 実行環境 | 失敗時 |
 |-----------|------|-------------|---------|--------|
-| Unit (T1-T60) | B1 | PR push / merge | GitHub Actions | PR ブロック |
+| Unit (T1-T67) | B1 | PR push / merge | GitHub Actions | PR ブロック |
 | DB連鎖 (I1-I5) | B2 | PR push / merge | GitHub Actions + test DB | PR ブロック |
 | イベント連鎖 (I6-I10) | B3 | PR push / merge | GitHub Actions + test DB | PR ブロック |
 | トリガー評価 (I11-I16) | B4 | 日次 nightly | GitHub Actions + test DB | Slack通知 |
-| 全ループ E2E (I17-I21) | B5 | リリース前 / 週次 | Staging環境 (Railway) | リリースブロック |
+| 全ループ E2E (I17-I22) | B5 | リリース前 / 週次 | Staging環境 (Railway) | リリースブロック |
 
 ### GitHub Actions 設定例
 

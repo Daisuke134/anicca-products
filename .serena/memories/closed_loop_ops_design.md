@@ -44,6 +44,6 @@ Bearer token: ANICCA_AGENT_TOKEN (VPS → Railway)
 
 ## Buddhist Communication Principles (§7.12)
 - ehipassiko: Don't push, invite. send_nudge/post_x never auto-approve
-- anupubbi-kathā: Graduated teaching. 4-step onboarding, nudge intensity escalation
+- anupubbi-kathā: Graduated teaching. 4-step onboarding, nudge intensity stepwise increase
 - karuṇā: Compassion first. Never blame, empathize
 - SAFE-T: Crisis detection. severity >= 0.9 → halt + alert

@@ -76,7 +76,7 @@ jobs:
       mode: "none"
     message: |
       curl -s -H "Authorization: Bearer $ANICCA_AGENT_TOKEN" \
-        https://anicca-proxy-staging.up.railway.app/api/ops/heartbeat
+        ${API_BASE_URL}/api/ops/heartbeat
 
   # Mission Worker: 1分毎に次のステップを取得→実行
   ops-worker:
@@ -162,12 +162,16 @@ jobs:
       {
         "skillName": "trend-hunter",
         "source": "cron",
-        "title": "トレンド検出",
+        "title": "トレンド検出 + hook生成",
         "payload": {},
         "steps": [
-          { "kind": "detect_suffering", "order": 0 }
+          { "kind": "run_trend_scan", "order": 0 }
         ]
       }
+
+      # 注意: run_trend_scan は単一ステップだが、VPS SKILL.md 内部で
+      # 全パイプライン（4ソース収集→LLMフィルタ→hook生成→Railway保存→hook_saved イベント発行）を実行する。
+      # detect_suffering とは別物。detect_suffering は suffering-detector 用。
 
   # --- 既存（変更なし）---
 
@@ -200,7 +204,7 @@ jobs:
 |---|--------|------|---------------|-----------|
 | 1 | x-poster | 直接 X API 呼び出し + Slack 報告 | Proposal → Mission → Steps (draft→verify→post) | 中 |
 | 2 | tiktok-poster | 直接 TikTok API 呼び出し + Slack 報告 | Proposal → Mission → Steps (draft→verify→post) | 中 |
-| 3 | trend-hunter | web_search → hook_candidates INSERT | Proposal → Mission → Step (detect_suffering) | 低 |
+| 3 | trend-hunter | web_search → hook_candidates INSERT | Proposal → Mission → Step (run_trend_scan) — 単一ステップ内で4ソース収集→フィルタ→hook生成→保存→イベント発行を全実行 | 低 |
 | 4 | suffering-detector | Moltbook 検索 → 返信 | Proposal → Mission → Step (detect_suffering) | 低 |
 | 5 | app-nudge-sender | 直接 Push通知 | Proposal → Mission → Steps (draft_nudge→send_nudge) | 中 |
 
@@ -313,13 +317,15 @@ curl -s -H "Authorization: Bearer $ANICCA_AGENT_TOKEN" \
 | `send_nudge` | Railway API 経由でPush通知 | exec |
 | `diagnose` | 失敗ミッションの原因分析（input: `{ eventId }` — mission:failed イベントIDを受け取る。missionIdではない） | exec, read |
 | `evaluate_hook` | hook_candidate の投稿適合性評価 | exec |
+| `run_trend_scan` | trend-hunterフルパイプライン（4ソース収集→LLMフィルタ→hook生成→Railway保存→イベント発行） | exec, web_search |
 
 ### 3. 完了報告
 ```bash
+# events は output の外側で送信する（step/complete は body.events を処理）
 curl -s -X PATCH \
   -H "Authorization: Bearer $ANICCA_AGENT_TOKEN" \
   -H "Content-Type: application/json" \
-  -d '{"status": "succeeded", "output": {...}}' \
+  -d '{"status": "succeeded", "output": {...}, "events": [...]}' \
   $API_BASE_URL/api/ops/step/{stepId}/complete
 ```
 

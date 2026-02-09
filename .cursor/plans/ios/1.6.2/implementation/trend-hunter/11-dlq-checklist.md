@@ -142,13 +142,23 @@ async function retryDLQ() {
       updateDLQEntry(entry.jobId, 'resolved');
       resolved++;
     } catch (retryError) {
-      // 再失敗 → attempt++、nextRetry更新
-      writeToDLQ(
-        entry.data.hook,
-        entry.data.endpoint,
-        retryError,
-        entry.attemptsMade
-      );
+      // 再失敗 → 既存エントリを更新（新規作成ではない）
+      const nextAttempt = entry.attemptsMade + 1;
+      if (nextAttempt >= MAX_RETRIES) {
+        updateDLQEntry(entry.jobId, 'exhausted');
+      } else {
+        // attemptsMade と nextRetry を更新（既存エントリの上書き）
+        const raw = exec(`cat ${DLQ_PATH} 2>/dev/null || echo ""`);
+        const entries = raw.trim().split('\n').map(line => JSON.parse(line));
+        const updated = entries.map(e => {
+          if (e.jobId === entry.jobId) {
+            return { ...e, attemptsMade: nextAttempt, nextRetry: Date.now() + backoff(nextAttempt), lastError: String(retryError) };
+          }
+          return e;
+        });
+        const content = updated.map(e => JSON.stringify(e)).join('\n');
+        exec(`cat <<'DLQEOF' > ${DLQ_PATH}\n${content}\nDLQEOF`);
+      }
     }
   }
 

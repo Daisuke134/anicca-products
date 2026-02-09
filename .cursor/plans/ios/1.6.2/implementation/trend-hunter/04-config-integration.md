@@ -137,32 +137,59 @@ trend-hunter:
 
 | イベント kind | source | tags | いつ発行 | Reaction Matrix の反応 |
 |-------------|--------|------|---------|---------------------|
-| `hooks_saved` | `trend-hunter` | `['hook_candidate', 'found']` | Step 4 で hook が1件以上保存された時 | x-poster に `evaluate_hook` 提案（probability: 0.5） |
+| `hook_saved` | `trend-hunter` | `['hook_candidate', 'found']` | hook 1件保存ごとに発行（個別イベント） | x-poster に `evaluate_hook` 提案（probability: 0.5） |
 | `scan_completed` | `trend-hunter` | `['scan', 'completed']` | 実行完了時（hook 0件でも） | 監視ログ用（Reaction不要） |
 | `scan_failed` | `trend-hunter` | `['scan', 'failed', 'alert']` | 全ソース障害時 | Slack #alerts に通知提案 |
 
 > **タグ命名の根拠**: closed-loop-ops の `02-data-layer.md` seed data と完全一致させる。
 > `['hook_candidate', 'found']` = Reaction Matrix の `ops_reaction_matrix` パターンと正確にマッチ。
 
-### イベント発行エンドポイント
+### イベント発行経路（2つのコンテキスト）
 
-```
-POST /api/ops/events
-Authorization: Bearer ${ANICCA_AGENT_TOKEN}
-Content-Type: application/json
+> **重要**: hook ごとに個別イベントを発行する（配列ではない）。
+> evaluate_hook は hook_saved イベントの `eventId` を起点に評価する。イベント payload 内の `hookId` を参照してhookを取得する。
 
+| 呼び出しコンテキスト | イベント発行経路 | 理由 |
+|---------------------|-----------------|------|
+| **Step executor**（closed-loop-ops の run_trend_scan ステップ） | `PATCH /api/ops/step/:id/complete` の `body.events` | 正規経路。Step完了とイベント発行をアトミックに処理 |
+| **Standalone cron**（Phase C: 4h間隔の独立スキャン） | 直接 `POST /api/ops/events` | Step コンテキストが存在しないため |
+
+> **設計判断**: body.events が正規経路。standalone cron は closed-loop-ops 導入前の移行経路。
+> Phase C 以降、trend-hunter は全て closed-loop-ops の Proposal → run_trend_scan Step として実行される。
+
+#### イベントペイロード（共通）
+
+```json
 {
   "source": "trend-hunter",
-  "kind": "hooks_saved",
+  "kind": "hook_saved",
   "tags": ["hook_candidate", "found"],
   "payload": {
-    "savedCount": 3,
-    "empathyCount": 2,
-    "solutionCount": 1,
-    "targetTypes": ["staying_up_late", "cant_wake_up", ...],
-    "hookIds": ["hook_123", "hook_456", "hook_789"]
+    "hookId": "hook_123",
+    "hookType": "empathy",
+    "targetTypes": ["staying_up_late", "cant_wake_up"]
   }
 }
+```
+
+#### Step executor 経路（正規 — 03-processing-flow.md 参照）
+
+```javascript
+// VPS SKILL.md 内でイベントを配列に収集
+const collectedEvents = [];
+for (const hook of savedHooks) {
+  collectedEvents.push({
+    source: 'trend-hunter', kind: 'hook_saved',
+    tags: ['hook_candidate', 'found'],
+    payload: { hookId: hook.id, hookType: hook.contentType, targetTypes: hook.targetProblemTypes }
+  });
+}
+collectedEvents.push({
+  source: 'trend-hunter', kind: 'scan_completed',
+  tags: ['scan', 'completed'],
+  payload: { savedCount: savedHooks.length, empathyCount, solutionCount }
+});
+// → VPS Worker が PATCH /api/ops/step/:id/complete の body.events として送信
 ```
 
 ### Reaction Matrix パターン（closed-loop-ops 側で定義）
@@ -173,11 +200,10 @@ Content-Type: application/json
   "tags": ["hook_candidate", "found"],
   "target": "x-poster",
   "type": "evaluate_hook",
-  "probability": 1.0,
+  "probability": 0.5,
   "cooldown": 240,
   "payload_template": {
-    "hookIds": "{{payload.hookIds}}",
-    "action": "select_and_post"
+    "eventId": "{{id}}"
   }
 }
 ```

@@ -122,7 +122,12 @@ router.get('/step/next', async (req, res) => {
 const StepCompleteSchema = z.object({
   status: z.enum(['succeeded', 'failed']),
   output: z.record(z.unknown()).optional(),
-  error: z.string().optional()
+  error: z.string().optional(),
+  events: z.array(z.object({
+    kind: z.string(),
+    tags: z.array(z.string()).optional(),
+    payload: z.record(z.unknown()).optional()
+  })).optional()  // ★ Executor が返す events を body.events として受け取る
 });
 
 // P1 #6 解消: step_kind 別の output 必須フィールド（バリデーションは warn ログのみ、reject しない）
@@ -140,6 +145,7 @@ const STEP_OUTPUT_HINTS = {
   draft_nudge:         ['nudgeContent'],
   send_nudge:          ['sent'],
   evaluate_hook:       ['shouldPost'],
+  run_trend_scan:      ['savedCount', 'sources'],  // trend-hunter フルパイプライン
 };
 
 router.patch('/step/:id/complete', async (req, res) => {
@@ -149,11 +155,14 @@ router.patch('/step/:id/complete', async (req, res) => {
     return res.status(400).json({ error: parsed.error.flatten() });
   }
 
-  const { status, output, error } = parsed.data;
+  const { status, output, error, events } = parsed.data;
 
   // H14修正: ステータスガード — running 以外のステップを完了させない
   // 二重完了や、queued→complete（runningスキップ）を防止
-  const current = await prisma.opsMissionStep.findUnique({ where: { id }, select: { status: true } });
+  const current = await prisma.opsMissionStep.findUnique({
+    where: { id },
+    select: { status: true, missionId: true }
+  });
   if (!current || current.status !== 'running') {
     return res.status(409).json({
       error: `Step ${id} is not in 'running' state (current: ${current?.status || 'not found'})`
@@ -169,6 +178,27 @@ router.patch('/step/:id/complete', async (req, res) => {
       completedAt: new Date()
     }
   });
+
+  // body.events がある場合、各イベントを emitEvent で発行
+  // emitEvent 契約: emitEvent(source, kind, tags, payload, missionId)
+  if (events && events.length > 0) {
+    // source 解決: step → mission → proposal.skillName
+    const mission = await prisma.opsMission.findUnique({
+      where: { id: step.missionId },
+      include: { proposal: { select: { skillName: true } } }
+    });
+    const source = mission?.proposal?.skillName || 'unknown';
+
+    for (const evt of events) {
+      await emitEvent(
+        source,
+        evt.kind,
+        evt.tags || [],
+        { ...evt.payload, stepId: id },
+        step.missionId
+      );
+    }
+  }
 
   // ミッション最終化判定
   const missionStatus = await maybeFinalizeMission(step.missionId);
@@ -299,11 +329,12 @@ router.get('/hooks', async (req, res) => {
 });
 
 const HookSaveSchema = z.object({
-  text: z.string().max(500),
+  text: z.string().min(1).max(500),
   targetProblemTypes: z.array(z.string()).min(1),
   source: z.string().max(50).default('trend-hunter'),
   platform: z.enum(['x', 'tiktok', 'both']).default('both'),
   contentType: z.enum(['empathy', 'solution']),
+  idempotencyKey: z.string().max(128).optional(),
   metadata: z.record(z.unknown()).optional()
 });
 
@@ -321,7 +352,18 @@ router.post('/hooks', async (req, res) => {
     return res.status(400).json({ error: parsed.error.flatten() });
   }
 
-  const { text, targetProblemTypes, source, platform, contentType, metadata } = parsed.data;
+  const { text, targetProblemTypes, source, platform, contentType, idempotencyKey, metadata } = parsed.data;
+
+  // 冪等キーによる重複チェック（DLQリトライ時の二重保存防止）
+  if (idempotencyKey) {
+    const byKey = await prisma.hookCandidate.findFirst({
+      where: { idempotencyKey },
+      select: { id: true, text: true, createdAt: true }
+    });
+    if (byKey) {
+      return res.status(200).json({ status: 'duplicate', existingId: byKey.id });
+    }
+  }
 
   // 完全一致の重複チェック
   const existing = await prisma.hookCandidate.findFirst({
@@ -340,6 +382,7 @@ router.post('/hooks', async (req, res) => {
       source,
       platform,
       contentType,
+      ...(idempotencyKey ? { idempotencyKey } : {}),
       metadata: metadata || {}
     }
   });

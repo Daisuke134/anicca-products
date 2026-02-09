@@ -12,7 +12,7 @@
 
 ### 15.0 依存モジュール定義（B4解消: callLLM + verifyWithRegeneration）
 
-> **これらは7/11のexecutorが依存する共通モジュール。実装者は先にこれらを作ること。**
+> **これらは7/12のexecutorが依存する共通モジュール。実装者は先にこれらを作ること。**
 
 #### lib/llm.js（LLM呼び出し共通関数）
 
@@ -151,6 +151,7 @@ import { executeDetectSuffering } from './executeDetectSuffering.js';
 import { executeDraftNudge } from './executeDraftNudge.js';
 import { executeSendNudge } from './executeSendNudge.js';
 import { executeEvaluateHook } from './executeEvaluateHook.js';
+import { executeRunTrendScan } from './executeRunTrendScan.js';
 
 /**
  * step_kind → executor 関数のマッピング
@@ -168,6 +169,7 @@ const EXECUTOR_MAP = new Map([
   ['draft_nudge',         executeDraftNudge],
   ['send_nudge',          executeSendNudge],
   ['evaluate_hook',       executeEvaluateHook],
+  ['run_trend_scan',      executeRunTrendScan],   // trend-hunter: 4ソース収集→hook生成→保存→イベント発行
 ]);
 
 /**
@@ -905,7 +907,7 @@ import { logger } from '../../../lib/logger.js';
 /**
  * trend-hunter が見つけた hook_candidate を x-poster が評価
  *
- * Input: { eventId: string } (hook_candidate:found イベントから)
+ * Input: { eventId: string } (hook_saved イベントの eventId。Reaction Matrix が payload.hookId → eventId を注入)
  * Output: { evaluation: string, shouldPost: boolean }
  */
 export async function executeEvaluateHook({ input, proposalPayload }) {
@@ -952,6 +954,55 @@ X Engagement Rate: ${Number(hook.xEngagementRate || 0)}
 }
 ```
 
+#### run_trend_scan（トレンドスキャン — trend-hunter フルパイプライン）
+
+```javascript
+// apps/api/src/services/ops/stepExecutors/executeRunTrendScan.js
+
+import { logger } from '../../../lib/logger.js';
+
+/**
+ * trend-hunter のフルパイプラインを単一ステップとして実行
+ * VPS SKILL.md が内部で4ソース収集→LLMフィルタ→hook生成→Railway保存→イベント発行を全て行う
+ *
+ * Input: {} (空 — Cron payload から)
+ * Output: { savedCount: number, sources: string[], errors: string[] }
+ * Events: hook ごとに hook_saved イベント + scan_completed サマリー
+ *
+ * 注意: このexecutorのロジックはRailway API側ではなく、VPS SKILL.md側で実行される。
+ * Railway API側は入出力スキーマの定義のみ。
+ */
+export async function executeRunTrendScan({ input, proposalPayload }) {
+  // VPS Worker が SKILL.md の trend-hunter を実行し、結果を step/complete で報告する。
+  // ここにはインターフェース定義のみ。
+  // VPS SKILL.md 側の実装: trend-hunter/03-processing-flow.md 参照
+  logger.info('run_trend_scan: Interface definition only — execution is on VPS SKILL.md');
+
+  // VPS Worker からの完了報告の expected output shape:
+  // ★ イベント発行経路: step executor コンテキストでは body.events が唯一の正規経路
+  //   （step executor 内から直接 POST /api/ops/events は禁止 — 二重発火防止）
+  //   VPS SKILL.md がイベントを配列に収集し、VPS Worker が step/complete で一括送信する
+  //   ※ standalone cron（step コンテキストなし）では直接 POST /api/ops/events が許可される
+  //   → 04-config-integration.md「イベント発行経路」参照
+  return {
+    output: {
+      savedCount: 0,         // 保存した hook 数
+      sources: [],            // 成功したソース名 ['twitter', 'tiktok', 'reddit', 'github']
+      errors: [],             // 失敗したソースのエラーメッセージ
+      empathyCount: 0,        // 共感系 hook 数
+      solutionCount: 0        // 問題解決系 hook 数
+    },
+    events: [
+      // hook ごとに個別 hook_saved イベント（04-config-integration.md 正規仕様準拠）
+      // { kind: 'hook_saved', tags: ['hook_candidate', 'found'], payload: { hookId, hookType, targetTypes } }
+      // ... (savedHooks.length 個)
+      // + scan_completed サマリー（監視用）
+      // { kind: 'scan_completed', tags: ['scan', 'completed'], payload: { savedCount, empathyCount, solutionCount } }
+    ]
+  };
+}
+```
+
 ### 15.4 VPS Worker が Executor を呼ぶフロー
 
 ```
@@ -965,17 +1016,19 @@ GET /api/ops/step/next
     v
 step.stepKind を確認
     |
-    +----> 'draft_content'  → hookSelector + LLM（VPS上で直接実行）
-    +----> 'verify_content' → verifier.js（VPS上で直接実行）
-    +----> 'post_x'         → X API 呼び出し（VPS上で exec ツール）
-    +----> 'detect_suffering'→ web_search（VPS上で web_search ツール）
+    +----> 'draft_content'    → hookSelector + LLM（VPS上で直接実行）
+    +----> 'verify_content'   → verifier.js（VPS上で直接実行）
+    +----> 'post_x'           → X API 呼び出し（VPS上で exec ツール）
+    +----> 'detect_suffering'  → web_search（VPS上で web_search ツール）
+    +----> 'run_trend_scan'   → trend-hunter SKILL.md（4ソース収集→hook生成→保存→イベント発行）
     +----> ...
     |
     v
-PATCH /api/ops/step/:id/complete { status, output }
-    |
+PATCH /api/ops/step/:id/complete { status, output, events }
+    |                                              ↑ events は output の外側
     v
 Railway API が output を DB に保存 → 次のステップの input になる
+Railway API が events をイベントとして発行 → Trigger 評価へ
 ```
 
 > **重要**: Railway API 側の executor はロジックの「定義」。VPS Worker は SKILL.md に従って
@@ -1099,7 +1152,7 @@ router.patch('/step/:id/complete', async (req, res) => {
     return res.status(400).json({ error: parsed.error.flatten() });
   }
 
-  const { status, output, error } = parsed.data;
+  const { status, output, error, events: bodyEvents } = parsed.data;
 
   const step = await prisma.opsMissionStep.update({
     where: { id },
@@ -1114,10 +1167,12 @@ router.patch('/step/:id/complete', async (req, res) => {
     }
   });
 
-  // ★ 追加: output に events があればイベントを発行
+  // ★ 追加: body.events があればイベントを発行
+  // 注意: Executor は { output, events } を返す。VPS Worker は step/complete に
+  // { status, output, events } として送信する。events は output の外側。
   const { emitEvent } = await import('../../services/ops/eventEmitter.js');
-  if (output?.events && Array.isArray(output.events)) {
-    for (const evt of output.events) {
+  if (bodyEvents && Array.isArray(bodyEvents)) {
+    for (const evt of bodyEvents) {
       await emitEvent(
         step.mission.proposal.skillName,
         evt.kind,
