@@ -59,8 +59,15 @@ JSON形式で回答: {"score": N, "feedback": "改善点"}`;
 
   const result = await callLLM(scorePrompt, { temperature: 0.3 });
   try {
-    return JSON.parse(result);
+    // Strip markdown code blocks if present (```json ... ```)
+    const cleaned = result.replace(/```(?:json)?\s*/g, '').replace(/```\s*$/g, '').trim();
+    const parsed = JSON.parse(cleaned);
+    return {
+      score: typeof parsed.score === 'number' ? parsed.score : 0,
+      feedback: parsed.feedback || ''
+    };
   } catch {
+    logger.warn(`Verifier: failed to parse LLM JSON response: ${result.substring(0, 100)}`);
     return { score: 0, feedback: result };
   }
 }
