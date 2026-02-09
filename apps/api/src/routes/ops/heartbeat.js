@@ -3,6 +3,7 @@ import { evaluateTriggers } from '../../services/ops/triggerEvaluator.js';
 import { processReactionQueue } from '../../services/ops/reactionProcessor.js';
 import { recoverStaleSteps } from '../../services/ops/staleRecovery.js';
 import { promoteInsights } from '../../services/ops/insightPromoter.js';
+import { processQueuedSteps } from '../../services/ops/stepWorker.js';
 import { logger } from '../../lib/logger.js';
 
 const router = Router();
@@ -11,11 +12,12 @@ const router = Router();
  * GET /api/ops/heartbeat
  * Called every 5min from VPS crontab
  *
- * 4 sequential steps:
+ * 5 sequential steps:
  * 1. evaluateTriggers — evaluate events, fire matching triggers
  * 2. processReactionQueue — process Reaction Matrix chain reactions
- * 3. promoteInsights — promote high-performing hooks to WisdomPattern
- * 4. recoverStaleSteps — fail steps stuck >30min
+ * 3. processQueuedSteps — execute up to 3 queued mission steps
+ * 4. promoteInsights — promote high-performing hooks to WisdomPattern
+ * 5. recoverStaleSteps — fail steps stuck >30min
  */
 router.get('/heartbeat', async (req, res) => {
   const start = Date.now();
@@ -24,6 +26,7 @@ router.get('/heartbeat', async (req, res) => {
     const results = {
       triggers: await evaluateTriggers(4000),
       reactions: await processReactionQueue(3000),
+      steps: await processQueuedSteps(3),
       insights: await promoteInsights(),
       stale: await recoverStaleSteps()
     };
