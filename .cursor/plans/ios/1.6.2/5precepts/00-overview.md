@@ -32,7 +32,7 @@ Anicca 1.6.2 は「5ドルで五戒を守る」単一価値にピボットする
 
 ホームは単機能にする。
 
-- Active/trial user: `Cancel/Manage Subscription` ボタンのみ
+- Active/trial user: `Cancel Subscription` ボタンのみ
 - Expired/free user: `Resubscribe` ボタンのみ
 - Nudge Card UIは廃止
 - 通知タップ時はカードを出さず、メイン画面を開くのみ
@@ -44,10 +44,11 @@ Anicca 1.6.2 は「5ドルで五戒を守る」単一価値にピボットする
 - 1 preceptあたり 3 通知/日
 - 30日間で同文面重複なし
 
-必要在庫（1言語あたり）:
+必要在庫:
 
 - 1 precept: `3 x 30 = 90` hooks
-- 5 precepts合計: `450` hooks
+- 5 precepts合計: `450 hooks / language`
+- 6 languages (EN/JA/ES/FR/DE/PT-BR): `2700 hooks`
 
 ## 5. Scope
 
@@ -61,7 +62,7 @@ Anicca 1.6.2 は「5ドルで五戒を守る」単一価値にピボットする
 
 この時点で実施しない対象:
 
-- 五戒全文言のEN/JA本体作成（別ファイルで次フェーズ）
+- 五戒全文言の実データ作成（`2700 hooks`）自体は別ファイルで次フェーズ
 
 ## 6. External References
 
@@ -70,4 +71,3 @@ Anicca 1.6.2 は「5ドルで五戒を守る」単一価値にピボットする
   - https://en.wikipedia.org/wiki/Five_precepts
 - Apple notification permission UX guidance:
   - https://developer.apple.com/design/human-interface-guidelines/notifications
-

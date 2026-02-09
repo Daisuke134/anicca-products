@@ -106,6 +106,13 @@ async function fetchXMetrics(postId) {
   }
 
   const data = await res.json();
+
+  // X API may return error in body with 200 status (e.g. CreditsDepleted)
+  if (data.title === 'CreditsDepleted' || data.errors?.length > 0) {
+    logger.warn(`X API credits depleted or error — returning DB metrics`);
+    return buildMetricsFromDb(post);
+  }
+
   const tweetData = data.data?.[0];
   if (!tweetData?.public_metrics) {
     logger.warn(`X API returned no metrics for tweet ${tweetId}`);
@@ -156,10 +163,18 @@ async function resolveBlotatoId(blotatoPostId) {
     if (!res.ok) return null;
 
     const data = await res.json();
-    const tweetId = data.platformPostId
+
+    // Blotato returns tweet ID in various fields depending on platform
+    let tweetId = data.platformPostId
       || data.externalId
       || data.post?.platformPostId
       || data.post?.id_str;
+
+    // Extract tweet ID from publicUrl (e.g. "https://x.com/.../status/123456")
+    if (!tweetId && data.publicUrl) {
+      const match = data.publicUrl.match(/\/status\/(\d+)/);
+      if (match) tweetId = match[1];
+    }
 
     if (tweetId && String(tweetId).match(/^\d+$/)) {
       return String(tweetId);

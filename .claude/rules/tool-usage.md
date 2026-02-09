@@ -102,6 +102,7 @@
 | **UI/UX** | `canvas-design` | ポスター、ビジュアルアセット、App Storeスクリーンショット作成時 |
 | **UI/UX** | `theme-factory` | スライド・LP・ドキュメントのテーマ適用時 |
 | **UI/UX** | `image-enhancer` | 画像の高画質化、スクリーンショット改善時 |
+| **マーケ** | `recursive-improver` | 広告コピー・LP・Paywall・Nudge等を再帰的に自己採点→改善。コピー磨き全般 |
 | **マーケ** | `aso-growth` | ASO/ASA作業、キーワード最適化、Product Page改善 |
 | **マーケ** | `competitive-ads-extractor` | 競合広告分析、Facebook/LinkedIn広告ライブラリ調査時 |
 | **マーケ** | `tiktok-ads` | TikTok広告の運用・分析・クリエイティブ作成時 |

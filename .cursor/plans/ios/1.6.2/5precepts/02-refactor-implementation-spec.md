@@ -24,7 +24,7 @@
 ### 2.2 Main screen
 
 1. 表示コンテンツを1ボタンに限定
-2. `isActiveSubscriber == true`: `Manage Subscription`
+2. `isActiveSubscriber == true`: `Cancel Subscription`
 3. `isActiveSubscriber == false`: `Resubscribe`
 4. 問題一覧/追加シート/デバッグNudge UIを削除
 
@@ -48,7 +48,10 @@
    - paywall overlayのXボタン削除
    - `handlePaywallDismissedAsFree()` 削除
 3. `aniccaios/aniccaios/Onboarding/WelcomeStepView.swift`
-   - CTA文言変更（通知目的）
+   - 文言を固定:
+     - Title: `Welcome to Anicca`
+     - Subtitle: `Follow 5 Precepts for a better life`
+     - CTA: `Enable Notifications`
    - 復元導線は維持
 4. 削除候補
    - `aniccaios/aniccaios/Onboarding/StrugglesStepView.swift`
@@ -96,7 +99,7 @@
 
 ### 3.6 Localization
 
-対象: `aniccaios/aniccaios/Resources/{en,ja}.lproj/Localizable.strings`
+対象: `aniccaios/aniccaios/Resources/{en,ja,es,fr,de,pt-BR}.lproj/Localizable.strings`
 
 1. onboarding新文言
 2. 5 precepts の title/hook 追加
@@ -157,7 +160,7 @@
 3. 非購読時に通知が1件も配信されない
 4. 通知タップでカードが出ない
 5. mainにボタンが1つのみ表示される
-6. 5 precepts各90文面がEN/JAで存在する
+6. 5 precepts各90文面が6言語で存在する（合計2700 hooks）
 7. 30日間で同文面重複ゼロ（precept内）
 
 ## 8. Execution Order
@@ -166,7 +169,6 @@
 2. Main画面単機能化
 3. NudgeCard除去
 4. FivePreceptType導入 + scheduler置換
-5. 文言在庫90x5投入（EN/JA）
+5. 文言在庫90x5x6投入（EN/JA/ES/FR/DE/PT-BR）
 6. LLM/API cleanup
 7. テスト更新
-

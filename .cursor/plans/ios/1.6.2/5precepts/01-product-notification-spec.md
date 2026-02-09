@@ -51,7 +51,7 @@
 
 - each precept: `90 hooks` required
 - all precepts: `450 hooks / language`
-- EN + JA first: `900 hooks total`
+- 6 languages (EN/JA/ES/FR/DE/PT-BR): `2700 hooks total`
 
 命名規則:
 
@@ -88,11 +88,11 @@ LLM/Thompsonを使わず、決定論で回す。
 
 Welcome copy は五戒アプリとして統一する。
 
-- Title EN: `Follow 5 Precepts`
-- Subtitle EN: `Daily reminders. One clear life rule set.`
+- Title EN: `Welcome to Anicca`
+- Subtitle EN: `Follow 5 Precepts for a better life`
 - CTA EN: `Enable Notifications`
-- Title JA: `五戒を守る`
-- Subtitle JA: `毎日の通知で、行動を整える。`
+- Title JA: `アニッチャへようこそ`
+- Subtitle JA: `よりよく生きるために、五戒を守る`
 - CTA JA: `通知を有効にする`
 
 注意:
@@ -100,7 +100,16 @@ Welcome copy は五戒アプリとして統一する。
 - CTAは `Get Started` を廃止
 - pre-promptボタンは通知許可目的が明示される文言に固定
 
-## 8. Analytics Simplification
+## 8. Main Screen Button Copy Requirement
+
+メイン画面の購読ボタン文言は固定する。
+
+1. Active/trial: `Cancel Subscription`
+2. Expired/canceled/free: `Resubscribe`
+
+`Manage Subscription` は使わない。
+
+## 9. Analytics Simplification
 
 残すイベント:
 
@@ -116,4 +125,3 @@ Welcome copy は五戒アプリとして統一する。
 - nudge card thumbs up/down 系
 - nudge card completion 回数依存 paywall 表示系
 - free plan limit 指標
-
