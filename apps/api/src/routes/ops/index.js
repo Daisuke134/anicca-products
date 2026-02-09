@@ -45,6 +45,63 @@ router.post('/proposal', async (req, res) => {
   }
 });
 
+// --- Proposal Approval (manual) ---
+
+/**
+ * POST /api/ops/proposal/:id/approve
+ * Manually approve a pending proposal → creates Mission with steps
+ */
+router.post('/proposal/:id/approve', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const proposal = await prisma.opsProposal.findUnique({ where: { id } });
+
+    if (!proposal) {
+      return res.status(404).json({ error: 'Proposal not found' });
+    }
+    if (proposal.status !== 'pending') {
+      return res.status(409).json({ error: `Proposal is already ${proposal.status}` });
+    }
+
+    const steps = proposal.payload?.steps || [];
+    if (steps.length === 0) {
+      return res.status(400).json({ error: 'Proposal has no steps' });
+    }
+
+    const mission = await prisma.opsMission.create({
+      data: {
+        proposalId: proposal.id,
+        status: 'running',
+        steps: {
+          create: steps.map(s => ({
+            stepKind: s.kind,
+            stepOrder: s.order,
+            status: 'queued',
+            input: s.input || {}
+          }))
+        }
+      },
+      include: { steps: true }
+    });
+
+    await prisma.opsProposal.update({
+      where: { id },
+      data: { status: 'accepted', resolvedAt: new Date() }
+    });
+
+    await emitEvent(proposal.skillName, 'proposal:approved', ['proposal', 'approved', 'manual'], {
+      proposalId: id,
+      missionId: mission.id
+    });
+
+    logger.info(`Proposal manually approved: ${proposal.title} → Mission ${mission.id}`);
+    res.json({ ok: true, missionId: mission.id, steps: mission.steps.length });
+  } catch (err) {
+    logger.error(`POST /proposal/:id/approve failed: ${err.message}`);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // --- Step Execution API (VPS Worker) ---
 
 /**
