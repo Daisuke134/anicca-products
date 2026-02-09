@@ -14,8 +14,8 @@
 | P1-6 | VPS Heartbeat Cron 追加 | ✅ | P1-5 | `*/5 * * * *` crontab → heartbeat OK |
 | P1-7 | X API 実接続（post_x Executor） | ✅ | P1-5 | Blotato API (account 11852) → X投稿成功 |
 | P1-8 | 手動テスト: Proposal → Mission → X投稿 | ✅ | P1-6,P1-7 | 3ステップ全成功: draft→verify→post_x |
-| P1-9 | fetch_metrics Executor 実接続 | ⬜ | P1-7 | X API でエンゲージメント取得 |
-| P1-10 | 48h Trigger テスト | ⬜ | P1-8,P1-9 | 投稿→48h後→自動メトリクス取得→Thompson更新 |
+| P1-9 | fetch_metrics Executor 実接続 | ✅ | P1-7 | Blotato解決→X API v2→DB更新→analyze_engagement |
+| P1-10 | 48h Trigger テスト | ✅ | P1-8,P1-9 | 24h後自動発火→fetch_metrics→analyze→Thompson更新 |
 
 ### Phase 1 ゴール
 > X投稿 → 効果測定 → Thompson Sampling 学習 の1サイクルが自動で回ること

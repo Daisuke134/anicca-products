@@ -5,101 +5,112 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from models import AppStoreMetrics, DailyMetrics, RevenueCatMetrics
-from slack_sender import _check_alerts, _format_country_breakdown, format_error_message, format_slack_blocks
-
-
-class TestFormatCountryBreakdown:
-    def test_basic(self):
-        result = _format_country_breakdown((("US", 5), ("JP", 3), ("EU", 2)))
-        assert result == "US: 5 | JP: 3 | EU: 2"
-
-    def test_empty(self):
-        assert _format_country_breakdown(()) == "N/A"
-
-    def test_limit(self):
-        countries = tuple((f"C{i}", i) for i in range(10))
-        result = _format_country_breakdown(countries, limit=3)
-        assert result.count("|") == 2  # 3 items, 2 separators
+from models import AppStoreMetrics, DailyMetrics, DataQuality, MixpanelMetrics, RevenueCatMetrics
+from slack_sender import format_error_message, format_slack_blocks
 
 
 class TestFormatSlackBlocks:
-    def test_full_metrics(self):
+    def test_full_metrics_format(self):
         metrics = DailyMetrics(
-            date="2026-01-28",
+            date="2026-02-09",
             app_store=AppStoreMetrics(
-                total_downloads_7d=12,
-                downloads_by_country=(("US", 5), ("JP", 4), ("EU", 3)),
-                impressions=900,
-                page_views=13,
-                cvr_page_to_download=1.8,
+                total_downloads_7d=112,
+                downloads_by_country=(("JP", 108), ("US", 4)),
             ),
             revenuecat=RevenueCatMetrics(
-                mrr=149.85,
-                active_subscriptions=15,
-                active_trials=3,
-                trial_to_paid_count=1,
-                trial_expired_count=2,
-                monthly_churn_rate=6.7,
+                mrr=22.0,
+                active_subscriptions=3,
+                active_trials=1,
             ),
+            mixpanel=MixpanelMetrics(
+                onboarding_started=230,
+                onboarding_paywall_viewed=58,
+                rc_trial_started_event=3,
+            ),
+            data_quality=DataQuality(asc="ok", rc="ok", mp="ok"),
         )
+
         payload = format_slack_blocks(metrics)
         assert "blocks" in payload
-        blocks = payload["blocks"]
+        assert payload["blocks"][0]["type"] == "header"
+        body = payload["blocks"][1]["text"]["text"]
 
-        # Header exists
-        assert blocks[0]["type"] == "header"
-        assert "2026-01-28" in blocks[0]["text"]["text"]
+        assert "APP STORE (7日): Downloads 112, Top: JP(108)" in body
+        assert "REVENUE: MRR $22 (snapshot), Subs 3 (snapshot), Trials 1 (snapshot)" in body
+        assert "FUNNEL (7日): onboarding 230, paywall 58, trial 3" in body
+        assert "オンボ→Paywall 25.2% (58/230)" in body
+        assert "Paywall→Trial 5.2% (3/58)" in body
+        assert "Data Quality: ASC ok / RC ok / MP ok" in body
 
-        # Revenue section
-        revenue_block = blocks[1]["text"]["text"]
-        assert "$149.85" in revenue_block
-        assert "15" in revenue_block
-        assert "6.7%" in revenue_block
-
-        # Installs section
-        installs_block = blocks[2]["text"]["text"]
-        assert "12" in installs_block
-        assert "1.8%" in installs_block
-
-    def test_revenuecat_only(self):
+    def test_mixpanel_missing_outputs_na(self):
         metrics = DailyMetrics(
-            date="2026-01-28",
-            revenuecat=RevenueCatMetrics(mrr=50.0, active_subscriptions=5),
-            errors=("ASC: timeout",),
+            date="2026-02-10",
+            app_store=AppStoreMetrics(total_downloads_7d=109, downloads_by_country=(("JP", 103),)),
+            revenuecat=RevenueCatMetrics(
+                mrr=24.0,
+                active_subscriptions=3,
+                active_trials=1,
+            ),
+            mixpanel=None,
+            data_quality=DataQuality(asc="ok", rc="ok", mp="missing"),
         )
-        payload = format_slack_blocks(metrics)
-        blocks = payload["blocks"]
-        # Should have header + revenue + errors
-        assert any("ERRORS" in str(b) for b in blocks)
 
-    def test_day_over_day_comparison(self):
+        payload = format_slack_blocks(metrics)
+        body = payload["blocks"][1]["text"]["text"]
+
+        assert "FUNNEL (7日): onboarding N/A, paywall N/A, trial N/A" in body
+        assert "オンボ→Paywall N/A N/A" in body
+        assert "Paywall→Trial N/A N/A" in body
+        assert "Data Quality: ASC ok / RC ok / MP missing" in body
+
+    def test_alerts_line_shows_when_cvr_and_daily_dl_low(self):
+        metrics = DailyMetrics(
+            date="2026-02-10",
+            app_store=AppStoreMetrics(
+                total_downloads_7d=14,  # 2/day
+                downloads_by_country=(("JP", 14),),
+                cvr_page_to_download=1.9,
+            ),
+            data_quality=DataQuality(asc="ok", rc="missing", mp="missing"),
+        )
+
+        payload = format_slack_blocks(metrics)
+        body = payload["blocks"][1]["text"]["text"]
+        assert "Alerts:" in body
+        assert "CVR低下" in body
+        assert "DL低下" in body
+
+    def test_trend_line_shows_when_previous_exists(self):
         current = DailyMetrics(
-            date="2026-01-28",
-            revenuecat=RevenueCatMetrics(mrr=149.85, active_subscriptions=15),
+            date="2026-02-10",
+            app_store=AppStoreMetrics(total_downloads_7d=110, downloads_by_country=(("JP", 100),)),
+            revenuecat=RevenueCatMetrics(mrr=22.0, active_subscriptions=3, active_trials=1),
+            mixpanel=MixpanelMetrics(onboarding_started=200, onboarding_paywall_viewed=50),
+            data_quality=DataQuality(asc="ok", rc="ok", mp="ok"),
         )
         previous = DailyMetrics(
-            date="2026-01-27",
-            revenuecat=RevenueCatMetrics(mrr=139.86, active_subscriptions=14),
+            date="2026-02-09",
+            app_store=AppStoreMetrics(total_downloads_7d=100, downloads_by_country=(("JP", 90),)),
+            revenuecat=RevenueCatMetrics(mrr=20.0, active_subscriptions=3, active_trials=1),
+            mixpanel=MixpanelMetrics(onboarding_started=250, onboarding_paywall_viewed=50),
+            data_quality=DataQuality(asc="ok", rc="ok", mp="ok"),
         )
-        payload = format_slack_blocks(current, previous)
-        revenue_text = payload["blocks"][1]["text"]["text"]
-        assert "+$" in revenue_text or "(+" in revenue_text
 
-    def test_trial_to_paid_display(self):
+        payload = format_slack_blocks(current, previous)
+        body = payload["blocks"][1]["text"]["text"]
+        assert "Trend:" in body
+        assert "DL +10" in body
+        assert "MRR +2.00" in body
+
+    def test_trend_line_hidden_without_previous(self):
         metrics = DailyMetrics(
-            date="2026-01-28",
-            revenuecat=RevenueCatMetrics(
-                mrr=100.0,
-                trial_to_paid_count=3,
-                trial_expired_count=7,
-                monthly_churn_rate=5.0,
-            ),
+            date="2026-02-10",
+            app_store=AppStoreMetrics(total_downloads_7d=110, downloads_by_country=(("JP", 100),)),
+            data_quality=DataQuality(asc="ok", rc="missing", mp="missing"),
         )
-        payload = format_slack_blocks(metrics)
-        revenue_text = payload["blocks"][1]["text"]["text"]
-        assert "3/10" in revenue_text
-        assert "30%" in revenue_text
+        payload = format_slack_blocks(metrics, None)
+        body = payload["blocks"][1]["text"]["text"]
+        assert "Trend:" not in body
 
 
 class TestFormatErrorMessage:
@@ -113,50 +124,3 @@ class TestFormatErrorMessage:
         status_text = blocks[1]["text"]["text"]
         assert "❌" in status_text
         assert "✅" in status_text
-
-
-class TestCheckAlerts:
-    def test_cvr_below_threshold(self):
-        metrics = DailyMetrics(
-            date="2026-01-28",
-            app_store=AppStoreMetrics(cvr_page_to_download=1.8, total_downloads_7d=12),
-        )
-        alerts = _check_alerts(metrics)
-        triggered = [a for a in alerts if a.is_triggered]
-        assert len(triggered) >= 1
-        assert any("CVR" in a.metric_name for a in triggered)
-
-    def test_dl_below_threshold(self):
-        metrics = DailyMetrics(
-            date="2026-01-28",
-            app_store=AppStoreMetrics(total_downloads_7d=14),  # 2/day < 10
-        )
-        alerts = _check_alerts(metrics)
-        triggered = [a for a in alerts if a.is_triggered]
-        assert any("DL" in a.metric_name for a in triggered)
-
-    def test_no_alerts_when_good(self):
-        metrics = DailyMetrics(
-            date="2026-01-28",
-            app_store=AppStoreMetrics(
-                total_downloads_7d=100,  # ~14/day > 10
-                cvr_page_to_download=5.0,  # > 3%
-            ),
-        )
-        alerts = _check_alerts(metrics)
-        triggered = [a for a in alerts if a.is_triggered]
-        assert len(triggered) == 0
-
-
-class TestMonthlyChurnRate:
-    def test_churn_in_revenue_block(self):
-        metrics = DailyMetrics(
-            date="2026-01-28",
-            revenuecat=RevenueCatMetrics(
-                mrr=100.0,
-                monthly_churn_rate=8.5,
-            ),
-        )
-        payload = format_slack_blocks(metrics)
-        revenue_text = payload["blocks"][1]["text"]["text"]
-        assert "8.5%" in revenue_text

@@ -6,7 +6,7 @@
 - **What to call them:** 
 - **Pronouns:** *(optional)*
 - **Timezone:** 
-- **Notes:** 
+- **Notes:** Prefers ASCII architecture diagrams/visuals when asking about system structure; include concrete flow visuals by default.
 
 ## Context
 

@@ -1,0 +1,92 @@
+
+OpenClaw For Business Setup (That Scales Revenue)
+Ordering food with your OpenClaw is cute, but making money with it is better.
+In this post, I'm going to talk about how my system works under the hood.
+If you want some OpenClaw business use case examples, the original post is here.
+Verify + Learn Loops
+Agents can't mark something "done" until they verify it actually happened. After each task, they extract lessons and write them down so the same mistake never happens twice.
+ANALYZE → RECOMMEND → [APPROVE] → EXECUTE → VERIFY → LEARN
+                                      ↓
+                              Is it actually done?
+                              (retry if not)
+                                      ↓
+                              Extract lesson for next time
+Why it matters: Agents don't move on until work is verified complete. Every run makes the next run smarter.
+2. Decision Interface Pattern
+Agents don't send me reports that dead-end. Every output ends with "Approve X or Reject X", forcing a decision and capturing my feedback to improve next time.
+Every agent output ends with: 
+🎯 ACTION [#]: [Specific title]
+📊 Data: [Numbers driving this]
+⚡️ Impact: [Expected outcome]
+💪 Effort: [Low/Med/High]
+
+Reply: "Approve 1" or "Reject 1 - [reason]"
+Why it matters: You ultimately want your agents to propose and ultimately take action. Rejection reasons get logged and learned from.
+3. Autonomy Levels (Codified)
+New agents start restricted - insights only, no execution. As they prove reliable, I unlock more permissions. Level 1 is "report to me." Level 4 is "handle it and give me a weekly summary."
+| Level | Description                       |
+| ----- | --------------------------------- |
+| 1     | Report only (insights, no action) |
+| 2     | Recommend + execute on approval   |
+| 3     | Execute low-risk, report after    |
+| 4     | Full autonomy with weekly summary |
+New agents start at Level 1. Trust is earned, not given.
+4. The Workspace Architecture
+Every agent lives in a folder with simple text files - identity, memory, learnings. No database, no complex infrastructure. If something breaks, I open a file and read it like a document.
+~/.openclaw/workspace/
+├── SOUL.md          # Agent identity + personality
+├── AGENTS.md        # Operating manual
+├── MEMORY.md        # Long-term learnings
+├── shared-learnings/# Cross-agent knowledge
+│   ├── oracle/      # SEO patterns
+│   ├── flash/       # Content patterns
+│   └── arrow/       # Sales patterns
+├── feedback/        # Decision logs (approve/reject)
+└── docs/            # Playbooks, specs
+Why it matters: No database = easy debugging. git blame shows exactly what changed. Human-readable files mean you can audit anything in 30 seconds.
+5. Cron Scheduling (The Proactive Brain)
+I don't ask my agents for updates — they push to me on a schedule. SEO digest at 7am, deal recommendations at 8am. Problems surface before I even think to check.
+| Time   | Job                          |
+| ------ | ---------------------------- |
+| 7:00am | Oracle SEO Digest            |
+| 7:30am | Strategic Digest             |
+| 8:00am | Deal of the Day              |
+| Weekly | Feedback summary + learnings |
+Why it matters: Agents don't wait for you. They surface problems before you ask.
+6. Security Model
+Credentials live in 1Password, not in code. Telegram bots only respond to me (allowlisted). Every decision gets logged. The Mac Mini runs locally - my data never touches a random cloud.
+I create a brand new vault and share it with this agent. I also make sure that I make a new Gmail and Apple ID account.
+| Layer       | Implementation                                         |
+| ----------- | ------------------------------------------------------ |
+| Credentials | 1Password vault (agents pull via CLI)                  |
+| Access      | Telegram allowlists (bots only talk to approved users) |
+| Audit       | Every decision logged to feedback JSONs                |
+| Isolation   | Mac Mini runs locally, not cloud                       |
+| Execution   | High-stakes = human approval required                  |
+7. Multi-Agent Coordination
+Alfred is my chief of staff who delegates to specialists (Oracle for SEO, Flash for content, Arrow for sales). They share a "learnings" folder - when one agent figures something out, the others benefit.
+Alfred (Orchestrator)
+    │
+    ├── Oracle (SEO) ──┐
+    ├── Flash (Content)├── shared-learnings/
+    └── Arrow (Sales) ─┘
+Token savings and other random tips
+1. Sonnet for daily, Opus for strategic
+Routine crons (SEO digest, deal finder) run on Sonnet (~$0.15/run). Opus only fires for high-stakes decisions. 10x cost difference, same outcome for 80% of tasks.
+2. Isolated sessions per cron
+Each scheduled job runs in its own session - no context bleed. My 7am SEO  digest doesn't carry the 8am deal finder's history. Clean slate = smaller context = faster + cheaper.
+3. Compact and use subagents often
+Less of a problem with Opus 4.6 and future models, but I still /compact frequently because it's a pain in the butt to have context overload. My setup actually broke when it overloaded so yeah, compact often. 
+When it's a complex task, I'll ask it to spawn subagents to work on things in parallel.
+4. I plan and test with Claude Code, then I move things over to OpenClaw
+I just started doing this recently because with Claude Code, I'm going to be able to spend more time planning deeply and thoughtfully vs just dictating a thought and letting OpenClaw yolo from my Telegram.
+5. Speaking of dictating... WisprFlow on the phone ftw
+Using WisprFlow on mobile has been incredible for dictation. Can't live without it. I previously didn't use any dictation at all but to be more precise with my words, this is the way to go.
+6. Learnings live in files, not prompts
+Instead of "remember Eric prefers X" in every prompt, agents read shared-learnings/oracle/preferences.md on demand. Knowledge scales without prompt bloat.
+7. The physical part
+After I set up my Mac Mini, I plug in an HDMI Dummy Plug to 'trick' it into thinking it has a monitor. If I need to get in later, I just VNC my way in or remote screenshare via Google Remote Desktop.
+Conclusion
+Obviously, your mileage may vary based on your needs and by no means am I saying I have the perfect setup. But as a non-technical founder, this is what's working for me so far. I'm sure I'll change my mind a lot in the coming months. 
+In my next post, I'll share more nifty @openclaw business use cases. Feel free to comment and let me know what else you'd like to hear about.
+btw if you want more like this, you can subscribe to my newsletter here for free: https://levelingup.beehiiv.com/subscribe

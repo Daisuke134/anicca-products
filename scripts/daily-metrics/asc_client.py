@@ -10,6 +10,7 @@ import httpx
 import jwt
 
 from models import AppStoreMetrics
+from window import ReportingWindow, default_reporting_window
 
 ASC_BASE_URL = "https://api.appstoreconnect.apple.com/v1"
 TOKEN_EXPIRY_SECONDS = 1200  # 20 minutes
@@ -50,11 +51,12 @@ def _get_headers() -> dict[str, str]:
     }
 
 
-async def fetch_app_store_metrics() -> AppStoreMetrics:
+async def fetch_app_store_metrics(window: ReportingWindow | None = None) -> AppStoreMetrics:
     """Fetch downloads, impressions, page views, and CVR from App Store Connect."""
-    # Use 2 days ago as end_date: yesterday's data is often incomplete on ASC
-    end_date = date.today() - timedelta(days=2)
-    start_date = end_date - timedelta(days=6)  # 7-day window
+    if window is None:
+        window = default_reporting_window()
+    start_date = window.start_date
+    end_date = window.end_date
 
     headers = _get_headers()
     total_downloads = 0

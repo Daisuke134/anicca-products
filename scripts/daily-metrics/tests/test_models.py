@@ -6,7 +6,15 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from models import AlertCondition, AppStoreMetrics, DailyMetrics, DayOverDay, RevenueCatMetrics
+from models import (
+    AlertCondition,
+    AppStoreMetrics,
+    DailyMetrics,
+    DataQuality,
+    DayOverDay,
+    MixpanelMetrics,
+    RevenueCatMetrics,
+)
 
 
 class TestDayOverDay:
@@ -71,22 +79,35 @@ class TestDailyMetrics:
                 trial_expired_count=2,
                 monthly_churn_rate=6.7,
             ),
+            mixpanel=MixpanelMetrics(
+                onboarding_started=100,
+                onboarding_paywall_viewed=30,
+                rc_trial_started_event=2,
+            ),
+            data_quality=DataQuality(asc="ok", rc="ok", mp="ok"),
         )
         data = json.loads(metrics.to_json())
         assert data["date"] == "2026-01-28"
         assert data["app_store"]["total_downloads_7d"] == 12
         assert data["revenuecat"]["mrr"] == 149.85
+        assert data["mixpanel"]["rc_trial_started_event"] == 2
+        assert data["mixpanel"]["onboarding_started"] == 100
+        assert data["data_quality"]["mp"] == "ok"
 
     def test_to_json_with_partial_data(self):
         metrics = DailyMetrics(
             date="2026-01-28",
             app_store=None,
             revenuecat=RevenueCatMetrics(mrr=50.0),
+            mixpanel=None,
+            data_quality=DataQuality(asc="missing", rc="ok", mp="missing"),
             errors=("App Store Connect API: 401 Unauthorized",),
         )
         data = json.loads(metrics.to_json())
         assert data["app_store"] is None
         assert data["revenuecat"]["mrr"] == 50.0
+        assert data["mixpanel"] is None
+        assert data["data_quality"]["rc"] == "ok"
         assert len(data["errors"]) == 1
 
     def test_to_json_with_no_data(self):
@@ -97,4 +118,5 @@ class TestDailyMetrics:
         data = json.loads(metrics.to_json())
         assert data["app_store"] is None
         assert data["revenuecat"] is None
+        assert data["mixpanel"] is None
         assert len(data["errors"]) == 2

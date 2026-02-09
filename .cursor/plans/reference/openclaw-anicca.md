@@ -1,6 +1,6 @@
 # OpenClaw Anicca — 現在の状態・ロードマップ・実装ガイド
 
-**最終更新: 2026-02-08T18:10 UTC（セキュリティ強化 + 二重レスポンス修正 + 全テスト再実行。Codex review: 2 advisory remaining。）**
+**最終更新: 2026-02-09T00:30 UTC（1.6.2 Phase 1 デプロイ完了。Closed-Loop Ops: X投稿→メトリクス取得→Thompson Sampling学習ループ稼働中。）**
 
 > **原始Spec (`Anicca-openclaw-spec.md`) は歴史的記録。本ドキュメントが Single Source of Truth。**
 
@@ -482,51 +482,130 @@ systemctl --user status openclaw-gateway  # active (running) であること
 
 ---
 
-## 1.6.2 ロードマップ
+## 1.6.2 閉ループ制御層（Closed-Loop Ops）
 
-### 閉ループ制御層（VoxYZ アーキテクチャ）
+### 概要
 
-> **設計完了**: `.cursor/plans/ios/1.6.2/implementation/closed-loop-ops/`（13ファイル）
-> **元設計**: `1.6.2-buddha-software-closed-loop-architecture-spec.md` + VoxYZ リサーチ
+> **設計**: `.cursor/plans/ios/1.6.2/implementation/closed-loop-ops/`（13ファイル）
+> **デプロイTODO**: `.cursor/plans/ios/1.6.2/implementation/deployment-todo.md`
+> **アーキテクチャ**: Proposal → Policy Check (Kill Switch) → Mission → Steps → Events → Triggers → Reactions → Loop
+
+### Phase 1 デプロイ状況（✅ 完了 — 2026-02-08）
+
+> **ゴール**: X投稿 → 効果測定 → Thompson Sampling 学習 の1サイクルが自動で回ること → **達成**
 
 | # | タスク | 状態 | 備考 |
 |---|--------|------|------|
-| 1 | **Prisma スキーマ追加** (7テーブル) | 設計完了 | `OpsProposal`, `OpsMission`, `OpsMissionStep`, `OpsPolicy`, `OpsEvent`, `OpsTrigger`, `OpsReaction` |
-| 2 | **API サービス実装** (8サービス) | 設計完了 | proposalService, capGates, policyService, eventEmitter, heartbeat, triggerEvaluator, reactionProcessor, staleRecovery |
-| 3 | **API ルート + 認証** | 設計完了 | `POST /api/ops/proposal`, `GET /api/ops/step/next`, `PATCH /api/ops/step/:id/complete`, `GET /api/ops/heartbeat` |
-| 4 | **Step Executor Registry** (11種) | 設計完了 | draft_content, verify_content, post_x, post_tiktok, fetch_metrics, analyze_engagement, detect_suffering, diagnose, draft_nudge, send_nudge, evaluate_hook |
-| 5 | **Slack 承認フロー** | 設計完了 | Block Kit Approve/Reject ボタン → Railway API |
-| 6 | **mission-worker スキル** | 設計完了 | VPS 1分ポーリング、queued ステップ取得→実行→完了報告 |
-| 7 | **Cron 統合** | 設計完了 | ops-heartbeat (5分), ops-worker (1分), x-poster, tiktok-poster, trend-hunter |
-| 8 | **テスト** (T1-T43 + E1-E9) | 設計完了 | Vitest + vitest-mock-extended |
+| P1-1 | x-research-skill を Claude Code にインストール | ✅ | `.claude/skills/x-research` にクローン |
+| P1-2 | x-research-skill を OpenClaw VPS にインストール | ⬜ | `/home/anicca/.openclaw/skills/x-research` + X_BEARER_TOKEN |
+| P1-3 | feature/closed-loop-ops → dev マージ | ✅ | 408テスト PASS → dev マージ完了 |
+| P1-4 | Railway Staging デプロイ確認 | ✅ | dev push → 自動デプロイ → /health OK |
+| P1-5 | DB Migration 実行（Staging） | ✅ | Prisma migrate deploy → 7テーブル作成 + seed |
+| P1-6 | VPS Heartbeat Cron 追加 | ✅ | `*/5 * * * *` crontab → heartbeat OK |
+| P1-7 | X API 実接続（post_x Executor） | ✅ | Blotato API (account 11852) → X投稿成功 |
+| P1-8 | 手動テスト: Proposal → Mission → X投稿 | ✅ | 3ステップ全成功: draft→verify→post_x |
+| P1-9 | fetch_metrics Executor 実接続 | ✅ | Blotato解決→X API v2→DB更新→analyze_engagement |
+| P1-10 | 48h Trigger テスト | ✅ | 24h後自動発火→fetch_metrics→analyze→Thompson更新 |
 
-### 追加が必要な環境変数（閉ループ用）
+### Railway Staging 実装済みコンポーネント
+
+#### API エンドポイント（`/api/ops/*` — opsAuth + 60 req/min rate limit）
+
+| エンドポイント | メソッド | 用途 | 状態 |
+|---------------|---------|------|------|
+| `/api/ops/proposal` | POST | 新規 Proposal 提出（draft_content, verify_content, post_x 等） | ✅ 稼働中 |
+| `/api/ops/proposal/:id/approve` | POST | Kill Switch 対象の手動承認 | ✅ 稼働中 |
+| `/api/ops/step/next` | GET | 次の queued ステップ取得 | ✅ 稼働中 |
+| `/api/ops/step/:id/complete` | PATCH | ステップ完了報告（output + events） | ✅ 稼働中 |
+| `/api/ops/heartbeat` | GET | 制御プレーン（triggers → reactions → steps → insights → stale） | ✅ 稼働中 |
+| `/api/ops/events` | POST | 外部イベント投入 | ✅ 稼働中 |
+
+#### Step Executor 一覧（13ファイル）
+
+| Executor | ファイル | 状態 | 備考 |
+|----------|---------|------|------|
+| draft_content | `executeDraftContent.js` | ✅ 実API接続済み | LLM でコンテンツ生成 |
+| verify_content | `executeVerifyContent.js` | ✅ 実API接続済み | LLM でコンテンツ検証 |
+| post_x | `executePostX.js` | ✅ 実API接続済み | Blotato API → X投稿（account 11852） |
+| post_tiktok | `executePostTiktok.js` | 🔧 スタブ | TikTok API v2 未接続 |
+| fetch_metrics | `executeFetchMetrics.js` | ✅ 実API接続済み | Blotato ID解決→X API v2 public_metrics→DB更新 |
+| analyze_engagement | `executeAnalyzeEngagement.js` | ✅ 実API接続済み | エンゲージメント分析→Thompson Sampling更新 |
+| detect_suffering | `executeDetectSuffering.js` | 🔧 スタブ | 苦しみ検出 |
+| diagnose | `executeDiagnose.js` | 🔧 スタブ | 診断 |
+| draft_nudge | `executeDraftNudge.js` | 🔧 スタブ | Nudge下書き |
+| send_nudge | `executeSendNudge.js` | 🔧 スタブ | Nudge送信（Kill Switch対象） |
+| evaluate_hook | `executeEvaluateHook.js` | 🔧 スタブ | Hook評価 |
+| registry | `registry.js` | ✅ | Executor ルックアップ |
+| index | `index.js` | ✅ | エクスポート |
+
+#### Prisma モデル（7テーブル + 関連）
+
+| モデル | 用途 | 状態 |
+|--------|------|------|
+| OpsProposal | 提案（steps[], policy結果） | ✅ Staging DB に存在 |
+| OpsMission | ミッション（approved proposal → mission） | ✅ |
+| OpsMissionStep | 実行ステップ（queued → running → completed/failed） | ✅ |
+| OpsPolicy | ポリシー（kill_switch, cap_gate） | ✅ seed済み |
+| OpsEvent | イベント（tweet_posted, metrics_fetched 等） | ✅ |
+| OpsTrigger | トリガールール（delay_min ベース） | ✅ seed済み |
+| OpsReaction | リアクション（trigger → proposal 自動生成） | ✅ |
+| XPost | X投稿記録（blotatoPostId, xPostId, metrics） | ✅ |
+| TiktokPost | TikTok投稿記録 | ✅ |
+| HookCandidate | Thompson Sampling（xSampleSize, xEngagementRate） | ✅ |
+
+#### Trigger ルール（seed済み）
+
+| ルール | イベント | 遅延 | アクション |
+|--------|---------|------|-----------|
+| `engagement_analysis_24h` | `tweet_posted` | 1440分（24h） | fetch_metrics + analyze_engagement |
+| `tiktok_content_check_24h` | `tiktok_posted` | 1440分（24h） | fetch_metrics + analyze_engagement |
+
+#### サービス層
+
+| サービス | ファイル | 用途 |
+|---------|---------|------|
+| proposalService | `proposalService.js` | Proposal 作成・承認・ミッション変換 |
+| capGates | `capGates.js` | 日次上限チェック（per-skill） |
+| policyService | `policyService.js` | Kill Switch / Cap Gate 評価 |
+| eventEmitter | `eventEmitter.js` | OpsEvent 作成・配信 |
+| triggerEvaluator | `triggerEvaluator.js` | トリガー条件評価（delay_min ベース） |
+| reactionProcessor | `reactionProcessor.js` | リアクション→Proposal 自動生成 |
+| staleRecovery | `staleRecovery.js` | running ステップのタイムアウト回復 |
+| opsAuth | `opsAuth.js` | Bearer token 認証（ANICCA_AGENT_TOKEN） |
+
+### 環境変数（Railway Staging — 設定済み）
 
 | 変数 | 用途 | 状態 |
 |------|------|------|
-| `ANICCA_AGENT_TOKEN` | Ops API Bearer 認証（VPS Worker → Railway） | **未設定** |
+| `ANICCA_AGENT_TOKEN` | Ops API Bearer 認証（VPS Worker → Railway） | ✅ 設定済み |
+| `OPENAI_API_KEY` | LLM（draft_content, verify_content, analyze_engagement） | ✅ 設定済み |
+| `BLOTATO_API_KEY` | Blotato API（X/TikTok投稿） | ✅ 設定済み |
+| `BLOTATO_ACCOUNT_ID_EN` | Blotato X英語アカウント（11852） | ✅ 設定済み |
+| `X_BEARER_TOKEN` | X API v2 public_metrics 取得 | ✅ 設定済み |
+| `DATABASE_URL` | Railway PostgreSQL（internal） | ✅ 設定済み |
 
-### 追加が必要な Cron ジョブ（閉ループ用）
+### DB 直接接続（Staging Proxy）
 
-| ジョブ | スケジュール | 用途 | 状態 |
-|--------|------------|------|------|
-| ops-heartbeat | `*/5 * * * *` | 制御プレーン（トリガー評価、リアクション処理、stale回復） | **未作成** |
-| ops-worker | `* * * * *` | mission-worker スキル実行 | **未作成** |
-| x-poster-morning | `0 9 * * *` JST | X朝投稿提案生成 | **未作成** |
-| x-poster-evening | `0 21 * * *` JST | X夜投稿提案生成 | **未作成** |
-| tiktok-poster | `0 20 * * *` JST | TikTok日次投稿提案 | **未作成** |
-| trend-hunter | `0 */4 * * *` | トレンド検出（4時間毎） | **未作成** |
+| 項目 | 値 |
+|------|-----|
+| **Proxy URL** | `postgresql://postgres:WgyHhBwqrEVFsXiQNOPrLaNhEayQrVdJ@ballast.proxy.rlwy.net:51992/railway` |
+| **psql** | `PGPASSWORD=WgyHhBwqrEVFsXiQNOPrLaNhEayQrVdJ psql -h ballast.proxy.rlwy.net -U postgres -p 51992 -d railway` |
+| **用途** | デバッグ・テスト時の直接クエリ（Internal URLは外部アクセス不可） |
 
-### 追加が必要なスキル（閉ループ用）
+### VPS Crontab（Heartbeat）
 
-| スキル | 種類 | 用途 | 状態 |
-|--------|------|------|------|
-| mission-worker | カスタム | Ops閉ループ実行エンジン | **未作成** |
-| x-poster | カスタム | X投稿提案→Proposal生成 | **未作成** |
-| tiktok-poster | カスタム | TikTok投稿提案→Proposal生成 | **未作成** |
-| trend-hunter | カスタム | トレンド検出→Proposal生成 | **未作成** |
-| suffering-detector | カスタム | 苦しみ検出 | **未作成** |
-| app-nudge-sender | カスタム | App Push通知 | **未作成** |
+| ジョブ | スケジュール | コマンド | 状態 |
+|--------|------------|---------|------|
+| ops-heartbeat | `*/5 * * * *` | `curl -s -H "Authorization: Bearer $TOKEN" https://anicca-proxy-staging.up.railway.app/api/ops/heartbeat` | ✅ 稼働中 |
+
+### 既知の問題・制限事項
+
+| # | 問題 | 影響 | 対応状況 |
+|---|------|------|---------|
+| 1 | **X API Free Tier クレジット枯渇** | fetch_metrics が CreditsDepleted エラー → DB フォールバック値を返す | コードで graceful handling 済み。クレジット回復待ち |
+| 2 | **triggerEvaluator が最新イベントのみ評価** | 新しいイベントが古いイベントのトリガー発火をブロック | 設計バグ。将来修正予定（全マッチングイベントをループ） |
+| 3 | **Blotato 長文投稿エラー** | 一部の投稿が "not permitted to perform this action" で失敗 | コンテンツ長/権限の問題。短い投稿は成功 |
+| 4 | **post_tiktok 未実装** | TikTok 投稿は手動 | Phase 3 で TikTok API v2 接続予定 |
 
 ### Kill Switch（自動承認禁止）
 
@@ -538,23 +617,42 @@ systemctl --user status openclaw-gateway  # active (running) であること
 | `deploy` | インフラ変更。永久禁止 |
 | `reply_dm` | テーラヴァーダ不請法則違反。永久禁止 |
 
-### Phase 2-3 タスク
+### Phase 2 タスク（未着手）
 
-| # | タスク | 備考 |
-|---|--------|------|
-| 1 | **Phase 2: proactive-agent** | SOUL.md/USER.md/HEARTBEAT.md の本格運用 |
-| 2 | **Phase 3: VPSスキルデプロイ** | 上記スキル群をskill-creatorで作成→VPSに配置→cronで起動 |
-| 3 | **LINE統合** | LINE Official Account Manager → Messaging API |
-| 4 | **Twitter/X統合** | 公式OAuth 2.0（birdスキルは使わない） |
-| 5 | **system-monitor** | CPU/RAM/ディスク監視 |
-| 6 | **ブラウザ** | Chromium + Playwright インストール |
+> **ゴール**: 3エージェントが毎日会話し、自発的に Proposal を生成し、学習すること
 
-**Phase 3 の前提: skill-creator + exec + slack + web_search + cron が全て動作すること（✅ 全て確認済み）。加えて `ANICCA_AGENT_TOKEN` の設定と Railway Ops API の実装が必要。**
+| # | タスク | 状態 | 備考 |
+|---|--------|------|------|
+| P2-1 | OpenClaw マルチエージェント設計 | ⬜ | anicca(共感), hunter(発見), growth(分析) の3エージェント |
+| P2-2 | openclaw.json agents[] 追加 | ⬜ | hunter/growth は gpt-4o-mini でコスト削減 |
+| P2-3 | Roundtable 会話スキル作成 | ⬜ | VoxYZ パターン: standup, debate, watercooler |
+| P2-4 | 朝スタンドアップ Cron 追加 | ⬜ | 毎朝9:00 JST → エージェント間会話 → Slack #ops |
+| P2-5 | 構造化 Memory テーブル追加 | ⬜ | insight, pattern, strategy, lesson, preference + confidence |
+| P2-6 | 会話ログ → Memory 自動抽出 | ⬜ | LLM で会話から insight/pattern/lesson を抽出 |
+| P2-7 | Initiative システム | ⬜ | エージェントが自発的に Proposal 生成（memory >= 5件で有効化） |
+| P2-8 | x-research を Trend-Hunter に統合 | ⬜ | x-search CLI → queryBuilder → orchestrator パイプライン |
+| P2-9 | Reaction Matrix 設定 | ⬜ | tweet_high_engagement → growth 分析、等 |
+| P2-10 | 1週間自律運用テスト | ⬜ | Slack で OK を押すだけ |
+
+### Phase 3 タスク（未着手）
+
+> **ゴール**: 1週間旅行に行っても DL が増え続けること
+
+| # | タスク | 状態 | 備考 |
+|---|--------|------|------|
+| P3-1 | TikTok API 実接続 | ⬜ | TikTok API v2 |
+| P3-2 | オンボーディング最適化ループ | ⬜ | ファネル測定 → A/Bテスト自動生成 → 勝者適用 |
+| P3-3 | 広告最適化ループ | ⬜ | TikTok Ads / ASA → CPI測定 → クリエイティブ改善 |
+| P3-4 | Voice Evolution（個性の進化） | ⬜ | memory 分布から個性を動的生成 |
+| P3-5 | Dynamic Affinity（関係性） | ⬜ | エージェント間の好感度が会話で変動 |
+| P3-6 | オンボ→Paywall→Trial 最適化 | ⬜ | 42.8% → 60%、1.1% → 5% を目標 |
+| P3-7 | 完全自律運用（2週間テスト） | ⬜ | 操作: 20分/日以下 |
 
 ### 設計ドキュメント参照先
 
 | ドキュメント | パス | 内容 |
 |-------------|------|------|
+| デプロイTODO | `.cursor/plans/ios/1.6.2/implementation/deployment-todo.md` | Phase 1-3 タスクリスト |
 | 閉ループ制御層（分割版） | `.cursor/plans/ios/1.6.2/implementation/closed-loop-ops/` | 13ファイル（README含む） |
 | 閉ループ制御層（アーカイブ） | `.cursor/plans/ios/1.6.2/implementation/closed-loop-ops.md` | 3670行の元ファイル |
 | マスター設計書 | `.cursor/plans/ios/1.6.2/implementation/1.6.2-ultimate-spec.md` | ~3700行 |

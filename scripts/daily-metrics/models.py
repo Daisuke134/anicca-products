@@ -1,7 +1,6 @@
 """Data models for daily metrics."""
 
-from dataclasses import dataclass, field, asdict
-from datetime import date
+from dataclasses import dataclass, asdict
 from typing import Optional
 import json
 
@@ -31,11 +30,35 @@ class RevenueCatMetrics:
 
 
 @dataclass(frozen=True)
+class MixpanelMetrics:
+    """7-day unique-user funnel counts from Mixpanel."""
+    onboarding_started: Optional[int] = None
+    onboarding_struggles_completed: Optional[int] = None
+    onboarding_live_demo_completed: Optional[int] = None
+    onboarding_notifications_completed: Optional[int] = None
+    onboarding_completed: Optional[int] = None
+    onboarding_paywall_viewed: Optional[int] = None
+    onboarding_paywall_dismissed_free: Optional[int] = None
+    onboarding_paywall_purchased: Optional[int] = None
+    rc_trial_started_event: Optional[int] = None
+
+
+@dataclass(frozen=True)
+class DataQuality:
+    """Per-source health status for daily report."""
+    asc: str = "missing"
+    rc: str = "missing"
+    mp: str = "missing"
+
+
+@dataclass(frozen=True)
 class DailyMetrics:
     """Combined daily metrics."""
     date: str
     app_store: Optional[AppStoreMetrics] = None
     revenuecat: Optional[RevenueCatMetrics] = None
+    mixpanel: Optional[MixpanelMetrics] = None
+    data_quality: DataQuality = DataQuality()
     errors: tuple[str, ...] = ()
 
     def to_json(self) -> str:
