@@ -6,9 +6,242 @@
 
 | 項目 | 状態 |
 |------|------|
-| **Slack / 会話** | **ローカル**の OpenClaw（gateway）で運用中。モデルは openai-codex/gpt-5.3-codex。 |
-| **VPS gateway** | **停止済み**（二重防止のため）。再開するまで Slack に返信するのはローカル1台だけ。 |
-| **VPS の cron** | ジョブ定義は VPS に残っているが、gateway が止まっているため Slack 投稿はローカル経由。 |
+| **Anicca（Slack / 会話）** | **VPS** の OpenClaw（gateway）で運用中。Slack に返信するのは VPS 1 台のみ。 |
+| **ローカル gateway** | **停止済み**。設定・環境は **残してある**（Mac mini 等でローカル運用に戻す可能性があるため）。 |
+| **VPS の cron** | ジョブ定義・実行とも VPS 上で動作。 |
+
+## ローカルと VPS のフォルダ構造（どこに何があるか）
+
+OpenClaw の「状態」は **1 台につき 1 つのルート** に全部入る。**相対的なフォルダ構造はローカルも VPS も同じ**で、違うのは **ルートのフルパスだけ**。
+
+---
+
+### ローカル（Mac）
+
+**メインのルート（フルパス）:**
+```
+/Users/cbns03/.openclaw
+```
+
+**ルートからのフォルダ構造:**
+```text
+/Users/cbns03/.openclaw/
+├── openclaw.json          # 設定本体（モデル・Slack・cron・ツール等）
+├── .env                   # APIキー等の環境変数
+├── exec-approvals.json
+├── logs/
+│   ├── gateway.log
+│   └── gateway.err.log
+├── agents/
+│   ├── anicca/
+│   │   ├── agent/
+│   │   │   └── auth-profiles.json   # OAuth/トークン
+│   │   └── sessions/
+│   │       └── sessions.json
+│   └── main/
+│       └── agent/
+│           └── auth-profiles.json
+├── cron/
+│   ├── jobs.json          # ジョブ定義
+│   └── runs/              # 実行履歴
+├── skills/
+│   └── slack-mention-handler/
+├── workspace/
+│   ├── anicca.ai/         # プロジェクト等の作業場
+│   ├── skills/
+│   │   └── daily-metrics-reporter/
+│   ├── scripts/
+│   └── temp/
+├── browser/
+│   ├── chrome-extension/
+│   └── openclaw/
+├── canvas/
+├── completions/
+├── credentials/
+├── devices/
+├── identity/
+├── media/
+└── memory/
+```
+
+---
+
+### VPS
+
+**メインのルート（フルパス）:**
+```
+/home/anicca/.openclaw
+```
+
+（VPS にログインしたときの `~` が `/home/anicca` なので、`~/.openclaw` = `/home/anicca/.openclaw`）
+
+**ルートからのフォルダ構造（相対構造はローカルと同じ）:**
+```text
+/home/anicca/.openclaw/
+├── openclaw.json
+├── .env
+├── exec-approvals.json
+├── logs/
+│   ├── gateway.log
+│   └── gateway.err.log
+├── agents/
+│   ├── anicca/
+│   │   ├── agent/
+│   │   │   └── auth-profiles.json
+│   │   └── sessions/
+│   │       └── sessions.json
+│   └── main/
+│       └── agent/
+│           └── auth-profiles.json
+├── cron/
+│   ├── jobs.json
+│   └── runs/
+├── skills/
+│   └── （同期したスキル、例: slack-mention-handler）
+├── workspace/
+│   ├── （同期した作業場。anicca.ai や skills 等）
+│   ├── skills/
+│   │   └── （例: daily-metrics-reporter）
+│   └── ...
+├── browser/
+├── canvas/
+├── completions/
+├── credentials/
+├── devices/
+├── identity/
+├── media/
+└── memory/
+```
+
+**違いのまとめ:**
+
+| 項目 | ローカル | VPS |
+|------|----------|-----|
+| ルート | `/Users/cbns03/.openclaw` | `/home/anicca/.openclaw` |
+| 構造 | 上記ツリー | **同じ相対構造**（中身は同期した分だけ） |
+| 設定のパス | openclaw.json に書く workspace は `/Users/cbns03/.openclaw/workspace` | openclaw.json に書く workspace は `/home/anicca/.openclaw/workspace` |
+
+---
+
+## OpenClaw のデフォルト（バンドル）スキル
+
+**OpenClaw 本体に同梱されているスキル**は、npm パッケージ内にある。**VPS** では `npm install openclaw` した環境の `node_modules/openclaw/skills/`、**ローカル Mac** では `/opt/homebrew/lib/node_modules/openclaw/skills/`。
+
+| 項目 | 値 |
+|------|-----|
+| **数** | **52 個**（公式では 53 Skills と書かれる場合あり） |
+| **有効化** | デフォルトで **バンドルスキルはオートロード**。制限する場合は `openclaw.json` の `skills.allowBundled` でホワイトリスト指定。 |
+| **追加スキル** | `~/.openclaw/skills/`（managed）と `~/.openclaw/workspace/skills/`（workspace）に置いたスキルが **追加** で読み込まれる。 |
+
+**バンドルスキル一覧（52 個・1行1スキル）:**
+
+```
+1password
+apple-notes
+apple-reminders
+bear-notes
+blogwatcher
+blucli
+bluebubbles
+camsnap
+canvas
+clawhub
+coding-agent
+discord
+eightctl
+food-order
+gemini
+gifgrep
+github
+gog
+goplaces
+healthcheck
+himalaya
+imsg
+local-places
+mcporter
+model-usage
+nano-banana-pro
+nano-pdf
+notion
+obsidian
+openai-image-gen
+openai-whisper
+openai-whisper-api
+openhue
+oracle
+ordercli
+peekaboo
+sag
+session-logs
+sherpa-onnx-tts
+skill-creator
+slack
+songsee
+sonoscli
+spotify-player
+summarize
+things-mac
+tmux
+trello
+video-frames
+voice-call
+wacli
+weather
+```
+
+- 参照: [OpenClaw Setup Guide: 25 Tools + 53 Skills](https://yu-wenhao.com/en/blog/openclaw-tools-skills-tutorial)（`allowBundled` の説明あり）。
+
+---
+
+## ローカル（Mac）の OpenClaw 状態ディレクトリ構造（実測・詳細）
+
+ROOT（フルパス）:
+- `/Users/cbns03/.openclaw/`
+
+相対ツリー（ROOT から）:
+```text
+.
+├── openclaw.json
+├── .env
+├── logs/
+│   ├── gateway.log
+│   └── gateway.err.log
+├── agents/
+│   ├── anicca/
+│   │   ├── agent/
+│   │   │   └── auth-profiles.json
+│   │   └── sessions/
+│   │       └── sessions.json
+│   └── main/
+│       └── agent/
+│           └── auth-profiles.json
+├── cron/
+│   ├── jobs.json
+│   └── runs/
+├── skills/
+│   └── slack-mention-handler/
+├── workspace/
+├── browser/
+│   └── chrome-extension/
+└── canvas/
+```
+
+役割（最低限）:
+- `openclaw.json`: 設定の本体（モデル、Slack、cron、Anicca の tools.allow など）
+- `.env`: APIキー等の環境変数（OpenClawが読む）
+- `logs/`: Gateway のログ（Slack接続、返信、`agent model:`、`Unknown model` 等）
+- `agents/<agentId>/agent/auth-profiles.json`: OAuth/トークンの格納（例: `openai-codex` OAuth）
+- `agents/<agentId>/sessions/sessions.json`: セッション状態・履歴（ルーティング/状態）
+- `cron/jobs.json`: cron ジョブ定義（「いつ」「何を」実行するか）。Gateway が常時起動している限り動く
+- `cron/runs/`: cron 実行履歴
+- `skills/`: managed skill（インストール済みスキル）
+- `workspace/`: エージェントの作業場（生成物、スキル開発、作業ファイル）
+- `browser/`: ブラウザ制御の補助データ（Chrome 拡張 relay 等）
+- `canvas/`: Control UI向けのデータ置き場
+
+VPS の場合:
+- ROOT は基本 `~/.openclaw/` で同じだが、`~` が `/home/anicca`（または `/root`）になるだけ。
 
 **VPS が止まっているか確認する（ローカルから）:**
 ```bash
@@ -31,6 +264,35 @@ OpenClaw は **`~/.openclaw/.env`** を読む（[Environment Variables](https://
 grep -E '^(OPENAI_API_KEY|REVENUECAT_V2_SECRET_KEY)=' /path/to/anicca-project/.env > ~/.openclaw/.env
 # その後 gateway 再起動（ローカルなら OpenClaw GUI から、VPS なら systemctl --user restart openclaw-gateway.service）
 ```
+
+### Opus（Anthropic）が configured, missing のとき（APIキー/認証が無い）
+
+Opus を使うには **Anthropic の認証情報**を OpenClaw に登録する必要がある（「ブラウザでポチ」だけでは解決しない）。
+
+**いま入れる必要があるもの（どちらか一方）:**
+
+| 方法 | 入れるもの | どこで入れるか |
+|------|------------|----------------|
+| **A. Setup-token（Claude Pro/Max 購読）** | `claude setup-token` で取得したトークン文字列 | 下記「ポチポチ手順」の「Paste token for anthropic」の欄 |
+| **B. API キー** | Anthropic Console で発行した API キー | `~/.openclaw/.env` に `ANTHROPIC_API_KEY=sk-ant-...` を1行で追加し、Gateway 再起動 |
+
+**ポチポチ手順（A: setup-token で進める場合）**
+
+1. **トークンを取得する（任意のマシンで可）**
+   ```bash
+   claude setup-token
+   ```
+   - ブラウザが開いたら **あなたが** ログインして表示されたトークンをコピーする。
+
+2. **OpenClaw にトークンを登録する**
+   ```bash
+   openclaw models auth paste-token --provider anthropic
+   ```
+   - プロンプト **「Paste token for anthropic」** が出たら、そこに **さきほどコピーしたトークン** を貼り付けて Enter。
+   - これだけ（最小限は「そのトークン文字列を貼る」）。
+
+**B のとき（API キー）:**  
+`~/.openclaw/.env` に `ANTHROPIC_API_KEY=sk-ant-...` を追加して保存し、Gateway を再起動する。
 
 ---
 
@@ -186,6 +448,12 @@ openclaw models auth login --provider openai-codex
 - その後、gateway を使う場合は **gateway を再起動**する（Slack 二重防止のため、通常はローカル gateway は止めたまま運用可）。
 
 ## Unknown model のトラブルシュート
+
+- **Unknown model: anthropic/claude-opus-4.5**（ドット表記）が出る場合:
+  - Anthropic API の正しいモデルIDは **ハイフン** `anthropic/claude-opus-4-5`。ドット `4.5` は無効。
+  - **対処:** primary をエイリアス **opus45** に設定する（解決後は `anthropic/claude-opus-4-5` になる）。  
+    `openclaw config set agents.defaults.model.primary opus45` のあと、**gateway を再起動**する。
+  - Control UI やセッションで「Opus 4.5」を選ぶとドット表記が渡ることがあるため、**primary は必ず opus45（エイリアス）** にしておくこと。
 
 - **Unknown model: openai-codex/gpt-5.3-codex** または **Unknown model: openai/gpt-5.3-codex** が出る場合:
   - **ローカル:** `openai/gpt-5.3-codex` は OAuth（openai-codex）なしだと **missing** のため使えない。primary が **openai-codex/gpt-5.3-codex** のときは **OAuth 未完了**だと Unknown になる。
@@ -369,6 +637,212 @@ VPSが良い理由:
 ローカルが悪い理由:
 - うっかりローカルgatewayがSlackに接続すると、**二重返信/二重投稿**を発生させる
 - スリープで切断、ネットワーク切替で切断しやすく、安定運用に向かない
+
+## 役割の整理：Control UI / CLI / Slack
+
+「どこで何が動いているか」を混同しやすいので、3つの入口を整理する。
+
+| 入口 | 正体 | 役割 | どこで動くか |
+|------|------|------|--------------|
+| **Control UI** | `http://127.0.0.1:18789/chat?session=...` | Gateway に接続する Web UI。会話・Config・Tools タブ・スキル管理・cron 確認など。 | **Gateway が動いているマシン**の localhost:18789。ローカルで gateway を動かせばローカルで開く。VPS で gateway を動かすと VPS の 18789 になる（ローカルから見るには SSH port forward が必要）。 |
+| **CLI** | `openclaw` コマンド | 設定・モデル認証・cron 定義・`openclaw gateway` 起動など。読むのは**そのコマンドを実行したマシン**の `~/.openclaw/`。 | ローカルで叩けばローカル設定、VPS で叩けば VPS 設定。 |
+| **Slack** | Slack の @Anicca メンション | **Gateway が 1 台だけ** Slack Socket Mode で接続して、メンションに返信する「チャネル」。 | Slack に繋いでいる Gateway が動いているマシン（本番なら VPS 1 台のみ）。 |
+
+**まとめ:**  
+- **Gateway** = 常駐プロセス（`openclaw-gateway`）。Slack 接続・cron 実行・Control UI の裏側。  
+- **Control UI** = その Gateway の「操作画面」。  
+- **CLI** = 同じマシンの `~/.openclaw/` を読んで設定したり gateway を起動したりする道具。  
+- **Slack** = Gateway が接続している「出先」のひとつ。Gateway が 1 台なら、Slack に返信するのも 1 台だけ。
+
+---
+
+## VPS の Control UI（ダッシュボード）をローカルから開く
+
+Gateway を VPS で動かしているとき、**同じダッシュボード（`http://127.0.0.1:18789/chat?session=agent:anicca:main`）をローカルのブラウザで見る**には、**SSH のポートフォワード**を使う。
+
+### 手順（毎回やること）
+
+1. **ローカルでターミナルを1つ開き、以下を実行してつなぎっぱなしにする**
+   ```bash
+   ssh -L 18789:127.0.0.1:18789 anicca@46.225.70.241
+   ```
+   - `-L 18789:127.0.0.1:18789` = 「ローカルの 18789 へのアクセスを、VPS の 127.0.0.1:18789 に転送する」という意味。
+   - このターミナルは**閉じない**。閉じると port forward が切れてダッシュボードに繋がらなくなる。
+
+2. **ブラウザで開く**
+   - いつも通り: **http://127.0.0.1:18789/chat?session=agent%3Aanicca%3Amain**
+   - ローカルは「自分の 18789」にアクセスしているが、SSH が VPS の gateway に転送するので、**VPS の Control UI** が表示される。
+
+3. **使い終わったら**
+   - SSH のターミナルで `exit` または Ctrl+D で切断すればよい。
+
+### 認証（token が有効な場合）
+
+VPS の `openclaw.json` で `gateway.auth.mode: "token"` になっている場合、Control UI を開いたときに **token を聞かれることがある**。そのときは、VPS の `~/.openclaw/openclaw.json` の `gateway.auth.token` の値を入力する（ローカルの openclaw と同じ token を VPS にコピーしてあるなら同じ値でよい）。
+
+### まとめ
+
+| やりたいこと | やること |
+|--------------|----------|
+| VPS のダッシュボードを GUI で見る | ローカルで `ssh -L 18789:127.0.0.1:18789 anicca@46.225.70.241` を実行したまま、ブラウザで http://127.0.0.1:18789/chat?session=agent%3Aanicca%3Amain を開く |
+| つなぎっぱなしにしたい | 上記 SSH セッションをターミナルで維持するか、`autossh` などで永続化する（任意）。 |
+
+CLI はエージェント（僕）がログや設定を確認するときに使い、**あなたはこの GUI で会話・Config・Tools・cron を把握する**、という役割分担で問題ない。
+
+---
+
+## ローカルで入れたスキル・設定を VPS でそのまま使う
+
+**結論:** ローカルで追加したスキルやツールの allowlist は、**VPS の `~/.openclaw/` に同じ中身を用意すれば VPS でもそのまま使える**。OpenClaw は「そのマシンの `~/.openclaw/`」だけを読むので、VPS で動かすなら VPS 側に揃える必要がある。
+
+### 同期するもの（VPS に揃えたいもの）
+
+| 対象 | ローカル | VPS にやること |
+|------|----------|----------------|
+| **managed スキル** | `~/.openclaw/skills/`（例: slack-mention-handler） | このフォルダごと rsync またはコピー |
+| **workspace スキル** | `~/.openclaw/workspace/skills/`（例: daily-metrics-reporter） | 同じく rsync / コピー。VPS の `workspace` が同じ構成になるようにする |
+| **設定** | `~/.openclaw/openclaw.json` | VPS 用にコピーし、**`agents.defaults.workspace` と `agents.list[].workspace` を VPS のパス**（例: `/home/anicca/.openclaw/workspace`）に書き換える |
+| **環境変数** | `~/.openclaw/.env` | 必要なキーを VPS の `~/.openclaw/.env` にコピー（API キー・REVENUECAT 等）。**中身は貼り付けない・コミットしない** |
+| **cron 定義** | `~/.openclaw/cron/jobs.json` | ローカルと揃えたいならコピー |
+| **OAuth 等** | `~/.openclaw/agents/anicca/agent/auth-profiles.json` | マシンごとなので VPS では VPS 用に OAuth をやり直す（openai-codex 等）。ファイルのコピーは認証の仕様次第で失敗することがある |
+
+### 同期コマンド例（スキル＋cron のみ。設定・.env は手で調整）
+
+```bash
+# スキル（managed）
+rsync -avz ~/.openclaw/skills/ anicca@46.225.70.241:~/.openclaw/skills/
+
+# workspace 内スキル
+ssh anicca@46.225.70.241 'mkdir -p ~/.openclaw/workspace/skills'
+rsync -avz ~/.openclaw/workspace/skills/ anicca@46.225.70.241:~/.openclaw/workspace/skills/
+
+# cron 定義（上書き注意）
+# rsync -avz ~/.openclaw/cron/jobs.json anicca@46.225.70.241:~/.openclaw/cron/
+```
+
+**openclaw.json について:**  
+- コピーする場合は、**workspace のパスを VPS 用に書き換える**（`/Users/cbns03/...` → `/home/anicca/.openclaw/workspace`）。  
+- Slack のトークン等はすでに openclaw.json に入っているなら、そのまま VPS 用に持っていっても動く（本番は VPS 1 台だけが接続する前提）。
+
+### VPS スキル状態（確認済み・2026-02-10）
+
+| 種類 | スキル名 | 備考 |
+|------|----------|------|
+| managed | moltbook, slack-mention-handler | 両方 `skills.entries` に `enabled: true` で登録済み |
+| workspace | content-research-writer, daily-metrics-reporter, gitclaw | 同上。計 5 つが Anicca から利用可能 |
+
+- **同期:** ローカルの `~/.openclaw/skills/` と `~/.openclaw/workspace/skills/` を VPS に rsync 済み。ローカルには OpenClaw 用スキルがこの 2 フォルダにしかないため、**これ以上ローカルから持ってくる OpenClaw スキルはない**。`.claude/skills/` は Cursor/Claude 用で、OpenClaw とは別。
+- **設定:** VPS の `openclaw.json` の `skills.entries` に上記 5 つを明示し、gateway 再起動済み。
+
+---
+
+## 現状確認（TODO を始める前にやること）
+
+**目的:** TODO を実行する前に「いま何が動いていて、何が止まっているか」を把握する。実装はせず、**確認コマンドを実行して結果を記録する**だけ。
+
+### ローカル（Mac）で確認すること
+
+| 確認項目 | コマンド | 期待する状態（VPS 本番化する場合） |
+|----------|----------|--------------------------------------|
+| gateway プロセスが動いているか | `pgrep -fl openclaw-gateway || echo "OK: プロセスなし"` | **プロセスなし**（何も出ないか "OK: プロセスなし"）。動いていたら Slack 二重の原因になり得る。 |
+| launchd に gateway が登録されていないか | `launchctl list \| grep -i openclaw || echo "OK: 未登録"` | **未登録**。登録されていると Mac 起動時に gateway が立ち上がる可能性がある。 |
+| LaunchAgents に plist が残っていないか | `ls ~/Library/LaunchAgents/ai.openclaw.gateway.plist 2>/dev/null && echo "あり" \|\| echo "OK: なし"` | **なし**（または退避済み）。 |
+
+**メモ欄（自分で埋める）:**  
+- ローカル gateway: 動いている / 止まっている → ________  
+- launchd: 登録あり / なし → ________  
+
+### VPS で確認すること
+
+| 確認項目 | コマンド | 意味 |
+|----------|----------|------|
+| gateway の稼働状態 | `ssh anicca@46.225.70.241 'systemctl --user --no-pager status openclaw-gateway.service'` | `Active: active (running)` なら起動中、`inactive (dead)` なら停止中。 |
+| 直近の gateway ログ（モデル・Slack） | `ssh anicca@46.225.70.241 'journalctl --user -u openclaw-gateway.service -n 50 --no-pager'` | `agent model: ...` でどのモデルで動いているか、`socket mode connected` で Slack 接続有無を確認。 |
+| 現在の primary モデル設定 | `ssh anicca@46.225.70.241 'openclaw config get agents.defaults.model.primary'` | いま VPS でどのモデルが default か。Opus 4.5 なら `opus45` または `anthropic/claude-opus-4-5`。 |
+
+**メモ欄（自分で埋める）:**  
+- VPS gateway: 起動中 / 停止中 → ________  
+- VPS の primary モデル: ________  
+- ログに socket mode connected: あり / なし → ________  
+
+### 確認結果の解釈
+
+- **ローカル gateway が動いていて、VPS も動いている** → 二重返信が起きている可能性大。TODO では「ローカルを止める」「VPS だけ繋ぐ」を徹底する。
+- **ローカル gateway は止まっている、VPS は停止中** → 現状 Slack に返信する Anicca はどこにもいない。TODO の「VPS で gateway を起動」まで進めると VPS 1 台で繋がる。
+- **ローカル gateway は止まっている、VPS は起動中** → すでに「VPS 1 台だけ」の状態。TODO はスキル同期や primary の確認（Opus 4.5 に揃える）などに集中すればよい。
+
+このセクションは**実装しない**。上記コマンドを実行し、結果をメモしてから次の「今からやるべきこと TODO」に進む。
+
+### 現状確認メモ（実行日: 2026-02-10）
+
+| 項目 | 結果 |
+|------|------|
+| **ローカル gateway プロセス** | **動いている**（PID 46875, openclaw-gateway） |
+| **ローカル launchd** | **登録あり**（ai.openclaw.gateway） |
+| **ローカル plist** | **あり**（~/Library/LaunchAgents/ai.openclaw.gateway.plist に存在） |
+| **VPS gateway** | **停止中**（inactive (dead) since 2026-02-10 02:40:14 UTC） |
+| **VPS の primary モデル** | openai-codex/gpt-5.3-codex |
+| **VPS 直近ログ** | 停止前は `agent model: openai-codex/gpt-5.3-codex`・`socket mode connected` だったが、`Unknown model: openai-codex/gpt-5.3-codex` でエラー。その後手動停止（SIGTERM）。 |
+
+**解釈:** いま Slack に繋がっているのは**ローカル 1 台だけ**。VPS は停止済み。VPS 本番化する場合は「ローカル gateway を止める」「VPS の primary を Opus 4.5 に変更してから VPS gateway を起動」が必要。
+
+---
+
+## 今からやるべきこと TODO（VPS 本番化＋Opus 4.5 デフォルト＋ローカルスキルを効かせる）
+
+**前提:** VPS のデフォルトモデルは **Opus 4.5（opus45 / anthropic/claude-opus-4-5）** とする。Codex は使わない。現状確認は済んでいる前提。
+
+---
+
+### 誰がやるか・指示（Anicca 用 / Cursor エージェント用）
+
+この TODO の**実行者**は次のどちらか。ユーザー（人間）は実行しない。
+
+| 実行者 | 説明 |
+|--------|------|
+| **Anicca（Slack / VPS）** | このドキュメントの手順とパスに従って実行する。権限や環境でできないことがあれば、Slack でユーザーに「〇〇ができない／〇〇をやってほしい」と報告・依頼してよい。 |
+| **Cursor のエージェント** | このチャットで応答している AI。同じ手順をローカル／VPS 向けに実行する。必要ならユーザーに確認を取る。 |
+
+- **困ったとき:** Anicca はユーザーに報告する。Cursor で進めている場合は、Cursor のエージェントがユーザーに確認を求めるか、Anicca に任せる旨を伝える。
+
+- **ローカル Mac 上の作業:** スキル一覧の確認、gateway の起動/停止、rsync の送り元での実行など、**ローカルで必要な確認・コマンド実行は Cursor のエージェントが担当する**。VPS の Anicca はローカルに直接アクセスできない。
+
+どちらの実行者でも同じ結果になるように、以下に **ローカル用のパス** と **VPS 用のパス** をそれぞれ示す。
+
+---
+
+### パス一覧（参照用）
+
+| 用途 | ローカル（Mac） | VPS |
+|------|-----------------|-----|
+| **OpenClaw ルート** | `/Users/cbns03/.openclaw` | `/home/anicca/.openclaw` |
+| 設定ファイル | `/Users/cbns03/.openclaw/openclaw.json` | `/home/anicca/.openclaw/openclaw.json` |
+| 環境変数 | `/Users/cbns03/.openclaw/.env` | `/home/anicca/.openclaw/.env` |
+| managed スキル | `/Users/cbns03/.openclaw/skills/` | `/home/anicca/.openclaw/skills/` |
+| workspace スキル | `/Users/cbns03/.openclaw/workspace/skills/` | `/home/anicca/.openclaw/workspace/skills/` |
+| workspace ルート | `/Users/cbns03/.openclaw/workspace` | `/home/anicca/.openclaw/workspace` |
+| cron 定義 | `/Users/cbns03/.openclaw/cron/jobs.json` | `/home/anicca/.openclaw/cron/jobs.json` |
+| launchd plist（ローカルのみ） | `/Users/cbns03/Library/LaunchAgents/ai.openclaw.gateway.plist` | （なし） |
+
+---
+
+### TODO リスト（1 から 7・パス付き）
+
+やる順で揃えたチェックリスト。上から順に行う。
+
+| # | やること | 関係するパス（ローカル / VPS） | 補足 |
+|---|----------|--------------------------------|------|
+| 1 | **ローカルで gateway が動いていないことを確認（必要なら止める）** | **ローカル:** プロセス確認はローカル Mac。plist は `/Users/cbns03/Library/LaunchAgents/ai.openclaw.gateway.plist` | ローカルで `pgrep -fl openclaw-gateway \|\| echo OK`。動いていたら止める。launchd に登録されていれば無効化・plist を LaunchAgents 外へ退避。 |
+| 2 | **VPS にローカルで入れたスキル・cron・設定を同期** | **ローカル:** `/Users/cbns03/.openclaw/skills/`, `workspace/skills/`, `openclaw.json`, `.env`, `cron/jobs.json` → **VPS:** `/home/anicca/.openclaw/` の同階層 | 「同期するもの」の表と rsync 例のとおり。openclaw.json をコピーする場合は workspace パスを **`/home/anicca/.openclaw/workspace`** に書き換える。.env は手で VPS に必要なキーを入れる。 |
+| 3 | **VPS の primary を Opus 4.5（opus45）に統一** | **VPS:** `/home/anicca/.openclaw/openclaw.json`, `/home/anicca/.openclaw/.env` | VPS で `openclaw config set agents.defaults.model.primary opus45`。allowlist に opus45 が無ければ openclaw.json に追加。Anthropic 認証を VPS の .env または `openclaw models auth paste-token --provider anthropic` で済ませる。 |
+| 4 | **VPS で gateway を起動（停止中なら）** | **VPS:** systemd ユーザーサービス。作業ディレクトリは `/home/anicca/.openclaw/` | `ssh anicca@46.225.70.241 'systemctl --user start openclaw-gateway.service'` |
+| 5 | **VPS のログで Slack 接続・モデルを確認** | **VPS:** journalctl のログ。設定は `/home/anicca/.openclaw/openclaw.json` | `ssh anicca@46.225.70.241 'journalctl --user -u openclaw-gateway.service -n 80 --no-pager'` で `agent model: anthropic/claude-opus-4-5`（または opus45）と `socket mode connected` を確認。 |
+| 6 | **Slack で 1 メンション = 1 返信を確認** | **VPS:** 返信時の設定パス表示が `/home/anicca/.openclaw/...` になっていること | 二重返信がなくなっていること。Slack の返信内容に出る設定パスが VPS のパスであること。 |
+| 7 | **Control UI をローカルから使う** | **ローカル:** ブラウザ `http://127.0.0.1:18789/...`。**VPS:** gateway は `127.0.0.1:18789` で待ち受け | ローカルで `ssh -L 18789:127.0.0.1:18789 anicca@46.225.70.241` を実行したまま、ブラウザで `http://127.0.0.1:18789/chat?session=agent%3Aanicca%3Amain` を開く。VPS のダッシュボードが表示される。 |
+
+以上が完了すれば、「Slack は VPS 1 台だけ」「VPS のデフォルトは Opus 4.5」「ローカルで入れたスキルは VPS で使える」「24x7 は VPS の gateway＋cron で運用」という状態になる。
+
+---
 
 ## 参照
 
