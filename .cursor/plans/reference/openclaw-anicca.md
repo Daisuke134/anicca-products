@@ -851,3 +851,77 @@ rsync -avz ~/.openclaw/workspace/skills/ anicca@46.225.70.241:~/.openclaw/worksp
 
 - 実装TODO: `../ios/1.6.2/implementation/TODO-NEXT-2026-02-09.md`
 - デプロイTODO: `../ios/1.6.2/deployment-todo.md`
+
+---
+
+## VPS で今すぐ使えるスキル一覧（2026-02-10 更新）
+
+### API キー不要 + CLI インストール済み = 🟢
+
+| スキル | 用途 |
+|--------|------|
+| weather | 天気取得 |
+| github | Git操作、PR、Issue |
+| tmux | ターミナル制御 |
+| session-logs | 過去ログ検索 |
+| skill-creator | 新スキル作成 |
+| healthcheck | セキュリティ診断 |
+| slack | メッセージ送信・リアクション |
+| coding-agent | Codex / Claude Code 操作 |
+| clawhub | スキル検索・インストール |
+| canvas | UI 制御 |
+| discord | Discord 操作 |
+
+### API キー設定済み = 🟢
+
+| スキル | API キー |
+|--------|---------|
+| nano-banana-pro | GEMINI_API_KEY ✅ |
+| openai-whisper-api | OPENAI_API_KEY ✅ |
+| openai-image-gen | OPENAI_API_KEY ✅ |
+
+### VPS にインストール済み CLI
+
+- Codex CLI: `/usr/bin/codex` (v0.98.0)
+- Claude Code: `~/.local/bin/claude` (v2.1.37)
+- uv: `~/.local/bin/uv` (v0.10.0)
+- gh: `/usr/bin/gh`
+
+---
+
+## anicca.ai リポジトリ（VPS クローン）
+
+```
+/home/anicca/.openclaw/workspace/anicca.ai/
+├── aniccaios/          # iOS アプリ本体
+├── .claude/            # Claude Code 設定
+├── .codex/             # Codex 設定
+├── .cursor/            # Cursor 設定（このファイル含む）
+├── docs/
+├── scripts/
+├── openclaw-skills/
+└── ...
+```
+
+- ブランチ: `dev`
+- Git 同期: `git pull` / `git push` で Mac と同期可能
+
+---
+
+## Tailscale（検討中）
+
+**目的:** VPS から Mac のローカルファイルに直接アクセスする
+
+**現状:** 未設定
+
+**設定手順（予定）:**
+1. VPS に Tailscale インストール: `curl -fsSL https://tailscale.com/install.sh | sh && tailscale up --ssh`
+2. Mac に Tailscale インストール: https://tailscale.com/download
+3. 同じ Tailscale アカウントでログイン
+4. VPS から Mac に SSH: `tailscale ssh <mac-name>`
+
+**メリット:**
+- Mac が起動中なら VPS からローカルファイルに直接アクセス可能
+- Git 同期不要でリアルタイム編集
+- セキュア（公開ポート不要）
+
