@@ -746,9 +746,9 @@ rsync -avz ~/.openclaw/workspace/skills/ anicca@46.225.70.241:~/.openclaw/worksp
 
 ### ローカル（Mac）で確認すること
 
-| 確認項目 | コマンド | 期待する状態（VPS 本番化する場合） |
+| 確認項目 | コマンド | 期待する状態（運用: VPS 稼働・ローカル停止） |
 |----------|----------|--------------------------------------|
-| gateway プロセスが動いているか | `pgrep -fl openclaw-gateway || echo "OK: プロセスなし"` | **プロセスなし**（何も出ないか "OK: プロセスなし"）。動いていたら Slack 二重の原因になり得る。 |
+| gateway プロセスが動いているか | `pgrep -fl openclaw-gateway || echo "OK: プロセスなし"` | **プロセスなし**。ローカルは止めておく（動いていたら Slack 二重の原因になり得る）。 |
 | launchd に gateway が登録されていないか | `launchctl list \| grep -i openclaw || echo "OK: 未登録"` | **未登録**。登録されていると Mac 起動時に gateway が立ち上がる可能性がある。 |
 | LaunchAgents に plist が残っていないか | `ls ~/Library/LaunchAgents/ai.openclaw.gateway.plist 2>/dev/null && echo "あり" \|\| echo "OK: なし"` | **なし**（または退避済み）。 |
 
