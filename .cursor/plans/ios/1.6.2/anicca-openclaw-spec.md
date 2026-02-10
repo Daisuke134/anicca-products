@@ -5,6 +5,8 @@
 > **最終更新**: 2026-02-05 (Round 3)
 > **ベース**: 1.6.2-ultimate-spec.md + OpenClaw Framework Research
 
+**運用現状（どこで動いているか）:** `.cursor/plans/reference/openclaw-anicca.md` を参照。現時点では **ローカル**で gateway 運用中・VPS gateway は停止済み。
+
 ---
 
 ## 0. Executive Summary

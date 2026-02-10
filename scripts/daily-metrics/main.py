@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Awaitable, Callable, TypeVar
 
 from models import AppStoreMetrics, DailyMetrics, DataQuality, MixpanelMetrics, RevenueCatMetrics
-from window import default_reporting_window
+from window import asc_reporting_window, behavior_reporting_window
 
 T = TypeVar("T")
 
@@ -21,16 +21,17 @@ async def collect_metrics() -> DailyMetrics:
     from revenuecat_client import fetch_revenuecat_metrics
 
     errors: list[str] = []
-    window = default_reporting_window()
+    asc_window = asc_reporting_window()
+    behavior_window = behavior_reporting_window()
 
     asc_task = asyncio.create_task(
-        _safe_fetch("App Store Connect", lambda: fetch_app_store_metrics(window))
+        _safe_fetch("App Store Connect", lambda: fetch_app_store_metrics(asc_window))
     )
     rc_task = asyncio.create_task(
-        _safe_fetch("RevenueCat", lambda: fetch_revenuecat_metrics(window))
+        _safe_fetch("RevenueCat", lambda: fetch_revenuecat_metrics(behavior_window))
     )
     mp_task = asyncio.create_task(
-        _safe_fetch("Mixpanel", lambda: fetch_mixpanel_metrics(window))
+        _safe_fetch("Mixpanel", lambda: fetch_mixpanel_metrics(behavior_window))
     )
 
     asc_result, asc_error = await asc_task

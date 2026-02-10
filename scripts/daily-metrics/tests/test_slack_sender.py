@@ -112,6 +112,20 @@ class TestFormatSlackBlocks:
         body = payload["blocks"][1]["text"]["text"]
         assert "Trend:" not in body
 
+    def test_alerts_hidden_when_metrics_are_healthy(self):
+        metrics = DailyMetrics(
+            date="2026-02-10",
+            app_store=AppStoreMetrics(
+                total_downloads_7d=84,  # 12/day
+                downloads_by_country=(("JP", 70),),
+                cvr_page_to_download=3.5,
+            ),
+            data_quality=DataQuality(asc="ok", rc="missing", mp="missing"),
+        )
+        payload = format_slack_blocks(metrics)
+        body = payload["blocks"][1]["text"]["text"]
+        assert "Alerts:" not in body
+
 
 class TestFormatErrorMessage:
     def test_error_format(self):

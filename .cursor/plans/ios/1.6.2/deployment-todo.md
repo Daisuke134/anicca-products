@@ -1,4 +1,4 @@
-# 1.6.2 デプロイ & 実践 TODO
+# 1.6.2 デプロイ & 実践 TODO（Runbook）
 
 > VoxYZ + Oliver Henry + x-research-skill の学びを Anicca に適用するタスクリスト
 
@@ -26,16 +26,16 @@
 
 | # | タスク | ステータス | 依存 | 詳細 |
 |---|--------|-----------|------|------|
-| P2-1 | OpenClaw マルチエージェント設計 | ⬜ | P1-10 | anicca(共感), hunter(発見), growth(分析) の3エージェント |
-| P2-2 | openclaw.json agents[] 追加 | ⬜ | P2-1 | systemPrompt、model（hunter/growth は gpt-4o-mini でコスト削減） |
-| P2-3 | Roundtable 会話スキル作成 | ⬜ | P2-2 | VoxYZ パターン: standup, debate, watercooler |
-| P2-4 | 朝スタンドアップ Cron 追加 | ⬜ | P2-3 | 毎朝9:00 JST → エージェント間会話 → Slack #ops |
-| P2-5 | 構造化 Memory テーブル追加 | ⬜ | P2-1 | insight, pattern, strategy, lesson, preference + confidence |
-| P2-6 | 会話ログ → Memory 自動抽出 | ⬜ | P2-4,P2-5 | LLM で会話から insight/pattern/lesson を抽出 |
-| P2-7 | Initiative システム | ⬜ | P2-6 | エージェントが自発的に Proposal 生成（memory >= 5件で有効化） |
-| P2-8 | x-research を Trend-Hunter に統合 | ⬜ | P1-2 | x-search CLI → queryBuilder → orchestrator パイプライン |
-| P2-9 | Reaction Matrix 設定 | ⬜ | P2-2 | VoxYZ パターン: tweet_high_engagement → growth 分析、等 |
-| P2-10 | 1週間自律運用テスト | ⬜ | P2-1〜P2-9 | あなたは Slack で OK を押すだけ |
+| P2-1 | OpenClaw マルチエージェント設計 | ✅ | P1-10 | anicca(共感), hunter(発見), growth(分析) の3エージェント |
+| P2-2 | openclaw.json agents[] 追加 | ✅ | P2-1 | VPS `openclaw.json` に `anicca/hunter/growth` 追加 |
+| P2-3 | Roundtable 会話スキル作成 | ✅ | P2-2 | API側で standup/debate/watercooler 実装 |
+| P2-4 | 朝スタンドアップ Cron 追加 | ✅ | P2-3 | OpenClaw cron `09:00 JST` → `/api/admin/roundtable/standup` |
+| P2-5 | 構造化 Memory テーブル追加 | ✅ | P2-1 | `memory_items`（scope/category/key/value/confidence/source/expires_at） |
+| P2-6 | 会話ログ → Memory 自動抽出 | ✅ | P2-4,P2-5 | OpenClaw cron `08:55 JST` → `/api/admin/roundtable/memory-extract` |
+| P2-7 | Initiative システム | ✅ | P2-6 | OpenClaw cron `09:05 JST` → `/api/admin/roundtable/initiative-generate` |
+| P2-8 | x-research を Trend-Hunter に統合 | ✅ | P1-2 | 最小統合: `research_items` + admin API + roundtable から参照 |
+| P2-9 | Reaction Matrix 設定 | ✅ | P2-2 | 数値固定 + テスト |
+| P2-10 | Day-0 自律運用レディネス | ⬜ | P2-1〜P2-9 | `autonomy-check pass=true` を1回出せば完了（以降は日次運用） |
 
 ### Phase 2 ゴール
 > 3エージェントが毎日会話し、自発的に Proposal を生成し、学習すること
@@ -71,4 +71,4 @@
 
 ---
 
-最終更新: 2026-02-08
+最終更新: 2026-02-09

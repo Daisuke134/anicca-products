@@ -186,13 +186,55 @@ def format_error_message(errors: list[str], successes: list[str]) -> dict:
 
 
 async def send_to_slack(payload: dict) -> bool:
-    """Send Block Kit payload to Slack via webhook. Retries up to 3 times."""
-    webhook_url = os.environ["SLACK_METRICS_WEBHOOK_URL"]
+    """Send Block Kit payload to Slack.
+
+    Priority:
+    1) Incoming webhook (SLACK_METRICS_WEBHOOK_URL)
+    2) Bot token + chat.postMessage fallback
+    """
+    webhook_url = os.environ.get("SLACK_METRICS_WEBHOOK_URL", "").strip()
+    bot_token = os.environ.get("SLACK_BOT_TOKEN", "").strip()
+    channel_id = os.environ.get("SLACK_METRICS_CHANNEL_ID", "C091G3PKHL2").strip()
+
+    text_fallback = "Anicca Daily Report"
+    if payload.get("blocks"):
+        # Header + section text first, to keep push notifications readable.
+        try:
+            header = payload["blocks"][0]["text"]["text"]
+            body = payload["blocks"][1]["text"]["text"]
+            text_fallback = f"{header}\n{body}"
+        except (KeyError, IndexError, TypeError):
+            pass
+
     async with httpx.AsyncClient(timeout=10.0) as client:
         for attempt in range(3):
             try:
-                resp = await client.post(webhook_url, json=payload)
+                if webhook_url:
+                    resp = await client.post(webhook_url, json=payload)
+                elif bot_token:
+                    resp = await client.post(
+                        "https://slack.com/api/chat.postMessage",
+                        headers={
+                            "Authorization": f"Bearer {bot_token}",
+                            "Content-Type": "application/json; charset=utf-8",
+                        },
+                        json={
+                            "channel": channel_id,
+                            "text": text_fallback,
+                            "blocks": payload.get("blocks", []),
+                        },
+                    )
+                else:
+                    print("Slack credentials missing: webhook and bot token are both unset", file=sys.stderr)
+                    return False
+
                 if resp.status_code == 200:
+                    # chat.postMessage can return HTTP 200 with {"ok": false}
+                    if not webhook_url:
+                        data = resp.json()
+                        if not data.get("ok", False):
+                            print(f"Slack API error: {data}", file=sys.stderr)
+                            return False
                     return True
                 print(f"Slack API returned {resp.status_code}: {resp.text}", file=sys.stderr)
                 if resp.status_code == 429:
