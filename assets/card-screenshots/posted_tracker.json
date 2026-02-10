@@ -128,11 +128,20 @@
         "posted_at": "2026-02-10T03:50:20.459Z",
         "blotato_post_id": "f8f456b7-9521-487c-94a7-ff0108fe1b4f"
       }
+    },
+    "staying_up_late_8": {
+      "ja": {
+        "status": "in_flight",
+        "reserved_at": "2026-02-10T10:50:18.204Z",
+        "run_id": "21861879012",
+        "posted_at": null,
+        "blotato_post_id": null
+      }
     }
   },
   "next_index": {
     "en": 8,
-    "ja": 8
+    "ja": 9
   },
   "card_order": [
     "staying_up_late_0",
