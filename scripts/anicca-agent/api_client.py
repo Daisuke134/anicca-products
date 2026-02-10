@@ -80,3 +80,12 @@ class AdminAPIClient:
     # EP-6
     def refresh_tiktok_stats(self):
         return self._post("/hook-candidates/refresh-tiktok-stats")
+
+    # OPS-1 (1.6.2): record ops events (SSOT is agent_audit_logs) + optional Slack notify.
+    def record_ops_event(self, event_type, platform=None, payload=None):
+        data = {
+            "eventType": event_type,
+            "platform": platform,
+            "payload": payload or {},
+        }
+        return self._post("/ops/events", json_data=data)

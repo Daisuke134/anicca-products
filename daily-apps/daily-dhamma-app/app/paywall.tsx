@@ -41,8 +41,7 @@ export default function PaywallScreen() {
     purchasePackage,
     restorePurchases,
     isPurchasing,
-    isRestoring,
-    isPremium
+    isRestoring
   } = useRevenueCat();
 
   const monthlyPackage = currentOffering?.availablePackages.find(

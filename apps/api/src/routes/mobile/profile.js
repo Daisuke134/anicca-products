@@ -4,6 +4,7 @@ import { getProfile, getProfileByUserId, upsertProfile } from '../../services/mo
 import { classifyAndSave, deleteEstimate } from '../../services/userTypeService.js';
 import baseLogger from '../../utils/logger.js';
 import extractUserId from '../../middleware/extractUserId.js';
+import { resolveProfileId } from '../../services/mobile/userIdResolver.js';
 
 const router = express.Router();
 const logger = baseLogger.withContext('MobileProfile');
@@ -193,9 +194,11 @@ router.put('/', async (req, res) => {
     try {
       const struggles = profileData.struggles || profileData.problems || [];
       if (struggles.length > 0) {
-        await classifyAndSave(userId, struggles);
+        const profileId = (await resolveProfileId(userId)) || null;
+        if (profileId) await classifyAndSave(profileId, struggles);
       } else {
-        await deleteEstimate(userId);
+        const profileId = (await resolveProfileId(userId)) || null;
+        if (profileId) await deleteEstimate(profileId);
       }
     } catch (classifyError) {
       // Non-blocking: classification failure should not break profile upsert
@@ -210,4 +213,3 @@ router.put('/', async (req, res) => {
 });
 
 export default router;
-

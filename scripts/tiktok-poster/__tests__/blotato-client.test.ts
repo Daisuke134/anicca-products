@@ -131,7 +131,7 @@ describe('BlotatoClient', () => {
     expect(result.postSubmissionId).toBe('fallback-id-123');
   });
 
-  it('postPhoto truncates caption to 2200 chars', async () => {
+  it('postPhoto truncates caption to 2000 chars', async () => {
     fetchMock.mockResolvedValueOnce(
       mockJsonResponse({ postSubmissionId: 'post-trunc' }),
     );
@@ -141,7 +141,7 @@ describe('BlotatoClient', () => {
     await client.postPhoto('acct-1', 'url', longCaption);
 
     const body = JSON.parse(fetchMock.mock.calls[0][1].body as string);
-    expect(body.post.content.text.length).toBe(2200);
+    expect(body.post.content.text.length).toBe(2000);
   });
 
   it('checkPostStatus returns published status', async () => {

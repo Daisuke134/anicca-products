@@ -41,6 +41,22 @@ def api_put(path, data):
     return resp.json()
 
 
+def api_post(path, data):
+    url = f"{API_BASE_URL}/api/admin{path}"
+    headers = {"Authorization": f"Bearer {API_AUTH_TOKEN}", "Content-Type": "application/json"}
+    resp = requests.post(url, headers=headers, json=data, timeout=30)
+    resp.raise_for_status()
+    return resp.json()
+
+
+def record_ops_event(event_type: str, payload: dict):
+    """Best-effort ops event recorder (never throws)."""
+    try:
+        api_post("/ops/events", {"eventType": event_type, "platform": "x", "payload": payload})
+    except Exception as e:
+        print(f"WARN: failed to record ops event {event_type}: {type(e).__name__}")
+
+
 # ── Blotato ID resolution ────────────────────────────────────────────────────
 
 def resolve_blotato_id(blotato_post_id):
@@ -104,6 +120,7 @@ def fetch_metrics_by_ids(bearer_token, tweet_ids):
 
         if resp.status_code == 429:
             print("WARN: X API rate limited (429). Stopping — will retry next cron run.")
+            record_ops_event("x_credits_depleted", {"reason": "rate_limited_429", "stage": "fetch_metrics"})
             return results  # 取得済み分だけ返す
 
         resp.raise_for_status()

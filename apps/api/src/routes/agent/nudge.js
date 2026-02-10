@@ -8,6 +8,8 @@
 import { Router } from 'express';
 import { prisma } from '../../lib/prisma.js';
 import OpenAI from 'openai';
+import { sendSlackMessage } from '../../services/slackNotifier.js';
+import { detectSuffering } from '../../services/sufferingDetectionService.js';
 
 const router = Router();
 const openai = new OpenAI();
@@ -53,6 +55,33 @@ function sanitizeContext(context) {
   return sanitized;
 }
 
+function trimWithEllipsis(text, maxChars) {
+  const s = String(text || '');
+  if (s.length <= maxChars) return s;
+  if (maxChars <= 3) return s.slice(0, maxChars);
+  return `${s.slice(0, maxChars - 3)}...`;
+}
+
+function enforcePlatformLengthLimits(platform, generated) {
+  // A4 fixed spec: Moltbook reply body max 400 chars.
+  if (platform !== 'moltbook') return generated;
+
+  const originalHook = String(generated.hook || '');
+  const originalContent = String(generated.content || '');
+
+  const hook = trimWithEllipsis(originalHook, 120); // keep hook short for feed readability
+  const remaining = Math.max(0, 400 - hook.length - 1); // 1 char spacer
+  const content = remaining > 0 ? trimWithEllipsis(originalContent, remaining) : '';
+
+  return {
+    ...generated,
+    hook,
+    content,
+    __lengthTrimmed: hook.length !== originalHook.length || content.length !== originalContent.length,
+    __lengthOriginal: { hook: originalHook.length, content: originalContent.length },
+  };
+}
+
 // Map keywords to problem types
 function detectProblemType(text) {
   const mappings = {
@@ -86,6 +115,7 @@ router.post('/', async (req, res) => {
       language = 'ja',
       // Crisis detection fields (from caller, e.g., OpenClaw)
       severity = null,  // null | 'crisis'
+      severityScore = null, // 0.0 - 1.0
       region = null,    // 'JP', 'US', 'UK', 'KR', 'OTHER'
       optIn = false,    // User initiated contact (Mastodon.bot policy)
     } = req.body;
@@ -142,6 +172,15 @@ router.post('/', async (req, res) => {
         message: 'severity must be null or "crisis"',
       });
     }
+
+    if (severityScore !== null) {
+      if (typeof severityScore !== 'number' || Number.isNaN(severityScore) || severityScore < 0 || severityScore > 1) {
+        return res.status(400).json({
+          error: 'Bad Request',
+          message: 'severityScore must be between 0 and 1',
+        });
+      }
+    }
     
     // Validate region if provided
     const validRegions = ['JP', 'US', 'UK', 'KR', 'OTHER'];
@@ -191,6 +230,119 @@ router.post('/', async (req, res) => {
     // Sanitize context
     const sanitizedContext = sanitizeContext(context);
     const problemType = detectProblemType(sanitizedContext);
+    const detection = detectSuffering({
+      context: sanitizedContext,
+      severityScore,
+      severity,
+      source: 'agent_nudge',
+    });
+    const effectiveSeverity = detection.severity;
+
+    for (const eventType of detection.eventTypes) {
+      await prisma.agentAuditLog.create({
+        data: {
+          eventType,
+          platform: normalizedPlatform,
+          requestPayload: {
+            severityScore: detection.severityScore,
+            region,
+            platformUserId,
+            externalPostId,
+          },
+          responsePayload: {
+            detections: detection.detections,
+          },
+          executedBy: 'system',
+        },
+      });
+    }
+
+    if (normalizedPlatform === 'x') {
+      await prisma.agentAuditLog.create({
+        data: {
+          eventType: 'x_detect_only',
+          platform: normalizedPlatform,
+          requestPayload: {
+            severity: effectiveSeverity,
+            severityScore: detection.severityScore,
+            problemType,
+            externalPostId,
+          },
+          executedBy: 'system',
+        },
+      });
+
+      return res.status(202).json({
+        forwarded: true,
+        platform: 'x',
+        policy: 'detect_only_no_reply',
+        problemType,
+        severity: effectiveSeverity,
+        detections: detection.detections,
+      });
+    }
+
+    if (detection.safeTTriggered) {
+      await prisma.agentAuditLog.create({
+        data: {
+          eventType: 'safe_t_interrupted',
+          platform: normalizedPlatform,
+          requestPayload: {
+            externalPostId,
+            platformUserId,
+            region,
+            severityScore: detection.severityScore,
+          },
+          executedBy: 'system',
+        },
+      });
+
+      try {
+        await sendSlackMessage('#agents', {
+          text: `🚨 Crisis detected (${normalizedPlatform})`,
+          blocks: [
+            {
+              type: 'section',
+              text: {
+                type: 'mrkdwn',
+                text: `*Platform*: ${normalizedPlatform}\n*Region*: ${region || 'unknown'}\n*Severity Score*: ${detection.severityScore.toFixed(2)}\n*External Post ID*: ${externalPostId || 'n/a'}`,
+              },
+            },
+          ],
+        });
+        await prisma.agentAuditLog.create({
+          data: {
+            eventType: 'crisis_notification_sent',
+            platform: normalizedPlatform,
+            requestPayload: { region, externalPostId, platformUserId },
+            executedBy: 'system',
+          },
+        });
+      } catch (notifyError) {
+        await prisma.agentAuditLog.create({
+          data: {
+            eventType: 'crisis_notification_failed',
+            platform: normalizedPlatform,
+            requestPayload: {
+              region,
+              externalPostId,
+              platformUserId,
+              error: notifyError.message,
+            },
+            executedBy: 'system',
+          },
+        });
+      }
+
+      return res.status(202).json({
+        forwarded: true,
+        platform: normalizedPlatform,
+        policy: 'safe_t_interrupt',
+        problemType,
+        severity: 'crisis',
+        detections: detection.detections,
+      });
+    }
     
     // Generate nudge using LLM
     const systemPrompt = `You are Anicca, a compassionate AI that helps people suffering from self-destructive patterns.
@@ -225,7 +377,31 @@ Respond in JSON format only.`;
       max_tokens: 500,
     });
 
-    const generated = JSON.parse(completion.choices[0].message.content);
+    let generated = JSON.parse(completion.choices[0].message.content);
+    generated = enforcePlatformLengthLimits(normalizedPlatform, generated);
+
+    if (generated.__lengthTrimmed) {
+      await prisma.agentAuditLog.create({
+        data: {
+          eventType: 'platform_reply_trimmed',
+          platform: normalizedPlatform,
+          requestPayload: {
+            externalPostId,
+            platformUserId,
+            original: generated.__lengthOriginal,
+            max: normalizedPlatform === 'moltbook' ? 400 : null,
+          },
+          responsePayload: {
+            hookLen: generated.hook?.length || 0,
+            contentLen: generated.content?.length || 0,
+          },
+          executedBy: 'system',
+        },
+      });
+    }
+
+    delete generated.__lengthTrimmed;
+    delete generated.__lengthOriginal;
     
     // Create AgentPost record (including crisis fields)
     const agentPost = await prisma.agentPost.create({
@@ -233,7 +409,7 @@ Respond in JSON format only.`;
         platform: normalizedPlatform,
         externalPostId,
         platformUserId,
-        severity,
+        severity: effectiveSeverity,
         region,
         hook: generated.hook,
         content: generated.content,
@@ -243,87 +419,6 @@ Respond in JSON format only.`;
         buddhismReference: generated.buddhismReference,
       },
     });
-    
-    // Crisis event: special audit log + Slack notification
-    if (severity === 'crisis') {
-      const crisisPayload = {
-        region,
-        contextLength: context.length,
-        optIn,
-        agentPostId: agentPost.id,
-        platform: normalizedPlatform,
-      };
-      
-      await prisma.agentAuditLog.create({
-        data: {
-          eventType: 'crisis_detected',
-          agentPostId: agentPost.id,
-          platform: normalizedPlatform,
-          requestPayload: crisisPayload,
-          executedBy: 'system',
-        },
-      });
-      
-      // Send Slack notification to #agents for human review
-      try {
-        const slackWebhookUrl = process.env.SLACK_WEBHOOK_AGENTS;
-        if (slackWebhookUrl) {
-          const response = await fetch(slackWebhookUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              text: `🚨 *Crisis Detected*\nPlatform: ${platform}\nRegion: ${region || 'unknown'}\nPost ID: ${agentPost.id}\n\nRequires human review.`,
-              channel: '#agents',
-            }),
-          });
-          
-          if (!response.ok) {
-            // HTTP non-2xx: treat as failure
-            const responseBody = await response.text().catch(() => 'unknown');
-            await prisma.agentAuditLog.create({
-              data: {
-                eventType: 'crisis_notification_failed',
-                agentPostId: agentPost.id,
-                platform: normalizedPlatform,
-                requestPayload: { 
-                  ...crisisPayload, 
-                  error: `HTTP ${response.status}`,
-                  responseStatus: response.status,
-                  responseBody: responseBody.slice(0, 500),
-                },
-                executedBy: 'system',
-              },
-            });
-            console.error(`[Agent Nudge] Crisis notification failed: HTTP ${response.status}`);
-          } else {
-            // Log successful notification
-            await prisma.agentAuditLog.create({
-              data: {
-                eventType: 'crisis_notification_sent',
-                agentPostId: agentPost.id,
-                platform: normalizedPlatform,
-                requestPayload: crisisPayload,
-                executedBy: 'system',
-              },
-            });
-          }
-        } else {
-          console.warn('[Agent Nudge] SLACK_WEBHOOK_AGENTS not configured, crisis notification skipped');
-        }
-      } catch (notifyError) {
-        // Log notification failure (network error, timeout, etc.)
-        console.error('[Agent Nudge] Crisis notification failed:', notifyError);
-        await prisma.agentAuditLog.create({
-          data: {
-            eventType: 'crisis_notification_failed',
-            agentPostId: agentPost.id,
-            platform: normalizedPlatform,
-            requestPayload: { ...crisisPayload, error: notifyError.message },
-            executedBy: 'system',
-          },
-        });
-      }
-    }
     
     // Audit log
     await prisma.agentAuditLog.create({
