@@ -149,8 +149,9 @@ router.post('/posts', async (req, res) => {
     if (!caption || typeof caption !== 'string') {
       return res.status(400).json({ error: 'caption is required' });
     }
-    if (caption.length > 2200) {
-      return res.status(400).json({ error: 'caption exceeds 2200 characters' });
+    // B2: conservative limit to avoid provider-side counting mismatch
+    if (caption.length > 2000) {
+      return res.status(400).json({ error: 'caption exceeds 2000 characters' });
     }
     if (blotato_post_id.length > 100) {
       return res.status(400).json({ error: 'blotato_post_id exceeds 100 characters' });

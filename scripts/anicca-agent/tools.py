@@ -3,9 +3,12 @@ Anicca TikTok Agent - Tool Definitions
 7 tools for the OpenAI function calling agent.
 """
 import json
+import os
 import re
 import time
 from datetime import datetime, timezone, timedelta
+from pathlib import Path
+from typing import Optional
 import requests
 from config import (
     BLOTATO_API_KEY,
@@ -21,6 +24,20 @@ from api_client import AdminAPIClient
 
 api = AdminAPIClient()
 _openai_client = OpenAI(api_key=OPENAI_API_KEY)
+
+# =============================================================================
+# B2: Posting stability constants (conservative)
+# =============================================================================
+MAX_CHARS_TIKTOK = 2000
+RETRY_BACKOFF_SECONDS = [60, 300, 1800]  # max 3 attempts
+
+# Error categories (SSOT: TODO-NEXT-2026-02-09.md)
+ERR_AUTH = "AUTH"
+ERR_PERMISSION = "PERMISSION"
+ERR_RATE_LIMIT = "RATE_LIMIT"
+ERR_VALIDATION = "VALIDATION"
+ERR_PROVIDER_OUTAGE = "PROVIDER_OUTAGE"
+ERR_UNKNOWN = "UNKNOWN"
 
 # =============================================================================
 # Date anchor (C-1 fix): set once at agent startup, used by all tools
@@ -60,6 +77,41 @@ def build_jst_iso(time_hhmm: str):
     if not validated:
         return None
     return f"{_get_today_date()}T{validated}:00+09:00"
+
+# =============================================================================
+# B2: Ops + DLQ helpers
+# =============================================================================
+def _classify_http_error(status_code: Optional[int]):
+    if status_code is None:
+        return ERR_UNKNOWN
+    if status_code in (401,):
+        return ERR_AUTH
+    if status_code in (403,):
+        return ERR_PERMISSION
+    if status_code == 429:
+        return ERR_RATE_LIMIT
+    if 400 <= status_code <= 499:
+        return ERR_VALIDATION
+    if 500 <= status_code <= 599:
+        return ERR_PROVIDER_OUTAGE
+    return ERR_UNKNOWN
+
+
+def _append_dlq_entry(entry: dict):
+    # Default aligns with apps/api DLQ monitor (can be overridden by env).
+    dlq_dir = (Path(__import__("os").environ.get("DLQ_DIR", "/tmp/anicca/dlq"))).expanduser()
+    dlq_dir.mkdir(parents=True, exist_ok=True)
+    path = dlq_dir / "tiktok-poster.jsonl"
+    with path.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(entry, ensure_ascii=True) + "\n")
+
+
+def _record_ops_event_safe(event_type: str, platform: str, payload: dict):
+    try:
+        api.record_ops_event(event_type=event_type, platform=platform, payload=payload)
+    except Exception:
+        # Never let ops telemetry break the posting flow.
+        return
 
 # =============================================================================
 # OpenAI Tool Definitions (JSON Schema)
@@ -385,7 +437,8 @@ def post_to_tiktok(**kwargs):
         "post": {
             "accountId": TIKTOK_ACCOUNT_ID,
             "content": {
-                "text": full_caption[:2200],
+                # B2: conservative limit to avoid provider-side counting mismatch
+                "text": full_caption[:MAX_CHARS_TIKTOK],
                 "mediaUrls": [image_url],
                 "platform": "tiktok",
             },
@@ -415,22 +468,146 @@ def post_to_tiktok(**kwargs):
             return json.dumps({"success": False, "error": f"posting_time {posting_time} is in the past (now: {now_jst.strftime('%H:%M')} JST). Pick a future time.", "blotato_post_id": ""})
         payload["scheduledTime"] = scheduled_iso
 
-    try:
-        resp = requests.post(
-            f"{BLOTATO_BASE_URL}/posts",
-            headers=headers,
-            json=payload,
-            timeout=30,
+    # B2 E2E support: allow dry-run mode (no external posting) for safe verification.
+    # This is opt-in via env; production cron should not set it.
+    if str(os.environ.get("BLOTATO_DRY_RUN", "")).lower() in ("1", "true", "yes"):
+        _record_ops_event_safe(
+            "tiktok_post_dry_run",
+            "tiktok",
+            {
+                "caption_len": len(full_caption),
+                "has_posting_time": bool(posting_time),
+                "scheduled_time": payload.get("scheduledTime"),
+            },
         )
-        resp.raise_for_status()
-        data = resp.json()
-        post_id = data.get("postSubmissionId", data.get("id", data.get("postId", "unknown")))
-        return json.dumps({"success": True, "blotato_post_id": str(post_id)})
-    except requests.exceptions.RequestException as e:
-        error_msg = f"Blotato API request failed: {type(e).__name__}"
-        if hasattr(e, 'response') and e.response is not None:
-            error_msg += f" (HTTP {e.response.status_code})"
-        return json.dumps({"success": False, "error": error_msg, "blotato_post_id": ""})
+        return json.dumps(
+            {
+                "success": True,
+                "dry_run": True,
+                "blotato_post_id": f"dryrun-{int(time.time())}",
+            }
+        )
+
+    last_error = None
+    for attempt_idx, backoff_s in enumerate(RETRY_BACKOFF_SECONDS, start=1):
+        try:
+            resp = requests.post(
+                f"{BLOTATO_BASE_URL}/posts",
+                headers=headers,
+                json=payload,
+                timeout=30,
+            )
+
+            if 200 <= resp.status_code <= 299:
+                data = resp.json()
+                post_id = data.get("postSubmissionId", data.get("id", data.get("postId", "unknown")))
+                return json.dumps({"success": True, "blotato_post_id": str(post_id)})
+
+            category = _classify_http_error(resp.status_code)
+            body_preview = (resp.text or "")[:300]
+            last_error = {
+                "status_code": resp.status_code,
+                "category": category,
+                "body": body_preview,
+            }
+
+            # Retry only for RATE_LIMIT and PROVIDER_OUTAGE
+            if category in (ERR_RATE_LIMIT, ERR_PROVIDER_OUTAGE) and attempt_idx < len(RETRY_BACKOFF_SECONDS):
+                _record_ops_event_safe(
+                    "tiktok_post_retrying",
+                    "tiktok",
+                    {
+                        "attempt": attempt_idx,
+                        "status_code": resp.status_code,
+                        "category": category,
+                        "backoff_seconds": backoff_s,
+                    },
+                )
+                time.sleep(backoff_s)
+                continue
+
+            # Non-retryable OR last attempt -> DLQ + ops event
+            dlq_entry = {
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "platform": "tiktok",
+                "action": "post",
+                "category": category,
+                "status_code": resp.status_code,
+                "error": body_preview,
+                "image_url": image_url,
+                "caption_preview": full_caption[:200],
+            }
+            _append_dlq_entry(dlq_entry)
+            _record_ops_event_safe(
+                "tiktok_post_dlq",
+                "tiktok",
+                {
+                    "category": category,
+                    "status_code": resp.status_code,
+                    "caption_len": len(full_caption),
+                },
+            )
+
+            return json.dumps(
+                {
+                    "success": False,
+                    "error": f"Blotato HTTP {resp.status_code} ({category})",
+                    "category": category,
+                    "blotato_post_id": "",
+                }
+            )
+        except requests.exceptions.RequestException as e:
+            status_code = getattr(getattr(e, "response", None), "status_code", None)
+            category = _classify_http_error(status_code)
+            last_error = {"status_code": status_code, "category": category, "exception": type(e).__name__}
+
+            if category in (ERR_RATE_LIMIT, ERR_PROVIDER_OUTAGE) and attempt_idx < len(RETRY_BACKOFF_SECONDS):
+                _record_ops_event_safe(
+                    "tiktok_post_retrying",
+                    "tiktok",
+                    {
+                        "attempt": attempt_idx,
+                        "status_code": status_code,
+                        "category": category,
+                        "backoff_seconds": backoff_s,
+                        "exception": type(e).__name__,
+                    },
+                )
+                time.sleep(backoff_s)
+                continue
+
+            dlq_entry = {
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "platform": "tiktok",
+                "action": "post",
+                "category": category,
+                "status_code": status_code,
+                "error": f"{type(e).__name__}",
+                "image_url": image_url,
+                "caption_preview": full_caption[:200],
+            }
+            _append_dlq_entry(dlq_entry)
+            _record_ops_event_safe(
+                "tiktok_post_dlq",
+                "tiktok",
+                {
+                    "category": category,
+                    "status_code": status_code,
+                    "caption_len": len(full_caption),
+                    "exception": type(e).__name__,
+                },
+            )
+            return json.dumps(
+                {
+                    "success": False,
+                    "error": f"Blotato request failed ({category})",
+                    "category": category,
+                    "blotato_post_id": "",
+                }
+            )
+
+    # Should never reach
+    return json.dumps({"success": False, "error": "Blotato request failed", "category": last_error.get("category") if last_error else ERR_UNKNOWN, "blotato_post_id": ""})
 
 
 def save_post_record(**kwargs):

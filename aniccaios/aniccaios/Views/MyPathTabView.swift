@@ -429,6 +429,30 @@ struct MyPathTabView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
             .accessibilityIdentifier("debug-nudge-cache-list")
+
+            Divider()
+                .padding(.vertical, 8)
+
+            Text("DEBUG: E2E")
+                .font(.caption)
+                .foregroundStyle(.gray)
+
+            NavigationLink {
+                E2ENotificationDebugView()
+            } label: {
+                HStack {
+                    Text("🧪")
+                    Text("E2E Notification Debug")
+                        .font(.subheadline)
+                        .foregroundStyle(.blue)
+                    Spacer()
+                }
+                .padding(.vertical, 8)
+                .padding(.horizontal, 12)
+                .background(Color.blue.opacity(0.08))
+                .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+            .accessibilityIdentifier("debug-e2e-notification")
         }
         .padding(.horizontal, 16)
     }

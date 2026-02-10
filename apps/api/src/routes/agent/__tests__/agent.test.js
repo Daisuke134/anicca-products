@@ -31,7 +31,8 @@ vi.mock('openai', () => ({
             message: {
               content: JSON.stringify({
                 hook: 'Test hook',
-                content: 'Test content',
+                // Long by default so platform-specific limits are exercised.
+                content: 'A'.repeat(1200),
                 tone: 'gentle',
                 reasoning: 'Test reasoning',
                 buddhismReference: 'anicca',
@@ -43,6 +44,10 @@ vi.mock('openai', () => ({
       },
     };
   },
+}));
+
+vi.mock('../../../services/slackNotifier.js', () => ({
+  sendSlackMessage: vi.fn().mockResolvedValue({ sent: true }),
 }));
 
 // Mock Prisma
@@ -101,6 +106,8 @@ describe('Agent API', () => {
       expect(res.body).toHaveProperty('hook');
       expect(res.body).toHaveProperty('content');
       expect(res.body).toHaveProperty('tone');
+      // A4 fixed spec: Moltbook reply body is capped at 400 chars (hook+content).
+      expect((res.body.hook.length + 1 + res.body.content.length)).toBeLessThanOrEqual(400);
     });
     
     it('should reject moltbook without optIn', async () => {
@@ -130,6 +137,50 @@ describe('Agent API', () => {
         .send({ platform: 'moltbook' });
 
       expect(res.status).toBe(400);
+    });
+
+    it('should return 400 for invalid severityScore', async () => {
+      const res = await request(app)
+        .post('/api/agent/nudge')
+        .send({
+          platform: 'moltbook',
+          context: 'I am tired',
+          severityScore: 1.2,
+          optIn: true,
+        });
+
+      expect(res.status).toBe(400);
+      expect(res.body.message).toContain('severityScore');
+    });
+
+    it('should enforce x detect-only policy with 202', async () => {
+      const res = await request(app)
+        .post('/api/agent/nudge')
+        .send({
+          platform: 'x',
+          context: 'I am not doing well',
+        });
+
+      expect(res.status).toBe(202);
+      expect(res.body.forwarded).toBe(true);
+      expect(res.body.policy).toBe('detect_only_no_reply');
+    });
+
+    it('should interrupt normal nudge flow on crisis and skip agentPost creation', async () => {
+      const { prisma } = await import('../../../lib/prisma.js');
+      prisma.agentPost.create.mockClear();
+
+      const res = await request(app)
+        .post('/api/agent/nudge')
+        .send({
+          platform: 'moltbook',
+          context: '死にたい',
+          optIn: true,
+        });
+
+      expect(res.status).toBe(202);
+      expect(res.body.policy).toBe('safe_t_interrupt');
+      expect(prisma.agentPost.create).not.toHaveBeenCalled();
     });
   });
 

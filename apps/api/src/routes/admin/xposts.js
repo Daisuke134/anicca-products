@@ -100,8 +100,9 @@ router.post('/posts', async (req, res) => {
     if (!text || typeof text !== 'string') {
       return res.status(400).json({ error: 'text is required' });
     }
-    if (text.length > 280) {
-      return res.status(400).json({ error: 'text exceeds 280 characters' });
+    // B2: conservative limit to avoid provider-side counting mismatch
+    if (text.length > 260) {
+      return res.status(400).json({ error: 'text exceeds 260 characters' });
     }
     if (hook_candidate_id && !UUID_RE.test(hook_candidate_id)) {
       return res.status(400).json({ error: 'hook_candidate_id must be a valid UUID' });

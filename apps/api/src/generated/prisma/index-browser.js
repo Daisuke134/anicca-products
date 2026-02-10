@@ -425,6 +425,38 @@ exports.Prisma.AgentAuditLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.MemoryItemScalarFieldEnum = {
+  id: 'id',
+  scope: 'scope',
+  category: 'category',
+  key: 'key',
+  value: 'value',
+  confidence: 'confidence',
+  source: 'source',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.InitiativeScalarFieldEnum = {
+  id: 'id',
+  kind: 'kind',
+  status: 'status',
+  reason: 'reason',
+  payload: 'payload',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ResearchItemScalarFieldEnum = {
+  id: 'id',
+  source: 'source',
+  query: 'query',
+  summary: 'summary',
+  payload: 'payload',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -478,7 +510,10 @@ exports.Prisma.ModelName = {
   XPost: 'XPost',
   NotificationSchedule: 'NotificationSchedule',
   AgentPost: 'AgentPost',
-  AgentAuditLog: 'AgentAuditLog'
+  AgentAuditLog: 'AgentAuditLog',
+  MemoryItem: 'MemoryItem',
+  Initiative: 'Initiative',
+  ResearchItem: 'ResearchItem'
 };
 
 /**

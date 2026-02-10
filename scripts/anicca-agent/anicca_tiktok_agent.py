@@ -61,7 +61,7 @@ Call evaluate_image with the generated image URL and hook text.
 Call post_to_tiktok with the image URL and caption. Post immediately (scheduling is handled by GHA cron).
 - Caption: hook text + brief context + hashtags
 - Hashtags: #anicca #習慣化 #自己改善 #マインドフルネス #仏教 #行動変容
-- Max caption length: 2200 chars
+    - Max caption length: 2000 chars
 - DO NOT set posting_time — post immediately
 
 ### STEP 7: Save Record (MANDATORY - NEVER SKIP)

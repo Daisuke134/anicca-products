@@ -42,7 +42,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // no-op
+        // v1.6.2: poll worker-sent nudges and schedule them locally (best-effort).
+        Task { await ServerNudgeInboxService.shared.pullAndScheduleIfAuthorized() }
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {

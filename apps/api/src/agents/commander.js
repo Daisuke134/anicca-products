@@ -36,21 +36,23 @@ const AppNudgeSchema = z.object({
 const TiktokPostSlot = z.enum(['morning', 'evening']);
 const XPostSlot = z.enum(['morning', 'evening']);
 
-const TiktokPostSchema = z.object({
-  slot: TiktokPostSlot,
-  caption: z.string().max(2200),
-  hashtags: z.array(z.string()).max(5),
-  tone: z.string(),
-  reasoning: z.string(),
-  enabled: z.boolean(),  // Required for OpenAI strict mode
-});
-
-const XPostSchema = z.object({
-  slot: XPostSlot,
-  text: z.string().max(280),
-  reasoning: z.string(),
-  enabled: z.boolean(),  // Required for OpenAI strict mode
-});
+	const TiktokPostSchema = z.object({
+	  slot: TiktokPostSlot,
+	  // B2: Keep conservative headroom for provider-side counting / truncation variance.
+	  caption: z.string().max(2000),
+	  hashtags: z.array(z.string()).max(5),
+	  tone: z.string(),
+	  reasoning: z.string(),
+	  enabled: z.boolean(),  // Required for OpenAI strict mode
+	});
+	
+	const XPostSchema = z.object({
+	  slot: XPostSlot,
+	  // B2: Conservative limit (spec) to avoid provider-side mismatch.
+	  text: z.string().max(260),
+	  reasoning: z.string(),
+	  enabled: z.boolean(),  // Required for OpenAI strict mode
+	});
 
 const AgentRawOutputSchema = z.object({
   rootCauseHypothesis: z.string(),
@@ -330,8 +332,8 @@ TikTok と X、それぞれ2投稿を生成せよ:
 - App で効いた洞察を TikTok/X にも展開せよ
 - TikTok/X で効いた洞察を App にフィードバックせよ
 - morning と evening は異なる切り口にせよ（同じ内容を繰り返すな）
-- TikTok caption は 2200文字以内、ハッシュタグ最大5つ
-- X text は 280文字以内
+- TikTok caption は 2000文字以内、ハッシュタグ最大5つ
+- X text は 260文字以内
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
