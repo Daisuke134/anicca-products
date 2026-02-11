@@ -107,11 +107,12 @@ systemctl --user status openclaw-gateway.service 2>/dev/null || pgrep -f opencla
 ## 5. vitest 結果
 
 ```bash
-cd apps/api && npx vitest run src/routes/ops src/services/ops src/middleware/__tests__/opsAuth.test.js
+cd apps/api && npx vitest run src/routes/ops src/routes/admin src/services/ops src/middleware/__tests__/opsAuth.test.js
 ```
 
-**結果:**
-- 34 ファイル、133 テスト、失敗 0
+**結果（2026-02-11 RUNBOOK 実行）:**
+- 41 ファイル、158 テスト、失敗 0
+- 証跡: `npx vitest run src/routes/ops src/routes/admin src/services/ops src/middleware/__tests__/opsAuth.test.js` → Test Files 41 passed, Tests 158 passed
 
 ---
 
@@ -131,33 +132,44 @@ rg -n "schedule:" .github/workflows/anicca-x-post.yml .github/workflows/anicca-d
 
 ---
 
-## 7. E2E 疎通チェック（heartbeat）
+## 7. E2E 疎通チェック（3エンドポイント・AGENT-RUNBOOK 5）
 
+ローカルから実行（API_BASE_URL=Staging, ANICCA_AGENT_TOKEN 使用）:
 ```bash
-ssh ${VPS_USER}@${VPS_HOST} '
-source ~/.openclaw/.env 2>/dev/null
-curl -sS -X POST "$API_BASE_URL/api/ops/heartbeat" \
-  -H "Authorization: Bearer $ANICCA_AGENT_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d "{}" | head -c 500
-'
+curl -sS -o /tmp/hb.json -w '%{http_code}' -X POST "${API_BASE_URL}/api/ops/heartbeat" \
+  -H "Authorization: Bearer ${ANICCA_AGENT_TOKEN}" -H "Content-Type: application/json" -d '{}'
 ```
 
-**結果（記入）:**
-```
-curl: (3) URL rejected: No host part in the URL
-```
-※ API_BASE_URL が空のため heartbeat 失敗。env 投入後に再確認要。
+**結果（2026-02-11 RUNBOOK 実行）:**
+| エンドポイント | HTTPコード | 備考 |
+|----------------|------------|------|
+| POST /api/ops/heartbeat | 401 | Unauthorized。ローカルANICCA_AGENT_TOKEN が Railway Staging の値と不一致の可能性 |
+| POST /api/admin/jobs/autonomy-check | (未実施) | INTERNAL_API_TOKEN がローカル .env に未設定のためスキップ |
+| POST /api/admin/jobs/moltbook-poster | (未実施) | 同上 |
+
+**解消手順:** Railway Dashboard で Staging の `ANICCA_AGENT_TOKEN` を確認し、ローカル .env と一致させる。`INTERNAL_API_TOKEN` を .env に追加（Railway の INTERNAL_API_TOKEN と同じ値）。
 
 ---
 
-## 8. E2E 実行引き渡し準備完了
+## 8. AGENT-RUNBOOK 実行サマリ（2026-02-11）
 
-- [ ] 上記 1–7 をすべて完了したうえでチェックする。（※ env 投入・heartbeat 200 が未達）
+| ステップ | 結果 | 証跡 |
+|---------|------|------|
+| 0) git checkout dev, pull | OK | branch=dev, head=fe692316 |
+| 1) 必須env | 一部不足 | INTERNAL_API_TOKEN MISSING。API_BASE_URL, ANICCA_AGENT_TOKEN は OK |
+| 2) VPS sync + restart | スキップ | SSH timeout。手動実行要 |
+| 3) vitest | PASS | 41 files, 158 tests |
+| 4) Railway deploy | デプロイ済み | 最新 SUCCESS: fe692316（heartbeat POST 含む） |
+| 5) 3エンドポイント疎通 | 未達成 | heartbeat 401（token不一致）、admin 2件は INTERNAL_API_TOKEN 未設定で未実施 |
+| 6) VPS skills/jobs | スキップ | SSH timeout |
+
+## 9. E2E 実行引き渡し準備完了
+
+- [ ] 上記 1–8 をすべて完了したうえでチェックする。（※ token 一致・heartbeat 200 が未達）
 - [ ] Anicca（VPS）が E2E 開始可能である根拠: heartbeat API 200、gateway 稼働、skills/jobs/env 配置済み。
 
-**実施状況:** skills配置・jobs.json(19件)・gateway再起動は完了。env 変数名/値の投入と heartbeat 疎通確認は要対応。
+**実施状況:** vitest PASS、Railway デプロイ SUCCESS。token 一致確認と 3エンドポイント 200 が残課題。
 
 ---
 
-**記入者・日時:** 2026-02-11（実データ記入）
+**記入者・日時:** 2026-02-11（AGENT-RUNBOOK 実行結果記入）
