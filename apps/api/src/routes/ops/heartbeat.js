@@ -9,8 +9,8 @@ import { logger } from '../../lib/logger.js';
 const router = Router();
 
 /**
- * GET /api/ops/heartbeat
- * Called every 5min from VPS crontab
+ * GET|POST /api/ops/heartbeat
+ * Called every 5min from VPS crontab (jobs.json uses POST)
  *
  * 5 sequential steps:
  * 1. evaluateTriggers — evaluate events, fire matching triggers
@@ -19,7 +19,7 @@ const router = Router();
  * 4. promoteInsights — promote high-performing hooks to WisdomPattern
  * 5. recoverStaleSteps — fail steps stuck >30min
  */
-router.get('/heartbeat', async (req, res) => {
+const handleHeartbeat = async (req, res) => {
   const start = Date.now();
 
   try {
@@ -39,6 +39,9 @@ router.get('/heartbeat', async (req, res) => {
     logger.error('Heartbeat failed:', error);
     res.status(500).json({ ok: false, error: error.message });
   }
-});
+};
+
+router.get('/heartbeat', handleHeartbeat);
+router.post('/heartbeat', handleHeartbeat);
 
 export default router;
