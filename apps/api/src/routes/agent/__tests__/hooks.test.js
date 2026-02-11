@@ -1,110 +1,112 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { prismaMock } from '../../../test/setup.js';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import express from 'express';
+import request from 'supertest';
 
-describe('Hook API Contract', () => {
-  // T62: hookSave normal creation
-  it('T62: creates hook candidate with valid schema', async () => {
-    prismaMock.hookCandidate.findFirst.mockResolvedValue(null); // No duplicates
-    prismaMock.hookCandidate.create.mockResolvedValue({
+vi.mock('../../../lib/prisma.js', () => ({
+  prisma: {
+    hookCandidate: {
+      create: vi.fn(),
+      update: vi.fn(),
+    },
+  },
+}));
+
+import { prisma } from '../../../lib/prisma.js';
+import hooksRouter from '../hooks.js';
+
+const app = express();
+app.use(express.json());
+app.use('/hooks', hooksRouter);
+
+describe('Hooks API', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('creates hook candidate', async () => {
+    prisma.hookCandidate.create.mockResolvedValueOnce({
       id: 'hook-1',
-      text: 'Test hook',
+      text: 'You are not broken.',
+      tone: 'gentle',
       targetProblemTypes: ['anxiety'],
-      source: 'trend-hunter',
-      platform: 'both',
-      contentType: 'empathy',
-      tone: 'empathy',
-      createdAt: new Date('2026-02-08')
+      source: 'manual',
+      createdAt: new Date('2026-02-09T10:00:00Z'),
     });
 
-    // Import and test the save logic directly
-    const { default: hooksRouter } = await import('../hooks.js');
-
-    // Verify create was callable
-    expect(hooksRouter).toBeDefined();
-
-    // Direct prisma mock test
-    const result = await prismaMock.hookCandidate.create({
-      data: {
-        text: 'Test hook',
-        targetProblemTypes: ['anxiety'],
-        source: 'trend-hunter',
-        platform: 'both',
-        contentType: 'empathy',
-        tone: 'empathy',
-        metadata: {}
-      }
+    const res = await request(app).post('/hooks').send({
+      content: 'You are not broken.',
+      problemType: 'anxiety',
+      tone: 'gentle',
     });
 
-    expect(result.id).toBe('hook-1');
-    expect(result.text).toBe('Test hook');
-    expect(result.createdAt).toBeInstanceOf(Date);
+    expect(res.status).toBe(201);
+    expect(res.body.id).toBe('hook-1');
+    expect(res.body.content).toBe('You are not broken.');
   });
 
-  // T63: hookSave duplicate text
-  it('T63: returns duplicate when text already exists', async () => {
-    prismaMock.hookCandidate.findFirst.mockResolvedValue({
-      id: 'existing-hook',
-      text: 'Duplicate hook text'
+  it('returns 400 on invalid create payload', async () => {
+    const res = await request(app).post('/hooks').send({
+      content: '',
+      problemType: 'invalid',
     });
 
-    const existing = await prismaMock.hookCandidate.findFirst({
-      where: { text: 'Duplicate hook text' },
-      select: { id: true }
-    });
-
-    expect(existing.id).toBe('existing-hook');
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('Bad Request');
   });
 
-  // T64: hookSave idempotency key
-  it('T64: returns duplicate on same idempotency key', async () => {
-    // First call: create succeeds
-    prismaMock.hookCandidate.create.mockResolvedValue({
-      id: 'hook-new',
-      text: 'Idempotent hook'
+  it('updates stats for a platform', async () => {
+    prisma.hookCandidate.update.mockResolvedValueOnce({
+      id: 'hook-1',
+      appTapRate: 0.42,
+      appSampleSize: 12,
+      xEngagementRate: 0,
+      xSampleSize: 0,
+      xHighPerformer: false,
+      tiktokLikeRate: 0,
+      tiktokSampleSize: 0,
+      tiktokHighPerformer: false,
+      moltbookUpvoteRate: 0,
+      moltbookSampleSize: 0,
+      moltbookHighPerformer: false,
+      slackReactionRate: 0,
+      slackSampleSize: 0,
+      slackHighPerformer: false,
+      updatedAt: new Date('2026-02-09T10:00:00Z'),
     });
 
-    const first = await prismaMock.hookCandidate.create({
-      data: { text: 'Idempotent hook', idempotencyKey: 'key-123' }
-    });
-    expect(first.id).toBe('hook-new');
-
-    // Second call: idempotency key already exists
-    prismaMock.hookCandidate.findFirst.mockResolvedValue({
-      id: 'hook-new',
-      text: 'Idempotent hook',
-      createdAt: new Date()
+    const res = await request(app).patch('/hooks/hook-1/stats').send({
+      platform: 'app',
+      engagementRate: 0.42,
+      sampleSize: 12,
     });
 
-    const byKey = await prismaMock.hookCandidate.findFirst({
-      where: { idempotencyKey: 'key-123' },
-      select: { id: true, text: true, createdAt: true }
-    });
-    expect(byKey).not.toBeNull();
-    expect(byKey.id).toBe('hook-new');
+    expect(res.status).toBe(200);
+    expect(prisma.hookCandidate.update).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { id: 'hook-1' },
+        data: { appTapRate: 0.42, appSampleSize: 12 },
+      })
+    );
   });
 
-  // T65: hookSave invalid schema
-  it('T65: validates schema with zod (targetProblemTypes required)', async () => {
-    const { z } = await import('zod');
+  it('returns 404 when updating stats for unknown hook', async () => {
+    prisma.hookCandidate.update.mockRejectedValueOnce({ code: 'P2025' });
 
-    const HookSaveSchema = z.object({
-      text: z.string().min(1).max(500),
-      targetProblemTypes: z.array(z.string()).min(1),
-      source: z.string().max(50).default('trend-hunter'),
-      platform: z.enum(['x', 'tiktok', 'both']).default('both'),
-      contentType: z.enum(['empathy', 'solution']),
-      idempotencyKey: z.string().max(128).optional(),
-      metadata: z.record(z.unknown()).optional()
+    const res = await request(app).patch('/hooks/missing/stats').send({
+      platform: 'x',
+      engagementRate: 0.3,
     });
 
-    // Missing targetProblemTypes → should fail
-    const result = HookSaveSchema.safeParse({
-      text: 'Test',
-      contentType: 'empathy'
-      // targetProblemTypes missing!
+    expect(res.status).toBe(404);
+    expect(res.body.error).toBe('Not Found');
+  });
+
+  it('returns 400 when stats payload has no fields', async () => {
+    const res = await request(app).patch('/hooks/hook-1/stats').send({
+      platform: 'x',
     });
 
-    expect(result.success).toBe(false);
-    expect(result.error.flatten().fieldErrors).toHaveProperty('targetProblemTypes');
+    expect(res.status).toBe(400);
+    expect(res.body.error).toBe('Bad Request');
   });
 });

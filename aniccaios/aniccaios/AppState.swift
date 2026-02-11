@@ -426,7 +426,13 @@ final class AppState: ObservableObject {
     // MARK: - Device ID
     
     func resolveDeviceId() -> String {
-        return UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
+        let key = "cached_device_id"
+        if let cached = defaults.string(forKey: key), !cached.isEmpty {
+            return cached
+        }
+        let id = UIDevice.current.identifierForVendor?.uuidString ?? UUID().uuidString
+        defaults.set(id, forKey: key)
+        return id
     }
     
     

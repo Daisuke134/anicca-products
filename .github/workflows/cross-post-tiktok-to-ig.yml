@@ -1,9 +1,6 @@
 name: Cross-Post TikTok to Instagram
 
 on:
-  schedule:
-    - cron: '0 6 * * *'    # 15:00 JST
-    - cron: '0 16 * * *'   # 01:00 JST (next day)
   workflow_dispatch:
     inputs:
       account:

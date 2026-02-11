@@ -1,103 +1,180 @@
 import { Router } from 'express';
 import { z } from 'zod';
 import { prisma } from '../../lib/prisma.js';
-import { logger } from '../../lib/logger.js';
 
 const router = Router();
 
-/**
- * GET /api/ops/hooks (also available at /api/agent/hooks for backward compat)
- * Get all hook candidates
- */
-router.get('/hooks', async (req, res) => {
+const PROBLEM_TYPES = [
+  'staying_up_late',
+  'cant_wake_up',
+  'self_loathing',
+  'rumination',
+  'procrastination',
+  'anxiety',
+  'lying',
+  'bad_mouthing',
+  'porn_addiction',
+  'alcohol_dependency',
+  'anger',
+  'obsessive',
+  'loneliness',
+];
+
+const CreateHookSchema = z.object({
+  content: z.string().min(1).max(500),
+  problemType: z.enum(PROBLEM_TYPES),
+  tone: z.enum(['gentle', 'understanding', 'encouraging', 'empathetic', 'playful']).default('gentle'),
+  source: z.string().min(1).max(50).optional(),
+});
+
+const platformSchema = z.enum(['app', 'x', 'tiktok', 'moltbook', 'slack']);
+const UpdateStatsSchema = z.object({
+  platform: platformSchema,
+  engagementRate: z.number().min(0).max(1).optional(),
+  sampleSize: z.number().int().min(0).optional(),
+  highPerformer: z.boolean().optional(),
+}).refine(
+  (value) => value.engagementRate !== undefined || value.sampleSize !== undefined || value.highPerformer !== undefined,
+  { message: 'at least one stats field is required' }
+);
+
+function buildStatsPatch({ platform, engagementRate, sampleSize, highPerformer }) {
+  const patch = {};
+
+  if (platform === 'app') {
+    if (engagementRate !== undefined) patch.appTapRate = engagementRate;
+    if (sampleSize !== undefined) patch.appSampleSize = sampleSize;
+    return patch;
+  }
+  if (platform === 'x') {
+    if (engagementRate !== undefined) patch.xEngagementRate = engagementRate;
+    if (sampleSize !== undefined) patch.xSampleSize = sampleSize;
+    if (highPerformer !== undefined) patch.xHighPerformer = highPerformer;
+    return patch;
+  }
+  if (platform === 'tiktok') {
+    if (engagementRate !== undefined) patch.tiktokLikeRate = engagementRate;
+    if (sampleSize !== undefined) patch.tiktokSampleSize = sampleSize;
+    if (highPerformer !== undefined) patch.tiktokHighPerformer = highPerformer;
+    return patch;
+  }
+  if (platform === 'moltbook') {
+    if (engagementRate !== undefined) patch.moltbookUpvoteRate = engagementRate;
+    if (sampleSize !== undefined) patch.moltbookSampleSize = sampleSize;
+    if (highPerformer !== undefined) patch.moltbookHighPerformer = highPerformer;
+    return patch;
+  }
+  if (platform === 'slack') {
+    if (engagementRate !== undefined) patch.slackReactionRate = engagementRate;
+    if (sampleSize !== undefined) patch.slackSampleSize = sampleSize;
+    if (highPerformer !== undefined) patch.slackHighPerformer = highPerformer;
+    return patch;
+  }
+  return patch;
+}
+
+router.post('/', async (req, res) => {
+  const parsed = CreateHookSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({
+      error: 'Bad Request',
+      issues: parsed.error.issues,
+    });
+  }
+
   try {
-    const hooks = await prisma.hookCandidate.findMany({
-      orderBy: { createdAt: 'desc' },
-      take: 500
+    const hook = await prisma.hookCandidate.create({
+      data: {
+        text: parsed.data.content,
+        tone: parsed.data.tone,
+        targetProblemTypes: [parsed.data.problemType],
+        source: parsed.data.source || 'manual',
+      },
+      select: {
+        id: true,
+        text: true,
+        tone: true,
+        targetProblemTypes: true,
+        source: true,
+        createdAt: true,
+      },
     });
 
-    res.json({
-      hooks: hooks.map(h => ({
-        id: h.id,
-        text: h.text,
-        targetProblemTypes: h.targetProblemTypes,
-        source: h.source,
-        platform: h.platform,
-        xSampleSize: h.xSampleSize,
-        xEngagementRate: h.xEngagementRate,
-        tiktokSampleSize: h.tiktokSampleSize,
-        tiktokLikeRate: h.tiktokLikeRate,
-        createdAt: h.createdAt
-      }))
+    return res.status(201).json({
+      id: hook.id,
+      content: hook.text,
+      tone: hook.tone,
+      problemType: hook.targetProblemTypes[0] || null,
+      source: hook.source,
+      createdAt: hook.createdAt,
     });
-  } catch (err) {
-    logger.error(`GET /hooks failed: ${err.message}`);
-    res.status(500).json({ error: 'Internal server error' });
+  } catch (error) {
+    if (error?.code === 'P2002') {
+      return res.status(409).json({
+        error: 'Conflict',
+        message: 'Hook already exists for the same content and tone',
+      });
+    }
+    console.error('[Agent Hooks] create error:', error);
+    return res.status(500).json({
+      error: 'Internal Server Error',
+    });
   }
 });
 
-const HookSaveSchema = z.object({
-  text: z.string().min(1).max(500),
-  targetProblemTypes: z.array(z.string()).min(1),
-  source: z.string().max(50).default('trend-hunter'),
-  platform: z.enum(['x', 'tiktok', 'both']).default('both'),
-  contentType: z.enum(['empathy', 'solution']),
-  idempotencyKey: z.string().max(128).optional(),
-  metadata: z.record(z.unknown()).optional()
-});
+router.patch('/:id/stats', async (req, res) => {
+  const parsed = UpdateStatsSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({
+      error: 'Bad Request',
+      issues: parsed.error.issues,
+    });
+  }
 
-/**
- * POST /api/ops/hooks (also available at /api/agent/hooks for backward compat)
- * Save new hook candidate
- */
-router.post('/hooks', async (req, res) => {
+  const patch = buildStatsPatch(parsed.data);
+  if (Object.keys(patch).length === 0) {
+    return res.status(400).json({
+      error: 'Bad Request',
+      message: 'No applicable fields to update',
+    });
+  }
+
   try {
-    const parsed = HookSaveSchema.safeParse(req.body);
-    if (!parsed.success) {
-      return res.status(400).json({ error: parsed.error.flatten() });
-    }
+    const updated = await prisma.hookCandidate.update({
+      where: { id: req.params.id },
+      data: patch,
+      select: {
+        id: true,
+        appTapRate: true,
+        appSampleSize: true,
+        xEngagementRate: true,
+        xSampleSize: true,
+        xHighPerformer: true,
+        tiktokLikeRate: true,
+        tiktokSampleSize: true,
+        tiktokHighPerformer: true,
+        moltbookUpvoteRate: true,
+        moltbookSampleSize: true,
+        moltbookHighPerformer: true,
+        slackReactionRate: true,
+        slackSampleSize: true,
+        slackHighPerformer: true,
+        updatedAt: true,
+      },
+    });
 
-    const { text, targetProblemTypes, source, platform, contentType, idempotencyKey, metadata } = parsed.data;
-
-    // Idempotency key duplicate check
-    if (idempotencyKey) {
-      const byKey = await prisma.hookCandidate.findFirst({
-        where: { idempotencyKey },
-        select: { id: true, text: true, createdAt: true }
+    return res.json(updated);
+  } catch (error) {
+    if (error?.code === 'P2025') {
+      return res.status(404).json({
+        error: 'Not Found',
+        message: 'Hook not found',
       });
-      if (byKey) {
-        return res.status(200).json({ status: 'duplicate', existingId: byKey.id });
-      }
     }
-
-    // Exact text duplicate check
-    const existing = await prisma.hookCandidate.findFirst({
-      where: { text },
-      select: { id: true }
+    console.error('[Agent Hooks] stats update error:', error);
+    return res.status(500).json({
+      error: 'Internal Server Error',
     });
-
-    if (existing) {
-      return res.status(200).json({ status: 'duplicate', existingId: existing.id });
-    }
-
-    const hook = await prisma.hookCandidate.create({
-      data: {
-        text,
-        targetProblemTypes,
-        source,
-        platform,
-        contentType,
-        tone: contentType,
-        ...(idempotencyKey ? { idempotencyKey } : {}),
-        metadata: metadata || {}
-      }
-    });
-
-    logger.info(`Hook candidate saved: ${hook.id} (${contentType}, ${targetProblemTypes.join(',')})`);
-    res.status(201).json({ status: 'created', id: hook.id, text: hook.text, createdAt: hook.createdAt });
-  } catch (err) {
-    logger.error(`POST /hooks failed: ${err.message}`);
-    res.status(500).json({ error: 'Internal server error' });
   }
 });
 

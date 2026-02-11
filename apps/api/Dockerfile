@@ -33,8 +33,7 @@ RUN ./node_modules/.bin/prisma generate
 COPY src ./src
 COPY railway.toml ./
 COPY tsconfig.json ./
-# Optional: include SQL migrations if run from container
-COPY docs/migrations ./docs/migrations
+
 
 
 # Final stage for app image

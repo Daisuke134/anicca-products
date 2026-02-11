@@ -2,9 +2,9 @@ import Foundation
 import OSLog
 import UserNotifications
 
-/// v0.3: DP(Event) -> /mobile/nudge/trigger -> (必要なら) ローカル通知を提示
-/// - 送信頻度/クールダウン/優先度/延期/日次上限/metrics stale はサーバ側で判定（tech-nudge-scheduling-v3.md）
-/// - iOS は「イベントが起きた」ことと最低限の signals を送る
+/// v0.3: /mobile/nudge/trigger -> (必要なら) ローカル通知を提示
+/// - 1.6.2 SSOT: センサー前提ではなく、基本は「固定スケジュール + サーバ主導（/pending）」で運用する。
+/// - /trigger は互換/デバッグ用途（E2E検証）として残す。
 @MainActor
 final class NudgeTriggerService {
     static let shared = NudgeTriggerService()
@@ -18,8 +18,12 @@ final class NudgeTriggerService {
 
     private init() {}
 
-    // MARK: - DP Event Types (todolist.md phase-8)
+    // MARK: - Event Types (debug + legacy)
     enum EventType: String {
+        // E2E / debug (no sensors)
+        case e2ePause = "e2e_pause"
+
+        // Legacy sensor-style names (kept for backward compatibility)
         case sns30Min = "sns_30min"
         case sns60Min = "sns_60min"
         case sedentary2h = "sedentary_2h"
@@ -29,15 +33,21 @@ final class NudgeTriggerService {
         case feeling = "feeling" // Feeling EMI DP（Mental）
     }
 
-    // MARK: - Public entrypoints (called by sensors / UI)
+    // MARK: - Public entrypoints
     func trigger(eventType: EventType, payload: [String: Any] = [:]) async {
-        guard case .signedIn(let credentials) = AppState.shared.authStatus else { return }
+        // v0.4+: allow anonymous users (fallback to deviceId), since backend supports legacy headers.
+        let userId: String
+        if case .signedIn(let credentials) = AppState.shared.authStatus {
+            userId = credentials.userId
+        } else {
+            userId = AppState.shared.resolveDeviceId()
+        }
 
         var req = URLRequest(url: AppConfig.nudgeTriggerURL)
         req.httpMethod = "POST"
         req.setValue("application/json", forHTTPHeaderField: "Content-Type")
         req.setValue(AppState.shared.resolveDeviceId(), forHTTPHeaderField: "device-id")
-        req.setValue(credentials.userId, forHTTPHeaderField: "user-id")
+        req.setValue(userId, forHTTPHeaderField: "user-id")
 
         var body: [String: Any] = [
             "eventType": eventType.rawValue,
@@ -143,4 +153,3 @@ final class NudgeTriggerService {
         )
     }
 }
-

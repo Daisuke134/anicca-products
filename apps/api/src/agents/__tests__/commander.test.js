@@ -101,6 +101,42 @@ describe('AgentRawOutputSchema', () => {
     };
     expect(() => AgentRawOutputSchema.parse(invalid)).toThrow();
   });
+
+  it('rejects overly long TikTok captions (B2)', () => {
+    const tooLong = {
+      rootCauseHypothesis: 'test',
+      overallStrategy: 'test',
+      frequencyReasoning: 'test',
+      appNudges: [],
+      tiktokPosts: [
+        { slot: 'morning', caption: 'a'.repeat(2001), hashtags: [], tone: 't', reasoning: 'r', enabled: true },
+        { slot: 'evening', caption: 'ok', hashtags: [], tone: 't', reasoning: 'r', enabled: true },
+      ],
+      xPosts: [
+        { slot: 'morning', text: 'tweet1', reasoning: 'r', enabled: true },
+        { slot: 'evening', text: 'tweet2', reasoning: 'r', enabled: true },
+      ],
+    };
+    expect(() => AgentRawOutputSchema.parse(tooLong)).toThrow();
+  });
+
+  it('rejects overly long X texts (B2)', () => {
+    const tooLong = {
+      rootCauseHypothesis: 'test',
+      overallStrategy: 'test',
+      frequencyReasoning: 'test',
+      appNudges: [],
+      tiktokPosts: [
+        { slot: 'morning', caption: 'ok', hashtags: [], tone: 't', reasoning: 'r', enabled: true },
+        { slot: 'evening', caption: 'ok', hashtags: [], tone: 't', reasoning: 'r', enabled: true },
+      ],
+      xPosts: [
+        { slot: 'morning', text: 'a'.repeat(261), reasoning: 'r', enabled: true },
+        { slot: 'evening', text: 'tweet2', reasoning: 'r', enabled: true },
+      ],
+    };
+    expect(() => AgentRawOutputSchema.parse(tooLong)).toThrow();
+  });
 });
 
 // ===== applyGuardrails =====

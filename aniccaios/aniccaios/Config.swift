@@ -67,6 +67,15 @@ enum AppConfig {
         proxyBaseURL.appendingPathComponent("mobile/nudge/feedback")
     }
 
+    // v1.6.2: Worker-sent nudges inbox (poll + ack)
+    static var nudgePendingURL: URL {
+        proxyBaseURL.appendingPathComponent("mobile/nudge/pending")
+    }
+
+    static var nudgeAckURL: URL {
+        proxyBaseURL.appendingPathComponent("mobile/nudge/ack")
+    }
+
     static var feelingStartURL: URL {
         proxyBaseURL.appendingPathComponent("mobile/feeling/start")
     }

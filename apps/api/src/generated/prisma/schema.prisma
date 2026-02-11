@@ -438,6 +438,55 @@ model AgentAuditLog {
   @@map("agent_audit_logs")
 }
 
+// -----------------------------
+// 1.6.2 Phase 2: Structured Memory + Initiative
+// -----------------------------
+
+model MemoryItem {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  scope      String    @db.VarChar(255) // 'global' | 'platform:<name>' | 'user:<platformUserId>'
+  category   String    @db.VarChar(50) // 'safety' | 'policy' | 'content_style' | 'ops' | 'growth'
+  key        String    @db.VarChar(100)
+  value      String    @db.Text
+  confidence Decimal   @default(0) @db.Decimal(5, 4)
+  source     String    @db.VarChar(50)
+  expiresAt  DateTime? @map("expires_at") @db.Timestamptz
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt  DateTime  @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@unique([scope, category, key])
+  @@index([category])
+  @@index([updatedAt(sort: Desc)])
+  @@map("memory_items")
+}
+
+model Initiative {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  kind      String   @db.VarChar(50) // 'suffering_spike' | 'low_tap_rate' | 'post_failures'
+  status    String   @default("proposed") @db.VarChar(20) // 'proposed' | 'approved' | 'rejected' | 'executed'
+  reason    String   @db.Text
+  payload   Json     @default("{}") @db.JsonB
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz
+
+  @@index([kind])
+  @@index([createdAt(sort: Desc)])
+  @@map("initiatives")
+}
+
+model ResearchItem {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  source    String   @db.VarChar(50) // 'x_research' | 'manual'
+  query     String?  @db.Text
+  summary   String   @db.Text
+  payload   Json     @default("{}") @db.JsonB
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  @@index([source])
+  @@index([createdAt(sort: Desc)])
+  @@map("research_items")
+}
+
 // 1.6.1 HookCandidate 拡張カラム（既存 HookCandidate に追加）
 // Note: 既存の HookCandidate model に以下のカラムを追加済み:
 // - moltbookUpvoteRate, moltbookSampleSize, moltbookHighPerformer

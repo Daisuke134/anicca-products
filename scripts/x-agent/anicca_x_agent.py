@@ -22,6 +22,7 @@ from config import (
     API_BASE_URL, API_AUTH_TOKEN, X_ACCOUNT_ID,
     MAX_POSTS_PER_RUN, validate_env,
 )
+from posting_policy import truncate_x_text, should_retry, backoff_seconds, classify_http_status
 
 validate_env()
 
@@ -44,6 +45,14 @@ def api_post(path, data):
     resp = requests.post(url, headers=headers, json=data, timeout=30)
     resp.raise_for_status()
     return resp.json()
+
+
+def record_ops_event(event_type: str, payload: dict):
+    """Best-effort ops event recorder (never throws)."""
+    try:
+        api_post("/ops/events", {"eventType": event_type, "platform": "x", "payload": payload})
+    except Exception as e:
+        print(f"WARN: failed to record ops event {event_type}: {type(e).__name__}")
 
 
 def blotato_post(text):
@@ -90,13 +99,30 @@ def main():
     now_jst = datetime.now(JST)
 
     for i, candidate in enumerate(candidates[:MAX_POSTS_PER_RUN]):
-        text = candidate["text"][:280]
+        text = truncate_x_text(candidate.get("text", ""))
 
         try:
             print(f"\n  Post {i+1}: immediate ({slot})")
             print(f"  Text: {text[:80]}...")
 
-            result = blotato_post(text)
+            result = None
+            for attempt in range(0, 3):
+                try:
+                    result = blotato_post(text)
+                    break
+                except requests.HTTPError as e:
+                    status = e.response.status_code if e.response is not None else None
+                    classified = classify_http_status(status)
+                    print(f"  ERROR posting (HTTP {status}) category={classified.category} retryable={classified.retryable}")
+                    if not should_retry(status, attempt):
+                        raise
+                    wait = backoff_seconds(attempt)
+                    print(f"  Retrying in {wait}s...")
+                    import time as _time
+                    _time.sleep(wait)
+
+            if result is None:
+                raise RuntimeError("Failed to post after retries")
             blotato_id = str(result.get("postSubmissionId", result.get("id", result.get("postId", ""))))
 
             print(f"  Blotato ID: {blotato_id}")
@@ -114,6 +140,11 @@ def main():
         except requests.HTTPError as e:
             print(f"  ERROR posting: {e}")
             print(f"  Response: {e.response.text if e.response else 'N/A'}")
+            status = e.response.status_code if e.response is not None else None
+            if status == 429:
+                record_ops_event("x_credits_depleted", {"reason": "rate_limited_429", "slot": slot})
+                print("WARN: rate limited (429). Pausing X posting for today.")
+                return
             continue
         except Exception as e:
             print(f"  ERROR: {e}")

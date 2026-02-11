@@ -319,11 +319,7 @@ exports.Prisma.HookCandidateScalarFieldEnum = {
   moltbookHighPerformer: 'moltbookHighPerformer',
   slackReactionRate: 'slackReactionRate',
   slackSampleSize: 'slackSampleSize',
-  slackHighPerformer: 'slackHighPerformer',
-  platform: 'platform',
-  contentType: 'contentType',
-  idempotencyKey: 'idempotencyKey',
-  metadata: 'metadata'
+  slackHighPerformer: 'slackHighPerformer'
 };
 
 exports.Prisma.TiktokPostScalarFieldEnum = {
@@ -429,76 +425,36 @@ exports.Prisma.AgentAuditLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.OpsProposalScalarFieldEnum = {
+exports.Prisma.MemoryItemScalarFieldEnum = {
   id: 'id',
-  skillName: 'skillName',
-  source: 'source',
-  status: 'status',
-  title: 'title',
-  payload: 'payload',
-  rejectReason: 'rejectReason',
-  createdAt: 'createdAt',
-  resolvedAt: 'resolvedAt'
-};
-
-exports.Prisma.OpsMissionScalarFieldEnum = {
-  id: 'id',
-  proposalId: 'proposalId',
-  status: 'status',
-  createdAt: 'createdAt',
-  completedAt: 'completedAt'
-};
-
-exports.Prisma.OpsMissionStepScalarFieldEnum = {
-  id: 'id',
-  missionId: 'missionId',
-  stepKind: 'stepKind',
-  stepOrder: 'stepOrder',
-  status: 'status',
-  input: 'input',
-  output: 'output',
-  lastError: 'lastError',
-  reservedAt: 'reservedAt',
-  completedAt: 'completedAt',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.OpsEventScalarFieldEnum = {
-  id: 'id',
-  source: 'source',
-  kind: 'kind',
-  tags: 'tags',
-  payload: 'payload',
-  missionId: 'missionId',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.OpsPolicyScalarFieldEnum = {
+  scope: 'scope',
+  category: 'category',
   key: 'key',
   value: 'value',
+  confidence: 'confidence',
+  source: 'source',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.OpsTriggerRuleScalarFieldEnum = {
+exports.Prisma.InitiativeScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  eventKind: 'eventKind',
-  condition: 'condition',
-  proposalTemplate: 'proposalTemplate',
-  cooldownMin: 'cooldownMin',
-  enabled: 'enabled',
-  lastFiredAt: 'lastFiredAt',
-  createdAt: 'createdAt'
+  kind: 'kind',
+  status: 'status',
+  reason: 'reason',
+  payload: 'payload',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
-exports.Prisma.OpsReactionScalarFieldEnum = {
+exports.Prisma.ResearchItemScalarFieldEnum = {
   id: 'id',
-  eventId: 'eventId',
-  targetSkill: 'targetSkill',
-  actionType: 'actionType',
-  status: 'status',
-  createdAt: 'createdAt',
-  processedAt: 'processedAt'
+  source: 'source',
+  query: 'query',
+  summary: 'summary',
+  payload: 'payload',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -555,13 +511,9 @@ exports.Prisma.ModelName = {
   NotificationSchedule: 'NotificationSchedule',
   AgentPost: 'AgentPost',
   AgentAuditLog: 'AgentAuditLog',
-  OpsProposal: 'OpsProposal',
-  OpsMission: 'OpsMission',
-  OpsMissionStep: 'OpsMissionStep',
-  OpsEvent: 'OpsEvent',
-  OpsPolicy: 'OpsPolicy',
-  OpsTriggerRule: 'OpsTriggerRule',
-  OpsReaction: 'OpsReaction'
+  MemoryItem: 'MemoryItem',
+  Initiative: 'Initiative',
+  ResearchItem: 'ResearchItem'
 };
 
 /**
