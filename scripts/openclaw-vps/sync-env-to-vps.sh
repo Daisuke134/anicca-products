@@ -4,6 +4,7 @@ set -e
 cd "$(dirname "$0")/../.."
 set -a
 source ./.env 2>/dev/null || true
+source /Users/cbns03/.config/env/global.env 2>/dev/null || true
 source ./scripts/anicca-agent/.env 2>/dev/null || true
 set +a
 
@@ -11,7 +12,7 @@ VPS_HOST="${VPS_HOST:-46.225.70.241}"
 VPS_USER="${VPS_USER:-anicca}"
 REMOTE_ENV="/home/anicca/.openclaw/.env"
 
-KEYS="API_BASE_URL ANICCA_AGENT_TOKEN APIFY_API_TOKEN TWITTERAPI_KEY REDDAPI_API_KEY MOLTBOOK_BASE_URL MOLTBOOK_ACCESS_TOKEN INTERNAL_API_TOKEN"
+KEYS="API_BASE_URL ANICCA_AGENT_TOKEN APIFY_API_TOKEN TWITTERAPI_KEY REDDAPI_API_KEY MOLTBOOK_BASE_URL MOLTBOOK_ACCESS_TOKEN INTERNAL_API_TOKEN BLOTATO_API_KEY BLOTATO_ACCOUNT_ID_EN BLOTATO_TIKTOK_ACCOUNT_ID X_BEARER_TOKEN NUDGE_ALPHA_USER_ID"
 
 for k in $KEYS; do
   v="${!k}"
