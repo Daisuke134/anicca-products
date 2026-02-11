@@ -102,10 +102,11 @@ router.post('/moltbook-shadow-monitor', async (req, res) => {
   }
 });
 
-// POST /api/admin/jobs/moltbook-poster (proactive post; no replies)
+// POST /api/admin/jobs/moltbook-poster (proactive post; no replies). Body: { dry_run?: boolean }
 router.post('/moltbook-poster', async (req, res) => {
   try {
-    const result = await runMoltbookPosterJob();
+    const dryRun = Boolean(req?.body?.dry_run);
+    const result = await runMoltbookPosterJob({ dryRun });
     return res.json({ success: true, result });
   } catch (error) {
     logger.error('moltbook-poster failed', error);

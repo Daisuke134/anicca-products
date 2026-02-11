@@ -8,6 +8,15 @@ import { logger } from '../../lib/logger.js';
 
 const router = Router();
 
+async function runStep(name, fn) {
+  try {
+    return await fn();
+  } catch (error) {
+    logger.error(`Heartbeat step failed: ${name}`, { message: error.message });
+    return { ok: false, error: error.message };
+  }
+}
+
 /**
  * GET|POST /api/ops/heartbeat
  * Called every 5min from VPS crontab (jobs.json uses POST)
@@ -24,11 +33,11 @@ const handleHeartbeat = async (req, res) => {
 
   try {
     const results = {
-      triggers: await evaluateTriggers(4000),
-      reactions: await processReactionQueue(3000),
-      steps: await processQueuedSteps(3),
-      insights: await promoteInsights(),
-      stale: await recoverStaleSteps()
+      triggers: await runStep('evaluateTriggers', () => evaluateTriggers(4000)),
+      reactions: await runStep('processReactionQueue', () => processReactionQueue(3000)),
+      steps: await runStep('processQueuedSteps', () => processQueuedSteps(3)),
+      insights: await runStep('promoteInsights', () => promoteInsights()),
+      stale: await runStep('recoverStaleSteps', () => recoverStaleSteps())
     };
 
     const elapsed = Date.now() - start;

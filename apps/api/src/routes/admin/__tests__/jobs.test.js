@@ -105,4 +105,12 @@ describe('admin jobs routes', () => {
     expect(jobMocks.runMoltbookPosterJob).toHaveBeenCalledTimes(1);
     expect(res.body.result.ok).toBe(true);
   });
+
+  it('POST /moltbook-poster with dry_run: true passes dryRun to job', async () => {
+    jobMocks.runMoltbookPosterJob.mockResolvedValueOnce({ ok: true, dryRun: true, externalPostId: 'moltbook-daily-2026-02-11' });
+    const res = await request(app).post('/api/admin/jobs/moltbook-poster').send({ dry_run: true });
+    expect(res.status).toBe(200);
+    expect(jobMocks.runMoltbookPosterJob).toHaveBeenCalledWith({ dryRun: true });
+    expect(res.body.result.ok).toBe(true);
+  });
 });

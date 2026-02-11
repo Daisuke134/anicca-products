@@ -114,6 +114,9 @@ cd apps/api && npx vitest run src/routes/ops src/routes/admin src/services/ops s
 - 41 ファイル、158 テスト、失敗 0
 - 証跡: `npx vitest run src/routes/ops src/routes/admin src/services/ops src/middleware/__tests__/opsAuth.test.js` → Test Files 41 passed, Tests 158 passed
 
+**結果（2026-02-11 同日・moltbook-poster dry_run 対応後）:**
+- 上記同一コマンドで 41 files, 159 tests passed（moltbook-poster に dry_run body 対応追加＋jobs.test.js に dry_run テスト 1 件追加で 6 tests in jobs.test.js）
+
 ---
 
 ## 6. schedule 無効化差分（GHA 4ファイル）
@@ -134,10 +137,17 @@ rg -n "schedule:" .github/workflows/anicca-x-post.yml .github/workflows/anicca-d
 
 ## 7. E2E 疎通チェック（3エンドポイント・AGENT-RUNBOOK 5）
 
-ローカルから実行（API_BASE_URL=Staging, ANICCA_AGENT_TOKEN 使用）:
+ローカルから実行（API_BASE_URL=Staging, ANICCA_AGENT_TOKEN / INTERNAL_API_TOKEN 使用）:
 ```bash
+# heartbeat
 curl -sS -o /tmp/hb.json -w '%{http_code}' -X POST "${API_BASE_URL}/api/ops/heartbeat" \
   -H "Authorization: Bearer ${ANICCA_AGENT_TOKEN}" -H "Content-Type: application/json" -d '{}'
+# autonomy-check (dry_run)
+curl -sS -o /tmp/auto.json -w '%{http_code}' -X POST "${API_BASE_URL}/api/admin/jobs/autonomy-check" \
+  -H "Authorization: Bearer ${INTERNAL_API_TOKEN}" -H "Content-Type: application/json" -d '{"dry_run":true}'
+# moltbook-poster (dry_run) ※ body.dry_run 対応済み
+curl -sS -o /tmp/mb.json -w '%{http_code}' -X POST "${API_BASE_URL}/api/admin/jobs/moltbook-poster" \
+  -H "Authorization: Bearer ${INTERNAL_API_TOKEN}" -H "Content-Type: application/json" -d '{"dry_run":true}'
 ```
 
 **結果（2026-02-11 RUNBOOK 実行）:**
@@ -146,6 +156,8 @@ curl -sS -o /tmp/hb.json -w '%{http_code}' -X POST "${API_BASE_URL}/api/ops/hear
 | POST /api/ops/heartbeat | 401 | Unauthorized。ローカルANICCA_AGENT_TOKEN が Railway Staging の値と不一致の可能性 |
 | POST /api/admin/jobs/autonomy-check | (未実施) | INTERNAL_API_TOKEN がローカル .env に未設定のためスキップ |
 | POST /api/admin/jobs/moltbook-poster | (未実施) | 同上 |
+
+**コード対応（2026-02-11）:** `POST /api/admin/jobs/moltbook-poster` に `body.dry_run` 対応を追加。`req.body.dry_run === true` のとき `runMoltbookPosterJob({ dryRun: true })` を呼び、Moltbook API は呼ばず 200 で `{ ok: true, dryRun: true, ... }` を返す。RUNBOOK の「moltbook-poster (dry_run) = 200」ゲート用。
 
 **解消手順:** Railway Dashboard で Staging の `ANICCA_AGENT_TOKEN` を確認し、ローカル .env と一致させる。`INTERNAL_API_TOKEN` を .env に追加（Railway の INTERNAL_API_TOKEN と同じ値）。
 

@@ -6,8 +6,9 @@ function requiredEnv(name) {
   return v;
 }
 
-export async function postMoltbookStatus({ status, visibility = 'public' }) {
-  const dryRun = String(process.env.MOLTBOOK_DRY_RUN || '').toLowerCase() === 'true';
+export async function postMoltbookStatus({ status, visibility = 'public', dryRun: dryRunOpt } = {}) {
+  const dryRun =
+    dryRunOpt === true || String(process.env.MOLTBOOK_DRY_RUN || '').toLowerCase() === 'true';
   if (dryRun) {
     return { dryRun: true, statusId: null, url: null };
   }

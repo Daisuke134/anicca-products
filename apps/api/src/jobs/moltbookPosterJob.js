@@ -38,6 +38,7 @@ export async function runMoltbookPosterJob(options = {}) {
   const now = options.now ? new Date(options.now) : new Date();
   const dateJst = options.dateJst || jstDateString(now);
   const externalPostId = `moltbook-daily-${dateJst}`;
+  const dryRun = Boolean(options.dryRun);
 
   // Idempotency: rely on unique(platform, externalPostId) used across the codebase.
   const existing = await prisma.agentPost.findUnique({
@@ -74,7 +75,7 @@ export async function runMoltbookPosterJob(options = {}) {
   });
 
   try {
-    const out = await postMoltbookStatus({ status: `ひと息だけ\n\n${status}` });
+    const out = await postMoltbookStatus({ status: `ひと息だけ\n\n${status}`, dryRun });
     await prisma.agentAuditLog.create({
       data: {
         eventType: 'moltbook_post_sent',
