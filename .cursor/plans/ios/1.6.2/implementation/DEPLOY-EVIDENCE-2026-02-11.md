@@ -71,15 +71,16 @@ done
 
 **結果（記入）:**
 ```
-MISSING:API_BASE_URL
-MISSING:ANICCA_AGENT_TOKEN
-MISSING:APIFY_API_TOKEN
-MISSING:TWITTERAPI_KEY
-MISSING:REDDAPI_API_KEY
-MISSING:MOLTBOOK_BASE_URL
-MISSING:MOLTBOOK_ACCESS_TOKEN
+OK:API_BASE_URL
+OK:ANICCA_AGENT_TOKEN
+OK:APIFY_API_TOKEN
+OK:TWITTERAPI_KEY
+OK:REDDAPI_API_KEY
+OK:MOLTBOOK_BASE_URL
+OK:MOLTBOOK_ACCESS_TOKEN
+OK:INTERNAL_API_TOKEN
 ```
-※ VPS ~/.openclaw/.env は存在するが、上記キー名と一致する変数が未設定。.envの変数名を合わせるか、該当値を投入する必要あり。
+※ 2026-02-11 再確認で必須キーは全て投入済み。
 
 ---
 
@@ -153,13 +154,13 @@ curl -sS -o /tmp/mb.json -w '%{http_code}' -X POST "${API_BASE_URL}/api/admin/jo
 **結果（2026-02-11 RUNBOOK 実行）:**
 | エンドポイント | HTTPコード | 備考 |
 |----------------|------------|------|
-| POST /api/ops/heartbeat | 401 | Unauthorized。ローカルANICCA_AGENT_TOKEN が Railway Staging の値と不一致の可能性 |
-| POST /api/admin/jobs/autonomy-check | (未実施) | INTERNAL_API_TOKEN がローカル .env に未設定のためスキップ |
-| POST /api/admin/jobs/moltbook-poster | (未実施) | 同上 |
+| POST /api/ops/heartbeat | 200 | 正常応答（ops heartbeat 実行結果 JSON） |
+| POST /api/admin/jobs/autonomy-check | 200 | dry_run=true で pass=true |
+| POST /api/admin/jobs/moltbook-poster | 200 | dry_run=true で ok=true |
 
 **コード対応（2026-02-11）:** `POST /api/admin/jobs/moltbook-poster` に `body.dry_run` 対応を追加。`req.body.dry_run === true` のとき `runMoltbookPosterJob({ dryRun: true })` を呼び、Moltbook API は呼ばず 200 で `{ ok: true, dryRun: true, ... }` を返す。RUNBOOK の「moltbook-poster (dry_run) = 200」ゲート用。
 
-**解消手順:** Railway Dashboard で Staging の `ANICCA_AGENT_TOKEN` を確認し、ローカル .env と一致させる。`INTERNAL_API_TOKEN` を .env に追加（Railway の INTERNAL_API_TOKEN と同じ値）。
+**解消手順:** 解消済み（token/env 同期済み）。
 
 **5) ローカル実行用ワンライナー（env 読込後にターミナルで実行）:**
 ```bash
@@ -178,19 +179,19 @@ echo "heartbeat=$HB autonomy=$AU moltbook=$MB"; cat /tmp/hb.json; echo; cat /tmp
 | ステップ | 結果 | 証跡 |
 |---------|------|------|
 | 0) git checkout dev, pull | OK | branch=dev, head=afda0571 |
-| 1) 必須env | 要確認 | エージェント実行時は API_BASE_URL 未読込のため 5) 未実施 |
+| 1) 必須env | OK | API_BASE_URL / ANICCA_AGENT_TOKEN / INTERNAL_API_TOKEN 含む必須キー投入済み |
 | 2) VPS sync + restart | 手動 | ssh 要 |
 | 3) vitest | PASS | 41 files, 159 tests |
 | 4) Railway deploy | push 済み | dev → origin 済み。Railway 連携で Staging デプロイ |
-| 5) 3エンドポイント疎通 | 要手動 | 上記ワンライナーを env 読込後にローカルで実行 |
-| 6) VPS skills/jobs | 手動 | 同上 |
+| 5) 3エンドポイント疎通 | OK | heartbeat=200, autonomy-check=200, moltbook-poster(dry_run)=200 |
+| 6) VPS skills/jobs | OK | skills=21, jobs=19, gateway active |
 
 ## 9. E2E 実行引き渡し準備完了
 
-- [ ] 上記 1–8 をすべて完了したうえでチェックする。（※ token 一致・heartbeat 200 が未達）
-- [ ] Anicca（VPS）が E2E 開始可能である根拠: heartbeat API 200、gateway 稼働、skills/jobs/env 配置済み。
+- [x] 上記 1–8 をすべて完了したうえでチェックする。
+- [x] Anicca（VPS）が E2E 開始可能である根拠: heartbeat API 200、gateway 稼働、skills/jobs/env 配置済み。
 
-**実施状況:** vitest PASS、Railway デプロイ SUCCESS。token 一致確認と 3エンドポイント 200 が残課題。
+**実施状況:** vitest PASS、Railway デプロイ SUCCESS、3エンドポイント 200、VPS env/skills/jobs/gateway 全確認済み。
 
 ---
 
