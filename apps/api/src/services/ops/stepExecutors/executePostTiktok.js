@@ -10,7 +10,7 @@ const BLOTATO_BASE_URL = 'https://backend.blotato.com/v2';
  * Output: { postId: string }
  * Events: tiktok_posted
  */
-export async function executePostTiktok({ input, missionId }) {
+export async function executePostTiktok({ input, missionId, proposalPayload }) {
   const { content, hookId, verificationScore } = input;
 
   if (!content) {
@@ -21,8 +21,16 @@ export async function executePostTiktok({ input, missionId }) {
   const apiKey = process.env.BLOTATO_API_KEY;
   const tiktokAccountId =
     process.env.BLOTATO_TIKTOK_ACCOUNT_ID || process.env.BLOTATO_ACCOUNT_ID_EN;
+  const mediaUrls = normalizeMediaUrls(
+    input?.mediaUrls || proposalPayload?.mediaUrls,
+    input?.mediaUrl || proposalPayload?.mediaUrl
+  );
 
   if (apiKey && tiktokAccountId) {
+    if (mediaUrls.length === 0) {
+      throw new Error('post_tiktok requires at least one media URL (input.mediaUrls)');
+    }
+
     const res = await fetch(`${BLOTATO_BASE_URL}/posts`, {
       method: 'POST',
       headers: {
@@ -35,7 +43,7 @@ export async function executePostTiktok({ input, missionId }) {
           content: {
             // Keep conservative limit to avoid provider-side mismatch.
             text: content.slice(0, 2000),
-            mediaUrls: [],
+            mediaUrls,
             platform: 'tiktok'
           },
           target: {
@@ -93,4 +101,12 @@ export async function executePostTiktok({ input, missionId }) {
       }
     }]
   };
+}
+
+function normalizeMediaUrls(multi, single) {
+  const fromArray = Array.isArray(multi) ? multi : [];
+  const combined = [...fromArray, single].filter(Boolean);
+  return combined
+    .map(v => String(v).trim())
+    .filter(v => /^https?:\/\//i.test(v));
 }

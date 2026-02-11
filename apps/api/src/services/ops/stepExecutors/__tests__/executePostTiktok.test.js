@@ -45,7 +45,11 @@ describe('executePostTiktok', () => {
 
     const { executePostTiktok } = await import('../executePostTiktok.js');
     const result = await executePostTiktok({
-      input: { content: 'hello', verificationScore: 5 },
+      input: {
+        content: 'hello',
+        verificationScore: 5,
+        mediaUrls: ['https://cdn.example.com/post.jpg']
+      },
       missionId: 'mission-2'
     });
 
@@ -53,6 +57,7 @@ describe('executePostTiktok', () => {
     const [, req] = global.fetch.mock.calls[0];
     const body = JSON.parse(req.body);
     expect(body.post.accountId).toBe('tt_123');
+    expect(body.post.content.mediaUrls).toEqual(['https://cdn.example.com/post.jpg']);
     expect(body.post.target.privacyLevel).toBe('PUBLIC_TO_EVERYONE');
     expect(body.post.target.disabledComments).toBe(false);
     expect(body.post.target.disabledDuet).toBe(false);
@@ -61,6 +66,17 @@ describe('executePostTiktok', () => {
     expect(body.post.target.isYourBrand).toBe(false);
     expect(body.post.target.isAiGenerated).toBe(false);
     expect(result.events[0].payload.blotatoPostId).toBe('sub_1');
+  });
+
+  it('throws when credentials are set but mediaUrls are missing', async () => {
+    process.env.BLOTATO_API_KEY = 'blt_test';
+    process.env.BLOTATO_TIKTOK_ACCOUNT_ID = 'tt_123';
+    const { executePostTiktok } = await import('../executePostTiktok.js');
+
+    await expect(executePostTiktok({
+      input: { content: 'hello' },
+      missionId: 'mission-3'
+    })).rejects.toThrow('post_tiktok requires at least one media URL');
   });
 
   it('throws when content is missing', async () => {
