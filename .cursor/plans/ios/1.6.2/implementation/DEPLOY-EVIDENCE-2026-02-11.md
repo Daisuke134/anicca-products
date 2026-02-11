@@ -161,19 +161,29 @@ curl -sS -o /tmp/mb.json -w '%{http_code}' -X POST "${API_BASE_URL}/api/admin/jo
 
 **解消手順:** Railway Dashboard で Staging の `ANICCA_AGENT_TOKEN` を確認し、ローカル .env と一致させる。`INTERNAL_API_TOKEN` を .env に追加（Railway の INTERNAL_API_TOKEN と同じ値）。
 
+**5) ローカル実行用ワンライナー（env 読込後にターミナルで実行）:**
+```bash
+set -a; [ -f .env ] && source .env; [ -f /Users/cbns03/.config/env/global.env ] && source /Users/cbns03/.config/env/global.env; set +a
+HB=$(curl -sS -o /tmp/hb.json -w '%{http_code}' -X POST "${API_BASE_URL}/api/ops/heartbeat" -H "Authorization: Bearer ${ANICCA_AGENT_TOKEN}" -H 'Content-Type: application/json' -d '{}')
+AU=$(curl -sS -o /tmp/au.json -w '%{http_code}' -X POST "${API_BASE_URL}/api/admin/jobs/autonomy-check" -H "Authorization: Bearer ${INTERNAL_API_TOKEN}" -H 'Content-Type: application/json' -d '{"dry_run":true}')
+MB=$(curl -sS -o /tmp/mb.json -w '%{http_code}' -X POST "${API_BASE_URL}/api/admin/jobs/moltbook-poster" -H "Authorization: Bearer ${INTERNAL_API_TOKEN}" -H 'Content-Type: application/json' -d '{"dry_run":true}')
+echo "heartbeat=$HB autonomy=$AU moltbook=$MB"; cat /tmp/hb.json; echo; cat /tmp/au.json; echo; cat /tmp/mb.json; echo
+[ "$HB" = "200" ] && [ "$AU" = "200" ] && [ "$MB" = "200" ] && echo "OK: 3/3 200"
+```
+
 ---
 
 ## 8. AGENT-RUNBOOK 実行サマリ（2026-02-11）
 
 | ステップ | 結果 | 証跡 |
 |---------|------|------|
-| 0) git checkout dev, pull | OK | branch=dev, head=fe692316 |
-| 1) 必須env | 一部不足 | INTERNAL_API_TOKEN MISSING。API_BASE_URL, ANICCA_AGENT_TOKEN は OK |
-| 2) VPS sync + restart | スキップ | SSH timeout。手動実行要 |
-| 3) vitest | PASS | 41 files, 158 tests |
-| 4) Railway deploy | デプロイ済み | 最新 SUCCESS: fe692316（heartbeat POST 含む） |
-| 5) 3エンドポイント疎通 | 未達成 | heartbeat 401（token不一致）、admin 2件は INTERNAL_API_TOKEN 未設定で未実施 |
-| 6) VPS skills/jobs | スキップ | SSH timeout |
+| 0) git checkout dev, pull | OK | branch=dev, head=afda0571 |
+| 1) 必須env | 要確認 | エージェント実行時は API_BASE_URL 未読込のため 5) 未実施 |
+| 2) VPS sync + restart | 手動 | ssh 要 |
+| 3) vitest | PASS | 41 files, 159 tests |
+| 4) Railway deploy | push 済み | dev → origin 済み。Railway 連携で Staging デプロイ |
+| 5) 3エンドポイント疎通 | 要手動 | 上記ワンライナーを env 読込後にローカルで実行 |
+| 6) VPS skills/jobs | 手動 | 同上 |
 
 ## 9. E2E 実行引き渡し準備完了
 
