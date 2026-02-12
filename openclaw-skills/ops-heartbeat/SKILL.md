@@ -16,8 +16,15 @@
 なし（cron 起動）。
 
 ## 実行手順
-1. `POST {API_BASE_URL}/api/ops/heartbeat` を呼ぶ。
+1. `Authorization: Bearer ${ANICCA_AGENT_TOKEN}` を付けて `POST {API_BASE_URL}/api/ops/heartbeat` を呼ぶ。
 2. レスポンスの `triggers`, `reactions`, `insights`, `stale` を監査ログに記録する。
+
+### API 呼び出し例（curl）
+```bash
+curl -sfS -X POST \
+  -H "Authorization: Bearer $ANICCA_AGENT_TOKEN" \
+  "$API_BASE_URL/api/ops/heartbeat"
+```
 
 ## 出力 / 監査ログ
 - `{ ok: true, elapsed, triggers, reactions, insights, stale }`

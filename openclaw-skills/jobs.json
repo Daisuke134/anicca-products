@@ -7,7 +7,7 @@
       "schedule": { "kind": "cron", "expr": "*/5 * * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute ops-heartbeat skill. POST /api/ops/heartbeat." },
+      "payload": { "kind": "agentTurn", "message": "Execute ops-heartbeat skill. Use Authorization: Bearer $ANICCA_AGENT_TOKEN. POST $API_BASE_URL/api/ops/heartbeat." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
@@ -17,7 +17,7 @@
       "schedule": { "kind": "cron", "expr": "* * * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute mission-worker skill. GET /api/ops/step/next -> run step -> PATCH complete." },
+      "payload": { "kind": "agentTurn", "message": "Execute mission-worker skill. Use Authorization: Bearer $ANICCA_AGENT_TOKEN. GET $API_BASE_URL/api/ops/step/next -> run step -> PATCH $API_BASE_URL/api/ops/step/{id}/complete." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
@@ -37,7 +37,7 @@
       "schedule": { "kind": "cron", "expr": "*/5 * * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute suffering-detector skill. POST /api/admin/jobs/suffering-detector." },
+      "payload": { "kind": "agentTurn", "message": "Execute suffering-detector skill. Use Authorization: Bearer ${INTERNAL_API_TOKEN:-$INTERNAL_AUTH_SECRET}. POST $API_BASE_URL/api/admin/jobs/suffering-detector." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
@@ -188,6 +188,16 @@
       "sessionTarget": "isolated",
       "wakeMode": "now",
       "payload": { "kind": "agentTurn", "message": "Execute autonomy-check skill. POST /api/admin/jobs/autonomy-check." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "daily-memory",
+      "name": "daily-memory",
+      "schedule": { "kind": "cron", "expr": "0 23 * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute daily-memory skill. Read /home/anicca/.openclaw/memory/anicca/AGENTS.md. Append today's learnings to /home/anicca/.openclaw/memory/anicca/lessons-learned.md. Write today's diary to /home/anicca/.openclaw/memory/anicca/diary-YYYY-MM-DD.md (use today's date in YYYY-MM-DD)." },
       "delivery": { "mode": "none" },
       "enabled": true
     }

@@ -7,7 +7,7 @@
 | キー | 説明 |
 |------|------|
 | `API_BASE_URL` | Anicca API ベースURL |
-| `ANICCA_AGENT_TOKEN` | ops 認証トークン |
+| `ANICCA_AGENT_TOKEN` | ops 認証トークン（Bearer） |
 
 ## 必須 tools
 - `web_fetch`（API 呼び出し）
@@ -16,11 +16,24 @@
 ## 入力
 なし（cron 起動）。
 
-## 実行手順
-1. `GET {API_BASE_URL}/api/ops/step/next` で step を取得。
-2. `step` が null なら終了。
-3. `stepKind` に応じて executor を実行（draft_content, verify_content, post_x, post_tiktok, detect_suffering, run_trend_scan 等）。
-4. `PATCH {API_BASE_URL}/api/ops/step/{id}/complete` に `{ status, output, error?, events? }` を送信。
+## 実行手順（実装）
+1. `Authorization: Bearer ${ANICCA_AGENT_TOKEN}` を必ず付けて `GET {API_BASE_URL}/api/ops/step/next` を呼ぶ。
+2. `step` が `null` なら `{ ok: true, reason: "queue_empty" }` として終了。
+3. `step.stepKind` ごとの executor を実行（最低限: `noop` でも可）。失敗時は `status=failed`。
+4. 必ず `PATCH {API_BASE_URL}/api/ops/step/{id}/complete` に `status/output/error/events` を送信して終了。
+
+### 最低限の API 呼び出し例（curl）
+```bash
+curl -sfS -H "Authorization: Bearer $ANICCA_AGENT_TOKEN" \
+  "$API_BASE_URL/api/ops/step/next"
+```
+
+```bash
+curl -sfS -X PATCH -H "Authorization: Bearer $ANICCA_AGENT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"status":"succeeded","output":{"ok":true},"events":[]}' \
+  "$API_BASE_URL/api/ops/step/<STEP_ID>/complete"
+```
 
 ## 出力 / 監査ログ
 - step 取得・実行・complete の結果を runs に記録。
