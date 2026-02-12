@@ -457,6 +457,78 @@ exports.Prisma.ResearchItemScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.OpsProposalScalarFieldEnum = {
+  id: 'id',
+  skillName: 'skillName',
+  source: 'source',
+  status: 'status',
+  title: 'title',
+  payload: 'payload',
+  rejectReason: 'rejectReason',
+  createdAt: 'createdAt',
+  resolvedAt: 'resolvedAt'
+};
+
+exports.Prisma.OpsMissionScalarFieldEnum = {
+  id: 'id',
+  proposalId: 'proposalId',
+  status: 'status',
+  createdAt: 'createdAt',
+  completedAt: 'completedAt'
+};
+
+exports.Prisma.OpsMissionStepScalarFieldEnum = {
+  id: 'id',
+  missionId: 'missionId',
+  stepKind: 'stepKind',
+  stepOrder: 'stepOrder',
+  status: 'status',
+  input: 'input',
+  output: 'output',
+  lastError: 'lastError',
+  reservedAt: 'reservedAt',
+  completedAt: 'completedAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.OpsEventScalarFieldEnum = {
+  id: 'id',
+  source: 'source',
+  kind: 'kind',
+  tags: 'tags',
+  payload: 'payload',
+  missionId: 'missionId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.OpsPolicyScalarFieldEnum = {
+  key: 'key',
+  value: 'value',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.OpsTriggerRuleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  eventKind: 'eventKind',
+  condition: 'condition',
+  proposalTemplate: 'proposalTemplate',
+  cooldownMin: 'cooldownMin',
+  enabled: 'enabled',
+  lastFiredAt: 'lastFiredAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.OpsReactionScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  targetSkill: 'targetSkill',
+  actionType: 'actionType',
+  status: 'status',
+  createdAt: 'createdAt',
+  processedAt: 'processedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -513,7 +585,14 @@ exports.Prisma.ModelName = {
   AgentAuditLog: 'AgentAuditLog',
   MemoryItem: 'MemoryItem',
   Initiative: 'Initiative',
-  ResearchItem: 'ResearchItem'
+  ResearchItem: 'ResearchItem',
+  OpsProposal: 'OpsProposal',
+  OpsMission: 'OpsMission',
+  OpsMissionStep: 'OpsMissionStep',
+  OpsEvent: 'OpsEvent',
+  OpsPolicy: 'OpsPolicy',
+  OpsTriggerRule: 'OpsTriggerRule',
+  OpsReaction: 'OpsReaction'
 };
 
 /**

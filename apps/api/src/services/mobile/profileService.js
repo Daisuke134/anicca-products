@@ -4,6 +4,17 @@ import { resolveProfileId, isUuid, ensureDeviceProfileId } from './userIdResolve
 
 const logger = baseLogger.withContext('MobileProfileService');
 
+async function ensureProfileRow(userId, metadata = {}) {
+  if (!isUuid(userId)) return false;
+  await query(
+    `insert into profiles (id, metadata, created_at, updated_at)
+     values ($1::uuid, coalesce($2::jsonb, '{}'::jsonb), timezone('utc', now()), timezone('utc', now()))
+     on conflict (id) do nothing`,
+    [userId, JSON.stringify(metadata || {})]
+  );
+  return true;
+}
+
 /**
  * Get user profile by device ID
  * @param {string} deviceId - Device identifier
@@ -76,25 +87,16 @@ export async function upsertProfile({ deviceId, userId, profile, language }) {
     // Update user_settings.language if preferredLanguage is provided
     if (language && (language === 'ja' || language === 'en') && isUuid(effectiveUserId)) {
       try {
-        // Check if profiles record exists first to avoid foreign key violation
-        const profileExists = await query(
-          `SELECT 1 FROM profiles WHERE id = $1::uuid LIMIT 1`,
-          [effectiveUserId]
+        await ensureProfileRow(effectiveUserId, { source: 'mobile_profile' });
+        await query(
+          `INSERT INTO user_settings (user_id, language, updated_at)
+           VALUES ($1::uuid, $2, NOW())
+           ON CONFLICT (user_id)
+           DO UPDATE SET
+             language = EXCLUDED.language,
+             updated_at = NOW()`,
+          [effectiveUserId, language]
         );
-        
-        if (profileExists.rows.length > 0) {
-          await query(
-            `INSERT INTO user_settings (user_id, language, updated_at)
-             VALUES ($1::uuid, $2, NOW())
-             ON CONFLICT (user_id)
-             DO UPDATE SET
-               language = EXCLUDED.language,
-               updated_at = NOW()`,
-            [effectiveUserId, language]
-          );
-        } else {
-          logger.info('Skipping user_settings upsert: userId not found in profiles', { userId: effectiveUserId, deviceId });
-        }
       } catch (err) {
         // 23503 = foreign key violation (safety net)
         if (err.code === '23503') {
@@ -111,7 +113,16 @@ export async function upsertProfile({ deviceId, userId, profile, language }) {
     // We accept both legacy keys (idealTraits/problems/stickyModeEnabled) and new keys (ideals/struggles/big5/nudgeIntensity/stickyMode).
     const profileId = await resolveProfileId(effectiveUserId);
     if (profileId) {
-      await upsertUserTraitsFromProfilePayload(profileId, profile);
+      try {
+        await ensureProfileRow(profileId, { source: 'traits_sync' });
+        await upsertUserTraitsFromProfilePayload(profileId, profile);
+      } catch (traitsError) {
+        if (traitsError.code === '23503') {
+          logger.info('Skipping user_traits upsert: foreign key violation', { profileId, deviceId });
+        } else {
+          throw traitsError;
+        }
+      }
     } else {
       // Non-uuid user_id can happen during migration; don't hard-fail profile upsert.
       logger.warn('Could not resolve profileId; user_traits sync skipped', { userId: effectiveUserId });

@@ -1,11 +1,36 @@
 # API Key & Secret 管理
 
+## 設定先パス（絶対パスで示す）
+
+| 場所 | パス |
+|------|------|
+| **ローカル（プロジェクト .env）** | **`/Users/cbns03/Downloads/anicca-project/.env`**（プロジェクトルート。ここに実値を書く） |
+| **VPS（OpenClaw が読む .env）** | **`/home/anicca/.openclaw/.env`**（同期先。ローカルで値を入れてからここに反映する） |
+
+相対パスで言うとローカルは **`.env`**（リポジトリルート）。
+
+---
+
+## admin 系で詰まる「実値必須」3項目
+
+**ローカル .env で値が `None` や未設定だと、同期しても VPS 側も空のまま。admin 系（heartbeat / app-nudge-sender / autonomy-check 等）がブロックされる。**
+
+以下3つは **必ずローカル .env に実値を入れること。** 入れるファイルは上記「設定先パス」のローカル .env。
+
+| 変数名 | 用途 | 取得元・例 |
+|--------|------|------------|
+| `API_BASE_URL` | Anicca API のベースURL。admin job や ops/heartbeat が叩く先。 | Railway Production: `https://anicca-proxy-production.up.railway.app` |
+| `INTERNAL_API_TOKEN` | admin 系 API の Bearer 認証。 | Railway の Variables の `INTERNAL_API_TOKEN` と同じ値。GHA の `API_AUTH_TOKEN` と同一。 |
+| `NUDGE_ALPHA_USER_ID` | app-nudge-sender の alpha ルーティング先。未設定だと `NUDGE_ALPHA_USER_ID is required` でブロック。 | iOS 端末の Device ID（E2E 通知デバッグ画面などで確認できる UUID）。 |
+
+---
+
 ## 原則: 全シークレットは `.env` で一元管理
 
 | ルール | 詳細 |
 |--------|------|
-| **シークレット保管場所** | プロジェクトルート `.env`（gitignored） |
-| **VPS** | `/home/anicca/.env`（systemd EnvironmentFile） |
+| **シークレット保管場所** | プロジェクトルート `.env`（gitignored）。パスは上記「設定先パス」参照。 |
+| **VPS** | `/home/anicca/.openclaw/.env`（OpenClaw）。`/home/anicca/.env` は systemd 用。 |
 | **Railway** | Railway Dashboard で設定済み |
 | **GitHub Actions** | `gh secret set` で CLI 登録 |
 | **このファイルに実値を書くな** | 変数名と用途のみ記載。値は `.env` を見ろ |
