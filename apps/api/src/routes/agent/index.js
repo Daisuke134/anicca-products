@@ -16,6 +16,10 @@ import feedbackRouter from './feedback.js';
 import contentRouter from './content.js';
 import deletionRouter from './deletion.js';
 import postsRouter from './posts.js';
+import memoryRouter from './memory.js';
+import hooksRouter from './hooks.js';
+import hookPostsRouter from './hookPosts.js';
+import detectSufferingRouter from './detectSuffering.js';
 
 const router = Router();
 
@@ -29,5 +33,9 @@ router.use('/feedback', feedbackRouter);
 router.use('/content', contentRouter);
 router.use('/deletion', deletionRouter);
 router.use('/posts', postsRouter);
+router.use('/memory', memoryRouter);
+router.use('/hooks', hooksRouter);
+router.use('/hook-posts', hookPostsRouter);
+router.use('/detect-suffering', detectSufferingRouter);
 
 export default router;

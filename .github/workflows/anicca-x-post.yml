@@ -1,9 +1,6 @@
 name: Anicca X Post
 
 on:
-  schedule:
-    - cron: '50 23 * * *'  # 08:50 JST (morning slot)
-    - cron: '50 11 * * *'  # 20:50 JST (evening slot)
   workflow_dispatch:
     inputs:
       slot:
@@ -28,7 +25,7 @@ env:
   API_BASE_URL: ${{ secrets.API_BASE_URL }}
   API_AUTH_TOKEN: ${{ secrets.API_AUTH_TOKEN }}
   X_ACCOUNT_ID: ${{ secrets.X_ACCOUNT_ID }}
-  POST_SLOT: ${{ inputs.slot || (github.event.schedule == '50 23 * * *' && 'morning' || 'evening') }}
+  POST_SLOT: ${{ inputs.slot || 'morning' }}
 
 jobs:
   post:

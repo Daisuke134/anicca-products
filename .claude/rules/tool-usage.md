@@ -12,6 +12,22 @@
 | RevenueCat操作 | `mcp__revenuecat__*` | - |
 | App Store Connect | `mcp__app-store-connect__*` | - |
 
+## Firecrawl CLI（Webページ取得 — 絶対ルール）
+
+**WebFetch は禁止。Webページの内容を取得する場合は Firecrawl CLI を使う。**
+
+```bash
+/opt/homebrew/bin/firecrawl scrape <url> markdown
+```
+
+| 場面 | 使うもの | 禁止 |
+|------|---------|------|
+| URLの内容を読む | Firecrawl CLI | WebFetch |
+| リサーチ・調査 | Firecrawl CLI | WebFetch |
+| ドキュメント参照 | Firecrawl CLI（MCP未対応の場合） | WebFetch |
+
+**理由:** WebFetchは内容が不完全・要約される。Firecrawlはフルマークダウンで返す。
+
 ## Maestro MCP（絶対ルール）
 
 **エージェントは Maestro CLI を直接叩くな。必ず MCP を使え。**
@@ -66,19 +82,60 @@
 | シンボル編集 | `mcp__serena__replace_symbol_body` |
 | メモリ読み書き | `mcp__serena__read_memory` / `write_memory` |
 
-## スキル自動適用
+## スキル自動適用（Layer 2 フォールバック）
 
-| スキル | いつ使う |
-|--------|---------|
-| `agent-memory` | 「記憶して」「思い出して」、または重要な発見時 |
-| `content-creator` | 日報作成、SNS投稿作成時 |
-| `ui-skills` | UI/UXの実装・レビュー時 |
-| `changelog-generator` | リリースノート作成時 |
-| `content-research-writer` | コンテンツ作成時 |
-| `coding-standards` | コードを書くとき（Swift/SwiftUI規約） |
-| `tdd-workflow` | テストを書くとき（TDD方法論） |
-| `codex-review` | Spec更新後、major step完了後（>=5files/公開API/infra変更）、コミット/PR/リリース前 |
-| `aso-growth` | ASO/ASA作業、キーワード最適化、Product Page改善、マーケティングメトリクス分析 |
+**Layer 1（description）で90%カバー。以下は補強用マッピング。**
+
+| カテゴリ | スキル | いつ使う |
+|---------|--------|---------|
+| **開発** | `tdd-workflow` | テストを書くとき（TDD方法論） |
+| **開発** | `codex-review` | Spec更新後、major step完了後（>=5files/公開API/infra変更）、コミット/PR/リリース前 |
+| **開発** | `codex` | 設計相談、バグ調査、セカンドオピニオン、文章校閲（Codex read-only、1回実行） |
+| **開発** | `decisive-agent` | 技術判断・選択肢がある場面で自動的に1つに決定 |
+| **開発** | `ralph-autonomous-dev` | 「終わるまでやれ」「keep going」と言われた時 |
+| **開発** | `maestro-ui-testing` | Maestro E2Eテスト作成・修正時 |
+| **開発** | `webapp-testing` | LP（Playwright）テスト時 |
+| **開発** | `mcp-builder` | MCPサーバー作成時 |
+| **開発** | `skill-creator` | 新スキル作成・更新時 |
+| **開発** | `supabase-postgres-best-practices` | PostgreSQLクエリ・スキーマ設計時 |
+| **UI/UX** | `ui-skills` | SwiftUI/Web UIの実装・レビュー時 |
+| **UI/UX** | `canvas-design` | ポスター、ビジュアルアセット、App Storeスクリーンショット作成時 |
+| **UI/UX** | `theme-factory` | スライド・LP・ドキュメントのテーマ適用時 |
+| **UI/UX** | `image-enhancer` | 画像の高画質化、スクリーンショット改善時 |
+| **マーケ** | `recursive-improver` | 広告コピー・LP・Paywall・Nudge等を再帰的に自己採点→改善。コピー磨き全般 |
+| **マーケ** | `aso-growth` | ASO/ASA作業、キーワード最適化、Product Page改善 |
+| **マーケ** | `competitive-ads-extractor` | 競合広告分析、Facebook/LinkedIn広告ライブラリ調査時 |
+| **マーケ** | `tiktok-ads` | TikTok広告の運用・分析・クリエイティブ作成時 |
+| **マーケ** | `tiktok-ads-optimization` | TikTok広告キャンペーンの構造・予算・KPI最適化時 |
+| **マーケ** | `lead-research-assistant` | インフルエンサー発掘、パートナー候補調査時 |
+| **マーケ** | `domain-name-brainstormer` | ドメイン名のアイデア出し・空き確認時 |
+| **コンテンツ** | `content-creator` | 日報作成、SNS投稿作成時 |
+| **コンテンツ** | `content-research-writer` | リサーチ記事・ブログ作成時 |
+| **コンテンツ** | `build-in-public` | X（Twitter）でBuild in Public投稿時 |
+| **コンテンツ** | `auto-article-poster` | note.com記事の自動生成時 |
+| **コンテンツ** | `changelog-generator` | リリースノート作成時 |
+| **ドキュメント** | `xlsx` | Excelスプレッドシート作成・分析・数式操作時 |
+| **ドキュメント** | `pdf` | PDF抽出・作成・マージ・フォーム記入時 |
+| **ドキュメント** | `pptx` | PowerPointプレゼン作成・編集時 |
+| **ドキュメント** | `docx` | Word文書作成・編集・tracked changes時 |
+| **メモリ** | `agent-memory` | 「記憶して」「思い出して」、または重要な発見時 |
+| **動画** | `remotion` | Remotion動画作成・アニメーション時 |
+| **動画** | `video-downloader` | YouTube動画ダウンロード時 |
+| **分析** | `meeting-insights-analyzer` | ミーティング議事録の分析・パターン検出時 |
+| **分析** | `developer-growth-analysis` | 開発パターン分析・成長レポート時 |
+| **整理** | `file-organizer` | ファイル整理・重複検出・構造改善時 |
+| **整理** | `invoice-organizer` | 請求書・レシートの整理・確定申告準備時 |
+| **自動化** | `mixpanel-automation` | Mixpanelイベント・セグメント・ファネル自動操作時 |
+| **自動化** | `slack-automation` | Slackメッセージ・チャンネル・スレッド自動操作時 |
+| **自動化** | `github-automation` | GitHub Issue・PR・Release自動操作時 |
+| **自動化** | `sentry-automation` | Sentryエラー監視・アラート設定時 |
+| **自動化** | `tiktok-automation` | TikTok動画投稿・コンテンツ管理自動化時 |
+| **自動化** | `twitter-automation` | X（Twitter）投稿・検索・メディア自動操作時 |
+| **自動化** | `google-drive-automation` | Google Driveファイル操作・共有・検索時 |
+| **自動化** | `google-calendar-automation` | Googleカレンダーのイベント・スケジュール管理時 |
+| **SNS最適化** | `twitter-algorithm-optimizer` | ツイートのリーチ最大化・アルゴリズム最適化時 |
+| **設計** | `prompt-engineering` | LLMプロンプト作成・最適化・Nudgeテキスト改善時 |
+| **設計** | `software-architecture` | アーキテクチャ設計・Clean Architecture・SOLID原則適用時 |
 
 ## 開発コマンド（/xxx で呼び出し）
 

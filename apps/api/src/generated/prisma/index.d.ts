@@ -123,6 +123,21 @@ export type AgentPost = $Result.DefaultSelection<Prisma.$AgentPostPayload>
  * 
  */
 export type AgentAuditLog = $Result.DefaultSelection<Prisma.$AgentAuditLogPayload>
+/**
+ * Model MemoryItem
+ * 
+ */
+export type MemoryItem = $Result.DefaultSelection<Prisma.$MemoryItemPayload>
+/**
+ * Model Initiative
+ * 
+ */
+export type Initiative = $Result.DefaultSelection<Prisma.$InitiativePayload>
+/**
+ * Model ResearchItem
+ * 
+ */
+export type ResearchItem = $Result.DefaultSelection<Prisma.$ResearchItemPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -466,6 +481,36 @@ export class PrismaClient<
     * ```
     */
   get agentAuditLog(): Prisma.AgentAuditLogDelegate<ExtArgs>;
+
+  /**
+   * `prisma.memoryItem`: Exposes CRUD operations for the **MemoryItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MemoryItems
+    * const memoryItems = await prisma.memoryItem.findMany()
+    * ```
+    */
+  get memoryItem(): Prisma.MemoryItemDelegate<ExtArgs>;
+
+  /**
+   * `prisma.initiative`: Exposes CRUD operations for the **Initiative** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Initiatives
+    * const initiatives = await prisma.initiative.findMany()
+    * ```
+    */
+  get initiative(): Prisma.InitiativeDelegate<ExtArgs>;
+
+  /**
+   * `prisma.researchItem`: Exposes CRUD operations for the **ResearchItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ResearchItems
+    * const researchItems = await prisma.researchItem.findMany()
+    * ```
+    */
+  get researchItem(): Prisma.ResearchItemDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -928,7 +973,10 @@ export namespace Prisma {
     XPost: 'XPost',
     NotificationSchedule: 'NotificationSchedule',
     AgentPost: 'AgentPost',
-    AgentAuditLog: 'AgentAuditLog'
+    AgentAuditLog: 'AgentAuditLog',
+    MemoryItem: 'MemoryItem',
+    Initiative: 'Initiative',
+    ResearchItem: 'ResearchItem'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -944,7 +992,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "token" | "refreshToken" | "mobileProfile" | "userSubscription" | "subscriptionEvent" | "monthlyVcGrant" | "profile" | "userSetting" | "userTrait" | "nudgeEvent" | "nudgeOutcome" | "feelingSession" | "banditModel" | "userTypeEstimate" | "typeStats" | "hookCandidate" | "tiktokPost" | "wisdomPattern" | "xPost" | "notificationSchedule" | "agentPost" | "agentAuditLog"
+      modelProps: "token" | "refreshToken" | "mobileProfile" | "userSubscription" | "subscriptionEvent" | "monthlyVcGrant" | "profile" | "userSetting" | "userTrait" | "nudgeEvent" | "nudgeOutcome" | "feelingSession" | "banditModel" | "userTypeEstimate" | "typeStats" | "hookCandidate" | "tiktokPost" | "wisdomPattern" | "xPost" | "notificationSchedule" | "agentPost" | "agentAuditLog" | "memoryItem" | "initiative" | "researchItem"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2485,6 +2533,216 @@ export namespace Prisma {
           count: {
             args: Prisma.AgentAuditLogCountArgs<ExtArgs>
             result: $Utils.Optional<AgentAuditLogCountAggregateOutputType> | number
+          }
+        }
+      }
+      MemoryItem: {
+        payload: Prisma.$MemoryItemPayload<ExtArgs>
+        fields: Prisma.MemoryItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MemoryItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemoryItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MemoryItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemoryItemPayload>
+          }
+          findFirst: {
+            args: Prisma.MemoryItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemoryItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MemoryItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemoryItemPayload>
+          }
+          findMany: {
+            args: Prisma.MemoryItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemoryItemPayload>[]
+          }
+          create: {
+            args: Prisma.MemoryItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemoryItemPayload>
+          }
+          createMany: {
+            args: Prisma.MemoryItemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MemoryItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemoryItemPayload>[]
+          }
+          delete: {
+            args: Prisma.MemoryItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemoryItemPayload>
+          }
+          update: {
+            args: Prisma.MemoryItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemoryItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.MemoryItemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MemoryItemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.MemoryItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MemoryItemPayload>
+          }
+          aggregate: {
+            args: Prisma.MemoryItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMemoryItem>
+          }
+          groupBy: {
+            args: Prisma.MemoryItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MemoryItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MemoryItemCountArgs<ExtArgs>
+            result: $Utils.Optional<MemoryItemCountAggregateOutputType> | number
+          }
+        }
+      }
+      Initiative: {
+        payload: Prisma.$InitiativePayload<ExtArgs>
+        fields: Prisma.InitiativeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.InitiativeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InitiativePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.InitiativeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InitiativePayload>
+          }
+          findFirst: {
+            args: Prisma.InitiativeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InitiativePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.InitiativeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InitiativePayload>
+          }
+          findMany: {
+            args: Prisma.InitiativeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InitiativePayload>[]
+          }
+          create: {
+            args: Prisma.InitiativeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InitiativePayload>
+          }
+          createMany: {
+            args: Prisma.InitiativeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.InitiativeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InitiativePayload>[]
+          }
+          delete: {
+            args: Prisma.InitiativeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InitiativePayload>
+          }
+          update: {
+            args: Prisma.InitiativeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InitiativePayload>
+          }
+          deleteMany: {
+            args: Prisma.InitiativeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.InitiativeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.InitiativeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InitiativePayload>
+          }
+          aggregate: {
+            args: Prisma.InitiativeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInitiative>
+          }
+          groupBy: {
+            args: Prisma.InitiativeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InitiativeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.InitiativeCountArgs<ExtArgs>
+            result: $Utils.Optional<InitiativeCountAggregateOutputType> | number
+          }
+        }
+      }
+      ResearchItem: {
+        payload: Prisma.$ResearchItemPayload<ExtArgs>
+        fields: Prisma.ResearchItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ResearchItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ResearchItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchItemPayload>
+          }
+          findFirst: {
+            args: Prisma.ResearchItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ResearchItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchItemPayload>
+          }
+          findMany: {
+            args: Prisma.ResearchItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchItemPayload>[]
+          }
+          create: {
+            args: Prisma.ResearchItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchItemPayload>
+          }
+          createMany: {
+            args: Prisma.ResearchItemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ResearchItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchItemPayload>[]
+          }
+          delete: {
+            args: Prisma.ResearchItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchItemPayload>
+          }
+          update: {
+            args: Prisma.ResearchItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.ResearchItemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ResearchItemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ResearchItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResearchItemPayload>
+          }
+          aggregate: {
+            args: Prisma.ResearchItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateResearchItem>
+          }
+          groupBy: {
+            args: Prisma.ResearchItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ResearchItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ResearchItemCountArgs<ExtArgs>
+            result: $Utils.Optional<ResearchItemCountAggregateOutputType> | number
           }
         }
       }
@@ -24489,6 +24747,2762 @@ export namespace Prisma {
 
 
   /**
+   * Model MemoryItem
+   */
+
+  export type AggregateMemoryItem = {
+    _count: MemoryItemCountAggregateOutputType | null
+    _avg: MemoryItemAvgAggregateOutputType | null
+    _sum: MemoryItemSumAggregateOutputType | null
+    _min: MemoryItemMinAggregateOutputType | null
+    _max: MemoryItemMaxAggregateOutputType | null
+  }
+
+  export type MemoryItemAvgAggregateOutputType = {
+    confidence: Decimal | null
+  }
+
+  export type MemoryItemSumAggregateOutputType = {
+    confidence: Decimal | null
+  }
+
+  export type MemoryItemMinAggregateOutputType = {
+    id: string | null
+    scope: string | null
+    category: string | null
+    key: string | null
+    value: string | null
+    confidence: Decimal | null
+    source: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MemoryItemMaxAggregateOutputType = {
+    id: string | null
+    scope: string | null
+    category: string | null
+    key: string | null
+    value: string | null
+    confidence: Decimal | null
+    source: string | null
+    expiresAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MemoryItemCountAggregateOutputType = {
+    id: number
+    scope: number
+    category: number
+    key: number
+    value: number
+    confidence: number
+    source: number
+    expiresAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MemoryItemAvgAggregateInputType = {
+    confidence?: true
+  }
+
+  export type MemoryItemSumAggregateInputType = {
+    confidence?: true
+  }
+
+  export type MemoryItemMinAggregateInputType = {
+    id?: true
+    scope?: true
+    category?: true
+    key?: true
+    value?: true
+    confidence?: true
+    source?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MemoryItemMaxAggregateInputType = {
+    id?: true
+    scope?: true
+    category?: true
+    key?: true
+    value?: true
+    confidence?: true
+    source?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MemoryItemCountAggregateInputType = {
+    id?: true
+    scope?: true
+    category?: true
+    key?: true
+    value?: true
+    confidence?: true
+    source?: true
+    expiresAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MemoryItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MemoryItem to aggregate.
+     */
+    where?: MemoryItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemoryItems to fetch.
+     */
+    orderBy?: MemoryItemOrderByWithRelationInput | MemoryItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MemoryItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemoryItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemoryItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MemoryItems
+    **/
+    _count?: true | MemoryItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MemoryItemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MemoryItemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MemoryItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MemoryItemMaxAggregateInputType
+  }
+
+  export type GetMemoryItemAggregateType<T extends MemoryItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateMemoryItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMemoryItem[P]>
+      : GetScalarType<T[P], AggregateMemoryItem[P]>
+  }
+
+
+
+
+  export type MemoryItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MemoryItemWhereInput
+    orderBy?: MemoryItemOrderByWithAggregationInput | MemoryItemOrderByWithAggregationInput[]
+    by: MemoryItemScalarFieldEnum[] | MemoryItemScalarFieldEnum
+    having?: MemoryItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MemoryItemCountAggregateInputType | true
+    _avg?: MemoryItemAvgAggregateInputType
+    _sum?: MemoryItemSumAggregateInputType
+    _min?: MemoryItemMinAggregateInputType
+    _max?: MemoryItemMaxAggregateInputType
+  }
+
+  export type MemoryItemGroupByOutputType = {
+    id: string
+    scope: string
+    category: string
+    key: string
+    value: string
+    confidence: Decimal
+    source: string
+    expiresAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: MemoryItemCountAggregateOutputType | null
+    _avg: MemoryItemAvgAggregateOutputType | null
+    _sum: MemoryItemSumAggregateOutputType | null
+    _min: MemoryItemMinAggregateOutputType | null
+    _max: MemoryItemMaxAggregateOutputType | null
+  }
+
+  type GetMemoryItemGroupByPayload<T extends MemoryItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MemoryItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MemoryItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MemoryItemGroupByOutputType[P]>
+            : GetScalarType<T[P], MemoryItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MemoryItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    scope?: boolean
+    category?: boolean
+    key?: boolean
+    value?: boolean
+    confidence?: boolean
+    source?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["memoryItem"]>
+
+  export type MemoryItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    scope?: boolean
+    category?: boolean
+    key?: boolean
+    value?: boolean
+    confidence?: boolean
+    source?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["memoryItem"]>
+
+  export type MemoryItemSelectScalar = {
+    id?: boolean
+    scope?: boolean
+    category?: boolean
+    key?: boolean
+    value?: boolean
+    confidence?: boolean
+    source?: boolean
+    expiresAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $MemoryItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MemoryItem"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      scope: string
+      category: string
+      key: string
+      value: string
+      confidence: Prisma.Decimal
+      source: string
+      expiresAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["memoryItem"]>
+    composites: {}
+  }
+
+  type MemoryItemGetPayload<S extends boolean | null | undefined | MemoryItemDefaultArgs> = $Result.GetResult<Prisma.$MemoryItemPayload, S>
+
+  type MemoryItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<MemoryItemFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: MemoryItemCountAggregateInputType | true
+    }
+
+  export interface MemoryItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MemoryItem'], meta: { name: 'MemoryItem' } }
+    /**
+     * Find zero or one MemoryItem that matches the filter.
+     * @param {MemoryItemFindUniqueArgs} args - Arguments to find a MemoryItem
+     * @example
+     * // Get one MemoryItem
+     * const memoryItem = await prisma.memoryItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MemoryItemFindUniqueArgs>(args: SelectSubset<T, MemoryItemFindUniqueArgs<ExtArgs>>): Prisma__MemoryItemClient<$Result.GetResult<Prisma.$MemoryItemPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one MemoryItem that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {MemoryItemFindUniqueOrThrowArgs} args - Arguments to find a MemoryItem
+     * @example
+     * // Get one MemoryItem
+     * const memoryItem = await prisma.memoryItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MemoryItemFindUniqueOrThrowArgs>(args: SelectSubset<T, MemoryItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MemoryItemClient<$Result.GetResult<Prisma.$MemoryItemPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first MemoryItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemoryItemFindFirstArgs} args - Arguments to find a MemoryItem
+     * @example
+     * // Get one MemoryItem
+     * const memoryItem = await prisma.memoryItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MemoryItemFindFirstArgs>(args?: SelectSubset<T, MemoryItemFindFirstArgs<ExtArgs>>): Prisma__MemoryItemClient<$Result.GetResult<Prisma.$MemoryItemPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first MemoryItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemoryItemFindFirstOrThrowArgs} args - Arguments to find a MemoryItem
+     * @example
+     * // Get one MemoryItem
+     * const memoryItem = await prisma.memoryItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MemoryItemFindFirstOrThrowArgs>(args?: SelectSubset<T, MemoryItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__MemoryItemClient<$Result.GetResult<Prisma.$MemoryItemPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more MemoryItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemoryItemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MemoryItems
+     * const memoryItems = await prisma.memoryItem.findMany()
+     * 
+     * // Get first 10 MemoryItems
+     * const memoryItems = await prisma.memoryItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const memoryItemWithIdOnly = await prisma.memoryItem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MemoryItemFindManyArgs>(args?: SelectSubset<T, MemoryItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemoryItemPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a MemoryItem.
+     * @param {MemoryItemCreateArgs} args - Arguments to create a MemoryItem.
+     * @example
+     * // Create one MemoryItem
+     * const MemoryItem = await prisma.memoryItem.create({
+     *   data: {
+     *     // ... data to create a MemoryItem
+     *   }
+     * })
+     * 
+     */
+    create<T extends MemoryItemCreateArgs>(args: SelectSubset<T, MemoryItemCreateArgs<ExtArgs>>): Prisma__MemoryItemClient<$Result.GetResult<Prisma.$MemoryItemPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many MemoryItems.
+     * @param {MemoryItemCreateManyArgs} args - Arguments to create many MemoryItems.
+     * @example
+     * // Create many MemoryItems
+     * const memoryItem = await prisma.memoryItem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MemoryItemCreateManyArgs>(args?: SelectSubset<T, MemoryItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MemoryItems and returns the data saved in the database.
+     * @param {MemoryItemCreateManyAndReturnArgs} args - Arguments to create many MemoryItems.
+     * @example
+     * // Create many MemoryItems
+     * const memoryItem = await prisma.memoryItem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MemoryItems and only return the `id`
+     * const memoryItemWithIdOnly = await prisma.memoryItem.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MemoryItemCreateManyAndReturnArgs>(args?: SelectSubset<T, MemoryItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MemoryItemPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a MemoryItem.
+     * @param {MemoryItemDeleteArgs} args - Arguments to delete one MemoryItem.
+     * @example
+     * // Delete one MemoryItem
+     * const MemoryItem = await prisma.memoryItem.delete({
+     *   where: {
+     *     // ... filter to delete one MemoryItem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MemoryItemDeleteArgs>(args: SelectSubset<T, MemoryItemDeleteArgs<ExtArgs>>): Prisma__MemoryItemClient<$Result.GetResult<Prisma.$MemoryItemPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one MemoryItem.
+     * @param {MemoryItemUpdateArgs} args - Arguments to update one MemoryItem.
+     * @example
+     * // Update one MemoryItem
+     * const memoryItem = await prisma.memoryItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MemoryItemUpdateArgs>(args: SelectSubset<T, MemoryItemUpdateArgs<ExtArgs>>): Prisma__MemoryItemClient<$Result.GetResult<Prisma.$MemoryItemPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more MemoryItems.
+     * @param {MemoryItemDeleteManyArgs} args - Arguments to filter MemoryItems to delete.
+     * @example
+     * // Delete a few MemoryItems
+     * const { count } = await prisma.memoryItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MemoryItemDeleteManyArgs>(args?: SelectSubset<T, MemoryItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MemoryItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemoryItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MemoryItems
+     * const memoryItem = await prisma.memoryItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MemoryItemUpdateManyArgs>(args: SelectSubset<T, MemoryItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one MemoryItem.
+     * @param {MemoryItemUpsertArgs} args - Arguments to update or create a MemoryItem.
+     * @example
+     * // Update or create a MemoryItem
+     * const memoryItem = await prisma.memoryItem.upsert({
+     *   create: {
+     *     // ... data to create a MemoryItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MemoryItem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MemoryItemUpsertArgs>(args: SelectSubset<T, MemoryItemUpsertArgs<ExtArgs>>): Prisma__MemoryItemClient<$Result.GetResult<Prisma.$MemoryItemPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of MemoryItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemoryItemCountArgs} args - Arguments to filter MemoryItems to count.
+     * @example
+     * // Count the number of MemoryItems
+     * const count = await prisma.memoryItem.count({
+     *   where: {
+     *     // ... the filter for the MemoryItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends MemoryItemCountArgs>(
+      args?: Subset<T, MemoryItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MemoryItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MemoryItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemoryItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MemoryItemAggregateArgs>(args: Subset<T, MemoryItemAggregateArgs>): Prisma.PrismaPromise<GetMemoryItemAggregateType<T>>
+
+    /**
+     * Group by MemoryItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MemoryItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MemoryItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MemoryItemGroupByArgs['orderBy'] }
+        : { orderBy?: MemoryItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MemoryItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMemoryItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MemoryItem model
+   */
+  readonly fields: MemoryItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MemoryItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MemoryItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MemoryItem model
+   */ 
+  interface MemoryItemFieldRefs {
+    readonly id: FieldRef<"MemoryItem", 'String'>
+    readonly scope: FieldRef<"MemoryItem", 'String'>
+    readonly category: FieldRef<"MemoryItem", 'String'>
+    readonly key: FieldRef<"MemoryItem", 'String'>
+    readonly value: FieldRef<"MemoryItem", 'String'>
+    readonly confidence: FieldRef<"MemoryItem", 'Decimal'>
+    readonly source: FieldRef<"MemoryItem", 'String'>
+    readonly expiresAt: FieldRef<"MemoryItem", 'DateTime'>
+    readonly createdAt: FieldRef<"MemoryItem", 'DateTime'>
+    readonly updatedAt: FieldRef<"MemoryItem", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MemoryItem findUnique
+   */
+  export type MemoryItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemoryItem
+     */
+    select?: MemoryItemSelect<ExtArgs> | null
+    /**
+     * Filter, which MemoryItem to fetch.
+     */
+    where: MemoryItemWhereUniqueInput
+  }
+
+  /**
+   * MemoryItem findUniqueOrThrow
+   */
+  export type MemoryItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemoryItem
+     */
+    select?: MemoryItemSelect<ExtArgs> | null
+    /**
+     * Filter, which MemoryItem to fetch.
+     */
+    where: MemoryItemWhereUniqueInput
+  }
+
+  /**
+   * MemoryItem findFirst
+   */
+  export type MemoryItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemoryItem
+     */
+    select?: MemoryItemSelect<ExtArgs> | null
+    /**
+     * Filter, which MemoryItem to fetch.
+     */
+    where?: MemoryItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemoryItems to fetch.
+     */
+    orderBy?: MemoryItemOrderByWithRelationInput | MemoryItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MemoryItems.
+     */
+    cursor?: MemoryItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemoryItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemoryItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MemoryItems.
+     */
+    distinct?: MemoryItemScalarFieldEnum | MemoryItemScalarFieldEnum[]
+  }
+
+  /**
+   * MemoryItem findFirstOrThrow
+   */
+  export type MemoryItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemoryItem
+     */
+    select?: MemoryItemSelect<ExtArgs> | null
+    /**
+     * Filter, which MemoryItem to fetch.
+     */
+    where?: MemoryItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemoryItems to fetch.
+     */
+    orderBy?: MemoryItemOrderByWithRelationInput | MemoryItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MemoryItems.
+     */
+    cursor?: MemoryItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemoryItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemoryItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MemoryItems.
+     */
+    distinct?: MemoryItemScalarFieldEnum | MemoryItemScalarFieldEnum[]
+  }
+
+  /**
+   * MemoryItem findMany
+   */
+  export type MemoryItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemoryItem
+     */
+    select?: MemoryItemSelect<ExtArgs> | null
+    /**
+     * Filter, which MemoryItems to fetch.
+     */
+    where?: MemoryItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MemoryItems to fetch.
+     */
+    orderBy?: MemoryItemOrderByWithRelationInput | MemoryItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MemoryItems.
+     */
+    cursor?: MemoryItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MemoryItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MemoryItems.
+     */
+    skip?: number
+    distinct?: MemoryItemScalarFieldEnum | MemoryItemScalarFieldEnum[]
+  }
+
+  /**
+   * MemoryItem create
+   */
+  export type MemoryItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemoryItem
+     */
+    select?: MemoryItemSelect<ExtArgs> | null
+    /**
+     * The data needed to create a MemoryItem.
+     */
+    data: XOR<MemoryItemCreateInput, MemoryItemUncheckedCreateInput>
+  }
+
+  /**
+   * MemoryItem createMany
+   */
+  export type MemoryItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MemoryItems.
+     */
+    data: MemoryItemCreateManyInput | MemoryItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MemoryItem createManyAndReturn
+   */
+  export type MemoryItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemoryItem
+     */
+    select?: MemoryItemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many MemoryItems.
+     */
+    data: MemoryItemCreateManyInput | MemoryItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MemoryItem update
+   */
+  export type MemoryItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemoryItem
+     */
+    select?: MemoryItemSelect<ExtArgs> | null
+    /**
+     * The data needed to update a MemoryItem.
+     */
+    data: XOR<MemoryItemUpdateInput, MemoryItemUncheckedUpdateInput>
+    /**
+     * Choose, which MemoryItem to update.
+     */
+    where: MemoryItemWhereUniqueInput
+  }
+
+  /**
+   * MemoryItem updateMany
+   */
+  export type MemoryItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MemoryItems.
+     */
+    data: XOR<MemoryItemUpdateManyMutationInput, MemoryItemUncheckedUpdateManyInput>
+    /**
+     * Filter which MemoryItems to update
+     */
+    where?: MemoryItemWhereInput
+  }
+
+  /**
+   * MemoryItem upsert
+   */
+  export type MemoryItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemoryItem
+     */
+    select?: MemoryItemSelect<ExtArgs> | null
+    /**
+     * The filter to search for the MemoryItem to update in case it exists.
+     */
+    where: MemoryItemWhereUniqueInput
+    /**
+     * In case the MemoryItem found by the `where` argument doesn't exist, create a new MemoryItem with this data.
+     */
+    create: XOR<MemoryItemCreateInput, MemoryItemUncheckedCreateInput>
+    /**
+     * In case the MemoryItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MemoryItemUpdateInput, MemoryItemUncheckedUpdateInput>
+  }
+
+  /**
+   * MemoryItem delete
+   */
+  export type MemoryItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemoryItem
+     */
+    select?: MemoryItemSelect<ExtArgs> | null
+    /**
+     * Filter which MemoryItem to delete.
+     */
+    where: MemoryItemWhereUniqueInput
+  }
+
+  /**
+   * MemoryItem deleteMany
+   */
+  export type MemoryItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MemoryItems to delete
+     */
+    where?: MemoryItemWhereInput
+  }
+
+  /**
+   * MemoryItem without action
+   */
+  export type MemoryItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MemoryItem
+     */
+    select?: MemoryItemSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Initiative
+   */
+
+  export type AggregateInitiative = {
+    _count: InitiativeCountAggregateOutputType | null
+    _min: InitiativeMinAggregateOutputType | null
+    _max: InitiativeMaxAggregateOutputType | null
+  }
+
+  export type InitiativeMinAggregateOutputType = {
+    id: string | null
+    kind: string | null
+    status: string | null
+    reason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type InitiativeMaxAggregateOutputType = {
+    id: string | null
+    kind: string | null
+    status: string | null
+    reason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type InitiativeCountAggregateOutputType = {
+    id: number
+    kind: number
+    status: number
+    reason: number
+    payload: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type InitiativeMinAggregateInputType = {
+    id?: true
+    kind?: true
+    status?: true
+    reason?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type InitiativeMaxAggregateInputType = {
+    id?: true
+    kind?: true
+    status?: true
+    reason?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type InitiativeCountAggregateInputType = {
+    id?: true
+    kind?: true
+    status?: true
+    reason?: true
+    payload?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type InitiativeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Initiative to aggregate.
+     */
+    where?: InitiativeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Initiatives to fetch.
+     */
+    orderBy?: InitiativeOrderByWithRelationInput | InitiativeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: InitiativeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Initiatives from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Initiatives.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Initiatives
+    **/
+    _count?: true | InitiativeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: InitiativeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: InitiativeMaxAggregateInputType
+  }
+
+  export type GetInitiativeAggregateType<T extends InitiativeAggregateArgs> = {
+        [P in keyof T & keyof AggregateInitiative]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInitiative[P]>
+      : GetScalarType<T[P], AggregateInitiative[P]>
+  }
+
+
+
+
+  export type InitiativeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InitiativeWhereInput
+    orderBy?: InitiativeOrderByWithAggregationInput | InitiativeOrderByWithAggregationInput[]
+    by: InitiativeScalarFieldEnum[] | InitiativeScalarFieldEnum
+    having?: InitiativeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: InitiativeCountAggregateInputType | true
+    _min?: InitiativeMinAggregateInputType
+    _max?: InitiativeMaxAggregateInputType
+  }
+
+  export type InitiativeGroupByOutputType = {
+    id: string
+    kind: string
+    status: string
+    reason: string
+    payload: JsonValue
+    createdAt: Date
+    updatedAt: Date
+    _count: InitiativeCountAggregateOutputType | null
+    _min: InitiativeMinAggregateOutputType | null
+    _max: InitiativeMaxAggregateOutputType | null
+  }
+
+  type GetInitiativeGroupByPayload<T extends InitiativeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<InitiativeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof InitiativeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InitiativeGroupByOutputType[P]>
+            : GetScalarType<T[P], InitiativeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type InitiativeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    kind?: boolean
+    status?: boolean
+    reason?: boolean
+    payload?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["initiative"]>
+
+  export type InitiativeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    kind?: boolean
+    status?: boolean
+    reason?: boolean
+    payload?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["initiative"]>
+
+  export type InitiativeSelectScalar = {
+    id?: boolean
+    kind?: boolean
+    status?: boolean
+    reason?: boolean
+    payload?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $InitiativePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Initiative"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      kind: string
+      status: string
+      reason: string
+      payload: Prisma.JsonValue
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["initiative"]>
+    composites: {}
+  }
+
+  type InitiativeGetPayload<S extends boolean | null | undefined | InitiativeDefaultArgs> = $Result.GetResult<Prisma.$InitiativePayload, S>
+
+  type InitiativeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<InitiativeFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: InitiativeCountAggregateInputType | true
+    }
+
+  export interface InitiativeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Initiative'], meta: { name: 'Initiative' } }
+    /**
+     * Find zero or one Initiative that matches the filter.
+     * @param {InitiativeFindUniqueArgs} args - Arguments to find a Initiative
+     * @example
+     * // Get one Initiative
+     * const initiative = await prisma.initiative.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InitiativeFindUniqueArgs>(args: SelectSubset<T, InitiativeFindUniqueArgs<ExtArgs>>): Prisma__InitiativeClient<$Result.GetResult<Prisma.$InitiativePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one Initiative that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {InitiativeFindUniqueOrThrowArgs} args - Arguments to find a Initiative
+     * @example
+     * // Get one Initiative
+     * const initiative = await prisma.initiative.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InitiativeFindUniqueOrThrowArgs>(args: SelectSubset<T, InitiativeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InitiativeClient<$Result.GetResult<Prisma.$InitiativePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first Initiative that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InitiativeFindFirstArgs} args - Arguments to find a Initiative
+     * @example
+     * // Get one Initiative
+     * const initiative = await prisma.initiative.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InitiativeFindFirstArgs>(args?: SelectSubset<T, InitiativeFindFirstArgs<ExtArgs>>): Prisma__InitiativeClient<$Result.GetResult<Prisma.$InitiativePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first Initiative that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InitiativeFindFirstOrThrowArgs} args - Arguments to find a Initiative
+     * @example
+     * // Get one Initiative
+     * const initiative = await prisma.initiative.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InitiativeFindFirstOrThrowArgs>(args?: SelectSubset<T, InitiativeFindFirstOrThrowArgs<ExtArgs>>): Prisma__InitiativeClient<$Result.GetResult<Prisma.$InitiativePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more Initiatives that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InitiativeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Initiatives
+     * const initiatives = await prisma.initiative.findMany()
+     * 
+     * // Get first 10 Initiatives
+     * const initiatives = await prisma.initiative.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const initiativeWithIdOnly = await prisma.initiative.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends InitiativeFindManyArgs>(args?: SelectSubset<T, InitiativeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InitiativePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a Initiative.
+     * @param {InitiativeCreateArgs} args - Arguments to create a Initiative.
+     * @example
+     * // Create one Initiative
+     * const Initiative = await prisma.initiative.create({
+     *   data: {
+     *     // ... data to create a Initiative
+     *   }
+     * })
+     * 
+     */
+    create<T extends InitiativeCreateArgs>(args: SelectSubset<T, InitiativeCreateArgs<ExtArgs>>): Prisma__InitiativeClient<$Result.GetResult<Prisma.$InitiativePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many Initiatives.
+     * @param {InitiativeCreateManyArgs} args - Arguments to create many Initiatives.
+     * @example
+     * // Create many Initiatives
+     * const initiative = await prisma.initiative.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends InitiativeCreateManyArgs>(args?: SelectSubset<T, InitiativeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Initiatives and returns the data saved in the database.
+     * @param {InitiativeCreateManyAndReturnArgs} args - Arguments to create many Initiatives.
+     * @example
+     * // Create many Initiatives
+     * const initiative = await prisma.initiative.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Initiatives and only return the `id`
+     * const initiativeWithIdOnly = await prisma.initiative.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends InitiativeCreateManyAndReturnArgs>(args?: SelectSubset<T, InitiativeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InitiativePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a Initiative.
+     * @param {InitiativeDeleteArgs} args - Arguments to delete one Initiative.
+     * @example
+     * // Delete one Initiative
+     * const Initiative = await prisma.initiative.delete({
+     *   where: {
+     *     // ... filter to delete one Initiative
+     *   }
+     * })
+     * 
+     */
+    delete<T extends InitiativeDeleteArgs>(args: SelectSubset<T, InitiativeDeleteArgs<ExtArgs>>): Prisma__InitiativeClient<$Result.GetResult<Prisma.$InitiativePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one Initiative.
+     * @param {InitiativeUpdateArgs} args - Arguments to update one Initiative.
+     * @example
+     * // Update one Initiative
+     * const initiative = await prisma.initiative.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends InitiativeUpdateArgs>(args: SelectSubset<T, InitiativeUpdateArgs<ExtArgs>>): Prisma__InitiativeClient<$Result.GetResult<Prisma.$InitiativePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more Initiatives.
+     * @param {InitiativeDeleteManyArgs} args - Arguments to filter Initiatives to delete.
+     * @example
+     * // Delete a few Initiatives
+     * const { count } = await prisma.initiative.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends InitiativeDeleteManyArgs>(args?: SelectSubset<T, InitiativeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Initiatives.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InitiativeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Initiatives
+     * const initiative = await prisma.initiative.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends InitiativeUpdateManyArgs>(args: SelectSubset<T, InitiativeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one Initiative.
+     * @param {InitiativeUpsertArgs} args - Arguments to update or create a Initiative.
+     * @example
+     * // Update or create a Initiative
+     * const initiative = await prisma.initiative.upsert({
+     *   create: {
+     *     // ... data to create a Initiative
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Initiative we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InitiativeUpsertArgs>(args: SelectSubset<T, InitiativeUpsertArgs<ExtArgs>>): Prisma__InitiativeClient<$Result.GetResult<Prisma.$InitiativePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of Initiatives.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InitiativeCountArgs} args - Arguments to filter Initiatives to count.
+     * @example
+     * // Count the number of Initiatives
+     * const count = await prisma.initiative.count({
+     *   where: {
+     *     // ... the filter for the Initiatives we want to count
+     *   }
+     * })
+    **/
+    count<T extends InitiativeCountArgs>(
+      args?: Subset<T, InitiativeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], InitiativeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Initiative.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InitiativeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends InitiativeAggregateArgs>(args: Subset<T, InitiativeAggregateArgs>): Prisma.PrismaPromise<GetInitiativeAggregateType<T>>
+
+    /**
+     * Group by Initiative.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InitiativeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends InitiativeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InitiativeGroupByArgs['orderBy'] }
+        : { orderBy?: InitiativeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, InitiativeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInitiativeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Initiative model
+   */
+  readonly fields: InitiativeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Initiative.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InitiativeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Initiative model
+   */ 
+  interface InitiativeFieldRefs {
+    readonly id: FieldRef<"Initiative", 'String'>
+    readonly kind: FieldRef<"Initiative", 'String'>
+    readonly status: FieldRef<"Initiative", 'String'>
+    readonly reason: FieldRef<"Initiative", 'String'>
+    readonly payload: FieldRef<"Initiative", 'Json'>
+    readonly createdAt: FieldRef<"Initiative", 'DateTime'>
+    readonly updatedAt: FieldRef<"Initiative", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Initiative findUnique
+   */
+  export type InitiativeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Initiative
+     */
+    select?: InitiativeSelect<ExtArgs> | null
+    /**
+     * Filter, which Initiative to fetch.
+     */
+    where: InitiativeWhereUniqueInput
+  }
+
+  /**
+   * Initiative findUniqueOrThrow
+   */
+  export type InitiativeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Initiative
+     */
+    select?: InitiativeSelect<ExtArgs> | null
+    /**
+     * Filter, which Initiative to fetch.
+     */
+    where: InitiativeWhereUniqueInput
+  }
+
+  /**
+   * Initiative findFirst
+   */
+  export type InitiativeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Initiative
+     */
+    select?: InitiativeSelect<ExtArgs> | null
+    /**
+     * Filter, which Initiative to fetch.
+     */
+    where?: InitiativeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Initiatives to fetch.
+     */
+    orderBy?: InitiativeOrderByWithRelationInput | InitiativeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Initiatives.
+     */
+    cursor?: InitiativeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Initiatives from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Initiatives.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Initiatives.
+     */
+    distinct?: InitiativeScalarFieldEnum | InitiativeScalarFieldEnum[]
+  }
+
+  /**
+   * Initiative findFirstOrThrow
+   */
+  export type InitiativeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Initiative
+     */
+    select?: InitiativeSelect<ExtArgs> | null
+    /**
+     * Filter, which Initiative to fetch.
+     */
+    where?: InitiativeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Initiatives to fetch.
+     */
+    orderBy?: InitiativeOrderByWithRelationInput | InitiativeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Initiatives.
+     */
+    cursor?: InitiativeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Initiatives from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Initiatives.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Initiatives.
+     */
+    distinct?: InitiativeScalarFieldEnum | InitiativeScalarFieldEnum[]
+  }
+
+  /**
+   * Initiative findMany
+   */
+  export type InitiativeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Initiative
+     */
+    select?: InitiativeSelect<ExtArgs> | null
+    /**
+     * Filter, which Initiatives to fetch.
+     */
+    where?: InitiativeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Initiatives to fetch.
+     */
+    orderBy?: InitiativeOrderByWithRelationInput | InitiativeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Initiatives.
+     */
+    cursor?: InitiativeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Initiatives from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Initiatives.
+     */
+    skip?: number
+    distinct?: InitiativeScalarFieldEnum | InitiativeScalarFieldEnum[]
+  }
+
+  /**
+   * Initiative create
+   */
+  export type InitiativeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Initiative
+     */
+    select?: InitiativeSelect<ExtArgs> | null
+    /**
+     * The data needed to create a Initiative.
+     */
+    data: XOR<InitiativeCreateInput, InitiativeUncheckedCreateInput>
+  }
+
+  /**
+   * Initiative createMany
+   */
+  export type InitiativeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Initiatives.
+     */
+    data: InitiativeCreateManyInput | InitiativeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Initiative createManyAndReturn
+   */
+  export type InitiativeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Initiative
+     */
+    select?: InitiativeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many Initiatives.
+     */
+    data: InitiativeCreateManyInput | InitiativeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Initiative update
+   */
+  export type InitiativeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Initiative
+     */
+    select?: InitiativeSelect<ExtArgs> | null
+    /**
+     * The data needed to update a Initiative.
+     */
+    data: XOR<InitiativeUpdateInput, InitiativeUncheckedUpdateInput>
+    /**
+     * Choose, which Initiative to update.
+     */
+    where: InitiativeWhereUniqueInput
+  }
+
+  /**
+   * Initiative updateMany
+   */
+  export type InitiativeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Initiatives.
+     */
+    data: XOR<InitiativeUpdateManyMutationInput, InitiativeUncheckedUpdateManyInput>
+    /**
+     * Filter which Initiatives to update
+     */
+    where?: InitiativeWhereInput
+  }
+
+  /**
+   * Initiative upsert
+   */
+  export type InitiativeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Initiative
+     */
+    select?: InitiativeSelect<ExtArgs> | null
+    /**
+     * The filter to search for the Initiative to update in case it exists.
+     */
+    where: InitiativeWhereUniqueInput
+    /**
+     * In case the Initiative found by the `where` argument doesn't exist, create a new Initiative with this data.
+     */
+    create: XOR<InitiativeCreateInput, InitiativeUncheckedCreateInput>
+    /**
+     * In case the Initiative was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InitiativeUpdateInput, InitiativeUncheckedUpdateInput>
+  }
+
+  /**
+   * Initiative delete
+   */
+  export type InitiativeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Initiative
+     */
+    select?: InitiativeSelect<ExtArgs> | null
+    /**
+     * Filter which Initiative to delete.
+     */
+    where: InitiativeWhereUniqueInput
+  }
+
+  /**
+   * Initiative deleteMany
+   */
+  export type InitiativeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Initiatives to delete
+     */
+    where?: InitiativeWhereInput
+  }
+
+  /**
+   * Initiative without action
+   */
+  export type InitiativeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Initiative
+     */
+    select?: InitiativeSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ResearchItem
+   */
+
+  export type AggregateResearchItem = {
+    _count: ResearchItemCountAggregateOutputType | null
+    _min: ResearchItemMinAggregateOutputType | null
+    _max: ResearchItemMaxAggregateOutputType | null
+  }
+
+  export type ResearchItemMinAggregateOutputType = {
+    id: string | null
+    source: string | null
+    query: string | null
+    summary: string | null
+    createdAt: Date | null
+  }
+
+  export type ResearchItemMaxAggregateOutputType = {
+    id: string | null
+    source: string | null
+    query: string | null
+    summary: string | null
+    createdAt: Date | null
+  }
+
+  export type ResearchItemCountAggregateOutputType = {
+    id: number
+    source: number
+    query: number
+    summary: number
+    payload: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type ResearchItemMinAggregateInputType = {
+    id?: true
+    source?: true
+    query?: true
+    summary?: true
+    createdAt?: true
+  }
+
+  export type ResearchItemMaxAggregateInputType = {
+    id?: true
+    source?: true
+    query?: true
+    summary?: true
+    createdAt?: true
+  }
+
+  export type ResearchItemCountAggregateInputType = {
+    id?: true
+    source?: true
+    query?: true
+    summary?: true
+    payload?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type ResearchItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ResearchItem to aggregate.
+     */
+    where?: ResearchItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResearchItems to fetch.
+     */
+    orderBy?: ResearchItemOrderByWithRelationInput | ResearchItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ResearchItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResearchItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResearchItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ResearchItems
+    **/
+    _count?: true | ResearchItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ResearchItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ResearchItemMaxAggregateInputType
+  }
+
+  export type GetResearchItemAggregateType<T extends ResearchItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateResearchItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateResearchItem[P]>
+      : GetScalarType<T[P], AggregateResearchItem[P]>
+  }
+
+
+
+
+  export type ResearchItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ResearchItemWhereInput
+    orderBy?: ResearchItemOrderByWithAggregationInput | ResearchItemOrderByWithAggregationInput[]
+    by: ResearchItemScalarFieldEnum[] | ResearchItemScalarFieldEnum
+    having?: ResearchItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ResearchItemCountAggregateInputType | true
+    _min?: ResearchItemMinAggregateInputType
+    _max?: ResearchItemMaxAggregateInputType
+  }
+
+  export type ResearchItemGroupByOutputType = {
+    id: string
+    source: string
+    query: string | null
+    summary: string
+    payload: JsonValue
+    createdAt: Date
+    _count: ResearchItemCountAggregateOutputType | null
+    _min: ResearchItemMinAggregateOutputType | null
+    _max: ResearchItemMaxAggregateOutputType | null
+  }
+
+  type GetResearchItemGroupByPayload<T extends ResearchItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ResearchItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ResearchItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ResearchItemGroupByOutputType[P]>
+            : GetScalarType<T[P], ResearchItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ResearchItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    source?: boolean
+    query?: boolean
+    summary?: boolean
+    payload?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["researchItem"]>
+
+  export type ResearchItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    source?: boolean
+    query?: boolean
+    summary?: boolean
+    payload?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["researchItem"]>
+
+  export type ResearchItemSelectScalar = {
+    id?: boolean
+    source?: boolean
+    query?: boolean
+    summary?: boolean
+    payload?: boolean
+    createdAt?: boolean
+  }
+
+
+  export type $ResearchItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ResearchItem"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      source: string
+      query: string | null
+      summary: string
+      payload: Prisma.JsonValue
+      createdAt: Date
+    }, ExtArgs["result"]["researchItem"]>
+    composites: {}
+  }
+
+  type ResearchItemGetPayload<S extends boolean | null | undefined | ResearchItemDefaultArgs> = $Result.GetResult<Prisma.$ResearchItemPayload, S>
+
+  type ResearchItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<ResearchItemFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: ResearchItemCountAggregateInputType | true
+    }
+
+  export interface ResearchItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ResearchItem'], meta: { name: 'ResearchItem' } }
+    /**
+     * Find zero or one ResearchItem that matches the filter.
+     * @param {ResearchItemFindUniqueArgs} args - Arguments to find a ResearchItem
+     * @example
+     * // Get one ResearchItem
+     * const researchItem = await prisma.researchItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ResearchItemFindUniqueArgs>(args: SelectSubset<T, ResearchItemFindUniqueArgs<ExtArgs>>): Prisma__ResearchItemClient<$Result.GetResult<Prisma.$ResearchItemPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one ResearchItem that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {ResearchItemFindUniqueOrThrowArgs} args - Arguments to find a ResearchItem
+     * @example
+     * // Get one ResearchItem
+     * const researchItem = await prisma.researchItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ResearchItemFindUniqueOrThrowArgs>(args: SelectSubset<T, ResearchItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ResearchItemClient<$Result.GetResult<Prisma.$ResearchItemPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first ResearchItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResearchItemFindFirstArgs} args - Arguments to find a ResearchItem
+     * @example
+     * // Get one ResearchItem
+     * const researchItem = await prisma.researchItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ResearchItemFindFirstArgs>(args?: SelectSubset<T, ResearchItemFindFirstArgs<ExtArgs>>): Prisma__ResearchItemClient<$Result.GetResult<Prisma.$ResearchItemPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first ResearchItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResearchItemFindFirstOrThrowArgs} args - Arguments to find a ResearchItem
+     * @example
+     * // Get one ResearchItem
+     * const researchItem = await prisma.researchItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ResearchItemFindFirstOrThrowArgs>(args?: SelectSubset<T, ResearchItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__ResearchItemClient<$Result.GetResult<Prisma.$ResearchItemPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more ResearchItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResearchItemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ResearchItems
+     * const researchItems = await prisma.researchItem.findMany()
+     * 
+     * // Get first 10 ResearchItems
+     * const researchItems = await prisma.researchItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const researchItemWithIdOnly = await prisma.researchItem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ResearchItemFindManyArgs>(args?: SelectSubset<T, ResearchItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResearchItemPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a ResearchItem.
+     * @param {ResearchItemCreateArgs} args - Arguments to create a ResearchItem.
+     * @example
+     * // Create one ResearchItem
+     * const ResearchItem = await prisma.researchItem.create({
+     *   data: {
+     *     // ... data to create a ResearchItem
+     *   }
+     * })
+     * 
+     */
+    create<T extends ResearchItemCreateArgs>(args: SelectSubset<T, ResearchItemCreateArgs<ExtArgs>>): Prisma__ResearchItemClient<$Result.GetResult<Prisma.$ResearchItemPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many ResearchItems.
+     * @param {ResearchItemCreateManyArgs} args - Arguments to create many ResearchItems.
+     * @example
+     * // Create many ResearchItems
+     * const researchItem = await prisma.researchItem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ResearchItemCreateManyArgs>(args?: SelectSubset<T, ResearchItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ResearchItems and returns the data saved in the database.
+     * @param {ResearchItemCreateManyAndReturnArgs} args - Arguments to create many ResearchItems.
+     * @example
+     * // Create many ResearchItems
+     * const researchItem = await prisma.researchItem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ResearchItems and only return the `id`
+     * const researchItemWithIdOnly = await prisma.researchItem.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ResearchItemCreateManyAndReturnArgs>(args?: SelectSubset<T, ResearchItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResearchItemPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a ResearchItem.
+     * @param {ResearchItemDeleteArgs} args - Arguments to delete one ResearchItem.
+     * @example
+     * // Delete one ResearchItem
+     * const ResearchItem = await prisma.researchItem.delete({
+     *   where: {
+     *     // ... filter to delete one ResearchItem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ResearchItemDeleteArgs>(args: SelectSubset<T, ResearchItemDeleteArgs<ExtArgs>>): Prisma__ResearchItemClient<$Result.GetResult<Prisma.$ResearchItemPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one ResearchItem.
+     * @param {ResearchItemUpdateArgs} args - Arguments to update one ResearchItem.
+     * @example
+     * // Update one ResearchItem
+     * const researchItem = await prisma.researchItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ResearchItemUpdateArgs>(args: SelectSubset<T, ResearchItemUpdateArgs<ExtArgs>>): Prisma__ResearchItemClient<$Result.GetResult<Prisma.$ResearchItemPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more ResearchItems.
+     * @param {ResearchItemDeleteManyArgs} args - Arguments to filter ResearchItems to delete.
+     * @example
+     * // Delete a few ResearchItems
+     * const { count } = await prisma.researchItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ResearchItemDeleteManyArgs>(args?: SelectSubset<T, ResearchItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ResearchItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResearchItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ResearchItems
+     * const researchItem = await prisma.researchItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ResearchItemUpdateManyArgs>(args: SelectSubset<T, ResearchItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ResearchItem.
+     * @param {ResearchItemUpsertArgs} args - Arguments to update or create a ResearchItem.
+     * @example
+     * // Update or create a ResearchItem
+     * const researchItem = await prisma.researchItem.upsert({
+     *   create: {
+     *     // ... data to create a ResearchItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ResearchItem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ResearchItemUpsertArgs>(args: SelectSubset<T, ResearchItemUpsertArgs<ExtArgs>>): Prisma__ResearchItemClient<$Result.GetResult<Prisma.$ResearchItemPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of ResearchItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResearchItemCountArgs} args - Arguments to filter ResearchItems to count.
+     * @example
+     * // Count the number of ResearchItems
+     * const count = await prisma.researchItem.count({
+     *   where: {
+     *     // ... the filter for the ResearchItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends ResearchItemCountArgs>(
+      args?: Subset<T, ResearchItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ResearchItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ResearchItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResearchItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ResearchItemAggregateArgs>(args: Subset<T, ResearchItemAggregateArgs>): Prisma.PrismaPromise<GetResearchItemAggregateType<T>>
+
+    /**
+     * Group by ResearchItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResearchItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ResearchItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ResearchItemGroupByArgs['orderBy'] }
+        : { orderBy?: ResearchItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ResearchItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetResearchItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ResearchItem model
+   */
+  readonly fields: ResearchItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ResearchItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ResearchItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ResearchItem model
+   */ 
+  interface ResearchItemFieldRefs {
+    readonly id: FieldRef<"ResearchItem", 'String'>
+    readonly source: FieldRef<"ResearchItem", 'String'>
+    readonly query: FieldRef<"ResearchItem", 'String'>
+    readonly summary: FieldRef<"ResearchItem", 'String'>
+    readonly payload: FieldRef<"ResearchItem", 'Json'>
+    readonly createdAt: FieldRef<"ResearchItem", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ResearchItem findUnique
+   */
+  export type ResearchItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchItem
+     */
+    select?: ResearchItemSelect<ExtArgs> | null
+    /**
+     * Filter, which ResearchItem to fetch.
+     */
+    where: ResearchItemWhereUniqueInput
+  }
+
+  /**
+   * ResearchItem findUniqueOrThrow
+   */
+  export type ResearchItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchItem
+     */
+    select?: ResearchItemSelect<ExtArgs> | null
+    /**
+     * Filter, which ResearchItem to fetch.
+     */
+    where: ResearchItemWhereUniqueInput
+  }
+
+  /**
+   * ResearchItem findFirst
+   */
+  export type ResearchItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchItem
+     */
+    select?: ResearchItemSelect<ExtArgs> | null
+    /**
+     * Filter, which ResearchItem to fetch.
+     */
+    where?: ResearchItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResearchItems to fetch.
+     */
+    orderBy?: ResearchItemOrderByWithRelationInput | ResearchItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ResearchItems.
+     */
+    cursor?: ResearchItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResearchItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResearchItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ResearchItems.
+     */
+    distinct?: ResearchItemScalarFieldEnum | ResearchItemScalarFieldEnum[]
+  }
+
+  /**
+   * ResearchItem findFirstOrThrow
+   */
+  export type ResearchItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchItem
+     */
+    select?: ResearchItemSelect<ExtArgs> | null
+    /**
+     * Filter, which ResearchItem to fetch.
+     */
+    where?: ResearchItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResearchItems to fetch.
+     */
+    orderBy?: ResearchItemOrderByWithRelationInput | ResearchItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ResearchItems.
+     */
+    cursor?: ResearchItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResearchItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResearchItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ResearchItems.
+     */
+    distinct?: ResearchItemScalarFieldEnum | ResearchItemScalarFieldEnum[]
+  }
+
+  /**
+   * ResearchItem findMany
+   */
+  export type ResearchItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchItem
+     */
+    select?: ResearchItemSelect<ExtArgs> | null
+    /**
+     * Filter, which ResearchItems to fetch.
+     */
+    where?: ResearchItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ResearchItems to fetch.
+     */
+    orderBy?: ResearchItemOrderByWithRelationInput | ResearchItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ResearchItems.
+     */
+    cursor?: ResearchItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ResearchItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ResearchItems.
+     */
+    skip?: number
+    distinct?: ResearchItemScalarFieldEnum | ResearchItemScalarFieldEnum[]
+  }
+
+  /**
+   * ResearchItem create
+   */
+  export type ResearchItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchItem
+     */
+    select?: ResearchItemSelect<ExtArgs> | null
+    /**
+     * The data needed to create a ResearchItem.
+     */
+    data: XOR<ResearchItemCreateInput, ResearchItemUncheckedCreateInput>
+  }
+
+  /**
+   * ResearchItem createMany
+   */
+  export type ResearchItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ResearchItems.
+     */
+    data: ResearchItemCreateManyInput | ResearchItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ResearchItem createManyAndReturn
+   */
+  export type ResearchItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchItem
+     */
+    select?: ResearchItemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many ResearchItems.
+     */
+    data: ResearchItemCreateManyInput | ResearchItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * ResearchItem update
+   */
+  export type ResearchItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchItem
+     */
+    select?: ResearchItemSelect<ExtArgs> | null
+    /**
+     * The data needed to update a ResearchItem.
+     */
+    data: XOR<ResearchItemUpdateInput, ResearchItemUncheckedUpdateInput>
+    /**
+     * Choose, which ResearchItem to update.
+     */
+    where: ResearchItemWhereUniqueInput
+  }
+
+  /**
+   * ResearchItem updateMany
+   */
+  export type ResearchItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ResearchItems.
+     */
+    data: XOR<ResearchItemUpdateManyMutationInput, ResearchItemUncheckedUpdateManyInput>
+    /**
+     * Filter which ResearchItems to update
+     */
+    where?: ResearchItemWhereInput
+  }
+
+  /**
+   * ResearchItem upsert
+   */
+  export type ResearchItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchItem
+     */
+    select?: ResearchItemSelect<ExtArgs> | null
+    /**
+     * The filter to search for the ResearchItem to update in case it exists.
+     */
+    where: ResearchItemWhereUniqueInput
+    /**
+     * In case the ResearchItem found by the `where` argument doesn't exist, create a new ResearchItem with this data.
+     */
+    create: XOR<ResearchItemCreateInput, ResearchItemUncheckedCreateInput>
+    /**
+     * In case the ResearchItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ResearchItemUpdateInput, ResearchItemUncheckedUpdateInput>
+  }
+
+  /**
+   * ResearchItem delete
+   */
+  export type ResearchItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchItem
+     */
+    select?: ResearchItemSelect<ExtArgs> | null
+    /**
+     * Filter which ResearchItem to delete.
+     */
+    where: ResearchItemWhereUniqueInput
+  }
+
+  /**
+   * ResearchItem deleteMany
+   */
+  export type ResearchItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ResearchItems to delete
+     */
+    where?: ResearchItemWhereInput
+  }
+
+  /**
+   * ResearchItem without action
+   */
+  export type ResearchItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ResearchItem
+     */
+    select?: ResearchItemSelect<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -24869,6 +27883,47 @@ export namespace Prisma {
   };
 
   export type AgentAuditLogScalarFieldEnum = (typeof AgentAuditLogScalarFieldEnum)[keyof typeof AgentAuditLogScalarFieldEnum]
+
+
+  export const MemoryItemScalarFieldEnum: {
+    id: 'id',
+    scope: 'scope',
+    category: 'category',
+    key: 'key',
+    value: 'value',
+    confidence: 'confidence',
+    source: 'source',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MemoryItemScalarFieldEnum = (typeof MemoryItemScalarFieldEnum)[keyof typeof MemoryItemScalarFieldEnum]
+
+
+  export const InitiativeScalarFieldEnum: {
+    id: 'id',
+    kind: 'kind',
+    status: 'status',
+    reason: 'reason',
+    payload: 'payload',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type InitiativeScalarFieldEnum = (typeof InitiativeScalarFieldEnum)[keyof typeof InitiativeScalarFieldEnum]
+
+
+  export const ResearchItemScalarFieldEnum: {
+    id: 'id',
+    source: 'source',
+    query: 'query',
+    summary: 'summary',
+    payload: 'payload',
+    createdAt: 'createdAt'
+  };
+
+  export type ResearchItemScalarFieldEnum = (typeof ResearchItemScalarFieldEnum)[keyof typeof ResearchItemScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -26860,6 +29915,205 @@ export namespace Prisma {
     executedBy?: StringNullableWithAggregatesFilter<"AgentAuditLog"> | string | null
     durationMs?: IntNullableWithAggregatesFilter<"AgentAuditLog"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"AgentAuditLog"> | Date | string
+  }
+
+  export type MemoryItemWhereInput = {
+    AND?: MemoryItemWhereInput | MemoryItemWhereInput[]
+    OR?: MemoryItemWhereInput[]
+    NOT?: MemoryItemWhereInput | MemoryItemWhereInput[]
+    id?: UuidFilter<"MemoryItem"> | string
+    scope?: StringFilter<"MemoryItem"> | string
+    category?: StringFilter<"MemoryItem"> | string
+    key?: StringFilter<"MemoryItem"> | string
+    value?: StringFilter<"MemoryItem"> | string
+    confidence?: DecimalFilter<"MemoryItem"> | Decimal | DecimalJsLike | number | string
+    source?: StringFilter<"MemoryItem"> | string
+    expiresAt?: DateTimeNullableFilter<"MemoryItem"> | Date | string | null
+    createdAt?: DateTimeFilter<"MemoryItem"> | Date | string
+    updatedAt?: DateTimeFilter<"MemoryItem"> | Date | string
+  }
+
+  export type MemoryItemOrderByWithRelationInput = {
+    id?: SortOrder
+    scope?: SortOrder
+    category?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    confidence?: SortOrder
+    source?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MemoryItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    scope_category_key?: MemoryItemScopeCategoryKeyCompoundUniqueInput
+    AND?: MemoryItemWhereInput | MemoryItemWhereInput[]
+    OR?: MemoryItemWhereInput[]
+    NOT?: MemoryItemWhereInput | MemoryItemWhereInput[]
+    scope?: StringFilter<"MemoryItem"> | string
+    category?: StringFilter<"MemoryItem"> | string
+    key?: StringFilter<"MemoryItem"> | string
+    value?: StringFilter<"MemoryItem"> | string
+    confidence?: DecimalFilter<"MemoryItem"> | Decimal | DecimalJsLike | number | string
+    source?: StringFilter<"MemoryItem"> | string
+    expiresAt?: DateTimeNullableFilter<"MemoryItem"> | Date | string | null
+    createdAt?: DateTimeFilter<"MemoryItem"> | Date | string
+    updatedAt?: DateTimeFilter<"MemoryItem"> | Date | string
+  }, "id" | "scope_category_key">
+
+  export type MemoryItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    scope?: SortOrder
+    category?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    confidence?: SortOrder
+    source?: SortOrder
+    expiresAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MemoryItemCountOrderByAggregateInput
+    _avg?: MemoryItemAvgOrderByAggregateInput
+    _max?: MemoryItemMaxOrderByAggregateInput
+    _min?: MemoryItemMinOrderByAggregateInput
+    _sum?: MemoryItemSumOrderByAggregateInput
+  }
+
+  export type MemoryItemScalarWhereWithAggregatesInput = {
+    AND?: MemoryItemScalarWhereWithAggregatesInput | MemoryItemScalarWhereWithAggregatesInput[]
+    OR?: MemoryItemScalarWhereWithAggregatesInput[]
+    NOT?: MemoryItemScalarWhereWithAggregatesInput | MemoryItemScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"MemoryItem"> | string
+    scope?: StringWithAggregatesFilter<"MemoryItem"> | string
+    category?: StringWithAggregatesFilter<"MemoryItem"> | string
+    key?: StringWithAggregatesFilter<"MemoryItem"> | string
+    value?: StringWithAggregatesFilter<"MemoryItem"> | string
+    confidence?: DecimalWithAggregatesFilter<"MemoryItem"> | Decimal | DecimalJsLike | number | string
+    source?: StringWithAggregatesFilter<"MemoryItem"> | string
+    expiresAt?: DateTimeNullableWithAggregatesFilter<"MemoryItem"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MemoryItem"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MemoryItem"> | Date | string
+  }
+
+  export type InitiativeWhereInput = {
+    AND?: InitiativeWhereInput | InitiativeWhereInput[]
+    OR?: InitiativeWhereInput[]
+    NOT?: InitiativeWhereInput | InitiativeWhereInput[]
+    id?: UuidFilter<"Initiative"> | string
+    kind?: StringFilter<"Initiative"> | string
+    status?: StringFilter<"Initiative"> | string
+    reason?: StringFilter<"Initiative"> | string
+    payload?: JsonFilter<"Initiative">
+    createdAt?: DateTimeFilter<"Initiative"> | Date | string
+    updatedAt?: DateTimeFilter<"Initiative"> | Date | string
+  }
+
+  export type InitiativeOrderByWithRelationInput = {
+    id?: SortOrder
+    kind?: SortOrder
+    status?: SortOrder
+    reason?: SortOrder
+    payload?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type InitiativeWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: InitiativeWhereInput | InitiativeWhereInput[]
+    OR?: InitiativeWhereInput[]
+    NOT?: InitiativeWhereInput | InitiativeWhereInput[]
+    kind?: StringFilter<"Initiative"> | string
+    status?: StringFilter<"Initiative"> | string
+    reason?: StringFilter<"Initiative"> | string
+    payload?: JsonFilter<"Initiative">
+    createdAt?: DateTimeFilter<"Initiative"> | Date | string
+    updatedAt?: DateTimeFilter<"Initiative"> | Date | string
+  }, "id">
+
+  export type InitiativeOrderByWithAggregationInput = {
+    id?: SortOrder
+    kind?: SortOrder
+    status?: SortOrder
+    reason?: SortOrder
+    payload?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: InitiativeCountOrderByAggregateInput
+    _max?: InitiativeMaxOrderByAggregateInput
+    _min?: InitiativeMinOrderByAggregateInput
+  }
+
+  export type InitiativeScalarWhereWithAggregatesInput = {
+    AND?: InitiativeScalarWhereWithAggregatesInput | InitiativeScalarWhereWithAggregatesInput[]
+    OR?: InitiativeScalarWhereWithAggregatesInput[]
+    NOT?: InitiativeScalarWhereWithAggregatesInput | InitiativeScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"Initiative"> | string
+    kind?: StringWithAggregatesFilter<"Initiative"> | string
+    status?: StringWithAggregatesFilter<"Initiative"> | string
+    reason?: StringWithAggregatesFilter<"Initiative"> | string
+    payload?: JsonWithAggregatesFilter<"Initiative">
+    createdAt?: DateTimeWithAggregatesFilter<"Initiative"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Initiative"> | Date | string
+  }
+
+  export type ResearchItemWhereInput = {
+    AND?: ResearchItemWhereInput | ResearchItemWhereInput[]
+    OR?: ResearchItemWhereInput[]
+    NOT?: ResearchItemWhereInput | ResearchItemWhereInput[]
+    id?: UuidFilter<"ResearchItem"> | string
+    source?: StringFilter<"ResearchItem"> | string
+    query?: StringNullableFilter<"ResearchItem"> | string | null
+    summary?: StringFilter<"ResearchItem"> | string
+    payload?: JsonFilter<"ResearchItem">
+    createdAt?: DateTimeFilter<"ResearchItem"> | Date | string
+  }
+
+  export type ResearchItemOrderByWithRelationInput = {
+    id?: SortOrder
+    source?: SortOrder
+    query?: SortOrderInput | SortOrder
+    summary?: SortOrder
+    payload?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ResearchItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ResearchItemWhereInput | ResearchItemWhereInput[]
+    OR?: ResearchItemWhereInput[]
+    NOT?: ResearchItemWhereInput | ResearchItemWhereInput[]
+    source?: StringFilter<"ResearchItem"> | string
+    query?: StringNullableFilter<"ResearchItem"> | string | null
+    summary?: StringFilter<"ResearchItem"> | string
+    payload?: JsonFilter<"ResearchItem">
+    createdAt?: DateTimeFilter<"ResearchItem"> | Date | string
+  }, "id">
+
+  export type ResearchItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    source?: SortOrder
+    query?: SortOrderInput | SortOrder
+    summary?: SortOrder
+    payload?: SortOrder
+    createdAt?: SortOrder
+    _count?: ResearchItemCountOrderByAggregateInput
+    _max?: ResearchItemMaxOrderByAggregateInput
+    _min?: ResearchItemMinOrderByAggregateInput
+  }
+
+  export type ResearchItemScalarWhereWithAggregatesInput = {
+    AND?: ResearchItemScalarWhereWithAggregatesInput | ResearchItemScalarWhereWithAggregatesInput[]
+    OR?: ResearchItemScalarWhereWithAggregatesInput[]
+    NOT?: ResearchItemScalarWhereWithAggregatesInput | ResearchItemScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"ResearchItem"> | string
+    source?: StringWithAggregatesFilter<"ResearchItem"> | string
+    query?: StringNullableWithAggregatesFilter<"ResearchItem"> | string | null
+    summary?: StringWithAggregatesFilter<"ResearchItem"> | string
+    payload?: JsonWithAggregatesFilter<"ResearchItem">
+    createdAt?: DateTimeWithAggregatesFilter<"ResearchItem"> | Date | string
   }
 
   export type TokenCreateInput = {
@@ -28998,6 +32252,230 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MemoryItemCreateInput = {
+    id?: string
+    scope: string
+    category: string
+    key: string
+    value: string
+    confidence?: Decimal | DecimalJsLike | number | string
+    source: string
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MemoryItemUncheckedCreateInput = {
+    id?: string
+    scope: string
+    category: string
+    key: string
+    value: string
+    confidence?: Decimal | DecimalJsLike | number | string
+    source: string
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MemoryItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    scope?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    confidence?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    source?: StringFieldUpdateOperationsInput | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MemoryItemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    scope?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    confidence?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    source?: StringFieldUpdateOperationsInput | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MemoryItemCreateManyInput = {
+    id?: string
+    scope: string
+    category: string
+    key: string
+    value: string
+    confidence?: Decimal | DecimalJsLike | number | string
+    source: string
+    expiresAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MemoryItemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    scope?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    confidence?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    source?: StringFieldUpdateOperationsInput | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MemoryItemUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    scope?: StringFieldUpdateOperationsInput | string
+    category?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+    confidence?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
+    source?: StringFieldUpdateOperationsInput | string
+    expiresAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InitiativeCreateInput = {
+    id?: string
+    kind: string
+    status?: string
+    reason: string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InitiativeUncheckedCreateInput = {
+    id?: string
+    kind: string
+    status?: string
+    reason: string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InitiativeUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InitiativeUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InitiativeCreateManyInput = {
+    id?: string
+    kind: string
+    status?: string
+    reason: string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InitiativeUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InitiativeUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResearchItemCreateInput = {
+    id?: string
+    source: string
+    query?: string | null
+    summary: string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type ResearchItemUncheckedCreateInput = {
+    id?: string
+    source: string
+    query?: string | null
+    summary: string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type ResearchItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    query?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResearchItemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    query?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResearchItemCreateManyInput = {
+    id?: string
+    source: string
+    query?: string | null
+    summary: string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type ResearchItemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    query?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResearchItemUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    query?: NullableStringFieldUpdateOperationsInput | string | null
+    summary?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -30573,6 +34051,112 @@ export namespace Prisma {
 
   export type AgentAuditLogSumOrderByAggregateInput = {
     durationMs?: SortOrder
+  }
+
+  export type MemoryItemScopeCategoryKeyCompoundUniqueInput = {
+    scope: string
+    category: string
+    key: string
+  }
+
+  export type MemoryItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    scope?: SortOrder
+    category?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    confidence?: SortOrder
+    source?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MemoryItemAvgOrderByAggregateInput = {
+    confidence?: SortOrder
+  }
+
+  export type MemoryItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    scope?: SortOrder
+    category?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    confidence?: SortOrder
+    source?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MemoryItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    scope?: SortOrder
+    category?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    confidence?: SortOrder
+    source?: SortOrder
+    expiresAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MemoryItemSumOrderByAggregateInput = {
+    confidence?: SortOrder
+  }
+
+  export type InitiativeCountOrderByAggregateInput = {
+    id?: SortOrder
+    kind?: SortOrder
+    status?: SortOrder
+    reason?: SortOrder
+    payload?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type InitiativeMaxOrderByAggregateInput = {
+    id?: SortOrder
+    kind?: SortOrder
+    status?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type InitiativeMinOrderByAggregateInput = {
+    id?: SortOrder
+    kind?: SortOrder
+    status?: SortOrder
+    reason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ResearchItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    source?: SortOrder
+    query?: SortOrder
+    summary?: SortOrder
+    payload?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ResearchItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    source?: SortOrder
+    query?: SortOrder
+    summary?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type ResearchItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    source?: SortOrder
+    query?: SortOrder
+    summary?: SortOrder
+    createdAt?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -32457,6 +36041,18 @@ export namespace Prisma {
      * @deprecated Use AgentAuditLogDefaultArgs instead
      */
     export type AgentAuditLogArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AgentAuditLogDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use MemoryItemDefaultArgs instead
+     */
+    export type MemoryItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = MemoryItemDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use InitiativeDefaultArgs instead
+     */
+    export type InitiativeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = InitiativeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use ResearchItemDefaultArgs instead
+     */
+    export type ResearchItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ResearchItemDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

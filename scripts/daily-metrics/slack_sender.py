@@ -1,183 +1,240 @@
-"""Slack Block Kit message formatter and sender."""
+"""Slack message formatter and sender for daily metrics."""
+
+from __future__ import annotations
 
 import asyncio
 import os
 import sys
 from datetime import date
+from typing import Optional
 
 import httpx
 
-from models import AlertCondition, AppStoreMetrics, DailyMetrics, DayOverDay, RevenueCatMetrics
+from models import DailyMetrics
 
 
-def _format_country_breakdown(countries: tuple[tuple[str, int], ...], limit: int = 5) -> str:
-    """Format top N countries as 'US: 5 | JP: 3 | EU: 2'."""
-    top = countries[:limit]
-    if not top:
+def _safe_div_pct(numerator: Optional[int], denominator: Optional[int]) -> str:
+    """Return percentage string with one decimal, or N/A when undefined."""
+    if numerator is None or denominator is None:
         return "N/A"
-    return " | ".join(f"{k}: {v}" for k, v in top)
+    if denominator <= 0:
+        return "N/A"
+    return f"{(numerator / denominator) * 100:.1f}%"
 
 
-def _diff_str(current: float, previous: float, prefix: str = "", suffix: str = "") -> str:
-    """Format day-over-day diff like (+$9.99) or (-2)."""
-    dod = DayOverDay(current=current, previous=previous)
-    return f"({prefix}{dod.diff_str}{suffix})" if dod.diff != 0 else ""
+def _raw_fraction(numerator: Optional[int], denominator: Optional[int]) -> str:
+    """Return raw fraction text, or N/A when undefined."""
+    if numerator is None or denominator is None:
+        return "N/A"
+    if denominator <= 0:
+        return "N/A"
+    return f"({numerator}/{denominator})"
+
+
+def _top_country_line(metrics: DailyMetrics) -> str:
+    if not metrics.app_store:
+        return "Downloads N/A, Top: N/A"
+
+    total = metrics.app_store.total_downloads_7d
+    countries = metrics.app_store.downloads_by_country
+    if not countries:
+        return f"Downloads {total}, Top: N/A"
+
+    top_country, top_count = countries[0]
+    return f"Downloads {total}, Top: {top_country}({top_count})"
+
+
+def _revenue_line(metrics: DailyMetrics) -> str:
+    if not metrics.revenuecat:
+        return "MRR N/A, Subs N/A, Trials N/A"
+
+    rc = metrics.revenuecat
+    mrr = f"${rc.mrr:.0f}" if float(rc.mrr).is_integer() else f"${rc.mrr:.2f}"
+    return (
+        f"MRR {mrr} (snapshot), "
+        f"Subs {rc.active_subscriptions} (snapshot), "
+        f"Trials {rc.active_trials} (snapshot)"
+    )
+
+
+def _funnel_values(metrics: DailyMetrics) -> tuple[Optional[int], Optional[int], Optional[int]]:
+    onboarding = metrics.mixpanel.onboarding_started if metrics.mixpanel else None
+    paywall = metrics.mixpanel.onboarding_paywall_viewed if metrics.mixpanel else None
+    trial = metrics.mixpanel.rc_trial_started_event if metrics.mixpanel else None
+
+    return onboarding, paywall, trial
 
 
 def format_slack_blocks(metrics: DailyMetrics, previous: DailyMetrics | None = None) -> dict:
-    """Format metrics into Slack Block Kit payload."""
-    today_str = metrics.date
-    blocks = []
+    """Format metrics into a concise daily report."""
+    onboarding, paywall, trial = _funnel_values(metrics)
 
-    # Header
-    blocks.append({
-        "type": "header",
-        "text": {"type": "plain_text", "text": f"📊 Anicca Daily Report ({today_str})"},
-    })
+    onboarding_text = "N/A" if onboarding is None else str(onboarding)
+    paywall_text = "N/A" if paywall is None else str(paywall)
+    trial_text = "N/A" if trial is None else str(trial)
 
-    # Revenue section
-    if metrics.revenuecat:
-        rc = metrics.revenuecat
-        prev_rc = previous.revenuecat if previous and previous.revenuecat else None
+    rate_onboarding_paywall = _safe_div_pct(paywall, onboarding)
+    rate_paywall_trial = _safe_div_pct(trial, paywall)
 
-        mrr_diff = _diff_str(rc.mrr, prev_rc.mrr, prefix="$") if prev_rc else ""
-        subs_diff = _diff_str(rc.active_subscriptions, prev_rc.active_subscriptions) if prev_rc else ""
+    raw_onboarding_paywall = _raw_fraction(paywall, onboarding)
+    raw_paywall_trial = _raw_fraction(trial, paywall)
 
-        trial_total = rc.trial_to_paid_count + rc.trial_expired_count
-        trial_pct = (
-            f"{rc.trial_to_paid_count / trial_total * 100:.0f}%"
-            if trial_total > 0
-            else "N/A"
-        )
+    report_text = (
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        f"📱 APP STORE (7日): {_top_country_line(metrics)}\n"
+        f"💰 REVENUE: {_revenue_line(metrics)}\n"
+        f"📈 FUNNEL (7日): onboarding {onboarding_text}, paywall {paywall_text}, trial {trial_text}\n"
+        f"📊 変換率: オンボ→Paywall {rate_onboarding_paywall} {raw_onboarding_paywall}, "
+        f"Paywall→Trial {rate_paywall_trial} {raw_paywall_trial}\n"
+        "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        f"⚠️ Data Quality: ASC {metrics.data_quality.asc} / RC {metrics.data_quality.rc} / MP {metrics.data_quality.mp}\n"
+        "🧘 Anicca Bot"
+    )
 
-        revenue_text = (
-            f"*💰 REVENUE*\n"
-            f"  MRR: ${rc.mrr:.2f} {mrr_diff}\n"
-            f"  Active Subs: {rc.active_subscriptions} {subs_diff}\n"
-            f"  Trial→Paid: {rc.trial_to_paid_count}/{trial_total} ({trial_pct})\n"
-            f"  Monthly Churn: {rc.monthly_churn_rate}%"
-        )
-        blocks.append({"type": "section", "text": {"type": "mrkdwn", "text": revenue_text}})
+    trend_line = _trend_line(metrics, previous)
+    if trend_line:
+        report_text += f"\n📊 Trend: {trend_line}"
 
-    # Installs section
-    if metrics.app_store:
-        asc = metrics.app_store
-        prev_asc = previous.app_store if previous and previous.app_store else None
+    alerts_line = _alerts_line(metrics)
+    if alerts_line:
+        report_text += f"\n⚠️ Alerts: {alerts_line}"
 
-        dl_diff = _diff_str(asc.total_downloads_7d, prev_asc.total_downloads_7d) if prev_asc else ""
-        countries = _format_country_breakdown(asc.downloads_by_country)
-
-        installs_text = (
-            f"*📥 INSTALLS (7日間)*\n"
-            f"  合計: {asc.total_downloads_7d} {dl_diff} (目標: 70)\n"
-            f"  {countries}\n"
-            f"  CVR (閲覧→DL): {asc.cvr_page_to_download}% (目標: 3%)"
-        )
-        blocks.append({"type": "section", "text": {"type": "mrkdwn", "text": installs_text}})
-
-        # Funnel
-        if asc.impressions > 0 or asc.page_views > 0:
-            imp_to_page = (
-                f"{asc.page_views / asc.impressions * 100:.1f}%"
-                if asc.impressions > 0
-                else "N/A"
-            )
-            page_to_dl_daily = asc.total_downloads_7d // 7
-            page_to_dl = (
-                f"{page_to_dl_daily / asc.page_views * 100:.0f}%"
-                if asc.page_views > 0
-                else "N/A"
-            )
-            funnel_text = (
-                f"*📈 FUNNEL*\n"
-                f"  Imp → Page View → DL\n"
-                f"  {asc.impressions}/日 → {asc.page_views} ({imp_to_page}) → {page_to_dl_daily} ({page_to_dl})"
-            )
-            blocks.append({"type": "section", "text": {"type": "mrkdwn", "text": funnel_text}})
-
-    # Alerts
-    alerts = _check_alerts(metrics)
-    triggered = [a for a in alerts if a.is_triggered]
-    if triggered:
-        alert_lines = "\n".join(f"  - {a.message}" for a in triggered)
-        blocks.append({
-            "type": "section",
-            "text": {"type": "mrkdwn", "text": f"*⚠️ ALERTS*\n{alert_lines}"},
-        })
-
-    # Errors (W-4 fix: show error + success status together)
     if metrics.errors:
-        error_lines = []
-        for e in metrics.errors:
-            error_lines.append(f"❌ {e}")
-        if metrics.app_store:
-            error_lines.append("✅ App Store Connect API: 正常")
-        if metrics.revenuecat:
-            error_lines.append("✅ RevenueCat API: 正常")
-        blocks.append({
-            "type": "section",
-            "text": {"type": "mrkdwn", "text": f"*🚨 ERRORS*\n" + "\n".join(error_lines)},
-        })
+        error_lines = "\n".join(f"- {err}" for err in metrics.errors)
+        report_text += f"\n\nErrors:\n{error_lines}"
 
-    return {"blocks": blocks}
+    return {
+        "blocks": [
+            {
+                "type": "header",
+                "text": {"type": "plain_text", "text": f"📊 Anicca Daily Report ({metrics.date})"},
+            },
+            {
+                "type": "section",
+                "text": {"type": "mrkdwn", "text": report_text},
+            },
+        ]
+    }
+
+
+def _trend_line(metrics: DailyMetrics, previous: DailyMetrics | None) -> str:
+    if not previous:
+        return ""
+
+    parts: list[str] = []
+
+    if metrics.app_store and previous.app_store:
+        curr_dl = metrics.app_store.total_downloads_7d
+        prev_dl = previous.app_store.total_downloads_7d
+        parts.append(f"DL {curr_dl - prev_dl:+d}")
+
+    if metrics.revenuecat and previous.revenuecat:
+        curr_mrr = metrics.revenuecat.mrr
+        prev_mrr = previous.revenuecat.mrr
+        diff_mrr = curr_mrr - prev_mrr
+        parts.append(f"MRR {diff_mrr:+.2f}")
+
+    curr_onboarding, curr_paywall, _ = _funnel_values(metrics)
+    prev_onboarding, prev_paywall, _ = _funnel_values(previous)
+    curr_rate = _as_float_ratio(curr_paywall, curr_onboarding)
+    prev_rate = _as_float_ratio(prev_paywall, prev_onboarding)
+    if curr_rate is not None and prev_rate is not None:
+        parts.append(f"Onbo→Paywall {(curr_rate - prev_rate) * 100:+.1f}pp")
+
+    return ", ".join(parts)
+
+
+def _alerts_line(metrics: DailyMetrics) -> str:
+    alerts: list[str] = []
+
+    if metrics.app_store:
+        cvr = metrics.app_store.cvr_page_to_download
+        if cvr < 3.0:
+            alerts.append(f"CVR低下({cvr:.1f}% < 3.0%)")
+
+        avg_dl = metrics.app_store.total_downloads_7d / 7
+        if avg_dl < 10.0:
+            alerts.append(f"DL低下({avg_dl:.1f}/日 < 10.0/日)")
+
+    return ", ".join(alerts)
+
+
+def _as_float_ratio(numerator: Optional[int], denominator: Optional[int]) -> Optional[float]:
+    if numerator is None or denominator is None or denominator <= 0:
+        return None
+    return numerator / denominator
 
 
 def format_error_message(errors: list[str], successes: list[str]) -> dict:
     """Format error notification for Slack (total failure case)."""
     today_str = date.today().isoformat()
-    blocks = [
-        {
-            "type": "header",
-            "text": {"type": "plain_text", "text": f"🚨 Anicca Metrics Error ({today_str})"},
-        },
-    ]
+    lines = [f"❌ {err}" for err in errors]
+    lines.extend(f"✅ {suc}" for suc in successes)
 
-    status_lines = [f"❌ {err}" for err in errors]
-    status_lines.extend(f"✅ {suc}" for suc in successes)
-
-    blocks.append({
-        "type": "section",
-        "text": {"type": "mrkdwn", "text": "\n".join(status_lines)},
-    })
-    blocks.append({
-        "type": "section",
-        "text": {
-            "type": "mrkdwn",
-            "text": "全APIが失敗しました。API Keyの有効期限を確認してください。",
-        },
-    })
-
-    return {"blocks": blocks}
-
-
-def _check_alerts(metrics: DailyMetrics) -> list[AlertCondition]:
-    """Check alert conditions against thresholds."""
-    alerts = []
-    if metrics.app_store:
-        alerts.append(AlertCondition(
-            metric_name="CVR",
-            current_value=metrics.app_store.cvr_page_to_download,
-            threshold=3.0,
-            unit="%",
-        ))
-        avg_daily_dl = metrics.app_store.total_downloads_7d / 7
-        alerts.append(AlertCondition(
-            metric_name="日次DL",
-            current_value=avg_daily_dl,
-            threshold=10.0,
-            unit="/日",
-        ))
-    return alerts
+    return {
+        "blocks": [
+            {
+                "type": "header",
+                "text": {"type": "plain_text", "text": f"🚨 Anicca Metrics Error ({today_str})"},
+            },
+            {
+                "type": "section",
+                "text": {"type": "mrkdwn", "text": "\n".join(lines) if lines else "No details"},
+            },
+        ]
+    }
 
 
 async def send_to_slack(payload: dict) -> bool:
-    """Send Block Kit payload to Slack via webhook. Retries up to 3 times."""
-    webhook_url = os.environ["SLACK_METRICS_WEBHOOK_URL"]
+    """Send Block Kit payload to Slack.
+
+    Priority:
+    1) Incoming webhook (SLACK_METRICS_WEBHOOK_URL)
+    2) Bot token + chat.postMessage fallback
+    """
+    webhook_url = os.environ.get("SLACK_METRICS_WEBHOOK_URL", "").strip()
+    bot_token = os.environ.get("SLACK_BOT_TOKEN", "").strip()
+    channel_id = os.environ.get("SLACK_METRICS_CHANNEL_ID", "C091G3PKHL2").strip()
+
+    text_fallback = "Anicca Daily Report"
+    if payload.get("blocks"):
+        # Header + section text first, to keep push notifications readable.
+        try:
+            header = payload["blocks"][0]["text"]["text"]
+            body = payload["blocks"][1]["text"]["text"]
+            text_fallback = f"{header}\n{body}"
+        except (KeyError, IndexError, TypeError):
+            pass
+
     async with httpx.AsyncClient(timeout=10.0) as client:
         for attempt in range(3):
             try:
-                resp = await client.post(webhook_url, json=payload)
+                if webhook_url:
+                    resp = await client.post(webhook_url, json=payload)
+                elif bot_token:
+                    resp = await client.post(
+                        "https://slack.com/api/chat.postMessage",
+                        headers={
+                            "Authorization": f"Bearer {bot_token}",
+                            "Content-Type": "application/json; charset=utf-8",
+                        },
+                        json={
+                            "channel": channel_id,
+                            "text": text_fallback,
+                            "blocks": payload.get("blocks", []),
+                        },
+                    )
+                else:
+                    print("Slack credentials missing: webhook and bot token are both unset", file=sys.stderr)
+                    return False
+
                 if resp.status_code == 200:
+                    # chat.postMessage can return HTTP 200 with {"ok": false}
+                    if not webhook_url:
+                        data = resp.json()
+                        if not data.get("ok", False):
+                            print(f"Slack API error: {data}", file=sys.stderr)
+                            return False
                     return True
                 print(f"Slack API returned {resp.status_code}: {resp.text}", file=sys.stderr)
                 if resp.status_code == 429:

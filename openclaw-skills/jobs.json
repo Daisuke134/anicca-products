@@ -1,0 +1,195 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "jobId": "ops-heartbeat",
+      "name": "ops-heartbeat",
+      "schedule": { "kind": "cron", "expr": "*/5 * * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute ops-heartbeat skill. POST /api/ops/heartbeat." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "mission-worker",
+      "name": "mission-worker",
+      "schedule": { "kind": "cron", "expr": "* * * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute mission-worker skill. GET /api/ops/step/next -> run step -> PATCH complete." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "trend-hunter",
+      "name": "trend-hunter",
+      "schedule": { "kind": "cron", "expr": "0 */4 * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute trend-hunter skill. Create run_trend_scan proposal." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "suffering-detector",
+      "name": "suffering-detector",
+      "schedule": { "kind": "cron", "expr": "*/5 * * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute suffering-detector skill. POST /api/admin/jobs/suffering-detector." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "x-poster-morning",
+      "name": "x-poster-morning",
+      "schedule": { "kind": "cron", "expr": "0 9 * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute x-poster skill. Slot: morning. Create proposal draft_content -> verify_content -> post_x." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "x-poster-evening",
+      "name": "x-poster-evening",
+      "schedule": { "kind": "cron", "expr": "0 21 * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute x-poster skill. Slot: evening. Create proposal draft_content -> verify_content -> post_x." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "tiktok-poster-morning",
+      "name": "tiktok-poster-morning",
+      "schedule": { "kind": "cron", "expr": "0 9 * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute tiktok-poster skill. Slot: morning. Create proposal draft_content -> verify_content -> post_tiktok." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "tiktok-poster-evening",
+      "name": "tiktok-poster-evening",
+      "schedule": { "kind": "cron", "expr": "0 21 * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute tiktok-poster skill. Slot: evening. Create proposal draft_content -> verify_content -> post_tiktok." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "app-nudge-morning",
+      "name": "app-nudge-morning",
+      "schedule": { "kind": "cron", "expr": "0 9 * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute app-nudge-sender skill. POST /api/admin/jobs/app-nudge-sender with slot: morning." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "app-nudge-afternoon",
+      "name": "app-nudge-afternoon",
+      "schedule": { "kind": "cron", "expr": "0 14 * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute app-nudge-sender skill. POST /api/admin/jobs/app-nudge-sender with slot: afternoon." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "app-nudge-evening",
+      "name": "app-nudge-evening",
+      "schedule": { "kind": "cron", "expr": "0 20 * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute app-nudge-sender skill. POST /api/admin/jobs/app-nudge-sender with slot: evening." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "moltbook-monitor",
+      "name": "moltbook-monitor",
+      "schedule": { "kind": "cron", "expr": "*/5 * * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute moltbook-monitor skill. POST /api/admin/jobs/moltbook-shadow-monitor." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "moltbook-poster",
+      "name": "moltbook-poster",
+      "schedule": { "kind": "cron", "expr": "30 20 * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute moltbook-poster skill. POST /api/admin/jobs/moltbook-poster." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "roundtable-standup",
+      "name": "roundtable-standup",
+      "schedule": { "kind": "cron", "expr": "0 9 * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute roundtable-standup skill. POST /api/admin/roundtable/standup." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "roundtable-memory-extract",
+      "name": "roundtable-memory-extract",
+      "schedule": { "kind": "cron", "expr": "55 8 * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute roundtable-memory-extract skill. POST /api/admin/roundtable/memory-extract." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "roundtable-initiative-generate",
+      "name": "roundtable-initiative-generate",
+      "schedule": { "kind": "cron", "expr": "5 9 * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute roundtable-initiative-generate skill. POST /api/admin/roundtable/initiative-generate." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "hookpost-ttl-cleaner",
+      "name": "hookpost-ttl-cleaner",
+      "schedule": { "kind": "cron", "expr": "0 3 * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute hookpost-ttl-cleaner skill. POST /api/admin/jobs/hookpost-ttl-cleaner." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "sto-weekly-refresh",
+      "name": "sto-weekly-refresh",
+      "schedule": { "kind": "cron", "expr": "0 3 * * 0", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute sto-weekly-refresh skill. POST /api/admin/jobs/sto-weekly-refresh." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "autonomy-check",
+      "name": "autonomy-check",
+      "schedule": { "kind": "cron", "expr": "0 3 * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute autonomy-check skill. POST /api/admin/jobs/autonomy-check." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    }
+  ]
+}

@@ -6,6 +6,7 @@ import sys
 import httpx
 
 from models import RevenueCatMetrics
+from window import ReportingWindow, default_reporting_window
 
 RC_BASE_URL = "https://api.revenuecat.com/v2"
 
@@ -17,8 +18,11 @@ def _get_headers() -> dict[str, str]:
     }
 
 
-async def fetch_revenuecat_metrics() -> RevenueCatMetrics:
-    """Fetch MRR, active subs, trials, conversions, and churn from RevenueCat API v2."""
+async def fetch_revenuecat_metrics(window: ReportingWindow | None = None) -> RevenueCatMetrics:
+    """Fetch RevenueCat snapshot metrics and optional windowed events."""
+    if window is None:
+        window = default_reporting_window()
+
     headers = _get_headers()
 
     async with httpx.AsyncClient(timeout=30.0) as client:
@@ -50,7 +54,7 @@ async def fetch_revenuecat_metrics() -> RevenueCatMetrics:
             elif metric_id == "active_trials":
                 active_trials = int(value)
 
-        # Get trial-to-paid and churn metrics
+        # Get trial and churn related metrics
         trial_to_paid = 0
         trial_expired = 0
         churn_rate = 0.0
@@ -59,7 +63,12 @@ async def fetch_revenuecat_metrics() -> RevenueCatMetrics:
             events_resp = await client.get(
                 f"{RC_BASE_URL}/projects/{project_id}/metrics/overview",
                 headers=headers,
-                params={"metric_names": "new_paid_from_trial,expired_trials,churn"},
+                params={
+                    "metric_names": "new_paid_from_trial,expired_trials,churn",
+                    # Kept aligned with shared reporting window used by Mixpanel.
+                    "start_date": window.start_date.isoformat(),
+                    "end_date": window.end_date.isoformat(),
+                },
             )
             if events_resp.status_code == 200:
                 events_data = events_resp.json()

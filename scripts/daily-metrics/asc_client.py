@@ -5,11 +5,13 @@ import os
 import sys
 import time
 from datetime import date, timedelta
+from pathlib import Path
 
 import httpx
 import jwt
 
 from models import AppStoreMetrics
+from window import ReportingWindow, asc_reporting_window
 
 ASC_BASE_URL = "https://api.appstoreconnect.apple.com/v1"
 TOKEN_EXPIRY_SECONDS = 1200  # 20 minutes
@@ -28,7 +30,13 @@ def _generate_token() -> str:
 
     key_id = os.environ["ASC_KEY_ID"]
     issuer_id = os.environ["ASC_ISSUER_ID"]
-    private_key = os.environ["ASC_PRIVATE_KEY"]
+    private_key = os.environ.get("ASC_PRIVATE_KEY", "")
+    if not private_key:
+        key_path = Path(os.environ.get("ASC_PRIVATE_KEY_PATH", f"/home/anicca/.keys/AuthKey_{key_id}.p8"))
+        if key_path.exists():
+            private_key = key_path.read_text()
+        else:
+            raise KeyError("ASC_PRIVATE_KEY")
 
     payload = {
         "iss": issuer_id,
@@ -50,11 +58,12 @@ def _get_headers() -> dict[str, str]:
     }
 
 
-async def fetch_app_store_metrics() -> AppStoreMetrics:
+async def fetch_app_store_metrics(window: ReportingWindow | None = None) -> AppStoreMetrics:
     """Fetch downloads, impressions, page views, and CVR from App Store Connect."""
-    # Use 2 days ago as end_date: yesterday's data is often incomplete on ASC
-    end_date = date.today() - timedelta(days=2)
-    start_date = end_date - timedelta(days=6)  # 7-day window
+    if window is None:
+        window = asc_reporting_window()
+    start_date = window.start_date
+    end_date = window.end_date
 
     headers = _get_headers()
     total_downloads = 0

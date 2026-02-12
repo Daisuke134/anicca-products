@@ -1,4 +1,5 @@
 .claude/
+.codex/
 .cursor/
 .git/
 node_modules/

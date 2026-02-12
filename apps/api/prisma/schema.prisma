@@ -432,8 +432,173 @@ model AgentAuditLog {
   @@map("agent_audit_logs")
 }
 
+// -----------------------------
+// 1.6.2 Phase 2: Structured Memory + Initiative
+// -----------------------------
+
+model MemoryItem {
+  id         String   @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
+  scope      String   @db.VarChar(255) // 'global' | 'platform:<name>' | 'user:<platformUserId>'
+  category   String   @db.VarChar(50)  // 'safety' | 'policy' | 'content_style' | 'ops' | 'growth'
+  key        String   @db.VarChar(100)
+  value      String   @db.Text
+  confidence Decimal  @db.Decimal(5,4) @default(0)
+  source     String   @db.VarChar(50)
+  expiresAt  DateTime? @db.Timestamptz @map("expires_at")
+  createdAt  DateTime @default(now()) @db.Timestamptz @map("created_at")
+  updatedAt  DateTime @updatedAt @db.Timestamptz @map("updated_at")
+
+  @@unique([scope, category, key])
+  @@index([category])
+  @@index([updatedAt(sort: Desc)])
+  @@map("memory_items")
+}
+
+model Initiative {
+  id        String   @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
+  kind      String   @db.VarChar(50)  // 'suffering_spike' | 'low_tap_rate' | 'post_failures'
+  status    String   @db.VarChar(20)  @default("proposed") // 'proposed' | 'approved' | 'rejected' | 'executed'
+  reason    String   @db.Text
+  payload   Json     @db.JsonB @default("{}")
+  createdAt DateTime @default(now()) @db.Timestamptz @map("created_at")
+  updatedAt DateTime @default(now()) @db.Timestamptz @map("updated_at")
+
+  @@index([kind])
+  @@index([createdAt(sort: Desc)])
+  @@map("initiatives")
+}
+
+model ResearchItem {
+  id        String   @id @db.Uuid @default(dbgenerated("gen_random_uuid()"))
+  source    String   @db.VarChar(50) // 'x_research' | 'manual'
+  query     String?  @db.Text
+  summary   String   @db.Text
+  payload   Json     @db.JsonB @default("{}")
+  createdAt DateTime @default(now()) @db.Timestamptz @map("created_at")
+
+  @@index([source])
+  @@index([createdAt(sort: Desc)])
+  @@map("research_items")
+}
+
 // 1.6.1 HookCandidate 拡張カラム（既存 HookCandidate に追加）
 // Note: 既存の HookCandidate model に以下のカラムを追加済み:
 // - moltbookUpvoteRate, moltbookSampleSize, moltbookHighPerformer
 // - slackReactionRate, slackSampleSize, slackHighPerformer
 
+// -----------------------------
+// 1.6.2 Closed-Loop Ops
+// -----------------------------
+
+model OpsProposal {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  skillName    String    @map("skill_name") @db.VarChar(50)
+  source       String    @db.VarChar(20)
+  status       String    @default("pending") @db.VarChar(20)
+  title        String    @db.VarChar(500)
+  payload      Json      @default("{}") @db.JsonB
+  rejectReason String?   @map("reject_reason") @db.Text
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  resolvedAt   DateTime? @map("resolved_at") @db.Timestamptz
+
+  missions OpsMission[]
+
+  @@index([status])
+  @@index([skillName])
+  @@index([createdAt(sort: Desc)])
+  @@map("ops_proposals")
+}
+
+model OpsMission {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  proposalId  String    @map("proposal_id") @db.Uuid
+  status      String    @default("running") @db.VarChar(20)
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  completedAt DateTime? @map("completed_at") @db.Timestamptz
+
+  proposal OpsProposal   @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+  steps    OpsMissionStep[]
+  events   OpsEvent[]
+
+  @@index([status])
+  @@index([createdAt(sort: Desc)])
+  @@map("ops_missions")
+}
+
+model OpsMissionStep {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  missionId   String    @map("mission_id") @db.Uuid
+  stepKind    String    @map("step_kind") @db.VarChar(50)
+  stepOrder   Int       @map("step_order")
+  status      String    @default("queued") @db.VarChar(20)
+  input       Json?     @db.JsonB
+  output      Json?     @db.JsonB
+  lastError   String?   @map("last_error") @db.Text
+  reservedAt  DateTime? @map("reserved_at") @db.Timestamptz
+  completedAt DateTime? @map("completed_at") @db.Timestamptz
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz
+
+  mission OpsMission @relation(fields: [missionId], references: [id], onDelete: Cascade)
+
+  @@index([missionId, stepOrder])
+  @@index([status])
+  @@index([reservedAt])
+  @@map("ops_mission_steps")
+}
+
+model OpsEvent {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  source    String   @db.VarChar(50)
+  kind      String   @db.VarChar(100)
+  tags      String[] @default([])
+  payload   Json?    @db.JsonB
+  missionId String?  @map("mission_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz
+
+  mission   OpsMission?  @relation(fields: [missionId], references: [id], onDelete: SetNull)
+  reactions OpsReaction[]
+
+  @@index([kind])
+  @@index([source])
+  @@index([createdAt(sort: Desc)])
+  @@map("ops_events")
+}
+
+model OpsPolicy {
+  key       String   @id @db.VarChar(100)
+  value     Json     @db.JsonB
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz
+
+  @@map("ops_policy")
+}
+
+model OpsTriggerRule {
+  id               String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name             String    @unique @db.VarChar(100)
+  eventKind        String    @map("event_kind") @db.VarChar(100)
+  condition        Json      @default("{}") @db.JsonB
+  proposalTemplate Json      @map("proposal_template") @db.JsonB
+  cooldownMin      Int       @default(60) @map("cooldown_min")
+  enabled          Boolean   @default(true)
+  lastFiredAt      DateTime? @map("last_fired_at") @db.Timestamptz
+  createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamptz
+
+  @@index([eventKind])
+  @@map("ops_trigger_rules")
+}
+
+model OpsReaction {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  eventId     String    @map("event_id") @db.Uuid
+  targetSkill String    @map("target_skill") @db.VarChar(50)
+  actionType  String    @map("action_type") @db.VarChar(50)
+  status      String    @default("pending") @db.VarChar(20)
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  processedAt DateTime? @map("processed_at") @db.Timestamptz
+
+  event OpsEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+  @@index([createdAt(sort: Desc)])
+  @@map("ops_reactions")
+}

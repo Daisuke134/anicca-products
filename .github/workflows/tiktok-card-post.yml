@@ -1,15 +1,6 @@
 name: TikTok Card Daily Post
 
 on:
-  schedule:
-    # JA朝: 09:00 JST = 00:00 UTC
-    - cron: '0 0 * * *'
-    # JA夜: 19:00 JST = 10:00 UTC
-    - cron: '0 10 * * *'
-    # EN朝: 23:00 JST = 14:00 UTC固定（US 9AM EST / 10AM EDT）
-    - cron: '0 14 * * *'
-    # EN夜: 10:00 JST = 01:00 UTC固定（US 8PM EST / 9PM EDT）
-    - cron: '0 1 * * *'
   workflow_dispatch:
     inputs:
       language:
@@ -47,15 +38,7 @@ jobs:
         run: echo "::add-mask::${{ secrets.BLOTATO_API_KEY }}"
       - name: Resolve language
         id: lang
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "value=${{ github.event.inputs.language }}" >> "$GITHUB_OUTPUT"
-          elif [ "${{ github.event.schedule }}" = "0 0 * * *" ] || \
-               [ "${{ github.event.schedule }}" = "0 10 * * *" ]; then
-            echo "value=ja" >> "$GITHUB_OUTPUT"
-          else
-            echo "value=en" >> "$GITHUB_OUTPUT"
-          fi
+        run: echo "value=${{ github.event.inputs.language }}" >> "$GITHUB_OUTPUT"
       - name: Verify card images (189 expected per language)
         run: |
           LANG="${{ steps.lang.outputs.value }}"

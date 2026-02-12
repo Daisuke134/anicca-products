@@ -18,8 +18,18 @@ export async function runMigrationsOnce() {
   // v0.3: 010/011 を追加（v0.3新規テーブル + JSONB GINインデックス）
   // Phase-7: 012 = sensor_access_state（v1.5.0で廃止済みだが、既存環境にはテーブルが残存。
   //   新規環境でもCREATE IF NOT EXISTSなのでべき等。将来のクリーンアップで除外予定。）
-  const files = (await fs.readdir(MIGRATIONS_DIR))
-    .filter(f => /^(006|007|008|010|011|012)_.*\.sql$/.test(f))
+  let dirEntries = [];
+  try {
+    dirEntries = await fs.readdir(MIGRATIONS_DIR);
+  } catch (e) {
+    // In some deployments (e.g. container builds) we may not ship legacy SQL migrations.
+    // Prisma migrations are still applied via `prisma migrate deploy`.
+    if (e?.code === 'ENOENT') return;
+    throw e;
+  }
+
+  const files = dirEntries
+    .filter((f) => /^(006|007|008|010|011|012)_.*\.sql$/.test(f))
     .sort();
 
   for (const f of files) {
@@ -38,4 +48,3 @@ export async function runMigrationsOnce() {
     await query('insert into schema_migrations(id) values($1)', [id]);
   }
 }
-

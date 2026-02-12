@@ -5,7 +5,6 @@ import { ChevronLeft, Bell, Sun, Moon, Clock, ExternalLink, Crown, Info, Shield,
 import * as Haptics from 'expo-haptics';
 import * as Notifications from 'expo-notifications';
 import Colors from '@/constants/colors';
-import { cancelAllNotifications } from '@/utils/notifications';
 import { useApp } from '@/providers/AppProvider';
 import { getDailyVerse, getRandomStayPresentMessage } from '@/data/verses';
 

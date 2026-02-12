@@ -6,10 +6,11 @@ import baseLogger from '../../utils/logger.js';
 import extractUserId from '../../middleware/extractUserId.js';
 import requireInternalAuth from '../../middleware/requireInternalAuth.js';
 import { query } from '../../lib/db.js';
-import { resolveProfileId } from '../../services/mobile/userIdResolver.js';
+import { resolveProfileId, ensureDeviceProfileId } from '../../services/mobile/userIdResolver.js';
 import { getUserTimezone, buildScreenState, buildMovementState, getUserTraits } from '../../modules/nudge/features/stateBuilder.js';
 import { computeReward } from '../../modules/nudge/reward/rewardCalculator.js';
 import { getMem0Client } from '../../modules/memory/mem0Client.js';
+import { sendNudgeInternal } from '../../services/mobile/nudgeSendService.js';
 
 const router = express.Router();
 const logger = baseLogger.withContext('MobileNudge');
@@ -35,6 +36,21 @@ const feedbackSchema = z.object({
   }).passthrough().optional()
 });
 
+const sendSchema = z.object({
+  userId: z.string().min(1),
+  message: z.string().min(1).max(500),
+  title: z.string().min(1).max(120).optional(),
+  problemType: z.string().max(100).optional(),
+  nudgeId: z.string().optional(),
+  templateId: z.string().max(100).optional(),
+  metadata: z.record(z.unknown()).optional(),
+  dedupeKey: z.string().max(200).optional(),
+});
+
+const ackSchema = z.object({
+  nudgeIds: z.array(z.string().uuid()).min(1).max(50),
+});
+
 function pickTemplate({ domain, eventType, intensity }) {
   // Minimal mapping per prompts-v3.md examples.
   if (domain === 'screen') {
@@ -43,6 +59,9 @@ function pickTemplate({ domain, eventType, intensity }) {
   }
   if (domain === 'movement') {
     return intensity === 'active' ? 'walk_invite' : 'short_break';
+  }
+  if (String(eventType).includes('e2e_pause') || String(eventType).includes('manual_pause')) {
+    return 'gentle_pause';
   }
   return 'do_nothing';
 }
@@ -80,6 +99,15 @@ const TRIGGER_MESSAGES = {
     de: 'Lass uns fünf Minuten gehen. Wenn der Körper sich bewegt, verändert sich oft auch der Geist.',
     pt: 'Vamos caminhar cinco minutos. Quando o corpo se move, a mente também muda.'
   }
+  ,
+  gentle_pause: {
+    en: 'Pause for one breath. That is enough for now.',
+    ja: '呼吸を1回だけ。いまはそれで十分。',
+    es: 'Pausa para una respiración. Por ahora es suficiente.',
+    fr: 'Fais une pause pour une respiration. C’est suffisant pour l’instant.',
+    de: 'Pause für einen Atemzug. Das reicht für jetzt.',
+    pt: 'Pausa para uma respiração. Por agora, é suficiente.'
+  }
 };
 
 function normalizeLangKey(lang) {
@@ -99,6 +127,7 @@ function classifyDomain(eventType) {
   const t = String(eventType);
   if (t.includes('sns') || t.includes('screen')) return { domain: 'screen', subtype: t };
   if (t.includes('sedentary') || t.includes('movement')) return { domain: 'movement', subtype: t };
+  if (t.includes('pause')) return { domain: 'mental', subtype: t };
   return { domain: 'unknown', subtype: t };
 }
 
@@ -113,7 +142,10 @@ router.post('/trigger', async (req, res) => {
     return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'Invalid body', details: parsed.error.errors } });
   }
 
-  const profileId = await resolveProfileId(userId);
+  let profileId = await resolveProfileId(userId);
+  if (!profileId && deviceId) {
+    profileId = await ensureDeviceProfileId(deviceId);
+  }
   if (!profileId) {
     return res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Could not resolve profile_id' } });
   }
@@ -150,10 +182,146 @@ router.post('/trigger', async (req, res) => {
       ]
     );
 
-    return res.json({ nudgeId, templateId, message });
+    return res.json({ nudgeId, templateId, message, domain });
   } catch (e) {
     logger.error('Failed to trigger nudge', e);
     return res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to trigger nudge' } });
+  }
+});
+
+// POST /api/mobile/nudge/send (internal worker -> mobile feed)
+router.post('/send', requireInternalAuth, async (req, res) => {
+  const parsed = sendSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({
+      error: { code: 'INVALID_REQUEST', message: 'Invalid body', details: parsed.error.errors },
+    });
+  }
+
+  try {
+    const out = await sendNudgeInternal({
+      userId: parsed.data.userId,
+      message: parsed.data.message,
+      title: parsed.data.title || '',
+      problemType: parsed.data.problemType || 'unknown',
+      templateId: parsed.data.templateId || 'send_nudge',
+      metadata: parsed.data.metadata || {},
+      nudgeId: parsed.data.nudgeId || crypto.randomUUID(),
+      dedupeKey: parsed.data.dedupeKey || null,
+    });
+
+    if (out?.error?.code === 'KILL_SWITCH_ENABLED') {
+      return res.status(503).json({
+        error: { code: 'KILL_SWITCH_ENABLED', message: 'Nudge sending is disabled by kill switch' },
+      });
+    }
+    if (out?.error?.code === 'PROFILE_NOT_FOUND') {
+      return res.status(404).json({
+        error: { code: 'PROFILE_NOT_FOUND', message: 'Could not resolve profile_id' },
+      });
+    }
+    if (out?.error?.code === 'DAILY_QUOTA_EXCEEDED') {
+      return res.status(429).json({
+        error: { code: 'DAILY_QUOTA_EXCEEDED', message: 'Daily nudge quota exceeded' },
+        quota: out.quota,
+      });
+    }
+    if (out?.deduped) {
+      return res.json({ sent: false, deduped: true, nudgeId: out.nudgeId });
+    }
+
+    return res.json({ sent: true, nudgeId: out.nudgeId, quota: out.quota });
+  } catch (e) {
+    logger.error('Failed to send nudge', e);
+    return res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to send nudge' } });
+  }
+});
+
+// GET /api/mobile/nudge/pending
+// Mobile polls for pending server-driven nudges created by internal workers via /send.
+router.get('/pending', async (req, res) => {
+  const userId = await extractUserId(req, res);
+  if (!userId) return;
+  const deviceId = (req.get('device-id') || '').toString().trim();
+
+  let profileId = await resolveProfileId(userId);
+  if (!profileId && deviceId) profileId = await ensureDeviceProfileId(deviceId);
+  if (!profileId) {
+    return res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Could not resolve profile_id' } });
+  }
+
+  try {
+    const result = await query(
+      `select id, domain, subtype, state, created_at
+         from nudge_events
+        where user_id = $1::uuid
+          and decision_point = 'send_nudge'
+          and (state->>'deliveredAtMs') is null
+        order by created_at asc
+        limit 20`,
+      [profileId]
+    );
+
+    const nudges = (result.rows || []).map((r) => {
+      const state = r.state || {};
+      return {
+        nudgeId: r.id,
+        domain: r.domain,
+        subtype: r.subtype,
+        title: state.hook || state.title || '',
+        message: state.content || state.message || '',
+        problemType: state.problemType || null,
+        templateId: state.templateId || null,
+        metadata: state.metadata || {},
+        createdAt: r.created_at instanceof Date ? r.created_at.toISOString() : String(r.created_at),
+      };
+    });
+
+    return res.json({ nudges, version: '1' });
+  } catch (e) {
+    logger.error('Failed to fetch pending nudges', e);
+    return res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to fetch pending nudges' } });
+  }
+});
+
+// POST /api/mobile/nudge/ack
+// Mark pending nudges as delivered after the app has scheduled a local notification.
+router.post('/ack', async (req, res) => {
+  const userId = await extractUserId(req, res);
+  if (!userId) return;
+  const deviceId = (req.get('device-id') || '').toString().trim();
+
+  const parsed = ackSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'Invalid body', details: parsed.error.errors } });
+  }
+
+  let profileId = await resolveProfileId(userId);
+  if (!profileId && deviceId) profileId = await ensureDeviceProfileId(deviceId);
+  if (!profileId) {
+    return res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Could not resolve profile_id' } });
+  }
+
+  try {
+    const result = await query(
+      `update nudge_events
+          set state = jsonb_set(
+            coalesce(state, '{}'::jsonb),
+            '{deliveredAtMs}',
+            to_jsonb((extract(epoch from timezone('utc', now())) * 1000)::bigint),
+            true
+          )
+        where user_id = $1::uuid
+          and id = any($2::uuid[])
+          and decision_point = 'send_nudge'
+          and (state->>'deliveredAtMs') is null`,
+      [profileId, parsed.data.nudgeIds]
+    );
+
+    return res.json({ acked: result.rowCount || 0 });
+  } catch (e) {
+    logger.error('Failed to ack pending nudges', e);
+    return res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to ack pending nudges' } });
   }
 });
 

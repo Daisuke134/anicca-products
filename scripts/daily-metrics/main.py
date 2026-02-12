@@ -1,4 +1,4 @@
-"""Daily metrics collection: ASC + RevenueCat → Slack."""
+"""Daily metrics collection: ASC + RevenueCat + Mixpanel -> Slack."""
 
 import asyncio
 import json
@@ -8,7 +8,8 @@ from datetime import date, timedelta
 from pathlib import Path
 from typing import Awaitable, Callable, TypeVar
 
-from models import AppStoreMetrics, DailyMetrics, RevenueCatMetrics
+from models import AppStoreMetrics, DailyMetrics, DataQuality, MixpanelMetrics, RevenueCatMetrics
+from window import asc_reporting_window, behavior_reporting_window
 
 T = TypeVar("T")
 
@@ -16,25 +17,46 @@ T = TypeVar("T")
 async def collect_metrics() -> DailyMetrics:
     """Collect metrics from all sources in parallel. Partial failures are tolerated."""
     from asc_client import fetch_app_store_metrics
+    from mixpanel_client import fetch_mixpanel_metrics
     from revenuecat_client import fetch_revenuecat_metrics
 
     errors: list[str] = []
+    asc_window = asc_reporting_window()
+    behavior_window = behavior_reporting_window()
 
-    asc_task = asyncio.create_task(_safe_fetch("App Store Connect", fetch_app_store_metrics))
-    rc_task = asyncio.create_task(_safe_fetch("RevenueCat", fetch_revenuecat_metrics))
+    asc_task = asyncio.create_task(
+        _safe_fetch("App Store Connect", lambda: fetch_app_store_metrics(asc_window))
+    )
+    rc_task = asyncio.create_task(
+        _safe_fetch("RevenueCat", lambda: fetch_revenuecat_metrics(behavior_window))
+    )
+    mp_task = asyncio.create_task(
+        _safe_fetch("Mixpanel", lambda: fetch_mixpanel_metrics(behavior_window))
+    )
 
     asc_result, asc_error = await asc_task
     rc_result, rc_error = await rc_task
+    mp_result, mp_error = await mp_task
 
     if asc_error:
         errors.append(f"App Store Connect API: {asc_error}")
     if rc_error:
         errors.append(f"RevenueCat API: {rc_error}")
+    if mp_error:
+        errors.append(f"Mixpanel API: {mp_error}")
+
+    data_quality = DataQuality(
+        asc="ok" if asc_result else "missing",
+        rc="ok" if rc_result else "missing",
+        mp="ok" if mp_result else "missing",
+    )
 
     return DailyMetrics(
         date=date.today().isoformat(),
         app_store=asc_result,
         revenuecat=rc_result,
+        mixpanel=mp_result,
+        data_quality=data_quality,
         errors=tuple(errors),
     )
 
@@ -55,7 +77,7 @@ async def send_report(metrics: DailyMetrics) -> None:
 
     previous = _load_previous_metrics()
 
-    if metrics.app_store is None and metrics.revenuecat is None:
+    if metrics.app_store is None and metrics.revenuecat is None and metrics.mixpanel is None:
         # Total failure
         payload = format_error_message(errors=list(metrics.errors), successes=[])
     else:
@@ -106,10 +128,32 @@ def _load_previous_metrics() -> DailyMetrics | None:
                     trial_expired_count=rc_data.get("trial_expired_count", 0),
                     monthly_churn_rate=rc_data.get("monthly_churn_rate", 0.0),
                 )
+            mixpanel = None
+            if data.get("mixpanel"):
+                mp_data = data["mixpanel"]
+                mixpanel = MixpanelMetrics(
+                    onboarding_started=mp_data.get("onboarding_started"),
+                    onboarding_struggles_completed=mp_data.get("onboarding_struggles_completed"),
+                    onboarding_live_demo_completed=mp_data.get("onboarding_live_demo_completed"),
+                    onboarding_notifications_completed=mp_data.get("onboarding_notifications_completed"),
+                    onboarding_completed=mp_data.get("onboarding_completed"),
+                    onboarding_paywall_viewed=mp_data.get("onboarding_paywall_viewed"),
+                    onboarding_paywall_dismissed_free=mp_data.get("onboarding_paywall_dismissed_free"),
+                    onboarding_paywall_purchased=mp_data.get("onboarding_paywall_purchased"),
+                    rc_trial_started_event=mp_data.get("rc_trial_started_event"),
+                )
+            dq_data = data.get("data_quality", {})
             return DailyMetrics(
                 date=data["date"],
                 app_store=app_store,
                 revenuecat=revenuecat,
+                mixpanel=mixpanel,
+                data_quality=DataQuality(
+                    asc=dq_data.get("asc", "missing"),
+                    rc=dq_data.get("rc", "missing"),
+                    mp=dq_data.get("mp", "missing"),
+                ),
+                errors=tuple(data.get("errors", [])),
             )
         except (json.JSONDecodeError, KeyError, TypeError) as e:
             print(f"WARNING: Failed to load previous metrics: {e}", file=sys.stderr)

@@ -1,0 +1,38 @@
+# VPS OpenClaw 用 .env テンプレート
+# 配置先: /home/anicca/.openclaw/.env
+# 使い方: このファイルをコピーし、各変数に実値を入れる。値は git にコミットしない。
+
+# ----- LLM（OpenClaw / Codex が使用） -----
+OPENAI_API_KEY=
+ANTHROPIC_API_KEY=
+GEMINI_API_KEY=
+GOOGLE_API_KEY=
+
+# ----- Web 検索・スクレイピング -----
+# Firecrawl: Oliver & Larry 等のスクレイピングに使用。X_BEARER_TOKEN が無くても Firecrawl で深掘り可能。
+FIRECRAWL_API_KEY=
+# x-research 用。無い場合は Firecrawl のみで検索・スクレイピングする。
+X_BEARER_TOKEN=
+
+# ----- Slack（gateway 接続） -----
+SLACK_BOT_TOKEN=
+SLACK_APP_TOKEN=
+
+# ----- メトリクス・ブロック解除 -----
+REVENUECAT_V2_SECRET_KEY=
+MIXPANEL_API_SECRET=
+MIXPANEL_PROJECT_ID=
+
+# ----- App Store Connect（daily-metrics 等） -----
+ASC_KEY_ID=
+ASC_ISSUER_ID=
+ASC_PRIVATE_KEY_PATH=
+
+# ----- その他（スキル・Cron で使用） -----
+MOMO_API_KEY=
+ANICCA_AGENT_TOKEN=
+EXA_API_KEY=
+BRAVE_API_KEY=
+
+# ----- 未使用でもブロック解除用に空でよい場合 -----
+# X_BEARER_TOKEN=   # 無い場合は x-research の X 検索は不可。Firecrawl で代替。

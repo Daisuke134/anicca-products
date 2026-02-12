@@ -163,12 +163,12 @@ describe('Caption', () => {
     expect(caption.length).toBeGreaterThanOrEqual(200);
   });
 
-  it('caption is within TikTok limit (2200 chars)', () => {
+  it('caption is within TikTok limit (2000 chars)', () => {
     const caption = generateCaption({
       cardId: 'loneliness_0',
       language: 'en',
       problemType: 'loneliness',
     });
-    expect(caption.length).toBeLessThanOrEqual(2200);
+    expect(caption.length).toBeLessThanOrEqual(2000);
   });
 });

@@ -77,7 +77,8 @@ export class BlotatoClient {
         post: {
           accountId,
           content: {
-            text: caption.slice(0, 2200),
+            // B2: conservative limit to avoid provider-side counting mismatch
+            text: caption.slice(0, 2000),
             mediaUrls: [imageUrl],
             platform: 'tiktok',
           },
