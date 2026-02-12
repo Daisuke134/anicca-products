@@ -5,7 +5,7 @@ const logger = baseLogger.withContext('RequireInternalAuth');
 
 /**
  * 内部API用認証ミドルウェア（Admin API + cron job）
- * INTERNAL_API_TOKEN環境変数と一致するBearerトークンを要求
+ * INTERNAL_API_TOKEN と INTERNAL_AUTH_SECRET のいずれかに一致するBearerトークンを要求
  * timing-safe comparison でタイミング攻撃を防止
  */
 export default function requireInternalAuth(req, res, next) {
@@ -16,10 +16,10 @@ export default function requireInternalAuth(req, res, next) {
   }
 
   const token = auth.slice('Bearer '.length).trim();
-  const expectedToken = process.env.INTERNAL_API_TOKEN;
+  const expectedToken = process.env.INTERNAL_API_TOKEN || process.env.INTERNAL_AUTH_SECRET;
 
   if (!expectedToken) {
-    logger.error('INTERNAL_API_TOKEN not configured');
+    logger.error('INTERNAL_API_TOKEN / INTERNAL_AUTH_SECRET not configured');
     return res.status(500).json({ error: 'Internal API token not configured' });
   }
 
@@ -33,4 +33,3 @@ export default function requireInternalAuth(req, res, next) {
 
   next();
 }
-
