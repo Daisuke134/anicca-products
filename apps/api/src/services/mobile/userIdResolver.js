@@ -17,7 +17,21 @@ export function isUuid(value) {
 export async function resolveProfileId(userId) {
   const raw = String(userId || '').trim();
   if (!raw) return null;
-  if (isUuid(raw)) return raw;
+  if (isUuid(raw)) {
+    // UUID文字列でも profiles 実在確認を行い、孤立IDのまま進まないようにする。
+    try {
+      const exists = await query(
+        `select 1
+           from profiles
+          where id = $1::uuid
+          limit 1`,
+        [raw]
+      );
+      if (exists.rows.length > 0) return raw;
+    } catch (e) {
+      logger.warn('Failed to verify profileId existence by uuid', e);
+    }
+  }
 
   // Fallback: match profiles.metadata.apple_user_id
   try {
@@ -88,7 +102,7 @@ export async function ensureDeviceProfileId(deviceId) {
     await query(
       `insert into profiles (id, metadata, created_at, updated_at)
        values ($1::uuid,
-               jsonb_build_object('source','device','device_id',$2),
+               jsonb_build_object('source','device','device_id',$2::text),
                timezone('utc', now()),
                timezone('utc', now()))
        on conflict (id) do nothing`,
@@ -111,7 +125,6 @@ export async function ensureDeviceProfileId(deviceId) {
     return null;
   }
 }
-
 
 
 

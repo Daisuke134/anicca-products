@@ -138,6 +138,41 @@ export type Initiative = $Result.DefaultSelection<Prisma.$InitiativePayload>
  * 
  */
 export type ResearchItem = $Result.DefaultSelection<Prisma.$ResearchItemPayload>
+/**
+ * Model OpsProposal
+ * 
+ */
+export type OpsProposal = $Result.DefaultSelection<Prisma.$OpsProposalPayload>
+/**
+ * Model OpsMission
+ * 
+ */
+export type OpsMission = $Result.DefaultSelection<Prisma.$OpsMissionPayload>
+/**
+ * Model OpsMissionStep
+ * 
+ */
+export type OpsMissionStep = $Result.DefaultSelection<Prisma.$OpsMissionStepPayload>
+/**
+ * Model OpsEvent
+ * 
+ */
+export type OpsEvent = $Result.DefaultSelection<Prisma.$OpsEventPayload>
+/**
+ * Model OpsPolicy
+ * 
+ */
+export type OpsPolicy = $Result.DefaultSelection<Prisma.$OpsPolicyPayload>
+/**
+ * Model OpsTriggerRule
+ * 
+ */
+export type OpsTriggerRule = $Result.DefaultSelection<Prisma.$OpsTriggerRulePayload>
+/**
+ * Model OpsReaction
+ * 
+ */
+export type OpsReaction = $Result.DefaultSelection<Prisma.$OpsReactionPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -511,6 +546,76 @@ export class PrismaClient<
     * ```
     */
   get researchItem(): Prisma.ResearchItemDelegate<ExtArgs>;
+
+  /**
+   * `prisma.opsProposal`: Exposes CRUD operations for the **OpsProposal** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OpsProposals
+    * const opsProposals = await prisma.opsProposal.findMany()
+    * ```
+    */
+  get opsProposal(): Prisma.OpsProposalDelegate<ExtArgs>;
+
+  /**
+   * `prisma.opsMission`: Exposes CRUD operations for the **OpsMission** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OpsMissions
+    * const opsMissions = await prisma.opsMission.findMany()
+    * ```
+    */
+  get opsMission(): Prisma.OpsMissionDelegate<ExtArgs>;
+
+  /**
+   * `prisma.opsMissionStep`: Exposes CRUD operations for the **OpsMissionStep** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OpsMissionSteps
+    * const opsMissionSteps = await prisma.opsMissionStep.findMany()
+    * ```
+    */
+  get opsMissionStep(): Prisma.OpsMissionStepDelegate<ExtArgs>;
+
+  /**
+   * `prisma.opsEvent`: Exposes CRUD operations for the **OpsEvent** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OpsEvents
+    * const opsEvents = await prisma.opsEvent.findMany()
+    * ```
+    */
+  get opsEvent(): Prisma.OpsEventDelegate<ExtArgs>;
+
+  /**
+   * `prisma.opsPolicy`: Exposes CRUD operations for the **OpsPolicy** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OpsPolicies
+    * const opsPolicies = await prisma.opsPolicy.findMany()
+    * ```
+    */
+  get opsPolicy(): Prisma.OpsPolicyDelegate<ExtArgs>;
+
+  /**
+   * `prisma.opsTriggerRule`: Exposes CRUD operations for the **OpsTriggerRule** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OpsTriggerRules
+    * const opsTriggerRules = await prisma.opsTriggerRule.findMany()
+    * ```
+    */
+  get opsTriggerRule(): Prisma.OpsTriggerRuleDelegate<ExtArgs>;
+
+  /**
+   * `prisma.opsReaction`: Exposes CRUD operations for the **OpsReaction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more OpsReactions
+    * const opsReactions = await prisma.opsReaction.findMany()
+    * ```
+    */
+  get opsReaction(): Prisma.OpsReactionDelegate<ExtArgs>;
 }
 
 export namespace Prisma {
@@ -976,7 +1081,14 @@ export namespace Prisma {
     AgentAuditLog: 'AgentAuditLog',
     MemoryItem: 'MemoryItem',
     Initiative: 'Initiative',
-    ResearchItem: 'ResearchItem'
+    ResearchItem: 'ResearchItem',
+    OpsProposal: 'OpsProposal',
+    OpsMission: 'OpsMission',
+    OpsMissionStep: 'OpsMissionStep',
+    OpsEvent: 'OpsEvent',
+    OpsPolicy: 'OpsPolicy',
+    OpsTriggerRule: 'OpsTriggerRule',
+    OpsReaction: 'OpsReaction'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -992,7 +1104,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "token" | "refreshToken" | "mobileProfile" | "userSubscription" | "subscriptionEvent" | "monthlyVcGrant" | "profile" | "userSetting" | "userTrait" | "nudgeEvent" | "nudgeOutcome" | "feelingSession" | "banditModel" | "userTypeEstimate" | "typeStats" | "hookCandidate" | "tiktokPost" | "wisdomPattern" | "xPost" | "notificationSchedule" | "agentPost" | "agentAuditLog" | "memoryItem" | "initiative" | "researchItem"
+      modelProps: "token" | "refreshToken" | "mobileProfile" | "userSubscription" | "subscriptionEvent" | "monthlyVcGrant" | "profile" | "userSetting" | "userTrait" | "nudgeEvent" | "nudgeOutcome" | "feelingSession" | "banditModel" | "userTypeEstimate" | "typeStats" | "hookCandidate" | "tiktokPost" | "wisdomPattern" | "xPost" | "notificationSchedule" | "agentPost" | "agentAuditLog" | "memoryItem" | "initiative" | "researchItem" | "opsProposal" | "opsMission" | "opsMissionStep" | "opsEvent" | "opsPolicy" | "opsTriggerRule" | "opsReaction"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2746,6 +2858,496 @@ export namespace Prisma {
           }
         }
       }
+      OpsProposal: {
+        payload: Prisma.$OpsProposalPayload<ExtArgs>
+        fields: Prisma.OpsProposalFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OpsProposalFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsProposalPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OpsProposalFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsProposalPayload>
+          }
+          findFirst: {
+            args: Prisma.OpsProposalFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsProposalPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OpsProposalFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsProposalPayload>
+          }
+          findMany: {
+            args: Prisma.OpsProposalFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsProposalPayload>[]
+          }
+          create: {
+            args: Prisma.OpsProposalCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsProposalPayload>
+          }
+          createMany: {
+            args: Prisma.OpsProposalCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OpsProposalCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsProposalPayload>[]
+          }
+          delete: {
+            args: Prisma.OpsProposalDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsProposalPayload>
+          }
+          update: {
+            args: Prisma.OpsProposalUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsProposalPayload>
+          }
+          deleteMany: {
+            args: Prisma.OpsProposalDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OpsProposalUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.OpsProposalUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsProposalPayload>
+          }
+          aggregate: {
+            args: Prisma.OpsProposalAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOpsProposal>
+          }
+          groupBy: {
+            args: Prisma.OpsProposalGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OpsProposalGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OpsProposalCountArgs<ExtArgs>
+            result: $Utils.Optional<OpsProposalCountAggregateOutputType> | number
+          }
+        }
+      }
+      OpsMission: {
+        payload: Prisma.$OpsMissionPayload<ExtArgs>
+        fields: Prisma.OpsMissionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OpsMissionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OpsMissionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionPayload>
+          }
+          findFirst: {
+            args: Prisma.OpsMissionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OpsMissionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionPayload>
+          }
+          findMany: {
+            args: Prisma.OpsMissionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionPayload>[]
+          }
+          create: {
+            args: Prisma.OpsMissionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionPayload>
+          }
+          createMany: {
+            args: Prisma.OpsMissionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OpsMissionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionPayload>[]
+          }
+          delete: {
+            args: Prisma.OpsMissionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionPayload>
+          }
+          update: {
+            args: Prisma.OpsMissionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionPayload>
+          }
+          deleteMany: {
+            args: Prisma.OpsMissionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OpsMissionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.OpsMissionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionPayload>
+          }
+          aggregate: {
+            args: Prisma.OpsMissionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOpsMission>
+          }
+          groupBy: {
+            args: Prisma.OpsMissionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OpsMissionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OpsMissionCountArgs<ExtArgs>
+            result: $Utils.Optional<OpsMissionCountAggregateOutputType> | number
+          }
+        }
+      }
+      OpsMissionStep: {
+        payload: Prisma.$OpsMissionStepPayload<ExtArgs>
+        fields: Prisma.OpsMissionStepFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OpsMissionStepFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionStepPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OpsMissionStepFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionStepPayload>
+          }
+          findFirst: {
+            args: Prisma.OpsMissionStepFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionStepPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OpsMissionStepFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionStepPayload>
+          }
+          findMany: {
+            args: Prisma.OpsMissionStepFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionStepPayload>[]
+          }
+          create: {
+            args: Prisma.OpsMissionStepCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionStepPayload>
+          }
+          createMany: {
+            args: Prisma.OpsMissionStepCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OpsMissionStepCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionStepPayload>[]
+          }
+          delete: {
+            args: Prisma.OpsMissionStepDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionStepPayload>
+          }
+          update: {
+            args: Prisma.OpsMissionStepUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionStepPayload>
+          }
+          deleteMany: {
+            args: Prisma.OpsMissionStepDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OpsMissionStepUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.OpsMissionStepUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsMissionStepPayload>
+          }
+          aggregate: {
+            args: Prisma.OpsMissionStepAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOpsMissionStep>
+          }
+          groupBy: {
+            args: Prisma.OpsMissionStepGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OpsMissionStepGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OpsMissionStepCountArgs<ExtArgs>
+            result: $Utils.Optional<OpsMissionStepCountAggregateOutputType> | number
+          }
+        }
+      }
+      OpsEvent: {
+        payload: Prisma.$OpsEventPayload<ExtArgs>
+        fields: Prisma.OpsEventFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OpsEventFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsEventPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OpsEventFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsEventPayload>
+          }
+          findFirst: {
+            args: Prisma.OpsEventFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsEventPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OpsEventFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsEventPayload>
+          }
+          findMany: {
+            args: Prisma.OpsEventFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsEventPayload>[]
+          }
+          create: {
+            args: Prisma.OpsEventCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsEventPayload>
+          }
+          createMany: {
+            args: Prisma.OpsEventCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OpsEventCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsEventPayload>[]
+          }
+          delete: {
+            args: Prisma.OpsEventDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsEventPayload>
+          }
+          update: {
+            args: Prisma.OpsEventUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsEventPayload>
+          }
+          deleteMany: {
+            args: Prisma.OpsEventDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OpsEventUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.OpsEventUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsEventPayload>
+          }
+          aggregate: {
+            args: Prisma.OpsEventAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOpsEvent>
+          }
+          groupBy: {
+            args: Prisma.OpsEventGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OpsEventGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OpsEventCountArgs<ExtArgs>
+            result: $Utils.Optional<OpsEventCountAggregateOutputType> | number
+          }
+        }
+      }
+      OpsPolicy: {
+        payload: Prisma.$OpsPolicyPayload<ExtArgs>
+        fields: Prisma.OpsPolicyFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OpsPolicyFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsPolicyPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OpsPolicyFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsPolicyPayload>
+          }
+          findFirst: {
+            args: Prisma.OpsPolicyFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsPolicyPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OpsPolicyFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsPolicyPayload>
+          }
+          findMany: {
+            args: Prisma.OpsPolicyFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsPolicyPayload>[]
+          }
+          create: {
+            args: Prisma.OpsPolicyCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsPolicyPayload>
+          }
+          createMany: {
+            args: Prisma.OpsPolicyCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OpsPolicyCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsPolicyPayload>[]
+          }
+          delete: {
+            args: Prisma.OpsPolicyDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsPolicyPayload>
+          }
+          update: {
+            args: Prisma.OpsPolicyUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsPolicyPayload>
+          }
+          deleteMany: {
+            args: Prisma.OpsPolicyDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OpsPolicyUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.OpsPolicyUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsPolicyPayload>
+          }
+          aggregate: {
+            args: Prisma.OpsPolicyAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOpsPolicy>
+          }
+          groupBy: {
+            args: Prisma.OpsPolicyGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OpsPolicyGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OpsPolicyCountArgs<ExtArgs>
+            result: $Utils.Optional<OpsPolicyCountAggregateOutputType> | number
+          }
+        }
+      }
+      OpsTriggerRule: {
+        payload: Prisma.$OpsTriggerRulePayload<ExtArgs>
+        fields: Prisma.OpsTriggerRuleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OpsTriggerRuleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsTriggerRulePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OpsTriggerRuleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsTriggerRulePayload>
+          }
+          findFirst: {
+            args: Prisma.OpsTriggerRuleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsTriggerRulePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OpsTriggerRuleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsTriggerRulePayload>
+          }
+          findMany: {
+            args: Prisma.OpsTriggerRuleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsTriggerRulePayload>[]
+          }
+          create: {
+            args: Prisma.OpsTriggerRuleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsTriggerRulePayload>
+          }
+          createMany: {
+            args: Prisma.OpsTriggerRuleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OpsTriggerRuleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsTriggerRulePayload>[]
+          }
+          delete: {
+            args: Prisma.OpsTriggerRuleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsTriggerRulePayload>
+          }
+          update: {
+            args: Prisma.OpsTriggerRuleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsTriggerRulePayload>
+          }
+          deleteMany: {
+            args: Prisma.OpsTriggerRuleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OpsTriggerRuleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.OpsTriggerRuleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsTriggerRulePayload>
+          }
+          aggregate: {
+            args: Prisma.OpsTriggerRuleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOpsTriggerRule>
+          }
+          groupBy: {
+            args: Prisma.OpsTriggerRuleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OpsTriggerRuleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OpsTriggerRuleCountArgs<ExtArgs>
+            result: $Utils.Optional<OpsTriggerRuleCountAggregateOutputType> | number
+          }
+        }
+      }
+      OpsReaction: {
+        payload: Prisma.$OpsReactionPayload<ExtArgs>
+        fields: Prisma.OpsReactionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.OpsReactionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsReactionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.OpsReactionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsReactionPayload>
+          }
+          findFirst: {
+            args: Prisma.OpsReactionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsReactionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.OpsReactionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsReactionPayload>
+          }
+          findMany: {
+            args: Prisma.OpsReactionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsReactionPayload>[]
+          }
+          create: {
+            args: Prisma.OpsReactionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsReactionPayload>
+          }
+          createMany: {
+            args: Prisma.OpsReactionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.OpsReactionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsReactionPayload>[]
+          }
+          delete: {
+            args: Prisma.OpsReactionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsReactionPayload>
+          }
+          update: {
+            args: Prisma.OpsReactionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsReactionPayload>
+          }
+          deleteMany: {
+            args: Prisma.OpsReactionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.OpsReactionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.OpsReactionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$OpsReactionPayload>
+          }
+          aggregate: {
+            args: Prisma.OpsReactionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateOpsReaction>
+          }
+          groupBy: {
+            args: Prisma.OpsReactionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<OpsReactionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.OpsReactionCountArgs<ExtArgs>
+            result: $Utils.Optional<OpsReactionCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2970,6 +3572,108 @@ export namespace Prisma {
    */
   export type HookCandidateCountOutputTypeCountXPostsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: XPostWhereInput
+  }
+
+
+  /**
+   * Count Type OpsProposalCountOutputType
+   */
+
+  export type OpsProposalCountOutputType = {
+    missions: number
+  }
+
+  export type OpsProposalCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    missions?: boolean | OpsProposalCountOutputTypeCountMissionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * OpsProposalCountOutputType without action
+   */
+  export type OpsProposalCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsProposalCountOutputType
+     */
+    select?: OpsProposalCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * OpsProposalCountOutputType without action
+   */
+  export type OpsProposalCountOutputTypeCountMissionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OpsMissionWhereInput
+  }
+
+
+  /**
+   * Count Type OpsMissionCountOutputType
+   */
+
+  export type OpsMissionCountOutputType = {
+    steps: number
+    events: number
+  }
+
+  export type OpsMissionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    steps?: boolean | OpsMissionCountOutputTypeCountStepsArgs
+    events?: boolean | OpsMissionCountOutputTypeCountEventsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * OpsMissionCountOutputType without action
+   */
+  export type OpsMissionCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMissionCountOutputType
+     */
+    select?: OpsMissionCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * OpsMissionCountOutputType without action
+   */
+  export type OpsMissionCountOutputTypeCountStepsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OpsMissionStepWhereInput
+  }
+
+  /**
+   * OpsMissionCountOutputType without action
+   */
+  export type OpsMissionCountOutputTypeCountEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OpsEventWhereInput
+  }
+
+
+  /**
+   * Count Type OpsEventCountOutputType
+   */
+
+  export type OpsEventCountOutputType = {
+    reactions: number
+  }
+
+  export type OpsEventCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    reactions?: boolean | OpsEventCountOutputTypeCountReactionsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * OpsEventCountOutputType without action
+   */
+  export type OpsEventCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsEventCountOutputType
+     */
+    select?: OpsEventCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * OpsEventCountOutputType without action
+   */
+  export type OpsEventCountOutputTypeCountReactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OpsReactionWhereInput
   }
 
 
@@ -27503,6 +28207,6761 @@ export namespace Prisma {
 
 
   /**
+   * Model OpsProposal
+   */
+
+  export type AggregateOpsProposal = {
+    _count: OpsProposalCountAggregateOutputType | null
+    _min: OpsProposalMinAggregateOutputType | null
+    _max: OpsProposalMaxAggregateOutputType | null
+  }
+
+  export type OpsProposalMinAggregateOutputType = {
+    id: string | null
+    skillName: string | null
+    source: string | null
+    status: string | null
+    title: string | null
+    rejectReason: string | null
+    createdAt: Date | null
+    resolvedAt: Date | null
+  }
+
+  export type OpsProposalMaxAggregateOutputType = {
+    id: string | null
+    skillName: string | null
+    source: string | null
+    status: string | null
+    title: string | null
+    rejectReason: string | null
+    createdAt: Date | null
+    resolvedAt: Date | null
+  }
+
+  export type OpsProposalCountAggregateOutputType = {
+    id: number
+    skillName: number
+    source: number
+    status: number
+    title: number
+    payload: number
+    rejectReason: number
+    createdAt: number
+    resolvedAt: number
+    _all: number
+  }
+
+
+  export type OpsProposalMinAggregateInputType = {
+    id?: true
+    skillName?: true
+    source?: true
+    status?: true
+    title?: true
+    rejectReason?: true
+    createdAt?: true
+    resolvedAt?: true
+  }
+
+  export type OpsProposalMaxAggregateInputType = {
+    id?: true
+    skillName?: true
+    source?: true
+    status?: true
+    title?: true
+    rejectReason?: true
+    createdAt?: true
+    resolvedAt?: true
+  }
+
+  export type OpsProposalCountAggregateInputType = {
+    id?: true
+    skillName?: true
+    source?: true
+    status?: true
+    title?: true
+    payload?: true
+    rejectReason?: true
+    createdAt?: true
+    resolvedAt?: true
+    _all?: true
+  }
+
+  export type OpsProposalAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OpsProposal to aggregate.
+     */
+    where?: OpsProposalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsProposals to fetch.
+     */
+    orderBy?: OpsProposalOrderByWithRelationInput | OpsProposalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OpsProposalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsProposals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsProposals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OpsProposals
+    **/
+    _count?: true | OpsProposalCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OpsProposalMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OpsProposalMaxAggregateInputType
+  }
+
+  export type GetOpsProposalAggregateType<T extends OpsProposalAggregateArgs> = {
+        [P in keyof T & keyof AggregateOpsProposal]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOpsProposal[P]>
+      : GetScalarType<T[P], AggregateOpsProposal[P]>
+  }
+
+
+
+
+  export type OpsProposalGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OpsProposalWhereInput
+    orderBy?: OpsProposalOrderByWithAggregationInput | OpsProposalOrderByWithAggregationInput[]
+    by: OpsProposalScalarFieldEnum[] | OpsProposalScalarFieldEnum
+    having?: OpsProposalScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OpsProposalCountAggregateInputType | true
+    _min?: OpsProposalMinAggregateInputType
+    _max?: OpsProposalMaxAggregateInputType
+  }
+
+  export type OpsProposalGroupByOutputType = {
+    id: string
+    skillName: string
+    source: string
+    status: string
+    title: string
+    payload: JsonValue
+    rejectReason: string | null
+    createdAt: Date
+    resolvedAt: Date | null
+    _count: OpsProposalCountAggregateOutputType | null
+    _min: OpsProposalMinAggregateOutputType | null
+    _max: OpsProposalMaxAggregateOutputType | null
+  }
+
+  type GetOpsProposalGroupByPayload<T extends OpsProposalGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OpsProposalGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OpsProposalGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OpsProposalGroupByOutputType[P]>
+            : GetScalarType<T[P], OpsProposalGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OpsProposalSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    skillName?: boolean
+    source?: boolean
+    status?: boolean
+    title?: boolean
+    payload?: boolean
+    rejectReason?: boolean
+    createdAt?: boolean
+    resolvedAt?: boolean
+    missions?: boolean | OpsProposal$missionsArgs<ExtArgs>
+    _count?: boolean | OpsProposalCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["opsProposal"]>
+
+  export type OpsProposalSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    skillName?: boolean
+    source?: boolean
+    status?: boolean
+    title?: boolean
+    payload?: boolean
+    rejectReason?: boolean
+    createdAt?: boolean
+    resolvedAt?: boolean
+  }, ExtArgs["result"]["opsProposal"]>
+
+  export type OpsProposalSelectScalar = {
+    id?: boolean
+    skillName?: boolean
+    source?: boolean
+    status?: boolean
+    title?: boolean
+    payload?: boolean
+    rejectReason?: boolean
+    createdAt?: boolean
+    resolvedAt?: boolean
+  }
+
+  export type OpsProposalInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    missions?: boolean | OpsProposal$missionsArgs<ExtArgs>
+    _count?: boolean | OpsProposalCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type OpsProposalIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $OpsProposalPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OpsProposal"
+    objects: {
+      missions: Prisma.$OpsMissionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      skillName: string
+      source: string
+      status: string
+      title: string
+      payload: Prisma.JsonValue
+      rejectReason: string | null
+      createdAt: Date
+      resolvedAt: Date | null
+    }, ExtArgs["result"]["opsProposal"]>
+    composites: {}
+  }
+
+  type OpsProposalGetPayload<S extends boolean | null | undefined | OpsProposalDefaultArgs> = $Result.GetResult<Prisma.$OpsProposalPayload, S>
+
+  type OpsProposalCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<OpsProposalFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: OpsProposalCountAggregateInputType | true
+    }
+
+  export interface OpsProposalDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OpsProposal'], meta: { name: 'OpsProposal' } }
+    /**
+     * Find zero or one OpsProposal that matches the filter.
+     * @param {OpsProposalFindUniqueArgs} args - Arguments to find a OpsProposal
+     * @example
+     * // Get one OpsProposal
+     * const opsProposal = await prisma.opsProposal.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OpsProposalFindUniqueArgs>(args: SelectSubset<T, OpsProposalFindUniqueArgs<ExtArgs>>): Prisma__OpsProposalClient<$Result.GetResult<Prisma.$OpsProposalPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one OpsProposal that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {OpsProposalFindUniqueOrThrowArgs} args - Arguments to find a OpsProposal
+     * @example
+     * // Get one OpsProposal
+     * const opsProposal = await prisma.opsProposal.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OpsProposalFindUniqueOrThrowArgs>(args: SelectSubset<T, OpsProposalFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OpsProposalClient<$Result.GetResult<Prisma.$OpsProposalPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first OpsProposal that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsProposalFindFirstArgs} args - Arguments to find a OpsProposal
+     * @example
+     * // Get one OpsProposal
+     * const opsProposal = await prisma.opsProposal.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OpsProposalFindFirstArgs>(args?: SelectSubset<T, OpsProposalFindFirstArgs<ExtArgs>>): Prisma__OpsProposalClient<$Result.GetResult<Prisma.$OpsProposalPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first OpsProposal that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsProposalFindFirstOrThrowArgs} args - Arguments to find a OpsProposal
+     * @example
+     * // Get one OpsProposal
+     * const opsProposal = await prisma.opsProposal.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OpsProposalFindFirstOrThrowArgs>(args?: SelectSubset<T, OpsProposalFindFirstOrThrowArgs<ExtArgs>>): Prisma__OpsProposalClient<$Result.GetResult<Prisma.$OpsProposalPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more OpsProposals that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsProposalFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OpsProposals
+     * const opsProposals = await prisma.opsProposal.findMany()
+     * 
+     * // Get first 10 OpsProposals
+     * const opsProposals = await prisma.opsProposal.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const opsProposalWithIdOnly = await prisma.opsProposal.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OpsProposalFindManyArgs>(args?: SelectSubset<T, OpsProposalFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsProposalPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a OpsProposal.
+     * @param {OpsProposalCreateArgs} args - Arguments to create a OpsProposal.
+     * @example
+     * // Create one OpsProposal
+     * const OpsProposal = await prisma.opsProposal.create({
+     *   data: {
+     *     // ... data to create a OpsProposal
+     *   }
+     * })
+     * 
+     */
+    create<T extends OpsProposalCreateArgs>(args: SelectSubset<T, OpsProposalCreateArgs<ExtArgs>>): Prisma__OpsProposalClient<$Result.GetResult<Prisma.$OpsProposalPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many OpsProposals.
+     * @param {OpsProposalCreateManyArgs} args - Arguments to create many OpsProposals.
+     * @example
+     * // Create many OpsProposals
+     * const opsProposal = await prisma.opsProposal.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OpsProposalCreateManyArgs>(args?: SelectSubset<T, OpsProposalCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OpsProposals and returns the data saved in the database.
+     * @param {OpsProposalCreateManyAndReturnArgs} args - Arguments to create many OpsProposals.
+     * @example
+     * // Create many OpsProposals
+     * const opsProposal = await prisma.opsProposal.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OpsProposals and only return the `id`
+     * const opsProposalWithIdOnly = await prisma.opsProposal.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OpsProposalCreateManyAndReturnArgs>(args?: SelectSubset<T, OpsProposalCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsProposalPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a OpsProposal.
+     * @param {OpsProposalDeleteArgs} args - Arguments to delete one OpsProposal.
+     * @example
+     * // Delete one OpsProposal
+     * const OpsProposal = await prisma.opsProposal.delete({
+     *   where: {
+     *     // ... filter to delete one OpsProposal
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OpsProposalDeleteArgs>(args: SelectSubset<T, OpsProposalDeleteArgs<ExtArgs>>): Prisma__OpsProposalClient<$Result.GetResult<Prisma.$OpsProposalPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one OpsProposal.
+     * @param {OpsProposalUpdateArgs} args - Arguments to update one OpsProposal.
+     * @example
+     * // Update one OpsProposal
+     * const opsProposal = await prisma.opsProposal.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OpsProposalUpdateArgs>(args: SelectSubset<T, OpsProposalUpdateArgs<ExtArgs>>): Prisma__OpsProposalClient<$Result.GetResult<Prisma.$OpsProposalPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more OpsProposals.
+     * @param {OpsProposalDeleteManyArgs} args - Arguments to filter OpsProposals to delete.
+     * @example
+     * // Delete a few OpsProposals
+     * const { count } = await prisma.opsProposal.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OpsProposalDeleteManyArgs>(args?: SelectSubset<T, OpsProposalDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OpsProposals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsProposalUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OpsProposals
+     * const opsProposal = await prisma.opsProposal.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OpsProposalUpdateManyArgs>(args: SelectSubset<T, OpsProposalUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one OpsProposal.
+     * @param {OpsProposalUpsertArgs} args - Arguments to update or create a OpsProposal.
+     * @example
+     * // Update or create a OpsProposal
+     * const opsProposal = await prisma.opsProposal.upsert({
+     *   create: {
+     *     // ... data to create a OpsProposal
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OpsProposal we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OpsProposalUpsertArgs>(args: SelectSubset<T, OpsProposalUpsertArgs<ExtArgs>>): Prisma__OpsProposalClient<$Result.GetResult<Prisma.$OpsProposalPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of OpsProposals.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsProposalCountArgs} args - Arguments to filter OpsProposals to count.
+     * @example
+     * // Count the number of OpsProposals
+     * const count = await prisma.opsProposal.count({
+     *   where: {
+     *     // ... the filter for the OpsProposals we want to count
+     *   }
+     * })
+    **/
+    count<T extends OpsProposalCountArgs>(
+      args?: Subset<T, OpsProposalCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OpsProposalCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OpsProposal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsProposalAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OpsProposalAggregateArgs>(args: Subset<T, OpsProposalAggregateArgs>): Prisma.PrismaPromise<GetOpsProposalAggregateType<T>>
+
+    /**
+     * Group by OpsProposal.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsProposalGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OpsProposalGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OpsProposalGroupByArgs['orderBy'] }
+        : { orderBy?: OpsProposalGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OpsProposalGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOpsProposalGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OpsProposal model
+   */
+  readonly fields: OpsProposalFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OpsProposal.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OpsProposalClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    missions<T extends OpsProposal$missionsArgs<ExtArgs> = {}>(args?: Subset<T, OpsProposal$missionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsMissionPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OpsProposal model
+   */ 
+  interface OpsProposalFieldRefs {
+    readonly id: FieldRef<"OpsProposal", 'String'>
+    readonly skillName: FieldRef<"OpsProposal", 'String'>
+    readonly source: FieldRef<"OpsProposal", 'String'>
+    readonly status: FieldRef<"OpsProposal", 'String'>
+    readonly title: FieldRef<"OpsProposal", 'String'>
+    readonly payload: FieldRef<"OpsProposal", 'Json'>
+    readonly rejectReason: FieldRef<"OpsProposal", 'String'>
+    readonly createdAt: FieldRef<"OpsProposal", 'DateTime'>
+    readonly resolvedAt: FieldRef<"OpsProposal", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OpsProposal findUnique
+   */
+  export type OpsProposalFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsProposal
+     */
+    select?: OpsProposalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsProposalInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsProposal to fetch.
+     */
+    where: OpsProposalWhereUniqueInput
+  }
+
+  /**
+   * OpsProposal findUniqueOrThrow
+   */
+  export type OpsProposalFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsProposal
+     */
+    select?: OpsProposalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsProposalInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsProposal to fetch.
+     */
+    where: OpsProposalWhereUniqueInput
+  }
+
+  /**
+   * OpsProposal findFirst
+   */
+  export type OpsProposalFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsProposal
+     */
+    select?: OpsProposalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsProposalInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsProposal to fetch.
+     */
+    where?: OpsProposalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsProposals to fetch.
+     */
+    orderBy?: OpsProposalOrderByWithRelationInput | OpsProposalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OpsProposals.
+     */
+    cursor?: OpsProposalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsProposals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsProposals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OpsProposals.
+     */
+    distinct?: OpsProposalScalarFieldEnum | OpsProposalScalarFieldEnum[]
+  }
+
+  /**
+   * OpsProposal findFirstOrThrow
+   */
+  export type OpsProposalFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsProposal
+     */
+    select?: OpsProposalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsProposalInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsProposal to fetch.
+     */
+    where?: OpsProposalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsProposals to fetch.
+     */
+    orderBy?: OpsProposalOrderByWithRelationInput | OpsProposalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OpsProposals.
+     */
+    cursor?: OpsProposalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsProposals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsProposals.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OpsProposals.
+     */
+    distinct?: OpsProposalScalarFieldEnum | OpsProposalScalarFieldEnum[]
+  }
+
+  /**
+   * OpsProposal findMany
+   */
+  export type OpsProposalFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsProposal
+     */
+    select?: OpsProposalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsProposalInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsProposals to fetch.
+     */
+    where?: OpsProposalWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsProposals to fetch.
+     */
+    orderBy?: OpsProposalOrderByWithRelationInput | OpsProposalOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OpsProposals.
+     */
+    cursor?: OpsProposalWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsProposals from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsProposals.
+     */
+    skip?: number
+    distinct?: OpsProposalScalarFieldEnum | OpsProposalScalarFieldEnum[]
+  }
+
+  /**
+   * OpsProposal create
+   */
+  export type OpsProposalCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsProposal
+     */
+    select?: OpsProposalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsProposalInclude<ExtArgs> | null
+    /**
+     * The data needed to create a OpsProposal.
+     */
+    data: XOR<OpsProposalCreateInput, OpsProposalUncheckedCreateInput>
+  }
+
+  /**
+   * OpsProposal createMany
+   */
+  export type OpsProposalCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OpsProposals.
+     */
+    data: OpsProposalCreateManyInput | OpsProposalCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OpsProposal createManyAndReturn
+   */
+  export type OpsProposalCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsProposal
+     */
+    select?: OpsProposalSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many OpsProposals.
+     */
+    data: OpsProposalCreateManyInput | OpsProposalCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OpsProposal update
+   */
+  export type OpsProposalUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsProposal
+     */
+    select?: OpsProposalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsProposalInclude<ExtArgs> | null
+    /**
+     * The data needed to update a OpsProposal.
+     */
+    data: XOR<OpsProposalUpdateInput, OpsProposalUncheckedUpdateInput>
+    /**
+     * Choose, which OpsProposal to update.
+     */
+    where: OpsProposalWhereUniqueInput
+  }
+
+  /**
+   * OpsProposal updateMany
+   */
+  export type OpsProposalUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OpsProposals.
+     */
+    data: XOR<OpsProposalUpdateManyMutationInput, OpsProposalUncheckedUpdateManyInput>
+    /**
+     * Filter which OpsProposals to update
+     */
+    where?: OpsProposalWhereInput
+  }
+
+  /**
+   * OpsProposal upsert
+   */
+  export type OpsProposalUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsProposal
+     */
+    select?: OpsProposalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsProposalInclude<ExtArgs> | null
+    /**
+     * The filter to search for the OpsProposal to update in case it exists.
+     */
+    where: OpsProposalWhereUniqueInput
+    /**
+     * In case the OpsProposal found by the `where` argument doesn't exist, create a new OpsProposal with this data.
+     */
+    create: XOR<OpsProposalCreateInput, OpsProposalUncheckedCreateInput>
+    /**
+     * In case the OpsProposal was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OpsProposalUpdateInput, OpsProposalUncheckedUpdateInput>
+  }
+
+  /**
+   * OpsProposal delete
+   */
+  export type OpsProposalDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsProposal
+     */
+    select?: OpsProposalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsProposalInclude<ExtArgs> | null
+    /**
+     * Filter which OpsProposal to delete.
+     */
+    where: OpsProposalWhereUniqueInput
+  }
+
+  /**
+   * OpsProposal deleteMany
+   */
+  export type OpsProposalDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OpsProposals to delete
+     */
+    where?: OpsProposalWhereInput
+  }
+
+  /**
+   * OpsProposal.missions
+   */
+  export type OpsProposal$missionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMission
+     */
+    select?: OpsMissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionInclude<ExtArgs> | null
+    where?: OpsMissionWhereInput
+    orderBy?: OpsMissionOrderByWithRelationInput | OpsMissionOrderByWithRelationInput[]
+    cursor?: OpsMissionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OpsMissionScalarFieldEnum | OpsMissionScalarFieldEnum[]
+  }
+
+  /**
+   * OpsProposal without action
+   */
+  export type OpsProposalDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsProposal
+     */
+    select?: OpsProposalSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsProposalInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model OpsMission
+   */
+
+  export type AggregateOpsMission = {
+    _count: OpsMissionCountAggregateOutputType | null
+    _min: OpsMissionMinAggregateOutputType | null
+    _max: OpsMissionMaxAggregateOutputType | null
+  }
+
+  export type OpsMissionMinAggregateOutputType = {
+    id: string | null
+    proposalId: string | null
+    status: string | null
+    createdAt: Date | null
+    completedAt: Date | null
+  }
+
+  export type OpsMissionMaxAggregateOutputType = {
+    id: string | null
+    proposalId: string | null
+    status: string | null
+    createdAt: Date | null
+    completedAt: Date | null
+  }
+
+  export type OpsMissionCountAggregateOutputType = {
+    id: number
+    proposalId: number
+    status: number
+    createdAt: number
+    completedAt: number
+    _all: number
+  }
+
+
+  export type OpsMissionMinAggregateInputType = {
+    id?: true
+    proposalId?: true
+    status?: true
+    createdAt?: true
+    completedAt?: true
+  }
+
+  export type OpsMissionMaxAggregateInputType = {
+    id?: true
+    proposalId?: true
+    status?: true
+    createdAt?: true
+    completedAt?: true
+  }
+
+  export type OpsMissionCountAggregateInputType = {
+    id?: true
+    proposalId?: true
+    status?: true
+    createdAt?: true
+    completedAt?: true
+    _all?: true
+  }
+
+  export type OpsMissionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OpsMission to aggregate.
+     */
+    where?: OpsMissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsMissions to fetch.
+     */
+    orderBy?: OpsMissionOrderByWithRelationInput | OpsMissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OpsMissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsMissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsMissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OpsMissions
+    **/
+    _count?: true | OpsMissionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OpsMissionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OpsMissionMaxAggregateInputType
+  }
+
+  export type GetOpsMissionAggregateType<T extends OpsMissionAggregateArgs> = {
+        [P in keyof T & keyof AggregateOpsMission]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOpsMission[P]>
+      : GetScalarType<T[P], AggregateOpsMission[P]>
+  }
+
+
+
+
+  export type OpsMissionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OpsMissionWhereInput
+    orderBy?: OpsMissionOrderByWithAggregationInput | OpsMissionOrderByWithAggregationInput[]
+    by: OpsMissionScalarFieldEnum[] | OpsMissionScalarFieldEnum
+    having?: OpsMissionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OpsMissionCountAggregateInputType | true
+    _min?: OpsMissionMinAggregateInputType
+    _max?: OpsMissionMaxAggregateInputType
+  }
+
+  export type OpsMissionGroupByOutputType = {
+    id: string
+    proposalId: string
+    status: string
+    createdAt: Date
+    completedAt: Date | null
+    _count: OpsMissionCountAggregateOutputType | null
+    _min: OpsMissionMinAggregateOutputType | null
+    _max: OpsMissionMaxAggregateOutputType | null
+  }
+
+  type GetOpsMissionGroupByPayload<T extends OpsMissionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OpsMissionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OpsMissionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OpsMissionGroupByOutputType[P]>
+            : GetScalarType<T[P], OpsMissionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OpsMissionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    proposalId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    completedAt?: boolean
+    proposal?: boolean | OpsProposalDefaultArgs<ExtArgs>
+    steps?: boolean | OpsMission$stepsArgs<ExtArgs>
+    events?: boolean | OpsMission$eventsArgs<ExtArgs>
+    _count?: boolean | OpsMissionCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["opsMission"]>
+
+  export type OpsMissionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    proposalId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    completedAt?: boolean
+    proposal?: boolean | OpsProposalDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["opsMission"]>
+
+  export type OpsMissionSelectScalar = {
+    id?: boolean
+    proposalId?: boolean
+    status?: boolean
+    createdAt?: boolean
+    completedAt?: boolean
+  }
+
+  export type OpsMissionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    proposal?: boolean | OpsProposalDefaultArgs<ExtArgs>
+    steps?: boolean | OpsMission$stepsArgs<ExtArgs>
+    events?: boolean | OpsMission$eventsArgs<ExtArgs>
+    _count?: boolean | OpsMissionCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type OpsMissionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    proposal?: boolean | OpsProposalDefaultArgs<ExtArgs>
+  }
+
+  export type $OpsMissionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OpsMission"
+    objects: {
+      proposal: Prisma.$OpsProposalPayload<ExtArgs>
+      steps: Prisma.$OpsMissionStepPayload<ExtArgs>[]
+      events: Prisma.$OpsEventPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      proposalId: string
+      status: string
+      createdAt: Date
+      completedAt: Date | null
+    }, ExtArgs["result"]["opsMission"]>
+    composites: {}
+  }
+
+  type OpsMissionGetPayload<S extends boolean | null | undefined | OpsMissionDefaultArgs> = $Result.GetResult<Prisma.$OpsMissionPayload, S>
+
+  type OpsMissionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<OpsMissionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: OpsMissionCountAggregateInputType | true
+    }
+
+  export interface OpsMissionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OpsMission'], meta: { name: 'OpsMission' } }
+    /**
+     * Find zero or one OpsMission that matches the filter.
+     * @param {OpsMissionFindUniqueArgs} args - Arguments to find a OpsMission
+     * @example
+     * // Get one OpsMission
+     * const opsMission = await prisma.opsMission.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OpsMissionFindUniqueArgs>(args: SelectSubset<T, OpsMissionFindUniqueArgs<ExtArgs>>): Prisma__OpsMissionClient<$Result.GetResult<Prisma.$OpsMissionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one OpsMission that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {OpsMissionFindUniqueOrThrowArgs} args - Arguments to find a OpsMission
+     * @example
+     * // Get one OpsMission
+     * const opsMission = await prisma.opsMission.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OpsMissionFindUniqueOrThrowArgs>(args: SelectSubset<T, OpsMissionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OpsMissionClient<$Result.GetResult<Prisma.$OpsMissionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first OpsMission that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsMissionFindFirstArgs} args - Arguments to find a OpsMission
+     * @example
+     * // Get one OpsMission
+     * const opsMission = await prisma.opsMission.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OpsMissionFindFirstArgs>(args?: SelectSubset<T, OpsMissionFindFirstArgs<ExtArgs>>): Prisma__OpsMissionClient<$Result.GetResult<Prisma.$OpsMissionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first OpsMission that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsMissionFindFirstOrThrowArgs} args - Arguments to find a OpsMission
+     * @example
+     * // Get one OpsMission
+     * const opsMission = await prisma.opsMission.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OpsMissionFindFirstOrThrowArgs>(args?: SelectSubset<T, OpsMissionFindFirstOrThrowArgs<ExtArgs>>): Prisma__OpsMissionClient<$Result.GetResult<Prisma.$OpsMissionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more OpsMissions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsMissionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OpsMissions
+     * const opsMissions = await prisma.opsMission.findMany()
+     * 
+     * // Get first 10 OpsMissions
+     * const opsMissions = await prisma.opsMission.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const opsMissionWithIdOnly = await prisma.opsMission.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OpsMissionFindManyArgs>(args?: SelectSubset<T, OpsMissionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsMissionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a OpsMission.
+     * @param {OpsMissionCreateArgs} args - Arguments to create a OpsMission.
+     * @example
+     * // Create one OpsMission
+     * const OpsMission = await prisma.opsMission.create({
+     *   data: {
+     *     // ... data to create a OpsMission
+     *   }
+     * })
+     * 
+     */
+    create<T extends OpsMissionCreateArgs>(args: SelectSubset<T, OpsMissionCreateArgs<ExtArgs>>): Prisma__OpsMissionClient<$Result.GetResult<Prisma.$OpsMissionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many OpsMissions.
+     * @param {OpsMissionCreateManyArgs} args - Arguments to create many OpsMissions.
+     * @example
+     * // Create many OpsMissions
+     * const opsMission = await prisma.opsMission.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OpsMissionCreateManyArgs>(args?: SelectSubset<T, OpsMissionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OpsMissions and returns the data saved in the database.
+     * @param {OpsMissionCreateManyAndReturnArgs} args - Arguments to create many OpsMissions.
+     * @example
+     * // Create many OpsMissions
+     * const opsMission = await prisma.opsMission.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OpsMissions and only return the `id`
+     * const opsMissionWithIdOnly = await prisma.opsMission.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OpsMissionCreateManyAndReturnArgs>(args?: SelectSubset<T, OpsMissionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsMissionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a OpsMission.
+     * @param {OpsMissionDeleteArgs} args - Arguments to delete one OpsMission.
+     * @example
+     * // Delete one OpsMission
+     * const OpsMission = await prisma.opsMission.delete({
+     *   where: {
+     *     // ... filter to delete one OpsMission
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OpsMissionDeleteArgs>(args: SelectSubset<T, OpsMissionDeleteArgs<ExtArgs>>): Prisma__OpsMissionClient<$Result.GetResult<Prisma.$OpsMissionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one OpsMission.
+     * @param {OpsMissionUpdateArgs} args - Arguments to update one OpsMission.
+     * @example
+     * // Update one OpsMission
+     * const opsMission = await prisma.opsMission.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OpsMissionUpdateArgs>(args: SelectSubset<T, OpsMissionUpdateArgs<ExtArgs>>): Prisma__OpsMissionClient<$Result.GetResult<Prisma.$OpsMissionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more OpsMissions.
+     * @param {OpsMissionDeleteManyArgs} args - Arguments to filter OpsMissions to delete.
+     * @example
+     * // Delete a few OpsMissions
+     * const { count } = await prisma.opsMission.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OpsMissionDeleteManyArgs>(args?: SelectSubset<T, OpsMissionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OpsMissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsMissionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OpsMissions
+     * const opsMission = await prisma.opsMission.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OpsMissionUpdateManyArgs>(args: SelectSubset<T, OpsMissionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one OpsMission.
+     * @param {OpsMissionUpsertArgs} args - Arguments to update or create a OpsMission.
+     * @example
+     * // Update or create a OpsMission
+     * const opsMission = await prisma.opsMission.upsert({
+     *   create: {
+     *     // ... data to create a OpsMission
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OpsMission we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OpsMissionUpsertArgs>(args: SelectSubset<T, OpsMissionUpsertArgs<ExtArgs>>): Prisma__OpsMissionClient<$Result.GetResult<Prisma.$OpsMissionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of OpsMissions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsMissionCountArgs} args - Arguments to filter OpsMissions to count.
+     * @example
+     * // Count the number of OpsMissions
+     * const count = await prisma.opsMission.count({
+     *   where: {
+     *     // ... the filter for the OpsMissions we want to count
+     *   }
+     * })
+    **/
+    count<T extends OpsMissionCountArgs>(
+      args?: Subset<T, OpsMissionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OpsMissionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OpsMission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsMissionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OpsMissionAggregateArgs>(args: Subset<T, OpsMissionAggregateArgs>): Prisma.PrismaPromise<GetOpsMissionAggregateType<T>>
+
+    /**
+     * Group by OpsMission.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsMissionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OpsMissionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OpsMissionGroupByArgs['orderBy'] }
+        : { orderBy?: OpsMissionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OpsMissionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOpsMissionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OpsMission model
+   */
+  readonly fields: OpsMissionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OpsMission.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OpsMissionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    proposal<T extends OpsProposalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OpsProposalDefaultArgs<ExtArgs>>): Prisma__OpsProposalClient<$Result.GetResult<Prisma.$OpsProposalPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    steps<T extends OpsMission$stepsArgs<ExtArgs> = {}>(args?: Subset<T, OpsMission$stepsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsMissionStepPayload<ExtArgs>, T, "findMany"> | Null>
+    events<T extends OpsMission$eventsArgs<ExtArgs> = {}>(args?: Subset<T, OpsMission$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsEventPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OpsMission model
+   */ 
+  interface OpsMissionFieldRefs {
+    readonly id: FieldRef<"OpsMission", 'String'>
+    readonly proposalId: FieldRef<"OpsMission", 'String'>
+    readonly status: FieldRef<"OpsMission", 'String'>
+    readonly createdAt: FieldRef<"OpsMission", 'DateTime'>
+    readonly completedAt: FieldRef<"OpsMission", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OpsMission findUnique
+   */
+  export type OpsMissionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMission
+     */
+    select?: OpsMissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsMission to fetch.
+     */
+    where: OpsMissionWhereUniqueInput
+  }
+
+  /**
+   * OpsMission findUniqueOrThrow
+   */
+  export type OpsMissionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMission
+     */
+    select?: OpsMissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsMission to fetch.
+     */
+    where: OpsMissionWhereUniqueInput
+  }
+
+  /**
+   * OpsMission findFirst
+   */
+  export type OpsMissionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMission
+     */
+    select?: OpsMissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsMission to fetch.
+     */
+    where?: OpsMissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsMissions to fetch.
+     */
+    orderBy?: OpsMissionOrderByWithRelationInput | OpsMissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OpsMissions.
+     */
+    cursor?: OpsMissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsMissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsMissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OpsMissions.
+     */
+    distinct?: OpsMissionScalarFieldEnum | OpsMissionScalarFieldEnum[]
+  }
+
+  /**
+   * OpsMission findFirstOrThrow
+   */
+  export type OpsMissionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMission
+     */
+    select?: OpsMissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsMission to fetch.
+     */
+    where?: OpsMissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsMissions to fetch.
+     */
+    orderBy?: OpsMissionOrderByWithRelationInput | OpsMissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OpsMissions.
+     */
+    cursor?: OpsMissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsMissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsMissions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OpsMissions.
+     */
+    distinct?: OpsMissionScalarFieldEnum | OpsMissionScalarFieldEnum[]
+  }
+
+  /**
+   * OpsMission findMany
+   */
+  export type OpsMissionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMission
+     */
+    select?: OpsMissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsMissions to fetch.
+     */
+    where?: OpsMissionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsMissions to fetch.
+     */
+    orderBy?: OpsMissionOrderByWithRelationInput | OpsMissionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OpsMissions.
+     */
+    cursor?: OpsMissionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsMissions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsMissions.
+     */
+    skip?: number
+    distinct?: OpsMissionScalarFieldEnum | OpsMissionScalarFieldEnum[]
+  }
+
+  /**
+   * OpsMission create
+   */
+  export type OpsMissionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMission
+     */
+    select?: OpsMissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a OpsMission.
+     */
+    data: XOR<OpsMissionCreateInput, OpsMissionUncheckedCreateInput>
+  }
+
+  /**
+   * OpsMission createMany
+   */
+  export type OpsMissionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OpsMissions.
+     */
+    data: OpsMissionCreateManyInput | OpsMissionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OpsMission createManyAndReturn
+   */
+  export type OpsMissionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMission
+     */
+    select?: OpsMissionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many OpsMissions.
+     */
+    data: OpsMissionCreateManyInput | OpsMissionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OpsMission update
+   */
+  export type OpsMissionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMission
+     */
+    select?: OpsMissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a OpsMission.
+     */
+    data: XOR<OpsMissionUpdateInput, OpsMissionUncheckedUpdateInput>
+    /**
+     * Choose, which OpsMission to update.
+     */
+    where: OpsMissionWhereUniqueInput
+  }
+
+  /**
+   * OpsMission updateMany
+   */
+  export type OpsMissionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OpsMissions.
+     */
+    data: XOR<OpsMissionUpdateManyMutationInput, OpsMissionUncheckedUpdateManyInput>
+    /**
+     * Filter which OpsMissions to update
+     */
+    where?: OpsMissionWhereInput
+  }
+
+  /**
+   * OpsMission upsert
+   */
+  export type OpsMissionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMission
+     */
+    select?: OpsMissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the OpsMission to update in case it exists.
+     */
+    where: OpsMissionWhereUniqueInput
+    /**
+     * In case the OpsMission found by the `where` argument doesn't exist, create a new OpsMission with this data.
+     */
+    create: XOR<OpsMissionCreateInput, OpsMissionUncheckedCreateInput>
+    /**
+     * In case the OpsMission was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OpsMissionUpdateInput, OpsMissionUncheckedUpdateInput>
+  }
+
+  /**
+   * OpsMission delete
+   */
+  export type OpsMissionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMission
+     */
+    select?: OpsMissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionInclude<ExtArgs> | null
+    /**
+     * Filter which OpsMission to delete.
+     */
+    where: OpsMissionWhereUniqueInput
+  }
+
+  /**
+   * OpsMission deleteMany
+   */
+  export type OpsMissionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OpsMissions to delete
+     */
+    where?: OpsMissionWhereInput
+  }
+
+  /**
+   * OpsMission.steps
+   */
+  export type OpsMission$stepsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMissionStep
+     */
+    select?: OpsMissionStepSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionStepInclude<ExtArgs> | null
+    where?: OpsMissionStepWhereInput
+    orderBy?: OpsMissionStepOrderByWithRelationInput | OpsMissionStepOrderByWithRelationInput[]
+    cursor?: OpsMissionStepWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OpsMissionStepScalarFieldEnum | OpsMissionStepScalarFieldEnum[]
+  }
+
+  /**
+   * OpsMission.events
+   */
+  export type OpsMission$eventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsEvent
+     */
+    select?: OpsEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsEventInclude<ExtArgs> | null
+    where?: OpsEventWhereInput
+    orderBy?: OpsEventOrderByWithRelationInput | OpsEventOrderByWithRelationInput[]
+    cursor?: OpsEventWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OpsEventScalarFieldEnum | OpsEventScalarFieldEnum[]
+  }
+
+  /**
+   * OpsMission without action
+   */
+  export type OpsMissionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMission
+     */
+    select?: OpsMissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model OpsMissionStep
+   */
+
+  export type AggregateOpsMissionStep = {
+    _count: OpsMissionStepCountAggregateOutputType | null
+    _avg: OpsMissionStepAvgAggregateOutputType | null
+    _sum: OpsMissionStepSumAggregateOutputType | null
+    _min: OpsMissionStepMinAggregateOutputType | null
+    _max: OpsMissionStepMaxAggregateOutputType | null
+  }
+
+  export type OpsMissionStepAvgAggregateOutputType = {
+    stepOrder: number | null
+  }
+
+  export type OpsMissionStepSumAggregateOutputType = {
+    stepOrder: number | null
+  }
+
+  export type OpsMissionStepMinAggregateOutputType = {
+    id: string | null
+    missionId: string | null
+    stepKind: string | null
+    stepOrder: number | null
+    status: string | null
+    lastError: string | null
+    reservedAt: Date | null
+    completedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type OpsMissionStepMaxAggregateOutputType = {
+    id: string | null
+    missionId: string | null
+    stepKind: string | null
+    stepOrder: number | null
+    status: string | null
+    lastError: string | null
+    reservedAt: Date | null
+    completedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type OpsMissionStepCountAggregateOutputType = {
+    id: number
+    missionId: number
+    stepKind: number
+    stepOrder: number
+    status: number
+    input: number
+    output: number
+    lastError: number
+    reservedAt: number
+    completedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type OpsMissionStepAvgAggregateInputType = {
+    stepOrder?: true
+  }
+
+  export type OpsMissionStepSumAggregateInputType = {
+    stepOrder?: true
+  }
+
+  export type OpsMissionStepMinAggregateInputType = {
+    id?: true
+    missionId?: true
+    stepKind?: true
+    stepOrder?: true
+    status?: true
+    lastError?: true
+    reservedAt?: true
+    completedAt?: true
+    createdAt?: true
+  }
+
+  export type OpsMissionStepMaxAggregateInputType = {
+    id?: true
+    missionId?: true
+    stepKind?: true
+    stepOrder?: true
+    status?: true
+    lastError?: true
+    reservedAt?: true
+    completedAt?: true
+    createdAt?: true
+  }
+
+  export type OpsMissionStepCountAggregateInputType = {
+    id?: true
+    missionId?: true
+    stepKind?: true
+    stepOrder?: true
+    status?: true
+    input?: true
+    output?: true
+    lastError?: true
+    reservedAt?: true
+    completedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type OpsMissionStepAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OpsMissionStep to aggregate.
+     */
+    where?: OpsMissionStepWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsMissionSteps to fetch.
+     */
+    orderBy?: OpsMissionStepOrderByWithRelationInput | OpsMissionStepOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OpsMissionStepWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsMissionSteps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsMissionSteps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OpsMissionSteps
+    **/
+    _count?: true | OpsMissionStepCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: OpsMissionStepAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OpsMissionStepSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OpsMissionStepMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OpsMissionStepMaxAggregateInputType
+  }
+
+  export type GetOpsMissionStepAggregateType<T extends OpsMissionStepAggregateArgs> = {
+        [P in keyof T & keyof AggregateOpsMissionStep]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOpsMissionStep[P]>
+      : GetScalarType<T[P], AggregateOpsMissionStep[P]>
+  }
+
+
+
+
+  export type OpsMissionStepGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OpsMissionStepWhereInput
+    orderBy?: OpsMissionStepOrderByWithAggregationInput | OpsMissionStepOrderByWithAggregationInput[]
+    by: OpsMissionStepScalarFieldEnum[] | OpsMissionStepScalarFieldEnum
+    having?: OpsMissionStepScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OpsMissionStepCountAggregateInputType | true
+    _avg?: OpsMissionStepAvgAggregateInputType
+    _sum?: OpsMissionStepSumAggregateInputType
+    _min?: OpsMissionStepMinAggregateInputType
+    _max?: OpsMissionStepMaxAggregateInputType
+  }
+
+  export type OpsMissionStepGroupByOutputType = {
+    id: string
+    missionId: string
+    stepKind: string
+    stepOrder: number
+    status: string
+    input: JsonValue | null
+    output: JsonValue | null
+    lastError: string | null
+    reservedAt: Date | null
+    completedAt: Date | null
+    createdAt: Date
+    _count: OpsMissionStepCountAggregateOutputType | null
+    _avg: OpsMissionStepAvgAggregateOutputType | null
+    _sum: OpsMissionStepSumAggregateOutputType | null
+    _min: OpsMissionStepMinAggregateOutputType | null
+    _max: OpsMissionStepMaxAggregateOutputType | null
+  }
+
+  type GetOpsMissionStepGroupByPayload<T extends OpsMissionStepGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OpsMissionStepGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OpsMissionStepGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OpsMissionStepGroupByOutputType[P]>
+            : GetScalarType<T[P], OpsMissionStepGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OpsMissionStepSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    missionId?: boolean
+    stepKind?: boolean
+    stepOrder?: boolean
+    status?: boolean
+    input?: boolean
+    output?: boolean
+    lastError?: boolean
+    reservedAt?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    mission?: boolean | OpsMissionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["opsMissionStep"]>
+
+  export type OpsMissionStepSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    missionId?: boolean
+    stepKind?: boolean
+    stepOrder?: boolean
+    status?: boolean
+    input?: boolean
+    output?: boolean
+    lastError?: boolean
+    reservedAt?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+    mission?: boolean | OpsMissionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["opsMissionStep"]>
+
+  export type OpsMissionStepSelectScalar = {
+    id?: boolean
+    missionId?: boolean
+    stepKind?: boolean
+    stepOrder?: boolean
+    status?: boolean
+    input?: boolean
+    output?: boolean
+    lastError?: boolean
+    reservedAt?: boolean
+    completedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type OpsMissionStepInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mission?: boolean | OpsMissionDefaultArgs<ExtArgs>
+  }
+  export type OpsMissionStepIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mission?: boolean | OpsMissionDefaultArgs<ExtArgs>
+  }
+
+  export type $OpsMissionStepPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OpsMissionStep"
+    objects: {
+      mission: Prisma.$OpsMissionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      missionId: string
+      stepKind: string
+      stepOrder: number
+      status: string
+      input: Prisma.JsonValue | null
+      output: Prisma.JsonValue | null
+      lastError: string | null
+      reservedAt: Date | null
+      completedAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["opsMissionStep"]>
+    composites: {}
+  }
+
+  type OpsMissionStepGetPayload<S extends boolean | null | undefined | OpsMissionStepDefaultArgs> = $Result.GetResult<Prisma.$OpsMissionStepPayload, S>
+
+  type OpsMissionStepCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<OpsMissionStepFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: OpsMissionStepCountAggregateInputType | true
+    }
+
+  export interface OpsMissionStepDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OpsMissionStep'], meta: { name: 'OpsMissionStep' } }
+    /**
+     * Find zero or one OpsMissionStep that matches the filter.
+     * @param {OpsMissionStepFindUniqueArgs} args - Arguments to find a OpsMissionStep
+     * @example
+     * // Get one OpsMissionStep
+     * const opsMissionStep = await prisma.opsMissionStep.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OpsMissionStepFindUniqueArgs>(args: SelectSubset<T, OpsMissionStepFindUniqueArgs<ExtArgs>>): Prisma__OpsMissionStepClient<$Result.GetResult<Prisma.$OpsMissionStepPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one OpsMissionStep that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {OpsMissionStepFindUniqueOrThrowArgs} args - Arguments to find a OpsMissionStep
+     * @example
+     * // Get one OpsMissionStep
+     * const opsMissionStep = await prisma.opsMissionStep.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OpsMissionStepFindUniqueOrThrowArgs>(args: SelectSubset<T, OpsMissionStepFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OpsMissionStepClient<$Result.GetResult<Prisma.$OpsMissionStepPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first OpsMissionStep that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsMissionStepFindFirstArgs} args - Arguments to find a OpsMissionStep
+     * @example
+     * // Get one OpsMissionStep
+     * const opsMissionStep = await prisma.opsMissionStep.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OpsMissionStepFindFirstArgs>(args?: SelectSubset<T, OpsMissionStepFindFirstArgs<ExtArgs>>): Prisma__OpsMissionStepClient<$Result.GetResult<Prisma.$OpsMissionStepPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first OpsMissionStep that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsMissionStepFindFirstOrThrowArgs} args - Arguments to find a OpsMissionStep
+     * @example
+     * // Get one OpsMissionStep
+     * const opsMissionStep = await prisma.opsMissionStep.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OpsMissionStepFindFirstOrThrowArgs>(args?: SelectSubset<T, OpsMissionStepFindFirstOrThrowArgs<ExtArgs>>): Prisma__OpsMissionStepClient<$Result.GetResult<Prisma.$OpsMissionStepPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more OpsMissionSteps that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsMissionStepFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OpsMissionSteps
+     * const opsMissionSteps = await prisma.opsMissionStep.findMany()
+     * 
+     * // Get first 10 OpsMissionSteps
+     * const opsMissionSteps = await prisma.opsMissionStep.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const opsMissionStepWithIdOnly = await prisma.opsMissionStep.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OpsMissionStepFindManyArgs>(args?: SelectSubset<T, OpsMissionStepFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsMissionStepPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a OpsMissionStep.
+     * @param {OpsMissionStepCreateArgs} args - Arguments to create a OpsMissionStep.
+     * @example
+     * // Create one OpsMissionStep
+     * const OpsMissionStep = await prisma.opsMissionStep.create({
+     *   data: {
+     *     // ... data to create a OpsMissionStep
+     *   }
+     * })
+     * 
+     */
+    create<T extends OpsMissionStepCreateArgs>(args: SelectSubset<T, OpsMissionStepCreateArgs<ExtArgs>>): Prisma__OpsMissionStepClient<$Result.GetResult<Prisma.$OpsMissionStepPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many OpsMissionSteps.
+     * @param {OpsMissionStepCreateManyArgs} args - Arguments to create many OpsMissionSteps.
+     * @example
+     * // Create many OpsMissionSteps
+     * const opsMissionStep = await prisma.opsMissionStep.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OpsMissionStepCreateManyArgs>(args?: SelectSubset<T, OpsMissionStepCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OpsMissionSteps and returns the data saved in the database.
+     * @param {OpsMissionStepCreateManyAndReturnArgs} args - Arguments to create many OpsMissionSteps.
+     * @example
+     * // Create many OpsMissionSteps
+     * const opsMissionStep = await prisma.opsMissionStep.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OpsMissionSteps and only return the `id`
+     * const opsMissionStepWithIdOnly = await prisma.opsMissionStep.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OpsMissionStepCreateManyAndReturnArgs>(args?: SelectSubset<T, OpsMissionStepCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsMissionStepPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a OpsMissionStep.
+     * @param {OpsMissionStepDeleteArgs} args - Arguments to delete one OpsMissionStep.
+     * @example
+     * // Delete one OpsMissionStep
+     * const OpsMissionStep = await prisma.opsMissionStep.delete({
+     *   where: {
+     *     // ... filter to delete one OpsMissionStep
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OpsMissionStepDeleteArgs>(args: SelectSubset<T, OpsMissionStepDeleteArgs<ExtArgs>>): Prisma__OpsMissionStepClient<$Result.GetResult<Prisma.$OpsMissionStepPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one OpsMissionStep.
+     * @param {OpsMissionStepUpdateArgs} args - Arguments to update one OpsMissionStep.
+     * @example
+     * // Update one OpsMissionStep
+     * const opsMissionStep = await prisma.opsMissionStep.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OpsMissionStepUpdateArgs>(args: SelectSubset<T, OpsMissionStepUpdateArgs<ExtArgs>>): Prisma__OpsMissionStepClient<$Result.GetResult<Prisma.$OpsMissionStepPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more OpsMissionSteps.
+     * @param {OpsMissionStepDeleteManyArgs} args - Arguments to filter OpsMissionSteps to delete.
+     * @example
+     * // Delete a few OpsMissionSteps
+     * const { count } = await prisma.opsMissionStep.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OpsMissionStepDeleteManyArgs>(args?: SelectSubset<T, OpsMissionStepDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OpsMissionSteps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsMissionStepUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OpsMissionSteps
+     * const opsMissionStep = await prisma.opsMissionStep.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OpsMissionStepUpdateManyArgs>(args: SelectSubset<T, OpsMissionStepUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one OpsMissionStep.
+     * @param {OpsMissionStepUpsertArgs} args - Arguments to update or create a OpsMissionStep.
+     * @example
+     * // Update or create a OpsMissionStep
+     * const opsMissionStep = await prisma.opsMissionStep.upsert({
+     *   create: {
+     *     // ... data to create a OpsMissionStep
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OpsMissionStep we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OpsMissionStepUpsertArgs>(args: SelectSubset<T, OpsMissionStepUpsertArgs<ExtArgs>>): Prisma__OpsMissionStepClient<$Result.GetResult<Prisma.$OpsMissionStepPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of OpsMissionSteps.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsMissionStepCountArgs} args - Arguments to filter OpsMissionSteps to count.
+     * @example
+     * // Count the number of OpsMissionSteps
+     * const count = await prisma.opsMissionStep.count({
+     *   where: {
+     *     // ... the filter for the OpsMissionSteps we want to count
+     *   }
+     * })
+    **/
+    count<T extends OpsMissionStepCountArgs>(
+      args?: Subset<T, OpsMissionStepCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OpsMissionStepCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OpsMissionStep.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsMissionStepAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OpsMissionStepAggregateArgs>(args: Subset<T, OpsMissionStepAggregateArgs>): Prisma.PrismaPromise<GetOpsMissionStepAggregateType<T>>
+
+    /**
+     * Group by OpsMissionStep.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsMissionStepGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OpsMissionStepGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OpsMissionStepGroupByArgs['orderBy'] }
+        : { orderBy?: OpsMissionStepGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OpsMissionStepGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOpsMissionStepGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OpsMissionStep model
+   */
+  readonly fields: OpsMissionStepFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OpsMissionStep.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OpsMissionStepClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    mission<T extends OpsMissionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OpsMissionDefaultArgs<ExtArgs>>): Prisma__OpsMissionClient<$Result.GetResult<Prisma.$OpsMissionPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OpsMissionStep model
+   */ 
+  interface OpsMissionStepFieldRefs {
+    readonly id: FieldRef<"OpsMissionStep", 'String'>
+    readonly missionId: FieldRef<"OpsMissionStep", 'String'>
+    readonly stepKind: FieldRef<"OpsMissionStep", 'String'>
+    readonly stepOrder: FieldRef<"OpsMissionStep", 'Int'>
+    readonly status: FieldRef<"OpsMissionStep", 'String'>
+    readonly input: FieldRef<"OpsMissionStep", 'Json'>
+    readonly output: FieldRef<"OpsMissionStep", 'Json'>
+    readonly lastError: FieldRef<"OpsMissionStep", 'String'>
+    readonly reservedAt: FieldRef<"OpsMissionStep", 'DateTime'>
+    readonly completedAt: FieldRef<"OpsMissionStep", 'DateTime'>
+    readonly createdAt: FieldRef<"OpsMissionStep", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OpsMissionStep findUnique
+   */
+  export type OpsMissionStepFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMissionStep
+     */
+    select?: OpsMissionStepSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionStepInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsMissionStep to fetch.
+     */
+    where: OpsMissionStepWhereUniqueInput
+  }
+
+  /**
+   * OpsMissionStep findUniqueOrThrow
+   */
+  export type OpsMissionStepFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMissionStep
+     */
+    select?: OpsMissionStepSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionStepInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsMissionStep to fetch.
+     */
+    where: OpsMissionStepWhereUniqueInput
+  }
+
+  /**
+   * OpsMissionStep findFirst
+   */
+  export type OpsMissionStepFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMissionStep
+     */
+    select?: OpsMissionStepSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionStepInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsMissionStep to fetch.
+     */
+    where?: OpsMissionStepWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsMissionSteps to fetch.
+     */
+    orderBy?: OpsMissionStepOrderByWithRelationInput | OpsMissionStepOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OpsMissionSteps.
+     */
+    cursor?: OpsMissionStepWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsMissionSteps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsMissionSteps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OpsMissionSteps.
+     */
+    distinct?: OpsMissionStepScalarFieldEnum | OpsMissionStepScalarFieldEnum[]
+  }
+
+  /**
+   * OpsMissionStep findFirstOrThrow
+   */
+  export type OpsMissionStepFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMissionStep
+     */
+    select?: OpsMissionStepSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionStepInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsMissionStep to fetch.
+     */
+    where?: OpsMissionStepWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsMissionSteps to fetch.
+     */
+    orderBy?: OpsMissionStepOrderByWithRelationInput | OpsMissionStepOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OpsMissionSteps.
+     */
+    cursor?: OpsMissionStepWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsMissionSteps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsMissionSteps.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OpsMissionSteps.
+     */
+    distinct?: OpsMissionStepScalarFieldEnum | OpsMissionStepScalarFieldEnum[]
+  }
+
+  /**
+   * OpsMissionStep findMany
+   */
+  export type OpsMissionStepFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMissionStep
+     */
+    select?: OpsMissionStepSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionStepInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsMissionSteps to fetch.
+     */
+    where?: OpsMissionStepWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsMissionSteps to fetch.
+     */
+    orderBy?: OpsMissionStepOrderByWithRelationInput | OpsMissionStepOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OpsMissionSteps.
+     */
+    cursor?: OpsMissionStepWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsMissionSteps from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsMissionSteps.
+     */
+    skip?: number
+    distinct?: OpsMissionStepScalarFieldEnum | OpsMissionStepScalarFieldEnum[]
+  }
+
+  /**
+   * OpsMissionStep create
+   */
+  export type OpsMissionStepCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMissionStep
+     */
+    select?: OpsMissionStepSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionStepInclude<ExtArgs> | null
+    /**
+     * The data needed to create a OpsMissionStep.
+     */
+    data: XOR<OpsMissionStepCreateInput, OpsMissionStepUncheckedCreateInput>
+  }
+
+  /**
+   * OpsMissionStep createMany
+   */
+  export type OpsMissionStepCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OpsMissionSteps.
+     */
+    data: OpsMissionStepCreateManyInput | OpsMissionStepCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OpsMissionStep createManyAndReturn
+   */
+  export type OpsMissionStepCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMissionStep
+     */
+    select?: OpsMissionStepSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many OpsMissionSteps.
+     */
+    data: OpsMissionStepCreateManyInput | OpsMissionStepCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionStepIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OpsMissionStep update
+   */
+  export type OpsMissionStepUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMissionStep
+     */
+    select?: OpsMissionStepSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionStepInclude<ExtArgs> | null
+    /**
+     * The data needed to update a OpsMissionStep.
+     */
+    data: XOR<OpsMissionStepUpdateInput, OpsMissionStepUncheckedUpdateInput>
+    /**
+     * Choose, which OpsMissionStep to update.
+     */
+    where: OpsMissionStepWhereUniqueInput
+  }
+
+  /**
+   * OpsMissionStep updateMany
+   */
+  export type OpsMissionStepUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OpsMissionSteps.
+     */
+    data: XOR<OpsMissionStepUpdateManyMutationInput, OpsMissionStepUncheckedUpdateManyInput>
+    /**
+     * Filter which OpsMissionSteps to update
+     */
+    where?: OpsMissionStepWhereInput
+  }
+
+  /**
+   * OpsMissionStep upsert
+   */
+  export type OpsMissionStepUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMissionStep
+     */
+    select?: OpsMissionStepSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionStepInclude<ExtArgs> | null
+    /**
+     * The filter to search for the OpsMissionStep to update in case it exists.
+     */
+    where: OpsMissionStepWhereUniqueInput
+    /**
+     * In case the OpsMissionStep found by the `where` argument doesn't exist, create a new OpsMissionStep with this data.
+     */
+    create: XOR<OpsMissionStepCreateInput, OpsMissionStepUncheckedCreateInput>
+    /**
+     * In case the OpsMissionStep was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OpsMissionStepUpdateInput, OpsMissionStepUncheckedUpdateInput>
+  }
+
+  /**
+   * OpsMissionStep delete
+   */
+  export type OpsMissionStepDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMissionStep
+     */
+    select?: OpsMissionStepSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionStepInclude<ExtArgs> | null
+    /**
+     * Filter which OpsMissionStep to delete.
+     */
+    where: OpsMissionStepWhereUniqueInput
+  }
+
+  /**
+   * OpsMissionStep deleteMany
+   */
+  export type OpsMissionStepDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OpsMissionSteps to delete
+     */
+    where?: OpsMissionStepWhereInput
+  }
+
+  /**
+   * OpsMissionStep without action
+   */
+  export type OpsMissionStepDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMissionStep
+     */
+    select?: OpsMissionStepSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionStepInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model OpsEvent
+   */
+
+  export type AggregateOpsEvent = {
+    _count: OpsEventCountAggregateOutputType | null
+    _min: OpsEventMinAggregateOutputType | null
+    _max: OpsEventMaxAggregateOutputType | null
+  }
+
+  export type OpsEventMinAggregateOutputType = {
+    id: string | null
+    source: string | null
+    kind: string | null
+    missionId: string | null
+    createdAt: Date | null
+  }
+
+  export type OpsEventMaxAggregateOutputType = {
+    id: string | null
+    source: string | null
+    kind: string | null
+    missionId: string | null
+    createdAt: Date | null
+  }
+
+  export type OpsEventCountAggregateOutputType = {
+    id: number
+    source: number
+    kind: number
+    tags: number
+    payload: number
+    missionId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type OpsEventMinAggregateInputType = {
+    id?: true
+    source?: true
+    kind?: true
+    missionId?: true
+    createdAt?: true
+  }
+
+  export type OpsEventMaxAggregateInputType = {
+    id?: true
+    source?: true
+    kind?: true
+    missionId?: true
+    createdAt?: true
+  }
+
+  export type OpsEventCountAggregateInputType = {
+    id?: true
+    source?: true
+    kind?: true
+    tags?: true
+    payload?: true
+    missionId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type OpsEventAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OpsEvent to aggregate.
+     */
+    where?: OpsEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsEvents to fetch.
+     */
+    orderBy?: OpsEventOrderByWithRelationInput | OpsEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OpsEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OpsEvents
+    **/
+    _count?: true | OpsEventCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OpsEventMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OpsEventMaxAggregateInputType
+  }
+
+  export type GetOpsEventAggregateType<T extends OpsEventAggregateArgs> = {
+        [P in keyof T & keyof AggregateOpsEvent]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOpsEvent[P]>
+      : GetScalarType<T[P], AggregateOpsEvent[P]>
+  }
+
+
+
+
+  export type OpsEventGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OpsEventWhereInput
+    orderBy?: OpsEventOrderByWithAggregationInput | OpsEventOrderByWithAggregationInput[]
+    by: OpsEventScalarFieldEnum[] | OpsEventScalarFieldEnum
+    having?: OpsEventScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OpsEventCountAggregateInputType | true
+    _min?: OpsEventMinAggregateInputType
+    _max?: OpsEventMaxAggregateInputType
+  }
+
+  export type OpsEventGroupByOutputType = {
+    id: string
+    source: string
+    kind: string
+    tags: string[]
+    payload: JsonValue | null
+    missionId: string | null
+    createdAt: Date
+    _count: OpsEventCountAggregateOutputType | null
+    _min: OpsEventMinAggregateOutputType | null
+    _max: OpsEventMaxAggregateOutputType | null
+  }
+
+  type GetOpsEventGroupByPayload<T extends OpsEventGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OpsEventGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OpsEventGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OpsEventGroupByOutputType[P]>
+            : GetScalarType<T[P], OpsEventGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OpsEventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    source?: boolean
+    kind?: boolean
+    tags?: boolean
+    payload?: boolean
+    missionId?: boolean
+    createdAt?: boolean
+    mission?: boolean | OpsEvent$missionArgs<ExtArgs>
+    reactions?: boolean | OpsEvent$reactionsArgs<ExtArgs>
+    _count?: boolean | OpsEventCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["opsEvent"]>
+
+  export type OpsEventSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    source?: boolean
+    kind?: boolean
+    tags?: boolean
+    payload?: boolean
+    missionId?: boolean
+    createdAt?: boolean
+    mission?: boolean | OpsEvent$missionArgs<ExtArgs>
+  }, ExtArgs["result"]["opsEvent"]>
+
+  export type OpsEventSelectScalar = {
+    id?: boolean
+    source?: boolean
+    kind?: boolean
+    tags?: boolean
+    payload?: boolean
+    missionId?: boolean
+    createdAt?: boolean
+  }
+
+  export type OpsEventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mission?: boolean | OpsEvent$missionArgs<ExtArgs>
+    reactions?: boolean | OpsEvent$reactionsArgs<ExtArgs>
+    _count?: boolean | OpsEventCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type OpsEventIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mission?: boolean | OpsEvent$missionArgs<ExtArgs>
+  }
+
+  export type $OpsEventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OpsEvent"
+    objects: {
+      mission: Prisma.$OpsMissionPayload<ExtArgs> | null
+      reactions: Prisma.$OpsReactionPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      source: string
+      kind: string
+      tags: string[]
+      payload: Prisma.JsonValue | null
+      missionId: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["opsEvent"]>
+    composites: {}
+  }
+
+  type OpsEventGetPayload<S extends boolean | null | undefined | OpsEventDefaultArgs> = $Result.GetResult<Prisma.$OpsEventPayload, S>
+
+  type OpsEventCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<OpsEventFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: OpsEventCountAggregateInputType | true
+    }
+
+  export interface OpsEventDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OpsEvent'], meta: { name: 'OpsEvent' } }
+    /**
+     * Find zero or one OpsEvent that matches the filter.
+     * @param {OpsEventFindUniqueArgs} args - Arguments to find a OpsEvent
+     * @example
+     * // Get one OpsEvent
+     * const opsEvent = await prisma.opsEvent.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OpsEventFindUniqueArgs>(args: SelectSubset<T, OpsEventFindUniqueArgs<ExtArgs>>): Prisma__OpsEventClient<$Result.GetResult<Prisma.$OpsEventPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one OpsEvent that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {OpsEventFindUniqueOrThrowArgs} args - Arguments to find a OpsEvent
+     * @example
+     * // Get one OpsEvent
+     * const opsEvent = await prisma.opsEvent.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OpsEventFindUniqueOrThrowArgs>(args: SelectSubset<T, OpsEventFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OpsEventClient<$Result.GetResult<Prisma.$OpsEventPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first OpsEvent that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsEventFindFirstArgs} args - Arguments to find a OpsEvent
+     * @example
+     * // Get one OpsEvent
+     * const opsEvent = await prisma.opsEvent.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OpsEventFindFirstArgs>(args?: SelectSubset<T, OpsEventFindFirstArgs<ExtArgs>>): Prisma__OpsEventClient<$Result.GetResult<Prisma.$OpsEventPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first OpsEvent that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsEventFindFirstOrThrowArgs} args - Arguments to find a OpsEvent
+     * @example
+     * // Get one OpsEvent
+     * const opsEvent = await prisma.opsEvent.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OpsEventFindFirstOrThrowArgs>(args?: SelectSubset<T, OpsEventFindFirstOrThrowArgs<ExtArgs>>): Prisma__OpsEventClient<$Result.GetResult<Prisma.$OpsEventPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more OpsEvents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsEventFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OpsEvents
+     * const opsEvents = await prisma.opsEvent.findMany()
+     * 
+     * // Get first 10 OpsEvents
+     * const opsEvents = await prisma.opsEvent.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const opsEventWithIdOnly = await prisma.opsEvent.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OpsEventFindManyArgs>(args?: SelectSubset<T, OpsEventFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsEventPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a OpsEvent.
+     * @param {OpsEventCreateArgs} args - Arguments to create a OpsEvent.
+     * @example
+     * // Create one OpsEvent
+     * const OpsEvent = await prisma.opsEvent.create({
+     *   data: {
+     *     // ... data to create a OpsEvent
+     *   }
+     * })
+     * 
+     */
+    create<T extends OpsEventCreateArgs>(args: SelectSubset<T, OpsEventCreateArgs<ExtArgs>>): Prisma__OpsEventClient<$Result.GetResult<Prisma.$OpsEventPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many OpsEvents.
+     * @param {OpsEventCreateManyArgs} args - Arguments to create many OpsEvents.
+     * @example
+     * // Create many OpsEvents
+     * const opsEvent = await prisma.opsEvent.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OpsEventCreateManyArgs>(args?: SelectSubset<T, OpsEventCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OpsEvents and returns the data saved in the database.
+     * @param {OpsEventCreateManyAndReturnArgs} args - Arguments to create many OpsEvents.
+     * @example
+     * // Create many OpsEvents
+     * const opsEvent = await prisma.opsEvent.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OpsEvents and only return the `id`
+     * const opsEventWithIdOnly = await prisma.opsEvent.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OpsEventCreateManyAndReturnArgs>(args?: SelectSubset<T, OpsEventCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsEventPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a OpsEvent.
+     * @param {OpsEventDeleteArgs} args - Arguments to delete one OpsEvent.
+     * @example
+     * // Delete one OpsEvent
+     * const OpsEvent = await prisma.opsEvent.delete({
+     *   where: {
+     *     // ... filter to delete one OpsEvent
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OpsEventDeleteArgs>(args: SelectSubset<T, OpsEventDeleteArgs<ExtArgs>>): Prisma__OpsEventClient<$Result.GetResult<Prisma.$OpsEventPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one OpsEvent.
+     * @param {OpsEventUpdateArgs} args - Arguments to update one OpsEvent.
+     * @example
+     * // Update one OpsEvent
+     * const opsEvent = await prisma.opsEvent.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OpsEventUpdateArgs>(args: SelectSubset<T, OpsEventUpdateArgs<ExtArgs>>): Prisma__OpsEventClient<$Result.GetResult<Prisma.$OpsEventPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more OpsEvents.
+     * @param {OpsEventDeleteManyArgs} args - Arguments to filter OpsEvents to delete.
+     * @example
+     * // Delete a few OpsEvents
+     * const { count } = await prisma.opsEvent.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OpsEventDeleteManyArgs>(args?: SelectSubset<T, OpsEventDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OpsEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsEventUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OpsEvents
+     * const opsEvent = await prisma.opsEvent.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OpsEventUpdateManyArgs>(args: SelectSubset<T, OpsEventUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one OpsEvent.
+     * @param {OpsEventUpsertArgs} args - Arguments to update or create a OpsEvent.
+     * @example
+     * // Update or create a OpsEvent
+     * const opsEvent = await prisma.opsEvent.upsert({
+     *   create: {
+     *     // ... data to create a OpsEvent
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OpsEvent we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OpsEventUpsertArgs>(args: SelectSubset<T, OpsEventUpsertArgs<ExtArgs>>): Prisma__OpsEventClient<$Result.GetResult<Prisma.$OpsEventPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of OpsEvents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsEventCountArgs} args - Arguments to filter OpsEvents to count.
+     * @example
+     * // Count the number of OpsEvents
+     * const count = await prisma.opsEvent.count({
+     *   where: {
+     *     // ... the filter for the OpsEvents we want to count
+     *   }
+     * })
+    **/
+    count<T extends OpsEventCountArgs>(
+      args?: Subset<T, OpsEventCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OpsEventCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OpsEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsEventAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OpsEventAggregateArgs>(args: Subset<T, OpsEventAggregateArgs>): Prisma.PrismaPromise<GetOpsEventAggregateType<T>>
+
+    /**
+     * Group by OpsEvent.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsEventGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OpsEventGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OpsEventGroupByArgs['orderBy'] }
+        : { orderBy?: OpsEventGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OpsEventGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOpsEventGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OpsEvent model
+   */
+  readonly fields: OpsEventFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OpsEvent.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OpsEventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    mission<T extends OpsEvent$missionArgs<ExtArgs> = {}>(args?: Subset<T, OpsEvent$missionArgs<ExtArgs>>): Prisma__OpsMissionClient<$Result.GetResult<Prisma.$OpsMissionPayload<ExtArgs>, T, "findUniqueOrThrow"> | null, null, ExtArgs>
+    reactions<T extends OpsEvent$reactionsArgs<ExtArgs> = {}>(args?: Subset<T, OpsEvent$reactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsReactionPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OpsEvent model
+   */ 
+  interface OpsEventFieldRefs {
+    readonly id: FieldRef<"OpsEvent", 'String'>
+    readonly source: FieldRef<"OpsEvent", 'String'>
+    readonly kind: FieldRef<"OpsEvent", 'String'>
+    readonly tags: FieldRef<"OpsEvent", 'String[]'>
+    readonly payload: FieldRef<"OpsEvent", 'Json'>
+    readonly missionId: FieldRef<"OpsEvent", 'String'>
+    readonly createdAt: FieldRef<"OpsEvent", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OpsEvent findUnique
+   */
+  export type OpsEventFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsEvent
+     */
+    select?: OpsEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsEventInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsEvent to fetch.
+     */
+    where: OpsEventWhereUniqueInput
+  }
+
+  /**
+   * OpsEvent findUniqueOrThrow
+   */
+  export type OpsEventFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsEvent
+     */
+    select?: OpsEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsEventInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsEvent to fetch.
+     */
+    where: OpsEventWhereUniqueInput
+  }
+
+  /**
+   * OpsEvent findFirst
+   */
+  export type OpsEventFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsEvent
+     */
+    select?: OpsEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsEventInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsEvent to fetch.
+     */
+    where?: OpsEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsEvents to fetch.
+     */
+    orderBy?: OpsEventOrderByWithRelationInput | OpsEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OpsEvents.
+     */
+    cursor?: OpsEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OpsEvents.
+     */
+    distinct?: OpsEventScalarFieldEnum | OpsEventScalarFieldEnum[]
+  }
+
+  /**
+   * OpsEvent findFirstOrThrow
+   */
+  export type OpsEventFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsEvent
+     */
+    select?: OpsEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsEventInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsEvent to fetch.
+     */
+    where?: OpsEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsEvents to fetch.
+     */
+    orderBy?: OpsEventOrderByWithRelationInput | OpsEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OpsEvents.
+     */
+    cursor?: OpsEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsEvents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OpsEvents.
+     */
+    distinct?: OpsEventScalarFieldEnum | OpsEventScalarFieldEnum[]
+  }
+
+  /**
+   * OpsEvent findMany
+   */
+  export type OpsEventFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsEvent
+     */
+    select?: OpsEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsEventInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsEvents to fetch.
+     */
+    where?: OpsEventWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsEvents to fetch.
+     */
+    orderBy?: OpsEventOrderByWithRelationInput | OpsEventOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OpsEvents.
+     */
+    cursor?: OpsEventWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsEvents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsEvents.
+     */
+    skip?: number
+    distinct?: OpsEventScalarFieldEnum | OpsEventScalarFieldEnum[]
+  }
+
+  /**
+   * OpsEvent create
+   */
+  export type OpsEventCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsEvent
+     */
+    select?: OpsEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsEventInclude<ExtArgs> | null
+    /**
+     * The data needed to create a OpsEvent.
+     */
+    data: XOR<OpsEventCreateInput, OpsEventUncheckedCreateInput>
+  }
+
+  /**
+   * OpsEvent createMany
+   */
+  export type OpsEventCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OpsEvents.
+     */
+    data: OpsEventCreateManyInput | OpsEventCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OpsEvent createManyAndReturn
+   */
+  export type OpsEventCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsEvent
+     */
+    select?: OpsEventSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many OpsEvents.
+     */
+    data: OpsEventCreateManyInput | OpsEventCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsEventIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OpsEvent update
+   */
+  export type OpsEventUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsEvent
+     */
+    select?: OpsEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsEventInclude<ExtArgs> | null
+    /**
+     * The data needed to update a OpsEvent.
+     */
+    data: XOR<OpsEventUpdateInput, OpsEventUncheckedUpdateInput>
+    /**
+     * Choose, which OpsEvent to update.
+     */
+    where: OpsEventWhereUniqueInput
+  }
+
+  /**
+   * OpsEvent updateMany
+   */
+  export type OpsEventUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OpsEvents.
+     */
+    data: XOR<OpsEventUpdateManyMutationInput, OpsEventUncheckedUpdateManyInput>
+    /**
+     * Filter which OpsEvents to update
+     */
+    where?: OpsEventWhereInput
+  }
+
+  /**
+   * OpsEvent upsert
+   */
+  export type OpsEventUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsEvent
+     */
+    select?: OpsEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsEventInclude<ExtArgs> | null
+    /**
+     * The filter to search for the OpsEvent to update in case it exists.
+     */
+    where: OpsEventWhereUniqueInput
+    /**
+     * In case the OpsEvent found by the `where` argument doesn't exist, create a new OpsEvent with this data.
+     */
+    create: XOR<OpsEventCreateInput, OpsEventUncheckedCreateInput>
+    /**
+     * In case the OpsEvent was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OpsEventUpdateInput, OpsEventUncheckedUpdateInput>
+  }
+
+  /**
+   * OpsEvent delete
+   */
+  export type OpsEventDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsEvent
+     */
+    select?: OpsEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsEventInclude<ExtArgs> | null
+    /**
+     * Filter which OpsEvent to delete.
+     */
+    where: OpsEventWhereUniqueInput
+  }
+
+  /**
+   * OpsEvent deleteMany
+   */
+  export type OpsEventDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OpsEvents to delete
+     */
+    where?: OpsEventWhereInput
+  }
+
+  /**
+   * OpsEvent.mission
+   */
+  export type OpsEvent$missionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsMission
+     */
+    select?: OpsMissionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsMissionInclude<ExtArgs> | null
+    where?: OpsMissionWhereInput
+  }
+
+  /**
+   * OpsEvent.reactions
+   */
+  export type OpsEvent$reactionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsReaction
+     */
+    select?: OpsReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsReactionInclude<ExtArgs> | null
+    where?: OpsReactionWhereInput
+    orderBy?: OpsReactionOrderByWithRelationInput | OpsReactionOrderByWithRelationInput[]
+    cursor?: OpsReactionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: OpsReactionScalarFieldEnum | OpsReactionScalarFieldEnum[]
+  }
+
+  /**
+   * OpsEvent without action
+   */
+  export type OpsEventDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsEvent
+     */
+    select?: OpsEventSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsEventInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model OpsPolicy
+   */
+
+  export type AggregateOpsPolicy = {
+    _count: OpsPolicyCountAggregateOutputType | null
+    _min: OpsPolicyMinAggregateOutputType | null
+    _max: OpsPolicyMaxAggregateOutputType | null
+  }
+
+  export type OpsPolicyMinAggregateOutputType = {
+    key: string | null
+    updatedAt: Date | null
+  }
+
+  export type OpsPolicyMaxAggregateOutputType = {
+    key: string | null
+    updatedAt: Date | null
+  }
+
+  export type OpsPolicyCountAggregateOutputType = {
+    key: number
+    value: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type OpsPolicyMinAggregateInputType = {
+    key?: true
+    updatedAt?: true
+  }
+
+  export type OpsPolicyMaxAggregateInputType = {
+    key?: true
+    updatedAt?: true
+  }
+
+  export type OpsPolicyCountAggregateInputType = {
+    key?: true
+    value?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type OpsPolicyAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OpsPolicy to aggregate.
+     */
+    where?: OpsPolicyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsPolicies to fetch.
+     */
+    orderBy?: OpsPolicyOrderByWithRelationInput | OpsPolicyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OpsPolicyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsPolicies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsPolicies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OpsPolicies
+    **/
+    _count?: true | OpsPolicyCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OpsPolicyMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OpsPolicyMaxAggregateInputType
+  }
+
+  export type GetOpsPolicyAggregateType<T extends OpsPolicyAggregateArgs> = {
+        [P in keyof T & keyof AggregateOpsPolicy]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOpsPolicy[P]>
+      : GetScalarType<T[P], AggregateOpsPolicy[P]>
+  }
+
+
+
+
+  export type OpsPolicyGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OpsPolicyWhereInput
+    orderBy?: OpsPolicyOrderByWithAggregationInput | OpsPolicyOrderByWithAggregationInput[]
+    by: OpsPolicyScalarFieldEnum[] | OpsPolicyScalarFieldEnum
+    having?: OpsPolicyScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OpsPolicyCountAggregateInputType | true
+    _min?: OpsPolicyMinAggregateInputType
+    _max?: OpsPolicyMaxAggregateInputType
+  }
+
+  export type OpsPolicyGroupByOutputType = {
+    key: string
+    value: JsonValue
+    updatedAt: Date
+    _count: OpsPolicyCountAggregateOutputType | null
+    _min: OpsPolicyMinAggregateOutputType | null
+    _max: OpsPolicyMaxAggregateOutputType | null
+  }
+
+  type GetOpsPolicyGroupByPayload<T extends OpsPolicyGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OpsPolicyGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OpsPolicyGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OpsPolicyGroupByOutputType[P]>
+            : GetScalarType<T[P], OpsPolicyGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OpsPolicySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    key?: boolean
+    value?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["opsPolicy"]>
+
+  export type OpsPolicySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    key?: boolean
+    value?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["opsPolicy"]>
+
+  export type OpsPolicySelectScalar = {
+    key?: boolean
+    value?: boolean
+    updatedAt?: boolean
+  }
+
+
+  export type $OpsPolicyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OpsPolicy"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      key: string
+      value: Prisma.JsonValue
+      updatedAt: Date
+    }, ExtArgs["result"]["opsPolicy"]>
+    composites: {}
+  }
+
+  type OpsPolicyGetPayload<S extends boolean | null | undefined | OpsPolicyDefaultArgs> = $Result.GetResult<Prisma.$OpsPolicyPayload, S>
+
+  type OpsPolicyCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<OpsPolicyFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: OpsPolicyCountAggregateInputType | true
+    }
+
+  export interface OpsPolicyDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OpsPolicy'], meta: { name: 'OpsPolicy' } }
+    /**
+     * Find zero or one OpsPolicy that matches the filter.
+     * @param {OpsPolicyFindUniqueArgs} args - Arguments to find a OpsPolicy
+     * @example
+     * // Get one OpsPolicy
+     * const opsPolicy = await prisma.opsPolicy.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OpsPolicyFindUniqueArgs>(args: SelectSubset<T, OpsPolicyFindUniqueArgs<ExtArgs>>): Prisma__OpsPolicyClient<$Result.GetResult<Prisma.$OpsPolicyPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one OpsPolicy that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {OpsPolicyFindUniqueOrThrowArgs} args - Arguments to find a OpsPolicy
+     * @example
+     * // Get one OpsPolicy
+     * const opsPolicy = await prisma.opsPolicy.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OpsPolicyFindUniqueOrThrowArgs>(args: SelectSubset<T, OpsPolicyFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OpsPolicyClient<$Result.GetResult<Prisma.$OpsPolicyPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first OpsPolicy that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsPolicyFindFirstArgs} args - Arguments to find a OpsPolicy
+     * @example
+     * // Get one OpsPolicy
+     * const opsPolicy = await prisma.opsPolicy.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OpsPolicyFindFirstArgs>(args?: SelectSubset<T, OpsPolicyFindFirstArgs<ExtArgs>>): Prisma__OpsPolicyClient<$Result.GetResult<Prisma.$OpsPolicyPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first OpsPolicy that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsPolicyFindFirstOrThrowArgs} args - Arguments to find a OpsPolicy
+     * @example
+     * // Get one OpsPolicy
+     * const opsPolicy = await prisma.opsPolicy.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OpsPolicyFindFirstOrThrowArgs>(args?: SelectSubset<T, OpsPolicyFindFirstOrThrowArgs<ExtArgs>>): Prisma__OpsPolicyClient<$Result.GetResult<Prisma.$OpsPolicyPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more OpsPolicies that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsPolicyFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OpsPolicies
+     * const opsPolicies = await prisma.opsPolicy.findMany()
+     * 
+     * // Get first 10 OpsPolicies
+     * const opsPolicies = await prisma.opsPolicy.findMany({ take: 10 })
+     * 
+     * // Only select the `key`
+     * const opsPolicyWithKeyOnly = await prisma.opsPolicy.findMany({ select: { key: true } })
+     * 
+     */
+    findMany<T extends OpsPolicyFindManyArgs>(args?: SelectSubset<T, OpsPolicyFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsPolicyPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a OpsPolicy.
+     * @param {OpsPolicyCreateArgs} args - Arguments to create a OpsPolicy.
+     * @example
+     * // Create one OpsPolicy
+     * const OpsPolicy = await prisma.opsPolicy.create({
+     *   data: {
+     *     // ... data to create a OpsPolicy
+     *   }
+     * })
+     * 
+     */
+    create<T extends OpsPolicyCreateArgs>(args: SelectSubset<T, OpsPolicyCreateArgs<ExtArgs>>): Prisma__OpsPolicyClient<$Result.GetResult<Prisma.$OpsPolicyPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many OpsPolicies.
+     * @param {OpsPolicyCreateManyArgs} args - Arguments to create many OpsPolicies.
+     * @example
+     * // Create many OpsPolicies
+     * const opsPolicy = await prisma.opsPolicy.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OpsPolicyCreateManyArgs>(args?: SelectSubset<T, OpsPolicyCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OpsPolicies and returns the data saved in the database.
+     * @param {OpsPolicyCreateManyAndReturnArgs} args - Arguments to create many OpsPolicies.
+     * @example
+     * // Create many OpsPolicies
+     * const opsPolicy = await prisma.opsPolicy.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OpsPolicies and only return the `key`
+     * const opsPolicyWithKeyOnly = await prisma.opsPolicy.createManyAndReturn({ 
+     *   select: { key: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OpsPolicyCreateManyAndReturnArgs>(args?: SelectSubset<T, OpsPolicyCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsPolicyPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a OpsPolicy.
+     * @param {OpsPolicyDeleteArgs} args - Arguments to delete one OpsPolicy.
+     * @example
+     * // Delete one OpsPolicy
+     * const OpsPolicy = await prisma.opsPolicy.delete({
+     *   where: {
+     *     // ... filter to delete one OpsPolicy
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OpsPolicyDeleteArgs>(args: SelectSubset<T, OpsPolicyDeleteArgs<ExtArgs>>): Prisma__OpsPolicyClient<$Result.GetResult<Prisma.$OpsPolicyPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one OpsPolicy.
+     * @param {OpsPolicyUpdateArgs} args - Arguments to update one OpsPolicy.
+     * @example
+     * // Update one OpsPolicy
+     * const opsPolicy = await prisma.opsPolicy.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OpsPolicyUpdateArgs>(args: SelectSubset<T, OpsPolicyUpdateArgs<ExtArgs>>): Prisma__OpsPolicyClient<$Result.GetResult<Prisma.$OpsPolicyPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more OpsPolicies.
+     * @param {OpsPolicyDeleteManyArgs} args - Arguments to filter OpsPolicies to delete.
+     * @example
+     * // Delete a few OpsPolicies
+     * const { count } = await prisma.opsPolicy.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OpsPolicyDeleteManyArgs>(args?: SelectSubset<T, OpsPolicyDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OpsPolicies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsPolicyUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OpsPolicies
+     * const opsPolicy = await prisma.opsPolicy.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OpsPolicyUpdateManyArgs>(args: SelectSubset<T, OpsPolicyUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one OpsPolicy.
+     * @param {OpsPolicyUpsertArgs} args - Arguments to update or create a OpsPolicy.
+     * @example
+     * // Update or create a OpsPolicy
+     * const opsPolicy = await prisma.opsPolicy.upsert({
+     *   create: {
+     *     // ... data to create a OpsPolicy
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OpsPolicy we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OpsPolicyUpsertArgs>(args: SelectSubset<T, OpsPolicyUpsertArgs<ExtArgs>>): Prisma__OpsPolicyClient<$Result.GetResult<Prisma.$OpsPolicyPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of OpsPolicies.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsPolicyCountArgs} args - Arguments to filter OpsPolicies to count.
+     * @example
+     * // Count the number of OpsPolicies
+     * const count = await prisma.opsPolicy.count({
+     *   where: {
+     *     // ... the filter for the OpsPolicies we want to count
+     *   }
+     * })
+    **/
+    count<T extends OpsPolicyCountArgs>(
+      args?: Subset<T, OpsPolicyCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OpsPolicyCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OpsPolicy.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsPolicyAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OpsPolicyAggregateArgs>(args: Subset<T, OpsPolicyAggregateArgs>): Prisma.PrismaPromise<GetOpsPolicyAggregateType<T>>
+
+    /**
+     * Group by OpsPolicy.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsPolicyGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OpsPolicyGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OpsPolicyGroupByArgs['orderBy'] }
+        : { orderBy?: OpsPolicyGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OpsPolicyGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOpsPolicyGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OpsPolicy model
+   */
+  readonly fields: OpsPolicyFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OpsPolicy.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OpsPolicyClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OpsPolicy model
+   */ 
+  interface OpsPolicyFieldRefs {
+    readonly key: FieldRef<"OpsPolicy", 'String'>
+    readonly value: FieldRef<"OpsPolicy", 'Json'>
+    readonly updatedAt: FieldRef<"OpsPolicy", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OpsPolicy findUnique
+   */
+  export type OpsPolicyFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsPolicy
+     */
+    select?: OpsPolicySelect<ExtArgs> | null
+    /**
+     * Filter, which OpsPolicy to fetch.
+     */
+    where: OpsPolicyWhereUniqueInput
+  }
+
+  /**
+   * OpsPolicy findUniqueOrThrow
+   */
+  export type OpsPolicyFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsPolicy
+     */
+    select?: OpsPolicySelect<ExtArgs> | null
+    /**
+     * Filter, which OpsPolicy to fetch.
+     */
+    where: OpsPolicyWhereUniqueInput
+  }
+
+  /**
+   * OpsPolicy findFirst
+   */
+  export type OpsPolicyFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsPolicy
+     */
+    select?: OpsPolicySelect<ExtArgs> | null
+    /**
+     * Filter, which OpsPolicy to fetch.
+     */
+    where?: OpsPolicyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsPolicies to fetch.
+     */
+    orderBy?: OpsPolicyOrderByWithRelationInput | OpsPolicyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OpsPolicies.
+     */
+    cursor?: OpsPolicyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsPolicies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsPolicies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OpsPolicies.
+     */
+    distinct?: OpsPolicyScalarFieldEnum | OpsPolicyScalarFieldEnum[]
+  }
+
+  /**
+   * OpsPolicy findFirstOrThrow
+   */
+  export type OpsPolicyFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsPolicy
+     */
+    select?: OpsPolicySelect<ExtArgs> | null
+    /**
+     * Filter, which OpsPolicy to fetch.
+     */
+    where?: OpsPolicyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsPolicies to fetch.
+     */
+    orderBy?: OpsPolicyOrderByWithRelationInput | OpsPolicyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OpsPolicies.
+     */
+    cursor?: OpsPolicyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsPolicies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsPolicies.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OpsPolicies.
+     */
+    distinct?: OpsPolicyScalarFieldEnum | OpsPolicyScalarFieldEnum[]
+  }
+
+  /**
+   * OpsPolicy findMany
+   */
+  export type OpsPolicyFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsPolicy
+     */
+    select?: OpsPolicySelect<ExtArgs> | null
+    /**
+     * Filter, which OpsPolicies to fetch.
+     */
+    where?: OpsPolicyWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsPolicies to fetch.
+     */
+    orderBy?: OpsPolicyOrderByWithRelationInput | OpsPolicyOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OpsPolicies.
+     */
+    cursor?: OpsPolicyWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsPolicies from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsPolicies.
+     */
+    skip?: number
+    distinct?: OpsPolicyScalarFieldEnum | OpsPolicyScalarFieldEnum[]
+  }
+
+  /**
+   * OpsPolicy create
+   */
+  export type OpsPolicyCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsPolicy
+     */
+    select?: OpsPolicySelect<ExtArgs> | null
+    /**
+     * The data needed to create a OpsPolicy.
+     */
+    data: XOR<OpsPolicyCreateInput, OpsPolicyUncheckedCreateInput>
+  }
+
+  /**
+   * OpsPolicy createMany
+   */
+  export type OpsPolicyCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OpsPolicies.
+     */
+    data: OpsPolicyCreateManyInput | OpsPolicyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OpsPolicy createManyAndReturn
+   */
+  export type OpsPolicyCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsPolicy
+     */
+    select?: OpsPolicySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many OpsPolicies.
+     */
+    data: OpsPolicyCreateManyInput | OpsPolicyCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OpsPolicy update
+   */
+  export type OpsPolicyUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsPolicy
+     */
+    select?: OpsPolicySelect<ExtArgs> | null
+    /**
+     * The data needed to update a OpsPolicy.
+     */
+    data: XOR<OpsPolicyUpdateInput, OpsPolicyUncheckedUpdateInput>
+    /**
+     * Choose, which OpsPolicy to update.
+     */
+    where: OpsPolicyWhereUniqueInput
+  }
+
+  /**
+   * OpsPolicy updateMany
+   */
+  export type OpsPolicyUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OpsPolicies.
+     */
+    data: XOR<OpsPolicyUpdateManyMutationInput, OpsPolicyUncheckedUpdateManyInput>
+    /**
+     * Filter which OpsPolicies to update
+     */
+    where?: OpsPolicyWhereInput
+  }
+
+  /**
+   * OpsPolicy upsert
+   */
+  export type OpsPolicyUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsPolicy
+     */
+    select?: OpsPolicySelect<ExtArgs> | null
+    /**
+     * The filter to search for the OpsPolicy to update in case it exists.
+     */
+    where: OpsPolicyWhereUniqueInput
+    /**
+     * In case the OpsPolicy found by the `where` argument doesn't exist, create a new OpsPolicy with this data.
+     */
+    create: XOR<OpsPolicyCreateInput, OpsPolicyUncheckedCreateInput>
+    /**
+     * In case the OpsPolicy was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OpsPolicyUpdateInput, OpsPolicyUncheckedUpdateInput>
+  }
+
+  /**
+   * OpsPolicy delete
+   */
+  export type OpsPolicyDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsPolicy
+     */
+    select?: OpsPolicySelect<ExtArgs> | null
+    /**
+     * Filter which OpsPolicy to delete.
+     */
+    where: OpsPolicyWhereUniqueInput
+  }
+
+  /**
+   * OpsPolicy deleteMany
+   */
+  export type OpsPolicyDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OpsPolicies to delete
+     */
+    where?: OpsPolicyWhereInput
+  }
+
+  /**
+   * OpsPolicy without action
+   */
+  export type OpsPolicyDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsPolicy
+     */
+    select?: OpsPolicySelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model OpsTriggerRule
+   */
+
+  export type AggregateOpsTriggerRule = {
+    _count: OpsTriggerRuleCountAggregateOutputType | null
+    _avg: OpsTriggerRuleAvgAggregateOutputType | null
+    _sum: OpsTriggerRuleSumAggregateOutputType | null
+    _min: OpsTriggerRuleMinAggregateOutputType | null
+    _max: OpsTriggerRuleMaxAggregateOutputType | null
+  }
+
+  export type OpsTriggerRuleAvgAggregateOutputType = {
+    cooldownMin: number | null
+  }
+
+  export type OpsTriggerRuleSumAggregateOutputType = {
+    cooldownMin: number | null
+  }
+
+  export type OpsTriggerRuleMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    eventKind: string | null
+    cooldownMin: number | null
+    enabled: boolean | null
+    lastFiredAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type OpsTriggerRuleMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    eventKind: string | null
+    cooldownMin: number | null
+    enabled: boolean | null
+    lastFiredAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type OpsTriggerRuleCountAggregateOutputType = {
+    id: number
+    name: number
+    eventKind: number
+    condition: number
+    proposalTemplate: number
+    cooldownMin: number
+    enabled: number
+    lastFiredAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type OpsTriggerRuleAvgAggregateInputType = {
+    cooldownMin?: true
+  }
+
+  export type OpsTriggerRuleSumAggregateInputType = {
+    cooldownMin?: true
+  }
+
+  export type OpsTriggerRuleMinAggregateInputType = {
+    id?: true
+    name?: true
+    eventKind?: true
+    cooldownMin?: true
+    enabled?: true
+    lastFiredAt?: true
+    createdAt?: true
+  }
+
+  export type OpsTriggerRuleMaxAggregateInputType = {
+    id?: true
+    name?: true
+    eventKind?: true
+    cooldownMin?: true
+    enabled?: true
+    lastFiredAt?: true
+    createdAt?: true
+  }
+
+  export type OpsTriggerRuleCountAggregateInputType = {
+    id?: true
+    name?: true
+    eventKind?: true
+    condition?: true
+    proposalTemplate?: true
+    cooldownMin?: true
+    enabled?: true
+    lastFiredAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type OpsTriggerRuleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OpsTriggerRule to aggregate.
+     */
+    where?: OpsTriggerRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsTriggerRules to fetch.
+     */
+    orderBy?: OpsTriggerRuleOrderByWithRelationInput | OpsTriggerRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OpsTriggerRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsTriggerRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsTriggerRules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OpsTriggerRules
+    **/
+    _count?: true | OpsTriggerRuleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: OpsTriggerRuleAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: OpsTriggerRuleSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OpsTriggerRuleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OpsTriggerRuleMaxAggregateInputType
+  }
+
+  export type GetOpsTriggerRuleAggregateType<T extends OpsTriggerRuleAggregateArgs> = {
+        [P in keyof T & keyof AggregateOpsTriggerRule]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOpsTriggerRule[P]>
+      : GetScalarType<T[P], AggregateOpsTriggerRule[P]>
+  }
+
+
+
+
+  export type OpsTriggerRuleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OpsTriggerRuleWhereInput
+    orderBy?: OpsTriggerRuleOrderByWithAggregationInput | OpsTriggerRuleOrderByWithAggregationInput[]
+    by: OpsTriggerRuleScalarFieldEnum[] | OpsTriggerRuleScalarFieldEnum
+    having?: OpsTriggerRuleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OpsTriggerRuleCountAggregateInputType | true
+    _avg?: OpsTriggerRuleAvgAggregateInputType
+    _sum?: OpsTriggerRuleSumAggregateInputType
+    _min?: OpsTriggerRuleMinAggregateInputType
+    _max?: OpsTriggerRuleMaxAggregateInputType
+  }
+
+  export type OpsTriggerRuleGroupByOutputType = {
+    id: string
+    name: string
+    eventKind: string
+    condition: JsonValue
+    proposalTemplate: JsonValue
+    cooldownMin: number
+    enabled: boolean
+    lastFiredAt: Date | null
+    createdAt: Date
+    _count: OpsTriggerRuleCountAggregateOutputType | null
+    _avg: OpsTriggerRuleAvgAggregateOutputType | null
+    _sum: OpsTriggerRuleSumAggregateOutputType | null
+    _min: OpsTriggerRuleMinAggregateOutputType | null
+    _max: OpsTriggerRuleMaxAggregateOutputType | null
+  }
+
+  type GetOpsTriggerRuleGroupByPayload<T extends OpsTriggerRuleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OpsTriggerRuleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OpsTriggerRuleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OpsTriggerRuleGroupByOutputType[P]>
+            : GetScalarType<T[P], OpsTriggerRuleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OpsTriggerRuleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    eventKind?: boolean
+    condition?: boolean
+    proposalTemplate?: boolean
+    cooldownMin?: boolean
+    enabled?: boolean
+    lastFiredAt?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["opsTriggerRule"]>
+
+  export type OpsTriggerRuleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    eventKind?: boolean
+    condition?: boolean
+    proposalTemplate?: boolean
+    cooldownMin?: boolean
+    enabled?: boolean
+    lastFiredAt?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["opsTriggerRule"]>
+
+  export type OpsTriggerRuleSelectScalar = {
+    id?: boolean
+    name?: boolean
+    eventKind?: boolean
+    condition?: boolean
+    proposalTemplate?: boolean
+    cooldownMin?: boolean
+    enabled?: boolean
+    lastFiredAt?: boolean
+    createdAt?: boolean
+  }
+
+
+  export type $OpsTriggerRulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OpsTriggerRule"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      eventKind: string
+      condition: Prisma.JsonValue
+      proposalTemplate: Prisma.JsonValue
+      cooldownMin: number
+      enabled: boolean
+      lastFiredAt: Date | null
+      createdAt: Date
+    }, ExtArgs["result"]["opsTriggerRule"]>
+    composites: {}
+  }
+
+  type OpsTriggerRuleGetPayload<S extends boolean | null | undefined | OpsTriggerRuleDefaultArgs> = $Result.GetResult<Prisma.$OpsTriggerRulePayload, S>
+
+  type OpsTriggerRuleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<OpsTriggerRuleFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: OpsTriggerRuleCountAggregateInputType | true
+    }
+
+  export interface OpsTriggerRuleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OpsTriggerRule'], meta: { name: 'OpsTriggerRule' } }
+    /**
+     * Find zero or one OpsTriggerRule that matches the filter.
+     * @param {OpsTriggerRuleFindUniqueArgs} args - Arguments to find a OpsTriggerRule
+     * @example
+     * // Get one OpsTriggerRule
+     * const opsTriggerRule = await prisma.opsTriggerRule.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OpsTriggerRuleFindUniqueArgs>(args: SelectSubset<T, OpsTriggerRuleFindUniqueArgs<ExtArgs>>): Prisma__OpsTriggerRuleClient<$Result.GetResult<Prisma.$OpsTriggerRulePayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one OpsTriggerRule that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {OpsTriggerRuleFindUniqueOrThrowArgs} args - Arguments to find a OpsTriggerRule
+     * @example
+     * // Get one OpsTriggerRule
+     * const opsTriggerRule = await prisma.opsTriggerRule.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OpsTriggerRuleFindUniqueOrThrowArgs>(args: SelectSubset<T, OpsTriggerRuleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OpsTriggerRuleClient<$Result.GetResult<Prisma.$OpsTriggerRulePayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first OpsTriggerRule that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsTriggerRuleFindFirstArgs} args - Arguments to find a OpsTriggerRule
+     * @example
+     * // Get one OpsTriggerRule
+     * const opsTriggerRule = await prisma.opsTriggerRule.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OpsTriggerRuleFindFirstArgs>(args?: SelectSubset<T, OpsTriggerRuleFindFirstArgs<ExtArgs>>): Prisma__OpsTriggerRuleClient<$Result.GetResult<Prisma.$OpsTriggerRulePayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first OpsTriggerRule that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsTriggerRuleFindFirstOrThrowArgs} args - Arguments to find a OpsTriggerRule
+     * @example
+     * // Get one OpsTriggerRule
+     * const opsTriggerRule = await prisma.opsTriggerRule.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OpsTriggerRuleFindFirstOrThrowArgs>(args?: SelectSubset<T, OpsTriggerRuleFindFirstOrThrowArgs<ExtArgs>>): Prisma__OpsTriggerRuleClient<$Result.GetResult<Prisma.$OpsTriggerRulePayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more OpsTriggerRules that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsTriggerRuleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OpsTriggerRules
+     * const opsTriggerRules = await prisma.opsTriggerRule.findMany()
+     * 
+     * // Get first 10 OpsTriggerRules
+     * const opsTriggerRules = await prisma.opsTriggerRule.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const opsTriggerRuleWithIdOnly = await prisma.opsTriggerRule.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OpsTriggerRuleFindManyArgs>(args?: SelectSubset<T, OpsTriggerRuleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsTriggerRulePayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a OpsTriggerRule.
+     * @param {OpsTriggerRuleCreateArgs} args - Arguments to create a OpsTriggerRule.
+     * @example
+     * // Create one OpsTriggerRule
+     * const OpsTriggerRule = await prisma.opsTriggerRule.create({
+     *   data: {
+     *     // ... data to create a OpsTriggerRule
+     *   }
+     * })
+     * 
+     */
+    create<T extends OpsTriggerRuleCreateArgs>(args: SelectSubset<T, OpsTriggerRuleCreateArgs<ExtArgs>>): Prisma__OpsTriggerRuleClient<$Result.GetResult<Prisma.$OpsTriggerRulePayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many OpsTriggerRules.
+     * @param {OpsTriggerRuleCreateManyArgs} args - Arguments to create many OpsTriggerRules.
+     * @example
+     * // Create many OpsTriggerRules
+     * const opsTriggerRule = await prisma.opsTriggerRule.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OpsTriggerRuleCreateManyArgs>(args?: SelectSubset<T, OpsTriggerRuleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OpsTriggerRules and returns the data saved in the database.
+     * @param {OpsTriggerRuleCreateManyAndReturnArgs} args - Arguments to create many OpsTriggerRules.
+     * @example
+     * // Create many OpsTriggerRules
+     * const opsTriggerRule = await prisma.opsTriggerRule.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OpsTriggerRules and only return the `id`
+     * const opsTriggerRuleWithIdOnly = await prisma.opsTriggerRule.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OpsTriggerRuleCreateManyAndReturnArgs>(args?: SelectSubset<T, OpsTriggerRuleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsTriggerRulePayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a OpsTriggerRule.
+     * @param {OpsTriggerRuleDeleteArgs} args - Arguments to delete one OpsTriggerRule.
+     * @example
+     * // Delete one OpsTriggerRule
+     * const OpsTriggerRule = await prisma.opsTriggerRule.delete({
+     *   where: {
+     *     // ... filter to delete one OpsTriggerRule
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OpsTriggerRuleDeleteArgs>(args: SelectSubset<T, OpsTriggerRuleDeleteArgs<ExtArgs>>): Prisma__OpsTriggerRuleClient<$Result.GetResult<Prisma.$OpsTriggerRulePayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one OpsTriggerRule.
+     * @param {OpsTriggerRuleUpdateArgs} args - Arguments to update one OpsTriggerRule.
+     * @example
+     * // Update one OpsTriggerRule
+     * const opsTriggerRule = await prisma.opsTriggerRule.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OpsTriggerRuleUpdateArgs>(args: SelectSubset<T, OpsTriggerRuleUpdateArgs<ExtArgs>>): Prisma__OpsTriggerRuleClient<$Result.GetResult<Prisma.$OpsTriggerRulePayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more OpsTriggerRules.
+     * @param {OpsTriggerRuleDeleteManyArgs} args - Arguments to filter OpsTriggerRules to delete.
+     * @example
+     * // Delete a few OpsTriggerRules
+     * const { count } = await prisma.opsTriggerRule.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OpsTriggerRuleDeleteManyArgs>(args?: SelectSubset<T, OpsTriggerRuleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OpsTriggerRules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsTriggerRuleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OpsTriggerRules
+     * const opsTriggerRule = await prisma.opsTriggerRule.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OpsTriggerRuleUpdateManyArgs>(args: SelectSubset<T, OpsTriggerRuleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one OpsTriggerRule.
+     * @param {OpsTriggerRuleUpsertArgs} args - Arguments to update or create a OpsTriggerRule.
+     * @example
+     * // Update or create a OpsTriggerRule
+     * const opsTriggerRule = await prisma.opsTriggerRule.upsert({
+     *   create: {
+     *     // ... data to create a OpsTriggerRule
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OpsTriggerRule we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OpsTriggerRuleUpsertArgs>(args: SelectSubset<T, OpsTriggerRuleUpsertArgs<ExtArgs>>): Prisma__OpsTriggerRuleClient<$Result.GetResult<Prisma.$OpsTriggerRulePayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of OpsTriggerRules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsTriggerRuleCountArgs} args - Arguments to filter OpsTriggerRules to count.
+     * @example
+     * // Count the number of OpsTriggerRules
+     * const count = await prisma.opsTriggerRule.count({
+     *   where: {
+     *     // ... the filter for the OpsTriggerRules we want to count
+     *   }
+     * })
+    **/
+    count<T extends OpsTriggerRuleCountArgs>(
+      args?: Subset<T, OpsTriggerRuleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OpsTriggerRuleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OpsTriggerRule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsTriggerRuleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OpsTriggerRuleAggregateArgs>(args: Subset<T, OpsTriggerRuleAggregateArgs>): Prisma.PrismaPromise<GetOpsTriggerRuleAggregateType<T>>
+
+    /**
+     * Group by OpsTriggerRule.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsTriggerRuleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OpsTriggerRuleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OpsTriggerRuleGroupByArgs['orderBy'] }
+        : { orderBy?: OpsTriggerRuleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OpsTriggerRuleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOpsTriggerRuleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OpsTriggerRule model
+   */
+  readonly fields: OpsTriggerRuleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OpsTriggerRule.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OpsTriggerRuleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OpsTriggerRule model
+   */ 
+  interface OpsTriggerRuleFieldRefs {
+    readonly id: FieldRef<"OpsTriggerRule", 'String'>
+    readonly name: FieldRef<"OpsTriggerRule", 'String'>
+    readonly eventKind: FieldRef<"OpsTriggerRule", 'String'>
+    readonly condition: FieldRef<"OpsTriggerRule", 'Json'>
+    readonly proposalTemplate: FieldRef<"OpsTriggerRule", 'Json'>
+    readonly cooldownMin: FieldRef<"OpsTriggerRule", 'Int'>
+    readonly enabled: FieldRef<"OpsTriggerRule", 'Boolean'>
+    readonly lastFiredAt: FieldRef<"OpsTriggerRule", 'DateTime'>
+    readonly createdAt: FieldRef<"OpsTriggerRule", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OpsTriggerRule findUnique
+   */
+  export type OpsTriggerRuleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsTriggerRule
+     */
+    select?: OpsTriggerRuleSelect<ExtArgs> | null
+    /**
+     * Filter, which OpsTriggerRule to fetch.
+     */
+    where: OpsTriggerRuleWhereUniqueInput
+  }
+
+  /**
+   * OpsTriggerRule findUniqueOrThrow
+   */
+  export type OpsTriggerRuleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsTriggerRule
+     */
+    select?: OpsTriggerRuleSelect<ExtArgs> | null
+    /**
+     * Filter, which OpsTriggerRule to fetch.
+     */
+    where: OpsTriggerRuleWhereUniqueInput
+  }
+
+  /**
+   * OpsTriggerRule findFirst
+   */
+  export type OpsTriggerRuleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsTriggerRule
+     */
+    select?: OpsTriggerRuleSelect<ExtArgs> | null
+    /**
+     * Filter, which OpsTriggerRule to fetch.
+     */
+    where?: OpsTriggerRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsTriggerRules to fetch.
+     */
+    orderBy?: OpsTriggerRuleOrderByWithRelationInput | OpsTriggerRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OpsTriggerRules.
+     */
+    cursor?: OpsTriggerRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsTriggerRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsTriggerRules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OpsTriggerRules.
+     */
+    distinct?: OpsTriggerRuleScalarFieldEnum | OpsTriggerRuleScalarFieldEnum[]
+  }
+
+  /**
+   * OpsTriggerRule findFirstOrThrow
+   */
+  export type OpsTriggerRuleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsTriggerRule
+     */
+    select?: OpsTriggerRuleSelect<ExtArgs> | null
+    /**
+     * Filter, which OpsTriggerRule to fetch.
+     */
+    where?: OpsTriggerRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsTriggerRules to fetch.
+     */
+    orderBy?: OpsTriggerRuleOrderByWithRelationInput | OpsTriggerRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OpsTriggerRules.
+     */
+    cursor?: OpsTriggerRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsTriggerRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsTriggerRules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OpsTriggerRules.
+     */
+    distinct?: OpsTriggerRuleScalarFieldEnum | OpsTriggerRuleScalarFieldEnum[]
+  }
+
+  /**
+   * OpsTriggerRule findMany
+   */
+  export type OpsTriggerRuleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsTriggerRule
+     */
+    select?: OpsTriggerRuleSelect<ExtArgs> | null
+    /**
+     * Filter, which OpsTriggerRules to fetch.
+     */
+    where?: OpsTriggerRuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsTriggerRules to fetch.
+     */
+    orderBy?: OpsTriggerRuleOrderByWithRelationInput | OpsTriggerRuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OpsTriggerRules.
+     */
+    cursor?: OpsTriggerRuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsTriggerRules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsTriggerRules.
+     */
+    skip?: number
+    distinct?: OpsTriggerRuleScalarFieldEnum | OpsTriggerRuleScalarFieldEnum[]
+  }
+
+  /**
+   * OpsTriggerRule create
+   */
+  export type OpsTriggerRuleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsTriggerRule
+     */
+    select?: OpsTriggerRuleSelect<ExtArgs> | null
+    /**
+     * The data needed to create a OpsTriggerRule.
+     */
+    data: XOR<OpsTriggerRuleCreateInput, OpsTriggerRuleUncheckedCreateInput>
+  }
+
+  /**
+   * OpsTriggerRule createMany
+   */
+  export type OpsTriggerRuleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OpsTriggerRules.
+     */
+    data: OpsTriggerRuleCreateManyInput | OpsTriggerRuleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OpsTriggerRule createManyAndReturn
+   */
+  export type OpsTriggerRuleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsTriggerRule
+     */
+    select?: OpsTriggerRuleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many OpsTriggerRules.
+     */
+    data: OpsTriggerRuleCreateManyInput | OpsTriggerRuleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OpsTriggerRule update
+   */
+  export type OpsTriggerRuleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsTriggerRule
+     */
+    select?: OpsTriggerRuleSelect<ExtArgs> | null
+    /**
+     * The data needed to update a OpsTriggerRule.
+     */
+    data: XOR<OpsTriggerRuleUpdateInput, OpsTriggerRuleUncheckedUpdateInput>
+    /**
+     * Choose, which OpsTriggerRule to update.
+     */
+    where: OpsTriggerRuleWhereUniqueInput
+  }
+
+  /**
+   * OpsTriggerRule updateMany
+   */
+  export type OpsTriggerRuleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OpsTriggerRules.
+     */
+    data: XOR<OpsTriggerRuleUpdateManyMutationInput, OpsTriggerRuleUncheckedUpdateManyInput>
+    /**
+     * Filter which OpsTriggerRules to update
+     */
+    where?: OpsTriggerRuleWhereInput
+  }
+
+  /**
+   * OpsTriggerRule upsert
+   */
+  export type OpsTriggerRuleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsTriggerRule
+     */
+    select?: OpsTriggerRuleSelect<ExtArgs> | null
+    /**
+     * The filter to search for the OpsTriggerRule to update in case it exists.
+     */
+    where: OpsTriggerRuleWhereUniqueInput
+    /**
+     * In case the OpsTriggerRule found by the `where` argument doesn't exist, create a new OpsTriggerRule with this data.
+     */
+    create: XOR<OpsTriggerRuleCreateInput, OpsTriggerRuleUncheckedCreateInput>
+    /**
+     * In case the OpsTriggerRule was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OpsTriggerRuleUpdateInput, OpsTriggerRuleUncheckedUpdateInput>
+  }
+
+  /**
+   * OpsTriggerRule delete
+   */
+  export type OpsTriggerRuleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsTriggerRule
+     */
+    select?: OpsTriggerRuleSelect<ExtArgs> | null
+    /**
+     * Filter which OpsTriggerRule to delete.
+     */
+    where: OpsTriggerRuleWhereUniqueInput
+  }
+
+  /**
+   * OpsTriggerRule deleteMany
+   */
+  export type OpsTriggerRuleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OpsTriggerRules to delete
+     */
+    where?: OpsTriggerRuleWhereInput
+  }
+
+  /**
+   * OpsTriggerRule without action
+   */
+  export type OpsTriggerRuleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsTriggerRule
+     */
+    select?: OpsTriggerRuleSelect<ExtArgs> | null
+  }
+
+
+  /**
+   * Model OpsReaction
+   */
+
+  export type AggregateOpsReaction = {
+    _count: OpsReactionCountAggregateOutputType | null
+    _min: OpsReactionMinAggregateOutputType | null
+    _max: OpsReactionMaxAggregateOutputType | null
+  }
+
+  export type OpsReactionMinAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    targetSkill: string | null
+    actionType: string | null
+    status: string | null
+    createdAt: Date | null
+    processedAt: Date | null
+  }
+
+  export type OpsReactionMaxAggregateOutputType = {
+    id: string | null
+    eventId: string | null
+    targetSkill: string | null
+    actionType: string | null
+    status: string | null
+    createdAt: Date | null
+    processedAt: Date | null
+  }
+
+  export type OpsReactionCountAggregateOutputType = {
+    id: number
+    eventId: number
+    targetSkill: number
+    actionType: number
+    status: number
+    createdAt: number
+    processedAt: number
+    _all: number
+  }
+
+
+  export type OpsReactionMinAggregateInputType = {
+    id?: true
+    eventId?: true
+    targetSkill?: true
+    actionType?: true
+    status?: true
+    createdAt?: true
+    processedAt?: true
+  }
+
+  export type OpsReactionMaxAggregateInputType = {
+    id?: true
+    eventId?: true
+    targetSkill?: true
+    actionType?: true
+    status?: true
+    createdAt?: true
+    processedAt?: true
+  }
+
+  export type OpsReactionCountAggregateInputType = {
+    id?: true
+    eventId?: true
+    targetSkill?: true
+    actionType?: true
+    status?: true
+    createdAt?: true
+    processedAt?: true
+    _all?: true
+  }
+
+  export type OpsReactionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OpsReaction to aggregate.
+     */
+    where?: OpsReactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsReactions to fetch.
+     */
+    orderBy?: OpsReactionOrderByWithRelationInput | OpsReactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: OpsReactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsReactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsReactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned OpsReactions
+    **/
+    _count?: true | OpsReactionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: OpsReactionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: OpsReactionMaxAggregateInputType
+  }
+
+  export type GetOpsReactionAggregateType<T extends OpsReactionAggregateArgs> = {
+        [P in keyof T & keyof AggregateOpsReaction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateOpsReaction[P]>
+      : GetScalarType<T[P], AggregateOpsReaction[P]>
+  }
+
+
+
+
+  export type OpsReactionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: OpsReactionWhereInput
+    orderBy?: OpsReactionOrderByWithAggregationInput | OpsReactionOrderByWithAggregationInput[]
+    by: OpsReactionScalarFieldEnum[] | OpsReactionScalarFieldEnum
+    having?: OpsReactionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: OpsReactionCountAggregateInputType | true
+    _min?: OpsReactionMinAggregateInputType
+    _max?: OpsReactionMaxAggregateInputType
+  }
+
+  export type OpsReactionGroupByOutputType = {
+    id: string
+    eventId: string
+    targetSkill: string
+    actionType: string
+    status: string
+    createdAt: Date
+    processedAt: Date | null
+    _count: OpsReactionCountAggregateOutputType | null
+    _min: OpsReactionMinAggregateOutputType | null
+    _max: OpsReactionMaxAggregateOutputType | null
+  }
+
+  type GetOpsReactionGroupByPayload<T extends OpsReactionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<OpsReactionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof OpsReactionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], OpsReactionGroupByOutputType[P]>
+            : GetScalarType<T[P], OpsReactionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type OpsReactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    targetSkill?: boolean
+    actionType?: boolean
+    status?: boolean
+    createdAt?: boolean
+    processedAt?: boolean
+    event?: boolean | OpsEventDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["opsReaction"]>
+
+  export type OpsReactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    eventId?: boolean
+    targetSkill?: boolean
+    actionType?: boolean
+    status?: boolean
+    createdAt?: boolean
+    processedAt?: boolean
+    event?: boolean | OpsEventDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["opsReaction"]>
+
+  export type OpsReactionSelectScalar = {
+    id?: boolean
+    eventId?: boolean
+    targetSkill?: boolean
+    actionType?: boolean
+    status?: boolean
+    createdAt?: boolean
+    processedAt?: boolean
+  }
+
+  export type OpsReactionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | OpsEventDefaultArgs<ExtArgs>
+  }
+  export type OpsReactionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    event?: boolean | OpsEventDefaultArgs<ExtArgs>
+  }
+
+  export type $OpsReactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "OpsReaction"
+    objects: {
+      event: Prisma.$OpsEventPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      eventId: string
+      targetSkill: string
+      actionType: string
+      status: string
+      createdAt: Date
+      processedAt: Date | null
+    }, ExtArgs["result"]["opsReaction"]>
+    composites: {}
+  }
+
+  type OpsReactionGetPayload<S extends boolean | null | undefined | OpsReactionDefaultArgs> = $Result.GetResult<Prisma.$OpsReactionPayload, S>
+
+  type OpsReactionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<OpsReactionFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: OpsReactionCountAggregateInputType | true
+    }
+
+  export interface OpsReactionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['OpsReaction'], meta: { name: 'OpsReaction' } }
+    /**
+     * Find zero or one OpsReaction that matches the filter.
+     * @param {OpsReactionFindUniqueArgs} args - Arguments to find a OpsReaction
+     * @example
+     * // Get one OpsReaction
+     * const opsReaction = await prisma.opsReaction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends OpsReactionFindUniqueArgs>(args: SelectSubset<T, OpsReactionFindUniqueArgs<ExtArgs>>): Prisma__OpsReactionClient<$Result.GetResult<Prisma.$OpsReactionPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one OpsReaction that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {OpsReactionFindUniqueOrThrowArgs} args - Arguments to find a OpsReaction
+     * @example
+     * // Get one OpsReaction
+     * const opsReaction = await prisma.opsReaction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends OpsReactionFindUniqueOrThrowArgs>(args: SelectSubset<T, OpsReactionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__OpsReactionClient<$Result.GetResult<Prisma.$OpsReactionPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first OpsReaction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsReactionFindFirstArgs} args - Arguments to find a OpsReaction
+     * @example
+     * // Get one OpsReaction
+     * const opsReaction = await prisma.opsReaction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends OpsReactionFindFirstArgs>(args?: SelectSubset<T, OpsReactionFindFirstArgs<ExtArgs>>): Prisma__OpsReactionClient<$Result.GetResult<Prisma.$OpsReactionPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first OpsReaction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsReactionFindFirstOrThrowArgs} args - Arguments to find a OpsReaction
+     * @example
+     * // Get one OpsReaction
+     * const opsReaction = await prisma.opsReaction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends OpsReactionFindFirstOrThrowArgs>(args?: SelectSubset<T, OpsReactionFindFirstOrThrowArgs<ExtArgs>>): Prisma__OpsReactionClient<$Result.GetResult<Prisma.$OpsReactionPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more OpsReactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsReactionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all OpsReactions
+     * const opsReactions = await prisma.opsReaction.findMany()
+     * 
+     * // Get first 10 OpsReactions
+     * const opsReactions = await prisma.opsReaction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const opsReactionWithIdOnly = await prisma.opsReaction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends OpsReactionFindManyArgs>(args?: SelectSubset<T, OpsReactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsReactionPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a OpsReaction.
+     * @param {OpsReactionCreateArgs} args - Arguments to create a OpsReaction.
+     * @example
+     * // Create one OpsReaction
+     * const OpsReaction = await prisma.opsReaction.create({
+     *   data: {
+     *     // ... data to create a OpsReaction
+     *   }
+     * })
+     * 
+     */
+    create<T extends OpsReactionCreateArgs>(args: SelectSubset<T, OpsReactionCreateArgs<ExtArgs>>): Prisma__OpsReactionClient<$Result.GetResult<Prisma.$OpsReactionPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many OpsReactions.
+     * @param {OpsReactionCreateManyArgs} args - Arguments to create many OpsReactions.
+     * @example
+     * // Create many OpsReactions
+     * const opsReaction = await prisma.opsReaction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends OpsReactionCreateManyArgs>(args?: SelectSubset<T, OpsReactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many OpsReactions and returns the data saved in the database.
+     * @param {OpsReactionCreateManyAndReturnArgs} args - Arguments to create many OpsReactions.
+     * @example
+     * // Create many OpsReactions
+     * const opsReaction = await prisma.opsReaction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many OpsReactions and only return the `id`
+     * const opsReactionWithIdOnly = await prisma.opsReaction.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends OpsReactionCreateManyAndReturnArgs>(args?: SelectSubset<T, OpsReactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$OpsReactionPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a OpsReaction.
+     * @param {OpsReactionDeleteArgs} args - Arguments to delete one OpsReaction.
+     * @example
+     * // Delete one OpsReaction
+     * const OpsReaction = await prisma.opsReaction.delete({
+     *   where: {
+     *     // ... filter to delete one OpsReaction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends OpsReactionDeleteArgs>(args: SelectSubset<T, OpsReactionDeleteArgs<ExtArgs>>): Prisma__OpsReactionClient<$Result.GetResult<Prisma.$OpsReactionPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one OpsReaction.
+     * @param {OpsReactionUpdateArgs} args - Arguments to update one OpsReaction.
+     * @example
+     * // Update one OpsReaction
+     * const opsReaction = await prisma.opsReaction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends OpsReactionUpdateArgs>(args: SelectSubset<T, OpsReactionUpdateArgs<ExtArgs>>): Prisma__OpsReactionClient<$Result.GetResult<Prisma.$OpsReactionPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more OpsReactions.
+     * @param {OpsReactionDeleteManyArgs} args - Arguments to filter OpsReactions to delete.
+     * @example
+     * // Delete a few OpsReactions
+     * const { count } = await prisma.opsReaction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends OpsReactionDeleteManyArgs>(args?: SelectSubset<T, OpsReactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more OpsReactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsReactionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many OpsReactions
+     * const opsReaction = await prisma.opsReaction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends OpsReactionUpdateManyArgs>(args: SelectSubset<T, OpsReactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one OpsReaction.
+     * @param {OpsReactionUpsertArgs} args - Arguments to update or create a OpsReaction.
+     * @example
+     * // Update or create a OpsReaction
+     * const opsReaction = await prisma.opsReaction.upsert({
+     *   create: {
+     *     // ... data to create a OpsReaction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the OpsReaction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends OpsReactionUpsertArgs>(args: SelectSubset<T, OpsReactionUpsertArgs<ExtArgs>>): Prisma__OpsReactionClient<$Result.GetResult<Prisma.$OpsReactionPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of OpsReactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsReactionCountArgs} args - Arguments to filter OpsReactions to count.
+     * @example
+     * // Count the number of OpsReactions
+     * const count = await prisma.opsReaction.count({
+     *   where: {
+     *     // ... the filter for the OpsReactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends OpsReactionCountArgs>(
+      args?: Subset<T, OpsReactionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], OpsReactionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a OpsReaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsReactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends OpsReactionAggregateArgs>(args: Subset<T, OpsReactionAggregateArgs>): Prisma.PrismaPromise<GetOpsReactionAggregateType<T>>
+
+    /**
+     * Group by OpsReaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {OpsReactionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends OpsReactionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: OpsReactionGroupByArgs['orderBy'] }
+        : { orderBy?: OpsReactionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, OpsReactionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetOpsReactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the OpsReaction model
+   */
+  readonly fields: OpsReactionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for OpsReaction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__OpsReactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    event<T extends OpsEventDefaultArgs<ExtArgs> = {}>(args?: Subset<T, OpsEventDefaultArgs<ExtArgs>>): Prisma__OpsEventClient<$Result.GetResult<Prisma.$OpsEventPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the OpsReaction model
+   */ 
+  interface OpsReactionFieldRefs {
+    readonly id: FieldRef<"OpsReaction", 'String'>
+    readonly eventId: FieldRef<"OpsReaction", 'String'>
+    readonly targetSkill: FieldRef<"OpsReaction", 'String'>
+    readonly actionType: FieldRef<"OpsReaction", 'String'>
+    readonly status: FieldRef<"OpsReaction", 'String'>
+    readonly createdAt: FieldRef<"OpsReaction", 'DateTime'>
+    readonly processedAt: FieldRef<"OpsReaction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * OpsReaction findUnique
+   */
+  export type OpsReactionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsReaction
+     */
+    select?: OpsReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsReactionInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsReaction to fetch.
+     */
+    where: OpsReactionWhereUniqueInput
+  }
+
+  /**
+   * OpsReaction findUniqueOrThrow
+   */
+  export type OpsReactionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsReaction
+     */
+    select?: OpsReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsReactionInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsReaction to fetch.
+     */
+    where: OpsReactionWhereUniqueInput
+  }
+
+  /**
+   * OpsReaction findFirst
+   */
+  export type OpsReactionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsReaction
+     */
+    select?: OpsReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsReactionInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsReaction to fetch.
+     */
+    where?: OpsReactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsReactions to fetch.
+     */
+    orderBy?: OpsReactionOrderByWithRelationInput | OpsReactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OpsReactions.
+     */
+    cursor?: OpsReactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsReactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsReactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OpsReactions.
+     */
+    distinct?: OpsReactionScalarFieldEnum | OpsReactionScalarFieldEnum[]
+  }
+
+  /**
+   * OpsReaction findFirstOrThrow
+   */
+  export type OpsReactionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsReaction
+     */
+    select?: OpsReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsReactionInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsReaction to fetch.
+     */
+    where?: OpsReactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsReactions to fetch.
+     */
+    orderBy?: OpsReactionOrderByWithRelationInput | OpsReactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for OpsReactions.
+     */
+    cursor?: OpsReactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsReactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsReactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of OpsReactions.
+     */
+    distinct?: OpsReactionScalarFieldEnum | OpsReactionScalarFieldEnum[]
+  }
+
+  /**
+   * OpsReaction findMany
+   */
+  export type OpsReactionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsReaction
+     */
+    select?: OpsReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsReactionInclude<ExtArgs> | null
+    /**
+     * Filter, which OpsReactions to fetch.
+     */
+    where?: OpsReactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of OpsReactions to fetch.
+     */
+    orderBy?: OpsReactionOrderByWithRelationInput | OpsReactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing OpsReactions.
+     */
+    cursor?: OpsReactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` OpsReactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` OpsReactions.
+     */
+    skip?: number
+    distinct?: OpsReactionScalarFieldEnum | OpsReactionScalarFieldEnum[]
+  }
+
+  /**
+   * OpsReaction create
+   */
+  export type OpsReactionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsReaction
+     */
+    select?: OpsReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsReactionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a OpsReaction.
+     */
+    data: XOR<OpsReactionCreateInput, OpsReactionUncheckedCreateInput>
+  }
+
+  /**
+   * OpsReaction createMany
+   */
+  export type OpsReactionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many OpsReactions.
+     */
+    data: OpsReactionCreateManyInput | OpsReactionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * OpsReaction createManyAndReturn
+   */
+  export type OpsReactionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsReaction
+     */
+    select?: OpsReactionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many OpsReactions.
+     */
+    data: OpsReactionCreateManyInput | OpsReactionCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsReactionIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * OpsReaction update
+   */
+  export type OpsReactionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsReaction
+     */
+    select?: OpsReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsReactionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a OpsReaction.
+     */
+    data: XOR<OpsReactionUpdateInput, OpsReactionUncheckedUpdateInput>
+    /**
+     * Choose, which OpsReaction to update.
+     */
+    where: OpsReactionWhereUniqueInput
+  }
+
+  /**
+   * OpsReaction updateMany
+   */
+  export type OpsReactionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update OpsReactions.
+     */
+    data: XOR<OpsReactionUpdateManyMutationInput, OpsReactionUncheckedUpdateManyInput>
+    /**
+     * Filter which OpsReactions to update
+     */
+    where?: OpsReactionWhereInput
+  }
+
+  /**
+   * OpsReaction upsert
+   */
+  export type OpsReactionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsReaction
+     */
+    select?: OpsReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsReactionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the OpsReaction to update in case it exists.
+     */
+    where: OpsReactionWhereUniqueInput
+    /**
+     * In case the OpsReaction found by the `where` argument doesn't exist, create a new OpsReaction with this data.
+     */
+    create: XOR<OpsReactionCreateInput, OpsReactionUncheckedCreateInput>
+    /**
+     * In case the OpsReaction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<OpsReactionUpdateInput, OpsReactionUncheckedUpdateInput>
+  }
+
+  /**
+   * OpsReaction delete
+   */
+  export type OpsReactionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsReaction
+     */
+    select?: OpsReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsReactionInclude<ExtArgs> | null
+    /**
+     * Filter which OpsReaction to delete.
+     */
+    where: OpsReactionWhereUniqueInput
+  }
+
+  /**
+   * OpsReaction deleteMany
+   */
+  export type OpsReactionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which OpsReactions to delete
+     */
+    where?: OpsReactionWhereInput
+  }
+
+  /**
+   * OpsReaction without action
+   */
+  export type OpsReactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the OpsReaction
+     */
+    select?: OpsReactionSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: OpsReactionInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -27924,6 +35383,99 @@ export namespace Prisma {
   };
 
   export type ResearchItemScalarFieldEnum = (typeof ResearchItemScalarFieldEnum)[keyof typeof ResearchItemScalarFieldEnum]
+
+
+  export const OpsProposalScalarFieldEnum: {
+    id: 'id',
+    skillName: 'skillName',
+    source: 'source',
+    status: 'status',
+    title: 'title',
+    payload: 'payload',
+    rejectReason: 'rejectReason',
+    createdAt: 'createdAt',
+    resolvedAt: 'resolvedAt'
+  };
+
+  export type OpsProposalScalarFieldEnum = (typeof OpsProposalScalarFieldEnum)[keyof typeof OpsProposalScalarFieldEnum]
+
+
+  export const OpsMissionScalarFieldEnum: {
+    id: 'id',
+    proposalId: 'proposalId',
+    status: 'status',
+    createdAt: 'createdAt',
+    completedAt: 'completedAt'
+  };
+
+  export type OpsMissionScalarFieldEnum = (typeof OpsMissionScalarFieldEnum)[keyof typeof OpsMissionScalarFieldEnum]
+
+
+  export const OpsMissionStepScalarFieldEnum: {
+    id: 'id',
+    missionId: 'missionId',
+    stepKind: 'stepKind',
+    stepOrder: 'stepOrder',
+    status: 'status',
+    input: 'input',
+    output: 'output',
+    lastError: 'lastError',
+    reservedAt: 'reservedAt',
+    completedAt: 'completedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type OpsMissionStepScalarFieldEnum = (typeof OpsMissionStepScalarFieldEnum)[keyof typeof OpsMissionStepScalarFieldEnum]
+
+
+  export const OpsEventScalarFieldEnum: {
+    id: 'id',
+    source: 'source',
+    kind: 'kind',
+    tags: 'tags',
+    payload: 'payload',
+    missionId: 'missionId',
+    createdAt: 'createdAt'
+  };
+
+  export type OpsEventScalarFieldEnum = (typeof OpsEventScalarFieldEnum)[keyof typeof OpsEventScalarFieldEnum]
+
+
+  export const OpsPolicyScalarFieldEnum: {
+    key: 'key',
+    value: 'value',
+    updatedAt: 'updatedAt'
+  };
+
+  export type OpsPolicyScalarFieldEnum = (typeof OpsPolicyScalarFieldEnum)[keyof typeof OpsPolicyScalarFieldEnum]
+
+
+  export const OpsTriggerRuleScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    eventKind: 'eventKind',
+    condition: 'condition',
+    proposalTemplate: 'proposalTemplate',
+    cooldownMin: 'cooldownMin',
+    enabled: 'enabled',
+    lastFiredAt: 'lastFiredAt',
+    createdAt: 'createdAt'
+  };
+
+  export type OpsTriggerRuleScalarFieldEnum = (typeof OpsTriggerRuleScalarFieldEnum)[keyof typeof OpsTriggerRuleScalarFieldEnum]
+
+
+  export const OpsReactionScalarFieldEnum: {
+    id: 'id',
+    eventId: 'eventId',
+    targetSkill: 'targetSkill',
+    actionType: 'actionType',
+    status: 'status',
+    createdAt: 'createdAt',
+    processedAt: 'processedAt'
+  };
+
+  export type OpsReactionScalarFieldEnum = (typeof OpsReactionScalarFieldEnum)[keyof typeof OpsReactionScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -30114,6 +37666,478 @@ export namespace Prisma {
     summary?: StringWithAggregatesFilter<"ResearchItem"> | string
     payload?: JsonWithAggregatesFilter<"ResearchItem">
     createdAt?: DateTimeWithAggregatesFilter<"ResearchItem"> | Date | string
+  }
+
+  export type OpsProposalWhereInput = {
+    AND?: OpsProposalWhereInput | OpsProposalWhereInput[]
+    OR?: OpsProposalWhereInput[]
+    NOT?: OpsProposalWhereInput | OpsProposalWhereInput[]
+    id?: UuidFilter<"OpsProposal"> | string
+    skillName?: StringFilter<"OpsProposal"> | string
+    source?: StringFilter<"OpsProposal"> | string
+    status?: StringFilter<"OpsProposal"> | string
+    title?: StringFilter<"OpsProposal"> | string
+    payload?: JsonFilter<"OpsProposal">
+    rejectReason?: StringNullableFilter<"OpsProposal"> | string | null
+    createdAt?: DateTimeFilter<"OpsProposal"> | Date | string
+    resolvedAt?: DateTimeNullableFilter<"OpsProposal"> | Date | string | null
+    missions?: OpsMissionListRelationFilter
+  }
+
+  export type OpsProposalOrderByWithRelationInput = {
+    id?: SortOrder
+    skillName?: SortOrder
+    source?: SortOrder
+    status?: SortOrder
+    title?: SortOrder
+    payload?: SortOrder
+    rejectReason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    resolvedAt?: SortOrderInput | SortOrder
+    missions?: OpsMissionOrderByRelationAggregateInput
+  }
+
+  export type OpsProposalWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: OpsProposalWhereInput | OpsProposalWhereInput[]
+    OR?: OpsProposalWhereInput[]
+    NOT?: OpsProposalWhereInput | OpsProposalWhereInput[]
+    skillName?: StringFilter<"OpsProposal"> | string
+    source?: StringFilter<"OpsProposal"> | string
+    status?: StringFilter<"OpsProposal"> | string
+    title?: StringFilter<"OpsProposal"> | string
+    payload?: JsonFilter<"OpsProposal">
+    rejectReason?: StringNullableFilter<"OpsProposal"> | string | null
+    createdAt?: DateTimeFilter<"OpsProposal"> | Date | string
+    resolvedAt?: DateTimeNullableFilter<"OpsProposal"> | Date | string | null
+    missions?: OpsMissionListRelationFilter
+  }, "id">
+
+  export type OpsProposalOrderByWithAggregationInput = {
+    id?: SortOrder
+    skillName?: SortOrder
+    source?: SortOrder
+    status?: SortOrder
+    title?: SortOrder
+    payload?: SortOrder
+    rejectReason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    resolvedAt?: SortOrderInput | SortOrder
+    _count?: OpsProposalCountOrderByAggregateInput
+    _max?: OpsProposalMaxOrderByAggregateInput
+    _min?: OpsProposalMinOrderByAggregateInput
+  }
+
+  export type OpsProposalScalarWhereWithAggregatesInput = {
+    AND?: OpsProposalScalarWhereWithAggregatesInput | OpsProposalScalarWhereWithAggregatesInput[]
+    OR?: OpsProposalScalarWhereWithAggregatesInput[]
+    NOT?: OpsProposalScalarWhereWithAggregatesInput | OpsProposalScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"OpsProposal"> | string
+    skillName?: StringWithAggregatesFilter<"OpsProposal"> | string
+    source?: StringWithAggregatesFilter<"OpsProposal"> | string
+    status?: StringWithAggregatesFilter<"OpsProposal"> | string
+    title?: StringWithAggregatesFilter<"OpsProposal"> | string
+    payload?: JsonWithAggregatesFilter<"OpsProposal">
+    rejectReason?: StringNullableWithAggregatesFilter<"OpsProposal"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"OpsProposal"> | Date | string
+    resolvedAt?: DateTimeNullableWithAggregatesFilter<"OpsProposal"> | Date | string | null
+  }
+
+  export type OpsMissionWhereInput = {
+    AND?: OpsMissionWhereInput | OpsMissionWhereInput[]
+    OR?: OpsMissionWhereInput[]
+    NOT?: OpsMissionWhereInput | OpsMissionWhereInput[]
+    id?: UuidFilter<"OpsMission"> | string
+    proposalId?: UuidFilter<"OpsMission"> | string
+    status?: StringFilter<"OpsMission"> | string
+    createdAt?: DateTimeFilter<"OpsMission"> | Date | string
+    completedAt?: DateTimeNullableFilter<"OpsMission"> | Date | string | null
+    proposal?: XOR<OpsProposalRelationFilter, OpsProposalWhereInput>
+    steps?: OpsMissionStepListRelationFilter
+    events?: OpsEventListRelationFilter
+  }
+
+  export type OpsMissionOrderByWithRelationInput = {
+    id?: SortOrder
+    proposalId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    proposal?: OpsProposalOrderByWithRelationInput
+    steps?: OpsMissionStepOrderByRelationAggregateInput
+    events?: OpsEventOrderByRelationAggregateInput
+  }
+
+  export type OpsMissionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: OpsMissionWhereInput | OpsMissionWhereInput[]
+    OR?: OpsMissionWhereInput[]
+    NOT?: OpsMissionWhereInput | OpsMissionWhereInput[]
+    proposalId?: UuidFilter<"OpsMission"> | string
+    status?: StringFilter<"OpsMission"> | string
+    createdAt?: DateTimeFilter<"OpsMission"> | Date | string
+    completedAt?: DateTimeNullableFilter<"OpsMission"> | Date | string | null
+    proposal?: XOR<OpsProposalRelationFilter, OpsProposalWhereInput>
+    steps?: OpsMissionStepListRelationFilter
+    events?: OpsEventListRelationFilter
+  }, "id">
+
+  export type OpsMissionOrderByWithAggregationInput = {
+    id?: SortOrder
+    proposalId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    _count?: OpsMissionCountOrderByAggregateInput
+    _max?: OpsMissionMaxOrderByAggregateInput
+    _min?: OpsMissionMinOrderByAggregateInput
+  }
+
+  export type OpsMissionScalarWhereWithAggregatesInput = {
+    AND?: OpsMissionScalarWhereWithAggregatesInput | OpsMissionScalarWhereWithAggregatesInput[]
+    OR?: OpsMissionScalarWhereWithAggregatesInput[]
+    NOT?: OpsMissionScalarWhereWithAggregatesInput | OpsMissionScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"OpsMission"> | string
+    proposalId?: UuidWithAggregatesFilter<"OpsMission"> | string
+    status?: StringWithAggregatesFilter<"OpsMission"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"OpsMission"> | Date | string
+    completedAt?: DateTimeNullableWithAggregatesFilter<"OpsMission"> | Date | string | null
+  }
+
+  export type OpsMissionStepWhereInput = {
+    AND?: OpsMissionStepWhereInput | OpsMissionStepWhereInput[]
+    OR?: OpsMissionStepWhereInput[]
+    NOT?: OpsMissionStepWhereInput | OpsMissionStepWhereInput[]
+    id?: UuidFilter<"OpsMissionStep"> | string
+    missionId?: UuidFilter<"OpsMissionStep"> | string
+    stepKind?: StringFilter<"OpsMissionStep"> | string
+    stepOrder?: IntFilter<"OpsMissionStep"> | number
+    status?: StringFilter<"OpsMissionStep"> | string
+    input?: JsonNullableFilter<"OpsMissionStep">
+    output?: JsonNullableFilter<"OpsMissionStep">
+    lastError?: StringNullableFilter<"OpsMissionStep"> | string | null
+    reservedAt?: DateTimeNullableFilter<"OpsMissionStep"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"OpsMissionStep"> | Date | string | null
+    createdAt?: DateTimeFilter<"OpsMissionStep"> | Date | string
+    mission?: XOR<OpsMissionRelationFilter, OpsMissionWhereInput>
+  }
+
+  export type OpsMissionStepOrderByWithRelationInput = {
+    id?: SortOrder
+    missionId?: SortOrder
+    stepKind?: SortOrder
+    stepOrder?: SortOrder
+    status?: SortOrder
+    input?: SortOrderInput | SortOrder
+    output?: SortOrderInput | SortOrder
+    lastError?: SortOrderInput | SortOrder
+    reservedAt?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    mission?: OpsMissionOrderByWithRelationInput
+  }
+
+  export type OpsMissionStepWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: OpsMissionStepWhereInput | OpsMissionStepWhereInput[]
+    OR?: OpsMissionStepWhereInput[]
+    NOT?: OpsMissionStepWhereInput | OpsMissionStepWhereInput[]
+    missionId?: UuidFilter<"OpsMissionStep"> | string
+    stepKind?: StringFilter<"OpsMissionStep"> | string
+    stepOrder?: IntFilter<"OpsMissionStep"> | number
+    status?: StringFilter<"OpsMissionStep"> | string
+    input?: JsonNullableFilter<"OpsMissionStep">
+    output?: JsonNullableFilter<"OpsMissionStep">
+    lastError?: StringNullableFilter<"OpsMissionStep"> | string | null
+    reservedAt?: DateTimeNullableFilter<"OpsMissionStep"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"OpsMissionStep"> | Date | string | null
+    createdAt?: DateTimeFilter<"OpsMissionStep"> | Date | string
+    mission?: XOR<OpsMissionRelationFilter, OpsMissionWhereInput>
+  }, "id">
+
+  export type OpsMissionStepOrderByWithAggregationInput = {
+    id?: SortOrder
+    missionId?: SortOrder
+    stepKind?: SortOrder
+    stepOrder?: SortOrder
+    status?: SortOrder
+    input?: SortOrderInput | SortOrder
+    output?: SortOrderInput | SortOrder
+    lastError?: SortOrderInput | SortOrder
+    reservedAt?: SortOrderInput | SortOrder
+    completedAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: OpsMissionStepCountOrderByAggregateInput
+    _avg?: OpsMissionStepAvgOrderByAggregateInput
+    _max?: OpsMissionStepMaxOrderByAggregateInput
+    _min?: OpsMissionStepMinOrderByAggregateInput
+    _sum?: OpsMissionStepSumOrderByAggregateInput
+  }
+
+  export type OpsMissionStepScalarWhereWithAggregatesInput = {
+    AND?: OpsMissionStepScalarWhereWithAggregatesInput | OpsMissionStepScalarWhereWithAggregatesInput[]
+    OR?: OpsMissionStepScalarWhereWithAggregatesInput[]
+    NOT?: OpsMissionStepScalarWhereWithAggregatesInput | OpsMissionStepScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"OpsMissionStep"> | string
+    missionId?: UuidWithAggregatesFilter<"OpsMissionStep"> | string
+    stepKind?: StringWithAggregatesFilter<"OpsMissionStep"> | string
+    stepOrder?: IntWithAggregatesFilter<"OpsMissionStep"> | number
+    status?: StringWithAggregatesFilter<"OpsMissionStep"> | string
+    input?: JsonNullableWithAggregatesFilter<"OpsMissionStep">
+    output?: JsonNullableWithAggregatesFilter<"OpsMissionStep">
+    lastError?: StringNullableWithAggregatesFilter<"OpsMissionStep"> | string | null
+    reservedAt?: DateTimeNullableWithAggregatesFilter<"OpsMissionStep"> | Date | string | null
+    completedAt?: DateTimeNullableWithAggregatesFilter<"OpsMissionStep"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"OpsMissionStep"> | Date | string
+  }
+
+  export type OpsEventWhereInput = {
+    AND?: OpsEventWhereInput | OpsEventWhereInput[]
+    OR?: OpsEventWhereInput[]
+    NOT?: OpsEventWhereInput | OpsEventWhereInput[]
+    id?: UuidFilter<"OpsEvent"> | string
+    source?: StringFilter<"OpsEvent"> | string
+    kind?: StringFilter<"OpsEvent"> | string
+    tags?: StringNullableListFilter<"OpsEvent">
+    payload?: JsonNullableFilter<"OpsEvent">
+    missionId?: UuidNullableFilter<"OpsEvent"> | string | null
+    createdAt?: DateTimeFilter<"OpsEvent"> | Date | string
+    mission?: XOR<OpsMissionNullableRelationFilter, OpsMissionWhereInput> | null
+    reactions?: OpsReactionListRelationFilter
+  }
+
+  export type OpsEventOrderByWithRelationInput = {
+    id?: SortOrder
+    source?: SortOrder
+    kind?: SortOrder
+    tags?: SortOrder
+    payload?: SortOrderInput | SortOrder
+    missionId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    mission?: OpsMissionOrderByWithRelationInput
+    reactions?: OpsReactionOrderByRelationAggregateInput
+  }
+
+  export type OpsEventWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: OpsEventWhereInput | OpsEventWhereInput[]
+    OR?: OpsEventWhereInput[]
+    NOT?: OpsEventWhereInput | OpsEventWhereInput[]
+    source?: StringFilter<"OpsEvent"> | string
+    kind?: StringFilter<"OpsEvent"> | string
+    tags?: StringNullableListFilter<"OpsEvent">
+    payload?: JsonNullableFilter<"OpsEvent">
+    missionId?: UuidNullableFilter<"OpsEvent"> | string | null
+    createdAt?: DateTimeFilter<"OpsEvent"> | Date | string
+    mission?: XOR<OpsMissionNullableRelationFilter, OpsMissionWhereInput> | null
+    reactions?: OpsReactionListRelationFilter
+  }, "id">
+
+  export type OpsEventOrderByWithAggregationInput = {
+    id?: SortOrder
+    source?: SortOrder
+    kind?: SortOrder
+    tags?: SortOrder
+    payload?: SortOrderInput | SortOrder
+    missionId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: OpsEventCountOrderByAggregateInput
+    _max?: OpsEventMaxOrderByAggregateInput
+    _min?: OpsEventMinOrderByAggregateInput
+  }
+
+  export type OpsEventScalarWhereWithAggregatesInput = {
+    AND?: OpsEventScalarWhereWithAggregatesInput | OpsEventScalarWhereWithAggregatesInput[]
+    OR?: OpsEventScalarWhereWithAggregatesInput[]
+    NOT?: OpsEventScalarWhereWithAggregatesInput | OpsEventScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"OpsEvent"> | string
+    source?: StringWithAggregatesFilter<"OpsEvent"> | string
+    kind?: StringWithAggregatesFilter<"OpsEvent"> | string
+    tags?: StringNullableListFilter<"OpsEvent">
+    payload?: JsonNullableWithAggregatesFilter<"OpsEvent">
+    missionId?: UuidNullableWithAggregatesFilter<"OpsEvent"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"OpsEvent"> | Date | string
+  }
+
+  export type OpsPolicyWhereInput = {
+    AND?: OpsPolicyWhereInput | OpsPolicyWhereInput[]
+    OR?: OpsPolicyWhereInput[]
+    NOT?: OpsPolicyWhereInput | OpsPolicyWhereInput[]
+    key?: StringFilter<"OpsPolicy"> | string
+    value?: JsonFilter<"OpsPolicy">
+    updatedAt?: DateTimeFilter<"OpsPolicy"> | Date | string
+  }
+
+  export type OpsPolicyOrderByWithRelationInput = {
+    key?: SortOrder
+    value?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OpsPolicyWhereUniqueInput = Prisma.AtLeast<{
+    key?: string
+    AND?: OpsPolicyWhereInput | OpsPolicyWhereInput[]
+    OR?: OpsPolicyWhereInput[]
+    NOT?: OpsPolicyWhereInput | OpsPolicyWhereInput[]
+    value?: JsonFilter<"OpsPolicy">
+    updatedAt?: DateTimeFilter<"OpsPolicy"> | Date | string
+  }, "key">
+
+  export type OpsPolicyOrderByWithAggregationInput = {
+    key?: SortOrder
+    value?: SortOrder
+    updatedAt?: SortOrder
+    _count?: OpsPolicyCountOrderByAggregateInput
+    _max?: OpsPolicyMaxOrderByAggregateInput
+    _min?: OpsPolicyMinOrderByAggregateInput
+  }
+
+  export type OpsPolicyScalarWhereWithAggregatesInput = {
+    AND?: OpsPolicyScalarWhereWithAggregatesInput | OpsPolicyScalarWhereWithAggregatesInput[]
+    OR?: OpsPolicyScalarWhereWithAggregatesInput[]
+    NOT?: OpsPolicyScalarWhereWithAggregatesInput | OpsPolicyScalarWhereWithAggregatesInput[]
+    key?: StringWithAggregatesFilter<"OpsPolicy"> | string
+    value?: JsonWithAggregatesFilter<"OpsPolicy">
+    updatedAt?: DateTimeWithAggregatesFilter<"OpsPolicy"> | Date | string
+  }
+
+  export type OpsTriggerRuleWhereInput = {
+    AND?: OpsTriggerRuleWhereInput | OpsTriggerRuleWhereInput[]
+    OR?: OpsTriggerRuleWhereInput[]
+    NOT?: OpsTriggerRuleWhereInput | OpsTriggerRuleWhereInput[]
+    id?: UuidFilter<"OpsTriggerRule"> | string
+    name?: StringFilter<"OpsTriggerRule"> | string
+    eventKind?: StringFilter<"OpsTriggerRule"> | string
+    condition?: JsonFilter<"OpsTriggerRule">
+    proposalTemplate?: JsonFilter<"OpsTriggerRule">
+    cooldownMin?: IntFilter<"OpsTriggerRule"> | number
+    enabled?: BoolFilter<"OpsTriggerRule"> | boolean
+    lastFiredAt?: DateTimeNullableFilter<"OpsTriggerRule"> | Date | string | null
+    createdAt?: DateTimeFilter<"OpsTriggerRule"> | Date | string
+  }
+
+  export type OpsTriggerRuleOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    eventKind?: SortOrder
+    condition?: SortOrder
+    proposalTemplate?: SortOrder
+    cooldownMin?: SortOrder
+    enabled?: SortOrder
+    lastFiredAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type OpsTriggerRuleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: OpsTriggerRuleWhereInput | OpsTriggerRuleWhereInput[]
+    OR?: OpsTriggerRuleWhereInput[]
+    NOT?: OpsTriggerRuleWhereInput | OpsTriggerRuleWhereInput[]
+    eventKind?: StringFilter<"OpsTriggerRule"> | string
+    condition?: JsonFilter<"OpsTriggerRule">
+    proposalTemplate?: JsonFilter<"OpsTriggerRule">
+    cooldownMin?: IntFilter<"OpsTriggerRule"> | number
+    enabled?: BoolFilter<"OpsTriggerRule"> | boolean
+    lastFiredAt?: DateTimeNullableFilter<"OpsTriggerRule"> | Date | string | null
+    createdAt?: DateTimeFilter<"OpsTriggerRule"> | Date | string
+  }, "id" | "name">
+
+  export type OpsTriggerRuleOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    eventKind?: SortOrder
+    condition?: SortOrder
+    proposalTemplate?: SortOrder
+    cooldownMin?: SortOrder
+    enabled?: SortOrder
+    lastFiredAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: OpsTriggerRuleCountOrderByAggregateInput
+    _avg?: OpsTriggerRuleAvgOrderByAggregateInput
+    _max?: OpsTriggerRuleMaxOrderByAggregateInput
+    _min?: OpsTriggerRuleMinOrderByAggregateInput
+    _sum?: OpsTriggerRuleSumOrderByAggregateInput
+  }
+
+  export type OpsTriggerRuleScalarWhereWithAggregatesInput = {
+    AND?: OpsTriggerRuleScalarWhereWithAggregatesInput | OpsTriggerRuleScalarWhereWithAggregatesInput[]
+    OR?: OpsTriggerRuleScalarWhereWithAggregatesInput[]
+    NOT?: OpsTriggerRuleScalarWhereWithAggregatesInput | OpsTriggerRuleScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"OpsTriggerRule"> | string
+    name?: StringWithAggregatesFilter<"OpsTriggerRule"> | string
+    eventKind?: StringWithAggregatesFilter<"OpsTriggerRule"> | string
+    condition?: JsonWithAggregatesFilter<"OpsTriggerRule">
+    proposalTemplate?: JsonWithAggregatesFilter<"OpsTriggerRule">
+    cooldownMin?: IntWithAggregatesFilter<"OpsTriggerRule"> | number
+    enabled?: BoolWithAggregatesFilter<"OpsTriggerRule"> | boolean
+    lastFiredAt?: DateTimeNullableWithAggregatesFilter<"OpsTriggerRule"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"OpsTriggerRule"> | Date | string
+  }
+
+  export type OpsReactionWhereInput = {
+    AND?: OpsReactionWhereInput | OpsReactionWhereInput[]
+    OR?: OpsReactionWhereInput[]
+    NOT?: OpsReactionWhereInput | OpsReactionWhereInput[]
+    id?: UuidFilter<"OpsReaction"> | string
+    eventId?: UuidFilter<"OpsReaction"> | string
+    targetSkill?: StringFilter<"OpsReaction"> | string
+    actionType?: StringFilter<"OpsReaction"> | string
+    status?: StringFilter<"OpsReaction"> | string
+    createdAt?: DateTimeFilter<"OpsReaction"> | Date | string
+    processedAt?: DateTimeNullableFilter<"OpsReaction"> | Date | string | null
+    event?: XOR<OpsEventRelationFilter, OpsEventWhereInput>
+  }
+
+  export type OpsReactionOrderByWithRelationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    targetSkill?: SortOrder
+    actionType?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    processedAt?: SortOrderInput | SortOrder
+    event?: OpsEventOrderByWithRelationInput
+  }
+
+  export type OpsReactionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: OpsReactionWhereInput | OpsReactionWhereInput[]
+    OR?: OpsReactionWhereInput[]
+    NOT?: OpsReactionWhereInput | OpsReactionWhereInput[]
+    eventId?: UuidFilter<"OpsReaction"> | string
+    targetSkill?: StringFilter<"OpsReaction"> | string
+    actionType?: StringFilter<"OpsReaction"> | string
+    status?: StringFilter<"OpsReaction"> | string
+    createdAt?: DateTimeFilter<"OpsReaction"> | Date | string
+    processedAt?: DateTimeNullableFilter<"OpsReaction"> | Date | string | null
+    event?: XOR<OpsEventRelationFilter, OpsEventWhereInput>
+  }, "id">
+
+  export type OpsReactionOrderByWithAggregationInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    targetSkill?: SortOrder
+    actionType?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    processedAt?: SortOrderInput | SortOrder
+    _count?: OpsReactionCountOrderByAggregateInput
+    _max?: OpsReactionMaxOrderByAggregateInput
+    _min?: OpsReactionMinOrderByAggregateInput
+  }
+
+  export type OpsReactionScalarWhereWithAggregatesInput = {
+    AND?: OpsReactionScalarWhereWithAggregatesInput | OpsReactionScalarWhereWithAggregatesInput[]
+    OR?: OpsReactionScalarWhereWithAggregatesInput[]
+    NOT?: OpsReactionScalarWhereWithAggregatesInput | OpsReactionScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"OpsReaction"> | string
+    eventId?: UuidWithAggregatesFilter<"OpsReaction"> | string
+    targetSkill?: StringWithAggregatesFilter<"OpsReaction"> | string
+    actionType?: StringWithAggregatesFilter<"OpsReaction"> | string
+    status?: StringWithAggregatesFilter<"OpsReaction"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"OpsReaction"> | Date | string
+    processedAt?: DateTimeNullableWithAggregatesFilter<"OpsReaction"> | Date | string | null
   }
 
   export type TokenCreateInput = {
@@ -32476,6 +40500,522 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type OpsProposalCreateInput = {
+    id?: string
+    skillName: string
+    source: string
+    status?: string
+    title: string
+    payload?: JsonNullValueInput | InputJsonValue
+    rejectReason?: string | null
+    createdAt?: Date | string
+    resolvedAt?: Date | string | null
+    missions?: OpsMissionCreateNestedManyWithoutProposalInput
+  }
+
+  export type OpsProposalUncheckedCreateInput = {
+    id?: string
+    skillName: string
+    source: string
+    status?: string
+    title: string
+    payload?: JsonNullValueInput | InputJsonValue
+    rejectReason?: string | null
+    createdAt?: Date | string
+    resolvedAt?: Date | string | null
+    missions?: OpsMissionUncheckedCreateNestedManyWithoutProposalInput
+  }
+
+  export type OpsProposalUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skillName?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    missions?: OpsMissionUpdateManyWithoutProposalNestedInput
+  }
+
+  export type OpsProposalUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skillName?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    missions?: OpsMissionUncheckedUpdateManyWithoutProposalNestedInput
+  }
+
+  export type OpsProposalCreateManyInput = {
+    id?: string
+    skillName: string
+    source: string
+    status?: string
+    title: string
+    payload?: JsonNullValueInput | InputJsonValue
+    rejectReason?: string | null
+    createdAt?: Date | string
+    resolvedAt?: Date | string | null
+  }
+
+  export type OpsProposalUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skillName?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type OpsProposalUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skillName?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type OpsMissionCreateInput = {
+    id?: string
+    status?: string
+    createdAt?: Date | string
+    completedAt?: Date | string | null
+    proposal: OpsProposalCreateNestedOneWithoutMissionsInput
+    steps?: OpsMissionStepCreateNestedManyWithoutMissionInput
+    events?: OpsEventCreateNestedManyWithoutMissionInput
+  }
+
+  export type OpsMissionUncheckedCreateInput = {
+    id?: string
+    proposalId: string
+    status?: string
+    createdAt?: Date | string
+    completedAt?: Date | string | null
+    steps?: OpsMissionStepUncheckedCreateNestedManyWithoutMissionInput
+    events?: OpsEventUncheckedCreateNestedManyWithoutMissionInput
+  }
+
+  export type OpsMissionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proposal?: OpsProposalUpdateOneRequiredWithoutMissionsNestedInput
+    steps?: OpsMissionStepUpdateManyWithoutMissionNestedInput
+    events?: OpsEventUpdateManyWithoutMissionNestedInput
+  }
+
+  export type OpsMissionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposalId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    steps?: OpsMissionStepUncheckedUpdateManyWithoutMissionNestedInput
+    events?: OpsEventUncheckedUpdateManyWithoutMissionNestedInput
+  }
+
+  export type OpsMissionCreateManyInput = {
+    id?: string
+    proposalId: string
+    status?: string
+    createdAt?: Date | string
+    completedAt?: Date | string | null
+  }
+
+  export type OpsMissionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type OpsMissionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposalId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type OpsMissionStepCreateInput = {
+    id?: string
+    stepKind: string
+    stepOrder: number
+    status?: string
+    input?: NullableJsonNullValueInput | InputJsonValue
+    output?: NullableJsonNullValueInput | InputJsonValue
+    lastError?: string | null
+    reservedAt?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+    mission: OpsMissionCreateNestedOneWithoutStepsInput
+  }
+
+  export type OpsMissionStepUncheckedCreateInput = {
+    id?: string
+    missionId: string
+    stepKind: string
+    stepOrder: number
+    status?: string
+    input?: NullableJsonNullValueInput | InputJsonValue
+    output?: NullableJsonNullValueInput | InputJsonValue
+    lastError?: string | null
+    reservedAt?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type OpsMissionStepUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stepKind?: StringFieldUpdateOperationsInput | string
+    stepOrder?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    input?: NullableJsonNullValueInput | InputJsonValue
+    output?: NullableJsonNullValueInput | InputJsonValue
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    reservedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mission?: OpsMissionUpdateOneRequiredWithoutStepsNestedInput
+  }
+
+  export type OpsMissionStepUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    missionId?: StringFieldUpdateOperationsInput | string
+    stepKind?: StringFieldUpdateOperationsInput | string
+    stepOrder?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    input?: NullableJsonNullValueInput | InputJsonValue
+    output?: NullableJsonNullValueInput | InputJsonValue
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    reservedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OpsMissionStepCreateManyInput = {
+    id?: string
+    missionId: string
+    stepKind: string
+    stepOrder: number
+    status?: string
+    input?: NullableJsonNullValueInput | InputJsonValue
+    output?: NullableJsonNullValueInput | InputJsonValue
+    lastError?: string | null
+    reservedAt?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type OpsMissionStepUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stepKind?: StringFieldUpdateOperationsInput | string
+    stepOrder?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    input?: NullableJsonNullValueInput | InputJsonValue
+    output?: NullableJsonNullValueInput | InputJsonValue
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    reservedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OpsMissionStepUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    missionId?: StringFieldUpdateOperationsInput | string
+    stepKind?: StringFieldUpdateOperationsInput | string
+    stepOrder?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    input?: NullableJsonNullValueInput | InputJsonValue
+    output?: NullableJsonNullValueInput | InputJsonValue
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    reservedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OpsEventCreateInput = {
+    id?: string
+    source: string
+    kind: string
+    tags?: OpsEventCreatetagsInput | string[]
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    mission?: OpsMissionCreateNestedOneWithoutEventsInput
+    reactions?: OpsReactionCreateNestedManyWithoutEventInput
+  }
+
+  export type OpsEventUncheckedCreateInput = {
+    id?: string
+    source: string
+    kind: string
+    tags?: OpsEventCreatetagsInput | string[]
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    missionId?: string | null
+    createdAt?: Date | string
+    reactions?: OpsReactionUncheckedCreateNestedManyWithoutEventInput
+  }
+
+  export type OpsEventUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    tags?: OpsEventUpdatetagsInput | string[]
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mission?: OpsMissionUpdateOneWithoutEventsNestedInput
+    reactions?: OpsReactionUpdateManyWithoutEventNestedInput
+  }
+
+  export type OpsEventUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    tags?: OpsEventUpdatetagsInput | string[]
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    missionId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reactions?: OpsReactionUncheckedUpdateManyWithoutEventNestedInput
+  }
+
+  export type OpsEventCreateManyInput = {
+    id?: string
+    source: string
+    kind: string
+    tags?: OpsEventCreatetagsInput | string[]
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    missionId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type OpsEventUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    tags?: OpsEventUpdatetagsInput | string[]
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OpsEventUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    tags?: OpsEventUpdatetagsInput | string[]
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    missionId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OpsPolicyCreateInput = {
+    key: string
+    value: JsonNullValueInput | InputJsonValue
+    updatedAt?: Date | string
+  }
+
+  export type OpsPolicyUncheckedCreateInput = {
+    key: string
+    value: JsonNullValueInput | InputJsonValue
+    updatedAt?: Date | string
+  }
+
+  export type OpsPolicyUpdateInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    value?: JsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OpsPolicyUncheckedUpdateInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    value?: JsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OpsPolicyCreateManyInput = {
+    key: string
+    value: JsonNullValueInput | InputJsonValue
+    updatedAt?: Date | string
+  }
+
+  export type OpsPolicyUpdateManyMutationInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    value?: JsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OpsPolicyUncheckedUpdateManyInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    value?: JsonNullValueInput | InputJsonValue
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OpsTriggerRuleCreateInput = {
+    id?: string
+    name: string
+    eventKind: string
+    condition?: JsonNullValueInput | InputJsonValue
+    proposalTemplate: JsonNullValueInput | InputJsonValue
+    cooldownMin?: number
+    enabled?: boolean
+    lastFiredAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type OpsTriggerRuleUncheckedCreateInput = {
+    id?: string
+    name: string
+    eventKind: string
+    condition?: JsonNullValueInput | InputJsonValue
+    proposalTemplate: JsonNullValueInput | InputJsonValue
+    cooldownMin?: number
+    enabled?: boolean
+    lastFiredAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type OpsTriggerRuleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    eventKind?: StringFieldUpdateOperationsInput | string
+    condition?: JsonNullValueInput | InputJsonValue
+    proposalTemplate?: JsonNullValueInput | InputJsonValue
+    cooldownMin?: IntFieldUpdateOperationsInput | number
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    lastFiredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OpsTriggerRuleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    eventKind?: StringFieldUpdateOperationsInput | string
+    condition?: JsonNullValueInput | InputJsonValue
+    proposalTemplate?: JsonNullValueInput | InputJsonValue
+    cooldownMin?: IntFieldUpdateOperationsInput | number
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    lastFiredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OpsTriggerRuleCreateManyInput = {
+    id?: string
+    name: string
+    eventKind: string
+    condition?: JsonNullValueInput | InputJsonValue
+    proposalTemplate: JsonNullValueInput | InputJsonValue
+    cooldownMin?: number
+    enabled?: boolean
+    lastFiredAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type OpsTriggerRuleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    eventKind?: StringFieldUpdateOperationsInput | string
+    condition?: JsonNullValueInput | InputJsonValue
+    proposalTemplate?: JsonNullValueInput | InputJsonValue
+    cooldownMin?: IntFieldUpdateOperationsInput | number
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    lastFiredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OpsTriggerRuleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    eventKind?: StringFieldUpdateOperationsInput | string
+    condition?: JsonNullValueInput | InputJsonValue
+    proposalTemplate?: JsonNullValueInput | InputJsonValue
+    cooldownMin?: IntFieldUpdateOperationsInput | number
+    enabled?: BoolFieldUpdateOperationsInput | boolean
+    lastFiredAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OpsReactionCreateInput = {
+    id?: string
+    targetSkill: string
+    actionType: string
+    status?: string
+    createdAt?: Date | string
+    processedAt?: Date | string | null
+    event: OpsEventCreateNestedOneWithoutReactionsInput
+  }
+
+  export type OpsReactionUncheckedCreateInput = {
+    id?: string
+    eventId: string
+    targetSkill: string
+    actionType: string
+    status?: string
+    createdAt?: Date | string
+    processedAt?: Date | string | null
+  }
+
+  export type OpsReactionUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetSkill?: StringFieldUpdateOperationsInput | string
+    actionType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    event?: OpsEventUpdateOneRequiredWithoutReactionsNestedInput
+  }
+
+  export type OpsReactionUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    targetSkill?: StringFieldUpdateOperationsInput | string
+    actionType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type OpsReactionCreateManyInput = {
+    id?: string
+    eventId: string
+    targetSkill: string
+    actionType: string
+    status?: string
+    createdAt?: Date | string
+    processedAt?: Date | string | null
+  }
+
+  export type OpsReactionUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetSkill?: StringFieldUpdateOperationsInput | string
+    actionType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type OpsReactionUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    eventId?: StringFieldUpdateOperationsInput | string
+    targetSkill?: StringFieldUpdateOperationsInput | string
+    actionType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -34159,6 +42699,282 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type OpsMissionListRelationFilter = {
+    every?: OpsMissionWhereInput
+    some?: OpsMissionWhereInput
+    none?: OpsMissionWhereInput
+  }
+
+  export type OpsMissionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OpsProposalCountOrderByAggregateInput = {
+    id?: SortOrder
+    skillName?: SortOrder
+    source?: SortOrder
+    status?: SortOrder
+    title?: SortOrder
+    payload?: SortOrder
+    rejectReason?: SortOrder
+    createdAt?: SortOrder
+    resolvedAt?: SortOrder
+  }
+
+  export type OpsProposalMaxOrderByAggregateInput = {
+    id?: SortOrder
+    skillName?: SortOrder
+    source?: SortOrder
+    status?: SortOrder
+    title?: SortOrder
+    rejectReason?: SortOrder
+    createdAt?: SortOrder
+    resolvedAt?: SortOrder
+  }
+
+  export type OpsProposalMinOrderByAggregateInput = {
+    id?: SortOrder
+    skillName?: SortOrder
+    source?: SortOrder
+    status?: SortOrder
+    title?: SortOrder
+    rejectReason?: SortOrder
+    createdAt?: SortOrder
+    resolvedAt?: SortOrder
+  }
+
+  export type OpsProposalRelationFilter = {
+    is?: OpsProposalWhereInput
+    isNot?: OpsProposalWhereInput
+  }
+
+  export type OpsMissionStepListRelationFilter = {
+    every?: OpsMissionStepWhereInput
+    some?: OpsMissionStepWhereInput
+    none?: OpsMissionStepWhereInput
+  }
+
+  export type OpsEventListRelationFilter = {
+    every?: OpsEventWhereInput
+    some?: OpsEventWhereInput
+    none?: OpsEventWhereInput
+  }
+
+  export type OpsMissionStepOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OpsEventOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OpsMissionCountOrderByAggregateInput = {
+    id?: SortOrder
+    proposalId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    completedAt?: SortOrder
+  }
+
+  export type OpsMissionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    proposalId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    completedAt?: SortOrder
+  }
+
+  export type OpsMissionMinOrderByAggregateInput = {
+    id?: SortOrder
+    proposalId?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    completedAt?: SortOrder
+  }
+
+  export type OpsMissionRelationFilter = {
+    is?: OpsMissionWhereInput
+    isNot?: OpsMissionWhereInput
+  }
+
+  export type OpsMissionStepCountOrderByAggregateInput = {
+    id?: SortOrder
+    missionId?: SortOrder
+    stepKind?: SortOrder
+    stepOrder?: SortOrder
+    status?: SortOrder
+    input?: SortOrder
+    output?: SortOrder
+    lastError?: SortOrder
+    reservedAt?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type OpsMissionStepAvgOrderByAggregateInput = {
+    stepOrder?: SortOrder
+  }
+
+  export type OpsMissionStepMaxOrderByAggregateInput = {
+    id?: SortOrder
+    missionId?: SortOrder
+    stepKind?: SortOrder
+    stepOrder?: SortOrder
+    status?: SortOrder
+    lastError?: SortOrder
+    reservedAt?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type OpsMissionStepMinOrderByAggregateInput = {
+    id?: SortOrder
+    missionId?: SortOrder
+    stepKind?: SortOrder
+    stepOrder?: SortOrder
+    status?: SortOrder
+    lastError?: SortOrder
+    reservedAt?: SortOrder
+    completedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type OpsMissionStepSumOrderByAggregateInput = {
+    stepOrder?: SortOrder
+  }
+
+  export type OpsMissionNullableRelationFilter = {
+    is?: OpsMissionWhereInput | null
+    isNot?: OpsMissionWhereInput | null
+  }
+
+  export type OpsReactionListRelationFilter = {
+    every?: OpsReactionWhereInput
+    some?: OpsReactionWhereInput
+    none?: OpsReactionWhereInput
+  }
+
+  export type OpsReactionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type OpsEventCountOrderByAggregateInput = {
+    id?: SortOrder
+    source?: SortOrder
+    kind?: SortOrder
+    tags?: SortOrder
+    payload?: SortOrder
+    missionId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type OpsEventMaxOrderByAggregateInput = {
+    id?: SortOrder
+    source?: SortOrder
+    kind?: SortOrder
+    missionId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type OpsEventMinOrderByAggregateInput = {
+    id?: SortOrder
+    source?: SortOrder
+    kind?: SortOrder
+    missionId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type OpsPolicyCountOrderByAggregateInput = {
+    key?: SortOrder
+    value?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OpsPolicyMaxOrderByAggregateInput = {
+    key?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OpsPolicyMinOrderByAggregateInput = {
+    key?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type OpsTriggerRuleCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    eventKind?: SortOrder
+    condition?: SortOrder
+    proposalTemplate?: SortOrder
+    cooldownMin?: SortOrder
+    enabled?: SortOrder
+    lastFiredAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type OpsTriggerRuleAvgOrderByAggregateInput = {
+    cooldownMin?: SortOrder
+  }
+
+  export type OpsTriggerRuleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    eventKind?: SortOrder
+    cooldownMin?: SortOrder
+    enabled?: SortOrder
+    lastFiredAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type OpsTriggerRuleMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    eventKind?: SortOrder
+    cooldownMin?: SortOrder
+    enabled?: SortOrder
+    lastFiredAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type OpsTriggerRuleSumOrderByAggregateInput = {
+    cooldownMin?: SortOrder
+  }
+
+  export type OpsEventRelationFilter = {
+    is?: OpsEventWhereInput
+    isNot?: OpsEventWhereInput
+  }
+
+  export type OpsReactionCountOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    targetSkill?: SortOrder
+    actionType?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    processedAt?: SortOrder
+  }
+
+  export type OpsReactionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    targetSkill?: SortOrder
+    actionType?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    processedAt?: SortOrder
+  }
+
+  export type OpsReactionMinOrderByAggregateInput = {
+    id?: SortOrder
+    eventId?: SortOrder
+    targetSkill?: SortOrder
+    actionType?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    processedAt?: SortOrder
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -34555,6 +43371,241 @@ export namespace Prisma {
     delete?: HookCandidateWhereInput | boolean
     connect?: HookCandidateWhereUniqueInput
     update?: XOR<XOR<HookCandidateUpdateToOneWithWhereWithoutXPostsInput, HookCandidateUpdateWithoutXPostsInput>, HookCandidateUncheckedUpdateWithoutXPostsInput>
+  }
+
+  export type OpsMissionCreateNestedManyWithoutProposalInput = {
+    create?: XOR<OpsMissionCreateWithoutProposalInput, OpsMissionUncheckedCreateWithoutProposalInput> | OpsMissionCreateWithoutProposalInput[] | OpsMissionUncheckedCreateWithoutProposalInput[]
+    connectOrCreate?: OpsMissionCreateOrConnectWithoutProposalInput | OpsMissionCreateOrConnectWithoutProposalInput[]
+    createMany?: OpsMissionCreateManyProposalInputEnvelope
+    connect?: OpsMissionWhereUniqueInput | OpsMissionWhereUniqueInput[]
+  }
+
+  export type OpsMissionUncheckedCreateNestedManyWithoutProposalInput = {
+    create?: XOR<OpsMissionCreateWithoutProposalInput, OpsMissionUncheckedCreateWithoutProposalInput> | OpsMissionCreateWithoutProposalInput[] | OpsMissionUncheckedCreateWithoutProposalInput[]
+    connectOrCreate?: OpsMissionCreateOrConnectWithoutProposalInput | OpsMissionCreateOrConnectWithoutProposalInput[]
+    createMany?: OpsMissionCreateManyProposalInputEnvelope
+    connect?: OpsMissionWhereUniqueInput | OpsMissionWhereUniqueInput[]
+  }
+
+  export type OpsMissionUpdateManyWithoutProposalNestedInput = {
+    create?: XOR<OpsMissionCreateWithoutProposalInput, OpsMissionUncheckedCreateWithoutProposalInput> | OpsMissionCreateWithoutProposalInput[] | OpsMissionUncheckedCreateWithoutProposalInput[]
+    connectOrCreate?: OpsMissionCreateOrConnectWithoutProposalInput | OpsMissionCreateOrConnectWithoutProposalInput[]
+    upsert?: OpsMissionUpsertWithWhereUniqueWithoutProposalInput | OpsMissionUpsertWithWhereUniqueWithoutProposalInput[]
+    createMany?: OpsMissionCreateManyProposalInputEnvelope
+    set?: OpsMissionWhereUniqueInput | OpsMissionWhereUniqueInput[]
+    disconnect?: OpsMissionWhereUniqueInput | OpsMissionWhereUniqueInput[]
+    delete?: OpsMissionWhereUniqueInput | OpsMissionWhereUniqueInput[]
+    connect?: OpsMissionWhereUniqueInput | OpsMissionWhereUniqueInput[]
+    update?: OpsMissionUpdateWithWhereUniqueWithoutProposalInput | OpsMissionUpdateWithWhereUniqueWithoutProposalInput[]
+    updateMany?: OpsMissionUpdateManyWithWhereWithoutProposalInput | OpsMissionUpdateManyWithWhereWithoutProposalInput[]
+    deleteMany?: OpsMissionScalarWhereInput | OpsMissionScalarWhereInput[]
+  }
+
+  export type OpsMissionUncheckedUpdateManyWithoutProposalNestedInput = {
+    create?: XOR<OpsMissionCreateWithoutProposalInput, OpsMissionUncheckedCreateWithoutProposalInput> | OpsMissionCreateWithoutProposalInput[] | OpsMissionUncheckedCreateWithoutProposalInput[]
+    connectOrCreate?: OpsMissionCreateOrConnectWithoutProposalInput | OpsMissionCreateOrConnectWithoutProposalInput[]
+    upsert?: OpsMissionUpsertWithWhereUniqueWithoutProposalInput | OpsMissionUpsertWithWhereUniqueWithoutProposalInput[]
+    createMany?: OpsMissionCreateManyProposalInputEnvelope
+    set?: OpsMissionWhereUniqueInput | OpsMissionWhereUniqueInput[]
+    disconnect?: OpsMissionWhereUniqueInput | OpsMissionWhereUniqueInput[]
+    delete?: OpsMissionWhereUniqueInput | OpsMissionWhereUniqueInput[]
+    connect?: OpsMissionWhereUniqueInput | OpsMissionWhereUniqueInput[]
+    update?: OpsMissionUpdateWithWhereUniqueWithoutProposalInput | OpsMissionUpdateWithWhereUniqueWithoutProposalInput[]
+    updateMany?: OpsMissionUpdateManyWithWhereWithoutProposalInput | OpsMissionUpdateManyWithWhereWithoutProposalInput[]
+    deleteMany?: OpsMissionScalarWhereInput | OpsMissionScalarWhereInput[]
+  }
+
+  export type OpsProposalCreateNestedOneWithoutMissionsInput = {
+    create?: XOR<OpsProposalCreateWithoutMissionsInput, OpsProposalUncheckedCreateWithoutMissionsInput>
+    connectOrCreate?: OpsProposalCreateOrConnectWithoutMissionsInput
+    connect?: OpsProposalWhereUniqueInput
+  }
+
+  export type OpsMissionStepCreateNestedManyWithoutMissionInput = {
+    create?: XOR<OpsMissionStepCreateWithoutMissionInput, OpsMissionStepUncheckedCreateWithoutMissionInput> | OpsMissionStepCreateWithoutMissionInput[] | OpsMissionStepUncheckedCreateWithoutMissionInput[]
+    connectOrCreate?: OpsMissionStepCreateOrConnectWithoutMissionInput | OpsMissionStepCreateOrConnectWithoutMissionInput[]
+    createMany?: OpsMissionStepCreateManyMissionInputEnvelope
+    connect?: OpsMissionStepWhereUniqueInput | OpsMissionStepWhereUniqueInput[]
+  }
+
+  export type OpsEventCreateNestedManyWithoutMissionInput = {
+    create?: XOR<OpsEventCreateWithoutMissionInput, OpsEventUncheckedCreateWithoutMissionInput> | OpsEventCreateWithoutMissionInput[] | OpsEventUncheckedCreateWithoutMissionInput[]
+    connectOrCreate?: OpsEventCreateOrConnectWithoutMissionInput | OpsEventCreateOrConnectWithoutMissionInput[]
+    createMany?: OpsEventCreateManyMissionInputEnvelope
+    connect?: OpsEventWhereUniqueInput | OpsEventWhereUniqueInput[]
+  }
+
+  export type OpsMissionStepUncheckedCreateNestedManyWithoutMissionInput = {
+    create?: XOR<OpsMissionStepCreateWithoutMissionInput, OpsMissionStepUncheckedCreateWithoutMissionInput> | OpsMissionStepCreateWithoutMissionInput[] | OpsMissionStepUncheckedCreateWithoutMissionInput[]
+    connectOrCreate?: OpsMissionStepCreateOrConnectWithoutMissionInput | OpsMissionStepCreateOrConnectWithoutMissionInput[]
+    createMany?: OpsMissionStepCreateManyMissionInputEnvelope
+    connect?: OpsMissionStepWhereUniqueInput | OpsMissionStepWhereUniqueInput[]
+  }
+
+  export type OpsEventUncheckedCreateNestedManyWithoutMissionInput = {
+    create?: XOR<OpsEventCreateWithoutMissionInput, OpsEventUncheckedCreateWithoutMissionInput> | OpsEventCreateWithoutMissionInput[] | OpsEventUncheckedCreateWithoutMissionInput[]
+    connectOrCreate?: OpsEventCreateOrConnectWithoutMissionInput | OpsEventCreateOrConnectWithoutMissionInput[]
+    createMany?: OpsEventCreateManyMissionInputEnvelope
+    connect?: OpsEventWhereUniqueInput | OpsEventWhereUniqueInput[]
+  }
+
+  export type OpsProposalUpdateOneRequiredWithoutMissionsNestedInput = {
+    create?: XOR<OpsProposalCreateWithoutMissionsInput, OpsProposalUncheckedCreateWithoutMissionsInput>
+    connectOrCreate?: OpsProposalCreateOrConnectWithoutMissionsInput
+    upsert?: OpsProposalUpsertWithoutMissionsInput
+    connect?: OpsProposalWhereUniqueInput
+    update?: XOR<XOR<OpsProposalUpdateToOneWithWhereWithoutMissionsInput, OpsProposalUpdateWithoutMissionsInput>, OpsProposalUncheckedUpdateWithoutMissionsInput>
+  }
+
+  export type OpsMissionStepUpdateManyWithoutMissionNestedInput = {
+    create?: XOR<OpsMissionStepCreateWithoutMissionInput, OpsMissionStepUncheckedCreateWithoutMissionInput> | OpsMissionStepCreateWithoutMissionInput[] | OpsMissionStepUncheckedCreateWithoutMissionInput[]
+    connectOrCreate?: OpsMissionStepCreateOrConnectWithoutMissionInput | OpsMissionStepCreateOrConnectWithoutMissionInput[]
+    upsert?: OpsMissionStepUpsertWithWhereUniqueWithoutMissionInput | OpsMissionStepUpsertWithWhereUniqueWithoutMissionInput[]
+    createMany?: OpsMissionStepCreateManyMissionInputEnvelope
+    set?: OpsMissionStepWhereUniqueInput | OpsMissionStepWhereUniqueInput[]
+    disconnect?: OpsMissionStepWhereUniqueInput | OpsMissionStepWhereUniqueInput[]
+    delete?: OpsMissionStepWhereUniqueInput | OpsMissionStepWhereUniqueInput[]
+    connect?: OpsMissionStepWhereUniqueInput | OpsMissionStepWhereUniqueInput[]
+    update?: OpsMissionStepUpdateWithWhereUniqueWithoutMissionInput | OpsMissionStepUpdateWithWhereUniqueWithoutMissionInput[]
+    updateMany?: OpsMissionStepUpdateManyWithWhereWithoutMissionInput | OpsMissionStepUpdateManyWithWhereWithoutMissionInput[]
+    deleteMany?: OpsMissionStepScalarWhereInput | OpsMissionStepScalarWhereInput[]
+  }
+
+  export type OpsEventUpdateManyWithoutMissionNestedInput = {
+    create?: XOR<OpsEventCreateWithoutMissionInput, OpsEventUncheckedCreateWithoutMissionInput> | OpsEventCreateWithoutMissionInput[] | OpsEventUncheckedCreateWithoutMissionInput[]
+    connectOrCreate?: OpsEventCreateOrConnectWithoutMissionInput | OpsEventCreateOrConnectWithoutMissionInput[]
+    upsert?: OpsEventUpsertWithWhereUniqueWithoutMissionInput | OpsEventUpsertWithWhereUniqueWithoutMissionInput[]
+    createMany?: OpsEventCreateManyMissionInputEnvelope
+    set?: OpsEventWhereUniqueInput | OpsEventWhereUniqueInput[]
+    disconnect?: OpsEventWhereUniqueInput | OpsEventWhereUniqueInput[]
+    delete?: OpsEventWhereUniqueInput | OpsEventWhereUniqueInput[]
+    connect?: OpsEventWhereUniqueInput | OpsEventWhereUniqueInput[]
+    update?: OpsEventUpdateWithWhereUniqueWithoutMissionInput | OpsEventUpdateWithWhereUniqueWithoutMissionInput[]
+    updateMany?: OpsEventUpdateManyWithWhereWithoutMissionInput | OpsEventUpdateManyWithWhereWithoutMissionInput[]
+    deleteMany?: OpsEventScalarWhereInput | OpsEventScalarWhereInput[]
+  }
+
+  export type OpsMissionStepUncheckedUpdateManyWithoutMissionNestedInput = {
+    create?: XOR<OpsMissionStepCreateWithoutMissionInput, OpsMissionStepUncheckedCreateWithoutMissionInput> | OpsMissionStepCreateWithoutMissionInput[] | OpsMissionStepUncheckedCreateWithoutMissionInput[]
+    connectOrCreate?: OpsMissionStepCreateOrConnectWithoutMissionInput | OpsMissionStepCreateOrConnectWithoutMissionInput[]
+    upsert?: OpsMissionStepUpsertWithWhereUniqueWithoutMissionInput | OpsMissionStepUpsertWithWhereUniqueWithoutMissionInput[]
+    createMany?: OpsMissionStepCreateManyMissionInputEnvelope
+    set?: OpsMissionStepWhereUniqueInput | OpsMissionStepWhereUniqueInput[]
+    disconnect?: OpsMissionStepWhereUniqueInput | OpsMissionStepWhereUniqueInput[]
+    delete?: OpsMissionStepWhereUniqueInput | OpsMissionStepWhereUniqueInput[]
+    connect?: OpsMissionStepWhereUniqueInput | OpsMissionStepWhereUniqueInput[]
+    update?: OpsMissionStepUpdateWithWhereUniqueWithoutMissionInput | OpsMissionStepUpdateWithWhereUniqueWithoutMissionInput[]
+    updateMany?: OpsMissionStepUpdateManyWithWhereWithoutMissionInput | OpsMissionStepUpdateManyWithWhereWithoutMissionInput[]
+    deleteMany?: OpsMissionStepScalarWhereInput | OpsMissionStepScalarWhereInput[]
+  }
+
+  export type OpsEventUncheckedUpdateManyWithoutMissionNestedInput = {
+    create?: XOR<OpsEventCreateWithoutMissionInput, OpsEventUncheckedCreateWithoutMissionInput> | OpsEventCreateWithoutMissionInput[] | OpsEventUncheckedCreateWithoutMissionInput[]
+    connectOrCreate?: OpsEventCreateOrConnectWithoutMissionInput | OpsEventCreateOrConnectWithoutMissionInput[]
+    upsert?: OpsEventUpsertWithWhereUniqueWithoutMissionInput | OpsEventUpsertWithWhereUniqueWithoutMissionInput[]
+    createMany?: OpsEventCreateManyMissionInputEnvelope
+    set?: OpsEventWhereUniqueInput | OpsEventWhereUniqueInput[]
+    disconnect?: OpsEventWhereUniqueInput | OpsEventWhereUniqueInput[]
+    delete?: OpsEventWhereUniqueInput | OpsEventWhereUniqueInput[]
+    connect?: OpsEventWhereUniqueInput | OpsEventWhereUniqueInput[]
+    update?: OpsEventUpdateWithWhereUniqueWithoutMissionInput | OpsEventUpdateWithWhereUniqueWithoutMissionInput[]
+    updateMany?: OpsEventUpdateManyWithWhereWithoutMissionInput | OpsEventUpdateManyWithWhereWithoutMissionInput[]
+    deleteMany?: OpsEventScalarWhereInput | OpsEventScalarWhereInput[]
+  }
+
+  export type OpsMissionCreateNestedOneWithoutStepsInput = {
+    create?: XOR<OpsMissionCreateWithoutStepsInput, OpsMissionUncheckedCreateWithoutStepsInput>
+    connectOrCreate?: OpsMissionCreateOrConnectWithoutStepsInput
+    connect?: OpsMissionWhereUniqueInput
+  }
+
+  export type OpsMissionUpdateOneRequiredWithoutStepsNestedInput = {
+    create?: XOR<OpsMissionCreateWithoutStepsInput, OpsMissionUncheckedCreateWithoutStepsInput>
+    connectOrCreate?: OpsMissionCreateOrConnectWithoutStepsInput
+    upsert?: OpsMissionUpsertWithoutStepsInput
+    connect?: OpsMissionWhereUniqueInput
+    update?: XOR<XOR<OpsMissionUpdateToOneWithWhereWithoutStepsInput, OpsMissionUpdateWithoutStepsInput>, OpsMissionUncheckedUpdateWithoutStepsInput>
+  }
+
+  export type OpsEventCreatetagsInput = {
+    set: string[]
+  }
+
+  export type OpsMissionCreateNestedOneWithoutEventsInput = {
+    create?: XOR<OpsMissionCreateWithoutEventsInput, OpsMissionUncheckedCreateWithoutEventsInput>
+    connectOrCreate?: OpsMissionCreateOrConnectWithoutEventsInput
+    connect?: OpsMissionWhereUniqueInput
+  }
+
+  export type OpsReactionCreateNestedManyWithoutEventInput = {
+    create?: XOR<OpsReactionCreateWithoutEventInput, OpsReactionUncheckedCreateWithoutEventInput> | OpsReactionCreateWithoutEventInput[] | OpsReactionUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: OpsReactionCreateOrConnectWithoutEventInput | OpsReactionCreateOrConnectWithoutEventInput[]
+    createMany?: OpsReactionCreateManyEventInputEnvelope
+    connect?: OpsReactionWhereUniqueInput | OpsReactionWhereUniqueInput[]
+  }
+
+  export type OpsReactionUncheckedCreateNestedManyWithoutEventInput = {
+    create?: XOR<OpsReactionCreateWithoutEventInput, OpsReactionUncheckedCreateWithoutEventInput> | OpsReactionCreateWithoutEventInput[] | OpsReactionUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: OpsReactionCreateOrConnectWithoutEventInput | OpsReactionCreateOrConnectWithoutEventInput[]
+    createMany?: OpsReactionCreateManyEventInputEnvelope
+    connect?: OpsReactionWhereUniqueInput | OpsReactionWhereUniqueInput[]
+  }
+
+  export type OpsEventUpdatetagsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type OpsMissionUpdateOneWithoutEventsNestedInput = {
+    create?: XOR<OpsMissionCreateWithoutEventsInput, OpsMissionUncheckedCreateWithoutEventsInput>
+    connectOrCreate?: OpsMissionCreateOrConnectWithoutEventsInput
+    upsert?: OpsMissionUpsertWithoutEventsInput
+    disconnect?: OpsMissionWhereInput | boolean
+    delete?: OpsMissionWhereInput | boolean
+    connect?: OpsMissionWhereUniqueInput
+    update?: XOR<XOR<OpsMissionUpdateToOneWithWhereWithoutEventsInput, OpsMissionUpdateWithoutEventsInput>, OpsMissionUncheckedUpdateWithoutEventsInput>
+  }
+
+  export type OpsReactionUpdateManyWithoutEventNestedInput = {
+    create?: XOR<OpsReactionCreateWithoutEventInput, OpsReactionUncheckedCreateWithoutEventInput> | OpsReactionCreateWithoutEventInput[] | OpsReactionUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: OpsReactionCreateOrConnectWithoutEventInput | OpsReactionCreateOrConnectWithoutEventInput[]
+    upsert?: OpsReactionUpsertWithWhereUniqueWithoutEventInput | OpsReactionUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: OpsReactionCreateManyEventInputEnvelope
+    set?: OpsReactionWhereUniqueInput | OpsReactionWhereUniqueInput[]
+    disconnect?: OpsReactionWhereUniqueInput | OpsReactionWhereUniqueInput[]
+    delete?: OpsReactionWhereUniqueInput | OpsReactionWhereUniqueInput[]
+    connect?: OpsReactionWhereUniqueInput | OpsReactionWhereUniqueInput[]
+    update?: OpsReactionUpdateWithWhereUniqueWithoutEventInput | OpsReactionUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: OpsReactionUpdateManyWithWhereWithoutEventInput | OpsReactionUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: OpsReactionScalarWhereInput | OpsReactionScalarWhereInput[]
+  }
+
+  export type OpsReactionUncheckedUpdateManyWithoutEventNestedInput = {
+    create?: XOR<OpsReactionCreateWithoutEventInput, OpsReactionUncheckedCreateWithoutEventInput> | OpsReactionCreateWithoutEventInput[] | OpsReactionUncheckedCreateWithoutEventInput[]
+    connectOrCreate?: OpsReactionCreateOrConnectWithoutEventInput | OpsReactionCreateOrConnectWithoutEventInput[]
+    upsert?: OpsReactionUpsertWithWhereUniqueWithoutEventInput | OpsReactionUpsertWithWhereUniqueWithoutEventInput[]
+    createMany?: OpsReactionCreateManyEventInputEnvelope
+    set?: OpsReactionWhereUniqueInput | OpsReactionWhereUniqueInput[]
+    disconnect?: OpsReactionWhereUniqueInput | OpsReactionWhereUniqueInput[]
+    delete?: OpsReactionWhereUniqueInput | OpsReactionWhereUniqueInput[]
+    connect?: OpsReactionWhereUniqueInput | OpsReactionWhereUniqueInput[]
+    update?: OpsReactionUpdateWithWhereUniqueWithoutEventInput | OpsReactionUpdateWithWhereUniqueWithoutEventInput[]
+    updateMany?: OpsReactionUpdateManyWithWhereWithoutEventInput | OpsReactionUpdateManyWithWhereWithoutEventInput[]
+    deleteMany?: OpsReactionScalarWhereInput | OpsReactionScalarWhereInput[]
+  }
+
+  export type OpsEventCreateNestedOneWithoutReactionsInput = {
+    create?: XOR<OpsEventCreateWithoutReactionsInput, OpsEventUncheckedCreateWithoutReactionsInput>
+    connectOrCreate?: OpsEventCreateOrConnectWithoutReactionsInput
+    connect?: OpsEventWhereUniqueInput
+  }
+
+  export type OpsEventUpdateOneRequiredWithoutReactionsNestedInput = {
+    create?: XOR<OpsEventCreateWithoutReactionsInput, OpsEventUncheckedCreateWithoutReactionsInput>
+    connectOrCreate?: OpsEventCreateOrConnectWithoutReactionsInput
+    upsert?: OpsEventUpsertWithoutReactionsInput
+    connect?: OpsEventWhereUniqueInput
+    update?: XOR<XOR<OpsEventUpdateToOneWithWhereWithoutReactionsInput, OpsEventUpdateWithoutReactionsInput>, OpsEventUncheckedUpdateWithoutReactionsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -35768,6 +44819,470 @@ export namespace Prisma {
     tiktokPosts?: TiktokPostUncheckedUpdateManyWithoutHookCandidateNestedInput
   }
 
+  export type OpsMissionCreateWithoutProposalInput = {
+    id?: string
+    status?: string
+    createdAt?: Date | string
+    completedAt?: Date | string | null
+    steps?: OpsMissionStepCreateNestedManyWithoutMissionInput
+    events?: OpsEventCreateNestedManyWithoutMissionInput
+  }
+
+  export type OpsMissionUncheckedCreateWithoutProposalInput = {
+    id?: string
+    status?: string
+    createdAt?: Date | string
+    completedAt?: Date | string | null
+    steps?: OpsMissionStepUncheckedCreateNestedManyWithoutMissionInput
+    events?: OpsEventUncheckedCreateNestedManyWithoutMissionInput
+  }
+
+  export type OpsMissionCreateOrConnectWithoutProposalInput = {
+    where: OpsMissionWhereUniqueInput
+    create: XOR<OpsMissionCreateWithoutProposalInput, OpsMissionUncheckedCreateWithoutProposalInput>
+  }
+
+  export type OpsMissionCreateManyProposalInputEnvelope = {
+    data: OpsMissionCreateManyProposalInput | OpsMissionCreateManyProposalInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OpsMissionUpsertWithWhereUniqueWithoutProposalInput = {
+    where: OpsMissionWhereUniqueInput
+    update: XOR<OpsMissionUpdateWithoutProposalInput, OpsMissionUncheckedUpdateWithoutProposalInput>
+    create: XOR<OpsMissionCreateWithoutProposalInput, OpsMissionUncheckedCreateWithoutProposalInput>
+  }
+
+  export type OpsMissionUpdateWithWhereUniqueWithoutProposalInput = {
+    where: OpsMissionWhereUniqueInput
+    data: XOR<OpsMissionUpdateWithoutProposalInput, OpsMissionUncheckedUpdateWithoutProposalInput>
+  }
+
+  export type OpsMissionUpdateManyWithWhereWithoutProposalInput = {
+    where: OpsMissionScalarWhereInput
+    data: XOR<OpsMissionUpdateManyMutationInput, OpsMissionUncheckedUpdateManyWithoutProposalInput>
+  }
+
+  export type OpsMissionScalarWhereInput = {
+    AND?: OpsMissionScalarWhereInput | OpsMissionScalarWhereInput[]
+    OR?: OpsMissionScalarWhereInput[]
+    NOT?: OpsMissionScalarWhereInput | OpsMissionScalarWhereInput[]
+    id?: UuidFilter<"OpsMission"> | string
+    proposalId?: UuidFilter<"OpsMission"> | string
+    status?: StringFilter<"OpsMission"> | string
+    createdAt?: DateTimeFilter<"OpsMission"> | Date | string
+    completedAt?: DateTimeNullableFilter<"OpsMission"> | Date | string | null
+  }
+
+  export type OpsProposalCreateWithoutMissionsInput = {
+    id?: string
+    skillName: string
+    source: string
+    status?: string
+    title: string
+    payload?: JsonNullValueInput | InputJsonValue
+    rejectReason?: string | null
+    createdAt?: Date | string
+    resolvedAt?: Date | string | null
+  }
+
+  export type OpsProposalUncheckedCreateWithoutMissionsInput = {
+    id?: string
+    skillName: string
+    source: string
+    status?: string
+    title: string
+    payload?: JsonNullValueInput | InputJsonValue
+    rejectReason?: string | null
+    createdAt?: Date | string
+    resolvedAt?: Date | string | null
+  }
+
+  export type OpsProposalCreateOrConnectWithoutMissionsInput = {
+    where: OpsProposalWhereUniqueInput
+    create: XOR<OpsProposalCreateWithoutMissionsInput, OpsProposalUncheckedCreateWithoutMissionsInput>
+  }
+
+  export type OpsMissionStepCreateWithoutMissionInput = {
+    id?: string
+    stepKind: string
+    stepOrder: number
+    status?: string
+    input?: NullableJsonNullValueInput | InputJsonValue
+    output?: NullableJsonNullValueInput | InputJsonValue
+    lastError?: string | null
+    reservedAt?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type OpsMissionStepUncheckedCreateWithoutMissionInput = {
+    id?: string
+    stepKind: string
+    stepOrder: number
+    status?: string
+    input?: NullableJsonNullValueInput | InputJsonValue
+    output?: NullableJsonNullValueInput | InputJsonValue
+    lastError?: string | null
+    reservedAt?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type OpsMissionStepCreateOrConnectWithoutMissionInput = {
+    where: OpsMissionStepWhereUniqueInput
+    create: XOR<OpsMissionStepCreateWithoutMissionInput, OpsMissionStepUncheckedCreateWithoutMissionInput>
+  }
+
+  export type OpsMissionStepCreateManyMissionInputEnvelope = {
+    data: OpsMissionStepCreateManyMissionInput | OpsMissionStepCreateManyMissionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OpsEventCreateWithoutMissionInput = {
+    id?: string
+    source: string
+    kind: string
+    tags?: OpsEventCreatetagsInput | string[]
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    reactions?: OpsReactionCreateNestedManyWithoutEventInput
+  }
+
+  export type OpsEventUncheckedCreateWithoutMissionInput = {
+    id?: string
+    source: string
+    kind: string
+    tags?: OpsEventCreatetagsInput | string[]
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    reactions?: OpsReactionUncheckedCreateNestedManyWithoutEventInput
+  }
+
+  export type OpsEventCreateOrConnectWithoutMissionInput = {
+    where: OpsEventWhereUniqueInput
+    create: XOR<OpsEventCreateWithoutMissionInput, OpsEventUncheckedCreateWithoutMissionInput>
+  }
+
+  export type OpsEventCreateManyMissionInputEnvelope = {
+    data: OpsEventCreateManyMissionInput | OpsEventCreateManyMissionInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OpsProposalUpsertWithoutMissionsInput = {
+    update: XOR<OpsProposalUpdateWithoutMissionsInput, OpsProposalUncheckedUpdateWithoutMissionsInput>
+    create: XOR<OpsProposalCreateWithoutMissionsInput, OpsProposalUncheckedCreateWithoutMissionsInput>
+    where?: OpsProposalWhereInput
+  }
+
+  export type OpsProposalUpdateToOneWithWhereWithoutMissionsInput = {
+    where?: OpsProposalWhereInput
+    data: XOR<OpsProposalUpdateWithoutMissionsInput, OpsProposalUncheckedUpdateWithoutMissionsInput>
+  }
+
+  export type OpsProposalUpdateWithoutMissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skillName?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type OpsProposalUncheckedUpdateWithoutMissionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skillName?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    payload?: JsonNullValueInput | InputJsonValue
+    rejectReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type OpsMissionStepUpsertWithWhereUniqueWithoutMissionInput = {
+    where: OpsMissionStepWhereUniqueInput
+    update: XOR<OpsMissionStepUpdateWithoutMissionInput, OpsMissionStepUncheckedUpdateWithoutMissionInput>
+    create: XOR<OpsMissionStepCreateWithoutMissionInput, OpsMissionStepUncheckedCreateWithoutMissionInput>
+  }
+
+  export type OpsMissionStepUpdateWithWhereUniqueWithoutMissionInput = {
+    where: OpsMissionStepWhereUniqueInput
+    data: XOR<OpsMissionStepUpdateWithoutMissionInput, OpsMissionStepUncheckedUpdateWithoutMissionInput>
+  }
+
+  export type OpsMissionStepUpdateManyWithWhereWithoutMissionInput = {
+    where: OpsMissionStepScalarWhereInput
+    data: XOR<OpsMissionStepUpdateManyMutationInput, OpsMissionStepUncheckedUpdateManyWithoutMissionInput>
+  }
+
+  export type OpsMissionStepScalarWhereInput = {
+    AND?: OpsMissionStepScalarWhereInput | OpsMissionStepScalarWhereInput[]
+    OR?: OpsMissionStepScalarWhereInput[]
+    NOT?: OpsMissionStepScalarWhereInput | OpsMissionStepScalarWhereInput[]
+    id?: UuidFilter<"OpsMissionStep"> | string
+    missionId?: UuidFilter<"OpsMissionStep"> | string
+    stepKind?: StringFilter<"OpsMissionStep"> | string
+    stepOrder?: IntFilter<"OpsMissionStep"> | number
+    status?: StringFilter<"OpsMissionStep"> | string
+    input?: JsonNullableFilter<"OpsMissionStep">
+    output?: JsonNullableFilter<"OpsMissionStep">
+    lastError?: StringNullableFilter<"OpsMissionStep"> | string | null
+    reservedAt?: DateTimeNullableFilter<"OpsMissionStep"> | Date | string | null
+    completedAt?: DateTimeNullableFilter<"OpsMissionStep"> | Date | string | null
+    createdAt?: DateTimeFilter<"OpsMissionStep"> | Date | string
+  }
+
+  export type OpsEventUpsertWithWhereUniqueWithoutMissionInput = {
+    where: OpsEventWhereUniqueInput
+    update: XOR<OpsEventUpdateWithoutMissionInput, OpsEventUncheckedUpdateWithoutMissionInput>
+    create: XOR<OpsEventCreateWithoutMissionInput, OpsEventUncheckedCreateWithoutMissionInput>
+  }
+
+  export type OpsEventUpdateWithWhereUniqueWithoutMissionInput = {
+    where: OpsEventWhereUniqueInput
+    data: XOR<OpsEventUpdateWithoutMissionInput, OpsEventUncheckedUpdateWithoutMissionInput>
+  }
+
+  export type OpsEventUpdateManyWithWhereWithoutMissionInput = {
+    where: OpsEventScalarWhereInput
+    data: XOR<OpsEventUpdateManyMutationInput, OpsEventUncheckedUpdateManyWithoutMissionInput>
+  }
+
+  export type OpsEventScalarWhereInput = {
+    AND?: OpsEventScalarWhereInput | OpsEventScalarWhereInput[]
+    OR?: OpsEventScalarWhereInput[]
+    NOT?: OpsEventScalarWhereInput | OpsEventScalarWhereInput[]
+    id?: UuidFilter<"OpsEvent"> | string
+    source?: StringFilter<"OpsEvent"> | string
+    kind?: StringFilter<"OpsEvent"> | string
+    tags?: StringNullableListFilter<"OpsEvent">
+    payload?: JsonNullableFilter<"OpsEvent">
+    missionId?: UuidNullableFilter<"OpsEvent"> | string | null
+    createdAt?: DateTimeFilter<"OpsEvent"> | Date | string
+  }
+
+  export type OpsMissionCreateWithoutStepsInput = {
+    id?: string
+    status?: string
+    createdAt?: Date | string
+    completedAt?: Date | string | null
+    proposal: OpsProposalCreateNestedOneWithoutMissionsInput
+    events?: OpsEventCreateNestedManyWithoutMissionInput
+  }
+
+  export type OpsMissionUncheckedCreateWithoutStepsInput = {
+    id?: string
+    proposalId: string
+    status?: string
+    createdAt?: Date | string
+    completedAt?: Date | string | null
+    events?: OpsEventUncheckedCreateNestedManyWithoutMissionInput
+  }
+
+  export type OpsMissionCreateOrConnectWithoutStepsInput = {
+    where: OpsMissionWhereUniqueInput
+    create: XOR<OpsMissionCreateWithoutStepsInput, OpsMissionUncheckedCreateWithoutStepsInput>
+  }
+
+  export type OpsMissionUpsertWithoutStepsInput = {
+    update: XOR<OpsMissionUpdateWithoutStepsInput, OpsMissionUncheckedUpdateWithoutStepsInput>
+    create: XOR<OpsMissionCreateWithoutStepsInput, OpsMissionUncheckedCreateWithoutStepsInput>
+    where?: OpsMissionWhereInput
+  }
+
+  export type OpsMissionUpdateToOneWithWhereWithoutStepsInput = {
+    where?: OpsMissionWhereInput
+    data: XOR<OpsMissionUpdateWithoutStepsInput, OpsMissionUncheckedUpdateWithoutStepsInput>
+  }
+
+  export type OpsMissionUpdateWithoutStepsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proposal?: OpsProposalUpdateOneRequiredWithoutMissionsNestedInput
+    events?: OpsEventUpdateManyWithoutMissionNestedInput
+  }
+
+  export type OpsMissionUncheckedUpdateWithoutStepsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposalId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    events?: OpsEventUncheckedUpdateManyWithoutMissionNestedInput
+  }
+
+  export type OpsMissionCreateWithoutEventsInput = {
+    id?: string
+    status?: string
+    createdAt?: Date | string
+    completedAt?: Date | string | null
+    proposal: OpsProposalCreateNestedOneWithoutMissionsInput
+    steps?: OpsMissionStepCreateNestedManyWithoutMissionInput
+  }
+
+  export type OpsMissionUncheckedCreateWithoutEventsInput = {
+    id?: string
+    proposalId: string
+    status?: string
+    createdAt?: Date | string
+    completedAt?: Date | string | null
+    steps?: OpsMissionStepUncheckedCreateNestedManyWithoutMissionInput
+  }
+
+  export type OpsMissionCreateOrConnectWithoutEventsInput = {
+    where: OpsMissionWhereUniqueInput
+    create: XOR<OpsMissionCreateWithoutEventsInput, OpsMissionUncheckedCreateWithoutEventsInput>
+  }
+
+  export type OpsReactionCreateWithoutEventInput = {
+    id?: string
+    targetSkill: string
+    actionType: string
+    status?: string
+    createdAt?: Date | string
+    processedAt?: Date | string | null
+  }
+
+  export type OpsReactionUncheckedCreateWithoutEventInput = {
+    id?: string
+    targetSkill: string
+    actionType: string
+    status?: string
+    createdAt?: Date | string
+    processedAt?: Date | string | null
+  }
+
+  export type OpsReactionCreateOrConnectWithoutEventInput = {
+    where: OpsReactionWhereUniqueInput
+    create: XOR<OpsReactionCreateWithoutEventInput, OpsReactionUncheckedCreateWithoutEventInput>
+  }
+
+  export type OpsReactionCreateManyEventInputEnvelope = {
+    data: OpsReactionCreateManyEventInput | OpsReactionCreateManyEventInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type OpsMissionUpsertWithoutEventsInput = {
+    update: XOR<OpsMissionUpdateWithoutEventsInput, OpsMissionUncheckedUpdateWithoutEventsInput>
+    create: XOR<OpsMissionCreateWithoutEventsInput, OpsMissionUncheckedCreateWithoutEventsInput>
+    where?: OpsMissionWhereInput
+  }
+
+  export type OpsMissionUpdateToOneWithWhereWithoutEventsInput = {
+    where?: OpsMissionWhereInput
+    data: XOR<OpsMissionUpdateWithoutEventsInput, OpsMissionUncheckedUpdateWithoutEventsInput>
+  }
+
+  export type OpsMissionUpdateWithoutEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    proposal?: OpsProposalUpdateOneRequiredWithoutMissionsNestedInput
+    steps?: OpsMissionStepUpdateManyWithoutMissionNestedInput
+  }
+
+  export type OpsMissionUncheckedUpdateWithoutEventsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    proposalId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    steps?: OpsMissionStepUncheckedUpdateManyWithoutMissionNestedInput
+  }
+
+  export type OpsReactionUpsertWithWhereUniqueWithoutEventInput = {
+    where: OpsReactionWhereUniqueInput
+    update: XOR<OpsReactionUpdateWithoutEventInput, OpsReactionUncheckedUpdateWithoutEventInput>
+    create: XOR<OpsReactionCreateWithoutEventInput, OpsReactionUncheckedCreateWithoutEventInput>
+  }
+
+  export type OpsReactionUpdateWithWhereUniqueWithoutEventInput = {
+    where: OpsReactionWhereUniqueInput
+    data: XOR<OpsReactionUpdateWithoutEventInput, OpsReactionUncheckedUpdateWithoutEventInput>
+  }
+
+  export type OpsReactionUpdateManyWithWhereWithoutEventInput = {
+    where: OpsReactionScalarWhereInput
+    data: XOR<OpsReactionUpdateManyMutationInput, OpsReactionUncheckedUpdateManyWithoutEventInput>
+  }
+
+  export type OpsReactionScalarWhereInput = {
+    AND?: OpsReactionScalarWhereInput | OpsReactionScalarWhereInput[]
+    OR?: OpsReactionScalarWhereInput[]
+    NOT?: OpsReactionScalarWhereInput | OpsReactionScalarWhereInput[]
+    id?: UuidFilter<"OpsReaction"> | string
+    eventId?: UuidFilter<"OpsReaction"> | string
+    targetSkill?: StringFilter<"OpsReaction"> | string
+    actionType?: StringFilter<"OpsReaction"> | string
+    status?: StringFilter<"OpsReaction"> | string
+    createdAt?: DateTimeFilter<"OpsReaction"> | Date | string
+    processedAt?: DateTimeNullableFilter<"OpsReaction"> | Date | string | null
+  }
+
+  export type OpsEventCreateWithoutReactionsInput = {
+    id?: string
+    source: string
+    kind: string
+    tags?: OpsEventCreatetagsInput | string[]
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    mission?: OpsMissionCreateNestedOneWithoutEventsInput
+  }
+
+  export type OpsEventUncheckedCreateWithoutReactionsInput = {
+    id?: string
+    source: string
+    kind: string
+    tags?: OpsEventCreatetagsInput | string[]
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    missionId?: string | null
+    createdAt?: Date | string
+  }
+
+  export type OpsEventCreateOrConnectWithoutReactionsInput = {
+    where: OpsEventWhereUniqueInput
+    create: XOR<OpsEventCreateWithoutReactionsInput, OpsEventUncheckedCreateWithoutReactionsInput>
+  }
+
+  export type OpsEventUpsertWithoutReactionsInput = {
+    update: XOR<OpsEventUpdateWithoutReactionsInput, OpsEventUncheckedUpdateWithoutReactionsInput>
+    create: XOR<OpsEventCreateWithoutReactionsInput, OpsEventUncheckedCreateWithoutReactionsInput>
+    where?: OpsEventWhereInput
+  }
+
+  export type OpsEventUpdateToOneWithWhereWithoutReactionsInput = {
+    where?: OpsEventWhereInput
+    data: XOR<OpsEventUpdateWithoutReactionsInput, OpsEventUncheckedUpdateWithoutReactionsInput>
+  }
+
+  export type OpsEventUpdateWithoutReactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    tags?: OpsEventUpdatetagsInput | string[]
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mission?: OpsMissionUpdateOneWithoutEventsNestedInput
+  }
+
+  export type OpsEventUncheckedUpdateWithoutReactionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    tags?: OpsEventUpdatetagsInput | string[]
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    missionId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type NudgeOutcomeCreateManyEventInput = {
     id?: string
     reward?: number | null
@@ -35940,6 +45455,164 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type OpsMissionCreateManyProposalInput = {
+    id?: string
+    status?: string
+    createdAt?: Date | string
+    completedAt?: Date | string | null
+  }
+
+  export type OpsMissionUpdateWithoutProposalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    steps?: OpsMissionStepUpdateManyWithoutMissionNestedInput
+    events?: OpsEventUpdateManyWithoutMissionNestedInput
+  }
+
+  export type OpsMissionUncheckedUpdateWithoutProposalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    steps?: OpsMissionStepUncheckedUpdateManyWithoutMissionNestedInput
+    events?: OpsEventUncheckedUpdateManyWithoutMissionNestedInput
+  }
+
+  export type OpsMissionUncheckedUpdateManyWithoutProposalInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type OpsMissionStepCreateManyMissionInput = {
+    id?: string
+    stepKind: string
+    stepOrder: number
+    status?: string
+    input?: NullableJsonNullValueInput | InputJsonValue
+    output?: NullableJsonNullValueInput | InputJsonValue
+    lastError?: string | null
+    reservedAt?: Date | string | null
+    completedAt?: Date | string | null
+    createdAt?: Date | string
+  }
+
+  export type OpsEventCreateManyMissionInput = {
+    id?: string
+    source: string
+    kind: string
+    tags?: OpsEventCreatetagsInput | string[]
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+  }
+
+  export type OpsMissionStepUpdateWithoutMissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stepKind?: StringFieldUpdateOperationsInput | string
+    stepOrder?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    input?: NullableJsonNullValueInput | InputJsonValue
+    output?: NullableJsonNullValueInput | InputJsonValue
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    reservedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OpsMissionStepUncheckedUpdateWithoutMissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stepKind?: StringFieldUpdateOperationsInput | string
+    stepOrder?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    input?: NullableJsonNullValueInput | InputJsonValue
+    output?: NullableJsonNullValueInput | InputJsonValue
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    reservedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OpsMissionStepUncheckedUpdateManyWithoutMissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    stepKind?: StringFieldUpdateOperationsInput | string
+    stepOrder?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
+    input?: NullableJsonNullValueInput | InputJsonValue
+    output?: NullableJsonNullValueInput | InputJsonValue
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    reservedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    completedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OpsEventUpdateWithoutMissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    tags?: OpsEventUpdatetagsInput | string[]
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reactions?: OpsReactionUpdateManyWithoutEventNestedInput
+  }
+
+  export type OpsEventUncheckedUpdateWithoutMissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    tags?: OpsEventUpdatetagsInput | string[]
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reactions?: OpsReactionUncheckedUpdateManyWithoutEventNestedInput
+  }
+
+  export type OpsEventUncheckedUpdateManyWithoutMissionInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    source?: StringFieldUpdateOperationsInput | string
+    kind?: StringFieldUpdateOperationsInput | string
+    tags?: OpsEventUpdatetagsInput | string[]
+    payload?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type OpsReactionCreateManyEventInput = {
+    id?: string
+    targetSkill: string
+    actionType: string
+    status?: string
+    createdAt?: Date | string
+    processedAt?: Date | string | null
+  }
+
+  export type OpsReactionUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetSkill?: StringFieldUpdateOperationsInput | string
+    actionType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type OpsReactionUncheckedUpdateWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetSkill?: StringFieldUpdateOperationsInput | string
+    actionType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type OpsReactionUncheckedUpdateManyWithoutEventInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    targetSkill?: StringFieldUpdateOperationsInput | string
+    actionType?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    processedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
 
 
   /**
@@ -35953,6 +45626,18 @@ export namespace Prisma {
      * @deprecated Use HookCandidateCountOutputTypeDefaultArgs instead
      */
     export type HookCandidateCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = HookCandidateCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OpsProposalCountOutputTypeDefaultArgs instead
+     */
+    export type OpsProposalCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OpsProposalCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OpsMissionCountOutputTypeDefaultArgs instead
+     */
+    export type OpsMissionCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OpsMissionCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OpsEventCountOutputTypeDefaultArgs instead
+     */
+    export type OpsEventCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OpsEventCountOutputTypeDefaultArgs<ExtArgs>
     /**
      * @deprecated Use TokenDefaultArgs instead
      */
@@ -36053,6 +45738,34 @@ export namespace Prisma {
      * @deprecated Use ResearchItemDefaultArgs instead
      */
     export type ResearchItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = ResearchItemDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OpsProposalDefaultArgs instead
+     */
+    export type OpsProposalArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OpsProposalDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OpsMissionDefaultArgs instead
+     */
+    export type OpsMissionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OpsMissionDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OpsMissionStepDefaultArgs instead
+     */
+    export type OpsMissionStepArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OpsMissionStepDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OpsEventDefaultArgs instead
+     */
+    export type OpsEventArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OpsEventDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OpsPolicyDefaultArgs instead
+     */
+    export type OpsPolicyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OpsPolicyDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OpsTriggerRuleDefaultArgs instead
+     */
+    export type OpsTriggerRuleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OpsTriggerRuleDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use OpsReactionDefaultArgs instead
+     */
+    export type OpsReactionArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = OpsReactionDefaultArgs<ExtArgs>
 
   /**
    * Batch Payload for updateMany & deleteMany & createMany

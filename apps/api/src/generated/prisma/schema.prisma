@@ -281,12 +281,6 @@ model HookCandidate {
   slackSampleSize    Int?     @map("slack_sample_size")
   slackHighPerformer Boolean? @map("slack_high_performer")
 
-  // 1.6.2: Closed-loop ops extensions
-  platform       String? @db.VarChar(20) // 'x', 'tiktok', 'both'
-  contentType    String? @map("content_type") @db.VarChar(20) // 'empathy', 'solution'
-  idempotencyKey String? @unique @map("idempotency_key") @db.VarChar(128)
-  metadata       Json?   @db.JsonB
-
   tiktokPosts TiktokPost[]
   xPosts      XPost[]
 

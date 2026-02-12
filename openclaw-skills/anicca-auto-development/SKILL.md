@@ -15,8 +15,8 @@ Anicca が「X と Firecrawl で深掘り」「spec を書く → **Codex Review
 
 | ステップ | やること |
 |----------|----------|
-| 1. **検索** | **x-research** + **Firecrawl** で深掘り。X の開発ネタ・ドキュメント・記事を集める。 |
-| 2. **学習 → #metrics 報告** | 整理して「このプラグイン使える」「このやり方で強化できる」などを把握。毎朝 5 時などで **#metrics** に「X の空気・気になった記事・注意点」を投稿。 |
+| 1. **検索** | **grok-context-research** を先に実行し、`data/context-research/` の .md を読んだうえで、**x-research** と **Firecrawl** で深掘り。X の開発ネタ・ドキュメント・記事を集める。 |
+| 2. **学習 → #metrics 報告** | 整理して「このプラグイン使える」「このやり方で強化できる」などを把握。Grok の .md を要約の種にして、毎朝 5 時などで **#metrics** に「X の空気・気になった記事・注意点」を投稿。 |
 | 3. **spec 作成** | 採用するものを決め、**実装用の spec**（何をどこに足すか・セキュリティ要件など）を書く。 |
 | 4. **Codex Review（spec）** | **codex-review スキル**（VPS）で spec をレビュー。ok: true になるまで修正して **「完璧な spec」** にする。 |
 | 5. **実装依頼** | その **レビュー済み spec** を Codex に渡して実装・テスト。「dev から worktree で。main にマージしないこと。」 |
@@ -34,6 +34,7 @@ Anicca が「X と Firecrawl で深掘り」「spec を書く → **Codex Review
 
 ## 使うスキル・ツール
 
+- **grok-context-research**: Grok で X の空気を 1 本の .md にまとめる。`npx tsx scripts/grok_context_research.ts --topic ...` で実行し、`data/context-research/` の .md を検索・#metrics・spec の材料に使う。
 - **x-research**: X 検索・スレッド・プロフィール。**X_BEARER_TOKEN が無い場合は Firecrawl のみで検索・スクレイピング**（Oliver & Larry 等の URL を Firecrawl で取得してよい）。
 - **Firecrawl / web fetch**: ドキュメント・記事の深掘り。`~/.openclaw/.env` に `FIRECRAWL_API_KEY` を書いておく。
 - **Slack**: #metrics への投稿、結果報告。
