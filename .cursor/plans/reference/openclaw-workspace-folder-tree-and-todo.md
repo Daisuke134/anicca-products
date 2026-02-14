@@ -2,6 +2,29 @@
 
 最終更新: 2026-02-14
 
+**重要: 19 個の「やること」のうち、どこでやるかは次のとおり。全部が VPS 内だけではない。**
+
+| # | どこでやるか | 説明 |
+|---|--------------|------|
+| 1–12 | **repo** | ドキュメント・SKILL の編集は repo で行う（ローカルで編集して push）。編集結果を VPS に届けるのは **#15**（VPS で rsync または git pull 後コピー）。 |
+| 13–16 | **VPS** | フォルダ作成・SKILL の反映・.env 編集は **VPS 上で実行**する。 |
+| 17–19 | **VPS** | 実装（コード）は repo に書くが、**動かすのは VPS**。mission-worker / ops-heartbeat は VPS のファイルを読む・書く。cron スキルは VPS の cron で直接起動し、各 `workspace/<skill>/` に書く。 |
+
+- **#1–#12**: repo で編集 → push → **#15 を VPS で実行**して VPS に反映。
+- **#13–#19**: フォルダ作成・反映・実装の実行は **すべて VPS 上**。
+
+**19 個の「どこでやるか」一覧**
+
+| # | どこで | # | どこで | # | どこで |
+|---|--------|---|--------|---|--------|
+| 1 | repo | 8 | repo | 15 | VPS |
+| 2 | repo | 9 | repo | 16 | VPS |
+| 3 | repo | 10 | repo | 17 | VPS（実装が動く） |
+| 4 | repo | 11 | repo | 18 | VPS（実装が動く） |
+| 5 | repo | 12 | repo | 19 | VPS（cron・実装） |
+| 6 | repo | 13 | VPS |  |  |
+| 7 | repo | 14 | VPS |  |  |
+
 ---
 
 ## 0) プロンプトの絶対ルール（Anicca への命令）
@@ -123,6 +146,23 @@
 
 ---
 
+## 3.7) VPS 確認結果（2026-02-14・すべて VPS 上で確認）
+
+| # | やること | VPS 状態 |
+|---|----------|----------|
+| 1 | openclaw-anicca.md 8.5.6 更新 | ✅ 反映済み。VPS の repo で pull すれば取得。 |
+| 2 | trend-hunter: 例は JSON の外・プレースホルダーのみ・listStyle 削除 | ✅ 済。JSON はプレースホルダーのみ、listStyle は JSON 外、日本市場・日本語。 |
+| 3–12 | 各 SKILL 保存先 | ✅ VPS の ~/.openclaw/skills/ に保存先記載あり（rsync 済み）。 |
+| 13 | workspace/ops/ 作成・初期化 | ✅ **VPS で実施済み。** ops/, completed/, 3 ファイルあり。 |
+| 14 | 各スキル用フォルダ作成 | ✅ **VPS で実施済み。** 全フォルダ存在。 |
+| 15 | repo SKILL → VPS ~/.openclaw/skills/ | ✅ **VPS に反映済み。** 各 SKILL に保存先記載を確認。 |
+| 16 | ~/.openclaw/.env に API_BASE_URL 等 | ✅ **VPS の .env にキーあり。** |
+| 17 | mission-worker: VPS で steps.json 読む・completed に書く | ✅ **jobs.json の payload をファイルのみに変更済み。** VPS で runner がこの payload を使えば API を呼ばない。 |
+| 18 | ops-heartbeat: VPS でファイルに書く | ✅ **jobs.json の payload をファイルのみに変更済み。** 同上。 |
+| 19 | cron スキル: VPS で直接起動・workspace/<skill>/ に書く | ✅ **jobs.json の全該当 job の payload を「結果を workspace に書く。POST しない」に変更済み。** autonomy-check, hookpost-ttl-cleaner, moltbook-*, roundtable-*, sto-weekly-refresh, suffering-detector。 |
+
+---
+
 ## 4) やること一覧（TODO）— MD に書いて忘れない
 
 ### 4.1) ドキュメント・SKILL の修正
@@ -142,34 +182,26 @@
 | 11 | suffering-detector SKILL.md: 保存先を `workspace/suffering/findings_YYYY-MM-DD.json` に。 | `openclaw-skills/suffering-detector/SKILL.md` |
 | 12 | app-nudge-sender SKILL.md: 保存先を `workspace/nudges/decisions_YYYY-MM-DD.json` に。判断は Anicca 内で行う旨を追記。 | `openclaw-skills/app-nudge-sender/SKILL.md`（存在すれば） |
 
-### 4.2) VPS 上での実施
+### 4.2) VPS 上での実施（すべて VPS で実行する）
 
-| # | やること |
-|---|----------|
-| 13 | VPS で `workspace/ops/` を作成し、steps.json / heartbeat_state.json / proposals.json を初期化。ops/completed/ を作成。 |
-| 14 | VPS で `workspace/autonomy-check/`, `workspace/hookpost-ttl-cleaner/`, `workspace/moltbook-monitor/`, `workspace/moltbook-poster/`, `workspace/roundtable-standup/`, `workspace/roundtable-memory-extract/`, `workspace/roundtable-initiative-generate/`, `workspace/sto-weekly-refresh/`, `workspace/suffering/`, `workspace/nudges/`, `workspace/trends/`, `workspace/hooks/` を作成（無い場合）。 |
-| 15 | repo の SKILL.md を VPS の `~/.openclaw/skills/<name>/SKILL.md` に反映する。 |
-| 16 | VPS の `~/.openclaw/.env` に API_BASE_URL, DATABASE_URL 等を揃える。 |
+| # | やること | 実行場所 |
+|---|----------|----------|
+| 13 | `workspace/ops/` を作成し、steps.json / heartbeat_state.json / proposals.json を初期化。ops/completed/ を作成。 | **VPS 上で実行** |
+| 14 | `workspace/autonomy-check/`, hookpost-ttl-cleaner/, moltbook-*, roundtable-*, sto-weekly-refresh/, suffering/, nudges/, trends/, hooks/ を作成（無い場合）。 | **VPS 上で実行** |
+| 15 | repo の SKILL.md を VPS の `~/.openclaw/skills/<name>/SKILL.md` に反映する。（ローカルから rsync するか、VPS で git pull 後コピー。） | **VPS に反映** |
+| 16 | `~/.openclaw/.env` に API_BASE_URL 等を揃える。 | **VPS の .env を編集** |
 
-### 4.3) 実装の変更
+### 4.3) 実装の変更（VPS 上で動くコードの変更）
 
-| # | やること |
-|---|----------|
-| 17 | mission-worker 実装: ops/steps.json を読む・ops/completed/ に書く。step API は使わない。 |
-| 18 | ops-heartbeat 実装: ops/heartbeat_state.json, ops/proposals.json に書く。heartbeat API は使わない。 |
-| 19 | autonomy-check, hookpost-ttl-cleaner, moltbook-*, roundtable-*, sto-weekly-refresh, suffering-detector: cron で直接起動し、実行結果を各スキルの workspace/<skill>/ に書く。POST .../api/admin/jobs/... は呼ばない。 |
-
----
-
-## 5) trend-hunter 用プロンプト全文（例は JSON の外・出力はプレースホルダーのみ）
-
-- 日本市場向け。検索は日本でトレンドのものを。投稿・キャプション・画像テキスト・imagePrompt はすべて日本語で出力する。
-- 例はプロンプト本文に「例（参考・JSON の外）」として書き、**出力する JSON の中身はプレースホルダーのみ**にする。
-- listStyle の行は「例: 完璧主義…」を削除し、プレースホルダーのみにする。
+| # | やること | 実行場所 |
+|---|----------|----------|
+| 17 | mission-worker: VPS の ops/steps.json を読む・ops/completed/ に書く。step API は使わない。 | **VPS 上のスキル/実装** |
+| 18 | ops-heartbeat: VPS の ops/heartbeat_state.json, ops/proposals.json に書く。heartbeat API は使わない。 | **VPS 上のスキル/実装** |
+| 19 | autonomy-check, hookpost-ttl-cleaner, moltbook-*, roundtable-*, sto-weekly-refresh, suffering-detector: VPS の cron で直接起動し、実行結果を各 workspace/<skill>/ に書く。POST .../api/admin/jobs/... は呼ばない。 | **VPS 上の cron とスキル** |
 
 ---
 
-## 5) trend-hunter 用プロンプト全文（例はプロンプト内・JSON の外 / 出力 JSON はプレースホルダーのみ）
+## 5) trend-hunter 用プロンプト全文（VPS 上で使う・例は JSON の外・出力はプレースホルダーのみ）
 
 **前提:** 日本市場向け。検索は日本でトレンドのものを用い、投稿・キャプション・画像テキスト・imagePrompt はすべて日本語で出力する。
 

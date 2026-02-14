@@ -7,7 +7,7 @@
       "schedule": { "kind": "cron", "expr": "*/5 * * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute ops-heartbeat skill. Use Authorization: Bearer $ANICCA_AGENT_TOKEN. POST $API_BASE_URL/api/ops/heartbeat." },
+      "payload": { "kind": "agentTurn", "message": "Execute ops-heartbeat skill. Read ~/.openclaw/workspace/ops/heartbeat_state.json and proposals.json. Run heartbeat logic. Write results to those files. Do not call any heartbeat API or POST to Railway." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
@@ -17,7 +17,7 @@
       "schedule": { "kind": "cron", "expr": "* * * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute mission-worker skill. Use Authorization: Bearer $ANICCA_AGENT_TOKEN. GET $API_BASE_URL/api/ops/step/next -> run step -> PATCH $API_BASE_URL/api/ops/step/{id}/complete." },
+      "payload": { "kind": "agentTurn", "message": "Execute mission-worker skill. Read ~/.openclaw/workspace/ops/steps.json, take one step, run it, append result to ~/.openclaw/workspace/ops/completed/YYYY-MM-DD.json (today) and remove that step from steps.json. Do not call any step API or Railway." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
@@ -37,7 +37,7 @@
       "schedule": { "kind": "cron", "expr": "*/5 * * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute suffering-detector skill. Use Authorization: Bearer ${INTERNAL_API_TOKEN:-$INTERNAL_AUTH_SECRET}. POST $API_BASE_URL/api/admin/jobs/suffering-detector." },
+      "payload": { "kind": "agentTurn", "message": "Execute suffering-detector skill. Write result to ~/.openclaw/workspace/suffering/findings_YYYY-MM-DD.json (use today). Do not POST to any jobs API." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
@@ -117,7 +117,7 @@
       "schedule": { "kind": "cron", "expr": "*/5 * * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute moltbook-monitor skill. POST /api/admin/jobs/moltbook-shadow-monitor." },
+      "payload": { "kind": "agentTurn", "message": "Execute moltbook-monitor skill. Write result to ~/.openclaw/workspace/moltbook-monitor/run_YYYY-MM-DD.json (use today). Do not POST to any jobs API." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
@@ -127,7 +127,7 @@
       "schedule": { "kind": "cron", "expr": "30 20 * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute moltbook-poster skill. POST /api/admin/jobs/moltbook-poster." },
+      "payload": { "kind": "agentTurn", "message": "Execute moltbook-poster skill. Write result to ~/.openclaw/workspace/moltbook-poster/run_YYYY-MM-DD.json (use today). Do not POST to any jobs API." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
@@ -137,7 +137,7 @@
       "schedule": { "kind": "cron", "expr": "0 9 * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute roundtable-standup skill. POST /api/admin/roundtable/standup." },
+      "payload": { "kind": "agentTurn", "message": "Execute roundtable-standup skill. Write result to ~/.openclaw/workspace/roundtable-standup/run_YYYY-MM-DD.json (use today). Do not POST to any API." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
@@ -147,7 +147,7 @@
       "schedule": { "kind": "cron", "expr": "55 8 * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute roundtable-memory-extract skill. POST /api/admin/roundtable/memory-extract." },
+      "payload": { "kind": "agentTurn", "message": "Execute roundtable-memory-extract skill. Write result to ~/.openclaw/workspace/roundtable-memory-extract/run_YYYY-MM-DD.json (use today). Do not POST to any API." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
@@ -157,7 +157,7 @@
       "schedule": { "kind": "cron", "expr": "5 9 * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute roundtable-initiative-generate skill. POST /api/admin/roundtable/initiative-generate." },
+      "payload": { "kind": "agentTurn", "message": "Execute roundtable-initiative-generate skill. Write result to ~/.openclaw/workspace/roundtable-initiative-generate/run_YYYY-MM-DD.json (use today). Do not POST to any API." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
@@ -167,7 +167,7 @@
       "schedule": { "kind": "cron", "expr": "0 3 * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute hookpost-ttl-cleaner skill. POST /api/admin/jobs/hookpost-ttl-cleaner." },
+      "payload": { "kind": "agentTurn", "message": "Execute hookpost-ttl-cleaner skill. Write result to ~/.openclaw/workspace/hookpost-ttl-cleaner/run_YYYY-MM-DD.json (use today). Do not POST to any jobs API." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
@@ -177,7 +177,7 @@
       "schedule": { "kind": "cron", "expr": "0 3 * * 0", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute sto-weekly-refresh skill. POST /api/admin/jobs/sto-weekly-refresh." },
+      "payload": { "kind": "agentTurn", "message": "Execute sto-weekly-refresh skill. Write result to ~/.openclaw/workspace/sto-weekly-refresh/run_YYYY-MM-DD.json (use today). Do not POST to any jobs API." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
@@ -187,7 +187,7 @@
       "schedule": { "kind": "cron", "expr": "0 3 * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute autonomy-check skill. POST /api/admin/jobs/autonomy-check." },
+      "payload": { "kind": "agentTurn", "message": "Execute autonomy-check skill. Write result to ~/.openclaw/workspace/autonomy-check/audit_YYYY-MM-DD.json (use today). Do not POST to any jobs API." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
