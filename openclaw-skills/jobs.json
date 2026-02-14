@@ -22,12 +22,22 @@
       "enabled": true
     },
     {
-      "jobId": "trend-hunter",
-      "name": "trend-hunter",
-      "schedule": { "kind": "cron", "expr": "0 */4 * * *", "tz": "Asia/Tokyo" },
+      "jobId": "trend-hunter-5am",
+      "name": "trend-hunter-5am",
+      "schedule": { "kind": "cron", "expr": "0 5 * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute trend-hunter skill. Create run_trend_scan proposal." },
+      "payload": { "kind": "agentTurn", "message": "Execute trend-hunter skill. Slot 9am, date today (Asia/Tokyo). Use this slot and today's date only. Get metrics, run trend search, write trends/ and hooks/ for slot 9am. Do not infer time; do not run date." },
+      "delivery": { "mode": "none" },
+      "enabled": true
+    },
+    {
+      "jobId": "trend-hunter-5pm",
+      "name": "trend-hunter-5pm",
+      "schedule": { "kind": "cron", "expr": "0 17 * * *", "tz": "Asia/Tokyo" },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": { "kind": "agentTurn", "message": "Execute trend-hunter skill. Slot 9pm, date today (Asia/Tokyo). Use this slot and today's date only. Get metrics, run trend search, write trends/ and hooks/ for slot 9pm. Do not infer time; do not run date." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
@@ -47,7 +57,7 @@
       "schedule": { "kind": "cron", "expr": "0 9 * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute x-poster skill. Slot: morning. Create proposal draft_content -> verify_content -> post_x." },
+      "payload": { "kind": "agentTurn", "message": "Execute x-poster skill. Read ~/.openclaw/workspace/hooks/YYYY-MM-DD.json for today, slot 9am. Post the 9am postText to X now." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
@@ -57,7 +67,7 @@
       "schedule": { "kind": "cron", "expr": "0 21 * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute x-poster skill. Slot: evening. Create proposal draft_content -> verify_content -> post_x." },
+      "payload": { "kind": "agentTurn", "message": "Execute x-poster skill. Read ~/.openclaw/workspace/hooks/YYYY-MM-DD.json for today, slot 9pm. Post the 9pm postText to X now." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
@@ -67,7 +77,7 @@
       "schedule": { "kind": "cron", "expr": "0 9 * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute tiktok-poster skill. Slot: morning. Create proposal draft_content -> verify_content -> post_tiktok." },
+      "payload": { "kind": "agentTurn", "message": "Execute tiktok-poster skill. Read ~/.openclaw/workspace/hooks/YYYY-MM-DD.json for today, slot 9am. Post the 9am caption and imageUrl to TikTok now." },
       "delivery": { "mode": "none" },
       "enabled": true
     },
@@ -77,7 +87,7 @@
       "schedule": { "kind": "cron", "expr": "0 21 * * *", "tz": "Asia/Tokyo" },
       "sessionTarget": "isolated",
       "wakeMode": "now",
-      "payload": { "kind": "agentTurn", "message": "Execute tiktok-poster skill. Slot: evening. Create proposal draft_content -> verify_content -> post_tiktok." },
+      "payload": { "kind": "agentTurn", "message": "Execute tiktok-poster skill. Read ~/.openclaw/workspace/hooks/YYYY-MM-DD.json for today, slot 9pm. Post the 9pm caption and imageUrl to TikTok now." },
       "delivery": { "mode": "none" },
       "enabled": true
     },

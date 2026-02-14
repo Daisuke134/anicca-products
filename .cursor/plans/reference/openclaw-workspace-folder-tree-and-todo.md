@@ -67,6 +67,9 @@
 ├── hooks/                                  # trend-hunter 出力（投稿用 1 本）
 │   └── YYYY-MM-DD.json
 │
+├── trend-hunter/                           # trend-hunter メトリクス＋学習メモ
+│   └── metrics_YYYY-MM-DD.json
+│
 ├── nudges/                                 # app-nudge-sender 用（誰に何を送るか）
 │   └── decisions_YYYY-MM-DD.json
 │
@@ -108,7 +111,7 @@
 |--------|----------|------------|------------|--------------|
 | ops-heartbeat | cron 5分毎 | proposals / steps の評価、次にやる step の追加、stale 回復。heartbeat 状態と提案一覧を更新。 | VPS | ops/heartbeat_state.json, ops/proposals.json。steps.json に step を追加。 |
 | mission-worker | cron 毎分 | steps.json から 1 件取り、stepKind に応じて trend-hunter / x-poster / tiktok-poster などを実行。完了したら steps から削除し completed に追記。 | VPS | ops/steps.json（読む・更新）, ops/completed/YYYY-MM-DD.json（書く）。 |
-| trend-hunter | step または cron | 日本でトレンド検索 → trends/YYYY-MM-DD.json に保存 → 1 本選んで hooks/YYYY-MM-DD.json に postText・caption・imageUrl・imagePrompt を生成。 | VPS | trends/YYYY-MM-DD.json, hooks/YYYY-MM-DD.json。 |
+| trend-hunter | **cron 5am と 5pm の 2 本**（12 時間ごと） | payload で slot（9am/9pm）と date（今日）を受け取る。メトリクス取得（Blotato + X API v2 / TikTok）→ トレンド検索（x-research, tiktok-scraper, **reddit-cli**）→ trends 保存 → 1 本選んで hooks にその slot で書く。時刻の推測・date 実行は禁止。 | VPS | trends/YYYY-MM-DD.json, hooks/YYYY-MM-DD.json, **trend-hunter/metrics_YYYY-MM-DD.json**。 |
 | x-poster | step | 当日 hooks/YYYY-MM-DD.json の slot 9am または 9pm の postText を読んで X に投稿。 | VPS | 読むだけ: hooks/。 |
 | tiktok-poster | step | 当日 hooks の slot 9am または 9pm の caption と imageUrl を読んで TikTok に投稿。 | VPS | 読むだけ: hooks/。 |
 | app-nudge-sender | cron 9/14/20 時 | Railway からユーザー一覧取得 → 誰に何を送るか決める → nudges/decisions_YYYY-MM-DD.json に保存 → そのリストを Railway API に渡す → Railway が各ユーザーにアプリ nudge を配信。 | VPS（判断）＋ Railway（配信） | nudges/decisions_YYYY-MM-DD.json。ユーザーは Railway DB、送信は Railway API。 |
@@ -161,6 +164,41 @@
 | 18 | ops-heartbeat: VPS でファイルに書く | ✅ **jobs.json の payload をファイルのみに変更済み。** 同上。 |
 | 19 | cron スキル: VPS で直接起動・workspace/<skill>/ に書く | ✅ **jobs.json の全該当 job の payload を「結果を workspace に書く。POST しない」に変更済み。** autonomy-check, hookpost-ttl-cleaner, moltbook-*, roundtable-*, sto-weekly-refresh, suffering-detector。 |
 
+### VPS で全項目を確認する手順
+
+**VPS に SSH したうえで**、repo からスクリプトを送って実行する。
+
+```bash
+# ローカルから（VPS にスクリプトを送って実行）
+scp scripts/openclaw-vps/verify-vps-workspace.sh anicca@46.225.70.241:~/
+ssh anicca@46.225.70.241 'bash ~/verify-vps-workspace.sh'
+```
+
+または VPS 上で repo を clone/pull している場合:
+
+```bash
+cd /path/to/anicca-project
+bash scripts/openclaw-vps/verify-vps-workspace.sh
+```
+
+#13–#19 がすべて PASS なら、VPS 側の実施は完了。#1–#12 は repo のドキュメント・SKILL 編集（および #15 の rsync 反映）で完了していることを前提とする。
+
+---
+
+## 3) trend-hunter 確定事項（Anicca が読む）
+
+**cron:** 5am と 5pm の 2 本（12 時間ごと）。jobId は `trend-hunter-5am`（0 5 * * *）と `trend-hunter-5pm`（0 17 * * *）。payload に slot（9am または 9pm）と date（今日）が入る。エージェントは payload の slot と date をそのまま使い、時刻の推測や `date` 実行はしない。
+
+**メトリクス取得（Railway は使わない）:**  
+- **X:** Blotato `GET https://backend.blotato.com/v2/posts/{postSubmissionId}`（ヘッダ blotato-api-key）で tweet ID 取得 → X API v2 `GET https://api.x.com/2/tweets?ids={tweetId}&tweet.fields=public_metrics,created_at`（Bearer）で `data[0].public_metrics` の impression_count / like_count / retweet_count / reply_count を使う。  
+- **TikTok:** 同じ Blotato のレスポンスに TikTok の再生数・いいね等があればそれを使い、なければ「TikTok: 未取得」と書く。
+
+**Reddit:** スキル名は **reddit-cli**（VPS の `~/.openclaw/skills/reddit-cli`）。「Reddit API スキル」ではなく reddit-cli と書く。
+
+**保存先（VPS）:** トレンドのみ `~/.openclaw/workspace/trends/YYYY-MM-DD.json`、投稿用 1 本 `~/.openclaw/workspace/hooks/YYYY-MM-DD.json`、メトリクス＋学習 `~/.openclaw/workspace/trend-hunter/metrics_YYYY-MM-DD.json`。
+
+**jobs.json:** 正本は repo の `openclaw-skills/jobs.json`。VPS にはこれを scp で反映。変更前に VPS でバックアップ（例: `jobs.json.bak.before-trend-hunter-5am-5pm`）を取る。
+
 ---
 
 ## 4) やること一覧（TODO）— MD に書いて忘れない
@@ -170,7 +208,7 @@
 | # | やること | 対象ファイル |
 |---|----------|--------------|
 | 1 | openclaw-anicca.md の 8.5.6 を「スキルごとフォルダ」に合わせて更新する。ops はキュー・heartbeat のみ。cron スキルは各 workspace/<skill>/ を記載。 | `.cursor/plans/reference/openclaw-anicca.md` |
-| 2 | trend-hunter SKILL.md: プロンプト全文を「例は JSON の外・出力 JSON はプレースホルダーのみ」に統一。listStyle の JSON 内の「例: 完璧主義…」を削除。日本市場・日本語出力を前提に記載。 | `openclaw-skills/trend-hunter/SKILL.md` |
+| 2 | trend-hunter SKILL.md: プロンプト全文を「例は JSON の外・出力 JSON はプレースホルダーのみ」に統一。listStyle の JSON 内の「例: 完璧主義…」を削除。日本市場・日本語出力を前提に記載。**5am/5pm cron・payload slot/date・メトリクス（X: Blotato→X API v2、TikTok: Blotato）・reddit-cli 表記を反映済み（2026-02-14）。** | `openclaw-skills/trend-hunter/SKILL.md` |
 | 3 | autonomy-check SKILL.md: 保存先を `workspace/autonomy-check/audit_YYYY-MM-DD.json` に。実行は VPS 上。steps.json は使わない。 | `openclaw-skills/autonomy-check/SKILL.md` |
 | 4 | hookpost-ttl-cleaner SKILL.md: 保存先を `workspace/hookpost-ttl-cleaner/run_YYYY-MM-DD.json` に。 | `openclaw-skills/hookpost-ttl-cleaner/SKILL.md` |
 | 5 | moltbook-monitor SKILL.md: 保存先を `workspace/moltbook-monitor/run_YYYY-MM-DD.json` に。Moltbook のインターフェースを使用する旨を明記。 | `openclaw-skills/moltbook-monitor/SKILL.md` |
@@ -187,7 +225,7 @@
 | # | やること | 実行場所 |
 |---|----------|----------|
 | 13 | `workspace/ops/` を作成し、steps.json / heartbeat_state.json / proposals.json を初期化。ops/completed/ を作成。 | **VPS 上で実行** |
-| 14 | `workspace/autonomy-check/`, hookpost-ttl-cleaner/, moltbook-*, roundtable-*, sto-weekly-refresh/, suffering/, nudges/, trends/, hooks/ を作成（無い場合）。 | **VPS 上で実行** |
+| 14 | `workspace/autonomy-check/`, hookpost-ttl-cleaner/, moltbook-*, roundtable-*, sto-weekly-refresh/, suffering/, nudges/, trends/, hooks/, **trend-hunter/** を作成（無い場合）。 | **VPS 上で実行** |
 | 15 | repo の SKILL.md を VPS の `~/.openclaw/skills/<name>/SKILL.md` に反映する。（ローカルから rsync するか、VPS で git pull 後コピー。） | **VPS に反映** |
 | 16 | `~/.openclaw/.env` に API_BASE_URL 等を揃える。 | **VPS の .env を編集** |
 

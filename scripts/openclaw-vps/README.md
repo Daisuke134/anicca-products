@@ -1,5 +1,16 @@
 # OpenClaw VPS 用スクリプト
 
+## workspace 19 項目検証（VPS 上で実行）
+
+`.cursor/plans/reference/openclaw-workspace-folder-tree-and-todo.md` の #13–#19 が VPS で満たされているか確認する。
+
+```bash
+scp scripts/openclaw-vps/verify-vps-workspace.sh anicca@46.225.70.241:~/
+ssh anicca@46.225.70.241 'bash ~/verify-vps-workspace.sh'
+```
+
+---
+
 ## GPT-5.3 Codex への切替（運用化）
 
 VPS 上の Anicca を `openai-codex/gpt-5.3-codex` で動かすための手順。

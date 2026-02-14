@@ -304,8 +304,8 @@ step キュー・heartbeat 状態・トレンド・hooks は **すべて VPS の
 
 ## 8.6) 12h トレンド→投稿サイクル（確定）
 
-- **5am:** トレンド狩り → **9am 用を 1 本だけ** Blotato で schedule（scheduledTime 9:00）。
-- **5pm:** 9am のメトリクス確認・学習 → **9pm 用を 1 本だけ** schedule。
+- **5am（trend-hunter-5am）:** payload で slot 9am・date 今日。メトリクス取得 → トレンド検索 → trends 保存 → 1 本選んで hooks に slot 9am で書く。9:00 の投稿は x-poster / tiktok-poster が hooks を読んで実行。
+- **5pm（trend-hunter-5pm）:** payload で slot 9pm・date 今日。メトリクス取得 → トレンド検索 → trends 保存 → 1 本選んで hooks に slot 9pm で書く。21:00 の投稿は x-poster / tiktok-poster が hooks を読んで実行。
 - 毎投稿ごとにメトリクス→学習するので closed loop が早く回る。**12h で 1 サイクル。**
 
 ---
