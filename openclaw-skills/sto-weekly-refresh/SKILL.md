@@ -1,7 +1,15 @@
 # sto-weekly-refresh
 
 ## 目的
-STO（Schedule/Trigger/Observation）の週次リフレッシュ。UserStoModel 等を更新。
+STO（Schedule/Trigger/Observation）の週次リフレッシュ。UserStoModel 等を更新。投稿時間最適化の週次更新。
+
+## 保存先（Anicca 内・フルパス）
+
+| 種類 | フルパス |
+|------|----------|
+| 実行結果 | `/home/anicca/.openclaw/workspace/sto-weekly-refresh/run_YYYY-MM-DD.json` |
+
+VPS 相対: `~/.openclaw/workspace/sto-weekly-refresh/run_YYYY-MM-DD.json`。
 
 ## 必須 env
 | キー | 説明 |

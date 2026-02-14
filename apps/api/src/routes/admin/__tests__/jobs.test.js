@@ -14,6 +14,7 @@ const jobMocks = vi.hoisted(() => ({
   runProactiveAppNudgeJob: vi.fn(),
   runMoltbookShadowMonitorJob: vi.fn(),
   runMoltbookPosterJob: vi.fn(),
+  runProblemNudgeApnsSender: vi.fn(),
 }));
 
 vi.mock('../../../jobs/memoryCleanup.js', () => ({
@@ -36,6 +37,9 @@ vi.mock('../../../jobs/moltbookShadowMonitorJob.js', () => ({
 }));
 vi.mock('../../../jobs/moltbookPosterJob.js', () => ({
   runMoltbookPosterJob: jobMocks.runMoltbookPosterJob,
+}));
+vi.mock('../../../jobs/problemNudgeApnsSenderJob.js', () => ({
+  runProblemNudgeApnsSender: jobMocks.runProblemNudgeApnsSender,
 }));
 
 import jobsRouter from '../jobs.js';
@@ -111,6 +115,14 @@ describe('admin jobs routes', () => {
     const res = await request(app).post('/api/admin/jobs/moltbook-poster').send({ dry_run: true });
     expect(res.status).toBe(200);
     expect(jobMocks.runMoltbookPosterJob).toHaveBeenCalledWith({ dryRun: true });
+    expect(res.body.result.ok).toBe(true);
+  });
+
+  it('POST /problem-nudge-apns-sender returns job result', async () => {
+    jobMocks.runProblemNudgeApnsSender.mockResolvedValueOnce({ ok: true, env: 'dev', queued: 1, sent: 1, failed: 0 });
+    const res = await request(app).post('/api/admin/jobs/problem-nudge-apns-sender').send({ nowUtcIso: '2026-02-13T15:30:00.000Z' });
+    expect(res.status).toBe(200);
+    expect(jobMocks.runProblemNudgeApnsSender).toHaveBeenCalledTimes(1);
     expect(res.body.result.ok).toBe(true);
   });
 });

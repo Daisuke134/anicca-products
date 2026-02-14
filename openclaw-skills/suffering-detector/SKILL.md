@@ -3,6 +3,14 @@
 ## 目的
 web_search 等で「苦しみ/危機」を検知し、`detections[]` を作成。severity>=0.9 は SAFE-T として `crisis:detected` を emit、Slack 通知で interrupt。
 
+## 保存先（Anicca 内・フルパス）
+
+| 種類 | フルパス |
+|------|----------|
+| 検知結果 | `/home/anicca/.openclaw/workspace/suffering/findings_YYYY-MM-DD.json` |
+
+VPS 相対: `~/.openclaw/workspace/suffering/findings_YYYY-MM-DD.json`。
+
 ## 必須 env
 | キー | 説明 |
 |------|------|

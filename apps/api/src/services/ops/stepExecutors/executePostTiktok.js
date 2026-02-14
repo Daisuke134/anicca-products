@@ -54,7 +54,8 @@ export async function executePostTiktok({ input, missionId, proposalPayload }) {
             disabledStitch: false,
             isBrandedContent: false,
             isYourBrand: false,
-            isAiGenerated: false
+            isAiGenerated: false,
+            autoAddMusic: true
           }
         }
       })

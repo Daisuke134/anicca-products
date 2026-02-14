@@ -426,6 +426,10 @@ final class AppState: ObservableObject {
     // MARK: - Device ID
     
     func resolveDeviceId() -> String {
+        // Maestro / UI tests: keep device-id stable so backend seeding can target a known profile.
+        if ProcessInfo.processInfo.arguments.contains("-uiTesting") {
+            return "UI_TEST_DEVICE_ID"
+        }
         let key = "cached_device_id"
         if let cached = defaults.string(forKey: key), !cached.isEmpty {
             return cached

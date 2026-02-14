@@ -54,6 +54,21 @@ export type Profile = $Result.DefaultSelection<Prisma.$ProfilePayload>
  */
 export type UserSetting = $Result.DefaultSelection<Prisma.$UserSettingPayload>
 /**
+ * Model PushToken
+ * 
+ */
+export type PushToken = $Result.DefaultSelection<Prisma.$PushTokenPayload>
+/**
+ * Model NudgeDelivery
+ * 
+ */
+export type NudgeDelivery = $Result.DefaultSelection<Prisma.$NudgeDeliveryPayload>
+/**
+ * Model NudgeDeliverySend
+ * 
+ */
+export type NudgeDeliverySend = $Result.DefaultSelection<Prisma.$NudgeDeliverySendPayload>
+/**
  * Model UserTrait
  * 
  */
@@ -376,6 +391,36 @@ export class PrismaClient<
     * ```
     */
   get userSetting(): Prisma.UserSettingDelegate<ExtArgs>;
+
+  /**
+   * `prisma.pushToken`: Exposes CRUD operations for the **PushToken** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more PushTokens
+    * const pushTokens = await prisma.pushToken.findMany()
+    * ```
+    */
+  get pushToken(): Prisma.PushTokenDelegate<ExtArgs>;
+
+  /**
+   * `prisma.nudgeDelivery`: Exposes CRUD operations for the **NudgeDelivery** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NudgeDeliveries
+    * const nudgeDeliveries = await prisma.nudgeDelivery.findMany()
+    * ```
+    */
+  get nudgeDelivery(): Prisma.NudgeDeliveryDelegate<ExtArgs>;
+
+  /**
+   * `prisma.nudgeDeliverySend`: Exposes CRUD operations for the **NudgeDeliverySend** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NudgeDeliverySends
+    * const nudgeDeliverySends = await prisma.nudgeDeliverySend.findMany()
+    * ```
+    */
+  get nudgeDeliverySend(): Prisma.NudgeDeliverySendDelegate<ExtArgs>;
 
   /**
    * `prisma.userTrait`: Exposes CRUD operations for the **UserTrait** model.
@@ -1065,6 +1110,9 @@ export namespace Prisma {
     MonthlyVcGrant: 'MonthlyVcGrant',
     Profile: 'Profile',
     UserSetting: 'UserSetting',
+    PushToken: 'PushToken',
+    NudgeDelivery: 'NudgeDelivery',
+    NudgeDeliverySend: 'NudgeDeliverySend',
     UserTrait: 'UserTrait',
     NudgeEvent: 'NudgeEvent',
     NudgeOutcome: 'NudgeOutcome',
@@ -1104,7 +1152,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, ClientOptions = {}> = {
     meta: {
-      modelProps: "token" | "refreshToken" | "mobileProfile" | "userSubscription" | "subscriptionEvent" | "monthlyVcGrant" | "profile" | "userSetting" | "userTrait" | "nudgeEvent" | "nudgeOutcome" | "feelingSession" | "banditModel" | "userTypeEstimate" | "typeStats" | "hookCandidate" | "tiktokPost" | "wisdomPattern" | "xPost" | "notificationSchedule" | "agentPost" | "agentAuditLog" | "memoryItem" | "initiative" | "researchItem" | "opsProposal" | "opsMission" | "opsMissionStep" | "opsEvent" | "opsPolicy" | "opsTriggerRule" | "opsReaction"
+      modelProps: "token" | "refreshToken" | "mobileProfile" | "userSubscription" | "subscriptionEvent" | "monthlyVcGrant" | "profile" | "userSetting" | "pushToken" | "nudgeDelivery" | "nudgeDeliverySend" | "userTrait" | "nudgeEvent" | "nudgeOutcome" | "feelingSession" | "banditModel" | "userTypeEstimate" | "typeStats" | "hookCandidate" | "tiktokPost" | "wisdomPattern" | "xPost" | "notificationSchedule" | "agentPost" | "agentAuditLog" | "memoryItem" | "initiative" | "researchItem" | "opsProposal" | "opsMission" | "opsMissionStep" | "opsEvent" | "opsPolicy" | "opsTriggerRule" | "opsReaction"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1665,6 +1713,216 @@ export namespace Prisma {
           count: {
             args: Prisma.UserSettingCountArgs<ExtArgs>
             result: $Utils.Optional<UserSettingCountAggregateOutputType> | number
+          }
+        }
+      }
+      PushToken: {
+        payload: Prisma.$PushTokenPayload<ExtArgs>
+        fields: Prisma.PushTokenFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.PushTokenFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushTokenPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.PushTokenFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushTokenPayload>
+          }
+          findFirst: {
+            args: Prisma.PushTokenFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushTokenPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.PushTokenFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushTokenPayload>
+          }
+          findMany: {
+            args: Prisma.PushTokenFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushTokenPayload>[]
+          }
+          create: {
+            args: Prisma.PushTokenCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushTokenPayload>
+          }
+          createMany: {
+            args: Prisma.PushTokenCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.PushTokenCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushTokenPayload>[]
+          }
+          delete: {
+            args: Prisma.PushTokenDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushTokenPayload>
+          }
+          update: {
+            args: Prisma.PushTokenUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushTokenPayload>
+          }
+          deleteMany: {
+            args: Prisma.PushTokenDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.PushTokenUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.PushTokenUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$PushTokenPayload>
+          }
+          aggregate: {
+            args: Prisma.PushTokenAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregatePushToken>
+          }
+          groupBy: {
+            args: Prisma.PushTokenGroupByArgs<ExtArgs>
+            result: $Utils.Optional<PushTokenGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.PushTokenCountArgs<ExtArgs>
+            result: $Utils.Optional<PushTokenCountAggregateOutputType> | number
+          }
+        }
+      }
+      NudgeDelivery: {
+        payload: Prisma.$NudgeDeliveryPayload<ExtArgs>
+        fields: Prisma.NudgeDeliveryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NudgeDeliveryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliveryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NudgeDeliveryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliveryPayload>
+          }
+          findFirst: {
+            args: Prisma.NudgeDeliveryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliveryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NudgeDeliveryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliveryPayload>
+          }
+          findMany: {
+            args: Prisma.NudgeDeliveryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliveryPayload>[]
+          }
+          create: {
+            args: Prisma.NudgeDeliveryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliveryPayload>
+          }
+          createMany: {
+            args: Prisma.NudgeDeliveryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NudgeDeliveryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliveryPayload>[]
+          }
+          delete: {
+            args: Prisma.NudgeDeliveryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliveryPayload>
+          }
+          update: {
+            args: Prisma.NudgeDeliveryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliveryPayload>
+          }
+          deleteMany: {
+            args: Prisma.NudgeDeliveryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NudgeDeliveryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.NudgeDeliveryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliveryPayload>
+          }
+          aggregate: {
+            args: Prisma.NudgeDeliveryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNudgeDelivery>
+          }
+          groupBy: {
+            args: Prisma.NudgeDeliveryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NudgeDeliveryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NudgeDeliveryCountArgs<ExtArgs>
+            result: $Utils.Optional<NudgeDeliveryCountAggregateOutputType> | number
+          }
+        }
+      }
+      NudgeDeliverySend: {
+        payload: Prisma.$NudgeDeliverySendPayload<ExtArgs>
+        fields: Prisma.NudgeDeliverySendFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NudgeDeliverySendFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliverySendPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NudgeDeliverySendFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliverySendPayload>
+          }
+          findFirst: {
+            args: Prisma.NudgeDeliverySendFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliverySendPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NudgeDeliverySendFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliverySendPayload>
+          }
+          findMany: {
+            args: Prisma.NudgeDeliverySendFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliverySendPayload>[]
+          }
+          create: {
+            args: Prisma.NudgeDeliverySendCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliverySendPayload>
+          }
+          createMany: {
+            args: Prisma.NudgeDeliverySendCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NudgeDeliverySendCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliverySendPayload>[]
+          }
+          delete: {
+            args: Prisma.NudgeDeliverySendDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliverySendPayload>
+          }
+          update: {
+            args: Prisma.NudgeDeliverySendUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliverySendPayload>
+          }
+          deleteMany: {
+            args: Prisma.NudgeDeliverySendDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NudgeDeliverySendUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.NudgeDeliverySendUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NudgeDeliverySendPayload>
+          }
+          aggregate: {
+            args: Prisma.NudgeDeliverySendAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNudgeDeliverySend>
+          }
+          groupBy: {
+            args: Prisma.NudgeDeliverySendGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NudgeDeliverySendGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NudgeDeliverySendCountArgs<ExtArgs>
+            result: $Utils.Optional<NudgeDeliverySendCountAggregateOutputType> | number
           }
         }
       }
@@ -3502,6 +3760,68 @@ export namespace Prisma {
   /**
    * Count Types
    */
+
+
+  /**
+   * Count Type PushTokenCountOutputType
+   */
+
+  export type PushTokenCountOutputType = {
+    deliverySends: number
+  }
+
+  export type PushTokenCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deliverySends?: boolean | PushTokenCountOutputTypeCountDeliverySendsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * PushTokenCountOutputType without action
+   */
+  export type PushTokenCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushTokenCountOutputType
+     */
+    select?: PushTokenCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * PushTokenCountOutputType without action
+   */
+  export type PushTokenCountOutputTypeCountDeliverySendsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NudgeDeliverySendWhereInput
+  }
+
+
+  /**
+   * Count Type NudgeDeliveryCountOutputType
+   */
+
+  export type NudgeDeliveryCountOutputType = {
+    sends: number
+  }
+
+  export type NudgeDeliveryCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sends?: boolean | NudgeDeliveryCountOutputTypeCountSendsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * NudgeDeliveryCountOutputType without action
+   */
+  export type NudgeDeliveryCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDeliveryCountOutputType
+     */
+    select?: NudgeDeliveryCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * NudgeDeliveryCountOutputType without action
+   */
+  export type NudgeDeliveryCountOutputTypeCountSendsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NudgeDeliverySendWhereInput
+  }
 
 
   /**
@@ -10182,6 +10502,8 @@ export namespace Prisma {
     language: string | null
     timezone: string | null
     notificationsEnabled: boolean | null
+    nudgeDay0LocalDate: Date | null
+    nudgeDay0Source: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -10191,6 +10513,8 @@ export namespace Prisma {
     language: string | null
     timezone: string | null
     notificationsEnabled: boolean | null
+    nudgeDay0LocalDate: Date | null
+    nudgeDay0Source: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -10200,6 +10524,8 @@ export namespace Prisma {
     language: number
     timezone: number
     notificationsEnabled: number
+    nudgeDay0LocalDate: number
+    nudgeDay0Source: number
     preferences: number
     createdAt: number
     updatedAt: number
@@ -10212,6 +10538,8 @@ export namespace Prisma {
     language?: true
     timezone?: true
     notificationsEnabled?: true
+    nudgeDay0LocalDate?: true
+    nudgeDay0Source?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -10221,6 +10549,8 @@ export namespace Prisma {
     language?: true
     timezone?: true
     notificationsEnabled?: true
+    nudgeDay0LocalDate?: true
+    nudgeDay0Source?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -10230,6 +10560,8 @@ export namespace Prisma {
     language?: true
     timezone?: true
     notificationsEnabled?: true
+    nudgeDay0LocalDate?: true
+    nudgeDay0Source?: true
     preferences?: true
     createdAt?: true
     updatedAt?: true
@@ -10313,6 +10645,8 @@ export namespace Prisma {
     language: string
     timezone: string
     notificationsEnabled: boolean
+    nudgeDay0LocalDate: Date | null
+    nudgeDay0Source: string | null
     preferences: JsonValue
     createdAt: Date
     updatedAt: Date
@@ -10340,6 +10674,8 @@ export namespace Prisma {
     language?: boolean
     timezone?: boolean
     notificationsEnabled?: boolean
+    nudgeDay0LocalDate?: boolean
+    nudgeDay0Source?: boolean
     preferences?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -10351,6 +10687,8 @@ export namespace Prisma {
     language?: boolean
     timezone?: boolean
     notificationsEnabled?: boolean
+    nudgeDay0LocalDate?: boolean
+    nudgeDay0Source?: boolean
     preferences?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -10362,6 +10700,8 @@ export namespace Prisma {
     language?: boolean
     timezone?: boolean
     notificationsEnabled?: boolean
+    nudgeDay0LocalDate?: boolean
+    nudgeDay0Source?: boolean
     preferences?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -10384,6 +10724,8 @@ export namespace Prisma {
       language: string
       timezone: string
       notificationsEnabled: boolean
+      nudgeDay0LocalDate: Date | null
+      nudgeDay0Source: string | null
       preferences: Prisma.JsonValue
       createdAt: Date
       updatedAt: Date
@@ -10785,6 +11127,8 @@ export namespace Prisma {
     readonly language: FieldRef<"UserSetting", 'String'>
     readonly timezone: FieldRef<"UserSetting", 'String'>
     readonly notificationsEnabled: FieldRef<"UserSetting", 'Boolean'>
+    readonly nudgeDay0LocalDate: FieldRef<"UserSetting", 'DateTime'>
+    readonly nudgeDay0Source: FieldRef<"UserSetting", 'String'>
     readonly preferences: FieldRef<"UserSetting", 'Json'>
     readonly createdAt: FieldRef<"UserSetting", 'DateTime'>
     readonly updatedAt: FieldRef<"UserSetting", 'DateTime'>
@@ -11117,6 +11461,3225 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserSettingInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model PushToken
+   */
+
+  export type AggregatePushToken = {
+    _count: PushTokenCountAggregateOutputType | null
+    _min: PushTokenMinAggregateOutputType | null
+    _max: PushTokenMaxAggregateOutputType | null
+  }
+
+  export type PushTokenMinAggregateOutputType = {
+    id: string | null
+    profileId: string | null
+    deviceId: string | null
+    token: string | null
+    platform: string | null
+    env: string | null
+    disabledAt: Date | null
+    lastError: string | null
+    updatedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type PushTokenMaxAggregateOutputType = {
+    id: string | null
+    profileId: string | null
+    deviceId: string | null
+    token: string | null
+    platform: string | null
+    env: string | null
+    disabledAt: Date | null
+    lastError: string | null
+    updatedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type PushTokenCountAggregateOutputType = {
+    id: number
+    profileId: number
+    deviceId: number
+    token: number
+    platform: number
+    env: number
+    disabledAt: number
+    lastError: number
+    updatedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type PushTokenMinAggregateInputType = {
+    id?: true
+    profileId?: true
+    deviceId?: true
+    token?: true
+    platform?: true
+    env?: true
+    disabledAt?: true
+    lastError?: true
+    updatedAt?: true
+    createdAt?: true
+  }
+
+  export type PushTokenMaxAggregateInputType = {
+    id?: true
+    profileId?: true
+    deviceId?: true
+    token?: true
+    platform?: true
+    env?: true
+    disabledAt?: true
+    lastError?: true
+    updatedAt?: true
+    createdAt?: true
+  }
+
+  export type PushTokenCountAggregateInputType = {
+    id?: true
+    profileId?: true
+    deviceId?: true
+    token?: true
+    platform?: true
+    env?: true
+    disabledAt?: true
+    lastError?: true
+    updatedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type PushTokenAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PushToken to aggregate.
+     */
+    where?: PushTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PushTokens to fetch.
+     */
+    orderBy?: PushTokenOrderByWithRelationInput | PushTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: PushTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PushTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PushTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned PushTokens
+    **/
+    _count?: true | PushTokenCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: PushTokenMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: PushTokenMaxAggregateInputType
+  }
+
+  export type GetPushTokenAggregateType<T extends PushTokenAggregateArgs> = {
+        [P in keyof T & keyof AggregatePushToken]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregatePushToken[P]>
+      : GetScalarType<T[P], AggregatePushToken[P]>
+  }
+
+
+
+
+  export type PushTokenGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: PushTokenWhereInput
+    orderBy?: PushTokenOrderByWithAggregationInput | PushTokenOrderByWithAggregationInput[]
+    by: PushTokenScalarFieldEnum[] | PushTokenScalarFieldEnum
+    having?: PushTokenScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: PushTokenCountAggregateInputType | true
+    _min?: PushTokenMinAggregateInputType
+    _max?: PushTokenMaxAggregateInputType
+  }
+
+  export type PushTokenGroupByOutputType = {
+    id: string
+    profileId: string
+    deviceId: string
+    token: string
+    platform: string
+    env: string
+    disabledAt: Date | null
+    lastError: string | null
+    updatedAt: Date
+    createdAt: Date
+    _count: PushTokenCountAggregateOutputType | null
+    _min: PushTokenMinAggregateOutputType | null
+    _max: PushTokenMaxAggregateOutputType | null
+  }
+
+  type GetPushTokenGroupByPayload<T extends PushTokenGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<PushTokenGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof PushTokenGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], PushTokenGroupByOutputType[P]>
+            : GetScalarType<T[P], PushTokenGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type PushTokenSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    profileId?: boolean
+    deviceId?: boolean
+    token?: boolean
+    platform?: boolean
+    env?: boolean
+    disabledAt?: boolean
+    lastError?: boolean
+    updatedAt?: boolean
+    createdAt?: boolean
+    deliverySends?: boolean | PushToken$deliverySendsArgs<ExtArgs>
+    _count?: boolean | PushTokenCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["pushToken"]>
+
+  export type PushTokenSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    profileId?: boolean
+    deviceId?: boolean
+    token?: boolean
+    platform?: boolean
+    env?: boolean
+    disabledAt?: boolean
+    lastError?: boolean
+    updatedAt?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["pushToken"]>
+
+  export type PushTokenSelectScalar = {
+    id?: boolean
+    profileId?: boolean
+    deviceId?: boolean
+    token?: boolean
+    platform?: boolean
+    env?: boolean
+    disabledAt?: boolean
+    lastError?: boolean
+    updatedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type PushTokenInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    deliverySends?: boolean | PushToken$deliverySendsArgs<ExtArgs>
+    _count?: boolean | PushTokenCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type PushTokenIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $PushTokenPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "PushToken"
+    objects: {
+      deliverySends: Prisma.$NudgeDeliverySendPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      profileId: string
+      deviceId: string
+      token: string
+      platform: string
+      env: string
+      disabledAt: Date | null
+      lastError: string | null
+      updatedAt: Date
+      createdAt: Date
+    }, ExtArgs["result"]["pushToken"]>
+    composites: {}
+  }
+
+  type PushTokenGetPayload<S extends boolean | null | undefined | PushTokenDefaultArgs> = $Result.GetResult<Prisma.$PushTokenPayload, S>
+
+  type PushTokenCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<PushTokenFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: PushTokenCountAggregateInputType | true
+    }
+
+  export interface PushTokenDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['PushToken'], meta: { name: 'PushToken' } }
+    /**
+     * Find zero or one PushToken that matches the filter.
+     * @param {PushTokenFindUniqueArgs} args - Arguments to find a PushToken
+     * @example
+     * // Get one PushToken
+     * const pushToken = await prisma.pushToken.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends PushTokenFindUniqueArgs>(args: SelectSubset<T, PushTokenFindUniqueArgs<ExtArgs>>): Prisma__PushTokenClient<$Result.GetResult<Prisma.$PushTokenPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one PushToken that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {PushTokenFindUniqueOrThrowArgs} args - Arguments to find a PushToken
+     * @example
+     * // Get one PushToken
+     * const pushToken = await prisma.pushToken.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends PushTokenFindUniqueOrThrowArgs>(args: SelectSubset<T, PushTokenFindUniqueOrThrowArgs<ExtArgs>>): Prisma__PushTokenClient<$Result.GetResult<Prisma.$PushTokenPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first PushToken that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushTokenFindFirstArgs} args - Arguments to find a PushToken
+     * @example
+     * // Get one PushToken
+     * const pushToken = await prisma.pushToken.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends PushTokenFindFirstArgs>(args?: SelectSubset<T, PushTokenFindFirstArgs<ExtArgs>>): Prisma__PushTokenClient<$Result.GetResult<Prisma.$PushTokenPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first PushToken that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushTokenFindFirstOrThrowArgs} args - Arguments to find a PushToken
+     * @example
+     * // Get one PushToken
+     * const pushToken = await prisma.pushToken.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends PushTokenFindFirstOrThrowArgs>(args?: SelectSubset<T, PushTokenFindFirstOrThrowArgs<ExtArgs>>): Prisma__PushTokenClient<$Result.GetResult<Prisma.$PushTokenPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more PushTokens that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushTokenFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all PushTokens
+     * const pushTokens = await prisma.pushToken.findMany()
+     * 
+     * // Get first 10 PushTokens
+     * const pushTokens = await prisma.pushToken.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const pushTokenWithIdOnly = await prisma.pushToken.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends PushTokenFindManyArgs>(args?: SelectSubset<T, PushTokenFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushTokenPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a PushToken.
+     * @param {PushTokenCreateArgs} args - Arguments to create a PushToken.
+     * @example
+     * // Create one PushToken
+     * const PushToken = await prisma.pushToken.create({
+     *   data: {
+     *     // ... data to create a PushToken
+     *   }
+     * })
+     * 
+     */
+    create<T extends PushTokenCreateArgs>(args: SelectSubset<T, PushTokenCreateArgs<ExtArgs>>): Prisma__PushTokenClient<$Result.GetResult<Prisma.$PushTokenPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many PushTokens.
+     * @param {PushTokenCreateManyArgs} args - Arguments to create many PushTokens.
+     * @example
+     * // Create many PushTokens
+     * const pushToken = await prisma.pushToken.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends PushTokenCreateManyArgs>(args?: SelectSubset<T, PushTokenCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many PushTokens and returns the data saved in the database.
+     * @param {PushTokenCreateManyAndReturnArgs} args - Arguments to create many PushTokens.
+     * @example
+     * // Create many PushTokens
+     * const pushToken = await prisma.pushToken.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many PushTokens and only return the `id`
+     * const pushTokenWithIdOnly = await prisma.pushToken.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends PushTokenCreateManyAndReturnArgs>(args?: SelectSubset<T, PushTokenCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PushTokenPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a PushToken.
+     * @param {PushTokenDeleteArgs} args - Arguments to delete one PushToken.
+     * @example
+     * // Delete one PushToken
+     * const PushToken = await prisma.pushToken.delete({
+     *   where: {
+     *     // ... filter to delete one PushToken
+     *   }
+     * })
+     * 
+     */
+    delete<T extends PushTokenDeleteArgs>(args: SelectSubset<T, PushTokenDeleteArgs<ExtArgs>>): Prisma__PushTokenClient<$Result.GetResult<Prisma.$PushTokenPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one PushToken.
+     * @param {PushTokenUpdateArgs} args - Arguments to update one PushToken.
+     * @example
+     * // Update one PushToken
+     * const pushToken = await prisma.pushToken.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends PushTokenUpdateArgs>(args: SelectSubset<T, PushTokenUpdateArgs<ExtArgs>>): Prisma__PushTokenClient<$Result.GetResult<Prisma.$PushTokenPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more PushTokens.
+     * @param {PushTokenDeleteManyArgs} args - Arguments to filter PushTokens to delete.
+     * @example
+     * // Delete a few PushTokens
+     * const { count } = await prisma.pushToken.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends PushTokenDeleteManyArgs>(args?: SelectSubset<T, PushTokenDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more PushTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushTokenUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many PushTokens
+     * const pushToken = await prisma.pushToken.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends PushTokenUpdateManyArgs>(args: SelectSubset<T, PushTokenUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one PushToken.
+     * @param {PushTokenUpsertArgs} args - Arguments to update or create a PushToken.
+     * @example
+     * // Update or create a PushToken
+     * const pushToken = await prisma.pushToken.upsert({
+     *   create: {
+     *     // ... data to create a PushToken
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the PushToken we want to update
+     *   }
+     * })
+     */
+    upsert<T extends PushTokenUpsertArgs>(args: SelectSubset<T, PushTokenUpsertArgs<ExtArgs>>): Prisma__PushTokenClient<$Result.GetResult<Prisma.$PushTokenPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of PushTokens.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushTokenCountArgs} args - Arguments to filter PushTokens to count.
+     * @example
+     * // Count the number of PushTokens
+     * const count = await prisma.pushToken.count({
+     *   where: {
+     *     // ... the filter for the PushTokens we want to count
+     *   }
+     * })
+    **/
+    count<T extends PushTokenCountArgs>(
+      args?: Subset<T, PushTokenCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], PushTokenCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a PushToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushTokenAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends PushTokenAggregateArgs>(args: Subset<T, PushTokenAggregateArgs>): Prisma.PrismaPromise<GetPushTokenAggregateType<T>>
+
+    /**
+     * Group by PushToken.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {PushTokenGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends PushTokenGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: PushTokenGroupByArgs['orderBy'] }
+        : { orderBy?: PushTokenGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, PushTokenGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPushTokenGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the PushToken model
+   */
+  readonly fields: PushTokenFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for PushToken.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__PushTokenClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    deliverySends<T extends PushToken$deliverySendsArgs<ExtArgs> = {}>(args?: Subset<T, PushToken$deliverySendsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NudgeDeliverySendPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the PushToken model
+   */ 
+  interface PushTokenFieldRefs {
+    readonly id: FieldRef<"PushToken", 'String'>
+    readonly profileId: FieldRef<"PushToken", 'String'>
+    readonly deviceId: FieldRef<"PushToken", 'String'>
+    readonly token: FieldRef<"PushToken", 'String'>
+    readonly platform: FieldRef<"PushToken", 'String'>
+    readonly env: FieldRef<"PushToken", 'String'>
+    readonly disabledAt: FieldRef<"PushToken", 'DateTime'>
+    readonly lastError: FieldRef<"PushToken", 'String'>
+    readonly updatedAt: FieldRef<"PushToken", 'DateTime'>
+    readonly createdAt: FieldRef<"PushToken", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * PushToken findUnique
+   */
+  export type PushTokenFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushToken
+     */
+    select?: PushTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which PushToken to fetch.
+     */
+    where: PushTokenWhereUniqueInput
+  }
+
+  /**
+   * PushToken findUniqueOrThrow
+   */
+  export type PushTokenFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushToken
+     */
+    select?: PushTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which PushToken to fetch.
+     */
+    where: PushTokenWhereUniqueInput
+  }
+
+  /**
+   * PushToken findFirst
+   */
+  export type PushTokenFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushToken
+     */
+    select?: PushTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which PushToken to fetch.
+     */
+    where?: PushTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PushTokens to fetch.
+     */
+    orderBy?: PushTokenOrderByWithRelationInput | PushTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PushTokens.
+     */
+    cursor?: PushTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PushTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PushTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PushTokens.
+     */
+    distinct?: PushTokenScalarFieldEnum | PushTokenScalarFieldEnum[]
+  }
+
+  /**
+   * PushToken findFirstOrThrow
+   */
+  export type PushTokenFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushToken
+     */
+    select?: PushTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which PushToken to fetch.
+     */
+    where?: PushTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PushTokens to fetch.
+     */
+    orderBy?: PushTokenOrderByWithRelationInput | PushTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for PushTokens.
+     */
+    cursor?: PushTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PushTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PushTokens.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of PushTokens.
+     */
+    distinct?: PushTokenScalarFieldEnum | PushTokenScalarFieldEnum[]
+  }
+
+  /**
+   * PushToken findMany
+   */
+  export type PushTokenFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushToken
+     */
+    select?: PushTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushTokenInclude<ExtArgs> | null
+    /**
+     * Filter, which PushTokens to fetch.
+     */
+    where?: PushTokenWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of PushTokens to fetch.
+     */
+    orderBy?: PushTokenOrderByWithRelationInput | PushTokenOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing PushTokens.
+     */
+    cursor?: PushTokenWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` PushTokens from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` PushTokens.
+     */
+    skip?: number
+    distinct?: PushTokenScalarFieldEnum | PushTokenScalarFieldEnum[]
+  }
+
+  /**
+   * PushToken create
+   */
+  export type PushTokenCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushToken
+     */
+    select?: PushTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to create a PushToken.
+     */
+    data: XOR<PushTokenCreateInput, PushTokenUncheckedCreateInput>
+  }
+
+  /**
+   * PushToken createMany
+   */
+  export type PushTokenCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many PushTokens.
+     */
+    data: PushTokenCreateManyInput | PushTokenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PushToken createManyAndReturn
+   */
+  export type PushTokenCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushToken
+     */
+    select?: PushTokenSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many PushTokens.
+     */
+    data: PushTokenCreateManyInput | PushTokenCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * PushToken update
+   */
+  export type PushTokenUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushToken
+     */
+    select?: PushTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushTokenInclude<ExtArgs> | null
+    /**
+     * The data needed to update a PushToken.
+     */
+    data: XOR<PushTokenUpdateInput, PushTokenUncheckedUpdateInput>
+    /**
+     * Choose, which PushToken to update.
+     */
+    where: PushTokenWhereUniqueInput
+  }
+
+  /**
+   * PushToken updateMany
+   */
+  export type PushTokenUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update PushTokens.
+     */
+    data: XOR<PushTokenUpdateManyMutationInput, PushTokenUncheckedUpdateManyInput>
+    /**
+     * Filter which PushTokens to update
+     */
+    where?: PushTokenWhereInput
+  }
+
+  /**
+   * PushToken upsert
+   */
+  export type PushTokenUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushToken
+     */
+    select?: PushTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushTokenInclude<ExtArgs> | null
+    /**
+     * The filter to search for the PushToken to update in case it exists.
+     */
+    where: PushTokenWhereUniqueInput
+    /**
+     * In case the PushToken found by the `where` argument doesn't exist, create a new PushToken with this data.
+     */
+    create: XOR<PushTokenCreateInput, PushTokenUncheckedCreateInput>
+    /**
+     * In case the PushToken was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<PushTokenUpdateInput, PushTokenUncheckedUpdateInput>
+  }
+
+  /**
+   * PushToken delete
+   */
+  export type PushTokenDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushToken
+     */
+    select?: PushTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushTokenInclude<ExtArgs> | null
+    /**
+     * Filter which PushToken to delete.
+     */
+    where: PushTokenWhereUniqueInput
+  }
+
+  /**
+   * PushToken deleteMany
+   */
+  export type PushTokenDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which PushTokens to delete
+     */
+    where?: PushTokenWhereInput
+  }
+
+  /**
+   * PushToken.deliverySends
+   */
+  export type PushToken$deliverySendsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDeliverySend
+     */
+    select?: NudgeDeliverySendSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliverySendInclude<ExtArgs> | null
+    where?: NudgeDeliverySendWhereInput
+    orderBy?: NudgeDeliverySendOrderByWithRelationInput | NudgeDeliverySendOrderByWithRelationInput[]
+    cursor?: NudgeDeliverySendWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NudgeDeliverySendScalarFieldEnum | NudgeDeliverySendScalarFieldEnum[]
+  }
+
+  /**
+   * PushToken without action
+   */
+  export type PushTokenDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the PushToken
+     */
+    select?: PushTokenSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PushTokenInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model NudgeDelivery
+   */
+
+  export type AggregateNudgeDelivery = {
+    _count: NudgeDeliveryCountAggregateOutputType | null
+    _avg: NudgeDeliveryAvgAggregateOutputType | null
+    _sum: NudgeDeliverySumAggregateOutputType | null
+    _min: NudgeDeliveryMinAggregateOutputType | null
+    _max: NudgeDeliveryMaxAggregateOutputType | null
+  }
+
+  export type NudgeDeliveryAvgAggregateOutputType = {
+    variantIndex: number | null
+    attemptCount: number | null
+  }
+
+  export type NudgeDeliverySumAggregateOutputType = {
+    variantIndex: number | null
+    attemptCount: number | null
+  }
+
+  export type NudgeDeliveryMinAggregateOutputType = {
+    id: string | null
+    profileId: string | null
+    problemType: string | null
+    scheduledTime: string | null
+    deliveryDayLocal: Date | null
+    timezone: string | null
+    lang: string | null
+    variantIndex: number | null
+    messageTitle: string | null
+    messageBody: string | null
+    messageDetail: string | null
+    status: string | null
+    apnsId: string | null
+    error: string | null
+    attemptCount: number | null
+    lastAttemptAt: Date | null
+    nextAttemptAt: Date | null
+    createdAt: Date | null
+    sentAt: Date | null
+  }
+
+  export type NudgeDeliveryMaxAggregateOutputType = {
+    id: string | null
+    profileId: string | null
+    problemType: string | null
+    scheduledTime: string | null
+    deliveryDayLocal: Date | null
+    timezone: string | null
+    lang: string | null
+    variantIndex: number | null
+    messageTitle: string | null
+    messageBody: string | null
+    messageDetail: string | null
+    status: string | null
+    apnsId: string | null
+    error: string | null
+    attemptCount: number | null
+    lastAttemptAt: Date | null
+    nextAttemptAt: Date | null
+    createdAt: Date | null
+    sentAt: Date | null
+  }
+
+  export type NudgeDeliveryCountAggregateOutputType = {
+    id: number
+    profileId: number
+    problemType: number
+    scheduledTime: number
+    deliveryDayLocal: number
+    timezone: number
+    lang: number
+    variantIndex: number
+    messageTitle: number
+    messageBody: number
+    messageDetail: number
+    status: number
+    apnsId: number
+    error: number
+    attemptCount: number
+    lastAttemptAt: number
+    nextAttemptAt: number
+    createdAt: number
+    sentAt: number
+    _all: number
+  }
+
+
+  export type NudgeDeliveryAvgAggregateInputType = {
+    variantIndex?: true
+    attemptCount?: true
+  }
+
+  export type NudgeDeliverySumAggregateInputType = {
+    variantIndex?: true
+    attemptCount?: true
+  }
+
+  export type NudgeDeliveryMinAggregateInputType = {
+    id?: true
+    profileId?: true
+    problemType?: true
+    scheduledTime?: true
+    deliveryDayLocal?: true
+    timezone?: true
+    lang?: true
+    variantIndex?: true
+    messageTitle?: true
+    messageBody?: true
+    messageDetail?: true
+    status?: true
+    apnsId?: true
+    error?: true
+    attemptCount?: true
+    lastAttemptAt?: true
+    nextAttemptAt?: true
+    createdAt?: true
+    sentAt?: true
+  }
+
+  export type NudgeDeliveryMaxAggregateInputType = {
+    id?: true
+    profileId?: true
+    problemType?: true
+    scheduledTime?: true
+    deliveryDayLocal?: true
+    timezone?: true
+    lang?: true
+    variantIndex?: true
+    messageTitle?: true
+    messageBody?: true
+    messageDetail?: true
+    status?: true
+    apnsId?: true
+    error?: true
+    attemptCount?: true
+    lastAttemptAt?: true
+    nextAttemptAt?: true
+    createdAt?: true
+    sentAt?: true
+  }
+
+  export type NudgeDeliveryCountAggregateInputType = {
+    id?: true
+    profileId?: true
+    problemType?: true
+    scheduledTime?: true
+    deliveryDayLocal?: true
+    timezone?: true
+    lang?: true
+    variantIndex?: true
+    messageTitle?: true
+    messageBody?: true
+    messageDetail?: true
+    status?: true
+    apnsId?: true
+    error?: true
+    attemptCount?: true
+    lastAttemptAt?: true
+    nextAttemptAt?: true
+    createdAt?: true
+    sentAt?: true
+    _all?: true
+  }
+
+  export type NudgeDeliveryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NudgeDelivery to aggregate.
+     */
+    where?: NudgeDeliveryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NudgeDeliveries to fetch.
+     */
+    orderBy?: NudgeDeliveryOrderByWithRelationInput | NudgeDeliveryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NudgeDeliveryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NudgeDeliveries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NudgeDeliveries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NudgeDeliveries
+    **/
+    _count?: true | NudgeDeliveryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: NudgeDeliveryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: NudgeDeliverySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NudgeDeliveryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NudgeDeliveryMaxAggregateInputType
+  }
+
+  export type GetNudgeDeliveryAggregateType<T extends NudgeDeliveryAggregateArgs> = {
+        [P in keyof T & keyof AggregateNudgeDelivery]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNudgeDelivery[P]>
+      : GetScalarType<T[P], AggregateNudgeDelivery[P]>
+  }
+
+
+
+
+  export type NudgeDeliveryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NudgeDeliveryWhereInput
+    orderBy?: NudgeDeliveryOrderByWithAggregationInput | NudgeDeliveryOrderByWithAggregationInput[]
+    by: NudgeDeliveryScalarFieldEnum[] | NudgeDeliveryScalarFieldEnum
+    having?: NudgeDeliveryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NudgeDeliveryCountAggregateInputType | true
+    _avg?: NudgeDeliveryAvgAggregateInputType
+    _sum?: NudgeDeliverySumAggregateInputType
+    _min?: NudgeDeliveryMinAggregateInputType
+    _max?: NudgeDeliveryMaxAggregateInputType
+  }
+
+  export type NudgeDeliveryGroupByOutputType = {
+    id: string
+    profileId: string
+    problemType: string
+    scheduledTime: string
+    deliveryDayLocal: Date
+    timezone: string
+    lang: string
+    variantIndex: number
+    messageTitle: string
+    messageBody: string
+    messageDetail: string
+    status: string
+    apnsId: string | null
+    error: string | null
+    attemptCount: number
+    lastAttemptAt: Date | null
+    nextAttemptAt: Date | null
+    createdAt: Date
+    sentAt: Date | null
+    _count: NudgeDeliveryCountAggregateOutputType | null
+    _avg: NudgeDeliveryAvgAggregateOutputType | null
+    _sum: NudgeDeliverySumAggregateOutputType | null
+    _min: NudgeDeliveryMinAggregateOutputType | null
+    _max: NudgeDeliveryMaxAggregateOutputType | null
+  }
+
+  type GetNudgeDeliveryGroupByPayload<T extends NudgeDeliveryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NudgeDeliveryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NudgeDeliveryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NudgeDeliveryGroupByOutputType[P]>
+            : GetScalarType<T[P], NudgeDeliveryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NudgeDeliverySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    profileId?: boolean
+    problemType?: boolean
+    scheduledTime?: boolean
+    deliveryDayLocal?: boolean
+    timezone?: boolean
+    lang?: boolean
+    variantIndex?: boolean
+    messageTitle?: boolean
+    messageBody?: boolean
+    messageDetail?: boolean
+    status?: boolean
+    apnsId?: boolean
+    error?: boolean
+    attemptCount?: boolean
+    lastAttemptAt?: boolean
+    nextAttemptAt?: boolean
+    createdAt?: boolean
+    sentAt?: boolean
+    sends?: boolean | NudgeDelivery$sendsArgs<ExtArgs>
+    _count?: boolean | NudgeDeliveryCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["nudgeDelivery"]>
+
+  export type NudgeDeliverySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    profileId?: boolean
+    problemType?: boolean
+    scheduledTime?: boolean
+    deliveryDayLocal?: boolean
+    timezone?: boolean
+    lang?: boolean
+    variantIndex?: boolean
+    messageTitle?: boolean
+    messageBody?: boolean
+    messageDetail?: boolean
+    status?: boolean
+    apnsId?: boolean
+    error?: boolean
+    attemptCount?: boolean
+    lastAttemptAt?: boolean
+    nextAttemptAt?: boolean
+    createdAt?: boolean
+    sentAt?: boolean
+  }, ExtArgs["result"]["nudgeDelivery"]>
+
+  export type NudgeDeliverySelectScalar = {
+    id?: boolean
+    profileId?: boolean
+    problemType?: boolean
+    scheduledTime?: boolean
+    deliveryDayLocal?: boolean
+    timezone?: boolean
+    lang?: boolean
+    variantIndex?: boolean
+    messageTitle?: boolean
+    messageBody?: boolean
+    messageDetail?: boolean
+    status?: boolean
+    apnsId?: boolean
+    error?: boolean
+    attemptCount?: boolean
+    lastAttemptAt?: boolean
+    nextAttemptAt?: boolean
+    createdAt?: boolean
+    sentAt?: boolean
+  }
+
+  export type NudgeDeliveryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    sends?: boolean | NudgeDelivery$sendsArgs<ExtArgs>
+    _count?: boolean | NudgeDeliveryCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type NudgeDeliveryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $NudgeDeliveryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NudgeDelivery"
+    objects: {
+      sends: Prisma.$NudgeDeliverySendPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      profileId: string
+      problemType: string
+      scheduledTime: string
+      deliveryDayLocal: Date
+      timezone: string
+      lang: string
+      variantIndex: number
+      messageTitle: string
+      messageBody: string
+      messageDetail: string
+      status: string
+      apnsId: string | null
+      error: string | null
+      attemptCount: number
+      lastAttemptAt: Date | null
+      nextAttemptAt: Date | null
+      createdAt: Date
+      sentAt: Date | null
+    }, ExtArgs["result"]["nudgeDelivery"]>
+    composites: {}
+  }
+
+  type NudgeDeliveryGetPayload<S extends boolean | null | undefined | NudgeDeliveryDefaultArgs> = $Result.GetResult<Prisma.$NudgeDeliveryPayload, S>
+
+  type NudgeDeliveryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<NudgeDeliveryFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: NudgeDeliveryCountAggregateInputType | true
+    }
+
+  export interface NudgeDeliveryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NudgeDelivery'], meta: { name: 'NudgeDelivery' } }
+    /**
+     * Find zero or one NudgeDelivery that matches the filter.
+     * @param {NudgeDeliveryFindUniqueArgs} args - Arguments to find a NudgeDelivery
+     * @example
+     * // Get one NudgeDelivery
+     * const nudgeDelivery = await prisma.nudgeDelivery.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NudgeDeliveryFindUniqueArgs>(args: SelectSubset<T, NudgeDeliveryFindUniqueArgs<ExtArgs>>): Prisma__NudgeDeliveryClient<$Result.GetResult<Prisma.$NudgeDeliveryPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one NudgeDelivery that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {NudgeDeliveryFindUniqueOrThrowArgs} args - Arguments to find a NudgeDelivery
+     * @example
+     * // Get one NudgeDelivery
+     * const nudgeDelivery = await prisma.nudgeDelivery.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NudgeDeliveryFindUniqueOrThrowArgs>(args: SelectSubset<T, NudgeDeliveryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NudgeDeliveryClient<$Result.GetResult<Prisma.$NudgeDeliveryPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first NudgeDelivery that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NudgeDeliveryFindFirstArgs} args - Arguments to find a NudgeDelivery
+     * @example
+     * // Get one NudgeDelivery
+     * const nudgeDelivery = await prisma.nudgeDelivery.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NudgeDeliveryFindFirstArgs>(args?: SelectSubset<T, NudgeDeliveryFindFirstArgs<ExtArgs>>): Prisma__NudgeDeliveryClient<$Result.GetResult<Prisma.$NudgeDeliveryPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first NudgeDelivery that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NudgeDeliveryFindFirstOrThrowArgs} args - Arguments to find a NudgeDelivery
+     * @example
+     * // Get one NudgeDelivery
+     * const nudgeDelivery = await prisma.nudgeDelivery.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NudgeDeliveryFindFirstOrThrowArgs>(args?: SelectSubset<T, NudgeDeliveryFindFirstOrThrowArgs<ExtArgs>>): Prisma__NudgeDeliveryClient<$Result.GetResult<Prisma.$NudgeDeliveryPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more NudgeDeliveries that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NudgeDeliveryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NudgeDeliveries
+     * const nudgeDeliveries = await prisma.nudgeDelivery.findMany()
+     * 
+     * // Get first 10 NudgeDeliveries
+     * const nudgeDeliveries = await prisma.nudgeDelivery.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const nudgeDeliveryWithIdOnly = await prisma.nudgeDelivery.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NudgeDeliveryFindManyArgs>(args?: SelectSubset<T, NudgeDeliveryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NudgeDeliveryPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a NudgeDelivery.
+     * @param {NudgeDeliveryCreateArgs} args - Arguments to create a NudgeDelivery.
+     * @example
+     * // Create one NudgeDelivery
+     * const NudgeDelivery = await prisma.nudgeDelivery.create({
+     *   data: {
+     *     // ... data to create a NudgeDelivery
+     *   }
+     * })
+     * 
+     */
+    create<T extends NudgeDeliveryCreateArgs>(args: SelectSubset<T, NudgeDeliveryCreateArgs<ExtArgs>>): Prisma__NudgeDeliveryClient<$Result.GetResult<Prisma.$NudgeDeliveryPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many NudgeDeliveries.
+     * @param {NudgeDeliveryCreateManyArgs} args - Arguments to create many NudgeDeliveries.
+     * @example
+     * // Create many NudgeDeliveries
+     * const nudgeDelivery = await prisma.nudgeDelivery.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NudgeDeliveryCreateManyArgs>(args?: SelectSubset<T, NudgeDeliveryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many NudgeDeliveries and returns the data saved in the database.
+     * @param {NudgeDeliveryCreateManyAndReturnArgs} args - Arguments to create many NudgeDeliveries.
+     * @example
+     * // Create many NudgeDeliveries
+     * const nudgeDelivery = await prisma.nudgeDelivery.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many NudgeDeliveries and only return the `id`
+     * const nudgeDeliveryWithIdOnly = await prisma.nudgeDelivery.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NudgeDeliveryCreateManyAndReturnArgs>(args?: SelectSubset<T, NudgeDeliveryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NudgeDeliveryPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a NudgeDelivery.
+     * @param {NudgeDeliveryDeleteArgs} args - Arguments to delete one NudgeDelivery.
+     * @example
+     * // Delete one NudgeDelivery
+     * const NudgeDelivery = await prisma.nudgeDelivery.delete({
+     *   where: {
+     *     // ... filter to delete one NudgeDelivery
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NudgeDeliveryDeleteArgs>(args: SelectSubset<T, NudgeDeliveryDeleteArgs<ExtArgs>>): Prisma__NudgeDeliveryClient<$Result.GetResult<Prisma.$NudgeDeliveryPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one NudgeDelivery.
+     * @param {NudgeDeliveryUpdateArgs} args - Arguments to update one NudgeDelivery.
+     * @example
+     * // Update one NudgeDelivery
+     * const nudgeDelivery = await prisma.nudgeDelivery.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NudgeDeliveryUpdateArgs>(args: SelectSubset<T, NudgeDeliveryUpdateArgs<ExtArgs>>): Prisma__NudgeDeliveryClient<$Result.GetResult<Prisma.$NudgeDeliveryPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more NudgeDeliveries.
+     * @param {NudgeDeliveryDeleteManyArgs} args - Arguments to filter NudgeDeliveries to delete.
+     * @example
+     * // Delete a few NudgeDeliveries
+     * const { count } = await prisma.nudgeDelivery.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NudgeDeliveryDeleteManyArgs>(args?: SelectSubset<T, NudgeDeliveryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NudgeDeliveries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NudgeDeliveryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NudgeDeliveries
+     * const nudgeDelivery = await prisma.nudgeDelivery.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NudgeDeliveryUpdateManyArgs>(args: SelectSubset<T, NudgeDeliveryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one NudgeDelivery.
+     * @param {NudgeDeliveryUpsertArgs} args - Arguments to update or create a NudgeDelivery.
+     * @example
+     * // Update or create a NudgeDelivery
+     * const nudgeDelivery = await prisma.nudgeDelivery.upsert({
+     *   create: {
+     *     // ... data to create a NudgeDelivery
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NudgeDelivery we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NudgeDeliveryUpsertArgs>(args: SelectSubset<T, NudgeDeliveryUpsertArgs<ExtArgs>>): Prisma__NudgeDeliveryClient<$Result.GetResult<Prisma.$NudgeDeliveryPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of NudgeDeliveries.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NudgeDeliveryCountArgs} args - Arguments to filter NudgeDeliveries to count.
+     * @example
+     * // Count the number of NudgeDeliveries
+     * const count = await prisma.nudgeDelivery.count({
+     *   where: {
+     *     // ... the filter for the NudgeDeliveries we want to count
+     *   }
+     * })
+    **/
+    count<T extends NudgeDeliveryCountArgs>(
+      args?: Subset<T, NudgeDeliveryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NudgeDeliveryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NudgeDelivery.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NudgeDeliveryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NudgeDeliveryAggregateArgs>(args: Subset<T, NudgeDeliveryAggregateArgs>): Prisma.PrismaPromise<GetNudgeDeliveryAggregateType<T>>
+
+    /**
+     * Group by NudgeDelivery.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NudgeDeliveryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NudgeDeliveryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NudgeDeliveryGroupByArgs['orderBy'] }
+        : { orderBy?: NudgeDeliveryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NudgeDeliveryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNudgeDeliveryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NudgeDelivery model
+   */
+  readonly fields: NudgeDeliveryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NudgeDelivery.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NudgeDeliveryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    sends<T extends NudgeDelivery$sendsArgs<ExtArgs> = {}>(args?: Subset<T, NudgeDelivery$sendsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NudgeDeliverySendPayload<ExtArgs>, T, "findMany"> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the NudgeDelivery model
+   */ 
+  interface NudgeDeliveryFieldRefs {
+    readonly id: FieldRef<"NudgeDelivery", 'String'>
+    readonly profileId: FieldRef<"NudgeDelivery", 'String'>
+    readonly problemType: FieldRef<"NudgeDelivery", 'String'>
+    readonly scheduledTime: FieldRef<"NudgeDelivery", 'String'>
+    readonly deliveryDayLocal: FieldRef<"NudgeDelivery", 'DateTime'>
+    readonly timezone: FieldRef<"NudgeDelivery", 'String'>
+    readonly lang: FieldRef<"NudgeDelivery", 'String'>
+    readonly variantIndex: FieldRef<"NudgeDelivery", 'Int'>
+    readonly messageTitle: FieldRef<"NudgeDelivery", 'String'>
+    readonly messageBody: FieldRef<"NudgeDelivery", 'String'>
+    readonly messageDetail: FieldRef<"NudgeDelivery", 'String'>
+    readonly status: FieldRef<"NudgeDelivery", 'String'>
+    readonly apnsId: FieldRef<"NudgeDelivery", 'String'>
+    readonly error: FieldRef<"NudgeDelivery", 'String'>
+    readonly attemptCount: FieldRef<"NudgeDelivery", 'Int'>
+    readonly lastAttemptAt: FieldRef<"NudgeDelivery", 'DateTime'>
+    readonly nextAttemptAt: FieldRef<"NudgeDelivery", 'DateTime'>
+    readonly createdAt: FieldRef<"NudgeDelivery", 'DateTime'>
+    readonly sentAt: FieldRef<"NudgeDelivery", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * NudgeDelivery findUnique
+   */
+  export type NudgeDeliveryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDelivery
+     */
+    select?: NudgeDeliverySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter, which NudgeDelivery to fetch.
+     */
+    where: NudgeDeliveryWhereUniqueInput
+  }
+
+  /**
+   * NudgeDelivery findUniqueOrThrow
+   */
+  export type NudgeDeliveryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDelivery
+     */
+    select?: NudgeDeliverySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter, which NudgeDelivery to fetch.
+     */
+    where: NudgeDeliveryWhereUniqueInput
+  }
+
+  /**
+   * NudgeDelivery findFirst
+   */
+  export type NudgeDeliveryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDelivery
+     */
+    select?: NudgeDeliverySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter, which NudgeDelivery to fetch.
+     */
+    where?: NudgeDeliveryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NudgeDeliveries to fetch.
+     */
+    orderBy?: NudgeDeliveryOrderByWithRelationInput | NudgeDeliveryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NudgeDeliveries.
+     */
+    cursor?: NudgeDeliveryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NudgeDeliveries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NudgeDeliveries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NudgeDeliveries.
+     */
+    distinct?: NudgeDeliveryScalarFieldEnum | NudgeDeliveryScalarFieldEnum[]
+  }
+
+  /**
+   * NudgeDelivery findFirstOrThrow
+   */
+  export type NudgeDeliveryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDelivery
+     */
+    select?: NudgeDeliverySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter, which NudgeDelivery to fetch.
+     */
+    where?: NudgeDeliveryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NudgeDeliveries to fetch.
+     */
+    orderBy?: NudgeDeliveryOrderByWithRelationInput | NudgeDeliveryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NudgeDeliveries.
+     */
+    cursor?: NudgeDeliveryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NudgeDeliveries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NudgeDeliveries.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NudgeDeliveries.
+     */
+    distinct?: NudgeDeliveryScalarFieldEnum | NudgeDeliveryScalarFieldEnum[]
+  }
+
+  /**
+   * NudgeDelivery findMany
+   */
+  export type NudgeDeliveryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDelivery
+     */
+    select?: NudgeDeliverySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter, which NudgeDeliveries to fetch.
+     */
+    where?: NudgeDeliveryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NudgeDeliveries to fetch.
+     */
+    orderBy?: NudgeDeliveryOrderByWithRelationInput | NudgeDeliveryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NudgeDeliveries.
+     */
+    cursor?: NudgeDeliveryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NudgeDeliveries from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NudgeDeliveries.
+     */
+    skip?: number
+    distinct?: NudgeDeliveryScalarFieldEnum | NudgeDeliveryScalarFieldEnum[]
+  }
+
+  /**
+   * NudgeDelivery create
+   */
+  export type NudgeDeliveryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDelivery
+     */
+    select?: NudgeDeliverySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliveryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a NudgeDelivery.
+     */
+    data: XOR<NudgeDeliveryCreateInput, NudgeDeliveryUncheckedCreateInput>
+  }
+
+  /**
+   * NudgeDelivery createMany
+   */
+  export type NudgeDeliveryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NudgeDeliveries.
+     */
+    data: NudgeDeliveryCreateManyInput | NudgeDeliveryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * NudgeDelivery createManyAndReturn
+   */
+  export type NudgeDeliveryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDelivery
+     */
+    select?: NudgeDeliverySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many NudgeDeliveries.
+     */
+    data: NudgeDeliveryCreateManyInput | NudgeDeliveryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * NudgeDelivery update
+   */
+  export type NudgeDeliveryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDelivery
+     */
+    select?: NudgeDeliverySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliveryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a NudgeDelivery.
+     */
+    data: XOR<NudgeDeliveryUpdateInput, NudgeDeliveryUncheckedUpdateInput>
+    /**
+     * Choose, which NudgeDelivery to update.
+     */
+    where: NudgeDeliveryWhereUniqueInput
+  }
+
+  /**
+   * NudgeDelivery updateMany
+   */
+  export type NudgeDeliveryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NudgeDeliveries.
+     */
+    data: XOR<NudgeDeliveryUpdateManyMutationInput, NudgeDeliveryUncheckedUpdateManyInput>
+    /**
+     * Filter which NudgeDeliveries to update
+     */
+    where?: NudgeDeliveryWhereInput
+  }
+
+  /**
+   * NudgeDelivery upsert
+   */
+  export type NudgeDeliveryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDelivery
+     */
+    select?: NudgeDeliverySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliveryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the NudgeDelivery to update in case it exists.
+     */
+    where: NudgeDeliveryWhereUniqueInput
+    /**
+     * In case the NudgeDelivery found by the `where` argument doesn't exist, create a new NudgeDelivery with this data.
+     */
+    create: XOR<NudgeDeliveryCreateInput, NudgeDeliveryUncheckedCreateInput>
+    /**
+     * In case the NudgeDelivery was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NudgeDeliveryUpdateInput, NudgeDeliveryUncheckedUpdateInput>
+  }
+
+  /**
+   * NudgeDelivery delete
+   */
+  export type NudgeDeliveryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDelivery
+     */
+    select?: NudgeDeliverySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliveryInclude<ExtArgs> | null
+    /**
+     * Filter which NudgeDelivery to delete.
+     */
+    where: NudgeDeliveryWhereUniqueInput
+  }
+
+  /**
+   * NudgeDelivery deleteMany
+   */
+  export type NudgeDeliveryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NudgeDeliveries to delete
+     */
+    where?: NudgeDeliveryWhereInput
+  }
+
+  /**
+   * NudgeDelivery.sends
+   */
+  export type NudgeDelivery$sendsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDeliverySend
+     */
+    select?: NudgeDeliverySendSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliverySendInclude<ExtArgs> | null
+    where?: NudgeDeliverySendWhereInput
+    orderBy?: NudgeDeliverySendOrderByWithRelationInput | NudgeDeliverySendOrderByWithRelationInput[]
+    cursor?: NudgeDeliverySendWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NudgeDeliverySendScalarFieldEnum | NudgeDeliverySendScalarFieldEnum[]
+  }
+
+  /**
+   * NudgeDelivery without action
+   */
+  export type NudgeDeliveryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDelivery
+     */
+    select?: NudgeDeliverySelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliveryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model NudgeDeliverySend
+   */
+
+  export type AggregateNudgeDeliverySend = {
+    _count: NudgeDeliverySendCountAggregateOutputType | null
+    _avg: NudgeDeliverySendAvgAggregateOutputType | null
+    _sum: NudgeDeliverySendSumAggregateOutputType | null
+    _min: NudgeDeliverySendMinAggregateOutputType | null
+    _max: NudgeDeliverySendMaxAggregateOutputType | null
+  }
+
+  export type NudgeDeliverySendAvgAggregateOutputType = {
+    attemptCount: number | null
+  }
+
+  export type NudgeDeliverySendSumAggregateOutputType = {
+    attemptCount: number | null
+  }
+
+  export type NudgeDeliverySendMinAggregateOutputType = {
+    id: string | null
+    deliveryId: string | null
+    pushTokenId: string | null
+    status: string | null
+    apnsId: string | null
+    error: string | null
+    attemptCount: number | null
+    lastAttemptAt: Date | null
+    nextAttemptAt: Date | null
+    sentAt: Date | null
+    updatedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type NudgeDeliverySendMaxAggregateOutputType = {
+    id: string | null
+    deliveryId: string | null
+    pushTokenId: string | null
+    status: string | null
+    apnsId: string | null
+    error: string | null
+    attemptCount: number | null
+    lastAttemptAt: Date | null
+    nextAttemptAt: Date | null
+    sentAt: Date | null
+    updatedAt: Date | null
+    createdAt: Date | null
+  }
+
+  export type NudgeDeliverySendCountAggregateOutputType = {
+    id: number
+    deliveryId: number
+    pushTokenId: number
+    status: number
+    apnsId: number
+    error: number
+    attemptCount: number
+    lastAttemptAt: number
+    nextAttemptAt: number
+    sentAt: number
+    updatedAt: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type NudgeDeliverySendAvgAggregateInputType = {
+    attemptCount?: true
+  }
+
+  export type NudgeDeliverySendSumAggregateInputType = {
+    attemptCount?: true
+  }
+
+  export type NudgeDeliverySendMinAggregateInputType = {
+    id?: true
+    deliveryId?: true
+    pushTokenId?: true
+    status?: true
+    apnsId?: true
+    error?: true
+    attemptCount?: true
+    lastAttemptAt?: true
+    nextAttemptAt?: true
+    sentAt?: true
+    updatedAt?: true
+    createdAt?: true
+  }
+
+  export type NudgeDeliverySendMaxAggregateInputType = {
+    id?: true
+    deliveryId?: true
+    pushTokenId?: true
+    status?: true
+    apnsId?: true
+    error?: true
+    attemptCount?: true
+    lastAttemptAt?: true
+    nextAttemptAt?: true
+    sentAt?: true
+    updatedAt?: true
+    createdAt?: true
+  }
+
+  export type NudgeDeliverySendCountAggregateInputType = {
+    id?: true
+    deliveryId?: true
+    pushTokenId?: true
+    status?: true
+    apnsId?: true
+    error?: true
+    attemptCount?: true
+    lastAttemptAt?: true
+    nextAttemptAt?: true
+    sentAt?: true
+    updatedAt?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type NudgeDeliverySendAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NudgeDeliverySend to aggregate.
+     */
+    where?: NudgeDeliverySendWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NudgeDeliverySends to fetch.
+     */
+    orderBy?: NudgeDeliverySendOrderByWithRelationInput | NudgeDeliverySendOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NudgeDeliverySendWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NudgeDeliverySends from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NudgeDeliverySends.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned NudgeDeliverySends
+    **/
+    _count?: true | NudgeDeliverySendCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: NudgeDeliverySendAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: NudgeDeliverySendSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NudgeDeliverySendMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NudgeDeliverySendMaxAggregateInputType
+  }
+
+  export type GetNudgeDeliverySendAggregateType<T extends NudgeDeliverySendAggregateArgs> = {
+        [P in keyof T & keyof AggregateNudgeDeliverySend]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNudgeDeliverySend[P]>
+      : GetScalarType<T[P], AggregateNudgeDeliverySend[P]>
+  }
+
+
+
+
+  export type NudgeDeliverySendGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NudgeDeliverySendWhereInput
+    orderBy?: NudgeDeliverySendOrderByWithAggregationInput | NudgeDeliverySendOrderByWithAggregationInput[]
+    by: NudgeDeliverySendScalarFieldEnum[] | NudgeDeliverySendScalarFieldEnum
+    having?: NudgeDeliverySendScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NudgeDeliverySendCountAggregateInputType | true
+    _avg?: NudgeDeliverySendAvgAggregateInputType
+    _sum?: NudgeDeliverySendSumAggregateInputType
+    _min?: NudgeDeliverySendMinAggregateInputType
+    _max?: NudgeDeliverySendMaxAggregateInputType
+  }
+
+  export type NudgeDeliverySendGroupByOutputType = {
+    id: string
+    deliveryId: string
+    pushTokenId: string
+    status: string
+    apnsId: string | null
+    error: string | null
+    attemptCount: number
+    lastAttemptAt: Date | null
+    nextAttemptAt: Date | null
+    sentAt: Date | null
+    updatedAt: Date
+    createdAt: Date
+    _count: NudgeDeliverySendCountAggregateOutputType | null
+    _avg: NudgeDeliverySendAvgAggregateOutputType | null
+    _sum: NudgeDeliverySendSumAggregateOutputType | null
+    _min: NudgeDeliverySendMinAggregateOutputType | null
+    _max: NudgeDeliverySendMaxAggregateOutputType | null
+  }
+
+  type GetNudgeDeliverySendGroupByPayload<T extends NudgeDeliverySendGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NudgeDeliverySendGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NudgeDeliverySendGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NudgeDeliverySendGroupByOutputType[P]>
+            : GetScalarType<T[P], NudgeDeliverySendGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NudgeDeliverySendSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    deliveryId?: boolean
+    pushTokenId?: boolean
+    status?: boolean
+    apnsId?: boolean
+    error?: boolean
+    attemptCount?: boolean
+    lastAttemptAt?: boolean
+    nextAttemptAt?: boolean
+    sentAt?: boolean
+    updatedAt?: boolean
+    createdAt?: boolean
+    delivery?: boolean | NudgeDeliveryDefaultArgs<ExtArgs>
+    pushToken?: boolean | PushTokenDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["nudgeDeliverySend"]>
+
+  export type NudgeDeliverySendSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    deliveryId?: boolean
+    pushTokenId?: boolean
+    status?: boolean
+    apnsId?: boolean
+    error?: boolean
+    attemptCount?: boolean
+    lastAttemptAt?: boolean
+    nextAttemptAt?: boolean
+    sentAt?: boolean
+    updatedAt?: boolean
+    createdAt?: boolean
+    delivery?: boolean | NudgeDeliveryDefaultArgs<ExtArgs>
+    pushToken?: boolean | PushTokenDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["nudgeDeliverySend"]>
+
+  export type NudgeDeliverySendSelectScalar = {
+    id?: boolean
+    deliveryId?: boolean
+    pushTokenId?: boolean
+    status?: boolean
+    apnsId?: boolean
+    error?: boolean
+    attemptCount?: boolean
+    lastAttemptAt?: boolean
+    nextAttemptAt?: boolean
+    sentAt?: boolean
+    updatedAt?: boolean
+    createdAt?: boolean
+  }
+
+  export type NudgeDeliverySendInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    delivery?: boolean | NudgeDeliveryDefaultArgs<ExtArgs>
+    pushToken?: boolean | PushTokenDefaultArgs<ExtArgs>
+  }
+  export type NudgeDeliverySendIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    delivery?: boolean | NudgeDeliveryDefaultArgs<ExtArgs>
+    pushToken?: boolean | PushTokenDefaultArgs<ExtArgs>
+  }
+
+  export type $NudgeDeliverySendPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "NudgeDeliverySend"
+    objects: {
+      delivery: Prisma.$NudgeDeliveryPayload<ExtArgs>
+      pushToken: Prisma.$PushTokenPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      deliveryId: string
+      pushTokenId: string
+      status: string
+      apnsId: string | null
+      error: string | null
+      attemptCount: number
+      lastAttemptAt: Date | null
+      nextAttemptAt: Date | null
+      sentAt: Date | null
+      updatedAt: Date
+      createdAt: Date
+    }, ExtArgs["result"]["nudgeDeliverySend"]>
+    composites: {}
+  }
+
+  type NudgeDeliverySendGetPayload<S extends boolean | null | undefined | NudgeDeliverySendDefaultArgs> = $Result.GetResult<Prisma.$NudgeDeliverySendPayload, S>
+
+  type NudgeDeliverySendCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
+    Omit<NudgeDeliverySendFindManyArgs, 'select' | 'include' | 'distinct'> & {
+      select?: NudgeDeliverySendCountAggregateInputType | true
+    }
+
+  export interface NudgeDeliverySendDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['NudgeDeliverySend'], meta: { name: 'NudgeDeliverySend' } }
+    /**
+     * Find zero or one NudgeDeliverySend that matches the filter.
+     * @param {NudgeDeliverySendFindUniqueArgs} args - Arguments to find a NudgeDeliverySend
+     * @example
+     * // Get one NudgeDeliverySend
+     * const nudgeDeliverySend = await prisma.nudgeDeliverySend.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NudgeDeliverySendFindUniqueArgs>(args: SelectSubset<T, NudgeDeliverySendFindUniqueArgs<ExtArgs>>): Prisma__NudgeDeliverySendClient<$Result.GetResult<Prisma.$NudgeDeliverySendPayload<ExtArgs>, T, "findUnique"> | null, null, ExtArgs>
+
+    /**
+     * Find one NudgeDeliverySend that matches the filter or throw an error with `error.code='P2025'` 
+     * if no matches were found.
+     * @param {NudgeDeliverySendFindUniqueOrThrowArgs} args - Arguments to find a NudgeDeliverySend
+     * @example
+     * // Get one NudgeDeliverySend
+     * const nudgeDeliverySend = await prisma.nudgeDeliverySend.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NudgeDeliverySendFindUniqueOrThrowArgs>(args: SelectSubset<T, NudgeDeliverySendFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NudgeDeliverySendClient<$Result.GetResult<Prisma.$NudgeDeliverySendPayload<ExtArgs>, T, "findUniqueOrThrow">, never, ExtArgs>
+
+    /**
+     * Find the first NudgeDeliverySend that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NudgeDeliverySendFindFirstArgs} args - Arguments to find a NudgeDeliverySend
+     * @example
+     * // Get one NudgeDeliverySend
+     * const nudgeDeliverySend = await prisma.nudgeDeliverySend.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NudgeDeliverySendFindFirstArgs>(args?: SelectSubset<T, NudgeDeliverySendFindFirstArgs<ExtArgs>>): Prisma__NudgeDeliverySendClient<$Result.GetResult<Prisma.$NudgeDeliverySendPayload<ExtArgs>, T, "findFirst"> | null, null, ExtArgs>
+
+    /**
+     * Find the first NudgeDeliverySend that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NudgeDeliverySendFindFirstOrThrowArgs} args - Arguments to find a NudgeDeliverySend
+     * @example
+     * // Get one NudgeDeliverySend
+     * const nudgeDeliverySend = await prisma.nudgeDeliverySend.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NudgeDeliverySendFindFirstOrThrowArgs>(args?: SelectSubset<T, NudgeDeliverySendFindFirstOrThrowArgs<ExtArgs>>): Prisma__NudgeDeliverySendClient<$Result.GetResult<Prisma.$NudgeDeliverySendPayload<ExtArgs>, T, "findFirstOrThrow">, never, ExtArgs>
+
+    /**
+     * Find zero or more NudgeDeliverySends that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NudgeDeliverySendFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all NudgeDeliverySends
+     * const nudgeDeliverySends = await prisma.nudgeDeliverySend.findMany()
+     * 
+     * // Get first 10 NudgeDeliverySends
+     * const nudgeDeliverySends = await prisma.nudgeDeliverySend.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const nudgeDeliverySendWithIdOnly = await prisma.nudgeDeliverySend.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NudgeDeliverySendFindManyArgs>(args?: SelectSubset<T, NudgeDeliverySendFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NudgeDeliverySendPayload<ExtArgs>, T, "findMany">>
+
+    /**
+     * Create a NudgeDeliverySend.
+     * @param {NudgeDeliverySendCreateArgs} args - Arguments to create a NudgeDeliverySend.
+     * @example
+     * // Create one NudgeDeliverySend
+     * const NudgeDeliverySend = await prisma.nudgeDeliverySend.create({
+     *   data: {
+     *     // ... data to create a NudgeDeliverySend
+     *   }
+     * })
+     * 
+     */
+    create<T extends NudgeDeliverySendCreateArgs>(args: SelectSubset<T, NudgeDeliverySendCreateArgs<ExtArgs>>): Prisma__NudgeDeliverySendClient<$Result.GetResult<Prisma.$NudgeDeliverySendPayload<ExtArgs>, T, "create">, never, ExtArgs>
+
+    /**
+     * Create many NudgeDeliverySends.
+     * @param {NudgeDeliverySendCreateManyArgs} args - Arguments to create many NudgeDeliverySends.
+     * @example
+     * // Create many NudgeDeliverySends
+     * const nudgeDeliverySend = await prisma.nudgeDeliverySend.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NudgeDeliverySendCreateManyArgs>(args?: SelectSubset<T, NudgeDeliverySendCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many NudgeDeliverySends and returns the data saved in the database.
+     * @param {NudgeDeliverySendCreateManyAndReturnArgs} args - Arguments to create many NudgeDeliverySends.
+     * @example
+     * // Create many NudgeDeliverySends
+     * const nudgeDeliverySend = await prisma.nudgeDeliverySend.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many NudgeDeliverySends and only return the `id`
+     * const nudgeDeliverySendWithIdOnly = await prisma.nudgeDeliverySend.createManyAndReturn({ 
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NudgeDeliverySendCreateManyAndReturnArgs>(args?: SelectSubset<T, NudgeDeliverySendCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NudgeDeliverySendPayload<ExtArgs>, T, "createManyAndReturn">>
+
+    /**
+     * Delete a NudgeDeliverySend.
+     * @param {NudgeDeliverySendDeleteArgs} args - Arguments to delete one NudgeDeliverySend.
+     * @example
+     * // Delete one NudgeDeliverySend
+     * const NudgeDeliverySend = await prisma.nudgeDeliverySend.delete({
+     *   where: {
+     *     // ... filter to delete one NudgeDeliverySend
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NudgeDeliverySendDeleteArgs>(args: SelectSubset<T, NudgeDeliverySendDeleteArgs<ExtArgs>>): Prisma__NudgeDeliverySendClient<$Result.GetResult<Prisma.$NudgeDeliverySendPayload<ExtArgs>, T, "delete">, never, ExtArgs>
+
+    /**
+     * Update one NudgeDeliverySend.
+     * @param {NudgeDeliverySendUpdateArgs} args - Arguments to update one NudgeDeliverySend.
+     * @example
+     * // Update one NudgeDeliverySend
+     * const nudgeDeliverySend = await prisma.nudgeDeliverySend.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NudgeDeliverySendUpdateArgs>(args: SelectSubset<T, NudgeDeliverySendUpdateArgs<ExtArgs>>): Prisma__NudgeDeliverySendClient<$Result.GetResult<Prisma.$NudgeDeliverySendPayload<ExtArgs>, T, "update">, never, ExtArgs>
+
+    /**
+     * Delete zero or more NudgeDeliverySends.
+     * @param {NudgeDeliverySendDeleteManyArgs} args - Arguments to filter NudgeDeliverySends to delete.
+     * @example
+     * // Delete a few NudgeDeliverySends
+     * const { count } = await prisma.nudgeDeliverySend.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NudgeDeliverySendDeleteManyArgs>(args?: SelectSubset<T, NudgeDeliverySendDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more NudgeDeliverySends.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NudgeDeliverySendUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many NudgeDeliverySends
+     * const nudgeDeliverySend = await prisma.nudgeDeliverySend.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NudgeDeliverySendUpdateManyArgs>(args: SelectSubset<T, NudgeDeliverySendUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one NudgeDeliverySend.
+     * @param {NudgeDeliverySendUpsertArgs} args - Arguments to update or create a NudgeDeliverySend.
+     * @example
+     * // Update or create a NudgeDeliverySend
+     * const nudgeDeliverySend = await prisma.nudgeDeliverySend.upsert({
+     *   create: {
+     *     // ... data to create a NudgeDeliverySend
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the NudgeDeliverySend we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NudgeDeliverySendUpsertArgs>(args: SelectSubset<T, NudgeDeliverySendUpsertArgs<ExtArgs>>): Prisma__NudgeDeliverySendClient<$Result.GetResult<Prisma.$NudgeDeliverySendPayload<ExtArgs>, T, "upsert">, never, ExtArgs>
+
+
+    /**
+     * Count the number of NudgeDeliverySends.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NudgeDeliverySendCountArgs} args - Arguments to filter NudgeDeliverySends to count.
+     * @example
+     * // Count the number of NudgeDeliverySends
+     * const count = await prisma.nudgeDeliverySend.count({
+     *   where: {
+     *     // ... the filter for the NudgeDeliverySends we want to count
+     *   }
+     * })
+    **/
+    count<T extends NudgeDeliverySendCountArgs>(
+      args?: Subset<T, NudgeDeliverySendCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NudgeDeliverySendCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a NudgeDeliverySend.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NudgeDeliverySendAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NudgeDeliverySendAggregateArgs>(args: Subset<T, NudgeDeliverySendAggregateArgs>): Prisma.PrismaPromise<GetNudgeDeliverySendAggregateType<T>>
+
+    /**
+     * Group by NudgeDeliverySend.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NudgeDeliverySendGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NudgeDeliverySendGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NudgeDeliverySendGroupByArgs['orderBy'] }
+        : { orderBy?: NudgeDeliverySendGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NudgeDeliverySendGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNudgeDeliverySendGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the NudgeDeliverySend model
+   */
+  readonly fields: NudgeDeliverySendFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for NudgeDeliverySend.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NudgeDeliverySendClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    delivery<T extends NudgeDeliveryDefaultArgs<ExtArgs> = {}>(args?: Subset<T, NudgeDeliveryDefaultArgs<ExtArgs>>): Prisma__NudgeDeliveryClient<$Result.GetResult<Prisma.$NudgeDeliveryPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    pushToken<T extends PushTokenDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PushTokenDefaultArgs<ExtArgs>>): Prisma__PushTokenClient<$Result.GetResult<Prisma.$PushTokenPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the NudgeDeliverySend model
+   */ 
+  interface NudgeDeliverySendFieldRefs {
+    readonly id: FieldRef<"NudgeDeliverySend", 'String'>
+    readonly deliveryId: FieldRef<"NudgeDeliverySend", 'String'>
+    readonly pushTokenId: FieldRef<"NudgeDeliverySend", 'String'>
+    readonly status: FieldRef<"NudgeDeliverySend", 'String'>
+    readonly apnsId: FieldRef<"NudgeDeliverySend", 'String'>
+    readonly error: FieldRef<"NudgeDeliverySend", 'String'>
+    readonly attemptCount: FieldRef<"NudgeDeliverySend", 'Int'>
+    readonly lastAttemptAt: FieldRef<"NudgeDeliverySend", 'DateTime'>
+    readonly nextAttemptAt: FieldRef<"NudgeDeliverySend", 'DateTime'>
+    readonly sentAt: FieldRef<"NudgeDeliverySend", 'DateTime'>
+    readonly updatedAt: FieldRef<"NudgeDeliverySend", 'DateTime'>
+    readonly createdAt: FieldRef<"NudgeDeliverySend", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * NudgeDeliverySend findUnique
+   */
+  export type NudgeDeliverySendFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDeliverySend
+     */
+    select?: NudgeDeliverySendSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliverySendInclude<ExtArgs> | null
+    /**
+     * Filter, which NudgeDeliverySend to fetch.
+     */
+    where: NudgeDeliverySendWhereUniqueInput
+  }
+
+  /**
+   * NudgeDeliverySend findUniqueOrThrow
+   */
+  export type NudgeDeliverySendFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDeliverySend
+     */
+    select?: NudgeDeliverySendSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliverySendInclude<ExtArgs> | null
+    /**
+     * Filter, which NudgeDeliverySend to fetch.
+     */
+    where: NudgeDeliverySendWhereUniqueInput
+  }
+
+  /**
+   * NudgeDeliverySend findFirst
+   */
+  export type NudgeDeliverySendFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDeliverySend
+     */
+    select?: NudgeDeliverySendSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliverySendInclude<ExtArgs> | null
+    /**
+     * Filter, which NudgeDeliverySend to fetch.
+     */
+    where?: NudgeDeliverySendWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NudgeDeliverySends to fetch.
+     */
+    orderBy?: NudgeDeliverySendOrderByWithRelationInput | NudgeDeliverySendOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NudgeDeliverySends.
+     */
+    cursor?: NudgeDeliverySendWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NudgeDeliverySends from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NudgeDeliverySends.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NudgeDeliverySends.
+     */
+    distinct?: NudgeDeliverySendScalarFieldEnum | NudgeDeliverySendScalarFieldEnum[]
+  }
+
+  /**
+   * NudgeDeliverySend findFirstOrThrow
+   */
+  export type NudgeDeliverySendFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDeliverySend
+     */
+    select?: NudgeDeliverySendSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliverySendInclude<ExtArgs> | null
+    /**
+     * Filter, which NudgeDeliverySend to fetch.
+     */
+    where?: NudgeDeliverySendWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NudgeDeliverySends to fetch.
+     */
+    orderBy?: NudgeDeliverySendOrderByWithRelationInput | NudgeDeliverySendOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for NudgeDeliverySends.
+     */
+    cursor?: NudgeDeliverySendWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NudgeDeliverySends from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NudgeDeliverySends.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of NudgeDeliverySends.
+     */
+    distinct?: NudgeDeliverySendScalarFieldEnum | NudgeDeliverySendScalarFieldEnum[]
+  }
+
+  /**
+   * NudgeDeliverySend findMany
+   */
+  export type NudgeDeliverySendFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDeliverySend
+     */
+    select?: NudgeDeliverySendSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliverySendInclude<ExtArgs> | null
+    /**
+     * Filter, which NudgeDeliverySends to fetch.
+     */
+    where?: NudgeDeliverySendWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of NudgeDeliverySends to fetch.
+     */
+    orderBy?: NudgeDeliverySendOrderByWithRelationInput | NudgeDeliverySendOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing NudgeDeliverySends.
+     */
+    cursor?: NudgeDeliverySendWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` NudgeDeliverySends from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` NudgeDeliverySends.
+     */
+    skip?: number
+    distinct?: NudgeDeliverySendScalarFieldEnum | NudgeDeliverySendScalarFieldEnum[]
+  }
+
+  /**
+   * NudgeDeliverySend create
+   */
+  export type NudgeDeliverySendCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDeliverySend
+     */
+    select?: NudgeDeliverySendSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliverySendInclude<ExtArgs> | null
+    /**
+     * The data needed to create a NudgeDeliverySend.
+     */
+    data: XOR<NudgeDeliverySendCreateInput, NudgeDeliverySendUncheckedCreateInput>
+  }
+
+  /**
+   * NudgeDeliverySend createMany
+   */
+  export type NudgeDeliverySendCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many NudgeDeliverySends.
+     */
+    data: NudgeDeliverySendCreateManyInput | NudgeDeliverySendCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * NudgeDeliverySend createManyAndReturn
+   */
+  export type NudgeDeliverySendCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDeliverySend
+     */
+    select?: NudgeDeliverySendSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * The data used to create many NudgeDeliverySends.
+     */
+    data: NudgeDeliverySendCreateManyInput | NudgeDeliverySendCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliverySendIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * NudgeDeliverySend update
+   */
+  export type NudgeDeliverySendUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDeliverySend
+     */
+    select?: NudgeDeliverySendSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliverySendInclude<ExtArgs> | null
+    /**
+     * The data needed to update a NudgeDeliverySend.
+     */
+    data: XOR<NudgeDeliverySendUpdateInput, NudgeDeliverySendUncheckedUpdateInput>
+    /**
+     * Choose, which NudgeDeliverySend to update.
+     */
+    where: NudgeDeliverySendWhereUniqueInput
+  }
+
+  /**
+   * NudgeDeliverySend updateMany
+   */
+  export type NudgeDeliverySendUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update NudgeDeliverySends.
+     */
+    data: XOR<NudgeDeliverySendUpdateManyMutationInput, NudgeDeliverySendUncheckedUpdateManyInput>
+    /**
+     * Filter which NudgeDeliverySends to update
+     */
+    where?: NudgeDeliverySendWhereInput
+  }
+
+  /**
+   * NudgeDeliverySend upsert
+   */
+  export type NudgeDeliverySendUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDeliverySend
+     */
+    select?: NudgeDeliverySendSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliverySendInclude<ExtArgs> | null
+    /**
+     * The filter to search for the NudgeDeliverySend to update in case it exists.
+     */
+    where: NudgeDeliverySendWhereUniqueInput
+    /**
+     * In case the NudgeDeliverySend found by the `where` argument doesn't exist, create a new NudgeDeliverySend with this data.
+     */
+    create: XOR<NudgeDeliverySendCreateInput, NudgeDeliverySendUncheckedCreateInput>
+    /**
+     * In case the NudgeDeliverySend was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NudgeDeliverySendUpdateInput, NudgeDeliverySendUncheckedUpdateInput>
+  }
+
+  /**
+   * NudgeDeliverySend delete
+   */
+  export type NudgeDeliverySendDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDeliverySend
+     */
+    select?: NudgeDeliverySendSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliverySendInclude<ExtArgs> | null
+    /**
+     * Filter which NudgeDeliverySend to delete.
+     */
+    where: NudgeDeliverySendWhereUniqueInput
+  }
+
+  /**
+   * NudgeDeliverySend deleteMany
+   */
+  export type NudgeDeliverySendDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which NudgeDeliverySends to delete
+     */
+    where?: NudgeDeliverySendWhereInput
+  }
+
+  /**
+   * NudgeDeliverySend without action
+   */
+  export type NudgeDeliverySendDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the NudgeDeliverySend
+     */
+    select?: NudgeDeliverySendSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NudgeDeliverySendInclude<ExtArgs> | null
   }
 
 
@@ -35078,12 +38641,73 @@ export namespace Prisma {
     language: 'language',
     timezone: 'timezone',
     notificationsEnabled: 'notificationsEnabled',
+    nudgeDay0LocalDate: 'nudgeDay0LocalDate',
+    nudgeDay0Source: 'nudgeDay0Source',
     preferences: 'preferences',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type UserSettingScalarFieldEnum = (typeof UserSettingScalarFieldEnum)[keyof typeof UserSettingScalarFieldEnum]
+
+
+  export const PushTokenScalarFieldEnum: {
+    id: 'id',
+    profileId: 'profileId',
+    deviceId: 'deviceId',
+    token: 'token',
+    platform: 'platform',
+    env: 'env',
+    disabledAt: 'disabledAt',
+    lastError: 'lastError',
+    updatedAt: 'updatedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type PushTokenScalarFieldEnum = (typeof PushTokenScalarFieldEnum)[keyof typeof PushTokenScalarFieldEnum]
+
+
+  export const NudgeDeliveryScalarFieldEnum: {
+    id: 'id',
+    profileId: 'profileId',
+    problemType: 'problemType',
+    scheduledTime: 'scheduledTime',
+    deliveryDayLocal: 'deliveryDayLocal',
+    timezone: 'timezone',
+    lang: 'lang',
+    variantIndex: 'variantIndex',
+    messageTitle: 'messageTitle',
+    messageBody: 'messageBody',
+    messageDetail: 'messageDetail',
+    status: 'status',
+    apnsId: 'apnsId',
+    error: 'error',
+    attemptCount: 'attemptCount',
+    lastAttemptAt: 'lastAttemptAt',
+    nextAttemptAt: 'nextAttemptAt',
+    createdAt: 'createdAt',
+    sentAt: 'sentAt'
+  };
+
+  export type NudgeDeliveryScalarFieldEnum = (typeof NudgeDeliveryScalarFieldEnum)[keyof typeof NudgeDeliveryScalarFieldEnum]
+
+
+  export const NudgeDeliverySendScalarFieldEnum: {
+    id: 'id',
+    deliveryId: 'deliveryId',
+    pushTokenId: 'pushTokenId',
+    status: 'status',
+    apnsId: 'apnsId',
+    error: 'error',
+    attemptCount: 'attemptCount',
+    lastAttemptAt: 'lastAttemptAt',
+    nextAttemptAt: 'nextAttemptAt',
+    sentAt: 'sentAt',
+    updatedAt: 'updatedAt',
+    createdAt: 'createdAt'
+  };
+
+  export type NudgeDeliverySendScalarFieldEnum = (typeof NudgeDeliverySendScalarFieldEnum)[keyof typeof NudgeDeliverySendScalarFieldEnum]
 
 
   export const UserTraitScalarFieldEnum: {
@@ -36119,6 +39743,8 @@ export namespace Prisma {
     language?: StringFilter<"UserSetting"> | string
     timezone?: StringFilter<"UserSetting"> | string
     notificationsEnabled?: BoolFilter<"UserSetting"> | boolean
+    nudgeDay0LocalDate?: DateTimeNullableFilter<"UserSetting"> | Date | string | null
+    nudgeDay0Source?: StringNullableFilter<"UserSetting"> | string | null
     preferences?: JsonFilter<"UserSetting">
     createdAt?: DateTimeFilter<"UserSetting"> | Date | string
     updatedAt?: DateTimeFilter<"UserSetting"> | Date | string
@@ -36130,6 +39756,8 @@ export namespace Prisma {
     language?: SortOrder
     timezone?: SortOrder
     notificationsEnabled?: SortOrder
+    nudgeDay0LocalDate?: SortOrderInput | SortOrder
+    nudgeDay0Source?: SortOrderInput | SortOrder
     preferences?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -36144,6 +39772,8 @@ export namespace Prisma {
     language?: StringFilter<"UserSetting"> | string
     timezone?: StringFilter<"UserSetting"> | string
     notificationsEnabled?: BoolFilter<"UserSetting"> | boolean
+    nudgeDay0LocalDate?: DateTimeNullableFilter<"UserSetting"> | Date | string | null
+    nudgeDay0Source?: StringNullableFilter<"UserSetting"> | string | null
     preferences?: JsonFilter<"UserSetting">
     createdAt?: DateTimeFilter<"UserSetting"> | Date | string
     updatedAt?: DateTimeFilter<"UserSetting"> | Date | string
@@ -36155,6 +39785,8 @@ export namespace Prisma {
     language?: SortOrder
     timezone?: SortOrder
     notificationsEnabled?: SortOrder
+    nudgeDay0LocalDate?: SortOrderInput | SortOrder
+    nudgeDay0Source?: SortOrderInput | SortOrder
     preferences?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -36171,9 +39803,317 @@ export namespace Prisma {
     language?: StringWithAggregatesFilter<"UserSetting"> | string
     timezone?: StringWithAggregatesFilter<"UserSetting"> | string
     notificationsEnabled?: BoolWithAggregatesFilter<"UserSetting"> | boolean
+    nudgeDay0LocalDate?: DateTimeNullableWithAggregatesFilter<"UserSetting"> | Date | string | null
+    nudgeDay0Source?: StringNullableWithAggregatesFilter<"UserSetting"> | string | null
     preferences?: JsonWithAggregatesFilter<"UserSetting">
     createdAt?: DateTimeWithAggregatesFilter<"UserSetting"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"UserSetting"> | Date | string
+  }
+
+  export type PushTokenWhereInput = {
+    AND?: PushTokenWhereInput | PushTokenWhereInput[]
+    OR?: PushTokenWhereInput[]
+    NOT?: PushTokenWhereInput | PushTokenWhereInput[]
+    id?: UuidFilter<"PushToken"> | string
+    profileId?: UuidFilter<"PushToken"> | string
+    deviceId?: StringFilter<"PushToken"> | string
+    token?: StringFilter<"PushToken"> | string
+    platform?: StringFilter<"PushToken"> | string
+    env?: StringFilter<"PushToken"> | string
+    disabledAt?: DateTimeNullableFilter<"PushToken"> | Date | string | null
+    lastError?: StringNullableFilter<"PushToken"> | string | null
+    updatedAt?: DateTimeFilter<"PushToken"> | Date | string
+    createdAt?: DateTimeFilter<"PushToken"> | Date | string
+    deliverySends?: NudgeDeliverySendListRelationFilter
+  }
+
+  export type PushTokenOrderByWithRelationInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    deviceId?: SortOrder
+    token?: SortOrder
+    platform?: SortOrder
+    env?: SortOrder
+    disabledAt?: SortOrderInput | SortOrder
+    lastError?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+    createdAt?: SortOrder
+    deliverySends?: NudgeDeliverySendOrderByRelationAggregateInput
+  }
+
+  export type PushTokenWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    deviceId_env?: PushTokenDeviceIdEnvCompoundUniqueInput
+    token_env?: PushTokenTokenEnvCompoundUniqueInput
+    AND?: PushTokenWhereInput | PushTokenWhereInput[]
+    OR?: PushTokenWhereInput[]
+    NOT?: PushTokenWhereInput | PushTokenWhereInput[]
+    profileId?: UuidFilter<"PushToken"> | string
+    deviceId?: StringFilter<"PushToken"> | string
+    token?: StringFilter<"PushToken"> | string
+    platform?: StringFilter<"PushToken"> | string
+    env?: StringFilter<"PushToken"> | string
+    disabledAt?: DateTimeNullableFilter<"PushToken"> | Date | string | null
+    lastError?: StringNullableFilter<"PushToken"> | string | null
+    updatedAt?: DateTimeFilter<"PushToken"> | Date | string
+    createdAt?: DateTimeFilter<"PushToken"> | Date | string
+    deliverySends?: NudgeDeliverySendListRelationFilter
+  }, "id" | "deviceId_env" | "token_env">
+
+  export type PushTokenOrderByWithAggregationInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    deviceId?: SortOrder
+    token?: SortOrder
+    platform?: SortOrder
+    env?: SortOrder
+    disabledAt?: SortOrderInput | SortOrder
+    lastError?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+    createdAt?: SortOrder
+    _count?: PushTokenCountOrderByAggregateInput
+    _max?: PushTokenMaxOrderByAggregateInput
+    _min?: PushTokenMinOrderByAggregateInput
+  }
+
+  export type PushTokenScalarWhereWithAggregatesInput = {
+    AND?: PushTokenScalarWhereWithAggregatesInput | PushTokenScalarWhereWithAggregatesInput[]
+    OR?: PushTokenScalarWhereWithAggregatesInput[]
+    NOT?: PushTokenScalarWhereWithAggregatesInput | PushTokenScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"PushToken"> | string
+    profileId?: UuidWithAggregatesFilter<"PushToken"> | string
+    deviceId?: StringWithAggregatesFilter<"PushToken"> | string
+    token?: StringWithAggregatesFilter<"PushToken"> | string
+    platform?: StringWithAggregatesFilter<"PushToken"> | string
+    env?: StringWithAggregatesFilter<"PushToken"> | string
+    disabledAt?: DateTimeNullableWithAggregatesFilter<"PushToken"> | Date | string | null
+    lastError?: StringNullableWithAggregatesFilter<"PushToken"> | string | null
+    updatedAt?: DateTimeWithAggregatesFilter<"PushToken"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"PushToken"> | Date | string
+  }
+
+  export type NudgeDeliveryWhereInput = {
+    AND?: NudgeDeliveryWhereInput | NudgeDeliveryWhereInput[]
+    OR?: NudgeDeliveryWhereInput[]
+    NOT?: NudgeDeliveryWhereInput | NudgeDeliveryWhereInput[]
+    id?: UuidFilter<"NudgeDelivery"> | string
+    profileId?: UuidFilter<"NudgeDelivery"> | string
+    problemType?: StringFilter<"NudgeDelivery"> | string
+    scheduledTime?: StringFilter<"NudgeDelivery"> | string
+    deliveryDayLocal?: DateTimeFilter<"NudgeDelivery"> | Date | string
+    timezone?: StringFilter<"NudgeDelivery"> | string
+    lang?: StringFilter<"NudgeDelivery"> | string
+    variantIndex?: IntFilter<"NudgeDelivery"> | number
+    messageTitle?: StringFilter<"NudgeDelivery"> | string
+    messageBody?: StringFilter<"NudgeDelivery"> | string
+    messageDetail?: StringFilter<"NudgeDelivery"> | string
+    status?: StringFilter<"NudgeDelivery"> | string
+    apnsId?: StringNullableFilter<"NudgeDelivery"> | string | null
+    error?: StringNullableFilter<"NudgeDelivery"> | string | null
+    attemptCount?: IntFilter<"NudgeDelivery"> | number
+    lastAttemptAt?: DateTimeNullableFilter<"NudgeDelivery"> | Date | string | null
+    nextAttemptAt?: DateTimeNullableFilter<"NudgeDelivery"> | Date | string | null
+    createdAt?: DateTimeFilter<"NudgeDelivery"> | Date | string
+    sentAt?: DateTimeNullableFilter<"NudgeDelivery"> | Date | string | null
+    sends?: NudgeDeliverySendListRelationFilter
+  }
+
+  export type NudgeDeliveryOrderByWithRelationInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    problemType?: SortOrder
+    scheduledTime?: SortOrder
+    deliveryDayLocal?: SortOrder
+    timezone?: SortOrder
+    lang?: SortOrder
+    variantIndex?: SortOrder
+    messageTitle?: SortOrder
+    messageBody?: SortOrder
+    messageDetail?: SortOrder
+    status?: SortOrder
+    apnsId?: SortOrderInput | SortOrder
+    error?: SortOrderInput | SortOrder
+    attemptCount?: SortOrder
+    lastAttemptAt?: SortOrderInput | SortOrder
+    nextAttemptAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    sentAt?: SortOrderInput | SortOrder
+    sends?: NudgeDeliverySendOrderByRelationAggregateInput
+  }
+
+  export type NudgeDeliveryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    profileId_problemType_scheduledTime_deliveryDayLocal?: NudgeDeliveryProfileIdProblemTypeScheduledTimeDeliveryDayLocalCompoundUniqueInput
+    AND?: NudgeDeliveryWhereInput | NudgeDeliveryWhereInput[]
+    OR?: NudgeDeliveryWhereInput[]
+    NOT?: NudgeDeliveryWhereInput | NudgeDeliveryWhereInput[]
+    profileId?: UuidFilter<"NudgeDelivery"> | string
+    problemType?: StringFilter<"NudgeDelivery"> | string
+    scheduledTime?: StringFilter<"NudgeDelivery"> | string
+    deliveryDayLocal?: DateTimeFilter<"NudgeDelivery"> | Date | string
+    timezone?: StringFilter<"NudgeDelivery"> | string
+    lang?: StringFilter<"NudgeDelivery"> | string
+    variantIndex?: IntFilter<"NudgeDelivery"> | number
+    messageTitle?: StringFilter<"NudgeDelivery"> | string
+    messageBody?: StringFilter<"NudgeDelivery"> | string
+    messageDetail?: StringFilter<"NudgeDelivery"> | string
+    status?: StringFilter<"NudgeDelivery"> | string
+    apnsId?: StringNullableFilter<"NudgeDelivery"> | string | null
+    error?: StringNullableFilter<"NudgeDelivery"> | string | null
+    attemptCount?: IntFilter<"NudgeDelivery"> | number
+    lastAttemptAt?: DateTimeNullableFilter<"NudgeDelivery"> | Date | string | null
+    nextAttemptAt?: DateTimeNullableFilter<"NudgeDelivery"> | Date | string | null
+    createdAt?: DateTimeFilter<"NudgeDelivery"> | Date | string
+    sentAt?: DateTimeNullableFilter<"NudgeDelivery"> | Date | string | null
+    sends?: NudgeDeliverySendListRelationFilter
+  }, "id" | "profileId_problemType_scheduledTime_deliveryDayLocal">
+
+  export type NudgeDeliveryOrderByWithAggregationInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    problemType?: SortOrder
+    scheduledTime?: SortOrder
+    deliveryDayLocal?: SortOrder
+    timezone?: SortOrder
+    lang?: SortOrder
+    variantIndex?: SortOrder
+    messageTitle?: SortOrder
+    messageBody?: SortOrder
+    messageDetail?: SortOrder
+    status?: SortOrder
+    apnsId?: SortOrderInput | SortOrder
+    error?: SortOrderInput | SortOrder
+    attemptCount?: SortOrder
+    lastAttemptAt?: SortOrderInput | SortOrder
+    nextAttemptAt?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    sentAt?: SortOrderInput | SortOrder
+    _count?: NudgeDeliveryCountOrderByAggregateInput
+    _avg?: NudgeDeliveryAvgOrderByAggregateInput
+    _max?: NudgeDeliveryMaxOrderByAggregateInput
+    _min?: NudgeDeliveryMinOrderByAggregateInput
+    _sum?: NudgeDeliverySumOrderByAggregateInput
+  }
+
+  export type NudgeDeliveryScalarWhereWithAggregatesInput = {
+    AND?: NudgeDeliveryScalarWhereWithAggregatesInput | NudgeDeliveryScalarWhereWithAggregatesInput[]
+    OR?: NudgeDeliveryScalarWhereWithAggregatesInput[]
+    NOT?: NudgeDeliveryScalarWhereWithAggregatesInput | NudgeDeliveryScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"NudgeDelivery"> | string
+    profileId?: UuidWithAggregatesFilter<"NudgeDelivery"> | string
+    problemType?: StringWithAggregatesFilter<"NudgeDelivery"> | string
+    scheduledTime?: StringWithAggregatesFilter<"NudgeDelivery"> | string
+    deliveryDayLocal?: DateTimeWithAggregatesFilter<"NudgeDelivery"> | Date | string
+    timezone?: StringWithAggregatesFilter<"NudgeDelivery"> | string
+    lang?: StringWithAggregatesFilter<"NudgeDelivery"> | string
+    variantIndex?: IntWithAggregatesFilter<"NudgeDelivery"> | number
+    messageTitle?: StringWithAggregatesFilter<"NudgeDelivery"> | string
+    messageBody?: StringWithAggregatesFilter<"NudgeDelivery"> | string
+    messageDetail?: StringWithAggregatesFilter<"NudgeDelivery"> | string
+    status?: StringWithAggregatesFilter<"NudgeDelivery"> | string
+    apnsId?: StringNullableWithAggregatesFilter<"NudgeDelivery"> | string | null
+    error?: StringNullableWithAggregatesFilter<"NudgeDelivery"> | string | null
+    attemptCount?: IntWithAggregatesFilter<"NudgeDelivery"> | number
+    lastAttemptAt?: DateTimeNullableWithAggregatesFilter<"NudgeDelivery"> | Date | string | null
+    nextAttemptAt?: DateTimeNullableWithAggregatesFilter<"NudgeDelivery"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"NudgeDelivery"> | Date | string
+    sentAt?: DateTimeNullableWithAggregatesFilter<"NudgeDelivery"> | Date | string | null
+  }
+
+  export type NudgeDeliverySendWhereInput = {
+    AND?: NudgeDeliverySendWhereInput | NudgeDeliverySendWhereInput[]
+    OR?: NudgeDeliverySendWhereInput[]
+    NOT?: NudgeDeliverySendWhereInput | NudgeDeliverySendWhereInput[]
+    id?: UuidFilter<"NudgeDeliverySend"> | string
+    deliveryId?: UuidFilter<"NudgeDeliverySend"> | string
+    pushTokenId?: UuidFilter<"NudgeDeliverySend"> | string
+    status?: StringFilter<"NudgeDeliverySend"> | string
+    apnsId?: StringNullableFilter<"NudgeDeliverySend"> | string | null
+    error?: StringNullableFilter<"NudgeDeliverySend"> | string | null
+    attemptCount?: IntFilter<"NudgeDeliverySend"> | number
+    lastAttemptAt?: DateTimeNullableFilter<"NudgeDeliverySend"> | Date | string | null
+    nextAttemptAt?: DateTimeNullableFilter<"NudgeDeliverySend"> | Date | string | null
+    sentAt?: DateTimeNullableFilter<"NudgeDeliverySend"> | Date | string | null
+    updatedAt?: DateTimeFilter<"NudgeDeliverySend"> | Date | string
+    createdAt?: DateTimeFilter<"NudgeDeliverySend"> | Date | string
+    delivery?: XOR<NudgeDeliveryRelationFilter, NudgeDeliveryWhereInput>
+    pushToken?: XOR<PushTokenRelationFilter, PushTokenWhereInput>
+  }
+
+  export type NudgeDeliverySendOrderByWithRelationInput = {
+    id?: SortOrder
+    deliveryId?: SortOrder
+    pushTokenId?: SortOrder
+    status?: SortOrder
+    apnsId?: SortOrderInput | SortOrder
+    error?: SortOrderInput | SortOrder
+    attemptCount?: SortOrder
+    lastAttemptAt?: SortOrderInput | SortOrder
+    nextAttemptAt?: SortOrderInput | SortOrder
+    sentAt?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+    createdAt?: SortOrder
+    delivery?: NudgeDeliveryOrderByWithRelationInput
+    pushToken?: PushTokenOrderByWithRelationInput
+  }
+
+  export type NudgeDeliverySendWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    deliveryId_pushTokenId?: NudgeDeliverySendDeliveryIdPushTokenIdCompoundUniqueInput
+    AND?: NudgeDeliverySendWhereInput | NudgeDeliverySendWhereInput[]
+    OR?: NudgeDeliverySendWhereInput[]
+    NOT?: NudgeDeliverySendWhereInput | NudgeDeliverySendWhereInput[]
+    deliveryId?: UuidFilter<"NudgeDeliverySend"> | string
+    pushTokenId?: UuidFilter<"NudgeDeliverySend"> | string
+    status?: StringFilter<"NudgeDeliverySend"> | string
+    apnsId?: StringNullableFilter<"NudgeDeliverySend"> | string | null
+    error?: StringNullableFilter<"NudgeDeliverySend"> | string | null
+    attemptCount?: IntFilter<"NudgeDeliverySend"> | number
+    lastAttemptAt?: DateTimeNullableFilter<"NudgeDeliverySend"> | Date | string | null
+    nextAttemptAt?: DateTimeNullableFilter<"NudgeDeliverySend"> | Date | string | null
+    sentAt?: DateTimeNullableFilter<"NudgeDeliverySend"> | Date | string | null
+    updatedAt?: DateTimeFilter<"NudgeDeliverySend"> | Date | string
+    createdAt?: DateTimeFilter<"NudgeDeliverySend"> | Date | string
+    delivery?: XOR<NudgeDeliveryRelationFilter, NudgeDeliveryWhereInput>
+    pushToken?: XOR<PushTokenRelationFilter, PushTokenWhereInput>
+  }, "id" | "deliveryId_pushTokenId">
+
+  export type NudgeDeliverySendOrderByWithAggregationInput = {
+    id?: SortOrder
+    deliveryId?: SortOrder
+    pushTokenId?: SortOrder
+    status?: SortOrder
+    apnsId?: SortOrderInput | SortOrder
+    error?: SortOrderInput | SortOrder
+    attemptCount?: SortOrder
+    lastAttemptAt?: SortOrderInput | SortOrder
+    nextAttemptAt?: SortOrderInput | SortOrder
+    sentAt?: SortOrderInput | SortOrder
+    updatedAt?: SortOrder
+    createdAt?: SortOrder
+    _count?: NudgeDeliverySendCountOrderByAggregateInput
+    _avg?: NudgeDeliverySendAvgOrderByAggregateInput
+    _max?: NudgeDeliverySendMaxOrderByAggregateInput
+    _min?: NudgeDeliverySendMinOrderByAggregateInput
+    _sum?: NudgeDeliverySendSumOrderByAggregateInput
+  }
+
+  export type NudgeDeliverySendScalarWhereWithAggregatesInput = {
+    AND?: NudgeDeliverySendScalarWhereWithAggregatesInput | NudgeDeliverySendScalarWhereWithAggregatesInput[]
+    OR?: NudgeDeliverySendScalarWhereWithAggregatesInput[]
+    NOT?: NudgeDeliverySendScalarWhereWithAggregatesInput | NudgeDeliverySendScalarWhereWithAggregatesInput[]
+    id?: UuidWithAggregatesFilter<"NudgeDeliverySend"> | string
+    deliveryId?: UuidWithAggregatesFilter<"NudgeDeliverySend"> | string
+    pushTokenId?: UuidWithAggregatesFilter<"NudgeDeliverySend"> | string
+    status?: StringWithAggregatesFilter<"NudgeDeliverySend"> | string
+    apnsId?: StringNullableWithAggregatesFilter<"NudgeDeliverySend"> | string | null
+    error?: StringNullableWithAggregatesFilter<"NudgeDeliverySend"> | string | null
+    attemptCount?: IntWithAggregatesFilter<"NudgeDeliverySend"> | number
+    lastAttemptAt?: DateTimeNullableWithAggregatesFilter<"NudgeDeliverySend"> | Date | string | null
+    nextAttemptAt?: DateTimeNullableWithAggregatesFilter<"NudgeDeliverySend"> | Date | string | null
+    sentAt?: DateTimeNullableWithAggregatesFilter<"NudgeDeliverySend"> | Date | string | null
+    updatedAt?: DateTimeWithAggregatesFilter<"NudgeDeliverySend"> | Date | string
+    createdAt?: DateTimeWithAggregatesFilter<"NudgeDeliverySend"> | Date | string
   }
 
   export type UserTraitWhereInput = {
@@ -38691,6 +42631,8 @@ export namespace Prisma {
     language?: string
     timezone?: string
     notificationsEnabled?: boolean
+    nudgeDay0LocalDate?: Date | string | null
+    nudgeDay0Source?: string | null
     preferences?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -38702,6 +42644,8 @@ export namespace Prisma {
     language?: string
     timezone?: string
     notificationsEnabled?: boolean
+    nudgeDay0LocalDate?: Date | string | null
+    nudgeDay0Source?: string | null
     preferences?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -38711,6 +42655,8 @@ export namespace Prisma {
     language?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    nudgeDay0LocalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nudgeDay0Source?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38722,6 +42668,8 @@ export namespace Prisma {
     language?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    nudgeDay0LocalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nudgeDay0Source?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38732,6 +42680,8 @@ export namespace Prisma {
     language?: string
     timezone?: string
     notificationsEnabled?: boolean
+    nudgeDay0LocalDate?: Date | string | null
+    nudgeDay0Source?: string | null
     preferences?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -38741,6 +42691,8 @@ export namespace Prisma {
     language?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    nudgeDay0LocalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nudgeDay0Source?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -38751,9 +42703,367 @@ export namespace Prisma {
     language?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    nudgeDay0LocalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nudgeDay0Source?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushTokenCreateInput = {
+    id?: string
+    profileId: string
+    deviceId: string
+    token: string
+    platform?: string
+    env: string
+    disabledAt?: Date | string | null
+    lastError?: string | null
+    updatedAt?: Date | string
+    createdAt?: Date | string
+    deliverySends?: NudgeDeliverySendCreateNestedManyWithoutPushTokenInput
+  }
+
+  export type PushTokenUncheckedCreateInput = {
+    id?: string
+    profileId: string
+    deviceId: string
+    token: string
+    platform?: string
+    env: string
+    disabledAt?: Date | string | null
+    lastError?: string | null
+    updatedAt?: Date | string
+    createdAt?: Date | string
+    deliverySends?: NudgeDeliverySendUncheckedCreateNestedManyWithoutPushTokenInput
+  }
+
+  export type PushTokenUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profileId?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    env?: StringFieldUpdateOperationsInput | string
+    disabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliverySends?: NudgeDeliverySendUpdateManyWithoutPushTokenNestedInput
+  }
+
+  export type PushTokenUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profileId?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    env?: StringFieldUpdateOperationsInput | string
+    disabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deliverySends?: NudgeDeliverySendUncheckedUpdateManyWithoutPushTokenNestedInput
+  }
+
+  export type PushTokenCreateManyInput = {
+    id?: string
+    profileId: string
+    deviceId: string
+    token: string
+    platform?: string
+    env: string
+    disabledAt?: Date | string | null
+    lastError?: string | null
+    updatedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type PushTokenUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profileId?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    env?: StringFieldUpdateOperationsInput | string
+    disabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushTokenUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profileId?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    env?: StringFieldUpdateOperationsInput | string
+    disabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NudgeDeliveryCreateInput = {
+    id?: string
+    profileId: string
+    problemType: string
+    scheduledTime: string
+    deliveryDayLocal: Date | string
+    timezone: string
+    lang: string
+    variantIndex: number
+    messageTitle: string
+    messageBody: string
+    messageDetail: string
+    status?: string
+    apnsId?: string | null
+    error?: string | null
+    attemptCount?: number
+    lastAttemptAt?: Date | string | null
+    nextAttemptAt?: Date | string | null
+    createdAt?: Date | string
+    sentAt?: Date | string | null
+    sends?: NudgeDeliverySendCreateNestedManyWithoutDeliveryInput
+  }
+
+  export type NudgeDeliveryUncheckedCreateInput = {
+    id?: string
+    profileId: string
+    problemType: string
+    scheduledTime: string
+    deliveryDayLocal: Date | string
+    timezone: string
+    lang: string
+    variantIndex: number
+    messageTitle: string
+    messageBody: string
+    messageDetail: string
+    status?: string
+    apnsId?: string | null
+    error?: string | null
+    attemptCount?: number
+    lastAttemptAt?: Date | string | null
+    nextAttemptAt?: Date | string | null
+    createdAt?: Date | string
+    sentAt?: Date | string | null
+    sends?: NudgeDeliverySendUncheckedCreateNestedManyWithoutDeliveryInput
+  }
+
+  export type NudgeDeliveryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profileId?: StringFieldUpdateOperationsInput | string
+    problemType?: StringFieldUpdateOperationsInput | string
+    scheduledTime?: StringFieldUpdateOperationsInput | string
+    deliveryDayLocal?: DateTimeFieldUpdateOperationsInput | Date | string
+    timezone?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
+    variantIndex?: IntFieldUpdateOperationsInput | number
+    messageTitle?: StringFieldUpdateOperationsInput | string
+    messageBody?: StringFieldUpdateOperationsInput | string
+    messageDetail?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    apnsId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sends?: NudgeDeliverySendUpdateManyWithoutDeliveryNestedInput
+  }
+
+  export type NudgeDeliveryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profileId?: StringFieldUpdateOperationsInput | string
+    problemType?: StringFieldUpdateOperationsInput | string
+    scheduledTime?: StringFieldUpdateOperationsInput | string
+    deliveryDayLocal?: DateTimeFieldUpdateOperationsInput | Date | string
+    timezone?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
+    variantIndex?: IntFieldUpdateOperationsInput | number
+    messageTitle?: StringFieldUpdateOperationsInput | string
+    messageBody?: StringFieldUpdateOperationsInput | string
+    messageDetail?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    apnsId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sends?: NudgeDeliverySendUncheckedUpdateManyWithoutDeliveryNestedInput
+  }
+
+  export type NudgeDeliveryCreateManyInput = {
+    id?: string
+    profileId: string
+    problemType: string
+    scheduledTime: string
+    deliveryDayLocal: Date | string
+    timezone: string
+    lang: string
+    variantIndex: number
+    messageTitle: string
+    messageBody: string
+    messageDetail: string
+    status?: string
+    apnsId?: string | null
+    error?: string | null
+    attemptCount?: number
+    lastAttemptAt?: Date | string | null
+    nextAttemptAt?: Date | string | null
+    createdAt?: Date | string
+    sentAt?: Date | string | null
+  }
+
+  export type NudgeDeliveryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profileId?: StringFieldUpdateOperationsInput | string
+    problemType?: StringFieldUpdateOperationsInput | string
+    scheduledTime?: StringFieldUpdateOperationsInput | string
+    deliveryDayLocal?: DateTimeFieldUpdateOperationsInput | Date | string
+    timezone?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
+    variantIndex?: IntFieldUpdateOperationsInput | number
+    messageTitle?: StringFieldUpdateOperationsInput | string
+    messageBody?: StringFieldUpdateOperationsInput | string
+    messageDetail?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    apnsId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NudgeDeliveryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profileId?: StringFieldUpdateOperationsInput | string
+    problemType?: StringFieldUpdateOperationsInput | string
+    scheduledTime?: StringFieldUpdateOperationsInput | string
+    deliveryDayLocal?: DateTimeFieldUpdateOperationsInput | Date | string
+    timezone?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
+    variantIndex?: IntFieldUpdateOperationsInput | number
+    messageTitle?: StringFieldUpdateOperationsInput | string
+    messageBody?: StringFieldUpdateOperationsInput | string
+    messageDetail?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    apnsId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NudgeDeliverySendCreateInput = {
+    id?: string
+    status?: string
+    apnsId?: string | null
+    error?: string | null
+    attemptCount?: number
+    lastAttemptAt?: Date | string | null
+    nextAttemptAt?: Date | string | null
+    sentAt?: Date | string | null
+    updatedAt?: Date | string
+    createdAt?: Date | string
+    delivery: NudgeDeliveryCreateNestedOneWithoutSendsInput
+    pushToken: PushTokenCreateNestedOneWithoutDeliverySendsInput
+  }
+
+  export type NudgeDeliverySendUncheckedCreateInput = {
+    id?: string
+    deliveryId: string
+    pushTokenId: string
+    status?: string
+    apnsId?: string | null
+    error?: string | null
+    attemptCount?: number
+    lastAttemptAt?: Date | string | null
+    nextAttemptAt?: Date | string | null
+    sentAt?: Date | string | null
+    updatedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type NudgeDeliverySendUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    apnsId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    delivery?: NudgeDeliveryUpdateOneRequiredWithoutSendsNestedInput
+    pushToken?: PushTokenUpdateOneRequiredWithoutDeliverySendsNestedInput
+  }
+
+  export type NudgeDeliverySendUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deliveryId?: StringFieldUpdateOperationsInput | string
+    pushTokenId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    apnsId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NudgeDeliverySendCreateManyInput = {
+    id?: string
+    deliveryId: string
+    pushTokenId: string
+    status?: string
+    apnsId?: string | null
+    error?: string | null
+    attemptCount?: number
+    lastAttemptAt?: Date | string | null
+    nextAttemptAt?: Date | string | null
+    sentAt?: Date | string | null
+    updatedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type NudgeDeliverySendUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    apnsId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NudgeDeliverySendUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deliveryId?: StringFieldUpdateOperationsInput | string
+    pushTokenId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    apnsId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserTraitCreateInput = {
@@ -41581,6 +45891,8 @@ export namespace Prisma {
     language?: SortOrder
     timezone?: SortOrder
     notificationsEnabled?: SortOrder
+    nudgeDay0LocalDate?: SortOrder
+    nudgeDay0Source?: SortOrder
     preferences?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -41591,6 +45903,8 @@ export namespace Prisma {
     language?: SortOrder
     timezone?: SortOrder
     notificationsEnabled?: SortOrder
+    nudgeDay0LocalDate?: SortOrder
+    nudgeDay0Source?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -41600,8 +45914,220 @@ export namespace Prisma {
     language?: SortOrder
     timezone?: SortOrder
     notificationsEnabled?: SortOrder
+    nudgeDay0LocalDate?: SortOrder
+    nudgeDay0Source?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+  }
+
+  export type NudgeDeliverySendListRelationFilter = {
+    every?: NudgeDeliverySendWhereInput
+    some?: NudgeDeliverySendWhereInput
+    none?: NudgeDeliverySendWhereInput
+  }
+
+  export type NudgeDeliverySendOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type PushTokenDeviceIdEnvCompoundUniqueInput = {
+    deviceId: string
+    env: string
+  }
+
+  export type PushTokenTokenEnvCompoundUniqueInput = {
+    token: string
+    env: string
+  }
+
+  export type PushTokenCountOrderByAggregateInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    deviceId?: SortOrder
+    token?: SortOrder
+    platform?: SortOrder
+    env?: SortOrder
+    disabledAt?: SortOrder
+    lastError?: SortOrder
+    updatedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PushTokenMaxOrderByAggregateInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    deviceId?: SortOrder
+    token?: SortOrder
+    platform?: SortOrder
+    env?: SortOrder
+    disabledAt?: SortOrder
+    lastError?: SortOrder
+    updatedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type PushTokenMinOrderByAggregateInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    deviceId?: SortOrder
+    token?: SortOrder
+    platform?: SortOrder
+    env?: SortOrder
+    disabledAt?: SortOrder
+    lastError?: SortOrder
+    updatedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NudgeDeliveryProfileIdProblemTypeScheduledTimeDeliveryDayLocalCompoundUniqueInput = {
+    profileId: string
+    problemType: string
+    scheduledTime: string
+    deliveryDayLocal: Date | string
+  }
+
+  export type NudgeDeliveryCountOrderByAggregateInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    problemType?: SortOrder
+    scheduledTime?: SortOrder
+    deliveryDayLocal?: SortOrder
+    timezone?: SortOrder
+    lang?: SortOrder
+    variantIndex?: SortOrder
+    messageTitle?: SortOrder
+    messageBody?: SortOrder
+    messageDetail?: SortOrder
+    status?: SortOrder
+    apnsId?: SortOrder
+    error?: SortOrder
+    attemptCount?: SortOrder
+    lastAttemptAt?: SortOrder
+    nextAttemptAt?: SortOrder
+    createdAt?: SortOrder
+    sentAt?: SortOrder
+  }
+
+  export type NudgeDeliveryAvgOrderByAggregateInput = {
+    variantIndex?: SortOrder
+    attemptCount?: SortOrder
+  }
+
+  export type NudgeDeliveryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    problemType?: SortOrder
+    scheduledTime?: SortOrder
+    deliveryDayLocal?: SortOrder
+    timezone?: SortOrder
+    lang?: SortOrder
+    variantIndex?: SortOrder
+    messageTitle?: SortOrder
+    messageBody?: SortOrder
+    messageDetail?: SortOrder
+    status?: SortOrder
+    apnsId?: SortOrder
+    error?: SortOrder
+    attemptCount?: SortOrder
+    lastAttemptAt?: SortOrder
+    nextAttemptAt?: SortOrder
+    createdAt?: SortOrder
+    sentAt?: SortOrder
+  }
+
+  export type NudgeDeliveryMinOrderByAggregateInput = {
+    id?: SortOrder
+    profileId?: SortOrder
+    problemType?: SortOrder
+    scheduledTime?: SortOrder
+    deliveryDayLocal?: SortOrder
+    timezone?: SortOrder
+    lang?: SortOrder
+    variantIndex?: SortOrder
+    messageTitle?: SortOrder
+    messageBody?: SortOrder
+    messageDetail?: SortOrder
+    status?: SortOrder
+    apnsId?: SortOrder
+    error?: SortOrder
+    attemptCount?: SortOrder
+    lastAttemptAt?: SortOrder
+    nextAttemptAt?: SortOrder
+    createdAt?: SortOrder
+    sentAt?: SortOrder
+  }
+
+  export type NudgeDeliverySumOrderByAggregateInput = {
+    variantIndex?: SortOrder
+    attemptCount?: SortOrder
+  }
+
+  export type NudgeDeliveryRelationFilter = {
+    is?: NudgeDeliveryWhereInput
+    isNot?: NudgeDeliveryWhereInput
+  }
+
+  export type PushTokenRelationFilter = {
+    is?: PushTokenWhereInput
+    isNot?: PushTokenWhereInput
+  }
+
+  export type NudgeDeliverySendDeliveryIdPushTokenIdCompoundUniqueInput = {
+    deliveryId: string
+    pushTokenId: string
+  }
+
+  export type NudgeDeliverySendCountOrderByAggregateInput = {
+    id?: SortOrder
+    deliveryId?: SortOrder
+    pushTokenId?: SortOrder
+    status?: SortOrder
+    apnsId?: SortOrder
+    error?: SortOrder
+    attemptCount?: SortOrder
+    lastAttemptAt?: SortOrder
+    nextAttemptAt?: SortOrder
+    sentAt?: SortOrder
+    updatedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NudgeDeliverySendAvgOrderByAggregateInput = {
+    attemptCount?: SortOrder
+  }
+
+  export type NudgeDeliverySendMaxOrderByAggregateInput = {
+    id?: SortOrder
+    deliveryId?: SortOrder
+    pushTokenId?: SortOrder
+    status?: SortOrder
+    apnsId?: SortOrder
+    error?: SortOrder
+    attemptCount?: SortOrder
+    lastAttemptAt?: SortOrder
+    nextAttemptAt?: SortOrder
+    sentAt?: SortOrder
+    updatedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NudgeDeliverySendMinOrderByAggregateInput = {
+    id?: SortOrder
+    deliveryId?: SortOrder
+    pushTokenId?: SortOrder
+    status?: SortOrder
+    apnsId?: SortOrder
+    error?: SortOrder
+    attemptCount?: SortOrder
+    lastAttemptAt?: SortOrder
+    nextAttemptAt?: SortOrder
+    sentAt?: SortOrder
+    updatedAt?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NudgeDeliverySendSumOrderByAggregateInput = {
+    attemptCount?: SortOrder
   }
 
   export type StringNullableListFilter<$PrismaModel = never> = {
@@ -43081,6 +47607,118 @@ export namespace Prisma {
     update?: XOR<XOR<ProfileUpdateToOneWithWhereWithoutSettingsInput, ProfileUpdateWithoutSettingsInput>, ProfileUncheckedUpdateWithoutSettingsInput>
   }
 
+  export type NudgeDeliverySendCreateNestedManyWithoutPushTokenInput = {
+    create?: XOR<NudgeDeliverySendCreateWithoutPushTokenInput, NudgeDeliverySendUncheckedCreateWithoutPushTokenInput> | NudgeDeliverySendCreateWithoutPushTokenInput[] | NudgeDeliverySendUncheckedCreateWithoutPushTokenInput[]
+    connectOrCreate?: NudgeDeliverySendCreateOrConnectWithoutPushTokenInput | NudgeDeliverySendCreateOrConnectWithoutPushTokenInput[]
+    createMany?: NudgeDeliverySendCreateManyPushTokenInputEnvelope
+    connect?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+  }
+
+  export type NudgeDeliverySendUncheckedCreateNestedManyWithoutPushTokenInput = {
+    create?: XOR<NudgeDeliverySendCreateWithoutPushTokenInput, NudgeDeliverySendUncheckedCreateWithoutPushTokenInput> | NudgeDeliverySendCreateWithoutPushTokenInput[] | NudgeDeliverySendUncheckedCreateWithoutPushTokenInput[]
+    connectOrCreate?: NudgeDeliverySendCreateOrConnectWithoutPushTokenInput | NudgeDeliverySendCreateOrConnectWithoutPushTokenInput[]
+    createMany?: NudgeDeliverySendCreateManyPushTokenInputEnvelope
+    connect?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+  }
+
+  export type NudgeDeliverySendUpdateManyWithoutPushTokenNestedInput = {
+    create?: XOR<NudgeDeliverySendCreateWithoutPushTokenInput, NudgeDeliverySendUncheckedCreateWithoutPushTokenInput> | NudgeDeliverySendCreateWithoutPushTokenInput[] | NudgeDeliverySendUncheckedCreateWithoutPushTokenInput[]
+    connectOrCreate?: NudgeDeliverySendCreateOrConnectWithoutPushTokenInput | NudgeDeliverySendCreateOrConnectWithoutPushTokenInput[]
+    upsert?: NudgeDeliverySendUpsertWithWhereUniqueWithoutPushTokenInput | NudgeDeliverySendUpsertWithWhereUniqueWithoutPushTokenInput[]
+    createMany?: NudgeDeliverySendCreateManyPushTokenInputEnvelope
+    set?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+    disconnect?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+    delete?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+    connect?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+    update?: NudgeDeliverySendUpdateWithWhereUniqueWithoutPushTokenInput | NudgeDeliverySendUpdateWithWhereUniqueWithoutPushTokenInput[]
+    updateMany?: NudgeDeliverySendUpdateManyWithWhereWithoutPushTokenInput | NudgeDeliverySendUpdateManyWithWhereWithoutPushTokenInput[]
+    deleteMany?: NudgeDeliverySendScalarWhereInput | NudgeDeliverySendScalarWhereInput[]
+  }
+
+  export type NudgeDeliverySendUncheckedUpdateManyWithoutPushTokenNestedInput = {
+    create?: XOR<NudgeDeliverySendCreateWithoutPushTokenInput, NudgeDeliverySendUncheckedCreateWithoutPushTokenInput> | NudgeDeliverySendCreateWithoutPushTokenInput[] | NudgeDeliverySendUncheckedCreateWithoutPushTokenInput[]
+    connectOrCreate?: NudgeDeliverySendCreateOrConnectWithoutPushTokenInput | NudgeDeliverySendCreateOrConnectWithoutPushTokenInput[]
+    upsert?: NudgeDeliverySendUpsertWithWhereUniqueWithoutPushTokenInput | NudgeDeliverySendUpsertWithWhereUniqueWithoutPushTokenInput[]
+    createMany?: NudgeDeliverySendCreateManyPushTokenInputEnvelope
+    set?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+    disconnect?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+    delete?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+    connect?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+    update?: NudgeDeliverySendUpdateWithWhereUniqueWithoutPushTokenInput | NudgeDeliverySendUpdateWithWhereUniqueWithoutPushTokenInput[]
+    updateMany?: NudgeDeliverySendUpdateManyWithWhereWithoutPushTokenInput | NudgeDeliverySendUpdateManyWithWhereWithoutPushTokenInput[]
+    deleteMany?: NudgeDeliverySendScalarWhereInput | NudgeDeliverySendScalarWhereInput[]
+  }
+
+  export type NudgeDeliverySendCreateNestedManyWithoutDeliveryInput = {
+    create?: XOR<NudgeDeliverySendCreateWithoutDeliveryInput, NudgeDeliverySendUncheckedCreateWithoutDeliveryInput> | NudgeDeliverySendCreateWithoutDeliveryInput[] | NudgeDeliverySendUncheckedCreateWithoutDeliveryInput[]
+    connectOrCreate?: NudgeDeliverySendCreateOrConnectWithoutDeliveryInput | NudgeDeliverySendCreateOrConnectWithoutDeliveryInput[]
+    createMany?: NudgeDeliverySendCreateManyDeliveryInputEnvelope
+    connect?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+  }
+
+  export type NudgeDeliverySendUncheckedCreateNestedManyWithoutDeliveryInput = {
+    create?: XOR<NudgeDeliverySendCreateWithoutDeliveryInput, NudgeDeliverySendUncheckedCreateWithoutDeliveryInput> | NudgeDeliverySendCreateWithoutDeliveryInput[] | NudgeDeliverySendUncheckedCreateWithoutDeliveryInput[]
+    connectOrCreate?: NudgeDeliverySendCreateOrConnectWithoutDeliveryInput | NudgeDeliverySendCreateOrConnectWithoutDeliveryInput[]
+    createMany?: NudgeDeliverySendCreateManyDeliveryInputEnvelope
+    connect?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+  }
+
+  export type NudgeDeliverySendUpdateManyWithoutDeliveryNestedInput = {
+    create?: XOR<NudgeDeliverySendCreateWithoutDeliveryInput, NudgeDeliverySendUncheckedCreateWithoutDeliveryInput> | NudgeDeliverySendCreateWithoutDeliveryInput[] | NudgeDeliverySendUncheckedCreateWithoutDeliveryInput[]
+    connectOrCreate?: NudgeDeliverySendCreateOrConnectWithoutDeliveryInput | NudgeDeliverySendCreateOrConnectWithoutDeliveryInput[]
+    upsert?: NudgeDeliverySendUpsertWithWhereUniqueWithoutDeliveryInput | NudgeDeliverySendUpsertWithWhereUniqueWithoutDeliveryInput[]
+    createMany?: NudgeDeliverySendCreateManyDeliveryInputEnvelope
+    set?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+    disconnect?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+    delete?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+    connect?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+    update?: NudgeDeliverySendUpdateWithWhereUniqueWithoutDeliveryInput | NudgeDeliverySendUpdateWithWhereUniqueWithoutDeliveryInput[]
+    updateMany?: NudgeDeliverySendUpdateManyWithWhereWithoutDeliveryInput | NudgeDeliverySendUpdateManyWithWhereWithoutDeliveryInput[]
+    deleteMany?: NudgeDeliverySendScalarWhereInput | NudgeDeliverySendScalarWhereInput[]
+  }
+
+  export type NudgeDeliverySendUncheckedUpdateManyWithoutDeliveryNestedInput = {
+    create?: XOR<NudgeDeliverySendCreateWithoutDeliveryInput, NudgeDeliverySendUncheckedCreateWithoutDeliveryInput> | NudgeDeliverySendCreateWithoutDeliveryInput[] | NudgeDeliverySendUncheckedCreateWithoutDeliveryInput[]
+    connectOrCreate?: NudgeDeliverySendCreateOrConnectWithoutDeliveryInput | NudgeDeliverySendCreateOrConnectWithoutDeliveryInput[]
+    upsert?: NudgeDeliverySendUpsertWithWhereUniqueWithoutDeliveryInput | NudgeDeliverySendUpsertWithWhereUniqueWithoutDeliveryInput[]
+    createMany?: NudgeDeliverySendCreateManyDeliveryInputEnvelope
+    set?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+    disconnect?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+    delete?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+    connect?: NudgeDeliverySendWhereUniqueInput | NudgeDeliverySendWhereUniqueInput[]
+    update?: NudgeDeliverySendUpdateWithWhereUniqueWithoutDeliveryInput | NudgeDeliverySendUpdateWithWhereUniqueWithoutDeliveryInput[]
+    updateMany?: NudgeDeliverySendUpdateManyWithWhereWithoutDeliveryInput | NudgeDeliverySendUpdateManyWithWhereWithoutDeliveryInput[]
+    deleteMany?: NudgeDeliverySendScalarWhereInput | NudgeDeliverySendScalarWhereInput[]
+  }
+
+  export type NudgeDeliveryCreateNestedOneWithoutSendsInput = {
+    create?: XOR<NudgeDeliveryCreateWithoutSendsInput, NudgeDeliveryUncheckedCreateWithoutSendsInput>
+    connectOrCreate?: NudgeDeliveryCreateOrConnectWithoutSendsInput
+    connect?: NudgeDeliveryWhereUniqueInput
+  }
+
+  export type PushTokenCreateNestedOneWithoutDeliverySendsInput = {
+    create?: XOR<PushTokenCreateWithoutDeliverySendsInput, PushTokenUncheckedCreateWithoutDeliverySendsInput>
+    connectOrCreate?: PushTokenCreateOrConnectWithoutDeliverySendsInput
+    connect?: PushTokenWhereUniqueInput
+  }
+
+  export type NudgeDeliveryUpdateOneRequiredWithoutSendsNestedInput = {
+    create?: XOR<NudgeDeliveryCreateWithoutSendsInput, NudgeDeliveryUncheckedCreateWithoutSendsInput>
+    connectOrCreate?: NudgeDeliveryCreateOrConnectWithoutSendsInput
+    upsert?: NudgeDeliveryUpsertWithoutSendsInput
+    connect?: NudgeDeliveryWhereUniqueInput
+    update?: XOR<XOR<NudgeDeliveryUpdateToOneWithWhereWithoutSendsInput, NudgeDeliveryUpdateWithoutSendsInput>, NudgeDeliveryUncheckedUpdateWithoutSendsInput>
+  }
+
+  export type PushTokenUpdateOneRequiredWithoutDeliverySendsNestedInput = {
+    create?: XOR<PushTokenCreateWithoutDeliverySendsInput, PushTokenUncheckedCreateWithoutDeliverySendsInput>
+    connectOrCreate?: PushTokenCreateOrConnectWithoutDeliverySendsInput
+    upsert?: PushTokenUpsertWithoutDeliverySendsInput
+    connect?: PushTokenWhereUniqueInput
+    update?: XOR<XOR<PushTokenUpdateToOneWithWhereWithoutDeliverySendsInput, PushTokenUpdateWithoutDeliverySendsInput>, PushTokenUncheckedUpdateWithoutDeliverySendsInput>
+  }
+
   export type UserTraitCreateidealsInput = {
     set: string[]
   }
@@ -44044,6 +48682,8 @@ export namespace Prisma {
     language?: string
     timezone?: string
     notificationsEnabled?: boolean
+    nudgeDay0LocalDate?: Date | string | null
+    nudgeDay0Source?: string | null
     preferences?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -44053,6 +48693,8 @@ export namespace Prisma {
     language?: string
     timezone?: string
     notificationsEnabled?: boolean
+    nudgeDay0LocalDate?: Date | string | null
+    nudgeDay0Source?: string | null
     preferences?: JsonNullValueInput | InputJsonValue
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -44099,6 +48741,8 @@ export namespace Prisma {
     language?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    nudgeDay0LocalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nudgeDay0Source?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44108,6 +48752,8 @@ export namespace Prisma {
     language?: StringFieldUpdateOperationsInput | string
     timezone?: StringFieldUpdateOperationsInput | string
     notificationsEnabled?: BoolFieldUpdateOperationsInput | boolean
+    nudgeDay0LocalDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nudgeDay0Source?: NullableStringFieldUpdateOperationsInput | string | null
     preferences?: JsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -44190,6 +48836,304 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userTypeEstimate?: UserTypeEstimateUncheckedUpdateOneWithoutProfileNestedInput
+  }
+
+  export type NudgeDeliverySendCreateWithoutPushTokenInput = {
+    id?: string
+    status?: string
+    apnsId?: string | null
+    error?: string | null
+    attemptCount?: number
+    lastAttemptAt?: Date | string | null
+    nextAttemptAt?: Date | string | null
+    sentAt?: Date | string | null
+    updatedAt?: Date | string
+    createdAt?: Date | string
+    delivery: NudgeDeliveryCreateNestedOneWithoutSendsInput
+  }
+
+  export type NudgeDeliverySendUncheckedCreateWithoutPushTokenInput = {
+    id?: string
+    deliveryId: string
+    status?: string
+    apnsId?: string | null
+    error?: string | null
+    attemptCount?: number
+    lastAttemptAt?: Date | string | null
+    nextAttemptAt?: Date | string | null
+    sentAt?: Date | string | null
+    updatedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type NudgeDeliverySendCreateOrConnectWithoutPushTokenInput = {
+    where: NudgeDeliverySendWhereUniqueInput
+    create: XOR<NudgeDeliverySendCreateWithoutPushTokenInput, NudgeDeliverySendUncheckedCreateWithoutPushTokenInput>
+  }
+
+  export type NudgeDeliverySendCreateManyPushTokenInputEnvelope = {
+    data: NudgeDeliverySendCreateManyPushTokenInput | NudgeDeliverySendCreateManyPushTokenInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NudgeDeliverySendUpsertWithWhereUniqueWithoutPushTokenInput = {
+    where: NudgeDeliverySendWhereUniqueInput
+    update: XOR<NudgeDeliverySendUpdateWithoutPushTokenInput, NudgeDeliverySendUncheckedUpdateWithoutPushTokenInput>
+    create: XOR<NudgeDeliverySendCreateWithoutPushTokenInput, NudgeDeliverySendUncheckedCreateWithoutPushTokenInput>
+  }
+
+  export type NudgeDeliverySendUpdateWithWhereUniqueWithoutPushTokenInput = {
+    where: NudgeDeliverySendWhereUniqueInput
+    data: XOR<NudgeDeliverySendUpdateWithoutPushTokenInput, NudgeDeliverySendUncheckedUpdateWithoutPushTokenInput>
+  }
+
+  export type NudgeDeliverySendUpdateManyWithWhereWithoutPushTokenInput = {
+    where: NudgeDeliverySendScalarWhereInput
+    data: XOR<NudgeDeliverySendUpdateManyMutationInput, NudgeDeliverySendUncheckedUpdateManyWithoutPushTokenInput>
+  }
+
+  export type NudgeDeliverySendScalarWhereInput = {
+    AND?: NudgeDeliverySendScalarWhereInput | NudgeDeliverySendScalarWhereInput[]
+    OR?: NudgeDeliverySendScalarWhereInput[]
+    NOT?: NudgeDeliverySendScalarWhereInput | NudgeDeliverySendScalarWhereInput[]
+    id?: UuidFilter<"NudgeDeliverySend"> | string
+    deliveryId?: UuidFilter<"NudgeDeliverySend"> | string
+    pushTokenId?: UuidFilter<"NudgeDeliverySend"> | string
+    status?: StringFilter<"NudgeDeliverySend"> | string
+    apnsId?: StringNullableFilter<"NudgeDeliverySend"> | string | null
+    error?: StringNullableFilter<"NudgeDeliverySend"> | string | null
+    attemptCount?: IntFilter<"NudgeDeliverySend"> | number
+    lastAttemptAt?: DateTimeNullableFilter<"NudgeDeliverySend"> | Date | string | null
+    nextAttemptAt?: DateTimeNullableFilter<"NudgeDeliverySend"> | Date | string | null
+    sentAt?: DateTimeNullableFilter<"NudgeDeliverySend"> | Date | string | null
+    updatedAt?: DateTimeFilter<"NudgeDeliverySend"> | Date | string
+    createdAt?: DateTimeFilter<"NudgeDeliverySend"> | Date | string
+  }
+
+  export type NudgeDeliverySendCreateWithoutDeliveryInput = {
+    id?: string
+    status?: string
+    apnsId?: string | null
+    error?: string | null
+    attemptCount?: number
+    lastAttemptAt?: Date | string | null
+    nextAttemptAt?: Date | string | null
+    sentAt?: Date | string | null
+    updatedAt?: Date | string
+    createdAt?: Date | string
+    pushToken: PushTokenCreateNestedOneWithoutDeliverySendsInput
+  }
+
+  export type NudgeDeliverySendUncheckedCreateWithoutDeliveryInput = {
+    id?: string
+    pushTokenId: string
+    status?: string
+    apnsId?: string | null
+    error?: string | null
+    attemptCount?: number
+    lastAttemptAt?: Date | string | null
+    nextAttemptAt?: Date | string | null
+    sentAt?: Date | string | null
+    updatedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type NudgeDeliverySendCreateOrConnectWithoutDeliveryInput = {
+    where: NudgeDeliverySendWhereUniqueInput
+    create: XOR<NudgeDeliverySendCreateWithoutDeliveryInput, NudgeDeliverySendUncheckedCreateWithoutDeliveryInput>
+  }
+
+  export type NudgeDeliverySendCreateManyDeliveryInputEnvelope = {
+    data: NudgeDeliverySendCreateManyDeliveryInput | NudgeDeliverySendCreateManyDeliveryInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NudgeDeliverySendUpsertWithWhereUniqueWithoutDeliveryInput = {
+    where: NudgeDeliverySendWhereUniqueInput
+    update: XOR<NudgeDeliverySendUpdateWithoutDeliveryInput, NudgeDeliverySendUncheckedUpdateWithoutDeliveryInput>
+    create: XOR<NudgeDeliverySendCreateWithoutDeliveryInput, NudgeDeliverySendUncheckedCreateWithoutDeliveryInput>
+  }
+
+  export type NudgeDeliverySendUpdateWithWhereUniqueWithoutDeliveryInput = {
+    where: NudgeDeliverySendWhereUniqueInput
+    data: XOR<NudgeDeliverySendUpdateWithoutDeliveryInput, NudgeDeliverySendUncheckedUpdateWithoutDeliveryInput>
+  }
+
+  export type NudgeDeliverySendUpdateManyWithWhereWithoutDeliveryInput = {
+    where: NudgeDeliverySendScalarWhereInput
+    data: XOR<NudgeDeliverySendUpdateManyMutationInput, NudgeDeliverySendUncheckedUpdateManyWithoutDeliveryInput>
+  }
+
+  export type NudgeDeliveryCreateWithoutSendsInput = {
+    id?: string
+    profileId: string
+    problemType: string
+    scheduledTime: string
+    deliveryDayLocal: Date | string
+    timezone: string
+    lang: string
+    variantIndex: number
+    messageTitle: string
+    messageBody: string
+    messageDetail: string
+    status?: string
+    apnsId?: string | null
+    error?: string | null
+    attemptCount?: number
+    lastAttemptAt?: Date | string | null
+    nextAttemptAt?: Date | string | null
+    createdAt?: Date | string
+    sentAt?: Date | string | null
+  }
+
+  export type NudgeDeliveryUncheckedCreateWithoutSendsInput = {
+    id?: string
+    profileId: string
+    problemType: string
+    scheduledTime: string
+    deliveryDayLocal: Date | string
+    timezone: string
+    lang: string
+    variantIndex: number
+    messageTitle: string
+    messageBody: string
+    messageDetail: string
+    status?: string
+    apnsId?: string | null
+    error?: string | null
+    attemptCount?: number
+    lastAttemptAt?: Date | string | null
+    nextAttemptAt?: Date | string | null
+    createdAt?: Date | string
+    sentAt?: Date | string | null
+  }
+
+  export type NudgeDeliveryCreateOrConnectWithoutSendsInput = {
+    where: NudgeDeliveryWhereUniqueInput
+    create: XOR<NudgeDeliveryCreateWithoutSendsInput, NudgeDeliveryUncheckedCreateWithoutSendsInput>
+  }
+
+  export type PushTokenCreateWithoutDeliverySendsInput = {
+    id?: string
+    profileId: string
+    deviceId: string
+    token: string
+    platform?: string
+    env: string
+    disabledAt?: Date | string | null
+    lastError?: string | null
+    updatedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type PushTokenUncheckedCreateWithoutDeliverySendsInput = {
+    id?: string
+    profileId: string
+    deviceId: string
+    token: string
+    platform?: string
+    env: string
+    disabledAt?: Date | string | null
+    lastError?: string | null
+    updatedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type PushTokenCreateOrConnectWithoutDeliverySendsInput = {
+    where: PushTokenWhereUniqueInput
+    create: XOR<PushTokenCreateWithoutDeliverySendsInput, PushTokenUncheckedCreateWithoutDeliverySendsInput>
+  }
+
+  export type NudgeDeliveryUpsertWithoutSendsInput = {
+    update: XOR<NudgeDeliveryUpdateWithoutSendsInput, NudgeDeliveryUncheckedUpdateWithoutSendsInput>
+    create: XOR<NudgeDeliveryCreateWithoutSendsInput, NudgeDeliveryUncheckedCreateWithoutSendsInput>
+    where?: NudgeDeliveryWhereInput
+  }
+
+  export type NudgeDeliveryUpdateToOneWithWhereWithoutSendsInput = {
+    where?: NudgeDeliveryWhereInput
+    data: XOR<NudgeDeliveryUpdateWithoutSendsInput, NudgeDeliveryUncheckedUpdateWithoutSendsInput>
+  }
+
+  export type NudgeDeliveryUpdateWithoutSendsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profileId?: StringFieldUpdateOperationsInput | string
+    problemType?: StringFieldUpdateOperationsInput | string
+    scheduledTime?: StringFieldUpdateOperationsInput | string
+    deliveryDayLocal?: DateTimeFieldUpdateOperationsInput | Date | string
+    timezone?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
+    variantIndex?: IntFieldUpdateOperationsInput | number
+    messageTitle?: StringFieldUpdateOperationsInput | string
+    messageBody?: StringFieldUpdateOperationsInput | string
+    messageDetail?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    apnsId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type NudgeDeliveryUncheckedUpdateWithoutSendsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profileId?: StringFieldUpdateOperationsInput | string
+    problemType?: StringFieldUpdateOperationsInput | string
+    scheduledTime?: StringFieldUpdateOperationsInput | string
+    deliveryDayLocal?: DateTimeFieldUpdateOperationsInput | Date | string
+    timezone?: StringFieldUpdateOperationsInput | string
+    lang?: StringFieldUpdateOperationsInput | string
+    variantIndex?: IntFieldUpdateOperationsInput | number
+    messageTitle?: StringFieldUpdateOperationsInput | string
+    messageBody?: StringFieldUpdateOperationsInput | string
+    messageDetail?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    apnsId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type PushTokenUpsertWithoutDeliverySendsInput = {
+    update: XOR<PushTokenUpdateWithoutDeliverySendsInput, PushTokenUncheckedUpdateWithoutDeliverySendsInput>
+    create: XOR<PushTokenCreateWithoutDeliverySendsInput, PushTokenUncheckedCreateWithoutDeliverySendsInput>
+    where?: PushTokenWhereInput
+  }
+
+  export type PushTokenUpdateToOneWithWhereWithoutDeliverySendsInput = {
+    where?: PushTokenWhereInput
+    data: XOR<PushTokenUpdateWithoutDeliverySendsInput, PushTokenUncheckedUpdateWithoutDeliverySendsInput>
+  }
+
+  export type PushTokenUpdateWithoutDeliverySendsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profileId?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    env?: StringFieldUpdateOperationsInput | string
+    disabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type PushTokenUncheckedUpdateWithoutDeliverySendsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    profileId?: StringFieldUpdateOperationsInput | string
+    deviceId?: StringFieldUpdateOperationsInput | string
+    token?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    env?: StringFieldUpdateOperationsInput | string
+    disabledAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    lastError?: NullableStringFieldUpdateOperationsInput | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NudgeOutcomeCreateWithoutEventInput = {
@@ -45283,6 +50227,118 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type NudgeDeliverySendCreateManyPushTokenInput = {
+    id?: string
+    deliveryId: string
+    status?: string
+    apnsId?: string | null
+    error?: string | null
+    attemptCount?: number
+    lastAttemptAt?: Date | string | null
+    nextAttemptAt?: Date | string | null
+    sentAt?: Date | string | null
+    updatedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type NudgeDeliverySendUpdateWithoutPushTokenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    apnsId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    delivery?: NudgeDeliveryUpdateOneRequiredWithoutSendsNestedInput
+  }
+
+  export type NudgeDeliverySendUncheckedUpdateWithoutPushTokenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deliveryId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    apnsId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NudgeDeliverySendUncheckedUpdateManyWithoutPushTokenInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    deliveryId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    apnsId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NudgeDeliverySendCreateManyDeliveryInput = {
+    id?: string
+    pushTokenId: string
+    status?: string
+    apnsId?: string | null
+    error?: string | null
+    attemptCount?: number
+    lastAttemptAt?: Date | string | null
+    nextAttemptAt?: Date | string | null
+    sentAt?: Date | string | null
+    updatedAt?: Date | string
+    createdAt?: Date | string
+  }
+
+  export type NudgeDeliverySendUpdateWithoutDeliveryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    apnsId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    pushToken?: PushTokenUpdateOneRequiredWithoutDeliverySendsNestedInput
+  }
+
+  export type NudgeDeliverySendUncheckedUpdateWithoutDeliveryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pushTokenId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    apnsId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NudgeDeliverySendUncheckedUpdateManyWithoutDeliveryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    pushTokenId?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    apnsId?: NullableStringFieldUpdateOperationsInput | string | null
+    error?: NullableStringFieldUpdateOperationsInput | string | null
+    attemptCount?: IntFieldUpdateOperationsInput | number
+    lastAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    nextAttemptAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    sentAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type NudgeOutcomeCreateManyEventInput = {
     id?: string
     reward?: number | null
@@ -45619,6 +50675,14 @@ export namespace Prisma {
    * Aliases for legacy arg types
    */
     /**
+     * @deprecated Use PushTokenCountOutputTypeDefaultArgs instead
+     */
+    export type PushTokenCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PushTokenCountOutputTypeDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use NudgeDeliveryCountOutputTypeDefaultArgs instead
+     */
+    export type NudgeDeliveryCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = NudgeDeliveryCountOutputTypeDefaultArgs<ExtArgs>
+    /**
      * @deprecated Use NudgeEventCountOutputTypeDefaultArgs instead
      */
     export type NudgeEventCountOutputTypeArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = NudgeEventCountOutputTypeDefaultArgs<ExtArgs>
@@ -45670,6 +50734,18 @@ export namespace Prisma {
      * @deprecated Use UserSettingDefaultArgs instead
      */
     export type UserSettingArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = UserSettingDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use PushTokenDefaultArgs instead
+     */
+    export type PushTokenArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = PushTokenDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use NudgeDeliveryDefaultArgs instead
+     */
+    export type NudgeDeliveryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = NudgeDeliveryDefaultArgs<ExtArgs>
+    /**
+     * @deprecated Use NudgeDeliverySendDefaultArgs instead
+     */
+    export type NudgeDeliverySendArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = NudgeDeliverySendDefaultArgs<ExtArgs>
     /**
      * @deprecated Use UserTraitDefaultArgs instead
      */

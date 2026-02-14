@@ -20,6 +20,7 @@ import adminOpsEventsRouter from './admin/opsEvents.js';
 import adminRoundtableRouter from './admin/roundtable.js';
 import adminResearchRouter from './admin/research.js';
 import adminJobsRouter from './admin/jobs.js';
+import adminTestRouter from './admin/test.js';
 
 // 1.6.1: Agent API (OpenClaw/VPS)
 import agentRouter from './agent/index.js';
@@ -48,6 +49,9 @@ router.use('/admin/ops', adminLimiter, adminOpsEventsRouter);
 router.use('/admin/roundtable', adminLimiter, adminRoundtableRouter);
 router.use('/admin/research', adminLimiter, adminResearchRouter);
 router.use('/admin/jobs', adminLimiter, adminJobsRouter);
+if (process.env.ENABLE_ADMIN_TEST_ROUTES === 'true' || process.env.NODE_ENV !== 'production') {
+  router.use('/admin/test', adminLimiter, adminTestRouter);
+}
 
 // 1.6.1: Agent API (60 req/min rate limit)
 const agentLimiter = rateLimit({ windowMs: 60 * 1000, max: 60 });

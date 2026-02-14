@@ -1,6 +1,6 @@
 # X Research（Anicca 用）
 
-**インストール:** VPS で `~/.openclaw/workspace/skills` に [rohunvora/x-research-skill](https://github.com/rohunvora/x-research-skill) を clone する。コピペで同じコードを置かない。README のセットアップ（Bun, X_BEARER_TOKEN, openclaw.json）を実行する。**X_BEARER_TOKEN が無い場合は** Firecrawl（`FIRECRAWL_API_KEY` を .env に設定）でスクレイピング・深掘りする。
+**インストール:** VPS で `~/.openclaw/workspace/skills` に [rohunvora/x-research-skill](https://github.com/rohunvora/x-research-skill) を clone する。コピペで同じコードを置かない。README のセットアップ（Bun, **X_BEARER_TOKEN** を .env に設定、openclaw.json）を実行する。X 検索は X_BEARER_TOKEN 必須（Firecrawl では X をスクレイプできない）。
 
 ## いつ使うか
 

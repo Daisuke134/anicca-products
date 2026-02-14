@@ -116,17 +116,89 @@ model Profile {
 }
 
 model UserSetting {
-  userId               String   @id @map("user_id") @db.Uuid
-  language             String   @default("ja")
-  timezone             String   @default("Asia/Tokyo")
-  notificationsEnabled Boolean  @default(true) @map("notifications_enabled")
-  preferences          Json     @default("{}") @db.JsonB
-  createdAt            DateTime @default(now()) @map("created_at") @db.Timestamptz
-  updatedAt            DateTime @default(now()) @map("updated_at") @db.Timestamptz
+  userId               String    @id @map("user_id") @db.Uuid
+  language             String    @default("ja")
+  timezone             String    @default("Asia/Tokyo")
+  notificationsEnabled Boolean   @default(true) @map("notifications_enabled")
+  nudgeDay0LocalDate   DateTime? @map("nudge_day0_local_date") @db.Date
+  nudgeDay0Source      String?   @map("nudge_day0_source")
+  preferences          Json      @default("{}") @db.JsonB
+  createdAt            DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  updatedAt            DateTime  @default(now()) @map("updated_at") @db.Timestamptz
 
   profile Profile @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("user_settings")
+}
+
+model PushToken {
+  id         String    @id @default(uuid()) @db.Uuid
+  profileId  String    @map("profile_id") @db.Uuid
+  deviceId   String    @map("device_id")
+  token      String
+  platform   String    @default("ios")
+  env        String
+  disabledAt DateTime? @map("disabled_at") @db.Timestamptz
+  lastError  String?   @map("last_error")
+  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamptz
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamptz
+
+  deliverySends NudgeDeliverySend[]
+
+  @@unique([deviceId, env])
+  @@unique([token, env])
+  @@index([profileId])
+  @@map("push_tokens")
+}
+
+model NudgeDelivery {
+  id               String    @id @default(uuid()) @db.Uuid
+  profileId        String    @map("profile_id") @db.Uuid
+  problemType      String    @map("problem_type")
+  scheduledTime    String    @map("scheduled_time")
+  deliveryDayLocal DateTime  @map("delivery_day_local") @db.Date
+  timezone         String
+  lang             String
+  variantIndex     Int       @map("variant_index")
+  messageTitle     String    @map("message_title")
+  messageBody      String    @map("message_body")
+  messageDetail    String    @map("message_detail")
+  status           String    @default("queued")
+  apnsId           String?   @map("apns_id")
+  error            String?
+  attemptCount     Int       @default(0) @map("attempt_count")
+  lastAttemptAt    DateTime? @map("last_attempt_at") @db.Timestamptz
+  nextAttemptAt    DateTime? @map("next_attempt_at") @db.Timestamptz
+  createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamptz
+  sentAt           DateTime? @map("sent_at") @db.Timestamptz
+
+  sends NudgeDeliverySend[]
+
+  @@unique([profileId, problemType, scheduledTime, deliveryDayLocal])
+  @@index([profileId, createdAt])
+  @@map("nudge_deliveries")
+}
+
+model NudgeDeliverySend {
+  id            String    @id @default(uuid()) @db.Uuid
+  deliveryId    String    @map("delivery_id") @db.Uuid
+  pushTokenId   String    @map("push_token_id") @db.Uuid
+  status        String    @default("queued")
+  apnsId        String?   @map("apns_id")
+  error         String?
+  attemptCount  Int       @default(0) @map("attempt_count")
+  lastAttemptAt DateTime? @map("last_attempt_at") @db.Timestamptz
+  nextAttemptAt DateTime? @map("next_attempt_at") @db.Timestamptz
+  sentAt        DateTime? @map("sent_at") @db.Timestamptz
+  updatedAt     DateTime  @default(now()) @map("updated_at") @db.Timestamptz
+  createdAt     DateTime  @default(now()) @map("created_at") @db.Timestamptz
+
+  delivery  NudgeDelivery @relation(fields: [deliveryId], references: [id], onDelete: Cascade)
+  pushToken PushToken     @relation(fields: [pushTokenId], references: [id], onDelete: Cascade)
+
+  @@unique([deliveryId, pushTokenId])
+  @@index([pushTokenId, status, nextAttemptAt])
+  @@map("nudge_delivery_sends")
 }
 
 // -----------------------------

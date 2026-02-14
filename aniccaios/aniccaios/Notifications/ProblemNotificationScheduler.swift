@@ -38,15 +38,25 @@ final class ProblemNotificationScheduler: ProblemNotificationSchedulerProtocol {
 
     /// ユーザーの選択した問題に基づいて通知をスケジュール
     func scheduleNotifications(for problems: [String]) async {
-        // Free/Pro 共通: 両方のID名前空間をクリア
-        let freeIds = (0..<3).map { "free_nudge_\($0)" }
-        center.removePendingNotificationRequests(withIdentifiers: freeIds)
-        await removeAllProblemNotifications()
-
         // Free/Pro分岐
         let isEntitled = await MainActor.run { AppState.shared.subscriptionInfo.isEntitled }
         if !isEntitled {
+            // Free: always keep local free-plan nudges, even if APNs token is registered.
+            // (Backend may gate remote problem nudges by entitlement; avoid notification blackout.)
+            let freeIds = (0..<3).map { "free_nudge_\($0)" }
+            center.removePendingNotificationRequests(withIdentifiers: freeIds)
+            await removeAllProblemNotifications()
             FreePlanService.shared.scheduleFreePlanNudges(struggles: problems)
+            return
+        }
+
+        // Entitled users: clear local problem notifications first (avoid duplicates).
+        await removeAllProblemNotifications()
+
+        // v1.6.3: APNs remote push is the primary delivery for entitled users.
+        let forceLocal = ProcessInfo.processInfo.arguments.contains("-forceLocalProblemNotifications")
+        if PushTokenService.shared.isRegistered && !forceLocal {
+            logger.info("Remote Problem Push enabled; skip local scheduling")
             return
         }
 

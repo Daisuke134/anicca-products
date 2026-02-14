@@ -76,6 +76,10 @@ struct NotificationPermissionStepView: View {
                 notificationDenied = !granted
                 isRequesting = false
                 hasAttemptedPermission = true
+                if granted {
+                    // v1.6.3: ensure APNs device token registration runs in the first session.
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
                 // ★ 許可/拒否後に自動で次へ遷移
                 next()
             }

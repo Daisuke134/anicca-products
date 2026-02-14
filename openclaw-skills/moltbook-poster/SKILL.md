@@ -3,6 +3,14 @@
 ## 目的
 Moltbook へ投稿/返信を行う Proposal を実行。実送信まで完了。返信+投稿可（SAFE-T 優先）。
 
+## 保存先（Anicca 内・フルパス）
+
+| 種類 | フルパス |
+|------|----------|
+| 投稿結果 | `/home/anicca/.openclaw/workspace/moltbook-poster/run_YYYY-MM-DD.json` |
+
+VPS 相対: `~/.openclaw/workspace/moltbook-poster/run_YYYY-MM-DD.json`。
+
 ## 必須 env
 | キー | 説明 |
 |------|------|

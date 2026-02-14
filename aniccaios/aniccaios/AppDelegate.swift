@@ -33,7 +33,12 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 
         Task {
             if AppState.shared.isOnboardingComplete {
-                _ = await NotificationScheduler.shared.requestAuthorizationIfNeeded()
+                let granted = await NotificationScheduler.shared.requestAuthorizationIfNeeded()
+                if granted {
+                    await MainActor.run {
+                        UIApplication.shared.registerForRemoteNotifications()
+                    }
+                }
             }
             await SubscriptionManager.shared.refreshOfferings()
             await AuthHealthCheck.shared.warmBackend()
@@ -60,15 +65,56 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         let identifier = response.actionIdentifier
         let notificationIdentifier = response.notification.request.identifier
         let content = response.notification.request.content
+        let userInfo = content.userInfo
+
+        // v1.6.3: APNs-delivered Problem Nudge (remote push)
+        if let messageId = userInfo["messageId"] as? String, !messageId.isEmpty,
+           let problemRaw = userInfo["problemType"] as? String,
+           let problem = ProblemType(rawValue: problemRaw) {
+            switch identifier {
+            case UNNotificationDefaultActionIdentifier,
+                 NotificationScheduler.Action.startConversation.rawValue:
+                Task { @MainActor in
+                    do {
+                        let delivery = try await ProblemNudgeDeliveryService.shared.fetchDelivery(id: messageId)
+                        let nudgeContent = NudgeContent(
+                            problemType: problem,
+                            notificationText: delivery.hook,
+                            detailText: delivery.detail,
+                            variantIndex: delivery.variantIndex,
+                            isAIGenerated: false,
+                            llmNudgeId: nil
+                        )
+                        AppState.shared.showNudgeCard(nudgeContent)
+                    } catch {
+                        // Best-effort fallback: show a card using the APNs alert even if the API is unavailable.
+                        // This avoids "tap does nothing" in offline/5xx scenarios.
+                        print("Failed to fetch delivery \(messageId): \(error)")
+                        let fallback = NudgeContent(
+                            problemType: problem,
+                            notificationText: content.body,
+                            detailText: "",
+                            variantIndex: 0,
+                            isAIGenerated: false,
+                            llmNudgeId: nil
+                        )
+                        AppState.shared.showNudgeCard(fallback)
+                    }
+                }
+            default:
+                break
+            }
+            return
+        }
 
         // Proactive Agent: Problem Nudge通知のハンドリング
         if ProblemNotificationScheduler.isProblemNudge(identifier: notificationIdentifier) {
             switch identifier {
             case UNNotificationDefaultActionIdentifier,
                  NotificationScheduler.Action.startConversation.rawValue:
-                if let nudgeContent = ProblemNotificationScheduler.nudgeContent(from: content.userInfo) {
+                if let nudgeContent = ProblemNotificationScheduler.nudgeContent(from: userInfo) {
                     // nudge_tapped を記録
-                    let scheduledHour = content.userInfo["scheduledHour"] as? Int ?? 0
+                    let scheduledHour = userInfo["scheduledHour"] as? Int ?? 0
                     Task { @MainActor in
                         // NudgeStats に記録（isAIGeneratedとllmNudgeIdを含む）
                         NudgeStatsManager.shared.recordTapped(
@@ -117,6 +163,23 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                 default:
                     break
                 }
+            }
+        }
+    }
+
+    // MARK: - APNs registration
+
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Task { await PushTokenService.shared.register(deviceToken: deviceToken) }
+    }
+
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("APNs registration failed: \(error)")
+        Task { @MainActor in
+            PushTokenService.shared.markUnregistered()
+            let problems = AppState.shared.userProfile.struggles
+            if !problems.isEmpty {
+                await ProblemNotificationScheduler.shared.scheduleNotifications(for: problems)
             }
         }
     }

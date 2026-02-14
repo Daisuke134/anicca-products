@@ -21,6 +21,7 @@ release/
 
 # iOS build artifacts
 aniccaios/build/
+.derivedData/
 
 # Logs
 logs
@@ -152,3 +153,6 @@ aniccaios/.build/
 # Python
 __pycache__/
 *.pyc
+
+# Google OAuth client secrets should never be committed.
+client_secret_*.json

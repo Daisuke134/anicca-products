@@ -3,6 +3,14 @@
 ## 目的
 会話から Memory を抽出。Structured Memory として保存。
 
+## 保存先（Anicca 内・フルパス）
+
+| 種類 | フルパス |
+|------|----------|
+| 実行結果 | `/home/anicca/.openclaw/workspace/roundtable-memory-extract/run_YYYY-MM-DD.json` |
+
+VPS 相対: `~/.openclaw/workspace/roundtable-memory-extract/run_YYYY-MM-DD.json`。
+
 ## 必須 env
 | キー | 説明 |
 |------|------|

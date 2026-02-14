@@ -1,7 +1,9 @@
 /**
  * Day-Cycling Algorithm (Phase 7)
  *
- * Ensures 7 days of unique content before repeating.
+ * Ensures deterministic day-cycling. For ProblemType nudges we set totalVariants to
+ * 42 (14 days * 3/day) or 70 (14 days * 5/day), which guarantees the first 14 days
+ * are unique per-problem (no slot-crossing duplicates) before repeating.
  * Deterministic: same dayIndex + slotIndex → same variant.
  *
  * dayIndex = days since user registration

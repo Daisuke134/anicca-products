@@ -30,6 +30,24 @@ async function initializeServer() {
       }
     }
   }, 60_000); // 1分ごとにチェック
+
+  // 1.6.3: Problem Nudge APNs sender (run every minute, guarded by env flag).
+  // NOTE: This is the SSOT execution path for "app not opened but still receives nudges".
+  if (process.env.PROBLEM_NUDGE_APNS_SENDER_ENABLED === 'true') {
+    const { runProblemNudgeApnsSender } = await import('./jobs/problemNudgeApnsSenderJob.js');
+    let running = false;
+    setInterval(async () => {
+      if (running) return;
+      running = true;
+      try {
+        await runProblemNudgeApnsSender(new Date());
+      } catch (e) {
+        console.error('problem nudge apns sender failed', e);
+      } finally {
+        running = false;
+      }
+    }, 60_000);
+  }
 }
 
 const app = express();
@@ -60,7 +78,7 @@ process.on('unhandledRejection', (reason, promise) => {
 const corsOptions = {
   origin: process.env.CORS_ORIGINS ? process.env.CORS_ORIGINS.split(',') : '*',
   methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Authorization', 'Content-Type', 'X-API-Key', 'user-id', 'device-id']
+  allowedHeaders: ['Authorization', 'Content-Type', 'X-API-Key', 'user-id', 'device-id', 'x-timezone', 'x-lang']
 };
 app.use(cors(corsOptions));
 

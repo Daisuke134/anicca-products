@@ -9,6 +9,7 @@ import { runAppNudgeSenderJob } from '../../jobs/appNudgeSenderJob.js';
 import { runProactiveAppNudgeJob } from '../../jobs/proactiveAppNudgeJob.js';
 import { runMoltbookShadowMonitorJob } from '../../jobs/moltbookShadowMonitorJob.js';
 import { runMoltbookPosterJob } from '../../jobs/moltbookPosterJob.js';
+import { runProblemNudgeApnsSender } from '../../jobs/problemNudgeApnsSenderJob.js';
 
 const router = express.Router();
 const logger = baseLogger.withContext('AdminJobs');
@@ -28,6 +29,11 @@ const sufferingFeedItemSchema = z.object({
 const sufferingDetectorBodySchema = z.object({
   // Optional override feed for manual E2E. Cron uses the default synthetic feed.
   feed: z.array(sufferingFeedItemSchema).min(1).max(10).optional(),
+});
+
+const problemNudgeApnsSenderBodySchema = z.object({
+  // Useful for deterministic dev/E2E runs.
+  nowUtcIso: z.string().datetime().optional(),
 });
 
 // POST /api/admin/jobs/memory-cleanup
@@ -111,6 +117,23 @@ router.post('/moltbook-poster', async (req, res) => {
   } catch (error) {
     logger.error('moltbook-poster failed', error);
     return res.status(500).json({ error: 'moltbook-poster failed' });
+  }
+});
+
+// POST /api/admin/jobs/problem-nudge-apns-sender
+router.post('/problem-nudge-apns-sender', async (req, res) => {
+  try {
+    const parsed = problemNudgeApnsSenderBodySchema.safeParse(req.body || {});
+    if (!parsed.success) {
+      return res.status(400).json({ error: 'invalid body', details: parsed.error.errors });
+    }
+
+    const nowUtc = parsed.data.nowUtcIso ? new Date(parsed.data.nowUtcIso) : new Date();
+    const result = await runProblemNudgeApnsSender(nowUtc);
+    return res.json({ success: true, result });
+  } catch (error) {
+    logger.error('problem-nudge-apns-sender failed', error);
+    return res.status(500).json({ error: 'problem-nudge-apns-sender failed' });
   }
 });
 

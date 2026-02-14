@@ -1,7 +1,16 @@
 # mission-worker
 
 ## 目的
-閉ループ実行エンジン。queued step を取得し、step_kind に応じた executor を実行し、結果を `complete` に報告する。
+閉ループ実行エンジン。**Anicca 内の step キュー**から「次にやる step」を取得し、step_kind に応じた executor を実行し、結果を **Anicca 内の完了記録** に書く。Railway の step API は使わない。
+
+## 保存先（Anicca 内・フルパス）
+
+| データ | フルパス |
+|--------|----------|
+| 未実行 step キュー（読む） | `/home/anicca/.openclaw/workspace/ops/steps.json` |
+| 完了した step（書く） | `/home/anicca/.openclaw/workspace/ops/completed/YYYY-MM-DD.json`（日付別に追記） |
+
+VPS 上の相対パス: `~/.openclaw/workspace/ops/steps.json` および `~/.openclaw/workspace/ops/completed/`。
 
 ## 必須 env
 | キー | 説明 |
@@ -17,27 +26,14 @@
 なし（cron 起動）。
 
 ## 実行手順（実装）
-1. `Authorization: Bearer ${ANICCA_AGENT_TOKEN}` を必ず付けて `GET {API_BASE_URL}/api/ops/step/next` を呼ぶ。
-2. `step` が `null` なら `{ ok: true, reason: "queue_empty" }` として終了。
+1. **steps.json** を読む（`/home/anicca/.openclaw/workspace/ops/steps.json`）。先頭 1 件を「次にやる step」として claim する（取り出しまたは inProgress マーク）。
+2. キューが空なら `{ ok: true, reason: "queue_empty" }` として終了。
 3. `step.stepKind` ごとの executor を実行（最低限: `noop` でも可）。失敗時は `status=failed`。
-4. 必ず `PATCH {API_BASE_URL}/api/ops/step/{id}/complete` に `status/output/error/events` を送信して終了。
-
-### 最低限の API 呼び出し例（curl）
-```bash
-curl -sfS -H "Authorization: Bearer $ANICCA_AGENT_TOKEN" \
-  "$API_BASE_URL/api/ops/step/next"
-```
-
-```bash
-curl -sfS -X PATCH -H "Authorization: Bearer $ANICCA_AGENT_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"status":"succeeded","output":{"ok":true},"events":[]}' \
-  "$API_BASE_URL/api/ops/step/<STEP_ID>/complete"
-```
+4. 完了したら **Anicca 内に記録する:** 当日の `workspace/ops/completed/YYYY-MM-DD.json` に `{ id, stepKind, status, output, error, events, completedAt }` を追記し、**steps.json からその step を削除**（または consumed としてマーク）。Railway の `PATCH .../step/{id}/complete` は呼ばない。
 
 ## 出力 / 監査ログ
-- step 取得・実行・complete の結果を runs に記録。
-- events は ops_events に emit。
+- step 取得・実行・完了を **Anicca 内** の `workspace/ops/completed/YYYY-MM-DD.json` に記録。
+- events は同一ファイルの `events` 配列に含める（または ops 配下の監査ログに出力）。
 
 ## 失敗時処理
 - executor 失敗: `status: failed`, `error` を付けて complete。

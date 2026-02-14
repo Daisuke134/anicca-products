@@ -9,9 +9,7 @@ GEMINI_API_KEY=
 GOOGLE_API_KEY=
 
 # ----- Web 検索・スクレイピング -----
-# Firecrawl: Oliver & Larry 等のスクレイピングに使用。X_BEARER_TOKEN が無くても Firecrawl で深掘り可能。
-FIRECRAWL_API_KEY=
-# x-research 用。無い場合は Firecrawl のみで検索・スクレイピングする。
+# x-research 用。X 検索はトークン必須（Firecrawl では X をスクレイプできない）。
 X_BEARER_TOKEN=
 
 # ----- Slack（gateway 接続） -----
@@ -34,5 +32,3 @@ ANICCA_AGENT_TOKEN=
 EXA_API_KEY=
 BRAVE_API_KEY=
 
-# ----- 未使用でもブロック解除用に空でよい場合 -----
-# X_BEARER_TOKEN=   # 無い場合は x-research の X 検索は不可。Firecrawl で代替。

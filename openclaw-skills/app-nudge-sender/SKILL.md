@@ -1,7 +1,19 @@
 # app-nudge-sender
 
 ## 目的
-iOS 向け nudge の Proposal を作成。steps: `draft_nudge -> send_nudge`。server-driven inbox に enqueue して送信。
+この slot で誰にどの nudge を送るかを決め、結果を `workspace/nudges/decisions_YYYY-MM-DD.json` に書き、そのリストを Railway API に渡してアプリ nudge を配信する。
+
+## 保存先（Anicca 内・フルパス）
+
+| 種類 | フルパス |
+|------|----------|
+| 判断結果 | `/home/anicca/.openclaw/workspace/nudges/decisions_YYYY-MM-DD.json` |
+
+VPS 相対: `~/.openclaw/workspace/nudges/decisions_YYYY-MM-DD.json`。ユーザー一覧は Railway API から取得。送信は Railway API が行う。
+
+## 命令（プロンプトに渡す文言）
+
+「あなたが、Railway から取得したユーザー一覧とこの slot（morning / afternoon / evening）を見て、この slot で誰にどの nudge を送るかを 1 件ずつ決めよ。結果を **workspace/nudges/decisions_YYYY-MM-DD.json** に書け。書いたら、そのファイルの内容を Railway の API に渡して配信を依頼せよ。」
 
 ## 必須 env
 | キー | 説明 |
@@ -18,13 +30,15 @@ iOS 向け nudge の Proposal を作成。steps: `draft_nudge -> send_nudge`。s
 - `proactive-app-nudge` 互換: `{ slot: "morning"|"afternoon"|"evening" }` で上書き可能。
 
 ## 実行手順
-1. `POST {API_BASE_URL}/api/admin/jobs/app-nudge-sender` を呼ぶ。
-2. API が draft_nudge -> send_nudge 相当を実行し、`/api/mobile/nudge/pending` に enqueue。
-3. iOS が pull -> ack で閉ループ。
+1. Railway API からユーザー一覧を取得する。
+2. 上記「命令」に従い、誰に何を送るかを決め、`workspace/nudges/decisions_YYYY-MM-DD.json` に書く。
+3. `POST {API_BASE_URL}/api/admin/jobs/app-nudge-sender` にその結果を渡す（または API がファイルを読む方式に合わせる）。API が `/api/mobile/nudge/pending` に enqueue。
+4. iOS が pull -> ack で閉ループ。
 
 ## 出力 / 監査ログ
 - `{ success: true, result }`
 - runs/監査に slot と送信数を含める。
+- 判断結果は必ず `nudges/decisions_YYYY-MM-DD.json` に残す。
 
 ## 失敗時処理
 - 5xx: 次回 cron で再実行。

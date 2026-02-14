@@ -5,6 +5,11 @@ import Foundation
 @MainActor
 final class NetworkSessionManager {
     static let shared = NetworkSessionManager()
+
+    #if DEBUG
+    /// Test hook: allow unit tests to inject a custom URLSession (e.g., with URLProtocol stubs).
+    static var testSession: URLSession? = nil
+    #endif
     
     private let sessionConfiguration: URLSessionConfiguration
     
@@ -21,7 +26,10 @@ final class NetworkSessionManager {
     
     /// 専用URLSessionを返す
     var session: URLSession {
-        URLSession(configuration: sessionConfiguration)
+        #if DEBUG
+        if let s = Self.testSession { return s }
+        #endif
+        return URLSession(configuration: sessionConfiguration)
     }
 }
 
@@ -151,4 +159,3 @@ extension NetworkSessionManager {
         return ParsedError(code: root["code"] as? String, message: message, details: details)
     }
 }
-

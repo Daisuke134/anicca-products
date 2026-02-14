@@ -1,18 +1,27 @@
 # x-poster
 
 ## 目的
-X 投稿の Proposal を作成。steps: `draft_content -> verify_content -> post_x`。X は**投稿のみ**（返信禁止）。
+X 投稿の Proposal を作成。steps: `draft_content -> verify_content -> post_x`。X は**投稿のみ**（返信禁止）。朝は **slot 9am**、夜は **slot 9pm** の 1 本だけを使う。
+
+## 保存先（Anicca 内・読むだけ）
+
+| データ | フルパス |
+|--------|----------|
+| 投稿文（読む） | `/home/anicca/.openclaw/workspace/hooks/YYYY-MM-DD.json` の **slot "9am"** または **"9pm"** の `entries` のうち `platform: "x"` の `postText` |
+
+VPS 相対: `~/.openclaw/workspace/hooks/YYYY-MM-DD.json`。trend-hunter がここに書いた 1 本をそのまま X に投稿する。
 
 ## 必須 env
 | キー | 説明 |
 |------|------|
 | `API_BASE_URL` | Anicca API ベースURL |
 | `ANICCA_AGENT_TOKEN` | ops 認証 |
-| `TWITTERAPI_KEY` 等 | X API（post_x step で使用） |
+| `BLOTATO_API_KEY` | Blotato API キー（X 投稿に必須） |
+| `BLOTATO_ACCOUNT_ID_EN` | Blotato 上の X アカウント ID |
 
 ## 必須 tools
 - `web_fetch`（API）
-- X 投稿用 OAuth/API（executePostX 内）
+- X 投稿は **Blotato API のみ**（post_x step で `BLOTATO_*` 使用）。Twitter API 直接は使わない。
 
 ## 入力
 - cron slot 起動時: trigger で proposal 作成。

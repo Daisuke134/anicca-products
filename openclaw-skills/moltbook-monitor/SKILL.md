@@ -1,7 +1,15 @@
 # moltbook-monitor
 
 ## 目的
-Moltbook を監視し、返信/介入の候補を検出。shadow モードでもイベントを emit。実送信は moltbook-poster が担当。
+Moltbook を監視し、返信/介入の候補を検出。shadow モードでもイベントを emit。実送信は moltbook-poster が担当。Moltbook の API/インターフェースを使用する。
+
+## 保存先（Anicca 内・フルパス）
+
+| 種類 | フルパス |
+|------|----------|
+| 監視結果 | `/home/anicca/.openclaw/workspace/moltbook-monitor/run_YYYY-MM-DD.json` |
+
+VPS 相対: `~/.openclaw/workspace/moltbook-monitor/run_YYYY-MM-DD.json`。
 
 ## 必須 env
 | キー | 説明 |

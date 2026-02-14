@@ -3,6 +3,14 @@
 ## 目的
 規約違反（X 返信ゼロ等）、DLQ 滞留、失敗率等を合否判定し通知。長期運用で劣化しないよう自己点検。
 
+## 保存先（Anicca 内・フルパス）
+
+| 種類 | フルパス |
+|------|----------|
+| 監査ログ | `/home/anicca/.openclaw/workspace/autonomy-check/audit_YYYY-MM-DD.json` |
+
+VPS 相対: `~/.openclaw/workspace/autonomy-check/audit_YYYY-MM-DD.json`。steps.json は使わない。cron で直接起動し、結果を上記に書く。
+
 ## 必須 env
 | キー | 説明 |
 |------|------|

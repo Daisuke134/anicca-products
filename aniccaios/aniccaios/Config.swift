@@ -89,6 +89,15 @@ enum AppConfig {
         proxyBaseURL.appendingPathComponent("mobile/nudge/today")
     }
 
+    // 1.6.3: APNs token registration + delivery fetch
+    static var pushTokenRegisterURL: URL {
+        proxyBaseURL.appendingPathComponent("mobile/push/token")
+    }
+
+    static func nudgeDeliveryURL(id: String) -> URL {
+        proxyBaseURL.appendingPathComponent("mobile/nudge/delivery/\(id)")
+    }
+
     // v1.6.0: App version for schedule map selection
     static var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"

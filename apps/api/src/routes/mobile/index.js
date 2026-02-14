@@ -4,6 +4,7 @@ import entitlementRouter from './entitlement.js';
 import accountRouter from './account.js';
 import nudgeRouter from './nudge.js';
 import preReminderRouter from './preReminder.js';
+import pushRouter from './push.js';
 
 const router = express.Router();
 
@@ -12,6 +13,7 @@ router.use('/entitlement', entitlementRouter);
 router.use('/account', accountRouter);
 router.use('/nudge', nudgeRouter);
 router.use('/nudge', preReminderRouter);  // /mobile/nudge/pre-reminder
+router.use('/push', pushRouter);
 
 // 410 Gone stubs for deprecated endpoints (v1.6.0)
 // These endpoints were removed but never called by iOS app.

@@ -3,6 +3,14 @@
 ## 目的
 TTL 経過した低 relevance の hook_post をアーカイブ・削除。DB の肥大化を防ぐ。
 
+## 保存先（Anicca 内・フルパス）
+
+| 種類 | フルパス |
+|------|----------|
+| 実行結果 | `/home/anicca/.openclaw/workspace/hookpost-ttl-cleaner/run_YYYY-MM-DD.json` |
+
+VPS 相対: `~/.openclaw/workspace/hookpost-ttl-cleaner/run_YYYY-MM-DD.json`。
+
 ## 必須 env
 | キー | 説明 |
 |------|------|

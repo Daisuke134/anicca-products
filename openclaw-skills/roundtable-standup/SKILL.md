@@ -1,7 +1,15 @@
 # roundtable-standup
 
 ## 目的
-Roundtable 定例スタンドアップ。次の打ち手・会話の seed を生成。
+Roundtable 定例スタンドアップ。次の打ち手・会話の seed を生成。学習・タスクの棚卸し。
+
+## 保存先（Anicca 内・フルパス）
+
+| 種類 | フルパス |
+|------|----------|
+| 朝会出力 | `/home/anicca/.openclaw/workspace/roundtable-standup/run_YYYY-MM-DD.json` |
+
+VPS 相対: `~/.openclaw/workspace/roundtable-standup/run_YYYY-MM-DD.json`。
 
 ## 必須 env
 | キー | 説明 |

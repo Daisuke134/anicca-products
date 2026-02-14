@@ -204,9 +204,61 @@ exports.Prisma.UserSettingScalarFieldEnum = {
   language: 'language',
   timezone: 'timezone',
   notificationsEnabled: 'notificationsEnabled',
+  nudgeDay0LocalDate: 'nudgeDay0LocalDate',
+  nudgeDay0Source: 'nudgeDay0Source',
   preferences: 'preferences',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PushTokenScalarFieldEnum = {
+  id: 'id',
+  profileId: 'profileId',
+  deviceId: 'deviceId',
+  token: 'token',
+  platform: 'platform',
+  env: 'env',
+  disabledAt: 'disabledAt',
+  lastError: 'lastError',
+  updatedAt: 'updatedAt',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.NudgeDeliveryScalarFieldEnum = {
+  id: 'id',
+  profileId: 'profileId',
+  problemType: 'problemType',
+  scheduledTime: 'scheduledTime',
+  deliveryDayLocal: 'deliveryDayLocal',
+  timezone: 'timezone',
+  lang: 'lang',
+  variantIndex: 'variantIndex',
+  messageTitle: 'messageTitle',
+  messageBody: 'messageBody',
+  messageDetail: 'messageDetail',
+  status: 'status',
+  apnsId: 'apnsId',
+  error: 'error',
+  attemptCount: 'attemptCount',
+  lastAttemptAt: 'lastAttemptAt',
+  nextAttemptAt: 'nextAttemptAt',
+  createdAt: 'createdAt',
+  sentAt: 'sentAt'
+};
+
+exports.Prisma.NudgeDeliverySendScalarFieldEnum = {
+  id: 'id',
+  deliveryId: 'deliveryId',
+  pushTokenId: 'pushTokenId',
+  status: 'status',
+  apnsId: 'apnsId',
+  error: 'error',
+  attemptCount: 'attemptCount',
+  lastAttemptAt: 'lastAttemptAt',
+  nextAttemptAt: 'nextAttemptAt',
+  sentAt: 'sentAt',
+  updatedAt: 'updatedAt',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.UserTraitScalarFieldEnum = {
@@ -569,6 +621,9 @@ exports.Prisma.ModelName = {
   MonthlyVcGrant: 'MonthlyVcGrant',
   Profile: 'Profile',
   UserSetting: 'UserSetting',
+  PushToken: 'PushToken',
+  NudgeDelivery: 'NudgeDelivery',
+  NudgeDeliverySend: 'NudgeDeliverySend',
   UserTrait: 'UserTrait',
   NudgeEvent: 'NudgeEvent',
   NudgeOutcome: 'NudgeOutcome',

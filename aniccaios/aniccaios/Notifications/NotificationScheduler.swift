@@ -97,7 +97,14 @@ final class NotificationScheduler {
             options: [.customDismissAction]
         )
 
-        center.setNotificationCategories([nudgeCategory])
+        let problemNudgeCategory = UNNotificationCategory(
+            identifier: ProblemNotificationScheduler.Category.problemNudge.rawValue,
+            actions: [start, dismiss],
+            intentIdentifiers: [],
+            options: [.customDismissAction]
+        )
+
+        center.setNotificationCategories([nudgeCategory, problemNudgeCategory])
     }
 
     // MARK: - Server-driven Nudge

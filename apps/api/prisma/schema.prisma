@@ -120,6 +120,8 @@ model UserSetting {
   language             String @default("ja")
   timezone             String @default("Asia/Tokyo")
   notificationsEnabled Boolean @default(true) @map("notifications_enabled")
+  nudgeDay0LocalDate   DateTime? @db.Date @map("nudge_day0_local_date")
+  nudgeDay0Source      String? @map("nudge_day0_source")
   preferences          Json @db.JsonB @default("{}")
   createdAt            DateTime @default(now()) @db.Timestamptz @map("created_at")
   updatedAt            DateTime @default(now()) @db.Timestamptz @map("updated_at")
@@ -127,6 +129,76 @@ model UserSetting {
   profile Profile @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("user_settings")
+}
+
+model PushToken {
+  id         String   @id @db.Uuid @default(uuid())
+  profileId  String   @db.Uuid @map("profile_id")
+  deviceId   String   @map("device_id")
+  token      String
+  platform   String   @default("ios")
+  env        String
+  disabledAt DateTime? @db.Timestamptz @map("disabled_at")
+  lastError  String?  @map("last_error")
+  updatedAt  DateTime @default(now()) @db.Timestamptz @map("updated_at")
+  createdAt  DateTime @default(now()) @db.Timestamptz @map("created_at")
+
+  deliverySends NudgeDeliverySend[]
+
+  @@unique([deviceId, env])
+  @@unique([token, env])
+  @@index([profileId])
+  @@map("push_tokens")
+}
+
+model NudgeDelivery {
+  id              String   @id @db.Uuid @default(uuid())
+  profileId       String   @db.Uuid @map("profile_id")
+  problemType     String   @map("problem_type")
+  scheduledTime   String   @map("scheduled_time")
+  deliveryDayLocal DateTime @db.Date @map("delivery_day_local")
+  timezone        String
+  lang            String
+  variantIndex    Int      @map("variant_index")
+  messageTitle    String   @map("message_title")
+  messageBody     String   @map("message_body")
+  messageDetail   String   @map("message_detail")
+  status          String   @default("queued")
+  apnsId          String?  @map("apns_id")
+  error           String?
+  attemptCount    Int      @default(0) @map("attempt_count")
+  lastAttemptAt   DateTime? @db.Timestamptz @map("last_attempt_at")
+  nextAttemptAt   DateTime? @db.Timestamptz @map("next_attempt_at")
+  createdAt       DateTime @default(now()) @db.Timestamptz @map("created_at")
+  sentAt          DateTime? @db.Timestamptz @map("sent_at")
+
+  sends NudgeDeliverySend[]
+
+  @@unique([profileId, problemType, scheduledTime, deliveryDayLocal])
+  @@index([profileId, createdAt])
+  @@map("nudge_deliveries")
+}
+
+model NudgeDeliverySend {
+  id           String   @id @db.Uuid @default(uuid())
+  deliveryId   String   @db.Uuid @map("delivery_id")
+  pushTokenId  String   @db.Uuid @map("push_token_id")
+  status       String   @default("queued")
+  apnsId       String?  @map("apns_id")
+  error        String?
+  attemptCount Int      @default(0) @map("attempt_count")
+  lastAttemptAt DateTime? @db.Timestamptz @map("last_attempt_at")
+  nextAttemptAt DateTime? @db.Timestamptz @map("next_attempt_at")
+  sentAt       DateTime? @db.Timestamptz @map("sent_at")
+  updatedAt    DateTime @default(now()) @db.Timestamptz @map("updated_at")
+  createdAt    DateTime @default(now()) @db.Timestamptz @map("created_at")
+
+  delivery  NudgeDelivery @relation(fields: [deliveryId], references: [id], onDelete: Cascade)
+  pushToken PushToken     @relation(fields: [pushTokenId], references: [id], onDelete: Cascade)
+
+  @@unique([deliveryId, pushTokenId])
+  @@index([pushTokenId, status, nextAttemptAt])
+  @@map("nudge_delivery_sends")
 }
 
 // -----------------------------

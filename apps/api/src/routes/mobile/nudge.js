@@ -2,18 +2,43 @@ import express from 'express';
 import { z } from 'zod';
 import crypto from 'crypto';
 import { fetch } from 'undici';
+import rateLimit, { ipKeyGenerator } from 'express-rate-limit';
 import baseLogger from '../../utils/logger.js';
 import extractUserId from '../../middleware/extractUserId.js';
 import requireInternalAuth from '../../middleware/requireInternalAuth.js';
+import requireAuth from '../../middleware/requireAuth.js';
 import { query } from '../../lib/db.js';
 import { resolveProfileId, ensureDeviceProfileId } from '../../services/mobile/userIdResolver.js';
 import { getUserTimezone, buildScreenState, buildMovementState, getUserTraits } from '../../modules/nudge/features/stateBuilder.js';
 import { computeReward } from '../../modules/nudge/reward/rewardCalculator.js';
 import { getMem0Client } from '../../modules/memory/mem0Client.js';
 import { sendNudgeInternal } from '../../services/mobile/nudgeSendService.js';
+import { prisma } from '../../lib/prisma.js';
+import { getRawPushEnv, getPushEnv } from '../../utils/pushEnv.js';
 
 const router = express.Router();
 const logger = baseLogger.withContext('MobileNudge');
+
+const deliveryLimiterByIp = rateLimit({
+  windowMs: 60 * 1000,
+  max: process.env.NODE_ENV === 'test' ? 2000 : 120,
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: (req) => {
+    return ipKeyGenerator(req.ip || '');
+  },
+});
+
+const deliveryLimiterByDevice = rateLimit({
+  windowMs: 60 * 1000,
+  max: process.env.NODE_ENV === 'test' ? 2000 : 120,
+  standardHeaders: true,
+  legacyHeaders: false,
+  keyGenerator: (req) => {
+    const deviceId = String(req.get('device-id') || '').trim();
+    return deviceId || ipKeyGenerator(req.ip || '');
+  },
+});
 
 const triggerSchema = z.object({
   eventType: z.string(),
@@ -49,6 +74,91 @@ const sendSchema = z.object({
 
 const ackSchema = z.object({
   nudgeIds: z.array(z.string().uuid()).min(1).max(50),
+});
+
+// GET /api/mobile/nudge/delivery/:id
+// Fetch immutable snapshot for APNs-delivered Problem Nudge card.
+router.get('/delivery/:id', deliveryLimiterByIp, deliveryLimiterByDevice, async (req, res) => {
+  const idRaw = String(req.params.id || '').trim();
+  if (!idRaw) return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'id is required' } });
+  const idParsed = z.string().uuid().safeParse(idRaw);
+  if (!idParsed.success) {
+    return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'id must be uuid' } });
+  }
+  const id = idParsed.data;
+
+  const deviceId = (req.get('device-id') || '').toString().trim();
+  if (!deviceId) return res.status(400).json({ error: { code: 'INVALID_REQUEST', message: 'device-id is required' } });
+
+  const rawEnv = getRawPushEnv();
+  if (!rawEnv) {
+    return res
+      .status(503)
+      .json({ error: { code: 'CONFIG_MISSING', message: 'PUSH_ENV/APNS_ENV/RAILWAY_ENVIRONMENT is required' } });
+  }
+
+  try {
+    // Resolve-only: do not create profiles on GET. We must match the profileId used for sending.
+    const env = getPushEnv();
+    const tok = await prisma.pushToken.findUnique({
+      where: { deviceId_env: { deviceId, env } },
+      select: { profileId: true, disabledAt: true },
+    });
+    if (!tok || tok.disabledAt) {
+      return res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'No active push token for device' } });
+    }
+    const pushProfileId = tok.profileId;
+
+    // Authorization: optional Bearer. If present, it must resolve successfully and match pushProfileId.
+    const authHeader = String(req.headers['authorization'] || '');
+    if (authHeader.startsWith('Bearer ')) {
+      const auth = await requireAuth(req, res);
+      if (!auth) return;
+      const bearerProfileId = await resolveProfileId(auth.sub);
+      if (!bearerProfileId) {
+        return res.status(401).json({ error: { code: 'UNAUTHORIZED', message: 'Could not resolve profile from bearer' } });
+      }
+      if (bearerProfileId !== pushProfileId) {
+        return res.status(403).json({ error: { code: 'FORBIDDEN', message: 'Profile mismatch' } });
+      }
+    }
+
+    const profileId = pushProfileId;
+
+    const row = await prisma.nudgeDelivery.findFirst({
+      where: { id, profileId },
+      select: {
+        id: true,
+        problemType: true,
+        scheduledTime: true,
+        deliveryDayLocal: true,
+        timezone: true,
+        lang: true,
+        variantIndex: true,
+        messageTitle: true,
+        messageBody: true,
+        messageDetail: true,
+      },
+    });
+    if (!row) {
+      return res.status(404).json({ error: { code: 'NOT_FOUND', message: 'delivery not found' } });
+    }
+    return res.json({
+      id: row.id,
+      problemType: row.problemType,
+      scheduledTime: row.scheduledTime,
+      deliveryDayLocal: row.deliveryDayLocal ? row.deliveryDayLocal.toISOString().slice(0, 10) : null,
+      timezone: row.timezone,
+      lang: row.lang,
+      variantIndex: row.variantIndex,
+      title: row.messageTitle,
+      hook: row.messageBody,
+      detail: row.messageDetail,
+    });
+  } catch (e) {
+    logger.error('Failed to fetch nudge delivery', e);
+    return res.status(500).json({ error: { code: 'INTERNAL_ERROR', message: 'Failed to fetch delivery' } });
+  }
 });
 
 function pickTemplate({ domain, eventType, intensity }) {

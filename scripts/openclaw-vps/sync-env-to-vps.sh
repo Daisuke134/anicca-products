@@ -1,26 +1,19 @@
-#!/bin/bash
-# VPS ~/.openclaw/.env へローカルで持っているキーを反映（値は表示しない）
+#!/usr/bin/env bash
+# ローカル anicca-project/.env を VPS の .env 2 箇所に同期する。
+# 使い方: プロジェクトルートで ./scripts/openclaw-vps/sync-env-to-vps.sh
+# 前提: ssh anicca@46.225.70.241 が通ること。
+
 set -e
-cd "$(dirname "$0")/../.."
-set -a
-source ./.env 2>/dev/null || true
-source /Users/cbns03/.config/env/global.env 2>/dev/null || true
-source ./scripts/anicca-agent/.env 2>/dev/null || true
-set +a
+REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+ENV_FILE="${REPO_ROOT}/.env"
+VPS_HOST="anicca@46.225.70.241"
 
-VPS_HOST="${VPS_HOST:-46.225.70.241}"
-VPS_USER="${VPS_USER:-anicca}"
-REMOTE_ENV="/home/anicca/.openclaw/.env"
+if [[ ! -f "$ENV_FILE" ]]; then
+  echo "Error: .env not found at $ENV_FILE"
+  exit 1
+fi
 
-KEYS="API_BASE_URL ANICCA_AGENT_TOKEN APIFY_API_TOKEN TWITTERAPI_KEY REDDAPI_API_KEY MOLTBOOK_BASE_URL MOLTBOOK_ACCESS_TOKEN INTERNAL_API_TOKEN BLOTATO_API_KEY BLOTATO_ACCOUNT_ID_EN BLOTATO_TIKTOK_ACCOUNT_ID X_BEARER_TOKEN NUDGE_ALPHA_USER_ID FAL_API_KEY"
-
-for k in $KEYS; do
-  v="${!k}"
-  [ -z "$v" ] && continue
-  # シングルクォートをエスケープ（' -> '\''）
-  v_escaped="${v//\'/\'\\\'\'}"
-  ssh "${VPS_USER}@${VPS_HOST}" "mkdir -p /home/anicca/.openclaw && touch $REMOTE_ENV"
-  ssh "${VPS_USER}@${VPS_HOST}" "grep -v '^${k}=' $REMOTE_ENV > /tmp/env.tmp 2>/dev/null || true; echo '${k}=${v_escaped}' >> /tmp/env.tmp; mv /tmp/env.tmp $REMOTE_ENV"
-done
-
-echo "Done. Run VPS verification next."
+echo "Syncing .env to VPS (openclaw + home)..."
+ssh "$VPS_HOST" "mkdir -p /home/anicca/.openclaw && cat > /home/anicca/.openclaw/.env" < "$ENV_FILE"
+ssh "$VPS_HOST" "cat > /home/anicca/.env" < "$ENV_FILE"
+echo "Done. VPS paths: /home/anicca/.openclaw/.env, /home/anicca/.env"
