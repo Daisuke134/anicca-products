@@ -63,10 +63,12 @@ export async function upsertProfile({ deviceId, userId, profile, language }) {
     const incomingUserId = String(userId || '').trim();
     const incomingDeviceId = String(deviceId || '').trim();
 
-    // v0.5: Anonymous users (userId === deviceId) still get a UUID-backed profile,
-    // so that downstream features (nudge_events/user_settings/user_traits) can work.
+    // Normalize to UUID-backed profile_id whenever possible.
     let effectiveUserId = incomingUserId;
-    if (incomingUserId && incomingDeviceId && incomingUserId.toLowerCase() === incomingDeviceId.toLowerCase()) {
+    const resolvedUserId = await resolveProfileId(incomingUserId);
+    if (resolvedUserId) {
+      effectiveUserId = resolvedUserId;
+    } else if (incomingDeviceId) {
       const ensured = await ensureDeviceProfileId(incomingDeviceId);
       if (ensured) effectiveUserId = ensured;
     }

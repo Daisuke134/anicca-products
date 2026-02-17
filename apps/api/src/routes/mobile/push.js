@@ -246,6 +246,13 @@ router.post('/token', pushTokenLimiterByIp, pushTokenLimiterByDevice, async (req
         });
       }
 
+      // Keep mobile_profiles user_id aligned with UUID profile_id for this device.
+      // This prevents APNs sender skips when legacy rows still store device-id in user_id.
+      await tx.mobileProfile.updateMany({
+        where: { deviceId },
+        data: { userId: profileId, updatedAt: new Date() },
+      });
+
       // Clean up token/env conflicts (same token on a different device).
       const conflict = await tx.pushToken.findUnique({
         where: { token_env: { token, env } },

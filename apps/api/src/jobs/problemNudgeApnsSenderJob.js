@@ -183,6 +183,11 @@ function extractStruggles(profileJson) {
   return s.map(String).map(x => x.trim()).filter(Boolean);
 }
 
+function normalizeStruggles(values) {
+  if (!Array.isArray(values)) return [];
+  return values.map(String).map(v => v.trim()).filter(Boolean);
+}
+
 export async function runProblemNudgeApnsSender(nowUtc = new Date(), { apnsClient } = {}) {
   const rawEnv = getRawPushEnv();
   if (!rawEnv) {
@@ -252,15 +257,28 @@ export async function runProblemNudgeApnsSender(nowUtc = new Date(), { apnsClien
     const lang = normalizeCatalogLang(settings?.language || 'en');
     const catalog = loadProblemNudgeCatalog(lang);
 
-    // Struggles are stored per-device in mobile_profiles, but free cap is per-profile.
-    // Aggregate struggles across devices so selection is shared across all push tokens.
+    // Struggles source of truth can be inconsistent during migration.
+    // Prefer UUID-linked mobile_profiles, but also include rows keyed by device_id and user_traits fallback.
+    const profileDeviceIds = profileTokens.map(t => t.deviceId);
     const mobileRows = await prisma.mobileProfile.findMany({
-      where: { userId: profileId },
+      where: {
+        OR: [
+          { userId: profileId },
+          { deviceId: { in: profileDeviceIds } },
+        ],
+      },
       select: { profile: true },
     });
     const struggleSet = new Set();
     for (const r of mobileRows || []) {
       for (const s of extractStruggles(r?.profile || {})) struggleSet.add(s);
+    }
+    if (!struggleSet.size) {
+      const traits = await prisma.userTrait.findUnique({
+        where: { userId: profileId },
+        select: { struggles: true },
+      });
+      for (const s of normalizeStruggles(traits?.struggles || [])) struggleSet.add(s);
     }
     const struggles = [...struggleSet];
     if (!struggles.length) continue;
