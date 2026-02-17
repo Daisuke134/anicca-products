@@ -3,10 +3,39 @@
 ## TL;DR
 - **APNs Problem通知（1.6.3 spec）は prod/staging ともにコード反映済み**。
 - **prodで通知が止まっていた原因はデータ不整合（mobile_profiles.user_idの紐付け）**で、prod DBはバックフィルで修復済み。
-- **匿名課金ユーザーが server側でfree扱いになるバグが残っている可能性が高い**（iOSがRevenueCat→Backend同期をApple Sign-Inユーザーに限定しているため）。
+- **“通常状態ユーザー（= サインインしてないユーザー、実質ほぼ全員）”の課金が server側でfree扱いになるバグが残っている可能性が高い**
+  - 原因: iOSがRevenueCat→Backend同期を **`.signedIn` のときだけ**実行しているため。
 - **LLM生成（generateNudges.js）は今も動き得る**: Railwayの `nudge-cronp` は `CRON_MODE=nudges` + `OPENAI_API_KEY` で実行される構成。
 
+## 今日のTODO（忘れない用 / 優先順）
+1) **iOS: `SubscriptionManager.syncNow()` の `signedIn` ガード撤去（匿名ユーザーでもBackend同期）**
+   - いまの実装は `guard case .signedIn(...) = AppState.shared.authStatus else { return }` で終了している。
+   - 結果: **匿名課金ユーザー（= 実質ほぼ全員）**は RevenueCat の購読状態をBackendへ同期しない。
+2) **Backend: “RevenueCatの app_user_id” と “Aniccaの profile_id(UUID)” を紐付けてSSOT化**
+   - APNs送信ジョブは `push_tokens.profile_id(UUID)` 単位でfree/proを判定して送信量を決める。
+   - なので `user_subscriptions` は最終的に **profile_id(UUID)** をキーに揃えるのが安全。
+3) **RevenueCat webhook: 到達確認 + `subscription_events` への監査ログ保存を実装**
+   - 現状 `subscription_events` は 0件でも webhook未到達とは断定できない（そもそもinsertしていない可能性がある）。
+4) **LLM生成の停止（staging/prod）**
+   - Railwayの cron サービス（`nudge-cron` / `nudge-cronp`）は **停止（スケール0 / スケジュール停止）**。
+   - `OPENAI_API_KEY` を cron サービスから外す（最終安全策）。
+   - さらに **手動起動経路も止める**: `/api/admin/trigger-nudges` と `.github/workflows/trigger-commander.yml`。
+5) **DBテーブル整理は“削除”ではなく“段階的廃止”でやる（即drop禁止）**
+   - まず「参照元コード/ジョブ/ルート」を洗い出してから deprecate → migrate → drop の順。
+
 ---
+
+## 用語（このドキュメントの言葉を固定する）
+### “通常状態ユーザー”
+- ユーザーがアプリをインストールしてオンボードし、そのまま使っている状態。
+- **Sign in with Apple をしていない**（`AppState.authStatus != .signedIn`）。
+- Aniccaの現実の運用では、**これがほぼ全ユーザー**。
+
+### “signedIn”
+- iOS側で Sign in with Apple を完了して `AppState.authStatus == .signedIn(...)` になっている状態。
+- ここは「RevenueCatの匿名/非匿名」とは別軸。Aniccaアプリ内部のログイン状態の話。
+
+以後、「匿名」という言葉は誤解を招くので使わない。**“通常状態ユーザー（= 実質全員）”**で統一する。
 
 ## 1. 何が起きたか（Incident）
 
@@ -76,7 +105,7 @@
   - `guard case .signedIn(let credentials) = AppState.shared.authStatus else { return }`
 
 意味:
-- **匿名ユーザー（ほぼ全員）**は、RevenueCatの購入状態をBackendに同期しない。
+- **通常状態ユーザー（= 実質ほぼ全員）**は、RevenueCatの購入状態をBackendに同期しない（ここで `return` する）。
 - iOS UI上はRevenueCat SDKでPro表示できても、**Backendの `user_subscriptions` が更新されない**。
 
 ### なぜ 1.6.2 は大丈夫で、1.6.3 で問題化する？
@@ -98,8 +127,10 @@
 
 ### 実施すべき修正（決定）
 1) iOS: `syncNow()` の signedInガード撤去
-- 匿名でも `billing/revenuecat/sync` を叩く
-- `user-id` は `Purchases.shared.appUserID` を使う（匿名でも必ずある）
+- **通常状態ユーザーでも** `POST /billing/revenuecat/sync` を叩く（= 全ユーザーで同期する）
+- `user-id` は `Purchases.shared.appUserID` を使う（通常状態でも必ずある）
+- `device-id` は従来通り `AppState.shared.resolveDeviceId()` を送る
+- 目的: **サーバが `user_subscriptions` を最新化できるようにして、APNs送信量（free/pro）を正しく決める**
 
 2) Backend: `revenuecat/sync` で取得した entitlement を、
 - その `app_user_id` のまま `user_subscriptions.user_id` に保存しない
@@ -107,12 +138,21 @@
   - 例: `revenuecat_app_user_id_map` のようなテーブルを新設し、
     `app_user_id -> profile_id` を保持
 
+### 重要（この修正が入った後のUX）
+- 通常状態のProユーザー: サーバがpro判定できるようになり、**APNs送信量がPro枠**になる
+- 通常状態のFreeユーザー: サーバがfree判定でき、**APNs送信量がFree枠**のまま
+- ユーザーの体験としては「通知タップしなくても毎日届く」が安定する
+
 ---
 
 ## 5. `subscription_events` が0件の意味
-- 現状の実装では、RevenueCat webhook処理（`webhookHandler.js`）は **`user_subscriptions` を更新するだけ**で、
-  `subscription_events` に insert していない。
-- そのため **`subscription_events` が0件 = webhookが来てない、とは断定できない**。
+### 事実（2026-02-17 時点のDB）
+- prod: `subscription_events` は 0件
+- staging: `subscription_events` は 0件
+
+### 解釈
+- **`subscription_events` が0件 = RevenueCat webhookが来ていない、とは断定できない**。
+  - 理由: そもそも webhook handler が `subscription_events` に insert していない実装の可能性があるため。
 
 推奨:
 - webhook到達確認のために、
@@ -150,6 +190,10 @@
 理由:
 - cron停止だけだと、手動トリガーでLLM生成が起動できる状態が残る。
 
+補足:
+- **`generateNudges.js` のファイル自体は、いきなり削除しない（他からimport/参照されてる可能性がある）。**
+- まずは「起動経路を遮断」→「LLMを物理的に呼べない（OPENAIキー無し）」→ それでも不要なら参照調査後に削除、の順。
+
 ---
 
 ## 7. DBテーブル: 何を使っていて、何を使っていないか
@@ -171,3 +215,16 @@
 - DBには他にも多数のテーブルがあるが、それらは Ops / 投稿 / 研究 / 解析 / 過去機能のSSOT。
 - **削除は“混乱解消”ではなく“本番破壊”になり得る**ため、別途「削除計画（参照調査→移行→drop）」として切り出す。
 
+### 7.3 DB全テーブルの現状（2026-02-17）
+prod（44 tables）:
+- `_prisma_migrations`, `agent_audit_logs`, `agent_posts`, `bandit_models`, `daily_metrics`, `feeling_sessions`, `habit_logs`, `hook_candidates`, `initiatives`, `memory_items`, `mobile_alarm_schedules`, `mobile_profiles`, `mobile_voip_tokens`, `monthly_vc_grants`, `notification_schedules`, `nudge_deliveries`, `nudge_delivery_sends`, `nudge_events`, `nudge_outcomes`, `ops_events`, `ops_mission_steps`, `ops_missions`, `ops_policy`, `ops_proposals`, `ops_reactions`, `ops_trigger_rules`, `profiles`, `push_tokens`, `realtime_usage_daily`, `refresh_tokens`, `research_items`, `schema_migrations`, `sensor_access_state`, `subscription_events`, `tiktok_posts`, `tokens`, `type_stats`, `usage_sessions`, `user_settings`, `user_subscriptions`, `user_traits`, `user_type_estimates`, `wisdom_patterns`, `x_posts`
+
+staging（42 tables）:
+- `_prisma_migrations`, `agent_audit_logs`, `agent_posts`, `bandit_models`, `daily_metrics`, `feeling_sessions`, `habit_logs`, `hook_candidates`, `initiatives`, `memory_items`, `mobile_profiles`, `monthly_vc_grants`, `notification_schedules`, `nudge_deliveries`, `nudge_delivery_sends`, `nudge_events`, `nudge_outcomes`, `ops_events`, `ops_mission_steps`, `ops_missions`, `ops_policy`, `ops_proposals`, `ops_reactions`, `ops_trigger_rules`, `profiles`, `push_tokens`, `realtime_usage_daily`, `refresh_tokens`, `research_items`, `schema_migrations`, `sensor_access_state`, `subscription_events`, `tiktok_posts`, `tokens`, `type_stats`, `usage_sessions`, `user_settings`, `user_subscriptions`, `user_traits`, `user_type_estimates`, `wisdom_patterns`, `x_posts`
+
+### 7.4 「使ってないから消す」は今やらない（やるなら手順固定）
+1) `apps/api/` と `aniccaios/` と OpenClaw 側の参照（SQL/ORM/生クエリ）を全検索
+2) “参照ゼロ” を確認
+3) 本番で「1リリース以上」未使用を観測（ログ/メトリクス）
+4) 移行スクリプト or viewで互換性確保
+5) その後に drop（migrationで管理）
