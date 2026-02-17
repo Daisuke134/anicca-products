@@ -211,7 +211,7 @@ gh secret list --repo Daisuke134/anicca.ai
 | 項目 | 保管場所 |
 |------|---------|
 | `TWITTERAPI_KEY` | `.env` / VPS `.env` |
-| `REDDAPI_API_KEY` | `.env` / VPS `.env` |
+| `REDDIT_SESSION` | `.env` / VPS `~/.openclaw/.env`（Cookie 認証、reddit-cli 用） |
 
 ### 保存先まとめ
 
@@ -227,7 +227,7 @@ gh secret list --repo Daisuke134/anicca.ai
 | `X_BEARER_TOKEN` | ✅ | ✅ | — | — |
 | `X_ACCOUNT_ID` | ✅ | ✅ | — | — |
 | `TWITTERAPI_KEY` | ✅ | ✅ | — | — |
-| `REDDAPI_API_KEY` | ✅ | ✅ | — | — |
+| `REDDIT_SESSION` | ✅ | ✅ | — | — |
 | `ANICCA_AGENT_TOKEN` | ✅ | ✅ | ✅ | ✅（本番移行時） |
 | `BRAVE_API_KEY` | ✅ | ✅ | — | — |
 | `EXA_API_KEY` | ✅ | ✅ | — | — |

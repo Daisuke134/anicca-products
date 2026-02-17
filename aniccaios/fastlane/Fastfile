@@ -281,10 +281,11 @@ platform :ios do
     
     max_attempts = 60  # 最大30分待機（30秒間隔 × 60回）
     attempts = 0
-    
+    processed_build = nil
+
     loop do
       attempts += 1
-      
+
       begin
         # アプリのビルド一覧を取得
         app = Spaceship::ConnectAPI::App.find(BUNDLE_ID)
@@ -292,16 +293,17 @@ platform :ios do
           filter: { version: current_build.to_s },
           includes: "preReleaseVersion"
         )
-        
+
         if builds.any?
           build = builds.first
           processing_state = build.processing_state
-          
+
           UI.message("  Attempt #{attempts}/#{max_attempts}: Build #{current_build} state = #{processing_state}")
-          
+
           if processing_state == "VALID"
             UI.success("✅ Build #{current_build} processing complete!")
-            return build
+            processed_build = build
+            break
           elsif processing_state == "INVALID"
             UI.user_error!("❌ Build #{current_build} failed processing!")
           end
@@ -311,13 +313,15 @@ platform :ios do
       rescue => e
         UI.message("  Attempt #{attempts}/#{max_attempts}: Error checking build: #{e.message}")
       end
-      
+
       if attempts >= max_attempts
         UI.user_error!("❌ Timeout waiting for build #{current_build} to process")
       end
-      
+
+      break if processed_build
       sleep(30)
     end
+    processed_build
   end
 
   desc "Submit the latest build for App Store review"

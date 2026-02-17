@@ -1,3 +1,9 @@
+---
+name: sto-weekly-refresh
+description: "週次の最適化更新（STO）を行い、結果を workspace に保存する"
+metadata: {"openclaw":{"emoji":"🗓️","os":["linux"]}}
+---
+
 # sto-weekly-refresh
 
 ## 目的
@@ -14,22 +20,24 @@ VPS 相対: `~/.openclaw/workspace/sto-weekly-refresh/run_YYYY-MM-DD.json`。
 ## 必須 env
 | キー | 説明 |
 |------|------|
-| `API_BASE_URL` | Anicca API ベースURL |
-| `INTERNAL_AUTH_SECRET` | admin 認証 |
+| （実装が参照する DB 等があればその認証） |  |
 
 ## 必須 tools
-- `web_fetch`（API 呼び出し）
+- `web_fetch`（実装で API 利用する場合）
 
 ## 入力
 - なし（cron 起動）。
 
 ## 実行手順
-1. `POST {API_BASE_URL}/api/admin/jobs/sto-weekly-refresh` を呼ぶ。
-2. **注意**: このエンドポイントは未実装の可能性あり。schedule_map / dayCycling 等のロジックを jobs に暴露する必要あり。
+1. VPS 上で STO 週次リフレッシュを実行する。
+2. 結果を `workspace/sto-weekly-refresh/run_YYYY-MM-DD.json` に書く。
+3. UserStoModel 更新数を記録する。
 
 ## 出力 / 監査ログ
-- `{ success: true, result }`
-- UserStoModel 更新数を記録。
+- 上記パスに結果を記録。
+
+## Slack 報告
+**【絶対】** 実行結果・要約は Slack #metrics（チャンネル ID: `C091G3PKHL2`）に投稿する。成功でも失敗でも必ず投稿する。投稿しないことは許されない。
 
 ## 失敗時処理
 - 5xx: 次回 cron（翌週）で再実行。

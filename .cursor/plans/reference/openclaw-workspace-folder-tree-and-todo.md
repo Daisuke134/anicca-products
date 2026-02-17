@@ -2,6 +2,8 @@
 
 最終更新: 2026-02-14
 
+**根本（OpenClaw 設計）:** VPS でワークスペースの「初期ファイル」が無い場合、**VPS で一度 `openclaw onboard --non-interactive --accept-risk --skip-health` を実行する**。OpenClaw は onboard で `~/.openclaw/workspace/` と AGENTS.md, SOUL.md, TOOLS.md, IDENTITY.md, USER.md, HEARTBEAT.md, BOOTSTRAP.md を作成する。詳細: `.cursor/plans/reference/openclaw-onboard-workspace-root-cause.md`
+
 **重要: 19 個の「やること」のうち、どこでやるかは次のとおり。全部が VPS 内だけではない。**
 
 | # | どこでやるか | 説明 |
@@ -100,8 +102,13 @@
 ├── sto-weekly-refresh/                     # sto-weekly-refresh 用
 │   └── run_YYYY-MM-DD.json
 │
+├── skills/                                 # ClawHub でインストールした完全版スキル（VPS 上でのみ）
+│   └── x-research/                         # X トレンド検索用（SKILL.md だけの skills/ とは別）
+│
 └── (x-poster / tiktok-poster は hooks/ を読むだけ。専用フォルダは持たない)
 ```
+
+**詳細説明:** 各フォルダの役割・x-research の位置・GOG/Google 連携の所在 → `.cursor/plans/reference/openclaw-workspace-tree-explained.md`
 
 ---
 
@@ -198,6 +205,8 @@ bash scripts/openclaw-vps/verify-vps-workspace.sh
 **保存先（VPS）:** トレンドのみ `~/.openclaw/workspace/trends/YYYY-MM-DD.json`、投稿用 1 本 `~/.openclaw/workspace/hooks/YYYY-MM-DD.json`、メトリクス＋学習 `~/.openclaw/workspace/trend-hunter/metrics_YYYY-MM-DD.json`。
 
 **jobs.json:** 正本は repo の `openclaw-skills/jobs.json`。VPS にはこれを scp で反映。変更前に VPS でバックアップ（例: `jobs.json.bak.before-trend-hunter-5am-5pm`）を取る。
+
+**「実行可能なスクリプトやプロセスは特定できませんでした」が出る場合:** trend-hunter をはじめ多くのスキルには **実行可能ファイル（.sh / .ts）がない**。実行 = エージェントが `~/.openclaw/skills/<名前>/SKILL.md` を読み、記載の手順を `run_terminal_cmd`・ファイル書きで行うこと。対策: (1) jobs.json の該当 job の payload.message に「There is no script: read ~/.openclaw/skills/trend-hunter/SKILL.md and perform the steps yourself」を入れる（trend-hunter-5am / trend-hunter-5pm は済）。(2) VPS の `~/.openclaw/skills/trend-hunter/SKILL.md` の先頭に「実行方法（重要）」セクションがあることを確認（repo の openclaw-skills/trend-hunter/SKILL.md と一致させる）。(3) AGENTS.md は変更しない。
 
 ---
 
@@ -320,3 +329,17 @@ bash scripts/openclaw-vps/verify-vps-workspace.sh
 ## 6) Moltbook について
 
 moltbook-monitor と moltbook-poster は、Moltbook のインターフェース（API / ダッシュボード等）を使用する。監視対象・投稿先は Moltbook 上で管理する。
+
+## 7) スキルとツールの対応（要約・説明用の正しい名称）
+
+エージェントや要約で「何ができるか」を説明するときは、以下を正とする。誤った説明（例: 「X Poster = X/Twitter CLI」「Moltbook = Moltbook Skill」のみ）を避ける。
+
+| 役割 | スキル（VPS ディレクトリ） | ツール・API（正しい説明） |
+|------|----------------------------|----------------------------|
+| X 投稿 | x-poster | **Blotato API**（X 投稿は Blotato のみ。Twitter API 直接は使わない・プロテクト） |
+| X 検索・トレンド | x-research | X API v2（X_BEARER_TOKEN）。VPS では rohunvora/x-research-skill を Bun で実行 |
+| TikTok 投稿 | tiktok-poster | **Blotato API**（TikTok 投稿に Blotato 使用） |
+| TikTok トレンド | tiktok-scraper | **Apify API**（clockworks/tiktok-scraper）。APIFY_API_TOKEN |
+| Reddit トレンド | reddit-cli | **reddapi.dev API**（Reddit CLI）。REDDAPI_API_KEY。Semantic search / trends |
+| Moltbook 監視・投稿 | moltbook-monitor, moltbook-poster | **モルトブックインタラクト**（Moltbook Interact）。MOLTBOOK_BASE_URL, MOLTBOOK_ACCESS_TOKEN。moltbook-interact スキルは投稿・返信・閲覧用 CLI |
+| トレンド狩り | trend-hunter | x-research + tiktok-scraper + reddit-cli の 3 つのみ。保存は VPS workspace のみ |

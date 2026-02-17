@@ -4,7 +4,7 @@
 #         その後ブラウザで http://127.0.0.1:18789/ を開く
 
 set -e
-VPS_HOST="${OPENCLAW_VPS_HOST:-anicca@ubuntu-4gb-nbg1-7}"
+VPS_HOST="${OPENCLAW_VPS_HOST:-anicca@46.225.70.241}"
 LOCAL_PORT=18789
 REMOTE_PORT=18789
 

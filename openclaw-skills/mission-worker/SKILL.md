@@ -1,3 +1,9 @@
+---
+name: mission-worker
+description: "workspace/ops/steps.json を処理して step を実行し、completed に記録するワーカー"
+metadata: {"openclaw":{"emoji":"⚙️","os":["linux"]}}
+---
+
 # mission-worker
 
 ## 目的
@@ -15,8 +21,7 @@ VPS 上の相対パス: `~/.openclaw/workspace/ops/steps.json` および `~/.ope
 ## 必須 env
 | キー | 説明 |
 |------|------|
-| `API_BASE_URL` | Anicca API ベースURL |
-| `ANICCA_AGENT_TOKEN` | ops 認証トークン（Bearer） |
+| （step 実行に必要な Blotato / X 等の env は各 executor の SKILL に従う） |  |
 
 ## 必須 tools
 - `web_fetch`（API 呼び出し）
@@ -34,6 +39,9 @@ VPS 上の相対パス: `~/.openclaw/workspace/ops/steps.json` および `~/.ope
 ## 出力 / 監査ログ
 - step 取得・実行・完了を **Anicca 内** の `workspace/ops/completed/YYYY-MM-DD.json` に記録。
 - events は同一ファイルの `events` 配列に含める（または ops 配下の監査ログに出力）。
+
+## Slack 報告
+**【絶対】** 実行結果・要約は Slack #metrics（チャンネル ID: `C091G3PKHL2`）に投稿する。成功でも失敗でも必ず投稿する。投稿しないことは許されない。
 
 ## 失敗時処理
 - executor 失敗: `status: failed`, `error` を付けて complete。

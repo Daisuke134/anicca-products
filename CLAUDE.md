@@ -51,6 +51,12 @@
 | タスク完了即コミット | タスク完了したら即座にコミットする。まとめてコミットしない |
 | 小タスク = vanilla CC | 5行以下の変更にスキル/サブエージェント不要。詳細: `.claude/rules/skill-subagent-usage.md` |
 
+### 0.9 OpenClaw / VPS 絶対ルール（絶対ルール）
+
+**Anicca の実行環境は VPS。**「VPS に反映する」「VPS で確認する」と書いてあれば、エージェントが自分で `ssh anicca@46.225.70.241` を実行し、反映・確認まで完了する。
+
+**絶対禁止:** (1)「VPS にアクセスできません」「SSH できません」と言い切ること (2) ユーザーにコマンドを叩かせること (3) ローカルだけで確認して「VPS も同じはず」とすること (4) ローカルで編集して「直りました」で終わること（VPS に反映して初めて完了） (5) ユーザーへの有罪推定的な質問 (6) 上記を破る言い訳。詳細: `.cursor/rules/openclaw-vps-absolute.md`
+
 ### 言語ルール
 
 **回答は常に日本語**（ユーザーが英語でも日本語で返す）。CLAUDE.mdやドキュメントは日本語で記述。
@@ -86,7 +92,7 @@
 
 **ワークツリー:** 原則使う。ドキュメント変更のみdev直接コミット可。詳細: `.claude/rules/worktree.md`
 
-**Fastlane（絶対）:** xcodebuild 直接実行禁止。`cd aniccaios && fastlane <lane>`。詳細: `.claude/rules/tool-usage.md`
+**Fastlane（絶対）:** xcodebuild 直接実行禁止。`cd aniccaios && fastlane <lane>`。詳細: `.claude/rules/tool-usage.md`。**Ruby/Bundler・wait_for_processing・審査提出でハマった知見:** `.serena/memories/fastlane_app_store_submission_learnings_2026_02_14.md`
 
 **Maestro E2E（絶対）:** テスト前に `.claude/skills/maestro-ui-testing/SKILL.md` を読む。
 
@@ -125,4 +131,4 @@
 
 ---
 
-最終更新: 2026年2月9日
+最終更新: 2026年2月14日

@@ -1,3 +1,9 @@
+---
+name: hookpost-ttl-cleaner
+description: "古い hook の TTL を掃除し、実行結果を workspace に保存する"
+metadata: {"openclaw":{"emoji":"🧹","os":["linux"]}}
+---
+
 # hookpost-ttl-cleaner
 
 ## 目的
@@ -14,23 +20,24 @@ VPS 相対: `~/.openclaw/workspace/hookpost-ttl-cleaner/run_YYYY-MM-DD.json`。
 ## 必須 env
 | キー | 説明 |
 |------|------|
-| `API_BASE_URL` | Anicca API ベースURL |
-| `INTERNAL_AUTH_SECRET` | admin 認証 |
+| （実装が参照する DB 等があればその認証） |  |
 
 ## 必須 tools
-- `web_fetch`（API 呼び出し）
+- `web_fetch`（実装で API 利用する場合）
 
 ## 入力
 - なし（cron 起動）。
 
 ## 実行手順
-1. `POST {API_BASE_URL}/api/admin/jobs/hookpost-ttl-cleaner` を呼ぶ。
-2. **注意**: このエンドポイントは未実装の可能性あり。jobs.js に追加する必要あり。
-3. 代替: `runHookPostTtlCleaner` を jobs.js に登録し、上記パスで呼び出す。
+1. VPS 上で TTL 経過した hook_post のアーカイブ・削除を実行する。
+2. 結果を `workspace/hookpost-ttl-cleaner/run_YYYY-MM-DD.json` に書く。
+3. 失敗時は Slack に notifyDLQEntry（実装に従う）。
 
 ## 出力 / 監査ログ
-- `{ success: true, result: { archived, deleted, failed } }`
-- 失敗時は Slack に notifyDLQEntry。
+- `{ archived, deleted, failed }` を上記パスに記録。
+
+## Slack 報告
+**【絶対】** 実行結果・要約は Slack #metrics（チャンネル ID: `C091G3PKHL2`）に投稿する。成功でも失敗でも必ず投稿する。投稿しないことは許されない。
 
 ## 失敗時処理
 - 5xx: 次回 cron で再実行。

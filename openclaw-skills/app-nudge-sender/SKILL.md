@@ -1,3 +1,9 @@
+---
+name: app-nudge-sender
+description: "ユーザーへ送る app nudge を決め、workspace/nudges に保存して配信をトリガーする"
+metadata: {"openclaw":{"emoji":"📣","os":["linux"]}}
+---
+
 # app-nudge-sender
 
 ## 目的
@@ -39,6 +45,9 @@ VPS 相対: `~/.openclaw/workspace/nudges/decisions_YYYY-MM-DD.json`。ユーザ
 - `{ success: true, result }`
 - runs/監査に slot と送信数を含める。
 - 判断結果は必ず `nudges/decisions_YYYY-MM-DD.json` に残す。
+
+## Slack 報告
+**【絶対】** 実行結果・要約は Slack #metrics（チャンネル ID: `C091G3PKHL2`）に投稿する。成功でも失敗でも必ず投稿する。投稿しないことは許されない。
 
 ## 失敗時処理
 - 5xx: 次回 cron で再実行。

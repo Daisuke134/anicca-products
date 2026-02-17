@@ -1,3 +1,6 @@
+# Playwright CLI (snapshots, screenshots)
+.playwright-cli/
+
 # Dependencies
 node_modules/
 npm-debug.log*
@@ -156,3 +159,5 @@ __pycache__/
 
 # Google OAuth client secrets should never be committed.
 client_secret_*.json
+openclaw-vps-backup-20260214.tar.gz
+openclaw/openclaw.json

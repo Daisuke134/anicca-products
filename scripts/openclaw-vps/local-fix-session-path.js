@@ -48,7 +48,6 @@ for (const agentId of agentIds) {
 
   let changed = false;
   let fileFixed = 0;
-  const resolvedSessionsDir = path.resolve(sessionsDir);
 
   for (const key of Object.keys(data)) {
     const entry = data[key];
@@ -56,15 +55,8 @@ for (const agentId of agentIds) {
 
     const raw = entry.sessionFile.trim();
     if (!raw) continue;
-    // すでに相対パス（.. を含まない）ならスキップ
+    // 絶対パスなら常に basename に正規化（別マシン/VPS のパスでも解消する）
     if (!path.isAbsolute(raw)) continue;
-
-    const resolvedFile = path.resolve(raw);
-    const relative = path.relative(resolvedSessionsDir, resolvedFile);
-    if (relative.startsWith('..') || path.isAbsolute(relative)) {
-      // この agent の sessions 外を指している場合はスキップ（別環境の絶対パス等）
-      continue;
-    }
 
     const basename = path.basename(raw);
     if (basename === raw) continue;

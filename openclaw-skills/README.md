@@ -2,6 +2,15 @@
 
 VPS `/home/anicca/.openclaw/skills/` に配置する SKILL.md のソース。
 
+## 初回セットアップ（完全版スキル）
+
+trend-hunter が動くには **x-research, reddit-cli** の実行コードが必要。sync だけでは不足。
+
+```bash
+scp scripts/openclaw-vps/install-full-skills-on-vps.sh anicca@VPS:~/
+ssh anicca@VPS 'bash ~/install-full-skills-on-vps.sh'
+```
+
 ## 配置手順
 
 ### Skills
@@ -33,11 +42,21 @@ ssh ${VPS_USER}@${VPS_HOST} 'systemctl --user start openclaw-gateway.service'
 | x-poster | 0 9, 21 * * * (morning/evening) |
 | tiktok-poster | 0 9, 21 * * * |
 | app-nudge-sender | 0 9, 14, 20 * * * |
-| moltbook-monitor | */5 * * * * |
-| moltbook-poster | 30 20 * * * |
 | roundtable-standup | 0 9 * * * |
 | roundtable-memory-extract | 55 8 * * * |
 | roundtable-initiative-generate | 5 9 * * * |
 | hookpost-ttl-cleaner | 0 3 * * * |
 | sto-weekly-refresh | 0 3 * * 0 |
 | autonomy-check | 0 3 * * * |
+
+## Anicca Daily Report（日次メトリクス投稿）
+
+**このレポには含まれていません。** あのフォーマット（📊 Anicca Daily Report, APP STORE, REVENUECAT, FUNNEL, 変換率, :person_in_lotus_position: Anicca Metrics Bot）を出しているのは **daily-metrics-reporter** スキルです。
+
+| 場所 | 説明 |
+|------|------|
+| **openclaw-skills/** | なし。`daily-memory` は別（学び・日記の記録用）。 |
+| **VPS** | 仕様上は `~/.openclaw/skills/daily-metrics-reporter/` または OpenClaw **bundled** スキル（npm 同梱）。 |
+| **Cron** | 仕様では 05:00 JST。当リポの `jobs.json` には未登録（Gateway 側 or 別 crontab の可能性あり）。 |
+
+フォーマット仕様: `.cursor/plans/ios/1.6.2/metrics-ops-spec.md`

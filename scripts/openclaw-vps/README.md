@@ -1,5 +1,34 @@
 # OpenClaw VPS 用スクリプト
 
+## 完全版スキルの初回インストール（VPS 上で実行）
+
+trend-hunter / moltbook-monitor / moltbook-poster が動くには、x-research, reddit-cli, moltbook-interact の**実行コード**が必要。sync で送る SKILL.md だけでは不足。
+
+```bash
+# スクリプトを VPS に送って実行
+scp scripts/openclaw-vps/install-full-skills-on-vps.sh anicca@46.225.70.241:~/
+ssh anicca@46.225.70.241 'bash ~/install-full-skills-on-vps.sh'
+```
+
+- x-research: `~/.openclaw/skills/x-research` に rohunvora/x-research-skill を clone + bun install
+- reddit-cli: ClawHub で `~/.openclaw/skills` にインストール
+- moltbook-interact: ClawHub で `~/.openclaw/workspace/skills` にインストール
+
+実行後、ローカルで `sync-workspace-and-skills-to-vps.sh` を再実行して Anicca 用 SKILL.md を反映する。
+
+## スキル＋bootstrap の同期（ローカル → VPS）
+
+**「スキルを実行できるスクリプトが見つからない」と Anicca が返す場合:**  
+スキルは「SKILL.md を読んで手順をツールで実行する」仕様であり、起動用スクリプトは存在しない。以下で AGENTS.md（スキル実行ルール）と全 SKILL.md を VPS に反映する。
+
+```bash
+./scripts/openclaw-vps/sync-workspace-and-skills-to-vps.sh
+ssh anicca@46.225.70.241 'systemctl --user restart openclaw-gateway.service'
+```
+
+- 反映先: `~/.openclaw/skills/`（スキル）, `~/.openclaw/cron/jobs.json`（cron 定義）, `~/.openclaw/workspace/AGENTS.md`（bootstrap）
+- 同一スクリプトで jobs.json も `~/.openclaw/cron/` に scp する（移行で抜けていた根本対応）
+
 ## workspace 19 項目検証（VPS 上で実行）
 
 `.cursor/plans/reference/openclaw-workspace-folder-tree-and-todo.md` の #13–#19 が VPS で満たされているか確認する。

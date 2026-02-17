@@ -1,3 +1,9 @@
+---
+name: roundtable-memory-extract
+description: "会話やログからメモリ候補を抽出し、結果を workspace に保存する"
+metadata: {"openclaw":{"emoji":"🧠","os":["linux"]}}
+---
+
 # roundtable-memory-extract
 
 ## 目的
@@ -14,21 +20,23 @@ VPS 相対: `~/.openclaw/workspace/roundtable-memory-extract/run_YYYY-MM-DD.json
 ## 必須 env
 | キー | 説明 |
 |------|------|
-| `API_BASE_URL` | Anicca API ベースURL |
-| `INTERNAL_AUTH_SECRET` | admin 認証 |
+| （実装が参照する場合のみ） |  |
 
 ## 必須 tools
-- `web_fetch`（API 呼び出し）
+- `web_fetch`（実装で外部 API 利用時）
 
 ## 入力
 - なし（cron 起動）。
 
 ## 実行手順
-1. `POST {API_BASE_URL}/api/admin/roundtable/memory-extract` を呼ぶ。
-2. API が会話から Memory を抽出・保存。
+1. VPS 上で会話から Memory を抽出・保存する処理を実行する。
+2. 結果を `workspace/roundtable-memory-extract/run_YYYY-MM-DD.json` に書く。
 
 ## 出力 / 監査ログ
-- `{ success: true, result }`
+- 上記パスに結果を記録。
+
+## Slack 報告
+**【絶対】** 実行結果・要約は Slack #metrics（チャンネル ID: `C091G3PKHL2`）に投稿する。成功でも失敗でも必ず投稿する。投稿しないことは許されない。
 
 ## 失敗時処理
 - 5xx: 次回 cron で再実行。

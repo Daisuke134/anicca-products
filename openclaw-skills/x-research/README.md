@@ -7,10 +7,11 @@ X (Twitter) 公式 API で生ツイート・スレッドを取るスキル。[ro
 ## セットアップ（VPS で実行）
 
 ```bash
-# workspace の skills に clone
-mkdir -p ~/.openclaw/workspace/skills
-cd ~/.openclaw/workspace/skills
+# trend-hunter が参照する ~/.openclaw/skills に clone
+mkdir -p ~/.openclaw/skills
+cd ~/.openclaw/skills
 git clone https://github.com/rohunvora/x-research-skill.git x-research
+cd x-research && bun install
 ```
 
 1. **Bun** が入っていなければ入れる:
@@ -20,13 +21,13 @@ git clone https://github.com/rohunvora/x-research-skill.git x-research
 
 2. **X API Bearer Token** を設定:
    - [X Developer Portal](https://developer.x.com/) で取得。
-   - `~/.openclaw/.env` または `~/.config/env/global.env` に:
+   - **環境変数はすべて `~/.openclaw/.env` に書く。** ここに:
      ```
      X_BEARER_TOKEN=your-token-here
      ```
    コミット・ログに出さないこと。
 
-3. **openclaw.json** の `skills.entries` に `x-research` を追加（workspace スキルとして）し、gateway を再起動。
+3. **openclaw.json** の `skills.entries` に `x-research` を追加し、gateway を再起動。
 
 **X_BEARER_TOKEN が無い場合:** x-research の X 検索は使えない。代わりに **Firecrawl** で Web スクレイピング（例: Oliver & Larry 等の URL を指定して取得）する。`~/.openclaw/.env` に `FIRECRAWL_API_KEY` を書いておけば OpenClaw の web fetch で Firecrawl が使える。anicca-auto-development の「検索」は Firecrawl のみで深掘り可能。
 

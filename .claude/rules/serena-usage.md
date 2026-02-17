@@ -26,4 +26,5 @@
 | `daily_dhamma_development_workflow` | Daily Dhamma開発ワークフロー |
 | `code_style_conventions` | コードスタイル規約 |
 | `app_store_connect_workflow` | App Store Connect提出手順 |
+| `fastlane_app_store_submission_learnings_2026_02_14` | Fastlane/Ruby・wait_for_processing・審査提出でハマった知見（必読） |
 | `user_preferences_decision_making` | ユーザー好み・意思決定パターン |

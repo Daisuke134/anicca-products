@@ -18,3 +18,23 @@ Anicca の**開発まわり**の自動化ループ: X 検索（x-research）→ 
 
 - main にマージしない。worktree は dev から切る。
 - API キーが必要なら報告に「ユーザーに取ってほしい」と書く。コスト高ならそれも報告する。
+
+時刻 (JST)	ジョブ ID
+14:55	trend-hunter-5am-today
+15:00	trend-hunter-5pm-today
+15:05	suffering-detector-today
+15:10	x-poster-morning-today
+15:15	x-poster-evening-today
+15:20	tiktok-poster-morning-today
+15:25	tiktok-poster-evening-today
+15:30	app-nudge-morning-today
+15:35	app-nudge-afternoon-today
+15:40	app-nudge-evening-today
+15:45	roundtable-standup-today
+15:50	roundtable-memory-extract-today
+15:55	roundtable-initiative-generate-today
+16:00	hookpost-ttl-cleaner-today
+16:05	sto-weekly-refresh-today
+16:10	autonomy-check-today
+16:15	daily-memory-today
+

@@ -1,7 +1,36 @@
 # OpenClaw × Anicca 現在ステータス（SSOT）
 
-最終更新: 2026-02-12 01:26 JST
+最終更新: 2026-02-15
 対象: 1.6.2 最終E2E検証（実コマンド確認ベース）
+
+---
+
+## 0) VPS 接続（必ずここで確認する）
+
+**OpenClaw の実行環境は VPS。判断・確認は必ず VPS で行う。ローカルだけの変更で終わらせない。**
+
+| 項目 | 値 |
+|------|-----|
+| **SSH コマンド** | `ssh anicca@46.225.70.241` |
+| **確認例（workspace 一覧）** | `ssh anicca@46.225.70.241 "find /home/anicca/.openclaw -type f -o -type d 2>/dev/null \| sort \| head -200"` |
+| **確認例（ops の中身）** | `ssh anicca@46.225.70.241 "cat /home/anicca/.openclaw/workspace/ops/steps.json 2>/dev/null; cat /home/anicca/.openclaw/workspace/ops/heartbeat_state.json 2>/dev/null"` |
+| **cron ジョブ一覧** | `ssh anicca@46.225.70.241 "grep -E '\"id\"|\"jobId\"' /home/anicca/.openclaw/cron/jobs.json \| head -80"` |
+
+VPS に接続できないと言い切らないこと。上記 SSH で接続できる。
+
+### 0.1) VPS 絶対禁止事項（違反禁止）
+
+| 禁止事項 | 内容 |
+|----------|------|
+| **「VPS にアクセスできません」「SSH できません」と言い切ること** | 禁止。上記 SSH で接続できる。言い訳しない。 |
+| **ユーザーにコマンドを叩かせること** | 禁止。SSH・scp・VPS 上の編集はエージェントが実行する。全ての情報はエージェントが持っている。 |
+| **ローカルだけで確認して「VPS も同じはず」とすること** | 禁止。確認は VPS で行う。ローカルだけ見て終わらせない。 |
+| **ローカルで編集して「直りました」で終わること** | 禁止。Anicca は VPS で動く。ローカル編集は 1mm も本番に効かない。必ず VPS に反映する。 |
+| **ユーザーへの有罪推定的な質問** | 禁止。「あなたが反映しましたか？」など、やるべきことをユーザーに押し付けない。 |
+| **上記を破る言い訳** | 禁止。「SSH できない前提」等の正当化は認めない。 |
+| **ファイル全体の上書き** | 禁止。VPS 反映時、直す箇所を確認してその箇所だけ直す。把握していないスキル・cron が消えるため、jobs.json 等をファイルごと差し替えない。 |
+
+詳細: `.cursor/rules/openclaw-vps-absolute.md`
 
 ---
 
@@ -416,7 +445,7 @@ ssh anicca@46.225.70.241 "cat > /home/anicca/.env" < .env
 
 | 項目 | 状態 |
 |------|------|
-| Reddit | **REDDAPI_API_KEY**（reddapi.com）。VPS `~/.openclaw/.env` に設定。reddit-cli スキルで curl 使用。 |
+| Reddit | **REDDIT_SESSION**（Cookie 認証）。ClawHub reddit-cli。VPS `~/.openclaw/.env` に設定。VPS IP がブロックされる場合は Reddit スキップ、X + TikTok のみで続行。 |
 | TikTok | **APIFY_API_TOKEN**。tiktok-scraper スキル（Apify clockworks~tiktok-scraper）。 |
 | Firecrawl | **FIRECRAWL_API_KEY** を `~/.openclaw/.env` に書く。MEMORY にあっても ENV になければ Anicca は使えない。 |
 
@@ -511,7 +540,7 @@ ssh anicca@46.225.70.241 "cat > /home/anicca/.env" < .env
 |--------|--------|--------------------------------|
 | X | x-research | X_BEARER_TOKEN |
 | TikTok | tiktok-scraper（Apify） | APIFY_API_TOKEN |
-| Reddit | reddit-cli（reddapi） | REDDAPI_API_KEY |
+| Reddit | reddit-cli（Cookie） | REDDIT_SESSION |
 
 保存は **VPS ローカルのみ。** Railway DB には hook/trend を書かない。
 
