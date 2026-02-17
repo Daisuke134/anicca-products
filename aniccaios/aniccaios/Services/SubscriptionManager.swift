@@ -165,13 +165,19 @@ final class SubscriptionManager: NSObject {
         }
         
         // 2) サーバにRC再取得を要求（DB→/mobile/entitlement反映）
-        guard case .signedIn(let credentials) = AppState.shared.authStatus else { return }
-        
+        // 重要(1.6.3): "通常状態ユーザー（= ほぼ全員）" でもサーバがPro/Freeを判定できるようにする。
+        // - RevenueCatの購読状態は端末内では分かるが、APNs配信量はサーバが決めるため、サーバ側SSOT(user_subscriptions)の更新が必要。
+        // - ここでは Sign in with Apple の userId ではなく、RevenueCatの appUserID を SSOT の鍵として送る。
+        //   backendは device-id から profileId(UUID) を解決して user_subscriptions(user_id=profileId) を更新する。
+        let deviceId = AppState.shared.resolveDeviceId()
+        let revenueCatAppUserId = Purchases.shared.appUserID.trimmingCharacters(in: .whitespacesAndNewlines)
+        let userIdHeader = revenueCatAppUserId.isEmpty ? deviceId : revenueCatAppUserId
+
         var request = URLRequest(url: AppConfig.proxyBaseURL.appendingPathComponent("billing/revenuecat/sync"))
         request.httpMethod = "POST"
         request.timeoutInterval = 10.0 // 10秒でタイムアウト
-        request.setValue(AppState.shared.resolveDeviceId(), forHTTPHeaderField: "device-id")
-        request.setValue(credentials.userId, forHTTPHeaderField: "user-id")
+        request.setValue(deviceId, forHTTPHeaderField: "device-id")
+        request.setValue(userIdHeader, forHTTPHeaderField: "user-id")
         
         do {
             let (_, response) = try await NetworkSessionManager.shared.session.data(for: request)
@@ -300,4 +306,3 @@ extension SubscriptionInfo {
         )
     }
 }
-

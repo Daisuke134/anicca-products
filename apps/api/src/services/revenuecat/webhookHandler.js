@@ -9,7 +9,35 @@ const RC_EVENTS = new Set([
   'BILLING_ISSUE', 'CANCELLATION', 'EXPIRATION', 'PRODUCT_CHANGE'
 ]);
 
-export async function applyRevenueCatEntitlement(userId, entitlements) {
+function buildSubscriptionMetadata({ revenuecatAppUserId, deviceId } = {}) {
+  const metadata = {};
+  if (revenuecatAppUserId) metadata.revenuecat_app_user_id = String(revenuecatAppUserId);
+  if (deviceId) metadata.device_id = String(deviceId);
+  return metadata;
+}
+
+async function findProfileIdByRevenueCatAppUserId(revenuecatAppUserId) {
+  const raw = String(revenuecatAppUserId || '').trim();
+  if (!raw) return null;
+  try {
+    const r = await query(
+      `select user_id
+         from user_subscriptions
+        where metadata->>'revenuecat_app_user_id' = $1
+        order by updated_at desc
+        limit 1`,
+      [raw]
+    );
+    return r.rows?.[0]?.user_id ? String(r.rows[0].user_id) : null;
+  } catch (e) {
+    logger.warn('[RevenueCat] Failed to resolve profileId from user_subscriptions.metadata', { error: e?.message || String(e) });
+    return null;
+  }
+}
+
+export async function applyRevenueCatEntitlement(userId, entitlements, { revenuecatAppUserId, deviceId } = {}) {
+  const metadata = buildSubscriptionMetadata({ revenuecatAppUserId, deviceId });
+  const metadataJson = JSON.stringify(metadata || {});
   // 設定されたEntitlement IDを確実に指定 (entlb820c43ab7)
   const targetId = BILLING_CONFIG.REVENUECAT_ENTITLEMENT_ID;
   const entitlement = entitlements[targetId];
@@ -34,13 +62,14 @@ export async function applyRevenueCatEntitlement(userId, entitlements) {
       revenuecat_entitlement_id: targetId,
       revenuecat_original_transaction_id: null, // V2 APIでは取得不可
       entitlement_payload: entitlement ? JSON.stringify(entitlement) : null,
+      metadata: metadataJson,
       updated_at: new Date().toISOString()
     };
     
     await query(
       `insert into user_subscriptions
-       (user_id, plan, status, current_period_end, entitlement_source, revenuecat_entitlement_id, revenuecat_original_transaction_id, entitlement_payload, updated_at)
-       values ($1,$2,$3,$4,$5,$6,$7,$8, timezone('utc', now()))
+       (user_id, plan, status, current_period_end, entitlement_source, revenuecat_entitlement_id, revenuecat_original_transaction_id, entitlement_payload, metadata, updated_at)
+       values ($1,$2,$3,$4,$5,$6,$7,$8,$9::jsonb, timezone('utc', now()))
        on conflict (user_id)
        do update set
          plan=excluded.plan,
@@ -50,10 +79,12 @@ export async function applyRevenueCatEntitlement(userId, entitlements) {
          revenuecat_entitlement_id=excluded.revenuecat_entitlement_id,
          revenuecat_original_transaction_id=excluded.revenuecat_original_transaction_id,
          entitlement_payload=excluded.entitlement_payload,
+         metadata = coalesce(user_subscriptions.metadata, '{}'::jsonb) || excluded.metadata,
          updated_at=excluded.updated_at`,
       [
         payload.user_id, payload.plan, payload.status, payload.current_period_end,
-        payload.entitlement_source, payload.revenuecat_entitlement_id, payload.revenuecat_original_transaction_id, payload.entitlement_payload
+        payload.entitlement_source, payload.revenuecat_entitlement_id, payload.revenuecat_original_transaction_id, payload.entitlement_payload,
+        payload.metadata
       ]
     );
     
@@ -83,6 +114,7 @@ export async function applyRevenueCatEntitlement(userId, entitlements) {
     revenuecat_entitlement_id: targetId,
     revenuecat_original_transaction_id: null, // V2 APIでは取得不可（別エンドポイント必要）
     entitlement_payload: JSON.stringify(entitlement),
+    metadata: metadataJson,
     updated_at: new Date().toISOString()
   };
   
@@ -98,8 +130,8 @@ export async function applyRevenueCatEntitlement(userId, entitlements) {
   
   await query(
     `insert into user_subscriptions
-     (user_id, plan, status, current_period_end, entitlement_source, revenuecat_entitlement_id, revenuecat_original_transaction_id, entitlement_payload, updated_at)
-     values ($1,$2,$3,$4,$5,$6,$7,$8, timezone('utc', now()))
+     (user_id, plan, status, current_period_end, entitlement_source, revenuecat_entitlement_id, revenuecat_original_transaction_id, entitlement_payload, metadata, updated_at)
+     values ($1,$2,$3,$4,$5,$6,$7,$8,$9::jsonb, timezone('utc', now()))
      on conflict (user_id)
      do update set
        plan=excluded.plan,
@@ -109,10 +141,12 @@ export async function applyRevenueCatEntitlement(userId, entitlements) {
        revenuecat_entitlement_id=excluded.revenuecat_entitlement_id,
        revenuecat_original_transaction_id=excluded.revenuecat_original_transaction_id,
        entitlement_payload=excluded.entitlement_payload,
+       metadata = coalesce(user_subscriptions.metadata, '{}'::jsonb) || excluded.metadata,
        updated_at=excluded.updated_at`,
     [
       payload.user_id, payload.plan, payload.status, payload.current_period_end,
-      payload.entitlement_source, payload.revenuecat_entitlement_id, payload.revenuecat_original_transaction_id, payload.entitlement_payload
+      payload.entitlement_source, payload.revenuecat_entitlement_id, payload.revenuecat_original_transaction_id, payload.entitlement_payload,
+      payload.metadata
     ]
   );
   
@@ -124,11 +158,14 @@ export async function processRevenueCatEvent(event) {
   if (!RC_EVENTS.has(type)) return;
   const appUserId = event?.app_user_id;
   if (!appUserId) return;
+  // Webhook payload only has RevenueCat app_user_id; map it to Anicca profileId(UUID) via user_subscriptions.metadata.
+  // If mapping not found yet, fall back to appUserId (will not affect APNs sender until mapping exists).
+  const mappedProfileId = await findProfileIdByRevenueCatAppUserId(appUserId);
+  const userIdForStore = mappedProfileId || appUserId;
   const entitlements = await fetchCustomerEntitlements(appUserId);
-  await applyRevenueCatEntitlement(appUserId, entitlements);
-  logger.info('RevenueCat entitlement updated', { appUserId, type });
+  await applyRevenueCatEntitlement(userIdForStore, entitlements, { revenuecatAppUserId: appUserId });
+  logger.info('RevenueCat entitlement updated', { appUserId, mappedProfileId, type });
 }
 
 export { normalizePlanForResponse, getEntitlementState };
-
 
