@@ -36,7 +36,7 @@ async function initializeServer() {
   if (process.env.PROBLEM_NUDGE_APNS_SENDER_ENABLED === 'true') {
     const { runProblemNudgeApnsSender } = await import('./jobs/problemNudgeApnsSenderJob.js');
     let running = false;
-    setInterval(async () => {
+    const tick = async () => {
       if (running) return;
       running = true;
       try {
@@ -46,7 +46,19 @@ async function initializeServer() {
       } finally {
         running = false;
       }
-    }, 60_000);
+    };
+
+    // Align to wall-clock minute boundaries to reduce drift.
+    const scheduleNext = () => {
+      const now = Date.now();
+      const msIntoMinute = now % 60_000;
+      const delay = Math.max(0, 60_000 - msIntoMinute);
+      setTimeout(async () => {
+        await tick();
+        scheduleNext();
+      }, delay);
+    };
+    scheduleNext();
   }
 }
 

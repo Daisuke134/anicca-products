@@ -89,14 +89,20 @@ export function selectFreeDailySlots(problemTypes, scheduleMap = SCHEDULE_MAP) {
   return picked.slice(0, 3).map(({ _minute, ...rest }) => rest);
 }
 
-export function isSlotDue({ nowUtc, timezone, scheduledTime, windowMinutes = 30 }) {
+/**
+ * Slot is "due" ONLY at the scheduled minute (HH:MM).
+ *
+ * Rationale (product requirement):
+ * - Never backfill past slots (no "18:30 slot sent at 18:55" behavior).
+ * - Avoid burst delivery when a token is registered late in the day.
+ *
+ * Note: The server loop is aligned to wall-clock minute boundaries in server.js.
+ */
+export function isSlotDue({ nowUtc, timezone, scheduledTime }) {
   const nowHm = toLocalTimeHHMM(nowUtc, timezone); // HH:MM
   const nowMin = minutesOfDay(nowHm);
   const slotMin = minutesOfDay(scheduledTime);
-  // Day-wrapping "minutes since slot" (0..1439). This handles job delays that cross midnight.
-  // Example: now=00:05, slot=23:45 => diff=20 (due).
-  const diff = (nowMin - slotMin + 1440) % 1440;
-  return diff <= windowMinutes;
+  return nowMin === slotMin;
 }
 
 export function effectiveDeliveryDayLocal({ nowUtc, timezone, problemType, scheduledTime }) {
@@ -109,25 +115,12 @@ export function effectiveDeliveryDayLocal({ nowUtc, timezone, problemType, sched
 // not simply "now's local date". If the job runs shortly after midnight, a late-night slot
 // (e.g. 23:45) may still be due for the previous day. In that case we must attribute it to
 // the previous local day to avoid blocking the actual slot later that same day.
-export function computeDeliveryDayLocal({ nowUtc, timezone, problemType, scheduledTime, windowMinutes = 30 }) {
+export function computeDeliveryDayLocal({ nowUtc, timezone, problemType, scheduledTime }) {
   // Keep the explicit deep-night rule (staying_up_late 00:00/01:00 => previous day) as-is.
   const isDeepNight = problemType === 'staying_up_late' && (scheduledTime === '00:00' || scheduledTime === '01:00');
   if (isDeepNight) return effectiveDeliveryDayLocal({ nowUtc, timezone, problemType, scheduledTime });
 
-  const nowHm = toLocalTimeHHMM(nowUtc, timezone); // HH:MM
-  const nowMin = minutesOfDay(nowHm);
-  const slotMin = minutesOfDay(scheduledTime);
-  const diff = (nowMin - slotMin + 1440) % 1440;
-
-  // If we're after midnight (nowMin < slotMin) and still within the due window,
-  // we're delivering a previous-day slot.
-  if (nowMin < slotMin && diff <= windowMinutes) {
-    const localYmd = toLocalDateString(nowUtc, timezone);
-    const d = new Date(`${localYmd}T00:00:00.000Z`);
-    d.setUTCDate(d.getUTCDate() - 1);
-    return d.toISOString().slice(0, 10);
-  }
-
+  // With strict "exact-minute" delivery, deliveryDayLocal is simply the effective local day.
   return effectiveDeliveryDayLocal({ nowUtc, timezone, problemType, scheduledTime });
 }
 
@@ -216,14 +209,27 @@ export async function runProblemNudgeApnsSender(nowUtc = new Date(), { apnsClien
     return { ok: false, env, queued: 0, sent: 0, failed: 0 };
   }
 
-  const tokens = await prisma.pushToken.findMany({
-    where: { env, disabledAt: null },
-    select: { id: true, profileId: true, deviceId: true, token: true },
-  });
+  // Distributed lock to prevent double-send across multiple replicas.
+  // NOTE: server.js already prevents overlap within a single process; this covers multi-instance.
+  const lockKey = `problem_nudge_apns_sender:${env}`;
+  let lockAcquired = false;
+  try {
+    const lockRow = await prisma.$queryRaw`SELECT pg_try_advisory_lock(hashtext(${lockKey})::bigint) AS ok`;
+    const ok = Array.isArray(lockRow) ? lockRow?.[0]?.ok : lockRow?.ok;
+    if (!ok) {
+      logger.info(`Another worker holds advisory lock; skipping this tick. key=${lockKey}`);
+      return { ok: true, env, queued: 0, sent: 0, failed: 0 };
+    }
+    lockAcquired = true;
 
-  let sent = 0;
-  let queued = 0;
-  let failed = 0;
+    const tokens = await prisma.pushToken.findMany({
+      where: { env, disabledAt: null },
+      select: { id: true, profileId: true, deviceId: true, token: true },
+    });
+
+    let sent = 0;
+    let queued = 0;
+    let failed = 0;
 
   // Group by profileId so that free cap selection is enforced per-profile (not per-device).
   const tokensByProfileId = new Map();
@@ -367,6 +373,11 @@ export async function runProblemNudgeApnsSender(nowUtc = new Date(), { apnsClien
           await prisma.nudgeDeliverySend.update({
             where: { id: r.id },
             data: { status: 'sent', apnsId: out.apnsId || null, sentAt: new Date() },
+          });
+          // Update parent delivery for operator visibility (sends table remains the SSOT).
+          await prisma.nudgeDelivery.update({
+            where: { id: d.id },
+            data: { status: 'sent', sentAt: new Date(), apnsId: out.apnsId || null, error: null },
           });
         } catch (e) {
           failed += 1;
@@ -610,6 +621,11 @@ export async function runProblemNudgeApnsSender(nowUtc = new Date(), { apnsClien
             where: { id: sendRow.id },
             data: { status: 'sent', apnsId: out.apnsId || null, sentAt: new Date() },
           });
+          // Update parent delivery for operator visibility (sends table remains the SSOT).
+          await prisma.nudgeDelivery.update({
+            where: { id: deliveryId },
+            data: { status: 'sent', sentAt: new Date(), apnsId: out.apnsId || null, error: null },
+          });
         } catch (e) {
           failed += 1;
           let reason = null;
@@ -693,5 +709,14 @@ export async function runProblemNudgeApnsSender(nowUtc = new Date(), { apnsClien
     }
   }
 
-  return { ok: true, env, queued, sent, failed };
+    return { ok: true, env, queued, sent, failed };
+  } finally {
+    if (lockAcquired) {
+      try {
+        await prisma.$queryRaw`SELECT pg_advisory_unlock(hashtext(${lockKey})::bigint)`;
+      } catch (e) {
+        logger.warn(`advisory unlock failed: ${String(e?.message || e)}`);
+      }
+    }
+  }
 }
