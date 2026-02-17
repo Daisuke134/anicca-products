@@ -32,13 +32,12 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         }
 
         Task {
-            if AppState.shared.isOnboardingComplete {
-                let granted = await NotificationScheduler.shared.requestAuthorizationIfNeeded()
-                if granted {
-                    await MainActor.run {
-                        UIApplication.shared.registerForRemoteNotifications()
-                    }
-                }
+            // APNs token registration is idempotent and may be delayed by iOS.
+            // Best-effort: if the user has already granted notification authorization, always (re)register
+            // on launch so token registration can recover without extra user actions.
+            let authorized = await NotificationScheduler.shared.isAuthorizedForAlerts()
+            if authorized {
+                await MainActor.run { UIApplication.shared.registerForRemoteNotifications() }
             }
             await SubscriptionManager.shared.refreshOfferings()
             await AuthHealthCheck.shared.warmBackend()
@@ -49,6 +48,13 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     func applicationDidBecomeActive(_ application: UIApplication) {
         // v1.6.2: poll worker-sent nudges and schedule them locally (best-effort).
         Task { await ServerNudgeInboxService.shared.pullAndScheduleIfAuthorized() }
+        // Best-effort: recover APNs token registration if it was delayed on first run.
+        Task {
+            let authorized = await NotificationScheduler.shared.isAuthorizedForAlerts()
+            if authorized {
+                await MainActor.run { UIApplication.shared.registerForRemoteNotifications() }
+            }
+        }
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
