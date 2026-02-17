@@ -117,6 +117,8 @@
 
 **ディレクトリ:** `aniccaios/` iOS | `apps/api/` API | `apps/landing/` LP | `.cursor/plans/` 仕様書 | `.serena/memories/` メモリ
 
+**Hook Card / 通知ペア（SSOT）:** `.cursor/plans/ios/1.6.3/ios-hook-card.md` にカード文言・バリアント・全通知→カードペア一覧がある。常時更新すること。
+
 **ペルソナ:** 6-7年間習慣化に失敗し続けている25-35歳。詳細: `.claude/rules/persona.md`
 
 ### iOS実装状況（2026年2月9日時点）
