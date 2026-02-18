@@ -209,27 +209,19 @@ export async function runProblemNudgeApnsSender(nowUtc = new Date(), { apnsClien
     return { ok: false, env, queued: 0, sent: 0, failed: 0 };
   }
 
-  // Distributed lock to prevent double-send across multiple replicas.
-  // NOTE: server.js already prevents overlap within a single process; this covers multi-instance.
-  const lockKey = `problem_nudge_apns_sender:${env}`;
-  let lockAcquired = false;
-  try {
-    const lockRow = await prisma.$queryRaw`SELECT pg_try_advisory_lock(hashtext(${lockKey})::bigint) AS ok`;
-    const ok = Array.isArray(lockRow) ? lockRow?.[0]?.ok : lockRow?.ok;
-    if (!ok) {
-      logger.info(`Another worker holds advisory lock; skipping this tick. key=${lockKey}`);
-      return { ok: true, env, queued: 0, sent: 0, failed: 0 };
-    }
-    lockAcquired = true;
+  // IMPORTANT: Do not use session-level advisory locks here.
+  // In a pooled-connection environment, lock/unlock can occur on different sessions,
+  // causing a stuck lock and a complete delivery outage.
+  // Idempotency is guaranteed by DB uniqueness + per-send atomic claiming.
 
-    const tokens = await prisma.pushToken.findMany({
-      where: { env, disabledAt: null },
-      select: { id: true, profileId: true, deviceId: true, token: true },
-    });
+  const tokens = await prisma.pushToken.findMany({
+    where: { env, disabledAt: null },
+    select: { id: true, profileId: true, deviceId: true, token: true },
+  });
 
-    let sent = 0;
-    let queued = 0;
-    let failed = 0;
+  let sent = 0;
+  let queued = 0;
+  let failed = 0;
 
   // Group by profileId so that free cap selection is enforced per-profile (not per-device).
   const tokensByProfileId = new Map();
@@ -709,14 +701,5 @@ export async function runProblemNudgeApnsSender(nowUtc = new Date(), { apnsClien
     }
   }
 
-    return { ok: true, env, queued, sent, failed };
-  } finally {
-    if (lockAcquired) {
-      try {
-        await prisma.$queryRaw`SELECT pg_advisory_unlock(hashtext(${lockKey})::bigint)`;
-      } catch (e) {
-        logger.warn(`advisory unlock failed: ${String(e?.message || e)}`);
-      }
-    }
-  }
+  return { ok: true, env, queued, sent, failed };
 }
