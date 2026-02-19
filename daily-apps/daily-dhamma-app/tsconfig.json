@@ -14,5 +14,9 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
+  ],
+  "exclude": [
+    "__tests__",
+    "node_modules"
   ]
 }

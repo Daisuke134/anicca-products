@@ -67,7 +67,7 @@ export async function scheduleMorningVerseNotification(time: string, isPremium: 
         data: { verseId: verse.id },
       },
       trigger: {
-        type: 'date',
+        type: Notifications.SchedulableTriggerInputTypes.DATE,
         date: triggerDate,
       },
     });
@@ -133,7 +133,7 @@ export async function scheduleStayPresentNotifications(frequency: number, isPrem
           body: message,
         },
         trigger: {
-          type: 'date',
+          type: Notifications.SchedulableTriggerInputTypes.DATE,
           date: triggerDate,
         },
       });
