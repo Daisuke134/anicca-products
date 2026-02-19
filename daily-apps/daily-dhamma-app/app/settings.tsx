@@ -7,7 +7,7 @@ import * as Notifications from 'expo-notifications';
 import * as Localization from 'expo-localization';
 import Colors from '@/constants/colors';
 import { useApp } from '@/providers/AppProvider';
-import { getDailyVerse, getLocalizedVerse, getRandomStayPresentMessage } from '@/data/verses';
+import { getDailyVerse, getLocalizedVerse, stayPresentMessages, stayPresentMessagesJa } from '@/data/verses';
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -275,7 +275,10 @@ export default function SettingsScreen() {
               style={[styles.settingRow, { backgroundColor: colors.card, borderColor: colors.border, marginBottom: 8 }]}
               onPress={async () => {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-                const message = getRandomStayPresentMessage();
+                const stayLocale = Localization.getLocales()[0]?.languageTag ?? 'en';
+                const stayLang = stayLocale.toLowerCase().split('-')[0];
+                const msgs = stayLang === 'ja' ? stayPresentMessagesJa : stayPresentMessages;
+                const message = msgs[Math.floor(Math.random() * msgs.length)];
 
                 await Notifications.scheduleNotificationAsync({
                   content: {
