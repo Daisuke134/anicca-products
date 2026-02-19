@@ -491,7 +491,8 @@ export const getFreeVerses = (): Verse[] => verses.filter(v => !v.isPremium);
 export const getAllVerses = (): Verse[] => verses;
 
 export const getLocalizedVerse = (verse: Verse, locale: string): string => {
-  if (locale === 'ja') return verse.textJa;
+  const lang = locale.toLowerCase().replace('_', '-').split('-')[0];
+  if (lang === 'ja') return verse.textJa;
   return verse.text;
 };
 

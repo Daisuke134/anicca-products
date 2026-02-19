@@ -65,6 +65,21 @@ describe('getLocalizedVerse', () => {
     expect(verse).toBe(getAllVerses()[0].textJa);
   });
 
+  it('should return Japanese text when locale is ja-JP', () => {
+    const verse = getLocalizedVerse(getAllVerses()[0], 'ja-JP');
+    expect(verse).toBe(getAllVerses()[0].textJa);
+  });
+
+  it('should return Japanese text when locale is ja_JP', () => {
+    const verse = getLocalizedVerse(getAllVerses()[0], 'ja_JP');
+    expect(verse).toBe(getAllVerses()[0].textJa);
+  });
+
+  it('should return Japanese text when locale is JA (uppercase)', () => {
+    const verse = getLocalizedVerse(getAllVerses()[0], 'JA');
+    expect(verse).toBe(getAllVerses()[0].textJa);
+  });
+
   it('should fall back to English when locale is unknown', () => {
     const verse = getLocalizedVerse(getAllVerses()[0], 'de');
     expect(verse).toBe(getAllVerses()[0].text);
