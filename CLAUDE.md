@@ -94,6 +94,8 @@
 
 **Fastlane（絶対）:** xcodebuild 直接実行禁止。`cd aniccaios && fastlane <lane>`。詳細: `.claude/rules/tool-usage.md`。**Ruby/Bundler・wait_for_processing・審査提出でハマった知見:** `.serena/memories/fastlane_app_store_submission_learnings_2026_02_14.md`
 
+**Greenlight（App Store提出前に必須）:** `greenlight preflight <app_dir>` でCRITICAL=0を確認してから提出。PrivacyInfo.xcprivacy未申告でITMS-91061リジェクト2回の経験あり。詳細: `.claude/rules/deployment.md` §4
+
 **Maestro E2E（絶対）:** テスト前に `.claude/skills/maestro-ui-testing/SKILL.md` を読む。
 
 **自律開発モード:** 「終わるまでやれ」→ `.claude/skills/ralph-autonomous-dev/SKILL.md`

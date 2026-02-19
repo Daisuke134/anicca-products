@@ -140,7 +140,41 @@ dev にマージ
 
 ---
 
-## 4. リリース手順（完全自動化）
+## 4. App Store提出前の必須ゲート（絶対ルール）
+
+**以下を順番に通過しなければ App Store に提出しない。1つでもスキップしたらリジェクトされる。**
+
+| # | ゲート | コマンド | 合格基準 |
+|---|--------|---------|---------|
+| 1 | **Greenlight scan** | `cd <app_dir> && /tmp/greenlight/build/greenlight preflight .` | CRITICAL = 0 件 |
+| 2 | **PrivacyInfo確認** | app.json の `ios.privacyManifests` を目視 | NSPrivacyAccessedAPICategoryUserDefaults 申告あり |
+| 3 | **ローカライズ確認** | jest でi18nテスト GREEN | T-L1〜T-L7 全件PASS |
+| 4 | **日本語メタデータ** | ASC MCP or asc CLI | ja-JP の description/keywords/subtitle 設定済み |
+
+**Greenlight インストール（未インストール時）:**
+```bash
+cd /tmp && git clone https://github.com/RevylAI/greenlight.git && cd greenlight && make build
+# binary: /tmp/greenlight/build/greenlight
+```
+
+**PrivacyInfo.xcprivacy（Expo managed workflow）:**
+```json
+// app.json の "ios" セクションに追加
+"privacyManifests": {
+  "NSPrivacyAccessedAPITypes": [
+    {
+      "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
+      "NSPrivacyAccessedAPITypeReasons": ["CA92.1"]
+    }
+  ]
+}
+```
+
+**なぜ必須か:** 2024年5月以降 PrivacyInfo.xcprivacy がないと ITMS-91061 で自動リジェクト。このプロジェクトは2回これで落とされた。
+
+---
+
+## 5. リリース手順（完全自動化）
 
 ユーザーが「X.Y.Z をリリースして」と言ったら、エージェントが以下を実行:
 
