@@ -496,6 +496,17 @@ export const getLocalizedVerse = (verse: Verse, locale: string): string => {
   return verse.text;
 };
 
+export const getLocalizedChapter = (chapter: string, verseNumber: string, locale: string): string => {
+  const lang = locale.toLowerCase().replace('_', '-').split('-')[0];
+  if (lang !== 'ja') return verseNumber ? `${chapter}, ${verseNumber}` : chapter;
+  // "Chapter 3 (Citta Vagga)" → "第3章（チッタ品）" style: keep chapter number, translate label
+  const chapterMatch = chapter.match(/Chapter (\d+) \((.+)\)/);
+  const verseMatch = verseNumber.match(/Verse (.+)/);
+  const chapterNum = chapterMatch ? `第${chapterMatch[1]}章` : chapter;
+  const versePart = verseMatch ? `第${verseMatch[1]}偈` : verseNumber;
+  return versePart ? `${chapterNum}、${versePart}` : chapterNum;
+};
+
 export const getDailyVerse = (isPremium: boolean = false, date: Date = new Date()): Verse => {
   const availableVerses = isPremium ? verses : getFreeVerses();
   const dayOfYear = Math.floor(

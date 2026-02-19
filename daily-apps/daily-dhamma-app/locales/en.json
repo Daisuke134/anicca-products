@@ -74,6 +74,9 @@
     "title": "Daily Dhamma",
     "swipeHint": "Swipe up for next verse"
   },
+  "verse": {
+    "source": "Dhammapada"
+  },
   "settings": {
     "title": "Settings",
     "section": {

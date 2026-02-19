@@ -71,8 +71,11 @@
     }
   },
   "index": {
-    "title": "Daily Dhamma",
+    "title": "デイリーダンマ",
     "swipeHint": "スワイプで次の法句経へ"
+  },
+  "verse": {
+    "source": "法句経"
   },
   "settings": {
     "title": "設定",

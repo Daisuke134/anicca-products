@@ -104,10 +104,10 @@ describe('i18n', () => {
     expect(result).not.toMatch(/^\[missing/);
   });
 
-  // T-L7: en.json のキー数が仕様一覧（66件）と一致
-  test('T-L7: en.json key count matches spec inventory (66)', () => {
+  // T-L7: en.json のキー数が仕様一覧（67件）と一致
+  test('T-L7: en.json key count matches spec inventory (67)', () => {
     const enKeys = flattenKeys(en);
-    expect(enKeys.length).toBe(66);
+    expect(enKeys.length).toBe(67);
   });
 
   // T-L8: 画面ファイルに本番ユーザー向けの hardcoded 英語文字列がない

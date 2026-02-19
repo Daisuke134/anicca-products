@@ -16,7 +16,7 @@ import { Settings, Bookmark, BookmarkCheck } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import * as Localization from 'expo-localization';
 import Colors from '@/constants/colors';
-import { Verse, getFreeVerses, getAllVerses, getLocalizedVerse } from '@/data/verses';
+import { Verse, getFreeVerses, getAllVerses, getLocalizedVerse, getLocalizedChapter } from '@/data/verses';
 import { useApp } from '@/providers/AppProvider';
 import { t } from '@/utils/i18n';
 
@@ -91,10 +91,10 @@ export default function MainScreen() {
           <View style={styles.sourceContainer}>
             <View style={[styles.sourceDivider, { backgroundColor: colors.gold }]} />
             <Text style={[styles.sourceText, { color: colors.textSecondary }]}>
-              {item.source}
+              {t('verse.source')}
             </Text>
             <Text style={[styles.chapterText, { color: colors.textMuted }]}>
-              {item.chapter}{item.verseNumber ? `, ${item.verseNumber}` : ''}
+              {getLocalizedChapter(item.chapter, item.verseNumber, locale)}
             </Text>
           </View>
 

@@ -325,6 +325,8 @@ eas build --platform ios --profile production --non-interactive
 
 ### タスク 8: App Store 審査提出
 
+**絶対ルール: タスク 7（ダイスが TestFlight で「OK」）が完了するまで審査提出しない。**
+
 ```bash
 eas submit --platform ios
 ```
@@ -608,4 +610,4 @@ const daysToSchedule = Math.floor(60 / (frequency + 1));
 
 ---
 
-最終更新: 2026-02-20（タスク9 完全ローカライゼーション追記）
+最終更新: 2026-02-20（タスク9 完全ローカライゼーション追記・TestFlight確認ルール追記）
