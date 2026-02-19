@@ -73,7 +73,8 @@ export default function OnboardingScreen() {
     }
   };
 
-  const handleSkip = () => {
+  const handleSkip = async () => {
+    await requestNotificationPermission();
     completeOnboarding();
     router.replace('/');
   };
