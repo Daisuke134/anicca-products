@@ -4,9 +4,10 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ChevronLeft, Bell, Sun, Moon, Clock, ExternalLink, Crown, Info, Shield, FileText, FlaskConical, Sunrise, RotateCcw } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import * as Notifications from 'expo-notifications';
+import * as Localization from 'expo-localization';
 import Colors from '@/constants/colors';
 import { useApp } from '@/providers/AppProvider';
-import { getDailyVerse, getRandomStayPresentMessage } from '@/data/verses';
+import { getDailyVerse, getLocalizedVerse, getRandomStayPresentMessage } from '@/data/verses';
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -244,9 +245,11 @@ export default function SettingsScreen() {
               onPress={async () => {
                 Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
                 const verse = getDailyVerse(isPremium);
-                const body = verse.text.length > 100
-                  ? verse.text.substring(0, 100) + '...'
-                  : verse.text;
+                const locale = Localization.getLocales()[0]?.languageTag ?? 'en';
+                const localizedText = getLocalizedVerse(verse, locale);
+                const body = localizedText.length > 100
+                  ? localizedText.substring(0, 100) + '...'
+                  : localizedText;
 
                 await Notifications.scheduleNotificationAsync({
                   content: {

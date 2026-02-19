@@ -14,8 +14,9 @@ import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Settings, Bookmark, BookmarkCheck } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
+import * as Localization from 'expo-localization';
 import Colors from '@/constants/colors';
-import { Verse, getFreeVerses, getAllVerses } from '@/data/verses';
+import { Verse, getFreeVerses, getAllVerses, getLocalizedVerse } from '@/data/verses';
 import { useApp } from '@/providers/AppProvider';
 
 const { width, height } = Dimensions.get('window');
@@ -33,6 +34,7 @@ export default function MainScreen() {
   const scrollY = useRef(new Animated.Value(0)).current;
 
   const availableVerses = isPremium ? getAllVerses() : getFreeVerses();
+  const locale = Localization.getLocales()[0]?.languageTag ?? 'en';
 
   useEffect(() => {
     if (!isLoading && !settings.hasCompletedOnboarding) {
@@ -82,7 +84,7 @@ export default function MainScreen() {
           <View style={styles.decorLine} />
           
           <Text style={[styles.verseText, { color: colors.text }]}>
-            &ldquo;{item.text}&rdquo;
+            &ldquo;{getLocalizedVerse(item, locale)}&rdquo;
           </Text>
 
           <View style={styles.sourceContainer}>

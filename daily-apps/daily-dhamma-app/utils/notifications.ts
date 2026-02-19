@@ -1,10 +1,17 @@
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
-import { getDailyVerse, stayPresentMessages } from '@/data/verses';
+import * as Localization from 'expo-localization';
+import { getDailyVerse, stayPresentMessages, stayPresentMessagesJa, getLocalizedVerse } from '@/data/verses';
+
+function getDeviceLocale(): string {
+  return Localization.getLocales()[0]?.languageTag ?? 'en';
+}
 
 // 日付とインデックスに基づいてメッセージを選択（毎日変わる）
-function getStayPresentMessage(dayOffset: number, index: number): string {
-  return stayPresentMessages[(dayOffset + index) % stayPresentMessages.length];
+function getStayPresentMessage(dayOffset: number, index: number, locale: string): string {
+  const lang = locale.toLowerCase().split('-')[0];
+  const messages = lang === 'ja' ? stayPresentMessagesJa : stayPresentMessages;
+  return messages[(dayOffset + index) % messages.length];
 }
 
 Notifications.setNotificationHandler({
@@ -34,8 +41,9 @@ export async function scheduleMorningVerseNotification(time: string, isPremium: 
     await Notifications.cancelScheduledNotificationAsync(id);
   }
 
+  const locale = getDeviceLocale();
   const [hours, minutes] = time.split(':').map(Number);
-  const daysToSchedule = 7; // 7日分をスケジュール
+  const daysToSchedule = 7; // 7日分をスケジュール（morning notificationsは合計数が少ないため固定7日）
 
   for (let day = 0; day < daysToSchedule; day++) {
     // 通知日時を計算
@@ -55,7 +63,7 @@ export async function scheduleMorningVerseNotification(time: string, isPremium: 
       identifier: `morning-verse-${day}`,
       content: {
         title: 'Daily Dhamma',
-        body: verse.text,
+        body: getLocalizedVerse(verse, locale),
         data: { verseId: verse.id },
       },
       trigger: {
@@ -74,8 +82,12 @@ export async function scheduleStayPresentNotifications(frequency: number, isPrem
     return;
   }
 
+  const locale = getDeviceLocale();
   const actualFrequency = isPremium ? frequency : Math.min(frequency, 3);
-  const daysToSchedule = 7; // 7日分をスケジュール
+  // iOS上限64通知を超えないよう daysToSchedule を動的計算
+  // 合計 = morning(daysToSchedule) + stayPresent(frequency × daysToSchedule) ≤ 60
+  // → daysToSchedule ≤ 60 / (frequency + 1)
+  const daysToSchedule = Math.min(7, Math.floor(60 / (actualFrequency + 1)));
 
   console.log('[Notifications] Scheduling', actualFrequency, 'stay present notifications for', daysToSchedule, 'days');
 
@@ -102,7 +114,7 @@ export async function scheduleStayPresentNotifications(frequency: number, isPrem
       const minute = Math.floor((baseHour - hour) * 60) + Math.floor(Math.random() * 30);
 
       // 日付とインデックスに基づいてメッセージを選択（毎日変わる）
-      const message = getStayPresentMessage(day, i);
+      const message = getStayPresentMessage(day, i, locale);
 
       // 通知日時を計算
       const triggerDate = new Date();
