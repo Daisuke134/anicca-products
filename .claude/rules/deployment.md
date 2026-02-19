@@ -142,13 +142,18 @@ dev にマージ
 
 ## 4. App Store提出前の必須ゲート（絶対ルール）
 
+> **対象アプリ別の PrivacyInfo 方式の違い:**
+> - **Daily Dhamma**（`daily-apps/daily-dhamma-app/`）= Expo managed workflow → `app.json` の `ios.privacyManifests` で宣言
+> - **Anicca iOS**（`aniccaios/`）= Swift/Xcode ネイティブ → `PrivacyInfo.xcprivacy` ファイルをターゲットに追加
+
 **以下を順番に通過しなければ App Store に提出しない。1つでもスキップしたらリジェクトされる。**
 
 | # | ゲート | コマンド | 合格基準 |
 |---|--------|---------|---------|
 | 1 | **Greenlight scan** | `cd <app_dir> && /tmp/greenlight/build/greenlight preflight .` | CRITICAL = 0 件 |
-| 2 | **PrivacyInfo確認** | app.json の `ios.privacyManifests` を目視 | NSPrivacyAccessedAPICategoryUserDefaults 申告あり |
-| 3 | **ローカライズ確認** | jest でi18nテスト GREEN | T-L1〜T-L7 全件PASS |
+| 2 | **PrivacyInfo確認（Daily Dhamma）** | `app.json` の `ios.privacyManifests` を目視 | NSPrivacyAccessedAPICategoryUserDefaults 申告あり |
+| 2 | **PrivacyInfo確認（Anicca iOS）** | `aniccaios/` 内の `PrivacyInfo.xcprivacy` ファイルを目視 | NSPrivacyAccessedAPICategoryUserDefaults + CA92.1 申告あり |
+| 3 | **ローカライズ確認** | jest でi18nテスト GREEN | T-L1〜T-L8 全件PASS |
 | 4 | **日本語メタデータ** | ASC MCP or asc CLI | ja-JP の description/keywords/subtitle 設定済み |
 
 **Greenlight インストール（未インストール時）:**
@@ -157,7 +162,7 @@ cd /tmp && git clone https://github.com/RevylAI/greenlight.git && cd greenlight 
 # binary: /tmp/greenlight/build/greenlight
 ```
 
-**PrivacyInfo.xcprivacy（Expo managed workflow）:**
+**PrivacyInfo.xcprivacy（Daily Dhamma: Expo managed workflow）:**
 ```json
 // app.json の "ios" セクションに追加
 "privacyManifests": {

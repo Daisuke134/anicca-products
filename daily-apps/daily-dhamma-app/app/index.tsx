@@ -18,6 +18,7 @@ import * as Localization from 'expo-localization';
 import Colors from '@/constants/colors';
 import { Verse, getFreeVerses, getAllVerses, getLocalizedVerse } from '@/data/verses';
 import { useApp } from '@/providers/AppProvider';
+import { t } from '@/utils/i18n';
 
 const { width, height } = Dimensions.get('window');
 
@@ -84,7 +85,7 @@ export default function MainScreen() {
           <View style={styles.decorLine} />
           
           <Text style={[styles.verseText, { color: colors.text }]}>
-            &ldquo;{getLocalizedVerse(item, locale)}&rdquo;
+            {getLocalizedVerse(item, locale)}
           </Text>
 
           <View style={styles.sourceContainer}>
@@ -112,7 +113,7 @@ export default function MainScreen() {
 
         <View style={styles.swipeHint}>
           <Text style={[styles.swipeHintText, { color: colors.textMuted }]}>
-            Swipe up for next verse
+            {t('index.swipeHint')}
           </Text>
         </View>
       </View>
@@ -134,7 +135,7 @@ export default function MainScreen() {
       <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
         <View style={styles.headerLeft}>
           <Text style={[styles.headerTitle, { color: colors.textMuted }]}>
-            Daily Dhamma
+            {t('index.title')}
           </Text>
         </View>
         <TouchableOpacity

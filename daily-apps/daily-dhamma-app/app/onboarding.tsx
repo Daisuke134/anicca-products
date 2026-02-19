@@ -15,33 +15,34 @@ import * as Notifications from 'expo-notifications';
 import { Flower2, Bell, Sparkles } from 'lucide-react-native';
 import Colors from '@/constants/colors';
 import { useApp } from '@/providers/AppProvider';
+import { t, TranslationKey } from '@/utils/i18n';
 
 const { width } = Dimensions.get('window');
 
 interface OnboardingPage {
   id: string;
-  title: string;
-  subtitle: string;
+  titleKey: TranslationKey;
+  subtitleKey: TranslationKey;
   icon: React.ReactNode;
 }
 
 const pages: OnboardingPage[] = [
   {
     id: '1',
-    title: 'Ancient wisdom for\nmodern minds',
-    subtitle: 'Find peace in the timeless teachings\nof the Dhammapada',
+    titleKey: 'onboarding.slide1.title',
+    subtitleKey: 'onboarding.slide1.subtitle',
     icon: <Flower2 size={80} color={Colors.light.gold} strokeWidth={1.2} />,
   },
   {
     id: '2',
-    title: 'Daily verses on\nyour lock screen',
-    subtitle: 'Start each day with wisdom\nthat transforms your perspective',
+    titleKey: 'onboarding.slide2.title',
+    subtitleKey: 'onboarding.slide2.subtitle',
     icon: <Sparkles size={80} color={Colors.light.gold} strokeWidth={1.2} />,
   },
   {
     id: '3',
-    title: 'Stay mindful each day',
-    subtitle: 'By enabling notifications, you agree to receive daily morning wisdom verses and mindfulness reminders throughout the day.\n\nYou can disable these anytime in Settings.',
+    titleKey: 'onboarding.slide3.title',
+    subtitleKey: 'onboarding.slide3.subtitle',
     icon: <Bell size={80} color={Colors.light.gold} strokeWidth={1.2} />,
   },
 ];
@@ -55,10 +56,8 @@ export default function OnboardingScreen() {
   const scrollX = useRef(new Animated.Value(0)).current;
 
   const requestNotificationPermission = async () => {
-    console.log('[Onboarding] Requesting notification permission');
     if (Platform.OS !== 'web') {
-      const { status } = await Notifications.requestPermissionsAsync();
-      console.log('[Onboarding] Notification permission status:', status);
+      await Notifications.requestPermissionsAsync();
     }
   };
 
@@ -102,8 +101,8 @@ export default function OnboardingScreen() {
           </View>
         </Animated.View>
         <Animated.View style={{ opacity }}>
-          <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.subtitle}>{item.subtitle}</Text>
+          <Text style={styles.title}>{t(item.titleKey)}</Text>
+          <Text style={styles.subtitle}>{t(item.subtitleKey)}</Text>
         </Animated.View>
       </View>
     );
@@ -143,7 +142,7 @@ export default function OnboardingScreen() {
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.header}>
         <TouchableOpacity onPress={handleSkip} style={styles.skipButton}>
-          <Text style={styles.skipText}>Skip</Text>
+          <Text style={styles.skipText}>{t('onboarding.skip')}</Text>
         </TouchableOpacity>
       </View>
 
@@ -175,7 +174,7 @@ export default function OnboardingScreen() {
           activeOpacity={0.8}
         >
           <Text style={styles.nextButtonText}>
-            {currentIndex === pages.length - 1 ? 'Enable Notifications' : 'Continue'}
+            {currentIndex === pages.length - 1 ? t('onboarding.enableNotifications') : t('onboarding.continue')}
           </Text>
         </TouchableOpacity>
       </View>

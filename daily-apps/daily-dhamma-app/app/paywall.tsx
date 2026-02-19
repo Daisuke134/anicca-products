@@ -7,26 +7,15 @@ import * as Haptics from 'expo-haptics';
 import Colors from '@/constants/colors';
 import { useRevenueCat } from '@/providers/RevenueCatProvider';
 import { PurchasesPackage } from 'react-native-purchases';
+import { t, TranslationKey } from '@/utils/i18n';
 
 const PRIVACY_POLICY_URL = 'https://aniccaai.com/dailydharma/privacy';
 const TERMS_URL = 'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/';
 
-const features = [
-  {
-    icon: Sparkles,
-    title: 'Premium Verses',
-    description: 'Unlock many more Dhammapada teachings',
-  },
-  {
-    icon: Bell,
-    title: 'More Reminders',
-    description: 'Up to 10 mindfulness moments per day',
-  },
-  {
-    icon: Flower2,
-    title: 'Bookmarking',
-    description: 'Save your favorite verses',
-  },
+const featureKeys: Array<{ icon: React.ComponentType<{ size: number; color: string }>; titleKey: TranslationKey; descKey: TranslationKey }> = [
+  { icon: Sparkles, titleKey: 'paywall.feature.verses.title', descKey: 'paywall.feature.verses.desc' },
+  { icon: Bell,     titleKey: 'paywall.feature.reminders.title', descKey: 'paywall.feature.reminders.desc' },
+  { icon: Flower2,  titleKey: 'paywall.feature.bookmark.title', descKey: 'paywall.feature.bookmark.desc' },
 ];
 
 export default function PaywallScreen() {
@@ -54,24 +43,20 @@ export default function PaywallScreen() {
   const handlePurchase = async () => {
     const pkg = selectedPlan === 'yearly' ? yearlyPackage : monthlyPackage;
     if (!pkg) {
-      console.log('[Paywall] No package available');
-      Alert.alert('Error', 'Subscription plans are not available. Please try again later.');
+      Alert.alert(t('paywall.alert.error.title'), t('paywall.alert.error.unavailable'));
       return;
     }
 
-    console.log('[Paywall] Purchasing:', pkg.identifier);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
     try {
       await purchasePackage(pkg);
-      console.log('[Paywall] Purchase successful');
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       router.replace('/');
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : 'Purchase failed';
-      console.error('[Paywall] Purchase error:', errorMessage);
       if (!errorMessage.includes('cancelled') && !errorMessage.includes('PURCHASE_CANCELLED')) {
-        Alert.alert('Purchase Failed', 'Please try again later.');
+        Alert.alert(t('paywall.alert.purchaseFailed.title'), t('paywall.alert.purchaseFailed.msg'));
       }
     }
   };
@@ -82,28 +67,24 @@ export default function PaywallScreen() {
   };
 
   const handleRestore = async () => {
-    console.log('[Paywall] Restoring purchases');
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
 
     try {
       const customerInfo = await restorePurchases();
-      // restorePurchasesの戻り値から直接entitlementsをチェック（stale closure回避）
       const hasAccess = typeof customerInfo?.entitlements?.active['premium'] !== 'undefined';
       if (hasAccess) {
         Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-        Alert.alert('Restored', 'Your premium access has been restored.');
+        Alert.alert(t('paywall.alert.restoreSuccess.title'), t('paywall.alert.restoreSuccess.msg'));
         router.replace('/');
       } else {
-        Alert.alert('No Purchases', 'No previous purchases found.');
+        Alert.alert(t('paywall.alert.restoreNone.title'), t('paywall.alert.restoreNone.msg'));
       }
-    } catch (error: unknown) {
-      console.error('[Paywall] Restore error:', error);
-      Alert.alert('Restore Failed', 'Please try again later.');
+    } catch {
+      Alert.alert(t('paywall.alert.restoreFailed.title'), t('paywall.alert.restoreFailed.msg'));
     }
   };
 
   const handleSkip = () => {
-    console.log('[Paywall] User skipped paywall');
     router.replace('/');
   };
 
@@ -137,15 +118,15 @@ export default function PaywallScreen() {
             <Flower2 size={48} color={colors.gold} strokeWidth={1.2} />
           </View>
           <Text style={[styles.title, { color: colors.text }]}>
-            Deepen Your{'\n'}Practice
+            {t('paywall.title')}
           </Text>
           <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-            Unlock more verses and reminders
+            {t('paywall.subtitle')}
           </Text>
         </View>
 
         <View style={styles.featuresSection}>
-          {features.map((feature, index) => (
+          {featureKeys.map((feature, index) => (
             <View
               key={index}
               style={[styles.featureRow, { borderBottomColor: colors.border }]}
@@ -155,10 +136,10 @@ export default function PaywallScreen() {
               </View>
               <View style={styles.featureText}>
                 <Text style={[styles.featureTitle, { color: colors.text }]}>
-                  {feature.title}
+                  {t(feature.titleKey)}
                 </Text>
                 <Text style={[styles.featureDescription, { color: colors.textMuted }]}>
-                  {feature.description}
+                  {t(feature.descKey)}
                 </Text>
               </View>
               <Check size={18} color={colors.accent} />
@@ -170,7 +151,7 @@ export default function PaywallScreen() {
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color={colors.gold} />
             <Text style={[styles.loadingText, { color: colors.textMuted }]}>
-              Loading plans...
+              {t('paywall.loading')}
             </Text>
           </View>
         ) : (
@@ -186,7 +167,7 @@ export default function PaywallScreen() {
                 activeOpacity={0.8}
               >
                 <View style={styles.planOptionHeader}>
-                  <Text style={[styles.planOptionTitle, { color: colors.text }]}>Monthly</Text>
+                  <Text style={[styles.planOptionTitle, { color: colors.text }]}>{t('paywall.plan.monthly')}</Text>
                   <View style={[
                     styles.radioCircle,
                     { borderColor: selectedPlan === 'monthly' ? colors.gold : colors.border }
@@ -197,8 +178,8 @@ export default function PaywallScreen() {
                   </View>
                 </View>
                 <Text style={[styles.planOptionPrice, { color: colors.text }]}>
-                  {formatPrice(monthlyPackage) || '$2.99'}
-                  <Text style={[styles.planOptionPeriod, { color: colors.textMuted }]}>/month</Text>
+                  {formatPrice(monthlyPackage)}
+                  <Text style={[styles.planOptionPeriod, { color: colors.textMuted }]}>{t('paywall.plan.perMonth')}</Text>
                 </Text>
               </TouchableOpacity>
 
@@ -212,7 +193,7 @@ export default function PaywallScreen() {
                 activeOpacity={0.8}
               >
                 <View style={styles.planOptionHeader}>
-                  <Text style={[styles.planOptionTitle, { color: colors.text }]}>Yearly</Text>
+                  <Text style={[styles.planOptionTitle, { color: colors.text }]}>{t('paywall.plan.yearly')}</Text>
                   <View style={[
                     styles.radioCircle,
                     { borderColor: selectedPlan === 'yearly' ? colors.gold : colors.border }
@@ -223,8 +204,8 @@ export default function PaywallScreen() {
                   </View>
                 </View>
                 <Text style={[styles.planOptionPrice, { color: colors.text }]}>
-                  {formatPrice(yearlyPackage) || '$19.99'}
-                  <Text style={[styles.planOptionPeriod, { color: colors.textMuted }]}>/year</Text>
+                  {formatPrice(yearlyPackage)}
+                  <Text style={[styles.planOptionPeriod, { color: colors.textMuted }]}>{t('paywall.plan.perYear')}</Text>
                 </Text>
               </TouchableOpacity>
             </View>
@@ -239,7 +220,7 @@ export default function PaywallScreen() {
                 <ActivityIndicator size="small" color={Colors.light.background} />
               ) : (
                 <Text style={styles.purchaseButtonText}>
-                  Subscribe Now
+                  {t('paywall.cta')}
                 </Text>
               )}
             </TouchableOpacity>
@@ -248,34 +229,34 @@ export default function PaywallScreen() {
 
         <TouchableOpacity style={styles.skipButton} onPress={handleSkip} disabled={isLoading}>
           <Text style={[styles.skipText, { color: colors.textMuted }]}>
-            Continue with Free
+            {t('paywall.free')}
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
-          style={styles.restoreButton} 
+        <TouchableOpacity
+          style={styles.restoreButton}
           onPress={handleRestore}
           disabled={isLoading}
         >
           <Text style={[styles.restoreText, { color: colors.textSecondary }]}>
-            {isRestoring ? 'Restoring...' : 'Restore Purchases'}
+            {isRestoring ? t('paywall.restoring') : t('paywall.restore')}
           </Text>
         </TouchableOpacity>
 
         <Text style={[styles.termsText, { color: colors.textMuted }]}>
-          Cancel anytime • Auto-renews unless cancelled
+          {t('paywall.terms')}
         </Text>
 
         <View style={styles.legalLinks}>
           <TouchableOpacity onPress={() => Linking.openURL(TERMS_URL)}>
             <Text style={[styles.legalLinkText, { color: colors.textMuted }]}>
-              Terms of Use
+              {t('paywall.termsOfUse')}
             </Text>
           </TouchableOpacity>
           <Text style={[styles.legalSeparator, { color: colors.textMuted }]}> • </Text>
           <TouchableOpacity onPress={() => Linking.openURL(PRIVACY_POLICY_URL)}>
             <Text style={[styles.legalLinkText, { color: colors.textMuted }]}>
-              Privacy Policy
+              {t('paywall.privacyPolicy')}
             </Text>
           </TouchableOpacity>
         </View>

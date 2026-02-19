@@ -8,6 +8,7 @@ import * as Localization from 'expo-localization';
 import Colors from '@/constants/colors';
 import { useApp } from '@/providers/AppProvider';
 import { getDailyVerse, getLocalizedVerse, stayPresentMessages, stayPresentMessagesJa } from '@/data/verses';
+import { t } from '@/utils/i18n';
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -74,7 +75,7 @@ export default function SettingsScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          headerTitle: 'Settings',
+          headerTitle: t('settings.title'),
           headerStyle: { backgroundColor: colors.background },
           headerTintColor: colors.text,
           headerShadowVisible: false,
@@ -99,15 +100,15 @@ export default function SettingsScreen() {
           >
             <Crown size={24} color={Colors.light.background} />
             <View style={styles.premiumBannerText}>
-              <Text style={styles.premiumTitle}>Unlock Premium</Text>
-              <Text style={styles.premiumSubtitle}>Full library & unlimited features</Text>
+              <Text style={styles.premiumTitle}>{t('settings.premium.title')}</Text>
+              <Text style={styles.premiumSubtitle}>{t('settings.premium.subtitle')}</Text>
             </View>
             <ChevronLeft size={20} color={Colors.light.background} style={{ transform: [{ rotate: '180deg' }] }} />
           </TouchableOpacity>
         )}
 
         <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>APPEARANCE</Text>
+          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>{t('settings.section.appearance')}</Text>
           <View style={[styles.settingRow, { backgroundColor: colors.card, borderColor: colors.border }]}>
             <View style={styles.settingLeft}>
               {settings.darkMode ? (
@@ -115,7 +116,7 @@ export default function SettingsScreen() {
               ) : (
                 <Sun size={20} color={colors.textSecondary} />
               )}
-              <Text style={[styles.settingLabel, { color: colors.text }]}>Dark Mode</Text>
+              <Text style={[styles.settingLabel, { color: colors.text }]}>{t('settings.darkMode')}</Text>
             </View>
             <Switch
               value={settings.darkMode}
@@ -127,11 +128,11 @@ export default function SettingsScreen() {
         </View>
 
         <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>NOTIFICATIONS</Text>
+          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>{t('settings.section.notifications')}</Text>
           <View style={[styles.settingRow, { backgroundColor: colors.card, borderColor: colors.border }]}>
             <View style={styles.settingLeft}>
               <Bell size={20} color={colors.textSecondary} />
-              <Text style={[styles.settingLabel, { color: colors.text }]}>Enable Notifications</Text>
+              <Text style={[styles.settingLabel, { color: colors.text }]}>{t('settings.enableNotifications')}</Text>
             </View>
             <Switch
               value={settings.notificationsEnabled}
@@ -141,36 +142,36 @@ export default function SettingsScreen() {
             />
           </View>
           <Text style={[styles.notificationHint, { color: colors.textMuted }]}>
-            Receive morning wisdom verses and mindfulness reminders
+            {t('settings.notificationsHint')}
           </Text>
         </View>
 
         {settings.notificationsEnabled && (
         <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>STAY PRESENT REMINDERS</Text>
+          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>{t('settings.section.stayPresent')}</Text>
           <View style={[styles.settingCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
             <View style={styles.settingCardHeader}>
               <Bell size={20} color={colors.textSecondary} />
-              <Text style={[styles.settingLabel, { color: colors.text }]}>Daily Frequency</Text>
+              <Text style={[styles.settingLabel, { color: colors.text }]}>{t('settings.dailyFrequency')}</Text>
             </View>
             <Text style={[styles.settingDescription, { color: colors.textMuted }]}>
-              How many mindfulness reminders per day
+              {t('settings.frequencyHint')}
             </Text>
             {isPremium ? (
               <View style={styles.frequencyButtons}>
-                <FrequencyButton value={3} label="3x" />
-                <FrequencyButton value={5} label="5x" />
-                <FrequencyButton value={7} label="7x" />
-                <FrequencyButton value={10} label="10x" />
+                <FrequencyButton value={3} label={t('settings.freq.x3')} />
+                <FrequencyButton value={5} label={t('settings.freq.x5')} />
+                <FrequencyButton value={7} label={t('settings.freq.x7')} />
+                <FrequencyButton value={10} label={t('settings.freq.x10')} />
               </View>
             ) : (
               <View style={styles.frequencyFixed}>
                 <Text style={[styles.frequencyFixedText, { color: colors.text }]}>
-                  3x per day
+                  {t('settings.frequencyFixed')}
                 </Text>
                 <TouchableOpacity onPress={() => router.push('/paywall')}>
                   <Text style={[styles.upgradeLink, { color: colors.gold }]}>
-                    Upgrade for more
+                    {t('settings.upgradeForMore')}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -181,11 +182,11 @@ export default function SettingsScreen() {
 
         {settings.notificationsEnabled && (
         <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>MORNING VERSE</Text>
+          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>{t('settings.section.morningVerse')}</Text>
           <View style={[styles.settingRow, { backgroundColor: colors.card, borderColor: colors.border }]}>
             <View style={styles.settingLeft}>
               <Clock size={20} color={colors.textSecondary} />
-              <Text style={[styles.settingLabel, { color: colors.text }]}>Notification Time</Text>
+              <Text style={[styles.settingLabel, { color: colors.text }]}>{t('settings.notificationTime')}</Text>
             </View>
             <Text style={[styles.settingValue, { color: colors.textMuted }]}>
               {settings.morningNotificationTime}
@@ -195,7 +196,7 @@ export default function SettingsScreen() {
         )}
 
         <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>ABOUT</Text>
+          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>{t('settings.section.about')}</Text>
           <TouchableOpacity
             style={[styles.settingRow, { backgroundColor: colors.card, borderColor: colors.border }]}
             onPress={() => Linking.openURL('https://en.wikipedia.org/wiki/Dhammapada')}
@@ -203,14 +204,14 @@ export default function SettingsScreen() {
           >
             <View style={styles.settingLeft}>
               <Info size={20} color={colors.textSecondary} />
-              <Text style={[styles.settingLabel, { color: colors.text }]}>About the Dhammapada</Text>
+              <Text style={[styles.settingLabel, { color: colors.text }]}>{t('settings.aboutDhammapada')}</Text>
             </View>
             <ExternalLink size={18} color={colors.textMuted} />
           </TouchableOpacity>
         </View>
 
         <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>LEGAL</Text>
+          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>{t('settings.section.legal')}</Text>
           <TouchableOpacity
             style={[styles.settingRow, { backgroundColor: colors.card, borderColor: colors.border, marginBottom: 8 }]}
             onPress={() => Linking.openURL('https://aniccaai.com/dailydharma/privacy')}
@@ -218,7 +219,7 @@ export default function SettingsScreen() {
           >
             <View style={styles.settingLeft}>
               <Shield size={20} color={colors.textSecondary} />
-              <Text style={[styles.settingLabel, { color: colors.text }]}>Privacy Policy</Text>
+              <Text style={[styles.settingLabel, { color: colors.text }]}>{t('settings.privacyPolicy')}</Text>
             </View>
             <ExternalLink size={18} color={colors.textMuted} />
           </TouchableOpacity>
@@ -229,7 +230,7 @@ export default function SettingsScreen() {
           >
             <View style={styles.settingLeft}>
               <FileText size={20} color={colors.textSecondary} />
-              <Text style={[styles.settingLabel, { color: colors.text }]}>Terms of Service</Text>
+              <Text style={[styles.settingLabel, { color: colors.text }]}>{t('settings.termsOfService')}</Text>
             </View>
             <ExternalLink size={18} color={colors.textMuted} />
           </TouchableOpacity>
@@ -368,7 +369,7 @@ export default function SettingsScreen() {
         )}
 
         <Text style={[styles.versionText, { color: colors.textMuted }]}>
-          Daily Dhamma v1.0.0
+          {t('settings.version')}
         </Text>
       </ScrollView>
     </View>
