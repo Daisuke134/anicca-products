@@ -394,7 +394,155 @@ eas submit --platform ios
 
 ---
 
-## タスク 9: JPN テリトリー価格設定（Bug #2 修正）
+## タスク 9: 完全ローカライゼーション（全 UI を EN/JA 対応）
+
+**As-Is（問題）:** OSが日本語でも、アプリ内 UI は全て英語固定。`getLocalizedVerse()` は verse テキストのみに適用されており、UI 文字列は一切ローカライズされていない。
+
+### 影響範囲
+
+| 画面 | 未対応の文字列 |
+|------|--------------|
+| `app/onboarding.tsx` | スライドタイトル / サブタイトル（3枚分）/ 「Continue」「Skip」ボタン |
+| `app/paywall.tsx` | ヘッダー "Deepen Your Practice" / features（3行）/ "Monthly"/"Yearly"/"Subscribe Now"/"Continue with Free"/"Restore Purchases" / "/month""/year" / Alert メッセージ |
+| `app/index.tsx` | "Swipe up for next verse" / &ldquo;&rdquo; 引用符（削除） |
+| `app/settings.tsx` | 全ラベル（Notifications, Stay Present, Dark Mode, Privacy Policy 等）/ Alert メッセージ |
+
+### To-Be
+
+**方針:** `i18n-js` + `expo-localization` を使ったシンプルな EN/JA 翻訳ファイル方式。
+
+```
+locales/
+  en.json   ← 全 UI 文字列（英語）
+  ja.json   ← 全 UI 文字列（日本語）
+
+utils/i18n.ts  ← i18n インスタンス初期化・t() エクスポート
+```
+
+**切り替えロジック:**
+```typescript
+// utils/i18n.ts
+import * as Localization from 'expo-localization';
+import { I18n } from 'i18n-js';
+
+const i18n = new I18n({ en: require('../locales/en.json'), ja: require('../locales/ja.json') });
+const lang = Localization.getLocales()[0]?.languageTag ?? 'en';
+i18n.locale = lang.toLowerCase().split('-')[0] === 'ja' ? 'ja' : 'en';
+i18n.enableFallback = true;
+export const t = (key: string) => i18n.t(key);
+```
+
+**翻訳キー一覧（完全版）:**
+
+#### onboarding.tsx
+
+| キー | English | 日本語 |
+|------|---------|--------|
+| `onboarding.slide1.title` | "Ancient wisdom for modern minds" | "現代の心に古代の智慧を" |
+| `onboarding.slide1.subtitle` | "Find peace in the timeless teachings of the Dhammapada" | "法句経の普遍の教えに安らぎを見つけてください" |
+| `onboarding.slide2.title` | "Daily verses on your lock screen" | "毎日の法句経をロック画面に" |
+| `onboarding.slide2.subtitle` | "Start each day with wisdom that transforms your perspective" | "視点を変える智慧で毎日を始めましょう" |
+| `onboarding.slide3.title` | "Stay mindful each day" | "毎日マインドフルに過ごす" |
+| `onboarding.slide3.subtitle` | "By enabling notifications, you agree to receive daily morning wisdom verses and mindfulness reminders throughout the day.\n\nYou can disable these anytime in Settings." | "通知を有効にすることで、毎朝の法句経と日中のマインドフルネスリマインダーの受信に同意します。\n\nいつでも設定から無効にできます。" |
+| `onboarding.continue` | "Continue" | "次へ" |
+| `onboarding.enableNotifications` | "Enable Notifications" | "通知を有効にする" |
+| `onboarding.skip` | "Skip" | "スキップ" |
+
+#### paywall.tsx
+
+| キー | English | 日本語 |
+|------|---------|--------|
+| `paywall.title` | "Deepen Your Practice" | "修行を深める" |
+| `paywall.subtitle` | "Unlock more verses and reminders" | "より多くの法句経と通知を利用可能に" |
+| `paywall.feature.verses.title` | "Premium Verses" | "プレミアム法句経" |
+| `paywall.feature.verses.desc` | "Unlock many more Dhammapada teachings" | "より多くの法句経の教えを利用できます" |
+| `paywall.feature.reminders.title` | "More Reminders" | "より多くの通知" |
+| `paywall.feature.reminders.desc` | "Up to 10 mindfulness moments per day" | "1日最大10回のマインドフルネス通知" |
+| `paywall.feature.bookmark.title` | "Bookmarking" | "ブックマーク" |
+| `paywall.feature.bookmark.desc` | "Save your favorite verses" | "お気に入りの法句経を保存できます" |
+| `paywall.plan.monthly` | "Monthly" | "月額" |
+| `paywall.plan.yearly` | "Yearly" | "年額" |
+| `paywall.perMonth` | "/month" | "/月" |
+| `paywall.perYear` | "/year" | "/年" |
+| `paywall.subscribe` | "Subscribe Now" | "今すぐ購読" |
+| `paywall.continueFree` | "Continue with Free" | "無料で続ける" |
+| `paywall.restore` | "Restore Purchases" | "購入を復元" |
+| `paywall.restoring` | "Restoring..." | "復元中..." |
+| `paywall.loading` | "Loading plans..." | "プランを読み込み中..." |
+| `paywall.cancelAnytime` | "Cancel anytime • Auto-renews unless cancelled" | "いつでもキャンセル可能 • 解約しない限り自動更新" |
+| `paywall.termsOfUse` | "Terms of Use" | "利用規約" |
+| `paywall.privacyPolicy` | "Privacy Policy" | "プライバシーポリシー" |
+| `paywall.alert.restored` | "Restored" | "復元完了" |
+| `paywall.alert.restoredMsg` | "Your premium access has been restored." | "プレミアムアクセスが復元されました。" |
+| `paywall.alert.noPurchases` | "No Purchases" | "購入履歴なし" |
+| `paywall.alert.noPurchasesMsg` | "No previous purchases found." | "以前の購入履歴が見つかりませんでした。" |
+| `paywall.alert.restoreFailed` | "Restore Failed" | "復元失敗" |
+| `paywall.alert.purchaseFailed` | "Purchase Failed" | "購入失敗" |
+| `paywall.alert.tryAgain` | "Please try again later." | "後でもう一度お試しください。" |
+| `paywall.alert.unavailable` | "Subscription plans are not available. Please try again later." | "サブスクリプションプランが利用できません。後でもう一度お試しください。" |
+| `paywall.alert.error` | "Error" | "エラー" |
+
+#### app/index.tsx
+
+| キー | English | 日本語 |
+|------|---------|--------|
+| `main.swipeHint` | "Swipe up for next verse" | "上にスワイプして次の法句経へ" |
+
+#### app/settings.tsx
+
+| キー | English | 日本語 |
+|------|---------|--------|
+| `settings.title` | "Settings" | "設定" |
+| `settings.unlockPremium` | "Unlock Premium" | "プレミアムを解放する" |
+| `settings.premiumSubtitle` | "Full library & unlimited features" | "全法句経・全機能を使い放題" |
+| `settings.section.appearance` | "APPEARANCE" | "外観" |
+| `settings.darkMode` | "Dark Mode" | "ダークモード" |
+| `settings.section.notifications` | "NOTIFICATIONS" | "通知" |
+| `settings.enableNotifications` | "Enable Notifications" | "通知を有効にする" |
+| `settings.notificationsHint` | "Receive morning wisdom verses and mindfulness reminders" | "毎朝の法句経とマインドフルネスリマインダーを受け取ります" |
+| `settings.section.stayPresent` | "STAY PRESENT REMINDERS" | "今この瞬間への通知" |
+| `settings.dailyFrequency` | "Daily Frequency" | "1日の頻度" |
+| `settings.frequencyHint` | "How many mindfulness reminders per day" | "1日何回マインドフルネスリマインダーを受け取るか" |
+| `settings.timesPerDay` | "3x per day" | "1日3回" |
+| `settings.upgradeForMore` | "Upgrade for more" | "アップグレードしてさらに増やす" |
+| `settings.section.morningVerse` | "MORNING VERSE" | "朝の法句経" |
+| `settings.notificationTime` | "Notification Time" | "通知時刻" |
+| `settings.section.about` | "ABOUT" | "このアプリについて" |
+| `settings.aboutDhammapada` | "About the Dhammapada" | "法句経について" |
+| `settings.section.legal` | "LEGAL" | "法的情報" |
+| `settings.privacyPolicy` | "Privacy Policy" | "プライバシーポリシー" |
+| `settings.terms` | "Terms of Service" | "利用規約" |
+
+**引用符の削除:**
+- `app/index.tsx` の `&ldquo;`/`&rdquo;` を削除（verse テキストをそのまま表示）
+
+### テストマトリックス（ローカライズ）
+
+| # | テスト名 | 内容 |
+|---|---------|------|
+| T-L1 | `all_i18n_keys_have_ja_translation` | en.json の全キーが ja.json にも存在することを確認 |
+| T-L2 | `all_ja_values_non_empty` | ja.json の全値が空文字でないことを確認 |
+| T-L3 | `t_returns_ja_when_locale_ja` | locale=ja 時に代表キー5個が日本語を返すことを確認 |
+| T-L4 | `t_returns_en_when_locale_en` | locale=en 時に代表キー5個が英語を返すことを確認 |
+| T-L5 | `t_fallback_to_en_for_unknown_locale` | locale=de 時に英語にフォールバックすることを確認 |
+| T-L6 | `no_missing_key_returns_raw_key` | 存在しないキーで `[missing "en.xxx"]` でなく fallback が返ることを確認 |
+| T-L7 | `all_keys_in_en_match_spec_inventory` | en.json のキー数が仕様一覧のキー数（59件）と一致することを確認 |
+
+※ 除外スコープ: `__DEV__` ブロック内の DEVELOPER セクション（テスト用文字列）・ブランド名 "Daily Dhamma"・通知タイトル "Daily Dhamma" は翻訳対象外とする。
+
+**変更ファイル:**
+- `utils/i18n.ts`（新規）
+- `locales/en.json`（新規）
+- `locales/ja.json`（新規）
+- `app/onboarding.tsx`
+- `app/paywall.tsx`
+- `app/index.tsx`（引用符削除含む）
+- `app/settings.tsx`
+- `__tests__/i18n.test.ts`（新規）
+
+---
+
+## タスク 10 (旧): JPN テリトリー価格設定（Bug #2 修正・完了済み）
 
 **As-Is（問題）:** サブスクリプションの配信テリトリーが USA のみ。日本 Apple ID のユーザーは新製品にアクセスできず、RC SDK がテスト用の古い製品 (`daily_dharma_monthly`/$2.99, `daily_dharma_yearly`/$90.99) にフォールバックする。
 
@@ -409,7 +557,7 @@ eas submit --platform ios
 
 ---
 
-## タスク 10: 日本語言語ワイヤリング（Bug #1 修正）
+## タスク 11 (旧): 日本語言語ワイヤリング（Bug #1 修正・完了済み）
 
 **As-Is（問題）:** `getLocalizedVerse()` は `data/verses.ts` に実装済みだが、UI・通知どこにも接続されていない。`verse.text`（英語固定）がハードコードされている。
 
@@ -430,7 +578,7 @@ const locale = Localization.getLocales()[0]?.languageTag ?? 'en';
 
 ---
 
-## タスク 11: 通知数オーバーフロー修正（Bug #3 修正）
+## タスク 12 (旧): 通知数オーバーフロー修正（Bug #3 修正・完了済み）
 
 **As-Is（問題）:** `daysToSchedule = 7` 固定。10/日設定では 10×7+7 = 77 通知 > iOS 上限 64 でクラッシュ・未配信の原因になる。
 
@@ -460,4 +608,4 @@ const daysToSchedule = Math.floor(60 / (frequency + 1));
 
 ---
 
-最終更新: 2026-02-20（Bug #1/2/3 追記）
+最終更新: 2026-02-20（タスク9 完全ローカライゼーション追記）
