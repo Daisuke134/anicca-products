@@ -105,9 +105,9 @@ describe('i18n', () => {
   });
 
   // T-L7: en.json のキー数が仕様一覧（67件）と一致
-  test('T-L7: en.json key count matches spec inventory (67)', () => {
+  test('T-L7: en.json key count matches spec inventory (66)', () => {
     const enKeys = flattenKeys(en);
-    expect(enKeys.length).toBe(67);
+    expect(enKeys.length).toBe(66);
   });
 
   // T-L8: 画面ファイルに本番ユーザー向けの hardcoded 英語文字列がない

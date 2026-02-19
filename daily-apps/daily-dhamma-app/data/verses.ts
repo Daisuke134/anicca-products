@@ -496,6 +496,20 @@ export const getLocalizedVerse = (verse: Verse, locale: string): string => {
   return verse.text;
 };
 
+const SOURCE_JA: Record<string, string> = {
+  'Dhammapada': '法句経',
+  'Buddha': 'ブッダ',
+  'Khaggavisana Sutta': '犀角経',
+  'Majjhima Nikaya': '中部経典',
+  'Metta Sutta': '慈悲経',
+};
+
+export const getLocalizedSource = (source: string, locale: string): string => {
+  const lang = locale.toLowerCase().replace('_', '-').split('-')[0];
+  if (lang !== 'ja') return source;
+  return SOURCE_JA[source] ?? source;
+};
+
 export const getLocalizedChapter = (chapter: string, verseNumber: string, locale: string): string => {
   const lang = locale.toLowerCase().replace('_', '-').split('-')[0];
   if (lang !== 'ja') return verseNumber ? `${chapter}, ${verseNumber}` : chapter;
