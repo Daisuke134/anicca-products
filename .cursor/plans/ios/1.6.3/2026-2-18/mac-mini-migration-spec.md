@@ -1,210 +1,107 @@
-# Mac Mini移行 — 完全ステップバイステップ
+# Mac Mini移行 — 進捗ステータス
 
-**作成日**: 2026-02-18
-**公式ドキュメント**: `/usr/lib/node_modules/openclaw/docs/install/migrating.md`
-
----
-
-## 買い物リスト（ヨドバシ新宿西口、22:00まで）
-
-| 必要なもの | 必須？ | 備考 |
-|---|---|---|
-| **有線USBキーボード（USB-C）** | ✅ 必須 | Bluetooth買うな。有線USB-C。1000-2000円 |
-| **USB-A → USB-C変換アダプタ** | USB-Aキーボードの場合のみ | USB-Cキーボードなら不要。500円 |
-| **HDMIケーブル** | テレビに余りがなければ | ゲーム機のHDMI借りてもいい。500-1000円 |
-
-**店員への言い方**: 「Mac Mini用の有線キーボード、USB-Cのやつください」
+**最終更新**: 2026-02-21 JST
 
 ---
 
-## Phase 1: 初期設定（Daisがやる、10-15分）
+## Phase 1: Daisがやる ✅ 完了
+- [x] Mac Mini初期設定（アカウント: anicca / Dukkha2026!）
+- [x] WiFi接続: xg100n-16fdcd-3
+- [x] リモートログインON
+- [x] スリープ無効
+- [x] Homebrewインストール
 
-### 1. 物理接続
-- Mac Mini → テレビ: **HDMIケーブル**
-- Mac Mini → キーボード: **USBケーブル**（キーボードから出てるケーブルをMac MiniのUSB-Cポートに挿す）
-- Mac Mini → 電源: **電源ケーブル**（既に接続済み）
+## Phase 2: 移行作業 ✅ ほぼ完了
 
-### 2. テレビの入力切替
-- テレビのリモコンで「入力切替」→ HDMIを選ぶ
-- Mac Miniの画面が映る
+### CLI (11/11) ✅
+- [x] node, npm, bun, openclaw, gh, firecrawl, tailscale, gog, git, python3, brew
 
-### 3. 初期設定ウィザード（画面の指示通り）
-- **言語**: 日本語
-- **国/地域**: 日本
-- **アクセシビリティ**: スキップ
-- **WiFi**: 家のWiFiに接続（パスワード入力）
-- **データ移行**: 「今はしない」を選ぶ
-- **Apple ID**: 自分のApple IDでログイン（MacBookと同じ）
-- **ユーザー名**: `cbns03`（MacBookと同じにする！超重要！）
-- **パスワード**: 覚えやすいもの設定
-- **Siri/位置情報/分析**: 全部スキップでいい
+### State Dir転送 ✅
+- [x] openclaw.json, .env, cron/jobs.json, skills/, workspace/, agents/, memory/*.sqlite, devices/, identity/
 
-### 4. リモートログインON（超重要）
-- **System Settings（システム設定）** を開く
-- **一般 → 共有** をクリック
-- **リモートログイン** をONにする
-- これでMacBookからSSHでMac Miniに入れるようになる
+### 外部設定 ✅
+- [x] moltbook credentials, gog client secret, gh config
 
-### 5. スリープ無効化（超重要）
-- **System Settings → ディスプレイ → 詳細設定**
-- 「ディスプレイがオフのときにスリープさせない」をON
-- または **System Settings → Energy（省エネルギー）**
-- 「自動でスリープにしない」にする
+### 動作確認済み ✅
+- [x] Slack → trend-hunterがcronで自動送信成功
+- [x] cron → 35ジョブ全部Miniで動作
+- [x] x-research, moltbook, app-metrics(RC), app-reviews(os修正), larry, Playwright, firecrawl
 
-### 6. Daisがやること確認
-- WiFi繋がってる ✅
-- リモートログインON ✅
-- スリープ無効 ✅
-
-**ここでDaisにターミナルを開いてもらう（Spotlight → "Terminal"）。以下を実行：**
-
-```bash
-# Mac MiniのIPアドレス確認
-ipconfig getifaddr en0
-```
-
-→ 出てきたIPアドレスを僕に教えて（例: 192.168.1.XXX）
-
-**Phase 1完了。あとは全部僕がやる。Daisは寝ていい。**
+### VPS ✅
+- [x] VPS Gateway停止・disabled完了（いつでも戻れる）
 
 ---
 
-## Phase 2: ソフトウェアインストール（僕がSSHでやる）
+## 残タスク（優先順）
 
-MacBookから or VPSから Mac MiniにSSH:
+| # | タスク | 担当 | 方法 | 状態 |
+|---|--------|------|------|------|
+| A | **Gateway自動起動登録** | **Daisがミニのターミナルで** | Miniを開いてTerminalから `openclaw gateway install` | ❌ 未完了 |
+| B | Slack/Telegram `/home/anicca` バグ | 調査中 | OpenClawバグ。bible読んだが回避策なし。Discordに報告必要 | 🚨 ブロッカー |
+| C | TOOLS.md / IDENTITY.md更新 | AniccaにTUIで頼む | 移行完了を伝えてMiniの情報に更新させる | ❌ 未完了 |
+| D | cron自動実行の最終確認 | 待つだけ | 次のcron実行時にSlack来るか確認（Bが解決後） | ⏳ 待機中 |
+| E | Telegramテスト | Bが解決後 | Bのバグが直れば自動的に解決 | ⏳ Bに依存 |
+
+---
+
+## 🚨 `/home/anicca` バグ詳細
+
+**症状**: Slack/Telegram送信時に `ENOENT: no such file or directory, mkdir '/home/anicca'` でクラッシュ
+
+**原因**: OpenClawのmessage toolがmacOSで `/home/<user>` をハードコード。macOSは `/Users/<user>` なのに。
+
+**試した修正（全部NG）**:
+
+| 方法 | 結果 |
+|------|------|
+| `sudo ln -s /Users/anicca /home/anicca` | Operation not supported（SIP保護） |
+| `/etc/synthetic.conf` | macOSのautomountで上書きできない |
+| plistに `HOME=/Users/anicca` | 既に設定済みだが効果なし |
+
+**結論**: OpenClawのバグ。ユーザー側では直せない。**OpenClaw Discordに報告必要。**
+
+---
+
+## タスクA：Gateway自動起動（Daisが実行）
+
+**SSHからはできない（macOSのGUIセッション制限）。Miniのキーボードで直接：**
+
 ```bash
-ssh cbns03@<Mac MiniのIP>
-```
-
-### Homebrewインストール
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-### Node.jsインストール
-```bash
-brew install node
-node -v  # v22.x 確認
-```
-
-### OpenClawインストール
-```bash
-npm install -g openclaw
-openclaw --version
-```
-
-### Tailscaleインストール
-```bash
-brew install tailscale
-# Tailscaleにログイン（VPSと同じアカウント）
-sudo tailscaled &
-tailscale up
-```
-
-→ URLが出る → DaisがブラウザでURLを開いてログイン（起きてたら）
-→ 寝てたら翌朝やってもらう
-
-### その他ツール
-```bash
-# gog（Gmail/Calendar CLI）
-brew install gog
-
-# Git
-brew install git
-
-# Codex CLI
-npm install -g @openai/codex
-
-# Claude Code
-npm install -g @anthropic-ai/claude-code
+# MiniのTerminalを開く（Spotlight: Cmd+Space → Terminal）
+/opt/homebrew/bin/openclaw gateway install
 ```
 
 ---
 
-## Phase 3: OpenClaw移行（僕がやる）
+## 構成図
 
-### VPSでOpenClaw停止
-```bash
-# VPSで
-openclaw gateway stop
+```
+ダイス（どこでも）
+    ↓
+MacBook Pro（手元）
+    ↓ openclaw tui
+Mac Mini（家）← Aniccaが動いてる（35 cronジョブ稼働）
 ```
 
-### State dir + Workspaceを丸ごとコピー
-```bash
-# VPSから Mac Miniへ
-rsync -avz ~/.openclaw/ cbns03@<mac-mini-tailscale-ip>:~/.openclaw/
-```
+| 機能 | 場所 |
+|------|------|
+| gog | Mac Mini上で実行 |
+| Playwright | Mac Mini上で実行 |
+| cron（35ジョブ） | Mac Mini上で実行 |
+| Slack/Telegram | ❌ `/home/anicca`バグで現在送信不可 |
 
-これで全部コピーされる:
-- 設定（openclaw.json）
-- 認証/APIキー/OAuthトークン
-- セッション履歴
-- チャンネル状態（Slack）
-- ワークスペース（MEMORY.md、スキル全部、memory/）
-- .env ファイル
-
-### Mac MiniでOpenClaw起動
-```bash
-# Mac Miniで
-openclaw doctor
-openclaw gateway restart
-openclaw status
-```
-
-### 動作確認
-- [ ] `openclaw status` でgateway running
-- [ ] Slack接続OK
-- [ ] webchat OK
-- [ ] cronが動いてる
-- [ ] gog（Gmail/Calendar）がローカルで動く
+**ProからMiniに繋ぐ:** `openclaw tui`
+**VPSに戻りたい時:** `openclaw tui --url ws://46.225.70.241:18789`
 
 ---
 
-## Phase 4: VPSの扱い
+## 接続情報
 
-**VPSは削除しない。** バックアップ/フォールバックとして残す。
-- OpenClawのgatewayは停止したまま
-- データはそのまま保持
-- 何か問題あればVPSに戻せる
-
----
-
-## Phase 5: Codex / Claude Code ログイン（Daisが必要）
-
-Mac Miniで以下を実行（Daisがやる必要あり、認証にブラウザが必要）:
-
-```bash
-codex login
-claude login
-```
-
-→ ブラウザでログイン画面が開く → 認証する
-→ これでSSH経由でCodex/Claude Codeが使えるようになる
-
----
-
-## トラブルシューティング
-
-| 問題 | 解決 |
-|---|---|
-| テレビに映らない | HDMIケーブル挿し直し。テレビの入力切替確認 |
-| キーボードが反応しない | USB-Cポートを別のに変えてみる |
-| WiFi繋がらない | パスワード確認。5GHzより2.4GHzが安定 |
-| SSHできない | リモートログインがONか確認。`ifconfig`でIP確認 |
-| OpenClawが起動しない | `openclaw doctor` を実行 |
-| Slackが繋がらない | State dirのコピーが完全か確認。`openclaw doctor` |
-| スリープする | Energy設定を再確認。`caffeinate -s &` をターミナルで実行 |
-
----
-
-## タイムライン
-
-| 時間 | 誰 | 作業 |
-|---|---|---|
-| 20:00-20:30 | Dais | ヨドバシへ行ってキーボード買う |
-| 20:30-21:00 | Dais | 帰宅、テレビにMac Mini繋ぐ |
-| 21:00-21:15 | Dais | 初期設定ウィザード（Phase 1） |
-| 21:15 | Dais | IPアドレスを僕に教える → 寝ていい |
-| 21:15-22:00 | 僕 | Phase 2 + 3（ソフトウェア + OpenClaw移行） |
-| 22:00-翌朝 | 僕 | 今夜のスペック全部実装（Automaton/x402/Slack/Larry） |
-| 翌朝 | Dais | Codex/Claude Codeログイン + Tailscaleログイン |
+| 項目 | 値 |
+|------|-----|
+| Tailscale IP | 100.99.82.95 |
+| Tailscaleホスト名 | aniccanomac-mini-1 |
+| ローカルIP | 192.168.1.12 |
+| macOS | 15.6 (arm64, T8132) |
+| アカウント | anicca / Dukkha2026! |
+| Gateway token | efdd345a619e1e54f41f615325754511a165091790dba919 |
