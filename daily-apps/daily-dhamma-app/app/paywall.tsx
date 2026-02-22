@@ -8,6 +8,7 @@ import Colors from '@/constants/colors';
 import { useRevenueCat } from '@/providers/RevenueCatProvider';
 import { PurchasesPackage } from 'react-native-purchases';
 import { t, TranslationKey } from '@/utils/i18n';
+import { findMonthlyPackage, findYearlyPackage, formatPackagePrice } from '@/utils/paywallUtils';
 
 const PRIVACY_POLICY_URL = 'https://aniccaai.com/dailydharma/privacy';
 const TERMS_URL = 'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/';
@@ -33,12 +34,8 @@ export default function PaywallScreen() {
     isRestoring
   } = useRevenueCat();
 
-  const monthlyPackage = currentOffering?.availablePackages.find(
-    pkg => pkg.identifier === 'monthly' || pkg.identifier === '$rc_monthly'
-  );
-  const yearlyPackage = currentOffering?.availablePackages.find(
-    pkg => pkg.identifier === 'annual' || pkg.identifier === '$rc_annual'
-  );
+  const monthlyPackage = findMonthlyPackage(currentOffering?.availablePackages ?? []);
+  const yearlyPackage = findYearlyPackage(currentOffering?.availablePackages ?? []);
 
   const handlePurchase = async () => {
     const pkg = selectedPlan === 'yearly' ? yearlyPackage : monthlyPackage;
@@ -88,10 +85,7 @@ export default function PaywallScreen() {
     router.replace('/');
   };
 
-  const formatPrice = (pkg: PurchasesPackage | undefined) => {
-    if (!pkg) return '';
-    return pkg.product.priceString;
-  };
+  const formatPrice = (pkg: PurchasesPackage | undefined) => formatPackagePrice(pkg);
 
   const isLoading = isPurchasing || isRestoring;
 
@@ -158,6 +152,7 @@ export default function PaywallScreen() {
           <>
             <View style={styles.pricingSection}>
               <TouchableOpacity
+                testID="paywall_plan_monthly"
                 style={[
                   styles.planOption,
                   selectedPlan === 'monthly' && styles.planOptionSelected,
@@ -184,6 +179,7 @@ export default function PaywallScreen() {
               </TouchableOpacity>
 
               <TouchableOpacity
+                testID="paywall_plan_yearly"
                 style={[
                   styles.planOption,
                   selectedPlan === 'yearly' && styles.planOptionSelected,
@@ -211,6 +207,7 @@ export default function PaywallScreen() {
             </View>
 
             <TouchableOpacity
+              testID="paywall_cta"
               style={[styles.purchaseButton, { backgroundColor: colors.gold }]}
               onPress={handlePurchase}
               activeOpacity={0.8}
@@ -227,13 +224,14 @@ export default function PaywallScreen() {
           </>
         )}
 
-        <TouchableOpacity style={styles.skipButton} onPress={handleSkip} disabled={isLoading}>
+        <TouchableOpacity testID="paywall_skip" style={styles.skipButton} onPress={handleSkip} disabled={isLoading}>
           <Text style={[styles.skipText, { color: colors.textMuted }]}>
             {t('paywall.free')}
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
+          testID="paywall_restore"
           style={styles.restoreButton}
           onPress={handleRestore}
           disabled={isLoading}
