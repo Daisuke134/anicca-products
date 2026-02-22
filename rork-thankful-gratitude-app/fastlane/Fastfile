@@ -79,6 +79,7 @@ platform :ios do
         uploadSymbols:     true,
         stripSwiftSymbols: true,
       },
+      xcargs: "-allowProvisioningUpdates",
       clean: true,
       output_directory: "#{PROJECT_DIR}/build",
       output_name:      "ThankfulGratitudeApp.ipa",
