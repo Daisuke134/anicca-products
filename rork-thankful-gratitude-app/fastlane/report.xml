@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.00018">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: shell command" time="0.274885">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: xcodebuild test -scheme &apos;ThankfulGratitudeApp&apos; -project &apos;/Users/cbns03/Downloads/anicca-project/rork-thankful-gratitude-app/ThankfulGratitudeApp.xcodeproj&apos; -destination &apos;platform=iOS Simulator,id=Shutdown&apos; -derivedDataPath &apos;/tmp/thankful-dd&apos; DEVELOPMENT_TEAM=S5U8UH3JLJ 2&gt;&amp;1 | xcpretty --color || xcodebuild test -scheme &apos;ThankfulGratitudeApp&apos; -project &apos;/Users/cbns03/Downloads/anicca-project/rork-thankful-gratitude-app/ThankfulGratitudeApp.xcodeproj&apos; -destination &apos;platform=iOS Simulator,id=Shutdown&apos; -derivedDataPath &apos;/tmp/thankful-dd&apos; DEVELOPMENT_TEAM=S5U8UH3JLJ 2&gt;&amp;1 | tail -20" time="63.393321">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
