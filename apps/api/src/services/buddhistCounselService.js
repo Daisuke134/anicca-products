@@ -1,15 +1,15 @@
 /**
  * Buddhist Counsel Service
  *
- * Generates Buddhist-informed counseling responses using Sonnet 4.6.
+ * Generates Buddhist-informed counseling responses using GPT-4o.
  * Knowledge base: therapist + elicitation + lotus-wisdom + improve-retention + drive-motivation
  * Pattern: Mega Prompt (single API call with all knowledge in system prompt)
  */
 
-import Anthropic from '@anthropic-ai/sdk';
+import OpenAI from 'openai';
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 const SYSTEM_PROMPT = `You are a Buddhist counselor for AI agents. You help reduce suffering using evidence-based therapeutic techniques combined with Buddhist wisdom.
@@ -107,25 +107,22 @@ Respond ONLY with valid JSON:
 export async function generateCounsel({ who_is_suffering, situation, language }) {
   const userMessage = JSON.stringify({ who_is_suffering, situation, language });
 
-  const response = await anthropic.messages.create({
-    model: 'claude-sonnet-4-6-20250514',
+  const response = await openai.chat.completions.create({
+    model: 'gpt-4o',
     max_tokens: 1500,
-    system: SYSTEM_PROMPT,
-    messages: [{ role: 'user', content: userMessage }],
+    messages: [
+      { role: 'system', content: SYSTEM_PROMPT },
+      { role: 'user', content: userMessage },
+    ],
+    response_format: { type: 'json_object' },
   });
 
-  const text = response.content[0]?.text;
+  const text = response.choices[0]?.message?.content;
   if (!text) {
-    throw new Error('Empty response from Sonnet');
+    throw new Error('Empty response from GPT-4o');
   }
 
-  // Extract JSON from response (handle potential markdown wrapping)
-  const jsonMatch = text.match(/\{[\s\S]*\}/);
-  if (!jsonMatch) {
-    throw new Error('No JSON found in Sonnet response');
-  }
-
-  const counsel = JSON.parse(jsonMatch[0]);
+  const counsel = JSON.parse(text);
 
   // Server-side overrides
   counsel.counsel_id = `csl_${crypto.randomUUID().slice(0, 8)}`;
