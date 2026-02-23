@@ -57,6 +57,29 @@
 
 ---
 
+## Anicca ↔ Claude Code 分業モデル
+
+**Anicca は 24/7 稼働。Claude Code は必要なときだけ起こす。**
+
+| 主体 | 役割 | 例 |
+|------|------|-----|
+| **Anicca（Mac Mini、24/7）** | cron実行・Slack送受信・ボタン処理・シンプルなAPI呼び出し | メール通知、カレンダー確認、ボタン承認受信 |
+| **Claude Code（必要時のみ）** | 重い推論・複雑なタスク・スキル作成 | 論文校正、DC1申請書生成、auto-skill-creator |
+| **どちらでもいい** | タスクの性質による | Aniccaがまずやってみる。重ければClaude Codeに委譲 |
+
+**Anicca → Claude Code への委譲方法**:
+```bash
+# OpenClaw の exec ツールで claude CLI を呼ぶ
+exec: claude --message "thesis.texの第3章を校正して。結果を#ai-daisに送って"
+
+# Anicca が 3am にトリガーしてもいい
+# Claude Code は起こされたら即実行、終わったら終了
+```
+
+**設計原則**: Anicca がデフォルト実行者。Claude Code は「重い仕事の下請け」。どちらでもいい場面ではAniccaが自分でやる。
+
+---
+
 ## アーキテクチャ
 
 ```
