@@ -171,3 +171,19 @@
 - 全コマンドは `export PATH=/opt/homebrew/bin:$PATH` を付けてMac Mini上で実行
 - DRY_RUN=1 でSlack投稿をスキップして動作確認
 - commitはPhase単位で実行
+
+---
+
+## 実装完了記録（2026-02-24）
+
+| フェーズ | 状態 | テスト |
+|---------|------|--------|
+| Phase 1: Setup | ✅ 完了 | - |
+| Phase 2: Foundational | ✅ 完了 | 8/8 GREEN |
+| Phase 3: US1（週次通知） | ✅ 完了 | 8/8 GREEN |
+| Phase 4: US2（申請手順案内） | ✅ 完了 | 4/4 GREEN |
+| Phase 5: US3（手動リフレッシュ） | ✅ 完了 | - |
+| Phase 6: SKILL.md + Cron | ✅ 完了 | DRY_RUN確認済 |
+| Phase 7: Polish | ✅ 完了 | 全20テスト GREEN |
+
+Mac Mini実装パス: `/Users/anicca/.openclaw/skills/naist-funds/`
