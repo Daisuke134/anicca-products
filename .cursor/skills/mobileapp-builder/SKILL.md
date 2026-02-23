@@ -353,86 +353,36 @@ asc subscriptions localizations create --subscription-id "<MONTHLY_ID>" \
 
 ### PHASE 7: IAP REVIEW SCREENSHOT
 
-> **⚠️ CLI 罠（2026-02-24 実測）**
-> - `asc subscriptions review-screenshots create --file` → **reserve（POST）しか実行しない。S3 PUT + commit は自分でやる必要がある。**
-> - `asc subscriptions images create` → プロモーショナル広告用。絶対に使うな。
+> **⚠️ コマンド注意（2026-02-24 実測）**
+> - `asc subscriptions review-screenshots create --file` → **これが正しいコマンド。内部で reserve+PUT+commit を全て実行する。**
+> - `asc subscriptions images create` → プロモーショナル広告用。使わない。
+> - upload 後 `imageAsset.width=0` は**正常**（Apple が非同期で処理中）。再アップロード不要。
 > - `xcrun simctl io <UDID> screenshot` で PNG 取得 → **必ず sips でリサイズ（Apple 推奨: 900×1956 JPEG）**
 
 **ステップ 1: シミュレータでペイウォール画面を撮影**
 ```bash
-# シミュレータ起動（既に起動済みなら不要）
-xcrun simctl boot "<UDID>" || true
-
-# アプリ起動 → Maestro MCP でペイウォール画面まで遷移
-# （accessibilityIdentifier: paywall_skip でスキップボタンを経由して Paywall を表示）
+# Maestro MCP でアプリ起動 → Paywall 画面まで遷移
+# （clearState: false で既存セッションを維持しながらアプリ起動）
 
 # ★ リサイズ必須（スキップ禁止）
-# simctl screenshot は実機解像度 (例: 1320×2868) で出力する
+# simctl screenshot は実機解像度 (例: 1320×2868) で出力
 # Apple 推奨サイズは 900×1956 JPEG
 xcrun simctl io "<UDID>" screenshot /tmp/paywall-review.png
 sips -s format jpeg -z 1956 900 /tmp/paywall-review.png --out /tmp/paywall-review.jpg
 ```
 
-**ステップ 2: Apple API 直接（3ステップ）— asc CLI は reserve のみ**
-
-```python
-# docs/screenshots/scripts/upload_iap_review_screenshot.py として保存して使う
-import os, time, json, hashlib, base64, requests
-
-KEY_ID    = "646Y27MJ8C"
-ISSUER_ID = "f53272d9-c12d-4d9d-811c-4eb658284e74"
-PRIVATE_KEY = open(os.path.expanduser("~/.asc/private_keys/AuthKey_646Y27MJ8C.p8")).read()
-
-import jwt as pyjwt
-token = pyjwt.encode(
-    {"iss": ISSUER_ID, "iat": int(time.time()), "exp": int(time.time())+1200, "aud": "appstoreconnect-v1"},
-    PRIVATE_KEY, algorithm="ES256", headers={"kid": KEY_ID}
-)
-if not isinstance(token, str): token = token.decode()
-
-BASE_URL = "https://api.appstoreconnect.apple.com/v1"
-HDRS = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
-
-# ★ 対象サブスクリプション ID（Annual / Monthly）
-SUBS = {
-    "Monthly": "<MONTHLY_SUB_ID>",
-    "Annual":  "<ANNUAL_SUB_ID>",
-}
-FILE = "/tmp/paywall-review.jpg"
-
-with open(FILE, "rb") as f: raw = f.read()
-md5 = base64.b64encode(hashlib.md5(raw).digest()).decode()
-
-for label, sub_id in SUBS.items():
-    # 1. Reserve
-    resp = requests.post(f"{BASE_URL}/subscriptionAppStoreReviewScreenshots", headers=HDRS, json={
-        "data": {"type": "subscriptionAppStoreReviewScreenshots",
-                 "attributes": {"fileSize": len(raw), "fileName": "paywall-review.jpg"},
-                 "relationships": {"subscription": {"data": {"type": "subscriptions", "id": sub_id}}}}
-    })
-    assert resp.status_code in (200,201), f"Reserve failed: {resp.text[:300]}"
-    d = resp.json()["data"]
-    shot_id = d["id"]
-
-    # 2. PUT to S3
-    for op in d["attributes"]["uploadOperations"]:
-        hdrs = {h["name"]: h["value"] for h in op.get("requestHeaders", [])}
-        put = requests.request(op["method"], op["url"], headers=hdrs,
-                               data=raw[op["offset"]:op["offset"]+op["length"]])
-        assert put.status_code in (200,201,204), f"PUT failed: {put.status_code}"
-
-    # 3. Commit
-    commit = requests.patch(f"{BASE_URL}/subscriptionAppStoreReviewScreenshots/{shot_id}", headers=HDRS, json={
-        "data": {"type": "subscriptionAppStoreReviewScreenshots", "id": shot_id,
-                 "attributes": {"uploaded": True, "sourceFileChecksum": md5}}
-    })
-    assert commit.status_code in (200,201), f"Commit failed: {commit.text[:300]}"
-    print(f"✅ {label} ({sub_id}) → {shot_id}")
-```
-
+**ステップ 2: `review-screenshots create` でアップロード（Annual + Monthly）**
 ```bash
-python3 docs/screenshots/scripts/upload_iap_review_screenshot.py
-# 既存画像エラー → 先に削除
+asc subscriptions review-screenshots create \
+  --subscription-id "<MONTHLY_SUB_ID>" \
+  --file /tmp/paywall-review.jpg
+
+asc subscriptions review-screenshots create \
+  --subscription-id "<ANNUAL_SUB_ID>" \
+  --file /tmp/paywall-review.jpg
+
+# 成功確認 → fileSize が正しければ OK（width/height=0 は正常 — Apple 非同期処理中）
+# "Screenshot already exists" エラー → 先に削除してから再実行
 # asc subscriptions review-screenshots delete --id "<ID>" --confirm
 ```
 
