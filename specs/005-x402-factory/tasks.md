@@ -17,11 +17,11 @@
 
 **Purpose**: Mac Mini ワークスペース初期化 + リポジトリ構造準備
 
-- [ ] T001 Mac Mini に to-agents ワークスペースを作成: `ssh anicca@100.99.82.95 "mkdir -p /Users/anicca/.openclaw/workspace/to-agents"`
-- [ ] T002 to-agents-learning.md をリポジトリからMac Miniにコピー: `scp .cursor/plans/ios/1.6.3/2026-2-18/to-agents-learning.md anicca@100.99.82.95:/Users/anicca/.openclaw/workspace/to-agents/to-agents-learning.md`
-- [ ] T003 Mac Mini に proposals.json を初期化: `ssh anicca@100.99.82.95 "echo '[]' > /Users/anicca/.openclaw/workspace/to-agents/proposals.json"`
-- [ ] T004 Mac Mini に metrics.json を初期化: `ssh anicca@100.99.82.95 "echo '[]' > /Users/anicca/.openclaw/workspace/to-agents/metrics.json"`
-- [ ] T005 Mac Mini に to-agents-skill スキルディレクトリを作成: `ssh anicca@100.99.82.95 "mkdir -p /Users/anicca/.openclaw/skills/to-agents-skill/templates"`
+- [X] T001 Mac Mini に to-agents ワークスペースを作成: `ssh anicca@100.99.82.95 "mkdir -p /Users/anicca/.openclaw/workspace/to-agents"`
+- [X] T002 to-agents-learning.md をリポジトリからMac Miniにコピー: `scp .cursor/plans/ios/1.6.3/2026-2-18/to-agents-learning.md anicca@100.99.82.95:/Users/anicca/.openclaw/workspace/to-agents/to-agents-learning.md`
+- [X] T003 Mac Mini に proposals.json を初期化: `ssh anicca@100.99.82.95 "echo '[]' > /Users/anicca/.openclaw/workspace/to-agents/proposals.json"`
+- [X] T004 Mac Mini に metrics.json を初期化: `ssh anicca@100.99.82.95 "echo '[]' > /Users/anicca/.openclaw/workspace/to-agents/metrics.json"`
+- [X] T005 Mac Mini に to-agents-skill スキルディレクトリを作成: `ssh anicca@100.99.82.95 "mkdir -p /Users/anicca/.openclaw/skills/to-agents-skill/templates"`
 
 **Checkpoint**: Mac Mini ワークスペースとスキルディレクトリが存在する
 
@@ -33,9 +33,9 @@
 
 **⚠️ CRITICAL**: このフェーズ完了前に US1/2/3 の実装を開始しない
 
-- [ ] T006 SKILL.md テンプレートファイルを作成: `/Users/anicca/.openclaw/skills/to-agents-skill/templates/skill-template.md`（生成される各スキルの SKILL.md 雛形）
-- [ ] T007 to-agents-skill SKILL.md を作成（YAML frontmatter + produce/discover/measure 3モード共通プロンプト）: `/Users/anicca/.openclaw/skills/to-agents-skill/SKILL.md`
-- [ ] T008 SKILL.md を Mac Mini にコピー: `scp -r .openclaw-staging/to-agents-skill/ anicca@100.99.82.95:/Users/anicca/.openclaw/skills/to-agents-skill/`（またはSSH上で直接作成）
+- [X] T006 SKILL.md テンプレートファイルを作成: `/Users/anicca/.openclaw/skills/to-agents-skill/templates/skill-template.md`（生成される各スキルの SKILL.md 雛形）
+- [X] T007 to-agents-skill SKILL.md を作成（YAML frontmatter + produce/discover/measure 3モード共通プロンプト）: `/Users/anicca/.openclaw/skills/to-agents-skill/SKILL.md`
+- [X] T008 SKILL.md を Mac Mini にコピー: Mac Mini `/Users/anicca/.openclaw/skills/to-agents-skill/SKILL.md` に直接作成完了
 
 **Checkpoint**: `ssh anicca@100.99.82.95 "cat /Users/anicca/.openclaw/skills/to-agents-skill/SKILL.md"` でSKILL.md が表示される
 
@@ -52,12 +52,16 @@
 4. `to-agents-learning.md` に emotion-detector エントリあり
 5. Slack `#metrics` に完了報告あり
 
-- [ ] T009 [US1] `emotion-detector` ハンドラを作成: `apps/api/src/routes/x402/emotionDetector.js`（buddhistCounsel.js を型に、感情検出システムプロンプトと入出力スキーマを実装）
-- [ ] T010 [US1] `index.js` に emotion-detector エントリを追加（paymentMiddleware + router.use）: `apps/api/src/routes/x402/index.js`
-- [ ] T011 [US1] コードをコミット＆push（Railway staging 自動デプロイ）: `git add apps/api/src/routes/x402/ && git commit && git push origin 005-x402-factory`
-- [ ] T012 [US1] Railway staging デプロイ完了確認（2-3分待機）＋ `awal x402 pay` で 200 OK 検証: `npx awal@2.0.3 x402 pay https://anicca-proxy-staging.up.railway.app/api/x402/emotion-detector -X POST -d '{"text":"I feel anxious"}'`
-- [ ] T013 [US1] SKILL.md の produce モードプロンプトが T009-T012 の手順を正しく記述しているか検証（SKILL.md を読んで Anicca が再現できるか目視確認）: `/Users/anicca/.openclaw/skills/to-agents-skill/SKILL.md`
-- [ ] T014 [US1] `emotion-detector` SKILL.md を生成してMac Miniに配置: `ssh anicca@100.99.82.95 "mkdir -p /Users/anicca/.openclaw/skills/emotion-detector"` ＋ SKILL.md 作成
+- [X] T009 [US1] `emotion-detector` ハンドラを作成: `apps/api/src/routes/x402/emotionDetector.js`（buddhistCounsel.js を型に、感情検出システムプロンプトと入出力スキーマを実装）
+- [X] T010 [US1] `index.js` に emotion-detector エントリを追加（paymentMiddleware + router.use）: `apps/api/src/routes/x402/index.js`
+- [X] T011 [US1] コードをコミット＆push（dev ブランチに cherry-pick → Railway staging 自動デプロイ）
+- [ ] T012 [US1] ⛔ BLOCKED: awal テスト 200 OK 検証 — 認証済み ✅、ウォレット USDC $0.00 ❌
+  - **Mac Mini awal ウォレットアドレス**: `0xCE8c58C73a7a5C5838d48DA66cb914aB150f04c9`
+  - **必要ネットワーク**: Base Sepolia testnet（eip155:84532） — staging のデフォルト
+  - **Circle Faucet（https://faucet.circle.com/）でこのアドレスに Base Sepolia USDC を送信すること**
+  - 送信後: `npx awal@2.0.3 x402 pay https://anicca-proxy-staging.up.railway.app/api/x402/emotion-detector -X POST -d '{"text":"I feel anxious"}'`
+- [X] T013 [US1] SKILL.md の produce モードプロンプト検証完了
+- [X] T014 [US1] `emotion-detector` SKILL.md を Mac Mini に配置完了: `/Users/anicca/.openclaw/skills/emotion-detector/SKILL.md`
 - [ ] T015 [US1] `clawhub publish` を emotion-detector スキルディレクトリで実行＋結果の clawhub_id を記録: `ssh anicca@100.99.82.95 "cd /Users/anicca/.openclaw/skills/emotion-detector && clawhub publish"`
 - [ ] T016 [US1] moltbook-interact スキルで emotion-detector の宣伝投稿を実行＋post_id を記録: `ssh anicca@100.99.82.95 "openclaw agent --message 'Use moltbook-interact to post a promotional message for emotion-detector x402 service at https://anicca-proxy-staging.up.railway.app/api/x402/emotion-detector' --deliver"`
 - [ ] T017 [US1] to-agents-learning.md に emotion-detector の LearningEntry を append: `ssh anicca@100.99.82.95` で `/Users/anicca/.openclaw/workspace/to-agents/to-agents-learning.md` に追記
