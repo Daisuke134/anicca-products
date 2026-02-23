@@ -375,6 +375,101 @@ openclaw cron add paywall-experiment-loop
 
 ---
 
+## Paywall デザイン → RevenueCat 投入フロー（調査結果）
+
+### 調査背景
+
+Treatment A の HTML デザインを RevenueCat に投入する最短経路を調査した。
+調査方法: サブエージェント2本を並列実行（RC Figma plugin 深堀り + RC API 代替経路）。
+
+### 確定した事実（ソース付き）
+
+| # | 事実 | ソース |
+|---|------|--------|
+| 1 | RC Figma Plugin は **Auto Layout 必須** | RC 公式ドキュメント「Your paywall designs must use Figma auto layout to be imported correctly.」 |
+| 2 | `html-to-design` は CSS flexbox を Figma Auto Layout に**確実には変換しない** | Figma html-to-design GitHub / コミュニティレポート |
+| 3 | RC API v2 `POST /paywalls` は `offering_id` のみ受け付ける。**コンポーネントツリーの書き込みAPIは存在しない** | RC API v2 公式スキーマ `components_config: additionalProperties: true`（スキーマレス） |
+| 4 | `mcp_RC_create_design_system_paywall_generation_job` が存在する。**デザインシステム JSON を渡すと AI が Paywall を自動生成**する（非公式エンドポイント） | RC MCP ツール定義 |
+| 5 | `figmaselector=.paywall` URL パラメータで DOM 要素だけを Figma にキャプチャできる（430×932 に収まる） | Figma html-to-design ドキュメント |
+| 6 | HTML 要素の `id` 属性が Figma レイヤー名になる。RC plugin は `Purchase Button` / `Footer` 等の**特定レイヤー名を認識**する | RC Figma plugin layer naming spec |
+| 7 | フレームサイズの公式仕様はない。業界標準は **390×844**。RC はレスポンシブにレンダリングする | RC コミュニティ / 実例調査 |
+
+### なぜ html-to-design → RC plugin が失敗したか
+
+```
+問題の連鎖:
+1. ブラウザ viewport が 1502px → figmaselector なしでキャプチャ → 1502×932 になる
+2. CSS flexbox は html-to-design で Auto Layout に変換されない（フラットなビジュアルレンダー）
+3. Auto Layout がない Figma フレームは RC plugin がインポートできない
+```
+
+### 解決策（決定）
+
+**Approach A: HTML → Figma（figmaselector）→ Auto Layout 手動追加 → RC plugin**
+
+| ステップ | 担当 | 所要時間 |
+|---------|------|---------|
+| 1. HTML に `id="Purchase Button"`, `id="Footer"` を追加 | エージェント | 2分 |
+| 2. `figmaselector=.paywall` でキャプチャ → Figma に 430×932 で投入 | エージェント | 1分 |
+| 3. Figma で Auto Layout を手動追加（Shift+A） | Dais | 2分 |
+| 4. RC Figma plugin 実行 → Offering に紐付け | Dais | 30秒 |
+
+**Approach B（将来・完全自動化）: `mcp_RC_create_design_system_paywall_generation_job`**
+
+```json
+// デザインシステム JSON を渡すと RC が AI で Paywall を自動生成
+{
+  "project_id": "projbb7b9d1b",
+  "offering_id": "<offering_id>",
+  "design_system": {
+    "colors": {
+      "background": "#F5F3ED",
+      "primary": "#C9B382",
+      "headline": "#2C2A28",
+      "subhead": "#7a7875",
+      "body": "#3a3836"
+    },
+    "fonts": {
+      "headline": { "family": "SF Pro Display", "size": 27, "weight": 700 },
+      "body": { "family": "SF Pro Text", "size": 14, "weight": 400 }
+    },
+    "copy": {
+      "headline": "Be the person you want to be.",
+      "bullets": [
+        "Proactive nudges at the right moment",
+        "AI-crafted for your struggles",
+        "Built on centuries of Buddhist wisdom"
+      ],
+      "cta": "Try Free for 7 Days",
+      "price_note": "$9.99/month after 7-day free trial"
+    }
+  }
+}
+```
+
+**現時点は Approach A を採用**。Approach B は RC MCP の `design_system` スキーマ仕様が確定次第に移行。
+
+### Treatment A デザイン資産
+
+| 項目 | パス / 値 |
+|------|----------|
+| HTML ソース | `/tmp/anicca-paywall-preview.html`（= v2。QA済み） |
+| QA スクリーンショット | `/tmp/paywall-qa-v2.png`（Visual QA 8.5/10） |
+| 解像度 | 430×932 px |
+| ブランドカラー | bg `#F5F3ED`, gold `#C9B382`, headline `#2C2A28`, subhead `#7a7875` |
+| RC project | `projbb7b9d1b` |
+
+### RC Figma Plugin が認識する必須レイヤー名
+
+| レイヤー名 | 役割 | HTML id |
+|----------|------|---------|
+| `Purchase Button` | 購入ボタン | `id="Purchase Button"` |
+| `Footer` | キャンセル・規約テキスト行 | `id="Footer"` |
+| `Package` | プランカード（複数プランある場合） | `id="Package"` |
+
+---
+
 ## Changelog
 
 - 2026-02-12: v1.0 初版作成
+- 2026-02-24: v1.1 Figma/RC 投入フロー調査結果を追記（サブエージェント2本による深堀り調査）

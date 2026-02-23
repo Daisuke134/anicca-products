@@ -168,11 +168,44 @@ final class AppState: ObservableObject {
 
     // l.md Bible Step 1: CommandLine引数でモックデータ注入と画面遷移を制御
     func configureForScreenshots() {
-        guard CommandLine.arguments.contains(where: { $0.hasPrefix("--screenshot-") }) else { return }
+        let args = CommandLine.arguments
+        guard args.contains(where: { $0.hasPrefix("--screenshot-") }) else { return }
+
+        // 共通: オンボーディング完了・モックデータ注入
         isOnboardingComplete = true
-        selectedRootTab = .myPath
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.selectedRootTab = .myPath
+        var profile = userProfile
+        profile.struggles = ["staying_up_late", "cant_wake_up", "self_loathing", "procrastination", "anxiety"]
+        profile.displayName = "Daisuke"
+        userProfile = profile
+
+        if args.contains("--screenshot-screen1") {
+            selectedRootTab = .myPath
+        } else if args.contains("--screenshot-screen2") {
+            selectedRootTab = .myPath
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                let content = NudgeContent(
+                    problemType: .stayingUpLate,
+                    notificationText: "夜更かしのループ、今夜こそ断ち切ろう",
+                    detailText: "スマホを置いて、深呼吸を3回。それだけでいい。",
+                    variantIndex: 0,
+                    isAIGenerated: true,
+                    llmNudgeId: nil
+                )
+                self.showNudgeCard(content)
+            }
+        } else if args.contains("--screenshot-screen3") {
+            selectedRootTab = .myPath
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                let content = NudgeContent(
+                    problemType: .procrastination,
+                    notificationText: "先延ばし、今すぐ1分だけやってみよう",
+                    detailText: "完璧じゃなくていい。1分始めれば、脳が続きたがる。",
+                    variantIndex: 1,
+                    isAIGenerated: true,
+                    llmNudgeId: nil
+                )
+                self.showNudgeCard(content)
+            }
         }
     }
 

@@ -364,18 +364,14 @@ npx snapai icon \
   --quality high
 # → ./assets/icon-[timestamp].png に保存される
 
-# Step 1-C（フォールバック: SnapAI 未設定の場合）infsh FLUX を使う
-INFSH_API_KEY="<INFSH_API_KEY>" infsh app run falai/flux-dev-lora --input '{
-  "prompt": "<app_name> iOS app icon. Minimalist design. <concept_1_line>. Deep navy blue gradient background. No text. Square format. Premium App Store ready.",
-  "width": 1024,
-  "height": 1024
-}'
-# → 出力 URL を curl でダウンロード → icon-1024.png として保存
+# ⛔ SnapAI 未設定の場合はここで停止。フォールバックなし。
+# → ユーザーに「OpenAI API key が必要です: npx snapai config --openai-api-key sk-xxxx」と伝える
 
-# Step 1-D: Xcode xcassets に配置（Swift/Xcode プロジェクト用）
+# Step 1-C: Xcode xcassets に配置（Swift/Xcode プロジェクト用）
 cp ./assets/icon-[timestamp].png \
   <output_dir>/<app_name>ios/<app_name>/Assets.xcassets/AppIcon.appiconset/icon.png
 # ※ Contents.json の "filename": "icon.png" と一致していること確認
+# ※ 生成後にユーザーにスクリーンショットを見せて確認を取ること
 ```
 
 **注意: app-icon スキルは本来 Expo 向け（Step 4 以降の iOS 26 .icon フォルダ / app.json は Swift/Xcode では不要）。PNG 生成（Step 3）だけを使う。**
