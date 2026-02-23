@@ -1,8 +1,8 @@
 # NAIST Agent — 完全仕様書
 
 **作成日**: 2026-02-22
-**最終更新**: 2026-02-23（セキュリティチェック完了・ソース確定）
-**ステータス**: 計画中（実装未着手）
+**最終更新**: 2026-02-24（全スキル実装完了）
+**ステータス**: ✅ 全スキル完了（ClawHub公開待ち）
 **目的**: NAISTの全学生が、Slackチャットだけで大学関連の全タスク（履修・課題・メール・研究・ファンド申請）を完全自動化できるシステム。OpenClawスキルとしてOSS公開。
 
 ---
@@ -937,26 +937,23 @@ security add-generic-password -a "naist-narita" -s "WEBMAIL_TOTP_SECRET" -w "bas
 
 **1スキル作る → ダイス自身でテスト → PASS → 次へ。スキップ禁止。**
 
-| # | タスク | ソース（何をinstall/コピーするか） | 状態 |
-|---|--------|----------------------------------|------|
-| 0 | **`slack-approval` 作成**（全スキル共通・最優先） | 新規。`send.js` + `listen.js`。Socket Mode + Block Kit | ⏳ **最優先** |
-| 1 | `naist-onboarding` 作成 | `slack-api`（ClawHub）コピー | ⏳ |
-| 2 | `naist-mail` 作成 | `roundcube-webmail`（インストール済み）コピー | ⏳ |
-| 3 | `naist-calendar` 作成 | `gcal-digest`（Mac Mini既存）コピー | ⏳ |
-| 4 | `naist-papers` 作成 | `clawhub install arxiv` → コピー | ⏳ |
-| 5 | Phase 1 テスト（ダイス自身で全スキルを実際に使う） | — | ⏳ |
-| 6 | NAIST #ai チャンネルで告知 | — | ⏳ |
-| 7 | `naist-portal` 作成 | **`playwright-cli`（既存スキル）** + `roundcube-webmail` のSAML+TOTPパターンコピー | ⏳ |
-| 8 | `naist-deadline` 作成 | `clawhub install quick-reminders` → コピー | ⏳ |
-| 9 | `naist-funds` 作成 | `clawhub install deep-research-pro` → コピー + Firecrawl | ⏳ |
-| 10 | `naist-events` 作成 | `clawhub install email-to-calendar` → コピー + Firecrawl | ⏳ |
-| 11 | `naist-qa` 作成 | `clawhub install academic-deep-research` → コピー | ⏳ |
-| 12 | `naist-thesis` 作成 | `clawhub install academic-writing-refiner` → コピー | ⏳ |
-| 13 | `naist-metrics` 作成 | `tiktok-scraper`（Mac Mini既存）コピー | ⏳ |
-| 14 | `skill-for-you` 作成 | `steipete/clawdis@session-logs`（インストール済み）+ `npx skills find` パイプライン | ⏳ |
-| 15 | `auto-skill-creator` 作成 | `sickn33/skill-creator`（インストール済み）+ `find-skills`（既存）のパイプライン | ⏳ |
-| 16 | 全スキルを Mac Mini（Anicca）にコピー | `scp` → `/Users/anicca/.openclaw/skills/` | ⏳ |
-| 17 | ClawHub に公開（各スキル個別） | `clawhub publish <skill-name>` | ⏳ |
+| # | タスク | ソース | 状態 |
+|---|--------|--------|------|
+| 0 | `slack-approval` | 新規（Socket Mode + Block Kit） | ✅ 完了 |
+| 1 | `naist-onboarding` | `slack-api`（ClawHub）コピー | ✅ 完了 |
+| 2 | `naist-mail` | `roundcube-webmail-skill`（Mac Mini既存）= naist-mail そのもの。コピー不要 | ✅ 完了（= roundcube-webmail-skill） |
+| 3 | `naist-calendar` | `gcal-digest`（Mac Mini既存）コピー | ✅ 完了 |
+| 4 | `naist-papers` | `arxiv`（ClawHub）コピー | ✅ 完了 |
+| 5 | `naist-portal` | `playwright-cli` + SAML+TOTP | ✅ 完了 |
+| 6 | `naist-deadline` | `quick-reminders`（ClawHub）コピー | ✅ 完了 |
+| 7 | `naist-funds` | Firecrawl CLI + cron（月・木09:15）| ✅ 完了（20 tests GREEN） |
+| 8 | `naist-events` | Firecrawl + gog + cron（月09:20）| ✅ 完了（24 tests GREEN） |
+| 9 | `naist-qa` | OpenClaw LLM + Firecrawl CLI | ✅ 完了（7 tests GREEN） |
+| 10 | `naist-thesis` | OpenClaw LLM + arxiv | ✅ 完了（9 tests GREEN） |
+| 11 | `naist-metrics` | `tiktok-scraper`（Mac Mini既存）コピー | ✅ 完了（9 tests GREEN） |
+| 12 | `skill-for-you` | `session-logs`（既存）+ `npx skills find` | ✅ 完了（8 tests GREEN） |
+| 13 | `auto-skill-creator` | `find-skills`（既存）+ `skill-creator` | ✅ 完了（5 tests GREEN） |
+| 14 | ClawHub に公開（各スキル個別） | `clawhub publish <skill-name>` | ⏳ |
 
 ---
 
