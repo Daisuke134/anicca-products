@@ -1,17 +1,16 @@
 ---
 name: screenshot-ab
-description: App Store スクリーンショット A/B テスト自動クローズドループ。メトリクス確認 → 勝者判定 → ヘッドライン生成 → l.md Bible（make generate-store-screenshots）でPNG生成 → visual-qa採点 → Slackにダイスへ送る → ASCアップロード → PPO実験作成。Use when running screenshot-ab, App Store screenshot experiment, screenshot loop, スクショA/Bテスト, screenshot closed loop.
+description: App Store スクリーンショット A/B テスト自動クローズドループ。メトリクス確認 → 勝者判定 → ヘッドライン生成（生成→採点→改善ループ）→ l.md Bible（make generate-store-screenshots）でPNG生成 → visual-qa採点 → Slackにダイスへ送る → ASCアップロード → PPO実験作成。Use when running screenshot-ab, App Store screenshot experiment, screenshot loop, スクショA/Bテスト, screenshot closed loop, screenshot automation, A/B test screenshots.
 ---
 
 # screenshot-ab
 
 App Store スクリーンショット A/B テストを自動で回すクローズドループスキル。
+**外部スキル依存ゼロ。このスキル1つで完結。**
 
-## 実行方法
+## 初回セットアップ（新規ユーザー）
 
-```
-screenshot-ab を実行して
-```
+→ `references/setup.md` を読む
 
 ---
 
@@ -21,22 +20,19 @@ screenshot-ab を実行して
 |------|-----------------|
 | **MacBook（ローカルテスト）** | `/Users/cbns03/Downloads/anicca-project/.cursor/plans/ios/1.6.3/screenshot-ab-pil/experiments.json` |
 | **Mac Mini（Anicca 本番）** | `/Users/anicca/.openclaw/workspace/screenshot-ab/experiments.json` |
-| **screenshots.yaml** | `/Users/cbns03/Downloads/anicca-project/docs/screenshots/config/screenshots.yaml` |
-| **raw PNG 出力先** | `/Users/cbns03/Downloads/anicca-project/docs/screenshots/raw/` |
-| **processed PNG 出力先** | `/Users/cbns03/Downloads/anicca-project/docs/screenshots/processed/` |
+| **screenshots.yaml** | `docs/screenshots/config/screenshots.yaml` |
+| **raw PNG 出力先** | `docs/screenshots/raw/` |
+| **processed PNG 出力先** | `docs/screenshots/processed/` |
 
 ---
 
-## フロー
-
-### PHASE 1: メトリクス確認
+## PHASE 1: メトリクス確認
 
 ```bash
-# experiments.json を読む
-cat /Users/cbns03/Downloads/anicca-project/.cursor/plans/ios/1.6.3/screenshot-ab-pil/experiments.json
+cat <experiments.json のパス>
 ```
 
-`current.experiment_id` を取得して PPO 実験の CVR を確認する。
+`current.experiment_id` を取得して CVR を確認する。
 
 ```bash
 asc product-pages experiments treatments list --experiment-id "{experiment_id}"
@@ -54,9 +50,9 @@ asc product-pages experiments treatments list --experiment-id "{experiment_id}"
 
 ---
 
-### PHASE 2: 実験ログ更新
+## PHASE 2: 実験ログ更新
 
-`experiments.json` の `history` に今回の結果を追記する。
+`experiments.json` の `history` に追記する。
 
 ```json
 {
@@ -75,70 +71,29 @@ asc product-pages experiments treatments list --experiment-id "{experiment_id}"
 }
 ```
 
-勝ちパターン・負けパターンを抽出して PHASE 3 に渡す。
+勝ちパターン・負けパターンを `winning_patterns` / `losing_patterns` に追記して PHASE 3 に渡す。
 
 ---
 
-### PHASE 3: ヘッドライン生成
+## PHASE 3: ヘッドライン生成
 
-`recursive-improver` スキルを使う。
+→ `references/headline-gen.md` を読んでループを実行する
 
-**入力:**
-- 勝ちパターン（例: `["問いかけ型"]`）
-- 負けパターン（例: `["数字型", "断言型"]`）
-- ペルソナ: 25〜35歳、6〜7年間主体性の欠如と自己嫌悪のループから抜け出せていない
-- 3画面分のヘッドライン（screen1/screen2/screen3）
-
-**ループ:** 生成 → 採点 → 改善（最大5回）→ 8/10 以上で確定
-
-**出力例:**
-```
-screen1: "Why Do You Keep\nFailing The Same Habit?"
-screen2: "3,000+ People Finally\nBroke The Loop."
-screen3: "This Is What\nChange Actually Looks Like."
-```
+**入力:** `winning_patterns`, `losing_patterns`, ペルソナ定義
+**出力:** screen1/screen2/screen3 の確定ヘッドライン（8/10 以上）
 
 ---
 
-### PHASE 4: スクショ生成（l.md Bible 全体）
+## PHASE 4: スクショ生成（l.md Bible）
 
 **Step 4-1: screenshots.yaml を更新する**
 
-```yaml
-# /Users/cbns03/Downloads/anicca-project/docs/screenshots/config/screenshots.yaml
-screens:
-  - id: "screen1"
-    caption:
-      title: "Why Do You Keep\nFailing The Same Habit?"
-      subtitle: "Finally, an app that fights back."
-    layout:
-      text_x: 100
-      text_y: 200
-      device_x: center
-      device_y: 1200
-
-  - id: "screen2"
-    caption:
-      title: "3,000+ People Finally\nBroke The Loop."
-      subtitle: "Join them. Start free today."
-    layout:
-      text_x: 100
-      text_y: 200
-      device_x: center
-      device_y: 1200
-
-  - id: "screen3"
-    caption:
-      title: "This Is What\nChange Actually Looks Like."
-      subtitle: "AI that nudges you before you quit."
-    layout:
-      text_x: 100
-      text_y: 200
-      device_x: center
-      device_y: 1200
-```
+→ `references/pipeline.md` の「screenshots.yaml 完全版」を参照
+確定ヘッドラインを `caption.title` / `caption.subtitle` に書き込む。
 
 **Step 4-2: l.md パイプラインを走らせる**
+
+→ `references/pipeline.md` の「Makefile l.md Step5 完全版」を参照
 
 ```bash
 cd /Users/cbns03/Downloads/anicca-project
@@ -146,48 +101,37 @@ make generate-store-screenshots
 ```
 
 内部処理（l.md の全4ステップ）:
-1. XCUITest でシミュレータ起動 → アプリ実画面撮影 → `.xcresult`
-2. `python3 docs/screenshots/scripts/extract_screenshots.py` → `docs/screenshots/raw/`
-3. `python3 docs/screenshots/scripts/process_screenshots.py` → `docs/screenshots/processed/`
+1. `xcodebuild test -only-testing:ScreenshotTests` → `output.xcresult`
+2. `extract_screenshots.py` → `docs/screenshots/raw/screen1.png` 等
+3. `process_screenshots.py` → `docs/screenshots/processed/screen1.png` 等
 
 **出力:**
 ```
 docs/screenshots/processed/
-├── screen1.png  （1290×2796, bg=#F5F5F7, テキスト at (100,200)）
+├── screen1.png  （1290×2796）
 ├── screen2.png
 └── screen3.png
 ```
 
 ---
 
-### PHASE 5: visual-qa 採点
+## PHASE 5: visual-qa 採点
 
-`visual-qa` スキルを使って `processed/` の PNG 3枚を採点する。
+→ `references/visual-qa.md` を読んで採点プロンプトを使う
 
-**採点基準:**
-- 1枚目はコア価値を伝えているか
-- キャプションは2行以内でベネフィット型か
-- フォントは読みやすいか（30pt 以上相当）
-- First 3 Rule を満たしているか
+`processed/` の PNG 3枚を vision model で採点する。
 
 | 結果 | アクション |
 |------|-----------|
-| 8/10 以上 | → PHASE 6 へ |
-| 7/10 以下 | → PHASE 3 に戻る（最大3回） |
+| PASS（40/50+） | → PHASE 6 へ |
+| FAIL（39/50以下） | → PHASE 3 に戻る（最大3回） |
 | 3回連続 FAIL | → Slack に警告 → EXIT |
 
 ---
 
-### PHASE 6: Slack に送る（ダイスが確認）
+## PHASE 6: Slack に送る（ダイスが確認）
 
-`processed/` の PNG 3枚を Slack `#metrics` チャンネルに投稿する。
-
-```
-[screenshot-ab] 新候補 ready 🖼️
-ヘッドライン: "Why Do You Keep Failing The Same Habit?"
-visual-qa: 8.5/10 PASS
-→ 確認して OK か NG を返してください。
-```
+→ `references/slack-approval.md` を読んでコマンドを実行する
 
 | ダイスの返答 | アクション |
 |------------|-----------|
@@ -196,7 +140,7 @@ visual-qa: 8.5/10 PASS
 
 ---
 
-### PHASE 7: ASC アップロード・実験開始
+## PHASE 7: ASC アップロード・実験開始
 
 ```bash
 # スクショをアップロード
@@ -220,20 +164,10 @@ asc product-pages experiments create \
   "current": {
     "experiment_id": "ppo_xyz456",
     "start_date": "2026-02-23",
-    "queue_position": 1,
-    "phase": "PIL",
-    "headline": "Why Do You Keep Failing The Same Habit?",
-    "before_cvr": 3.2,
-    "analytics_request_id": "..."
+    "headline": "6 Years. 10 Apps. Still Nothing Changed.",
+    "before_cvr": 3.2
   }
 }
-```
-
-**Slack 通知:**
-```
-[screenshot-ab] 新実験開始 🔬
-Queue 1 / "Why Do You Keep Failing The Same Habit?"
-実験ID: ppo_xyz456 | Control: 前回勝者スクショ | Treatment: 新スクショ
 ```
 
 ---
@@ -249,10 +183,22 @@ Queue 1 / "Why Do You Keep Failing The Same Habit?"
     "phase": "PIL",
     "headline": "6 Years. 10 Apps. Still Nothing Changed.",
     "before_cvr": 2.1,
-    "analytics_request_id": "04c74879-547f-4e35-b231-1fafd485801d"
+    "analytics_request_id": ""
   },
   "history": [],
   "winning_patterns": [],
   "losing_patterns": []
 }
 ```
+
+---
+
+## references/
+
+| ファイル | 内容 |
+|---------|------|
+| `references/setup.md` | 初回セットアップ（DebugManager.swift・XCUITest テンプレート） |
+| `references/pipeline.md` | Makefile + screenshots.yaml + extract/process スクリプト全文 |
+| `references/headline-gen.md` | ヘッドライン生成→採点→改善ループ |
+| `references/visual-qa.md` | App Store visual QA 50点採点プロンプト |
+| `references/slack-approval.md` | Slack 承認コマンド |

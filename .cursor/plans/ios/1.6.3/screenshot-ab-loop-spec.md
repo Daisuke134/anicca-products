@@ -212,6 +212,103 @@ Makefile統合:
   = XCUITest撮影 → xcresulttool抽出 → process_screenshots.py加工 → 完了
 ```
 
+---
+
+## 実装パッチ（全文コピー禁止・spec通りに貼るだけ）
+
+### Makefile（l.md Step5 完全版）
+
+```makefile
+# Makefile — l.md Bible 100%
+BUNDLE_ID := ai.anicca.app.ios
+
+generate-store-screenshots:
+	# 1. クリーンアップ
+	rm -rf docs/screenshots/raw/* docs/screenshots/processed/* docs/screenshots/output.xcresult
+	mkdir -p docs/screenshots/raw docs/screenshots/processed
+
+	# 2. XCUITestでスクリーンショット撮影 → output.xcresult（l.md Step2）
+	xcodebuild test \
+	  -project aniccaios/aniccaios.xcodeproj \
+	  -scheme aniccaios \
+	  -destination 'platform=iOS Simulator,name=iPhone 17' \
+	  -only-testing:aniccaiosUITests/ScreenshotTests \
+	  -resultBundlePath docs/screenshots/output.xcresult \
+	  -testLanguage ja
+
+	# 3. xcresultから画像抽出（l.md Step3）
+	python3 docs/screenshots/scripts/extract_screenshots.py \
+	  docs/screenshots/output.xcresult \
+	  docs/screenshots/raw
+
+	# 4. PIL合成（l.md Step4）
+	cd docs/screenshots && python3 scripts/process_screenshots.py
+
+# デザイン変更のみ再実行（raw/ 撮影済み → 数秒で完了）
+process-only:
+	cd docs/screenshots && python3 scripts/process_screenshots.py
+```
+
+### screenshots.yaml（完全版 — 毎回これを正として使う）
+
+```yaml
+# docs/screenshots/config/screenshots.yaml
+# l.md Bible 100% — YAML駆動設計
+# ヘッドラインを変えたい → caption.title だけ編集して make generate-store-screenshots
+
+global:
+  canvas:
+    width: 1290
+    height: 2796
+  device:
+    name: "iPhone 17"
+    bezel_path: "resources/iphone17_bezel.png"
+  colors:
+    background: "#F5F5F7"
+    text: "#1D1D1F"
+    wave: "#E8E8EA"
+  fonts:
+    title:
+      path: "/System/Library/Fonts/ヒラギノ角ゴシック W6.ttc"
+      size: 100
+    subtitle:
+      path: "/System/Library/Fonts/ヒラギノ角ゴシック W3.ttc"
+      size: 48
+
+screens:
+  - id: "screen1"
+    caption:
+      title: "6 Years.\n10 Apps.\nStill Nothing Changed."
+      subtitle: "Finally, an app that fights back."
+    layout:
+      text_x: 100
+      text_y: 200
+      device_x: center
+      device_y: 1200
+
+  - id: "screen2"
+    caption:
+      title: "3,000+ People\nFinally Broke\nThe Loop."
+      subtitle: "Join them. Start free today."
+    layout:
+      text_x: 100
+      text_y: 200
+      device_x: center
+      device_y: 1200
+
+  - id: "screen3"
+    caption:
+      title: "This Is What\nChange Actually\nLooks Like."
+      subtitle: "AI that nudges you before you quit."
+    layout:
+      text_x: 100
+      text_y: 200
+      device_x: center
+      device_y: 1200
+```
+
+---
+
 ## 各スクショのコンテンツ定義
 
 | Shot | 役割 | ヘッドライン | キャプション | 使うPNG |

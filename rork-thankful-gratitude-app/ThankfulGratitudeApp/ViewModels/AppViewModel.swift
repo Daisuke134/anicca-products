@@ -16,13 +16,7 @@ class AppViewModel {
     var currentAffirmation: Affirmation = AffirmationData.random()
 
     init() {
-        let langRaw = UserDefaults.standard.string(forKey: "app_language")
-        if let langRaw, let lang = AppLanguage(rawValue: langRaw) {
-            self.language = lang
-        } else {
-            let preferred = Locale.current.language.languageCode?.identifier ?? "en"
-            self.language = preferred == "ja" ? .japanese : .english
-        }
+        self.language = .english
         self.hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "has_onboarded")
     }
 

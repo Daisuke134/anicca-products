@@ -28,6 +28,7 @@ struct PaywallView: View {
                         .symbolRenderingMode(.hierarchical)
                         .foregroundStyle(.secondary)
                 }
+                .accessibilityIdentifier("paywall_skip")
             }
             .padding(.horizontal, 20)
             .padding(.top, 12)
@@ -68,6 +69,7 @@ struct PaywallView: View {
                         ) {
                             selectedPlan = .annual
                         }
+                        .accessibilityIdentifier("paywall_plan_yearly")
 
                         planCard(
                             isSelected: selectedPlan == .monthly,
@@ -78,6 +80,7 @@ struct PaywallView: View {
                         ) {
                             selectedPlan = .monthly
                         }
+                        .accessibilityIdentifier("paywall_plan_monthly")
                     }
 
                     VStack(spacing: 16) {
@@ -105,6 +108,7 @@ struct PaywallView: View {
                             .clipShape(.rect(cornerRadius: 16))
                         }
                         .disabled(isPurchasing)
+                        .accessibilityIdentifier("paywall_cta")
 
                         Text(L10n.finePrint(language))
                             .font(.caption)
@@ -118,6 +122,7 @@ struct PaywallView: View {
                                 .font(.subheadline)
                                 .foregroundStyle(Color(red: 0.83, green: 0.65, blue: 0.46))
                         }
+                        .accessibilityIdentifier("paywall_restore")
                     }
                 }
                 .padding(.horizontal, 24)

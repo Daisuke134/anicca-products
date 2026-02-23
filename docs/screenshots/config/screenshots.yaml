@@ -1,5 +1,4 @@
 # docs/screenshots/config/screenshots.yaml
-# Anicca App Store Screenshots Pipeline Config
 # l.md Bible 100% — YAML駆動設計
 # ヘッドラインを変えたい → caption.title だけ編集して make generate-store-screenshots
 
@@ -16,16 +15,16 @@ global:
     wave: "#E8E8EA"
   fonts:
     title:
-      path: "/System/Library/Fonts/Avenir Next.ttc"
+      path: "/System/Library/Fonts/ヒラギノ角ゴシック W6.ttc"
       size: 100
     subtitle:
-      path: "/System/Library/Fonts/HelveticaNeue.ttc"
+      path: "/System/Library/Fonts/ヒラギノ角ゴシック W3.ttc"
       size: 48
 
 screens:
   - id: "screen1"
     caption:
-      title: "Why Do You Keep\nFailing The Same Habit?"
+      title: "6 Years.\n10 Apps.\nStill Nothing Changed."
       subtitle: "Finally, an app that fights back."
     layout:
       text_x: 100
@@ -35,7 +34,7 @@ screens:
 
   - id: "screen2"
     caption:
-      title: "3,000+ People Finally\nBroke The Loop."
+      title: "3,000+ People\nFinally Broke\nThe Loop."
       subtitle: "Join them. Start free today."
     layout:
       text_x: 100
@@ -45,7 +44,7 @@ screens:
 
   - id: "screen3"
     caption:
-      title: "This Is What\nChange Actually Looks Like."
+      title: "This Is What\nChange Actually\nLooks Like."
       subtitle: "AI that nudges you before you quit."
     layout:
       text_x: 100

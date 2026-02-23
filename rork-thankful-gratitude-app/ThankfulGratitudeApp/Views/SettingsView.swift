@@ -11,14 +11,6 @@ struct SettingsView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section {
-                    Picker(L10n.languageLabel(language), selection: $viewModel.language) {
-                        ForEach(AppLanguage.allCases, id: \.self) { lang in
-                            Text(lang.displayName).tag(lang)
-                        }
-                    }
-                }
-
                 Section(L10n.notifications(language)) {
                     DatePicker(
                         L10n.morningReminder(language),

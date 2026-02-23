@@ -265,28 +265,37 @@ asc subscriptions localizations create --subscription-id "<MONTHLY_ID>" \
 ```
 
 ### PHASE 7: IAP REVIEW SCREENSHOT
-```bash
-# asc-shots-pipeline でペイウォール画面を撮影
-# simctl 起動 → AXe で Paywall 画面まで操作 → RAWスクショ → paywall-review.png
+```
+⚠️ 重要: asc CLI / API 経由のアップロードは動作しない（2026-02-24 検証済み）
+  - `asc subscriptions images create` → FAILED (width:0, height:0)
+  - Python 直接 API も同様に FAILED
+  - S3 CompleteMultipartUpload 直接呼び出し → 403 Access Denied
 
-# 1. シミュレータ起動 + アプリインストール・起動
+唯一の確実な方法: ASC Web から手動アップロード
+```
+
+**ステップ 1: スクリーンショット画像を準備**
+```bash
+# シミュレータでペイウォール画面を撮影
 xcrun simctl boot "<UDID>" || true
 xcrun simctl install "<UDID>" "<APP_PATH>"
 xcrun simctl launch "<UDID>" "<BUNDLE_ID>"
 
-# 2. AXe で Paywall 画面まで操作してスクショ撮影
-axe describe-ui --udid "<UDID>"   # UI 確認
-axe tap --id "paywall_cta" --udid "<UDID>"  # または onboarding を進める
 axe screenshot --output "./paywall-review.png" --udid "<UDID>"
-
-# 3. Monthly + Annual それぞれにアップロード
-asc subscriptions review-screenshots create \
-  --subscription-id "<MONTHLY_ID>" --file "./paywall-review.png"
-
-asc subscriptions review-screenshots create \
-  --subscription-id "<ANNUAL_ID>" --file "./paywall-review.png"
-# "already exists" エラー = 正常（既にアップロード済み）
+# 必要なら convert コマンドで JPEG 変換（900x1956 推奨）
 ```
+
+**ステップ 2: ASC Web から手動アップロード（必須）**
+```
+1. https://appstoreconnect.apple.com にアクセス
+2. Apps → [対象アプリ] → In-App Purchases
+3. Annual サブスク → Edit → Review Information → Screenshot 欄
+   → paywall-review.png（または .jpg）をアップロード → Save
+4. Monthly サブスク → 同じ操作
+5. 両方の state が READY_TO_SUBMIT になることを確認
+```
+
+詳細 → `references/iap-bible.md` の「App Review Screenshot — 絶対ルール」
 
 ### PHASE 8: IAP VALIDATE ★STOP GATE
 ```bash
@@ -302,16 +311,40 @@ asc subscriptions get --id "<ANNUAL_ID>"   # state = READY_TO_SUBMIT ?
 
 ### PHASE 9: APP ASSETS
 
-#### Step 1: アイコン生成
+#### Step 1: アイコン生成（`app-icon` スキルを使う）
+
+**スキル:** `code-with-beto/skills@app-icon`（インストール: `npx skills add code-with-beto/skills@app-icon -g -y`）
+
 ```bash
-# infsh FLUX で 1024×1024 生成（INFSH_API_KEY 使用）
+# Step 1-A: SnapAI の設定確認（OpenAI key が必要）
+npx snapai config --show
+# → "Not configured" ならユーザーに OpenAI key を要求して設定:
+#   npx snapai config --openai-api-key sk-xxxxxxxx
+
+# Step 1-B: SnapAI で 1024×1024 PNG を生成（透過背景）
+npx snapai icon \
+  --prompt "<app_name> iOS app icon. Minimalist design. <concept_1_line>. Deep blue to golden gradient. No text. Premium, App Store ready." \
+  --background transparent \
+  --output-format png \
+  --style minimalism \
+  --quality high
+# → ./assets/icon-[timestamp].png に保存される
+
+# Step 1-C（フォールバック: SnapAI 未設定の場合）infsh FLUX を使う
 INFSH_API_KEY="<INFSH_API_KEY>" infsh app run falai/flux-dev-lora --input '{
-  "prompt": "<app_name> iOS app icon. Minimalist design. <concept_1_line>. Deep navy blue gradient background. No text. Square format. Premium, App Store ready.",
+  "prompt": "<app_name> iOS app icon. Minimalist design. <concept_1_line>. Deep navy blue gradient background. No text. Square format. Premium App Store ready.",
   "width": 1024,
   "height": 1024
 }'
 # → 出力 URL を curl でダウンロード → icon-1024.png として保存
+
+# Step 1-D: Xcode xcassets に配置（Swift/Xcode プロジェクト用）
+cp ./assets/icon-[timestamp].png \
+  <output_dir>/<app_name>ios/<app_name>/Assets.xcassets/AppIcon.appiconset/icon.png
+# ※ Contents.json の "filename": "icon.png" と一致していること確認
 ```
+
+**注意: app-icon スキルは本来 Expo 向け（Step 4 以降の iOS 26 .icon フォルダ / app.json は Swift/Xcode では不要）。PNG 生成（Step 3）だけを使う。**
 
 #### Step 2: スクショ生成（screenshot-ab パイプライン — EN + JA）
 ```

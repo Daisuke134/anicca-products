@@ -49,6 +49,16 @@
                ReferencedContainer = "container:aniccaios.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "5A38FE013FDF38087656B01B"
+               BuildableName = "aniccaiosUITests.xctest"
+               BlueprintName = "aniccaiosUITests"
+               ReferencedContainer = "container:aniccaios.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
