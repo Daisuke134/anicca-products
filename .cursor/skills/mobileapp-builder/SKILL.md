@@ -37,6 +37,11 @@ See `references/spec-template.md` for the full spec.md format.
 | 3 | **Superwall 使用禁止**。RevenueCat のみ |
 | 4 | **xcodebuild 直接実行禁止**。Fastlane のみ |
 | 5 | **PHASE 8 が STOP ゲート**。blocking=0 + READY_TO_SUBMIT でなければ絶対に次に進まない |
+| 6 | **availability set は pricing の前**。順序を逆にすると全pricing call が Apple 500エラーで失敗する |
+| 7 | **Privacy Policy URL は en-US AND ja 両方必須**。片方だけでは submit 時にエラー |
+| 8 | **RC Offerings は TestFlight 前に設定必須**。未設定だと「Apple IAP key is invalid」エラーで課金不可 |
+| 9 | **locale は `ja`（`ja-JP` は無効）**。ASC API は `ja-JP` を拒否する |
+| 10 | **IAP key は同一 Apple Developer アカウントで使い回し**。新規作成不要。`AuthKey_AY9BT5R8NU.p8` を流用 |
 
 ---
 
@@ -76,13 +81,58 @@ ralph-autonomous-dev で SwiftUI 実装
 asc apps create --bundle-id "<bundle_id>" --name "<app_name>" \
   --primary-locale en-US --sku "<sku>"
 
+# Privacy Policy URL を en-US AND ja 両方に設定（片方だけでは submit 時にエラー）
+# locale は必ず "ja"（"ja-JP" は ASC で無効）
+APP_INFO_ID=$(asc apps info list --app "<APP_ID>" --output json | \
+  python3 -c "import sys,json;d=json.load(sys.stdin);print(d['data'][0]['id'])")
+
+TOKEN=$(python3 -c "
+import jwt,time,pathlib
+key=pathlib.Path.home().joinpath('Downloads/AuthKey_D637C7RGFN.p8').read_text()
+payload={'iss':'f53272d9-c12d-4d9d-811c-4eb658284e74','iat':int(time.time()),'exp':int(time.time())+1200,'aud':'appstoreconnect-v1'}
+print(jwt.encode(payload,key,algorithm='ES256',headers={'kid':'D637C7RGFN','typ':'JWT'}))
+")
+
+# en-US Privacy URL
+curl -s -X PATCH -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+  "https://api.appstoreconnect.apple.com/v1/appInfoLocalizations/<EN_LOC_ID>" \
+  -d '{"data":{"type":"appInfoLocalizations","id":"<EN_LOC_ID>","attributes":{"privacyPolicyUrl":"https://aniccaai.com/privacy"}}}'
+
+# ja Privacy URL（locale = "ja" 確認必須）
+curl -s -X PATCH -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+  "https://api.appstoreconnect.apple.com/v1/appInfoLocalizations/<JA_LOC_ID>" \
+  -d '{"data":{"type":"appInfoLocalizations","id":"<JA_LOC_ID>","attributes":{"privacyPolicyUrl":"https://aniccaai.com/privacy"}}}'
+
 asc subscriptions groups create --app "<APP_ID>" --reference-name "Premium"
 
 asc subscriptions create --group "<GROUP_ID>" --name "Monthly" \
-  --product-id "<bundle_id>.premium.monthly" --period ONE_MONTH --level 1
+  --product-id "<bundle_id>.premium.monthly" --period ONE_MONTH --level 2
 
 asc subscriptions create --group "<GROUP_ID>" --name "Annual" \
-  --product-id "<bundle_id>.premium.yearly" --period ONE_YEAR --level 2
+  --product-id "<bundle_id>.premium.yearly" --period ONE_YEAR --level 1
+
+# ★ availability を pricing の前に必ず設定（これなしでpricingは全件Apple 500エラー）
+asc subscriptions availability set --id "<MONTHLY_ID>" \
+  --available-in-new-territories --territory USA,JPN
+
+asc subscriptions availability set --id "<ANNUAL_ID>" \
+  --available-in-new-territories --territory USA,JPN
+```
+
+### PHASE 4.5: RC OFFERINGS SETUP（TestFlight 前に必須）
+```
+RC Dashboard → Thankful プロジェクト
+  → Offerings → New Offering → identifier: "default"
+  → Packages を追加:
+      $rc_annual  → Apple Product ID: <bundle_id>.premium.yearly
+      $rc_monthly → Apple Product ID: <bundle_id>.premium.monthly
+  → Offering を Current に設定
+
+確認: Offerings が "current" に設定されていること
+未設定 = TestFlight で「Apple IAP key is invalid」エラー
+
+IAP Key: AY9BT5R8NU（同一 Apple Developer アカウントで全アプリ共通、新規作成不要）
+p8 file: ~/Downloads/AuthKey_AY9BT5R8NU.p8 を RC にアップロード済みであること確認
 ```
 
 ### PHASE 5: IAP PRICING ★最重要
