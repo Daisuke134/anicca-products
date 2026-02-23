@@ -471,13 +471,16 @@ Step 5. [Dais] RC Dashboard でプレビュー確認 → Experiment 作成
 }
 ```
 
-### 実績（初回生成 2026-02-24）
+### 実績
 
-| 項目 | 値 |
-|------|-----|
-| Offering | `ofrng4c8d1f9d48` (`anicca_paywall_ai_v1`) |
-| Paywall | `pwd08b47e7c59f464d` |
-| RC Dashboard | `https://app.revenuecat.com/projects/projbb7b9d1b/paywalls/pwd08b47e7c59f464d` |
+| バージョン | Offering ID | Paywall ID | 備考 |
+|-----------|------------|-----------|------|
+| v1 (2026-02-24) | `ofrng4c8d1f9d48` (`anicca_paywall_ai_v1`) | `pwd08b47e7c59f464d` | ❌ 嘘コピー含む（廃棄） |
+| **v2 (2026-02-24)** | **`ofrng586631f021` (`anicca_paywall_ai_v2`)** | **`pw5d8ebd3e8a674b3e`** | **✅ 実機能のみ訴求（現行）** |
+
+**v2 RC Dashboard:** `https://app.revenuecat.com/projects/projbb7b9d1b/paywalls/pw5d8ebd3e8a674b3e`
+
+**Variant B（A/Bテスト用）:** `ofrng586631f021`（v1の`ofrng4c8d1f9d48`は廃棄）
 
 ---
 
@@ -528,3 +531,4 @@ Step 5. [Dais] RC Dashboard でプレビュー確認 → Experiment 作成
 - 2026-02-24: v1.0 初版作成
 - 2026-02-24: v1.1 Figma approach 廃止 → RC AI自動生成 (`mcp_RC_create_design_system_paywall_generation_job`) に一本化。初回生成実績記録
 - 2026-02-24: v1.2 「アプリコード確認必須」セクション追加。嘘コピー（30-day insights, progress graph等）を禁止リストに追加。content_strategy を実際の機能に修正
+- 2026-02-24: v1.3 v1 paywall（嘘コピー）廃棄。v2 paywall (`pw5d8ebd3e8a674b3e`) を実機能のみで再生成。Variant B は `ofrng586631f021` に更新
