@@ -276,7 +276,7 @@ spec: spec.md のファイルパス
 |---------|------|--------|
 | 1 | spec.md読み込み（画面設計・通知・monetization） | Read |
 | 2 | コード生成（SwiftUI） | ralph-autonomous-dev |
-| 3 | アイコン生成（1024×1024） | Pencil MCP |
+| 3 | アイコン生成（1024×1024） | DALL-E 3（`OPENAI_API_KEY`） |
 | 4 | スクショ3枚生成（PIL + spec内容に合わせる） | PIL |
 | 5 | メタデータ6言語生成（title, subtitle, description, keywords） | `asc localizations update` |
 | 6 | 品質チェック | `greenlight preflight` → CRITICAL=0 |
