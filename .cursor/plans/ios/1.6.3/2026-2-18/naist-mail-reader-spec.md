@@ -9,6 +9,7 @@
 NAISTメールの受信箱を AI が自動で読み、最新10件を Slack に通知するスキル。
 SAML + Google Authenticator (TOTP) の2段階認証を自動突破する。
 Mac Mini (OpenClaw) で毎朝 9:00 JST に自動実行する。
+v2 でメール返信機能を追加する。
 
 ---
 
@@ -16,11 +17,13 @@ Mac Mini (OpenClaw) で毎朝 9:00 JST に自動実行する。
 
 | 機能 | 状態 |
 |------|------|
-| 受信箱の最新 N 件を読む | ✅ |
-| 未読のみフィルタ | ✅ |
-| Slack に自動通知 | ✅ |
-| OpenClaw cron で毎朝自動実行 | ✅ |
-| メールの返信・送信 | ❌ v2 で対応予定 |
+| 受信箱の最新 N 件を読む | ✅ v1 実装済み |
+| 未読のみフィルタ | ✅ v1 実装済み |
+| Slack に自動通知 | ✅ v1 実装済み |
+| OpenClaw cron で毎朝自動実行 | ✅ v1 実装済み |
+| 指定メールに返信する | 🔜 v2 |
+| セッション自動削除（セキュリティ） | 🔜 v2 |
+| macOS Keychain 統合 | 🔜 v2 |
 
 ---
 
@@ -52,6 +55,99 @@ https://mailbox.naist.jp/roundcube/
 
 ---
 
+## v2: 返信機能 仕様
+
+### 返信フロー
+
+```
+inbox から対象メール（uid）を指定
+  → tr[id^="rcmrow"][data-uid="<uid>"] をクリックして開く
+    → [command="reply"] をクリック
+      → waitForSelector('#composebody', timeout: 15000)
+        → TinyMCE が有効か確認
+          → 有効: page.evaluate(() => tinymce.get('composebody').setContent(text))
+          → 無効: page.fill('#composebody', text)
+            → [command="send"] または .btn.btn-primary.send をクリック
+              → waitForSelector('tr[id^="rcmrow"]', timeout: 15000) で送信完了を確認
+```
+
+### 返信に使うセレクタ
+
+| UI要素 | セレクタ | 備考 |
+|--------|---------|------|
+| メール行 | `tr[id^="rcmrow"]` | data-uid 属性でメール特定 |
+| 返信ボタン | `[command="reply"]` | elastic skin |
+| 全員に返信 | `[command="reply-all"]` | |
+| 本文入力欄 | `#composebody` | plain text モード |
+| 本文（TinyMCE） | `tinymce.get('composebody').setContent(text)` | HTML モード時 |
+| 送信ボタン | `[command="send"]` または `.btn.btn-primary.send` | |
+
+### TinyMCE 判定ロジック
+
+```javascript
+const isTinyMCE = await page.evaluate(() => typeof tinymce !== 'undefined' && tinymce.get('composebody'));
+if (isTinyMCE) {
+  await page.evaluate((text) => tinymce.get('composebody').setContent(text), replyText);
+} else {
+  await page.fill('#composebody', replyText);
+}
+```
+
+### reply-mail.js の入力インターフェース
+
+| 環境変数 | 意味 | 例 |
+|---------|------|-----|
+| `WEBMAIL_REPLY_UID` | 返信対象メールのUID | `12345` |
+| `WEBMAIL_REPLY_TEXT` | 返信本文 | `ご連絡ありがとうございます。` |
+| `WEBMAIL_REPLY_ALL` | 全員に返信するか | `false` |
+
+---
+
+## v2: セキュリティ改善 仕様
+
+### 現状のリスク（対応必須）
+
+| 順位 | リスク | 深刻度 |
+|-----|--------|--------|
+| 1 | `.env` にパスワード・TOTPシークレットが平文 | CRITICAL |
+| 2 | base32 TOTPシークレットが平文 = 2FA無効化と同じ | HIGH |
+| 3 | `.session.json` が使用後も平文でディスクに残る | MEDIUM |
+| 4 | 誤って `.env` を git にコミットするリスク | CRITICAL |
+
+### v2 で対応する改善
+
+| # | 改善内容 | 効果 |
+|---|---------|------|
+| 1 | **`.session.json` を実行後に自動削除** | セッション漏洩防止 |
+| 2 | **macOS Keychain 統合**（`security` コマンド経由） | TOTPシークレット・パスワードを平文ファイルから排除 |
+| 3 | **README に警告セクション追加**（`.env` を絶対 git に上げるな） | 公開スキルのユーザー保護 |
+
+### macOS Keychain 統合方針
+
+```bash
+# 保存（セットアップ時に1回）
+security add-generic-password -a "naist-mail" -s "WEBMAIL_PASSWORD" -w "パスワード"
+security add-generic-password -a "naist-mail" -s "WEBMAIL_TOTP_SECRET" -w "base32シークレット"
+
+# 取得（スクリプト実行時）
+WEBMAIL_PASSWORD=$(security find-generic-password -a "naist-mail" -s "WEBMAIL_PASSWORD" -w)
+WEBMAIL_TOTP_SECRET=$(security find-generic-password -a "naist-mail" -s "WEBMAIL_TOTP_SECRET" -w)
+```
+
+`.env` に残すのは `WEBMAIL_URL` と `WEBMAIL_USERNAME`（非機密）のみ。
+
+### セッション自動削除
+
+```javascript
+// finally ブロックで必ず実行
+} finally {
+  await browser.close();
+  if (fs.existsSync(SESSION_FILE)) fs.unlinkSync(SESSION_FILE);
+}
+```
+
+---
+
 ## OpenClaw Cron 設定（Mac Mini）
 
 | 項目 | 値 |
@@ -63,7 +159,7 @@ https://mailbox.naist.jp/roundcube/
 
 ---
 
-## 実装済みファイル
+## 実装済みファイル（v1）
 
 | ファイル | 役割 |
 |---------|------|
@@ -73,123 +169,38 @@ https://mailbox.naist.jp/roundcube/
 | `.gitignore` | node_modules, .session.json を除外 |
 | `SKILL.md` | Claude Code / OpenClaw 用スキル説明 |
 
----
+## 追加予定ファイル（v2）
 
-## README.md（GitHub公開用）
-
-```markdown
-# roundcube-webmail-skill
-
-NAISTメールを AI エージェントから自動で読むスキル。
-SAML + Google Authenticator 認証を自動突破して、受信箱の最新件数を Slack に通知します。
-
-## Roundcube とは
-
-Roundcube はオープンソースの Webメールクライアントで、NAIST をはじめ多くの大学・企業が
-メールシステムとして採用しています。このスキルは NAIST 専用ではなく、
-Roundcube を使っている機関ならどこでも動作します。
-
-## できること / できないこと
-
-| 機能 | 状態 |
-|------|------|
-| 受信箱の最新 N 件を読む | ✅ |
-| 未読のみフィルタ | ✅ |
-| Slack に自動通知 | ✅ |
-| OpenClaw cron で毎朝自動実行 | ✅ |
-| メールの返信・送信 | ❌ v2 で対応予定 |
+| ファイル | 役割 |
+|---------|------|
+| `scripts/reply-mail.js` | 返信スクリプト（UID + 本文を受け取って返信） |
+| `scripts/setup-keychain.sh` | macOS Keychain にシークレットを登録するセットアップスクリプト |
 
 ---
 
-## セットアップ
+## 受け入れ条件
 
-### Step 1: 手元で用意する（あなたがやること）
-
-**① 認証コードのスクリーンショット**
-
-1. iPhone で Google Authenticator を開く
-2. 左上の ☰ をタップ →「アカウントのエクスポート」をタップ
-3. NAISTメールのアカウントにチェック →「次へ」をタップ
-4. QRコードが表示されたらスクリーンショットを撮る（電源 + 音量↑ 同時押し）
-5. 写真アプリでスクリーンショットを長押し → 共有 → AirDrop → このMac
-6. `~/Downloads/` に PNG が届いたことを確認してファイル名を控える
-
-**② NAISTメールに入る際のユーザーネームとパスワード**
+| # | 条件 | 対象バージョン |
+|---|------|--------------|
+| 1 | 最新10件をSlackに通知できる | v1 ✅ |
+| 2 | 未読フィルタが動作する | v1 ✅ |
+| 3 | 指定UIDのメールに返信が送信できる | v2 ⚠️ 未テスト（実機未確認） |
+| 4 | 返信後にSlackに「返信しました」と通知される | v2 ⚠️ 未テスト（実機未確認） |
+| 5 | 実行後 `.session.json` が自動削除される | v2 |
+| 6 | macOS Keychain からシークレットを取得して動作する | v2 |
+| 7 | `.env` に機密情報（パスワード・TOTPシークレット）が含まれない | v2 |
 
 ---
 
-### Step 2: 以下を Claude Code または Cursor に貼り付ける
+## テストマトリックス（v2）
 
-`[ ]` の中を自分の情報に書き換えてからペーストしてください。
-
-```
-roundcube-webmail-skill をセットアップしてください。
-
-以下を用意しました:
-- QRコードのPNG: ~/Downloads/[ファイル名].PNG
-- ユーザーネーム: [例: daisuke-na]
-- パスワード: [NAISTメールのパスワード]
-
-以下を順番に実行してください:
-1. npx skills add Daisuke134/roundcube-webmail-skill
-2. brew install zbar（未インストールの場合）
-3. zbarimg --raw ~/Downloads/[ファイル名].PNG でQRを読み取る
-4. python3 scripts/decode_totp_qr.py で認証シークレットを抽出する
-5. .env に認証情報を設定する
-6. node scripts/read-mail.js を実行して最新5件をこのチャットに表示する
-
-最後に最新5件がチャットに表示されれば完了です。
-```
-```
-
----
-
-## Slack 投稿文（C08RZ98SBUL / AIチャンネル）
-
-```
-naist mailのメールを取得してくれるSkill作りました！
-私はよく確認を忘れてしまうので、Openclawに毎日9時にメールをとってきてもらってます。
-もしよければ使ってみてください。Cursorからも使えますのでぜひ！
-
-https://github.com/Daisuke134/roundcube-webmail-skill
-
-━━━━━━━━━━━━━━━━━━
-セットアップ手順
-━━━━━━━━━━━━━━━━━━
-
-まず手元でこれを用意してください（2分）:
-
-① 認証コードのスクリーンショット
-　1. iPhoneでGoogle Authenticatorを開く
-　2. 左上 ☰ →「アカウントのエクスポート」→ NAISTメールのアカウントを選択 →「次へ」
-　3. QRコードが出たらスクリーンショット（電源 + 音量↑ 同時押し）
-　4. 写真を長押し → 共有 → AirDrop → このMac（~/Downloads/ に届く）
-
-② NAISTメールに入る際のユーザーネームとパスワード
-
-━━━━━━━━━━━━━━━━━━
-準備できたら以下を Claude Code または Cursor に貼り付けてください。
-[ ] の中だけ自分の情報に書き換えてからペーストしてください。
-━━━━━━━━━━━━━━━━━━
-
-roundcube-webmail-skill をセットアップしてください。
-
-以下を用意しました:
-- QRコードのPNG: ~/Downloads/[ファイル名].PNG
-- ユーザーネーム: [例: daisuke-na]
-- パスワード: [NAISTメールのパスワード]
-
-以下を順番に実行してください:
-1. npx skills add Daisuke134/roundcube-webmail-skill
-2. brew install zbar（未インストールの場合）
-3. zbarimg --raw ~/Downloads/[ファイル名].PNG でQRを読み取る
-4. python3 scripts/decode_totp_qr.py で認証シークレットを抽出する
-5. .env に認証情報を設定する
-6. node scripts/read-mail.js を実行して最新5件をこのチャットに表示する
-
-最後に最新5件がチャットに表示されれば完了です。
-━━━━━━━━━━━━━━━━━━
-```
+| # | テスト名 | カバー |
+|---|---------|--------|
+| 1 | `test_reply_plain_text_mode` | TinyMCE なしの返信 |
+| 2 | `test_reply_tinymce_mode` | TinyMCE ありの返信 |
+| 3 | `test_session_deleted_after_run` | 実行後に `.session.json` が存在しない |
+| 4 | `test_keychain_secret_fetch` | Keychain からシークレット取得 |
+| 5 | `test_reply_confirmation_slack` | 返信後に Slack 通知が届く |
 
 ---
 
@@ -199,7 +210,14 @@ roundcube-webmail-skill をセットアップしてください。
 |---|--------|------|
 | 1 | スクリプト動作確認（最新10件取得） | ✅ 完了 |
 | 2 | GitHub push | ✅ 完了 |
-| 3 | README 更新 | 実行中 |
+| 3 | README 更新 | ✅ 完了 |
 | 4 | 仕様書作成（このファイル） | ✅ 完了 |
-| 5 | Slack 投稿（C08RZ98SBUL） | 実行中 |
-| 6 | Mac Mini cron 設定 | 実行中 |
+| 5 | Slack 投稿（C08RZ98SBUL） | ✅ 完了 |
+| 6 | Mac Mini cron 設定 | ✅ 完了 |
+| 7 | v2: reply-mail.js 実装 | ⚠️ コード実装済み・実機未テスト |
+| 8 | v2: setup-keychain.sh 実装 | ✅ 完了 |
+| 9 | v2: セッション自動削除 | ✅ 完了 |
+| 10 | v2: Keychain必須化・DEBUGガード | ✅ 完了 |
+| 11 | v2: .env.example 作成 | ✅ 完了 |
+| 12 | v2: README macOS専用明記 | ✅ 完了 |
+| 13 | npx skills add でローカルインストール | ✅ 完了 |

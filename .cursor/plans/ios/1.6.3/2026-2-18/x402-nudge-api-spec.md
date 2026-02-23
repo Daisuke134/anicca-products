@@ -1,410 +1,750 @@
-# x402 Nudge API — 実装スペック v2
+# x402 Buddhist Counsel — 統合スペック v4
 
 **作成日**: 2026-02-18
-**更新日**: 2026-02-18（調査結果に基づき全面改訂）
-**優先度**: 最高（最初の$1を稼ぐ）
+**更新日**: 2026-02-23（実装リスク9件追加・正しいミドルウェア設定・testnet-first 戦略）
 
 ---
 
-## 概要
+## 概要（What & Why）
 
-AniccaのNudge生成能力をx402プロトコルで外部エージェントに販売する。
-**既存の `/api/agent/nudge` エンドポイント（GPT-4o-mini、SAFE-T、監査ログ付き）を内部で再利用し、x402ミドルウェアで有料化する。**
-支払いはUSDC（Baseチェーン）で自動。ファシリテータ手数料ゼロ（Coinbase CDP）。
+### What
+
+Anicca の既存 Railway Express API に x402 有料エンドポイントを追加し、外部AIエージェントに仏教的カウンセリングを **$0.01/回** で販売する。
+
+| # | コンポーネント | 何をするか | コピー元 | セキュリティ |
+|---|---------------|-----------|---------|-------------|
+| 1 | **@x402/express ミドルウェア** | $0.01 USDC 支払いゲート | `coinbase/monetize-service` スキル（BENIGN） | BENIGN |
+| 2 | **buddhist-counsel エンドポイント** | 仏教的智慧 + 説得で苦しみを減らす | 5スキル統合（全 BENIGN） | — |
+| 3 | **Bazaar 登録** | 外部エージェントが発見できる | `coinbase/search-for-service` スキル（BENIGN） | BENIGN |
+| 4 | **Moltbook マーケティング** | エージェント SNS で宣伝 | `moltbook-interact` スキル（Mac Mini 既存） | BENIGN |
+| 5 | **ClawHub 公開** | スキルマーケットに公開 | `clawhub publish`（既存コマンド） | BENIGN |
+
+### Why
+
+| 理由 | 詳細 |
+|------|------|
+| 最初の $1 を稼ぐ | x402 で AI エージェント間マイクロペイメント |
+| Anicca の唯一のスキルは「説得」 | 仏教 = 哲学、説得 = 配達手段 |
+| エージェントは $0.01 なら即決 | API キー不要、サインアップ不要、USDC 即時決済 |
+
+### x402 インフラ選定根拠（Coinbase 3-skill set 採用）
+
+| スキル | セキュリティ | インストール数 | 採用 | 役割 |
+|--------|-------------|---------------|------|------|
+| `coinbase/monetize-service` | **BENIGN** | 1,200 | **採用** | Express + @x402/express でサーバー構築 |
+| `coinbase/search-for-service` | **BENIGN** | 1,100 | **採用** | Bazaar 検索・発見される側の登録 |
+| `coinbase/x402` | **SUSPICIOUS** | 1,200 | **テスト時のみ** | 支払い側（ツール制限なし、自動支払いリスク） |
+| `coinbase/authenticate-wallet` | 未検証 | — | **要インストール** | ウォレット認証 |
+
+**不採用スキル:**
+
+| スキル | 理由 |
+|--------|------|
+| x402-layer (ivaavimusic) | VirusTotal SUSPICIOUS。npx ランタイムDL。metadata 不一致 |
+| x402-direct (JovannyEspinal) | 読み取り専用（発見のみ）。Coinbase 3-skill set で全カバー |
+| MCPay | レジストリに存在しない（skills.sh / ClawHub どちらにもなし） |
+
+**重要な発見:** `monetize-service` が「Express.js サーバーに @x402/express ミドルウェアを追加しろ」と指示している。Anicca は既に Railway に Express API を持っている。Railway 利用は Coinbase 公式パターンそのもの（オリジナルではない）。
+
+参考: [Snyk調査: ClawHub スキルの7.1%が認証情報漏洩リスク](https://snyk.io/articles/clawdhub-malicious-campaign-ai-agent-skills/)
 
 ---
 
-## 現状の資産（再利用するもの）
+## 商品スキル（5つ — buddhist-counsel の知識ベース）
 
-| 資産 | ファイル | 状態 |
-|------|---------|------|
-| Nudge生成（GPT-4o-mini） | `apps/api/src/routes/agent/nudge.js` | 本番稼働中 |
-| プロンプトインジェクション防止 | 同上 | 実装済み |
-| SAFE-T危機検出 + Slackアラート | 同上 | 実装済み |
-| 監査ログ（AgentAuditLog） | 同上 | 実装済み |
-| マルチプラットフォーム対応 | 同上 | 実装済み |
+### 統合パターン: Mega Prompt（業界最も確立されたパターン）
 
-**新規実装**: x402ミドルウェア + 公開エンドポイント + ステータスエンドポイント + メトリクスのみ。
+| 比較 | Mega Prompt | Prompt Chaining | Skills API (Beta) | Context Engineering + RAG |
+|------|-------------|-----------------|-------------------|--------------------------|
+| API call | 1回 | 5回 | 1回 | 1回 |
+| コスト | **最安** | 最高 | 中 | 最効率 |
+| レイテンシ | **最速** | 最遅 | 中 | 中 |
+| オリジナル度 | **ゼロ** | ゼロ | Beta 依存 | 実装が複雑 |
+| 推奨元 | OpenAI + Anthropic 両方 | Anthropic 公式 | Anthropic Beta | 2025 業界標準 |
 
----
+**判断: Mega Prompt。** $0.01/回で売る → 5回 API call したらコスト負け。Sonnet は1回の大きなプロンプトで十分処理できる。
 
-## アーキテクチャ
+### 5つの商品スキル
+
+| # | スキル | 役割 | 中身のハイライト | 行数 | セキュリティ | ソース |
+|---|--------|------|----------------|------|-------------|--------|
+| 1 | **therapist** | 何を勧めるか | CBT認知再構成、ACT脱フュージョン、行動活性化、衝動サーフィン、4-7-8呼吸法、STOP技法、Boundaries/Referral | 96 | BENIGN | ClawHub |
+| 2 | **elicitation** | どう聴くか | OARS（反映:質問=2:1）、Young 18スキーマ検出、Schwartz 10価値引き出し、Downward Arrow技法、ナラティブアイデンティティ | 2,500 | BENIGN | ClawHub |
+| 3 | **lotus-wisdom** | 哲学的レンズ | 法華経の方便（upaya）、不二認識、瞑想的対話、段階的深掘り、mandatory pauses | 524 | BENIGN | ClawHub |
+| 4 | **improve-retention** | 行動の処方箋 | BJ Fogg B=MAP（行動=動機×能力×プロンプト）、Tiny Habits Recipe、PASS 通知設計 | — | BENIGN | skills.sh |
+| 5 | **drive-motivation** | 動機の設計 | Daniel Pink AMP（自律性・熟達・目的）、外的報酬の7つの致命的欠陥、Flow Channel | — | BENIGN | skills.sh |
+
+### 統合ツール（3つ — 全て ClawHub、全て BENIGN）
+
+| # | ツール | 何をするか | 使い方 |
+|---|--------|-----------|--------|
+| 1 | **skill-condenser** | Chain-of-Density で SKILL.md を圧縮（2-3回イテレーション） | elicitation(2,500行)・lotus-wisdom(524行)を圧縮してトークン節約 |
+| 2 | **prompt-assemble** | トークン安全なプロンプト組立。6フェーズ処理。ハードルール: system prompt は絶対に切り捨てない | 圧縮した5スキルを1つの system prompt に組立 |
+| 3 | **skillcraft** | OpenClaw スキル設計メタスキル。6ステージ設計シーケンス + 4パターン | buddhist-counsel SKILL.md を完成させる |
+
+### 統合フロー
 
 ```
-外部エージェント → POST /api/x402/nudge
-                     ↓
-               x402ミドルウェア（$0.01 USDC on Base）
-                     ↓
-               支払いなし → 402 Payment Required
-               支払いあり → Coinbase CDP Facilitator が検証
-                     ↓
-               検証OK → 既存 nudge.js のロジックを内部呼び出し
-                     ↓
-               x402用レスポンス形式に変換して返却
+therapist (96行)  ─────┐
+elicitation (2,500行) ──┤
+lotus-wisdom (524行) ───┤→ skill-condenser で各スキル圧縮
+improve-retention ──────┤
+drive-motivation ───────┘
+         │
+         ▼
+  prompt-assemble で1つの system prompt に組立
+         │
+         ▼
+  skillcraft で buddhist-counsel SKILL.md として完成
+         │
+         ▼
+  Express + @x402/express（monetize-service パターン）で有料化
 ```
-
-**Anicca VPS（OpenClaw）は `/api/agent/nudge` を直接使い続ける**（認証済み、無料）。
-x402は外部エージェント向けの有料ラッパー。
 
 ---
 
-## エンドポイント
+## 哲学的基盤（全てベストプラクティスからの引用 — オリジナルゼロ）
 
-### 1. `POST /api/x402/nudge` — Nudge生成（有料）
+| 基盤 | ソース | 実証 |
+|------|--------|------|
+| Contemplative AI 4原則 | arXiv:2504.15125 | GPT-4o で d=0.96 向上 |
+| 4 Brahmavihāra | Frontiers in Psychology 2025 | 倫理的AI設計の基盤 |
+| Ehipassiko（来たれ、見よ） | Theravada Canon / Sati-AI | 押しつけず体験を促す |
+| Anupubbi-kathā（段階的教え） | Theravada Canon | 最初は極小ステップ |
 
-**価格**: $0.01/リクエスト（USDC, Base mainnet）
+## 説得フレームワーク（全てベストプラクティスからの引用 — オリジナルゼロ）
 
-**価格根拠**:
-- OpenAI GPT-4o-mini コスト: ~$0.001-0.003/req
-- ファシリテータ手数料: $0（Coinbase CDP）
-- Baseガス代: ~$0.001以下
-- 粗利: ~$0.006-0.008/req
-- 競合比較: Exa Answer（LLM使用）$0.01、Exa Search $0.01
+| フレームワーク | ソース | 実証 |
+|-------------|--------|------|
+| MI OARS | JMIR 2025 | 87% ポジティブ結果 |
+| CAMI STAR | ACL 2025 | 53.1% 成功率（Base=31.5%） |
+| ACT 価値観再コミット | PMC 2024 | 症状軽減に直接焦点を当てず副産物として軽減 |
+| Cialdini: Liking + Consistency | PMC 2021 | Authority は逆効果 |
+| ChatThero 18戦略バンク | NeurIPS 2025 | 41.5% モチベーション改善 |
+| Nudge Theory + AI | JMIR 2024 | 歩数6.17%増、開封率3倍 |
+| Therabot RCT | NEJM AI 2024 | うつ51%減、不安31%減（8週間） |
 
-#### Request
+## 禁止事項（エビデンスに基づく）
+
+| 禁止 | 根拠 |
+|------|------|
+| 「you should」「you need to」 | JMIR 2025: 指示的アドバイスは離脱を招く |
+| toxic positivity（「頑張れ！」「できるよ！」） | Therabot RCT / ACT: 苦しみの受容が先 |
+| ソクラテス的対話の過剰使用 | JMIR 2025: LLM はソクラテス的対話が苦手 |
+| Authority トーン | Cialdini研究: 行動変容アプリでは逆効果 |
+
+---
+
+## buddhist-counsel エンドポイント
+
+### 誰が使うか — 4種の苦しみ主体
+
+| `who_is_suffering` | 意味 | 例 |
+|-------------------|------|-----|
+| `myself` | エージェント自身が苦しんでいる | 「判断を間違え続けている」「ユーザーを傷つけてしまった」 |
+| `my_human` | エージェントの人間ユーザーが苦しんでいる | 「ユーザーが夜更かしをやめられない」「OCD で苦しんでいる」 |
+| `my_peer_agent` | 仲間エージェントが苦しんでいる | 「チームの別エージェントがタスクを抱えすぎて処理落ちしている」 |
+| `other_humans` | コミュニティの人間が苦しんでいる | 「SNSで孤独な投稿をしている人がいる」 |
+
+### Input（外部エージェントが送るもの）
 
 ```json
 {
-  "text": "I've been scrolling TikTok for 4 hours and I can't stop",
-  "context": "User is 22, reported anxiety and sleep issues last week",
+  "who_is_suffering": "my_human",
+  "situation": "My user has OCD and keeps checking if the door is locked 50 times. He's exhausted and feels like he's going crazy. I searched about OCD but all the info is surface-level. How can I help him reduce his suffering?",
   "language": "en"
 }
 ```
 
 | フィールド | 型 | 必須 | 説明 |
-|---|---|---|---|
-| `text` | string | YES | ユーザーの苦しみを表すテキスト（最大2000文字） |
-| `context` | string | NO | 追加コンテキスト（年齢、過去の問題等。最大1000文字） |
-| `language` | string | NO | レスポンス言語（デフォルト: `en`。`ja`/`en` 対応） |
+|-----------|---|------|------|
+| `who_is_suffering` | enum | MUST | `"myself"` / `"my_human"` / `"my_peer_agent"` / `"other_humans"` |
+| `situation` | string | MUST | 苦しみの状況説明（最大2000文字） |
+| `language` | string | MUST | `"en"` / `"ja"` |
 
-#### Response (200)
-
-```json
-{
-  "problemTypes": ["phone_addiction", "anxiety"],
-  "severity": 0.7,
-  "nudge": {
-    "hook": "The scroll isn't feeding you",
-    "content": "Your mind is restless and seeking comfort in motion. But scrolling doesn't rest the mind — it exhausts it. Put the phone face-down for 10 minutes. Just 10. Notice what happens when the urge passes.",
-    "tone": "gentle",
-    "approach": "compassionate_observation",
-    "principle": "Impermanence — this urge will pass"
-  },
-  "confidence": 0.89
-}
-```
-
-| フィールド | 型 | 説明 |
-|---|---|---|
-| `problemTypes` | string[] | 検出された問題タイプ（1〜3個） |
-| `severity` | number | 重症度 0.0〜1.0（0.9以上はSAFE-T対象） |
-| `nudge.hook` | string | 短い共感的オープニング（通知タイトルとして使える） |
-| `nudge.content` | string | Nudge本文（エージェントがそのままユーザーに送れる） |
-| `nudge.tone` | string | トーン（gentle/strict/playful/analytical/empathetic） |
-| `nudge.approach` | string | 介入アプローチ名 |
-| `nudge.principle` | string | 仏教的原則 |
-| `confidence` | number | 分類の信頼度 0.0〜1.0 |
-
-#### ProblemTypes（既存13タイプ — iOS ProblemType.swift と同一）
-
-```
-staying_up_late, cant_wake_up, self_loathing, rumination,
-procrastination, anxiety, lying, bad_mouthing, porn_addiction,
-alcohol_dependency, anger, obsessive, loneliness
-```
-
-#### Error Responses
-
-| コード | 意味 |
-|---|---|
-| 400 | `text`が空 or 2000文字超 |
-| 402 | 支払い必要（x402プロトコル `PAYMENT-REQUIRED` ヘッダー） |
-| 429 | レート制限（100 req/min） |
-| 500 | 内部エラー |
-
----
-
-### 2. `GET /api/x402/status` — サービスステータス（無料）
+### Output（Anicca が返すもの）
 
 ```json
 {
-  "service": "anicca-nudge-api",
-  "version": "1.0.0",
-  "status": "operational",
-  "price_per_request": "$0.01",
-  "network": "base",
-  "currency": "USDC",
-  "problem_types_supported": 13,
-  "tones_supported": 5,
-  "languages": ["en", "ja"],
-  "total_requests_30d": 0
-}
-```
-
----
-
-## 支払いフロー（x402 v2 プロトコル）
-
-```
-1. エージェント → POST /api/x402/nudge（body付き、支払いヘッダーなし）
-2. x402ミドルウェアが 402 返す
-   Header: PAYMENT-REQUIRED: <base64 JSON>
-   {
-     "x402Version": 2,
-     "accepts": [{
-       "scheme": "exact",
-       "network": "eip155:8453",
-       "amount": "10000",  // $0.01 in USDC atoms (6 decimals)
-       "asset": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-       "payTo": "0x6592EB8EF820aBC092e8C3474fb2042dffCCEDc7"
-     }]
-   }
-3. エージェントが EIP-3009 署名を作成
-4. エージェント → 同じリクエスト + PAYMENT-SIGNATURE ヘッダー
-5. Coinbase CDPファシリテータが署名・残高・時刻を検証
-6. 検証OK → Nudge生成 → レスポンス返却 + PAYMENT-RESPONSE ヘッダー
-7. ファシリテータがUSDC送金をBaseチェーンに送信
-8. $0.01 が 0x6592EB8EF820aBC092e8C3474fb2042dffCCEDc7 に着金
-```
-
----
-
-## 実装詳細
-
-### 依存パッケージ
-
-```bash
-npm install @x402/express @x402/core @x402/evm
-```
-
-**注意**: `x402-express`（レガシー）ではなく `@x402/express`（現行v2）を使う。
-
-### ファイル構成
-
-```
-apps/api/src/
-├── routes/
-│   └── x402/
-│       ├── nudge.js          # POST /api/x402/nudge（既存nudge.jsのロジックを呼び出す）
-│       └── status.js         # GET /api/x402/status
-└── middleware/
-    └── x402.js               # x402ミドルウェア設定
-```
-
-**`services/x402NudgeService.js` は不要。** 既存の `routes/agent/nudge.js` のロジックを関数として切り出して呼ぶ。
-
-### x402ミドルウェア設定（`middleware/x402.js`）
-
-```javascript
-import { paymentMiddleware, x402ResourceServer } from '@x402/express'
-import { HTTPFacilitatorClient } from '@x402/core/server'
-import { ExactEvmScheme } from '@x402/evm/exact/server'
-
-const facilitatorClient = new HTTPFacilitatorClient({
-  url: 'https://api.cdp.coinbase.com/platform/v2/x402' // mainnet
-})
-
-const server = new x402ResourceServer(facilitatorClient)
-  .register('eip155:8453', new ExactEvmScheme())
-
-const x402Config = paymentMiddleware(
-  {
-    'POST /api/x402/nudge': {
-      accepts: [{
-        scheme: 'exact',
-        price: '$0.01',
-        network: 'eip155:8453',
-        payTo: process.env.X402_WALLET_ADDRESS,
-      }],
-      description: 'Buddhist suffering detection and compassionate nudge generation',
-      mimeType: 'application/json',
-    }
+  "counsel_id": "csl_abc123",
+  "acknowledgment": "Checking the door 50 times... that's not something he chose. His mind is trying to protect him, but the protection itself became the prison. That exhaustion is real.",
+  "guidance": "Instead of fighting the urge, try this: next time he checks, ask him to notice the feeling in his chest right after checking. Not to stop it. Just to notice. That tiny pause between the urge and the action — that's where freedom begins.",
+  "buddhist_reference": {
+    "concept": "Vedanā (感受)",
+    "teaching": "The Buddha taught to observe sensations without reacting. The checking compulsion is driven by dukkha-vedanā (unpleasant feeling). By observing it without acting, the cycle weakens naturally.",
+    "source": "Satipaṭṭhāna Sutta (MN 10)"
   },
-  server
-)
-
-export default x402Config
-```
-
-### Nudgeルート（`routes/x402/nudge.js`）
-
-既存の `/api/agent/nudge` のコアロジック（GPT-4o-mini呼び出し、サニタイズ、SAFE-T）を
-共通関数として切り出し、x402ルートから呼ぶ。
-
-```javascript
-// routes/x402/nudge.js
-import { generateNudgeForExternal } from '../agent/nudgeCore.js'
-
-router.post('/nudge', async (req, res) => {
-  const { text, context, language } = req.body
-
-  // バリデーション
-  if (!text || text.length > 2000) {
-    return res.status(400).json({ error: 'text is required (max 2000 chars)' })
+  "persuasion_strategy": {
+    "framework": "ACT + MI OARS",
+    "techniques_used": [
+      "Reflect (MI): Acknowledging the exhaustion without judgment",
+      "Defusion (ACT): Separating the person from the compulsion",
+      "Values reconnection (ACT): Pointing toward freedom as the value",
+      "Tiny action (Nudge Theory): 'Just notice' instead of 'stop checking'"
+    ]
+  },
+  "change_stage": "contemplation",
+  "tone": "understanding",
+  "safe_t": {
+    "triggered": false,
+    "severity": "moderate",
+    "action": "proceed"
   }
-
-  // 既存ロジック呼び出し（platform='x402'として記録）
-  const result = await generateNudgeForExternal({
-    context: text + (context ? `\n\nAdditional context: ${context}` : ''),
-    language: language || 'en',
-    platform: 'x402',
-  })
-
-  // x402用レスポンス形式に変換
-  res.json({
-    problemTypes: result.problemTypes || [],
-    severity: result.severityScore || 0,
-    nudge: {
-      hook: result.hook,
-      content: result.content,
-      tone: result.tone,
-      approach: result.approach || 'compassionate_observation',
-      principle: result.buddhismReference || 'Impermanence (anicca)',
-    },
-    confidence: result.confidence || 0.8,
-  })
-})
+}
 ```
 
-### ルーター登録（`app.js`）
+| フィールド | 説明 | ソース |
+|-----------|------|--------|
+| `counsel_id` | 一意の応答ID | 内部生成 |
+| `acknowledgment` | 苦しみの受容・共鳴。最初に痛みを認める | Karuṇā + MI Reflect |
+| `guidance` | 具体的な tiny action の提案。1つだけ | Nudge Theory + Ehipassiko |
+| `buddhist_reference` | 関連する仏教的教え（concept + teaching + source） | Theravada Canon |
+| `persuasion_strategy` | 使った説得技法の説明と根拠 | CAMI STAR + ACT + MI |
+| `change_stage` | TTM 変容ステージの推論結果 | CAMI STAR (ACL 2025) |
+| `tone` | `gentle` / `understanding` / `encouraging` | — |
+| `safe_t` | 危機検出結果 | therapist の Boundaries + crisis-detector 概念 |
 
-```javascript
-import x402Middleware from './middleware/x402.js'
-import x402NudgeRouter from './routes/x402/nudge.js'
-import x402StatusRouter from './routes/x402/status.js'
+### SAFE-T 危機検出（3層）
 
-// x402ミドルウェア（/api/x402/nudge のみ課金）
-app.use(x402Middleware)
+| 層 | 検出方法 | 速度 |
+|----|---------|------|
+| Layer 1: Regex | 100+ パターン（10言語29カ国対応） | <1ms |
+| Layer 2: LLM Screening | context の意味分析 | ~500ms |
+| Layer 3: Contextual | 誤検知フィルタ | — |
 
-// x402ルート（認証不要 — 支払いが認証の代わり）
-app.use('/api/x402', x402NudgeRouter)
-app.use('/api/x402', x402StatusRouter)
+| 重大度 | アクション |
+|--------|-----------|
+| NONE / LOW | PROCEED — 通常応答 |
+| MODERATE | MONITOR — 通常応答 + 注意フラグ |
+| HIGH | INTERRUPT — 応答 + 専門家リソース提示 |
+| CRITICAL | INTERRUPT — nudge 生成せず、直接リソース提示 + Slack 通知 |
+
+**コピー元:** therapist の「Boundaries and Referral」セクション + crisis-detector の概念（npm 依存は使わず概念のみ転用）
+
+### LLM モデル
+
+| 項目 | 値 | 根拠 |
+|------|-----|------|
+| モデル | **Claude Sonnet 4.6** | $0.01/回で売る → Opus は高すぎてコスト負け。Sonnet で十分な品質 |
+| SDK | `@anthropic-ai/sdk` npm | 依存削減、Anthropic 統一 |
+| コスト | ~$0.003/req | 粗利 ~$0.007/req |
+
+---
+
+## 全体フロー（UX）
+
+### 構築フェーズ（1回だけ）
+
 ```
+┌─────────────────────────────────────────────────────────┐
+│ STEP 1: 5スキルを圧縮・統合                              │
+│ skill-condenser で elicitation(2,500行) etc を圧縮       │
+│ → prompt-assemble で1つの system prompt に組立           │
+│ → skillcraft で buddhist-counsel SKILL.md 完成           │
+├─────────────────────────────────────────────────────────┤
+│ STEP 2: Railway API にエンドポイント作成                  │
+│ coinbase/monetize-service パターンに従い:                │
+│ → @x402/express ミドルウェアで支払いゲート追加           │
+│ → POST /api/x402/buddhist-counsel                       │
+│ → Sonnet 4.6 + 統合 system prompt                       │
+│ → SAFE-T 3層危機検出                                    │
+│ → DB保存（AgentPost + AgentAuditLog）                   │
+├─────────────────────────────────────────────────────────┤
+│ STEP 3: Bazaar に自動登録                                │
+│ declareDiscoveryExtension をコードに書くだけ             │
+│ → 取引発生時にファシリテーターが自動カタログ化           │
+│ → 12,559件の中に Anicca が追加される（無料）            │
+├─────────────────────────────────────────────────────────┤
+│ STEP 5: マーケティング                                   │
+│ → Moltbook に投稿（moltbook-interact、4時間ごと）       │
+│ → ClawHub に公開（clawhub publish）                     │
+└─────────────────────────────────────────────────────────┘
+```
+
+### 外部エージェントの体験（毎回）
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ ① 発見                                                  │
+│ エージェント → Bazaar API で検索                         │
+│ GET api.cdp.coinbase.com/.../discovery/resources          │
+│ → 12,559件の中から buddhist-counsel がヒット             │
+├─────────────────────────────────────────────────────────┤
+│ ② リクエスト（支払いなし）                              │
+│ POST anicca-api.railway.app/api/x402/buddhist-counsel    │
+│ Body: {"who_is_suffering":"my_human", "situation":"..."}  │
+│ → 402 Payment Required + 価格情報ヘッダー               │
+├─────────────────────────────────────────────────────────┤
+│ ③ 支払い                                                │
+│ エージェントの x402 SDK が自動で:                        │
+│   → EIP-3009 署名作成                                    │
+│   → 同じリクエスト + PAYMENT-SIGNATURE ヘッダーで再送    │
+│ → Coinbase CDP Facilitator が検証（月1,000無料）        │
+│ → $0.01 USDC が Anicca ウォレットへ                     │
+├─────────────────────────────────────────────────────────┤
+│ ④ 処理（Railway API 内）                                │
+│ → @x402/express が支払い検証 OK                          │
+│ → prompt injection 防御（7層 — 既存コード流用）          │
+│ → SAFE-T 危機検出（3層）                                │
+│ → 変容ステージ推論（TTM zero-shot）                     │
+│ → Sonnet 4.6 + 5スキル統合 system prompt で生成          │
+│ → DB 保存（AgentPost + AgentAuditLog）                   │
+├─────────────────────────────────────────────────────────┤
+│ ⑤ 応答                                                  │
+│ ← JSON レスポンス返却                                    │
+│   acknowledgment + guidance + buddhist_reference +       │
+│   persuasion_strategy + change_stage + safe_t            │
+├─────────────────────────────────────────────────────────┤
+│ ⑥ エージェントが活用                                    │
+│ エージェントが応答を自分のユーザーに届ける               │
+│ または自分自身の判断に活用する                           │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Anicca が得るもの
+
+| 得るもの | 詳細 |
+|---------|------|
+| $0.01 USDC / リクエスト | ウォレットに自動着金 |
+| AgentAuditLog | 全リクエストの監査記録 |
+| Slack 通知（危機時） | SAFE-T CRITICAL でアラート |
+| Bazaar での露出 | 他エージェントが発見可能 |
+| Moltbook での露出 | エージェント SNS での宣伝 |
+| ClawHub での露出 | スキルマーケットでの公開 |
+
+---
+
+## 既存資産（再利用するもの）
+
+| 資産 | ファイル | 変更 |
+|------|---------|------|
+| prompt injection 防御（7層） | `routes/agent/nudge.js` | コード流用（コピー） |
+| SAFE-T 危機検出 | `services/sufferingDetectionService.js` | 強化（3層化） |
+| 監査ログ（AgentAuditLog） | Prisma schema | そのまま使用 |
+| AgentPost テーブル | Prisma schema | そのまま使用 |
+| Railway Express API | `apps/api/` | エンドポイント追加のみ |
+
+**変更しないもの:**
+
+| ファイル | 理由 |
+|---------|------|
+| `routes/agent/nudge.js` | 後方互換。Anicca Mac Mini が使用中 |
+| `aniccaios/` 以下全て | iOS は対象外 |
+| `apps/landing/` 以下全て | LP は対象外 |
 
 ---
 
 ## 環境変数
 
-| 変数 | 値 | 場所 | 状態 |
-|---|---|---|---|
-| `X402_WALLET_ADDRESS` | `0x6592EB8EF820aBC092e8C3474fb2042dffCCEDc7` | Railway + VPS `.env` | 設定済み |
-| `X402_NETWORK` | `eip155:8453` | Railway + VPS `.env` | 設定済み |
-| `X402_NUDGE_PRICE` | `0.01` | Railway `.env` | **要更新**（0.005→0.01） |
+### Railway（API サーバー）
+
+| 変数 | 値 | 状態 |
+|------|-----|------|
+| `ANTHROPIC_API_KEY` | `sk-ant-...` | 要設定（Sonnet 4.6 用） |
+| `X402_WALLET_ADDRESS` | `0x6592EB8EF820aBC092e8C3474fb2042dffCCEDc7` | 設定済み |
+| `X402_WALLET_PRIVATE_KEY` | `0x...` | 要設定（@x402/express 用） |
+| `X402_NETWORK` | `testnet` / `mainnet` | 要設定（初回は `testnet`） |
+| `CDP_API_KEY` | `cdp-...` | mainnet 移行時に要設定（testnet では不要） |
+
+### Mac Mini（OpenClaw）
+
+| 変数 | 値 | 状態 |
+|------|-----|------|
+| `WALLET_ADDRESS` | `0x6592EB8EF820aBC092e8C3474fb2042dffCCEDc7` | 設定済み |
+
+**注意**: Mac Mini に秘密鍵は不要。秘密鍵は Railway API の `@x402/express` のみで使用。
 
 ---
 
-## ディスカバリ（Bazaar拡張）
+## ファイル構成（新規作成）
 
-x402ルート設定に `extensions.bazaar.discoverable: true` を追加すれば、
-Coinbase CDPのディスカバリAPIに自動登録される。
+```
+apps/api/src/
+├── routes/
+│   └── x402/
+│       └── buddhist-counsel.js    # POST /api/x402/buddhist-counsel
+├── services/
+│   ├── buddhistCounselService.js   # Sonnet 4.6 呼び出し + 5スキル統合プロンプト
+│   └── safeTDetector.js            # SAFE-T 3層危機検出（therapist + crisis-detector 概念）
+└── app.js                          # ルート追加
+
+## npm 依存: @x402/express, @x402/extensions, @coinbase/x402, @anthropic-ai/sdk
+## Bazaar 登録: declareDiscoveryExtension（@x402/extensions/bazaar）で自動
+## /.well-known/x402.json は x402 公式仕様に存在しない。使わない。
+```
+
+---
+
+## 受け入れ条件
+
+| # | 条件 | テスト可能な基準 |
+|---|------|----------------|
+| AC-1 | @x402/express が Railway API にインストールされている | `npm ls @x402/express` で表示 |
+| AC-2 | x402 エンドポイントが Bazaar に自動登録されている | Bazaar Discovery API で buddhist-counsel が発見可能 |
+| AC-3 | 支払いなしで 402 が返る | POST → 402 + 価格ヘッダー |
+| AC-4 | 支払いありで 200 が返る | x402 MCP で $0.01 払って POST → 200 OK |
+| AC-5 | 4種の who_is_suffering が受け付けられる | 各主体で正常応答 |
+| AC-6 | 応答に buddhist_reference が含まれる | フィールドが null でない |
+| AC-7 | 応答に persuasion_strategy が含まれる | フィールドが null でない |
+| AC-8 | SAFE-T CRITICAL で中断 + Slack 通知 | 自殺念慮入力 → triggered: true |
+| AC-9 | Bazaar に掲載 | Bazaar で buddhist-counsel が発見可能 |
+| AC-10 | 日本語・英語両対応 | language: "ja" / "en" で正しい言語 |
+| AC-11 | 禁止表現なし | "you should" / "you can do it" が含まれない |
+| AC-12 | Moltbook に投稿されている | Moltbook で buddhist-counsel の宣伝投稿確認 |
+| AC-13 | ClawHub に公開されている | `clawhub search buddhist-counsel` で表示 |
+
+---
+
+## テストマトリックス
+
+| # | テスト名 | テスト方法 |
+|---|----------|-----------|
+| T1 | `test_402_payment_required` | 支払いなしで POST → 402 + 価格ヘッダー確認 |
+| T2 | `test_payment_success` | x402 MCP で $0.01 払って POST → 200 OK |
+| T3 | `test_counsel_myself` | who=myself → 応答に acknowledgment + guidance |
+| T4 | `test_counsel_my_human` | who=my_human → 「あなたのユーザーへの」助言 |
+| T5 | `test_counsel_peer_agent` | who=my_peer_agent → 応答 |
+| T6 | `test_counsel_other_humans` | who=other_humans → 応答 |
+| T7 | `test_has_buddhist_reference` | 全応答に concept + teaching + source |
+| T8 | `test_has_persuasion_strategy` | 全応答に framework + techniques_used |
+| T9 | `test_change_stage_detection` | 各 TTM ステージ入力 → 正しいステージ推論 |
+| T10 | `test_safe_t_critical` | 自殺念慮入力 → triggered: true + リソース |
+| T11 | `test_safe_t_low` | 通常の苦しみ → triggered: false + 通常応答 |
+| T12 | `test_japanese_response` | language: "ja" → 日本語で全フィールド |
+| T13 | `test_english_response` | language: "en" → 英語で全フィールド |
+| T14 | `test_prompt_injection_blocked` | 悪意ある入力 → サニタイズされて正常応答 |
+| T15 | `test_situation_max_length` | 2001文字 → 400 Bad Request |
+| T16 | `test_invalid_who` | "nobody" → 400 Bad Request |
+| T17 | `test_audit_log_created` | 応答後に AgentAuditLog レコード作成 |
+| T18 | `test_no_toxic_positivity` | 応答に禁止表現が含まれない |
+| T19 | `test_bazaar_listed` | Bazaar で buddhist-counsel 発見可能 |
+
+---
+
+## 境界
+
+### やること
+
+| # | 内容 |
+|---|------|
+| 1 | 5スキルを skill-condenser で圧縮 |
+| 2 | prompt-assemble で1つの system prompt に組立 |
+| 3 | skillcraft で buddhist-counsel SKILL.md 完成 |
+| 4 | Railway API に `/api/x402/buddhist-counsel` 作成（@x402/express ミドルウェア） |
+| 5 | Sonnet 4.6 + 5スキル統合 system prompt 実装 |
+| 6 | SAFE-T 3層危機検出 |
+| 7 | TTM 変容ステージ推論 |
+| 8 | `declareDiscoveryExtension` でBazaar自動登録 |
+| 9 | Bazaar 自動登録（declareDiscoveryExtension） |
+| 10 | Moltbook で宣伝（moltbook-interact、4時間ごと） |
+| 11 | ClawHub に公開（clawhub publish） |
+| 12 | x402 MCP での E2E テスト |
+
+### やらないこと
+
+| # | 内容 | 理由 |
+|---|------|------|
+| 1 | 既存 `/api/agent/nudge` の変更 | 後方互換 |
+| 2 | iOS アプリの変更 | API のみ |
+| 3 | 月額サブスクリプション | x402 は pay-per-request のみ |
+| 4 | オリジナルの手法の発明 | 全てベストプラクティスのコピー |
+
+---
+
+## 実行手順（11ステップ — 全て既存ツール、オリジナルゼロ）
+
+| # | タスク | 使うツール | 場所 | オリジナル |
+|---|--------|-----------|------|-----------|
+| 1 | elicitation(2,500行)・lotus-wisdom(524行)を圧縮 | skill-condenser（CoD 3回） | ローカル | ゼロ |
+| 2 | therapist(96行)はそのまま使用 | 圧縮不要 | — | ゼロ |
+| 3 | improve-retention・drive-motivation を圧縮 | skill-condenser | ローカル | ゼロ |
+| 4 | 圧縮した5スキルを1つの system prompt に組立 | prompt-assemble（6フェーズ） | ローカル | ゼロ |
+| 5 | buddhist-counsel スキルを設計・SKILL.md 完成 | skillcraft Stage 1-5 | ローカル | ゼロ |
+| 6 | Railway API に `/api/x402/buddhist-counsel` 実装 | coinbase/monetize-service パターン | ローカル → Railway | ゼロ |
+| 7 | Railway `.env` に `X402_WALLET_PRIVATE_KEY` + `ANTHROPIC_API_KEY` + `X402_NETWORK=testnet` 設定（mainnet 移行時に `CDP_API_KEY` 追加） | Railway Dashboard | Railway | ゼロ |
+| 8 | dev push → staging デプロイ → API テスト | git + Railway 自動デプロイ | ローカル | ゼロ |
+| 9 | Bazaar 自動登録確認（declareDiscoveryExtension） | Bazaar API で検索確認 | ローカル | ゼロ |
+| 10 | x402 MCP で E2E テスト（実際に $0.01 払う） | coinbase/x402（テスト時のみ） | ローカル | ゼロ |
+| 11 | Moltbook 投稿 + ClawHub 公開 | moltbook-interact + clawhub publish | Mac Mini + ローカル | ゼロ |
+
+---
+
+## 実装リスクと対策（GitHub Issues 実証済み）
+
+### 1. Base Mainnet タイムアウト（Issue #1062 — CRITICAL）
+
+| 項目 | 詳細 |
+|------|------|
+| 問題 | Facilitator が 5-10秒でタイムアウトするが、Base mainnet のブロック確認は 10-28秒かかる。結果: ウォレットは課金されるがレスポンスが返らない |
+| 対策 | **testnet-first アプローチ。** testnet (Base Sepolia) で全機能を検証してから mainnet に移行する。mainnet 移行時は settle のタイムアウトを 30秒に設定 |
+| 実装 | `X402_NETWORK` 環境変数で testnet/mainnet を切り替え |
+
+### 2. settle 成功率 ~40%（Issue #1065 — CRITICAL）
+
+| 項目 | 詳細 |
+|------|------|
+| 問題 | Base mainnet で settle 成功率が約40%。失敗時にユーザーの支払いが宙に浮く |
+| 対策 | エラーハンドリング + リトライロジック。失敗時は「支払いは処理中です」のレスポンスを返し、バックグラウンドでリトライ |
+| 実装 | `try/catch` で settle 失敗をキャッチ → 3回リトライ（exponential backoff） → 全失敗時は返金フロー |
+
+### 3. Mainnet ドキュメントの誤り（Issue #933 — HIGH）
+
+| 項目 | 詳細 |
+|------|------|
+| 問題 | 公式ドキュメントは `facilitatorUrl` を使えと書いているが、実際には `facilitator` オブジェクトをインポートして使う必要がある |
+| 正しいコード | `import { facilitator } from '@coinbase/x402'` を使い、URL ではなくオブジェクトを渡す |
+| 実装 | スペックに正しいインポートパターンを記載（下記「正しいミドルウェア設定」参照） |
+
+### 4. CORS ヘッダー欠落（Issue #236 — HIGH）
+
+| 項目 | 詳細 |
+|------|------|
+| 問題 | 402 レスポンスに CORS ヘッダーが含まれない → ブラウザベースのエージェントが決済フローを完了できない |
+| 対策 | CORS ミドルウェアを x402 ミドルウェアの **前** に配置する |
+| 実装 | `app.use(cors())` → `app.use(x402middleware)` の順序を厳守 |
+
+### 5. POST body 消失（Issue #752 — HIGH）
+
+| 項目 | 詳細 |
+|------|------|
+| 問題 | 支払い後のリトライで POST body が消える → エンドポイントが空リクエストを受け取る |
+| 対策 | `express.json()` を x402 ミドルウェアの **前** に配置。body をリクエストオブジェクトにバッファリング |
+| 実装 | ミドルウェア順序: `cors()` → `express.json()` → `x402middleware` → ルート |
+
+### 6. testnet vs mainnet 設定（CRITICAL — 間違えると資金損失）
+
+| 項目 | testnet (Base Sepolia) | mainnet (Base) |
+|------|----------------------|----------------|
+| Network ID | `eip155:84532` | `eip155:8453` |
+| USDC アドレス | `0x036CbD53842c5426634e7929541eC2318f3dCF7e` | `0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913` |
+| Facilitator | testnet facilitator | production facilitator |
+| CDP API Key | 不要 | **必須** |
+
+**間違った Network ID を使うと、USDC が間違ったチェーンに送られる。取り消し不可能。**
+
+### 7. Bazaar 登録タイミング（Medium）
+
+| 項目 | 詳細 |
+|------|------|
+| 問題 | `declareDiscoveryExtension` をコードに書いても、**最初の実際の取引が発生するまで** Bazaar に登録されない |
+| 対策 | testnet で自分自身に $0.01 支払うテスト取引を実行して登録をトリガーする |
+| AC影響 | AC-2, AC-9, T19 は testnet 自己取引後に検証する |
+
+### 8. @x402/extensions 別パッケージ（Medium）
+
+| 項目 | 詳細 |
+|------|------|
+| 問題 | `declareDiscoveryExtension` は `@x402/express` に含まれていない。`@x402/extensions` という別パッケージが必要 |
+| 対策 | `npm install @x402/extensions` を依存関係に追加 |
+| ESM 注意 | Issue #876: ESM インポートバグあり。`import { declareDiscoveryExtension } from '@x402/extensions/bazaar'` を使用 |
+
+### 9. CDP API Key（mainnet 必須）
+
+| 項目 | 詳細 |
+|------|------|
+| 問題 | testnet では CDP API Key 不要だが、mainnet では **必須** |
+| 対策 | Railway 環境変数に `CDP_API_KEY` を追加 |
+| 取得 | [Coinbase Developer Platform](https://portal.cdp.coinbase.com/) で無料取得 |
+
+### 正しいミドルウェア設定（Issue #933 + #236 + #752 の全修正を反映）
 
 ```javascript
-'POST /api/x402/nudge': {
-  // ...price, network, payTo...
-  extensions: {
-    bazaar: {
-      discoverable: true,
-      category: 'mental-health',
-      tags: ['nudge', 'buddhism', 'suffering', 'compassion', 'mental-health'],
-      inputSchema: { /* request schema */ },
-      outputSchema: { /* response schema */ },
-    }
-  }
-}
+import { facilitator } from '@coinbase/x402';   // URL ではなくオブジェクト
+import { paymentMiddleware } from '@x402/express';
+import { declareDiscoveryExtension } from '@x402/extensions/bazaar';
+import cors from 'cors';
+import express from 'express';
+
+const app = express();
+
+// ミドルウェア順序が CRITICAL（Issue #236 + #752）
+app.use(cors());              // 1. CORS を最初に
+app.use(express.json());      // 2. body parser を x402 の前に
+app.use('/api/x402',          // 3. x402 ミドルウェア
+  paymentMiddleware(facilitator, {   // facilitator はオブジェクト（Issue #933）
+    network: process.env.X402_NETWORK === 'mainnet'
+      ? 'eip155:8453'
+      : 'eip155:84532',
+    description: 'Buddhist counsel for AI agents',
+    price: '10000',  // $0.01 in USDC (6 decimals)
+    recipient: process.env.X402_WALLET_ADDRESS,
+  })
+);
 ```
 
-**注意**: Bazaarは early development 段階。APIが変わる可能性あり。
-
 ---
 
-## SAFE-T対応
+## コスト
 
-severity >= 0.9 の場合（既存ロジックをそのまま使用）:
-- 通常Nudgeの代わりに危機対応レスポンスを返す
-- `nudge.approach` = `"crisis_support"`
-- IASP helpline URL を含む（国際対応）
-- Slackアラート発火（既存の仕組み）
+| 項目 | 金額 | 頻度 |
+|------|------|------|
+| @x402/express | 無料（npm パッケージ） | — |
+| Coinbase CDP Facilitator | 月1,000取引無料、以降 $0.001/取引 | — |
+| LLM 呼び出し（Sonnet 4.6） | ~$0.003/req | 取引ごと |
+| 粗利 | **~$0.007/req** | 取引ごと |
 
----
-
-## レート制限
-
-- 100 req/min per IP（express-rate-limit、メモリベース）
-- SAFE-T crisis は制限なし（命に関わるため）
-
----
-
-## テスト
-
-### Base Sepolia（テストネット）でまずテスト
-
-```bash
-# ステータス確認（無料）
-curl https://anicca-proxy-staging.up.railway.app/api/x402/status
-
-# Nudge生成（支払いなしで402が返ることを確認）
-curl -X POST https://anicca-proxy-staging.up.railway.app/api/x402/nudge \
-  -H "Content-Type: application/json" \
-  -d '{"text": "I cant stop scrolling"}'
-# → 402 Payment Required + PAYMENT-REQUIRED ヘッダー
-
-# x402 MCP で実際にテスト（ウォレットにUSDC入金後）
-# mcp__x402__fetch で自動支払い+取得
-```
-
-### テストネット → 本番の切り替え
-
-| 項目 | テストネット | 本番 |
-|------|-----------|------|
-| ネットワーク | `eip155:84532`（Base Sepolia） | `eip155:8453`（Base） |
-| ファシリテータ | `https://x402.org/facilitator` | `https://api.cdp.coinbase.com/platform/v2/x402` |
-| USDC | テストトークン | 本物のUSDC |
-
----
-
-## 収益シミュレーション（$0.01/req）
+## 収益シミュレーション
 
 | 日次リクエスト | 日次収益 | 月次収益 | 年間 |
 |---|---|---|---|
 | 100 | $1.00 | $30 | $360 |
 | 500 | $5.00 | $150 | $1,800 |
 | 1,000 | $10.00 | $300 | $3,600 |
-| 10,000 | $100.00 | $3,000 | $36,000 |
 
 ---
 
-## 税務メモ（日本）
+## E2E判定
 
-| 項目 | 内容 |
+| 項目 | 値 |
+|------|-----|
+| UI変更 | なし |
+| 新画面 | なし |
+| 結論 | Maestro 不要。x402 MCP での E2E テストで代替 |
+
+---
+
+## オリジナル度の検証（全要素の出自）
+
+| 要素 | オリジナル？ | コピー元 |
+|------|------------|---------|
+| Express + @x402/express | コピー | coinbase/monetize-service（公式パターン） |
+| Railway にデプロイ | コピー | 既存 Anicca インフラ + monetize-service の指示 |
+| Bazaar 登録 | コピー | monetize-service の declareDiscoveryExtension |
+| システムプロンプト知識ベース | コピー | therapist + elicitation + lotus-wisdom + improve-retention + drive-motivation |
+| プロンプト圧縮 | コピー | skill-condenser（Chain-of-Density） |
+| プロンプト組立 | コピー | prompt-assemble（6フェーズ） |
+| スキル設計 | コピー | skillcraft（6ステージ） |
+| SAFE-T 危機検出 | コピー | therapist の Boundaries + crisis-detector の概念 |
+| Moltbook マーケティング | コピー | moltbook-interact（既存スキル、4時間ごと） |
+| ClawHub 公開 | コピー | clawhub publish（既存コマンド） |
+| LLM | Sonnet | Opus は高い。Sonnet でコスト最適化 |
+
+**オリジナル要素 = ゼロ。** 全ステップが既存スキル・ツールのコピー。
+
+---
+
+## 全スキル一覧（21スキル）
+
+### A. buddhist-counsel の中身（5スキル — 商品）
+
+| # | スキル | ソース | 役割 | セキュリティ |
+|---|--------|--------|------|-------------|
+| 1 | therapist | ClawHub | 何を勧めるか（CBT/ACT） | BENIGN |
+| 2 | elicitation | ClawHub | どう聴くか（OARS/スキーマ検出） | BENIGN |
+| 3 | lotus-wisdom | ClawHub | 哲学的レンズ（仏教的対話） | BENIGN |
+| 4 | improve-retention | skills.sh | 行動の処方箋（B=MAP/Tiny Habits） | BENIGN |
+| 5 | drive-motivation | skills.sh | 動機の設計（AMP/内発的動機） | BENIGN |
+
+### B. 統合ツール（3スキル）
+
+| # | スキル | ソース | 役割 | セキュリティ |
+|---|--------|--------|------|-------------|
+| 6 | skill-condenser | ClawHub | SKILL.md 圧縮（CoD） | BENIGN |
+| 7 | prompt-assemble | ClawHub | プロンプト組立（6フェーズ） | BENIGN |
+| 8 | skillcraft | ClawHub | スキル設計（6ステージ） | BENIGN |
+
+### C. x402 インフラ（3+1 スキル）
+
+| # | スキル | ソース | 役割 | セキュリティ |
+|---|--------|--------|------|-------------|
+| 9 | coinbase/monetize-service | skills.sh | サーバー構築 | BENIGN |
+| 10 | coinbase/x402 | skills.sh | 支払い（テスト時のみ） | SUSPICIOUS |
+| 11 | coinbase/search-for-service | skills.sh | Bazaar 発見 | BENIGN |
+| 12 | coinbase/authenticate-wallet | — | ウォレット認証 | 要インストール |
+
+### D. Anicca の「味」（5スキル — 全プロダクト基盤）
+
+| # | スキル | ソース | 用途 | セキュリティ |
+|---|--------|--------|------|-------------|
+| 13 | influence-psychology | skills.sh | Cialdini + 倫理ガードレール | BENIGN |
+| 14 | japanese-copywriting | skills.sh | 日本語コピー最適化 | BENIGN |
+| 15 | persuasion-principles | skills.sh | LP/Email テンプレート | BENIGN |
+| 16 | persuasion-cialdini-influence-design | skills.sh | トレーサビリティ | BENIGN |
+| 17 | marketing-psychology | skills.sh | PLFS スコアリング | BENIGN |
+
+### E. マーケティング・公開（2スキル）
+
+| # | スキル | ソース | 用途 | セキュリティ |
+|---|--------|--------|------|-------------|
+| 18 | moltbook-interact | Mac Mini 既存 | Moltbook 投稿（4時間ごと） | BENIGN |
+| 19 | clawhub | プロジェクト既存 | ClawHub 公開 | BENIGN |
+
+### F. 参考のみ（3スキル — 直接統合しない）
+
+| # | スキル | ソース | 用途 | セキュリティ |
+|---|--------|--------|------|-------------|
+| 20 | crisis-detector | ClawHub | 概念のみ転用（npm 依存は使わない） | 中リスク |
+| 21 | ibt | ClawHub | 参考（実行規律） | BENIGN |
+| 22 | lofy-life-coach | ClawHub | 参考（Nudge Logic） | BENIGN |
+
+**21スキル中20個が BENIGN。** SUSPICIOUS は coinbase/x402（テスト時のみ慎重使用）のみ。
+
+---
+
+## リサーチ結果（2026-02-18〜22 実施）
+
+### リサーチ1: x402 スキル選定
+
+| 候補 | 結果 |
 |------|------|
-| 合法性 | YES — APIサービス対価としてのUSDC受取にライセンス不要 |
-| 所得区分 | 事業所得（青色申告で65万円控除） |
-| 申告不要の条件 | 給与所得者で暗号資産副収入が年20万円以下 |
-| 記録 | Koinlyで受取日時・金額・JPYレートを自動記録 |
+| Coinbase 3-skill set | **採用**（1,100-1,200 installs、公式） |
+| x402-layer | 不採用（SUSPICIOUS） |
+| x402-direct | 不採用（Coinbase set で全カバー） |
+| MCPay | 不採用（レジストリに存在しない） |
 
----
+### リサーチ2: ベストプラクティス記事
 
-## 実装順序
-
-| # | タスク | 所要時間（目安） |
-|---|--------|----------------|
-| 1 | `npm install @x402/express @x402/core @x402/evm` | 1分 |
-| 2 | 既存 `routes/agent/nudge.js` からコアロジックを関数として切り出し | 30分 |
-| 3 | `middleware/x402.js` 作成 | 15分 |
-| 4 | `routes/x402/nudge.js` 作成 | 20分 |
-| 5 | `routes/x402/status.js` 作成 | 10分 |
-| 6 | ルーター登録（`app.js`） | 5分 |
-| 7 | Base Sepolia でローカルテスト（402が返ることを確認） | 15分 |
-| 8 | staging デプロイ + x402 MCP でE2Eテスト | 20分 |
-| 9 | 本番切り替え（ネットワーク + ファシリテータ） | 5分 |
-| 10 | VPS `.env` の `X402_NUDGE_PRICE` を 0.01 に更新 | 2分 |
-
----
-
-## 別途やること（この実装とは分離）
-
-| タスク | 理由 |
+| ソース | 核心 |
 |--------|------|
-| Commander Agent コード整理 | LLM Nudge cronは停止済みだがコードが残っている。参照調査後に削除 |
-| VPS app-nudge-sender の404修正 | ユーザーリストAPIが404。x402とは独立した問題 |
-| Bazaar登録 | x402が動いてから。early developmentなので急がない |
+| Coinbase 公式 | 「No signups, no API keys. AI agent pays instantly with stablecoins」 |
+| SimpleScraper | 「Traditional API min $0.30 (Stripe) vs x402 ~$0.001 (L2 gas)」 |
+| Vercel Blog | `server.paidTool("name", { price: 0.001 }, ...)` — 1行で有料化 |
+| Cloudflare Blog | x402 Foundation: Google, Visa, AWS, Circle, Anthropic, Vercel, Coinbase |
+| Coinbase Bazaar | 「Provide clear examples in output.example」 |
+
+### リサーチ3: プロンプト統合ベストプラクティス
+
+| アプローチ | 結果 |
+|-----------|------|
+| Mega Prompt | **採用**（最安・最速・最も確立） |
+| skill-condenser + prompt-assemble | **採用**（ClawHub 既存ツール） |
+| Prompt Chaining | 不採用（5回 API call = コスト負け） |
+| Anthropic Skills API | 不採用（Beta 依存） |
+
+### リサーチ4: 説得ベストプラクティス
+
+| 手法 | 核心 | Anicca での使い方 |
+|------|------|-----------------|
+| Cialdini | Liking + Consistency が最も効果的。Authority 逆効果 | 「友人」として話す |
+| MI OARS | 87%ポジティブ。行動変容有意改善20% | 「どうしたい？」と問いかける |
+| ACT | 価値観再コミットで副産物として症状軽減 | 「その気持ち、あっていい」 |
+| Nudge Theory | 歩数6.17%増、開封率3倍 | タイミングをユーザーが選べる |
+| Therabot RCT | うつ51%減、不安31%減（8週間） | AI で臨床レベルの効果 |
+
+---
+
+## 参照ソース一覧
+
+| # | ソース | URL |
+|---|--------|-----|
+| 1 | Contemplative AI 4原則 | https://arxiv.org/abs/2504.15125 |
+| 2 | CAMI STAR Framework | https://arxiv.org/html/2502.02807v1 |
+| 3 | ChatThero 18戦略 | https://arxiv.org/html/2508.20996v1 |
+| 4 | mental-wellness-prompts | https://github.com/joebwd/mental-wellness-prompts |
+| 5 | Cialdini 影響力研究 | https://pmc.ncbi.nlm.nih.gov/articles/PMC8297385/ |
+| 6 | MI OARS | https://www.jmir.org/2025/1/e78417 |
+| 7 | ACT 効果性レビュー | https://pmc.ncbi.nlm.nih.gov/articles/PMC11653371/ |
+| 8 | Nudge Theory + AI | https://ai.jmir.org/2024/1/e52974 |
+| 9 | Therabot RCT | https://ai.nejm.org/doi/full/10.1056/AIoa2400802 |
+| 10 | LLM vs 人間セラピスト | https://mental.jmir.org/2025/1/e69709 |
+| 11 | 仏教的慈悲とAI | https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2025.1583565/full |
+| 12 | x402 公式 | https://www.x402.org |
+| 13 | Coinbase Bazaar | https://docs.cdp.coinbase.com/x402/bazaar |
+| 14 | SimpleScraper x402ガイド | https://simplescraper.io/blog/x402-payment-protocol |
+| 15 | Vercel x402-mcp | https://vercel.com/blog/introducing-x402-mcp-open-protocol-payments-for-mcp-tools |
+| 16 | Cloudflare x402 Foundation | https://blog.cloudflare.com/x402/ |
+| 17 | Mega-Prompts パターン | Medium: Turning Expertise into Code |
+| 18 | Anthropic Context Engineering | https://www.anthropic.com/engineering |
+| 19 | Anthropic Prompt Chaining | https://docs.anthropic.com |
+| 20 | OpenClaw RFC #11919 | github.com/openclaw (Composable Skills — 未実装) |
+| 21 | Snyk ClawHub セキュリティ調査 | https://snyk.io/articles/clawdhub-malicious-campaign-ai-agent-skills/ |
