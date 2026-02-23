@@ -5,6 +5,7 @@ import { ExactEvmScheme } from '@x402/evm/exact/server';
 import { declareDiscoveryExtension } from '@x402/extensions/bazaar';
 import { facilitator as cdpFacilitator } from '@coinbase/x402';
 import buddhistCounselRouter from './buddhistCounsel.js';
+import emotionDetectorRouter from './emotionDetector.js';
 
 const router = Router();
 
@@ -23,6 +24,44 @@ if (PAY_TO) {
   router.use(
     paymentMiddleware(
       {
+        'POST /emotion-detector': {
+          accepts: {
+            scheme: 'exact',
+            price: '$0.01',
+            network,
+            payTo: PAY_TO,
+          },
+          description: 'Emotion detection for AI agents — identify primary emotion, intensity, and response strategy',
+          mimeType: 'application/json',
+          extensions: {
+            ...declareDiscoveryExtension({
+              output: {
+                example: {
+                  emotion_id: 'emo_a1b2c3',
+                  primary_emotion: 'anxiety',
+                  secondary_emotion: 'fear',
+                  intensity: 'high',
+                  valence: 'negative',
+                  confidence: 0.92,
+                  response_strategy: 'Acknowledge the anxiety with empathy before offering solutions.',
+                  safe_t_flag: false,
+                },
+                schema: {
+                  properties: {
+                    emotion_id: { type: 'string' },
+                    primary_emotion: { type: 'string' },
+                    secondary_emotion: { type: 'string' },
+                    intensity: { type: 'string' },
+                    valence: { type: 'string' },
+                    confidence: { type: 'number' },
+                    response_strategy: { type: 'string' },
+                    safe_t_flag: { type: 'boolean' },
+                  },
+                },
+              },
+            }),
+          },
+        },
         'POST /buddhist-counsel': {
           accepts: {
             scheme: 'exact',
@@ -66,5 +105,6 @@ if (PAY_TO) {
 }
 
 router.use('/buddhist-counsel', buddhistCounselRouter);
+router.use('/emotion-detector', emotionDetectorRouter);
 
 export default router;
