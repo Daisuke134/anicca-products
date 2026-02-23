@@ -498,15 +498,35 @@ cp /tmp/icon-final.png \
 ```
 
 #### Step 3: ASC アップロード（EN + JA）
+
+**⚠️ リサイズ必須（スキップ禁止）**
+`pencil_export.py` の出力は 780×1688。App Store は **1290×2796** を要求する。
+
 ```bash
+# ★ リサイズ（必須 — これなしでアップロードすると "invalid screenshot dimensions" で却下）
+mkdir -p docs/screenshots/resized/en-US docs/screenshots/resized/ja
+
+for i in 1 2 3; do
+  sips -z 2796 1290 docs/screenshots/processed/en/screen${i}.png \
+    --out docs/screenshots/resized/en-US/screen${i}.png
+  sips -z 2796 1290 docs/screenshots/processed/ja/screen${i}.png \
+    --out docs/screenshots/resized/ja/screen${i}.png
+done
+
 # EN スクショ（locale: en-US）
 asc screenshots upload --app-id "<APP_ID>" --locale en-US \
-  --files processed/en/screen1.png processed/en/screen2.png processed/en/screen3.png
+  --files docs/screenshots/resized/en-US/screen1.png \
+          docs/screenshots/resized/en-US/screen2.png \
+          docs/screenshots/resized/en-US/screen3.png
 
 # JA スクショ（locale: ja）
 asc screenshots upload --app-id "<APP_ID>" --locale ja \
-  --files processed/ja/screen1.png processed/ja/screen2.png processed/ja/screen3.png
+  --files docs/screenshots/resized/ja/screen1.png \
+          docs/screenshots/resized/ja/screen2.png \
+          docs/screenshots/resized/ja/screen3.png
 ```
+
+**注意:** `asc screenshots upload` は version localization（初回提出時）用。PPO Treatment localization に使う場合は `screenshot-ab` スキルの Step 7-3 を参照（Apple API 直接呼び出しが必要）。
 
 #### Step 4: App Store メタデータ入力
 ```bash
