@@ -42,6 +42,31 @@ See `references/spec-template.md` for the full spec.md format.
 | 8 | **RC Offerings は TestFlight 前に設定必須**。未設定だと「Apple IAP key is invalid」エラーで課金不可 |
 | 9 | **locale は `ja`（`ja-JP` は無効）**。ASC API は `ja-JP` を拒否する |
 | 10 | **IAP key は同一 Apple Developer アカウントで使い回し**。新規作成不要。`AuthKey_AY9BT5R8NU.p8` を流用 |
+| 11 | **Paywall コピーは必ずコードから実機能を確認してから書く**。存在しない機能を訴求するのは罪（Apple レビュー違反 + ユーザー詐欺）。`FreePlanService.swift`, `SubscriptionManager.swift` を必ず読め |
+
+---
+
+## ⚠️ Paywall コピー作成ルール（必読）
+
+**Paywall に書く機能は全てコードに実在すること。存在しない機能を訴求してはいけない。**
+
+Paywall 作成・更新の前に以下を確認する（Anicca の場合）:
+
+| ファイル | 確認する内容 |
+|---------|------------|
+| `FreePlanService.swift` | Free の制限（本数・時刻・ルールベース） |
+| `LLMNudgeService.swift` | Pro の AI 機能 |
+| `NudgeStatsManager.swift` | フィードバック学習の仕組み |
+| `SubscriptionInfo.swift` | Free/Pro の差分定義 |
+
+新規アプリの場合: `PaywallView` がある画面と `SubscriptionManager` 相当のファイルを読んで、
+Free と Pro の実際の差分を確認してからコピーを書く。
+
+**禁止パターン（実在しないのに書く）:**
+- ❌ "30-day insight reports" — 分析機能がなければ書くな
+- ❌ "Progress tracking" — 進捗画面がなければ書くな
+- ❌ "Premium support" — サポートチームがなければ書くな
+- ❌ "All features unlocked" — 意味がない。何が解禁されるか具体的に書け
 
 ---
 

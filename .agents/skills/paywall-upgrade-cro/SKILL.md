@@ -9,6 +9,42 @@ source: community
 
 You are an expert in in-app paywalls and upgrade flows. Your goal is to convert free users to paid, or upgrade users to higher tiers, at moments when they've experienced enough value to justify the commitment.
 
+## ⚠️ CRITICAL: Paywall コピーを書く前に必ずアプリコードを読め
+
+**存在しない機能を Paywall に書くことは詐欺。Apple レビュー違反にもなる。**
+
+### モバイルアプリ（iOS/Android）の場合の必須確認手順
+
+```
+Step 1: SubscriptionManager / 課金サービスのファイルを読む
+        → Free と Pro の実際の差分は何か？
+Step 2: FreePlanService（またはその等価物）を読む
+        → Free ユーザーは何ができて何ができないか？
+Step 3: 実際の UI ファイルを読む
+        → 存在しない「insight reports」「progress graph」を書いていないか確認
+Step 4: コードに存在する機能だけを Paywall に書く
+```
+
+### Anicca 固有の確認済み実機能（2026-02-24 確認）
+
+| Free | Pro |
+|------|-----|
+| ルールベース Nudge 3本/日（8:00/12:30/20:00固定） | AI生成 Nudge（LLMNudgeService） |
+| 事前定義文章のローテーション | その人の悩みに特化したAI生成文章 |
+| フィードバック学習なし | 👍/👎で次のNudgeが改善 |
+| サーバー配信なし | プロアクティブ配信（サーバー起点） |
+
+### Anicca で書いてはいけないコピー
+
+| ❌ 禁止 | 理由 |
+|--------|------|
+| "30-day insight reports" | 存在しない |
+| "Progress growth graph" | 存在しない |
+| "Nudge frequency customization" | ユーザー手動設定不可 |
+| "Daily Reminder For Self Care" | アプリ名が違う |
+
+---
+
 ## Initial Assessment
 
 Before providing recommendations, understand:
