@@ -232,18 +232,51 @@ Control CVR: 1.2% | Treatment CVR: 1.8% | +50% ↑
 - CVR計測: Mixpanel で `onboarding_paywall_viewed` → `rc_trial_started_event` を RC実験プロパティでセグメント分け → Trial CVR 自動計算。手動判断不要。
 - 停止基準: Treatment Trial CVR が Control Trial CVR より20%以上高い状態が7日継続 → 自動 winner 判定
 
+### Paywall デザイン生成方式（2 アプローチ）
+
+**現在採用: Approach B（Pencil MCP）**
+
+| | **Approach A: RC AI 生成** | **Approach B: Pencil MCP（採用）** |
+|---|---|---|
+| **生成方法** | `mcp_RC_create_design_system_paywall_generation_job` | Pencil MCP（screenshot-creator スキルパターン） |
+| **デザイン制御** | RC サーバー任せ（JSON ヒントのみ） | エージェントが完全制御（色・コピー・レイアウト） |
+| **出力** | RC Dashboard 上の Draft Paywall | ローカル PNG（`/workspace/screenshots/`）|
+| **RC Publish** | **手動必須（API なし）** | **手動必須（API なし）** |
+| **Experiment 開始** | **手動必須（API なし）** | **手動必須（API なし）** |
+| **Dais の作業** | RC Dashboard で Publish + Experiment 開始 | RC Dashboard で PNG アップロード + Publish + Experiment 開始 |
+| **参考** | — | `screenshot-creator` SKILL.md（5エージェント構造） |
+
+**RC API の制約（確定調査済み）:**
+- RC API v2 Paywall エンドポイント: list / create / get / delete の4つのみ。**Publish エンドポイント存在しない。**
+- RC API v2 に Experiment 管理エンドポイント存在しない（レスポンスフィールドとして出るのみ）。
+- **→ Paywall Publish と Experiment 開始は毎回 Dais が RC Dashboard で手動実行（約2分の作業）。**
+
+### Approach B: Pencil MCP エージェント構成（採用）
+
+screenshot-creator スキル（`/tmp/claude-code-plugin/screenshot-creator/skills/screenshot-creator/SKILL.md`）を参考に、paywall 用に3エージェント構成で実装する。
+
+| エージェント | 役割 | 手段 |
+|-------------|------|------|
+| `paywall-director` | デザイン戦略・abtest.design 参照・Queue コピー決定 | WebSearch（abtest.design） |
+| `paywall-designer` | Pencil MCP でPaywall UI 構築 → PNG 保存 | Pencil MCP (batch_design, get_screenshot) |
+| `paywall-reviewer` | 品質レビュー・CRO チェック・スコアリング | Pencil MCP (get_screenshot) |
+
+**参照リソース:**
+- `abtest.design/patterns/paywall-free-trial` — 実際に勝ったA/Bテスト Before/After（Blinkist +23%, Moonly +39%, Headspace +10%等）
+- `screenshot-creator` agents/ — Pencil MCP 操作パターン（screenshot-designer.md）
+
 ### スキル構成
 
 | スキル | 役割 | インストール先 |
 |--------|------|-------------|
 | `ab-test-setup` | A/Bテスト設計原則（95%信頼区間・サンプルサイズ計算・no-peeking） | `.agents/skills/ab-test-setup/`（skill.sh 7,600 installs） |
-| `paywall-upgrade-cro` | Paywall CRO ベストプラクティス知識（トリガー設計・コピー・CTA改善） | `.agents/skills/paywall-upgrade-cro/`（skill.sh 212 installs） |
+| `paywall-upgrade-cro` | Paywall CRO ベストプラクティス（トリガー設計・コピー・CTA改善） | `.agents/skills/paywall-upgrade-cro/`（skill.sh 212 installs） |
 | `growth-experimenter` | ICEスコア優先度・AARRRフレームワーク・仮説テンプレート | `.agents/skills/growth-experimenter/`（skill.sh 52 installs） |
-| `revenuecat` | RC API 直接アクセス（`rc-api.sh`）— Experiment開始・停止はMCPになし、このスキル経由で叩く | `.agents/skills/revenuecat/`（skill.sh 71 installs） |
-| `mcp__revenuecat__*` | Offering作成・Package作成・Product紐付け（Experiment管理ツールなし） | MCP内蔵 |
+| `mcp__revenuecat__*` | Offering 作成・Package 作成・Product 紐付け（Experiment 管理ツールなし） | MCP内蔵 |
+| Pencil MCP | Treatment Paywall UI をローカルでデザイン → PNG 出力 | MCP内蔵 |
 | Mixpanel MCP | Trial CVR per variant 取得（RC→Mixpanel integration が有効な場合） | MCP内蔵 |
 
-**RC MCPギャップ（重要）:** `mcp__revenuecat__*` には Experiment 開始・停止・一覧取得ツールが存在しない。Experiment管理は `revenuecat` スキルの `rc-api.sh` 経由でRC REST APIを直接叩く。
+**RC MCPギャップ（確定）:** Experiment 開始・停止・一覧取得ツールは RC MCP に存在しない。Experiment 管理は Dais が RC Dashboard で手動実行。
 
 ### CVR計算式（確定）
 
@@ -273,13 +306,22 @@ A/Bテストの判定（ab-test-setup BP準拠）:
   最低サンプルサイズ: 各バリアント 500 paywall_viewed 以上（95%信頼区間）
 ```
 
-### memory 構造（Anicca memory）
+### ストレージ構造（全パス確定）
 
-**パス（確定）:**
-- `state`: `/Users/anicca/.openclaw/workspace/paywall-ab-state.json`（現在状態。遷移時に上書き）
-- `history`: `/Users/anicca/.openclaw/workspace/paywall-ab-history.jsonl`（append-only 監査ログ）
+```
+/Users/anicca/.openclaw/workspace/
+│
+├── paywall-ab-state.json          ← 今何をテストしているか（遷移時に上書き）
+├── paywall-ab-history.jsonl       ← 全テスト記録（append-only、消えない）
+│
+└── screenshots/
+    ├── paywall_control_latest.png      ← Control の最新スクショ（毎回上書き）
+    ├── paywall_treatment_latest.png    ← Treatment の最新スクショ（毎回上書き）
+    ├── paywall_control_2026-02-23.png  ← 日付付きアーカイブ
+    └── paywall_treatment_2026-02-23.png
+```
 
-読み書き: OpenClaw `memory` ツール または `exec` + `cat`/`jq` で直接 read/write。
+読み書き: OpenClaw `exec` + `cat`/`jq` で直接 read/write。スクショは Maestro が保存。
 
 ```json
 // paywall-ab-state.json
@@ -287,19 +329,21 @@ A/Bテストの判定（ab-test-setup BP準拠）:
   "experiment_id": "rc_exp_abc123",
   "start_date": "2026-02-21",
   "queue_position": 0,
-  "control_offering_id": "ofrng_control_xxx",
+  "control_offering_id": "ofrng78a01eb506",
   "treatment_offering_id": "ofrng_treatment_xxx",
   "treatment_paywall_id": "pw_abc123",
   "control_label": "Start Your Free Week",
   "treatment_label": "Queue 0: Try Free for 7 Days",
   "before_trial_cvr": 1.1,
+  "control_screenshot": "/Users/anicca/.openclaw/workspace/screenshots/paywall_control_latest.png",
+  "treatment_screenshot": "/Users/anicca/.openclaw/workspace/screenshots/paywall_treatment_latest.png",
   "winning_patterns": []
 }
 
 // paywall-ab-history.jsonl（1行=1イベント）
-{"ts":"2026-02-21T06:01:00Z","event":"START","queue":0,"experiment_id":"rc_exp_abc123","paywall_id":"pw_abc123","label":"Try Free for 7 Days"}
-{"ts":"2026-03-07T06:01:00Z","event":"WINNER","queue":0,"treatment_cvr":2.3,"control_cvr":1.1,"lift":109}
-{"ts":"2026-03-07T06:01:05Z","event":"START","queue":1,"experiment_id":"rc_exp_def456","paywall_id":"pw_def456","label":"Begin My Journey"}
+{"ts":"2026-02-21T06:01:00Z","event":"START","queue":0,"experiment_id":"rc_exp_abc123","paywall_id":"pw_abc123","label":"Try Free for 7 Days","screenshot":"/Users/anicca/.openclaw/workspace/screenshots/paywall_treatment_2026-02-21.png"}
+{"ts":"2026-03-07T06:01:00Z","event":"WINNER","queue":0,"treatment_cvr":2.3,"control_cvr":1.1,"lift":109,"winning_element":"headline_copy"}
+{"ts":"2026-03-07T06:01:05Z","event":"START","queue":1,"experiment_id":"rc_exp_def456","paywall_id":"pw_def456","label":"Begin My Journey","screenshot":"/Users/anicca/.openclaw/workspace/screenshots/paywall_treatment_2026-03-07.png"}
 ```
 
 ### フロー
@@ -336,26 +380,48 @@ A/Bテストの判定（ab-test-setup BP準拠）:
  │    実験停止 → queue +1 → START
  │
  ├─ [START]
+ │
+ │    ── ここから Anicca 自動（エージェントが全部やる）──
+ │
  │    1. RC MCP で新 Treatment Offering 作成
  │         mcp__revenuecat__mcp_RC_create_offering
  │         └─ lookup_key: "anicca_treatment_q{queue_position}"
  │    2. RC MCP で Package 作成 + 既存商品紐付け
  │         mcp__revenuecat__mcp_RC_create_package（$rc_monthly）
  │         mcp__revenuecat__mcp_RC_attach_products_to_package
- │    3. Paywall UI を AI生成（RC MCP）
- │         mcp__revenuecat__mcp_RC_create_design_system_paywall_generation_job
- │         project_id: "projbb7b9d1b"
- │         offering_id: <新 Treatment Offering の ID>
- │         design_system: → 下記 Anicca design_system 定義を使う
- │         ※ 202 Accepted → job_id を取得 → 完了を polling で確認（~30秒）
- │         → paywall_id を state に保存
- │    4. RC Experiment 開始（50/50）
- │         rc-api.sh 経由（MCP にツールなし）
- │         POST /v2/projects/{id}/experiments
- │         body: { control_offering_id, treatment_offering_id, split: 50 }
- │    5. memory 更新（state 上書き + history append）
+ │    3. Pencil MCP で Treatment Paywall デザイン生成（Approach B）
+ │         paywall-director: Queue コピーを決定 + abtest.design 参照でデザイン戦略
+ │         paywall-designer: Pencil MCP で .pen ファイルを新規作成
+ │           → batch_design でPaywall UI 構築（Queue Variant コピーを使用）
+ │           → get_screenshot で PNG export
+ │           → /workspace/screenshots/paywall_treatment_latest.png に保存
+ │           → /workspace/screenshots/paywall_treatment_{date}.png にアーカイブ
+ │         paywall-reviewer: 品質スコア 7/10 以上を確認
+ │    4. Control スクショ撮影（Maestro）
+ │         iOS Simulator 起動 → Control offering 表示 → スクショ
+ │           → /workspace/screenshots/paywall_control_latest.png に保存
+ │    5. Slack に投稿（スクショ付き）
+ │         「Treatment Paywall デザイン完成。RC Dashboard で以下の作業をお願いします。」
+ │         [Control スクショ] [Treatment PNG]
+ │         Treatment Offering ID: anicca_treatment_q{n}
+ │         手順: ① RC Dashboard で Treatment Offering に PNG をアップロード
+ │               ② Paywall を Publish
+ │               ③ Experiment 作成（Control: anicca / Treatment: anicca_treatment_q{n} / 50:50）
+ │               ④ Experiment 開始
+ │    6. memory 更新（state 上書き + history append）
+ │         treatment_offering_id / treatment_png_path / queue_position / status: "WAITING_DAIS"
  │
- └─ Slack サマリ投稿（CVR数字付き）
+ │    ── ここから Dais 手動（RC Dashboard、約2分）──
+ │
+ │    7. [Dais 手動] RC Dashboard で Treatment PNG アップロード + Paywall Publish
+ │         URL: https://app.revenuecat.com/projects/projbb7b9d1b/offerings/{offering_id}/paywall
+ │    8. [Dais 手動] RC Dashboard で Experiment 作成 + 開始（50/50）
+ │         URL: https://app.revenuecat.com/projects/projbb7b9d1b/experiments
+ │    9. Dais が Slack で「実験開始した」と返信 → Anicca が state を "RUNNING" に更新
+ │         experiment_id / start_date を state に記録
+ │
+ └─ [毎日 skip 時も]
+      Mixpanel CVR 数字 + 両スクショ を Slack に投稿（日次レポート）
 ```
 
 ### Slack 日次レポート（output）
@@ -366,11 +432,67 @@ Queue 0: "Try Free for 7 Days" vs "Start Your Free Week"
 実験ID: rc_exp_abc123 | 開始: 2026-02-21
 Control Trial CVR: 1.0% | Treatment Trial CVR: 1.5% | +50% ↑
 → まだ7日。継続中。
+
+[画像: paywall_control_latest.png]   [画像: paywall_treatment_latest.png]
 ```
 
-### Anicca design_system 定義（[START] Step 3 で使う固定値）
+WINNER 時:
+```
+[paywall-ab] ✅ WINNER 確定
+Queue 0: "Try Free for 7 Days" が勝利
+lift: +109% (1.1% → 2.3%)  |  7日継続
+→ Treatment を default に昇格 → Queue 1 スタート
 
-`mcp_RC_create_design_system_paywall_generation_job` の `design_system` フィールドに毎回渡す。Queue ごとに変わるのは `content_strategy.premium_feature_highlights[0]`（= Queue のVariant コピー）のみ。
+[画像: 勝者 paywall_treatment_latest.png]
+winning_element: headline_copy
+次のテスト: Queue 1 "Begin My Journey"
+```
+
+### Pencil MCP Paywall デザイン仕様（[START] Step 3 で使う）
+
+paywall-designer が Pencil MCP で構築する Paywall の仕様。screenshot-creator SKILL.md のガイドラインに準拠。
+
+**デバイスサイズ:** iPhone 6.9" (430 × 932pt)
+
+**レイアウト構成:**
+```
+┌────────────────────────┐
+│  HeroArea（上40%）       │ ← アプリ名 + ビジュアル（シンプル）
+├────────────────────────┤
+│  BenefitArea（中30%）    │ ← Queue Variant コピー（3行: headline + sub×2）
+├────────────────────────┤
+│  PricingArea（下20%）    │ ← 価格 + CTA ボタン
+└────────────────────────┘
+```
+
+**カラーパターン（Anicca ブランド準拠）:**
+| 要素 | カラー |
+|------|--------|
+| 背景 | `#0A0A12`（deep navy） |
+| ヘッドライン | `#F5E6C8`（warm sand） |
+| サブテキスト | `#B8A888`（muted sand） |
+| CTA ボタン | `#D4A853`（amber gold）|
+| CTA テキスト | `#0A0A12` |
+
+**Queue Variant コピー（BenefitArea に使う）:**
+
+| Queue # | Headline | Sub1 | Sub2 |
+|---------|---------|------|------|
+| 0 | "Try Free for 7 Days" | "No charge until trial ends" | "Cancel anytime" |
+| 1 | "Begin My Journey" | "Start your free week today" | "No commitment" |
+| 2 | "Less than $0.33/day" | "That's cheaper than one coffee" | "7-day free trial" |
+| 3 | "No Charge for 7 Days" | "Experience the full app free" | "Then $9.99/month" |
+
+**参照（abtest.design Paywall & Free Trial 勝ちパターン）:**
+- Blinkist "+23% trial signups": Free trial の仕組みを明確に見せる
+- Moonly "+39% conversion": Annual のみ free trial でプレミアム感を演出
+- Headspace "+10% conversion": Multi-intent onboarding → paywall 直結
+
+### Approach A: RC AI 生成（参考、現在未採用）
+
+`mcp_RC_create_design_system_paywall_generation_job` の `design_system` フィールドに毎回渡す JSON 定義。未採用理由: Publish API がなく毎回 Dashboard 操作が必要なため、Pencil MCP と手間が同じ。将来 RC が Publish API を公開したら Approach A に切り替える。
+
+Queue ごとに変わるのは `content_strategy.premium_feature_highlights[0]`（= Queue のVariant コピー）のみ。
 
 ```json
 {
