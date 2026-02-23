@@ -1,6 +1,21 @@
 {
   "version": 1,
   "skills": {
+    "ai-image-generation": {
+      "source": "inference-sh-6/skills",
+      "sourceType": "github",
+      "computedHash": "1ddd1a976e0a70b834bb175ef22382273c8223cd3d990a27f99bce4c5bd7ebd8"
+    },
+    "app-store-screenshots": {
+      "source": "inference-sh-6/skills",
+      "sourceType": "github",
+      "computedHash": "6e4f5f7032e28111dde99239c1aa892fe64d97527cd8482d94fb17424f335cae"
+    },
+    "browser-automation": {
+      "source": "davila7/claude-code-templates",
+      "sourceType": "github",
+      "computedHash": "8a192684119aea4a354c252af3941e3f0e95623d1ab9a4492a5f309fd365f1f8"
+    },
     "clawhub": {
       "source": "steipete/clawdis",
       "sourceType": "github",
@@ -11,6 +26,11 @@
       "sourceType": "github",
       "computedHash": "6412eb4eb3b91595ebab937f0c69501240e7ba761b3d82510b5cf506ec5c7adc"
     },
+    "news-aggregator-skill": {
+      "source": "cclank/news-aggregator-skill",
+      "sourceType": "github",
+      "computedHash": "cac4f95f64a20e9fc9f1bffe466ee562ebcc22bdbf128b2a2ce9dd01e298a4bd"
+    },
     "remotion-best-practices": {
       "source": "remotion-dev/skills",
       "sourceType": "github",
@@ -20,6 +40,11 @@
       "source": "Daisuke134/roundcube-webmail-skill",
       "sourceType": "github",
       "computedHash": "521242fde64dead84a8caec73a43aea1ea35486e654cb84ff9cf0744e352139e"
+    },
+    "skill-creator": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "efb6cfee4d700aefa97c954e1876fa9d81569c3f21d3d4c815c4c341b59c53df"
     },
     "web-design-guidelines": {
       "source": "vercel-labs/agent-skills",

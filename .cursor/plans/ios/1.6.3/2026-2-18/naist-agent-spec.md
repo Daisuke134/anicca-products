@@ -1,7 +1,7 @@
 # NAIST Agent — 完全仕様書
 
 **作成日**: 2026-02-22
-**最終更新**: 2026-02-22（ClawHub調査完了・UX詳細追加）
+**最終更新**: 2026-02-23（セキュリティチェック完了・ソース確定）
 **ステータス**: 計画中（実装未着手）
 **目的**: NAISTの全学生が、Slackチャットだけで大学関連の全タスク（履修・課題・メール・研究・ファンド申請）を完全自動化できるシステム。OpenClawスキルとしてOSS公開。
 
@@ -19,28 +19,40 @@
 
 ---
 
-## ClawHub調査結果（2026-02-22）
+## スキルソース調査結果（2026-02-23）
 
-`clawhub search` で調査済み。以下が最終採用決定。
+**ClawHub（`clawhub search`）+ skill.sh（`npx skills find`）の両方を検索済み。**
+オリジナルゼロ。全て既存スキルのコピー・改変のみ。
 
-| 検索キーワード | 採用スキル | 判定理由 |
-|--------------|-----------|---------|
-| email | なし（既存流用） | `roundcube-webmail-skill` が SAML+TOTP 対応で上位互換 |
-| calendar | なし（既存流用） | `gcal-digest`（Mac Mini既存）が gog CLI ベースで完成済み |
-| approval | **`request-approval` v1.0.0** | Slack承認wait-stateのベスト実装。Preloop製 |
-| research paper | **`arxiv` v1.0.4** | arXiv APIベースで精度高。x-researchより論文に特化 |
-| notion wiki | **`notion-cli-agent` v1.0.0** | Notion CLI経由でゼミWiki更新に最適 |
-| reminder | **`quick-reminders` v1.1.4** | macOS Reminders統合。締切トラッカーのベース |
-| university portal | なし | NAIST固有のSAML認証。自作必須 |
-| scraping | なし（既存流用） | `roundcube-webmail-skill` の Playwright パターンをコピー |
+| # | スキル名 | 採用ソース | インストール数 | セキュリティ | インストールコマンド |
+|---|---------|-----------|-------------|------------|-------------------|
+| 1 | `naist-onboarding` | `vamseeachanta/workspace-hub@slack-api`（skill.sh）のAPIパターンを参照 | 19 | ✅ 低リスク | 参照のみ |
+| 2 | `naist-mail` | **`roundcube-webmail`**（既インストール済みスキル） | — | ✅ 既存 | コピーのみ |
+| 3 | `naist-calendar` | **`odyssey4me/agent-skills@google-calendar`**（skill.sh） | **88** | ✅ 安全 | `npx skills add odyssey4me/agent-skills@google-calendar` |
+| 4 | `naist-papers` | **`karpathy/nanochat@read-arxiv-paper`**（skill.sh、Karpathy製） | **162** | ✅ 安全 | `npx skills add karpathy/nanochat@read-arxiv-paper` |
+| 5 | `naist-portal` | **`playwright-cli`**（既インストール済みスキル） | — | ✅ 既存 | 不要（既存） |
+| 6 | `naist-deadline` | **`refoundai/lenny-skills@managing-timelines`**（skill.sh） | **336** | ✅ 安全 | `npx skills add refoundai/lenny-skills@managing-timelines` |
+| 7 | `naist-funds` | **`davila7/claude-code-templates@research-grants`**（skill.sh） | **140** | ✅ 安全 | `npx skills add davila7/claude-code-templates@research-grants` |
+| 8 | `naist-events` | **Firecrawl CLI**（naist.jp/events/ スクレイプ）+ `gog-calendar`（既存） | — | ✅ 既存ツール | 不要（既存） |
+| 9 | `naist-qa` | **`actionbook/actionbook@deep-research`**（skill.sh） | **135** | ✅ 安全 | `npx skills add actionbook/actionbook@deep-research` |
+| 10 | `naist-thesis` | **`jamditis/claude-skills-journalism@academic-writing`**（skill.sh） | **182** | ✅ 安全 | `npx skills add jamditis/claude-skills-journalism@academic-writing` |
+| 11 | `naist-metrics` | **`apify/agent-skills@apify-content-analytics`**（skill.sh、Apify製） | **553** | ✅ 安全 | `npx skills add apify/agent-skills@apify-content-analytics` |
+| 12 | `skill-for-you` | `charon-fan/agent-playbook@session-logger`（23）+ `vincentkoc/dotskills@technical-skill-finder`（41）をパイプライン | — | ✅ 安全 | `npx skills add charon-fan/agent-playbook@session-logger` |
 
-**変更点（旧仕様との差分）**:
+**全スキルのセキュリティチェック完了（2026-02-23）。⚠️なし。実装開始可能。**
 
-| 項目 | 旧 | 新 |
-|------|----|----|
-| 論文検索 | `latest-papers`（x-researchベース） | **`arxiv` v1.0.4**（ClawHub）+ x-research の2段構え |
-| ゼミWiki | 未定 | **`notion-cli-agent`**（ClawHub） |
-| 締切リマインダー | カスタム実装 | **`quick-reminders`**（ClawHub）ベース |
+| スキル | 確認結果 | 備考 |
+|--------|---------|------|
+| `jezweb/playwright-local` | ❌ 該当スキルなし | → `playwright-cli`（既存）に変更 |
+| `cclank/news-aggregator-skill` | ✅ Gen=Safe, Socket=0 | HN/GitHub向け。naist-eventsには不採用（Firecrawlで代替） |
+| `davila7/browser-automation` | ✅ Gen=Safe, Socket=0 | 知識スキルのみ。実行不可のため不採用 |
+
+**スコープ外（スペックには残す）**:
+
+| スキル | 理由 |
+|--------|------|
+| `naist-wiki`（Notion） | Notion token未取得。今は使わない |
+| `auto-skill-builder` | 作業量大。`skill-creator`で代替できる |
 
 ---
 
@@ -564,39 +576,76 @@ const blocks = [
 
 ---
 
-## スキル一覧（フェーズ別）
+## スキル一覧 — ソース完全明記
 
-### Phase 1: 即実装（既存スキルのコピー/改変）
+**原則: オリジナルゼロ。全スキルをClawHub/既存からコピーして最小限だけ変える。**
+**パス: 全スキルは独立フラット構造。naist-agent/ サブフォルダにしない。**
 
-| # | スキル名 | ベース | 変更点 |
-|---|---------|--------|--------|
-| 1 | `naist-mail` | `roundcube-webmail-skill` | ユーザーごとのcredentials対応 |
-| 2 | `naist-calendar` | `gcal-digest` | ユーザー別gogアカウント対応 |
-| 3 | `naist-papers` | `arxiv`（ClawHub） | 研究テーマをユーザー別に設定 |
-| 4 | `naist-onboarding` | Slack API（新規） | チャンネル作成 + 初期設定フロー |
+| # | スキル名 | 何を解決するか | ソース（コピー元） | オリジナル度 |
+|---|---------|--------------|-----------------|------------|
+| 1 | `naist-onboarding` | `@Anicca make my channel` で #ai-<name> 作成 + credentials収集 | `slack-api` v1.0.7（ClawHub）のAPI呼び出しパターンをコピー | 低 |
+| 2 | `naist-mail` | NAISTメールを読む・返信する | **`roundcube-webmail`**（インストール済みスキル）をそのままコピー。credentials対応のみ追加 | 極低 |
+| 3 | `naist-calendar` | Google Calendarを読む・追加する | **`gcal-digest`**（Mac Mini既存）をそのままコピー | 極低 |
+| 4 | `naist-papers` | 研究分野の最新arXiv論文を届ける | **`arxiv` v1.0.4**（ClawHub）をコピー。検索クエリをユーザー研究テーマに差し替えるだけ | 極低 |
+| 5 | `naist-portal` | NAISTポータルで履修確認・成績確認 | **`playwright-cli`（既インストール済み）** + `roundcube-webmail` のSAML+TOTPパターンをコピー。URLとセレクタのみ変更 | 低 |
+| 6 | `naist-deadline` | 締切を登録→7日前・3日前・前日・当日通知 | **`quick-reminders` v1.1.4**（ClawHub）をそのままコピー | 極低 |
+| 7 | `naist-funds` | 科研費・奨学金の新着情報を週次で届ける | `deep-research-pro` v1.0.2（ClawHub）の調査パターンをコピー + Firecrawl CLI | 低 |
+| 8 | `naist-events` | NAISTイベント・招待講演を週次で届ける | `email-to-calendar` v1.13.1（ClawHub）のパターン参照 + Firecrawl + `gog-calendar` | 低 |
+| 9 | `naist-qa` | 大学のこと何でも答える。履修相談・DC1相談 | `academic-deep-research` v1.0.0（ClawHub）をコピー。NAISTコンテキストを追加 | 低 |
+| 10 | `naist-thesis` | 論文を校正する。一人称チェック・参考文献整合性 | **`academic-writing-refiner` v1.0.0**（ClawHub）をコピー。日本語理工系論文ルールを追加 | 低 |
+| 11 | `naist-metrics` | TikTok/Xパフォーマンスレポート（ダイス専用） | **`tiktok-scraper`**（Mac Mini既存）をそのままコピー | 極低 |
+| 12 | `skill-for-you` | 作業ログから最適なスキルを毎朝提案→承認でinstall | `session-logs` v1.0.0（ClawHub）+ `clawhub`スキルをパイプラインでつなぐ | 低 |
 
-### Phase 2: NAIST固有（新規作成）
+### スコープ外（スペックには残す・今は作らない）
 
-| # | スキル名 | 技術 | 内容 |
-|---|---------|------|------|
-| 5 | `naist-portal` | Playwright + SAML | 履修・成績・未提出物取得 |
-| 6 | `naist-deadline` | `quick-reminders`（ClawHub） | 締切7日前・3日前・前日・当日通知 |
+| スキル | 理由 |
+|--------|------|
+| `naist-wiki`（Notion） | Notion token未取得。使う人もまだいない |
+| `auto-skill-builder` | 作業量大。`skill-creator`スキルで代替できる |
 
-### Phase 3: 研究支援（ClawHub or 新規）
+---
 
-| # | スキル名 | ベース | 内容 |
-|---|---------|--------|------|
-| 7 | `naist-funds` | Firecrawl CLI + x-research（新規） | 科研費・外部ファンド週次通知 |
-| 8 | `naist-wiki` | `notion-cli-agent`（ClawHub） | 研究Notion/ゼミWiki更新 |
-| 9 | `naist-events` | Firecrawl CLI + gog-calendar（新規） | NAISTイベント週次通知 + カレンダー登録 |
-| 10 | `naist-qa` | OpenClaw LLM（新規） | 大学事務・研究相談 |
-| 11 | `naist-thesis` | arxiv + LLM（新規） | 論文校正・参考文献整理 |
+## パス構造（全スキル独立・フラット）
 
-### Phase 4: 分析・拡張
+```
+全スキルは独立した個別スキル。
+→ 個別に clawhub install できる
+→ Anicca に1個ずつコピーできる
+→ OSS として1個ずつ公開できる
 
-| # | スキル名 | ベース | 内容 |
-|---|---------|--------|------|
-| 12 | `naist-metrics` | `tiktok-scraper`（既存） | TikTok/Xパフォーマンス（ダイス専用） |
+開発・テスト（Claude Code / ダイス自身が先に使う）:
+/Users/cbns03/Downloads/anicca-project/.claude/skills/
+├── naist-onboarding/SKILL.md
+├── naist-mail/SKILL.md
+├── naist-calendar/SKILL.md
+├── naist-papers/SKILL.md
+├── naist-portal/SKILL.md
+├── naist-deadline/SKILL.md
+├── naist-funds/SKILL.md
+├── naist-events/SKILL.md
+├── naist-qa/SKILL.md
+├── naist-thesis/SKILL.md
+├── naist-metrics/SKILL.md
+└── skill-for-you/SKILL.md
+
+テスト通ったら → Mac Mini（Anicca）にコピー:
+/Users/anicca/.openclaw/skills/<skill-name>/
+
+OSS公開:
+Daisuke134/anicca-products/skills/<skill-name>/
+clawhub publish <skill-name>
+```
+
+---
+
+## 実装ルール（絶対）
+
+| ルール | 内容 |
+|--------|------|
+| 1スキルずつ | 前のスキルがテストPASSするまで次に進まない |
+| ダイス自身でテスト | 実際に使って動作確認。コード書いただけで完了にしない |
+| コピー優先 | ソースが見つかったらそのままコピー。アレンジしない |
+| ClawHub → install | `clawhub install <name>` で入れてから参照する |
 
 ---
 
@@ -658,21 +707,26 @@ security add-generic-password -a "naist-narita" -s "WEBMAIL_TOTP_SECRET" -w "bas
 
 ## 実装順序（MUST）
 
-| # | タスク | 依存 | 状態 |
-|---|--------|------|------|
-| 1 | naist-onboarding スキル作成（Slack API） | なし | ⏳ |
-| 2 | naist-mail スキル作成（roundcube-webmail-skill コピー） | 1 | ⏳ |
-| 3 | naist-calendar スキル作成（gcal-digest コピー） | 1 | ⏳ |
-| 4 | `clawhub install arxiv` → naist-papers スキル作成 | 1 | ⏳ |
-| 5 | Phase 1 テスト（ダイス自身で全スキルをテスト） | 1-4 | ⏳ |
-| 6 | NAIST #ai チャンネルで告知 | 5 | ⏳ |
-| 7 | `clawhub install quick-reminders` → naist-deadline 作成 | 5 | ⏳ |
-| 8 | naist-portal スキル作成（Playwright新規） | 5 | ⏳ |
-| 9 | naist-funds スキル作成（Firecrawl新規） | 5 | ⏳ |
-| 10 | `clawhub install notion-cli-agent` → naist-wiki 作成 | 5 | ⏳ |
-| 11 | naist-events スキル作成 | 5 | ⏳ |
-| 12 | naist-qa / naist-thesis スキル作成 | 5 | ⏳ |
-| 13 | ClawHub に公開（`clawhub publish naist-agent`） | 全 | ⏳ |
+**1スキル作る → ダイス自身でテスト → PASS → 次へ。スキップ禁止。**
+
+| # | タスク | ソース（何をinstall/コピーするか） | 状態 |
+|---|--------|----------------------------------|------|
+| 1 | `naist-onboarding` 作成 | `slack-api`（ClawHub）コピー | ⏳ |
+| 2 | `naist-mail` 作成 | `roundcube-webmail`（インストール済み）コピー | ⏳ |
+| 3 | `naist-calendar` 作成 | `gcal-digest`（Mac Mini既存）コピー | ⏳ |
+| 4 | `naist-papers` 作成 | `clawhub install arxiv` → コピー | ⏳ |
+| 5 | Phase 1 テスト（ダイス自身で全スキルを実際に使う） | — | ⏳ |
+| 6 | NAIST #ai チャンネルで告知 | — | ⏳ |
+| 7 | `naist-portal` 作成 | **`playwright-cli`（既存スキル）** + `roundcube-webmail` のSAML+TOTPパターンコピー | ⏳ |
+| 8 | `naist-deadline` 作成 | `clawhub install quick-reminders` → コピー | ⏳ |
+| 9 | `naist-funds` 作成 | `clawhub install deep-research-pro` → コピー + Firecrawl | ⏳ |
+| 10 | `naist-events` 作成 | `clawhub install email-to-calendar` → コピー + Firecrawl | ⏳ |
+| 11 | `naist-qa` 作成 | `clawhub install academic-deep-research` → コピー | ⏳ |
+| 12 | `naist-thesis` 作成 | `clawhub install academic-writing-refiner` → コピー | ⏳ |
+| 13 | `naist-metrics` 作成 | `tiktok-scraper`（Mac Mini既存）コピー | ⏳ |
+| 14 | `skill-for-you` 作成 | `clawhub install session-logs` + `clawhub`スキルをパイプライン | ⏳ |
+| 15 | 全スキルを Mac Mini（Anicca）にコピー | `scp` → `/Users/anicca/.openclaw/skills/` | ⏳ |
+| 16 | ClawHub に公開（各スキル個別） | `clawhub publish <skill-name>` | ⏳ |
 
 ---
 
@@ -694,8 +748,8 @@ security add-generic-password -a "naist-narita" -s "WEBMAIL_TOTP_SECRET" -w "bas
 
 | チャネル | 対象 | 方法 |
 |---------|------|------|
-| GitHub OSS | NAISTのエンジニア学生 | `Daisuke134/anicca-products/skills/naist-agent/` |
-| ClawHub | OpenClawユーザー全般 | `clawhub publish naist-agent` |
+| GitHub OSS | NAISTのエンジニア学生 | `Daisuke134/anicca-products/skills/<skill-name>/`（個別） |
+| ClawHub | OpenClawユーザー全般 | `clawhub publish <skill-name>`（個別） |
 | NAIST Slack #ai | NAIST Slack全員 | 完成後に告知投稿 |
 
 ### インストール方法

@@ -141,12 +141,31 @@ asc subscriptions get --id "<ANNUAL_ID>"   # state = READY_TO_SUBMIT ?
 
 ### PHASE 9: APP ASSETS
 ```
-アイコン（1024×1024）: Pencil MCP でデザイン生成
-スクショ3枚（1290×2796）: PIL で生成
-  1枚目: benefit（ペイン直撃コピー）
-  2枚目: social proof
-  3枚目: core flow（実画面）
-メタデータ: asc localizations upload で EN + JA
+# アイコン（1024×1024）: DALL-E 3 で生成（OPENAI_API_KEY 使用）
+python3 -c "
+import openai, requests, os
+client = openai.OpenAI()
+resp = client.images.generate(
+    model='dall-e-3',
+    prompt='<app_name> iOS app icon. Minimalist design. <concept_1_line>. Deep navy blue gradient background. No text. Square format. Premium, App Store ready.',
+    size='1024x1024', quality='hd', n=1
+)
+url = resp.data[0].url
+img = requests.get(url).content
+open('icon-1024.png', 'wb').write(img)
+print('icon-1024.png saved')
+"
+
+# スクショ3枚（1290×2796）: PIL + ヒラギノ角ゴシック で生成
+# フォント: /System/Library/Fonts/ヒラギノ角ゴシック W6.ttc（日本語大文字）
+# フォント: /System/Library/Fonts/SFNS.ttf（英語）
+# 1枚目: benefit（ペルソナのペイン直撃コピー — spec.concept から生成）
+# 2枚目: social proof（「習慣化アプリ10回挫折した人の声」等）
+# 3枚目: core flow（実画面モックアップを PIL で描画）
+# 背景: Deep navy (#0A0F28 → #1E3250 グラデーション)
+# アクセント: Gold (#FFC107)
+
+# メタデータ: asc localizations upload で EN + JA
 ```
 
 ### PHASE 10: BUILD & UPLOAD
