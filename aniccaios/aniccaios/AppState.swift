@@ -166,6 +166,16 @@ final class AppState: ObservableObject {
         // (handlePaywallSuccess / handlePaywallDismissedAsFree / completeOnboardingForExistingPro)
     }
 
+    // l.md Bible Step 1: CommandLine引数でモックデータ注入と画面遷移を制御
+    func configureForScreenshots() {
+        guard CommandLine.arguments.contains(where: { $0.hasPrefix("--screenshot-") }) else { return }
+        isOnboardingComplete = true
+        selectedRootTab = .myPath
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            self.selectedRootTab = .myPath
+        }
+    }
+
     func resetState() {
         authStatus = .signedOut
         isOnboardingComplete = false

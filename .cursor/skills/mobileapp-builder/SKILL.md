@@ -176,6 +176,40 @@ ralph-autonomous-dev で SwiftUI 実装
     URL: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 ```
 
+### PHASE 3.5: PRIVACY POLICY & LANDING PAGE デプロイ
+```
+aniccaai.com/{slug}/ のページを作成して Netlify にデプロイする
+PHASE 4 の前に必須（URL が死んでいると ASC Privacy URL 設定が通らない）
+
+■ 作成するページ（apps/landing/ に追加）
+
+  1. aniccaai.com/{slug}/                    ← ランディングページ
+     - アプリ名・コンセプト・App Store リンク
+     - EN のみでよい（LP は英語）
+
+  2. aniccaai.com/{slug}/privacy/en          ← Privacy Policy（英語）
+     - アプリ名・収集するデータ・用途を記載
+     - 既存 aniccaai.com/privacy を テンプレートとして流用し app_name を置換
+
+  3. aniccaai.com/{slug}/privacy/ja          ← Privacy Policy（日本語）
+     - 同上の日本語版
+
+  4. aniccaai.com/{slug}/terms               ← Terms of Use
+     - Apple 標準 EULA へリダイレクト
+     - URL: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+
+■ デプロイ手順
+
+  # 1. apps/landing/ にページファイルを作成（HTML or Markdown）
+  # 2. dev ブランチに push → Netlify が自動デプロイ
+  git add -A && git commit -m "feat: add {slug} landing + privacy pages" && git push origin dev
+
+  # 3. URL が生きているか確認（PHASE 11 GATE 4 と同じチェック）
+  curl -I "https://aniccaai.com/{slug}/privacy/en" | grep "200\|301"
+  curl -I "https://aniccaai.com/{slug}/privacy/ja" | grep "200\|301"
+  # 200 or 301 でなければ STOP + Netlify のビルドログを確認
+```
+
 ### PHASE 4: ASC APP SETUP
 ```bash
 asc apps create --bundle-id "<bundle_id>" --name "<app_name>" \

@@ -19,6 +19,11 @@ struct aniccaiosApp: App {
                 .environmentObject(appState)
                 // v3: OSロケールに追従（locale overrideを撤廃）
                 .tint(AppTheme.Colors.accent)
+                .onAppear {
+                    #if DEBUG
+                    ScreenshotDebugManager.shared.configure()
+                    #endif
+                }
                 .onOpenURL { url in
                     // Debug deep link for E2E: anicca://debug/pushTap?messageId=<uuid>
                     guard url.scheme == "anicca" else { return }

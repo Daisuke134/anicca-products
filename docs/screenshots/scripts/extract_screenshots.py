@@ -9,9 +9,9 @@ import os
 
 
 def get_attachment_list(xcresult_path):
-    """xcresultからアタッチメントのリストを取得"""
+    """xcresultからアタッチメントのリストを取得（Xcode 16: get object --legacy）"""
     result = subprocess.run(
-        ['xcrun', 'xcresulttool', 'get', '--path', xcresult_path, '--format', 'json'],
+        ['xcrun', 'xcresulttool', 'get', 'object', '--legacy', '--path', xcresult_path, '--format', 'json'],
         capture_output=True,
         text=True
     )
