@@ -435,7 +435,7 @@ apps/api/src/
 |---|------|
 | 1 | 5スキルを skill-condenser で圧縮 |
 | 2 | prompt-assemble で1つの system prompt に組立 |
-| 3 | skillcraft で buddhist-counsel SKILL.md 完成 |
+| 3 | skillcraft で buddhist-counsel SKILL.md 完成（`.claude/skills/buddhist-counsel/SKILL.md`） |
 | 4 | Railway API に `/api/x402/buddhist-counsel` 作成（@x402/express ミドルウェア） |
 | 5 | GPT-4o + 5スキル統合 system prompt 実装 |
 | 6 | SAFE-T 3層危機検出 |
@@ -473,8 +473,8 @@ apps/api/src/
 | 8 | index.js を monetize-service スキル通りに完全書き直し | ✅ 完了（2026-02-23） | ESM維持（`"type":"module"`プロジェクト）+ `x402ResourceServer`→`@x402/core/server` + `ExactEvmScheme`→`@x402/evm/exact/server` + `HTTPFacilitatorClient({url:...})` + `declareDiscoveryExtension` |
 | 9 | `awal x402 details <staging-url>/api/x402/buddhist-counsel` | ✅ 完了（2026-02-23） | 402 確認済み。method=POST, network=eip155:84532, amount=10000, bazaar extensions 登録済み。route key `'POST /buddhist-counsel'` で正常動作 |
 | 10 | `awal x402 pay <staging-url>/api/x402/buddhist-counsel -X POST -d '{"who_is_suffering":"myself","situation":"test","language":"en"}'` | ✅ 完了（2026-02-23） | 200 OK。counsel_id=csl_5e26102b。tx=0x2db3aaf4...。network=eip155:84532 |
-| 11 | `awal x402 bazaar search "buddhist"` で Bazaar 登録確認 | ⬜ 未 | x402 スキル |
-| 12 | `clawhub publish` で ClawHub 公開 | ⬜ 未 | clawhub スキル |
+| 11 | `awal x402 bazaar search "buddhist"` で Bazaar 登録確認 | ⚠️ testnet では未登録（2026-02-23） | base-sepolia / force-refresh どちらも "buddhist" ヒットなし。testnet 取引は Bazaar インデックスに入らない可能性。mainnet 移行後に再確認 |
+| 12 | `clawhub publish` で ClawHub 公開 | ⚠️ clawhub login 待ち（2026-02-23） | buddhist-counsel SKILL.md 作成済み（`.claude/skills/buddhist-counsel/SKILL.md`）。`clawhub login` でブラウザ認証後に `clawhub publish` 実行可能 |
 
 ### Phase 2: x402-skill-marketer を独立スキルにする
 

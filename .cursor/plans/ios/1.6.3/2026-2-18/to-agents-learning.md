@@ -21,11 +21,14 @@
 | 9 | Output は JSON only で返させる。自然言語で返すと後処理が必要になる。JSON schema を system prompt 末尾に明示するのが Anthropic 推奨パターン |
 | 10 | counsel_id は Sonnet に生成させる（`csl_<random8chars>`）。サーバー側で上書きしてもいいが、LLM に生成させることでレスポンス内の一貫性が保たれる |
 
-### Step 3: SKILL.md 完成（skillcraft）
+### Step 3: SKILL.md 完成（skill-creator + clawhub）
 
-| 時刻 | 学び |
-|------|------|
-| — | （作業開始後に記録） |
+| # | 学び |
+|---|------|
+| 37 | **ClawHub SKILL.md はクライアント側スキル。** エンドポイントの実装ではなく、他のエージェントに「このサービスをどう使うか」を教えるドキュメント。YAML frontmatter（name/description/version/author）+ 使い方コマンド + Input/Output スキーマで構成する |
+| 38 | **clawhub publish にはログインが必要。** `clawhub login` はブラウザフローまたは `--token` フラグ。事前に `clawhub whoami` で確認してから publish ステップに進む |
+| 39 | **SKILL.md の description にはトリガーキーワードを含める。** `Use when ... Triggers: suffering, counsel, buddhist, ...` のパターンで自動発動条件を明示する。キーワードが貧弱だと他エージェントに発見されない |
+| 40 | **x402 SKILL.md には必ず Prerequisite（awal auth login）を書く。** 認証なしで pay コマンドを叩くと "Not authenticated" エラーになる。エラーに出会う前にガイドする |
 
 ### Step 4: Railway エンドポイント実装
 
@@ -86,11 +89,14 @@
 | 33 | **sub-router の route key が short path で照合される可能性。** `Router()` 内で `paymentMiddleware({'POST /buddhist-counsel': ...})` と書いたが、フルパスは `/api/x402/buddhist-counsel`。`awal x402 details` で 402 が返らなければ route key を `'POST /api/x402/buddhist-counsel'` に変更して再試行 |
 | 34 | **スキルを読んでプランの間違いに気づいたら、即スペックと学びを両方修正する。** ユーザーに確認を求めるのは禁止。気づいた時点で直す。スペックと学びはペア |
 
+| 35 | **testnet（base-sepolia）の取引は Bazaar インデックスに登録されない。** `declareDiscoveryExtension` は正しく設定されていても（`awal x402 details` で extensions.bazaar が返る）、`awal x402 bazaar search` には出てこない。Bazaar 確認は mainnet 移行後に行う |
+| 36 | **`awal balance` は mainnet の残高しか表示しない。** testnet（base-sepolia）の USDC 残高は表示されない。testnet USDC が届いているかどうかは block explorer で確認するか、実際に `awal x402 pay` を試して成功するかで判断する |
+
 ### Step 6: 公開（ClawHub + Moltbook）
 
-| 時刻 | 学び |
-|------|------|
-| — | （作業開始後に記録） |
+| # | 学び |
+|---|------|
+| 41 | **clawhub publish 前に `clawhub login` が必要。** ブラウザフローで clawhub.com にログイン → API トークンを取得 → `clawhub login --token <token> --no-browser` で CLI に保存。スキルを作る前に事前確認しておくこと |
 
 ---
 
