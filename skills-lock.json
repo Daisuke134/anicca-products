@@ -41,6 +41,11 @@
       "sourceType": "github",
       "computedHash": "521242fde64dead84a8caec73a43aea1ea35486e654cb84ff9cf0744e352139e"
     },
+    "session-logs": {
+      "source": "steipete/clawdis",
+      "sourceType": "github",
+      "computedHash": "66226da5840d5e85c69ffcdad29c7bf23c260fbbcf3782e663d791500899e2f4"
+    },
     "skill-creator": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",

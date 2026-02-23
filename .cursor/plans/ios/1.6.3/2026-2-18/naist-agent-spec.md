@@ -37,7 +37,8 @@
 | 9 | `naist-qa` | **`actionbook/actionbook@deep-research`**（skill.sh） | **135** | ✅ 安全 | `npx skills add actionbook/actionbook@deep-research` |
 | 10 | `naist-thesis` | **`jamditis/claude-skills-journalism@academic-writing`**（skill.sh） | **182** | ✅ 安全 | `npx skills add jamditis/claude-skills-journalism@academic-writing` |
 | 11 | `naist-metrics` | **`apify/agent-skills@apify-content-analytics`**（skill.sh、Apify製） | **553** | ✅ 安全 | `npx skills add apify/agent-skills@apify-content-analytics` |
-| 12 | `skill-for-you` | `charon-fan/agent-playbook@session-logger`（23）+ `vincentkoc/dotskills@technical-skill-finder`（41）をパイプライン | — | ✅ 安全 | `npx skills add charon-fan/agent-playbook@session-logger` |
+| 12 | `skill-for-you` | **`steipete/clawdis@session-logs`**（75★、verified）+ skill.sh/ClawHub 検索 | **75** | ✅ 安全（Snyk High=誤検知。jq/rg でローカル読取のみ） | `npx skills add steipete/clawdis@session-logs`（インストール済み） |
+| 13 | `auto-skill-creator` | **`sickn33/skill-creator`**（250★、init_skill.py等3本実在確認）+ `find-skills`（既存） | **250** | ✅ 安全（Low Risk） | `npx skills add sickn33/antigravity-awesome-skills@skill-creator`（インストール済み） |
 
 **全スキルのセキュリティチェック完了（2026-02-23）。⚠️なし。実装開始可能。**
 
@@ -512,6 +513,133 @@ Anicca: NAISTのアカウント情報が必要。
 
 ---
 
+### Skill 13: skill-for-you（毎朝09:30 自動）
+
+**ベース**: `steipete/clawdis@session-logs`（75★）+ skill.sh（primary）/ ClawHub（secondary）検索
+
+**動作**: Aniccaが過去7日間のセッションログを `jq` でパースし、ユーザーが繰り返しリクエストしているタスクを抽出 → skill.sh / ClawHub を検索 → 解決できるスキルを1件だけ提案。
+
+**Slackでの出力（必須フォーマット）**:
+```
+[09:30 JST] Aniccaが #ai-dais に自動投稿
+
+📦 あなたにおすすめのスキル
+
+[1] karpathy/nanochat@read-arxiv-paper
+    🔗 https://skills.sh/karpathy/nanochat/read-arxiv-paper
+    できること: arXiv論文を自動取得・Markdown要約→Slack通知
+    あなたに有益な理由: 過去7日で11回「論文を調べて」と依頼している。
+                        毎朝自動で届くようになれば手動依頼が不要になる。
+
+    [✅ インストールして使う] [❌ スキップ]
+```
+
+**ボタン押下後**:
+```
+✅ インストール完了: karpathy/nanochat@read-arxiv-paper
+   明日09:10から自動で届きます。
+
+❌ スキップしました。明日は別のスキルを提案します。
+```
+
+**出力ルール（絶対）**:
+
+| 項目 | ルール |
+|------|--------|
+| リンク | skill.sh の正式URL（必須） |
+| 名前 | `owner/repo@skill-name` 形式（必須） |
+| できること | 1行で具体的に（抽象表現禁止） |
+| 有益な理由 | セッションログの実データ引用（「〜回依頼している」等） |
+| 提案数 | 毎回1件のみ。複数提案禁止 |
+| Back-and-forth | 禁止。ボタン1回で完結 |
+
+| 項目 | 値 |
+|------|-----|
+| ツール | `steipete/clawdis@session-logs`（jq + rg でJSONL解析） + `npx skills find`（skill.sh）+ `clawhub search` |
+| ソース | `/Users/anicca/.openclaw/agents/anicca/sessions/*.jsonl`（検証済み） |
+| cron | `30 9 * * *`（毎朝09:30 JST） |
+| 承認 | Block Kit buttons（[インストールして使う] / [スキップ]） |
+
+---
+
+### Skill 14: auto-skill-creator（オンデマンド）
+
+**ベース**: `find-skills`（既存）+ `sickn33/skill-creator`（250★）
+
+**動作**: ユーザーが「このスキルを作って」「毎日Xして」とチャットで依頼 → skill.sh / ClawHub を先に検索 → 見つかればinstall → 見つからなければ skill-creator 6フェーズでビルド → テスト → 結果を即チャット報告。**back-and-forth ゼロ。入力1回→出力1回で完結。**
+
+**フロー A: スキルが既存だった場合**:
+```
+ダイス: 「毎日Hacker Newsのトップ10を要約してSlackに送るスキルを作って」
+
+→ Anicca: 🔍 skill.sh と ClawHub を検索中...
+
+          ✅ 既存スキルが見つかりました
+
+          cclank/news-aggregator-skill
+          🔗 https://skills.sh/cclank/news-aggregator-skill
+          できること: HN・GitHub Trending・ProductHuntを毎日取得→要約→Slack通知
+
+          ⬇️ インストール中...
+          ✅ インストール完了
+
+          [テスト結果]
+          $ node scripts/fetch_news.py --test
+          ✅ HN TOP 10 取得成功（4.2秒）
+          ✅ Slack送信テスト成功
+
+          🎉 完成。明日09:00から自動で届きます。
+          「今すぐ送って」と言えばすぐ実行できます。
+```
+
+**フロー B: スキルが存在しない場合（新規ビルド）**:
+```
+ダイス: 「NAISTの時間割をGoogleカレンダーに自動同期するスキルを作って」
+
+→ Anicca: 🔍 skill.sh と ClawHub を検索中...
+          ❌ 該当スキルなし。新規ビルドします。
+
+          ─── 製作中（skill-creator 6フェーズ） ───
+
+          Phase 1/6 Brainstorming...  ✅
+          Phase 2/6 Prompt Enhancement...  ✅
+          Phase 3/6 File Generation...  ✅
+          Phase 4/6 Validation...  ✅
+          Phase 5/6 Installation...  ✅
+          Phase 6/6 Complete
+
+          ─── テスト実行 ───
+          $ node scripts/sync-timetable.js --dry-run
+          ✅ NAISTポータル接続成功
+          ✅ 時間割パース: 月曜09:30 機械学習特論...（4科目）
+          ✅ Google Calendar 追加テスト成功
+
+          ─────────────────────────────────────
+          🎉 スキル完成: naist-timetable-sync [インストール済み]
+
+          使い方: 「時間割をカレンダーに同期して」と話しかけてください。
+          毎週月曜に自動同期したい場合は「毎週月曜に自動同期して」と言ってください。
+```
+
+**出力ルール（絶対）**:
+
+| ルール | 内容 |
+|--------|------|
+| Back-and-forth 禁止 | 「ダウンロードしました。実行しますか？」は禁止。インストール→テスト→報告を連続実行 |
+| テスト必須 | コードを書いただけで完了にしない。`node scripts/xxx.js --test` を実際に実行して出力を確認 |
+| テスト失敗時 | チャットに「テスト失敗: [エラー内容]」を報告。「完了」とは言わない |
+| 検索順序 | skill.sh（primary）→ ClawHub（secondary）→ 両方なければ新規ビルド |
+| 入力 | ユーザーのSlackメッセージ1回のみ |
+| 出力 | Slackに結果1回のみ。途中報告は進捗バー形式（back-and-forth禁止） |
+
+| 項目 | 値 |
+|------|-----|
+| ツール | `find-skills`（既存）+ `sickn33/skill-creator`（250★）+ `clawhub search` + `npx skills find` |
+| スクリプト | `init_skill.py` / `quick_validate.py` / `package_skill.py`（実在確認済み） |
+| 承認 | 不要。全自動実行（ビルド・インストール・テストまで） |
+
+---
+
 ## Cron（任意）— ユーザーが明示的に有効化するまで無効
 
 **デフォルトは全cron無効。ユーザーがチャットで「毎朝〜して」と言ったときに初めて有効化する。**
@@ -594,7 +722,8 @@ const blocks = [
 | 9 | `naist-qa` | 大学のこと何でも答える。履修相談・DC1相談 | `academic-deep-research` v1.0.0（ClawHub）をコピー。NAISTコンテキストを追加 | 低 |
 | 10 | `naist-thesis` | 論文を校正する。一人称チェック・参考文献整合性 | **`academic-writing-refiner` v1.0.0**（ClawHub）をコピー。日本語理工系論文ルールを追加 | 低 |
 | 11 | `naist-metrics` | TikTok/Xパフォーマンスレポート（ダイス専用） | **`tiktok-scraper`**（Mac Mini既存）をそのままコピー | 極低 |
-| 12 | `skill-for-you` | 作業ログから最適なスキルを毎朝提案→承認でinstall | `session-logs` v1.0.0（ClawHub）+ `clawhub`スキルをパイプラインでつなぐ | 低 |
+| 12 | `skill-for-you` | 作業ログから最適なスキルを毎朝提案→承認でinstall | **`steipete/clawdis@session-logs`**（75★）のjqクエリでユーザーリクエストを抽出 + skill.sh（primary）/ ClawHub（secondary）検索 | 極低 |
+| 13 | `auto-skill-creator` | 「このスキルを作って」「毎日Xして」に応えてスキルを探す→なければ作る→テスト→結果報告 | **`find-skills`**（既存）+ **`sickn33/skill-creator`**（250★、init_skill.py/quick_validate.py/package_skill.py実在確認済み） | 低 |
 
 ### スコープ外（スペックには残す・今は作らない）
 
@@ -626,7 +755,8 @@ const blocks = [
 ├── naist-qa/SKILL.md
 ├── naist-thesis/SKILL.md
 ├── naist-metrics/SKILL.md
-└── skill-for-you/SKILL.md
+├── skill-for-you/SKILL.md
+└── auto-skill-creator/SKILL.md
 
 テスト通ったら → Mac Mini（Anicca）にコピー:
 /Users/anicca/.openclaw/skills/<skill-name>/
@@ -724,9 +854,10 @@ security add-generic-password -a "naist-narita" -s "WEBMAIL_TOTP_SECRET" -w "bas
 | 11 | `naist-qa` 作成 | `clawhub install academic-deep-research` → コピー | ⏳ |
 | 12 | `naist-thesis` 作成 | `clawhub install academic-writing-refiner` → コピー | ⏳ |
 | 13 | `naist-metrics` 作成 | `tiktok-scraper`（Mac Mini既存）コピー | ⏳ |
-| 14 | `skill-for-you` 作成 | `clawhub install session-logs` + `clawhub`スキルをパイプライン | ⏳ |
-| 15 | 全スキルを Mac Mini（Anicca）にコピー | `scp` → `/Users/anicca/.openclaw/skills/` | ⏳ |
-| 16 | ClawHub に公開（各スキル個別） | `clawhub publish <skill-name>` | ⏳ |
+| 14 | `skill-for-you` 作成 | `steipete/clawdis@session-logs`（インストール済み）+ `npx skills find` パイプライン | ⏳ |
+| 15 | `auto-skill-creator` 作成 | `sickn33/skill-creator`（インストール済み）+ `find-skills`（既存）のパイプライン | ⏳ |
+| 16 | 全スキルを Mac Mini（Anicca）にコピー | `scp` → `/Users/anicca/.openclaw/skills/` | ⏳ |
+| 17 | ClawHub に公開（各スキル個別） | `clawhub publish <skill-name>` | ⏳ |
 
 ---
 
