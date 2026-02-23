@@ -168,3 +168,10 @@ Source: https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardra
 **禁止**: 質問する（自分で検索しろ）/ 選択肢提示（答えは1つ）/ オリジナル（コピーしろ）/ 「BPがない」（検索不足）
 
 **見つからない場合**: 一般化→隣接分野→根底原則→5回以上検索しても見つからない場合は最も近い原則を引用して適用する。「見つからなかった」だけで終わるのは禁止。
+
+## Active Technologies
+- Node.js 18+ + Jest（devDependency）、Firecrawl CLI（外部コマンド、Mac Mini既存） (003-naist-funds)
+- JSONファイル（`data/cache.json`, `data/guides.json`） (003-naist-funds)
+
+## Recent Changes
+- 003-naist-funds: Added Node.js 18+ + Jest（devDependency）、Firecrawl CLI（外部コマンド、Mac Mini既存）

@@ -28,6 +28,9 @@ final class ScreenshotTests: XCTestCase {
         app.launch()
 
         sleep(5)
+        // InterruptionMonitorを発火させるためにタップ（l.md: システムアラート自動処理）
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        sleep(2)
 
         takeScreenshot(named: "screen1")
     }
@@ -38,7 +41,9 @@ final class ScreenshotTests: XCTestCase {
         app.launchArguments = ["--screenshot-screen2"]
         app.launch()
 
-        sleep(3)
+        sleep(5)
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        sleep(2)
 
         takeScreenshot(named: "screen2")
     }
@@ -50,6 +55,8 @@ final class ScreenshotTests: XCTestCase {
         app.launch()
 
         sleep(5)
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5)).tap()
+        sleep(2)
 
         takeScreenshot(named: "screen3")
     }

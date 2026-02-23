@@ -174,6 +174,34 @@ ralph-autonomous-dev で SwiftUI 実装
   - Privacy Policy リンク → spec.md の urls.privacy_en / urls.privacy_ja（OS言語で切替）
   - Terms of Use リンク → spec.md の urls.terms（Apple 標準 EULA 固定）
     URL: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+
+  ■ PHASE 9 スクショパイプラインの前提セットアップ（必須 — これがないと PHASE 9 Step 2 が動かない）
+
+  1. ScreenshotTests.swift を作成
+     ファイル: <output_dir>/<slug>UITests/ScreenshotTests.swift
+     内容: XCUITest でアプリを起動し、各画面をスクロール・遷移してスクショを撮影するテストケース
+     テストケース:
+       - testScreenshot_Main   : メイン画面
+       - testScreenshot_Streak : カレンダー/ストリーク画面（存在する場合）
+       - testScreenshot_Paywall: Paywall 画面（paywall_skip で到達可能にすること）
+     accessibilityIdentifier を使って各画面に確実に到達すること
+
+  2. Makefile に generate-store-screenshots ターゲットを追加
+     場所: <output_dir>/Makefile
+     コマンド:
+       generate-store-screenshots:
+         xcodebuild test -project <app_name>.xcodeproj -scheme <app_name>UITests \
+           -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro Max' \
+           -resultBundlePath docs/screenshots/output.xcresult
+         python3 docs/screenshots/scripts/extract_screenshots.py
+         python3 docs/screenshots/scripts/process_screenshots.py
+
+  3. extract_screenshots.py + process_screenshots.py を docs/screenshots/scripts/ に配置
+     - extract_screenshots.py: xcresulttool で output.xcresult から PNG を抽出 → docs/screenshots/raw/
+     - process_screenshots.py: PIL で 1290×2796 に合成（ヘッドラインを screenshots.yaml から読む）
+     - screenshots.yaml: 各画面のヘッドライン + カラー設定
+
+  ⚠️ これらのセットアップが完了してから PHASE 9 Step 2 に進む。スキップ禁止。
 ```
 
 ### PHASE 3.5: PRIVACY POLICY & LANDING PAGE デプロイ
@@ -299,14 +327,10 @@ asc subscriptions localizations create --subscription-id "<MONTHLY_ID>" \
 ```
 
 ### PHASE 7: IAP REVIEW SCREENSHOT
-```
-⚠️ 重要: asc CLI / API 経由のアップロードは動作しない（2026-02-24 検証済み）
-  - `asc subscriptions images create` → FAILED (width:0, height:0)
-  - Python 直接 API も同様に FAILED
-  - S3 CompleteMultipartUpload 直接呼び出し → 403 Access Denied
 
-唯一の確実な方法: ASC Web から手動アップロード
-```
+> **⚠️ コマンド注意: `asc subscriptions images create` は広告画像（プロモーショナル）用。**
+> **IAP Review Screenshot には `asc subscriptions review-screenshots create` を使う。**
+> 過去に間違えて `images create` を使い「FAILED (width:0, height:0)」が出た → 誤ったコマンドの誤った結論だった。
 
 **ステップ 1: スクリーンショット画像を準備**
 ```bash
@@ -316,20 +340,23 @@ xcrun simctl install "<UDID>" "<APP_PATH>"
 xcrun simctl launch "<UDID>" "<BUNDLE_ID>"
 
 axe screenshot --output "./paywall-review.png" --udid "<UDID>"
-# 必要なら convert コマンドで JPEG 変換（900x1956 推奨）
 ```
 
-**ステップ 2: ASC Web から手動アップロード（必須）**
-```
-1. https://appstoreconnect.apple.com にアクセス
-2. Apps → [対象アプリ] → In-App Purchases
-3. Annual サブスク → Edit → Review Information → Screenshot 欄
-   → paywall-review.png（または .jpg）をアップロード → Save
-4. Monthly サブスク → 同じ操作
-5. 両方の state が READY_TO_SUBMIT になることを確認
+**ステップ 2: CLIでアップロード（正しいコマンド）**
+```bash
+# ★ 正しいコマンド: review-screenshots create（images create ではない）
+asc subscriptions review-screenshots create \
+  --subscription-id "<MONTHLY_SUB_ID>" \
+  --file "./paywall-review.png"
+
+asc subscriptions review-screenshots create \
+  --subscription-id "<ANNUAL_SUB_ID>" \
+  --file "./paywall-review.png"
+
+# "already exists" エラー = 正常（既にアップロード済み）
 ```
 
-詳細 → `references/iap-bible.md` の「App Review Screenshot — 絶対ルール」
+詳細 → `references/iap-bible.md` の「App Review Screenshot」
 
 ### PHASE 8: IAP VALIDATE ★STOP GATE
 ```bash
@@ -377,6 +404,15 @@ cp ./assets/icon-[timestamp].png \
 **注意: app-icon スキルは本来 Expo 向け（Step 4 以降の iOS 26 .icon フォルダ / app.json は Swift/Xcode では不要）。PNG 生成（Step 3）だけを使う。**
 
 #### Step 2: スクショ生成（screenshot-ab パイプライン — EN + JA）
+
+> **⚠️ 前提確認（PHASE 3 必須セットアップが完了しているか確認）**
+> - [ ] `ScreenshotTests.swift` が存在する
+> - [ ] `Makefile` に `generate-store-screenshots` ターゲットがある
+> - [ ] `docs/screenshots/scripts/process_screenshots.py` が存在する
+> - [ ] `screenshots.yaml` が存在する（ヘッドラインを書き込む先）
+>
+> **いずれか1つでも欠けている場合は PHASE 3 に戻って作成する。スキップ禁止。**
+
 ```
 screenshot-ab スキルの Step 3〜4 をそのまま実行する（A/Bテストではなく新規生成として）
 
@@ -394,6 +430,11 @@ screenshot-ab スキルの Step 3〜4 をそのまま実行する（A/Bテスト
 
 4. visual-qa で採点 → 8/10 未満なら Step 1 からやり直し
 
+⚠️ ハードゲート（絶対ルール）:
+   processed/en/ の画像を開いて、ヘッドラインテキストが画像に合成されているか目視確認する。
+   ヘッドラインが入っていない（生スクショのみ）→ ASC アップロード禁止。Step 1 から再実行。
+   「ヘッドラインなし = ASCアップロード禁止」この規則に例外なし。
+
 [JA スクショ]
 5. recursive-improver でヘッドライン生成（日本語）
    同じ concept + ペルソナで日本語コピー生成
@@ -404,6 +445,10 @@ screenshot-ab スキルの Step 3〜4 をそのまま実行する（A/Bテスト
    → 同じ実画面に日本語テキストを重ねて合成 → processed/ja/
 
 8. visual-qa で採点 → 8/10 未満なら Step 5 からやり直し
+
+⚠️ ハードゲート（JA も同じ）:
+   processed/ja/ の画像を開いて日本語ヘッドラインが入っているか確認。
+   入っていない場合は ASC アップロード禁止。
 ```
 
 #### Step 3: ASC アップロード（EN + JA）
@@ -440,6 +485,17 @@ cd <output_dir>/<app_name>ios
 FASTLANE_SKIP_UPDATE_CHECK=1 fastlane set_version version:<version>
 FASTLANE_SKIP_UPDATE_CHECK=1 FASTLANE_OPT_OUT_CRASH_REPORTING=1 fastlane release
 # processingState = VALID になるまで待機
+
+# ★ 必須: TestFlight ベータグループに配布（この手順を省くとテスターがビルドを見れない）
+# ビルドIDを取得
+BUILD_ID=$(asc builds list --app "<APP_ID>" --sort -uploadedDate --limit 1 | \
+  python3 -c "import sys,json;d=json.load(sys.stdin);print(d['data'][0]['id'])")
+
+# 全ベータグループのIDを取得して追加
+asc beta-groups list --app "<APP_ID>" | \
+  python3 -c "import sys,json;d=json.load(sys.stdin);[print(g['id']) for g in d['data']]" | \
+  xargs -I{} asc builds add-groups --build "$BUILD_ID" --group {}
+# → "Successfully added 1 group(s)" が各グループ分出ればOK
 ```
 
 ### PHASE 11: PREFLIGHT GATE

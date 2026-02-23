@@ -1,6 +1,6 @@
 # Thankful Gratitude App — App Store 提出 Complete Spec
 
-**作成日:** 2026-02-23（2026-02-22 版を全面更新）
+**作成日:** 2026-02-23（2026-02-24 更新）
 **ステータス:** 実装中（一部完了済み）
 **目標:** App Store に提出して WAITING_FOR_REVIEW にする
 
@@ -14,7 +14,7 @@
 | Xcodeプロジェクト | `ThankfulGratitudeApp.xcodeproj` |
 | Bundle ID | `app.rork.thankful-gratitude-app` |
 | ASC App ID | `6759514159` |
-| 現バージョン | `1.0.0 (1)` |
+| 現バージョン | `1.0.0 (2)` — TestFlight VALID（2026-02-23 07:20 PST） |
 | Team ID | `S5U8UH3JLJ` |
 
 ---
@@ -57,6 +57,9 @@
 | ✅ | Privacy Policy URL（en-US + ja 両方設定済み） |
 | ✅ | TestFlight グループ作成 + Daisuke 招待 |
 | ✅ | ASC メタデータ（英語のみ）設定済み |
+| ✅ | TASK 1: 日本語 UI 削除（英語固定化） |
+| ✅ | TestFlight build 2 アップロード（2026-02-23、VALID） |
+| ✅ | ASC App Store Screenshots x6 アップロード（IPHONE_67、ヘッドラインなし — 再作成必要） |
 
 ---
 
@@ -77,6 +80,29 @@
 ---
 
 ## 残タスク（優先順高い順）
+
+---
+
+### TASK 0: TestFlight build 2 動作確認（Daisuke 手動）
+
+**Why:** build 2（2026-02-23 VALID）がアップロード済み。実機で RC Offerings + IAP が動くか確認する。これが通れば App Store 提出後の Guideline 2.1 リジェクトリスクが大幅減。
+
+| 項目 | 詳細 |
+|------|------|
+| **Build** | version 1.0.0 build 2（2026-02-23 07:20 PST） |
+| **状態** | TestFlight VALID — ダウンロード可能 |
+
+**Daisuke が実施（手動）:**
+
+| # | 確認項目 | 期待結果 |
+|---|---------|---------|
+| 1 | TestFlight から build 2 をダウンロード | インストール成功 |
+| 2 | アプリ起動 | クラッシュなし、全画面英語 |
+| 3 | Paywall 表示 | Monthly / Annual プランが表示される |
+| 4 | Sandbox 購入 | RC Offerings が "default" に設定されていれば購入フロー開始 |
+| 5 | トライアル開始 | 7日間無料トライアルが開始される |
+
+> **NOTE:** RC Offerings が未設定の場合、Paywall に何も表示されない。TASK 4（RC Offerings）を先に完了させてから実施。
 
 ---
 
@@ -137,27 +163,44 @@ INFSH_API_KEY="1nfsh-626an14fkjpbj96s129v3vbhkp" infsh app run falai/flux-dev-lo
 | **As-Is** | Monthly + Annual 両方に Screenshot なし → MISSING_METADATA |
 | **To-Be** | 各サブスクに Screenshot アップロード済み → READY_TO_SUBMIT |
 
-**手順:**
+> **⚠️ API/CLIは使えない（2026-02-24 検証済み）**
+>
+> `asc subscriptions images create`、Python直接API、S3 CompleteMultipartUpload — すべてFAIL。
+> 唯一の確実な方法は **ASC Web から手動アップロード**。詳細: `iap-bible.md`
+
+**Daisuke が ASC Web で手動実施（BLOCKING）:**
+
+| # | 手順 | 詳細 |
+|---|------|------|
+| 1 | ASC を開く | https://appstoreconnect.apple.com |
+| 2 | アプリ選択 | Thankful Gratitude App → In-App Purchases |
+| 3 | Annual | "Thankful Pro Annual" → Edit → Review Information → Screenshot欄 |
+| 4 | 画像をアップロード | `/tmp/paywall-iap.jpg`（900×1956 JPEG） |
+| 5 | Save | Saveボタンをクリック |
+| 6 | Monthly も同様 | "Thankful Pro Monthly" → 同じ操作 |
+| 7 | 状態確認 | 両方 READY_TO_SUBMIT になることを確認 |
+
+**スクショ画像の作成（Claudeが実施）:**
 ```bash
-# Step 1: シミュレータ起動
-xcrun simctl boot "iPhone 16" || true
-open /Applications/Simulator.app
+# ペイウォール画面を900×1956でキャプチャ
+axe screenshot --output /tmp/paywall-iap-raw.png --udid booted
+# PIL で 900×1956 にリサイズ
+python3 -c "
+from PIL import Image
+img = Image.open('/tmp/paywall-iap-raw.png')
+img = img.resize((900, 1956), Image.LANCZOS)
+img.save('/tmp/paywall-iap.jpg', 'JPEG', quality=90)
+print('Done: /tmp/paywall-iap.jpg')
+"
+```
 
-# Step 2: アプリをシミュレータにインストール
-xcrun simctl install booted <APP_PATH>  # ビルド済み .app パス
-xcrun simctl launch booted app.rork.thankful-gratitude-app
-
-# Step 3: AXe でペイウォール画面まで操作してスクショ撮影
-axe describe-ui --udid booted
-axe screenshot --output ./paywall-review.png --udid booted
-
-# Step 4: Monthly + Annual それぞれにアップロード
-asc subscriptions review-screenshots create \
-  --subscription-id "6759938150" --file "./paywall-review.png"
-
-asc subscriptions review-screenshots create \
-  --subscription-id "6759938154" --file "./paywall-review.png"
-# "already exists" エラー = 正常（既にアップロード済み）
+**状態確認コマンド（アップロード後）:**
+```bash
+asc subscriptions get --id "6759938150" | \
+  python3 -c "import sys,json;d=json.load(sys.stdin);print('Monthly:', d['data']['attributes']['state'])"
+asc subscriptions get --id "6759938154" | \
+  python3 -c "import sys,json;d=json.load(sys.stdin);print('Annual:', d['data']['attributes']['state'])"
+# → 両方 READY_TO_SUBMIT が出るまで進まない
 ```
 
 ---
@@ -189,9 +232,16 @@ curl -s -H "Authorization: Bearer $THANKFUL_APP_RC_V2_SECRET_KEY" \
 
 ---
 
-### TASK 5: App Store Screenshots x3（1290×2796）
+### TASK 5: App Store Screenshots x3（1290×2796）— 再作成必須
 
-**Why:** Screenshots なしでは App Store ページが作れない。提出に必須。
+**Why:** 前セッションでアップロード済みだが **ヘッドライン（テキスト）なし** の生スクショのみ。App Store品質に達していない。再作成・再アップロード必須。
+
+> **⚠️ スキルのバグ（2026-02-24 特定）**
+>
+> 前回 `axe screenshot` のみ使用。mobileapp-builder SKILL.md PHASE 9 の
+> `recursive-improver → screenshots.yaml → make generate-store-screenshots → visual-qa` パイプラインを未実行。
+> スキルのPHASE 3 に `ScreenshotTests.swift` セットアップが必要だがその記載がなかった（スキル側の問題）。
+> → **スキル修正タスク（TASK 5B）を追加**
 
 | 項目 | 詳細 |
 |------|------|
@@ -201,34 +251,55 @@ curl -s -H "Authorization: Bearer $THANKFUL_APP_RC_V2_SECRET_KEY" \
 
 **3枚の構成:**
 
-| 枚 | コピー | 画面 |
-|----|--------|------|
+| 枚 | ヘッドライン | 画面 |
+|----|------------|------|
 | 1 | "Start each day with gratitude" | メイン日記画面 |
 | 2 | "Build a streak that lasts" | カレンダー/ストリーク画面 |
 | 3 | "Reflect. Grow. Be thankful." | Paywall または統計画面 |
 
-**手順:**
+**正しい手順（mobileapp-builder PHASE 9 準拠）:**
+
 ```bash
-# Step 1: シミュレータで各画面のスクショを撮影
-xcrun simctl launch booted app.rork.thankful-gratitude-app
-axe screenshot --output ./raw/screen1.png --udid booted
-# 各画面に移動して screen2.png, screen3.png を撮影
+# Step 1: recursive-improver でヘッドラインを生成・自己採点・改善
+# → screenshots.yaml に3枚分のヘッドライン + カラー + レイアウトを出力
 
-# Step 2: PIL で 1290×2796 に合成 + テキスト重ね
-python3 .claude/skills/mobileapp-builder/scripts/make_screenshots.py \
-  --raw1 ./raw/screen1.png \
-  --raw2 ./raw/screen2.png \
-  --raw3 ./raw/screen3.png \
-  --output-dir ./screenshots/
+# Step 2: XCUITest で生スクショを撮影
+# 前提: rork-thankful-gratitude-app/aniccaiosUITests/ScreenshotTests.swift が必要
+# 前提: Makefile に generate-store-screenshots ターゲットが必要
+# → これらがない場合は先にセットアップ（TASK 5B 参照）
+cd rork-thankful-gratitude-app
+make generate-store-screenshots
+# → docs/screenshots/processed/*.png に合成済みスクショが生成される
 
-# Step 3: ASC にアップロード
-asc metadata screenshots upload \
-  --app-id "6759514159" \
-  --locale "en-US" \
-  --display-type IPHONE_67 \
-  --file "./screenshots/shot1.png"
-# shot2.png, shot3.png も同様
+# Step 3: visual-qa でヘッドラインが入っているか確認
+# ⚠️ ヘッドラインが入っていない場合は ASC アップロード禁止（ハードゲート）
+# visual-qa が FAIL → Step 1 に戻る
+
+# Step 4: ASC の既存スクショを削除してから再アップロード
+# 既存のスクショを削除
+asc metadata screenshots delete \
+  --app-id "6759514159" --locale "en-US" --display-type IPHONE_67
+
+# 新しいスクショをアップロード（3枚）
+for f in docs/screenshots/processed/*.png; do
+  asc metadata screenshots upload \
+    --app-id "6759514159" --locale "en-US" \
+    --display-type IPHONE_67 --file "$f"
+done
 ```
+
+---
+
+### TASK 5B: mobileapp-builder スキル修正（スキル側の問題を直す）
+
+**Why:** 前回の失敗はスキルのPHASE 3 に `ScreenshotTests.swift` セットアップが記載されていなかったことが根本原因。次回から同じ失敗をしないためにスキルを修正する。
+
+| # | 修正箇所 | 内容 |
+|---|---------|------|
+| 1 | SKILL.md PHASE 3 | `ScreenshotTests.swift` + `Makefile generate-store-screenshots` のセットアップを必須タスクとして追加 |
+| 2 | SKILL.md PHASE 9 | ヘッドラインなしの場合の **ハードゲート** を追加（「ヘッドラインなし = ASCアップロード禁止」） |
+
+**ファイル:** `.cursor/skills/mobileapp-builder/SKILL.md`
 
 ---
 
@@ -325,23 +396,25 @@ asc review submissions-list --app "6759514159"
 | 順 | TASK | 担当 | 前提 |
 |----|------|------|------|
 | 1 | **TASK 4: RC Offerings** | **Daisuke（手動）** | RC Dashboard へのアクセス必要 |
-| 2 | **TASK 1: 日本語 UI 削除** | Claude Code | なし |
-| 3 | **TASK 2: App Icon 生成** | Claude Code | infsh API key |
-| 4 | **TASK 3: IAP Review Screenshot** | Claude Code | ビルド済みアプリ |
+| 2 | **TASK 3: IAP Review Screenshot** | **Daisuke（手動）** | ASC Web から手動アップロード（API使用不可） |
+| 3 | **TASK 0: TestFlight build 2 動作確認** | **Daisuke（手動）** | TASK 4 完了後 |
+| 4 | **TASK 2: App Icon 生成** | Claude Code | infsh API key |
 | 5 | **TASK 7: IAP Validate** | Claude Code | TASK 3 完了後 |
-| 6 | **TASK 5: App Store Screenshots** | Claude Code | TASK 1 完了後 |
-| 7 | **TASK 6: Greenlight** | Claude Code | TASK 1,2,4 完了後 |
-| 8 | **TASK 8: メタデータ確認** | Claude Code | なし |
-| 9 | **TASK 9: 提出** | Claude Code | 全TASK完了後 |
+| 6 | **TASK 5B: スキル修正** | Claude Code | なし |
+| 7 | **TASK 5: App Store Screenshots（再作成）** | Claude Code | TASK 5B 完了後 |
+| 8 | **TASK 6: Greenlight** | Claude Code | TASK 2 完了後 |
+| 9 | **TASK 8: メタデータ確認** | Claude Code | なし |
+| 10 | **TASK 9: 提出** | Claude Code | 全TASK完了後 |
 
 ---
 
 ## ユーザー作業（Daisuke が必ずやること）
 
-| # | タスク | 手順 |
-|---|--------|------|
-| 1 | **RC Offerings 設定（必須・最優先）** | https://app.revenuecat.com → Thankful → Offerings → New → default → $rc_annual/$rc_monthly → Make Current |
-| 2 | **TestFlight で RC Offerings 動作確認** | Sandbox 購入フローが通ることを確認（TASK 4 後） |
+| # | タスク | 手順 | ブロッカー |
+|---|--------|------|---------|
+| 1 | **RC Offerings 設定（最優先）** | https://app.revenuecat.com → Thankful → Offerings → New → default → $rc_annual/$rc_monthly → Make Current | 課金不可の原因 |
+| 2 | **IAP Review Screenshot（最優先）** | https://appstoreconnect.apple.com → Thankful → In-App Purchases → Annual/Monthly → Edit → Screenshot → アップロード（900×1956 JPEG） | MISSING_METADATA の原因 |
+| 3 | **TestFlight build 2 で動作確認** | TestFlight から build 2 ダウンロード → 起動 → Paywall → Sandbox 購入 | TASK 1,2 完了後に実施 |
 
 ---
 
@@ -349,14 +422,15 @@ asc review submissions-list --app "6759514159"
 
 | リジェクト理由 | 防ぐTASK | 状態 |
 |---------------|---------|------|
-| Guideline 2.1（IAP MISSING_METADATA） | TASK 3 + TASK 7 | ❌ 未完了 |
+| Guideline 2.1（IAP MISSING_METADATA） | TASK 3 + TASK 7 | ⏳ Daisuke手動待ち |
 | IAP not submitted for review | TASK 7 + TASK 9 | ❌ 未完了 |
 | Privacy Policy URL なし | ✅ 設定済み（en-US + ja） | ✅ 完了 |
 | App icon なし | TASK 2 | ❌ 未完了 |
-| Screenshots なし | TASK 5 | ❌ 未完了 |
+| Screenshots クオリティ不足（ヘッドラインなし） | TASK 5（再作成） | ❌ 再作成必須 |
 | PrivacyInfo.xcprivacy なし | ✅ 追加済み（Greenlight で確認） | ✅ 完了 |
 | Greenlight CRITICAL > 0 | TASK 6 | ❌ 未実行 |
-| RC IAP 課金不可 | TASK 4 | ❌ 未完了 |
+| RC IAP 課金不可 | TASK 4 | ⏳ Daisuke手動待ち |
+| 日本語 UI あり | ✅ TASK 1 完了済み（英語固定） | ✅ 完了 |
 
 ---
 

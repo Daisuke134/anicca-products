@@ -16,7 +16,7 @@ global:
   fonts:
     title:
       path: "/System/Library/Fonts/ヒラギノ角ゴシック W6.ttc"
-      size: 100
+      size: 80
     subtitle:
       path: "/System/Library/Fonts/ヒラギノ角ゴシック W3.ttc"
       size: 48
@@ -24,7 +24,7 @@ global:
 screens:
   - id: "screen1"
     caption:
-      title: "6 Years.\n10 Apps.\nStill Nothing Changed."
+      title: "6 Years. 10 Apps.\nStill Nothing Changed."
       subtitle: "Finally, an app that fights back."
     layout:
       text_x: 100
@@ -34,7 +34,7 @@ screens:
 
   - id: "screen2"
     caption:
-      title: "3,000+ People\nFinally Broke\nThe Loop."
+      title: "3,000+ People\nFinally Broke The Loop."
       subtitle: "Join them. Start free today."
     layout:
       text_x: 100
@@ -44,7 +44,7 @@ screens:
 
   - id: "screen3"
     caption:
-      title: "This Is What\nChange Actually\nLooks Like."
+      title: "This Is What\nChange Looks Like."
       subtitle: "AI that nudges you before you quit."
     layout:
       text_x: 100
