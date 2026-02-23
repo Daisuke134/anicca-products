@@ -273,18 +273,19 @@ tail -f /Users/anicca/logs/screenshot-loop.log
 
 ## 設計上の重要な決定事項（ADR）
 
-### ADR-1: asc-shots-pipeline の `review` ステップはスキップする
+### ADR-1: asc-shots-pipeline の `review` ステップは PHASE 7 で使う（スキップしない）
 
-`asc-shots-pipeline` の review コマンド群（`review-generate` / `review-open` / `review-approve`）は**人間が目視するためのHTMLプレビュー生成**であり、AI自動判定ではない。
+`asc-shots-pipeline` の review コマンド群は**人間が最終目視するためのステップ**として残す。
+AI採点（PHASE 6）が PASS した後、ダイスが最終承認する。
 
-| コマンド | 実際の動作 |
-|---------|-----------|
-| `review-generate` | フレーム付きPNGからHTMLプレビューを生成するだけ |
-| `review-open` | そのHTMLをブラウザで開く（人間が見る） |
-| `review-approve` | 人間が「OK」を押したらアップロード許可 |
+| コマンド | 実際の動作 | 使うか |
+|---------|-----------|--------|
+| `review-generate` | フレーム付きPNGからHTMLプレビューを生成 | **YES** |
+| `review-open` | ブラウザで開く（ダイスが目視） | **YES** |
+| `review-approve` | OK を押したらアップロード許可 | **YES** |
 
-完全自動ループでは人間がいないため、この3コマンドは全てスキップする。
-代わりに `visual-qa`（AIによるベストプラクティス採点）が自動reviewの役割を担う。
+**運用イメージ:** ブラウザがポンと開く → TikTok見ながら確認 → OK押すだけ。
+将来的に出力が安定したら PHASE 7 を削除して完全自動化する。
 
 ### ADR-2: Ralph（ralph-autonomous-dev / Ralph Wiggum）は使わない
 

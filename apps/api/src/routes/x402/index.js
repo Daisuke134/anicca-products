@@ -25,7 +25,7 @@ async function initX402Middleware() {
   if (x402Initialized) return;
   x402Initialized = true;
 
-  if (!process.env.X402_WALLET_ADDRESS || !process.env.X402_WALLET_PRIVATE_KEY) {
+  if (!process.env.X402_WALLET_ADDRESS) {
     console.log('ℹ️ x402 routes: no wallet configured, running without payment gate');
     return;
   }
