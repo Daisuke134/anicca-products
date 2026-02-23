@@ -174,6 +174,34 @@ ralph-autonomous-dev で SwiftUI 実装
   - Privacy Policy リンク → spec.md の urls.privacy_en / urls.privacy_ja（OS言語で切替）
   - Terms of Use リンク → spec.md の urls.terms（Apple 標準 EULA 固定）
     URL: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+
+  ■ PHASE 9 スクショパイプラインの前提セットアップ（必須 — これがないと PHASE 9 Step 2 が動かない）
+
+  1. ScreenshotTests.swift を作成
+     ファイル: <output_dir>/<slug>UITests/ScreenshotTests.swift
+     内容: XCUITest でアプリを起動し、各画面をスクロール・遷移してスクショを撮影するテストケース
+     テストケース:
+       - testScreenshot_Main   : メイン画面
+       - testScreenshot_Streak : カレンダー/ストリーク画面（存在する場合）
+       - testScreenshot_Paywall: Paywall 画面（paywall_skip で到達可能にすること）
+     accessibilityIdentifier を使って各画面に確実に到達すること
+
+  2. Makefile に generate-store-screenshots ターゲットを追加
+     場所: <output_dir>/Makefile
+     コマンド:
+       generate-store-screenshots:
+         xcodebuild test -project <app_name>.xcodeproj -scheme <app_name>UITests \
+           -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro Max' \
+           -resultBundlePath docs/screenshots/output.xcresult
+         python3 docs/screenshots/scripts/extract_screenshots.py
+         python3 docs/screenshots/scripts/process_screenshots.py
+
+  3. extract_screenshots.py + process_screenshots.py を docs/screenshots/scripts/ に配置
+     - extract_screenshots.py: xcresulttool で output.xcresult から PNG を抽出 → docs/screenshots/raw/
+     - process_screenshots.py: PIL で 1290×2796 に合成（ヘッドラインを screenshots.yaml から読む）
+     - screenshots.yaml: 各画面のヘッドライン + カラー設定
+
+  ⚠️ これらのセットアップが完了してから PHASE 9 Step 2 に進む。スキップ禁止。
 ```
 
 ### PHASE 3.5: PRIVACY POLICY & LANDING PAGE デプロイ
@@ -381,6 +409,15 @@ cp ./assets/icon-[timestamp].png \
 **注意: app-icon スキルは本来 Expo 向け（Step 4 以降の iOS 26 .icon フォルダ / app.json は Swift/Xcode では不要）。PNG 生成（Step 3）だけを使う。**
 
 #### Step 2: スクショ生成（screenshot-ab パイプライン — EN + JA）
+
+> **⚠️ 前提確認（PHASE 3 必須セットアップが完了しているか確認）**
+> - [ ] `ScreenshotTests.swift` が存在する
+> - [ ] `Makefile` に `generate-store-screenshots` ターゲットがある
+> - [ ] `docs/screenshots/scripts/process_screenshots.py` が存在する
+> - [ ] `screenshots.yaml` が存在する（ヘッドラインを書き込む先）
+>
+> **いずれか1つでも欠けている場合は PHASE 3 に戻って作成する。スキップ禁止。**
+
 ```
 screenshot-ab スキルの Step 3〜4 をそのまま実行する（A/Bテストではなく新規生成として）
 
@@ -398,6 +435,11 @@ screenshot-ab スキルの Step 3〜4 をそのまま実行する（A/Bテスト
 
 4. visual-qa で採点 → 8/10 未満なら Step 1 からやり直し
 
+⚠️ ハードゲート（絶対ルール）:
+   processed/en/ の画像を開いて、ヘッドラインテキストが画像に合成されているか目視確認する。
+   ヘッドラインが入っていない（生スクショのみ）→ ASC アップロード禁止。Step 1 から再実行。
+   「ヘッドラインなし = ASCアップロード禁止」この規則に例外なし。
+
 [JA スクショ]
 5. recursive-improver でヘッドライン生成（日本語）
    同じ concept + ペルソナで日本語コピー生成
@@ -408,6 +450,10 @@ screenshot-ab スキルの Step 3〜4 をそのまま実行する（A/Bテスト
    → 同じ実画面に日本語テキストを重ねて合成 → processed/ja/
 
 8. visual-qa で採点 → 8/10 未満なら Step 5 からやり直し
+
+⚠️ ハードゲート（JA も同じ）:
+   processed/ja/ の画像を開いて日本語ヘッドラインが入っているか確認。
+   入っていない場合は ASC アップロード禁止。
 ```
 
 #### Step 3: ASC アップロード（EN + JA）

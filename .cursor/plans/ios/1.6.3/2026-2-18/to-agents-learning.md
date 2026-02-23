@@ -145,3 +145,35 @@
 | 14 | v2 では `@x402/evm` パッケージが必須。`ExactEvmScheme` を `server.register(network, scheme)` で登録する。未インストールだと `import` で失敗する | `@x402/express` の依存ツリー確認 |
 | 15 | `HTTPFacilitatorClient` はデフォルトで `https://x402.org/facilitator` に接続する。URL 指定不要（コンストラクタ引数なし） | `@x402/core/dist/esm/server/index.mjs` ソース直読み |
 | 16 | `paymentMiddleware()` の第5引数 `syncFacilitatorOnStart`（デフォルト true）が true だと、最初のリクエスト受信時に `httpServer.initialize()` が呼ばれる。これが factory 呼び出し側の try-catch の外で実行されるため、エラーが unhandled rejection になりプロセスがクラッシュする | `@x402/express/dist/esm/index.mjs` L111 確認 |
+
+---
+
+## Phase 2: x402-skill-marketer 作成（2026-02-24）
+
+| # | 学び | ソース |
+|---|------|--------|
+| 17 | Mac Mini への OpenClaw スキル追加は SSH で直接ディレクトリ作成 + SKILL.md 配置するだけ。`openclaw skills install` は不要 | Mac Mini SSH 作業 |
+| 18 | Cron jobs.json の更新は `python3` で json を読み込み → append → 書き戻す。jq は Mac Mini に入っていない場合がある | Mac Mini SSH 作業 |
+| 19 | `openclaw agent --message` は `node` が PATH に通っていないと起動しない。Mac Mini は `/opt/homebrew/opt/node@22/bin/node` にある | Mac Mini SSH デバッグ |
+| 20 | Anicca への指示は SSH + curl で Slack API を直接叩くのが最速・最確実。`node` パス問題を回避できる | Mac Mini SSH 作業 |
+| 21 | Slack メッセージ内で `$` を使うとシェルが展開して壊れる。`\$0.01` とエスケープするか single-quote を工夫する | $0.01 → /bin/zsh.01 バグ |
+| 22 | Anicca の Slack user ID = `U092F27QFMK`。`<@U092F27QFMK>` でメンションしないと Anicca が反応しない | Slack API users.list 確認 |
+| 23 | Bazaar は mainnet（eip155:8453）のサービスのみインデックス。testnet（eip155:84532）は完全に無視される | `awal x402 bazaar search` 実験 |
+| 24 | Bazaar への登録には最初の mainnet USDC トランザクションが必要。`declareDiscoveryExtension` だけでは不十分 | Bazaar API 調査 + 実験 |
+
+---
+
+## 工場スキル（Phase 3）向けの型
+
+新しい x402 スキルを量産するときの必須チェックリスト：
+
+| # | チェック項目 |
+|---|------------|
+| 1 | testnet で動作確認してから mainnet に移行する |
+| 2 | `declareDiscoveryExtension` を必ず含める（Bazaar 登録用） |
+| 3 | CORS → express.json() → x402 middleware の順序を守る |
+| 4 | `syncFacilitatorOnStart: false` を設定する |
+| 5 | SKILL.md は `moltbook-interact` のフォーマットに従う |
+| 6 | Mac Mini への展開は SSH + python3 で直接操作 |
+| 7 | Anicca への指示は SSH + curl + Slack API（`<@U092F27QFMK>` メンション必須） |
+| 8 | ClawHub 公開後に Bazaar に最初の mainnet 取引を発生させる（$1 USDC 送金） |
