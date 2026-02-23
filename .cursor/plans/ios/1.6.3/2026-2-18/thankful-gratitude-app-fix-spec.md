@@ -1,8 +1,8 @@
-# Thankful Gratitude App — App Store 提出 Fix Spec
+# Thankful Gratitude App — App Store 提出 Complete Spec
 
-**作成日:** 2026-02-22
-**ステータス:** 実装待ち（スペック確定）
-**目標:** クラッシュ修正 → RC 設定 → PrivacyPolicy 追加 → Fastlane セットアップ → Greenlight CRITICAL=0 → App Store 提出
+**作成日:** 2026-02-23（2026-02-22 版を全面更新）
+**ステータス:** 実装中（一部完了済み）
+**目標:** App Store に提出して WAITING_FOR_REVIEW にする
 
 ---
 
@@ -13,258 +13,350 @@
 | プロジェクトパス | `/Users/cbns03/Downloads/anicca-project/rork-thankful-gratitude-app/` |
 | Xcodeプロジェクト | `ThankfulGratitudeApp.xcodeproj` |
 | Bundle ID | `app.rork.thankful-gratitude-app` |
+| ASC App ID | `6759514159` |
 | 現バージョン | `1.0.0 (1)` |
+| Team ID | `S5U8UH3JLJ` |
 
 ---
 
-## RevenueCat 確定データ（API で検証済み）
+## 確定済みデータ
 
 | 項目 | 値 |
 |------|-----|
 | RC Project | `proj7aaf9429` (Thankful) |
-| iOS App ID | `app2672aee816` |
-| iOS Public API Key | `appl_pcZedDwIwXVSSdEugQZPMBormtl` |
-| v2 Secret Key | `.env` → `THANKFUL_APP_RC_V2_SECRET_KEY` |
-| Offering ID | `ofrngbe380d2bec` (Default, current=true) |
-| Monthly Package | `pkge46dd13b373`, lookup_key: `$rc_monthly`, store_id: `thankful_monthly` |
-| Annual Package | `pkgec3b7005dc9`, lookup_key: `$rc_annual`, store_id: `thankful_annual` |
-| Entitlement | `entl3420469870`, lookup_key: `pro` ← PaywallView の `entitlements["pro"]` と一致 ✅ |
-| Package キー一致 | PaywallView の `"$rc_annual"` / `"$rc_monthly"` は RC 実データと一致 ✅ |
-
-**注意:** iOS 製品 (`prod3239ba236d`, `prod91f6a061e5`) の `duration: null` / `trial_duration: null` — ASC 側で IAP が未設定の可能性あり。ASC で `thankful_annual` / `thankful_monthly` の IAP を確認・設定が必要。
-
----
-
-## 概要（What & Why）
-
-Rork が生成した感謝日記アプリ。Swift/SwiftUI + SwiftData + RevenueCat 構成。
-UIと設計は完成しているが、**起動時にクラッシュして何も表示されない。**
-
-**クラッシュの根本原因（確定）:**
-`Config.swift` の `EXPO_PUBLIC_REVENUECAT_IOS_API_KEY` が空文字 → `RevenueCatService.configure()` が `guard !apiKey.isEmpty else { return }` で早期終了 → RC SDK 未初期化 → ContentView が `Purchases.shared` にアクセス → **クラッシュ**
+| RC iOS Public API Key | `appl_pcZedDwIwXVSSdEugQZPMBormtl` |
+| Monthly ASC Sub ID | `6759938150` |
+| Annual ASC Sub ID | `6759938154` |
+| Monthly product ID | `app.rork.thankful-gratitude-app.premium.monthly` |
+| Annual product ID | `app.rork.thankful-gratitude-app.premium.yearly` |
+| Monthly price | $4.99/月、7日無料トライアル |
+| Annual price | $29.99/年、7日無料トライアル |
+| Pricing territories | 174カ国設定済み |
+| ASC API Key ID | `D637C7RGFN`（p8: `~/Downloads/AuthKey_D637C7RGFN.p8`） |
+| Issuer ID | `f53272d9-c12d-4d9d-811c-4eb658284e74` |
+| IAP Key ID | `AY9BT5R8NU`（RC 連携用、全アプリ共通） |
 
 ---
 
-## 受け入れ条件
+## 完了済み（このセッションまでに完了）
+
+| # | 完了済みタスク |
+|---|--------------|
+| ✅ | Config.swift に RC API Key 設定（`appl_pcZedDwIwXVSSdEugQZPMBormtl`） |
+| ✅ | SwiftData fatalError → graceful fallback |
+| ✅ | IPHONEOS_DEPLOYMENT_TARGET = 17.0 |
+| ✅ | PrivacyInfo.xcprivacy 追加（Greenlight ITMS-91061 対応） |
+| ✅ | Fastlane セットアップ（Gemfile / Appfile / Fastfile） |
+| ✅ | IPA ビルド + ASC アップロード完了（ビルド VALID） |
+| ✅ | ASC アプリ作成（App ID: 6759514159） |
+| ✅ | Monthly + Annual サブスクリプション作成 |
+| ✅ | Territory availability set（USA, JPN + available in new territories） |
+| ✅ | 174カ国価格設定（Monthly $4.99 / Annual $29.99） |
+| ✅ | 7日間無料トライアル（USA + JPN） |
+| ✅ | サブスク localization（en-US + ja、Monthly + Annual） |
+| ✅ | Privacy Policy URL（en-US + ja 両方設定済み） |
+| ✅ | TestFlight グループ作成 + Daisuke 招待 |
+| ✅ | ASC メタデータ（英語のみ）設定済み |
+
+---
+
+## 受け入れ条件（FINAL）
 
 | # | 条件 | 確認方法 |
 |---|------|---------|
-| AC1 | シミュレータでクラッシュなしに起動 | `fastlane build_for_simulator` |
-| AC2 | 実機（ダイスの iPhone）で起動してコア機能が動く | `fastlane build_for_device` |
-| AC3 | RevenueCat Paywall が表示される（Sandbox 購入フロー確認） | 実機テスト |
-| AC4 | 英語・日本語切り替えが全画面で動作する | シミュレータで確認 |
-| AC5 | `greenlight preflight .` で CRITICAL = 0 | CLI 実行 |
-| AC6 | `fastlane safe_release` が通る | Fastlane 実行 |
-| AC7 | SettingsView に Privacy Policy リンクがある | 目視 |
+| AC1 | `asc review submissions-list` で state = WAITING_FOR_REVIEW | CLI |
+| AC2 | Monthly + Annual 両方が READY_TO_SUBMIT | `asc subscriptions get --id` |
+| AC3 | Monthly + Annual それぞれに IAP Review Screenshot 添付済み | create が "already exists" を返す |
+| AC4 | `asc validate subscriptions` で blocking = 0 | CLI |
+| AC5 | Greenlight CRITICAL = 0 | `greenlight preflight .` |
+| AC6 | RC Offerings に "default" が Current に設定済み | RC Dashboard 目視確認 |
+| AC7 | App icon が ASC にアップロード済み（1024×1024） | ASC 目視確認 |
+| AC8 | App Store Screenshots x3 が en-US にアップロード済み | ASC 目視確認 |
+| AC9 | 日本語 UI が削除され全画面英語のみ | シミュレータ目視確認 |
 
 ---
 
-## As-Is / To-Be（全 Fix）
+## 残タスク（優先順高い順）
 
-### Fix 1: Config.swift — RC iOS APIキー設定（最重要・クラッシュ直結）
+---
 
-| | 内容 |
-|-|------|
-| **As-Is** | `EXPO_PUBLIC_REVENUECAT_TEST_API_KEY = ""` / `EXPO_PUBLIC_REVENUECAT_IOS_API_KEY = ""` |
-| **To-Be** | 両方に `appl_pcZedDwIwXVSSdEugQZPMBormtl` を設定 |
+### TASK 1: 日本語 UI 削除（英語オンリー化）
 
-```swift
-// ThankfulGratitudeApp/Config.swift — 修正後
-enum Config {
-    static let EXPO_PUBLIC_REVENUECAT_TEST_API_KEY = "appl_pcZedDwIwXVSSdEugQZPMBormtl"
-    static let EXPO_PUBLIC_REVENUECAT_IOS_API_KEY = "appl_pcZedDwIwXVSSdEugQZPMBormtl"
-}
+**Why:** ユーザー指示。日本語ローカライズは工数対効果が低いのでカット。
+
+| 項目 | 詳細 |
+|------|------|
+| **As-Is** | `AppLanguage` enum に `.japanese` がある。UI に言語切り替えがある |
+| **To-Be** | 日本語 option を削除、英語固定、言語切り替え UI を削除 |
+| **作業ファイル** | `Strings.swift`, `SettingsView.swift`, `AppViewModel.swift`, `AppLanguage.swift`（または類似ファイル） |
+
+**具体的な変更:**
+- `AppLanguage` enum から `.japanese` を削除（`.english` のみ残す）
+- `Strings.swift` の switch 文の japanese ケースを削除
+- `SettingsView` の言語切り替え UI コンポーネントを削除
+- `UserDefaults` に保存している language キーの初期値を `"english"` に固定
+
+---
+
+### TASK 2: App Icon 生成（1024×1024）
+
+**Why:** アイコンなしでは App Store に掲載不可。現在のアイコンはデフォルトまたは空。
+
+| 項目 | 詳細 |
+|------|------|
+| **As-Is** | アイコン未設定 or デフォルト（"icon sucks"） |
+| **To-Be** | 1024×1024 PNG が `Assets.xcassets/AppIcon.appiconset/` に設定済み |
+| **生成方法** | infsh FLUX で AI 生成 |
+
+**生成プロンプト:**
+```
+Thankful gratitude journal iOS app icon. Minimalist design.
+A warm golden sun rising over gentle hills, soft gradient sky from deep blue to golden yellow.
+Abstract, meditative mood. No text. Square format. 1024x1024. Premium App Store ready.
+```
+
+**コマンド:**
+```bash
+INFSH_API_KEY="1nfsh-626an14fkjpbj96s129v3vbhkp" infsh app run falai/flux-dev-lora --input '{
+  "prompt": "Thankful gratitude journal iOS app icon. Minimalist warm golden sunrise design. Deep blue to golden gradient background. No text. Square format. Premium App Store ready.",
+  "width": 1024,
+  "height": 1024
+}'
+# → 出力 URL を curl でダウンロード → icon-1024.png として保存
+# → xcassets に配置
 ```
 
 ---
 
-### Fix 2: SwiftData fatalError → graceful error handling
+### TASK 3: IAP Review Screenshot（MISSING_METADATA 解消の鍵）
 
-| | 内容 |
-|-|------|
-| **As-Is** | `fatalError("Could not create ModelContainer: \(error)")` — 失敗時即クラッシュ |
-| **To-Be** | `catch` で in-memory フォールバック。本番でデータが消えることを防ぐ |
+**Why:** IAP Review Screenshot がないと Monthly/Annual が MISSING_METADATA のまま → 提出不可。これが一番のブロッカー。
 
-```swift
-// ThankfulGratitudeAppApp.swift — 修正後
-var sharedModelContainer: ModelContainer = {
-    let schema = Schema([GratitudeEntry.self])
-    let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-    do {
-        return try ModelContainer(for: schema, configurations: [config])
-    } catch {
-        // フォールバック: in-memory で起動（データは失うが、クラッシュ回避）
-        let fallback = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
-        return try! ModelContainer(for: schema, configurations: [fallback])
-    }
-}()
+| 項目 | 詳細 |
+|------|------|
+| **As-Is** | Monthly + Annual 両方に Screenshot なし → MISSING_METADATA |
+| **To-Be** | 各サブスクに Screenshot アップロード済み → READY_TO_SUBMIT |
+
+**手順:**
+```bash
+# Step 1: シミュレータ起動
+xcrun simctl boot "iPhone 16" || true
+open /Applications/Simulator.app
+
+# Step 2: アプリをシミュレータにインストール
+xcrun simctl install booted <APP_PATH>  # ビルド済み .app パス
+xcrun simctl launch booted app.rork.thankful-gratitude-app
+
+# Step 3: AXe でペイウォール画面まで操作してスクショ撮影
+axe describe-ui --udid booted
+axe screenshot --output ./paywall-review.png --udid booted
+
+# Step 4: Monthly + Annual それぞれにアップロード
+asc subscriptions review-screenshots create \
+  --subscription-id "6759938150" --file "./paywall-review.png"
+
+asc subscriptions review-screenshots create \
+  --subscription-id "6759938154" --file "./paywall-review.png"
+# "already exists" エラー = 正常（既にアップロード済み）
 ```
 
 ---
 
-### Fix 3: デプロイターゲット 18.0 → 17.0
+### TASK 4: RC Offerings 設定（TestFlight IAP エラー解消）
 
-| | 内容 |
-|-|------|
-| **As-Is** | `IPHONEOS_DEPLOYMENT_TARGET = 18.0` |
-| **To-Be** | `IPHONEOS_DEPLOYMENT_TARGET = 17.0`（SwiftData は 17.0+ 必須。以下にはできない） |
-| **作業** | `project.pbxproj` の全 `IPHONEOS_DEPLOYMENT_TARGET` を `17.0` に変更 |
+**Why:** RC Offerings が未設定だと TestFlight + App Review で「Apple IAP key is invalid」になる。課金できないアプリは審査でリジェクトされる。
 
----
+**これは手動で RC Dashboard から行う（MCP が Thankful RC プロジェクトにアクセスできないため）:**
 
-### Fix 4: PrivacyInfo.xcprivacy 追加（ITMS-91061 防止）
+| # | 手順 | 詳細 |
+|---|------|------|
+| 1 | RC Dashboard を開く | https://app.revenuecat.com |
+| 2 | Thankful プロジェクトを選択 | `proj7aaf9429` |
+| 3 | Products を確認 | `thankful_annual` / `thankful_monthly` が存在することを確認 |
+| 4 | Offerings → New Offering | Identifier: `default`, Display Name: `Default` |
+| 5 | Packages を追加 | `$rc_annual` → `thankful_annual`、`$rc_monthly` → `thankful_monthly` |
+| 6 | Offering を Current に設定 | "Make Current" ボタンをクリック |
+| 7 | IAP Key 確認 | ASC API Key: `D637C7RGFN`（Valid credentials 確認済みのはず） |
 
-| | 内容 |
-|-|------|
-| **As-Is** | `PrivacyInfo.xcprivacy` が存在しない |
-| **To-Be** | `ThankfulGratitudeApp/PrivacyInfo.xcprivacy` を作成してターゲットに追加 |
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>NSPrivacyAccessedAPITypes</key>
-    <array>
-        <dict>
-            <key>NSPrivacyAccessedAPIType</key>
-            <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
-            <key>NSPrivacyAccessedAPITypeReasons</key>
-            <array>
-                <string>CA92.1</string>
-            </array>
-        </dict>
-    </dict>
-    </array>
-    <key>NSPrivacyCollectedDataTypes</key>
-    <array/>
-    <key>NSPrivacyTracking</key>
-    <false/>
-</dict>
-</plist>
-```
-
-**追加手順:** Xcode でファイル追加 → Target Membership で `ThankfulGratitudeApp` にチェック。
-
----
-
-### Fix 5: Privacy Policy リンク追加（Guideline 5.1.1(i) 必須）
-
-| | 内容 |
-|-|------|
-| **As-Is** | `SettingsView` に Privacy Policy リンクなし → App Review リジェクト確定 |
-| **To-Be** | `SettingsView` の "About" セクションに Privacy Policy と Terms of Use リンクを追加 |
-
-```swift
-// SettingsView.swift の About セクションに追加
-Section(L10n.about(language)) {
-    // 既存のバージョン表示...
-    Link(L10n.privacyPolicy(language), destination: URL(string: "https://aniccaai.com/privacy")!)
-    Link(L10n.termsOfUse(language), destination: URL(string: "https://aniccaai.com/terms")!)
-}
-```
-
-**Strings.swift にも追加:**
-```swift
-static func privacyPolicy(_ language: AppLanguage) -> String {
-    switch language {
-    case .english: return "Privacy Policy"
-    case .japanese: return "プライバシーポリシー"
-    }
-}
-static func termsOfUse(_ language: AppLanguage) -> String {
-    switch language {
-    case .english: return "Terms of Use"
-    case .japanese: return "利用規約"
-    }
-}
+**確認コマンド（設定後）:**
+```bash
+# RC v2 API で Offerings を確認
+curl -s -H "Authorization: Bearer $THANKFUL_APP_RC_V2_SECRET_KEY" \
+  "https://api.revenuecat.com/v2/projects/proj7aaf9429/offerings" | \
+  python3 -c "import sys,json;d=json.load(sys.stdin);[print(o['lookup_key'], o.get('is_current')) for o in d['items']]"
+# "default" True が返れば OK
 ```
 
 ---
 
-### Fix 6: Expo アーティファクト削除
+### TASK 5: App Store Screenshots x3（1290×2796）
 
-| | 内容 |
-|-|------|
-| **As-Is** | `app/+native-intent.tsx` が存在（Rork の残骸） |
-| **To-Be** | `app/` ディレクトリを完全削除 |
+**Why:** Screenshots なしでは App Store ページが作れない。提出に必須。
+
+| 項目 | 詳細 |
+|------|------|
+| **サイズ** | 1290×2796（iPhone 16 Pro Max） |
+| **枚数** | 3枚（en-US） |
+| **スタイル** | Deep navy 背景（#0A0F28 → #1E3250）+ Gold テキスト（#FFC107） |
+
+**3枚の構成:**
+
+| 枚 | コピー | 画面 |
+|----|--------|------|
+| 1 | "Start each day with gratitude" | メイン日記画面 |
+| 2 | "Build a streak that lasts" | カレンダー/ストリーク画面 |
+| 3 | "Reflect. Grow. Be thankful." | Paywall または統計画面 |
+
+**手順:**
+```bash
+# Step 1: シミュレータで各画面のスクショを撮影
+xcrun simctl launch booted app.rork.thankful-gratitude-app
+axe screenshot --output ./raw/screen1.png --udid booted
+# 各画面に移動して screen2.png, screen3.png を撮影
+
+# Step 2: PIL で 1290×2796 に合成 + テキスト重ね
+python3 .claude/skills/mobileapp-builder/scripts/make_screenshots.py \
+  --raw1 ./raw/screen1.png \
+  --raw2 ./raw/screen2.png \
+  --raw3 ./raw/screen3.png \
+  --output-dir ./screenshots/
+
+# Step 3: ASC にアップロード
+asc metadata screenshots upload \
+  --app-id "6759514159" \
+  --locale "en-US" \
+  --display-type IPHONE_67 \
+  --file "./screenshots/shot1.png"
+# shot2.png, shot3.png も同様
+```
+
+---
+
+### TASK 6: Greenlight Preflight（CRITICAL = 0 確認）
+
+**Why:** CRITICAL が残っていたら提出禁止。必ず通す。
 
 ```bash
-rm -rf /Users/cbns03/Downloads/anicca-project/rork-thankful-gratitude-app/app/
+cd /Users/cbns03/Downloads/anicca-project/rork-thankful-gratitude-app
+/tmp/greenlight/build/greenlight preflight .
+# CRITICAL = 0 になるまで修正して再実行
+```
+
+**Greenlight がない場合:**
+```bash
+cd /tmp && git clone https://github.com/RevylAI/greenlight.git && cd greenlight && make build
 ```
 
 ---
 
-### Fix 7: Fastlane セットアップ（このアプリ専用）
+### TASK 7: IAP Validate（PHASE 8 ゲート）
 
-| | 内容 |
-|-|------|
-| **As-Is** | Fastlane なし |
-| **To-Be** | `Gemfile` + `fastlane/Appfile` + `fastlane/Fastfile` を作成 |
+**Why:** 提出前に Monthly + Annual が READY_TO_SUBMIT であることを確認。MISSING_METADATA のまま提出したらリジェクト確定。
 
-**Fastfile に必要な lane:**
+```bash
+# TASK 3 の Screenshot アップロード後に実行
+asc validate subscriptions --app "6759514159"
+# blocking = 0 でなければ TASK 3 に戻る
 
-| Lane | 用途 |
-|------|------|
-| `test` | ユニットテスト |
-| `build_for_simulator` | シミュレータビルド |
-| `build_for_device` | 実機ビルド |
-| `preflight` | GATE 2 自動チェック（checklist.md の実装） |
-| `safe_release` | preflight → full_release |
-| `full_release` | build → upload → submit |
+asc subscriptions get --id "6759938150" | \
+  python3 -c "import sys,json;d=json.load(sys.stdin);print('Monthly:', d['data']['attributes']['state'])"
 
----
+asc subscriptions get --id "6759938154" | \
+  python3 -c "import sys,json;d=json.load(sys.stdin);print('Annual:', d['data']['attributes']['state'])"
 
-### Fix 8: ASC メタデータ（EN + JA）設定
-
-| | 内容 |
-|-|------|
-| **As-Is** | ASC にメタデータ未設定 |
-| **To-Be** | `asc` CLI で EN + JA のタイトル・説明・キーワードを設定 |
-
-**設定値（案）:**
-
-| フィールド | EN | JA |
-|-----------|-----|-----|
-| Title | Thankful - Gratitude Journal | Thankful - 感謝日記 |
-| Subtitle | Daily Gratitude & Affirmations | 毎日の感謝と気づき |
-| Keywords | gratitude,journal,mindfulness,affirmation,diary | 感謝,日記,マインドフルネス,アファメーション,習慣 |
+# 両方 READY_TO_SUBMIT が出るまで進まない
+```
 
 ---
 
-### Fix 9: ASC IAP 確認・設定
+### TASK 8: ASC メタデータ最終確認（英語のみ）
 
-| | 内容 |
-|-|------|
-| **As-Is** | RC の iOS 製品 `thankful_annual` / `thankful_monthly` の `duration: null`（ASC IAP 未確認） |
-| **To-Be** | ASC で `thankful_annual`（$49.99/年、7日 Trial）と `thankful_monthly`（$9.99/月）の IAP が存在することを `asc` CLI で確認 |
-| **確認コマンド** | `asc iaps list --app-id <ASC_APP_ID>` |
-| **未設定なら** | ASC GUI で IAP を作成してサブスクリプショングループに紐付け |
+**Why:** Title / Subtitle / Description / Keywords が en-US に設定されていることを確認。日本語メタデータは不要（英語のみで提出）。
+
+```bash
+# 現在のメタデータ確認
+asc metadata list --app-id "6759514159" --locale en-US
+
+# 不足があれば設定
+asc metadata update --app-id "6759514159" --locale en-US \
+  --field name --value "Thankful - Gratitude Journal"
+asc metadata update --app-id "6759514159" --locale en-US \
+  --field subtitle --value "Daily Gratitude & Affirmations"
+asc metadata update --app-id "6759514159" --locale en-US \
+  --field keywords --value "gratitude,journal,mindfulness,affirmation,diary,thankful"
+```
+
+**設定値（確定）:**
+
+| フィールド | 値 |
+|-----------|-----|
+| title | `Thankful - Gratitude Journal` |
+| subtitle | `Daily Gratitude & Affirmations` |
+| keywords | `gratitude,journal,mindfulness,affirmation,diary,thankful,mood,wellness` |
+| description | *(英語のみ。感謝習慣アプリの説明)* |
 
 ---
 
-## テストマトリックス（TDD: RED → GREEN の順）
+### TASK 9: App Store 提出
 
-| # | テスト名 | 何をテスト | ファイル |
-|---|----------|-----------|---------|
-| T1 | `testRevenueCatAPIKey_IsNotEmpty` | Config の API キーが空でないこと | `ConfigTests.swift` |
-| T2 | `testRevenueCatConfigures_WithValidKey` | RC SDK が設定されること | `RevenueCatServiceTests.swift` |
-| T3 | `testModelContainer_InitializesSuccessfully` | SwiftData が起動すること | `AppTests.swift` |
-| T4 | `testCalculateStreak_EmptyEntries_ReturnsZero` | 空配列で streak = 0 | `AppViewModelTests.swift` |
-| T5 | `testCalculateStreak_SingleToday_ReturnsOne` | 今日だけなら streak = 1 | `AppViewModelTests.swift` |
-| T6 | `testAllStrings_HaveBothLanguages` | 全 L10n 関数が EN/JA 両方返す | `StringsTests.swift` |
-| T7 | `testPrivacyPolicyString_ExistsInBothLanguages` | Fix 5 で追加した文字列の確認 | `StringsTests.swift` |
+**Why:** 全ゲートを通過したら最終提出。
+
+```bash
+# VERSION_ID と BUILD_ID を取得
+VERSION_ID=$(asc versions list --app "6759514159" | \
+  python3 -c "import sys,json;d=json.load(sys.stdin);print(d['data'][0]['id'])")
+
+BUILD_ID=$(asc builds list --app "6759514159" --sort -uploadedDate --limit 1 | \
+  python3 -c "import sys,json;d=json.load(sys.stdin);print(d['data'][0]['id'])")
+
+# 提出
+asc submit create --app "6759514159" \
+  --version-id "$VERSION_ID" --build "$BUILD_ID" --confirm
+
+# 確認
+asc review submissions-list --app "6759514159"
+# state = WAITING_FOR_REVIEW ✅
+```
 
 ---
 
-## E2E 判定
+## 実行順序（ブロッカー優先）
 
-| 項目 | 値 |
-|------|-----|
-| UI 変更 | あり（Privacy Policy リンク追加） |
-| 新画面 | なし |
-| 新ボタン | Link ×2（Privacy Policy, Terms of Use） |
-| 結論 | Maestro: 最小限。Paywall 表示確認のみ。Link タップはシミュレータで困難なため実機確認で代替。 |
+| 順 | TASK | 担当 | 前提 |
+|----|------|------|------|
+| 1 | **TASK 4: RC Offerings** | **Daisuke（手動）** | RC Dashboard へのアクセス必要 |
+| 2 | **TASK 1: 日本語 UI 削除** | Claude Code | なし |
+| 3 | **TASK 2: App Icon 生成** | Claude Code | infsh API key |
+| 4 | **TASK 3: IAP Review Screenshot** | Claude Code | ビルド済みアプリ |
+| 5 | **TASK 7: IAP Validate** | Claude Code | TASK 3 完了後 |
+| 6 | **TASK 5: App Store Screenshots** | Claude Code | TASK 1 完了後 |
+| 7 | **TASK 6: Greenlight** | Claude Code | TASK 1,2,4 完了後 |
+| 8 | **TASK 8: メタデータ確認** | Claude Code | なし |
+| 9 | **TASK 9: 提出** | Claude Code | 全TASK完了後 |
+
+---
+
+## ユーザー作業（Daisuke が必ずやること）
+
+| # | タスク | 手順 |
+|---|--------|------|
+| 1 | **RC Offerings 設定（必須・最優先）** | https://app.revenuecat.com → Thankful → Offerings → New → default → $rc_annual/$rc_monthly → Make Current |
+| 2 | **TestFlight で RC Offerings 動作確認** | Sandbox 購入フローが通ることを確認（TASK 4 後） |
+
+---
+
+## リジェクトパターン封じ込め表
+
+| リジェクト理由 | 防ぐTASK | 状態 |
+|---------------|---------|------|
+| Guideline 2.1（IAP MISSING_METADATA） | TASK 3 + TASK 7 | ❌ 未完了 |
+| IAP not submitted for review | TASK 7 + TASK 9 | ❌ 未完了 |
+| Privacy Policy URL なし | ✅ 設定済み（en-US + ja） | ✅ 完了 |
+| App icon なし | TASK 2 | ❌ 未完了 |
+| Screenshots なし | TASK 5 | ❌ 未完了 |
+| PrivacyInfo.xcprivacy なし | ✅ 追加済み（Greenlight で確認） | ✅ 完了 |
+| Greenlight CRITICAL > 0 | TASK 6 | ❌ 未実行 |
+| RC IAP 課金不可 | TASK 4 | ❌ 未完了 |
 
 ---
 
@@ -272,111 +364,8 @@ rm -rf /Users/cbns03/Downloads/anicca-project/rork-thankful-gratitude-app/app/
 
 | 項目 | 理由 |
 |------|------|
-| UI デザイン変更 | 「UIは良い」と確認済み |
-| 新機能追加 | Fix のみ |
+| 日本語メタデータ（ASC） | 英語のみで提出する |
+| UI デザイン変更 | UI は完成。Fix のみ |
+| 新機能追加 | 提出後に iterator が担当 |
+| TestFlight フルベータ | 直接 App Store 提出のみ |
 | Android 対応 | iOS のみ |
-| RC Experiment | 提出後に iterator が担当 |
-| Maestro の full フロー | Privacy Policy リンクのみ変更。Full E2E は工数対効果が低い |
-
----
-
-## 実行手順（全て Claude Code が実行）
-
-### Step 1: Fix 1〜6 実装（TDD）
-
-```bash
-# 作業ディレクトリ
-cd /Users/cbns03/Downloads/anicca-project/rork-thankful-gratitude-app
-
-# Fix 1: Config.swift 修正
-# Fix 2: ThankfulGratitudeAppApp.swift 修正
-# Fix 3: project.pbxproj のデプロイターゲット変更
-# Fix 4: PrivacyInfo.xcprivacy 作成 + Xcode ターゲット追加
-# Fix 5: SettingsView + Strings.swift に Privacy Policy 追加
-# Fix 6: app/ ディレクトリ削除
-```
-
-### Step 2: Fastlane セットアップ（Fix 7）
-
-```bash
-# Gemfile / Appfile / Fastfile 作成
-# preflight lane に checklist.md の GATE 2 自動項目を実装
-```
-
-### Step 3: ユニットテスト（GATE 0）
-
-```bash
-cd /Users/cbns03/Downloads/anicca-project/rork-thankful-gratitude-app
-FASTLANE_SKIP_UPDATE_CHECK=1 fastlane test
-# 全件 PASS が必須
-```
-
-### Step 4: codex-review（GATE codex）
-
-```bash
-/codex-review
-# ok: true になるまで最大 5 回反復
-```
-
-### Step 5: Greenlight（GATE 1）
-
-```bash
-/tmp/greenlight/build/greenlight preflight .
-# CRITICAL = 0 必須。失敗したら修正して再実行
-```
-
-### Step 6: シミュレータ確認（GATE 2 自動）
-
-```bash
-FASTLANE_SKIP_UPDATE_CHECK=1 FASTLANE_OPT_OUT_CRASH_REPORTING=1 fastlane build_for_simulator
-# クラッシュなし確認
-```
-
-### Step 7: ASC メタデータ + IAP 確認（GATE 2 半自動）
-
-```bash
-# ASC App ID を特定
-asc apps list
-
-# メタデータ確認・設定
-asc metadata list --app-id <ID>
-
-# IAP 確認
-asc iaps list --app-id <ID>
-
-# スクリーンショット確認
-asc screenshots list --app-id <ID> --locale en-US
-```
-
-### Step 8: 実機テスト（ダイスが確認）
-
-```bash
-# Claude Code が実行
-FASTLANE_SKIP_UPDATE_CHECK=1 fastlane build_for_device
-
-# ダイスが確認する内容
-# - 起動する
-# - Paywall が表示される
-# - Sandbox で購入フローが通る
-# - 英語・日本語切り替えが動く
-# - Privacy Policy リンクが開く
-```
-
-### Step 9: 提出
-
-```bash
-FASTLANE_SKIP_UPDATE_CHECK=1 fastlane safe_release
-# safe_release = preflight（全 GATE 自動チェック）→ full_release
-```
-
----
-
-## スキル・フロー
-
-| フェーズ | ツール |
-|---------|--------|
-| TDD | `/tdd` |
-| コードレビュー | `/codex-review` |
-| Greenlight | `greenlight preflight .` |
-| ASC 操作 | `asc` CLI（`asc-cli-usage` スキル参照） |
-| 提出 | `fastlane safe_release`（`asc-release-flow` スキル参照） |

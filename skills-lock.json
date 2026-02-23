@@ -1,6 +1,11 @@
 {
   "version": 1,
   "skills": {
+    "ab-test-setup": {
+      "source": "coreyhaines31/marketingskills",
+      "sourceType": "github",
+      "computedHash": "ba045a5195bb6b2a084b0daa10fa364f942f6121ffc568e4ab5ca01da6a09c30"
+    },
     "ai-image-generation": {
       "source": "inference-sh-6/skills",
       "sourceType": "github",
@@ -10,6 +15,11 @@
       "source": "inference-sh-6/skills",
       "sourceType": "github",
       "computedHash": "6e4f5f7032e28111dde99239c1aa892fe64d97527cd8482d94fb17424f335cae"
+    },
+    "baoyu-xhs-images": {
+      "source": "jimliu/baoyu-skills",
+      "sourceType": "github",
+      "computedHash": "a4e17549670ab5134ecff4cc0d34b3123e22014e7ec4e8086485111627078219"
     },
     "browser-automation": {
       "source": "davila7/claude-code-templates",
@@ -26,15 +36,35 @@
       "sourceType": "github",
       "computedHash": "6412eb4eb3b91595ebab937f0c69501240e7ba761b3d82510b5cf506ec5c7adc"
     },
+    "growth-experimenter": {
+      "source": "daffy0208/ai-dev-standards",
+      "sourceType": "github",
+      "computedHash": "b3ff15b5503334b0e53111e5b2f1f485fab350851d14e98da2a7b63e9ce74c03"
+    },
+    "html-visual": {
+      "source": "2ykwang/agent-skills",
+      "sourceType": "github",
+      "computedHash": "39c0f35e2d9b74f1519e308d4ad45c12545ef7fce427310e4d6dfb07152326b4"
+    },
     "news-aggregator-skill": {
       "source": "cclank/news-aggregator-skill",
       "sourceType": "github",
       "computedHash": "cac4f95f64a20e9fc9f1bffe466ee562ebcc22bdbf128b2a2ce9dd01e298a4bd"
     },
+    "paywall-upgrade-cro": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "0da309e8c6c4bc1c551c26c677c038788a8feead13dbaab31a600a6a6f9170e4"
+    },
     "remotion-best-practices": {
       "source": "remotion-dev/skills",
       "sourceType": "github",
       "computedHash": "a2ebe92433006ce81bbdcfe24984663678bbbb20991a3686e34814de1097c44c"
+    },
+    "revenuecat": {
+      "source": "revenuecat/revenuecat-skill",
+      "sourceType": "github",
+      "computedHash": "63951b9cb2cb9ffabcd592035f5dc341e079858a1065c2cd5d246eff0cfe0050"
     },
     "roundcube-webmail": {
       "source": "Daisuke134/roundcube-webmail-skill",

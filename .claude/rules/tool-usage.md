@@ -1,5 +1,16 @@
 # ツール・MCP 使用ルール
 
+## スキル検索の優先順位（絶対ルール）
+
+**スキルを探すときは `find-skills` が PRIMARY。clawhub は sub（補助）。**
+
+| 順序 | ツール | 方法 | 使う場面 |
+|------|--------|------|---------|
+| 1st（必須） | `find-skills` スキル | `npx skills find "<query>"` | 常に最初にここから検索。skill.sh に最多スキルがある |
+| 2nd（補助） | `clawhub` スキル | `clawhub search "<query>"` | find-skillsで見つからない場合のみ。OpenClaw向け特化 |
+
+**clawhub を最初に使うのは禁止。** clawhub は MCP ではなくスキル。
+
 ## MCP優先（内蔵ツールより優先）
 
 | タスク | 使うべきMCP | 使わない |

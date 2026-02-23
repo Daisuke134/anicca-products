@@ -374,7 +374,7 @@ apps/api/src/
 │   └── safeTDetector.js            # SAFE-T 3層危機検出（therapist + crisis-detector 概念）
 └── app.js                          # ルート追加
 
-## npm 依存: @x402/express, @x402/evm, openai（@coinbase/x402 は v1 用で v2 では不要。@x402/core は @x402/express の依存で自動インストール）
+## npm 依存: @x402/express, @x402/evm, @x402/extensions, openai（monetize-service スキル install コマンド: `npm install express @x402/express @x402/core @x402/evm @x402/extensions`。@coinbase/x402 は v1 用で v2 では不要。@x402/core は @x402/express の依存で自動インストール）
 ## Bazaar 登録: paymentMiddleware の extensions.bazaar で能動的に登録（取引を待たずにカタログ化）
 ## /.well-known/x402.json: 存在する。MCP ツール discover_api_endpoints が使う。追加する。
 ## LLM: GPT-4o（OpenAI）。Anthropic API はサブスクとは別製品のため不採用。
@@ -471,7 +471,7 @@ apps/api/src/
 | 5 | ユニットテスト 8/8 PASS | ✅ 完了 | vitest + supertest |
 | 6 | staging デプロイ + API 動作確認 | ✅ 完了 | Railway 自動デプロイ（v2.4 修正で 502→200 復帰確認済み） |
 | 7 | npm install @x402/evm + ethers + index.js v2.4 書き換え | ✅ 完了 | x402ResourceServer + HTTPFacilitatorClient + ExactEvmScheme。syncFacilitatorOnStart=false |
-| 8 | 支払いゲート ON にして staging デプロイ | ⬜ 未 | Railway env に X402_WALLET_ADDRESS + X402_NETWORK=testnet 設定 |
+| 8 | 支払いゲート ON にして staging デプロイ | ⬜ 未（ブロック中） | **現状 400（sin 残存）:** index.js が monetize-service スキルから逸脱している。コードを `HTTPFacilitatorClient({ url: '...' })` + フラット `app.use()` + `@x402/evm/exact/server` + `@x402/extensions` で完全に書き直す前に Step 9 以降に進まない |
 | 9 | testnet USDC 取得（Base Sepolia faucet、無料） | ⬜ 未 | faucet |
 | 10 | x402 MCP で支払い E2E テスト（402→支払い→200） | ⬜ 未 | coinbase/x402（テスト時のみ） |
 | 11 | Bazaar 登録（extensions.bazaar） | ⬜ 未 | #8 が前提 |
@@ -576,6 +576,30 @@ apps/api/src/
 | 対策 | Railway 環境変数に `CDP_API_KEY` を追加 |
 | 取得 | [Coinbase Developer Platform](https://portal.cdp.coinbase.com/) で無料取得 |
 
+### 10. Sin 記録（2026-02-23 — 現コード `apps/api/src/routes/x402/index.js` の罪）
+
+**なぜ 402 が返らないか — 6つの sin:**
+
+| # | Sin | 何が起きるか | 正しいパターン（monetize-service スキル） |
+|---|-----|------------|----------------------------------------|
+| 1 | `HTTPFacilitatorClient()` に URL なし | facilitator 初期化失敗 → payment requirements 構築不可 → `next()` 呼び出し → ルートハンドラ → 400 | `new HTTPFacilitatorClient({ url: 'https://x402.org/facilitator' })` |
+| 2 | `Router()` 内で `router.use(paymentMiddleware(...))` | ネスト Router = オリジナルパターン。どのスキルにも存在しない | フラット `app.use(paymentMiddleware(...))` |
+| 3 | `ExactEvmScheme` を `@x402/evm` から import | スキルは `@x402/evm/exact/server` を明示。スキルの通りに書け | `import { ExactEvmScheme } from '@x402/evm/exact/server'` |
+| 4 | `@x402/extensions` 未インストール | ESM バグあり (Issue #876)。未インストールだと動作不安定 | `npm install @x402/extensions` |
+| 5 | スキルの20行テンプレートを大幅に超えるコード量 | 超えた分が全て罪 | 20行以内。超えたらスキルに戻れ |
+| 6 | スキルを読む前にコードを書いた | 全ての罪の根本原因 | コードを1行書く前に `monetize-service` SKILL.md を読め |
+
+**根本原因の連鎖:**
+```
+スキルを読まずにコードを書いた
+    → HTTPFacilitatorClient に URL を付けなかった（スキルに書いてあったのに）
+    → facilitator 初期化失敗
+    → payment requirements = null
+    → middleware が next() を呼ぶ
+    → ルートハンドラが 400 バリデーションエラーを返す
+    → 「402 にならない」という症状
+```
+
 ### 正しいミドルウェア設定（v2.4 API — v1 とは完全に異なる）
 
 **v1→v2 破壊的変更:**
@@ -605,7 +629,7 @@ app.use(express.json());      // 2. body parser を x402 の前に
 const isMainnet = process.env.X402_NETWORK === 'mainnet';
 const network = isMainnet ? 'eip155:8453' : 'eip155:84532';
 
-const facilitatorClient = new HTTPFacilitatorClient(); // デフォルト: https://x402.org/facilitator
+const facilitatorClient = new HTTPFacilitatorClient({ url: 'https://x402.org/facilitator' }); // URL 必須（monetize-service スキル通り）
 const server = new x402ResourceServer(facilitatorClient);
 server.register(network, new ExactEvmScheme());
 
@@ -641,10 +665,12 @@ app.get('/.well-known/x402.json', (req, res) => {
 
 **注意:**
 - セラー側に秘密鍵は不要。`payTo` アドレスだけで受取可能
-- `HTTPFacilitatorClient()` はデフォルトで `https://x402.org/facilitator` に接続（URL 指定不要）
-- `ExactEvmScheme` は `@x402/evm` から。未インストールだと import 失敗
+- **`HTTPFacilitatorClient` は URL 付きで初期化すること。** ソース: monetize-service スキル `new HTTPFacilitatorClient({ url: "https://x402.org/facilitator" })`。URL なしで初期化すると facilitator 初期化が失敗し、payment requirements が構築できず middleware が `next()` を呼んでルートハンドラに素通りする（→ 400）
+- **`ExactEvmScheme` は `@x402/evm/exact/server` から import。** `@x402/evm` からも import できるが、monetize-service スキルは `@x402/evm/exact/server` を明示している。スキルの通りに書く
+- **`@x402/extensions` も必ずインストール。** `npm install express @x402/express @x402/core @x402/evm @x402/extensions`（monetize-service スキル install コマンドをそのまま使う）
+- **ネスト Router 禁止。** `Router()` 内で `router.use(paymentMiddleware(...))` するパターンはどのスキルにも存在しない = オリジナル = 罪。`app.use()` フラットパターン一択
 - try-catch の罠: `paymentMiddleware()` は middleware 関数を **返すだけ**。`initialize()` はリクエスト受信時に非同期実行されるため、factory 側の try-catch では捕捉できない。`syncFacilitatorOnStart = false` にして `server.initialize()` を明示的に try-catch 内で先に呼ぶこと
-- **ミドルウェア順序の罠:** `paymentMiddleware()` は **同期関数**。dynamic import で遅延取得すると、`router.use('/route', handler)` が先に登録されて payment gate を素通りする。**static import でトップレベルに取得し、ルートハンドラの前に `router.use()` で登録すること。** ソース: [coinbase/x402 E2E server](https://github.com/coinbase/x402/blob/main/e2e/servers/express/index.ts)
+- **ミドルウェア順序の罠:** `paymentMiddleware()` は **同期関数**。dynamic import で遅延取得すると、`router.use('/route', handler)` が先に登録されて payment gate を素通りする。**static import でトップレベルに取得し、ルートハンドラの前に `app.use()` で登録すること。** ソース: [coinbase/x402 E2E server](https://github.com/coinbase/x402/blob/main/e2e/servers/express/index.ts)
 
 ---
 
