@@ -97,6 +97,8 @@
 | # | 学び |
 |---|------|
 | 41 | **clawhub publish 前に `clawhub login` が必要。** ブラウザフローで clawhub.com にログイン → API トークンを取得 → `clawhub login --token <token> --no-browser` で CLI に保存。スキルを作る前に事前確認しておくこと |
+| 42 | **clawhub publish は絶対パスで実行する。** `clawhub publish .cursor/skills/...` は "Path must be a folder" エラー。`clawhub publish /absolute/path/to/skill --slug <slug> --name "..." --version X.Y.Z --changelog "..."` の形式で実行 |
+| 43 | **clawhub publish 後、search に反映されるまで時間がかかる。** `clawhub publish` が "OK. Published" を返しても、`clawhub search` にすぐ出てこない場合あり。インデックス更新を待つ |
 
 ---
 

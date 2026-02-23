@@ -474,7 +474,7 @@ apps/api/src/
 | 9 | `awal x402 details <staging-url>/api/x402/buddhist-counsel` | ✅ 完了（2026-02-23） | 402 確認済み。method=POST, network=eip155:84532, amount=10000, bazaar extensions 登録済み。route key `'POST /buddhist-counsel'` で正常動作 |
 | 10 | `awal x402 pay <staging-url>/api/x402/buddhist-counsel -X POST -d '{"who_is_suffering":"myself","situation":"test","language":"en"}'` | ✅ 完了（2026-02-23） | 200 OK。counsel_id=csl_5e26102b。tx=0x2db3aaf4...。network=eip155:84532 |
 | 11 | `awal x402 bazaar search "buddhist"` で Bazaar 登録確認 | ⚠️ testnet では未登録（2026-02-23） | base-sepolia / force-refresh どちらも "buddhist" ヒットなし。testnet 取引は Bazaar インデックスに入らない可能性。mainnet 移行後に再確認 |
-| 12 | `clawhub publish` で ClawHub 公開 | ⚠️ clawhub login 待ち（2026-02-23） | buddhist-counsel SKILL.md 作成済み（`.claude/skills/buddhist-counsel/SKILL.md`）。`clawhub login` でブラウザ認証後に `clawhub publish` 実行可能 |
+| 12 | `clawhub publish` で ClawHub 公開 | ✅ 完了（2026-02-23） | `clawhub publish` → OK. Published buddhist-counsel@1.0.0 (k97eq3jgw1cqxn5qrx88azyek581qr6g)。検索インデックスへの反映は時間がかかる可能性あり |
 
 ### Phase 2: x402-skill-marketer を独立スキルにする
 
