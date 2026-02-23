@@ -55,11 +55,12 @@
 - [X] T009 [US1] `emotion-detector` ハンドラを作成: `apps/api/src/routes/x402/emotionDetector.js`（buddhistCounsel.js を型に、感情検出システムプロンプトと入出力スキーマを実装）
 - [X] T010 [US1] `index.js` に emotion-detector エントリを追加（paymentMiddleware + router.use）: `apps/api/src/routes/x402/index.js`
 - [X] T011 [US1] コードをコミット＆push（dev ブランチに cherry-pick → Railway staging 自動デプロイ）
-- [ ] T012 [US1] ⛔ BLOCKED: awal テスト 200 OK 検証 — 認証済み ✅、ウォレット USDC $0.00 ❌
-  - **Mac Mini awal ウォレットアドレス**: `0xCE8c58C73a7a5C5838d48DA66cb914aB150f04c9`
-  - **必要ネットワーク**: Base Sepolia testnet（eip155:84532） — staging のデフォルト
-  - **Circle Faucet（https://faucet.circle.com/）でこのアドレスに Base Sepolia USDC を送信すること**
-  - 送信後: `npx awal@2.0.3 x402 pay https://anicca-proxy-staging.up.railway.app/api/x402/emotion-detector -X POST -d '{"text":"I feel anxious"}'`
+- [ ] T012 [US1] ⛔ BLOCKED: awal テスト 200 OK 検証
+  - **根本原因**: `awal` は Base mainnet 専用。testnet USDC では支払い不可（learning #36）
+  - **Base Sepolia に 39.99 USDC 届いているが awal には見えない**（Blockscout 確認済み）
+  - **解決策**: emotion-detector を production（main）にマージ → mainnet USDC $0.01 を送金 → production URL でテスト
+  - **mainnet USDC 取得方法**: MetaMask/Binance 等から `0xCE8c58C73a7a5C5838d48DA66cb914aB150f04c9`（Base mainnet）に $0.01 USDC 送金
+  - **テストコマンド（mainnet 移行後）**: `npx awal@2.0.3 x402 pay https://anicca-proxy-production.up.railway.app/api/x402/emotion-detector -X POST -d '{"text":"I feel anxious"}'`
 - [X] T013 [US1] SKILL.md の produce モードプロンプト検証完了
 - [X] T014 [US1] `emotion-detector` SKILL.md を Mac Mini に配置完了: `/Users/anicca/.openclaw/skills/emotion-detector/SKILL.md`
 - [ ] T015 [US1] `clawhub publish` を emotion-detector スキルディレクトリで実行＋結果の clawhub_id を記録: `ssh anicca@100.99.82.95 "cd /Users/anicca/.openclaw/skills/emotion-detector && clawhub publish"`
