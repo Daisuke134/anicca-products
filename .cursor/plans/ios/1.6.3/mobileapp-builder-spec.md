@@ -149,7 +149,8 @@ INPUT: spec.md
     ▼
 ┌─────────────────────────────────────────────────────────┐
 │ PHASE 7: IAP REVIEW SCREENSHOT                           │
-│  Maestro でシミュレータのペイウォール画面を撮影             │
+│  asc-shots-pipeline でシミュレータのペイウォール画面を撮影  │
+│    simctl 起動 → AXe でPaywall画面まで操作 → RAWスクショ   │
 │  Monthly + Annual それぞれに1枚ずつアップロード            │
 │  確認: create コマンドが "already exists" を返すこと       │
 └─────────────────────────────────────────────────────────┘
@@ -166,11 +167,14 @@ INPUT: spec.md
     ▼
 ┌─────────────────────────────────────────────────────────┐
 │ PHASE 9: APP ASSETS                                      │
-│  アイコン: DALL-E 3（OPENAI_API_KEY）で 1024×1024 生成    │
-│  スクショ3枚: PIL で生成                                   │
-│    1枚目: benefit（ペイン直撃コピー）                      │
-│    2枚目: social proof                                    │
-│    3枚目: core flow（実画面）                              │
+│  アイコン: infsh FLUX（INFSH_API_KEY）で 1024×1024 生成   │
+│  スクショ3枚:                                             │
+│    Step 1: asc-shots-pipeline で実画面RAWスクショ撮影      │
+│      simctl 起動 → AXe で各画面に移動 → PNG保存           │
+│    Step 2: PIL で marketing テキストを上に重ねる           │
+│      1枚目: benefit（ペイン直撃コピー）+ 実画面            │
+│      2枚目: social proof + 実画面                        │
+│      3枚目: core flow（実画面のみ）                       │
 │  メタデータ: EN + JA を asc でアップロード                 │
 └─────────────────────────────────────────────────────────┘
     │
@@ -216,7 +220,9 @@ OUTPUT: WAITING_FOR_REVIEW ✅
 | Paywall ライブラリ | Superwall + RC | RC のみ |
 | ビルドコマンド | xcodebuild 直接 | Fastlane のみ（禁止ルール） |
 | 提出前ゲート | Greenlight のみ | Greenlight + 追加チェックリスト D6-D10 |
-| App Review Screenshot | 手動 | Maestro で自動撮影・アップロード |
+| App Review Screenshot | 手動 | asc-shots-pipeline で自動撮影・アップロード |
+| App Store スクショ | 手動 PIL のみ | asc-shots-pipeline（実画面）+ PIL（テキスト合成） |
+| アイコン生成 | 手動 | infsh FLUX で自動生成 |
 | 出力先 | バラバラ | `mobile-apps/<app-name>/` に統一 |
 
 ---
