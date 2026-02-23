@@ -355,39 +355,125 @@ asc subscriptions localizations create --subscription-id "<MONTHLY_ID>" \
 
 ### PHASE 7: IAP REVIEW SCREENSHOT
 
-> **⚠️ コマンド注意（2026-02-24 実測）**
-> - `asc subscriptions review-screenshots create --file` → **これが正しいコマンド。内部で reserve+PUT+commit を全て実行する。**
-> - `asc subscriptions images create` → プロモーショナル広告用。使わない。
-> - upload 後 `imageAsset.width=0` は**正常**（Apple が非同期で処理中）。再アップロード不要。
-> - `xcrun simctl io <UDID> screenshot` で PNG 取得 → **JPEG変換のみ（リサイズ禁止）**
-> - `900×1956` 等の任意リサイズは **"寸法が正しくありません" エラー**になる（2026-02-24 実証）
-> - シミュレータのネイティブ解像度をそのまま使う（iPhone 16 Pro Max: **1320×2868**）
+> **⚠️ 絶対ルール（2026-02-24 実機検証済み）**
+>
+> | ルール | 理由 |
+> |--------|------|
+> | **リサイズ禁止** | `900×1956` 等の任意リサイズ → Apple「寸法が正しくありません」エラーで即拒否 |
+> | **ネイティブ解像度をそのまま使う** | iPhone 16 Pro Max シミュレータ = **1320×2868**。これが Apple 標準サイズ |
+> | **JPEG変換のみ** | `sips -s format jpeg`（`-z` フラグ使用禁止） |
+> | **CLI が full upload** | `asc subscriptions review-screenshots create --file` = reserve+PUT+commit を内部で全実行 |
+> | **width=0 は正常** | upload 直後は常に `imageAsset.width=0`。Apple 非同期処理中。再アップロード不要 |
+> | **`asc subscriptions images create` は使わない** | プロモーショナル広告用。IAP review screenshot とは別物 |
 
-**ステップ 1: シミュレータでペイウォール画面を撮影**
+**ステップ 1: Booted シミュレータの UDID を取得**
 ```bash
-# Maestro MCP でアプリ起動 → Paywall 画面まで遷移
-
-# ★ JPEG変換のみ（リサイズ禁止）
-# simctl screenshot はネイティブ解像度で出力 (iPhone 16 Pro Max: 1320×2868)
-# この解像度が Apple の標準サイズ → リサイズせずそのまま使う
-xcrun simctl io "<UDID>" screenshot /tmp/paywall-review.png
-sips -s format jpeg /tmp/paywall-review.png --out /tmp/paywall-review.jpg
-# ↑ -z フラグ（リサイズ）は使わない
+xcrun simctl list devices | grep Booted
+# 例: iPhone 16 Pro Max (AF68C54D-D527-4A19-B4D1-5DEF182D8DE5) (Booted)
+# UDID をメモする
 ```
 
-**ステップ 2: `review-screenshots create` でアップロード（Annual + Monthly）**
+**ステップ 2: Maestro MCP でアプリを起動しペイウォール画面まで遷移**
+
+Maestro MCP（`mcp__maestro__launch_app` + `mcp__maestro__run_flow`）を使う。
+CLI（`maestro test`）は禁止。MCP 経由のみ。
+
+```
+# 2-1. アプリ起動
+mcp__maestro__launch_app(device_id="<UDID>", appId="<BUNDLE_ID>")
+
+# 2-2. オンボーディング → ペイウォールまで遷移（順番通りに実行）
+# Anicca の場合の実証済みフロー:
+mcp__maestro__run_flow(device_id="<UDID>", flow_yaml="""
+appId: <BUNDLE_ID>
+---
+- tapOn:
+    id: "onboarding-welcome-cta"
+""")
+
+# 苦しみ選択画面: 何か1つ選んで「次へ」
+mcp__maestro__run_flow(device_id="<UDID>", flow_yaml="""
+appId: <BUNDLE_ID>
+---
+- tapOn: "夜更かし"
+- waitForAnimationToEnd
+- tapOn: "次へ"
+""")
+
+# ライブデモ画面: primary action をタップ
+mcp__maestro__run_flow(device_id="<UDID>", flow_yaml="""
+appId: <BUNDLE_ID>
+---
+- tapOn:
+    id: "nudge-primary-action"
+- waitForAnimationToEnd
+""")
+
+# 通知許可画面: 許可ボタンをタップ → ペイウォール表示
+mcp__maestro__run_flow(device_id="<UDID>", flow_yaml="""
+appId: <BUNDLE_ID>
+---
+- tapOn:
+    id: "onboarding-notifications-allow"
+- waitForAnimationToEnd
+""")
+```
+
+別アプリで画面構成が異なる場合は `mcp__maestro__inspect_view_hierarchy` でペイウォール画面の要素を確認してから遷移する。
+
+**ステップ 3: ペイウォール画面のスクリーンショットを撮影 → JPEG変換**
 ```bash
+# PNG 撮影（ネイティブ解像度: iPhone 16 Pro Max = 1320×2868）
+xcrun simctl io "<UDID>" screenshot /tmp/paywall-review.png
+
+# JPEG変換のみ（-z リサイズフラグは絶対に使わない）
+sips -s format jpeg /tmp/paywall-review.png --out /tmp/paywall-review.jpg
+
+# サイズ確認（1320×2868 であることを確認）
+identify /tmp/paywall-review.jpg 2>/dev/null || sips -g pixelWidth -g pixelHeight /tmp/paywall-review.jpg
+```
+
+**ステップ 4: Monthly と Annual 両方にアップロード**
+```bash
+# Monthly
 asc subscriptions review-screenshots create \
   --subscription-id "<MONTHLY_SUB_ID>" \
   --file /tmp/paywall-review.jpg
 
+# Annual
 asc subscriptions review-screenshots create \
   --subscription-id "<ANNUAL_SUB_ID>" \
   --file /tmp/paywall-review.jpg
 
-# 成功確認 → fileSize が正しければ OK（width/height=0 は正常 — Apple 非同期処理中）
-# "Screenshot already exists" エラー → 先に削除してから再実行
-# asc subscriptions review-screenshots delete --id "<ID>" --confirm
+# 成功判定: JSON レスポンスに fileSize > 0 があれば OK
+# width=0, height=0 は正常（Apple が非同期で処理中）
+```
+
+**エラーハンドリング**
+
+| エラー | 原因 | 対処 |
+|--------|------|------|
+| `寸法が正しくありません` | リサイズした | 削除して正しいサイズで再アップロード |
+| `Screenshot already exists` | 既に存在する | 既存を削除してから再アップロード |
+| `Element not found` (Maestro) | 画面遷移が違う | `inspect_view_hierarchy` で現在の画面を確認 |
+
+```bash
+# 既存削除（"already exists" 時）
+# まず既存 ID を取得
+python3 -c "
+import os, time, json, requests
+import jwt as pyjwt
+KEY_ID='<KEY_ID>'; ISSUER_ID='<ISSUER_ID>'
+PRIVATE_KEY=open(os.path.expanduser('~/.asc/private_keys/AuthKey_<KEY_ID>.p8')).read()
+payload={'iss':ISSUER_ID,'iat':int(time.time()),'exp':int(time.time())+1200,'aud':'appstoreconnect-v1'}
+token=pyjwt.encode(payload,PRIVATE_KEY,algorithm='ES256',headers={'kid':KEY_ID})
+h={'Authorization':f'Bearer {token}','Content-Type':'application/json'}
+r=requests.get('https://api.appstoreconnect.apple.com/v1/subscriptions/<SUB_ID>/appStoreReviewScreenshot',headers=h)
+print(r.json()['data']['id'])
+"
+# → ID を取得したら削除
+asc subscriptions review-screenshots delete --id "<EXISTING_ID>" --confirm
+# その後 ステップ 4 を再実行
 ```
 
 ### PHASE 8: IAP VALIDATE ★STOP GATE
