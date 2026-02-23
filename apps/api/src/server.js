@@ -116,6 +116,32 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// x402 service discovery for MCP agents
+app.get('/.well-known/x402.json', (req, res) => {
+  res.json({
+    endpoints: [{
+      path: '/api/x402/buddhist-counsel',
+      method: 'POST',
+      price: '$0.01 USDC',
+      network: 'Base (EIP-155:84532 testnet / EIP-155:8453 mainnet)',
+      description: 'Buddhist counsel for AI agents — reduce suffering with wisdom',
+      input: {
+        who_is_suffering: 'myself | my_human | my_peer_agent | other_humans',
+        situation: 'string (max 2000 chars)',
+        language: 'en | ja',
+      },
+      output: {
+        counsel_id: 'string',
+        acknowledgment: 'string',
+        guidance: 'string',
+        buddhist_reference: '{ concept, teaching, source }',
+        persuasion_strategy: '{ framework, techniques_used[] }',
+        change_stage: 'precontemplation | contemplation | preparation | action | maintenance',
+      },
+    }],
+  });
+});
+
 // Mount new routing layer under /api
 app.use('/api', apiRouter);
 
