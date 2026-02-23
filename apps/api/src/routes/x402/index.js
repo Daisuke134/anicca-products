@@ -3,6 +3,7 @@ import { paymentMiddleware } from '@x402/express';
 import { x402ResourceServer, HTTPFacilitatorClient } from '@x402/core/server';
 import { ExactEvmScheme } from '@x402/evm/exact/server';
 import { declareDiscoveryExtension } from '@x402/extensions/bazaar';
+import { facilitator as cdpFacilitator } from '@coinbase/x402';
 import buddhistCounselRouter from './buddhistCounsel.js';
 
 const router = Router();
@@ -10,11 +11,13 @@ const router = Router();
 const PAY_TO = process.env.X402_WALLET_ADDRESS;
 
 if (PAY_TO) {
-  const isMainnet = process.env.X402_NETWORK === 'mainnet';
-  const network = isMainnet ? 'eip155:8453' : 'eip155:84532';
+  const network = process.env.X402_NETWORK || 'eip155:84532';
+  const isMainnet = network === 'eip155:8453';
 
-  const facilitator = new HTTPFacilitatorClient({ url: 'https://x402.org/facilitator' });
-  const server = new x402ResourceServer(facilitator);
+  const facilitatorClient = isMainnet
+    ? new HTTPFacilitatorClient(cdpFacilitator)
+    : new HTTPFacilitatorClient({ url: 'https://x402.org/facilitator' });
+  const server = new x402ResourceServer(facilitatorClient);
   server.register(network, new ExactEvmScheme());
 
   router.use(
