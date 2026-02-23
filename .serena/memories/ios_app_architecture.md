@@ -35,7 +35,7 @@ staying_up_late, cant_wake_up, self_loathing, rumination, procrastination, anxie
 
 ## サブスクリプション
 - $9.99/月、1週間無料トライアル
-- RevenueCat + Superwall
+- RevenueCat + RevenueCatUI (PaywallView)
 - Free/Grace/Pro の3状態
 - Freeユーザー: LLM Nudgeスキップ、月間Nudge数制限
 

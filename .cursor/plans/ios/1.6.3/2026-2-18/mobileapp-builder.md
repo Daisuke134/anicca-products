@@ -275,22 +275,31 @@ A/Bテストの判定（ab-test-setup BP準拠）:
 
 ### memory 構造（Anicca memory）
 
-**パス（確定）:** `/Users/anicca/.openclaw/workspace/paywall-ab-state.json`
+**パス（確定）:**
+- `state`: `/Users/anicca/.openclaw/workspace/paywall-ab-state.json`（現在状態。遷移時に上書き）
+- `history`: `/Users/anicca/.openclaw/workspace/paywall-ab-history.jsonl`（append-only 監査ログ）
 
 読み書き: OpenClaw `memory` ツール または `exec` + `cat`/`jq` で直接 read/write。
 
 ```json
+// paywall-ab-state.json
 {
   "experiment_id": "rc_exp_abc123",
   "start_date": "2026-02-21",
   "queue_position": 0,
   "control_offering_id": "ofrng_control_xxx",
   "treatment_offering_id": "ofrng_treatment_xxx",
+  "treatment_paywall_id": "pw_abc123",
   "control_label": "Start Your Free Week",
   "treatment_label": "Queue 0: Try Free for 7 Days",
   "before_trial_cvr": 1.1,
   "winning_patterns": []
 }
+
+// paywall-ab-history.jsonl（1行=1イベント）
+{"ts":"2026-02-21T06:01:00Z","event":"START","queue":0,"experiment_id":"rc_exp_abc123","paywall_id":"pw_abc123","label":"Try Free for 7 Days"}
+{"ts":"2026-03-07T06:01:00Z","event":"WINNER","queue":0,"treatment_cvr":2.3,"control_cvr":1.1,"lift":109}
+{"ts":"2026-03-07T06:01:05Z","event":"START","queue":1,"experiment_id":"rc_exp_def456","paywall_id":"pw_def456","label":"Begin My Journey"}
 ```
 
 ### フロー
@@ -327,10 +336,24 @@ A/Bテストの判定（ab-test-setup BP準拠）:
  │    実験停止 → queue +1 → START
  │
  ├─ [START]
- │    RC MCP で新Offering作成（mcp__revenuecat__mcp_RC_create_offering）
- │    RC MCP でPackage作成 + 既存商品紐付け
- │    RC Experiment開始（50/50）: rc-api.sh 経由（MCP にツールなし）
- │    → memory更新
+ │    1. RC MCP で新 Treatment Offering 作成
+ │         mcp__revenuecat__mcp_RC_create_offering
+ │         └─ lookup_key: "anicca_treatment_q{queue_position}"
+ │    2. RC MCP で Package 作成 + 既存商品紐付け
+ │         mcp__revenuecat__mcp_RC_create_package（$rc_monthly）
+ │         mcp__revenuecat__mcp_RC_attach_products_to_package
+ │    3. Paywall UI を AI生成（RC MCP）
+ │         mcp__revenuecat__mcp_RC_create_design_system_paywall_generation_job
+ │         project_id: "projbb7b9d1b"
+ │         offering_id: <新 Treatment Offering の ID>
+ │         design_system: → 下記 Anicca design_system 定義を使う
+ │         ※ 202 Accepted → job_id を取得 → 完了を polling で確認（~30秒）
+ │         → paywall_id を state に保存
+ │    4. RC Experiment 開始（50/50）
+ │         rc-api.sh 経由（MCP にツールなし）
+ │         POST /v2/projects/{id}/experiments
+ │         body: { control_offering_id, treatment_offering_id, split: 50 }
+ │    5. memory 更新（state 上書き + history append）
  │
  └─ Slack サマリ投稿（CVR数字付き）
 ```
@@ -343,6 +366,55 @@ Queue 0: "Try Free for 7 Days" vs "Start Your Free Week"
 実験ID: rc_exp_abc123 | 開始: 2026-02-21
 Control Trial CVR: 1.0% | Treatment Trial CVR: 1.5% | +50% ↑
 → まだ7日。継続中。
+```
+
+### Anicca design_system 定義（[START] Step 3 で使う固定値）
+
+`mcp_RC_create_design_system_paywall_generation_job` の `design_system` フィールドに毎回渡す。Queue ごとに変わるのは `content_strategy.premium_feature_highlights[0]`（= Queue のVariant コピー）のみ。
+
+```json
+{
+  "app_context": {
+    "app_name": "Anicca",
+    "category": "Health & Fitness / Mental Wellness",
+    "one_line_description": "Buddhist-inspired proactive behavior change agent"
+  },
+  "brand_identity": {
+    "brand_mission": "苦しみを減らす（Reduce Suffering）",
+    "brand_personality_archetype": "Sage / Caregiver",
+    "core_values": ["compassion", "impermanence", "non-judgment"]
+  },
+  "target_audience": {
+    "primary_user_persona": "25-35歳、6-7年間主体性欠如・自己嫌悪ループから抜け出せない人",
+    "user_pain_points": ["習慣アプリ10個以上全部3日坊主", "朝起きられない", "自分との約束を破り続けている"],
+    "user_needs_and_goals": ["誰かに引っ張ってほしい", "責められない小さな一歩", "変われる感覚"]
+  },
+  "tone_of_voice": {
+    "primary_tone": "compassionate",
+    "secondary_tone": "calm and grounded",
+    "keywords_and_phrases": ["一緒に", "大丈夫", "小さくていい", "Try Free"],
+    "communication_style_summary": "Buddhist gentle guide. Never blame. Short sentences. No pressure."
+  },
+  "problem_solution_fit": {
+    "problem_statement": "意志力では変われない。6-7年間、同じ問題が続いている",
+    "solution_statement": "AIが先に気づいて、小さな一歩をプロアクティブに提案する",
+    "unique_selling_propositions": ["プロアクティブ（ユーザーが操作不要）", "7日間無料トライアル", "ジャッジなし"]
+  },
+  "content_strategy": {
+    "key_content_themes": ["impermanence = change is possible", "compassion over discipline"],
+    "premium_feature_highlights": ["<<Queue Variant コピーをここに入れる>>", "No charge for 7 days"]
+  },
+  "visual_language": {
+    "color_palette": "deep navy, warm sand, soft amber gold",
+    "typography": "clean sans-serif, calm and readable",
+    "illustration_and_imagery_style": "minimal, breath-like, Japanese wabi-sabi"
+  },
+  "ui_patterns": {
+    "button_style": "rounded corners, full-width, amber/gold CTA",
+    "card_style": "soft shadow, generous whitespace",
+    "overall_layout_philosophy": "breathing room, nothing cluttered, one clear action"
+  }
+}
 ```
 
 ### テストQueue（Aniccaのpaywall）

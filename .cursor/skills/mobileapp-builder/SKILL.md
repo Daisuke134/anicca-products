@@ -45,7 +45,67 @@ See `references/spec-template.md` for the full spec.md format.
 
 ---
 
-## 12 PHASES
+## 14 PHASES
+
+### PHASE 0: TREND RESEARCH
+```
+x-research + tiktok-research + apify-trend-analysis スキルを並列実行
+
+[x-research]
+  X (Twitter) でバズってるキーワード・トレンドトピックを調査
+  → 「今週 JP/EN でバズってるメンタル・健康・生産性系のキーワード TOP5」
+
+[tiktok-research]
+  TikTok で伸びているショート動画のテーマ・フック・視聴者の悩みを調査
+  → 「今週バズってる動画のテーマ TOP5 + 共通するペイン」
+
+[apify-trend-analysis]
+  App Store カテゴリ別ランキング + Google Trends を調査
+  → 「今上位に入っているアプリジャンル + 検索ボリューム増加中のトピック」
+
+3つの結果を統合して判断:
+  - 共通して出てくるテーマ = 今作るべきアプリのジャンル
+  - アプリアイデアを1つに絞る（選択肢提示禁止。1つに決める）
+
+OUTPUT → .cursor/app-factory/{slug}/01-trend.md
+  - 決定したアプリアイデア（タイトル仮 + 一言説明）
+  - 根拠（どのトレンドデータから判断したか）
+  - slug（例: sleep-tracker、breath-calm 等）
+```
+
+### PHASE 0.5: SPEC 生成（SDD）
+```
+01-trend.md を読んで spec.md を自動生成する
+スラッシュコマンド不要。以下の手順をそのまま実行する。
+
+Step 1: spec.md の全フィールドを埋める（PHASE 1 の必須フィールドを全部）
+  - app_name, bundle_id, version, output_dir
+  - price_monthly_usd: 9.99, price_annual_usd: 49.99（デフォルト）
+  - paywall.cta_text_en / paywall.cta_text_ja
+  - metadata: title_en/ja, subtitle_en/ja, description_en/ja, keywords_en/ja
+  - urls.privacy_en: "https://aniccaai.com/{slug}/privacy/en"
+  - urls.privacy_ja: "https://aniccaai.com/{slug}/privacy/ja"
+  - urls.terms: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+  - urls.landing: "https://aniccaai.com/{slug}"
+  - localization: "os_language"
+  - supported_locales: ["en", "ja"]
+  - concept: （1行説明。スクショヘッドライン生成に使う）
+  - 画面構成（Onboarding / Main / Paywall / Settings）
+
+Step 2: plan.md を生成（技術設計）
+  - アーキテクチャ（SwiftUI MVC）
+  - ファイル構成
+  - API / RevenueCat 設計
+
+Step 3: tasks.md を生成（実装タスクリスト）
+  - 依存順に並んだチェックボックス形式
+  - PHASE 2〜12 の各フェーズに対応するタスクを網羅
+
+OUTPUT →
+  .cursor/app-factory/{slug}/02-spec.md   ← PHASE 1 が読む
+  .cursor/app-factory/{slug}/03-plan.md
+  .cursor/app-factory/{slug}/04-tasks.md
+```
 
 ### PHASE 1: VALIDATE INPUT
 ```

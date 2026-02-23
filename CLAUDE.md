@@ -137,7 +137,7 @@ Source: https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardra
 | iOS | Swift/SwiftUI (iOS 15+, Xcode 16+) |
 | API | Node.js/Express (Railway) |
 | DB | PostgreSQL/Prisma |
-| 決済 | RevenueCat + Superwall ($9.99/月, $49.99/年) |
+| 決済 | RevenueCat + RevenueCatUI ($9.99/月, $49.99/年) |
 | 分析 | Mixpanel |
 | E2E | Maestro |
 | Agent | OpenClaw (Mac Mini) |
