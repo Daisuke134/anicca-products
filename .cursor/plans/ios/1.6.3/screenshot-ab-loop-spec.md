@@ -91,7 +91,14 @@ PHASE 6: ベストプラクティス採点（visual-qa）
   └─ 7/10以下 → FAIL → PHASE 3に戻る（最大3回）
        3回失敗 → Slack警告 → EXIT
 
-PHASE 7: ASCアップロード・実験開始
+PHASE 7: 人間レビュー（最終承認ゲート）← asc-shots-pipeline の review を使う
+  asc screenshots review-generate（フレーム付きPNGからHTMLプレビュー生成）
+  asc screenshots review-open（ブラウザで開く）
+  → ダイスがブラウザで目視確認
+  → OK: asc screenshots review-approve --all-ready
+  → NG: PHASE 3に戻る（ヘッドライン・デザイン修正）
+
+PHASE 8: ASCアップロード・実験開始
   asc screenshots upload → App Store Connect
   experiments.json に新実験を追記
   Slack通知: 「新実験開始: v{N} vs v{N-1}（前回勝者）」
