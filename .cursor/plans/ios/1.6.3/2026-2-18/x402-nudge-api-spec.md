@@ -1,7 +1,7 @@
 # x402 Buddhist Counsel — 統合スペック v4
 
 **作成日**: 2026-02-18
-**更新日**: 2026-02-23（実装リスク9件追加・正しいミドルウェア設定・testnet-first 戦略）
+**更新日**: 2026-02-23（v2 API 修正・OpenAI 切替・x402-skill-marketer 追加・Bazaar extensions.bazaar 対応・.well-known/x402.json 追加）
 
 ---
 
