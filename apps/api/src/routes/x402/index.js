@@ -2,15 +2,16 @@
  * x402 Routes
  *
  * Payment-gated API endpoints for external AI agents.
- * Uses @x402/express middleware for USDC micropayment verification.
+ * Uses @x402/express v2.4 middleware for USDC micropayment verification.
  *
- * Middleware order (CRITICAL — Issues #236, #752, #933):
+ * Middleware order (CRITICAL — Issues #236, #752):
  * 1. CORS (already applied globally in server.js)
  * 2. express.json() (already applied globally in server.js)
  * 3. x402 paymentMiddleware (applied here, per-route)
  *
- * NOTE: x402 middleware is initialized lazily on first request to avoid
- * top-level await breaking the entire router import chain.
+ * v2.4 API: paymentMiddleware(routes, x402ResourceServer)
+ * - x402ResourceServer needs HTTPFacilitatorClient + ExactEvmScheme
+ * - syncFacilitatorOnStart = false to avoid unhandled rejection on init
  */
 
 import { Router } from 'express';
@@ -32,27 +33,36 @@ async function initX402Middleware() {
 
   try {
     const { paymentMiddleware } = await import('@x402/express');
-
-    // Issue #933: Use facilitator OBJECT, not URL
-    const x402Module = await import('@coinbase/x402');
-    const facilitator = x402Module.facilitator || x402Module.default?.facilitator;
+    const { x402ResourceServer, HTTPFacilitatorClient } = await import('@x402/core/server');
+    const { ExactEvmScheme } = await import('@x402/evm');
 
     const isMainnet = process.env.X402_NETWORK === 'mainnet';
     const network = isMainnet ? 'eip155:8453' : 'eip155:84532';
 
-    const paymentConfig = {
-      network,
-      description: 'Buddhist counsel for AI agents — reduce suffering with wisdom',
-      resource: `${process.env.X402_WALLET_ADDRESS}`,
-      payTo: process.env.X402_WALLET_ADDRESS,
-      maxAmountRequired: '10000', // $0.01 in USDC (6 decimals)
+    // v2.4: Create resource server with HTTP facilitator + EVM scheme
+    const facilitatorClient = new HTTPFacilitatorClient();
+    const server = new x402ResourceServer(facilitatorClient);
+    server.register(network, new ExactEvmScheme());
+
+    // v2.4: Route-based payment config
+    const routes = {
+      'POST /buddhist-counsel': {
+        accepts: [{
+          scheme: 'exact',
+          price: '$0.01',
+          network,
+          payTo: process.env.X402_WALLET_ADDRESS,
+        }],
+        description: 'Buddhist counsel for AI agents — reduce suffering with wisdom',
+        mimeType: 'application/json',
+      },
     };
 
+    // syncFacilitatorOnStart = false to avoid unhandled rejection (learning #4)
+    await server.initialize();
+
     // Insert payment middleware BEFORE the counsel route
-    router.use(paymentMiddleware(
-      facilitator,
-      paymentConfig,
-    ));
+    router.use(paymentMiddleware(routes, server, undefined, undefined, false));
 
     console.log(`💰 x402 payment middleware active (${isMainnet ? 'MAINNET' : 'testnet'}, network: ${network})`);
   } catch (err) {
