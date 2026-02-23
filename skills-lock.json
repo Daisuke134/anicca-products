@@ -11,6 +11,11 @@
       "sourceType": "github",
       "computedHash": "1ddd1a976e0a70b834bb175ef22382273c8223cd3d990a27f99bce4c5bd7ebd8"
     },
+    "apify-trend-analysis": {
+      "source": "apify/agent-skills",
+      "sourceType": "github",
+      "computedHash": "9a076319cef172f4175818488c5e7e0b82f421f008c822269f9d9a6c0861683a"
+    },
     "app-store-screenshots": {
       "source": "inference-sh-6/skills",
       "sourceType": "github",
@@ -85,6 +90,11 @@
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
       "computedHash": "5d927b03134e9855ff300aa7d60162ca7c2d8cb66dede74506f73aab3bf2208f"
+    },
+    "tiktok-research": {
+      "source": "bradautomates/head-of-content",
+      "sourceType": "github",
+      "computedHash": "b1d1372f93a44247fedeb2e6fa7c5bef1f9857fa91c8a81aa39d61811c2e6cd2"
     },
     "visual-qa": {
       "source": "dylanfeltus/skills",

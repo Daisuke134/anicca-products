@@ -49,9 +49,34 @@ See `references/spec-template.md` for the full spec.md format.
 
 ### PHASE 1: VALIDATE INPUT
 ```
-spec.md の必須フィールド確認
-  - app_name, bundle_id, version, price_monthly_usd, price_annual_usd
-  - output_dir, concept, paywall.cta_text, metadata.title_en
+spec.md の必須フィールド確認（全項目 MUST — 1つでも欠ければ STOP）
+
+■ 技術
+  - app_name, bundle_id, version, output_dir
+
+■ 課金
+  - price_monthly_usd, price_annual_usd
+  - paywall.cta_text_en, paywall.cta_text_ja
+
+■ App Store メタデータ（EN + JA 両方必須）
+  - metadata.title_en, metadata.title_ja
+  - metadata.subtitle_en, metadata.subtitle_ja
+  - metadata.description_en, metadata.description_ja
+  - metadata.keywords_en, metadata.keywords_ja
+
+■ URL（アプリ専用 URL 必須 — 全アプリ共通 URL 禁止）
+  - urls.privacy_en   例: "https://aniccaai.com/thankful/privacy/en"
+  - urls.privacy_ja   例: "https://aniccaai.com/thankful/privacy/ja"
+  - urls.terms        固定値: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+  - urls.landing      例: "https://aniccaai.com/thankful"
+
+■ ローカライズ方針
+  - localization: "os_language"  （日本語OS→日本語、その他→英語）
+  - supported_locales: ["en", "ja"]
+
+■ コンセプト
+  - concept  （1行説明。スクショヘッドライン生成に使う）
+
 欠けていれば STOP + 不足フィールドを報告
 ```
 
@@ -67,13 +92,28 @@ mkdir -p <output_dir>/<app_name>ios
 ### PHASE 3: BUILD
 ```
 ralph-autonomous-dev で SwiftUI 実装
+
+■ 必須実装（1つでも欠ければ PHASE 11 で STOP）
+
+  コア機能:
   - spec の画面構成・コア機能を実装
   - 通知: UserNotifications で APNs 登録 + 通知カタログ
   - Paywall: RevenueCat SDK のみ（Superwall 禁止）
   - Paywall の accessibilityIdentifier（必須 5要素）:
       paywall_plan_monthly / paywall_plan_yearly
       paywall_cta / paywall_skip / paywall_restore
-  - Settings 画面: Privacy Policy リンク必須
+
+  ローカライズ（OS言語対応 — 必須）:
+  - Localizable.strings を EN + JA 両方作成
+  - 表示言語は OS 言語に自動追従（Locale.current で判定）
+  - 日本語 OS → 日本語 UI、その他 OS → 英語 UI
+  - Paywall コピーも EN/JA 両対応（spec.md の paywall.cta_text_en/ja を使う）
+  - ハードコード日本語・英語テキスト禁止。全て Localizable.strings 経由
+
+  Settings 画面（必須）:
+  - Privacy Policy リンク → spec.md の urls.privacy_en / urls.privacy_ja（OS言語で切替）
+  - Terms of Use リンク → spec.md の urls.terms（Apple 標準 EULA 固定）
+    URL: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 ```
 
 ### PHASE 4: ASC APP SETUP
@@ -201,32 +241,74 @@ asc subscriptions get --id "<ANNUAL_ID>"   # state = READY_TO_SUBMIT ?
 ```
 
 ### PHASE 9: APP ASSETS
+
+#### Step 1: アイコン生成
 ```bash
-# アイコン（1024×1024）: infsh FLUX で生成（INFSH_API_KEY 使用）
+# infsh FLUX で 1024×1024 生成（INFSH_API_KEY 使用）
 INFSH_API_KEY="<INFSH_API_KEY>" infsh app run falai/flux-dev-lora --input '{
   "prompt": "<app_name> iOS app icon. Minimalist design. <concept_1_line>. Deep navy blue gradient background. No text. Square format. Premium, App Store ready.",
   "width": 1024,
   "height": 1024
 }'
 # → 出力 URL を curl でダウンロード → icon-1024.png として保存
+```
 
-# スクショ3枚（1290×2796）: asc-shots-pipeline で実画面撮影 → PIL でテキスト重ね
+#### Step 2: スクショ生成（screenshot-ab パイプライン — EN + JA）
+```
+screenshot-ab スキルの Step 3〜4 をそのまま実行する（A/Bテストではなく新規生成として）
 
-# Step 1: asc-shots-pipeline で実画面 RAW スクショ撮影（3画面）
-xcrun simctl launch "<UDID>" "<BUNDLE_ID>"
-axe screenshot --output "./screenshots/raw/screen1.png" --udid "<UDID>"  # メイン画面
-# AXe で各画面に移動して screen2.png, screen3.png も撮影
+[EN スクショ]
+1. recursive-improver でヘッドライン生成（英語）
+   入力: spec.md の concept + ペルソナ
+   出力: screen1/2/3 の英語キャプション（採点 8/10 以上で確定）
 
-# Step 2: PIL で marketing テキストを重ねて 1290×2796 に合成
-# フォント: /System/Library/Fonts/ヒラギノ角ゴシック W6.ttc（日本語）
-# フォント: /System/Library/Fonts/SFNS.ttf（英語）
-# 1枚目: benefit（ペイン直撃コピー）+ screen1.png
-# 2枚目: social proof + screen2.png
-# 3枚目: core flow（screen3.png のみ）
-# 背景: Deep navy (#0A0F28 → #1E3250 グラデーション)
-# アクセント: Gold (#FFC107)
+2. screenshots.yaml に英語キャプションを書き込む
 
-# メタデータ: asc localizations upload で EN + JA
+3. make generate-store-screenshots 実行
+   → シミュレータで実画面撮影（asc-shots-pipeline / simctl + AXe）
+   → extract_screenshots.py → raw/
+   → PIL で 1290×2796 に合成 → processed/en/
+
+4. visual-qa で採点 → 8/10 未満なら Step 1 からやり直し
+
+[JA スクショ]
+5. recursive-improver でヘッドライン生成（日本語）
+   同じ concept + ペルソナで日本語コピー生成
+
+6. screenshots.yaml に日本語キャプションを書き込む
+
+7. make generate-store-screenshots 実行
+   → 同じ実画面に日本語テキストを重ねて合成 → processed/ja/
+
+8. visual-qa で採点 → 8/10 未満なら Step 5 からやり直し
+```
+
+#### Step 3: ASC アップロード（EN + JA）
+```bash
+# EN スクショ（locale: en-US）
+asc screenshots upload --app-id "<APP_ID>" --locale en-US \
+  --files processed/en/screen1.png processed/en/screen2.png processed/en/screen3.png
+
+# JA スクショ（locale: ja）
+asc screenshots upload --app-id "<APP_ID>" --locale ja \
+  --files processed/ja/screen1.png processed/ja/screen2.png processed/ja/screen3.png
+```
+
+#### Step 4: App Store メタデータ入力
+```bash
+# EN メタデータ
+asc metadata update --app "<APP_ID>" --locale en-US \
+  --title "<metadata.title_en>" \
+  --subtitle "<metadata.subtitle_en>" \
+  --description "<metadata.description_en>" \
+  --keywords "<metadata.keywords_en>"
+
+# JA メタデータ（locale は必ず "ja"。"ja-JP" は無効）
+asc metadata update --app "<APP_ID>" --locale ja \
+  --title "<metadata.title_ja>" \
+  --subtitle "<metadata.subtitle_ja>" \
+  --description "<metadata.description_ja>" \
+  --keywords "<metadata.keywords_ja>"
 ```
 
 ### PHASE 10: BUILD & UPLOAD
@@ -239,12 +321,27 @@ FASTLANE_SKIP_UPDATE_CHECK=1 FASTLANE_OPT_OUT_CRASH_REPORTING=1 fastlane release
 
 ### PHASE 11: PREFLIGHT GATE
 ```bash
-# GATE 1
+# GATE 1: Greenlight
 greenlight preflight <app_dir>  # CRITICAL = 0 でなければ STOP
 
-# GATE 2（references/submission-checklist.md の D6-D10 全件確認）
+# GATE 2: IAP（D6-D10）
 # D6: prices 175件 / D7: screenshot 存在 / D8: en-US localization
 # D9: READY_TO_SUBMIT / D10: validate blocking=0
+asc validate subscriptions --app "<APP_ID>"
+
+# GATE 3: コード品質チェック（自動）
+grep -r "Lorem\|lorem\|placeholder\|TODO\|FIXME" <app_dir>/Sources/ && echo "FAIL" || echo "PASS"
+
+# GATE 4: 外部リンク生死確認（自動）
+curl -I "<urls.privacy_en>" -o /dev/null -s -w "%{http_code}" | grep -q "200\|301\|302" || echo "FAIL: privacy_en URL dead"
+curl -I "<urls.privacy_ja>" -o /dev/null -s -w "%{http_code}" | grep -q "200\|301\|302" || echo "FAIL: privacy_ja URL dead"
+curl -I "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" -o /dev/null -s -w "%{http_code}" | grep -q "200" || echo "FAIL: EULA URL dead"
+
+# GATE 5: スクショ確認（自動）
+asc screenshots list --app "<APP_ID>" --locale en-US | python3 -c "import sys,json;d=json.load(sys.stdin);print('PASS' if len(d['data'])>=3 else 'FAIL: EN screenshots <3')"
+asc screenshots list --app "<APP_ID>" --locale ja | python3 -c "import sys,json;d=json.load(sys.stdin);print('PASS' if len(d['data'])>=3 else 'FAIL: JA screenshots <3')"
+
+# GATE 1〜5 全て PASS でなければ STOP。1つでも FAIL → 修正して再実行
 ```
 
 ### PHASE 12: SUBMIT
