@@ -471,11 +471,10 @@ apps/api/src/
 | 6 | staging デプロイ + API 動作確認 | ✅ 完了 | Railway 自動デプロイ（v2.4 修正で 502→200 復帰確認済み） |
 | 7 | npm install @x402/evm + ethers + index.js v2.4 書き換え | ✅ 完了 | x402ResourceServer + HTTPFacilitatorClient + ExactEvmScheme。syncFacilitatorOnStart=false |
 | 8 | index.js を monetize-service スキル通りに完全書き直し | ✅ 完了（2026-02-23） | ESM維持（`"type":"module"`プロジェクト）+ `x402ResourceServer`→`@x402/core/server` + `ExactEvmScheme`→`@x402/evm/exact/server` + `HTTPFacilitatorClient({url:...})` + `declareDiscoveryExtension` |
-| 9 | `npx awal@2.0.3 status` でウォレット確認 | ⬜ 未 | monetize-service スキル Step 0 |
-| 10 | `npx awal@2.0.3 x402 details <url>` で 402 確認 | ⬜ 未 | x402 スキル |
-| 11 | `npx awal@2.0.3 x402 pay <url>` で支払い E2E テスト（402→支払い→200） | ⬜ 未 | x402 スキル（`-X POST -d '{"who_is_suffering":"myself","situation":"...","language":"en"}'`） |
-| 12 | Bazaar 登録確認（declareDiscoveryExtension で自動登録済み） | ⬜ 未 | `npx awal@2.0.3 x402 bazaar search "buddhist"` で確認 |
-| 13 | ClawHub 公開 | ⬜ 未 | clawhub publish |
+| 9 | `awal x402 details <staging-url>/api/x402/buddhist-counsel` | ✅ 完了（2026-02-23） | 402 確認済み。method=POST, network=eip155:84532, amount=10000, bazaar extensions 登録済み。route key `'POST /buddhist-counsel'` で正常動作 |
+| 10 | `awal x402 pay <staging-url>/api/x402/buddhist-counsel -X POST -d '{"who_is_suffering":"myself","situation":"test","language":"en"}'` | ⬜ 未 | x402 スキル。実行して 200 確認まで完了禁止 |
+| 11 | `awal x402 bazaar search "buddhist"` で Bazaar 登録確認 | ⬜ 未 | x402 スキル |
+| 12 | `clawhub publish` で ClawHub 公開 | ⬜ 未 | clawhub スキル |
 
 ### Phase 2: x402-skill-marketer を独立スキルにする
 
