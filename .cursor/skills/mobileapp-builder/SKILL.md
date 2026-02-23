@@ -357,18 +357,20 @@ asc subscriptions localizations create --subscription-id "<MONTHLY_ID>" \
 > - `asc subscriptions review-screenshots create --file` → **これが正しいコマンド。内部で reserve+PUT+commit を全て実行する。**
 > - `asc subscriptions images create` → プロモーショナル広告用。使わない。
 > - upload 後 `imageAsset.width=0` は**正常**（Apple が非同期で処理中）。再アップロード不要。
-> - `xcrun simctl io <UDID> screenshot` で PNG 取得 → **必ず sips でリサイズ（Apple 推奨: 900×1956 JPEG）**
+> - `xcrun simctl io <UDID> screenshot` で PNG 取得 → **JPEG変換のみ（リサイズ禁止）**
+> - `900×1956` 等の任意リサイズは **"寸法が正しくありません" エラー**になる（2026-02-24 実証）
+> - シミュレータのネイティブ解像度をそのまま使う（iPhone 16 Pro Max: **1320×2868**）
 
 **ステップ 1: シミュレータでペイウォール画面を撮影**
 ```bash
 # Maestro MCP でアプリ起動 → Paywall 画面まで遷移
-# （clearState: false で既存セッションを維持しながらアプリ起動）
 
-# ★ リサイズ必須（スキップ禁止）
-# simctl screenshot は実機解像度 (例: 1320×2868) で出力
-# Apple 推奨サイズは 900×1956 JPEG
+# ★ JPEG変換のみ（リサイズ禁止）
+# simctl screenshot はネイティブ解像度で出力 (iPhone 16 Pro Max: 1320×2868)
+# この解像度が Apple の標準サイズ → リサイズせずそのまま使う
 xcrun simctl io "<UDID>" screenshot /tmp/paywall-review.png
-sips -s format jpeg -z 1956 900 /tmp/paywall-review.png --out /tmp/paywall-review.jpg
+sips -s format jpeg /tmp/paywall-review.png --out /tmp/paywall-review.jpg
+# ↑ -z フラグ（リサイズ）は使わない
 ```
 
 **ステップ 2: `review-screenshots create` でアップロード（Annual + Monthly）**
