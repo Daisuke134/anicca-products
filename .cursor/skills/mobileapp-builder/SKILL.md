@@ -558,9 +558,37 @@ cp /tmp/icon-final.png \
 
 4. screenshot-creator Step 5〜6: spec-validator（10項目 PASS）→ quality-reviewer（7/10+）
 
-5. screenshot-creator Step 7: pencil_export.py 実行
+5. screenshot-creator Step 7: PNG 書き出し
+
+   **⚠️ ファイル保存パス絶対ルール（2026-02-24 確定）**
+
+   | 禁止 | 正しいパス |
+   |------|-----------|
+   | `/tmp/screen1.png` など `/tmp/` 以下 | 禁止。再起動で消える |
+   | Node.js スクリプト自作 | 禁止 |
+   | HTTP API 直接叩く | 禁止 |
+
+   **正しいパス（プロジェクト内に必ず保存）:**
+   ```
+   {output_dir}/docs/screenshots/raw/screen1~3.png       ← シミュレータ生PNG
+   {output_dir}/docs/screenshots/processed/screen1~3.png ← Pencil合成済み
+   {output_dir}/docs/screenshots/resized/screen1~3.png   ← ASCアップロード用
+   ```
+
+   **pencil_export.py が存在する場合:**
+   ```bash
    python3 docs/screenshots/scripts/pencil_export.py
-   出力確認: docs/screenshots/processed/screen1~3.png
+   ```
+
+   **pencil_export.py が存在しない場合（新規アプリ等）:**
+   ```
+   mcp__pencil__get_screenshot を使って .pen ファイルの各フレームを取得
+   → 返ってきた画像データを docs/screenshots/processed/screen1.png に保存
+   → screen2.png, screen3.png も同様
+   # Node.js スクリプト・HTTP API・自作コード禁止。MCP ツール1行で取れる
+   ```
+
+   出力確認: docs/screenshots/processed/screen1~3.png（プロジェクト内）
 
 6. Slack 承認（slack-approval スキル）:
    → .claude/skills/slack-approval/SKILL.md を読んで requestApproval() を実行
