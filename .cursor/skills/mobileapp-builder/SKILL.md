@@ -328,34 +328,11 @@ asc subscriptions localizations create --subscription-id "<MONTHLY_ID>" \
 
 ### PHASE 7: IAP REVIEW SCREENSHOT
 
-> **★ 半自動フェーズ（絶対に読め）**
-> | ステップ | 実行者 | 理由 |
-> |---------|--------|------|
-> | Step 1: 撮影 | **エージェントが自動実行** | simctl + axe CLI で完結 |
-> | Step 2: アップロード | **ユーザーが手動実行（必須）** | Apple Upload API が全形式で broken |
->
-> **エージェントへの禁止事項:**
-> - 「自動アップロードできます」と言うな → 嘘になる
-> - 「APIで試してみます」と言うな → 全部 FAILED が確定している
-> - Step 2 をスキップするな → PHASE 8 の READY_TO_SUBMIT が永遠に来ない
->
-> **検証済み失敗リスト（2026-02-24）:**
-> - `asc subscriptions images create` → FAILED (width:0, height:0)
-> - Python 直接 API → FAILED
-> - S3 CompleteMultipartUpload → 403 Access Denied
->
-> **唯一の確実な方法: ASC Web から手動アップロード（Step 2）**
+> **⚠️ コマンド注意: `asc subscriptions images create` は広告画像（プロモーショナル）用。**
+> **IAP Review Screenshot には `asc subscriptions review-screenshots create` を使う。**
+> 過去に間違えて `images create` を使い「FAILED (width:0, height:0)」が出た → 誤ったコマンドの誤った結論だった。
 
-```
-⚠️ 重要: asc CLI / API 経由のアップロードは動作しない（2026-02-24 検証済み）
-  - `asc subscriptions images create` → FAILED (width:0, height:0)
-  - Python 直接 API も同様に FAILED
-  - S3 CompleteMultipartUpload 直接呼び出し → 403 Access Denied
-
-唯一の確実な方法: ASC Web から手動アップロード
-```
-
-**ステップ 1: スクリーンショット画像を準備（自動）**
+**ステップ 1: スクリーンショット画像を準備**
 ```bash
 # シミュレータでペイウォール画面を撮影
 xcrun simctl boot "<UDID>" || true
@@ -363,20 +340,23 @@ xcrun simctl install "<UDID>" "<APP_PATH>"
 xcrun simctl launch "<UDID>" "<BUNDLE_ID>"
 
 axe screenshot --output "./paywall-review.png" --udid "<UDID>"
-# 必要なら convert コマンドで JPEG 変換（900x1956 推奨）
 ```
 
-**ステップ 2: ASC Web から手動アップロード（必須 — ユーザーが実行）**
-```
-1. https://appstoreconnect.apple.com にアクセス
-2. Apps → [対象アプリ] → In-App Purchases
-3. Annual サブスク → Edit → Review Information → Screenshot 欄
-   → paywall-review.png（または .jpg）をアップロード → Save
-4. Monthly サブスク → 同じ操作
-5. 両方の state が READY_TO_SUBMIT になることを確認
+**ステップ 2: CLIでアップロード（正しいコマンド）**
+```bash
+# ★ 正しいコマンド: review-screenshots create（images create ではない）
+asc subscriptions review-screenshots create \
+  --subscription-id "<MONTHLY_SUB_ID>" \
+  --file "./paywall-review.png"
+
+asc subscriptions review-screenshots create \
+  --subscription-id "<ANNUAL_SUB_ID>" \
+  --file "./paywall-review.png"
+
+# "already exists" エラー = 正常（既にアップロード済み）
 ```
 
-詳細 → `references/iap-bible.md` の「App Review Screenshot — 絶対ルール」
+詳細 → `references/iap-bible.md` の「App Review Screenshot」
 
 ### PHASE 8: IAP VALIDATE ★STOP GATE
 ```bash
@@ -509,6 +489,17 @@ cd <output_dir>/<app_name>ios
 FASTLANE_SKIP_UPDATE_CHECK=1 fastlane set_version version:<version>
 FASTLANE_SKIP_UPDATE_CHECK=1 FASTLANE_OPT_OUT_CRASH_REPORTING=1 fastlane release
 # processingState = VALID になるまで待機
+
+# ★ 必須: TestFlight ベータグループに配布（この手順を省くとテスターがビルドを見れない）
+# ビルドIDを取得
+BUILD_ID=$(asc builds list --app "<APP_ID>" --sort -uploadedDate --limit 1 | \
+  python3 -c "import sys,json;d=json.load(sys.stdin);print(d['data'][0]['id'])")
+
+# 全ベータグループのIDを取得して追加
+asc beta-groups list --app "<APP_ID>" | \
+  python3 -c "import sys,json;d=json.load(sys.stdin);[print(g['id']) for g in d['data']]" | \
+  xargs -I{} asc builds add-groups --build "$BUILD_ID" --group {}
+# → "Successfully added 1 group(s)" が各グループ分出ればOK
 ```
 
 ### PHASE 11: PREFLIGHT GATE

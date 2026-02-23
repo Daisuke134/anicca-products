@@ -133,28 +133,33 @@ asc submit create --app "APP_ID" --version-id "VERSION_ID" --build "BUILD_ID" --
 
 ---
 
-## App Review Screenshot — 絶対ルール（2026-02-24 検証済み）
+## App Review Screenshot
 
-**`asc subscriptions images create` および Python 直接 API は使用禁止。**
+**正しいコマンド: `asc subscriptions review-screenshots create`**
 
-| 試した方法 | 結果 | 理由 |
-|-----------|------|------|
-| `asc subscriptions images create` | FAILED (width:0, height:0) | Apple側でS3マルチパートuploadが完了しない |
-| Python: Create → S3 PUT → PATCH uploaded:true | FAILED | 同様 |
-| S3 CompleteMultipartUpload 直接呼び出し | 403 Access Denied | Apple S3バケットに直接CompleteMPUは禁止 |
+> ⚠️ 過去の誤り（2026-02-24）: `asc subscriptions images create` を使って FAILED になり「API が壊れている」と誤認した。
+> `subscriptions images` は**プロモーショナル画像**用（別物）。
+> IAP Review Screenshot には `subscriptions review-screenshots` を使う。
 
-**唯一の確実な方法: ASC Web から手動アップロード**
+```bash
+# ★ 正しいコマンド
+asc subscriptions review-screenshots create \
+  --subscription-id "<MONTHLY_SUB_ID>" \
+  --file "./paywall-review.png"
 
-```
-1. https://appstoreconnect.apple.com にアクセス
-2. Apps → [対象アプリ] → In-App Purchases
-3. Annual サブスク → Edit → Review Information → Screenshot 欄
-   → 画像ファイル（900×1956 JPEG 推奨）をアップロード → Save
-4. Monthly サブスク → 同じ操作
-5. 両方の state が READY_TO_SUBMIT になることを確認
+asc subscriptions review-screenshots create \
+  --subscription-id "<ANNUAL_SUB_ID>" \
+  --file "./paywall-review.png"
+
+# "already exists" = 正常（既にアップロード済み）
 ```
 
 **画像サイズ要件:** 900×1956 ピクセル（iPhone 縦向き相当）
+
+| コマンド | 用途 | 注意 |
+|---------|------|------|
+| `asc subscriptions review-screenshots create` | IAP App Review Screenshot | ✅ 正しい |
+| `asc subscriptions images create` | プロモーショナル画像（販促用） | ❌ IAP スクリーンショットではない |
 
 ---
 
