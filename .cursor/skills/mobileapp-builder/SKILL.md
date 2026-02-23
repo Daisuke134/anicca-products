@@ -328,36 +328,38 @@ asc subscriptions localizations create --subscription-id "<MONTHLY_ID>" \
 
 ### PHASE 7: IAP REVIEW SCREENSHOT
 
-> **🛑 CLI アップロードは動作しない（2026-02-24 確認済み）**
-> `asc subscriptions review-screenshots create --file` も `asc subscriptions images create` も
-> 両方 S3 PUT で 400 "Invalid uploadId" になり width:0 height:0 のまま。
-> Apple S3 バケットの multipart uploadId が create 後即座に無効化される。
-> **唯一の解決策: ASC Web から手動アップロード。**
+> **⚠️ コマンド注意（2026-02-24 調査済み）**
+> - `asc subscriptions images create` → **プロモーショナル広告用。絶対に使うな。**
+> - `asc subscriptions review-screenshots create` → **IAP Review Screenshot 専用の正しいコマンド。**
+>
+> 過去の「CLI 不可」という結論は間違い。テスト画像にアプリアイコンのリサイズ画像を使ったため
+> Apple の画像検証（コンテンツチェック）が失敗した。**実際のシミュレータスクリーンショットを使えば通る。**
 
-**ステップ 1: スクリーンショット画像を準備（900×1956px）**
+**ステップ 1: シミュレータでペイウォール画面を撮影**
 ```bash
-# シミュレータでペイウォール画面を撮影
+# シミュレータ起動 + アプリ起動（asc-shots-pipeline スキル参照）
 xcrun simctl boot "<UDID>" || true
 xcrun simctl install "<UDID>" "<APP_PATH>"
 xcrun simctl launch "<UDID>" "<BUNDLE_ID>"
 
+# AXe でペイウォール画面まで操作してスクショ撮影
 axe screenshot --output "./paywall-review.png" --udid "<UDID>"
-# sips でリサイズ（900×1956px に調整）
-sips -z 1956 900 ./paywall-review.png
+# JPEG 900×1956px に変換（Apple 推奨フォーマット）
+sips -s format jpeg -z 1956 900 ./paywall-review.png --out ./paywall-review.jpg
 ```
 
-**ステップ 2: ASC Web から手動アップロード（CLI 不可）**
+**ステップ 2: `review-screenshots create` でアップロード（完全自動）**
+```bash
+# ★ 正しいコマンド: review-screenshots create（images create ではない）
+asc subscriptions review-screenshots create \
+  --subscription-id "<MONTHLY_SUB_ID>" \
+  --file "./paywall-review.jpg"
 
-ユーザーに以下の手順を依頼する（エージェント自身はできない）:
-
-```
-1. https://appstoreconnect.apple.com にアクセス
-2. Apps → <app_name> → In-App Purchases
-3. "<MONTHLY_NAME>" → Edit → Review Information → Screenshot 欄
-   → ./paywall-review.png をアップロード → Save
-4. "<ANNUAL_NAME>" → Edit → Review Information → Screenshot 欄
-   → 同じファイルをアップロード → Save
-5. 両方の state が READY_TO_SUBMIT になるまで待機（通常数分以内）
+asc subscriptions review-screenshots create \
+  --subscription-id "<ANNUAL_SUB_ID>" \
+  --file "./paywall-review.jpg"
+# "existing image" エラー → 先に delete してから再実行
+# asc subscriptions review-screenshots delete --id "<ID>" --confirm
 ```
 
 詳細 → `references/iap-bible.md` の「App Review Screenshot」
