@@ -180,6 +180,24 @@
 
 ---
 
+## Phase 3: to-agents-skill 工場 + emotion-detector 量産（2026-02-24）
+
+| # | 学び | ソース |
+|---|------|--------|
+| 25 | **`awal buy` は存在しない。** awal のコマンド一覧: `status`, `balance`, `address`, `show`, `x402`, `auth`, `send`, `trade`, `help`。買う手段は `awal trade eth usdc`（CDP Swap API）のみ | `npx awal@2.0.3 --help` 実行確認 |
+| 26 | **`awal trade` は CDP Swap API（Coinbase系）。** 日本のアカウントからは使えない可能性が高い | Coinbase 規約確認 |
+| 27 | **Mac Mini awal 認証フロー。** `npx awal auth login keiodaisuke@gmail.com` → Flow ID を記録 → Gmail の OTP を `npx awal auth verify <flow_id> <code>` で確認。`awal status` で `✓ Authenticated` が返れば完了 | Mac Mini SSH 作業 |
+| 28 | **Mac Mini awal ウォレットアドレス: `0xCE8c58C73a7a5C5838d48DA66cb914aB150f04c9`** | `npx awal@2.0.3 address` |
+| 29 | **`awal balance` は mainnet 残高のみ。** testnet（Base Sepolia）の残高は表示されない（Learning #36 の再確認） | `npx awal@2.0.3 balance` 実行確認 |
+| 30 | **staging のデフォルト network は eip155:84532（Base Sepolia testnet）。** `X402_NETWORK` 環境変数で切替。testnet の awal x402 pay には testnet USDC が必要 | `apps/api/src/routes/x402/index.js` 確認 |
+| 31 | **Circle Faucet（https://faucet.circle.com/）で testnet USDC を無料取得できる。** ネットワークを「Base Sepolia」に選択してウォレットアドレスを入力する | 公式フォーセット |
+| 32 | **`clawhub` は Mac Mini に未インストール。** T015（clawhub publish）の前に Mac Mini に clawhub をインストールが必要。MacBook では `clawhub whoami` → Daisuke134 で認証済み | Mac Mini SSH 確認 |
+| 33 | **emotion-detector endpoint は dev(staging) に live。** `apps/api/src/routes/x402/emotionDetector.js` + `index.js` に追加済み。cherry-pick で dev ブランチに反映済み | Railway staging 確認 |
+| 34 | **to-agents-skill SKILL.md は Mac Mini に配置済み。** `/Users/anicca/.openclaw/skills/to-agents-skill/SKILL.md`（produce/discover/measure 3モード） | Mac Mini SSH 確認 |
+| 35 | **emotion-detector SKILL.md は Mac Mini に配置済み。** `/Users/anicca/.openclaw/skills/emotion-detector/SKILL.md`（ClawHub 用クライアントスキル） | Mac Mini SSH 確認 |
+
+---
+
 ## スキルカタログ（工場が量産する10スキル — 優先順位順）
 
 | 優先度 | スキル名 | エンドポイント | ユースケース | 難易度 |

@@ -1,7 +1,32 @@
 # x402 Buddhist Counsel — 統合スペック v4
 
 **作成日**: 2026-02-18
-**更新日**: 2026-02-23（v2 API 修正・OpenAI 切替・x402-skill-marketer 追加・Bazaar extensions.bazaar 対応・.well-known/x402.json 追加）
+**更新日**: 2026-02-24（emotion-detector 実装・awal 認証完了・USDC testnet 残高問題）
+
+## 現在の実装状態（2026-02-24 時点）
+
+| コンポーネント | 状態 | 詳細 |
+|--------------|------|------|
+| `buddhist-counsel` エンドポイント | ✅ Production 稼働 | `https://anicca-proxy-production.up.railway.app/api/x402/buddhist-counsel` |
+| `buddhist-counsel` ClawHub | ✅ 公開済み | `buddhist-counsel@1.0.0`（commit: `docs(x402): Step 12 complete`） |
+| `emotion-detector` エンドポイント | ✅ Staging(dev) 稼働 | `https://anicca-proxy-staging.up.railway.app/api/x402/emotion-detector` |
+| `emotion-detector` ClawHub | ❌ 未公開 | T012（awal test）ブロック中 |
+| `to-agents-skill`（工場） | ✅ Mac Mini 稼働 | `/Users/anicca/.openclaw/skills/to-agents-skill/SKILL.md` |
+| Mac Mini awal 認証 | ✅ 完了 | `keiodaisuke@gmail.com` |
+| Mac Mini awal USDC残高 | ❌ $0.00 | testnet（Base Sepolia）USDC が未着 |
+
+## T012 ブロッカー詳細
+
+| 項目 | 値 |
+|------|-----|
+| Mac Mini awal ウォレットアドレス | `0xCE8c58C73a7a5C5838d48DA66cb914aB150f04c9` |
+| 必要ネットワーク | Base Sepolia testnet（eip155:84532）— staging のデフォルト |
+| 必要 USDC | $0.01 USDC |
+| `awal buy` | **存在しない**（確認済み） |
+| `awal trade eth usdc` | あるが CDP Swap API（Coinbase系） — 日本不可 |
+| Circle Faucet | `https://faucet.circle.com/` — Base Sepolia を選択して上記アドレスに送信 |
+
+---
 
 /Users/cbns03/Downloads/anicca-project/.cursor/plans/ios/1.6.3/2026-2-18/to-agents-learning.md
 => Update this all times as you keep learning. As you keep learning, building the agent, building the skill, keep learning here. Keep learning here. Keep updating this. Keep adding. Keep adding.  to-agents-skill（工場）設計・実装    Going to be important for this. Going to be important for making the factory. 
