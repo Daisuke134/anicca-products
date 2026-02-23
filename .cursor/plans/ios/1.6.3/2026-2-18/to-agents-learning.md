@@ -195,6 +195,8 @@
 | 33 | **emotion-detector endpoint は dev(staging) に live。** `apps/api/src/routes/x402/emotionDetector.js` + `index.js` に追加済み。cherry-pick で dev ブランチに反映済み | Railway staging 確認 |
 | 34 | **to-agents-skill SKILL.md は Mac Mini に配置済み。** `/Users/anicca/.openclaw/skills/to-agents-skill/SKILL.md`（produce/discover/measure 3モード） | Mac Mini SSH 確認 |
 | 35 | **emotion-detector SKILL.md は Mac Mini に配置済み。** `/Users/anicca/.openclaw/skills/emotion-detector/SKILL.md`（ClawHub 用クライアントスキル） | Mac Mini SSH 確認 |
+| 36 | **`awal` はメインネット（Base mainnet）専用。testnet USDC では支払いできない。** `awal balance` が $0.00 を返し続けるのは、testnet（Base Sepolia）残高を追跡しないため。Blockscout で 39.99 USDC が Base Sepolia にあることを確認済みだが、awal はそれを見ない。`awal` で x402 テストするには Base mainnet USDC が必要 | Blockscout API + awal 実験確認 |
+| 37 | **staging testnet テストは `awal` では不可。** 正しいテスト手順: ①emotion-detector を production（main ブランチ）にマージ ②mainnet USDC を Mac Mini awal ウォレット（`0xCE8c58C73a7a5C5838d48DA66cb914aB150f04c9`）に $0.01 送金（MetaMask/Binance 等 Coinbase 以外から可） ③`awal x402 pay` で production URL を叩く | awal 実験 + Blockscout 確認 |
 
 ---
 
