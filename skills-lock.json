@@ -51,6 +51,11 @@
       "sourceType": "github",
       "computedHash": "efb6cfee4d700aefa97c954e1876fa9d81569c3f21d3d4c815c4c341b59c53df"
     },
+    "slack-bot-builder": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "5d927b03134e9855ff300aa7d60162ca7c2d8cb66dede74506f73aab3bf2208f"
+    },
     "web-design-guidelines": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",
