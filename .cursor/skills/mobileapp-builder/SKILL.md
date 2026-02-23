@@ -353,41 +353,88 @@ asc subscriptions localizations create --subscription-id "<MONTHLY_ID>" \
 
 ### PHASE 7: IAP REVIEW SCREENSHOT
 
-> **⚠️ コマンド注意（2026-02-24 調査済み）**
-> - `asc subscriptions images create` → **プロモーショナル広告用。絶対に使うな。**
-> - `asc subscriptions review-screenshots create` → **IAP Review Screenshot 専用の正しいコマンド。**
->
-> 過去の「CLI 不可」という結論は間違い。テスト画像にアプリアイコンのリサイズ画像を使ったため
-> Apple の画像検証（コンテンツチェック）が失敗した。**実際のシミュレータスクリーンショットを使えば通る。**
+> **⚠️ CLI 罠（2026-02-24 実測）**
+> - `asc subscriptions review-screenshots create --file` → **reserve（POST）しか実行しない。S3 PUT + commit は自分でやる必要がある。**
+> - `asc subscriptions images create` → プロモーショナル広告用。絶対に使うな。
+> - `xcrun simctl io <UDID> screenshot` で PNG 取得 → **必ず sips でリサイズ（Apple 推奨: 900×1956 JPEG）**
 
 **ステップ 1: シミュレータでペイウォール画面を撮影**
 ```bash
-# シミュレータ起動 + アプリ起動（asc-shots-pipeline スキル参照）
+# シミュレータ起動（既に起動済みなら不要）
 xcrun simctl boot "<UDID>" || true
-xcrun simctl install "<UDID>" "<APP_PATH>"
-xcrun simctl launch "<UDID>" "<BUNDLE_ID>"
 
-# AXe でペイウォール画面まで操作してスクショ撮影
-axe screenshot --output "./paywall-review.png" --udid "<UDID>"
-# JPEG 900×1956px に変換（Apple 推奨フォーマット）
-sips -s format jpeg -z 1956 900 ./paywall-review.png --out ./paywall-review.jpg
+# アプリ起動 → Maestro MCP でペイウォール画面まで遷移
+# （accessibilityIdentifier: paywall_skip でスキップボタンを経由して Paywall を表示）
+
+# ★ リサイズ必須（スキップ禁止）
+# simctl screenshot は実機解像度 (例: 1320×2868) で出力する
+# Apple 推奨サイズは 900×1956 JPEG
+xcrun simctl io "<UDID>" screenshot /tmp/paywall-review.png
+sips -s format jpeg -z 1956 900 /tmp/paywall-review.png --out /tmp/paywall-review.jpg
 ```
 
-**ステップ 2: `review-screenshots create` でアップロード（完全自動）**
-```bash
-# ★ 正しいコマンド: review-screenshots create（images create ではない）
-asc subscriptions review-screenshots create \
-  --subscription-id "<MONTHLY_SUB_ID>" \
-  --file "./paywall-review.jpg"
+**ステップ 2: Apple API 直接（3ステップ）— asc CLI は reserve のみ**
 
-asc subscriptions review-screenshots create \
-  --subscription-id "<ANNUAL_SUB_ID>" \
-  --file "./paywall-review.jpg"
-# "existing image" エラー → 先に delete してから再実行
+```python
+# docs/screenshots/scripts/upload_iap_review_screenshot.py として保存して使う
+import os, time, json, hashlib, base64, requests
+
+KEY_ID    = "646Y27MJ8C"
+ISSUER_ID = "f53272d9-c12d-4d9d-811c-4eb658284e74"
+PRIVATE_KEY = open(os.path.expanduser("~/.asc/private_keys/AuthKey_646Y27MJ8C.p8")).read()
+
+import jwt as pyjwt
+token = pyjwt.encode(
+    {"iss": ISSUER_ID, "iat": int(time.time()), "exp": int(time.time())+1200, "aud": "appstoreconnect-v1"},
+    PRIVATE_KEY, algorithm="ES256", headers={"kid": KEY_ID}
+)
+if not isinstance(token, str): token = token.decode()
+
+BASE_URL = "https://api.appstoreconnect.apple.com/v1"
+HDRS = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+
+# ★ 対象サブスクリプション ID（Annual / Monthly）
+SUBS = {
+    "Monthly": "<MONTHLY_SUB_ID>",
+    "Annual":  "<ANNUAL_SUB_ID>",
+}
+FILE = "/tmp/paywall-review.jpg"
+
+with open(FILE, "rb") as f: raw = f.read()
+md5 = base64.b64encode(hashlib.md5(raw).digest()).decode()
+
+for label, sub_id in SUBS.items():
+    # 1. Reserve
+    resp = requests.post(f"{BASE_URL}/subscriptionAppStoreReviewScreenshots", headers=HDRS, json={
+        "data": {"type": "subscriptionAppStoreReviewScreenshots",
+                 "attributes": {"fileSize": len(raw), "fileName": "paywall-review.jpg"},
+                 "relationships": {"subscription": {"data": {"type": "subscriptions", "id": sub_id}}}}
+    })
+    assert resp.status_code in (200,201), f"Reserve failed: {resp.text[:300]}"
+    d = resp.json()["data"]
+    shot_id = d["id"]
+
+    # 2. PUT to S3
+    for op in d["attributes"]["uploadOperations"]:
+        hdrs = {h["name"]: h["value"] for h in op.get("requestHeaders", [])}
+        put = requests.request(op["method"], op["url"], headers=hdrs,
+                               data=raw[op["offset"]:op["offset"]+op["length"]])
+        assert put.status_code in (200,201,204), f"PUT failed: {put.status_code}"
+
+    # 3. Commit
+    commit = requests.patch(f"{BASE_URL}/subscriptionAppStoreReviewScreenshots/{shot_id}", headers=HDRS, json={
+        "data": {"type": "subscriptionAppStoreReviewScreenshots", "id": shot_id,
+                 "attributes": {"uploaded": True, "sourceFileChecksum": md5}}
+    })
+    assert commit.status_code in (200,201), f"Commit failed: {commit.text[:300]}"
+    print(f"✅ {label} ({sub_id}) → {shot_id}")
+```
+
+```bash
+python3 docs/screenshots/scripts/upload_iap_review_screenshot.py
+# 既存画像エラー → 先に削除
 # asc subscriptions review-screenshots delete --id "<ID>" --confirm
 ```
-
-詳細 → `references/iap-bible.md` の「App Review Screenshot」
 
 ### PHASE 8: IAP VALIDATE ★STOP GATE
 ```bash
