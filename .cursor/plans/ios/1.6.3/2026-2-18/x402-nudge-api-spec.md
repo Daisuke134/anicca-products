@@ -1,30 +1,34 @@
 # x402 Buddhist Counsel — 統合スペック v4
 
 **作成日**: 2026-02-18
-**更新日**: 2026-02-24（emotion-detector 実装・awal 認証完了・USDC testnet 残高問題）
+**更新日**: 2026-02-24 v5（emotion-detector ClawHub公開完了・testnet戦略確定）
 
-## 現在の実装状態（2026-02-24 時点）
+## 現在の実装状態（2026-02-24 v5 時点）
 
 | コンポーネント | 状態 | 詳細 |
 |--------------|------|------|
 | `buddhist-counsel` エンドポイント | ✅ Production 稼働 | `https://anicca-proxy-production.up.railway.app/api/x402/buddhist-counsel` |
-| `buddhist-counsel` ClawHub | ✅ 公開済み | `buddhist-counsel@1.0.0`（commit: `docs(x402): Step 12 complete`） |
+| `buddhist-counsel` ClawHub | ✅ 公開済み | `buddhist-counsel@1.0.0` |
+| `buddhist-counsel` awal 実支払いテスト | ❌ 未実施 | mainnet USDC 必要（後回し） |
 | `emotion-detector` エンドポイント | ✅ Staging(dev) 稼働 | `https://anicca-proxy-staging.up.railway.app/api/x402/emotion-detector` |
-| `emotion-detector` ClawHub | ❌ 未公開 | T012（awal test）ブロック中 |
+| `emotion-detector` ClawHub | ✅ **公開済み** | `emotion-detector@1.0.0`（ID: k974wsgbt2g4spmqm0dyd9ayvh81qfxy） |
+| `emotion-detector` awal 実支払いテスト（T012） | ❌ BLOCKED | Railway staging が mainnet（eip155:8453）設定 → testnet変更で解決予定 |
 | `to-agents-skill`（工場） | ✅ Mac Mini 稼働 | `/Users/anicca/.openclaw/skills/to-agents-skill/SKILL.md` |
 | Mac Mini awal 認証 | ✅ 完了 | `keiodaisuke@gmail.com` |
-| Mac Mini awal USDC残高 | ❌ $0.00 | testnet（Base Sepolia）USDC が未着 |
+| Mac Mini awal USDC残高 | ❌ $0.00 | testnet変更後 Circle Faucet で解決予定 |
+| clawhub Mac Mini インストール | ✅ 完了 | token コピー済み（Daisuke134） |
 
-## T012 ブロッカー詳細
+## T012 ブロッカー詳細（次のアクション: testnet戦略）
 
 | 項目 | 値 |
 |------|-----|
-| Mac Mini awal ウォレットアドレス | `0xCE8c58C73a7a5C5838d48DA66cb914aB150f04c9` |
-| 必要ネットワーク | Base Sepolia testnet（eip155:84532）— staging のデフォルト |
-| 必要 USDC | $0.01 USDC |
+| Mac Mini awal ウォレット | `0xCE8c58C73a7a5C5838d48DA66cb914aB150f04c9` |
+| **現在の Railway staging ネットワーク** | **eip155:8453（mainnet）** — awal x402 details で確認済み |
+| **testnet戦略** | Railway staging の `X402_NETWORK` を `eip155:84532` に変更 → Circle Faucet で無料USDC取得 |
 | `awal buy` | **存在しない**（確認済み） |
-| `awal trade eth usdc` | あるが CDP Swap API（Coinbase系） — 日本不可 |
-| Circle Faucet | `https://faucet.circle.com/` — Base Sepolia を選択して上記アドレスに送信 |
+| `awal trade eth usdc` | CDP Swap API（Coinbase系） — 日本不可（確認済み） |
+| Coinbase Japan | **2023年サービス終了** — 使用不可（確認済み） |
+| Circle Faucet（testnet戦略成立後） | `https://faucet.circle.com/` — Base Sepolia → Mac Mini アドレスに送信 |
 
 ---
 

@@ -60,22 +60,24 @@
 
 ## セッション: 2026-02-24（続き）— 訂正・追加学習
 
-### 罪1: `subscriptions images` と `subscriptions review-screenshots` の混同
+### 罪1: `subscriptions images` と `subscriptions review-screenshots` の混同（+ 最終確認）
 
-**スキルに書いてあったこと:** `asc subscriptions images create`
+**最初のスキルに書いてあったこと:** `asc subscriptions images create`
 **実際に起きたこと:** FAILED → 「APIは壊れている」と結論 → ASC Web手動に格下げ
-**真実:** 全く別のAPIを叩いていた
+**一次的な真実:** 全く別のAPIを叩いていた
 
 | コマンド | 実際の意味 |
 |---------|-----------|
 | `asc subscriptions images create` | サブスクの**販促画像**（`subscriptionImages` エンドポイント） |
 | `asc subscriptions review-screenshots create` | App Store **レビュー用スクショ**（`subscriptionAppStoreReviewScreenshots` エンドポイント） |
 
-`review-screenshots create` は存在する。**一度も試さなかった。** スキルが `images create` と書いていたから従った。スキルのバグ。
+**2026-02-24 追加確認:** `review-screenshots create` も試した。同じ 400 "Invalid uploadId" で失敗。
+理由: Apple S3 バケットの multipart uploadId が create 直後に無効化される（`asc` CLI が返す `uploadOperations` の URL は使えない）。
 
-**スキルへの反映（MUST）:**
-- PHASE 7: `asc subscriptions images create` → `asc subscriptions review-screenshots create` に完全置き換え
-- iap-bible.md: 「ASC Webのみ」という結論を撤回。正しいCLIコマンドを記載
+**最終的な真実: ASC Web からの手動アップロードが唯一の解決策。**
+
+**スキルへの反映（完了）:**
+- PHASE 7: 「CLI 不可、ASC Web から手動」に更新済み（2026-02-24）
 
 ---
 

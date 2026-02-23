@@ -246,3 +246,17 @@
 |------|-----------|
 | 改善後も7日間コール数0 | Slack #metrics で廃止提案 → 承認後 ClawHub unpublish |
 | 廃止スキル数が3 | 工場が代替スキルを1本量産してリプレース |
+
+---
+
+## Phase 4: awal/USDC/テスト環境の学び（2026-02-24）
+
+| # | 学び |
+|---|------|
+| 36 | **`awal buy` は存在しない。** awal の資金調達コマンドは `awal trade`（ETH→USDC スワップ）のみ。`awal trade` は CDP Swap API（Coinbase系）を使うため日本では使用不可（確認済み） |
+| 37 | **Coinbase Japan は 2023年にサービス終了。** 東京からは coinbase.com にアクセス・資金投入不可（出典: Coinbase Blog "Halting Operations in Japan"） |
+| 38 | **staging Railway は mainnet（eip155:8453）で動いている。** `awal x402 details` で確認。`X402_NETWORK` 環境変数が mainnet に設定されている。コードのデフォルト（eip155:84532）とは異なる |
+| 39 | **testnet戦略が正解。** Railway staging の `X402_NETWORK` を `eip155:84532`（Base Sepolia）に変更 → Circle Faucet（無料）で testnet USDC 取得 → Mac Mini 財布に送信 → awal でテスト。実金不要 |
+| 40 | **emotion-detector@1.0.0 ClawHub 公開完了。** ID: `k974wsgbt2g4spmqm0dyd9ayvh81qfxy`。clawhub publish には `--version 1.0.0` フラグが必要（SKILL.md frontmatter の version だけでは不足） |
+| 41 | **clawhub token は `~/Library/Application Support/clawhub/config.json` に保存される（macOS）。** Mac Mini への token コピーで認証可能（ブラウザフロー不要） |
+| 42 | **Mac Mini に clawhub をインストールするには `npm install -g clawhub`。** その後 MacBook の token を Mac Mini にコピーするだけで `clawhub whoami` が通る |
