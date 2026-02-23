@@ -29,9 +29,18 @@
 
 ### Step 4: Railway エンドポイント実装
 
-| 時刻 | 学び |
-|------|------|
-| — | （作業開始後に記録） |
+| # | 学び |
+|---|------|
+| 1 | Top-level `await` を x402/index.js 内で使うと、routes/index.js 経由で全 API ルートのインポートチェーンが壊れる。`@x402/express` パッケージが解決できない場合、try-catch があっても ESM モジュール評価自体が失敗し、**全ルートが 404 になる** |
+| 2 | 解決策: `initX402Middleware()` を通常の async 関数にして、モジュール末尾で `.catch()` 付きで呼ぶ。Router は同期的にエクスポートされ、middleware は非同期で後から追加される |
+| 3 | AgentAuditLog の Prisma スキーマは `eventType`/`executedBy`/`requestPayload`/`responsePayload`。`action`/`agentId`/`details` は存在しない。**既存スキーマを必ず読んでからコードを書く** |
+| 4 | sanitizeInput は `routes/agent/nudge.js` にコピーがある。DRY にするより、x402 は独立モジュールとして自己完結させた方が安全（依存先変更の影響を受けない） |
+| 5 | Anthropic API の `ANTHROPIC_API_KEY` は Railway staging に設定済みだったが、**クレジット残高不足**で 400 エラー。env 変数の存在確認だけでなく、実際に API を叩いてレスポンスを確認するまでテスト完了としない |
+| 6 | x402 テストでは supertest + vitest でルート・バリデーション・サニタイズを検証。generateCounsel を vi.mock で差し替えるので ANTHROPIC_API_KEY 不要 |
+| 7 | Railway にリンクされている environment を必ず確認（`railway status`）。production にリンクされた状態で `railway logs` を見ると staging のログが出ない |
+| 8 | **Anthropic API はサブスク（Pro/Max）では使えない。** claude.ai チャットと Console API は完全に別製品。サーバーから `@anthropic-ai/sdk` を使うにはクレジット購入が必要 |
+| 9 | **OpenAI に切り替えるのが最安。** Railway に `OPENAI_API_KEY` が既にあれば変更は15行。Mega Prompt は LLM 非依存で設計してあるから model 名を変えるだけ |
+| 10 | OpenAI の `response_format: { type: 'json_object' }` を使えば regex で JSON を抽出する必要がない。Anthropic SDK にはこの機能がない |
 
 ### Step 5: テスト（testnet E2E）
 
@@ -51,13 +60,16 @@
 
 | # | 何が起きたか | 原因 | 対策 |
 |---|-------------|------|------|
-| — | （発生次第記録） | — | — |
+| 1 | x402/index.js の top-level await が全 API ルートを 404 に | ESM の import chain で 1 モジュールの評価失敗が上流に波及 | dynamic import は async 関数内に閉じ込め、.catch() で握りつぶす |
+| 2 | Anthropic API が 400 で返る | Railway staging の ANTHROPIC_API_KEY のアカウントにクレジットがない | env 変数の存在だけでなく、API の実応答を確認するまで完了としない |
 
 ## 成功パターン（再利用）
 
 | # | 何がうまくいったか | なぜ | 再利用方法 |
 |---|-------------------|------|-----------|
-| — | （発生次第記録） | — | — |
+| 1 | Mega Prompt を LLM 非依存で設計 | JSON schema を system prompt 末尾に置く。LLM 固有の機能に依存しない | 新スキルでも同じパターンで設計すれば、LLM を自由に切り替えられる |
+| 2 | supertest + vi.mock で LLM なしテスト | generateCounsel をモックするので API キー不要 | 全 x402 スキルで同じテストパターンを使える |
+| 3 | x402 middleware を条件付き初期化 | env 変数なしでも動く = dev/staging で payment gate なしでテスト可能 | 全 x402 エンドポイントで同じ index.js パターンを使える |
 
 ---
 
