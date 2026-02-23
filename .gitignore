@@ -162,3 +162,8 @@ client_secret_*.json
 openclaw-vps-backup-20260214.tar.gz
 openclaw/openclaw.json
 .build/
+
+# Screenshot pipeline artifacts
+docs/screenshots/output.xcresult/
+docs/screenshots/raw/
+docs/screenshots/processed/

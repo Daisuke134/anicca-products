@@ -84,31 +84,37 @@ asc product-pages experiments treatments list --experiment-id "{experiment_id}"
 
 ---
 
-## PHASE 4: スクショ生成（l.md Bible）
+## PHASE 4: スクショ生成（screenshot-creator / Pencil）
 
-**Step 4-1: screenshots.yaml を更新する**
+**Step 4-1: screenshots.yaml のヘッドラインを更新する**
 
 → `references/pipeline.md` の「screenshots.yaml 完全版」を参照
 確定ヘッドラインを `caption.title` / `caption.subtitle` に書き込む。
 
-**Step 4-2: l.md パイプラインを走らせる**
+**Step 4-2: raw スクリーンショット確認**
 
-→ `references/pipeline.md` の「Makefile l.md Step5 完全版」を参照
-
-```bash
-cd /Users/cbns03/Downloads/anicca-project
-make generate-store-screenshots
+```
+docs/screenshots/raw/screen1.png, screen2.png, screen3.png が存在するか確認。
+なければ: make capture-only で XCUITest 撮影だけ実行（UI は変えない）。
 ```
 
-内部処理（l.md の全4ステップ）:
-1. `xcodebuild test -only-testing:ScreenshotTests` → `output.xcresult`
-2. `extract_screenshots.py` → `docs/screenshots/raw/screen1.png` 等
-3. `process_screenshots.py` → `docs/screenshots/processed/screen1.png` 等
+**Step 4-3: pencil_export.py で合成**
+
+→ `.claude/skills/screenshot-creator/SKILL.md` を読んで Japanese Swiss スタイルを確認した上で実行する
+
+```bash
+python3 docs/screenshots/scripts/pencil_export.py
+```
+
+内部処理:
+1. `raw/screen1~3.png` を PhoneMockup に配置（LANCZOS リサイズ）
+2. CaptionArea にヒラギノ角ゴシックでヘッドライン・サブテキストを描画
+3. PhoneMockup に角丸ボーダー追加
 
 **出力:**
 ```
 docs/screenshots/processed/
-├── screen1.png  （1290×2796）
+├── screen1.png  （780×1688 @2x）
 ├── screen2.png
 └── screen3.png
 ```
@@ -129,14 +135,33 @@ docs/screenshots/processed/
 
 ---
 
-## PHASE 6: Slack に送る（ダイスが確認）
+## PHASE 6: Slack 承認（ダイスが確認）
 
-→ `references/slack-approval.md` を読んでコマンドを実行する
+**Step 6-1: processed/ の PNG 3枚を Slack C091G3PKHL2 にアップロード**
 
-| ダイスの返答 | アクション |
-|------------|-----------|
-| OK | → PHASE 7 へ |
-| NG | → PHASE 3 に戻る |
+Slack Files v2 API（BOT_TOKEN は `.env` の `SLACK_BOT_TOKEN`）:
+```
+1. files.getUploadURLExternal（GET, query params: filename, length）
+2. PUT upload_url にファイルバイナリ送信
+3. files.completeUploadExternal（POST, JSON: files=[{id, title}], channel_id）
+```
+
+**Step 6-2: slack-approval スキルで ✅/❌ 承認ボタン送信**
+
+→ `.claude/skills/slack-approval/SKILL.md` を読んで `requestApproval()` を実行する
+
+```javascript
+const result = await requestApproval({
+  channel: 'C091G3PKHL2',
+  title:   '📸 App Store スクリーンショット確認',
+  detail:  `ヘッドライン: {headline}\nvisual-qa: {score}/50\nASCアップロードに進みますか？`
+});
+```
+
+| 返答 | アクション |
+|------|-----------|
+| `approved` | → PHASE 7 へ |
+| `denied`   | → PHASE 3（ヘッドライン生成）に戻る |
 
 ---
 

@@ -328,11 +328,13 @@ asc subscriptions localizations create --subscription-id "<MONTHLY_ID>" \
 
 ### PHASE 7: IAP REVIEW SCREENSHOT
 
-> **⚠️ コマンド注意: `asc subscriptions images create` は広告画像（プロモーショナル）用。**
-> **IAP Review Screenshot には `asc subscriptions review-screenshots create` を使う。**
-> 過去に間違えて `images create` を使い「FAILED (width:0, height:0)」が出た → 誤ったコマンドの誤った結論だった。
+> **🛑 CLI アップロードは動作しない（2026-02-24 確認済み）**
+> `asc subscriptions review-screenshots create --file` も `asc subscriptions images create` も
+> 両方 S3 PUT で 400 "Invalid uploadId" になり width:0 height:0 のまま。
+> Apple S3 バケットの multipart uploadId が create 後即座に無効化される。
+> **唯一の解決策: ASC Web から手動アップロード。**
 
-**ステップ 1: スクリーンショット画像を準備**
+**ステップ 1: スクリーンショット画像を準備（900×1956px）**
 ```bash
 # シミュレータでペイウォール画面を撮影
 xcrun simctl boot "<UDID>" || true
@@ -340,20 +342,22 @@ xcrun simctl install "<UDID>" "<APP_PATH>"
 xcrun simctl launch "<UDID>" "<BUNDLE_ID>"
 
 axe screenshot --output "./paywall-review.png" --udid "<UDID>"
+# sips でリサイズ（900×1956px に調整）
+sips -z 1956 900 ./paywall-review.png
 ```
 
-**ステップ 2: CLIでアップロード（正しいコマンド）**
-```bash
-# ★ 正しいコマンド: review-screenshots create（images create ではない）
-asc subscriptions review-screenshots create \
-  --subscription-id "<MONTHLY_SUB_ID>" \
-  --file "./paywall-review.png"
+**ステップ 2: ASC Web から手動アップロード（CLI 不可）**
 
-asc subscriptions review-screenshots create \
-  --subscription-id "<ANNUAL_SUB_ID>" \
-  --file "./paywall-review.png"
+ユーザーに以下の手順を依頼する（エージェント自身はできない）:
 
-# "already exists" エラー = 正常（既にアップロード済み）
+```
+1. https://appstoreconnect.apple.com にアクセス
+2. Apps → <app_name> → In-App Purchases
+3. "<MONTHLY_NAME>" → Edit → Review Information → Screenshot 欄
+   → ./paywall-review.png をアップロード → Save
+4. "<ANNUAL_NAME>" → Edit → Review Information → Screenshot 欄
+   → 同じファイルをアップロード → Save
+5. 両方の state が READY_TO_SUBMIT になるまで待機（通常数分以内）
 ```
 
 詳細 → `references/iap-bible.md` の「App Review Screenshot」
@@ -384,70 +388,85 @@ npx snapai config --show
 
 # Step 1-B: SnapAI で 1024×1024 PNG を生成（透過背景）
 npx snapai icon \
-  --prompt "<app_name> iOS app icon. Minimalist design. <concept_1_line>. Deep blue to golden gradient. No text. Premium, App Store ready." \
+  --prompt "<app_name> iOS app icon. Minimalist design. <concept_1_line>. Central symbol fills 70% of canvas. No text. Premium, App Store ready." \
   --background transparent \
   --output-format png \
   --style minimalism \
   --quality high
 # → ./assets/icon-[timestamp].png に保存される
+# ⚠️ 重要: SnapAI は --background transparent を指定しても白背景で出力する。
+#   プロンプトで "gradient background" を指定しても無視される。
+#   必ず Step 1-C で ImageMagick を使って背景を追加する。
 
 # ⛔ SnapAI 未設定の場合はここで停止。フォールバックなし。
 # → ユーザーに「OpenAI API key が必要です: npx snapai config --openai-api-key sk-xxxx」と伝える
 
-# Step 1-C: Xcode xcassets に配置（Swift/Xcode プロジェクト用）
-cp ./assets/icon-[timestamp].png \
+# Step 1-C: ImageMagick でグラデーション背景を追加（必須 — App Store は透過NG）
+# brew install imagemagick  # 未インストールの場合
+ICON_SRC="./assets/icon-[timestamp].png"
+
+# 1. 白背景をアルファ透過に変換
+convert "$ICON_SRC" -fuzz 5% -transparent white /tmp/icon-transparent.png
+
+# 2. グラデーション背景を作成してアイコンと合成
+convert -size 1024x1024 \
+  gradient:"#F5A623-#E8563A" \
+  /tmp/icon-transparent.png \
+  -compose over -composite \
+  /tmp/icon-final.png
+
+# 3. 結果をユーザーに見せて確認（必須 — OKが出るまで色変更して繰り返す）
+open /tmp/icon-final.png
+
+# Step 1-D: Xcode xcassets に配置（Swift/Xcode プロジェクト用）
+cp /tmp/icon-final.png \
   <output_dir>/<app_name>ios/<app_name>/Assets.xcassets/AppIcon.appiconset/icon.png
 # ※ Contents.json の "filename": "icon.png" と一致していること確認
-# ※ 生成後にユーザーにスクリーンショットを見せて確認を取ること
 ```
 
 **注意: app-icon スキルは本来 Expo 向け（Step 4 以降の iOS 26 .icon フォルダ / app.json は Swift/Xcode では不要）。PNG 生成（Step 3）だけを使う。**
 
-#### Step 2: スクショ生成（screenshot-ab パイプライン — EN + JA）
+#### Step 2: スクショ生成（screenshot-creator スキル）
 
-> **⚠️ 前提確認（PHASE 3 必須セットアップが完了しているか確認）**
-> - [ ] `ScreenshotTests.swift` が存在する
-> - [ ] `Makefile` に `generate-store-screenshots` ターゲットがある
-> - [ ] `docs/screenshots/scripts/process_screenshots.py` が存在する
-> - [ ] `screenshots.yaml` が存在する（ヘッドラインを書き込む先）
->
-> **いずれか1つでも欠けている場合は PHASE 3 に戻って作成する。スキップ禁止。**
+→ `.claude/skills/screenshot-creator/SKILL.md` を読んで Step 1〜7 を実行する
+  （A/B テストではなく新規生成のため、screenshot-ab の PHASE 1/2 はスキップ）
 
 ```
-screenshot-ab スキルの Step 3〜4 をそのまま実行する（A/Bテストではなく新規生成として）
-
 [EN スクショ]
-1. recursive-improver でヘッドライン生成（英語）
-   入力: spec.md の concept + ペルソナ
+1. screenshot-creator Step 1: ヒアリング（アプリ名・機能・ターゲット・言語=英語）
+
+2. screenshot-creator Step 2〜3: スタイルガイド取得 + 英語コピー作成
    出力: screen1/2/3 の英語キャプション（採点 8/10 以上で確定）
 
-2. screenshots.yaml に英語キャプションを書き込む
+3. screenshot-creator Step 4: Pencil .pen ファイルにデザイン構築
+   raw スクリーンショット確認: docs/screenshots/raw/screen1~3.png が存在するか
+   なければ: make capture-only で XCUITest 撮影のみ実行
 
-3. make generate-store-screenshots 実行
-   → シミュレータで実画面撮影（asc-shots-pipeline / simctl + AXe）
-   → extract_screenshots.py → raw/
-   → PIL で 1290×2796 に合成 → processed/en/
+4. screenshot-creator Step 5〜6: spec-validator（10項目 PASS）→ quality-reviewer（7/10+）
 
-4. visual-qa で採点 → 8/10 未満なら Step 1 からやり直し
+5. screenshot-creator Step 7: pencil_export.py 実行
+   python3 docs/screenshots/scripts/pencil_export.py
+   出力確認: docs/screenshots/processed/screen1~3.png
+
+6. Slack 承認（slack-approval スキル）:
+   → .claude/skills/slack-approval/SKILL.md を読んで requestApproval() を実行
+   → title: "📸 App Store スクリーンショット確認 [EN]"
+   → approved → Step 7 へ / denied → Step 1 から再実行
 
 ⚠️ ハードゲート（絶対ルール）:
-   processed/en/ の画像を開いて、ヘッドラインテキストが画像に合成されているか目視確認する。
-   ヘッドラインが入っていない（生スクショのみ）→ ASC アップロード禁止。Step 1 から再実行。
-   「ヘッドラインなし = ASCアップロード禁止」この規則に例外なし。
+   processed/ の画像を開いて、ヘッドラインテキストが入っているか目視確認する。
+   ヘッドラインなし → ASC アップロード禁止。Step 1 から再実行。
 
 [JA スクショ]
-5. recursive-improver でヘッドライン生成（日本語）
-   同じ concept + ペルソナで日本語コピー生成
+7. screenshot-creator Step 1〜7 を日本語コピーで再実行
+   出力: docs/screenshots/processed/screen1~3.png（JA 版で上書き）
 
-6. screenshots.yaml に日本語キャプションを書き込む
-
-7. make generate-store-screenshots 実行
-   → 同じ実画面に日本語テキストを重ねて合成 → processed/ja/
-
-8. visual-qa で採点 → 8/10 未満なら Step 5 からやり直し
+8. Slack 承認（slack-approval スキル）:
+   → title: "📸 App Store スクリーンショット確認 [JA]"
+   → approved → ASC アップロードへ / denied → Step 7 から再実行
 
 ⚠️ ハードゲート（JA も同じ）:
-   processed/ja/ の画像を開いて日本語ヘッドラインが入っているか確認。
+   processed/ の画像を開いて日本語ヘッドラインが入っているか確認。
    入っていない場合は ASC アップロード禁止。
 ```
 
