@@ -668,6 +668,96 @@ Anicca: NAISTのアカウント情報が必要。
 
 ---
 
+## 共有ユーティリティ: `slack-approval`
+
+**全スキル（NAIST / mobile-app-factory / その他全て）が使う共通承認ライブラリ。**
+
+### なぜ共有スキルか
+
+| 確認済み事実 | 詳細 |
+|------------|------|
+| `slack-automation`（既存）は使えない | Rube MCP (Composio) 依存。OpenClaw では動作しない |
+| Mac Mini に必要なものは全部揃っている | `SLACK_BOT_TOKEN` + `SLACK_APP_TOKEN`（xapp-...）= Socket Mode ON 確認済み |
+| Block Kit ボタンは今すぐ動く | Socket Mode が WebSocket でボタンクリックを受信するため追加設定ゼロ |
+
+### ファイル構成
+
+```
+.claude/skills/slack-approval/
+├── SKILL.md           ← 使い方・呼び出し規約
+└── scripts/
+    ├── send.js        ← Block Kit メッセージ送信
+    └── listen.js      ← ボタンクリック待機（Promise）
+```
+
+### 他スキルからの呼び方（1行）
+
+```javascript
+// naist-mail でも、naist-portal でも、mobile-app-factory でも同じ
+const result = await require('../slack-approval/scripts/listen')({
+  channel: 'C091G3PKHL2',      // 送信先チャンネルID
+  title:   '📧 メール返信',
+  detail:  '宛先: 山田教授\n本文: お世話になっております...',
+  timeout: 60                   // 秒（タイムアウト）
+});
+
+if (result === 'approved') { /* 実行 */ }
+if (result === 'denied')   { /* キャンセル */ }
+if (result === 'timeout')  { /* タイムアウト */ }
+```
+
+### send.js の動作
+
+```
+1. chat.postMessage に blocks: [...] で送信
+         ↓
+2. ボタン付きメッセージが Slack に表示
+   ┌────────────────────────────────┐
+   │  📧 メール返信                   │
+   │  宛先: 山田教授                  │
+   │  本文: お世話になっております...  │
+   │                                │
+   │  [✅ 実行する]  [❌ キャンセル]   │
+   └────────────────────────────────┘
+```
+
+### listen.js の動作
+
+```
+Socket Mode（WebSocket）で block_actions イベントを待機
+         ↓
+ユーザーが押したボタンの action_id を受信
+  allow_once → 'approved' を返す
+  deny       → 'denied'  を返す
+  timeout    → 'timeout' を返す（60秒で自動タイムアウト）
+         ↓
+chat.update でボタンを無効化（二重押し防止）
+  [✅ 実行しました]  or  [❌ キャンセルしました]
+```
+
+### 適用スキル一覧
+
+| スキル | 承認が必要な操作 |
+|--------|---------------|
+| `naist-mail` | メール返信送信 |
+| `naist-portal` | 履修登録・成績確認 |
+| `naist-wiki` | Notion書き込み |
+| `skill-for-you` | スキルインストール |
+| `mobile-app-factory` | ビルド実行・デプロイ・ストア提出 |
+| **全ての新規スキル** | 外部への書き込み・送信・投稿を伴う操作 |
+
+### 実装順序
+
+**Phase 1 の最初に作る。全スキルより先。**
+
+| # | タスク | 状態 |
+|---|--------|------|
+| 0 | `slack-approval` 作成（send.js + listen.js） | ⏳ **最優先** |
+| 1 | `naist-onboarding` でテスト | ⏳ |
+| 2〜 | 残り全スキルで流用 | ⏳ |
+
+---
+
 ## 承認フロー（Approval）
 
 ### 採用する承認パターン（優先順位順）
@@ -675,31 +765,32 @@ Anicca: NAISTのアカウント情報が必要。
 | # | パターン | いつ使う | 実装 |
 |---|---------|---------|------|
 | 1 | **チャット直接実行** | ユーザーが明示的に指示した場合 | 設定不要。デフォルト |
-| 2 | **request-approval（ClawHub）** | 承認wait-stateが必要な場合 | `clawhub install request-approval` |
-| 3 | **Block Kit Buttons** | メール返信・履修登録等の重要操作 | `openclaw.json` + Slack API |
-| 4 | **Emoji Reaction（👍/👎）** | 軽量な確認が必要な場合 | Slack reactions.get でポーリング |
+| 2 | **`slack-approval`（共有スキル）** | 外部書き込み・送信・インストール等の重要操作 | `require('../slack-approval/scripts/listen')` |
+| 3 | **Emoji Reaction（👍/👎）** | 軽量な確認（cron の有効化等） | Slack reactions.get でポーリング |
 
-Source: https://github.com/openclaw/openclaw/pull/2124 + https://lobehub.com/skills/openclaw-skills-request-approval
+**`request-approval`（ClawHub）は使わない。** Preloop MCP サーバーが必要で OpenClaw 非対応。
 
-### Block Kit 実装テンプレート
+### Block Kit 送信テンプレート（send.js 内部）
 
 ```javascript
 const blocks = [
   {
     type: "section",
-    text: { type: "mrkdwn", text: "*📧 メール返信*\n宛先: 山田教授\n本文:\n```" + replyText + "```" }
+    text: { type: "mrkdwn", text: `*${title}*\n${detail}` }
   },
   {
     type: "actions",
-    block_id: "naist_approval",
+    block_id: `approval_${Date.now()}`,
     elements: [
-      { type: "button", action_id: "allow_once", text: { type: "plain_text", text: "✅ 送信する" }, style: "primary" },
-      { type: "button", action_id: "deny", text: { type: "plain_text", text: "❌ キャンセル" }, style: "danger" }
+      { type: "button", action_id: "allow_once", style: "primary",
+        text: { type: "plain_text", text: "✅ 実行する" } },
+      { type: "button", action_id: "deny", style: "danger",
+        text: { type: "plain_text", text: "❌ キャンセル" } }
     ]
   }
 ];
-// allow_once → 実行 → chat.update で「✅ 送信しました」
-// deny → chat.update で「❌ キャンセルしました」
+// allow_once → chat.update で「✅ 実行しました」
+// deny       → chat.update で「❌ キャンセルしました」
 ```
 
 ---
@@ -744,6 +835,8 @@ const blocks = [
 
 開発・テスト（Claude Code / ダイス自身が先に使う）:
 /Users/cbns03/Downloads/anicca-project/.claude/skills/
+├── slack-approval/SKILL.md          ← 全スキル共通（最優先）
+│   └── scripts/send.js + listen.js
 ├── naist-onboarding/SKILL.md
 ├── naist-mail/SKILL.md
 ├── naist-calendar/SKILL.md
@@ -841,6 +934,7 @@ security add-generic-password -a "naist-narita" -s "WEBMAIL_TOTP_SECRET" -w "bas
 
 | # | タスク | ソース（何をinstall/コピーするか） | 状態 |
 |---|--------|----------------------------------|------|
+| 0 | **`slack-approval` 作成**（全スキル共通・最優先） | 新規。`send.js` + `listen.js`。Socket Mode + Block Kit | ⏳ **最優先** |
 | 1 | `naist-onboarding` 作成 | `slack-api`（ClawHub）コピー | ⏳ |
 | 2 | `naist-mail` 作成 | `roundcube-webmail`（インストール済み）コピー | ⏳ |
 | 3 | `naist-calendar` 作成 | `gcal-digest`（Mac Mini既存）コピー | ⏳ |
