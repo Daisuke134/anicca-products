@@ -43,6 +43,8 @@ See `references/spec-template.md` for the full spec.md format.
 | 9 | **locale は `ja`（`ja-JP` は無効）**。ASC API は `ja-JP` を拒否する |
 | 10 | **IAP key は同一 Apple Developer アカウントで使い回し**。新規作成不要。`AuthKey_AY9BT5R8NU.p8` を流用 |
 | 11 | **Paywall コピーは必ずコードから実機能を確認してから書く**。存在しない機能を訴求するのは罪（Apple レビュー違反 + ユーザー詐欺）。`FreePlanService.swift`, `SubscriptionManager.swift` を必ず読め |
+| 12 | **Mixpanel 必須**。全新規アプリに Mixpanel SDK を組み込み、`paywall_viewed`（`offering_id` プロパティ付き）を送信すること。Mixpanel なしでは paywall-ab スキルによる A/B 評価が不可能 |
+| 13 | **RevenueCat → Mixpanel 連携必須**。RC Dashboard で「Send data to Mixpanel」を有効化し、`presented_offering_id` が `rc_trial_started_event` に含まれることを確認すること。未設定 = A/B 変換追跡ゼロ |
 
 ---
 

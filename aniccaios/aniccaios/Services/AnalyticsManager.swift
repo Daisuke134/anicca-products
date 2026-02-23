@@ -69,17 +69,21 @@ final class AnalyticsManager {
     }
     
     /// Paywall表示（最重要メトリクス）
-    func trackPaywallViewed(paywallId: String, trigger: String) {
+    func trackPaywallViewed(paywallId: String, trigger: String, offeringId: String? = nil) {
         // Paywall表示回数をインクリメント
         let viewCountKey = "mixpanel_paywall_view_count"
         let viewCount = UserDefaults.standard.integer(forKey: viewCountKey) + 1
         UserDefaults.standard.set(viewCount, forKey: viewCountKey)
-        
-        track(.paywallViewed, properties: [
+
+        var properties: [String: Any] = [
             "paywall_id": paywallId,
             "view_count": viewCount,
             "trigger": trigger
-        ])
+        ]
+        if let offeringId = offeringId {
+            properties["offering_id"] = offeringId
+        }
+        track(.paywallViewed, properties: properties)
     }
     
     /// Paywall閉じる

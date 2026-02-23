@@ -139,7 +139,8 @@ struct MyPathTabView: View {
                     .onAppear {
                         AnalyticsManager.shared.trackPaywallViewed(
                             paywallId: "profile_upgrade",
-                            trigger: "profile_plan_tap"
+                            trigger: "profile_plan_tap",
+                            offeringId: appState.cachedOffering?.identifier
                         )
                     }
             }

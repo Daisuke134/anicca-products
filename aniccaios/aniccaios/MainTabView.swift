@@ -45,6 +45,13 @@ struct MainTabView: View {
             }) {
                 ZStack(alignment: .topTrailing) {
                     upgradePaywallView()
+                        .onAppear {
+                            AnalyticsManager.shared.trackPaywallViewed(
+                                paywallId: "main_upgrade",
+                                trigger: "nudge_completion",
+                                offeringId: appState.cachedOffering?.identifier
+                            )
+                        }
 
                     Button { showUpgradePaywall = false } label: {
                         Image(systemName: "xmark.circle.fill")
