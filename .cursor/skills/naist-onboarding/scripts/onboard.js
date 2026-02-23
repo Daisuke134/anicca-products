@@ -40,13 +40,16 @@ async function onboard(userId) {
     channel = created.channel;
     console.log(`✅ Created #${channelName} (${channel.id})`);
   } catch (e) {
-    if (e.data?.error === 'name_taken') {
+    if (e.data?.error === 'name_taken' || e.data?.error === 'missing_scope') {
+      if (e.data?.error === 'missing_scope') {
+        console.log(`⚠️ create skipped: missing scope (${e.data?.needed}). Looking for existing #${channelName}`);
+      }
       const list = await web.conversations.list({
         types: 'public_channel,private_channel',
         limit: 200
       });
       channel = list.channels.find(c => c.name === channelName);
-      if (!channel) throw new Error(`Channel #${channelName} not found after name_taken`);
+      if (!channel) throw new Error(`Channel #${channelName} not found`);
       console.log(`ℹ️ Channel #${channelName} already exists (${channel.id})`);
     } else {
       throw e;
@@ -58,13 +61,15 @@ async function onboard(userId) {
     await web.conversations.join({ channel: channel.id });
   } catch (_) {}
 
-  // 4. ユーザーを招待
+  // 4. ユーザーを招待（channels:manage スコープが必要。なければスキップ）
   try {
     await web.conversations.invite({ channel: channel.id, users: userId });
     console.log(`✅ Invited ${rawName} to #${channelName}`);
   } catch (e) {
     if (e.data?.error === 'already_in_channel') {
       console.log(`ℹ️ User already in #${channelName}`);
+    } else if (e.data?.error === 'missing_scope') {
+      console.log(`⚠️ invite skipped: missing scope (${e.data?.needed}). Add channels:manage to Slack app.`);
     } else {
       throw e;
     }
