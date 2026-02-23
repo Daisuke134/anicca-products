@@ -116,9 +116,20 @@ asc subscriptions localizations create --subscription-id "<MONTHLY_ID>" \
 
 ### PHASE 7: IAP REVIEW SCREENSHOT
 ```bash
-# Maestro MCP でペイウォール画面を撮影（mcp__maestro__take_screenshot）
-# → paywall-review.png として保存
+# asc-shots-pipeline でペイウォール画面を撮影
+# simctl 起動 → AXe で Paywall 画面まで操作 → RAWスクショ → paywall-review.png
 
+# 1. シミュレータ起動 + アプリインストール・起動
+xcrun simctl boot "<UDID>" || true
+xcrun simctl install "<UDID>" "<APP_PATH>"
+xcrun simctl launch "<UDID>" "<BUNDLE_ID>"
+
+# 2. AXe で Paywall 画面まで操作してスクショ撮影
+axe describe-ui --udid "<UDID>"   # UI 確認
+axe tap --id "paywall_cta" --udid "<UDID>"  # または onboarding を進める
+axe screenshot --output "./paywall-review.png" --udid "<UDID>"
+
+# 3. Monthly + Annual それぞれにアップロード
 asc subscriptions review-screenshots create \
   --subscription-id "<MONTHLY_ID>" --file "./paywall-review.png"
 
@@ -140,28 +151,28 @@ asc subscriptions get --id "<ANNUAL_ID>"   # state = READY_TO_SUBMIT ?
 ```
 
 ### PHASE 9: APP ASSETS
-```
-# アイコン（1024×1024）: DALL-E 3 で生成（OPENAI_API_KEY 使用）
-python3 -c "
-import openai, requests, os
-client = openai.OpenAI()
-resp = client.images.generate(
-    model='dall-e-3',
-    prompt='<app_name> iOS app icon. Minimalist design. <concept_1_line>. Deep navy blue gradient background. No text. Square format. Premium, App Store ready.',
-    size='1024x1024', quality='hd', n=1
-)
-url = resp.data[0].url
-img = requests.get(url).content
-open('icon-1024.png', 'wb').write(img)
-print('icon-1024.png saved')
-"
+```bash
+# アイコン（1024×1024）: infsh FLUX で生成（INFSH_API_KEY 使用）
+INFSH_API_KEY="<INFSH_API_KEY>" infsh app run falai/flux-dev-lora --input '{
+  "prompt": "<app_name> iOS app icon. Minimalist design. <concept_1_line>. Deep navy blue gradient background. No text. Square format. Premium, App Store ready.",
+  "width": 1024,
+  "height": 1024
+}'
+# → 出力 URL を curl でダウンロード → icon-1024.png として保存
 
-# スクショ3枚（1290×2796）: PIL + ヒラギノ角ゴシック で生成
-# フォント: /System/Library/Fonts/ヒラギノ角ゴシック W6.ttc（日本語大文字）
+# スクショ3枚（1290×2796）: asc-shots-pipeline で実画面撮影 → PIL でテキスト重ね
+
+# Step 1: asc-shots-pipeline で実画面 RAW スクショ撮影（3画面）
+xcrun simctl launch "<UDID>" "<BUNDLE_ID>"
+axe screenshot --output "./screenshots/raw/screen1.png" --udid "<UDID>"  # メイン画面
+# AXe で各画面に移動して screen2.png, screen3.png も撮影
+
+# Step 2: PIL で marketing テキストを重ねて 1290×2796 に合成
+# フォント: /System/Library/Fonts/ヒラギノ角ゴシック W6.ttc（日本語）
 # フォント: /System/Library/Fonts/SFNS.ttf（英語）
-# 1枚目: benefit（ペルソナのペイン直撃コピー — spec.concept から生成）
-# 2枚目: social proof（「習慣化アプリ10回挫折した人の声」等）
-# 3枚目: core flow（実画面モックアップを PIL で描画）
+# 1枚目: benefit（ペイン直撃コピー）+ screen1.png
+# 2枚目: social proof + screen2.png
+# 3枚目: core flow（screen3.png のみ）
 # 背景: Deep navy (#0A0F28 → #1E3250 グラデーション)
 # アクセント: Gold (#FFC107)
 

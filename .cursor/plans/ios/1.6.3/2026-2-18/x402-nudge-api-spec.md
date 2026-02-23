@@ -374,7 +374,7 @@ apps/api/src/
 │   └── safeTDetector.js            # SAFE-T 3層危機検出（therapist + crisis-detector 概念）
 └── app.js                          # ルート追加
 
-## npm 依存: @x402/express, @x402/extensions, @coinbase/x402, openai
+## npm 依存: @x402/express, @x402/evm, openai（@coinbase/x402 は v1 用で v2 では不要。@x402/core は @x402/express の依存で自動インストール）
 ## Bazaar 登録: paymentMiddleware の extensions.bazaar で能動的に登録（取引を待たずにカタログ化）
 ## /.well-known/x402.json: 存在する。MCP ツール discover_api_endpoints が使う。追加する。
 ## LLM: GPT-4o（OpenAI）。Anthropic API はサブスクとは別製品のため不採用。
@@ -470,7 +470,7 @@ apps/api/src/
 | 4 | .well-known/x402.json 追加 | ✅ 完了 | Express 静的ルート |
 | 5 | ユニットテスト 8/8 PASS | ✅ 完了 | vitest + supertest |
 | 6 | staging デプロイ + API 動作確認 | ✅ 完了 | Railway 自動デプロイ |
-| 7 | npm install @x402/express @coinbase/x402 | ⬜ 未 | npm |
+| 7 | npm install @x402/evm（@x402/express は済、@coinbase/x402 は v1 用で不要） | ⬜ 未 | npm |
 | 8 | 支払いゲート ON にして staging デプロイ | ⬜ 未 | #7 が前提 |
 | 9 | testnet USDC 取得（Base Sepolia faucet、無料） | ⬜ 未 | faucet |
 | 10 | x402 MCP で支払い E2E テスト（402→支払い→200） | ⬜ 未 | coinbase/x402（テスト時のみ） |
@@ -520,8 +520,8 @@ apps/api/src/
 
 | 項目 | 詳細 |
 |------|------|
-| 問題 | 公式ドキュメントは `facilitatorUrl` を使えと書いているが、実際には `facilitator` オブジェクトをインポートして使う必要がある |
-| 正しいコード | `import { facilitator } from '@coinbase/x402'` を使い、URL ではなくオブジェクトを渡す |
+| 問題 | 公式ドキュメント（v1）は `facilitatorUrl` や `import { facilitator } from '@coinbase/x402'` を使えと書いているが、**v2.4 では API が完全に変わった** |
+| 正しいコード | v2.4: `import { paymentMiddleware, x402ResourceServer } from '@x402/express'` + `HTTPFacilitatorClient` + `ExactEvmScheme`。`@coinbase/x402` は v1 用で v2 では不要 |
 | 実装 | スペックに正しいインポートパターンを記載（下記「正しいミドルウェア設定」参照） |
 
 ### 4. CORS ヘッダー欠落（Issue #236 — HIGH）
@@ -576,11 +576,22 @@ apps/api/src/
 | 対策 | Railway 環境変数に `CDP_API_KEY` を追加 |
 | 取得 | [Coinbase Developer Platform](https://portal.cdp.coinbase.com/) で無料取得 |
 
-### 正しいミドルウェア設定（Issue #933 + #236 + #752 の全修正 + v2 API 対応）
+### 正しいミドルウェア設定（v2.4 API — v1 とは完全に異なる）
+
+**v1→v2 破壊的変更:**
+
+| 項目 | v1（壊れる） | v2.4（正しい） |
+|------|------------|---------------|
+| 第1引数 | `facilitator` オブジェクト | `routes` 設定（ルートごとの料金定義） |
+| 第2引数 | `paymentConfig` | `x402ResourceServer` インスタンス |
+| npm | `@coinbase/x402` | `@x402/express` + `@x402/evm` + `@x402/core`（自動） |
+| scheme 登録 | 不要 | `server.register(network, new ExactEvmScheme())` 必須 |
 
 ```javascript
-import { facilitator } from '@coinbase/x402';   // URL ではなくオブジェクト（Issue #933）
-import { paymentMiddleware } from '@x402/express';
+// v2.4 API — @coinbase/x402 は v1 用で v2 では不要
+import { paymentMiddleware, x402ResourceServer } from '@x402/express';
+import { HTTPFacilitatorClient } from '@x402/core/server';
+import { ExactEvmScheme } from '@x402/evm/exact/server';
 import cors from 'cors';
 import express from 'express';
 
@@ -590,25 +601,30 @@ const app = express();
 app.use(cors());              // 1. CORS を最初に
 app.use(express.json());      // 2. body parser を x402 の前に
 
-// 3. x402 ミドルウェア（extensions.bazaar で能動的 Bazaar 登録）
-app.use('/api/x402',
-  paymentMiddleware(facilitator, {
-    network: process.env.X402_NETWORK === 'mainnet'
-      ? 'eip155:8453'
-      : 'eip155:84532',
+// 3. x402 ResourceServer 構築
+const isMainnet = process.env.X402_NETWORK === 'mainnet';
+const network = isMainnet ? 'eip155:8453' : 'eip155:84532';
+
+const facilitatorClient = new HTTPFacilitatorClient(); // デフォルト: https://x402.org/facilitator
+const server = new x402ResourceServer(facilitatorClient);
+server.register(network, new ExactEvmScheme());
+
+// 4. ルート設定（v2: ルートごとに料金を定義）
+const routes = {
+  'POST /buddhist-counsel': {
+    accepts: [{
+      scheme: 'exact',
+      price: '$0.01',
+      network,
+      payTo: process.env.X402_WALLET_ADDRESS,
+    }],
     description: 'Buddhist counsel for AI agents — reduce suffering with wisdom',
-    maxAmountRequired: '10000',  // $0.01 in USDC (6 decimals)
-    payTo: process.env.X402_WALLET_ADDRESS,
-    // Bazaar 能動的登録（取引を待たずにカタログ化）
-    extensions: {
-      bazaar: {
-        discoverable: true,
-        inputSchema: { who_is_suffering: 'string', situation: 'string', language: 'string' },
-        outputSchema: { counsel_id: 'string', acknowledgment: 'string', guidance: 'string' },
-      }
-    }
-  })
-);
+    mimeType: 'application/json',
+  },
+};
+
+// 5. ミドルウェア適用（v2: routes + server）
+app.use('/api/x402', paymentMiddleware(routes, server));
 
 // .well-known/x402.json（MCP エージェント自動発見用）
 app.get('/.well-known/x402.json', (req, res) => {
@@ -625,8 +641,9 @@ app.get('/.well-known/x402.json', (req, res) => {
 
 **注意:**
 - セラー側に秘密鍵は不要。`payTo` アドレスだけで受取可能
-- facilitator が on-chain settlement を代行する
-- `extensions.bazaar.discoverable: true` で取引前に Bazaar カタログ化
+- `HTTPFacilitatorClient()` はデフォルトで `https://x402.org/facilitator` に接続（URL 指定不要）
+- `ExactEvmScheme` は `@x402/evm` から。未インストールだと import 失敗
+- try-catch の罠: `paymentMiddleware()` は middleware 関数を **返すだけ**。`initialize()` はリクエスト受信時に非同期実行されるため、factory 側の try-catch では捕捉できない。`syncFacilitatorOnStart = false` にして `server.initialize()` を明示的に try-catch 内で先に呼ぶこと
 
 ---
 

@@ -166,23 +166,89 @@ screenshots/
 
 ---
 
-## visual-qa に注入するプロンプト（App Store BP版）
+## compose.py 実装ルール（PIL合成スクリプト）
+
+```
+キャンバス設計（絶対固定）:
+  サイズ: 1320 × 2868 px
+  ─ 固定ゾーン禁止。動的レイアウトを使う ─
+
+動的レイアウト（v4以降）:
+  MARGIN_TOP: 80px（ヘッドライン上余白）
+  HEADLINE_PHONE_GAP: 60px（ヘッドライン下端 → Phone上端）
+  PHONE_CAPTION_GAP: 60px（Phone下端 → キャプション上端）
+  MARGIN_BOTTOM: 80px（キャプション下余白）
+
+  手順:
+    1. ヘッドラインを wrap_width=1000px で描画、実際の高さ headline_h を計算
+    2. iPhoneフレームを最大高さ max_phone_h に収まるようスケール
+       max_phone_h = 2868 - MARGIN_TOP - headline_h - HEADLINE_PHONE_GAP
+                         - PHONE_CAPTION_GAP - caption_h - MARGIN_BOTTOM
+    3. headline_y = MARGIN_TOP（中央揃えはx軸のみ）
+    4. phone_y = MARGIN_TOP + headline_h + HEADLINE_PHONE_GAP
+    5. caption_y = phone_y + phone_scaled_h + PHONE_CAPTION_GAP
+
+フォント:
+  ヘッドライン: 固定 110px Bold（fit_textは禁止、全枚同じサイズ）
+    └─ 使用フォント候補: /System/Library/Fonts/Helvetica.ttc weight=Bold (index=1)
+    └─ 代替: /Library/Fonts/Arial Bold.ttf
+    └─ wrap_width: 1000px（窮屈にならない幅）
+  キャプション: 固定 55px Regular
+
+iPhoneフレーム処理:
+  Koubouが出力するフレームPNGはoffwhite背景込み
+  → 背景(#F5F2EE付近, tolerance=30)をnumpyでアルファマスク透過化してから貼る
+  → canvas背景はAniccaブランドカラーグラデーション
+
+背景グラデーション:
+  #0D1117（上）→ #1a1f35（下）の縦グラデ
+
+3枚の統一ルール:
+  - フォントサイズ: 全枚 110px（絶対に変えない）
+  - フォントウェイト: 全枚 Bold
+  - テキストカラー: 全枚 白 #FFFFFF
+  - 背景: 全枚 同じグラデーション
+  - キャプション: 全枚あり
+  - wrap_width: 全枚 1000px
+```
+
+## 各スクショのコンテンツ定義
+
+| Shot | 役割 | ヘッドライン | キャプション | 使うPNG |
+|------|------|------------|------------|--------|
+| 1 | Attention（pain） | "6 Years.\n10 Apps.\nStill Nothing Changed." | "Finally, an app that fights back." | 01-nudge-card-morning.png |
+| 2 | Interest（social） | "3,000+ People\nFinally Broke\nThe Loop." | "Join them. Start free today." | 02-struggle-selection.png |
+| 3 | Action（core flow） | "This Is What\nChange Actually\nLooks Like." | "AI that nudges you before you quit." | 04-nudge-card-bedtime.png |
+
+## visual-qa に注入するプロンプト（App Store BP版 v2）
 
 ```
 このApp Store用スクリーンショットをベストプラクティスで採点してください。
 
+【Critical checks（1項目でもFAILなら即FAIL）】
+- 全3枚のフォントサイズが同一か（±10px以内）
+- iPhoneフレームの背景が浮いていないか（白いboxが見えてはいけない）
+- ヘッドラインとキャプションの両方が存在するか
+
 【採点基準（各10点）】
-1. コア価値が1枚目で伝わるか（First 3 Rule）
-2. キャプションが2行以内でベネフィット型か（「〜できる」「〜が変わる」）
-3. フォントが読みやすいか（30pt相当以上、コントラスト十分）
-4. デバイスフレームが正しく表示されているか
-5. 視覚的ヒエラルキーが明確か（何を見せたいかが一目瞭然）
+1. ヘッドラインがペルソナのペインを直撃しているか（「6年間変われなかった」層に刺さるか）
+2. キャプションがベネフィット型で2行以内か
+3. フォント110px Bold・全枚統一・コントラスト十分か
+4. iPhoneフレームが背景と自然に溶け込んでいるか（白い箱が浮いていない）
+5. 3枚見たときに統一感があるか（色・フォント・レイアウト一貫）
+
+【参考: 業界標準（この水準を基準に採点）】
+- Headspace: 暖色グラデ背景 + SF Pro Display Black 100px + Phone下にキャプション
+- Calm: ブランドカラー背景 + Bold headline + 感情訴求キャプション
+- Fabulous: グラデーション + Phone中央配置 + 上ヘッドライン + 下サポートテキスト
 
 【判定】
-- 合計 40/50 以上（= 8/10換算）→ PASS
+- Critical check FAIL → 即FAIL（点数不問）
+- 合計 40/50 以上 → PASS
 - 39/50 以下 → FAIL（Critical Issueと改善点を出力）
 
 出力形式:
+Critical: PASS / FAIL（理由）
 スコア: X/50
 判定: PASS / FAIL
 Critical Issues: [リスト]

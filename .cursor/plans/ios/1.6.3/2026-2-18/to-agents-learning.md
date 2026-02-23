@@ -62,6 +62,8 @@
 |---|-------------|------|------|
 | 1 | x402/index.js の top-level await が全 API ルートを 404 に | ESM の import chain で 1 モジュールの評価失敗が上流に波及 | dynamic import は async 関数内に閉じ込め、.catch() で握りつぶす |
 | 2 | Anthropic API が 400 で返る | Railway staging の ANTHROPIC_API_KEY のアカウントにクレジットがない | env 変数の存在だけでなく、API の実応答を確認するまで完了としない |
+| 3 | staging 502 無限クラッシュ。`TypeError: this.ResourceServer.initialize is not a function` | `@x402/express` v2.4 は v1 と API が完全に異なる。v1: `paymentMiddleware(facilitator, config)`、v2: `paymentMiddleware(routes, server)`。`@coinbase/x402` の facilitator を第1引数に渡すと、v2 は第2引数を `x402ResourceServer` として扱い、config オブジェクトに `.initialize()` を呼ぼうとして TypeError | v2 API を使う: `x402ResourceServer` + `HTTPFacilitatorClient` + `ExactEvmScheme`。`@coinbase/x402` は v1 用で v2 では不要 |
+| 4 | try-catch で囲んでいるのにプロセスクラッシュ | `paymentMiddleware()` は middleware 関数を **返すだけ**。`initialize()` は Express がリクエスト受信時に非同期で実行される。その時点では factory 側の try-catch の外 | `syncFacilitatorOnStart = false` にして、`server.initialize()` を try-catch 内で明示的に先に呼ぶ |
 
 ## 成功パターン（再利用）
 
@@ -89,3 +91,7 @@
 | 10 | CDP API Key は mainnet のみ必須。testnet は不要 | GitHub Issues |
 | 11 | 新規セラーの Month 1 収益: $0〜$30 が現実。12,559件中アクティブ 612件（4.9%） | x402scan.com リアルタイムデータ |
 | 12 | Mega Prompt が最安・最速。Prompt Chaining（5回 API call）はコスト負け | OpenAI + Anthropic 公式 |
+| 13 | `@x402/express` v2.4 の `paymentMiddleware` は `(routes, x402ResourceServer)` を取る。v1 の `(facilitator, config)` は **完全に壊れる**。`@coinbase/x402` は v1 用パッケージ | `node_modules/@x402/express/dist/esm/index.mjs` ソース直読み |
+| 14 | v2 では `@x402/evm` パッケージが必須。`ExactEvmScheme` を `server.register(network, scheme)` で登録する。未インストールだと `import` で失敗する | `@x402/express` の依存ツリー確認 |
+| 15 | `HTTPFacilitatorClient` はデフォルトで `https://x402.org/facilitator` に接続する。URL 指定不要（コンストラクタ引数なし） | `@x402/core/dist/esm/server/index.mjs` ソース直読み |
+| 16 | `paymentMiddleware()` の第5引数 `syncFacilitatorOnStart`（デフォルト true）が true だと、最初のリクエスト受信時に `httpServer.initialize()` が呼ばれる。これが factory 呼び出し側の try-catch の外で実行されるため、エラーが unhandled rejection になりプロセスがクラッシュする | `@x402/express/dist/esm/index.mjs` L111 確認 |
