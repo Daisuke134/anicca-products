@@ -172,6 +172,8 @@ Source: https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardra
 ## Active Technologies
 - Node.js 18+ + Jest（devDependency）、Firecrawl CLI（外部コマンド、Mac Mini既存） (003-naist-funds)
 - JSONファイル（`data/cache.json`, `data/guides.json`） (003-naist-funds)
+- Node.js 20+ (ESM, `.mjs` または `"type":"module"`) (005-x402-factory)
+- ファイルベース (005-x402-factory)
 
 ## Recent Changes
 - 003-naist-funds: Added Node.js 18+ + Jest（devDependency）、Firecrawl CLI（外部コマンド、Mac Mini既存）

@@ -63,11 +63,11 @@
   - **テストコマンド（mainnet 移行後）**: `npx awal@2.0.3 x402 pay https://anicca-proxy-production.up.railway.app/api/x402/emotion-detector -X POST -d '{"text":"I feel anxious"}'`
 - [X] T013 [US1] SKILL.md の produce モードプロンプト検証完了
 - [X] T014 [US1] `emotion-detector` SKILL.md を Mac Mini に配置完了: `/Users/anicca/.openclaw/skills/emotion-detector/SKILL.md`
-- [ ] T015 [US1] `clawhub publish` を emotion-detector スキルディレクトリで実行＋結果の clawhub_id を記録: `ssh anicca@100.99.82.95 "cd /Users/anicca/.openclaw/skills/emotion-detector && clawhub publish"`
-- [ ] T016 [US1] moltbook-interact スキルで emotion-detector の宣伝投稿を実行＋post_id を記録: `ssh anicca@100.99.82.95 "openclaw agent --message 'Use moltbook-interact to post a promotional message for emotion-detector x402 service at https://anicca-proxy-staging.up.railway.app/api/x402/emotion-detector' --deliver"`
-- [ ] T017 [US1] to-agents-learning.md に emotion-detector の LearningEntry を append: `ssh anicca@100.99.82.95` で `/Users/anicca/.openclaw/workspace/to-agents/to-agents-learning.md` に追記
-- [ ] T018 [US1] Slack #metrics に完了報告を送信（endpoint_url + clawhub_id + moltbook_post_id）: `ssh anicca@100.99.82.95 "openclaw message send --channel slack --target 'C091G3PKHL2' --message '...'"`
-- [ ] T019 [US1] SKILL.md の produce モードプロンプトを T009〜T018 の実行知識で更新（アウトカム確認後に最終化）: `/Users/anicca/.openclaw/skills/to-agents-skill/SKILL.md`
+- [X] T015 [US1] `clawhub publish` を emotion-detector スキルディレクトリで実行＋結果の clawhub_id を記録: `emotion-detector@1.0.0` (Daisuke134) — bash -l -c でPATH解決済み
+- [X] T016 [US1] moltbook-interact スキルで emotion-detector の宣伝投稿を実行＋post_id を記録: `post_id = 847353cd-747d-4592-b6a7-deaacd699d00`
+- [X] T017 [US1] to-agents-learning.md に emotion-detector の LearningEntry を append: 完了（7件の知見追記）
+- [X] T018 [US1] Slack #metrics に完了報告を送信（endpoint_url + clawhub_id + moltbook_post_id）: curl 直接送信で完了（`ok:true`）
+- [X] T019 [US1] SKILL.md の produce モードプロンプトを T009〜T018 の実行知識で更新: 実行知見セクション追加・emotion-detector カタログを完了済みに更新済み
 
 **US1 完了基準**: quickstart.md の Step 1〜5 が全て ✅
 
@@ -82,11 +82,11 @@
 2. エンドポイント未作成（承認前は何も作らない）
 3. ✅ 反応 → produce モード自動実行
 
-- [ ] T020 [US2] proposals.json の読み書きロジックを SKILL.md discover モードセクションに記述: `/Users/anicca/.openclaw/skills/to-agents-skill/SKILL.md`（カタログから未着手スキルを特定、clawhub search で重複チェック、proposals.json に pending エントリ書き込み）
-- [ ] T021 [P] [US2] discover モードの Slack ブロックメッセージフォーマットを SKILL.md に記述: `/Users/anicca/.openclaw/skills/to-agents-skill/SKILL.md`（skill_name + description + rationale + ✅/❌ 説明）
-- [ ] T022 [US2] discover モードのエンドツーエンド動作確認: `ssh anicca@100.99.82.95 "openclaw agent --message 'Execute to-agents-skill. mode=discover.' --deliver"`
-- [ ] T023 [US2] proposals.json に pending エントリが作成されたことを確認: `ssh anicca@100.99.82.95 "cat /Users/anicca/.openclaw/workspace/to-agents/proposals.json"`
-- [ ] T024 [US2] Slack #metrics への提案メッセージを確認（エンドポイント未作成であることも確認）
+- [X] T020 [US2] proposals.json の読み書きロジックを SKILL.md discover モードセクションに記述: T019 で実装済み（Step 3 read + Step 5 write + JSON schema）
+- [X] T021 [P] [US2] discover モードの Slack ブロックメッセージフォーマットを SKILL.md に記述: T019 で実装済み（Step 4 format with skill_name/description/rationale/✅❌）
+- [X] T022 [US2] discover モードのエンドツーエンド動作確認: gateway bind=loopback に変更後、`openclaw agent --agent anicca --message 'Execute to-agents-skill. mode=discover.' --deliver --reply-channel slack --reply-to "C091G3PKHL2"` で完走（focus-coach提案）
+- [X] T023 [US2] proposals.json に pending エントリが作成されたことを確認: proposal_id=prop-focus-coach-20260224, status=pending, expires_at=2026-02-26
+- [X] T024 [US2] Slack #metrics への提案メッセージを確認（エンドポイント未作成であることも確認）: ts=1771890137.786179 で focus-coach 提案メッセージ到着済み
 
 **US2 完了基準**: Slack に提案メッセージが届き、proposals.json に pending エントリがあり、エンドポイントは存在しない
 

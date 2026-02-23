@@ -1,6 +1,6 @@
 # Feature Specification: x402 Factory Skill (to-agents-skill)
 
-**Feature Branch**: `001-x402-factory`
+**Feature Branch**: `005-x402-factory`
 **Created**: 2026-02-24
 **Status**: Draft
 
