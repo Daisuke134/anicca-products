@@ -177,3 +177,52 @@
 | 6 | Mac Mini への展開は SSH + python3 で直接操作 |
 | 7 | Anicca への指示は SSH + curl + Slack API（`<@U092F27QFMK>` メンション必須） |
 | 8 | ClawHub 公開後に Bazaar に最初の mainnet 取引を発生させる（$1 USDC 送金） |
+
+---
+
+## スキルカタログ（工場が量産する10スキル — 優先順位順）
+
+| 優先度 | スキル名 | エンドポイント | ユースケース | 難易度 |
+|--------|---------|--------------|------------|--------|
+| 1 | emotion-detector | `/api/x402/emotion-detector` | テキストから感情状態を構造化。エージェントの応答トーン決定に | 低 |
+| 2 | focus-coach | `/api/x402/focus-coach` | 集中できない原因を B=MAP で診断。次の30分の tiny action を1つ返す | 低 |
+| 3 | grief-support | `/api/x402/grief-support` | 喪失・別れ。Kübler-Ross 5段階で現在地を診断し段階に合った言葉を返す | 中 |
+| 4 | crisis-detector | `/api/x402/crisis-detector` | 自傷リスクを5段階評価。リソースリスト + 対応スクリプトを返す | 中 |
+| 5 | motivation-booster | `/api/x402/motivation-booster` | Daniel Pink AMP の欠如を診断。不足要素を補う具体行動を返す | 低 |
+| 6 | clarity-coach | `/api/x402/clarity-coach` | 「どうしたらいい?」を Downward Arrow で根本価値観まで掘り下げる | 中 |
+| 7 | habit-debugger | `/api/x402/habit-debugger` | B=MAP で習慣が続かない原因を1つ特定して修正点を返す | 低 |
+| 8 | self-compassion | `/api/x402/self-compassion` | Kristin Neff 3要素で自己批判を和らげる言葉を返す | 低 |
+| 9 | values-compass | `/api/x402/values-compass` | Schwartz 10価値観で核心的価値観を推定し意思決定の羅針盤を返す | 中 |
+| 10 | acceptance-guide | `/api/x402/acceptance-guide` | ACT で変えられるもの/変えられないものを分類し「今できる1歩」を返す | 低 |
+
+**選定基準**: ①苦しみの汎用性が高い ②buddhist-counsel と同じパターンで実装できる ③エージェントが明確に需要を持てる
+
+---
+
+## 改善ループの型（ITERATE フェーズ）
+
+工場は量産だけでなく**既存スキルの改善**も担う。以下が型。
+
+### イテレーション基準（改善トリガー）
+
+| 指標 | 測定方法 | トリガー条件 |
+|------|---------|------------|
+| コール数/日 | Railway ログ集計 | 7日移動平均が前週比 -20% 以下 |
+| 成功率 | Railway ログ集計（200 OK / 全リクエスト） | 95% 未満が3日連続 |
+| Moltbook エンゲージメント | moltbook-interact API | インプレッション/投稿が平均の -50% 以下 |
+
+### 改善サイクル
+
+| ステップ | 何をするか |
+|---------|-----------|
+| MEASURE | 全スキルのコール数/日・成功率・Moltbookエンゲージを集計（週1回月曜） |
+| DIAGNOSE | トリガー発動スキルの直近10リクエストを AgentAuditLog から取得 + Exa で原因調査 |
+| IMPROVE | プロンプト更新 + SKILL.md description のキーワード改訂 → dev push |
+| VERIFY | 7日後に改善前後を比較。改善 → learning.md に追記。改善なし → 廃止候補 |
+
+### 廃止ルール
+
+| 条件 | アクション |
+|------|-----------|
+| 改善後も7日間コール数0 | Slack #metrics で廃止提案 → 承認後 ClawHub unpublish |
+| 廃止スキル数が3 | 工場が代替スキルを1本量産してリプレース |
