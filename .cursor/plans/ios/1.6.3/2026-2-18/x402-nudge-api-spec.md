@@ -472,7 +472,7 @@ apps/api/src/
 | 7 | npm install @x402/evm + ethers + index.js v2.4 書き換え | ✅ 完了 | x402ResourceServer + HTTPFacilitatorClient + ExactEvmScheme。syncFacilitatorOnStart=false |
 | 8 | index.js を monetize-service スキル通りに完全書き直し | ✅ 完了（2026-02-23） | ESM維持（`"type":"module"`プロジェクト）+ `x402ResourceServer`→`@x402/core/server` + `ExactEvmScheme`→`@x402/evm/exact/server` + `HTTPFacilitatorClient({url:...})` + `declareDiscoveryExtension` |
 | 9 | `awal x402 details <staging-url>/api/x402/buddhist-counsel` | ✅ 完了（2026-02-23） | 402 確認済み。method=POST, network=eip155:84532, amount=10000, bazaar extensions 登録済み。route key `'POST /buddhist-counsel'` で正常動作 |
-| 10 | `awal x402 pay <staging-url>/api/x402/buddhist-counsel -X POST -d '{"who_is_suffering":"myself","situation":"test","language":"en"}'` | ⬜ 未 | x402 スキル。実行して 200 確認まで完了禁止 |
+| 10 | `awal x402 pay <staging-url>/api/x402/buddhist-counsel -X POST -d '{"who_is_suffering":"myself","situation":"test","language":"en"}'` | ✅ 完了（2026-02-23） | 200 OK。counsel_id=csl_5e26102b。tx=0x2db3aaf4...。network=eip155:84532 |
 | 11 | `awal x402 bazaar search "buddhist"` で Bazaar 登録確認 | ⬜ 未 | x402 スキル |
 | 12 | `clawhub publish` で ClawHub 公開 | ⬜ 未 | clawhub スキル |
 
