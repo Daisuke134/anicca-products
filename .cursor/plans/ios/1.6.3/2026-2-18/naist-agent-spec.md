@@ -670,70 +670,50 @@ Anicca: NAISTのアカウント情報が必要。
 
 ## 共有ユーティリティ: `slack-approval`
 
-**全スキル（NAIST / mobile-app-factory / その他全て）が使う共通承認ライブラリ。**
+**全スキル（NAIST / mobile-app-factory / その他全て）が使う共通承認パターン。**
 
-### なぜ共有スキルか
+### ソース（コピー元）
 
-| 確認済み事実 | 詳細 |
-|------------|------|
-| `slack-automation`（既存）は使えない | Rube MCP (Composio) 依存。OpenClaw では動作しない |
-| Mac Mini に必要なものは全部揃っている | `SLACK_BOT_TOKEN` + `SLACK_APP_TOKEN`（xapp-...）= Socket Mode ON 確認済み |
-| Block Kit ボタンは今すぐ動く | Socket Mode が WebSocket でボタンクリックを受信するため追加設定ゼロ |
+**オリジナルゼロ。既存スキルをコピーする。**
 
-### ファイル構成
+| スキル | URL | 採用理由 |
+|--------|-----|---------|
+| **`sickn33/antigravity-awesome-skills@slack-bot-builder`** | https://skills.sh/sickn33/antigravity-awesome-skills/slack-bot-builder | 253インストール。Block Kit interactive buttons 実装済み |
+| `linehaul-ai/linehaulai-claude-marketplace@slack-block-kit` | https://skills.sh/linehaul-ai/linehaulai-claude-marketplace/slack-block-kit | Approve/Reject ボタンのサンプル付き |
 
-```
-.claude/skills/slack-approval/
-├── SKILL.md           ← 使い方・呼び出し規約
-└── scripts/
-    ├── send.js        ← Block Kit メッセージ送信
-    └── listen.js      ← ボタンクリック待機（Promise）
-```
+**`npx skills add sickn33/antigravity-awesome-skills@slack-bot-builder` でインストール → SKILL.md を読んでパターンをコピー。**
 
-### 他スキルからの呼び方（1行）
+### 実行環境の整理（重要）
 
-```javascript
-// naist-mail でも、naist-portal でも、mobile-app-factory でも同じ
-const result = await require('../slack-approval/scripts/listen')({
-  channel: 'C091G3PKHL2',      // 送信先チャンネルID
-  title:   '📧 メール返信',
-  detail:  '宛先: 山田教授\n本文: お世話になっております...',
-  timeout: 60                   // 秒（タイムアウト）
-});
+| 実行者 | Block Kit が使えるか | 方法 |
+|--------|-------------------|------|
+| **Claude Code（俺）** | ✅ | `slack-automation`（Rube MCP）で直接実行 |
+| **OpenClaw（Mac Mini Anicca）** | ✅ | `slack` ツール（profile:full）+ SLACK_BOT_TOKEN で直接実行。MCP不要 |
 
-if (result === 'approved') { /* 実行 */ }
-if (result === 'denied')   { /* キャンセル */ }
-if (result === 'timeout')  { /* タイムアウト */ }
-```
+**Rube MCP / mcporter / api-gateway は不要。** Mac Mini に `SLACK_BOT_TOKEN` + `SLACK_APP_TOKEN` が既にある。
 
-### send.js の動作
+### ボタンの動作（`slack-bot-builder` パターンをコピー）
 
 ```
-1. chat.postMessage に blocks: [...] で送信
+1. OpenClaw の slack ツールで blocks 付きメッセージを投稿
          ↓
-2. ボタン付きメッセージが Slack に表示
-   ┌────────────────────────────────┐
-   │  📧 メール返信                   │
-   │  宛先: 山田教授                  │
-   │  本文: お世話になっております...  │
-   │                                │
-   │  [✅ 実行する]  [❌ キャンセル]   │
-   └────────────────────────────────┘
+2. Slack に表示
+   ┌─────────────────────────────────┐
+   │  📧 メール返信                    │
+   │  宛先: 山田教授                   │
+   │  本文: お世話になっております...   │
+   │                                 │
+   │  [✅ 実行する]  [❌ キャンセル]    │
+   └─────────────────────────────────┘
+         ↓
+3. ユーザーがボタンを押す
+         ↓
+4. Socket Mode（SLACK_APP_TOKEN）が block_actions を受信
+   allow_once → 実行 → chat.update で「✅ 実行しました」
+   deny       → 停止 → chat.update で「❌ キャンセルしました」
 ```
 
-### listen.js の動作
-
-```
-Socket Mode（WebSocket）で block_actions イベントを待機
-         ↓
-ユーザーが押したボタンの action_id を受信
-  allow_once → 'approved' を返す
-  deny       → 'denied'  を返す
-  timeout    → 'timeout' を返す（60秒で自動タイムアウト）
-         ↓
-chat.update でボタンを無効化（二重押し防止）
-  [✅ 実行しました]  or  [❌ キャンセルしました]
-```
+**戻り値は `approved` / `denied` の2択のみ。timeout なし。**
 
 ### 適用スキル一覧
 
@@ -744,7 +724,7 @@ chat.update でボタンを無効化（二重押し防止）
 | `naist-wiki` | Notion書き込み |
 | `skill-for-you` | スキルインストール |
 | `mobile-app-factory` | ビルド実行・デプロイ・ストア提出 |
-| **全ての新規スキル** | 外部への書き込み・送信・投稿を伴う操作 |
+| **全ての新規スキル** | 外部への書き込み・送信・投稿を伴う全操作 |
 
 ### 実装順序
 
@@ -752,7 +732,7 @@ chat.update でボタンを無効化（二重押し防止）
 
 | # | タスク | 状態 |
 |---|--------|------|
-| 0 | `slack-approval` 作成（send.js + listen.js） | ⏳ **最優先** |
+| 0 | `slack-bot-builder` インストール → Block Kit パターンをコピーして `slack-approval` として配置 | ⏳ **最優先** |
 | 1 | `naist-onboarding` でテスト | ⏳ |
 | 2〜 | 残り全スキルで流用 | ⏳ |
 
@@ -765,10 +745,11 @@ chat.update でボタンを無効化（二重押し防止）
 | # | パターン | いつ使う | 実装 |
 |---|---------|---------|------|
 | 1 | **チャット直接実行** | ユーザーが明示的に指示した場合 | 設定不要。デフォルト |
-| 2 | **`slack-approval`（共有スキル）** | 外部書き込み・送信・インストール等の重要操作 | `require('../slack-approval/scripts/listen')` |
+| 2 | **Block Kit Buttons** | 外部書き込み・送信・インストール等の重要操作 | `sickn33/slack-bot-builder` パターンをコピー |
 | 3 | **Emoji Reaction（👍/👎）** | 軽量な確認（cron の有効化等） | Slack reactions.get でポーリング |
 
 **`request-approval`（ClawHub）は使わない。** Preloop MCP サーバーが必要で OpenClaw 非対応。
+**戻り値は `approved` / `denied` の2択のみ。timeout なし。**
 
 ### Block Kit 送信テンプレート（send.js 内部）
 
