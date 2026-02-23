@@ -299,6 +299,25 @@ asc subscriptions localizations create --subscription-id "<MONTHLY_ID>" \
 ```
 
 ### PHASE 7: IAP REVIEW SCREENSHOT
+
+> **★ 半自動フェーズ（絶対に読め）**
+> | ステップ | 実行者 | 理由 |
+> |---------|--------|------|
+> | Step 1: 撮影 | **エージェントが自動実行** | simctl + axe CLI で完結 |
+> | Step 2: アップロード | **ユーザーが手動実行（必須）** | Apple Upload API が全形式で broken |
+>
+> **エージェントへの禁止事項:**
+> - 「自動アップロードできます」と言うな → 嘘になる
+> - 「APIで試してみます」と言うな → 全部 FAILED が確定している
+> - Step 2 をスキップするな → PHASE 8 の READY_TO_SUBMIT が永遠に来ない
+>
+> **検証済み失敗リスト（2026-02-24）:**
+> - `asc subscriptions images create` → FAILED (width:0, height:0)
+> - Python 直接 API → FAILED
+> - S3 CompleteMultipartUpload → 403 Access Denied
+>
+> **唯一の確実な方法: ASC Web から手動アップロード（Step 2）**
+
 ```
 ⚠️ 重要: asc CLI / API 経由のアップロードは動作しない（2026-02-24 検証済み）
   - `asc subscriptions images create` → FAILED (width:0, height:0)
@@ -308,7 +327,7 @@ asc subscriptions localizations create --subscription-id "<MONTHLY_ID>" \
 唯一の確実な方法: ASC Web から手動アップロード
 ```
 
-**ステップ 1: スクリーンショット画像を準備**
+**ステップ 1: スクリーンショット画像を準備（自動）**
 ```bash
 # シミュレータでペイウォール画面を撮影
 xcrun simctl boot "<UDID>" || true
@@ -319,7 +338,7 @@ axe screenshot --output "./paywall-review.png" --udid "<UDID>"
 # 必要なら convert コマンドで JPEG 変換（900x1956 推奨）
 ```
 
-**ステップ 2: ASC Web から手動アップロード（必須）**
+**ステップ 2: ASC Web から手動アップロード（必須 — ユーザーが実行）**
 ```
 1. https://appstoreconnect.apple.com にアクセス
 2. Apps → [対象アプリ] → In-App Purchases
