@@ -375,6 +375,46 @@ openclaw cron add paywall-experiment-loop
 
 ---
 
+---
+
+## Figma → RC 連携の正しいやり方（2026-02-24 追記）
+
+### 問題の根本原因
+
+| 問題 | 原因 |
+|------|------|
+| HTML → Figma キャプチャが 1502×932 になる | ブラウザ viewport 全体をキャプチャする。CSS `width: 430px` はウィンドウを変えない |
+| RC Figma plugin が動かない | HTML-to-Figma キャプチャは**フラットな視覚レンダリング**を作る。Figma Auto Layout がない。RC plugin は Auto Layout 必須 |
+
+ソース: RevenueCat公式 / 「Your paywall designs must use Figma auto layout to be imported correctly.」
+
+### 正しいアプローチ
+
+**CSS flexbox → Figma Auto Layout 変換を利用する。**
+
+html-to-design スクリプトは CSS `display: flex; flex-direction: column` を Figma Auto Layout に変換する。これが正しく動けば RC plugin が認識できる構造になる。
+
+加えて、**HTML の `id` 属性が Figma のレイヤー名**になる。RC plugin は以下の特殊レイヤー名を必須とする:
+
+| RC コンポーネント | Figma レイヤー名 | HTML に必要な id |
+|-----------------|----------------|----------------|
+| Purchase Button | `Purchase Button` | `id="Purchase Button"` |
+| Footer | `Footer` | `id="Footer"` |
+| Package | `Package` | `id="Package"` |
+| Text, Image, Stack | 自動認識（命名不要） | - |
+
+### 修正済み HTML の要件
+
+1. `.paywall` div に `display: flex; flex-direction: column` (✅ 既に実装済み)
+2. CTA ボタン div に `id="Purchase Button"` を追加
+3. フッター（terms行）に `id="Footer"` を追加
+4. キャプチャ URL に `&figmaselector=.paywall` を付けて 430×932 に絞る
+
+### サイズについて
+
+RC Figma plugin はフレームの**絶対ピクセルサイズを気にしない**。コンポーネントツリーと Auto Layout のみを読む。ただし 430×932 で揃えると Figma 上のプレビューが正確になる。
+
 ## Changelog
 
 - 2026-02-12: v1.0 初版作成
+- 2026-02-24: Figma → RC 連携の根本問題と正しいアプローチを追記
