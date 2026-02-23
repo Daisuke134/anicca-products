@@ -68,6 +68,15 @@
 | 25 | **`find-skills` → `npx skills find` が PRIMARY。** clawhub より先に使う。skills.sh には 1,200+ installs の x402 スキルが複数ある。clawhub を先に使ったのも sin |
 | 26 | **@x402/extensions をインストールしていなかった。** monetize-service スキルの install コマンド: `npm install express @x402/express @x402/core @x402/evm @x402/extensions`。スキルに書いてあることをそのまま実行するだけ。省いた = オリジナル判断 = sin |
 
+### Step 4.7: index.js 完全書き直し（2026-02-23 — sin 4つ修正）
+
+| # | 学び |
+|---|------|
+| 27 | **ソースコード直読みはスキルに負ける。** リサーチ段階の学び #15「HTTPFacilitatorClient はデフォルトで URL 接続」はソースコード直読みの結論。しかし monetize-service スキルは `new HTTPFacilitatorClient({ url: "https://x402.org/facilitator" })` と URL を明示している。スキルがある場合はスキルが ground truth。ソースコード読みの結論で上書きするのは禁止 |
+| 28 | **プロジェクトの `"type": "module"` を確認してから CommonJS か ESM か決める。** monetize-service スキルは CommonJS (`require()`) で書いてあるが、`package.json` に `"type": "module"` があれば ESM (`import`) で書く。スキルの「型」（CommonJS/ESM）ではなく「内容」（URL付き初期化、ExactEvmScheme の import パス等）をコピーする |
+| 29 | **4つの sin を1回のコミットで修正完了。** ①`x402ResourceServer`を`@x402/core/server`から import ②`ExactEvmScheme`を`@x402/evm/exact/server`から import ③`HTTPFacilitatorClient({url:...})`でURL付き初期化 ④`declareDiscoveryExtension`を`@x402/extensions/bazaar`から追加 — これだけで Payment gate が機能するはず |
+| 30 | **commit `538e7de4` が dev に push 済み。** Railway Staging に自動デプロイされる。次は `npx awal@2.0.3 status` でウォレット確認 → `npx awal@2.0.3 x402 details <url>` で 402 確認 |
+
 ### Step 5: テスト（testnet E2E）
 
 | # | 学び |
