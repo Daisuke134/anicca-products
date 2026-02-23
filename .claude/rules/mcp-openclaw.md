@@ -70,23 +70,23 @@ user-revenuecat-mcp_RC_attach_products_to_package: {
 - `SLACK_BOT_TOKEN` - Anicca Bot Token
 - `SLACK_APP_TOKEN` - Socket Mode Token
 
-## OpenClaw（Anicca）— VPS 稼働中
+## OpenClaw（Anicca）— Mac Mini 稼働中
 
-**現状（2026-02-06）:**
-- Gateway: VPS (46.225.70.241) で24時間稼働中
+**現状（2026-02-23 更新）:**
+- Gateway: Mac Mini (anicca-mac-mini-1) で24時間稼働中
 - Profile: **full**（全ツール有効: fs, exec, memory, slack, cron, web_search, browser等）
-- エージェント: GPT-4o
+- エージェント: Claude (Anthropic)
 - Slack: 全チャンネル許可（groupPolicy: open）
-- Cron: 毎朝5:00 JST メトリクスレポート + ミーティングリマインダー
+
+**VPS (46.225.70.241) は使わない。2026-02-18 に Mac Mini に移行完了済み。**
 
 | 項目 | 値 |
 |------|-----|
-| **VPS IP** | `46.225.70.241`（`ssh anicca@46.225.70.241`） |
-| Config | `/home/anicca/.openclaw/openclaw.json` |
-| Env | `/home/anicca/.env`（systemd EnvironmentFile経由） |
-| Skills | `/usr/lib/node_modules/openclaw/skills/` |
-| Logs | `/home/anicca/.openclaw/logs/` |
-| Cron | `/home/anicca/.openclaw/cron/jobs.json` |
+| **Mac Mini** | anicca-mac-mini-1（Tailscale: `100.99.82.95`） |
+| **MacBook SSH** | `ssh cbns03@100.108.140.123` |
+| Config | `/Users/anicca/.openclaw/openclaw.json` |
+| Skills | OpenClaw インストール先の `skills/` |
+| Cron | `/Users/anicca/.openclaw/cron/jobs.json` |
 
 **Anicca への指示方法（2種類）:**
 
@@ -97,17 +97,15 @@ user-revenuecat-mcp_RC_attach_products_to_package: {
 
 **Gateway 再起動（設定変更後のみ必要）:**
 ```bash
-ssh anicca@46.225.70.241
-export XDG_RUNTIME_DIR=/run/user/$(id -u)
-systemctl --user restart openclaw-gateway
+# Mac Mini 上で
+openclaw gateway restart
 ```
 
 **重要ルール:**
-- **Gateway再起動は `openclaw.json` や `.env` 変更時のみ**（クラッシュ時はsystemd自動復帰）
+- **Gateway再起動は `openclaw.json` や `.env` 変更時のみ**
 - **MCP ツール（`mcp__*`）は OpenClaw では使えない**（Claude Code専用）
 - **Slack投稿は `slack` ツール（profile:full で有効）または `exec` + CLI**
 
 **参照:**
 - **Spec:** `.cursor/plans/ios/1.6.1/openclaw/anicca-openclaw-spec.md`
-- **Secrets:** `.cursor/plans/reference/secrets.md`（VPS情報あり）
 - **学び:** `.cursor/plans/reference/openclaw-learnings.md`

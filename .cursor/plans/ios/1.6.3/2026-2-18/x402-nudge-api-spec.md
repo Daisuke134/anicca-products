@@ -3,6 +3,8 @@
 **作成日**: 2026-02-18
 **更新日**: 2026-02-23（v2 API 修正・OpenAI 切替・x402-skill-marketer 追加・Bazaar extensions.bazaar 対応・.well-known/x402.json 追加）
 
+/Users/cbns03/Downloads/anicca-project/.cursor/plans/ios/1.6.3/2026-2-18/to-agents-learning.md=> Update this all times as you keep learning. As you keep learning, building the agent, building the skill, keep learning here. Keep learning here. Keep updating this. Keep adding. Keep adding.  to-agents-skill（工場）設計・実装    Going to be important for this. Going to be important for making the factory. 
+
 ---
 
 ## 概要（What & Why）
