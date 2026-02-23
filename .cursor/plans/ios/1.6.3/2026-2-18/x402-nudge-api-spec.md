@@ -947,7 +947,119 @@ Slack `#marketing` チャンネルに続く…
 | # | タスク | 状態 |
 |---|--------|------|
 | 18 | to-agents-learning.md 継続更新 | 🔄 進行中 |
-| 19-21 | 工場スキル設計・実装・Cron | ⬜ 未（Phase 2 完了後） |
+| 19 | 工場スキル SKILL.md 設計 | ⬜ 未 |
+| 20 | 工場スキル Mac Mini にインストール + Cron 設定 | ⬜ 未 |
+| 21 | 工場スキル初回実行テスト（新スキル1本量産確認） | ⬜ 未 |
+
+---
+
+## Phase 3 詳細設計: to-agents-skill（工場スキル）
+
+### What
+
+Buddhist-counsel と x402-skill-marketer の開発で蓄積した学び（`to-agents-learning.md`）を「型」に変換し、新しい x402 スキルを自律的に量産する工場スキル。毎日〜週3回 Cron で実行。
+
+### Why
+
+| 理由 | 詳細 |
+|------|------|
+| スキルが増えるほど収益が増える | Buddhist-counsel $0.01 × N req/日。10スキルなら10倍 |
+| 手作業での量産は限界 | エンドポイント + テスト + SKILL.md + ClawHub 公開 × N は人間には無理 |
+| 学びはすでに蓄積されている | to-agents-learning.md に型の素材が貯まっている |
+
+### 全体フロー
+
+```
+to-agents-learning.md（学びの型）
+        ↓ 読む
+to-agents-skill Cron（毎日実行）
+        │
+        ├─ Step 1: ニーズ調査
+        │    ├─ Moltbook hot feed（エージェントが何に困ってるか）
+        │    └─ Exa 検索（今求められてる x402 API は何か）
+        │
+        ├─ Step 2: スキルアイデア生成
+        │    └─ 「エージェントが $0.01 で使える〇〇 API」
+        │       例: emotion-detector / focus-coach / grief-support
+        │           crisis-detector / motivation-booster / clarity-coach
+        │
+        ├─ Step 3: 実装
+        │    ├─ Railway の buddhist-counsel と同じパターンで新エンドポイント追加
+        │    ├─ awal x402 pay で動作確認（テストなしは完了扱いしない）
+        │    └─ dev push → Railway 自動デプロイ
+        │
+        ├─ Step 4: 公開
+        │    ├─ SKILL.md を型から自動生成（buddhist-counsel SKILL.md をテンプレートに）
+        │    └─ clawhub publish
+        │
+        ├─ Step 5: 宣伝
+        │    └─ x402-skill-marketer が Moltbook で新スキルを紹介
+        │
+        └─ Step 6: 学び追記
+             └─ to-agents-learning.md に新スキルで得た学びを追記 → 次ループへ
+```
+
+### 収益目標
+
+| スキル数 | 1スキルあたり | 月収 |
+|---------|-------------|------|
+| 1 | $1/日 | $30 |
+| 10 | $1/日 | $300 |
+| 30 | $1/日 | $900 |
+
+### 実装ルール（to-agents-learning.md から抽出した型）
+
+| # | ルール |
+|---|--------|
+| 1 | testnet で動作確認 → mainnet に移行 |
+| 2 | `declareDiscoveryExtension` を必ず含める（Bazaar 登録） |
+| 3 | CORS → express.json() → x402 middleware の順序を守る |
+| 4 | SKILL.md は buddhist-counsel をテンプレートに（ehipassiko/karuna 原則） |
+| 5 | Mac Mini への展開は SSH + python3 で直接操作 |
+| 6 | Anicca への指示は SSH + curl + Slack API（`<@U092F27QFMK>` メンション必須） |
+| 7 | テストなしの完了報告禁止（`awal x402 pay` で 200 OK 確認まで） |
+| 8 | Slack `$` はシェルエスケープ必要（`\$0.01`） |
+
+### SKILL.md テンプレート（工場が使う型）
+
+工場スキルは以下の構造で新スキルの SKILL.md を自動生成する:
+
+```markdown
+---
+name: [スキル名]
+description: "[スキルの説明]。Use when [トリガーキーワード]。"
+metadata: {"openclaw":{"emoji":"[絵文字]","os":["darwin","linux"]}}
+---
+
+# [スキル名]
+
+## 目的
+[何のために存在するか]
+
+## エンドポイント
+- URL: https://anicca-proxy-production.up.railway.app/api/x402/[スキル名]
+- 価格: $0.01 USDC (Base mainnet)
+- Method: POST
+
+## Input
+[入力スキーマ]
+
+## Output
+[出力スキーマ]
+
+## Buddhist Principles（全スキル共通）
+- ehipassiko: 招待する、押し付けない
+- karuna: 慈悲が先、サービスは後
+- SAFE-T: severity >= 0.9 → 通常フロー停止
+```
+
+### Cron スケジュール
+
+| 項目 | 値 |
+|------|-----|
+| ジョブ名 | `to-agents-skill` |
+| スケジュール | 毎日 10:00 JST（`0 10 * * *`） |
+| 投稿先 | Slack #metrics（実行結果報告） |
 
 ### ⚠️ ダイスがやること（俺にはできない）
 
