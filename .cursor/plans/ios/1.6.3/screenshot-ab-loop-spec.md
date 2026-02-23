@@ -70,35 +70,32 @@ PHASE 3: 新ヘッドライン生成
   入力: 過去の勝ちパターン + 負けパターン
   ループ: 生成→採点→改善（最大5回）→ 8/10以上で確定
 
-PHASE 4: スクショ撮影（RAW PNG）
-  asc-shots-pipeline:
-    simctl でシミュレータ起動
-    AXe で各画面に移動
-    RAW PNG 撮影（3枚: 画面1・画面2・画面3）
+PHASE 4: スクショ生成（l.md Bible 全体）
+  screenshots.yaml の caption.title を確定ヘッドラインで更新
+  make generate-store-screenshots
+    → XCUITest でシミュレータ起動 → アプリ実画面撮影
+    → xcresulttool で .xcresult から PNG 抽出 → raw/
+    → process_screenshots.py でキャンバス+テキスト+ベゼル合成
+    → processed/（1290×2796 PNG 3枚）
 
-PHASE 5: ヘッドライン合成
-  PIL（Pillow）スクリプト:
-    RAW PNG + 確定ヘッドライン → candidate_v{N}.png
-
-PHASE 6: ベストプラクティス採点（visual-qa）
+PHASE 5: ベストプラクティス採点（visual-qa）
   プロンプト（app-store-screenshots BPを注入）:
     - 1枚目はコア価値を伝えているか？
     - キャプションは2行以内でベネフィット型か？
     - フォントは読みやすいか（30pt以上相当）？
     - First 3 Ruleを満たしているか？
   │
-  ├─ 8/10以上 → PASS → PHASE 7へ
+  ├─ 8/10以上 → PASS → PHASE 6へ
   └─ 7/10以下 → FAIL → PHASE 3に戻る（最大3回）
        3回失敗 → Slack警告 → EXIT
 
-PHASE 7: 人間レビュー（最終承認ゲート）← asc-shots-pipeline の review を使う
-  asc screenshots review-generate（フレーム付きPNGからHTMLプレビュー生成）
-  asc screenshots review-open（ブラウザで開く）
-  → ダイスがブラウザで目視確認
-  → OK: asc screenshots review-approve --all-ready
-  → NG: PHASE 3に戻る（ヘッドライン・デザイン修正）
+PHASE 6: Slack に出力を送る
+  processed/ の PNG 3枚を #metrics チャンネルに投稿
+  → ダイスが目視確認する
+  → ダイスが OK を出したら → PHASE 7へ
+  → ダイスが NG を出したら → PHASE 3に戻る
 
-PHASE 8: ASCアップロード・実験開始
+PHASE 7: ASCアップロード・実験開始
   asc screenshots upload → App Store Connect
   experiments.json に新実験を追記
   Slack通知: 「新実験開始: v{N} vs v{N-1}（前回勝者）」
@@ -271,6 +268,9 @@ apps/api/scripts/screenshot-loop/
 ├── visual_check.py              ← visual-qa + BP採点
 ├── upload.py                    ← ASCアップロード
 ├── experiments.json             ← 実験ログ（SSOT）
+│     MacBook（ローカルテスト）: /Users/cbns03/Downloads/anicca-project/.cursor/plans/ios/1.6.3/screenshot-ab-pil/experiments.json
+│     Mac Mini（Anicca 本番）:  /Users/anicca/.openclaw/workspace/screenshot-ab/experiments.json
+│     ※ ローカルテスト完了後、Mac Mini パスに切り替えてから Anicca に渡す
 └── docs/screenshots/            ← l.md Bible ディレクトリ構造
     ├── config/
     │   └── screenshots.yaml     ← YAML駆動設定（テキスト・色・フォント・レイアウト）
