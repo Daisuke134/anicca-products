@@ -21,8 +21,8 @@ App Store のスクリーンショットを毎日自動でメトリクス確認 
 | **メトリクス取得** | ASC CLI（`asc experiments list`） |
 | **実験ログ管理** | `experiments.json`（ローカルJSON） |
 | **ヘッドライン生成・採点** | `recursive-improver`（プリセット: aso-description） |
-| **スクショ撮影** | `asc-shots-pipeline`（simctl + AXe） |
-| **ヘッドライン合成** | Python Pillow（PIL）スクリプト |
+| **スクショ撮影** | `xcrun simctl io booted screenshot`（raw PNG取得のみ） |
+| **ヘッドライン合成** | `process_screenshots.py` + `screenshots.yaml`（l.md Bible 100%） |
 | **ベストプラクティス採点** | `visual-qa` + `app-store-screenshots` BPを注入 |
 | **ASCアップロード** | `asc screenshots upload` |
 | **Slack通知** | OpenClaw slack ツール |
@@ -151,65 +151,68 @@ PHASE 8: ASCアップロード・実験開始
 
 ---
 
-## スクリーンショット格納ディレクトリ
+## スクリーンショット格納ディレクトリ（l.md Bible）
 
 ```
-screenshots/
-├── raw/          ← asc-shots-pipelineが出力したRAW PNG
-├── candidate/    ← PIL合成後（ヘッドライン入り）
-├── running/      ← 現在実験中のスクショ
-└── archive/      ← 過去の実験スクショ（実験ID別）
-    ├── v1/
-    ├── v2/
-    └── v3/
+docs/screenshots/
+├── config/
+│   └── screenshots.yaml        ← YAML駆動設定（テキスト・色・フォント・レイアウト）
+├── scripts/
+│   ├── extract_screenshots.py  ← xcresulttoolで.xcresultから画像抽出
+│   └── process_screenshots.py  ← PIL合成（キャンバス+テキスト+ベゼル）
+├── resources/
+│   └── iphone17_bezel.png      ← Apple Design Resources（公式素材）
+├── raw/                        ← XCUITest撮影した生PNG
+└── processed/                  ← 加工済み（ストア提出用）
 ```
+
+ソース: l.md（KOE app） / 核心の引用: 「YAML駆動で変更に強く。文言修正や色変更のたびにPythonコードを触る必要がなくなります」
 
 ---
 
-## compose.py 実装ルール（PIL合成スクリプト）
+## process_screenshots.py 実装ルール（l.md Bible 100%）
+
+ソース: l.md（KOE app日本人開発者の実運用パイプライン） / 核心の引用: 「採用したレイアウト戦略: 上部エリア（0〜1000px）: キャッチコピーとサブタイトル / 下部エリア（1200〜2796px）: デバイスフレームとスクリーンショット」
 
 ```
-キャンバス設計（絶対固定）:
-  サイズ: 1320 × 2868 px
-  ─ 固定ゾーン禁止。動的レイアウトを使う ─
+キャンバス設計（l.md固定値）:
+  サイズ: 1290 × 2796 px（App Store iPhone 6.7インチ正確値）
+  背景色: #F5F5F7（Apple公式ライトグレー）
+  テキスト色: #1D1D1F
+  波装飾色: #E8E8EA
 
-動的レイアウト（v4以降）:
-  MARGIN_TOP: 80px（ヘッドライン上余白）
-  HEADLINE_PHONE_GAP: 60px（ヘッドライン下端 → Phone上端）
-  PHONE_CAPTION_GAP: 60px（Phone下端 → キャプション上端）
-  MARGIN_BOTTOM: 80px（キャプション下余白）
+レイアウト（固定・変更禁止）:
+  上部エリア 0〜1000px: title + subtitle
+    text_x: 100px
+    text_y: 200px（title）
+    subtitle_y: 450px（text_y + 250px）
+  下部エリア 1200〜2796px: デバイスフレーム
+    device_x: center（自動計算: (canvas.width - bezel.width) // 2）
+    device_y: 1200px
 
-  手順:
-    1. ヘッドラインを wrap_width=1000px で描画、実際の高さ headline_h を計算
-    2. iPhoneフレームを最大高さ max_phone_h に収まるようスケール
-       max_phone_h = 2868 - MARGIN_TOP - headline_h - HEADLINE_PHONE_GAP
-                         - PHONE_CAPTION_GAP - caption_h - MARGIN_BOTTOM
-    3. headline_y = MARGIN_TOP（中央揃えはx軸のみ）
-    4. phone_y = MARGIN_TOP + headline_h + HEADLINE_PHONE_GAP
-    5. caption_y = phone_y + phone_scaled_h + PHONE_CAPTION_GAP
+フォント（screenshots.yamlで定義）:
+  title: Bold 100px（Helvetica / SF Pro Displayフォールバック可）
+  subtitle: Regular 48px
 
-フォント:
-  ヘッドライン: 固定 110px Bold（fit_textは禁止、全枚同じサイズ）
-    └─ 使用フォント候補: /System/Library/Fonts/Helvetica.ttc weight=Bold (index=1)
-    └─ 代替: /Library/Fonts/Arial Bold.ttf
-    └─ wrap_width: 1000px（窮屈にならない幅）
-  キャプション: 固定 55px Regular
+デバイスフレーム合成（composite_device_frame）:
+  bezel_path: resources/iphone17_bezel.png（Apple Design Resources公式素材）
+  bezel_offset_x: 60px（ベゼル左端→画面開始位置）
+  bezel_offset_y: 60px（ベゼル上端→画面開始位置）
+  ※ numpy/remove_bg禁止。Koubou（asc screenshots frame）禁止。
+  ※ l.md方式: bezel.paste(screenshot, offset) → canvas.paste(bezel, (x,y), bezel)
 
-iPhoneフレーム処理:
-  Koubouが出力するフレームPNGはoffwhite背景込み
-  → 背景(#F5F2EE付近, tolerance=30)をnumpyでアルファマスク透過化してから貼る
-  → canvas背景はAniccaブランドカラーグラデーション
+背景装飾（draw_panoramic_wave）:
+  sin関数で複数スクショ横並び時に繋がる波形を描画
+  global_offset = screen_index * width で全体座標計算
+  ※ 暗色グラデーション禁止。背景は#F5F5F7固定。
 
-背景グラデーション:
-  #0D1117（上）→ #1a1f35（下）の縦グラデ
+YAML駆動（screenshots.yaml）:
+  全設計値はYAMLに外出し。Pythonコードは触らない。
+  コピー変更 → screenshotsのcaption.title/subtitleだけ編集して make generate-store-screenshots
 
-3枚の統一ルール:
-  - フォントサイズ: 全枚 110px（絶対に変えない）
-  - フォントウェイト: 全枚 Bold
-  - テキストカラー: 全枚 白 #FFFFFF
-  - 背景: 全枚 同じグラデーション
-  - キャプション: 全枚あり
-  - wrap_width: 全枚 1000px
+Makefile統合:
+  make generate-store-screenshots
+  = XCUITest撮影 → xcresulttool抽出 → process_screenshots.py加工 → 完了
 ```
 
 ## 各スクショのコンテンツ定義
@@ -261,14 +264,23 @@ Critical Issues: [リスト]
 
 ```
 apps/api/scripts/screenshot-loop/
-├── main.py              ← ループ全体のオーケストレーター
-├── metrics.py           ← ASC CLIでメトリクス取得・判定
-├── headline_gen.py      ← recursive-improverへの橋渡し
-├── capture.py           ← asc-shots-pipeline呼び出し
-├── compose.py           ← PIL ヘッドライン合成
-├── visual_check.py      ← visual-qa + BP採点
-├── upload.py            ← ASCアップロード
-└── experiments.json     ← 実験ログ（SSOT）
+├── main.py                      ← ループ全体のオーケストレーター
+├── metrics.py                   ← ASC CLIでメトリクス取得・判定
+├── headline_gen.py              ← recursive-improverへの橋渡し
+├── capture.py                   ← xcrun simctl io booted screenshot（raw PNG取得のみ）
+├── visual_check.py              ← visual-qa + BP採点
+├── upload.py                    ← ASCアップロード
+├── experiments.json             ← 実験ログ（SSOT）
+└── docs/screenshots/            ← l.md Bible ディレクトリ構造
+    ├── config/
+    │   └── screenshots.yaml     ← YAML駆動設定（テキスト・色・フォント・レイアウト）
+    ├── scripts/
+    │   ├── extract_screenshots.py  ← xcresulttoolで.xcresultから画像抽出
+    │   └── process_screenshots.py  ← PIL合成（キャンバス+テキスト+ベゼル）
+    ├── resources/
+    │   └── iphone17_bezel.png   ← Apple Design Resources（公式素材）
+    ├── raw/                     ← 生PNG
+    └── processed/               ← 加工済み（ストア提出用）
 ```
 
 ---
