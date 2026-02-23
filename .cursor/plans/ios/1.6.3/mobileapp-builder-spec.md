@@ -166,7 +166,7 @@ INPUT: spec.md
     ▼
 ┌─────────────────────────────────────────────────────────┐
 │ PHASE 9: APP ASSETS                                      │
-│  アイコン: Pencil MCP で 1024×1024 生成                   │
+│  アイコン: DALL-E 3（OPENAI_API_KEY）で 1024×1024 生成    │
 │  スクショ3枚: PIL で生成                                   │
 │    1枚目: benefit（ペイン直撃コピー）                      │
 │    2枚目: social proof                                    │
