@@ -161,3 +161,4 @@ __pycache__/
 client_secret_*.json
 openclaw-vps-backup-20260214.tar.gz
 openclaw/openclaw.json
+.build/
