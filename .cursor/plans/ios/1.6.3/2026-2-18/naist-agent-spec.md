@@ -678,19 +678,20 @@ Anicca: NAISTのアカウント情報が必要。
 
 | スキル | URL | 採用理由 |
 |--------|-----|---------|
-| **`sickn33/antigravity-awesome-skills@slack-bot-builder`** | https://skills.sh/sickn33/antigravity-awesome-skills/slack-bot-builder | 253インストール。Block Kit interactive buttons 実装済み |
-| `linehaul-ai/linehaulai-claude-marketplace@slack-block-kit` | https://skills.sh/linehaul-ai/linehaulai-claude-marketplace/slack-block-kit | Approve/Reject ボタンのサンプル付き |
+| **`sickn33/antigravity-awesome-skills@slack-bot-builder`** | https://skills.sh/sickn33/antigravity-awesome-skills/slack-bot-builder | **253インストール。Block Kit interactive buttons + Approve/Reject パターン実装済み。これ一択** |
 
 **`npx skills add sickn33/antigravity-awesome-skills@slack-bot-builder` でインストール → SKILL.md を読んでパターンをコピー。**
 
-### 実行環境の整理（重要）
+### 実行環境
 
-| 実行者 | Block Kit が使えるか | 方法 |
-|--------|-------------------|------|
-| **Claude Code（俺）** | ✅ | `slack-automation`（Rube MCP）で直接実行 |
-| **OpenClaw（Mac Mini Anicca）** | ✅ | `slack` ツール（profile:full）+ SLACK_BOT_TOKEN で直接実行。MCP不要 |
+**OpenClaw（Mac Mini Anicca）が全て直接実行する。Claude Code は経由しない。**
 
-**Rube MCP / mcporter / api-gateway は不要。** Mac Mini に `SLACK_BOT_TOKEN` + `SLACK_APP_TOKEN` が既にある。
+| 項目 | 値 |
+|------|-----|
+| 送信 | OpenClaw `slack` ツール（profile:full）+ `SLACK_BOT_TOKEN` |
+| 受信 | Socket Mode + `SLACK_APP_TOKEN`（xapp-...）→ `block_actions` イベント |
+| Claude Code の役割 | 開発時のみ。Mac Mini の 24/7 実行とは無関係 |
+| Rube MCP / mcporter | **不要**。Mac Mini に token が既にある |
 
 ### ボタンの動作（`slack-bot-builder` パターンをコピー）
 
