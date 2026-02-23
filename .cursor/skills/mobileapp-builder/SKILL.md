@@ -45,6 +45,10 @@ See `references/spec-template.md` for the full spec.md format.
 | 11 | **Paywall コピーは必ずコードから実機能を確認してから書く**。存在しない機能を訴求するのは罪（Apple レビュー違反 + ユーザー詐欺）。`FreePlanService.swift`, `SubscriptionManager.swift` を必ず読め |
 | 12 | **Mixpanel 必須**。全新規アプリに Mixpanel SDK を組み込み、`paywall_viewed`（`offering_id` プロパティ付き）を送信すること。Mixpanel なしでは paywall-ab スキルによる A/B 評価が不可能 |
 | 13 | **RevenueCat → Mixpanel 連携必須**。RC Dashboard で「Send data to Mixpanel」を有効化し、`presented_offering_id` が `rc_trial_started_event` に含まれることを確認すること。未設定 = A/B 変換追跡ゼロ |
+| 14 | **スクショ撮影シミュレータは iPhone SE 3rd gen 必須**。iPhone 14+ は Dynamic Island（黒い丸）が写り込む。`xcrun simctl list devices | grep "SE (3rd"` で UDID を確認して使う |
+| 15 | **Pencil テキストノードに `width: "fill_container"` 必須**。未設定だとテキストがフレーム外にはみ出す。日本語ヘッドラインの `fontSize` は **22以下**（28は14文字でオーバーフロー） |
+| 16 | **Pencil 画像キャッシュ問題**。同じパスのファイルを上書きしても Pencil はキャッシュした旧版を使い続ける。画像差し替え時は**必ず新しいファイル名**を使うこと |
+| 17 | **`mcp__pencil__get_screenshot` はディスクに保存しない**。返ってくるのは MCP レスポンス内の base64 のみ。ASC アップロード用ファイルは別途シミュレータから `xcrun simctl io` で取得すること |
 
 ---
 
@@ -542,10 +546,34 @@ cp /tmp/icon-final.png \
 
 #### Step 2: スクショ生成（screenshot-creator スキル）
 
-→ `.claude/skills/screenshot-creator/SKILL.md` を読んで Step 1〜7 を実行する
+→ `.claude/skills/screenshot-creator/SKILL.md` を読んで Step 0〜7 を実行する
   （A/B テストではなく新規生成のため、screenshot-ab の PHASE 1/2 はスキップ）
 
+**⚠️ Pencil 設計の絶対ルール（違反 = テキスト崩れ / 画像表示バグ）:**
+
+| ルール | 理由 |
+|--------|------|
+| テキストノードに必ず `width: "fill_container"` | 未設定だとフレーム外にはみ出す |
+| 日本語ヘッドラインは `fontSize: 22` 以下 | 28px × 14文字でオーバーフロー確認済み |
+| 親フレームに `layout: "vertical"` を明記 | 省略すると CaptionArea/MockupArea が横並びになる |
+| 画像差し替えは**必ず新しいファイル名** | 同じパスの上書きはPencilキャッシュで反映されない |
+| `get_screenshot` = MCP base64のみ（ファイル保存されない） | ASC用ファイルはシミュレータ撮影で別途取得 |
+
 ```
+[シミュレータ準備（Dynamic Island 除去）]
+0. iPhone SE 3rd gen を使う（Dynamic Island/ノッチなし）
+   UDID: xcrun simctl list devices | grep "SE (3rd"
+   → CBA51D41-D404-4843-AA18-738C5068FFE4 等
+
+   iPhone 14+ を使う場合、Dynamic Island 除去が必要:
+   xcrun simctl io "<UDID>" screenshot /tmp/screen_raw.png
+   python3 -c "
+   from PIL import Image
+   img = Image.open('/tmp/screen_raw.png')
+   crop = img.crop((0, 185, img.width, img.height))
+   crop.save('/tmp/screen_home_v2.png')  # ★新しいファイル名で保存
+   "
+
 [EN スクショ]
 1. screenshot-creator Step 1: ヒアリング（アプリ名・機能・ターゲット・言語=英語）
 
@@ -570,25 +598,25 @@ cp /tmp/icon-final.png \
 
    **正しいパス（プロジェクト内に必ず保存）:**
    ```
-   {output_dir}/docs/screenshots/raw/screen1~3.png       ← シミュレータ生PNG
+   {output_dir}/docs/screenshots/raw/screen1~3.png       ← シミュレータ生PNG（iPhone SE推奨）
    {output_dir}/docs/screenshots/processed/screen1~3.png ← Pencil合成済み
-   {output_dir}/docs/screenshots/resized/screen1~3.png   ← ASCアップロード用
+   {output_dir}/docs/screenshots/resized/screen1~3.png   ← ASCアップロード用（1290×2796）
    ```
 
-   **pencil_export.py が存在する場合:**
+   **ASC アップロード用ファイルの確保手順（get_screenshot ではなく以下を使う）:**
    ```bash
-   python3 docs/screenshots/scripts/pencil_export.py
+   # 1. シミュレータから直接 PNG を取得
+   xcrun simctl io "<SE_UDID>" screenshot docs/screenshots/raw/screen1.png
+
+   # 2. PIL で DI クロップ（iPhone SE は不要）
+   # python3 -c "from PIL import Image; img=Image.open('raw/screen1.png'); img.crop((0,185,img.width,img.height)).save('processed/screen1.png')"
+
+   # 3. App Store 必須サイズにリサイズ
+   sips -z 2796 1290 docs/screenshots/processed/screen1.png \
+     --out docs/screenshots/resized/en-US/screen1.png
    ```
 
-   **pencil_export.py が存在しない場合（新規アプリ等）:**
-   ```
-   mcp__pencil__get_screenshot を使って .pen ファイルの各フレームを取得
-   → 返ってきた画像データを docs/screenshots/processed/screen1.png に保存
-   → screen2.png, screen3.png も同様
-   # Node.js スクリプト・HTTP API・自作コード禁止。MCP ツール1行で取れる
-   ```
-
-   出力確認: docs/screenshots/processed/screen1~3.png（プロジェクト内）
+   出力確認: docs/screenshots/resized/en-US/screen1~3.png（プロジェクト内）
 
 6. Slack 承認（slack-approval スキル）:
    → .claude/skills/slack-approval/SKILL.md を読んで requestApproval() を実行
@@ -596,19 +624,19 @@ cp /tmp/icon-final.png \
    → approved → Step 7 へ / denied → Step 1 から再実行
 
 ⚠️ ハードゲート（絶対ルール）:
-   processed/ の画像を開いて、ヘッドラインテキストが入っているか目視確認する。
+   processed/ の画像を open コマンドで実際に開いて、ヘッドラインテキストが入っているか目視確認する。
    ヘッドラインなし → ASC アップロード禁止。Step 1 から再実行。
 
 [JA スクショ]
 7. screenshot-creator Step 1〜7 を日本語コピーで再実行
-   出力: docs/screenshots/processed/screen1~3.png（JA 版で上書き）
+   出力: docs/screenshots/resized/ja/screen1~3.png（JA 版）
 
 8. Slack 承認（slack-approval スキル）:
    → title: "📸 App Store スクリーンショット確認 [JA]"
    → approved → ASC アップロードへ / denied → Step 7 から再実行
 
 ⚠️ ハードゲート（JA も同じ）:
-   processed/ の画像を開いて日本語ヘッドラインが入っているか確認。
+   resized/ja/ の画像を open コマンドで実際に開いて日本語ヘッドラインが入っているか確認。
    入っていない場合は ASC アップロード禁止。
 ```
 
