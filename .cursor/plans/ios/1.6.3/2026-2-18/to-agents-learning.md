@@ -81,7 +81,10 @@
 
 | # | 学び |
 |---|------|
-| — | （作業開始後に記録） |
+| 31 | **`awal x402 details <url>` は method を auto-detect する。** GET/POST/PUT/DELETE/PATCH を順番に試して 402 が返るまで探す。curl より先に使え。認証不要。これをテストの最初の一手にする |
+| 32 | **`awal x402 pay <url> -X POST -d '<json>'` で POST body を渡せる。** x402 スキルに明記。`-d '{"who_is_suffering":"myself","situation":"test","language":"en"}'` |
+| 33 | **sub-router の route key が short path で照合される可能性。** `Router()` 内で `paymentMiddleware({'POST /buddhist-counsel': ...})` と書いたが、フルパスは `/api/x402/buddhist-counsel`。`awal x402 details` で 402 が返らなければ route key を `'POST /api/x402/buddhist-counsel'` に変更して再試行 |
+| 34 | **スキルを読んでプランの間違いに気づいたら、即スペックと学びを両方修正する。** ユーザーに確認を求めるのは禁止。気づいた時点で直す。スペックと学びはペア |
 
 ### Step 6: 公開（ClawHub + Moltbook）
 
