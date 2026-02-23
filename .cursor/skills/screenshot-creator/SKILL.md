@@ -114,7 +114,7 @@ frame3=I("document", {type: "frame", name: "SS03_Feature2", x: 860, width: 390, 
 │   └── sub2（fontSize: 18, textAlign: center, fill: #6B7B75）
 └── MockupArea（height: 684, padding: [0, 20, 0, 20]）
     └── PhoneMockup（width: 320, height: 640, cornerRadius: 44）
-        └── image fill（実スクリーンショット or AI生成）
+        └── image fill（実スクリーンショット必須 — AI生成禁止）
 ```
 
 **CaptionArea ライトパターン（デフォルト）:**
@@ -135,15 +135,11 @@ sub2=I(captionArea, {type: "text", content: "サブテキスト2行目",
 ```javascript
 mockupArea=I(frame1, {type: "frame", width: "fill_container", height: 684, padding: [0, 20, 0, 20]})
 
-// 実スクリーンショットがある場合（絶対パス必須）
+// ⚠️ 実スクリーンショット必須（AI生成禁止）
+// 事前に撮影: xcrun simctl io "<UDID>" screenshot /tmp/screen_home.png
 phoneMockup=I(mockupArea, {type: "frame", width: 320, height: 640,
   fill: {type: "image", url: "/absolute/path/to/screenshot.png", mode: "fill"},
   cornerRadius: [44, 44, 44, 44]})
-
-// 実スクリーンショットがない場合（AI生成）
-phoneMockup=I(mockupArea, {type: "frame", width: 320, height: 640, fill: "#FFFFFF",
-  cornerRadius: [44, 44, 44, 44]})
-G(phoneMockup, "ai", "minimal Japanese wellness app UI screenshot, clean interface")
 ```
 
 ### 4-4. 画像確認
@@ -154,6 +150,7 @@ G(phoneMockup, "ai", "minimal Japanese wellness app UI screenshot, clean interfa
 
 | 禁止 | 理由 |
 |------|------|
+| **AI生成画像（`G(..., "ai", ...)`）を使う** | **絶対禁止。App Store に AI 生成スクショは出さない** |
 | CaptionArea に装飾フレーム（アクセントバー等） | モックアップ上端に線が出る |
 | `\n` 改行 | 縦長になる。テキストノードを分割すること |
 | テキストノード4つ以上 | 読まれない |
