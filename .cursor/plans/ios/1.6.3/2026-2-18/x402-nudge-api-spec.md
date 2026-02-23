@@ -469,9 +469,9 @@ apps/api/src/
 | 3 | GPT-4o に切替（Anthropic API はサブスクと別製品） | ✅ 完了 | openai npm |
 | 4 | .well-known/x402.json 追加 | ✅ 完了 | Express 静的ルート |
 | 5 | ユニットテスト 8/8 PASS | ✅ 完了 | vitest + supertest |
-| 6 | staging デプロイ + API 動作確認 | ✅ 完了 | Railway 自動デプロイ |
-| 7 | npm install @x402/evm（@x402/express は済、@coinbase/x402 は v1 用で不要） | ⬜ 未 | npm |
-| 8 | 支払いゲート ON にして staging デプロイ | ⬜ 未 | #7 が前提 |
+| 6 | staging デプロイ + API 動作確認 | ✅ 完了 | Railway 自動デプロイ（v2.4 修正で 502→200 復帰確認済み） |
+| 7 | npm install @x402/evm + ethers + index.js v2.4 書き換え | ✅ 完了 | x402ResourceServer + HTTPFacilitatorClient + ExactEvmScheme。syncFacilitatorOnStart=false |
+| 8 | 支払いゲート ON にして staging デプロイ | ⬜ 未 | Railway env に X402_WALLET_ADDRESS + X402_NETWORK=testnet 設定 |
 | 9 | testnet USDC 取得（Base Sepolia faucet、無料） | ⬜ 未 | faucet |
 | 10 | x402 MCP で支払い E2E テスト（402→支払い→200） | ⬜ 未 | coinbase/x402（テスト時のみ） |
 | 11 | Bazaar 登録（extensions.bazaar） | ⬜ 未 | #8 が前提 |
@@ -644,6 +644,7 @@ app.get('/.well-known/x402.json', (req, res) => {
 - `HTTPFacilitatorClient()` はデフォルトで `https://x402.org/facilitator` に接続（URL 指定不要）
 - `ExactEvmScheme` は `@x402/evm` から。未インストールだと import 失敗
 - try-catch の罠: `paymentMiddleware()` は middleware 関数を **返すだけ**。`initialize()` はリクエスト受信時に非同期実行されるため、factory 側の try-catch では捕捉できない。`syncFacilitatorOnStart = false` にして `server.initialize()` を明示的に try-catch 内で先に呼ぶこと
+- **ミドルウェア順序の罠:** `paymentMiddleware()` は **同期関数**。dynamic import で遅延取得すると、`router.use('/route', handler)` が先に登録されて payment gate を素通りする。**static import でトップレベルに取得し、ルートハンドラの前に `router.use()` で登録すること。** ソース: [coinbase/x402 E2E server](https://github.com/coinbase/x402/blob/main/e2e/servers/express/index.ts)
 
 ---
 

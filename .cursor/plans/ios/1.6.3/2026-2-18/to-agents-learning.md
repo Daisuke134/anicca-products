@@ -42,10 +42,25 @@
 | 9 | **OpenAI に切り替えるのが最安。** Railway に `OPENAI_API_KEY` が既にあれば変更は15行。Mega Prompt は LLM 非依存で設計してあるから model 名を変えるだけ |
 | 10 | OpenAI の `response_format: { type: 'json_object' }` を使えば regex で JSON を抽出する必要がない。Anthropic SDK にはこの機能がない |
 
+### Step 4.5: v2.4 API 移行（staging 502 修復）
+
+| # | 学び |
+|---|------|
+| 11 | `@x402/evm` をインストールすると `ethers` が peer dependency として必要。`npm install @x402/evm` だけでは `Cannot find module 'ethers'` エラー。`npm install ethers` も必要 |
+| 12 | `x402ResourceServer` と `x402HTTPResourceServer` は別クラス。`x402HTTPResourceServer` は `register()` メソッドがない（高レベルラッパー）。`x402ResourceServer` の方を使う |
+| 13 | `x402ResourceServer` は `@x402/express` からも `@x402/core/server` からもインポートできる。`HTTPFacilitatorClient` は `@x402/core/server` からのみ |
+| 14 | `paymentMiddleware` の引数は4つ: `(routes, server, paywallConfig, paywall, syncFacilitatorOnStart)`。`undefined, undefined, false` で paywall なし + 手動初期化 |
+| 15 | `server.initialize()` を try-catch 内で先に呼び、`syncFacilitatorOnStart = false` を渡す。これで unhandled rejection を完全に防げる。staging 502→200 復帰を確認済み |
+| 16 | v2.4 の `routes` 設定は Express のルートパスではなく `METHOD /path` 形式。例: `'POST /buddhist-counsel'` |
+| 17 | `@coinbase/x402` は package.json に残っていても v2 では使わない。削除しなくても害はないが、次のスキルでは最初から入れない |
+| 18 | **`paymentMiddleware()` は同期関数。** Promise を返さない。Express ミドルウェア関数を同期的に返す。非同期初期化（facilitator 同期、bazaar 拡張）はミドルウェア内部でリクエスト到着時に lazy 実行される。だから **dynamic import は不要** — static import で問題ない |
+| 19 | **dynamic import + router.use() の順序バグ。** `await import('@x402/express')` を async 関数内でやると、`router.use('/route', handler)` が先に同期的に登録される。Express はミドルウェアを追加順に実行するから、ルートハンドラが先に実行されて payment gate を素通りする |
+| 20 | **公式パターン: トップレベル import + app.use() でルートの前に登録。** coinbase/x402 の E2E サーバー（`e2e/servers/express/index.ts`）がそのまま正解。`app.use(paymentMiddleware(routes, server))` → `app.get('/route', handler)` の順 |
+
 ### Step 5: テスト（testnet E2E）
 
-| 時刻 | 学び |
-|------|------|
+| # | 学び |
+|---|------|
 | — | （作業開始後に記録） |
 
 ### Step 6: 公開（ClawHub + Moltbook）
@@ -64,6 +79,7 @@
 | 2 | Anthropic API が 400 で返る | Railway staging の ANTHROPIC_API_KEY のアカウントにクレジットがない | env 変数の存在だけでなく、API の実応答を確認するまで完了としない |
 | 3 | staging 502 無限クラッシュ。`TypeError: this.ResourceServer.initialize is not a function` | `@x402/express` v2.4 は v1 と API が完全に異なる。v1: `paymentMiddleware(facilitator, config)`、v2: `paymentMiddleware(routes, server)`。`@coinbase/x402` の facilitator を第1引数に渡すと、v2 は第2引数を `x402ResourceServer` として扱い、config オブジェクトに `.initialize()` を呼ぼうとして TypeError | v2 API を使う: `x402ResourceServer` + `HTTPFacilitatorClient` + `ExactEvmScheme`。`@coinbase/x402` は v1 用で v2 では不要 |
 | 4 | try-catch で囲んでいるのにプロセスクラッシュ | `paymentMiddleware()` は middleware 関数を **返すだけ**。`initialize()` は Express がリクエスト受信時に非同期で実行される。その時点では factory 側の try-catch の外 | `syncFacilitatorOnStart = false` にして、`server.initialize()` を try-catch 内で明示的に先に呼ぶ |
+| 5 | payment gate が素通り（200 が返る、402 にならない） | `paymentMiddleware()` を `async function initX402Middleware()` 内で dynamic import → `router.use()` していた。`router.use('/buddhist-counsel', handler)` は同期的に先に登録されるため、ルートハンドラが payment middleware より先に実行される | **static import** でトップレベルに `paymentMiddleware` を取得し、`router.use()` でルートハンドラの **前** に同期的に登録する。公式パターン（coinbase/x402 E2E server）に従う |
 
 ## 成功パターン（再利用）
 
@@ -72,6 +88,8 @@
 | 1 | Mega Prompt を LLM 非依存で設計 | JSON schema を system prompt 末尾に置く。LLM 固有の機能に依存しない | 新スキルでも同じパターンで設計すれば、LLM を自由に切り替えられる |
 | 2 | supertest + vi.mock で LLM なしテスト | generateCounsel をモックするので API キー不要 | 全 x402 スキルで同じテストパターンを使える |
 | 3 | x402 middleware を条件付き初期化 | env 変数なしでも動く = dev/staging で payment gate なしでテスト可能 | 全 x402 エンドポイントで同じ index.js パターンを使える |
+| 4 | npm パッケージのソースコードを直接読んで API を確認 | ドキュメントが v1 のまま更新されていない。`node_modules/` の `.mjs` を読むのが最も信頼できる | 新しいパッケージを使う前に必ず `node -e "import('pkg').then(m => console.log(Object.keys(m)))"` でエクスポートを確認 |
+| 5 | staging 502 修復後に `.well-known/x402.json` と `/health` の両方を確認 | health だけだと x402 固有の問題を見逃す。`.well-known/x402.json` が正しい JSON を返すことで middleware 初期化成功を確認 | デプロイ後のヘルスチェックは必ず2つ: `/health` + サービス固有エンドポイント |
 
 ---
 
