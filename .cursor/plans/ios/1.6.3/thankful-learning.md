@@ -52,9 +52,75 @@
 5. 両方Save後、状態がREADY_TO_SUBMITになることを確認
 ```
 
-### スキルへの反映:
+### スキルへの反映（旧記録 — 下記で訂正済み）:
 - `iap-bible.md` の「IAPレビュースクリーンショット」セクション追加: ASC Webから手動アップロード推奨
 - `mobileapp-builder` PHASE 8 に「IAPレビュースクリーンショットはASC Webのみ（API不可）」を追記
+
+---
+
+## セッション: 2026-02-24（続き）— 訂正・追加学習
+
+### 罪1: `subscriptions images` と `subscriptions review-screenshots` の混同
+
+**スキルに書いてあったこと:** `asc subscriptions images create`
+**実際に起きたこと:** FAILED → 「APIは壊れている」と結論 → ASC Web手動に格下げ
+**真実:** 全く別のAPIを叩いていた
+
+| コマンド | 実際の意味 |
+|---------|-----------|
+| `asc subscriptions images create` | サブスクの**販促画像**（`subscriptionImages` エンドポイント） |
+| `asc subscriptions review-screenshots create` | App Store **レビュー用スクショ**（`subscriptionAppStoreReviewScreenshots` エンドポイント） |
+
+`review-screenshots create` は存在する。**一度も試さなかった。** スキルが `images create` と書いていたから従った。スキルのバグ。
+
+**スキルへの反映（MUST）:**
+- PHASE 7: `asc subscriptions images create` → `asc subscriptions review-screenshots create` に完全置き換え
+- iap-bible.md: 「ASC Webのみ」という結論を撤回。正しいCLIコマンドを記載
+
+---
+
+### 罪2: TestFlight build upload ≠ TestFlight 配布
+
+**スキルに書いてあったこと:** `fastlane build` + `fastlane upload` → 完了
+**実際に起きたこと:** build 2 がアップロードされたが TestFlight グループに配布されなかった。ダイスは「見えない」と怒った。
+**真実:** ASC に build がある = TestFlight で見える ではない。ベータグループへの追加が別途必要。
+
+確認コマンド:
+```bash
+# build がグループに追加されているか確認
+curl -H "Authorization: Bearer $TOKEN" \
+  "https://api.appstoreconnect.apple.com/v1/builds/<BUILD_ID>/betaGroups"
+# data: [] = グループ未設定 → TestFlightに表示されない
+```
+
+追加コマンド:
+```bash
+asc testflight beta-builds add --build "<BUILD_ID>" --group "<GROUP_ID>"
+```
+
+**スキルへの反映（MUST）:**
+- PHASE 10 末尾: `fastlane upload` の後に必ずベータグループへの追加を実行する
+
+---
+
+### 罪3: スクショのヘッドラインパイプラインが前提なしに実行不可
+
+**スキルに書いてあったこと:** PHASE 9 Step 2 で `make generate-store-screenshots` を実行
+**実際に起きたこと:** `ScreenshotTests.swift` + `Makefile` + `scripts/` が存在しない → `axe screenshot` だけで終了 → ヘッドラインなし生スクショをASCにアップロード
+**真実:** PHASE 3 に前提セットアップ（ScreenshotTests.swift等）の記載がなかった。PHASE 9 にハードゲートがなかった。
+
+**スキルへの反映（MUST）:**
+- PHASE 3: `ScreenshotTests.swift` + `Makefile generate-store-screenshots` + `scripts/` を必須タスクとして追加
+- PHASE 9 Step 2: ハードゲート「ヘッドラインなし = ASCアップロード禁止」を追加
+
+---
+
+### 全体の教訓
+
+**スキルに1行でも間違いがあれば、エージェントは全力でその間違いに従う。**
+スキルが全ての真実。エージェントはスキルを盲目的に信じる。だからスキルが正しくなければ提出は永遠に失敗する。
+
+スキルは「これを読めば質問なしで App Store 提出できる」レベルでなければならない。
 
 ---
 
