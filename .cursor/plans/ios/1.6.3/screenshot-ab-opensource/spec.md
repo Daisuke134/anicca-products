@@ -33,12 +33,15 @@ X アカウント: **aniccaxxx**（日本語）
 
 | # | 条件 | 検証方法 |
 |---|------|---------|
-| 1 | 別 GitHub リポジトリが存在し、README がある | GitHub URL 確認 |
-| 2 | OpenClaw で `screenshot-ab` スキルが動作する（cron 経由） | Mac Mini で `openclaw agent --message "screenshot-ab run"` |
-| 3 | Claude Code でも動作する（手動実行） | ローカルで SKILL.md 読み込み確認 |
-| 4 | 毎朝 5:00 JST に自動実行され Slack に結果が届く | Mac Mini cron ログ確認 |
-| 5 | ASC 実験開始は「手動のみ」と README に明記されている | README 目視確認 |
-| 6 | screenshot-creator / visual-qa / slack-approval の依存関係がセットアップ手順に書かれている | README 目視確認 |
+| 1 | 別 GitHub リポジトリが存在し、README がある | `gh repo view Daisuke134/screenshot-ab` が成功 |
+| 2 | OpenClaw で `screenshot-ab` スキルが動作する | Mac Mini で `openclaw agent --message "screenshot-ab run"` 実行 → フェーズ選択〜完了メッセージまで到達 + exit code 0 |
+| 3 | Claude Code でも動作する（手動実行） | `screenshot-ab run` → フェーズ選択画面表示 → CVR分析完了メッセージ到達 |
+| 4 | 毎朝 5:00 JST に自動実行され Slack に結果が届く | Mac Mini の cron 実行後ログ（`/Users/anicca/.openclaw/workspace/screenshot-ab/logs/`）に SUCCESS 記録 + Slack チャンネルへのメッセージ着信確認 |
+| 5 | ASC 実験開始は「手動のみ」と README に明記されている | README に「⚠️ Start Test は手動のみ（Apple Review 必須）」の記述あり |
+| 6 | 実験開始要求時にガードが発火し警告出力 + exit code 非0 で中断（`asc product-pages experiments start` 未実行） | `ASC_BIN=./test/stub-asc.sh node scripts/report.js --force-start 2>&1` の出力に `GUARD: experiment start blocked` が含まれ、exit code 非0かつ `test/asc-calls.log` に `experiments start` の記録が0行 |
+| 7 | screenshot-creator / visual-qa / slack-approval / gh CLI / twitter-automation の依存関係がセットアップ手順に書かれている | README の「## Setup」セクション目視確認 |
+| 8 | README にコピペ用セットアップ・プロンプトが掲載されている | README の「## Quick Start (Copy & Paste)」セクションあり |
+| 9 | X (aniccaxxx) に日本語で投稿され、GitHub リンクが含まれている | ツイート URL 確認 |
 
 ---
 
@@ -147,16 +150,19 @@ SKILL.md が読み込まれる
 
 ## 5. 依存関係（セットアップで必須）
 
-| 依存 | 種別 | インストール方法 | 用途 |
-|------|------|----------------|------|
-| **OpenClaw** | Runtime | `npm install -g openclaw` | primary 実行環境 |
-| **Pencil app** | macOS app | Mac App Store | スクリーンショットデザイン |
-| **`asc` CLI** | CLI | `brew install asc-cli` (要確認) | App Store Connect 操作 |
-| **`screenshot-creator` skill** | Skill | 同リポジトリに同梱予定 | Pencil MCP ラッパー |
-| **`visual-qa` skill** | Skill | 同リポジトリに同梱予定 | スクリーンショット品質確認 |
-| **`slack-approval` skill** | Skill | 別途インストール | Slack 承認フロー |
-| **RevenueCat MCP** | MCP | `openclaw mcp add revenuecat` | CVR データ取得 |
-| **ASC MCP** | MCP | `openclaw mcp add app-store-connect` | 実験ステータス取得 |
+| 依存 | 種別 | インストール方法 | 確認コマンド | 用途 |
+|------|------|----------------|------------|------|
+| **OpenClaw** | Runtime | `npm install -g openclaw` | `openclaw --version` | primary 実行環境 |
+| **Pencil app** | macOS app | Mac App Store | アプリ起動確認 | スクリーンショットデザイン |
+| **Pencil MCP 接続** | MCP設定 | Pencil 起動 → Settings → Enable MCP → `mcp__pencil__get_editor_state` | `mcp__pencil__get_editor_state` 成功 | .pen ファイル操作 |
+| **`asc` CLI** | CLI | `brew tap rudrankriyam/tap && brew install asc` | `asc --version` | App Store Connect 操作 |
+| **`gh` CLI** | CLI | `brew install gh && gh auth login` | `gh auth status` | GitHub リポジトリ管理 |
+| **`screenshot-creator` skill** | Skill | `skills/screenshot-creator/SKILL.md`（同梱） | SKILL.md 存在確認 | Pencil MCP ラッパー |
+| **`visual-qa` skill** | Skill | `skills/visual-qa/SKILL.md`（同梱） | SKILL.md 存在確認 | スクリーンショット品質確認 |
+| **`slack-approval` skill** | Skill | `npx skills install slack-approval` | SKILL.md 存在確認 | Slack 承認フロー |
+| **`twitter-automation` skill** | Skill | `npx skills install twitter-automation` | SKILL.md 存在確認 | X 投稿自動化 |
+| **RevenueCat MCP** | MCP | `openclaw mcp add revenuecat` | `mcp__revenuecat__mcp_RC_list_apps` 成功 | CVR データ取得 |
+| **ASC MCP** | MCP | `openclaw mcp add app-store-connect` | `mcp__app-store-connect__list_apps` 成功 | 実験ステータス取得 |
 
 ### 同梱するスキル（リポジトリ内 `skills/` ディレクトリ）
 
@@ -170,14 +176,14 @@ SKILL.md が読み込まれる
 
 ## 6. テストマトリックス
 
-| # | To-Be | テスト名 | カバー |
-|---|-------|----------|--------|
-| 1 | ASC 実験ステータス取得 | `test_fetch_experiment_status()` | OK |
-| 2 | CVR 差異計算（5%閾値） | `test_cvr_diff_calculation()` | OK |
-| 3 | 勝者判定ロジック | `test_winner_detection()` | OK |
-| 4 | Slack 報告フォーマット | `test_slack_report_format()` | OK |
-| 5 | ASC 実験開始が手動のみであることの警告出力 | `test_start_experiment_warning()` | OK |
-| 6 | cron 設定ファイルの正確性 | JSON スキーマ検証 | OK |
+| # | To-Be | テスト名 | 対象ファイル | 実行コマンド | 期待アサーション |
+|---|-------|----------|------------|------------|----------------|
+| 1 | ASC 実験ステータス取得 | `test_fetch_experiment_status` | `scripts/report.js` | `node scripts/report.js --dry-run 2>&1` | 出力に `experiment_status:` キーが含まれる |
+| 2 | CVR 差異計算（小数→%整数） | `test_cvr_diff_calculation` | `scripts/analyze.js` | `node -e "const a=require('./scripts/analyze'); console.log(a.calcDiff(0.10,0.16))"` | 出力が `6`（%差の整数値のみ） |
+| 3 | 勝者判定ロジック（差異>5%で winner 確定） | `test_winner_detection` | `scripts/analyze.js` | `node -e "const a=require('./scripts/analyze'); console.log(JSON.stringify(a.detectWinner({a:0.10,b:0.16,minDiff:5})))"` | `{"winner":"b","diff":6,"confident":true}` |
+| 4 | Slack 報告フォーマット | `test_slack_report_format` | `scripts/slack.js` | `node -e "const s=require('./scripts/slack'); console.log(JSON.stringify(s.buildReport({winner:'b',diff:6})))"` | `blocks` キーが存在し、`winner` テキストを含む |
+| 5 | ASC 実験開始ガード（警告出力+非0終了+asc start未実行） | `test_no_experiment_start_command` | `scripts/report.js` + `test/stub-asc.sh` | `ASC_BIN=./test/stub-asc.sh node scripts/report.js --force-start 2>&1` | 出力に `GUARD: experiment start blocked` が含まれ、exit code 非0かつ `test/asc-calls.log` に `experiments start` が0行 |
+| 6 | cron 設定ファイルの正確性 | `test_cron_json_schema` | `examples/openclaw-cron.json` | `node -e "const c=require('./examples/openclaw-cron.json'); if(!c.schedule)throw new Error('missing schedule')"` | exit code 0 |
 
 ---
 
@@ -185,8 +191,8 @@ SKILL.md が読み込まれる
 
 | やらないこと | 理由 |
 |-------------|------|
-| ASC 実験の自動開始 | Apple Review 必須のため技術的に不可能 |
-| 他アプリへの汎用化 | Anicca 固有の RevenueCat 設定に依存 |
+| ASC 実験の自動開始 | Apple Review 必須のため技術的に不可能。ガードで警告出力して処理中断する |
+| 初期版の汎用化（README 以外） | 初期版は Anicca のデフォルト値を提供する。`.env` による設定変数化で他アプリ適用可能だが、コア以外のアプリ固有ロジックには対応しない |
 | Web ダッシュボード作成 | Slack 報告で十分 |
 | CI/CD への組み込み | cron で十分 |
 | anicca-products からのコード削除 | 既存 Anicca は引き続き使用 |
@@ -230,12 +236,57 @@ cp $ANICCA/.claude/skills/visual-qa/SKILL.md ./skills/visual-qa/SKILL.md
 
 `examples/openclaw-cron.json` に 5:00 JST 実行の cron 設定例を作成
 
-### フェーズ 5: X 投稿（aniccaxxx）
+### フェーズ 5: X 投稿（aniccaxxx）— 詳細仕様
 
-日本語で以下を投稿:
-- App Store スクリーンショット A/B テストの自動化を OSS で公開
-- OpenClaw + Claude Code 対応
-- GitHub リンク
+#### ツイート本文（日本語、280文字以内）
+
+```
+App StoreのABスクリーンショットテスト、面倒でやってないでしょ？
+
+ASC CLIとClaude Codeでスキル作りました。
+
+下のプロンプトをClaude Code（またはOpenClaw）にコピペするだけ。
+セットアップ完了したら「screenshot-ab run」と言うだけで
+・実験ステータス確認
+・CVR比較
+・新スクリーンショット生成
+・Slack報告
+
+全部やってくれます。
+
+👇コピペ用プロンプト
+[GitHub README リンク]
+```
+
+#### コピペ用セットアップ・プロンプト（README に掲載）
+
+README の冒頭に以下のプロンプトを掲載する。ユーザーはこれを Claude Code または OpenClaw にそのまま貼り付けるだけでセットアップが完了する。
+
+```
+以下を実行してください：
+
+1. https://github.com/Daisuke134/screenshot-ab からリポジトリをクローンして、SKILL.md をプロジェクトルートにインストールしてください。
+2. references/setup.md を読んで、必要な依存（asc CLI, RevenueCat MCP, ASC MCP, slack-approval）をインストールしてください。
+3. .env に以下を設定してください：
+   - APP_BUNDLE_ID=（あなたのアプリのBundle ID）
+   - RC_PROJECT_ID=（RevenueCat Project ID）
+   - ASC_APP_ID=（App Store Connect App ID）
+   - SLACK_CHANNEL=（Slack チャンネルID）
+4. セットアップが完了したら「完了しました」と報告してください。
+
+セットアップ完了後は「screenshot-ab run」と言うだけで実験ステータス確認・CVR分析・レポートが自動で届きます。
+```
+
+#### ポスト要件
+
+| 項目 | 内容 |
+|------|------|
+| アカウント | aniccaxxx |
+| 言語 | 日本語 |
+| タイミング | GitHub push 完了直後 |
+| 文字数 | 280文字以内 |
+| リンク | GitHub README（コピペプロンプト掲載ページ） |
+| twitter-automation スキル | 投稿に使用 |
 
 ---
 
@@ -256,12 +307,15 @@ cp $ANICCA/.claude/skills/visual-qa/SKILL.md ./skills/visual-qa/SKILL.md
 | 1 | GitHub リポジトリ作成 | `gh repo view Daisuke134/screenshot-ab` が成功 |
 | 2 | 既存スキルファイルをコピー | `SKILL.md` と `references/` が存在 |
 | 3 | screenshot-creator / visual-qa を `skills/` に同梱 | `skills/*/SKILL.md` が存在 |
-| 4 | SKILL.md を外部向けに更新（Anicca 固有設定を変数化） | bundle_id, app_id, slack_channel を設定可能に |
-| 5 | README.md 作成（日英） | 外部の人が読んでセットアップできる水準 |
-| 6 | `examples/openclaw-cron.json` 作成 | OpenClaw cron に貼り付けて動く |
-| 7 | ASC 実験手動開始の制約を README に明記 | 「Start Test は手動」の記述あり |
-| 8 | 初回コミット & push | `git push origin main` 成功 |
-| 9 | X (aniccaxxx) に日本語で投稿 | ツイート URL 確認 |
+| 4 | SKILL.md を外部向けに更新（Anicca 固有設定を `.env` 変数化） | `APP_BUNDLE_ID`, `RC_PROJECT_ID`, `ASC_APP_ID`, `SLACK_CHANNEL` が設定可能 |
+| 5 | `scripts/report.js` + `scripts/analyze.js` + `scripts/slack.js` + `scripts/run-tests.js` 作成 | 各ファイルが存在 |
+| 6 | Section 6 テスト全件実行 & pass 確認 | `node scripts/run-tests.js` exit code 0 |
+| 7 | `scripts/daily-report.sh` 作成（cron ラッパー） | `bash scripts/daily-report.sh --dry-run` exit code 0 |
+| 8 | `examples/openclaw-cron.json` 作成 | `node -e "require('./examples/openclaw-cron.json')"` exit code 0 |
+| 9 | `examples/experiment-result.json` 作成（出力例） | JSON バリデーション pass |
+| 10 | README.md 作成（日英）+ コピペプロンプト掲載 | 「## Quick Start (Copy & Paste)」セクションあり + ASC制約の警告あり |
+| 11 | 初回コミット & push | `git push origin main` 成功 |
+| 12 | X (aniccaxxx) に日本語で投稿（twitter-automation スキル使用） | ツイート URL 確認 |
 
 ---
 
