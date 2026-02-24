@@ -49,6 +49,11 @@ See `references/spec-template.md` for the full spec.md format.
 | 15 | **Pencil テキストノードに `width: "fill_container"` 必須**。未設定だとテキストがフレーム外にはみ出す。日本語ヘッドラインの `fontSize` は **22以下**（28は14文字でオーバーフロー） |
 | 16 | **Pencil 画像キャッシュ問題**。同じパスのファイルを上書きしても Pencil はキャッシュした旧版を使い続ける。画像差し替え時は**必ず新しいファイル名**を使うこと |
 | 17 | **`mcp__pencil__get_screenshot` はディスクに保存しない**。返ってくるのは MCP レスポンス内の base64 のみ。ASC アップロード用ファイルは別途シミュレータから `xcrun simctl io` で取得すること |
+| 18 | **App Privacy（データの使用方法）は ASC API で設定不可**。`/v1/apps/{id}/appDataUsages` は 404 を返す。PHASE 12 の前にユーザーに手動設定させること。設定手順は PHASE 11.5 参照 |
+| 19 | **ISSUER_ID は Fastfile の `API_ISSUER_ID` を使う**。間違った ID は全 curl 呼び出しが 401 を返す。正しい ID: `f53272d9-c12d-4d9d-811c-4eb658284e74`。ASC 画面の「キー ID」と混同しない |
+| 20 | **アイコンはビルド前に配置する**。ビルド後にアイコンを変更した場合は `CURRENT_PROJECT_VERSION` をバンプして再ビルドが必要。「The bundle version must be higher than the previously uploaded version」エラーが出たらバンプして再アップロード |
+| 21 | **Playwright + Chrome 競合**。Chrome 起動中に Playwright を実行すると「既存のブラウザセッションで開いています」エラー。先に `pkill -f "Google Chrome"` で Chrome を終了してから Playwright を起動 |
+| 22 | **`asc submit create --confirm` が正解の提出方法**。`PATCH reviewSubmissions.state` は 409 を返す。`asc review submissions-list` で確認できる ID は `appStoreVersionSubmissions` とは別物 |
 
 ---
 
@@ -731,6 +736,35 @@ asc screenshots list --app "<APP_ID>" --locale ja | python3 -c "import sys,json;
 
 # GATE 1〜5 全て PASS でなければ STOP。1つでも FAIL → 修正して再実行
 ```
+
+### PHASE 11.5: APP PRIVACY 手動設定（PHASE 12 の前に必須 — API で設定不可）
+
+> **⚠️ 重要（2026-02-24 実機検証）: App Privacy は ASC API で設定できない**
+> `/v1/apps/{id}/appDataUsages` は 404 を返す。ユーザーが ASC Web で手動設定するまで先に進まない。
+
+ユーザーに以下を伝えてから待機する:
+
+```
+【ユーザー作業】App Privacy の設定（App Store Connect Web — 所要2分）
+
+1. https://appstoreconnect.apple.com → My Apps → <app_name> を開く
+2. 左メニュー「App Privacy」をクリック
+3.「データの使用方法を編集」ボタンをクリック
+4. 収集するデータカテゴリを選択:
+   □ Identifiers（Device ID → Third-Party Advertising, Analytics, App Functionality）
+   □ Usage Data（Product Interaction → Analytics）
+   ※ 日記エントリー・アファメーションは収集しない（ローカル保存のみ）
+5. 各カテゴリで「このデータをユーザーのアカウントやデバイスにリンクしているか？」→「いいえ」
+6.「完了」→「保存」
+7. 完了したらエージェントに「App Privacy 設定完了」と伝える
+
+設定できるカテゴリの例（アプリによって異なる）:
+  - 分析（Identifiers, Usage Data）
+  - RevenueCat（Purchase History）
+  - 収集しない（Health/Fitness, Sensitive Info など）
+```
+
+ユーザーが「完了」と言ったら PHASE 12 に進む。
 
 ### PHASE 12: SUBMIT
 ```bash
