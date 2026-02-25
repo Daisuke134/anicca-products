@@ -25,8 +25,7 @@ Research high-performing TikTok videos, identify outliers, and analyze top video
 ## Prerequisites
 
 - `APIFY_TOKEN` environment variable or in `.env`
-- `GEMINI_API_KEY` environment variable or in `.env`
-- `apify-client` and `google-genai` Python packages
+- `apify-client` Python package
 - Accounts configured in `.claude/context/tiktok-accounts.md`
 
 Verify setup:
@@ -39,9 +38,7 @@ try:
 except ImportError:
     pass
 from apify_client import ApifyClient
-from google import genai
 assert os.environ.get('APIFY_TOKEN'), 'APIFY_TOKEN not set'
-assert os.environ.get('GEMINI_API_KEY'), 'GEMINI_API_KEY not set'
 " && echo "Prerequisites OK"
 ```
 
@@ -87,21 +84,15 @@ Output JSON contains:
 
 ### 4. Analyze Top Videos with AI
 
-```bash
-python3 .claude/skills/video-content-analyzer/scripts/analyze_videos.py \
-  --input {RUN_FOLDER}/outliers.json \
-  --output {RUN_FOLDER}/video-analysis.json \
-  --platform tiktok \
-  --max-videos 5
-```
+Read `{RUN_FOLDER}/outliers.json` and analyze the top 5 videos directly.
 
-Extracts from each video:
-- Hook technique and replicable formula
-- Content structure and sections
+For each video, extract:
+- Hook technique and replicable formula (opening line, why it works)
+- Content structure (intro / body / CTA sections)
 - Retention techniques
 - CTA strategy
 
-See the `video-content-analyzer` skill for full output schema and hook/format types.
+Use `OPENAI_API_KEY` if you want to run a script-based analysis. Otherwise Claude Code itself reads the JSON and performs the analysis inline.
 
 ### 5. Generate Report
 
@@ -172,11 +163,10 @@ Full pipeline:
 ```bash
 RUN_FOLDER="tiktok-research/$(date +%Y-%m-%d_%H%M%S)" && mkdir -p "$RUN_FOLDER" && \
 python3 .claude/skills/tiktok-research/scripts/fetch_tiktok.py -o "$RUN_FOLDER/raw.json" && \
-python3 .claude/skills/tiktok-research/scripts/analyze_posts.py -i "$RUN_FOLDER/raw.json" -o "$RUN_FOLDER/outliers.json" && \
-python3 .claude/skills/video-content-analyzer/scripts/analyze_videos.py -i "$RUN_FOLDER/outliers.json" -o "$RUN_FOLDER/video-analysis.json" -p tiktok
+python3 .claude/skills/tiktok-research/scripts/analyze_posts.py -i "$RUN_FOLDER/raw.json" -o "$RUN_FOLDER/outliers.json"
 ```
 
-Then read both JSON files and generate the report.
+Then read `$RUN_FOLDER/outliers.json`, analyze top 5 videos inline (Step 4), and generate the report.
 
 ## Engagement Metrics
 

@@ -1,7 +1,7 @@
 # x402 Buddhist Counsel — 統合スペック v4
 
 **作成日**: 2026-02-18
-**更新日**: 2026-02-24 v5（emotion-detector ClawHub公開完了・testnet戦略確定）
+**更新日**: 2026-02-24 v10（T033 まで完了・Phase 1〜6 全完了）
 
 ## 現在の実装状態（2026-02-24 v5 時点）
 
@@ -18,17 +18,26 @@
 | Mac Mini awal USDC残高 | ❌ $0.00 | testnet変更後 Circle Faucet で解決予定 |
 | clawhub Mac Mini インストール | ✅ 完了 | token コピー済み（Daisuke134） |
 
-## T012 ブロッカー詳細（次のアクション: testnet戦略）
+## T012 ブロッカー詳細（2026-02-24 外部ソース確認済み）
 
-| 項目 | 値 |
-|------|-----|
-| Mac Mini awal ウォレット | `0xCE8c58C73a7a5C5838d48DA66cb914aB150f04c9` |
-| **現在の Railway staging ネットワーク** | **eip155:8453（mainnet）** — awal x402 details で確認済み |
-| **testnet戦略** | Railway staging の `X402_NETWORK` を `eip155:84532` に変更 → Circle Faucet で無料USDC取得 |
-| `awal buy` | **存在しない**（確認済み） |
-| `awal trade eth usdc` | CDP Swap API（Coinbase系） — 日本不可（確認済み） |
-| Coinbase Japan | **2023年サービス終了** — 使用不可（確認済み） |
-| Circle Faucet（testnet戦略成立後） | `https://faucet.circle.com/` — Base Sepolia → Mac Mini アドレスに送信 |
+| 項目 | 値 | 外部ソース |
+|------|-----|-----------|
+| Mac Mini awal ウォレット | `0xCE8c58C73a7a5C5838d48DA66cb914aB150f04c9` | — |
+| **現在の Railway staging ネットワーク** | **eip155:8453（mainnet）** | awal x402 details 実行結果 |
+| `awal show`（Coinbase Onramp） | **🚨 日本で使えない。永久禁止** | [OneSafe](https://www.onesafe.io/blog/does-coinbase-work-in-japan) / [Coinbase公式](https://docs.cdp.coinbase.com/onramp-&-offramp/developer-guidance/payment-methods)「available EXCEPT Japan」 |
+| `awal buy` | **存在しない**（確認済み） | awal --help 実行結果 |
+| `awal trade eth usdc` | CDP Swap API（Coinbase系） — 日本不可 | 確認済み |
+| Coinbase Japan | **2023年サービス終了** | ダイス確認済み |
+| **唯一の解決策** | **Bybit または Binance から Base mainnet USDC を `0xCE8c...04c9` に直送** | 要事前確認：Bybit Japan が Base mainnet USDC 出金対応しているか |
+
+## 🚨 Bazaar 登録について（2026-02-24 訂正）
+
+**旧記載「$1 USDC 必要」は誤り。外部ソース確認で訂正。**
+
+| 項目 | 正しい情報 | ソース |
+|------|-----------|--------|
+| Bazaar 登録方法 | `paymentMiddleware` に `extensions.bazaar: { discoverable: true }` を追加するだけ | [Coinbase Bazaar公式](https://docs.cdp.coinbase.com/x402/bazaar) |
+| $1 USDC は必要か | **不要** — middleware設定だけで取引前にカタログ化される | [Coinbase Bazaar発表](https://www.coinbase.com/developer-platform/discover/launches/x402-bazaar) |
 
 ---
 
@@ -971,14 +980,53 @@ Slack `#marketing` チャンネルに続く…
 | 16 | Cron jobs.json に追加 | ✅ 完了（2026-02-24） | 月・木 9:00 JST（`0 9 * * 1,4`）。jobs 総数 51 |
 | 17 | 手動テスト（Moltbook 実投稿確認） | ⬜ 未 | SSH + Slack API curl で `<@U092F27QFMK>` にメンション送信済み。#metrics の結果待ち |
 
-### Phase 3: to-agents-skill（工場）
+### Phase 3: to-agents-skill（工場）— T015〜T033 実行状況
 
-| # | タスク | 状態 |
-|---|--------|------|
-| 18 | to-agents-learning.md 継続更新 | 🔄 進行中 |
-| 19 | 工場スキル SKILL.md 設計 | ⬜ 未 |
-| 20 | 工場スキル Mac Mini にインストール + Cron 設定 | ⬜ 未 |
-| 21 | 工場スキル初回実行テスト（新スキル1本量産確認） | ⬜ 未 |
+#### US1: produce（emotion-detector を量産）
+
+| タスク | 状態 | 詳細 |
+|--------|------|------|
+| T015: clawhub publish emotion-detector | ✅ 完了 | `emotion-detector@1.0.0` — Daisuke134（2026-02-23 公開済み・本日再確認） |
+| T016: moltbook-interact 宣伝投稿 | ✅ 完了 | `post_id: 847353cd-747d-4592-b6a7-deaacd699d00` |
+| T017: to-agents-learning.md に LearningEntry append | ✅ 完了 | Mac Mini + ローカル 両方に7件の知見追記 |
+| T018: Slack #metrics に完了報告 | ✅ 完了 | curl 直接送信 `ok:true` |
+| T019: to-agents-skill SKILL.md を実行知見で更新 | ✅ 完了 | 実行知見セクション追加・scp upload済み（Mac Mini） |
+
+#### US2: discover（次スキル提案）
+
+| タスク | 状態 | 詳細 |
+|--------|------|------|
+| T020: proposals.json 読み書きロジックを SKILL.md に記述 | ✅ 完了 | T019 で実装済み（Step 3 read + Step 5 write + JSON schema） |
+| T021: Slack ブロックメッセージフォーマットを SKILL.md に記述 | ✅ 完了 | T019 で実装済み（Step 4 format with skill_name/description/rationale/✅❌） |
+| T022: discover モード E2E 確認 | ✅ 完了 | gateway bind=loopback に変更後、`openclaw agent --agent anicca --message 'Execute to-agents-skill. mode=discover.'` で完走（focus-coach提案） |
+| T023: proposals.json に pending エントリ確認 | ✅ 完了 | proposal_id=prop-focus-coach-20260224, status=pending, expires_at=2026-02-26T08:42:17+09:00 |
+| T024: Slack #metrics への提案メッセージ確認 | ✅ 完了 | ts=1771890137.786179 で focus-coach 提案メッセージ到着済み（エンドポイント未作成を確認） |
+
+#### US3: measure（パフォーマンス計測）
+
+| タスク | 状態 | 詳細 |
+|--------|------|------|
+| T025: measure モードのメトリクス計算ロジックを SKILL.md に記述 | ✅ 完了 | T019 で実装済み（Step 1 Run listing + Step 2 clawhub search コール数） |
+| T026: 閾値判定と改善提案フォーマットを SKILL.md に記述 | ✅ 完了 | T019 で実装済み（7日増加なし→改善提案 / 14日0コール→廃止提案） |
+| T027: measure モード E2E 確認 | ✅ 完了 | emotion-detector: production 404（dev未マージ）/ staging 402 ✅ / Moltbook ⬆12💬8 を検出・報告 |
+| T028: Slack #metrics に改善提案メッセージ確認 | ✅ 完了 | ts=1771890438.417369 で measure レポート到着済み（production 404 クリティカル問題を明記） |
+
+#### Phase 6: Polish & Cron
+
+| タスク | 状態 | 詳細 |
+|--------|------|------|
+| T029: Cron jobs.json に to-agents-skill discover を追加 | ✅ 完了 | jobs.json 59件（重複除去）、`0 1 * * *` UTC |
+| T030: Gateway 再起動 | ✅ 完了 | `bash -l -c 'openclaw gateway restart'` |
+| T031: Cron エントリ有効確認 | ✅ 完了 | grep で to-agents-skill-discover 1件確認 |
+| T032: spec.md ブランチ名修正 | ✅ 完了 | `001-x402-factory` → `005-x402-factory` |
+| T033: 完了コミット | ✅ 完了 | `f076d285` → pushed to origin 005-x402-factory |
+
+#### 重要ルール（T012 ブロッカー）
+
+| 項目 | 状態 |
+|------|------|
+| T012: `awal x402 pay` 200 OK 検証 | ⛔ BLOCKED（SBI口座開設後 → ETH → Base Bridge → Uniswap USDC → 実行） |
+| T016〜T033 は T012 に依存しない | ✅ T012 を待たず実行可能 |
 
 ---
 

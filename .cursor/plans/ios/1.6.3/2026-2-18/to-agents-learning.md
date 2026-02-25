@@ -260,3 +260,17 @@
 | 40 | **emotion-detector@1.0.0 ClawHub 公開完了。** ID: `k974wsgbt2g4spmqm0dyd9ayvh81qfxy`。clawhub publish には `--version 1.0.0` フラグが必要（SKILL.md frontmatter の version だけでは不足） |
 | 41 | **clawhub token は `~/Library/Application Support/clawhub/config.json` に保存される（macOS）。** Mac Mini への token コピーで認証可能（ブラウザフロー不要） |
 | 42 | **Mac Mini に clawhub をインストールするには `npm install -g clawhub`。** その後 MacBook の token を Mac Mini にコピーするだけで `clawhub whoami` が通る |
+
+---
+
+## Phase 3 実行ログ: T015-T019 の知見（2026-02-24 emotion-detector 量産）
+
+| # | 知見 | 対応 |
+|---|------|------|
+| 43 | **clawhub は SSH 非インタラクティブ実行で PATH エラー。** `zsh:1: command not found: clawhub` / `env: node: No such file or directory` が出る | `bash -l -c 'command'` で login shell を起動すれば `/opt/homebrew/bin` が PATH に入る |
+| 44 | **clawhub publish「Version already exists」= 既に成功済みの証拠。** エラーではない | 正常終了扱い。`clawhub inspect <name>` で公開を確認して次へ進む |
+| 45 | **`openclaw agent --deliver` 単体ではエラー。** "Delivering to Slack requires target" になる | `--reply-channel slack --reply-to "C091G3PKHL2"` を追加する |
+| 46 | **Slack 直接送信（curl）が最も確実。** openclaw agent 経由よりも Gateway 依存がなく安定している | `curl -X POST https://slack.com/api/chat.postMessage -H "Authorization: Bearer $TOKEN" -d '{...}'` |
+| 47 | **SLACK_BOT_TOKEN の取得方法。** Mac Mini の `.env` に保存されている | `grep SLACK_BOT_TOKEN ~/.openclaw/.env \| cut -d= -f2` で取得 |
+| 48 | **clawhub publish にはフルパス引数が必要。** 相対パスや `.` では "Path must be a folder" エラー | `clawhub publish /Users/anicca/.openclaw/skills/<name> --no-input` |
+| 49 | **Mac Mini でのファイル編集は scp ワークフローが安全。** Python heredoc は zsh login shell が発火するコマンド（clawhub sync 等）で内容が壊れる | MacBook でローカル編集 → `scp` で Mac Mini に転送。確実で再現性がある |

@@ -102,6 +102,50 @@ Source: https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardra
 | anicca リポ | https://github.com/Daisuke134/anicca (Private) |
 | anicca-products リポ | https://github.com/Daisuke134/anicca-products (Public) |
 
+### 0.10 スペックギャップ禁止ルール（「深く検索」強制）
+
+**スペックの全項目が100%明確になるまで実装禁止。例外なし。**
+
+ソース: [Anthropic Reduce Hallucinations](https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations) / 核心の引用: 「Allow Claude to say 'I don't know': Explicitly give Claude permission to admit uncertainty. This simple technique can drastically reduce false information.」
+
+| 状態 | アクション |
+|------|-----------|
+| ギャップ発見 | 検索深化 → 再検索 → 再深化 → 解明まで繰り返す |
+| 「まあいいか」 | 禁止。100%確信できるまで実装しない |
+| 「これでいいはず」 | 禁止。ソースを引用できるまで実装しない |
+| 「見つからなかった」 | 禁止。一般化→隣接分野→根底原則まで掘る |
+
+```
+ギャップ発見
+    ↓
+検索1 → 見つからない
+    ↓
+キーワード変えて検索2 → 見つからない
+    ↓
+一般化して検索3 → 見つからない
+    ↓
+隣接分野で検索4 → 見つからない
+    ↓
+根底原則で検索5 → 最も近い原則を引用して適用
+    ↓
+100%確信 → 実装開始（これより前は禁止）
+```
+
+### 0.11 Chat内ビジュアル化ルール
+
+**テキストの羅列・箇条書きだけで答えるのは禁止。必ずビジュアル化する。**
+
+ソース: [Claude Output Best Practices](https://code.claude.com/docs/en/output-styles) / 核心の引用: 「NEVER output a series of overly short bullet points. Your goal is readable, flowing text that guides the reader naturally through ideas.」
+ソース: [ContractZen Enhanced Markdown](https://www.contractzen.com/en/blog/enhanced-markdown) / 核心の引用: 「Visual Hierarchy is critical for reducing cognitive load. When you use colors, icons, and structured tables, you aren't just making a document 'pretty'—you are making it more human, readable, and impactful.」
+
+| 手法 | いつ使う | 禁止 |
+|------|---------|------|
+| **テーブル** | 比較・チェックリスト・スペック・任意の構造化データ | 箇条書きで代替 |
+| **ASCII図** | フロー・アーキテクチャ・状態遷移・依存関係 | テキスト説明だけ |
+| **絵文字** | ✅ 完了 / ❌ 禁止 / ⚠️ 警告 / 🔴 CRITICAL / 📌 重要 | なし |
+| **太字** | キーワード・決定事項・重要な値 | 全部太字（多用禁止） |
+| **コードブロック** | コマンド・設定・コード | インラインのみ |
+
 ### 言語ルール
 
 **回答は常に日本語。**
@@ -146,7 +190,39 @@ Source: https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardra
 
 ---
 
-最終更新: 2026年2月22日
+最終更新: 2026年2月26日
+
+---
+
+## OpenClaw TUI トラブルシューティング（2026-02-26 確定）
+
+### "gateway not connected" の正しい直し方
+
+**原因のほぼ全て: MacBook に VPS へのトンネルが残っていて port 18789 を奪っている。**
+
+#### 診断（この順番）
+
+```bash
+lsof -i :18789                              # 誰が port を握ってるか
+launchctl list | grep -E "(openclaw|tunnel)" # 全トンネル一覧
+```
+
+#### 正しい状態
+
+| 項目 | 値 |
+|------|-----|
+| MacBook `~/.openclaw/openclaw.json` の `gateway.remote.url` | `ws://127.0.0.1:18789` |
+| MacBook LaunchAgent | `ai.openclaw.tunnel.plist`（Mac Mini行き）1本のみ |
+| Mac Mini `gateway.bind` | `"loopback"`（絶対変えない） |
+| VPS gateway | `systemctl --user disable openclaw-gateway` 済み |
+
+#### 絶対禁止
+
+| 禁止 | 理由 |
+|------|------|
+| `bind: "tailnet"` に変える | gateway 即死（ws:// 平文禁止） |
+| VPS トンネルを残す | port 18789 競合で Mac Mini トンネルが起動不可 |
+| VPS を `stop` だけで止める | systemd が自動再起動する。`disable` まで必須 |
 
 <!-- investigate-before-acting: installed -->
 

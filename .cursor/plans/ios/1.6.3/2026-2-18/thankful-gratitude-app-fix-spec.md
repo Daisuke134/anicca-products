@@ -1,7 +1,7 @@
 # Thankful Gratitude App — App Store 提出 Complete Spec
 
 **作成日:** 2026-02-23（2026-02-24 更新）
-**ステータス:** 実装中（一部完了済み）
+**ステータス:** 実装中 — ビルド3 処理待ち
 **目標:** App Store に提出して WAITING_FOR_REVIEW にする
 
 ---
@@ -14,7 +14,7 @@
 | Xcodeプロジェクト | `ThankfulGratitudeApp.xcodeproj` |
 | Bundle ID | `app.rork.thankful-gratitude-app` |
 | ASC App ID | `6759514159` |
-| 現バージョン | `1.0.0 (2)` — TestFlight VALID（2026-02-23 07:20 PST） |
+| 現バージョン | `1.0.0 (3)` — ASCアップロード済み（2026-02-24、処理待ち） |
 | Team ID | `S5U8UH3JLJ` |
 
 ---
@@ -60,6 +60,10 @@
 | ✅ | TASK 1: 日本語 UI 削除（英語固定化） |
 | ✅ | TestFlight build 2 アップロード（2026-02-23、VALID） |
 | ✅ | ASC App Store Screenshots x6 アップロード（IPHONE_67、ヘッドラインなし — 再作成必要） |
+| ✅ | TASK 5: 旧スクショ3枚削除 + EN×3（asc_en_01/02/03）+ JA×3（asc_ja_01/02/03）再作成・アップロード完了 |
+| ✅ | TASK 6: Greenlight preflight CRITICAL=0（PrivacyInfo.xcprivacy OK） |
+| ✅ | TASK 8: メタデータ確認（name/subtitle/keywords/description — en-US 全設定済み） |
+| ✅ | Build 3 アップロード（CFBundleVersion=3、2026-02-24、処理待ち） |
 
 ---
 
@@ -423,14 +427,15 @@ asc review submissions-list --app "6759514159"
 | リジェクト理由 | 防ぐTASK | 状態 |
 |---------------|---------|------|
 | Guideline 2.1（IAP MISSING_METADATA） | TASK 3 + TASK 7 | ⏳ Daisuke手動待ち |
-| IAP not submitted for review | TASK 7 + TASK 9 | ❌ 未完了 |
+| IAP not submitted for review | TASK 7 + TASK 9 | ⏳ ビルド処理待ち |
 | Privacy Policy URL なし | ✅ 設定済み（en-US + ja） | ✅ 完了 |
 | App icon なし | TASK 2 | ❌ 未完了 |
-| Screenshots クオリティ不足（ヘッドラインなし） | TASK 5（再作成） | ❌ 再作成必須 |
+| Screenshots クオリティ不足 | TASK 5 | ✅ EN×3 + JA×3 完了 |
 | PrivacyInfo.xcprivacy なし | ✅ 追加済み（Greenlight で確認） | ✅ 完了 |
-| Greenlight CRITICAL > 0 | TASK 6 | ❌ 未実行 |
+| Greenlight CRITICAL > 0 | TASK 6 | ✅ CRITICAL=0 完了 |
 | RC IAP 課金不可 | TASK 4 | ⏳ Daisuke手動待ち |
 | 日本語 UI あり | ✅ TASK 1 完了済み（英語固定） | ✅ 完了 |
+| メタデータ未設定 | TASK 8 | ✅ 完了 |
 
 ---
 
