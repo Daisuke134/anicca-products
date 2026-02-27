@@ -55,10 +55,10 @@
 
 | フィールド | 値 |
 |-----------|-----|
-| urls.privacy_en | https://anicca.app/calmcortisol/privacy/en |
-| urls.privacy_ja | https://anicca.app/calmcortisol/privacy/ja |
+| urls.privacy_en | https://aniccaai.com/calmcortisol/privacy/en |
+| urls.privacy_ja | https://aniccaai.com/calmcortisol/privacy/ja |
 | urls.terms | https://www.apple.com/legal/internet-services/itunes/dev/stdeula/ |
-| urls.landing | https://anicca.app/calmcortisol |
+| urls.landing | https://aniccaai.com/calmcortisol |
 
 ---
 
