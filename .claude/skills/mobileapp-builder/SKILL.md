@@ -103,7 +103,7 @@ See `references/spec-template.md` for the full spec.md format.
 | 19 | **ISSUER_ID は ASC_ISSUER_ID 環境変数から取得**。間違った ID は全 curl 呼び出しが 401 を返す。ASC → Users and Access → Integrations → Keys 画面の上部に表示されている UUID が ISSUER_ID。キー一覧の「キー ID」欄の値（短い英数字）と混同しない |
 | 20 | **アイコンはビルド前に配置する**。ビルド後にアイコンを変更した場合は `CURRENT_PROJECT_VERSION` をバンプして再ビルドが必要。「The bundle version must be higher than the previously uploaded version」エラーが出たらバンプして再アップロード |
 | 21 | **Playwright + Chrome 競合**。Chrome 起動中に Playwright を実行すると「既存のブラウザセッションで開いています」エラー。先に `pkill -f "Google Chrome"` で Chrome を終了してから Playwright を起動 |
-| 22 | **`asc submit create --confirm` が正解の提出方法**。`PATCH reviewSubmissions.state` は 409 を返す。`asc review submissions-list` で確認できる ID は `appStoreVersionSubmissions` とは別物 |
+| 22 | **提出の正解コマンドは `asc review submissions-create` + `asc review items-add` + `asc review submissions-submit`**。`PATCH reviewSubmissions.state` は 409 を返す。`asc review submissions-list` で確認できる ID は `appStoreVersionSubmissions` とは別物。`asc submit create` は旧コマンドで `asc review submissions-create` の別名 |
 | 23 | **RevenueCat delegate 名前衝突**。`SubscriptionManager.swift` の内部クラス名を `PurchasesDelegate` にすると同名プロトコルと衝突してビルドエラー。必ず `RCPurchasesDelegate: NSObject, PurchasesDelegate` と命名する（2026-02-26 実機確認済み） |
 | 24 | **iOS 15 ターゲット: `Locale.current.language.languageCode` 使用禁止**。iOS 16+ API。iOS 15 ターゲットでは `Locale.current.languageCode` を使う（deprecated だが iOS 15 互換）。2026-02-26 実機確認済み |
 | 25 | **iOS 15 ターゲット: `scrollContentBackground` 使用禁止**。iOS 16+ API。ZStack + Color で背景色を設定する workaround を使う。`Form` の背景を透明にしたい場合: `ZStack { Color(hex:"#0f0f1a").ignoresSafeArea(); Form { ... } }` |
@@ -113,7 +113,7 @@ See `references/spec-template.md` for the full spec.md format.
 | 28 | **ASC REST API `/v1/apps` POST は禁止操作**。`GET_COLLECTION, GET_INSTANCE, UPDATE` のみ許可。アプリ作成は必ず `asc apps create` を使う（Apple ID 必須）|
 | 28b | **RC v1 offerings API での platform_product_identifier 確認方法（診断必須）**。`curl -H "Authorization: Bearer <iOS_API_KEY>" https://api.revenuecat.com/v1/subscribers/\$RCAnonymousID:test/offerings -H "X-Platform: ios"` で `platform_product_identifier` を確認。ASC の Product ID（例: `com.bundle.premium.monthly`）と一致してなければ「プランの取得に失敗しました」エラーが出る。v2 ダッシュボードでは正しく見えていても v1 が古い値を返し続けることがある |
 | 29 | **Netlify は GitHub App Webhook なしで push に反応しない**。`aniccaai.com` は Netlify ホスト済みだが GitHub App Webhook がないため、push してもビルドされない。Netlify デプロイには `NETLIFY_AUTH_TOKEN` + `NETLIFY_SITE_ID` が必須。これらを `.env` および GitHub Secrets に必ず事前設定すること。2026-02-27 実機確認済み |
-| 29b | **初回 IAP は `asc subscriptions submit` で単独 submit 禁止**。`STATE_ERROR.FIRST_SUBSCRIPTION_MUST_BE_SUBMITTED_ON_VERSION` エラーが出る。これは Apple ルール: **初回 IAP は必ずアプリバージョンと同時提出**。PHASE 11.6 の `asc subscriptions submit` はスキップして、PHASE 12 で `asc publish appstore --submit --confirm` を実行すれば IAP も自動的に review に含まれる。2026-02-27 実機確認済み |
+| 29b | **初回 IAP は `asc subscriptions submit` で単独 submit 禁止**。`STATE_ERROR.FIRST_SUBSCRIPTION_MUST_BE_SUBMITTED_ON_VERSION` エラーが出る。Apple ルール: **初回 IAP は必ずアプリバージョンと同時提出**。PHASE 11.6 の `asc subscriptions submit` はスキップ。**サブスクの review 含有は CLI 不可 — GUI 必須**: ASC version ページ → In-App Purchases and Subscriptions → Select で手動選択してから PHASE 12 の提出コマンドを実行する。Source: https://developer.apple.com/help/app-store-connect/manage-submissions-to-app-review/submit-an-in-app-purchase/ 2026-03-01 Thankful Guideline 2.1 実機確認 |
 | 30 | **アプリ作成前に必要なクレデンシャルを PHASE 0 で確認する**。`APPLE_ID_PASSWORD`（Apple ID パスワード）と `NETLIFY_AUTH_TOKEN` が PHASE 0 STEP 3 の ENV チェックに追加必須。これらなしに PHASE 3.5/4 は完了不可。|
 | 31 | **ImageMagick v7 では `convert` コマンドは非推奨**。`magick` コマンドを使う。`magick -size 1024x1024 gradient:... icon.png` が正解。|
 | 32 | **iPad 13" スクショ（APP_IPAD_PRO_3GEN_129）は Submit 必須（2026-02-28 実機確認）**。iPhone スクショだけでは `asc submit create` が失敗する。**正しいサイズ: 2048×2732**（2064×2752 は IMAGE_INCORRECT_DIMENSIONS エラー）。iPhone スクショを `sips -z 2732 2048` でリサイズして流用可。PHASE 9 Step 3b を参照 |
@@ -124,10 +124,10 @@ See `references/spec-template.md` for the full spec.md format.
 | 37 | **Distribution cert が REVOKED の場合**: (1) `mkdir -p ~/Downloads/.signing && asc certificates csr generate ~/Downloads/.signing/dist.csr` でCSR生成 → (2) `asc certificates create --certificate-type IOS_DISTRIBUTION --csr ~/Downloads/.signing/dist.csr --output json` で証明書発行・ダウンロード → (3) ダウンロードした `.cer` を Keychain にインポート → (4) `security find-identity -v -p codesigning \| grep REVOKED` で表示される hash を `security delete-certificate -Z <hash>` で全削除 → (5) `asc profiles create --profile-type IOS_APP_STORE --bundle-id <BUNDLE_ID_RESOURCE_ID> --certificate <CERT_ID> --name "<app_name> AppStore Distribution"` で新 Profile 作成 → (6) Fastfile に `signingStyle: "manual"` + `provisioningProfiles: { "bundle.id" => "profile-uuid" }` を設定してビルド。⚠️ `openssl req` 禁止 — Apple API が 409 で拒否する。⚠️ automatic signing 禁止 — Xcode 管理 Profile が REVOKED cert を参照している可能性がある。詳細手順は PHASE 2.5 参照 |
 | 38 | **`asc submit create` が "already added to another reviewSubmission" エラーの場合**: (1) `asc review submissions-list --app <APP_ID>` で既存 submission 一覧を確認 → (2) UNRESOLVED_ISSUES / PREPARING 状態の submission を `asc submit cancel --id <submission-id> --confirm` でキャンセル → (3) `asc submit create` を再実行。READY_FOR_REVIEW 状態はキャンセル不可だが、新規 `asc submit create` を実行すれば Apple が新規を優先する。キャンセルせずに同じコマンドを再試行しない |
 | 39 | **アプリの表示名（Display Name）を変更する場合**: `GENERATE_INFOPLIST_FILE = YES` の Xcode プロジェクトでは `INFOPLIST_KEY_CFBundleDisplayName = "表示したい名前"` を `project.pbxproj` の buildSettings に追加する。`Info.plist` に直接書いても `GENERATE_INFOPLIST_FILE` が上書きして無効。設定後は `CURRENT_PROJECT_VERSION` をバンプして再ビルドが必要。コマンド: `sed -i '' 's/PRODUCT_BUNDLE_IDENTIFIER/INFOPLIST_KEY_CFBundleDisplayName = "表示名";\n\t\t\t\tPRODUCT_BUNDLE_IDENTIFIER/' <project>.xcodeproj/project.pbxproj` |
-| 40 | **提出は `asc publish appstore --submit` のみ。`asc submit create` 禁止（2026-03-01 Thankful Guideline 2.1 実機確認）**。`asc submit create` はサブスクを自動的に審査に含めない。`asc publish appstore --submit --confirm` だけがサブスク（READY_TO_SUBMIT 状態）を審査に自動で含める。IAP Bible CRITICAL RULE 29b 参照 |
+| 40 | **サブスク（IAP）の review 含有は CLI 不可。ASC GUI 手動選択が必須（2026-03-01 Thankful Guideline 2.1 CLI 調査 + 実機確認）**。`asc review items-add --item-type` の有効値に subscriptions は含まれない（appStoreVersions, appCustomProductPages, appEvents, appStoreVersionExperiments, appStoreVersionExperimentTreatments のみ）。`asc publish appstore --submit` もサブスクを自動包含しない（Steps 一覧にサブスク処理なし、CLI 調査確認）。**正しいフロー**: (1) ASC GUI で version ページ → In-App Purchases and Subscriptions → Select（手動必須） → (2) `asc review submissions-create` → submission ID 取得 → (3) `asc review items-add --item-type appStoreVersions` → (4) `asc review submissions-submit --id <ID> --confirm` → WAITING_FOR_REVIEW |
 | 41 | **PHASE 8 ゲート: blocking=0 かつ warnings=0 が必須（2026-03-01 Thankful Guideline 2.1 実機確認）**。`asc validate subscriptions` で warnings が残っている場合（例: "Submit this subscription for review"）は STOP。warnings=0 になるまで提出禁止。blocking=0 だけでゲート通過するのは不正 |
 | 42 | **提出失敗後の診断は必ず CLI から始める。spec ファイルの記述を信用しない（2026-03-01 教訓）**。spec ファイルは古いセッションの誤情報を含む可能性がある。`asc review submissions-list`, `asc validate subscriptions`, `asc subscriptions get` で現在の実際の状態を確認してから判断する |
-| 43 | **REJECTED 後の回復フロー（2026-03-01 確定）**: (1) `asc review submissions-cancel --id <submission-id> --confirm` → CANCELING → (2) `cd <app-dir> && fastlane build && fastlane upload` → 新ビルド VALID → (3) `asc publish appstore --app <APP_ID> --submit --confirm` → サブスク含めて再提出 → (4) `asc review submissions-list --app <APP_ID>` → state = WAITING_FOR_REVIEW 確認 |
+| 43 | **REJECTED / UNRESOLVED_ISSUES 後の回復フロー（2026-03-01 Thankful 実機確認）**: (1) `asc review submissions-cancel --id <submission-id> --confirm` → CANCELING（全 UNRESOLVED_ISSUES を全てキャンセル） → (2) **GUI**: ASC version ページ → In-App Purchases and Subscriptions → Select でサブスクを選択（手動必須 — CLI 不可） → (3) `asc review submissions-create --app <APP_ID>` → submission ID 取得 → (4) `asc review items-add --submission <SUBMISSION_ID> --item-type appStoreVersions --item-id <VERSION_ID>` → (5) `asc review submissions-submit --id <SUBMISSION_ID> --confirm` → (6) `asc review submissions-list --app <APP_ID>` → state = WAITING_FOR_REVIEW 確認。**⚠️ 新ビルドは不要**（既存 VALID ビルドがあれば再利用可。2026-03-01 実機確認） |
 
 ---
 
@@ -1511,16 +1511,26 @@ ASC API は App Privacy 設定に対応していない（404を返す）。
 ユーザーが「完了」と言ったら PHASE 12 に進む。
 
 ### PHASE 12: SUBMIT
+
+**⚠️ サブスク（IAP）が存在する場合: 先に GUI 作業が必須**
+ASC GUI → version ページ → In-App Purchases and Subscriptions → Select で全サブスクを選択してから以下を実行する。CLI でサブスクを review に含める手段はない（2026-03-01 確認）。
+
 ```bash
-# 提出は必ず asc publish appstore --submit を使う
-# asc submit create は IAP が含まれないことがある（2026-03-01 Thankful で Guideline 2.1 確認）
+# Step 1: submission 作成
+SUBMISSION_ID=$(asc review submissions-create --app "$APP_ID" --output json | \
+  python3 -c "import sys,json;d=json.load(sys.stdin);print(d['data']['id'])")
+echo "Submission ID: $SUBMISSION_ID"
 
-asc publish appstore \
-  --app "$APP_ID" \
-  --submit \
-  --confirm
+# Step 2: version を submission に追加
+asc review items-add \
+  --submission "$SUBMISSION_ID" \
+  --item-type appStoreVersions \
+  --item-id "$VERSION_ID"
 
-# 確認
+# Step 3: 審査提出
+asc review submissions-submit --id "$SUBMISSION_ID" --confirm
+
+# Step 4: 確認
 asc review submissions-list --app "$APP_ID"
 # → state: WAITING_FOR_REVIEW ✅
 ```
