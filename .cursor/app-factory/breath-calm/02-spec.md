@@ -11,7 +11,7 @@ Generated: 2026-02-24 (Phase 0.5 output)
 | **app_name** | BreathCalm |
 | **bundle_id** | `com.aniccaai.breathcalm` |
 | **version** | 1.0.0 |
-| **output_dir** | `/Users/cbns03/Downloads/anicca-project/breath-calm-app` |
+| **output_dir** | `/Users/cbns03/Downloads/anicca-project/daily-apps/breath-calm` |
 | **sku** | `breathcalm-001` |
 | **price_monthly_usd** | 9.99 |
 | **price_annual_usd** | 49.99 |
