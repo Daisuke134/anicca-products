@@ -2,7 +2,7 @@
 
 **Date**: 2026-02-28
 **Author**: Anicca
-**Status**: ✅ 完了（0d除く）
+**Status**: ✅ 完了（）
 
 ---
 
@@ -13,7 +13,7 @@
 | 0a | MacBookの origin を anicca-products に変更 | ✅ 完了 |
 | 0b | MacBookの未同期コミットをpush（rebase済み） | ✅ 完了 |
 | 0c | Mac Miniで git pull（両方 36319bec で同期） | ✅ 完了 |
-| 0d | Daisuke134/anicca privateリポの整理 | ⬜ Dais判断待ち |
+| 0d | Daisuke134/anicca privateリポの整理 | ⬜ ✅ 完了（devブランチ削除） |
 | 1 | 壊れたsymlink削除 (.claude/skills/supabase) | ✅ 完了 |
 | 2 | supabase .agent サブディレクトリ削除 | ✅ 完了 |
 | 3 | ClawHub汎用 mobile-app-builder 削除 | ✅ 完了 |
