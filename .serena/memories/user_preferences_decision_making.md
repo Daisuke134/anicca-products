@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # ユーザーの重要な要望
 
 ## 決断に関する絶対ルール
@@ -26,6 +25,3 @@
 
 ## 運用メモ
 - 今後の作業は `.serena/` のメモリ/設定を優先して参照して進める
-=======
-2026-02-09: 1.6.2 completion spec updated per user. Decisions: (1) C2 gating is Day-0 readiness (autonomy-check pass=true once + cron enabled), not 1-week run. Ongoing daily checks are non-gating ops. (2) A2/A3 must not block on routing; adopt alpha routing via Railway env var NUDGE_ALPHA_USER_ID (set to iOS Device ID UUID from E2E Notifications debug screen). (3) Use Railway Variables for secrets, VPS ~/.env chmod 600 for runtime env; do not commit secrets. (4) A4 is fixed as shadow mode for 1.6.2 (no in-platform Moltbook send), use admin job + audit logs; real Moltbook integration can be later.
->>>>>>> origin/codex/1.6.2-ssot-skills-crons

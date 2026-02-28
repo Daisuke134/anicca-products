@@ -68,7 +68,13 @@ Source: https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardra
 
 ### 0.4 git push ルール
 
-**push時は `git add -A` で全ファイルをステージしてpushする。**
+**編集したら即push。ユーザーの承認を待たない。編集 = push。**
+
+| ルール | 詳細 |
+|--------|------|
+| `git add -A` で全ファイルをステージ | 例外なし |
+| 編集完了 → 即コミット＆push | 確認不要 |
+| 秘密鍵・トークンをコードに含めるのは絶対禁止 | `.env` / Railway Variables のみ |
 
 ### 0.5 出力形式ルール
 

@@ -1,4 +1,0 @@
-Local→VPS→localで戻した後にControl UIで「Session file path must be within sessions directory」＋チャットが送れても履歴が消える症状は、state/profile/state-dir不一致（VPSのstateをローカルの~/.openclawにコピー、あるいはOPENCLAW_STATE_DIRを固定して起動等）でsessions.json内に“別マシンの絶対パスsessionFile”が残るのが主因。
-公式寄りの復旧は: `openclaw gateway`のみで起動（通常OPENCLAW_STATE_DIRを指定しない）、`openclaw doctor`で修復/移行、UIは`openclaw dashboard`または http://127.0.0.1:18789/ を開く。repo内メモ: scripts/openclaw-vps/local-control-ui-doc-fix.md / local-control-ui-session-fix.md。ワークアラウンドスクリプト: scripts/openclaw-vps/local-fix-session-path.js（公式では非推奨扱い）。緊急時は ~/.openclaw/agents/<agentId>/sessions/sessions.json をバックアップの上で壊れたエントリ削除 or {}にリセット。
-
-恒久パッチ（2026-02-13実施）: OpenClaw dist 4ファイル（pi-embedded-helpers-DP9eeE_7.js, pi-embedded-helpers-DVHjAjCj.js, sandbox-Bz_i-Ifh.js, sandbox-BZDlvSgL.js）の appendAssistantMessageToSessionTranscript 内で、sessions.json に書き戻す sessionFile を path.basename(sessionFile) に変更。二度と絶対パスが保存されない。npm install -g openclaw で dist が上書きされるため再発時は同パッチを再適用。
