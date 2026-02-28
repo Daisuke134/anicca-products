@@ -2,7 +2,7 @@
 
 **Date**: 2026-02-28
 **Author**: Anicca
-**Status**: 🔄 実行中（P0,L1,L2,D1,D2,Z1,H1 完了。ブロッカー全解決。P1-P8 + H2 残り）
+**Status**: 🔄 実行中（P0,L1,L2,D1,D2,Z1,H1,H2 完了。ブロッカー全解決。P1-P8 残り）
 
 ---
 
@@ -613,9 +613,9 @@ git push origin main
 
 | 状態 | ⬜ |
 
-### H2: Xcode Apple ID追加
+### H2: Xcode Apple ID追加 ✅ 完了（2026-02-28 10:43 PST）
 
-Screen Sharing接続済み ✅。MacBookから `open vnc://aniccanomac-mini-1` で接続して:
+DaisがScreen Sharing経由で設定完了。
 1. マウスをMac Miniに接続
 2. Xcode起動 → Settings → Accounts
 3. 「+」→ Apple ID → keiodaisuke@gmail.com / Chatgpt12345!
@@ -717,3 +717,42 @@ git push origin dev
 npm ci: npm公式docs (S6)
 Zenn制限: Zenn公式FAQ (S7)
 analytics接続: larry SKILL.md + references (S8, S9)
+
+
+---
+
+## G. アプリ出荷（mobileapp-builder CC）
+
+### 方法
+Mac MiniのSSHからClaude Codeをpty+backgroundで起動し、mobileapp-builder SKILL.mdに従って自律実行させる。
+
+```bash
+# coding-agent パターン（nohup禁止）
+# 各アプリごとにClaude Codeセッションを起動
+ssh anicca@aniccanomac-mini-1
+
+# Breath Calm（PHASE 2-12 全実行）
+cd /Users/anicca/anicca-project
+export CLAUDE_CODE_OAUTH_TOKEN=sk-ant-oat01-qCV5O13G...bcGbVQAA
+echo "Read /Users/anicca/.claude/skills/mobileapp-builder/SKILL.md and execute PHASE 2-12 for Breath Calm. Spec: daily-apps/breath-calm/spec/02-spec.md. Output: daily-apps/breath-calm/. Use git worktree. Report to Slack #metrics (C091G3PKHL2) at each phase completion. No questions, no approval waits, full autonomous execution." | claude -p --allowedTools Bash,Read,Write,Edit
+
+# Calm Cortisol（PHASE 9-12: 既に実装済み、ASCメタデータ+スクショ+提出のみ）
+echo "Read /Users/anicca/.claude/skills/mobileapp-builder/SKILL.md and execute PHASE 9-12 for Calm Cortisol. Code is already implemented (18 Swift files). App dir: daily-apps/calmcortisol/. Skip PHASE 2-8. Do ASC app setup, IAP, screenshots, metadata, build, submit. Report to Slack #metrics." | claude -p --allowedTools Bash,Read,Write,Edit
+
+# Thankful（PHASE 9-12: 既に実装済み、提出準備のみ）
+echo "Read /Users/anicca/.claude/skills/mobileapp-builder/SKILL.md and execute PHASE 9-12 for Thankful. Code is already implemented (18 Swift files). App dir: daily-apps/rork-thankful-gratitude-app/. Skip PHASE 2-8. Do ASC app setup, IAP, screenshots, metadata, build, submit. Report to Slack #metrics." | claude -p --allowedTools Bash,Read,Write,Edit
+```
+
+### 各アプリの状態
+
+| アプリ | Swift files | 必要なPHASE | 所要時間目安 |
+|--------|------------|-------------|-------------|
+| Breath Calm | 0（specのみ） | PHASE 2-12 全部 | 3-4時間 |
+| Calm Cortisol | 18（実装済み） | PHASE 9-12（ASC+提出） | 1-2時間 |
+| Thankful | 18（実装済み） | PHASE 9-12（ASC+提出） | 1-2時間 |
+
+### 人間が必要なポイント（各アプリ）
+1. **PHASE 11.5: App Privacy設定** — ASC Webで手動（Slackで通知する）
+2. それ以外は全自動
+
+| 状態 | ⬜ |
