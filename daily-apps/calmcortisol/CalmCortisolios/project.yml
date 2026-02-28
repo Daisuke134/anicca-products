@@ -58,6 +58,7 @@ targets:
         UILaunchScreen: {}
         UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
         NSUserNotificationsUsageDescription: "CalmCortisol detects when you're stressed and sends breathing reminders."
+        NSUserTrackingUsageDescription: "CalmCortisol uses anonymous analytics to improve the app experience. No personal data is shared with advertisers."
         UIBackgroundModes: []
 
   CalmCortisolTests:

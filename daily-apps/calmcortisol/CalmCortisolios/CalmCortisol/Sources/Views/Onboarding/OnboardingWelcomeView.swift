@@ -11,7 +11,6 @@ struct OnboardingWelcomeView: View {
                 VStack(spacing: 32) {
                     Spacer()
 
-                    // Logo / animation placeholder
                     ZStack {
                         Circle()
                             .fill(Color(hex: "#1e4d6b").opacity(0.5))

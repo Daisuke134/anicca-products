@@ -20,8 +20,10 @@
 		828E9A98EA5560D42BF58D28 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D92BA2E8979BD48D2CBF0DE2 /* DashboardView.swift */; };
 		89D783079850F7001D80AFD7 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 9ECAE528495B9738314C8895 /* RevenueCat */; };
 		9189200504AE25A50454CC24 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288E6F0C53B15F2081F7EF11 /* MainTabView.swift */; };
+		9BC861CA71306EFB973D6744 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7B84E6E255549A0E9D5CD94B /* PrivacyInfo.xcprivacy */; };
 		9DA2A860E64A0B58802151C4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72D8C310D0D0936CF4D82193 /* SettingsView.swift */; };
 		A2877CC7583D92F6AFAC84B8 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43AB8B983AB216F5C787995 /* NotificationManager.swift */; };
+		BD6267CC352EDAADF7A372C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F28B655994F104A92F7F267F /* Assets.xcassets */; };
 		D0E5130A7597A5CED31283D0 /* CalmCortisolApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931AC2530A0ED2408C4F9B12 /* CalmCortisolApp.swift */; };
 		D246C3E1D72A7AADD07D8F88 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218165A521FF3762F4AA1242 /* Color+Hex.swift */; };
 		DC80F1BCAD5F0CBF9B20DD67 /* CalmCortisolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1E5ECCA56A6F0084BEB52E /* CalmCortisolTests.swift */; };
@@ -50,6 +52,7 @@
 		62EEC6C070869D2B1DB123D5 /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 		638533A1823DE44981DC1E0C /* AnalyticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
 		72D8C310D0D0936CF4D82193 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7B84E6E255549A0E9D5CD94B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		7C5F2D2692CC0C5A13AF42B6 /* PainSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PainSelectionView.swift; sourceTree = "<group>"; };
 		8B871E9EA3A53C346D38D7A6 /* SessionRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRecord.swift; sourceTree = "<group>"; };
 		931AC2530A0ED2408C4F9B12 /* CalmCortisolApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalmCortisolApp.swift; sourceTree = "<group>"; };
@@ -60,6 +63,7 @@
 		C80AE97613F559E4D352BC9C /* CalmCortisol.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = CalmCortisol.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D92BA2E8979BD48D2CBF0DE2 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		EA45F9E8E80A812914EE1043 /* DemoSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoSessionView.swift; sourceTree = "<group>"; };
+		F28B655994F104A92F7F267F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F43AB8B983AB216F5C787995 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -127,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				931AC2530A0ED2408C4F9B12 /* CalmCortisolApp.swift */,
+				7B84E6E255549A0E9D5CD94B /* PrivacyInfo.xcprivacy */,
 				A5DC5BF3F485EEE650C0A383 /* Extensions */,
 				3D36B5C754D01CB1EE2A84F9 /* Localization */,
 				66C86EC13DB27BBECDF046C4 /* Models */,
@@ -181,6 +186,7 @@
 		AB1AD3E2CB3B6E2103EB7D00 /* CalmCortisol */ = {
 			isa = PBXGroup;
 			children = (
+				F28B655994F104A92F7F267F /* Assets.xcassets */,
 				B02BFB9DFC3D27FFBB037FAC /* Info.plist */,
 				60DD959CA209EE007875918A /* Sources */,
 			);
@@ -223,6 +229,7 @@
 			buildConfigurationList = 1A181F21EBD705049C5510F6 /* Build configuration list for PBXNativeTarget "CalmCortisol" */;
 			buildPhases = (
 				7B8329BA760768B0DFADD08D /* Sources */,
+				82671128D54949E6DE7E7DE4 /* Resources */,
 				D92F537DA86FF012DC55C100 /* Frameworks */,
 			);
 			buildRules = (
@@ -298,6 +305,18 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		82671128D54949E6DE7E7DE4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD6267CC352EDAADF7A372C3 /* Assets.xcassets in Resources */,
+				9BC861CA71306EFB973D6744 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		52AB1F8EC1E1D19190ED12D5 /* Sources */ = {

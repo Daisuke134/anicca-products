@@ -22,6 +22,8 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSUserNotificationsUsageDescription</key>
 	<string>CalmCortisol detects when you're stressed and sends breathing reminders.</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>CalmCortisol uses anonymous analytics to improve the app experience. No personal data is shared with advertisers.</string>
 	<key>UIBackgroundModes</key>
 	<array/>
 	<key>UILaunchScreen</key>

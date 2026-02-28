@@ -1,6 +1,7 @@
 import SwiftUI
 import RevenueCat
 import Mixpanel
+import AppTrackingTransparency
 
 @main
 struct CalmCortisolApp: App {
@@ -31,7 +32,10 @@ struct CalmCortisolApp: App {
     }
 
     private func setupMixpanel() {
-        Mixpanel.initialize(token: "YOUR_MIXPANEL_TOKEN", trackAutomaticEvents: true)
+        Mixpanel.initialize(token: "96835bddc4fd0f2613e805d98c5915cd", trackAutomaticEvents: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            ATTrackingManager.requestTrackingAuthorization { _ in }
+        }
     }
 
     private func setupNotifications() {
