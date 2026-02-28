@@ -2,7 +2,7 @@
 
 **Date**: 2026-02-28
 **Author**: Anicca
-**Status**: ⬜ 未実行
+**Status**: 🔄 実行中（P0,L1,L2,D1,D2,Z1 完了。P1-P8 + H2 残り）
 
 ---
 
@@ -38,13 +38,13 @@ env追加必要: POSTIZ_X_INTEGRATION_ID
 
 ## A. Blotato → Postiz 移行
 
-### P0: .env に POSTIZ_X_INTEGRATION_ID 追加
+### P0: .env に POSTIZ_X_INTEGRATION_ID 追加 ✅
 
 ```bash
 echo 'POSTIZ_X_INTEGRATION_ID=cmm6d7m5703rwpr0yr5vtme3w' >> ~/.openclaw/.env
 ```
 
-| 状態 | ⬜ |
+| 状態 | ✅ 完了（2026-02-28） |
 
 ---
 
@@ -451,7 +451,7 @@ After:
 
 ## B. larry TikTokメトリクス修正
 
-### L1: check-analytics --connect cron追加
+### L1: check-analytics --connect cron追加 ✅
 
 **根本原因（確認済み）:**
 - `GET api.postiz.com/public/v1/posts` で直近7日間の67投稿を取得
@@ -475,6 +475,7 @@ openclaw cron add \
 ```
 
 タイミング: 6:00 JST（daily-report-ja 6:30、daily-report-en 7:00 の前）
+cron ID: 2bda28b0-e872-446a-b227-b51776034e3e
 
 **接続フロー（S8, S9準拠）:**
 1. `GET api.postiz.com/public/v1/posts?startDate=...&endDate=...` で直近3日の投稿取得
@@ -489,7 +490,9 @@ openclaw cron add \
 
 ---
 
-### L2: error状態のlarry cron修正
+### L2: error状態のlarry cron修正 ✅
+
+**根本原因:** 投稿自体は成功していた。Slack delivery通知が失敗していただけ。`--no-deliver`設定で修正済み。
 
 error cron 4個:
 - `larry-post-morning-ja` (e5f13ac4)
@@ -513,7 +516,7 @@ openclaw cron log b551d1ea
 
 ## C. Zenn + dev.to 記事公開（今すぐ）
 
-### Z1: 今日のZenn記事を今すぐ公開
+### Z1: 今日のZenn記事を今すぐ公開 ✅ re-push済み（09:36 PST）
 
 **状況:**
 - 記事: `articles/2026-02-28-mac-mini-migration.md`（published: true、内容OK）
@@ -565,7 +568,7 @@ git push origin main
 
 ## D. dev.to修正
 
-### D1: package-lock.json生成 ✅
+### D1: package-lock.json生成 ✅ 完了
 
 **根本原因:** `npm ci` は `package-lock.json` が必要（S6）。ファイルがない → GitHub Actions が5日連続failure。
 
@@ -582,7 +585,7 @@ git push origin main
 
 ---
 
-### D2: 今日のdev.to記事を公開 ✅ 6記事公開済み
+### D2: 今日のdev.to記事を公開 ✅ 6記事公開済み（2026-02-28）
 
 **状況:**
 - DEV_TO_GIT_TOKEN secret: ✅ 設定済み（2026-02-23確認）
@@ -600,9 +603,13 @@ git push origin main
 
 ## E. ハードウェア + Xcode
 
-### H1: USB-A→Cアダプタ + マウス購入
+### H1: ~~USB-A→Cアダプタ + マウス購入~~ → 不要
 
-**場所:** ドン・キホーテ 新宿東南口店
+**理由:** Screen Sharingが有効。ハードウェア不要。ただしmacOS Venturaの画面共有が「許可されていません」エラーを返す。システム設定GUIで一旦OFF→ON必要。
+
+**修正方法（Dais作業）:** Mac Miniのモニタで「システム設定」→「一般」→「共有」→「画面共有」OFF→3秒→ON。またはSSHからの代替コマンドで解決を試みる。
+
+~~**場所:** ドン・キホーテ 新宿東南口店~~
 **住所:** 新宿区新宿3-36-10 ミラザ新宿
 **営業時間:** 24時間
 **行き方:** 南元町 → 四谷三丁目駅（丸ノ内線）→ 新宿三丁目駅 下車 徒歩1分。または徒歩15分。
@@ -612,7 +619,7 @@ git push origin main
 
 ### H2: Xcode Apple ID追加
 
-H1完了後:
+Screen Sharing接続後（またはMac Mini直接操作）:
 1. マウスをMac Miniに接続
 2. Xcode起動 → Settings → Accounts
 3. 「+」→ Apple ID → keiodaisuke@gmail.com / Chatgpt12345!
@@ -667,13 +674,13 @@ git push origin dev
 ## 実行順序
 
 **Phase 1: 今すぐ壊れてるものを直す**
-1. D1: dev.to package-lock.json生成 + push → 5日分の記事が一気に公開
-2. Z1: Zenn記事再push（24時間経過確認 → 空commit → push）
-3. L1: larry check-analytics --connect cron追加（6:00 JST）
-4. L2: error状態のlarry cron 4個のログ確認 + 修正
+1. ✅ D1: dev.to package-lock.json + dependency fixes + workflow rewrite → 6記事公開
+2. ✅ Z1: Zenn記事再push済み（09:36 PST、commit 8b43384）
+3. ✅ L1: larry connect-analytics cron追加（ID: 2bda28b0、毎日6:00 JST）
+4. ✅ L2: larry error cron 4個修正（--no-deliver）
 
 **Phase 2: Blotato → Postiz 移行**
-5. P0: .envにPOSTIZ_X_INTEGRATION_ID追加
+5. ✅ P0: .envにPOSTIZ_X_INTEGRATION_ID追加済み
 6. P1: x-poster SKILL.md書き換え
 7. P2: build-in-public SKILL.md書き換え + メトリクスループ追加
 8. P3: trend-hunter SKILL.md書き換え
