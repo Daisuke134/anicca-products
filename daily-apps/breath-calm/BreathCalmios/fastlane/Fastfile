@@ -1,0 +1,87 @@
+default_platform(:ios)
+
+platform :ios do
+  before_all do
+    setup_ci if ENV['CI']
+  end
+
+  desc "Run unit tests"
+  lane :test do
+    run_tests(
+      project: "BreathCalm.xcodeproj",
+      scheme: "BreathCalm",
+      devices: ["iPhone 16e"],
+      output_directory: "build/test-results",
+      output_types: "html,junit"
+    )
+  end
+
+  desc "Build for device"
+  lane :build_for_device do
+    gym(
+      project: "BreathCalm.xcodeproj",
+      scheme: "BreathCalm",
+      configuration: "Debug",
+      export_method: "development",
+      output_directory: "./build",
+      silent: true
+    )
+    install_on_device(
+      ipa: "./build/BreathCalm.ipa"
+    )
+  end
+
+  desc "Build for simulator"
+  lane :build_for_simulator do
+    xcodebuild(
+      project: "BreathCalm.xcodeproj",
+      scheme: "BreathCalm",
+      sdk: "iphonesimulator",
+      configuration: "Debug",
+      destination: "platform=iOS Simulator,id=3CDD3B6B-CF68-4C9D-89B7-64676E75CD20"
+    )
+  end
+
+  desc "Set version"
+  lane :set_version do |options|
+    version = options[:version]
+    increment_version_number(
+      version_number: version,
+      xcodeproj: "BreathCalm.xcodeproj"
+    )
+    increment_build_number(xcodeproj: "BreathCalm.xcodeproj")
+  end
+
+  desc "Build for App Store"
+  lane :build do
+    gym(
+      project: "BreathCalm.xcodeproj",
+      scheme: "BreathCalm",
+      export_method: "app-store",
+      output_directory: "./build",
+      output_name: "BreathCalm.ipa"
+    )
+  end
+
+  desc "Upload to App Store Connect"
+  lane :upload do
+    sh "cd .. && asc publish appstore --app #{ENV['APP_ID']} --ipa ./build/BreathCalm.ipa --version #{ENV['APP_VERSION']} --wait --poll-interval 30s"
+  end
+
+  desc "Release (build + upload)"
+  lane :release do
+    build
+    upload
+  end
+
+  desc "Full release (build + upload + submit)"
+  lane :full_release do
+    release
+    sh "cd .. && asc submit create --app #{ENV['APP_ID']} --confirm"
+  end
+
+  desc "Submit for review"
+  lane :submit_review do
+    sh "cd .. && asc submit create --app #{ENV['APP_ID']} --confirm"
+  end
+end

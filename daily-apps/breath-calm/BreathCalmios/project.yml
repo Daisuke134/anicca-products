@@ -1,0 +1,81 @@
+name: BreathCalm
+options:
+  bundleIdPrefix: com.aniccaai
+  deploymentTarget:
+    iOS: "15.0"
+  xcodeVersion: "16.0"
+  createIntermediateGroups: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+    DEVELOPMENT_TEAM: "S5U8UH3JLJ"
+    PRODUCT_BUNDLE_IDENTIFIER: com.aniccaai.breathcalm
+    INFOPLIST_FILE: BreathCalm/Info.plist
+    CODE_SIGN_STYLE: Automatic
+    TARGETED_DEVICE_FAMILY: "1"
+    IPHONEOS_DEPLOYMENT_TARGET: "15.0"
+
+packages:
+  RevenueCat:
+    url: https://github.com/RevenueCat/purchases-ios.git
+    from: "5.18.0"
+  Mixpanel:
+    url: https://github.com/mixpanel/mixpanel-swift.git
+    from: "4.4.0"
+
+targets:
+  BreathCalm:
+    type: application
+    platform: iOS
+    sources:
+      - path: BreathCalm
+        excludes:
+          - "**/*.md"
+    resources:
+      - path: BreathCalm/Resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.aniccaai.breathcalm
+        DEVELOPMENT_TEAM: "S5U8UH3JLJ"
+        MARKETING_VERSION: "1.0.0"
+        CURRENT_PROJECT_VERSION: "1"
+        INFOPLIST_FILE: BreathCalm/Info.plist
+    dependencies:
+      - package: RevenueCat
+        product: RevenueCat
+      - package: Mixpanel
+        product: Mixpanel
+    info:
+      path: BreathCalm/Info.plist
+      properties:
+        CFBundleName: BreathCalm
+        CFBundleDisplayName: BreathCalm
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        UILaunchScreen: {}
+        UISupportedInterfaceOrientations: [UIInterfaceOrientationPortrait]
+        NSUserNotificationUsageDescription: "BreathCalm sends daily breathing reminders to help you stay calm."
+        UIBackgroundModes: []
+
+  BreathCalmTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources: BreathCalmTests
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.aniccaai.breathcalm.tests
+    dependencies:
+      - target: BreathCalm
+
+  BreathCalmUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources: BreathCalmUITests
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.aniccaai.breathcalm.uitests
+    dependencies:
+      - target: BreathCalm

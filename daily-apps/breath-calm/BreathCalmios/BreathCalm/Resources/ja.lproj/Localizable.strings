@@ -1,0 +1,90 @@
+/* Onboarding */
+"onboarding.welcome.title" = "6分で不安を\nリセット";
+"onboarding.welcome.subtitle" = "全身に効く9Dバイノーラル呼吸法";
+"onboarding.welcome.cta" = "始める";
+
+"onboarding.anxiety.title" = "今の不安レベルは？";
+"onboarding.anxiety.high" = "高い — 圧倒されている";
+"onboarding.anxiety.medium" = "中くらい — 少し緊張";
+"onboarding.anxiety.low" = "低い — 大丈夫";
+
+"onboarding.notifications.title" = "毎日の呼吸リマインダー";
+"onboarding.notifications.subtitle" = "最適なタイミングで呼吸を促します";
+"onboarding.notifications.allow" = "リマインダーを許可";
+"onboarding.notifications.skip" = "後で";
+
+/* Home */
+"home.title" = "今日のセッション";
+"home.streak" = "日連続";
+"home.sos.button" = "SOS — 今すぐ落ち着く";
+"home.sos.hint" = "緊急時はタップ";
+"home.sessions.title" = "呼吸法を選択";
+"home.session.478" = "4-7-8呼吸法";
+"home.session.box" = "ボックスブリーシング";
+"home.session.coherent" = "コヒーレント呼吸";
+"home.session.sos" = "緊急SOSモード";
+"home.session.walking" = "日本式ウォーキング";
+"home.session.478.desc" = "定番の不安解消 · 6分";
+"home.session.box.desc" = "集中力 & 落ち着き · 5分";
+"home.session.coherent.desc" = "心拍リズム同期 · 6分";
+"home.session.sos.desc" = "緊急緩和 · 3分";
+"home.session.walking.desc" = "歩きながら呼吸 · 8分";
+"home.locked" = "Pro";
+
+/* Session */
+"session.mood.before.title" = "今の気分は？";
+"session.mood.before.subtitle" = "不安度を評価（0=落ち着き、10=最高に不安）";
+"session.mood.start" = "セッション開始";
+"session.inhale" = "吸う";
+"session.hold" = "止める";
+"session.exhale" = "吐く";
+"session.rest" = "休む";
+"session.remaining" = "残り%@";
+"session.complete.title" = "セッション完了！";
+"session.mood.after.title" = "今の気分は？";
+"session.mood.after.subtitle" = "呼吸セッション後";
+"session.improvement" = "%dポイント改善しました！";
+"session.done" = "完了";
+
+/* History */
+"history.title" = "あなたの記録";
+"history.empty" = "まだセッションがありません。\n最初のセッションを始めましょう！";
+"history.streak.days" = "%d日連続";
+"history.improvement.avg" = "平均改善: +%dポイント";
+
+/* Settings */
+"settings.title" = "設定";
+"settings.notifications" = "通知";
+"settings.privacy" = "プライバシーポリシー";
+"settings.terms" = "利用規約";
+"settings.restore" = "購入を復元";
+"settings.subscription" = "サブスクリプション管理";
+"settings.version" = "バージョン %@";
+
+/* Paywall */
+"paywall.headline" = "6分で不安をリセット";
+"paywall.subheadline" = "全身に効く9Dバイノーラル呼吸法";
+"paywall.feature1" = "9Dバイノーラルビーツ付き呼吸セッション";
+"paywall.feature2" = "緊急SOSモード（今すぐ不安を止める）";
+"paywall.feature3" = "セッション前後の気分スコア記録";
+"paywall.feature4" = "連続記録でモチベ維持";
+"paywall.feature5" = "日本式ウォーキング呼吸ガイド";
+"paywall.trial" = "7日間無料で試す";
+"paywall.cta" = "無料トライアルを始める";
+"paywall.monthly.label" = "月額";
+"paywall.annual.label" = "年額";
+"paywall.annual.save" = "58%お得";
+"paywall.restore" = "復元";
+"paywall.terms" = "利用規約";
+"paywall.privacy" = "プライバシー";
+"paywall.skip" = "後で";
+"paywall.then" = "その後%@/月";
+"paywall.cancel_anytime" = "いつでもキャンセル可";
+
+/* Common */
+"common.continue" = "続ける";
+"common.done" = "完了";
+"common.cancel" = "キャンセル";
+"common.ok" = "OK";
+"common.pro_required" = "Proが必要";
+"common.upgrade" = "Proにアップグレード";

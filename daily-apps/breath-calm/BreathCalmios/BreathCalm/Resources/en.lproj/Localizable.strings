@@ -1,0 +1,90 @@
+/* Onboarding */
+"onboarding.welcome.title" = "Reset Anxiety\nin 6 Minutes";
+"onboarding.welcome.subtitle" = "9D Binaural Breathwork That Actually Works";
+"onboarding.welcome.cta" = "Get Started";
+
+"onboarding.anxiety.title" = "How's your anxiety right now?";
+"onboarding.anxiety.high" = "High — I'm overwhelmed";
+"onboarding.anxiety.medium" = "Medium — Some tension";
+"onboarding.anxiety.low" = "Low — Doing okay";
+
+"onboarding.notifications.title" = "Daily Breathing Reminders";
+"onboarding.notifications.subtitle" = "We'll remind you to breathe at the right time";
+"onboarding.notifications.allow" = "Allow Reminders";
+"onboarding.notifications.skip" = "Not now";
+
+/* Home */
+"home.title" = "Today's Session";
+"home.streak" = "Day Streak";
+"home.sos.button" = "SOS — Instant Calm";
+"home.sos.hint" = "Tap for emergency relief";
+"home.sessions.title" = "Choose Your Breath";
+"home.session.478" = "4-7-8 Breathing";
+"home.session.box" = "Box Breathing";
+"home.session.coherent" = "Coherent Breathing";
+"home.session.sos" = "SOS Emergency";
+"home.session.walking" = "Japanese Walking";
+"home.session.478.desc" = "Classic anxiety relief · 6 min";
+"home.session.box.desc" = "Focus & calm · 5 min";
+"home.session.coherent.desc" = "Heart rhythm sync · 6 min";
+"home.session.sos.desc" = "Emergency relief · 3 min";
+"home.session.walking.desc" = "Breathe while you walk · 8 min";
+"home.locked" = "Pro";
+
+/* Session */
+"session.mood.before.title" = "How do you feel right now?";
+"session.mood.before.subtitle" = "Rate your anxiety (0 = calm, 10 = overwhelmed)";
+"session.mood.start" = "Start Session";
+"session.inhale" = "Inhale";
+"session.hold" = "Hold";
+"session.exhale" = "Exhale";
+"session.rest" = "Rest";
+"session.remaining" = "%@ remaining";
+"session.complete.title" = "Session Complete!";
+"session.mood.after.title" = "How do you feel now?";
+"session.mood.after.subtitle" = "After your breathwork session";
+"session.improvement" = "You improved %d points!";
+"session.done" = "Done";
+
+/* History */
+"history.title" = "Your Journey";
+"history.empty" = "No sessions yet.\nStart your first session!";
+"history.streak.days" = "%d Day Streak";
+"history.improvement.avg" = "Avg improvement: +%d points";
+
+/* Settings */
+"settings.title" = "Settings";
+"settings.notifications" = "Notifications";
+"settings.privacy" = "Privacy Policy";
+"settings.terms" = "Terms of Use";
+"settings.restore" = "Restore Purchases";
+"settings.subscription" = "Manage Subscription";
+"settings.version" = "Version %@";
+
+/* Paywall */
+"paywall.headline" = "Reset Anxiety in 6 Minutes";
+"paywall.subheadline" = "9D Binaural Breathwork That Actually Works";
+"paywall.feature1" = "9D Binaural Beat sessions (4-7-8, Box, Coherent)";
+"paywall.feature2" = "Emergency SOS mode for instant relief";
+"paywall.feature3" = "Mood score tracking (before & after)";
+"paywall.feature4" = "Streak tracker to build daily habit";
+"paywall.feature5" = "Japanese Walking breathing guide";
+"paywall.trial" = "Try Free for 7 Days";
+"paywall.cta" = "Start Your Free Trial";
+"paywall.monthly.label" = "Monthly";
+"paywall.annual.label" = "Annual";
+"paywall.annual.save" = "Save 58%";
+"paywall.restore" = "Restore";
+"paywall.terms" = "Terms";
+"paywall.privacy" = "Privacy";
+"paywall.skip" = "Maybe later";
+"paywall.then" = "Then %@/month";
+"paywall.cancel_anytime" = "Cancel anytime";
+
+/* Common */
+"common.continue" = "Continue";
+"common.done" = "Done";
+"common.cancel" = "Cancel";
+"common.ok" = "OK";
+"common.pro_required" = "Pro Required";
+"common.upgrade" = "Upgrade to Pro";
