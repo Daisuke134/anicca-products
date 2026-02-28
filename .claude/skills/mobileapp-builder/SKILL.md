@@ -124,6 +124,10 @@ See `references/spec-template.md` for the full spec.md format.
 | 37 | **Distribution cert が REVOKED の場合**: (1) `mkdir -p ~/Downloads/.signing && asc certificates csr generate ~/Downloads/.signing/dist.csr` でCSR生成 → (2) `asc certificates create --certificate-type IOS_DISTRIBUTION --csr ~/Downloads/.signing/dist.csr --output json` で証明書発行・ダウンロード → (3) ダウンロードした `.cer` を Keychain にインポート → (4) `security find-identity -v -p codesigning \| grep REVOKED` で表示される hash を `security delete-certificate -Z <hash>` で全削除 → (5) `asc profiles create --profile-type IOS_APP_STORE --bundle-id <BUNDLE_ID_RESOURCE_ID> --certificate <CERT_ID> --name "<app_name> AppStore Distribution"` で新 Profile 作成 → (6) Fastfile に `signingStyle: "manual"` + `provisioningProfiles: { "bundle.id" => "profile-uuid" }` を設定してビルド。⚠️ `openssl req` 禁止 — Apple API が 409 で拒否する。⚠️ automatic signing 禁止 — Xcode 管理 Profile が REVOKED cert を参照している可能性がある。詳細手順は PHASE 2.5 参照 |
 | 38 | **`asc submit create` が "already added to another reviewSubmission" エラーの場合**: (1) `asc review submissions-list --app <APP_ID>` で既存 submission 一覧を確認 → (2) UNRESOLVED_ISSUES / PREPARING 状態の submission を `asc submit cancel --id <submission-id> --confirm` でキャンセル → (3) `asc submit create` を再実行。READY_FOR_REVIEW 状態はキャンセル不可だが、新規 `asc submit create` を実行すれば Apple が新規を優先する。キャンセルせずに同じコマンドを再試行しない |
 | 39 | **アプリの表示名（Display Name）を変更する場合**: `GENERATE_INFOPLIST_FILE = YES` の Xcode プロジェクトでは `INFOPLIST_KEY_CFBundleDisplayName = "表示したい名前"` を `project.pbxproj` の buildSettings に追加する。`Info.plist` に直接書いても `GENERATE_INFOPLIST_FILE` が上書きして無効。設定後は `CURRENT_PROJECT_VERSION` をバンプして再ビルドが必要。コマンド: `sed -i '' 's/PRODUCT_BUNDLE_IDENTIFIER/INFOPLIST_KEY_CFBundleDisplayName = "表示名";\n\t\t\t\tPRODUCT_BUNDLE_IDENTIFIER/' <project>.xcodeproj/project.pbxproj` |
+| 40 | **提出は `asc publish appstore --submit` のみ。`asc submit create` 禁止（2026-03-01 Thankful Guideline 2.1 実機確認）**。`asc submit create` はサブスクを自動的に審査に含めない。`asc publish appstore --submit --confirm` だけがサブスク（READY_TO_SUBMIT 状態）を審査に自動で含める。IAP Bible CRITICAL RULE 29b 参照 |
+| 41 | **PHASE 8 ゲート: blocking=0 かつ warnings=0 が必須（2026-03-01 Thankful Guideline 2.1 実機確認）**。`asc validate subscriptions` で warnings が残っている場合（例: "Submit this subscription for review"）は STOP。warnings=0 になるまで提出禁止。blocking=0 だけでゲート通過するのは不正 |
+| 42 | **提出失敗後の診断は必ず CLI から始める。spec ファイルの記述を信用しない（2026-03-01 教訓）**。spec ファイルは古いセッションの誤情報を含む可能性がある。`asc review submissions-list`, `asc validate subscriptions`, `asc subscriptions get` で現在の実際の状態を確認してから判断する |
+| 43 | **REJECTED 後の回復フロー（2026-03-01 確定）**: (1) `asc review submissions-cancel --id <submission-id> --confirm` → CANCELING → (2) `cd <app-dir> && fastlane build && fastlane upload` → 新ビルド VALID → (3) `asc publish appstore --app <APP_ID> --submit --confirm` → サブスク含めて再提出 → (4) `asc review submissions-list --app <APP_ID>` → state = WAITING_FOR_REVIEW 確認 |
 
 ---
 
@@ -930,14 +934,16 @@ asc subscriptions review-screenshots delete --id "<EXISTING_ID>" --confirm
 
 ### PHASE 8: IAP VALIDATE ★STOP GATE
 ```bash
-# blocking=0 確認
 asc validate subscriptions --app "<APP_ID>"
 # blocking > 0 なら PHASE 5-7 に戻る
+# warnings > 0 なら STOP（「Submit this subscription for review」が出たら提出禁止）
+# blocking=0 かつ warnings=0 になって初めて次に進む
+# 2026-03-01: warnings チェック追加（Thankful Guideline 2.1 の根本原因）
 
 # READY_TO_SUBMIT 確認（両方必須）
 asc subscriptions get --id "<MONTHLY_ID>"  # state = READY_TO_SUBMIT ?
 asc subscriptions get --id "<ANNUAL_ID>"   # state = READY_TO_SUBMIT ?
-# どちらかが MISSING_METADATA なら絶対に次に進まない
+# どちらかが MISSING_METADATA または warnings あり → STOP
 ```
 
 ### PHASE 9: APP ASSETS
@@ -1506,28 +1512,17 @@ ASC API は App Privacy 設定に対応していない（404を返す）。
 
 ### PHASE 12: SUBMIT
 ```bash
-# ビルド済みの場合: asc submit create で提出（READY_TO_SUBMIT の IAP が自動的に含まれる）
-# 2026-02-28 実機確認: --build は必須フラグ
+# 提出は必ず asc publish appstore --submit を使う
+# asc submit create は IAP が含まれないことがある（2026-03-01 Thankful で Guideline 2.1 確認）
 
-BUILD_ID=$(asc builds list --app "$APP_ID" --sort -uploadedDate --limit 1 --output json | \
-  python3 -c "import sys,json;d=json.load(sys.stdin);print(d['data'][0]['id'])")
-
-VERSION_ID=$(asc versions list --app "$APP_ID" --output json | \
-  python3 -c "import sys,json;d=json.load(sys.stdin);print(d['data'][0]['id'])")
-
-asc submit create \
+asc publish appstore \
   --app "$APP_ID" \
-  --version-id "$VERSION_ID" \
-  --build "$BUILD_ID" \
+  --submit \
   --confirm
-# → {"submissionId":"...","state":"WAITING_FOR_REVIEW"} ✅
-# → READY_TO_SUBMIT の IAP が自動的に審査に含まれる（Apple 公式仕様）
 
 # 確認
 asc review submissions-list --app "$APP_ID"
 # → state: WAITING_FOR_REVIEW ✅
-
-# ⚠️ asc publish appstore --submit も使えるが upload から全部やり直す（アップロード不要なら submit create が速い）
 ```
 
 ### PHASE 13: REJECTION LOOP（ASC CLI 0.34.0 新機能 — EXPERIMENTAL）
