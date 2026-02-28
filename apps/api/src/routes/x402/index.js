@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import buddhistCounselRouter from './buddhistCounsel.js';
 import emotionDetectorRouter from './emotionDetector.js';
+import focusCoachRouter from './focusCoach.js';
 
 const router = Router();
 
@@ -97,6 +98,45 @@ if (PAY_TO) {
             },
           },
         },
+          'POST /focus-coach': {
+            accepts: {
+              scheme: 'exact',
+              price: '$0.01',
+              network,
+              payTo: PAY_TO,
+            },
+            description: 'Focus coach for AI agents — diagnose focus blockers using B=MAP and return one tiny action',
+            mimeType: 'application/json',
+            extensions: {
+              ...declareDiscoveryExtension({
+                output: {
+                  example: {
+                    focus_id: 'fcs_a1b2c3d4',
+                    diagnosis: {
+                      primary_blocker: 'ability',
+                      explanation: 'The task is too vague to start.',
+                    },
+                    tiny_action: {
+                      action: 'Write just the first sentence of your report.',
+                      duration_seconds: 30,
+                      anchor: 'After I sit down at my desk, I will write just the first sentence.',
+                    },
+                    environment_design: 'Close all browser tabs except the one you need.',
+                    safe_t_flag: false,
+                  },
+                  schema: {
+                    properties: {
+                      focus_id: { type: 'string' },
+                      diagnosis: { type: 'object' },
+                      tiny_action: { type: 'object' },
+                      environment_design: { type: 'string' },
+                      safe_t_flag: { type: 'boolean' },
+                    },
+                  },
+                },
+              }),
+            },
+          },
         server,
         undefined,
         undefined,
@@ -114,5 +154,6 @@ if (PAY_TO) {
 
 router.use('/buddhist-counsel', buddhistCounselRouter);
 router.use('/emotion-detector', emotionDetectorRouter);
+router.use('/focus-coach', focusCoachRouter);
 
 export default router;
