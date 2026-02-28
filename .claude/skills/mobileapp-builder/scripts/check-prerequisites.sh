@@ -105,6 +105,28 @@ check_env "SLACK_CHANNEL_ID"
 
 echo ""
 
+# ── Distribution Certificate ─────────────────────────────────────────
+echo "[ Distribution Certificate ]"
+if command -v asc &>/dev/null && \
+   asc certificates list --type IOS_DISTRIBUTION --output json 2>/dev/null | \
+   python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+valid = [c for c in d.get('data', []) if c['attributes'].get('certificateState') != 'REVOKED']
+exit(0 if valid else 1)
+" 2>/dev/null; then
+  echo -e "${GREEN}✅ Distribution cert (valid, not REVOKED)${NC}"
+  ((PASS++))
+else
+  echo -e "${RED}❌ Distribution cert (REVOKED or missing)${NC}"
+  echo "   → Run PHASE 2.5 SIGNING PREFLIGHT in SKILL.md to create a new certificate"
+  echo "   → Quick fix: asc certificates csr generate ~/Downloads/.signing/dist.csr"
+  echo "                asc certificates create --certificate-type IOS_DISTRIBUTION --csr ~/Downloads/.signing/dist.csr"
+  ((FAIL++))
+fi
+
+echo ""
+
 # ── ASC API Key (.p8 file) ───────────────────────────────────────────
 echo "[ Files ]"
 if ls ~/Downloads/AuthKey_*.p8 &>/dev/null 2>&1; then

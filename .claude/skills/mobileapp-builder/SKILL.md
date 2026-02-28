@@ -54,6 +54,28 @@ See `references/spec-template.md` for the full spec.md format.
   → **必ず `Read` ツールで実ファイル（`/Users/cbns03/Downloads/mobileapp-builder/SKILL.md`）を確認する**
   → セッション注入は古いキャッシュ版の可能性がある。実ファイルが SSOT。
 
+### SELF-IMPROVEMENT BLOCKING GATE（各 PHASE の末尾で必ず実行）
+
+**このフェーズで以下が1件でもあった場合は SKILL.md を修正してから次フェーズへ進む。修正前の次フェーズ開始は禁止。**
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔄 PHASE X 終了前チェック（BLOCKING）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+トリガー（1件でも該当すれば SKILL.md 修正必須）:
+  □ CLI コマンドがエラーを返した
+  □ 想定外の動作が起きた
+  □ コマンドを訂正した
+
+修正手順:
+  1. SKILL.md の対応 PHASE または CRITICAL RULES に修正内容を追記
+  2. git add SKILL.md && git commit -m "fix(mobileapp-builder): <修正内容>" && git push
+  3. git push 完了後に次フェーズへ
+
+禁止: エラーが起きたのに SKILL.md を修正せずに次フェーズへ進む
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
 ---
 
 ## CRITICAL RULES (違反 = リジェクト確定)
@@ -99,8 +121,9 @@ See `references/spec-template.md` for the full spec.md format.
 | 34 | **iPad スクショのサイズ: 2048×2732 が正解（2026-02-28 実機確認）**。Apple の `APP_IPAD_PRO_3GEN_129` display type は 2048×2732。`sips -z 2732 2048 input.png` で変換（`-z height width` の順序に注意）。2064×2752 は誤り |
 | 35 | **`primaryCategory` 未設定 → `INVALID_BINARY` になる（2026-02-28 実機確認）**。`asc submit create` 後に version が `INVALID_BINARY` になる主原因。PHASE 4 で必ず `appInfos` の `primaryCategory` relationship を設定する。コマンド: `curl -X PATCH /v1/appInfos/<ID>` で `relationships.primaryCategory.data.id = "UTILITIES"` 等を設定。確認: `curl /v1/appInfos/<ID>/primaryCategory` → id が返れば OK。`INVALID_BINARY` になってしまった場合の回復手順: `canceled: true` で既存提出をキャンセル → version 状態が `PREPARE_FOR_SUBMISSION` に戻る → `asc submit create` で再提出。2026-02-28 実機確認済み |
 | 36 | **`usesIdfa: None`（未設定）→ `INVALID_BINARY` になる（2026-02-28 実機確認）**。Apple の自動バイナリ検証が `usesIdfa` 未設定を検出して `INVALID_BINARY` に自動変換し、提出が UNRESOLVED_ISSUES+REJECTED になる。PHASE 9 Step 5（または PHASE 4）で必ず `usesIdfa: false` を設定する。コマンド: `curl -s -X PATCH -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" "https://api.appstoreconnect.apple.com/v1/appStoreVersions/$VERSION_ID" -d '{"data":{"type":"appStoreVersions","id":"$VERSION_ID","attributes":{"usesIdfa":false}}}'`。設定後 `appStoreState` が即座に `INVALID_BINARY` → `READY_FOR_REVIEW` に回復する。`INVALID_BINARY` 回復手順: (1) 既存 UNRESOLVED_ISSUES 提出を `canceled: true` でキャンセル → (2) `usesIdfa: false` を PATCH → (3) 新規 reviewSubmission を作成 → (4) version item を追加 → (5) `submitted: true` で提出。2026-02-28 実機確認済み |
-| 37 | **Distribution 証明書が REVOKED → ITMS-90035: Invalid Signature（2026-02-28 実機確認）**。Keychain の Distribution 証明書が全て REVOKED になると、どのプロビジョニングプロファイルを使っても `error: exportArchive Signing certificate is invalid` が出る。**根本原因**: `openssl req` で CSR を作成しても Apple API が 409 で拒否する。**正解**: `asc certificates csr generate` → `asc certificates create --certificate-type IOS_DISTRIBUTION` の順で新証明書を発行。**回復手順**: (1) `asc certificates csr generate ~/Downloads/.signing/dist.csr` でCSR生成 → (2) `asc certificates create --certificate-type IOS_DISTRIBUTION --csr ~/Downloads/.signing/dist.csr` で証明書発行 → (3) ダウンロードした `.cer` と秘密鍵 `.pem` をKeychain にインポート → (4) REVOKED 証明書を Keychain から削除 → (5) `asc profiles create --profile-type IOS_APP_STORE` で新 Provisioning Profile 作成 → (6) Fastfile で `signingStyle: "manual"` + `provisioningProfiles: { "bundle.id" => "profile-uuid" }` を指定してビルド。REVOKED cert が embedded.mobileprovision に残ったまま Xcode 管理プロファイルを使い続けると何度やっても失敗する。2026-02-28 実機確認済み |
-| 38 | **`asc submit create` で `appStoreVersions already added to another reviewSubmission` エラー → キャンセルしてから新規作成（2026-02-28 実機確認）**。同じバージョンが既存の submission に紐付いている場合、新規 `submit create` が失敗する。**回復手順**: (1) `asc submit cancel --id <problematic-submission-id> --confirm` でキャンセル → (2) `asc submit create` を再実行。READY_FOR_REVIEW 状態の submission はキャンセル不可だが、UNRESOLVED_ISSUES や PREPARING は `canceled: true` でキャンセル可能。キャンセル後も新規 `asc submit create` を実行すれば、古い READY_FOR_REVIEW は無視して正しく新規提出が作られる。2026-02-28 実機確認済み |
+| 37 | **Distribution cert が REVOKED の場合**: (1) `mkdir -p ~/Downloads/.signing && asc certificates csr generate ~/Downloads/.signing/dist.csr` でCSR生成 → (2) `asc certificates create --certificate-type IOS_DISTRIBUTION --csr ~/Downloads/.signing/dist.csr --output json` で証明書発行・ダウンロード → (3) ダウンロードした `.cer` を Keychain にインポート → (4) `security find-identity -v -p codesigning \| grep REVOKED` で表示される hash を `security delete-certificate -Z <hash>` で全削除 → (5) `asc profiles create --profile-type IOS_APP_STORE --bundle-id <BUNDLE_ID_RESOURCE_ID> --certificate <CERT_ID> --name "<app_name> AppStore Distribution"` で新 Profile 作成 → (6) Fastfile に `signingStyle: "manual"` + `provisioningProfiles: { "bundle.id" => "profile-uuid" }` を設定してビルド。⚠️ `openssl req` 禁止 — Apple API が 409 で拒否する。⚠️ automatic signing 禁止 — Xcode 管理 Profile が REVOKED cert を参照している可能性がある。詳細手順は PHASE 2.5 参照 |
+| 38 | **`asc submit create` が "already added to another reviewSubmission" エラーの場合**: (1) `asc review submissions-list --app <APP_ID>` で既存 submission 一覧を確認 → (2) UNRESOLVED_ISSUES / PREPARING 状態の submission を `asc submit cancel --id <submission-id> --confirm` でキャンセル → (3) `asc submit create` を再実行。READY_FOR_REVIEW 状態はキャンセル不可だが、新規 `asc submit create` を実行すれば Apple が新規を優先する。キャンセルせずに同じコマンドを再試行しない |
+| 39 | **アプリの表示名（Display Name）を変更する場合**: `GENERATE_INFOPLIST_FILE = YES` の Xcode プロジェクトでは `INFOPLIST_KEY_CFBundleDisplayName = "表示したい名前"` を `project.pbxproj` の buildSettings に追加する。`Info.plist` に直接書いても `GENERATE_INFOPLIST_FILE` が上書きして無効。設定後は `CURRENT_PROJECT_VERSION` をバンプして再ビルドが必要。コマンド: `sed -i '' 's/PRODUCT_BUNDLE_IDENTIFIER/INFOPLIST_KEY_CFBundleDisplayName = "表示名";\n\t\t\t\tPRODUCT_BUNDLE_IDENTIFIER/' <project>.xcodeproj/project.pbxproj` |
 
 ---
 
@@ -218,7 +241,7 @@ TOOL_FAIL=0
 check_tool "asc"         "asc --version"            "brew install nickvdyck/tap/asc"      || TOOL_FAIL=1
 check_tool "fastlane"    "fastlane --version"        "brew install fastlane"               || TOOL_FAIL=1
 check_tool "greenlight"  "greenlight --version"      "cd /tmp && git clone https://github.com/RevylAI/greenlight.git && cd greenlight && make build && sudo cp build/greenlight /usr/local/bin/" || TOOL_FAIL=1
-check_tool "imagemagick" "convert --version"         "brew install imagemagick"            || TOOL_FAIL=1
+check_tool "imagemagick" "magick --version"           "brew install imagemagick"            || TOOL_FAIL=1
 check_tool "snapai"      "npx snapai --version"      "npm install -g snapai"               || TOOL_FAIL=1
 check_tool "ios-deploy"  "ios-deploy --version"      "brew install ios-deploy"             || TOOL_FAIL=1
 check_tool "Pillow"      "python3 -c 'import PIL'"   "pip3 install Pillow"                 || TOOL_FAIL=1
@@ -455,6 +478,65 @@ mkdir -p <output_dir>/<app_name>ios
 # Bundle ID / バージョン / チーム ID を project.pbxproj に設定
 # RevenueCat SDK を SPM で追加
 # PrivacyInfo.xcprivacy を追加（必須）
+```
+
+### PHASE 2.5: SIGNING PREFLIGHT
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔐 SIGNING PREFLIGHT — Distribution cert が有効でなければ PHASE 3 に進まない
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Step 1: 有効な Distribution cert を確認する
+asc certificates list --type IOS_DISTRIBUTION --output json | python3 -c "
+import sys,json
+d=json.load(sys.stdin)
+valid=[c for c in d['data'] if c['attributes'].get('certificateState')!='REVOKED']
+if valid:
+    print('✅ VALID cert exists:', valid[0]['attributes']['name'])
+else:
+    print('❌ NO VALID CERT — proceed to Step 2')
+    exit(1)
+"
+→ VALID cert が存在すれば Step 3 へスキップ
+
+Step 2: Distribution cert を新規作成する（REVOKED or 存在しない場合）
+mkdir -p ~/Downloads/.signing
+asc certificates csr generate ~/Downloads/.signing/dist.csr
+# NOTE: openssl req 禁止 — Apple API が 409 で拒否する
+asc certificates create --certificate-type IOS_DISTRIBUTION \
+  --csr ~/Downloads/.signing/dist.csr \
+  --output json | python3 -c "import sys,json;d=json.load(sys.stdin);print('CERT_ID:', d['data']['id'])"
+# 発行された .cer を Keychain にインポート（asc が自動ダウンロード）
+
+Step 3: Keychain の REVOKED 証明書を全て削除する
+security find-identity -v -p codesigning | grep "REVOKED" | \
+  awk '{print $3}' | while read hash; do
+    security delete-certificate -Z "$hash"
+    echo "Deleted REVOKED cert: $hash"
+  done
+
+Step 4: アプリ専用 Provisioning Profile を作成する
+CERT_ID=$(asc certificates list --type IOS_DISTRIBUTION --output json | \
+  python3 -c "import sys,json;d=json.load(sys.stdin);print(d['data'][0]['id'])")
+PROFILE_NAME="<app_name> AppStore Distribution"
+asc profiles create \
+  --profile-type IOS_APP_STORE \
+  --bundle-id <BUNDLE_ID_RESOURCE_ID> \
+  --certificate $CERT_ID \
+  --name "$PROFILE_NAME" \
+  --output json > /tmp/profile.json
+PROFILE_UUID=$(python3 -c "import json;d=json.load(open('/tmp/profile.json'));print(d['data']['attributes']['uuid'])")
+# Profile を ~/Library/MobileDevice/Provisioning Profiles/ にインストール
+asc profiles download --id $(python3 -c "import json;d=json.load(open('/tmp/profile.json'));print(d['data']['id'])") \
+  ~/Library/MobileDevice/Provisioning\ Profiles/
+
+Step 5: Fastfile を manual signing テンプレートで更新する
+# export_options に以下を設定（automatic signing 禁止）:
+# signingStyle: "manual"
+# signingCertificate: "iPhone Distribution: <Team Name> (<Team ID>)"
+# provisioningProfiles: { "<bundle_id>" => "<PROFILE_UUID>" }
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
 ### PHASE 3: BUILD
@@ -890,10 +972,10 @@ npx snapai icon \
 ICON_SRC="./assets/icon-[timestamp].png"
 
 # 1. 白背景をアルファ透過に変換
-convert "$ICON_SRC" -fuzz 5% -transparent white /tmp/icon-transparent.png
+magick "$ICON_SRC" -fuzz 5% -transparent white /tmp/icon-transparent.png
 
 # 2. グラデーション背景を作成してアイコンと合成
-convert -size 1024x1024 \
+magick -size 1024x1024 \
   gradient:"#F5A623-#E8563A" \
   /tmp/icon-transparent.png \
   -compose over -composite \

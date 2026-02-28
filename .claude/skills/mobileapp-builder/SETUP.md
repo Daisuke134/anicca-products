@@ -141,6 +141,102 @@ bash ~/.claude/skills/mobileapp-builder/scripts/check-prerequisites.sh
 
 ---
 
+## Section 4.5: Signing Setup（Distribution Certificate + Provisioning Profile）
+
+**PHASE 2.5 SIGNING PREFLIGHT が自動で実行する。手動でセットアップが必要な場合のみ以下を実行する。**
+
+Run the checker first:
+```bash
+bash ~/.claude/skills/mobileapp-builder/scripts/check-prerequisites.sh
+# "Distribution cert (valid)" が ✅ であれば Section 5 へスキップ
+```
+
+### Step 1: CSR を生成する
+
+```bash
+# asc CLI の CSR 生成を使う（openssl req 禁止 — Apple API が 409 で拒否する）
+mkdir -p ~/Downloads/.signing
+asc certificates csr generate ~/Downloads/.signing/dist.csr
+```
+
+### Step 2: Distribution Certificate を発行する
+
+```bash
+asc certificates create \
+  --certificate-type IOS_DISTRIBUTION \
+  --csr ~/Downloads/.signing/dist.csr \
+  --output json
+# → "certificateContent" に証明書が含まれる。自動でキーチェーンにインポートされる
+```
+
+### Step 3: Keychain の REVOKED 証明書を全て削除する
+
+```bash
+security find-identity -v -p codesigning | grep "REVOKED" | \
+  awk '{print $3}' | while read hash; do
+    security delete-certificate -Z "$hash"
+    echo "Deleted REVOKED cert: $hash"
+  done
+# 出力なし = REVOKED なし = OK
+```
+
+### Step 4: アプリ専用 Provisioning Profile を作成する
+
+```bash
+# Bundle ID のリソース ID を取得（asc bundle-ids create で作成済みであること）
+BUNDLE_RESOURCE_ID=$(asc bundle-ids list --output json | \
+  python3 -c "import sys,json;d=json.load(sys.stdin);
+bids=[b for b in d['data'] if b['attributes']['identifier']=='<bundle_id>'];
+print(bids[0]['id'] if bids else 'NOT_FOUND')")
+
+# Distribution cert の ID を取得
+CERT_ID=$(asc certificates list --type IOS_DISTRIBUTION --output json | \
+  python3 -c "import sys,json;d=json.load(sys.stdin);
+valid=[c for c in d['data'] if c['attributes'].get('certificateState')!='REVOKED'];
+print(valid[0]['id'] if valid else 'FAIL')")
+
+# Profile 作成
+asc profiles create \
+  --profile-type IOS_APP_STORE \
+  --bundle-id "$BUNDLE_RESOURCE_ID" \
+  --certificate "$CERT_ID" \
+  --name "<app_name> AppStore Distribution" \
+  --output json > /tmp/profile.json
+
+PROFILE_UUID=$(python3 -c "import json;d=json.load(open('/tmp/profile.json'));print(d['data']['attributes']['uuid'])")
+PROFILE_ID=$(python3 -c "import json;d=json.load(open('/tmp/profile.json'));print(d['data']['id'])")
+echo "Profile UUID: $PROFILE_UUID"
+
+# ~/Library/MobileDevice/Provisioning Profiles/ にダウンロード
+asc profiles download --id "$PROFILE_ID" ~/Library/MobileDevice/Provisioning\ Profiles/
+```
+
+### Step 5: Fastfile を manual signing に更新する
+
+`<app_name>ios/fastlane/Fastfile` の `export_options` を以下に設定:
+
+```ruby
+export_options: {
+  method: "app-store",
+  signingStyle: "manual",
+  signingCertificate: "iPhone Distribution",   # チーム名なしで OK
+  provisioningProfiles: {
+    "<bundle_id>" => "<PROFILE_UUID>"            # Step 4 で取得した UUID
+  }
+}
+```
+
+⚠️ `automatic` signing は REVOKED cert を参照する可能性がある。常に `manual` を使う。
+
+### 確認
+
+```bash
+bash ~/.claude/skills/mobileapp-builder/scripts/check-prerequisites.sh
+# "Distribution cert (valid)" が ✅ になれば完了
+```
+
+---
+
 ## Section 5: MCP Servers (Claude Code)
 
 Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:

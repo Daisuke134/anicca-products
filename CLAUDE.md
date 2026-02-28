@@ -257,3 +257,21 @@ Source: https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardra
 
 ## Recent Changes
 - 003-naist-funds: Added Node.js 18+ + Jest（devDependency）、Firecrawl CLI（外部コマンド、Mac Mini既存）
+
+## 作業場所ルール（2026-02-28 確定）
+
+**このプロジェクトの正本は Mac Mini にある。**
+
+### 全てのBashコマンドをMac MiniでSSH経由で実行する
+```bash
+ssh anicca@aniccanomac-mini-1 "cd /Users/anicca/anicca-project && <command>"
+```
+
+### 禁止事項
+- MacBookのローカルファイルを編集しない（Read, Bashの読み取りは可）
+- MacBookから git commit / git push しない
+- MacBookのローカルでファイルを作成・変更・削除しない
+
+### git remoteルール
+- origin → git@github.com:Daisuke134/anicca-products.git (PUBLIC) のみ
+- Daisuke134/anicca (PRIVATE) にpushしない
