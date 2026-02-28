@@ -490,9 +490,13 @@ cron ID: 2bda28b0-e872-446a-b227-b51776034e3e
 
 ---
 
-### L2: error状態のlarry cron修正 ✅
+### L2: error状態のlarry cron修正 ✅（2026-02-28 10:53 PST再修正）
 
-**根本原因:** 投稿自体は成功していた。Slack delivery通知が失敗していただけ。`--no-deliver`設定で修正済み。
+**根本原因（2種類）:**
+1. `⚠️ ✉️ Message failed` = Slack配信失敗（投稿自体は成功）→ `--best-effort-deliver` 適用済み ✅
+2. `LLM request timed out.` = 600秒タイムアウト超え（afternoon-en, afternoon-ja）→ 次回実行で自動回復するか監視
+
+**前セッションの誤り:** `--no-deliver` フラグは存在しない。正しくは `--best-effort-deliver`。2026-02-28 10:53 PSTに正しいフラグで再修正。
 
 error cron 4個:
 - `larry-post-morning-ja` (e5f13ac4)
@@ -666,6 +670,21 @@ git push origin dev
 全てOpenClawスキル（~/.openclaw/配下）。Claude Codeスキル（.claude/skills/）ではない。
 
 ---
+
+## エラーcron全監査（2026-02-28 10:53 PST）
+
+| cron名 | ID | エラー原因 | 対処 |
+|--------|-----|-----------|------|
+| larry-post-morning-ja | e5f13ac4 | Message failed | ✅ --best-effort-deliver適用 |
+| larry-post-afternoon-en | a4092e38 | LLM timeout (600s) | ✅ --best-effort-deliver適用。タイムアウトは次回自動回復 |
+| larry-post-afternoon-ja | 61d431fc | LLM timeout (600s) | ✅ --best-effort-deliver適用 |
+| larry-post-evening-ja | b551d1ea | Message failed | ✅ --best-effort-deliver適用 |
+| moltbook-interact | - | error | 未調査（P1-P8優先） |
+| roundtable-standup | - | error | 未調査 |
+| trend-hunter-5pm | - | error | 未調査 |
+| app-metrics-afternoon | - | error | 未調査 |
+| x-poster-evening | - | error | P6で停止予定 |
+| sto-weekly-refresh | - | error | 未調査 |
 
 ## ブロッカー解決状況（2026-02-28 10:34 PST）
 
