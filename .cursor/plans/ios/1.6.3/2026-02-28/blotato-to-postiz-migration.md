@@ -686,6 +686,43 @@ git push origin dev
 | x-poster-evening | - | error | P6で停止予定 |
 | sto-weekly-refresh | - | error | 未調査 |
 
+
+## 全スキル・アプリ監査結果（2026-02-28 10:56 PST）
+
+### スキルBlotato依存の詳細
+
+| スキル | Blotato参照数 | 対処 | cron | cron状態 |
+|--------|-------------|------|------|---------|
+| x-poster | 12箇所 | Postizに書き換え | morning (9:00), evening (21:00) | morning=ok, evening=error |
+| build-in-public | 7箇所 | Postizに書き換え | 23:10 JST | ok |
+| trend-hunter | 6箇所 | Postizに書き換え | 5:00, 17:00 JST | 5am=ok, 5pm=error |
+| article-writer | 2箇所 | 残骸削除（Blotato不使用。GitHub push→Zenn/dev.to） | 23:30 JST | ok |
+| tiktok-poster | 全体 | 丸ごと削除 | なし（cronゼロ） | - |
+| larry | 0箇所 | ✅ 既にPostiz | 6個（7:30-21:30） | 4個error(修正済み) |
+
+### tiktok-poster特記
+- **cronが存在しない**（`openclaw cron list | grep tiktok` = 空）
+- larryが完全に代替済み（6 cron、Postiz API経由）
+- 削除してもcron停止作業は不要
+
+### アプリ詳細監査
+
+| アプリ | Swift | xcodeproj | spec | Fastlane | 状態 |
+|--------|-------|-----------|------|----------|------|
+| Breath Calm | 0 | 空 | ✅ 02-spec.md あり（output_dir注意: MacBookパス） | なし | specのみ。78タスク全未完了。PHASE 2から |
+| Calm Cortisol | 18 | ✅ あり | ❌ specなし | ✅ README.md | 実装済み。PHASE 4から（ASC登録→提出） |
+| Thankful | 18 | ✅ あり | ❌ specなし | なし | 実装済み。進行中（別CC） |
+
+### Breath Calm spec注意点
+- `output_dir` が `/Users/cbns03/Downloads/anicca-project/daily-apps/breath-calm`（MacBookパス）
+- Mac Miniでは `/Users/anicca/anicca-project/daily-apps/breath-calm` に読み替え必要
+- CC起動プロンプトで明示する
+
+### Calm Cortisol注意点
+- specファイルがない → CCにPHASE 4（ASCアプリ作成）から開始させる
+- bundle_id, app_name等はコードから推測する必要あり
+- Fastlane READMEあり → ビルド設定は済んでいる可能性
+
 ## ブロッカー解決状況（2026-02-28 10:34 PST）
 
 | ブロッカー | 状態 |
