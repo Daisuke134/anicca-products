@@ -39,9 +39,9 @@ func formatTime(hours: Int, minutes: Int) -> String {
 }
 
 struct Provider: TimelineProvider {
-    var endHour = UserDefaults(suiteName: "group.ChristianPichardo.ScreenBreak")?.integer(forKey: "widgetEndHour")
-    var endMins = UserDefaults(suiteName: "group.ChristianPichardo.ScreenBreak")?.integer(forKey: "widgetEndMins")
-    var inRestrictionMode = UserDefaults(suiteName: "group.ChristianPichardo.ScreenBreak")?.bool(forKey: "widgetInRestrictionMode")
+    var endHour = UserDefaults(suiteName: "group.ai.anicca.screenbreak")?.integer(forKey: "widgetEndHour")
+    var endMins = UserDefaults(suiteName: "group.ai.anicca.screenbreak")?.integer(forKey: "widgetEndMins")
+    var inRestrictionMode = UserDefaults(suiteName: "group.ai.anicca.screenbreak")?.bool(forKey: "widgetInRestrictionMode")
     
     func placeholder(in context: Context) -> ScreenTimeEntry {
         ScreenTimeEntry(endTime:formatTime(hours:12, minutes:30), inRestrictionMode: true)

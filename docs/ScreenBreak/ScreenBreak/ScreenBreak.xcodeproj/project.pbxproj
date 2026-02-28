@@ -1097,7 +1097,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ScreenBreak/Preview Content\"";
-				DEVELOPMENT_TEAM = 9X5NJM66A3;
+				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ScreenBreak/Info.plist;
@@ -1110,7 +1110,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ChristianPichardo.ScreenBreak;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.anicca.screenbreak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1133,7 +1133,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ScreenBreak/Preview Content\"";
-				DEVELOPMENT_TEAM = 9X5NJM66A3;
+				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ScreenBreak/Info.plist;
@@ -1146,7 +1146,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ChristianPichardo.ScreenBreak;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.anicca.screenbreak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1165,11 +1165,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9X5NJM66A3;
+				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ChristianPichardo.ScreenBreakTests;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.anicca.screenbreakTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -1185,11 +1185,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9X5NJM66A3;
+				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ChristianPichardo.ScreenBreakTests;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.anicca.screenbreakTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -1204,10 +1204,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9X5NJM66A3;
+				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ChristianPichardo.ScreenBreakUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.anicca.screenbreakUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -1222,10 +1222,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9X5NJM66A3;
+				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ChristianPichardo.ScreenBreakUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.anicca.screenbreakUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -1241,7 +1241,7 @@
 				CODE_SIGN_ENTITLEMENTS = ReportExtension/ReportExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9X5NJM66A3;
+				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReportExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ReportExtension;
@@ -1253,7 +1253,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ChristianPichardo.ScreenBreak.ReportExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.anicca.screenbreak.ReportExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1269,7 +1269,7 @@
 				CODE_SIGN_ENTITLEMENTS = ReportExtension/ReportExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9X5NJM66A3;
+				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ReportExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ReportExtension;
@@ -1281,7 +1281,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ChristianPichardo.ScreenBreak.ReportExtension;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.anicca.screenbreak.ReportExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1297,7 +1297,7 @@
 				CODE_SIGN_ENTITLEMENTS = DeviceActivityMonitor/DeviceActivityMonitor.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9X5NJM66A3;
+				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DeviceActivityMonitor/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DeviceActivityMonitor;
@@ -1309,7 +1309,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ChristianPichardo.ScreenBreak.DeviceActivityMonitor;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.anicca.screenbreak.DeviceActivityMonitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1325,7 +1325,7 @@
 				CODE_SIGN_ENTITLEMENTS = DeviceActivityMonitor/DeviceActivityMonitor.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9X5NJM66A3;
+				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DeviceActivityMonitor/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = DeviceActivityMonitor;
@@ -1337,7 +1337,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ChristianPichardo.ScreenBreak.DeviceActivityMonitor;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.anicca.screenbreak.DeviceActivityMonitor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1354,7 +1354,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9X5NJM66A3;
+				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = shield/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = shield;
@@ -1366,7 +1366,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ChristianPichardo.ScreenBreak.shield;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.anicca.screenbreak.shield;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1383,7 +1383,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9X5NJM66A3;
+				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = shield/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = shield;
@@ -1395,7 +1395,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ChristianPichardo.ScreenBreak.shield;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.anicca.screenbreak.shield;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1414,7 +1414,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9X5NJM66A3;
+				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SBWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SBWidget;
@@ -1426,7 +1426,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ChristianPichardo.ScreenBreak.SBWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.anicca.screenbreak.SBWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1445,7 +1445,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 9X5NJM66A3;
+				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SBWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = SBWidget;
@@ -1457,7 +1457,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = ChristianPichardo.ScreenBreak.SBWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = ai.anicca.screenbreak.SBWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1564,7 +1564,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
-				branch = master;
+				branch = main;
 				kind = branch;
 			};
 		};

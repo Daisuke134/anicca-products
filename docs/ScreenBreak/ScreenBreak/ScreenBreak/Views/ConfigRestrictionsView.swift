@@ -18,9 +18,9 @@ struct ConfigRestrictionsView: View {
     @AppStorage("endHour") private var endHour = 0
     @AppStorage("endMins") private var endMins = 0
     @AppStorage("inRestrictionMode") private var inRestrictionMode = false
-    @AppStorage("widgetEndHour", store: UserDefaults(suiteName:"group.ChristianPichardo.ScreenBreak")) private var widgetEndHour = 0
-    @AppStorage("widgetEndMins", store: UserDefaults(suiteName:"group.ChristianPichardo.ScreenBreak")) private var widgetEndMins = 0
-    @AppStorage("widgetInRestrictionMode", store: UserDefaults(suiteName:"group.ChristianPichardo.ScreenBreak")) private var widgetInRestrictionMode = false
+    @AppStorage("widgetEndHour", store: UserDefaults(suiteName:"group.ai.anicca.screenbreak")) private var widgetEndHour = 0
+    @AppStorage("widgetEndMins", store: UserDefaults(suiteName:"group.ai.anicca.screenbreak")) private var widgetEndMins = 0
+    @AppStorage("widgetInRestrictionMode", store: UserDefaults(suiteName:"group.ai.anicca.screenbreak")) private var widgetInRestrictionMode = false
     
     init() {
         UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "Poppins-Bold", size: 40)!]
