@@ -724,12 +724,12 @@ analytics接続: larry SKILL.md + references (S8, S9)
 ## G. アプリ出荷（mobileapp-builder CC）
 
 ### 方法
-Mac MiniのSSHからClaude Codeをpty+backgroundで起動し、mobileapp-builder SKILL.mdに従って自律実行させる。
+Mac Mini上で直接Claude Codeをpty+backgroundで起動し、mobileapp-builder SKILL.mdに従って自律実行させる。
+SSHは不要（OpenClaw GatewayはMac Miniで稼働中）。
 
 ```bash
 # coding-agent パターン（nohup禁止）
-# 各アプリごとにClaude Codeセッションを起動
-ssh anicca@aniccanomac-mini-1
+# Mac Mini上で直接実行（SSHしない）
 
 # Breath Calm（PHASE 2-12 全実行）
 cd /Users/anicca/anicca-project
