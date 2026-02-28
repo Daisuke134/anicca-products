@@ -2,7 +2,7 @@
 
 **Date**: 2026-02-28
 **Author**: Anicca
-**Status**: 🔄 実行中（P0,L1,L2,D1,D2,Z1 完了。P1-P8 + H2 残り）
+**Status**: 🔄 実行中（P0,L1,L2,D1,D2,Z1,H1 完了。ブロッカー全解決。P1-P8 + H2 残り）
 
 ---
 
@@ -603,13 +603,9 @@ git push origin main
 
 ## E. ハードウェア + Xcode
 
-### H1: ~~USB-A→Cアダプタ + マウス購入~~ → 不要
+### H1: ~~USB-A→Cアダプタ + マウス購入~~ → ✅ 不要（完全解決）
 
-**理由:** Screen Sharingが有効。ハードウェア不要。ただしmacOS Venturaの画面共有が「許可されていません」エラーを返す。システム設定GUIで一旦OFF→ON必要。
-
-**修正方法（Dais作業）:** Mac Miniのモニタで「システム設定」→「一般」→「共有」→「画面共有」OFF→3秒→ON。またはSSHからの代替コマンドで解決を試みる。
-
-~~**場所:** ドン・キホーテ 新宿東南口店~~
+**理由:** Screen Sharing ON/OFF再設定完了（2026-02-28 10:24 PST）。MacBookから `open vnc://aniccanomac-mini-1` で接続確認済み。ハードウェア購入不要。
 **住所:** 新宿区新宿3-36-10 ミラザ新宿
 **営業時間:** 24時間
 **行き方:** 南元町 → 四谷三丁目駅（丸ノ内線）→ 新宿三丁目駅 下車 徒歩1分。または徒歩15分。
@@ -619,7 +615,7 @@ git push origin main
 
 ### H2: Xcode Apple ID追加
 
-Screen Sharing接続後（またはMac Mini直接操作）:
+Screen Sharing接続済み ✅。MacBookから `open vnc://aniccanomac-mini-1` で接続して:
 1. マウスをMac Miniに接続
 2. Xcode起動 → Settings → Accounts
 3. 「+」→ Apple ID → keiodaisuke@gmail.com / Chatgpt12345!
@@ -670,6 +666,16 @@ git push origin dev
 全てOpenClawスキル（~/.openclaw/配下）。Claude Codeスキル（.claude/skills/）ではない。
 
 ---
+
+## ブロッカー解決状況（2026-02-28 10:34 PST）
+
+| ブロッカー | 状態 |
+|-----------|------|
+| Screen Sharing | ✅ ON/OFF再設定で解決。VNC接続確認済み |
+| APPLE_ID_PASSWORD | ✅ Chatgpt12345 → ~/.config/mobileapp-builder/.env |
+| NETLIFY_AUTH_TOKEN | ✅ nfp_bP21GRy1SMgcfLZDUEvsajXM3cn9k7J17682 |
+| NETLIFY_SITE_ID | ✅ d67537f0-21bd-477e-ac1a-323f7ec6d5cd (aniccaai.com) |
+| マウス/ハードウェア購入 | ✅ 不要 |
 
 ## 実行順序
 
