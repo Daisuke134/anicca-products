@@ -565,7 +565,7 @@ git push origin main
 
 ## D. dev.to修正
 
-### D1: package-lock.json生成
+### D1: package-lock.json生成 ✅
 
 **根本原因:** `npm ci` は `package-lock.json` が必要（S6）。ファイルがない → GitHub Actions が5日連続failure。
 
@@ -582,7 +582,7 @@ git push origin main
 
 ---
 
-### D2: 今日のdev.to記事を公開
+### D2: 今日のdev.to記事を公開 ✅ 6記事公開済み
 
 **状況:**
 - DEV_TO_GIT_TOKEN secret: ✅ 設定済み（2026-02-23確認）
@@ -686,6 +686,10 @@ git push origin dev
 13. P7: TOOLS.md更新
 14. P8: AGENTS.md更新
 15. G1: git commit & push
+
+**Phase 1.5: 記事リンク確認 + Slack投稿**
+1.5a. Zennデプロイ確認 → リンク取得 → Slackに投稿
+1.5b. dev.toリンクSlack投稿 ✅ 済み
 
 **Phase 4: Dais作業**
 16. H1: ドンキでUSB-A→Cアダプタ + マウス購入
