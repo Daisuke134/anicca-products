@@ -511,23 +511,52 @@ openclaw cron log b551d1ea
 
 ---
 
-## C. Zenn修正
+## C. Zenn + dev.to 記事公開（今すぐ）
 
-### Z1: 投稿頻度制限対応
+### Z1: 今日のZenn記事を今すぐ公開
 
-**根本原因:** Zenn rate limit = 24時間に1投稿まで（S7）。
-**現状:** article-writer cronが毎日23:30に1本投稿。1日1本なので本来は問題ない。
-**実際のエラー:** 「投稿数の上限に達したためデプロイされませんでした」→ 他のpushが同日にあった可能性。
+**状況:**
+- 記事: `articles/2026-02-28-mac-mini-migration.md`（published: true、内容OK）
+- 06:32 PSTにpush済み（commit 65a93e5）
+- Zenn rate limitで弾かれた
+- 前日の記事push: 02-27 06:32 PST → 24時間後 = 02-28 06:32 PST
 
-**修正:** article-writer SKILL.mdに以下のルールを追加:
+**実行コマンド:**
+
+```bash
+cd /Users/anicca/.openclaw/workspace/zenn-articles
+# 前回pushから24時間経過を確認
+LAST=$(git log -1 --format="%ct" -- "articles/")
+NOW=$(date +%s)
+DIFF=$((NOW - LAST))
+echo "前回pushから${DIFF}秒経過（86400秒=24時間）"
+
+# 空commitでZenn deploy再トリガー
+git commit --allow-empty -m "retry: trigger Zenn deploy for 2026-02-28 article"
+git push origin main
 ```
-## Zenn投稿制限（S7準拠）
-- Zennは24時間に1投稿まで（rate-limit）
-- 同日に2本以上のarticles/*.mdをpushしない
-- pushする前に前回のpush時刻を確認:
-  cd /Users/anicca/.openclaw/workspace/zenn-articles
-  git log --oneline -1 --format="%ci" -- "articles/"
-- 前回から24時間経過してない場合はスキップしてSlack報告
+
+24時間経過してなければ経過するまで待ってから実行。
+
+| 状態 | ⬜ |
+
+### Z2: article-writer SKILL.mdにrate limitガード追加
+
+article-writerのpushステップの直前に追加:
+
+```bash
+# Zenn rate limit guard（S7準拠）
+LAST_PUSH=$(cd /Users/anicca/.openclaw/workspace/zenn-articles && git log -1 --format="%ct" -- "articles/")
+NOW=$(date +%s)
+DIFF=$((NOW - LAST_PUSH))
+if [ "$DIFF" -lt 86400 ]; then
+  WAIT_MIN=$(( (86400 - DIFF) / 60 ))
+  echo "⚠️ Zenn rate limit: あと${WAIT_MIN}分待ち。スキップ。"
+  # Slack #metrics に報告して終了
+  exit 0
+fi
+# 24時間経過 → push OK
+git push origin main
 ```
 
 | 状態 | ⬜ |
@@ -553,15 +582,17 @@ git push origin main
 
 ---
 
-### D2: DEV_TO_GIT_TOKEN secret確認
+### D2: 今日のdev.to記事を公開
 
-```bash
-gh secret list --repo Daisuke134/dev-to-articles
-```
+**状況:**
+- DEV_TO_GIT_TOKEN secret: ✅ 設定済み（2026-02-23確認）
+- package-lock.json追加後、GitHub Actionsが走って全記事がdev.toに公開される
+- D1のpushで自動的にGitHub Actions再実行 → 今日の記事含め5日分が一気に公開される
 
-`DEV_TO_GIT_TOKEN` がなければ:
-1. https://dev.to/settings/extensions → API Keys → Generate
-2. `gh secret set DEV_TO_GIT_TOKEN --repo Daisuke134/dev-to-articles`
+**D1のpushだけでOK。追加作業なし。**
+
+ただし5日分一気に公開されるので、dev.to側にrate limitがあれば最新1本だけになる可能性あり。
+その場合、古い記事の `dev-to-git.json` エントリを一時削除してpush → 最新記事だけ公開 → 戻す。
 
 | 状態 | ⬜ |
 
@@ -635,19 +666,30 @@ git push origin dev
 
 ## 実行順序
 
-1. P0 (.env追加)
-2. D1 (dev.to package-lock.json)
-3. D2 (DEV_TO_GIT_TOKEN確認)
-4. P1-P4 (SKILL.md書き換え4個)
-5. P5 (tiktok-poster削除)
-6. P6 (x-poster cron停止)
-7. L1 (connect-analytics cron追加)
-8. L2 (error cron調査)
-9. Z1 (article-writer Zenn制限追加)
-10. P7-P8 (TOOLS.md, AGENTS.md更新)
-11. G1 (git commit & push)
-12. H1 (ドンキで買い物) — Dais
-13. H2 (Xcode Apple ID) — Dais
+**Phase 1: 今すぐ壊れてるものを直す**
+1. D1: dev.to package-lock.json生成 + push → 5日分の記事が一気に公開
+2. Z1: Zenn記事再push（24時間経過確認 → 空commit → push）
+3. L1: larry check-analytics --connect cron追加（6:00 JST）
+4. L2: error状態のlarry cron 4個のログ確認 + 修正
+
+**Phase 2: Blotato → Postiz 移行**
+5. P0: .envにPOSTIZ_X_INTEGRATION_ID追加
+6. P1: x-poster SKILL.md書き換え
+7. P2: build-in-public SKILL.md書き換え + メトリクスループ追加
+8. P3: trend-hunter SKILL.md書き換え
+9. P4: article-writer SKILL.md Blotato残骸削除
+10. P5: tiktok-poster スキルディレクトリ削除
+11. P6: x-poster cron 2個停止
+
+**Phase 3: ドキュメント更新**
+12. Z2: article-writer SKILL.mdにZenn rate limitガード追加
+13. P7: TOOLS.md更新
+14. P8: AGENTS.md更新
+15. G1: git commit & push
+
+**Phase 4: Dais作業**
+16. H1: ドンキでUSB-A→Cアダプタ + マウス購入
+17. H2: Xcode Apple ID追加
 
 ---
 
