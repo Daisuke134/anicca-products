@@ -174,3 +174,56 @@
 - Release spec should be written alongside PRD for aligned messaging
 
 ---
+
+## 2026-03-01 16:00 - US-005: iOS implementation
+
+### What was implemented
+- Created full AffirmFlowios/ Xcode project with proper directory structure
+- Implemented MVVM architecture with SwiftUI + SwiftData
+- Built 5 Models: FocusArea, Affirmation, UserSettings + Mock types for subscription
+- Created 3 Services: AffirmationService, SubscriptionService (mock), HapticsService
+- Implemented 11 Views across Onboarding, Home, Favorites, History, Settings, Paywall
+- Built Widget Extension with 3 sizes (Small, Medium, Large)
+- Configured Xcode project with iOS 17.0 deployment target
+
+### Files changed (23 Swift files + Xcode project)
+- `AffirmFlowios/App/AffirmFlowApp.swift` - Main app entry point
+- `AffirmFlowios/Models/FocusArea.swift` - Focus area enum with 5 areas
+- `AffirmFlowios/Models/Affirmation.swift` - SwiftData model
+- `AffirmFlowios/Models/UserSettings.swift` - Observable user settings
+- `AffirmFlowios/Services/AffirmationService.swift` - Pre-defined affirmations (AI deferred)
+- `AffirmFlowios/Services/SubscriptionService.swift` - Mock RevenueCat implementation
+- `AffirmFlowios/Services/HapticsService.swift` - UIKit haptic feedback
+- `AffirmFlowios/Utilities/DesignTokens.swift` - Spacing, corner radius, animations
+- `AffirmFlowios/Views/ContentView.swift` - Root navigation
+- `AffirmFlowios/Views/Onboarding/*.swift` - 4 onboarding screens
+- `AffirmFlowios/Views/Home/*.swift` - HomeView, AffirmationCardView
+- `AffirmFlowios/Views/Favorites/FavoritesView.swift` - Favorites list
+- `AffirmFlowios/Views/History/HistoryView.swift` - History grouped by date
+- `AffirmFlowios/Views/Settings/SettingsView.swift` - App settings
+- `AffirmFlowios/Views/Paywall/PaywallView.swift` - Mock paywall UI
+- `AffirmFlowios/Widget/*.swift` - Widget extension (5 files)
+- `AffirmFlowios/Resources/` - Info.plist, entitlements, assets
+
+### Key technical decisions
+| Decision | Rationale |
+|----------|-----------|
+| iOS 17.0 minimum | SwiftData + modern SwiftUI features |
+| Pre-defined affirmations | FoundationModels requires iOS 26+ (deferred) |
+| Mock SubscriptionService | RevenueCat SPM integration deferred |
+| App Groups | Widget data sharing with main app |
+| SwiftData @Model | Modern persistence over Core Data |
+
+### Build verification
+```bash
+xcodebuild -scheme AffirmFlow -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
+# BUILD SUCCEEDED
+```
+
+### Learnings for future iterations
+- FoundationModels requires iOS 26+ - need fallback for iOS 17-25
+- RevenueCat SPM integration requires project.pbxproj complexity - mock first
+- `.foregroundColor(.tertiary)` is invalid - use `.foregroundStyle(.tertiary)`
+- iPhone 16 simulator not available on some Xcode versions - use iPhone 17 Pro
+
+---
