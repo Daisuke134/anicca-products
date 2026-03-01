@@ -15,7 +15,7 @@
 ### US-004: Spec generation — ✅ COMPLETE
 - docs/ 7 files created (PRD, ARCHITECTURE, UX, DESIGN, IMPLEMENTATION, TEST, RELEASE)
 
-### US-005: ASC + IAP + RevenueCat — 🔶 PARTIAL
+### US-005: ASC + IAP + RevenueCat — 🔶 PARTIAL (待機中: APP_ID)
 DONE:
 - MicroMoodiOS/ 全コード完了（32ファイル）
 - RevenueCat SDK via SPM（Package.resolved に purchases-ios あり）
@@ -23,18 +23,22 @@ DONE:
 - PrivacyInfo.xcprivacy あり
 - Info.plist ITSAppUsesNonExemptEncryption = false
 - Mock = 0
+- Bundle ID: U449Z58UL3 (com.anicca.micromood) ✅ 既存
+- 配布証明書: P8XCDP64HZ ✅ 有効 (expires 2027)
+- AppStore Distribution プロファイル: P3RNZ5D49S ✅ ACTIVE
+- Privacy Policy: https://daisuke134.github.io/micromood-privacy/ ✅ GitHub Pages
+- Slack 手動作成依頼: ✅ 送信済み
 NOT DONE:
-- ASC アプリ作成（2FA ブロック — 手動作成が必要）
+- ASC アプリ作成（2FA ブロック — 手動作成が必要 → Slack 待機中）
 - IAP 作成（アプリがないから）
 - RC Offerings 設定（IAP がないから）
-ACTION NEEDED:
-- Slack に ASC 手動作成依頼を送る（全フィールド埋めた状態で）
-- Dais が App ID を Slack に返す → progress.txt に APP_ID=XXXXXXXXXX を追記される
-- APP_ID があれば asc subscriptions で IAP 作成 → RC 設定
+WAITING FOR:
+- Dais が App ID を Slack に返す → progress.txt に APP_ID=XXXXXXXXXX を追記
 
 APP_NAME=Micro Mood
 BUNDLE_ID=com.anicca.micromood
 SKU=MicroMood2026
+PRIVACY_POLICY_URL=https://daisuke134.github.io/micromood-privacy/
 
 ### US-006: iOS implementation — 🔶 PARTIAL (US-005 で大半完了)
 DONE:
