@@ -50,3 +50,7 @@ NOT DONE:
 ### US-007: Testing — PENDING
 ### US-008: App Store preparation — PENDING
 ### US-009: App Store submission — PENDING
+
+APP_ID=6759877003
+APP_NAME=Micro-Mood
+# Dais provided App ID and changed name to Micro-Mood (copyright)
