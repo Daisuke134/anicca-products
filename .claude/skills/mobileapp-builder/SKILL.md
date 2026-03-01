@@ -580,33 +580,31 @@ ralph-autonomous-dev で SwiftUI 実装
   - Terms of Use リンク → spec.md の urls.terms（Apple 標準 EULA 固定）
     URL: https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
 
-  ■ PHASE 9 スクショパイプラインの前提セットアップ（必須 — これがないと PHASE 9 Step 2 が動かない）
+  ■ PHASE 9 スクショ撮影 + Pencil MCP プロモ加工
 
-  1. ScreenshotTests.swift を作成
-     ファイル: <output_dir>/<slug>UITests/ScreenshotTests.swift
-     内容: XCUITest でアプリを起動し、各画面をスクロール・遷移してスクショを撮影するテストケース
-     テストケース:
-       - testScreenshot_Main   : メイン画面
-       - testScreenshot_Streak : カレンダー/ストリーク画面（存在する場合）
-       - testScreenshot_Paywall: Paywall 画面（paywall_skip で到達可能にすること）
-     accessibilityIdentifier を使って各画面に確実に到達すること
+  1. スクショ撮影（xcrun simctl io のみ・最大3枚・5分以内）
+     ```bash
+     xcrun simctl launch <UDID> <BUNDLE_ID> && sleep 3
+     xcrun simctl io <UDID> screenshot screenshots/screen_1.png
+     ```
+     - Home画面1枚のみ必須。残り2枚はオプション
+     - 画面遷移が必要な画面はスキップ
+     - ⛔ XCUITest / ScreenshotTests.swift 禁止
+     - ⛔ Maestro MCP / CLI での画面遷移禁止
+     - ⛔ サブエージェントでの画面操作禁止
+     - ⛔ xcrun simctl io sendEvent swipe/tap 禁止（iOS 17+ で動かない）
+     - ⛔ 撮影に5分以上かけるな
 
-  2. Makefile に generate-store-screenshots ターゲットを追加
-     場所: <output_dir>/Makefile
-     コマンド:
-       generate-store-screenshots:
-         xcodebuild test -project <app_name>.xcodeproj -scheme <app_name>UITests \
-           -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 16 Pro Max' \
-           -resultBundlePath docs/screenshots/output.xcresult
-         python3 docs/screenshots/scripts/extract_screenshots.py
-         python3 docs/screenshots/scripts/process_screenshots.py
-
-  3. extract_screenshots.py + process_screenshots.py を docs/screenshots/scripts/ に配置
-     - extract_screenshots.py: xcresulttool で output.xcresult から PNG を抽出 → docs/screenshots/raw/
-     - process_screenshots.py: **DEPRECATED — 使用禁止。Pencil MCP を使うこと。** PIL での合成は禁止
-     - screenshots.yaml: 各画面のヘッドライン + カラー設定
-
-  ⚠️ これらのセットアップが完了してから PHASE 9 Step 2 に進む。スキップ禁止。
+  2. screenshot-creator SKILL.md の Step 1-7 に従って Pencil MCP でプロモ加工
+     Read: /Users/anicca/anicca-project/.claude/skills/screenshot-creator/SKILL.md
+     - Step 1: ヒアリング（product-plan.md からアプリ名・ターゲット・USP を取得）
+     - Step 2: Pencil MCP でスタイルガイド取得
+     - Step 3: コピー作成（ヘッドライン + サブヘッドライン × 3枚分）
+     - Step 4: Pencil MCP で .pen ファイル作成（実スクショ埋め込み + テキスト配置）
+     - Step 5: 技術仕様バリデーション
+     - Step 6: 品質レビュー（10点満点）
+     - Step 7: PNG エクスポート → ASC アップロード
+     - ⛔ Python/Pillow/ImageMagick 禁止。Pencil MCP 失敗 → passes:false
 ```
 
 ### PHASE 3.5: PRIVACY POLICY & LANDING PAGE デプロイ

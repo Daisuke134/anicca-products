@@ -105,15 +105,24 @@ Before starting any US, verify the previous US acceptance criteria:
 - Read: docs/TEST_SPEC.md
 - Verify: xcodebuild test succeeds
 
-### US-008: App Store preparation
+### US-008: App Store screenshots + metadata
 - FIRST: Delete ALL existing screenshots (rm -rf screenshots/ docs/screenshots/)
-- MANDATORY: Screenshots MUST use Pencil MCP (@pencil-so/mcp). NO EXCEPTIONS.
-  - Step 1: xcrun simctl io で実スクショ撮影
-  - Step 2: Pencil MCP で .pen ファイル作成（モックアップ + ヘッドライン）
-  - Step 3: Pencil MCP で PNG エクスポート
-  - DO NOT use Python/Pillow/ImageMagick as fallback
-  - If Pencil MCP fails → report error + set passes:false + exit
-- Read: /Users/anicca/anicca-project/.claude/skills/screenshot-creator/SKILL.md (follow ALL steps exactly)
+- スクショ撮影（5分以内・最大3枚）:
+  - xcrun simctl launch <UDID> <BUNDLE_ID> && sleep 3
+  - xcrun simctl io <UDID> screenshot screenshots/screen_1.png
+  - Home画面1枚のみ必須。残り2枚はオプション
+  - 画面遷移が必要な画面はスキップ
+  - ⛔ XCUITest/Maestro/サブエージェント/swipe/tap 禁止
+- Read: /Users/anicca/anicca-project/.claude/skills/screenshot-creator/SKILL.md
+  - Step 1-7 を全て順番に従え（Pencil MCP でプロモ加工）
+  - Step 1: ヒアリング（product-plan.md からアプリ名・ターゲット・USP を取得）
+  - Step 2: Pencil MCP でスタイルガイド取得
+  - Step 3: コピー作成（ヘッドライン + サブヘッドライン × 3枚分）
+  - Step 4: Pencil MCP で .pen ファイル作成（実スクショ埋め込み + テキスト配置）
+  - Step 5: 技術仕様バリデーション
+  - Step 6: 品質レビュー（10点満点）
+  - Step 7: PNG エクスポート → ASC アップロード
+- ⛔ Python/Pillow/ImageMagick 禁止。Pencil MCP 失敗 → passes:false
 - Read: .claude/skills/asc-shots-pipeline/SKILL.md
 - Read: .claude/skills/asc-metadata-sync/SKILL.md
 - Read: .claude/skills/asc-xcode-build/SKILL.md

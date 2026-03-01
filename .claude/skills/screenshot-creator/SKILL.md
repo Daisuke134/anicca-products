@@ -38,20 +38,32 @@ description: >
 
 ---
 
-## Step 0: シミュレータ準備（スクショ撮影前）
+## Step 0: シミュレータスクショ撮影（最大3枚・5分以内）
 
 **Dynamic Island を含むスクショはNG。** iPhone SE 3rd gen を使う。
+**最大3枚。** Home画面1枚は必須。残り2枚はオプション。
 
 ```bash
-# iPhone SE 3rd gen 起動（Dynamic Island なし・ノッチなし）
+# iPhone SE 3rd gen 起動
 xcrun simctl boot CBA51D41-D404-4843-AA18-738C5068FFE4
-
-# アプリインストール（build済み .app のパス）
+# アプリインストール + 起動
 xcrun simctl install CBA51D41-D404-4843-AA18-738C5068FFE4 /path/to/App.app
-
-# スクショ撮影
-xcrun simctl io CBA51D41-D404-4843-AA18-738C5068FFE4 screenshot /path/to/screen_home.png
+xcrun simctl launch CBA51D41-D404-4843-AA18-738C5068FFE4 <BUNDLE_ID>
+sleep 3
+# Home画面（必須）
+xcrun simctl io CBA51D41-D404-4843-AA18-738C5068FFE4 screenshot screenshots/screen_1.png
 ```
+
+**残り2枚の撮り方（オプション）:**
+- deep link が使えるなら: `xcrun simctl openurl <UDID> <deeplink>`
+- 使えないなら: Home 画面1枚だけで OK。Pencil MCP で3枚分のプロモ画像を作る
+
+⛔ **禁止:**
+- XCUITest / ScreenshotTests.swift での撮影
+- Maestro MCP / CLI での画面遷移
+- サブエージェントでの画面操作
+- xcrun simctl io sendEvent swipe/tap（iOS 17+ で動かない）
+- 5分以上かけること
 
 **万が一 iPhone 14+ のスクショを使う場合**: Dynamic Island（上部185px）を Python でクロップ:
 
