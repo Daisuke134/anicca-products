@@ -31,6 +31,14 @@ Set app version
 
 Run tests
 
+### ios unlock_keychain_for_signing
+
+```sh
+[bundle exec] fastlane ios unlock_keychain_for_signing
+```
+
+Unlock keychain before signing
+
 ### ios build
 
 ```sh
@@ -38,6 +46,22 @@ Run tests
 ```
 
 Build for App Store
+
+### ios upload
+
+```sh
+[bundle exec] fastlane ios upload
+```
+
+Upload to App Store Connect
+
+### ios release
+
+```sh
+[bundle exec] fastlane ios release
+```
+
+Build + Upload
 
 ### ios build_for_simulator
 

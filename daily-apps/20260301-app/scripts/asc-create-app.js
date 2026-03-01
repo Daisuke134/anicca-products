@@ -72,7 +72,7 @@ async function loadCookies(context) {
     if (data.data && data.data.length > 0) {
       log('App already exists! ID: ' + data.data[0].id);
       console.log(JSON.stringify({ success: true, appId: data.data[0].id, existing: true }));
-      process.exit(0);
+      // process.exit(0); — skip for cookie capture
     }
     log('No existing app. Proceeding.');
   } catch (e) {

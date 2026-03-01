@@ -23,15 +23,25 @@ platform :ios do
     )
   end
 
+  desc "Unlock keychain before signing"
+  lane :unlock_keychain_for_signing do
+    unlock_keychain(
+      path: File.expand_path("~/Library/Keychains/build.keychain-db"),
+      password: ENV["KEYCHAIN_PASSWORD"] || "Dukkha2026!"
+    )
+  end
+
   desc "Build for App Store"
   lane :build do
+    unlock_keychain_for_signing
+
     update_code_signing_settings(
       use_automatic_signing: false,
       path: "AffirmFlow.xcodeproj",
       team_id: "S5U8UH3JLJ",
       code_sign_identity: "iPhone Distribution",
       targets: ["AffirmFlow"],
-      profile_uuid: "6cdcc881-a7dc-4c03-898e-7e87aaa3ed2b"
+      profile_name: "AffirmFlow AppStore"
     )
     update_code_signing_settings(
       use_automatic_signing: false,
@@ -39,8 +49,9 @@ platform :ios do
       team_id: "S5U8UH3JLJ",
       code_sign_identity: "iPhone Distribution",
       targets: ["AffirmFlowWidget"],
-      profile_uuid: "6e642f98-6e38-4c17-9691-7c7048f72dd6"
+      profile_name: "AffirmFlow Widget AppStore"
     )
+
     build_app(
       scheme: "AffirmFlow",
       output_directory: "./build",
@@ -49,12 +60,33 @@ platform :ios do
       clean: true,
       export_options: {
         signingStyle: "manual",
+        teamID: "S5U8UH3JLJ",
         provisioningProfiles: {
           "com.anicca.affirmflow" => "AffirmFlow AppStore",
           "com.anicca.affirmflow.widget" => "AffirmFlow Widget AppStore"
         }
       }
     )
+  end
+
+  desc "Upload to App Store Connect"
+  lane :upload do
+    upload_to_app_store(
+      ipa: "./build/AffirmFlow.ipa",
+      skip_metadata: true,
+      skip_screenshots: true,
+      skip_app_version_update: true,
+      force: true,
+      run_precheck_before_submit: false,
+      precheck_include_in_app_purchases: false,
+      api_key_path: File.expand_path("~/.asc/fastlane-api-key.json")
+    )
+  end
+
+  desc "Build + Upload"
+  lane :release do
+    build
+    upload
   end
 
   desc "Build for simulator"
@@ -69,6 +101,8 @@ platform :ios do
 
   desc "Build for device"
   lane :build_for_device do
+    unlock_keychain_for_signing
+
     build_app(
       scheme: "AffirmFlow",
       export_method: "development",
