@@ -1,228 +1,270 @@
 // ASC App Creation via Playwright Browser Automation
-// Following: ~/.claude/skills/asc-app-create-ui/SKILL.md
+// Skill: ~/.claude/skills/asc-app-create-ui/SKILL.md
+// 2FA: writes NEED_2FA to /tmp/factory-signal, reads code from /tmp/2fa-code
+// Cookies: saved to ~/.asc/playwright-cookies.json
 const { chromium } = require('/opt/homebrew/lib/node_modules/playwright');
 const { execSync } = require('child_process');
-const readline = require('readline');
+const fs = require('fs');
+const path = require('path');
 
 const APP_NAME = 'AffirmFlow';
 const BUNDLE_ID = 'com.anicca.affirmflow';
-const SKU = 'affirmflow-001';
+const SKU = 'AffirmFlow2026';
 const APPLE_ID = 'keiodaisuke@gmail.com';
 const APPLE_PASSWORD = 'Chatgpt12345';
+const COOKIE_PATH = path.join(process.env.HOME, '.asc', 'playwright-cookies.json');
+const SIGNAL_PATH = '/tmp/factory-signal';
+const CODE_PATH = '/tmp/2fa-code';
 
-function prompt(question) {
-  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-  return new Promise(resolve => rl.question(question, answer => { rl.close(); resolve(answer); }));
+function log(msg) { console.log(`[${new Date().toISOString().slice(11,19)}] ${msg}`); }
+
+async function wait2FACode() {
+  // Signal that 2FA is needed
+  fs.writeFileSync(SIGNAL_PATH, 'NEED_2FA');
+  log('Wrote NEED_2FA to ' + SIGNAL_PATH);
+  try {
+    execSync('openclaw system event --text "NEED_HUMAN_INPUT: Apple 2FA code needed for ASC login. Enter code." --mode now 2>/dev/null', { shell: '/bin/zsh' });
+  } catch (e) {}
+
+  // Wait for /tmp/2fa-code to appear (poll every 2s, max 5 min)
+  log('Waiting for 2FA code at ' + CODE_PATH + '...');
+  if (fs.existsSync(CODE_PATH)) fs.unlinkSync(CODE_PATH);
+  for (let i = 0; i < 150; i++) {
+    await new Promise(r => setTimeout(r, 2000));
+    if (fs.existsSync(CODE_PATH)) {
+      const code = fs.readFileSync(CODE_PATH, 'utf-8').trim();
+      if (code.length >= 6) {
+        log('Got 2FA code: ' + code);
+        fs.unlinkSync(CODE_PATH);
+        return code;
+      }
+    }
+  }
+  throw new Error('Timed out waiting for 2FA code (5 min)');
+}
+
+async function saveCookies(context) {
+  const dir = path.dirname(COOKIE_PATH);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  const cookies = await context.cookies();
+  fs.writeFileSync(COOKIE_PATH, JSON.stringify(cookies, null, 2));
+  log('Cookies saved to ' + COOKIE_PATH);
+}
+
+async function loadCookies(context) {
+  if (fs.existsSync(COOKIE_PATH)) {
+    const cookies = JSON.parse(fs.readFileSync(COOKIE_PATH, 'utf-8'));
+    await context.addCookies(cookies);
+    log('Cookies loaded from ' + COOKIE_PATH);
+    return true;
+  }
+  return false;
 }
 
 (async () => {
-  console.log('=== ASC App Creation: ' + APP_NAME + ' ===\n');
+  log('=== ASC App Creation: ' + APP_NAME + ' ===');
 
-  // Step 1: Preflight - verify no existing app
-  console.log('[1/9] Preflight: verifying no existing app...');
+  // Preflight
+  log('[1] Preflight: checking existing app...');
   try {
-    const result = execSync(`source ~/.config/mobileapp-builder/.env && asc apps list --bundle-id "${BUNDLE_ID}" --output json 2>/dev/null`, { shell: '/bin/zsh' });
+    const result = execSync(`asc apps list --bundle-id "${BUNDLE_ID}" --output json 2>/dev/null`);
     const data = JSON.parse(result);
     if (data.data && data.data.length > 0) {
-      console.log('App already exists! ID:', data.data[0].id);
+      log('App already exists! ID: ' + data.data[0].id);
+      console.log(JSON.stringify({ success: true, appId: data.data[0].id, existing: true }));
       process.exit(0);
     }
-    console.log('  No existing app found. Proceeding.\n');
+    log('No existing app. Proceeding.');
   } catch (e) {
-    console.log('  Could not check existing apps, proceeding anyway.\n');
+    log('Could not check existing apps, proceeding.');
   }
 
-  // Step 2: Launch browser
-  console.log('[2/9] Launching browser (headed)...');
-  const browser = await chromium.launch({ headless: false, slowMo: 300 });
+  // Launch browser
+  log('[2] Launching browser...');
+  const browser = await chromium.launch({ headless: false, slowMo: 200 });
   const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+
+  // Try loading saved cookies
+  const hadCookies = await loadCookies(context);
   const page = await context.newPage();
 
   try {
-    // Step 3: Navigate to ASC
-    console.log('[3/9] Navigating to App Store Connect...');
-    await page.goto('https://appstoreconnect.apple.com/apps', { timeout: 60000 });
+    // Navigate to ASC
+    log('[3] Navigating to App Store Connect...');
+    await page.goto('https://appstoreconnect.apple.com/apps', { timeout: 60000, waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(3000);
 
-    const url = page.url();
-    console.log('  Current URL:', url);
+    let currentUrl = page.url();
+    log('URL: ' + currentUrl);
 
-    // Handle login — auth is inside an iframe from idmsa.apple.com
-    {
-      console.log('\n[LOGIN] Signing in (via iframe)...');
+    // Check if we need to login
+    const needsLogin = currentUrl.includes('idmsa.apple.com') ||
+      currentUrl.includes('appleid.apple.com') ||
+      await page.frames().some(f => f.url().includes('idmsa.apple.com'));
 
-      // Find the Apple ID auth iframe
-      const authFrame = page.frames().find(f => f.url().includes('idmsa.apple.com'));
+    if (needsLogin || !currentUrl.includes('appstoreconnect.apple.com/apps')) {
+      log('[LOGIN] Signing in...');
+
+      // Find auth iframe
+      let authFrame = page.frames().find(f => f.url().includes('idmsa.apple.com') || f.url().includes('appleid.apple.com'));
       if (!authFrame) {
-        throw new Error('Could not find Apple ID auth iframe');
+        // Maybe it's a direct page
+        if (currentUrl.includes('idmsa.apple.com') || currentUrl.includes('appleid.apple.com')) {
+          authFrame = page.mainFrame();
+        } else {
+          await page.waitForTimeout(5000);
+          authFrame = page.frames().find(f => f.url().includes('idmsa.apple.com') || f.url().includes('appleid.apple.com'));
+        }
       }
-      console.log('  Found auth iframe:', authFrame.url().substring(0, 80));
 
-      // Step A: Enter Apple ID
+      if (!authFrame) throw new Error('Cannot find Apple login frame. URL: ' + page.url());
+      log('Auth frame found: ' + authFrame.url().substring(0, 60));
+
+      // Enter Apple ID
       const emailInput = authFrame.locator('#account_name_text_field');
       await emailInput.waitFor({ timeout: 15000 });
       await emailInput.click();
       await emailInput.fill(APPLE_ID);
-      console.log('  Typed Apple ID:', APPLE_ID);
+      log('Entered Apple ID');
       await page.waitForTimeout(500);
 
-      // Submit email — click sign-in or press Enter
-      const signInBtn = authFrame.locator('#sign-in');
-      await signInBtn.click();
-      console.log('  Clicked sign-in (email step).');
+      // Click sign-in (email step)
+      await authFrame.locator('#sign-in').click();
+      log('Clicked sign-in (email)');
       await page.waitForTimeout(4000);
-      await page.screenshot({ path: 'scripts/asc-after-email.png' });
 
-      // After email: Apple shows "パスワードで続行" (Continue with Password) button
-      // Must click it to get to the password field
-      const continueWithPw = authFrame.locator('button:has-text("パスワードで続行"), button:has-text("Continue with Password"), #continue-password');
-      if (await continueWithPw.first().isVisible({ timeout: 5000 }).catch(() => false)) {
-        await continueWithPw.first().click();
-        console.log('  Clicked "Continue with Password".');
+      // Handle "Continue with Password" button (Japanese or English)
+      const authFrame2 = page.frames().find(f => f.url().includes('idmsa.apple.com') || f.url().includes('appleid.apple.com')) || authFrame;
+      const continueBtn = authFrame2.locator('button:has-text("パスワードで続行"), button:has-text("Continue with Password"), button:has-text("Continue"), #continue-password').first();
+      if (await continueBtn.isVisible({ timeout: 5000 }).catch(() => false)) {
+        await continueBtn.click();
+        log('Clicked "Continue with Password"');
         await page.waitForTimeout(3000);
       }
 
-      // Step B: Enter password
-      console.log('  Entering password...');
-      const pwInput = authFrame.locator('#password_text_field');
+      // Enter password
+      const pwInput = authFrame2.locator('#password_text_field');
       await pwInput.waitFor({ timeout: 10000 });
       await pwInput.click();
       await pwInput.fill(APPLE_PASSWORD);
-      console.log('  Typed password.');
+      log('Entered password');
       await page.waitForTimeout(500);
 
-      // Click sign-in for password submission
-      const signInBtn2 = authFrame.locator('#sign-in');
-      await signInBtn2.click();
-      console.log('  Clicked sign-in (password step).');
+      await authFrame2.locator('#sign-in').click();
+      log('Clicked sign-in (password)');
       await page.waitForTimeout(6000);
-      await page.screenshot({ path: 'scripts/asc-after-password.png' });
 
-      // Step C: Check for 2FA — may appear in iframe or as a new page
-      const afterLoginUrl = page.url();
-      console.log('  Post-login URL:', afterLoginUrl);
-
-      // 2FA might be in the iframe or the page might have changed
-      const authFrame2 = page.frames().find(f => f.url().includes('idmsa.apple.com')) || page.mainFrame();
+      // Check for 2FA
+      const authFrame3 = page.frames().find(f => f.url().includes('idmsa.apple.com') || f.url().includes('appleid.apple.com')) || page.mainFrame();
 
       const has2FA =
-        await authFrame2.locator('#char0').isVisible().catch(() => false) ||
-        await authFrame2.locator('.verify-device').isVisible().catch(() => false) ||
-        await authFrame2.locator('input.form-security-code-input').isVisible().catch(() => false) ||
+        await authFrame3.locator('#char0').isVisible().catch(() => false) ||
+        await authFrame3.locator('.security-code-fields').isVisible().catch(() => false) ||
+        await authFrame3.locator('input[id^="char"]').first().isVisible().catch(() => false) ||
         await page.getByText('確認コード').isVisible().catch(() => false) ||
-        await page.getByText('verification code').isVisible().catch(() => false);
+        await page.getByText('verification code').isVisible().catch(() => false) ||
+        await page.getByText('Verification Code').isVisible().catch(() => false);
 
       if (has2FA) {
-        console.log('\n  [2FA] Two-factor authentication required.');
-        await page.screenshot({ path: 'scripts/asc-2fa.png' });
+        log('[2FA] Two-factor authentication required');
+        await page.screenshot({ path: 'scripts/asc-2fa-screen.png' });
 
-        try {
-          execSync('openclaw system event --text "NEED_HUMAN_INPUT: Apple 2FA code needed for ASC login. Check your trusted device." --mode now 2>/dev/null', { shell: '/bin/zsh' });
-        } catch (e) {}
+        const code = await wait2FACode();
 
-        const code = await prompt('\nEnter the 6-digit 2FA code: ');
-        const digits = code.trim();
-        console.log('  Entering code:', digits);
-
-        // Method 1: Individual char inputs in iframe (#char0..#char5)
+        // Enter code digit by digit (#char0 to #char5)
         let entered = false;
-        for (let i = 0; i < digits.length; i++) {
-          const ci = authFrame2.locator(`#char${i}`);
-          if (await ci.isVisible().catch(() => false)) {
-            await ci.fill(digits[i]);
+        for (let i = 0; i < code.length; i++) {
+          const charInput = authFrame3.locator(`#char${i}`);
+          if (await charInput.isVisible().catch(() => false)) {
+            await charInput.fill(code[i]);
             entered = true;
           }
         }
 
-        // Method 2: single code input in iframe
         if (!entered) {
-          const codeInput = authFrame2.locator('input.form-security-code-input, input[type="tel"], input[type="number"]').first();
-          if (await codeInput.isVisible().catch(() => false)) {
-            await codeInput.fill(digits);
+          // Try single input field
+          const singleInput = authFrame3.locator('input[type="tel"], input[type="number"], input.form-security-code-input').first();
+          if (await singleInput.isVisible().catch(() => false)) {
+            await singleInput.fill(code);
             entered = true;
           }
         }
 
-        // Method 3: keyboard fallback
         if (!entered) {
-          await page.keyboard.type(digits);
+          // Keyboard fallback
+          await page.keyboard.type(code, { delay: 100 });
         }
 
-        await page.waitForTimeout(3000);
+        log('2FA code entered');
+        await page.waitForTimeout(5000);
 
-        // Submit — the code may auto-submit, or we need to click
-        const submitBtn = authFrame2.locator('button.si-button, button[type="submit"]').first();
-        if (await submitBtn.isVisible().catch(() => false)) {
-          await submitBtn.click();
+        // Handle "Trust this browser" prompt
+        const trustBtn = authFrame3.locator('button:has-text("Trust"), button:has-text("信頼する"), button:has-text("信頼")').first();
+        if (await trustBtn.isVisible({ timeout: 5000 }).catch(() => false)) {
+          await trustBtn.click();
+          log('Clicked Trust');
         }
 
         // Wait for redirect to ASC
-        console.log('  Waiting for redirect to ASC...');
-        for (let i = 0; i < 60; i++) {
+        log('Waiting for ASC redirect...');
+        for (let i = 0; i < 30; i++) {
           await page.waitForTimeout(2000);
-          const cur = page.url();
-          if (cur.includes('appstoreconnect.apple.com') && !cur.includes('login') && !cur.includes('auth')) {
-            console.log('  ✅ Logged in!');
+          currentUrl = page.url();
+          if (currentUrl.includes('appstoreconnect.apple.com') && !currentUrl.includes('auth')) {
+            log('Logged in! URL: ' + currentUrl);
             break;
           }
-          // Trust browser prompt (may be in iframe)
+          // Check trust button again
           const af = page.frames().find(f => f.url().includes('idmsa.apple.com')) || page.mainFrame();
-          const trustBtn = af.locator('button:has-text("Trust"), button:has-text("信頼")').first();
-          if (await trustBtn.isVisible().catch(() => false)) {
-            await trustBtn.click();
-            console.log('  Clicked Trust.');
+          const tb = af.locator('button:has-text("Trust"), button:has-text("信頼")').first();
+          if (await tb.isVisible().catch(() => false)) {
+            await tb.click();
+            log('Clicked Trust (retry)');
           }
-          if (i % 10 === 0 && i > 0) console.log(`    Waiting... (${i*2}s)`);
         }
       }
 
-      // If we didn't need 2FA, we might already be on the apps page
-      await page.waitForTimeout(3000);
+      // Save cookies after successful login
+      await saveCookies(context);
     }
 
-    // Wait for apps page
-    console.log('\n[4/9] Waiting for apps page to load...');
-    await page.waitForTimeout(5000);
-    const appsUrl = page.url();
-    console.log('  Current URL:', appsUrl);
-    await page.screenshot({ path: 'scripts/asc-step4.png' });
+    // Now on apps page
+    await page.waitForTimeout(3000);
+    currentUrl = page.url();
+    log('[4] Apps page. URL: ' + currentUrl);
+    await page.screenshot({ path: 'scripts/asc-apps-page.png' });
 
-    // Step 5: Click "New App" (dropdown menu)
-    console.log('\n[5/9] Opening New App form...');
-
-    // Look for the + / New App button - ASC uses various selectors
-    const newAppBtnSelectors = [
-      'button[aria-label="New App"]',
-      'a[aria-label="New App"]',
-      '[data-test-id="new-app-button"]',
+    // Click "New App" button (opens dropdown)
+    log('[5] Opening New App dropdown...');
+    // ASC "+" button or "New App" button
+    let clickedNewApp = false;
+    const newAppSelectors = [
       'button:has-text("New App")',
-      '.toolbar-button:has-text("New")',
-      'button[class*="create"]',
+      'a:has-text("New App")',
+      '[class*="toolbar"] button',
+      'button[aria-label="Create"]',
+      'button[aria-label="New App"]',
     ];
 
-    let clickedNewApp = false;
-    for (const sel of newAppBtnSelectors) {
+    for (const sel of newAppSelectors) {
       const el = page.locator(sel).first();
       if (await el.isVisible().catch(() => false)) {
         await el.click();
-        console.log('  Clicked New App button via:', sel);
+        log('Clicked: ' + sel);
         clickedNewApp = true;
         break;
       }
     }
 
     if (!clickedNewApp) {
-      // Try finding by accessible snapshot
-      console.log('  Button not found by known selectors. Scanning page...');
-      await page.screenshot({ path: 'scripts/asc-step5-debug.png' });
-
-      // Try clicking any element with "new" text
-      const allBtns = await page.locator('button, a[role="button"], [role="menuitem"]').all();
-      for (const btn of allBtns) {
+      // Scan for blue "+" button by looking at all buttons
+      const buttons = await page.locator('button, a[role="button"]').all();
+      for (const btn of buttons) {
         const text = (await btn.textContent().catch(() => '')) || '';
         const label = (await btn.getAttribute('aria-label').catch(() => '')) || '';
-        if (text.toLowerCase().includes('new') || label.toLowerCase().includes('new')) {
-          console.log(`  Found candidate: text="${text.trim()}" aria="${label}"`);
+        const combined = (text + ' ' + label).toLowerCase();
+        if (combined.includes('new') || combined.includes('追加') || combined.includes('create') || text.trim() === '+') {
+          log('Found candidate button: "' + text.trim() + '" aria="' + label + '"');
           await btn.click();
           clickedNewApp = true;
           break;
@@ -232,47 +274,56 @@ function prompt(question) {
 
     await page.waitForTimeout(2000);
 
-    // Click the "New App" menu item in the dropdown
-    const menuItem = page.locator('[role="menuitem"]:has-text("New App"), a:has-text("New App"), button:has-text("New App")').first();
-    if (await menuItem.isVisible().catch(() => false)) {
-      await menuItem.click();
-      console.log('  Clicked "New App" menu item.');
+    // Click "New App" menu item in dropdown
+    const menuItems = page.locator('[role="menuitem"], [role="option"], a, button').filter({ hasText: /^New App$|^新規App$/ });
+    if (await menuItems.first().isVisible().catch(() => false)) {
+      await menuItems.first().click();
+      log('Clicked "New App" menu item');
     }
 
     await page.waitForTimeout(3000);
-    await page.screenshot({ path: 'scripts/asc-step5.png' });
+    await page.screenshot({ path: 'scripts/asc-new-app-dialog.png' });
 
-    // Step 6: Fill the form
-    console.log('\n[6/9] Filling form fields...');
+    // Fill form
+    log('[6] Filling form...');
 
     // Platform: iOS checkbox
-    console.log('  [a] Platform: iOS...');
-    const iosCheckbox = page.locator('label:has-text("iOS") input[type="checkbox"], input[type="checkbox"][value="iOS"]').first();
-    if (await iosCheckbox.isVisible().catch(() => false)) {
-      await iosCheckbox.check();
-    } else {
-      // Try clicking the label text
-      const iosLabel = page.locator('label:has-text("iOS"), span:has-text("iOS")').first();
-      if (await iosLabel.isVisible().catch(() => false)) {
-        await iosLabel.click();
+    log('  Platform: iOS');
+    const iosCheckboxes = [
+      page.locator('label:has-text("iOS") input[type="checkbox"]').first(),
+      page.locator('input[type="checkbox"][value="iOS"]').first(),
+      page.locator('label:has-text("iOS")').first(),
+      page.locator('text=iOS').first(),
+    ];
+    for (const cb of iosCheckboxes) {
+      if (await cb.isVisible().catch(() => false)) {
+        await cb.click();
+        log('  iOS selected');
+        break;
       }
     }
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(1500);
 
     // Name
-    console.log('  [b] Name: ' + APP_NAME + '...');
-    // ASC uses Ember.js, so look for inputs near the "Name" label
+    log('  Name: ' + APP_NAME);
     const nameInput = page.getByLabel('Name').first();
     if (await nameInput.isVisible().catch(() => false)) {
       await nameInput.click();
       await nameInput.fill('');
-      // Type slowly to trigger Ember validation
-      await nameInput.type(APP_NAME, { delay: 50 });
+      await nameInput.type(APP_NAME, { delay: 80 });
+    } else {
+      // Try by placeholder or CSS
+      const nameAlt = page.locator('input[placeholder*="name" i], input[name*="name" i]').first();
+      if (await nameAlt.isVisible().catch(() => false)) {
+        await nameAlt.click();
+        await nameAlt.fill('');
+        await nameAlt.type(APP_NAME, { delay: 80 });
+      }
     }
     await page.waitForTimeout(1000);
 
     // Primary Language
-    console.log('  [c] Primary Language: English (U.S.)...');
+    log('  Primary Language: English (U.S.)');
     const langSelect = page.getByLabel('Primary Language').first();
     if (await langSelect.isVisible().catch(() => false)) {
       await langSelect.selectOption({ label: 'English (U.S.)' });
@@ -280,96 +331,144 @@ function prompt(question) {
     await page.waitForTimeout(2000);
 
     // Bundle ID (async loading)
-    console.log('  [d] Bundle ID: ' + BUNDLE_ID + '...');
-    // Wait for bundle ID dropdown to load
-    await page.waitForTimeout(3000);
+    log('  Bundle ID: ' + BUNDLE_ID);
     const bundleSelect = page.getByLabel('Bundle ID').first();
     if (await bundleSelect.isVisible().catch(() => false)) {
-      // Wait for Loading... to disappear
-      for (let i = 0; i < 10; i++) {
+      // Wait for dropdown to populate
+      for (let i = 0; i < 15; i++) {
         const options = await bundleSelect.locator('option').allTextContents();
-        if (options.some(o => o.includes(BUNDLE_ID))) {
+        if (options.some(o => o.includes(BUNDLE_ID) || o.includes('affirmflow'))) {
+          log('  Bundle ID options loaded');
           break;
         }
         await page.waitForTimeout(1000);
-        console.log('    Waiting for bundle IDs to load...');
+        if (i > 0 && i % 5 === 0) log('  Still waiting for bundle IDs...');
       }
-      // Select by text matching
-      await bundleSelect.selectOption({ label: new RegExp(BUNDLE_ID.replace(/\./g, '\\.')) });
-      console.log('    Bundle ID selected.');
+      // Select matching option
+      const options = await bundleSelect.locator('option').all();
+      for (const opt of options) {
+        const text = await opt.textContent();
+        if (text && text.includes(BUNDLE_ID)) {
+          const val = await opt.getAttribute('value');
+          await bundleSelect.selectOption(val || text);
+          log('  Selected: ' + text.trim());
+          break;
+        }
+      }
     }
     await page.waitForTimeout(1000);
 
     // SKU
-    console.log('  [e] SKU: ' + SKU + '...');
+    log('  SKU: ' + SKU);
     const skuInput = page.getByLabel('SKU').first();
     if (await skuInput.isVisible().catch(() => false)) {
       await skuInput.click();
       await skuInput.fill('');
-      await skuInput.type(SKU, { delay: 50 });
+      await skuInput.type(SKU, { delay: 80 });
     }
     await page.waitForTimeout(1000);
 
-    // User Access - Full Access (radio with span overlay workaround)
-    console.log('  [f] User Access: Full Access...');
-    const fullAccessRadio = page.locator('input[type="radio"][value*="full"], input[type="radio"]').last();
+    // User Access: Full Access (radio with span overlay — skill workaround)
+    log('  User Access: Full Access');
+    // Method 1: Find radio by value/label and use scrollIntoView + direct click
+    const fullAccessRadio = page.locator('input[type="radio"]').last();
     if (await fullAccessRadio.isVisible().catch(() => false)) {
       await fullAccessRadio.evaluate(el => {
-        el.scrollIntoView();
+        el.scrollIntoView({ block: 'center' });
         el.click();
       });
+      log('  Full Access radio clicked via evaluate');
     } else {
-      // Try clicking label text
-      const fullAccessLabel = page.locator('span:has-text("Full Access"), label:has-text("Full Access")').first();
-      if (await fullAccessLabel.isVisible().catch(() => false)) {
-        await fullAccessLabel.click();
+      // Method 2: Click the label/span
+      const fullLabel = page.locator('span:has-text("Full Access"), label:has-text("Full Access")').first();
+      if (await fullLabel.isVisible().catch(() => false)) {
+        await fullLabel.click();
+        log('  Full Access clicked via label');
       }
     }
 
     await page.waitForTimeout(2000);
-    await page.screenshot({ path: 'scripts/asc-step6.png' });
+    await page.screenshot({ path: 'scripts/asc-form-filled.png' });
 
-    // Step 7: Click Create
-    console.log('\n[7/9] Clicking Create...');
-    const createBtn = page.locator('button:has-text("Create")').first();
+    // Click Create
+    log('[7] Clicking Create...');
+    const createBtn = page.locator('button:has-text("Create"), button:has-text("作成")').first();
     if (await createBtn.isVisible().catch(() => false)) {
       const disabled = await createBtn.isDisabled();
       if (disabled) {
-        console.log('  ⚠️ Create button is DISABLED. Form validation may have failed.');
-        await page.screenshot({ path: 'scripts/asc-step7-disabled.png' });
-        console.log('  Screenshot saved. Check for missing fields.');
+        log('Create button DISABLED. Taking debug screenshot.');
+        await page.screenshot({ path: 'scripts/asc-create-disabled.png' });
+        // Try re-triggering form validation
+        const skuField = page.getByLabel('SKU').first();
+        if (await skuField.isVisible().catch(() => false)) {
+          await skuField.click();
+          await skuField.fill('');
+          await skuField.type(SKU, { delay: 100 });
+          await page.keyboard.press('Tab');
+        }
+        await page.waitForTimeout(2000);
+        const stillDisabled = await createBtn.isDisabled();
+        if (stillDisabled) {
+          log('Create still disabled. Check screenshots for validation errors.');
+          await page.screenshot({ path: 'scripts/asc-still-disabled.png' });
+        } else {
+          await createBtn.click();
+          log('Create clicked after re-trigger');
+        }
       } else {
         await createBtn.click();
-        console.log('  Create button clicked!');
-
-        // Wait for navigation to new app page
-        console.log('  Waiting for app creation...');
-        await page.waitForTimeout(10000);
+        log('Create clicked!');
       }
     }
 
-    // Step 8: Verify
-    const finalUrl = page.url();
-    console.log('\n[8/9] Final URL:', finalUrl);
-    await page.screenshot({ path: 'scripts/asc-step8.png' });
+    // Wait for app creation
+    log('[8] Waiting for app creation...');
+    await page.waitForTimeout(10000);
 
+    const finalUrl = page.url();
+    log('Final URL: ' + finalUrl);
+    await page.screenshot({ path: 'scripts/asc-result.png' });
+
+    // Save cookies
+    await saveCookies(context);
+
+    // Extract App ID
     const appIdMatch = finalUrl.match(/\/apps\/(\d+)/);
     if (appIdMatch) {
-      console.log('\n✅ SUCCESS! App created with ID:', appIdMatch[1]);
+      const appId = appIdMatch[1];
+      log('SUCCESS! App ID: ' + appId);
+      console.log(JSON.stringify({ success: true, appId, appName: APP_NAME, bundleId: BUNDLE_ID }));
+
+      // Clean up signal file
+      if (fs.existsSync(SIGNAL_PATH)) fs.unlinkSync(SIGNAL_PATH);
     } else {
-      console.log('\n⚠️ Could not confirm app creation from URL.');
-      console.log('  Check screenshots in scripts/ directory.');
+      log('Could not confirm creation from URL. Check screenshots.');
+
+      // Try API verification
+      try {
+        const result = execSync(`asc apps list --bundle-id "${BUNDLE_ID}" --output json 2>/dev/null`);
+        const data = JSON.parse(result);
+        if (data.data && data.data.length > 0) {
+          const appId = data.data[0].id;
+          log('Verified via API! App ID: ' + appId);
+          console.log(JSON.stringify({ success: true, appId, appName: APP_NAME, bundleId: BUNDLE_ID }));
+        }
+      } catch (e) {
+        log('API verification also failed.');
+        console.log(JSON.stringify({ success: false, error: 'Could not verify app creation' }));
+      }
     }
 
-    // Keep browser open for manual verification
-    console.log('\n[9/9] Keeping browser open for 60 seconds for verification...');
-    await page.waitForTimeout(60000);
+    // Keep browser open briefly for visual confirmation
+    log('Browser stays open 30s for visual check...');
+    await page.waitForTimeout(30000);
 
   } catch (error) {
-    console.error('\n❌ Error:', error.message);
+    log('ERROR: ' + error.message);
     await page.screenshot({ path: 'scripts/asc-error.png' }).catch(() => {});
+    console.log(JSON.stringify({ success: false, error: error.message }));
   } finally {
     await browser.close();
-    console.log('\nBrowser closed.');
+    log('Browser closed.');
   }
 })();

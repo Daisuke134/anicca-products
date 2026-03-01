@@ -5,3 +5,62 @@
 - Files: idea.md created with Problem, Market, Target, Monetization, Competitors sections
 - Sources cited: UC Irvine research, Indie Hackers, TikTok Trends 2026, Superframeworks, market reports
 ---
+
+## 2026-03-01 - US-002: Next.js scaffold + Supabase/Stripe integration
+- Next.js 16.1.6 with TypeScript, Tailwind CSS, ESLint, App Router, src directory
+- Supabase client: src/lib/supabase.ts
+- Stripe checkout: src/lib/stripe.ts + src/app/api/checkout/route.ts
+- PostHog: src/lib/posthog.ts
+- Sentry: sentry.client.config.ts, sentry.server.config.ts, sentry.edge.config.ts + next.config.ts integration
+- npm run build: SUCCESS
+---
+
+## 2026-03-01 - US-003: AppFactory Phase 0-4 (spec + design)
+- Phase 0: Intent normalized from idea.md — DeepWork.fm, Freemium SaaS
+- Phase 1: 12-section Dream Spec — Vision, Target, Features, Flows, Pages, Data Model, API, Design, Monetization, Stack, Metrics, Risks
+- Phase 2: Positioning map, differentiation statement, keyword strategy
+- Phase 3: Site map (4 routes), component tree (Layout, TimerWidget, SoundMixer)
+- Phase 4: Axiom Design System — #0a0a0a bg, Inter font, dark mode only, no gradients/glow
+- Files: spec.md created
+---
+
+## 2026-03-01 - US-004: AppFactory Phase 5 (Build)
+- Components: Header, TimerWidget (with progress ring SVG), SoundMixer (Web Audio API noise generation)
+- Pages: / (Landing+Timer), /stats (SessionHistory+WeeklyChart), /pricing (Free vs Pro), /success (Checkout success)
+- API: /api/checkout (Stripe Checkout Session)
+- Lib: timer.ts (session CRUD, formatTime), supabase.ts, stripe.ts, posthog.ts
+- Design: Axiom dark mode, Inter + JetBrains Mono, #0a0a0a bg
+- npm run build: SUCCESS with zero errors
+---
+
+## 2026-03-01 - US-005: Quality Gates (Phase 6-8)
+- Phase 6: TypeScript strict compilation passes, zero errors
+- Phase 7: SEO — sitemap.ts, robots.ts, OpenGraph meta, Twitter card meta added
+- Phase 8: Code quality clean — immutable patterns, proper component structure
+- LOCAL_RUN_PROOF_GATE: npm run build && npm run start → curl localhost:3000 → HTTP 200 PASS
+- RUN_CERTIFICATE.json: status PASS
+---
+
+## 2026-03-01 - US-006: Vercel Deploy
+- Linked to Vercel project: 20260301-webapp (scope: daisukes-projects-f8dc7648)
+- Environment variables set: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY, STRIPE_SECRET_KEY, NEXT_PUBLIC_POSTHOG_KEY, SENTRY_DSN, SENTRY_AUTH_TOKEN
+- Deployed to production: https://20260301-webapp.vercel.app
+- HTTP 200 confirmed
+- Learnings: Vercel CLI needs --scope in non-interactive mode, VERCEL_ORG_ID env var conflicts with .vercel/project.json
+---
+
+## 2026-03-01 - US-007: Report + X Post
+- Slack webhook: sent to #metrics (ok) — app name, URL, niche, build time
+- X post: created via Postiz CLI (postId: cmm7wl7970083ry0yy5suxxld, integration: cmm6d7m5703rwpr0yr5vtme3w)
+- Content: "Just shipped: DeepWork.fm — AI-powered focus timer with ambient soundscapes..."
+---
+
+## 🏁 ALL STORIES COMPLETE
+- US-001: ✅ Trend research + idea selection
+- US-002: ✅ Next.js scaffold + integrations
+- US-003: ✅ AppFactory Phase 0-4 (spec + design)
+- US-004: ✅ AppFactory Phase 5 (build)
+- US-005: ✅ Quality gates (Phase 6-8)
+- US-006: ✅ Vercel deploy
+- US-007: ✅ Report + X post
+- Production URL: https://20260301-webapp.vercel.app
