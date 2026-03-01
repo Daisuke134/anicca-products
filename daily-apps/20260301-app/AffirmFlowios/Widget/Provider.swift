@@ -24,9 +24,9 @@ struct Provider: TimelineProvider {
     }
 
     private func getCurrentEntry() -> AffirmationEntry {
-        let defaults = UserDefaults(suiteName: "group.com.anicca.affirmflow")
-        let content = defaults?.string(forKey: "currentAffirmation") ?? "Tap to get your first affirmation"
-        let areaRaw = defaults?.string(forKey: "currentFocusArea") ?? "Calm"
+        let defaults = UserDefaults.standard
+        let content = defaults.string(forKey: "currentAffirmation") ?? "Tap to get your first affirmation"
+        let areaRaw = defaults.string(forKey: "currentFocusArea") ?? "Calm"
         let area = FocusArea(rawValue: areaRaw) ?? .calm
 
         return AffirmationEntry(date: Date(), affirmation: content, focusArea: area)

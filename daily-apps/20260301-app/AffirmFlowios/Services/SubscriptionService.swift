@@ -53,8 +53,8 @@ class SubscriptionService {
 
     private init() {
         // Check stored premium status
-        isPremium = UserDefaults(suiteName: "group.com.anicca.affirmflow")?
-            .bool(forKey: "isPremium") ?? false
+        isPremium = UserDefaults.standard
+            .bool(forKey: "isPremium")
     }
 
     func configure() {
@@ -66,8 +66,8 @@ class SubscriptionService {
     func checkSubscriptionStatus() async {
         // TODO: Check with RevenueCat when configured
         // For now, use stored value
-        isPremium = UserDefaults(suiteName: "group.com.anicca.affirmflow")?
-            .bool(forKey: "isPremium") ?? false
+        isPremium = UserDefaults.standard
+            .bool(forKey: "isPremium")
     }
 
     func fetchOfferings() async {
@@ -84,7 +84,7 @@ class SubscriptionService {
 
         // For demo, always succeed
         isPremium = true
-        UserDefaults(suiteName: "group.com.anicca.affirmflow")?
+        UserDefaults.standard
             .set(isPremium, forKey: "isPremium")
     }
 
@@ -93,7 +93,7 @@ class SubscriptionService {
         try? await Task.sleep(nanoseconds: 300_000_000)
 
         // Check stored status
-        isPremium = UserDefaults(suiteName: "group.com.anicca.affirmflow")?
-            .bool(forKey: "isPremium") ?? false
+        isPremium = UserDefaults.standard
+            .bool(forKey: "isPremium")
     }
 }

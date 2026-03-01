@@ -25,13 +25,35 @@ platform :ios do
 
   desc "Build for App Store"
   lane :build do
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "AffirmFlow.xcodeproj",
+      team_id: "S5U8UH3JLJ",
+      code_sign_identity: "iPhone Distribution",
+      targets: ["AffirmFlow"],
+      profile_uuid: "6cdcc881-a7dc-4c03-898e-7e87aaa3ed2b"
+    )
+    update_code_signing_settings(
+      use_automatic_signing: false,
+      path: "AffirmFlow.xcodeproj",
+      team_id: "S5U8UH3JLJ",
+      code_sign_identity: "iPhone Distribution",
+      targets: ["AffirmFlowWidget"],
+      profile_uuid: "6e642f98-6e38-4c17-9691-7c7048f72dd6"
+    )
     build_app(
       scheme: "AffirmFlow",
       output_directory: "./build",
       output_name: "AffirmFlow.ipa",
       export_method: "app-store",
       clean: true,
-      xcargs: "-allowProvisioningUpdates"
+      export_options: {
+        signingStyle: "manual",
+        provisioningProfiles: {
+          "com.anicca.affirmflow" => "AffirmFlow AppStore",
+          "com.anicca.affirmflow.widget" => "AffirmFlow Widget AppStore"
+        }
+      }
     )
   end
 

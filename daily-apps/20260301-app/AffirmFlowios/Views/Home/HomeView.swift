@@ -164,9 +164,9 @@ struct HomeView: View {
     }
 
     private func saveForWidget(content: String, focusArea: FocusArea) {
-        let defaults = UserDefaults(suiteName: "group.com.anicca.affirmflow")
-        defaults?.set(content, forKey: "currentAffirmation")
-        defaults?.set(focusArea.rawValue, forKey: "currentFocusArea")
+        let defaults = UserDefaults.standard
+        defaults.set(content, forKey: "currentAffirmation")
+        defaults.set(focusArea.rawValue, forKey: "currentFocusArea")
 
         // Refresh widget
         WidgetCenter.shared.reloadAllTimelines()

@@ -21,10 +21,20 @@
       "sourceType": "github",
       "computedHash": "847df3384aa8e9501211d69c637a8ec0f4ec7d39bc7c6517b37d04238f190628"
     },
+    "app-builder": {
+      "source": "sickn33/antigravity-awesome-skills",
+      "sourceType": "github",
+      "computedHash": "b0cb5be0503921c6bb4b9c62d9a5633e35d4ea04005678916e45ffed3d268107"
+    },
     "app-store-screenshots": {
       "source": "inference-sh-6/skills",
       "sourceType": "github",
       "computedHash": "6e4f5f7032e28111dde99239c1aa892fe64d97527cd8482d94fb17424f335cae"
+    },
+    "appfactory-builder": {
+      "source": "0xaxiom/appfactory",
+      "sourceType": "github",
+      "computedHash": "86f563d4b0faa4ade789b1344e1fcfe59052a393f43ea7cd96e32286090878df"
     },
     "baoyu-xhs-images": {
       "source": "jimliu/baoyu-skills",
@@ -40,6 +50,16 @@
       "source": "steipete/clawdis",
       "sourceType": "github",
       "computedHash": "39ecd276b845daa26201ee6d4e230958bf6307941cec7b134a00f2def1b20c27"
+    },
+    "configure-notifications": {
+      "source": "yeachan-heo/oh-my-claudecode",
+      "sourceType": "github",
+      "computedHash": "930caa3fdef2136134a3d2a064bc1efaa2a84f43cdb44e10d6f7c782de6bbcb0"
+    },
+    "content-trend-researcher": {
+      "source": "alirezarezvani/claude-code-skill-factory",
+      "sourceType": "github",
+      "computedHash": "daaf733ad02e3068cd12dc71f7d4393e705e11e83f595772879cc75fc4990741"
     },
     "find-skills": {
       "source": "vercel-labs/skills",
@@ -60,6 +80,11 @@
       "source": "cclank/news-aggregator-skill",
       "sourceType": "github",
       "computedHash": "cac4f95f64a20e9fc9f1bffe466ee562ebcc22bdbf128b2a2ce9dd01e298a4bd"
+    },
+    "nextjs-expert": {
+      "source": "cin12211/orca-q",
+      "sourceType": "github",
+      "computedHash": "2d7e4a4170126f6c698ac4e2057fc0fa3887432372e70d4b9aa29c90cdcaf256"
     },
     "niche-opportunity-finder": {
       "source": "zanecole10/software-tailor-skills",
@@ -86,6 +111,11 @@
       "sourceType": "github",
       "computedHash": "521242fde64dead84a8caec73a43aea1ea35486e654cb84ff9cf0744e352139e"
     },
+    "senior-frontend": {
+      "source": "davila7/claude-code-templates",
+      "sourceType": "github",
+      "computedHash": "9614baf7a44e6c233d5af3aa77c013cfec7fa71eee5e0bfea3951b955eb92ba7"
+    },
     "session-logs": {
       "source": "steipete/clawdis",
       "sourceType": "github",
@@ -101,6 +131,11 @@
       "sourceType": "github",
       "computedHash": "5d927b03134e9855ff300aa7d60162ca7c2d8cb66dede74506f73aab3bf2208f"
     },
+    "slack-webhook": {
+      "source": "vm0-ai/vm0-skills",
+      "sourceType": "github",
+      "computedHash": "592e4c41c41f0249d44cbc382af650a108e9646415fc872e40aad27fb2c67810"
+    },
     "startup-idea-validation": {
       "source": "vasilyu1983/ai-agents-public",
       "sourceType": "github",
@@ -110,6 +145,11 @@
       "source": "bradautomates/head-of-content",
       "sourceType": "github",
       "computedHash": "b1d1372f93a44247fedeb2e6fa7c5bef1f9857fa91c8a81aa39d61811c2e6cd2"
+    },
+    "vercel-deploy": {
+      "source": "supercent-io/skills-template",
+      "sourceType": "github",
+      "computedHash": "3ab4f961ca2fe72409c1aea00fed448c371e53e2fb7ba9054d5660330e22b578"
     },
     "visual-qa": {
       "source": "dylanfeltus/skills",

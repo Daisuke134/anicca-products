@@ -4,19 +4,19 @@ import SwiftUI
 @Observable
 class UserSettings {
     @ObservationIgnored
-    @AppStorage("selectedFocusAreas", store: UserDefaults(suiteName: "group.com.anicca.affirmflow"))
+    @AppStorage("selectedFocusAreas")
     var selectedFocusAreasData: Data = Data()
 
     @ObservationIgnored
-    @AppStorage("onboardingComplete", store: UserDefaults(suiteName: "group.com.anicca.affirmflow"))
+    @AppStorage("onboardingComplete")
     var onboardingComplete: Bool = false
 
     @ObservationIgnored
-    @AppStorage("dailyRefreshCount", store: UserDefaults(suiteName: "group.com.anicca.affirmflow"))
+    @AppStorage("dailyRefreshCount")
     var dailyRefreshCount: Int = 0
 
     @ObservationIgnored
-    @AppStorage("lastRefreshDate", store: UserDefaults(suiteName: "group.com.anicca.affirmflow"))
+    @AppStorage("lastRefreshDate")
     var lastRefreshDateInterval: Double = 0
 
     var selectedFocusAreas: [FocusArea] {
