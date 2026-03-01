@@ -122,9 +122,9 @@ LAYER 2: BUILD（10:00〜14:00）
     LOCAL_RUN_PROOF_GATE（RUN_CERTIFICATE.json status:PASS 必須）
 
 LAYER 3: DEPLOY（14:00〜14:30）
-  vercel-labs/agent-skills@vercel-deploy を使用
-  ソース: https://skills.sh/vercel-labs/agent-skills/vercel-deploy
-          「No auth required, returns preview URL and claimable deployment link」
+  supercent-io/skills-template@vercel-deploy を使用（1.6K installs）
+  ソース: https://skills.sh/supercent-io/skills-template/vercel-deploy
+          「Deploy to Vercel, returns preview URL and claimable deployment link」
   Stripe 商品・サブスク自動設定（ボイラープレート活用）
   PostHog + Sentry 自動設定
 
@@ -145,29 +145,29 @@ LAYER 4: REPORT & MARKET（14:30）
 | ファイル | 役割 | 作成方法 |
 |---------|------|---------|
 | `.openclaw/skills/webapp-factory-orchestrator/SKILL.md` | Anicca が読む全体オーケストレーター | clawhub `autonomous-skill-orchestrator` をベースに作成 |
-| `.openclaw/skills/webapp-factory-orchestrator/prompt.md` | CC に渡す LAYER 1〜4 の実行指示 | TaraJura パターンに従って作成 |
+| `.openclaw/skills/webapp-factory-orchestrator/prompt.md` | CC に渡す LAYER 1〜4 の実行指示 | Anthropic 2-Agent パターン（Initializer + Coding Agent + claude-progress.txt）に従って作成。ソース: https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents |
 
 ### インストールするスキル（全15件）
 
 | # | スキル | インストールコマンド | 外部確認 | 担当 |
 |---|--------|-------------------|---------|------|
 | 1 | appfactory-builder | ✅ 済み | 0xaxiom/appfactory (8 installs) | Claude Code |
-| 2 | app-builder | ✅ 済み | davila7/claude-code-templates (184 installs) | Claude Code |
+| 2 | app-builder | ✅ 済み | sickn33/antigravity-awesome-skills (346 installs) | Claude Code |
 | 3 | senior-frontend | ✅ 済み | davila7/claude-code-templates (784 installs) | Claude Code |
 | 4 | nextjs-expert | ✅ 済み | cin12211/orca-q (41 installs) | Claude Code |
 | 5 | apify-ultimate-scraper | `npx skills add apify/agent-skills@apify-ultimate-scraper` | apify/agent-skills (確認済み) | Claude Code |
-| 6 | content-trend-researcher | `npx skills add nicepkg/ai-workflow@content-trend-researcher` | nicepkg/ai-workflow (42 installs) | Claude Code |
+| 6 | content-trend-researcher | `npx skills add alirezarezvani/claude-code-skill-factory@content-trend-researcher` | alirezarezvani (29 installs) | Claude Code |
 | 7 | startup-idea-validation | `npx skills add vasilyu1983/ai-agents-public@startup-idea-validation` | vasilyu1983 (142 installs) | Claude Code |
 | 8 | reddit-insights | `clawhub install reddit-insights` | clawhub (確認済み) | Anicca |
 | 9 | google-trends | `clawhub install google-trends` | clawhub (確認済み) | Anicca |
 | 10 | market-research-agent | `clawhub install market-research-agent` | clawhub (確認済み) | Anicca |
-| 11 | **vercel-deploy** | `npx skills add vercel-labs/agent-skills@vercel-deploy` | vercel-labs (512 installs) | Claude Code |
+| 11 | **vercel-deploy** | `npx skills add supercent-io/skills-template@vercel-deploy` | supercent-io (1.6K installs) | Claude Code |
 | 12 | **configure-notifications** | `npx skills add yeachan-heo/oh-my-claudecode@configure-notifications` | yeachan-heo (確認済み) | Claude Code |
 | 13 | **slack-webhook** | `npx skills add vm0-ai/vm0-skills@slack-webhook` | vm0-ai (33 installs) | Claude Code |
-| 14 | **cron-creator** | `clawhub install cron-creator` | clawhub (確認済み) | Anicca |
+| 14 | **cron設定** | OpenClaw `jobs.json` 直接編集 | cron-creator は ClawHub に存在しない。jobs.json 手動追加で代替 | Claude Code |
 | 15 | **autonomous-skill-orchestrator** | `clawhub install autonomous-skill-orchestrator` | clawhub (確認済み) | Anicca |
 
-**削除済み:** `niche-opportunity-finder` (zanecole10) — skills.sh で存在確認できず。`startup-idea-validation` でニッチ選定まで対応可。
+**注:** `niche-opportunity-finder` (zanecole10) は LAYER 1 の `startup-idea-validation` と機能重複のため統合。ニッチ選定は `startup-idea-validation` + `market-research-agent` で対応。
 **Postiz CLI:** スキルではなくCLIツール。`npm install -g postiz` → `postiz posts:create`。ソース: https://postiz.com/agent
 
 ---
@@ -228,17 +228,15 @@ LAYER 4: REPORT & MARKET（14:30）
 ### STEP 3: Anicca への指示（Slack 経由）
 ```
 「webapp-factory セットアップを開始。
-  1. clawhub install cron-creator
-  2. clawhub install autonomous-skill-orchestrator
-  3. clawhub install reddit-insights && clawhub install google-trends && clawhub install market-research-agent
-  4. npx skills install apify/agent-skills@apify-ultimate-scraper --yes
-  5. npx skills install nicepkg/ai-workflow@content-trend-researcher --yes
-  6. npx skills install vasilyu1983/ai-agents-public@startup-idea-validation --yes
-  7. npx skills install zanecole10/software-tailor-skills@niche-opportunity-finder --yes
-  8. npx skills install vercel-labs/agent-skills@vercel-deploy --yes
-  9. npx skills install yeachan-heo/oh-my-claudecode@configure-notifications --yes
-  10. npx skills install vm0-ai/vm0-skills@slack-webhook --yes
-  11. cron-creator で「毎日09:00 JSTにwebapp-factoryを起動」を設定
+  1. clawhub install autonomous-skill-orchestrator --force
+  2. clawhub install reddit-insights --force && clawhub install google-trends --force && clawhub install market-research-agent
+  3. npx skills install apify/agent-skills@apify-ultimate-scraper --yes
+  4. npx skills install alirezarezvani/claude-code-skill-factory@content-trend-researcher --yes
+  5. npx skills install vasilyu1983/ai-agents-public@startup-idea-validation --yes
+  6. npx skills install supercent-io/skills-template@vercel-deploy --yes
+  7. npx skills install yeachan-heo/oh-my-claudecode@configure-notifications --yes
+  8. npx skills install vm0-ai/vm0-skills@slack-webhook --yes
+  9. jobs.json に webapp-factory cron（09:00 JST）エントリを追加
   完了したら Slack に報告してください。」
 ```
 
