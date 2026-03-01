@@ -3,6 +3,7 @@ import buddhistCounselRouter from './buddhistCounsel.js';
 import emotionDetectorRouter from './emotionDetector.js';
 import focusCoachRouter from './focusCoach.js';
 import habitDesignerRouter from './habitDesigner.js';
+import intentRouterRouter from './intentRouter.js';
 
 const router = Router();
 
@@ -188,6 +189,44 @@ if (PAY_TO) {
               }),
             },
           },
+          'POST /intent-router': {
+            accepts: {
+              scheme: 'exact',
+              price: '$0.005',
+              network,
+              payTo: PAY_TO,
+            },
+            description: 'Intent router for AI agents — classify text against candidate intents and return matched intent with confidence',
+            mimeType: 'application/json',
+            extensions: {
+              ...declareDiscoveryExtension({
+                output: {
+                  example: {
+                    intent_id: 'int_a1b2c3',
+                    matched_intent: 'book_appointment',
+                    confidence: 0.94,
+                    reasoning: 'The text explicitly requests scheduling a meeting.',
+                    secondary_intent: 'get_information',
+                    secondary_confidence: 0.42,
+                    entities: [{ type: 'date', value: 'tomorrow' }],
+                    language_detected: 'en',
+                  },
+                  schema: {
+                    properties: {
+                      intent_id: { type: 'string' },
+                      matched_intent: { type: 'string' },
+                      confidence: { type: 'number' },
+                      reasoning: { type: 'string' },
+                      secondary_intent: { type: 'string' },
+                      secondary_confidence: { type: 'number' },
+                      entities: { type: 'array' },
+                      language_detected: { type: 'string' },
+                    },
+                  },
+                },
+              }),
+            },
+          },
         },
         server,
         undefined,
@@ -208,5 +247,6 @@ router.use('/buddhist-counsel', buddhistCounselRouter);
 router.use('/emotion-detector', emotionDetectorRouter);
 router.use('/focus-coach', focusCoachRouter);
 router.use('/habit-designer', habitDesignerRouter);
+router.use('/intent-router', intentRouterRouter);
 
 export default router;
