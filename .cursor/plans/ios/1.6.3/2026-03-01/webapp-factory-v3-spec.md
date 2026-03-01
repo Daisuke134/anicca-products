@@ -475,3 +475,49 @@ for i in $(seq 1 20):
 | Customer Portal（Stripe Billing Portal） | サブスク管理 UI 不要 |
 | 並列実行 | 1日1本から |
 | Embedded Checkout（iframe） | Stripe Hosted Checkout（redirect）で十分 |
+
+---
+
+## 10. OSS 化計画: Slack → Anicca → アプリ出荷 → 公開
+
+### ビジョン
+
+```
+┌─ ユーザー（Slack）──────────────────────────────────────────┐
+│ 「ポモドーロタイマーアプリ作って、月$5のサブスク付きで」      │
+└──────────────┬──────────────────────────────────────────────┘
+               │ Slack メッセージ
+               ▼
+┌─ Anicca（OpenClaw エージェント）────────────────────────────┐
+│ intent-router スキルでインテント判定:                        │
+│ 「webapp作成リクエスト」→ webapp-factory-orchestrator 発動   │
+│                                                              │
+│ ① prd.json 生成（ユーザーの要望 → 仕様書）                  │
+│ ② ralph.sh 起動（claude --print でビルド開始）              │
+│ ③ 進捗を Slack に随時報告                                    │
+│ ④ 完成 → Vercel URL を Slack に投稿                          │
+│ ⑤ Stripe Product/Price 作成済み → 即日課金可能               │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### OSS 切り出し TODO
+
+| # | タスク | 詳細 |
+|---|--------|------|
+| 1 | **スキルを独立リポに切り出す** | `webapp-factory/` として GitHub public リポ作成。SKILL.md + prompt.md + ralph.sh + prd.json.template |
+| 2 | **ralph.sh の .env パスを汎用化** | `~/.config/webapp-factory/.env` に変更（[Twelve-Factor App](https://12factor.net/config) 準拠） |
+| 3 | **CLAUDE.md テンプレート作成** | Ralph が読むプロンプト。prompt.md をベースに Anicca 固有部分を除去 |
+| 4 | **prd.json テンプレート作成** | 最小限の仕様テンプレート: slug, name, features, price |
+| 5 | **README.md** | インストール手順 + 必要な環境変数 + 使い方 |
+| 6 | **skill.sh に公開** | `npx skills publish webapp-factory` → CC ユーザーが `npx skills install` で使える |
+| 7 | **ClawHub に公開** | `clawhub publish webapp-factory` → OpenClaw ユーザーが `clawhub install` で使える |
+
+### 2つの配布先
+
+| プラットフォーム | コマンド | 対象ユーザー | 体験 |
+|----------------|---------|-------------|------|
+| **skill.sh**（CC用） | `npx skills install webapp-factory` | Claude Code ユーザー | 手動 `bash ralph.sh 20` 実行 |
+| **ClawHub**（OpenClaw用） | `clawhub install webapp-factory` | OpenClaw ユーザー | cron で毎日自動実行（24/7） |
+
+ソース: [skill.sh](https://skill.sh) — CC スキル公開プラットフォーム
+ソース: [ClawHub](https://clawhub.com) — OpenClaw スキル公開プラットフォーム
