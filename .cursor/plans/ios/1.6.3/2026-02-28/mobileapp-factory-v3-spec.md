@@ -154,6 +154,29 @@ URL: ~/.openclaw/skills/ralph-loop-agent/SKILL.md
 引用: 「Acceptance criteria must be verifiable, not vague」
 引用: 「Always include 'Typecheck passes' as final criterion」
 
+
+### prd.json の US 順序（ralph dependency order）
+
+ソース: snarktank/ralph SKILL.md (https://github.com/snarktank/ralph/blob/main/skills/ralph/SKILL.md)
+引用: 「Story Ordering: Dependencies First. Stories execute in priority order. Earlier stories must not depend on later ones. Correct order: 1. Schema/database changes (migrations), 2. Server actions / backend logic, 3. UI components that use the backend」
+
+ソース: snarktank/ralph PRD Converter (https://mcpmarket.com/es/tools/skills/ralph-prd-converter-2)
+引用: 「enforcing strict dependency ordering and verifiable acceptance criteria」
+
+**アプリ開発への翻訳:**
+1. リサーチ + スペック = 設計（US-001〜004）
+2. **インフラ（ASC + IAP + RC）= Schema** — 先に作る（US-005）
+3. **iOS実装 = UI that uses the backend** — インフラの後（US-006）
+4. テスト + リリース = 最後（US-007〜009）
+
+**なぜこの順序か:**
+- US-005 で ASC にサブスクリプションを作り、RC に Offerings を設定し、SPM で RC SDK を追加する
+- US-006 の iOS 実装は **本物の RevenueCat SDK** を使う。Mock が生まれる余地がない
+- US-008 で pricing を設定する時、IAP が既に存在する。FREE pricing にする理由がない
+
+ソース: snarktank/ralph SKILL.md
+引用: 「Wrong order: 1. UI component (depends on schema that does not exist yet), 2. Schema change」
+
 ```json
 {
   "project": "mobileapp-factory",
@@ -167,7 +190,8 @@ URL: ~/.openclaw/skills/ralph-loop-agent/SKILL.md
         "spec/01-trend.md exists",
         "Contains: rank, idea, one_liner, platform, problem_statement, target_user, feasibility, overall_score, monetization_model, competition_notes, mvp_scope, next_step",
         "At least 5 ideas evaluated, top 1 selected",
-        "Sources cited for each trend"
+        "Sources cited for each trend",
+        "Typecheck passes"
       ],
       "priority": 1, "passes": false, "notes": ""
     },
@@ -177,7 +201,9 @@ URL: ~/.openclaw/skills/ralph-loop-agent/SKILL.md
       "acceptanceCriteria": [
         "product-plan.md exists",
         "Contains: target user, problem, solution, monetization, MVP scope",
-        "All claims cite external sources"
+        "monetization section specifies subscription prices (monthly + annual)",
+        "All claims cite external sources",
+        "Typecheck passes"
       ],
       "priority": 2, "passes": false, "notes": ""
     },
@@ -186,7 +212,8 @@ URL: ~/.openclaw/skills/ralph-loop-agent/SKILL.md
       "title": "Market research",
       "acceptanceCriteria": [
         "competitive-analysis.md exists with 5+ competitors analyzed",
-        "market-research.md exists with TAM/SAM/SOM"
+        "market-research.md exists with TAM/SAM/SOM",
+        "Typecheck passes"
       ],
       "priority": 3, "passes": false, "notes": ""
     },
@@ -194,65 +221,111 @@ URL: ~/.openclaw/skills/ralph-loop-agent/SKILL.md
       "id": "US-004",
       "title": "Spec generation",
       "acceptanceCriteria": [
-        "docs/PRD.md exists",
+        "docs/PRD.md exists and contains app_name, bundle_id, subscription prices",
         "docs/ARCHITECTURE.md exists",
         "docs/UX_SPEC.md exists",
         "docs/DESIGN_SYSTEM.md exists",
-        "docs/IMPLEMENTATION_GUIDE.md exists",
+        "docs/IMPLEMENTATION_GUIDE.md exists and references RevenueCat SDK (not Mock)",
         "docs/TEST_SPEC.md exists",
-        "docs/RELEASE_SPEC.md exists"
+        "docs/RELEASE_SPEC.md exists",
+        "Typecheck passes"
       ],
       "priority": 4, "passes": false, "notes": ""
     },
     {
       "id": "US-005",
-      "title": "iOS implementation",
+      "title": "ASC setup + IAP creation + RevenueCat integration",
       "acceptanceCriteria": [
-        "<AppName>ios/ directory exists with App/, Views/, Models/, Services/, Resources/",
-        "xcodebuild -scheme <AppName> build succeeds",
+        "privacy-policy.md exists and deployed to GitHub Pages",
+        "App created in ASC (APP_ID recorded in progress.txt)",
+        "asc subscriptions groups list --app $APP_ID returns 1+ groups",
+        "asc subscriptions list --group $GROUP_ID returns monthly + annual products",
+        "asc validate subscriptions --app $APP_ID returns blocking=0 warnings=0",
+        "RevenueCat dashboard shows 2 products + 1 offering (verified via RC MCP or API)",
+        "SPM dependency on RevenueCat + RevenueCatUI added",
+        "PrivacyInfo.xcprivacy exists in project",
+        "Info.plist contains ITSAppUsesNonExemptEncryption = NO",
         "Typecheck passes"
       ],
-      "priority": 5, "passes": false, "notes": ""
+      "priority": 5, "passes": false, "notes": "依存: US-004 の docs/PRD.md（app_name, bundle_id, prices）。ralph dependency order: Schema/infrastructure first."
     },
     {
       "id": "US-006",
+      "title": "iOS implementation with real RevenueCat SDK",
+      "acceptanceCriteria": [
+        "<AppName>ios/ directory exists with App/, Views/, Models/, Services/, Resources/",
+        "xcodebuild -scheme <AppName> build succeeds",
+        "grep -r 'Mock' --include='*.swift' . | grep -v 'Tests/' | grep -v '.build/' | wc -l = 0",
+        "grep -r 'import RevenueCat' --include='*.swift' . | wc -l > 0",
+        "PaywallView uses RevenueCatUI (not custom mock paywall)",
+        "Typecheck passes"
+      ],
+      "priority": 6, "passes": false, "notes": "依存: US-005 の RC Offerings + SPM。Mock は存在しない（US-005 で本物を作ったから）。"
+    },
+    {
+      "id": "US-007",
       "title": "Testing",
       "acceptanceCriteria": [
         "xcodebuild test succeeds",
         "Unit tests exist for Models and Services",
-        "All tests pass"
-      ],
-      "priority": 6, "passes": false, "notes": ""
-    },
-    {
-      "id": "US-007",
-      "title": "App Store preparation (6.1-6.12)",
-      "acceptanceCriteria": [
-        "privacy-policy.md exists and deployed to GitHub Pages",
-        ".ipa file built successfully",
-        "App created in ASC via asc-app-create-ui (browser automation, no 2FA)",
-        "Screenshots generated and uploaded to ASC",
-        "Metadata synced to ASC via asc-metadata-sync",
-        "TestFlight build uploaded and distributed",
-        "Preflight 7 checks all pass (asc-submission-health)",
-        "Slack #metrics notified: TestFlight ready"
+        "All tests pass",
+        "Typecheck passes"
       ],
       "priority": 7, "passes": false, "notes": ""
     },
     {
       "id": "US-008",
-      "title": "App Store submission (6.13-6.14)",
+      "title": "App Store preparation (screenshots + metadata + build + preflight)",
+      "acceptanceCriteria": [
+        "Screenshots generated via Pencil MCP (screenshot-creator skill) — not raw simulator captures",
+        "Screenshots uploaded to ASC for en-US and ja",
+        "Metadata synced to ASC via asc-metadata-sync (en-US + ja)",
+        ".ipa file built and uploaded (processingState = VALID)",
+        "Build attached to version",
+        "Age Rating all 22 items set",
+        "Review Details set with --demo-account-required false",
+        "Availability set for 175 territories",
+        "Pricing set using price-point ID (NOT --tier 0)",
+        "Encryption: usesNonExemptEncryption = false",
+        "Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT",
+        "asc validate --app $APP_ID --version-id $VERSION_ID returns Errors=0",
+        "Preflight 7 checks all pass (asc-submission-health)",
+        "TestFlight build uploaded and distributed",
+        "Slack #metrics notified",
+        "Typecheck passes"
+      ],
+      "priority": 8, "passes": false, "notes": "依存: US-005 の IAP（pricing に使う）。asc validate の Quality Gate: Errors=0 でないと US-009 に進めない。"
+    },
+    {
+      "id": "US-009",
+      "title": "App Store submission (App Privacy + submit)",
       "acceptanceCriteria": [
         "Slack #metrics notified: need App Privacy setup",
         ".app-privacy-done file exists (human created after ASC Web setup)",
         "asc submit create returns WAITING_FOR_REVIEW",
         "Slack #metrics notified: WAITING_FOR_REVIEW"
       ],
-      "priority": 8, "passes": false, "notes": ""
+      "priority": 9, "passes": false, "notes": ""
     }
   ]
 }
 ```
+
+### Quality Gate（各 US 冒頭で前 US の成果物を検証）
+
+ソース: SonarQube Quality Gates (https://docs.sonarsource.com/sonarqube-cloud/standards/managing-quality-gates/introduction-to-quality-gates)
+引用: 「It can be used to block the merge of the pull request if the quality gate fails. It can be used to fail your CI pipeline if the quality gate fails.」
+
+CLAUDE.md テンプレの各 US 冒頭に以下を追加:
+```
+# Quality Gate（MANDATORY — 前 US の acceptance criteria を再検証）
+# gate fails → この US を実行しない。前の US を先にやれ。
+```
+
+これにより:
+- US-006（実装）開始時に US-005 の acceptance criteria を検証する
+- `asc subscriptions groups list` が空 → US-006 に進めない → Mock が作られない
+- `grep -r 'RevenueCat' Package.swift` が 0 → US-006 に進めない → Mock が作られない
 
 ### 実行パターン（ralph.sh — snarktank/ralph 完コピ）
 
@@ -966,24 +1039,23 @@ export KEYCHAIN_PASSWORD APPLE_ID
 
 ---
 
-### PATCH 5: FREE pricing の正しい手順
+### PATCH 5: FREE pricing → そもそも発生させない（US 順序変更）
 
-**対象:** mobileapp-builder SKILL.md PHASE 9（メタデータ）
+**旧パッチ（事後修正 — 間違い）:** FREE pricing の手順を追加する
+**新パッチ（根本解決）:** US-005 で IAP を先に作るから、US-008 で pricing を設定する時 IAP が既に存在する。FREE pricing にする理由がない。
 
-追加するコマンド:
-```bash
-# FREE アプリの pricing 設定
-# --tier 0 は ASC API v3 で非対応。price-point ID を指定する。
-FREE_ID=$(asc pricing price-points --app "$APP_ID" --territory "USA" --output json \
-  | python3 -c "import json,sys; d=json.load(sys.stdin); print(d['data'][0]['id'])")
-asc pricing schedule create --app "$APP_ID" --price-point "$FREE_ID" \
-  --base-territory "USA" --start-date "$(date +%Y-%m-%d)"
-```
+**対象:** prd.json テンプレの US 順序（§2 で修正済み）
+
+修正内容:
+- 旧: US-005=iOS実装 → US-007=ASC準備（IAP なし → FREE に逃げる）
+- 新: US-005=ASC+IAP+RC → US-006=iOS実装 → US-008=ASC準備（IAP あり → 正しい pricing）
+
+ソース: snarktank/ralph SKILL.md (https://github.com/snarktank/ralph/blob/main/skills/ralph/SKILL.md)
+引用: 「Story Ordering: Dependencies First. Correct order: 1. Schema/database changes, 2. Server actions / backend logic, 3. UI components that use the backend」
+引用: 「Wrong order: 1. UI component (depends on schema that does not exist yet), 2. Schema change」
 
 ソース: Apple WWDC23 - What's new in App Store pricing (https://developer.apple.com/videos/play/wwdc2023/10014/)
-引用: 「To schedule a temporary manual price, I will use the Post/appPriceSchedules API to overwrite my current price schedule」
-
-ソース: rudrankriyam asc-ppp-pricing SKILL.md (https://github.com/rudrankriyam/app-store-connect-cli-skills/blob/main/skills/asc-ppp-pricing/SKILL.md)
+引用: 「use the Post/appPriceSchedules API to overwrite my current price schedule」— price-point ID を使う（--tier 0 は非対応）
 
 ---
 
@@ -1058,34 +1130,36 @@ PRIVEOF
 
 ---
 
-### PATCH 9: Mock 残存防止 — #if DEBUG による分離
+### PATCH 9: Mock 残存防止 → そもそも Mock を作らせない（US 順序変更 + Quality Gate）
 
-**対象:** mobileapp-builder SKILL.md PHASE 4.5（RC統合）+ PHASE 10（BUILD）
+**旧パッチ（事後検出 — 間違い）:** grep で Mock を探して #if DEBUG で囲む
+**新パッチ（根本解決）:** US-005 で本物の RC SDK + Offerings を先に作るから、US-006 の iOS 実装で Mock を作る必要がない。
 
-PHASE 4.5 に追加（Mock を最初から #if DEBUG で囲む）:
-```swift
-// Mock は必ず #if DEBUG で囲む。Release ビルドに含まれない。
-#if DEBUG
-struct MockPackage: Identifiable { ... }
-#endif
-```
+**対象:** prd.json テンプレの US 順序 + Quality Gate（§2 で修正済み）
 
-PHASE 10 冒頭に追加（ビルド前チェック）:
+修正内容:
+- 旧: US-005=iOS実装（RC なし → Mock 作成）→ US-007=ASC準備（Mock 残存）
+- 新: US-005=ASC+IAP+RC（本物を先に作る）→ US-006=iOS実装（本物の RC SDK を使う）
+
+Quality Gate（US-006 冒頭で US-005 の成果物を検証）:
 ```bash
-# STOP GATE: Mock が Release ビルドに漏れていないか確認
-# #if DEBUG で囲まれていない Mock を検出する
-grep -rn "Mock" --include="*.swift" . | grep -v "Tests/" | grep -v ".build/" | grep -v "#if DEBUG" | grep -v "// Mock"
-# → 1行でも出たら #if DEBUG で囲むこと
+# US-005 の acceptance criteria を再検証
+asc subscriptions groups list --app $APP_ID  # → 1+ groups
+grep -r 'RevenueCat' Package.swift           # → 1+ hits
+# 両方 OK でないと US-006 に進めない
 ```
 
-ソース: Apple Developer Forums - What does "#if DEBUG" really mean (https://developer.apple.com/forums/thread/105348)
-引用: 「It is clearly documented the condition of #if/#endif is evaluated at compile time and the code block is conditionally compiled」
+US-006 の acceptance criteria に Mock ゼロ検証:
+```
+"grep -r 'Mock' --include='*.swift' . | grep -v 'Tests/' | grep -v '.build/' | wc -l = 0"
+```
 
-ソース: Swift Conditional Compilation (https://medium.com/@ipak.tulane/conditional-compilation-in-swift-with-if-debug-056a460ca686)
-引用: 「Conditional compilation directives in Swift, such as #if DEBUG and #endif, are powerful tools that allow developers to include or exclude code based on the build configuration」
+ソース: snarktank/ralph SKILL.md (https://github.com/snarktank/ralph/blob/main/skills/ralph/SKILL.md)
+引用: 「Story Ordering: Dependencies First. Earlier stories must not depend on later ones」
+引用: 「Acceptance Criteria: Must Be Verifiable. Each criterion must be something Ralph can CHECK」
 
-ソース: iOS Build Schemes - TestFairy (https://blog.testfairy.com/ios-build-schemes-explained/)
-引用: `#if DEBUG func callApi() -> Request ... #elseif TEST func callApi() -> MockRequest`
+ソース: SonarQube Quality Gates (https://docs.sonarsource.com/sonarqube-cloud/standards/managing-quality-gates/introduction-to-quality-gates)
+引用: 「It can be used to fail your CI pipeline if the quality gate fails」
 
 ---
 
@@ -1171,9 +1245,9 @@ ralph.sh の for ループは毎回 `claude --print` を新プロセスとして
 | PHASE 4-8 全スキップ | 1セッションで context 溢れ → スキル読めず | PATCH 1（ralph.sh で分割） |
 | PrivacyInfo.xcprivacy なし | PHASE 2 テンプレに含まれてない | PATCH 7 |
 | ITSAppUsesNonExemptEncryption なし | Info.plist テンプレに含まれてない | PATCH 8 |
-| Mock が本番コードに残る | #if DEBUG で分離されてない | PATCH 9 |
+| Mock が本番コードに残る | US 順序が間違い（実装が IAP/RC より先） | PATCH 9（US 順序変更 + Quality Gate） |
 | demoAccountRequired = true | デフォルト値が true、明示的に false 未指定 | PATCH 4 |
-| FREE pricing 設定失敗 | --tier 0 非対応、price-point ID 必要 | PATCH 5 |
+| FREE pricing 設定失敗 | US 順序が間違い（IAP 作成前にリリース準備） | PATCH 5（US 順序変更で発生自体を防止） |
 | 27個の validate エラー | submit 前の validate 未実行 | PATCH 6 |
 | Keychain パスワード不明 | 環境変数に未設定 | PATCH 3 |
 | Slack 報告不足 | フロー図に報告タイミング未記載 | PATCH 2, 11 |
