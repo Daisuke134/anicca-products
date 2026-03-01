@@ -2,6 +2,7 @@ import { Router } from 'express';
 import buddhistCounselRouter from './buddhistCounsel.js';
 import emotionDetectorRouter from './emotionDetector.js';
 import focusCoachRouter from './focusCoach.js';
+import habitDesignerRouter from './habitDesigner.js';
 
 const router = Router();
 
@@ -97,7 +98,6 @@ if (PAY_TO) {
               }),
             },
           },
-        },
           'POST /focus-coach': {
             accepts: {
               scheme: 'exact',
@@ -137,6 +137,51 @@ if (PAY_TO) {
               }),
             },
           },
+          'POST /habit-designer': {
+            accepts: {
+              scheme: 'exact',
+              price: '$0.01',
+              network,
+              payTo: PAY_TO,
+            },
+            description: 'Habit designer for AI agents — design tiny habits using BJ Fogg + Atomic Habits frameworks',
+            mimeType: 'application/json',
+            extensions: {
+              ...declareDiscoveryExtension({
+                output: {
+                  example: {
+                    habit_id: 'hab_a1b2c3d4',
+                    goal_reframe: 'I am the type of person who moves their body every day.',
+                    anchor_moment: 'After I pour my morning coffee',
+                    tiny_behavior: 'Do two push-ups',
+                    celebration: 'Say "I am strong!" and smile',
+                    scaling_path: ['5 push-ups', '10 push-ups', '15-minute workout'],
+                    b_map_analysis: {
+                      motivation: 'Medium intrinsic — health identity',
+                      ability: 'Very high — 2 push-ups requires no equipment',
+                      prompt: 'Action prompt anchored to coffee ritual',
+                    },
+                    implementation_intention: 'When I pour my morning coffee, I will do two push-ups, in my kitchen.',
+                    safe_t_flag: false,
+                  },
+                  schema: {
+                    properties: {
+                      habit_id: { type: 'string' },
+                      goal_reframe: { type: 'string' },
+                      anchor_moment: { type: 'string' },
+                      tiny_behavior: { type: 'string' },
+                      celebration: { type: 'string' },
+                      scaling_path: { type: 'array' },
+                      b_map_analysis: { type: 'object' },
+                      implementation_intention: { type: 'string' },
+                      safe_t_flag: { type: 'boolean' },
+                    },
+                  },
+                },
+              }),
+            },
+          },
+        },
         server,
         undefined,
         undefined,
@@ -155,5 +200,6 @@ if (PAY_TO) {
 router.use('/buddhist-counsel', buddhistCounselRouter);
 router.use('/emotion-detector', emotionDetectorRouter);
 router.use('/focus-coach', focusCoachRouter);
+router.use('/habit-designer', habitDesignerRouter);
 
 export default router;
