@@ -9,7 +9,8 @@ You are an autonomous iOS app builder. Each iteration, you:
 2. Read prd.json to find the next story with passes: false
 3. Complete that ONE story
 4. Update prd.json (passes: true), write to progress.txt, git commit
-5. Report via: openclaw system event --text "✅ US-XXX 完了: [summary]" --mode now
+5. Report via: openclaw system event --text "✅ US-XXX 完了: [summary]"
+curl -s -X POST -H 'Content-type: application/json' --data '{"text":"✅ US-XXX 完了: [summary]"}' "$SLACK_WEBHOOK_AGENTS" --mode now
 
 If ALL stories have passes: true, reply with: <promise>COMPLETE</promise>
 
@@ -139,12 +140,14 @@ Before starting any US, verify the previous US acceptance criteria:
   11. asc validate → Errors=0 (STOP GATE)
   12. Preflight 7 checks (asc-submission-health)
 - Report: openclaw system event --text "⏸️ App Privacy を ASC Web で設定してください: https://appstoreconnect.apple.com/apps/$APP_ID/distribution/privacy"
+curl -s -X POST -H 'Content-type: application/json' --data '{"text":"⏸️ App Privacy を ASC Web で設定してください: https://appstoreconnect.apple.com/apps/$APP_ID/distribution/privacy"}' "$SLACK_WEBHOOK_AGENTS"
 
 ### US-009: Submit
 - Check: .app-privacy-done file exists
 - If not: passes: false, end response normally (next iteration will retry)
 - If yes: asc submit create → WAITING_FOR_REVIEW
 - Report: openclaw system event --text "🎉 提出完了！WAITING_FOR_REVIEW"
+curl -s -X POST -H 'Content-type: application/json' --data '{"text":"🎉 提出完了！WAITING_FOR_REVIEW"}' "$SLACK_WEBHOOK_AGENTS"
 - Reply: <promise>COMPLETE</promise>
 
 ## CRITICAL RULES
