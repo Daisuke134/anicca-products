@@ -1,6 +1,6 @@
 # Web App Factory — 仕様書
 
-**バージョン:** 1.4.0
+**バージョン:** 1.5.0
 **作成日:** 2026-03-01
 **ステータス:** Ready to Implement
 
@@ -37,7 +37,7 @@
 ### アーキテクチャ
 ```
 Anicca cron 09:00 JST（OpenClaw jobs.json 直接編集で設定）
-  → claude --dangerously-skip-permissions -p "$(cat prompt.md)"
+  → source .openclaw/skills/webapp-factory-orchestrator/.env && claude --dangerously-skip-permissions -p "$(cat .openclaw/skills/webapp-factory-orchestrator/prompt.md)"
     → [横断] oh-my-claudecode @configure-notifications → Slack #metrics 進捗報告
     → LAYER 1: トレンド収集 + アイデア選定 → idea.md 生成
     → LAYER 2: ボイラープレート clone + AppFactory website-pipeline
@@ -146,6 +146,8 @@ LAYER 4: REPORT & MARKET（14:30）
 |---------|------|---------|
 | `.openclaw/skills/webapp-factory-orchestrator/SKILL.md` | Anicca が読む全体オーケストレーター | clawhub `autonomous-skill-orchestrator` をベースに作成 |
 | `.openclaw/skills/webapp-factory-orchestrator/prompt.md` | CC に渡す LAYER 1〜4 の実行指示 | Anthropic 2-Agent パターン（Initializer + Coding Agent + claude-progress.txt）に従って作成。ソース: https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents |
+| `.openclaw/skills/webapp-factory-orchestrator/.env` | 全共有鍵（gitignored） | スキルの cron コマンドが `source` して Claude Code に継承 |
+| `.openclaw/skills/webapp-factory-orchestrator/.env.example` | 必要な鍵の一覧（コミット可） | roundcube-webmail スキルのパターンに準拠 |
 
 ### インストールするスキル（全15件）
 
@@ -273,20 +275,49 @@ LAYER 4: REPORT & MARKET（14:30）
 
 ---
 
-## 9. アカウントセットアップ（ダイスの手動作業 — 全8件）
+## 9. アカウントセットアップ（✅ 全件完了）
 
-取得したキーを全て `.openclaw/.env` に追記する（Anicca への指示で私が実行）。
+全鍵は `.openclaw/skills/webapp-factory-orchestrator/.env` に配置済み。
+ソース: roundcube-webmail スキルの `.env.example` パターンに準拠。
+ソース: [Claude Code Settings](https://code.claude.com/docs/en/settings) / 核心の引用: 「Shell-level variables take precedence over values set here」
 
-| # | サービス | 取得するもの | URL |
-|---|---------|------------|-----|
-| 1 | **Apify** ($49/月) | `APIFY_API_TOKEN` | https://console.apify.com → Settings → API & Integrations |
-| 2 | **X Developer** (無料) | `TWITTER_API_KEY` `TWITTER_API_SECRET` `TWITTER_ACCESS_TOKEN` `TWITTER_ACCESS_SECRET` | https://developer.x.com/en/portal/dashboard |
-| 3 | **Supabase** (無料) | `SUPABASE_URL` `SUPABASE_ANON_KEY` | https://supabase.com/dashboard → New project → Settings → API |
-| 4 | **Stripe** (無料) | `STRIPE_SECRET_KEY` `STRIPE_WEBHOOK_SECRET` | https://dashboard.stripe.com/apikeys |
-| 5 | **PostHog** (無料) | `POSTHOG_API_KEY` | https://us.posthog.com/project/settings |
-| 6 | **Sentry** (無料) | `SENTRY_DSN` `SENTRY_AUTH_TOKEN` | https://sentry.io/settings/auth-tokens |
-| 7 | **Vercel** (支払済み) | `VERCEL_TOKEN` `VERCEL_ORG_ID` | https://vercel.com/account/tokens |
-| 8 | **Slack Webhook** (既存) | `SLACK_WEBHOOK_URL` の確認のみ | `.env` 確認 |
+### 鍵の配置先
+
+| 配置先 | 何が入るか | 誰が読むか |
+|-------|-----------|-----------|
+| `.openclaw/skills/webapp-factory-orchestrator/.env` | 全共有鍵（下表） | Claude Code（cron `source` 経由） |
+| `vercel env add` | NEXT_PUBLIC_* 等 | デプロイされたアプリ（Vercel本番） |
+| `.openclaw/.env` | Anicca/OpenClaw 専用鍵のみ | OpenClaw Gateway |
+
+### 共有 vs アプリごと
+
+| 鍵 | 共有/個別 | 理由 |
+|----|----------|------|
+| SUPABASE_URL, ANON_KEY, SERVICE_ROLE_KEY | ✅ 共有 | RLS で `app_id` 分離。ソース: Clerk Multi-Tenant SaaS Architecture |
+| STRIPE_SECRET_KEY | ✅ 共有 | 同一ビジネス、`customer_id` で管理 |
+| POSTHOG keys | ✅ 共有 | `app_name` プロパティで分離 |
+| VERCEL_TOKEN, VERCEL_ORG_ID | ✅ 共有 | 同一アカウント |
+| APIFY_TOKEN | ✅ 共有 | 同一アカウント |
+| SLACK_WEBHOOK_URL | ✅ 共有 | 同一チャンネル |
+| POSTIZ_API_KEY, X_BEARER_TOKEN | ✅ 共有 | 同一アカウント |
+| SENTRY_AUTH_TOKEN, SENTRY_ORG | ✅ 共有 | org token で全プロジェクト操作 |
+| STRIPE_WEBHOOK_SECRET | ❌ アプリごと | Claude Code が `stripe webhooks create` で自動生成 |
+| SENTRY_DSN (per app) | ❌ アプリごと | Claude Code が `sentry-cli projects create` で自動生成 |
+| Vercel プロジェクト | ❌ アプリごと | `vercel deploy` が自動作成 |
+
+### 設定済みの鍵一覧（✅ 全件取得完了）
+
+| # | サービス | 鍵 | ステータス |
+|---|---------|-----|----------|
+| 1 | Supabase | `SUPABASE_URL` `SUPABASE_ANON_KEY` `SUPABASE_SERVICE_ROLE_KEY` | ✅ |
+| 2 | Stripe | `STRIPE_SECRET_KEY` | ✅ |
+| 3 | PostHog | `POSTHOG_PERSONAL_API_KEY` `POSTHOG_PROJECT_TOKEN` | ✅ |
+| 4 | Vercel | `VERCEL_TOKEN` `VERCEL_ORG_ID` | ✅ |
+| 5 | Apify | `APIFY_TOKEN` | ✅ |
+| 6 | Slack | `SLACK_WEBHOOK_URL` | ✅ |
+| 7 | Postiz | `POSTIZ_API_KEY` | ✅ |
+| 8 | X / Twitter | `X_BEARER_TOKEN` | ✅ |
+| 9 | Sentry | `SENTRY_AUTH_TOKEN` `SENTRY_DSN` `SENTRY_ORG` | ✅ |
 
 ---
 
