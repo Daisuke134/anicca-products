@@ -50,8 +50,8 @@
         "npm run build passes"
       ],
       "priority": 3,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Next.js 15 + TypeScript + Tailwind + App Router + stripe installed. Build passes."
     },
     {
       "id": "US-004",

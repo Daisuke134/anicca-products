@@ -18,3 +18,11 @@
   - Always source web-apps/.env for shared secrets
   - Stripe API returns full JSON — parse with python3 for reliability
   - .env.local must be gitignored BEFORE any commit
+
+## 2026-03-02 - US-003: Next.js Project Initialization
+- Created Next.js 15 with TypeScript + Tailwind + ESLint + App Router + src-dir
+- Installed stripe and @stripe/stripe-js
+- npm run build: PASS
+- **Learnings for future iterations:**
+  - create-next-app conflicts with existing files — must temporarily move them
+  - Always restore .env.local after scaffold (not tracked by git)
