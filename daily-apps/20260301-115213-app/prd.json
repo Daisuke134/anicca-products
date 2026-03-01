@@ -76,8 +76,8 @@
         "Typecheck passes"
       ],
       "priority": 5,
-      "passes": false,
-      "notes": "APP_ID=6759877003 APP_NAME=Micro-Mood BUNDLE_ID=com.anicca.micromood SKU=MicroMood2026 PRIVACY_POLICY_URL=https://daisuke134.github.io/micromood-privacy/ CERT_ID=P8XCDP64HZ PROFILE_ID=P3RNZ5D49S"
+      "passes": true,
+      "notes": "APP_ID=6759877003 APP_NAME=Micro-Mood BUNDLE_ID=com.anicca.micromood SKU=MicroMood2026 PRIVACY_POLICY_URL=https://daisuke134.github.io/micromood-privacy/ CERT_ID=P8XCDP64HZ PROFILE_ID=P3RNZ5D49S GROUP_ID=21956086 MONTHLY_SUB_ID=6759877016 ANNUAL_SUB_ID=6759877119 RC_APP_ID=appdda58236fa RC_OFFERING_ID=ofrng2bb1abc0a6 RC_MONTHLY_PKG=pkgeb7647a3b7a RC_ANNUAL_PKG=pkge9543947823 2026-03-01"
     },
     {
       "id": "US-006",

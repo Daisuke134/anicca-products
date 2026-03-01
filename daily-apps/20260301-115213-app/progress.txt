@@ -15,7 +15,7 @@
 ### US-004: Spec generation — ✅ COMPLETE
 - docs/ 7 files created (PRD, ARCHITECTURE, UX, DESIGN, IMPLEMENTATION, TEST, RELEASE)
 
-### US-005: ASC + IAP + RevenueCat — 🔶 PARTIAL (待機中: APP_ID)
+### US-005: ASC + IAP + RevenueCat — ✅ COMPLETE
 DONE:
 - MicroMoodiOS/ 全コード完了（32ファイル）
 - RevenueCat SDK via SPM（Package.resolved に purchases-ios あり）
@@ -27,13 +27,18 @@ DONE:
 - 配布証明書: P8XCDP64HZ ✅ 有効 (expires 2027)
 - AppStore Distribution プロファイル: P3RNZ5D49S ✅ ACTIVE
 - Privacy Policy: https://daisuke134.github.io/micromood-privacy/ ✅ GitHub Pages
-- Slack 手動作成依頼: ✅ 送信済み
-NOT DONE:
-- ASC アプリ作成（2FA ブロック — 手動作成が必要 → Slack 待機中）
-- IAP 作成（アプリがないから）
-- RC Offerings 設定（IAP がないから）
-WAITING FOR:
-- Dais が App ID を Slack に返す → progress.txt に APP_ID=XXXXXXXXXX を追記
+- ASC App ID: 6759877003 ✅ 手動作成済み (Dais)
+- Subscription Group: 21956086 (Micro Mood Premium) ✅
+- Monthly sub: 6759877016 (com.anicca.micromood.premium.monthly) ✅
+- Annual sub: 6759877119 (com.anicca.micromood.premium.annual) ✅
+- Localizations: 40 locales × 2 subs ✅
+- RC App: appdda58236fa (Micro Mood) ✅
+- RC Products: prodfa0f022874 (monthly), prodd5cf04125e (annual) ✅
+- RC Offering: ofrng2bb1abc0a6 (micromood_default) ✅
+- RC Packages: pkgeb7647a3b7a ($rc_monthly), pkge9543947823 ($rc_annual) ✅ attached
+- asc validate iap: blocking=0 ✅
+NOTE:
+- 175-country pricing: Apple API server error (transient) — set base price from ASC web UI if needed
 
 APP_NAME=Micro Mood
 BUNDLE_ID=com.anicca.micromood
