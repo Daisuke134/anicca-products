@@ -119,7 +119,14 @@ Before starting any US, verify the previous US acceptance criteria:
 - Verify: xcodebuild test succeeds
 
 ### US-008: App Store preparation
-- Read: .claude/skills/screenshot-creator/SKILL.md (Pencil MCP — MANDATORY for screenshots)
+- FIRST: Delete ALL existing screenshots (rm -rf screenshots/ docs/screenshots/)
+- MANDATORY: Screenshots MUST use Pencil MCP (@pencil-so/mcp). NO EXCEPTIONS.
+  - Step 1: xcrun simctl io で実スクショ撮影
+  - Step 2: Pencil MCP で .pen ファイル作成（モックアップ + ヘッドライン）
+  - Step 3: Pencil MCP で PNG エクスポート
+  - DO NOT use Python/Pillow/ImageMagick as fallback
+  - If Pencil MCP fails → report error + set passes:false + exit
+- Read: /Users/anicca/anicca-project/.claude/skills/screenshot-creator/SKILL.md (follow ALL steps exactly)
 - Read: .claude/skills/asc-shots-pipeline/SKILL.md
 - Read: .claude/skills/asc-metadata-sync/SKILL.md
 - Read: .claude/skills/asc-xcode-build/SKILL.md

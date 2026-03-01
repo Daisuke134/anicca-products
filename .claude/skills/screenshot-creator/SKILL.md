@@ -13,6 +13,12 @@ description: >
 
 # screenshot-creator スキル（シングルエージェント版）
 
+## ⛔ 絶対ルール（最優先）
+- **Pencil MCP (@pencil-so/mcp) が唯一のスクショ生成方法。**
+- Python/Pillow/ImageMagick での代替生成は禁止。
+- Pencil MCP が失敗した場合 → エラーを報告して停止（passes:false）。フォールバック禁止。
+- 実スクショ（xcrun simctl）+ Pencil MCP（プロモ加工）の2段階が必須。
+
 **エージェントチームは使わない。** 以下の役割を1エージェントが順番に担当する:
 `creative-director` → `copy-writer` → `screenshot-designer` → `spec-validator` → `quality-reviewer`
 
