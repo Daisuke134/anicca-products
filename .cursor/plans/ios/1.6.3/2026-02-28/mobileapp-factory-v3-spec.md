@@ -157,8 +157,8 @@ URL: https://github.com/openclaw/openclaw/blob/main/skills/coding-agent/SKILL.md
 
 ### 実行パターン
 
-Session 1 (Phase 0-3): OpenClaw が直接実行（短いため）
-Session 2-4: coding-agent SKILL.md パターン（pty:true + background:true）
+全セッション: Claude Code Opus（pty:true + background:true）で実行
+Anicca（OpenClaw）は Claude Code を起動するだけ。SKILL.md を読んで実行するのは Claude Code。
 
 ソース: coding-agent SKILL.md
 引用: 「Always use pty:true — coding agents are interactive terminal applications that need a pseudo-terminal」
