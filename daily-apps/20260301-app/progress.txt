@@ -73,3 +73,57 @@
 - Subscription pricing $29.99/year is competitive sweet spot
 
 ---
+
+## 2026-03-01 12:00 - US-003: Market research
+
+### What was implemented
+- Created comprehensive competitive-analysis.md with 6 competitors
+- Created market-research.md with TAM/SAM/SOM analysis
+- Conducted 9 web searches for market data and competitor intelligence
+- Built feature comparison matrix across all competitors
+- Developed market positioning map
+- Identified 5 key feature gaps (differentiation opportunities)
+- Calculated revenue projections for 3-year horizon
+
+### Files changed
+- `competitive-analysis.md` (created) - Deep analysis of 6 competitors
+- `market-research.md` (created) - Full market sizing with sources
+
+### Competitors analyzed (6)
+| Competitor | Category | Price | Key Weakness |
+|------------|----------|-------|--------------|
+| ThinkUp | Market Leader | $39.99/yr | No AI, cloud-based |
+| I Am | Market Leader | $30/yr | No AI, pre-written |
+| Innertune | Challenger | Free+ | No AI, audio-focused |
+| Shine | Niche | $59.99/yr | Not affirmation-focused |
+| Gratitude | Challenger | $30/yr | No AI, journal focus |
+| Vision Board ++ | Niche | $19/yr | No AI, smaller base |
+
+### Market sizing results
+| Metric | Value | Methodology |
+|--------|-------|-------------|
+| TAM | $9.45B | Mental Health Apps (Mordor Intelligence) |
+| SAM | $94.5M | iOS Affirmation Apps (TAM × 30% iOS × 3.3% category) |
+| SOM | $4.7M | 5% realistic 3-year capture |
+
+### Key findings
+1. **No AI-native competitor exists** - First-mover advantage for Foundation Models
+2. **Privacy is unaddressed** - All competitors use cloud processing
+3. **Widget support is secondary** - Widget-first is differentiator
+4. **$29.99/year is competitive** - Below ThinkUp ($39.99), equal to I Am ($30)
+5. **Market opportunity score: 7.5/10** - GO recommendation
+
+### Revenue projections
+| Year | Paid Users | Revenue |
+|------|------------|---------|
+| Year 1 | 2K-3K | $50K-100K |
+| Year 2 | 5K-10K | $150K-300K |
+| Year 3 | 15K-30K | $450K-900K |
+
+### Learnings for future iterations
+- Industry reports give conflicting TAM numbers ($7.9B-$10B range) - use conservative estimates
+- Wellness app revenue dipped in 2024 but mental health segment still growing
+- Apple featuring for Foundation Models apps could be significant distribution boost
+- Affirmation niche is less saturated than meditation (Calm/Headspace dominate there)
+
+---
