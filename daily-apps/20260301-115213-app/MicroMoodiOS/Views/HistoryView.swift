@@ -1,4 +1,5 @@
 import SwiftUI
+import RevenueCatUI
 
 struct HistoryView: View {
     @EnvironmentObject private var subscriptionManager: SubscriptionManager

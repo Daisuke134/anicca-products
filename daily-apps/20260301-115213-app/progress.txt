@@ -45,12 +45,20 @@ BUNDLE_ID=com.anicca.micromood
 SKU=MicroMood2026
 PRIVACY_POLICY_URL=https://daisuke134.github.io/micromood-privacy/
 
-### US-006: iOS implementation — 🔶 PARTIAL (US-005 で大半完了)
+### US-006: iOS implementation — ✅ COMPLETE
 DONE:
 - MicroMoodiOS/ 全コード（App, Views, Models, Services, Resources, ViewModels, Widget）
 - RevenueCat SDK 統合済み（本物、Mock なし）
-NOT DONE:
-- xcodebuild build 確認
+- xcodebuild build: BUILD SUCCEEDED (iPhone 17 Pro Max simulator)
+- Mock = 0, import RevenueCat = 7 ✅
+- PaywallView uses RevenueCatUI ✅
+FIXES applied:
+- MoodEntryMO+CoreDataClass.swift 追加 (CoreData manual class)
+- codeGenerationType → manual/none
+- MoodStore.static shared 追加
+- HomeViewModel: Int16→Int Mixpanel type cast
+- HistoryView: import RevenueCatUI 追加
+- InsightsView: colorHex→color, moodBarView関数分離 (型推論エラー修正)
 
 ### US-007: Testing — PENDING
 ### US-008: App Store preparation — PENDING

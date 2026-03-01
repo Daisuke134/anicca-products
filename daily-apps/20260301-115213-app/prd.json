@@ -91,8 +91,8 @@
         "Typecheck passes"
       ],
       "priority": 6,
-      "passes": false,
-      "notes": "依存: US-005 の RC Offerings + SPM"
+      "passes": true,
+      "notes": "BUILD SUCCEEDED simulator iPhone 17 Pro Max. Mock=0, import RevenueCat=7. 2026-03-01"
     },
     {
       "id": "US-007",

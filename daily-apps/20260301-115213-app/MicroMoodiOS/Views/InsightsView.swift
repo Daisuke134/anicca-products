@@ -92,8 +92,22 @@ struct InsightsView: View {
         .accessibilityIdentifier("weekly_insight_card")
     }
 
+    private func moodBarView(mood: MoodLevel, count: Int, maxCount: Int) -> some View {
+        VStack(spacing: 6) {
+            Text("\(count)")
+                .font(.caption2)
+                .foregroundColor(.white.opacity(0.6))
+            RoundedRectangle(cornerRadius: 4)
+                .fill(mood.color)
+                .frame(height: max(4, CGFloat(count) / CGFloat(maxCount) * 80))
+            Text(mood.emoji)
+                .font(.caption)
+        }
+    }
+
     private var moodDistributionCard: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        let maxCount = max(1, viewModel.moodTrend.count)
+        return VStack(alignment: .leading, spacing: 16) {
             Text("30-Day Mood Distribution")
                 .font(.subheadline.bold())
                 .foregroundColor(.white)
@@ -101,17 +115,7 @@ struct InsightsView: View {
             HStack(alignment: .bottom, spacing: 12) {
                 ForEach(MoodLevel.allCases, id: \.self) { mood in
                     let count = viewModel.moodTrend.filter { $0.moodLevel == mood }.count
-                    let maxCount = max(1, viewModel.moodTrend.count)
-                    VStack(spacing: 6) {
-                        Text("\(count)")
-                            .font(.caption2)
-                            .foregroundColor(.white.opacity(0.6))
-                        RoundedRectangle(cornerRadius: 4)
-                            .fill(Color(hex: mood.colorHex))
-                            .frame(height: max(4, CGFloat(count) / CGFloat(maxCount) * 80))
-                        Text(mood.emoji)
-                            .font(.caption)
-                    }
+                    moodBarView(mood: mood, count: count, maxCount: maxCount)
                 }
             }
             .frame(maxWidth: .infinity)

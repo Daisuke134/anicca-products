@@ -29,7 +29,7 @@ class HomeViewModel: ObservableObject {
     func saveMood(_ level: MoodLevel, note: String?) async {
         try? moodStore.saveMoodEntry(level: level.rawValue, note: note?.isEmpty == true ? nil : note)
         Mixpanel.mainInstance().track(event: "mood_logged", properties: [
-            "mood_level": level.rawValue,
+            "mood_level": Int(level.rawValue),
             "has_note": note?.isEmpty == false
         ])
         await loadData()
