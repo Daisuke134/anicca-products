@@ -36,6 +36,11 @@
 		AF027 /* FocusArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF103; };
 		AF028 /* DesignTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF109; };
 		AF029 /* AffirmFlowWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AF200; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		AFT001 /* FocusAreaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFT101; };
+		AFT002 /* AffirmationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFT102; };
+		AFT003 /* UserSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFT103; };
+		AFT004 /* AffirmationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFT104; };
+		AFT005 /* SubscriptionServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFT105; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +50,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = AF201;
 			remoteInfo = AffirmFlowWidget;
+		};
+		AFT400 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AF300;
+			proxyType = 1;
+			remoteGlobalIDString = AF310;
+			remoteInfo = AffirmFlow;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -95,6 +107,12 @@
 		AF132 /* WidgetInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = WidgetInfo.plist; path = Widget/Info.plist; sourceTree = "<group>"; };
 		AF133 /* AffirmFlowWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AffirmFlowWidget.entitlements; sourceTree = "<group>"; };
 		AF200 /* AffirmFlowWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AffirmFlowWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFT100 /* AffirmFlowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AffirmFlowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFT101 /* FocusAreaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusAreaTests.swift; sourceTree = "<group>"; };
+		AFT102 /* AffirmationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffirmationTests.swift; sourceTree = "<group>"; };
+		AFT103 /* UserSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsTests.swift; sourceTree = "<group>"; };
+		AFT104 /* AffirmationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffirmationServiceTests.swift; sourceTree = "<group>"; };
+		AFT105 /* SubscriptionServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionServiceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +124,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AF351 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AFT350 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -126,6 +151,7 @@
 				AF256 /* Utilities */,
 				AF257 /* Resources */,
 				AF258 /* Widget */,
+				AFT250 /* AffirmFlowTests */,
 				AF259 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -216,6 +242,7 @@
 			children = (
 				AF100 /* AffirmFlow.app */,
 				AF200 /* AffirmFlowWidget.appex */,
+				AFT100 /* AffirmFlowTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -289,6 +316,34 @@
 			path = WidgetViews;
 			sourceTree = "<group>";
 		};
+		AFT250 /* AffirmFlowTests */ = {
+			isa = PBXGroup;
+			children = (
+				AFT251 /* Models */,
+				AFT252 /* Services */,
+			);
+			path = AffirmFlowTests;
+			sourceTree = "<group>";
+		};
+		AFT251 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AFT101 /* FocusAreaTests.swift */,
+				AFT102 /* AffirmationTests.swift */,
+				AFT103 /* UserSettingsTests.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AFT252 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AFT104 /* AffirmationServiceTests.swift */,
+				AFT105 /* SubscriptionServiceTests.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -328,6 +383,24 @@
 			productReference = AF200 /* AffirmFlowWidget.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		AFT310 /* AffirmFlowTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AFT370;
+			buildPhases = (
+				AFT340 /* Sources */,
+				AFT350 /* Frameworks */,
+				AFT360 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AFT401 /* PBXTargetDependency */,
+			);
+			name = AffirmFlowTests;
+			productName = AffirmFlowTests;
+			productReference = AFT100 /* AffirmFlowTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -343,6 +416,10 @@
 					};
 					AF201 = {
 						CreatedOnToolsVersion = 16.0;
+					};
+					AFT310 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = AF310;
 					};
 				};
 			};
@@ -361,6 +438,7 @@
 			targets = (
 				AF310 /* AffirmFlow */,
 				AF201 /* AffirmFlowWidget */,
+				AFT310 /* AffirmFlowTests */,
 			);
 		};
 /* End PBXProject section */
@@ -374,6 +452,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		AF361 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AFT360 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -425,6 +510,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AFT340 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AFT001 /* FocusAreaTests.swift in Sources */,
+				AFT002 /* AffirmationTests.swift in Sources */,
+				AFT003 /* UserSettingsTests.swift in Sources */,
+				AFT004 /* AffirmationServiceTests.swift in Sources */,
+				AFT005 /* SubscriptionServiceTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -432,6 +529,11 @@
 			isa = PBXTargetDependency;
 			target = AF201 /* AffirmFlowWidget */;
 			targetProxy = AF400 /* PBXContainerItemProxy */;
+		};
+		AFT401 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AF310 /* AffirmFlow */;
+			targetProxy = AFT400 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -669,6 +771,44 @@
 			};
 			name = Release;
 		};
+		AFT392 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anicca.affirmflow.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AffirmFlow.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AffirmFlow";
+			};
+			name = Debug;
+		};
+		AFT393 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.anicca.affirmflow.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AffirmFlow.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AffirmFlow";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -686,6 +826,15 @@
 			buildConfigurations = (
 				AF394 /* Debug */,
 				AF395 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AFT370 /* Build configuration list for PBXNativeTarget "AffirmFlowTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AFT392 /* Debug */,
+				AFT393 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

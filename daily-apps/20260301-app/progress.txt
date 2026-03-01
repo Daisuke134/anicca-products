@@ -227,3 +227,39 @@ xcodebuild -scheme AffirmFlow -destination 'platform=iOS Simulator,name=iPhone 1
 - iPhone 16 simulator not available on some Xcode versions - use iPhone 17 Pro
 
 ---
+
+## 2026-03-01 18:15 - US-006: Testing
+
+### What was implemented
+- Created AffirmFlowTests target with proper Xcode project configuration
+- Implemented 5 test files using Swift Testing framework (@Test, #expect)
+- Model tests: FocusAreaTests, AffirmationTests, UserSettingsTests
+- Service tests: AffirmationServiceTests, SubscriptionServiceTests
+- Updated project.pbxproj with test target (AFT310)
+- Updated xcscheme to include test target in TestAction
+
+### Files changed
+- `AffirmFlowTests/Models/FocusAreaTests.swift` (created) - 10 test cases
+- `AffirmFlowTests/Models/AffirmationTests.swift` (created) - 7 test cases
+- `AffirmFlowTests/Models/UserSettingsTests.swift` (created) - 7 test cases
+- `AffirmFlowTests/Services/AffirmationServiceTests.swift` (created) - 6 test cases
+- `AffirmFlowTests/Services/SubscriptionServiceTests.swift` (created) - 7 test cases
+- `AffirmFlow.xcodeproj/project.pbxproj` (updated) - Added test target
+- `AffirmFlow.xcodeproj/xcshareddata/xcschemes/AffirmFlow.xcscheme` (updated) - Added test action
+
+### Test coverage summary
+| Test Suite | Test Cases | Status |
+|------------|------------|--------|
+| FocusAreaTests | 10 (incl. parameterized) | PASS |
+| AffirmationTests | 7 (incl. parameterized) | PASS |
+| UserSettingsTests | 7 | PASS |
+| AffirmationServiceTests | 6 (incl. parameterized) | PASS |
+| SubscriptionServiceTests | 7 | PASS |
+
+### Learnings for future iterations
+- Swift Testing framework uses `@Test` attribute and `#expect` macro
+- Parameterized tests with `@Test(arguments:)` are efficient for testing all enum cases
+- Test target needs proper BUNDLE_LOADER and TEST_HOST settings in pbxproj
+- Non-optional comparisons with nil trigger warnings - remove unnecessary nil checks
+
+---
