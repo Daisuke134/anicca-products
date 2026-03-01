@@ -23,10 +23,27 @@ v2（オリジナル14 PHASE）は失敗した。v3 は:
 ソース: https://github.com/rshankras/claude-code-apple-skills/blob/main/skills/product/WORKFLOW.md
 
 ### Phase 0: IDEA DISCOVERY
-- スキル: idea-generator
-- 入力: trend-hunter cron (05:00 JST) の出力
-- プロセス: Developer profile elicitation → 5 brainstorming lenses → Feasibility filtering and scoring → Ranked shortlist of 3-5 ideas
-- 出力: idea-shortlist.json
+- スキル: idea-generator（rshankras、完コピ）
+- プロセス（rshankras idea-generator SKILL.md そのまま）:
+  1. **Developer Profile Elicitation** — Technical skills, domain interests, platform preference, time availability, constraints
+  2. **5 Brainstorming Lenses**（各 Lens 5-8 個のアイデア生成）:
+     - Lens 1: Skills & Interests — What can you uniquely build given what you know?
+     - Lens 2: Problem-First — What took 30 seconds today that should take 5?
+     - Lens 3: Technology-First — Which Apple frameworks have few indie apps?
+     - Lens 4: Market Gap — App Store カテゴリの穴を探す
+       → rshankras デフォルト: WebSearch
+       → 置換: **apify-trend-analysis スキル**（App Store カテゴリ別ランキング + Google Trends）
+       → 置換理由 — ManaLabs: 「Dedicated research agents scan Reddit, X, and App Store categories for pain points」
+     - Lens 5: Trend-Based — マクロトレンドから新アプリ機会を発見
+       → rshankras デフォルト: WebSearch
+       → 置換: **x-research スキル**（X）+ **tiktok-research スキル**（TikTok）
+       → 置換理由 — ManaLabs: 同上（専用ソースから直接データを引く）
+  3. **Feasibility Filtering**（rshankras そのまま、5基準）: Solo Dev Scope, Platform API Fit, Monetization Viability, Competition Density, Technical Complexity
+  4. **Scoring and Ranking**（rshankras そのまま、5次元 1-10 スケール、Solo Dev Scope と Technical Fit は 1.5x 重み付け）
+  5. **Shortlist Output** — 3-5 アイデア、各アイデアに: one-liner, lens, problem statement, scores, monetization model, MVP scope, next_step
+- 出力:
+  - `daily-apps/<name>/spec/01-trend.md`（mobileapp-builder フォーマット）
+  - `daily-apps/<name>/idea-shortlist.json`（rshankras フォーマット）
 
 ### Phase 1: PRODUCT PLANNING
 - スキル: product-agent
