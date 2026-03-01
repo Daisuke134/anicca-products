@@ -1,8 +1,8 @@
 # mobileapp-factory v3 — 外部スキル100%、8フェーズ完コピ
 
-**Date**: 2026-02-28
+**Date**: 2026-02-28 (Updated: 2026-03-01)
 **Author**: Anicca
-**Status**: ⬜ 未実行
+**Status**: 🔶 部分実装（詳細は末尾「実装状況」参照）
 **オリジナリティ**: 0%
 
 ---
@@ -822,3 +822,51 @@ https://appstoreconnect.apple.com → + → 新規App
 #### ⚠️ 現状（2026-03-01）
 
 Playwright は未実装。実装されるまで Step 0/0b をスキップしてフォールバック（Slack 手動作成依頼）を使う。
+
+---
+
+## 16. 実装状況（2026-03-01 更新）
+
+### ✅ 実装済み
+| 項目 | 状態 | 備考 |
+|------|------|------|
+| prd.json テンプレ | ✅ | `daily-apps/20260301-app/prd.json` — 8 US 定義済み |
+| CLAUDE.md テンプレ | ✅ | 各USごとにスキル指定済み |
+| US-001〜006 の実行 | ✅ | AffirmFlow で passes:true（ただし v2 SKILL.md 経由で1セッション実行） |
+| rshankras スキル群 | ✅ | `.claude/skills/` に存在（idea-generator 等） |
+| rudrankriyam asc-* スキル群 | ✅ | `.claude/skills/asc-*/` に12個存在 |
+| screenshot-creator スキル | ✅ | `.claude/skills/screenshot-creator/` 存在 |
+| progress.txt パターン | ✅ | CLAUDE.md に記載済み |
+| system event 通知 | ✅ | CLAUDE.md に記載済み |
+
+### ❌ 未実装（TODO）
+| # | 項目 | 何が必要か | ソース |
+|---|------|-----------|--------|
+| 1 | ralph.sh | snarktank/ralph から完コピ。`--print` 非対話モード | https://github.com/snarktank/ralph/blob/main/ralph.sh |
+| 2 | mobileapp-factory SKILL.md 書き直し | `claude -p` 1回 → ralph.sh 起動に変更 | v3 spec §14 |
+| 3 | 非対話モード切替 | `claude --print < CLAUDE.md` に統一 | https://code.claude.com/docs/en/headless |
+| 4 | screenshot-creator ハードゲート | CLAUDE.md に「Pencil MCP 未使用 → passes:false」を追加 | https://code.claude.com/docs/en/best-practices "hooks are deterministic" |
+| 5 | Playwright ASC クッキー | Apple レートリミット解除後に1回ログイン | v3 spec §15 |
+
+### 🔶 問題あり（実行されたが品質不足）
+| 項目 | 問題 | 原因 |
+|------|------|------|
+| US-007 スクショ | 生キャプチャ3枚コピー。Pencil MCP 未使用 | 1セッションで context 溢れ → screenshot-creator スキップ |
+| US-007 署名 | Keychain unlock 失敗 | パスワード未設定（ガイダンスで修正済み） |
+| US-007 全体 | v2 SKILL.md の14 PHASE で実行された | mobileapp-factory が v3 未反映だった |
+
+### 非対話モード（`--print`）の根拠
+
+ソース: Claude Code 公式 (https://code.claude.com/docs/en/headless)
+引用: 「Add the -p (or --print) flag to any claude command to run it non-interactively」
+
+ソース: snarktank/ralph ralph.sh (https://github.com/snarktank/ralph/blob/main/ralph.sh)
+引用: 「claude --dangerously-skip-permissions --print < CLAUDE.md」
+
+ソース: Reddit r/ClaudeAI (https://www.reddit.com/r/ClaudeAI/comments/1kyaxpf/)
+引用: 「Running in non-interactive mode with --print seems to be the key to get it to stop asking for tool permissions」
+
+利点:
+1. Enter 忘れ問題が消える（入力待ちがない）
+2. ralph.sh のループと相性が良い（実行→終了→次イテレーション）
+3. 人間入力が必要な場面は openclaw system event で外部通知 → 次イテレーションで再チェック
