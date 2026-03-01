@@ -35,7 +35,7 @@
         "market-research.md exists with TAM/SAM/SOM",
         "Typecheck passes"
       ],
-      "priority": 3, "passes": false, "notes": ""
+      "priority": 3, "passes": true, "notes": "competitive-analysis.md + market-research.md. TAM $9.94B, SAM $2.49B. 5 competitors. 2026-03-01"
     },
     {
       "id": "US-004",
