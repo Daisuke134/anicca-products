@@ -1,6 +1,6 @@
-# webapp-factory v3 — 一次ソース検証済み + 全修正反映
+# webapp-factory v3 — 一次ソース検証済み + オリジナリティゼロ
 
-**Date**: 2026-03-01（最終更新: 同日）
+**Date**: 2026-03-01（最終更新: 同日 — O-1〜O-5 修正済み）
 **Author**: Claude Code
 **Status**: ⬜ 未実行
 
@@ -28,7 +28,7 @@
 | 3 | `ralph.sh` | snarktank/ralph からコピー。`for i in $(seq 1 $MAX_ITERATIONS)` + `claude --dangerously-skip-permissions --print < CLAUDE.md` | [ralph.sh](https://github.com/snarktank/ralph/blob/main/ralph.sh) — WebFetch 検証済み |
 | 4 | Postiz CLI | `npm install -g postiz` でグローバルインストール | `npx postiz --help` → v2.0.12 Mac Mini で実行検証済み |
 | 5 | Postiz 環境変数 | `POSTIZ_API_KEY=xxx` を `.env` に追加 | [Postiz CLI](https://docs.postiz.com/cli/managing-posts) — WebFetch 検証済み |
-| 6 | prompt.md 内の報告 | 各 US の開始/完了で `openclaw system event --text "US-XXX_START/DONE" --mode now` | [OpenClaw coding-agent](https://github.com/openclaw/openclaw/blob/main/skills/coding-agent/SKILL.md) — WebFetch 検証済み |
+| 6 | prompt.md 内の報告 | 各イテレーションで `openclaw system event --text "webapp-factory iteration N/M: status" --mode now`（Ralph のイテレーション番号フォーマットに従う） | [ralph.sh](https://github.com/snarktank/ralph/blob/main/ralph.sh) の `"Ralph Iteration $i of $MAX_ITERATIONS"` + [OpenClaw CLI system event](https://docs.openclaw.ai/cli/system) — WebFetch 検証済み |
 
 ---
 
@@ -59,10 +59,10 @@ cron 09:00 JST（Anicca OpenClaw jobs.json）
 │     → sessionId を記録                                        │
 │  ④ 監視ループ:                                                │
 │     ├─ system event 受信 → Slack に転送                       │
-│     │   US-XXX_START → Slack「🏗️ US-XXX 開始」               │
-│     │   US-XXX_DONE  → Slack「✅ US-XXX 完了」                │
-│     │   US-XXX_ERROR → Slack「❌ エラー」                     │
-│     │   COMPLETE     → Slack「🎉 完成」                       │
+│     │   "iteration N/M: task" → Slack「🏗️ iteration N 開始」 │
+│     │   "iteration N/M: COMPLETE" → Slack「✅ 完了」          │
+│     │   "iteration N/M: ERROR" → Slack「❌ エラー」           │
+│     │   "COMPLETE: app — url" → Slack「🎉 完成」              │
 │     ├─ 10分無音 → process action:log → Slack に進捗報告       │
 │     └─ エラー3回連続 → Slack「⚠️ 人間レビュー必要」           │
 │                                                               │
@@ -82,27 +82,43 @@ cron 09:00 JST（Anicca OpenClaw jobs.json）
 │     ④ 検出しなければ次のイテレーション（新鮮コンテキスト）    │
 │                                                               │
 │  追跡ファイル:                                                │
-│  ├─ prd.json（アプリ仕様 + passes フラグ）                    │
-│  ├─ progress.txt（イテレーションログ）                        │
-│  └─ CLAUDE.md（prompt.md の内容を結合したプロンプト）         │
+│  ├─ prd.json（タスク一覧 + passes フラグ）                    │
+│  ├─ progress.txt（append-only イテレーションログ）            │
+│  │   フォーマット（Ralph prompt.md 準拠）:                    │
+│  │   ## [Date/Time] - [Task ID]                               │
+│  │   - What was implemented                                   │
+│  │   - Files changed                                          │
+│  │   - **Learnings for future iterations:**                   │
+│  │     - Patterns / Gotchas / Context                         │
+│  ├─ CLAUDE.md（prompt.md の内容を結合したプロンプト）         │
+│  └─ AGENTS.md（学習記録の集約）                               │
 │                                                               │
 │  最大イテレーション: 20（安全装置）                            │
+│                                                               │
+│  ソース: Ralph prompt.md                                      │
+│  https://github.com/snarktank/ralph/blob/main/prompt.md       │
+│  引用: "APPEND to progress.txt (never replace, always append)"│
 │                                                               │
 └───────────────────────────────────────────────────────────────┘
     │
     ▼
 ┌─ CLAUDE CODE（作業員 — 各イテレーション）─────────────────────┐
 │                                                               │
-│  1つの US だけを実行:                                         │
-│  ① openclaw system event --text "US-XXX_START: [title]"       │
-│  ② 実装（プレースホルダー禁止）                               │
-│  ③ L0 Gate（grep 8パターン）                                  │
-│  ④ Playwright E2E（US-005 のみ、webapp-testing スキル使用）   │
-│  ⑤ 自己改善 BLOCKING GATE                                     │
-│  ⑥ git commit + push                                         │
-│  ⑦ openclaw system event --text "US-XXX_DONE: [summary]"     │
-│  ⑧ prd.json の該当 US を passes:true に更新                   │
-│  ⑨ 全 US 完了 → <promise>COMPLETE</promise> を出力           │
+│  prd.json から次の未完了タスクをピック:                        │
+│  ① 実装（プレースホルダー禁止）                               │
+│  ② npm run build && npm run lint（プロジェクト標準ツール）    │
+│  ③ Playwright E2E（全ページ実装後、webapp-testing スキル使用）│
+│  ④ git commit + push                                         │
+│  ⑤ progress.txt に学びを追記（Ralph 標準フォーマット）        │
+│  ⑥ openclaw system event --text "webapp-factory iteration     │
+│     $i/$MAX: [task] DONE" --mode now                          │
+│  ⑦ prd.json の該当タスクを passes:true に更新                 │
+│  ⑧ 全タスク完了 → <promise>COMPLETE</promise> を出力         │
+│                                                               │
+│  ソース: Addy Osmani 6-step cycle                             │
+│  https://addyosmani.com/blog/self-improving-agents/           │
+│  引用: "1. Pick the next task, 2. Implement, 3. Validate,     │
+│         4. Commit, 5. Update task status, 6. Reset context"   │
 │                                                               │
 └───────────────────────────────────────────────────────────────┘
     │
@@ -128,8 +144,8 @@ cron 09:00 JST（Anicca OpenClaw jobs.json）
 ```
 層1: Claude Code（作業員）
     │
-    │  各 US の開始/完了/エラーで bash コマンドを実行:
-    │  openclaw system event --text "US-003_DONE: npm run build PASS" --mode now
+    │  各イテレーションの完了/エラーで bash コマンドを実行:
+    │  openclaw system event --text "webapp-factory iteration 3/20: build PASS" --mode now
     │
     │  --print モードでも bash コマンド実行は可能
     │  （--print は stdin からプロンプトを読むだけで、ツール使用は制限しない）
@@ -153,24 +169,20 @@ Slack #metrics (C091G3PKHL2)
 
 | 報告タイミング | 誰が発火 | どうやって Slack に届く |
 |---------------|---------|----------------------|
-| US 開始 | Claude Code | `openclaw system event` → Gateway → Anicca → Slack |
-| US 完了 | Claude Code | `openclaw system event` → Gateway → Anicca → Slack |
-| エラー | Claude Code | `openclaw system event` → Gateway → Anicca → Slack |
+| イテレーション完了 | Claude Code | `openclaw system event --text "webapp-factory iteration N/M: task DONE"` → Gateway → Anicca → Slack |
+| エラー | Claude Code | `openclaw system event --text "webapp-factory iteration N/M: ERROR - msg"` → Gateway → Anicca → Slack |
 | 10分無音 | Anicca（自発） | `process action:log sessionId:<id>` でログ確認 → Slack |
-| ガイダンス送信 | Anicca（自発） | エラー検出 → `process action:submit` → Slack |
-| 工場完成 | Claude Code | `openclaw system event "COMPLETE"` → Gateway → Anicca → Slack |
+| 工場完成 | Claude Code | `openclaw system event --text "COMPLETE: {app} — {url}"` → Gateway → Anicca → Slack |
 
 **prompt.md に書くべき指示**（各 US の冒頭と末尾に必須）:
 
 ```bash
-# US 開始時（必須）
-openclaw system event --text "US-003_START: Next.js プロジェクト作成" --mode now
-
-# US 完了時（必須）
-openclaw system event --text "US-003_DONE: npm run build PASS, 3 pages created" --mode now
+# イテレーション完了時（必須 — Ralph のイテレーション番号フォーマットに従う）
+# ソース: ralph.sh — 「Ralph Iteration $i of $MAX_ITERATIONS ($TOOL)」
+openclaw system event --text "webapp-factory iteration 3/20: Next.js scaffold DONE" --mode now
 
 # エラー時（必須）
-openclaw system event --text "US-003_ERROR: npm run build failed — TypeScript error in page.tsx:42" --mode now
+openclaw system event --text "webapp-factory iteration 3/20: ERROR — npm build failed, page.tsx:42" --mode now
 
 # 全工程完了時（必須）
 openclaw system event --text "COMPLETE: DeepWork.fm — https://xxx.vercel.app" --mode now
@@ -187,7 +199,7 @@ openclaw system event --text "COMPLETE: DeepWork.fm — https://xxx.vercel.app" 
 | **担当** | Claude Code |
 | **入力** | なし（自律開始） |
 | **出力** | `daily-apps/{YYYYMMDD}-webapp/prd.json` + `CLAUDE.md` |
-| **報告** | 開始: `openclaw system event --text "US-001_START: トレンド調査"` / 完了: `US-001_DONE` |
+| **報告** | `openclaw system event --text "webapp-factory iteration N/20: trend research DONE" --mode now` |
 | **ソース** | [0xAxiom/AppFactory](https://github.com/0xAxiom/AppFactory) — WebFetch 検証済み |
 
 ### US-002: Stripe Product + Price 作成
@@ -198,7 +210,7 @@ openclaw system event --text "COMPLETE: DeepWork.fm — https://xxx.vercel.app" 
 | **入力** | prd.json の price_monthly_usd |
 | **出力** | `STRIPE_PRICE_ID` in `.env.local` |
 | **方法** | Stripe REST API（curl） |
-| **報告** | 開始: `US-002_START` / 完了: `US-002_DONE` |
+| **報告** | `openclaw system event --text "webapp-factory iteration N/20: Stripe setup DONE" --mode now` |
 | **ソース** | [Stripe API Products](https://docs.stripe.com/api/products/create) — WebFetch 検証済み |
 
 ### US-003: Next.js プロジェクト作成
@@ -208,7 +220,7 @@ openclaw system event --text "COMPLETE: DeepWork.fm — https://xxx.vercel.app" 
 | **担当** | Claude Code |
 | **入力** | prd.json の slug, tech_stack |
 | **出力** | `npx create-next-app` 完了 + `npm run build` PASS |
-| **報告** | 開始: `US-003_START` / 完了: `US-003_DONE` |
+| **報告** | `openclaw system event --text "webapp-factory iteration N/20: Next.js scaffold DONE" --mode now` |
 | **ソース** | [Next.js Installation](https://nextjs.org/docs/getting-started/installation) — WebFetch 検証済み |
 
 ### US-004: 機能実装（1ページずつ）
@@ -219,7 +231,7 @@ openclaw system event --text "COMPLETE: DeepWork.fm — https://xxx.vercel.app" 
 | **入力** | prd.json の機能仕様 |
 | **出力** | 全ページ実装 + Stripe Checkout 動作 |
 | **Stripe パターン** | Server Action（`"use server"` + `stripe.checkout.sessions.create`） |
-| **報告** | 開始: `US-004_START` / 完了: `US-004_DONE` |
+| **報告** | `openclaw system event --text "webapp-factory iteration N/20: feature impl DONE" --mode now` |
 | **禁止** | alert(), href="#", "coming soon", console.log, TODO, FIXME, lorem ipsum, NotImplemented |
 | **ソース** | [Stripe Checkout Quickstart](https://docs.stripe.com/checkout/quickstart?client=next) — WebFetch 検証済み |
 
@@ -230,15 +242,17 @@ openclaw system event --text "COMPLETE: DeepWork.fm — https://xxx.vercel.app" 
 | **担当** | Claude Code |
 | **入力** | 実装済みコード |
 | **出力** | L0 Gate PASS + Playwright E2E PASS + `npm run build` PASS |
-| **報告** | 開始: `US-005_START` / 完了: `US-005_DONE` |
+| **報告** | `openclaw system event --text "webapp-factory iteration N/20: E2E test DONE" --mode now` |
 
-**テスト3層**:
+**テスト2層**（プロジェクト標準ツールのみ — Ralph CLAUDE.md に従う）:
 
 | 層 | ツール | 何を確認 | 一次ソース |
 |----|--------|---------|-----------|
-| L0 | grep（8パターン） | alert(), console.log, TODO 等の slop 検出 | [Macaron Software Factory](https://github.com/macaron-software/software-factory) — WebFetch 検証済み |
-| L1 | `npm run build` | TypeScript コンパイル + Next.js ビルド | Next.js 標準 |
+| L1 | `npm run build && npm run lint` | TypeScript コンパイル + Next.js ビルド + ESLint | [Ralph CLAUDE.md](https://github.com/snarktank/ralph/blob/main/CLAUDE.md) 引用: 「quality checks (e.g., typecheck, lint, test - use whatever your project requires)」 |
 | L2 | **webapp-testing スキル**の `with_server.py` + Python Playwright | ブラウザ E2E | webapp-testing SKILL.md 直接読み検証済み |
+
+**⚠️ grep 8パターン L0 Gate は削除。** Ralph はプロジェクト固有のツール（lint, typecheck, test）を使う。独自の grep パターンは使わない。
+ソース: [Ralph CLAUDE.md](https://github.com/snarktank/ralph/blob/main/CLAUDE.md) 引用: 「ALL commits must pass your project's quality checks」
 
 **Playwright E2E の具体的な実行方法**（webapp-testing スキルに従う）:
 
@@ -284,7 +298,7 @@ with sync_playwright() as p:
 | **入力** | ビルド済みコード |
 | **出力** | 有効な Vercel URL |
 | **方法** | `npx vercel deploy --prod --token $VERCEL_TOKEN --yes` |
-| **報告** | 開始: `US-006_START` / 完了: `US-006_DONE: {url}` |
+| **報告** | `openclaw system event --text "webapp-factory iteration N/20: deploy DONE — {url}" --mode now` |
 
 **⚠️ vercel-deploy スキル（`.claude/skills/vercel-deploy/`）は使わない。** 理由:
 - SKILL.md に `platforms: [Claude]`（claude.ai 用）と明記
@@ -301,7 +315,7 @@ with sync_playwright() as p:
 |------|-----|
 | **担当** | Claude Code + Anicca |
 | **出力** | AGENTS.md + Slack 報告 + X 投稿 |
-| **報告** | `openclaw system event --text "COMPLETE: {app} — {url}"` |
+| **報告** | `openclaw system event --text "COMPLETE: {app} — {url}" --mode now` |
 
 **X 投稿方法: Postiz CLI**
 
@@ -354,11 +368,11 @@ for i in $(seq 1 20):
     │
     ├── claude --dangerously-skip-permissions --print < CLAUDE.md
     │   │
-    │   │  Claude Code が 1つの US を実行:
-    │   │  ├─ openclaw system event "US-XXX_START" → Anicca → Slack
-    │   │  ├─ 実装 + テスト
+    │   │  Claude Code が prd.json の次タスクを実行:
+    │   │  ├─ 実装 + npm run build && npm run lint
     │   │  ├─ git commit + push
-    │   │  ├─ openclaw system event "US-XXX_DONE" → Anicca → Slack
+    │   │  ├─ progress.txt に学びを追記（append-only）
+    │   │  ├─ openclaw system event "iteration N/20: task DONE"
     │   │  └─ prd.json 更新（passes: true）
     │   │
     │   └── 出力に <promise>COMPLETE</promise> があれば EXIT
@@ -397,7 +411,7 @@ for i in $(seq 1 20):
 | S5 | Claude Code Headless Mode | https://code.claude.com/docs/en/headless | WebFetch | ✅ |
 | S6 | OpenClaw coding-agent | https://github.com/openclaw/openclaw/blob/main/skills/coding-agent/SKILL.md | WebFetch | ✅ |
 | S7 | 0xAxiom/AppFactory | https://github.com/0xAxiom/AppFactory | WebFetch | ✅ |
-| S8 | Macaron Software Factory | https://github.com/macaron-software/software-factory | WebFetch | ✅ |
+| S8 | Macaron Software Factory | https://github.com/macaron-software/software-factory | WebFetch | ✅ 10品質次元。grep パターンは使っていない |
 | S9 | Stripe API Products | https://docs.stripe.com/api/products/create | WebFetch | ✅ |
 | S10 | Stripe Checkout Quickstart | https://docs.stripe.com/checkout/quickstart?client=next | WebFetch | ✅ |
 | S11 | Postiz CLI Managing Posts | https://docs.postiz.com/cli/managing-posts | WebFetch | ✅ `postiz posts:create` |
@@ -411,6 +425,9 @@ for i in $(seq 1 20):
 | S19 | Postiz CLI バージョン | `npx postiz --version` | Mac Mini 実行 | ✅ v2.0.12 |
 | S20 | Vercel CLI バージョン | `npx vercel --version` | Mac Mini 実行 | ✅ v50.25.4 |
 | S21 | Playwright CLI | `/opt/homebrew/bin/playwright` | Mac Mini `which` | ✅ インストール済み |
+| S22 | Addy Osmani - Self-Improving Agents | https://addyosmani.com/blog/self-improving-agents/ | WebFetch | ✅ 6-step cycle、progress.txt + AGENTS.md パターン |
+| S23 | OpenClaw CLI - system event | https://docs.openclaw.ai/cli/system | WebFetch | ✅ `--text` は free-form text |
+| S24 | Ralph prompt.md | https://github.com/snarktank/ralph/blob/main/prompt.md | WebFetch | ✅ progress.txt append-only フォーマット |
 
 ---
 
@@ -435,14 +452,14 @@ for i in $(seq 1 20):
 | AC1 | snarktank/ralph の ralph.sh がコピー配置されている | `ls ~/.openclaw/skills/webapp-factory-orchestrator/ralph.sh` |
 | AC2 | ralph.sh 内の Claude コマンドが `--print` モード | `grep "print" ralph.sh` |
 | AC3 | SKILL.md の起動コマンドが `bash ralph.sh` になっている | `grep "ralph.sh" SKILL.md` |
-| AC4 | prompt.md の各 US に `openclaw system event` が書かれている | `grep -c "system event" prompt.md` >= 14（各 US の START + DONE） |
-| AC5 | prompt.md の US-005 に webapp-testing スキルの Playwright E2E がある | `grep "with_server.py" prompt.md` |
-| AC6 | prompt.md の US-006 が `npx vercel deploy --prod` | `grep "npx vercel deploy" prompt.md` |
-| AC7 | prompt.md の US-007 に `postiz posts:create` がある | `grep "postiz posts:create" prompt.md` |
+| AC4 | prompt.md に `openclaw system event` が書かれている | `grep -c "system event" prompt.md` >= 1 |
+| AC5 | prompt.md に webapp-testing スキルの Playwright E2E がある | `grep "with_server.py" prompt.md` |
+| AC6 | prompt.md に `npx vercel deploy --prod` がある | `grep "npx vercel deploy" prompt.md` |
+| AC7 | prompt.md に `postiz posts:create` がある | `grep "postiz posts:create" prompt.md` |
 | AC8 | Postiz CLI がインストール済み | `postiz --version` |
 | AC9 | `POSTIZ_API_KEY` が `.env` にある | `grep "POSTIZ_API_KEY" .env` |
-| AC10 | L0 Gate（grep 8パターン）が prompt.md に含まれている | `grep "alert(" prompt.md` |
-| AC11 | 自己改善 BLOCKING GATE が prompt.md にある | `grep "BLOCKING" prompt.md` |
+| AC10 | prompt.md に `npm run build && npm run lint` がある（L0 grep ではない） | `grep "npm run build" prompt.md` |
+| AC11 | prompt.md に progress.txt Learnings 追記指示がある（BLOCKING GATEではない） | `grep "progress.txt" prompt.md` |
 | AC12 | Stripe Server Action パターンが prompt.md にある | `grep "use server" prompt.md` |
 
 ---
