@@ -1,6 +1,6 @@
 # Web App Factory — 仕様書
 
-**バージョン:** 1.2.0
+**バージョン:** 1.3.0
 **作成日:** 2026-03-01
 **ステータス:** Ready to Implement
 
@@ -97,8 +97,7 @@ LAYER 1: INTELLIGENCE（09:00〜10:00）
   ├── content-trend-researcher   SNS 10プラットフォーム分析
   ├── google-trends              検索ボリューム確認
   ├── reddit-insights            pain points 発見
-  ├── startup-idea-validation    市場規模・競合スコアリング
-  └── niche-opportunity-finder   ニッチ選定
+  └── startup-idea-validation    市場規模・競合スコアリング + ニッチ選定
   出力: /tmp/webapp-factory/{date}/idea.md
         （Problem / Market / Target / Monetization / Competitors）
 
@@ -148,26 +147,28 @@ LAYER 4: REPORT & MARKET（14:30）
 | `.openclaw/skills/webapp-factory-orchestrator/SKILL.md` | Anicca が読む全体オーケストレーター | clawhub `autonomous-skill-orchestrator` をベースに作成 |
 | `.openclaw/skills/webapp-factory-orchestrator/prompt.md` | CC に渡す LAYER 1〜4 の実行指示 | TaraJura パターンに従って作成 |
 
-### インストールするスキル（全12件）
+### インストールするスキル（全15件）
 
-| # | スキル | インストールコマンド | 状態 |
-|---|--------|-------------------|------|
-| 1 | appfactory-builder | ✅ 済み | — |
-| 2 | app-builder | ✅ 済み | — |
-| 3 | senior-frontend | ✅ 済み | — |
-| 4 | nextjs-expert | ✅ 済み | — |
-| 5 | apify-ultimate-scraper | `npx skills install apify/agent-skills@apify-ultimate-scraper` | 要 |
-| 6 | content-trend-researcher | `npx skills install nicepkg/ai-workflow@content-trend-researcher` | 要 |
-| 7 | startup-idea-validation | `npx skills install vasilyu1983/ai-agents-public@startup-idea-validation` | 要 |
-| 8 | niche-opportunity-finder | `npx skills install zanecole10/software-tailor-skills@niche-opportunity-finder` | 要 |
-| 9 | reddit-insights | `clawhub install reddit-insights` | 要 |
-| 10 | google-trends | `clawhub install google-trends` | 要 |
-| 11 | market-research-agent | `clawhub install market-research-agent` | 要 |
-| 12 | **vercel-deploy** | `npx skills install vercel-labs/agent-skills@vercel-deploy` | 要 |
-| 13 | **configure-notifications** | `npx skills install yeachan-heo/oh-my-claudecode@configure-notifications` | 要 |
-| 14 | **slack-webhook** | `npx skills install vm0-ai/vm0-skills@slack-webhook` | 要 |
-| 15 | **cron-creator** | `clawhub install cron-creator` | 要（Anicca用） |
-| 16 | **autonomous-skill-orchestrator** | `clawhub install autonomous-skill-orchestrator` | 要（Anicca用） |
+| # | スキル | インストールコマンド | 外部確認 | 担当 |
+|---|--------|-------------------|---------|------|
+| 1 | appfactory-builder | ✅ 済み | 0xaxiom/appfactory (8 installs) | Claude Code |
+| 2 | app-builder | ✅ 済み | davila7/claude-code-templates (184 installs) | Claude Code |
+| 3 | senior-frontend | ✅ 済み | davila7/claude-code-templates (784 installs) | Claude Code |
+| 4 | nextjs-expert | ✅ 済み | cin12211/orca-q (41 installs) | Claude Code |
+| 5 | apify-ultimate-scraper | `npx skills add apify/agent-skills@apify-ultimate-scraper` | apify/agent-skills (確認済み) | Claude Code |
+| 6 | content-trend-researcher | `npx skills add nicepkg/ai-workflow@content-trend-researcher` | nicepkg/ai-workflow (42 installs) | Claude Code |
+| 7 | startup-idea-validation | `npx skills add vasilyu1983/ai-agents-public@startup-idea-validation` | vasilyu1983 (142 installs) | Claude Code |
+| 8 | reddit-insights | `clawhub install reddit-insights` | clawhub (確認済み) | Anicca |
+| 9 | google-trends | `clawhub install google-trends` | clawhub (確認済み) | Anicca |
+| 10 | market-research-agent | `clawhub install market-research-agent` | clawhub (確認済み) | Anicca |
+| 11 | **vercel-deploy** | `npx skills add vercel-labs/agent-skills@vercel-deploy` | vercel-labs (512 installs) | Claude Code |
+| 12 | **configure-notifications** | `npx skills add yeachan-heo/oh-my-claudecode@configure-notifications` | yeachan-heo (確認済み) | Claude Code |
+| 13 | **slack-webhook** | `npx skills add vm0-ai/vm0-skills@slack-webhook` | vm0-ai (33 installs) | Claude Code |
+| 14 | **cron-creator** | `clawhub install cron-creator` | clawhub (確認済み) | Anicca |
+| 15 | **autonomous-skill-orchestrator** | `clawhub install autonomous-skill-orchestrator` | clawhub (確認済み) | Anicca |
+
+**削除済み:** `niche-opportunity-finder` (zanecole10) — skills.sh で存在確認できず。`startup-idea-validation` でニッチ選定まで対応可。
+**Postiz CLI:** スキルではなくCLIツール。`npm install -g postiz` → `postiz posts:create`。ソース: https://postiz.com/agent
 
 ---
 
