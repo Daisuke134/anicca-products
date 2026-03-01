@@ -60,7 +60,15 @@ FIXES applied:
 - HistoryView: import RevenueCatUI 追加
 - InsightsView: colorHex→color, moodBarView関数分離 (型推論エラー修正)
 
-### US-007: Testing — PENDING
+### US-007: Testing — ✅ COMPLETE
+DONE:
+- MoodLevelTests: 4 tests PASS (emoji, color, init validRange, init outOfRange)
+- InsightEngineTests: 4 tests PASS (worstDay, weekAverage, empty, dominantMood)
+- MoodStoreTests: 5 tests PASS (save, fetchOrder, fetchLimit, delete, fetchSince)
+- Total: 13/13 tests PASS
+- xcdatamodeld registered in pbxproj (Sources build phase)
+- codeGenerationType="none" (manual/none was invalid)
+- GENERATE_INFOPLIST_FILE=YES added to test target
 ### US-008: App Store preparation — PENDING
 ### US-009: App Store submission — PENDING
 

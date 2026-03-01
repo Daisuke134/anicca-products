@@ -26,6 +26,9 @@
 		B9F1DCDF1518830A5AC314D7 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF439537F6AC7F9BE9B3C78 /* SubscriptionManager.swift */; };
 		C80865A9FFE8AC4208C30A18 /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D4D0CBF64F12907B0FA392D /* InsightsView.swift */; };
 		C9D9A2278677F8AB0FBCFCF9 /* MicroMoodiOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C02D2D9F7F2EB24B8B2D466 /* MicroMoodiOSTests.swift */; };
+		AA11BB22CC33DD44EE55FF66 /* MoodStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB22CC33DD44EE55FF6600AA /* MoodStoreTests.swift */; };
+		CC33DD44EE55FF6600AABB11 /* InsightEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD44EE55FF6600AABB11CC22 /* InsightEngineTests.swift */; };
+		AA33BB44CC55DD66EE11FF22 /* MicroMoodCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FF22AA33BB44CC55DD66EE11 /* MicroMoodCoreData.xcdatamodeld */; };
 		D863C97D812F2F4B1E8E573A /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = 06429C2EEF1A85D68ABC95E7 /* RevenueCatUI */; };
 		D8B2DEC9ECF7DC87C33A3F6A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE5CA9A6E39014D777C61DA6 /* ContentView.swift */; };
 		DF90D4F084D64E9AA658CA32 /* MoodLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE9DA52917854FDF0CB9E06 /* MoodLevel.swift */; };
@@ -50,6 +53,8 @@
 		1EE9DA52917854FDF0CB9E06 /* MoodLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodLevel.swift; sourceTree = "<group>"; };
 		298B73A1420CA8342F598E54 /* MicroMoodiOSWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = MicroMoodiOSWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C02D2D9F7F2EB24B8B2D466 /* MicroMoodiOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroMoodiOSTests.swift; sourceTree = "<group>"; };
+		BB22CC33DD44EE55FF6600AA /* MoodStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodStoreTests.swift; sourceTree = "<group>"; };
+		DD44EE55FF6600AABB11CC22 /* InsightEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightEngineTests.swift; sourceTree = "<group>"; };
 		2D4D0CBF64F12907B0FA392D /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
 		3539BFEA5CF1CEC1326E3FE6 /* MicroMoodiOSTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = MicroMoodiOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		40DF5AC6D8CF0565F1EB9524 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
@@ -70,6 +75,7 @@
 		DE5CA9A6E39014D777C61DA6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EE9EE51E7BC089BC31EDB316 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		FFE12A6ED4220C16068D6F8D /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		FF22AA33BB44CC55DD66EE11 /* MicroMoodCoreData.xcdatamodeld */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodeld; path = Resources/MicroMoodCoreData.xcdatamodeld; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +123,7 @@
 				7EE22240B4243AC76724C2A1 /* ViewModels */,
 				789E6F52ACB5A0FDD9F333FE /* Views */,
 				128AEC808BF3F4BED9EF4A4A /* Widget */,
+				FF22AA33BB44CC55DD66EE11 /* MicroMoodCoreData.xcdatamodeld */,
 				44DE330EF66D5B7B9873765C /* Frameworks */,
 				E7E1FA96D1E8EBBE742DA33C /* Products */,
 			);
@@ -145,6 +152,8 @@
 			isa = PBXGroup;
 			children = (
 				2C02D2D9F7F2EB24B8B2D466 /* MicroMoodiOSTests.swift */,
+				BB22CC33DD44EE55FF6600AA /* MoodStoreTests.swift */,
+				DD44EE55FF6600AABB11CC22 /* InsightEngineTests.swift */,
 			);
 			path = MicroMoodiOSTests;
 			sourceTree = "<group>";
@@ -311,6 +320,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9D9A2278677F8AB0FBCFCF9 /* MicroMoodiOSTests.swift in Sources */,
+				AA11BB22CC33DD44EE55FF66 /* MoodStoreTests.swift in Sources */,
+				CC33DD44EE55FF6600AABB11 /* InsightEngineTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +348,7 @@
 				39B079694693CA388017C9CB /* PersistenceController.swift in Sources */,
 				03986A37B534C7D298EB510A /* SettingsView.swift in Sources */,
 				B9F1DCDF1518830A5AC314D7 /* SubscriptionManager.swift in Sources */,
+				AA33BB44CC55DD66EE11FF22 /* MicroMoodCoreData.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +376,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				GENERATE_INFOPLIST_FILE = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.anicca.micromood.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -404,6 +417,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				GENERATE_INFOPLIST_FILE = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.anicca.micromood.tests;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
