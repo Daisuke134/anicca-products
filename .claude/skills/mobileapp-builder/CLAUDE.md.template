@@ -40,6 +40,19 @@ Before starting any US, verify the previous US acceptance criteria:
 - Read: .claude/skills/product-agent/SKILL.md (rshankras)
 - Input: spec/01-trend.md
 - Output: product-plan.md
+- MANDATORY — App 名の重複チェック（名前を決めた直後に実行）:
+  ```bash
+  curl -s "https://itunes.apple.com/search?term=\${APP_NAME}&entity=software&limit=10" | python3 -c "
+  import json,sys; d=json.load(sys.stdin)
+  matches=[r for r in d['results'] if r['trackName'].lower()=='\${APP_NAME}'.lower()]
+  print(f'Exact matches: {len(matches)}')
+  for r in matches: print(f'  {r["trackName"]} — {r["sellerName"]}')
+  "
+  ```
+  同名アプリが 1 件でも存在 → 名前を変更してから product-plan.md に記載。
+  Source: Apple App Review Guidelines §2.3.7 (developer.apple.com/app-store/review/guidelines/)
+  Quote: "Choose a unique app name"
+  Source: iTunes Search API (developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/)
 
 ### US-003: Market research
 - Read: .claude/skills/competitive-analysis/SKILL.md (rshankras)
