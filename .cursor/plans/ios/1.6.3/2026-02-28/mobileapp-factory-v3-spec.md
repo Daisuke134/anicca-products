@@ -373,15 +373,51 @@ rshankras WORKFLOW.md の Activation Phrases をそのまま使える:
 
 ---
 
-## 9. 人間ストップ（3回のみ）
+## 9. 人間ストップ（1回のみ — ファクトリーは止まらない）
 
-| # | いつ | 何をするか | どこで |
-|---|------|-----------|-------|
-| 1 | Phase 6.11 | TestFlight テスト | iPhone の TestFlight アプリ |
-| 2 | Phase 6.13 | App Privacy 手動設定 | ASC Web (appstoreconnect.apple.com) |
-| 3 | リジェクト時 | Apple 審査対応 | ASC Web |
+ファクトリーは一切止まらない。全フェーズを連続実行する。
+人間の操作が必要な箇所は Slack で通知するが、待たない。
 
-それ以外は全自動。
+### ファクトリーのフロー（止まらない）
+
+Phase 0-3: 完全自動 → Slack 報告 → Phase 4 へ
+Phase 4: 完全自動 → Slack 報告 → Phase 5 へ
+Phase 5: 完全自動 → Slack 報告 → Phase 6 へ
+Phase 6:
+  6.1-6.10: 完全自動
+  6.11: TestFlight アップロード完了 → Slack 通知「TestFlight で確認できます」→ 止まらず続行
+  6.12: submission-health preflight → 自動
+  6.13: ★ここだけ止まる ★
+        → Slack: 「App Privacy を ASC Web で設定してください」
+        → Dais が設定完了を Slack で報告
+        → ファクトリー再開 → 6.14 submit
+  6.14: asc submit create → WAITING_FOR_REVIEW → Slack 報告
+
+### 人間がやること（まとめ）
+
+| # | いつ | 何をするか | 止まるか | どこで |
+|---|------|-----------|---------|-------|
+| 1 | Phase 6.11 後 | TestFlight テスト | ❌ 止まらない（後で見ればいい） | iPhone TestFlight |
+| 2 | Phase 6.13 | App Privacy 設定 | ✅ ここだけ止まる（API で設定不可） | ASC Web |
+| 3 | リジェクト時 | 審査対応 | - （事後） | ASC Web |
+
+### なぜ App Privacy だけ止まるか
+
+mobileapp-builder CRITICAL RULE #18:
+「App Privacy（データの使用方法）は ASC API で設定不可。
+/v1/apps/{id}/appDataUsages は 404 を返す。」
+
+これは Apple の制限。CLI でも API でも設定できない。
+ASC Web で人間が手動で設定するしかない。
+設定しないと submit が通らない。
+
+### TestFlight は止まらない理由
+
+TestFlight テストは「後で見ればいい」。
+ファクトリーは TestFlight にアップロードした後、
+Dais の確認を待たずに 6.12 → 6.13 → 6.14 と進む。
+もし後で TestFlight で問題が見つかったら、
+Phase 7（POST-LAUNCH）で v1.0.1 として修正する。
 
 ---
 
@@ -441,4 +477,75 @@ openclaw cron add --schedule "0 7 * * *" --timezone "Asia/Tokyo" --prompt "Execu
 cron コマンド（テスト — 1回限り）:
 ```
 openclaw cron add --schedule "<実装完了2分後>" --timezone "America/Los_Angeles" --prompt "Execute mobileapp-factory skill. Read /Users/anicca/.openclaw/skills/mobileapp-factory/SKILL.md and follow it." --once
+```
+
+---
+
+## 14. スキル役割分担
+
+### mobileapp-factory（監督 — Sonnet が実行）
+
+やること:
+1. Claude Code Opus を tmux で起動（コマンド叩くだけ）
+2. system event を受信
+3. Slack #metrics に進捗報告
+4. 次の Claude Code Opus を起動
+5. Phase 6.13 で Dais に App Privacy 設定を依頼して待つ
+
+中身: コマンド + Slack 報告テンプレート + system event ハンドリング
+
+### mobileapp-builder（選手 — Claude Code Opus が実行）
+
+やること:
+1. Phase 0-7 の全手順を実行
+2. CRITICAL RULES 40個を遵守
+3. Pencil MCP でスクショ生成
+4. asc-* スキルで ASC 操作
+5. 全ファイル生成 + git commit
+
+中身: Phase 0-7 全手順 + CRITICAL RULES + フォルダ構成 + 入出力定義
+
+### フロー図
+
+```
+cron 07:00 JST
+    │
+    ▼
+mobileapp-factory (Sonnet)
+    │ tmux で Claude Code Opus 起動
+    ▼
+mobileapp-builder (Opus) ← Phase 0-3 実行
+    │ openclaw system event
+    ▼
+mobileapp-factory (Sonnet)
+    │ Slack 報告 + 次の Opus 起動
+    ▼
+mobileapp-builder (Opus) ← Phase 4 実行
+    │ openclaw system event
+    ▼
+mobileapp-factory (Sonnet)
+    │ Slack 報告 + 次の Opus 起動
+    ▼
+mobileapp-builder (Opus) ← Phase 5 実行
+    │ openclaw system event
+    ▼
+mobileapp-factory (Sonnet)
+    │ Slack 報告 + 次の Opus 起動
+    ▼
+mobileapp-builder (Opus) ← Phase 6.1-6.12 実行
+    │ openclaw system event "need App Privacy"
+    ▼
+mobileapp-factory (Sonnet)
+    │ Slack: 「App Privacy 設定してください」
+    │ ★ ここだけ待つ ★
+    │ Dais が「完了」と返信
+    │ Opus に続行指示
+    ▼
+mobileapp-builder (Opus) ← Phase 6.14 submit
+    │ openclaw system event "WAITING_FOR_REVIEW"
+    ▼
+mobileapp-factory (Sonnet)
+    │ Slack: 「🎉 提出完了！」
+    ▼
+完了
 ```
