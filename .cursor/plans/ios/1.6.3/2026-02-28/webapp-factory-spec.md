@@ -1,6 +1,6 @@
 # Web App Factory — 仕様書
 
-**バージョン:** 1.3.0
+**バージョン:** 1.4.0
 **作成日:** 2026-03-01
 **ステータス:** Ready to Implement
 
@@ -27,17 +27,16 @@
 - Webアプリの固定費が月$20（Vercel Pro）まで下がった
 - Claude Code の `--dangerously-skip-permissions` モードで完全自律ビルドが可能
 - AppFactory website-pipeline v2.3.0（OSS）が8フェーズの品質ゲートを持つ
-- Anicca（OpenClaw）が Mac Mini で24/7稼働中。cron-creator スキルで即日スケジュール追加可能
-- `vercel/nextjs-subscription-payments` ボイラープレートで決済・認証・分析が即日立ち上がる
+- Anicca（OpenClaw）が Mac Mini で24/7稼働中。OpenClaw `jobs.json` 直接編集で即日スケジュール追加可能
+- `create-next-app` + Stripe/Supabase 手動統合でSaaS基盤が即日立ち上がる
 
-ソース: [0xAxiom/AppFactory](https://github.com/0xAxiom/AppFactory) / 核心の引用: 「AppFactory is an automated web application factory that builds production-ready SaaS apps」
-ソース: [vercel/nextjs-subscription-payments](https://github.com/vercel/nextjs-subscription-payments) / 核心の引用: 「Clone, deploy, and fully customize a SaaS subscription application with Next.js」
-ソース: [TaraJura/techtools-claude-code-cron-loop](https://github.com/TaraJura/techtools-claude-code-cron-loop) / 核心の引用: 「claude --dangerously-skip-permissions -p "$PROMPT" — universal actor runner pattern」
+ソース: [0xAxiom/AppFactory](https://github.com/0xAxiom/AppFactory) / 核心の引用: 「Agent-native system that turns market signals into validated app specs and buildable apps—with monetization, ASO, and launch strategy baked in.」
+ソース: [Anthropic Engineering - Effective harnesses for long-running agents](https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents) / 核心の引用: 「A two-fold solution: an initializer agent that sets up the environment on the first run, and a coding agent that is tasked with making incremental progress in every session while leaving clear artifacts for the next session.」
 ソース: [Anthropic Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) / 核心の引用: 「Orchestrators direct agents to use tools or undertake tasks with the intention of completing some broader goal」
 
 ### アーキテクチャ
 ```
-Anicca cron 09:00 JST（cron-creator スキルで設定）
+Anicca cron 09:00 JST（OpenClaw jobs.json 直接編集で設定）
   → claude --dangerously-skip-permissions -p "$(cat prompt.md)"
     → [横断] oh-my-claudecode @configure-notifications → Slack #metrics 進捗報告
     → LAYER 1: トレンド収集 + アイデア選定 → idea.md 生成
@@ -80,9 +79,8 @@ Web App Factory: 存在しない
 ```
 Anicca（Mac Mini）
 ├── trend-hunter cron（05:00, 17:00 JST）← 既存・変更なし
-└── webapp-factory cron（09:00 JST）← NEW（cron-creator スキルで追加）
-    ソース: sundial-org/awesome-openclaw-skills@cron-creator
-            「Create cron jobs from natural language」
+└── webapp-factory cron（09:00 JST）← NEW（OpenClaw jobs.json 直接編集で追加）
+    方法: `.openclaw/cron/jobs.json` に新エントリ追加（既存エントリは変更しない）
 
 webapp-factory フロー:
 
@@ -103,10 +101,12 @@ LAYER 1: INTELLIGENCE（09:00〜10:00）
 
 LAYER 2: BUILD（10:00〜14:00）
   Step 0: ボイラープレート取得
-    git clone vercel/nextjs-subscription-payments → {slug}/
-    （Next.js + Supabase + Stripe + shadcn/ui — 無料OSS）
-    ソース: https://github.com/vercel/nextjs-subscription-payments
-            「Clone, deploy, and fully customize a SaaS subscription application」
+    npx create-next-app@latest {slug}/ --typescript --tailwind --eslint --app --src-dir
+    （Next.js 15 + TypeScript + Tailwind v4 — 公式テンプレート）
+    Stripe + Supabase は手動統合（appfactory-builder Phase 5 で自動実行）
+    ソース: https://nextjs.org/docs/getting-started/installation
+            「The easiest way to get started with Next.js is by using create-next-app」
+    注: vercel/nextjs-subscription-payments は 2025-01 にアーカイブ済みのため使用しない
 
   Step 1: appfactory-builder が idea.md を INPUT に Phase 0〜8 を自動実行
     Phase 0: Intent Normalization（idea.md → 完全仕様に自動展開）
