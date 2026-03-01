@@ -18,12 +18,13 @@ v2（オリジナル14 PHASE）は失敗した。v3 は:
 
 ---
 
-## 1. 8フェーズ（rshankras WORKFLOW.md 完コピ）
+## 1. 8フェーズ — 入力/出力チェーン
 
 ソース: https://github.com/rshankras/claude-code-apple-skills/blob/main/skills/product/WORKFLOW.md
 
 ### Phase 0: IDEA DISCOVERY
 - スキル: idea-generator（rshankras、完コピ）
+- 入力: なし（スキルが自分で検索する）
 - プロセス（rshankras idea-generator SKILL.md そのまま）:
   1. **Developer Profile Elicitation** — Technical skills, domain interests, platform preference, time availability, constraints
   2. **5 Brainstorming Lenses**（各 Lens 5-8 個のアイデア生成）:
@@ -32,7 +33,7 @@ v2（オリジナル14 PHASE）は失敗した。v3 は:
      - Lens 3: Technology-First — Which Apple frameworks have few indie apps?
      - Lens 4: Market Gap — App Store カテゴリの穴を探す
        → rshankras デフォルト: WebSearch
-       → 置換: **apify-trend-analysis スキル**（App Store カテゴリ別ランキング + Google Trends）
+       → 置換: **App Store Scraper スキル**（App Store 直接データ）+ **apify(google-trends-scraper)**（Google Trends）
        → 置換理由 — ManaLabs: 「Dedicated research agents scan Reddit, X, and App Store categories for pain points」
      - Lens 5: Trend-Based — マクロトレンドから新アプリ機会を発見
        → rshankras デフォルト: WebSearch
@@ -40,68 +41,86 @@ v2（オリジナル14 PHASE）は失敗した。v3 は:
        → 置換理由 — ManaLabs: 同上（専用ソースから直接データを引く）
   3. **Feasibility Filtering**（rshankras そのまま、5基準）: Solo Dev Scope, Platform API Fit, Monetization Viability, Competition Density, Technical Complexity
   4. **Scoring and Ranking**（rshankras そのまま、5次元 1-10 スケール、Solo Dev Scope と Technical Fit は 1.5x 重み付け）
-  5. **Shortlist Output** — 3-5 アイデア、各アイデアに: one-liner, lens, problem statement, scores, monetization model, MVP scope, next_step
-- 出力:
-  - `daily-apps/<name>/spec/01-trend.md`（mobileapp-builder フォーマット）
-  - `daily-apps/<name>/idea-shortlist.json`（rshankras フォーマット）
+  5. **Shortlist Output** — 3-5 アイデア、各アイデアに: one-liner, lens, problem_statement, target_user, feasibility scores, overall_score, monetization_model, competition_notes, mvp_scope, next_step
+- 出力: `daily-apps/<name>/spec/01-trend.md`
+  - rshankras idea-generator の出力フォーマットを .md で記述
+  - フィールド: rank, idea, one_liner, lens, platform, problem_statement, target_user, feasibility (5基準), overall_score, monetization_model, competition_notes, mvp_scope, next_step, ideas_filtered_out, recommendation
 
 ### Phase 1: PRODUCT PLANNING
-- スキル: product-agent
+- スキル: product-agent（rshankras）
+- 入力: `daily-apps/<name>/spec/01-trend.md`（Rank 1 のアイデア）
 - コマンド: product-agent run --idea "..." --interactive
 - 4 agents: Problem Discovery Agent → MVP Scoping Agent → Positioning Agent → ASO Optimization Agent
-- 出力: product-plan-*.md
+- 出力: `daily-apps/<name>/product-plan.md`
 - 所要時間: 5-10 min（rshankras）
 
 ### Phase 2: MARKET RESEARCH
-- スキル: competitive-analysis + market-research
-- 出力: competitive-analysis.md, market-research.md
+- スキル: competitive-analysis + market-research（rshankras）
+- 入力: `daily-apps/<name>/spec/01-trend.md` + `daily-apps/<name>/product-plan.md`
+- 出力:
+  - `daily-apps/<name>/competitive-analysis.md`
+  - `daily-apps/<name>/market-research.md`
 - 所要時間: 10-15 min（rshankras）
 
 ### Phase 3: SPECIFICATION GENERATION
-- スキル: implementation-spec（orchestrator）
+- スキル: implementation-spec（rshankras orchestrator）
+- 入力: spec/01-trend.md + product-plan.md + competitive-analysis.md + market-research.md
 - 6 sub-phases:
-  - 3.1: prd-generator → docs/PRD.md
-  - 3.2: architecture-spec → docs/ARCHITECTURE.md
+  - 3.1: prd-generator → docs/PRD.md（app_name, bundle_id, prices, metadata, screens 全部ここ）
+  - 3.2: architecture-spec → docs/ARCHITECTURE.md（技術設計）
   - 3.3: ux-spec → docs/UX_SPEC.md, docs/DESIGN_SYSTEM.md
-  - 3.4: implementation-guide → docs/IMPLEMENTATION_GUIDE.md
+  - 3.4: implementation-guide → docs/IMPLEMENTATION_GUIDE.md（タスクリスト含む）
   - 3.5: test-spec → docs/TEST_SPEC.md
   - 3.6: release-spec → docs/RELEASE_SPEC.md
-- 出力: docs/ に 7 ファイル
+- 出力: `daily-apps/<name>/docs/` に 7 ファイル
 - 所要時間: 10-15 min（rshankras）
 
 ### Phase 4: IMPLEMENTATION
+- スキル: rshankras/generators/* (52), AvdLee/swiftui-expert-skill, kylehughes/building-apple-platform-products, conorluddy/ios-simulator-skill
+- 入力: `daily-apps/<name>/docs/IMPLEMENTATION_GUIDE.md` + `docs/PRD.md`
 - rshankras: "Claude-Assisted Implementation — Ask Claude to implement specific components"
 - IMPLEMENTATION_GUIDE.md に従い 1 機能ずつ実装（Anthropic: incremental progress）
-- 使うスキル: rshankras/generators/* (52), AvdLee/swiftui-expert-skill, kylehughes/building-apple-platform-products, conorluddy/ios-simulator-skill
-- 品質ゲート（ManaLabs）: 別 reviewer agent が独立レビュー、6-point quality gates、8/10 未満 → リトライ、3回失敗 → Slack に人間レビュー依頼
-- 所要時間: 4-8 weeks（rshankras、人間ペース）
+- 品質ゲート（ManaLabs）: 別 reviewer agent が独立レビュー、6-point quality gates、8/10 未満 → リトライ、3回失敗 → Slack #metrics に人間レビュー依頼
+- 出力: `daily-apps/<name>/<AppName>ios/`（Xcode プロジェクト一式）
+- 所要時間: 4-8 weeks（rshankras、人間ペース）/ 数時間（自動）
 
 ### Phase 5: TESTING
-- TEST_SPEC.md に従う
-- Unit tests for all models and ViewModels
-- Integration tests for data layer
-- UI tests for critical user journeys
-- Accessibility testing
-- Performance benchmarking
-- 使うスキル: rshankras/testing/* (8), conorluddy/ios-simulator-skill
-- 所要時間: 2-3 weeks（rshankras、人間ペース）
+- スキル: rshankras/testing/* (8), conorluddy/ios-simulator-skill
+- 入力: `daily-apps/<name>/docs/TEST_SPEC.md` + ソースコード
+- TEST_SPEC.md に従う: Unit + Integration + UI + Accessibility + Performance
+- 出力: `daily-apps/<name>/<AppName>ios/<AppName>Tests/`
+- 所要時間: 2-3 weeks（rshankras、人間ペース）/ 数時間（自動）
 
 ### Phase 6: APP STORE RELEASE
-- RELEASE_SPEC.md に従う
-- Prepare App Store assets (icon, screenshots, video)
-- Create Privacy Manifest (PrivacyInfo.xcprivacy)
-- Fill App Store Connect metadata
-- Submit for review
-- 使うスキル: greenstevester/fastlane-skill (5), rudrankriyam/asc-* (27), rshankras/app-store/* (7), rshankras/legal/* (2)
-- 所要時間: 1-2 weeks（rshankras、人間ペース）
+- 入力: `daily-apps/<name>/docs/RELEASE_SPEC.md` + `docs/PRD.md` + ソースコード
+- 各ステップのソース = 対応するスキルの SKILL.md
+- 順序のソース = 各スキルの Preconditions（依存関係）
+
+| Step | スキル | やること | 入力 | 出力 |
+|------|--------|---------|------|------|
+| 6.1 | rshankras/legal/privacy-policy | Privacy Policy + Terms 生成 | docs/PRD.md（データ収集情報） | privacy-policy.md, terms.md → GitHub Pages デプロイ |
+| 6.2 | asc-signing-setup (rudrankriyam) | 証明書 + Provisioning Profile | Apple Developer Account | .signing/ に証明書 + profile |
+| 6.3 | asc-app-create-ui (rudrankriyam) | ASC にアプリ作成 | docs/PRD.md（app_name, bundle_id） | APP_ID, VERSION_ID |
+| 6.4 | asc-subscription-localization (rudrankriyam) | IAP 作成 + 全 locale ローカライズ | APP_ID + docs/PRD.md（prices） | IAP 作成済み + 全 locale 設定済み |
+| 6.5 | asc-ppp-pricing (rudrankriyam) | 175カ国 pricing | IAP IDs | 全 territory pricing 設定済み |
+| 6.6 | RC 公式ドキュメント | RevenueCat Offerings Setup | APP_ID + IAP product IDs | RC に Offerings 設定済み |
+| 6.7 | asc-xcode-build (rudrankriyam) | アーカイブ + export | ソースコード + .signing/ | .ipa ファイル |
+| 6.8 | Pencil MCP + asc-shots-pipeline (rudrankriyam) | スクショ生成 + フレーム + アップロード | シミュレータ上のアプリ | screenshots/raw/ + screenshots/framed/ → ASC アップロード済み |
+| 6.9 | asc-metadata-sync (rudrankriyam) | メタデータ同期 | docs/PRD.md（metadata） | ASC メタデータ設定済み |
+| 6.10 | asc-release-flow (rudrankriyam) | TestFlight アップロード | .ipa | TestFlight にビルド配布済み |
+| 6.11 | asc-testflight-orchestration (rudrankriyam) | TestFlight 配布 | BUILD_ID + GROUP_ID | ★人間テスト |
+| 6.12 | asc-submission-health (rudrankriyam) | Preflight 7項目チェック | APP_ID + VERSION_ID | 全チェック PASS |
+| 6.13 | ★人間★ | App Privacy 手動設定 | ASC Web | App Privacy 設定完了（API で設定不可） |
+| 6.14 | asc-release-flow (rudrankriyam) | Submit for Review | APP_ID + VERSION + BUILD_ID | WAITING_FOR_REVIEW |
+
+- CRITICAL RULES（mobileapp-builder SKILL.md の 40 個）は全ステップで参照する（Apple ルール + 実機確認済みの事実）
+- 出力: App Store に提出済み（WAITING_FOR_REVIEW）
 
 ### Phase 7: POST-LAUNCH
-- Monitor crash reports and reviews
-- Release v1.0.1 bug fixes (1-2 weeks after launch)
-- Implement deferred features
-- Release v1.1.0 first feature update
-- Iterate based on user feedback
-- 使うスキル: rshankras/growth/* (5), rudrankriyam/asc-crash-triage
+- スキル: rshankras/growth/* (5), rudrankriyam/asc-crash-triage
+- 入力: App Store で公開中のアプリ
+- Monitor crash reports and reviews → Release v1.0.1 bug fixes → Iterate
+- 出力: 継続的改善
 
 ---
 
@@ -131,9 +150,9 @@ URL: https://github.com/openclaw/openclaw/blob/main/skills/coding-agent/SKILL.md
 | セッション | フェーズ | トリガー | 所要時間（rshankras） |
 |-----------|---------|---------|---------------------|
 | Session 1 | Phase 0-3 (Research + Specs) | cron 07:00 JST | 25-40 min |
-| Session 2 | Phase 4 (Implementation) | Session 1 完了 → openclaw system event | 4-8 weeks (人間) / 数時間 (自動) |
-| Session 3 | Phase 5 (Testing) | Session 2 完了 → openclaw system event | 2-3 weeks (人間) / 数時間 (自動) |
-| Session 4 | Phase 6 (Ship) | Session 3 完了 → openclaw system event | 1-2 weeks (人間) / 数時間 (自動) |
+| Session 2 | Phase 4 (Implementation) | Session 1 完了 → openclaw system event | 数時間（自動） |
+| Session 3 | Phase 5 (Testing) | Session 2 完了 → openclaw system event | 数時間（自動） |
+| Session 4 | Phase 6 (Ship) | Session 3 完了 → openclaw system event | 数時間（自動） |
 | Session 5 | Phase 7 (Post-Launch) | App Store 承認後 | ongoing |
 
 ### 実行パターン
@@ -158,55 +177,41 @@ Phase 4 完了後:
 
 ---
 
-## 3. インストールするスキル（6リポ）
+## 3. フォルダ構成（アプリ誕生時 → 完成時）
 
-### 3-1. rshankras/claude-code-apple-skills（140スキル）
-- ソース: https://github.com/rshankras/claude-code-apple-skills
-- セキュリティ: 🟢 Benign（MIT）
-```bash
-cd /tmp && git clone --depth 1 https://github.com/rshankras/claude-code-apple-skills.git
-cp -r /tmp/claude-code-apple-skills/skills/* /Users/anicca/.claude/skills/
 ```
-
-### 3-2. rudrankriyam/app-store-connect-cli-skills（27スキル）
-- ソース: https://github.com/rudrankriyam/app-store-connect-cli-skills
-- セキュリティ: 🟢 Benign（MIT）
-```bash
-cd /tmp && git clone --depth 1 https://github.com/rudrankriyam/app-store-connect-cli-skills.git
-cp -r /tmp/app-store-connect-cli-skills/skills/* /Users/anicca/.claude/skills/
-```
-
-### 3-3. greenstevester/fastlane-skill（5スキル）
-- ソース: https://github.com/greenstevester/fastlane-skill
-- セキュリティ: 🟢 Benign（MIT）
-```bash
-cd /tmp && git clone --depth 1 https://github.com/greenstevester/fastlane-skill.git
-cp -r /tmp/fastlane-skill/skills/* /Users/anicca/.claude/skills/
-```
-
-### 3-4. conorluddy/ios-simulator-skill（1スキル、21スクリプト）
-- ソース: https://github.com/conorluddy/ios-simulator-skill
-- セキュリティ: 🟢 Benign（MIT）
-```bash
-cd /tmp && git clone --depth 1 https://github.com/conorluddy/ios-simulator-skill.git
-cp -r /tmp/ios-simulator-skill/ios-simulator-skill /Users/anicca/.claude/skills/
-```
-
-### 3-5. kylehughes/apple-platform-build-tools（1スキル+1サブエージェント）
-- ソース: https://github.com/kylehughes/apple-platform-build-tools-claude-code-plugin
-- セキュリティ: 🟢 Benign（MIT）
-```bash
-cd /tmp && git clone --depth 1 https://github.com/kylehughes/apple-platform-build-tools-claude-code-plugin.git
-cp -r /tmp/apple-platform-build-tools-claude-code-plugin/skills/* /Users/anicca/.claude/skills/
-cp -r /tmp/apple-platform-build-tools-claude-code-plugin/agents/* /Users/anicca/.claude/agents/ 2>/dev/null || true
-```
-
-### 3-6. AvdLee/SwiftUI-Agent-Skill（1スキル）
-- ソース: https://github.com/AvdLee/SwiftUI-Agent-Skill
-- セキュリティ: 🟢 Benign（MIT、SwiftLee）
-```bash
-cd /tmp && git clone --depth 1 https://github.com/AvdLee/SwiftUI-Agent-Skill.git
-cp -r /tmp/SwiftUI-Agent-Skill/swiftui-expert-skill /Users/anicca/.claude/skills/
+daily-apps/<app-name>/
+├── spec/
+│   └── 01-trend.md              ← Phase 0 出力（rshankras idea-generator フォーマット）
+├── product-plan.md              ← Phase 1 出力（rshankras product-agent）
+├── competitive-analysis.md      ← Phase 2 出力（rshankras competitive-analysis）
+├── market-research.md           ← Phase 2 出力（rshankras market-research）
+├── claude-progress.txt          ← 全セッション共有（Anthropic 公式）
+├── docs/                        ← Phase 3 出力（rshankras implementation-spec）
+│   ├── PRD.md
+│   ├── ARCHITECTURE.md
+│   ├── UX_SPEC.md
+│   ├── DESIGN_SYSTEM.md
+│   ├── IMPLEMENTATION_GUIDE.md
+│   ├── TEST_SPEC.md
+│   └── RELEASE_SPEC.md
+├── .asc/                        ← Phase 6 設定（asc-shots-pipeline）
+│   ├── shots.settings.json
+│   └── screenshots.json
+├── screenshots/                 ← Phase 6 出力（asc-shots-pipeline）
+│   ├── raw/
+│   └── framed/
+├── .signing/                    ← Phase 6 出力（asc-signing-setup）
+└── <AppName>ios/                ← Phase 4 出力
+    ├── <AppName>.xcodeproj/
+    ├── <AppName>/
+    │   ├── App/
+    │   ├── Views/
+    │   ├── Models/
+    │   ├── Services/
+    │   └── Resources/
+    ├── <AppName>Tests/          ← Phase 5 出力
+    └── fastlane/
 ```
 
 ---
@@ -217,73 +222,82 @@ cp -r /tmp/SwiftUI-Agent-Skill/swiftui-expert-skill /Users/anicca/.claude/skills
 cron 07:00 JST
     │
     ▼
-┌─ SESSION 1 (Phase 0-3: Research + Specs) ─────────────────┐
-│                                                            │
-│  Phase 0: idea-generator → idea-shortlist.json             │
-│      ↓                                                     │
-│  Phase 1: product-agent → product-plan-*.md (5-10 min)     │
-│      ↓                                                     │
-│  Phase 2: competitive-analysis + market-research (10-15min)│
-│      ↓                                                     │
-│  Phase 3: implementation-spec → docs/ 7 files (10-15 min)  │
-│      ↓                                                     │
-│  → claude-progress.txt 更新                                │
-│  → git commit                                              │
-│  → Slack #metrics に報告                                   │
-│  → openclaw system event "Phase 0-3 complete"              │
-│                                                            │
-└────────────────────────┬───────────────────────────────────┘
-                         │ (自動トリガー)
-                         ▼
-┌─ SESSION 2 (Phase 4: Implementation) ─────────────────────┐
-│  coding-agent pty:true background:true                     │
-│                                                            │
-│  → claude-progress.txt 読む                                │
-│  → IMPLEMENTATION_GUIDE.md に従い 1 機能ずつ               │
-│  → generators/*, swiftui-expert, ios-simulator 使用        │
-│  → 各機能: git commit + claude-progress.txt 更新           │
-│  → 完了後: reviewer agent が独立レビュー (ManaLabs)        │
-│  → 6-point quality gates: < 8/10 → リトライ               │
-│  → 3回失敗 → Slack 人間レビュー                           │
-│  → openclaw system event "Phase 4 complete"                │
-│                                                            │
-└────────────────────────┬───────────────────────────────────┘
-                         │ (自動トリガー)
-                         ▼
-┌─ SESSION 3 (Phase 5: Testing) ────────────────────────────┐
-│  coding-agent pty:true background:true                     │
-│                                                            │
-│  → claude-progress.txt 読む                                │
-│  → TEST_SPEC.md に従う                                    │
-│  → Unit + Integration + UI + Accessibility + Performance   │
-│  → rshankras/testing/*, ios-simulator-skill 使用           │
-│  → openclaw system event "Phase 5 complete"                │
-│                                                            │
-└────────────────────────┬───────────────────────────────────┘
-                         │ (自動トリガー)
-                         ▼
-┌─ SESSION 4 (Phase 6: App Store Release) ──────────────────┐
-│  coding-agent pty:true background:true                     │
-│                                                            │
-│  → claude-progress.txt 読む                                │
-│  → RELEASE_SPEC.md に従う                                 │
-│  → fastlane-skill: setup → match → snapshot → beta → release│
-│  → asc-*: metadata-sync, shots-pipeline, ppp-pricing      │
-│  → asc-submission-health (preflight check)                 │
-│  → Submit for review                                       │
-│  → openclaw system event "Phase 6 complete"                │
-│                                                            │
-└────────────────────────┬───────────────────────────────────┘
-                         │ (App Store 承認後)
-                         ▼
-┌─ SESSION 5 (Phase 7: Post-Launch) ────────────────────────┐
-│                                                            │
-│  → Monitor crash reports (asc-crash-triage)                │
-│  → Monitor reviews (rshankras/growth/*)                    │
-│  → Release v1.0.1 bug fixes                               │
-│  → Iterate based on user feedback                          │
-│                                                            │
-└────────────────────────────────────────────────────────────┘
+┌─ SESSION 1 (Phase 0-3: Research + Specs) ──────────────────────────┐
+│                                                                     │
+│  Phase 0: idea-generator                                           │
+│    Lens 4: App Store Scraper + apify(google-trends)                │
+│    Lens 5: x-research + tiktok-research                            │
+│    → spec/01-trend.md                                              │
+│      ↓                                                             │
+│  Phase 1: product-agent → product-plan.md (5-10 min)               │
+│      ↓                                                             │
+│  Phase 2: competitive-analysis + market-research (10-15 min)       │
+│      ↓                                                             │
+│  Phase 3: implementation-spec → docs/ 7 files (10-15 min)          │
+│      ↓                                                             │
+│  → claude-progress.txt 更新                                        │
+│  → git commit                                                      │
+│  → Slack #metrics に報告                                           │
+│  → openclaw system event "Phase 0-3 complete for <name>"           │
+│                                                                     │
+└──────────────────────────┬──────────────────────────────────────────┘
+                           │ (自動トリガー)
+                           ▼
+┌─ SESSION 2 (Phase 4: Implementation) ──────────────────────────────┐
+│  coding-agent pty:true background:true                              │
+│                                                                     │
+│  → claude-progress.txt 読む                                        │
+│  → IMPLEMENTATION_GUIDE.md に従い 1 機能ずつ                       │
+│  → generators/*, swiftui-expert, ios-simulator 使用                │
+│  → 各機能: git commit + claude-progress.txt 更新                   │
+│  → reviewer agent が独立レビュー (ManaLabs)                        │
+│  → 8/10 未満 → リトライ、3回失敗 → Slack                          │
+│  → openclaw system event "Phase 4 complete for <name>"             │
+│                                                                     │
+└──────────────────────────┬──────────────────────────────────────────┘
+                           │ (自動トリガー)
+                           ▼
+┌─ SESSION 3 (Phase 5: Testing) ─────────────────────────────────────┐
+│  coding-agent pty:true background:true                              │
+│                                                                     │
+│  → claude-progress.txt 読む                                        │
+│  → TEST_SPEC.md に従う                                             │
+│  → Unit + Integration + UI + Accessibility + Performance            │
+│  → openclaw system event "Phase 5 complete for <name>"             │
+│                                                                     │
+└──────────────────────────┬──────────────────────────────────────────┘
+                           │ (自動トリガー)
+                           ▼
+┌─ SESSION 4 (Phase 6: App Store Release) ───────────────────────────┐
+│  coding-agent pty:true background:true                              │
+│                                                                     │
+│  6.1  rshankras/legal       → Privacy Policy + Terms → GitHub Pages│
+│  6.2  asc-signing-setup     → 証明書 + Provisioning Profile        │
+│  6.3  asc-app-create-ui     → ASC にアプリ作成                     │
+│  6.4  asc-subscription-loc  → IAP + 全 locale ローカライズ         │
+│  6.5  asc-ppp-pricing       → 175カ国 pricing                      │
+│  6.6  RC 公式ドキュメント   → RevenueCat Offerings Setup           │
+│  6.7  asc-xcode-build       → アーカイブ + .ipa export            │
+│  6.8  Pencil MCP + asc-shots → スクショ生成 + アップロード         │
+│  6.9  asc-metadata-sync     → メタデータ同期                       │
+│  6.10 asc-release-flow      → TestFlight アップロード              │
+│  6.11 asc-testflight-orch   → TestFlight 配布 ★人間テスト         │
+│  6.12 asc-submission-health → Preflight 7項目チェック              │
+│  6.13 ★人間★               → App Privacy 手動設定                  │
+│  6.14 asc-release-flow      → Submit → WAITING_FOR_REVIEW          │
+│                                                                     │
+│  → openclaw system event "Phase 6 complete for <name>"             │
+│                                                                     │
+└──────────────────────────┬──────────────────────────────────────────┘
+                           │ (App Store 承認後)
+                           ▼
+┌─ SESSION 5 (Phase 7: Post-Launch) ─────────────────────────────────┐
+│                                                                     │
+│  → asc-crash-triage → クラッシュ監視                               │
+│  → rshankras/growth/* → レビュー監視                               │
+│  → v1.0.1 bug fixes → v1.1.0 feature update                       │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -315,7 +329,7 @@ rshankras WORKFLOW.md の Activation Phrases をそのまま使える:
 | AC4 | 各セッション完了時に claude-progress.txt + git commit | Anthropic 公式 |
 | AC5 | openclaw system event で次セッション自動トリガー | coding-agent SKILL.md |
 | AC6 | Phase 4 完了後に reviewer agent が独立レビュー | ManaLabs |
-| AC7 | Phase 6 で App Store に提出（Waiting for Review） | rshankras WORKFLOW.md |
+| AC7 | Phase 6 で App Store に提出（WAITING_FOR_REVIEW） | rshankras WORKFLOW.md |
 
 ---
 
@@ -324,15 +338,21 @@ rshankras WORKFLOW.md の Activation Phrases をそのまま使える:
 | # | ソース | URL | 何をコピーしたか |
 |---|--------|-----|----------------|
 | S1 | rshankras/claude-code-apple-skills WORKFLOW.md | https://github.com/rshankras/claude-code-apple-skills/blob/main/skills/product/WORKFLOW.md | 8フェーズ定義、所要時間、Activation Phrases、ファイル構成 |
-| S2 | Anthropic "Effective harnesses for long-running agents" | https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents | initializer + coding agent、incremental progress、claude-progress.txt、git commit |
-| S3 | OpenClaw coding-agent SKILL.md | https://github.com/openclaw/openclaw/blob/main/skills/coding-agent/SKILL.md | pty:true + background:true、openclaw system event wake trigger |
-| S4 | ManaLabs Auto App Factory | https://manalabs.wtf/appfactory | 3 macro phases (Research → Build → Market)、reviewer agent、6-point quality gates、8/10 threshold |
-| S5 | OpenClaw FAQ | https://docs.openclaw.ai/help/faq | 「split into phases and use sub agents for parallel work」 |
-| S6 | "Best OpenClaw Setup" | https://dev.to/operationalneuralnetwork/best-openclaw-setup-optimizing-agents-for-efficiency-and-effectiveness-27hk | orchestrator pattern、40% token reduction |
-| S7 | Ralph Loop (OpenClaw Discussion #10320) | https://github.com/openclaw/openclaw/discussions/10320 | autonomous multi-hour sessions、session continuity、error recovery |
-| S8 | rudrankriyam/app-store-connect-cli-skills | https://github.com/rudrankriyam/app-store-connect-cli-skills | 27 asc スキル |
-| S9 | greenstevester/fastlane-skill | https://github.com/greenstevester/fastlane-skill | 5 fastlane スキル |
-| S10 | conorluddy/ios-simulator-skill | https://github.com/conorluddy/ios-simulator-skill | 1スキル（21スクリプト） |
-| S11 | kylehughes/apple-platform-build-tools | https://github.com/kylehughes/apple-platform-build-tools-claude-code-plugin | 1スキル + 1サブエージェント |
-| S12 | AvdLee/SwiftUI-Agent-Skill | https://github.com/AvdLee/SwiftUI-Agent-Skill | 1 SwiftUI BP スキル |
-| S13 | Claude Code Best Practices | https://code.claude.com/docs/en/best-practices | Agent Teams、context management |
+| S2 | rshankras/idea-generator SKILL.md | https://github.com/rshankras/claude-code-apple-skills/blob/main/skills/product/idea-generator/SKILL.md | Phase 0 出力フォーマット、5 Lenses、Feasibility Filtering、Scoring |
+| S3 | Anthropic "Effective harnesses for long-running agents" | https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents | initializer + coding agent、incremental progress、claude-progress.txt |
+| S4 | OpenClaw coding-agent SKILL.md | https://github.com/openclaw/openclaw/blob/main/skills/coding-agent/SKILL.md | pty:true + background:true、openclaw system event |
+| S5 | ManaLabs Auto App Factory | https://manalabs.wtf/appfactory | reviewer agent、6-point quality gates、8/10 threshold |
+| S6 | rudrankriyam/asc-release-flow | https://github.com/rudrankriyam/app-store-connect-cli-skills | Phase 6 ステップ順序、TestFlight + Submit フロー |
+| S7 | rudrankriyam/asc-shots-pipeline | 同上 | スクショフォルダ構成（screenshots/raw + framed）、.asc/ 設定 |
+| S8 | rudrankriyam/asc-submission-health | 同上 | Preflight 7項目チェックリスト |
+| S9 | rudrankriyam/asc-subscription-localization | 同上 | IAP ローカライズ手順 |
+| S10 | rudrankriyam/asc-ppp-pricing | 同上 | 175カ国 pricing 手順 |
+| S11 | rudrankriyam/asc-workflow | 同上 | .asc/workflow.json による自動化 |
+| S12 | rshankras/legal/privacy-policy | https://github.com/rshankras/claude-code-apple-skills/blob/main/skills/legal/privacy-policy/SKILL.md | Privacy Policy 生成、ホスティングガイダンス |
+| S13 | RevenueCat 公式ドキュメント | https://www.revenuecat.com/docs/getting-started/entitlements | Offerings Setup 手順 |
+| S14 | greenstevester/fastlane-skill | https://github.com/greenstevester/fastlane-skill | fastlane setup, match, snapshot, beta, release |
+| S15 | conorluddy/ios-simulator-skill | https://github.com/conorluddy/ios-simulator-skill | シミュレータ操作 21 スクリプト |
+| S16 | kylehughes/apple-platform-build-tools | https://github.com/kylehughes/apple-platform-build-tools-claude-code-plugin | ビルドツール |
+| S17 | AvdLee/SwiftUI-Agent-Skill | https://github.com/AvdLee/SwiftUI-Agent-Skill | SwiftUI ベストプラクティス |
+| S18 | App Store Scraper | https://mcpmarket.com/tools/skills/app-store-scraper | App Store データ抽出（Lens 4 用） |
+| S19 | mobileapp-builder CRITICAL RULES | ローカル: /Users/anicca/.claude/skills/mobileapp-builder/SKILL.md | 40個の実機確認済み Apple ルール（事実） |
