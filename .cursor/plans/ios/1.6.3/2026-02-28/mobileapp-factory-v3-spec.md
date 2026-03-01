@@ -124,51 +124,180 @@ v2（オリジナル14 PHASE）は失敗した。v3 は:
 
 ---
 
-## 2. セッション分割（Anthropic公式パターン）
+## 2. Ralph Loop による自律実行
 
-ソース: https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents
-引用: 「an initializer agent that sets up the environment on the first run, and a coding agent that is tasked with making incremental progress in every session, while leaving clear artifacts for the next session」
+ソース: snarktank/ralph (GitHub)
+URL: https://github.com/snarktank/ralph
+引用: 「Instead of building complex graphs, agent swarms, or multi-phase planners, he uses just a for/while loop that calls Claude Code on the same project multiple times」
 
-### セッション間引き継ぎ
+OpenClaw 用スキル: ralph-loop-agent (clawhub)
+URL: ~/.openclaw/skills/ralph-loop-agent/SKILL.md
+引用: 「The agent calls exec tool with the coding agent command. Uses pty: true to provide TTY. Uses background: true for monitoring capabilities. Uses process tool to monitor progress and detect completion.」
 
-ソース: Anthropic 公式
-引用: 「a claude-progress.txt file that keeps a log of what agents have done, and an initial git commit that shows what files were added」
+### コンポーネント（snarktank/ralph 完コピ）
 
-各セッション完了時に:
-1. claude-progress.txt に進捗を書く
-2. git commit する（descriptive message）
-3. openclaw system event で次セッションをトリガー
+| コンポーネント | 役割 | ソース |
+|-------------|------|--------|
+| prd.json | バックログ（各 US に passes: true/false） | snarktank/ralph skills/ralph/SKILL.md |
+| progress.txt | イテレーション間の記憶 | snarktank/ralph CLAUDE.md |
+| PROMPT.md | Claude Code Opus への指示 | snarktank/ralph CLAUDE.md |
 
-### 完了トリガー
+### 完了シグナル
 
-ソース: OpenClaw coding-agent SKILL.md（公式）
-URL: https://github.com/openclaw/openclaw/blob/main/skills/coding-agent/SKILL.md
-引用: 「For long-running background tasks, append a wake trigger to your prompt so OpenClaw gets notified immediately when the agent finishes」
+ソース: snarktank/ralph CLAUDE.md
+引用: 「If ALL stories are complete and passing, reply with: <promise>COMPLETE</promise>」
 
-### セッション構成
+### prd.json（8 ユーザーストーリー）
 
-| セッション | フェーズ | トリガー | 所要時間（rshankras） |
-|-----------|---------|---------|---------------------|
-| Session 1 | Phase 0-3 (Research + Specs) | cron 07:00 JST | 25-40 min |
-| Session 2 | Phase 4 (Implementation) | Session 1 完了 → openclaw system event | 数時間（自動） |
-| Session 3 | Phase 5 (Testing) | Session 2 完了 → openclaw system event | 数時間（自動） |
-| Session 4 | Phase 6 (Ship) | Session 3 完了 → openclaw system event | 数時間（自動） |
-| Session 5 | Phase 7 (Post-Launch) | App Store 承認後 | ongoing |
+ソース: snarktank/ralph skills/ralph/SKILL.md
+引用: 「Each story must be completable in ONE Ralph iteration (one context window)」
+引用: 「Acceptance criteria must be verifiable, not vague」
+引用: 「Always include 'Typecheck passes' as final criterion」
 
-### 実行パターン
+```json
+{
+  "project": "mobileapp-factory",
+  "branchName": "ralph/daily-app",
+  "description": "Build and submit one iOS app to App Store",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Trend research + idea selection",
+      "acceptanceCriteria": [
+        "spec/01-trend.md exists",
+        "Contains: rank, idea, one_liner, platform, problem_statement, target_user, feasibility, overall_score, monetization_model, competition_notes, mvp_scope, next_step",
+        "At least 5 ideas evaluated, top 1 selected",
+        "Sources cited for each trend"
+      ],
+      "priority": 1, "passes": false, "notes": ""
+    },
+    {
+      "id": "US-002",
+      "title": "Product planning",
+      "acceptanceCriteria": [
+        "product-plan.md exists",
+        "Contains: target user, problem, solution, monetization, MVP scope",
+        "All claims cite external sources"
+      ],
+      "priority": 2, "passes": false, "notes": ""
+    },
+    {
+      "id": "US-003",
+      "title": "Market research",
+      "acceptanceCriteria": [
+        "competitive-analysis.md exists with 5+ competitors analyzed",
+        "market-research.md exists with TAM/SAM/SOM"
+      ],
+      "priority": 3, "passes": false, "notes": ""
+    },
+    {
+      "id": "US-004",
+      "title": "Spec generation",
+      "acceptanceCriteria": [
+        "docs/PRD.md exists",
+        "docs/ARCHITECTURE.md exists",
+        "docs/UX_SPEC.md exists",
+        "docs/DESIGN_SYSTEM.md exists",
+        "docs/IMPLEMENTATION_GUIDE.md exists",
+        "docs/TEST_SPEC.md exists",
+        "docs/RELEASE_SPEC.md exists"
+      ],
+      "priority": 4, "passes": false, "notes": ""
+    },
+    {
+      "id": "US-005",
+      "title": "iOS implementation",
+      "acceptanceCriteria": [
+        "<AppName>ios/ directory exists with App/, Views/, Models/, Services/, Resources/",
+        "xcodebuild -scheme <AppName> build succeeds",
+        "Typecheck passes"
+      ],
+      "priority": 5, "passes": false, "notes": ""
+    },
+    {
+      "id": "US-006",
+      "title": "Testing",
+      "acceptanceCriteria": [
+        "xcodebuild test succeeds",
+        "Unit tests exist for Models and Services",
+        "All tests pass"
+      ],
+      "priority": 6, "passes": false, "notes": ""
+    },
+    {
+      "id": "US-007",
+      "title": "App Store preparation (6.1-6.12)",
+      "acceptanceCriteria": [
+        "privacy-policy.md exists and deployed to GitHub Pages",
+        ".ipa file built successfully",
+        "Screenshots generated via Pencil MCP and uploaded to ASC",
+        "Metadata synced to ASC via asc-metadata-sync",
+        "TestFlight build uploaded and distributed",
+        "Preflight 7 checks all pass (asc-submission-health)",
+        "Slack #metrics notified: TestFlight ready"
+      ],
+      "priority": 7, "passes": false, "notes": ""
+    },
+    {
+      "id": "US-008",
+      "title": "App Store submission (6.13-6.14)",
+      "acceptanceCriteria": [
+        "Slack #metrics notified: need App Privacy setup",
+        ".app-privacy-done file exists (human created after ASC Web setup)",
+        "asc submit create returns WAITING_FOR_REVIEW",
+        "Slack #metrics notified: WAITING_FOR_REVIEW"
+      ],
+      "priority": 8, "passes": false, "notes": ""
+    }
+  ]
+}
+```
 
-全セッション: Claude Code Opus（pty:true + background:true）で実行
-Anicca（OpenClaw）は Claude Code を起動するだけ。SKILL.md を読んで実行するのは Claude Code。
+### 実行パターン（ralph-loop-agent）
 
-ソース: coding-agent SKILL.md
-引用: 「Always use pty:true — coding agents are interactive terminal applications that need a pseudo-terminal」
+Anicca（Sonnet）が以下を実行:
+
+```
+Step 1: exec tool で Claude Code Opus を起動
+  exec(
+    command: "claude --model opus-4 --dangerously-skip-permissions --print < PROMPT.md",
+    workdir: "daily-apps/<name>/",
+    pty: true,
+    background: true,
+    timeout: 3600
+  )
+  → sessionId 取得
+
+Step 2: process tool で監視（30秒ごと）
+  process(action: "poll", sessionId: "xxx")
+  process(action: "log", sessionId: "xxx", offset: -30)
+  → ログから進捗を読み取り Slack #metrics に報告
+
+Step 3: Claude Code 終了を検出
+  → prd.json を読む
+  → まだ passes:false がある → Step 1 に戻る（次の iteration）
+  → 全部 passes:true + COMPLETE シグナル → 完了
+```
+
+### App Privacy 待ち（US-008）
+
+1. US-007 完了時: Claude Code が Slack に「App Privacy 設定してください」通知
+2. US-008 開始時: Claude Code が .app-privacy-done ファイルを確認
+3. ファイルがない → passes:false のまま → 次の iteration で再チェック
+4. Dais が ASC Web で設定 → Slack で「完了」と投稿
+5. Anicca（Sonnet）が Slack メッセージを受信
+6. Anicca が daily-apps/<name>/.app-privacy-done を作成（touch）
+7. 次の iteration で Claude Code が検出 → asc submit create → WAITING_FOR_REVIEW
+
+ソース: snarktank/ralph CLAUDE.md
+引用: 「If there are still stories with passes: false, end your response normally (another iteration will pick up the next story)」
 
 ### 品質ゲート（ManaLabs）
 
 ソース: https://manalabs.wtf/appfactory
 引用: 「A separate reviewer agent independently verifies every file for crash risks, missing features, and code quality — because the model that wrote the code will cut corners reviewing its own work. Then 6 automated checks run. Score below 8/10? It retries. Three failures? Flagged for human review.」
 
-Phase 4 完了後:
+Phase 4（US-005）完了後:
 1. Builder agent が実装
 2. 別の Reviewer agent が独立レビュー
 3. 6-point quality gates 実行
@@ -421,18 +550,45 @@ Phase 7（POST-LAUNCH）で v1.0.1 として修正する。
 
 ---
 
-## 10. セッション間チェーン（openclaw system event）
+## 10. Anicca（Sonnet）の監視・報告サイクル
 
-ソース: OpenClaw coding-agent SKILL.md + OpenClaw docs (https://docs.openclaw.ai/cli/system) + Reddit r/ClaudeAI (https://reddit.com/r/ClaudeAI/comments/1r4jqyc/)
+ソース: ralph-loop-agent SKILL.md (clawhub)
+引用: 「Uses process tool to monitor progress and detect completion」
 
-仕組み:
-1. Claude Code が完了時に `openclaw system event --text "Phase N complete for <name>" --mode now` を実行
-2. OpenClaw の heartbeat が即座にトリガー（--mode now）
-3. Anicca のセッションに System メッセージとして届く
-4. Anicca が次の Claude Code セッションを coding-agent pty+bg で起動
+### 監視ループ
 
-前提条件: heartbeat が有効であること（現在: 1h 間隔 ✅）
-引用: 「openclaw system event --mode now doesn't wake the agent if no heartbeat is configured at all」
+Anicca（Sonnet）は以下のサイクルを回す:
+
+1. exec で Claude Code Opus を起動（1 iteration）
+2. 30秒ごとに process(poll) + process(log) で監視
+3. ログから進捗を読み取り → Slack #metrics に投稿（message tool）
+4. Claude Code 終了 → prd.json を読む
+5. まだ passes:false あり → 次の iteration を exec で起動（1 に戻る）
+6. 全 passes:true → Slack に完了報告 → 終了
+
+### Slack 報告タイミング
+
+| タイミング | 報告内容 |
+|-----------|---------|
+| Factory 起動時 | 「🏭 Factory 起動。今日のアプリを作ります」 |
+| 各 iteration 開始 | 「🏭 Iteration N: US-XXX 開始」 |
+| 各 iteration 完了 | 「✅ US-XXX 完了: [成果物]」 |
+| US-005 実行中 | 30分ごとにログから進捗抜粋 |
+| US-007 完了 | 「📱 TestFlight 配布完了。確認してください」 |
+| App Privacy 必要 | 「⏸️ App Privacy 設定してください」 |
+| Dais が「完了」→ submit | 「🎉 提出完了！WAITING_FOR_REVIEW」 |
+| エラー時 | 「❌ US-XXX 失敗: [エラー内容]」 |
+
+### App Privacy 待ちの仕組み
+
+1. US-007 完了 → Anicca が Slack に通知
+2. Dais が ASC Web で App Privacy 設定
+3. Dais が Slack #metrics で「完了」と投稿
+4. Anicca が Slack メッセージを受信（OpenClaw が自動ルーティング）
+5. Anicca が `touch daily-apps/<name>/.app-privacy-done` を exec で実行
+6. Anicca が次の iteration を起動（US-008 再試行）
+7. Claude Code が .app-privacy-done を検出 → asc submit create
+8. WAITING_FOR_REVIEW → Slack 報告
 
 ---
 
@@ -485,25 +641,40 @@ openclaw cron add --schedule "<実装完了2分後>" --timezone "America/Los_Ang
 
 ### mobileapp-factory（監督 — Sonnet が実行）
 
-やること:
-1. Claude Code Opus を tmux で起動（コマンド叩くだけ）
-2. system event を受信
-3. Slack #metrics に進捗報告
-4. 次の Claude Code Opus を起動
-5. Phase 6.13 で Dais に App Privacy 設定を依頼して待つ
+ralph-loop-agent パターンに従う。
 
-中身: コマンド + Slack 報告テンプレート + system event ハンドリング
+やること:
+1. prd.json を daily-apps/<name>/ に生成
+2. PROMPT.md を daily-apps/<name>/ に生成
+3. exec で Claude Code Opus を起動（pty:true, background:true）
+4. process tool で 30秒ごと監視
+5. ログを読んで Slack #metrics に報告（message tool）
+6. Claude Code 終了 → prd.json チェック → 次の iteration 起動
+7. Dais が Slack で「完了」→ .app-privacy-done を touch → iteration 起動
+8. 全 passes:true → 完了報告
+
+中身: prd.json 生成 + PROMPT.md 生成 + exec/process ループ + Slack 報告
 
 ### mobileapp-builder（選手 — Claude Code Opus が実行）
 
 やること:
-1. Phase 0-7 の全手順を実行
+1. PROMPT.md を読む → prd.json の次の未完了 US を実行
 2. CRITICAL RULES 40個を遵守
 3. Pencil MCP でスクショ生成
 4. asc-* スキルで ASC 操作
-5. 全ファイル生成 + git commit
+5. 完了時: prd.json の passes を true に更新
+6. progress.txt に記録
+7. git commit
+8. 全 US 完了なら <promise>COMPLETE</promise>
 
-中身: Phase 0-7 全手順 + CRITICAL RULES + フォルダ構成 + 入出力定義
+中身: Phase 0-7 全手順 + CRITICAL RULES + フォルダ構成
+
+### rshankras WORKFLOW.md について
+
+rshankras/claude-code-apple-skills の WORKFLOW.md は各 Phase を人間が手動トリガーする前提。
+自律ループ機能はない。
+→ Ralph Loop（snarktank/ralph）で自律化する。
+→ rshankras の各スキル（Phase 0-7 の中身）はそのまま使う。
 
 ### フロー図
 
@@ -511,41 +682,40 @@ openclaw cron add --schedule "<実装完了2分後>" --timezone "America/Los_Ang
 cron 07:00 JST
     │
     ▼
-mobileapp-factory (Sonnet)
-    │ tmux で Claude Code Opus 起動
+mobileapp-factory (Sonnet/Anicca)
+    │ prd.json + PROMPT.md を生成
+    │ exec で Claude Code Opus 起動
+    │
+    ▼                          ┌─────────────────────┐
+Iteration 1 ──────────────────▶│ Claude Code Opus    │
+    │ process(poll+log) 30秒   │ PROMPT.md 読む      │
+    │ Slack 報告               │ prd.json US-001 実行│
+    │◀─────────────────────────│ passes:true 更新    │
+    │ prd.json チェック         │ progress.txt 記録   │
+    │ passes:false あり         │ git commit          │
+    │                          └─────────────────────┘
     ▼
-mobileapp-builder (Opus) ← Phase 0-3 実行
-    │ openclaw system event
+Iteration 2 ──────────────────▶ US-002 実行
+    │ ...
     ▼
-mobileapp-factory (Sonnet)
-    │ Slack 報告 + 次の Opus 起動
+Iteration 7 ──────────────────▶ US-007 実行（TestFlight）
+    │ Slack: 「TestFlight 確認してください」
     ▼
-mobileapp-builder (Opus) ← Phase 4 実行
-    │ openclaw system event
-    ▼
-mobileapp-factory (Sonnet)
-    │ Slack 報告 + 次の Opus 起動
-    ▼
-mobileapp-builder (Opus) ← Phase 5 実行
-    │ openclaw system event
-    ▼
-mobileapp-factory (Sonnet)
-    │ Slack 報告 + 次の Opus 起動
-    ▼
-mobileapp-builder (Opus) ← Phase 6.1-6.12 実行
-    │ openclaw system event "need App Privacy"
-    ▼
-mobileapp-factory (Sonnet)
+Iteration 8 ──────────────────▶ US-008 試行
+    │ .app-privacy-done なし → passes:false のまま
+    │
     │ Slack: 「App Privacy 設定してください」
-    │ ★ ここだけ待つ ★
-    │ Dais が「完了」と返信
-    │ Opus に続行指示
+    │ ★ Dais が ASC Web で設定 ★
+    │ Dais が Slack で「完了」
+    │ Anicca が touch .app-privacy-done
+    │
     ▼
-mobileapp-builder (Opus) ← Phase 6.14 submit
-    │ openclaw system event "WAITING_FOR_REVIEW"
+Iteration 9 ──────────────────▶ US-008 再試行
+    │ .app-privacy-done あり!
+    │ asc submit create → WAITING_FOR_REVIEW
+    │ <promise>COMPLETE</promise>
+    │
     ▼
-mobileapp-factory (Sonnet)
-    │ Slack: 「🎉 提出完了！」
-    ▼
+Slack: 「🎉 提出完了！」
 完了
 ```
