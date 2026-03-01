@@ -1,6 +1,6 @@
 # Web App Factory — 仕様書
 
-**バージョン:** 1.1.0
+**バージョン:** 1.2.0
 **作成日:** 2026-03-01
 **ステータス:** Ready to Implement
 
@@ -27,22 +27,23 @@
 - Webアプリの固定費が月$20（Vercel Pro）まで下がった
 - Claude Code の `--dangerously-skip-permissions` モードで完全自律ビルドが可能
 - AppFactory website-pipeline v2.3.0（OSS）が8フェーズの品質ゲートを持つ
-- Anicca（OpenClaw）が Mac Mini で24/7稼働中であり、cron 追加だけで工場化できる
+- Anicca（OpenClaw）が Mac Mini で24/7稼働中。cron-creator スキルで即日スケジュール追加可能
 - `vercel/nextjs-subscription-payments` ボイラープレートで決済・認証・分析が即日立ち上がる
 
 ソース: [0xAxiom/AppFactory](https://github.com/0xAxiom/AppFactory) / 核心の引用: 「AppFactory is an automated web application factory that builds production-ready SaaS apps」
 ソース: [vercel/nextjs-subscription-payments](https://github.com/vercel/nextjs-subscription-payments) / 核心の引用: 「Clone, deploy, and fully customize a SaaS subscription application with Next.js」
-ソース: [Claude Code statusline](https://code.claude.com/docs/en/statusline) / 核心の引用: 「Claude Code can call a shell script hook at each step to report progress」
+ソース: [TaraJura/techtools-claude-code-cron-loop](https://github.com/TaraJura/techtools-claude-code-cron-loop) / 核心の引用: 「claude --dangerously-skip-permissions -p "$PROMPT" — universal actor runner pattern」
+ソース: [Anthropic Building Effective Agents](https://www.anthropic.com/research/building-effective-agents) / 核心の引用: 「Orchestrators direct agents to use tools or undertake tasks with the intention of completing some broader goal」
 
 ### アーキテクチャ
 ```
-Anicca cron 09:00 JST
-  → CC 自律実行（--dangerously-skip-permissions）
-    → [横断] statusline hook → Slack #metrics（全ステップをリアルタイム報告）
+Anicca cron 09:00 JST（cron-creator スキルで設定）
+  → claude --dangerously-skip-permissions -p "$(cat prompt.md)"
+    → [横断] oh-my-claudecode @configure-notifications → Slack #metrics 進捗報告
     → LAYER 1: トレンド収集 + アイデア選定 → idea.md 生成
-    → LAYER 2: ボイラープレート clone + AppFactory website-pipeline（idea.md を INPUT）
-    → LAYER 3: Vercel デプロイ
-    → LAYER 4: Slack 完成報告 + Postiz X 投稿
+    → LAYER 2: ボイラープレート clone + AppFactory website-pipeline
+    → LAYER 3: vercel-labs@vercel-deploy → URL 発行
+    → LAYER 4: slack-webhook + Postiz X 投稿
 ```
 
 ---
@@ -79,33 +80,36 @@ Web App Factory: 存在しない
 ```
 Anicca（Mac Mini）
 ├── trend-hunter cron（05:00, 17:00 JST）← 既存・変更なし
-└── webapp-factory cron（09:00 JST）← NEW
+└── webapp-factory cron（09:00 JST）← NEW（cron-creator スキルで追加）
+    ソース: sundial-org/awesome-openclaw-skills@cron-creator
+            「Create cron jobs from natural language」
 
 webapp-factory フロー:
 
-[横断] statusline hook（全フェーズ常時稼働）
-  ~/.claude/statusline.sh → Slack #metrics にリアルタイム進捗投稿
-  CC が各ステップ完了ごとに JSON を stdin で hook に渡す
-  ソース: https://code.claude.com/docs/en/statusline
+[横断] oh-my-claudecode @configure-notifications（全ステップ常時稼働）
+  OMC_SLACK_WEBHOOK_URL を読み session イベントを Slack #metrics にリアルタイム投稿
+  ソース: yeachan-heo/oh-my-claudecode@configure-notifications
+          「Configure Slack notifications via OMC_SLACK_WEBHOOK_URL」
 
 LAYER 1: INTELLIGENCE（09:00〜10:00）
-  使用スキル:
+  使用スキル（全て既存）:
   ├── apify-ultimate-scraper     Webトレンド収集（Apify $49/月）
   ├── content-trend-researcher   SNS 10プラットフォーム分析
   ├── google-trends              検索ボリューム確認
   ├── reddit-insights            pain points 発見
   ├── startup-idea-validation    市場規模・競合スコアリング
   └── niche-opportunity-finder   ニッチ選定
-  出力: idea.md（Problem/Market/Target/Monetization/Competitors）
+  出力: /tmp/webapp-factory/{date}/idea.md
+        （Problem / Market / Target / Monetization / Competitors）
 
 LAYER 2: BUILD（10:00〜14:00）
   Step 0: ボイラープレート取得
     git clone vercel/nextjs-subscription-payments → {slug}/
     （Next.js + Supabase + Stripe + shadcn/ui — 無料OSS）
     ソース: https://github.com/vercel/nextjs-subscription-payments
+            「Clone, deploy, and fully customize a SaaS subscription application」
 
-  Step 1: AppFactory website-pipeline v2.3.0 実行（idea.md を INPUT）
-    使用スキル: appfactory-builder
+  Step 1: appfactory-builder が idea.md を INPUT に Phase 0〜8 を自動実行
     Phase 0: Intent Normalization（idea.md → 完全仕様に自動展開）
     Phase 1: Dream Spec（12セクション自動生成）
     Phase 2: Research & Positioning
@@ -119,43 +123,51 @@ LAYER 2: BUILD（10:00〜14:00）
     LOCAL_RUN_PROOF_GATE（RUN_CERTIFICATE.json status:PASS 必須）
 
 LAYER 3: DEPLOY（14:00〜14:30）
-  auto-deploy.mjs → Vercel Pro push → URL 発行
+  vercel-labs/agent-skills@vercel-deploy を使用
+  ソース: https://skills.sh/vercel-labs/agent-skills/vercel-deploy
+          「No auth required, returns preview URL and claimable deployment link」
   Stripe 商品・サブスク自動設定（ボイラープレート活用）
   PostHog + Sentry 自動設定
 
 LAYER 4: REPORT & MARKET（14:30）
-  [Slack] Anicca → Slack #metrics 最終報告
+  [Slack] vm0-ai/vm0-skills@slack-webhook を使用
     「✅ 完成: https://xxx.vercel.app / ニッチ: xxx / 所要時間: xxh」
+    ソース: https://skills.sh/vm0-ai/vm0-skills/slack-webhook
+            「Simple one-way messaging to Slack channel, no OAuth setup」
+
   [X] Postiz CLI → X（Twitter）自動投稿
     「Just shipped: {app_name} — {one_line_pitch} 🚀 {url} #BuildInPublic #indiehacker」
     npm install -g postiz && postiz posts:create
-    ソース: https://docs.postiz.com/usage/cli
-    レート制限: 30 req/hour。1日1回の投稿で問題なし。
+    ソース: https://docs.postiz.com/usage/cli / レート制限: 30 req/hour（1日1回で問題なし）
 ```
 
 ### 新規作成ファイル
 
-| ファイル | 役割 |
-|---------|------|
-| `.openclaw/skills/webapp-factory-orchestrator/SKILL.md` | 全レイヤーを束ねるオーケストレーター（唯一のオリジナル） |
-| `.openclaw/cron/jobs.json`（エントリ追加） | webapp-factory cron エントリ（09:00 JST） |
-| `~/.claude/statusline.sh` | CC 進捗 → Slack Webhook リアルタイム投稿 |
+| ファイル | 役割 | 作成方法 |
+|---------|------|---------|
+| `.openclaw/skills/webapp-factory-orchestrator/SKILL.md` | Anicca が読む全体オーケストレーター | clawhub `autonomous-skill-orchestrator` をベースに作成 |
+| `.openclaw/skills/webapp-factory-orchestrator/prompt.md` | CC に渡す LAYER 1〜4 の実行指示 | TaraJura パターンに従って作成 |
 
-### インストールするスキル
+### インストールするスキル（全12件）
 
-| スキル | 出所 | 状態 |
-|--------|------|------|
-| appfactory-builder | 0xAxiom/AppFactory | ✅ 済み |
-| app-builder | davila7 | ✅ 済み |
-| senior-frontend | alirezarezvani | ✅ 済み |
-| nextjs-expert | clawhub | ✅ 済み |
-| apify-ultimate-scraper | apify/agent-skills | 要インストール |
-| content-trend-researcher | nicepkg/ai-workflow | 要インストール |
-| startup-idea-validation | vasilyu1983 | 要インストール |
-| niche-opportunity-finder | zanecole10 | 要インストール |
-| reddit-insights | clawhub | 要インストール |
-| google-trends | clawhub | 要インストール |
-| market-research-agent | clawhub | 要インストール |
+| # | スキル | インストールコマンド | 状態 |
+|---|--------|-------------------|------|
+| 1 | appfactory-builder | ✅ 済み | — |
+| 2 | app-builder | ✅ 済み | — |
+| 3 | senior-frontend | ✅ 済み | — |
+| 4 | nextjs-expert | ✅ 済み | — |
+| 5 | apify-ultimate-scraper | `npx skills install apify/agent-skills@apify-ultimate-scraper` | 要 |
+| 6 | content-trend-researcher | `npx skills install nicepkg/ai-workflow@content-trend-researcher` | 要 |
+| 7 | startup-idea-validation | `npx skills install vasilyu1983/ai-agents-public@startup-idea-validation` | 要 |
+| 8 | niche-opportunity-finder | `npx skills install zanecole10/software-tailor-skills@niche-opportunity-finder` | 要 |
+| 9 | reddit-insights | `clawhub install reddit-insights` | 要 |
+| 10 | google-trends | `clawhub install google-trends` | 要 |
+| 11 | market-research-agent | `clawhub install market-research-agent` | 要 |
+| 12 | **vercel-deploy** | `npx skills install vercel-labs/agent-skills@vercel-deploy` | 要 |
+| 13 | **configure-notifications** | `npx skills install yeachan-heo/oh-my-claudecode@configure-notifications` | 要 |
+| 14 | **slack-webhook** | `npx skills install vm0-ai/vm0-skills@slack-webhook` | 要 |
+| 15 | **cron-creator** | `clawhub install cron-creator` | 要（Anicca用） |
+| 16 | **autonomous-skill-orchestrator** | `clawhub install autonomous-skill-orchestrator` | 要（Anicca用） |
 
 ---
 
@@ -196,46 +208,48 @@ LAYER 4: REPORT & MARKET（14:30）
 
 ## 6. 実行手順
 
-```bash
-# STEP 1: statusline hook セットアップ（Mac Mini で実行）
-ssh anicca@100.99.82.95 'mkdir -p ~/.claude && cat > ~/.claude/statusline.sh << '"'"'HOOKEOF'"'"'
-#!/bin/bash
-INPUT=$(cat)
-MESSAGE=$(echo "$INPUT" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get(\"message\",\"\"))" 2>/dev/null || echo "progress update")
-WEBHOOK=$(grep SLACK_WEBHOOK_URL ~/.openclaw/.env | cut -d= -f2)
-curl -s -X POST "$WEBHOOK" -H "Content-Type: application/json" \
-  -d "{\"text\":\"🏭 webapp-factory: $MESSAGE\"}" > /dev/null
-HOOKEOF
-chmod +x ~/.claude/statusline.sh'
-# ソース: https://code.claude.com/docs/en/statusline
+### 担当分け
+| 誰が | 何を | 方法 |
+|------|------|------|
+| **ダイス** | アカウント 8件のキー取得 | GUI ログイン（Section 9 参照） |
+| **私（Claude Code）** | 全ファイル作成・push | ローカル作成 → git push → Mac Mini が pull |
+| **Anicca** | cron 設定・スキル追加 | Slack 経由で指示。Anicca が自分で `cron-creator` + `clawhub install` を実行 |
 
-# STEP 2: Postiz CLI インストール（Mac Mini で実行）
-ssh anicca@100.99.82.95 "export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:\$PATH && npm install -g postiz"
-# ソース: https://docs.postiz.com/usage/cli
+### STEP 1: ダイスのキー取得（Section 9 参照）
 
-# STEP 3: 残りスキルインストール（Mac Mini で実行）
-ssh anicca@100.99.82.95 "export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:\$PATH && \
-  npx skills install apify/agent-skills@apify-ultimate-scraper --yes && \
-  npx skills install nicepkg/ai-workflow@content-trend-researcher --yes && \
-  npx skills install vasilyu1983/ai-agents-public@startup-idea-validation --yes && \
-  npx skills install zanecole10/software-tailor-skills@niche-opportunity-finder --yes && \
-  clawhub install reddit-insights && \
-  clawhub install google-trends && \
-  clawhub install market-research-agent"
-
-# STEP 4: オーケストレーター SKILL.md 作成
-# .openclaw/skills/webapp-factory-orchestrator/SKILL.md（次のセクション参照）
-
-# STEP 5: cron 追加
-# jobs.json に webapp-factory エントリ追加（09:00 JST = 00:00 UTC）
-
-# STEP 6: 手動テスト実行
-ssh anicca@100.99.82.95 "export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:\$PATH && \
-  openclaw agent --message 'Run webapp-factory skill now as a test.' --deliver"
-
-# STEP 7: Slack #metrics で完成報告を確認
-# STEP 8: X タイムラインで投稿を確認
+### STEP 2: 私がローカルで作成 → push
 ```
+作成するファイル（全てローカル → git push → Mac Mini pull）:
+  .openclaw/skills/webapp-factory-orchestrator/SKILL.md
+  .openclaw/skills/webapp-factory-orchestrator/prompt.md
+```
+
+### STEP 3: Anicca への指示（Slack 経由）
+```
+「webapp-factory セットアップを開始。
+  1. clawhub install cron-creator
+  2. clawhub install autonomous-skill-orchestrator
+  3. clawhub install reddit-insights && clawhub install google-trends && clawhub install market-research-agent
+  4. npx skills install apify/agent-skills@apify-ultimate-scraper --yes
+  5. npx skills install nicepkg/ai-workflow@content-trend-researcher --yes
+  6. npx skills install vasilyu1983/ai-agents-public@startup-idea-validation --yes
+  7. npx skills install zanecole10/software-tailor-skills@niche-opportunity-finder --yes
+  8. npx skills install vercel-labs/agent-skills@vercel-deploy --yes
+  9. npx skills install yeachan-heo/oh-my-claudecode@configure-notifications --yes
+  10. npx skills install vm0-ai/vm0-skills@slack-webhook --yes
+  11. cron-creator で「毎日09:00 JSTにwebapp-factoryを起動」を設定
+  完了したら Slack に報告してください。」
+```
+
+### STEP 4: 手動テスト（Anicca への指示）
+```
+「webapp-factory を今すぐ1回テスト実行してください」
+```
+
+### STEP 5: 確認
+- Slack #metrics に進捗 + 完成報告が流れるか
+- Vercel URL にアクセスできるか
+- X タイムラインに投稿が出るか
 
 ---
 
@@ -255,35 +269,35 @@ ssh anicca@100.99.82.95 "export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:\$PATH
 |---------|--------|------|
 | Vercel Pro | 商用 | 支払済み ✅ |
 | Apify | Starter | $49/月 |
-| Supabase / Clerk / PostHog / Sentry / Reddit / X Dev | 無料枠 | $0 |
+| Supabase / Stripe / PostHog / Sentry / X Dev / Postiz | 無料枠 | $0 |
 | **追加合計** | | **$49/月** |
 
 ---
 
-## 9. アカウントセットアップ（全8件 — 実装前に必須）
+## 9. アカウントセットアップ（ダイスの手動作業 — 全8件）
 
-全て Mac Mini `/Users/anicca/.openclaw/.env` に追記する。
+取得したキーを全て `.openclaw/.env` に追記する（Anicca への指示で私が実行）。
 
-| # | サービス | 用途 | 取得するもの | URL |
-|---|---------|------|------------|-----|
-| 1 | **Apify** | トレンドスクレイピング（$49/月） | `APIFY_API_TOKEN` | https://console.apify.com → Settings → API & Integrations |
-| 2 | **Vercel** | デプロイ先（Pro 支払済み） | `VERCEL_TOKEN`, `VERCEL_ORG_ID` | https://vercel.com/account/tokens |
-| 3 | **Supabase** | DB + Auth（ボイラープレート必須） | `SUPABASE_URL`, `SUPABASE_ANON_KEY` | https://supabase.com → New Project |
-| 4 | **Stripe** | 決済（ボイラープレート必須） | `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` | https://dashboard.stripe.com/apikeys |
-| 5 | **PostHog** | 分析（無料） | `POSTHOG_API_KEY` | https://us.posthog.com/project/settings |
-| 6 | **Sentry** | エラー監視（無料） | `SENTRY_DSN`, `SENTRY_AUTH_TOKEN` | https://sentry.io/settings/auth-tokens |
-| 7 | **X Developer** | Postiz 経由投稿（無料） | `TWITTER_API_KEY`, `TWITTER_API_SECRET`, `TWITTER_ACCESS_TOKEN`, `TWITTER_ACCESS_SECRET` | https://developer.x.com/en/portal/dashboard |
-| 8 | **Slack Webhook** | 進捗報告（既存） | `SLACK_WEBHOOK_URL`（#metrics の既存 webhook を流用） | `.env` 確認 |
+| # | サービス | 取得するもの | URL |
+|---|---------|------------|-----|
+| 1 | **Apify** ($49/月) | `APIFY_API_TOKEN` | https://console.apify.com → Settings → API & Integrations |
+| 2 | **X Developer** (無料) | `TWITTER_API_KEY` `TWITTER_API_SECRET` `TWITTER_ACCESS_TOKEN` `TWITTER_ACCESS_SECRET` | https://developer.x.com/en/portal/dashboard |
+| 3 | **Supabase** (無料) | `SUPABASE_URL` `SUPABASE_ANON_KEY` | https://supabase.com/dashboard → New project → Settings → API |
+| 4 | **Stripe** (無料) | `STRIPE_SECRET_KEY` `STRIPE_WEBHOOK_SECRET` | https://dashboard.stripe.com/apikeys |
+| 5 | **PostHog** (無料) | `POSTHOG_API_KEY` | https://us.posthog.com/project/settings |
+| 6 | **Sentry** (無料) | `SENTRY_DSN` `SENTRY_AUTH_TOKEN` | https://sentry.io/settings/auth-tokens |
+| 7 | **Vercel** (支払済み) | `VERCEL_TOKEN` `VERCEL_ORG_ID` | https://vercel.com/account/tokens |
+| 8 | **Slack Webhook** (既存) | `SLACK_WEBHOOK_URL` の確認のみ | `.env` 確認 |
 
 ---
 
 ## 10. オープンソース化計画
 
-ソース: [anthropics/skills](https://github.com/anthropics/skills) / 核心の引用: 「Skills are markdown files that teach Claude how to use tools」
+ソース: [anthropics/skills](https://github.com/anthropics/skills) / 核心の引用: 「Skills are folders of instructions that Claude loads dynamically」
 ソース: [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills) / 核心の引用: 「A curated list of skills for Claude Code」
 
 | ステップ | 内容 | 提出先 |
 |---------|------|-------|
-| 1 | `webapp-factory-orchestrator/SKILL.md` を整備・動作確認 | — |
+| 1 | `webapp-factory-orchestrator/SKILL.md` 動作確認後に整備 | — |
 | 2 | PR 提出 | https://github.com/anthropics/skills |
 | 3 | PR 提出 | https://github.com/travisvn/awesome-claude-skills |
