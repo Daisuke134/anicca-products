@@ -263,3 +263,51 @@ xcodebuild -scheme AffirmFlow -destination 'platform=iOS Simulator,name=iPhone 1
 - Non-optional comparisons with nil trigger warnings - remove unnecessary nil checks
 
 ---
+
+## 2026-03-01 20:21 - US-007: App Store preparation (PARTIAL)
+
+### What was implemented
+- Created privacy-policy.md with GDPR/CCPA/DPDP compliance sections
+- Created terms-of-service.md for App Store submission
+- Generated app icon using ImageMagick (gradient #FF6B35-#F7C59F with concentric circles)
+- Set up Fastlane configuration (Appfile, Fastfile) with lanes:
+  - set_version, test, build, build_for_simulator, build_for_device
+- Registered bundle IDs in ASC:
+  - com.anicca.affirmflow (69NGP6V95X)
+  - com.anicca.affirmflow.widget (58M2G2878H)
+- Added App Groups capability to both bundle IDs
+- Updated DEVELOPMENT_TEAM = S5U8UH3JLJ in project.pbxproj
+- Set version to 1.0.0 (build 202603010219)
+- Created placeholder screenshots (1290x2796) for EN and JA locales
+- Verified build on iOS Simulator (iPhone 17 Pro)
+
+### Files changed
+- `AffirmFlowios/AffirmFlow.xcodeproj/project.pbxproj` (DEVELOPMENT_TEAM, version)
+- `AffirmFlowios/Resources/Assets.xcassets/AppIcon.appiconset/` (icon.png, Contents.json)
+- `AffirmFlowios/fastlane/Appfile` (created)
+- `AffirmFlowios/fastlane/Fastfile` (created)
+- `docs/privacy-policy.md` (created)
+- `docs/terms-of-service.md` (created)
+- `docs/screenshots/` (raw + resized for EN-US and JA)
+
+### BLOCKED
+**App creation in ASC requires Apple ID credentials:**
+- `asc apps create` needs `--apple-id` and `--password` flags
+- API Key authentication alone is insufficient for app creation
+- This blocks: IPA build, TestFlight upload, metadata sync, preflight checks
+
+### To continue
+1. Set environment variables:
+   - `APPLE_ID` (email)
+   - `APPLE_ID_PASSWORD` (password or app-specific password)
+2. Run: `asc apps create --name "AffirmFlow" --bundle-id "com.anicca.affirmflow" --sku "affirmflow-001"`
+3. Continue with IPA build and TestFlight upload
+
+### Learnings for future iterations
+- asc apps create requires Apple ID + password (API Key not sufficient)
+- Bundle ID registration works with API Key (asc bundle-ids create)
+- Capabilities can be added via API (asc bundle-ids capabilities add)
+- ImageMagick v7 uses `magick` command (not `convert`)
+- sips can resize images: `sips -z height width input.png --out output.png`
+
+---
