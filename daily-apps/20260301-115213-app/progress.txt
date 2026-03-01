@@ -1,0 +1,21 @@
+## 2026-03-01 — mobileapp-factory progress
+
+### US-001: Trend research + idea selection — ✅ COMPLETE
+- spec/01-trend.md created
+- 6 ideas evaluated across 5 lenses
+- TOP SELECTION: Micro Mood (score: 8.8/10)
+  - One-liner: "3-tap daily mood check-in that surfaces AI-powered weekly patterns"
+  - Platform: iOS
+  - Bundle ID: TBD (will be set in US-004)
+  - Monetization: $4.99/mo or $29.99/yr
+  - MVP scope: 5 weeks, CoreData + SwiftUI + HealthKit + WidgetKit
+- Sources: RevenueCat 2025, Business of Apps 2026, Apple Foundation Models, AppsFlyer
+
+### US-002: Product planning — PENDING
+### US-003: Market research — PENDING
+### US-004: Spec generation — PENDING
+### US-005: ASC + IAP + RevenueCat — PENDING
+### US-006: iOS implementation — PENDING
+### US-007: Testing — PENDING
+### US-008: App Store preparation — PENDING
+### US-009: App Store submission — PENDING
