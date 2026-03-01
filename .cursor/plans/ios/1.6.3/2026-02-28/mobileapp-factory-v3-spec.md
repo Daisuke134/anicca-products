@@ -356,3 +356,89 @@ rshankras WORKFLOW.md の Activation Phrases をそのまま使える:
 | S17 | AvdLee/SwiftUI-Agent-Skill | https://github.com/AvdLee/SwiftUI-Agent-Skill | SwiftUI ベストプラクティス |
 | S18 | App Store Scraper | https://mcpmarket.com/tools/skills/app-store-scraper | App Store データ抽出（Lens 4 用） |
 | S19 | mobileapp-builder CRITICAL RULES | ローカル: /Users/anicca/.claude/skills/mobileapp-builder/SKILL.md | 40個の実機確認済み Apple ルール（事実） |
+
+---
+
+## 8. Slack レポート頻度
+
+各フェーズ完了時 + 30分ごとの進捗報告:
+- Phase 0-3 完了: アイデア + スペック + ファイルパス
+- Phase 4 進捗: 30分ごと（何を実装中か）
+- Phase 4 完了: 実装完了 + reviewer スコア
+- Phase 5 完了: テスト結果
+- Phase 6 各ステップ: 6.1-6.14 の各完了時
+- Phase 6 完了: WAITING_FOR_REVIEW 🎉
+
+通知先: Slack #metrics (C091G3PKHL2)
+
+---
+
+## 9. 人間ストップ（3回のみ）
+
+| # | いつ | 何をするか | どこで |
+|---|------|-----------|-------|
+| 1 | Phase 6.11 | TestFlight テスト | iPhone の TestFlight アプリ |
+| 2 | Phase 6.13 | App Privacy 手動設定 | ASC Web (appstoreconnect.apple.com) |
+| 3 | リジェクト時 | Apple 審査対応 | ASC Web |
+
+それ以外は全自動。
+
+---
+
+## 10. セッション間チェーン（openclaw system event）
+
+ソース: OpenClaw coding-agent SKILL.md + OpenClaw docs (https://docs.openclaw.ai/cli/system) + Reddit r/ClaudeAI (https://reddit.com/r/ClaudeAI/comments/1r4jqyc/)
+
+仕組み:
+1. Claude Code が完了時に `openclaw system event --text "Phase N complete for <name>" --mode now` を実行
+2. OpenClaw の heartbeat が即座にトリガー（--mode now）
+3. Anicca のセッションに System メッセージとして届く
+4. Anicca が次の Claude Code セッションを coding-agent pty+bg で起動
+
+前提条件: heartbeat が有効であること（現在: 1h 間隔 ✅）
+引用: 「openclaw system event --mode now doesn't wake the agent if no heartbeat is configured at all」
+
+---
+
+## 11. Dais が見る方法
+
+MacBook Pro から Mac Mini の Claude Code セッションを見る:
+
+```bash
+# セッション一覧
+ssh anicca@AniccanoMac-mini.local -t "tmux ls"
+
+# セッションにアタッチ（リアルタイム閲覧 + 介入可能）
+ssh anicca@AniccanoMac-mini.local -t "tmux attach -t factory"
+```
+
+Anicca が Claude Code を起動する時は tmux セッション名 `factory` で起動する。
+
+---
+
+## 12. OSS 化（github.com/Daisuke134/mobileapp-builder）
+
+ファイル構成:
+- SKILL.md — v3 spec ベースの実行手順
+- README.md — 8フェーズ説明 + ビジュアルフロー
+- SETUP.md — 6リポインストール + 環境変数設定
+- check-prerequisites.sh — 全依存チェックスクリプト
+
+ユーザー体験: git clone → SETUP.sh → "build me an app" → App Store に提出
+
+---
+
+## 13. cron 設定
+
+本番: 毎日 07:00 JST（= 14:00 PST）
+テスト: 実装完了 2 分後に 1 回だけ実行（検証用）
+
+cron コマンド（本番）:
+```
+openclaw cron add --schedule "0 7 * * *" --timezone "Asia/Tokyo" --prompt "Execute mobileapp-factory skill. Read /Users/anicca/.openclaw/skills/mobileapp-factory/SKILL.md and follow it."
+```
+
+cron コマンド（テスト — 1回限り）:
+```
+openclaw cron add --schedule "<実装完了2分後>" --timezone "America/Los_Angeles" --prompt "Execute mobileapp-factory skill. Read /Users/anicca/.openclaw/skills/mobileapp-factory/SKILL.md and follow it." --once
+```
