@@ -741,60 +741,84 @@ Slack: 「🎉 提出完了！」
 
 ---
 
-## 15. 2FA とアプリ作成の真実
+## 15. 2FA とアプリ作成の真実（2026-03-01 更新）
 
 ### Apple の制限（変更不可）
 
 ソース: asc CLI help
 引用: 「NOTE: App creation requires Apple ID authentication (not API key).」
 
-ソース: fastlane docs
-URL: https://docs.fastlane.tools/app-store-connect-api/
-引用: 「produce — Apple ID: Partial, API Key: No」
-
-ソース: rudrankriyam/asc-app-create-ui SKILL.md
-引用: 「Apple's docs explicitly state: "Don't use this API to create new apps;
-instead, create new apps on the App Store Connect website."」
+ソース: Apple 2FA trusted device docs
+URL: https://support.apple.com/en-us/102660
+引用: 「After you sign in the first time, you won't be asked for a verification code on that device again unless you sign out completely.」
 
 ### 結論
 
-- **アプリ「作成」だけ**: REST API（JWT）では不可。Apple が禁止してる。
+- **アプリ「作成」だけ**: Apple ID + パスワード + 2FA が必要。REST API（JWT）では不可。
 - **それ以外**: API Key（JWT）で全て 2FA 不要。
   - builds upload, submit create, metadata, screenshots, TestFlight — 全部 API Key。
 
-### 解決策: asc-app-create-ui（ブラウザ自動化）
+### アプリ作成フロー（PHASE 4 に反映する内容）
 
-ソース: rudrankriyam/app-store-connect-cli-skills
-URL: https://github.com/rudrankriyam/app-store-connect-cli-skills
+#### Step 0: Playwright クッキー有効期限チェック
 
-スキル: asc-app-create-ui
-引用: 「Create a new App Store Connect app via browser automation when no API exists.
-The only manual step should be signing in. Everything else is agent-drivable.」
-
-仕組み:
-1. Playwright でブラウザを開く
-2. ASC にログイン（ブラウザセッションで 2FA を 1 回だけ処理）
-3. 「New App」→ フォーム自動入力 → 「Create」
-4. 完了。以降は全部 API Key で 2FA 不要。
-
-### ブラウザ 2FA セッション維持
-
-ブラウザのクッキーで ASC セッションが維持される。
-1 回ログインすれば、同じブラウザプロファイルで再ログイン不要（セッション有効期間内）。
-毎日のファクトリー実行で毎回 2FA を求められることはない。
-
-### フォールバック: --two-factor-code
-
-ブラウザ自動化が失敗した場合:
+```bash
+COOKIE_META=~/.asc/playwright-auth.json
+if [ -f "$COOKIE_META" ]; then
+  EXPIRES=$(python3 -c "import json;print(json.load(open('$COOKIE_META'))['expires_at'])")
+  NOW=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+  if [[ "$NOW" < "$EXPIRES" ]]; then
+    echo "✅ クッキー有効。Step 1 へ。"
+  else
+    echo "⚠️ クッキー期限切れ。Step 0b へ。"
+  fi
+else
+  echo "❌ クッキーなし。Step 0b へ。"
+fi
 ```
+
+#### Step 0b: Playwright 再ログイン
+
+```bash
+node ~/.claude/skills/asc-app-create-ui/scripts/asc-login.js
+# → 2FA コード1回（system event で要求）
+# → ~/.asc/playwright-cookies.json 保存
+# → ~/.asc/playwright-auth.json 更新:
+#   {"last_login":"2026-03-01T00:00:00Z","expires_at":"2026-03-29T00:00:00Z"}
+```
+
+#### Step 1: asc apps create（2FA なし）
+
+クッキーが有効なら 2FA を聞かれない。
+
+```bash
 asc apps create \
-  --name "AppName" \
-  --bundle-id "com.anicca.appname" \
-  --sku "appname-001" \
-  --apple-id "keiodaisuke@gmail.com" \
-  --password "$APPLE_ID_PASSWORD" \
-  --two-factor-code "XXXXXX"
+  --name "<app_name>" \
+  --bundle-id "<bundle_id>" \
+  --sku "<slug>" \
+  --primary-locale en-US
 ```
-→ Anicca が Slack に「2FA コードください」投稿
-→ Dais が 6 桁コードを Slack に投稿
-→ Anicca がコマンド実行
+
+#### Step 1 失敗時フォールバック: Slack に手動作成依頼
+
+```
+system event → Slack:
+
+📱 ASC でアプリを手動作成してください（30秒）
+
+https://appstoreconnect.apple.com → + → 新規App
+
+コピペ情報:
+  プラットフォーム: iOS
+  名前: <app_name>
+  プライマリ言語: English (U.S.)
+  バンドルID: <bundle_id>
+  SKU: <slug>
+  ユーザアクセス: アクセス制限なし
+
+完了したら「完了」と送ってください。
+```
+
+#### ⚠️ 現状（2026-03-01）
+
+Playwright は未実装。実装されるまで Step 0/0b をスキップしてフォールバック（Slack 手動作成依頼）を使う。
