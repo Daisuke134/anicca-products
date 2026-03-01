@@ -50,7 +50,7 @@
         "docs/RELEASE_SPEC.md exists",
         "Typecheck passes"
       ],
-      "priority": 4, "passes": false, "notes": ""
+      "priority": 4, "passes": true, "notes": "7 docs generated in docs/. PRD: bundle=com.anicca.micromood, $4.99/mo $29.99/yr. IMPL: RevenueCat real SDK. 2026-03-01"
     },
     {
       "id": "US-005",
