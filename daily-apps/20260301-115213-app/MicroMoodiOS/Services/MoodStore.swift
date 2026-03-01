@@ -2,6 +2,8 @@ import CoreData
 import Foundation
 
 class MoodStore: ObservableObject {
+    static let shared = MoodStore()
+
     let container: NSPersistentContainer
 
     init(container: NSPersistentContainer = PersistenceController.shared.container) {

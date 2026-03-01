@@ -19,7 +19,7 @@ class InsightsViewModel: ObservableObject {
     func loadInsights() async {
         isLoading = true
         defer { isLoading = false }
-        let entries = moodStore.fetchEntries(limit: 30)
+        let entries = moodStore.fetchEntries(limit: 30).map { MoodEntry(from: $0) }
         moodTrend = entries
         weeklyInsight = insightEngine.generateWeeklyInsight(from: entries)
     }

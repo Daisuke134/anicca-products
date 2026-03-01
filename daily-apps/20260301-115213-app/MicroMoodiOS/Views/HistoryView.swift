@@ -67,7 +67,7 @@ struct HistoryView: View {
 
     private func loadEntries() {
         let limit = subscriptionManager.isPro ? 365 : 30
-        entries = moodStore.fetchEntries(limit: limit)
+        entries = moodStore.fetchEntries(limit: limit).map { MoodEntry(from: $0) }
     }
 
     private var groupedEntries: [(key: String, value: [MoodEntry])] {

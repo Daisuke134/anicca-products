@@ -20,6 +20,7 @@
 		80FC8F2F0EB9B99C5A341F61 /* MicroMoodApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C4CDCB3967B0B497F1B0A8 /* MicroMoodApp.swift */; };
 		8F4FC5EBB11B5B0922FE8868 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 96FCEF2DBCBBE43F386F91B5 /* RevenueCat */; };
 		9B7979E48C0AFA3218A88507 /* MoodEntryMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED70EA7126977F86F4518E2 /* MoodEntryMO+CoreDataProperties.swift */; };
+		A1B2C3D4E5F60718A9B0C1D2 /* MoodEntryMO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F60718A9B0C1D3 /* MoodEntryMO+CoreDataClass.swift */; };
 		A70582EE0478EDCA7543009D /* MoodEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B60A17C21042710506240E /* MoodEntry.swift */; };
 		AD29D4FD286B79ED4F79546E /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B15108B4FB01A21C8BEBAD /* OnboardingView.swift */; };
 		B9F1DCDF1518830A5AC314D7 /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF439537F6AC7F9BE9B3C78 /* SubscriptionManager.swift */; };
@@ -55,6 +56,7 @@
 		439D637227A33C71B271EF42 /* InsightsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsViewModel.swift; sourceTree = "<group>"; };
 		44B60A17C21042710506240E /* MoodEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoodEntry.swift; sourceTree = "<group>"; };
 		4ED70EA7126977F86F4518E2 /* MoodEntryMO+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoodEntryMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A1B2C3D4E5F60718A9B0C1D3 /* MoodEntryMO+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoodEntryMO+CoreDataClass.swift"; sourceTree = "<group>"; };
 		5CBD20CFF8E32AEAF4E332EA /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		5CF577AF2861E43CC2235271 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		5D023033CD7278582FA4A2C4 /* MicroMoodWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicroMoodWidget.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				44B60A17C21042710506240E /* MoodEntry.swift */,
+				A1B2C3D4E5F60718A9B0C1D3 /* MoodEntryMO+CoreDataClass.swift */,
 				4ED70EA7126977F86F4518E2 /* MoodEntryMO+CoreDataProperties.swift */,
 				1EE9DA52917854FDF0CB9E06 /* MoodLevel.swift */,
 			);
@@ -326,6 +329,7 @@
 				F8757CFBB5693519E73347A9 /* MainTabView.swift in Sources */,
 				80FC8F2F0EB9B99C5A341F61 /* MicroMoodApp.swift in Sources */,
 				A70582EE0478EDCA7543009D /* MoodEntry.swift in Sources */,
+				A1B2C3D4E5F60718A9B0C1D2 /* MoodEntryMO+CoreDataClass.swift in Sources */,
 				9B7979E48C0AFA3218A88507 /* MoodEntryMO+CoreDataProperties.swift in Sources */,
 				DF90D4F084D64E9AA658CA32 /* MoodLevel.swift in Sources */,
 				205E62FE61D3F52153ACD985 /* MoodStore.swift in Sources */,

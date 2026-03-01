@@ -16,7 +16,7 @@ struct MoodEntry: Identifiable {
     init(from mo: MoodEntryMO) {
         self.id = mo.id
         self.timestamp = mo.timestamp
-        self.moodLevel = MoodLevel(rawValue: Int(mo.moodLevel)) ?? .okay
+        self.moodLevel = MoodLevel(rawValue: mo.moodLevel) ?? .okay
         self.note = mo.note
     }
 }
