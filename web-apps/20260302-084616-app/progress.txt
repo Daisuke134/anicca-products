@@ -1,0 +1,10 @@
+## 2026-03-02 - US-001: Trend Research + App Name Selection
+- Evaluated 5 niches: Content Repurposing, Invoice Generator, Subscription Tracker, Email Signature Generator, Status Page
+- Selected: **SignatureCraft** — Professional email signature generator
+- Scoring: 8/10 (market: med, competition: low-med, build: easy, sub value: high)
+- Files: idea.md, prd.json, CLAUDE.md
+- **Learnings for future iterations:**
+  - AI-dependent ideas require API keys — check .env availability FIRST before selecting
+  - 100% client-side tools have lower operational cost and fewer failure modes
+  - Competitor pricing research validates willingness to pay ($4-6/mo range)
+  - WiseStamp/Newoldstamp prove subscription model works for signature generators
