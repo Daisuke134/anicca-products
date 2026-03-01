@@ -38,8 +38,8 @@
         ".env.local contains STRIPE_SECRET_KEY, STRIPE_PRICE_ID, NEXT_PUBLIC_URL"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "prod_U4Sgi7Fu1Bkz4A / price_1T6JldEeDsUAcaLSyosi6Dry / $4.99/mo"
     },
     {
       "id": "US-003",

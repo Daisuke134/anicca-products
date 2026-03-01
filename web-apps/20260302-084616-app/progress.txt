@@ -8,3 +8,13 @@
   - 100% client-side tools have lower operational cost and fewer failure modes
   - Competitor pricing research validates willingness to pay ($4-6/mo range)
   - WiseStamp/Newoldstamp prove subscription model works for signature generators
+
+## 2026-03-02 - US-002: Stripe Product + Price Creation
+- Created Stripe product: prod_U4Sgi7Fu1Bkz4A (SignatureCraft Pro)
+- Created Stripe price: price_1T6JldEeDsUAcaLSyosi6Dry ($4.99/mo recurring)
+- .env.local created with STRIPE_SECRET_KEY, STRIPE_PRICE_ID, NEXT_PUBLIC_URL
+- .gitignore updated to exclude .env.local
+- **Learnings for future iterations:**
+  - Always source web-apps/.env for shared secrets
+  - Stripe API returns full JSON — parse with python3 for reliability
+  - .env.local must be gitignored BEFORE any commit
