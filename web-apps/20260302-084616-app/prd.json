@@ -66,8 +66,8 @@
         "npm run build passes"
       ],
       "priority": 4,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Landing + /create (signature editor with 3 templates) + /pricing (Stripe Checkout) + /success + /api/webhook. Build passes."
     },
     {
       "id": "US-005",

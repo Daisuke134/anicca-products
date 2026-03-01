@@ -1,65 +1,120 @@
-import Image from "next/image";
+import Link from "next/link";
+
+const features = [
+  {
+    icon: "⚡",
+    title: "Instant Preview",
+    description:
+      "See your signature update in real-time as you type. No waiting, no page refreshes.",
+  },
+  {
+    icon: "🎨",
+    title: "Modern Templates",
+    description:
+      "Choose from professionally designed templates that make a lasting impression.",
+  },
+  {
+    icon: "📋",
+    title: "One-Click Copy",
+    description:
+      "Copy your signature and paste directly into Gmail, Outlook, or Apple Mail.",
+  },
+  {
+    icon: "🔗",
+    title: "Social Links",
+    description:
+      "Add LinkedIn, Twitter, GitHub, and website links with beautiful icons.",
+  },
+  {
+    icon: "📱",
+    title: "Mobile Responsive",
+    description:
+      "Signatures that look great on every device and email client.",
+  },
+  {
+    icon: "🚀",
+    title: "No Signup Required",
+    description:
+      "Create your first signature for free — no account needed to get started.",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <>
+      <section className="relative overflow-hidden bg-gradient-to-b from-indigo-50 to-white px-6 py-24 dark:from-zinc-900 dark:to-zinc-950 lg:py-32">
+        <div className="mx-auto max-w-4xl text-center">
+          <h1 className="text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-5xl lg:text-6xl">
+            Professional email signatures{" "}
+            <span className="text-indigo-600">in seconds</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+            Stop spending hours on HTML. Create beautiful, modern email
+            signatures with real-time preview and one-click copy for Gmail,
+            Outlook, and Apple Mail.
           </p>
+          <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+            <Link
+              href="/create"
+              className="rounded-lg bg-indigo-600 px-8 py-3 text-base font-semibold text-white shadow-sm transition-colors hover:bg-indigo-700"
+            >
+              Create Your Signature — Free
+            </Link>
+            <Link
+              href="/pricing"
+              className="rounded-lg border border-zinc-300 px-8 py-3 text-base font-semibold text-zinc-700 transition-colors hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+            >
+              View Pricing
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <section className="px-6 py-24">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-center text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+            Everything you need for a perfect signature
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-center text-zinc-600 dark:text-zinc-400">
+            No design skills required. Just fill in your details and pick a
+            template.
+          </p>
+          <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {features.map((feature) => (
+              <div
+                key={feature.title}
+                className="rounded-xl border border-zinc-200 p-6 transition-shadow hover:shadow-md dark:border-zinc-800"
+              >
+                <div className="text-3xl">{feature.icon}</div>
+                <h3 className="mt-4 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+                  {feature.title}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="bg-indigo-600 px-6 py-16">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-3xl font-bold text-white">
+            Ready to make a great first impression?
+          </h2>
+          <p className="mt-4 text-lg text-indigo-100">
+            Join thousands of professionals who use SignatureCraft to stand out
+            in every email.
+          </p>
+          <Link
+            href="/create"
+            className="mt-8 inline-block rounded-lg bg-white px-8 py-3 text-base font-semibold text-indigo-600 shadow-sm transition-colors hover:bg-indigo-50"
+          >
+            Create Your Signature Now
+          </Link>
+        </div>
+      </section>
+    </>
   );
 }

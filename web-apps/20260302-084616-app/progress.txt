@@ -26,3 +26,19 @@
 - **Learnings for future iterations:**
   - create-next-app conflicts with existing files — must temporarily move them
   - Always restore .env.local after scaffold (not tracked by git)
+
+## 2026-03-02 - US-004: Feature Implementation
+- Landing page: hero section + 6 feature cards + CTA section
+- /create: Signature editor with 3 templates (modern/minimal/bold), 8 color options, real-time preview, one-click HTML copy
+- /pricing: Free vs Pro plans with Stripe Checkout via Server Action
+- /success: Post-checkout confirmation page
+- /api/webhook: Stripe webhook handler (503 when no secret)
+- Components: Header, Footer, SignatureEditor, CheckoutButton
+- Lib: actions.ts (Server Action), templates.ts (signature generation)
+- Prohibited patterns check: ZERO violations
+- npm run build: PASS
+- **Learnings for future iterations:**
+  - Stripe npm package pins apiVersion — must match installed version (2026-02-25.clover)
+  - Server Actions are cleaner than API routes for Stripe Checkout
+  - dangerouslySetInnerHTML is needed for HTML signature preview — sanitize in production
+  - ClipboardItem with text/html MIME type enables rich-text paste in email clients
