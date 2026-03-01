@@ -1,6 +1,9 @@
 "use client";
 
-const STRIPE_PRICE_ID = process.env.NEXT_PUBLIC_STRIPE_PRICE_ID || "price_1T6C45EeDsUAcaLSg8SXT0xT";
+import { createCheckoutSession } from "../actions/checkout";
+
+const STRIPE_PRICE_ID =
+  process.env.NEXT_PUBLIC_STRIPE_PRICE_ID || "price_1T6C45EeDsUAcaLSg8SXT0xT";
 
 const plans = [
   {
@@ -36,14 +39,9 @@ const plans = [
 
 export default function PricingPage() {
   const handleCheckout = async () => {
-    const res = await fetch("/api/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ priceId: STRIPE_PRICE_ID }),
-    });
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
+    const url = await createCheckoutSession(STRIPE_PRICE_ID);
+    if (url) {
+      window.location.href = url;
     }
   };
 
