@@ -55,6 +55,7 @@ Before starting any US, verify the previous US acceptance criteria:
 
 ### US-005: ASC + IAP + RevenueCat (INFRASTRUCTURE FIRST)
 # Source: ralph SKILL.md "Correct order: 1. Schema/database changes"
+- Read progress.txt FIRST — US-005 may be partially complete
 - Read: .claude/skills/asc-signing-setup/SKILL.md
 - Read: .claude/skills/asc-subscription-localization/SKILL.md
 - Read: .claude/skills/asc-ppp-pricing/SKILL.md
@@ -62,13 +63,33 @@ Before starting any US, verify the previous US acceptance criteria:
 - Steps:
   1. Privacy Policy → GitHub Pages
   2. asc-signing-setup: certs + profiles
-  3. ASC app creation (asc apps create or Slack fallback)
-  4. Subscription group + monthly + annual IAP
+  3. ASC app creation — MANUAL (2FA required, cannot automate):
+     Send to Slack via openclaw system event:
+     ```
+     🏭 US-005: ASC アプリ作成が必要です
+     
+     https://appstoreconnect.apple.com/apps → 左上「＋」→「新規App」
+     
+     以下をそのまま入力してください:
+     
+     プラットフォーム: ☑️ iOS
+     名前: ${APP_NAME}
+     プライマリ言語: English (U.S.)
+     バンドルID: ${BUNDLE_ID} — Xcode Managed
+     SKU: ${SKU}
+     ユーザアクセス: アクセス制限なし
+     
+     「作成」を押したら、URLの数字（App ID）を Slack に送ってください。
+     例: https://appstoreconnect.apple.com/apps/6761234567 → 6761234567
+     ```
+     Replace ${APP_NAME}, ${BUNDLE_ID}, ${SKU} with actual values from docs/PRD.md.
+     After sending, check progress.txt for APP_ID= line. If not present, set passes:false and exit (next iteration will retry).
+  4. Subscription group + monthly + annual IAP (requires APP_ID)
   5. 175-country subscription pricing (price-point IDs, NOT --tier)
   6. RevenueCat: products + offering + packages (RC MCP or API)
-  7. SPM: add RevenueCat + RevenueCatUI
-  8. Add PrivacyInfo.xcprivacy (Apple WWDC23: developer.apple.com/videos/play/wwdc2023/10060/)
-  9. Add ITSAppUsesNonExemptEncryption=NO to Info.plist (Apple: developer.apple.com/documentation/bundleresources/information-property-list/itsappusesnonexemptencryption)
+  7. SPM: add RevenueCat + RevenueCatUI (check if already done in progress.txt)
+  8. Add PrivacyInfo.xcprivacy (check if already done)
+  9. Add ITSAppUsesNonExemptEncryption=NO (check if already done)
 - Verify: asc validate subscriptions blocking=0 warnings=0
 
 ### US-006: iOS implementation
