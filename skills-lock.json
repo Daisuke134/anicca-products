@@ -16,6 +16,11 @@
       "sourceType": "github",
       "computedHash": "9a076319cef172f4175818488c5e7e0b82f421f008c822269f9d9a6c0861683a"
     },
+    "apify-ultimate-scraper": {
+      "source": "apify/agent-skills",
+      "sourceType": "github",
+      "computedHash": "847df3384aa8e9501211d69c637a8ec0f4ec7d39bc7c6517b37d04238f190628"
+    },
     "app-store-screenshots": {
       "source": "inference-sh-6/skills",
       "sourceType": "github",
@@ -56,6 +61,11 @@
       "sourceType": "github",
       "computedHash": "cac4f95f64a20e9fc9f1bffe466ee562ebcc22bdbf128b2a2ce9dd01e298a4bd"
     },
+    "niche-opportunity-finder": {
+      "source": "zanecole10/software-tailor-skills",
+      "sourceType": "github",
+      "computedHash": "e3e712ef7315502b58e33516978d9496c8551aff4ec0834b9a24db088fd6252c"
+    },
     "paywall-upgrade-cro": {
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
@@ -90,6 +100,11 @@
       "source": "sickn33/antigravity-awesome-skills",
       "sourceType": "github",
       "computedHash": "5d927b03134e9855ff300aa7d60162ca7c2d8cb66dede74506f73aab3bf2208f"
+    },
+    "startup-idea-validation": {
+      "source": "vasilyu1983/ai-agents-public",
+      "sourceType": "github",
+      "computedHash": "2401ad80dc0a45f53416e6226154549fca8c39d2bcf648de9a8b2501a4352687"
     },
     "tiktok-research": {
       "source": "bradautomates/head-of-content",
