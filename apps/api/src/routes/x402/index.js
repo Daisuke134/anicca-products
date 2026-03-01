@@ -25,6 +25,13 @@ if (PAY_TO) {
     const server = new x402ResourceServer(facilitatorClient);
     server.register(network, new ExactEvmScheme());
 
+    try {
+      await server.initialize();
+      console.log('✅ x402 server initialized successfully');
+    } catch (initErr) {
+      console.error('⚠️ x402 server.initialize() failed:', initErr.message);
+    }
+
     router.use(
       paymentMiddleware(
         {
