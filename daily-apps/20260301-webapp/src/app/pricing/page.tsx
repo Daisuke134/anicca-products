@@ -1,5 +1,7 @@
 "use client";
 
+const STRIPE_PRICE_ID = process.env.NEXT_PUBLIC_STRIPE_PRICE_ID || "price_1T6C45EeDsUAcaLSg8SXT0xT";
+
 const plans = [
   {
     name: "Free",
@@ -27,15 +29,22 @@ const plans = [
       "Priority support",
     ],
     cta: "Upgrade to Pro",
-    href: "#",
+    href: "/pricing",
     primary: true,
   },
 ];
 
 export default function PricingPage() {
   const handleCheckout = async () => {
-    // Stripe checkout will be configured with actual price IDs after Stripe product setup
-    alert("Stripe checkout coming soon — set up your Stripe product first.");
+    const res = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ priceId: STRIPE_PRICE_ID }),
+    });
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    }
   };
 
   return (
