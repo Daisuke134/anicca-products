@@ -83,7 +83,7 @@ Before starting any US, verify the previous US acceptance criteria:
      例: https://appstoreconnect.apple.com/apps/6761234567 → 6761234567
      ```
      Replace ${APP_NAME}, ${BUNDLE_ID}, ${SKU} with actual values from docs/PRD.md.
-     After sending, check progress.txt for APP_ID= line. If not present, set passes:false and exit (next iteration will retry).
+     After sending, check prd.json US-005 notes field for APP_ID=. Also check progress.txt. If not found in either, set passes:false and exit (next iteration will retry).
   4. Subscription group + monthly + annual IAP (requires APP_ID)
   5. 175-country subscription pricing (price-point IDs, NOT --tier)
   6. RevenueCat: products + offering + packages (RC MCP or API)

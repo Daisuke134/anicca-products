@@ -13,7 +13,9 @@
         "Sources cited for each trend",
         "Typecheck passes"
       ],
-      "priority": 1, "passes": true, "notes": "Micro Mood selected — 8.8/10. iOS mood tracker with 3-tap check-in + AI weekly patterns. 2026-03-01"
+      "priority": 1,
+      "passes": true,
+      "notes": "Micro Mood selected — 8.8/10. iOS mood tracker with 3-tap check-in + AI weekly patterns. 2026-03-01"
     },
     {
       "id": "US-002",
@@ -25,7 +27,9 @@
         "All claims cite external sources",
         "Typecheck passes"
       ],
-      "priority": 2, "passes": true, "notes": "product-plan.md created. $4.99/mo, $29.99/yr. CoreData + SwiftUI. 2026-03-01"
+      "priority": 2,
+      "passes": true,
+      "notes": "product-plan.md created. $4.99/mo, $29.99/yr. CoreData + SwiftUI. 2026-03-01"
     },
     {
       "id": "US-003",
@@ -35,7 +39,9 @@
         "market-research.md exists with TAM/SAM/SOM",
         "Typecheck passes"
       ],
-      "priority": 3, "passes": true, "notes": "competitive-analysis.md + market-research.md. TAM $9.94B, SAM $2.49B. 5 competitors. 2026-03-01"
+      "priority": 3,
+      "passes": true,
+      "notes": "competitive-analysis.md + market-research.md. TAM $9.94B, SAM $2.49B. 5 competitors. 2026-03-01"
     },
     {
       "id": "US-004",
@@ -50,7 +56,9 @@
         "docs/RELEASE_SPEC.md exists",
         "Typecheck passes"
       ],
-      "priority": 4, "passes": true, "notes": "7 docs generated in docs/. PRD: bundle=com.anicca.micromood, $4.99/mo $29.99/yr. IMPL: RevenueCat real SDK. 2026-03-01"
+      "priority": 4,
+      "passes": true,
+      "notes": "7 docs generated in docs/. PRD: bundle=com.anicca.micromood, $4.99/mo $29.99/yr. IMPL: RevenueCat real SDK. 2026-03-01"
     },
     {
       "id": "US-005",
@@ -67,7 +75,9 @@
         "Info.plist contains ITSAppUsesNonExemptEncryption = NO",
         "Typecheck passes"
       ],
-      "priority": 5, "passes": false, "notes": "ralph dependency order: Schema/infrastructure first"
+      "priority": 5,
+      "passes": false,
+      "notes": "APP_ID=6759877003 APP_NAME=Micro-Mood BUNDLE_ID=com.anicca.micromood SKU=MicroMood2026 PRIVACY_POLICY_URL=https://daisuke134.github.io/micromood-privacy/ CERT_ID=P8XCDP64HZ PROFILE_ID=P3RNZ5D49S"
     },
     {
       "id": "US-006",
@@ -80,7 +90,9 @@
         "PaywallView uses RevenueCatUI (not custom mock paywall)",
         "Typecheck passes"
       ],
-      "priority": 6, "passes": false, "notes": "依存: US-005 の RC Offerings + SPM"
+      "priority": 6,
+      "passes": false,
+      "notes": "依存: US-005 の RC Offerings + SPM"
     },
     {
       "id": "US-007",
@@ -91,7 +103,9 @@
         "All tests pass",
         "Typecheck passes"
       ],
-      "priority": 7, "passes": false, "notes": ""
+      "priority": 7,
+      "passes": false,
+      "notes": ""
     },
     {
       "id": "US-008",
@@ -114,7 +128,9 @@
         "Slack #metrics notified",
         "Typecheck passes"
       ],
-      "priority": 8, "passes": false, "notes": ""
+      "priority": 8,
+      "passes": false,
+      "notes": ""
     },
     {
       "id": "US-009",
@@ -125,7 +141,9 @@
         "asc submit create returns WAITING_FOR_REVIEW",
         "Slack #metrics notified: WAITING_FOR_REVIEW"
       ],
-      "priority": 9, "passes": false, "notes": ""
+      "priority": 9,
+      "passes": false,
+      "notes": ""
     }
   ]
 }
