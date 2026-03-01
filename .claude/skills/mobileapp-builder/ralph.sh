@@ -38,7 +38,7 @@ for i in $(seq 1 $MAX_ITERATIONS); do
 
   LOG_FILE="$SCRIPT_DIR/logs/iteration-$i.log"
 
-  OUTPUT=$(claude --dangerously-skip-permissions --print < "$SCRIPT_DIR/CLAUDE.md" 2>&1 | tee "$LOG_FILE") || true
+  OUTPUT=$(claude --dangerously-skip-permissions --print --mcp-config ~/.claude/mcp.json < "$SCRIPT_DIR/CLAUDE.md" 2>&1 | tee "$LOG_FILE") || true
 
   echo ""
   echo "🏭 Iteration $i 終了: $(date)"
