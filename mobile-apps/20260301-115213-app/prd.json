@@ -136,8 +136,8 @@
         "Typecheck passes"
       ],
       "priority": 8,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "Screenshots(3): Track Your Mood/AI-Powered/Break Free. koubou 0.14.0 framed(iPhone16Pro). Uploaded en-US+ja ✅. Metadata en-US+ja synced ✅. ATT+CFBundleDisplayName added ✅. Build v5(e7a20ac5) VALID ✅. Attached to version 1eb6f044 ✅. AgeRating all-NONE ✅. ReviewDetails demo-N/A ✅. Availability 175 territories ✅. ContentRights DOES_NOT_USE_THIRD_PARTY_CONTENT ✅. usesNonExemptEncryption=false ✅. asc validate Errors=0 ✅. greenlight CRITICAL=0 ✅. TestFlight internal group ✅. Sub review screenshots ✅. 2026-03-02",
       "spec": "specs/US-008.md"
     },
     {
@@ -151,7 +151,7 @@
       ],
       "priority": 9,
       "passes": false,
-      "notes": "",
+      "notes": "BLOCKER: App Privacy data usages incomplete. Error: 'Your app indicates that your track users.' asc web privacy requires 2FA so not automatable. SUBMISSION_ID=bf3dfba9-023b-4a73-901c-9bacf416c30b VERSION_ID=1eb6f044 BUILD_ID=e7a20ac5(v5,VALID). Human must: (1) Go to https://appstoreconnect.apple.com/apps/6759877003/distribution/privacy (2) Declare Identifier(DeviceID,analytics+tracking) + Usage Data(ProductInteraction,analytics) (3) Create .app-privacy-done file. .app-privacy-done deleted to force re-confirmation. 2026-03-02",
       "spec": "specs/US-009.md"
     }
   ]
