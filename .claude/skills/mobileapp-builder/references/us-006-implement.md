@@ -39,6 +39,9 @@ paywall_plan_monthly / paywall_plan_yearly / paywall_cta / paywall_skip / paywal
 - ⛔ `RevenueCatUI.PaywallView` 禁止
 - ⛔ Mock/Placeholder コード禁止
 - ⛔ 存在しない機能を Paywall コピーに書く禁止（Rule 11）
+- ⛔ **Mixpanel/Firebase Analytics/Amplitude 禁止** — Greenlight が CRITICAL 検出（ATT 必須になる）
+- ⛔ **AppTrackingTransparency 禁止** — Paywall スクショ撮影を妨害する
+- ⛔ **NSUserTrackingUsageDescription 禁止** — ATT と同じ
 
 ## Mock ゼロ検証 (PATCH 9)
 ```bash

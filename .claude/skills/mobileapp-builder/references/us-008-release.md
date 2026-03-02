@@ -144,8 +144,34 @@ Source: rudrankriyam asc-submission-health SKILL.md
 ```bash
 # Attach build to version
 asc builds attach --app $APP_ID --version-id $VERSION_ID --build-id $BUILD_ID
+
+# Beta group 作成（存在しなければ）
+GROUP_ID=$(asc testflight beta-groups create --app $APP_ID --name "External Testers" --public-link-enabled true 2>&1 | jq -r '.data.id' || echo "")
+if [ -z "$GROUP_ID" ]; then
+  GROUP_ID=$(asc testflight beta-groups list --app $APP_ID 2>&1 | jq -r '.data[0].id')
+fi
+
 # TestFlight distribution
-asc testflight distribute --app $APP_ID --build-id $BUILD_ID --group "External Testers"
+asc testflight beta-builds add --group-id $GROUP_ID --build-id $BUILD_ID
+
+# Public link 取得
+TESTFLIGHT_URL=$(asc testflight beta-groups get --id $GROUP_ID 2>&1 | jq -r '.data.attributes.publicLink // empty')
+if [ -z "$TESTFLIGHT_URL" ]; then
+  TESTFLIGHT_URL="https://testflight.apple.com/join/PENDING"
+fi
+```
+
+### Step 9.5: TestFlight テスター招待
+Source: asc CLI docs
+> 「asc testflight beta-testers add --email EMAIL --group-id GROUP_ID」
+
+```bash
+# 環境変数から Dais のメールを取得
+source ~/.config/mobileapp-builder/.env
+TESTER_EMAIL="${TESTER_EMAIL:-keiodaisuke@gmail.com}"
+
+# テスター招待
+asc testflight beta-testers add --email "$TESTER_EMAIL" --group-id $GROUP_ID --first-name "Dais" --last-name "Narita"
 ```
 
 

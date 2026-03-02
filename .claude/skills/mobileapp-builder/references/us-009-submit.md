@@ -13,36 +13,58 @@ asc validate --app "$APP_ID" --version-id "$VERSION_ID" --platform IOS 2>&1 | gr
   || { echo "GATE FAIL: validation errors exist"; exit 1; }
 ```
 
-## Step 1: App Privacy (人間介入 — STOP)
+## Step 1: App Privacy（CLI 自動）
 
-Source: mobileapp-builder CRITICAL RULE 25
-> 「App Privacy は ASC API 不可。手動のみ」
+Source: end.md Q2.E + asc CLI 0.36.1
+> 「asc web privacy apply + publish」
 
-CC は以下を実行:
-1. progress.txt に「Waiting for App Privacy setup」と書く
-2. passes: false のまま終了
+**人間介入不要。** `asc web privacy` で完全自動化。
 
-CC は progress.txt に以下を書いて passes:false で終了:
-```
-WAITING_FOR_HUMAN: App Privacy setup
-⏸️ App Privacy を ASC Web で設定してください
-URL: https://appstoreconnect.apple.com/apps/<APP_ID>
-App → App Privacy → Get Started → 設定 → Save
-完了したら Slack で「done」と返信してください
-```
-
-ralph.sh が progress.txt の WAITING_FOR_HUMAN を検出 → Slack に投稿。
-
-### 待ちパターン (.app-privacy-done)
-Source: v3 spec §9
-1. Dais が ASC Web で設定 → Slack で「done」
-2. Anicca（OpenClaw）が `touch .app-privacy-done`
-3. 次の ralph iteration で CC が `.app-privacy-done` を検出
-4. → Step 2 へ進む
-
+### 1.1: Web セッション確認
 ```bash
-# CC がチェック:
-test -f .app-privacy-done || { echo "App Privacy not done yet. passes:false"; exit 0; }
+# セッションが有効か確認（無効なら Step 5 の ASC App Creation で既にログイン済みのはず）
+asc web auth status 2>&1 | grep -q "authenticated" || {
+  echo "⚠️ Web session expired. Re-authenticate needed."
+  # 2FA は ASC App Creation (Step 5) で既に完了しているはず
+}
+```
+
+### 1.2: Privacy 宣言（DATA_NOT_COLLECTED パターン）
+```bash
+# 収集データなしの場合（ほとんどの MVP アプリ）
+cat > /tmp/privacy.json << 'EOF'
+{
+  "privacyChoices": {
+    "dataNotCollected": true
+  }
+}
+EOF
+
+# 適用 + 公開
+asc web privacy apply --app $APP_ID --file /tmp/privacy.json
+asc web privacy publish --app $APP_ID
+```
+
+### 1.3: 収集データありの場合
+```bash
+# AnalyticsService がある場合など
+cat > /tmp/privacy.json << 'EOF'
+{
+  "privacyChoices": {
+    "dataNotCollected": false,
+    "dataTypes": [
+      {
+        "dataType": "USAGE_DATA",
+        "purposes": ["ANALYTICS"],
+        "dataProtections": ["DATA_NOT_LINKED_TO_USER"]
+      }
+    ]
+  }
+}
+EOF
+
+asc web privacy apply --app $APP_ID --file /tmp/privacy.json
+asc web privacy publish --app $APP_ID
 ```
 
 ## Step 2: Submit for Review

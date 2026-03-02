@@ -155,35 +155,99 @@ asc subscriptions availability set --id $ANNUAL_ID --territory "USA,CAN,GBR,DEU,
 ```
 
 ### 6.5: 価格設定（availability の後！）
+Source: end.md Q2.B
+> 「asc subscriptions prices add --id SUB_ID --price-point PP_ID --territory TER」
+
 ```bash
-# CSV で一括 import
-cat > /tmp/monthly-prices.csv << 'EOF'
-territory,price
-USA,4.99
-EOF
-asc subscriptions prices import --id $MONTHLY_ID --input /tmp/monthly-prices.csv
+# 月額 $4.99 の price-point ID 取得
+MONTHLY_PP=$(asc subscriptions price-points list --subscription-id $MONTHLY_ID 2>&1 | \
+  jq -r '.data[] | select(.attributes.customerPrice == "4.99") | .id' | head -1)
 
-cat > /tmp/annual-prices.csv << 'EOF'
-territory,price
-USA,29.99
-EOF
-asc subscriptions prices import --id $ANNUAL_ID --input /tmp/annual-prices.csv
+# 年額 $29.99 の price-point ID 取得  
+ANNUAL_PP=$(asc subscriptions price-points list --subscription-id $ANNUAL_ID 2>&1 | \
+  jq -r '.data[] | select(.attributes.customerPrice == "29.99") | .id' | head -1)
+
+# USA 基準で価格設定（equalizations で他国に自動展開）
+asc subscriptions prices add --id $MONTHLY_ID --price-point "$MONTHLY_PP"
+asc subscriptions prices add --id $ANNUAL_ID --price-point "$ANNUAL_PP"
 ```
 
-## Step 7: RC Setup (人間介入)
-CC は progress.txt に以下を書いて passes:false で終了する。
-ralph.sh が検出して Slack に投稿する:
+### 6.6: 40ロケール一括ローカライズ
+Source: end.md Q2.C
+> 「asc subscriptions localizations create --subscription-id SUB_ID --locale xx --name "..."」
+
+```bash
+LOCALES="ar-SA ca cs da de-DE el en-AU en-CA en-GB en-US es-ES es-MX fi fr-CA fr-FR he hi hr hu id it ja ko ms nl-NL no pl pt-BR pt-PT ro ru sk sv th tr uk vi zh-Hans zh-Hant"
+
+for locale in $LOCALES; do
+  asc subscriptions localizations create --subscription-id $MONTHLY_ID --locale "$locale" --name "Monthly Premium" 2>/dev/null || true
+  asc subscriptions localizations create --subscription-id $ANNUAL_ID --locale "$locale" --name "Annual Premium" 2>/dev/null || true
+done
 ```
-📱 <app_name> の RC セットアップをお願いします（5分）:
+
+## Step 7: RC Setup
+
+### 7.1: RC プロジェクト作成（人間介入 — 唯一の手動タスク）
+CC は progress.txt に以下を書いて WAITING_FOR_HUMAN:
+```
+WAITING_FOR_HUMAN: RC Project Creation
+📱 RC プロジェクト作成をお願いします（2分）:
 1. https://app.revenuecat.com → + Create new project
-2. + App → App Store → Bundle ID: <bundle_id>
-3. In-app purchase key → .p8 / Key ID / Issuer ID → Save
-4. 返信: proj URL + sk_ + appl_
+2. プロジェクト名: <app_name>
+3. + App → App Store → Bundle ID: <bundle_id>
+4. Overview URL を返信（例: https://app.revenuecat.com/projects/976e8639/overview）
+```
+
+### 7.2: RC Offering 作成（MCP 自動）
+Source: end.md Q2.A
+> 「RC_create_offering → RC_create_package → RC_attach_products_to_package」
+
+Dais が URL を返信したら:
+```bash
+# URL から project_id 抽出
+RC_URL="<received_url>"
+RC_PROJECT_ID="proj$(echo $RC_URL | grep -oE '[a-f0-9]{8}' | head -1)"
+
+# MCP 経由で Offering 作成
+# STEP 1: Offering 作成
+mcp_call RC_create_offering '{
+  "project_id": "'$RC_PROJECT_ID'",
+  "lookup_key": "'$APP_SLUG'_default",
+  "display_name": "'$APP_NAME' Default"
+}'
+
+# STEP 2: Monthly Package 作成
+mcp_call RC_create_package '{
+  "project_id": "'$RC_PROJECT_ID'",
+  "offering_id": "'$OFFERING_ID'",
+  "lookup_key": "$rc_monthly",
+  "display_name": "Monthly"
+}'
+
+# STEP 3: Annual Package 作成
+mcp_call RC_create_package '{
+  "project_id": "'$RC_PROJECT_ID'",
+  "offering_id": "'$OFFERING_ID'",
+  "lookup_key": "$rc_annual",
+  "display_name": "Annual"
+}'
+
+# STEP 4: Product 紐付け
+mcp_call RC_attach_products_to_package '{
+  "project_id": "'$RC_PROJECT_ID'",
+  "package_id": "'$MONTHLY_PKG_ID'",
+  "products": [{"product_id": "'$BUNDLE_ID'.monthly", "eligibility_criteria": "all"}]
+}'
+
+mcp_call RC_attach_products_to_package '{
+  "project_id": "'$RC_PROJECT_ID'",
+  "package_id": "'$ANNUAL_PKG_ID'",
+  "products": [{"product_id": "'$BUNDLE_ID'.annual", "eligibility_criteria": "all"}]
+}'
 ```
 
 Keys を受け取ったら:
 - `.env` に RC_SECRET_KEY, RC_PUBLIC_KEY を書く
-- RC MCP で offerings + entitlements 作成
 - SPM dependency: RevenueCat + (RevenueCatUI は禁止)
 
 ## Step 8: SPM + Info.plist
