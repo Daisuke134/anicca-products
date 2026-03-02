@@ -64,3 +64,36 @@
   - IMPLEMENTATION_GUIDE must explicitly say "NOT Mock" and "NOT ProcessInfo.processInfo.environment" to avoid US-006 errors
   - Soft paywall [Maybe Later] requirement is CLAUDE.md Rule 19 — document in UX_SPEC upfront
 ---
+
+## 2026-03-02 - US-005: ASC Setup + IAP + RevenueCat (IN PROGRESS)
+- privacy-policy.md + terms.md created
+- Deployed to GitHub Pages: https://daisuke134.github.io/anicca-products/sleepritual/privacy-policy.html
+- Files created: privacy-policy.md, terms.md
+
+WAITING_FOR_HUMAN: ASC app creation + RevenueCat setup
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📱 アクション1: ASC でアプリを作成してください（2分）
+https://appstoreconnect.apple.com → My Apps → + → 新規App
+
+  プラットフォーム: iOS
+  名前: SleepRitual
+  プライマリ言語: English (U.S.)
+  バンドルID: com.anicca.sleepritual
+  SKU: sleepritual
+  ユーザアクセス: 制限なし
+
+完了したら APP_ID（数字10桁）を Slack で返信してください。
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📱 アクション2: RevenueCat プロジェクト作成（5分）
+https://app.revenuecat.com
+
+1. + Create new project → 名前: SleepRitual
+2. + App → App Store → Bundle ID: com.anicca.sleepritual
+3. In-app purchase key (.p8) を設定:
+   ASC → ユーザとアクセス → キー → App内課金の設定 → 鍵作成
+   .p8 ダウンロード + Key ID + Issuer ID → RevenueCatに貼付け
+4. 返信: RC_SECRET_KEY (sk_...) + RC_PUBLIC_KEY (appl_...)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
