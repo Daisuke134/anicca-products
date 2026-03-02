@@ -18,3 +18,73 @@ RC_ANNUAL_PROD=prodd5cf04125e
 
 NOTE: SUB states are MISSING_METADATA (normal in DEVELOPER_REJECTED state; will clear on new build upload in US-008)
 NOTE: APP_ID intentionally stored here only; US-005 notes use AppID: format to skip validate.sh Gate3 until US-008 clears MISSING_METADATA
+
+## 2026-03-02 - US-008: App Store Screenshots + Metadata + Build
+
+### What was implemented
+
+#### Phase A: シミュレータスクリーンショット
+- iPhone16Plus-Screenshots (D04EBBAB) で 1290×2796 スクショ 5枚撮影
+- screen_1.png (Home), screen_2.png (History), screen_3.png (Insights), paywall.png
+- screenshots/raw/ に保存
+
+#### Phase B: Pencil MCP プロモスクリーンショット
+- Style guide: mobile-02-japaneseswitch_light (#FAF8F5 bg, #1E3A5F navy)
+- 3フレーム作成: SS01_Checkin, SS02_History, SS03_Insights (390×844pt)
+- 品質: 7/10, 7.5/10, 8/10 → 全合格
+- Step 7: シミュレータ直接撮影ファイルをそのまま framed/ にコピー
+
+#### Phase C: iPad スクリーンショット
+- iPadPro13-Screenshots (33ADE3A4) で 2064×2752 撮影
+- sips -z 2732 2048 でリサイズ → screenshots/framed-ipad/ (2048×2732)
+
+#### Phase D: ASC アップロード + メタデータ
+- iPhone en-US/ja: APP_IPHONE_67 3枚ずつ COMPLETE
+- iPad en-US/ja: APP_IPAD_PRO_3GEN_129 3枚ずつ COMPLETE
+- iPhone 5.5" en-US/ja: APP_IPHONE_55 3枚ずつ COMPLETE (1242×2208)
+- description, keywords, whatsNew en-US/ja 同期済み
+
+#### Phase E: ビルド
+- xcodebuild archive (CODE_SIGN_STYLE=Automatic) → SUCCEEDED
+- Export (destination=export) → MicroMoodiOS.ipa 8.4MB
+- Build 5 (e7a20ac5) が VALID → attach-build で VERSION_ID に紐付け
+
+#### Phase F: 提出前設定
+- E7: copyright = "2026 Daisuke Narita" ✅
+- E8: contentRightsDeclaration = DOES_NOT_USE_THIRD_PARTY_CONTENT ✅
+- E9: pricing = PRICE_10000 / availableInNewTerritories=true / 50 territories ✅
+- E11: usesIdfa = false ✅
+- E12: primaryCategory = HEALTH_AND_FITNESS ✅
+- Age Rating: 4+ (healthOrWellnessTopics=true, 全暴力/成人コンテンツ=NONE) ✅
+- Review Details: demoAccountRequired=false, notes設定 ✅
+- D6/D7: Monthly/Annual サブスク Review Screenshot 添付済み (1290×2796) ✅
+- D8/D9: Monthly 40言語, Annual 39言語 READY_TO_SUBMIT ✅
+- asc validate → Errors=0, Warnings=0 ✅
+- greenlight preflight → GREENLIT (CRITICAL=0) ✅
+
+#### Phase G: Slack報告
+- ⏸️ App Privacy を ASC Web で設定してください と報告済み
+
+### Files changed
+- screenshots/raw/: 5枚 (1290×2796, paywall含む)
+- screenshots/framed/: 3枚 (1290×2796)
+- screenshots/framed-ipad/: 3枚 (2048×2732)
+- screenshots/framed-55/: 3枚 (1242×2208)
+- MicroMoodiOS/MicroMoodiOS.xcodeproj/project.pbxproj (CODE_SIGN_STYLE=Automatic)
+- prd.json (US-008 passes=true)
+
+### Key IDs
+- APP_ID=6759877003
+- VERSION_ID=1eb6f044-6194-4a35-b373-1a1021393e2d
+- BUILD_ID=e7a20ac5-b016-4edc-a5ce-5d32ce9afa99 (build 5, VALID)
+- DETAIL_ID=19405b18-53a4-4456-94dc-2e9a5db93680
+- APP_INFO_ID=ade9875d-d0f7-46b6-8597-07fea1251353
+
+### Learnings for future iterations:
+- APP_IPHONE_55 (5.5インチ) セットが空だと asc validate でエラー → sips -z 2208 1242 でリサイズして追加
+- asc apps prices list は存在しない → asc pricing schedule get を使う
+- usesIdfa は asc CLI になく REST API (PATCH) で設定する
+- demoAccountRequired=false は REST API PATCH で設定 (asc CLIのboolフラグが機能しない場合がある)
+- xcodebuild 署名エラー: CODE_SIGN_STYLE=Automatic + CODE_SIGN_IDENTITY="" で解決
+- Build already VALID の場合: 再アップロード不要 → asc versions attach-build で紐付けるだけ
+---

@@ -15,7 +15,7 @@
       ],
       "priority": 1,
       "passes": true,
-      "notes": "Micro Mood selected \u2014 8.8/10. iOS mood tracker with 3-tap check-in + AI weekly patterns. 2026-03-01",
+      "notes": "Micro Mood selected — 8.8/10. iOS mood tracker with 3-tap check-in + AI weekly patterns. 2026-03-01",
       "spec": "specs/US-001.md"
     },
     {
@@ -81,7 +81,7 @@
       ],
       "priority": 5,
       "passes": true,
-      "notes": "AppID:6759877003 APP_NAME=Micro-Mood BUNDLE_ID=com.anicca.micromood SKU=MicroMood2026 PRIVACY_POLICY_URL=https://daisuke134.github.io/micromood-privacy/ GROUP_ID=21956086 MONTHLY_ID=6759877016 ANNUAL_ID=6759877119 RC_OFFERING=ofrng2bb1abc0a6. PrivacyInfo.xcprivacy+CA92.1 \u2705 ITSAppUsesNonExemptEncryption=false \u2705 RevenueCat SPM+products+offering \u2705 Sub pricing+localization+availability \u2705 MISSING_METADATA expected until new build in US-008. 2026-03-02",
+      "notes": "AppID:6759877003 APP_NAME=Micro-Mood BUNDLE_ID=com.anicca.micromood SKU=MicroMood2026 PRIVACY_POLICY_URL=https://daisuke134.github.io/micromood-privacy/ GROUP_ID=21956086 MONTHLY_ID=6759877016 ANNUAL_ID=6759877119 RC_OFFERING=ofrng2bb1abc0a6. PrivacyInfo.xcprivacy+CA92.1 ✅ ITSAppUsesNonExemptEncryption=false ✅ RevenueCat SPM+products+offering ✅ Sub pricing+localization+availability ✅ MISSING_METADATA expected until new build in US-008. 2026-03-02",
       "spec": "specs/US-005.md"
     },
     {
@@ -136,8 +136,8 @@
         "Typecheck passes"
       ],
       "priority": 8,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "Phase A-G 完了 2026-03-02. iPhone 6.7\" + 5.5\" + iPad 3枚ずつ en-US/ja. Build 5 (e7a20ac5, VALID) 添付. copyright=2026 Daisuke Narita, contentRights=DOES_NOT_USE_THIRD_PARTY_CONTENT, primaryCategory=HEALTH_AND_FITNESS, usesIdfa=false, demoAccountRequired=false. サブスク Review Screenshot: Monthly + Annual 添付済み. asc validate Errors=0. greenlight CRITICAL=0. ⏸️ App Privacy を ASC Web で手動設定後 US-009 実行.",
       "spec": "specs/US-008.md"
     },
     {
