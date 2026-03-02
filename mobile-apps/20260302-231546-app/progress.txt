@@ -36,3 +36,15 @@
   - "Ritualize" was already taken; "SleepRitual" was available and more descriptive
   - Annual plan at 50% discount ($29.99 vs $59.88) is the strongest paywall CTA for freemium health apps
 ---
+
+## 2026-03-02 - US-003: Market Research
+- Created competitive-analysis.md: 6 competitors analyzed (Sleep Cycle, Calm, Headspace, Streaks, Habitify, Bedtime Fan)
+- Created market-research.md: TAM $3.4B global sleep app market, SAM $171M iOS US, SOM $300K ARR Year 2
+- Key finding: "sleep ritual builder" category is UNOCCUPIED — all competitors are tracking, content, or general habits
+- Pricing validated: $4.99/mo undercuts Calm ($14.99) and Headspace ($12.99); equal to Habitify ($4.99)
+- Files created: competitive-analysis.md, market-research.md
+- **Learnings for future iterations:**
+  - Sleep app market is NOT declining — incumbents (Calm/Headspace) decline ≠ category decline
+  - The BEHAVIOR layer (pre-sleep routine) is unaddressed by all major players
+  - At 3% conversion, need 33K downloads Year 1 for $60K ARR → requires content strategy beyond pure ASO
+---
