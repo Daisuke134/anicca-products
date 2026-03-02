@@ -183,7 +183,31 @@ Before starting any US, verify the previous US acceptance criteria:
 - Report: openclaw system event --text "⏸️ App Privacy を ASC Web で設定してください: https://appstoreconnect.apple.com/apps/$APP_ID/distribution/privacy"
 curl -s -X POST -H 'Content-type: application/json' --data '{"text":"⏸️ App Privacy を ASC Web で設定してください: https://appstoreconnect.apple.com/apps/$APP_ID/distribution/privacy"}' "$SLACK_WEBHOOK_AGENTS"
 
-### US-009: Submit
+### US-009: Subscription setup + App Store submission
+- Read: .claude/skills/asc-subscription-localization/SKILL.md（全ロケールの表示名設定）
+- Read: .claude/skills/asc-ppp-pricing/SKILL.md（価格設定）
+- Subscription IDs:
+  - Group: 21956086 (Micro Mood Premium)
+  - Monthly: 6759877016 ($4.99/mo)
+  - Annual: 6759877119 ($29.99/yr)
+- Steps (subscription setup BEFORE submission):
+  1. Monthly ($4.99) の価格設定:
+     - asc subscriptions price-points list --id 6759877016 --territory USA
+     - $4.99 の price point ID を見つける
+     - asc subscriptions prices add --id 6759877016 --price-point <ID> --territory USA
+  2. Annual ($29.99) の価格設定:
+     - asc subscriptions price-points list --id 6759877119 --territory USA
+     - $29.99 の price point ID を見つける
+     - asc subscriptions prices add --id 6759877119 --price-point <ID> --territory USA
+  3. 全ロケールの表示名設定（asc-subscription-localization の手順に従う）:
+     - Monthly: "Monthly Premium" / 月額プレミアム (ja)
+     - Annual: "Annual Premium" / 年額プレミアム (ja)
+     - 全38ロケールに設定する
+  4. 配信可否: availableInNewTerritories=true
+  5. サブスクリプションをアプリバージョンに紐付ける
+  6. asc review submissions-create → submissions-submit
+- ⛔ サブスク価格未設定で提出するな
+- ⛔ サブスクのローカライゼーション未設定で提出するな
 - Check: .app-privacy-done file exists
 - If not: passes: false, end response normally (next iteration will retry)
 - If yes: asc submit create → WAITING_FOR_REVIEW

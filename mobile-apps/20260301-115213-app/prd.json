@@ -15,7 +15,7 @@
       ],
       "priority": 1,
       "passes": true,
-      "notes": "Micro Mood selected — 8.8/10. iOS mood tracker with 3-tap check-in + AI weekly patterns. 2026-03-01"
+      "notes": "Micro Mood selected \u2014 8.8/10. iOS mood tracker with 3-tap check-in + AI weekly patterns. 2026-03-01"
     },
     {
       "id": "US-002",
@@ -142,8 +142,8 @@
         "Slack #metrics notified: WAITING_FOR_REVIEW"
       ],
       "priority": 9,
-      "passes": true,
-      "notes": "asc submit create → WAITING_FOR_REVIEW. Build 2 (iPhone-only, TARGETED_DEVICE_FAMILY=1). App pricing set (FREE). submissionId=bb512b06-571b-406a-9849-4f25d2d6d4da. 2026-03-02"
+      "passes": false,
+      "notes": "Reset: subscription pricing/localization/availability not set. Must complete before resubmit."
     }
   ]
 }
