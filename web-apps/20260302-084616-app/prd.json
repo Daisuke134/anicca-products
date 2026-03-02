@@ -93,8 +93,9 @@
         "Vercel URL recorded in prd.json and progress.txt"
       ],
       "priority": 6,
-      "passes": false,
-      "notes": "STRIPE_WEBHOOK_SECRET is NOT set here — created post-deploy by user"
+      "passes": true,
+      "vercel_url": "https://20260302-084616-app.vercel.app",
+      "notes": "Deployed to Vercel. Env vars set (STRIPE_SECRET_KEY, STRIPE_PRICE_ID, NEXT_PUBLIC_URL). Slack notified for Webhook registration."
     },
     {
       "id": "US-007",

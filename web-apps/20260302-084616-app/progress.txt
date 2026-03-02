@@ -52,3 +52,14 @@
   - Port 3000 may be occupied by other apps — use unique port (3847) for Playwright
   - Playwright strict mode requires .first() when multiple elements match
   - Label-input association (htmlFor) missing causes getByLabel to fail — use getByPlaceholder instead
+
+## 2026-03-02 - US-006: Vercel Deploy
+- Deployed to: https://20260302-084616-app.vercel.app
+- Environment variables set: STRIPE_SECRET_KEY, STRIPE_PRICE_ID, NEXT_PUBLIC_URL
+- Redeployed after env var setup
+- Slack notified for Stripe Webhook registration
+- **Learnings for future iterations:**
+  - Vercel CLI requires --scope flag in non-interactive mode for team accounts
+  - `source .env` doesn't work for VERCEL_TOKEN — use `export $(grep ... | xargs)` instead
+  - Env vars must be added BEFORE redeploy to take effect
+  - STRIPE_WEBHOOK_SECRET is set by user after deploy (not in this US)
