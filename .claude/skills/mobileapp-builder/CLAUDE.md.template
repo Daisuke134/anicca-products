@@ -125,3 +125,24 @@ If you cannot make a story pass after 3 attempts:
 If you discover a reusable pattern, add it to `## Codebase Patterns`
 at the TOP of progress.txt (create if it doesn't exist).
 Only general, reusable patterns — not story-specific details.
+
+## Human Intervention Pattern
+When you need human action (ASC app creation, RC setup, App Privacy):
+
+1. Write to progress.txt:
+```
+WAITING_FOR_HUMAN: <what you need>
+<detailed instructions for Dais with copy-paste info>
+```
+
+2. Set passes: false for this US
+3. End your response normally (next iteration will retry)
+
+ralph.sh detects WAITING_FOR_HUMAN in progress.txt → posts to Slack.
+Anicca (OpenClaw) receives Dais's reply → writes keys to .env / touches files.
+Next iteration: you read .env / check files → continue.
+
+### What to check per US:
+- US-005 ASC creation: check progress.txt for APP_ID
+- US-005 RC keys: check .env for RC_SECRET_KEY + RC_PUBLIC_KEY
+- US-009 App Privacy: check .app-privacy-done file exists
