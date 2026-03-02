@@ -35,6 +35,7 @@ curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '
 | 17 | **RevenueCat/Mixpanel API キーは Info.plist から読む**。`ProcessInfo.processInfo.environment` 禁止 |
 | 18 | **screenshot-creator スキル使用禁止**。Koubou（`asc screenshots frame`）のみ |
 | 19 | **オンボーディング最終画面はソフトペイウォール必須**。RevenueCatUI.PaywallView + [Maybe Later] |
+| 20 | **ATT 禁止**。AppTrackingTransparency / NSUserTrackingUsageDescription は使わない |
     openclaw system event --text "🏭 <US-ID> 完了" 2>/dev/null || true
 
 ## Progress Report Format

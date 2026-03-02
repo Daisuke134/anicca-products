@@ -24,8 +24,6 @@
 	<string>5</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
-	<key>NSUserTrackingUsageDescription</key>
-	<string>We use anonymous analytics to improve the app experience. No personal data is shared.</string>
 	<key>NSHealthShareUsageDescription</key>
 	<string>Micro Mood writes your mood as mindfulness sessions to Apple Health.</string>
 	<key>NSHealthUpdateUsageDescription</key>
