@@ -185,6 +185,39 @@ for locale in $LOCALES; do
 done
 ```
 
+
+### 6.7: IAP Review Screenshot（必須！）
+
+Source: submission-checklist.md D6-D7
+> "Monthly: App Review Screenshot 添付済み"
+> "Annual: App Review Screenshot 添付済み"
+
+Source: Apple ASC API — Subscription Review Screenshots
+https://developer.apple.com/documentation/appstoreconnectapi/subscription_review_screenshots
+> "A screenshot to submit with the subscription for App Review."
+
+```bash
+# シミュレーターで Paywall 画面を開いた状態でスクリーンショット撮影
+xcrun simctl io booted screenshot /tmp/paywall-review.png
+
+# 両サブスクリプションに添付
+asc subscriptions review-screenshots create \
+  --subscription-id $MONTHLY_ID \
+  --file /tmp/paywall-review.png
+
+asc subscriptions review-screenshots create \
+  --subscription-id $ANNUAL_ID \
+  --file /tmp/paywall-review.png
+
+# 確認
+asc subscriptions app-store-review-screenshot get --subscription-id $MONTHLY_ID
+asc subscriptions app-store-review-screenshot get --subscription-id $ANNUAL_ID
+```
+
+### PROHIBITED
+- ⛔ Review Screenshot なしで US-005 を passes:true にするな
+- ⛔ `asc subscriptions images create` を使うな（プロモーショナル画像用、間違い）
+
 ## Step 7: RC Setup
 
 ### 7.1: RC プロジェクト作成（人間介入 — 唯一の手動タスク）

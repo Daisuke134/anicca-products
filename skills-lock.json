@@ -36,6 +36,11 @@
       "sourceType": "github",
       "computedHash": "86f563d4b0faa4ade789b1344e1fcfe59052a393f43ea7cd96e32286090878df"
     },
+    "apple-appstore-reviewer": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "computedHash": "848a1946f838e1b36f4af8b65caeea9e5bfa486d6059325520bb6124c05b0526"
+    },
     "asc-shots-pipeline": {
       "source": "rudrankriyam/app-store-connect-cli-skills",
       "sourceType": "github",
@@ -75,6 +80,11 @@
       "source": "vercel-labs/skills",
       "sourceType": "github",
       "computedHash": "6412eb4eb3b91595ebab937f0c69501240e7ba761b3d82510b5cf506ec5c7adc"
+    },
+    "greenlight": {
+      "source": "revylai/greenlight",
+      "sourceType": "github",
+      "computedHash": "c94165bbbbd7f3d9e2e690d8d86cc95fbe841454b9a1f8da34ea39fee413dd1d"
     },
     "growth-experimenter": {
       "source": "daffy0208/ai-dev-standards",

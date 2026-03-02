@@ -1,5 +1,42 @@
 # US-009: App Store Submission
 
+## Step -1: Dependency Check (MANDATORY)
+
+Source: Microsoft Azure Pipelines — Stages
+https://learn.microsoft.com/en-us/azure/devops/pipelines/process/stages
+> "a stage runs if all of the stages that it depends on have completed and succeeded"
+
+**US-001~008 全てが passes:true でないと US-009 は実行しない:**
+
+```bash
+INCOMPLETE=$(jq -r '.userStories[] | select(.passes == false and .id != "US-009") | .id' prd.json)
+if [ -n "$INCOMPLETE" ]; then
+  echo "❌ Cannot proceed: $INCOMPLETE still passes:false"
+  echo "US-009 requires all prior US to be completed."
+  exit 0  # passes:false のまま終了
+fi
+echo "✅ All dependencies passed"
+```
+
+## Step 0: apple-appstore-reviewer Audit (MANDATORY)
+
+Source: apple-appstore-reviewer SKILL.md
+> "You are the review gatekeeper"
+> "P0 (Blocker): Very likely to cause rejection"
+
+**提出前に apple-appstore-reviewer スキルを実行し、P0/P1 = 0 までループ:**
+
+1. apple-appstore-reviewer スキルを実行（コードベース全体をレビュー）
+2. Risk Register を取得
+3. P0/P1 がある → 修正 → 再実行
+4. P0/P1 = 0 になるまでループ
+
+### PROHIBITED
+- ⛔ P0/P1 > 0 で提出するな
+- ⛔ レビューをスキップするな
+
+
+
 Source: rshankras WORKFLOW.md Phase 6 + rudrankriyam asc-release-flow
 
 ## Skills to Read

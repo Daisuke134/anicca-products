@@ -85,11 +85,15 @@ for i in $(seq 1 $MAX_ITERATIONS); do
       ATTEMPTS=$(increment_story_attempts "$CURRENT_STORY")
       echo "  Attempt $ATTEMPTS/$MAX_ATTEMPTS_PER_STORY on $CURRENT_STORY"
       if [ "$ATTEMPTS" -ge "$MAX_ATTEMPTS_PER_STORY" ]; then
-        mark_story_skipped "$CURRENT_STORY" "$MAX_ATTEMPTS_PER_STORY"
-        notify_slack "⚠️ Circuit breaker: $CURRENT_STORY skipped after $MAX_ATTEMPTS_PER_STORY attempts"
-        echo "$CURRENT_STORY" > "$LAST_STORY_FILE"
-        sleep 1
-        continue
+        # Source: Microsoft Azure Architecture Center — Circuit Breaker Pattern
+        # https://learn.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker
+        # > "Open: The request from the application fails immediately and an exception is returned"
+        # > "Manual override: an administrator can close a circuit breaker"
+        #
+        # スキップ禁止。停止して管理者（Dais）に通知。
+        echo "🛑 Circuit breaker triggered: $CURRENT_STORY failed $MAX_ATTEMPTS_PER_STORY times"
+        notify_slack "🛑 Circuit breaker: $CURRENT_STORY が $MAX_ATTEMPTS_PER_STORY 回失敗。工場停止。手動介入が必要。"
+        exit 1
       fi
     else
       [ -n "$CURRENT_STORY" ] && ATTEMPTS=$(increment_story_attempts "$CURRENT_STORY")

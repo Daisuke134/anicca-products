@@ -17,6 +17,31 @@ xcodebuild test -scheme <AppName> -destination "platform=iOS Simulator,id=$UDID"
 test -f Products.storekit || { echo "GATE FAIL: no StoreKit config"; exit 1; }
 ```
 
+
+## Step 0: Greenlight ASC Scan (MANDATORY)
+
+Source: Greenlight README
+> "greenlight scan --app-id $APP_ID  # App Store Connect API checks"
+
+**ASC メタデータが完全か確認:**
+
+```bash
+# Greenlight ASC scan を実行
+GL_SCAN=$(greenlight scan --app-id $APP_ID --tier 1 --format json 2>&1)
+GL_PASSED=$(echo "$GL_SCAN" | jq '.summary.passed // false')
+
+if [ "$GL_PASSED" != "true" ]; then
+  echo "❌ Greenlight ASC scan failed"
+  echo "$GL_SCAN" | jq '.findings[] | select(.severity >= 2)'
+  # 問題を修正して再実行
+fi
+
+echo "✅ Greenlight ASC scan passed"
+```
+
+### PROHIBITED
+- ⛔ ASC scan が失敗したまま passes:true にするな
+
 ## Step 1: Screenshots (AXe + Koubou)
 
 ### 1a: AXe でシミュレータ操作 + スクリーンキャプチャ

@@ -3,6 +3,40 @@
 Source: rshankras WORKFLOW.md Phase 4
 > "Claude-Assisted Implementation — Ask Claude to implement specific components"
 
+
+## Step 0: Greenlight Loop (MANDATORY — 最初に実行)
+
+Source: Greenlight SKILL.md
+> "Keep looping until the output shows GREENLIT status (zero CRITICAL findings)"
+
+Source: Greenlight README — GitHub Actions Example
+> "Fail the pipeline if critical issues found"
+
+**実装が完了したら、GREENLIT になるまでループ:**
+
+```bash
+while true; do
+  XCODE_DIR=$(find . -name "*.xcodeproj" -maxdepth 2 | head -1 | xargs dirname)
+  GL_OUTPUT=$(greenlight preflight "$XCODE_DIR" --format json 2>&1)
+  GL_CRITICAL=$(echo "$GL_OUTPUT" | jq '.summary.critical // 999')
+  
+  if [ "$GL_CRITICAL" -eq 0 ]; then
+    echo "✅ GREENLIT — zero CRITICAL findings"
+    break
+  fi
+  
+  echo "❌ CRITICAL=$GL_CRITICAL — fixing issues..."
+  
+  # Greenlight の出力を読んで CRITICAL を修正
+  # 修正後、このループの先頭に戻る
+done
+```
+
+### PROHIBITED
+- ⛔ CRITICAL > 0 で passes:true にするな
+- ⛔ 「後で直す」でスキップするな
+- ⛔ 1 回だけ実行して終わりにするな
+
 ## Skills to Read (IN THIS ORDER)
 1. `.claude/skills/implementation-guide/SKILL.md` — rshankras
 2. `.claude/skills/ios-ux-design/SKILL.md` — UI/UX デザイン
