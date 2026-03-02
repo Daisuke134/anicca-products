@@ -8,3 +8,12 @@
   - AI meeting notes market is oversaturated — avoid
   - $9.99 price point sweet spot for micro SaaS targeting individuals
   - Focus on niches where enterprise tools exist but no affordable alternative
+
+## 2026-03-02 15:10 - US-002: Stripe Product + Price Creation
+- Created Stripe product: prod_U4YiuOW1XJP6HU (ColdCraft Pro)
+- Created Stripe price: price_1T6PbLEeDsUAcaLSnbvW0kGD ($9.99/month recurring)
+- .env.local created with STRIPE_SECRET_KEY, STRIPE_PRICE_ID, NEXT_PUBLIC_URL
+- Files: .env.local, .gitignore, prd.json
+- **Learnings for future iterations:**
+  - Always source web-apps/.env for shared keys
+  - Stripe curl API requires -u flag with colon after key
