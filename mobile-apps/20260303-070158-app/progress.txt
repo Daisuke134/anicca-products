@@ -351,3 +351,38 @@ echo 'ASC_APP_ID=6761234567' >> /Users/anicca/.openclaw/.env
 → 次の iteration が自動で続きを実行します
 
 ---
+## 2026-03-03 - US-005: WAITING_FOR_HUMAN iteration 17 — 調査完了・最終確認
+
+WAITING_FOR_HUMAN: Apple 2FA コード必須（REST API は 403 FORBIDDEN）
+
+**調査結果（iteration 17 確定）:**
+- com.anicca.mindsnap Bundle ID: ✅ 登録済み（ID: YA549T4F4M）
+- ASC REST API POST /v1/apps: ❌ 403 FORBIDDEN（Apple がAPI経由の作成を禁止）
+- asc web auth status: ❌ {"authenticated":false}
+- 結論: **人間が AppStoreConnect Webで作るしかない**
+
+**必要な作業（5分）:**
+
+### Step 1: ASC Webでアプリ作成（https://appstoreconnect.apple.com/apps/new）
+- Name: MindSnap
+- Platform: iOS
+- Primary Language: English
+- Bundle ID: com.anicca.mindsnap（ドロップダウンに表示されるはず）
+- SKU: mindsnap-001
+
+作成後→ URLの数字（例: apps/6761234567/...）をコピー:
+```
+echo 'ASC_APP_ID=<数字>' >> ~/.config/mobileapp-builder/.env
+```
+
+### Step 2: RevenueCat作成（https://app.revenuecat.com）
+- New Project → MindSnap
+- Add App → App Store → Bundle: com.anicca.mindsnap
+- API Keys → Secret key:
+  `echo 'RC_SECRET_KEY=sk_...' >> ~/.config/mobileapp-builder/.env`
+- Public key:
+  `echo 'RC_PUBLIC_KEY=appl_...' >> ~/.config/mobileapp-builder/.env`
+
+### Step 3: Slack #agents に「US-005 ready」と返信
+
+---
