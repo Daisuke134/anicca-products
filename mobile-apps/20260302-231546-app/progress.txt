@@ -197,3 +197,47 @@ https://appstoreconnect.apple.com → SleepRitual → App内課金 → Manage
   - @MainActor ViewModel tests work in XCTest — setUp + load() pattern is reliable
   - Products.storekit group ID must match actual ASC group ID (21957282) for accurate sandbox testing
 ---
+
+## 2026-03-03 - US-008: App Store Preparation
+
+### Completed ✅
+- Screenshots: 5 en-US + 5 ja uploaded to ASC (all state=COMPLETE, IPHONE_67 device type)
+- Metadata: en-US + ja description/keywords/supportUrl/privacyPolicyUrl synced
+  - en-US: subtitle "Bedtime Ritual Builder", primary lang
+  - ja: subtitle "就寝前ルーティン" (22 chars), name "SleepRitual"
+- Build: UPLOAD SUCCEEDED (Delivery UUID: ef0f72e3-163e-437c-84e9-dc697f0259af)
+  - processingState=VALID, usesNonExemptEncryption=false
+  - Fixed: AppIcon.appiconset was empty → generated all sizes with PIL (RGB mode only)
+  - Fixed: xcassets `type: folder` in project.yml → removed, now compiles to Assets.car
+  - Fixed: CFBundleIconName added to project.yml Info.plist properties
+  - DEVELOPMENT_TEAM: S5U8UH3JLJ (not MVNCLZ37DB — confirmed from project.yml)
+- Build attached to version a519e847-a0dd-4436-a2b8-d7445b2932c9
+- Age rating: all 22 items set (all NONE + gambling=false, health=true, parentalControls=false, ageAssurance=false)
+- Review details: ID=14006a03, demoAccountRequired=false (set via direct PATCH API — CLI bug with false)
+- Availability: 175 territories via v2/appAvailabilities POST (JSON:API compound doc with ${local-id} format)
+  - Key insight: v2 uses `territoryAvailabilities` relationship with inline resources using `${local-id}` format IDs
+- Primary category: HEALTH_AND_FITNESS (set via appInfos PATCH)
+- ja supportUrl fixed (was missing, caused validate error)
+- asc validate: Errors=0, blocking=0 ✅
+- TestFlight: beta group "External Testers" created (a07c94bf), build distributed
+  - Public link: https://testflight.apple.com/join/s2aN1amH
+
+TESTFLIGHT_LINK=https://testflight.apple.com/join/s2aN1amH
+
+### Still Blocked ⚠️
+WAITING_FOR_HUMAN: Annual subscription pricing ($29.99) still not set
+- Apple API /subscriptionPrices returns HTTP 500 for all attempts (3rd attempt = 3-Attempt limit)
+- Monthly ($4.99) was already set previously
+- Action needed: ASC web UI → SleepRitual → App内課金 → SleepRitual Annual → set Tier ~30 ($29.99/yr) + 7-day trial
+
+- **Learnings for future iterations:**
+  - v2/appAvailabilities POST requires JSON:API compound doc: `territoryAvailabilities` relationship with inline resources using `${local-id}` format (e.g., `${ta-USA}`) in both `data` and `included` arrays
+  - xcassets must NOT be added as `type: folder` in project.yml sources — this copies it as-is without compilation (no Assets.car). Remove `type: folder` and let it be part of the main sources path
+  - App icons must be RGB (no RGBA/alpha), CFBundleIconName must be in Info.plist, all required sizes must exist as PNG files
+  - asc CLI boolean `false` flags don't work for demoAccountRequired — use PATCH to ASC REST API directly
+  - asc validate catches: ja supportUrl missing, primary category missing — always check these before submission
+  - JSON:API inline resource creation requires `${local-id}` format in `id` field (not territory codes directly)
+  - DEVELOPMENT_TEAM should always be read from project.yml, not assumed from ExportOptions.plist
+  - asc `builds latest --app APP_ID` is the quickest way to check build processingState
+  - `asc testflight beta-groups list` returns empty if no groups exist — must CREATE group first before adding builds
+---

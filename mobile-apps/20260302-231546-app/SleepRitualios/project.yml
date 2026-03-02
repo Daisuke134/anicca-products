@@ -20,10 +20,6 @@ targets:
     deploymentTarget: "17.0"
     sources:
       - path: SleepRitual
-        excludes:
-          - "**/*.xcassets"
-      - path: SleepRitual/Resources/Assets.xcassets
-        type: folder
     info:
       path: SleepRitual/Info.plist
       properties:
@@ -40,6 +36,7 @@ targets:
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
         ITSAppUsesNonExemptEncryption: false
+        CFBundleIconName: AppIcon
         NSUserNotificationUsageDescription: "We'll remind you when it's time for your sleep ritual."
         RevenueCatAPIKey: "appl_UJhanZogxfPVJwWoPefUILUaoiz"
         MixpanelToken: "96835bddc4fd0f2613e805d98c5915cd"

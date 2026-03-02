@@ -131,8 +131,8 @@
         "Typecheck passes"
       ],
       "priority": 8,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Screenshots: 5 en-US + 5 ja uploaded (all COMPLETE). Metadata: en-US+ja description/keywords/supportUrl/privacyPolicyUrl set. Build: UPLOAD SUCCEEDED (delivery=ef0f72e3, processingState=VALID, usesNonExemptEncryption=false). Attached to version a519e847. Age rating: all 22 items set. Review details: demoAccountRequired=false (ID=14006a03). Availability: 175 territories via v2/appAvailabilities JSON:API compound doc. Pricing: monthly $4.99 set (monthly was already set); annual $29.99 STILL BLOCKED by Apple HTTP 500 (3-attempt limit reached — WAITING_FOR_HUMAN: set via ASC web UI). asc validate: Errors=0, blocking=0 (after fixing ja supportUrl + primary category HEALTH_AND_FITNESS). TestFlight: beta group created, build distributed, public link=https://testflight.apple.com/join/s2aN1amH"
     },
     {
       "id": "US-009",

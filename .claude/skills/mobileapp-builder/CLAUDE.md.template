@@ -32,10 +32,10 @@ curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '
 
 | # | Rule |
 |---|------|
-| 17 | **RevenueCat/Mixpanel API キーは Info.plist から読む**。`ProcessInfo.processInfo.environment` 禁止 |
+| 17 | **Mixpanel 禁止**。アナリティクス SDK は一切入れない。Greenlight が tracking SDK 検出 = CRITICAL |
 | 18 | **screenshot-creator スキル使用禁止**。Koubou（`asc screenshots frame`）のみ |
 | 19 | **オンボーディング最終画面はソフトペイウォール必須**。自前 SwiftUI PaywallView + Purchases.shared.purchase(package:)。RevenueCatUI 禁止。[Maybe Later] で閉じれる |
-| 20 | **ATT 禁止**。AppTrackingTransparency / NSUserTrackingUsageDescription は使わない |
+| 20 | **ATT 禁止**。AppTrackingTransparency / NSUserTrackingUsageDescription は使わない。スクショに ATT ダイアログが写り込む |
     openclaw system event --text "🏭 <US-ID> 完了" 2>/dev/null || true
 
 ## Progress Report Format
