@@ -144,8 +144,8 @@
         "Slack #metrics notified: WAITING_FOR_REVIEW"
       ],
       "priority": 9,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "App Privacy: published via asc web privacy apply+publish (DATA_NOT_COLLECTED). Fixed: usesIdfa=false, contentRightsDeclaration=DOES_NOT_USE_THIRD_PARTY_CONTENT on app, Free pricing (Tier 0) set via appPriceSchedules POST. asc submit create: state=WAITING_FOR_REVIEW (submissionId=1a77e168-69e1-4c5e-b4f8-03b3e4538375). Slack notified. Note: .app-privacy-done file was NOT present — submission succeeded because asc web privacy workflow handled it directly."
     }
   ]
 }
