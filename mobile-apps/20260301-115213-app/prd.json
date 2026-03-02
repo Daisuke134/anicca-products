@@ -15,7 +15,8 @@
       ],
       "priority": 1,
       "passes": true,
-      "notes": "Micro Mood selected \u2014 8.8/10. iOS mood tracker with 3-tap check-in + AI weekly patterns. 2026-03-01"
+      "notes": "Micro Mood selected \u2014 8.8/10. iOS mood tracker with 3-tap check-in + AI weekly patterns. 2026-03-01",
+      "spec": "specs/US-001.md"
     },
     {
       "id": "US-002",
@@ -29,7 +30,8 @@
       ],
       "priority": 2,
       "passes": true,
-      "notes": "product-plan.md created. $4.99/mo, $29.99/yr. CoreData + SwiftUI. 2026-03-01"
+      "notes": "product-plan.md created. $4.99/mo, $29.99/yr. CoreData + SwiftUI. 2026-03-01",
+      "spec": "specs/US-002.md"
     },
     {
       "id": "US-003",
@@ -41,7 +43,8 @@
       ],
       "priority": 3,
       "passes": true,
-      "notes": "competitive-analysis.md + market-research.md. TAM $9.94B, SAM $2.49B. 5 competitors. 2026-03-01"
+      "notes": "competitive-analysis.md + market-research.md. TAM $9.94B, SAM $2.49B. 5 competitors. 2026-03-01",
+      "spec": "specs/US-003.md"
     },
     {
       "id": "US-004",
@@ -58,7 +61,8 @@
       ],
       "priority": 4,
       "passes": true,
-      "notes": "7 docs generated in docs/. PRD: bundle=com.anicca.micromood, $4.99/mo $29.99/yr. IMPL: RevenueCat real SDK. 2026-03-01"
+      "notes": "7 docs generated in docs/. PRD: bundle=com.anicca.micromood, $4.99/mo $29.99/yr. IMPL: RevenueCat real SDK. 2026-03-01",
+      "spec": "specs/US-004.md"
     },
     {
       "id": "US-005",
@@ -77,7 +81,8 @@
       ],
       "priority": 5,
       "passes": false,
-      "notes": ""
+      "notes": "",
+      "spec": "specs/US-005.md"
     },
     {
       "id": "US-006",
@@ -92,7 +97,8 @@
       ],
       "priority": 6,
       "passes": true,
-      "notes": "BUILD SUCCEEDED simulator iPhone 17 Pro Max. Mock=0, import RevenueCat=7. 2026-03-01"
+      "notes": "BUILD SUCCEEDED simulator iPhone 17 Pro Max. Mock=0, import RevenueCat=7. 2026-03-01",
+      "spec": "specs/US-006.md"
     },
     {
       "id": "US-007",
@@ -105,7 +111,8 @@
       ],
       "priority": 7,
       "passes": true,
-      "notes": "xcodebuild test PASSED. 13 tests total: MoodLevelTests(4) + MoodStoreTests(5) + InsightEngineTests(4). All pass. 2026-03-01"
+      "notes": "xcodebuild test PASSED. 13 tests total: MoodLevelTests(4) + MoodStoreTests(5) + InsightEngineTests(4). All pass. 2026-03-01",
+      "spec": "specs/US-007.md"
     },
     {
       "id": "US-008",
@@ -130,7 +137,8 @@
       ],
       "priority": 8,
       "passes": false,
-      "notes": ""
+      "notes": "",
+      "spec": "specs/US-008.md"
     },
     {
       "id": "US-009",
@@ -143,7 +151,8 @@
       ],
       "priority": 9,
       "passes": false,
-      "notes": ""
+      "notes": "",
+      "spec": "specs/US-009.md"
     }
   ]
 }
