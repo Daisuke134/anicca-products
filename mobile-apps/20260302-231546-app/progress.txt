@@ -108,3 +108,5 @@ https://app.revenuecat.com
 4. 返信: RC_SECRET_KEY (sk_...) + RC_PUBLIC_KEY (appl_...)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+APP_ID received: 6759916261
+RC_SECRET_KEY received: sk_dcZytPsHXEUXtVoakKTWycMOVwitJ
