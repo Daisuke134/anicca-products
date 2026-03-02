@@ -156,3 +156,30 @@ https://appstoreconnect.apple.com → SleepRitual → App内課金 → Manage
 次のイテレーションが asc validate warnings=0 を確認して続行します。
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+## 2026-03-03 - US-005: ASC Setup + IAP (ITERATION 3 — 3-Attempt Limit Reached)
+- Attempt 3: Retried asc subscriptions prices add --price 4.99 --territory USA → HTTP 500 again
+- Retried --tier 5 --territory USA → HTTP 500 again
+- Apple pricing API (/subscriptionPrices) remains broken for new subscriptions
+- asc validate subscriptions: blocking=0, warnings=2 (MISSING_METADATA) — unchanged
+- 3-Attempt Limit reached → Skipping to US-006 per CLAUDE.md rule
+- US-005 remains passes:false pending human action on ASC pricing via web UI
+- WAITING_FOR_HUMAN: pricing still needed (see instructions in previous entry)
+---
+
+## 2026-03-03 - US-006: iOS Implementation
+- Quality Gate PASS: IAP groups exist (21957282), RevenueCat imported in 3 Swift files
+- PaywallView refactored: plan-select buttons + dedicated CTA button pattern
+  - Plan buttons: paywall_plan_monthly, paywall_plan_yearly (select, do not purchase)
+  - CTA button: paywall_cta ("Start 7-Day Free Trial" / "Subscribe Now") — purchases selected plan
+  - paywall_restore, paywall_skip also present (5/5 accessibility IDs)
+- PaywallViewModel: added selectedPackage state, defaults to annual package
+- BUILD SUCCEEDED: xcodebuild -scheme SleepRitual -sdk iphonesimulator iPhone 17 Pro
+- Mock check: 0 mock refs in production code
+- RevenueCat: 3 files import RevenueCat, 0 import RevenueCatUI
+- Files changed: SleepRitualios/SleepRitual/Views/PaywallView.swift, SleepRitualios/SleepRitual/ViewModels/PaywallViewModel.swift
+- **Learnings for future iterations:**
+  - PaywallView needs 5 distinct accessibility IDs for Maestro E2E — use plan-select + separate CTA pattern
+  - xcodebuild simulator name: use "iPhone 17 Pro" (not "iPhone 16") for this Mac Mini environment
+  - SourceKit "No such module RevenueCat" in editor is expected — build resolves SPM correctly
+---

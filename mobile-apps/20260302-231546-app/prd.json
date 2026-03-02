@@ -78,7 +78,7 @@
       ],
       "priority": 5,
       "passes": false,
-      "notes": "ITERATION 2 PARTIAL: APP_ID=6759916261, GROUP_ID=21957282, monthly=6759916378, annual=6759916215. RC app_id=app92143da86e, products monthly+annual, offering=ofrng6ea2a50201, RC_PUBLIC_KEY=appl_UJhanZogxfPVJwWoPefUILUaoiz. Info.plist updated. BUILD SUCCEEDED. BLOCKED: ASC pricing API returns HTTP 500 (Apple server bug) → validate shows blocking=0 warnings=2 (MISSING_METADATA). Pricing must be set via ASC web UI. WAITING_FOR_HUMAN."
+      "notes": "ITERATION 3 BLOCKED (3-Attempt Limit reached): APP_ID=6759916261, GROUP_ID=21957282, monthly=6759916378, annual=6759916215. RC app_id=app92143da86e, products monthly+annual, offering=ofrng6ea2a50201, RC_PUBLIC_KEY=appl_UJhanZogxfPVJwWoPefUILUaoiz. Info.plist=set. BUILD SUCCEEDED. BLOCKED: Apple pricing API (/subscriptionPrices) returns HTTP 500 on all 3 attempts (--price, --tier, direct REST). asc validate subscriptions: blocking=0 warnings=2 (MISSING_METADATA). WAITING_FOR_HUMAN: set pricing via ASC web UI then reply 価格設定完了 on Slack."
     },
     {
       "id": "US-006",
@@ -93,8 +93,8 @@
         "grep -r 'import RevenueCatUI' --include='*.swift' . | wc -l = 0"
       ],
       "priority": 6,
-      "passes": false,
-      "notes": "依存: US-005 の RC Offerings + SPM"
+      "passes": true,
+      "notes": "SleepRitualios/ exists with App/Views/Models/Services/Resources. BUILD SUCCEEDED (xcodebuild iPhone 17 Pro sim). 0 Mock refs. 3 files import RevenueCat (PaywallView, PaywallViewModel, SubscriptionService). 0 RevenueCatUI imports. All 5 accessibility IDs present: paywall_plan_monthly, paywall_plan_yearly, paywall_cta, paywall_skip, paywall_restore. Custom SwiftUI PaywallView with plan-select+CTA pattern."
     },
     {
       "id": "US-007",
