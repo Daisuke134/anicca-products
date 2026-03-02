@@ -191,7 +191,9 @@ URL: ~/.openclaw/skills/ralph-loop-agent/SKILL.md
         "Contains: rank, idea, one_liner, platform, problem_statement, target_user, feasibility, overall_score, monetization_model, competition_notes, mvp_scope, next_step",
         "At least 5 ideas evaluated, top 1 selected",
         "Sources cited for each trend",
-        "Typecheck passes"
+        "Typecheck passes",
+        "Maestro E2E flows pass (paywall purchase flow)",
+        "StoreKit Configuration File (Products.storekit) exists"
       ],
       "priority": 1, "passes": false, "notes": ""
     },
@@ -203,7 +205,9 @@ URL: ~/.openclaw/skills/ralph-loop-agent/SKILL.md
         "Contains: target user, problem, solution, monetization, MVP scope",
         "monetization section specifies subscription prices (monthly + annual)",
         "All claims cite external sources",
-        "Typecheck passes"
+        "Typecheck passes",
+        "Maestro E2E flows pass (paywall purchase flow)",
+        "StoreKit Configuration File (Products.storekit) exists"
       ],
       "priority": 2, "passes": false, "notes": ""
     },
@@ -213,7 +217,9 @@ URL: ~/.openclaw/skills/ralph-loop-agent/SKILL.md
       "acceptanceCriteria": [
         "competitive-analysis.md exists with 5+ competitors analyzed",
         "market-research.md exists with TAM/SAM/SOM",
-        "Typecheck passes"
+        "Typecheck passes",
+        "Maestro E2E flows pass (paywall purchase flow)",
+        "StoreKit Configuration File (Products.storekit) exists"
       ],
       "priority": 3, "passes": false, "notes": ""
     },
@@ -228,7 +234,9 @@ URL: ~/.openclaw/skills/ralph-loop-agent/SKILL.md
         "docs/IMPLEMENTATION_GUIDE.md exists and references RevenueCat SDK (not Mock)",
         "docs/TEST_SPEC.md exists",
         "docs/RELEASE_SPEC.md exists",
-        "Typecheck passes"
+        "Typecheck passes",
+        "Maestro E2E flows pass (paywall purchase flow)",
+        "StoreKit Configuration File (Products.storekit) exists"
       ],
       "priority": 4, "passes": false, "notes": ""
     },
@@ -245,7 +253,9 @@ URL: ~/.openclaw/skills/ralph-loop-agent/SKILL.md
         "SPM dependency on RevenueCat + RevenueCatUI added",
         "PrivacyInfo.xcprivacy exists in project",
         "Info.plist contains ITSAppUsesNonExemptEncryption = NO",
-        "Typecheck passes"
+        "Typecheck passes",
+        "Maestro E2E flows pass (paywall purchase flow)",
+        "StoreKit Configuration File (Products.storekit) exists"
       ],
       "priority": 5, "passes": false, "notes": "依存: US-004 の docs/PRD.md（app_name, bundle_id, prices）。ralph dependency order: Schema/infrastructure first."
     },
@@ -257,8 +267,10 @@ URL: ~/.openclaw/skills/ralph-loop-agent/SKILL.md
         "xcodebuild -scheme <AppName> build succeeds",
         "grep -r 'Mock' --include='*.swift' . | grep -v 'Tests/' | grep -v '.build/' | wc -l = 0",
         "grep -r 'import RevenueCat' --include='*.swift' . | wc -l > 0",
-        "PaywallView uses RevenueCatUI (not custom mock paywall)",
-        "Typecheck passes"
+        "自前 SwiftUI PaywallView + Purchases.shared.purchase(package:). RevenueCatUI.PaywallView 禁止",
+        "Typecheck passes",
+        "Maestro E2E flows pass (paywall purchase flow)",
+        "StoreKit Configuration File (Products.storekit) exists"
       ],
       "priority": 6, "passes": false, "notes": "依存: US-005 の RC Offerings + SPM。Mock は存在しない（US-005 で本物を作ったから）。"
     },
@@ -269,7 +281,9 @@ URL: ~/.openclaw/skills/ralph-loop-agent/SKILL.md
         "xcodebuild test succeeds",
         "Unit tests exist for Models and Services",
         "All tests pass",
-        "Typecheck passes"
+        "Typecheck passes",
+        "Maestro E2E flows pass (paywall purchase flow)",
+        "StoreKit Configuration File (Products.storekit) exists"
       ],
       "priority": 7, "passes": false, "notes": ""
     },
@@ -292,7 +306,9 @@ URL: ~/.openclaw/skills/ralph-loop-agent/SKILL.md
         "Preflight 7 checks all pass (asc-submission-health)",
         "TestFlight build uploaded and distributed",
         "Slack #metrics notified",
-        "Typecheck passes"
+        "Typecheck passes",
+        "Maestro E2E flows pass (paywall purchase flow)",
+        "StoreKit Configuration File (Products.storekit) exists"
       ],
       "priority": 8, "passes": false, "notes": "依存: US-005 の IAP（pricing に使う）。asc validate の Quality Gate: Errors=0 でないと US-009 に進めない。"
     },

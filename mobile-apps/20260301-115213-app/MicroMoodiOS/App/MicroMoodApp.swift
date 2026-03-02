@@ -22,7 +22,7 @@ struct MicroMoodApp: App {
 
     private func configureRevenueCat() {
         // RevenueCat iOS API key (from RC Dashboard → Project → API Keys)
-        Purchases.configure(withAPIKey: "appl_pcZedDwIwXVSSdEugQZPMBormtl")
+        Purchases.configure(withAPIKey: "appl_hNTijvmQxhfkknlPentkvRvpZve")
         Purchases.logLevel = .info
     }
 
