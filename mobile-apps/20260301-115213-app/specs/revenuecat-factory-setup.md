@@ -8,12 +8,12 @@ Source: RevenueCat Staff (Andy) — https://community.revenuecat.com/general-que
 
 > "apps in the same project share user IDs"
 
-### 判断: 1プロジェクトに全アプリ + entitlement をアプリ名プレフィックスで分離
+### 判断: 1アプリ = 1プロジェクト（ベストプラクティス遵守）
 
 - RC MCP に create_project ツールがないため、新プロジェクト作成は手動
 - 毎回 Dais に手動でプロジェクト作成を頼むのは非現実的（1日1アプリ × 365日）
-- 対処: Anicca プロジェクト内に全アプリを入れ、entitlement の lookup_key を {appname}_premium にする
-- 注意: これはワークアラウンド。ベストプラクティスは 1アプリ = 1プロジェクト
+- 対処: CC が Slack でプロジェクト作成を依頼 → Dais が手動作成 → CC が RC MCP で残り全部やる
+- Dais の手動作業は 3回: (1) RC プロジェクト作成 (2) IAP Key 設定 (3) App Privacy 設定
 
 ## CC が RC MCP でやること (US-005)
 

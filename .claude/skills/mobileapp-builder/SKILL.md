@@ -139,6 +139,9 @@ See `references/spec-template.md` for the full spec.md format.
 | 45 | **asc review details-create は必ず `--demo-account-required false` を付ける**。デフォルトが true のため提出ブロック。ソース: Apple ASC API (https://developer.apple.com/documentation/appstoreconnectapi/create_an_app_store_review_detail) |
 | 46 | **submit 前に `asc validate` を必ず実行し Errors=0 を確認する**。Errors > 0 なら全部直してから再度 validate。ソース: rudrankriyam asc-submission-health (https://github.com/rudrankriyam/app-store-connect-cli-skills) |
 | 43 | **REJECTED / UNRESOLVED_ISSUES 後の回復フロー（2026-03-01 Thankful 実機確認）**: (1) `asc review submissions-cancel --id <submission-id> --confirm` → CANCELING（全 UNRESOLVED_ISSUES を全てキャンセル） → (2) **GUI**: ASC version ページ → In-App Purchases and Subscriptions → Select でサブスクを選択（手動必須 — CLI 不可） → (3) `asc review submissions-create --app <APP_ID>` → submission ID 取得 → (4) `asc review items-add --submission <SUBMISSION_ID> --item-type appStoreVersions --item-id <VERSION_ID>` → (5) `asc review submissions-submit --id <SUBMISSION_ID> --confirm` → (6) `asc review submissions-list --app <APP_ID>` → state = WAITING_FOR_REVIEW 確認。**⚠️ 新ビルドは不要**（既存 VALID ビルドがあれば再利用可。2026-03-01 実機確認） |
+| 47 | **AXe（本物）でスクショ撮影。axe-shim 禁止。** `brew install cameroncooke/axe/axe` でインストール。`axe --version` が `v1.4.0+` であること確認。`axe-shim` が `/opt/homebrew/bin/axe` を上書きしてる場合: `mv /opt/homebrew/bin/axe /opt/homebrew/bin/axe-shim-backup && brew link axe --overwrite`。スキル参照: `axe-ios-simulator` |
+| 48 | **スクショは AXe 座標タップでタブ切り替え。** `axe describe-ui --udid $UDID` で Tab Bar の frame を取得 → 4等分して各タブの x 座標を計算 → `axe tap -x $X -y $Y --udid $UDID` → `axe screenshot --output` で撮影。ラベルタップ（`--label`）は Tab Bar 子要素に accessibility label がないアプリでは動かない |
+| 49 | **RC は 1アプリ = 1プロジェクト（ベストプラクティス）。** 同プロジェクト内のアプリはユーザーIDとエンタイトルメントを共有する。Source: https://community.revenuecat.com/general-questions-7/project-vs-app-1899 |
 
 ---
 
@@ -769,24 +772,54 @@ curl -s -H "Authorization: Bearer $TOKEN" \
 ```
 
 ### PHASE 4.5: RC OFFERINGS SETUP（TestFlight 前に必須）
+
+**ベストプラクティス: 1アプリ = 1プロジェクト（RC Staff 公式回答）**
+Source: https://community.revenuecat.com/general-questions-7/project-vs-app-1899
+
 ```
-RC Dashboard → <app_name> プロジェクト（または新規作成）
-  → Offerings → New Offering → identifier: "default"
-  → Packages を追加:
-      $rc_annual  → Apple Product ID: <bundle_id>.premium.yearly
-      $rc_monthly → Apple Product ID: <bundle_id>.premium.monthly
-  → Offering を Current に設定
+Step 1: Slack でプロジェクト作成を依頼（RC MCP に create_project がないため手動）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📱 <app_name> の RC プロジェクトを作ってください:
+1. https://app.revenuecat.com → + Create new project
+2. プロジェクト名: <app_name>
+3. 作成後、プロジェクトURLを貼ってください
+   例: https://app.revenuecat.com/projects/proj______
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+→ 返信を待つ → URL から project_id を抽出（例: projbb7b9d1b）
 
-確認: Offerings が "current" に設定されていること
-未設定 = TestFlight で「Apple IAP key is invalid」エラー
+Step 2: RC MCP でアプリ + プロダクト + offering を全て作成
+  mcp_RC_create_app(project_id, name: "<app_name>", type: "app_store", bundle_id: "<bundle_id>")
+  → app_id 取得
+  mcp_RC_list_public_api_keys(project_id, app_id)
+  → appl_xxx 取得 → アプリの Purchases.configure(withAPIKey:) にハードコード
+  mcp_RC_create_product(project_id, store_identifier: "<bundle_id>.premium.monthly", type: "subscription", app_id)
+  mcp_RC_create_product(project_id, store_identifier: "<bundle_id>.premium.annual", type: "subscription", app_id)
+  mcp_RC_create_entitlement(project_id, lookup_key: "premium", display_name: "<app_name> Premium")
+  mcp_RC_attach_products_to_entitlement(project_id, entitlement_id, product_ids: [monthly_id, annual_id])
+  mcp_RC_create_offering(project_id, lookup_key: "default", display_name: "<app_name> Default")
+  mcp_RC_update_offering(project_id, offering_id, is_current: true)
+  mcp_RC_create_package(project_id, offering_id, lookup_key: "$rc_monthly", display_name: "Monthly")
+  mcp_RC_create_package(project_id, offering_id, lookup_key: "$rc_annual", display_name: "Annual")
+  mcp_RC_attach_products_to_package × 2（monthly + annual）
 
-IAP Key: $ASC_KEY_ID（同一 Apple Developer アカウントで全アプリ共通、新規作成不要）
-p8 file: $ASC_KEY_PATH を RC にアップロード済みであること確認
+Step 3: Slack で IAP Key 設定を依頼
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✅ RC セットアップ完了（app + products + entitlement + offering）
+⚠️ IAP Key を設定してください:
+1. <RC_APP_SETTINGS_URL> を開く
+2.「In-app purchase key configuration」タブ
+3. 入力:
+   - .p8 ファイル: $ASC_PRIVATE_KEY_PATH の .p8
+   - Key ID: $ASC_KEY_ID
+   - Issuer ID: $ASC_ISSUER_ID
+4. Save →「Valid credentials」確認
+→ 完了したら「done」と返信
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+→ 返信を待つ（touch .rc-iap-key-done）
 
-【RC プロジェクトが未作成の場合】
-RevenueCat Dashboard → Projects → New Project → App name を <app_name> に設定
-→ Add iOS App → Bundle ID: <bundle_id>
-→ App Store Connect App-Specific Shared Secret は ASC → My Apps → App Information から取得
+確認: RC Offerings が "current" に設定されていること
+確認: IAP Key が valid であること
+```
 ```
 
 ### PHASE 5: IAP PRICING ★最重要
