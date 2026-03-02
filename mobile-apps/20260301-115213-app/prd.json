@@ -76,8 +76,8 @@
         "Typecheck passes"
       ],
       "priority": 5,
-      "passes": true,
-      "notes": "APP_ID=6759877003 APP_NAME=Micro-Mood BUNDLE_ID=com.anicca.micromood SKU=MicroMood2026 PRIVACY_POLICY_URL=https://daisuke134.github.io/micromood-privacy/ CERT_ID=P8XCDP64HZ PROFILE_ID=P3RNZ5D49S GROUP_ID=21956086 MONTHLY_SUB_ID=6759877016 ANNUAL_SUB_ID=6759877119 RC_APP_ID=appdda58236fa RC_OFFERING_ID=ofrng2bb1abc0a6 RC_MONTHLY_PKG=pkgeb7647a3b7a RC_ANNUAL_PKG=pkge9543947823 2026-03-01"
+      "passes": false,
+      "notes": ""
     },
     {
       "id": "US-006",
@@ -129,8 +129,8 @@
         "Typecheck passes"
       ],
       "priority": 8,
-      "passes": true,
-      "notes": "Reset: Pencil MCP replaced with asc screenshots frame"
+      "passes": false,
+      "notes": ""
     },
     {
       "id": "US-009",
@@ -142,8 +142,8 @@
         "Slack #metrics notified: WAITING_FOR_REVIEW"
       ],
       "priority": 9,
-      "passes": true,
-      "notes": "Completed 2026-03-02. Pricing set (FREE base + $4.99mo/$29.99yr subs), localizations 38 locales, Build 2 uploaded, asc submit → WAITING_FOR_REVIEW. submissionId=bb512b06-571b-406a-9849-4f25d2d6d4da"
+      "passes": false,
+      "notes": ""
     }
   ]
 }
