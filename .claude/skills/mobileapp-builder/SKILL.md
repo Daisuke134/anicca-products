@@ -83,7 +83,65 @@ CC sends to Slack #metrics:
 | 23 | **Maestro E2E テスト必須。サブスク購入フローを含む** |
 | 24 | **release-review 5 checklists 必須（US-008）** |
 | 25 | **App Privacy は ASC API 不可。手動のみ（US-009）** |
+| 26 | **demoAccountRequired = false を明示指定**。デフォルト true でデモアカ未入力だと提出ブロック |
+| 27 | **PrivacyInfo.xcprivacy 必須**。Source: Apple WWDC23 |
+| 28 | **ITSAppUsesNonExemptEncryption = NO を Info.plist に追加** |
+| 29 | **KEYCHAIN_PASSWORD は env var から。ハードコード禁止**。Source: 12-Factor App |
+| 30 | **availability set BEFORE pricing**。逆だと Apple 500 エラー |
+| 31 | **asc validate Errors=0 必須（submit 前 STOP GATE）** |
+| 32 | **提出コマンド: submissions-create + items-add + submissions-submit** |
+| 33 | **Fastfile destination は UDID**。名前だと not found エラー |
+| 34 | **RC delegate 名前衝突回避**。`RCPurchasesDelegate: NSObject, PurchasesDelegate` |
+| 35 | **iOS 15: `Locale.current.language.languageCode` 禁止**。`Locale.current.languageCode` を使う |
+| 36 | **iOS 15: `scrollContentBackground` 禁止**。ZStack + Color で代替 |
+| 37 | **アイコンはビルド前に配置**。後から変更は version bump + 再ビルド |
+| 38 | **SPM に RevenueCatUI を追加しない。RevenueCat のみ** |
+| 39 | **毎 iteration = 新 CC プロセス（フレッシュ context）**。前回の学びは progress.txt のみ |
 
+## Quality Gate Pattern
+
+Source: SonarQube (https://docs.sonarsource.com/sonarqube-cloud/standards/managing-quality-gates/introduction-to-quality-gates)
+> "It can be used to fail your CI pipeline if the quality gate fails."
+
+Each US starts by verifying the previous US acceptance criteria.
+Gate fails → do not execute this US. Fix the previous US first.
+See each `references/us-00X.md` for specific gate checks.
+
+## Folder Structure
+
+Source: v3 spec §3
+
+```
+daily-apps/<app-name>/
+├── spec/01-trend.md              ← US-001
+├── product-plan.md               ← US-002
+├── competitive-analysis.md       ← US-003
+├── market-research.md            ← US-003
+├── progress.txt                  ← shared across iterations
+├── .env                          ← RC keys (written by Anicca)
+├── .app-privacy-done             ← touch by Anicca after Dais confirms
+├── docs/                         ← US-004
+│   ├── PRD.md, ARCHITECTURE.md, UX_SPEC.md, DESIGN_SYSTEM.md
+│   ├── IMPLEMENTATION_GUIDE.md, TEST_SPEC.md, RELEASE_SPEC.md
+├── screenshots/raw/ + framed/    ← US-008
+└── <AppName>ios/                 ← US-006
+    ├── <AppName>.xcodeproj/
+    ├── <AppName>/ (App/, Views/, Models/, Services/, Resources/)
+    └── <AppName>Tests/           ← US-007
+```
+
+## Reporting (ralph.sh → Slack)
+
+ralph.sh posts to Slack #metrics (C091G3PKHL2) via curl after each iteration.
+CC does NOT post to Slack. ralph.sh (bash) does.
+
+```bash
+# In ralph.sh, after each iteration:
+curl -s -X POST "https://slack.com/api/chat.postMessage" \
+  -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d "{"channel":"C091G3PKHL2","text":"🏭 Iteration $i done: $(head -3 progress.txt)"}"
+```
 ## Detailed Instructions
 
 **各 US の詳細手順は `references/us-00X-*.md` を参照。**
