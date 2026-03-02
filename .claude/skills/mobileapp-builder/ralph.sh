@@ -76,6 +76,15 @@ for us in d['userStories']:
     exit 0
   fi
 
+  # validate.sh — external quality gate (Source: SonarQube pattern)
+  if [ -f "$SCRIPT_DIR/validate.sh" ]; then
+    echo "🔍 validate.sh 実行中..."
+    "$SCRIPT_DIR/validate.sh" || {
+      echo "🔴 validate.sh FAILED"
+      notify_slack "🔴 validate.sh FAILED at iteration $i"
+    }
+  fi
+
   echo "🏭 sleep 2..."
   sleep 2
 done

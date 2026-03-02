@@ -142,6 +142,14 @@ curl -s -X POST "https://slack.com/api/chat.postMessage" \
   -H "Content-Type: application/json" \
   -d "{"channel":"C091G3PKHL2","text":"🏭 Iteration $i done: $(head -3 progress.txt)"}"
 ```
+## Reviewer Agent (v2 で追加予定)
+Source: ManaLabs (https://manalabs.wtf/appfactory)
+> 「A separate reviewer agent independently verifies every file」
+v1 では validate.sh が品質ゲート。v2 で独立 reviewer agent を追加する。
+
+## User Decision Gates (自動化)
+Source: rshankras WORKFLOW.md — 各 Phase で「User Decision: BUILD / DONT BUILD」ゲートがある。
+Factory では自動化のため、Rank 1 アイデアを自動選択し User Decision をスキップする。
 ## Detailed Instructions
 
 **各 US の詳細手順は `references/us-00X-*.md` を参照。**

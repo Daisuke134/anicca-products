@@ -8,7 +8,7 @@
 1. Read `prd.json` (same directory as this file)
 2. Read `progress.txt` (check Codebase Patterns section FIRST)
 3. Pick the **highest priority** user story where `passes: false`
-4. Read the spec file at `specs/<US-ID>.md` for detailed instructions
+4. Read `.claude/skills/mobileapp-builder/references/us-<NNN>-*.md` for this US
 5. Read referenced skills (listed in the spec file)
 6. Implement that single user story
 7. Run verification checks listed in the spec
@@ -34,7 +34,7 @@ curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '
 |---|------|
 | 17 | **RevenueCat/Mixpanel API キーは Info.plist から読む**。`ProcessInfo.processInfo.environment` 禁止 |
 | 18 | **screenshot-creator スキル使用禁止**。Koubou（`asc screenshots frame`）のみ |
-| 19 | **オンボーディング最終画面はソフトペイウォール必須**。RevenueCatUI.PaywallView + [Maybe Later] |
+| 19 | **オンボーディング最終画面はソフトペイウォール必須**。自前 SwiftUI PaywallView + Purchases.shared.purchase(package:)。RevenueCatUI 禁止。[Maybe Later] で閉じれる |
 | 20 | **ATT 禁止**。AppTrackingTransparency / NSUserTrackingUsageDescription は使わない |
     openclaw system event --text "🏭 <US-ID> 完了" 2>/dev/null || true
 
@@ -59,7 +59,7 @@ APPEND to progress.txt (never replace):
 
 Before marking ANY story as `passes: true`, you MUST verify:
 1. All acceptance criteria met with EVIDENCE (not assertion)
-2. All checks in `specs/<US-ID>.md` pass
+2. All checks in the reference file pass
 3. git commit clean
 
 ### Forbidden Shortcuts
@@ -106,3 +106,22 @@ If stories remain: end normally (next iteration picks up).
 - Every US start → Slack report
 - Every US completion → update progress.txt + prd.json + git commit + Slack report
 - DO NOT modify validate.sh (external quality gate, not your file)
+
+## 3-Attempt Limit
+# Source: harrymunro/ralph-wiggum CLAUDE.md
+# https://raw.githubusercontent.com/harrymunro/ralph-wiggum/main/CLAUDE.md
+# Quote: "If you cannot make a story pass quality gates after 3 attempts: STOP"
+
+If you cannot make a story pass after 3 attempts:
+1. STOP — do not continue iterating
+2. Document what's failing in progress.txt
+3. Skip to the next story
+4. Never use forbidden shortcuts to force a pass
+
+## Consolidate Patterns
+# Source: harrymunro/ralph-wiggum CLAUDE.md
+# Quote: "add reusable patterns to Codebase Patterns at TOP of progress.txt"
+
+If you discover a reusable pattern, add it to `## Codebase Patterns`
+at the TOP of progress.txt (create if it doesn't exist).
+Only general, reusable patterns — not story-specific details.

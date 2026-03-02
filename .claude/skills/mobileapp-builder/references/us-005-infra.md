@@ -59,12 +59,28 @@ security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keych
 ```
 KEYCHAIN_PASSWORD is in `~/.config/mobileapp-builder/.env`
 
-## Step 5: ASC App Creation
-Try `asc apps create` first. If fails (2FA/cookie expired):
-→ Slack フォールバック（Dais に手動作成依頼）
+## Step 5: ASC App Creation (手動 — スキルなし)
+
+ASC アプリ作成は API Key 不可（Apple ID + 2FA 必要）。
+自動化するスキルは存在しない（asc-app-create-ui は未実装）。
 
 Source: asc CLI help
 > 「App creation requires Apple ID authentication (not API key)」
+
+CC は以下を Slack に投稿して Dais の返信を待つ:
+```
+📱 ASC でアプリを作成してください（30秒）
+https://appstoreconnect.apple.com → + → 新規App
+  プラットフォーム: iOS
+  名前: <app_name>
+  プライマリ言語: English (U.S.)
+  バンドルID: <bundle_id>
+  SKU: <slug>
+  ユーザアクセス: 制限なし
+完了したら APP_ID を返信してください。
+```
+
+Dais が APP_ID を返信 → progress.txt に記録 → 次のステップへ。
 
 ## Step 6: IAP Creation + 175 Countries Pricing
 - asc-subscription-localization スキル → IAP 作成 + 全 locale

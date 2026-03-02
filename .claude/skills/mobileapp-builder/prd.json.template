@@ -89,7 +89,8 @@
         "grep -r 'Mock' --include='*.swift' . | grep -v 'Tests/' | grep -v '.build/' | wc -l = 0",
         "grep -r 'import RevenueCat' --include='*.swift' . | wc -l > 0",
         "PaywallView uses RevenueCatUI (not custom mock paywall)",
-        "Typecheck passes"
+        "Typecheck passes",
+        "grep -r 'import RevenueCatUI' --include='*.swift' . | wc -l = 0"
       ],
       "priority": 6,
       "passes": false,
