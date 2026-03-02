@@ -1,0 +1,28 @@
+## Codebase Patterns
+
+- App naming: [BrandName]: [Descriptor] format (e.g., "MindSnap: AI Daily Check-in")
+- Bundle ID pattern: com.anicca.[appname_lowercase]
+- Foundation Models + no-backend = fastest path to AI-differentiated app in 1 day
+- Subscription sweet spot: $4.99/mo or $29.99/yr for wellness/productivity apps (2026 data)
+- Free trial > hard paywall: 7-day trial converts better per BusinessOfApps 2026
+
+---
+
+## 2026-03-03 - US-001: Trend research + idea selection
+
+- What was implemented:
+  - spec/01-trend.md created with 5 brainstorming lenses applied
+  - 5 ideas scored across 5 dimensions (Solo Dev, API Fit, Monetization, Competition, Tech Fit)
+  - Top 3 shortlisted; MindSnap selected as Rank 1 (score: 8.8)
+  - 4 ideas filtered out with reasons
+  - 7 sources cited
+- Files changed:
+  - spec/01-trend.md (new)
+  - prd.json (passes: true, notes added)
+  - progress.txt (this file)
+- **Learnings for future iterations:**
+  - Foundation Models = strong differentiator in 2026 (on-device, free inference, few indie apps)
+  - Privacy-first + no-account UX is a genuine selling point in Health & Fitness category
+  - 30-second daily habit loop = better retention than traditional journaling apps
+  - MindSnap target: com.anicca.mindsnap, Category: Health & Fitness
+---
