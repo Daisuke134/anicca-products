@@ -153,7 +153,8 @@ for us in d['userStories']:
         print(f'🔴 Reset {us["id"]} to passes:false')
 with open('$PRD_FILE','w') as f: json.dump(d, f, indent=2)
 PYEOF
-      notify_slack "🔴 Validation FAILED: external gate rejected"
+      notify_slack "🔴 Validation FAILED: external gate rejected — factory stopped"
+      exit 1  # STOP factory on validation failure
     fi
   fi
 

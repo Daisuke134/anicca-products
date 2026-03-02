@@ -59,6 +59,29 @@ security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keych
 ```
 KEYCHAIN_PASSWORD is in `~/.config/mobileapp-builder/.env`
 
+
+## Step 4.5: Bundle ID 登録（Developer Portal）
+
+ASC でアプリを作成する前に、Apple Developer Portal で Identifier を登録する必要がある。
+
+```bash
+# Bundle ID が登録済みか確認
+# asc CLI には identifiers コマンドがないので、ASC アプリ作成時に選択可能か確認する
+```
+
+CC は progress.txt に以下を書いて WAITING_FOR_HUMAN:
+```
+WAITING_FOR_HUMAN: Bundle ID registration
+📱 Bundle ID の登録をお願いします（30秒）:
+1. https://developer.apple.com → Certificates, Identifiers & Profiles
+2. Identifiers → + → App IDs → Continue → App → Continue
+3. Description: <app_name>
+4. Bundle ID: Explicit → <bundle_id>
+5. Capabilities: (必要に応じて選択)
+6. Register
+完了したら Slack で「done」と返信してください。
+```
+
 ## Step 5: ASC App Creation (手動 — スキルなし)
 
 ASC アプリ作成は API Key 不可（Apple ID + 2FA 必要）。
@@ -85,10 +108,48 @@ ralph.sh が progress.txt の WAITING_FOR_HUMAN を検出 → Slack に投稿。
 Dais が APP_ID を返信 → Anicca が progress.txt に追記 + .env に書く。
 次の iteration で CC が読む → 続行。
 
-## Step 6: IAP Creation + 175 Countries Pricing
-- asc-subscription-localization スキル → IAP 作成 + 全 locale
-- asc-ppp-pricing スキル → 175カ国 pricing
-- CRITICAL: availability set BEFORE pricing（順序逆だと Apple 500エラー）
+## Step 6: IAP Creation + Localization + Availability + Pricing
+
+**順序が超重要！** availability → pricing の順。逆だと Apple API が 500 を返す。
+
+### 6.1: サブスクリプショングループ作成
+```bash
+GROUP_ID=$(asc subscriptions groups create --app $APP_ID --ref-name "<AppName> Premium" 2>&1 | jq -r '.data.id')
+```
+
+### 6.2: サブスクリプション作成
+```bash
+MONTHLY_ID=$(asc subscriptions create --group $GROUP_ID --ref-name "Monthly" --product-id "com.anicca.<slug>.monthly" --period ONE_MONTH 2>&1 | jq -r '.data.id')
+ANNUAL_ID=$(asc subscriptions create --group $GROUP_ID --ref-name "Annual" --product-id "com.anicca.<slug>.annual" --period ONE_YEAR 2>&1 | jq -r '.data.id')
+```
+
+### 6.3: ローカライゼーション追加
+```bash
+asc subscriptions localizations create --subscription-id $MONTHLY_ID --locale en-US --name "Monthly Premium" --description "Full access."
+asc subscriptions localizations create --subscription-id $ANNUAL_ID --locale en-US --name "Annual Premium" --description "Full access. Save 50%."
+```
+
+### 6.4: availability 設定（pricing の前に必須！）
+```bash
+asc subscriptions availability set --id $MONTHLY_ID --territory "USA,CAN,GBR,DEU,FRA,JPN,AUS"
+asc subscriptions availability set --id $ANNUAL_ID --territory "USA,CAN,GBR,DEU,FRA,JPN,AUS"
+```
+
+### 6.5: 価格設定（availability の後！）
+```bash
+# CSV で一括 import
+cat > /tmp/monthly-prices.csv << 'EOF'
+territory,price
+USA,4.99
+EOF
+asc subscriptions prices import --id $MONTHLY_ID --input /tmp/monthly-prices.csv
+
+cat > /tmp/annual-prices.csv << 'EOF'
+territory,price
+USA,29.99
+EOF
+asc subscriptions prices import --id $ANNUAL_ID --input /tmp/annual-prices.csv
+```
 
 ## Step 7: RC Setup (人間介入)
 CC は progress.txt に以下を書いて passes:false で終了する。

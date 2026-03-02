@@ -12,6 +12,20 @@ Use this skill to set different prices for different countries based on purchasi
 - Use `ASC_APP_ID` or pass `--app` explicitly.
 - Know your base territory (usually USA) and base price tier.
 
+
+## ⚠️ CRITICAL: Availability First!
+
+**価格設定の前に必ず availability を設定すること。**
+順序を間違えると Apple API が 500 エラーを返す。
+
+```bash
+# これを先にやる！
+asc subscriptions availability set --id "SUB_ID" --territory "USA,CAN,GBR,..."
+
+# その後で価格設定
+asc subscriptions prices import --id "SUB_ID" --input "./prices.csv"
+```
+
 ## Workflow: Set PPP-Based Subscription Pricing
 
 ### 1. List subscriptions for your app

@@ -141,6 +141,27 @@ asc builds attach --app $APP_ID --version-id $VERSION_ID --build-id $BUILD_ID
 asc testflight distribute --app $APP_ID --build-id $BUILD_ID --group "External Testers"
 ```
 
+
+## Step 10: Slack TestFlight 報告
+
+TestFlight ビルドの distribute 完了後、Slack に TestFlight リンクを報告する:
+
+```bash
+source ~/.config/mobileapp-builder/.env
+
+# TestFlight リンク取得
+TESTFLIGHT_URL=$(asc testflight builds get-link --app $APP_ID --build $BUILD_ID 2>/dev/null || echo "https://testflight.apple.com/join/<GROUP_PUBLIC_LINK>")
+
+# Slack 報告
+curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' \
+  -d '{"text":"🧪 TestFlight 準備完了\nApp: <app_name>\nリンク: '"$TESTFLIGHT_URL"'\n↑タップしてテスト可能"}'
+```
+
+progress.txt にも記録:
+```
+TESTFLIGHT_LINK=$TESTFLIGHT_URL
+```
+
 ## Acceptance Criteria
 - Screenshots uploaded to ASC for en-US and ja (AXe + Koubou)
 - Metadata synced (en-US + ja)

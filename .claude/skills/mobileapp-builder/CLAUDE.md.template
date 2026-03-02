@@ -114,9 +114,13 @@ If stories remain: end normally (next iteration picks up).
 
 If you cannot make a story pass after 3 attempts:
 1. STOP — do not continue iterating
-2. Document what's failing in progress.txt
-3. Skip to the next story
+2. Document what's failing in progress.txt with "BLOCKED: <reason>"
+3. **DO NOT SKIP to the next story** — wait for the issue to be resolved
 4. Never use forbidden shortcuts to force a pass
+
+**CRITICAL:** 前の US が完了していないまま次の US に進むと、モックコードや不完全な実装になる。
+US は順序依存。US-005（インフラ）が完了しないと US-006（実装）は正しく動かない。
+BLOCKED 状態で iteration を終了し、次の iteration で再試行を待つ。
 
 ## Consolidate Patterns
 # Source: harrymunro/ralph-wiggum CLAUDE.md
