@@ -1,0 +1,22 @@
+## Codebase Patterns
+- Factory Profile: iOS / Swift/SwiftUI / solo dev / 1-day MVP / subscription model
+- Selected App: Sleep Ritual Builder — bedtime routine builder (NOT sleep tracker)
+- App concept: 3-step pre-sleep ritual + streak + UserNotifications + UserDefaults. Zero backend.
+- Scoring formula: (Solo Dev × 1.5 + Platform API + Monetization + Competition + Technical × 1.5) / 6
+
+---
+
+## 2026-03-02 - US-001: Trend Research + Idea Selection
+- Applied 5 brainstorming lenses (Skills, Problem-First, Tech-First, Market Gap, Trend-Based)
+- Generated 9+ raw ideas, scored top 5, filtered out 4
+- Selected: **Sleep Ritual Builder** (overall score 8.33/10)
+  - One-liner: Build a personalized 3-step pre-sleep ritual and track streaks
+  - Target: Adults 25–40 who can't maintain a bedtime routine
+  - Monetization: $4.99/month or $29.99/year
+  - MVP scope: SwiftUI + UserNotifications + UserDefaults (1-day achievable)
+- Files created: spec/01-trend.md
+- **Learnings for future iterations:**
+  - Sleep ritual BUILDING is blue ocean vs tracking (Sleep Cycle) or meditation (Calm)
+  - Wellness incumbent decline = indie opportunity in niche
+  - For 1-day MVP, avoid HealthKit/Foundation Models; pure SwiftUI+Notifications suffices
+---
