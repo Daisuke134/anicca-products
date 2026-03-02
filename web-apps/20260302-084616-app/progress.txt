@@ -42,3 +42,13 @@
   - Server Actions are cleaner than API routes for Stripe Checkout
   - dangerouslySetInnerHTML is needed for HTML signature preview — sanitize in production
   - ClipboardItem with text/html MIME type enables rich-text paste in email clients
+
+## 2026-03-02 - US-005: Quality Check + E2E Test
+- npm run build: PASS (all 7 routes)
+- npm run lint: PASS (zero errors)
+- SEO: metadata in layout.tsx (title, description, OG, Twitter), robots.txt, sitemap.ts
+- Playwright E2E: 4/4 PASS (landing, pricing, create, navigation)
+- **Learnings for future iterations:**
+  - Port 3000 may be occupied by other apps — use unique port (3847) for Playwright
+  - Playwright strict mode requires .first() when multiple elements match
+  - Label-input association (htmlFor) missing causes getByLabel to fail — use getByPlaceholder instead
