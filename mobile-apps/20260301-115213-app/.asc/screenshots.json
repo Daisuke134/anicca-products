@@ -9,14 +9,9 @@
     { "action": "launch" },
     { "action": "wait", "duration_ms": 2000 },
     { "action": "screenshot", "name": "screen_1" },
-    { "action": "tap", "x": 196, "y": 820 },
     { "action": "wait", "duration_ms": 1000 },
     { "action": "screenshot", "name": "screen_2" },
-    { "action": "tap", "x": 196, "y": 820 },
     { "action": "wait", "duration_ms": 1000 },
-    { "action": "screenshot", "name": "screen_3" },
-    { "action": "tap", "x": 196, "y": 820 },
-    { "action": "wait", "duration_ms": 2000 },
-    { "action": "screenshot", "name": "screen_4" }
+    { "action": "screenshot", "name": "screen_3" }
   ]
 }

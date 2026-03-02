@@ -1,6 +1,7 @@
 import SwiftUI
 import RevenueCat
 import Mixpanel
+import AppTrackingTransparency
 
 @main
 struct MicroMoodApp: App {
@@ -9,7 +10,6 @@ struct MicroMoodApp: App {
 
     init() {
         configureRevenueCat()
-        configureMixpanel()
     }
 
     var body: some Scene {
@@ -17,6 +17,9 @@ struct MicroMoodApp: App {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
                 .environmentObject(subscriptionManager)
+                .onAppear {
+                    requestTrackingAuthorization()
+                }
         }
     }
 
@@ -26,8 +29,19 @@ struct MicroMoodApp: App {
         Purchases.logLevel = .info
     }
 
-    private func configureMixpanel() {
+    private func requestTrackingAuthorization() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            ATTrackingManager.requestTrackingAuthorization { status in
+                configureMixpanel(trackingGranted: status == .authorized)
+            }
+        }
+    }
+
+    private func configureMixpanel(trackingGranted: Bool) {
         let token = ProcessInfo.processInfo.environment["MIXPANEL_TOKEN"] ?? "PLACEHOLDER_TOKEN"
         Mixpanel.initialize(token: token, trackAutomaticEvents: false)
+        if !trackingGranted {
+            Mixpanel.mainInstance().optOutTracking()
+        }
     }
 }
