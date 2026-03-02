@@ -76,7 +76,7 @@
   - RevenueCatUI is FORBIDDEN (use Purchases.shared.purchase(package:) directly)
 ---
 
-## 2026-03-03 - US-005: WAITING_FOR_HUMAN
+## 2026-03-03 - US-005: WAITING_FOR_HUMAN (iteration 2 — Slack reminder sent)
 
 WAITING_FOR_HUMAN: ASC App Creation + RevenueCat Setup
 
