@@ -65,10 +65,21 @@
   - Soft paywall [Maybe Later] requirement is CLAUDE.md Rule 19 — document in UX_SPEC upfront
 ---
 
-## 2026-03-02 - US-005: ASC Setup + IAP + RevenueCat (IN PROGRESS)
-- privacy-policy.md + terms.md created
+## 2026-03-02 - US-005: ASC Setup + IAP + RevenueCat (IN PROGRESS — ITERATION 2)
+- privacy-policy.md + terms.md created (iteration 1)
 - Deployed to GitHub Pages: https://daisuke134.github.io/anicca-products/sleepritual/privacy-policy.html
-- Files created: privacy-policy.md, terms.md
+- Bundle ID com.anicca.sleepritual created in Apple Developer Portal (MVNCLZ37DB)
+- SleepRitualios/ Xcode project created with full iOS implementation (xcodegen)
+  - All 14 Swift source files: Models, Services, ViewModels, Views, App
+  - RevenueCat SDK (5.60.0) + Mixpanel (4.4.0) added via SPM — NOT RevenueCatUI
+  - PrivacyInfo.xcprivacy: NSPrivacyAccessedAPICategoryUserDefaults + CA92.1
+  - Info.plist: ITSAppUsesNonExemptEncryption = NO
+  - Custom SwiftUI PaywallView (Rule 19 compliant — no RevenueCatUI)
+  - Soft paywall with [Maybe Later] button
+  - BUILD SUCCEEDED (xcodebuild -sdk iphonesimulator)
+- STILL WAITING FOR:
+  1. ASC App ID (need to create app in App Store Connect)
+  2. RevenueCat RC_SECRET_KEY + RC_PUBLIC_KEY
 
 WAITING_FOR_HUMAN: ASC app creation + RevenueCat setup
 
