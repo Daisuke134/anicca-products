@@ -17,3 +17,16 @@
 - **Learnings for future iterations:**
   - Always source web-apps/.env for shared keys
   - Stripe curl API requires -u flag with colon after key
+
+## 2026-03-02 15:20 - US-004: Feature Implementation
+- Landing page (/) with hero, features grid, how it works, testimonials, CTA
+- Pricing page (/pricing) with Free/Pro comparison + Stripe Checkout form
+- Generator page (/generate) with prospect/product inputs, tone/template selectors, email output
+- Success page (/success) for post-checkout
+- API: /api/checkout (Stripe Checkout Session) + /api/webhook (503 if no secret)
+- Dark theme with indigo accent, responsive design
+- Files: 7 new files in src/
+- **Learnings for future iterations:**
+  - Stripe SDK apiVersion must match installed package version (2026-02-25.clover)
+  - create-next-app cannot run in non-empty directory — use temp dir then copy
+  - Server Action pattern for Stripe: form POST to API route that creates session and redirects

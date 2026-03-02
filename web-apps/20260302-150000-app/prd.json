@@ -60,8 +60,8 @@
         "npm run build passes"
       ],
       "priority": 4,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "All pages: / (landing), /pricing, /generate, /success, /api/checkout, /api/webhook. Build passing. No forbidden patterns."
     },
     {
       "id": "US-005",
