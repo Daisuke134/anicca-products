@@ -81,7 +81,7 @@
       ],
       "priority": 5,
       "passes": true,
-      "notes": "AppID:6759877003 APP_NAME=Micro-Mood BUNDLE_ID=com.anicca.micromood SKU=MicroMood2026 PRIVACY_POLICY_URL=https://daisuke134.github.io/micromood-privacy/ GROUP_ID=21956086 MONTHLY_ID=6759877016 ANNUAL_ID=6759877119 RC_OFFERING=ofrng2bb1abc0a6. PrivacyInfo.xcprivacy+CA92.1 ✅ ITSAppUsesNonExemptEncryption=false ✅ RevenueCat SPM+products+offering ✅ Sub pricing+localization+availability ✅ MISSING_METADATA expected until new build in US-008. 2026-03-02",
+      "notes": "AppID:6759877003 APP_NAME=Micro-Mood BUNDLE_ID=com.anicca.micromood SKU=MicroMood2026 PRIVACY_POLICY_URL=https://daisuke134.github.io/micromood-privacy/ GROUP_ID=21956086 MONTHLY_ID=6759877016 ANNUAL_ID=6759877119 RC_OFFERING=ofrng2bb1abc0a6. PrivacyInfo.xcprivacy+CA92.1 \u2705 ITSAppUsesNonExemptEncryption=false \u2705 RevenueCat SPM+products+offering \u2705 Sub pricing+localization+availability \u2705 MISSING_METADATA expected until new build in US-008. 2026-03-02",
       "spec": "specs/US-005.md"
     },
     {
@@ -136,8 +136,8 @@
         "Typecheck passes"
       ],
       "priority": 8,
-      "passes": true,
-      "notes": "Screenshots(3): Track Your Mood/AI-Powered/Break Free. koubou 0.14.0 framed(iPhone16Pro). Uploaded en-US+ja ✅. Metadata en-US+ja synced ✅. ATT+CFBundleDisplayName added ✅. Build v5(e7a20ac5) VALID ✅. Attached to version 1eb6f044 ✅. AgeRating all-NONE ✅. ReviewDetails demo-N/A ✅. Availability 175 territories ✅. ContentRights DOES_NOT_USE_THIRD_PARTY_CONTENT ✅. usesNonExemptEncryption=false ✅. asc validate Errors=0 ✅. greenlight CRITICAL=0 ✅. TestFlight internal group ✅. Sub review screenshots ✅. 2026-03-02",
+      "passes": false,
+      "notes": "",
       "spec": "specs/US-008.md"
     },
     {

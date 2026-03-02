@@ -1,0 +1,10 @@
+## 2026-03-02 15:00 - US-001: Trend Research + App Name Selection
+- Evaluated 5 SaaS niches: AI Meeting Notes, Subscription Tracker, Content Repurposing, AI Cold Email Generator, AI Landing Page Analyzer
+- Selected: ColdCraft — AI-powered cold email generator ($9.99/month)
+- Rationale: Low competition in affordable tier ($9.99 vs $30+ competitors), clear pain point, repeat use case
+- Files: idea.md, prd.json, CLAUDE.md, progress.txt
+- Sources: ProductHunt AI Sales Tools, Elementor Micro-SaaS 2026, Lovable Micro SaaS 2026, VibeMonies Micro-SaaS 2026
+- **Learnings for future iterations:**
+  - AI meeting notes market is oversaturated — avoid
+  - $9.99 price point sweet spot for micro SaaS targeting individuals
+  - Focus on niches where enterprise tools exist but no affordable alternative
