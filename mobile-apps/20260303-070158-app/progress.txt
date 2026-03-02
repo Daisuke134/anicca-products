@@ -317,3 +317,37 @@ Required from human:
 3. Reply "US-005 ready" in Slack #agents
 
 ---
+## 2026-03-03 - US-005: WAITING_FOR_HUMAN iteration 16 — 2FA code needed NOW
+
+WAITING_FOR_HUMAN: Apple 2FA コード（6桁）+ RevenueCat Setup
+
+**診断結果（iteration 16 最終確認）:**
+- Apple ID: keiodaisuke@gmail.com — パスワード認証: ✅ OK
+- 2FA: ❌ iPhoneへの確認コードが必要（自動化不可）
+- ASC APP_ID: ❌ 未設定
+- RC_SECRET_KEY: ❌ 未設定
+- RC_PUBLIC_KEY: ❌ 未設定
+
+**必要な手順（3ステップ、合計5分）:**
+
+### ステップ1: 2FA コードを取得して asc web auth login を実行（Mac で）
+```bash
+source ~/.config/mobileapp-builder/.env
+# iPhoneに届く6桁コードをXXXXXXに入れて実行:
+ASC_WEB_PASSWORD="Chatgpt12345" asc web auth login --apple-id keiodaisuke@gmail.com --two-factor-code XXXXXX
+# 成功後:
+ASC_WEB_PASSWORD="Chatgpt12345" asc web apps create --name "MindSnap" --bundle-id "com.anicca.mindsnap" --sku "mindsnap-001" --output json
+# → 出力の "id" フィールドの数字をメモ（例: "6761234567"）
+echo 'ASC_APP_ID=6761234567' >> /Users/anicca/.openclaw/.env
+```
+
+### ステップ2: RevenueCat プロジェクト作成
+1. https://app.revenuecat.com → New Project → Name: MindSnap
+2. Add App → App Store → Bundle: com.anicca.mindsnap
+3. API Keys → Secret key copy → `echo 'RC_SECRET_KEY=sk_...' >> /Users/anicca/.openclaw/.env`
+4. Public key copy → `echo 'RC_PUBLIC_KEY=appl_...' >> /Users/anicca/.openclaw/.env`
+
+### ステップ3: Slack で「US-005 ready」と返信
+→ 次の iteration が自動で続きを実行します
+
+---
