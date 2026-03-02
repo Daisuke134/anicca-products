@@ -1,8 +1,10 @@
 ## Codebase Patterns
 - Factory Profile: iOS / Swift/SwiftUI / solo dev / 1-day MVP / subscription model
-- Selected App: Sleep Ritual Builder — bedtime routine builder (NOT sleep tracker)
+- Selected App: SleepRitual (bundle ID: com.anicca.sleepritual) — bedtime routine builder (NOT sleep tracker)
 - App concept: 3-step pre-sleep ritual + streak + UserNotifications + UserDefaults. Zero backend.
 - Scoring formula: (Solo Dev × 1.5 + Platform API + Monetization + Competition + Technical × 1.5) / 6
+- App Name confirmed available on iTunes: "sleepritual" = 0 exact matches (checked 2026-03-02)
+- Subscription pricing: $4.99/month, $29.99/year (both with 7-day free trial)
 
 ---
 
@@ -19,4 +21,18 @@
   - Sleep ritual BUILDING is blue ocean vs tracking (Sleep Cycle) or meditation (Calm)
   - Wellness incumbent decline = indie opportunity in niche
   - For 1-day MVP, avoid HealthKit/Foundation Models; pure SwiftUI+Notifications suffices
+---
+
+## 2026-03-02 - US-002: Product Planning
+- Created product-plan.md with all required sections
+- App name finalized: **SleepRitual** (bundle ID: com.anicca.sleepritual)
+- Ran 4-agent framework: Problem Discovery → MVP Scoping → Positioning → ASO Optimization
+- Monetization confirmed: $4.99/month, $29.99/year (7-day trial both plans)
+- iTunes name check: 0 exact matches for "sleepritual" (evidence collected)
+- 12 external sources cited throughout document
+- Files created: product-plan.md
+- **Learnings for future iterations:**
+  - Check iTunes name availability BEFORE committing to an app name in US-001
+  - "Ritualize" was already taken; "SleepRitual" was available and more descriptive
+  - Annual plan at 50% discount ($29.99 vs $59.88) is the strongest paywall CTA for freemium health apps
 ---
