@@ -82,29 +82,48 @@ WAITING_FOR_HUMAN: Bundle ID registration
 完了したら Slack で「done」と返信してください。
 ```
 
-## Step 5: ASC App Creation (手動 — スキルなし)
+## Step 5: ASC App Creation (asc web apps create)
 
-ASC アプリ作成は API Key 不可（Apple ID + 2FA 必要）。
-自動化するスキルは存在しない（asc-app-create-ui は未実装）。
+### 5.1: セッション有効性チェック
+```bash
+source ~/.config/mobileapp-builder/.env
+LAST_LOGIN="${ASC_WEB_LAST_LOGIN:-1970-01-01}"
+DAYS_SINCE=$(( ( $(date +%s) - $(date -j -f "%Y-%m-%d" "$LAST_LOGIN" +%s) ) / 86400 ))
 
-Source: asc CLI help
-> 「App creation requires Apple ID authentication (not API key)」
-
-CC は progress.txt に以下を書いて passes:false で終了する:
-```
-WAITING_FOR_HUMAN: ASC app creation
-📱 ASC でアプリを作成してください（30秒）
-https://appstoreconnect.apple.com → + → 新規App
-  プラットフォーム: iOS
-  名前: <app_name>
-  プライマリ言語: English (U.S.)
-  バンドルID: <bundle_id>
-  SKU: <slug>
-  ユーザアクセス: 制限なし
-完了したら APP_ID を Slack で返信してください。
+if [ "$DAYS_SINCE" -gt 28 ]; then
+  # 28日超過 → 2FA 必要
+  echo "WAITING_FOR_HUMAN: 2FA required (session expired)"
+  cat >> progress.txt << 'MSG'
+⏸️ 2FA コード入力が必要です（セッション期限切れ）
+asc web auth login --apple-id keiodaisuke@gmail.com --password-stdin
+→ パスワード入力後、iPhone に届く 6 桁のコードを Slack で返信
+MSG
+  exit 1
+fi
 ```
 
-ralph.sh が progress.txt の WAITING_FOR_HUMAN を検出 → Slack に投稿。
+### 5.2: アプリ作成（自動）
+```bash
+APP_RESULT=$(asc web apps create \
+  --name "<app_name>" \
+  --bundle-id "<bundle_id>" \
+  --sku "<slug>" \
+  --apple-id "$APPLE_ID" \
+  --output json 2>&1)
+
+if echo "$APP_RESULT" | grep -q '"id"'; then
+  APP_ID=$(echo "$APP_RESULT" | jq -r '.data.id')
+  echo "APP_ID=$APP_ID" >> .env
+  echo "✅ ASC App created: $APP_ID"
+  
+  # Update last login date
+  sed -i '' "s/ASC_WEB_LAST_LOGIN=.*/ASC_WEB_LAST_LOGIN=$(date +%Y-%m-%d)/" ~/.config/mobileapp-builder/.env
+else
+  echo "❌ ASC App creation failed: $APP_RESULT"
+  exit 1
+fi
+```
+
 Dais が APP_ID を返信 → Anicca が progress.txt に追記 + .env に書く。
 次の iteration で CC が読む → 続行。
 

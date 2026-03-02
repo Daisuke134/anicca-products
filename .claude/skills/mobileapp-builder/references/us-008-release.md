@@ -38,15 +38,22 @@ for i in 1 2 3 4 5; do
 done
 ```
 
-AXe tab bar coordinates (iPhone 16e, 390×844pt): y=802, x=49/146/243/340
+## 使用デバイス（固定）
+- **iPhone 17 Pro** (1290×2796) — APP_IPHONE_67 対応 ✅
+- ❌ iPhone 16e (1170×2532) は使用禁止（ASC サイズ不適合）
+
+AXe tab bar coordinates (iPhone 17 Pro, 393×852pt): y=820, x=49/148/246/344
 Source: Real AXe v1.4.0 (`brew install cameroncooke/axe/axe`)
 
-### 1b: Koubou でフレーム
+### 1b: Koubou でフレーム（必須！スキップ禁止）
+
+**⚠️ 生スクショの直接アップロードは禁止。必ず Koubou でフレーミングする。**
+スキップしたら validate.sh GATE 4 で FAIL する。
 ```bash
 asc screenshots frame \
   --input screenshots/raw/ \
   --output screenshots/framed/ \
-  --device "iPhone 16e"
+  --device "iphone-17-pro"
 ```
 Source: Koubou v0.14.0 (`asc screenshots frame`)
 
