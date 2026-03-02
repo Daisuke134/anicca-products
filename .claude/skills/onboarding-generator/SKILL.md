@@ -191,3 +191,23 @@ Button("Reset Onboarding") {
 
 - **onboarding-patterns.md** - Best practices and design patterns
 - **templates/** - All template files
+
+## CRITICAL: Soft Paywall at End of Onboarding
+
+**オンボーディングの最終画面は必ずソフトペイウォールにする。**
+
+```swift
+// OnboardingView.swift の最終ステップ
+.sheet(isPresented: $showingPaywall) {
+    if let offering = subscriptionManager.currentOffering {
+        PaywallView(offering: offering)
+            .onPurchaseCompleted { _ in finishOnboarding() }
+            .onRestoreCompleted { _ in finishOnboarding() }
+    }
+}
+
+// [Maybe Later] ボタンで閉じられるようにする
+Button("Maybe Later") { finishOnboarding() }
+```
+
+**禁止:** オンボーディング → 直接 Home 画面（ペイウォールなし）

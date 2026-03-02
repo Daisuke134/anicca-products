@@ -157,6 +157,22 @@ if [ "$(us_passes US-008)" = "true" ]; then
   else
     log_fail "Framed screenshots: $FRAMED_COUNT (need >= 3)"
   fi
+
+##############################################
+# GATE 4b: Screenshots must be unique (not all same image)
+# Prevents CC from copying same screenshot to all slots
+##############################################
+if [[ "$(us_passes US-008)" == "true" ]]; then
+  UNIQUE_HASHES=$(find "$APP_DIR/screenshots/framed" -name "*.png" 2>/dev/null | xargs shasum 2>/dev/null | awk '{print $1}' | sort -u | wc -l | tr -d ' ')
+  TOTAL_SCREENSHOTS=$(find "$APP_DIR/screenshots/framed" -name "*.png" 2>/dev/null | wc -l | tr -d ' ')
+  if [[ "$UNIQUE_HASHES" -ge 2 && "$TOTAL_SCREENSHOTS" -ge 3 ]]; then
+    log_pass "Screenshots unique: $UNIQUE_HASHES unique of $TOTAL_SCREENSHOTS total"
+  else
+    log_fail "Screenshots NOT unique: all $TOTAL_SCREENSHOTS have same hash (copy-paste detected)"
+  fi
+else
+  log_skip "Screenshot uniqueness (US-008 not passed)"
+fi
 else
   log_skip "US-008 not yet passed"
 fi

@@ -18,6 +18,23 @@
 11. Report via Slack (BOTH, curl FIRST):
     source ~/.config/mobileapp-builder/.env
     curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '{"text":"🏭 <US-ID> 完了: <summary>"}'
+
+## Special Slack Reports (US-001, US-007)
+
+### US-001 完了時（アイデア報告）:
+curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '{"text":"📱 アイデア選定完了\nApp: <app_name>\n概要: <one_liner>\n理由: <why_this_trend>\nターゲット: <target_user>"}'
+
+### US-007 完了時（TestFlightリンク報告）:
+TESTFLIGHT_URL=$(asc testflight builds get-link --app <APP_ID> --build <BUILD_ID> 2>/dev/null || echo "N/A")
+curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '{"text":"🧪 TestFlight準備完了\nリンク: '"$TESTFLIGHT_URL"'\n↑タップしてテスト可能"}'
+
+## CRITICAL Rules (違反 = リジェクト)
+
+| # | Rule |
+|---|------|
+| 17 | **RevenueCat/Mixpanel API キーは Info.plist から読む**。`ProcessInfo.processInfo.environment` 禁止 |
+| 18 | **screenshot-creator スキル使用禁止**。Koubou（`asc screenshots frame`）のみ |
+| 19 | **オンボーディング最終画面はソフトペイウォール必須**。RevenueCatUI.PaywallView + [Maybe Later] |
     openclaw system event --text "🏭 <US-ID> 完了" 2>/dev/null || true
 
 ## Progress Report Format

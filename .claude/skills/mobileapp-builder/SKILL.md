@@ -98,6 +98,9 @@ See `references/spec-template.md` for the full spec.md format.
 | 14 | **スクショ撮影シミュレータは iPhone SE 3rd gen 必須**。iPhone 14+ は Dynamic Island（黒い丸）が写り込む。`xcrun simctl list devices | grep "SE (3rd"` で UDID を確認して使う |
 | 15 | **Pencil テキストノードに `width: "fill_container"` 必須**。未設定だとテキストがフレーム外にはみ出す。日本語ヘッドラインの `fontSize` は **22以下**（28は14文字でオーバーフロー） |
 | 16 | **Pencil 画像キャッシュ問題**。同じパスのファイルを上書きしても Pencil はキャッシュした旧版を使い続ける。画像差し替え時は**必ず新しいファイル名**を使うこと |
+| 17 | **RevenueCat/Mixpanel API キーは Info.plist から読む**。`ProcessInfo.processInfo.environment` は App Store ビルドで動かない。環境変数禁止 |
+| 18 | **screenshot-creator スキル使用禁止**。スクショは Koubou（`asc screenshots frame`）のみ。Pencil MCP は壊れている |
+| 19 | **オンボーディング最終画面はソフトペイウォール必須**。RevenueCatUI.PaywallView を表示し、[Maybe Later] で閉じられるようにする |
 | 17 | **`mcp__pencil__get_screenshot` はディスクに保存しない**。返ってくるのは MCP レスポンス内の base64 のみ。ASC アップロード用ファイルは別途シミュレータから `xcrun simctl io` で取得すること |
 | 18 | **`asc screenshots frame`（Koubou）はスクショフレーム生成の唯一の方法。Python/Pillow/ImageMagick/sips フォールバック禁止。** `asc screenshots frame` が失敗 → エラー報告 + passes:false。代替手段で生成しない |
 | 18 | **App Privacy（データの使用方法）は ASC API で設定不可**。`/v1/apps/{id}/appDataUsages` は 404 を返す。PHASE 12 の前にユーザーに手動設定させること。設定手順は PHASE 11.5 参照 |

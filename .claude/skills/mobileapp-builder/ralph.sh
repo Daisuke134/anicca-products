@@ -42,7 +42,12 @@ for i in $(seq 1 $MAX_ITERATIONS); do
 
   LOG_FILE="$SCRIPT_DIR/logs/iteration-$i.log"
 
-  OUTPUT=$(claude --dangerously-skip-permissions --print --mcp-config ~/.claude/mcp.json < "$SCRIPT_DIR/CLAUDE.md" 2>&1 | tee "$LOG_FILE") || true
+  # Stream-json for real-time output (Source: aihero.dev)
+  tmpfile=$(mktemp)
+  stream_text='if .type == "assistant" then (.message.content[]? | select(.type == "text") | .text) // "" elif .type == "result" then .result // "" else "" end'
+  claude --dangerously-skip-permissions --verbose --print --output-format stream-json --mcp-config ~/.claude/mcp.json < "$SCRIPT_DIR/CLAUDE.md" 2>&1 | grep --line-buffered '^{' | tee "$tmpfile" | tee -a "$LOG_FILE" | jq --unbuffered -rj "$stream_text" || true
+  OUTPUT=$(cat "$tmpfile")
+  rm -f "$tmpfile"
 
   echo ""
   echo "🏭 Iteration $i 終了: $(date)"

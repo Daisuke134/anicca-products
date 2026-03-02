@@ -24,7 +24,9 @@ struct MicroMoodApp: App {
     }
 
     private func configureRevenueCat() {
-        let apiKey = ProcessInfo.processInfo.environment["REVENUECAT_IOS_KEY"] ?? "PLACEHOLDER_KEY"
+        // CRITICAL: API key from Info.plist, NOT environment variable
+        // Environment variables do NOT work in App Store builds
+        let apiKey = Bundle.main.infoDictionary?["REVENUECAT_IOS_KEY"] as? String ?? "appl_placeholder"
         Purchases.configure(withAPIKey: apiKey)
         Purchases.logLevel = .info
     }
@@ -38,7 +40,8 @@ struct MicroMoodApp: App {
     }
 
     private func configureMixpanel(trackingGranted: Bool) {
-        let token = ProcessInfo.processInfo.environment["MIXPANEL_TOKEN"] ?? "PLACEHOLDER_TOKEN"
+        // CRITICAL: Token from Info.plist, NOT environment variable
+        let token = Bundle.main.infoDictionary?["MIXPANEL_TOKEN"] as? String ?? "placeholder"
         Mixpanel.initialize(token: token, trackAutomaticEvents: false)
         if !trackingGranted {
             Mixpanel.mainInstance().optOutTracking()

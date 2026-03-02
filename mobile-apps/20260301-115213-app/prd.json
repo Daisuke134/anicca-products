@@ -151,7 +151,7 @@
       ],
       "priority": 9,
       "passes": false,
-      "notes": "",
+      "notes": "Skipped: exceeded 5 attempts without passing",
       "spec": "specs/US-009.md"
     }
   ]
