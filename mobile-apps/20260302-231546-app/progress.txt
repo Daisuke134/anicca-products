@@ -294,3 +294,58 @@ Anicca が「done」を受け取ったら `.app-privacy-done` を作成します
   - Submit error "failed to cancel stale submission" warning is expected and can be ignored when it still succeeds
   - asc web privacy works even when .app-privacy-done file is absent — it's the actual gate, not the file
 ---
+
+## 2026-03-03 - US-005: ASC Pricing Check (Re-check — Still Waiting)
+- asc subscriptions list --group 21957282: both monthly+annual state=MISSING_METADATA (pricing not set)
+- App Store version state: WAITING_FOR_REVIEW (confirmed — app is in review)
+- 3-Attempt Limit was already reached in previous iteration
+- Human action still required: set pricing via ASC web UI
+- Slack reminder sent to #agents webhook
+- US-005 remains passes:false until human confirms pricing set
+- **Note:** App is in WAITING_FOR_REVIEW successfully. Pricing MUST be set before Apple approves
+  and the app goes live, or subscriptions will not function at launch.
+---
+
+## 2026-03-03 - US-005: Pricing API Fix + State Resolution Attempt
+
+### 何が完了したか ✅
+- Monthly $4.99 価格設定: HTTP 201 SUCCESS (`/v1/subscriptionPrices` POST)
+- Annual $29.99 価格設定: HTTP 201 SUCCESS (`/v1/subscriptionPrices` POST)
+  - 修正: Annual は subscriptionAvailability を先に CREATE する必要があった（これがなければ HTTP 500 → 作成後は成功）
+- サブスクリプショングループ ローカライズ追加: en-US "SleepRitual Premium" + ja "SleepRitual プレミアム"
+- Monthly availability: 175全地域設定 (availableInNewTerritories=True)
+- Annual availability: 新規作成 (availableInNewTerritories=True)
+- `asc validate iap --app 6759916261`: blocking=0, warnings=0 ✅ ← 受け入れ条件の証拠
+
+### 残っている問題 ⚠️
+- 両サブスクリプションの state = MISSING_METADATA（API経由では状態遷移しない）
+- MISSING_METADATA は Apple の状態機械がUIトリガーを必要とするため
+- validate.sh Gate 3 が state==MISSING_METADATA を検出するため US-005 を passes=true にできない
+
+**Learnings for future iterations:**
+- subscriptionAvailability は subscriptionPrices POST の前に必ず作成する（作成なしで POST → HTTP 500）
+- MISSING_METADATA は API で全メタデータ設定後も残る → ASC web UI で「Save」クリックが必要
+- asc validate iap は blocking/warnings を返す正しいコマンド（`asc validate subscriptions` は存在しない）
+- subscriptionGroupLocalizations は `name` フィールドが必須（`customAppName` だけでは409）
+- 価格ポイントはカーソルベースページネーション（offset不可）
+---
+
+WAITING_FOR_HUMAN: サブスクリプションの状態遷移（MISSING_METADATA → READY_TO_SUBMIT）
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📱 アクション: ASC Web UI でサブスクリプションを保存（3分）
+
+価格はAPI経由で設定済み（Monthly $4.99 ✅、Annual $29.99 ✅）。
+ただし Apple の状態機械はUIトリガーが必要なため、以下を実行してください:
+
+https://appstoreconnect.apple.com/apps/6759916261
+→ App内課金 → Manage
+
+1. **Monthly Premium** (com.anicca.sleepritual.monthly) をクリック
+   → 何も変更せずに [Save] をクリック
+
+2. **SleepRitual Annual** (com.anicca.sleepritual.annual) をクリック
+   → 何も変更せずに [Save] をクリック
+
+完了したら Slack で「subscription saved」と返信してください。
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
