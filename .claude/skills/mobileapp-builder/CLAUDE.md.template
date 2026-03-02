@@ -9,8 +9,12 @@ You are an autonomous iOS app builder. Each iteration, you:
 2. Read prd.json to find the next story with passes: false
 3. Complete that ONE story
 4. Update prd.json (passes: true), write to progress.txt, git commit
-5. Report via: openclaw system event --text "✅ US-XXX 完了: [summary]"
-curl -s -X POST -H 'Content-type: application/json' --data '{"text":"✅ US-XXX 完了: [summary]"}' "$SLACK_WEBHOOK_AGENTS" --mode now
+5. Report via (BOTH required, curl FIRST):
+   source ~/.config/mobileapp-builder/.env
+   curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '{"text":"🏭 US-XXX 完了: [summary]"}'
+   openclaw system event --text "🏭 US-XXX 完了: [summary]" 2>/dev/null || true
+   ⛔ curl は必須（source .env で SLACK_WEBHOOK_AGENTS を読む）。openclaw は optional。
+   ⛔ US 開始時にも同様に報告: "🏭 US-XXX 開始: [title]"
 
 If ALL stories have passes: true, reply with: <promise>COMPLETE</promise>
 
@@ -103,6 +107,8 @@ Before starting any US, verify the previous US acceptance criteria:
   7. SPM: add RevenueCat + RevenueCatUI
   8. Add PrivacyInfo.xcprivacy (Apple WWDC23: developer.apple.com/videos/play/wwdc2023/10060/)
   9. Add ITSAppUsesNonExemptEncryption=NO to Info.plist (Apple: developer.apple.com/documentation/bundleresources/information-property-list/itsappusesnonexemptencryption)
+  10. サブスクリプション全ロケール表示名設定（asc-subscription-localization SKILL.md に従う）
+  11. サブスクリプション配信可否: availableInNewTerritories=true で175カ国配信
 - Verify: asc validate subscriptions blocking=0 warnings=0
 
 ### US-006: iOS implementation
@@ -120,22 +126,35 @@ Before starting any US, verify the previous US acceptance criteria:
 
 ### US-008: App Store screenshots + metadata
 - FIRST: Delete ALL existing screenshots (rm -rf screenshots/ docs/screenshots/)
-- スクショ撮影（5分以内・最大3枚）:
-  - xcrun simctl launch <UDID> <BUNDLE_ID> && sleep 3
-  - xcrun simctl io <UDID> screenshot screenshots/screen_1.png
-  - Home画面1枚のみ必須。残り2枚はオプション
-  - 画面遷移が必要な画面はスキップ
-  - ⛔ XCUITest/Maestro/サブエージェント/swipe/tap 禁止
-- Read: /Users/anicca/anicca-project/.claude/skills/screenshot-creator/SKILL.md
-  - Step 1-7 を全て順番に従え（Pencil MCP でプロモ加工）
-  - Step 1: ヒアリング（product-plan.md からアプリ名・ターゲット・USP を取得）
-  - Step 2: Pencil MCP でスタイルガイド取得
-  - Step 3: コピー作成（ヘッドライン + サブヘッドライン × 3枚分）
-  - Step 4: Pencil MCP で .pen ファイル作成（実スクショ埋め込み + テキスト配置）
-  - Step 5: 技術仕様バリデーション
-  - Step 6: 品質レビュー（10点満点）
-  - Step 7: PNG エクスポート → ASC アップロード
-- ⛔ Python/Pillow/ImageMagick 禁止。Pencil MCP 失敗 → passes:false
+- Read: .claude/skills/screenshot-planner/SKILL.md（5-Screenshot Framework でコピー計画）
+- Read: .claude/skills/asc-shots-pipeline/SKILL.md（撮影→フレーム→アップロード全手順）
+- Read: .claude/skills/app-description-writer/SKILL.md（説明文）
+- Read: .claude/skills/keyword-optimizer/SKILL.md（キーワード）
+- Read: .claude/skills/asc-metadata-sync/SKILL.md（メタデータ同期）
+- Read: .claude/skills/asc-xcode-build/SKILL.md（ビルド）
+- Read: .claude/skills/asc-release-flow/SKILL.md（リリース）
+- Read: .claude/skills/asc-submission-health/SKILL.md（提出前チェック）
+- Steps:
+  1. スクショ撮影（5分以内・最大3枚）:
+     - xcrun simctl launch <UDID> <BUNDLE_ID> && sleep 3
+     - xcrun simctl io <UDID> screenshot screenshots/screen_1.png
+     - Home画面1枚のみ必須。残り2枚はオプション
+     - ⛔ XCUITest/Maestro/サブエージェント/swipe/tap 禁止
+  2. デバイスフレーム合成:
+     - pip3 install koubou==0.13.0（未インストールなら）
+     - asc screenshots frame --input screenshots/screen_1.png --output-dir screenshots/framed --device iphone-air
+     - 撮影した全枚数フレームする
+  3. ASC にアップロード:
+     - asc screenshots upload --version-localization <LOC_ID> --path screenshots/framed/ --device-type APP_IPHONE_67
+     - en-US + ja 両方
+  4. メタデータ同期（en-US + ja）
+  5. Archive + .ipa export（security unlock-keychain -p "$KEYCHAIN_PASSWORD" first）
+  6. Upload build, attach to version
+  7. Age Rating, Review Details, Availability, Content Rights
+  8. asc validate → Errors=0（STOP GATE）
+  9. Preflight checks（asc-submission-health）
+- ⛔ Python/Pillow/ImageMagick/sips でスクショ加工禁止
+- ⛔ asc screenshots frame 失敗 → passes:false
 - Read: .claude/skills/asc-shots-pipeline/SKILL.md
 - Read: .claude/skills/asc-metadata-sync/SKILL.md
 - Read: .claude/skills/asc-xcode-build/SKILL.md
@@ -143,7 +162,7 @@ Before starting any US, verify the previous US acceptance criteria:
 - Read: .claude/skills/asc-testflight-orchestration/SKILL.md
 - Read: .claude/skills/asc-submission-health/SKILL.md
 - Steps:
-  1. Screenshots via Pencil MCP (NOT raw simulator captures)
+  1. Screenshots via asc screenshots frame (device-framed mockups)
   2. Upload screenshots to ASC (en-US + ja)
   3. Metadata sync (en-US + ja)
   4. Archive + .ipa export (unlock keychain first: security unlock-keychain -p "$KEYCHAIN_PASSWORD")

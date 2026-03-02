@@ -4,7 +4,7 @@ description: >
   App Store / Google Play 用のプロモーションスクリーンショットを Pencil (.pen) で生成する
   シングルエージェントスキル。creative-director → copy-writer → screenshot-designer →
   spec-validator → quality-reviewer の役割を1エージェントが順番に担当し、
-  Pencil MCP でデザインを構築する。エージェントチーム不使用（低コスト）。
+  asc screenshots frame でデザインを構築する。エージェントチーム不使用（低コスト）。
   Use when: App Store スクリーンショットを作りたい、プロモーション画像を作成したい、
   スクショのデザインをしたい。
   Triggers: "スクリーンショット作成", "App Store 画像", "プロモーションスクショ",
@@ -14,10 +14,10 @@ description: >
 # screenshot-creator スキル（シングルエージェント版）
 
 ## ⛔ 絶対ルール（最優先）
-- **Pencil MCP (@pencil-so/mcp) が唯一のスクショ生成方法。**
+- **asc screenshots frame (asc screenshots frame (Koubou)) が唯一のスクショ生成方法。**
 - Python/Pillow/ImageMagick での代替生成は禁止。
-- Pencil MCP が失敗した場合 → エラーを報告して停止（passes:false）。フォールバック禁止。
-- 実スクショ（xcrun simctl）+ Pencil MCP（プロモ加工）の2段階が必須。
+- asc screenshots frame が失敗した場合 → エラーを報告して停止（passes:false）。フォールバック禁止。
+- 実スクショ（xcrun simctl）+ asc screenshots frame（プロモ加工）の2段階が必須。
 
 **エージェントチームは使わない。** 以下の役割を1エージェントが順番に担当する:
 `creative-director` → `copy-writer` → `screenshot-designer` → `spec-validator` → `quality-reviewer`
@@ -56,7 +56,7 @@ xcrun simctl io CBA51D41-D404-4843-AA18-738C5068FFE4 screenshot screenshots/scre
 
 **残り2枚の撮り方（オプション）:**
 - deep link が使えるなら: `xcrun simctl openurl <UDID> <deeplink>`
-- 使えないなら: Home 画面1枚だけで OK。Pencil MCP で3枚分のプロモ画像を作る
+- 使えないなら: Home 画面1枚だけで OK。asc screenshots frame で3枚分のプロモ画像を作る
 
 ⛔ **禁止:**
 - XCUITest / ScreenshotTests.swift での撮影
@@ -95,14 +95,14 @@ for src, dst in [('/tmp/screen_home.png','/tmp/screen_home_clean.png'),('/tmp/sc
 | トーン | エモーショナル / プロフェッショナル等 |
 | スクリーンショット枚数 | 3〜6枚（推奨） |
 | 実スクリーンショット | アプリキャプチャの絶対パス（Step 0 で撮影済み） |
-| .pen ファイルパス | 新規作成なら省略 |
+| framed screenshotパス | 新規作成なら省略 |
 | デバイスサイズ | iPhone 6.9"（390×844pt） |
 
 ---
 
 ## Step 2: スタイルガイド取得（Asian / Japanese テーマ）
 
-`mcp__pencil__get_style_guide` を呼び出す。タグは **必ず以下を指定**:
+`asc screenshots frame --get_style_guide` を呼び出す。タグは **必ず以下を指定**:
 
 ```
 tags: ["japanese", "zen", "wellness", "minimal", "calm"]
@@ -140,15 +140,15 @@ tags: ["japanese", "zen", "wellness", "minimal", "calm"]
 
 ---
 
-## Step 4: .pen ファイル作成とデザイン構築（screenshot-designer 役割）
+## Step 4: framed screenshot作成とデザイン構築（screenshot-designer 役割）
 
 ### 4-1. ドキュメント準備
 
 ```javascript
 // 新規ファイルが必要な場合
-mcp__pencil__open_document("new")
+asc screenshots frame --open_document("new")
 // または既存パスを開く
-mcp__pencil__open_document("/path/to/file.pen")
+asc screenshots frame --open_document("/path/to/file.pen")
 ```
 
 ### 4-2. フレーム作成（iPhone 6.9" = 390×844pt）
@@ -210,7 +210,7 @@ phoneMockup=I(mockupArea, {type: "frame", width: 320, height: 640,
 
 ### 4-4. 画像確認
 
-各フレーム構築後に `mcp__pencil__get_screenshot` で目視確認する。
+各フレーム構築後に `asc screenshots frame --get_screenshot` で目視確認する。
 
 **チェックリスト:**
 - ヘッドラインがフレーム内に収まっているか（左右にはみ出ていないか）
@@ -236,7 +236,7 @@ phoneMockup=I(mockupArea, {type: "frame", width: 320, height: 640,
 
 ## Step 5: 技術仕様バリデーション（spec-validator 役割）
 
-`mcp__pencil__batch_get` と `mcp__pencil__snapshot_layout` で以下を数値検証:
+`asc screenshots frame --batch_get` と `asc screenshots frame --snapshot_layout` で以下を数値検証:
 
 | # | 検証項目 | 基準 | 判定 |
 |---|---------|------|------|
@@ -257,7 +257,7 @@ FAIL 項目は `U("{nodeId}", {property: value})` で即修正する。
 
 ## Step 6: 品質レビュー（quality-reviewer 役割）
 
-`mcp__pencil__get_screenshot` で全フレームを確認し、10点満点でスコアリング:
+`asc screenshots frame --get_screenshot` で全フレームを確認し、10点満点でスコアリング:
 
 | カテゴリ | 基準 |
 |---------|------|
@@ -304,7 +304,7 @@ asc screenshots upload --version-localization <LOC_ID> --path /path/to/screen3.p
 ```
 ## スクリーンショット完成
 
-.pen ファイル: {filePath}
+framed screenshot: {filePath}
 
 | スクリーン | フレーム名 | フレームID | PNG |
 |-----------|----------|---------|-----|

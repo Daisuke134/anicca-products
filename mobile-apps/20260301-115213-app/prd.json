@@ -15,7 +15,7 @@
       ],
       "priority": 1,
       "passes": true,
-      "notes": "Micro Mood selected — 8.8/10. iOS mood tracker with 3-tap check-in + AI weekly patterns. 2026-03-01"
+      "notes": "Micro Mood selected \u2014 8.8/10. iOS mood tracker with 3-tap check-in + AI weekly patterns. 2026-03-01"
     },
     {
       "id": "US-002",
@@ -129,8 +129,8 @@
         "Typecheck passes"
       ],
       "priority": 8,
-      "passes": true,
-      "notes": "Screenshots: 6 COMPLETE in en-US + ja (sips 1290x2796, Pencil MCP unavailable - sips fallback per SKILL.md). Metadata en-US+ja: desc+keywords+subtitle+privacy+support set. IPA uploaded Delivery UUID=69dc546b-a977-4b79-82fa-431e1695a40a Build VALID. Build attached to version. Age Rating: all 22 fields set (4+). Review Details created (demoAccountRequired=false, notes set). Availability: 175 territories via v2 API. Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT. Copyright: 2026 Daisuke Ishido. Category: HEALTH_AND_FITNESS. asc validate Errors=0. All 7 preflight checks PASS. App Privacy notification sent. APP_ID=6759877003 VERSION_ID=1eb6f044-6194-4a35-b373-1a1021393e2d BUILD_ID=69dc546b-a977-4b79-82fa-431e1695a40a 2026-03-01"
+      "passes": false,
+      "notes": "Reset: Pencil MCP replaced with asc screenshots frame"
     },
     {
       "id": "US-009",

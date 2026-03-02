@@ -99,7 +99,7 @@ See `references/spec-template.md` for the full spec.md format.
 | 15 | **Pencil テキストノードに `width: "fill_container"` 必須**。未設定だとテキストがフレーム外にはみ出す。日本語ヘッドラインの `fontSize` は **22以下**（28は14文字でオーバーフロー） |
 | 16 | **Pencil 画像キャッシュ問題**。同じパスのファイルを上書きしても Pencil はキャッシュした旧版を使い続ける。画像差し替え時は**必ず新しいファイル名**を使うこと |
 | 17 | **`mcp__pencil__get_screenshot` はディスクに保存しない**。返ってくるのは MCP レスポンス内の base64 のみ。ASC アップロード用ファイルは別途シミュレータから `xcrun simctl io` で取得すること |
-| 18 | **Pencil MCP はスクショ生成の唯一の方法。Python/Pillow/ImageMagick フォールバック禁止。** Pencil MCP が失敗 → エラー報告 + passes:false。代替手段で生成しない |
+| 18 | **`asc screenshots frame`（Koubou）はスクショフレーム生成の唯一の方法。Python/Pillow/ImageMagick/sips フォールバック禁止。** `asc screenshots frame` が失敗 → エラー報告 + passes:false。代替手段で生成しない |
 | 18 | **App Privacy（データの使用方法）は ASC API で設定不可**。`/v1/apps/{id}/appDataUsages` は 404 を返す。PHASE 12 の前にユーザーに手動設定させること。設定手順は PHASE 11.5 参照 |
 | 19 | **ISSUER_ID は ASC_ISSUER_ID 環境変数から取得**。間違った ID は全 curl 呼び出しが 401 を返す。ASC → Users and Access → Integrations → Keys 画面の上部に表示されている UUID が ISSUER_ID。キー一覧の「キー ID」欄の値（短い英数字）と混同しない |
 | 20 | **アイコンはビルド前に配置する**。ビルド後にアイコンを変更した場合は `CURRENT_PROJECT_VERSION` をバンプして再ビルドが必要。「The bundle version must be higher than the previously uploaded version」エラーが出たらバンプして再アップロード |
