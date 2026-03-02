@@ -40,3 +40,13 @@
 - **Learnings for future iterations:**
   - Port conflicts: use non-standard port (3077) for E2E to avoid collision with other dev servers
   - reuseExistingServer: false prevents accidentally testing the wrong app
+
+## 2026-03-02 15:35 - US-006: Vercel Deploy
+- Deployed: https://20260302-150000-app.vercel.app
+- Env vars set: STRIPE_SECRET_KEY, STRIPE_PRICE_ID, NEXT_PUBLIC_URL
+- Slack webhook registration request sent
+- Files: .vercel/ (linked)
+- **Learnings for future iterations:**
+  - Vercel non-interactive mode requires --scope flag (team ID from choices array)
+  - Must vercel link before deploy in new project
+  - NEXT_PUBLIC_ vars trigger warning about client visibility — expected for URL
