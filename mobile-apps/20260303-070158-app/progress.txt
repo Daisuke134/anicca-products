@@ -75,3 +75,56 @@
   - AppGroup required for Widget shared UserDefaults
   - RevenueCatUI is FORBIDDEN (use Purchases.shared.purchase(package:) directly)
 ---
+
+## 2026-03-03 - US-005: WAITING_FOR_HUMAN
+
+WAITING_FOR_HUMAN: ASC App Creation + RevenueCat Setup
+
+✅ Bundle ID already registered: com.anicca.mindsnap (via API)
+✅ Privacy Policy created: privacy-policy.md
+
+❗️以下の2つの作業をお願いします（合計 5分）:
+
+---
+
+### 作業1: ASC でアプリ作成（2分）
+
+https://appstoreconnect.apple.com/apps/new を開いて:
+- Platform: iOS
+- Name: MindSnap
+- Primary Language: English
+- Bundle ID: com.anicca.mindsnap (すでに登録済み)
+- SKU: mindsnap-001
+- User Access: Full Access
+
+作成完了後、アプリのURLからAPP_IDを取得:
+URL例: https://appstoreconnect.apple.com/apps/[APP_ID]/appstore/info
+→ APP_ID の数字部分を Slack #agents で返信してください
+
+---
+
+### 作業2: RevenueCat プロジェクト作成（2分）
+
+https://app.revenuecat.com → + Create new project:
+- Project name: MindSnap
+- + App → App Store
+- Bundle ID: com.anicca.mindsnap
+- App Name: MindSnap
+
+作成後:
+1. Project URL（例: https://app.revenuecat.com/projects/XXXXXXXX/overview）を返信
+2. API Keys → Secret key → Copy → ~/.config/mobileapp-builder/.env の RC_SECRET_KEY に追加
+3. Public key → RC_PUBLIC_KEY に追加
+
+---
+
+### 作業3: .env に追記（1分）
+
+~/.config/mobileapp-builder/.env に以下を追加:
+```
+ASC_WEB_PASSWORD=<your Apple ID password>
+```
+
+完了後 Slack #agents に「US-005 ready」と返信してください。
+
+---
