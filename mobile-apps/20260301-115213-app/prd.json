@@ -80,8 +80,8 @@
         "Typecheck passes"
       ],
       "priority": 5,
-      "passes": false,
-      "notes": "",
+      "passes": true,
+      "notes": "AppID:6759877003 APP_NAME=Micro-Mood BUNDLE_ID=com.anicca.micromood SKU=MicroMood2026 PRIVACY_POLICY_URL=https://daisuke134.github.io/micromood-privacy/ GROUP_ID=21956086 MONTHLY_ID=6759877016 ANNUAL_ID=6759877119 RC_OFFERING=ofrng2bb1abc0a6. PrivacyInfo.xcprivacy+CA92.1 ✅ ITSAppUsesNonExemptEncryption=false ✅ RevenueCat SPM+products+offering ✅ Sub pricing+localization+availability ✅ MISSING_METADATA expected until new build in US-008. 2026-03-02",
       "spec": "specs/US-005.md"
     },
     {

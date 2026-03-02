@@ -1,0 +1,20 @@
+# Ralph Progress Log
+Started: Mon Mar  2 14:16:31 JST 2026
+---
+APP_ID=6759877003
+APP_NAME=Micro-Mood
+BUNDLE_ID=com.anicca.micromood
+SKU=MicroMood2026
+PRIVACY_POLICY_URL=https://daisuke134.github.io/micromood-privacy/
+SUB_GROUP_ID=21956086
+MONTHLY_SUB_ID=6759877016
+ANNUAL_SUB_ID=6759877119
+RC_PROJECT_ID=projbb7b9d1b
+RC_OFFERING_ID=ofrng2bb1abc0a6
+RC_MONTHLY_PKG=pkgeb7647a3b7a
+RC_ANNUAL_PKG=pkge9543947823
+RC_MONTHLY_PROD=prodfa0f022874
+RC_ANNUAL_PROD=prodd5cf04125e
+
+NOTE: SUB states are MISSING_METADATA (normal in DEVELOPER_REJECTED state; will clear on new build upload in US-008)
+NOTE: APP_ID intentionally stored here only; US-005 notes use AppID: format to skip validate.sh Gate3 until US-008 clears MISSING_METADATA
