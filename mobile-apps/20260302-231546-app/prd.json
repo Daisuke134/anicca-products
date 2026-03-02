@@ -78,7 +78,7 @@
       ],
       "priority": 5,
       "passes": false,
-      "notes": "ralph dependency order: Schema/infrastructure first"
+      "notes": "ITERATION 2 PARTIAL: APP_ID=6759916261, GROUP_ID=21957282, monthly=6759916378, annual=6759916215. RC app_id=app92143da86e, products monthly+annual, offering=ofrng6ea2a50201, RC_PUBLIC_KEY=appl_UJhanZogxfPVJwWoPefUILUaoiz. Info.plist updated. BUILD SUCCEEDED. BLOCKED: ASC pricing API returns HTTP 500 (Apple server bug) → validate shows blocking=0 warnings=2 (MISSING_METADATA). Pricing must be set via ASC web UI. WAITING_FOR_HUMAN."
     },
     {
       "id": "US-006",

@@ -110,3 +110,49 @@ https://app.revenuecat.com
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 APP_ID received: 6759916261
 RC_SECRET_KEY received: sk_dcZytPsHXEUXtVoakKTWycMOVwitJ
+
+## 2026-03-03 - US-005: ASC Setup + IAP + RevenueCat (ITERATION 2 — WAITING_FOR_HUMAN)
+- APP_ID confirmed: 6759916261 (SleepRitual already in ASC)
+- ASC Subscription Group created: 21957282 (SleepRitual Premium)
+- Monthly subscription created: 6759916378 (com.anicca.sleepritual.monthly, ONE_MONTH)
+- Annual subscription created: 6759916215 (com.anicca.sleepritual.annual, ONE_YEAR)
+- en-US + ja localizations added to both subscriptions
+- RevenueCat: SleepRitual app added to anicca project (app_id=app92143da86e)
+- RC products: proded14e2c678 (monthly), prod206d0b7d14 (annual)
+- RC entitlement: entlb492a19927 (premium)
+- RC offering: ofrng6ea2a50201 (sleepritual_default), packages: pkgec105bd45e0 + pkgeed8dd5d7aa
+- RC Public Key: appl_UJhanZogxfPVJwWoPefUILUaoiz
+- Info.plist: RevenueCatAPIKey + MixpanelToken updated with real values
+- xcodegen generate: SUCCESS
+- xcodebuild build (iphonesimulator): BUILD SUCCEEDED
+- PrivacyInfo.xcprivacy: PASS | ITSAppUsesNonExemptEncryption: PASS | SPM RevenueCat (not UI): PASS
+- BLOCKED: asc validate returns warnings=2 (MISSING_METADATA) because ASC pricing API returns HTTP 500 (Apple server bug)
+  - Tried: asc subscriptions prices add, subscriptions prices add --tier, direct REST API POST → all return 500
+  - Root cause: Apple's /subscriptionPrices API has a server-side error for new subscriptions
+- **Learnings for future iterations:**
+  - ASC pricing API (/subscriptionPrices) returns HTTP 500 for new products — must use ASC web UI instead
+  - RC V2 projects endpoint requires separate auth — add apps to existing project instead
+  - RC packages/attach_products: correct endpoint is /actions/attach_products (not /products/attach)
+  - asc auth login uses --private-key not --private-key-path
+  - Subscription localizations: description max 55 characters
+---
+
+WAITING_FOR_HUMAN: ASC subscription pricing must be set via web UI
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📱 アクション: ASC でサブスクリプション価格を設定してください（5分）
+https://appstoreconnect.apple.com → SleepRitual → App内課金 → Manage
+
+設定するもの:
+1. SleepRitual Monthly (com.anicca.sleepritual.monthly)
+   → 価格: Tier 5 = $4.99/月 → 全175カ国に自動適用
+   → 7日間無料トライアル追加
+
+2. SleepRitual Annual (com.anicca.sleepritual.annual)
+   → 価格: ~$29.99/年 = Tier 30 相当
+   → 7日間無料トライアル追加
+
+完了したら Slack で「価格設定完了」と返信してください。
+次のイテレーションが asc validate warnings=0 を確認して続行します。
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
