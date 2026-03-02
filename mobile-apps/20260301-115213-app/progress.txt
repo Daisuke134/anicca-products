@@ -98,3 +98,14 @@ LOC_JA=0fa050e8-23f8-45a0-a5f3-65102092b836
 APP_ID=6759877003
 APP_NAME=Micro-Mood
 # Dais provided App ID and changed name to Micro-Mood (copyright)
+
+### US-009: App Store submission — ✅ COMPLETE (2026-03-02)
+DONE:
+- Pricing set: FREE ($0.00, USA base territory) via appPriceSchedules API
+- TARGETED_DEVICE_FAMILY changed to 1 (iPhone-only) → no iPad screenshots needed
+- Info.plist CFBundleVersion bumped to 2
+- Rebuilt archive (Build 2) and re-uploaded IPA (8.1MB)
+- New BUILD_ID=51725833-0d8d-4cf2-9ae7-18b0710cbdd0 attached to version
+- asc submit create → WAITING_FOR_REVIEW ✅
+- submissionId=bb512b06-571b-406a-9849-4f25d2d6d4da
+- Slack #metrics notified 🎉
