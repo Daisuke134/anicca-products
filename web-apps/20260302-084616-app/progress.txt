@@ -63,3 +63,20 @@
   - `source .env` doesn't work for VERCEL_TOKEN — use `export $(grep ... | xargs)` instead
   - Env vars must be added BEFORE redeploy to take effect
   - STRIPE_WEBHOOK_SECRET is set by user after deploy (not in this US)
+
+## 2026-03-02 - US-007: Final Report + AGENTS.md + X Post
+- All 7 US: passes: true
+- AGENTS.md created with critical mistakes, evolution log, correction log, best practices
+- X post created via Postiz CLI (postId: cmm8f4iql01m6ry0yw23mfjwp)
+- **Learnings for future iterations:**
+  - Postiz CLI requires --settings '{"who_can_reply_post":"everyone"}' flag
+  - Postiz API domain (app.postiz.com) may not resolve — CLI works via different endpoint
+  - Always use unique port for dev server to avoid Playwright conflicts
+
+## Final Summary
+- **App**: SignatureCraft — Professional email signature generator
+- **URL**: https://20260302-084616-app.vercel.app
+- **Stack**: Next.js 15 + TypeScript + Tailwind CSS + Stripe ($4.99/mo)
+- **Features**: 3 templates (Modern/Minimal/Bold), 8 brand colors, real-time preview, one-click copy
+- **Quality**: Build PASS, Lint PASS, Playwright E2E 4/4 PASS
+- **Revenue**: Stripe Checkout → $4.99/mo subscription
