@@ -183,3 +183,17 @@ https://appstoreconnect.apple.com → SleepRitual → App内課金 → Manage
   - xcodebuild simulator name: use "iPhone 17 Pro" (not "iPhone 16") for this Mac Mini environment
   - SourceKit "No such module RevenueCat" in editor is expected — build resolves SPM correctly
 ---
+
+## 2026-03-03 - US-007: Testing
+- 24 unit tests across 5 test suites (Models + Services + ViewModels)
+- SleepRitualTests: RitualStoreTests(5), RitualStepTests(4), StreakRecordTests(4), StreakViewModelTests(4), RitualViewModelTests(7)
+- xcodebuild test: ** TEST SUCCEEDED ** (24/24 passed)
+- Products.storekit: monthly ($4.99/mo, 7-day trial) + annual ($29.99/yr, 7-day trial)
+- flows/paywall-purchase.yaml: Maestro E2E paywall purchase flow
+- project.yml: GENERATE_INFOPLIST_FILE=YES added to SleepRitualTests target
+- Files changed: SleepRitualTests/SleepRitualTests.swift, SleepRitualios/SleepRitual/Resources/Products.storekit, flows/paywall-purchase.yaml, project.yml
+- **Learnings for future iterations:**
+  - xcodebuild test fails without GENERATE_INFOPLIST_FILE=YES in test target settings — always add this to project.yml for test targets
+  - @MainActor ViewModel tests work in XCTest — setUp + load() pattern is reliable
+  - Products.storekit group ID must match actual ASC group ID (21957282) for accurate sandbox testing
+---

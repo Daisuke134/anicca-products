@@ -106,8 +106,8 @@
         "Typecheck passes"
       ],
       "priority": 7,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "24 tests across 5 suites (RitualStoreTests, RitualStepTests, StreakRecordTests, StreakViewModelTests, RitualViewModelTests). xcodebuild test: ** TEST SUCCEEDED ** (24/24 passed). Products.storekit: monthly+annual+7day trials. flows/paywall-purchase.yaml: Maestro E2E created. Mock refs in prod=0. RevenueCat imports=3."
     },
     {
       "id": "US-008",
