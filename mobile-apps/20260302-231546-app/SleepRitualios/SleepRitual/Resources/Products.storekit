@@ -1,0 +1,133 @@
+{
+  "identifier" : "Products",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "_interruptedPurchasesEnabled" : false,
+    "_locale" : "en_US@currency=USD",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redemption Sheet"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21957282",
+      "localizations" : [
+        {
+          "customLevelDisplayName" : "",
+          "description" : "Full access to SleepRitual features",
+          "displayName" : "SleepRitual Premium",
+          "locale" : "en_US"
+        }
+      ],
+      "name" : "SleepRitual Premium",
+      "subscriptions" : [
+        {
+          "adHocOfferCodesEnabled" : false,
+          "displayPrice" : "4.99",
+          "familySharable" : false,
+          "groupNumber" : 1,
+          "internalID" : "6759916378",
+          "introductoryOffer" : {
+            "duration" : 1,
+            "durationUnit" : "WEEK",
+            "offerIdentifier" : "7day_trial_monthly",
+            "offerMode" : "FREE_TRIAL",
+            "offerPaymentMode" : "FREE_TRIAL"
+          },
+          "localizations" : [
+            {
+              "description" : "Full access, billed monthly",
+              "displayName" : "SleepRitual Monthly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.anicca.sleepritual.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "SleepRitual Monthly",
+          "subscriptionGroupID" : "21957282",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOfferCodesEnabled" : false,
+          "displayPrice" : "29.99",
+          "familySharable" : false,
+          "groupNumber" : 2,
+          "internalID" : "6759916215",
+          "introductoryOffer" : {
+            "duration" : 1,
+            "durationUnit" : "WEEK",
+            "offerIdentifier" : "7day_trial_annual",
+            "offerMode" : "FREE_TRIAL",
+            "offerPaymentMode" : "FREE_TRIAL"
+          },
+          "localizations" : [
+            {
+              "description" : "Full access, billed annually",
+              "displayName" : "SleepRitual Annual",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.anicca.sleepritual.annual",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "SleepRitual Annual",
+          "subscriptionGroupID" : "21957282",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

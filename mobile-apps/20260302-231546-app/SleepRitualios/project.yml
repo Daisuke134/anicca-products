@@ -73,3 +73,4 @@ targets:
       base:
         BUNDLE_LOADER: "$(TEST_HOST)"
         TEST_HOST: "$(BUILT_PRODUCTS_DIR)/SleepRitual.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SleepRitual"
+        GENERATE_INFOPLIST_FILE: YES

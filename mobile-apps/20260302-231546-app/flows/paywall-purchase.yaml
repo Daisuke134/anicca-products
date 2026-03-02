@@ -1,0 +1,9 @@
+appId: com.anicca.sleepritual
+---
+- launchApp
+- tapOn:
+    id: "paywall_plan_monthly"
+- tapOn:
+    id: "paywall_cta"
+- assertVisible: "Confirm"
+- tapOn: "Confirm"
