@@ -154,3 +154,16 @@ Required from human:
 3. Reply "US-005 ready" in Slack #agents
 
 ---
+## 2026-03-03 - US-005: WAITING_FOR_HUMAN (iteration 5 — Slack reminder sent)
+
+WAITING_FOR_HUMAN: ASC App Creation + RevenueCat Setup (still pending)
+
+Checked: ASC_APP_ID=NOT_SET, RC_SECRET_KEY=empty, RC_PUBLIC_KEY=empty in ~/.config/mobileapp-builder/.env.
+Slack reminder #5 sent to #agents.
+
+Required from human:
+1. Create MindSnap app in ASC → APP_ID → add to ~/.config/mobileapp-builder/.env as ASC_APP_ID=<number>
+2. Create RevenueCat project MindSnap → get Secret key + Public key → add to .env as RC_SECRET_KEY + RC_PUBLIC_KEY
+3. Reply "US-005 ready" in Slack #agents
+
+---
