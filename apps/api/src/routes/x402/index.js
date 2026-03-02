@@ -4,6 +4,7 @@ import emotionDetectorRouter from './emotionDetector.js';
 import focusCoachRouter from './focusCoach.js';
 import habitDesignerRouter from './habitDesigner.js';
 import intentRouterRouter from './intentRouter.js';
+import promptSanitizerRouter from './promptSanitizer.js';
 
 const router = Router();
 
@@ -189,6 +190,49 @@ if (PAY_TO) {
               }),
             },
           },
+          'POST /prompt-sanitizer': {
+            accepts: {
+              scheme: 'exact',
+              price: '$0.005',
+              network: 'eip155:8453',
+              payTo: PAY_TO,
+            },
+            description: 'Prompt sanitizer for AI agents — detect PII, injection, toxicity, and off-topic hijacking with risk scoring',
+            mimeType: 'application/json',
+            extensions: {
+              ...declareDiscoveryExtension({
+                output: {
+                  example: {
+                    sanitizer_id: 'san_a1b2c3',
+                    original_length: 45,
+                    sanitized_text: 'Contact me at [EMAIL] or call [PHONE].',
+                    flags: [
+                      {
+                        type: 'pii',
+                        severity: 'high',
+                        detail: 'Email address detected',
+                        position: { start: 14, end: 32 },
+                      },
+                    ],
+                    risk_score: 0.75,
+                    safe_to_send: false,
+                    safe_t_flag: false,
+                  },
+                  schema: {
+                    properties: {
+                      sanitizer_id: { type: 'string' },
+                      original_length: { type: 'number' },
+                      sanitized_text: { type: 'string' },
+                      flags: { type: 'array' },
+                      risk_score: { type: 'number' },
+                      safe_to_send: { type: 'boolean' },
+                      safe_t_flag: { type: 'boolean' },
+                    },
+                  },
+                },
+              }),
+            },
+          },
           'POST /intent-router': {
             accepts: {
               scheme: 'exact',
@@ -248,5 +292,6 @@ router.use('/emotion-detector', emotionDetectorRouter);
 router.use('/focus-coach', focusCoachRouter);
 router.use('/habit-designer', habitDesignerRouter);
 router.use('/intent-router', intentRouterRouter);
+router.use('/prompt-sanitizer', promptSanitizerRouter);
 
 export default router;
