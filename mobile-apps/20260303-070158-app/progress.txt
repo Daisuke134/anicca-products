@@ -58,3 +58,20 @@
   - Stoic uses Foundation Models but philosophy framing limits addressable market
   - No-account + on-device AI is genuinely uncontested positioning in 2026
 ---
+
+## 2026-03-03 - US-004: Spec generation
+
+- What was implemented:
+  - docs/PRD.md: app_name=MindSnap, bundle_id=com.anicca.mindsnap, $4.99/mo, $29.99/yr
+  - docs/ARCHITECTURE.md: MVVM, Foundation Models, RevenueCat, WidgetKit
+  - docs/UX_SPEC.md: 30-sec flow, screens, paywall triggers
+  - docs/DESIGN_SYSTEM.md: indigo palette, SF Pro Rounded, motion specs
+  - docs/IMPLEMENTATION_GUIDE.md: real RevenueCat SDK, Foundation Models service
+  - docs/TEST_SPEC.md: unit tests for CheckIn model + service
+  - docs/RELEASE_SPEC.md: subscriptions, greenlight, build commands
+- Files changed: docs/ (7 files), prd.json, progress.txt
+- **Learnings:**
+  - Foundation Models service needs try/catch with fallback prompts (graceful degradation)
+  - AppGroup required for Widget shared UserDefaults
+  - RevenueCatUI is FORBIDDEN (use Purchases.shared.purchase(package:) directly)
+---
