@@ -9,9 +9,6 @@ packages:
   RevenueCat:
     url: https://github.com/RevenueCat/purchases-ios
     from: 5.0.0
-  Mixpanel:
-    url: https://github.com/mixpanel/mixpanel-swift
-    from: 4.0.0
 
 targets:
   SleepRitual:
@@ -39,7 +36,6 @@ targets:
         CFBundleIconName: AppIcon
         NSUserNotificationUsageDescription: "We'll remind you when it's time for your sleep ritual."
         RevenueCatAPIKey: "appl_UJhanZogxfPVJwWoPefUILUaoiz"
-        MixpanelToken: "96835bddc4fd0f2613e805d98c5915cd"
     entitlements:
       path: SleepRitual/SleepRitual.entitlements
       properties:
@@ -47,8 +43,6 @@ targets:
     dependencies:
       - package: RevenueCat
         product: RevenueCat
-      - package: Mixpanel
-        product: Mixpanel
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.anicca.sleepritual

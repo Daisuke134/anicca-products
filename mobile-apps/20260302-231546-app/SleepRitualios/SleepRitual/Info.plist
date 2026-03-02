@@ -24,8 +24,6 @@
 	<string>1</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
-	<key>MixpanelToken</key>
-	<string>96835bddc4fd0f2613e805d98c5915cd</string>
 	<key>NSUserNotificationUsageDescription</key>
 	<string>We'll remind you when it's time for your sleep ritual.</string>
 	<key>RevenueCatAPIKey</key>

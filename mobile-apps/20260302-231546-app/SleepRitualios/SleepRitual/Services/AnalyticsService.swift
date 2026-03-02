@@ -1,17 +1,14 @@
 import Foundation
-import Mixpanel
 
 final class AnalyticsService {
     static let shared = AnalyticsService()
 
     func configure() {
-        // Token from Info.plist — NOT ProcessInfo.processInfo.environment
-        let token = Bundle.main.infoDictionary?["MixpanelToken"] as? String ?? ""
-        Mixpanel.initialize(token: token, trackAutomaticEvents: false)
+        // Analytics: no external SDK (ATT not used per project rules)
     }
 
-    func track(_ event: String, properties: [String: MixpanelType]? = nil) {
-        Mixpanel.mainInstance().track(event: event, properties: properties)
+    func track(_ event: String, properties: [String: Any]? = nil) {
+        // No-op: analytics placeholder for future integration
     }
 
     func trackPaywallViewed() {

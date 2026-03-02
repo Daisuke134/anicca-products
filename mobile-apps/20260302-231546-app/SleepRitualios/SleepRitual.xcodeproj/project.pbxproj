@@ -24,7 +24,6 @@
 		D10DFA10683BF4BCE94929EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6826DCEA2E1E9CE325B227FB /* Assets.xcassets */; };
 		D323A7E47B726A7191535B48 /* PaywallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB613A9955B73DCC955974F7 /* PaywallView.swift */; };
 		D7A118401B1F507581CAA754 /* Products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 5E494F519FEEB4F001E48E31 /* Products.storekit */; };
-		D9D1FE3E66D3B733934DA9B7 /* Mixpanel in Frameworks */ = {isa = PBXBuildFile; productRef = F5E2826ECAD8141F53552FCA /* Mixpanel */; };
 		DA73F1FCCE5917D6BD7368FB /* StreakViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF5A5E57EFA259999295142 /* StreakViewModel.swift */; };
 		DAC8B720F97908CD3E6C6368 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A244EF32F68050554DCE4A0 /* HomeView.swift */; };
 		E43E732E64ACB27698F3B21A /* SleepRitualTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4DFF56392F1D4B075A5A16 /* SleepRitualTests.swift */; };
@@ -74,7 +73,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				38AC29A77C491EC923300D5D /* RevenueCat in Frameworks */,
-				D9D1FE3E66D3B733934DA9B7 /* Mixpanel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +199,6 @@
 			name = SleepRitual;
 			packageProductDependencies = (
 				E8D9990BF4025538D0EF60F0 /* RevenueCat */,
-				F5E2826ECAD8141F53552FCA /* Mixpanel */,
 			);
 			productName = SleepRitual;
 			productReference = 2B46D29CA06E466830945517 /* SleepRitual.app */;
@@ -251,7 +248,6 @@
 			mainGroup = EF62F59CA3A85E571DAB4D94;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				0EC63A43C84977F3A09426F2 /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
 				B45504D8AD86ECFC3C0DA4A9 /* XCRemoteSwiftPackageReference "purchases-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
@@ -550,14 +546,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0EC63A43C84977F3A09426F2 /* XCRemoteSwiftPackageReference "mixpanel-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mixpanel/mixpanel-swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
-		};
 		B45504D8AD86ECFC3C0DA4A9 /* XCRemoteSwiftPackageReference "purchases-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RevenueCat/purchases-ios";
@@ -573,11 +561,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B45504D8AD86ECFC3C0DA4A9 /* XCRemoteSwiftPackageReference "purchases-ios" */;
 			productName = RevenueCat;
-		};
-		F5E2826ECAD8141F53552FCA /* Mixpanel */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0EC63A43C84977F3A09426F2 /* XCRemoteSwiftPackageReference "mixpanel-swift" */;
-			productName = Mixpanel;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
