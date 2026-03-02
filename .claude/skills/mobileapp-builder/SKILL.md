@@ -112,7 +112,7 @@ See each `references/us-00X.md` for specific gate checks.
 Source: v3 spec §3
 
 ```
-daily-apps/<app-name>/
+mobile-apps/<app-name>/
 ├── spec/01-trend.md              ← US-001
 ├── product-plan.md               ← US-002
 ├── competitive-analysis.md       ← US-003
