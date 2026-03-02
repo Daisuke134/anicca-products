@@ -58,8 +58,8 @@
         "Typecheck passes"
       ],
       "priority": 4,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "7 spec docs created in docs/. PRD has app_name=SleepRitual, bundle_id=com.anicca.sleepritual, $4.99/mo + $29.99/yr. IMPLEMENTATION_GUIDE references RevenueCat SDK (NOT Mock). All 7 files verified."
     },
     {
       "id": "US-005",

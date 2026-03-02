@@ -48,3 +48,19 @@
   - The BEHAVIOR layer (pre-sleep routine) is unaddressed by all major players
   - At 3% conversion, need 33K downloads Year 1 for $60K ARR → requires content strategy beyond pure ASO
 ---
+
+## 2026-03-02 - US-004: Spec Generation
+- Created all 7 spec docs in docs/
+- PRD.md: app_name=SleepRitual, bundle_id=com.anicca.sleepritual, $4.99/mo + $29.99/yr
+- ARCHITECTURE.md: MVVM + SwiftUI, UserDefaults, RevenueCat SDK, Mixpanel
+- UX_SPEC.md: 7 screens, [Maybe Later] soft paywall spec, gesture map
+- DESIGN_SYSTEM.md: Dark-mode-first, indigo/moon accent, SF Pro Rounded
+- IMPLEMENTATION_GUIDE.md: 6-phase plan, RevenueCat SDK (NOT Mock), Info.plist key pattern
+- TEST_SPEC.md: Unit + Integration test matrix (20 tests)
+- RELEASE_SPEC.md: en-US + ja metadata, IAP product IDs, preflight checklist
+- Files created: docs/PRD.md, docs/ARCHITECTURE.md, docs/UX_SPEC.md, docs/DESIGN_SYSTEM.md, docs/IMPLEMENTATION_GUIDE.md, docs/TEST_SPEC.md, docs/RELEASE_SPEC.md
+- **Learnings for future iterations:**
+  - Always write RELEASE_SPEC.md with Japanese metadata from the start — late localization = rush risk
+  - IMPLEMENTATION_GUIDE must explicitly say "NOT Mock" and "NOT ProcessInfo.processInfo.environment" to avoid US-006 errors
+  - Soft paywall [Maybe Later] requirement is CLAUDE.md Rule 19 — document in UX_SPEC upfront
+---
