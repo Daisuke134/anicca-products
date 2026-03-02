@@ -85,6 +85,14 @@ for us in d['userStories']:
     }
   fi
 
+  # Check for WAITING_FOR_HUMAN in progress.txt → Slack notify
+  if [ -f "$SCRIPT_DIR/progress.txt" ]; then
+    WAITING=$(grep -A10 "WAITING_FOR_HUMAN" "$SCRIPT_DIR/progress.txt" | tail -10)
+    if [ -n "$WAITING" ]; then
+      notify_slack "⏸️ 人間の操作が必要です:\n$WAITING"
+    fi
+  fi
+
   echo "🏭 sleep 2..."
   sleep 2
 done

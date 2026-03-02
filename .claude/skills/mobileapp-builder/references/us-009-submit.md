@@ -22,13 +22,16 @@ CC は以下を実行:
 1. progress.txt に「Waiting for App Privacy setup」と書く
 2. passes: false のまま終了
 
-ralph.sh が Slack に投稿:
+CC は progress.txt に以下を書いて passes:false で終了:
 ```
+WAITING_FOR_HUMAN: App Privacy setup
 ⏸️ App Privacy を ASC Web で設定してください
 URL: https://appstoreconnect.apple.com/apps/<APP_ID>
 App → App Privacy → Get Started → 設定 → Save
 完了したら Slack で「done」と返信してください
 ```
+
+ralph.sh が progress.txt の WAITING_FOR_HUMAN を検出 → Slack に投稿。
 
 ### 待ちパターン (.app-privacy-done)
 Source: v3 spec §9
