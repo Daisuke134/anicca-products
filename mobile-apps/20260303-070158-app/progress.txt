@@ -45,3 +45,16 @@
   - No-account UX is a feature, not a limitation — lean into it in marketing
   - Day One pricing benchmark: $4.17/mo annual → our $2.50/mo annual is better value proposition
 ---
+
+## 2026-03-03 - US-003: Market research
+
+- What was implemented:
+  - competitive-analysis.md: 6 competitors (Day One, Stoic, Reflectly, Apple Journal, Headspace, Finch)
+  - market-research.md: TAM $4.5B iOS mental health, SAM $4.3M AI journaling, SOM $24K ARR Year 1
+  - MindSnap is unique: only app with on-device AI + no account + WidgetKit + 30-sec UX + mood tracking
+- Files changed: competitive-analysis.md, market-research.md, prd.json, progress.txt
+- **Learnings:**
+  - Apple Journal (free, private) is the sleeper threat but lacks Foundation Models prompts + widget
+  - Stoic uses Foundation Models but philosophy framing limits addressable market
+  - No-account + on-device AI is genuinely uncontested positioning in 2026
+---
