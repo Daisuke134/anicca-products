@@ -142,8 +142,8 @@
         "Slack #metrics notified: WAITING_FOR_REVIEW"
       ],
       "priority": 9,
-      "passes": false,
-      "notes": "Reset: subscription pricing/localization/availability not set. Must complete before resubmit."
+      "passes": true,
+      "notes": "Completed 2026-03-02. Pricing set (FREE base + $4.99mo/$29.99yr subs), localizations 38 locales, Build 2 uploaded, asc submit → WAITING_FOR_REVIEW. submissionId=bb512b06-571b-406a-9849-4f25d2d6d4da"
     }
   ]
 }
