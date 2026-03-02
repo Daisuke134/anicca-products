@@ -73,8 +73,8 @@
         "Playwright E2E test passes (landing + pricing visible)"
       ],
       "priority": 5,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Build PASS, Lint PASS, SEO (metadata+robots.txt+sitemap.ts), 7/7 Playwright E2E tests PASS"
     },
     {
       "id": "US-006",

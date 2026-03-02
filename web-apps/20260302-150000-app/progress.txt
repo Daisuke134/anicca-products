@@ -30,3 +30,13 @@
   - Stripe SDK apiVersion must match installed package version (2026-02-25.clover)
   - create-next-app cannot run in non-empty directory — use temp dir then copy
   - Server Action pattern for Stripe: form POST to API route that creates session and redirects
+
+## 2026-03-02 15:30 - US-005: Quality Check + E2E Test
+- npm run build: PASS
+- npm run lint: PASS
+- SEO: metadata in layout.tsx, robots.txt, sitemap.ts all present
+- Playwright E2E: 7/7 tests PASS (landing, features, pricing, generate form, email generation, success, navigation)
+- Files: playwright.config.ts, e2e/app.spec.ts, sitemap.ts, robots.txt
+- **Learnings for future iterations:**
+  - Port conflicts: use non-standard port (3077) for E2E to avoid collision with other dev servers
+  - reuseExistingServer: false prevents accidentally testing the wrong app
