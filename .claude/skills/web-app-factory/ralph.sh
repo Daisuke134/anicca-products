@@ -24,7 +24,11 @@ echo "🏭 ralph.sh 起動: MAX_ITERATIONS=$MAX_ITERATIONS"
 echo "🏭 作業ディレクトリ: $SCRIPT_DIR"
 
 notify_slack() {
-  openclaw message send --channel slack --target "$SLACK_CHANNEL" --text "$1" 2>/dev/null || true
+  # Source: https://api.slack.com/messaging/webhooks
+  # "Incoming Webhooks are a simple way to post messages from apps into Slack"
+  if [ -n "${SLACK_WEBHOOK_AGENTS:-}" ]; then
+    curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-type: application/json' -d "{\"text\":\"$1\"}" 2>/dev/null || true
+  fi
 }
 
 notify_slack "🏭 web-app-factory ralph.sh 起動: $(basename "$SCRIPT_DIR")"
@@ -33,7 +37,7 @@ notify_slack "🏭 web-app-factory ralph.sh 起動: $(basename "$SCRIPT_DIR")"
 # Source: https://enterprisecraftsmanship.com/posts/fail-fast-principle/
 # "fetching all the required values and validating them at once on the application start.
 #  If any of them is missing or invalid, the process should crash."
-REQUIRED_VARS="VERCEL_TOKEN STRIPE_SECRET_KEY POSTIZ_API_KEY POSTIZ_X_INTEGRATION_ID"
+REQUIRED_VARS="VERCEL_TOKEN STRIPE_SECRET_KEY POSTIZ_API_KEY POSTIZ_X_INTEGRATION_ID SLACK_WEBHOOK_AGENTS"
 MISSING=""
 for var in $REQUIRED_VARS; do
   if [ -z "${!var:-}" ]; then

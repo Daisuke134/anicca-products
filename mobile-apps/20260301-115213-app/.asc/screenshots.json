@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "app": {
+    "bundle_id": "com.anicca.micromood",
+    "udid": "D5822106-E149-46E4-B7B7-50101D59B6D7",
+    "output_dir": "./screenshots/raw"
+  },
+  "steps": [
+    { "action": "launch" },
+    { "action": "wait", "duration_ms": 2000 },
+    { "action": "screenshot", "name": "screen_1" },
+    { "action": "tap", "x": 196, "y": 820 },
+    { "action": "wait", "duration_ms": 1000 },
+    { "action": "screenshot", "name": "screen_2" },
+    { "action": "tap", "x": 196, "y": 820 },
+    { "action": "wait", "duration_ms": 1000 },
+    { "action": "screenshot", "name": "screen_3" },
+    { "action": "tap", "x": 196, "y": 820 },
+    { "action": "wait", "duration_ms": 2000 },
+    { "action": "screenshot", "name": "screen_4" }
+  ]
+}

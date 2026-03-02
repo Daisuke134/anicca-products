@@ -23,7 +23,11 @@ echo "🏭 ralph.sh 起動: MAX_ITERATIONS=$MAX_ITERATIONS"
 echo "🏭 作業ディレクトリ: $SCRIPT_DIR"
 
 notify_slack() {
-  openclaw message send --channel slack --target "$SLACK_CHANNEL" --text "$1" 2>/dev/null || true
+  # Source: https://api.slack.com/messaging/webhooks
+  # "Incoming Webhooks are a simple way to post messages from apps into Slack"
+  if [ -n "${SLACK_WEBHOOK_AGENTS:-}" ]; then
+    curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-type: application/json' -d "{\"text\":\"$1\"}" 2>/dev/null || true
+  fi
 }
 
 notify_slack "🏭 ralph.sh 起動: $(basename "$SCRIPT_DIR")"
