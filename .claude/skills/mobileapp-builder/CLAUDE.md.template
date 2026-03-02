@@ -109,6 +109,14 @@ Before starting any US, verify the previous US acceptance criteria:
   9. Add ITSAppUsesNonExemptEncryption=NO to Info.plist (Apple: developer.apple.com/documentation/bundleresources/information-property-list/itsappusesnonexemptencryption)
   10. サブスクリプション全ロケール表示名設定（asc-subscription-localization SKILL.md に従う）
   11. サブスクリプション配信可否: availableInNewTerritories=true で175カ国配信
+  12. サブスクリプション価格設定（asc-ppp-pricing SKILL.md に従う）:
+      - Monthly: asc subscriptions price-points list --subscription-id <ID> --territory USA --paginate → $4.99 の price point ID → asc subscriptions prices add
+      - Annual: asc subscriptions price-points list --subscription-id <ID> --territory USA --paginate → $29.99 の price point ID → asc subscriptions prices add
+  13. サブスクリプショングループのローカライゼーション設定
+  14. 検証（全部 PASS しないと passes:true にするな）:
+      - asc subscriptions list → state ≠ MISSING_METADATA（Monthly + Annual 両方）
+      - asc subscriptions prices list → count > 0（Monthly + Annual 両方）
+      - ⛔ MISSING_METADATA で passes:true = validate.sh が自動リセットする
 - Verify: asc validate subscriptions blocking=0 warnings=0
 
 ### US-006: iOS implementation
@@ -156,11 +164,18 @@ Before starting any US, verify the previous US acceptance criteria:
   6. Archive + .ipa export（security unlock-keychain -p "$KEYCHAIN_PASSWORD" first）
   7. Upload build, attach to version
   8. Age Rating, Review Details, Availability, Content Rights
-  9. asc validate → Errors=0（STOP GATE）
-  10. Preflight checks（asc-submission-health）
+  9. サブスク Review スクリーンショット添付（Apple §2.1 Guideline 拒否防止）:
+     - Paywall画面のスクショを screenshots/raw/ から選ぶ（またはPaywallに遷移して撮影）
+     - asc subscriptions review-screenshots create --subscription-id <MONTHLY_ID> --file screenshots/raw/paywall.png
+     - asc subscriptions review-screenshots create --subscription-id <ANNUAL_ID> --file screenshots/raw/paywall.png
+  10. asc validate → Errors=0（STOP GATE）
+  11. Preflight checks（asc-submission-health）
+  12. greenlight preflight → CRITICAL=0（STOP GATE）
 - ⛔ Python/Pillow/ImageMagick/sips でスクショ加工禁止
 - ⛔ asc screenshots frame 失敗 → passes:false
 - ⛔ 3枚未満のスクショで passes:true にするな
+- ⛔ サブスク Review スクショ未添付で passes:true にするな
+- ⛔ greenlight CRITICAL > 0 で passes:true にするな
 - Read: .claude/skills/asc-shots-pipeline/SKILL.md
 - Read: .claude/skills/asc-metadata-sync/SKILL.md
 - Read: .claude/skills/asc-xcode-build/SKILL.md
@@ -183,13 +198,26 @@ Before starting any US, verify the previous US acceptance criteria:
 - Report: openclaw system event --text "⏸️ App Privacy を ASC Web で設定してください: https://appstoreconnect.apple.com/apps/$APP_ID/distribution/privacy"
 curl -s -X POST -H 'Content-type: application/json' --data '{"text":"⏸️ App Privacy を ASC Web で設定してください: https://appstoreconnect.apple.com/apps/$APP_ID/distribution/privacy"}' "$SLACK_WEBHOOK_AGENTS"
 
-### US-009: Submit
-- Check: .app-privacy-done file exists
-- If not: passes: false, end response normally (next iteration will retry)
-- If yes: asc submit create → WAITING_FOR_REVIEW
-- Report: openclaw system event --text "🎉 提出完了！WAITING_FOR_REVIEW"
-curl -s -X POST -H 'Content-type: application/json' --data '{"text":"🎉 提出完了！WAITING_FOR_REVIEW"}' "$SLACK_WEBHOOK_AGENTS"
-- Reply: <promise>COMPLETE</promise>
+### US-009: Pre-submission validation + Submit
+- Read: .claude/skills/greenlight/SKILL.md
+- Read: .claude/skills/asc-submission-health/SKILL.md
+- Read: .claude/skills/mobileapp-builder/references/submission-checklist.md（全項目確認）
+- Pre-submission checks（全 PASS 必須。1つでも FAIL → passes:false）:
+  1. greenlight preflight . → CRITICAL=0
+  2. greenlight scan --app-id $APP_ID --tier 1 → blocks=0
+  3. asc subscriptions list → state ≠ MISSING_METADATA
+  4. asc subscriptions prices list → count > 0（Monthly + Annual）
+  5. screenshots/framed/ に >= 3 枚の PNG
+  6. asc builds list → processingState=VALID
+  7. submission-checklist.md の D1-D9（IAP checks）全 PASS
+  8. submission-checklist.md の E1-E12（メタデータ checks）全 PASS
+  9. .app-privacy-done file exists
+  ⛔ 1つでも FAIL → passes:false。FAIL した項目を修正してから再挑戦
+  ⛔ 修正が自分でできない場合（App Privacy等）→ Slack で報告して passes:false
+- If ALL checks PASS:
+  - asc submit create → WAITING_FOR_REVIEW
+  - source ~/.config/mobileapp-builder/.env && curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '{"text":"🎉 提出完了！WAITING_FOR_REVIEW"}'
+  - Reply: <promise>COMPLETE</promise>
 
 ## CRITICAL RULES
 - Read .claude/skills/mobileapp-builder/SKILL.md for all 46 CRITICAL RULES

@@ -101,6 +101,9 @@ See `references/spec-template.md` for the full spec.md format.
 | 17 | **`mcp__pencil__get_screenshot` はディスクに保存しない**。返ってくるのは MCP レスポンス内の base64 のみ。ASC アップロード用ファイルは別途シミュレータから `xcrun simctl io` で取得すること |
 | 18 | **`asc screenshots frame`（Koubou）はスクショフレーム生成の唯一の方法。Python/Pillow/ImageMagick/sips フォールバック禁止。** `asc screenshots frame` が失敗 → エラー報告 + passes:false。代替手段で生成しない |
 | 18 | **App Privacy（データの使用方法）は ASC API で設定不可**。`/v1/apps/{id}/appDataUsages` は 404 を返す。PHASE 12 の前にユーザーに手動設定させること。設定手順は PHASE 11.5 参照 |
+| 18c | **validate.sh は外部品質ゲート。CC は validate.sh を編集・削除・無効化してはならない。** ralph.sh が毎 iteration 後に validate.sh を実行し、FAIL なら passes:true を自動リセットする。Source: SonarQube quality gate pattern — 「mandatory evaluations a piece of code must pass before progressing to the next stage」 |
+| 18d | **greenlight scan（ASC API）は提出前必須。** greenlight scan --app-id $APP_ID --tier 1 で blocks=0 を確認してから提出。Source: https://github.com/RevylAI/greenlight |
+| 18e | **サブスクリプションの state=MISSING_METADATA は提出禁止。** 価格・ローカライゼーション・グループローカライゼーションが全て設定されるまで READY_TO_SUBMIT にならない。Source: https://community.revenuecat.com/sdks-51/app-store-missing-metadata-but-can-t-figure-out-what-6981 |
 | 19 | **ISSUER_ID は ASC_ISSUER_ID 環境変数から取得**。間違った ID は全 curl 呼び出しが 401 を返す。ASC → Users and Access → Integrations → Keys 画面の上部に表示されている UUID が ISSUER_ID。キー一覧の「キー ID」欄の値（短い英数字）と混同しない |
 | 20 | **アイコンはビルド前に配置する**。ビルド後にアイコンを変更した場合は `CURRENT_PROJECT_VERSION` をバンプして再ビルドが必要。「The bundle version must be higher than the previously uploaded version」エラーが出たらバンプして再アップロード |
 | 21 | **Playwright + Chrome 競合**。Chrome 起動中に Playwright を実行すると「既存のブラウザセッションで開いています」エラー。先に `pkill -f "Google Chrome"` で Chrome を終了してから Playwright を起動 |

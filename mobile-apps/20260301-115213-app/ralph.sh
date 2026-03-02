@@ -43,6 +43,14 @@ for i in $(seq 1 $MAX_ITERATIONS); do
   echo ""
   echo "🏭 Iteration $i 終了: $(date)"
 
+  # Snapshot passes BEFORE validation (to detect what CC just changed)
+  # Source: SonarQube quality gate pattern — external process validates, not the worker
+  # https://docs.sonarsource.com/sonarqube-cloud/standards/managing-quality-gates/introduction-to-quality-gates
+  BEFORE_PASSES=""
+  if [ -n "$PREV_PASSES" ]; then
+    BEFORE_PASSES="$PREV_PASSES"
+  fi
+
   # Detect newly completed US and notify Slack
   if [ -f "$SCRIPT_DIR/prd.json" ]; then
     CURR_PASSES=$(python3 -c "
@@ -59,6 +67,33 @@ for us in d['userStories']:
     done <<< "$CURR_PASSES"
 
     PREV_PASSES="$CURR_PASSES"
+  fi
+
+  # EXTERNAL VALIDATION GATE
+  # Source: SonarQube — "mandatory evaluations a piece of code must pass before progressing"
+  # Source: fastlane deliver — "Automatically uses precheck to ensure your app has the highest chances"
+  # https://docs.fastlane.tools/actions/precheck/
+  if [ -f "$SCRIPT_DIR/validate.sh" ]; then
+    echo "🔍 External validation gate running..."
+    VALIDATE_LOG="$SCRIPT_DIR/logs/validate-$i.log"
+    if bash "$SCRIPT_DIR/validate.sh" 2>&1 | tee "$VALIDATE_LOG"; then
+      echo "🟢 Validation PASSED"
+    else
+      echo "🔴 Validation FAILED — resetting newly completed US"
+      python3 -c "
+import json
+with open('"'"'$SCRIPT_DIR/prd.json'"'"') as f: d = json.load(f)
+before = set('"'"'$BEFORE_PASSES'"'"'.strip().split(chr(10))) if '"'"'$BEFORE_PASSES'"'"'.strip() else set()
+for us in d['"'"'userStories'"'"']:
+    line = us['"'"'id'"'"'] + '"'"': '"'"' + us['"'"'title'"'"']
+    if us['"'"'passes'"'"'] and line not in before:
+        us['"'"'passes'"'"'] = False
+        us['"'"'notes'"'"'] = (us.get('"'"'notes'"'"','"'"''"'"') + '"'"' | VALIDATION_FAILED'"'"').strip()
+        print(f'"'"'🔴 Reset {us["id"]} to passes:false'"'"')
+with open('"'"'$SCRIPT_DIR/prd.json'"'"','"'"'w'"'"') as f: json.dump(d, f, indent=2)
+" 2>/dev/null || true
+      notify_slack "🔴 Validation FAILED: external gate rejected. CC must fix and retry."
+    fi
   fi
 
   if echo "$OUTPUT" | grep -q "<promise>COMPLETE</promise>"; then
