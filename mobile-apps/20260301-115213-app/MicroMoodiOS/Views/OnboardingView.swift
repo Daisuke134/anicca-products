@@ -1,8 +1,11 @@
 import SwiftUI
+import RevenueCatUI
 
 struct OnboardingView: View {
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
+    @EnvironmentObject private var subscriptionManager: SubscriptionManager
     @State private var currentPage = 0
+    @State private var showingPaywall = false
 
     private let pages: [(title: String, subtitle: String, emoji: String)] = [
         ("Track in 3 taps", "No journaling. No 20 questions.\nJust tap how you feel.", "😊"),
@@ -48,6 +51,9 @@ struct OnboardingView: View {
                 .accessibilityIdentifier("onboarding_continue_button")
             }
         }
+        .sheet(isPresented: $showingPaywall, onDismiss: { finishOnboarding() }) {
+            PaywallViewWrapper(subscriptionManager: subscriptionManager, onFinish: finishOnboarding)
+        }
         .preferredColorScheme(.dark)
     }
 
@@ -55,8 +61,43 @@ struct OnboardingView: View {
         if currentPage < pages.count - 1 {
             withAnimation { currentPage += 1 }
         } else {
-            hasSeenOnboarding = true
+            // Last page → show soft paywall
+            showingPaywall = true
         }
+    }
+
+    private func finishOnboarding() {
+        showingPaywall = false
+        hasSeenOnboarding = true
+    }
+}
+
+struct PaywallViewWrapper: View {
+    @ObservedObject var subscriptionManager: SubscriptionManager
+
+    var onFinish: () -> Void
+
+    var body: some View {
+        NavigationStack {
+            Group {
+                if let offering = subscriptionManager.currentOffering {
+                    PaywallView(offering: offering)
+                        .onPurchaseCompleted { _ in onFinish() }
+                        .onRestoreCompleted { _ in onFinish() }
+                } else {
+                    // Offerings not loaded yet — skip paywall
+                    Color.clear.onAppear { onFinish() }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Maybe Later") { onFinish() }
+                        .foregroundColor(.white.opacity(0.7))
+                        .accessibilityIdentifier("paywall_skip_button")
+                }
+            }
+        }
+        .preferredColorScheme(.dark)
     }
 }
 
@@ -79,7 +120,6 @@ struct OnboardingPageView: View {
                 .font(.body)
                 .foregroundColor(.white.opacity(0.7))
                 .multilineTextAlignment(.center)
-                .lineSpacing(4)
         }
         .padding(.horizontal, 32)
     }
@@ -95,7 +135,6 @@ struct PageIndicator: View {
                 Circle()
                     .fill(index == currentPage ? Color("AccentColor") : Color.white.opacity(0.3))
                     .frame(width: 8, height: 8)
-                    .animation(.spring(), value: currentPage)
             }
         }
     }

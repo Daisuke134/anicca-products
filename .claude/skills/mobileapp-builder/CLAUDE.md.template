@@ -69,7 +69,7 @@ Before marking ANY story as `passes: true`, you MUST verify:
 |-----------|-----|
 | Mock/Stub RevenueCat | Must use real SDK |
 | Skip subscription pricing | MISSING_METADATA = rejection |
-| Python/Pillow/sips for screenshots | Only `asc screenshots frame` |
+| Python/Pillow for screenshots | Only Koubou + asc-shots-pipeline skill |
 | Skip greenlight checks | External gate will catch and reset |
 | Set passes:true without evidence | validate.sh will auto-reset |
 

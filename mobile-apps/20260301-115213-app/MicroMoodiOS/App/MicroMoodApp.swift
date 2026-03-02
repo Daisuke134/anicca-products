@@ -21,14 +21,13 @@ struct MicroMoodApp: App {
     }
 
     private func configureRevenueCat() {
-        // CRITICAL: API key from Info.plist, NOT environment variable
-        let apiKey = Bundle.main.infoDictionary?["REVENUECAT_IOS_KEY"] as? String ?? "appl_placeholder"
-        Purchases.configure(withAPIKey: apiKey)
+        // RevenueCat iOS API key (from RC Dashboard → Project → API Keys)
+        Purchases.configure(withAPIKey: "appl_pcZedDwIwXVSSdEugQZPMBormtl")
         Purchases.logLevel = .info
     }
 
     private func configureMixpanel() {
-        // CRITICAL: Token from Info.plist, NOT environment variable
+        // Mixpanel project token
         let token = Bundle.main.infoDictionary?["MIXPANEL_TOKEN"] as? String ?? "placeholder"
         Mixpanel.initialize(token: token, trackAutomaticEvents: false)
     }

@@ -1,158 +1,158 @@
 {
-  "project": "mobileapp-factory",
-  "branchName": "ralph/daily-app",
-  "description": "Build and submit one iOS app to App Store",
-  "userStories": [
-    {
-      "id": "US-001",
-      "title": "Trend research + idea selection",
-      "acceptanceCriteria": [
-        "spec/01-trend.md exists",
-        "Contains: rank, idea, one_liner, platform, problem_statement, target_user, feasibility, overall_score, monetization_model, competition_notes, mvp_scope, next_step",
-        "At least 5 ideas evaluated, top 1 selected",
-        "Sources cited for each trend",
-        "Typecheck passes"
-      ],
-      "priority": 1,
-      "passes": true,
-      "notes": "Micro Mood selected — 8.8/10. iOS mood tracker with 3-tap check-in + AI weekly patterns. 2026-03-01",
-      "spec": "specs/US-001.md"
-    },
-    {
-      "id": "US-002",
-      "title": "Product planning",
-      "acceptanceCriteria": [
-        "product-plan.md exists",
-        "Contains: target user, problem, solution, monetization, MVP scope",
-        "monetization section specifies subscription prices (monthly + annual)",
-        "All claims cite external sources",
-        "Typecheck passes"
-      ],
-      "priority": 2,
-      "passes": true,
-      "notes": "product-plan.md created. $4.99/mo, $29.99/yr. CoreData + SwiftUI. 2026-03-01",
-      "spec": "specs/US-002.md"
-    },
-    {
-      "id": "US-003",
-      "title": "Market research",
-      "acceptanceCriteria": [
-        "competitive-analysis.md exists with 5+ competitors analyzed",
-        "market-research.md exists with TAM/SAM/SOM",
-        "Typecheck passes"
-      ],
-      "priority": 3,
-      "passes": true,
-      "notes": "competitive-analysis.md + market-research.md. TAM $9.94B, SAM $2.49B. 5 competitors. 2026-03-01",
-      "spec": "specs/US-003.md"
-    },
-    {
-      "id": "US-004",
-      "title": "Spec generation",
-      "acceptanceCriteria": [
-        "docs/PRD.md exists and contains app_name, bundle_id, subscription prices",
-        "docs/ARCHITECTURE.md exists",
-        "docs/UX_SPEC.md exists",
-        "docs/DESIGN_SYSTEM.md exists",
-        "docs/IMPLEMENTATION_GUIDE.md exists and references RevenueCat SDK (not Mock)",
-        "docs/TEST_SPEC.md exists",
-        "docs/RELEASE_SPEC.md exists",
-        "Typecheck passes"
-      ],
-      "priority": 4,
-      "passes": true,
-      "notes": "7 docs generated in docs/. PRD: bundle=com.anicca.micromood, $4.99/mo $29.99/yr. IMPL: RevenueCat real SDK. 2026-03-01",
-      "spec": "specs/US-004.md"
-    },
-    {
-      "id": "US-005",
-      "title": "ASC setup + IAP creation + RevenueCat integration",
-      "acceptanceCriteria": [
-        "privacy-policy.md exists and deployed to GitHub Pages",
-        "App created in ASC (APP_ID recorded in progress.txt)",
-        "asc subscriptions groups list --app $APP_ID returns 1+ groups",
-        "asc subscriptions list --group $GROUP_ID returns monthly + annual products",
-        "asc validate subscriptions --app $APP_ID returns blocking=0 warnings=0",
-        "RevenueCat dashboard shows 2 products + 1 offering",
-        "SPM dependency on RevenueCat + RevenueCatUI added",
-        "PrivacyInfo.xcprivacy exists in project",
-        "Info.plist contains ITSAppUsesNonExemptEncryption = NO",
-        "Typecheck passes"
-      ],
-      "priority": 5,
-      "passes": true,
-      "notes": "AppID:6759877003 APP_NAME=Micro-Mood BUNDLE_ID=com.anicca.micromood SKU=MicroMood2026 PRIVACY_POLICY_URL=https://daisuke134.github.io/micromood-privacy/ GROUP_ID=21956086 MONTHLY_ID=6759877016 ANNUAL_ID=6759877119 RC_OFFERING=ofrng2bb1abc0a6. PrivacyInfo.xcprivacy+CA92.1 ✅ ITSAppUsesNonExemptEncryption=false ✅ RevenueCat SPM+products+offering ✅ Sub pricing+localization+availability ✅ MISSING_METADATA expected until new build in US-008. 2026-03-02",
-      "spec": "specs/US-005.md"
-    },
-    {
-      "id": "US-006",
-      "title": "iOS implementation with real RevenueCat SDK",
-      "acceptanceCriteria": [
-        "<AppName>ios/ directory exists with App/, Views/, Models/, Services/, Resources/",
-        "xcodebuild -scheme <AppName> build succeeds",
-        "grep -r 'Mock' --include='*.swift' . | grep -v 'Tests/' | grep -v '.build/' | wc -l = 0",
-        "grep -r 'import RevenueCat' --include='*.swift' . | wc -l > 0",
-        "PaywallView uses RevenueCatUI (not custom mock paywall)",
-        "Typecheck passes"
-      ],
-      "priority": 6,
-      "passes": true,
-      "notes": "BUILD SUCCEEDED simulator iPhone 17 Pro Max. Mock=0, import RevenueCat=7. 2026-03-01",
-      "spec": "specs/US-006.md"
-    },
-    {
-      "id": "US-007",
-      "title": "Testing",
-      "acceptanceCriteria": [
-        "xcodebuild test succeeds",
-        "Unit tests exist for Models and Services",
-        "All tests pass",
-        "Typecheck passes"
-      ],
-      "priority": 7,
-      "passes": true,
-      "notes": "xcodebuild test PASSED. 13 tests total: MoodLevelTests(4) + MoodStoreTests(5) + InsightEngineTests(4). All pass. 2026-03-01",
-      "spec": "specs/US-007.md"
-    },
-    {
-      "id": "US-008",
-      "title": "App Store preparation (screenshots + metadata + build + preflight)",
-      "acceptanceCriteria": [
-        "Screenshots generated via Pencil MCP (screenshot-creator skill)",
-        "Screenshots uploaded to ASC for en-US and ja",
-        "Metadata synced to ASC via asc-metadata-sync (en-US + ja)",
-        ".ipa file built and uploaded (processingState = VALID)",
-        "Build attached to version",
-        "Age Rating all 22 items set",
-        "Review Details set with --demo-account-required false",
-        "Availability set for 175 territories",
-        "Pricing set using subscription price-point IDs",
-        "Encryption: usesNonExemptEncryption = false",
-        "Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT",
-        "asc validate returns Errors=0",
-        "Preflight 7 checks all pass (asc-submission-health)",
-        "TestFlight build uploaded and distributed",
-        "Slack #metrics notified",
-        "Typecheck passes"
-      ],
-      "priority": 8,
-      "passes": true,
-      "notes": "Phase A-G 完了 2026-03-02. iPhone 6.7\" + 5.5\" + iPad 3枚ずつ en-US/ja. Build 5 (e7a20ac5, VALID) 添付. copyright=2026 Daisuke Narita, contentRights=DOES_NOT_USE_THIRD_PARTY_CONTENT, primaryCategory=HEALTH_AND_FITNESS, usesIdfa=false, demoAccountRequired=false. サブスク Review Screenshot: Monthly + Annual 添付済み. asc validate Errors=0. greenlight CRITICAL=0. ⏸️ App Privacy を ASC Web で手動設定後 US-009 実行.",
-      "spec": "specs/US-008.md"
-    },
-    {
-      "id": "US-009",
-      "title": "App Store submission (App Privacy + submit)",
-      "acceptanceCriteria": [
-        "Slack #metrics notified: need App Privacy setup",
-        ".app-privacy-done file exists (human created after ASC Web setup)",
-        "asc submit create returns WAITING_FOR_REVIEW",
-        "Slack #metrics notified: WAITING_FOR_REVIEW"
-      ],
-      "priority": 9,
-      "passes": false,
-      "notes": "Skipped: exceeded 5 attempts without passing",
-      "spec": "specs/US-009.md"
-    }
-  ]
+    "project": "mobileapp-factory",
+    "branchName": "ralph/daily-app",
+    "description": "Build and submit one iOS app to App Store",
+    "userStories": [
+        {
+            "id": "US-001",
+            "title": "Trend research + idea selection",
+            "acceptanceCriteria": [
+                "spec/01-trend.md exists",
+                "Contains: rank, idea, one_liner, platform, problem_statement, target_user, feasibility, overall_score, monetization_model, competition_notes, mvp_scope, next_step",
+                "At least 5 ideas evaluated, top 1 selected",
+                "Sources cited for each trend",
+                "Typecheck passes"
+            ],
+            "priority": 1,
+            "passes": true,
+            "notes": "Micro Mood selected \u2014 8.8/10. iOS mood tracker with 3-tap check-in + AI weekly patterns. 2026-03-01",
+            "spec": "specs/US-001.md"
+        },
+        {
+            "id": "US-002",
+            "title": "Product planning",
+            "acceptanceCriteria": [
+                "product-plan.md exists",
+                "Contains: target user, problem, solution, monetization, MVP scope",
+                "monetization section specifies subscription prices (monthly + annual)",
+                "All claims cite external sources",
+                "Typecheck passes"
+            ],
+            "priority": 2,
+            "passes": true,
+            "notes": "product-plan.md created. $4.99/mo, $29.99/yr. CoreData + SwiftUI. 2026-03-01",
+            "spec": "specs/US-002.md"
+        },
+        {
+            "id": "US-003",
+            "title": "Market research",
+            "acceptanceCriteria": [
+                "competitive-analysis.md exists with 5+ competitors analyzed",
+                "market-research.md exists with TAM/SAM/SOM",
+                "Typecheck passes"
+            ],
+            "priority": 3,
+            "passes": true,
+            "notes": "competitive-analysis.md + market-research.md. TAM $9.94B, SAM $2.49B. 5 competitors. 2026-03-01",
+            "spec": "specs/US-003.md"
+        },
+        {
+            "id": "US-004",
+            "title": "Spec generation",
+            "acceptanceCriteria": [
+                "docs/PRD.md exists and contains app_name, bundle_id, subscription prices",
+                "docs/ARCHITECTURE.md exists",
+                "docs/UX_SPEC.md exists",
+                "docs/DESIGN_SYSTEM.md exists",
+                "docs/IMPLEMENTATION_GUIDE.md exists and references RevenueCat SDK (not Mock)",
+                "docs/TEST_SPEC.md exists",
+                "docs/RELEASE_SPEC.md exists",
+                "Typecheck passes"
+            ],
+            "priority": 4,
+            "passes": true,
+            "notes": "7 docs generated in docs/. PRD: bundle=com.anicca.micromood, $4.99/mo $29.99/yr. IMPL: RevenueCat real SDK. 2026-03-01",
+            "spec": "specs/US-004.md"
+        },
+        {
+            "id": "US-005",
+            "title": "ASC setup + IAP creation + RevenueCat integration",
+            "acceptanceCriteria": [
+                "privacy-policy.md exists and deployed to GitHub Pages",
+                "App created in ASC (APP_ID recorded in progress.txt)",
+                "asc subscriptions groups list --app $APP_ID returns 1+ groups",
+                "asc subscriptions list --group $GROUP_ID returns monthly + annual products",
+                "asc validate subscriptions --app $APP_ID returns blocking=0 warnings=0",
+                "RevenueCat dashboard shows 2 products + 1 offering",
+                "SPM dependency on RevenueCat + RevenueCatUI added",
+                "PrivacyInfo.xcprivacy exists in project",
+                "Info.plist contains ITSAppUsesNonExemptEncryption = NO",
+                "Typecheck passes"
+            ],
+            "priority": 5,
+            "passes": true,
+            "notes": "AppID:6759877003 APP_NAME=Micro-Mood BUNDLE_ID=com.anicca.micromood SKU=MicroMood2026 PRIVACY_POLICY_URL=https://daisuke134.github.io/micromood-privacy/ GROUP_ID=21956086 MONTHLY_ID=6759877016 ANNUAL_ID=6759877119 RC_OFFERING=ofrng2bb1abc0a6. PrivacyInfo.xcprivacy+CA92.1 \u2705 ITSAppUsesNonExemptEncryption=false \u2705 RevenueCat SPM+products+offering \u2705 Sub pricing+localization+availability \u2705 MISSING_METADATA expected until new build in US-008. 2026-03-02",
+            "spec": "specs/US-005.md"
+        },
+        {
+            "id": "US-006",
+            "title": "iOS implementation with real RevenueCat SDK",
+            "acceptanceCriteria": [
+                "<AppName>ios/ directory exists with App/, Views/, Models/, Services/, Resources/",
+                "xcodebuild -scheme <AppName> build succeeds",
+                "grep -r 'Mock' --include='*.swift' . | grep -v 'Tests/' | grep -v '.build/' | wc -l = 0",
+                "grep -r 'import RevenueCat' --include='*.swift' . | wc -l > 0",
+                "PaywallView uses RevenueCatUI (not custom mock paywall)",
+                "Typecheck passes"
+            ],
+            "priority": 6,
+            "passes": true,
+            "notes": "BUILD SUCCEEDED simulator iPhone 17 Pro Max. Mock=0, import RevenueCat=7. 2026-03-01",
+            "spec": "specs/US-006.md"
+        },
+        {
+            "id": "US-007",
+            "title": "Testing",
+            "acceptanceCriteria": [
+                "xcodebuild test succeeds",
+                "Unit tests exist for Models and Services",
+                "All tests pass",
+                "Typecheck passes"
+            ],
+            "priority": 7,
+            "passes": true,
+            "notes": "xcodebuild test PASSED. 13 tests total: MoodLevelTests(4) + MoodStoreTests(5) + InsightEngineTests(4). All pass. 2026-03-01",
+            "spec": "specs/US-007.md"
+        },
+        {
+            "id": "US-008",
+            "title": "App Store preparation (screenshots + metadata + build + preflight)",
+            "acceptanceCriteria": [
+                "Screenshots generated via Pencil MCP (screenshot-creator skill)",
+                "Screenshots uploaded to ASC for en-US and ja",
+                "Metadata synced to ASC via asc-metadata-sync (en-US + ja)",
+                ".ipa file built and uploaded (processingState = VALID)",
+                "Build attached to version",
+                "Age Rating all 22 items set",
+                "Review Details set with --demo-account-required false",
+                "Availability set for 175 territories",
+                "Pricing set using subscription price-point IDs",
+                "Encryption: usesNonExemptEncryption = false",
+                "Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT",
+                "asc validate returns Errors=0",
+                "Preflight 7 checks all pass (asc-submission-health)",
+                "TestFlight build uploaded and distributed",
+                "Slack #metrics notified",
+                "Typecheck passes"
+            ],
+            "priority": 8,
+            "passes": false,
+            "notes": "",
+            "spec": "specs/US-008.md"
+        },
+        {
+            "id": "US-009",
+            "title": "App Store submission (App Privacy + submit)",
+            "acceptanceCriteria": [
+                "Slack #metrics notified: need App Privacy setup",
+                ".app-privacy-done file exists (human created after ASC Web setup)",
+                "asc submit create returns WAITING_FOR_REVIEW",
+                "Slack #metrics notified: WAITING_FOR_REVIEW"
+            ],
+            "priority": 9,
+            "passes": false,
+            "notes": "",
+            "spec": "specs/US-009.md"
+        }
+    ]
 }
