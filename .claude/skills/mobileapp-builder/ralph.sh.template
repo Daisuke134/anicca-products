@@ -108,13 +108,8 @@ for i in $(seq 1 $MAX_ITERATIONS); do
   # Quote: "claude --dangerously-skip-permissions --print \"$PROMPT_CONTENT\""
   # Source: ghuntley.com/ralph/ — "use as little context as possible"
   LOG_FILE="$SCRIPT_DIR/logs/iteration-$i.log"
-  PROMPT_CONTENT="$(cat "$SCRIPT_DIR/CLAUDE.md")"
-  OUTPUT_FILE=$(mktemp)
 
-  claude --dangerously-skip-permissions --print "$PROMPT_CONTENT" > "$OUTPUT_FILE" 2>&1 || true
-  OUTPUT=$(cat "$OUTPUT_FILE")
-  cp "$OUTPUT_FILE" "$LOG_FILE"
-  rm -f "$OUTPUT_FILE"
+  OUTPUT=$(claude --dangerously-skip-permissions --print < "$SCRIPT_DIR/CLAUDE.md" 2>&1 | tee "$LOG_FILE") || true
 
   echo ""
   echo "🏭 Iteration $i 終了: $(date)"
