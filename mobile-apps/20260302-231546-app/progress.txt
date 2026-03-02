@@ -241,3 +241,29 @@ WAITING_FOR_HUMAN: Annual subscription pricing ($29.99) still not set
   - asc `builds latest --app APP_ID` is the quickest way to check build processingState
   - `asc testflight beta-groups list` returns empty if no groups exist — must CREATE group first before adding builds
 ---
+
+## 2026-03-03 - US-009: App Store Submission (WAITING_FOR_HUMAN)
+- .app-privacy-done: NOT FOUND → human action required
+- asc validate: Errors=0 (confirmed from US-008) ✅
+- Quality Gate (US-008): PASS
+
+WAITING_FOR_HUMAN: App Privacy setup
+⏸️ App Privacy を ASC Web で設定してください
+URL: https://appstoreconnect.apple.com/apps/6759916261
+App → App Privacy → Get Started → 設定 → Save
+完了したら Slack で「done」と返信してください
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📱 アクション: App Privacy を設定してください（5分）
+
+1. https://appstoreconnect.apple.com/apps/6759916261 を開く
+2. [App Privacy] → [Get Started] をクリック
+3. 以下を設定:
+   - Data Not Collected（SleepRitual はユーザーの個人データを収集しません）
+   - すべての質問に「No, we do not collect data from this app」を選択
+4. [Save] → [Publish] をクリック
+5. Slack で「done」と返信
+
+Anicca が「done」を受け取ったら `.app-privacy-done` を作成します。
+次のイテレーションが検出して審査提出を実行します。
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
