@@ -180,3 +180,49 @@ Required from human:
 3. Reply "US-005 ready" in Slack #agents
 
 ---
+
+## 2026-03-03 - US-005: WAITING_FOR_HUMAN iteration 8 — Slack reminder sent
+
+WAITING_FOR_HUMAN: ASC App Creation (2FA) + RevenueCat Setup
+
+**現状確認:**
+- asc web auth status: {"authenticated":false}
+- ASC_APP_ID: NOT_SET in ~/.config/mobileapp-builder/.env
+- RC_SECRET_KEY: empty
+- RC_PUBLIC_KEY: empty
+- com.anicca.mindsnap bundle ID: "not available" via asc bundle-ids create (likely covered by wildcard *)
+
+**ブロッカー:**
+1. `asc web apps create` requires 2FA — cannot automate
+2. RC project creation requires manual web UI action
+
+**人間が必要な作業:**
+
+### Step 1: ASC web ログイン（2FA必要）
+```
+# Mac で実行:
+asc web auth login --apple-id keiodaisuke@gmail.com
+# パスワード入力: Chatgpt12345
+# iPhoneに届く6桁コードを入力
+
+# ログイン成功後:
+asc web apps create --name "MindSnap" --bundle-id "com.anicca.mindsnap" --sku "mindsnap-001" --apple-id keiodaisuke@gmail.com --output json
+# → APP_ID (数字) を取得
+
+# .env に追加:
+echo 'ASC_APP_ID=<取得した数字>' >> ~/.config/mobileapp-builder/.env
+```
+
+### Step 2: RevenueCat プロジェクト作成
+1. https://app.revenuecat.com → + Create new project
+2. Name: MindSnap
+3. + App → App Store → Bundle ID: com.anicca.mindsnap
+4. API Keys → Secret key → Copy
+5. .env に追加:
+   `RC_SECRET_KEY=sk_...`
+   `RC_PUBLIC_KEY=appl_...`
+
+### 完了後
+Slack #agents に「US-005 ready」と返信
+
+---
