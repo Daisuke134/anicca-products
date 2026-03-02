@@ -55,3 +55,81 @@ Source: snarktank/ralph SKILL.md
 - grep -r 'import RevenueCat' > 0
 - No RevenueCatUI imports
 - PaywallView has 5 accessibilityIdentifiers
+- AppIcon.appiconset contains icon-60@2x.png (120x120)
+- AppIcon.appiconset/Contents.json has filename fields, no "universal" idiom
+
+## Step 3: App Icon Generation (CRITICAL)
+
+Source: Apple Human Interface Guidelines — App Icons
+> "You need to provide a 1024×1024 px App Store icon and device-specific sizes"
+
+AppIcon.appiconset には以下が **全て** 必須:
+
+### 3.1: ソースアイコン作成
+```bash
+# PIL で 1024x1024 アイコン生成（アプリテーマに合わせた色とシンボル）
+python3 << 'EOF'
+from PIL import Image, ImageDraw
+
+img = Image.new('RGBA', (1024, 1024), (30, 30, 60, 255))  # アプリテーマ色
+draw = ImageDraw.Draw(img)
+# アプリのシンボルを描画（例: 月、星、ハートなど）
+img.save('icon-1024.png')
+EOF
+```
+
+### 3.2: 全サイズ生成
+```bash
+python3 << 'EOF'
+from PIL import Image
+
+sizes = [
+    (1024, '1024.png'),
+    (180, 'icon-60@3x.png'),    # iPhone @3x
+    (120, 'icon-60@2x.png'),    # iPhone @2x
+    (87, 'icon-29@3x.png'),     # Settings @3x
+    (80, 'icon-40@2x.png'),     # Spotlight @2x
+    (76, 'icon-76.png'),        # iPad
+    (167, 'icon-83.5@2x.png'),  # iPad Pro
+    (60, 'icon-60.png'),        # iPhone
+    (58, 'icon-29@2x.png'),     # Settings @2x
+    (40, 'icon-40.png'),        # Spotlight
+    (29, 'icon-29.png'),        # Settings
+    (20, 'icon-20.png'),        # Notification
+]
+
+img = Image.open('icon-1024.png')
+for size, name in sizes:
+    resized = img.resize((size, size), Image.LANCZOS)
+    resized.save(name)
+EOF
+```
+
+### 3.3: Contents.json 生成
+```json
+{
+  "images": [
+    {"filename": "icon-60@2x.png", "idiom": "iphone", "scale": "2x", "size": "60x60"},
+    {"filename": "icon-60@3x.png", "idiom": "iphone", "scale": "3x", "size": "60x60"},
+    {"filename": "icon-76.png", "idiom": "ipad", "scale": "1x", "size": "76x76"},
+    {"filename": "icon-83.5@2x.png", "idiom": "ipad", "scale": "2x", "size": "83.5x83.5"},
+    {"filename": "1024.png", "idiom": "ios-marketing", "scale": "1x", "size": "1024x1024"}
+  ],
+  "info": {"author": "xcode", "version": 1}
+}
+```
+
+### PROHIBITED
+- ⛔ `"idiom": "universal"` 禁止（altool が reject する）
+- ⛔ `filename` フィールド省略禁止
+- ⛔ アイコンファイル生成しないで Contents.json だけ作る禁止
+
+### 検証
+```bash
+# 必須ファイル存在チェック
+ICON_DIR="Resources/Assets.xcassets/AppIcon.appiconset"
+[ -f "$ICON_DIR/icon-60@2x.png" ] || { echo "FAIL: missing 120x120 icon"; exit 1; }
+[ -f "$ICON_DIR/1024.png" ] || { echo "FAIL: missing 1024x1024 icon"; exit 1; }
+grep -q '"filename"' "$ICON_DIR/Contents.json" || { echo "FAIL: Contents.json missing filename"; exit 1; }
+! grep -q '"universal"' "$ICON_DIR/Contents.json" || { echo "FAIL: universal idiom not allowed"; exit 1; }
+```
