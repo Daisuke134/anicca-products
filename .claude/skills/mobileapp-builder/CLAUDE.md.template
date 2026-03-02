@@ -126,8 +126,9 @@ Before starting any US, verify the previous US acceptance criteria:
 
 ### US-008: App Store screenshots + metadata
 - FIRST: Delete ALL existing screenshots (rm -rf screenshots/ docs/screenshots/)
-- Read: .claude/skills/screenshot-planner/SKILL.md（5-Screenshot Framework でコピー計画）
-- Read: .claude/skills/asc-shots-pipeline/SKILL.md（撮影→フレーム→アップロード全手順）
+- Read: .claude/skills/screenshot-planner/SKILL.md（どの画面をどの順番で見せるか計画）
+- Read: .claude/skills/asc-shots-pipeline/SKILL.md（撮影→フレーム→アップロード全手順に従え）
+- Read: .claude/skills/screenshot-optimization/SKILL.md（10スロット戦略参照）
 - Read: .claude/skills/app-description-writer/SKILL.md（説明文）
 - Read: .claude/skills/keyword-optimizer/SKILL.md（キーワード）
 - Read: .claude/skills/asc-metadata-sync/SKILL.md（メタデータ同期）
@@ -135,26 +136,31 @@ Before starting any US, verify the previous US acceptance criteria:
 - Read: .claude/skills/asc-release-flow/SKILL.md（リリース）
 - Read: .claude/skills/asc-submission-health/SKILL.md（提出前チェック）
 - Steps:
-  1. スクショ撮影（5分以内・最大3枚）:
-     - xcrun simctl launch <UDID> <BUNDLE_ID> && sleep 3
-     - xcrun simctl io <UDID> screenshot screenshots/screen_1.png
-     - Home画面1枚のみ必須。残り2枚はオプション
-     - ⛔ XCUITest/Maestro/サブエージェント/swipe/tap 禁止
-  2. デバイスフレーム合成:
+  1. screenshot-planner で3枚のスクショ計画を立てる（どの画面 + ヘッドライン）
+  2. スクショ撮影（3枚必須・5分以内）:
+     - .asc/screenshots.json にキャプチャ計画を書く（asc-shots-pipeline Step 3）
+     - AXe で画面遷移してスクショを撮る:
+       axe describe-ui --udid "$UDID"
+       axe tap --id "<element>" --udid "$UDID"
+       axe screenshot --output screenshots/raw/screen_1.png --udid "$UDID"
+     - 3枚の異なる画面を撮影する（Home、主要機能、Paywall等）
+     - ⛔ 3枚未満で passes:true にするな
+  3. デバイスフレーム合成（3枚全部）:
      - pip3 install koubou==0.13.0（未インストールなら）
-     - asc screenshots frame --input screenshots/screen_1.png --output-dir screenshots/framed --device iphone-air
-     - 撮影した全枚数フレームする
-  3. ASC にアップロード:
+     - asc screenshots frame --input screenshots/raw/screen_1.png --output-dir screenshots/framed --device iphone-air
+     - asc screenshots frame --input screenshots/raw/screen_2.png --output-dir screenshots/framed --device iphone-air
+     - asc screenshots frame --input screenshots/raw/screen_3.png --output-dir screenshots/framed --device iphone-air
+  4. ASC にアップロード（en-US + ja）:
      - asc screenshots upload --version-localization <LOC_ID> --path screenshots/framed/ --device-type APP_IPHONE_67
-     - en-US + ja 両方
-  4. メタデータ同期（en-US + ja）
-  5. Archive + .ipa export（security unlock-keychain -p "$KEYCHAIN_PASSWORD" first）
-  6. Upload build, attach to version
-  7. Age Rating, Review Details, Availability, Content Rights
-  8. asc validate → Errors=0（STOP GATE）
-  9. Preflight checks（asc-submission-health）
+  5. メタデータ同期（en-US + ja）
+  6. Archive + .ipa export（security unlock-keychain -p "$KEYCHAIN_PASSWORD" first）
+  7. Upload build, attach to version
+  8. Age Rating, Review Details, Availability, Content Rights
+  9. asc validate → Errors=0（STOP GATE）
+  10. Preflight checks（asc-submission-health）
 - ⛔ Python/Pillow/ImageMagick/sips でスクショ加工禁止
 - ⛔ asc screenshots frame 失敗 → passes:false
+- ⛔ 3枚未満のスクショで passes:true にするな
 - Read: .claude/skills/asc-shots-pipeline/SKILL.md
 - Read: .claude/skills/asc-metadata-sync/SKILL.md
 - Read: .claude/skills/asc-xcode-build/SKILL.md
