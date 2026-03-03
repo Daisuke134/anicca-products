@@ -60,72 +60,50 @@ security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keych
 KEYCHAIN_PASSWORD is in `~/.config/mobileapp-builder/.env`
 
 
-## Step 4.5: Bundle ID 登録（Developer Portal）
-
-ASC でアプリを作成する前に、Apple Developer Portal で Identifier を登録する必要がある。
+## Step 4.5: Bundle ID 登録（API Key認証 — 完全自動）
 
 ```bash
-# Bundle ID が登録済みか確認
-# asc CLI には identifiers コマンドがないので、ASC アプリ作成時に選択可能か確認する
+~/bin/asc bundle-ids create \
+  --identifier "<bundle_id>" \
+  --name "<app_name>" \
+  --platform IOS --output json
 ```
 
-CC は progress.txt に以下を書いて WAITING_FOR_HUMAN:
-```
-WAITING_FOR_HUMAN: Bundle ID registration
-📱 Bundle ID の登録をお願いします（30秒）:
-1. https://developer.apple.com → Certificates, Identifiers & Profiles
-2. Identifiers → + → App IDs → Continue → App → Continue
-3. Description: <app_name>
-4. Bundle ID: Explicit → <bundle_id>
-5. Capabilities: (必要に応じて選択)
-6. Register
-完了したら Slack で「done」と返信してください。
-```
+**人間介入不要。** API Key認証で常に自動実行される。
 
-## Step 5: ASC App Creation (asc web apps create)
+## Step 5: ASC App Creation（~/bin/asc apps create — iris セッション）
 
-### 5.1: セッション有効性チェック
+### 5.1: アプリ作成（通常は完全自動）
 ```bash
-source ~/.config/mobileapp-builder/.env
-LAST_LOGIN="${ASC_WEB_LAST_LOGIN:-1970-01-01}"
-DAYS_SINCE=$(( ( $(date +%s) - $(date -j -f "%Y-%m-%d" "$LAST_LOGIN" +%s) ) / 86400 ))
+APP_RESULT=$(~/bin/asc apps create \
+  --name "<app_name>" \
+  --bundle-id "<bundle_id>" \
+  --sku "<slug>" \
+  --platform IOS \
+  --output json 2>&1)
 
-if [ "$DAYS_SINCE" -gt 28 ]; then
-  # 28日超過 → 2FA 必要
-  echo "WAITING_FOR_HUMAN: 2FA required (session expired)"
+if echo "$APP_RESULT" | jq -e '.data.id' > /dev/null 2>&1; then
+  APP_ID=$(echo "$APP_RESULT" | jq -r '.data.id')
+  echo "APP_ID=$APP_ID" >> .env
+  echo "✅ ASC App created: $APP_ID"
+else
+  # iris セッション切れの場合のみ WAITING_FOR_HUMAN
+  echo "WAITING_FOR_HUMAN: 2FA code needed"
   cat >> progress.txt << 'MSG'
-⏸️ 2FA コード入力が必要です（セッション期限切れ）
-asc web auth login --apple-id keiodaisuke@gmail.com --password-stdin
-→ パスワード入力後、iPhone に届く 6 桁のコードを Slack で返信
+⏸️ iris セッション切れ。
+iPhone に届く 6 桁のコードを Slack で返信してください。
+エージェントが --two-factor-code 付きで再実行します。
 MSG
   exit 1
 fi
 ```
 
-### 5.2: アプリ作成（自動）
-```bash
-APP_RESULT=$(asc web apps create \
-  --name "<app_name>" \
-  --bundle-id "<bundle_id>" \
-  --sku "<slug>" \
-  --apple-id "$APPLE_ID" \
-  --output json 2>&1)
-
-if echo "$APP_RESULT" | grep -q '"id"'; then
-  APP_ID=$(echo "$APP_RESULT" | jq -r '.data.id')
-  echo "APP_ID=$APP_ID" >> .env
-  echo "✅ ASC App created: $APP_ID"
-  
-  # Update last login date
-  sed -i '' "s/ASC_WEB_LAST_LOGIN=.*/ASC_WEB_LAST_LOGIN=$(date +%Y-%m-%d)/" ~/.config/mobileapp-builder/.env
-else
-  echo "❌ ASC App creation failed: $APP_RESULT"
-  exit 1
-fi
-```
-
-Dais が APP_ID を返信 → Anicca が progress.txt に追記 + .env に書く。
-次の iteration で CC が読む → 続行。
+### セッション管理
+- セッションキャッシュ: `~/.asc/iris/`（ファイルベース）
+- 通常運用: セッションが生きている限り **完全自動**（2FA不要）
+- 有効期限: Apple サーバー側管理（定期使用で延長される）
+- 期限切れ時のみ: Dais は Slack で 6桁コード返すだけ
+- APP_ID は自動取得 → .env に自動書き込み → 次のステップへ自動続行
 
 ## Step 6: IAP Creation + Localization + Availability + Pricing
 
@@ -220,15 +198,18 @@ asc subscriptions app-store-review-screenshot get --subscription-id $ANNUAL_ID
 
 ## Step 7: RC Setup
 
-### 7.1: RC プロジェクト作成（人間介入 — 唯一の手動タスク）
+### 7.1: RC プロジェクト作成（人間介入 — URLを返すだけ）
 CC は progress.txt に以下を書いて WAITING_FOR_HUMAN:
 ```
 WAITING_FOR_HUMAN: RC Project Creation
-📱 RC プロジェクト作成をお願いします（2分）:
+📱 RC プロジェクト作成（1分）:
 1. https://app.revenuecat.com → + Create new project
 2. プロジェクト名: <app_name>
 3. + App → App Store → Bundle ID: <bundle_id>
-4. Overview URL を返信（例: https://app.revenuecat.com/projects/976e8639/overview）
+4. プロジェクトURLを Slack で返信
+   例: https://app.revenuecat.com/projects/976e8639/overview
+
+それだけでOK。Offering/Package作成はMCPで自動実行します。
 ```
 
 ### 7.2: RC Offering 作成（MCP 自動）

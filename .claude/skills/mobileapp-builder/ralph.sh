@@ -4,10 +4,10 @@
 # Slack notify: https://notes.kodekloud.com/docs/GitHub-Actions/Reusable-Workflows-and-Reporting/Slack-Notify-GitHub-Action/page
 # Log files: tee to file (same tee pattern as ralph original)
 
-set -euo pipefail
+set -e  # snarktank/ralph original: no pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-MAX_ITERATIONS="${1:-20}"
+MAX_ITERATIONS="${1:-10}"
 SLACK_CHANNEL="C091G3PKHL2"
 
 # Source secrets from .env (Twelve-Factor App: https://12factor.net/config)
