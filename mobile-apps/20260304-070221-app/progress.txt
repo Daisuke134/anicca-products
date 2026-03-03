@@ -65,3 +65,22 @@
   - Blended ARPU ~$63/yr (70% annual / 30% monthly mix based on RevenueCat data)
   - Precedent validation: find a market leader that proved the FORMAT works, then apply to unclaimed niche
 ---
+
+## 2026-03-04 - US-004: Spec Generation
+
+- Created 7 spec documents in docs/
+- Files changed: docs/PRD.md, docs/ARCHITECTURE.md, docs/UX_SPEC.md, docs/DESIGN_SYSTEM.md, docs/IMPLEMENTATION_GUIDE.md, docs/TEST_SPEC.md, docs/RELEASE_SPEC.md
+- PRD.md: app_name=BreathStory, bundle_id=com.anicca.breathstory, $7.99/month + $49.99/year, 7-day trial
+- ARCHITECTURE.md: offline-first, RevenueCat SPM (no RevenueCatUI), AVSpeechSynthesizer + AVPlayer, UserDefaults only
+- UX_SPEC.md: 5 screens (Home, Player, Paywall, Onboarding, Settings), soft paywall with [Maybe Later] always visible
+- DESIGN_SYSTEM.md: 5 world gradients, 8pt spacing grid, SF Pro typography, SF Symbols icons
+- IMPLEMENTATION_GUIDE.md: Phase 1-6 (Setup → Models → Services → ViewModels → Views → Content), real RC SDK throughout
+- TEST_SPEC.md: T-M1–M5 (Models), T-S1–S6 (Services), T-V1–V6 (ViewModels), T-I1–I4 (Integration), T-E1–E3 (Maestro E2E)
+- RELEASE_SPEC.md: 7-gate preflight, metadata for en-US + ja, Age Rating all 4+, review notes
+
+**Learnings for future iterations:**
+  - IMPLEMENTATION_GUIDE.md is the most valuable spec — it becomes the literal implementation checklist
+  - Custom PaywallView pattern (instead of RevenueCatUI) must be explicit in every spec to avoid drift
+  - 5 breathing patterns (4-7-8, Box, Coherent, 4-6, Physiological Sigh) should be locked in spec before implementation to avoid per-story decisions
+  - World gradient palette defined in DESIGN_SYSTEM.md removes all visual decision-making from implementation phase
+---
