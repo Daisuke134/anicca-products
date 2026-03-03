@@ -47,3 +47,21 @@
   - AVSpeechSynthesizer: zero API cost, fully offline — ideal for solo dev with no backend
 
 ---
+
+## 2026-03-04 - US-003: Market Research
+
+- Created competitive-analysis.md with 6 competitor profiles (Breathwrk, Oak, Calm, Headspace, Breethe, Insight Timer)
+- Created market-research.md with TAM/SAM/SOM, growth analysis, entry barriers, revenue projections
+- Files changed: competitive-analysis.md (created), market-research.md (created), prd.json (US-003 passes: true)
+- Market sizing: TAM $1.6B (meditation apps 2024, Straits Research), SAM $220M (iOS EN+JP), SOM $3M-$15M (3-year)
+- Opportunity score: 8/10 — Zero direct competitors in narrative+breathing niche
+- Breathing apps CAGR: 17-21% (2025-2030)
+- Revenue potential: $50K-$150K ARR Year 1 (solo dev, no UA budget)
+- Key finding: Calm Sleep Stories ($300M revenue) proves audio narrative wellness format. BreathStory applies same format to daytime breathing — unclaimed.
+
+**Learnings for future iterations:**
+  - Breathing app niche within mindfulness market is "Emerging" stage — first mover advantage available
+  - Long-tail ASO keywords ("breathing stories", "narrative breathwork") = near-zero competition
+  - Blended ARPU ~$63/yr (70% annual / 30% monthly mix based on RevenueCat data)
+  - Precedent validation: find a market leader that proved the FORMAT works, then apply to unclaimed niche
+---
