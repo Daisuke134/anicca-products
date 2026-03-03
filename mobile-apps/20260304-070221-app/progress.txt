@@ -27,3 +27,23 @@
   - Breathing app category is competitive but narrative+breathing is genuinely unclaimed niche
 
 ---
+
+## 2026-03-04 - US-002: Product Planning
+
+- Created product-plan.md with full product plan for BreathStory
+- Files changed: product-plan.md (created), prd.json (US-002 passes: true)
+- iTunes name check: 0 exact matches for "BreathStory" ✅
+- Target user: 25–40 stressed professional who churned from Calm/Headspace
+- Problem: 73% of breathing app users quit by day 3 (AppsFlyer) — apps are mechanical/boring
+- Solution: AVSpeechSynthesizer narrative stories + SwiftUI breathing animation, no backend, offline
+- Monetization: $7.99/month, $49.99/year, 7-day trial, soft paywall after 3 free stories
+- MVP: 5 stories (Forest/Ocean/City Rain/Space/Mountain), SwiftUI, AVPlayer soundscapes
+- 14 external sources cited
+
+**Learnings for future iterations:**
+  - RevenueCat median for Health & Fitness: $7.99–$9.99/month — confirms BreathStory pricing
+  - Annual subscribers have 3x LTV vs monthly — always lead with annual in paywall
+  - Free trial in 71% of top H&F apps — 7-day trial is mandatory, not optional
+  - AVSpeechSynthesizer: zero API cost, fully offline — ideal for solo dev with no backend
+
+---
