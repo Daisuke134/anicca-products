@@ -163,3 +163,35 @@ APP_IDとRC SK keyが .env に設定されたら以下を自動実行:
 7. PrivacyInfo.xcprivacy + Info.plist設定
 
 ---
+
+## 2026-03-04 - US-005: ASC Setup (BLOCKED - 3-Attempt Limit Reached)
+
+BLOCKED: irisセッション失効 + 2FA必要 — 3回の試行後も解決不可
+
+### 診断結果
+- iris session: authenticated=false (最終更新: 2026-03-03T08:21:11)
+- `asc web auth status` → `{"authenticated":false}`  
+- `asc apps list` (API key使用) → 動作確認済み ✅
+- `asc apps create` → Apple ID + 2FA 必要 → iris session が失効しているため不可
+
+### 根本原因
+`asc apps create` はAPI keyではなくApple ID認証（iris/2FA）が必要。
+irisセッションは2026-03-03 16:03:46 JSTに失効しており、更新には2FAコードが必要。
+
+### 解決方法（Daisが実施）
+
+**Option A: 2FAコードを提供**
+1. iPhoneにAppleから届く6桁コードをチャットに送る
+2. エージェントが `~/bin/asc apps create ... --two-factor-code <CODE>` を実行
+
+**Option B: 手動でASCアプリを作成**
+1. https://appstoreconnect.apple.com にログイン
+2. My Apps → + → New App
+3. Name: BreathStory, Bundle ID: com.anicca.breathstory (332D8N3H33), SKU: breathstory
+4. 作成後のAPP_ID（10桁数字）をSlackで返信
+
+**どちらの場合も追加で必要:**
+- RevenueCat → New Project → BreathStory → SK Keyを生成 → sk_...をSlackで返信
+- 環境変数に追加: `APP_ID=<10桁>` + `RC_PROJECT_ID=<proj...>` + `RC_SK_KEY=sk_...`
+
+---
