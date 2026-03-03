@@ -108,3 +108,58 @@ WAITING_FOR_HUMAN: iris session expired + RC project needed
 - RC Offering + Package + Product + Entitlement 設定
 - XcodeGenでiOSプロジェクト生成
 - PrivacyInfo.xcprivacy + Info.plist設定
+
+---
+
+## 2026-03-04 - US-005: ASC Setup (2FA Required)
+
+WAITING_FOR_HUMAN: 2FAコード必要
+
+### 状況
+- パスワード認証: ✅ 成功（APPLE_ID_PASSWORD 正しい）
+- 2FA: ⏸️ iPhoneに届いた6桁コードを待機中
+
+### Daisへ
+iPhoneに届いたAppleの6桁コードをこのチャットに返信してください。
+コードを受け取ったら以下を自動実行します:
+```bash
+source ~/.config/mobileapp-builder/.env
+APP_RESULT=$(~/bin/asc apps create \
+  --name "BreathStory" \
+  --bundle-id "com.anicca.breathstory" \
+  --sku "breathstory" \
+  --platform IOS \
+  --apple-id "keiodaisuke@gmail.com" \
+  --password "$APPLE_ID_PASSWORD" \
+  --two-factor-code "<6桁コード>" \
+  --output json 2>&1)
+```
+
+
+## 2026-03-04 - US-005: ASC Setup (3回目の試み - WAITING_FOR_HUMAN)
+
+WAITING_FOR_HUMAN: irisセッション失効中、2FAコードまたは手動App作成が必要
+
+### 状況確認
+- iris session: authenticated=false (2026-03-03T08:21:11 が最終更新)
+- Bundle ID: com.anicca.breathstory (332D8N3H33) ✅ 登録済み
+- Privacy Policy: https://anicca.ai/breathstory/privacy ✅ 公開済み
+- ASC App: ❌ 未作成（2FA必要）
+- RC Project: ❌ 未作成（Daisが手動作成必要）
+
+### Slack通知送信済み
+2択を提示:
+- Option A: 2FAコード（6桁）を送る
+- Option B: Daisが手動でASCアプリ作成 + RC SK key生成 → APP_IDとsk_...をSlackで返信
+
+### 次のステップ（返信受信後）
+APP_IDとRC SK keyが .env に設定されたら以下を自動実行:
+1. asc subscriptions groups create → GROUP_ID取得
+2. asc subscriptions create monthly ($7.99) + annual ($49.99)
+3. asc subscriptions localizations bulk (40ロケール)
+4. RC: Offering + Package + Product + Entitlement 作成
+5. XcodeGen → BreathStoryios/ プロジェクト生成
+6. RevenueCat SPM追加
+7. PrivacyInfo.xcprivacy + Info.plist設定
+
+---
