@@ -60,9 +60,9 @@ Source: end.md Q2.E + asc CLI 0.36.1
 ### 1.1: Web セッション確認
 ```bash
 # セッションが有効か確認（無効なら Step 5 の ASC App Creation で既にログイン済みのはず）
-asc web auth status 2>&1 | grep -q "authenticated" || {
+asc web auth status 2>&1 | grep -q '"authenticated":true' || {
   echo "⚠️ Web session expired. Re-authenticate needed."
-  # 2FA は ASC App Creation (Step 5) で既に完了しているはず
+  exit 1
 }
 ```
 
@@ -79,7 +79,7 @@ EOF
 
 # 適用 + 公開
 asc web privacy apply --app $APP_ID --file /tmp/privacy.json
-asc web privacy publish --app $APP_ID
+asc web privacy publish --app $APP_ID --confirm
 ```
 
 ### 1.3: 収集データありの場合
@@ -101,7 +101,7 @@ cat > /tmp/privacy.json << 'EOF'
 EOF
 
 asc web privacy apply --app $APP_ID --file /tmp/privacy.json
-asc web privacy publish --app $APP_ID
+asc web privacy publish --app $APP_ID --confirm
 ```
 
 ## Step 2: Submit for Review
