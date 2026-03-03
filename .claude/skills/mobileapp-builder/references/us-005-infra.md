@@ -71,15 +71,26 @@ KEYCHAIN_PASSWORD is in `~/.config/mobileapp-builder/.env`
 
 **人間介入不要。** API Key認証で常に自動実行される。
 
-## Step 5: ASC App Creation（~/bin/asc apps create — iris セッション）
+## Step 5: ASC App Creation（~/bin/asc apps create — Apple ID 認証）
+
+### 5.0: Bundle ID 存在確認（前提チェック）
+```bash
+# Bundle ID が Step 4.5 で登録済みか確認（未登録だと apps create が 500 エラーで死ぬ）
+asc bundle-ids list --output json 2>&1 | jq -e --arg bid "<bundle_id>" '.data[] | select(.attributes.identifier == $bid) | .id' > /dev/null 2>&1 || {
+  echo "❌ Bundle ID <bundle_id> not registered. Run Step 4.5 first."
+  exit 1
+}
+echo "✅ Bundle ID confirmed"
+```
 
 ### 5.1: アプリ作成（通常は完全自動）
 ```bash
-APP_RESULT=$(~/bin/asc apps create \
+APP_RESULT=$(ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" ~/bin/asc apps create \
   --name "<app_name>" \
   --bundle-id "<bundle_id>" \
   --sku "<slug>" \
   --platform IOS \
+  --apple-id "$APPLE_ID" \
   --output json 2>&1)
 
 if echo "$APP_RESULT" | jq -e '.data.id' > /dev/null 2>&1; then
@@ -87,10 +98,10 @@ if echo "$APP_RESULT" | jq -e '.data.id' > /dev/null 2>&1; then
   echo "APP_ID=$APP_ID" >> .env
   echo "✅ ASC App created: $APP_ID"
 else
-  # iris セッション切れの場合のみ WAITING_FOR_HUMAN
+  # 2FA 要求の場合のみ WAITING_FOR_HUMAN
   echo "WAITING_FOR_HUMAN: 2FA code needed"
   cat >> progress.txt << 'MSG'
-⏸️ iris セッション切れ。
+⏸️ 2FA 要求。
 iPhone に届く 6 桁のコードを Slack で返信してください。
 エージェントが --two-factor-code 付きで再実行します。
 MSG
@@ -111,13 +122,13 @@ fi
 
 ### 6.1: サブスクリプショングループ作成
 ```bash
-GROUP_ID=$(asc subscriptions groups create --app $APP_ID --ref-name "<AppName> Premium" 2>&1 | jq -r '.data.id')
+GROUP_ID=$(asc subscriptions groups create --app $APP_ID --reference-name "<AppName> Premium" 2>&1 | jq -r '.data.id')
 ```
 
 ### 6.2: サブスクリプション作成
 ```bash
-MONTHLY_ID=$(asc subscriptions create --group $GROUP_ID --ref-name "Monthly" --product-id "com.anicca.<slug>.monthly" --period ONE_MONTH 2>&1 | jq -r '.data.id')
-ANNUAL_ID=$(asc subscriptions create --group $GROUP_ID --ref-name "Annual" --product-id "com.anicca.<slug>.annual" --period ONE_YEAR 2>&1 | jq -r '.data.id')
+MONTHLY_ID=$(asc subscriptions create --group $GROUP_ID --ref-name "Monthly" --product-id "com.anicca.<slug>.monthly" --subscription-period ONE_MONTH 2>&1 | jq -r '.data.id')
+ANNUAL_ID=$(asc subscriptions create --group $GROUP_ID --ref-name "Annual" --product-id "com.anicca.<slug>.annual" --subscription-period ONE_YEAR 2>&1 | jq -r '.data.id')
 ```
 
 ### 6.3: ローカライゼーション追加
@@ -137,17 +148,9 @@ Source: end.md Q2.B
 > 「asc subscriptions prices add --id SUB_ID --price-point PP_ID --territory TER」
 
 ```bash
-# 月額 $4.99 の price-point ID 取得
-MONTHLY_PP=$(asc subscriptions price-points list --subscription-id $MONTHLY_ID 2>&1 | \
-  jq -r '.data[] | select(.attributes.customerPrice == "4.99") | .id' | head -1)
-
-# 年額 $29.99 の price-point ID 取得  
-ANNUAL_PP=$(asc subscriptions price-points list --subscription-id $ANNUAL_ID 2>&1 | \
-  jq -r '.data[] | select(.attributes.customerPrice == "29.99") | .id' | head -1)
-
-# USA 基準で価格設定（equalizations で他国に自動展開）
-asc subscriptions prices add --id $MONTHLY_ID --price-point "$MONTHLY_PP"
-asc subscriptions prices add --id $ANNUAL_ID --price-point "$ANNUAL_PP"
+# USA 基準で価格設定（--price フラグで直接指定、equalizations で他国に自動展開）
+asc subscriptions prices add --id $MONTHLY_ID --price "4.99" --territory "USA"
+asc subscriptions prices add --id $ANNUAL_ID --price "29.99" --territory "USA"
 ```
 
 ### 6.6: 40ロケール一括ローカライズ
