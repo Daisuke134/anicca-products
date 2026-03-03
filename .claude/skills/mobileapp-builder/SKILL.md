@@ -35,7 +35,7 @@ Source: rshankras ProductAgent WORKFLOW.md + snarktank/ralph
 | US-006 | Implementation | Code the app following IMPLEMENTATION_GUIDE.md | `ios-ux-design` + `paywall-generator` + generators/* | `references/us-006-implement.md` |
 | US-007 | Testing | Unit + Integration + Maestro E2E (subscription purchase) | `tdd-feature` + `test-spec` + `maestro-e2e` | `references/us-007-testing.md` |
 | US-008 | Release Prep | Screenshots (AXe) + metadata + build + upload + release-review | `axe-ios-simulator` + `asc-shots-pipeline` + `release-review` | `references/us-008-release.md` |
-| US-009 | Submit | App Privacy (manual) + submit → WAITING_FOR_REVIEW | `asc-submission-health` | `references/us-009-submit.md` |
+| US-009 | Submit | App Privacy (auto: asc web privacy) + submit → WAITING_FOR_REVIEW | `asc-submission-health` | `references/us-009-submit.md` |
 
 ## Slack Interaction (1回のみ, US-005)
 
@@ -82,7 +82,7 @@ CC sends to Slack #metrics:
 | 22 | **AXe 座標タップでタブ切り替え**。Tab Bar の accessibility label がない場合 |
 | 23 | **Maestro E2E テスト必須。サブスク購入フローを含む** |
 | 24 | **release-review 5 checklists 必須（US-008）** |
-| 25 | **App Privacy は ASC API 不可。手動のみ（US-009）** |
+| 25 | **App Privacy は asc web privacy apply + publish で自動（US-009）** |
 | 26 | **demoAccountRequired = false を明示指定**。デフォルト true でデモアカ未入力だと提出ブロック |
 | 27 | **PrivacyInfo.xcprivacy 必須**。Source: Apple WWDC23 |
 | 28 | **ITSAppUsesNonExemptEncryption = NO を Info.plist に追加** |

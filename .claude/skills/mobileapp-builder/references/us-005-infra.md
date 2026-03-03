@@ -260,8 +260,8 @@ mcp_call RC_attach_products_to_package '{
 }'
 ```
 
-Keys を受け取ったら:
-- `.env` に RC_SECRET_KEY, RC_PUBLIC_KEY を書く
+URL から project_id を抽出したら:
+- `.env` に RC_PROJECT_ID を書く（MCP が Offering/Package を自動作成）
 - SPM dependency: RevenueCat + (RevenueCatUI は禁止)
 
 ## Step 8: SPM + Info.plist

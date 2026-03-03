@@ -65,7 +65,7 @@ npx skills add Daisuke134/mobileapp-builder -g -y
 
 | Lesson | Detail |
 |--------|--------|
-| App Privacy = manual only | `/v1/apps/{id}/appDataUsages` returns 404. Set in ASC Web before submitting |
+| App Privacy = auto via asc web privacy | `/v1/apps/{id}/appDataUsages` returns 404. Set in ASC Web before submitting |
 | ISSUER_ID source | Always read from Fastfile `API_ISSUER_ID`, not ASC dashboard "Key ID" |
 | Icon timing | Place icon BEFORE build. If added after, bump `CURRENT_PROJECT_VERSION` |
 | IAP screenshot size | Use native simulator resolution (1320×2868). Never resize with `-z` flag |
@@ -92,7 +92,7 @@ mobileapp-builder/
 
 Build fast. Ship fast. One spec.md → App Store in one agent session.
 
-No manual Xcode. No manual ASC. Fully autonomous except App Privacy (Apple API limitation).
+No manual Xcode. No manual ASC. Fully autonomous. App Privacy auto via asc web privacy.
 
 ---
 
