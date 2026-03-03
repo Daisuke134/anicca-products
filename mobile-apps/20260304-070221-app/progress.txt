@@ -225,3 +225,20 @@ WAITING_FOR_HUMAN: 2FAコード または 手動App作成 が必要
 6. PrivacyInfo.xcprivacy + Info.plist設定
 
 ---
+
+## 2026-03-04 - US-005: ASC Setup (6回目 - WAITING_FOR_HUMAN継続)
+
+WAITING_FOR_HUMAN: irisセッション失効 + 2FA必要 または 手動ASCアプリ作成 + RC Project必要
+
+### 診断結果
+- iris session: authenticated=false（変化なし）
+- 前回の2FAコード 306183: ❌ 期限切れ（status 400, codes=[-21669]）
+- APP_ID: ❌ 未設定
+- RC_PROJECT_ID: ❌ 未設定（Anicca RC project projbb7b9d1b は別プロジェクト）
+- REVENUECAT_V2_SECRET_KEY: ✅ 設定済み（Anicca用、BreathStory用は別途必要）
+
+### Slackに送信済み（6回目）
+- Option A: 新しい6桁2FAコードを送る
+- Option B: 手動でASCアプリ作成 → APP_ID返信 + RC New Project作成 → RC_SK_KEY返信
+
+---
