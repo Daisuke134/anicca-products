@@ -83,7 +83,7 @@ asc bundle-ids list --output json 2>&1 | jq -e --arg bid "<bundle_id>" '.data[] 
 echo "✅ Bundle ID confirmed"
 ```
 
-### 5.1: アプリ作成（完全自動 — 2FA 不要）
+### 5.1: アプリ作成（通常は完全自動）
 ```bash
 APP_RESULT=$(ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" ~/bin/asc apps create \
   --name "<app_name>" \
@@ -98,14 +98,23 @@ if echo "$APP_RESULT" | jq -e '.data.id' > /dev/null 2>&1; then
   echo "APP_ID=$APP_ID" >> .env
   echo "✅ ASC App created: $APP_ID"
 else
-  echo "❌ apps create failed:"
-  echo "$APP_RESULT"
+  # セッションキャッシュ切れの場合 2FA が必要になる可能性あり
+  echo "WAITING_FOR_HUMAN: 2FA code needed"
+  cat >> progress.txt << 'MSG'
+⏸️ セッションキャッシュ切れ。
+iPhone に届く 6 桁のコードを Slack で返信してください。
+エージェントが --two-factor-code 付きで再実行します。
+MSG
   exit 1
 fi
 ```
 
-**2FA は不要。** `--apple-id` + `ASC_WEB_PASSWORD` 環境変数で完全自動認証される（2026-03-04 実証済み）。
-セッションキャッシュ: `~/.asc/iris/`（ファイルベース、自動管理）。
+### セッション管理
+- セッションキャッシュ: `~/.asc/iris/`（ファイルベース）
+- 通常運用: セッションが生きている限り **完全自動**（2FA不要、2026-03-04 実証済み）
+- 有効期限: Apple サーバー側管理（定期使用で延長される）
+- 期限切れ時のみ: Dais は Slack で 6桁コード返すだけ
+- APP_ID は自動取得 → .env に自動書き込み → 次のステップへ自動続行
 
 ## Step 6: IAP Creation + Localization + Availability + Pricing
 
