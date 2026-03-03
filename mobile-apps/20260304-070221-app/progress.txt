@@ -84,3 +84,27 @@
   - 5 breathing patterns (4-7-8, Box, Coherent, 4-6, Physiological Sigh) should be locked in spec before implementation to avoid per-story decisions
   - World gradient palette defined in DESIGN_SYSTEM.md removes all visual decision-making from implementation phase
 ---
+
+## 2026-03-04 - US-005: ASC Setup + IAP + RevenueCat (WAITING_FOR_HUMAN)
+
+WAITING_FOR_HUMAN: iris session expired + RC project needed
+
+### 完了済み
+- Bundle ID `com.anicca.breathstory` → ASC登録済み (332D8N3H33)
+- Privacy Policy → https://anicca.ai/breathstory/privacy (deployed)
+- docs/privacy-policy.md, docs/terms-of-service.md 作成済み
+
+### 必要なもの（Daisに依頼中）
+
+| # | タスク | 返信方法 |
+|---|--------|---------|
+| 1 | ASC → New App → BreathStory (com.anicca.breathstory, SKU: breathstory) | APP_ID（10桁）をSlackで返信 |
+| 2 | RevenueCat → + Create new project → BreathStory → SK key生成 | sk_...キーをSlackで返信 |
+
+### 次のステップ（APP_ID + SK key受信後に自動実行）
+- サブスクリプショングループ + monthly/annual 作成
+- 40ロケール一括ローカライズ
+- 価格設定 ($7.99/month, $49.99/year)
+- RC Offering + Package + Product + Entitlement 設定
+- XcodeGenでiOSプロジェクト生成
+- PrivacyInfo.xcprivacy + Info.plist設定

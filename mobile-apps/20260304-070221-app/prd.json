@@ -78,7 +78,7 @@
       ],
       "priority": 5,
       "passes": false,
-      "notes": "ralph dependency order: Schema/infrastructure first"
+      "notes": "WAITING_FOR_HUMAN: iris session expired. Bundle ID 332D8N3H33 registered. Privacy policy deployed at https://anicca.ai/breathstory/privacy. Waiting for APP_ID + RC SK key from Dais."
     },
     {
       "id": "US-006",
