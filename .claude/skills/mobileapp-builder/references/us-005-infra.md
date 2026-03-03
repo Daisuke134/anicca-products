@@ -196,73 +196,132 @@ asc subscriptions app-store-review-screenshot get --subscription-id $ANNUAL_ID
 - ⛔ Review Screenshot なしで US-005 を passes:true にするな
 - ⛔ `asc subscriptions images create` を使うな（プロモーショナル画像用、間違い）
 
-## Step 7: RC Setup
+## Step 7: RC Setup（RevenueCat API v2 — 全自動）
 
-### 7.1: RC プロジェクト作成（人間介入 — URLを返すだけ）
-CC は progress.txt に以下を書いて WAITING_FOR_HUMAN:
+### 7.0: 人間に依頼（WAITING_FOR_HUMAN）
+
+CC は Slack で以下を送信:
 ```
-WAITING_FOR_HUMAN: RC Project Creation
-📱 RC プロジェクト作成（1分）:
-1. https://app.revenuecat.com → + Create new project
-2. プロジェクト名: <app_name>
-3. + App → App Store → Bundle ID: <bundle_id>
-4. プロジェクトURLを Slack で返信
-   例: https://app.revenuecat.com/projects/976e8639/overview
+WAITING_FOR_HUMAN: RC Setup
+📱 RevenueCat セットアップをお願いします（2分）:
+1. https://app.revenuecat.com → 「+ Create new project」 → プロジェクト名: <app_name>
+2. 作成したプロジェクトの Settings → API Keys → 「+ New secret API key」
+3. 権限を全て「Read & Write」に設定 → Generate
+4. 生成された sk_... キーをこのチャットに貼り付けてください
 
-それだけでOK。Offering/Package作成はMCPで自動実行します。
+それだけでOKです。残りは全て自動で行います。
 ```
 
-### 7.2: RC Offering 作成（MCP 自動）
-Source: end.md Q2.A
-> 「RC_create_offering → RC_create_package → RC_attach_products_to_package」
+### 7.1: SK Key 受信 → 変数準備
 
-Dais が URL を返信したら:
 ```bash
-# URL から project_id 抽出
-RC_URL="<received_url>"
-RC_PROJECT_ID="proj$(echo $RC_URL | grep -oE '[a-f0-9]{8}' | head -1)"
+RC_SECRET_KEY="<Slackで受信した sk_... キー>"
+BUNDLE_ID="com.anicca.<slug>"
+APP_NAME="<app_name>"
+APP_SLUG="<slug>"
+APP_DIR="mobile-apps/<app_dir>"
 
-# MCP 経由で Offering 作成
-# STEP 1: Offering 作成
-mcp_call RC_create_offering '{
-  "project_id": "'$RC_PROJECT_ID'",
-  "lookup_key": "'$APP_SLUG'_default",
-  "display_name": "'$APP_NAME' Default"
-}'
-
-# STEP 2: Monthly Package 作成
-mcp_call RC_create_package '{
-  "project_id": "'$RC_PROJECT_ID'",
-  "offering_id": "'$OFFERING_ID'",
-  "lookup_key": "$rc_monthly",
-  "display_name": "Monthly"
-}'
-
-# STEP 3: Annual Package 作成
-mcp_call RC_create_package '{
-  "project_id": "'$RC_PROJECT_ID'",
-  "offering_id": "'$OFFERING_ID'",
-  "lookup_key": "$rc_annual",
-  "display_name": "Annual"
-}'
-
-# STEP 4: Product 紐付け
-mcp_call RC_attach_products_to_package '{
-  "project_id": "'$RC_PROJECT_ID'",
-  "package_id": "'$MONTHLY_PKG_ID'",
-  "products": [{"product_id": "'$BUNDLE_ID'.monthly", "eligibility_criteria": "all"}]
-}'
-
-mcp_call RC_attach_products_to_package '{
-  "project_id": "'$RC_PROJECT_ID'",
-  "package_id": "'$ANNUAL_PKG_ID'",
-  "products": [{"product_id": "'$BUNDLE_ID'.annual", "eligibility_criteria": "all"}]
-}'
+RC_PROJECT_ID=$(curl -s "https://api.revenuecat.com/v2/projects" \
+  -H "Authorization: Bearer $RC_SECRET_KEY" | jq -r '.items[0].id')
 ```
 
-URL から project_id を抽出したら:
-- `.env` に RC_PROJECT_ID を書く（MCP が Offering/Package を自動作成）
-- SPM dependency: RevenueCat + (RevenueCatUI は禁止)
+### 7.2: App Store アプリ追加
+
+```bash
+RC_APP_ID=$(curl -s -X POST "https://api.revenuecat.com/v2/projects/$RC_PROJECT_ID/apps" \
+  -H "Authorization: Bearer $RC_SECRET_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"name":"'"$APP_NAME"'","type":"app_store","app_store":{"bundle_id":"'"$BUNDLE_ID"'"}}' | jq -r '.id')
+```
+
+### 7.3: Offering 作成
+
+```bash
+OFFERING_ID=$(curl -s -X POST "https://api.revenuecat.com/v2/projects/$RC_PROJECT_ID/offerings" \
+  -H "Authorization: Bearer $RC_SECRET_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"lookup_key":"'"${APP_SLUG}_default"'","display_name":"'"$APP_NAME"' Default"}' | jq -r '.id')
+```
+
+### 7.4: Packages 作成
+
+```bash
+MONTHLY_PKG_ID=$(curl -s -X POST "https://api.revenuecat.com/v2/projects/$RC_PROJECT_ID/offerings/$OFFERING_ID/packages" \
+  -H "Authorization: Bearer $RC_SECRET_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"lookup_key":"$rc_monthly","display_name":"Monthly","position":1}' | jq -r '.id')
+
+ANNUAL_PKG_ID=$(curl -s -X POST "https://api.revenuecat.com/v2/projects/$RC_PROJECT_ID/offerings/$OFFERING_ID/packages" \
+  -H "Authorization: Bearer $RC_SECRET_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"lookup_key":"$rc_annual","display_name":"Annual","position":2}' | jq -r '.id')
+```
+
+### 7.5: Products 作成
+
+```bash
+MONTHLY_PROD_ID=$(curl -s -X POST "https://api.revenuecat.com/v2/projects/$RC_PROJECT_ID/products" \
+  -H "Authorization: Bearer $RC_SECRET_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"store_identifier":"'"$BUNDLE_ID"'.monthly","app_id":"'"$RC_APP_ID"'","type":"subscription","display_name":"Monthly Premium"}' | jq -r '.id')
+
+ANNUAL_PROD_ID=$(curl -s -X POST "https://api.revenuecat.com/v2/projects/$RC_PROJECT_ID/products" \
+  -H "Authorization: Bearer $RC_SECRET_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"store_identifier":"'"$BUNDLE_ID"'.annual","app_id":"'"$RC_APP_ID"'","type":"subscription","display_name":"Annual Premium"}' | jq -r '.id')
+```
+
+### 7.6: Products → Packages 紐付け
+
+```bash
+curl -s -X POST "https://api.revenuecat.com/v2/projects/$RC_PROJECT_ID/packages/$MONTHLY_PKG_ID/actions/attach_products" \
+  -H "Authorization: Bearer $RC_SECRET_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"products":[{"product_id":"'"$MONTHLY_PROD_ID"'","eligibility_criteria":"all"}]}'
+
+curl -s -X POST "https://api.revenuecat.com/v2/projects/$RC_PROJECT_ID/packages/$ANNUAL_PKG_ID/actions/attach_products" \
+  -H "Authorization: Bearer $RC_SECRET_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"products":[{"product_id":"'"$ANNUAL_PROD_ID"'","eligibility_criteria":"all"}]}'
+```
+
+### 7.7: Entitlement 作成 + Products 紐付け
+
+```bash
+ENTITLEMENT_ID=$(curl -s -X POST "https://api.revenuecat.com/v2/projects/$RC_PROJECT_ID/entitlements" \
+  -H "Authorization: Bearer $RC_SECRET_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"lookup_key":"premium","display_name":"Premium"}' | jq -r '.id')
+
+curl -s -X POST "https://api.revenuecat.com/v2/projects/$RC_PROJECT_ID/entitlements/$ENTITLEMENT_ID/actions/attach_products" \
+  -H "Authorization: Bearer $RC_SECRET_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"product_ids":["'"$MONTHLY_PROD_ID"'","'"$ANNUAL_PROD_ID"'"]}'
+```
+
+### 7.8: .env 保存 + 検証
+
+```bash
+cat >> $APP_DIR/.env << EOF
+RC_PROJECT_ID=$RC_PROJECT_ID
+RC_SECRET_KEY=$RC_SECRET_KEY
+RC_APP_ID=$RC_APP_ID
+RC_OFFERING_ID=$OFFERING_ID
+RC_ENTITLEMENT_ID=$ENTITLEMENT_ID
+RC_MONTHLY_PROD_ID=$MONTHLY_PROD_ID
+RC_ANNUAL_PROD_ID=$ANNUAL_PROD_ID
+EOF
+
+echo "Offerings: $(curl -s "https://api.revenuecat.com/v2/projects/$RC_PROJECT_ID/offerings" -H "Authorization: Bearer $RC_SECRET_KEY" | jq '.items | length')"
+echo "Packages: $(curl -s "https://api.revenuecat.com/v2/projects/$RC_PROJECT_ID/offerings/$OFFERING_ID/packages" -H "Authorization: Bearer $RC_SECRET_KEY" | jq '.items | length')"
+echo "Monthly Prod: $(curl -s "https://api.revenuecat.com/v2/projects/$RC_PROJECT_ID/packages/$MONTHLY_PKG_ID/products" -H "Authorization: Bearer $RC_SECRET_KEY" | jq '.items | length')"
+echo "Annual Prod: $(curl -s "https://api.revenuecat.com/v2/projects/$RC_PROJECT_ID/packages/$ANNUAL_PKG_ID/products" -H "Authorization: Bearer $RC_SECRET_KEY" | jq '.items | length')"
+echo "Entitlement Prod: $(curl -s "https://api.revenuecat.com/v2/projects/$RC_PROJECT_ID/entitlements/$ENTITLEMENT_ID/products" -H "Authorization: Bearer $RC_SECRET_KEY" | jq '.items | length')"
+```
+
+期待値: Offerings=1, Packages=2, Monthly Prod=1, Annual Prod=1, Entitlement Prod=2
+
+SPM dependency: RevenueCat を追加（RevenueCatUI は禁止）
 
 ## Step 8: SPM + Info.plist
 - Package.swift に RevenueCat SDK 追加

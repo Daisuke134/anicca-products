@@ -26,34 +26,25 @@ user-mixpanel-run_segmentation_query: {
 user-mixpanel-run_funnels_query: {"project_id": 3970220, ...}
 ```
 
-## RevenueCat MCP
+## RevenueCat（API v2 curl — MCP不使用）
 
-```
-# Offering一覧
-user-revenuecat-mcp_RC_list_offerings: {"project_id": "projbb7b9d1b"}
+新規アプリの RC セットアップは MCP ではなく API v2 curl で行う。
+レシピ全文: `.claude/skills/mobileapp-builder/references/us-005-infra.md` の Step 7 を参照。
 
-# 新Offering作成
-user-revenuecat-mcp_RC_create_offering: {
-  "project_id": "projbb7b9d1b",
-  "lookup_key": "anicca_treatment_a",
-  "display_name": "Anicca Treatment A"
-}
+認証: `Authorization: Bearer <SK Key v2>`（WAITING_FOR_HUMAN で Slack から受信）
 
-# パッケージ作成
-user-revenuecat-mcp_RC_create_package: {
-  "project_id": "projbb7b9d1b",
-  "offering_id": "ofrng...",
-  "lookup_key": "$rc_monthly",
-  "display_name": "Monthly Plan"
-}
+| 操作 | エンドポイント |
+|------|--------------|
+| Project ID 取得 | `GET /v2/projects` |
+| App 作成 | `POST /v2/projects/{pid}/apps` |
+| Offering 作成 | `POST /v2/projects/{pid}/offerings` |
+| Package 作成 | `POST /v2/projects/{pid}/offerings/{oid}/packages` |
+| Product 作成 | `POST /v2/projects/{pid}/products` |
+| Product→Package 紐付け | `POST /v2/projects/{pid}/packages/{pkgid}/actions/attach_products` |
+| Entitlement 作成 | `POST /v2/projects/{pid}/entitlements` |
+| Product→Entitlement 紐付け | `POST /v2/projects/{pid}/entitlements/{eid}/actions/attach_products` |
 
-# 商品紐付け
-user-revenuecat-mcp_RC_attach_products_to_package: {
-  "project_id": "projbb7b9d1b",
-  "package_id": "pkge...",
-  "products": [{"product_id": "prod...", "eligibility_criteria": "all"}]
-}
-```
+Anicca 本体の既存プロジェクト (`projbb7b9d1b`) への操作（A/Bテスト等）は引き続き RC MCP を使用可能。
 
 ## 正しいデータソース
 

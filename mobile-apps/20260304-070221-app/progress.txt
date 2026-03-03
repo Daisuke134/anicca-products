@@ -1,0 +1,29 @@
+## Codebase Patterns
+
+- App name: BreathStory | Bundle ID: com.anicca.breathstory
+- Category: Health & Fitness | Subscription: $7.99/month, $49.99/year
+- Tech: SwiftUI + AVSpeechSynthesizer + AVPlayer (no external API needed for MVP)
+- iTunes API: `curl -s "https://itunes.apple.com/search?term=<NAME>&entity=software&limit=5"` to check name availability
+- DopamineMenu idea: DISQUALIFIED (DopaMenu + Dopamine Menu both exist in App Store)
+
+---
+
+## 2026-03-04 - US-001: Trend Research + Idea Selection
+
+- Researched 5 brainstorming lenses: Skills/Interests, Problem-First, Technology-First, Market Gap, Trend-Based
+- Evaluated 6 ideas with 5-dimension scoring (Solo Dev Scope + Technical Fit weighted 1.5x)
+- Files changed: spec/01-trend.md (created)
+- Selected: **BreathStory** — Score 80.0/100
+  - Unique angle: narrative audio stories that guide breathing (no competitor)
+  - Breathwrk/Oak/Calm all do breathing exercises only, none do narrative-immersive
+  - Technically simple: AVSpeechSynthesizer (free, built-in TTS) + AVPlayer + SwiftUI animations
+  - Target: 25-40 professional with anxiety, loved Headspace Sleep Stories, wants daytime equivalent
+- DopamineMenu filtered: DopaMenu (id6757340229) and Dopamine Menu (id6744128318) already exist
+
+**Learnings for future iterations:**
+  - Always check iTunes Search API before committing to an idea name
+  - DopamineMenu-style ideas: verify competitor existence FIRST before scoring
+  - AVSpeechSynthesizer = free TTS, no OpenAI needed for voice content → lower API cost
+  - Breathing app category is competitive but narrative+breathing is genuinely unclaimed niche
+
+---
