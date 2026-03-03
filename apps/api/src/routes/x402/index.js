@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import buddhistCounselRouter from './buddhistCounsel.js';
+import contextCompressorRouter from './contextCompressor.js';
 import emotionDetectorRouter from './emotionDetector.js';
 import focusCoachRouter from './focusCoach.js';
 import habitDesignerRouter from './habitDesigner.js';
@@ -37,6 +38,44 @@ if (PAY_TO) {
     router.use(
       paymentMiddleware(
         {
+          'POST /context-compressor': {
+            accepts: {
+              scheme: 'exact',
+              price: '$0.008',
+              network,
+              payTo: PAY_TO,
+            },
+            description: 'Context compressor for AI agents — compress long text into summaries, facts, or episodes',
+            mimeType: 'application/json',
+            extensions: {
+              ...declareDiscoveryExtension({
+                output: {
+                  example: {
+                    compressor_id: 'cmp_a1b2c3d4',
+                    mode: 'summary',
+                    compressed: 'A concise summary of the input text...',
+                    original_chars: 5000,
+                    compressed_chars: 500,
+                    compression_ratio: 10.0,
+                    key_entities: ['entity1', 'entity2'],
+                    safe_t_flag: false,
+                  },
+                  schema: {
+                    properties: {
+                      compressor_id: { type: 'string' },
+                      mode: { type: 'string' },
+                      compressed: { type: 'string' },
+                      original_chars: { type: 'number' },
+                      compressed_chars: { type: 'number' },
+                      compression_ratio: { type: 'number' },
+                      key_entities: { type: 'array' },
+                      safe_t_flag: { type: 'boolean' },
+                    },
+                  },
+                },
+              }),
+            },
+          },
           'POST /emotion-detector': {
             accepts: {
               scheme: 'exact',
@@ -288,6 +327,7 @@ if (PAY_TO) {
 }
 
 router.use('/buddhist-counsel', buddhistCounselRouter);
+router.use('/context-compressor', contextCompressorRouter);
 router.use('/emotion-detector', emotionDetectorRouter);
 router.use('/focus-coach', focusCoachRouter);
 router.use('/habit-designer', habitDesignerRouter);
