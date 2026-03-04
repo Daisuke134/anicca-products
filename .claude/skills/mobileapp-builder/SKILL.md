@@ -33,7 +33,7 @@ Source: rshankras ProductAgent WORKFLOW.md + snarktank/ralph
 | US-004 | Spec Generation | 7 docs (PRD, Architecture, UX, Design, Implementation, Test, Release) | `implementation-spec` orchestrator | `references/us-004-specs.md` |
 | US-005a | Infrastructure | Privacy Policy + ASC app creation | `asc-cli-usage` | `references/us-005a-infra.md` |
 | US-005b | Monetization | IAP + pricing + RC project + offerings | `asc-ppp-pricing` + RC API v2 (curl) | `references/us-005b-monetization.md` |
-| US-006 | Implementation | Code the app following IMPLEMENTATION_GUIDE.md | `ios-ux-design` + `paywall-generator` + generators/* | `references/us-006-implement.md` |
+| US-006 | Implementation | Code the app following IMPLEMENTATION_GUIDE.md | `ios-ux-design` + `implementation-guide` | `references/us-006-implement.md` |
 | US-007 | Testing | Unit + Integration + Maestro E2E (subscription purchase) | `tdd-feature` + `test-spec` + `maestro-e2e` | `references/us-007-testing.md` |
 | US-008a | Screenshots | Capture + upload + review screenshots (en-US + ja) | `axe-ios-simulator` + `asc-shots-pipeline` | `references/us-008-release.md` Steps 1a-1h |
 | US-008b | Metadata | ASC metadata sync (en-US + ja) | `asc-metadata-sync` | `references/us-008-release.md` Step 2 |
@@ -63,10 +63,10 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 9 | **locale は `ja`（`ja-JP` 無効）** |
 | 10 | **IAP key は同一アカウントで使い回し** |
 | 11 | **Paywall コピーは実機能確認してから書く** |
-| 12 | **Mixpanel 必須。paywall_viewed イベント送信** |
-| 13 | **RC → Mixpanel 連携必須** |
+| 12 | **アナリティクス SDK 禁止**。Mixpanel/Firebase Analytics 等は入れない（CLAUDE.md Rule 17 参照） |
+| 13 | **(欠番 — 旧 Mixpanel 連携ルール削除済)** |
 | 14 | **スクショは AXe 本物（`brew install cameroncooke/axe/axe`）。axe-shim 禁止** |
-| 15 | **RC/Mixpanel API キーは Info.plist から。環境変数禁止** |
+| 15 | **RC API キーは Info.plist から。環境変数禁止** |
 | 16 | **screenshot-creator スキル禁止。Koubou（`asc screenshots frame`）のみ** |
 | 17 | **自前 SwiftUI PaywallView 必須。RevenueCatUI.PaywallView 禁止** |
 | 18 | **ATT 禁止** |

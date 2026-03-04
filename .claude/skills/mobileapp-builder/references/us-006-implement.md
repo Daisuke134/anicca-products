@@ -39,8 +39,7 @@ done
 
 ## Skills to Read (IN THIS ORDER)
 1. `.claude/skills/implementation-guide/SKILL.md` — rshankras
-2. `.claude/skills/ios-ux-design/SKILL.md` — UI/UX デザイン
-3. `.claude/skills/mobile-ios-design/SKILL.md` — SwiftUI コード参照
+2. `.claude/skills/ios-ux-design/SKILL.md` — UI/UX デザイン（HIG + SwiftUI パターン統合。これ1つでUI全般カバー）
 
 ## Quality Gate (MANDATORY — US-005b の成果物検証)
 ```bash
