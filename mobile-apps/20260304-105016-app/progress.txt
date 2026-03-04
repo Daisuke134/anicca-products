@@ -1,0 +1,23 @@
+## Codebase Patterns
+
+- App name: Chi Daily (TCM Wellness Coach)
+- Bundle ID: com.aniccafactory.chidaily
+- Subscription: $4.99/month / $34.99/year
+- Target markets: US (English) + Japan (Japanese)
+- Tech stack: Swift/SwiftUI + Foundation Models (iOS 26) + HealthKit
+
+---
+
+## 2026-03-04 - US-001: Trend Research + Idea Selection
+
+- Applied 5 brainstorming lenses: Skills&Interests, Problem-First, Technology-First, Market Gap, Trend-Based
+- Generated 14 ideas, filtered to 5 shortlist
+- Selected Chi Daily (TCM Wellness Coach) — score 8.2/10
+- Files changed: spec/01-trend.md (new)
+- **Learnings for future iterations:**
+  - Japanese Walking Method already has 7+ apps — always check App Store before assuming a TikTok trend is unserved
+  - Foundation Models (iOS 26) is still early — most niches have zero apps using it
+  - TCM consumer wellness is genuine blue ocean: all existing apps are for practitioners
+  - TikTok Next 2026 Report confirmed "Chinese Baddie" TCM wellness as top trend
+
+---
