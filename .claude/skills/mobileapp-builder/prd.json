@@ -82,7 +82,7 @@
         "asc subscriptions list --group $GROUP_ID returns monthly + annual products",
         "asc subscriptions prices list --id $MONTHLY_ID returns 175 prices",
         "RevenueCat dashboard shows 2 products + 1 offering",
-        "SPM dependency on RevenueCat + RevenueCatUI added",
+        "SPM dependency on RevenueCat added (RevenueCatUI 禁止 — Rule 20)",
         "Typecheck passes"
       ],
       "priority": 5.5,
@@ -97,9 +97,9 @@
         "xcodebuild -scheme <AppName> build succeeds",
         "grep -r 'Mock' --include='*.swift' . | grep -v 'Tests/' | grep -v '.build/' | wc -l = 0",
         "grep -r 'import RevenueCat' --include='*.swift' . | wc -l > 0",
-        "PaywallView uses RevenueCatUI (not custom mock paywall)",
-        "Typecheck passes",
-        "grep -r 'import RevenueCatUI' --include='*.swift' . | wc -l = 0"
+        "PaywallView uses Purchases.shared.purchase(package:) (自前 SwiftUI — Rule 20)",
+        "grep -r 'import RevenueCatUI' --include='*.swift' . | wc -l = 0",
+        "Typecheck passes"
       ],
       "priority": 6,
       "passes": false,
@@ -119,29 +119,67 @@
       "notes": ""
     },
     {
-      "id": "US-008",
-      "title": "App Store preparation (screenshots + metadata + build + preflight)",
+      "id": "US-008a",
+      "title": "Screenshots (capture + upload + review screenshot)",
       "acceptanceCriteria": [
-        "Screenshots generated via Pencil MCP (screenshot-creator skill)",
-        "Screenshots uploaded to ASC for en-US and ja",
+        "Screenshots captured via AXe + asc screenshots capture (en-US 4枚 + ja 4枚)",
+        "en-US/ja MD5 不一致（ロケール適用確認）",
+        "Screenshots uploaded to ASC for en-US and ja (≥4 each)",
+        "Subscription review screenshots uploaded for Monthly + Annual"
+      ],
+      "priority": 8.1,
+      "passes": false,
+      "notes": "us-008-release.md Steps 1a-1h"
+    },
+    {
+      "id": "US-008b",
+      "title": "ASC metadata sync (en-US + ja)",
+      "acceptanceCriteria": [
         "Metadata synced to ASC via asc-metadata-sync (en-US + ja)",
+        "Privacy Policy URL set for en-US AND ja"
+      ],
+      "priority": 8.2,
+      "passes": false,
+      "notes": "us-008-release.md Step 2"
+    },
+    {
+      "id": "US-008c",
+      "title": "IPA build + upload + version attach",
+      "acceptanceCriteria": [
         ".ipa file built and uploaded (processingState = VALID)",
-        "Build attached to version",
+        "Build attached to version"
+      ],
+      "priority": 8.3,
+      "passes": false,
+      "notes": "us-008-release.md Step 3"
+    },
+    {
+      "id": "US-008d",
+      "title": "ASC compliance (age rating + encryption + rights + availability + pricing + review details)",
+      "acceptanceCriteria": [
         "Age Rating all 22 items set",
         "Review Details set with --demo-account-required false",
         "Availability set for 175 territories",
         "Pricing set using subscription price-point IDs",
         "Encryption: usesNonExemptEncryption = false",
-        "Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT",
-        "asc validate returns Errors=0",
-        "Preflight 7 checks all pass (asc-submission-health)",
-        "TestFlight build uploaded and distributed",
-        "Slack #metrics notified",
-        "Typecheck passes"
+        "Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT"
       ],
-      "priority": 8,
+      "priority": 8.4,
       "passes": false,
-      "notes": ""
+      "notes": "us-008-release.md Steps 4-6"
+    },
+    {
+      "id": "US-008e",
+      "title": "Preflight validation + TestFlight + Slack",
+      "acceptanceCriteria": [
+        "release-review 5 checklists all pass",
+        "asc validate returns Errors=0",
+        "TestFlight build distributed",
+        "Slack #metrics notified with TestFlight link"
+      ],
+      "priority": 8.5,
+      "passes": false,
+      "notes": "us-008-release.md Steps 7-10"
     },
     {
       "id": "US-009",

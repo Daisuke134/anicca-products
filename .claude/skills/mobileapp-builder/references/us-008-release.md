@@ -225,7 +225,7 @@ PW_SIZE=$(stat -f%z /tmp/paywall-review.png)
 [ "$PW_SIZE" -gt 100000 ] || { echo "FAIL: paywall screenshot too small ($PW_SIZE bytes)"; exit 1; }
 
 # Monthly + Annual 両方にアップロード
-source .env
+source ~/.config/mobileapp-builder/.env
 asc subscriptions review-screenshots create \
   --subscription-id "$MONTHLY_ID" \
   --file /tmp/paywall-review.png

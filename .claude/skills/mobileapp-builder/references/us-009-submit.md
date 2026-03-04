@@ -56,7 +56,7 @@ asc validate --app "$APP_ID" --version-id "$VERSION_ID" --platform IOS 2>&1 | gr
 
 ### 1.1: Privacy 宣言 + 公開
 ```bash
-source .env
+source ~/.config/mobileapp-builder/.env
 
 echo '{"schemaVersion":1,"dataUsages":[{"dataProtections":["DATA_NOT_COLLECTED"]}]}' > /tmp/privacy.json
 
