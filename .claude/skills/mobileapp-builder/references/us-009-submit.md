@@ -43,7 +43,7 @@ Source: rshankras WORKFLOW.md Phase 6 + rudrankriyam asc-release-flow
 1. `.claude/skills/asc-submission-health/SKILL.md` — rudrankriyam: preflight
 2. `.claude/skills/asc-release-flow/SKILL.md` — rudrankriyam: submit
 
-## Quality Gate (MANDATORY — US-008 検証)
+## Quality Gate (MANDATORY — US-008e 検証)
 ```bash
 # asc validate must have passed
 asc validate --app "$APP_ID" --version-id "$VERSION_ID" --platform IOS 2>&1 | grep -q "Errors: 0" \

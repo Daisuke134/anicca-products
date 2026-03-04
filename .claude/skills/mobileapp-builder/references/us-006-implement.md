@@ -75,7 +75,7 @@ paywall_plan_monthly / paywall_plan_yearly / paywall_cta / paywall_skip / paywal
 - ⛔ **Mixpanel/Firebase Analytics/Amplitude 禁止** — Greenlight が CRITICAL 検出（ATT 必須になる）
 - ⛔ **AppTrackingTransparency 禁止** — Paywall スクショ撮影を妨害する
 - ⛔ **NSUserTrackingUsageDescription 禁止** — ATT と同じ
-- ⛔ **UserDefaults キー名 `hasCompletedOnboarding` を全アプリで統一**。オンボーディング完了フラグは必ずこのキー名を使う。US-008 のスクショキャプチャが依存
+- ⛔ **UserDefaults キー名 `hasCompletedOnboarding` を全アプリで統一**。オンボーディング完了フラグは必ずこのキー名を使う。US-008a のスクショキャプチャが依存
 
 ## Mock ゼロ検証 (PATCH 9)
 ```bash

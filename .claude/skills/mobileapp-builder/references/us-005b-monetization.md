@@ -85,10 +85,10 @@ for pp in json.load(sys.stdin)['data']:
 done
 ```
 
-### 6.6: IAP Review Screenshot → US-008 Step 1h で実行
+### 6.6: IAP Review Screenshot → US-008a Step 1h で実行
 
 **⚠️ US-005b 時点ではアプリ未ビルド（US-006 が後）なので Paywall スクリーンショットは撮れない。**
-**US-008 Step 1h でアプリビルド後に Paywall 画面をキャプチャしてアップロードする。**
+**US-008a Step 1h でアプリビルド後に Paywall 画面をキャプチャしてアップロードする。**
 
 ここでは何もしない。US-005b の passes:true 判定に Review Screenshot は不要。
 
