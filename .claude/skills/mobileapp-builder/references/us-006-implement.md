@@ -50,6 +50,46 @@ grep -q "RevenueCat" Package.swift || { echo "GATE FAIL: no RevenueCat in SPM"; 
 Source: snarktank/ralph SKILL.md
 > 「Story Ordering: Dependencies First. Wrong order: UI component (depends on schema that does not exist yet)」
 
+## Step 0.5: PrivacyInfo.xcprivacy + ITSAppUsesNonExemptEncryption（US-005a から延期）
+
+> ⚠️ **US-005a で延期された必須タスク。iOS プロジェクト作成直後に実行すること。**
+
+### 0.5.1: PrivacyInfo.xcprivacy 追加
+
+Source: Apple WWDC23 (https://developer.apple.com/videos/play/wwdc2023/10060/)
+> 「Third-party SDK developers can include a privacy manifest by creating PrivacyInfo.xcprivacy」
+
+```bash
+cat > <AppName>ios/<AppName>/PrivacyInfo.xcprivacy << 'PRIVEOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>NSPrivacyTracking</key><false/>
+  <key>NSPrivacyTrackingDomains</key><array/>
+  <key>NSPrivacyCollectedDataTypes</key><array/>
+  <key>NSPrivacyAccessedAPITypes</key><array/>
+</dict>
+</plist>
+PRIVEOF
+```
+
+### 0.5.2: ITSAppUsesNonExemptEncryption を Info.plist に追加
+
+Source: Apple Developer (https://developer.apple.com/documentation/bundleresources/information-property-list/itsappusesnonexemptencryption)
+> 「A Boolean value indicating whether the app uses encryption」
+
+```bash
+/usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" <AppName>ios/<AppName>/Info.plist
+```
+
+### 検証
+```bash
+[ -f "<AppName>ios/<AppName>/PrivacyInfo.xcprivacy" ] || { echo "FAIL: PrivacyInfo.xcprivacy missing"; exit 1; }
+grep -q "ITSAppUsesNonExemptEncryption" "<AppName>ios/<AppName>/Info.plist" || { echo "FAIL: encryption key missing"; exit 1; }
+echo "✅ Privacy + Encryption OK"
+```
+
 ## Step 1: IMPLEMENTATION_GUIDE.md に従う
 docs/IMPLEMENTATION_GUIDE.md をそのまま実行。1 機能ずつ。
 
