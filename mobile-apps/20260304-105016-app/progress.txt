@@ -2,6 +2,8 @@
 
 - App name: Chi Daily (TCM Wellness Coach)
 - Bundle ID: com.aniccafactory.chidaily
+- APP_ID: 6759994539
+- Bundle ID ASC ID: 6U7Q4SRJ4G
 - Subscription: $4.99/month / $34.99/year
 - Target markets: US (English) + Japan (Japanese)
 - Tech stack: Swift/SwiftUI + Foundation Models (iOS 26) + HealthKit
@@ -73,4 +75,22 @@
   - FoundationModelsService should use actor isolation for thread safety
   - Soft paywall "Maybe Later" must be visually prominent — not hidden in fine print
 
+---
+
+## 2026-03-04 - US-005a: Privacy Policy + ASC App Creation
+
+- Generated privacy-policy.md (offline app, no tracking SDKs, RevenueCat only)
+- Generated terms.md (medical disclaimer, subscription terms, Japan governing law)
+- Created PrivacyInfo.xcprivacy with NSPrivacyAccessedAPICategoryUserDefaults CA92.1
+- Created Info.plist with ITSAppUsesNonExemptEncryption = false
+- Registered Bundle ID com.aniccafactory.chidaily in ASC (6U7Q4SRJ4G, UNIVERSAL platform)
+- Created Chi Daily app in ASC: APP_ID=6759994539, SKU=chidaily2026
+- Updated .env with APP_ID + BUNDLE_ID
+- Files changed: docs/privacy-policy.md (new), docs/terms.md (new), ChiDailyios/ChiDaily/PrivacyInfo.xcprivacy (new), ChiDailyios/ChiDaily/Info.plist (new), .env (updated), prd.json (US-005a passes: true)
+- **Learnings for future iterations:**
+  - ASC session was alive — no 2FA needed (was the first attempt's issue)
+  - `asc apps list --output json` returns huge JSON; use without --output for readable format, or pipe to jq directly
+  - Bundle ID auto-gets IN_APP_PURCHASE capability when created
+  - PrivacyInfo.xcprivacy must include NSPrivacyAccessedAPICategoryUserDefaults CA92.1 even for offline apps (UserDefaults = required API type)
+  - `ASC_BYPASS_KEYCHAIN=true` is mandatory for all asc commands
 ---

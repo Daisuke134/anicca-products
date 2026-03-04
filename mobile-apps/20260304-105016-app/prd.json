@@ -71,8 +71,8 @@
         "App created in ASC (APP_ID recorded in .env)"
       ],
       "priority": 5,
-      "passes": false,
-      "notes": "2FA required for asc apps create"
+      "passes": true,
+      "notes": "privacy-policy.md + terms.md generated (offline app, no tracking). PrivacyInfo.xcprivacy with NSPrivacyAccessedAPICategoryUserDefaults CA92.1. Info.plist with ITSAppUsesNonExemptEncryption=false. Bundle ID com.aniccafactory.chidaily registered (6U7Q4SRJ4G). App created in ASC: APP_ID=6759994539."
     },
     {
       "id": "US-005b",
