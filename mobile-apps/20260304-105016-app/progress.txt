@@ -243,3 +243,12 @@ RC_SECRET_KEY=sk_yMDSyZzrDnfqNPxqFqNHwyxDOlMBS
   - PaywallView.swift line 75: offering.availablePackages.first! 強制アンラップ (RC offering valid前提)
   - TCM wellness言語: "supports", "nourishes", "strengthens" — 医療的クレームなし、safe
 
+---
+
+## 2026-03-04 - US-009: App Store Submission (WAITING_FOR_HUMAN 継続)
+
+- 新イテレーション開始: .env を確認 → RC_IOS_PUBLIC_KEY 未設定を確認
+- RC API v2でも公開APIキーは取得不可（設計上）
+- Slack #metrics に再通知送信
+- WAITING_FOR_HUMAN: app.revenuecat.com → Chi Daily (proj031e163b) → App Settings → iOS → Public API Key (appl_XXXX) を .env の RC_IOS_PUBLIC_KEY に設定すること
+
