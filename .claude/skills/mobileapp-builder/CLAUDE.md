@@ -53,11 +53,11 @@ curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '
 | テスター招待 | `asc testflight beta-testers invite --app APP_ID --email ...` | asc-testflight-orchestration |
 | Version ID 取得 | `asc versions list --app APP_ID` | asc-id-resolver |
 | Loc ID 取得 | `asc app-store-version-localizations list --version-id VER_ID` | asc-id-resolver |
-| App Privacy | **WAITING_FOR_HUMAN**（API 不可、Web UI のみ） | — |
+| App Privacy | `asc web privacy apply` + `publish`（自動、セッション切れ時のみ WAITING_FOR_HUMAN） | us-009-submit |
 | RC Public Key | **WAITING_FOR_HUMAN**（Dashboard のみ） | — |
 | 審査提出 | `asc review submissions-create --app APP_ID` → `items-add` → `submissions-submit` | asc-submission-health |
 
-**❌ 存在しないフラグ（使うな）:** `--locale`, `--file`(screenshots upload), `--display-type`, `asc web privacy`
+**❌ 存在しないフラグ（使うな）:** `--locale`, `--file`(screenshots upload), `--display-type`
 
 ## Progress Report Format
 # Source: mischasigtermans/ralph (https://github.com/mischasigtermans/ralph)
