@@ -62,23 +62,32 @@
       "notes": ""
     },
     {
-      "id": "US-005",
-      "title": "ASC setup + IAP creation + RevenueCat integration",
+      "id": "US-005a",
+      "title": "Privacy Policy + ASC app creation",
       "acceptanceCriteria": [
         "privacy-policy.md exists and deployed to GitHub Pages",
-        "App created in ASC (APP_ID recorded in progress.txt)",
-        "asc subscriptions groups list --app $APP_ID returns 1+ groups",
-        "asc subscriptions list --group $GROUP_ID returns monthly + annual products",
-        "asc validate subscriptions --app $APP_ID returns blocking=0 warnings=0",
-        "RevenueCat dashboard shows 2 products + 1 offering",
-        "SPM dependency on RevenueCat + RevenueCatUI added",
         "PrivacyInfo.xcprivacy exists in project",
         "Info.plist contains ITSAppUsesNonExemptEncryption = NO",
-        "Typecheck passes"
+        "App created in ASC (APP_ID recorded in .env)"
       ],
       "priority": 5,
       "passes": false,
-      "notes": "ralph dependency order: Schema/infrastructure first"
+      "notes": "2FA required for asc apps create"
+    },
+    {
+      "id": "US-005b",
+      "title": "IAP + pricing + RevenueCat setup",
+      "acceptanceCriteria": [
+        "asc subscriptions groups list --app $APP_ID returns 1+ groups",
+        "asc subscriptions list --group $GROUP_ID returns monthly + annual products",
+        "asc subscriptions prices list --id $MONTHLY_ID returns 175 prices",
+        "RevenueCat dashboard shows 2 products + 1 offering",
+        "SPM dependency on RevenueCat + RevenueCatUI added",
+        "Typecheck passes"
+      ],
+      "priority": 5.5,
+      "passes": false,
+      "notes": "依存: US-005a の APP_ID"
     },
     {
       "id": "US-006",
@@ -94,7 +103,7 @@
       ],
       "priority": 6,
       "passes": false,
-      "notes": "依存: US-005 の RC Offerings + SPM"
+      "notes": "依存: US-005b の RC Offerings + SPM"
     },
     {
       "id": "US-007",

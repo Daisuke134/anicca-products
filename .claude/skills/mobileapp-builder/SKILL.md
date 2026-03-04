@@ -31,7 +31,8 @@ Source: rshankras ProductAgent WORKFLOW.md + snarktank/ralph
 | US-002 | Product Planning | Problem validation + MVP + positioning | `prd-generator` | (output: product-plan.md) |
 | US-003 | Market Research | Competitive analysis + TAM/SAM/SOM | `competitive-analysis` + `market-research` | (output: competitive-analysis.md + market-research.md) |
 | US-004 | Spec Generation | 7 docs (PRD, Architecture, UX, Design, Implementation, Test, Release) | `implementation-spec` orchestrator | `references/us-004-specs.md` |
-| US-005 | Infrastructure | ASC app + IAP + RC project + offerings | `asc-cli-usage` + RC API v2 (curl) | `references/us-005-infra.md` |
+| US-005a | Infrastructure | Privacy Policy + ASC app creation | `asc-cli-usage` | `references/us-005a-infra.md` |
+| US-005b | Monetization | IAP + pricing + RC project + offerings | `asc-ppp-pricing` + RC API v2 (curl) | `references/us-005b-monetization.md` |
 | US-006 | Implementation | Code the app following IMPLEMENTATION_GUIDE.md | `ios-ux-design` + `paywall-generator` + generators/* | `references/us-006-implement.md` |
 | US-007 | Testing | Unit + Integration + Maestro E2E (subscription purchase) | `tdd-feature` + `test-spec` + `maestro-e2e` | `references/us-007-testing.md` |
 | US-008 | Release Prep | Screenshots (AXe) + metadata + build + upload + release-review | `axe-ios-simulator` + `asc-shots-pipeline` + `release-review` | `references/us-008-release.md` |
@@ -40,7 +41,7 @@ Source: rshankras ProductAgent WORKFLOW.md + snarktank/ralph
 
 ## Slack Interaction
 
-WAITING_FOR_HUMAN の詳細は `references/us-005-infra.md` を参照。
+WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `references/us-005b-monetization.md`（RC setup）を参照。
 
 
 ## CRITICAL RULES
@@ -153,11 +154,12 @@ Source: Anthropic "The Complete Guide to Building Skills for Claude"
 |------|---------|
 | `ralph.sh` | Loop executor (1 US = 1 CC session) |
 | `validate.sh` | External quality gate (SonarQube pattern) |
-| `CLAUDE.md.template` | Template for CC instructions |
-| `prd.json.template` | Template for backlog |
+| `CLAUDE.md` | Template for CC instructions |
+| `prd.json` | Template for backlog |
 | `references/us-001-trend.md` | US-001 detailed instructions |
 | `references/us-004-specs.md` | US-004 detailed instructions |
-| `references/us-005-infra.md` | US-005 detailed instructions |
+| `references/us-005a-infra.md` | US-005a: Privacy + ASC app creation |
+| `references/us-005b-monetization.md` | US-005b: IAP + pricing + RevenueCat |
 | `references/us-006-implement.md` | US-006 detailed instructions |
 | `references/us-007-testing.md` | US-007 detailed instructions |
 | `references/us-008-release.md` | US-008 detailed instructions |

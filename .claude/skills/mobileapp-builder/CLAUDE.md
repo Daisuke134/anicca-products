@@ -120,7 +120,7 @@ If you cannot make a story pass after 3 attempts:
 4. Never use forbidden shortcuts to force a pass
 
 **CRITICAL:** 前の US が完了していないまま次の US に進むと、モックコードや不完全な実装になる。
-US は順序依存。US-005（インフラ）が完了しないと US-006（実装）は正しく動かない。
+US は順序依存。US-005a（インフラ）→ US-005b（マネタイズ）→ US-006（実装）の順。
 BLOCKED 状態で iteration を終了し、次の iteration で再試行を待つ。
 
 ## Consolidate Patterns
