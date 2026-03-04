@@ -34,7 +34,8 @@ curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '
 |---|------|
 | 17 | **Mixpanel 禁止**。アナリティクス SDK は一切入れない。Greenlight が tracking SDK 検出 = CRITICAL |
 | 18 | **screenshot-creator スキル使用禁止**。Koubou（`asc screenshots frame`）のみ |
-| 19 | **オンボーディング最終画面はソフトペイウォール必須**。自前 SwiftUI PaywallView + Purchases.shared.purchase(package:)。RevenueCatUI 禁止。[Maybe Later] で閉じれる |
+| 19 | **全ての `asc` コマンドに `export ASC_BYPASS_KEYCHAIN=true` を設定すること**。未設定だとハングする |
+| 20 | **オンボーディング最終画面はソフトペイウォール必須**。自前 SwiftUI PaywallView + Purchases.shared.purchase(package:)。RevenueCatUI 禁止。[Maybe Later] で閉じれる |
 | 20 | **ATT 禁止**。AppTrackingTransparency / NSUserTrackingUsageDescription は使わない。スクショに ATT ダイアログが写り込む |
     openclaw system event --text "🏭 <US-ID> 完了" 2>/dev/null || true
 
@@ -130,34 +131,12 @@ If you discover a reusable pattern, add it to `## Codebase Patterns`
 at the TOP of progress.txt (create if it doesn't exist).
 Only general, reusable patterns — not story-specific details.
 
-## MCP使用ルール
-- **app-store-connect MCP は使わない** — `~/bin/asc` CLI を直接使う
-- **revenuecat MCP は使う** — Offering/Package作成に必要
 
-## Human Intervention Pattern
-WAITING_FOR_HUMANは**1箇所のみ**:
-- **RC プロジェクトURL** — RevenueCatプロジェクト作成後のURLを返してもらう
+## US別詳細手順
+各USの実行時は必ず対応する `references/us-XXX.md` を読むこと。
+この CLAUDE.md には詳細を書かない。references が常に正本。
 
-それ以外は全て自動:
-- Bundle ID作成 → `~/bin/asc bundle-ids create`
-- ASCアプリ作成 → `~/bin/asc apps create` (irisセッション、2FA不要)
-- App Privacy → `asc web privacy apply` + `publish`
-
-irisセッション切れ時のみ2FAコード要求（レア）。
-
-1. Write to progress.txt:
-```
-WAITING_FOR_HUMAN: <what you need>
-<detailed instructions for Dais>
-```
-
-2. Set passes: false for this US
-3. End your response normally (next iteration will retry)
-
-ralph.sh detects WAITING_FOR_HUMAN in progress.txt → posts to Slack.
-Next iteration: you read .env / check files → continue.
-
-### What to check per US:
-- US-005 ASC creation: `~/bin/asc apps create` で自動作成 (APP_IDは自動取得)
-- US-005 RC: .env に RC_PROJECT_ID があるか
-- US-009 App Privacy: `asc web privacy apply` + `publish` で自動設定
+## WAITING_FOR_HUMAN
+progress.txt に `WAITING_FOR_HUMAN: <what you need>` を書いて passes: false にする。
+ralph.sh が検知して Slack に通知する。
+次のイテレーションで .env を確認して再開する。

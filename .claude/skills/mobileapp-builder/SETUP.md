@@ -45,6 +45,9 @@ ASC_KEY_ID=<YOUR_KEY_ID>
 ASC_ISSUER_ID=<YOUR_ISSUER_ID>
 ASC_KEY_PATH=~/Downloads/AuthKey_<YOUR_KEY_ID>.p8   # downloaded .p8 file path
 
+# ── Apple ID (for asc apps create — requires Apple ID auth) ──────────
+APPLE_ID=<YOUR_APPLE_ID>
+APPLE_PASSWORD=<YOUR_APPLE_ID_PASSWORD>
 # ── RevenueCat ────────────────────────────────────────────────────────
 # Get from: RC Dashboard → Project Settings → API Keys → Secret Keys
 REVENUECAT_API_KEY=sk_...
@@ -80,7 +83,7 @@ SLACK_CHANNEL_ID=C...
 # ── Privacy Policy Domain ────────────────────────────────────────────────
 # Your domain where Privacy Policy + Landing Page will be hosted
 # PHASE 3.5 will generate pages at: https://$PRIVACY_POLICY_DOMAIN/{slug}/privacy/en
-PRIVACY_POLICY_DOMAIN=yourdomain.com
+PRIVACY_POLICY_DOMAIN=daisuke134.github.io/anicca-products
 ```
 
 To load the env automatically, add to your `~/.zshrc` or `~/.bashrc`:

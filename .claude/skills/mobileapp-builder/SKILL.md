@@ -11,7 +11,7 @@ metadata:
 
 # mobileapp-builder
 
-Build and ship one iOS app per day to the App Store. Zero manual work except 1 Slack interaction (RC project + keys).
+Build and ship one iOS app per day to the App Store. 詳細は各 references/us-XXX.md を参照。
 
 ## Architecture
 
@@ -37,22 +37,11 @@ Source: rshankras ProductAgent WORKFLOW.md + snarktank/ralph
 | US-008 | Release Prep | Screenshots (AXe) + metadata + build + upload + release-review | `axe-ios-simulator` + `asc-shots-pipeline` + `release-review` | `references/us-008-release.md` |
 | US-009 | Submit | App Privacy (auto: asc web privacy) + submit → WAITING_FOR_REVIEW | `asc-submission-health` | `references/us-009-submit.md` |
 
-## Slack Interaction (1回のみ, US-005)
 
-CC sends to Slack #metrics:
-```
-📱 <app_name> の RC セットアップをお願いします（5分）:
-1. https://app.revenuecat.com → + Create new project → 名前: <app_name>
-2. + App → App Store → Bundle ID: <bundle_id>
-3. アプリ設定 → In-app purchase key configuration →
-   .p8: $ASC_PRIVATE_KEY_PATH の .p8 / Key ID: $ASC_KEY_ID / Issuer ID: $ASC_ISSUER_ID
-   → Save →「Valid credentials」確認
-4. 返信してください:
-   a) プロジェクトURL（例: https://app.revenuecat.com/projects/proj______）
-   b) V2 Secret Key: Project Settings → API Keys → + New → V2 → 全権限 → sk_
-   c) Public iOS Key: API Keys の Apple App Store 横 → appl_
-→「done」+ 3つのキーを返信
-```
+## Slack Interaction
+
+WAITING_FOR_HUMAN の詳細は `references/us-005-infra.md` を参照。
+
 
 ## CRITICAL RULES
 
