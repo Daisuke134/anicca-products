@@ -11,6 +11,9 @@
 - Subscription: $4.99/month / $34.99/year
 - Target markets: US (English) + Japan (Japanese)
 - Tech stack: Swift/SwiftUI + Foundation Models (iOS 26) + HealthKit
+- RC: proj031e163b | app5cd0cff05c | entl0ed87666b2 | ofrng73bf7c9da7
+- RC Monthly: prodac73a59b45 | RC Annual: prod0ce6efbeb1
+- Xcode project: ChiDailyios/ChiDaily.xcodeproj (xcodegen, RevenueCat SPM 5.x)
 
 ---
 
@@ -125,4 +128,32 @@
   - $34.99 annual price IS available but requires paginating past page 1 (price points sorted ascending)
   - Review screenshot: use subscriptionAppStoreReviewScreenshots (NOT subscriptionImages which is for promo)
   - RC WAITING_FOR_HUMAN pattern: block US-005b until human provides new project SK key
+---
+
+RC_SECRET_KEY=sk_yMDSyZzrDnfqNPxqFqNHwyxDOlMBS
+# Dais provided RC key at Wed Mar  4 11:50:26 JST 2026. Factory stopped at iteration 10. Restarting from US-005b.
+
+---
+
+## 2026-03-04 - US-005b: IAP + pricing + RevenueCat setup (完了)
+
+- RC セットアップ完了（Step 7.1-7.6）
+- RC Project: proj031e163b (Chi Daily)
+- RC App: app5cd0cff05c (bundle_id=com.aniccafactory.chidaily)
+- Entitlement: entl0ed87666b2 (premium, lookup_key=premium)
+- Products: prodac73a59b45 (monthly) + prod0ce6efbeb1 (annual)
+- Both products attached to entitlement
+- Offering: ofrng73bf7c9da7 (default, is_current=true)
+- Packages: pkge1ac15ca5a5 ($rc_monthly) + pkged865ccec32 ($rc_annual)
+- Both packages attached to respective products (eligibility_criteria=all)
+- Xcode project created via xcodegen: ChiDailyios/ChiDaily.xcodeproj
+- SPM: RevenueCat 5.x added (XCRemoteSwiftPackageReference purchases-ios)
+- Files changed: .env (RC IDs), ChiDailyios/project.yml (new), ChiDailyios/ChiDaily.xcodeproj (new), prd.json (US-005b passes: true)
+- **Learnings for future iterations:**
+  - RC API v2: app creation requires `app_store: {bundle_id}` nested object, not flat `bundle_id`
+  - RC package attachment requires `eligibility_criteria: "all"` in products array
+  - RC entitlement attachment uses `/actions/attach_products` with `{product_ids: []}` array
+  - RC package attachment uses `/actions/attach_products` with `{products: [{product_id, eligibility_criteria}]}`
+  - xcodegen can add SPM packages via `packages:` section in project.yml — no manual Xcode needed
+
 ---

@@ -86,8 +86,8 @@
         "Typecheck passes"
       ],
       "priority": 5.5,
-      "passes": false,
-      "notes": "依存: US-005a の APP_ID"
+      "passes": true,
+      "notes": "RC proj031e163b. App app5cd0cff05c. Entitlement entl0ed87666b2 (premium). Products: prodac73a59b45 (monthly) + prod0ce6efbeb1 (annual). Offering ofrng73bf7c9da7 (default) with 2 packages ($rc_monthly + $rc_annual). SPM RevenueCat 5.x added to ChiDaily.xcodeproj. ASC: GROUP_ID=21959961, 175 prices on both subs. Evidence: RC API shows 2 products + 1 offering + 2 packages. xcodeproj has XCRemoteSwiftPackageReference purchases-ios."
     },
     {
       "id": "US-006",
