@@ -1,6 +1,7 @@
-# Claude Code ベストプラクティス再構築計画（2026-03-04）
+# Claude Code ベストプラクティス再構築計画（2026-03-04、v2）
 
 **ステータス: 計画完了 → 実装待ち**
+**v2 更新: 14個のギャップを修正。BP repo 全11ファイルの全詳細を反映。**
 
 ## ソース
 
@@ -10,6 +11,16 @@
 | 2 | Zenn akasara — CC×OpenClaw責務分離 | https://zenn.dev/akasara/articles/b80fe3c8cc8569 |
 | 3 | AnswerOverflow — CC+OpenClaw統合 | https://www.answeroverflow.com/m/1473453929403650209 |
 | 4 | Anthropic公式 BP | https://code.claude.com/docs/en/best-practices |
+| 5 | claude-settings.md（38設定 + 84環境変数） | BP repo best-practice/claude-settings.md |
+| 6 | claude-cli-startup-flags.md（CLI flags全量） | BP repo best-practice/claude-cli-startup-flags.md |
+| 7 | claude-skills.md（Skill frontmatter全量） | BP repo best-practice/claude-skills.md |
+| 8 | claude-subagents.md（Agent frontmatter全量） | BP repo best-practice/claude-subagents.md |
+| 9 | claude-commands.md（Command frontmatter全量） | BP repo best-practice/claude-commands.md |
+| 10 | claude-mcp.md（推奨MCP 5つ） | BP repo best-practice/claude-mcp.md |
+| 11 | claude-memory.md（Ancestor/Descendant Loading） | BP repo best-practice/claude-memory.md |
+| 12 | reports/global-vs-project-settings.md | BP repo reports/ |
+| 13 | reports/skills-for-larger-mono-repos.md | BP repo reports/ |
+| 14 | tips/boris-tips-feb-26.md（12カスタマイズ） | BP repo tips/ |
 
 ---
 
@@ -33,6 +44,8 @@
   - コード構造（5行）
   - 参照先ポインタ（10行: rules/, skills/, agent_docs/）
   - Active Technologies（2行）
+  - **【v2追加】デバッグヒント**（5行: BP repo CLAUDE.md に準拠）
+  - **【v2追加】ワークフローBP**（3行: /compact at 50%, feature-specific agents, commands for workflows）
 
 - **移すセクション**:
   - 0.0 Investigate Before Acting → rules/investigate-before-acting.md に統合
@@ -44,6 +57,13 @@
   - 0.11 Chat内ビジュアル化 → 1行で残す
   - OpenClaw TUI トラブル → AGENTS.md
   - Investigate Before Acting（重複分）→ 削除
+
+### TODO 1.3:【v2追加】CLAUDE.local.md 作成
+- **ファイル**: `/Users/anicca/anicca-project/CLAUDE.local.md`
+- **内容**: 個人好み（出力スタイル、特定ワークフロー等）
+- **git**: .gitignore に追加
+- **ソース**: claude-memory.md — 「CLAUDE.local.md for personal preferences」
+- **ステータス**: pending
 
 - **ステータス**: pending
 
@@ -67,7 +87,7 @@
 |-----------|-------------|---------------------|-----------|
 | testing-strategy.md (330行) | .claude/skills/testing-strategy/SKILL.md | name: testing-strategy, description: "Comprehensive testing strategy and TDD workflow. Use when writing tests, setting up test infrastructure, or reviewing test coverage." | pending |
 | tool-usage.md (218行) | .claude/skills/tool-usage/SKILL.md | name: tool-usage, description: "Tool, MCP, and Fastlane usage rules. Use when selecting tools, configuring MCPs, or running builds." | pending |
-| deployment.md (227行) | .claude/skills/deployment/SKILL.md | name: deployment, description: "Device deployment, App Store submission, and release procedures. Use when deploying to device, simulator, App Store, or Netlify." | pending |
+| deployment.md (227行) | .claude/skills/deployment/SKILL.md | name: deployment, description: "Device deployment, App Store submission, and release procedures. Use when deploying to device, simulator, App Store, or Netlify.", disable-model-invocation: true | pending |
 | spec-writing.md (132行) | .claude/skills/spec-writing/SKILL.md | name: spec-writing, description: "Spec file writing rules and templates. Use when creating or updating specification documents." | pending |
 | skill-subagent-usage.md (189行) | .claude/skills/subagent-guide/SKILL.md | name: subagent-guide, description: "Skill and subagent delegation rules. Use when deciding whether to delegate to subagents or skills." | pending |
 | skill-authoring.md (77行) | .claude/skills/skill-authoring-guide/SKILL.md | name: skill-authoring-guide, description: "Skill creation and management rules. Use when creating or updating Claude Code skills." | pending |
@@ -77,7 +97,7 @@
 
 | ファイル | 理由 | ステータス |
 |---------|------|-----------|
-| coding-style.md | SwiftLint + ESLint に委譲。コードスタイルはリンターで強制 | pending |
+| coding-style.md | agent_docs/code_conventions.md に移行 + SwiftLint/ESLint に委譲 | pending |
 | testing.md | testing-strategy に統合済み | pending |
 | session-management.md | CLAUDE.md に3行で統合 | pending |
 | reference-index.md | CLAUDE.md の参照先セクションに統合 | pending |
@@ -138,26 +158,121 @@
 
 ---
 
-## Phase 5: Hooks 活用
+## Phase 5: Hooks 全面活用【v2大幅拡張】
 
-### TODO 5.1: hooks スクリプト作成
+**ソース**: claude-settings.md — 16 hook events、boris-tips — Hook #9
 
-| スクリプト | 場所 | 内容 | ステータス |
-|-----------|------|------|-----------|
-| post-tool-sound.sh | .claude/hooks/scripts/ | ツール完了時のサウンド通知（macOS afplay） | pending |
-| pre-commit-lint.sh | .claude/hooks/scripts/ | SwiftLint + ESLint 自動実行 | pending |
+### TODO 5.1: hooks スクリプト作成（全8スクリプト）
 
-### TODO 5.2: .claude/settings.json に hooks 設定追加
+| # | スクリプト | 場所 | Hook Event | 内容 | ステータス |
+|---|-----------|------|-----------|------|-----------|
+| 1 | session-start.sh | .claude/hooks/scripts/ | SessionStart | コンテキスト初期化、環境チェック、`once: true` | pending |
+| 2 | pre-tool-lint.sh | .claude/hooks/scripts/ | PreToolUse | matcher: `Edit\|Write` → SwiftLint + ESLint 自動実行。exit 2 でブロック | pending |
+| 3 | post-tool-sound.sh | .claude/hooks/scripts/ | PostToolUse | matcher: `Bash` → macOS afplay でサウンド通知 | pending |
+| 4 | notification-sound.sh | .claude/hooks/scripts/ | Notification | 通知時のサウンドアラート | pending |
+| 5 | stop-continue.sh | .claude/hooks/scripts/ | Stop | type: `prompt` — タスク未完了なら自動続行判定 | pending |
+| 6 | pre-compact-backup.sh | .claude/hooks/scripts/ | PreCompact | compaction前のコンテキストバックアップ | pending |
+| 7 | subagent-stop-validate.sh | .claude/hooks/scripts/ | SubagentStop | サブエージェント完了後のバリデーション | pending |
+| 8 | user-prompt-context.sh | .claude/hooks/scripts/ | UserPromptSubmit | プロンプト送信時に追加コンテキスト注入 | pending |
+
+### TODO 5.2: .claude/settings.json に hooks 設定追加（全イベント）
 
 ```json
 {
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/scripts/session-start.sh",
+            "timeout": 5000,
+            "once": true
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/scripts/pre-tool-lint.sh",
+            "timeout": 10000
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
-      { "matcher": "Bash", "command": ".claude/hooks/scripts/post-tool-sound.sh" }
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/scripts/post-tool-sound.sh",
+            "timeout": 3000
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/scripts/notification-sound.sh",
+            "timeout": 3000
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Evaluate if the task is complete. If not, respond with instructions to continue.",
+            "timeout": 10000
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/scripts/pre-compact-backup.sh",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/scripts/subagent-stop-validate.sh",
+            "timeout": 5000
+          }
+        ]
+      }
     ]
   }
 }
 ```
+
+### TODO 5.3:【v2追加】Hook exit code パターン文書化
+
+| Exit Code | 動作 | 使用例 |
+|-----------|------|--------|
+| 0 | 成功、続行 | 全通常フック |
+| 1 | エラー（ログ、続行） | lint警告 |
+| 2 | 操作をブロック | lint CRITICAL → Edit ブロック |
+
+**ソース**: claude-settings.md — Hook Exit Codes
 
 **ステータス**: pending
 
@@ -185,55 +300,303 @@
 
 ---
 
-## Phase 7: 172スキル監査
+## Phase 7: 172スキル + 10エージェント + 20コマンド 監査【v2大幅拡張】
 
-### TODO 7.1: description 品質チェック
+### TODO 7.1: スキル description 品質チェック
 
-- 三人称で書いてあるか
-- `Use when ...` があるか
-- 1024文字以内か
-- 「プロアクティブ」表現がないか → あれば削除
-- **ステータス**: pending
+| チェック項目 | BP ソース | ステータス |
+|-------------|---------|-----------|
+| 三人称で書いてあるか | claude-skills.md | pending |
+| `Use when ...` があるか | claude-skills.md | pending |
+| 1024文字以内か | claude-skills.md | pending |
+| 「プロアクティブ」表現がないか → あれば削除 | skill-authoring.md | pending |
 
-### TODO 7.2: 未使用スキル特定・削除
+### TODO 7.2:【v2追加】スキル frontmatter 全項目監査
+
+**全172スキルに対して以下の frontmatter を監査・適用する:**
+
+| frontmatter 項目 | 説明 | 適用基準 | ステータス |
+|-----------------|------|---------|-----------|
+| `name` | スキル名 | 全スキル必須 | pending |
+| `description` | 三人称 + Use when | 全スキル必須 | pending |
+| `argument-hint` | 引数のヒント | 引数を取るスキルに追加 | pending |
+| `disable-model-invocation: true` | 手動のみ | deploy, commit 等の副作用ありスキル | pending |
+| `user-invocable: false` | 自動のみ | Agent Skill パターン（背景知識） | pending |
+| `allowed-tools` | 使えるツール制限 | read-only スキルに制限 | pending |
+| `model` | モデルオーバーライド | 軽量タスクに haiku 指定 | pending |
+| `context: fork` | フォークコンテキスト | 重いスキルに適用 | pending |
+| `agent` | スキル実行エージェント | 専用エージェントが必要なスキルに | pending |
+| `hooks` | スキル専用フック | バリデーション必要なスキルに | pending |
+
+**ソース**: claude-skills.md — Skill frontmatter reference
+
+### TODO 7.3:【v2追加】10エージェント frontmatter 全項目監査
+
+**全10エージェント（.claude/agents/*.md）に対して以下を監査・適用する:**
+
+| frontmatter 項目 | 説明 | 現状 | ステータス |
+|-----------------|------|------|-----------|
+| `name` | エージェント名 | あり | pending |
+| `description` | 説明 | あり | pending |
+| `tools` | 使えるツール | あり | pending |
+| `disallowedTools` | 禁止ツール | なし → 追加 | pending |
+| `model` | モデル | なし → 追加（haiku/sonnet/opus） | pending |
+| `permissionMode` | 権限モード | なし → 追加 | pending |
+| `maxTurns` | 最大ターン | なし → 追加 | pending |
+| `skills` | プリロードスキル | なし → 追加（Agent Skill パターン） | pending |
+| `mcpServers` | エージェント専用MCP | なし → 追加 | pending |
+| `hooks` | エージェント専用フック | なし → 追加 | pending |
+| `memory` | メモリスコープ (user/project/local) | なし → 追加 | pending |
+| `background` | バックグラウンド実行 | なし → 必要なエージェントに追加 | pending |
+| `isolation: worktree` | ワークツリー隔離 | なし → 必要なエージェントに追加 | pending |
+| `color` | エージェント色 | なし → 追加 | pending |
+
+**ソース**: claude-subagents.md — Agent frontmatter reference
+
+**対象エージェント:**
+1. architect.md
+2. build-error-resolver.md
+3. code-quality-reviewer.md
+4. deploy-checker.md
+5. planner.md
+6. refactor-cleaner.md
+7. security-auditor.md
+8. tdd-guide.md
+9. tech-spec-researcher.md
+10. test-automation-engineer.md
+
+### TODO 7.4:【v2追加】20コマンド frontmatter 全項目監査
+
+**全20コマンド（.claude/commands/*.md）に対して以下を監査・適用する:**
+
+| frontmatter 項目 | 説明 | 現状 | ステータス |
+|-----------------|------|------|-----------|
+| `description` | 説明 | あり | pending |
+| `argument-hint` | 引数ヒント | なし → 追加 | pending |
+| `allowed-tools` | ツール制限 | なし → 追加（read-onlyコマンド等） | pending |
+| `model` | モデルオーバーライド | なし → 追加（軽量タスクにhaiku） | pending |
+
+**【v2追加】String substitutions 活用:**
+
+| パターン | 説明 | 適用先 |
+|---------|------|--------|
+| `$ARGUMENTS` | コマンド引数全体 | 全コマンド |
+| `$1`, `$2` | 個別引数 | 引数2つ以上のコマンド |
+| `${CLAUDE_SESSION_ID}` | セッションID | ログ系コマンド |
+| `` !`command` `` | 動的コンテキスト注入 | git status, branch名 等 |
+
+**ソース**: claude-commands.md — Command frontmatter + string substitutions
+
+### TODO 7.5: 未使用スキル特定・削除
 
 - **ステータス**: pending
 
 ---
 
-## Phase 8: .mcp.json 作成
+## Phase 8: .mcp.json 作成【v2拡張】
 
 ### TODO 8.1: プロジェクトレベル MCP 設定ファイル作成
 
 - **ファイル**: `/Users/anicca/anicca-project/.mcp.json`
-- **内容**:
-  - Serena MCP 設定
-  - Maestro MCP 設定
-  - Apple Docs MCP 設定
-  - Mixpanel / RevenueCat 認証設定
+- **内容（BPで推奨される5つ + 既存4つ）**:
+
+| # | MCP | 用途 | ソース |
+|---|-----|------|--------|
+| 1 | **Serena** | コード検索・編集・メモリ | 既存 |
+| 2 | **Maestro** | iOS E2Eテスト | 既存 |
+| 3 | **Apple Docs** | Apple公式ドキュメント | 既存 |
+| 4 | **Mixpanel** | 分析 | 既存 |
+| 5 | **RevenueCat** | 課金 | 既存 |
+| 6 | **Context7** | ライブラリドキュメント | BP推奨（claude-mcp.md） |
+| 7 | **Playwright** | ブラウザ自動化 | BP推奨（claude-mcp.md） |
+| 8 | **DeepWiki** | GitHub repo理解 | BP推奨（claude-mcp.md） |
+| 9 | **Excalidraw** | ダイアグラム作成 | BP推奨（claude-mcp.md） |
+
+**ソース**: claude-mcp.md — 5 recommended MCPs
+
 - **ステータス**: pending
 
 ---
 
-## 実行順序（依存関係）
+## Phase 9:【v2新規】settings.json 全面設定
+
+**ソース**: claude-settings.md（38設定 + 84環境変数）、boris-tips（12カスタマイズ）
+
+### TODO 9.1: .claude/settings.json をBP準拠に全面書き換え
+
+```json
+{
+  "model": "opus",
+  "language": "japanese",
+  "alwaysThinkingEnabled": true,
+  "plansDirectory": ".cursor/plans",
+  "autoUpdatesChannel": "stable",
+
+  "permissions": {
+    "allow": [
+      "Edit(*)",
+      "Write(*)",
+      "Bash(cd aniccaios && fastlane *)",
+      "Bash(git *)",
+      "Bash(npm run *)",
+      "Bash(npx *)",
+      "Bash(ssh *)",
+      "mcp__serena__*",
+      "mcp__maestro__*",
+      "mcp__apple-docs__*",
+      "mcp__context7__*"
+    ],
+    "ask": [
+      "Bash(rm *)",
+      "Bash(git push --force *)",
+      "Bash(git reset --hard *)"
+    ],
+    "deny": [
+      "Read(.env)",
+      "Read(./secrets/**)",
+      "Bash(xcodebuild *)"
+    ],
+    "defaultMode": "acceptEdits"
+  },
+
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "excludedCommands": ["git", "ssh", "fastlane", "ios-deploy"],
+    "network": {
+      "allowLocalBinding": true
+    }
+  },
+
+  "statusLine": {
+    "type": "command",
+    "command": "echo \"$(git branch --show-current 2>/dev/null) | ctx: $(cat /dev/stdin | jq -r '.context_window.used_percentage')%\"",
+    "padding": 0
+  },
+
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": ["実装中", "検索中", "分析中", "構築中", "最適化中", "テスト中", "デプロイ中", "瞑想中"]
+  },
+
+  "spinnerTipsOverride": {
+    "tips": [
+      "コンテキスト50%で /compact を実行",
+      "大きなタスクはサブエージェントに委任",
+      "Fastlane以外のビルドコマンドは禁止",
+      "編集したら即push。確認不要"
+    ],
+    "excludeDefault": true
+  },
+
+  "attribution": {
+    "commit": "Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>",
+    "pr": "🤖 Generated with [Claude Code](https://claude.com/claude-code)"
+  },
+
+  "enableAllProjectMcpServers": true,
+
+  "env": {
+    "FASTLANE_SKIP_UPDATE_CHECK": "1",
+    "FASTLANE_OPT_OUT_CRASH_REPORTING": "1",
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "50",
+    "CLAUDE_CODE_EFFORT_LEVEL": "high",
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "SLASH_COMMAND_TOOL_CHAR_BUDGET": "20000"
+  },
+
+  "showTurnDuration": true,
+  "terminalProgressBarEnabled": true,
+  "respectGitignore": true
+}
+```
+
+### TODO 9.2:【v2追加】settings.local.json 作成
+
+- **ファイル**: `.claude/settings.local.json`
+- **内容**: 個人設定（git-ignored）
+- **.gitignore に追加**: `settings.local.json`
+- **ソース**: claude-settings.md — Settings Hierarchy Priority 2
+- **ステータス**: pending
+
+---
+
+## Phase 10:【v2新規】Boris 12カスタマイズ完全適用
+
+**ソース**: tips/boris-tips-feb-26.md — Boris Cherny's 12 customizations
+
+| # | カスタマイズ | アクション | ステータス |
+|---|-----------|-----------|-----------|
+| 1 | Terminal設定 | `/terminal-setup` 実行（shift+enter有効化） | pending |
+| 2 | Effort Level | `/model` → Opus → High（Phase 9 env で設定済み） | pending |
+| 3 | Plugins | `/plugin` で利用可能なプラグイン確認・インストール | pending |
+| 4 | Custom Agents | Phase 7.3 で監査済み | pending |
+| 5 | Pre-approve Permissions | Phase 9.1 permissions で設定済み | pending |
+| 6 | Sandbox | Phase 9.1 sandbox で設定済み | pending |
+| 7 | Status Line | Phase 9.1 statusLine で設定済み | pending |
+| 8 | Keybindings | `/keybindings` でカスタムキーバインド設定 | pending |
+| 9 | Hooks | Phase 5 で全面設定済み | pending |
+| 10 | Spinner Verbs | Phase 9.1 spinnerVerbs で設定済み | pending |
+| 11 | Output Styles | `/config` で Explanatory or Custom 設定 | pending |
+| 12 | settings.json in git | Phase 9.1 で .claude/settings.json をコミット | pending |
+
+---
+
+## Phase 11:【v2新規】CLI Flags & 環境変数の活用
+
+**ソース**: claude-cli-startup-flags.md
+
+### TODO 11.1: 頻用 CLI flags ドキュメント化
+
+| Flag | 用途 | 適用場面 |
+|------|------|---------|
+| `--agent <NAME>` | デフォルトエージェント指定 | ralph-autonomous-dev 起動時 |
+| `--worktree` / `-w` | ワークツリー隔離 | 並列開発時 |
+| `--permission-mode acceptEdits` | 編集自動承認 | 自律開発モード |
+| `--continue` / `-c` | 直前のセッション再開 | 中断復帰 |
+| `--resume` / `-r` | 特定セッション再開 | 長期タスク復帰 |
+| `--mcp-config <PATH>` | MCP設定ファイル指定 | 特殊MCP構成 |
+| `--max-turns <N>` | ターン数制限 | print mode |
+| `--max-budget-usd <N>` | 予算制限 | print mode |
+
+### TODO 11.2: 環境変数の settings.json env への統合
+
+Phase 9.1 の `env` キーに以下を追加済み:
+- `FASTLANE_SKIP_UPDATE_CHECK`
+- `FASTLANE_OPT_OUT_CRASH_REPORTING`
+- `CLAUDE_AUTOCOMPACT_PCT_OVERRIDE=50`
+- `CLAUDE_CODE_EFFORT_LEVEL=high`
+- `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`
+- `SLASH_COMMAND_TOOL_CHAR_BUDGET=20000`
+
+**ステータス**: pending
+
+---
+
+## 実行順序（依存関係）【v2更新】
 
 ```
 Phase 1 ──→ Phase 2 ──→ Phase 4
    │            │
-   │            └──→ Phase 7
+   │            └──→ Phase 7（スキル + エージェント + コマンド監査）
    │
    └──→ Phase 3 ──→ Phase 6
    │
-   └──→ Phase 5
+   └──→ Phase 5（Hooks全面）
+   │
+   └──→ Phase 9（settings.json全面）──→ Phase 10（Boris 12）
+                                         │
+                                         └──→ Phase 11（CLI flags）
 
-Phase 8（独立、いつでも実行可）
+Phase 8（.mcp.json — 独立、いつでも実行可）
 ```
 
 **詳細:**
 - Phase 1（CLAUDE.md スリム化）は Phase 2 の前提条件
-- Phase 2（rules/ → skills/ 移行）は Phase 4 の前提条件
+- Phase 2（rules/ → skills/ 移行）は Phase 4, 7 の前提条件
 - Phase 3（AGENTS.md 作成）は Phase 6 の前提条件
-- Phase 4, 5, 8 は相互に独立
+- Phase 9（settings.json）は Phase 10, 11 の前提条件
+- Phase 5, 8 は独立
 
 ---
 
@@ -245,18 +608,24 @@ Phase 8（独立、いつでも実行可）
 
 ---
 
-## 最終目標
+## 最終目標【v2更新】
 
 | メトリック | 現状 | 目標 | 達成度 |
 |-----------|------|------|--------|
 | **CLAUDE.md 行数** | 277行 | 150行以下 | 0% |
 | **rules/ ファイル数** | 17個 | 5個 | 0% |
-| **コンテキストロード削減** | - | 40%削減 | 0% |
-| **スキル品質スコア** | - | 95%+ | 0% |
+| **コンテキストロード削減** | 2,485行 | ~400行（84%削減） | 0% |
+| **スキル品質スコア** | 未監査 | 172スキル全て frontmatter 準拠 | 0% |
+| **エージェント frontmatter** | 基本のみ | 10エージェント全14項目設定 | 0% |
+| **コマンド frontmatter** | 基本のみ | 20コマンド全4項目 + string substitutions | 0% |
+| **Hooks カバレッジ** | 2/16 | 8/16（実用的なイベント全て） | 0% |
+| **settings.json 設定数** | ~5 | 38設定中20+ 活用 | 0% |
+| **Boris 12カスタマイズ** | 0/12 | 12/12 | 0% |
+| **.mcp.json MCPサーバー** | 0 | 9 | 0% |
 | **CC↔OpenClaw統合完成度** | - | 100% | 0% |
 
 ---
 
-**最終更新**: 2026-03-04
+**最終更新**: 2026-03-04 v2
 **計画者**: Claude Code
 **実行者**: TBD
