@@ -207,10 +207,15 @@ xcrun simctl spawn "$UDID" defaults write "$BUNDLE_ID" hasCompletedOnboarding -b
 xcrun simctl terminate "$UDID" "$BUNDLE_ID"; sleep 1
 xcrun simctl launch "$UDID" "$BUNDLE_ID"; sleep 3
 
-# Paywall まで遷移（オンボーディング 3 画面構成 → 2 回左スワイプ）
+# オンボーディング最終画面（= Paywall）まで左スワイプを繰り返す
+# 基本は 3 画面オンボーディング（最終画面 = Paywall）だが、アプリにより異なる。
+# 最大 10 回スワイプで必ず最終画面に到達する。余分なスワイプは無害。
 # 座標は iPhone 17 Pro (393×852pt) 固定。全アプリ共通。
-axe swipe --start-x 300 --start-y 400 --end-x 50 --end-y 400 --duration 0.3 --udid "$UDID"; sleep 1
-axe swipe --start-x 300 --start-y 400 --end-x 50 --end-y 400 --duration 0.3 --udid "$UDID"; sleep 1
+for i in $(seq 1 10); do
+  axe swipe --start-x 300 --start-y 400 --end-x 50 --end-y 400 --duration 0.3 --udid "$UDID"
+  sleep 0.5
+done
+sleep 1
 
 # Paywall 画面をキャプチャ
 xcrun simctl io "$UDID" screenshot /tmp/paywall-review.png
