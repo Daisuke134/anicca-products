@@ -102,8 +102,8 @@
         "grep -r 'import RevenueCatUI' --include='*.swift' . | wc -l = 0"
       ],
       "priority": 6,
-      "passes": false,
-      "notes": "依存: US-005b の RC Offerings + SPM"
+      "passes": true,
+      "notes": "ChiDailyios/ChiDaily/{App,Views,Models,Services,Resources} all exist. xcodebuild BUILD SUCCEEDED. Mock count=0. import RevenueCat=4. import RevenueCatUI=0. Custom SwiftUI PaywallView with Purchases.shared.purchase(package:) + Maybe Later skip (paywall_skip accessibility ID). GREENLIT CRITICAL=0. 19 Swift source files, 3 test files. Full EN+JA localization."
     },
     {
       "id": "US-007",

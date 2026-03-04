@@ -157,3 +157,25 @@ RC_SECRET_KEY=sk_yMDSyZzrDnfqNPxqFqNHwyxDOlMBS
   - xcodegen can add SPM packages via `packages:` section in project.yml — no manual Xcode needed
 
 ---
+
+## 2026-03-04 - US-006: iOS implementation with real RevenueCat SDK
+
+- 19 Swift source files created across App/, Models/, ViewModels/, Views/*, Services/
+- 3 test files in ChiDailyTests/ (ConstitutionTypeTests, FoundationModelsServiceTests, CheckInViewModelTests)
+- xcodebuild BUILD SUCCEEDED (iOS 26.0 Simulator)
+- GREENLIT — CRITICAL=0, no issues found
+- Mock count=0, import RevenueCat=4, import RevenueCatUI=0
+- Soft paywall with accessibility identifiers (paywall_skip, paywall_cta, paywall_plan_monthly, paywall_plan_yearly, paywall_restore)
+- Full EN/JA localization (Localizable.strings)
+- FoundationModelsService: rule-based TCM scoring (LanguageModelSession is macOS-only in Xcode 26.2 SDK, NOT iOS)
+- Key files: ChiDailyApp.swift (Purchases.configure), SubscriptionService.swift (@Observable + RC), PaywallView.swift (custom SwiftUI, no RevenueCatUI)
+- Info.plist updated: CFBundleDisplayName="Chi Daily"
+- Files changed: ChiDailyios/ChiDaily/**/*.swift (new), ChiDailyios/ChiDailyTests/*.swift (new), prd.json (US-006 passes: true), progress.txt
+- **Learnings for future iterations:**
+  - RecommendationCard: naming `body` for a stored property conflicts with SwiftUI View's `var body: some View` — use `bodyText` instead
+  - FoundationModels `LanguageModelSession` is macOS 26.0+ only, NOT iOS — always check platform availability before importing
+  - xcodegen requires target source directories to exist before `generate` — create ChiDailyTests/ dir first
+  - `CFBundleDisplayName` must be in Info.plist — Greenlight warns if missing (even though it's technically optional)
+  - RC public SDK key is NOT available via RC API v2 — must get from RC dashboard manually or use placeholder in code
+
+---

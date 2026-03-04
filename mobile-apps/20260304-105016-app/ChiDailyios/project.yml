@@ -2,8 +2,8 @@ name: ChiDaily
 options:
   bundleIdPrefix: com.aniccafactory
   deploymentTarget:
-    iOS: "17.0"
-  xcodeVersion: "16.0"
+    iOS: "26.0"
+  xcodeVersion: "26.0"
   createIntermediateGroups: true
 
 packages:
@@ -15,14 +15,11 @@ targets:
   ChiDaily:
     type: application
     platform: iOS
-    deploymentTarget: "17.0"
+    deploymentTarget: "26.0"
     sources:
       - path: ChiDaily
         excludes:
           - "**/*.md"
-    resources:
-      - path: ChiDaily/Resources
-        optional: true
     dependencies:
       - package: RevenueCat
         product: RevenueCat
@@ -36,17 +33,14 @@ targets:
         DEVELOPMENT_TEAM: 48YMVVJSMW
         CODE_SIGN_STYLE: Automatic
         ENABLE_PREVIEWS: YES
-    info:
-      path: ChiDaily/Info.plist
-      properties: {}
+        IPHONEOS_DEPLOYMENT_TARGET: 26.0
 
   ChiDailyTests:
     type: bundle.unit-test
     platform: iOS
-    deploymentTarget: "17.0"
+    deploymentTarget: "26.0"
     sources:
       - path: ChiDailyTests
-        optional: true
     dependencies:
       - target: ChiDaily
     settings:
