@@ -19,12 +19,15 @@ set -uo pipefail
 
 APP_DIR="$(cd "$(dirname "$0")" && pwd)"
 source ~/.config/mobileapp-builder/.env 2>/dev/null || true
+export ASC_BYPASS_KEYCHAIN=true
+export PATH="/Users/anicca/Library/Python/3.9/bin:$PATH"
 
 FAIL=0
+SKIP=0
 
 log_pass() { echo "  ✅ PASS: $1"; }
 log_fail() { echo "  ❌ FAIL: $1"; FAIL=1; }
-log_skip() { echo "  ⏭️ SKIP: $1"; }
+log_skip() { echo "  ⏭️ SKIP: $1"; SKIP=$((SKIP + 1)); }
 
 PRD="$APP_DIR/prd.json"
 
@@ -117,19 +120,27 @@ echo ""
 echo "--- Gate 3: Subscription Completeness ---"
 if [ "$(us_passes US-005b)" = "true" ] && [ -n "$APP_ID" ]; then
   MISSING=$(asc subscriptions groups list --app "$APP_ID" --output json 2>/dev/null | python3 -c "
-import json,sys,subprocess
-d=json.load(sys.stdin)
+import json,sys,subprocess,os
+os.environ['ASC_BYPASS_KEYCHAIN']='true'
+try:
+    d=json.load(sys.stdin)
+except:
+    print('CHECK_FAILED')
+    sys.exit()
 missing=[]
-for g in d['data']:
-    r=subprocess.run(['asc','subscriptions','list','--group',g['id'],'--output','json'],capture_output=True,text=True)
-    subs=json.loads(r.stdout)
-    for s in subs['data']:
-        if s['attributes']['state']=='MISSING_METADATA':
-            missing.append(s['attributes']['name']+' (MISSING_METADATA)')
-        r2=subprocess.run(['asc','subscriptions','prices','list','--id',s['id'],'--output','json'],capture_output=True,text=True)
-        prices=json.loads(r2.stdout)
-        if prices['meta']['paging']['total']==0:
-            missing.append(s['attributes']['name']+' (no prices)')
+for g in d.get('data',[]):
+    try:
+        r=subprocess.run(['asc','subscriptions','list','--group',g['id'],'--output','json'],capture_output=True,text=True,timeout=30)
+        subs=json.loads(r.stdout)
+        for s in subs.get('data',[]):
+            if s['attributes']['state']=='MISSING_METADATA':
+                missing.append(s['attributes']['name']+' (MISSING_METADATA)')
+            r2=subprocess.run(['asc','subscriptions','prices','list','--id',s['id'],'--output','json'],capture_output=True,text=True,timeout=30)
+            prices=json.loads(r2.stdout)
+            if prices.get('meta',{}).get('paging',{}).get('total',0)==0:
+                missing.append(s['attributes']['name']+' (no prices)')
+    except Exception as e:
+        missing.append(f'CHECK_ERROR: {e}')
 if missing:
     print(','.join(missing))
 " 2>/dev/null || echo "CHECK_FAILED")
@@ -146,33 +157,28 @@ else
 fi
 
 ##############################################
-# GATE 4: Screenshots (>= 3 framed)
+# GATE 4: Screenshots (>= 4 raw per locale)
+# Note: Koubou framing is disabled (asc 0.36.3 bug).
+# Raw screenshots are uploaded directly to ASC.
 ##############################################
 echo ""
 echo "--- Gate 4: Screenshots ---"
 if [ "$(us_passes US-008)" = "true" ]; then
-  FRAMED_COUNT=$(find "$APP_DIR/screenshots/framed" -name "*.png" 2>/dev/null | wc -l | tr -d ' ')
-  if [ "$FRAMED_COUNT" -ge 3 ]; then
-    log_pass "Framed screenshots: $FRAMED_COUNT (>= 3)"
+  # Search for raw screenshots in any subdirectory (e.g., ChiDailyios/screenshots/raw/)
+  RAW_COUNT=$(find "$APP_DIR" -path "*/screenshots/raw/*.png" 2>/dev/null | wc -l | tr -d ' ')
+  if [ "$RAW_COUNT" -ge 4 ]; then
+    log_pass "Raw screenshots: $RAW_COUNT (>= 4)"
   else
-    log_fail "Framed screenshots: $FRAMED_COUNT (need >= 3)"
+    log_fail "Raw screenshots: $RAW_COUNT (need >= 4)"
   fi
 
-##############################################
-# GATE 4b: Screenshots must be unique (not all same image)
-# Prevents CC from copying same screenshot to all slots
-##############################################
-if [[ "$(us_passes US-008)" == "true" ]]; then
-  UNIQUE_HASHES=$(find "$APP_DIR/screenshots/framed" -name "*.png" 2>/dev/null | xargs shasum 2>/dev/null | awk '{print $1}' | sort -u | wc -l | tr -d ' ')
-  TOTAL_SCREENSHOTS=$(find "$APP_DIR/screenshots/framed" -name "*.png" 2>/dev/null | wc -l | tr -d ' ')
-  if [[ "$UNIQUE_HASHES" -ge 2 && "$TOTAL_SCREENSHOTS" -ge 3 ]]; then
-    log_pass "Screenshots unique: $UNIQUE_HASHES unique of $TOTAL_SCREENSHOTS total"
+  # Screenshots must be unique (not all same image)
+  UNIQUE_HASHES=$(find "$APP_DIR" -path "*/screenshots/raw/*.png" 2>/dev/null | xargs shasum 2>/dev/null | awk '{print $1}' | sort -u | wc -l | tr -d ' ')
+  if [ "$UNIQUE_HASHES" -ge 2 ] && [ "$RAW_COUNT" -ge 4 ]; then
+    log_pass "Screenshots unique: $UNIQUE_HASHES unique of $RAW_COUNT total"
   else
-    log_fail "Screenshots NOT unique: all $TOTAL_SCREENSHOTS have same hash (copy-paste detected)"
+    log_fail "Screenshots NOT unique: all $RAW_COUNT have same hash (copy-paste detected)"
   fi
-else
-  log_skip "Screenshot uniqueness (US-008 not passed)"
-fi
 else
   log_skip "US-008 not yet passed"
 fi
@@ -183,7 +189,7 @@ fi
 echo ""
 echo "--- Gate 5: Build Status ---"
 if [ "$(us_passes US-008)" = "true" ] && [ -n "$APP_ID" ]; then
-  BUILD_STATE=$(asc builds list --app "$APP_ID" --limit 1 --output json 2>/dev/null | python3 -c "
+  BUILD_STATE=$(asc builds list --app "$APP_ID" --sort -uploadedDate --limit 1 --output json 2>/dev/null | python3 -c "
 import json,sys
 d=json.load(sys.stdin)
 if d['data']:
@@ -206,10 +212,13 @@ fi
 ##############################################
 echo ""
 echo "=========================================="
-if [ "$FAIL" -eq 0 ]; then
-  echo "🟢 ALL GATES PASSED — proceed to next US"
-  exit 0
-else
+if [ "$FAIL" -gt 0 ]; then
   echo "🔴 VALIDATION FAILED — CC must fix before proceeding"
   exit 1
+elif [ "$SKIP" -eq 5 ]; then
+  echo "⏭️ ALL GATES SKIPPED — no US completed yet"
+  exit 0
+else
+  echo "🟢 ALL GATES PASSED — proceed to next US"
+  exit 0
 fi
