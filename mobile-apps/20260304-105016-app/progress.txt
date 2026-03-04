@@ -21,3 +21,19 @@
   - TikTok Next 2026 Report confirmed "Chinese Baddie" TCM wellness as top trend
 
 ---
+
+## 2026-03-04 - US-002: Product Planning
+
+- Created product-plan.md with all required sections
+- Target user: Women 20–35, wellness-forward, US + Japan
+- Problem: Chinese Baddie TCM trend viral on TikTok; zero consumer TCM apps
+- Solution: Daily 5-question check-in → Foundation Models on-device recommendations
+- Monetization: $4.99/month / $34.99/year (7-day trial)
+- MVP scope: Check-in UI + on-device AI + HealthKit + soft paywall + EN/JA
+- App Store name check: 0 exact matches for "Chi Daily"
+- Files changed: product-plan.md (new), prd.json (US-002 passes: true)
+- **Learnings for future iterations:**
+  - Always run App Store name check early (before planning) — saves rework
+  - RevenueCat 2025 report: $5–7/month = highest trial conversion in health category
+  - Japanese market is dual-language from day 1, not a post-launch add-on
+---
