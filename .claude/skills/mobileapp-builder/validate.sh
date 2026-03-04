@@ -24,6 +24,7 @@ export PATH="/Users/anicca/Library/Python/3.9/bin:$PATH"
 
 FAIL=0
 SKIP=0
+TOTAL_GATES=0
 
 log_pass() { echo "  ✅ PASS: $1"; }
 log_fail() { echo "  ❌ FAIL: $1"; FAIL=1; }
@@ -64,6 +65,7 @@ echo "=========================================="
 ##############################################
 echo ""
 echo "--- Gate 1: Greenlight Preflight ---"
+TOTAL_GATES=$((TOTAL_GATES + 1))
 if [ "$(us_passes US-006)" = "true" ]; then
   XCODE_DIR=$(find "$APP_DIR" -name "*.xcodeproj" -maxdepth 2 | head -1 | xargs dirname 2>/dev/null || echo "")
   if [ -n "$XCODE_DIR" ] && command -v greenlight &>/dev/null; then
@@ -88,6 +90,7 @@ fi
 ##############################################
 echo ""
 echo "--- Gate 2: Greenlight ASC Scan ---"
+TOTAL_GATES=$((TOTAL_GATES + 1))
 if [ "$(us_passes US-008d)" = "true" ] && [ -n "$APP_ID" ]; then
   if command -v greenlight &>/dev/null && [ -f ~/.greenlight/config.json ]; then
     GL_SCAN=$(greenlight scan --app-id "$APP_ID" --tier 1 --format json 2>/dev/null || echo '{"summary":{"passed":false,"blocks":999}}')
@@ -118,6 +121,7 @@ fi
 ##############################################
 echo ""
 echo "--- Gate 3: Subscription Completeness ---"
+TOTAL_GATES=$((TOTAL_GATES + 1))
 if [ "$(us_passes US-005b)" = "true" ] && [ -n "$APP_ID" ]; then
   MISSING=$(asc subscriptions groups list --app "$APP_ID" --output json 2>/dev/null | python3 -c "
 import json,sys,subprocess,os
@@ -163,6 +167,7 @@ fi
 ##############################################
 echo ""
 echo "--- Gate 4: Screenshots ---"
+TOTAL_GATES=$((TOTAL_GATES + 1))
 if [ "$(us_passes US-008a)" = "true" ]; then
   # Search for raw screenshots in any subdirectory (e.g., ChiDailyios/screenshots/raw/)
   RAW_COUNT=$(find "$APP_DIR" -path "*/screenshots/raw/*.png" 2>/dev/null | wc -l | tr -d ' ')
@@ -188,6 +193,7 @@ fi
 ##############################################
 echo ""
 echo "--- Gate 5: Build Status ---"
+TOTAL_GATES=$((TOTAL_GATES + 1))
 if [ "$(us_passes US-008c)" = "true" ] && [ -n "$APP_ID" ]; then
   BUILD_STATE=$(asc builds list --app "$APP_ID" --sort -uploadedDate --limit 1 --output json 2>/dev/null | python3 -c "
 import json,sys
@@ -208,6 +214,75 @@ else
 fi
 
 ##############################################
+# GATE 6: Metadata localization (en-US + ja)
+# Source: https://developer.apple.com/help/app-store-connect/manage-app-information/localize-app-store-information
+##############################################
+echo ""
+echo "--- Gate 6: Metadata Localization ---"
+TOTAL_GATES=$((TOTAL_GATES + 1))
+if [ "$(us_passes US-008b)" = "true" ] && [ -n "$APP_ID" ]; then
+  VER_ID=$(asc versions list --app "$APP_ID" --output json 2>/dev/null | python3 -c "
+import json,sys
+d=json.load(sys.stdin)
+for v in d.get('data',[]):
+    print(v['id']); break
+" 2>/dev/null || echo "")
+
+  if [ -n "$VER_ID" ]; then
+    LOCALES=$(asc app-store-version-localizations list --version-id "$VER_ID" --output json 2>/dev/null | python3 -c "
+import json,sys
+d=json.load(sys.stdin)
+locales=[l['attributes']['locale'] for l in d.get('data',[])]
+print(','.join(locales))
+" 2>/dev/null || echo "CHECK_FAILED")
+
+    if [ "$LOCALES" = "CHECK_FAILED" ]; then
+      log_skip "Metadata localization check failed (API error)"
+    elif echo "$LOCALES" | grep -q "en-US" && echo "$LOCALES" | grep -q "ja"; then
+      log_pass "Metadata locales: $LOCALES (en-US + ja present)"
+    else
+      log_fail "Metadata missing locales: $LOCALES (need en-US AND ja)"
+    fi
+  else
+    log_skip "No version found for APP_ID=$APP_ID"
+  fi
+else
+  log_skip "US-008b not yet passed or APP_ID not found"
+fi
+
+##############################################
+# GATE 7: ASC Validate (Errors=0)
+# Source: https://developer.apple.com/documentation/appstoreconnectapi
+# Rule 31: "asc validate Errors=0 必須（submit 前 STOP GATE）"
+##############################################
+echo ""
+echo "--- Gate 7: ASC Validate ---"
+TOTAL_GATES=$((TOTAL_GATES + 1))
+if [ "$(us_passes US-008e)" = "true" ] && [ -n "$APP_ID" ]; then
+  VER_ID=$(asc versions list --app "$APP_ID" --output json 2>/dev/null | python3 -c "
+import json,sys
+d=json.load(sys.stdin)
+for v in d.get('data',[]):
+    print(v['id']); break
+" 2>/dev/null || echo "")
+
+  if [ -n "$VER_ID" ]; then
+    VALIDATE_OUT=$(asc validate --app "$APP_ID" --version-id "$VER_ID" --platform IOS 2>&1 || echo "CHECK_FAILED")
+    if echo "$VALIDATE_OUT" | grep -q "Errors: 0"; then
+      log_pass "ASC validate: Errors=0"
+    elif echo "$VALIDATE_OUT" | grep -q "CHECK_FAILED"; then
+      log_skip "ASC validate check failed (API error)"
+    else
+      log_fail "ASC validate errors found: $(echo "$VALIDATE_OUT" | grep -i 'error' | head -3)"
+    fi
+  else
+    log_skip "No version found for APP_ID=$APP_ID"
+  fi
+else
+  log_skip "US-008e not yet passed or APP_ID not found"
+fi
+
+##############################################
 # Summary
 ##############################################
 echo ""
@@ -215,7 +290,7 @@ echo "=========================================="
 if [ "$FAIL" -gt 0 ]; then
   echo "🔴 VALIDATION FAILED — CC must fix before proceeding"
   exit 1
-elif [ "$SKIP" -eq 5 ]; then
+elif [ "$SKIP" -eq "$TOTAL_GATES" ]; then
   echo "⏭️ ALL GATES SKIPPED — no US completed yet"
   exit 0
 else

@@ -1,6 +1,7 @@
-# Claude Code ベストプラクティス再構築計画（2026-03-04、v2）
+# Claude Code ベストプラクティス再構築計画（2026-03-05、v3）
 
 **ステータス: 計画完了 → 実装待ち**
+**v3 更新: 公式ドキュメント7ページ深掘りで16個の新ギャップを発見・修正。Phase 12-14 新設。**
 **v2 更新: 14個のギャップを修正。BP repo 全11ファイルの全詳細を反映。**
 
 ## ソース
@@ -21,6 +22,12 @@
 | 12 | reports/global-vs-project-settings.md | BP repo reports/ |
 | 13 | reports/skills-for-larger-mono-repos.md | BP repo reports/ |
 | 14 | tips/boris-tips-feb-26.md（12カスタマイズ） | BP repo tips/ |
+| 15 | **【v3追加】** Anthropic公式 Skills docs | https://code.claude.com/docs/en/skills |
+| 16 | **【v3追加】** Anthropic公式 Hooks Guide | https://code.claude.com/docs/en/hooks-guide |
+| 17 | **【v3追加】** Anthropic公式 Sub-agents docs | https://code.claude.com/docs/en/sub-agents |
+| 18 | **【v3追加】** Anthropic公式 Memory docs | https://code.claude.com/docs/en/memory |
+| 19 | **【v3追加】** Anthropic公式 Plugins docs | https://code.claude.com/docs/en/plugins |
+| 20 | **【v3追加】** Anthropic公式 Settings Reference | https://code.claude.com/docs/en/settings |
 
 ---
 
@@ -64,6 +71,39 @@
 - **git**: .gitignore に追加
 - **ソース**: claude-memory.md — 「CLAUDE.local.md for personal preferences」
 - **ステータス**: pending
+
+### TODO 1.4:【v3追加】`@import` 構文でCLAUDE.mdを分割
+
+**ソース**: [Anthropic Memory docs](https://code.claude.com/docs/en/memory) — 「Use @path/to/file syntax in CLAUDE.md to import additional instruction files」
+
+- **アクション**: CLAUDE.md 150行以下を維持しつつ、詳細ルールを `@` でインポート
+- **パターン**:
+```markdown
+# CLAUDE.md（150行以下）
+## 根本原則
+@.claude/rules/core-principles.md
+## ビルド & テスト
+@agent_docs/building_and_testing.md
+## 参照先
+@.claude/rules/reference-index.md
+```
+- **メリット**: CLAUDE.md は目次的に軽量、詳細は別ファイルでオンデマンドロード
+- **ステータス**: pending
+
+### TODO 1.5:【v3追加】Path-specific rules 設計（`paths` frontmatter）
+
+**ソース**: [Anthropic Memory docs](https://code.claude.com/docs/en/memory) — 「Rules can use paths frontmatter to only load when working on matching files」
+
+- **アクション**: rules/*.md に `paths` frontmatter を追加し、無関係なルールのロードを防止
+- **設計**:
+
+| ルールファイル | paths フィルター | 効果 |
+|--------------|----------------|------|
+| api-compatibility.md | `paths: ["apps/api/**"]` | API作業時のみロード |
+| worktree.md | なし（常時ロード） | 全作業に適用 |
+| git-workflow.md | なし（常時ロード） | 全作業に適用 |
+| security.md | なし（常時ロード） | 全作業に適用 |
+| dev-workflow.md | なし（常時ロード） | 全作業に適用 |
 
 - **ステータス**: pending
 
@@ -276,6 +316,77 @@
 
 **ステータス**: pending
 
+### TODO 5.4:【v3追加】SessionStart + `compact` matcher でコンテキスト再注入
+
+**ソース**: [Anthropic Hooks Guide](https://code.claude.com/docs/en/hooks-guide) — 「Use SessionStart hook with compact matcher to re-inject critical context after compaction」
+
+- **アクション**: compaction後に失われる重要コンテキストを自動再注入するhook追加
+- **設定**:
+```json
+{
+  "SessionStart": [
+    {
+      "matcher": "compact",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "cat .claude/context/post-compact-essentials.md",
+          "timeout": 3000
+        }
+      ]
+    }
+  ]
+}
+```
+- **post-compact-essentials.md 内容**: 実行環境、現在のブランチ、進行中タスクのポインタ
+- **ステータス**: pending
+
+### TODO 5.5:【v3追加】Hook type 全3種の活用設計
+
+**ソース**: [Anthropic Hooks Guide](https://code.claude.com/docs/en/hooks-guide) — 「Three hook types: command, prompt, http」
+
+| Hook Type | 説明 | v2カバレッジ | v3アクション |
+|-----------|------|------------|-------------|
+| `command` | シェルコマンド実行 | ✅ 全8スクリプト | そのまま |
+| `prompt` | LLM評価で判定 | ⚠️ Stop のみ | UserPromptSubmit にも追加（プロンプト品質チェック） |
+| `http` | 外部URLにPOST | ❌ なし | Slack webhook通知に活用 |
+
+**追加する prompt hook:**
+```json
+{
+  "UserPromptSubmit": [
+    {
+      "hooks": [
+        {
+          "type": "prompt",
+          "prompt": "Check if the user's request is clear enough to act on. If ambiguous, suggest clarification.",
+          "timeout": 5000
+        }
+      ]
+    }
+  ]
+}
+```
+
+**追加する http hook:**
+```json
+{
+  "Stop": [
+    {
+      "hooks": [
+        {
+          "type": "http",
+          "url": "https://hooks.slack.com/services/YOUR/WEBHOOK/URL",
+          "timeout": 5000
+        }
+      ]
+    }
+  ]
+}
+```
+
+- **ステータス**: pending
+
 ---
 
 ## Phase 6: CC↔OpenClaw 統合プロトコル
@@ -364,6 +475,38 @@
 8. tdd-guide.md
 9. tech-spec-researcher.md
 10. test-automation-engineer.md
+
+### TODO 7.3a:【v3追加】`Agent(agent_type)` 制限構文の設計
+
+**ソース**: [Anthropic Sub-agents docs](https://code.claude.com/docs/en/sub-agents) — 「Use Agent(agent_type) syntax in tools field to restrict which subagent types can be spawned」
+
+- **アクション**: 各エージェントの `tools` フィールドで `Agent(specific_type)` を使い、スポーン可能なサブエージェント型を制限
+- **設計**:
+
+| エージェント | 許可するサブエージェント | 理由 |
+|------------|----------------------|------|
+| architect.md | `Agent(Explore)`, `Agent(Plan)` | 読み取り系のみ |
+| tdd-guide.md | `Agent(Explore)` | テストコード探索のみ |
+| security-auditor.md | `Agent(Explore)` | 脆弱性探索のみ |
+| deploy-checker.md | なし（Agent禁止） | デプロイは自己完結 |
+
+- **ステータス**: pending
+
+### TODO 7.3b:【v3追加】Agent `skills:` preloading 設計（Agent Skill パターン）
+
+**ソース**: [Anthropic Sub-agents docs](https://code.claude.com/docs/en/sub-agents) — 「Use skills field to preload skills into agents. Skills with user-invocable: false act as always-available context」
+
+- **アクション**: 各エージェントに `skills:` フィールドで関連スキルをプリロード
+- **設計**:
+
+| エージェント | プリロードスキル | パターン |
+|------------|----------------|---------|
+| tdd-guide.md | `testing-strategy` | Agent Skill（`user-invocable: false`） |
+| deploy-checker.md | `deployment` | Agent Skill |
+| security-auditor.md | `security` rulesのスキル版 | Agent Skill |
+| code-quality-reviewer.md | `coding-style` rulesのスキル版 | Agent Skill |
+
+- **ステータス**: pending
 
 ### TODO 7.4:【v2追加】20コマンド frontmatter 全項目監査
 
@@ -495,6 +638,8 @@
   },
 
   "enableAllProjectMcpServers": true,
+  "autoMemoryEnabled": true,
+  "claudeMdExcludes": ["node_modules/**", ".build/**", "Pods/**"],
 
   "env": {
     "FASTLANE_SKIP_UPDATE_CHECK": "1",
@@ -502,7 +647,8 @@
     "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "50",
     "CLAUDE_CODE_EFFORT_LEVEL": "high",
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
-    "SLASH_COMMAND_TOOL_CHAR_BUDGET": "20000"
+    "SLASH_COMMAND_TOOL_CHAR_BUDGET": "20000",
+    "CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD": "1"
   },
 
   "showTurnDuration": true,
