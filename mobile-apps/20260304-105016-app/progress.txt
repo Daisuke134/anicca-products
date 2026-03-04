@@ -278,3 +278,24 @@ RC_SECRET_KEY=sk_yMDSyZzrDnfqNPxqFqNHwyxDOlMBS
   - JWT ES256 の署名は DER→raw(r||s) 変換が必要 (openssl dgst -sha256 -sign はDER形式)
   - appDataUsages 未公開 + primaryCategory 未設定は submission で 409 STATE_ERROR になる
 
+
+## 2026-03-04 - US-009: App Store Submission (WAITING_FOR_HUMAN 3回目)
+
+- reviewSubmission id=19f36474 が READY_FOR_REVIEW 状態で存在
+- reviewSubmissionItems 追加試行 → STATE_ERROR.APP_DATA_USAGES_REQUIRED
+- /v1/appDataUsages → 404 PATH_ERROR (API経由では設定不可、確定)
+- /v2/apps/$APP_ID/appDataUsages → 404 NOT_FOUND
+- asc web privacy CLIも非TTY環境では動作しない (無出力)
+- WAITING_FOR_HUMAN: App Privacy は ASC Web UIでのみ設定可能
+  - URL: https://appstoreconnect.apple.com → Chi Daily → App Privacy → No → Publish
+  - 完了後: touch .app-privacy-done
+- Slack #metrics に通知送信
+- **Learnings for future iterations:**
+  - App Privacy は /v1/appDataUsages, /v2/appDataUsages, /v1/apps/$APP_ID/appDataUsages 全て404
+  - STATE_ERROR.APP_DATA_USAGES_REQUIRED = reviewSubmissionItems追加時のブロッカー
+  - reviewSubmissions READY_FOR_REVIEW state = items追加 + submit で提出可能な状態
+  - App Privacy は ABSOLUTELY Web UI only — この教訓は3イテレーション連続で確認
+
+WAITING_FOR_HUMAN: App Privacy設定 + .app-privacy-done 作成が必要
+
+---
