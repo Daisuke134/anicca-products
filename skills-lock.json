@@ -26,6 +26,11 @@
       "sourceType": "github",
       "computedHash": "b0cb5be0503921c6bb4b9c62d9a5633e35d4ea04005678916e45ffed3d268107"
     },
+    "app-store-scraper": {
+      "source": "mintuz/claude-plugins",
+      "sourceType": "github",
+      "computedHash": "ead9d6fab638d98183e1c8659c616abc4285455dc5d0d939584c13a972708899"
+    },
     "app-store-screenshots": {
       "source": "inference-sh-6/skills",
       "sourceType": "github",
