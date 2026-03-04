@@ -36,8 +36,28 @@ curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '
 | 18 | **screenshot-creator スキル使用禁止**。Koubou（`asc screenshots frame`）のみ |
 | 19 | **全ての `asc` コマンドに `export ASC_BYPASS_KEYCHAIN=true` を設定すること**。未設定だとハングする |
 | 20 | **オンボーディング最終画面はソフトペイウォール必須**。自前 SwiftUI PaywallView + Purchases.shared.purchase(package:)。RevenueCatUI 禁止。[Maybe Later] で閉じれる |
-| 20 | **ATT 禁止**。AppTrackingTransparency / NSUserTrackingUsageDescription は使わない。スクショに ATT ダイアログが写り込む |
-    openclaw system event --text "🏭 <US-ID> 完了" 2>/dev/null || true
+| 20b | **ATT 禁止**。AppTrackingTransparency / NSUserTrackingUsageDescription は使わない。スクショに ATT ダイアログが写り込む |
+| 21 | **1 iteration = 1 US（厳守）**。2つ以上のUSを1イテレーションで実行したら即座に停止。次のイテレーションで続行。500ターン超過も即停止 |
+| 22 | **PATH 設定（全イテレーション冒頭で実行）**: `export PATH="/Users/anicca/Library/Python/3.9/bin:$PATH"` と `export ASC_BYPASS_KEYCHAIN=true` |
+
+## ASC CLI 正しいコマンド（skill 準拠）
+
+| タスク | 正しいコマンド | スキル |
+|--------|---------------|--------|
+| スクショ capture | `asc screenshots capture --bundle-id ... --udid ... --output-dir ... --output json` | asc-shots-pipeline |
+| スクショ upload | `asc screenshots upload --version-localization LOC_ID --path DIR --device-type IPHONE_67` | asc-shots-pipeline |
+| Review screenshot | `asc subscriptions review-screenshots create --subscription-id ID --file PATH` | — |
+| ビルド最新取得 | `asc builds list --app APP_ID --sort -uploadedDate --limit 1` | asc-build-lifecycle |
+| ビルドをグループ追加 | `asc builds add-groups --build BUILD_ID --group GROUP_ID` | asc-testflight-orchestration |
+| テスター追加 | `asc testflight beta-testers add --app APP_ID --email ... --group ...` | asc-testflight-orchestration |
+| テスター招待 | `asc testflight beta-testers invite --app APP_ID --email ...` | asc-testflight-orchestration |
+| Version ID 取得 | `asc versions list --app APP_ID` | asc-id-resolver |
+| Loc ID 取得 | `asc app-store-version-localizations list --version-id VER_ID` | asc-id-resolver |
+| App Privacy | **WAITING_FOR_HUMAN**（API 不可、Web UI のみ） | — |
+| RC Public Key | **WAITING_FOR_HUMAN**（Dashboard のみ） | — |
+| 審査提出 | `asc review submissions-create --app APP_ID` → `items-add` → `submissions-submit` | asc-submission-health |
+
+**❌ 存在しないフラグ（使うな）:** `--locale`, `--file`(screenshots upload), `--display-type`, `asc web privacy`
 
 ## Progress Report Format
 # Source: mischasigtermans/ralph (https://github.com/mischasigtermans/ralph)

@@ -10,6 +10,10 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 MAX_ITERATIONS="${1:-10}"
 SLACK_CHANNEL="${SLACK_CHANNEL_ID:-C091G3PKHL2}"
 
+# PATH: kou (Koubou) binary location
+export PATH="/Users/anicca/Library/Python/3.9/bin:$PATH"
+export ASC_BYPASS_KEYCHAIN=true
+
 # Source secrets from .env (Twelve-Factor App: https://12factor.net/config)
 if [ -f ~/.config/mobileapp-builder/.env ]; then
   set -a
@@ -37,10 +41,18 @@ PREV_PASSES=""
 for i in $(seq 1 $MAX_ITERATIONS); do
   # WAITING_FOR_HUMAN: don't burn iterations while waiting for human input
   # Source: https://github.com/snarktank/ralph — "pause until resolved"
+  WAIT_COUNT=0
   while [ -f "$SCRIPT_DIR/progress.txt" ] && grep -q "WAITING_FOR_HUMAN" "$SCRIPT_DIR/progress.txt"; do
-    echo "🏭 ⏸️ WAITING_FOR_HUMAN 検出。人間の入力待ち... (イテレーション消費しない)"
+    echo "🏭 ⏸️ WAITING_FOR_HUMAN 検出。人間の入力待ち... (${WAIT_COUNT}回目)"
+    WAIT_COUNT=$((WAIT_COUNT + 1))
+    if [ $WAIT_COUNT -ge 120 ]; then  # 1時間（30秒×120）
+      echo "🏭 ❌ WAITING_FOR_HUMAN タイムアウト（1時間）"
+      notify_slack "❌ WAITING_FOR_HUMAN タイムアウト（1時間）。手動対応必要。"
+      break 2
+    fi
     sleep 30
   done
+
   echo ""
   echo "🏭 ========================================"
   echo "🏭 Iteration $i / $MAX_ITERATIONS 開始: $(date)"
@@ -54,6 +66,13 @@ for i in $(seq 1 $MAX_ITERATIONS); do
   claude --dangerously-skip-permissions --verbose --print --output-format stream-json --mcp-config ~/.claude/mcp.json < "$SCRIPT_DIR/CLAUDE.md" 2>&1 | grep --line-buffered '^{' | tee "$tmpfile" | tee -a "$LOG_FILE" | jq --unbuffered -rj "$stream_text" || true
   OUTPUT=$(cat "$tmpfile")
   rm -f "$tmpfile"
+
+  # Detect "Out of extra usage" and break immediately
+  if echo "$OUTPUT" | grep -qi "out of extra usage\|out of.*usage\|usage.*exceeded"; then
+    echo "🏭 ⚠️ CC usage 超過検出。残りイテレーションをスキップ。"
+    notify_slack "⚠️ CC usage 超過。イテレーション $i で停止。"
+    break
+  fi
 
   echo ""
   echo "🏭 Iteration $i 終了: $(date)"
