@@ -196,40 +196,49 @@ echo "✅ Screenshots: en-US=$EN_COUNT, ja=$JA_COUNT"
 
 ### 1h: Subscription Review Screenshot（Paywall スクショ → IAP 審査用）
 
-Source: Apple ASC API — Subscription Review Screenshots
-依存: US-005b で $MONTHLY_ID, $ANNUAL_ID が .env に記録済み
+依存: US-005b で `$MONTHLY_ID`, `$ANNUAL_ID` が .env に記録済み
+依存: US-006 で `hasCompletedOnboarding` キーが実装済み
 
 ⚠️ US-005b Step 6.6 から移動。アプリ実装後（US-006 完了後）でないと Paywall 画面が存在しない。
 
 ```bash
-# オンボーディングを最初から開始（Paywall は 3 画面目）
+# Paywall 画面を表示するためオンボーディングをリセット
 xcrun simctl spawn "$UDID" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool false
 xcrun simctl terminate "$UDID" "$BUNDLE_ID"; sleep 1
 xcrun simctl launch "$UDID" "$BUNDLE_ID"; sleep 3
 
-# Paywall まで遷移（2 回スワイプ — iPhone 17 Pro 共通座標）
+# Paywall まで遷移（オンボーディング 3 画面構成 → 2 回左スワイプ）
+# 座標は iPhone 17 Pro (393×852pt) 固定。全アプリ共通。
 axe swipe --start-x 300 --start-y 400 --end-x 50 --end-y 400 --duration 0.3 --udid "$UDID"; sleep 1
 axe swipe --start-x 300 --start-y 400 --end-x 50 --end-y 400 --duration 0.3 --udid "$UDID"; sleep 1
 
 # Paywall 画面をキャプチャ
-xcrun simctl io $UDID screenshot /tmp/paywall-review.png
+xcrun simctl io "$UDID" screenshot /tmp/paywall-review.png
 
-# 検証: ファイルサイズが十分か（100KB 未満 = 空画面の可能性）
+# 検証: 100KB 未満 = 空画面の可能性
 PW_SIZE=$(stat -f%z /tmp/paywall-review.png)
 [ "$PW_SIZE" -gt 100000 ] || { echo "FAIL: paywall screenshot too small ($PW_SIZE bytes)"; exit 1; }
 
-# 両サブスクにアップロード
-source .env  # MONTHLY_ID, ANNUAL_ID
+# Monthly + Annual 両方にアップロード
+source .env
 asc subscriptions review-screenshots create \
-  --subscription-id $MONTHLY_ID \
+  --subscription-id "$MONTHLY_ID" \
   --file /tmp/paywall-review.png
 
 asc subscriptions review-screenshots create \
-  --subscription-id $ANNUAL_ID \
+  --subscription-id "$ANNUAL_ID" \
   --file /tmp/paywall-review.png
 
 echo "✅ Review screenshots uploaded for MONTHLY=$MONTHLY_ID and ANNUAL=$ANNUAL_ID"
 ```
+
+**検証済みコマンド（2026-03-04 Chi Daily で実証）:**
+
+| コマンド | 用途 |
+|---------|------|
+| `asc subscriptions review-screenshots create --subscription-id $ID --file PATH` | review screenshot アップロード |
+| `asc subscriptions review-screenshots get --id $SHOT_ID` | アップロード確認 |
+| `asc subscriptions review-screenshots delete --id $SHOT_ID --confirm` | 既存削除（更新時のみ） |
 
 **PROHIBITED:**
 - ⛔ screenshot-creator スキル禁止
