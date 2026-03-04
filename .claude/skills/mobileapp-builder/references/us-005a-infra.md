@@ -1,13 +1,12 @@
 # US-005a: Infrastructure (Privacy + ASC App Creation)
 
-Source: rshankras WORKFLOW.md Phase 6 + rudrankriyam asc-* skills
+Source: rudrankriyam asc-* skills
 
 ## Skills to Read (IN THIS ORDER)
-1. `.claude/skills/privacy-policy/SKILL.md` — rshankras: Privacy Policy + Terms
-2. `.claude/skills/asc-signing-setup/SKILL.md` — rudrankriyam: 証明書
-3. `.claude/skills/asc-app-create-ui/SKILL.md` — rudrankriyam: ASC アプリ作成
-4. `.claude/skills/asc-subscription-localization/SKILL.md` — rudrankriyam: IAP + locale
-5. `.claude/skills/asc-ppp-pricing/SKILL.md` — rudrankriyam: 175カ国 pricing
+1. `.claude/skills/asc-signing-setup/SKILL.md` — rudrankriyam: 証明書
+2. `.claude/skills/asc-app-create-ui/SKILL.md` — rudrankriyam: ASC アプリ作成
+3. `.claude/skills/asc-subscription-localization/SKILL.md` — rudrankriyam: IAP + locale
+4. `.claude/skills/asc-ppp-pricing/SKILL.md` — rudrankriyam: 175カ国 pricing
 
 ## Quality Gate (MANDATORY — US-004 の成果物検証)
 ```bash
@@ -15,15 +14,22 @@ Source: rshankras WORKFLOW.md Phase 6 + rudrankriyam asc-* skills
 test -f docs/PRD.md || { echo "GATE FAIL: docs/PRD.md missing"; exit 1; }
 test -f docs/ARCHITECTURE.md || { echo "GATE FAIL"; exit 1; }
 test -f docs/IMPLEMENTATION_GUIDE.md || { echo "GATE FAIL"; exit 1; }
-grep -q "bundle_id" docs/PRD.md || { echo "GATE FAIL: no bundle_id in PRD"; exit 1; }
+grep -qi "bundle.id\|bundle_id" docs/PRD.md || { echo "GATE FAIL: no bundle_id in PRD"; exit 1; }
 ```
 
-## Step 1: Privacy Policy + Terms
-- rshankras/legal/privacy-policy スキル
-- Input: docs/PRD.md（データ収集情報）
-- Output: privacy-policy.md, terms.md → GitHub Pages デプロイ
+## Step 1: Privacy Policy + Terms（既存 URL を使用）
+
+カスタム Privacy Policy の生成・ホスティングは不要。ASC 提出時にこれらの URL を設定する。
+
+| ドキュメント | URL |
+|-------------|-----|
+| **Privacy Policy** | `https://aniccaai.com/privacy` |
+| **Terms / EULA** | `https://www.apple.com/legal/internet-services/itunes/dev/stdeula/` |
 
 ## Step 2: PrivacyInfo.xcprivacy (PATCH 7)
+
+> ⚠️ **US-006 で実行。** iOS プロジェクト作成後に PrivacyInfo.xcprivacy を追加する。US-005a ではスキップ。
+
 Source: Apple WWDC23 (https://developer.apple.com/videos/play/wwdc2023/10060/)
 > 「Third-party SDK developers can include a privacy manifest by creating PrivacyInfo.xcprivacy」
 
@@ -43,6 +49,9 @@ PRIVEOF
 ```
 
 ## Step 3: ITSAppUsesNonExemptEncryption (PATCH 8)
+
+> ⚠️ **US-006 で実行。** Info.plist は iOS プロジェクト作成後に編集する。US-005a ではスキップ。
+
 Source: Apple Developer (https://developer.apple.com/documentation/bundleresources/information-property-list/itsappusesnonexemptencryption)
 > 「A Boolean value indicating whether the app uses encryption」
 
@@ -71,7 +80,7 @@ KEYCHAIN_PASSWORD is in `~/.config/mobileapp-builder/.env`
 
 **人間介入不要。** API Key認証で常に自動実行される。
 
-## Step 5: ASC App Creation（~/bin/asc apps create — Apple ID 認証）
+## Step 5: ASC App Creation（~/bin/asc apps create — Apple ID 認証 + 2FA）
 
 ### 5.0: Bundle ID 存在確認（前提チェック）
 ```bash
@@ -83,14 +92,31 @@ asc bundle-ids list --output json 2>&1 | jq -e --arg bid "<bundle_id>" '.data[] 
 echo "✅ Bundle ID confirmed"
 ```
 
-### 5.1: アプリ作成（通常は完全自動）
+### 5.1: 2FA コード取得（WAITING_FOR_HUMAN）
+
+⛔ **2FA コードを受け取るまで apps create を実行しない。**
+CC は Slack で以下を送信:
+```
+WAITING_FOR_HUMAN: ASC App Creation
+📱 App Store Connect アプリ作成に 2FA コードが必要です（30秒）:
+1. 以下のコマンドを実行すると iPhone に 6桁コードが届きます
+2. 届いた 6桁コードをこのチャットに貼り付けてください
+
+それだけでOKです。残りは全て自動で行います。
+```
+
+### 5.2: アプリ作成（2FA コード受信後）
 ```bash
-APP_RESULT=$(ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" ~/bin/asc apps create \
+source ~/.config/mobileapp-builder/.env
+APP_RESULT=$(~/bin/asc apps create \
   --name "<app_name>" \
   --bundle-id "<bundle_id>" \
   --sku "<slug>" \
   --platform IOS \
+  --primary-locale "en-US" \
   --apple-id "$APPLE_ID" \
+  --password "$APPLE_ID_PASSWORD" \
+  --two-factor-code <CODE_FROM_SLACK> \
   --output json 2>&1)
 
 if echo "$APP_RESULT" | jq -e '.data.id' > /dev/null 2>&1; then
@@ -98,23 +124,16 @@ if echo "$APP_RESULT" | jq -e '.data.id' > /dev/null 2>&1; then
   echo "APP_ID=$APP_ID" >> .env
   echo "✅ ASC App created: $APP_ID"
 else
-  # セッションキャッシュ切れの場合 2FA が必要になる可能性あり
-  echo "WAITING_FOR_HUMAN: 2FA code needed"
-  cat >> progress.txt << 'MSG'
-⏸️ セッションキャッシュ切れ。
-iPhone に届く 6 桁のコードを Slack で返信してください。
-エージェントが --two-factor-code 付きで再実行します。
-MSG
+  echo "❌ App creation failed:"
+  echo "$APP_RESULT"
   exit 1
 fi
 ```
 
-### セッション管理
-- セッションキャッシュ: `~/.asc/iris/`（ファイルベース）
-- 通常運用: セッションが生きている限り **完全自動**（2FA不要、2026-03-04 実証済み）
-- 有効期限: Apple サーバー側管理（定期使用で延長される）
-- 期限切れ時のみ: Dais は Slack で 6桁コード返すだけ
-- APP_ID は自動取得 → .env に自動書き込み → 次のステップへ自動続行
+### アプリ名の重複
+`--auto-rename` はデフォルト true。名前が既に使われている場合、
+`<app_name> - <sku>` に自動リネームされる。
+作成後に ASC ダッシュボードまたは `asc app-info` で正しい名前に更新可能。
 
 ## 次のステップ
 US-005a 完了後、`references/us-005b-monetization.md` に進む。
