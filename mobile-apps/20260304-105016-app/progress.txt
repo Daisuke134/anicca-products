@@ -55,3 +55,22 @@
   - TAM calc: use wellness apps market ($13B), not TCM overall market ($86B) — more defensible
 
 ---
+
+## 2026-03-04 - US-004: Spec Generation
+
+- Generated 7 spec documents in docs/:
+  - PRD.md: App name, bundle_id, prices, 5 P0 features, 5 user stories, ASO metadata, success metrics
+  - ARCHITECTURE.md: MVVM + SwiftData, tech stack, folder structure, data models, Foundation Models integration, RevenueCat setup
+  - UX_SPEC.md: Onboarding 3 screens, HomeView, CheckInView (5 questions), ResultView, HistoryView, PaywallView
+  - DESIGN_SYSTEM.md: Color palette (brand-earth + 5 constitution colors), typography, spacing, 5 reusable components
+  - IMPLEMENTATION_GUIDE.md: Phase 0–8, full pseudo-code for all models/services/views, real RevenueCat SDK (Purchases.configure), 0 Mocks
+  - TEST_SPEC.md: Unit tests (ConstitutionType, CheckIn, FM parsing, SubscriptionService, CheckInViewModel), integration tests, UI tests, edge cases
+  - RELEASE_SPEC.md: ASO metadata (en-US + ja), screenshot spec, privacy manifest, subscription config, 7-gate preflight checklist
+- All acceptance criteria verified with evidence
+- **Learnings for future iterations:**
+  - Implementation guide should state "REAL RevenueCat SDK — not a mock" in comments to prevent confusion
+  - RevenueCatUI mentions in docs are OK as long as they're warnings/negations (not imports)
+  - FoundationModelsService should use actor isolation for thread safety
+  - Soft paywall "Maybe Later" must be visually prominent — not hidden in fine print
+
+---
