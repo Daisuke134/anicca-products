@@ -5,49 +5,34 @@ struct FoundationModelsServiceTests {
 
     let service = FoundationModelsService()
 
-    @Test func analyzeReturnsResult() async throws {
-        let result = await service.analyze(
-            energyLevel: 3,
-            sleepQuality: 3,
-            digestionComfort: 3,
-            emotionalState: 3,
-            physicalSensation: 3
+    @Test func analyzeReturnsConstitutionAndRecommendations() async throws {
+        let (constitution, recommendations) = try await service.analyze(
+            energy: 3, sleep: 3, digestion: 3, emotion: 3, physical: 3
         )
-        #expect(!result.constitutionType.isEmpty)
-        #expect(!result.recommendations.isEmpty)
+        _ = constitution
+        #expect(!recommendations.isEmpty)
     }
 
-    @Test func lowEnergyLowSleep() async throws {
-        let result = await service.analyze(
-            energyLevel: 1,
-            sleepQuality: 1,
-            digestionComfort: 3,
-            emotionalState: 3,
-            physicalSensation: 3
+    @Test func lowEnergyLowSleepReturnsResult() async throws {
+        let (constitution, recommendations) = try await service.analyze(
+            energy: 1, sleep: 1, digestion: 3, emotion: 3, physical: 3
         )
-        #expect(!result.constitutionType.isEmpty)
+        _ = constitution
+        #expect(!recommendations.isEmpty)
     }
 
-    @Test func allHighValues() async throws {
-        let result = await service.analyze(
-            energyLevel: 5,
-            sleepQuality: 5,
-            digestionComfort: 5,
-            emotionalState: 5,
-            physicalSensation: 5
+    @Test func allHighValuesReturnsResult() async throws {
+        let (_, recommendations) = try await service.analyze(
+            energy: 5, sleep: 5, digestion: 5, emotion: 5, physical: 5
         )
-        #expect(!result.recommendations.isEmpty)
+        #expect(!recommendations.isEmpty)
     }
 
     @Test func recommendationsHaveAllCategories() async throws {
-        let result = await service.analyze(
-            energyLevel: 3,
-            sleepQuality: 3,
-            digestionComfort: 3,
-            emotionalState: 3,
-            physicalSensation: 3
+        let (_, recommendations) = try await service.analyze(
+            energy: 3, sleep: 3, digestion: 3, emotion: 3, physical: 3
         )
-        let categories = Set(result.recommendations.map { $0.category })
+        let categories = Set(recommendations.map { $0.category })
         #expect(categories.contains(.food))
         #expect(categories.contains(.movement))
         #expect(categories.contains(.rest))

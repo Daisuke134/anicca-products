@@ -3,34 +3,43 @@ import Testing
 
 struct ConstitutionTypeTests {
 
-    @Test func woodConstitution() {
+    @Test func woodConstitutionJapaneseName() {
         let c = ConstitutionType.wood
-        #expect(c.displayName == "木")
-        #expect(c.color != nil)
+        #expect(c.japaneseName == "木のタイプ")
     }
 
-    @Test func fireConstitution() {
+    @Test func fireConstitutionJapaneseName() {
         let c = ConstitutionType.fire
-        #expect(c.displayName == "火")
+        #expect(c.japaneseName == "火のタイプ")
     }
 
-    @Test func earthConstitution() {
+    @Test func earthConstitutionJapaneseName() {
         let c = ConstitutionType.earth
-        #expect(c.displayName == "土")
+        #expect(c.japaneseName == "土のタイプ")
     }
 
-    @Test func metalConstitution() {
+    @Test func metalConstitutionJapaneseName() {
         let c = ConstitutionType.metal
-        #expect(c.displayName == "金")
+        #expect(c.japaneseName == "金のタイプ")
     }
 
-    @Test func waterConstitution() {
+    @Test func waterConstitutionJapaneseName() {
         let c = ConstitutionType.water
-        #expect(c.displayName == "水")
+        #expect(c.japaneseName == "水のタイプ")
     }
 
     @Test func allCasesExist() {
         let allCases = ConstitutionType.allCases
         #expect(allCases.count == 5)
+    }
+
+    @Test func fromStringValid() {
+        let c = ConstitutionType.from(string: "Fire")
+        #expect(c == .fire)
+    }
+
+    @Test func fromStringInvalidDefaultsToEarth() {
+        let c = ConstitutionType.from(string: "Unknown")
+        #expect(c == .earth)
     }
 }

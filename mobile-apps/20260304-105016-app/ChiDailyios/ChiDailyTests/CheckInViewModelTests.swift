@@ -5,37 +5,45 @@ struct CheckInViewModelTests {
 
     @Test func initialState() {
         let vm = CheckInViewModel()
-        #expect(vm.currentStep == 0)
-        #expect(vm.energyLevel == 3)
-        #expect(vm.sleepQuality == 3)
-        #expect(vm.digestionComfort == 3)
-        #expect(vm.emotionalState == 3)
-        #expect(vm.physicalSensation == 3)
-        #expect(vm.isComplete == false)
-        #expect(vm.isLoading == false)
+        #expect(vm.currentQuestion == 0)
+        #expect(vm.answers == [3, 3, 3, 3, 3])
+        #expect(vm.isAnalyzing == false)
+        #expect(vm.result == nil)
     }
 
-    @Test func totalSteps() {
+    @Test func questionsCount() {
         let vm = CheckInViewModel()
-        #expect(vm.totalSteps == 5)
+        #expect(vm.questions.count == 5)
     }
 
-    @Test func nextStepAdvances() {
+    @Test func nextQuestionAdvances() {
         let vm = CheckInViewModel()
-        vm.nextStep()
-        #expect(vm.currentStep == 1)
+        vm.nextQuestion()
+        #expect(vm.currentQuestion == 1)
     }
 
-    @Test func previousStepRetreats() {
+    @Test func previousQuestionRetreats() {
         let vm = CheckInViewModel()
-        vm.nextStep()
-        vm.previousStep()
-        #expect(vm.currentStep == 0)
+        vm.nextQuestion()
+        vm.previousQuestion()
+        #expect(vm.currentQuestion == 0)
     }
 
-    @Test func previousStepAtZeroStaysZero() {
+    @Test func previousQuestionAtZeroStaysZero() {
         let vm = CheckInViewModel()
-        vm.previousStep()
-        #expect(vm.currentStep == 0)
+        vm.previousQuestion()
+        #expect(vm.currentQuestion == 0)
+    }
+
+    @Test func selectAnswerUpdatesAnswers() {
+        let vm = CheckInViewModel()
+        vm.selectAnswer(5)
+        #expect(vm.answers[0] == 5)
+    }
+
+    @Test func nextQuestionAtEndStaysAtEnd() {
+        let vm = CheckInViewModel()
+        for _ in 0..<10 { vm.nextQuestion() }
+        #expect(vm.currentQuestion == 4)
     }
 }

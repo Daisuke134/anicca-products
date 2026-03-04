@@ -179,3 +179,21 @@ RC_SECRET_KEY=sk_yMDSyZzrDnfqNPxqFqNHwyxDOlMBS
   - RC public SDK key is NOT available via RC API v2 — must get from RC dashboard manually or use placeholder in code
 
 ---
+
+## 2026-03-04 - US-007: Testing
+
+- xcodebuild test BUILD SUCCEEDED
+- 19 tests in 3 suites all PASSED (0 failed)
+  - ConstitutionTypeTests: 8 tests (japaneseName, from(string:), allCases)
+  - FoundationModelsServiceTests: 4 tests (analyze API, categories)
+  - CheckInViewModelTests: 7 tests (initialState, navigation, selectAnswer)
+- Products.storekit created: monthly $4.99 + annual $34.99, 7-day FREE_TRIAL
+- Maestro flows: flows/paywall-purchase.yaml + flows/onboarding.yaml
+- Files changed: ChiDailyTests/*.swift (fixed API), Products.storekit (new), flows/*.yaml (new), project.yml (GENERATE_INFOPLIST_FILE=YES), prd.json (US-007 passes: true), progress.txt
+- **Learnings for future iterations:**
+  - Tests must use ACTUAL method signatures — write tests AFTER reading source files
+  - ChiDailyTests needs `GENERATE_INFOPLIST_FILE: YES` in project.yml to avoid codesign error
+  - `@Observable` properties are accessible in tests without special setup
+  - FoundationModelsService is `actor` — tests use `async throws` correctly
+
+---

@@ -47,3 +47,4 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.aniccafactory.chidailytests
         SWIFT_VERSION: 5.9
+        GENERATE_INFOPLIST_FILE: YES
