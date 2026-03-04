@@ -1,10 +1,24 @@
 # US-004: Specification Generation
 
 Source: Anthropic Complete Guide to Building Skills — 「Skills provide the recipes: step-by-step instructions for how to use those tools effectively.」
-Source: SpecKit SDD — 「Constitution → Specify → Clarify → Plan → Tasks → Analyze → Implement」
+Source: [SpecKit SDD](https://github.com/feiskyer/claude-code-settings/blob/main/skills/speckit/SKILL.md) — 「Constitution → Specify → Clarify → Plan → Tasks → Analyze → Implement」
 Source: rshankras implementation-spec — https://github.com/rshankras/claude-code-apple-skills/blob/main/skills/product/implementation-spec/SKILL.md
 
 **このファイルが US-004 の唯一の正本。** 外部スキル（implementation-spec等）は背景知識のみ（読まなくても実行可能）。
+
+## Skills to Read（行き詰まった時の参照先）
+
+| スキル | いつ読む |
+|--------|---------|
+| `.claude/skills/implementation-spec/SKILL.md` | ドキュメント構造で迷った時（rshankras orchestrator） |
+| `.claude/skills/prd-generator/SKILL.md` | PRD セクションの深掘りが必要な時 |
+| `.claude/skills/architecture-spec/SKILL.md` | ARCHITECTURE の設計パターン選定で迷った時 |
+| `.claude/skills/ux-spec/SKILL.md` | UX_SPEC のワイヤーフレーム作成で迷った時 |
+
+## ⚠️ Mixpanel に関する注意
+
+**CLAUDE.md 本体は Anicca アプリで `分析: Mixpanel` と記載しているが、mobileapp-builder で作るアプリには適用されない。**
+mobileapp-builder では **Rule 17 = アナリティクス SDK 完全禁止**。Mixpanel、Firebase Analytics、その他一切不可。
 
 ---
 
@@ -25,7 +39,7 @@ Source: rshankras implementation-spec — https://github.com/rshankras/claude-co
 | `product-plan.md` | §5 MVP Scope | IMPLEMENTATION_GUIDE.md | §2 Phase Breakdown |
 | `product-plan.md` | §6 Localization | RELEASE_SPEC.md | §2 Localized Metadata |
 | `competitive-analysis.md` | §3 Feature Comparison | PRD.md | §6 Feature Priority（競合差別化） |
-| `competitive-analysis.md` | §6 Feature Gap | ARCHITECTURE.md | §4 Differentiating Components |
+| `competitive-analysis.md` | §6 Feature Gap | ARCHITECTURE.md | §4 Dependencies（差別化技術の選定根拠） |
 | `market-research.md` | §2 TAM/SAM/SOM | PRD.md | §9 Market Context |
 
 ---
@@ -145,20 +159,33 @@ Phase 3: Execution（IMPLEMENTATION_GUIDE.md + TEST_SPEC.md + RELEASE_SPEC.md）
 # 全 CRITICAL フィールドが存在するか
 grep -q "app_name" docs/PRD.md && echo "PASS" || echo "FAIL: app_name missing"
 grep -q "bundle_id" docs/PRD.md && echo "PASS" || echo "FAIL: bundle_id missing"
-grep -qE "\\\$[0-9]+\.[0-9]+" docs/PRD.md && echo "PASS" || echo "FAIL: prices missing"
-grep -q "F-00" docs/PRD.md && echo "PASS" || echo "FAIL: Feature IDs missing"
-grep -q "Rule 17\|Rule 20\|Mixpanel" docs/PRD.md && echo "PASS" || echo "FAIL: Rules not reflected"
+grep -qE '\$[0-9]+\.[0-9]+' docs/PRD.md && echo "PASS: prices" || echo "FAIL: prices missing"
+FEAT_COUNT=$(grep -c "F-00" docs/PRD.md); [ "$FEAT_COUNT" -ge 3 ] && echo "PASS: $FEAT_COUNT features" || echo "FAIL: only $FEAT_COUNT features (need ≥3)"
+grep -q "Rule 17\|Rule 20\|Mixpanel" docs/PRD.md && echo "PASS: rules" || echo "FAIL: Rules not reflected"
+grep -q "free_tier_limit\|Free.*limit\|free.*per day" docs/PRD.md && echo "PASS: free_tier_limit" || echo "FAIL: free_tier_limit missing"
 ```
 
-**Gate 1 全 PASS → Phase 2 に進む。FAIL → PRD を修正してから進む。**
+**Gate 1 全 PASS → Phase 2 に進む。1つでも FAIL → PRD を修正してから進む。**
 
 ---
 
-### Phase 2: Design — ARCHITECTURE.md + UX_SPEC.md + DESIGN_SYSTEM.md
+### Phase 2: Design — ARCHITECTURE.md → DESIGN_SYSTEM.md → UX_SPEC.md
 
 **入力:** docs/PRD.md（SSOT）+ product-plan.md
-**出力:** docs/ARCHITECTURE.md, docs/UX_SPEC.md, docs/DESIGN_SYSTEM.md
+**出力:** docs/ARCHITECTURE.md, docs/DESIGN_SYSTEM.md, docs/UX_SPEC.md
 **依存:** Phase 1 完了（PRD.md が存在すること）
+
+**🔴 生成順序（厳守）:**
+
+```
+1. ARCHITECTURE.md（最初 — Services/Models が UX の画面設計に必要）
+    ↓
+2. DESIGN_SYSTEM.md（2番目 — Color Tokens が UX のワイヤーフレームに必要）
+    ↓
+3. UX_SPEC.md（最後 — ARCH の Services + DS の Color Tokens を参照して画面設計）
+```
+
+**なぜこの順序か:** UX_SPEC §5 ワイヤーフレームは DESIGN_SYSTEM §1 Color Tokens を参照し、UX_SPEC §2 Information Architecture は ARCHITECTURE §6 Services を参照する。逆順だと参照先が存在しない。
 
 #### ARCHITECTURE.md セクション構造（12セクション）
 
@@ -226,8 +253,9 @@ grep -q "Rule 17\|Rule 20\|Mixpanel" docs/PRD.md && echo "PASS" || echo "FAIL: R
 （各画面の ASCII ワイヤーフレーム — 主要画面のみ）
 
 ## 6. Onboarding Flow
-（ステップバイステップ: Welcome → Pain Area → Timer → Paywall）
+（ステップバイステップ: PRD §6 MVP Features から主要フローを導出）
 （🔴 最終画面 = ソフトペイウォール — Rule 20: [Maybe Later] で閉じれる）
+（フロー構成はアプリ固有。PRD の Feature 優先度に従って設計する）
 
 ## 7. Accessibility
 （accessibilityIdentifier テーブル: ID / Screen / Element）
@@ -271,22 +299,29 @@ grep -q "Rule 17\|Rule 20\|Mixpanel" docs/PRD.md && echo "PASS" || echo "FAIL: R
 
 ```bash
 # ARCHITECTURE.md が PRD の Feature を全カバーしているか
-grep -c "F-00" docs/ARCHITECTURE.md  # PRD の Feature ID が参照されている
+FEAT_IN_ARCH=$(grep -c "F-00" docs/ARCHITECTURE.md)
+[ "$FEAT_IN_ARCH" -ge 1 ] && echo "PASS: $FEAT_IN_ARCH features in ARCH" || echo "FAIL: no Feature IDs in ARCH"
 
 # RevenueCatUI が混入していないか（Rule 20）
-grep -c "RevenueCatUI" docs/ARCHITECTURE.md  # MUST = 0
+RCUI=$(grep -c "RevenueCatUI" docs/ARCHITECTURE.md)
+[ "$RCUI" -eq 0 ] && echo "PASS: no RevenueCatUI" || echo "FAIL: RevenueCatUI found ($RCUI)"
 
 # Mixpanel / Analytics が混入していないか（Rule 17）
-grep -cE "Mixpanel|Analytics|Firebase" docs/ARCHITECTURE.md  # MUST = 0
+ANALYTICS=$(grep -cE "Mixpanel|Analytics|Firebase" docs/ARCHITECTURE.md)
+[ "$ANALYTICS" -eq 0 ] && echo "PASS: no analytics" || echo "FAIL: analytics found ($ANALYTICS)"
 
 # UX_SPEC に Paywall 画面があるか（Rule 20）
-grep -q "PaywallView\|Paywall\|Maybe Later" docs/UX_SPEC.md && echo "PASS" || echo "FAIL"
+grep -q "PaywallView\|Paywall\|Maybe Later" docs/UX_SPEC.md && echo "PASS: Paywall in UX" || echo "FAIL: Paywall missing in UX"
 
 # DESIGN_SYSTEM にカラートークンがあるか
-grep -c "#[0-9A-Fa-f]" docs/DESIGN_SYSTEM.md  # ≥ 5
+COLOR_COUNT=$(grep -c "#[0-9A-Fa-f]" docs/DESIGN_SYSTEM.md)
+[ "$COLOR_COUNT" -ge 5 ] && echo "PASS: $COLOR_COUNT colors" || echo "FAIL: only $COLOR_COUNT colors (need ≥5)"
+
+# Phase 2 生成順序確認: ARCH → DS → UX の順に作成されているか
+test -f docs/ARCHITECTURE.md && test -f docs/DESIGN_SYSTEM.md && test -f docs/UX_SPEC.md && echo "PASS: all 3 files" || echo "FAIL: missing files"
 ```
 
-**Gate 2 全 PASS → Phase 3 に進む。**
+**Gate 2 全 PASS → Phase 3 に進む。1つでも FAIL → 該当ファイルを修正してから進む。**
 
 ---
 
@@ -303,6 +338,8 @@ grep -c "#[0-9A-Fa-f]" docs/DESIGN_SYSTEM.md  # ≥ 5
 
 ## 1. Prerequisites
 （Xcode version, SPM packages, 環境セットアップ手順）
+（🔴 Xcode Signing: Team ID + Provisioning Profile の設定手順を含める）
+（🔴 RevenueCat API Key: `.env` ファイルに保管。コードにハードコード禁止。`ProcessInfo.processInfo.environment["RC_API_KEY"]` または `Bundle.main.infoDictionary` 経由で読む）
 
 ## 2. Phase Breakdown
 （Phase テーブル: Phase / Features (F-ID) / Files / Estimated Complexity）
@@ -352,6 +389,7 @@ grep -c "#[0-9A-Fa-f]" docs/DESIGN_SYSTEM.md  # ≥ 5
 （🔴 Rule 17: grep -r "Mixpanel|Analytics|Firebase" → 0）
 （🔴 Rule 20: grep -r "RevenueCatUI" → 0）
 （🔴 Rule 20b: grep -r "ATTrackingManager" → 0）
+（🔴 Foundation Models fallback: iOS version 検出 → iOS 26+ = AI / iOS < 26 = static curated content のテスト必須）
 
 ## 6. Performance Targets
 （起動時間、メモリ使用量、バッテリー消費の目標値）
@@ -412,8 +450,8 @@ done
 grep -oE '"[a-z_]+"' docs/UX_SPEC.md | head -5  # ID 存在確認
 
 # PRD prices → RELEASE_SPEC metadata
-grep -oE "\\\$[0-9]+\.[0-9]+" docs/PRD.md | sort -u > /tmp/prd_prices.txt
-grep -oE "\\\$[0-9]+\.[0-9]+" docs/RELEASE_SPEC.md | sort -u > /tmp/release_prices.txt
+grep -oE '\$[0-9]+\.[0-9]+' docs/PRD.md | sort -u > /tmp/prd_prices.txt
+grep -oE '\$[0-9]+\.[0-9]+' docs/RELEASE_SPEC.md | sort -u > /tmp/release_prices.txt
 diff /tmp/prd_prices.txt /tmp/release_prices.txt && echo "PASS: prices match" || echo "FAIL: price mismatch"
 
 # RevenueCat SDK が IMPLEMENTATION_GUIDE に存在するか
@@ -443,6 +481,12 @@ Source: Perforce SRS — 「Each requirement should be traceable to a specific d
 | ARCHITECTURE.md | Data Models | TEST_SPEC §2 | Unit Test 対象 |
 | ARCHITECTURE.md | Services | TEST_SPEC §2-3 | Unit + Integration Test 対象 |
 | DESIGN_SYSTEM.md | Color Tokens | UX_SPEC §5 | ワイヤーフレーム内の色指定 |
+| ARCHITECTURE.md | §7 UserDefaults keys | TEST_SPEC §2 | Unit Test で保存/読み出し検証 |
+| PRD.md | §8 trial_days | IMPL_GUIDE §5 | RevenueCat Offering の trial period |
+| PRD.md | §11 Localization | RELEASE_SPEC §2 | ローカライズ対応言語一致 |
+| ARCHITECTURE.md | §10 Notifications | TEST_SPEC §4 | E2E で通知スケジュール検証 |
+| DESIGN_SYSTEM.md | §4 Components | IMPL_GUIDE §4 | SwiftUI コンポーネント実装 |
+| PRD.md | §7 User Stories | TEST_SPEC §2 | 各 US に対応する Unit Test |
 
 ---
 
@@ -496,7 +540,7 @@ Source: [Anthropic Reduce Hallucinations](https://platform.claude.com/docs/en/te
 | 1 | docs/PRD.md が存在する | `test -f docs/PRD.md && echo PASS` |
 | 2 | PRD に app_name が含まれる | `grep -q "app_name\|App Name" docs/PRD.md && echo PASS` |
 | 3 | PRD に bundle_id が含まれる | `grep -q "bundle_id\|com\." docs/PRD.md && echo PASS` |
-| 4 | PRD に subscription prices が含まれる | `grep -cE "\\\$[0-9]+\.[0-9]+" docs/PRD.md` ≥ 2 |
+| 4 | PRD に subscription prices が含まれる | `grep -cE '\$[0-9]+\.[0-9]+' docs/PRD.md` ≥ 2 |
 | 5 | PRD に Feature ID が含まれる | `grep -c "F-00" docs/PRD.md` ≥ 3 |
 | 6 | docs/ARCHITECTURE.md が存在する | `test -f docs/ARCHITECTURE.md && echo PASS` |
 | 7 | ARCHITECTURE に RevenueCatUI がない | `grep -c "RevenueCatUI" docs/ARCHITECTURE.md` = 0 |
@@ -508,7 +552,7 @@ Source: [Anthropic Reduce Hallucinations](https://platform.claude.com/docs/en/te
 | 13 | DESIGN_SYSTEM にカラートークンがある | `grep -c "#[0-9A-Fa-f]" docs/DESIGN_SYSTEM.md` ≥ 5 |
 | 14 | docs/IMPLEMENTATION_GUIDE.md が存在する | `test -f docs/IMPLEMENTATION_GUIDE.md && echo PASS` |
 | 15 | IMPL_GUIDE に RevenueCat SDK 参照がある | `grep -q "Purchases.shared\|import RevenueCat" docs/IMPLEMENTATION_GUIDE.md && echo PASS` |
-| 16 | IMPL_GUIDE に Mock がない | `grep -c "Mock" docs/IMPLEMENTATION_GUIDE.md` = 0（Tests セクション除外） |
+| 16 | IMPL_GUIDE に Mock がない（テストセクション除外） | `sed '/## .*[Tt]est/,/^## /d' docs/IMPLEMENTATION_GUIDE.md \| grep -c "Mock"` = 0 |
 | 17 | docs/TEST_SPEC.md が存在する | `test -f docs/TEST_SPEC.md && echo PASS` |
 | 18 | TEST_SPEC に Greenlight チェックがある | `grep -q "greenlight\|Greenlight" docs/TEST_SPEC.md && echo PASS` |
 | 19 | docs/RELEASE_SPEC.md が存在する | `test -f docs/RELEASE_SPEC.md && echo PASS` |
