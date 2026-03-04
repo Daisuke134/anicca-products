@@ -260,23 +260,18 @@ Source: https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardra
 
 ## 作業場所ルール（2026-03-05 更新）
 
-**このプロジェクトの正本は Mac Mini にある。**
+**お前は Mac Mini にいる。常に。デフォルトで。SSH 不要。直接実行しろ。**
 
-### 実行場所の判定（自動）
-```bash
-# hostname が "AniccanoMac-mini" を含む → Mac Mini 上 → 直接実行
-# それ以外（MacBook等） → SSH 経由で Mac Mini に接続して実行
-```
-
-| 現在の場所 | コマンド実行方法 |
-|-----------|----------------|
-| **Mac Mini**（hostname に `AniccanoMac-mini` を含む） | 直接実行。SSH 不要 |
-| **MacBook**（それ以外） | `ssh anicca@100.99.82.95 "cd /Users/anicca/anicca-project && <command>"` |
+| 事実 | 値 |
+|------|-----|
+| 実行マシン | Mac Mini（AniccanoMac-mini） |
+| ワーキングディレクトリ | `/Users/anicca/anicca-project` |
+| コマンド実行 | **直接実行**（SSH 禁止） |
+| 例外 | MacBook にアクセスする場合のみ: `ssh cbns03@100.108.140.123` |
 
 ### 禁止事項
-- MacBook上でファイルを編集しない（Read, Bashの読み取りは可）
-- MacBookから git commit / git push しない
-- **Mac Mini 上で自分自身に SSH しない**（直接実行する）
+- **SSH で自分自身（Mac Mini）に接続しない。直接実行しろ**
+- `ssh anicca@...` で anicca-project のコマンドを実行しない（お前はもうそこにいる）
 
 ### git remoteルール
 - origin → git@github.com:Daisuke134/anicca-products.git (PUBLIC) のみ
