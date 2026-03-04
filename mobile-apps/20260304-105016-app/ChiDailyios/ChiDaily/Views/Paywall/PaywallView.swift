@@ -72,7 +72,9 @@ struct PaywallView: View {
                     .accessibilityElement(children: .combine)
                 } else {
                     PrimaryButton(title: NSLocalizedString("Start 7-Day Free Trial", comment: "")) {
-                        Task { await purchasePackage(offering.availablePackages.first!) }
+                        if let pkg = offering.availablePackages.first {
+                            Task { await purchasePackage(pkg) }
+                        }
                     }
                     .accessibilityIdentifier("paywall_cta")
                 }

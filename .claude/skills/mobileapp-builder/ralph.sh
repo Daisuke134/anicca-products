@@ -35,6 +35,12 @@ notify_slack "🏭 ralph.sh 起動: $(basename "$SCRIPT_DIR")"
 PREV_PASSES=""
 
 for i in $(seq 1 $MAX_ITERATIONS); do
+  # WAITING_FOR_HUMAN: don't burn iterations while waiting for human input
+  # Source: https://github.com/snarktank/ralph — "pause until resolved"
+  while [ -f "$SCRIPT_DIR/progress.txt" ] && grep -q "WAITING_FOR_HUMAN" "$SCRIPT_DIR/progress.txt"; do
+    echo "🏭 ⏸️ WAITING_FOR_HUMAN 検出。人間の入力待ち... (イテレーション消費しない)"
+    sleep 30
+  done
   echo ""
   echo "🏭 ========================================"
   echo "🏭 Iteration $i / $MAX_ITERATIONS 開始: $(date)"

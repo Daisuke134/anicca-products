@@ -154,7 +154,7 @@
       ],
       "priority": 9,
       "passes": false,
-      "notes": "WAITING_FOR_HUMAN: RC iOS Public API Key (appl_XXXX) が SubscriptionService.swift にプレースホルダーのまま。app.revenuecat.com → Chi Daily project (proj031e163b) → App Settings → iOS → Public API Key を取得して ChiDailyios/ChiDaily/Services/SubscriptionService.swift line 11 と mobileapp-builder .env の RC_IOS_PUBLIC_KEY に設定すること。apple-appstore-reviewer P0=1 (RC key placeholder), P1=0, P2=1 (force unwrap PaywallView)。"
+      "notes": "WAITING_FOR_HUMAN: App Privacy を ASC Web で設定する必要あり。RC key 修正済み (appl_uJcOuZaxwYaOemHEHuSHNG)。新ビルド v2 アップロード済み (build 0b9f5966)。primaryCategory=HEALTH_AND_FITNESS 設定済み。残り作業: (1) https://appstoreconnect.apple.com → Chi Daily (APP_ID=6759994539) → App Privacy → 「Does your app collect data?」→ No → Publish → (2) touch .app-privacy-done を実行"
     }
   ]
 }

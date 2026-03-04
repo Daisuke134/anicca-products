@@ -8,7 +8,7 @@ final class SubscriptionService {
     var currentOffering: Offering?
 
     private let freeLimit = 3
-    private let rcPublicKey = "appl_REPLACE_WITH_RC_PUBLIC_KEY"
+    private let rcPublicKey = "appl_uJcOuZaxwYaOemHEHuSHNG"
 
     func configure() {
         Purchases.configure(withAPIKey: rcPublicKey)

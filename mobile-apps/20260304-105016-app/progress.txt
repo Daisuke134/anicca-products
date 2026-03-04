@@ -252,3 +252,29 @@ RC_SECRET_KEY=sk_yMDSyZzrDnfqNPxqFqNHwyxDOlMBS
 - Slack #metrics に再通知送信
 - WAITING_FOR_HUMAN: app.revenuecat.com → Chi Daily (proj031e163b) → App Settings → iOS → Public API Key (appl_XXXX) を .env の RC_IOS_PUBLIC_KEY に設定すること
 
+---
+
+## 2026-03-04 - US-009: App Store Submission (RC key 修正 → App Privacy WAITING_FOR_HUMAN)
+
+- RC key (appl_uJcOuZaxwYaOemHEHuSHNG) を .env から取得してコードに設定
+- PaywallView force unwrap 修正 (offering.availablePackages.first! → optional binding)
+- CURRENT_PROJECT_VERSION 1→2 に上げて再ビルド (CFBundleVersion重複エラー回避)
+- 新ビルド v2 アップロード成功 (build 0b9f5966-a9bb-4d4b-a8bb-d3ceddfe32b3, processingState=VALID)
+- appStoreVersion (372b8ad5) に新ビルドをアタッチ完了
+- primaryCategory = HEALTH_AND_FITNESS を appInfo (003b61a7) に設定完了
+- Submission API で 2つのブロッカー発見:
+  1. ✅ primaryCategory 未設定 → 修正済み
+  2. ❌ App Privacy (appDataUsages) 未公開 → ASC API非対応、Web UIが必須
+- App Privacy API (/v1/appDataUsages, /v1/appDataUsageGroups) は API key では設定不可（404）
+- WAITING_FOR_HUMAN: ASC Web で App Privacy を設定して `.app-privacy-done` を作成すること
+  - URL: https://appstoreconnect.apple.com
+  - Chi Daily (APP_ID=6759994539) → App Privacy
+  - 「Does your app collect any data?」→ 「No」選択 → 「Publish」クリック
+  - その後: touch /Users/anicca/anicca-project/mobile-apps/20260304-105016-app/.app-privacy-done
+- **Learnings for future iterations:**
+  - App Privacy (appDataUsages) は ASC API key では設定不可 — Web UI のみ (常にWAITING_FOR_HUMAN)
+  - primaryCategory は必須 — 設定なしだと reviewSubmissionItems 409
+  - CFBundleVersion は前回アップロード値より大きくないとアップロード失敗 (409 DUPLICATE)
+  - JWT ES256 の署名は DER→raw(r||s) 変換が必要 (openssl dgst -sha256 -sign はDER形式)
+  - appDataUsages 未公開 + primaryCategory 未設定は submission で 409 STATE_ERROR になる
+
