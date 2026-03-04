@@ -23,7 +23,7 @@ Input: spec/01-trend.md + product-plan.md + competitive-analysis.md + market-res
 ## CRITICAL
 - docs/PRD.md MUST contain: app_name, bundle_id, subscription prices (monthly + annual)
 - docs/IMPLEMENTATION_GUIDE.md MUST reference RevenueCat SDK (not Mock)
-- docs/PRD.md の prices は US-005 で IAP 作成に使われる
+- docs/PRD.md の prices は US-005b で IAP 作成に使われる
 
 ## Acceptance Criteria
 - docs/PRD.md exists and contains app_name, bundle_id, subscription prices

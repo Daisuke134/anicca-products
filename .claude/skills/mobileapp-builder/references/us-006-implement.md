@@ -42,7 +42,7 @@ done
 2. `.claude/skills/ios-ux-design/SKILL.md` — UI/UX デザイン
 3. `.claude/skills/mobile-ios-design/SKILL.md` — SwiftUI コード参照
 
-## Quality Gate (MANDATORY — US-005 の成果物検証)
+## Quality Gate (MANDATORY — US-005b の成果物検証)
 ```bash
 # RC offerings + SPM が存在しないと Mock を作ってしまう
 asc subscriptions groups list --app $APP_ID | grep -q "group" || { echo "GATE FAIL: no IAP groups"; exit 1; }

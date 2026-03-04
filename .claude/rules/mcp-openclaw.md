@@ -29,7 +29,7 @@ user-mixpanel-run_funnels_query: {"project_id": 3970220, ...}
 ## RevenueCat（API v2 curl — MCP不使用）
 
 新規アプリの RC セットアップは MCP ではなく API v2 curl で行う。
-レシピ全文: `.claude/skills/mobileapp-builder/references/us-005-infra.md` の Step 7 を参照。
+レシピ全文: `.claude/skills/mobileapp-builder/references/us-005b-monetization.md` の Step 7 を参照。
 
 認証: `Authorization: Bearer <SK Key v2>`（WAITING_FOR_HUMAN で Slack から受信）
 

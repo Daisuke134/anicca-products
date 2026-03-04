@@ -114,6 +114,7 @@ asc subscriptions review-screenshots create \
 
 ### 7.0: 人間に依頼（WAITING_FOR_HUMAN）
 
+⛔ **SK Key を受け取るまで Step 7.1 以降に進むことを禁止する。** RC API Key なしで Product/Offering 作成は不可能。
 CC は Slack で以下を送信:
 ```
 WAITING_FOR_HUMAN: RC Setup
