@@ -5,6 +5,7 @@ import emotionDetectorRouter from './emotionDetector.js';
 import focusCoachRouter from './focusCoach.js';
 import habitDesignerRouter from './habitDesigner.js';
 import intentRouterRouter from './intentRouter.js';
+import decisionClarifierRouter from './decisionClarifier.js';
 import promptSanitizerRouter from './promptSanitizer.js';
 
 const router = Router();
@@ -272,6 +273,48 @@ if (PAY_TO) {
               }),
             },
           },
+          'POST /decision-clarifier': {
+            accepts: {
+              scheme: 'exact',
+              price: '$0.008',
+              network,
+              payTo: PAY_TO,
+            },
+            description: 'Decision clarifier for AI agents — detect cognitive biases and clarify decisions using behavioral economics',
+            mimeType: 'application/json',
+            extensions: {
+              ...declareDiscoveryExtension({
+                output: {
+                  example: {
+                    decision_id: 'dec_a1b2c3d4',
+                    recommended_option: 'Switch to the new provider',
+                    confidence: 0.85,
+                    biases_detected: [
+                      {
+                        bias: 'sunk_cost',
+                        description: 'Reluctance to switch due to past investment',
+                        impact: 'Overvaluing past investment instead of future value',
+                      },
+                    ],
+                    reasoning: 'The new provider offers better value...',
+                    reframe: 'If choosing today with no history, which offers more value?',
+                    safe_t_flag: false,
+                  },
+                  schema: {
+                    properties: {
+                      decision_id: { type: 'string' },
+                      recommended_option: { type: 'string' },
+                      confidence: { type: 'number' },
+                      biases_detected: { type: 'array' },
+                      reasoning: { type: 'string' },
+                      reframe: { type: 'string' },
+                      safe_t_flag: { type: 'boolean' },
+                    },
+                  },
+                },
+              }),
+            },
+          },
           'POST /intent-router': {
             accepts: {
               scheme: 'exact',
@@ -328,6 +371,7 @@ if (PAY_TO) {
 
 router.use('/buddhist-counsel', buddhistCounselRouter);
 router.use('/context-compressor', contextCompressorRouter);
+router.use('/decision-clarifier', decisionClarifierRouter);
 router.use('/emotion-detector', emotionDetectorRouter);
 router.use('/focus-coach', focusCoachRouter);
 router.use('/habit-designer', habitDesignerRouter);
