@@ -89,26 +89,12 @@ for pp in json.load(sys.stdin)['data']:
 done
 ```
 
-### 6.6: IAP Review Screenshot（必須！）
+### 6.6: IAP Review Screenshot → US-008 Step 1h で実行
 
-Source: submission-checklist.md D6-D7
-Source: https://developer.apple.com/documentation/appstoreconnectapi/subscription_review_screenshots
+**⚠️ US-005b 時点ではアプリ未ビルド（US-006 が後）なので Paywall スクリーンショットは撮れない。**
+**US-008 Step 1h でアプリビルド後に Paywall 画面をキャプチャしてアップロードする。**
 
-```bash
-xcrun simctl io booted screenshot /tmp/paywall-review.png
-
-asc subscriptions review-screenshots create \
-  --subscription-id $MONTHLY_ID \
-  --file /tmp/paywall-review.png
-
-asc subscriptions review-screenshots create \
-  --subscription-id $ANNUAL_ID \
-  --file /tmp/paywall-review.png
-```
-
-### PROHIBITED
-- ⛔ Review Screenshot なしで US-005b を passes:true にするな
-- ⛔ `asc subscriptions images create` を使うな（プロモーショナル画像用、間違い）
+ここでは何もしない。US-005b の passes:true 判定に Review Screenshot は不要。
 
 ## Step 7: RC Setup（RevenueCat API v2 — 全自動）
 

@@ -42,66 +42,134 @@ echo "✅ Greenlight ASC scan passed"
 ### PROHIBITED
 - ⛔ ASC scan が失敗したまま passes:true にするな
 
-## Step 1: Screenshots (AXe + Koubou)
+## Step 1: Screenshots（ロケール別キャプチャ + ASC アップロード）
 
-### 1a: AXe でシミュレータ操作 + スクリーンキャプチャ
-```bash
-# Boot simulator
-xcrun simctl boot $UDID
-# Install app
-xcrun simctl install $UDID <path-to-.app>
-# Launch
-xcrun simctl launch $UDID <bundle_id>
-sleep 3
+Source: asc-shots-pipeline SKILL.md（rudrankriyam）
+Verified: 2026-03-04 Chi Daily 実機テスト済み — en-US 4枚 + ja 4枚 = 8枚 COMPLETE
 
-# Screenshot each screen
-for i in 1 2 3 4 5; do
-  # Navigate using AXe (tab bar taps or swipes)
-  axe tap $UDID <x> <y>
-  sleep 1
-  xcrun simctl io $UDID screenshot screenshots/raw/screen_$i.png
-done
-```
-
-## 使用デバイス（固定）
+### 使用デバイス（固定）
 - **iPhone 17 Pro** (1290×2796) — APP_IPHONE_67 対応 ✅
 - ❌ iPhone 16e (1170×2532) は使用禁止（ASC サイズ不適合）
 
-AXe tab bar coordinates (iPhone 17 Pro, 393×852pt): y=820, x=49/148/246/344
-Source: Real AXe v1.4.0 (`brew install cameroncooke/axe/axe`)
-
-### 1b: Koubou でフレーム（必須！スキップ禁止）
-
-**⚠️ 生スクショの直接アップロードは禁止。必ず Koubou でフレーミングする。**
-スキップしたら validate.sh GATE 4 で FAIL する。
+### 1a: シミュレータ起動 + アプリインストール
 ```bash
-asc screenshots frame \
-  --input screenshots/raw/ \
-  --output screenshots/framed/ \
-  --device "iphone-17-pro"
-```
-Source: Koubou v0.14.0 (`asc screenshots frame`)
-
-### 1c: sips リサイズ (必要な場合のみ)
-```bash
-# ASC requires exact dimensions
-sips -z 2556 1179 screenshots/framed/*.png
+xcrun simctl boot $UDID
+xcrun simctl install $UDID <path-to-.app>
 ```
 
-### 1d: ASC アップロード
+### 1b: en-US スクリーンショットキャプチャ
 ```bash
-for file in screenshots/framed/*.png; do
-  asc screenshots upload --app $APP_ID --version-id $VERSION_ID \
-    --locale en-US --display-type APP_IPHONE_67 --file "$file"
-done
-# Repeat for ja locale
+# en-US ロケール設定
+xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLanguages -array "en"
+xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLocale "en_US"
+xcrun simctl shutdown $UDID && sleep 2 && xcrun simctl boot $UDID && sleep 3
+
+# アプリ起動
+xcrun simctl launch $UDID <bundle_id>
+sleep 3
+
+# en-US ディレクトリ作成 + キャプチャ
+mkdir -p screenshots/raw/en-US
+xcrun simctl io $UDID screenshot screenshots/raw/en-US/screen_1.png
+# AXe swipe/tap で次画面に遷移 → キャプチャを繰り返す
+axe swipe $UDID left
+sleep 1
+xcrun simctl io $UDID screenshot screenshots/raw/en-US/screen_2.png
+# ... screen_3, screen_4 も同様
 ```
+
+### 1c: ja スクリーンショットキャプチャ
+```bash
+# ja ロケール設定
+xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLanguages -array "ja"
+xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLocale "ja_JP"
+xcrun simctl shutdown $UDID && sleep 2 && xcrun simctl boot $UDID && sleep 3
+
+# アプリ起動
+xcrun simctl launch $UDID <bundle_id>
+sleep 3
+
+# ja ディレクトリ作成 + キャプチャ
+mkdir -p screenshots/raw/ja
+xcrun simctl io $UDID screenshot screenshots/raw/ja/screen_1.png
+axe swipe $UDID left
+sleep 1
+xcrun simctl io $UDID screenshot screenshots/raw/ja/screen_2.png
+# ... screen_3, screen_4 も同様
+```
+
+### 1d: en-US に戻す（後続ステップのため）
+```bash
+xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLanguages -array "en"
+xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLocale "en_US"
+```
+
+### 1e: MD5 検証（en-US ≠ ja 確認）
+```bash
+md5 screenshots/raw/en-US/*.png screenshots/raw/ja/*.png
+# 全ファイルのハッシュが異なることを確認。同一ハッシュ = ロケール切替失敗 → やり直し
+```
+
+### 1f: ASC アップロード
+```bash
+# version-localization ID を取得
+EN_LOC_ID=$(asc app-store-version-localizations list --version-id $VERSION_ID --output json | jq -r '.data[] | select(.attributes.locale=="en-US") | .id')
+JA_LOC_ID=$(asc app-store-version-localizations list --version-id $VERSION_ID --output json | jq -r '.data[] | select(.attributes.locale=="ja") | .id')
+
+# en-US アップロード
+export ASC_BYPASS_KEYCHAIN=true
+asc screenshots upload --version-localization $EN_LOC_ID --path screenshots/raw/en-US --device-type IPHONE_67
+
+# ja アップロード
+asc screenshots upload --version-localization $JA_LOC_ID --path screenshots/raw/ja --device-type IPHONE_67
+```
+
+**⚠️ 正しいフラグ（実証済み）:**
+| フラグ | 値 | 説明 |
+|--------|-----|------|
+| `--version-localization` | LOC_ID | ロケール別の version-localization ID |
+| `--path` | ディレクトリパス | ファイルではなくディレクトリを指定 |
+| `--device-type` | `IPHONE_67` | iPhone 17 Pro 対応サイズ |
+
+**❌ 存在しないフラグ（使うな）:** `--locale`, `--file`, `--app`, `--version-id`, `--display-type`
+
+### 1g: アップロード検証
+```bash
+asc screenshots list --version-localization $EN_LOC_ID --output table
+asc screenshots list --version-localization $JA_LOC_ID --output table
+# 両方とも uploadOperationStatus = COMPLETE であること
+```
+
+### 1h: サブスクリプション Review Screenshot（IAP 審査用）
+
+Source: Apple ASC API — Subscription Review Screenshots
+依存: US-005b で $MONTHLY_ID, $ANNUAL_ID が .env に記録済み
+
+**Paywall 画面をキャプチャして IAP 審査用にアップロード:**
+```bash
+# アプリで Paywall 画面を表示（オンボーディング最終画面 or 設定→Upgrade）
+# AXe で Paywall まで遷移してからキャプチャ
+xcrun simctl io $UDID screenshot /tmp/paywall-review.png
+
+# Monthly + Annual 両方にアップロード
+asc subscriptions review-screenshots create \
+  --subscription-id $MONTHLY_ID \
+  --file /tmp/paywall-review.png
+
+asc subscriptions review-screenshots create \
+  --subscription-id $ANNUAL_ID \
+  --file /tmp/paywall-review.png
+```
+
+**⚠️ US-005b（モネタイズ）時点ではアプリ未ビルドなのでここで実行する。**
 
 **PROHIBITED:**
 - ⛔ screenshot-creator スキル禁止
 - ⛔ Pencil MCP 禁止（壊れてる）
 - ⛔ Python/Pillow/ImageMagick 禁止
 - ⛔ axe-shim（偽物）禁止
+- ⛔ Koubou（`asc screenshots frame`）禁止（バグあり、生スクショ直接アップロードで OK）
+- ⛔ `--locale`, `--file`, `--display-type` フラグ禁止（存在しない）
 
 ## Step 2: Metadata Sync
 ```bash
@@ -227,7 +295,8 @@ TESTFLIGHT_LINK=$TESTFLIGHT_URL
 ```
 
 ## Acceptance Criteria
-- Screenshots uploaded to ASC for en-US and ja (AXe + Koubou)
+- Screenshots uploaded to ASC for en-US and ja (AXe + xcrun simctl io)
+- Subscription review screenshots uploaded for Monthly + Annual
 - Metadata synced (en-US + ja)
 - .ipa uploaded (processingState = VALID)
 - Build attached to version
