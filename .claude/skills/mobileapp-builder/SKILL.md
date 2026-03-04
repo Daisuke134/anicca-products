@@ -35,7 +35,11 @@ Source: rshankras ProductAgent WORKFLOW.md + snarktank/ralph
 | US-005b | Monetization | IAP + pricing + RC project + offerings | `asc-ppp-pricing` + RC API v2 (curl) | `references/us-005b-monetization.md` |
 | US-006 | Implementation | Code the app following IMPLEMENTATION_GUIDE.md | `ios-ux-design` + `paywall-generator` + generators/* | `references/us-006-implement.md` |
 | US-007 | Testing | Unit + Integration + Maestro E2E (subscription purchase) | `tdd-feature` + `test-spec` + `maestro-e2e` | `references/us-007-testing.md` |
-| US-008 | Release Prep | Screenshots (AXe) + metadata + build + upload + release-review | `axe-ios-simulator` + `asc-shots-pipeline` + `release-review` | `references/us-008-release.md` |
+| US-008a | Screenshots | Capture + upload + review screenshots (en-US + ja) | `axe-ios-simulator` + `asc-shots-pipeline` | `references/us-008-release.md` Steps 1a-1h |
+| US-008b | Metadata | ASC metadata sync (en-US + ja) | `asc-metadata-sync` | `references/us-008-release.md` Step 2 |
+| US-008c | Build + Upload | IPA build + upload + version attach | `asc-xcode-build` + `asc-build-lifecycle` | `references/us-008-release.md` Step 3 |
+| US-008d | Compliance | Age rating + encryption + rights + availability + pricing + review details | `asc-release-flow` | `references/us-008-release.md` Steps 4-6 |
+| US-008e | Preflight + TF | release-review + validate + TestFlight + Slack | `release-review` + `asc-testflight-orchestration` | `references/us-008-release.md` Steps 7-10 |
 | US-009 | Submit | App Privacy (auto: asc web privacy) + submit → WAITING_FOR_REVIEW | `asc-submission-health` | `references/us-009-submit.md` |
 
 
@@ -71,7 +75,7 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 21 | **1アプリ = 1 RC プロジェクト** Source: https://community.revenuecat.com/general-questions-7/project-vs-app-1899 |
 | 22 | **AXe 座標タップでタブ切り替え**。Tab Bar の accessibility label がない場合 |
 | 23 | **Maestro E2E テスト必須。サブスク購入フローを含む** |
-| 24 | **release-review 5 checklists 必須（US-008）** |
+| 24 | **release-review 5 checklists 必須（US-008e）** |
 | 25 | **App Privacy は asc web privacy apply + publish で自動（US-009）** |
 | 26 | **demoAccountRequired = false を明示指定**。デフォルト true でデモアカ未入力だと提出ブロック |
 | 27 | **PrivacyInfo.xcprivacy 必須**。Source: Apple WWDC23 |
@@ -162,6 +166,6 @@ Source: Anthropic "The Complete Guide to Building Skills for Claude"
 | `references/us-005b-monetization.md` | US-005b: IAP + pricing + RevenueCat |
 | `references/us-006-implement.md` | US-006 detailed instructions |
 | `references/us-007-testing.md` | US-007 detailed instructions |
-| `references/us-008-release.md` | US-008 detailed instructions |
+| `references/us-008-release.md` | US-008a~e detailed instructions (single file, steps referenced by sub-US) |
 | `references/us-009-submit.md` | US-009 detailed instructions |
 | `references/rshankras-WORKFLOW.md` | rshankras original workflow (reference) |

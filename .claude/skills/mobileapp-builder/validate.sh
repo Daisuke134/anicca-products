@@ -88,7 +88,7 @@ fi
 ##############################################
 echo ""
 echo "--- Gate 2: Greenlight ASC Scan ---"
-if [ "$(us_passes US-008)" = "true" ] && [ -n "$APP_ID" ]; then
+if [ "$(us_passes US-008d)" = "true" ] && [ -n "$APP_ID" ]; then
   if command -v greenlight &>/dev/null && [ -f ~/.greenlight/config.json ]; then
     GL_SCAN=$(greenlight scan --app-id "$APP_ID" --tier 1 --format json 2>/dev/null || echo '{"summary":{"passed":false,"blocks":999}}')
     GL_PASSED=$(echo "$GL_SCAN" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('summary',{}).get('passed',False))" 2>/dev/null || echo "False")
@@ -109,7 +109,7 @@ for f in d.get('findings',[]):
     log_skip "greenlight scan not configured"
   fi
 else
-  log_skip "US-008 not yet passed or APP_ID not found"
+  log_skip "US-008d not yet passed or APP_ID not found"
 fi
 
 ##############################################
@@ -163,7 +163,7 @@ fi
 ##############################################
 echo ""
 echo "--- Gate 4: Screenshots ---"
-if [ "$(us_passes US-008)" = "true" ]; then
+if [ "$(us_passes US-008a)" = "true" ]; then
   # Search for raw screenshots in any subdirectory (e.g., ChiDailyios/screenshots/raw/)
   RAW_COUNT=$(find "$APP_DIR" -path "*/screenshots/raw/*.png" 2>/dev/null | wc -l | tr -d ' ')
   if [ "$RAW_COUNT" -ge 4 ]; then
@@ -180,7 +180,7 @@ if [ "$(us_passes US-008)" = "true" ]; then
     log_fail "Screenshots NOT unique: all $RAW_COUNT have same hash (copy-paste detected)"
   fi
 else
-  log_skip "US-008 not yet passed"
+  log_skip "US-008a not yet passed"
 fi
 
 ##############################################
@@ -188,7 +188,7 @@ fi
 ##############################################
 echo ""
 echo "--- Gate 5: Build Status ---"
-if [ "$(us_passes US-008)" = "true" ] && [ -n "$APP_ID" ]; then
+if [ "$(us_passes US-008c)" = "true" ] && [ -n "$APP_ID" ]; then
   BUILD_STATE=$(asc builds list --app "$APP_ID" --sort -uploadedDate --limit 1 --output json 2>/dev/null | python3 -c "
 import json,sys
 d=json.load(sys.stdin)
@@ -204,7 +204,7 @@ else:
     log_fail "Build processingState=$BUILD_STATE (must be VALID)"
   fi
 else
-  log_skip "US-008 not yet passed or APP_ID not found"
+  log_skip "US-008c not yet passed or APP_ID not found"
 fi
 
 ##############################################
