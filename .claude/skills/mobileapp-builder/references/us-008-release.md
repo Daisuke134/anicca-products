@@ -193,7 +193,7 @@ Source: asc CLI docs
 ```bash
 # 環境変数から Dais のメールを取得
 source ~/.config/mobileapp-builder/.env
-TESTER_EMAIL="${TESTER_EMAIL:-keiodaisuke@gmail.com}"
+TESTER_EMAIL="${TESTER_EMAIL:-$APPLE_ID}"
 
 # テスター招待
 asc testflight beta-testers add --email "$TESTER_EMAIL" --group-id $GROUP_ID --first-name "Dais" --last-name "Narita"

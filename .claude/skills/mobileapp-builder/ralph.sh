@@ -8,7 +8,7 @@ set -e  # snarktank/ralph original: no pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 MAX_ITERATIONS="${1:-10}"
-SLACK_CHANNEL="C091G3PKHL2"
+SLACK_CHANNEL="${SLACK_CHANNEL_ID:-C091G3PKHL2}"
 
 # Source secrets from .env (Twelve-Factor App: https://12factor.net/config)
 if [ -f ~/.config/mobileapp-builder/.env ]; then

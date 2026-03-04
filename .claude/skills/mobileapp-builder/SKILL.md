@@ -121,7 +121,7 @@ mobile-apps/<app-name>/
 
 ## Reporting (ralph.sh → Slack)
 
-ralph.sh posts to Slack #metrics (C091G3PKHL2) via curl after each iteration.
+ralph.sh posts to Slack #metrics via curl after each iteration.
 CC does NOT post to Slack. ralph.sh (bash) does.
 
 ```bash
@@ -129,7 +129,7 @@ CC does NOT post to Slack. ralph.sh (bash) does.
 curl -s -X POST "https://slack.com/api/chat.postMessage" \
   -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
   -H "Content-Type: application/json" \
-  -d "{"channel":"C091G3PKHL2","text":"🏭 Iteration $i done: $(head -3 progress.txt)"}"
+  -d "{"channel":"$SLACK_CHANNEL_ID","text":"🏭 Iteration $i done: $(head -3 progress.txt)"}"
 ```
 ## Reviewer Agent (v2 で追加予定)
 Source: ManaLabs (https://manalabs.wtf/appfactory)
