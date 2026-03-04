@@ -140,8 +140,8 @@
         "Typecheck passes"
       ],
       "priority": 8,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "IPA uploaded BUILD_ID=4a841872-d955-4f78-bf0c-aa0bf5805c71 processingState=VALID. Version 372b8ad5 PREPARE_FOR_SUBMISSION. Age Rating 22 items SET. Review Details SET (demoAccountRequired=false). Build attached. Pricing free (appPriceSchedule USA). Availability 175 territories. Encryption usesNonExemptEncryption=false. Content Rights DOES_NOT_USE_THIRD_PARTY_CONTENT. Localizations en-US+ja complete. Screenshots 4x APP_IPHONE_67 each locale. Privacy policy set. Copyright 2026 Anicca Factory. TestFlight: public link https://testflight.apple.com/join/Ywwm8Vd8. Preflight 15/15 PASS."
     },
     {
       "id": "US-009",

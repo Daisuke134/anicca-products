@@ -18,6 +18,7 @@
 		58F13B23A4CE93D9D91350D0 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 4E7B442927359CB81D51A9C5 /* RevenueCat */; };
 		5EC9C0262C0FE3D427BF0878 /* OnboardingScreen2.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FB8009C8E53C55CB578063 /* OnboardingScreen2.swift */; };
 		62531FF6D29683614CD6B6B8 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = D3032078E3356C59830A4670 /* PrivacyInfo.xcprivacy */; };
+		678198C76AB256972AE0DBFD /* Products.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 784DB898C421F80B7C479ADA /* Products.storekit */; };
 		6D995165FFE4B36B2E8E5A64 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63D3E84ADC29D1A171678C68 /* Assets.xcassets */; };
 		77FBBD82D9940A3E9295A08A /* SubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F84217ED6138A4434A41AD3A /* SubscriptionService.swift */; };
 		860152CE1F84A4A555A869CC /* DesignTokens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4C7D31AF9A62F524A5D4D4 /* DesignTokens.swift */; };
@@ -56,6 +57,7 @@
 		62014052A3D5882B99051A2E /* FoundationModelsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationModelsServiceTests.swift; sourceTree = "<group>"; };
 		63D3E84ADC29D1A171678C68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6EF44A43072CA6427EB50497 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		784DB898C421F80B7C479ADA /* Products.storekit */ = {isa = PBXFileReference; path = Products.storekit; sourceTree = "<group>"; };
 		78A85B12369ED8A51EBF21FD /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		808CDB6D80CBC4C423ED1065 /* FoundationModelsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationModelsService.swift; sourceTree = "<group>"; };
 		818059AE19EDBA68C41FF304 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 			children = (
 				63D3E84ADC29D1A171678C68 /* Assets.xcassets */,
 				C41BCDB3F692A0FCEBEF21FB /* Localizable.strings */,
+				784DB898C421F80B7C479ADA /* Products.storekit */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -305,7 +308,7 @@
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					EF55A1014500264CC6BA28C4 = {
-						DevelopmentTeam = 48YMVVJSMW;
+						DevelopmentTeam = S5U8UH3JLJ;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -342,6 +345,7 @@
 				6D995165FFE4B36B2E8E5A64 /* Assets.xcassets in Resources */,
 				3CCCE69D953FD058B518D26B /* Localizable.strings in Resources */,
 				62531FF6D29683614CD6B6B8 /* PrivacyInfo.xcprivacy in Resources */,
+				678198C76AB256972AE0DBFD /* Products.storekit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,8 +438,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 48YMVVJSMW;
+				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = ChiDaily/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -446,7 +451,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aniccafactory.chidaily;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.9;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -595,8 +600,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 48YMVVJSMW;
+				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = ChiDaily/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -607,7 +613,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.aniccafactory.chidaily;
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.9;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};

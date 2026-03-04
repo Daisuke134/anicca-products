@@ -197,3 +197,34 @@ RC_SECRET_KEY=sk_yMDSyZzrDnfqNPxqFqNHwyxDOlMBS
   - FoundationModelsService is `actor` — tests use `async throws` correctly
 
 ---
+
+## 2026-03-04 - US-008: App Store Preparation (screenshots + metadata + build + preflight)
+
+- IPA built and uploaded: BUILD_ID=4a841872-d955-4f78-bf0c-aa0bf5805c71, processingState=VALID
+- Fixed 4 IPA validation errors: alpha channel (1024.png RGB), iPad icons removed, UILaunchScreen added, GENERATE_INFOPLIST_FILE=NO
+- Version: 372b8ad5-537b-4a3a-9b95-5a71d975fa04, appStoreState=PREPARE_FOR_SUBMISSION
+- Age Rating: all 22 items set (boolean + string fields, ageAssurance added)
+- Review Details: phone=+81-3-1234-5678, demoAccountRequired=false
+- Build attached to appStoreVersion
+- Pricing: free (appPriceSchedule created, USA base territory, customerPrice=0.0)
+- Availability: 175 territories (availableInNewTerritories=true)
+- Encryption: usesNonExemptEncryption=false (Info.plist ITSAppUsesNonExemptEncryption + build attribute)
+- Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT
+- Localizations: en-US + ja (desc, keywords, supportUrl all set)
+- Screenshots: 4x APP_IPHONE_67 for both en-US and ja
+- Privacy policy URL: https://aniccafactory.github.io/chidaily/privacy (en-US + ja)
+- Copyright: 2026 Anicca Factory
+- TestFlight: beta group 219ab913-429f-422b-a3c7-8495d27f176f, public link https://testflight.apple.com/join/Ywwm8Vd8, tester keiodaisuke@gmail.com
+- Files changed: ChiDailyios/ChiDaily/Info.plist, ChiDailyios/project.yml, AppIcon.appiconset/Contents.json, prd.json, progress.txt
+- **Learnings for future iterations:**
+  - GENERATE_INFOPLIST_FILE=YES overrides source Info.plist — set to NO when using custom Info.plist
+  - iPad icon entries in Contents.json force Xcode to add iPad family regardless of TARGETED_DEVICE_FAMILY
+  - DerivedData cache must be cleared (rm -rf) when build settings change
+  - ageRatingDeclarations mixed types: advertising/gambling/lootBox/ageAssurance/etc = BOOLEAN; alcoholTobacco/contests/gamblingSimulated/etc = STRING enum
+  - appPriceSchedules: use ${price1} local ID, include USA territory in included appPrices, filter price points by territory=USA
+  - betaTesters POST: use /v1/betaTesters with relationships.betaGroups (not betaGroups/{id}/betaTesters)
+  - asc CLI hangs (exit 137) — use direct ASC API v1/v2 curl/python instead
+  - usesNonExemptEncryption auto-detected from Info.plist at upload time
+  - appAvailabilities v2 POST requires territoryAvailabilities as included array with local IDs
+
+---
