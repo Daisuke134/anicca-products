@@ -719,30 +719,117 @@ Phase 9.1 の `env` キーに以下を追加済み:
 
 ---
 
-## 実行順序（依存関係）【v2更新】
+## Phase 12:【v3新規】Plugin システム活用
+
+**ソース**: [Anthropic Plugins docs](https://code.claude.com/docs/en/plugins) — 「Plugins extend Claude Code with additional capabilities. Use /plugin to browse marketplace」
+
+### TODO 12.1: Plugin marketplace 調査・インストール
+
+| # | アクション | 内容 | ステータス |
+|---|-----------|------|-----------|
+| 1 | `/plugin` 実行 | marketplace の利用可能プラグイン一覧取得 | pending |
+| 2 | Code intelligence plugin | Swift + TypeScript のシンボルナビゲーション強化 | pending |
+| 3 | 評価・インストール | 有用なプラグインをインストール | pending |
+
+### TODO 12.2: Code intelligence plugin 設定
+
+**ソース**: [Anthropic Plugins docs](https://code.claude.com/docs/en/plugins) — 「Code intelligence plugins give Claude precise symbol navigation」
+
+- **目的**: Serena MCP と補完する形で、Claude 内蔵のコードインテリジェンスを強化
+- **ステータス**: pending
+
+---
+
+## Phase 13:【v3新規】Bundled Skills 活用
+
+**ソース**: [Anthropic Skills docs](https://code.claude.com/docs/en/skills) — 「Bundled skills: /simplify, /batch, /debug are built-in and always available」
+
+### TODO 13.1: Bundled skills の活用ルール文書化
+
+| Bundled Skill | 用途 | 現在の活用 | v3アクション |
+|---------------|------|----------|-------------|
+| `/simplify` | コードのリファクタ・品質改善 | ❌ 未使用 | tool-usage rules に追加 |
+| `/batch` | 大規模変更の一括実行 | ❌ 未使用 | 大規模リファクタ時に使用ルール追加 |
+| `/debug` | トラブルシューティング | ❌ 未使用 | ビルドエラー時のフローに追加 |
+
+### TODO 13.2: Dynamic context injection（`` !`command` ``）活用設計
+
+**ソース**: [Anthropic Skills docs](https://code.claude.com/docs/en/skills) — 「Use !`command` syntax for dynamic context injection in skills and commands」
+
+- **設計**: 以下のスキル/コマンドに動的コンテキスト注入を追加
+
+| スキル/コマンド | 注入するコンテキスト | 構文 |
+|---------------|-------------------|------|
+| deploy スキル | 現在のブランチ | `` !`git branch --show-current` `` |
+| code-review コマンド | git diff | `` !`git diff --stat HEAD~1` `` |
+| tdd コマンド | テスト結果 | `` !`cd aniccaios && fastlane test 2>&1 \| tail -20` `` |
+
+### TODO 13.3:【v3追加】`context: fork` スキル設計
+
+**ソース**: [Anthropic Skills docs](https://code.claude.com/docs/en/skills) — 「Use context: fork to run skills in a subagent with isolated context」
+
+- **アクション**: 重いスキルに `context: fork` を追加してメインコンテキスト汚染防止
+- **対象候補**:
+
+| スキル | 理由 | context: fork |
+|--------|------|--------------|
+| codex-review | 大量のコード分析でコンテキスト消費 | ✅ 追加 |
+| recursive-improver | 再帰ループでコンテキスト膨張 | ✅ 追加 |
+| competitive-ads-extractor | 外部データ大量取得 | ✅ 追加 |
+| content-research-writer | リサーチでコンテキスト消費 | ✅ 追加 |
+
+- **ステータス**: pending
+
+---
+
+## Phase 14:【v3新規】`/init` と自動メモリ最適化
+
+**ソース**: [Anthropic Best Practices](https://code.claude.com/docs/en/best-practices) — 「Use /init to generate a starter CLAUDE.md」
+
+### TODO 14.1: `/init` 出力とのギャップ分析
+
+- **アクション**: `/init` を実行し、生成されるCLAUDE.mdと我々のv3計画を比較
+- **目的**: 公式推奨構造に合わせる最終調整
+- **ステータス**: pending
+
+### TODO 14.2: `autoMemoryEnabled` 最適化
+
+**ソース**: [Anthropic Settings](https://code.claude.com/docs/en/settings) — 「autoMemoryEnabled controls automatic memory file creation」
+
+- **アクション**: Phase 9.1 で `autoMemoryEnabled: true` 設定済み。auto memory ディレクトリの整理ルールを策定
+- **ステータス**: pending
+
+---
+
+## 実行順序（依存関係）【v3更新】
 
 ```
-Phase 1 ──→ Phase 2 ──→ Phase 4
-   │            │
-   │            └──→ Phase 7（スキル + エージェント + コマンド監査）
-   │
-   └──→ Phase 3 ──→ Phase 6
-   │
-   └──→ Phase 5（Hooks全面）
-   │
-   └──→ Phase 9（settings.json全面）──→ Phase 10（Boris 12）
-                                         │
-                                         └──→ Phase 11（CLI flags）
+Phase 14（/init ギャップ分析）──→ Phase 1 ──→ Phase 2 ──→ Phase 4
+                                    │            │
+                                    │            └──→ Phase 7（監査 + Agent制限 + skills preload）
+                                    │            │
+                                    │            └──→ Phase 13（Bundled skills + context:fork）
+                                    │
+                                    └──→ Phase 3 ──→ Phase 6
+                                    │
+                                    └──→ Phase 5（Hooks全面 + compact再注入 + 3type活用）
+                                    │
+                                    └──→ Phase 9（settings.json + autoMemory + claudeMdExcludes）
+                                    │        │
+                                    │        └──→ Phase 10（Boris 12）──→ Phase 11（CLI flags）
+                                    │
+                                    └──→ Phase 12（Plugins）
 
 Phase 8（.mcp.json — 独立、いつでも実行可）
 ```
 
 **詳細:**
-- Phase 1（CLAUDE.md スリム化）は Phase 2 の前提条件
-- Phase 2（rules/ → skills/ 移行）は Phase 4, 7 の前提条件
+- Phase 14（`/init`）は Phase 1 の前に実行（公式推奨構造を把握してからスリム化）
+- Phase 1（CLAUDE.md スリム化 + @import + paths）は Phase 2 の前提条件
+- Phase 2（rules/ → skills/ 移行）は Phase 4, 7, 13 の前提条件
 - Phase 3（AGENTS.md 作成）は Phase 6 の前提条件
 - Phase 9（settings.json）は Phase 10, 11 の前提条件
-- Phase 5, 8 は独立
+- Phase 5, 8, 12 は独立
 
 ---
 
@@ -754,24 +841,49 @@ Phase 8（.mcp.json — 独立、いつでも実行可）
 
 ---
 
-## 最終目標【v2更新】
+## 最終目標【v3更新】
 
 | メトリック | 現状 | 目標 | 達成度 |
 |-----------|------|------|--------|
-| **CLAUDE.md 行数** | 277行 | 150行以下 | 0% |
-| **rules/ ファイル数** | 17個 | 5個 | 0% |
+| **CLAUDE.md 行数** | 277行 | 150行以下（`@import`活用） | 0% |
+| **rules/ ファイル数** | 17個 | 5個（`paths` frontmatter付き） | 0% |
 | **コンテキストロード削減** | 2,485行 | ~400行（84%削減） | 0% |
-| **スキル品質スコア** | 未監査 | 172スキル全て frontmatter 準拠 | 0% |
-| **エージェント frontmatter** | 基本のみ | 10エージェント全14項目設定 | 0% |
-| **コマンド frontmatter** | 基本のみ | 20コマンド全4項目 + string substitutions | 0% |
-| **Hooks カバレッジ** | 2/16 | 8/16（実用的なイベント全て） | 0% |
-| **settings.json 設定数** | ~5 | 38設定中20+ 活用 | 0% |
+| **スキル品質スコア** | 未監査 | 172スキル全て frontmatter 準拠 + `context:fork` | 0% |
+| **エージェント frontmatter** | 基本のみ | 10エージェント全14項目 + `Agent(type)` 制限 + `skills:` preload | 0% |
+| **コマンド frontmatter** | 基本のみ | 20コマンド全4項目 + `!`command`` 動的注入 | 0% |
+| **Hooks カバレッジ** | 2/16 | 10/16（command + prompt + http 3type） | 0% |
+| **settings.json 設定数** | ~5 | 38設定中25+ 活用（autoMemory, claudeMdExcludes含む） | 0% |
 | **Boris 12カスタマイズ** | 0/12 | 12/12 | 0% |
 | **.mcp.json MCPサーバー** | 0 | 9 | 0% |
+| **Plugin** | 0 | Code intelligence + marketplace調査済み | 0% |
+| **Bundled skills活用** | 0/3 | 3/3（/simplify, /batch, /debug） | 0% |
 | **CC↔OpenClaw統合完成度** | - | 100% | 0% |
 
 ---
 
-**最終更新**: 2026-03-04 v2
+## v2→v3 変更サマリ（16個の新ギャップ修正）
+
+| # | ギャップ | 追加先 Phase | ソース |
+|---|---------|-------------|--------|
+| 1 | `@import` 構文でCLAUDE.md分割 | Phase 1（TODO 1.4） | Anthropic Memory docs |
+| 2 | Path-specific rules（`paths` frontmatter） | Phase 1（TODO 1.5） | Anthropic Memory docs |
+| 3 | `claudeMdExcludes` 設定 | Phase 9（settings.json） | Anthropic Memory docs |
+| 4 | Bundled skills（/simplify, /batch, /debug） | Phase 13（新設） | Anthropic Skills docs |
+| 5 | Prompt-based hooks 拡張 | Phase 5（TODO 5.5） | Anthropic Hooks Guide |
+| 6 | HTTP hooks | Phase 5（TODO 5.5） | Anthropic Hooks Guide |
+| 7 | SessionStart + compact matcher | Phase 5（TODO 5.4） | Anthropic Hooks Guide |
+| 8 | Plugin システム | Phase 12（新設） | Anthropic Plugins docs |
+| 9 | Code intelligence plugins | Phase 12（TODO 12.2） | Anthropic Plugins docs |
+| 10 | `Agent(agent_type)` 制限構文 | Phase 7（TODO 7.3a） | Anthropic Sub-agents docs |
+| 11 | Agent `skills:` preloading | Phase 7（TODO 7.3b） | Anthropic Sub-agents docs |
+| 12 | `autoMemoryEnabled` 設定 | Phase 9（settings.json） | Anthropic Settings |
+| 13 | `/init` コマンド活用 | Phase 14（新設） | Anthropic Best Practices |
+| 14 | `CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD` | Phase 9（env） | Anthropic Memory docs |
+| 15 | `context: fork` スキル設計 | Phase 13（TODO 13.3） | Anthropic Skills docs |
+| 16 | Dynamic context injection 活用設計 | Phase 13（TODO 13.2） | Anthropic Skills docs |
+
+---
+
+**最終更新**: 2026-03-05 v3
 **計画者**: Claude Code
 **実行者**: TBD
