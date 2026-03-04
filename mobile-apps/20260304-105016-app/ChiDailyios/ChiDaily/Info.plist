@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Chi Daily reads constitution type data to display your TCM wellness history.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Chi Daily saves your daily TCM constitution check-in to Health so you can track patterns over time.</string>
+	<key>CFBundleName</key>
+	<string>Chi Daily</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.aniccafactory.chidaily</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>UILaunchScreen</key>
+	<dict/>
+</dict>
+</plist>

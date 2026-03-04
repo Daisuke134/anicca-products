@@ -4,6 +4,7 @@
 **Date:** 2026-03-04
 **App Name:** Chi Daily
 **Bundle ID:** com.aniccafactory.chidaily
+**bundle_id:** com.aniccafactory.chidaily
 **Platform:** iOS 26+
 **Subscription:** $4.99/month / $34.99/year (7-day free trial)
 **Markets:** United States (English) + Japan (Japanese)
