@@ -36,4 +36,22 @@
   - Always run App Store name check early (before planning) — saves rework
   - RevenueCat 2025 report: $5–7/month = highest trial conversion in health category
   - Japanese market is dual-language from day 1, not a post-launch add-on
+
+---
+
+## 2026-03-04 - US-003: Market Research
+
+- Created competitive-analysis.md with 6 competitors across direct/adjacent/aspirational categories
+- Created market-research.md with TAM/SAM/SOM and revenue projections
+- Key finding: Zero direct competitors in "consumer daily TCM wellness + AI + subscription" quadrant
+- TAM: $13.09B global wellness apps (14.9% CAGR to 2030). SAM: ~$680M US+Japan TCM segment. SOM: Year 1 target $10K–50K MRR
+- Japan 漢方 market: $373.6M fitness apps + 90% physician Kampo adoption = first-mover opportunity
+- Files changed: competitive-analysis.md (new), market-research.md (new), prd.json (US-003 passes: true)
+- **Learnings for future iterations:**
+  - Kanpobliss is dead (abandoned 2019) — no real TCM consumer competition exists
+  - TCM Diagnostics (2024, Chinese developer) = privacy concern + no revenue model — not a threat
+  - Calm $300M ARR at $14.99/mo validates huge WTP at 3x our price — $4.99/mo is very competitive
+  - Japan: cite MHLW Kampo physician data (90%) — strongest credibility signal for Japan market
+  - TAM calc: use wellness apps market ($13B), not TCM overall market ($86B) — more defensible
+
 ---

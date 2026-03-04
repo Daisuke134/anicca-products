@@ -41,8 +41,8 @@
         "Typecheck passes"
       ],
       "priority": 3,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "6 competitors analyzed (Kanpobliss, TCM Diagnostics, TCM Clinic Aid, Calm, Headspace, Insight Timer). TAM: $13.09B global wellness apps. SAM: ~$680M (US+Japan TCM wellness). SOM: $10K–50K MRR Year 1. Zero direct consumer TCM AI daily wellness app in market."
     },
     {
       "id": "US-004",
