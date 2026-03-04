@@ -3,6 +3,10 @@
 - App name: Chi Daily (TCM Wellness Coach)
 - Bundle ID: com.aniccafactory.chidaily
 - APP_ID: 6759994539
+- GROUP_ID: 21959961
+- MONTHLY_ID: 6759994776 (com.aniccafactory.chidaily.monthly, $4.99/mo)
+- ANNUAL_ID: 6759994778 (com.aniccafactory.chidaily.annual, $34.99/yr)
+- ASC API Auth: KEY_ID=646Y27MJ8C (inline PEM key, NOT D637C7RGFN p8 file which is revoked)
 - Bundle ID ASC ID: 6U7Q4SRJ4G
 - Subscription: $4.99/month / $34.99/year
 - Target markets: US (English) + Japan (Japanese)
@@ -93,4 +97,32 @@
   - Bundle ID auto-gets IN_APP_PURCHASE capability when created
   - PrivacyInfo.xcprivacy must include NSPrivacyAccessedAPICategoryUserDefaults CA92.1 even for offline apps (UserDefaults = required API type)
   - `ASC_BYPASS_KEYCHAIN=true` is mandatory for all asc commands
+---
+
+## 2026-03-04 - US-005b: IAP + pricing + RevenueCat setup
+
+- Created subscription group: GROUP_ID=21959961 (Chi Daily Premium)
+- Created monthly subscription: MONTHLY_ID=6759994776 (com.aniccafactory.chidaily.monthly, $4.99/month)
+- Created annual subscription: ANNUAL_ID=6759994778 (com.aniccafactory.chidaily.annual, $34.99/year)
+- Localizations: en-US + ja for group and both subscriptions
+- Availability: 175 territories set for both subscriptions
+- Pricing: 175/175 territories for Monthly, 175/175 for Annual (PPP equalization)
+- IAP Review Screenshots: Uploaded + committed for both Monthly and Annual
+- Evidence: Monthly prices total = 175 (verified via API)
+- Files changed: .env (GROUP_ID/MONTHLY_ID/ANNUAL_ID added), progress.txt
+- WAITING_FOR_HUMAN: RC Setup
+  - Go to https://app.revenuecat.com → Create new project "Chi Daily"
+  - Settings → API Keys → New secret API key (Read & Write)
+  - Paste sk_... key into chat to continue
+- Remaining for RC: RC_PROJECT_ID + RC_SECRET_KEY → Step 7.1-7.5 + SPM (Step 7.6 needs Xcode project)
+- **Learnings for future iterations:**
+  - `asc` CLI (cookie auth) breaks in non-TTY env → use JWT + curl REST API directly
+  - Auth key D637C7RGFN was revoked; use KEY_ID=646Y27MJ8C with inline ASC_PRIVATE_KEY
+  - `referenceName` is valid for subscriptionGroups but NOT for subscriptions (use `name`)
+  - `territory` is NOT an attribute on subscriptionPrices - territory is encoded in the price point ID itself
+  - availability MUST be set before prices (Apple API 500 otherwise)
+  - subscriptionPricePoints equalization only returns 174 territories (excludes USA), add USA separately
+  - $34.99 annual price IS available but requires paginating past page 1 (price points sorted ascending)
+  - Review screenshot: use subscriptionAppStoreReviewScreenshots (NOT subscriptionImages which is for promo)
+  - RC WAITING_FOR_HUMAN pattern: block US-005b until human provides new project SK key
 ---
