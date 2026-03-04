@@ -166,38 +166,44 @@ Source: rudrankriyam asc-submission-health SKILL.md
 > Pre-submission Checklist 7 items
 
 ## Step 9: TestFlight Upload + Distribution
+Source: asc-testflight-orchestration skill (https://github.com/rudrankriyam/app-store-connect-cli-skills)
+
 ```bash
 # Attach build to version
 asc builds attach --app $APP_ID --version-id $VERSION_ID --build-id $BUILD_ID
 
-# Beta group 作成（存在しなければ）
-GROUP_ID=$(asc testflight beta-groups create --app $APP_ID --name "External Testers" --public-link-enabled true 2>&1 | jq -r '.data.id' || echo "")
-if [ -z "$GROUP_ID" ]; then
-  GROUP_ID=$(asc testflight beta-groups list --app $APP_ID 2>&1 | jq -r '.data[0].id')
-fi
+# 9a: Beta group 作成（存在しなければ）
+asc testflight beta-groups create --app $APP_ID --name "External Testers"
+GROUP_ID=$(asc testflight beta-groups list --app $APP_ID --output json | jq -r '.data[0].id')
 
-# TestFlight distribution
-asc testflight beta-builds add --group-id $GROUP_ID --build-id $BUILD_ID
+# 9b: ビルドをグループに配布
+asc builds add-groups --build $BUILD_ID --group $GROUP_ID
 
-# Public link 取得
-TESTFLIGHT_URL=$(asc testflight beta-groups get --id $GROUP_ID 2>&1 | jq -r '.data.attributes.publicLink // empty')
+# 9c: ベータレビュー提出（invite の前提条件）
+asc testflight review submit --build $BUILD_ID --confirm
+# externalBuildState が IN_BETA_TESTING になるまで待機（通常24-48時間）
+# 確認: asc builds build-beta-detail get --build $BUILD_ID --output json
+
+# 9d: テスター追加 + 招待（ベータレビュー通過後）
+source ~/.config/mobileapp-builder/.env
+TESTER_EMAIL="${TESTER_EMAIL:-$APPLE_ID}"
+asc testflight beta-testers add --app $APP_ID --email "$TESTER_EMAIL" --group "External Testers"
+asc testflight beta-testers invite --app $APP_ID --email "$TESTER_EMAIL"
+
+# 9e: テストノート追加
+asc builds test-notes create --build $BUILD_ID --locale "en-US" --whats-new "Initial beta test"
+
+# 9f: Public link 取得
+TESTFLIGHT_URL=$(asc testflight beta-groups list --app $APP_ID --output json | jq -r '.data[] | select(.attributes.publicLinkEnabled==true) | .attributes.publicLink // empty' | head -1)
 if [ -z "$TESTFLIGHT_URL" ]; then
   TESTFLIGHT_URL="https://testflight.apple.com/join/PENDING"
 fi
 ```
 
-### Step 9.5: TestFlight テスター招待
-Source: asc CLI docs
-> 「asc testflight beta-testers add --email EMAIL --group-id GROUP_ID」
-
-```bash
-# 環境変数から Dais のメールを取得
-source ~/.config/mobileapp-builder/.env
-TESTER_EMAIL="${TESTER_EMAIL:-$APPLE_ID}"
-
-# テスター招待
-asc testflight beta-testers add --email "$TESTER_EMAIL" --group-id $GROUP_ID --first-name "Dais" --last-name "Narita"
-```
+### CRITICAL: invite は WAITING_FOR_BETA_REVIEW 通過後でないと「no installable build」で失敗する
+- ベータレビュー提出前に invite → 100% 失敗
+- ベータレビュー中に invite → 100% 失敗
+- ベータレビュー通過後（IN_BETA_TESTING）に invite → 成功
 
 
 ## Step 10: Slack TestFlight 報告
