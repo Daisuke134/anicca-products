@@ -60,6 +60,17 @@ for i in $(seq 1 $MAX_ITERATIONS); do
 
   LOG_FILE="$SCRIPT_DIR/logs/iteration-$i.log"
 
+  # 1 US enforcement: イテレーション前の passes snapshot を取得
+  BEFORE_PASSES=""
+  if [ -f "$SCRIPT_DIR/prd.json" ]; then
+    BEFORE_PASSES=$(python3 -c "
+import json
+with open('$SCRIPT_DIR/prd.json') as f: d = json.load(f)
+for us in d['userStories']:
+    if us['passes']: print(us['id'])
+" 2>/dev/null || true)
+  fi
+
   # Stream-json for real-time output (Source: aihero.dev)
   tmpfile=$(mktemp)
   stream_text='if .type == "assistant" then (.message.content[]? | select(.type == "text") | .text) // "" elif .type == "result" then .result // "" else "" end'
@@ -76,6 +87,42 @@ for i in $(seq 1 $MAX_ITERATIONS); do
 
   echo ""
   echo "🏭 Iteration $i 終了: $(date)"
+
+  # 1 US enforcement: イテレーション後に新しく passes:true になった US を数える
+  if [ -f "$SCRIPT_DIR/prd.json" ]; then
+    AFTER_PASSES=$(python3 -c "
+import json
+with open('$SCRIPT_DIR/prd.json') as f: d = json.load(f)
+for us in d['userStories']:
+    if us['passes']: print(us['id'])
+" 2>/dev/null || true)
+    # 差分を取って新しく完了した US を数える
+    NEW_PASSES=""
+    while IFS= read -r us_id; do
+      if [ -n "$us_id" ] && ! echo "$BEFORE_PASSES" | grep -qF "$us_id"; then
+        NEW_PASSES="$NEW_PASSES $us_id"
+      fi
+    done <<< "$AFTER_PASSES"
+    NEW_COUNT=$(echo "$NEW_PASSES" | xargs | wc -w | tr -d ' ')
+    if [ "$NEW_COUNT" -gt 1 ]; then
+      echo "🔴 1 US enforcement 違反: $NEW_COUNT US が1イテレーションで完了 ($NEW_PASSES)"
+      notify_slack "🔴 1 US enforcement 違反: ${NEW_COUNT} US が1イテレーションで完了。最後の1つ以外をリセット。"
+      # 最初に完了した1つだけ残して、残りをリセット
+      KEEP_FIRST=$(echo "$NEW_PASSES" | xargs | awk '{print $1}')
+      python3 -c "
+import json
+with open('$SCRIPT_DIR/prd.json') as f: prd = json.load(f)
+new_passes = '$NEW_PASSES'.split()
+keep = '$KEEP_FIRST'
+for us in prd['userStories']:
+    if us['id'] in new_passes and us['id'] != keep:
+        us['passes'] = False
+        us['notes'] = us.get('notes','') + ' [reset: 1 US per iteration rule]'
+        print(f'🔄 {us[\"id\"]} reset to passes:false (1 US rule)')
+with open('$SCRIPT_DIR/prd.json','w') as f: json.dump(prd, f, indent=2, ensure_ascii=False)
+" 2>/dev/null || true
+    fi
+  fi
 
   # Detect newly completed US and notify Slack
   if [ -f "$SCRIPT_DIR/prd.json" ]; then
@@ -102,11 +149,28 @@ for us in d['userStories']:
   fi
 
   # validate.sh — external quality gate (Source: SonarQube pattern)
+  # Auto-reset: validate.sh FAIL → passes:true を passes:false にリセット
   if [ -f "$SCRIPT_DIR/validate.sh" ]; then
     echo "🔍 validate.sh 実行中..."
     "$SCRIPT_DIR/validate.sh" || {
-      echo "🔴 validate.sh FAILED"
-      notify_slack "🔴 validate.sh FAILED at iteration $i"
+      echo "🔴 validate.sh FAILED — auto-resetting passes:true → false"
+      notify_slack "🔴 validate.sh FAILED at iteration $i — auto-reset実行"
+      # Auto-reset: validate.sh が FAIL した US の passes を false に戻す
+      if [ -f "$SCRIPT_DIR/prd.json" ]; then
+        python3 -c "
+import json, subprocess, re
+with open('$SCRIPT_DIR/prd.json') as f: prd = json.load(f)
+result = subprocess.run(['$SCRIPT_DIR/validate.sh'], capture_output=True, text=True)
+output = result.stdout + result.stderr
+# FAIL した US を検出してリセット
+for us in prd['userStories']:
+    if us['passes'] and us['id'] in output:
+        us['passes'] = False
+        us['notes'] = us.get('notes','') + ' [auto-reset by ralph.sh]'
+        print(f'🔄 {us[\"id\"]} reset to passes:false')
+with open('$SCRIPT_DIR/prd.json','w') as f: json.dump(prd, f, indent=2, ensure_ascii=False)
+" 2>/dev/null || true
+      fi
     }
   fi
 

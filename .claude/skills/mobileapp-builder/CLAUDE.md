@@ -54,7 +54,7 @@ curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '
 | Version ID 取得 | `asc versions list --app APP_ID` | asc-id-resolver |
 | Loc ID 取得 | `asc app-store-version-localizations list --version-id VER_ID` | asc-id-resolver |
 | App Privacy | `asc web privacy apply` + `publish`（自動、セッション切れ時のみ WAITING_FOR_HUMAN） | us-009-submit |
-| RC Public Key | **WAITING_FOR_HUMAN**（Dashboard のみ） | — |
+| RC Public Key | `curl -s "$RC_BASE/projects/$PID/apps/$AID/public_api_keys" -H "$AUTH" \| jq -r '.items[0].key'`（自動） | us-005b-monetization |
 | 審査提出 | `asc review submissions-create --app APP_ID` → `items-add` → `submissions-submit` | asc-submission-health |
 
 **❌ 存在しないフラグ（使うな）:** `--locale`, `--file`(screenshots upload), `--display-type`

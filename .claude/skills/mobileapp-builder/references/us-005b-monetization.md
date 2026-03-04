@@ -2,9 +2,6 @@
 
 依存: US-005a（APP_ID が .env に記録済みであること）
 
-Source: rudrankriyam asc-ppp-pricing + asc-subscription-localization skills
-Verified: 2026-03-04 実機テスト済み（APP_ID 6759990837）
-
 ## Skills to Read (IN THIS ORDER)
 1. `.claude/skills/asc-ppp-pricing/SKILL.md` — rudrankriyam: 175カ国 pricing
 2. `.claude/skills/asc-subscription-localization/SKILL.md` — rudrankriyam: IAP + locale
@@ -54,7 +51,6 @@ asc subscriptions availability set --id $ANNUAL_ID --territory "$TERRITORIES" --
 ### 6.5: 175カ国価格設定（availability の後！）
 
 equalization API → CSV → `prices import` で一括設定。
-Verified: 2026-03-04 テスト済み — 174カ国 Created=174 Failed=0
 
 ```bash
 for SUB_ID in $MONTHLY_ID $ANNUAL_ID; do
@@ -115,10 +111,14 @@ WAITING_FOR_HUMAN: RC Setup
 
 ### 7.1: SK Key 受信 → 変数準備
 ```bash
+source ~/.config/mobileapp-builder/.env
 RC_SECRET_KEY="<sk_... from Slack>"
 RC_BASE="https://api.revenuecat.com/v2"
 AUTH="Authorization: Bearer $RC_SECRET_KEY"
 CT="Content-Type: application/json"
+
+# Project ID 取得（SK Key があれば自動）
+RC_PROJECT_ID=$(curl -s "$RC_BASE/projects" -H "$AUTH" | jq -r '.items[0].id')
 ```
 
 ### 7.2: RC App 作成
@@ -128,6 +128,14 @@ RC_APP_ID=$(curl -s -X POST "$RC_BASE/projects/$RC_PROJECT_ID/apps" \
   -d "{\"app_name\":\"<app_name>\",\"type\":\"app_store\",\"bundle_id\":\"com.anicca.<slug>\"}" \
   | jq -r '.app.id')
 ```
+
+### 7.2b: Public API Key 取得（自動 — WAITING_FOR_HUMAN 不要）
+```bash
+RC_PUBLIC_KEY=$(curl -s "$RC_BASE/projects/$RC_PROJECT_ID/apps/$RC_APP_ID/public_api_keys" \
+  -H "$AUTH" | jq -r '.items[0].key')
+echo "RC_IOS_PUBLIC_KEY=$RC_PUBLIC_KEY" >> .env
+```
+⚠️ Public Key は App 作成時に自動生成される。Products/Offerings の前に取得可能。
 
 ### 7.3: Entitlement 作成
 ```bash
@@ -166,7 +174,7 @@ done
 ```
 
 ### 7.6: SPM 依存追加
-RevenueCat + RevenueCatUI を Xcode プロジェクトに追加。
+RevenueCat を Xcode プロジェクトに追加（RevenueCatUI は使わない — Rule 20）。
 
 ## 次のステップ
 US-005b 完了後、US-006（実装）に進む。
