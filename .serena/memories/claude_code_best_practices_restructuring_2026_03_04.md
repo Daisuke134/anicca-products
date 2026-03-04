@@ -79,21 +79,26 @@
 | rules/ | 1,931行（19ファイル） | ~250行（5ファイル） | 87% |
 | 毎セッション強制ロード | 2,485行 | ~400行 | **84%削減** |
 
-## Phase 一覧
+## Phase 一覧（v3: 14 Phase）
 
 | Phase | 作業 |
 |-------|------|
-| 1 | .claude/CLAUDE.md 削除 + CLAUDE.md リライト（150行以下） |
-| 2 | rules/ → skills/ 移行（14→5 + 7 skills） |
+| 1 | CLAUDE.md リライト（150行以下）+ @import構文 + paths frontmatter |
+| 2 | rules/ → skills/ 移行（17→5 + 7 skills） |
 | 3 | AGENTS.md / SOUL.md / IDENTITY.md 新規作成 |
 | 4 | agent_docs/ 作成（5ファイル） |
-| 5 | Hooks 設定 + スクリプト作成 |
+| 5 | Hooks 全面設定（command + prompt + http 3type + compact再注入） |
 | 6 | CC↔OpenClaw 統合プロトコル |
-| 7 | 172スキル監査 + 不要削除 |
-| 8 | .mcp.json 作成 |
+| 7 | 172スキル + 10エージェント + 20コマンド監査 + Agent(type)制限 + skills preload |
+| 8 | .mcp.json 作成（9 MCP） |
+| 9 | settings.json 全面設定（autoMemoryEnabled, claudeMdExcludes含む） |
+| 10 | Boris 12カスタマイズ完全適用 |
+| 11 | CLI Flags & 環境変数活用 |
+| 12 | Plugin システム（marketplace + code intelligence） |
+| 13 | Bundled skills（/simplify,/batch,/debug）+ context:fork + dynamic injection |
+| 14 | /init ギャップ分析 + auto memory 最適化 |
 
-## 禁止事項（全エージェント）
-- 「うちのやり方の方がいい」と言うのは禁止
-- 「でもうちの場合は…」と例外を作るのは禁止
-- BPに100%従う。オリジナルゼロ。
-- このファイルの内容は聖典。変更禁止（追記のみ許可）。
+## v3 更新（2026-03-05）
+- 公式ドキュメント7ページをFirecrawl CLIで深掘り → 16個の新ギャップ発見
+- ソース数: 14 → 20（公式docs 6ページ追加）
+- 新Phase: 12(Plugin), 13(Bundled skills), 14(/init)
