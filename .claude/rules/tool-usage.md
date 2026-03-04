@@ -11,11 +11,20 @@
 
 **clawhub を最初に使うのは禁止。** clawhub は MCP ではなくスキル。
 
+## 最優先ツール（2026-03-05 確定 — 全セッション適用）
+
+| タスク | 使うツール | 禁止 |
+|--------|-----------|------|
+| **Web検索/URL取得** | **Firecrawl CLI**: `/opt/homebrew/bin/firecrawl scrape <url> markdown` | WebSearch, WebFetch |
+| **コード検索/編集** | **Serena MCP**: `mcp__serena__*`（find_symbol, search_for_pattern, replace_symbol_body等） | 単純なGrep/Read（Serenaで可能な場合） |
+
+**理由:** Firecrawl = フルマークダウン取得。Serena = シンボルベースの効率的コード操作。
+
 ## MCP優先（内蔵ツールより優先）
 
 | タスク | 使うべきMCP | 使わない |
 |--------|------------|----------|
-| Web検索 | `mcp__exa__web_search_exa` | WebSearch |
+| Web検索 | Firecrawl CLI（上記参照） | WebSearch |
 | ドキュメント検索 | `mcp__context7__query-docs` | WebFetch |
 | Apple公式ドキュメント | `mcp__apple-docs__*` | WebFetch |
 | コード検索・編集 | `mcp__serena__*` | Grep, Read |
