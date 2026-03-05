@@ -1,50 +1,51 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
-
-## Core Principles
-
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
-
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
-
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
-
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
-
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
-
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
-
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+# Constitution v1.0.0 — CC BP Restructuring
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+| Principle | Description |
+|-----------|-------------|
+| **BP-First** | Every decision must cite a best practice source. No original solutions. |
+| **Search-Before-Act** | Minimum 3 independent searches before any action. No guessing. |
+| **Single Answer** | No options. No "maybe". One answer per question. |
+| **Spec = Executable** | Specifications directly generate implementations. |
+| **Test-First** | Tests precede implementation (TDD: RED -> GREEN -> REFACTOR). |
+| **Simplicity** | Minimum complexity for current task. No premature abstraction. |
+| **Context Economy** | Minimize token consumption. On-demand loading over static. |
+| **Immutability** | Never mutate. Create new objects. |
+| **Push Immediately** | Every edit = immediate commit & push. No confirmation needed. |
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+## Quality Gates
+
+| Gate | Criteria | Blocker |
+|------|----------|---------|
+| Spec Review | codex-review ok: true | Yes |
+| Implementation | All tests GREEN | Yes |
+| Code Review | codex-review ok: true | Yes |
+| User Confirmation | Manual OK on device/simulator | Yes |
+
+## Versioning
+
+- MAJOR: Breaking changes to project structure (CLAUDE.md format, rules/ removal)
+- MINOR: New phases, settings additions, hook additions
+- PATCH: Wording fixes, path corrections, typo fixes
+
+## Constraints
+
+- CLAUDE.md <= 150 lines
+- rules/ <= 5 files, ~250 lines total
+- Session context load <= ~400 lines (84% reduction from current 2,485)
+- All skills must have proper frontmatter (name, description with "Use when...")
+- All agents must have full 14-field frontmatter
+- Hooks must cover 3 types: command, prompt, http
+- settings.json must have 25+ active settings
+
+## Sources of Truth
+
+| Artifact | Location |
+|----------|----------|
+| Master Spec | .cursor/plans/claude-code-bp-restructuring-plan.md |
+| Constitution | .specify/memory/constitution.md |
+| Feature Spec | .specify/specs/cc-bp-restructuring/spec.md |
+| Tasks | .specify/specs/cc-bp-restructuring/tasks.md |
+| Anicca Config | /Users/anicca/.openclaw/workspace/ |
+| CC Config | /Users/anicca/anicca-project/.claude/ |
