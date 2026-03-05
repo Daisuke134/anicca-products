@@ -29,12 +29,16 @@ Phase E: Cron テスト（15:00 JST 自動実行）
 
 ### スキル割り当て（1フェーズ = 1スキルのみ）
 
-| フェーズ | スキル | 根拠 |
-|---------|--------|------|
+| Phase | スキル | 根拠 |
+|-------|--------|------|
 | 004a (Core Spec) | `implementation-spec` | マスターオーケストレーター |
 | 004b (UX Spec) | `frontend-design` | デザイン思考 + 美学 |
-| 006a-d (TDD実装) | `ios-ux-design` | iOS HIG 準拠 |
-| 006-R (レビュー) | code-quality-reviewer | 内部サブエージェント |
+| 004-R (Spec Review) | code-quality-reviewer | 内部サブエージェント |
+| 006a (TDD Data Layer) | `ios-ux-design` | iOS HIG 準拠 |
+| 006b (TDD Onboarding) | `ios-ux-design` | iOS HIG 準拠 |
+| 006c (TDD Core Screens) | `ios-ux-design` | iOS HIG 準拠 |
+| 006d (TDD Polish) | `ios-ux-design` | iOS HIG 準拠 |
+| 006-R (Code Review) | code-quality-reviewer | 内部サブエージェント |
 | 007 (E2E) | `maestro-ui-testing` | Maestro 専門 |
 | 008 (Release) | `asc-release-flow` | ASC リリースワークフロー |
 | 009 (Submit) | `asc-submission-health` | 提出前コンプライアンス |
@@ -477,7 +481,7 @@ tags:
 | 12 | `references/us-005b-monetization.md` | RC Test Store 手順あり | `rg -q 'Test Store' references/us-005b-monetization.md` |
 | 13 | `validate.sh` | `Products.storekit` チェック削除済み | `! rg -q 'Products.storekit' validate.sh` |
 | 14 | `references/us-006-implement.md` | TDD サイクル記載 | `rg -q 'RED' references/us-006-implement.md && rg -q 'GREEN' references/us-006-implement.md && rg -q 'REFACTOR' references/us-006-implement.md` |
-| 15 | `references/us-006-implement.md` | テストファースト指示あり | `rg -qi 'test.*first\|before.*implement\|write.*test' references/us-006-implement.md` |
+| 15 | `references/us-006-implement.md` | テストファースト指示あり | `rg -qi '(test.*first|before.*implement|write.*test)' references/us-006-implement.md` |
 | 16 | `references/us-006-implement.md` | 実行順序記載 | `rg -q 'Models' references/us-006-implement.md && rg -q 'Services' references/us-006-implement.md && rg -q 'Integration' references/us-006-implement.md` |
 | 17 | `references/us-006-implement.md` | Swift Testing 記載 | `rg -q '@Test' references/us-006-implement.md && rg -q '#expect' references/us-006-implement.md` |
 | 18 | `references/us-006-implement.md` | Parameterized tests 記載 | `rg -q '@Test(arguments' references/us-006-implement.md` |
@@ -520,7 +524,7 @@ check 11 "! rg -q 'Products.storekit' references/us-005b-monetization.md" "Store
 check 12 "rg -q 'Test Store' references/us-005b-monetization.md" "RC Test Store未記載"
 check 13 "! rg -q 'Products.storekit' validate.sh" "validate.shにStoreKit残存"
 check 14 "rg -q 'RED' references/us-006-implement.md && rg -q 'GREEN' references/us-006-implement.md && rg -q 'REFACTOR' references/us-006-implement.md" "TDDサイクル未記載"
-check 15 "rg -qi 'test.*first\|before.*implement\|write.*test' references/us-006-implement.md" "テストファースト未記載"
+check 15 "rg -qi '(test.*first|before.*implement|write.*test)' references/us-006-implement.md" "テストファースト未記載"
 check 16 "rg -q 'Models' references/us-006-implement.md && rg -q 'Services' references/us-006-implement.md && rg -q 'Integration' references/us-006-implement.md" "実行順序未記載"
 check 17 "rg -q '@Test' references/us-006-implement.md && rg -q '#expect' references/us-006-implement.md" "Swift Testing未記載"
 check 18 "rg -q '@Test(arguments' references/us-006-implement.md" "Parameterized tests未記載"
