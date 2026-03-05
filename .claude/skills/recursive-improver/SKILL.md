@@ -1,5 +1,6 @@
 ---
 name: recursive-improver
+context: fork
 description: >
   再帰的自己改善ループでマーケティング出力（広告コピー、LP、メール、Paywallテキスト、Nudge等）を生成・自己採点・改善する。
   生成→採点→診断→改善→再採点を全基準合格まで反復。Use when 広告コピー改善, recursive improve,
