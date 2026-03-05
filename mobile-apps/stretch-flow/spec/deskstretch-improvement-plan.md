@@ -103,24 +103,36 @@ Phase E: Cron テスト（15:00 JST 自動実行）
 | `settings_upgrade` | SettingsView.swift:49 | ✅ 一致 | — |
 | `progress_dashboard` | ProgressDashboardView.swift | ✅ 一致 | — |
 
-### 辞書 ↔ Maestro YAML 突合検証
+### 辞書 ↔ Maestro YAML 双方向突合検証
 
 ```bash
-# 検証コマンド（差分0=PASS）
-# maestro/*.yaml から全 id: を抽出し、辞書と突合
-diff <(grep 'id:' maestro/*.yaml | sed 's/.*id: *"\(.*\)".*/\1/' | sort -u) <(cat <<'IDS'
+# 検証コマンド（差分0=PASS、不足/余剰の両方を検出）
+# 正規辞書: 上記テーブルの全ID（アルファベット順）
+DICT=$(cat <<'IDS'
 onboarding_continue
 onboarding_get_started
+pain_area_back
 pain_area_neck
+pain_area_shoulders
+pain_area_wrists
+paywall_maybe_later
 paywall_plan_monthly
+paywall_plan_yearly
+progress_dashboard
 session_exercise_name
 session_skip
 settings_upgrade
 timer_countdown
 timer_stretch_now
 IDS
-) && echo "PASS" || echo "FAIL"
+)
+# maestro/*.yaml から全 id: を抽出
+YAML_IDS=$(grep 'id:' maestro/*.yaml | sed 's/.*id: *"\(.*\)".*/\1/' | sort -u)
+# 双方向比較（不足 = 辞書にあるがYAMLにない、余剰 = YAMLにあるが辞書にない）
+diff <(echo "$YAML_IDS") <(echo "$DICT") && echo "PASS" || echo "FAIL: 上記の差分を修正せよ"
 ```
+
+**注:** `maestro/*.yaml` は Phase B 007 で作成予定。作成後に本コマンドで突合する。
 
 ---
 
@@ -486,6 +498,52 @@ tags:
 | 33 | `validate.sh` | `grep -rw 'class Mock'` 使用 | `rg -q "grep -rw 'class Mock'" validate.sh` |
 | 34 | `CLAUDE.md` | 9セッション分割記載 | `rg -q 'セッション' CLAUDE.md` |
 
+### 一括検証コマンド（全34項目 → 終了コード 0=ALL PASS）
+
+```bash
+#!/bin/bash
+# validate_traceability.sh — Phase C 完了後に実行
+# 終了コード: 0=全PASS, 1=1件以上FAIL
+FAIL=0
+check() { eval "$2" 2>/dev/null || { echo "FAIL #$1: $3"; FAIL=1; }; }
+check 1  "rg -q 'Skill:' SKILL.md" "SKILL.md にスキル参照なし"
+check 2  "rg -q 'APP_SCHEME' references/us-006-implement.md && rg -q 'UDID' references/us-006-implement.md" "変数定義なし"
+check 3  "rg -q 'find.*\.swift' validate.sh" "Gate 0 なし"
+check 4  "! rg -q 'xcodebuild' references/us-006-implement.md && rg -q 'fastlane build' references/us-006-implement.md" "xcodebuild残存 or fastlane未記載"
+check 5  "! rg -q 'xcodebuild test' references/us-007-testing.md && rg -q 'fastlane test' references/us-007-testing.md" "xcodebuild test残存"
+check 6  "! rg -q 'maestro test flows/' references/us-007-testing.md && rg -q 'maestro test maestro/' references/us-007-testing.md" "flows/残存"
+check 7  "rg -q 'xcodegen generate' references/us-006-implement.md" "xcodegen未記載"
+check 8  "rg -q 'lane :test' templates/Fastfile && rg -q 'lane :build' templates/Fastfile && rg -q 'lane :build_for_simulator' templates/Fastfile" "Fastfile lanes不足"
+check 9  "rg -q 'FASTLANE_OPT_OUT' references/us-006-implement.md" "env vars未記載"
+check 10 "rg -q 'GENERATE_INFOPLIST_FILE' references/us-006-implement.md" "Info.plist設定未記載"
+check 11 "! rg -q 'Products.storekit' references/us-005b-monetization.md" "StoreKit残存"
+check 12 "rg -q 'Test Store' references/us-005b-monetization.md" "RC Test Store未記載"
+check 13 "! rg -q 'Products.storekit' validate.sh" "validate.shにStoreKit残存"
+check 14 "rg -q 'RED' references/us-006-implement.md && rg -q 'GREEN' references/us-006-implement.md && rg -q 'REFACTOR' references/us-006-implement.md" "TDDサイクル未記載"
+check 15 "rg -qi 'test.*first\|before.*implement\|write.*test' references/us-006-implement.md" "テストファースト未記載"
+check 16 "rg -q 'Models' references/us-006-implement.md && rg -q 'Services' references/us-006-implement.md && rg -q 'Integration' references/us-006-implement.md" "実行順序未記載"
+check 17 "rg -q '@Test' references/us-006-implement.md && rg -q '#expect' references/us-006-implement.md" "Swift Testing未記載"
+check 18 "rg -q '@Test(arguments' references/us-006-implement.md" "Parameterized tests未記載"
+check 19 "rg -q '80%' references/us-006-implement.md" "カバレッジ目標未記載"
+check 20 "! rg -q 'flows/' references/us-007-testing.md" "flows/残存"
+check 21 "rg -q 'clearState' references/us-007-testing.md && rg -q 'clearKeychain' references/us-007-testing.md" "clearState/Keychain未記載"
+check 22 "rg -q 'extendedWaitUntil' references/us-007-testing.md" "extendedWaitUntil未記載"
+check 23 "rg -q 'takeScreenshot' references/us-007-testing.md" "takeScreenshot未記載"
+check 24 "rg -q 'id:' references/us-007-testing.md" "id:セレクタ未記載"
+check 25 "rg -q 'smokeTest' references/us-007-testing.md" "tags未記載"
+check 26 "rg -q 'maestro test maestro/' references/us-007-testing.md" "maestroコマンド未記載"
+check 27 "rg -q '30000' references/us-007-testing.md" "timeout未記載"
+check 28 "! rg -q 'Foundation Models' references/us-007-testing.md" "Foundation Models残存"
+check 29 "rg -q '500ms' references/us-007-testing.md" "500ms未記載"
+check 30 "! rg -q 'testFallback' references/us-007-testing.md" "testFallback残存"
+check 31 "rg -q 'code-quality-reviewer' SKILL.md" "code-quality-reviewer未記載"
+check 32 "rg -q 'Edge Case' references/us-007-testing.md" "Edge Caseマッピング未記載"
+check 33 "rg -q \"grep -rw 'class Mock'\" validate.sh" "Mock grep未修正"
+check 34 "rg -q 'セッション' CLAUDE.md" "セッション分割未記載"
+[ $FAIL -eq 0 ] && echo "ALL 34 PASS" || echo "FAILED: see above"
+exit $FAIL
+```
+
 ---
 
 ## 7. レビューゲート設計
@@ -583,15 +641,21 @@ mobileapp-builder/
 | 6 | GitHub Release | v1.0.0 タグ |
 | 7 | skills.sh 登録 | `npx skills add` で配布可能に |
 
-### 依存スキル（ユーザーが別途インストール）
+### 依存スキル（ユーザーが別途インストール — 全 Phase 1対1対応）
 
-| スキル | Phase での使用 | ソース |
-|--------|---------------|--------|
-| `implementation-spec` | 004a (Core Spec) | skills.sh |
-| `frontend-design` | 004b (UX Spec) | Anthropic 公式 |
-| `ios-ux-design` | 006a-d (TDD実装) | 自作 |
-| `maestro-ui-testing` | 007 (E2E) | skills.sh |
-| `asc-*` シリーズ | 008-009 (リリース) | rshankras/claude-code-apple-skills |
+| Phase | スキル | ソース |
+|-------|--------|--------|
+| 004a (Core Spec) | `implementation-spec` | skills.sh |
+| 004b (UX Spec) | `frontend-design` | Anthropic 公式 |
+| 004-R (Spec Review) | code-quality-reviewer | 内蔵サブエージェント |
+| 006a (TDD Data Layer) | `ios-ux-design` | 自作 |
+| 006b (TDD Onboarding) | `ios-ux-design` | 自作 |
+| 006c (TDD Core Screens) | `ios-ux-design` | 自作 |
+| 006d (TDD Polish) | `ios-ux-design` | 自作 |
+| 006-R (Code Review) | code-quality-reviewer | 内蔵サブエージェント |
+| 007 (E2E) | `maestro-ui-testing` | skills.sh |
+| 008 (Release) | `asc-release-flow` | rshankras/claude-code-apple-skills |
+| 009 (Submit) | `asc-submission-health` | rshankras/claude-code-apple-skills |
 
 ---
 
