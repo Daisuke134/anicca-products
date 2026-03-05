@@ -171,10 +171,11 @@ RC_PROJECT_ID=$(curl -s "$RC_BASE/projects" -H "$AUTH" | jq -r '.items[0].id')
 
 ### 7.2: RC App 作成
 ```bash
+# PATCH 12-14: RC API v2 は name（not app_name）、nested app_store.bundle_id、フラットレスポンス(.id)
 RC_APP_ID=$(curl -s -X POST "$RC_BASE/projects/$RC_PROJECT_ID/apps" \
   -H "$AUTH" -H "$CT" \
-  -d "{\"app_name\":\"<app_name>\",\"type\":\"app_store\",\"bundle_id\":\"<bundle_id>\"}" \
-  | jq -r '.app.id')
+  -d "{\"name\":\"<app_name>\",\"type\":\"app_store\",\"app_store\":{\"bundle_id\":\"<bundle_id>\"}}" \
+  | jq -r '.id')
 ```
 
 ### 7.2b: Public API Key 取得（自動 — WAITING_FOR_HUMAN 不要）
@@ -187,37 +188,49 @@ echo "RC_IOS_PUBLIC_KEY=$RC_PUBLIC_KEY" >> ~/.config/mobileapp-builder/.env
 
 ### 7.3: Entitlement 作成
 ```bash
+# PATCH: RC API v2 レスポンスはフラット (.id)
 RC_ENT_ID=$(curl -s -X POST "$RC_BASE/projects/$RC_PROJECT_ID/entitlements" \
   -H "$AUTH" -H "$CT" \
   -d '{"lookup_key":"premium","display_name":"Premium"}' \
-  | jq -r '.entitlement.id')
+  | jq -r '.id')
 ```
 
 ### 7.4: Product 作成 + Entitlement 紐付け
 ```bash
+# PATCH 15: レスポンスはフラット(.id)。Entitlement紐付けは actions/attach_products + product_ids[]
 for pid in "<bundle_id>.monthly" "<bundle_id>.annual"; do
   PROD_ID=$(curl -s -X POST "$RC_BASE/projects/$RC_PROJECT_ID/products" \
     -H "$AUTH" -H "$CT" \
     -d "{\"store_identifier\":\"$pid\",\"app_id\":\"$RC_APP_ID\",\"type\":\"subscription\"}" \
-    | jq -r '.product.id')
+    | jq -r '.id')
 
-  curl -s -X POST "$RC_BASE/projects/$RC_PROJECT_ID/entitlements/$RC_ENT_ID/products" \
+  curl -s -X POST "$RC_BASE/projects/$RC_PROJECT_ID/entitlements/$RC_ENT_ID/actions/attach_products" \
     -H "$AUTH" -H "$CT" \
-    -d "{\"product_id\":\"$PROD_ID\"}"
+    -d "{\"product_ids\":[\"$PROD_ID\"]}"
 done
 ```
 
 ### 7.5: Offering + Package 作成
 ```bash
+# PATCH 16: レスポンスはフラット(.id)。Package は product_id を受け付けない — 別途 attach_products が必要
 RC_OFF_ID=$(curl -s -X POST "$RC_BASE/projects/$RC_PROJECT_ID/offerings" \
   -H "$AUTH" -H "$CT" \
   -d '{"lookup_key":"default","display_name":"Default"}' \
-  | jq -r '.offering.id')
+  | jq -r '.id')
 
-for pid in "<bundle_id>.monthly" "<bundle_id>.annual"; do
-  curl -s -X POST "$RC_BASE/projects/$RC_PROJECT_ID/offerings/$RC_OFF_ID/packages" \
+# Package 作成は product なし。lookup_key は $rc_monthly / $rc_annual（RC 標準）
+declare -A PKG_PROD_MAP=( ["monthly"]="MONTHLY_PROD_ID" ["annual"]="ANNUAL_PROD_ID" )
+for period in "monthly" "annual"; do
+  PKG_ID=$(curl -s -X POST "$RC_BASE/projects/$RC_PROJECT_ID/offerings/$RC_OFF_ID/packages" \
     -H "$AUTH" -H "$CT" \
-    -d "{\"lookup_key\":\"$pid\",\"display_name\":\"$(echo $pid | sed 's/.*\.//')\",\"product_id\":\"$pid\"}"
+    -d "{\"lookup_key\":\"\$rc_$period\",\"display_name\":\"$(echo $period | sed 's/.*/\u&/')\"}" \
+    | jq -r '.id')
+
+  # Product → Package 紐付け（eligibility_criteria 必須）
+  PROD_ID=$([ "$period" = "monthly" ] && echo "$MONTHLY_PROD_ID" || echo "$ANNUAL_PROD_ID")
+  curl -s -X POST "$RC_BASE/projects/$RC_PROJECT_ID/packages/$PKG_ID/actions/attach_products" \
+    -H "$AUTH" -H "$CT" \
+    -d "{\"products\":[{\"product_id\":\"$PROD_ID\",\"eligibility_criteria\":\"all\"}]}"
 done
 ```
 
