@@ -6,7 +6,7 @@
 
 ## Problem Statement
 
-Current Claude Code setup loads 2,485 lines every session (CLAUDE.md 554 lines + rules/ 1,931 lines). Research shows LLM instruction compliance degrades uniformly as instruction count increases, with frontier models stable at 150-200 instructions. Current setup has 500+ instructions = ~50% compliance rate.
+Current Claude Code setup loads 2,223 lines every session (CLAUDE.md 278 lines x 2 files = 556 lines + rules/ 1,945 lines across 19 files). Measured 2026-03-05 via `wc -l`. Research shows LLM instruction compliance degrades uniformly as instruction count increases, with frontier models stable at 150-200 instructions. Current setup has 500+ instructions = ~50% compliance rate.
 
 ## User Scenarios
 
@@ -15,9 +15,9 @@ Current Claude Code setup loads 2,485 lines every session (CLAUDE.md 554 lines +
 **As** Claude Code, **I want** to load only essential instructions at session start, **so that** instruction compliance stays above 90%.
 
 **Acceptance:**
-- Given CLAUDE.md is 277 lines, When restructured, Then it is <= 150 lines
-- Given rules/ is 17 files / 2,485 lines, When restructured, Then it is 5 files / ~250 lines
-- Given total session load is 2,485 lines, When restructured, Then it is ~400 lines (84% reduction)
+- Given CLAUDE.md is 278 lines (measured 2026-03-05), When restructured, Then `wc -l CLAUDE.md` <= 150
+- Given rules/ is 19 files / 1,945 lines (measured 2026-03-05), When restructured, Then `ls .claude/rules/*.md | wc -l` = 5 AND `wc -l .claude/rules/*.md | tail -1` <= 300
+- Given total session load is 2,223 lines (556 CLAUDE.md + 1,945 rules, measured 2026-03-05), When restructured, Then sum <= 450 (80% reduction)
 
 ### P2: On-Demand Knowledge Loading
 
@@ -43,8 +43,8 @@ Current Claude Code setup loads 2,485 lines every session (CLAUDE.md 554 lines +
 **Acceptance:**
 - Given settings.json has ~5 settings, When configured, Then it has 25+ settings
 - Given 0 hooks exist, When configured, Then 8+ hooks covering 3 types (command/prompt/http)
-- Given 0 plugins, When investigated, Then marketplace surveyed and useful plugins installed
-- Given bundled skills unused, When documented, Then /simplify, /batch, /debug in workflow
+- Given 0 plugins, When investigated, Then `/plugin` output documented AND >= 1 code intelligence plugin evaluated (install if score >= 3/5 on: symbol nav, speed, stability)
+- Given bundled skills unused, When documented, Then /simplify, /batch, /debug each referenced in agent_docs/tool_reference.md with usage example
 
 ### P5: Quality Infrastructure
 
@@ -60,9 +60,9 @@ Current Claude Code setup loads 2,485 lines every session (CLAUDE.md 554 lines +
 **As** the project, **I want** reusable skills published as individual OSS repos, **so that** the community can use them.
 
 **Acceptance:**
-- Given skills are embedded in anicca-products, When restructured, Then factory skills are individual repos
-- Given mobileapp-builder exists, When renamed, Then it is mobileapp-factory
-- Given no submodule structure, When configured, Then packages/ directory with git submodules
+- Given skills are embedded in anicca-products, When restructured, Then >= 3 factory skills have individual GitHub repos under Daisuke134/
+- Given mobileapp-builder exists, When renamed, Then `gh repo view Daisuke134/mobileapp-factory` succeeds
+- Given no submodule structure, When configured, Then `git submodule status` shows >= 3 entries under packages/
 
 ## Edge Cases
 
@@ -89,25 +89,26 @@ Current Claude Code setup loads 2,485 lines every session (CLAUDE.md 554 lines +
 | FR-009 | All 20 commands must have 4-field frontmatter |
 | FR-010 | .mcp.json with 9 MCP servers |
 | FR-011 | SessionStart+compact hook for context re-injection |
-| FR-012 | context:fork on heavy skills (codex-review, recursive-improver, etc.) |
+| FR-012 | context:fork on 4 heavy skills: codex-review, recursive-improver, competitive-ads-extractor, content-research-writer |
 | FR-013 | Agent(type) restrictions on all agents |
 | FR-014 | packages/ directory with git submodules for OSS skills |
 | FR-015 | /init gap analysis before CLAUDE.md rewrite |
 
 ## Success Criteria
 
-| Metric | Current | Target | Measurable |
-|--------|---------|--------|------------|
-| CLAUDE.md lines | 277 | <= 150 | `wc -l CLAUDE.md` |
-| rules/ file count | 17 | 5 | `ls .claude/rules/ \| wc -l` |
-| rules/ total lines | 2,485 | ~250 | `wc -l .claude/rules/*.md` |
-| Session load lines | 2,485 | ~400 | Sum of CLAUDE.md + rules/ |
-| settings.json settings | ~5 | 25+ | Count keys in JSON |
-| Hook scripts | 0 | 8+ | `ls .claude/hooks/scripts/ \| wc -l` |
-| Skill frontmatter compliance | Unknown | 100% | Audit script |
-| Agent frontmatter fields | ~3 | 14 | Audit per agent |
-| MCP servers in .mcp.json | 0 | 9 | Count in JSON |
-| OSS skill repos | 1 | TBD | GitHub repo count |
+| Metric | Current (measured 2026-03-05) | Target | Verification Command |
+|--------|-------------------------------|--------|---------------------|
+| CLAUDE.md lines | 278 | <= 150 | `wc -l CLAUDE.md` |
+| CLAUDE.md file count | 2 (root + .claude/) | 1 (root only) | `find . -name CLAUDE.md -not -path '*/node_modules/*' \| wc -l` |
+| rules/ file count | 19 | 5 | `ls .claude/rules/*.md \| wc -l` |
+| rules/ total lines | 1,945 | <= 300 | `wc -l .claude/rules/*.md \| tail -1` |
+| Session load lines | 2,223 (556+1,945) | <= 450 (80% reduction) | Sum of above |
+| settings.json settings | ~5 | >= 25 | `jq 'paths \| length' .claude/settings.json \| wc -l` |
+| Hook scripts | 0 | >= 8 | `ls .claude/hooks/scripts/*.sh \| wc -l` |
+| Skill frontmatter compliance | Unknown | 100% | `.specify/scripts/audit-skills.sh` |
+| Agent frontmatter fields | ~3 | 14 per agent | Manual audit per agent |
+| MCP servers in .mcp.json | 0 | 9 | `jq '.mcpServers \| length' .mcp.json` |
+| OSS skill repos | 1 | >= 3 | `gh repo list Daisuke134 --json name \| jq '[.[] \| select(.name \| test("factory"))] \| length'` |
 
 ## Boundaries (Out of Scope)
 

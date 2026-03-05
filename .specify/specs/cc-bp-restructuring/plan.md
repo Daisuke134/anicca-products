@@ -16,18 +16,17 @@
 
 **Sequential phases with independent parallelizable sub-tasks within each phase.**
 
-Execution order follows dependency graph from v3 spec:
+**Strict Topological Order (single source of truth):**
 ```
-Phase 14 -> Phase 1 -> Phase 2 -> Phase 4
-                |          |-> Phase 7
-                |          |-> Phase 13
-                |-> Phase 3 -> Phase 6
-                |-> Phase 5
-                |-> Phase 9 -> Phase 10 -> Phase 11
-                |-> Phase 12
-                |-> Phase 15
-Phase 8 (independent)
+Step 1: Phase 14 (/init gap analysis)
+Step 2: Phase 1 (CLAUDE.md rewrite) — depends on: Phase 14
+Step 3: Phase 2 (rules -> skills migration) — depends on: Phase 1
+Step 4: Phase 3, 4, 5, 8, 9 (PARALLEL) — depends on: Phase 2
+Step 5: Phase 7, 10, 11, 12, 13 (PARALLEL) — depends on: Step 4 completion
+Step 6: Phase 6 (CC<->OpenClaw integration) — depends on: Phase 3, 4
+Step 7: Phase 15 (Git/OSS) — depends on: Phase 7 (skill audit complete)
 ```
+**Phase 8 (.mcp.json) has no dependencies — execute at any step.**
 
 ## Phase Grouping for Implementation
 
@@ -36,12 +35,14 @@ Phase 8 (independent)
 2. **Phase 1** - CLAUDE.md slim down + @import + paths
 3. **Phase 2** - rules/ -> skills/ migration
 
-### Group B: Parallel after Group A
+### Group B: Parallel after Group A (all start after Phase 2 completes)
 4. **Phase 3** - OpenClaw separation (.openclaw/workspace/ updates)
 5. **Phase 4** - agent_docs/ creation
-6. **Phase 5** - Hooks setup (8+ scripts, 3 types)
-7. **Phase 8** - .mcp.json creation
-8. **Phase 9** - settings.json full config
+6. **Phase 5** - Hooks setup (8+ scripts, 3 types, incl. FR-011 compact re-injection)
+7. **Phase 9** - settings.json full config
+
+### Independent (execute anytime)
+- **Phase 8** - .mcp.json creation (no dependencies)
 
 ### Group C: Depends on Group B
 9. **Phase 7** - 176 skills + 10 agents + 20 commands audit
