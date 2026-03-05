@@ -283,7 +283,7 @@ tags:
 - tapOn: "Simulate Success"
 - extendedWaitUntil:
     visible:
-      id: "timer_ring"
+      id: "timer_countdown"
     timeout: 10000
 - takeScreenshot: "04-payment-success"
 ```
@@ -415,6 +415,45 @@ tags:
 | 33 | Mock grep 精度 | `grep -r 'Mock'` | `grep -rw 'class Mock'` |
 | 34 | セッション分割ドキュメント化 | 未定義フロー | 9 sessions with gates |
 
+### トレーサビリティ・マトリックス（TODO #1-34 → 完了判定）
+
+| # | 対象ファイル | 完了条件 | 検証コマンド |
+|---|-------------|---------|-------------|
+| 1 | `SKILL.md` | 各フェーズに1スキルのみ参照 | `grep -c 'Skill:' SKILL.md` = フェーズ数 |
+| 2 | `references/us-006-implement.md` | `APP_SCHEME`, `UDID` 変数定義あり | `grep -c 'APP_SCHEME\|UDID' references/us-006-implement.md` >= 2 |
+| 3 | `validate.sh` | Gate 0 でソースファイル存在チェック | `grep 'find.*\.swift' validate.sh` |
+| 4 | `references/us-006-implement.md` | `xcodebuild` なし、`fastlane build` あり | `grep -c 'xcodebuild' references/us-006-implement.md` = 0 |
+| 5 | `references/us-007-testing.md` | `xcodebuild test` なし、`fastlane test` あり | `grep -c 'xcodebuild test' references/us-007-testing.md` = 0 |
+| 6 | `references/us-007-testing.md` | `maestro test maestro/` に統一 | `grep 'maestro test flows/' references/us-007-testing.md` = 0 |
+| 7 | `references/us-006-implement.md` | `xcodegen generate` がビルド前に記載 | `grep 'xcodegen generate' references/us-006-implement.md` |
+| 8 | `templates/Fastfile` | `test`, `build`, `build_for_simulator` lanes 存在 | `grep -c 'lane :' templates/Fastfile` >= 3 |
+| 9 | `references/us-006-implement.md` | 全 fastlane コマンドに env vars 付き | `grep 'FASTLANE_OPT_OUT' references/us-006-implement.md` |
+| 10 | `references/us-006-implement.md` | `GENERATE_INFOPLIST_FILE: YES` 記載 | `grep 'GENERATE_INFOPLIST_FILE' references/us-006-implement.md` |
+| 11 | `references/us-005b-monetization.md` | `Products.storekit` 参照なし | `grep -c 'Products.storekit' references/us-005b-monetization.md` = 0 |
+| 12 | `references/us-005b-monetization.md` | RC Test Store 手順あり | `grep 'Test Store' references/us-005b-monetization.md` |
+| 13 | `validate.sh` | AC に `Products.storekit` 不要 | `grep -v 'Products.storekit' validate.sh` |
+| 14 | `references/us-006-implement.md` | TDD サイクル（RED/GREEN/REFACTOR）記載 | `grep 'RED.*GREEN.*REFACTOR' references/us-006-implement.md` |
+| 15 | `references/us-006-implement.md` | Unit/Integration を実装直前に書く指示 | `grep -i 'before.*implement\|test.*first' references/us-006-implement.md` |
+| 16 | `references/us-006-implement.md` | 実行順序: Models → Services → Integration | `grep 'Models.*Services.*Integration' references/us-006-implement.md` |
+| 17 | `references/us-006-implement.md` | `@Test`, `#expect` 記載 | `grep '@Test\|#expect' references/us-006-implement.md` |
+| 18 | `references/us-006-implement.md` | `@Test(arguments:)` 記載 | `grep '@Test(arguments' references/us-006-implement.md` |
+| 19 | `references/us-006-implement.md` | 80%+ カバレッジ目標記載 | `grep '80%' references/us-006-implement.md` |
+| 20 | `references/us-007-testing.md` | `maestro/` ディレクトリ名 | `grep -c 'flows/' references/us-007-testing.md` = 0 |
+| 21 | `references/us-007-testing.md` | `clearState` + `clearKeychain` 記載 | `grep 'clearState' references/us-007-testing.md` |
+| 22 | `references/us-007-testing.md` | `extendedWaitUntil` 記載 | `grep 'extendedWaitUntil' references/us-007-testing.md` |
+| 23 | `references/us-007-testing.md` | `takeScreenshot` 記載 | `grep 'takeScreenshot' references/us-007-testing.md` |
+| 24 | `references/us-007-testing.md` | `id:` セレクタ優先の指示 | `grep 'id:.*selector\|id:.*only' references/us-007-testing.md` |
+| 25 | `references/us-007-testing.md` | tags（smokeTest 等）記載 | `grep 'smokeTest' references/us-007-testing.md` |
+| 26 | `references/us-007-testing.md` | `maestro test maestro/` 記載 | `grep 'maestro test maestro/' references/us-007-testing.md` |
+| 27 | `references/us-007-testing.md` | timeout ガイダンス記載 | `grep 'timeout.*30000\|30000.*timeout' references/us-007-testing.md` |
+| 28 | `references/us-007-testing.md` | Foundation Models fallback 削除済み | `grep -c 'Foundation Models\|fallback.*AI' references/us-007-testing.md` = 0 |
+| 29 | `references/us-007-testing.md` | AI generation `< 3s` → `< 500ms` | `grep '500ms' references/us-007-testing.md` |
+| 30 | `references/us-007-testing.md` | `testFallback` → `testGenerate` | `grep -c 'testFallback' references/us-007-testing.md` = 0 |
+| 31 | `SKILL.md` | code-quality-reviewer が 004-R, 006-R に記載 | `grep 'code-quality-reviewer' SKILL.md` |
+| 32 | `references/us-007-testing.md` | Edge Case → Test file マッピング表あり | `grep 'Edge Case.*Test\|test.*mapping' references/us-007-testing.md` |
+| 33 | `validate.sh` | `grep -rw 'class Mock'` に修正 | `grep "grep -rw 'class Mock'" validate.sh` |
+| 34 | `CLAUDE.md` | 9セッション分割が記載 | `grep '9.*session\|セッション' CLAUDE.md` |
+
 ---
 
 ## 7. レビューゲート設計
@@ -436,15 +475,15 @@ tags:
 
 リリース前最終ゲート・大規模リファクタ時に使用。Phase B の各セッションでは使わない。
 
-### レビュー発動ルール
+### レビュー発動ルール（リスク優先 — 行数は二次判定）
 
-| 変更規模 | レビュー | ブロッキング |
-|---------|---------|-------------|
-| 5行以下 | なし（テストのみ） | テスト PASS |
-| 5〜50行 | 軽量チェック | テスト PASS |
-| 50行〜 / 複数ファイル | **code-quality-reviewer** | CRITICAL=0 |
-| 公開 API 変更 | **code-quality-reviewer（必須）** | CRITICAL=0 |
-| セキュリティ / 決済コード | **人間レビュー（必須）** | 人間 OK |
+| 優先度 | 条件 | レビュー | ブロッキング |
+|--------|------|---------|-------------|
+| 1（最高） | セキュリティ / 決済コード（行数不問） | **人間レビュー（必須）** | 人間 OK |
+| 2 | 公開 API 変更（行数不問） | **code-quality-reviewer（必須）** | CRITICAL=0 |
+| 3 | 50行〜 / 複数ファイル | **code-quality-reviewer** | CRITICAL=0 |
+| 4 | 5〜50行 | 軽量チェック | テスト PASS |
+| 5 | 5行以下 | なし（テストのみ） | テスト PASS |
 
 ---
 
@@ -514,13 +553,13 @@ mobileapp-builder/
 
 ### 依存スキル（ユーザーが別途インストール）
 
-| スキル | ソース |
-|--------|--------|
-| `ios-ux-design` | 自作 |
-| `frontend-design` | Anthropic 公式 |
-| `implementation-guide` | rshankras/claude-code-apple-skills |
-| `maestro-e2e` | skills.sh |
-| `asc-*` シリーズ | rshankras/claude-code-apple-skills |
+| スキル | Phase での使用 | ソース |
+|--------|---------------|--------|
+| `implementation-spec` | 004a (Core Spec) | skills.sh |
+| `frontend-design` | 004b (UX Spec) | Anthropic 公式 |
+| `ios-ux-design` | 006a-d (TDD実装) | 自作 |
+| `maestro-ui-testing` | 007 (E2E) | skills.sh |
+| `asc-*` シリーズ | 008-009 (リリース) | rshankras/claude-code-apple-skills |
 
 ---
 
