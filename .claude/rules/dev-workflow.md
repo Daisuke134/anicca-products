@@ -1,78 +1,31 @@
-# 3ゲート開発ワークフロー（Spec → TDD → Review）
+# 3ゲート開発ワークフロー
 
-**品質はSpecだけで担保しない。3つのゲートが各自の責任を持つ。**
+**Spec（設計）→ TDD（正しさ）→ codex-review（品質）**
 
-> **原則: Specは設計（What/Why）、TDDは正しさ（テスト）、codex-reviewは品質（レビュー）を担保する。**
-> Specにパッチレベルの詳細を書く必要はない。各ゲートが責任を分担する。
+| Gate | 担保 | 通過条件 |
+|------|------|---------|
+| GATE 1: SPEC | 設計の漏れ・矛盾 | codex-review → ok: true |
+| GATE 2: TDD | テストが正しさを証明 | RED → GREEN → REFACTOR |
+| GATE 3: REVIEW | 品質・セキュリティ | codex-review → ok: true + ユーザー実機確認 |
 
-```
-┌─────────────────────────────────────────┐
-│ GATE 1: SPEC（設計ゲート）               │
-│ - コア6セクションを書く（下記参照）       │
-│ - codex-review → ok: true               │
-│ 担保: 設計の漏れ・矛盾                   │
-├─────────────────────────────────────────┤
-│ GATE 2: IMPLEMENT（TDDゲート）           │
-│ - Specを読んで RED → GREEN → REFACTOR   │
-│ - AIが実装コードを生成                    │
-│ 担保: テストが正しさを証明               │
-├─────────────────────────────────────────┤
-│ GATE 3: REVIEW（コードゲート）           │
-│ - codex-review → ok: true               │
-│ - ユーザー実機確認                       │
-│ 担保: 品質・セキュリティ・整合性         │
-├─────────────────────────────────────────┤
-│ COMMIT                                   │
-└─────────────────────────────────────────┘
-```
+## codex-review
 
-## codex-review ルール
+| ルール | 値 |
+|--------|-----|
+| blocking 1件でも | 次ゲート進行禁止 |
+| 最大反復 | 5回 |
+| 実行タイミング | Spec更新後、5ファイル以上の実装後、コミット/PR/リリース前 |
 
-1. **blocking issue が 1件でもあれば次のゲートに進まない**
-2. **最大5回まで反復**（ok: true または max_iters 到達まで）
-3. **advisory は参考情報**（ok: true でもレポートに記載）
-
-## codex-review 実行タイミング
-
-| ゲート | タイミング | 何をレビュー |
-|--------|-----------|-------------|
-| GATE 1 | Spec作成・更新後 | 設計の漏れ・矛盾・受け入れ条件の抜け |
-| GATE 3 | 大きな実装完了後（5ファイル以上 / 公開API / infra変更） | コード品質・セキュリティ |
-| GATE 3 | コミット/PR/リリース前 | 最終チェック |
-
-## なぜSpecをライトに保てるか
-
-| 懸念 | 担保するゲート |
-|------|---------------|
-| 「設計が間違ってたらどうする？」 | GATE 1: codex-reviewがSpecをレビュー |
-| 「実装が正しいか分からない」 | GATE 2: TDDのテストが証明 |
-| 「コード品質は？セキュリティは？」 | GATE 3: codex-reviewが実装をレビュー |
-| 「全体として動くか？」 | GATE 3: ユーザー実機確認 |
-
-## GATE 3 Maestro判定（BLOCKING）
+## GATE 3 Maestro判定
 
 | 条件 | アクション |
 |------|-----------|
-| SpecにE2E判定セクションがない | **BLOCKING** — Specに戻って追記 |
-| E2E判定=必要なのにMaestroテストがない | **BLOCKING** — Maestroテスト作成 |
-| E2E判定=不要（理由明記あり） | OK — スキップ可 |
+| E2E判定セクションなし | BLOCKING — Specに追記 |
+| E2E必要なのにテストなし | BLOCKING — Maestro作成 |
+| E2E不要（理由明記） | スキップ可 |
 
 ## Feature Flag
 
-**未完成の機能を隠すスイッチ。**
-
 ```swift
-if FeatureFlags.isPhase5Enabled {
-    showNewFeature()  // まだ見せない
-}
-```
-
-## hotfix（緊急バグ修正）
-
-**release ブランチから切って、両方にマージ。**
-
-```
-release/1.0.8 でバグ発見
-  → release/1.0.8 で修正
-  → dev にも cherry-pick
+if FeatureFlags.isEnabled { showNewFeature() }
 ```

@@ -167,3 +167,6 @@ openclaw/openclaw.json
 docs/screenshots/output.xcresult/
 docs/screenshots/raw/
 docs/screenshots/processed/
+
+CLAUDE.local.md
+.claude/settings.local.json
