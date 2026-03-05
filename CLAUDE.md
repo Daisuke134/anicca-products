@@ -39,7 +39,6 @@
 |------|-----|
 | Mac Mini | anicca-mac-mini-1（Tailscale: 100.99.82.95） |
 | MacBook SSH | `ssh cbns03@100.108.140.123` |
-| OpenClaw Home | `/Users/anicca/.openclaw/` |
 | anicca-products | git@github.com:Daisuke134/anicca-products.git (PUBLIC, origin) |
 | anicca | https://github.com/Daisuke134/anicca (PRIVATE, pushしない) |
 | VPS | 使わない（2026-02-18移行完了済み） |
@@ -68,7 +67,7 @@
 | 決済 | RevenueCat ($9.99/月, $49.99/年) |
 | 分析 | Mixpanel |
 | E2E | Maestro |
-| Agent | OpenClaw (Mac Mini) |
+| Agent | OpenClaw（詳細: `agent_docs/openclaw_integration.md`） |
 
 **ディレクトリ:** `aniccaios/` iOS | `apps/api/` API | `.cursor/plans/` 仕様書 | `.serena/memories/` メモリ
 
@@ -87,15 +86,7 @@
 |---------|---------|
 | `.cursor/plans/reference/secrets.md` | デプロイ・Secret設定時 |
 | `.cursor/plans/reference/infrastructure.md` | インフラ・Railway作業時 |
-| `.cursor/plans/reference/openclaw-learnings.md` | OpenClaw作業時 |
-| `.cursor/plans/reference/openclaw-anicca.md` | OpenClaw作業時（変更後は更新） |
-| `agent_docs/openclaw-troubleshooting.md` | OpenClaw gateway接続問題時 |
-
-## OpenClaw 運用（要約）
-
-OpenClaw は `.openclaw/workspace/` に設定あり。MCP プロジェクトID: Mixpanel `3970220`, RevenueCat `projbb7b9d1b`。
-指示方法: `openclaw agent --message "..." --deliver`（脳を通す）/ `openclaw message send`（直接投稿）。
-Gateway再起動: `openclaw gateway restart`（設定変更時のみ）。
+| `agent_docs/openclaw_integration.md` | OpenClaw作業時（設定・gateway・認証・TUI） |
 
 ---
 
