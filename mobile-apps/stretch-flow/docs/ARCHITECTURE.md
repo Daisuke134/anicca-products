@@ -6,7 +6,7 @@
 
 ## 1. Overview
 
-DeskStretch は SwiftUI ベースの iOS アプリ。ローカルファーストアーキテクチャで、バックエンド不要。Apple Foundation Models によるオンデバイスAI推論、RevenueCat によるサブスクリプション管理、UserDefaults + JSON によるデータ永続化。
+DeskStretch は SwiftUI ベースの iOS アプリ。ローカルファーストアーキテクチャで、バックエンド不要。痛みエリア＋履歴ベースの静的フィルタリングによるルーティン選択、RevenueCat によるサブスクリプション管理、UserDefaults + JSON によるデータ永続化。**AI API は使用禁止（Rule 21）。**
 
 ---
 
@@ -15,7 +15,7 @@ DeskStretch は SwiftUI ベースの iOS アプリ。ローカルファースト
 | Layer | Technology | Version |
 |-------|-----------|---------|
 | **UI** | SwiftUI | iOS 15+ |
-| **AI Engine** | Apple Foundation Models | iOS 26+ (with fallback) |
+| **Routine Selection** | 静的フィルタリング（JSON ベース） | iOS 15+ |
 | **Subscriptions** | RevenueCat Swift SDK | Latest |
 | **Notifications** | UserNotifications | Native |
 | **Storage** | UserDefaults + JSON files | Native |
@@ -33,6 +33,7 @@ DeskStretch は SwiftUI ベースの iOS アプリ。ローカルファースト
 | AppTrackingTransparency | Rule 20b |
 | CoreData / SwiftData | Overkill for MVP |
 | Backend / API | Not needed for MVP |
+| AI API / Foundation Models | Rule 21: ゼロ AI API |
 
 ---
 
@@ -68,9 +69,9 @@ DeskStretchios/
 │   ├── UserProgress.swift                # todayCount, streak, totalSessions, lastActiveDate
 │   └── StretchSession.swift              # exercises[], completedAt, duration
 ├── Services/
-│   ├── AIStretchService.swift            # Foundation Models integration + fallback
+│   ├── StretchRoutineService.swift        # 静的フィルタリング（痛みエリア + 履歴ベース）
 │   ├── NotificationService.swift         # Schedule/cancel local notifications
-│   ├── SubscriptionService.swift         # RevenueCat wrapper (entitlement check)
+│   ├── SubscriptionService.swift         # SubscriptionServiceProtocol 準拠（DI + Mock 対応）
 │   ├── ProgressService.swift             # UserDefaults CRUD for progress
 │   └── StretchLibraryService.swift       # Load exercises from JSON
 ├── Resources/
@@ -85,19 +86,38 @@ DeskStretchios/
 
 ## 4. Data Flow
 
-### State Management
+### State Management（MVVM 分割）
+
+**AppState は God Object 化を防ぐため、ドメイン別 ViewModel に分割する。**
 
 ```
-@Observable AppState (single source of truth)
-    ├── selectedPainAreas: Set<PainArea>
+@Observable TimerViewModel
     ├── breakSchedule: BreakSchedule
+    ├── remainingTime: TimeInterval
+    └── isRunning: Bool
+
+@Observable StretchViewModel
+    ├── currentSession: StretchSession?
+    ├── selectedPainAreas: Set<PainArea>
+    └── sessionHistory: [StretchSession]
+
+@Observable ProgressViewModel
     ├── userProgress: UserProgress
+    ├── todayCount: Int
+    └── currentStreak: Int
+
+@Observable AppState（薄いコーディネーター）
     ├── isPremium: Bool
     ├── hasCompletedOnboarding: Bool
-    └── currentSession: StretchSession?
+    └── timerVM / stretchVM / progressVM への参照
+```
 
-SwiftUI Views observe AppState via @Environment
-Services read/write to UserDefaults and update AppState
+**各 ViewModel は対応する Service を DI で受け取り、View は ViewModel のみを参照する。**
+
+```
+View → ViewModel → Service → UserDefaults / JSON
+         ↑ DI
+    Protocol-based injection（テスト時は Mock 差し替え）
 ```
 
 ### Data Persistence
@@ -111,15 +131,16 @@ Services read/write to UserDefaults and update AppState
 | Stretch library | Bundle JSON | `[StretchExercise]` |
 | Subscription status | RevenueCat (cached) | `CustomerInfo` |
 
-### AI Data Flow
+### Routine Selection Data Flow（静的フィルタリング）
 
 ```
 User's pain areas + session history
     ↓
-AIStretchService.generateRoutine(painAreas:, history:)
+StretchRoutineService.selectRoutine(painAreas:, history:)
     ↓
-[iOS 26+] Foundation Models → personalized JSON
-[iOS < 26] Fallback → curated static routine from StretchLibrary.json
+StretchLibrary.json から痛みエリアでフィルタ
+    ↓
+3日以内の重複を除外（バリエーション確保）
     ↓
 StretchSession with 3-5 exercises
     ↓
@@ -133,7 +154,7 @@ StretchSessionView renders step-by-step
 | Concern | Approach |
 |---------|----------|
 | **Data Collection** | Zero. No analytics, no tracking, no server-side data |
-| **AI Processing** | 100% on-device (Foundation Models). No data leaves device |
+| **Routine Selection** | 100% ローカル（JSON 静的フィルタリング）。ネットワーク通信なし |
 | **Subscription** | RevenueCat handles. Only anonymous App User ID |
 | **PrivacyInfo.xcprivacy** | NSPrivacyAccessedAPICategoryUserDefaults (CA92.1) |
 | **ATT** | NOT used (Rule 20b) |
@@ -147,7 +168,7 @@ StretchSessionView renders step-by-step
 | Metric | Target | Approach |
 |--------|--------|----------|
 | Cold start | < 2s | Minimal dependencies, no heavy init |
-| AI generation | < 3s | On-device Foundation Models (no network) |
+| Routine selection | < 500ms | 静的フィルタリング（JSON ベース、ネットワーク不要） |
 | Memory | < 50 MB | No images/videos, SF Symbols only |
 | Battery | Negligible | Scheduled notifications, no background processing |
 | App size | < 30 MB | Text + SF Symbols + JSON data |
@@ -177,7 +198,7 @@ After session → reschedule next notification for T+60min
 
 | Component | Test Type | Priority |
 |-----------|-----------|----------|
-| AIStretchService (fallback logic) | Unit | P0 |
+| StretchRoutineService (フィルタリングロジック) | Unit | P0 |
 | ProgressService (streak calculation) | Unit | P0 |
 | NotificationService (scheduling) | Unit | P0 |
 | SubscriptionService (entitlement) | Integration | P0 |
@@ -208,11 +229,11 @@ After session → reschedule next notification for T+60min
 
 | Risk | Probability | Impact | Mitigation |
 |------|------------|--------|------------|
-| Foundation Models iOS 26+ only | High | Medium | Static fallback routines for older iOS |
+| StretchLibrary.json の内容不足 | Low | Medium | 20+ エクササイズで4カテゴリ網羅 |
 | RevenueCat SDK breaking changes | Low | High | Pin SDK version, test before updates |
 | Notification permission denied | Medium | High | In-app timer fallback, re-prompt strategy |
 | UserDefaults data loss | Low | Medium | Minimal critical data, streak reset is acceptable |
-| App Store rejection (4.3 spam) | Low | High | Unique AI feature differentiates clearly |
+| App Store rejection (4.3 spam) | Low | High | 痛みエリアターゲティング + ブレイクタイマー統合で差別化 |
 
 ---
 
@@ -233,7 +254,7 @@ After session → reschedule next notification for T+60min
 | Dependency | Type | Version | Purpose |
 |-----------|------|---------|---------|
 | RevenueCat | SPM | Latest | Subscription management |
-| Foundation Models | System | iOS 26+ | AI stretch generation |
+| StretchLibrary.json | Bundle | N/A | 静的エクササイズデータ |
 | UserNotifications | System | iOS 15+ | Break reminders |
 | SF Symbols | System | iOS 15+ | Exercise icons |
 
@@ -246,10 +267,10 @@ After session → reschedule next notification for T+60min
 **Decision:** Use UserDefaults for all data persistence.
 **Rationale:** MVP data is simple (progress counters, preferences, pain areas). CoreData adds complexity without benefit. Migrate to CoreData/SwiftData if data model grows in v2.0.
 
-### ADR-002: Foundation Models with Static Fallback
+### ADR-002: Static Filtering Only（Rule 21: AI API 禁止）
 
-**Decision:** Use Foundation Models for AI with static JSON fallback.
-**Rationale:** Foundation Models requires iOS 26+. Static curated routines from StretchLibrary.json ensure 100% feature parity for older devices, minus personalization.
+**Decision:** 静的フィルタリングのみ使用。AI API（Foundation Models 含む）は使用禁止。
+**Rationale:** Rule 21 により AI API はゼロ。StretchLibrary.json から痛みエリア + 履歴ベースでフィルタリングし、ルーティンを選択する。iOS 15+ で100%動作。
 
 ### ADR-003: Scheduled Notifications over Background Timer
 
@@ -260,3 +281,22 @@ After session → reschedule next notification for T+60min
 
 **Decision:** Build PaywallView in SwiftUI from scratch.
 **Rationale:** Rule 20 (factory constraint). RevenueCatUI is forbidden. Use `Purchases.shared.purchase(package:)` directly.
+
+### ADR-005: SubscriptionService Protocol 化（テスタビリティ）
+
+**Decision:** `SubscriptionServiceProtocol` を定義し、DI でテスト時に Mock 差し替え可能にする。
+**Rationale:** RevenueCat SDK はシミュレータ/ユニットテストで動作しない。Protocol 化により `MockSubscriptionService` でオフラインテスト可能。PaywallView、ContentView 等で `isPremium` の分岐テストが確実になる。
+
+```swift
+protocol SubscriptionServiceProtocol {
+    var isPremium: Bool { get }
+    func purchase(package: Package) async throws -> Bool
+    func restorePurchases() async throws -> Bool
+    func fetchOfferings() async throws -> Offerings?
+}
+```
+
+### ADR-006: AppState → MVVM 分割（God Object 防止）
+
+**Decision:** AppState をドメイン別 ViewModel（TimerViewModel, StretchViewModel, ProgressViewModel）に分割し、AppState は薄いコーディネーターに留める。
+**Rationale:** 全状態を1つの AppState に集約すると God Object 化し、テスト困難・変更影響範囲が広がる。MVVM 分割により各 ViewModel が独立してテスト可能になる。
