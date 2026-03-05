@@ -36,6 +36,8 @@ Phase E: Cron テスト（15:00 JST 自動実行）
 | 006a-d (TDD実装) | `ios-ux-design` | iOS HIG 準拠 |
 | 006-R (レビュー) | code-quality-reviewer | 内部サブエージェント |
 | 007 (E2E) | `maestro-ui-testing` | Maestro 専門 |
+| 008 (Release) | `asc-release-flow` | ASC リリースワークフロー |
+| 009 (Submit) | `asc-submission-health` | 提出前コンプライアンス |
 
 ---
 
@@ -79,18 +81,46 @@ Phase E: Cron テスト（15:00 JST 自動実行）
 
 ---
 
-## 2. accessibilityIdentifier 不整合マッピング
+## 2. 正規 accessibilityIdentifier 辞書（全ID）
 
-| TEST_SPEC / Maestro ID | 実コード ID | ファイル | 修正 |
-|------------------------|------------|---------|------|
-| `paywall_maybe_later` | `paywall_skip` | PaywallView.swift:72 | → `paywall_maybe_later` |
-| `timer_stretch_now` | `stretch_now` | TimerView.swift:59 | → `timer_stretch_now` |
-| `timer_countdown` | `timer_ring` | TimerView.swift:36 | → `timer_countdown` |
-| `session_exercise_name` | なし | StretchSessionView.swift:56 | 追加必須 |
-| `session_skip` | `stretch_skip` | StretchSessionView.swift:80 | → `session_skip` |
-| `pain_area_neck` | なし | PainAreaCard.swift | `pain_area_\(painArea.rawValue)` 追加 |
-| `onboarding_continue` | ✅ 一致 | PainAreaSelectionView.swift:47 | OK |
-| `onboarding_get_started` | ✅ 一致 | ProblemEmpathyView.swift:31 | OK |
+### 全 a11y ID 一覧（Maestro YAML + コード共通）
+
+| ID | ファイル | 現状 | 修正 |
+|----|---------|------|------|
+| `onboarding_get_started` | ProblemEmpathyView.swift:31 | ✅ 一致 | — |
+| `onboarding_continue` | PainAreaSelectionView.swift:47 | ✅ 一致 | — |
+| `pain_area_neck` | PainAreaCard.swift | ❌ なし | `pain_area_\(painArea.rawValue)` 追加 |
+| `pain_area_shoulders` | PainAreaCard.swift | ❌ なし | 同上 |
+| `pain_area_back` | PainAreaCard.swift | ❌ なし | 同上 |
+| `pain_area_wrists` | PainAreaCard.swift | ❌ なし | 同上 |
+| `paywall_plan_monthly` | PaywallView.swift | ✅ 一致 | — |
+| `paywall_plan_yearly` | PaywallView.swift | ✅ 一致 | — |
+| `paywall_maybe_later` | PaywallView.swift:72 | ❌ `paywall_skip` | → `paywall_maybe_later` |
+| `timer_stretch_now` | TimerView.swift:59 | ❌ `stretch_now` | → `timer_stretch_now` |
+| `timer_countdown` | TimerView.swift:36 | ❌ `timer_ring` | → `timer_countdown` |
+| `session_exercise_name` | StretchSessionView.swift:56 | ❌ なし | 追加必須 |
+| `session_skip` | StretchSessionView.swift:80 | ❌ `stretch_skip` | → `session_skip` |
+| `settings_upgrade` | SettingsView.swift:49 | ✅ 一致 | — |
+| `progress_dashboard` | ProgressDashboardView.swift | ✅ 一致 | — |
+
+### 辞書 ↔ Maestro YAML 突合検証
+
+```bash
+# 検証コマンド（差分0=PASS）
+# maestro/*.yaml から全 id: を抽出し、辞書と突合
+diff <(grep 'id:' maestro/*.yaml | sed 's/.*id: *"\(.*\)".*/\1/' | sort -u) <(cat <<'IDS'
+onboarding_continue
+onboarding_get_started
+pain_area_neck
+paywall_plan_monthly
+session_exercise_name
+session_skip
+settings_upgrade
+timer_countdown
+timer_stretch_now
+IDS
+) && echo "PASS" || echo "FAIL"
+```
 
 ---
 
@@ -417,42 +447,44 @@ tags:
 
 ### トレーサビリティ・マトリックス（TODO #1-34 → 完了判定）
 
-| # | 対象ファイル | 完了条件 | 検証コマンド |
-|---|-------------|---------|-------------|
-| 1 | `SKILL.md` | 各フェーズに1スキルのみ参照 | `grep -c 'Skill:' SKILL.md` = フェーズ数 |
-| 2 | `references/us-006-implement.md` | `APP_SCHEME`, `UDID` 変数定義あり | `grep -c 'APP_SCHEME\|UDID' references/us-006-implement.md` >= 2 |
-| 3 | `validate.sh` | Gate 0 でソースファイル存在チェック | `grep 'find.*\.swift' validate.sh` |
-| 4 | `references/us-006-implement.md` | `xcodebuild` なし、`fastlane build` あり | `grep -c 'xcodebuild' references/us-006-implement.md` = 0 |
-| 5 | `references/us-007-testing.md` | `xcodebuild test` なし、`fastlane test` あり | `grep -c 'xcodebuild test' references/us-007-testing.md` = 0 |
-| 6 | `references/us-007-testing.md` | `maestro test maestro/` に統一 | `grep 'maestro test flows/' references/us-007-testing.md` = 0 |
-| 7 | `references/us-006-implement.md` | `xcodegen generate` がビルド前に記載 | `grep 'xcodegen generate' references/us-006-implement.md` |
-| 8 | `templates/Fastfile` | `test`, `build`, `build_for_simulator` lanes 存在 | `grep -c 'lane :' templates/Fastfile` >= 3 |
-| 9 | `references/us-006-implement.md` | 全 fastlane コマンドに env vars 付き | `grep 'FASTLANE_OPT_OUT' references/us-006-implement.md` |
-| 10 | `references/us-006-implement.md` | `GENERATE_INFOPLIST_FILE: YES` 記載 | `grep 'GENERATE_INFOPLIST_FILE' references/us-006-implement.md` |
-| 11 | `references/us-005b-monetization.md` | `Products.storekit` 参照なし | `grep -c 'Products.storekit' references/us-005b-monetization.md` = 0 |
-| 12 | `references/us-005b-monetization.md` | RC Test Store 手順あり | `grep 'Test Store' references/us-005b-monetization.md` |
-| 13 | `validate.sh` | AC に `Products.storekit` 不要 | `grep -v 'Products.storekit' validate.sh` |
-| 14 | `references/us-006-implement.md` | TDD サイクル（RED/GREEN/REFACTOR）記載 | `grep 'RED.*GREEN.*REFACTOR' references/us-006-implement.md` |
-| 15 | `references/us-006-implement.md` | Unit/Integration を実装直前に書く指示 | `grep -i 'before.*implement\|test.*first' references/us-006-implement.md` |
-| 16 | `references/us-006-implement.md` | 実行順序: Models → Services → Integration | `grep 'Models.*Services.*Integration' references/us-006-implement.md` |
-| 17 | `references/us-006-implement.md` | `@Test`, `#expect` 記載 | `grep '@Test\|#expect' references/us-006-implement.md` |
-| 18 | `references/us-006-implement.md` | `@Test(arguments:)` 記載 | `grep '@Test(arguments' references/us-006-implement.md` |
-| 19 | `references/us-006-implement.md` | 80%+ カバレッジ目標記載 | `grep '80%' references/us-006-implement.md` |
-| 20 | `references/us-007-testing.md` | `maestro/` ディレクトリ名 | `grep -c 'flows/' references/us-007-testing.md` = 0 |
-| 21 | `references/us-007-testing.md` | `clearState` + `clearKeychain` 記載 | `grep 'clearState' references/us-007-testing.md` |
-| 22 | `references/us-007-testing.md` | `extendedWaitUntil` 記載 | `grep 'extendedWaitUntil' references/us-007-testing.md` |
-| 23 | `references/us-007-testing.md` | `takeScreenshot` 記載 | `grep 'takeScreenshot' references/us-007-testing.md` |
-| 24 | `references/us-007-testing.md` | `id:` セレクタ優先の指示 | `grep 'id:.*selector\|id:.*only' references/us-007-testing.md` |
-| 25 | `references/us-007-testing.md` | tags（smokeTest 等）記載 | `grep 'smokeTest' references/us-007-testing.md` |
-| 26 | `references/us-007-testing.md` | `maestro test maestro/` 記載 | `grep 'maestro test maestro/' references/us-007-testing.md` |
-| 27 | `references/us-007-testing.md` | timeout ガイダンス記載 | `grep 'timeout.*30000\|30000.*timeout' references/us-007-testing.md` |
-| 28 | `references/us-007-testing.md` | Foundation Models fallback 削除済み | `grep -c 'Foundation Models\|fallback.*AI' references/us-007-testing.md` = 0 |
-| 29 | `references/us-007-testing.md` | AI generation `< 3s` → `< 500ms` | `grep '500ms' references/us-007-testing.md` |
-| 30 | `references/us-007-testing.md` | `testFallback` → `testGenerate` | `grep -c 'testFallback' references/us-007-testing.md` = 0 |
-| 31 | `SKILL.md` | code-quality-reviewer が 004-R, 006-R に記載 | `grep 'code-quality-reviewer' SKILL.md` |
-| 32 | `references/us-007-testing.md` | Edge Case → Test file マッピング表あり | `grep 'Edge Case.*Test\|test.*mapping' references/us-007-testing.md` |
-| 33 | `validate.sh` | `grep -rw 'class Mock'` に修正 | `grep "grep -rw 'class Mock'" validate.sh` |
-| 34 | `CLAUDE.md` | 9セッション分割が記載 | `grep '9.*session\|セッション' CLAUDE.md` |
+**検証ルール:** 各コマンドは `0=PASS, 非0=FAIL`。`&&` で複合条件を連結。
+
+| # | 対象ファイル | 完了条件 | 検証コマンド（0=PASS, 非0=FAIL） |
+|---|-------------|---------|-------------------------------|
+| 1 | `SKILL.md` | 各フェーズに1スキルのみ参照 | `rg -q 'Skill:' SKILL.md` |
+| 2 | `references/us-006-implement.md` | `APP_SCHEME`, `UDID` 変数定義あり | `rg -q 'APP_SCHEME' references/us-006-implement.md && rg -q 'UDID' references/us-006-implement.md` |
+| 3 | `validate.sh` | Gate 0 でソースファイル存在チェック | `rg -q 'find.*\.swift' validate.sh` |
+| 4 | `references/us-006-implement.md` | `xcodebuild` なし + `fastlane build` あり | `! rg -q 'xcodebuild' references/us-006-implement.md && rg -q 'fastlane build' references/us-006-implement.md` |
+| 5 | `references/us-007-testing.md` | `xcodebuild test` なし + `fastlane test` あり | `! rg -q 'xcodebuild test' references/us-007-testing.md && rg -q 'fastlane test' references/us-007-testing.md` |
+| 6 | `references/us-007-testing.md` | `flows/` なし + `maestro/` あり | `! rg -q 'maestro test flows/' references/us-007-testing.md && rg -q 'maestro test maestro/' references/us-007-testing.md` |
+| 7 | `references/us-006-implement.md` | `xcodegen generate` がビルド前に記載 | `rg -q 'xcodegen generate' references/us-006-implement.md` |
+| 8 | `templates/Fastfile` | `test`, `build`, `build_for_simulator` lanes 存在 | `rg -q 'lane :test' templates/Fastfile && rg -q 'lane :build' templates/Fastfile && rg -q 'lane :build_for_simulator' templates/Fastfile` |
+| 9 | `references/us-006-implement.md` | 全 fastlane コマンドに env vars 付き | `rg -q 'FASTLANE_OPT_OUT' references/us-006-implement.md` |
+| 10 | `references/us-006-implement.md` | `GENERATE_INFOPLIST_FILE` 記載 | `rg -q 'GENERATE_INFOPLIST_FILE' references/us-006-implement.md` |
+| 11 | `references/us-005b-monetization.md` | `Products.storekit` 参照なし | `! rg -q 'Products.storekit' references/us-005b-monetization.md` |
+| 12 | `references/us-005b-monetization.md` | RC Test Store 手順あり | `rg -q 'Test Store' references/us-005b-monetization.md` |
+| 13 | `validate.sh` | `Products.storekit` チェック削除済み | `! rg -q 'Products.storekit' validate.sh` |
+| 14 | `references/us-006-implement.md` | TDD サイクル記載 | `rg -q 'RED' references/us-006-implement.md && rg -q 'GREEN' references/us-006-implement.md && rg -q 'REFACTOR' references/us-006-implement.md` |
+| 15 | `references/us-006-implement.md` | テストファースト指示あり | `rg -qi 'test.*first\|before.*implement\|write.*test' references/us-006-implement.md` |
+| 16 | `references/us-006-implement.md` | 実行順序記載 | `rg -q 'Models' references/us-006-implement.md && rg -q 'Services' references/us-006-implement.md && rg -q 'Integration' references/us-006-implement.md` |
+| 17 | `references/us-006-implement.md` | Swift Testing 記載 | `rg -q '@Test' references/us-006-implement.md && rg -q '#expect' references/us-006-implement.md` |
+| 18 | `references/us-006-implement.md` | Parameterized tests 記載 | `rg -q '@Test(arguments' references/us-006-implement.md` |
+| 19 | `references/us-006-implement.md` | 80%+ カバレッジ目標 | `rg -q '80%' references/us-006-implement.md` |
+| 20 | `references/us-007-testing.md` | `flows/` ディレクトリ名なし | `! rg -q 'flows/' references/us-007-testing.md` |
+| 21 | `references/us-007-testing.md` | `clearState` + `clearKeychain` 記載 | `rg -q 'clearState' references/us-007-testing.md && rg -q 'clearKeychain' references/us-007-testing.md` |
+| 22 | `references/us-007-testing.md` | `extendedWaitUntil` 記載 | `rg -q 'extendedWaitUntil' references/us-007-testing.md` |
+| 23 | `references/us-007-testing.md` | `takeScreenshot` 記載 | `rg -q 'takeScreenshot' references/us-007-testing.md` |
+| 24 | `references/us-007-testing.md` | `id:` セレクタ優先指示 | `rg -q 'id:' references/us-007-testing.md` |
+| 25 | `references/us-007-testing.md` | tags 記載 | `rg -q 'smokeTest' references/us-007-testing.md` |
+| 26 | `references/us-007-testing.md` | `maestro test maestro/` 記載 | `rg -q 'maestro test maestro/' references/us-007-testing.md` |
+| 27 | `references/us-007-testing.md` | timeout ガイダンス | `rg -q '30000' references/us-007-testing.md` |
+| 28 | `references/us-007-testing.md` | Foundation Models 参照なし | `! rg -q 'Foundation Models' references/us-007-testing.md` |
+| 29 | `references/us-007-testing.md` | `500ms` 性能基準 | `rg -q '500ms' references/us-007-testing.md` |
+| 30 | `references/us-007-testing.md` | `testFallback` なし | `! rg -q 'testFallback' references/us-007-testing.md` |
+| 31 | `SKILL.md` | code-quality-reviewer 記載 | `rg -q 'code-quality-reviewer' SKILL.md` |
+| 32 | `references/us-007-testing.md` | Edge Case → Test マッピング表 | `rg -q 'Edge Case' references/us-007-testing.md` |
+| 33 | `validate.sh` | `grep -rw 'class Mock'` 使用 | `rg -q "grep -rw 'class Mock'" validate.sh` |
+| 34 | `CLAUDE.md` | 9セッション分割記載 | `rg -q 'セッション' CLAUDE.md` |
 
 ---
 
