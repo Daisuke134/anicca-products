@@ -32,7 +32,7 @@ Step 7: Phase 15 (Git/OSS) — depends on: Phase 7 (skill audit complete)
 
 ### Group A: Foundation (Sequential, Blocking)
 1. **Phase 14** - /init gap analysis
-2. **Phase 1** - CLAUDE.md slim down + @import + paths
+2. **Phase 1** - CLAUDE.md slim down, @import, paths
 3. **Phase 2** - rules/ -> skills/ migration
 
 ### Group B: Parallel after Group A (all start after Phase 2 completes)
@@ -45,11 +45,11 @@ Step 7: Phase 15 (Git/OSS) — depends on: Phase 7 (skill audit complete)
 8. **Phase 8** - .mcp.json creation (zero dependencies on any other phase)
 
 ### Group C: Depends on Group B
-9. **Phase 7** - 176 skills + 10 agents + 20 commands audit
+9. **Phase 7** - 176 skills, 10 agents, 20 commands audit
 10. **Phase 10** - Boris 12 customizations
 11. **Phase 11** - CLI flags documentation
 12. **Phase 12** - Plugin system
-13. **Phase 13** - Bundled skills + context:fork
+13. **Phase 13** - Bundled skills and context:fork
 
 ### Group D: Integration & OSS
 14. **Phase 6** - CC <-> OpenClaw integration protocol

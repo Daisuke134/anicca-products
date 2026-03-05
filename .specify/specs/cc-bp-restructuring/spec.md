@@ -6,7 +6,7 @@
 
 ## Problem Statement
 
-Current Claude Code setup loads 2,501 lines every session (CLAUDE.md 278 lines x 2 files = 556 lines + rules/ 1,945 lines across 19 files). Measured 2026-03-05 via `wc -l`. Research shows LLM instruction compliance degrades uniformly as instruction count increases, with frontier models stable at 150-200 instructions. Current setup has >= 500 instructions = 50% compliance rate.
+Current Claude Code setup loads 2,501 lines every session (CLAUDE.md 278 lines x 2 files = 556 lines, rules/ 1,945 lines across 19 files). Measured 2026-03-05 via `wc -l`. Research shows LLM instruction compliance degrades uniformly as instruction count increases, with frontier models stable at 150-200 instructions. Current setup has >= 500 instructions = 50% compliance rate.
 
 ## User Scenarios
 
@@ -17,7 +17,7 @@ Current Claude Code setup loads 2,501 lines every session (CLAUDE.md 278 lines x
 **Acceptance:**
 - Given CLAUDE.md is 278 lines (measured 2026-03-05), When restructured, Then `wc -l CLAUDE.md` <= 150
 - Given rules/ is 19 files / 1,945 lines (measured 2026-03-05), When restructured, Then `ls .claude/rules/*.md | wc -l` = 5 AND `wc -l .claude/rules/*.md | tail -1` <= 300
-- Given total session load is 2,501 lines (556 CLAUDE.md + 1,945 rules, measured 2026-03-05), When restructured, Then sum <= 450 (82% reduction)
+- Given total session load is 2,501 lines (556 CLAUDE.md, 1,945 rules; measured 2026-03-05), When restructured, Then sum <= 450 (82% reduction)
 
 ### P2: On-Demand Knowledge Loading
 
@@ -99,16 +99,37 @@ Current Claude Code setup loads 2,501 lines every session (CLAUDE.md 278 lines x
 | Metric | Current (measured 2026-03-05) | Target | Verification Command |
 |--------|-------------------------------|--------|---------------------|
 | CLAUDE.md lines | 278 | <= 150 | `wc -l CLAUDE.md` |
-| CLAUDE.md file count | 2 (root + .claude/) | 1 (root only) | `find . -name CLAUDE.md -not -path '*/node_modules/*' \| wc -l` |
+| CLAUDE.md file count | 2 (root and .claude/) | 1 (root only) | `find . -name CLAUDE.md -not -path '*/node_modules/*' \| wc -l` |
 | rules/ file count | 19 | 5 | `ls .claude/rules/*.md \| wc -l` |
 | rules/ total lines | 1,945 | <= 300 | `wc -l .claude/rules/*.md \| tail -1` |
-| Session load lines | 2,501 (556+1,945) | <= 450 (82% reduction) | Sum of above |
+| Session load lines | 2,501 (556 and 1,945) | <= 450 (82% reduction) | Sum of above |
 | settings.json settings | 5 | >= 25 | `jq 'paths \| length' .claude/settings.json \| wc -l` |
 | Hook scripts | 0 | >= 8 | `ls .claude/hooks/scripts/*.sh \| wc -l` |
 | Skill frontmatter compliance | Unknown | 100% | `.specify/scripts/audit-skills.sh` |
 | Agent frontmatter fields | 3 | 14 per agent | Manual audit per agent |
 | MCP servers in .mcp.json | 0 | 9 | `jq '.mcpServers \| length' .mcp.json` |
 | OSS skill repos | 1 | >= 3 | `gh repo list Daisuke134 --json name \| jq '[.[] \| select(.name \| test("factory"))] \| length'` |
+
+## Baseline Measurement Log (2026-03-05)
+
+```
+$ wc -l CLAUDE.md .claude/CLAUDE.md
+     278 CLAUDE.md
+     278 .claude/CLAUDE.md
+     556 total
+$ ls .claude/rules/*.md | wc -l
+      19
+$ wc -l .claude/rules/*.md | tail -1
+    1945 total
+$ jq 'paths | length' .claude/settings.json | wc -l
+       4
+$ ls .claude/hooks/scripts/*.sh 2>/dev/null | wc -l
+       1
+$ jq '.mcpServers | length' .mcp.json
+not found (file does not exist)
+
+Total session load: 556 (CLAUDE.md) and 1,945 (rules/) = 2,501 lines
+```
 
 ## Boundaries (Out of Scope)
 

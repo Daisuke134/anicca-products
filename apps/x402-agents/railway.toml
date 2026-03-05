@@ -1,0 +1,10 @@
+[build]
+builder = "nixpacks"
+watchPatterns = ["apps/x402-agents/**"]
+
+[deploy]
+startCommand = "npx prisma generate && node src/server.js"
+healthcheckPath = "/health"
+healthcheckTimeout = 10
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3

@@ -37,7 +37,7 @@
 - All skills must have proper frontmatter (name, description with "Use when...")
 - All agents must have full 14-field frontmatter
 - Hooks must cover 3 types: command, prompt, http
-- settings.json must have 25+ active settings
+- settings.json must have >= 25 active settings
 
 ## Sources of Truth
 
