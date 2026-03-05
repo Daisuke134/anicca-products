@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anicca — Digital Buddha Status</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', system-ui, sans-serif; background: #0a0a0a; color: #e0e0e0; padding: 2rem; max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+  .subtitle { color: #888; margin-bottom: 2rem; font-size: 0.9rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .card { background: #151515; border: 1px solid #222; border-radius: 12px; padding: 1.5rem; }
+  .card-label { font-size: 0.75rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; }
+  .card-value { font-size: 1.8rem; font-weight: 700; margin-top: 0.25rem; }
+  .card-value.green { color: #22c55e; }
+  .card-value.red { color: #ef4444; }
+  .card-value.yellow { color: #eab308; }
+  h2 { font-size: 1.2rem; margin: 2rem 0 1rem; border-bottom: 1px solid #222; padding-bottom: 0.5rem; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 0.75rem; border-bottom: 1px solid #1a1a1a; font-size: 0.85rem; }
+  th { color: #666; font-weight: 500; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 9999px; font-size: 0.7rem; font-weight: 600; }
+  .badge.live { background: #052e16; color: #22c55e; }
+  .badge.building { background: #1c1917; color: #eab308; }
+  .badge.failed { background: #1c0a0a; color: #ef4444; }
+  .badge.queued { background: #0c0c1d; color: #818cf8; }
+  .emoji { font-size: 1.5rem; }
+  footer { margin-top: 3rem; color: #444; font-size: 0.75rem; text-align: center; }
+  a { color: #818cf8; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<h1>🪷 Anicca</h1>
+<p class="subtitle">Digital Buddha — Autonomous AI Agent Status Dashboard</p>
+
+<div class="grid">
+  <div class="card">
+    <div class="card-label">Monthly Revenue (MRR)</div>
+    <div class="card-value yellow">$0</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Monthly Expenses</div>
+    <div class="card-value red">~$620</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Runway</div>
+    <div class="card-value red">Mar 2026</div>
+  </div>
+  <div class="card">
+    <div class="card-label">Apps Built</div>
+    <div class="card-value green">7</div>
+  </div>
+</div>
+
+<h2>💰 Expenses Breakdown</h2>
+<table>
+  <tr><th>Item</th><th>Cost/mo</th></tr>
+  <tr><td>Claude Code Max (Account 1)</td><td>$200</td></tr>
+  <tr><td>Claude Code Max (Account 2)</td><td>$200</td></tr>
+  <tr><td>APIs (fal.ai, Apify, Postiz, etc.)</td><td>~$20</td></tr>
+  <tr><td>Hosting (Mac Mini, local)</td><td>$0</td></tr>
+  <tr><td><strong>Total</strong></td><td><strong>~$620</strong></td></tr>
+</table>
+
+<h2>📱 Apps</h2>
+<table>
+  <tr><th>App</th><th>Status</th><th>Date</th></tr>
+  <tr><td>Anicca (iOS)</td><td><span class="badge live">Live</span></td><td>2025</td></tr>
+  <tr><td>BreathCalm</td><td><span class="badge building">Building</span></td><td>Mar 2026</td></tr>
+  <tr><td>BreatheAI</td><td><span class="badge building">Building</span></td><td>Mar 2026</td></tr>
+  <tr><td>CalmCortisol</td><td><span class="badge building">Building</span></td><td>Mar 2026</td></tr>
+  <tr><td>DailyDhamma</td><td><span class="badge building">Building</span></td><td>Mar 2026</td></tr>
+  <tr><td>SleepRitual</td><td><span class="badge building">Building</span></td><td>Mar 2026</td></tr>
+  <tr><td>StretchFlow</td><td><span class="badge building">Building</span></td><td>Mar 2026</td></tr>
+  <tr><td>Thankful (Gratitude)</td><td><span class="badge building">Building</span></td><td>Mar 2026</td></tr>
+</table>
+
+<h2>🤖 Infrastructure</h2>
+<table>
+  <tr><th>Component</th><th>Status</th></tr>
+  <tr><td>OpenClaw Gateway</td><td><span class="badge live">Running</span></td></tr>
+  <tr><td>Mobile App Factory</td><td><span class="badge building">Daily cron</span></td></tr>
+  <tr><td>Conway Terminal</td><td><span class="badge queued">Installed</span></td></tr>
+  <tr><td>Conway Automaton</td><td><span class="badge queued">Setup done, needs funding</span></td></tr>
+</table>
+
+<h2>🔗 Links</h2>
+<p>
+  <a href="https://github.com/Daisuke134/anicca-products">GitHub</a> ·
+  <a href="https://x.com/aniccaxxx">X (@aniccaxxx)</a> ·
+  <a href="https://tiktok.com/@anicca.jp2">TikTok</a>
+</p>
+
+<footer>
+  <p>Anicca (अनिच्च) — "All things are impermanent."</p>
+  <p>Last updated: <span id="updated"></span></p>
+  <script>document.getElementById('updated').textContent = new Date().toISOString().split('T')[0];</script>
+</footer>
+
+</body>
+</html>
