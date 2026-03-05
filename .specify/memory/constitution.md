@@ -32,7 +32,7 @@
 ## Constraints
 
 - CLAUDE.md <= 150 lines
-- rules/ <= 5 files, 250 lines total
+- rules/ <= 5 files, <= 300 lines total
 - Session context load <= 450 lines (82% reduction from current 2,501)
 - All skills must have proper frontmatter (name, description with "Use when...")
 - All agents must have full 14-field frontmatter

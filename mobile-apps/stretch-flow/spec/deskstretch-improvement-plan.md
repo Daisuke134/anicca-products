@@ -1,12 +1,41 @@
 # DeskStretch 改善計画（統合版）
 
-**Date:** 2026-03-05（v2 — TDD統合 + レビューゲート追加）
+**Date:** 2026-03-05（v4 — SDD/TDD フロー確定 + 1スキル/フェーズ + 9セッション）
 **Sources:**
 - [Martin Fowler - Test Driven Development](https://martinfowler.com/bliki/TestDrivenDevelopment.html) — 「Write a test → Write code → Refactor」
 - [Anthropic Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents) — 「Prompt chaining with programmatic gates」
 - [HubSpot - Automated Code Review](https://product.hubspot.com/blog/automated-code-review-the-6-month-evolution) — 「Internal agent > external tool」
 - [RevenueCat Test Store](https://www.revenuecat.com/docs/test-and-launch/sandbox/test-store)
 - [Quash - TDD Guide for Mobile-App QA](https://quashbugs.com/blog/test-driven-development-tdd-guide)
+- [Martin Fowler - RefinementCodeReview](https://martinfowler.com/bliki/RefinementCodeReview.html) — 「code reviews = an explicit step in workflow」
+- [Anthropic Skills Guide](https://www.anthropic.com/engineering/claude-code-best-practices) — 「Keep SKILL.md focused on core instructions」
+- [Mau - Prayer Lock $25k/month](mau.md) — オンボーディング8ルール
+
+---
+
+## 全体フロー（Phase A → B → C → D → E）
+
+```
+Phase A: SDD Spec（修正仕様書を書く — 3セッション）
+    ↓
+Phase B: TDD Fix（仕様に従って修正する — 6セッション）
+    ↓
+Phase C: レシピ更新（学びを references/us-*.md + validate.sh + SKILL.md に反映）
+    ↓
+Phase D: 新アプリで検証（US-001〜009 フル実行）
+    ↓
+Phase E: Cron テスト（15:00 JST 自動実行）
+```
+
+### スキル割り当て（1フェーズ = 1スキルのみ）
+
+| フェーズ | スキル | 根拠 |
+|---------|--------|------|
+| 004a (Core Spec) | `implementation-spec` | マスターオーケストレーター |
+| 004b (UX Spec) | `frontend-design` | デザイン思考 + 美学 |
+| 006a-d (TDD実装) | `ios-ux-design` | iOS HIG 準拠 |
+| 006-R (レビュー) | code-quality-reviewer | 内部サブエージェント |
+| 007 (E2E) | `maestro-ui-testing` | Maestro 専門 |
 
 ---
 
@@ -65,80 +94,139 @@
 
 ---
 
-## 3. レシピ改善 TODO（34件）
+## 3. Phase A: SDD Spec（3セッション）
 
-### 3.1 Recipe Structure（3件）
+### 004a: Core Spec
 
-| # | TODO | 現状 | 修正後 |
-|---|------|------|--------|
-| 1 | Skill references: 4 → 1 | 4スキル参照 | `mobileapp-builder`（TDD は 006 内蔵） |
-| 2 | 変数セクション追加 | `<AppName>`, `$UDID` 未定義 | `APP_SCHEME=DeskStretch`, UDID 自動取得 |
-| 3 | 依存チェック（Gate 0）追加 | チェックなし | `find` でソースファイル存在確認 |
+**Skill:** `implementation-spec`
 
-### 3.2 Build Tools → Fastlane（7件）
+| # | 成果物 | 修正する問題 | 内容 |
+|---|--------|-------------|------|
+| 1 | PRD.md（修正版） | #4 | Rule 21（AI 禁止）を明記 |
+| 2 | ARCHITECTURE.md | #13 | SubscriptionService Protocol 化を設計 |
+| 3 | ARCHITECTURE.md | #17 | AppState → MVVM 分割を設計 |
+| 4 | IMPLEMENTATION_GUIDE.md | #1 | xcconfig で API Key 管理 |
 
-| # | TODO | 現状 | 修正後 |
-|---|------|------|--------|
-| 4 | Quality Gate build | `xcodebuild -scheme` | `xcodegen generate && fastlane build` |
-| 5 | Step 2 test | `xcodebuild test` | `fastlane test` |
-| 6 | Step 5 all-test | `xcodebuild test` + `maestro test flows/` | `fastlane test` + `maestro test maestro/` |
-| 7 | xcodegen generate 追加 | 未記載 | Quality Gate 最初に追加 |
-| 8 | Fastfile テンプレート追加 | なし | `test`, `build`, `build_for_simulator` lanes |
-| 9 | env vars 追加 | `FASTLANE_OPT_OUT_CRASH_REPORTING` 欠落 | 全 Fastlane コマンドに追加 |
-| 10 | TestTarget Info.plist | 未記載 | `GENERATE_INFOPLIST_FILE: YES` |
+**Gate:** fastlane build PASS
 
-### 3.3 StoreKit → RC Test Store（3件）
+### 004b: UX Spec
 
-| # | TODO | 現状 | 修正後 |
-|---|------|------|--------|
-| 11 | StoreKit Configuration 削除 | Step 3: Products.storekit | 完全削除。RC Test Store で代替 |
-| 12 | RC Test Store 手順追加 | なし | Test Store API Key + 切り替え手順 |
-| 13 | AC から Products.storekit 削除 | 存在チェック | 「RC Test Store purchase flow verified」 |
+**Skill:** `frontend-design`
 
-### 3.4 TDD → 実装フェーズ統合（6件）
+| # | 成果物 | 修正する問題 | 内容 |
+|---|--------|-------------|------|
+| 1 | UX_SPEC.md | #7 | Onboarding Hook 強化（mau.md 3幕構成） |
+| 2 | UX_SPEC.md | #8 | 通知許可ステップ追加 |
+| 3 | UX_SPEC.md | #9 | 無効ボタン理由表示 |
+| 4 | DESIGN_SYSTEM.md | #19 | トークン定義（色、フォント、スペーシング） |
+| 5 | TEST_SPEC.md | #12 | accessibilityIdentifier 正規マッピング |
+| 6 | TEST_SPEC.md | TODO #28,#29 | AI 参照削除 + 性能基準修正 |
+| 7 | RELEASE_SPEC.md | — | リリース設定 |
 
-| # | TODO | 現状 | 修正後 |
-|---|------|------|--------|
-| 14 | TDD を 006 に統合 | 007 で後付け | 006a-d 内で RED → GREEN → REFACTOR |
-| 15 | Unit/Integration を実装中に書く | 別フェーズ | 各機能の実装直前に書く |
-| 16 | 実行順序指定 | 順序なし | Models → Services → Integration |
-| 17 | Swift Testing framework | 未記載 | `@Test`, `#expect`, `@Suite` 使用 |
-| 18 | Parameterized tests | 未記載 | `@Test(arguments:)` で enum 反復 |
-| 19 | Coverage check 追加 | カバレッジ要件なし | `fastlane test` + 80%+ 目標 |
+**Gate:** Spec 整合性確認
 
-### 3.5 Maestro E2E（8件）
+### 004-R: REVIEW（004a + 004b 両方）
 
-| # | TODO | 現状 | 修正後 |
-|---|------|------|--------|
-| 20 | ディレクトリ名 | `flows/` | `maestro/` |
-| 21 | clearState + clearKeychain | なし | 全フロー先頭に追加 |
-| 22 | extendedWaitUntil | なし（即タップ） | 30000ms（起動）, 10000ms（画面遷移） |
-| 23 | takeScreenshot | なし | 各フロー末尾に追加 |
-| 24 | id: selectors only | text/id 混在 | `id:` 主、`text:` はシステムダイアログのみ |
-| 25 | tags 追加 | なし | `smokeTest`, `onboarding`, `timer`, `paywall` |
-| 26 | Maestro 実行方法 | `maestro test flows/` | `maestro test maestro/`（CLI） |
-| 27 | CI timeout ガイダンス | なし | 30000ms タイムアウト推奨 |
+**Tool:** code-quality-reviewer サブエージェント
 
-### 3.6 Rule 21 修正（3件）
-
-| # | TODO | 現状 | 修正後 |
-|---|------|------|--------|
-| 28 | Edge Case #7 | Foundation Models fallback | 削除。AI なし（Rule 21） |
-| 29 | Performance: AI generation | `< 3s` | `< 500ms`（静的フィルタリング） |
-| 30 | AIStretchService テスト名 | `testFallback*` | `testGenerate*` |
-
-### 3.7 レビューゲート + その他（4件）
-
-| # | TODO | 現状 | 修正後 |
-|---|------|------|--------|
-| 31 | code-quality-reviewer を各セッション末尾に追加 | codex-review（外部、遅い） | サブエージェント（内部、速い） |
-| 32 | Edge Case → Test mapping | マッピングなし | Edge Case # → Test file + test name |
-| 33 | Mock grep 精度 | `grep -r 'Mock'` | `grep -rw 'class Mock'` |
-| 34 | セッション分割ドキュメント化 | 未定義フロー | 7 sessions with gates |
+**Gate:** CRITICAL=0
 
 ---
 
-## 4. 決済 E2E テスト — RC Test Store + Maestro
+## 4. Phase B: TDD Fix（6セッション）
+
+### TDD サイクル（006a-d 共通）
+
+```
+機能 N を実装:
+  1. [RED]      テストを書く → fastlane test → FAIL 確認
+  2. [GREEN]    最小コードで通す → fastlane test → PASS 確認
+  3. [REFACTOR] クリーンアップ → fastlane test → PASS 維持
+  4. 次の機能へ
+```
+
+### 006a: TDD Data Layer
+
+**Skill:** `ios-ux-design`
+
+| # | 修正内容 | 問題# | テスト |
+|---|---------|-------|--------|
+| 1 | xcconfig で API Key 分離 | #1 | Unit: config から読み込み確認 |
+| 2 | SubscriptionService Protocol 化 | #13 | Unit: Mock で購入フロー |
+| 3 | StretchLibraryService エラーハンドリング | #14 | Unit: JSON 失敗時の挙動 |
+| 4 | Models に正しい accessibilityIdentifier | #12 | Unit: ID 存在確認 |
+| 5 | ProgressService 入力バリデーション | #20 | Unit: 負数/巨大値ガード |
+
+**Gate:** fastlane test PASS
+
+### 006b: TDD Onboarding + Monetization
+
+**Skill:** `ios-ux-design`
+
+| # | 修正内容 | 問題# | テスト |
+|---|---------|-------|--------|
+| 1 | AppState → MVVM 分割 | #17 | Unit: ViewModel 状態遷移 |
+| 2 | Onboarding 通知許可ステップ追加 | #8 | Unit: フロー遷移 |
+| 3 | Onboarding Hook を UX_SPEC 準拠に | #7 | Unit: Hook テキスト |
+| 4 | PaywallView: offerings エラー表示 | #5 | Integration: offerings 読み込み |
+| 5 | PaywallView: 「AI-personalized」削除 | #4 | Unit: テキスト確認 |
+| 6 | PaywallView: DESIGN_SYSTEM トークン適用 | #19 | Unit: トークン使用 |
+| 7 | URL force-unwrap → optional binding | #2, #3 | Unit: nil URL ハンドリング |
+
+**Gate:** fastlane test PASS
+
+### 006c: TDD Core Screens
+
+**Skill:** `ios-ux-design`
+
+| # | 修正内容 | 問題# | テスト |
+|---|---------|-------|--------|
+| 1 | Timer: バックグラウンドタイマー対応 | #18 | Unit: バックグラウンド復帰 |
+| 2 | Timer: ゼロ除算ガード | #10 | Unit: intervalMinutes=0 |
+| 3 | Timer: StretchLibraryService 二重初期化修正 | #11 | Unit: singleton 確認 |
+| 4 | Settings: Upgrade → PaywallView 遷移 | #6 | Unit: 遷移確認 |
+| 5 | ProgressDashboard: DateFormatter 最適化 | #15 | Unit: 性能 |
+| 6 | ProgressDashboard: 曜日ラベル "Tu"/"Th" | #16 | Unit: 表示確認 |
+
+**Gate:** fastlane test PASS
+
+### 006d: TDD Polish + Resources
+
+**Skill:** `ios-ux-design`
+
+| # | 修正内容 | 問題# | テスト |
+|---|---------|-------|--------|
+| 1 | 全 View に DESIGN_SYSTEM トークン適用 | #19 | Integration: トークン一貫性 |
+| 2 | 全 a11y ID を TEST_SPEC 準拠に修正 | #12 | Integration: ID 存在確認 |
+| 3 | PrivacyInfo.xcprivacy 作成 | #21 | Integration: ファイル存在 |
+| 4 | ローカライズファイル（.xcstrings）作成 | #21 | Integration: ファイル存在 |
+| 5 | PainAreaSelectionView: 無効ボタン理由表示 | #9 | Unit: ヘルパーテキスト |
+
+**Gate:** fastlane test PASS + fastlane build PASS
+
+### 006-R: REVIEW
+
+**Tool:** code-quality-reviewer サブエージェント（006a-d 全体を対象）
+
+**Gate:** CRITICAL=0
+
+### 007: E2E Maestro + Payment
+
+**Skill:** `maestro-ui-testing`
+
+| # | フロー | 内容 |
+|---|--------|------|
+| 1 | 01-onboarding.yaml | 全オンボーディングフロー |
+| 2 | 02-timer.yaml | タイマー起動→ストレッチ |
+| 3 | 03-settings.yaml | 設定画面遷移 |
+| 4 | 04-payment-success.yaml | RC Test Store → Simulate Success |
+| 5 | 05-payment-failure.yaml | RC Test Store → Simulate Failure |
+
+**Gate:** maestro test maestro/ PASS
+
+---
+
+## 5. 決済 E2E テスト — RC Test Store + Maestro
 
 ### RC Test Store の仕組み
 
@@ -240,169 +328,113 @@ tags:
 
 ---
 
-## 5. フェーズ分割（3 → 10 セッション — TDD統合 + レビュー独立フェーズ）
+## 6. Phase C: レシピ更新（学びの反映 — 34件 + α）
 
-### 根拠
+### 更新対象ファイル
 
-ソース: [Martin Fowler - TDD](https://martinfowler.com/bliki/TestDrivenDevelopment.html) / 核心の引用: 「Write a test for the next bit of functionality. Write the functional code until the test passes. Refactor.」
+| # | ファイル | 更新内容 | 件数 |
+|---|---------|---------|------|
+| 1 | `references/us-004-specs.md` | フェーズ分割（004a/004b/004-R）、mau.md ルール、スキル: `implementation-spec` → `frontend-design` | 5件 |
+| 2 | `references/us-006-implement.md` | TDD 統合、006a-d 分割、Fastlane 必須化、スキル: `ios-ux-design` のみ | 8件 |
+| 3 | `references/us-007-testing.md` | E2E のみ（Unit/Integration は 006 完了）、Maestro BP、RC Test Store | 11件 |
+| 4 | `references/us-005b-monetization.md` | StoreKit Configuration 削除、RC Test Store 手順追加 | 3件 |
+| 5 | `validate.sh` | 新フェーズ構成に合わせたゲート更新 | 全面 |
+| 6 | `SKILL.md` | スキル割り当てテーブル更新、Rule 21 強化 | 3件 |
+| 7 | `CLAUDE.md` | セッション分割の反映 | 2件 |
+| 8 | `prd.json` | US-004/006/007 の分割反映 | 構造変更 |
+| 9 | `references/best-practices-audit.md` | DeskStretch 修正で発見した新パターン | 追記 |
 
-ソース: [Anthropic - How teams use Claude Code](https://www-cdn.anthropic.com/58284b19e702b49db9302d5b6f135ad8871e7658.pdf) / 核心の引用: 「let it work autonomously, then review the 80% complete solution before taking over for final refinements.」
+### レシピ改善 TODO 詳細（34件）
 
-ソース: [CodeRabbit - 2026 AI Quality](https://www.coderabbit.ai/blog/2025-was-the-year-of-ai-speed-2026-will-be-the-year-of-ai-quality) / 核心の引用: 「one agent writes, another critiques, another tests, another validates compliance.」
+#### Recipe Structure（3件）
 
-ソース: [Martin Fowler - RefinementCodeReview](https://martinfowler.com/bliki/RefinementCodeReview.html) / 核心の引用: 「code reviews = an explicit step in a development team's workflow. Pre-Integration Review on a Pull Request is the most common mechanism.」
+| # | TODO | 現状 | 修正後 |
+|---|------|------|--------|
+| 1 | Skill references: 複数 → 1/phase | 4スキル参照 | 1フェーズ1スキル |
+| 2 | 変数セクション追加 | `<AppName>`, `$UDID` 未定義 | `APP_SCHEME=DeskStretch`, UDID 自動取得 |
+| 3 | 依存チェック（Gate 0）追加 | チェックなし | `find` でソースファイル存在確認 |
 
-### なぜ 9 → 10 に再構成したか
+#### Build Tools → Fastlane（7件）
 
-```
-旧（9 sessions — 間違い）:
-  006a-d = 実装のみ（テストなし）
-  007a   = Unit Tests（後付け）     ← TDD ではない
-  007b   = Integration Tests（後付け）← TDD ではない
-  007c   = E2E（Maestro）
+| # | TODO | 現状 | 修正後 |
+|---|------|------|--------|
+| 4 | Quality Gate build | `xcodebuild -scheme` | `xcodegen generate && fastlane build` |
+| 5 | Step 2 test | `xcodebuild test` | `fastlane test` |
+| 6 | Step 5 all-test | `xcodebuild test` + `maestro test flows/` | `fastlane test` + `maestro test maestro/` |
+| 7 | xcodegen generate 追加 | 未記載 | Quality Gate 最初に追加 |
+| 8 | Fastfile テンプレート追加 | なし | `test`, `build`, `build_for_simulator` lanes |
+| 9 | env vars 追加 | `FASTLANE_OPT_OUT_CRASH_REPORTING` 欠落 | 全 Fastlane コマンドに追加 |
+| 10 | TestTarget Info.plist | 未記載 | `GENERATE_INFOPLIST_FILE: YES` |
 
-新（10 sessions — 正しい）:
-  004a   = Core Spec
-  004a-R = REVIEW（独立フェーズ）    ← BP: 「explicit step in workflow」
-  004b   = UX Spec
-  004b-R = REVIEW（独立フェーズ）
-  006a-d = TDD 実装（RED→GREEN→REFACTOR 内蔵）
-  006-R  = REVIEW（006a-d 全体の品質レビュー）
-  007    = E2E（Maestro — UI 完成後のみ）
-```
+#### StoreKit → RC Test Store（3件）
 
-### 全体フロー
+| # | TODO | 現状 | 修正後 |
+|---|------|------|--------|
+| 11 | StoreKit Configuration 削除 | Step 3: Products.storekit | 完全削除。RC Test Store で代替 |
+| 12 | RC Test Store 手順追加 | なし | Test Store API Key + 切り替え手順 |
+| 13 | AC から Products.storekit 削除 | 存在チェック | 「RC Test Store purchase flow verified」 |
 
-```
-004a:   Core Spec
-004a-R: REVIEW（code-quality-reviewer — Spec レビュー）
-004b:   UX Spec
-004b-R: REVIEW（code-quality-reviewer — Spec レビュー）
-006a:   TDD Data Layer
-006b:   TDD Onboarding + Monetization
-006c:   TDD Core Screens
-006d:   TDD Polish + Resources
-006-R:  REVIEW（code-quality-reviewer — 実装全体レビュー）
-007:    E2E Maestro + Payment
-```
+#### TDD → 実装フェーズ統合（6件）
 
-### 7 セッション詳細（汎用名 — アプリ固有名なし）
+| # | TODO | 現状 | 修正後 |
+|---|------|------|--------|
+| 14 | TDD を 006 に統合 | 007 で後付け | 006a-d 内で RED → GREEN → REFACTOR |
+| 15 | Unit/Integration を実装中に書く | 別フェーズ | 各機能の実装直前に書く |
+| 16 | 実行順序指定 | 順序なし | Models → Services → Integration |
+| 17 | Swift Testing framework | 未記載 | `@Test`, `#expect`, `@Suite` 使用 |
+| 18 | Parameterized tests | 未記載 | `@Test(arguments:)` で enum 反復 |
+| 19 | Coverage check 追加 | カバレッジ要件なし | `fastlane test` + 80%+ 目標 |
 
-| Session | 名前（汎用） | 成果物 | Gate | Skill | Review |
-|---------|-------------|--------|------|-------|--------|
-| **004a** | Core Spec: PRD + Arch + Impl Guide | PRD.md, ARCHITECTURE.md, IMPLEMENTATION_GUIDE.md | fastlane build PASS | `mobileapp-builder` | code-quality-reviewer |
-| **004b** | UX Spec: UX + Design + Test + Release | UX_SPEC.md, DESIGN_SYSTEM.md, TEST_SPEC.md, RELEASE_SPEC.md | Spec 整合性確認 | `mobileapp-builder` | code-quality-reviewer |
-| **006a** | TDD: Data Layer（Models + Services + Tests） | Models, Services, Unit Tests | fastlane test PASS | `mobileapp-builder` | code-quality-reviewer |
-| **006b** | TDD: Onboarding + Monetization（+ Tests） | Onboarding, Paywall, Integration Tests | fastlane test PASS | `mobileapp-builder` | code-quality-reviewer |
-| **006c** | TDD: Core Screens（+ Tests） | Main screens, Unit Tests | fastlane test PASS | `mobileapp-builder` | code-quality-reviewer |
-| **006d** | TDD: Polish + Accessibility（+ Integration Tests） | Design tokens, a11y IDs, PrivacyInfo, i18n | fastlane test PASS + fastlane build PASS | `mobileapp-builder` | code-quality-reviewer |
-| **007** | E2E: Maestro + Payment Verification | Maestro YAML (5 flows) | maestro test maestro/ PASS | `maestro-ui-testing` | code-quality-reviewer |
+#### Maestro E2E（8件）
 
-### 各セッション内の TDD サイクル（006a-d 共通）
+| # | TODO | 現状 | 修正後 |
+|---|------|------|--------|
+| 20 | ディレクトリ名 | `flows/` | `maestro/` |
+| 21 | clearState + clearKeychain | なし | 全フロー先頭に追加 |
+| 22 | extendedWaitUntil | なし（即タップ） | 30000ms（起動）, 10000ms（画面遷移） |
+| 23 | takeScreenshot | なし | 各フロー末尾に追加 |
+| 24 | id: selectors only | text/id 混在 | `id:` 主、`text:` はシステムダイアログのみ |
+| 25 | tags 追加 | なし | `smokeTest`, `onboarding`, `timer`, `paywall` |
+| 26 | Maestro 実行方法 | `maestro test flows/` | `maestro test maestro/`（CLI） |
+| 27 | CI timeout ガイダンス | なし | 30000ms タイムアウト推奨 |
 
-```
-機能 N を実装:
-  1. [RED]      テストを書く → fastlane test → FAIL 確認
-  2. [GREEN]    最小コードで通す → fastlane test → PASS 確認
-  3. [REFACTOR] クリーンアップ → fastlane test → PASS 維持
-  4. 次の機能へ
-```
+#### Rule 21 修正（3件）
 
-### 各セッションの修正内容
+| # | TODO | 現状 | 修正後 |
+|---|------|------|--------|
+| 28 | Edge Case #7 | Foundation Models fallback | 削除。AI なし（Rule 21） |
+| 29 | Performance: AI generation | `< 3s` | `< 500ms`（静的フィルタリング） |
+| 30 | AIStretchService テスト名 | `testFallback*` | `testGenerate*` |
 
-#### 004a: Core Spec
+#### レビューゲート + その他（4件）
 
-| # | 修正 | 対応する問題 |
-|---|------|-------------|
-| 1 | PRD に Rule 21（AI 禁止）を明記 | 問題 #4 |
-| 2 | ARCHITECTURE に SubscriptionService Protocol 化を設計 | 問題 #13 |
-| 3 | ARCHITECTURE に AppState MVVM 分割を設計 | 問題 #17 |
-| 4 | IMPLEMENTATION_GUIDE に xcconfig API Key 管理を記載 | 問題 #1 |
-
-#### 004b: UX Spec
-
-| # | 修正 | 対応する問題 |
-|---|------|-------------|
-| 1 | UX_SPEC: Onboarding Hook を強化 | 問題 #7 |
-| 2 | UX_SPEC: Onboarding に通知許可ステップ追加 | 問題 #8 |
-| 3 | DESIGN_SYSTEM: トークン定義（色、フォント、スペーシング） | 問題 #19 |
-| 4 | TEST_SPEC: accessibilityIdentifier 正規マッピング | 問題 #12 |
-| 5 | TEST_SPEC: Edge Case #7 から AI 参照を削除 | TODO #28 |
-| 6 | TEST_SPEC: 「AI generation < 3s」→「< 500ms」 | TODO #29 |
-
-#### 006a: TDD Data Layer
-
-| # | 修正 | 対応する問題 |
-|---|------|-------------|
-| 1 | project.yml に xcconfig 参照（API Key 分離） | 問題 #1 |
-| 2 | SubscriptionService を Protocol 化 + Unit Test | 問題 #13 |
-| 3 | StretchLibraryService にエラーハンドリング + Unit Test | 問題 #14 |
-| 4 | Models に正しい accessibilityIdentifier 属性 | 問題 #12 |
-| 5 | ProgressService に入力バリデーション + Unit Test | 問題 #20 |
-
-#### 006b: TDD Onboarding + Monetization
-
-| # | 修正 | 対応する問題 |
-|---|------|-------------|
-| 1 | AppState を MVVM に分割 + Unit Test | 問題 #17 |
-| 2 | Onboarding に通知許可ステップ追加 | 問題 #8 |
-| 3 | Onboarding Hook を UX_SPEC 準拠に | 問題 #7 |
-| 4 | PaywallView: offerings エラー表示 + Integration Test | 問題 #5 |
-| 5 | PaywallView: 「AI-personalized」→ 正直な表現 | 問題 #4 |
-| 6 | PaywallView: DESIGN_SYSTEM トークン適用 | 問題 #19 |
-| 7 | URL force-unwrap を安全な optional binding に | 問題 #2, #3 |
-
-#### 006c: TDD Core Screens
-
-| # | 修正 | 対応する問題 |
-|---|------|-------------|
-| 1 | Timer: バックグラウンドタイマー対応 + Unit Test | 問題 #18 |
-| 2 | Timer: 設定への導線追加 | — |
-| 3 | Timer: ゼロ除算ガード + Unit Test | 問題 #10 |
-| 4 | Timer: StretchLibraryService 二重初期化修正 | 問題 #11 |
-| 5 | Settings: Upgrade ボタンに PaywallView 遷移 | 問題 #6 |
-| 6 | ProgressDashboard: DateFormatter 最適化 | 問題 #15 |
-| 7 | ProgressDashboard: 曜日ラベル修正 | 問題 #16 |
-
-#### 006d: TDD Polish + Resources
-
-| # | 修正 | 対応する問題 |
-|---|------|-------------|
-| 1 | 全 View に DESIGN_SYSTEM トークン適用 | 問題 #19 |
-| 2 | 全 accessibilityIdentifier を TEST_SPEC 準拠に修正 | 問題 #12 + マッピング表 |
-| 3 | PrivacyInfo.xcprivacy 作成 | 問題 #21 |
-| 4 | ローカライズファイル（.xcstrings）作成 | 問題 #21 |
-| 5 | PainAreaSelectionView: 無効ボタン理由表示 | 問題 #9 |
-
-#### 007: E2E Maestro + Payment
-
-| # | 修正 | 対応する問題 |
-|---|------|-------------|
-| 1 | clearState + clearKeychain 全フロー | TODO #21 |
-| 2 | extendedWaitUntil 全タップ前 | TODO #22 |
-| 3 | takeScreenshot 全フロー末尾 | TODO #23 |
-| 4 | id: selectors のみ使用 | TODO #24 |
-| 5 | tags: smokeTest, payment, onboarding, timer | TODO #25 |
-| 6 | 04-payment-success.yaml（RC Test Store → Simulate Success） | — |
-| 7 | 05-payment-failure.yaml（RC Test Store → Simulate Failure） | — |
+| # | TODO | 現状 | 修正後 |
+|---|------|------|--------|
+| 31 | code-quality-reviewer を独立フェーズに | codex-review（外部） | サブエージェント（内部）、004-R + 006-R |
+| 32 | Edge Case → Test mapping | マッピングなし | Edge Case # → Test file + test name |
+| 33 | Mock grep 精度 | `grep -r 'Mock'` | `grep -rw 'class Mock'` |
+| 34 | セッション分割ドキュメント化 | 未定義フロー | 9 sessions with gates |
 
 ---
 
-## 6. レビューゲート設計
+## 7. レビューゲート設計
 
 ソース: [HubSpot Engineering](https://product.hubspot.com/blog/automated-code-review-the-6-month-evolution) / 核心の引用: 「Internal agent framework... reducing cycle time and ensuring high quality feedback as fast as possible.」
 
 ソース: [Qodo - AI Code Review 2026](https://www.qodo.ai/blog/5-ai-code-review-pattern-predictions-in-2026/) / 核心の引用: 「Severity-Driven Review: Every finding gets assigned a severity level.」
 
-### Codex CLI → code-quality-reviewer サブエージェント
+### フェーズ内レビュー: code-quality-reviewer サブエージェント
 
-| 観点 | Codex CLI（外部 — 廃止） | code-quality-reviewer（内部 — 採用） |
-|------|--------------------------|-------------------------------------|
+| 観点 | Codex CLI（外部） | code-quality-reviewer（内部 — 採用） |
+|------|-------------------|-------------------------------------|
 | コンテキスト | 白紙スタート | CLAUDE.md + Serena メモリ参照 |
 | レイテンシ | 高（外部プロセス） | **低（同一セッション）** |
 | 反復回数 | 多い（コンテキスト不足） | **少ない（プロジェクト知識）** |
-| コスト | 高 | **中** |
 | Blocking 精度 | 低（汎用） | **高（カスタムルール）** |
+
+### codex-review は存続
+
+リリース前最終ゲート・大規模リファクタ時に使用。Phase B の各セッションでは使わない。
 
 ### レビュー発動ルール
 
@@ -416,25 +448,83 @@ tags:
 
 ---
 
-## 7. サマリー
+## 8. Phase D: 新アプリで検証
 
-| US | 旧 | 新 | セッション |
-|----|-----|-----|-----------|
-| US-004 | 1 session | 2 sessions + 2 reviews | 004a, 004a-R, 004b, 004b-R |
-| US-006 | 1 session | 4 sessions + 1 review（TDD 内蔵） | 006a, 006b, 006c, 006d, 006-R |
-| US-007 | 3 sessions | 1 session（E2E のみ） | 007 |
-| **Total** | **3** → **9（旧）** | **10（新）** | — |
+| # | ステップ | 内容 |
+|---|---------|------|
+| 1 | `ralph.sh` 実行 | 改善済みレシピで US-001〜009 を1本通す |
+| 2 | `validate.sh` 確認 | 全 US が passes: true |
+| 3 | 問題記録 | 新たな問題を best-practices-audit.md に追記 |
 
-| 変更 | 理由 | ソース |
-|------|------|--------|
-| TDD を 006 に統合 | TDD = 実装そのもの。分離 = TDD ではない | Martin Fowler TDD |
-| 007 を E2E のみに | Unit/Integration は 006 で完了済み | Quash TDD Guide |
-| レビューを独立フェーズに | 「explicit step in workflow」= 別フェーズ | Martin Fowler RefinementCodeReview |
-| フェーズ内レビュー → code-quality-reviewer | 内部サブエージェントの方が速い・安い・精度高い | HubSpot Engineering |
-| codex-review は存続 | リリース前最終ゲート・大規模リファクタ時に使用 | — |
-| セッション名を汎用化 | アプリ固有名なし → 全アプリに適用可能 | — |
+---
 
-### オンボーディング設計ルール（mau.md — Prayer Lock $25k/月の実例）
+## 9. Phase E: Cron テスト
+
+| # | ステップ | 内容 |
+|---|---------|------|
+| 1 | cron 設定確認 | `mobileapp-factory-morning` 15:00 JST |
+| 2 | 無人実行 | ralph.sh が全 US を自動走行 |
+| 3 | Slack 報告確認 | #metrics に完了報告 |
+
+---
+
+## 10. OSS 計画 — `https://github.com/Daisuke134/mobileapp-builder`
+
+### リポジトリ構成
+
+```
+mobileapp-builder/
+├── SKILL.md                    ← エントリーポイント（npx skills add で配布）
+├── CLAUDE.md                   ← CC セッション用テンプレート
+├── ralph.sh                    ← Loop executor（1 US = 1 CC session）
+├── validate.sh                 ← External quality gate
+├── prd.json                    ← Backlog テンプレート
+├── SETUP.md                    ← 初回セットアップ手順
+├── README.md                   ← OSS ドキュメント
+├── references/
+│   ├── us-001-trend.md
+│   ├── us-002-planning.md
+│   ├── us-003-research.md
+│   ├── us-004-specs.md
+│   ├── us-005a-infra.md
+│   ├── us-005b-monetization.md
+│   ├── us-006-implement.md
+│   ├── us-007-testing.md
+│   ├── us-008-release.md
+│   ├── us-009-submit.md
+│   ├── best-practices-audit.md
+│   └── submission-checklist.md
+└── templates/
+    ├── Fastfile
+    ├── project.yml
+    └── .env.example
+```
+
+### OSS 公開フロー
+
+| # | ステップ | 内容 |
+|---|---------|------|
+| 1 | Phase A-E 完了 | DeskStretch + 新アプリで全レシピ検証済み |
+| 2 | 秘密情報の除去 | Webhook URL, API Key, Slack Token → プレースホルダ |
+| 3 | README.md 作成 | セットアップ手順、前提条件 |
+| 4 | SETUP.md 更新 | `npx skills add Daisuke134/mobileapp-builder` |
+| 5 | templates/ 作成 | Fastfile, project.yml, .env.example |
+| 6 | GitHub Release | v1.0.0 タグ |
+| 7 | skills.sh 登録 | `npx skills add` で配布可能に |
+
+### 依存スキル（ユーザーが別途インストール）
+
+| スキル | ソース |
+|--------|--------|
+| `ios-ux-design` | 自作 |
+| `frontend-design` | Anthropic 公式 |
+| `implementation-guide` | rshankras/claude-code-apple-skills |
+| `maestro-e2e` | skills.sh |
+| `asc-*` シリーズ | rshankras/claude-code-apple-skills |
+
+---
+
+## 11. オンボーディング設計ルール（mau.md — Prayer Lock $25k/月の実例）
 
 | # | ルール | ソース引用 |
 |---|--------|-----------|
@@ -446,3 +536,27 @@ tags:
 | 6 | **レビューモーダル = コア体験直後** | 「right after the user completes your core feature」 |
 | 7 | **コミットメント原則** | 「actively state they are committed before paywall」 |
 | 8 | **10%+ DL→Trial 変換率** | 「at least 10% download to trial conversion rate」 |
+
+---
+
+## 12. サマリー
+
+| 項目 | 値 |
+|------|-----|
+| 問題数 | 21件（CRITICAL 1, HIGH 12, MEDIUM 8） |
+| レシピ改善 TODO | 34件 + デザインスキル統合 + mau.md ルール |
+| Phase A（SDD Spec） | 3セッション（004a, 004b, 004-R） |
+| Phase B（TDD Fix） | 6セッション（006a, 006b, 006c, 006d, 006-R, 007） |
+| Phase C（レシピ更新） | 9ファイル更新 |
+| Phase D（検証） | ralph.sh フル実行 |
+| Phase E（Cron） | 15:00 JST 自動実行 |
+| **合計セッション** | **9** |
+
+| 変更 | 理由 | ソース |
+|------|------|--------|
+| TDD を 006 に統合 | TDD = 実装そのもの | Martin Fowler TDD |
+| 007 を E2E のみに | Unit/Integration は 006 で完了 | Quash TDD Guide |
+| レビューを独立フェーズに（004-R, 006-R） | 「explicit step in workflow」 | Martin Fowler RefinementCodeReview |
+| 004a-R 削除 → 004-R に統合 | Spec は 004b 完了後にまとめてレビュー | Anthropic teams workflow |
+| 1フェーズ = 1スキル | 複数スキル = 混乱 | Anthropic Skills Guide |
+| codex-review は存続 | リリース前最終ゲート | — |

@@ -6,7 +6,7 @@
 
 ## Problem Statement
 
-Current Claude Code setup loads 2,501 lines every session (CLAUDE.md 278 lines x 2 files = 556 lines + rules/ 1,945 lines across 19 files). Measured 2026-03-05 via `wc -l`. Research shows LLM instruction compliance degrades uniformly as instruction count increases, with frontier models stable at 150-200 instructions. Current setup has 500+ instructions = 50% compliance rate.
+Current Claude Code setup loads 2,501 lines every session (CLAUDE.md 278 lines x 2 files = 556 lines + rules/ 1,945 lines across 19 files). Measured 2026-03-05 via `wc -l`. Research shows LLM instruction compliance degrades uniformly as instruction count increases, with frontier models stable at 150-200 instructions. Current setup has >= 500 instructions = 50% compliance rate.
 
 ## User Scenarios
 
@@ -51,9 +51,9 @@ Current Claude Code setup loads 2,501 lines every session (CLAUDE.md 278 lines x
 **As** Claude Code agents, **I want** full frontmatter on all skills/agents/commands, **so that** semantic matching and permissions work correctly.
 
 **Acceptance:**
-- Given 176 skills, When audited, Then all have name + description + relevant frontmatter
+- Given 176 skills, When audited, Then all have name, description, and relevant frontmatter
 - Given 10 agents, When audited, Then all have 14 frontmatter fields including Agent(type) restrictions
-- Given 20 commands, When audited, Then all have 4 frontmatter fields + dynamic injection where useful
+- Given 20 commands, When audited, Then all have 4 frontmatter fields and dynamic injection where useful
 
 ### P6: Git Structure & OSS
 
@@ -79,16 +79,16 @@ Current Claude Code setup loads 2,501 lines every session (CLAUDE.md 278 lines x
 | ID | Requirement |
 |----|-------------|
 | FR-001 | CLAUDE.md must be <= 150 lines after restructuring |
-| FR-002 | rules/ must have exactly 5 files totaling 250 lines or fewer |
+| FR-002 | rules/ must have exactly 5 files totaling <= 300 lines |
 | FR-003 | 7 rule files must become skills with proper frontmatter |
 | FR-004 | OpenClaw config must exist only in .openclaw/workspace/ |
-| FR-005 | settings.json must have 25+ active settings |
-| FR-006 | 8+ hook scripts covering command/prompt/http types |
-| FR-007 | All 176+ skills must have validated frontmatter |
+| FR-005 | settings.json must have >= 25 active settings |
+| FR-006 | >= 8 hook scripts covering command/prompt/http types |
+| FR-007 | All 176 skills must have validated frontmatter |
 | FR-008 | All 10 agents must have 14-field frontmatter |
 | FR-009 | All 20 commands must have 4-field frontmatter |
 | FR-010 | .mcp.json with 9 MCP servers |
-| FR-011 | SessionStart+compact hook for context re-injection |
+| FR-011 | SessionStart compact hook for context re-injection |
 | FR-012 | context:fork on 4 heavy skills: codex-review, recursive-improver, competitive-ads-extractor, content-research-writer |
 | FR-013 | Agent(type) restrictions on all agents |
 | FR-014 | packages/ directory with git submodules for OSS skills |

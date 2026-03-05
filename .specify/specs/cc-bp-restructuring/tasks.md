@@ -18,9 +18,9 @@
 - [ ] T1.5 [FR-001] GREEN: Verify `wc -l CLAUDE.md` <= 150
 - [ ] T1.6 Create `CLAUDE.local.md` template + add to .gitignore
 - [ ] T1.7 [FR-002] Add `paths: ["apps/api/**"]` frontmatter to `api-compatibility.md`
-- [ ] T1.8 [FR-002] Compress `git-workflow.md` 125 -> ~50 lines
-- [ ] T1.9 [FR-002] Compress `dev-workflow.md` 78 -> ~40 lines
-- [ ] T1.10 [FR-002] Compress `worktree.md` 141 -> ~60 lines
+- [ ] T1.8 [FR-002] Compress `git-workflow.md` 125 -> <= 50 lines
+- [ ] T1.9 [FR-002] Compress `dev-workflow.md` 78 -> <= 40 lines
+- [ ] T1.10 [FR-002] Compress `worktree.md` 141 -> <= 60 lines
 - [ ] T1.11 [FR-002] GREEN: Verify `ls .claude/rules/*.md | wc -l` = 5 AND total <= 300 lines
 
 ## Phase 2: Rules to Skills Migration (BLOCKING)
