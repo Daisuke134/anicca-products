@@ -521,7 +521,7 @@ DeskStretchios/
 ```swift
 @main
 struct DeskStretchApp: App {
-    @State private var appState = AppState()
+    @State private var appState: AppState
 
     init() {
         // API Key を xcconfig → Info.plist 経由で取得（ハードコード禁止）
@@ -529,7 +529,26 @@ struct DeskStretchApp: App {
               !apiKey.isEmpty else {
             fatalError("RevenueCatAPIKey not configured in xcconfig")
         }
-        SubscriptionService.shared.configure(apiKey: apiKey)
+
+        // MVVM DI: 各 ViewModel にサービスを注入
+        let subscriptionService: SubscriptionServiceProtocol = SubscriptionService.shared
+        subscriptionService.configure(apiKey: apiKey)
+
+        let progressService = ProgressService()
+        let libraryService = StretchLibraryService()
+        let routineService = StretchRoutineService(libraryService: libraryService)
+        let notificationService = NotificationService()
+
+        let timerVM = TimerViewModel(notificationService: notificationService)
+        let stretchVM = StretchViewModel(routineService: routineService)
+        let progressVM = ProgressViewModel(progressService: progressService)
+
+        _appState = State(initialValue: AppState(
+            subscriptionService: subscriptionService,
+            timerVM: timerVM,
+            stretchVM: stretchVM,
+            progressVM: progressVM
+        ))
     }
 
     var body: some Scene {
@@ -564,6 +583,7 @@ struct PaywallView: View {
     @Environment(AppState.self) private var appState
     @State private var offerings: Offerings?
     @State private var isPurchasing = false
+    let subscriptionService: SubscriptionServiceProtocol
     let onDismiss: () -> Void
 
     var body: some View {
@@ -631,14 +651,14 @@ struct PaywallView: View {
     }
 
     private func loadOfferings() async {
-        offerings = await SubscriptionService.shared.getOfferings()
+        offerings = await subscriptionService.getOfferings()
     }
 
     private func purchase(_ package: Package) async {
         isPurchasing = true
         defer { isPurchasing = false }
         do {
-            let success = try await SubscriptionService.shared.purchase(package: package)
+            let success = try await subscriptionService.purchase(package: package)
             if success {
                 appState.isPremium = true
                 onDismiss()
@@ -650,7 +670,7 @@ struct PaywallView: View {
 
     private func restore() async {
         do {
-            let success = try await SubscriptionService.shared.restorePurchases()
+            let success = try await subscriptionService.restorePurchases()
             if success {
                 appState.isPremium = true
                 onDismiss()

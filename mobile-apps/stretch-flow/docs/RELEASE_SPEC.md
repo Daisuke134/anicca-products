@@ -17,6 +17,8 @@
 | 7 | **No RevenueCatUI** | `grep -r "import RevenueCatUI" DeskStretchios/` | 0 results（自作PaywallViewは許可） |
 | 8 | **No ATT** | `grep -r "ATTrackingManager\|requestTrackingAuthorization" DeskStretchios/` | 0 results |
 | 9 | **RevenueCat real SDK** | Verify `Purchases.shared.purchase(package:)` in code | Real SDK calls present |
+| 10 | **No AI/Foundation Models (Rule 21)** | `grep -r "import FoundationModels\|import CoreML\|MLModel\|FoundationModel" DeskStretchios/` | 0 results |
+| 11 | **No Mock leak to production** | `grep -r "MockSubscriptionService\|MockProgressService\|MockNotificationService" DeskStretchios/Sources/` | 0 results（Tests/ は許可） |
 
 ---
 
