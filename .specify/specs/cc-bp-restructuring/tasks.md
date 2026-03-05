@@ -157,21 +157,21 @@
 
 | FR | Tasks | Coverage |
 |----|-------|----------|
-| FR-001 | T1.1(RED)-T1.5(GREEN) | Full |
-| FR-002 | T1.7(RED)-T1.11(GREEN), T2.10-T2.11(GREEN) | Full |
-| FR-003 | T2.1(RED)-T2.9(GREEN) | Full |
-| FR-004 | T3.0(RED)-T3.4(GREEN) | Full |
-| FR-005 | T9.0(RED)-T9.5(GREEN) | Full |
-| FR-006 | T5.0(RED)-T5.13(GREEN) | Full |
-| FR-007 | T7.1-T7.2(RED)-T7.4(GREEN) | Full |
-| FR-008 | T7.8(RED)-T7.10(GREEN) | Full |
-| FR-009 | T7.10a(RED)-T7.12(GREEN) | Full |
-| FR-010 | T8.1(RED)-T8.3(GREEN) | Full |
-| FR-011 | T5.9(RED)-T5.11(GREEN) | Full |
-| FR-012 | T13.1(RED)-T13.3(GREEN) | Full |
-| FR-013 | T7.5(RED)-T7.7a(GREEN) | Full |
-| FR-014 | T15.1(RED)-T15.5(GREEN) | Full |
-| FR-015 | T14.1(RED)-T14.4(GREEN) | Full |
+| FR-001 | T1.1(RED), T1.2-T1.4, T1.5(GREEN) | Full |
+| FR-002 | T1.7(RED), T1.7a-T1.10, T1.11(GREEN), T2.11(GREEN) | Full |
+| FR-003 | T2.1(RED), T2.2-T2.8, T2.9(GREEN) | Full |
+| FR-004 | T3.0(RED), T3.1-T3.3, T3.4(GREEN) | Full |
+| FR-005 | T9.0(RED), T9.1-T9.3, T9.4(GREEN), T9.5(GREEN) | Full |
+| FR-006 | T5.0(RED), T5.1-T5.8, T5.12, T5.13(GREEN) | Full |
+| FR-007 | T7.1, T7.2(RED), T7.3, T7.4(GREEN) | Full |
+| FR-008 | T7.7(RED), T7.8, T7.9(GREEN) | Full |
+| FR-009 | T7.10(RED), T7.11, T7.12(GREEN) | Full |
+| FR-010 | T8.1(RED), T8.2, T8.3(GREEN) | Full |
+| FR-011 | T5.9(RED), T5.9a, T5.10, T5.11(GREEN) | Full |
+| FR-012 | T13.1(RED), T13.2, T13.3(GREEN) | Full |
+| FR-013 | T7.5(RED), T7.6, T7.7a(GREEN) | Full |
+| FR-014 | T15.1(RED), T15.2a-T15.4, T15.5(GREEN) | Full |
+| FR-015 | T14.1(RED), T14.2-T14.3, T14.4(GREEN) | Full |
 
 ## Completion Checklist
 

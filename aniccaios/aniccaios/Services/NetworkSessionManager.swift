@@ -16,8 +16,8 @@ final class NetworkSessionManager {
     private init() {
         // RevenueCatのHTTPClient.swiftと同様の設定
         let config = URLSessionConfiguration.ephemeral
-        config.httpMaximumConnectionsPerHost = 1
-        config.timeoutIntervalForRequest = 30.0
+        config.httpMaximumConnectionsPerHost = 4
+        config.timeoutIntervalForRequest = 8.0
         config.timeoutIntervalForResource = 30.0
         config.urlCache = nil // キャッシュは使用しない
         // multipathServiceTypeは設定しない（公式実装に合わせる）

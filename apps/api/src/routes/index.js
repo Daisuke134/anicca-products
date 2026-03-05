@@ -30,8 +30,6 @@ import opsRouter from './ops/index.js';
 import agentHooksRouter from './agent/hooks.js';
 import { opsAuth } from '../middleware/opsAuth.js';
 
-// 1.6.3: x402 paid API (Buddhist Counsel)
-import x402Router from './x402/index.js';
 
 const router = express.Router();
 
@@ -66,8 +64,5 @@ const opsLimiter = rateLimit({ windowMs: 60 * 1000, max: 60 });
 opsRouter.use(agentHooksRouter);
 router.use('/ops', opsLimiter, opsAuth, opsRouter);
 
-// 1.6.3: x402 paid API (no auth — payment IS the auth, 30 req/min)
-const x402Limiter = rateLimit({ windowMs: 60 * 1000, max: 30 });
-router.use('/x402', x402Limiter, x402Router);
 
 export default router;
