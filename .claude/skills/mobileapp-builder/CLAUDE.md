@@ -39,6 +39,7 @@ curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '
 | 20b | **ATT 禁止**。AppTrackingTransparency / NSUserTrackingUsageDescription は使わない。スクショに ATT ダイアログが写り込む |
 | 21 | **1 iteration = 1 US（厳守）**。2つ以上のUSを1イテレーションで実行したら即座に停止。次のイテレーションで続行。500ターン超過も即停止 |
 | 22 | **PATH 設定（全イテレーション冒頭で実行）**: `export PATH="/Users/anicca/Library/Python/3.9/bin:$PATH"` と `export ASC_BYPASS_KEYCHAIN=true` |
+| 23 | **AI API / 外部 API コスト禁止** — OpenAI, Anthropic, Gemini, Apple FoundationModels（iOS 26+ = ユーザー基盤小）一切禁止。アプリは完全自己完結。ローカル・静的コンテンツのみ。バックエンド不要。理由: 月収 $29 vs API コスト $300+ |
 | 23 | **AI API / AI モデル / 外部 AI サービス完全禁止**。OpenAI, Anthropic, Google Generative AI, Apple FoundationModels 一切不可。月額収益 $29 vs API コスト $300+。FoundationModels は iOS 26+ のみでユーザーベース皆無。オンデバイスロジック or 静的キュレーションコンテンツで代替 |
 
 ## ASC CLI 正しいコマンド（skill 準拠）

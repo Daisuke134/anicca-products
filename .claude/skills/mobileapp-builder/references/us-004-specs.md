@@ -52,7 +52,7 @@ Source: Anthropic Skills Guide — 「Provide explicit principles that guide dec
 | 原則 | 適用 | 根拠 |
 |------|------|------|
 | **PRD が SSOT** | 全ドキュメントが PRD の値を参照する。PRD と矛盾する記述は禁止 | Single Source of Truth |
-| **Rule 反映必須** | Rule 17（Mixpanel禁止）、Rule 20（自前PaywallView）、Rule 20b（ATT禁止）を対応ドキュメントに反映 | CLAUDE.md CRITICAL Rules |
+| **Rule 反映必須** | Rule 17（Mixpanel禁止）、Rule 20（自前PaywallView）、Rule 20b（ATT禁止）、Rule 21（AI API禁止）を対応ドキュメントに反映 | CLAUDE.md CRITICAL Rules |
 | **相互参照 ID** | PRD の Feature ID → IMPL_GUIDE の Phase → TEST_SPEC のテスト名 で追跡可能 | トレーサビリティ |
 | **実装可能な具体性** | 「〜を実装する」ではなく、型名・関数シグネチャ・ファイルパスまで記載 | Anthropic「Be Specific and Actionable」 |
 | **引用必須** | 技術選定・設計判断には必ずソースを付ける | CLAUDE.md Rule 0.0 |
@@ -67,6 +67,7 @@ Source: Anthropic Skills Guide — 「Provide explicit principles that guide dec
 | **Rule 20** | 自前 SwiftUI PaywallView + `Purchases.shared.purchase(package:)` | UX_SPEC.md, IMPLEMENTATION_GUIDE.md, TEST_SPEC.md | Paywall ワイヤーフレーム、実装手順、E2E テスト |
 | **Rule 20 (RevenueCatUI禁止)** | `import RevenueCatUI` 禁止 | ARCHITECTURE.md, IMPLEMENTATION_GUIDE.md | 依存関係リスト（RevenueCat のみ、RevenueCatUI 除外） |
 | **Rule 20b** | ATT 禁止（AppTrackingTransparency 不使用） | PRD.md, ARCHITECTURE.md, RELEASE_SPEC.md | Privacy セクション、PrivacyInfo.xcprivacy |
+| **Rule 21** | AI API / 外部 API コスト禁止（OpenAI, Anthropic, Gemini, Apple FoundationModels 一切不可。アプリは完全自己完結。ローカル・静的コンテンツのみ。理由: 月収 $29 vs コスト $300+） | ARCHITECTURE.md, IMPLEMENTATION_GUIDE.md, TEST_SPEC.md | 依存関係リスト（AI SDK 除外）、禁止事項、Greenlight チェック |
 | **Rule 21** | AI API / AI モデル / 外部 AI サービス禁止（月額収益 $29 vs API コスト $300+。Apple FoundationModels も iOS 26+ のみでユーザーベース皆無） | PRD.md, ARCHITECTURE.md, IMPLEMENTATION_GUIDE.md, TEST_SPEC.md | Technical Constraints、Dependencies、Phase Breakdown、Greenlight チェック |
 
 ---
@@ -217,7 +218,7 @@ grep -q "free_tier_limit\|Free.*limit\|free.*per day" docs/PRD.md && echo "PASS:
 （UserDefaults キーテーブル: key / type / default / purpose）
 
 ## 8. AI Integration
-（Apple Foundation Models: iOS 26+ / Fallback: static curated content）
+（🔴 Rule 21: AI API / 外部 API 一切禁止。静的コンテンツのみ。Apple FoundationModels も禁止 — iOS 26+ = ユーザー基盤が小さすぎ）
 
 ## 9. Networking
 （API エンドポイントリスト — 該当する場合のみ）
@@ -462,6 +463,7 @@ grep -q "Purchases.shared.purchase" docs/IMPLEMENTATION_GUIDE.md && echo "PASS" 
 grep -rlE "Mixpanel|Analytics|Firebase" docs/ && echo "FAIL: Rule 17 violation" || echo "PASS: Rule 17"
 grep -rl "RevenueCatUI" docs/ && echo "FAIL: Rule 20 violation" || echo "PASS: Rule 20"
 grep -rl "ATTrackingManager\|requestTrackingAuthorization" docs/ && echo "FAIL: Rule 20b violation" || echo "PASS: Rule 20b"
+grep -rlE "OpenAI|GoogleGenerativeAI|Anthropic|FoundationModels" docs/ && echo "FAIL: Rule 21 violation" || echo "PASS: Rule 21"
 ```
 
 ---
@@ -562,4 +564,5 @@ Source: [Anthropic Reduce Hallucinations](https://platform.claude.com/docs/en/te
 | 22 | 全ドキュメント横断で Rule 17 違反なし | `grep -rlE "Mixpanel\|Analytics\|Firebase" docs/` = 空 |
 | 23 | 全ドキュメント横断で Rule 20 違反なし | `grep -rl "RevenueCatUI" docs/` = 空 |
 | 24 | 全ドキュメント横断で Rule 20b 違反なし | `grep -rl "ATTrackingManager" docs/` = 空 |
-| 25 | 合計行数が 1300 行以上 | `wc -l docs/*.md \| tail -1` ≥ 1300 |
+| 25 | 全ドキュメント横断で Rule 21 違反なし | `grep -rlE "OpenAI\|GoogleGenerativeAI\|Anthropic\|FoundationModels" docs/` = 空 |
+| 26 | 合計行数が 1300 行以上 | `wc -l docs/*.md \| tail -1` ≥ 1300 |
