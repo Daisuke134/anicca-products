@@ -67,6 +67,7 @@ Source: Anthropic Skills Guide — 「Provide explicit principles that guide dec
 | **Rule 20** | 自前 SwiftUI PaywallView + `Purchases.shared.purchase(package:)` | UX_SPEC.md, IMPLEMENTATION_GUIDE.md, TEST_SPEC.md | Paywall ワイヤーフレーム、実装手順、E2E テスト |
 | **Rule 20 (RevenueCatUI禁止)** | `import RevenueCatUI` 禁止 | ARCHITECTURE.md, IMPLEMENTATION_GUIDE.md | 依存関係リスト（RevenueCat のみ、RevenueCatUI 除外） |
 | **Rule 20b** | ATT 禁止（AppTrackingTransparency 不使用） | PRD.md, ARCHITECTURE.md, RELEASE_SPEC.md | Privacy セクション、PrivacyInfo.xcprivacy |
+| **Rule 21** | AI API / AI モデル / 外部 AI サービス禁止（月額収益 $29 vs API コスト $300+。Apple FoundationModels も iOS 26+ のみでユーザーベース皆無） | PRD.md, ARCHITECTURE.md, IMPLEMENTATION_GUIDE.md, TEST_SPEC.md | Technical Constraints、Dependencies、Phase Breakdown、Greenlight チェック |
 
 ---
 
@@ -389,7 +390,7 @@ test -f docs/ARCHITECTURE.md && test -f docs/DESIGN_SYSTEM.md && test -f docs/UX
 （🔴 Rule 17: grep -r "Mixpanel|Analytics|Firebase" → 0）
 （🔴 Rule 20: grep -r "RevenueCatUI" → 0）
 （🔴 Rule 20b: grep -r "ATTrackingManager" → 0）
-（🔴 Foundation Models fallback: iOS version 検出 → iOS 26+ = AI / iOS < 26 = static curated content のテスト必須）
+（🔴 Rule 21: grep -rE "OpenAI|Anthropic|GoogleGenerativeAI|FoundationModels" → 0。AI API / AI モデル / 外部 AI サービス完全禁止。月額収益 $29 vs API コスト $300+。Apple FoundationModels も iOS 26+ のみでユーザーベース皆無）
 
 ## 6. Performance Targets
 （起動時間、メモリ使用量、バッテリー消費の目標値）
