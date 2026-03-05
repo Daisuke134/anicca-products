@@ -1,7 +1,7 @@
 # Claude Code ベストプラクティス再構築計画（2026-03-05、v3）
 
 **ステータス: 計画完了 → 実装待ち**
-**v3 更新: 公式ドキュメント7ページ深掘りで16個の新ギャップを発見・修正。Phase 12-14 新設。**
+**v3 更新: 公式ドキュメント7ページ深掘りで19個の新ギャップを発見・修正。Phase 12-15 新設。Phase 3 全面修正。**
 **v2 更新: 14個のギャップを修正。BP repo 全11ファイルの全詳細を反映。**
 
 ## ソース
@@ -147,39 +147,77 @@
 
 ---
 
-## Phase 3: OpenClaw 責務分離ファイル作成
+## Phase 3: OpenClaw 責務分離【v3修正: Aniccaの実在地を反映】
 
-### TODO 3.1: AGENTS.md 新規作成（プロジェクトルート）
+**発見（2026-03-05）: Aniccaは `anicca-project/` に住んでいない。**
 
-- **ファイル**: `/Users/anicca/anicca-project/AGENTS.md`
-- **内容**:
-  - セッションプロトコル（OpenClaw セッション管理）
-  - MCP & ツール（Mixpanel projID: 3970220, RevenueCat projID: projbb7b9d1b, Slack tokens）
-  - Mac Mini 絶対ルール（SSH、反映ルール、bind: loopback）
+```
+Aniccaの家: /Users/anicca/.openclaw/
+├── workspace/
+│   ├── IDENTITY.md   ← 既に存在（「俺は誰か」）
+│   ├── SOUL.md       ← 既に存在（行動規範）
+│   ├── AGENTS.md     ← 既に存在（iOS開発ガイド）
+│   ├── MEMORY.md     ← 既に存在
+│   ├── TOOLS.md      ← 既に存在
+│   ├── BOOTSTRAP.md  ← 既に存在
+│   ├── HEARTBEAT.md  ← 既に存在
+│   ├── USER.md       ← 既に存在（ダイスの情報）
+│   └── skills/       ← 30個のOpenClawスキル
+└── .git → Daisuke134/anicca (PRIVATE)
+
+Claude Codeの作業場: /Users/anicca/anicca-project/
+├── .claude/skills/   ← 176個のCC専用スキル
+├── aniccaios/        ← iOSアプリ
+├── apps/api/         ← APIサーバー
+└── .git → Daisuke134/anicca-products (PUBLIC)
+```
+
+**結論**: `anicca-project/` に IDENTITY.md/SOUL.md/AGENTS.md を新規作成するのは間違い。
+Aniccaの設定は `.openclaw/workspace/` の既存ファイルを更新する。
+`anicca-project/` にはCC（Claude Code）用の設定だけ置く。
+
+### TODO 3.1: `.openclaw/workspace/AGENTS.md` 更新（既存ファイル）
+
+- **ファイル**: `/Users/anicca/.openclaw/workspace/AGENTS.md`
+- **現状**: iOS開発ガイドが書かれている（古い内容含む、VPS言及あり）
+- **アクション**: Mac Mini時代に合わせて更新 + CC連携プロトコル追加
+- **追加内容**:
+  - MCP & ツール（Mixpanel projID: 3970220, RevenueCat projID: projbb7b9d1b）
+  - Mac Mini 絶対ルール（SSH禁止、bind: loopback）
   - OpenClaw TUI トラブルシューティング（gateway, port 18789）
   - Cron 運用（jobs.json, restart必須）
-- **移動元**: mcp-openclaw.md, openclaw-vps-absolute.md, CLAUDE.md OpenClawセクション
+- **CC側の対応**: `anicca-project/` の `mcp-openclaw.md`, `openclaw-vps-absolute.md` は削除（Phase 2.3 で実施）
 - **ステータス**: pending
 
-### TODO 3.2: SOUL.md 新規作成（プロジェクトルート）
+### TODO 3.2: `.openclaw/workspace/SOUL.md` 更新（既存ファイル）
 
-- **ファイル**: `/Users/anicca/anicca-project/SOUL.md`
-- **内容**:
-  - Investigate Before Acting プロトコル（全文移動）
+- **ファイル**: `/Users/anicca/.openclaw/workspace/SOUL.md`
+- **アクション**: 以下の原則を統合
+  - Investigate Before Acting プロトコル
   - オリジナリティ禁止ルール
   - 教訓の一般化ルール
   - 高リスク操作ゲート（破壊的git操作禁止）
   - Secret管理ルール
 - **ステータス**: pending
 
-### TODO 3.3: IDENTITY.md 新規作成（プロジェクトルート）
+### TODO 3.3: `.openclaw/workspace/IDENTITY.md` 更新（既存ファイル）
 
-- **ファイル**: `/Users/anicca/anicca-project/IDENTITY.md`
-- **内容**:
-  - Anicca = デジタル・ブッダ、プロアクティブ行動変容エージェント
-  - 苦しみを減らすために存在する
+- **ファイル**: `/Users/anicca/.openclaw/workspace/IDENTITY.md`
+- **現状**: 古い内容（VPS言及、古いリポURL `anicca.ai`）
+- **アクション**: 最新状態に更新
+  - Mac Mini 稼働中（VPS削除）
+  - リポURL: `Daisuke134/anicca` (PRIVATE)
+  - 55+ OpenClawスキル、60+ Cronジョブ
   - ペルソナ参照（persona skill へのポインタ）
-  - プロジェクト哲学・ビジョン
+- **ステータス**: pending
+
+### TODO 3.4: `anicca-project/` にはCC用ルールのみ残す
+
+- **原則**: `anicca-project/` に OpenClaw 設定を置かない
+- **削除対象**（Phase 2.3 と連動）:
+  - `mcp-openclaw.md` → `.openclaw/workspace/AGENTS.md` に移動済み
+  - `openclaw-vps-absolute.md` → `.openclaw/workspace/AGENTS.md` に移動済み
+- **CLAUDE.md に残す**: OpenClaw CLI コマンド参照（2行のみ）
 - **ステータス**: pending
 
 ---
@@ -801,24 +839,76 @@ Phase 9.1 の `env` キーに以下を追加済み:
 
 ---
 
+## Phase 15:【v3新規】Git構造 & スキルOSS化
+
+**発見（2026-03-05）: 2つのリポ + 2つの住所が存在する。整理が必要。**
+
+### 現状
+
+| リポ | 可視性 | 場所 | 内容 |
+|------|--------|------|------|
+| `Daisuke134/anicca` | PRIVATE | `/Users/anicca/.openclaw/` | Aniccaの家（OpenClaw全体） |
+| `Daisuke134/anicca-products` | PUBLIC | `/Users/anicca/anicca-project/` | iOS + API + CC skills 176個 |
+| `Daisuke134/mobileapp-builder` | PUBLIC | 個別リポ | OSSスキル（1個だけ） |
+
+### TODO 15.1: OSS対象スキルの特定
+
+- **アクション**: 176 CC skills + 30 OpenClaw skills から汎用的で再利用可能なものを選定
+- **命名規則**: `*-builder` → `*-factory` にリネーム（全スキルが factory）
+- **ステータス**: pending
+
+### TODO 15.2: 個別リポ作成 & git submodule 紐付け
+
+- **構造**:
+```
+anicca-products/（モノリポ）
+├── aniccaios/
+├── apps/api/
+├── .claude/skills/           ← CC専用（OSS不要なもの）
+└── packages/                 ← OSSスキル（git submodule）
+    ├── mobileapp-factory/       → Daisuke134/mobileapp-factory
+    ├── web-app-factory/         → Daisuke134/web-app-factory
+    └── ...（各スキルが個別リポ）
+```
+- **各OSSリポの構造**:
+```
+Daisuke134/<skill-name>/
+├── SKILL.md
+├── references/
+├── scripts/
+├── package.json（npm公開用）
+└── README.md
+```
+- **ステータス**: pending
+
+### TODO 15.3: `mobileapp-builder` → `mobileapp-factory` リネーム
+
+- **GitHub**: リポ名変更（GitHub が自動リダイレクト）
+- **submodule**: `packages/mobileapp-factory/` として紐付け
+- **ステータス**: pending
+
+---
+
 ## 実行順序（依存関係）【v3更新】
 
 ```
 Phase 14（/init ギャップ分析）──→ Phase 1 ──→ Phase 2 ──→ Phase 4
                                     │            │
-                                    │            └──→ Phase 7（監査 + Agent制限 + skills preload）
+                                    │            ├──→ Phase 7（監査 + Agent制限 + skills preload）
                                     │            │
                                     │            └──→ Phase 13（Bundled skills + context:fork）
                                     │
-                                    └──→ Phase 3 ──→ Phase 6
+                                    ├──→ Phase 3 ──→ Phase 6
                                     │
-                                    └──→ Phase 5（Hooks全面 + compact再注入 + 3type活用）
+                                    ├──→ Phase 5（Hooks全面 + compact再注入 + 3type活用）
                                     │
-                                    └──→ Phase 9（settings.json + autoMemory + claudeMdExcludes）
+                                    ├──→ Phase 9（settings.json + autoMemory + claudeMdExcludes）
                                     │        │
                                     │        └──→ Phase 10（Boris 12）──→ Phase 11（CLI flags）
                                     │
-                                    └──→ Phase 12（Plugins）
+                                    ├──→ Phase 12（Plugins）
+                                    │
+                                    └──→ Phase 15（Git構造 & スキルOSS化）
 
 Phase 8（.mcp.json — 独立、いつでも実行可）
 ```
@@ -858,6 +948,8 @@ Phase 8（.mcp.json — 独立、いつでも実行可）
 | **Plugin** | 0 | Code intelligence + marketplace調査済み | 0% |
 | **Bundled skills活用** | 0/3 | 3/3（/simplify, /batch, /debug） | 0% |
 | **CC↔OpenClaw統合完成度** | - | 100% | 0% |
+| **Git構造 & OSS化** | 1個別リポのみ | 全factory skill 個別リポ + submodule | 0% |
+| **Phase 3 修正** | anicca-project に新規作成（間違い） | .openclaw/workspace/ の既存ファイル更新 | 0% |
 
 ---
 
@@ -881,6 +973,9 @@ Phase 8（.mcp.json — 独立、いつでも実行可）
 | 14 | `CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD` | Phase 9（env） | Anthropic Memory docs |
 | 15 | `context: fork` スキル設計 | Phase 13（TODO 13.3） | Anthropic Skills docs |
 | 16 | Dynamic context injection 活用設計 | Phase 13（TODO 13.2） | Anthropic Skills docs |
+| 17 | Phase 3 修正: Aniccaの実在地反映 | Phase 3（全面書き換え） | 実機調査（.openclaw/workspace/） |
+| 18 | Git構造 & スキルOSS化 | Phase 15（新設） | GitHub monorepo BP + npm workspaces |
+| 19 | SDD スキルインストール | `.claude/skills/spec-driven-development/` | 89jobrien/steve@spec-driven-development |
 
 ---
 
