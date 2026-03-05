@@ -35,3 +35,8 @@
   from = "/challenge"
   to = "https://apps.apple.com/app/id6755129214"
   status = 302
+
+[[redirects]]
+  from = "/revenue"
+  to = "/revenue.html"
+  status = 200
