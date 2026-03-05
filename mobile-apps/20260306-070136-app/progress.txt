@@ -29,3 +29,18 @@
   - PrivacyInfo.xcprivacy と Info.plist は US-006 でも作成できる（us-005a-infra.md 参照）
   - DeskStretchios が既に dev branch 上に存在する場合、app dir (20260306-*) から相対パスで参照できない
 ---
+
+## 2026-03-06 - US-005b: IAP + pricing + RevenueCat setup
+
+- ASC サブスク確認済み（GROUP_ID=21961645, MONTHLY_ID=6760079509, ANNUAL_ID=6760078995）
+- Monthly 175価格 ✅, Annual 175価格 ✅
+- RC_IOS_PUBLIC_KEY 設定済み（既存セッションで RC App 作成済み）
+- RevenueCat SPM 追加済み（DeskStretchios/project.yml + xcodeproj ✅）
+- WAITING_FOR_HUMAN: RC SK Key（Products/Offerings 確認・作成のため）
+  - RC Secret Key を取得 → .env に保存 → RC Products/Offerings 作成 → passes: true
+
+**Learnings for future iterations:**
+  - source コマンドは bash -c 内でないと環境変数が継続しない（zsh eval コンテキスト問題）
+  - RC_IOS_PUBLIC_KEY が設定済み = RC App は作成済み。しかし Products/Offerings は SK Key なしで確認不可
+  - SPM は US-006 の前に追加されている場合がある（過去セッションで実行済みの可能性）
+---

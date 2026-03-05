@@ -87,7 +87,7 @@
       ],
       "priority": 5.5,
       "passes": false,
-      "notes": "依存: US-005a の APP_ID"
+      "notes": "WAITING_FOR_HUMAN: RC SK Key が必要。ASC側は完了: GROUP_ID=21961645, MONTHLY_ID=6760079509, ANNUAL_ID=6760078995, 各175価格設定済み。RC_IOS_PUBLIC_KEY設定済み。SPM追加済み。RC Products/Offerings確認・作成のためSK Key待ち。APP_ID=6760048397"
     },
     {
       "id": "US-006",
