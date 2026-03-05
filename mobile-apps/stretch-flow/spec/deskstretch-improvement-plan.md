@@ -240,17 +240,19 @@ tags:
 
 ---
 
-## 5. フェーズ分割（3 → 7 セッション — TDD 実装統合版）
+## 5. フェーズ分割（3 → 10 セッション — TDD統合 + レビュー独立フェーズ）
 
 ### 根拠
 
 ソース: [Martin Fowler - TDD](https://martinfowler.com/bliki/TestDrivenDevelopment.html) / 核心の引用: 「Write a test for the next bit of functionality. Write the functional code until the test passes. Refactor.」
 
-ソース: [Anthropic - Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents) / 核心の引用: 「Prompt chaining: trade off latency for higher accuracy. Add programmatic checks on intermediate steps.」
+ソース: [Anthropic - How teams use Claude Code](https://www-cdn.anthropic.com/58284b19e702b49db9302d5b6f135ad8871e7658.pdf) / 核心の引用: 「let it work autonomously, then review the 80% complete solution before taking over for final refinements.」
 
-ソース: [HubSpot - Automated Code Review](https://product.hubspot.com/blog/automated-code-review-the-6-month-evolution) / 核心の引用: 「Internal agent framework gave operational freedom... reducing cycle time.」
+ソース: [CodeRabbit - 2026 AI Quality](https://www.coderabbit.ai/blog/2025-was-the-year-of-ai-speed-2026-will-be-the-year-of-ai-quality) / 核心の引用: 「one agent writes, another critiques, another tests, another validates compliance.」
 
-### なぜ 9 → 7 に圧縮したか
+ソース: [Martin Fowler - RefinementCodeReview](https://martinfowler.com/bliki/RefinementCodeReview.html) / 核心の引用: 「code reviews = an explicit step in a development team's workflow. Pre-Integration Review on a Pull Request is the most common mechanism.」
+
+### なぜ 9 → 10 に再構成したか
 
 ```
 旧（9 sessions — 間違い）:
@@ -259,28 +261,29 @@ tags:
   007b   = Integration Tests（後付け）← TDD ではない
   007c   = E2E（Maestro）
 
-新（7 sessions — 正しい）:
+新（10 sessions — 正しい）:
+  004a   = Core Spec
+  004a-R = REVIEW（独立フェーズ）    ← BP: 「explicit step in workflow」
+  004b   = UX Spec
+  004b-R = REVIEW（独立フェーズ）
   006a-d = TDD 実装（RED→GREEN→REFACTOR 内蔵）
+  006-R  = REVIEW（006a-d 全体の品質レビュー）
   007    = E2E（Maestro — UI 完成後のみ）
 ```
 
 ### 全体フロー
 
 ```
-004a: Core Spec
-  └→ [REVIEW] code-quality-reviewer
-004b: UX Spec
-  └→ [REVIEW] code-quality-reviewer
-006a: TDD Data Layer
-  └→ [REVIEW] code-quality-reviewer
-006b: TDD Onboarding + Monetization
-  └→ [REVIEW] code-quality-reviewer
-006c: TDD Core Screens
-  └→ [REVIEW] code-quality-reviewer
-006d: TDD Polish + Resources
-  └→ [REVIEW] code-quality-reviewer
-007:  E2E Maestro + Payment
-  └→ [REVIEW] code-quality-reviewer
+004a:   Core Spec
+004a-R: REVIEW（code-quality-reviewer — Spec レビュー）
+004b:   UX Spec
+004b-R: REVIEW（code-quality-reviewer — Spec レビュー）
+006a:   TDD Data Layer
+006b:   TDD Onboarding + Monetization
+006c:   TDD Core Screens
+006d:   TDD Polish + Resources
+006-R:  REVIEW（code-quality-reviewer — 実装全体レビュー）
+007:    E2E Maestro + Payment
 ```
 
 ### 7 セッション詳細（汎用名 — アプリ固有名なし）
@@ -417,14 +420,29 @@ tags:
 
 | US | 旧 | 新 | セッション |
 |----|-----|-----|-----------|
-| US-004 | 1 session | 2 sessions | 004a, 004b |
-| US-006 | 1 session | 4 sessions（TDD 内蔵） | 006a, 006b, 006c, 006d |
+| US-004 | 1 session | 2 sessions + 2 reviews | 004a, 004a-R, 004b, 004b-R |
+| US-006 | 1 session | 4 sessions + 1 review（TDD 内蔵） | 006a, 006b, 006c, 006d, 006-R |
 | US-007 | 3 sessions | 1 session（E2E のみ） | 007 |
-| **Total** | **5** → **9（旧）** | **7（新）** | — |
+| **Total** | **3** → **9（旧）** | **10（新）** | — |
 
-| 変更 | 理由 |
-|------|------|
-| TDD を 006 に統合 | TDD = 実装そのもの。分離 = TDD ではない |
-| 007 を E2E のみに | Unit/Integration は 006 で完了済み |
-| codex-review → code-quality-reviewer | 内部サブエージェントの方が速い・安い・精度高い |
-| セッション名を汎用化 | アプリ固有名なし → 全アプリに適用可能 |
+| 変更 | 理由 | ソース |
+|------|------|--------|
+| TDD を 006 に統合 | TDD = 実装そのもの。分離 = TDD ではない | Martin Fowler TDD |
+| 007 を E2E のみに | Unit/Integration は 006 で完了済み | Quash TDD Guide |
+| レビューを独立フェーズに | 「explicit step in workflow」= 別フェーズ | Martin Fowler RefinementCodeReview |
+| フェーズ内レビュー → code-quality-reviewer | 内部サブエージェントの方が速い・安い・精度高い | HubSpot Engineering |
+| codex-review は存続 | リリース前最終ゲート・大規模リファクタ時に使用 | — |
+| セッション名を汎用化 | アプリ固有名なし → 全アプリに適用可能 | — |
+
+### オンボーディング設計ルール（mau.md — Prayer Lock $25k/月の実例）
+
+| # | ルール | ソース引用 |
+|---|--------|-----------|
+| 1 | **3幕構成**: 問題提示 → アプリ体験 → Paywall | 「introduction → climax → conclusion」 |
+| 2 | **質問 = ユーザーの自己説得** | 「the real purpose is to reflect on their own answers」 |
+| 3 | **回答のミラーリング** | 「mirror the user's answers back to them」 |
+| 4 | **長いほど変換率UP（価値がある限り）** | 「the longer, the better it converts」 |
+| 5 | **コア機能を体験させる** | 「let the user actually use your core feature」 |
+| 6 | **レビューモーダル = コア体験直後** | 「right after the user completes your core feature」 |
+| 7 | **コミットメント原則** | 「actively state they are committed before paywall」 |
+| 8 | **10%+ DL→Trial 変換率** | 「at least 10% download to trial conversion rate」 |
