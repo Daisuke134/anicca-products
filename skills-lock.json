@@ -176,6 +176,11 @@
       "sourceType": "github",
       "computedHash": "592e4c41c41f0249d44cbc382af650a108e9646415fc872e40aad27fb2c67810"
     },
+    "spec-driven-development": {
+      "source": "89jobrien/steve",
+      "sourceType": "github",
+      "computedHash": "0b0900cf4fd1d4b63bbbcfaec6a13f35d3a4adba551aba11b50b799c8f6a14cb"
+    },
     "startup-idea-validation": {
       "source": "vasilyu1983/ai-agents-public",
       "sourceType": "github",
