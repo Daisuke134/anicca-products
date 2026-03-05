@@ -49,7 +49,7 @@ cd DeskStretchios && fastlane build_for_simulator
 |---------|-----|---------|
 | RevenueCat | `https://github.com/RevenueCat/purchases-ios.git` | Latest |
 
-**No other dependencies.** Foundation Models is a system framework (iOS 26+).
+**No other dependencies.** AI API / Foundation Models は使用禁止（Rule 21）。
 
 ### Info.plist Additions
 
@@ -116,7 +116,7 @@ DeskStretchios/
 │   │   ├── UserProgress.swift
 │   │   └── StretchSession.swift
 │   ├── Services/
-│   │   ├── AIStretchService.swift
+│   │   ├── StretchRoutineService.swift
 │   │   ├── NotificationService.swift
 │   │   ├── SubscriptionService.swift
 │   │   ├── ProgressService.swift
@@ -139,7 +139,7 @@ DeskStretchios/
 │       └── PrivacyInfo.xcprivacy
 ├── DeskStretchTests/
 │   ├── Services/
-│   │   ├── AIStretchServiceTests.swift
+│   │   ├── StretchRoutineServiceTests.swift
 │   │   ├── ProgressServiceTests.swift
 │   │   ├── NotificationServiceTests.swift
 │   │   └── SubscriptionServiceTests.swift
@@ -333,13 +333,30 @@ final class NotificationService {
 }
 ```
 
-#### 4.2.3 SubscriptionService (RevenueCat)
+#### 4.2.3 SubscriptionService (RevenueCat — Protocol 化)
+
+**Protocol 化により Mock 差し替えでテスト可能にする。**
 
 ```swift
 import RevenueCat
 
-final class SubscriptionService {
+// Protocol（テスト時に MockSubscriptionService を DI）
+protocol SubscriptionServiceProtocol {
+    var isPremium: Bool { get async }
+    func configure(apiKey: String)
+    func checkPremiumStatus() async -> Bool
+    func getOfferings() async -> Offerings?
+    func purchase(package: Package) async throws -> Bool
+    func restorePurchases() async throws -> Bool
+}
+
+// Production 実装
+final class SubscriptionService: SubscriptionServiceProtocol {
     static let shared = SubscriptionService()
+
+    var isPremium: Bool {
+        get async { await checkPremiumStatus() }
+    }
 
     func configure(apiKey: String) {
         Purchases.configure(withAPIKey: apiKey)
@@ -370,84 +387,37 @@ final class SubscriptionService {
 }
 ```
 
-**CRITICAL:** This uses real RevenueCat SDK, NOT a mock. `Purchases.shared.purchase(package:)` is the actual purchase call.
+**CRITICAL:** Production では real RevenueCat SDK を使用。テスト時のみ `MockSubscriptionService` を DI。
 
-#### 4.2.4 AIStretchService
+#### 4.2.4 StretchRoutineService（静的フィルタリング — Rule 21: AI API 禁止）
+
+**AI API（Foundation Models 含む）は使用禁止。StretchLibrary.json から静的フィルタリングのみ。**
 
 ```swift
 import Foundation
-#if canImport(FoundationModels)
-import FoundationModels
-#endif
 
-final class AIStretchService {
+final class StretchRoutineService {
     private let libraryService: StretchLibraryService
 
     init(libraryService: StretchLibraryService) {
         self.libraryService = libraryService
     }
 
-    func generateRoutine(
+    /// 痛みエリア + 履歴ベースでルーティンを静的フィルタリング
+    func selectRoutine(
         painAreas: Set<PainArea>,
         history: [StretchSession],
         exerciseCount: Int = 3
-    ) async -> [StretchExercise] {
-        #if canImport(FoundationModels)
-        if #available(iOS 26, *) {
-            return await generateWithAI(painAreas: painAreas, history: history, count: exerciseCount)
-        }
-        #endif
-        return generateFallback(painAreas: painAreas, history: history, count: exerciseCount)
-    }
-
-    #if canImport(FoundationModels)
-    @available(iOS 26, *)
-    private func generateWithAI(
-        painAreas: Set<PainArea>,
-        history: [StretchSession],
-        count: Int
-    ) async -> [StretchExercise] {
-        // Use Foundation Models to generate personalized routine
-        // Prompt includes pain areas + recent history to avoid repetition
-        // Falls back to static if AI generation fails
-        do {
-            let session = LanguageModelSession()
-            let areas = painAreas.map(\.rawValue).joined(separator: ", ")
-            let recentExercises = history.suffix(3).flatMap(\.exercises).map(\.name).joined(separator: ", ")
-
-            let prompt = """
-            Generate \(count) desk stretching exercises for someone with pain in: \(areas).
-            Avoid these recent exercises: \(recentExercises).
-            Return ONLY a JSON array of objects with: name, instructions (1-2 sentences), durationSeconds (15-30).
-            """
-
-            let response = try await session.respond(to: prompt)
-            // Parse JSON response into exercises
-            // If parsing fails, use fallback
-            if let exercises = parseAIResponse(response.content, painAreas: painAreas) {
-                return exercises
-            }
-        } catch {
-            // AI failed, use fallback
-        }
-        return generateFallback(painAreas: painAreas, history: history, count: count)
-    }
-    #endif
-
-    private func generateFallback(
-        painAreas: Set<PainArea>,
-        history: [StretchSession],
-        count: Int
     ) -> [StretchExercise] {
-        // Static curated routines from StretchLibrary.json
         let allExercises = libraryService.exercises(for: painAreas)
+        // 3日以内の重複を除外（バリエーション確保）
         let recentIds = Set(history.suffix(3).flatMap(\.exercises).map(\.id))
         let available = allExercises.filter { !recentIds.contains($0.id) }
 
-        if available.count >= count {
-            return Array(available.shuffled().prefix(count))
+        if available.count >= exerciseCount {
+            return Array(available.shuffled().prefix(exerciseCount))
         }
-        return Array(allExercises.shuffled().prefix(count))
+        return Array(allExercises.shuffled().prefix(exerciseCount))
     }
 }
 ```
@@ -484,14 +454,34 @@ final class StretchLibraryService {
 
 #### 4.3.1 DeskStretchApp (Entry Point)
 
+**API Key は xcconfig で管理する。ハードコード禁止。**
+
+```
+DeskStretchios/
+├── Config/
+│   ├── Debug.xcconfig      # REVENUECAT_API_KEY = appl_xxx_debug
+│   ├── Release.xcconfig    # REVENUECAT_API_KEY = appl_xxx_release
+│   └── .gitignore          # *.xcconfig をコミットしない
+```
+
+**Info.plist に `$(REVENUECAT_API_KEY)` を追加:**
+```xml
+<key>RevenueCatAPIKey</key>
+<string>$(REVENUECAT_API_KEY)</string>
+```
+
 ```swift
 @main
 struct DeskStretchApp: App {
     @State private var appState = AppState()
 
     init() {
-        // Configure RevenueCat
-        SubscriptionService.shared.configure(apiKey: "YOUR_REVENUECAT_API_KEY")
+        // API Key を xcconfig → Info.plist 経由で取得（ハードコード禁止）
+        guard let apiKey = Bundle.main.infoDictionary?["RevenueCatAPIKey"] as? String,
+              !apiKey.isEmpty else {
+            fatalError("RevenueCatAPIKey not configured in xcconfig")
+        }
+        SubscriptionService.shared.configure(apiKey: apiKey)
     }
 
     var body: some Scene {
@@ -539,7 +529,7 @@ struct PaywallView: View {
             // Benefits list
             VStack(alignment: .leading, spacing: 12) {
                 BenefitRow(text: "Unlimited stretches")
-                BenefitRow(text: "AI-personalized routines")
+                BenefitRow(text: "Personalized routines for your pain areas")
                 BenefitRow(text: "All pain areas")
                 BenefitRow(text: "Custom schedules")
                 BenefitRow(text: "Progress tracking")
@@ -743,7 +733,7 @@ struct PaywallView: View {
 | Scenario | Handling |
 |----------|---------|
 | RevenueCat purchase fails | Show alert with error message, do not crash |
-| Foundation Models unavailable | Silent fallback to static routines |
+| StretchLibrary.json 読み込み失敗 | Debug: fatalError、Release: 空ライブラリ |
 | Notification permission denied | Show in-app timer, prompt to enable in Settings |
 | StretchLibrary.json missing | Fatal error in debug, empty library in release |
 | UserDefaults read fails | Return default values |
@@ -757,7 +747,7 @@ struct PaywallView: View {
 | Test File | Tests |
 |-----------|-------|
 | `ProgressServiceTests.swift` | streak calculation, session recording, day boundary |
-| `AIStretchServiceTests.swift` | fallback logic, history deduplication, exercise count |
+| `StretchRoutineServiceTests.swift` | フィルタリングロジック, 履歴重複排除, exercise count |
 | `NotificationServiceTests.swift` | scheduling, cancellation, work hours filtering |
 | `BreakScheduleTests.swift` | interval validation, work hours logic |
 | `StretchExerciseTests.swift` | JSON decoding, category filtering |
@@ -801,7 +791,7 @@ Text(String(localized: "Break Interval"))
 | Lazy loading | `LazyVStack` for exercise library list |
 | Image caching | N/A (SF Symbols are system-cached) |
 | Timer efficiency | `Timer.publish` for UI only, `UNNotification` for actual reminders |
-| AI generation | On-device (no network latency), < 3 seconds |
+| Routine selection | 静的フィルタリング（JSON ベース）、< 500ms |
 | App launch | Minimal init, defer data loading |
 
 ---
@@ -816,5 +806,5 @@ Text(String(localized: "Break Interval"))
 | Background timer draining battery | Use scheduled notifications, NOT background timer |
 | Hardcoding strings | Use String Catalogs for all user-facing text |
 | Mock RevenueCat in production | Use REAL RevenueCat SDK. `Purchases.shared.purchase(package:)` |
-| Foundation Models without fallback | MUST have static fallback for iOS < 26 |
+| AI API / Foundation Models 使用 | **FORBIDDEN (Rule 21).** 静的フィルタリングのみ使用 |
 | Forgetting PrivacyInfo.xcprivacy | Include CA92.1 for UserDefaults. Without it = ITMS-91061 rejection |
