@@ -59,14 +59,26 @@ Source: Apple Developer (https://developer.apple.com/documentation/bundleresourc
 /usr/libexec/PlistBuddy -c "Add :ITSAppUsesNonExemptEncryption bool false" <AppName>ios/<AppName>/Info.plist
 ```
 
+## Step 3.5: プロジェクト .env ディレクトリ作成
+
+```bash
+# プロジェクト固有の変数はグローバル .env を汚さない
+mkdir -p ~/.config/mobileapp-builder/projects/<slug>
+```
+
+| ファイル | パス | 内容 |
+|---------|------|------|
+| **グローバル** | `~/.config/mobileapp-builder/.env` | APPLE_ID, KEYCHAIN_PASSWORD, SLACK_WEBHOOK_AGENTS |
+| **プロジェクト** | `~/.config/mobileapp-builder/projects/<slug>/.env` | APP_ID, GROUP_ID, MONTHLY_ID, RC_IOS_PUBLIC_KEY |
+
 ## Step 4: Keychain Unlock (PATCH 3)
 Source: 12-Factor App (https://12factor.net/config)
 > 「stores config in environment variables」
 
 ```bash
+source ~/.config/mobileapp-builder/.env
 security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db
 ```
-KEYCHAIN_PASSWORD is in `~/.config/mobileapp-builder/.env`
 
 
 ## Step 4.5: Bundle ID 登録（API Key認証 — 完全自動）
@@ -121,7 +133,7 @@ APP_RESULT=$(~/bin/asc apps create \
 
 if echo "$APP_RESULT" | jq -e '.data.id' > /dev/null 2>&1; then
   APP_ID=$(echo "$APP_RESULT" | jq -r '.data.id')
-  echo "APP_ID=$APP_ID" >> .env
+  echo "APP_ID=$APP_ID" >> ~/.config/mobileapp-builder/projects/<slug>/.env
   echo "✅ ASC App created: $APP_ID"
 else
   echo "❌ App creation failed:"

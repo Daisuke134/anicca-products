@@ -1,6 +1,17 @@
 # US-005b: Monetization (IAP + Pricing + RevenueCat)
 
-依存: US-005a（APP_ID が .env に記録済みであること）
+依存: US-005a（APP_ID がプロジェクト .env に記録済みであること）
+
+## .env ファイル構造
+```
+~/.config/mobileapp-builder/.env                    ← グローバル（Apple ID, Keychain, Slack等）
+~/.config/mobileapp-builder/projects/<slug>/.env     ← プロジェクト固有（APP_ID, GROUP_ID, RC_IOS_PUBLIC_KEY等）
+```
+全 Step の冒頭で両方を source する:
+```bash
+source ~/.config/mobileapp-builder/.env
+source ~/.config/mobileapp-builder/projects/<slug>/.env
+```
 
 ## Skills to Read (IN THIS ORDER)
 1. `.claude/skills/asc-ppp-pricing/SKILL.md` — rudrankriyam: 175カ国 pricing
@@ -9,6 +20,7 @@
 ## Quality Gate (MANDATORY — US-005a の成果物検証)
 ```bash
 source ~/.config/mobileapp-builder/.env
+source ~/.config/mobileapp-builder/projects/<slug>/.env
 test -n "$APP_ID" || { echo "GATE FAIL: APP_ID not set"; exit 1; }
 ```
 
@@ -19,7 +31,7 @@ test -n "$APP_ID" || { echo "GATE FAIL: APP_ID not set"; exit 1; }
 ### 6.1: サブスクリプショングループ作成
 ```bash
 GROUP_ID=$(asc subscriptions groups create --app $APP_ID --reference-name "<AppName> Premium" --output json 2>&1 | jq -r '.data.id')
-echo "GROUP_ID=$GROUP_ID" >> ~/.config/mobileapp-builder/.env
+echo "GROUP_ID=$GROUP_ID" >> ~/.config/mobileapp-builder/projects/<slug>/.env
 ```
 
 ### 6.2: サブスクリプション作成
@@ -28,10 +40,10 @@ echo "GROUP_ID=$GROUP_ID" >> ~/.config/mobileapp-builder/.env
 
 ```bash
 MONTHLY_ID=$(asc subscriptions create --group $GROUP_ID --ref-name "Monthly" --product-id "<bundle_id>.monthly" --subscription-period ONE_MONTH --output json 2>&1 | jq -r '.data.id')
-echo "MONTHLY_ID=$MONTHLY_ID" >> ~/.config/mobileapp-builder/.env
+echo "MONTHLY_ID=$MONTHLY_ID" >> ~/.config/mobileapp-builder/projects/<slug>/.env
 
 ANNUAL_ID=$(asc subscriptions create --group $GROUP_ID --ref-name "Annual" --product-id "<bundle_id>.annual" --subscription-period ONE_YEAR --output json 2>&1 | jq -r '.data.id')
-echo "ANNUAL_ID=$ANNUAL_ID" >> ~/.config/mobileapp-builder/.env
+echo "ANNUAL_ID=$ANNUAL_ID" >> ~/.config/mobileapp-builder/projects/<slug>/.env
 ```
 
 ### 6.3: ローカリゼーション（グループ + サブスク、全37言語）
@@ -160,6 +172,7 @@ WAITING_FOR_HUMAN: RC Setup
 ### 7.1: SK Key 受信 → 変数準備
 ```bash
 source ~/.config/mobileapp-builder/.env
+source ~/.config/mobileapp-builder/projects/<slug>/.env
 RC_SECRET_KEY="<sk_... from Slack>"
 RC_BASE="https://api.revenuecat.com/v2"
 AUTH="Authorization: Bearer $RC_SECRET_KEY"
@@ -171,66 +184,96 @@ RC_PROJECT_ID=$(curl -s "$RC_BASE/projects" -H "$AUTH" | jq -r '.items[0].id')
 
 ### 7.2: RC App 作成
 ```bash
-# PATCH 12-14: RC API v2 は name（not app_name）、nested app_store.bundle_id、フラットレスポンス(.id)
-RC_APP_ID=$(curl -s -X POST "$RC_BASE/projects/$RC_PROJECT_ID/apps" \
+# PATCH 12-14+21: RC API v2 は name（not app_name）、nested app_store.bundle_id、フラットレスポンス(.id)
+APP_RESULT=$(curl -s -w "\n%{http_code}" -X POST "$RC_BASE/projects/$RC_PROJECT_ID/apps" \
   -H "$AUTH" -H "$CT" \
-  -d "{\"name\":\"<app_name>\",\"type\":\"app_store\",\"app_store\":{\"bundle_id\":\"<bundle_id>\"}}" \
-  | jq -r '.id')
+  -d "{\"name\":\"<app_name>\",\"type\":\"app_store\",\"app_store\":{\"bundle_id\":\"<bundle_id>\"}}")
+HTTP_CODE=$(echo "$APP_RESULT" | tail -1)
+APP_BODY=$(echo "$APP_RESULT" | sed '$d')
+[ "$HTTP_CODE" -ge 400 ] && { echo "❌ RC App create failed ($HTTP_CODE): $APP_BODY"; exit 1; }
+RC_APP_ID=$(echo "$APP_BODY" | jq -r '.id')
+echo "✅ RC App: $RC_APP_ID"
 ```
 
 ### 7.2b: Public API Key 取得（自動 — WAITING_FOR_HUMAN 不要）
 ```bash
 RC_PUBLIC_KEY=$(curl -s "$RC_BASE/projects/$RC_PROJECT_ID/apps/$RC_APP_ID/public_api_keys" \
   -H "$AUTH" | jq -r '.items[0].key')
-echo "RC_IOS_PUBLIC_KEY=$RC_PUBLIC_KEY" >> ~/.config/mobileapp-builder/.env
+echo "RC_IOS_PUBLIC_KEY=$RC_PUBLIC_KEY" >> ~/.config/mobileapp-builder/projects/<slug>/.env
 ```
 ⚠️ Public Key は App 作成時に自動生成される。Products/Offerings の前に取得可能。
 
 ### 7.3: Entitlement 作成
 ```bash
-# PATCH: RC API v2 レスポンスはフラット (.id)
-RC_ENT_ID=$(curl -s -X POST "$RC_BASE/projects/$RC_PROJECT_ID/entitlements" \
+# PATCH 21: エラーチェック付き
+ENT_RESULT=$(curl -s -w "\n%{http_code}" -X POST "$RC_BASE/projects/$RC_PROJECT_ID/entitlements" \
   -H "$AUTH" -H "$CT" \
-  -d '{"lookup_key":"premium","display_name":"Premium"}' \
-  | jq -r '.id')
+  -d '{"lookup_key":"premium","display_name":"Premium"}')
+HTTP_CODE=$(echo "$ENT_RESULT" | tail -1)
+ENT_BODY=$(echo "$ENT_RESULT" | sed '$d')
+[ "$HTTP_CODE" -ge 400 ] && { echo "❌ Entitlement create failed ($HTTP_CODE): $ENT_BODY"; exit 1; }
+RC_ENT_ID=$(echo "$ENT_BODY" | jq -r '.id')
+echo "✅ Entitlement: $RC_ENT_ID"
 ```
 
 ### 7.4: Product 作成 + Entitlement 紐付け
 ```bash
-# PATCH 15: レスポンスはフラット(.id)。Entitlement紐付けは actions/attach_products + product_ids[]
+# PATCH 15+19: Product ID を変数に保持（Step 7.5 で使う）。エラーチェック付き
 for pid in "<bundle_id>.monthly" "<bundle_id>.annual"; do
-  PROD_ID=$(curl -s -X POST "$RC_BASE/projects/$RC_PROJECT_ID/products" \
+  PROD_RESULT=$(curl -s -w "\n%{http_code}" -X POST "$RC_BASE/projects/$RC_PROJECT_ID/products" \
     -H "$AUTH" -H "$CT" \
-    -d "{\"store_identifier\":\"$pid\",\"app_id\":\"$RC_APP_ID\",\"type\":\"subscription\"}" \
-    | jq -r '.id')
+    -d "{\"store_identifier\":\"$pid\",\"app_id\":\"$RC_APP_ID\",\"type\":\"subscription\"}")
+  HTTP_CODE=$(echo "$PROD_RESULT" | tail -1)
+  PROD_BODY=$(echo "$PROD_RESULT" | sed '$d')
+  [ "$HTTP_CODE" -ge 400 ] && { echo "❌ Product create failed ($HTTP_CODE): $PROD_BODY"; exit 1; }
 
-  curl -s -X POST "$RC_BASE/projects/$RC_PROJECT_ID/entitlements/$RC_ENT_ID/actions/attach_products" \
+  PROD_ID=$(echo "$PROD_BODY" | jq -r '.id')
+
+  # Product ID を保持（Step 7.5 Package 紐付けで使う）
+  case "$pid" in
+    *monthly) MONTHLY_PROD_ID="$PROD_ID" ;;
+    *annual)  ANNUAL_PROD_ID="$PROD_ID" ;;
+  esac
+
+  ATTACH_RESULT=$(curl -s -w "\n%{http_code}" -X POST "$RC_BASE/projects/$RC_PROJECT_ID/entitlements/$RC_ENT_ID/actions/attach_products" \
     -H "$AUTH" -H "$CT" \
-    -d "{\"product_ids\":[\"$PROD_ID\"]}"
+    -d "{\"product_ids\":[\"$PROD_ID\"]}")
+  HTTP_CODE=$(echo "$ATTACH_RESULT" | tail -1)
+  [ "$HTTP_CODE" -ge 400 ] && { echo "❌ Entitlement attach failed ($HTTP_CODE)"; exit 1; }
+  echo "✅ Product $PROD_ID → Entitlement attached"
 done
 ```
 
 ### 7.5: Offering + Package 作成
 ```bash
-# PATCH 16: レスポンスはフラット(.id)。Package は product_id を受け付けない — 別途 attach_products が必要
-RC_OFF_ID=$(curl -s -X POST "$RC_BASE/projects/$RC_PROJECT_ID/offerings" \
+# PATCH 16+21: エラーチェック付き。Package は product_id を受け付けない — 別途 attach_products が必要
+OFF_RESULT=$(curl -s -w "\n%{http_code}" -X POST "$RC_BASE/projects/$RC_PROJECT_ID/offerings" \
   -H "$AUTH" -H "$CT" \
-  -d '{"lookup_key":"default","display_name":"Default"}' \
-  | jq -r '.id')
+  -d '{"lookup_key":"default","display_name":"Default"}')
+HTTP_CODE=$(echo "$OFF_RESULT" | tail -1)
+OFF_BODY=$(echo "$OFF_RESULT" | sed '$d')
+[ "$HTTP_CODE" -ge 400 ] && { echo "❌ Offering create failed ($HTTP_CODE): $OFF_BODY"; exit 1; }
+RC_OFF_ID=$(echo "$OFF_BODY" | jq -r '.id')
+echo "✅ Offering: $RC_OFF_ID"
 
-# Package 作成は product なし。lookup_key は $rc_monthly / $rc_annual（RC 標準）
-declare -A PKG_PROD_MAP=( ["monthly"]="MONTHLY_PROD_ID" ["annual"]="ANNUAL_PROD_ID" )
+# Package 作成 + Product 紐付け（lookup_key は $rc_monthly / $rc_annual = RC 標準）
 for period in "monthly" "annual"; do
-  PKG_ID=$(curl -s -X POST "$RC_BASE/projects/$RC_PROJECT_ID/offerings/$RC_OFF_ID/packages" \
+  PKG_RESULT=$(curl -s -w "\n%{http_code}" -X POST "$RC_BASE/projects/$RC_PROJECT_ID/offerings/$RC_OFF_ID/packages" \
     -H "$AUTH" -H "$CT" \
-    -d "{\"lookup_key\":\"\$rc_$period\",\"display_name\":\"$(echo $period | sed 's/.*/\u&/')\"}" \
-    | jq -r '.id')
+    -d "{\"lookup_key\":\"\$rc_$period\",\"display_name\":\"$(echo $period | sed 's/.*/\u&/')\"}")
+  HTTP_CODE=$(echo "$PKG_RESULT" | tail -1)
+  PKG_BODY=$(echo "$PKG_RESULT" | sed '$d')
+  [ "$HTTP_CODE" -ge 400 ] && { echo "❌ Package create failed ($HTTP_CODE): $PKG_BODY"; exit 1; }
+  PKG_ID=$(echo "$PKG_BODY" | jq -r '.id')
 
   # Product → Package 紐付け（eligibility_criteria 必須）
   PROD_ID=$([ "$period" = "monthly" ] && echo "$MONTHLY_PROD_ID" || echo "$ANNUAL_PROD_ID")
-  curl -s -X POST "$RC_BASE/projects/$RC_PROJECT_ID/packages/$PKG_ID/actions/attach_products" \
+  ATTACH_RESULT=$(curl -s -w "\n%{http_code}" -X POST "$RC_BASE/projects/$RC_PROJECT_ID/packages/$PKG_ID/actions/attach_products" \
     -H "$AUTH" -H "$CT" \
-    -d "{\"products\":[{\"product_id\":\"$PROD_ID\",\"eligibility_criteria\":\"all\"}]}"
+    -d "{\"products\":[{\"product_id\":\"$PROD_ID\",\"eligibility_criteria\":\"all\"}]}")
+  HTTP_CODE=$(echo "$ATTACH_RESULT" | tail -1)
+  [ "$HTTP_CODE" -ge 400 ] && { echo "❌ Package attach failed ($HTTP_CODE)"; exit 1; }
+  echo "✅ Package $period → Product attached"
 done
 ```
 
