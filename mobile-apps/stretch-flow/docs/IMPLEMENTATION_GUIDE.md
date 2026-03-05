@@ -231,17 +231,63 @@ struct BreakSchedule: Codable {
 }
 ```
 
-#### 4.1.5 AppState
+#### 4.1.5 MVVM ViewModels + AppState（コーディネーター）
 
 ```swift
+// --- Domain-specific ViewModels ---
+
+@Observable
+class TimerViewModel {
+    var breakSchedule: BreakSchedule = .default
+    var remainingTime: TimeInterval = 0
+    var isRunning: Bool = false
+
+    private let notificationService: NotificationService
+    init(notificationService: NotificationService) {
+        self.notificationService = notificationService
+    }
+}
+
+@Observable
+class StretchViewModel {
+    var currentSession: StretchSession? = nil
+    var selectedPainAreas: Set<PainArea> = []
+    var sessionHistory: [StretchSession] = []
+
+    private let routineService: StretchRoutineService
+    init(routineService: StretchRoutineService) {
+        self.routineService = routineService
+    }
+}
+
+@Observable
+class ProgressViewModel {
+    var userProgress: UserProgress = .empty
+    var todayCount: Int { userProgress.todayCount }
+    var currentStreak: Int { userProgress.streak }
+
+    private let progressService: ProgressService
+    init(progressService: ProgressService) {
+        self.progressService = progressService
+    }
+}
+
+// --- Thin Coordinator ---
+
 @Observable
 class AppState {
-    var selectedPainAreas: Set<PainArea> = []
-    var breakSchedule: BreakSchedule = .default
-    var userProgress: UserProgress = .empty
     var isPremium: Bool = false
     var hasCompletedOnboarding: Bool = false
-    var currentSession: StretchSession? = nil
+
+    let timerVM: TimerViewModel
+    let stretchVM: StretchViewModel
+    let progressVM: ProgressViewModel
+
+    init(timerVM: TimerViewModel, stretchVM: StretchViewModel, progressVM: ProgressViewModel) {
+        self.timerVM = timerVM
+        self.stretchVM = stretchVM
+        self.progressVM = progressVM
+    }
 }
 ```
 
@@ -459,9 +505,11 @@ final class StretchLibraryService {
 ```
 DeskStretchios/
 ├── Config/
-│   ├── Debug.xcconfig      # REVENUECAT_API_KEY = appl_xxx_debug
-│   ├── Release.xcconfig    # REVENUECAT_API_KEY = appl_xxx_release
-│   └── .gitignore          # *.xcconfig をコミットしない
+│   ├── Debug.template.xcconfig    # テンプレート（コミット可、秘密値なし）
+│   ├── Release.template.xcconfig  # テンプレート（コミット可、秘密値なし）
+│   ├── Debug.local.xcconfig       # 実値（.gitignore、秘密値あり）
+│   ├── Release.local.xcconfig     # 実値（.gitignore、秘密値あり）
+│   └── .gitignore                 # *.local.xcconfig をコミットしない
 ```
 
 **Info.plist に `$(REVENUECAT_API_KEY)` を追加:**
@@ -705,25 +753,30 @@ struct PaywallView: View {
 
 ---
 
-## 5. State Management
+## 5. State Management（MVVM）
 
-### Single Source of Truth
+### ViewModel + Coordinator パターン
 
 ```
-@Observable AppState
+AppState（薄いコーディネーター）
     │
-    ├── Views read via @Environment(AppState.self)
+    ├── TimerView → @Environment(TimerViewModel.self)
+    │   └── TimerViewModel → NotificationService → UNNotificationCenter
     │
-    ├── Services write back to AppState
-    │   ├── ProgressService → userProgress
-    │   ├── SubscriptionService → isPremium
-    │   └── NotificationService → (side effect only)
+    ├── StretchViews → @Environment(StretchViewModel.self)
+    │   └── StretchViewModel → StretchRoutineService → StretchLibraryService
+    │
+    ├── ProgressView → @Environment(ProgressViewModel.self)
+    │   └── ProgressViewModel → ProgressService → UserDefaults
+    │
+    ├── Paywall/Settings → @Environment(AppState.self)
+    │   └── AppState.isPremium ← SubscriptionServiceProtocol
     │
     └── UserDefaults persists between launches
-        ├── selectedPainAreas
-        ├── breakSchedule
-        ├── userProgress
-        └── hasCompletedOnboarding
+        ├── selectedPainAreas（StretchViewModel）
+        ├── breakSchedule（TimerViewModel）
+        ├── userProgress（ProgressViewModel）
+        └── hasCompletedOnboarding（AppState）
 ```
 
 ---

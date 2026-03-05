@@ -221,7 +221,7 @@
 | # | Given | When | Then |
 |---|-------|------|------|
 | 1 | User changes timer interval | Saves setting | Reschedule notifications with new interval |
-| 2 | User updates pain areas | Saves selection | AI suggestions reflect new areas from next session |
+| 2 | User updates pain areas | Saves selection | 静的フィルタリングが新エリアを次セッションから反映 |
 | 3 | User sets work hours | 9:00-18:00 | Notifications only fire within this window |
 
 ---
@@ -237,7 +237,7 @@ Break Timer fires → Local Notification
     ↓
 User taps notification
     ↓
-App opens → Stretch Session (AI-personalized)
+App opens → Stretch Session (痛みエリアベース)
     ↓
 Exercise 1 (15-30 sec countdown)
     ↓

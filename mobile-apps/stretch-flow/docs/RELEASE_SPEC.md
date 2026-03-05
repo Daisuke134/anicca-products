@@ -14,7 +14,7 @@
 | 4 | **E2E tests** | `maestro test maestro/` | All PASS |
 | 5 | **Localization** | Verify .xcstrings has en + ja | All strings translated |
 | 6 | **No analytics SDK** | `grep -r "Mixpanel\|Analytics\|Firebase" DeskStretchios/` | 0 results |
-| 7 | **No RevenueCatUI** | `grep -r "RevenueCatUI\|PaywallView()" DeskStretchios/` | 0 RevenueCatUI imports |
+| 7 | **No RevenueCatUI** | `grep -r "import RevenueCatUI" DeskStretchios/` | 0 results（自作PaywallViewは許可） |
 | 8 | **No ATT** | `grep -r "ATTrackingManager\|requestTrackingAuthorization" DeskStretchios/` | 0 results |
 | 9 | **RevenueCat real SDK** | Verify `Purchases.shared.purchase(package:)` in code | Real SDK calls present |
 

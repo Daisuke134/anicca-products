@@ -33,7 +33,7 @@
 | AAA pattern | Arrange → Act → Assert |
 | Test length | < 10 lines per test |
 | Isolation | No test depends on another test |
-| Real SDK | RevenueCat real SDK (no mocks for subscription logic) |
+| Mock境界 | Unit = MockSubscriptionService（Protocol DI）、Integration/E2E = Real RevenueCat SDK |
 | Fastlane only | `cd DeskStretchios && fastlane test` (no xcodebuild) |
 
 ---

@@ -289,10 +289,12 @@ After session → reschedule next notification for T+60min
 
 ```swift
 protocol SubscriptionServiceProtocol {
-    var isPremium: Bool { get }
+    var isPremium: Bool { get async }
+    func configure(apiKey: String)
+    func checkPremiumStatus() async -> Bool
+    func getOfferings() async -> Offerings?
     func purchase(package: Package) async throws -> Bool
     func restorePurchases() async throws -> Bool
-    func fetchOfferings() async throws -> Offerings?
 }
 ```
 
