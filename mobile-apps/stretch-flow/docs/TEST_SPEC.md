@@ -53,7 +53,7 @@
 | 7 | `testWeekHistoryTracked` | weekHistory records daily counts |
 | 8 | `testLoadEmptyReturnsDefault` | No saved data returns UserProgress.empty |
 
-### 2.2 AIStretchServiceTests.swift
+### 2.2 StretchRoutineServiceTests.swift
 
 | # | Test Name | What It Tests |
 |---|-----------|--------------|
@@ -232,7 +232,7 @@ tags:
 | 4 | App killed during session | Session not recorded (no partial credit) |
 | 5 | Date changes mid-session | Session recorded for start date |
 | 6 | UserDefaults data corrupted | Return .empty defaults, no crash |
-| 7 | Foundation Models timeout | Fall back to static routine |
+| 7 | StretchLibrary.json 読み込み失敗 | 空ルーティン返却（クラッシュしない） |
 | 8 | RevenueCat network error | Show error alert, don't change subscription state |
 | 9 | Timezone change | Streak calculation uses Calendar.current |
 | 10 | Device clock manipulation | Streak based on last active date comparison |
@@ -256,7 +256,7 @@ tags:
 | Metric | Target | Test Method |
 |--------|--------|------------|
 | Cold start | < 2s | Xcode Instruments (Time Profiler) |
-| AI generation | < 3s | Unit test with timeout |
+| Routine selection | < 500ms | Unit test with timeout |
 | Memory usage | < 50 MB | Instruments (Allocations) |
 | Scroll performance | 60 FPS | Instruments (Core Animation) |
 | Battery impact | < 1%/hr | Instruments (Energy Log) |
