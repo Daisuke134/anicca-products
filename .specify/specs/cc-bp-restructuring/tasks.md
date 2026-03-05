@@ -1,7 +1,7 @@
 # Tasks: CC BP Restructuring
 
-**Execution Order:** Phase 14 -> 1 -> 2 -> {3,4,5,8,9} parallel -> {7,10,11,12,13} -> 6 -> 15
-**Phase 8 is independent (execute anytime).**
+**Execution Order:** Phase 14 -> 1 -> 2 -> {3,4,5,9} parallel -> {7,10,11,12,13} -> 6 -> 15
+**Phase 8 is an independent lane (zero dependencies, execute at any step).**
 
 ## Phase 14: /init Gap Analysis (RUN FIRST)
 
@@ -76,26 +76,31 @@
 ## Phase 7: Skills, Agents, Commands Audit
 
 - [ ] T7.1 [FR-007] Write audit script (`.specify/scripts/audit-skills.sh`)
-- [ ] T7.2 [FR-007] RED: Run audit on all 176+ skills (expect failures)
+- [ ] T7.2 [FR-007] RED: Run audit on all 176 skills (expect failures)
 - [ ] T7.3 [FR-007] Fix missing frontmatter on failing skills
 - [ ] T7.4 [FR-007] GREEN: Run audit on all skills (expect 100% pass)
-- [ ] T7.5 [FR-013] Add `Agent(type)` restrictions to all 10 agents
-- [ ] T7.6 Add `skills:` preloading to relevant agents (tdd-guide, deploy-checker, security-auditor, code-quality-reviewer)
+- [ ] T7.5 [FR-013] RED: Verify 10 agents lack `Agent(type)` restrictions (expect fail)
+- [ ] T7.6 [FR-013] Add `Agent(type)` restrictions to all 10 agents
+- [ ] T7.7a [FR-013] GREEN: Verify all 10 agents have `Agent(type)` restrictions
+- [ ] T7.7b Add `skills:` preloading to relevant agents (tdd-guide, deploy-checker, security-auditor, code-quality-reviewer)
 - [ ] T7.7 [FR-008] RED: Audit 10 agents for 14 fields (expect failures)
 - [ ] T7.8 [FR-008] Add full 14-field frontmatter to all 10 agents
 - [ ] T7.9 [FR-008] GREEN: Re-audit 10 agents (expect 100% pass)
-- [ ] T7.10 [FR-009] Add 4-field frontmatter + dynamic injection to all 20 commands
-- [ ] T7.11 Identify and delete unused skills
+- [ ] T7.10 [FR-009] RED: Audit 20 commands for 4-field frontmatter (expect failures)
+- [ ] T7.11 [FR-009] Add 4-field frontmatter + dynamic injection to all 20 commands
+- [ ] T7.12 [FR-009] GREEN: Re-audit 20 commands (expect 100% pass)
+- [ ] T7.13 Identify and delete unused skills
 
 ## Phase 8: .mcp.json Creation (INDEPENDENT)
 
-- [ ] T8.1 [FR-010] Create `.mcp.json` with 9 MCP servers (existing 5 + recommended 4)
-- [ ] T8.2 [FR-010] GREEN: Verify `jq '.mcpServers | length' .mcp.json` = 9
+- [ ] T8.1 [FR-010] RED: Verify `.mcp.json` does not exist or has fewer than 9 servers (expect fail)
+- [ ] T8.2 [FR-010] Create `.mcp.json` with 9 MCP servers (existing 5 + recommended 4)
+- [ ] T8.3 [FR-010] GREEN: Verify `jq '.mcpServers | length' .mcp.json` = 9
 
 ## Phase 9: settings.json Full Config
 
 - [ ] T9.1 [FR-005] Backup current `.claude/settings.json`
-- [ ] T9.2 [FR-005] Write full settings.json (25+ settings)
+- [ ] T9.2 [FR-005] Write full settings.json (25 or more settings)
 - [ ] T9.3 Create `.claude/settings.local.json` template + add to .gitignore
 - [ ] T9.4 [FR-005] GREEN: Test CC startup with new settings (verify no breakage)
 - [ ] T9.5 [FR-005] GREEN: Count settings >= 25
@@ -127,13 +132,16 @@
 
 ## Phase 13: Bundled Skills + context:fork
 
-- [ ] T13.1 [FR-012] Add `context: fork` to codex-review, recursive-improver, competitive-ads-extractor, content-research-writer SKILL.md frontmatter
-- [ ] T13.2 Document /simplify, /batch, /debug usage in agent_docs/tool_reference.md
-- [ ] T13.3 || Add dynamic injection to deploy, code-review, tdd commands
+- [ ] T13.1 [FR-012] RED: Verify 4 skills lack `context: fork` in frontmatter (expect fail)
+- [ ] T13.2 [FR-012] Add `context: fork` to codex-review, recursive-improver, competitive-ads-extractor, content-research-writer SKILL.md frontmatter
+- [ ] T13.3 [FR-012] GREEN: Verify all 4 skills have `context: fork` in frontmatter
+- [ ] T13.4 Document /simplify, /batch, /debug usage in agent_docs/tool_reference.md
+- [ ] T13.5 || Add dynamic injection to deploy, code-review, tdd commands
 
 ## Phase 15: Git Structure & OSS
 
-- [ ] T15.1 [FR-014] Identify >= 3 OSS-worthy factory skills from 176+ CC skills
+- [ ] T15.1 [FR-014] RED: Verify `git submodule status` shows 0 entries (expect fail after setup)
+- [ ] T15.2a [FR-014] Identify 3 or more OSS-worthy factory skills from 176 CC skills
 - [ ] T15.2 [FR-014] Create packages/ directory
 - [ ] T15.3 [FR-014] Rename mobileapp-builder -> mobileapp-factory on GitHub
 - [ ] T15.4 [FR-014] Set up git submodules in packages/
@@ -150,12 +158,12 @@
 | FR-005 | T9.1-T9.5 | Full |
 | FR-006 | T5.1-T5.8, T5.12-T5.13 | Full |
 | FR-007 | T7.1-T7.4 | Full |
-| FR-008 | T7.7-T7.9 | Full |
-| FR-009 | T7.10 | Full |
-| FR-010 | T8.1-T8.2 | Full |
+| FR-008 | T7.8-T7.10 | Full |
+| FR-009 | T7.10-T7.12 | Full |
+| FR-010 | T8.1-T8.3 | Full |
 | FR-011 | T5.9-T5.11 | Full |
-| FR-012 | T13.1 | Full |
-| FR-013 | T7.5 | Full |
+| FR-012 | T13.1-T13.3 | Full |
+| FR-013 | T7.5-T7.7a | Full |
 | FR-014 | T15.1-T15.5 | Full |
 | FR-015 | T14.1-T14.3 | Full |
 
@@ -163,7 +171,7 @@
 
 - [ ] CLAUDE.md <= 150 lines (`wc -l`)
 - [ ] rules/ = 5 files, <= 300 lines (`wc -l`)
-- [ ] Session load <= 450 lines (80% reduction)
+- [ ] Session load <= 450 lines (82% reduction from 2,501)
 - [ ] 7 rule files migrated to skills with frontmatter
 - [ ] OpenClaw config only in .openclaw/workspace/
 - [ ] settings.json >= 25 settings

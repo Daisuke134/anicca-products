@@ -21,12 +21,12 @@
 Step 1: Phase 14 (/init gap analysis)
 Step 2: Phase 1 (CLAUDE.md rewrite) — depends on: Phase 14
 Step 3: Phase 2 (rules -> skills migration) — depends on: Phase 1
-Step 4: Phase 3, 4, 5, 8, 9 (PARALLEL) — depends on: Phase 2
+Step 4: Phase 3, 4, 5, 9 (PARALLEL) — depends on: Phase 2
 Step 5: Phase 7, 10, 11, 12, 13 (PARALLEL) — depends on: Step 4 completion
 Step 6: Phase 6 (CC<->OpenClaw integration) — depends on: Phase 3, 4
 Step 7: Phase 15 (Git/OSS) — depends on: Phase 7 (skill audit complete)
 ```
-**Phase 8 (.mcp.json) has no dependencies — execute at any step.**
+**Phase 8 (.mcp.json) is an independent lane with zero dependencies — execute at any step.**
 
 ## Phase Grouping for Implementation
 
@@ -38,11 +38,11 @@ Step 7: Phase 15 (Git/OSS) — depends on: Phase 7 (skill audit complete)
 ### Group B: Parallel after Group A (all start after Phase 2 completes)
 4. **Phase 3** - OpenClaw separation (.openclaw/workspace/ updates)
 5. **Phase 4** - agent_docs/ creation
-6. **Phase 5** - Hooks setup (8+ scripts, 3 types, incl. FR-011 compact re-injection)
+6. **Phase 5** - Hooks setup (8 or more scripts, 3 types, incl. FR-011 compact re-injection)
 7. **Phase 9** - settings.json full config
 
-### Independent (execute anytime)
-- **Phase 8** - .mcp.json creation (no dependencies)
+### Independent Lane (no dependencies, execute at any step)
+8. **Phase 8** - .mcp.json creation (zero dependencies on any other phase)
 
 ### Group C: Depends on Group B
 9. **Phase 7** - 176 skills + 10 agents + 20 commands audit
@@ -61,6 +61,6 @@ Step 7: Phase 15 (Git/OSS) — depends on: Phase 7 (skill audit complete)
 |------|------------|
 | @import syntax may not work | Test with single import first, fallback to inline |
 | Skill semantic matching breaks | Test each moved skill with sample prompt before deleting original |
-| 176 skill audit is massive | Batch audit with scripted frontmatter checker |
+| 176 skill audit is large | Batch audit with scripted frontmatter checker |
 | settings.json breaks CC | Backup current settings, incremental additions with testing |
 | OpenClaw workspace changes break Anicca | Changes go to Daisuke134/anicca repo, separate from anicca-products |

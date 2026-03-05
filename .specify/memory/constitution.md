@@ -32,8 +32,8 @@
 ## Constraints
 
 - CLAUDE.md <= 150 lines
-- rules/ <= 5 files, ~250 lines total
-- Session context load <= ~400 lines (84% reduction from current 2,485)
+- rules/ <= 5 files, 250 lines total
+- Session context load <= 450 lines (82% reduction from current 2,501)
 - All skills must have proper frontmatter (name, description with "Use when...")
 - All agents must have full 14-field frontmatter
 - Hooks must cover 3 types: command, prompt, http
