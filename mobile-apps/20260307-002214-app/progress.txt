@@ -1,0 +1,27 @@
+## Codebase Patterns
+
+| パターン | 詳細 |
+|---------|------|
+| Apify token ロード | `source .env` では APIFY_TOKEN が空になる。`eval "$(grep '^APIFY_TOKEN=' ~/.config/mobileapp-builder/.env)"` を使うこと |
+| Apify 非同期実行 | POST runs → 待機 → GET actor-runs/{id} で SUCCEEDED → GET datasets/{id}/items |
+| iTunes 低評価レビュー | `https://itunes.apple.com/us/rss/customerreviews/page=1/id=APP_ID/sortby=mostrecent/json` + python3 フィルタ |
+
+---
+
+## 2026-03-07 - US-001: Trend Research + Idea Selection
+
+- **選定アプリ:** EyeBreakIsland (20-20-20 eye rest timer + Dynamic Island + Apple Watch)
+- **Files changed:** spec/01-trend.md (新規作成)
+- **Evidence:**
+  - spec/01-trend.md 存在 PASS
+  - 27 ideas across 5 lenses evaluated
+  - TikTok 実データ (Apify eFjMOK1Yz6WQr55Ac): #eyestrain 471K views
+  - iTunes real reviews (id=967901219): login required / notifications broken / no Watch
+  - Competition: Eye Care 20 20 20 = 365 reviews (weakest in all categories)
+- **Learnings for future iterations:**
+  - Apify token: use eval grep instead of source .env
+  - #caffeinetiming only 2.6K views — NOT a TikTok trend
+  - #coldplunge 3.85M, #faceyoga 18.5M confirmed strong trends
+  - Eye rest = weakest competition + Dynamic Island diff = best choice
+
+---
