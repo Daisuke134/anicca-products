@@ -109,7 +109,7 @@
       ],
       "priority": 5.5,
       "passes": true,
-      "notes": ""
+      "notes": "RC App=appca8d955a75, RC_IOS_PUBLIC_KEY=appl_RcCxZbmoRqLkvwSuThcJUNqxLIf. 2 products (monthly+annual) + deskstretch_default offering. ASC: 1 group, 2 subs, 175 prices each. fastlane build PASS."
     },
     {
       "id": "US-006a",

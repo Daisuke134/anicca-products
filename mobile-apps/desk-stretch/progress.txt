@@ -1,3 +1,19 @@
+## 2026-03-06 - US-005b: IAP + pricing + RevenueCat setup [RE-VERIFY]
+
+- ASC: 1 group (21961645), monthly (6760079509) + annual (6760078995) subscriptions, 175 prices each ✅
+- RC App created: appca8d955a75 (com.aniccafactory.deskstretch)
+- RC Public Key: appl_RcCxZbmoRqLkvwSuThcJUNqxLIf (updated in Release.local.xcconfig)
+- RC Products: prod568b76077c (monthly) + prod4bba6c2598 (annual)
+- RC Offering: ofrng0e624e8ed0 (deskstretch_default) with $rc_monthly + $rc_annual packages
+- Both products attached to premium entitlement (entlb492a19927)
+- SPM: RevenueCat (no RevenueCatUI) ✅
+- fastlane build PASS ✅
+- **Learnings for future iterations:**
+  - RC project is shared (projbb7b9d1b anicca) — use app-specific offering lookup key (e.g. deskstretch_default, not default)
+  - Always use app-specific offering key; default offering already exists in shared RC project
+  - Monthly package attach 422 = product already attached; verify products list before assuming failure
+---
+
 ## 2026-03-06 - US-008e: Preflight validation + TestFlight + Slack
 
 - Greenlight: GREENLIT (0 blocking issues). Fixed ja keywords 122 bytes→97 bytes (デスクワーク削除, 首の痛み→首痛)
