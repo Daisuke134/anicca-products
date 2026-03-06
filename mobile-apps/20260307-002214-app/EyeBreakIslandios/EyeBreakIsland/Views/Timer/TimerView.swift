@@ -6,52 +6,51 @@ struct TimerView: View {
     @StateObject private var viewModel = TimerViewModelContainer()
 
     var body: some View {
-        NavigationView {
-            VStack(spacing: AppSpacing.lg) {
+        VStack(spacing: AppSpacing.lg) {
+            HStack {
                 Spacer()
-
-                TimerRing(
-                    progress: progress,
-                    timerState: timerService.timerState,
-                    formattedTime: formattedTime
-                )
-
-                statusLabel
-
-                breakCountLabel
-
-                actionButtons
-
-                Spacer()
-            }
-            .padding(.horizontal, AppSpacing.md)
-            .background(AppColors.bgPrimary.ignoresSafeArea())
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        viewModel.showSettings = true
-                    } label: {
-                        Image(systemName: "gearshape.fill")
-                            .foregroundStyle(AppColors.textSecondary)
-                    }
+                Button {
+                    viewModel.showSettings = true
+                } label: {
+                    Image(systemName: "gearshape.fill")
+                        .font(.title3)
+                        .foregroundStyle(AppColors.textSecondary)
                 }
+                .accessibilityIdentifier(AccessibilityID.settingsGearButton)
+                .padding(.trailing, AppSpacing.md)
             }
-            .sheet(isPresented: $viewModel.showSettings) {
-                SettingsView(subscriptionService: subscriptionService)
-            }
-            .fullScreenCover(isPresented: $viewModel.showBreakOverlay) {
-                BreakOverlayView(
-                    timerState: timerService.timerState,
-                    remainingSeconds: timerService.remainingSeconds,
-                    breakInterval: timerService.breakInterval
-                )
-            }
-            .onChange(of: timerService.timerState) { newState in
-                viewModel.showBreakOverlay = (newState == .breaking)
-            }
+
+            Spacer()
+
+            TimerRing(
+                progress: progress,
+                timerState: timerService.timerState,
+                formattedTime: formattedTime
+            )
+
+            statusLabel
+
+            breakCountLabel
+
+            actionButtons
+
+            Spacer()
         }
-        .accessibilityIdentifier(AccessibilityID.timerView)
+        .padding(.horizontal, AppSpacing.md)
+        .background(AppColors.bgPrimary.ignoresSafeArea())
+        .sheet(isPresented: $viewModel.showSettings) {
+            SettingsView(subscriptionService: subscriptionService)
+        }
+        .fullScreenCover(isPresented: $viewModel.showBreakOverlay) {
+            BreakOverlayView(
+                timerState: timerService.timerState,
+                remainingSeconds: timerService.remainingSeconds,
+                breakInterval: timerService.breakInterval
+            )
+        }
+        .onChange(of: timerService.timerState) { newState in
+            viewModel.showBreakOverlay = (newState == .breaking)
+        }
     }
 
     private var formattedTime: String {

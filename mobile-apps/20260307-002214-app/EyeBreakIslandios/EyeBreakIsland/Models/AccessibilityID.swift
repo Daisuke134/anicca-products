@@ -41,4 +41,5 @@ enum AccessibilityID {
     static let settingsRestoreButton = "settings_restore_button"
     static let settingsPrivacyLink = "settings_privacy_link"
     static let settingsDoneButton = "settings_done_button"
+    static let settingsGearButton = "settings_gear_button"
 }

@@ -31,6 +31,14 @@ Run tests
 
 Build for testing
 
+### ios build_for_simulator
+
+```sh
+[bundle exec] fastlane ios build_for_simulator
+```
+
+Build for simulator (Maestro E2E)
+
 ### ios archive
 
 ```sh

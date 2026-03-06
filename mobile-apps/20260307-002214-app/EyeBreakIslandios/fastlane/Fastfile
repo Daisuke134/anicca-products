@@ -21,6 +21,17 @@ platform :ios do
     )
   end
 
+  desc "Build for simulator (Maestro E2E)"
+  lane :build_for_simulator do
+    build_app(
+      scheme: "EyeBreakIsland",
+      skip_archive: true,
+      skip_codesigning: true,
+      destination: "platform=iOS Simulator,name=iPhone 17 Pro",
+      derived_data_path: "./build/DerivedData"
+    )
+  end
+
   desc "Archive for distribution"
   lane :archive do
     build_app(
