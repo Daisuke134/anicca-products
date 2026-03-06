@@ -1,3 +1,20 @@
+## 2026-03-06 - US-008c: IPA build + upload + version attach
+
+- BUILD_ID: 254413bc-bd9b-47ef-90b2-4134b3c9d3ad, processingState=VALID
+- VERSION_ID: e90beeb7-64c2-4993-8cab-d5c07edc5d01, build attached via ASC REST API PATCH
+- Archive: xcodebuild from anicca-deskstretch-fix worktree (DerivedData resolves there)
+- Export: ExportOptions.plist method=app-store-connect, teamID=S5U8UH3JLJ
+- Upload: xcrun altool --upload-app (gives better error output than asc builds upload)
+- Fixed issues: (1) UIRequiresFullScreen=true added to Info.plist (iPad multitasking), (2) app icon alpha removed via sips -s format jpeg → png
+- **Learnings for future iterations:**
+  - DEVELOPMENT_TEAM for com.aniccafactory.* = S5U8UH3JLJ (not TM3HR9L4R6)
+  - `asc builds attach` doesn't exist — use ASC REST API PATCH /v1/appStoreVersions/{id}/relationships/build
+  - xcrun altool gives verbose error output; asc builds upload just returns JSON with uploadId
+  - App icon must NOT have alpha channel (color_type=2 RGB required, not 6 RGBA)
+  - UIRequiresFullScreen=true required for portrait-only iPhone apps (prevents iPad multitasking error)
+  - xcodebuild always uses anicca-deskstretch-fix worktree (same DerivedData UUID) — run archive from that path
+---
+
 ## Codebase Patterns
 
 | Pattern | Detail |

@@ -229,8 +229,8 @@
         "Build attached to version"
       ],
       "priority": 8.3,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "2026-03-06: BUILD_ID=254413bc-bd9b-47ef-90b2-4134b3c9d3ad processingState=VALID. Build attached to VERSION_ID=e90beeb7-64c2-4993-8cab-d5c07edc5d01. Fixes: UIRequiresFullScreen=true (iPad multitasking), icon alpha removed (sips JPEG→PNG). DEVELOPMENT_TEAM fixed TM3HR9L4R6→S5U8UH3JLJ (aniccafactory uses S5U8UH3JLJ per Chi Daily profile)."
     },
     {
       "id": "US-008d",
