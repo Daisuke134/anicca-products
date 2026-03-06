@@ -20,27 +20,32 @@
 
 ---
 
-## 2026-03-07 - US-005b: IAP + pricing + RevenueCat setup (RESOLVED)
+## 2026-03-07 - US-005b: IAP + pricing + RevenueCat setup (COMPLETE)
 
-- **Status: RESOLVED: RC Secret Key received (sk_wFicv...). RC_SECRET_KEY saved to project .env.
-- **RESOLVED: RC Secret Key received (sk_wFicv...). RC_SECRET_KEY saved to project .env.
-  - https://app.revenuecat.com → Create project "EyeBreakIsland" → Settings → API Keys → New secret API key (Read & Write) → sk_... をチャットに貼り付け
-- **ASC IAP 完了 (全エビデンス確認済み):**
+- **Status: COMPLETE — all AC verified with evidence**
+- **ASC IAP (confirmed):**
   - AC1: `asc subscriptions groups list --app 6760196743` → 1 group (GROUP_ID=21964810) PASS
-  - AC2: `asc subscriptions list --group 21964810` → 3 products:
-    - 6760196773 com.aniccafactory.eyebreakisland.weekly ONE_WEEK
-    - 6760196661 com.aniccafactory.eyebreakisland.monthly ONE_MONTH
-    - 6760196888 com.aniccafactory.eyebreakisland.annual ONE_YEAR
-  - AC3: Weekly 175 prices, Monthly 175 prices, Annual 175 prices PASS
-  - Localizations: Group 37 + Weekly 37 + Monthly 37 + Annual 37 = 148 total PASS
-  - AC4: RevenueCat → RESOLVED (SK Key needed)
+  - AC2: `asc subscriptions list --group 21964810` → 3 products (weekly/monthly/annual) PASS
+  - AC3: 175 prices per subscription PASS
+  - Localizations: 148 total (37 x 4) PASS
+- **RevenueCat setup (completed this iteration):**
+  - RC Project: proj520438a0
+  - RC App: app1ae1d1eff1 (Eye Break - EyeBreakIsland, bundle: com.aniccafactory.eyebreakisland)
+  - RC Public Key: appl_rgtWdicHZautwwcHcIRqeJzzmbV (saved to .env)
+  - Entitlement: entlc70999bc1d (lookup_key: premium)
+  - Products: 3 (weekly prod84a643c890, monthly prod626d1791c2, annual prod8f6cafada7) → all attached to premium entitlement
+  - Offering: ofrngd174dd466a (lookup_key: default, is_current: true)
+  - Packages: 3 ($rc_weekly, $rc_monthly, $rc_annual) → all attached to products
+  - AC4: RevenueCat 3 products + 1 offering PASS
   - AC5: SPM dependency → deferred to US-006 per spec
-- **Files changed:** ~/.config/mobileapp-builder/projects/eyebreakisland/.env (GROUP_ID, WEEKLY_ID, MONTHLY_ID, ANNUAL_ID added)
+- **Files changed:** ~/.config/mobileapp-builder/projects/eyebreakisland/.env (RC_IOS_PUBLIC_KEY added)
 - **Learnings for future iterations:**
   - `source .env` may not export vars in Bash tool — use explicit `export` or inline values
   - Availability must be set BEFORE pricing (Apple API returns 500 otherwise)
   - Equalization API returns 174 countries (excludes USA) — add USA separately
   - 3-plan model (weekly+monthly+annual) is RevenueCat best practice (SOSA 2025)
+  - RC API v2 Package attach may return 400 on first try — retry succeeds
+  - RC Public Key is auto-generated on App creation — no WAITING_FOR_HUMAN needed for it
 
 ---
 

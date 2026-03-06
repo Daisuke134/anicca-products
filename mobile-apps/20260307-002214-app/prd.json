@@ -108,8 +108,8 @@
         "Typecheck passes"
       ],
       "priority": 5.5,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "ASC IAP complete: 1 group (21964810), 3 subscriptions (weekly/monthly/annual), 175 prices each, 37 localizations each. RevenueCat complete: Project proj520438a0, App app1ae1d1eff1, 3 Products (weekly/monthly/annual) -> Entitlement 'premium', Offering 'default' with 3 Packages ($rc_weekly/$rc_monthly/$rc_annual). RC_IOS_PUBLIC_KEY=appl_rgtWdicHZautwwcHcIRqeJzzmbV. SPM deferred to US-006. AC1-AC4 all PASS."
     },
     {
       "id": "US-006a",
