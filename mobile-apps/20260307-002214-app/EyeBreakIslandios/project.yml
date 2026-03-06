@@ -56,6 +56,8 @@ targets:
         BUNDLE_LOADER: "$(TEST_HOST)"
     dependencies:
       - target: EyeBreakIsland
+      - package: RevenueCat
+        product: RevenueCat
 
   EyeBreakIslandWidgetExtension:
     type: app-extension

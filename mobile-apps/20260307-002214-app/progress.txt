@@ -24,6 +24,50 @@
 | Shared sources for Widget Extension | EyeBreakAttributes は App + WidgetExtension 両方で使用。`Shared/` ディレクトリに配置し project.yml で両ターゲットに追加 |
 | xcodegen shared sources | project.yml の sources に `- path: Shared` を追加して複数ターゲットでコード共有 |
 | iPhone 17 Pro simulator | Xcode 26.2 では iPhone 16 Pro シミュレータなし。iPhone 17 Pro を使用 |
+| @MainActor test classes | @MainActor ViewModel のテストクラスには `@MainActor` アノテーション必須。なければ isolation error |
+| EnvironmentObject for services | TimerService/SubscriptionService は @EnvironmentObject で注入。View 内の ViewModel は StateObject の軽量コンテナのみ |
+| DesignSystem directory | AppColors, AppTypography, AppSpacing, AppCornerRadius, AppAnimations は `DesignSystem/` に集約。Components/ にPrimaryButton等 |
+| Test target RevenueCat dependency | テストターゲットで RevenueCat.Package を使うには project.yml に RevenueCat パッケージ依存を追加必須 |
+
+---
+
+## 2026-03-07 - US-006c: TDD Core Screens (Timer, Settings, ProgressDashboard) (COMPLETE)
+
+- **Status: COMPLETE — all AC verified with evidence**
+- **Evidence:**
+  - AC1: TimerView with background timer (TimerService via EnvironmentObject), BreakOverlayView with fullScreenCover PASS
+  - AC2: SettingsView with Upgrade -> PaywallView navigation (SettingsViewModel.openPaywall()) PASS
+  - AC3: Zero-division guard in progress calculation (guard total > 0) PASS
+  - AC4: `fastlane test` -> 96 tests, 0 failures PASS
+  - AC5: Build compiles without errors PASS
+- **Gate checks:**
+  - Mock count in production: 0 PASS
+  - RevenueCat imports: 6, RevenueCatUI imports: 0 PASS
+  - AI API imports: 0 PASS
+  - Analytics SDK: 0 PASS
+  - ATT: 0 PASS
+  - PrivacyInfo CA92.1: confirmed PASS
+- **Files created:**
+  - `EyeBreakIslandios/EyeBreakIsland/DesignSystem/AppColors.swift` — brand + semantic color tokens
+  - `EyeBreakIslandios/EyeBreakIsland/DesignSystem/AppTypography.swift` — 10 text styles
+  - `EyeBreakIslandios/EyeBreakIsland/DesignSystem/AppSpacing.swift` — spacing scale + corner radii
+  - `EyeBreakIslandios/EyeBreakIsland/DesignSystem/AppAnimations.swift` — 8 animation presets
+  - `EyeBreakIslandios/EyeBreakIsland/DesignSystem/Components/PrimaryButton.swift` — CTA button
+  - `EyeBreakIslandios/EyeBreakIsland/DesignSystem/Components/SecondaryButton.swift` — secondary button
+  - `EyeBreakIslandios/EyeBreakIsland/DesignSystem/Components/TimerRing.swift` — timer ring with progress
+  - `EyeBreakIslandios/EyeBreakIsland/Views/Timer/TimerView.swift` — main timer screen with EnvironmentObject
+  - `EyeBreakIslandios/EyeBreakIsland/Views/Timer/BreakOverlayView.swift` — 20-sec break overlay
+  - `EyeBreakIslandios/EyeBreakIsland/Views/Settings/SettingsView.swift` — grouped settings with paywall nav
+  - `EyeBreakIslandios/EyeBreakIsland/ViewModels/SettingsViewModel.swift` — settings state + restore + check
+  - `EyeBreakIslandios/EyeBreakIslandTests/TimerViewModelTests.swift` — 14 tests (container + formatting + state machine)
+  - `EyeBreakIslandios/EyeBreakIslandTests/SettingsViewModelTests.swift` — 12 tests (state + paywall + restore)
+- **Files modified:**
+  - `EyeBreakIslandios/EyeBreakIsland/App/ContentView.swift` — TimerView() replaces placeholder
+  - `EyeBreakIslandios/project.yml` — RevenueCat dependency added to test target
+- **Learnings for future iterations:**
+  - @MainActor ViewModel テストクラスには `@MainActor` アノテーション必須
+  - テストターゲットで RevenueCat.Package を使う場合、project.yml に package 依存追加が必要
+  - EnvironmentObject パターンは ViewModelと EnvironmentObject を分離でき、テストしやすい
 
 ---
 
