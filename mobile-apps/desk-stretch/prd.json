@@ -257,8 +257,8 @@
         "Slack #metrics notified with TestFlight link"
       ],
       "priority": 8.5,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "2026-03-06: Greenlight GREENLIT (0 blocking, fixed ja keywords 122→97 bytes). asc validate Errors=0 (fixed primary category HEALTH_AND_FITNESS). release-review 5 checklists all PASS. TestFlight: build submitted for beta review (WAITING_FOR_REVIEW), group=8d8685e2, public link=https://testflight.apple.com/join/78sH7CE9. Slack reported."
     },
     {
       "id": "US-009",

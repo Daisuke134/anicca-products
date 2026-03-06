@@ -1,3 +1,26 @@
+## 2026-03-06 - US-008e: Preflight validation + TestFlight + Slack
+
+- Greenlight: GREENLIT (0 blocking issues). Fixed ja keywords 122 bytes→97 bytes (デスクワーク削除, 首の痛み→首痛)
+- asc validate: Errors=0. Fixed: primary category HEALTH_AND_FITNESS を設定（未設定が原因）
+- release-review 5 checklists: ALL PASS
+  - Security: No secrets, HTTPS only, no sensitive UserDefaults
+  - Privacy: PrivacyInfo.xcprivacy (UserDefaults CA92.1), no ATT, no Mixpanel
+  - UX: Onboarding flow, no RevenueCatUI
+  - Distribution: Bundle ID com.aniccafactory.deskstretch, v1.0.0, ITSAppUsesNonExemptEncryption=false
+  - API Design: 完全オフライン (Rule 23 compliant)
+- TestFlight: beta group "External Testers" (8d8685e2) 作成。ビルド追加。betaAppLocalization en-US追加。betaAppReviewDetails contact設定。WAITING_FOR_REVIEW提出成功
+- TestFlight public link: https://testflight.apple.com/join/78sH7CE9
+- Slack #metrics 報告完了
+- **Learnings for future iterations:**
+  - Primary category を最初から設定すること (`asc categories set --app APP_ID --primary HEALTH_AND_FITNESS`)
+  - Greenlight はバイト数カウント。日本語キーワードは3バイト/文字。100バイト制限 = 日本語約33文字
+  - betaAppReviewDetails の contact info (firstName/lastName/email/phone) は全て必須
+  - betaAppLocalizations (Beta App Description) の作成が必須 — POST /v1/betaAppLocalizations
+  - TestFlight public link は PATCH /v1/betaGroups/{id} で publicLinkEnabled=true にして取得
+  - TestFlight ベータレビュー通過まで24-48時間待ち → US-009 はそれ以降
+
+---
+
 ## 2026-03-06 - US-008d: ASC compliance (age rating + encryption + rights + availability + pricing + review details)
 
 - Age Rating: 22項目セット完了 → appStoreAgeRating=FOUR_PLUS (gambling=false, healthOrWellnessTopics=true, 全NONE)
