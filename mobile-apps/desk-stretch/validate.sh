@@ -267,13 +267,15 @@ for v in d.get('data',[]):
 " 2>/dev/null || echo "")
 
   if [ -n "$VER_ID" ]; then
-    VALIDATE_OUT=$(asc validate --app "$APP_ID" --version-id "$VER_ID" --platform IOS 2>&1 || echo "CHECK_FAILED")
-    if echo "$VALIDATE_OUT" | grep -q "Errors: 0"; then
+    VALIDATE_OUT=$(asc validate --app "$APP_ID" --version-id "$VER_ID" --platform IOS --output json 2>&1 || echo "CHECK_FAILED")
+    # asc validate outputs JSON: {"summary":{"errors":0,...}}
+    VALIDATE_ERRORS=$(echo "$VALIDATE_OUT" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('summary',{}).get('errors',-1))" 2>/dev/null || echo "-1")
+    if [ "$VALIDATE_ERRORS" = "0" ]; then
       log_pass "ASC validate: Errors=0"
     elif echo "$VALIDATE_OUT" | grep -q "CHECK_FAILED"; then
       log_skip "ASC validate check failed (API error)"
     else
-      log_fail "ASC validate errors found: $(echo "$VALIDATE_OUT" | grep -i 'error' | head -3)"
+      log_fail "ASC validate errors found: $VALIDATE_OUT"
     fi
   else
     log_skip "No version found for APP_ID=$APP_ID"
