@@ -1,6 +1,6 @@
 # DeskStretch 改善計画（統合版）
 
-**Date:** 2026-03-05（v4 — SDD/TDD フロー確定 + 1スキル/フェーズ + 9セッション）
+**Date:** 2026-03-06（v5 — Phase C 進捗更新 + 未解決問題追加 + 20セッション構成）
 **Sources:**
 - [Martin Fowler - Test Driven Development](https://martinfowler.com/bliki/TestDrivenDevelopment.html) — 「Write a test → Write code → Refactor」
 - [Anthropic Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents) — 「Prompt chaining with programmatic gates」
@@ -13,27 +13,103 @@
 
 ---
 
-## 全体フロー（Phase A → B → C → D → E）
+## Phase C 進捗状況（2026-03-06 時点）
+
+### DONE（コミット済み・push済み）
+
+| # | 項目 | コミット | 内容 |
+|---|------|---------|------|
+| 1 | ios-ux-design スキル強化 | `5d0bfddb` | 772→219行 + references/ 分割 + mau.md 統合 |
+| 2 | tdd-feature スキル強化 | `88ca599d` | Canon TDD + iOS パターン + Fastlane コマンド |
+| 3 | maestro-ui-testing スキル強化 | `7cce3aae` | Fix Loop + RC Test Store |
+| 4 | us-006-implement.md 書き直し | `61aaa32e` | 399→161行。スキル参照 + 変数 + Gate のみ |
+| 5 | us-007-testing.md 書き直し | `61aaa32e` | 57→82行。E2E のみ（Unit/Int は 006 完了済み）|
+| 6 | us-004-specs.md 更新 | `524a5ddd` | サブセッション表追加 |
+| 7 | us-005b-monetization.md 更新 | `524a5ddd` | RC Test Store セクション追加 |
+| 8 | SKILL.md 更新 | `524a5ddd` | スキル割り当て + Rule 4 Fastlane 必須化 |
+| 9 | CLAUDE.md 更新 | `524a5ddd` | セッション分割反映 |
+| 10 | prd.json US-007 AC 更新 | `524a5ddd` | 6 Maestro flows 反映 |
+| 11 | best-practices-audit.md 更新 | `524a5ddd` | Gap #7 解決済みに変更 |
+
+### NOT DONE（未解決問題 — 14件）
+
+| # | 問題 | ファイル:行 | 修正内容 | カテゴリ |
+|---|------|-----------|---------|---------|
+| 1 | Fix Loop "Max 3 retries → BLOCKED" | `us-007-testing.md:61` | 削除。スキルに書いてある内容をレシピで重複するな | レシピ/スキル重複 |
+| 2 | Fix Loop "Max 3 retries → BLOCKED" | `maestro-ui-testing/SKILL.md:449-450` | 上限なし。全フロー PASS するまで繰り返す | スキル修正 |
+| 3 | "読まなくても実行可能" | `us-001-trend.md:21` | "MUST READ" に変更 | レシピ修正 |
+| 4 | "読まなくても実行可能" | `us-003-research.md:27` | "MUST READ" に変更 | レシピ修正 |
+| 5 | "読まなくても実行可能" | `us-004-specs.md:7` | "MUST READ" に変更 | レシピ修正 |
+| 6 | prd.json US-004 未分割 | `prd.json` | 1エントリ → 3: 004a, 004b, 004-R | prd.json 構造変更 |
+| 7 | prd.json US-006 未分割 | `prd.json` | 1エントリ → 5: 006a, 006b, 006c, 006d, 006-R | prd.json 構造変更 |
+| 8 | SKILL.md に 004-R, 006-R 欠落 | `SKILL.md` US表 | 004-R (code-quality-reviewer), 006-R (code-quality-reviewer) 追加 | SKILL.md 修正 |
+| 9 | 1 US = 複数スキル違反 | `SKILL.md` US表 | US-003, 008a, 008c, 008e が複数スキル。1 US = 1 スキルに統合 | アーキテクチャ |
+| 10 | Fat レシピ（手順がスキルでなくレシピに書かれている） | us-001, us-002, us-003, us-005a, us-005b, us-008, us-009 | 手順をスキルに移動。レシピは「スキル読め + 変数 + Gate」のみ | アーキテクチャ |
+| 11 | Mixpanel 記載 | `CLAUDE.md(root):68` | mobileapp-builder セッションが Anicca 用 Mixpanel と混同する | 環境汚染 |
+| 12 | Mixpanel 警告セクション | `us-004-specs.md:27-30` | 不要。SKILL.md Rule 12 で十分 | 重複削除 |
+| 13 | 34件トレーサビリティ検証 | 全レシピ | §6 の TODO 34件が実際のファイルに反映済みか確認 | 検証 |
+| 14 | validate.sh 新フェーズ対応 | `validate.sh` | 20セッション構成（004a/b/R, 006a/b/c/d/R）に対応 | validate.sh |
+
+### アーキテクチャ原則（Phase C 残作業の指針）
+
+**「Juice goes in skills」**: 再利用可能な手順 → スキル（SKILL.md + references/）。アプリ固有 → レシピ .md。
+**レシピ = thin**: 「スキル X を読め」+ 変数 + Gate チェック。手順の重複禁止。
+**SSOT in skills**: スキルに書いたらレシピに書くな。2か所に書いたら2か所直す羽目になる。
+
+---
+
+## 全体フロー（Phase A → B → C → D → E → F）
 
 ```
-Phase A: SDD Spec（修正仕様書を書く — 3セッション）
-    ↓
-Phase B: TDD Fix（仕様に従って修正する — 6セッション）
-    ↓
-Phase C: レシピ更新（学びを references/us-*.md + validate.sh + SKILL.md に反映）
-    ↓
-Phase D: 新アプリで検証（US-001〜009 フル実行）
-    ↓
-Phase E: Cron テスト（15:00 JST 自動実行）
+Phase A: SDD Spec（修正仕様書を書く — 3セッション）      ← DeskStretch 固有
+    |
+Phase B: TDD Fix（仕様に従って修正する — 6セッション）    ← DeskStretch 固有
+    |
+Phase C: レシピ更新（学びを skills + references/ に反映） ← 部分完了（11/25 DONE）
+    |
+Phase D: DeskStretch US-008a〜009 完走                    ← 未着手
+    |
+Phase E: 新アプリで検証（US-001〜009 フル実行）           ← 未着手
+    |
+Phase F: Cron テスト（15:00 JST 自動実行）               ← 未着手
 ```
 
-### スキル割り当て（1フェーズ = 1スキルのみ）
+### prd.json セッション構成（全20セッション）
+
+| # | US | Title | スキル |
+|---|-----|-------|--------|
+| 1 | US-001 | Trend research + idea selection | idea-generator |
+| 2 | US-002 | Product planning | prd-generator |
+| 3 | US-003 | Market research | competitive-analysis |
+| 4 | US-004a | Core Spec (PRD, ARCH, IMPL) | implementation-spec |
+| 5 | US-004b | UX Spec (UX, DESIGN, TEST, RELEASE) | frontend-design |
+| 6 | US-004-R | Spec Review | code-quality-reviewer (subagent) |
+| 7 | US-005a | Privacy Policy + ASC app creation | asc-cli-usage |
+| 8 | US-005b | IAP + pricing + RevenueCat setup | asc-ppp-pricing |
+| 9 | US-006a | TDD Data Layer | tdd-feature |
+| 10 | US-006b | TDD Onboarding + Monetization | tdd-feature |
+| 11 | US-006c | TDD Core Screens | tdd-feature |
+| 12 | US-006d | TDD Polish + Resources | tdd-feature |
+| 13 | US-006-R | Code Review | code-quality-reviewer (subagent) |
+| 14 | US-007 | E2E Testing (Maestro) | maestro-ui-testing |
+| 15 | US-008a | Screenshots (capture + upload + review) | asc-shots-pipeline |
+| 16 | US-008b | ASC metadata sync (en-US + ja) | asc-metadata-sync |
+| 17 | US-008c | IPA build + upload + version attach | asc-xcode-build |
+| 18 | US-008d | ASC compliance | asc-release-flow |
+| 19 | US-008e | Preflight + TestFlight + Slack | release-review |
+| 20 | US-009 | App Store submission | asc-submission-health |
+
+### スキル割り当て（1フェーズ = 1スキルのみ — DeskStretch 固有セッション）
 
 | フェーズ | スキル | 根拠 |
 |---------|--------|------|
 | 004a (Core Spec) | `implementation-spec` | マスターオーケストレーター |
 | 004b (UX Spec) | `frontend-design` | デザイン思考 + 美学 |
-| 006a-d (TDD実装) | `ios-ux-design` | iOS HIG 準拠 |
+| 004-R (レビュー) | code-quality-reviewer | 内部サブエージェント |
+| 006a (Data Layer) | `tdd-feature` | Canon TDD + iOS |
+| 006b (Onboarding + Monetization) | `tdd-feature` | Canon TDD + iOS |
+| 006c (Core Screens) | `tdd-feature` | Canon TDD + iOS |
+| 006d (Polish + Resources) | `tdd-feature` | Canon TDD + iOS |
 | 006-R (レビュー) | code-quality-reviewer | 内部サブエージェント |
 | 007 (E2E) | `maestro-ui-testing` | Maestro 専門 |
 
@@ -328,7 +404,9 @@ tags:
 
 ---
 
-## 6. Phase C: レシピ更新（学びの反映 — 34件 + α）
+## 6. Phase C: レシピ更新（学びの反映 — 34件 + 14件未解決）
+
+**進捗:** 11/25 DONE。残り14件は冒頭「Phase C 進捗状況 > NOT DONE」参照。
 
 ### 更新対象ファイル
 
@@ -448,17 +526,27 @@ tags:
 
 ---
 
-## 8. Phase D: 新アプリで検証
+## 8. Phase D: DeskStretch 完走（US-008a〜009）
 
 | # | ステップ | 内容 |
 |---|---------|------|
-| 1 | `ralph.sh` 実行 | 改善済みレシピで US-001〜009 を1本通す |
+| 1 | US-008a〜008e | スクショ、メタデータ、ビルド、コンプライアンス、TestFlight |
+| 2 | US-009 | App Privacy + App Store 提出 |
+| 3 | 問題記録 | 新たな問題を best-practices-audit.md に追記 |
+
+---
+
+## 9. Phase E: 新アプリで検証
+
+| # | ステップ | 内容 |
+|---|---------|------|
+| 1 | `ralph.sh` 実行 | 改善済みレシピで US-001〜009（20セッション）を1本通す |
 | 2 | `validate.sh` 確認 | 全 US が passes: true |
 | 3 | 問題記録 | 新たな問題を best-practices-audit.md に追記 |
 
 ---
 
-## 9. Phase E: Cron テスト
+## 10. Phase F: Cron テスト
 
 | # | ステップ | 内容 |
 |---|---------|------|
@@ -468,7 +556,7 @@ tags:
 
 ---
 
-## 10. OSS 計画 — `https://github.com/Daisuke134/mobileapp-builder`
+## 11. OSS 計画 — `https://github.com/Daisuke134/mobileapp-builder`
 
 ### リポジトリ構成
 
@@ -524,7 +612,7 @@ mobileapp-builder/
 
 ---
 
-## 11. オンボーディング設計ルール（mau.md — Prayer Lock $25k/月の実例）
+## 12. オンボーディング設計ルール（mau.md — Prayer Lock $25k/月の実例）
 
 | # | ルール | ソース引用 |
 |---|--------|-----------|
@@ -539,18 +627,20 @@ mobileapp-builder/
 
 ---
 
-## 12. サマリー
+## 13. サマリー
 
 | 項目 | 値 |
 |------|-----|
-| 問題数 | 21件（CRITICAL 1, HIGH 12, MEDIUM 8） |
+| DeskStretch 問題数 | 21件（CRITICAL 1, HIGH 12, MEDIUM 8） |
 | レシピ改善 TODO | 34件 + デザインスキル統合 + mau.md ルール |
 | Phase A（SDD Spec） | 3セッション（004a, 004b, 004-R） |
 | Phase B（TDD Fix） | 6セッション（006a, 006b, 006c, 006d, 006-R, 007） |
-| Phase C（レシピ更新） | 9ファイル更新 |
-| Phase D（検証） | ralph.sh フル実行 |
-| Phase E（Cron） | 15:00 JST 自動実行 |
-| **合計セッション** | **9** |
+| Phase C（レシピ更新） | **11/25 DONE**。未解決14件は「Phase C 進捗状況」参照 |
+| Phase D（DeskStretch 完走） | US-008a〜009 |
+| Phase E（新アプリ検証） | ralph.sh フル実行（20セッション） |
+| Phase F（Cron） | 15:00 JST 自動実行 |
+| **prd.json セッション数** | **20**（US-004: 3分割、US-006: 5分割） |
+| **DeskStretch 固有セッション** | **9**（Phase A: 3 + Phase B: 6） |
 
 | 変更 | 理由 | ソース |
 |------|------|--------|
@@ -560,3 +650,6 @@ mobileapp-builder/
 | 004a-R 削除 → 004-R に統合 | Spec は 004b 完了後にまとめてレビュー | Anthropic teams workflow |
 | 1フェーズ = 1スキル | 複数スキル = 混乱 | Anthropic Skills Guide |
 | codex-review は存続 | リリース前最終ゲート | — |
+| prd.json 20分割 | ralph.sh が 1 US = 1 CC セッションで読む | ghuntley.com/ralph |
+| Fix Loop 上限なし | 全フロー PASS まで繰り返す。3回で BLOCKED は間違い | — |
+| レシピ = thin | 手順はスキルに。レシピは「スキル読め + 変数 + Gate」のみ | Anthropic Skills Guide |
