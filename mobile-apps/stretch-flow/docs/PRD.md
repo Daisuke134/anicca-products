@@ -10,7 +10,7 @@
 |-------|-------|
 | **App Name** | DeskStretch |
 | **Bundle ID** | `com.aniccafactory.deskstretch` |
-| **Subtitle** | AI Desk Stretching & Break Timer |
+| **Subtitle** | Desk Stretching & Break Timer |
 | **Category** | Health & Fitness |
 | **Platform** | iOS 15+ (SwiftUI) |
 | **Pricing** | Freemium |
@@ -22,15 +22,15 @@
 
 ### One-Liner
 
-**AI-powered desk stretching timer that reminds you to move and guides personalized stretch routines based on your pain areas.**
+**Smart desk stretching timer that reminds you to move and guides personalized stretch routines based on your pain areas.**
 
 ### Problem Statement
 
-デスクワーカーは1日6-8時間座り続け、80.81%が筋骨格系障害(MSD)を経験する。ストレッチすべきだと分かっているが、忘れる・何をすればいいか分からない・面倒で続かない。既存ソリューションは「リマインダーだけ」(Stand Up!)か「本格ワークアウト」(Wakeout)の二極化で、AIパーソナライズされたデスク向けストレッチガイドが存在しない。
+デスクワーカーは1日6-8時間座り続け、80.81%が筋骨格系障害(MSD)を経験する。ストレッチすべきだと分かっているが、忘れる・何をすればいいか分からない・面倒で続かない。既存ソリューションは「リマインダーだけ」(Stand Up!)か「本格ワークアウト」(Wakeout)の二極化で、痛みエリア特化型のデスク向けストレッチガイドが存在しない。
 
 ### Key Differentiator
 
-**AI + 痛みエリアターゲティング + ブレイクタイマー統合 = 全競合ゼロの組み合わせ。** Apple Foundation Models によるオンデバイス無料推論でパーソナライズされたストレッチを提供。
+**痛みエリアターゲティング + ブレイクタイマー統合 + キュレーションされたストレッチ = 全競合ゼロの組み合わせ。** 痛みエリアと履歴に基づく静的フィルタリングでパーソナライズされたストレッチを提供。
 
 ---
 
@@ -122,22 +122,22 @@
 | 2 | Free tier user | Tries to access 4th+ stretch/day | Show paywall upsell |
 | 3 | Premium user | Views library | Show all exercises, all categories |
 
-### F-004: AI Stretch Suggestions
+### F-004: Stretch Recommendations
 
 | Field | Value |
 |-------|-------|
 | Priority | P0 (Critical) |
-| Technology | Apple Foundation Models (3B, on-device) |
-| Fallback | Static curated routines (for iOS < 26) |
+| Technology | Static filtering (pain area + history-based) |
+| Content | 20+ curated exercises, filtered by pain area and deduped by history |
 
 **Given/When/Then:**
 
 | # | Given | When | Then |
 |---|-------|------|------|
-| 1 | User has selected pain areas | Break timer fires | AI generates personalized 1-3 min routine based on pain areas + history |
-| 2 | Device supports Foundation Models (iOS 26+) | AI suggestion requested | Use on-device LLM for generation |
-| 3 | Device does NOT support Foundation Models | AI suggestion requested | Use fallback static curated routine |
-| 4 | Premium user | AI suggests routine | Provide variety (avoid repeating same routine within 3 days) |
+| 1 | User has selected pain areas | Break timer fires | Generate personalized 1-3 min routine based on pain areas + history (static filtering) |
+| 2 | User has stretch history | Routine requested | Avoid repeating same exercises within 3 days |
+| 3 | Premium user | Routine requested | Access all exercises across all pain areas |
+| 4 | Free tier user | Routine requested | Limited to 3 stretches/day from 1 pain area |
 
 ### F-005: Guided Stretch Session
 
@@ -222,7 +222,7 @@
 | # | Given | When | Then |
 |---|-------|------|------|
 | 1 | User changes timer interval | Saves setting | Reschedule notifications with new interval |
-| 2 | User updates pain areas | Saves selection | AI suggestions reflect new areas from next session |
+| 2 | User updates pain areas | Saves selection | Stretch suggestions reflect new areas from next session |
 | 3 | User sets work hours | 9:00-18:00 | Notifications only fire within this window |
 
 ---
@@ -238,7 +238,7 @@ Break Timer fires → Local Notification
     ↓
 User taps notification
     ↓
-App opens → Stretch Session (AI-personalized)
+App opens → Stretch Session (pain-area personalized)
     ↓
 Exercise 1 (15-30 sec countdown)
     ↓
@@ -283,8 +283,8 @@ Purchase → RevenueCat SDK → Entitlement check → Unlock premium
 |-------------|--------|-----------|
 | **App Launch** | < 2 seconds | Cold start to timer view |
 | **Session Start** | < 1 second | From notification tap to first exercise |
-| **AI Generation** | < 3 seconds | Foundation Models on-device inference |
-| **Offline Support** | 100% core features | Timer, library, sessions work offline. AI fallback to static |
+| **Stretch Selection** | < 500 ms | Static filtering, no network needed |
+| **Offline Support** | 100% core features | Timer, library, sessions work offline. All content local |
 | **App Size** | < 30 MB | No video/audio assets. SF Symbols + text only |
 | **Battery Impact** | Negligible | Timer uses scheduled notifications, not background processing |
 | **Privacy** | No data collection | No analytics SDK (Rule 17), no ATT (Rule 20b), UserDefaults only |
@@ -315,7 +315,7 @@ Purchase → RevenueCat SDK → Entitlement check → Unlock premium
 | **No RevenueCatUI** | Rule 20: Self-built SwiftUI PaywallView only |
 | **No ATT** | Rule 20b: No AppTrackingTransparency |
 | **RevenueCat SDK** | Real SDK with `Purchases.shared.purchase(package:)` |
-| **Foundation Models** | iOS 26+ only. MUST have fallback for older iOS |
+| **No AI APIs** | Rule 21: OpenAI, Anthropic, Gemini, Apple FoundationModels 一切禁止。月額 $3.99 vs API コスト $300+。静的コンテンツのみ |
 | **UserDefaults** | All local storage. No backend database for MVP |
 | **Localization** | en-US + ja. All user-facing strings in Localizable.strings |
 
@@ -325,12 +325,12 @@ Purchase → RevenueCat SDK → Entitlement check → Unlock premium
 
 | Competitor | Weakness | DeskStretch Advantage |
 |-----------|----------|----------------------|
-| **Wakeout!** ($59.99/yr) | No AI, too expensive, generic | AI personalized, $3.99/mo, desk-specific |
+| **Wakeout!** ($59.99/yr) | Too expensive, generic | Pain-area personalized, $3.99/mo, desk-specific |
 | **Stand Up!** ($1.99) | Timer only, no stretch guidance | Timer + guided stretches |
-| **Moova** (~$7.99/mo) | No AI, low differentiation | AI + pain area targeting |
+| **Moova** (~$7.99/mo) | Low differentiation | Pain area targeting + break timer |
 | **Bend** (~$9.99/mo) | No break timer, generic stretching | Break timer + desk focus |
 
-**Market Position:** Low Price + Desk-Specific + AI = unoccupied quadrant.
+**Market Position:** Low Price + Desk-Specific + Pain Area Targeting = unoccupied quadrant.
 
 ---
 
@@ -397,7 +397,7 @@ Purchase → RevenueCat SDK → Entitlement check → Unlock premium
 | 2 | `product-plan.md` | Product plan (pricing, features, architecture) |
 | 3 | `competitive-analysis.md` | 7 competitor analysis |
 | 4 | `market-research.md` | TAM/SAM/SOM, growth analysis |
-| 5 | [Apple Foundation Models](https://developer.apple.com/documentation/FoundationModels) | AI engine documentation |
+| 5 | — | (removed: Rule 21 — no AI APIs) |
 | 6 | [RevenueCat iOS SDK](https://www.revenuecat.com/docs/getting-started/installation/ios) | Subscription SDK |
 | 7 | [Apple HIG](https://developer.apple.com/design/human-interface-guidelines/) | Design guidelines |
 
@@ -407,7 +407,7 @@ Purchase → RevenueCat SDK → Entitlement check → Unlock premium
 
 | # | Question | Status | Decision |
 |---|----------|--------|----------|
-| 1 | Foundation Models minimum iOS version? | Resolved | iOS 26+. Fallback static routines for older iOS |
+| 1 | AI APIs needed? | Resolved | No. Rule 21: 月額 $3.99 vs API コスト $300+。静的フィルタリングのみ |
 | 2 | Exercise illustrations: SF Symbols vs custom? | Resolved | SF Symbols + text for MVP. Custom illustrations v1.1 |
 | 3 | Backend needed for MVP? | Resolved | No. UserDefaults only. Backend in v2.0 |
 | 4 | Free tier limit? | Resolved | 3 stretches/day, 1 pain area, basic timer |

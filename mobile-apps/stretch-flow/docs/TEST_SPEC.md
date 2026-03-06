@@ -53,14 +53,14 @@
 | 7 | `testWeekHistoryTracked` | weekHistory records daily counts |
 | 8 | `testLoadEmptyReturnsDefault` | No saved data returns UserProgress.empty |
 
-### 2.2 AIStretchServiceTests.swift
+### 2.2 StretchRecommendationServiceTests.swift
 
 | # | Test Name | What It Tests |
 |---|-----------|--------------|
-| 1 | `testFallbackReturnsCorrectCount` | Returns requested exercise count |
-| 2 | `testFallbackFiltersByPainArea` | Only returns exercises for selected pain areas |
-| 3 | `testFallbackAvoidsRecentExercises` | Excludes exercises from last 3 sessions |
-| 4 | `testFallbackWithInsufficientExercises` | Returns available exercises when fewer than requested |
+| 1 | `testGenerateReturnsCorrectCount` | Returns requested exercise count |
+| 2 | `testGenerateFiltersByPainArea` | Only returns exercises for selected pain areas |
+| 3 | `testGenerateAvoidsRecentExercises` | Excludes exercises from last 3 sessions |
+| 4 | `testGenerateWithInsufficientExercises` | Returns available exercises when fewer than requested |
 | 5 | `testEmptyPainAreasReturnsEmpty` | No pain areas → empty routine |
 
 ### 2.3 NotificationServiceTests.swift
@@ -232,7 +232,7 @@ tags:
 | 4 | App killed during session | Session not recorded (no partial credit) |
 | 5 | Date changes mid-session | Session recorded for start date |
 | 6 | UserDefaults data corrupted | Return .empty defaults, no crash |
-| 7 | Foundation Models timeout | Fall back to static routine |
+| 7 | StretchLibrary.json empty for pain area | Show "No exercises found" message |
 | 8 | RevenueCat network error | Show error alert, don't change subscription state |
 | 9 | Timezone change | Streak calculation uses Calendar.current |
 | 10 | Device clock manipulation | Streak based on last active date comparison |
@@ -256,7 +256,7 @@ tags:
 | Metric | Target | Test Method |
 |--------|--------|------------|
 | Cold start | < 2s | Xcode Instruments (Time Profiler) |
-| AI generation | < 3s | Unit test with timeout |
+| Stretch selection | < 500ms | Unit test with timeout |
 | Memory usage | < 50 MB | Instruments (Allocations) |
 | Scroll performance | 60 FPS | Instruments (Core Animation) |
 | Battery impact | < 1%/hr | Instruments (Energy Log) |

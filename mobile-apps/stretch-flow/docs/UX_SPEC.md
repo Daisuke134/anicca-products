@@ -137,7 +137,7 @@ DeskStretch
 │    Stretch Routine"         │
 │                             │
 │   ✅ Unlimited stretches    │
-│   ✅ AI-personalized        │
+│   ✅ Pain-targeted          │
 │   ✅ All pain areas         │
 │   ✅ Custom schedules       │
 │   ✅ Progress tracking      │

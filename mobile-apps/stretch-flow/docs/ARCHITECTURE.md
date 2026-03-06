@@ -6,7 +6,7 @@
 
 ## 1. Overview
 
-DeskStretch は SwiftUI ベースの iOS アプリ。ローカルファーストアーキテクチャで、バックエンド不要。Apple Foundation Models によるオンデバイスAI推論、RevenueCat によるサブスクリプション管理、UserDefaults + JSON によるデータ永続化。
+DeskStretch は SwiftUI ベースの iOS アプリ。ローカルファーストアーキテクチャで、バックエンド不要。痛みエリアに基づく静的フィルタリングでストレッチを推薦、RevenueCat によるサブスクリプション管理、UserDefaults + JSON によるデータ永続化。
 
 ---
 
@@ -15,7 +15,7 @@ DeskStretch は SwiftUI ベースの iOS アプリ。ローカルファースト
 | Layer | Technology | Version |
 |-------|-----------|---------|
 | **UI** | SwiftUI | iOS 15+ |
-| **AI Engine** | Apple Foundation Models | iOS 26+ (with fallback) |
+| **Recommendations** | Static filtering (pain area + history) | Native |
 | **Subscriptions** | RevenueCat Swift SDK | Latest |
 | **Notifications** | UserNotifications | Native |
 | **Storage** | UserDefaults + JSON files | Native |
@@ -33,6 +33,7 @@ DeskStretch は SwiftUI ベースの iOS アプリ。ローカルファースト
 | AppTrackingTransparency | Rule 20b |
 | CoreData / SwiftData | Overkill for MVP |
 | Backend / API | Not needed for MVP |
+| AI APIs (OpenAI, Anthropic, Gemini, FoundationModels) | Rule 21: 月額 $3.99 vs API コスト $300+ |
 
 ---
 
@@ -43,7 +44,7 @@ DeskStretchios/
 ├── App/
 │   ├── DeskStretchApp.swift              # @main entry + RevenueCat configure
 │   ├── ContentView.swift                 # TabView: Timer | Library | Progress | Settings
-│   └── AppState.swift                    # @Observable app-wide state
+│   └── AppState.swift                    # @Observable app-wide state (→ MVVM ViewModels に分割予定)
 ├── Views/
 │   ├── Onboarding/
 │   │   ├── OnboardingContainerView.swift # PageTabView for 3 screens
@@ -68,9 +69,9 @@ DeskStretchios/
 │   ├── UserProgress.swift                # todayCount, streak, totalSessions, lastActiveDate
 │   └── StretchSession.swift              # exercises[], completedAt, duration
 ├── Services/
-│   ├── AIStretchService.swift            # Foundation Models integration + fallback
+│   ├── StretchRecommendationService.swift # Pain-area + history-based static filtering
 │   ├── NotificationService.swift         # Schedule/cancel local notifications
-│   ├── SubscriptionService.swift         # RevenueCat wrapper (entitlement check)
+│   ├── SubscriptionService.swift         # RevenueCat wrapper (Protocol-based DI for testability)
 │   ├── ProgressService.swift             # UserDefaults CRUD for progress
 │   └── StretchLibraryService.swift       # Load exercises from JSON
 ├── Resources/
@@ -111,19 +112,42 @@ Services read/write to UserDefaults and update AppState
 | Stretch library | Bundle JSON | `[StretchExercise]` |
 | Subscription status | RevenueCat (cached) | `CustomerInfo` |
 
-### AI Data Flow
+### Recommendation Data Flow
 
 ```
 User's pain areas + session history
     ↓
-AIStretchService.generateRoutine(painAreas:, history:)
+StretchRecommendationService.generateRoutine(painAreas:, history:)
     ↓
-[iOS 26+] Foundation Models → personalized JSON
-[iOS < 26] Fallback → curated static routine from StretchLibrary.json
+Static filtering: StretchLibrary.json → filter by pain area → dedupe by history
     ↓
 StretchSession with 3-5 exercises
     ↓
 StretchSessionView renders step-by-step
+```
+
+### MVVM Architecture (AppState 分割)
+
+```
+AppState (God Object) → 分割:
+    ├── OnboardingViewModel    # hasCompletedOnboarding, selectedPainAreas
+    ├── TimerViewModel         # breakSchedule, timerState
+    ├── ProgressViewModel      # userProgress, streak
+    ├── SubscriptionViewModel  # isPremium (via SubscriptionServiceProtocol)
+    └── SessionViewModel       # currentSession
+```
+
+### SubscriptionService Protocol (DI for testability)
+
+```swift
+protocol SubscriptionServiceProtocol {
+    var isPremium: Bool { get async }
+    func purchase(package: Package) async throws -> Bool
+    func restorePurchases() async throws -> CustomerInfo
+}
+
+final class SubscriptionService: SubscriptionServiceProtocol { ... }
+final class MockSubscriptionService: SubscriptionServiceProtocol { ... } // Tests only
 ```
 
 ---
@@ -133,7 +157,7 @@ StretchSessionView renders step-by-step
 | Concern | Approach |
 |---------|----------|
 | **Data Collection** | Zero. No analytics, no tracking, no server-side data |
-| **AI Processing** | 100% on-device (Foundation Models). No data leaves device |
+| **Stretch Recommendations** | 100% on-device static filtering. No data leaves device |
 | **Subscription** | RevenueCat handles. Only anonymous App User ID |
 | **PrivacyInfo.xcprivacy** | NSPrivacyAccessedAPICategoryUserDefaults (CA92.1) |
 | **ATT** | NOT used (Rule 20b) |
@@ -147,7 +171,7 @@ StretchSessionView renders step-by-step
 | Metric | Target | Approach |
 |--------|--------|----------|
 | Cold start | < 2s | Minimal dependencies, no heavy init |
-| AI generation | < 3s | On-device Foundation Models (no network) |
+| Stretch selection | < 500ms | Static filtering (no network, no AI) |
 | Memory | < 50 MB | No images/videos, SF Symbols only |
 | Battery | Negligible | Scheduled notifications, no background processing |
 | App size | < 30 MB | Text + SF Symbols + JSON data |
@@ -177,7 +201,7 @@ After session → reschedule next notification for T+60min
 
 | Component | Test Type | Priority |
 |-----------|-----------|----------|
-| AIStretchService (fallback logic) | Unit | P0 |
+| StretchRecommendationService (filtering + dedup) | Unit | P0 |
 | ProgressService (streak calculation) | Unit | P0 |
 | NotificationService (scheduling) | Unit | P0 |
 | SubscriptionService (entitlement) | Integration | P0 |
@@ -208,11 +232,11 @@ After session → reschedule next notification for T+60min
 
 | Risk | Probability | Impact | Mitigation |
 |------|------------|--------|------------|
-| Foundation Models iOS 26+ only | High | Medium | Static fallback routines for older iOS |
+| Static content gets stale | Low | Low | Curate 20+ exercises. Expand in v1.1 |
 | RevenueCat SDK breaking changes | Low | High | Pin SDK version, test before updates |
 | Notification permission denied | Medium | High | In-app timer fallback, re-prompt strategy |
 | UserDefaults data loss | Low | Medium | Minimal critical data, streak reset is acceptable |
-| App Store rejection (4.3 spam) | Low | High | Unique AI feature differentiates clearly |
+| App Store rejection (4.3 spam) | Low | High | Unique pain-area targeting differentiates clearly |
 
 ---
 
@@ -233,7 +257,7 @@ After session → reschedule next notification for T+60min
 | Dependency | Type | Version | Purpose |
 |-----------|------|---------|---------|
 | RevenueCat | SPM | Latest | Subscription management |
-| Foundation Models | System | iOS 26+ | AI stretch generation |
+| — | — | — | (Rule 21: No AI APIs) |
 | UserNotifications | System | iOS 15+ | Break reminders |
 | SF Symbols | System | iOS 15+ | Exercise icons |
 
@@ -246,10 +270,10 @@ After session → reschedule next notification for T+60min
 **Decision:** Use UserDefaults for all data persistence.
 **Rationale:** MVP data is simple (progress counters, preferences, pain areas). CoreData adds complexity without benefit. Migrate to CoreData/SwiftData if data model grows in v2.0.
 
-### ADR-002: Foundation Models with Static Fallback
+### ADR-002: Static Filtering over AI APIs
 
-**Decision:** Use Foundation Models for AI with static JSON fallback.
-**Rationale:** Foundation Models requires iOS 26+. Static curated routines from StretchLibrary.json ensure 100% feature parity for older devices, minus personalization.
+**Decision:** Use static pain-area + history-based filtering for stretch recommendations. No AI APIs.
+**Rationale:** Rule 21 — 月額 $3.99 のアプリで AI API コスト $300+/月は赤字。StretchLibrary.json から痛みエリアでフィルタ + 履歴で重複排除すれば十分なパーソナライゼーション。
 
 ### ADR-003: Scheduled Notifications over Background Timer
 

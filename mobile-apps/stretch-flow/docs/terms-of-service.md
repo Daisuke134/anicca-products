@@ -14,10 +14,10 @@ By downloading, installing, or using DeskStretch ("the App"), you agree to these
 
 ## 2. Description of Service
 
-DeskStretch is an AI-powered desk stretching timer that provides personalized stretch routines based on your selected pain areas. The App offers:
+DeskStretch is a smart desk stretching timer that provides personalized stretch routines based on your selected pain areas. The App offers:
 
 - **Free Tier:** Limited stretches per day
-- **Premium Subscription:** Unlimited stretches, all routines, AI personalization
+- **Premium Subscription:** Unlimited stretches, all routines, full personalization
 
 ---
 
@@ -43,13 +43,13 @@ DeskStretch is an AI-powered desk stretching timer that provides personalized st
 - Consult a healthcare professional before starting any exercise program, especially if you have existing injuries or medical conditions.
 - Stop any stretch immediately if you experience pain, dizziness, or discomfort.
 - The App is not intended to diagnose, treat, cure, or prevent any disease or medical condition.
-- AI-generated stretch recommendations are for general wellness only.
+- Stretch recommendations are for general wellness only.
 
 ---
 
 ## 5. Intellectual Property
 
-All content in DeskStretch — including text, graphics, UI design, stretch routines, and AI models — is owned by Anicca Factory and protected by intellectual property laws. You may not copy, modify, distribute, or reverse-engineer any part of the App.
+All content in DeskStretch — including text, graphics, UI design, and stretch routines — is owned by Anicca Factory and protected by intellectual property laws. You may not copy, modify, distribute, or reverse-engineer any part of the App.
 
 ---
 

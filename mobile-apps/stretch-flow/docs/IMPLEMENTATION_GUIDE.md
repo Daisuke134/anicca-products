@@ -49,11 +49,29 @@ cd DeskStretchios && fastlane build_for_simulator
 |---------|-----|---------|
 | RevenueCat | `https://github.com/RevenueCat/purchases-ios.git` | Latest |
 
-**No other dependencies.** Foundation Models is a system framework (iOS 26+).
+**No other dependencies.** No AI APIs (Rule 21).
+
+### xcconfig for API Key Management (Problem #1 — NO hardcoding)
+
+```
+# Config/Debug.xcconfig
+REVENUECAT_API_KEY = appl_DEBUG_KEY_HERE
+
+# Config/Release.xcconfig
+REVENUECAT_API_KEY = appl_RELEASE_KEY_HERE
+```
+
+Info.plist entry: `RevenueCatAPIKey = $(REVENUECAT_API_KEY)`
+
+App reads via: `Bundle.main.infoDictionary?["RevenueCatAPIKey"] as? String`
 
 ### Info.plist Additions
 
 ```xml
+<!-- RevenueCat API Key from xcconfig -->
+<key>RevenueCatAPIKey</key>
+<string>$(REVENUECAT_API_KEY)</string>
+
 <!-- Notification usage description -->
 <key>NSUserNotificationsUsageDescription</key>
 <string>DeskStretch sends break reminders to help you stretch throughout the day.</string>
@@ -116,7 +134,7 @@ DeskStretchios/
 │   │   ├── UserProgress.swift
 │   │   └── StretchSession.swift
 │   ├── Services/
-│   │   ├── AIStretchService.swift
+│   │   ├── StretchRecommendationService.swift
 │   │   ├── NotificationService.swift
 │   │   ├── SubscriptionService.swift
 │   │   ├── ProgressService.swift
@@ -139,7 +157,7 @@ DeskStretchios/
 │       └── PrivacyInfo.xcprivacy
 ├── DeskStretchTests/
 │   ├── Services/
-│   │   ├── AIStretchServiceTests.swift
+│   │   ├── StretchRecommendationServiceTests.swift
 │   │   ├── ProgressServiceTests.swift
 │   │   ├── NotificationServiceTests.swift
 │   │   └── SubscriptionServiceTests.swift
@@ -372,15 +390,12 @@ final class SubscriptionService {
 
 **CRITICAL:** This uses real RevenueCat SDK, NOT a mock. `Purchases.shared.purchase(package:)` is the actual purchase call.
 
-#### 4.2.4 AIStretchService
+#### 4.2.4 StretchRecommendationService (Static Filtering — Rule 21)
 
 ```swift
 import Foundation
-#if canImport(FoundationModels)
-import FoundationModels
-#endif
 
-final class AIStretchService {
+final class StretchRecommendationService {
     private let libraryService: StretchLibraryService
 
     init(libraryService: StretchLibraryService) {
@@ -391,63 +406,15 @@ final class AIStretchService {
         painAreas: Set<PainArea>,
         history: [StretchSession],
         exerciseCount: Int = 3
-    ) async -> [StretchExercise] {
-        #if canImport(FoundationModels)
-        if #available(iOS 26, *) {
-            return await generateWithAI(painAreas: painAreas, history: history, count: exerciseCount)
-        }
-        #endif
-        return generateFallback(painAreas: painAreas, history: history, count: exerciseCount)
-    }
-
-    #if canImport(FoundationModels)
-    @available(iOS 26, *)
-    private func generateWithAI(
-        painAreas: Set<PainArea>,
-        history: [StretchSession],
-        count: Int
-    ) async -> [StretchExercise] {
-        // Use Foundation Models to generate personalized routine
-        // Prompt includes pain areas + recent history to avoid repetition
-        // Falls back to static if AI generation fails
-        do {
-            let session = LanguageModelSession()
-            let areas = painAreas.map(\.rawValue).joined(separator: ", ")
-            let recentExercises = history.suffix(3).flatMap(\.exercises).map(\.name).joined(separator: ", ")
-
-            let prompt = """
-            Generate \(count) desk stretching exercises for someone with pain in: \(areas).
-            Avoid these recent exercises: \(recentExercises).
-            Return ONLY a JSON array of objects with: name, instructions (1-2 sentences), durationSeconds (15-30).
-            """
-
-            let response = try await session.respond(to: prompt)
-            // Parse JSON response into exercises
-            // If parsing fails, use fallback
-            if let exercises = parseAIResponse(response.content, painAreas: painAreas) {
-                return exercises
-            }
-        } catch {
-            // AI failed, use fallback
-        }
-        return generateFallback(painAreas: painAreas, history: history, count: count)
-    }
-    #endif
-
-    private func generateFallback(
-        painAreas: Set<PainArea>,
-        history: [StretchSession],
-        count: Int
     ) -> [StretchExercise] {
-        // Static curated routines from StretchLibrary.json
         let allExercises = libraryService.exercises(for: painAreas)
         let recentIds = Set(history.suffix(3).flatMap(\.exercises).map(\.id))
         let available = allExercises.filter { !recentIds.contains($0.id) }
 
-        if available.count >= count {
-            return Array(available.shuffled().prefix(count))
+        if available.count >= exerciseCount {
+            return Array(available.shuffled().prefix(exerciseCount))
         }
-        return Array(allExercises.shuffled().prefix(count))
+        return Array(allExercises.shuffled().prefix(exerciseCount))
     }
 }
 ```
@@ -490,8 +457,9 @@ struct DeskStretchApp: App {
     @State private var appState = AppState()
 
     init() {
-        // Configure RevenueCat
-        SubscriptionService.shared.configure(apiKey: "YOUR_REVENUECAT_API_KEY")
+        // Configure RevenueCat via xcconfig (NOT hardcoded — Problem #1)
+        let apiKey = Bundle.main.infoDictionary?["RevenueCatAPIKey"] as? String ?? ""
+        SubscriptionService.shared.configure(apiKey: apiKey)
     }
 
     var body: some Scene {
@@ -539,7 +507,7 @@ struct PaywallView: View {
             // Benefits list
             VStack(alignment: .leading, spacing: 12) {
                 BenefitRow(text: "Unlimited stretches")
-                BenefitRow(text: "AI-personalized routines")
+                BenefitRow(text: "Pain-targeted routines")
                 BenefitRow(text: "All pain areas")
                 BenefitRow(text: "Custom schedules")
                 BenefitRow(text: "Progress tracking")
@@ -580,9 +548,13 @@ struct PaywallView: View {
             }
 
             HStack {
-                Link("Terms", destination: URL(string: "https://example.com/terms")!)
+                if let termsURL = URL(string: "https://example.com/terms") {
+                    Link("Terms", destination: termsURL)
+                }
                 Text("·")
-                Link("Privacy", destination: URL(string: "https://example.com/privacy")!)
+                if let privacyURL = URL(string: "https://example.com/privacy") {
+                    Link("Privacy", destination: privacyURL)
+                }
             }
             .font(.caption)
             .foregroundColor(.tertiary)
@@ -743,7 +715,7 @@ struct PaywallView: View {
 | Scenario | Handling |
 |----------|---------|
 | RevenueCat purchase fails | Show alert with error message, do not crash |
-| Foundation Models unavailable | Silent fallback to static routines |
+| StretchLibrary.json empty results | Show "No exercises found" message |
 | Notification permission denied | Show in-app timer, prompt to enable in Settings |
 | StretchLibrary.json missing | Fatal error in debug, empty library in release |
 | UserDefaults read fails | Return default values |
@@ -757,7 +729,7 @@ struct PaywallView: View {
 | Test File | Tests |
 |-----------|-------|
 | `ProgressServiceTests.swift` | streak calculation, session recording, day boundary |
-| `AIStretchServiceTests.swift` | fallback logic, history deduplication, exercise count |
+| `StretchRecommendationServiceTests.swift` | filtering, history deduplication, exercise count |
 | `NotificationServiceTests.swift` | scheduling, cancellation, work hours filtering |
 | `BreakScheduleTests.swift` | interval validation, work hours logic |
 | `StretchExerciseTests.swift` | JSON decoding, category filtering |
@@ -801,7 +773,7 @@ Text(String(localized: "Break Interval"))
 | Lazy loading | `LazyVStack` for exercise library list |
 | Image caching | N/A (SF Symbols are system-cached) |
 | Timer efficiency | `Timer.publish` for UI only, `UNNotification` for actual reminders |
-| AI generation | On-device (no network latency), < 3 seconds |
+| Stretch selection | Static filtering (< 500ms, no network) |
 | App launch | Minimal init, defer data loading |
 
 ---
@@ -816,5 +788,5 @@ Text(String(localized: "Break Interval"))
 | Background timer draining battery | Use scheduled notifications, NOT background timer |
 | Hardcoding strings | Use String Catalogs for all user-facing text |
 | Mock RevenueCat in production | Use REAL RevenueCat SDK. `Purchases.shared.purchase(package:)` |
-| Foundation Models without fallback | MUST have static fallback for iOS < 26 |
+| Adding AI APIs (OpenAI, FoundationModels, etc.) | **FORBIDDEN (Rule 21).** Static content only |
 | Forgetting PrivacyInfo.xcprivacy | Include CA92.1 for UserDefaults. Without it = ITMS-91061 rejection |

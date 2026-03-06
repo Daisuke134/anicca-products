@@ -27,15 +27,15 @@
 | Field | en-US | ja |
 |-------|-------|----|
 | **App Name** | DeskStretch | DeskStretch |
-| **Subtitle** (30 chars max) | AI Desk Stretching & Break Timer | AIデスクストレッチ＆休憩タイマー |
-| **Keywords** (100 chars max) | desk stretching,break timer,back pain,office workout,stretch reminder,posture,AI stretching,desk exercises | デスクストレッチ,休憩タイマー,腰痛,肩こり,首の痛み,オフィスワークアウト,AI,姿勢改善 |
+| **Subtitle** (30 chars max) | Desk Stretching & Break Timer | デスクストレッチ＆休憩タイマー |
+| **Keywords** (100 chars max) | desk stretching,break timer,back pain,office workout,stretch reminder,posture,neck pain,desk exercises | デスクストレッチ,休憩タイマー,腰痛,肩こり,首の痛み,オフィスワークアウト,姿勢改善,ストレッチ |
 
 ### Description (4000 chars max)
 
 **en-US:**
 
 ```
-Back pain from sitting all day? DeskStretch is your AI-powered desk stretching companion that reminds you to take breaks and guides you through personalized stretch routines.
+Back pain from sitting all day? DeskStretch is your smart desk stretching companion that reminds you to take breaks and guides you through personalized stretch routines based on your pain areas.
 
 WHY DESKSTRETCH?
 
@@ -51,7 +51,7 @@ HOW IT WORKS
 
 KEY FEATURES
 
-- AI-Personalized Stretches — Powered by on-device AI, your routines adapt to your pain areas and history
+- Pain-Targeted Stretches — Your routines adapt to your pain areas and stretch history
 - Smart Break Timer — Configurable intervals with gentle notifications during work hours only
 - 24+ Guided Exercises — Desk-friendly stretches for neck, back, shoulders, and wrists
 - Progress Tracking — Daily count, streak tracking, and weekly history
@@ -64,7 +64,7 @@ Unlike generic workout apps, every exercise in DeskStretch can be done at your d
 PREMIUM ($3.99/mo or $29.99/yr)
 
 - Unlimited daily stretches
-- AI-personalized routines
+- Pain-targeted routines
 - All pain area categories
 - Custom break schedules
 - Full progress tracking
@@ -77,7 +77,7 @@ Start your 7-day free trial today. Your back will thank you.
 **ja:**
 
 ```
-座りっぱなしの腰痛、もう終わりにしませんか？DeskStretchは、AIがあなたの痛みに合わせたストレッチを提案する、デスクワーカー専用の休憩タイマーアプリです。
+座りっぱなしの腰痛、もう終わりにしませんか？DeskStretchは、あなたの痛みエリアに合わせたストレッチを提案する、デスクワーカー専用の休憩タイマーアプリです。
 
 なぜDeskStretch？
 
@@ -93,7 +93,7 @@ Start your 7-day free trial today. Your back will thank you.
 
 主な特徴
 
-・AIパーソナライズ — デバイス上のAIが痛みエリアと履歴に基づいてルーティンを最適化
+・痛みエリア特化 — 痛みエリアと履歴に基づいてルーティンを最適化
 ・スマート休憩タイマー — 勤務時間内のみ通知する設定可能なインターバル
 ・24以上のガイド付きエクササイズ — 首・腰・肩・手首のデスク向けストレッチ
 ・進捗トラッキング — 日別カウント、連続日数、週間履歴
@@ -108,8 +108,8 @@ Start your 7-day free trial today. Your back will thank you.
 
 | Language | Text |
 |----------|------|
-| en-US | AI-powered desk stretches personalized to your pain areas. Take a 1-minute break, relieve your back pain. Start your free trial today. |
-| ja | AIがあなたの痛みに合わせたデスクストレッチを提案。1分の休憩で腰痛を軽減。今すぐ無料トライアル。 |
+| en-US | Smart desk stretches personalized to your pain areas. Take a 1-minute break, relieve your back pain. Start your free trial today. |
+| ja | あなたの痛みに合わせたデスクストレッチを提案。1分の休憩で腰痛を軽減。今すぐ無料トライアル。 |
 
 ---
 
@@ -129,7 +129,7 @@ Start your 7-day free trial today. Your back will thank you.
 | # | Screen | Headline | Subheadline |
 |---|--------|---------|-------------|
 | 1 | Timer (main screen) | Your Break Timer | Smart reminders to stretch throughout the day |
-| 2 | Pain area selection | Targets Your Pain | AI-personalized routines for neck, back, shoulders, wrists |
+| 2 | Pain area selection | Targets Your Pain | Pain-targeted routines for neck, back, shoulders, wrists |
 | 3 | Stretch session | Guided Stretches | 1-3 minute desk-friendly exercise sessions |
 | 4 | Progress dashboard | Track Your Streak | Daily progress and consistency tracking |
 | 5 | Paywall | Start Free Trial | 7 days free. $3.99/mo or $29.99/yr |
@@ -226,7 +226,7 @@ asc testflight beta-testers invite --app APP_ID --email tester@example.com
 |-------|-------|
 | Contact | Developer email |
 | Demo Account | Not needed (no login) |
-| Notes for Reviewer | "This app uses on-device AI (Apple Foundation Models) for personalized stretch suggestions. For devices running iOS < 26, static curated routines are provided as fallback. Subscription is managed via RevenueCat SDK." |
+| Notes for Reviewer | "This app provides personalized desk stretching routines based on user-selected pain areas. Stretch content is curated and stored locally. Subscription is managed via RevenueCat SDK." |
 
 ### Submission Commands
 
@@ -297,4 +297,4 @@ fastlane full_release
 
 | Version | Date | Changes |
 |---------|------|---------|
-| 1.0.0 | TBD | Initial release — Timer, Library, AI, Progress, Paywall |
+| 1.0.0 | TBD | Initial release — Timer, Library, Recommendations, Progress, Paywall |
