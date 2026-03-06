@@ -8,6 +8,32 @@
 
 ---
 
+## 2026-03-07 - US-003: Market Research
+
+- **competitive-analysis.md + market-research.md 作成完了**
+- **Files changed:** competitive-analysis.md (新規), market-research.md (新規)
+- **Evidence:**
+  - AC1: competitive-analysis.md 存在 PASS
+  - AC2: 6 competitors analyzed (3 direct + 3 indirect) PASS
+  - AC3: 74 Feature Matrix symbols (✅/❌/⚠️) PASS
+  - AC4: market-research.md 存在 PASS
+  - AC5: 29 dollar values (TAM=$280M, SAM=$54M, SOM Y1=$18K) PASS
+  - AC6: POEM score 21/25 (Strong Opportunity) PASS
+  - AC7: 33 URLs total PASS
+  - AC8: Negative signal documented (Live Activities may be disabled) PASS
+- **Key findings:**
+  - Primary competitor (Eye Care 20 20 20): 365 reviews. ★1 reviews confirm: login forced, background breaks
+  - Market leader (EyeMed): 23.7k reviews but is an insurance app, not a 20-20-20 timer
+  - Feature gap: Dynamic Island = 0 of 6 competitors use it
+  - Bottom-up: 60,700 installs in market = extremely underdeveloped market
+  - POEM 21/25 = Strong Opportunity
+- **Learnings for future iterations:**
+  - iTunes lookup `id=` の詳細取得コマンドで version/size/developer が取れる
+  - ★1-2レビュー RSS: `https://itunes.apple.com/us/rss/customerreviews/page=1/id=ID/sortby=mostrecent/json`
+  - Bottom-up vs Top-down 乖離 75倍 = 市場未開拓を示す (先行者優位チャンス)
+
+---
+
 ## 2026-03-07 - US-002: Product Planning
 
 - **product-plan.md 作成完了**
