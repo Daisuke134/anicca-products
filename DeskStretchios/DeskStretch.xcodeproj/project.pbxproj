@@ -13,6 +13,7 @@
 		15C91610F41EAD2A08A206F7 /* StreakBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD193CF85D8DB5D25A3D3C9 /* StreakBadge.swift */; };
 		1C5F9FF10C56FC04FAAE7937 /* SubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F0E83209A34A9B6C579CD88 /* SubscriptionService.swift */; };
 		214E3719607358F46A5D07BA /* ExerciseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA591E107D9B3D4E5AC6787 /* ExerciseCard.swift */; };
+		234F20F0B630935BADCED887 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0967BA57DFAEFCBEFE90C93F /* Localizable.xcstrings */; };
 		2AB2F29EEF6B04791A791516 /* FilterChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5227277FECEBE805FF22CDD6 /* FilterChip.swift */; };
 		2C47C9695D1D75A7BE7CD78F /* TimerSettingsSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D48521623487C7B28000175 /* TimerSettingsSheet.swift */; };
 		2C64B8F123E150931B51CF3F /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7DE5F41903D196CD686D6F07 /* PrivacyInfo.xcprivacy */; };
@@ -65,6 +66,7 @@
 /* Begin PBXFileReference section */
 		06C30909CA42BB7F81BB48D0 /* StretchRoutineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchRoutineService.swift; sourceTree = "<group>"; };
 		08B2D1FF645EC118174CCE37 /* Debug.local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.local.xcconfig; sourceTree = "<group>"; };
+		0967BA57DFAEFCBEFE90C93F /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		103BCEAB94E9A501664A6F94 /* OnboardingContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingContainerView.swift; sourceTree = "<group>"; };
 		104ADB95E8E32944346E1152 /* StretchRoutineServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StretchRoutineServiceTests.swift; sourceTree = "<group>"; };
 		191A9DE217B80E272B3A3CB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 			children = (
 				9A46B59C76EC92D768C02A0C /* Assets.xcassets */,
 				191A9DE217B80E272B3A3CB7 /* Info.plist */,
+				0967BA57DFAEFCBEFE90C93F /* Localizable.xcstrings */,
 				7DE5F41903D196CD686D6F07 /* PrivacyInfo.xcprivacy */,
 				AFCAD4D78DDD397F4EA84B63 /* StretchLibrary.json */,
 			);
@@ -380,7 +383,7 @@
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
 					74D011772E7CDAB6BC58842C = {
-						DevelopmentTeam = S5U8UH3JLJ;
+						DevelopmentTeam = TM3HR9L4R6;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -392,6 +395,7 @@
 			knownRegions = (
 				Base,
 				en,
+				ja,
 			);
 			mainGroup = 2646710F58D9FAF5DA2B7881;
 			minimizedProjectReferenceProxies = 1;
@@ -414,6 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C64FEF2CEE363F4E11CB8FEC /* Assets.xcassets in Resources */,
+				234F20F0B630935BADCED887 /* Localizable.xcstrings in Resources */,
 				2C64B8F123E150931B51CF3F /* PrivacyInfo.xcprivacy in Resources */,
 				C26A50351B17DA3D5A06BF8A /* StretchLibrary.json in Resources */,
 			);
@@ -509,7 +514,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S5U8UH3JLJ;
+				DEVELOPMENT_TEAM = TM3HR9L4R6;
 				INFOPLIST_FILE = DeskStretch/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -527,7 +532,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = S5U8UH3JLJ;
+				DEVELOPMENT_TEAM = TM3HR9L4R6;
 				INFOPLIST_FILE = DeskStretch/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
