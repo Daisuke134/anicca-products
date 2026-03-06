@@ -1,14 +1,14 @@
 # DeskStretch 改善計画（統合版）
 
-**Date:** 2026-03-05（v4 — SDD/TDD フロー確定 + 1スキル/フェーズ + 9セッション）
+**Date:** 2026-03-06（v5 — ジュースをスキルに集約 + 21セッション + Kent Beck Canon TDD）
 **Sources:**
+- [Kent Beck - Canon TDD](https://tidyfirst.substack.com/p/canon-tdd) — 「1. Test List → 2. Write One Test → 3. Make it Pass → 4. Optionally Refactor → 5. Until list empty, go to #2」
 - [Martin Fowler - Test Driven Development](https://martinfowler.com/bliki/TestDrivenDevelopment.html) — 「Write a test → Write code → Refactor」
 - [Anthropic Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents) — 「Prompt chaining with programmatic gates」
+- [Anthropic skill-creator](skill-creator/SKILL.md) — 「Keep SKILL.md under 500 lines」「repeated work → bundle in skill」
 - [HubSpot - Automated Code Review](https://product.hubspot.com/blog/automated-code-review-the-6-month-evolution) — 「Internal agent > external tool」
 - [RevenueCat Test Store](https://www.revenuecat.com/docs/test-and-launch/sandbox/test-store)
-- [Quash - TDD Guide for Mobile-App QA](https://quashbugs.com/blog/test-driven-development-tdd-guide)
 - [Martin Fowler - RefinementCodeReview](https://martinfowler.com/bliki/RefinementCodeReview.html) — 「code reviews = an explicit step in workflow」
-- [Anthropic Skills Guide](https://www.anthropic.com/engineering/claude-code-best-practices) — 「Keep SKILL.md focused on core instructions」
 - [Mau - Prayer Lock $25k/month](mau.md) — オンボーディング8ルール
 
 ---
@@ -16,32 +16,50 @@
 ## 全体フロー（Phase A → B → C → D → E）
 
 ```
-Phase A: SDD Spec（修正仕様書を書く — 3セッション）
+Phase A: SDD Spec（修正仕様書を書く — 3セッション）     ✅ 完了
     ↓
-Phase B: TDD Fix（仕様に従って修正する — 6セッション）
+Phase B: TDD Fix（仕様に従って修正する — 6セッション）  006a-d ✅, 006-R ✅, 007 ❌
     ↓
-Phase C: レシピ更新（学びを references/us-*.md + validate.sh + SKILL.md に反映）
+Phase C: レシピ更新（スキル強化 + レシピ .md シンプル化）
     ↓
-Phase D: 新アプリで検証（US-001〜009 フル実行）
+Phase D: 新アプリで検証（US-001〜009 フル実行 — 21セッション）
     ↓
-Phase E: Cron テスト（15:00 JST 自動実行）
+Phase E: Cron テスト（自動実行 → 毎日1アプリ App Store 提出）
 ```
 
-### スキル割り当て（1フェーズ = 1スキルのみ）
+### アーキテクチャ原則: ジュースはスキルに集約
+
+Source: [Anthropic skill-creator](skill-creator/SKILL.md)
+> 「Look for repeated work across test cases... that's a strong signal the skill should bundle that script. Write it once, put it in scripts/, and tell the skill to use it. This saves every future invocation from reinventing the wheel.」
+
+| 場所 | 何を書く | 例 |
+|------|---------|-----|
+| **スキル** (SKILL.md + references/) | 汎用パターン（毎回使う） | TDD サイクル、Fix Loop、mau.md 8ルール |
+| **レシピ .md** (references/us-XXX.md) | スキル呼出し + アプリ固有変数 + Gate | 「tdd-feature 読め。APP_SCHEME=X。Gate: fastlane test PASS」 |
+
+### スキル割り当て（1フェーズ = 1スキルのみ = 1セッション）
 
 | Phase | スキル | 根拠 |
 |-------|--------|------|
 | 004a (Core Spec) | `implementation-spec` | マスターオーケストレーター |
-| 004b (UX Spec) | `frontend-design` | デザイン思考 + 美学 |
+| 004b (UX Spec) | `ios-ux-design` (強化版) | HIG + Design Thinking + mau.md 統合 |
 | 004-R (Spec Review) | code-quality-reviewer | 内部サブエージェント |
-| 006a (TDD Data Layer) | `ios-ux-design` | iOS HIG 準拠 |
-| 006b (TDD Onboarding) | `ios-ux-design` | iOS HIG 準拠 |
-| 006c (TDD Core Screens) | `ios-ux-design` | iOS HIG 準拠 |
-| 006d (TDD Polish) | `ios-ux-design` | iOS HIG 準拠 |
+| 006a (TDD Data Layer) | `tdd-feature` (強化版) | Kent Beck Canon TDD + iOS パターン |
+| 006b (TDD Onboarding) | `tdd-feature` | 同上 |
+| 006c (TDD Core Screens) | `tdd-feature` | 同上 |
+| 006d (TDD Polish) | `tdd-feature` | 同上 |
 | 006-R (Code Review) | code-quality-reviewer | 内部サブエージェント |
-| 007 (E2E) | `maestro-ui-testing` | Maestro 専門 |
+| 007 (E2E) | `maestro-ui-testing` (強化版) | Fix Loop + RC Test Store 統合 |
 | 008 (Release) | `asc-release-flow` | ASC リリースワークフロー |
 | 009 (Submit) | `asc-submission-health` | 提出前コンプライアンス |
+
+### スキル強化計画（Phase C で実施）
+
+| スキル | 強化内容 |
+|--------|---------|
+| `ios-ux-design` | Design Thinking (frontend-design から移植) + mau.md 8ルール統合 + references/ 分割 (500行制限) |
+| `tdd-feature` | iOS TDD パターン (xcconfig, DI, Fastlane, project.yml) + Kent Beck 5ステップ明示 |
+| `maestro-ui-testing` | Fix Loop (FAIL→修正→リトライ) + RC Test Store テンプレート + 6フローテンプレート |
 
 ---
 
@@ -157,7 +175,7 @@ diff <(echo "$YAML_IDS") <(echo "$DICT") && echo "PASS" || echo "FAIL: 上記の
 
 ### 004b: UX Spec
 
-**Skill:** `frontend-design`
+**Skill:** `ios-ux-design` (強化版)
 
 | # | 成果物 | 修正する問題 | 内容 |
 |---|--------|-------------|------|
@@ -181,19 +199,29 @@ diff <(echo "$YAML_IDS") <(echo "$DICT") && echo "PASS" || echo "FAIL: 上記の
 
 ## 4. Phase B: TDD Fix（6セッション）
 
-### TDD サイクル（006a-d 共通）
+### TDD サイクル（006a-d 共通 — Kent Beck Canon TDD）
+
+Source: [Kent Beck - Canon TDD](https://tidyfirst.substack.com/p/canon-tdd)
+> 「1. Write a list of the test scenarios you want to cover
+> 2. Turn exactly one item on the list into an actual, concrete, runnable test
+> 3. Change the code to make the test (& all previous tests) pass
+> 4. Optionally refactor to improve the implementation design
+> 5. Until the list is empty, go back to #2」
 
 ```
 機能 N を実装:
-  1. [RED]      テストを書く → fastlane test → FAIL 確認
-  2. [GREEN]    最小コードで通す → fastlane test → PASS 確認
-  3. [REFACTOR] クリーンアップ → fastlane test → PASS 維持
-  4. 次の機能へ
+  0. [TEST LIST] テストシナリオのリストを書く（行動分析）
+  1. [RED]       リストから1つテストを書く → fastlane test → FAIL 確認
+  2. [GREEN]     最小コードで通す → fastlane test → PASS 確認
+  3. [REFACTOR]  実装設計を改善 → fastlane test → PASS 維持
+  4. リストが空になるまで #1 に戻る
 ```
+
+**詳細は `tdd-feature` スキルを参照。** レシピ .md にはスキル呼出し + 変数 + Gate のみ記載。
 
 ### 006a: TDD Data Layer
 
-**Skill:** `ios-ux-design`
+**Skill:** `tdd-feature`
 
 | # | 修正内容 | 問題# | テスト |
 |---|---------|-------|--------|
@@ -207,7 +235,7 @@ diff <(echo "$YAML_IDS") <(echo "$DICT") && echo "PASS" || echo "FAIL: 上記の
 
 ### 006b: TDD Onboarding + Monetization
 
-**Skill:** `ios-ux-design`
+**Skill:** `tdd-feature`
 
 | # | 修正内容 | 問題# | テスト |
 |---|---------|-------|--------|
@@ -223,7 +251,7 @@ diff <(echo "$YAML_IDS") <(echo "$DICT") && echo "PASS" || echo "FAIL: 上記の
 
 ### 006c: TDD Core Screens
 
-**Skill:** `ios-ux-design`
+**Skill:** `tdd-feature`
 
 | # | 修正内容 | 問題# | テスト |
 |---|---------|-------|--------|
@@ -238,7 +266,7 @@ diff <(echo "$YAML_IDS") <(echo "$DICT") && echo "PASS" || echo "FAIL: 上記の
 
 ### 006d: TDD Polish + Resources
 
-**Skill:** `ios-ux-design`
+**Skill:** `tdd-feature`
 
 | # | 修正内容 | 問題# | テスト |
 |---|---------|-------|--------|
@@ -258,17 +286,34 @@ diff <(echo "$YAML_IDS") <(echo "$DICT") && echo "PASS" || echo "FAIL: 上記の
 
 ### 007: E2E Maestro + Payment
 
-**Skill:** `maestro-ui-testing`
+**Skill:** `maestro-ui-testing` (強化版)
 
-| # | フロー | 内容 |
-|---|--------|------|
-| 1 | 01-onboarding.yaml | 全オンボーディングフロー |
-| 2 | 02-timer.yaml | タイマー起動→ストレッチ |
-| 3 | 03-settings.yaml | 設定画面遷移 |
-| 4 | 04-payment-success.yaml | RC Test Store → Simulate Success |
-| 5 | 05-payment-failure.yaml | RC Test Store → Simulate Failure |
+**詳細は `maestro-ui-testing` スキルを参照。** レシピ .md にはスキル呼出し + 変数 + Gate のみ記載。
 
-**Gate:** maestro test maestro/ PASS
+| # | フロー | 内容 | tag |
+|---|--------|------|-----|
+| 1 | 01-onboarding.yaml | 全オンボーディングフロー | onboarding, smokeTest |
+| 2 | 02-timer.yaml | タイマー起動→ストレッチ | timer |
+| 3 | 03-settings.yaml | 設定画面遷移 | settings |
+| 4 | 04-payment-monthly-success.yaml | RC Test Store → Monthly → Simulate Success | payment, smokeTest |
+| 5 | 05-payment-annual-success.yaml | RC Test Store → Annual → Simulate Success | payment |
+| 6 | 06-payment-failure.yaml | RC Test Store → Simulate Failure | payment |
+
+### Fix Loop（007 共通 — FAIL 時の自動修正）
+
+Source: [Anthropic skill-creator](skill-creator/SKILL.md)
+> 「Look for repeated work across test cases... bundle that script」
+
+```
+maestro test maestro/:
+  PASS → 次のフローへ
+  FAIL → 診断:
+    YAML エラー（id 不一致等） → YAML 修正 → リトライ
+    Swift エラー（a11y ID 欠落等） → Swift 修正 → fastlane build_for_simulator → リトライ
+    最大3回リトライ → まだ FAIL → BLOCKED（progress.txt に記録）
+```
+
+**Gate:** `maestro test maestro/` 全6フロー PASS
 
 ---
 
@@ -334,10 +379,48 @@ tags:
 - takeScreenshot: "04-payment-success"
 ```
 
+### Maestro 年間プラン購入成功テスト
+
+```yaml
+# maestro/05-payment-annual-success.yaml
+appId: com.aniccafactory.deskstretch
+tags:
+  - payment
+---
+- clearState
+- clearKeychain
+- launchApp
+- extendedWaitUntil:
+    visible:
+      id: "onboarding_get_started"
+    timeout: 30000
+- tapOn:
+    id: "onboarding_get_started"
+- tapOn:
+    id: "pain_area_neck"
+- tapOn:
+    id: "onboarding_continue"
+- extendedWaitUntil:
+    visible:
+      id: "paywall_plan_yearly"
+    timeout: 10000
+- tapOn:
+    id: "paywall_plan_yearly"
+- extendedWaitUntil:
+    visible: "Simulate Success"
+    timeout: 10000
+- tapOn: "Simulate Success"
+- extendedWaitUntil:
+    visible:
+      id: "timer_countdown"
+    timeout: 10000
+- takeScreenshot: "05-payment-annual-success"
+```
+
 ### Maestro 決済失敗テスト
 
 ```yaml
-# maestro/05-payment-failure.yaml
+# maestro/06-payment-failure.yaml
 appId: com.aniccafactory.deskstretch
 tags:
   - payment
@@ -374,21 +457,44 @@ tags:
 
 ---
 
-## 6. Phase C: レシピ更新（学びの反映 — 34件 + α）
+## 6. Phase C: スキル強化 + レシピ .md シンプル化
 
-### 更新対象ファイル
+### アーキテクチャ原則（再掲）
 
-| # | ファイル | 更新内容 | 件数 |
-|---|---------|---------|------|
-| 1 | `references/us-004-specs.md` | フェーズ分割（004a/004b/004-R）、mau.md ルール、スキル: `implementation-spec` → `frontend-design` | 5件 |
-| 2 | `references/us-006-implement.md` | TDD 統合、006a-d 分割、Fastlane 必須化、スキル: `ios-ux-design` のみ | 8件 |
-| 3 | `references/us-007-testing.md` | E2E のみ（Unit/Integration は 006 完了）、Maestro BP、RC Test Store | 11件 |
-| 4 | `references/us-005b-monetization.md` | StoreKit Configuration 削除、RC Test Store 手順追加 | 3件 |
-| 5 | `validate.sh` | 新フェーズ構成に合わせたゲート更新 | 全面 |
-| 6 | `SKILL.md` | スキル割り当てテーブル更新、Rule 21 強化 | 3件 |
-| 7 | `CLAUDE.md` | セッション分割の反映 | 2件 |
-| 8 | `prd.json` | US-004/006/007 の分割反映 | 構造変更 |
-| 9 | `references/best-practices-audit.md` | DeskStretch 修正で発見した新パターン | 追記 |
+Source: [Anthropic skill-creator](skill-creator/SKILL.md)
+> 「Look for repeated work across test cases... that's a strong signal the skill should bundle that script.」
+
+**ジュースはスキルに集約。レシピ .md はスキル呼出し + アプリ固有変数 + Gate のみ。**
+
+### Phase C 実施順序
+
+| Step | 内容 | 依存 |
+|------|------|------|
+| C-0 | 3スキル強化（ios-ux-design, tdd-feature, maestro-ui-testing） | なし |
+| C-1〜C-9 | レシピ .md シンプル化 + テンプレート更新 | C-0 完了後 |
+| C-検証 | 34件トレーサビリティ検証 ALL PASS | C-1〜C-9 完了後 |
+
+### C-0: スキル強化（3スキル）
+
+| スキル | 強化内容 | 行数制限 |
+|--------|---------|---------|
+| `ios-ux-design` | Design Thinking (frontend-design から移植) + mau.md 8ルール → references/onboarding.md に統合 + SKILL.md を 500行以下に分割 | SKILL.md < 500行 |
+| `tdd-feature` | iOS TDD パターン (xcconfig template, Protocol-based DI, Fastlane lanes, project.yml) + Kent Beck 5ステップ明示 | 現327行 + 追加 |
+| `maestro-ui-testing` | Fix Loop セクション追加 (FAIL→診断→修正→リトライ, max 3) + RC Test Store テンプレート + 6フローテンプレート | 現409行 + 追加 |
+
+### C-1〜C-9: レシピ .md シンプル化 + テンプレート更新
+
+| # | ファイル | 更新内容 |
+|---|---------|---------|
+| C-1 | `references/us-006-implement.md` | **thin 版に書き直し**: `tdd-feature` スキル呼出し + APP_SCHEME/UDID 変数 + Gate (fastlane test PASS) |
+| C-2 | `references/us-007-testing.md` | **thin 版に書き直し**: `maestro-ui-testing` スキル呼出し + 6フロー定義 + Fix Loop + Gate |
+| C-3 | `references/us-004-specs.md` | **thin 版に更新**: 004a/004b/004-R 分割 + `ios-ux-design` スキル呼出し |
+| C-4 | `references/us-005b-monetization.md` | StoreKit Configuration 削除 + RC Test Store 手順追加 |
+| C-5 | `SKILL.md` | スキル割り当てテーブル更新 (1フェーズ=1スキル) + Rule 21 強化 |
+| C-6 | `CLAUDE.md` | 21セッション分割の反映 |
+| C-7 | `prd.json` | US-004/006/007 の分割反映（構造変更） |
+| C-8 | `validate.sh` | 新フェーズ構成に合わせたゲート更新 |
+| C-9 | `references/best-practices-audit.md` | DeskStretch 修正で発見した新パターン集約 |
 
 ### レシピ改善 TODO 詳細（34件）
 
@@ -650,14 +756,14 @@ mobileapp-builder/
 | Phase | スキル | ソース |
 |-------|--------|--------|
 | 004a (Core Spec) | `implementation-spec` | skills.sh |
-| 004b (UX Spec) | `frontend-design` | Anthropic 公式 |
+| 004b (UX Spec) | `ios-ux-design` (強化版) | 自作 |
 | 004-R (Spec Review) | code-quality-reviewer | 内蔵サブエージェント |
-| 006a (TDD Data Layer) | `ios-ux-design` | 自作 |
-| 006b (TDD Onboarding) | `ios-ux-design` | 自作 |
-| 006c (TDD Core Screens) | `ios-ux-design` | 自作 |
-| 006d (TDD Polish) | `ios-ux-design` | 自作 |
+| 006a (TDD Data Layer) | `tdd-feature` (強化版) | 自作 |
+| 006b (TDD Onboarding) | `tdd-feature` | 自作 |
+| 006c (TDD Core Screens) | `tdd-feature` | 自作 |
+| 006d (TDD Polish) | `tdd-feature` | 自作 |
 | 006-R (Code Review) | code-quality-reviewer | 内蔵サブエージェント |
-| 007 (E2E) | `maestro-ui-testing` | skills.sh |
+| 007 (E2E) | `maestro-ui-testing` (強化版) | 自作 |
 | 008 (Release) | `asc-release-flow` | rshankras/claude-code-apple-skills |
 | 009 (Submit) | `asc-submission-health` | rshankras/claude-code-apple-skills |
 
@@ -683,19 +789,23 @@ mobileapp-builder/
 | 項目 | 値 |
 |------|-----|
 | 問題数 | 21件（CRITICAL 1, HIGH 12, MEDIUM 8） |
-| レシピ改善 TODO | 34件 + デザインスキル統合 + mau.md ルール |
+| レシピ改善 TODO | 34件 + 3スキル強化 + mau.md ルール |
 | Phase A（SDD Spec） | 3セッション（004a, 004b, 004-R） |
 | Phase B（TDD Fix） | 6セッション（006a, 006b, 006c, 006d, 006-R, 007） |
-| Phase C（レシピ更新） | 9ファイル更新 |
-| Phase D（検証） | ralph.sh フル実行 |
-| Phase E（Cron） | 15:00 JST 自動実行 |
-| **合計セッション** | **9** |
+| Phase C（スキル強化 + レシピ更新） | 3スキル強化 + 9ファイル更新 + 34件検証 |
+| Phase D（DeskStretch 008-009） | US-008a〜009 を DeskStretch で実行 |
+| Phase E（新アプリ検証） | ralph.sh フル実行（US-001〜009 全21セッション） |
+| Phase F（Cron） | 毎日自動で1アプリ App Store 提出 |
+| **合計セッション（Phase E）** | **21**（004a/b/R + 006a/b/c/d/R + 007 + 008a/b/c/d/e + 009 + 001/002/003/005a/005b） |
 
 | 変更 | 理由 | ソース |
 |------|------|--------|
 | TDD を 006 に統合 | TDD = 実装そのもの | Martin Fowler TDD |
-| 007 を E2E のみに | Unit/Integration は 006 で完了 | Quash TDD Guide |
+| 007 を E2E のみに（6フロー + Fix Loop） | Unit/Integration は 006 で完了 | Quash TDD Guide |
 | レビューを独立フェーズに（004-R, 006-R） | 「explicit step in workflow」 | Martin Fowler RefinementCodeReview |
 | 004a-R 削除 → 004-R に統合 | Spec は 004b 完了後にまとめてレビュー | Anthropic teams workflow |
-| 1フェーズ = 1スキル | 複数スキル = 混乱 | Anthropic Skills Guide |
+| 1フェーズ = 1スキル | 複数スキル = 混乱 | Anthropic skill-creator |
+| **ジュースはスキルに集約** | **汎用パターンはスキル、レシピは thin** | **Anthropic skill-creator** |
+| 006a-d: `ios-ux-design` → `tdd-feature` | TDD スキルで実装すべき | DeskStretch 実装の学び |
+| 007: `maestro-e2e` → `maestro-ui-testing` | 実践的 iOS 知識が豊富 | スキル比較（409行 vs 61行） |
 | codex-review は存続 | リリース前最終ゲート | — |
