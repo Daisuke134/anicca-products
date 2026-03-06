@@ -3,6 +3,20 @@
 # Source: Geoffrey Huntley (https://ghuntley.com/ralph/) — "use as little context as possible"
 # Source: Anthropic harness (https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
 
+## Step 0: PATH Setup (MANDATORY — EVERY bash command)
+
+Source: Claude Code Docs — https://docs.anthropic.com/en/docs/claude-code/overview
+> "Each command runs in a new shell session. Environment variables set in one command are not automatically available in the next."
+
+**Every single `Bash` tool call MUST start with this line. No exceptions:**
+
+```bash
+export PATH="/opt/homebrew/bin:/Users/anicca/Library/Python/3.9/bin:/usr/local/bin:/usr/bin:/bin:$PATH" && export ASC_BYPASS_KEYCHAIN=true
+```
+
+Without this, `asc`, `fastlane`, `xcrun`, `simctl`, `axe`, `jq`, `ls`, `tail`, `grep` and all other commands will fail with `command not found`.
+This is NOT optional. This is NOT a suggestion. Prepend it to EVERY command.
+
 ## Your Task
 
 APP_DIR = このファイル (CLAUDE.md) が置かれているディレクトリのフルパス。

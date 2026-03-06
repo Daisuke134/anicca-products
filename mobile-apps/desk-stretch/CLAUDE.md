@@ -3,6 +3,20 @@
 # Source: Geoffrey Huntley (https://ghuntley.com/ralph/) — "use as little context as possible"
 # Source: Anthropic harness (https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents)
 
+## Step 0: PATH Setup (MANDATORY — EVERY bash command)
+
+Source: Claude Code Docs — https://docs.anthropic.com/en/docs/claude-code/overview
+> "Each command runs in a new shell session. Environment variables set in one command are not automatically available in the next."
+
+**Every single `Bash` tool call MUST start with this line. No exceptions:**
+
+```bash
+export PATH="/opt/homebrew/bin:/Users/anicca/Library/Python/3.9/bin:/usr/local/bin:/usr/bin:/bin:$PATH" && export ASC_BYPASS_KEYCHAIN=true
+```
+
+Without this, `asc`, `fastlane`, `xcrun`, `simctl`, `axe`, `jq`, `ls`, `tail`, `grep` and all other commands will fail with `command not found`.
+This is NOT optional. This is NOT a suggestion. Prepend it to EVERY command.
+
 ## Your Task
 
 APP_DIR = このファイル (CLAUDE.md) が置かれているディレクトリのフルパス。
@@ -44,35 +58,19 @@ curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '
 | 23 | **AI API / 外部 API コスト禁止** — OpenAI, Anthropic, Gemini, Apple FoundationModels（iOS 26+ = ユーザー基盤小）一切禁止。アプリは完全自己完結。ローカル・静的コンテンツのみ。バックエンド不要。理由: 月収 $29 vs API コスト $300+ |
 | 23 | **AI API / AI モデル / 外部 AI サービス完全禁止**。OpenAI, Anthropic, Google Generative AI, Apple FoundationModels 一切不可。月額収益 $29 vs API コスト $300+。FoundationModels は iOS 26+ のみでユーザーベース皆無。オンデバイスロジック or 静的キュレーションコンテンツで代替 |
 
-## ⚠️ KNOWN ISSUES FROM PREVIOUS RUN (MUST READ BEFORE US-008)
-
-前回のUS-008実行で以下の問題が発生した。同じ失敗を繰り返すな。
-
-| 問題 | 原因 | 修正済み |
-|------|------|---------|
-| スクショ3/4枚が同一画面 | `axe swipe` で遷移したがアプリは NavigationStack + button遷移。スワイプ無効 | ✅ レシピで `axe tap --label` に修正済み |
-| jaスクショが日本語じゃない | DeskStretchios に `.xcstrings` ファイルがない。翻訳なし | ❌ .xcstrings 作成が必要 |
-| Review screenshot がPaywallじゃなくタイマー画面 | 同上（axe swipe で Paywall に到達不可） | ✅ レシピで `axe tap --label` に修正済み |
-| 同ロケール内MD5重複未検出 | en-US vs jaのチェックのみ、同ロケール内は未検出 | ✅ レシピに重複チェック追加済み |
-| `asc metadata sync` 存在しない | → `asc localizations update` を使う | ✅ レシピ修正済み |
-| `asc builds attach` 存在しない | → REST API PATCH で直接 | ✅ レシピ修正済み |
-| IPHONE_67 間違い | 1206×2622 = IPHONE_61 | ✅ レシピ修正済み |
-
-**特に重要: スクショ撮影前に必ず `axe describe-ui` で画面を確認し、`axe tap --label` でボタンを押して遷移すること。`axe swipe` は使うな。**
-
 ## ASC CLI 正しいコマンド（skill 準拠）
 
 | タスク | 正しいコマンド | スキル |
 |--------|---------------|--------|
 | スクショ capture | `asc screenshots capture --bundle-id ... --udid ... --output-dir ... --output json` | asc-shots-pipeline |
-| スクショ upload | `asc screenshots upload --version-localization LOC_ID --path DIR --device-type IPHONE_61` | asc-shots-pipeline |
+| スクショ upload | `asc screenshots upload --version-localization LOC_ID --path DIR --device-type IPHONE_67` | asc-shots-pipeline |
 | Review screenshot | `asc subscriptions review-screenshots create --subscription-id ID --file PATH` | — |
 | ビルド最新取得 | `asc builds list --app APP_ID --sort -uploadedDate --limit 1` | asc-build-lifecycle |
 | ビルドをグループ追加 | `asc builds add-groups --build BUILD_ID --group GROUP_ID` | asc-testflight-orchestration |
 | テスター追加 | `asc testflight beta-testers add --app APP_ID --email ... --group ...` | asc-testflight-orchestration |
 | テスター招待 | `asc testflight beta-testers invite --app APP_ID --email ...` | asc-testflight-orchestration |
 | Version ID 取得 | `asc versions list --app APP_ID` | asc-id-resolver |
-| Loc ID 取得 | `asc localizations list --version VER_ID` (**NOT** `asc app-store-version-localizations list`) | asc-id-resolver |
+| Loc ID 取得 | `asc app-store-version-localizations list --version-id VER_ID` | asc-id-resolver |
 | App Privacy | `asc web privacy apply` + `publish`（自動、セッション切れ時のみ WAITING_FOR_HUMAN） | us-009-submit |
 | RC Public Key | `curl -s "$RC_BASE/projects/$PID/apps/$AID/public_api_keys" -H "$AUTH" \| jq -r '.items[0].key'`（自動） | us-005b-monetization |
 | 審査提出 | `asc review submissions-create --app APP_ID` → `items-add` → `submissions-submit` | asc-submission-health |
