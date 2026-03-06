@@ -266,17 +266,46 @@ ForEach(problems) { problem in
     optional: true
 ```
 
-### Paywall Dismissal (Superwall/RevenueCat)
+### RevenueCat Test Store (Payment E2E)
+
+Source: [RevenueCat Test Store](https://www.revenuecat.com/docs/test-and-launch/sandbox/test-store)
+
+RC Test Store replaces StoreKit Configuration for E2E tests. No Apple sandbox credentials needed.
+
+**Prerequisites**: RC SDK >= 5.43.0, Test Store API Key (Debug only), Products + Offerings in RC Dashboard
 
 ```yaml
-# Dismiss paywall if shown (tap close button or back)
+# Payment success test (monthly)
 - tapOn:
-    id: "paywall-close-button"
-    optional: true
+    id: "paywall_plan_monthly"
+- extendedWaitUntil:
+    visible: "Simulate Success"
+    timeout: 10000
+- tapOn: "Simulate Success"
+- extendedWaitUntil:
+    visible:
+      id: "timer_countdown"    # Post-purchase screen
+    timeout: 10000
 
-# Or tap outside/back button coordinates (last resort)
+# Payment failure test
 - tapOn:
-    point: "28,78"
+    id: "paywall_plan_monthly"
+- extendedWaitUntil:
+    visible: "Simulate Failure"
+    timeout: 10000
+- tapOn: "Simulate Failure"
+- extendedWaitUntil:
+    visible:
+      id: "paywall_plan_monthly"  # Returns to paywall
+    timeout: 5000
+```
+
+### Paywall Dismissal
+
+```yaml
+# Soft paywall dismiss (Maybe Later)
+- tapOn:
+    id: "paywall_maybe_later"
     optional: true
 ```
 
@@ -404,5 +433,43 @@ return
 **解決策**: 必ず `inspect_view_hierarchy` で実際のテキストを確認してからセレクターを決定
 
 ---
+
+## Fix Loop (Automated Test Repair)
+
+When a Maestro test fails, follow this closed-loop repair cycle:
+
+```
+maestro test maestro/<flow>.yaml:
+  PASS → next flow
+  FAIL → diagnose:
+    YAML error (wrong id, selector mismatch):
+      → Fix YAML → retry
+    Swift error (missing a11y identifier, wrong label):
+      → Fix Swift → fastlane build_for_simulator → retry
+    Max 3 retries → still FAIL:
+      → Mark BLOCKED in progress.txt → stop
+```
+
+### Diagnosis Commands
+
+```bash
+# Check actual view hierarchy
+maestro hierarchy
+
+# Interactive debugging
+maestro studio
+
+# Run single flow with debug output
+maestro test --debug maestro/01-onboarding.yaml
+```
+
+### Common Fix Patterns
+
+| Symptom | Diagnosis | Fix |
+|---------|-----------|-----|
+| "Element not found: id: X" | a11y ID not set in Swift | Add `.accessibilityIdentifier("X")` + rebuild |
+| "Element not found: text: X" | Text changed or localized | Use `id:` selector instead |
+| Timeout on Simulate Success | RC Test Store not configured | Check API Key in Info.plist |
+| Flow passes locally, fails CI | Timing issue | Increase `extendedWaitUntil` timeout |
 
 **Remember**: The goal is **zero flakiness**. Every test should pass 100% of the time in CI. If a test is flaky, fix the test, not the retry count.
