@@ -48,7 +48,8 @@ Source: asc-shots-pipeline SKILL.md Section 3-6
 Verified: 2026-03-04 Chi Daily 実機テスト済み — en-US 4枚 + ja 4枚 = 8枚 COMPLETE
 
 ### 使用デバイス（固定）
-- **iPhone 17 Pro** (1290×2796) — APP_IPHONE_67 対応 ✅
+- **iPhone 17 Pro** シミュレータ: 1206×2622 → **APP_IPHONE_61** ✅
+- ❌ IPHONE_67 は間違い（シミュレータの実解像度は 1206×2622 = IPHONE_61）
 - ❌ iPhone 16e (1170×2532) は使用禁止（ASC サイズ不適合）
 
 ### 1a: シミュレータ準備 + アプリインストール
@@ -70,6 +71,11 @@ xcrun simctl install $UDID "$APP_PATH"
 
 ### 1b: en-US キャプチャ（4画面）
 
+⚠️ CRITICAL: 画面遷移は `axe tap --label` を使う（`axe swipe` は PageTabViewStyle のみ有効）
+Source: AXe GitHub (https://github.com/cameroncooke/AXe)
+> 「axe tap --label "Button Label" — Tap by accessibility label (preferred)」
+> 「Prefer --label for tapping when possible (more resilient to layout changes)」
+
 ```bash
 mkdir -p screenshots/raw/en-US screenshots/raw/ja
 
@@ -81,17 +87,24 @@ xcrun simctl shutdown $UDID && sleep 2 && xcrun simctl boot $UDID && sleep 3
 xcrun simctl launch $UDID $BUNDLE_ID
 sleep 3
 
-# screen1: Welcome（オンボーディング1）
+# screen1: オンボーディング画面1
+# まず describe-ui で画面構造を確認
+axe describe-ui --udid "$UDID"
 asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen1_welcome" --udid "$UDID" --output-dir "./screenshots/raw/en-US" --output json
 
-# screen2: Features（スワイプ左 — iPhone 17 Pro 393x852pt 共通座標）
-axe swipe --start-x 300 --start-y 400 --end-x 50 --end-y 400 --duration 0.3 --udid "$UDID"
+# screen2: 次のオンボーディング画面に遷移
+# ⚠️ axe swipe ではなく axe tap --label でボタンを押して遷移する
+# describe-ui の出力から「Next」「Continue」「Get Started」等のボタンラベルを見つけてタップ
+# ボタンが見つからない場合は axe tap --id でaccessibilityIdentifierを使う
+axe tap --udid "$UDID" --label "Next" || axe tap --udid "$UDID" --label "Continue" || axe tap --udid "$UDID" --label "Get Started"
 sleep 2
+axe describe-ui --udid "$UDID"  # 画面が変わったか確認
 asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID" --output-dir "./screenshots/raw/en-US" --output json
 
-# screen3: Paywall（スワイプ左）
-axe swipe --start-x 300 --start-y 400 --end-x 50 --end-y 400 --duration 0.3 --udid "$UDID"
+# screen3: Paywall画面に遷移
+axe tap --udid "$UDID" --label "Next" || axe tap --udid "$UDID" --label "Continue"
 sleep 2
+axe describe-ui --udid "$UDID"  # PaywallViewが表示されているか確認
 asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_paywall" --udid "$UDID" --output-dir "./screenshots/raw/en-US" --output json
 
 # screen4: Home（オンボーディングスキップ → 再起動）
@@ -103,7 +116,13 @@ sleep 3
 asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$UDID" --output-dir "./screenshots/raw/en-US" --output json
 ```
 
-### 1c: ja キャプチャ（4画面 — 同じ手順）
+**⚠️ 画面遷移ルール:**
+- `axe swipe` は使用禁止（NavigationStack / switch ベースのオンボーディングでは効かない）
+- `axe tap --label` でボタンを押して遷移する
+- 遷移後は必ず `axe describe-ui` で画面が変わったか確認する
+- ボタンラベルがわからない場合は `axe describe-ui` の出力から探す
+
+### 1c: ja キャプチャ（4画面 — 1b と同じ axe tap --label 手順）
 
 ```bash
 # ja ロケール切替
@@ -114,14 +133,18 @@ xcrun simctl shutdown $UDID && sleep 2 && xcrun simctl boot $UDID && sleep 3
 xcrun simctl launch $UDID $BUNDLE_ID
 sleep 3
 
-# 同じ 4 画面を撮影（1b と同一の swipe + capture 手順）
+# 同じ 4 画面を撮影（1b と同一の axe tap --label + capture 手順）
+# ⚠️ ja ロケールではボタンラベルが日本語になる可能性がある
+# describe-ui で確認してから tap する
+axe describe-ui --udid "$UDID"
 asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen1_welcome" --udid "$UDID" --output-dir "./screenshots/raw/ja" --output json
 
-axe swipe --start-x 300 --start-y 400 --end-x 50 --end-y 400 --duration 0.3 --udid "$UDID"
+# 遷移（ボタンラベルは describe-ui で確認。日本語 or 英語両方試す）
+axe tap --udid "$UDID" --label "Next" || axe tap --udid "$UDID" --label "次へ" || axe tap --udid "$UDID" --label "Continue" || axe tap --udid "$UDID" --label "続ける"
 sleep 2
 asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID" --output-dir "./screenshots/raw/ja" --output json
 
-axe swipe --start-x 300 --start-y 400 --end-x 50 --end-y 400 --duration 0.3 --udid "$UDID"
+axe tap --udid "$UDID" --label "Next" || axe tap --udid "$UDID" --label "次へ" || axe tap --udid "$UDID" --label "Continue" || axe tap --udid "$UDID" --label "続ける"
 sleep 2
 asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_paywall" --udid "$UDID" --output-dir "./screenshots/raw/ja" --output json
 
@@ -140,38 +163,46 @@ xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLanguages -array "en
 xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLocale "en_US"
 ```
 
-### 1e: MD5 検証（en-US ≠ ja 確認 — MUST）
+### 1e: MD5 検証（MUST — 2段階チェック）
 
 ```bash
-EN_MD5=$(md5 -q screenshots/raw/en-US/screen1_welcome.png)
-JA_MD5=$(md5 -q screenshots/raw/ja/screen1_welcome.png)
+# チェック1: en-US vs ja が異なること（ロケール適用確認）
+EN_MD5=$(/usr/bin/openssl dgst -md5 screenshots/raw/en-US/screen1_welcome.png | awk '{print $2}')
+JA_MD5=$(/usr/bin/openssl dgst -md5 screenshots/raw/ja/screen1_welcome.png | awk '{print $2}')
 [ "$EN_MD5" != "$JA_MD5" ] || { echo "FAIL: en/ja screenshots identical — locale not applied"; exit 1; }
 
-# 全ファイル重複チェック
-md5 -r screenshots/raw/en-US/*.png screenshots/raw/ja/*.png | sort
-# 同一 MD5 が 2 つ以上あったら NG → AXe の遷移を修正して再撮影
+# チェック2: 同一ロケール内の重複がないこと（画面遷移確認）
+# ⚠️ これが前回欠けていた。3/4枚が同じ画面だったのに検出できなかった
+EN_DUPES=$(/usr/bin/openssl dgst -md5 screenshots/raw/en-US/*.png | awk '{print $2}' | sort | uniq -d | wc -l | tr -d ' ')
+JA_DUPES=$(/usr/bin/openssl dgst -md5 screenshots/raw/ja/*.png | awk '{print $2}' | sort | uniq -d | wc -l | tr -d ' ')
+[ "$EN_DUPES" -eq 0 ] || { echo "FAIL: $EN_DUPES duplicate screenshots in en-US — axe tap navigation failed, screens didn't change"; exit 1; }
+[ "$JA_DUPES" -eq 0 ] || { echo "FAIL: $JA_DUPES duplicate screenshots in ja — axe tap navigation failed, screens didn't change"; exit 1; }
+
+echo "✅ MD5 checks passed: en≠ja, no same-locale duplicates"
 ```
 
 ### 1f: ASC アップロード（フレームなし — 生スクショ直接）
 
 ```bash
 # version-localization ID 取得
-EN_LOC_ID=$(asc app-store-version-localizations list --version-id $VERSION_ID --output json \
+EN_LOC_ID=$(asc localizations list --version "$VERSION_ID" --output json \
   | jq -r '.data[] | select(.attributes.locale=="en-US") | .id')
-JA_LOC_ID=$(asc app-store-version-localizations list --version-id $VERSION_ID --output json \
+JA_LOC_ID=$(asc localizations list --version "$VERSION_ID" --output json \
   | jq -r '.data[] | select(.attributes.locale=="ja") | .id')
+# ⚠️ ja が存在しない場合は REST API で作成:
+# POST /v1/appStoreVersionLocalizations { locale: "ja", appStoreVersion: { id: VERSION_ID } }
 
 # en-US アップロード
 asc screenshots upload \
   --version-localization "$EN_LOC_ID" \
   --path "./screenshots/raw/en-US" \
-  --device-type "IPHONE_67"
+  --device-type "IPHONE_61"
 
 # ja アップロード
 asc screenshots upload \
   --version-localization "$JA_LOC_ID" \
   --path "./screenshots/raw/ja" \
-  --device-type "IPHONE_67"
+  --device-type "IPHONE_61"
 ```
 
 **⚠️ 正しいフラグ（2026-03-04 実証済み）:**
@@ -180,7 +211,7 @@ asc screenshots upload \
 |--------|-----|------|
 | `--version-localization` | LOC_ID | ロケール別の version-localization ID |
 | `--path` | ディレクトリパス | ファイルではなくディレクトリを指定 |
-| `--device-type` | `IPHONE_67` | iPhone 17 Pro 対応サイズ |
+| `--device-type` | `IPHONE_61` | iPhone 17 Pro シミュレータ 1206×2622 |
 
 **❌ 存在しないフラグ（使うな）:** `--locale`, `--file`, `--app`, `--display-type`
 
@@ -207,15 +238,23 @@ xcrun simctl spawn "$UDID" defaults write "$BUNDLE_ID" hasCompletedOnboarding -b
 xcrun simctl terminate "$UDID" "$BUNDLE_ID"; sleep 1
 xcrun simctl launch "$UDID" "$BUNDLE_ID"; sleep 3
 
-# オンボーディング最終画面（= Paywall）まで左スワイプを繰り返す
-# 基本は 3 画面オンボーディング（最終画面 = Paywall）だが、アプリにより異なる。
-# 最大 10 回スワイプで必ず最終画面に到達する。余分なスワイプは無害。
-# 座標は iPhone 17 Pro (393×852pt) 固定。全アプリ共通。
+# オンボーディング最終画面（= Paywall）まで axe tap --label で遷移
+# ⚠️ axe swipe は使わない（NavigationStack ベースのオンボーディングでは効かない）
+# describe-ui でボタンを見つけてタップで遷移する
+axe describe-ui --udid "$UDID"
+# 最大 10 回タップ（余分なタップは Paywall に到達後無害）
 for i in $(seq 1 10); do
-  axe swipe --start-x 300 --start-y 400 --end-x 50 --end-y 400 --duration 0.3 --udid "$UDID"
+  axe tap --udid "$UDID" --label "Next" 2>/dev/null || \
+  axe tap --udid "$UDID" --label "Continue" 2>/dev/null || \
+  axe tap --udid "$UDID" --label "Get Started" 2>/dev/null || \
+  axe tap --udid "$UDID" --label "次へ" 2>/dev/null || \
+  axe tap --udid "$UDID" --label "続ける" 2>/dev/null || \
+  true
   sleep 0.5
 done
 sleep 1
+# describe-ui で Paywall が表示されているか確認
+axe describe-ui --udid "$UDID"
 
 # Paywall 画面をキャプチャ
 xcrun simctl io "$UDID" screenshot /tmp/paywall-review.png
@@ -256,13 +295,24 @@ echo "✅ Review screenshots uploaded for MONTHLY=$MONTHLY_ID and ANNUAL=$ANNUAL
 - ⛔ Home 画面を Review Screenshot にアップロードするな（Paywall 画面を撮れ）
 
 ## Step 2: Metadata Sync
+⚠️ `asc metadata sync` は存在しない。`asc localizations update` を使う。
 ```bash
 # en-US + ja 両方
-asc metadata sync --app $APP_ID --version-id $VERSION_ID \
-  --name "<app_name>" --subtitle "<subtitle>" \
-  --description "<description>" --keywords "<keywords>" \
-  --locale en-US
-# Repeat for ja
+# app-info (name, subtitle, privacyPolicyUrl):
+asc localizations update --type app-info --app $APP_ID \
+  --locale en-US --name "<app_name>" --subtitle "<subtitle>" \
+  --privacy-policy-url "<url>"
+asc localizations update --type app-info --app $APP_ID \
+  --locale ja --name "<app_name_ja>" --subtitle "<subtitle_ja>" \
+  --privacy-policy-url "<url>"
+
+# version (description, keywords, supportUrl):
+asc localizations update --version $VERSION_ID \
+  --locale en-US --description "<description>" --keywords "<keywords>" \
+  --support-url "<url>"
+asc localizations update --version $VERSION_ID \
+  --locale ja --description "<description_ja>" --keywords "<keywords_ja>" \
+  --support-url "<url>"
 ```
 CRITICAL: Privacy Policy URL は en-US AND ja 両方必須（Rule 7）
 
@@ -322,7 +372,10 @@ Source: asc-testflight-orchestration skill (https://github.com/rudrankriyam/app-
 
 ```bash
 # Attach build to version
-asc builds attach --app $APP_ID --version-id $VERSION_ID --build-id $BUILD_ID
+# ⚠️ `asc builds attach` は存在しない。REST API を使う:
+# PATCH /v1/appStoreVersions/$VERSION_ID/relationships/build
+# body: { "data": { "type": "builds", "id": "$BUILD_ID" } }
+# JWT 生成には PyJWT を使う（openssl コマンドは失敗しやすい）
 
 # 9a: Beta group 作成（存在しなければ）
 asc testflight beta-groups create --app $APP_ID --name "External Testers"
