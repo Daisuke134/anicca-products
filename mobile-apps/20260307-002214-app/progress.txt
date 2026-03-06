@@ -12,6 +12,28 @@
 | Phase table ↔ Section heading | IMPL_GUIDE の Phase table ラベルと実際のセクション見出しを一致させること。Phase 4 に対応するセクションが欠落していた |
 | ObservableObject mutation | SwiftUI @Published properties は immutability rule の例外。ARCHITECTURE.md §13 に記載 |
 | Dynamic Type exception | Timer display (56pt) は固定サイズ。DESIGN_SYSTEM.md に例外として記載が必要 |
+| apps create requires 2FA | `asc apps create` は iris session があっても独自に Apple ID 認証する。`--two-factor-code` 必須。API Key 認証不可 |
+
+---
+
+## 2026-03-07 - US-005a: Privacy Policy + ASC app creation
+
+- **Status: WAITING_FOR_HUMAN**
+- **WAITING_FOR_HUMAN: 2FA code needed for `asc apps create`**
+- **Completed steps:**
+  - Quality Gate: all 4 checks PASS (PRD.md, ARCHITECTURE.md, IMPLEMENTATION_GUIDE.md, bundle_id)
+  - Project .env directory: `~/.config/mobileapp-builder/projects/eyebreakisland/` created
+  - Keychain unlocked
+  - Bundle ID registered: `BB89NCJXUP` (com.aniccafactory.eyebreakisland) via API Key auth
+  - iris session confirmed active
+- **Blocked on:** `asc apps create` requires `--two-factor-code`. iPhone に届く 6桁コードが必要
+- **Privacy Policy:** https://aniccaai.com/privacy (既存URL使用、生成不要)
+- **PrivacyInfo.xcprivacy / Info.plist:** US-006 で実行（iOS プロジェクト作成後）
+- **Next:** 2FA コード受信後に `asc apps create --name "Eye Break - EyeBreakIsland" --bundle-id com.aniccafactory.eyebreakisland --sku eyebreakisland --platform IOS --primary-locale en-US --apple-id $APPLE_ID --password $APPLE_ID_PASSWORD --two-factor-code <CODE> --output json`
+- **Learnings for future iterations:**
+  - `asc apps create` は API Key 認証不可。Apple ID + 2FA 必須
+  - `asc bundle-ids create` は API Key 認証で動作する（2FA 不要）
+  - iris session active でも `apps create` は独自認証するため 2FA が必要
 
 ---
 

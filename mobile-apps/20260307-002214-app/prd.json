@@ -94,7 +94,7 @@
       ],
       "priority": 5,
       "passes": false,
-      "notes": ""
+      "notes": "WAITING_FOR_HUMAN: 2FA code needed. Bundle ID BB89NCJXUP registered. Privacy URL: https://aniccaai.com/privacy. PrivacyInfo.xcprivacy + Info.plist deferred to US-006. Project .env dir created. Next: asc apps create with --two-factor-code <CODE>"
     },
     {
       "id": "US-005b",
