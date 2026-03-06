@@ -94,7 +94,7 @@
       ],
       "priority": 5,
       "passes": false,
-      "notes": "WAITING_FOR_HUMAN: 2FA code needed. Bundle ID BB89NCJXUP registered. Privacy URL: https://aniccaai.com/privacy. PrivacyInfo.xcprivacy + Info.plist deferred to US-006. Project .env dir created. Next: asc apps create with --two-factor-code <CODE>"
+      "notes": "APP_ID=6760196743. Bundle ID: BB89NCJXUP (com.aniccafactory.eyebreakisland). App created via asc apps create with 2FA. Privacy Policy pending."
     },
     {
       "id": "US-005b",

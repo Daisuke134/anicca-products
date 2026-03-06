@@ -18,8 +18,8 @@
 
 ## 2026-03-07 - US-005a: Privacy Policy + ASC app creation
 
-- **Status: WAITING_FOR_HUMAN**
-- **WAITING_FOR_HUMAN: 2FA code needed for `asc apps create`**
+- **Status: RESOLVED: App created (APP_ID=6760196743) via 2FA**
+- **RESOLVED: App created (APP_ID=6760196743) via 2FA: 2FA code needed for `asc apps create`**
 - **Completed steps:**
   - Quality Gate: all 4 checks PASS (PRD.md, ARCHITECTURE.md, IMPLEMENTATION_GUIDE.md, bundle_id)
   - Project .env directory: `~/.config/mobileapp-builder/projects/eyebreakisland/` created
