@@ -214,3 +214,13 @@
 - Slack #metrics 報告完了 ✅
 - All acceptance criteria PASS → passes: true
 ---
+
+## 2026-03-06 - US-009: App Store submission [WAITING_FOR_HUMAN]
+
+WAITING_FOR_HUMAN: asc web privacy apply requires 2FA. iPhone に届く6桁コードをSlackで返信してください。
+- apple-appstore-reviewer audit: P0=0, P1=0 → 提出ブロッカーなし ✅
+- asc validate: Errors=0 ✅ (confirmed)
+- App Privacy apply: 2FA required → BLOCKED
+- 次のイテレーション: 2FAコード受信後に `asc web privacy apply --two-factor-code XXXXXX` で再開
+
+---
