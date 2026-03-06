@@ -244,8 +244,8 @@
         "Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT"
       ],
       "priority": 8.4,
-      "passes": false,
-      "notes": "Age Rating 22 items (FOUR_PLUS). Review Details (demoAccountRequired=false, contact set). Availability 175 territories. Pricing free tier. Encryption ITSAppUsesNonExemptEncryption=false. Content Rights DOES_NOT_USE_THIRD_PARTY_CONTENT. Completed 2026-03-06. [reset: 1 US per iteration rule]"
+      "passes": true,
+      "notes": "Age Rating 22 items (FOUR_PLUS, gambling=false). Review Details demoAccountRequired=False, contactFirstName=Daisuke. Availability territoryAvailabilities total=175. Pricing free tier (USA base, price-point 10000). Encryption ITSAppUsesNonExemptEncryption=false in Info.plist. Content Rights DOES_NOT_USE_THIRD_PARTY_CONTENT. Re-verified 2026-03-06."
     },
     {
       "id": "US-008e",

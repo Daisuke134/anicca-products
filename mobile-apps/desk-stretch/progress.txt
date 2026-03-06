@@ -1,3 +1,14 @@
+## 2026-03-06 - US-008d: ASC compliance [RE-VERIFIED PASS]
+
+- Age Rating: 22 items confirmed (gambling=false, healthOrWellnessTopics=true, all categories NONE) → appStoreAgeRating=FOUR_PLUS ✅
+- Review Details: demoAccountRequired=False, contactFirstName=Daisuke, contactEmail=keiodaisuke@gmail.com ✅
+- Availability: territoryAvailabilities total=175 (availableInNewTerritories=true) ✅
+- Pricing: manual-prices 1 entry (USA base, price-point 10000 = free tier) ✅
+- Encryption: ITSAppUsesNonExemptEncryption=false in DeskStretchios/DeskStretch/Resources/Info.plist ✅
+- Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT ✅
+- All acceptance criteria PASS → passes: true
+---
+
 ## 2026-03-06 - US-008b: ASC metadata sync [RE-VERIFIED PASS #2]
 
 - en-US app-info: name=Desk Stretch Timer, subtitle=Desk Stretch & Break Timer, privacyPolicyUrl=https://aniccaai.com/privacy ✅
