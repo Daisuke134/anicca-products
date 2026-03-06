@@ -45,7 +45,7 @@
   - Equalization API returns 174 countries (excludes USA) — add USA separately
   - 3-plan model (weekly+monthly+annual) is RevenueCat best practice (SOSA 2025)
   - RC API v2 Package attach may return 400 on first try — retry succeeds
-  - RC Public Key is auto-generated on App creation — no WAITING_FOR_HUMAN needed for it
+  - RC Public Key is auto-generated on App creation — no W_F_H needed for it
 
 ---
 
