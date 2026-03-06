@@ -54,13 +54,6 @@ tags:
 
 See maestro-ui-testing SKILL.md "Fix Loop" section.
 
-```
-FAIL → diagnose:
-  YAML error → fix YAML → retry
-  Swift error → fix Swift → fastlane build_for_simulator → retry
-  Max 3 retries → BLOCKED
-```
-
 ## PROHIBITED
 
 - `flows/` directory (use `maestro/`)

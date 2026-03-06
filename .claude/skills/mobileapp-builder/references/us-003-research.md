@@ -24,7 +24,7 @@ URL: https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/prod
 
 ## Process: 3 Steps（ステップバイステップ）
 
-**このファイルが US-003 の唯一の正本。** SKILL.md は背景知識のみ（読まなくても実行可能）。
+**このファイルが US-003 の唯一の正本。** SKILL.md は実行前に必ず読むこと。
 
 Source: [Slideworks](https://slideworks.io/resources/competitive-analysis-framework-and-template) — 「Assess (identify competitors) → Benchmark (analyze each rival) → Strategize (translate insights into strategic implications)」
 

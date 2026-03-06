@@ -18,7 +18,7 @@ source ~/.config/mobileapp-builder/.env
 
 ## Process
 
-**このファイルが US-001 の唯一の正本。** idea-generator SKILL.md は背景知識のみ（読まなくても実行可能）。
+**このファイルが US-001 の唯一の正本。** idea-generator SKILL.md は実行前に必ず読むこと。
 
 ---
 

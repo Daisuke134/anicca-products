@@ -4,7 +4,7 @@ Source: Anthropic Complete Guide to Building Skills — 「Skills provide the re
 Source: [SpecKit SDD](https://github.com/feiskyer/claude-code-settings/blob/main/skills/speckit/SKILL.md) — 「Constitution → Specify → Clarify → Plan → Tasks → Analyze → Implement」
 Source: rshankras implementation-spec — https://github.com/rshankras/claude-code-apple-skills/blob/main/skills/product/implementation-spec/SKILL.md
 
-**このファイルが US-004 の唯一の正本。** 外部スキル（implementation-spec等）は背景知識のみ（読まなくても実行可能）。
+**このファイルが US-004 の唯一の正本。** 外部スキル（implementation-spec等）は実行前に必ず読むこと。
 
 ## Sub-Sessions (004a → 004b → 004-R)
 
@@ -23,13 +23,6 @@ Source: rshankras implementation-spec — https://github.com/rshankras/claude-co
 | 004-R | code-quality-reviewer (subagent) | Spec review |
 | (参考) | `.claude/skills/prd-generator/SKILL.md` | PRD セクションの深掘りが必要な時 |
 | (参考) | `.claude/skills/architecture-spec/SKILL.md` | ARCHITECTURE の設計パターン選定で迷った時 |
-
-## ⚠️ Mixpanel に関する注意
-
-**CLAUDE.md 本体は Anicca アプリで `分析: Mixpanel` と記載しているが、mobileapp-builder で作るアプリには適用されない。**
-mobileapp-builder では **Rule 17 = アナリティクス SDK 完全禁止**。Mixpanel、Firebase Analytics、その他一切不可。
-
----
 
 ## Input → Output マッピング
 

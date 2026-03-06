@@ -446,8 +446,7 @@ maestro test maestro/<flow>.yaml:
       → Fix YAML → retry
     Swift error (missing a11y identifier, wrong label):
       → Fix Swift → fastlane build_for_simulator → retry
-    Max 3 retries → still FAIL:
-      → Mark BLOCKED in progress.txt → stop
+    上限なし。全フロー PASS するまで繰り返す。BLOCKED にしない。
 ```
 
 ### Diagnosis Commands
