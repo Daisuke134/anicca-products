@@ -109,11 +109,12 @@
       "id": "US-007",
       "title": "Testing (Unit + Integration + Maestro E2E)",
       "acceptanceCriteria": [
-        "fastlane test succeeds",
-        "Unit tests exist for Models and Services",
-        "Maestro E2E tests exist in maestro/ directory",
-        "All tests pass",
-        "Typecheck passes"
+        "fastlane test succeeds (unit + integration from US-006)",
+        "6+ Maestro E2E flows in maestro/ (onboarding, timer, settings, payment-monthly, payment-annual, payment-failure)",
+        "All flows use id: selectors (no point: selectors)",
+        "All flows have clearState + takeScreenshot",
+        "maestro test maestro/ → all PASS",
+        "smokeTest tag exists on 2+ flows"
       ],
       "priority": 7,
       "passes": false,

@@ -30,11 +30,11 @@ Source: rshankras ProductAgent WORKFLOW.md + snarktank/ralph
 | US-001 | Idea Discovery | Trend research + idea selection | `idea-generator` + trend-hunter | `references/us-001-trend.md` |
 | US-002 | Product Planning | Problem validation + MVP + positioning | `prd-generator` | (output: product-plan.md) |
 | US-003 | Market Research | Competitive analysis + TAM/SAM/SOM | `competitive-analysis` + `market-research` | (output: competitive-analysis.md + market-research.md) |
-| US-004 | Spec Generation | 7 docs (PRD, Architecture, UX, Design, Implementation, Test, Release) | `implementation-spec` orchestrator | `references/us-004-specs.md` |
+| US-004 | Spec Generation | 7 docs (3 sub-sessions: 004a→004b→004-R) | `implementation-spec` + `ios-ux-design` | `references/us-004-specs.md` |
 | US-005a | Infrastructure | Privacy Policy + ASC app creation | `asc-cli-usage` | `references/us-005a-infra.md` |
 | US-005b | Monetization | IAP + pricing + RC project + offerings | `asc-ppp-pricing` + RC API v2 (curl) | `references/us-005b-monetization.md` |
-| US-006 | Implementation | Code the app following IMPLEMENTATION_GUIDE.md | `ios-ux-design` + `implementation-guide` | `references/us-006-implement.md` |
-| US-007 | Testing | Unit + Integration + Maestro E2E (subscription purchase) | `tdd-feature` + `test-spec` + `maestro-e2e` | `references/us-007-testing.md` |
+| US-006 | Implementation | TDD implementation (4 sub-sessions: 006a→006d) | `tdd-feature` (Canon TDD + iOS patterns) | `references/us-006-implement.md` |
+| US-007 | Testing | Maestro E2E (6 flows + Fix Loop) | `maestro-ui-testing` (RC Test Store + Fix Loop) | `references/us-007-testing.md` |
 | US-008a | Screenshots | Capture + upload + review screenshots (en-US + ja) | `axe-ios-simulator` + `asc-shots-pipeline` | `references/us-008-release.md` Steps 1a-1h |
 | US-008b | Metadata | ASC metadata sync (en-US + ja) | `asc-metadata-sync` | `references/us-008-release.md` Step 2 |
 | US-008c | Build + Upload | IPA build + upload + version attach | `asc-xcode-build` + `asc-build-lifecycle` | `references/us-008-release.md` Step 3 |
@@ -55,7 +55,7 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 1 | **提出前に全サブスクが READY_TO_SUBMIT**。MISSING_METADATA → Guideline 2.1 拒否 |
 | 2 | **IAP pricing は全175カ国** |
 | 3 | **Superwall 禁止。RevenueCat SDK のみ** |
-| 4 | **ビルドは xcodebuild。提出後は ASC CLI のみ** |
+| 4 | **ビルドは `fastlane build` / `fastlane test`。xcodebuild 直接禁止。提出後は ASC CLI のみ** |
 | 5 | **validate.sh が STOP ゲート**。FAIL なら次に進まない |
 | 6 | **availability set は pricing の前** |
 | 7 | **Privacy Policy URL は en-US AND ja 両方** |

@@ -282,5 +282,50 @@ done
 
 RevenueCat を Xcode プロジェクトに追加（RevenueCatUI は使わない — Rule 20）。
 
+## RC Test Store（E2E テスト用 — US-007 で使用）
+
+Source: [RevenueCat Test Store](https://www.revenuecat.com/docs/test-and-launch/sandbox/test-store)
+
+RC Test Store は StoreKit Configuration を不要にし、Maestro E2E で決済フローをテストできる。
+
+| 項目 | 値 |
+|------|-----|
+| 前提条件 | RC SDK >= 5.43.0, Test Store API Key |
+| 設定場所 | RC Dashboard → Project → App → Test Store |
+| テスト環境 | DEBUG ビルド + Simulator のみ |
+| StoreKit Configuration | **不要（禁止）** — RC Test Store が代替 |
+
+### xcconfig 設定（Debug のみ）
+
+```
+# Config/Debug.local.xcconfig
+REVENUECAT_API_KEY = <RC_IOS_PUBLIC_KEY from .env>
+```
+
+Info.plist で `RevenueCatAPIKey = $(REVENUECAT_API_KEY)` として読み込む。
+Test Store API Key は DEBUG 時のみ有効。Release ビルドでは通常の Public Key を使う。
+
+### Maestro での使い方
+
+```yaml
+# Payment success
+- tapOn:
+    id: "paywall_plan_monthly"
+- extendedWaitUntil:
+    visible: "Simulate Success"
+    timeout: 10000
+- tapOn: "Simulate Success"
+
+# Payment failure
+- tapOn:
+    id: "paywall_plan_monthly"
+- extendedWaitUntil:
+    visible: "Simulate Failure"
+    timeout: 10000
+- tapOn: "Simulate Failure"
+```
+
+詳細は `.claude/skills/maestro-ui-testing/SKILL.md` の RC Test Store セクションを参照。
+
 ## 次のステップ
 US-005b 完了後、US-006（実装）に進む。

@@ -22,7 +22,7 @@
 | 4 | 🟡 P1 | Harvest Phase（アプリ完成後の学習抽出）が未定義 | progress.txt の知見が次アプリに伝播しない | Post-US-009 | CLAUDE.md + SKILL.md |
 | 5 | 🟠 P2 | LLM-as-Judge（UI/UX 主観品質スコアリング）が未導入 | スクリーンショット・UI品質の自動評価ができない | US-008 Step 1 | `us-008-release.md` |
 | 6 | 🟠 P2 | A/B テスト基盤（Paywall バリアント）が未実装 | 単一バリアントのみ → 最適化不可 | US-006 | 将来の US として追加 |
-| 7 | 🟠 P2 | StoreKit Configuration ファイル検証が不十分 | ローカルテストでの Purchase フロー未検証 | US-007 | `us-007-testing.md` |
+| 7 | ✅ 解決済 | ~~StoreKit Configuration 検証不十分~~ → RC Test Store で代替 | Maestro E2E で Simulate Success/Failure テスト | US-007 | `us-007-testing.md` + `maestro-ui-testing` |
 | 8 | ⚪ P3 | CI/CD パイプライン（GitHub Actions）が未統合 | ローカルのみで検証 → 再現性リスク | 全US | 将来タスク |
 | 9 | ⚪ P3 | Crash-free rate モニタリング（Sentry/Crashlytics）が未記載 | Post-launch バグ検出が手動 | Post-US-009 | 将来タスク |
 | 10 | ⚪ P3 | App Store Connect API rate limiting 対策が未記載 | 大量 API 呼び出し時にスロットル | US-008 | `us-008-release.md` |
@@ -90,7 +90,7 @@
 | 観点 | 現状 | ベストプラクティス | ソース | ギャップ |
 |------|------|-------------------|--------|---------|
 | テストピラミッド | Unit 70% / Integration 20% / E2E 10% | ✅ 業界標準 | Martin Fowler Test Pyramid | なし |
-| StoreKit テスト | Products.storekit 存在チェック | 🟠 StoreKit Configuration の購入フロー検証が不十分 | Apple StoreKit Testing Docs | P2 Gap |
+| StoreKit テスト | RC Test Store + Maestro 6 flows | ✅ RC Test Store で Simulate Success/Failure（StoreKit Configuration 不要） | RevenueCat Test Store Docs | 解決済 |
 
 ### US-008: Release Preparation
 
