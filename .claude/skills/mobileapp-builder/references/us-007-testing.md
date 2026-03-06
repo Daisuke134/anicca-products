@@ -58,10 +58,13 @@ See maestro-ui-testing SKILL.md "Fix Loop" section.
 
 - `flows/` directory (use `maestro/`)
 - `xcodebuild test` (use `fastlane test`)
-- StoreKit Configuration file (use RC Test Store)
+- StoreKit Configuration file (use RC Test Store + `uiPreviewMode`)
+  ⚠️ RC Test Store (`test_` key) 単独ではシミュレータで offerings 取得不可。
+  us-005b の `uiPreviewMode` パターンが必須。詳細: us-005b-monetization.md
 - `point:` selectors (use `id:`)
 - Static `wait:` commands (use `extendedWaitUntil`)
 - Foundation Models references (Rule 21)
+- `"Simulate Success"` / `"Simulate Failure"` テキスト（旧API。RC SDK 5.60.0 では `"Test valid purchase"` / `"Test failed purchase"`）
 
 ## Gate (ALL must pass)
 

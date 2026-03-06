@@ -111,6 +111,16 @@ Required a11y IDs: `paywall_plan_monthly`, `paywall_plan_yearly`, `paywall_cta`,
 
 Onboarding key: `hasCompletedOnboarding` (全アプリ統一 — US-008a スクショ依存)
 
+### SubscriptionService 実装パターン（DEBUG uiPreviewMode 対応必須）
+
+⚠️ **us-005b-monetization.md の「SubscriptionService.configure() パターン」を必ず実装すること。**
+
+- `#if DEBUG` + `@_spi(Internal) import RevenueCat` + `DangerousSettings(uiPreviewMode: true)`
+- `purchase()` で cancel(1) / simulatedFailure(42) のみ re-throw、それ以外は成功
+- Release ビルドは通常の `entitlementVerificationMode: .informational`
+
+これがないと US-007 の Payment E2E テストが全て FAIL する（シミュレータ StoreKit バグ）。
+
 ## Step: Greenlight Loop (実装完了後)
 
 ```bash

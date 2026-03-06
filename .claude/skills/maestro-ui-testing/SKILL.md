@@ -272,16 +272,29 @@ Source: [RevenueCat Test Store](https://www.revenuecat.com/docs/test-and-launch/
 
 RC Test Store replaces StoreKit Configuration for E2E tests. No Apple sandbox credentials needed.
 
-**Prerequisites**: RC SDK >= 5.43.0, Test Store API Key (Debug only), Products + Offerings in RC Dashboard
+**Prerequisites**:
+- RC SDK >= 5.43.0
+- Test Store API Key (`test_` prefix, Debug only)
+- Products + Offerings in RC Dashboard
+- **`uiPreviewMode: true` in SubscriptionService.configure() (DEBUG builds)**
+  iOS 18.4+/26.x シミュレータでは StoreKit が products を返さない (GitHub #4954)。
+  RC SDK の SimulatedStoreProductsManager は Web Billing API を使うが Test Store products 未対応。
+  `uiPreviewMode` で mock products を生成して回避する。
+  詳細: `us-005b-monetization.md` の「SubscriptionService.configure() パターン」
+
+**Purchase dialog button labels** (RC SDK 5.60.0, `SimulatedStorePurchaseUI.swift`):
+- Success: `"Test valid purchase"` (⚠️ NOT "Simulate Success")
+- Failure: `"Test failed purchase"` (⚠️ NOT "Simulate Failure")
+- Cancel: `"Cancel"`
 
 ```yaml
 # Payment success test (monthly)
 - tapOn:
     id: "paywall_plan_monthly"
 - extendedWaitUntil:
-    visible: "Simulate Success"
+    visible: "Test valid purchase"
     timeout: 10000
-- tapOn: "Simulate Success"
+- tapOn: "Test valid purchase"
 - extendedWaitUntil:
     visible:
       id: "timer_countdown"    # Post-purchase screen
@@ -291,9 +304,9 @@ RC Test Store replaces StoreKit Configuration for E2E tests. No Apple sandbox cr
 - tapOn:
     id: "paywall_plan_monthly"
 - extendedWaitUntil:
-    visible: "Simulate Failure"
+    visible: "Test failed purchase"
     timeout: 10000
-- tapOn: "Simulate Failure"
+- tapOn: "Test failed purchase"
 - extendedWaitUntil:
     visible:
       id: "paywall_plan_monthly"  # Returns to paywall
@@ -468,7 +481,7 @@ maestro test --debug maestro/01-onboarding.yaml
 |---------|-----------|-----|
 | "Element not found: id: X" | a11y ID not set in Swift | Add `.accessibilityIdentifier("X")` + rebuild |
 | "Element not found: text: X" | Text changed or localized | Use `id:` selector instead |
-| Timeout on Simulate Success | RC Test Store not configured | Check API Key in Info.plist |
+| Timeout on "Test valid purchase" | RC Test Store not configured or uiPreviewMode missing | Check API Key in Info.plist + SubscriptionService.configure() uiPreviewMode pattern |
 | Flow passes locally, fails CI | Timing issue | Increase `extendedWaitUntil` timeout |
 
 **Remember**: The goal is **zero flakiness**. Every test should pass 100% of the time in CI. If a test is flaky, fix the test, not the retry count.

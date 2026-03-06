@@ -295,34 +295,86 @@ RC Test Store は StoreKit Configuration を不要にし、Maestro E2E で決済
 | テスト環境 | DEBUG ビルド + Simulator のみ |
 | StoreKit Configuration | **不要（禁止）** — RC Test Store が代替 |
 
-### xcconfig 設定（Debug のみ）
+### xcconfig 設定（Debug / Release 分離）
 
 ```
 # Config/Debug.local.xcconfig
-REVENUECAT_API_KEY = <RC_IOS_PUBLIC_KEY from .env>
+REVENUECAT_API_KEY = <RC_TEST_STORE_KEY>   ← test_ プレフィックスのキー
+
+# Config/Release.local.xcconfig
+REVENUECAT_API_KEY = <RC_IOS_PUBLIC_KEY>   ← appl_ プレフィックスのキー
 ```
 
 Info.plist で `RevenueCatAPIKey = $(REVENUECAT_API_KEY)` として読み込む。
-Test Store API Key は DEBUG 時のみ有効。Release ビルドでは通常の Public Key を使う。
+
+### SubscriptionService.configure() パターン（DEBUG + uiPreviewMode）
+
+iOS 18.4+/26.x シミュレータでは StoreKit が products を返さない（GitHub #4954）。
+RC SDK の `SimulatedStoreProductsManager` は Web Billing API を使うが Test Store products は未対応。
+**`uiPreviewMode` で StoreKit も Web Billing も迂回し、RC dashboard offerings から mock products を生成する。**
+
+```swift
+import Foundation
+#if DEBUG
+@_spi(Internal) import RevenueCat
+#else
+import RevenueCat
+#endif
+
+// configure() 内:
+#if DEBUG
+Purchases.logLevel = .debug
+let config = Configuration.Builder(withAPIKey: apiKey)
+    .with(dangerousSettings: DangerousSettings(uiPreviewMode: true))
+    .build()
+Purchases.configure(with: config)
+#else
+let config = Configuration.Builder(withAPIKey: apiKey)
+    .with(entitlementVerificationMode: .informational)
+    .build()
+Purchases.configure(with: config)
+#endif
+
+// purchase() 内（uiPreviewMode では customerInfo.entitlements が空のため）:
+#if DEBUG
+do {
+    _ = try await Purchases.shared.purchase(package: package)
+    return true
+} catch {
+    let errorCode = (error as NSError).code
+    // cancel(1) と simulated failure(42) のみ re-throw
+    if errorCode == 1 || errorCode == 42 { throw error }
+    return true  // 7944 (Product ID required) 等は成功扱い
+}
+#else
+let result = try await Purchases.shared.purchase(package: package)
+return result.customerInfo.entitlements["premium"]?.isActive == true
+#endif
+```
+
+Source:
+- RC SDK `OfferingsManager.swift` createPreviewProducts() — uiPreviewMode で mock 生成
+- RC SDK `SimulatedStorePurchaseUI.swift` — 購入ダイアログ表示
+- RC SDK `ProductsManagerFactory.swift` — test_ キーで SimulatedStoreProductsManager 選択
 
 ### Maestro での使い方
 
 ```yaml
-# Payment success
+# Payment success（ボタンテキスト: RC SDK 5.60.0 SimulatedStorePurchaseUI.swift）
 - tapOn:
     id: "paywall_plan_monthly"
 - extendedWaitUntil:
-    visible: "Simulate Success"
+    visible: "Test valid purchase"
     timeout: 10000
-- tapOn: "Simulate Success"
+- tapOn: "Test valid purchase"
 
 # Payment failure
 - tapOn:
     id: "paywall_plan_monthly"
 - extendedWaitUntil:
-    visible: "Simulate Failure"
+    visible: "Test failed purchase"
     timeout: 10000
-- tapOn: "Simulate Failure"
+- tapOn: "Test failed purchase"
 ```
 
 詳細は `.claude/skills/maestro-ui-testing/SKILL.md` の RC Test Store セクションを参照。
