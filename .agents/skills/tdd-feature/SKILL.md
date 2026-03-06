@@ -17,11 +17,16 @@ Use this skill when the user:
 - Wants AI to generate code that's provably correct
 - Is building a new module, service, or feature from scratch
 
-## Why TDD for New Features with AI
+## Canon TDD (Kent Beck)
+
+Source: [Kent Beck - Canon TDD](https://tidyfirst.substack.com/p/canon-tdd)
 
 ```
-Traditional:     AI generates code → You hope it's correct → Ship → Find bugs
-TDD with AI:     You write tests (spec) → AI generates code to pass → Proven correct
+1. Write a list of the test scenarios you want to cover
+2. Turn exactly one item on the list into an actual, concrete, runnable test
+3. Change the code to make the test (& all previous tests) pass
+4. Optionally refactor to improve the implementation design
+5. Until the list is empty, go back to #2
 ```
 
 The test is your **acceptance criteria in code form**. AI excels at going from failing test to passing implementation — it's a concrete, unambiguous target.
@@ -180,8 +185,7 @@ Follow the protocol FavoriteManaging."
 - **Run tests after each change**
 
 ```bash
-xcodebuild test -scheme YourApp \
-  -only-testing "YourAppTests/FavoriteManagerTests"
+fastlane test
 ```
 
 ### Phase 5: REFACTOR
@@ -316,11 +320,95 @@ All [X] tests passing.
 | Tests that test implementation | Brittle; break on refactor | Test behavior and outcomes only |
 | Skipping the refactor step | Accumulating technical debt | Refactor every 3-5 green cycles |
 | AI implementing beyond the tests | Untested code in production | Only implement what tests require |
-| Not running tests after each change | Silent regressions | `xcodebuild test` after every edit |
+| Not running tests after each change | Silent regressions | `fastlane test` after every edit |
+
+## iOS TDD Patterns
+
+### xcconfig Template Pattern
+
+Secrets (API keys) must never be hardcoded. Use xcconfig:
+
+```
+# Config/Debug.template.xcconfig (committed)
+REVENUECAT_API_KEY = YOUR_KEY_HERE
+
+# Config/Debug.local.xcconfig (gitignored, actual values)
+REVENUECAT_API_KEY = appl_OnzEebYgDRvF...
+```
+
+Add to Info.plist: `RevenueCatAPIKey = $(REVENUECAT_API_KEY)`
+
+Test: verify config reads from Info.plist, not hardcoded string.
+
+### Protocol-Based Dependency Injection
+
+Every service that talks to external systems must have a protocol:
+
+```swift
+protocol SubscriptionServiceProtocol {
+    func purchase(package: Package) async throws -> Bool
+    func restorePurchases() async throws
+    var isSubscribed: Bool { get }
+}
+
+// Production
+class SubscriptionService: SubscriptionServiceProtocol { ... }
+
+// Test
+class MockSubscriptionService: SubscriptionServiceProtocol {
+    var purchaseResult: Bool = true
+    func purchase(package: Package) async throws -> Bool { purchaseResult }
+    ...
+}
+```
+
+### Fastlane Build Commands
+
+```ruby
+# Fastfile lanes
+lane :test do
+  run_tests(scheme: APP_SCHEME, device: DEVICE)
+end
+
+lane :build do
+  build_app(scheme: APP_SCHEME, export_method: "app-store")
+end
+
+lane :build_for_simulator do
+  build_app(scheme: APP_SCHEME, configuration: "Debug",
+            destination: "generic/platform=iOS Simulator")
+end
+```
+
+Always use `fastlane test` / `fastlane build`. Never `xcodebuild` directly.
+
+### Parameterized Tests (Swift Testing)
+
+```swift
+@Test("validates all pain areas", arguments: PainArea.allCases)
+func validatePainArea(area: PainArea) {
+    #expect(!area.rawValue.isEmpty)
+    #expect(area.displayName.count > 0)
+}
+```
+
+### TDD Execution Order for iOS App
+
+```
+1. Models (pure data, no dependencies)
+2. Services (protocol + implementation, mock dependencies)
+3. ViewModels (depend on service protocols, inject mocks)
+4. Integration (real services, in-memory storage)
+```
+
+### Coverage Target
+
+80%+ line coverage. Check with: `fastlane test` + Xcode coverage report.
 
 ## References
 
+- [Kent Beck - Canon TDD](https://tidyfirst.substack.com/p/canon-tdd)
+- [Martin Fowler - Test Driven Development](https://martinfowler.com/bliki/TestDrivenDevelopment.html)
 - Kent Beck, *Test-Driven Development: By Example*
 - `testing/test-contract/` — for protocol-level test suites
 - `testing/test-data-factory/` — for reducing test setup boilerplate
-- `generators/test-generator/` — for standalone test generation
