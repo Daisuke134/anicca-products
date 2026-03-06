@@ -1,3 +1,19 @@
+## 2026-03-06 - US-008d: ASC compliance (age rating + encryption + rights + availability + pricing + review details)
+
+- Age Rating: 22項目セット完了 → appStoreAgeRating=FOUR_PLUS (gambling=false, healthOrWellnessTopics=true, 全NONE)
+- Review Details: demoAccountRequired=false, contact info set (asc CLI の details-update は bug あり → REST API PATCH で解決)
+- Availability: 175 territories → POST /v2/appAvailabilities with territoryAvailabilities (local ID format required)
+- Pricing: free tier price schedule created (USA base territory, manualPrices=1)
+- Encryption: ITSAppUsesNonExemptEncryption=false in Info.plist (US-005a から継続)
+- Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT → PATCH /v1/apps/{id} (appInfos にはない)
+- **Learnings for future iterations:**
+  - `asc pricing availability set` は territories の inline creation 形式エラーで使えない → POST /v2/appAvailabilities + territoryAvailabilities (local ID: `${ta0}`) を使う
+  - `contentRightsDeclaration` は appInfos ではなく apps リソースにある (PATCH /v1/apps/{id})
+  - `asc review details-update` は contactFirstName を CLI フラグで渡せないバグあり → REST API PATCH で直接更新
+  - 暗号化申告: ITSAppUsesNonExemptEncryption=NO の場合、Info.plist のみで OK（ASC encryption declarations create は不要）
+  - JWT 生成: Python `jwt` ライブラリ（PyJWT）が確実。openssl コマンドラインは失敗しやすい
+---
+
 ## 2026-03-06 - US-008c: IPA build + upload + version attach
 
 - BUILD_ID: 254413bc-bd9b-47ef-90b2-4134b3c9d3ad, processingState=VALID
@@ -23,6 +39,10 @@
 | asc screenshots list | Use `--version-localization LOC_ID` without quotes in shell vars |
 | ja localization creation | `asc localizations list` only returns en-US by default. Use ASC REST API POST to create ja: `POST /v1/appStoreVersionLocalizations {locale: "ja", appStoreVersion: {id: VERSION_ID}}` |
 | JWT for ASC API | Use key_id=646Y27MJ8C from /Users/anicca/.asc/config.json (NOT D637C7RGFN) |
+| JWT generation | Use Python `jwt` library (PyJWT): `jwt.encode(payload, key, algorithm='ES256', headers={...})`. openssl shell command fails |
+| App availability | `asc pricing availability set` broken → use `POST /v2/appAvailabilities` with `territoryAvailabilities` using local IDs `${ta0}`, `${ta1}`... |
+| Content Rights | `PATCH /v1/apps/{id}` with `contentRightsDeclaration`. NOT on appInfos |
+| Review Details update | `asc review details-update` bug (contactFirstName not sent) → use REST API `PATCH /v1/appStoreReviewDetails/{id}` |
 | asc auth key path | /Users/anicca/.appstoreconnect/private_keys/AuthKey_646Y27MJ8C.p8 |
 | MD5 check | Use `/usr/bin/openssl dgst -md5 <file>` (md5 command unavailable) |
 | App name conflict | "DeskStretch" taken by another account → use "Desk Stretch Timer" or variant |

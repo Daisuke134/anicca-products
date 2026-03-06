@@ -244,8 +244,8 @@
         "Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT"
       ],
       "priority": 8.4,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "2026-03-06: Age Rating 22項目セット(FOUR_PLUS確認). Review Details: demoAccountRequired=false, contactFirstName=Daisuke (REST API PATCH). Availability: 175 territories via POST /v2/appAvailabilities with territoryAvailabilities, availableInNewTerritories=true. Pricing: free tier price schedule created (USA base, manualPrices count=1). Encryption: ITSAppUsesNonExemptEncryption=false in Info.plist. Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT via PATCH /v1/apps/6760048397."
     },
     {
       "id": "US-008e",
