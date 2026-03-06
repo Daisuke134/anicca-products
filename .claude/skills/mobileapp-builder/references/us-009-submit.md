@@ -39,9 +39,8 @@ Source: apple-appstore-reviewer SKILL.md
 
 Source: rshankras WORKFLOW.md Phase 6 + rudrankriyam asc-release-flow
 
-## Skills to Read
-1. `.claude/skills/asc-submission-health/SKILL.md` — rudrankriyam: preflight
-2. `.claude/skills/asc-release-flow/SKILL.md` — rudrankriyam: submit
+## Source Skills (参考のみ — 読み込み不要。コマンドは下記に全てインライン)
+元ネタ: asc-submission-health, asc-release-flow
 
 ## Quality Gate (MANDATORY — US-008e 検証)
 ```bash

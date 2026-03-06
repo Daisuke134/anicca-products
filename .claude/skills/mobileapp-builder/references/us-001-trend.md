@@ -3,10 +3,8 @@
 Source: rshankras idea-generator SKILL.md
 URL: https://github.com/rshankras/claude-code-apple-skills/blob/main/skills/product/idea-generator/SKILL.md
 
-## Skills to Read
-1. `.claude/skills/idea-generator/SKILL.md` — 背景知識として参照（5-lens フレームワークの原典）
-2. `.claude/skills/apify-ultimate-scraper/SKILL.md` — TikTok ハッシュタグ定量データ（Lens 5）
-3. `.claude/skills/app-store-scraper/SKILL.md` — App Store 競合分析 + レビュー（Lens 4）
+## Source Skills (参考のみ — 読み込み不要。コマンドは下記に全てインライン)
+元ネタ: idea-generator, apify-ultimate-scraper, app-store-scraper
 
 ## Environment
 

@@ -3,9 +3,8 @@
 Source: rshankras product-agent
 URL: https://github.com/rshankras/claude-code-apple-skills/blob/main/skills/product/WORKFLOW.md
 
-## Skills to Read
-1. `.claude/skills/prd-generator/SKILL.md` — rshankras (PRD生成の参考構造)
-2. `.claude/skills/app-store-scraper/SKILL.md` — 競合分析用 iTunes API
+## Source Skills (参考のみ — 読み込み不要。コマンドは下記に全てインライン)
+元ネタ: prd-generator, app-store-scraper
 
 ## Input
 `spec/01-trend.md`（Rank 1 のアイデア）— 以下のフィールドを product-plan.md にマッピング:

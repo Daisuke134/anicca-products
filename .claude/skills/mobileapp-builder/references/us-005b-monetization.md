@@ -13,9 +13,8 @@ source ~/.config/mobileapp-builder/.env
 source ~/.config/mobileapp-builder/projects/<slug>/.env
 ```
 
-## Skills to Read (IN THIS ORDER)
-1. `.claude/skills/asc-ppp-pricing/SKILL.md` — rudrankriyam: 175カ国 pricing
-2. `.claude/skills/asc-subscription-localization/SKILL.md` — rudrankriyam: IAP + locale
+## Source Skills (参考のみ — 読み込み不要。コマンドは下記に全てインライン)
+元ネタ: asc-ppp-pricing, asc-subscription-localization
 
 ## Quality Gate (MANDATORY — US-005a の成果物検証)
 ```bash

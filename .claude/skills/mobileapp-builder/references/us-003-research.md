@@ -3,9 +3,8 @@
 Source: rshankras competitive-analysis + market-research
 URL: https://github.com/rshankras/claude-code-apple-skills/tree/main/skills/product
 
-## Skills to Read
-1. `.claude/skills/competitive-analysis/SKILL.md` — rshankras（競合分析フレームワーク）
-2. `.claude/skills/market-research/SKILL.md` — rshankras（TAM/SAM/SOM 方法論）
+## Source Skills (参考のみ — 読み込み不要。コマンドは下記に全てインライン)
+元ネタ: competitive-analysis, market-research
 
 ## Input → Output マッピング
 

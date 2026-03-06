@@ -2,19 +2,19 @@
 
 Source: rshankras WORKFLOW.md Phase 6 + rudrankriyam asc-* skills
 
-## Skills to Read (IN THIS ORDER)
-1. `.claude/skills/axe-ios-simulator/SKILL.md` — AXe UI navigation
-2. `.claude/skills/asc-shots-pipeline/SKILL.md` — rudrankriyam: screenshot pipeline
-3. `.claude/skills/release-review/SKILL.md` — rshankras: 5 checklists
-4. `.claude/skills/asc-metadata-sync/SKILL.md` — rudrankriyam: metadata
-5. `.claude/skills/asc-xcode-build/SKILL.md` — rudrankriyam: archive + export
-6. `.claude/skills/asc-release-flow/SKILL.md` — rudrankriyam: upload + TestFlight
-7. `.claude/skills/asc-submission-health/SKILL.md` — rudrankriyam: preflight 7 checks
+## Source Skills (参考のみ — 読み込み不要。コマンドは下記各 Step にインライン)
+元ネタ:
+- US-008a (Screenshots): axe-ios-simulator, asc-shots-pipeline
+- US-008b (Metadata): asc-metadata-sync
+- US-008c (Build+Upload): asc-xcode-build
+- US-008d (Compliance): asc-release-flow
+- US-008e (Preflight+TF): release-review, asc-submission-health
 
 ## Quality Gate (MANDATORY — US-007 検証)
 ```bash
 xcodebuild test -scheme <AppName> -destination "platform=iOS Simulator,id=$UDID" || { echo "GATE FAIL: tests broken"; exit 1; }
-test -f Products.storekit || { echo "GATE FAIL: no StoreKit config"; exit 1; }
+# StoreKit Configuration は不要（uiPreviewMode で代替。us-005b 参照）
+test $(ls maestro/*.yaml 2>/dev/null | wc -l) -ge 6 || { echo "GATE FAIL: need 6+ Maestro flows"; exit 1; }
 ```
 
 

@@ -2,11 +2,9 @@
 
 Source: rudrankriyam asc-* skills
 
-## Skills to Read (IN THIS ORDER)
-1. `.claude/skills/asc-signing-setup/SKILL.md` — rudrankriyam: 証明書
-2. `.claude/skills/asc-app-create-ui/SKILL.md` — rudrankriyam: ASC アプリ作成
-3. `.claude/skills/asc-subscription-localization/SKILL.md` — rudrankriyam: IAP + locale
-4. `.claude/skills/asc-ppp-pricing/SKILL.md` — rudrankriyam: 175カ国 pricing
+## Source Skills (参考のみ — 読み込み不要。コマンドは下記に全てインライン)
+元ネタ: asc-signing-setup, asc-app-create-ui (証明書・ASCアプリ作成)
+※ asc-subscription-localization, asc-ppp-pricing は US-005b で使用
 
 ## Quality Gate (MANDATORY — US-004 の成果物検証)
 ```bash
