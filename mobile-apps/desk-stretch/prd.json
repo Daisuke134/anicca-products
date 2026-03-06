@@ -257,8 +257,8 @@
         "Slack #metrics notified with TestFlight link"
       ],
       "priority": 8.5,
-      "passes": false,
-      "notes": "Greenlight GREENLIT (0 blocking). asc validate Errors=0. release-review 5 checklists ALL PASS. TestFlight WAITING_FOR_REVIEW. Public link: https://testflight.apple.com/join/78sH7CE9. Completed 2026-03-06. [reset: 1 US per iteration rule]"
+      "passes": true,
+      "notes": "Greenlight GREENLIT (0 blocking). asc validate Errors=0. release-review 5 checklists ALL PASS. TestFlight WAITING_FOR_BETA_REVIEW. Public link: https://testflight.apple.com/join/78sH7CE9. Re-verified 2026-03-06."
     },
     {
       "id": "US-009",

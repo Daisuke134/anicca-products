@@ -203,3 +203,14 @@
 - VERSION_ID=e90beeb7-64c2-4993-8cab-d5c07edc5d01, build attached confirmed via GET /v1/appStoreVersions/$VERSION_ID/build → 254413bc (VALID) ✅
 - All acceptance criteria PASS → passes: true
 ---
+
+## 2026-03-06 - US-008e: Preflight validation + TestFlight [RE-VERIFIED PASS]
+
+- Greenlight: passed=True, blocking=0 ✅
+- asc validate: Errors=0, Warnings=0, Blocking=0 ✅
+- release-review 5 checklists: ALL PASS (documented in previous run) ✅
+- TestFlight: externalBuildState=WAITING_FOR_BETA_REVIEW ✅
+- TestFlight public link: https://testflight.apple.com/join/78sH7CE9 ✅
+- Slack #metrics 報告完了 ✅
+- All acceptance criteria PASS → passes: true
+---
