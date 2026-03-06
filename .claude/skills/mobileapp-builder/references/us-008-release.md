@@ -42,10 +42,56 @@ echo "✅ Greenlight ASC scan passed"
 ### PROHIBITED
 - ⛔ ASC scan が失敗したまま passes:true にするな
 
+## Step 0b: Localization File Check (MANDATORY — before screenshots)
+
+Source: Apple Developer Documentation
+https://developer.apple.com/documentation/xcode/localizing-and-varying-text-with-a-string-catalog
+> 「Use a string catalog to translate text, handle plurals, and vary the text your app displays on specific devices.」
+
+Source: fline.dev — The Missing String Catalogs FAQ
+https://www.fline.dev/the-missing-string-catalogs-faq-for-xcode-15/
+> 「Xcode automatically extracts any added localizations from your source code, the source of truth for your localizations is reversed here and lies in your code.」
+
+**ja スクショが英語になる原因は `.xcstrings` が存在しないこと。**
+`String(localized:)` を使っていても翻訳ファイルがなければフォールバック（= 英語）のまま。
+
+```bash
+# .xcstrings の存在チェック
+XCODE_DIR=$(find . -name "*.xcodeproj" -maxdepth 2 | head -1 | xargs dirname)
+XCSTRINGS=$(find "$XCODE_DIR" -name "*.xcstrings" -not -path "*/build/*" -not -path "*/.build/*" -not -path "*/SourcePackages/*" | head -1)
+
+if [ -z "$XCSTRINGS" ]; then
+  echo "⚠️ .xcstrings not found — ja screenshots will show English"
+  echo "Creating Localizable.xcstrings with Japanese translations..."
+
+  # 1. 全 String(localized:) キーを収集
+  KEYS=$(grep -rh 'String(localized: "' "$XCODE_DIR" --include="*.swift" 2>/dev/null \
+    | sed 's/.*String(localized: "\([^"]*\)".*/\1/' | sort -u)
+
+  # 2. Localizable.xcstrings を生成（sourceLanguage: en, ja 翻訳付き）
+  # CCが各キーの日本語翻訳を作成し、JSON形式で書き出す
+  # 3. Xcode プロジェクトに追加（XcodeGen なら project.yml に追加 → xcodegen generate）
+  # 4. 再ビルド + 再インストール
+  echo "✅ Localizable.xcstrings created — rebuild required"
+fi
+```
+
+### PROHIBITED
+- ⛔ `.xcstrings` なしで ja スクショを撮って passes:true にするな
+- ⛔ `.lproj/Localizable.strings` は使わない（Xcode 15+ は `.xcstrings` が標準）
+
 ## Step 1: Screenshots（ロケール別キャプチャ + ASC アップロード）
 
 Source: asc-shots-pipeline SKILL.md Section 3-6
-Verified: 2026-03-04 Chi Daily 実機テスト済み — en-US 4枚 + ja 4枚 = 8枚 COMPLETE
+Verified: 2026-03-06 DeskStretch 実機テスト済み — en-US 4枚 + ja 4枚 = 8枚 COMPLETE
+
+### スクショ保存先（明示）
+```bash
+# $APP_DIR = ralph.sh の作業ディレクトリ（例: mobile-apps/desk-stretch）
+# スクショは $APP_DIR/screenshots/raw/{en-US,ja}/ に保存する（worktree内ではない）
+SCREENSHOTS_DIR="$APP_DIR/screenshots/raw"
+mkdir -p "$SCREENSHOTS_DIR/en-US" "$SCREENSHOTS_DIR/ja"
+```
 
 ### 使用デバイス（固定）
 - **iPhone 17 Pro** シミュレータ: 1206×2622 → **APP_IPHONE_61** ✅
@@ -79,11 +125,18 @@ Source: AXe GitHub (https://github.com/cameroncooke/AXe)
 ```bash
 mkdir -p screenshots/raw/en-US screenshots/raw/ja
 
-# en-US ロケール設定
+# en-US ロケール設定 + 完全リセット
+# Source: Stack Overflow — "NSUserDefaults not cleared after app uninstall on simulator"
+# https://stackoverflow.com/questions/24985825/nsuserdefaults-not-cleared-after-app-uninstall-on-simulator
+# ⚠️ `defaults write hasCompletedOnboarding -bool false` は効かないケースがある
+# ⚠️ `simctl uninstall` しても UserDefaults が残る場合がある
+# → `defaults delete $BUNDLE_ID` で全キー削除が最も確実
+xcrun simctl terminate $UDID $BUNDLE_ID 2>/dev/null
+xcrun simctl spawn $UDID defaults delete $BUNDLE_ID 2>/dev/null || true
 xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLanguages -array "en"
 xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLocale "en_US"
-xcrun simctl spawn $UDID defaults write $BUNDLE_ID hasCompletedOnboarding -bool false
-xcrun simctl shutdown $UDID && sleep 2 && xcrun simctl boot $UDID && sleep 3
+xcrun simctl uninstall $UDID $BUNDLE_ID 2>/dev/null || true
+xcrun simctl install $UDID "$APP_PATH"
 xcrun simctl launch $UDID $BUNDLE_ID
 sleep 3
 
@@ -125,11 +178,16 @@ asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$
 ### 1c: ja キャプチャ（4画面 — 1b と同じ axe tap --label 手順）
 
 ```bash
-# ja ロケール切替
+# ja ロケール切替 + 完全リセット
+# Source: Stack Overflow — "NSUserDefaults not cleared after app uninstall on simulator"
+# https://stackoverflow.com/questions/24985825/nsuserdefaults-not-cleared-after-app-uninstall-on-simulator
+# → `defaults delete` + uninstall + 再インストールが最も確実
+xcrun simctl terminate $UDID $BUNDLE_ID 2>/dev/null
+xcrun simctl spawn $UDID defaults delete $BUNDLE_ID 2>/dev/null || true
 xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLanguages -array "ja"
 xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLocale "ja_JP"
-xcrun simctl spawn $UDID defaults write $BUNDLE_ID hasCompletedOnboarding -bool false
-xcrun simctl shutdown $UDID && sleep 2 && xcrun simctl boot $UDID && sleep 3
+xcrun simctl uninstall $UDID $BUNDLE_ID 2>/dev/null || true
+xcrun simctl install $UDID "$APP_PATH"
 xcrun simctl launch $UDID $BUNDLE_ID
 sleep 3
 
@@ -233,9 +291,12 @@ echo "✅ Screenshots: en-US=$EN_COUNT, ja=$JA_COUNT"
 ⚠️ US-005b Step 6.6 から移動。アプリ実装後（US-006 完了後）でないと Paywall 画面が存在しない。
 
 ```bash
-# Paywall 画面を表示するためオンボーディングをリセット
-xcrun simctl spawn "$UDID" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool false
-xcrun simctl terminate "$UDID" "$BUNDLE_ID"; sleep 1
+# Paywall 画面を表示するためオンボーディングを完全リセット
+# ⚠️ `defaults write false` は効かない場合がある → `defaults delete` を使う
+xcrun simctl terminate "$UDID" "$BUNDLE_ID" 2>/dev/null
+xcrun simctl spawn "$UDID" defaults delete "$BUNDLE_ID" 2>/dev/null || true
+xcrun simctl uninstall "$UDID" "$BUNDLE_ID" 2>/dev/null || true
+xcrun simctl install "$UDID" "$APP_PATH"
 xcrun simctl launch "$UDID" "$BUNDLE_ID"; sleep 3
 
 # オンボーディング最終画面（= Paywall）まで axe tap --label で遷移
@@ -372,10 +433,11 @@ Source: asc-testflight-orchestration skill (https://github.com/rudrankriyam/app-
 
 ```bash
 # Attach build to version
-# ⚠️ `asc builds attach` は存在しない。REST API を使う:
-# PATCH /v1/appStoreVersions/$VERSION_ID/relationships/build
-# body: { "data": { "type": "builds", "id": "$BUILD_ID" } }
-# JWT 生成には PyJWT を使う（openssl コマンドは失敗しやすい）
+# ⚠️ `asc builds attach` は存在しない。`asc versions attach-build` を使う:
+# Source: asc CLI v0.36.3 `asc versions --help`
+# Source: Apple ASC API — https://developer.apple.com/documentation/appstoreconnectapi/patch-v1-appstoreversions-_id_-relationships-build
+# > 「Change the build that is attached to a specific App Store version.」
+asc versions attach-build --version-id "$VERSION_ID" --build "$BUILD_ID"
 
 # 9a: Beta group 作成（存在しなければ）
 asc testflight beta-groups create --app $APP_ID --name "External Testers"
