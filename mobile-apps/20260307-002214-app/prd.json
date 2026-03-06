@@ -167,8 +167,8 @@
         "Typecheck passes"
       ],
       "priority": 6.4,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "DESIGN_SYSTEM tokens applied to all Views (AppColors/AppTypography/AppSpacing/AppAnimations). Color.accentColor=0, .secondary/.tertiary raw=0 in Views. TimerRing: timer_ring + timer_time_label a11y IDs added. AccessibilityID: paywall_package_weekly added for 3-plan model. PackageCardView: packageType-based a11y ID mapping. Localizable.xcstrings: 40+ strings in en-US + ja. PrivacyInfo.xcprivacy CA92.1 confirmed. fastlane test: 96 tests, 0 failures. fastlane build: Succeeded. Gate checks: Mock=0, RevenueCat=8, RevenueCatUI=0, AI=0, Analytics=0, ATT=0, hardcoded key=0. AC1-7 all PASS."
     },
     {
       "id": "US-006-R",

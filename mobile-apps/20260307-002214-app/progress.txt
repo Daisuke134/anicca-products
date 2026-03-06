@@ -28,6 +28,44 @@
 | EnvironmentObject for services | TimerService/SubscriptionService は @EnvironmentObject で注入。View 内の ViewModel は StateObject の軽量コンテナのみ |
 | DesignSystem directory | AppColors, AppTypography, AppSpacing, AppCornerRadius, AppAnimations は `DesignSystem/` に集約。Components/ にPrimaryButton等 |
 | Test target RevenueCat dependency | テストターゲットで RevenueCat.Package を使うには project.yml に RevenueCat パッケージ依存を追加必須 |
+| PrimaryButton reuse | OnboardingView の Next/Allow Notifications ボタンは PrimaryButton コンポーネントを直接使う。手動で Button を組むより統一的 |
+| PackageCardView a11y mapping | 3-plan model (weekly/monthly/annual) では packageType ベースで a11y ID を振り分ける。isAnnual bool だけでは不十分 |
+| NSLocalizedString for PrimaryButton | PrimaryButton の title は String 型。LocalizedStringKey ではなく NSLocalizedString() でラップして渡す |
+
+---
+
+## 2026-03-07 - US-006d: TDD Polish (DESIGN_SYSTEM tokens, a11y IDs, Localization) (COMPLETE)
+
+- **Status: COMPLETE — all AC verified with evidence**
+- **Evidence:**
+  - AC1: `grep -r 'Color\.accentColor' Views/ → 0`, `grep -rE 'foregroundStyle\(\.(secondary|tertiary)\)' Views/ → 0` PASS
+  - AC2: All 31 a11y IDs in AccessibilityID.swift match UX_SPEC §7 + weekly extension PASS
+  - AC3: `grep -q "CA92.1" PrivacyInfo.xcprivacy → PASS`
+  - AC4: `test -f Localizable.xcstrings → PASS` (40+ strings, en-US + ja)
+  - AC5: `fastlane test → 96 tests, 0 failures` PASS
+  - AC6: `fastlane build → Build Succeeded` PASS
+  - AC7: Typecheck passes (build compiles) PASS
+- **Gate checks:**
+  - Mock count in production: 0 PASS
+  - RevenueCat imports: 8, RevenueCatUI imports: 0 PASS
+  - AI API imports: 0 PASS
+  - Analytics SDK: 0 PASS
+  - ATT: 0 PASS
+  - Hardcoded API key: 0 PASS
+  - PrivacyInfo CA92.1: confirmed PASS
+- **Files created:**
+  - `EyeBreakIslandios/EyeBreakIsland/Resources/Localizable.xcstrings` — 40+ strings (en-US + ja)
+- **Files modified:**
+  - `EyeBreakIslandios/EyeBreakIsland/Views/Onboarding/OnboardingView.swift` — PrimaryButton reuse, AppColors/AppSpacing/AppAnimations tokens
+  - `EyeBreakIslandios/EyeBreakIsland/Views/Onboarding/OnboardingPageView.swift` — AppColors/AppTypography/AppSpacing tokens
+  - `EyeBreakIslandios/EyeBreakIsland/Views/Onboarding/PaywallView.swift` — Full DESIGN_SYSTEM token pass, PrimaryButton/SecondaryButton reuse, PackageCardView packageType a11y mapping
+  - `EyeBreakIslandios/EyeBreakIsland/DesignSystem/Components/TimerRing.swift` — timer_ring + timer_time_label a11y IDs, AppAnimations.timerTick
+  - `EyeBreakIslandios/EyeBreakIsland/Models/AccessibilityID.swift` — paywall_package_weekly added
+  - `EyeBreakIslandios/project.yml` — developmentLanguage: en
+- **Learnings for future iterations:**
+  - PrimaryButton コンポーネントを再利用すると OnboardingView の nextButton/notificationButton がシンプルになる
+  - 3-plan model では PackageCardView の a11y ID を packageType switch で振り分ける
+  - NSLocalizedString() は PrimaryButton(title: String) に渡す場合に必要
 
 ---
 
