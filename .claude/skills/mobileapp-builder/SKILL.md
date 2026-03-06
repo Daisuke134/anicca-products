@@ -27,25 +27,25 @@ Source: rshankras ProductAgent WORKFLOW.md + snarktank/ralph
 
 | US | Phase | What | Skills | Reference |
 |----|-------|------|--------|-----------|
-| US-001 | Idea Discovery | Trend research + idea selection | `idea-generator` + trend-hunter | `references/us-001-trend.md` |
+| US-001 | Idea Discovery | Trend research + idea selection | `idea-generator` | `references/us-001-trend.md` |
 | US-002 | Product Planning | Problem validation + MVP + positioning | `prd-generator` | (output: product-plan.md) |
-| US-003 | Market Research | Competitive analysis + TAM/SAM/SOM | `competitive-analysis` + `market-research` | (output: competitive-analysis.md + market-research.md) |
+| US-003 | Market Research | Competitive analysis + TAM/SAM/SOM | `competitive-analysis` | `references/us-003-research.md` |
 | US-004a | Core Spec | PRD, ARCH, IMPL, TEST, RELEASE 生成 | `implementation-spec` | `references/us-004-specs.md` |
 | US-004b | UX Spec | UX_SPEC, DESIGN_SYSTEM 生成 | `ios-ux-design` | `references/us-004-specs.md` |
 | US-004-R | Spec Review | 全7ドキュメントレビュー → CRITICAL=0 | code-quality-reviewer (subagent) | `references/us-004-specs.md` |
 | US-005a | Infrastructure | Privacy Policy + ASC app creation | `asc-cli-usage` | `references/us-005a-infra.md` |
-| US-005b | Monetization | IAP + pricing + RC project + offerings | `asc-ppp-pricing` + RC API v2 (curl) | `references/us-005b-monetization.md` |
+| US-005b | Monetization | IAP + pricing + RC project + offerings | `asc-ppp-pricing` | `references/us-005b-monetization.md` |
 | US-006a | TDD Data Layer | xcconfig, Protocol DI, Models, Services | `tdd-feature` | `references/us-006-implement.md` |
 | US-006b | TDD Onboarding + Monetization | MVVM分割, Onboarding, PaywallView | `tdd-feature` | `references/us-006-implement.md` |
 | US-006c | TDD Core Screens | Timer, Settings, ProgressDashboard | `tdd-feature` | `references/us-006-implement.md` |
 | US-006d | TDD Polish | DESIGN_SYSTEM tokens, a11y IDs, Localization | `tdd-feature` | `references/us-006-implement.md` |
 | US-006-R | Code Review | 006a-d 全体レビュー → CRITICAL=0 | code-quality-reviewer (subagent) | `references/us-006-implement.md` |
 | US-007 | Testing | Maestro E2E (6 flows + Fix Loop) | `maestro-ui-testing` (RC Test Store + Fix Loop) | `references/us-007-testing.md` |
-| US-008a | Screenshots | Capture + upload + review screenshots (en-US + ja) | `axe-ios-simulator` + `asc-shots-pipeline` | `references/us-008-release.md` Steps 1a-1h |
+| US-008a | Screenshots | Capture + upload + review screenshots (en-US + ja) | `asc-shots-pipeline` | `references/us-008-release.md` Steps 1a-1h |
 | US-008b | Metadata | ASC metadata sync (en-US + ja) | `asc-metadata-sync` | `references/us-008-release.md` Step 2 |
-| US-008c | Build + Upload | IPA build + upload + version attach | `asc-xcode-build` + `asc-build-lifecycle` | `references/us-008-release.md` Step 3 |
+| US-008c | Build + Upload | IPA build + upload + version attach | `asc-xcode-build` | `references/us-008-release.md` Step 3 |
 | US-008d | Compliance | Age rating + encryption + rights + availability + pricing + review details | `asc-release-flow` | `references/us-008-release.md` Steps 4-6 |
-| US-008e | Preflight + TF | release-review + validate + TestFlight + Slack | `release-review` + `asc-testflight-orchestration` | `references/us-008-release.md` Steps 7-10 |
+| US-008e | Preflight + TF | release-review + validate + TestFlight + Slack | `release-review` | `references/us-008-release.md` Steps 7-10 |
 | US-009 | Submit | App Privacy (auto: asc web privacy) + submit → WAITING_FOR_REVIEW | `asc-submission-health` | `references/us-009-submit.md` |
 
 

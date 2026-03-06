@@ -66,7 +66,7 @@ echo "=========================================="
 echo ""
 echo "--- Gate 1: Greenlight Preflight ---"
 TOTAL_GATES=$((TOTAL_GATES + 1))
-if [ "$(us_passes US-006)" = "true" ]; then
+if [ "$(us_passes US-006-R)" = "true" ]; then
   XCODE_DIR=$(find "$APP_DIR" -name "*.xcodeproj" -maxdepth 2 | head -1 | xargs dirname 2>/dev/null || echo "")
   if [ -n "$XCODE_DIR" ] && command -v greenlight &>/dev/null; then
     GL_OUTPUT=$(greenlight preflight "$XCODE_DIR" --format json 2>/dev/null || echo '{"summary":{"critical":999}}')
@@ -80,7 +80,7 @@ if [ "$(us_passes US-006)" = "true" ]; then
     log_skip "greenlight not found or no .xcodeproj"
   fi
 else
-  log_skip "US-006 not yet passed"
+  log_skip "US-006-R not yet passed"
 fi
 
 ##############################################

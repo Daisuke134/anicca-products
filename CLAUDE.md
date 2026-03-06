@@ -65,7 +65,7 @@
 | API | Node.js/Express (Railway) |
 | DB | PostgreSQL/Prisma |
 | 決済 | RevenueCat ($9.99/月, $49.99/年) |
-| 分析 | Mixpanel |
+| 分析 | Mixpanel（Anicca専用。mobileapp-builder factory アプリには入れない — Rule 12/17） |
 | E2E | Maestro |
 | Agent | OpenClaw（詳細: `agent_docs/openclaw_integration.md`） |
 

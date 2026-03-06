@@ -13,9 +13,9 @@
 
 ---
 
-## Phase C 進捗状況（2026-03-06 時点）
+## Phase C 進捗状況（2026-03-06 最終版）
 
-### DONE（コミット済み・push済み）
+### ALL DONE
 
 | # | 項目 | コミット | 内容 |
 |---|------|---------|------|
@@ -30,25 +30,33 @@
 | 9 | CLAUDE.md 更新 | `524a5ddd` | セッション分割反映 |
 | 10 | prd.json US-007 AC 更新 | `524a5ddd` | 6 Maestro flows 反映 |
 | 11 | best-practices-audit.md 更新 | `524a5ddd` | Gap #7 解決済みに変更 |
+| 12 | Fix Loop 修正 | `5fabee9b` | us-007: 重複削除、maestro skill: 上限なし |
+| 13 | "読まなくても" → "MUST READ" | `5fabee9b` | us-001, us-003, us-004 の3ファイル |
+| 14 | SKILL.md 004-R, 006-R 追加 | `5fabee9b` | US表に review フェーズ行追加 |
+| 15 | us-004 Mixpanel 警告削除 | `5fabee9b` | SKILL.md Rule 12 で十分 |
+| 16 | prd.json 20分割 | (本コミット) | US-004→3分割、US-006→5分割、計20エントリ |
+| 17 | 1US=1スキル統合 | (本コミット) | US-001,003,005b,008a,008c,008e を単一スキルに |
+| 18 | CLAUDE.md Mixpanel 注記 | (本コミット) | 「Anicca専用。factory アプリには入れない」追記 |
+| 19 | validate.sh 20セッション対応 | (本コミット) | US-006 → US-006-R に変更 |
+| 20 | 34件トレーサビリティ検証 | (本コミット) | 全34件 PASS（下記参照） |
 
-### NOT DONE（未解決問題 — 14件）
+### Fat→Thin レシピ（DEFERRED to Phase E）
 
-| # | 問題 | ファイル:行 | 修正内容 | カテゴリ |
-|---|------|-----------|---------|---------|
-| 1 | Fix Loop "Max 3 retries → BLOCKED" | `us-007-testing.md:61` | 削除。スキルに書いてある内容をレシピで重複するな | レシピ/スキル重複 |
-| 2 | Fix Loop "Max 3 retries → BLOCKED" | `maestro-ui-testing/SKILL.md:449-450` | 上限なし。全フロー PASS するまで繰り返す | スキル修正 |
-| 3 | "読まなくても実行可能" | `us-001-trend.md:21` | "MUST READ" に変更 | レシピ修正 |
-| 4 | "読まなくても実行可能" | `us-003-research.md:27` | "MUST READ" に変更 | レシピ修正 |
-| 5 | "読まなくても実行可能" | `us-004-specs.md:7` | "MUST READ" に変更 | レシピ修正 |
-| 6 | prd.json US-004 未分割 | `prd.json` | 1エントリ → 3: 004a, 004b, 004-R | prd.json 構造変更 |
-| 7 | prd.json US-006 未分割 | `prd.json` | 1エントリ → 5: 006a, 006b, 006c, 006d, 006-R | prd.json 構造変更 |
-| 8 | SKILL.md に 004-R, 006-R 欠落 | `SKILL.md` US表 | 004-R (code-quality-reviewer), 006-R (code-quality-reviewer) 追加 | SKILL.md 修正 |
-| 9 | 1 US = 複数スキル違反 | `SKILL.md` US表 | US-003, 008a, 008c, 008e が複数スキル。1 US = 1 スキルに統合 | アーキテクチャ |
-| 10 | Fat レシピ（手順がスキルでなくレシピに書かれている） | us-001, us-002, us-003, us-005a, us-005b, us-008, us-009 | 手順をスキルに移動。レシピは「スキル読め + 変数 + Gate」のみ | アーキテクチャ |
-| 11 | Mixpanel 記載 | `CLAUDE.md(root):68` | mobileapp-builder セッションが Anicca 用 Mixpanel と混同する | 環境汚染 |
-| 12 | Mixpanel 警告セクション | `us-004-specs.md:27-30` | 不要。SKILL.md Rule 12 で十分 | 重複削除 |
-| 13 | 34件トレーサビリティ検証 | 全レシピ | §6 の TODO 34件が実際のファイルに反映済みか確認 | 検証 |
-| 14 | validate.sh 新フェーズ対応 | `validate.sh` | 20セッション構成（004a/b/R, 006a/b/c/d/R）に対応 | validate.sh |
+| レシピ | 行数 | 状態 | 理由 |
+|--------|------|------|------|
+| us-006-implement.md | 161 | THIN | スキル参照 + 変数 + Gate のみ |
+| us-007-testing.md | 94 | THIN | スキル参照 + 変数 + Gate のみ |
+| us-005a-infra.md | 151 | THIN | 十分薄い |
+| us-005b-monetization.md | 332 | THICK | RC API v2 curl 手順。rc-monetization-setup スキル作成で thin 化可能 |
+| us-001-trend.md | 380 | THICK | 5-Lens 手順。外部スキル idea-generator を補完するファクトリー固有手順 |
+| us-002-planning.md | 246 | THICK | 4-Agent 手順。外部スキル prd-generator を補完 |
+| us-003-research.md | 292 | THICK | iTunes API + TAM/SAM/SOM。外部スキル competitive-analysis を補完 |
+| us-008-release.md | 393 | THICK | AXe + ASC CLI 手順。asc-shots-pipeline スキルと一部重複 |
+| us-009-submit.md | 133 | THIN | 十分薄い |
+
+**判断:** THICK レシピの手順は外部スキル（rshankras等）を補完するファクトリー固有コンテンツ。
+新規ラッパースキル作成は Phase E（新アプリ検証）で実際に走らせた後に判断する。
+現時点で重複している内容（us-008 内の asc-shots-pipeline 手順等）は Phase E で特定・除去する。
 
 ### アーキテクチャ原則（Phase C 残作業の指針）
 
@@ -65,7 +73,7 @@ Phase A: SDD Spec（修正仕様書を書く — 3セッション）      ← De
     |
 Phase B: TDD Fix（仕様に従って修正する — 6セッション）    ← DeskStretch 固有
     |
-Phase C: レシピ更新（学びを skills + references/ に反映） ← 部分完了（11/25 DONE）
+Phase C: レシピ更新（学びを skills + references/ に反映） ← 完了（20/20 DONE + fat→thin DEFERRED）
     |
 Phase D: DeskStretch US-008a〜009 完走                    ← 未着手
     |
@@ -406,7 +414,46 @@ tags:
 
 ## 6. Phase C: レシピ更新（学びの反映 — 34件 + 14件未解決）
 
-**進捗:** 11/25 DONE。残り14件は冒頭「Phase C 進捗状況 > NOT DONE」参照。
+**進捗:** 20/20 DONE。Fat→thin は Phase E に DEFERRED（冒頭「Phase C 進捗状況」参照）。
+
+### 34件トレーサビリティ検証結果（ALL PASS）
+
+| # | TODO | 検証先ファイル | 結果 |
+|---|------|--------------|------|
+| 1 | Skill references 複数→1 | SKILL.md US表 | PASS: 全US が 1スキル |
+| 2 | 変数セクション追加 | us-006:7-15, us-007:9-15 | PASS |
+| 3 | Gate 0 追加 | us-006:17-24, us-007:17-22 | PASS |
+| 4 | build → fastlane build | us-006:137-138 | PASS |
+| 5 | test → fastlane test | us-006:141 | PASS |
+| 6 | all-test → maestro test maestro/ | us-007:73 | PASS |
+| 7 | xcodegen generate | us-006:61-65 | PASS |
+| 8 | Fastfile テンプレート | tdd-feature SKILL.md | PASS: スキルに Fastlane lanes 記載 |
+| 9 | env vars | tdd-feature SKILL.md | PASS: スキルに env 設定記載 |
+| 10 | TestTarget Info.plist | us-006:70 | PASS: GENERATE_INFOPLIST_FILE: YES |
+| 11 | StoreKit Configuration 削除 | us-005b:296, us-007:61 | PASS: 禁止明記 |
+| 12 | RC Test Store 手順 | us-005b:285-328 | PASS |
+| 13 | Products.storekit 削除 | us-005b:296 | PASS |
+| 14 | TDD→006統合 | us-006:1,59 | PASS: Title + Canon TDD |
+| 15 | Unit/Int を実装中に | us-006:59 | PASS: RED→GREEN→REFACTOR |
+| 16 | 実行順序 | us-006:28 | PASS: Models→Services→ViewModels→Integration |
+| 17 | Swift Testing | tdd-feature SKILL.md:82-141 | PASS: @Test, #expect, @Suite |
+| 18 | Parameterized tests | tdd-feature SKILL.md:385 | PASS |
+| 19 | Coverage 80%+ | tdd-feature SKILL.md:406 | PASS |
+| 20 | maestro/ ディレクトリ | us-007:59 | PASS |
+| 21 | clearState+clearKeychain | us-007:42-43, 79-82 | PASS |
+| 22 | extendedWaitUntil | us-007:45-48 | PASS: 30000ms |
+| 23 | takeScreenshot | us-007:50, 84-87 | PASS |
+| 24 | id: selectors | us-007:62, maestro SKILL.md | PASS |
+| 25 | tags | us-007:26-33 | PASS |
+| 26 | maestro test maestro/ | us-007:73 | PASS |
+| 27 | CI timeout 30000ms | us-007:47, maestro SKILL.md | PASS |
+| 28 | FoundationModels 削除 | us-004:72-73, 223, 396 | PASS: Rule 21 enforcement |
+| 29 | Performance < 500ms | us-004: Rule 21 全体 | PASS: AI generation 自体を禁止 |
+| 30 | テスト名 testGenerate | us-004: Rule 21 全体 | PASS: AI Service 自体を禁止 |
+| 31 | code-quality-reviewer 独立 | SKILL.md US表, prd.json | PASS: 004-R, 006-R |
+| 32 | Edge Case→Test mapping | us-004:58, 481 | PASS: Feature ID→Test 相互参照 |
+| 33 | Mock grep 精度 | us-006:144 | PASS: grep -rw 'class Mock' |
+| 34 | セッション分割 | SKILL.md, prd.json | PASS: 20エントリ |
 
 ### 更新対象ファイル
 
@@ -635,7 +682,7 @@ mobileapp-builder/
 | レシピ改善 TODO | 34件 + デザインスキル統合 + mau.md ルール |
 | Phase A（SDD Spec） | 3セッション（004a, 004b, 004-R） |
 | Phase B（TDD Fix） | 6セッション（006a, 006b, 006c, 006d, 006-R, 007） |
-| Phase C（レシピ更新） | **11/25 DONE**。未解決14件は「Phase C 進捗状況」参照 |
+| Phase C（レシピ更新） | **20/20 DONE**。Fat→thin は Phase E に DEFERRED |
 | Phase D（DeskStretch 完走） | US-008a〜009 |
 | Phase E（新アプリ検証） | ralph.sh フル実行（20セッション） |
 | Phase F（Cron） | 15:00 JST 自動実行 |

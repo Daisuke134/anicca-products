@@ -45,19 +45,41 @@
       "notes": ""
     },
     {
-      "id": "US-004",
-      "title": "Spec generation",
+      "id": "US-004a",
+      "title": "Core Spec (PRD, ARCHITECTURE, IMPLEMENTATION_GUIDE)",
       "acceptanceCriteria": [
         "docs/PRD.md exists and contains app_name, bundle_id, subscription prices",
         "docs/ARCHITECTURE.md exists",
+        "docs/IMPLEMENTATION_GUIDE.md exists and references RevenueCat SDK (not Mock)",
+        "Typecheck passes"
+      ],
+      "priority": 4.1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-004b",
+      "title": "UX Spec (UX_SPEC, DESIGN_SYSTEM, TEST_SPEC, RELEASE_SPEC)",
+      "acceptanceCriteria": [
         "docs/UX_SPEC.md exists",
         "docs/DESIGN_SYSTEM.md exists",
-        "docs/IMPLEMENTATION_GUIDE.md exists and references RevenueCat SDK (not Mock)",
         "docs/TEST_SPEC.md exists",
         "docs/RELEASE_SPEC.md exists",
         "Typecheck passes"
       ],
-      "priority": 4,
+      "priority": 4.2,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-004-R",
+      "title": "Spec Review (all 7 documents)",
+      "acceptanceCriteria": [
+        "code-quality-reviewer subagent run on all 7 docs",
+        "CRITICAL findings = 0",
+        "All blocking issues resolved"
+      ],
+      "priority": 4.3,
       "passes": false,
       "notes": ""
     },
@@ -82,7 +104,7 @@
         "asc subscriptions list --group $GROUP_ID returns monthly + annual products",
         "asc subscriptions prices list --id $MONTHLY_ID returns 175 prices",
         "RevenueCat dashboard shows 2 products + 1 offering",
-        "SPM dependency on RevenueCat added (RevenueCatUI 禁止 — Rule 20)",
+        "SPM dependency on RevenueCat added (RevenueCatUI prohibited -- Rule 20)",
         "Typecheck passes"
       ],
       "priority": 5.5,
@@ -90,30 +112,85 @@
       "notes": ""
     },
     {
-      "id": "US-006",
-      "title": "iOS implementation with real RevenueCat SDK",
+      "id": "US-006a",
+      "title": "TDD Data Layer (xcconfig, Protocol DI, Models, Services)",
       "acceptanceCriteria": [
-        "<AppName>ios/ directory exists with App/, Views/, Models/, Services/, Resources/",
-        "fastlane build succeeds",
-        "grep -r 'Mock' --include='*.swift' . | grep -v 'Tests/' | grep -v '.build/' | wc -l = 0",
-        "grep -r 'import RevenueCat' --include='*.swift' . | wc -l > 0",
-        "PaywallView uses Purchases.shared.purchase(package:) (自前 SwiftUI — Rule 20)",
-        "grep -r 'import RevenueCatUI' --include='*.swift' . | wc -l = 0",
+        "xcconfig for API Key management (not hardcoded)",
+        "SubscriptionService uses Protocol + DI",
+        "Models and Services directories exist",
+        "fastlane test PASS",
         "Typecheck passes"
       ],
-      "priority": 6,
+      "priority": 6.1,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-006b",
+      "title": "TDD Onboarding + Monetization (MVVM, Onboarding, PaywallView)",
+      "acceptanceCriteria": [
+        "AppState split into MVVM ViewModels",
+        "Onboarding flow complete (includes notification permission step)",
+        "PaywallView uses Purchases.shared.purchase(package:) (self-built SwiftUI -- Rule 20)",
+        "No RevenueCatUI import",
+        "fastlane test PASS",
+        "Typecheck passes"
+      ],
+      "priority": 6.2,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-006c",
+      "title": "TDD Core Screens (Timer, Settings, ProgressDashboard)",
+      "acceptanceCriteria": [
+        "Timer with background support",
+        "Settings with Upgrade -> PaywallView navigation",
+        "ProgressDashboard with optimized DateFormatter",
+        "fastlane test PASS",
+        "Typecheck passes"
+      ],
+      "priority": 6.3,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-006d",
+      "title": "TDD Polish (DESIGN_SYSTEM tokens, a11y IDs, Localization)",
+      "acceptanceCriteria": [
+        "DESIGN_SYSTEM tokens applied to all Views",
+        "All accessibilityIdentifiers match TEST_SPEC",
+        "PrivacyInfo.xcprivacy exists",
+        "Localization files (.xcstrings) exist",
+        "fastlane test PASS",
+        "fastlane build PASS",
+        "Typecheck passes"
+      ],
+      "priority": 6.4,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-006-R",
+      "title": "Code Review (006a-d full review)",
+      "acceptanceCriteria": [
+        "code-quality-reviewer subagent run on all 006 code",
+        "CRITICAL findings = 0",
+        "No Mock/Stub in production code (grep -rw 'class Mock' excludes Tests/)",
+        "All blocking issues resolved"
+      ],
+      "priority": 6.5,
       "passes": false,
       "notes": ""
     },
     {
       "id": "US-007",
-      "title": "Testing (Unit + Integration + Maestro E2E)",
+      "title": "Testing (Maestro E2E)",
       "acceptanceCriteria": [
-        "fastlane test succeeds (unit + integration from US-006)",
         "6+ Maestro E2E flows in maestro/ (onboarding, timer, settings, payment-monthly, payment-annual, payment-failure)",
         "All flows use id: selectors (no point: selectors)",
         "All flows have clearState + takeScreenshot",
-        "maestro test maestro/ → all PASS",
+        "maestro test maestro/ -> all PASS",
         "smokeTest tag exists on 2+ flows"
       ],
       "priority": 7,
@@ -124,9 +201,9 @@
       "id": "US-008a",
       "title": "Screenshots (capture + upload + review screenshot)",
       "acceptanceCriteria": [
-        "Screenshots captured via AXe + asc screenshots capture (en-US 4枚 + ja 4枚)",
-        "en-US/ja MD5 不一致（ロケール適用確認）",
-        "Screenshots uploaded to ASC for en-US and ja (≥4 each)",
+        "Screenshots captured via AXe + asc screenshots capture (en-US 4+ + ja 4+)",
+        "en-US/ja MD5 mismatch (locale applied)",
+        "Screenshots uploaded to ASC for en-US and ja (>=4 each)",
         "Subscription review screenshots uploaded for Monthly + Annual"
       ],
       "priority": 8.1,
