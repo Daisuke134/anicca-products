@@ -218,8 +218,8 @@
         "Privacy Policy URL set for en-US AND ja"
       ],
       "priority": 8.2,
-      "passes": false,
-      "notes": "en-US: name=Desk Stretch Timer, subtitle=Desk Stretch & Break Timer, privacy=https://aniccaai.com/privacy, desc=1796chars, keywords=desk stretching+7more. ja: name=Desk Stretch Timer, subtitle=デスクストレッチ・休憩タイマー, privacy set. Re-verified 2026-03-06. [reset: 1 US per iteration rule]"
+      "passes": true,
+      "notes": "en-US: name=Desk Stretch Timer, subtitle=Desk Stretch & Break Timer, privacy=https://aniccaai.com/privacy, desc=1796chars, keywords=desk stretching+7more. ja: name=Desk Stretch Timer, subtitle=デスクストレッチ・休憩タイマー, privacy set. Re-verified 2026-03-06."
     },
     {
       "id": "US-008c",
