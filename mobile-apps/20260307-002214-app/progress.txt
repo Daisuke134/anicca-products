@@ -1,5 +1,13 @@
 ## Codebase Patterns
 
+| VStack a11y ID hides children | `.accessibilityIdentifier()` on a VStack/container makes Maestro unable to find child elements. Put IDs on leaf views only, or use child element IDs for assertions |
+| JP locale notification dialog | シミュレータが日本語ロケールの場合、通知許可ダイアログのボタンは「許可」。Maestro で `text: "許可\|Allow"` + `optional: true` を使う |
+| Stale system dialog after clearState | `clearState` は iOS システムダイアログ（通知許可等）をクリアしない。launchApp 直後に `tapOn: "許可\|Allow" optional: true` で残留ダイアログを消す |
+| RC_PUBLIC_KEY must be set in xcconfig | Config.xcconfig の `RC_PUBLIC_KEY` が空だと `Purchases.configure()` がスキップされ、paywall で `Purchases has not been configured` クラッシュ |
+| uiPreviewMode purchase dialog | `uiPreviewMode: true` では RC 購入ダイアログ（"Test valid purchase"）が表示されない場合がある。`optional: true` にする |
+| NavigationView toolbar iOS 26 | iOS 26 では `NavigationView` + `.toolbar` の `ToolbarItem` が表示されない場合がある。VStack 内の HStack + Button に変更 |
+| maestro PATH | maestro CLI は `/Users/anicca/.maestro/bin/maestro` にある。PATH に追加必須 |
+
 | Package unit test limitation | RevenueCat `Package` is a final class — cannot be instantiated in unit tests. Purchase flow with real packages tested in E2E (US-007) |
 | Onboarding hasCompletedOnboarding | `@AppStorage("hasCompletedOnboarding")` controls onboarding/timer routing in ContentView. All apps use same key (US-008a screenshot dependency) |
 
@@ -33,6 +41,44 @@
 | NSLocalizedString for PrimaryButton | PrimaryButton の title は String 型。LocalizedStringKey ではなく NSLocalizedString() でラップして渡す |
 | RC configure single source | RevenueCat Purchases.configure() は1箇所のみ。App struct ではなく SubscriptionService.configure() に集約。重複呼び出し禁止 |
 | Localization key naming | dot-notation keys (e.g. timer.status.ready) を使い、en + ja 両方を xcstrings に明示記載。暗黙のキー＝値パターン禁止 |
+
+---
+
+## 2026-03-07 - US-007: Maestro E2E Testing (COMPLETE)
+
+- **Status: COMPLETE — all AC verified with evidence**
+- **Evidence:**
+  - AC1: 6 Maestro E2E flows in maestro/ (01-onboarding, 02-timer, 03-settings, 04-payment-monthly-success, 05-payment-annual-success, 06-payment-failure) PASS
+  - AC2: `grep -r 'point:' maestro/*.yaml` → 0 matches (all use id: selectors) PASS
+  - AC3: All 6 flows have clearState + takeScreenshot PASS
+  - AC4: `maestro test maestro/` → 6/6 Flows Passed in 1m50s PASS
+  - AC5: smokeTest tag on 2 flows (01-onboarding, 04-payment-monthly-success) PASS
+- **Gate checks:**
+  - Flow count: 6 (>=6) PASS
+  - clearState in all flows: 6/6 PASS
+  - takeScreenshot in all flows: 6/6 PASS
+  - smokeTest tag count: 2 (>=2) PASS
+  - point: selectors: 0 PASS
+  - fastlane test: 96 tests, 0 failures PASS
+  - fastlane build_for_simulator: Build Succeeded PASS
+- **Files created:**
+  - `EyeBreakIslandios/maestro/01-onboarding.yaml` — full onboarding flow (smokeTest)
+  - `EyeBreakIslandios/maestro/02-timer.yaml` — timer start/running state
+  - `EyeBreakIslandios/maestro/03-settings.yaml` — settings navigation + close
+  - `EyeBreakIslandios/maestro/04-payment-monthly-success.yaml` — monthly purchase (smokeTest)
+  - `EyeBreakIslandios/maestro/05-payment-annual-success.yaml` — annual purchase
+  - `EyeBreakIslandios/maestro/06-payment-failure.yaml` — paywall abandonment (Maybe Later)
+- **Files modified:**
+  - `EyeBreakIslandios/EyeBreakIsland/Views/Timer/TimerView.swift` — NavigationView→VStack, gear button in HStack, removed timerView container a11y ID
+  - `EyeBreakIslandios/EyeBreakIsland/Models/AccessibilityID.swift` — settingsGearButton added
+  - `EyeBreakIslandios/EyeBreakIsland/xcconfig/Config.xcconfig` — RC_PUBLIC_KEY set
+  - `EyeBreakIslandios/fastlane/Fastfile` — build_for_simulator lane added
+- **Learnings for future iterations:**
+  - VStack に accessibilityIdentifier を付けると子要素が Maestro から見えなくなる
+  - iOS 26 の NavigationView toolbar は表示されない場合がある
+  - uiPreviewMode では RC 購入ダイアログが表示されない — optional: true 必須
+  - JP ロケールのシミュレータでは通知ダイアログが「許可」になる
+  - maestro CLI は ~/.maestro/bin/ にある
 
 ---
 

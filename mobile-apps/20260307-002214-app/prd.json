@@ -194,8 +194,8 @@
         "smokeTest tag exists on 2+ flows"
       ],
       "priority": 7,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "6 Maestro E2E flows: 01-onboarding (smokeTest), 02-timer, 03-settings, 04-payment-monthly (smokeTest), 05-payment-annual, 06-payment-abandonment. All use id: selectors. All have clearState + clearKeychain + takeScreenshot. maestro test maestro/ -> 6/6 Passed in 1m50s. smokeTest tag on 2 flows. Fixed: RC_PUBLIC_KEY in xcconfig, TimerView gear button a11y, iOS 26 toolbar rendering, JP locale notification dialog. 96 unit tests still pass. Gate checks: flow count=6, clearState=6/6, takeScreenshot=6/6, smokeTest=2, point:=0. AC1-5 all PASS."
     },
     {
       "id": "US-008a",
