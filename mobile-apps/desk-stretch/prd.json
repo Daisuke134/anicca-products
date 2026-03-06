@@ -109,7 +109,7 @@
       ],
       "priority": 5.5,
       "passes": true,
-      "notes": "RC App=appca8d955a75, RC_IOS_PUBLIC_KEY=appl_RcCxZbmoRqLkvwSuThcJUNqxLIf. 2 products (monthly+annual) + deskstretch_default offering ($rc_monthly+$rc_annual). ASC: 1 group (21961645), 2 subs, 175 prices each (monthly+annual). SPM RevenueCat (no RevenueCatUI). Re-verified 2026-03-06."
+      "notes": "RC App=appca8d955a75, validated. Screenshots copied to APP_DIR."
     },
     {
       "id": "US-006a",
@@ -218,8 +218,8 @@
         "Privacy Policy URL set for en-US AND ja"
       ],
       "priority": 8.2,
-      "passes": true,
-      "notes": "en-US: name=Desk Stretch Timer, subtitle=Desk Stretch & Break Timer, privacy=https://aniccaai.com/privacy, desc=1796chars, keywords=desk stretching+7more. ja: name=Desk Stretch Timer, subtitle=デスクストレッチ・休憩タイマー, privacy set. Re-verified 2026-03-06."
+      "passes": false,
+      "notes": "en-US: name=Desk Stretch Timer, subtitle=Desk Stretch & Break Timer, privacy=https://aniccaai.com/privacy, desc=1796chars, keywords=desk stretching+7more. ja: name=Desk Stretch Timer, subtitle=デスクストレッチ・休憩タイマー, privacy set. Re-verified 2026-03-06. [reset: 1 US per iteration rule]"
     },
     {
       "id": "US-008c",
@@ -229,8 +229,8 @@
         "Build attached to version"
       ],
       "priority": 8.3,
-      "passes": true,
-      "notes": "BUILD_ID=254413bc-bd9b-47ef-90b2-4134b3c9d3ad, processingState=VALID. VERSION_ID=e90beeb7-64c2-4993-8cab-d5c07edc5d01, build attached via ASC REST API PATCH. Completed 2026-03-06."
+      "passes": false,
+      "notes": "BUILD_ID=254413bc-bd9b-47ef-90b2-4134b3c9d3ad, processingState=VALID. VERSION_ID=e90beeb7-64c2-4993-8cab-d5c07edc5d01, build attached via ASC REST API PATCH. Completed 2026-03-06. [reset: 1 US per iteration rule]"
     },
     {
       "id": "US-008d",
@@ -244,8 +244,8 @@
         "Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT"
       ],
       "priority": 8.4,
-      "passes": true,
-      "notes": "Age Rating 22 items (FOUR_PLUS). Review Details (demoAccountRequired=false, contact set). Availability 175 territories. Pricing free tier. Encryption ITSAppUsesNonExemptEncryption=false. Content Rights DOES_NOT_USE_THIRD_PARTY_CONTENT. Completed 2026-03-06."
+      "passes": false,
+      "notes": "Age Rating 22 items (FOUR_PLUS). Review Details (demoAccountRequired=false, contact set). Availability 175 territories. Pricing free tier. Encryption ITSAppUsesNonExemptEncryption=false. Content Rights DOES_NOT_USE_THIRD_PARTY_CONTENT. Completed 2026-03-06. [reset: 1 US per iteration rule]"
     },
     {
       "id": "US-008e",
@@ -257,8 +257,8 @@
         "Slack #metrics notified with TestFlight link"
       ],
       "priority": 8.5,
-      "passes": true,
-      "notes": "Greenlight GREENLIT (0 blocking). asc validate Errors=0. release-review 5 checklists ALL PASS. TestFlight WAITING_FOR_REVIEW. Public link: https://testflight.apple.com/join/78sH7CE9. Completed 2026-03-06."
+      "passes": false,
+      "notes": "Greenlight GREENLIT (0 blocking). asc validate Errors=0. release-review 5 checklists ALL PASS. TestFlight WAITING_FOR_REVIEW. Public link: https://testflight.apple.com/join/78sH7CE9. Completed 2026-03-06. [reset: 1 US per iteration rule]"
     },
     {
       "id": "US-009",
