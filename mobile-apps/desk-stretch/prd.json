@@ -270,8 +270,8 @@
         "Slack #metrics notified: WAITING_FOR_REVIEW"
       ],
       "priority": 9,
-      "passes": false,
-      "notes": "RESET: Previous run had issues. Screenshots were duplicates, localization missing, review screenshots wrong. Recipe fixed. Re-run required."
+      "passes": true,
+      "notes": "App Privacy applied (DATA_NOT_COLLECTED, published=true). Copyright set. IPHONE_65 (1284x2778) and IPAD_PRO_3GEN_129 (2064x2752) screenshots uploaded (en-US 4+4, ja 4+4). Submission 4695b13c state=WAITING_FOR_REVIEW. Submitted: 2026-03-06T14:42Z."
     }
   ]
 }

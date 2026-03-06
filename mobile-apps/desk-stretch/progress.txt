@@ -215,6 +215,27 @@
 - All acceptance criteria PASS → passes: true
 ---
 
+## 2026-03-06 - US-009: App Store submission [COMPLETE]
+
+- App Privacy: DATA_NOT_COLLECTED applied + published=true ✅
+- Copyright: "2026 Daisuke Kobayashi" set ✅
+- Missing screenshots fixed: IPHONE_65 (1284x2778, iPhone 14 Plus sim) + IPAD_PRO_3GEN_129 (2064x2752, iPadPro13-Screenshots sim)
+- en-US: IPHONE_65=4, IPAD_PRO_3GEN_129=4 ✅
+- ja: IPHONE_65=4, IPAD_PRO_3GEN_129=4 ✅ (Japanese UI confirmed)
+- Submission 4695b13c: state=WAITING_FOR_REVIEW ✅ (submitted 2026-03-06T14:42Z)
+- Slack #metrics 報告完了 ✅
+- .app-privacy-done file created ✅
+- All acceptance criteria PASS → passes: true
+- **Learnings for future iterations:**
+  - App Store requires IPHONE_65 AND IPAD_PRO_3GEN_129 when UIDeviceFamily=[1,2]
+  - Copyright attribute must be set before submission (`asc versions update --copyright`)
+  - `asc review items-add` uses `--submission` (not `--submission-id`)
+  - `asc review submissions-submit` uses `--id` (not `--submission-id`) + `--confirm`
+  - iPhone 14 Plus simulator = 1284x2778 (valid for APP_IPHONE_65)
+  - iPadPro13-Screenshots simulator = 2064x2752 (valid for APP_IPAD_PRO_3GEN_129)
+  - Uninstall app to reset onboarding state (defaults delete fails if domain not found)
+---
+
 ## 2026-03-06 - US-009: App Store submission [RESOLVED]
 
 RESOLVED: App Privacy applied successfully (2FA code accepted). DATA_NOT_COLLECTED.
