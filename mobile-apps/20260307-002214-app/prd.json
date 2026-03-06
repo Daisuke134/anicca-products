@@ -137,8 +137,8 @@
         "Typecheck passes"
       ],
       "priority": 6.2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "MVVM split: OnboardingViewModel + PaywallViewModel created. Onboarding 4-page flow (Welcome, Feature, Notification permission, Soft Paywall). PaywallView uses Purchases.shared.purchase(package:) via SubscriptionService protocol. No RevenueCatUI import (0 matches). AccessibilityID updated to match UX_SPEC (30 IDs). ContentView wires OnboardingView/TimerView based on hasCompletedOnboarding flag. 66 tests, 0 failures. Gate checks: Mock=0, RevenueCat=6, RevenueCatUI=0, AI=0, ATT=0, Analytics=0, PrivacyInfo CA92.1 PASS. AC1-6 all PASS."
     },
     {
       "id": "US-006c",

@@ -1,5 +1,8 @@
 ## Codebase Patterns
 
+| Package unit test limitation | RevenueCat `Package` is a final class — cannot be instantiated in unit tests. Purchase flow with real packages tested in E2E (US-007) |
+| Onboarding hasCompletedOnboarding | `@AppStorage("hasCompletedOnboarding")` controls onboarding/timer routing in ContentView. All apps use same key (US-008a screenshot dependency) |
+
 | パターン | 詳細 |
 |---------|------|
 | Apify token ロード | `source .env` では APIFY_TOKEN が空になる。`eval "$(grep '^APIFY_TOKEN=' ~/.config/mobileapp-builder/.env)"` を使うこと |
@@ -21,6 +24,40 @@
 | Shared sources for Widget Extension | EyeBreakAttributes は App + WidgetExtension 両方で使用。`Shared/` ディレクトリに配置し project.yml で両ターゲットに追加 |
 | xcodegen shared sources | project.yml の sources に `- path: Shared` を追加して複数ターゲットでコード共有 |
 | iPhone 17 Pro simulator | Xcode 26.2 では iPhone 16 Pro シミュレータなし。iPhone 17 Pro を使用 |
+
+---
+
+## 2026-03-07 - US-006b: TDD Onboarding + Monetization (COMPLETE)
+
+- **Status: COMPLETE — all AC verified with evidence**
+- **Evidence:**
+  - AC1: MVVM ViewModels created (OnboardingViewModel, PaywallViewModel) PASS
+  - AC2: Onboarding 4-page flow (Welcome → Feature → Notification permission → Paywall) PASS
+  - AC3: PaywallView uses `Purchases.shared.purchase(package:)` via SubscriptionServiceProtocol PASS
+  - AC4: `grep -r 'import RevenueCatUI' → 0` PASS
+  - AC5: `fastlane test` → 66 tests, 0 failures PASS
+  - AC6: Build compiles without errors PASS
+- **Gate checks:**
+  - Mock count in production: 0 PASS
+  - RevenueCat imports: 6, RevenueCatUI imports: 0 PASS
+  - AI API imports: 0 PASS
+  - Analytics SDK: 0 PASS
+  - ATT: 0 PASS
+  - PrivacyInfo CA92.1: confirmed PASS
+- **Files created:**
+  - `EyeBreakIslandios/EyeBreakIsland/ViewModels/OnboardingViewModel.swift` — page navigation, notification permission, completion flag
+  - `EyeBreakIslandios/EyeBreakIsland/ViewModels/PaywallViewModel.swift` — load offerings, purchase, restore, error handling
+  - `EyeBreakIslandios/EyeBreakIsland/Views/Onboarding/OnboardingView.swift` — TabView container with 4 pages
+  - `EyeBreakIslandios/EyeBreakIsland/Views/Onboarding/OnboardingPageView.swift` — reusable page component
+  - `EyeBreakIslandios/EyeBreakIsland/Views/Onboarding/PaywallView.swift` — custom SwiftUI paywall with PackageCardView
+  - `EyeBreakIslandios/EyeBreakIslandTests/OnboardingViewModelTests.swift` — 12 tests
+  - `EyeBreakIslandios/EyeBreakIslandTests/PaywallViewModelTests.swift` — 10 tests
+- **Files modified:**
+  - `EyeBreakIslandios/EyeBreakIsland/Models/AccessibilityID.swift` — updated to match UX_SPEC (30 IDs)
+  - `EyeBreakIslandios/EyeBreakIsland/App/ContentView.swift` — wired OnboardingView
+- **Learnings for future iterations:**
+  - RevenueCat `Package` is a final class — cannot instantiate in unit tests. Use mock service + E2E for purchase flow
+  - `@AppStorage("hasCompletedOnboarding")` is the single routing flag for onboarding/timer
 
 ---
 
