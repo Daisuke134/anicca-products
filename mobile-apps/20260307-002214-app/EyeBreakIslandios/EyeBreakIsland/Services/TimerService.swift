@@ -11,6 +11,7 @@ protocol TimerServiceProtocol {
     func resumeSession()
 }
 
+@MainActor
 final class TimerService: ObservableObject, TimerServiceProtocol {
     @Published var timerState: TimerState = .idle
     @Published var remainingSeconds: Int = 20 * 60
@@ -93,7 +94,7 @@ final class TimerService: ObservableObject, TimerServiceProtocol {
     }
 
     private func persistBreakCount() {
-        UserDefaults.standard.set(breakCount, forKey: "todayBreakCount")
+        UserDefaults.standard.set(breakCount, forKey: Constants.todayBreakCountKey)
     }
 
     // MARK: - Live Activity

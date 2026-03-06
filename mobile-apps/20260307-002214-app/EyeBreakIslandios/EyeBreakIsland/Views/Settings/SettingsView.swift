@@ -34,7 +34,7 @@ struct SettingsView: View {
             }
             .sheet(isPresented: $viewModel.showPaywall) {
                 PaywallView(
-                    subscriptionService: viewModel.subscriptionServiceRef,
+                    subscriptionService: viewModel.subscriptionService,
                     onDismiss: { viewModel.showPaywall = false },
                     onPurchaseCompleted: {
                         viewModel.showPaywall = false

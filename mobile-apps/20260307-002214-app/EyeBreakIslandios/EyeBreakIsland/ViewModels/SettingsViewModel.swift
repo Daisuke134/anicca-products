@@ -22,13 +22,12 @@ final class SettingsViewModel: ObservableObject {
     @AppStorage(Constants.scheduleEndHourKey)
     var scheduleEndHour: Int = 17
 
-    let subscriptionServiceRef: SubscriptionServiceProtocol
-    private var subscriptionService: SubscriptionServiceProtocol { subscriptionServiceRef }
+    let subscriptionService: SubscriptionServiceProtocol
 
     let privacyPolicyURL = URL(string: "https://aniccaai.com/privacy")
 
     init(subscriptionService: SubscriptionServiceProtocol) {
-        self.subscriptionServiceRef = subscriptionService
+        self.subscriptionService = subscriptionService
     }
 
     var isPro: Bool {

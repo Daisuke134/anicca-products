@@ -25,7 +25,7 @@ struct BreakOverlayView: View {
                     .font(.system(size: 64))
                     .foregroundStyle(AppColors.brandBreak)
 
-                Text("Look away now")
+                Text("break.overlay.title")
                     .font(AppTypography.headline1)
                     .foregroundStyle(.white)
 
@@ -36,7 +36,7 @@ struct BreakOverlayView: View {
                 )
                 .accessibilityIdentifier(AccessibilityID.breakCountdown)
 
-                Text("Look 20 feet away\nfor 20 seconds")
+                Text("break.overlay.instruction")
                     .font(AppTypography.body)
                     .foregroundStyle(AppColors.textSecondary)
                     .multilineTextAlignment(.center)

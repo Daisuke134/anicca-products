@@ -177,8 +177,14 @@
         }
       }
     },
-    "Ready to start" : {
+    "timer.status.ready" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ready to start"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -187,8 +193,14 @@
         }
       }
     },
-    "Next break in" : {
+    "timer.status.running" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next break in"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -197,8 +209,14 @@
         }
       }
     },
-    "Paused" : {
+    "timer.status.paused" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paused"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -207,8 +225,14 @@
         }
       }
     },
-    "Take a break!" : {
+    "timer.status.breaking" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take a break!"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -217,8 +241,30 @@
         }
       }
     },
-    "Start Eye Break" : {
+    "timer.break.count %lld" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today: %lld breaks"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今日: %lld回休憩"
+          }
+        }
+      }
+    },
+    "timer.button.start" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Eye Break"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -227,8 +273,14 @@
         }
       }
     },
-    "Pause" : {
+    "timer.button.pause" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -237,8 +289,14 @@
         }
       }
     },
-    "Resume" : {
+    "timer.button.resume" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resume"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -247,8 +305,14 @@
         }
       }
     },
-    "Stop" : {
+    "timer.button.stop" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stop"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -257,8 +321,14 @@
         }
       }
     },
-    "Look away now" : {
+    "break.overlay.title" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Look away now"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
@@ -267,8 +337,14 @@
         }
       }
     },
-    "Look 20 feet away\nfor 20 seconds" : {
+    "break.overlay.instruction" : {
       "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Look 20 feet away\nfor 20 seconds"
+          }
+        },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",

@@ -75,13 +75,13 @@ struct TimerView: View {
         Group {
             switch timerService.timerState {
             case .idle:
-                Text("Ready to start")
+                Text("timer.status.ready")
             case .running:
-                Text("Next break in")
+                Text("timer.status.running")
             case .paused:
-                Text("Paused")
+                Text("timer.status.paused")
             case .breaking:
-                Text("Take a break!")
+                Text("timer.status.breaking")
             }
         }
         .font(AppTypography.body)
@@ -89,7 +89,7 @@ struct TimerView: View {
     }
 
     private var breakCountLabel: some View {
-        Text("Today: \(timerService.breakCount) breaks")
+        Text("timer.break.count \(timerService.breakCount)")
             .font(AppTypography.subheadline)
             .foregroundStyle(AppColors.textSecondary)
             .accessibilityIdentifier(AccessibilityID.timerBreakCount)
@@ -99,29 +99,29 @@ struct TimerView: View {
     private var actionButtons: some View {
         switch timerService.timerState {
         case .idle:
-            PrimaryButton(title: "Start Eye Break") {
+            PrimaryButton(title: NSLocalizedString("timer.button.start", comment: "")) {
                 timerService.startSession()
             }
             .accessibilityIdentifier(AccessibilityID.timerStartButton)
 
         case .running:
-            PrimaryButton(title: "Pause") {
+            PrimaryButton(title: NSLocalizedString("timer.button.pause", comment: "")) {
                 timerService.pauseSession()
             }
             .accessibilityIdentifier(AccessibilityID.timerPauseButton)
 
-            SecondaryButton(title: "Stop") {
+            SecondaryButton(title: NSLocalizedString("timer.button.stop", comment: "")) {
                 timerService.stopSession()
             }
             .accessibilityIdentifier(AccessibilityID.timerStopButton)
 
         case .paused:
-            PrimaryButton(title: "Resume") {
+            PrimaryButton(title: NSLocalizedString("timer.button.resume", comment: "")) {
                 timerService.resumeSession()
             }
             .accessibilityIdentifier(AccessibilityID.timerPauseButton)
 
-            SecondaryButton(title: "Stop") {
+            SecondaryButton(title: NSLocalizedString("timer.button.stop", comment: "")) {
                 timerService.stopSession()
             }
             .accessibilityIdentifier(AccessibilityID.timerStopButton)

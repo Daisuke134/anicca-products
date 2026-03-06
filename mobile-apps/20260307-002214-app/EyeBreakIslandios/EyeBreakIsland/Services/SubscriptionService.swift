@@ -45,7 +45,9 @@ final class SubscriptionService: ObservableObject, SubscriptionServiceProtocol {
             return true
         } catch {
             let errorCode = (error as NSError).code
+            // 1 = purchaseCancelledError, 42 = simulatedFailureError
             if errorCode == 1 || errorCode == 42 { throw error }
+            print("[SubscriptionService] DEBUG purchase error ignored: \(error)")
             return true
         }
         #else

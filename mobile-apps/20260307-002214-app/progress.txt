@@ -31,6 +31,60 @@
 | PrimaryButton reuse | OnboardingView の Next/Allow Notifications ボタンは PrimaryButton コンポーネントを直接使う。手動で Button を組むより統一的 |
 | PackageCardView a11y mapping | 3-plan model (weekly/monthly/annual) では packageType ベースで a11y ID を振り分ける。isAnnual bool だけでは不十分 |
 | NSLocalizedString for PrimaryButton | PrimaryButton の title は String 型。LocalizedStringKey ではなく NSLocalizedString() でラップして渡す |
+| RC configure single source | RevenueCat Purchases.configure() は1箇所のみ。App struct ではなく SubscriptionService.configure() に集約。重複呼び出し禁止 |
+| Localization key naming | dot-notation keys (e.g. timer.status.ready) を使い、en + ja 両方を xcstrings に明示記載。暗黙のキー＝値パターン禁止 |
+
+---
+
+## 2026-03-07 - US-006-R: Code Review (006a-d full review) (COMPLETE)
+
+- **Status: COMPLETE — all AC verified with evidence**
+- **codex-review results (initial):** CRITICAL=0, HIGH=2, MEDIUM=7, LOW=4
+- **Evidence:**
+  - AC1: code-quality-reviewer subagent run on 29 production + 9 test files PASS
+  - AC2: CRITICAL findings = 0 PASS
+  - AC3: `grep -rw 'class Mock' --include='*.swift' . | grep -v 'Tests/' | wc -l → 0` PASS
+  - AC4: All blocking issues resolved (2 HIGH + 7 MEDIUM fixed) PASS
+- **HIGH fixes:**
+  1. TimerService: `@MainActor` added — Timer callback was implicitly main-thread but not enforced
+  2. EyeBreakIslandApp: Duplicate RC config removed — now uses `SubscriptionService.configure()` via `.task {}` only
+- **MEDIUM fixes:**
+  1. TimerService: hardcoded `"todayBreakCount"` → `Constants.todayBreakCountKey`
+  2. TimerView: 8 hardcoded English strings → localization keys (timer.status.*, timer.button.*, timer.break.count)
+  3. BreakOverlayView: 2 hardcoded strings → localization keys (break.overlay.title, break.overlay.instruction)
+  4. BreakSession: `var breakCount/totalMinutes` → `let` (immutability)
+  5. SettingsViewModel: removed `subscriptionServiceRef` indirection, renamed to `subscriptionService`
+  6. SubscriptionService: debug purchase error now logged before being swallowed
+  7. Localizable.xcstrings: old plain-English keys replaced with dot-notation keys, en + ja both explicit
+- **Test fixes:**
+  - TimerServiceTests: `@MainActor` added (required by TimerService @MainActor)
+  - TimerStateMachineTests: `@MainActor` added
+- **Gate checks:**
+  - Mock count in production: 0 PASS
+  - RevenueCat imports: 6, RevenueCatUI imports: 0 PASS
+  - AI API imports: 0 PASS
+  - Analytics SDK: 0 PASS
+  - ATT: 0 PASS
+  - Hardcoded API key: 0 PASS
+  - PrivacyInfo CA92.1: confirmed PASS
+  - fastlane test: 96 tests, 0 failures PASS
+  - fastlane build: Build Succeeded PASS
+- **Files modified:**
+  - `EyeBreakIsland/Services/TimerService.swift` — @MainActor + Constants.todayBreakCountKey
+  - `EyeBreakIsland/App/EyeBreakIslandApp.swift` — removed duplicate RC config, removed RevenueCat import
+  - `EyeBreakIsland/Services/SubscriptionService.swift` — debug error logging
+  - `EyeBreakIsland/Views/Timer/TimerView.swift` — 8 strings localized
+  - `EyeBreakIsland/Views/Timer/BreakOverlayView.swift` — 2 strings localized
+  - `EyeBreakIsland/Models/BreakSession.swift` — var→let
+  - `EyeBreakIsland/ViewModels/SettingsViewModel.swift` — subscriptionServiceRef→subscriptionService
+  - `EyeBreakIsland/Views/Settings/SettingsView.swift` — subscriptionServiceRef→subscriptionService
+  - `EyeBreakIsland/Resources/Localizable.xcstrings` — old keys→dot-notation keys with en+ja
+  - `EyeBreakIslandTests/TimerServiceTests.swift` — @MainActor
+  - `EyeBreakIslandTests/TimerViewModelTests.swift` — @MainActor on TimerStateMachineTests
+- **Learnings for future iterations:**
+  - RevenueCat configure() は1箇所のみ。App struct と Service の重複は禁止
+  - dot-notation localization keys で en + ja 両方 explicit に書く。暗黙キー＝値は避ける
+  - @MainActor を ObservableObject に追加したら、テストクラスにも @MainActor 必要
 
 ---
 

@@ -69,6 +69,7 @@ final class TimerFormattingTests: XCTestCase {
 
 // MARK: - Timer State Machine Tests
 
+@MainActor
 final class TimerStateMachineTests: XCTestCase {
     func testStartSetsRunning() {
         let service = TimerService()

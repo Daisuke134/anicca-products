@@ -1,6 +1,7 @@
 import XCTest
 @testable import EyeBreakIsland
 
+@MainActor
 final class TimerServiceTests: XCTestCase {
 
     // MARK: - Initial State
