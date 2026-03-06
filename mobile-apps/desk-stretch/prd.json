@@ -229,8 +229,8 @@
         "Build attached to version"
       ],
       "priority": 8.3,
-      "passes": false,
-      "notes": "BUILD_ID=254413bc-bd9b-47ef-90b2-4134b3c9d3ad, processingState=VALID. VERSION_ID=e90beeb7-64c2-4993-8cab-d5c07edc5d01, build attached via ASC REST API PATCH. Completed 2026-03-06. [reset: 1 US per iteration rule]"
+      "passes": true,
+      "notes": "BUILD_ID=254413bc-bd9b-47ef-90b2-4134b3c9d3ad, processingState=VALID. VERSION_ID=e90beeb7-64c2-4993-8cab-d5c07edc5d01, build attached via ASC REST API PATCH. Re-verified 2026-03-06."
     },
     {
       "id": "US-008d",

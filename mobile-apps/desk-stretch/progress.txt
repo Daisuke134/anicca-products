@@ -184,3 +184,11 @@
   - version type: `--version VERSION_ID` (default) for description/keywords/supportUrl
   - "DeskStretch" name is taken by another account → use "Desk Stretch Timer"
 ---
+
+## 2026-03-06 - US-008c: IPA build + upload + version attach [RE-VERIFIED PASS]
+
+- Re-verified after auto-reset by ralph.sh (1 US per iteration rule)
+- BUILD_ID=254413bc-bd9b-47ef-90b2-4134b3c9d3ad, processingState=VALID ✅ (asc builds list confirmed)
+- VERSION_ID=e90beeb7-64c2-4993-8cab-d5c07edc5d01, build attached confirmed via GET /v1/appStoreVersions/$VERSION_ID/build → 254413bc (VALID) ✅
+- All acceptance criteria PASS → passes: true
+---
