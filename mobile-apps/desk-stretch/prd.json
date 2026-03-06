@@ -218,8 +218,8 @@
         "Privacy Policy URL set for en-US AND ja"
       ],
       "priority": 8.2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "2026-03-06: App name=Desk Stretch Timer (DeskStretch taken on another account). en-US: subtitle=Desk Stretch & Break Timer, privacyPolicyUrl=https://aniccaai.com/privacy, keywords=desk stretching,break timer,back pain,office exercises,stretch reminder,posture,neck pain,wrist, description=1796chars. ja: subtitle=デスクストレッチ・休憩タイマー, privacyPolicyUrl=https://aniccaai.com/privacy, keywords=デスクストレッチ,休憩タイマー,腰痛,肩こり,首の痛み,ストレッチ,姿勢,デスクワーク,手首, description=913chars. LOC IDs: en-US=de607835, ja=aec6929d."
     },
     {
       "id": "US-008c",

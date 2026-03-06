@@ -8,6 +8,9 @@
 | JWT for ASC API | Use key_id=646Y27MJ8C from /Users/anicca/.asc/config.json (NOT D637C7RGFN) |
 | asc auth key path | /Users/anicca/.appstoreconnect/private_keys/AuthKey_646Y27MJ8C.p8 |
 | MD5 check | Use `/usr/bin/openssl dgst -md5 <file>` (md5 command unavailable) |
+| App name conflict | "DeskStretch" taken by another account → use "Desk Stretch Timer" or variant |
+| asc localizations update | Use for metadata sync: `--type app-info` for name/subtitle/privacy, default type `version` for description/keywords |
+| asc metadata sync command | `asc metadata sync` doesn't exist. Use `asc localizations update` instead |
 
 ---
 
@@ -27,4 +30,22 @@
   - ja localization must be created via ASC REST API (asc CLI doesn't have create subcommand)
   - Use JWT key ID 646Y27MJ8C from ~/.asc/config.json for ASC REST API calls
   - ENV var expansion breaks `asc screenshots list --version-localization "$VAR"` — use direct value
+---
+
+## 2026-03-06 - US-008b: ASC metadata sync (en-US + ja)
+
+- App name: Desk Stretch Timer (DeskStretch taken by another account on App Store)
+- en-US app-info: name=Desk Stretch Timer, subtitle=Desk Stretch & Break Timer, privacyPolicyUrl=https://aniccaai.com/privacy
+- ja app-info: name=Desk Stretch Timer, subtitle=デスクストレッチ・休憩タイマー, privacyPolicyUrl=https://aniccaai.com/privacy
+- en-US version: description=1796 chars, keywords=desk stretching,break timer,back pain,office exercises,stretch reminder,posture,neck pain,wrist
+- ja version: description=913 chars, keywords=デスクストレッチ,休憩タイマー,腰痛,肩こり,首の痛み,ストレッチ,姿勢,デスクワーク,手首
+- supportUrl=https://aniccaai.com/support (en-US + ja)
+- Privacy Policy: en-US ✅ ja ✅
+- Command used: `asc localizations update` (NOT `asc metadata sync` — doesn't exist)
+- Files: metadata/app-info/en-US.json, metadata/app-info/ja.json, metadata/version-localizations/en-US.json, metadata/version-localizations/ja.json
+- **Learnings for future iterations:**
+  - `asc metadata sync` command doesn't exist — use `asc localizations update` instead
+  - app-info type: `--type app-info --app APP_ID` for name/subtitle/privacyPolicyUrl
+  - version type: `--version VERSION_ID` (default) for description/keywords/supportUrl
+  - "DeskStretch" name is taken by another account → use "Desk Stretch Timer"
 ---
