@@ -14,8 +14,8 @@
         "Typecheck passes"
       ],
       "priority": 1,
-      "passes": true,
-      "notes": "2026-03-05: StretchFlow selected (score 8.5). 32 raw ideas → 5 shortlisted. AI desk stretching timer. Sources: Niches Hunter, Apple Foundation Models, TikTok Trends 2026."
+      "passes": false,
+      "notes": ""
     },
     {
       "id": "US-002",
@@ -29,8 +29,8 @@
         "Typecheck passes"
       ],
       "priority": 2,
-      "passes": true,
-      "notes": "2026-03-05: DeskStretch product plan created. Name changed from StretchFlow (existing on App Store) to DeskStretch (0 matches). Pricing: $3.99/mo, $29.99/yr. 10 external sources cited. MVP: 9 features, Foundation Models AI."
+      "passes": false,
+      "notes": ""
     },
     {
       "id": "US-003",
@@ -41,8 +41,8 @@
         "Typecheck passes"
       ],
       "priority": 3,
-      "passes": true,
-      "notes": "2026-03-05: competitive-analysis.md (7 competitors: Wakeout!, Stand Up!, Moova, Bend, STRETCHIT, StretchLab, JustStretch) + market-research.md (TAM $12.12B, SAM $262M, SOM $26K-$524K, 14 sources). AI personalization = blue ocean (全競合ゼロ). Market Opportunity Score 7.9/10."
+      "passes": false,
+      "notes": ""
     },
     {
       "id": "US-004",
@@ -58,8 +58,8 @@
         "Typecheck passes"
       ],
       "priority": 4,
-      "passes": true,
-      "notes": "2026-03-05: 7 docs generated — PRD.md (app_name=DeskStretch, bundle_id=com.aniccafactory.deskstretch, $3.99/mo+$29.99/yr), ARCHITECTURE.md (SwiftUI+Foundation Models+RevenueCat+UserDefaults), UX_SPEC.md (9 ASCII wireframes, 4-tab nav), DESIGN_SYSTEM.md (tokens+7 components+accessibility), IMPLEMENTATION_GUIDE.md (5 phases, real RevenueCat SDK, AI fallback), TEST_SPEC.md (80%+ coverage, 30+ unit tests, 3 Maestro E2E), RELEASE_SPEC.md (9-gate checklist, metadata en+ja)."
+      "passes": false,
+      "notes": ""
     },
     {
       "id": "US-005a",
@@ -72,7 +72,7 @@
       ],
       "priority": 5,
       "passes": false,
-      "notes": "2FA required for asc apps create"
+      "notes": ""
     },
     {
       "id": "US-005b",
@@ -87,14 +87,14 @@
       ],
       "priority": 5.5,
       "passes": false,
-      "notes": "依存: US-005a の APP_ID"
+      "notes": ""
     },
     {
       "id": "US-006",
       "title": "iOS implementation with real RevenueCat SDK",
       "acceptanceCriteria": [
         "<AppName>ios/ directory exists with App/, Views/, Models/, Services/, Resources/",
-        "xcodebuild -scheme <AppName> build succeeds",
+        "fastlane build succeeds",
         "grep -r 'Mock' --include='*.swift' . | grep -v 'Tests/' | grep -v '.build/' | wc -l = 0",
         "grep -r 'import RevenueCat' --include='*.swift' . | wc -l > 0",
         "PaywallView uses Purchases.shared.purchase(package:) (自前 SwiftUI — Rule 20)",
@@ -103,14 +103,15 @@
       ],
       "priority": 6,
       "passes": false,
-      "notes": "依存: US-005b の RC Offerings + SPM"
+      "notes": ""
     },
     {
       "id": "US-007",
-      "title": "Testing",
+      "title": "Testing (Unit + Integration + Maestro E2E)",
       "acceptanceCriteria": [
-        "xcodebuild test succeeds",
+        "fastlane test succeeds",
         "Unit tests exist for Models and Services",
+        "Maestro E2E tests exist in maestro/ directory",
         "All tests pass",
         "Typecheck passes"
       ],
@@ -129,7 +130,7 @@
       ],
       "priority": 8.1,
       "passes": false,
-      "notes": "us-008-release.md Steps 1a-1h"
+      "notes": ""
     },
     {
       "id": "US-008b",
@@ -140,7 +141,7 @@
       ],
       "priority": 8.2,
       "passes": false,
-      "notes": "us-008-release.md Step 2"
+      "notes": ""
     },
     {
       "id": "US-008c",
@@ -151,7 +152,7 @@
       ],
       "priority": 8.3,
       "passes": false,
-      "notes": "us-008-release.md Step 3"
+      "notes": ""
     },
     {
       "id": "US-008d",
@@ -166,7 +167,7 @@
       ],
       "priority": 8.4,
       "passes": false,
-      "notes": "us-008-release.md Steps 4-6"
+      "notes": ""
     },
     {
       "id": "US-008e",
@@ -179,7 +180,7 @@
       ],
       "priority": 8.5,
       "passes": false,
-      "notes": "us-008-release.md Steps 7-10"
+      "notes": ""
     },
     {
       "id": "US-009",
