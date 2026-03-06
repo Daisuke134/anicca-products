@@ -36,6 +36,108 @@ notify_slack() {
 
 notify_slack "🏭 ralph.sh 起動: $(basename "$SCRIPT_DIR")"
 
+# ============================================================
+# PREFLIGHT CHECK — Fail Fast before burning CC iterations
+# Source: CostOps — https://costops.dev/guides/slow-failures-expensive-before-cheap
+#   "put fast, cheap checks at the front and gate expensive steps behind them"
+# Source: GitLab Fail Fast — https://docs.gitlab.com/ee/ci/testing/fail_fast_testing.html
+#   "runs in the .pre stage of a pipeline, before all other stages"
+# Source: Anthropic Effective Harnesses — https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents
+#   "set up the environment with all necessary context that future coding agents will need"
+# ============================================================
+echo "🔍 PREFLIGHT CHECK 開始..."
+PREFLIGHT_FAIL=0
+
+# Check 1: CC token valid
+echo -n "  [1/5] CC OAuth token... "
+# Try env var first, then keychain
+TEST_TOKEN="${CLAUDE_CODE_OAUTH_TOKEN:-}"
+if [ -z "$TEST_TOKEN" ]; then
+  TEST_TOKEN=$(security find-generic-password -s 'Claude Code-credentials' -w 2>/dev/null \
+    | python3 -c "import json,sys; print(json.loads(sys.stdin.read().strip())['claudeAiOauth']['accessToken'])" 2>/dev/null || echo "")
+  if [ -n "$TEST_TOKEN" ]; then
+    export CLAUDE_CODE_OAUTH_TOKEN="$TEST_TOKEN"
+  fi
+fi
+if [ -z "$TEST_TOKEN" ]; then
+  echo "❌ トークンなし"
+  PREFLIGHT_FAIL=1
+else
+  CC_TEST=$(echo "respond PREFLIGHT_OK" | claude -p 2>&1 || echo "FAIL")
+  if echo "$CC_TEST" | grep -q "PREFLIGHT_OK"; then
+    echo "✅"
+  else
+    echo "❌ 認証失敗: $CC_TEST"
+    PREFLIGHT_FAIL=1
+  fi
+fi
+
+# Check 2: Required CLIs exist
+echo -n "  [2/5] 必須コマンド... "
+MISSING_CMDS=""
+for cmd in claude asc xcrun xcodebuild jq python3 curl git; do
+  if ! command -v "$cmd" &>/dev/null; then
+    MISSING_CMDS="$MISSING_CMDS $cmd"
+  fi
+done
+if [ -n "$MISSING_CMDS" ]; then
+  echo "❌ 見つからない:$MISSING_CMDS"
+  PREFLIGHT_FAIL=1
+else
+  echo "✅"
+fi
+
+# Check 3: prd.json exists and is valid JSON
+echo -n "  [3/5] prd.json... "
+if [ ! -f "$SCRIPT_DIR/prd.json" ]; then
+  echo "❌ ファイルなし"
+  PREFLIGHT_FAIL=1
+elif ! python3 -c "import json; json.load(open('$SCRIPT_DIR/prd.json'))" 2>/dev/null; then
+  echo "❌ JSON不正"
+  PREFLIGHT_FAIL=1
+else
+  REMAINING=$(python3 -c "
+import json
+with open('$SCRIPT_DIR/prd.json') as f: d = json.load(f)
+print(sum(1 for us in d['userStories'] if not us['passes']))
+" 2>/dev/null)
+  if [ "$REMAINING" = "0" ]; then
+    echo "✅ 全US完了済み — 実行不要"
+    exit 0
+  else
+    echo "✅ 残り${REMAINING}個のUS"
+  fi
+fi
+
+# Check 4: ASC API access
+echo -n "  [4/5] ASC API接続... "
+ASC_TEST=$(asc apps list --limit 1 --output json 2>&1 || echo "ASC_FAIL")
+if echo "$ASC_TEST" | grep -q "ASC_FAIL\|error\|Error\|NOT_AUTHORIZED"; then
+  echo "⚠️ スキップ（ASC接続エラー — 後で再試行）"
+else
+  echo "✅"
+fi
+
+# Check 5: Disk space
+echo -n "  [5/5] ディスク空き... "
+DISK_PCT=$(df -h / | tail -1 | awk '{print $5}' | tr -d '%')
+if [ "$DISK_PCT" -gt 90 ]; then
+  echo "❌ ${DISK_PCT}% 使用（90%超過）"
+  PREFLIGHT_FAIL=1
+else
+  echo "✅ ${DISK_PCT}%"
+fi
+
+if [ "$PREFLIGHT_FAIL" -eq 1 ]; then
+  echo ""
+  echo "🔴 PREFLIGHT FAILED — ralph.sh を開始しない"
+  notify_slack "🔴 PREFLIGHT FAILED: $(basename "$SCRIPT_DIR") — CCトークンまたは必須コマンドが無効。手動確認必要。"
+  exit 1
+fi
+
+echo "🟢 PREFLIGHT OK — 全チェック通過"
+echo ""
+
 PREV_PASSES=""
 
 for i in $(seq 1 $MAX_ITERATIONS); do
