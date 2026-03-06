@@ -1,3 +1,16 @@
+## 2026-03-06 - US-005b: IAP + pricing + RevenueCat setup [FINAL RE-VERIFY + prd.json sync]
+
+- Re-verified all acceptance criteria live:
+  - ASC groups: 1 group (21961645) ✅
+  - ASC subs: monthly (ONE_MONTH) + annual (ONE_YEAR) ✅
+  - Monthly prices: 175 ✅ (asc subscriptions prices list --id 6760079509 --paginate)
+  - Annual prices: 175 ✅ (asc subscriptions prices list --id 6760078995 --paginate)
+  - SPM: RevenueCat in project.yml, no import RevenueCatUI in Sources/ ✅
+- prd.json updated: US-005b → passes: true
+- Also corrected prd.json for US-008b, US-008c, US-008d, US-008e (all completed in previous iterations, prd.json was stale due to ralph.sh reset)
+- Current status: US-001〜US-008e all passes: true. Only US-009 remains.
+---
+
 ## 2026-03-06 - US-008b: ASC metadata sync [RE-VERIFIED PASS]
 
 - Re-verified after RESET

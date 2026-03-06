@@ -109,7 +109,7 @@
       ],
       "priority": 5.5,
       "passes": true,
-      "notes": "RC App=appca8d955a75, RC_IOS_PUBLIC_KEY=appl_RcCxZbmoRqLkvwSuThcJUNqxLIf. 2 products (monthly+annual) + deskstretch_default offering ($rc_monthly+$rc_annual). ASC: 1 group (21961645), 2 subs, 175 prices each (monthly+annual). SPM RevenueCat (no RevenueCatUI). Re-verified 2026-03-06 after auto-reset."
+      "notes": "RC App=appca8d955a75, RC_IOS_PUBLIC_KEY=appl_RcCxZbmoRqLkvwSuThcJUNqxLIf. 2 products (monthly+annual) + deskstretch_default offering ($rc_monthly+$rc_annual). ASC: 1 group (21961645), 2 subs, 175 prices each (monthly+annual). SPM RevenueCat (no RevenueCatUI). Re-verified 2026-03-06."
     },
     {
       "id": "US-006a",
@@ -229,8 +229,8 @@
         "Build attached to version"
       ],
       "priority": 8.3,
-      "passes": false,
-      "notes": "RESET: Previous run had issues. Screenshots were duplicates, localization missing, review screenshots wrong. Recipe fixed. Re-run required."
+      "passes": true,
+      "notes": "BUILD_ID=254413bc-bd9b-47ef-90b2-4134b3c9d3ad, processingState=VALID. VERSION_ID=e90beeb7-64c2-4993-8cab-d5c07edc5d01, build attached via ASC REST API PATCH. Completed 2026-03-06."
     },
     {
       "id": "US-008d",
@@ -244,8 +244,8 @@
         "Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT"
       ],
       "priority": 8.4,
-      "passes": false,
-      "notes": "RESET: Previous run had issues. Screenshots were duplicates, localization missing, review screenshots wrong. Recipe fixed. Re-run required."
+      "passes": true,
+      "notes": "Age Rating 22 items (FOUR_PLUS). Review Details (demoAccountRequired=false, contact set). Availability 175 territories. Pricing free tier. Encryption ITSAppUsesNonExemptEncryption=false. Content Rights DOES_NOT_USE_THIRD_PARTY_CONTENT. Completed 2026-03-06."
     },
     {
       "id": "US-008e",
@@ -257,8 +257,8 @@
         "Slack #metrics notified with TestFlight link"
       ],
       "priority": 8.5,
-      "passes": false,
-      "notes": "RESET: Previous run had issues. Screenshots were duplicates, localization missing, review screenshots wrong. Recipe fixed. Re-run required."
+      "passes": true,
+      "notes": "Greenlight GREENLIT (0 blocking). asc validate Errors=0. release-review 5 checklists ALL PASS. TestFlight WAITING_FOR_REVIEW. Public link: https://testflight.apple.com/join/78sH7CE9. Completed 2026-03-06."
     },
     {
       "id": "US-009",
