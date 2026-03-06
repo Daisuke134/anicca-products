@@ -40,10 +40,10 @@ tags:
     id: "paywall_plan_monthly"
 
 - extendedWaitUntil:
-    visible: "Simulate Success"
+    visible: "Test valid purchase"
     timeout: 10000
 
-- tapOn: "Simulate Success"
+- tapOn: "Test valid purchase"
 
 - extendedWaitUntil:
     visible:

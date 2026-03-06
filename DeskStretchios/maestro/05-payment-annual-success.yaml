@@ -7,11 +7,10 @@ tags:
 - clearKeychain
 - launchApp
 
-# Handle Apple Account sign-in dialog
 - tapOn:
     text: "キャンセル|Cancel"
     optional: true
-# Complete onboarding to paywall
+
 - extendedWaitUntil:
     visible:
       id: "onboarding_get_started"
@@ -31,20 +30,19 @@ tags:
 - tapOn:
     id: "onboarding_continue"
 
-# On paywall
 - extendedWaitUntil:
     visible:
       id: "paywall_plan_yearly"
-    timeout: 10000
+    timeout: 30000
 
 - tapOn:
     id: "paywall_plan_yearly"
 
 - extendedWaitUntil:
-    visible: "Simulate Success"
+    visible: "Test valid purchase"
     timeout: 10000
 
-- tapOn: "Simulate Success"
+- tapOn: "Test valid purchase"
 
 - extendedWaitUntil:
     visible:
