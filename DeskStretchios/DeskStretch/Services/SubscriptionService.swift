@@ -12,7 +12,17 @@ final class SubscriptionService: SubscriptionServiceProtocol {
     }
 
     func configure(apiKey: String) {
+        #if DEBUG
+        // Use StoreKit 1 in debug builds to avoid StoreKit 2 simulator bugs
+        // (iOS 18.4+ / 26.x simulator: StoreKit 2 fails to fetch products)
+        // Source: https://github.com/RevenueCat/purchases-ios/issues/4954
+        let config = Configuration.Builder(withAPIKey: apiKey)
+            .with(storeKitVersion: .storeKit1)
+            .build()
+        Purchases.configure(with: config)
+        #else
         Purchases.configure(withAPIKey: apiKey)
+        #endif
     }
 
     func checkPremiumStatus() async -> Bool {

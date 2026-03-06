@@ -7,6 +7,10 @@ tags:
 - clearKeychain
 - launchApp
 
+# Handle Apple Account sign-in dialog
+- tapOn:
+    text: "キャンセル|Cancel"
+    optional: true
 # Complete onboarding first
 - extendedWaitUntil:
     visible:

@@ -8,7 +8,10 @@ tags:
 - clearKeychain
 - launchApp
 
-# Complete onboarding to paywall
+- tapOn:
+    text: "キャンセル|Cancel"
+    optional: true
+
 - extendedWaitUntil:
     visible:
       id: "onboarding_get_started"
@@ -28,11 +31,10 @@ tags:
 - tapOn:
     id: "onboarding_continue"
 
-# On paywall
 - extendedWaitUntil:
     visible:
       id: "paywall_plan_monthly"
-    timeout: 10000
+    timeout: 30000
 
 - tapOn:
     id: "paywall_plan_monthly"
