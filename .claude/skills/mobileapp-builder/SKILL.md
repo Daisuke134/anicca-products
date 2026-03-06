@@ -98,6 +98,7 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 37 | **アイコンはビルド前に配置**。後から変更は version bump + 再ビルド |
 | 38 | **SPM に RevenueCatUI を追加しない。RevenueCat のみ** |
 | 39 | **毎 iteration = 新 CC プロセス（フレッシュ context）**。前回の学びは progress.txt のみ |
+| 41 | **IAP は3プラン必須: weekly + monthly + annual**。Source: RevenueCat State of Subscription Apps 2025 (https://www.revenuecat.com/state-of-subscription-apps-2025/) — "Weekly plans capturing 47% of total revenue" |
 
 ## Quality Gate Pattern
 

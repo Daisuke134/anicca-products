@@ -37,7 +37,18 @@ echo "GROUP_ID=$GROUP_ID" >> ~/.config/mobileapp-builder/projects/<slug>/.env
 
 > `--ref-name` = ASC 内部管理名（ユーザーには見えない）。ユーザー表示名は Step 6.3 のローカリゼーションで設定する。
 
+Source: RevenueCat State of Subscription Apps 2025 (https://www.revenuecat.com/state-of-subscription-apps-2025/)
+> "Weekly subscriptions are now the most popular plan type, growing 10% since last year and accounting for nearly half of all in-app subscriptions. Weekly plans have fundamentally changed the game by capturing 47% of total revenue."
+
+Source: RevenueCat Blog — Annual Subscriptions Pros & Cons (https://www.revenuecat.com/blog/growth/annual-subscriptions-apps-pros-cons/)
+> "Paywalls with three plans—weekly, monthly, and annual—tend to drive stronger LTV across categories."
+
+**3プラン必須（weekly + monthly + annual）。2プランは機会損失。**
+
 ```bash
+WEEKLY_ID=$(asc subscriptions create --group $GROUP_ID --ref-name "Weekly" --product-id "<bundle_id>.weekly" --subscription-period ONE_WEEK --output json 2>&1 | jq -r '.data.id')
+echo "WEEKLY_ID=$WEEKLY_ID" >> ~/.config/mobileapp-builder/projects/<slug>/.env
+
 MONTHLY_ID=$(asc subscriptions create --group $GROUP_ID --ref-name "Monthly" --product-id "<bundle_id>.monthly" --subscription-period ONE_MONTH --output json 2>&1 | jq -r '.data.id')
 echo "MONTHLY_ID=$MONTHLY_ID" >> ~/.config/mobileapp-builder/projects/<slug>/.env
 
@@ -63,6 +74,13 @@ for LOCALE in $LOCALES; do
   asc subscriptions groups localizations create --group-id $GROUP_ID --locale "$LOCALE" --name "$NAME" 2>&1 || true
 done
 
+# --- Weekly ローカリゼーション ---
+for LOCALE in $LOCALES; do
+  NAME="Weekly Premium"; DESC="Full access. Try it weekly."
+  [ "$LOCALE" = "ja" ] && NAME="週額プレミアム" && DESC="全機能にアクセス。週単位でお試し。"
+  asc subscriptions localizations create --subscription-id $WEEKLY_ID --locale "$LOCALE" --name "$NAME" --description "$DESC" 2>&1 || true
+done
+
 # --- Monthly ローカリゼーション ---
 for LOCALE in $LOCALES; do
   NAME="Monthly Premium"; DESC="Full access to all features."
@@ -82,6 +100,7 @@ done
 
 ```bash
 TERRITORIES=$(asc pricing territories list --paginate --output json 2>&1 | jq -r '[.data[].id] | join(",")')
+asc subscriptions availability set --id $WEEKLY_ID --territory "$TERRITORIES" --available-in-new-territories
 asc subscriptions availability set --id $MONTHLY_ID --territory "$TERRITORIES" --available-in-new-territories
 asc subscriptions availability set --id $ANNUAL_ID --territory "$TERRITORIES" --available-in-new-territories
 ```
@@ -93,8 +112,8 @@ equalization API → CSV → `prices import` で一括設定。
 **CSV フォーマット:** `territory,price,price_point_id`（3列必須。price_point_id があると CLI が price 解決をスキップし高速）
 
 ```bash
-for SUB_ID in $MONTHLY_ID $ANNUAL_ID; do
-  export TARGET_PRICE=$([ "$SUB_ID" = "$MONTHLY_ID" ] && echo "4.99" || echo "29.99")
+for SUB_ID in $WEEKLY_ID $MONTHLY_ID $ANNUAL_ID; do
+  export TARGET_PRICE=$([ "$SUB_ID" = "$WEEKLY_ID" ] && echo "1.99" || [ "$SUB_ID" = "$MONTHLY_ID" ] && echo "4.99" || echo "29.99")
 
   # USA の target price point ID を取得（export TARGET_PRICE でパイプ右側の Python にも渡る）
   PP_ID=$(asc subscriptions price-points list --subscription-id $SUB_ID --territory USA --paginate --output json 2>&1 \
@@ -218,7 +237,7 @@ echo "✅ Entitlement: $RC_ENT_ID"
 ### 7.4: Product 作成 + Entitlement 紐付け
 ```bash
 # PATCH 15+19: Product ID を変数に保持（Step 7.5 で使う）。エラーチェック付き
-for pid in "<bundle_id>.monthly" "<bundle_id>.annual"; do
+for pid in "<bundle_id>.weekly" "<bundle_id>.monthly" "<bundle_id>.annual"; do
   PROD_RESULT=$(curl -s -w "\n%{http_code}" -X POST "$RC_BASE/projects/$RC_PROJECT_ID/products" \
     -H "$AUTH" -H "$CT" \
     -d "{\"store_identifier\":\"$pid\",\"app_id\":\"$RC_APP_ID\",\"type\":\"subscription\"}")
@@ -230,6 +249,7 @@ for pid in "<bundle_id>.monthly" "<bundle_id>.annual"; do
 
   # Product ID を保持（Step 7.5 Package 紐付けで使う）
   case "$pid" in
+    *weekly)  WEEKLY_PROD_ID="$PROD_ID" ;;
     *monthly) MONTHLY_PROD_ID="$PROD_ID" ;;
     *annual)  ANNUAL_PROD_ID="$PROD_ID" ;;
   esac
@@ -255,8 +275,8 @@ OFF_BODY=$(echo "$OFF_RESULT" | sed '$d')
 RC_OFF_ID=$(echo "$OFF_BODY" | jq -r '.id')
 echo "✅ Offering: $RC_OFF_ID"
 
-# Package 作成 + Product 紐付け（lookup_key は $rc_monthly / $rc_annual = RC 標準）
-for period in "monthly" "annual"; do
+# Package 作成 + Product 紐付け（lookup_key は $rc_weekly / $rc_monthly / $rc_annual = RC 標準）
+for period in "weekly" "monthly" "annual"; do
   PKG_RESULT=$(curl -s -w "\n%{http_code}" -X POST "$RC_BASE/projects/$RC_PROJECT_ID/offerings/$RC_OFF_ID/packages" \
     -H "$AUTH" -H "$CT" \
     -d "{\"lookup_key\":\"\$rc_$period\",\"display_name\":\"$(echo $period | sed 's/.*/\u&/')\"}")
@@ -266,7 +286,7 @@ for period in "monthly" "annual"; do
   PKG_ID=$(echo "$PKG_BODY" | jq -r '.id')
 
   # Product → Package 紐付け（eligibility_criteria 必須）
-  PROD_ID=$([ "$period" = "monthly" ] && echo "$MONTHLY_PROD_ID" || echo "$ANNUAL_PROD_ID")
+  PROD_ID=$([ "$period" = "weekly" ] && echo "$WEEKLY_PROD_ID" || [ "$period" = "monthly" ] && echo "$MONTHLY_PROD_ID" || echo "$ANNUAL_PROD_ID")
   ATTACH_RESULT=$(curl -s -w "\n%{http_code}" -X POST "$RC_BASE/projects/$RC_PROJECT_ID/packages/$PKG_ID/actions/attach_products" \
     -H "$AUTH" -H "$CT" \
     -d "{\"products\":[{\"product_id\":\"$PROD_ID\",\"eligibility_criteria\":\"all\"}]}")
