@@ -71,7 +71,7 @@ Source: [RevenueCat: Configuring SDK](https://www.revenuecat.com/docs/getting-st
 | **Phase 1: Project Setup** | — | Xcode project, xcconfig, SPM, PrivacyInfo | Low |
 | **Phase 2: Core Timer** | F-001, F-002, F-003 | TimerService, TimerViewModel, TimerView, BreakOverlayView, LiveActivity, NotificationService | High |
 | **Phase 3: Monetization** | F-005 | SubscriptionService, PaywallViewModel, PaywallView | Medium |
-| **Phase 4: Onboarding + Settings** | F-004, F-008, F-009 | OnboardingViewModel, OnboardingViews, SettingsViewModel, SettingsView | Medium |
+| **Phase 4: Onboarding + Settings** | F-004, F-006, F-007, F-008, F-009 | OnboardingViewModel, OnboardingViews, SettingsViewModel, SettingsView | Medium |
 | **Phase 5: Polish** | F-009, F-010 | Localizable.xcstrings, Constants, Design tokens | Low |
 
 ---

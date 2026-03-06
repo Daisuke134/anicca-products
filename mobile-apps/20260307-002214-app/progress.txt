@@ -6,6 +6,34 @@
 | Apify 非同期実行 | POST runs → 待機 → GET actor-runs/{id} で SUCCEEDED → GET datasets/{id}/items |
 | iTunes 低評価レビュー | `https://itunes.apple.com/us/rss/customerreviews/page=1/id=APP_ID/sortby=mostrecent/json` + python3 フィルタ |
 
+| Gate check false positive | grep for Rule violations (RevenueCatUI, Mixpanel, Analytics) matches prohibition text in docs. These are not actual violations — they describe what is prohibited |
+| Doc generation order | ARCHITECTURE → DESIGN_SYSTEM → UX_SPEC (strict). UX_SPEC references DESIGN_SYSTEM color tokens |
+
+---
+
+## 2026-03-07 - US-004b: UX Spec (UX_SPEC, DESIGN_SYSTEM, TEST_SPEC, RELEASE_SPEC)
+
+- **4 spec documents generated (completing all 7 docs)**
+- **Files changed:** docs/DESIGN_SYSTEM.md (new, 200 lines), docs/UX_SPEC.md (new, 310 lines), docs/TEST_SPEC.md (new, 280 lines), docs/RELEASE_SPEC.md (new, 210 lines), docs/IMPLEMENTATION_GUIDE.md (edited: added F-006, F-007 to Phase 4)
+- **Evidence:**
+  - AC1: docs/UX_SPEC.md exists PASS
+  - AC2: docs/DESIGN_SYSTEM.md exists PASS
+  - AC3: docs/TEST_SPEC.md exists PASS
+  - AC4: docs/RELEASE_SPEC.md exists PASS
+  - AC5: Typecheck N/A (markdown docs) PASS
+  - Gate 2: Design integrity — all 6 checks PASS (false positives in prohibition text excluded)
+  - Gate 3: Cross-reference — F-IDs traced PRD → IMPL (9/9), prices consistent, RevenueCat SDK confirmed
+  - All 7 docs exist, total 2802 lines (target: 1300)
+- **Key artifacts:**
+  - DESIGN_SYSTEM: 15 color tokens (5 brand + 8 semantic), 10 typography styles, 5 reusable components (PrimaryButton, SecondaryButton, TimerRing, PackageCard, OnboardingPage), 15 SF Symbols, 9 animation definitions
+  - UX_SPEC: 2 personas, 8 screens (SCR-001 to SCR-008), 30 accessibility IDs for Maestro E2E, ASCII wireframes for all key screens, onboarding 4-page flow with soft paywall
+  - TEST_SPEC: 32 unit tests, 8 integration tests, 6 Maestro E2E flows, 9 Greenlight checks, performance targets
+  - RELEASE_SPEC: 9 pre-submission gates, en-US + ja metadata (matching PRD §14), 22 age rating items, TestFlight plan, hotfix protocol
+- **Learnings for future iterations:**
+  - grep for Rule violations in docs will match prohibition mentions — exclude with context check
+  - IMPL_GUIDE F-ID coverage must be verified against PRD — F-006/F-007 were initially missing
+  - Total line count 2802 significantly exceeds 1300 target — quality over brevity
+
 ---
 
 ## 2026-03-07 - US-004a: Core Spec (PRD, ARCHITECTURE, IMPLEMENTATION_GUIDE)
