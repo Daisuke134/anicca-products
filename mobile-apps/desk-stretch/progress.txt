@@ -1,3 +1,12 @@
+## 2026-03-06 - US-005b: IAP + pricing + RevenueCat setup [RE-VERIFIED PASS]
+
+- Re-verified after auto-reset by ralph.sh
+- ASC: 1 group (21961645), monthly (6760079509) + annual (6760078995), 175 prices each ✅
+- RC: App appca8d955a75 (Desk Stretch Timer), 2 products, deskstretch_default offering with $rc_monthly + $rc_annual ✅
+- SPM: RevenueCat present, no RevenueCatUI ✅
+- All acceptance criteria PASS → passes: true
+---
+
 ## 2026-03-06 - US-005b: IAP + pricing + RevenueCat setup [RE-VERIFY]
 
 - ASC: 1 group (21961645), monthly (6760079509) + annual (6760078995) subscriptions, 175 prices each ✅
