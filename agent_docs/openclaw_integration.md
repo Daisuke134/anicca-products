@@ -64,3 +64,38 @@ launchctl list | grep -E "(openclaw|tunnel)" # List tunnels
 | VPS gateway | `systemctl --user disable openclaw-gateway` |
 
 **Forbidden:** `bind: "tailnet"` / keeping VPS tunnel / `stop` without `disable`
+
+## Sentinel Strings (CC ↔ OpenClaw)
+
+| Sentinel | Meaning | Used By |
+|----------|---------|---------|
+| `WAITING_FOR_HUMAN` | Needs manual input (API key, approval) | Both |
+| `TASK_COMPLETE` | Task finished successfully | OpenClaw → CC |
+| `TASK_FAILED` | Task failed, needs attention | OpenClaw → CC |
+| `CONTEXT_HANDOFF` | Passing context between agents | CC → OpenClaw |
+
+## Worktree Templates
+
+### STATUS.md
+```markdown
+# Worktree Status
+| Item | Value |
+|------|-------|
+| Branch | feature/<name> |
+| Agent | CC / OpenClaw |
+| State | in-progress / blocked / done |
+| Last Updated | YYYY-MM-DD HH:MM |
+```
+
+### PLAN.md
+```markdown
+# Worktree Plan
+## Goal
+<one-line objective>
+## Tasks
+- [ ] Task 1
+- [ ] Task 2
+## Boundaries
+Files touched: <list>
+Files NOT touched: <list>
+```

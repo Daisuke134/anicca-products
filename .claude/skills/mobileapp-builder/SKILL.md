@@ -71,7 +71,8 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 17 | **自前 SwiftUI PaywallView 必須。RevenueCatUI.PaywallView 禁止** |
 | 18 | **ATT 禁止** |
 | 19 | **オンボーディング最終画面はソフトペイウォール** |
-| 20 | **validate.sh を CC が編集・削除禁止（外部品質ゲート）** |
+| 20 | **validate.sh / ralph.sh を CC が編集・削除禁止（外部品質ゲート）** |
+| 40 | **テンプレート編集禁止**: `.claude/skills/mobileapp-builder/` 内の prd.json, SKILL.md, CLAUDE.md は CC 編集禁止。`$APP_DIR/prd.json` のみ編集可 |
 | 21 | **1アプリ = 1 RC プロジェクト** Source: https://community.revenuecat.com/general-questions-7/project-vs-app-1899 |
 | 22 | **AXe 座標タップでタブ切り替え**。Tab Bar の accessibility label がない場合 |
 | 23 | **Maestro E2E テスト必須。サブスク購入フローを含む** |

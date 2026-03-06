@@ -49,65 +49,97 @@
   "hooks": {
     "SessionStart": [
       {
-        "type": "command",
-        "command": ".claude/hooks/scripts/session-start.sh",
-        "once": true
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/scripts/session-start.sh"
+          }
+        ]
       }
     ],
     "PreToolUse": [
       {
-        "type": "command",
-        "command": ".claude/hooks/scripts/pre-tool-lint.sh",
-        "matcher": "Edit|Write"
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/scripts/pre-tool-lint.sh"
+          }
+        ]
       }
     ],
     "PostToolUse": [
       {
-        "type": "command",
-        "command": ".claude/hooks/scripts/post-tool-sound.sh",
-        "matcher": "Bash"
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/scripts/post-tool-sound.sh"
+          }
+        ]
       }
     ],
     "Notification": [
       {
-        "type": "command",
-        "command": ".claude/hooks/scripts/notification-sound.sh"
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/scripts/notification-sound.sh"
+          }
+        ]
       }
     ],
     "Stop": [
       {
-        "type": "prompt",
-        "command": ".claude/hooks/scripts/stop-continue.sh"
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/scripts/stop-continue.sh"
+          }
+        ]
       }
     ],
     "PreCompact": [
       {
-        "type": "command",
-        "command": ".claude/hooks/scripts/pre-compact-backup.sh"
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/scripts/pre-compact-backup.sh"
+          }
+        ]
       }
     ],
     "SubagentStop": [
       {
-        "type": "command",
-        "command": ".claude/hooks/scripts/subagent-stop-validate.sh"
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/scripts/subagent-stop-validate.sh"
+          }
+        ]
       }
     ],
     "UserPromptSubmit": [
       {
-        "type": "command",
-        "command": ".claude/hooks/scripts/user-prompt-context.sh"
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/scripts/user-prompt-context.sh"
+          }
+        ]
       }
     ]
   },
-  "spinnerVerbs": [
-    "考え中",
-    "検索中",
-    "実装中",
-    "テスト中",
-    "レビュー中",
-    "デプロイ中"
-  ],
-  "outputStyle": "concise",
-  "sandbox": false,
-  "statusLine": true
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": [
+      "Thinking",
+      "Searching",
+      "Implementing",
+      "Testing",
+      "Reviewing",
+      "Deploying"
+    ]
+  },
+  "outputStyle": "concise"
 }

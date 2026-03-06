@@ -5,18 +5,16 @@
 
 ## Your Task
 
-APP_DIR = このファイル (CLAUDE.md) が置かれているディレクトリのフルパス。
-
-1. Read `$APP_DIR/prd.json`
-2. Read `$APP_DIR/progress.txt` (check Codebase Patterns section FIRST)
+1. Read `prd.json` (same directory as this file)
+2. Read `progress.txt` (check Codebase Patterns section FIRST)
 3. Pick the **highest priority** user story where `passes: false`
 4. Read `.claude/skills/mobileapp-builder/references/us-<NNN>-*.md` for this US
 5. Read referenced skills (listed in the spec file)
 6. Implement that single user story
 7. Run verification checks listed in the spec
 8. If checks pass, commit ALL changes: `feat: [US-ID] - [Title]`
-9. Update `$APP_DIR/prd.json`: set `passes: true` + add notes
-10. Append progress to `$APP_DIR/progress.txt`
+9. Update prd.json: set `passes: true` + add notes
+10. Append progress to `progress.txt`
 11. Report via Slack (BOTH, curl FIRST):
     source ~/.config/mobileapp-builder/.env
     curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '{"text":"🏭 <US-ID> 完了: <summary>"}'
@@ -129,10 +127,8 @@ If stories remain: end normally (next iteration picks up).
 - ONE story per iteration (Source: ghuntley.com/ralph/ "one item per loop")
 - Every source file change → git commit
 - Every US start → Slack report
-- Every US completion → update `$APP_DIR/progress.txt` + `$APP_DIR/prd.json` + git commit + Slack report
-- DO NOT modify validate.sh or ralph.sh (external quality gates, not your files)
-- DO NOT modify `.claude/skills/mobileapp-builder/prd.json` (テンプレート。`$APP_DIR/prd.json` のみ編集可)
-- DO NOT modify `.claude/skills/mobileapp-builder/SKILL.md` or `.claude/skills/mobileapp-builder/CLAUDE.md` (テンプレート)
+- Every US completion → update progress.txt + prd.json + git commit + Slack report
+- DO NOT modify validate.sh (external quality gate, not your file)
 
 ## 3-Attempt Limit
 # Source: harrymunro/ralph-wiggum CLAUDE.md
