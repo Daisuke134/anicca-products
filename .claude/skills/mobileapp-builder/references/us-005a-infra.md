@@ -90,6 +90,28 @@ security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keych
 
 **人間介入不要。** API Key認証で常に自動実行される。
 
+## Step 4.9: iris セッション事前確認 (CRITICAL — 5回以上の繰り返しブロックを防ぐ)
+
+Source: Internal feedback — iris session expiry blocks apps across 5+ factory runs without early detection
+> "irisセッション失効 + 2FA必要" appeared in progress.txt of 20260302, 20260303, 20260304 apps (3+ occurrences each)
+
+```bash
+source ~/.config/mobileapp-builder/.env
+SESSION_STATUS=$(asc web auth status 2>&1)
+if echo "$SESSION_STATUS" | grep -q '"authenticated":false\|authenticated.*false\|not authenticated\|session.*expired'; then
+  echo "⚠️ iris session EXPIRED — requesting 2FA immediately"
+  # Slack通知: 即 WAITING_FOR_HUMAN にして無駄な retry を防ぐ
+  curl -s -X POST "$SLACK_WEBHOOK_AGENTS" \
+    -H "Content-Type: application/json" \
+    -d '{"text":"WAITING_FOR_HUMAN: iris session expired\niPhoneに届く6桁コードを送ってください。\n`asc web auth login --apple-id '"$APPLE_ID"' --password '"$APPLE_ID_PASSWORD"' --two-factor-code <CODE>`"}'
+  exit 0  # WAITING_FOR_HUMAN — 次 iteration でコード受信後に再実行
+else
+  echo "✅ iris session active"
+fi
+```
+
+**⛔ セッション失効を検出したら即 WAITING_FOR_HUMAN。retry 禁止。**
+
 ## Step 5: ASC App Creation（~/bin/asc apps create — Apple ID 認証 + 2FA）
 
 ### 5.0: Bundle ID 存在確認（前提チェック）
