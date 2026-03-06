@@ -17,6 +17,47 @@
 | availability before pricing | ASC API で pricing 設定前に availability 設定が必須。逆だと 500 エラー |
 | equalization excludes USA | `price-points equalizations` は USA を含まない(174カ国)。USA は `prices add` で別途追加が必要 |
 | 3-plan subscription | RevenueCat SOSA 2025: weekly が47% of revenue。3プラン(weekly+monthly+annual)必須 |
+| ActivityKit iOS 16.2+ | `Activity.request`, `activity.end`, `activity.update(ActivityContent)` は iOS 16.2+。`if #available(iOS 16.2, *)` 必須 |
+| Shared sources for Widget Extension | EyeBreakAttributes は App + WidgetExtension 両方で使用。`Shared/` ディレクトリに配置し project.yml で両ターゲットに追加 |
+| xcodegen shared sources | project.yml の sources に `- path: Shared` を追加して複数ターゲットでコード共有 |
+| iPhone 17 Pro simulator | Xcode 26.2 では iPhone 16 Pro シミュレータなし。iPhone 17 Pro を使用 |
+
+---
+
+## 2026-03-07 - US-006a: TDD Data Layer (COMPLETE)
+
+- **Status: COMPLETE — all AC verified with evidence**
+- **Evidence:**
+  - AC1: `xcconfig/Config.xcconfig` exists with `RC_PUBLIC_KEY =` PASS
+  - AC2: `SubscriptionServiceProtocol` in `Services/SubscriptionService.swift` PASS
+  - AC3: `Models/` (4 files) + `Services/` (3 files) directories exist PASS
+  - AC4: `xcodebuild test` → 44 tests, 0 failures PASS
+  - AC5: Build compiles without errors PASS
+- **Gate checks:**
+  - Mock count in production: 0 PASS
+  - RevenueCat imports: 4, RevenueCatUI imports: 0 PASS
+  - AI API imports: 0 PASS
+  - PrivacyInfo.xcprivacy CA92.1: confirmed PASS
+- **Files created:**
+  - `EyeBreakIslandios/project.yml` — xcodegen project definition
+  - `EyeBreakIslandios/EyeBreakIsland/xcconfig/Config.xcconfig` — RC_PUBLIC_KEY
+  - `EyeBreakIslandios/EyeBreakIsland/Info.plist` — app config
+  - `EyeBreakIslandios/EyeBreakIsland/Models/` — TimerState, BreakSession, SubscriptionStatus, AccessibilityID
+  - `EyeBreakIslandios/EyeBreakIsland/Services/` — SubscriptionService (Protocol+DI+uiPreviewMode), TimerService (Protocol+ActivityKit), NotificationService (Protocol)
+  - `EyeBreakIslandios/EyeBreakIsland/App/` — EyeBreakIslandApp, ContentView
+  - `EyeBreakIslandios/EyeBreakIsland/Utilities/Constants.swift`
+  - `EyeBreakIslandios/EyeBreakIsland/LiveActivity/` — (moved to Shared)
+  - `EyeBreakIslandios/Shared/EyeBreakAttributes.swift`
+  - `EyeBreakIslandios/EyeBreakIslandWidgetExtension/` — Live Activity view, Widget bundle, Info.plist
+  - `EyeBreakIslandios/EyeBreakIsland/Resources/` — PrivacyInfo.xcprivacy, Assets.xcassets (5 brand colors, AppIcon)
+  - `EyeBreakIslandios/EyeBreakIslandTests/` — 4 test files (44 tests total)
+  - `EyeBreakIslandios/fastlane/Fastfile`
+  - `EyeBreakIslandios/.gitignore`
+- **Learnings for future iterations:**
+  - ActivityKit `Activity.request`, `.end`, `.update(ActivityContent)` は iOS 16.2+。deployment target 16.1 でも availability check 必要
+  - EyeBreakAttributes は App と WidgetExtension で共有。Shared/ ディレクトリに配置
+  - iPhone 17 Pro が利用可能なシミュレータ（Xcode 26.2）
+  - xcodegen の `sources:` に複数パスを追加してターゲット間でコード共有可能
 
 ---
 
