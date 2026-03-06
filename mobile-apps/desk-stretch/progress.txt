@@ -1,0 +1,30 @@
+## Codebase Patterns
+
+| Pattern | Detail |
+|---------|--------|
+| iPhone 17 Pro screenshots | 1206x2622 → APP_IPHONE_61 (NOT IPHONE_67) |
+| asc screenshots list | Use `--version-localization LOC_ID` without quotes in shell vars |
+| ja localization creation | `asc localizations list` only returns en-US by default. Use ASC REST API POST to create ja: `POST /v1/appStoreVersionLocalizations {locale: "ja", appStoreVersion: {id: VERSION_ID}}` |
+| JWT for ASC API | Use key_id=646Y27MJ8C from /Users/anicca/.asc/config.json (NOT D637C7RGFN) |
+| asc auth key path | /Users/anicca/.appstoreconnect/private_keys/AuthKey_646Y27MJ8C.p8 |
+| MD5 check | Use `/usr/bin/openssl dgst -md5 <file>` (md5 command unavailable) |
+
+---
+
+## 2026-03-06 - US-008a: Screenshots (capture + upload + review screenshot)
+
+- Captured 4 screenshots per locale: screen1_welcome, screen2_features, screen3_paywall, screen4_home
+- Simulator: iPhone 17 Pro (D5822106-E149-46E4-B7B7-50101D59B6D7)
+- Screenshot size: 1206x2622 → device-type IPHONE_61 (not IPHONE_67)
+- MD5 mismatch confirmed: en-US(fa0c0c8d) vs ja(826c1d07) ✅
+- Created ja localization via ASC REST API (aec6929d-db34-4889-92e5-7634aae71e5a)
+- en-US uploaded: 4 screenshots COMPLETE
+- ja uploaded: 4 screenshots COMPLETE
+- Subscription review screenshots: Monthly(7b7a1f6c) + Annual(9b47d721) uploaded
+- Files: screenshots/raw/en-US/*.png, screenshots/raw/ja/*.png, /tmp/paywall-review.png
+- **Learnings for future iterations:**
+  - iPhone 17 Pro in simulator captures 1206x2622 = IPHONE_61 display type
+  - ja localization must be created via ASC REST API (asc CLI doesn't have create subcommand)
+  - Use JWT key ID 646Y27MJ8C from ~/.asc/config.json for ASC REST API calls
+  - ENV var expansion breaks `asc screenshots list --version-localization "$VAR"` — use direct value
+---
