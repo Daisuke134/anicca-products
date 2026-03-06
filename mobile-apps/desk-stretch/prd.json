@@ -109,7 +109,7 @@
       ],
       "priority": 5.5,
       "passes": true,
-      "notes": "RC App=appca8d955a75, validated. Screenshots copied to APP_DIR."
+      "notes": "APP_ID=6760048397. RC App=appca8d955a75, validated. Screenshots copied to APP_DIR."
     },
     {
       "id": "US-006a",
