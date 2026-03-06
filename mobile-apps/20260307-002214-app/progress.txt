@@ -8,6 +8,28 @@
 
 ---
 
+## 2026-03-07 - US-002: Product Planning
+
+- **product-plan.md 作成完了**
+- **Files changed:** product-plan.md (新規作成, 316行)
+- **Evidence:**
+  - AC1: product-plan.md 存在 PASS
+  - AC2: 7 sections (§1〜§7) PASS
+  - AC3: 13 price mentions ($4.99/月, $29.99/年) PASS
+  - AC4: 23 URL citations (need>=10) PASS
+  - AC5: iTunes "EyeBreakIsland" → 0 exact matches (verified 2026-03-07) PASS
+- **Key decisions:**
+  - App Title: "Eye Break - EyeBreakIsland" (Jake Mor format)
+  - Bundle ID: com.aniccafactory.eyebreakisland
+  - Pricing: $4.99/mo (no trial) + $29.99/yr (7-day trial)
+  - RevenueCat entitlement: `pro`, offering: `default`
+  - Won't Have: Apple Watch, Screen Time API, Stats Dashboard (all v1.1+)
+- **Learnings for future iterations:**
+  - iTunes Search API の URL はシングルクォートなしでも動作する
+  - product-plan.md の §セクション番号は `grep -c "^## §"` でカウント可能
+
+---
+
 ## 2026-03-07 - US-001: Trend Research + Idea Selection
 
 - **選定アプリ:** EyeBreakIsland (20-20-20 eye rest timer + Dynamic Island + Apple Watch)
