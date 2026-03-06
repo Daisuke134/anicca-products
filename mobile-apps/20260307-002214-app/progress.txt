@@ -13,6 +13,34 @@
 | ObservableObject mutation | SwiftUI @Published properties は immutability rule の例外。ARCHITECTURE.md §13 に記載 |
 | Dynamic Type exception | Timer display (56pt) は固定サイズ。DESIGN_SYSTEM.md に例外として記載が必要 |
 | apps create requires 2FA | `asc apps create` は iris session があっても独自に Apple ID 認証する。`--two-factor-code` 必須。API Key 認証不可 |
+| source .env in Bash tool | `source ~/.config/.../projects/<slug>/.env` は Bash tool 内で変数が展開されない場合あり。`export VAR=VALUE` で直接設定するか、`cat .env` で値を確認してからコマンドに埋め込むこと |
+| availability before pricing | ASC API で pricing 設定前に availability 設定が必須。逆だと 500 エラー |
+| equalization excludes USA | `price-points equalizations` は USA を含まない(174カ国)。USA は `prices add` で別途追加が必要 |
+| 3-plan subscription | RevenueCat SOSA 2025: weekly が47% of revenue。3プラン(weekly+monthly+annual)必須 |
+
+---
+
+## 2026-03-07 - US-005b: IAP + pricing + RevenueCat setup (WAITING_FOR_HUMAN)
+
+- **Status: WAITING_FOR_HUMAN — RC SK Key needed**
+- **WAITING_FOR_HUMAN: RC SK Key**
+  - https://app.revenuecat.com → Create project "EyeBreakIsland" → Settings → API Keys → New secret API key (Read & Write) → sk_... をチャットに貼り付け
+- **ASC IAP 完了 (全エビデンス確認済み):**
+  - AC1: `asc subscriptions groups list --app 6760196743` → 1 group (GROUP_ID=21964810) PASS
+  - AC2: `asc subscriptions list --group 21964810` → 3 products:
+    - 6760196773 com.aniccafactory.eyebreakisland.weekly ONE_WEEK
+    - 6760196661 com.aniccafactory.eyebreakisland.monthly ONE_MONTH
+    - 6760196888 com.aniccafactory.eyebreakisland.annual ONE_YEAR
+  - AC3: Weekly 175 prices, Monthly 175 prices, Annual 175 prices PASS
+  - Localizations: Group 37 + Weekly 37 + Monthly 37 + Annual 37 = 148 total PASS
+  - AC4: RevenueCat → WAITING_FOR_HUMAN (SK Key needed)
+  - AC5: SPM dependency → deferred to US-006 per spec
+- **Files changed:** ~/.config/mobileapp-builder/projects/eyebreakisland/.env (GROUP_ID, WEEKLY_ID, MONTHLY_ID, ANNUAL_ID added)
+- **Learnings for future iterations:**
+  - `source .env` may not export vars in Bash tool — use explicit `export` or inline values
+  - Availability must be set BEFORE pricing (Apple API returns 500 otherwise)
+  - Equalization API returns 174 countries (excludes USA) — add USA separately
+  - 3-plan model (weekly+monthly+annual) is RevenueCat best practice (SOSA 2025)
 
 ---
 
