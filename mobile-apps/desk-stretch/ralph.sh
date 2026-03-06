@@ -39,6 +39,16 @@ notify_slack "🏭 ralph.sh 起動: $(basename "$SCRIPT_DIR")"
 PREV_PASSES=""
 
 for i in $(seq 1 $MAX_ITERATIONS); do
+  # Token refresh: read fresh token from Keychain before each iteration
+  # Source: https://github.com/AndyMik90/Auto-Claude/issues/1518
+  # "Claude CLI terminal works for days because it has internal token refresh logic"
+  # "claude -p" pipe mode does NOT refresh — must read fresh token each iteration
+  FRESH_TOKEN=$(security find-generic-password -s 'Claude Code-credentials' -w 2>/dev/null \
+    | python3 -c "import json,sys; print(json.loads(sys.stdin.read().strip())['claudeAiOauth']['accessToken'])" 2>/dev/null || echo "")
+  if [ -n "$FRESH_TOKEN" ]; then
+    export CLAUDE_CODE_OAUTH_TOKEN="$FRESH_TOKEN"
+  fi
+
   # WAITING_FOR_HUMAN: don't burn iterations while waiting for human input
   # Source: https://github.com/snarktank/ralph — "pause until resolved"
   WAIT_COUNT=0
