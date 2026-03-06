@@ -1,56 +1,100 @@
-# US-007: Testing
+# US-007: E2E Testing (Maestro)
 
-Source: rshankras WORKFLOW.md Phase 5
+**Unit/Integration tests are written in US-006 (TDD).** This US is E2E only.
 
-## Skills to Read (IN THIS ORDER)
-1. `.claude/skills/tdd-feature/SKILL.md` — rshankras: Red-Green-Refactor
-2. `.claude/skills/integration-test-scaffold/SKILL.md` — rshankras
-3. `.claude/skills/test-data-factory/SKILL.md` — rshankras
-4. `.claude/skills/maestro-e2e/SKILL.md` — Maestro YAML flows
+## Skill
 
-## Quality Gate (MANDATORY — US-006 検証)
+**Read first:** `.claude/skills/maestro-ui-testing/SKILL.md` — Best practices, Fix Loop, RC Test Store, a11y selectors
+
+## Variables
+
 ```bash
-xcodebuild -scheme <AppName> build -destination "platform=iOS Simulator,id=$UDID" || { echo "GATE FAIL: build broken"; exit 1; }
-grep -r 'Mock' --include='*.swift' . | grep -v Tests/ | grep -v .build/ | wc -l | grep -q '^0$' || { echo "GATE FAIL: Mocks in prod"; exit 1; }
+APP_NAME="<AppName>"
+BUNDLE_ID="com.aniccafactory.<appname>"
+UDID=$(xcrun simctl list devices available | grep "iPhone 16" | head -1 | grep -oE '[A-F0-9-]{36}')
 ```
 
-## Step 1: docs/TEST_SPEC.md に従う
+## Quality Gate 0 (US-006 成果物検証)
 
-## Step 2: Unit + Integration Tests
-- Models + ViewModels + Services
-- `xcodebuild test` PASS
+```bash
+fastlane test  # Unit/Integration from 006 must still pass
+fastlane build_for_simulator  # Simulator build for Maestro
+```
 
-## Step 3: StoreKit Configuration File
-Source: Apple (https://developer.apple.com/documentation/xcode/setting-up-storekit-testing-in-xcode)
+## 6 Flows
 
-1. `Products.storekit` — monthly + annual 定義
-2. Xcode scheme で StoreKit Configuration 設定
+| # | File | Content | Tags |
+|---|------|---------|------|
+| 1 | `maestro/01-onboarding.yaml` | Full onboarding flow | onboarding, smokeTest |
+| 2 | `maestro/02-timer.yaml` | Timer start → stretch | timer |
+| 3 | `maestro/03-settings.yaml` | Settings screen navigation | settings |
+| 4 | `maestro/04-payment-monthly-success.yaml` | RC Test Store → Monthly → Simulate Success | payment, smokeTest |
+| 5 | `maestro/05-payment-annual-success.yaml` | RC Test Store → Annual → Simulate Success | payment |
+| 6 | `maestro/06-payment-failure.yaml` | RC Test Store → Simulate Failure | payment |
 
-## Step 4: Maestro E2E（サブスク購入フロー）
-Source: https://maestro.dev/insights/how-to-write-yaml-test-scripts-for-mobile-apps
+## Flow Template (all flows follow this structure)
 
 ```yaml
-# flows/paywall-purchase.yaml
-appId: <bundle_id>
+appId: com.aniccafactory.<appname>
+tags:
+  - <tag>
 ---
+- clearState
+- clearKeychain
 - launchApp
-- tapOn:
-    id: "paywall_plan_monthly"
-- tapOn:
-    id: "paywall_cta"
-- assertVisible: "Confirm"
-- tapOn: "Confirm"
+- extendedWaitUntil:
+    visible:
+      id: "<first_element>"
+    timeout: 30000
+# ... flow steps using id: selectors ...
+- takeScreenshot: "<flow_name>"
 ```
 
-## Step 5: 全テスト実行
+## Fix Loop (FAIL 時の自動修正)
+
+See maestro-ui-testing SKILL.md "Fix Loop" section.
+
+```
+FAIL → diagnose:
+  YAML error → fix YAML → retry
+  Swift error → fix Swift → fastlane build_for_simulator → retry
+  Max 3 retries → BLOCKED
+```
+
+## PROHIBITED
+
+- `flows/` directory (use `maestro/`)
+- `xcodebuild test` (use `fastlane test`)
+- StoreKit Configuration file (use RC Test Store)
+- `point:` selectors (use `id:`)
+- Static `wait:` commands (use `extendedWaitUntil`)
+- Foundation Models references (Rule 21)
+
+## Gate (ALL must pass)
+
 ```bash
-xcodebuild test -scheme <AppName> -destination "platform=iOS Simulator,id=$UDID"
-maestro test flows/
-```
+# Simulator build
+fastlane build_for_simulator
 
-## Acceptance Criteria
-- xcodebuild test succeeds
-- Unit tests for Models and Services
-- Products.storekit exists
-- Maestro E2E flows pass (paywall purchase)
-- All tests pass
+# All 6 Maestro flows
+maestro test maestro/
+
+# Verify flow count
+FLOW_COUNT=$(ls maestro/*.yaml | wc -l)
+[ "$FLOW_COUNT" -ge 6 ] || { echo "FAIL: need 6+ flows, got $FLOW_COUNT"; exit 1; }
+
+# Verify clearState in all flows
+for f in maestro/*.yaml; do
+  grep -q 'clearState' "$f" || { echo "FAIL: $f missing clearState"; exit 1; }
+done
+
+# Verify takeScreenshot in all flows
+for f in maestro/*.yaml; do
+  grep -q 'takeScreenshot' "$f" || { echo "FAIL: $f missing takeScreenshot"; exit 1; }
+done
+
+# Verify smokeTest tag exists
+grep -rl 'smokeTest' maestro/ | wc -l | grep -qv '^0$' || { echo "FAIL: no smokeTest tags"; exit 1; }
+
+echo "US-007 PASS"
+```
