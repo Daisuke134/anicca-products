@@ -1,0 +1,5 @@
+// Debug.template.xcconfig
+// Copy to Debug.local.xcconfig and fill in real values
+// Debug.local.xcconfig is gitignored
+
+REVENUECAT_API_KEY = YOUR_DEBUG_API_KEY_HERE

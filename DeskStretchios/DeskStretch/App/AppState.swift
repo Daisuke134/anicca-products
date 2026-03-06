@@ -10,7 +10,29 @@ class AppState {
     var hasCompletedOnboarding: Bool = false
     var currentSession: StretchSession? = nil
 
-    private let defaults = UserDefaults.standard
+    let subscriptionService: SubscriptionServiceProtocol
+    let libraryService: StretchLibraryService
+    let routineService: StretchRoutineService
+    let progressService: ProgressService
+    let notificationService: NotificationService
+
+    private let defaults: UserDefaults
+
+    init(
+        subscriptionService: SubscriptionServiceProtocol = SubscriptionService.shared,
+        libraryService: StretchLibraryService = StretchLibraryService(),
+        routineService: StretchRoutineService? = nil,
+        progressService: ProgressService = ProgressService(),
+        notificationService: NotificationService = NotificationService(),
+        defaults: UserDefaults = .standard
+    ) {
+        self.subscriptionService = subscriptionService
+        self.libraryService = libraryService
+        self.routineService = routineService ?? StretchRoutineService(libraryService: libraryService)
+        self.progressService = progressService
+        self.notificationService = notificationService
+        self.defaults = defaults
+    }
 
     func loadPersistedState() {
         hasCompletedOnboarding = defaults.bool(forKey: "hasCompletedOnboarding")

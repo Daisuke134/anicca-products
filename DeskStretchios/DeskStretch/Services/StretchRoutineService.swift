@@ -1,13 +1,13 @@
 import Foundation
 
-final class AIStretchService {
+final class StretchRoutineService {
     private let libraryService: StretchLibraryService
 
     init(libraryService: StretchLibraryService) {
         self.libraryService = libraryService
     }
 
-    func generateRoutine(
+    func selectRoutine(
         painAreas: Set<PainArea>,
         history: [StretchSession],
         exerciseCount: Int = 3,

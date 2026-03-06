@@ -1,0 +1,5 @@
+// Release.template.xcconfig
+// Copy to Release.local.xcconfig and fill in real values
+// Release.local.xcconfig is gitignored
+
+REVENUECAT_API_KEY = YOUR_RELEASE_API_KEY_HERE

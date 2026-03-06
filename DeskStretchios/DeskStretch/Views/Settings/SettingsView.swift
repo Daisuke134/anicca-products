@@ -3,6 +3,7 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(AppState.self) private var appState
     @State private var showTimerSettings = false
+    @State private var showPaywall = false
 
     var body: some View {
         NavigationStack {
@@ -47,13 +48,14 @@ struct SettingsView: View {
                         }
                     } else {
                         Button(String(localized: "Upgrade to Premium")) {
-                            // Handled via PaywallView
+                            showPaywall = true
                         }
+                        .accessibilityIdentifier("settings_upgrade")
                     }
 
                     Button(String(localized: "Restore Purchases")) {
                         Task {
-                            let success = try? await SubscriptionService.shared.restorePurchases()
+                            let success = try? await appState.subscriptionService.restorePurchases()
                             if success == true {
                                 appState.isPremium = true
                             }
@@ -62,15 +64,20 @@ struct SettingsView: View {
                 }
 
                 Section(String(localized: "Legal")) {
-                    Link(String(localized: "Privacy Policy"),
-                         destination: URL(string: "https://aniccaai.com/privacy")!)
-                    Link(String(localized: "Terms of Use"),
-                         destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
+                    if let privacyURL = URL(string: "https://aniccaai.com/privacy") {
+                        Link(String(localized: "Privacy Policy"), destination: privacyURL)
+                    }
+                    if let termsURL = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
+                        Link(String(localized: "Terms of Use"), destination: termsURL)
+                    }
                 }
             }
             .navigationTitle(String(localized: "Settings"))
             .sheet(isPresented: $showTimerSettings) {
                 TimerSettingsSheet()
+            }
+            .sheet(isPresented: $showPaywall) {
+                PaywallView(onDismiss: { showPaywall = false })
             }
         }
     }

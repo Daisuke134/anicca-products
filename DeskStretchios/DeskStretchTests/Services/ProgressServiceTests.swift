@@ -31,4 +31,20 @@ final class ProgressServiceTests: XCTestCase {
         XCTAssertEqual(result.totalSessions, 2)
         XCTAssertEqual(result.totalMinutes, 7)
     }
+
+    func testNegativeDurationClampedToZero() {
+        let result = service.recordSession(duration: -10, current: .empty)
+        XCTAssertEqual(result.totalMinutes, 0)
+    }
+
+    func testHugeDurationClampedTo1440() {
+        let result = service.recordSession(duration: 99999, current: .empty)
+        XCTAssertEqual(result.totalMinutes, 1440)
+    }
+
+    func testZeroDuration() {
+        let result = service.recordSession(duration: 0, current: .empty)
+        XCTAssertEqual(result.totalMinutes, 0)
+        XCTAssertEqual(result.totalSessions, 1)
+    }
 }

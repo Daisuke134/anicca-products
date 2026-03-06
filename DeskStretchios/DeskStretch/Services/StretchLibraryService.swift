@@ -1,14 +1,27 @@
 import Foundation
 
+enum StretchLibraryError: Error, Equatable {
+    case fileNotFound
+    case decodingFailed(String)
+}
+
 final class StretchLibraryService {
     private var allExercises: [StretchExercise] = []
 
-    func loadFromBundle() {
-        guard let url = Bundle.main.url(forResource: "StretchLibrary", withExtension: "json"),
-              let data = try? Data(contentsOf: url),
-              let exercises = try? JSONDecoder().decode([StretchExercise].self, from: data)
-        else { return }
-        allExercises = exercises
+    func loadFromBundle() throws {
+        guard let url = Bundle.main.url(forResource: "StretchLibrary", withExtension: "json") else {
+            throw StretchLibraryError.fileNotFound
+        }
+        do {
+            let data = try Data(contentsOf: url)
+            allExercises = try JSONDecoder().decode([StretchExercise].self, from: data)
+        } catch let error as DecodingError {
+            throw StretchLibraryError.decodingFailed(error.localizedDescription)
+        }
+    }
+
+    func loadFromData(_ data: Data) throws {
+        allExercises = try JSONDecoder().decode([StretchExercise].self, from: data)
     }
 
     func exercises(for painAreas: Set<PainArea>) -> [StretchExercise] {
@@ -20,4 +33,5 @@ final class StretchLibraryService {
     }
 
     var all: [StretchExercise] { allExercises }
+    var isEmpty: Bool { allExercises.isEmpty }
 }

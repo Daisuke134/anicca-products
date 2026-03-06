@@ -5,13 +5,11 @@ struct StretchLibraryView: View {
     @State private var selectedCategory: PainArea?
     @State private var showPaywall = false
 
-    private let libraryService = StretchLibraryService()
-
     var filteredExercises: [StretchExercise] {
         if let category = selectedCategory {
-            return libraryService.exercises(for: [category])
+            return appState.libraryService.exercises(for: [category])
         }
-        return libraryService.all
+        return appState.libraryService.all
     }
 
     var body: some View {
@@ -53,7 +51,6 @@ struct StretchLibraryView: View {
                 .listStyle(.plain)
             }
             .navigationTitle(String(localized: "Stretch Library"))
-            .onAppear { libraryService.loadFromBundle() }
             .sheet(isPresented: $showPaywall) {
                 PaywallView(onDismiss: { showPaywall = false })
             }

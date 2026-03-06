@@ -13,6 +13,9 @@ packages:
   RevenueCat:
     url: https://github.com/RevenueCat/purchases-ios.git
     from: 5.0.0
+configFiles:
+  Debug: DeskStretch/Config/Debug.local.xcconfig
+  Release: DeskStretch/Config/Release.local.xcconfig
 targets:
   DeskStretch:
     type: application

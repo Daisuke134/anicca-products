@@ -1,8 +1,14 @@
 import Foundation
 import RevenueCat
 
-final class SubscriptionService {
+final class SubscriptionService: SubscriptionServiceProtocol {
     static let shared = SubscriptionService()
+
+    var isPremium: Bool {
+        get async {
+            await checkPremiumStatus()
+        }
+    }
 
     func configure(apiKey: String) {
         Purchases.configure(withAPIKey: apiKey)

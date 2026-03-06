@@ -30,7 +30,7 @@ struct PaywallView: View {
 
             VStack(alignment: .leading, spacing: 12) {
                 BenefitRow(text: String(localized: "Unlimited stretches"))
-                BenefitRow(text: String(localized: "AI-personalized routines"))
+                BenefitRow(text: String(localized: "Personalized routines for your pain areas"))
                 BenefitRow(text: String(localized: "All pain areas"))
                 BenefitRow(text: String(localized: "Custom schedules"))
                 BenefitRow(text: String(localized: "Progress tracking"))
@@ -51,6 +51,10 @@ struct PaywallView: View {
                     }
                     .accessibilityIdentifier("paywall_plan_monthly")
                 }
+            } else if errorMessage != nil {
+                Text(String(localized: "Could not load subscription options."))
+                    .font(.body)
+                    .foregroundColor(.secondary)
             } else {
                 ProgressView()
             }
@@ -69,7 +73,7 @@ struct PaywallView: View {
             HStack {
                 Button(String(localized: "Maybe Later")) { onDismiss() }
                     .font(.subheadline)
-                    .accessibilityIdentifier("paywall_skip")
+                    .accessibilityIdentifier("paywall_maybe_later")
 
                 Spacer()
 
@@ -81,9 +85,13 @@ struct PaywallView: View {
             }
 
             HStack {
-                Link(String(localized: "Terms"), destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
+                if let termsURL = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
+                    Link(String(localized: "Terms"), destination: termsURL)
+                }
                 Text("·")
-                Link(String(localized: "Privacy"), destination: URL(string: "https://aniccaai.com/privacy")!)
+                if let privacyURL = URL(string: "https://aniccaai.com/privacy") {
+                    Link(String(localized: "Privacy"), destination: privacyURL)
+                }
             }
             .font(.caption)
             .foregroundColor(.secondary)
@@ -94,7 +102,10 @@ struct PaywallView: View {
     }
 
     private func loadOfferings() async {
-        offerings = await SubscriptionService.shared.getOfferings()
+        offerings = await appState.subscriptionService.getOfferings()
+        if offerings == nil {
+            errorMessage = String(localized: "Failed to load offerings. Please try again.")
+        }
     }
 
     private func purchase(_ package: Package) async {
@@ -102,7 +113,7 @@ struct PaywallView: View {
         errorMessage = nil
         defer { isPurchasing = false }
         do {
-            let success = try await SubscriptionService.shared.purchase(package: package)
+            let success = try await appState.subscriptionService.purchase(package: package)
             if success {
                 appState.isPremium = true
                 onDismiss()
@@ -115,7 +126,7 @@ struct PaywallView: View {
     private func restore() async {
         errorMessage = nil
         do {
-            let success = try await SubscriptionService.shared.restorePurchases()
+            let success = try await appState.subscriptionService.restorePurchases()
             if success {
                 appState.isPremium = true
                 onDismiss()

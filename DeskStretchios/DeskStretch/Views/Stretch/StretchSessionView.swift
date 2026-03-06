@@ -10,7 +10,7 @@ struct StretchSessionView: View {
     @State private var timer: Timer?
     @State private var isComplete = false
 
-    private let progressService = ProgressService()
+    private var progressService: ProgressService { appState.progressService }
 
     var currentExercise: StretchExercise? {
         guard currentIndex < session.exercises.count else { return nil }
@@ -55,6 +55,7 @@ struct StretchSessionView: View {
             Text(exercise.name)
                 .font(.title)
                 .fontWeight(.bold)
+                .accessibilityIdentifier("session_exercise_name")
 
             Text(exercise.instructions)
                 .font(.body)
@@ -77,7 +78,7 @@ struct StretchSessionView: View {
             }
             .font(.headline)
             .foregroundColor(.secondary)
-            .accessibilityIdentifier("stretch_skip")
+            .accessibilityIdentifier("session_skip")
         }
     }
 

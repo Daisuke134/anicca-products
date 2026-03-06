@@ -8,14 +8,6 @@ struct TimerView: View {
     @State private var timer: Timer?
     @State private var showStretchSession = false
 
-    private let libraryService = StretchLibraryService()
-    private let aiService: AIStretchService
-
-    init() {
-        let lib = StretchLibraryService()
-        self.aiService = AIStretchService(libraryService: lib)
-    }
-
     var progress: Double {
         guard totalSeconds > 0 else { return 0 }
         return Double(totalSeconds - remainingSeconds) / Double(totalSeconds)
@@ -33,7 +25,7 @@ struct TimerView: View {
 
             TimerRing(progress: progress, timeRemaining: timeString)
                 .frame(width: 240, height: 240)
-                .accessibilityIdentifier("timer_ring")
+                .accessibilityIdentifier("timer_countdown")
 
             VStack(spacing: 16) {
                 if isRunning {
@@ -56,14 +48,14 @@ struct TimerView: View {
                 }
                 .font(.headline)
                 .foregroundColor(.accentColor)
-                .accessibilityIdentifier("stretch_now")
+                .accessibilityIdentifier("timer_stretch_now")
             }
         }
         .padding()
         .onAppear {
-            libraryService.loadFromBundle()
             if remainingSeconds == 0 {
-                totalSeconds = appState.breakSchedule.intervalMinutes * 60
+                let interval = max(1, appState.breakSchedule.intervalMinutes)
+                totalSeconds = interval * 60
                 remainingSeconds = totalSeconds
             }
         }
@@ -76,7 +68,8 @@ struct TimerView: View {
     }
 
     private func resetAndStart() {
-        totalSeconds = appState.breakSchedule.intervalMinutes * 60
+        let interval = max(1, appState.breakSchedule.intervalMinutes)
+        totalSeconds = interval * 60
         remainingSeconds = totalSeconds
         startTimer()
     }
@@ -106,7 +99,7 @@ struct TimerView: View {
     }
 
     private func startStretchSession() {
-        let exercises = aiService.generateRoutine(
+        let exercises = appState.routineService.selectRoutine(
             painAreas: appState.selectedPainAreas,
             history: [],
             isPremium: appState.isPremium
