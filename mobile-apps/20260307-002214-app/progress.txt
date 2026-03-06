@@ -20,7 +20,7 @@
 
 ---
 
-## 2026-03-07 - US-005b: IAP + pricing + RevenueCat setup (WAITING_FOR_HUMAN)
+## 2026-03-07 - US-005b: IAP + pricing + RevenueCat setup (RESOLVED)
 
 - **Status: RESOLVED: RC Secret Key received (sk_wFicv...). RC_SECRET_KEY saved to project .env.
 - **RESOLVED: RC Secret Key received (sk_wFicv...). RC_SECRET_KEY saved to project .env.
@@ -33,7 +33,7 @@
     - 6760196888 com.aniccafactory.eyebreakisland.annual ONE_YEAR
   - AC3: Weekly 175 prices, Monthly 175 prices, Annual 175 prices PASS
   - Localizations: Group 37 + Weekly 37 + Monthly 37 + Annual 37 = 148 total PASS
-  - AC4: RevenueCat → WAITING_FOR_HUMAN (SK Key needed)
+  - AC4: RevenueCat → RESOLVED (SK Key needed)
   - AC5: SPM dependency → deferred to US-006 per spec
 - **Files changed:** ~/.config/mobileapp-builder/projects/eyebreakisland/.env (GROUP_ID, WEEKLY_ID, MONTHLY_ID, ANNUAL_ID added)
 - **Learnings for future iterations:**
