@@ -14,7 +14,7 @@ struct PaywallView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 24) {
+            VStack(spacing: AppSpacing.lg) {
                 headerSection
                 packagesSection
                 purchaseButton
@@ -22,7 +22,7 @@ struct PaywallView: View {
                 restoreButton
                 errorSection
             }
-            .padding(24)
+            .padding(AppSpacing.lg)
         }
         .accessibilityIdentifier(AccessibilityID.paywallContainer)
         .task { await viewModel.loadOfferings() }
@@ -34,24 +34,24 @@ struct PaywallView: View {
     // MARK: - Sections
 
     private var headerSection: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: AppSpacing.sm) {
             Image(systemName: "crown.fill")
                 .font(.system(size: 48))
-                .foregroundStyle(Color.accentColor)
+                .foregroundStyle(AppColors.brandPrimary)
 
             Text("paywall.title")
-                .font(.title.bold())
+                .font(AppTypography.headline1)
                 .multilineTextAlignment(.center)
 
             Text("paywall.subtitle")
-                .font(.body)
-                .foregroundStyle(.secondary)
+                .font(AppTypography.body)
+                .foregroundStyle(AppColors.textSecondary)
                 .multilineTextAlignment(.center)
         }
     }
 
     private var packagesSection: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: AppSpacing.sm) {
             if viewModel.isLoading {
                 ProgressView()
                     .frame(height: 120)
@@ -64,7 +64,7 @@ struct PaywallView: View {
                         isSelected: viewModel.selectedPackage?.identifier == package.identifier
                     )
                     .onTapGesture {
-                        withAnimation(.spring(duration: 0.2)) {
+                        withAnimation(AppAnimations.cardSelect) {
                             viewModel.selectedPackage = package
                         }
                     }
@@ -74,52 +74,31 @@ struct PaywallView: View {
     }
 
     private var emptyPackagesView: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: AppSpacing.xs) {
             Text("Unable to load subscription options")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .font(AppTypography.subheadline)
+                .foregroundStyle(AppColors.textSecondary)
             Button("Retry") {
                 Task { await viewModel.loadOfferings() }
             }
-            .font(.subheadline)
+            .font(AppTypography.subheadline)
         }
         .frame(height: 120)
     }
 
     private var purchaseButton: some View {
-        Button {
-            Task { await viewModel.purchase() }
-        } label: {
-            Group {
-                if viewModel.isPurchasing {
-                    ProgressView()
-                        .tint(.white)
-                } else {
-                    Text("paywall.subscribe")
-                        .font(.headline)
-                }
-            }
-            .frame(maxWidth: .infinity)
-            .frame(height: 56)
-            .background(
-                (viewModel.selectedPackage == nil || viewModel.isPurchasing)
-                    ? Color.secondary.opacity(0.3)
-                    : Color.accentColor
-            )
-            .foregroundStyle(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 16))
-        }
-        .disabled(viewModel.selectedPackage == nil || viewModel.isPurchasing)
+        PrimaryButton(
+            title: NSLocalizedString("paywall.subscribe", comment: ""),
+            action: { Task { await viewModel.purchase() } },
+            isLoading: viewModel.isPurchasing,
+            isDisabled: viewModel.selectedPackage == nil
+        )
         .accessibilityIdentifier(AccessibilityID.paywallSubscribeButton)
     }
 
     private var maybeLaterButton: some View {
-        Button {
+        SecondaryButton(title: NSLocalizedString("paywall.maybe_later", comment: "")) {
             onDismiss()
-        } label: {
-            Text("paywall.maybe_later")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
         }
         .accessibilityIdentifier(AccessibilityID.paywallMaybeLater)
     }
@@ -129,8 +108,8 @@ struct PaywallView: View {
             Task { await viewModel.restore() }
         } label: {
             Text("paywall.restore")
-                .font(.caption2)
-                .foregroundStyle(.tertiary)
+                .font(AppTypography.caption2)
+                .foregroundStyle(AppColors.textTertiary)
         }
         .accessibilityIdentifier(AccessibilityID.paywallRestore)
     }
@@ -139,8 +118,8 @@ struct PaywallView: View {
         Group {
             if let error = viewModel.errorMessage {
                 Text(error)
-                    .font(.caption)
-                    .foregroundStyle(.red)
+                    .font(AppTypography.caption1)
+                    .foregroundStyle(AppColors.brandDanger)
                     .multilineTextAlignment(.center)
             }
         }
@@ -157,43 +136,52 @@ struct PackageCardView: View {
         package.packageType == .annual
     }
 
+    private var packageAccessibilityID: String {
+        switch package.packageType {
+        case .annual: return AccessibilityID.paywallPackageAnnual
+        case .monthly: return AccessibilityID.paywallPackageMonthly
+        case .weekly: return AccessibilityID.paywallPackageWeekly
+        default: return "paywall_package_\(package.identifier)"
+        }
+    }
+
     var body: some View {
         HStack {
-            VStack(alignment: .leading, spacing: 4) {
+            VStack(alignment: .leading, spacing: AppSpacing.xxs) {
                 HStack {
                     Text(package.storeProduct.localizedTitle)
-                        .font(.headline)
+                        .font(AppTypography.headline3)
                     if isAnnual {
                         Text("BEST VALUE")
-                            .font(.caption2.bold())
+                            .font(AppTypography.caption2.bold())
                             .padding(.horizontal, 6)
                             .padding(.vertical, 2)
-                            .background(Color.green)
+                            .background(AppColors.brandSecondary)
                             .foregroundStyle(.white)
                             .clipShape(RoundedRectangle(cornerRadius: 4))
                     }
                 }
                 Text(package.localizedPriceString)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    .font(AppTypography.subheadline)
+                    .foregroundStyle(AppColors.textSecondary)
                 if let intro = package.storeProduct.introductoryDiscount {
                     Text("\(intro.subscriptionPeriod.value)-day free trial")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .font(AppTypography.caption1)
+                        .foregroundStyle(AppColors.textSecondary)
                 }
             }
             Spacer()
             Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
                 .font(.title2)
-                .foregroundStyle(isSelected ? Color.accentColor : .secondary)
+                .foregroundStyle(isSelected ? AppColors.brandPrimary : AppColors.textSecondary)
         }
-        .padding(16)
+        .padding(AppSpacing.md)
         .background(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(isSelected ? Color.accentColor : Color.secondary.opacity(0.3), lineWidth: isSelected ? 2 : 1)
+            RoundedRectangle(cornerRadius: AppCornerRadius.lg)
+                .stroke(isSelected ? AppColors.brandPrimary : AppColors.textTertiary, lineWidth: isSelected ? 2 : 1)
         )
         .scaleEffect(isSelected ? 1.02 : 1.0)
-        .animation(.spring(duration: 0.2), value: isSelected)
-        .accessibilityIdentifier(isAnnual ? AccessibilityID.paywallPackageAnnual : AccessibilityID.paywallPackageMonthly)
+        .animation(AppAnimations.cardSelect, value: isSelected)
+        .accessibilityIdentifier(packageAccessibilityID)
     }
 }

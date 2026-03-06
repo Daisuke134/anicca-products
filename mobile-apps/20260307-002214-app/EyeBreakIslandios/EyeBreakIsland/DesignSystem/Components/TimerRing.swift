@@ -22,7 +22,7 @@ struct TimerRing: View {
                 .trim(from: 0, to: progress)
                 .stroke(ringColor, style: StrokeStyle(lineWidth: 12, lineCap: .round))
                 .rotationEffect(.degrees(-90))
-                .animation(.linear(duration: 1), value: progress)
+                .animation(AppAnimations.timerTick, value: progress)
             Text(formattedTime)
                 .font(AppTypography.display)
                 .foregroundStyle(AppColors.textPrimary)

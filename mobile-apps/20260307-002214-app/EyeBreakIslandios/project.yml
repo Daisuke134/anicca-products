@@ -5,6 +5,8 @@ options:
     iOS: "16.1"
   xcodeVersion: "16.0"
   generateEmptyDirectories: true
+  defaultConfig: Release
+  developmentLanguage: en
 
 packages:
   RevenueCat:

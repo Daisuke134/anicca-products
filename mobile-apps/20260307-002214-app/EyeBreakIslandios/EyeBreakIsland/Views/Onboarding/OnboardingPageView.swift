@@ -5,22 +5,22 @@ struct OnboardingPageView: View {
     let pageIndex: Int
 
     var body: some View {
-        VStack(spacing: 24) {
+        VStack(spacing: AppSpacing.lg) {
             Spacer()
 
             Image(systemName: page.iconName)
                 .font(.system(size: 80))
-                .foregroundStyle(Color.accentColor)
+                .foregroundStyle(AppColors.brandPrimary)
 
             Text(LocalizedStringKey(page.titleKey))
-                .font(.title.bold())
+                .font(AppTypography.headline1)
                 .multilineTextAlignment(.center)
 
             Text(LocalizedStringKey(page.subtitleKey))
-                .font(.body)
-                .foregroundStyle(.secondary)
+                .font(AppTypography.body)
+                .foregroundStyle(AppColors.textSecondary)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, 32)
+                .padding(.horizontal, AppSpacing.xl)
 
             Spacer()
         }

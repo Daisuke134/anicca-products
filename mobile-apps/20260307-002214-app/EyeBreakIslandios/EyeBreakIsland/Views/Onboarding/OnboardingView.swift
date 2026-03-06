@@ -22,7 +22,7 @@ struct OnboardingView: View {
                         }
 
                         pageIndicator
-                            .padding(.bottom, 32)
+                            .padding(.bottom, AppSpacing.xl)
                     }
                     .tag(index)
                 }
@@ -31,7 +31,7 @@ struct OnboardingView: View {
                     .tag(3)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
-            .animation(.spring(duration: 0.4), value: viewModel.currentPage)
+            .animation(AppAnimations.pageTransition, value: viewModel.currentPage)
         }
         .accessibilityIdentifier(AccessibilityID.onboardingContainer)
     }
@@ -39,46 +39,30 @@ struct OnboardingView: View {
     // MARK: - Subviews
 
     private var nextButton: some View {
-        Button {
+        PrimaryButton(title: "Next") {
             viewModel.nextPage()
-        } label: {
-            Text("Next")
-                .font(.headline)
-                .frame(maxWidth: .infinity)
-                .frame(height: 56)
-                .background(Color.accentColor)
-                .foregroundStyle(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
         }
-        .padding(.horizontal, 24)
+        .padding(.horizontal, AppSpacing.lg)
         .accessibilityIdentifier(AccessibilityID.onboardingNextButton)
     }
 
     private var notificationButton: some View {
-        Button {
+        PrimaryButton(title: "Allow Notifications") {
             Task { await viewModel.requestNotificationPermission() }
-        } label: {
-            Text("Allow Notifications")
-                .font(.headline)
-                .frame(maxWidth: .infinity)
-                .frame(height: 56)
-                .background(Color.accentColor)
-                .foregroundStyle(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 16))
         }
-        .padding(.horizontal, 24)
+        .padding(.horizontal, AppSpacing.lg)
         .accessibilityIdentifier(AccessibilityID.onboardingAllowNotifications)
     }
 
     private var pageIndicator: some View {
-        HStack(spacing: 8) {
+        HStack(spacing: AppSpacing.xs) {
             ForEach(0..<viewModel.totalPages, id: \.self) { index in
                 Circle()
-                    .fill(index == viewModel.currentPage ? Color.accentColor : Color.secondary.opacity(0.3))
+                    .fill(index == viewModel.currentPage ? AppColors.brandPrimary : AppColors.textTertiary)
                     .frame(width: 8, height: 8)
             }
         }
-        .padding(.top, 16)
+        .padding(.top, AppSpacing.md)
     }
 
     private var paywallPage: some View {

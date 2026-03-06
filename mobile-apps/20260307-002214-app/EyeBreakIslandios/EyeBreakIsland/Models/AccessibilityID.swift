@@ -13,6 +13,7 @@ enum AccessibilityID {
     static let paywallContainer = "paywall_container"
     static let paywallPackageAnnual = "paywall_package_annual"
     static let paywallPackageMonthly = "paywall_package_monthly"
+    static let paywallPackageWeekly = "paywall_package_weekly"
     static let paywallSubscribeButton = "paywall_subscribe_button"
     static let paywallMaybeLater = "paywall_maybe_later"
     static let paywallRestore = "paywall_restore"
