@@ -207,8 +207,8 @@
         "Subscription review screenshots uploaded for Monthly + Annual"
       ],
       "priority": 8.1,
-      "passes": false,
-      "notes": "RESET: Previous run had issues. Screenshots were duplicates, localization missing, review screenshots wrong. Recipe fixed. Re-run required."
+      "passes": true,
+      "notes": "en-US 4 screenshots (IPHONE_61, COMPLETE). ja 4 screenshots (Japanese text via Localizable.xcstrings created). MD5: en=8d165751 ja=ded2ec58 (mismatch OK). Review screenshots: Monthly=a05188cd Annual=8edbb838. Key fix: xcrun simctl uninstall does NOT delete UserDefaults - must use `defaults delete $BUNDLE_ID` to reset onboarding state."
     },
     {
       "id": "US-008b",

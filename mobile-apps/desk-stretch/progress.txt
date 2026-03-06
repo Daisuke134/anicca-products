@@ -54,6 +54,24 @@
   - xcodebuild always uses anicca-deskstretch-fix worktree (same DerivedData UUID) — run archive from that path
 ---
 
+## 2026-03-06 - US-008a: Screenshots (capture + upload + review screenshot) [RE-RUN]
+
+- Created `Localizable.xcstrings` with 55 Japanese translations (ja was showing English in previous run)
+- XcodeGen regenerated project to include xcstrings; rebuilt app
+- en-US: 4 screenshots (Welcome, PainArea, Paywall, Home) — all unique MD5
+- ja: 4 screenshots with Japanese text (ずっと座りっぱなし？, どこが痛いですか？, ストレッチルーティンを全解放, タイマー画面) — all unique MD5
+- MD5 en-US=8d165751f2a84d97e8f936a6b2999b37 vs ja=ded2ec58ee027c9c22446be07386ef9c → mismatch ✅
+- ASC upload: en-US=4 (COMPLETE), ja=4 (COMPLETE) → asc screenshots list uses `sets[].screenshots` not `data`
+- Review screenshots: Monthly(a05188cd) + Annual(8edbb838) uploaded from Paywall screen
+- Files: DeskStretchios/screenshots/raw/en-US/*.png, DeskStretchios/screenshots/raw/ja/*.png
+- **Learnings for future iterations:**
+  - `xcrun simctl uninstall` does NOT delete UserDefaults on macOS Sequoia — must use `xcrun simctl spawn $UDID defaults delete $BUNDLE_ID` to reset onboarding state
+  - `Localizable.xcstrings` must be created and added via XcodeGen (place in Resources/, run `xcodegen generate`, then rebuild)
+  - `asc screenshots list` response uses `sets[].screenshots` structure, NOT `data[]` — count with `sum(len(s['screenshots']) for s in data['sets'])`
+  - ja locale takes effect only if app is installed AFTER `defaults write NSGlobalDomain AppleLanguages -array "ja"` AND UserDefaults are cleared
+
+---
+
 ## Codebase Patterns
 
 | Pattern | Detail |
