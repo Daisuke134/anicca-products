@@ -1,3 +1,13 @@
+## 2026-03-06 - US-008b: ASC metadata sync [RE-VERIFIED PASS]
+
+- Re-verified after RESET
+- en-US app-info: name=Desk Stretch Timer, subtitle=Desk Stretch & Break Timer, privacy=https://aniccaai.com/privacy ✅
+- ja app-info: name=Desk Stretch Timer, subtitle=デスクストレッチ・休憩タイマー, privacy=https://aniccaai.com/privacy ✅
+- en-US version: desc=1796chars, keywords confirmed, support URL set ✅
+- ja version: desc=913chars, keywords confirmed, support URL set ✅
+- All acceptance criteria PASS → passes: true
+---
+
 ## 2026-03-06 - US-005b: IAP + pricing + RevenueCat setup [RE-VERIFIED PASS]
 
 - Re-verified after auto-reset by ralph.sh
