@@ -71,8 +71,8 @@ Source: [RevenueCat: Configuring SDK](https://www.revenuecat.com/docs/getting-st
 | **Phase 1: Project Setup** | — | Xcode project, xcconfig, SPM, PrivacyInfo | Low |
 | **Phase 2: Core Timer** | F-001, F-002, F-003 | TimerService, TimerViewModel, TimerView, BreakOverlayView, LiveActivity, NotificationService | High |
 | **Phase 3: Monetization** | F-005 | SubscriptionService, PaywallViewModel, PaywallView | Medium |
-| **Phase 4: Onboarding + Settings** | F-004, F-006, F-007, F-008, F-009 | OnboardingViewModel, OnboardingViews, SettingsViewModel, SettingsView | Medium |
-| **Phase 5: Polish** | F-009, F-010 | Localizable.xcstrings, Constants, Design tokens | Low |
+| **Phase 4: Onboarding + Settings** | F-004, F-006, F-007, F-008 | OnboardingViewModel, OnboardingViews, SettingsViewModel, SettingsView, ProgressDashboardView | Medium |
+| **Phase 5: Polish** | F-009 | Localizable.xcstrings, Constants, Design tokens, Animations | Low |
 
 ---
 
@@ -497,7 +497,53 @@ Source: [RevenueCat: Making Purchases](https://www.revenuecat.com/docs/making-pu
 
 ---
 
-## 6. Phase 4: Polish
+## 6. Phase 4: Onboarding + Settings
+
+> F-004 (Onboarding), F-006 (Schedule), F-007 (Custom Intervals), F-008 (Statistics) implementation.
+> See UX_SPEC.md §6 for onboarding flow. See ARCHITECTURE.md §6 for service interfaces.
+
+### F-004: Onboarding Flow
+
+**Files:** `ViewModels/OnboardingViewModel.swift`, `Views/Onboarding/OnboardingView.swift`, `Views/Onboarding/OnboardingPageView.swift`
+
+| Page | Content | Action |
+|------|---------|--------|
+| 1 | Welcome — "Your Eyes Need Breaks" | Next |
+| 2 | Feature intro — Dynamic Island demo | Next |
+| 3 | Notification permission request | Allow → auto-advance |
+| 4 | Soft Paywall (PaywallView) | Subscribe / Maybe Later |
+
+- `@AppStorage("hasCompletedOnboarding")` flag → show once
+- Page 4 = PaywallView (Rule 20: self-built, no RevenueCatUI)
+
+### F-006: Break Schedule
+
+**Files:** `ViewModels/SettingsViewModel.swift`, `Views/Settings/SettingsView.swift`
+
+- Work hours: start/end `DatePicker` → `UserDefaults`
+- Timer only fires during scheduled hours
+- Default: 09:00–18:00
+
+### F-007: Custom Timer Intervals (Pro)
+
+**Files:** `ViewModels/SettingsViewModel.swift`
+
+- Interval options: 15 / 20 / 30 minutes (Pro only, free = 20 min fixed)
+- Break duration options: 15 / 20 / 30 seconds (Pro only, free = 20 sec fixed)
+- Gated by `SubscriptionService.shared.isProUser`
+
+### F-008: Break Statistics (Pro)
+
+**Files:** `ViewModels/ProgressDashboardViewModel.swift`, `Views/ProgressDashboardView.swift`
+
+- Daily/weekly break count from `UserDefaults` (`dailyBreakCounts` dictionary)
+- Current streak tracking
+- Simple bar chart (SwiftUI `Chart` — iOS 16+)
+- Pro-only gate
+
+---
+
+## 6b. Phase 5: Polish
 
 ### F-009: Localization (en-US + ja)
 
@@ -596,11 +642,8 @@ grep -rE "OpenAI|Anthropic|GoogleGenerativeAI|FoundationModels" EyeBreakIsland/ 
 source ~/.config/mobileapp-builder/.env
 security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db
 
-# Build
-xcodebuild -project EyeBreakIsland.xcodeproj \
-    -scheme EyeBreakIsland \
-    -destination 'platform=iOS Simulator,name=iPhone 15 Pro' \
-    build
+# Build (MUST use Fastlane — xcodebuild direct execution prohibited)
+cd EyeBreakIsland && fastlane build
 ```
 
 ### App Entry Point

@@ -194,8 +194,13 @@ for us in d['userStories']:
   OUTPUT=$(cat "$tmpfile")
   rm -f "$tmpfile"
 
-  # Detect "Out of extra usage" and break immediately
-  if echo "$OUTPUT" | grep -qi "out of extra usage\|out of.*usage\|usage.*exceeded"; then
+  # Detect "Out of extra usage" — only check CC's own text output (not tool_result file content)
+  USAGE_TEXT=$(echo "$OUTPUT" | jq -r '
+    if .type == "assistant" then (.message.content[]? | select(.type == "text") | .text) // ""
+    elif .type == "result" then .result // ""
+    elif .type == "system" then .subtype // ""
+    else "" end' 2>/dev/null || true)
+  if echo "$USAGE_TEXT" | grep -qi "out of extra usage\|out of.*usage\|usage.*exceeded"; then
     echo "🏭 ⚠️ CC usage 超過検出。残りイテレーションをスキップ。"
     notify_slack "⚠️ CC usage 超過。イテレーション $i で停止。"
     break

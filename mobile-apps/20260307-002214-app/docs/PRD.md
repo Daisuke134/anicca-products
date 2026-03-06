@@ -14,8 +14,8 @@ Source: [RevenueCat SOSA 2025](https://www.revenuecat.com/state-of-subscription-
 | bundle_id | com.aniccafactory.eyebreakisland |
 | one_liner | 20-20-20 rule timer in Dynamic Island — "Next break in 12 minutes" always visible |
 | platform | iOS 16+ (Dynamic Island requires iPhone 14 Pro+) |
-| iOS minimum | 16.0 |
-| Xcode minimum | 15.0 |
+| iOS minimum | 16.1 |
+| Xcode minimum | 16.0+ |
 | Swift version | 5.9+ |
 | Category | Health & Fitness |
 | Secondary Category | Productivity |
@@ -199,7 +199,7 @@ String file: `Localizable.xcstrings` (String Catalog, Xcode 15+)
 | Apple Watch companion app | v1.1 |
 | Screen Time API integration | v1.1 |
 | HealthKit (eye strain vs HRV) | v1.2 |
-| Statistics dashboard | v1.1 |
+| Advanced statistics (charts, export) | v1.1 |
 | Custom break duration (per-second) | v1.1 |
 | Lock Screen widget | Replaced by Live Activities |
 | Social sharing / streaks public | v1.2 |

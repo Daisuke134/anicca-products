@@ -9,6 +9,41 @@
 | Gate check false positive | grep for Rule violations (RevenueCatUI, Mixpanel, Analytics) matches prohibition text in docs. These are not actual violations — they describe what is prohibited |
 | Doc generation order | ARCHITECTURE → DESIGN_SYSTEM → UX_SPEC (strict). UX_SPEC references DESIGN_SYSTEM color tokens |
 
+| Phase table ↔ Section heading | IMPL_GUIDE の Phase table ラベルと実際のセクション見出しを一致させること。Phase 4 に対応するセクションが欠落していた |
+| ObservableObject mutation | SwiftUI @Published properties は immutability rule の例外。ARCHITECTURE.md §13 に記載 |
+| Dynamic Type exception | Timer display (56pt) は固定サイズ。DESIGN_SYSTEM.md に例外として記載が必要 |
+
+---
+
+## 2026-03-07 - US-004-R: Spec Review (all 7 documents)
+
+- **codex-review subagent で全7ドキュメントをレビュー**
+- **Initial findings:** CRITICAL=3, HIGH=3, MEDIUM=5, LOW=4
+- **Files changed:** docs/PRD.md (iOS min, Xcode min, Out of Scope), docs/IMPLEMENTATION_GUIDE.md (F-010 removed, Phase 4 section added, xcodebuild→fastlane), docs/ARCHITECTURE.md (§13 Coding Style Exceptions added), docs/UX_SPEC.md (timer_pause_button a11y ID), docs/DESIGN_SYSTEM.md (Dynamic Type exception)
+- **CRITICAL fixes:**
+  1. PRD.md iOS minimum 16.0 → 16.1 (ActivityKit requires 16.1)
+  2. PRD.md Xcode minimum 15.0 → 16.0+ (Swift 5.9+ features)
+  3. IMPL_GUIDE Phase 5 phantom F-010 removed
+- **HIGH fixes:**
+  1. PRD.md "Statistics dashboard" Out of Scope → "Advanced statistics (charts, export)" (F-008 contradiction resolved)
+  2. IMPL_GUIDE §6 Phase 4: Onboarding + Settings section added (F-004, F-006, F-007, F-008)
+  3. ARCHITECTURE.md §13 ObservableObject mutation exception documented
+- **MEDIUM fixes:** timer_pause_button a11y ID, Dynamic Type exception for display font
+- **LOW fixes:** xcodebuild → fastlane in IMPL_GUIDE build section
+- **Evidence:**
+  - AC1: codex-review subagent run on all 7 docs PASS
+  - AC2: CRITICAL findings = 0 (after fixes) PASS
+  - AC3: All blocking issues resolved PASS
+  - Gate 1: PRD quality all PASS (app_name, bundle_id, prices, 12 features)
+  - Gate 3: Feature traceability F-001..F-009 all PASS
+  - Rule 17/20/20b/21: all PASS (false positives in prohibition text excluded)
+  - Total lines: 2854 (target 1300)
+- **Learnings for future iterations:**
+  - Phase table labels must match section headings — verify before review
+  - ObservableObject @Published mutation is accepted exception to immutability rule
+  - Timer display fixed-size fonts need explicit Dynamic Type exception documentation
+  - Always verify iOS/Xcode minimum versions against actual API requirements (ActivityKit = 16.1)
+
 ---
 
 ## 2026-03-07 - US-004b: UX Spec (UX_SPEC, DESIGN_SYSTEM, TEST_SPEC, RELEASE_SPEC)

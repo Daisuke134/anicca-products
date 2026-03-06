@@ -355,6 +355,7 @@ Source: [Apple HIG: Onboarding](https://developer.apple.com/design/human-interfa
 | `timer_time_label` | SCR-006 | "18:34" time display |
 | `timer_start_button` | SCR-006 | Start timer button |
 | `timer_stop_button` | SCR-006 | Stop timer button |
+| `timer_pause_button` | SCR-006 | Pause/resume timer button |
 | `timer_break_count` | SCR-006 | "Today: 3 breaks" label |
 | `break_overlay` | SCR-007 | Break overlay root |
 | `break_countdown` | SCR-007 | 20-sec countdown display |

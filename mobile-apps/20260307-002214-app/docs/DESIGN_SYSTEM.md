@@ -99,7 +99,7 @@ enum AppTypography {
 }
 ```
 
-**Dynamic Type:** All text uses system fonts with built-in Dynamic Type support. No fixed-size text.
+**Dynamic Type:** All text uses system fonts with built-in Dynamic Type support. No fixed-size text. **Exception:** `display` (56pt) and `timerMono` (48pt) use fixed sizes — timer ring layout requires predictable dimensions.
 
 Source: [Apple HIG: Typography](https://developer.apple.com/design/human-interface-guidelines/typography) — "Prefer system fonts for automatic Dynamic Type scaling"
 

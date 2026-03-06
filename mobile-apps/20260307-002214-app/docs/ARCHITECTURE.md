@@ -402,4 +402,12 @@ Source: [Apple Developer: Handling Errors](https://developer.apple.com/documenta
 
 ---
 
+## 13. Coding Style Exceptions
+
+| Exception | Scope | Reason |
+|-----------|-------|--------|
+| `@Published` property mutation | All `ObservableObject` ViewModels and Services | SwiftUI observation requires mutable `@Published` properties on reference types. Immutability rule applies to value types and function parameters, not to `ObservableObject` state management. |
+
+---
+
 **End of Architecture**
