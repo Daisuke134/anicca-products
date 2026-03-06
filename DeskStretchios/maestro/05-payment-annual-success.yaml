@@ -1,0 +1,50 @@
+appId: com.aniccafactory.deskstretch
+name: Payment Annual Success
+tags:
+  - payment
+---
+- clearState
+- clearKeychain
+- launchApp
+
+# Complete onboarding to paywall
+- extendedWaitUntil:
+    visible:
+      id: "onboarding_get_started"
+    timeout: 30000
+
+- tapOn:
+    id: "onboarding_get_started"
+
+- extendedWaitUntil:
+    visible:
+      id: "pain_area_neck"
+    timeout: 10000
+
+- tapOn:
+    id: "pain_area_neck"
+
+- tapOn:
+    id: "onboarding_continue"
+
+# On paywall
+- extendedWaitUntil:
+    visible:
+      id: "paywall_plan_yearly"
+    timeout: 10000
+
+- tapOn:
+    id: "paywall_plan_yearly"
+
+- extendedWaitUntil:
+    visible: "Simulate Success"
+    timeout: 10000
+
+- tapOn: "Simulate Success"
+
+- extendedWaitUntil:
+    visible:
+      id: "timer_countdown"
+    timeout: 10000
+
+- takeScreenshot: "05-payment-annual-success"

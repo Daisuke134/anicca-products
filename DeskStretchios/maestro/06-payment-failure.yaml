@@ -1,0 +1,51 @@
+appId: com.aniccafactory.deskstretch
+name: Payment Failure
+tags:
+  - payment
+---
+- clearState
+- clearKeychain
+- launchApp
+
+# Complete onboarding to paywall
+- extendedWaitUntil:
+    visible:
+      id: "onboarding_get_started"
+    timeout: 30000
+
+- tapOn:
+    id: "onboarding_get_started"
+
+- extendedWaitUntil:
+    visible:
+      id: "pain_area_neck"
+    timeout: 10000
+
+- tapOn:
+    id: "pain_area_neck"
+
+- tapOn:
+    id: "onboarding_continue"
+
+# On paywall
+- extendedWaitUntil:
+    visible:
+      id: "paywall_plan_monthly"
+    timeout: 10000
+
+- tapOn:
+    id: "paywall_plan_monthly"
+
+- extendedWaitUntil:
+    visible: "Simulate Failure"
+    timeout: 10000
+
+- tapOn: "Simulate Failure"
+
+# Should return to paywall
+- extendedWaitUntil:
+    visible:
+      id: "paywall_plan_monthly"
+    timeout: 5000
+
+- takeScreenshot: "06-payment-failure"

@@ -1,0 +1,81 @@
+appId: com.aniccafactory.deskstretch
+name: Timer Start and Stretch Flow
+tags:
+  - timer
+---
+- clearState
+- clearKeychain
+- launchApp
+
+# Complete onboarding first
+- extendedWaitUntil:
+    visible:
+      id: "onboarding_get_started"
+    timeout: 30000
+
+- tapOn:
+    id: "onboarding_get_started"
+
+- extendedWaitUntil:
+    visible:
+      id: "pain_area_neck"
+    timeout: 10000
+
+- tapOn:
+    id: "pain_area_neck"
+
+- tapOn:
+    id: "onboarding_continue"
+
+- extendedWaitUntil:
+    visible:
+      id: "paywall_maybe_later"
+    timeout: 10000
+
+- tapOn:
+    id: "paywall_maybe_later"
+
+# Now on timer screen
+- extendedWaitUntil:
+    visible:
+      id: "timer_stretch_now"
+    timeout: 10000
+
+- tapOn:
+    id: "timer_stretch_now"
+
+- extendedWaitUntil:
+    visible:
+      id: "session_exercise_name"
+    timeout: 10000
+
+- assertVisible:
+    id: "session_skip"
+
+- tapOn:
+    id: "session_skip"
+
+- extendedWaitUntil:
+    visible:
+      id: "session_skip"
+    timeout: 5000
+
+- tapOn:
+    id: "session_skip"
+
+- extendedWaitUntil:
+    visible:
+      id: "session_skip"
+    timeout: 5000
+
+- tapOn:
+    id: "session_skip"
+
+- extendedWaitUntil:
+    visible:
+      id: "stretch_done"
+    timeout: 10000
+
+- assertVisible: "Great job!"
+
+- takeScreenshot: "02-timer-stretch-complete"

@@ -1,0 +1,49 @@
+appId: com.aniccafactory.deskstretch
+name: Onboarding Flow
+tags:
+  - smokeTest
+  - onboarding
+---
+- clearState
+- clearKeychain
+- launchApp
+
+- extendedWaitUntil:
+    visible:
+      id: "onboarding_get_started"
+    timeout: 30000
+
+- assertVisible: "Sitting all day?"
+
+- tapOn:
+    id: "onboarding_get_started"
+
+- extendedWaitUntil:
+    visible: "Where does it hurt?"
+    timeout: 10000
+
+- tapOn:
+    id: "pain_area_neck"
+
+- tapOn:
+    id: "pain_area_back"
+
+- tapOn:
+    id: "onboarding_continue"
+
+- extendedWaitUntil:
+    visible: "Unlock Your Full Stretch Routine"
+    timeout: 10000
+
+- tapOn:
+    id: "paywall_maybe_later"
+
+- extendedWaitUntil:
+    visible:
+      id: "timer_countdown"
+    timeout: 10000
+
+- assertVisible:
+    id: "timer_countdown"
+
+- takeScreenshot: "01-onboarding-complete"

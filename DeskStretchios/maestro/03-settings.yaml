@@ -1,0 +1,54 @@
+appId: com.aniccafactory.deskstretch
+name: Settings Screen Navigation
+tags:
+  - settings
+---
+- clearState
+- clearKeychain
+- launchApp
+
+# Complete onboarding first
+- extendedWaitUntil:
+    visible:
+      id: "onboarding_get_started"
+    timeout: 30000
+
+- tapOn:
+    id: "onboarding_get_started"
+
+- extendedWaitUntil:
+    visible:
+      id: "pain_area_neck"
+    timeout: 10000
+
+- tapOn:
+    id: "pain_area_neck"
+
+- tapOn:
+    id: "onboarding_continue"
+
+- extendedWaitUntil:
+    visible:
+      id: "paywall_maybe_later"
+    timeout: 10000
+
+- tapOn:
+    id: "paywall_maybe_later"
+
+# Navigate to Settings
+- extendedWaitUntil:
+    visible:
+      id: "timer_countdown"
+    timeout: 10000
+
+- tapOn: "Settings"
+
+- extendedWaitUntil:
+    visible: "Break Interval"
+    timeout: 10000
+
+- assertVisible: "Pain Areas"
+- assertVisible: "Subscription"
+- assertVisible: "Upgrade to Premium"
+
+- takeScreenshot: "03-settings-screen"
