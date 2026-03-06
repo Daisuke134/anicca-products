@@ -22,8 +22,8 @@
 
 ## 2026-03-07 - US-005b: IAP + pricing + RevenueCat setup (WAITING_FOR_HUMAN)
 
-- **Status: WAITING_FOR_HUMAN — RC SK Key needed**
-- **WAITING_FOR_HUMAN: RC SK Key**
+- **Status: RESOLVED: RC Secret Key received (sk_wFicv...). RC_SECRET_KEY saved to project .env.
+- **RESOLVED: RC Secret Key received (sk_wFicv...). RC_SECRET_KEY saved to project .env.
   - https://app.revenuecat.com → Create project "EyeBreakIsland" → Settings → API Keys → New secret API key (Read & Write) → sk_... をチャットに貼り付け
 - **ASC IAP 完了 (全エビデンス確認済み):**
   - AC1: `asc subscriptions groups list --app 6760196743` → 1 group (GROUP_ID=21964810) PASS
