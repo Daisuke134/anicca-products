@@ -3,6 +3,7 @@ import RevenueCat
 
 final class SubscriptionService: SubscriptionServiceProtocol {
     static let shared = SubscriptionService()
+    private init() {}
 
     var isPremium: Bool {
         get async {

@@ -83,7 +83,7 @@ struct WeekHistoryView: View {
     let history: [String: Int]
 
     private let dayLabels = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
-    private let dateFormatter: ISO8601DateFormatter = {
+    private static let dateFormatter: ISO8601DateFormatter = {
         let formatter = ISO8601DateFormatter()
         return formatter
     }()
@@ -103,7 +103,7 @@ struct WeekHistoryView: View {
 
             HStack(spacing: 0) {
                 ForEach(Array(weekDates.enumerated()), id: \.offset) { index, date in
-                    let key = dateFormatter.string(from: date)
+                    let key = Self.dateFormatter.string(from: date)
                     let count = history[key] ?? 0
 
                     VStack(spacing: 8) {

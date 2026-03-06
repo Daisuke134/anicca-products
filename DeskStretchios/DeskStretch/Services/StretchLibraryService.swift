@@ -17,6 +17,8 @@ final class StretchLibraryService {
             allExercises = try JSONDecoder().decode([StretchExercise].self, from: data)
         } catch let error as DecodingError {
             throw StretchLibraryError.decodingFailed(error.localizedDescription)
+        } catch {
+            throw error
         }
     }
 

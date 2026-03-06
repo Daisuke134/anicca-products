@@ -15,7 +15,13 @@ struct DeskStretchApp: App {
         subscriptionService.configure(apiKey: apiKey)
 
         let libraryService = StretchLibraryService()
-        try? libraryService.loadFromBundle()
+        do {
+            try libraryService.loadFromBundle()
+        } catch {
+            #if DEBUG
+            assertionFailure("StretchLibrary failed to load: \(error)")
+            #endif
+        }
 
         _appState = State(initialValue: AppState(
             subscriptionService: subscriptionService,
