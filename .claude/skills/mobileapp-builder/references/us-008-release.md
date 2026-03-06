@@ -94,25 +94,69 @@ mkdir -p "$SCREENSHOTS_DIR/en-US" "$SCREENSHOTS_DIR/ja"
 ```
 
 ### 使用デバイス（固定）
-- **iPhone 17 Pro** シミュレータ: 1206×2622 → **APP_IPHONE_61** ✅
+
+Source: Apple ASC Help — Screenshot specifications
+https://developer.apple.com/help/app-store-connect/reference/screenshot-specifications
+> 6.5" Display: "Required if app runs on iPhone and screenshots for 6.9" display aren't provided"
+> 13"/12.9" Display: "Required if app runs on iPad"
+
+| デバイス | 解像度 | ASC device-type | 必須条件 |
+|---------|--------|----------------|---------|
+| iPhone 17 Pro | 1206x2622 | IPHONE_61 | 常に必須（ベース） |
+| iPhone 14 Plus | 1284x2778 | IPHONE_65 | 6.9" 未提供時に必須（= 常に必須） |
+| iPad Pro 13" (M4) | 2064x2752 | IPAD_PRO_3GEN_129 | UIDeviceFamily に 2 (iPad) 含む場合必須 |
+
 - ❌ IPHONE_67 は間違い（シミュレータの実解像度は 1206×2622 = IPHONE_61）
 - ❌ iPhone 16e (1170×2532) は使用禁止（ASC サイズ不適合）
+
+### UIDeviceFamily チェック（iPad スクショ要否判定）
+```bash
+# Info.plist から UIDeviceFamily を取得
+DEVICE_FAMILY=$(plutil -extract UIDeviceFamily json -o - "$XCODE_DIR"/*/Info.plist 2>/dev/null \
+  || grep -A 5 UIDeviceFamily "$XCODE_DIR"/*/Info.plist | grep -o '[0-9]' | tr '\n' ',')
+NEEDS_IPAD=false
+echo "$DEVICE_FAMILY" | grep -q "2" && NEEDS_IPAD=true
+echo "UIDeviceFamily: $DEVICE_FAMILY, NEEDS_IPAD: $NEEDS_IPAD"
+```
 
 ### 1a: シミュレータ準備 + アプリインストール
 
 ```bash
 export ASC_BYPASS_KEYCHAIN=true
 
-# シミュレータ起動
-UDID=$(xcrun simctl list devices available | grep "iPhone 17 Pro" | head -1 | grep -oE '[A-F0-9-]{36}')
-xcrun simctl boot $UDID 2>/dev/null || true
+# 6.1" シミュレータ起動
+UDID_61=$(xcrun simctl list devices available | grep "iPhone 17 Pro" | head -1 | grep -oE '[A-F0-9-]{36}')
+xcrun simctl boot $UDID_61 2>/dev/null || true
 
-# アプリビルド + インストール
+# 6.5" シミュレータ準備（1284x2778 = IPHONE_65）
+# iPhone 14 Plus / iPhone 13 Pro Max / iPhone 12 Pro Max が対応
+UDID_65=$(xcrun simctl list devices available | grep -E "iPhone 14 Plus|iPhone 13 Pro Max|iPhone 12 Pro Max" | head -1 | grep -oE '[A-F0-9-]{36}')
+if [ -z "$UDID_65" ]; then
+  # 存在しなければ作成
+  RUNTIME=$(xcrun simctl list runtimes | grep "iOS" | tail -1 | grep -oE 'com.apple[^ ]+')
+  DEVICE_TYPE=$(xcrun simctl list devicetypes | grep -E "iPhone 14 Plus|iPhone 13 Pro Max|iPhone 12 Pro Max" | head -1 | sed 's/.*(\(.*\))/\1/')
+  UDID_65=$(xcrun simctl create "iPhone14Plus-Screenshots" "$DEVICE_TYPE" "$RUNTIME")
+fi
+xcrun simctl boot $UDID_65 2>/dev/null || true
+
+# iPad シミュレータ準備（2064x2752 = IPAD_PRO_3GEN_129）
+if [ "$NEEDS_IPAD" = "true" ]; then
+  UDID_IPAD=$(xcrun simctl list devices available | grep -E "iPad Pro.*13" | head -1 | grep -oE '[A-F0-9-]{36}')
+  if [ -z "$UDID_IPAD" ]; then
+    DEVICE_TYPE_IPAD=$(xcrun simctl list devicetypes | grep -E "iPad Pro.*13" | head -1 | sed 's/.*(\(.*\))/\1/')
+    UDID_IPAD=$(xcrun simctl create "iPadPro13-Screenshots" "$DEVICE_TYPE_IPAD" "$RUNTIME")
+  fi
+  xcrun simctl boot $UDID_IPAD 2>/dev/null || true
+fi
+
+# アプリビルド + インストール（全シミュレータ）
 XCODE_DIR=$(find . -name "*.xcodeproj" -maxdepth 2 | head -1 | xargs dirname)
 xcodebuild build -project "$XCODE_DIR"/*.xcodeproj -scheme * \
-  -destination "platform=iOS Simulator,id=$UDID" -derivedDataPath build/
+  -destination "platform=iOS Simulator,id=$UDID_61" -derivedDataPath build/
 APP_PATH=$(find build/ -name "*.app" -path "*/Debug-iphonesimulator/*" | head -1)
-xcrun simctl install $UDID "$APP_PATH"
+xcrun simctl install $UDID_61 "$APP_PATH"
+xcrun simctl install $UDID_65 "$APP_PATH"
+[ "$NEEDS_IPAD" = "true" ] && xcrun simctl install $UDID_IPAD "$APP_PATH"
 ```
 
 ### 1b: en-US キャプチャ（4画面）
@@ -175,6 +219,71 @@ asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$
 - 遷移後は必ず `axe describe-ui` で画面が変わったか確認する
 - ボタンラベルがわからない場合は `axe describe-ui` の出力から探す
 
+### 1b2: en-US 6.5" キャプチャ（UDID_65 で同じ4画面を撮影）
+
+```bash
+# 6.5" シミュレータでも同じ手順で撮影
+mkdir -p screenshots/raw-65/en-US screenshots/raw-65/ja
+
+xcrun simctl terminate $UDID_65 $BUNDLE_ID 2>/dev/null
+xcrun simctl spawn $UDID_65 defaults delete $BUNDLE_ID 2>/dev/null || true
+xcrun simctl spawn $UDID_65 defaults write NSGlobalDomain AppleLanguages -array "en"
+xcrun simctl spawn $UDID_65 defaults write NSGlobalDomain AppleLocale "en_US"
+xcrun simctl uninstall $UDID_65 $BUNDLE_ID 2>/dev/null || true
+xcrun simctl install $UDID_65 "$APP_PATH"
+xcrun simctl launch $UDID_65 $BUNDLE_ID
+sleep 3
+
+# 1b と同じ axe tap --label + capture 手順（出力先だけ変更）
+axe describe-ui --udid "$UDID_65"
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen1_welcome" --udid "$UDID_65" --output-dir "./screenshots/raw-65/en-US" --output json
+axe tap --udid "$UDID_65" --label "Next" || axe tap --udid "$UDID_65" --label "Continue" || axe tap --udid "$UDID_65" --label "Get Started"
+sleep 2
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID_65" --output-dir "./screenshots/raw-65/en-US" --output json
+axe tap --udid "$UDID_65" --label "Next" || axe tap --udid "$UDID_65" --label "Continue"
+sleep 2
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_paywall" --udid "$UDID_65" --output-dir "./screenshots/raw-65/en-US" --output json
+xcrun simctl spawn "$UDID_65" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
+xcrun simctl terminate "$UDID_65" "$BUNDLE_ID"
+sleep 1
+xcrun simctl launch "$UDID_65" "$BUNDLE_ID"
+sleep 3
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$UDID_65" --output-dir "./screenshots/raw-65/en-US" --output json
+```
+
+### 1b3: en-US iPad キャプチャ（NEEDS_IPAD=true の場合のみ）
+
+```bash
+if [ "$NEEDS_IPAD" = "true" ]; then
+  mkdir -p screenshots/raw-ipad/en-US screenshots/raw-ipad/ja
+
+  xcrun simctl terminate $UDID_IPAD $BUNDLE_ID 2>/dev/null
+  xcrun simctl spawn $UDID_IPAD defaults delete $BUNDLE_ID 2>/dev/null || true
+  xcrun simctl spawn $UDID_IPAD defaults write NSGlobalDomain AppleLanguages -array "en"
+  xcrun simctl spawn $UDID_IPAD defaults write NSGlobalDomain AppleLocale "en_US"
+  xcrun simctl uninstall $UDID_IPAD $BUNDLE_ID 2>/dev/null || true
+  xcrun simctl install $UDID_IPAD "$APP_PATH"
+  xcrun simctl launch $UDID_IPAD $BUNDLE_ID
+  sleep 3
+
+  # 同じ axe tap --label + capture 手順
+  axe describe-ui --udid "$UDID_IPAD"
+  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen1_welcome" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/en-US" --output json
+  axe tap --udid "$UDID_IPAD" --label "Next" || axe tap --udid "$UDID_IPAD" --label "Continue" || axe tap --udid "$UDID_IPAD" --label "Get Started"
+  sleep 2
+  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/en-US" --output json
+  axe tap --udid "$UDID_IPAD" --label "Next" || axe tap --udid "$UDID_IPAD" --label "Continue"
+  sleep 2
+  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_paywall" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/en-US" --output json
+  xcrun simctl spawn "$UDID_IPAD" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
+  xcrun simctl terminate "$UDID_IPAD" "$BUNDLE_ID"
+  sleep 1
+  xcrun simctl launch "$UDID_IPAD" "$BUNDLE_ID"
+  sleep 3
+  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/en-US" --output json
+fi
+```
+
 ### 1c: ja キャプチャ（4画面 — 1b と同じ axe tap --label 手順）
 
 ```bash
@@ -214,6 +323,64 @@ sleep 3
 asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$UDID" --output-dir "./screenshots/raw/ja" --output json
 ```
 
+### 1c2: ja 6.5" キャプチャ（UDID_65 で同じ4画面）
+
+```bash
+xcrun simctl terminate $UDID_65 $BUNDLE_ID 2>/dev/null
+xcrun simctl spawn $UDID_65 defaults delete $BUNDLE_ID 2>/dev/null || true
+xcrun simctl spawn $UDID_65 defaults write NSGlobalDomain AppleLanguages -array "ja"
+xcrun simctl spawn $UDID_65 defaults write NSGlobalDomain AppleLocale "ja_JP"
+xcrun simctl uninstall $UDID_65 $BUNDLE_ID 2>/dev/null || true
+xcrun simctl install $UDID_65 "$APP_PATH"
+xcrun simctl launch $UDID_65 $BUNDLE_ID
+sleep 3
+
+axe describe-ui --udid "$UDID_65"
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen1_welcome" --udid "$UDID_65" --output-dir "./screenshots/raw-65/ja" --output json
+axe tap --udid "$UDID_65" --label "Next" || axe tap --udid "$UDID_65" --label "次へ" || axe tap --udid "$UDID_65" --label "Continue" || axe tap --udid "$UDID_65" --label "続ける"
+sleep 2
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID_65" --output-dir "./screenshots/raw-65/ja" --output json
+axe tap --udid "$UDID_65" --label "Next" || axe tap --udid "$UDID_65" --label "次へ" || axe tap --udid "$UDID_65" --label "Continue" || axe tap --udid "$UDID_65" --label "続ける"
+sleep 2
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_paywall" --udid "$UDID_65" --output-dir "./screenshots/raw-65/ja" --output json
+xcrun simctl spawn "$UDID_65" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
+xcrun simctl terminate "$UDID_65" "$BUNDLE_ID"
+sleep 1
+xcrun simctl launch "$UDID_65" "$BUNDLE_ID"
+sleep 3
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$UDID_65" --output-dir "./screenshots/raw-65/ja" --output json
+```
+
+### 1c3: ja iPad キャプチャ（NEEDS_IPAD=true の場合のみ）
+
+```bash
+if [ "$NEEDS_IPAD" = "true" ]; then
+  xcrun simctl terminate $UDID_IPAD $BUNDLE_ID 2>/dev/null
+  xcrun simctl spawn $UDID_IPAD defaults delete $BUNDLE_ID 2>/dev/null || true
+  xcrun simctl spawn $UDID_IPAD defaults write NSGlobalDomain AppleLanguages -array "ja"
+  xcrun simctl spawn $UDID_IPAD defaults write NSGlobalDomain AppleLocale "ja_JP"
+  xcrun simctl uninstall $UDID_IPAD $BUNDLE_ID 2>/dev/null || true
+  xcrun simctl install $UDID_IPAD "$APP_PATH"
+  xcrun simctl launch $UDID_IPAD $BUNDLE_ID
+  sleep 3
+
+  axe describe-ui --udid "$UDID_IPAD"
+  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen1_welcome" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/ja" --output json
+  axe tap --udid "$UDID_IPAD" --label "Next" || axe tap --udid "$UDID_IPAD" --label "次へ" || axe tap --udid "$UDID_IPAD" --label "Continue" || axe tap --udid "$UDID_IPAD" --label "続ける"
+  sleep 2
+  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/ja" --output json
+  axe tap --udid "$UDID_IPAD" --label "Next" || axe tap --udid "$UDID_IPAD" --label "次へ" || axe tap --udid "$UDID_IPAD" --label "Continue" || axe tap --udid "$UDID_IPAD" --label "続ける"
+  sleep 2
+  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_paywall" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/ja" --output json
+  xcrun simctl spawn "$UDID_IPAD" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
+  xcrun simctl terminate "$UDID_IPAD" "$BUNDLE_ID"
+  sleep 1
+  xcrun simctl launch "$UDID_IPAD" "$BUNDLE_ID"
+  sleep 3
+  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/ja" --output json
+fi
+```
+
 ### 1d: en-US に戻す（後続ステップのため）
 
 ```bash
@@ -250,17 +417,41 @@ JA_LOC_ID=$(asc localizations list --version "$VERSION_ID" --output json \
 # ⚠️ ja が存在しない場合は REST API で作成:
 # POST /v1/appStoreVersionLocalizations { locale: "ja", appStoreVersion: { id: VERSION_ID } }
 
-# en-US アップロード
+# en-US アップロード（3デバイス）
 asc screenshots upload \
   --version-localization "$EN_LOC_ID" \
   --path "./screenshots/raw/en-US" \
   --device-type "IPHONE_61"
 
-# ja アップロード
+asc screenshots upload \
+  --version-localization "$EN_LOC_ID" \
+  --path "./screenshots/raw-65/en-US" \
+  --device-type "IPHONE_65"
+
+if [ "$NEEDS_IPAD" = "true" ]; then
+  asc screenshots upload \
+    --version-localization "$EN_LOC_ID" \
+    --path "./screenshots/raw-ipad/en-US" \
+    --device-type "IPAD_PRO_3GEN_129"
+fi
+
+# ja アップロード（3デバイス）
 asc screenshots upload \
   --version-localization "$JA_LOC_ID" \
   --path "./screenshots/raw/ja" \
   --device-type "IPHONE_61"
+
+asc screenshots upload \
+  --version-localization "$JA_LOC_ID" \
+  --path "./screenshots/raw-65/ja" \
+  --device-type "IPHONE_65"
+
+if [ "$NEEDS_IPAD" = "true" ]; then
+  asc screenshots upload \
+    --version-localization "$JA_LOC_ID" \
+    --path "./screenshots/raw-ipad/ja" \
+    --device-type "IPAD_PRO_3GEN_129"
+fi
 ```
 
 **⚠️ 正しいフラグ（2026-03-04 実証済み）:**
@@ -398,8 +589,22 @@ Source: Apple ASC API (https://developer.apple.com/documentation/appstoreconnect
 > 「Add App Store review details including contact and demo account information」
 CRITICAL: デフォルトが true → 明示的に false を指定しないとデモアカウント未入力で提出ブロック
 
-## Step 5: Age Rating + Encryption + Content Rights
+## Step 5: Copyright + Age Rating + Encryption + Content Rights
+
+Source: Apple ASC Help — Required, localizable, and editable properties
+https://developer.apple.com/help/app-store-connect/reference/app-information/required-localizable-and-editable-properties
+> Platform version information: Copyright is a required field
+
+Source: Apple ASC API — AppStoreVersion.Attributes
+https://developer.apple.com/documentation/appstoreconnectapi/appstoreversion/attributes
+> `copyright` — string attribute on AppStoreVersion
+
 ```bash
+# Copyright (REQUIRED — 未設定だと提出時にエラー)
+CURRENT_YEAR=$(date +%Y)
+DEVELOPER_NAME="Daisuke Kobayashi"  # .env から取得可能にする
+asc versions update --version-id "$VERSION_ID" --copyright "$CURRENT_YEAR $DEVELOPER_NAME"
+
 # Age Rating: all 22 items
 asc age-rating set --app $APP_ID --version-id $VERSION_ID ...
 # Encryption
@@ -494,9 +699,11 @@ TESTFLIGHT_LINK=$TESTFLIGHT_URL
 ```
 
 ## Acceptance Criteria
-- Screenshots uploaded to ASC for en-US and ja (AXe + asc screenshots capture)
+- Screenshots uploaded to ASC for en-US and ja — IPHONE_61 + IPHONE_65 (AXe + asc screenshots capture)
+- Screenshots uploaded for IPAD_PRO_3GEN_129 if UIDeviceFamily includes iPad
 - Subscription review screenshots uploaded for Monthly + Annual
 - Metadata synced (en-US + ja)
+- Copyright set (REQUIRED field)
 - .ipa uploaded (processingState = VALID)
 - Build attached to version
 - Age Rating set, Review Details set (demoAccountRequired=false)
