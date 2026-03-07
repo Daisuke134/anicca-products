@@ -251,6 +251,8 @@ Source: [Apple HIG — Tab Bars](https://developer.apple.com/design/human-interf
 
 ### SCR-010: ProgressDashboardView (Premium)
 
+**Free User Behavior:** Free users see a blurred preview of ProgressDashboardView with a centered "Unlock Progress" button that opens PaywallView as a `.sheet`. This ensures the premium value is visible while gating access.
+
 ```
 ┌─────────────────────────────────┐
 │ Progress                        │  ← Large title
@@ -423,7 +425,7 @@ Source: [Apple HIG — Gestures](https://developer.apple.com/design/human-interf
 | Breathing Prep | Prep countdown + phase animation | Skip, Stop | Hidden |
 | Timer Running | Countdown + HR display | Pause, Stop | Hidden |
 | Timer Paused | Frozen countdown | Resume, Stop | Hidden |
-| Session Complete | Summary sheet | Save, Discard, Add Notes | Visible |
+| Session Complete | Summary sheet (session auto-saved as draft per F-003) | Done (confirm), Delete, Add Notes | Visible |
 
 ---
 

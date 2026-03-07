@@ -187,7 +187,7 @@ Source: [Apple HIG — Components](https://developer.apple.com/design/human-inte
 | Component | Props | Usage | a11y ID |
 |-----------|-------|-------|---------|
 | `CircularTimerView` | `progress: Double`, `timeRemaining: TimeInterval`, `phase: TimerPhase` | Timer screen countdown ring | `circular_timer` |
-| `SessionCardView` | `session: PlungeSession` | History list row | `session_card_\(id)` |
+| `SessionCardView` | `session: PlungeSession` | History list row | `session_card` (static — Maestro uses `id: "session_card"` to find any card) |
 | `PremiumBadgeView` | `isLocked: Bool` | Lock icon overlay on premium features | `premium_badge` |
 | `StreakCalendarView` | `sessions: [PlungeSession]`, `currentStreak: Int` | Visual 30-day streak calendar | `streak_calendar` |
 | `StatCardView` | `title: String`, `value: String`, `icon: String` | Dashboard stat display | `stat_card_\(title)` |

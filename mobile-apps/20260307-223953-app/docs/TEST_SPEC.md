@@ -133,7 +133,7 @@ Source: [Maestro Documentation](https://maestro.mobile.dev/) — "Use id: select
 | `maestro/payment_monthly.yaml` | Open paywall → select monthly → attempt purchase | `paywall_plan_monthly` tappable, `paywall_cta` triggers purchase flow | — |
 | `maestro/payment_annual.yaml` | Open paywall → select annual → attempt purchase | `paywall_plan_annual` tappable, `paywall_cta` triggers purchase flow | — |
 | `maestro/payment_failure.yaml` | Open paywall → attempt purchase → handle error | `paywall_cta` tap → error alert displayed | — |
-| `maestro/history_browse.yaml` | Complete a session → navigate to History → verify session appears | `history_view` visible, `session_card` contains duration text | — |
+| `maestro/history_browse.yaml` | Skip onboarding → start timer → stop → save → tap History tab → verify session card | `timer_start`, `timer_stop`, `session_summary_save`, `tab_history`, `history_view` visible, `session_card` contains duration text | — |
 
 ### Maestro Flow Template
 
@@ -204,6 +204,45 @@ tags:
 - takeScreenshot: "timer_session_saved"
 ```
 
+```yaml
+# maestro/history_browse.yaml
+appId: com.aniccafactory.frostdip
+---
+- clearState
+- launchApp
+# Skip onboarding
+- tapOn:
+    id: "onboarding_get_started"
+- tapOn:
+    id: "onboarding_experience_beginner"
+- tapOn:
+    id: "onboarding_continue"
+- tapOn:
+    id: "onboarding_skip_notifications"
+- tapOn:
+    id: "paywall_maybe_later"
+# Complete a short timer session
+- assertVisible:
+    id: "timer_view"
+- tapOn:
+    id: "timer_start"
+- wait: 3000
+- tapOn:
+    id: "timer_stop"
+- assertVisible:
+    id: "session_summary_view"
+- tapOn:
+    id: "session_summary_save"
+# Navigate to History tab
+- tapOn:
+    id: "tab_history"
+- assertVisible:
+    id: "history_view"
+- assertVisible:
+    id: "session_card"
+- takeScreenshot: "history_browse_complete"
+```
+
 ### E2E Requirements
 
 | Requirement | Implementation |
@@ -263,7 +302,7 @@ Source: [Apple — App Launch Time](https://developer.apple.com/documentation/xc
 | Task | Command |
 |------|---------|
 | Run all unit + integration tests | `cd FrostDipios && fastlane test` |
-| Run specific test | `cd FrostDipios && xcodebuild test -scheme FrostDip -only-testing:FrostDipTests/TimerServiceTests` |
+| Run specific test | `cd FrostDipios && fastlane test` (filter via Xcode scheme or use `scan(only_testing:)` in Fastfile) |
 | Run Maestro smoke tests | `maestro test maestro/ --tags smokeTest` |
 | Run all Maestro E2E | `maestro test maestro/` |
 | Greenlight preflight | `greenlight preflight FrostDipios/` |

@@ -209,7 +209,7 @@ Source: [Swift Protocol-Oriented Programming](https://developer.apple.com/videos
 | Countdown | `Foundation.Timer` with 1-second interval |
 | Background | `BGTaskScheduler.shared.register(forTaskWithIdentifier:)` |
 | Haptics | `UIImpactFeedbackGenerator(style: .heavy)` at configurable intervals |
-| Breathing phases | 4-7-8 pattern: 4s inhale → 7s hold → 8s exhale (configurable) |
+| Breathing phases | 4-7-8 pattern: 4s inhale → 7s hold → 8s exhale (19s/cycle). Total prep time configurable (30-120s). Number of rounds = floor(totalDuration / 19). Remaining time shows countdown |
 | Background notification | Schedule `UNNotificationRequest` when entering background with remaining time |
 
 **TimerView (F-001):**
@@ -217,7 +217,7 @@ Source: [Swift Protocol-Oriented Programming](https://developer.apple.com/videos
 ```swift
 // Views/Timer/TimerView.swift
 struct TimerView: View {
-    @StateObject private var viewModel: TimerViewModel
+    @State private var viewModel: TimerViewModel
 
     var body: some View {
         VStack {
@@ -251,7 +251,7 @@ class HistoryViewModel {
 
 ### 4.5 Streak Tracking (F-010)
 
-**File:** `ViewModels/HistoryViewModel.swift` (streak logic) + `Views/Components/StreakCalendarView.swift`
+**File:** `Services/StreakService.swift` (streak calculation logic) + `ViewModels/HistoryViewModel.swift` (calls StreakService) + `Views/Components/StreakCalendarView.swift`
 
 | Logic | Implementation |
 |-------|---------------|
@@ -271,6 +271,8 @@ class HistoryViewModel {
 ```swift
 import RevenueCat
 
+/// Note: Service classes (reference types) are exempt from the struct immutability rule in coding-style.md.
+/// Services use mutable `@Published` / `private(set)` properties as the standard ObservableObject pattern.
 final class SubscriptionService: SubscriptionServiceProtocol {
     private(set) var isPremium: Bool = false
 
@@ -299,10 +301,12 @@ final class SubscriptionService: SubscriptionServiceProtocol {
     }
 
     func listenForUpdates(onChange: @escaping (Bool) -> Void) {
-        Purchases.shared.getCustomerInfo { customerInfo, _ in
-            let active = customerInfo?.entitlements["premium"]?.isActive == true
-            self.isPremium = active
-            onChange(active)
+        Task {
+            for await customerInfo in Purchases.shared.customerInfoStream {
+                let active = customerInfo.entitlements["premium"]?.isActive == true
+                self.isPremium = active
+                onChange(active)
+            }
         }
     }
 }
@@ -321,7 +325,7 @@ final class SubscriptionService: SubscriptionServiceProtocol {
 
 ```swift
 struct PaywallView: View {
-    @StateObject private var viewModel: PaywallViewModel
+    @State private var viewModel: PaywallViewModel
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {

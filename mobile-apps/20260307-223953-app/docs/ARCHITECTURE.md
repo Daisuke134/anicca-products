@@ -128,7 +128,8 @@ FrostDipios/
 │   └── ModelTests/
 ├── FrostDipUITests/
 ├── maestro/                               # Maestro E2E flows
-└── Fastfile                               # fastlane lanes
+└── fastlane/
+    └── Fastfile                           # fastlane lanes
 ```
 
 ---
@@ -165,14 +166,18 @@ Source: [RevenueCat iOS SDK](https://www.revenuecat.com/docs/getting-started/ins
 final class PlungeSession {
     var id: UUID
     var date: Date
-    var duration: TimeInterval          // seconds
-    var waterTemperature: Double?       // Celsius (stored), displayed as C/F
+    var duration: TimeInterval          // total session seconds (cold phases summed)
+    var waterTemperature: Double?       // Cold water Celsius (stored), displayed as C/F
+    var hotTemperature: Double?         // Hot water Celsius (contrast therapy only)
     var notes: String
     var heartRateAvg: Double?           // BPM
     var heartRateMax: Double?           // BPM
     var heartRates: [Double]            // BPM samples array
     var protocolName: String?           // which protocol was used
     var isContrastSession: Bool         // true if contrast therapy
+    var coldDuration: TimeInterval?     // per-round cold phase seconds (contrast only)
+    var hotDuration: TimeInterval?      // per-round hot phase seconds (contrast only)
+    var roundsCompleted: Int?           // rounds completed (contrast only)
     var createdAt: Date
 
     init(duration: TimeInterval, waterTemperature: Double? = nil, notes: String = "") {
@@ -197,16 +202,18 @@ final class PlungeProtocol {
     var name: String                    // "Beginner", "Intermediate", etc.
     var prepTime: TimeInterval          // breathing prep duration (seconds)
     var coldTime: TimeInterval          // cold plunge duration (seconds)
+    var hotTime: TimeInterval           // hot phase duration (seconds, 0 for non-contrast)
     var rounds: Int                     // number of rounds (1 for simple, 2+ for contrast)
     var restTime: TimeInterval          // rest between rounds (seconds)
     var isDefault: Bool                 // true for built-in protocols
     var createdAt: Date
 
-    init(name: String, prepTime: TimeInterval, coldTime: TimeInterval, rounds: Int = 1, restTime: TimeInterval = 0) {
+    init(name: String, prepTime: TimeInterval, coldTime: TimeInterval, hotTime: TimeInterval = 0, rounds: Int = 1, restTime: TimeInterval = 0) {
         self.id = UUID()
         self.name = name
         self.prepTime = prepTime
         self.coldTime = coldTime
+        self.hotTime = hotTime
         self.rounds = rounds
         self.restTime = restTime
         self.isDefault = false
@@ -399,6 +406,7 @@ Source: [Apple Privacy Manifest](https://developer.apple.com/documentation/bundl
 |-----------|---------|-------------|
 | HealthKit not available | Graceful degradation — timer works without HR | "Heart rate monitoring not available on this device" |
 | HealthKit permission denied | Show settings prompt | "Enable Health access in Settings to see heart rate" |
+| HealthKit no HR data (30s timeout) | Timer works, HR section shows empty state | "No heart rate data detected. Pair an Apple Watch to monitor HR during plunges." |
 | RevenueCat purchase failed | Show error alert, retry option | "Purchase failed. Please try again." |
 | RevenueCat network error | Offline mode — use cached entitlement | "Unable to verify subscription. Using cached status." |
 | Timer background interrupted | Save partial session | "Session saved (interrupted after [duration])" |

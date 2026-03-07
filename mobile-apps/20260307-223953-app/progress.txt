@@ -3,6 +3,12 @@
 - iTunes Search API: `curl -s "https://itunes.apple.com/search?term=KEYWORD&media=software&entity=software&limit=10" | jq '.results[]'`
 - iTunes Reviews API: `curl -s "https://itunes.apple.com/us/rss/customerreviews/page=1/id=APP_ID/sortby=mostrecent/json" | jq '.feed.entry[]'`
 - DuckDuckGo fallback when Google CAPTCHA blocks: `firecrawl scrape "https://html.duckduckgo.com/html/?q=QUERY" markdown`
+- Spec docs contain prohibition context (e.g. "RevenueCatUI prohibited") — grep matches are NOT violations, verify context
+- Service classes (reference types) are exempt from struct immutability rule — `private(set) var` mutation is standard pattern
+- Breathing 4-7-8 cycle = 19s. Total rounds = floor(totalDuration / 19)
+- Fastlane path: `FrostDipios/fastlane/Fastfile` (not `FrostDipios/Fastfile`)
+- Session auto-saved as draft on timer completion (F-003). Summary shows Done/Delete/Add Notes
+- Free users on Progress tab: blurred preview + "Unlock Progress" button → PaywallView sheet
 - Apify TikTok scraper requires `mcpc mcp.apify.com login` before use — auth token expires frequently
 - Exclusion categories must be dynamically built from `ls mobile-apps/` + reading each app's `spec/01-trend.md`
 
@@ -80,4 +86,23 @@
   - Price comparison between PRD and RELEASE_SPEC will show reference prices (medians, market sizes) as mismatches — only product prices ($6.99, $29.99) matter
   - Onboarding 3-act structure (Problem → Experience → Paywall) from Mau is the conversion-optimized pattern for health apps
   - 45 a11y identifiers in UX_SPEC must match TEST_SPEC Maestro E2E flows exactly — single source for both
+---
+
+## 2026-03-07 - US-004-R: Spec Review (all 7 documents)
+- code-quality-reviewer agent ran on all 7 spec docs (PRD, ARCHITECTURE, IMPLEMENTATION_GUIDE, UX_SPEC, DESIGN_SYSTEM, TEST_SPEC, RELEASE_SPEC)
+- Initial findings: 5 CRITICAL, 9 WARNING, 6 SUGGESTION
+- All 5 CRITICALs fixed:
+  1. Contrast therapy data model: added hotTemperature/coldDuration/hotDuration/roundsCompleted to PlungeSession, hotTime to PlungeProtocol
+  2. listenForUpdates: replaced one-shot getCustomerInfo with Purchases.shared.customerInfoStream
+  3. Service-layer mutation: documented exception to immutability rule for reference-type services
+  4. history_browse.yaml: added full Maestro YAML template with onboarding skip + timer + History tab
+  5. HealthKit no-HR-data: added 30s timeout error case with user message
+- 8 WARNINGs also fixed: @Observable standardized, breathing cycle count, session_card a11y, Fastfile path, auto-save/discard, Progress free-user UX, xcodebuild→fastlane, StreakService extraction
+- Re-review confirmed CRITICAL=0
+- Files changed: docs/ARCHITECTURE.md, docs/IMPLEMENTATION_GUIDE.md, docs/TEST_SPEC.md, docs/DESIGN_SYSTEM.md, docs/UX_SPEC.md
+- **Learnings for future iterations:**
+  - Grep-based Gate checks match prohibition context in spec docs — always verify context, not just presence (confirmed 3x)
+  - Contrast therapy features need per-round data model fields from the start — adding later causes migration headaches
+  - RevenueCat v5 customerInfoStream replaces callback-based getCustomerInfo for continuous listening
+  - StreakService should be extracted from HistoryViewModel for testability (test spec expects standalone module)
 ---
