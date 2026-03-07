@@ -93,8 +93,8 @@
         "App created in ASC (APP_ID recorded in .env)"
       ],
       "priority": 5,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "ASC App created: APP_ID=6760225278. Bundle ID: GCVGP8K25Q (com.aniccafactory.frostdip). Privacy Policy: https://aniccaai.com/privacy. PrivacyInfo.xcprivacy + Info.plist deferred to US-006 per spec. Project .env: ~/.config/mobileapp-builder/projects/frostdip/.env"
     },
     {
       "id": "US-005b",

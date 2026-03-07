@@ -94,9 +94,15 @@
 - Privacy Policy URL: https://aniccaai.com/privacy (existing, no deployment needed)
 - PrivacyInfo.xcprivacy + Info.plist: deferred to US-006 (per spec)
 - Project .env dir: ~/.config/mobileapp-builder/projects/frostdip/
-- HUMAN_RESOLVED: 2FA code is 654671
-- Attempt 2: iris session confirmed active, Bundle ID GCVGP8K25Q confirmed, 2FA code needed for `asc apps create`
-- WAITING_FOR_HUMAN: iPhoneに届く6桁の2FAコードをチャットに貼り付けてください
+- HUMAN_RESOLVED: 2FA code received
+- Attempt 2: iris session confirmed active, Bundle ID GCVGP8K25Q confirmed
+- ASC App created successfully: APP_ID=6760225278, name="Cold Plunge Timer - FrostDip"
+- APP_ID saved to ~/.config/mobileapp-builder/projects/frostdip/.env
+- Files: progress.txt, prd.json (updated)
+- **Learnings for future iterations:**
+  - `asc apps create` requires `--two-factor-code` flag for non-interactive shells (EOF error without it)
+  - iris session can be active while still requiring 2FA for app creation (session != 2FA)
+  - Bundle ID must be registered before `asc apps create` or it returns 500 error
 ---
 
 ## 2026-03-07 - US-004-R: Spec Review (all 7 documents)
