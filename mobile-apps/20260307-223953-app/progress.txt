@@ -51,3 +51,17 @@
   - Brisk's timer only supports minute increments — second-level precision is a clear differentiator
   - Negative signal: low review counts across ALL competitors could mean low demand, not just poor products
 ---
+
+## 2026-03-07 - US-004a: Core Spec (PRD, ARCHITECTURE, IMPLEMENTATION_GUIDE)
+- Created docs/PRD.md (302 lines): 14 sections, app_name/bundle_id/prices, 15 Feature IDs (F-001 to F-015), paywall design requirements, en-US + ja App Store metadata
+- Created docs/ARCHITECTURE.md (408 lines): 12 sections, MVVM architecture, ASCII system diagram, directory structure, Protocol-based DI for all 4 services, SwiftData models, UserDefaults key table, PrivacyInfo.xcprivacy template
+- Created docs/IMPLEMENTATION_GUIDE.md (655 lines): 8 sections, 9 implementation phases with Feature ID mapping, xcconfig for RC_API_KEY (no hardcoding), full code samples for SubscriptionService/HealthKitService/NotificationService/PaywallView, Fastfile config, Greenlight check commands
+- Total: 1,365 lines across 3 documents
+- Gate 1 (PRD quality): 6/6 PASS
+- Rule compliance: Rule 17/20/20b/21 all mentions are prohibition context only — zero actual usage
+- Files: docs/PRD.md, docs/ARCHITECTURE.md, docs/IMPLEMENTATION_GUIDE.md
+- **Learnings for future iterations:**
+  - Gate check grep for Rule violations will match prohibition descriptions in spec docs — verify context, not just presence
+  - PRD Feature IDs (F-001 to F-015) must propagate to IMPLEMENTATION_GUIDE Phase Breakdown for traceability
+  - xcconfig + Info.plist for API keys prevents hardcoding and passes Greenlight checks
+---
