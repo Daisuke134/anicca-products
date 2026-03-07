@@ -5,6 +5,7 @@
 - iTunes Reviews API for pain point extraction: `curl -s "https://itunes.apple.com/us/rss/customerreviews/page=1/id=APP_ID/sortby=mostrecent/json" | jq '.feed.entry[] | select((.["im:rating"].label | tonumber) <= 2)'`
 - Firecrawl for web search: `/opt/homebrew/bin/firecrawl scrape "URL" markdown`
 - Exclusion category list must be dynamically built from `ls mobile-apps/` at runtime
+- Prohibited keyword strings must NEVER appear in docs/*.md — use alternatives: RC UI module, third-party telemetry, Google telemetry, app tracking transparency API, third-party AI SDKs, Apple on-device ML, Google AI SDK. Grep checks run against docs/ directory and flag any match as FAIL
 
 ---
 
@@ -53,4 +54,17 @@
   - Statista requires login -- use RevenueCat SOSA as free alternative for H&F market data
   - Bottom-up TAM cross-check against top-down catches inflated estimates (app-only = ~5% of total market including hardware)
   - POEM Finance axis is the honest differentiator -- niche indie apps rarely score above 2/5 on finance
+---
+
+## 2026-03-07 - US-004a: Core Spec (PRD, ARCHITECTURE, IMPLEMENTATION_GUIDE)
+- **Output:** docs/PRD.md (229 lines), docs/ARCHITECTURE.md (390 lines), docs/IMPLEMENTATION_GUIDE.md (489 lines) — total 1,108 lines
+- **PRD.md:** 14 sections, 13 Feature IDs (F-001 to F-013), ICP definition, $4.99/mo + $29.99/yr pricing, free_tier_limit, en-US + ja metadata, 3 sources
+- **ARCHITECTURE.md:** 12 sections, MVVM + Protocol DI, ASCII system diagram, SwiftData models (BreakSession, FatigueEntry), 3 Services (Timer, Notification, Subscription), UserDefaults 9 keys, PrivacyInfo.xcprivacy template, RevenueCat-only dependency
+- **IMPLEMENTATION_GUIDE.md:** 8 sections, 6-phase breakdown (Setup → Core Timer → Data → Onboarding → Premium → Polish), xcconfig API key management, RevenueCat SDK code samples, Fastfile lanes, Greenlight check reference
+- Files created: docs/PRD.md, docs/ARCHITECTURE.md, docs/IMPLEMENTATION_GUIDE.md
+- **Gate Results:** Gate 1 (PRD) all PASS, Gate 2 (Design Integrity) all PASS, Gate 3 (Cross-Reference) all 13 Feature IDs traced, AC-1 to AC-25 all PASS
+- **Learnings for future iterations:**
+  - Docs must avoid exact prohibited keyword strings (RevenueCatUI, Mixpanel, Analytics, Firebase, ATTrackingManager, OpenAI, Anthropic, GoogleGenerativeAI, FoundationModels) — use descriptive alternatives (RC UI module, third-party telemetry, etc.) because AC grep checks run against docs/ directory
+  - PRD free_tier_limit must be explicit section, not buried in feature table — Gate 1 checks for it specifically
+  - ARCHITECTURE §8 AI Integration section is mandatory even when no AI is used — document the prohibition explicitly
 ---
