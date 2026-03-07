@@ -43,12 +43,20 @@ platform :ios do
 
   desc "Upload to TestFlight"
   lane :beta do
+    api_key = app_store_connect_api_key(
+      key_id: ENV["ASC_KEY_ID"],
+      issuer_id: ENV["ASC_ISSUER_ID"],
+      key_filepath: File.expand_path("~/.appstoreconnect/private_keys/AuthKey_#{ENV['ASC_KEY_ID']}.p8")
+    )
     build_app(
       scheme: "EyeBreakIsland",
       export_method: "app-store",
-      output_directory: "./build"
+      output_directory: "./build",
+      clean: true,
+      xcargs: "-allowProvisioningUpdates"
     )
     upload_to_testflight(
+      api_key: api_key,
       skip_waiting_for_build_processing: true
     )
   end

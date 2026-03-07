@@ -229,8 +229,8 @@
         "Build attached to version"
       ],
       "priority": 8.3,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "IPA built via xcodebuild archive + exportArchive with API Key auth (-authenticationKeyPath). AppIcon 1024x1024 generated + CFBundleIconName added to Info.plist. Upload succeeded via -exportOptionsPlist (destination:upload). processingState=VALID (BUILD_ID=76388ee2-35f4-4274-b705-737dcedda8d0). Build attached to version fab3c316 (v1.0). Evidence: asc builds list -> processingState=VALID, asc versions attach-build -> attached=true. AC1-2 all PASS."
     },
     {
       "id": "US-008d",

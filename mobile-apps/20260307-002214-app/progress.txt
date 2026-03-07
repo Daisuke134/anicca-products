@@ -49,6 +49,10 @@
 | Notification permission cross-sim | 6.1" sim で通知許可した後、6.5" sim では既に OS レベルで許可済みの場合あり。オンボーディング Page 3 がスキップされ直接 Paywall に遷移する |
 | ASC keywords 100 char limit | en-US keywords は100文字以内。PRD の keywords をそのまま使うと超過する場合あり。低優先キーワードを削除して調整 |
 | asc localizations update types | `--type app-info` は name/subtitle/privacyPolicyUrl。`--version VERSION_ID` は description/keywords/supportUrl/promotionalText/marketingUrl。別コマンド |
+| xcodebuild API Key auth | Xcode アカウント未設定時は `-allowProvisioningUpdates -authenticationKeyPath -authenticationKeyID -authenticationKeyIssuerID` の4フラグで自動プロビジョニング |
+| CFBundleIconName required | iOS 11+ で Info.plist に `CFBundleIconName=AppIcon` 必須。未設定だと IPA validation で "Missing required icon file" エラー |
+| ExportOptions destination upload | ExportOptions.plist に `destination: upload` を設定すると exportArchive 時に自動で ASC にアップロードされる |
+| Build appears in ASC API delay | アップロード成功後、ASC API にビルドが表示されるまで約60-90秒かかる |
 
 ---
 
@@ -542,5 +546,32 @@
   - #caffeinetiming only 2.6K views — NOT a TikTok trend
   - #coldplunge 3.85M, #faceyoga 18.5M confirmed strong trends
   - Eye rest = weakest competition + Dynamic Island diff = best choice
+
+---
+
+## 2026-03-07 - US-008c: IPA build + upload + version attach (COMPLETE)
+
+- **Status: COMPLETE — all AC verified with evidence**
+- **Evidence:**
+  - AC1: IPA built and uploaded, `asc builds list --app 6760196743 --sort -uploadedDate --limit 1` -> processingState=VALID, BUILD_ID=76388ee2-35f4-4274-b705-737dcedda8d0 PASS
+  - AC2: `asc versions attach-build --version-id fab3c316-7486-4e12-8df1-2db5328d1813 --build 76388ee2-35f4-4274-b705-737dcedda8d0` -> attached=true PASS
+- **Build details:**
+  - Signing: "Apple Development: Created via API (646Y27MJ8C)" with automatic provisioning
+  - Export method: app-store (destination: upload)
+  - SDK: iPhoneOS26.2.sdk
+  - Min OS: 16.1
+  - Version: 1.0 (build 1)
+- **Files created:**
+  - `EyeBreakIslandios/EyeBreakIsland/Resources/Assets.xcassets/AppIcon.appiconset/AppIcon.png` — 1024x1024 app icon (eye + 20-20-20 text on sea green)
+  - `EyeBreakIslandios/ExportOptions.plist` — app-store export config
+- **Files modified:**
+  - `EyeBreakIslandios/EyeBreakIsland/Resources/Assets.xcassets/AppIcon.appiconset/Contents.json` — AppIcon.png filename added
+  - `EyeBreakIslandios/EyeBreakIsland/Info.plist` — CFBundleIconName=AppIcon added
+  - `EyeBreakIslandios/fastlane/Fastfile` — beta lane: API Key auth + allowProvisioningUpdates
+- **Learnings for future iterations:**
+  - xcodebuild archive needs `-allowProvisioningUpdates` + API Key auth flags when no Xcode account is configured
+  - CFBundleIconName in Info.plist is required for iOS 11+ (validation fails without it)
+  - ExportOptions.plist with `destination: upload` auto-uploads during export
+  - Build appears in ASC API ~60-90 seconds after upload succeeds
 
 ---
