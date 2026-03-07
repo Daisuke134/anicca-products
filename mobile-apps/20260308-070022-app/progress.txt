@@ -11,6 +11,20 @@
 
 ---
 
+## 2026-03-08 - US-002: Product Planning
+
+- **product-plan.md 作成:** 7セクション（Target User / Problem / Solution / Monetization / MVP Scope / App Identity / Risk Assessment）
+- **App Name:** LymphaFlow — iTunes 0 exact matches 確認済み（2026-03-08）
+- **Bundle ID:** com.aniccafactory.lymphaflow
+- **価格:** $4.99/月（no trial） + $29.99/年（7-day trial）— RevenueCat H&F中央値 $7.73/月・$29.65/年 準拠
+- **競合確認:** Lymphia（2 reviews）、Kylee（914 reviews、Bluetooth専用）、LymphaTrack（3 reviews）
+- **Sources:** 14ソース、33 URL引用
+- **Learnings for future iterations:**
+  - iTunes API は `ascii_downcase | contains()` で完全一致判定。`term=` クエリは部分一致なので必ず jq でフィルタリング必要
+  - multiline bash に `eval` が入るとjqがpipeをファイル名と誤認識するバグあり → 1コマンドずつ分割して実行が安全
+
+---
+
 ## 2026-03-08 - US-001: Trend Research + Idea Selection
 
 - **選定アプリ:** LymphaFlow — セルフリンパマッサージガイドアプリ (iOS 17+)
