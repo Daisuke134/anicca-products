@@ -244,8 +244,8 @@
         "Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT"
       ],
       "priority": 8.4,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Copyright: 2026 Daisuke Kobayashi. Age Rating: all 22 items NONE + healthOrWellnessTopics=true → 4+. Review Details: demoAccountRequired=false, contact info set (raw API PATCH). Category: HEALTH_AND_FITNESS. Availability: 175/175 territories available, availableInNewTerritories=true (v2 API). Encryption: usesNonExemptEncryption=false (build attribute from Info.plist). Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT. Pricing: FREE app + 3 subscriptions (US-005b)."
     },
     {
       "id": "US-008e",

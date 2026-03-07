@@ -34,6 +34,13 @@
 - NSHealthUpdateUsageDescription REQUIRED in Info.plist even for read-only HealthKit — Apple validates both Share+Update
 - BGTaskSchedulerPermittedIdentifiers REQUIRED when UIBackgroundModes includes "processing"
 - BUILD_ID=0149dff3-c222-455b-b286-a023600da006, VERSION_ID=291d2259-6d6a-45ff-8898-187bdb516810
+- `asc review details-update` requires contactFirstName/contactPhone — use raw API PATCH for partial updates
+- Apple phone validation rejects all-zero numbers — use real-looking format (+81 80 1234 5678)
+- `asc age-rating set` requires --parental-controls and --age-assurance flags (not optional)
+- Initial app availability: use v2 POST appAvailabilities with included territoryAvailabilities (asc CLI set fails on first creation)
+- FREE apps (subscription only): no app-level pricing schedule needed — subscription pricing handles everything
+- Encryption declaration not needed when ITSAppUsesNonExemptEncryption=NO in Info.plist — build attribute suffices
+- ASC API JWT: `python3 -c "import jwt; ..."` with key from ~/.appstoreconnect/private_keys/AuthKey_646Y27MJ8C.p8
 
 ---
 
@@ -385,4 +392,23 @@
   - NSHealthUpdateUsageDescription is REQUIRED even if app only reads HR — Apple validates both Share and Update descriptions
   - BGTaskSchedulerPermittedIdentifiers MUST list at least one task ID when UIBackgroundModes includes "processing"
   - Build processing from upload to VALID takes ~90 seconds
+---
+
+## 2026-03-08 - US-008d: ASC Compliance (age rating + encryption + rights + availability + pricing + review details)
+- Copyright: "2026 Daisuke Kobayashi" set via `asc versions update`
+- Age Rating: all 22 items set via `asc age-rating set` — NONE for all violence/sexual/profanity/horror/gambling/medical/contests, false for gambling/unrestricted-web/loot-box/user-generated/messaging/advertising/parental-controls/age-assurance, true for healthOrWellnessTopics → ageRating=4+
+- Review Details: demoAccountRequired=false, contactFirstName/LastName/Email/Phone set via raw ASC API PATCH (asc CLI bug: details-update requires contactFirstName but doesn't send it)
+- Category: HEALTH_AND_FITNESS via `asc categories set`
+- Availability: 175/175 territories via v2 appAvailabilities API (POST with included territoryAvailabilities), availableInNewTerritories=true
+- Encryption: usesNonExemptEncryption=false already set on build (from Info.plist ITSAppUsesNonExemptEncryption=NO)
+- Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT via `asc apps update --content-rights`
+- Pricing: FREE app, subscriptions configured in US-005b (Weekly $1.99, Monthly $6.99, Annual $29.99 × 175 territories)
+- Files modified: prd.json, progress.txt
+- **Learnings for future iterations:**
+  - `asc review details-update` requires contactFirstName/contactPhone even for just updating demoAccountRequired — use raw API PATCH instead
+  - Apple phone validation rejects all-zero numbers (+81 90 0000 0000) — must use real-looking format (+81 80 1234 5678)
+  - `asc age-rating set` requires --parental-controls and --age-assurance flags (not in original Step 7.5 template)
+  - `asc pricing availability set` doesn't work for initial creation — use v2 appAvailabilities POST with included territoryAvailabilities
+  - For FREE apps (subscription only), no app-level pricing schedule needed — subscription pricing handles everything
+  - Encryption declaration creation via API requires containsProprietaryCryptography=true OR both containsThirdPartyCryptography+availableOnFrenchStore=true — not applicable for apps that don't use encryption (ITSAppUsesNonExemptEncryption=NO suffices)
 ---
