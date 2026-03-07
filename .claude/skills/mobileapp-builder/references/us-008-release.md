@@ -709,17 +709,109 @@ asc release run \
   --metadata-dir "metadata/release/" \
   --dry-run --pretty
 
-# Errors = 0 を確認してから本番実行:
-asc release run \
+# dry-run 結果を JSON で取得:
+DRY_RUN=$(asc release run \
   --app "$APP_ID" \
   --version "1.0" \
   --build "$BUILD_ID" \
   --metadata-dir "metadata/release/" \
-  --confirm
+  --dry-run --output json 2>&1)
+
+# Closed-Loop: エラーがあれば Decision Table で自動修正 → 再実行
+echo "$DRY_RUN" | python3 -c "
+import json, sys
+d = json.loads(sys.stdin.read())
+if d.get('status') == 'completed':
+    print('RELEASE_READY')
+    sys.exit(0)
+checks = []
+for step in d.get('steps', []):
+    for c in step.get('details', {}).get('report', {}).get('checks', []):
+        checks.append(c)
+# blocking issues のみ出力
+for c in checks:
+    if c.get('severity') == 'error':
+        print(f\"BLOCK:{c['id']}:{c.get('remediation','')}\")
+if not any(c.get('severity') == 'error' for c in checks):
+    print('RELEASE_READY')
+"
+```
+
+### Decision Table（Closed-Loop — MUST follow）
+
+dry-run で `BLOCK:<error.id>` が出たら、以下のテーブルに従って修正 → 再度 dry-run。
+**最大 3 回リトライ。** 3 回で解決しなければ `BLOCKED: <error.id>` で停止。
+
+| error.id | CC が修正可能？ | Action |
+|----------|---------------|--------|
+| `version.state.editable` | ❌ | `WAITING_FOR_HUMAN: version が WAITING_FOR_REVIEW / IN_REVIEW 状態。Apple審査完了待ち` |
+| `version.state.rejected` | ✅ | `asc versions create --app $APP_ID --version "1.0.1" --platform IOS` で新version作成 → 再実行 |
+| `build.missing` | ✅ | `asc versions attach-build --version-id $VERSION_ID --build $BUILD_ID` → 再実行 |
+| `build.processing` | ✅ | `asc builds wait --app $APP_ID --build $BUILD_ID --timeout 30m` → 再実行 |
+| `build.expired` | ❌ | `WAITING_FOR_HUMAN: ビルド期限切れ。再アーカイブ+アップロードが必要` |
+| `metadata.missing.*` | ✅ | `asc metadata push --app $APP_ID --version "1.0" --dir metadata/release/` → 再実行 |
+| `metadata.locale.missing` | ✅ | `asc localizations upload --version $VERSION_ID --path metadata/version/` → 再実行 |
+| `screenshots.missing` | ✅ | Step 1 に戻ってスクショ撮影+アップロード → 再実行 |
+| `screenshots.incomplete` | ✅ | 不足デバイスのスクショをアップロード → 再実行 |
+| `subscriptions.review_readiness.*` | ✅ | `asc subscriptions submit --subscription-id $SUB_ID --confirm` → 再実行 |
+| `subscriptions.images.*` (warning) | ⏭️ SKIP | promotional image は optional — warning は無視して `--confirm` 実行可 |
+| `subscriptions.pricing.missing` | ✅ | us-005b の pricing set を再実行 → 再実行 |
+| `review_details.missing` | ✅ | `asc review details-create --app $APP_ID --version-id $VERSION_ID --demo-account-required false` → 再実行 |
+| `age_rating.missing` | ✅ | `asc age-rating set --app $APP_ID ...` → 再実行 |
+| `copyright.missing` | ✅ | `asc versions update --version-id $VERSION_ID --copyright "$(date +%Y) Daisuke Kobayashi"` → 再実行 |
+| `encryption.missing` | ✅ | `asc encryption set ... --uses-non-exempt-encryption false` → 再実行 |
+| `content_rights.missing` | ✅ | `asc content-rights set ... --uses-third-party-content false` → 再実行 |
+| `privacy.missing` | ❌ | `WAITING_FOR_HUMAN: Privacy Policy 未設定。2FA + asc web privacy apply が必要` |
+| unknown error | ❌ | `BLOCKED: unknown error — <full error message>` をログに出力して停止 |
+
+### Closed-Loop 実行フロー
+
+```bash
+# MUST: 最大 3 回の自動修正ループ
+for ATTEMPT in 1 2 3; do
+  echo "=== Release dry-run attempt $ATTEMPT/3 ==="
+
+  DRY_RESULT=$(asc release run \
+    --app "$APP_ID" --version "1.0" --build "$BUILD_ID" \
+    --metadata-dir "metadata/release/" \
+    --dry-run --output json 2>&1)
+
+  STATUS=$(echo "$DRY_RESULT" | python3 -c "import json,sys; print(json.loads(sys.stdin.read()).get('status','error'))")
+
+  if [ "$STATUS" = "completed" ]; then
+    echo "✅ dry-run passed — executing --confirm"
+    asc release run \
+      --app "$APP_ID" --version "1.0" --build "$BUILD_ID" \
+      --metadata-dir "metadata/release/" \
+      --confirm
+    break
+  fi
+
+  # エラー抽出 → Decision Table に従って修正
+  # CC はここで DRY_RESULT の JSON を読み、上の Decision Table に従って
+  # 該当する Action を実行する。WAITING_FOR_HUMAN の場合は即停止。
+  echo "$DRY_RESULT" | python3 -c "
+import json, sys
+d = json.loads(sys.stdin.read())
+for step in d.get('steps', []):
+  if step.get('status') == 'error':
+    print(f\"FAILED_STEP: {step['name']}\")
+    print(f\"MESSAGE: {step.get('message','')}\")
+    print(f\"REMEDIATION: {step.get('remediation','')}\")
+    details = step.get('details', {}).get('report', {}).get('checks', [])
+    for c in details:
+      if c.get('severity') == 'error':
+        print(f\"  BLOCK: {c['id']} — {c['message']}\")
+        print(f\"  FIX: {c.get('remediation','')}\")
+"
+  # CC: Decision Table を参照して修正コマンドを実行
+  # WAITING_FOR_HUMAN に該当する場合は break してループ終了
+done
 ```
 
 ⚠️ `asc release run` がカバーしないもの（上の Prerequisites で個別設定）:
 Copyright, Age Rating, Review Details, Category, Availability, Pricing, Encryption, Content Rights
+→ ただし Decision Table により、これらが未設定の場合は自動修正される。
 
 Source: rudrankriyam asc-submission-health SKILL.md
 > Pre-submission Checklist 7 items

@@ -1,128 +1,467 @@
-# US-010 Build Report + Model Switching
+# ASC CLI 0.37.2 Factory Pipeline Upgrade — 全体刷新
 
 ## Context
 
-$200 Max プラン (20x) の使用量を可視化 + Build-in-Public X投稿を自動化。
-ralph.sh のログから自動集計 → build-report.json → Slack + X。
-Blotato は 2026-02-28 解約済み → Postiz API を使用。
+ASC CLI 0.37.2 (2026-03-06) で高レベルコマンドが多数追加された。
+FrostDip US-008a が **5回連続失敗**（axe空ツリー、座標タップ失敗、UserDefaultsキー名ミス等）。
+US-008a だけでなく **ファクトリー全体（US-005a～US-010）** を新コマンドで刷新し、
+4,103行のスペック → ~2,000行、iteration数 20-25 → 14-17 に削減する。
 
-## 調査結果
+---
 
-| 項目 | 状態 | 詳細 |
-|------|------|------|
-| Postiz API key | `~/.openclaw/.env` にある | `POSTIZ_API_KEY`, `POSTIZ_X_INTEGRATION_ID` |
-| Blotato | 解約済み（2026-02-28） | Postiz に移行完了 |
-| スクショパス | `screenshots/raw-65/en-US/` | US-008 spec と一致。US-008 未完了時は空 |
-| prd.json US-010 | 実装済み（commit 75726a0d） | — |
-| CLAUDE.md US-010 行 | 実装済み（commit 75726a0d） | — |
-| us-010-report.md | 実装済みだが修正必要 | 下記参照 |
-| ralph.sh model | 未変更（`--model opus`） | → `--model opusplan` |
-| token-report.sh | 不要 | us-010-report.md の Step 1 Python で直接計算 |
+## US-008a 失敗分析（FrostDip iteration-20~22）
 
-## 修正箇所
+| # | 問題 | 回数 | 新コマンドの解決策 |
+|---|------|------|-------------------|
+| P1 | `axe describe-ui` 空ツリー | 3/3 | `asc screenshots run` は axe 不要 |
+| P2 | `axe tap --label` 動かない | 3/3 | JSON `tap` で a11y ID 指定 |
+| P3 | 座標タップ毎回間違う | 3/3 | a11y ID ベース。座標不要 |
+| P4 | Maestro stdin parse error | 1/3 | 不要 |
+| P5 | UserDefaultsキー名ミス | 3/3 | JSON に1回正しく書けば永久に正しい |
+| P6 | ja locale 作成に JWT必要 | 1/3 | `asc localizations upload` で自動作成 |
+| P7 | Paywall遷移失敗 | 1/3 | JSON sequence + `wait_for` |
+| P8 | validate.sh タイムアウト | 3/3 | 全自動3分 |
 
-### 1. `us-010-report.md` 修正（6箇所）
+---
 
-**ファイル:** `.claude/skills/mobileapp-builder/references/us-010-report.md`
+## 存在確認
 
-| # | 箇所 | 現状 | 修正後 |
-|---|------|------|--------|
-| A | Step 5 Slack webhook | `https://hooks.slack.com/services/$SLACK_WEBHOOK_PATH` | `$SLACK_WEBHOOK_AGENTS` |
-| B | Step 6 X投稿先 | Postiz 2アカウント（JP+EN） | **@aniccaxxx のみ**（英語テキスト） |
-| C | Step 6 Postiz env source | `~/.config/mobileapp-builder/.env` | `~/.openclaw/.env` も source（フォールバック） |
-| D | `appSlogan` フィールド | prd.json に存在しない | `description` に統一 |
-| E | Step 6 X投稿テキスト | 日本語 + EN両方 | 英語のみ、シンプル形式 |
-| F | BLOTATO_API_KEY 未設定時 | エラーで停止 | X投稿スキップ + Slack で報告 |
+| コマンド | 存在 | 確認方法 |
+|---------|------|---------|
+| `asc screenshots run --plan` | YES | `--help`: actions: launch, tap, type, wait, wait_for, screenshot |
+| `asc workflow run` | YES | `--help`: .asc/workflow.json, hooks, dry-run, if条件, private |
+| `asc release run` | YES | `--help`: dry-run, checkpoint, strict-validate, timeout |
+| `asc publish testflight` | YES | `--help`: --app, --ipa, --group, --wait, --notify, --test-notes |
+| `asc publish appstore` | YES | `--help`: --ipa, --version, --submit, --confirm, --wait |
+| `asc submit create` | YES | `--help`: --app, --version, --build, --confirm |
+| `asc metadata push/pull` | YES | `--help`: --app, --version, --dir |
+| `asc localizations upload/download` | YES | `--help`: --version, --path (.strings) |
+| `asc validate testflight/iap/subscriptions` | YES | 個別バリデーション |
+| `asc screenshots frame` | YES | `--help`: --input, --device, --output-dir |
+| `asc screenshots review-generate/open/approve` | YES | HTML サイドバイサイド |
+| `asc status` | YES | リリースダッシュボード |
+| `asc notify slack` | YES | --webhook, --message |
+| `asc auth doctor --fix` | YES | 認証問題自動診断+修復 |
+| `asc app-setup info/categories/availability/pricing` | YES | ポスト作成セットアップ |
+| `asc diff localizations` | YES | metadata差分確認 |
+| `asc insights weekly/daily` | YES | 週次/日次分析 |
+| `asc release-notes generate` | YES | git履歴→What's New |
+| `asc migrate import/export` | YES | fastlane互換 |
+| `asc nominations create` | YES | featuring申請 |
+| `asc reviews/ratings/summarizations` | YES | レビュー監視 |
+| ~~`asc release orchestrate`~~ | **NO** | 存在しない |
+| ~~`asc localizations batch-update`~~ | **NO** | 存在しない |
 
-### 2. `ralph.sh` L195 モデル変更
+---
 
-**ファイル:** `.claude/skills/mobileapp-builder/ralph.sh`
+## 全体フロー: Before → After
 
-```diff
-- --model opus
-+ --model opusplan
+### Before（20-25 iterations, 4,103行スペック, 50+手動コマンド）
+
+```
+US-001～004-R: 5 iter ✅安定
+US-005a: 1-2 iter ⚠️ 2FA×2, iris切れ, keychain
+US-005b: 2-3 iter ⚠️ 111 API calls, 175カ国price
+US-006 a-d: 4 iter ✅安定
+US-006-R: 1 iter ✅
+US-007: 1 iter ✅
+US-008a: 5+ iter ❌ BLOCKED（axe/座標/キー名/locale）
+US-008b~e: 3-4 iter（未到達）
+US-009: 1-2 iter（未到達）
+US-010: 1 iter
 ```
 
-### 3. `~/.config/mobileapp-builder/.env` に Postiz keys 追加
+### After（14-17 iterations, ~2,000行スペック, 15手動コマンド）
+
+```
+US-001～004-R: 5 iter（変更なし）
+US-005a: 1 iter（asc auth doctor + app-setup で簡素化）
+US-005b: 2 iter（変更なし — 低レベルAPI依存）
+US-006 a-d: 4 iter（変更なし）
+US-006-R: 1 iter
+US-007: 1 iter
+US-008a: 1 iter ← screenshots run --plan で1発
+US-008b: 1 iter ← metadata push + localizations upload
+US-008c+d+e: 1 iter ← publish appstore --wait + validate 3種 + publish testflight
+US-009: 1 iter ← submit create OR release run
+US-010: 1 iter
+```
+
+---
+
+## 変更計画（US別）
+
+### US-005a: Infrastructure（`references/us-005a-infra.md` 171行）
+
+| 現状 | 新 | 効果 |
+|------|-----|------|
+| PREFLIGHT で認証チェック手動 | `asc auth doctor --fix --confirm` | 認証問題自動診断+修復 |
+| app作成後のカテゴリ/availability 散在 | `asc app-setup categories set` + `availability set` | セットアップ一括 |
+| — | `asc app-setup info set --app $APP_ID --primary-locale en-US` | app info 初期化 |
+
+**追加するコード:**
+```bash
+# Step 0: 認証診断（PREFLIGHT代替）
+asc auth doctor --output json
+# 問題あれば: asc auth doctor --fix --confirm
+
+# Step 6: ポスト作成セットアップ（app create 直後）
+asc app-setup categories set --app "$APP_ID" --primary HEALTH_AND_FITNESS
+asc app-setup availability set --app "$APP_ID" --territory "USA,JPN,GBR" --available true
+```
+
+### US-008a: Screenshots（`references/us-008-release.md` Step 1 — 現状 ~500行）
+
+**全面書き換え。** 現状の手動30+ステップを以下に置き換え:
 
 ```bash
-# ~/.openclaw/.env からコピー
-POSTIZ_API_KEY=48b04b54c995031d2ebe65aee9cd1436a8220a3805c2133e2e4c1d87e2983720
-POSTIZ_X_INTEGRATION_ID=cmm6d7m5703rwpr0yr5vtme3w
+# Step 1a: screenshots.json 生成（CC がアプリ固有のa11y IDから自動生成）
+# テンプレート:
+cat > .asc/screenshots.json << 'JSON'
+{
+  "bundle_id": "$BUNDLE_ID",
+  "output_dir": "./screenshots/raw",
+  "sequences": [
+    {"action": "launch"},
+    {"action": "wait", "seconds": 3},
+    {"action": "screenshot", "name": "screen1_welcome"},
+    {"action": "tap", "id": "onboarding_get_started"},
+    {"action": "wait", "seconds": 2},
+    {"action": "screenshot", "name": "screen2_features"},
+    ...
+  ]
+}
+JSON
+# CC は UX_SPEC の accessibilityIdentifier + prd.json の features から
+# 実際のシーケンスを生成する。上記はテンプレートのみ。
+
+# Step 1b: 撮影（4コマンドで16枚）
+# en-US 6.1"
+xcrun simctl spawn $UDID_61 defaults write NSGlobalDomain AppleLanguages -array "en"
+asc screenshots run --plan .asc/screenshots.json --udid $UDID_61 --output-dir ./screenshots/raw/en-US
+# en-US 6.5"
+asc screenshots run --plan .asc/screenshots.json --udid $UDID_65 --output-dir ./screenshots/raw-65/en-US
+# ja 6.1"
+xcrun simctl spawn $UDID_61 defaults write NSGlobalDomain AppleLanguages -array "ja"
+asc screenshots run --plan .asc/screenshots.json --udid $UDID_61 --output-dir ./screenshots/raw/ja
+# ja 6.5"
+asc screenshots run --plan .asc/screenshots.json --udid $UDID_65 --output-dir ./screenshots/raw-65/ja
+
+# Step 1c: アップロード
+asc screenshots upload --version-localization "$EN_LOC_ID" --path ./screenshots/raw/en-US --device-type IPHONE_61
+asc screenshots upload --version-localization "$EN_LOC_ID" --path ./screenshots/raw-65/en-US --device-type IPHONE_65
+asc screenshots upload --version-localization "$JA_LOC_ID" --path ./screenshots/raw/ja --device-type IPHONE_61
+asc screenshots upload --version-localization "$JA_LOC_ID" --path ./screenshots/raw-65/ja --device-type IPHONE_65
 ```
 
-## 投稿内容（確定）
+**sim準備、ビルド、インストール、MD5検証、review screenshot は既存手順を維持。**
+変更するのは「画面遷移 + キャプチャ」部分のみ（最大の失敗ポイント）。
 
-### Slack（#agents、`$SLACK_WEBHOOK_AGENTS`）
+### US-008b: Metadata（`references/us-008-release.md` Step 2 — 現状 ~20行）
 
-```
-🏭 {APP_NAME} → App Store
+```bash
+# 現状: locale個別に asc localizations update × 4回
+# 新: 一括 push
+asc metadata push --app "$APP_ID" --version "$VERSION" --dir "./metadata"
 
-📱 {DESCRIPTION}
-💰 ~${COST} / $200 plan
-⏱️ {ITERATIONS} iterations | {DURATION}min
-📊 {TOKENS}M tokens | 5h: {W5}% | weekly: {WK}%
+# 差分確認（push前）
+asc diff localizations --app "$APP_ID" --path "./metadata" --version-id "$VER_ID"
 
-#BuildInPublic
-```
-
-全値は `build-report.json` から動的取得。ハードコードなし。
-
-### X（@aniccaxxx のみ、英語テキスト、Postiz API）
-
-```
-🏭 {APP_NAME} → App Store
-
-{DESCRIPTION}
-
-💰 ~${COST} / $200 plan
-📊 {TOKENS}M tokens
-⏱️ 5h: {W5}% | weekly: {WK}%
-
-#BuildInPublic
+# ja locale が存在しない場合:
+asc localizations upload --version "$VERSION_ID" --path "./localizations"
 ```
 
-+ スクショ4枚（`screenshots/raw-65/en-US/*.png`、Postiz media API でアップロード）
+### US-008c: Build + Upload（`references/us-008-release.md` Step 3 — 現状 ~40行）
 
-### Slack vs X の違い
-
-| | Slack | X |
-|---|-------|---|
-| 送信先 | #agents (webhook) | @aniccaxxx (Postiz) |
-| iterations/duration | あり | なし（文字数節約） |
-| スクショ | なし | 4枚 |
-
-## コスト計算ロジック
-
-```python
-WEEKLY_CAP = 560_000_000  # 推定: 5h窓 85M × 平日稼働
-MONTHLY_CAP = WEEKLY_CAP * 4
-cost_in_plan = (total_tokens / MONTHLY_CAP) * 200
-weekly_pct = (total_tokens / WEEKLY_CAP) * 100
-window_pct = (total_tokens / 90_000_000) * 100  # 5h窓
+```bash
+# 現状: xcodebuild archive → export → xcrun altool upload → asc versions attach-build
+# 新: archive + export は変更なし。upload以降を1コマンド化:
+asc publish appstore \
+  --app "$APP_ID" \
+  --ipa "$IPA_PATH" \
+  --version "$VERSION" \
+  --wait \
+  --output json
+# upload + processing wait + version find/create + build attach が全部入り
 ```
 
-us-010-report.md Step 1 の既存 Python コードをそのまま使用。
+### US-008e: Preflight + TestFlight（`references/us-008-release.md` Step 8-9 — 現状 ~60行）
+
+```bash
+# バリデーション強化（3種追加）
+asc validate --app "$APP_ID" --version "$VERSION" --strict
+asc validate testflight --app "$APP_ID" --build "$BUILD_ID"
+asc validate iap --app "$APP_ID"
+asc validate subscriptions --app "$APP_ID"
+
+# ステータス確認
+asc status --app "$APP_ID" --output table
+
+# TestFlight 全自動（現状5コマンド → 1コマンド）
+asc publish testflight \
+  --app "$APP_ID" \
+  --ipa "$IPA_PATH" \
+  --group "$GROUP_ID" \
+  --wait \
+  --notify \
+  --test-notes "Initial beta test" \
+  --locale "en-US" \
+  --output json
+```
+
+### US-009: Submit（`references/us-009-submit.md` 132行）
+
+```bash
+# 方法A: シンプル提出（現状3コマンド → 1コマンド）
+asc submit create \
+  --app "$APP_ID" \
+  --version "$VERSION" \
+  --build "$BUILD_ID" \
+  --confirm \
+  --output json
+
+# 方法B: フルリリースパイプライン（metadata含む全自動）
+asc release run \
+  --app "$APP_ID" \
+  --version "$VERSION" \
+  --build "$BUILD_ID" \
+  --metadata-dir "./metadata" \
+  --dry-run          # まず確認
+# 問題なければ:
+asc release run \
+  --app "$APP_ID" \
+  --version "$VERSION" \
+  --build "$BUILD_ID" \
+  --metadata-dir "./metadata" \
+  --confirm \
+  --checkpoint-file ./release-checkpoint.json
+```
+
+### US-010: Build Report（`references/us-010-report.md` 171行）
+
+```bash
+# 追加: リリースノート自動生成
+asc release-notes generate --since-tag "v1.0.0" --max-chars 4000
+```
+
+### CLAUDE.md: コマンド表更新（PREFLIGHT + 全US共通）
+
+```bash
+# ralph.sh PREFLIGHT に追加（CLAUDE.md の指示経由）
+asc auth doctor --output json  # 認証診断
+```
+
+**テーブル追加（15コマンド）:**
+
+| タスク | 正しいコマンド |
+|--------|---------------|
+| 認証診断 | `asc auth doctor --output json` |
+| ポスト作成セットアップ | `asc app-setup categories/availability/pricing set` |
+| スクショ自動撮影 | `asc screenshots run --plan .asc/screenshots.json` |
+| スクショフレーム | `asc screenshots frame --input raw.png --device iphone-air` |
+| Metadata 一括push | `asc metadata push --app $APP_ID --dir ./metadata` |
+| Localization 一括 | `asc localizations upload --version $VER_ID --path ./localizations` |
+| Metadata差分 | `asc diff localizations --app $APP_ID --path ./metadata` |
+| IPA upload+attach | `asc publish appstore --app $APP_ID --ipa $IPA --wait` |
+| TestFlight 全自動 | `asc publish testflight --app $APP_ID --ipa $IPA --group $GID --wait --notify` |
+| バリデーション(TF/IAP/Subs) | `asc validate testflight/iap/subscriptions --app $APP_ID` |
+| ステータス | `asc status --app $APP_ID --output table` |
+| App Store 提出 | `asc submit create --app $APP_ID --confirm` |
+| フルリリース | `asc release run --app $APP_ID --metadata-dir ./metadata --confirm` |
+| Release Notes | `asc release-notes generate --since-tag $TAG` |
+| ワークフロー実行 | `asc workflow run <name> KEY:VALUE` |
+
+---
+
+## asc workflow — ファクトリー全体の JSON 統合
+
+### `.asc/workflow.json` テンプレート（us-008-release.md に追加）
+
+CC は US-005a 完了後、このテンプレートをアプリディレクトリに生成する。
+env の値は `.env` から注入。各 US iteration で `asc workflow run <name>` を呼ぶ。
+
+```json
+{
+  "env": {
+    "APP_ID": "",
+    "VERSION": "1.0.0",
+    "GROUP_ID": "",
+    "BUNDLE_ID": "",
+    "EN_LOC_ID": "",
+    "JA_LOC_ID": ""
+  },
+  "before_all": "asc auth doctor --output json",
+  "error": "curl -s -X POST $SLACK_WEBHOOK_AGENTS -H 'Content-Type: application/json' -d '{\"text\":\"workflow failed\"}'",
+  "workflows": {
+    "screenshots": {
+      "description": "Capture + upload screenshots for en-US and ja (US-008a)",
+      "steps": [
+        {"name": "capture_en_61", "run": "asc screenshots run --plan .asc/screenshots.json --udid $UDID_61 --output-dir ./screenshots/raw/en-US"},
+        {"name": "capture_en_65", "run": "asc screenshots run --plan .asc/screenshots.json --udid $UDID_65 --output-dir ./screenshots/raw-65/en-US"},
+        {"name": "locale_ja", "run": "xcrun simctl spawn $UDID_61 defaults write NSGlobalDomain AppleLanguages -array ja"},
+        {"name": "capture_ja_61", "run": "asc screenshots run --plan .asc/screenshots.json --udid $UDID_61 --output-dir ./screenshots/raw/ja"},
+        {"name": "capture_ja_65", "run": "asc screenshots run --plan .asc/screenshots.json --udid $UDID_65 --output-dir ./screenshots/raw-65/ja"},
+        {"name": "upload_en_61", "run": "asc screenshots upload --version-localization $EN_LOC_ID --path ./screenshots/raw/en-US --device-type IPHONE_61"},
+        {"name": "upload_en_65", "run": "asc screenshots upload --version-localization $EN_LOC_ID --path ./screenshots/raw-65/en-US --device-type IPHONE_65"},
+        {"name": "upload_ja_61", "run": "asc screenshots upload --version-localization $JA_LOC_ID --path ./screenshots/raw/ja --device-type IPHONE_61"},
+        {"name": "upload_ja_65", "run": "asc screenshots upload --version-localization $JA_LOC_ID --path ./screenshots/raw-65/ja --device-type IPHONE_65"}
+      ]
+    },
+    "metadata": {
+      "description": "Push metadata for en-US and ja (US-008b)",
+      "steps": [
+        {"name": "diff", "run": "asc diff localizations --app $APP_ID --path ./metadata --version-id $VER_ID"},
+        {"name": "push", "run": "asc metadata push --app $APP_ID --version $VERSION --dir ./metadata"}
+      ]
+    },
+    "build": {
+      "description": "Upload IPA + attach to version (US-008c)",
+      "steps": [
+        {"name": "publish", "run": "asc publish appstore --app $APP_ID --ipa $IPA_PATH --version $VERSION --wait --output json"}
+      ]
+    },
+    "preflight": {
+      "private": true,
+      "description": "Pre-submission validation suite",
+      "steps": [
+        {"name": "v_version", "run": "asc validate --app $APP_ID --version $VERSION --strict"},
+        {"name": "v_iap", "run": "asc validate iap --app $APP_ID"},
+        {"name": "v_subs", "run": "asc validate subscriptions --app $APP_ID"},
+        {"name": "status", "run": "asc status --app $APP_ID --output table"}
+      ]
+    },
+    "beta": {
+      "description": "TestFlight distribution (US-008e)",
+      "steps": [
+        {"name": "validate_tf", "run": "asc validate testflight --app $APP_ID --build $BUILD_ID"},
+        {"name": "distribute", "run": "asc publish testflight --app $APP_ID --ipa $IPA_PATH --group $GROUP_ID --wait --notify --output json"}
+      ]
+    },
+    "release": {
+      "description": "Full App Store submission (US-009)",
+      "steps": [
+        {"workflow": "preflight"},
+        {"name": "submit", "run": "asc submit create --app $APP_ID --version $VERSION --build $BUILD_ID --confirm --output json"}
+      ]
+    },
+    "release_full": {
+      "description": "Alternative: metadata + attach + validate + submit in one shot",
+      "steps": [
+        {"name": "run", "run": "asc release run --app $APP_ID --version $VERSION --build $BUILD_ID --metadata-dir ./metadata --confirm --output json"}
+      ]
+    }
+  }
+}
+```
+
+**実行例:**
+```bash
+asc workflow validate                                # 構文チェック
+asc workflow list                                    # ワークフロー一覧
+asc workflow run --dry-run screenshots               # ドライラン
+asc workflow run screenshots UDID_61:xxx UDID_65:yyy # 実行
+asc workflow run beta BUILD_ID:xxx                   # TestFlight
+asc workflow run release VERSION:1.0.0 BUILD_ID:xxx  # 提出
+asc workflow run release_full VERSION:1.0.0 BUILD_ID:xxx  # 全自動
+```
+
+---
+
+## 追加機能（リリース後 / P4）
+
+| 機能 | コマンド | 用途 |
+|------|---------|------|
+| Slack 組み込み通知 | `asc notify slack --webhook $URL --message "..."` | curl 置き換え |
+| レビュー監視 | `asc reviews --app $APP_ID --stars 1` | 1つ星自動取得 |
+| レビュー要約 | `asc reviews summarizations --app $APP_ID --platform IOS` | AI要約 |
+| 週次分析 | `asc insights weekly --app $APP_ID --source analytics` | KPI追跡 |
+| Featuring申請 | `asc nominations create --app $APP_ID --type APP_LAUNCH` | US-009後 |
+| Sandbox管理 | `asc sandbox clear-history --id $ID --confirm` | IAP テスト |
+| fastlane互換 | `asc migrate import --fastlane-dir ./fastlane` | 既存プロジェクト移行 |
+
+---
+
+## 数値比較
+
+| メトリクス | 現状 | 新 | 改善 |
+|-----------|------|-----|------|
+| reference 総行数 | 4,103行 | ~2,000行 | **-51%** |
+| US-008 スペック行数 | 948行 | ~300行 | **-68%** |
+| US-008a~009 iteration数 | 10-15 | 3-4 | **-70%** |
+| 手動 shell コマンド数 | 50+ | 15 | **-70%** |
+| 失敗ポイント（脆弱箇所） | 20+ | 5 | **-75%** |
+| Total iterations（全体） | 20-25 | 14-17 | **-30%** |
+| Token消費（推定） | ~100M | ~60M | **-40%** |
+| Cost per app ($200 plan) | ~$9 | ~$5 | **-44%** |
+
+---
 
 ## ファイル変更一覧
 
 | # | ファイル | 操作 |
 |---|---------|------|
-| 1 | `.claude/skills/mobileapp-builder/references/us-010-report.md` | 修正: 6箇所（上記A-F） |
-| 2 | `.claude/skills/mobileapp-builder/ralph.sh` L195 | `--model opus` → `--model opusplan` |
-| 3 | `~/.config/mobileapp-builder/.env` | Postiz keys 追加 |
+| 1 | `references/us-005a-infra.md` | `asc auth doctor` + `app-setup` コマンド追加 |
+| 2 | `references/us-008-release.md` | **大幅書き換え**: Step 1 → `screenshots run --plan`、Step 2 → `metadata push`、Step 3 → `publish appstore`、Step 8 → validate 3種、Step 9 → `publish testflight`。workflow.json テンプレート追加 |
+| 3 | `references/us-009-submit.md` | 3段提出 → `submit create`。`release run` オプション追加 |
+| 4 | `CLAUDE.md` ASC CLI テーブル | 15コマンド追加 + PREFLIGHT に `auth doctor` 指示 |
 
-**実装済み（変更不要）:**
-- `prd.json` US-010 エントリ（commit 75726a0d）
-- `CLAUDE.md` US-010 行（commit 75726a0d）
+**注意:** `ralph.sh` は DO NOT MODIFY ルール対象。変更しない。
 
-**不要と判断:**
-- `token-report.sh` — us-010-report.md の Step 1 Python で直接計算するため別スクリプト不要
-- ralph.sh 末尾の token-report.sh 呼び出し — 同上
+---
+
+## 実装順序
+
+1. **CLAUDE.md** — CC が新コマンドを認識できるようにする（全USに影響）
+2. **us-008-release.md** — 最大の改善。948行 → ~300行
+3. **us-009-submit.md** — 提出フロー簡素化
+4. **us-005a-infra.md** — auth doctor + app-setup 追加
+
+---
+
+## コミット 68de72a6 レビュー結果（factory-patch-v2）
+
+| Item | 変更内容 | 状態 | 備考 |
+|------|---------|------|------|
+| B | Device table → IPHONE_69 only | ✅ OK | auto-scale コメント付き |
+| C | Single UDID_69 sim | ✅ OK | auto-create + boot 含む |
+| D | UserDefaults key grep | ✅ OK | Swift コードから `ONBOARDING_KEY` 変数を grep |
+| E | Maestro absolute path | ✅ OK | `/Users/anicca/.maestro/bin/maestro` + fallback |
+| F | defaults delete comment | ✅ OK | "Domain not found" を無視する `|| true` |
+| G | find path fix | ✅ OK | `*/Debug-iphonesimulator/*.app` + not-path filter |
+| H | Upload IPHONE_69 only | ✅ OK | 6.5"/6.1"/iPad upload 全削除 |
+| I | iPad + 6.5" sections deleted | ✅ OK | Sections 1b2/1c2/1b3/1c3 全削除 |
+| J | `localizations upload` | ✅ OK | `.strings` ファイル生成 + 2コマンドで全ロケール完了 |
+| K | `asc release run` | ✅ OK | dry-run → confirm フロー。Prerequisites リスト明確 |
+| M | CLAUDE.md ASC skills refs | ✅ OK | 4行追加 |
+
+### 残存リスク（本 Plan で解決予定）
+
+| # | 問題 | 深刻度 | 解決方法 |
+|---|------|--------|---------|
+| 1 | Review screenshot が依然 `axe tap --label` に依存 | ⚠️ WARNING | `asc screenshots run --plan` 移行で解決 |
+| 2 | `axe describe-ui` 空ツリー問題（P1）は未解決 | ⚠️ WARNING | 同上（axe 不要になる） |
+| 3 | `asc release run` Prerequisites 7項目 — CC が抜かす可能性 | ℹ️ INFO | workflow.json の `before_all` に組み込み |
+
+---
+
+## workflow.json 修正メモ（実装時に反映）
+
+Plan 内の workflow.json テンプレートは UDID_61/65 のままだが、実装時は **UDID_69 に統一**する。
+screenshots workflow の steps を 9 → 4 に削減（6.9" のみ × 2ロケール = 4コマンド）。
+
+---
 
 ## 検証
 
-1. `~/.config/mobileapp-builder/.env` に Postiz keys が入っているか確認
-2. Postiz API でテスト投稿: `curl -s https://api.postiz.com/public/v1/posts -H "Authorization: Bearer $POSTIZ_API_KEY"` → 200
-3. ralph.sh の `--model opusplan` → 次回ビルドで動作確認
-4. us-010-report.md の修正後、FrostDip logs で build-report.json 生成テスト
+実装後、以下で確認:
+1. `asc workflow validate` → workflow.json 構文OK
+2. `asc screenshots run --help` → フラグ確認
+3. `asc publish appstore --help` → フラグ確認
+4. `asc publish testflight --help` → フラグ確認
+5. 次回の ralph.sh 実行で US-008a が 1 iteration で完了するか観察
+
+### Task 3: `asc release run` E2E テスト（Plan mode 解除後に実行）
+
+FrostDip（APP_ID 取得 → dry-run → 出力確認）で `asc release run` が正常動作するか検証する。
+- `asc release run --dry-run --pretty` で全 Prerequisites のバリデーション結果を確認
+- エラーがあれば Plan に反映してから本実装に進む
