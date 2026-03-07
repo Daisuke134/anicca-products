@@ -88,6 +88,15 @@
   - 45 a11y identifiers in UX_SPEC must match TEST_SPEC Maestro E2E flows exactly — single source for both
 ---
 
+## 2026-03-07 - US-005a: Privacy Policy + ASC App Creation (IN PROGRESS)
+- Bundle ID registered: GCVGP8K25Q (com.aniccafactory.frostdip)
+- iris session confirmed active
+- Privacy Policy URL: https://aniccaai.com/privacy (existing, no deployment needed)
+- PrivacyInfo.xcprivacy + Info.plist: deferred to US-006 (per spec)
+- Project .env dir: ~/.config/mobileapp-builder/projects/frostdip/
+- WAITING_FOR_HUMAN: ASC App Creation requires 2FA code. iPhone に届く6桁コードをチャットに貼り付けてください。
+---
+
 ## 2026-03-07 - US-004-R: Spec Review (all 7 documents)
 - code-quality-reviewer agent ran on all 7 spec docs (PRD, ARCHITECTURE, IMPLEMENTATION_GUIDE, UX_SPEC, DESIGN_SYSTEM, TEST_SPEC, RELEASE_SPEC)
 - Initial findings: 5 CRITICAL, 9 WARNING, 6 SUGGESTION
