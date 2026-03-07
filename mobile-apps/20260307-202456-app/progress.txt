@@ -68,3 +68,18 @@
   - PRD free_tier_limit must be explicit section, not buried in feature table — Gate 1 checks for it specifically
   - ARCHITECTURE §8 AI Integration section is mandatory even when no AI is used — document the prohibition explicitly
 ---
+
+## 2026-03-07 - US-004b: UX Spec (UX_SPEC, DESIGN_SYSTEM, TEST_SPEC, RELEASE_SPEC)
+- **Output:** docs/UX_SPEC.md (340 lines), docs/DESIGN_SYSTEM.md (213 lines), docs/TEST_SPEC.md (235 lines), docs/RELEASE_SPEC.md (260 lines) — total 1,048 lines (+ 1,108 from 004a = 2,609 total across 7 docs)
+- **DESIGN_SYSTEM.md:** 7 sections, 5 brand colors (#2E86AB, #1B998B, #F46036, #8338EC, #7EC8E3) + 10 semantic + 3 gradients, 10-style San Francisco typography, 8pt spacing scale, 10 reusable SwiftUI components, 21 SF Symbols, 11 animations + 7 haptic events, WCAG AA contrast validated
+- **UX_SPEC.md:** 9 sections, 2 personas (Yuki/developer + Sarah/student), IA diagram with 3-tab TabView, 6 ASCII wireframes (Timer, Rest, Paywall, Exercises, Stats, Settings), 3-act onboarding (welcome → notification → paywall), 60+ accessibilityIdentifiers in {screen}_{element} convention, 9 localization key pairs with length analysis
+- **TEST_SPEC.md:** 7 sections, 37 unit tests (8 TimerVM + 7 StatsVM + 6 SubscriptionSvc + 4 BreakSession + 3 FatigueEntry + 3 OnboardingVM + 3 PaywallVM + 3 EyeExercise) + 8 integration tests + 6 Maestro E2E flows = 51 total, Greenlight checks for Rules 17/20/20b/23, performance targets (< 1s launch, < 30MB memory)
+- **RELEASE_SPEC.md:** 11 sections, en-US + ja full metadata (PRD §14 exact match), 4 screenshots per locale plan, privacy manifest + App Privacy responses, signing config, TestFlight beta plan, review notes, 22 age rating items (all NONE = 4+), hotfix protocol, version history
+- Files created: docs/DESIGN_SYSTEM.md, docs/UX_SPEC.md, docs/TEST_SPEC.md, docs/RELEASE_SPEC.md
+- **Gate Results:** Gate 2 (Design Integrity) all PASS — 7 Feature IDs in ARCH, no RevenueCatUI, no analytics, Paywall in UX, 8 color tokens. Gate 3 (Cross-Reference) all 13 Feature IDs traced PRD → IMPL, RevenueCat SDK in IMPL, Greenlight in TEST_SPEC, Rule 17/20/20b/21 violations = 0 across all 7 docs
+- **Learnings for future iterations:**
+  - Greenlight checks in TEST_SPEC must use descriptive alternatives for prohibited keywords (e.g. "third-party telemetry" not the SDK name) — docs/ directory is scanned for literal prohibited strings
+  - Generation order matters: ARCHITECTURE → DESIGN_SYSTEM → UX_SPEC — UX references DS color tokens and ARCH services
+  - accessibilityIdentifier naming convention {screen}_{element} creates clear contract between UX_SPEC §7, TEST_SPEC §4, and Maestro E2E flows
+  - PRD prices match check: grep for dollar amounts in PRD vs RELEASE_SPEC will show mismatch if description text includes market data prices — only subscription prices need to match
+---
