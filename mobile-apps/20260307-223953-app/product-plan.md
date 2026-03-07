@@ -130,6 +130,7 @@ Cold plunge & ice bath timer with progressive protocols, session logging, streak
 | Tier | Price | Features |
 |------|-------|----------|
 | Free | $0 | Basic timer, 7-day session history, 1 default protocol |
+| Weekly | $1.99/wk | Full access. Try it weekly — lowest commitment entry point |
 | Monthly | $6.99/mo | Unlimited history, HealthKit HR, custom protocols, streaks, progress dashboard, contrast therapy |
 | Annual | $29.99/yr ($2.50/mo) | Same as Monthly — 64% apparent savings |
 

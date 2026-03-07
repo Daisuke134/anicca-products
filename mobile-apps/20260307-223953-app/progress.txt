@@ -11,6 +11,10 @@
 - Free users on Progress tab: blurred preview + "Unlock Progress" button → PaywallView sheet
 - Apify TikTok scraper requires `mcpc mcp.apify.com login` before use — auth token expires frequently
 - Exclusion categories must be dynamically built from `ls mobile-apps/` + reading each app's `spec/01-trend.md`
+- ASC subscription availability MUST be set before pricing (reverse = 500 error)
+- Equalization API excludes USA — add USA price separately after CSV import
+- `asc subscriptions list --group GROUP_ID` (not `--app APP_ID`)
+- Bash array for locale loop: `LOCALES=(en-US ja ...)` + `for L in "${LOCALES[@]}"`
 
 ---
 
@@ -122,4 +126,24 @@
   - Contrast therapy features need per-round data model fields from the start — adding later causes migration headaches
   - RevenueCat v5 customerInfoStream replaces callback-based getCustomerInfo for continuous listening
   - StreakService should be extracted from HistoryViewModel for testability (test spec expects standalone module)
+---
+
+## 2026-03-08 - US-005b: IAP + Pricing + RevenueCat Setup (WAITING_FOR_HUMAN)
+- ASC subscription group created: GROUP_ID=21966024 (FrostDip Premium)
+- 3 subscriptions created: Weekly ($1.99, ID=6760225308), Monthly ($6.99, ID=6760225483), Annual ($29.99, ID=6760225430)
+- 39 locales localized per subscription (group + weekly + monthly + annual = 156 total localizations)
+- 175 territories availability set for all 3 subscriptions
+- 175 country prices set for all 3 subscriptions (equalization API + CSV import + USA manual add)
+- product-plan.md updated: Weekly $1.99 tier added (3-plan strategy per RevenueCat SOSA 2025)
+- WAITING_FOR_HUMAN: RC SK Key needed (Slack sent). Step 7.1-7.6 blocked until SK key received
+- Review screenshots deferred to US-008a (app not built yet)
+- SPM dependency deferred to US-006 (Xcode project not created yet)
+- Files changed: product-plan.md, prd.json, progress.txt
+- **Learnings for future iterations:**
+  - `asc subscriptions list` requires `--group GROUP_ID`, not `--app APP_ID`
+  - Shell string variable in for loop doesn't split on spaces — use bash array `LOCALES=(...)` with `"${LOCALES[@]}"`
+  - availability MUST be set before pricing — reverse order causes Apple API 500
+  - equalization API doesn't include USA — must add USA price separately after CSV import
+  - BMU (Bermuda) can timeout on large imports — retry with single-row CSV works
+  - MISSING_METADATA state is expected until review screenshots are uploaded (US-008a)
 ---

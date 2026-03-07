@@ -101,15 +101,15 @@
       "title": "IAP + pricing + RevenueCat setup",
       "acceptanceCriteria": [
         "asc subscriptions groups list --app $APP_ID returns 1+ groups",
-        "asc subscriptions list --group $GROUP_ID returns monthly + annual products",
+        "asc subscriptions list --group $GROUP_ID returns weekly + monthly + annual products",
         "asc subscriptions prices list --id $MONTHLY_ID returns 175 prices",
-        "RevenueCat dashboard shows 2 products + 1 offering",
+        "RevenueCat dashboard shows 3 products + 1 offering",
         "SPM dependency on RevenueCat added (RevenueCatUI prohibited -- Rule 20)",
         "Typecheck passes"
       ],
       "priority": 5.5,
       "passes": false,
-      "notes": ""
+      "notes": "WAITING_FOR_HUMAN: RC SK Key needed. ASC IAP complete: GROUP_ID=21966024, WEEKLY_ID=6760225308 ($1.99), MONTHLY_ID=6760225483 ($6.99), ANNUAL_ID=6760225430 ($29.99). 39 locales per subscription. 175 territories per subscription. SPM deferred to US-006."
     },
     {
       "id": "US-006a",
