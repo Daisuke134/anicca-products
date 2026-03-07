@@ -22,3 +22,19 @@
   - Cold plunge tracker category has extremely low competition — most apps <100 reviews
   - Plunge app (1,518 reviews) is hardware-tied with terrible UX — standalone opportunity is massive
 ---
+
+## 2026-03-07 - US-002: Product Planning
+- Created product-plan.md with all 7 required sections (Target User, Problem, Solution, Monetization, MVP Scope, App Identity, Risk Assessment)
+- 15 external sources cited (RevenueCat SOSA, Persistence Market Research, World Metrics, Harvard Health, PLOS ONE, iTunes API, Jake Mor, etc.)
+- Pricing: $6.99/mo (90% of H&F median), $29.99/yr (64% apparent discount)
+- MoSCoW prioritization: 13 Must Have features, 12 Won't Have with reasons
+- Bundle ID: com.aniccafactory.frostdip, App Title: "Cold Plunge Timer - FrostDip"
+- iTunes name check: 0 exact matches for "FrostDip" (verified 2026-03-07)
+- Competitive analysis: 6 competitors analyzed (Plunge, Brisk, Shiver, GoPolar, IceBuddy, Wim Hof)
+- Files: product-plan.md
+- **Learnings for future iterations:**
+  - iTunes Search API requires `+` for spaces in URL-encoded queries (not `%20`)
+  - Cold plunge app market is extremely low competition — top standalone has only 58 reviews
+  - RevenueCat SOSA H&F median ($7.73/mo, $29.65/yr) is the pricing anchor for all health apps
+  - PROHIBITED features list from us-002 reference is critical for MVP scoping — saves implementation time
+---
