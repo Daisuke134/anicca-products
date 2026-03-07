@@ -38,3 +38,16 @@
   - RevenueCat SOSA H&F median ($7.73/mo, $29.65/yr) is the pricing anchor for all health apps
   - PROHIBITED features list from us-002 reference is critical for MVP scoping — saves implementation time
 ---
+
+## 2026-03-07 - US-003: Market Research
+- Created competitive-analysis.md (6 sections): 8 competitors profiled (5 direct: Brisk, Shiver, IceBuddy, ICY, ColdTrack; 3 indirect: Plunge, GoPolar, Wim Hof), feature comparison matrix, pricing analysis with positioning map, SWOT for top 3 + FrostDip, feature gap analysis from 1-2 star reviews
+- Created market-research.md (5 sections): TAM/SAM/SOM (bottom-up: 228K potential users, SAM 75K iOS US+JP, SOM Y3 ~6K users / $28K ARR), problem size with 10 statistics, growth analysis (CAGR 4.9-5.4%), POEM score 22/25 (Strong Opportunity)
+- 24 unique sources cited across both documents (8 in competitive-analysis, 16 in market-research)
+- Files: competitive-analysis.md, market-research.md
+- **Learnings for future iterations:**
+  - Bottom-up TAM is far more credible than top-down for indie apps — 112x gap between approaches is normal
+  - Cold plunge app market has NO dominant player: top standalone tracker (Brisk) has only 58 reviews
+  - GoPolar users complain about sync failures and overpriced subscription — opportunity for reliable, fairly-priced alternative
+  - Brisk's timer only supports minute increments — second-level precision is a clear differentiator
+  - Negative signal: low review counts across ALL competitors could mean low demand, not just poor products
+---
