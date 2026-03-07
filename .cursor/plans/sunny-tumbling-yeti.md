@@ -1,156 +1,128 @@
-# Token Cost Tracking + US-010 X Post + Model Switching
+# US-010 Build Report + Model Switching
 
 ## Context
 
-$200 Max プラン (20x) の使用量を可視化・追跡する仕組みがない。
-ralph.sh のログには全 usage データがあるが、自動集計していない。
-「1アプリあたり何%消費」を常に把握し、日次出荷の持続可能性を担保する。
+$200 Max プラン (20x) の使用量を可視化 + Build-in-Public X投稿を自動化。
+ralph.sh のログから自動集計 → build-report.json → Slack + X。
+Blotato は 2026-02-28 解約済み → Postiz API を使用。
 
-## 実測データ（FrostDip, 2026-03-07）
+## 調査結果
 
-| 項目 | 値 | ソース |
-|------|-----|--------|
-| 5h窓 推定サイズ | ~85M tokens | /usage 30% ≈ 25M から逆算 |
-| FrostDip 9iter (7/20 US) | 19.3M tokens | ログ解析 |
-| FrostDip 5h窓% | ~23% | 19.3M / 85M |
-| 全20US完成 推定 | ~50M tokens | 比例計算 |
-| 1アプリ 5h窓% | ~59% | 50M / 85M |
-| 1アプリ weekly% | ~16% | /usage比例 |
-| 1日1アプリ + 日常CC | 余裕あり | 5h窓の~70%で収まる |
+| 項目 | 状態 | 詳細 |
+|------|------|------|
+| Postiz API key | `~/.openclaw/.env` にある | `POSTIZ_API_KEY`, `POSTIZ_X_INTEGRATION_ID` |
+| Blotato | 解約済み（2026-02-28） | Postiz に移行完了 |
+| スクショパス | `screenshots/raw-65/en-US/` | US-008 spec と一致。US-008 未完了時は空 |
+| prd.json US-010 | 実装済み（commit 75726a0d） | — |
+| CLAUDE.md US-010 行 | 実装済み（commit 75726a0d） | — |
+| us-010-report.md | 実装済みだが修正必要 | 下記参照 |
+| ralph.sh model | 未変更（`--model opus`） | → `--model opusplan` |
+| token-report.sh | 不要 | us-010-report.md の Step 1 Python で直接計算 |
 
-> Source: intuitionlabs.ai — 「Max 20x: ~900 msgs/5h, reset every ~5 hours」
-> Source: macaron.im — 「Anthropic's pricing is paying for compute capacity」
-> Anthropic は公式トークン枠を非公開。上記は /usage + 実測からの推定。
+## 修正箇所
 
-## 成果物
+### 1. `us-010-report.md` 修正（6箇所）
 
-### 1. `token-report.sh` — ログからトークン自動集計
+**ファイル:** `.claude/skills/mobileapp-builder/references/us-010-report.md`
 
-**場所:** `.claude/skills/mobileapp-builder/token-report.sh`（新規）
+| # | 箇所 | 現状 | 修正後 |
+|---|------|------|--------|
+| A | Step 5 Slack webhook | `https://hooks.slack.com/services/$SLACK_WEBHOOK_PATH` | `$SLACK_WEBHOOK_AGENTS` |
+| B | Step 6 X投稿先 | Postiz 2アカウント（JP+EN） | **@aniccaxxx のみ**（英語テキスト） |
+| C | Step 6 Postiz env source | `~/.config/mobileapp-builder/.env` | `~/.openclaw/.env` も source（フォールバック） |
+| D | `appSlogan` フィールド | prd.json に存在しない | `description` に統一 |
+| E | Step 6 X投稿テキスト | 日本語 + EN両方 | 英語のみ、シンプル形式 |
+| F | BLOTATO_API_KEY 未設定時 | エラーで停止 | X投稿スキップ + Slack で報告 |
 
-**動作:**
-- `$APP_DIR/logs/iteration-*.log` の `"type":"result"` JSON から `usage` 抽出
-- iteration 別 + 合計の input/output/cache tokens を集計
-- 5h窓% と weekly% を算出（5h窓 ≈ 85M tokens 基準）
-- prd.json から app名 + US完了状況を取得
-- `$APP_DIR/token-report.json` に出力
-- Slack に要約通知
+### 2. `ralph.sh` L195 モデル変更
 
-**出力フォーマット:**
-```json
-{
-  "app": "FrostDip",
-  "iterations": 30,
-  "us_completed": ["US-001","US-002",...],
-  "us_total": 20,
-  "tokens": {
-    "input": 349,
-    "output": 155255,
-    "cache_create": 758877,
-    "cache_read": 18374490,
-    "grand_total": 50000000
-  },
-  "usage": {
-    "five_hour_pct": 59,
-    "weekly_pct": 16
-  }
-}
+**ファイル:** `.claude/skills/mobileapp-builder/ralph.sh`
+
+```diff
+- --model opus
++ --model opusplan
 ```
 
-**Slack 通知:**
-```
-📊 FrostDip トークンレポート
-━━━━━━━━━━━━━━━━━━━
-🔢 50M tokens | 30 iterations
-📈 US: 20/20
-💰 5h: 59% / weekly: 16%
-━━━━━━━━━━━━━━━━━━━
-```
+### 3. `~/.config/mobileapp-builder/.env` に Postiz keys 追加
 
-### 2. `us-010-report.md` — X 投稿 + コストレポート
-
-**場所:** `.claude/skills/mobileapp-builder/references/us-010-report.md`（新規）
-
-**フロー:**
-1. token-report.sh 実行 → token-report.json 生成
-2. token-report.json + screenshots/raw/ から4枚選択
-3. X投稿テキスト生成
-4. Blotato API で投稿（build-in-public スキルのパターン再利用）
-5. progress.txt に追記
-
-**X 投稿フォーマット:**
-```
-🏭 FrostDip → App Store 🧊
-
-Cold plunge timer & breathing guide
-Built with Claude Code in 3h 45m
-
-📊 50M tokens / 30 iterations
-💰 5h: 59% / weekly: 16%
-
-1 app/day, fully automated.
-
-[スクショ 4枚]
-
-#buildinpublic #ios #ai
-```
-
-**prd.json テンプレートに追加:**
-```json
-{
-  "id": "US-010",
-  "title": "Cost report + X post (build-in-public)",
-  "acceptanceCriteria": [
-    "token-report.json exists with valid data",
-    "X post published with app name + cost + screenshots",
-    "Slack notified with cost summary"
-  ],
-  "priority": 10,
-  "passes": false,
-  "notes": ""
-}
-```
-
-### 3. ralph.sh: `--model opusplan` + token-report.sh 自動実行
-
-**モデル: `opusplan`（CC 公式組み込み機能）**
-
-> Source: code.claude.com/docs/en/model-config
-> 「`opusplan` — In plan mode: Uses opus for complex reasoning and architecture decisions. In execution mode: Automatically switches to sonnet for code generation and implementation. This gives you the best of both worlds.」
-
-> Source: code.claude.com/docs/en/costs
-> 「Sonnet handles most coding tasks well and costs less than Opus. Reserve Opus for complex architectural decisions or multi-step reasoning.」
-
-> Source: anthropic.com/news/claude-sonnet-4-6
-> 「Opus 4.6 remains the strongest option for tasks that demand the deepest reasoning, such as codebase refactoring」
-> 「Users preferred Sonnet 4.6 to Opus 4.5, 59% of the time」
-
-> Source: anthropic.com/claude/sonnet — Rakuten
-> 「Claude Sonnet 4.6 produced the best iOS code we've tested for Rakuten AI」
-
-**変更 A:** `--model opus` → `--model opusplan`
-
-**変更 B:** ralph.sh 末尾に token-report.sh 呼び出し追加:
 ```bash
-if [ -f "$SCRIPT_DIR/token-report.sh" ]; then
-  echo "📊 token-report.sh 実行中..."
-  chmod +x "$SCRIPT_DIR/token-report.sh"
-  "$SCRIPT_DIR/token-report.sh" "$APP_DIR" || echo "⚠️ token-report.sh failed"
-fi
+# ~/.openclaw/.env からコピー
+POSTIZ_API_KEY=48b04b54c995031d2ebe65aee9cd1436a8220a3805c2133e2e4c1d87e2983720
+POSTIZ_X_INTEGRATION_ID=cmm6d7m5703rwpr0yr5vtme3w
 ```
+
+## 投稿内容（確定）
+
+### Slack（#agents、`$SLACK_WEBHOOK_AGENTS`）
+
+```
+🏭 {APP_NAME} → App Store
+
+📱 {DESCRIPTION}
+💰 ~${COST} / $200 plan
+⏱️ {ITERATIONS} iterations | {DURATION}min
+📊 {TOKENS}M tokens | 5h: {W5}% | weekly: {WK}%
+
+#BuildInPublic
+```
+
+全値は `build-report.json` から動的取得。ハードコードなし。
+
+### X（@aniccaxxx のみ、英語テキスト、Postiz API）
+
+```
+🏭 {APP_NAME} → App Store
+
+{DESCRIPTION}
+
+💰 ~${COST} / $200 plan
+📊 {TOKENS}M tokens
+⏱️ 5h: {W5}% | weekly: {WK}%
+
+#BuildInPublic
+```
+
++ スクショ4枚（`screenshots/raw-65/en-US/*.png`、Postiz media API でアップロード）
+
+### Slack vs X の違い
+
+| | Slack | X |
+|---|-------|---|
+| 送信先 | #agents (webhook) | @aniccaxxx (Postiz) |
+| iterations/duration | あり | なし（文字数節約） |
+| スクショ | なし | 4枚 |
+
+## コスト計算ロジック
+
+```python
+WEEKLY_CAP = 560_000_000  # 推定: 5h窓 85M × 平日稼働
+MONTHLY_CAP = WEEKLY_CAP * 4
+cost_in_plan = (total_tokens / MONTHLY_CAP) * 200
+weekly_pct = (total_tokens / WEEKLY_CAP) * 100
+window_pct = (total_tokens / 90_000_000) * 100  # 5h窓
+```
+
+us-010-report.md Step 1 の既存 Python コードをそのまま使用。
 
 ## ファイル変更一覧
 
 | # | ファイル | 操作 |
 |---|---------|------|
-| 1 | `.claude/skills/mobileapp-builder/ralph.sh` | `--model opusplan` + 末尾 token-report.sh |
-| 2 | `.claude/skills/mobileapp-builder/token-report.sh` | 新規：ログ解析 → JSON + Slack |
-| 3 | `.claude/skills/mobileapp-builder/references/us-010-report.md` | 新規：X投稿手順 |
-| 4 | `.claude/skills/mobileapp-builder/prd.json` | US-010 追加 |
-| 5 | `.claude/skills/mobileapp-builder/CLAUDE.md` | US-010 Slack フォーマット追加 |
+| 1 | `.claude/skills/mobileapp-builder/references/us-010-report.md` | 修正: 6箇所（上記A-F） |
+| 2 | `.claude/skills/mobileapp-builder/ralph.sh` L195 | `--model opus` → `--model opusplan` |
+| 3 | `~/.config/mobileapp-builder/.env` | Postiz keys 追加 |
+
+**実装済み（変更不要）:**
+- `prd.json` US-010 エントリ（commit 75726a0d）
+- `CLAUDE.md` US-010 行（commit 75726a0d）
+
+**不要と判断:**
+- `token-report.sh` — us-010-report.md の Step 1 Python で直接計算するため別スクリプト不要
+- ralph.sh 末尾の token-report.sh 呼び出し — 同上
 
 ## 検証
 
-1. FrostDip のログで `token-report.sh` 手動実行 → token-report.json 正しく生成されるか
-2. ralph.sh の `--model opusplan` 変更後、次回ビルドで opusplan 動作確認
-3. US-010 の X 投稿フローは次のアプリ完了時にテスト
+1. `~/.config/mobileapp-builder/.env` に Postiz keys が入っているか確認
+2. Postiz API でテスト投稿: `curl -s https://api.postiz.com/public/v1/posts -H "Authorization: Bearer $POSTIZ_API_KEY"` → 200
+3. ralph.sh の `--model opusplan` → 次回ビルドで動作確認
+4. us-010-report.md の修正後、FrostDip logs で build-report.json 生成テスト

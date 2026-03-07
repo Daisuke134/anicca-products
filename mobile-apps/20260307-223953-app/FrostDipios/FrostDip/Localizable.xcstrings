@@ -341,12 +341,12 @@
         }
       }
     },
-    "Save 64%%" : {
+    "Save 64%" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "64%%お得"
+            "value" : "64%お得"
           }
         }
       }
