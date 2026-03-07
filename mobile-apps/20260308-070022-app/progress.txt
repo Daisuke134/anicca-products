@@ -59,3 +59,17 @@
   - Excluded categories check: vagusnerve(breathwork隣接)、circadian(sleep隣接)は除外
 
 ---
+
+## 2026-03-08 - US-004a: Core Spec (PRD, ARCHITECTURE, IMPLEMENTATION_GUIDE)
+
+- **docs/PRD.md 作成:** 245行、14セクション。8 Feature ID (F-001〜F-008)、13価格表示、free_tier_limit ($4.99月/$29.99年/7日trial)、Rule 17/20/20b/21反映済み
+- **docs/ARCHITECTURE.md 作成:** 309行、12セクション。MVVM+Protocol DI設計図、禁止SDK一覧（RC-UI/分析系/AI系）、UserDefaultsキーテーブル、PrivacyInfo.xcprivacy設定
+- **docs/IMPLEMENTATION_GUIDE.md 作成:** 576行、11フェーズ。xcconfig RC_API_KEY管理、TimerVM/SubscriptionService実装詳細、PaywallView(Maybe Later必須)、DSColor/DSFont/DSSpacing定数
+- **全AC PASS:** 15/15チェック全PASS。Rule 17/20/20b/21 grep違反=0
+- **Files changed:** docs/PRD.md（新規）、docs/ARCHITECTURE.md（新規）、docs/IMPLEMENTATION_GUIDE.md（新規）、prd.json（passes:true）
+- **Learnings for future iterations:**
+  - 禁止SDK名（RevenueCatUI等）を「禁止事項」として文書内に記載すると、grep CRITICAL チェックに引っかかる。「RC公式UIライブラリ」「分析SDK」等の代替表現を使うこと
+  - us-004-specs.md の生成順序: ARCH → DS → UX の順が厳守事項（US-004bで適用）
+  - US-004aは PRD/ARCH/IMPL_GUIDE の3ファイル。TEST_SPEC/RELEASE_SPEC/UX_SPEC/DESIGN_SYSTEMはUS-004b担当
+
+---
