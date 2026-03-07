@@ -21,3 +21,19 @@
   - Star-1-2 reviews are the most valuable data source for identifying specific user pain points to solve
   - Eye care app niche has the weakest competition of any health category analyzed (365 reviews vs 445K+ for fasting, 820K+ for brain training)
 ---
+
+## 2026-03-07 - US-002: Product Planning
+- **Output:** product-plan.md (7 sections, 13 sources, 29 URL references)
+- **App Identity:** EyeRest | Bundle ID: com.aniccafactory.eyerest | Title: "Eye Care 20-20-20 - EyeRest"
+- **Pricing:** $4.99/mo (no trial) + $29.99/yr (3-day trial). RevenueCat SDK (no RevenueCatUI).
+- **MVP Scope:** 13 must-have features (Free: timer, rest screen, notifications, 1 exercise, stats. Premium: custom intervals, 8 exercises, fatigue tracking, schedule, insights)
+- **Won't Have:** 10 features excluded (Dynamic Island, Widgets, HealthKit, Sign-in, CloudKit, AI, Camera, Social, Watch, Custom Sounds)
+- **Competitors analyzed:** Eye Care 20 20 20 (4.34, 365), Relax Eyes-Pro (4.68, 153), Eye Reliever (4.28, 32), Tweny (0, 0), Vision Workout (4.70, 1042), Eyeye (4.75, 191), Eye Rest Reminder (3.50, 2)
+- Files created: product-plan.md
+- **Learnings for future iterations:**
+  - AOA page is the canonical source for digital eye strain statistics and 20-20-20 rule
+  - BMJ Open Ophthalmology (PMC6020759) provides 50%+ DES prevalence -- best academic citation
+  - RevenueCat SOSA 2025 has all H&F pricing benchmarks needed for monetization justification
+  - iTunes API name uniqueness check: partial matches with 0 reviews are acceptable (dead apps)
+  - PROHIBITED features list from US-002 reference must be cross-checked against MoSCoW -- auto-reject to Won't Have
+---
