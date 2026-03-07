@@ -42,6 +42,43 @@ Source: tdd-feature SKILL.md — "TDD Execution Order: Models → Services → V
 5. PaywallView: remove false claims (Rule 21: AI禁止)
 6. URL force-unwrap → optional binding
 
+**PaywallView Implementation Best Practices:**
+Source: https://blog.funnelfox.com/effective-paywall-screen-designs-mobile-apps/
+Source: https://adapty.io/blog/how-to-design-ios-paywall/
+Source: https://appagent.com/blog/mobile-app-onboarding-5-paywall-optimization-strategies/
+
+**Mandatory Elements (all must be present):**
+1. **Value headline**: Clear headline reflecting value (NOT feature list). Example: "Reach your goal 3× faster" (NOT "Premium features")
+2. **Benefit bullets**: 3-5 specific, tangible benefits (NOT vague features). Example: "Track 10+ habits daily" (NOT "Advanced tracking")
+3. **Pricing grid**: Display 3 plans (weekly + monthly + annual). Highlight "Best Value" plan with accent color
+4. **Discount badge**: "Save X%" badge + strikethrough original price (Source: Adapty — +20-30% conversion)
+5. **Benefit-driven CTA**: "Start my plan" / "Unlock full access" (NOT "Subscribe") (Source: Funnelfox — outperforms generic)
+6. **FAQ section**: Inline FAQ (billing details, cancellation policy) to reduce friction
+7. **Social proof**: Review count + average rating + 1-2 user testimonials
+8. **Legal links**: Privacy Policy + Terms (bottom, small text)
+
+**Layout Pattern (long-form):**
+```
+[Value Headline]
+[Benefit bullets 1-5]
+[Social proof: ⭐️ 4.9 (12,000 reviews)]
+[Pricing grid: 3 cards with "Save 50%" badge]
+[Benefit-driven CTA button]
+[FAQ: 3-4 Q&A pairs]
+[Privacy + Terms links]
+```
+Source: Appagent — "Long-form paywalls: up to 12× revenue"
+
+**Animation (2.9× conversion boost):**
+- Add subtle `.animation(.easeInOut)` on CTA button tap
+- Optional: Benefit carousel with `.onAppear` fade-in
+Source: Adapty — "Animated vs static paywall: 2.9× higher"
+
+**Message Consistency:**
+- Paywall headline must match onboarding final screen message
+- Use same tone/visuals from onboarding
+Source: Funnelfox — "Consistent messaging from ad to onboarding to paywall increases conversions"
+
 ### 006c: Core Screens
 1. Timer: background timer support
 2. Timer: zero-division guard (intervalMinutes=0)
