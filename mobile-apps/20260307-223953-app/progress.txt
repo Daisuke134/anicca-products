@@ -167,3 +167,26 @@
   - RC Package `attach_products` requires `eligibility_criteria: "all"` field
   - RC Entitlement `attach_products` uses `product_ids` (array of strings), not `products` (array of objects)
 ---
+
+## 2026-03-08 - US-006a: TDD Data Layer (xcconfig, Protocol DI, Models, Services)
+- Created full FrostDipios/ project structure with xcodegen (project.yml)
+- xcconfig: Debug.xcconfig + Release.xcconfig with RC_API_KEY=$(RC_API_KEY), Info.plist references $(RC_API_KEY)
+- 4 Service Protocols: TimerServiceProtocol, HealthKitServiceProtocol, SubscriptionServiceProtocol, NotificationServiceProtocol
+- 3 Models: PlungeSession (@Model with contrast therapy fields), PlungeProtocol (@Model with defaultProtocols()), UserPreferences (UserDefaults-backed with all keys from ARCHITECTURE.md)
+- AccessibilityID enum with all IDs from UX_SPEC
+- 5 Services: SubscriptionService (DEBUG uiPreviewMode + DangerousSettings per us-005b pattern), TimerService (4-7-8 breathing prep), HealthKitService (anchored HR query), NotificationService (daily reminder + streak warning), StreakService (streak freeze logic)
+- FrostDipApp.swift (@main with RC configure), ContentView (onboarding gate + 4-tab MainTabView)
+- Theme.swift (DESIGN_SYSTEM tokens: 8 colors, 12 typography styles, spacing scale, corner radius, animations)
+- PrivacyInfo.xcprivacy (CA92.1 UserDefaults)
+- App Icon 1024x1024 (ice crystal on navy gradient)
+- Fastfile (test, build, release lanes)
+- 36 tests ALL PASS (6 PlungeSession, 5 PlungeProtocol, 12 UserPreferences, 6 Timer, 7 Streak)
+- Greenlight: CRITICAL=0, WARN=1 (PLACEHOLDER check logic in code — expected)
+- Gate: Mock=0, RevenueCat=4 imports, RevenueCatUI=0, AI APIs=0
+- Files: FrostDipios/ (entire directory created)
+- **Learnings for future iterations:**
+  - xcodegen `info:` section conflicts with manual Info.plist — remove `info:` when GENERATE_INFOPLIST_FILE: NO
+  - Color(uiColor: .systemBackground) required in SwiftUI — Color(.systemBackground) is ambiguous
+  - iPhone 16 Pro sim may not exist — fastlane falls back to iPhone 17 Pro automatically
+  - RevenueCat 5.61.0 resolved via SPM (cached) — no manual version pin needed
+---

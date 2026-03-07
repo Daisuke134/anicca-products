@@ -122,8 +122,8 @@
         "Typecheck passes"
       ],
       "priority": 6.1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "xcconfig Debug/Release with RC_API_KEY=$(RC_API_KEY). 4 Service Protocols (Timer, HealthKit, Subscription, Notification). 3 Models (PlungeSession, PlungeProtocol, UserPreferences). 5 Services (SubscriptionService with DEBUG uiPreviewMode, TimerService, HealthKitService, NotificationService, StreakService). project.yml + xcodegen. Fastfile. PrivacyInfo.xcprivacy (CA92.1). App icon 1024x1024. 36 tests ALL PASS (0 failures). Greenlight CRITICAL=0. Mock in production=0. RevenueCat=4 imports, RevenueCatUI=0. No AI APIs."
     },
     {
       "id": "US-006b",
