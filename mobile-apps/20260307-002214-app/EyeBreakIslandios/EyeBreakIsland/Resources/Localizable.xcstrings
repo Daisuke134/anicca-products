@@ -543,6 +543,54 @@
         }
       }
     },
+    "paywall.legal.auto_renew" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscription auto-renews. Payment will be charged to your Apple ID account at confirmation. Cancel anytime in Settings > Subscriptions."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サブスクリプションは自動更新されます。確認時にApple IDアカウントに課金されます。設定 > サブスクリプションからいつでもキャンセルできます。"
+          }
+        }
+      }
+    },
+    "paywall.legal.terms" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms of Use"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "利用規約"
+          }
+        }
+      }
+    },
+    "paywall.legal.privacy" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プライバシーポリシー"
+          }
+        }
+      }
+    },
     "BEST VALUE" : {
       "localizations" : {
         "ja" : {

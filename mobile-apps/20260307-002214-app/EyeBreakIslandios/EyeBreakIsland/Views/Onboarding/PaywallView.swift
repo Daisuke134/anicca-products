@@ -18,6 +18,7 @@ struct PaywallView: View {
                 headerSection
                 packagesSection
                 purchaseButton
+                legalSection
                 maybeLaterButton
                 restoreButton
                 errorSection
@@ -101,6 +102,26 @@ struct PaywallView: View {
             onDismiss()
         }
         .accessibilityIdentifier(AccessibilityID.paywallMaybeLater)
+    }
+
+    private var legalSection: some View {
+        VStack(spacing: AppSpacing.xxs) {
+            Text("paywall.legal.auto_renew")
+                .font(AppTypography.caption2)
+                .foregroundStyle(AppColors.textTertiary)
+                .multilineTextAlignment(.center)
+
+            HStack(spacing: AppSpacing.sm) {
+                Link("paywall.legal.terms", destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
+                    .font(AppTypography.caption2)
+
+                Text("·")
+                    .foregroundStyle(AppColors.textTertiary)
+
+                Link("paywall.legal.privacy", destination: URL(string: "https://aniccaai.com/privacy")!)
+                    .font(AppTypography.caption2)
+            }
+        }
     }
 
     private var restoreButton: some View {
