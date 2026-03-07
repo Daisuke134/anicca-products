@@ -65,3 +65,19 @@
   - PRD Feature IDs (F-001 to F-015) must propagate to IMPLEMENTATION_GUIDE Phase Breakdown for traceability
   - xcconfig + Info.plist for API keys prevents hardcoding and passes Greenlight checks
 ---
+
+## 2026-03-07 - US-004b: UX Spec (UX_SPEC, DESIGN_SYSTEM, TEST_SPEC, RELEASE_SPEC)
+- Created docs/DESIGN_SYSTEM.md (198 lines): 7 sections — 8 brand color tokens (primary, accent, cold, hot, success, warning, destructive + semantic system colors), 12 typography styles (San Francisco + monospaced timer/HR), 8pt grid spacing scale, 8 reusable components, 19 SF Symbols, 10 animations with reduced motion fallbacks, 4 haptic levels, a11y contrast requirements
+- Created docs/UX_SPEC.md (327 lines): 9 sections — 2 personas (Cold Plunge Chris, Contrast Therapy Dana), IA diagram with onboarding gate + 4-tab structure, 4 navigation tabs with SF Symbols, 11 screen inventory, 5 ASCII wireframes (Timer, BreathingPrep, Paywall, History, Progress), 4-step onboarding flow (3-act structure per Mau rules), 45 accessibilityIdentifiers for Maestro E2E, gesture map, localization layout rules
+- Created docs/TEST_SPEC.md (283 lines): 7 sections — test pyramid (70/20/10 split), 40 unit tests (10 model + 15 service + 10 viewmodel + 5 streak), 8 integration tests, 7 Maestro E2E flows (2 with smokeTest tag), 8 Greenlight automated checks, performance targets (launch <1.5s, memory <80MB, 60fps timer)
+- Created docs/RELEASE_SPEC.md (286 lines): 11 sections — 9 pre-submission gates, en-US + ja metadata (exact copy from PRD §14), 5 screenshots per locale with capture/frame/upload commands, PrivacyInfo.xcprivacy template, build pipeline, TestFlight setup, submission commands, review notes, 22 age rating items (all NONE = 4+), hotfix protocol, version history
+- Gate 2 (design integrity): 6/6 PASS — Feature IDs in ARCH (8), no RevenueCatUI (prohibition context only), no analytics (prohibition context only), Paywall in UX, 8 color tokens, all 3 files exist
+- Gate 3 (cross-reference): All PASS — 15/15 Feature IDs traced PRD→IMPL, product prices match ($6.99, $29.99), RevenueCat SDK present, Rule violations are prohibition context only
+- Total: 7 docs, 2,756 lines combined
+- Files: docs/DESIGN_SYSTEM.md, docs/UX_SPEC.md, docs/TEST_SPEC.md, docs/RELEASE_SPEC.md
+- **Learnings for future iterations:**
+  - Gate check grep matches prohibition descriptions in spec docs — always verify context, not just string presence (confirmed pattern from US-004a)
+  - Price comparison between PRD and RELEASE_SPEC will show reference prices (medians, market sizes) as mismatches — only product prices ($6.99, $29.99) matter
+  - Onboarding 3-act structure (Problem → Experience → Paywall) from Mau is the conversion-optimized pattern for health apps
+  - 45 a11y identifiers in UX_SPEC must match TEST_SPEC Maestro E2E flows exactly — single source for both
+---
