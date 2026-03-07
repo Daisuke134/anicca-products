@@ -47,6 +47,29 @@
 | ja localization creation | `asc localizations update --locale ja` は既存ロケールのみ更新可。新規作成は REST API `POST /v1/appStoreVersionLocalizations` + JWT 必須 |
 | Review screenshot 3-step | `asc subscriptions review-screenshots create` は reservation のみ。PUT (upload) → PATCH (commit) を自前で実行する必要あり。Python + PyJWT で JWT 生成 → urllib で完結 |
 | Notification permission cross-sim | 6.1" sim で通知許可した後、6.5" sim では既に OS レベルで許可済みの場合あり。オンボーディング Page 3 がスキップされ直接 Paywall に遷移する |
+| ASC keywords 100 char limit | en-US keywords は100文字以内。PRD の keywords をそのまま使うと超過する場合あり。低優先キーワードを削除して調整 |
+| asc localizations update types | `--type app-info` は name/subtitle/privacyPolicyUrl。`--version VERSION_ID` は description/keywords/supportUrl/promotionalText/marketingUrl。別コマンド |
+
+---
+
+## 2026-03-07 - US-008b: ASC metadata sync (en-US + ja) (COMPLETE)
+
+- **Status: COMPLETE — all AC verified with evidence**
+- **Evidence:**
+  - AC1: Metadata synced via `asc localizations update` for en-US + ja PASS
+    - app-info en-US: name="Eye Break - EyeBreakIsland", subtitle="20-20-20 Rule, Dynamic Island", privacyPolicyUrl=set
+    - app-info ja: name="Eye Break - EyeBreakIsland", subtitle="20-20-20ルール、ダイナミックアイランド", privacyPolicyUrl=set
+    - version en-US: description=330 chars, keywords=87 chars, supportUrl=set, promotionalText=71 chars, marketingUrl=set
+    - version ja: description=140 chars, keywords=set, supportUrl=set, promotionalText=42 chars, marketingUrl=set
+  - AC2: Privacy Policy URL set for BOTH en-US AND ja: https://daisuke134.github.io/anicca-products/eyebreakisland/privacy-policy.html PASS
+- **Commands used:**
+  - `asc localizations update --type app-info --app 6760196743 --locale en-US ...`
+  - `asc localizations update --type app-info --app 6760196743 --locale ja ...`
+  - `asc localizations update --version fab3c316-... --locale en-US ...`
+  - `asc localizations update --version fab3c316-... --locale ja ...`
+- **Learnings for future iterations:**
+  - en-US keywords は100文字制限。PRD のキーワードリストが長い場合は低優先キーワードを削除
+  - `asc localizations update` は `--type app-info` と `--version` で別フィールドを更新する
 
 ---
 

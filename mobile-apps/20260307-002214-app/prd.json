@@ -218,8 +218,8 @@
         "Privacy Policy URL set for en-US AND ja"
       ],
       "priority": 8.2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Metadata synced via asc localizations update. app-info: en-US + ja (name, subtitle, privacyPolicyUrl). version: en-US + ja (description, keywords, supportUrl, promotionalText, marketingUrl). Privacy Policy URL set for BOTH en-US and ja: https://daisuke134.github.io/anicca-products/eyebreakisland/privacy-policy.html. Keywords trimmed to <100 chars (en-US 87 chars). AC1-2 all PASS."
     },
     {
       "id": "US-008c",
