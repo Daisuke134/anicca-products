@@ -75,7 +75,7 @@
       "id": "US-004-R",
       "title": "Spec Review (all 7 documents)",
       "acceptanceCriteria": [
-        "code-quality-reviewer subagent run on all 7 docs",
+        "code-quality-reviewer agent (.claude/agents/) — NOT codex-review skill, NOT Codex CLI run on all 7 docs",
         "CRITICAL findings = 0",
         "All blocking issues resolved"
       ],
@@ -174,7 +174,7 @@
       "id": "US-006-R",
       "title": "Code Review (006a-d full review)",
       "acceptanceCriteria": [
-        "code-quality-reviewer subagent run on all 006 code",
+        "code-quality-reviewer agent (.claude/agents/) — NOT codex-review skill, NOT Codex CLI run on all 006 code",
         "CRITICAL findings = 0",
         "No Mock/Stub in production code (grep -rw 'class Mock' excludes Tests/)",
         "All blocking issues resolved"

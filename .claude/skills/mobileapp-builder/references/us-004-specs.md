@@ -12,7 +12,7 @@ Source: rshankras implementation-spec — https://github.com/rshankras/claude-co
 |-------------|-------|--------|
 | 004a (Core Spec) | `implementation-spec` | PRD.md, ARCHITECTURE.md, IMPLEMENTATION_GUIDE.md, TEST_SPEC.md, RELEASE_SPEC.md |
 | 004b (UX Spec) | `ios-ux-design` (強化版) | UX_SPEC.md, DESIGN_SYSTEM.md + onboarding rules (references/onboarding.md) |
-| 004-R (Spec Review) | code-quality-reviewer subagent | CRITICAL=0 across all 7 docs |
+| 004-R (Spec Review) | code-quality-reviewer agent (.claude/agents/code-quality-reviewer.md) | CRITICAL=0 across all 7 docs |
 
 ## Skills to Read
 
@@ -20,7 +20,7 @@ Source: rshankras implementation-spec — https://github.com/rshankras/claude-co
 |-------------|--------|---------|
 | 004a | `.claude/skills/implementation-spec/SKILL.md` | Core spec generation |
 | 004b | `.claude/skills/ios-ux-design/SKILL.md` | UX/Design spec + onboarding (references/onboarding.md for mau.md 8 rules) |
-| 004-R | code-quality-reviewer (subagent) | Spec review |
+| 004-R | code-quality-reviewer agent (.claude/agents/code-quality-reviewer.md) — NOT codex-review skill | Spec review |
 | (参考) | `.claude/skills/prd-generator/SKILL.md` | PRD セクションの深掘りが必要な時 |
 | (参考) | `.claude/skills/architecture-spec/SKILL.md` | ARCHITECTURE の設計パターン選定で迷った時 |
 
