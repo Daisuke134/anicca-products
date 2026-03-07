@@ -207,8 +207,8 @@
         "Subscription review screenshots uploaded for Monthly + Annual"
       ],
       "priority": 8.1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Maestro-driven screenshot capture on iPhone 16 Pro Max (1320x2868). en-US 4 + ja 4 = 8 screenshots uploaded to ASC (APP_IPHONE_67, Apple auto-scales smaller sizes). Old screenshots from previous iterations deleted. MD5 verified: en!=ja (locale applied), 0 same-locale duplicates. Review screenshots uploaded for Weekly (6760225308), Monthly (6760225483), Annual (6760225430) — Paywall with Annual selected. ContentView.selectedTab changed to @AppStorage for screenshot tab navigation. 91 tests PASS."
     },
     {
       "id": "US-008b",

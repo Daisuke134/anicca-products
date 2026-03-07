@@ -24,6 +24,10 @@
 - Maestro: Tab bar items need text: selector (a11y ID on content view invisible when tab not selected)
 - Maestro: uiPreviewMode auto-completes RC purchases — make "Test valid purchase" tap optional
 - Maestro path: `$HOME/.maestro/bin/maestro` (not in /opt/homebrew/bin)
+- Maestro clearState does NOT reset @AppStorage on iOS 26 — use `xcrun simctl uninstall` + `defaults delete $BUNDLE_ID`
+- axe tap --id broken on iOS 26 (can't find SwiftUI accessibilityIdentifier) — use Maestro for navigation instead
+- Screenshots: 6.9" only (IPHONE_69 → ASC maps to APP_IPHONE_67) — Apple auto-scales to all smaller sizes
+- @AppStorage("selected_tab") on MainTabView enables external tab selection via `defaults write` for screenshot automation
 
 ---
 
@@ -316,4 +320,25 @@
   - SwiftUI NavigationStack/TabView container a11y IDs are invisible to Maestro — always use child element IDs for assertions
   - Tab bar items need text: selectors when a11y IDs are on content views (invisible when tab unselected)
   - Maestro runs flows in parallel by default — each flow must be self-contained with clearState
+---
+
+## 2026-03-08 - US-008a: Screenshots (capture + upload + review screenshot)
+- Maestro-driven screenshot capture on iPhone 16 Pro Max (1320x2868 = 6.9" IPHONE_69)
+- en-US 4 screenshots: Welcome, Timer, History, Progress
+- ja 4 screenshots: same screens with Japanese localization
+- MD5 verified: en!=ja (locale correctly applied), 0 same-locale duplicates
+- Old screenshots from previous iterations deleted (5 en-US APP_IPHONE_67, 3 en-US APP_IPHONE_65, 4 ja APP_IPHONE_61, 5 ja APP_IPHONE_67, 3 ja APP_IPHONE_65)
+- ASC upload: en-US 4 + ja 4 = 8 total, all COMPLETE on APP_IPHONE_67 (Apple auto-scales 6.9" → 6.5"/6.3"/6.1")
+- Review screenshots: Paywall (Annual selected) uploaded to Weekly (6760225308), Monthly (6760225483), Annual (6760225430)
+- ContentView.selectedTab changed from @State to @AppStorage("selected_tab") for screenshot tab navigation
+- 91 tests ALL PASS (0 failures)
+- Files created: .asc/screenshots.json, .asc/screenshots-history.json, .asc/screenshots-progress.json, maestro/screenshot-en.yaml, maestro/screenshot-ja.yaml, maestro/screenshot-review.yaml
+- Files modified: FrostDipios/FrostDip/App/ContentView.swift (@AppStorage for selectedTab)
+- **Learnings for future iterations:**
+  - Maestro clearState does NOT reliably reset @AppStorage/UserDefaults on iOS 26 — use manual `xcrun simctl uninstall` + `defaults delete $BUNDLE_ID` instead
+  - axe tap --id does not find SwiftUI accessibilityIdentifier on iOS 26 simulators — use Maestro instead of asc screenshots run for navigation
+  - Tab bar items accessible via Maestro `text:` selector (en: "History"/"Progress", ja: localized names from .xcstrings)
+  - 6.9" screenshots (IPHONE_69) uploaded as APP_IPHONE_67 by Apple — this is normal Apple behavior, auto-scales to all smaller sizes
+  - Paywall screenshots should NOT go on product page (Fix #1) — only for review screenshots (Step 1h)
+  - @AppStorage for selectedTab enables external tab selection via `defaults write` for screenshot automation
 ---
