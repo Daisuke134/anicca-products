@@ -4,6 +4,68 @@
 
 **Read first:** `.claude/skills/tdd-feature/SKILL.md` — Canon TDD 5-step cycle, iOS patterns, Fastlane commands
 
+## Fastfile 必須レーン（MANDATORY）
+
+Fastfile に以下3レーンを必ず含める。US-007 Maestro E2E の前提条件。
+
+```ruby
+lane :test do
+  run_tests(scheme: "<AppName>", device: "iPhone 17 Pro")
+end
+
+lane :build_for_simulator do
+  xcodebuild(
+    scheme: "<AppName>",
+    configuration: "Debug",
+    sdk: "iphonesimulator",
+    derivedDataPath: "build/DerivedData",
+    xcargs: "-destination 'platform=iOS Simulator,name=iPhone 17 Pro'"
+  )
+end
+
+lane :build_for_release do
+  build_app(scheme: "<AppName>", export_method: "app-store")
+end
+```
+
+## xcconfig は configFiles で設定（MANDATORY）
+
+project.yml で xcconfig を設定する時は `configFiles:` セクションを使う。
+`XCCONFIG_FILE` build setting は xcodegen が無視する。
+
+❌ `settings: XCCONFIG_FILE: Config/Debug.local.xcconfig`
+✅
+```yaml
+configFiles:
+  Debug: Config/Debug.local.xcconfig
+  Release: Config/Release.local.xcconfig
+```
+
+## SubscriptionService isConfigured guard（MANDATORY）
+
+Purchases.configure() が呼ばれる前に Purchases.shared にアクセスすると
+assertionFailure でクラッシュする。未設定時は空を返す guard を必須にする。
+
+```swift
+private var isConfigured = false
+
+func configure(apiKey: String) {
+    guard !apiKey.isEmpty else { return }
+    // ... Purchases.configure(...) ...
+    isConfigured = true
+}
+
+func purchase(...) async throws -> Bool {
+    guard isConfigured else { return false }
+    // ...
+}
+
+func loadOfferings() async {
+    guard isConfigured else { return }
+    // ...
+}
+```
+
 ## Variables
 
 ```bash

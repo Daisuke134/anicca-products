@@ -6,6 +6,45 @@
 
 **Read first:** `.claude/skills/maestro-ui-testing/SKILL.md` — Best practices, Fix Loop, RC Test Store, a11y selectors
 
+## Maestro + SwiftUI ベストプラクティス（MANDATORY — 全フロー作成前に読め）
+
+Source: docs.maestro.dev/platform-support/ios-swiftui
+核心の引用: 「assign accessibilityIdentifier or accessibilityLabel for UI element that needs to be accessed」
+
+Source: birdeatsbug.com/blog/maestro-real-ios-device-support
+核心の引用: 「Use Stable Element Identifiers: Leverage accessibility IDs, labels, or unique...」
+
+### ルール1: コンテナに a11y ID を付けるな
+NavigationStack, TabView, VStack, ScrollView に .accessibilityIdentifier() を
+付けても Maestro が検出できない。末端の操作可能要素（Button, Text, TextField）に付けること。
+
+❌ `NavigationStack { ... }.accessibilityIdentifier("timer_view")`
+✅ `Button("Start") { }.accessibilityIdentifier("timer_start")`
+
+### ルール2: 非選択タブはテキストでタップ
+SwiftUI TabView は非選択タブのコンテンツを遅延ロードする。
+a11y ID ではなくタブラベルのテキストでタップする。
+
+❌ `- tapOn: { id: "tab_settings" }`
+✅ `- tapOn: "Settings"`
+
+### ルール3: アニメーション中の要素を検証するな
+withAnimation / scaleEffect 中の Text は accessibility tree が不安定。
+静的な要素（Skip ボタン等）で画面存在を検証する。
+
+❌ `- assertVisible: { id: "breathing_phase_label" }`
+✅ `- assertVisible: { id: "breathing_skip" }`
+
+### ルール4: uiPreviewMode の購入テスト
+Source: revenuecat.com/blog/engineering/testing-test-store/
+核心の引用: 「The most important tests involve full purchase flows. These tests use Espresso to interact with Test Store's dialog」
+
+uiPreviewMode: true では RC purchase dialog（"Test valid purchase"）は表示されない（自動完了）。
+購入成功の検証は画面遷移で行う。
+
+❌ `- tapOn: "Test valid purchase"`
+✅ `- assertVisible: { id: "timer_start" }  # paywall 閉じた = 購入成功`
+
 ## Variables
 
 ```bash

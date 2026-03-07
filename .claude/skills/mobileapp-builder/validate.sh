@@ -122,7 +122,7 @@ fi
 echo ""
 echo "--- Gate 3: Subscription Completeness ---"
 TOTAL_GATES=$((TOTAL_GATES + 1))
-if [ "$(us_passes US-005b)" = "true" ] && [ -n "$APP_ID" ]; then
+if [ "$(us_passes US-008a)" = "true" ] && [ -n "$APP_ID" ]; then
   MISSING=$(asc subscriptions groups list --app "$APP_ID" --output json 2>/dev/null | python3 -c "
 import json,sys,subprocess,os
 os.environ['ASC_BYPASS_KEYCHAIN']='true'
@@ -157,7 +157,7 @@ if missing:
     log_fail "Subscription issues: $MISSING"
   fi
 else
-  log_skip "US-005b not yet passed or APP_ID not found"
+  log_skip "US-008a not yet passed or APP_ID not found (Review Screenshot needed for metadata completeness)"
 fi
 
 ##############################################
