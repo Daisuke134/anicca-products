@@ -143,6 +143,8 @@ echo "🟢 PREFLIGHT OK — 全チェック通過"
 echo ""
 
 PREV_PASSES=""
+FAIL_COUNT=0
+LAST_FAILED_US=""
 
 for i in $(seq 1 $MAX_ITERATIONS); do
   # Token refresh: read fresh token from Keychain before each iteration
@@ -194,13 +196,21 @@ for us in d['userStories']:
   OUTPUT=$(cat "$tmpfile")
   rm -f "$tmpfile"
 
+  # Detect rate_limit_event JSON (status: "rejected") — catches 5-hour rate limit
+  # Source: EyeRest 20260307 post-mortem — iterations 8-50 wasted by not detecting this
+  if echo "$OUTPUT" | jq -e 'select(.type == "rate_limit_event" and .rate_limit_info.status == "rejected")' &>/dev/null; then
+    echo "🏭 ⚠️ rate_limit REJECTED 検出。残りイテレーションをスキップ。"
+    notify_slack "⚠️ rate_limit rejected。イテレーション $i で停止。"
+    break
+  fi
+
   # Detect "Out of extra usage" — only check CC's own text output (not tool_result file content)
   USAGE_TEXT=$(echo "$OUTPUT" | jq -r '
     if .type == "assistant" then (.message.content[]? | select(.type == "text") | .text) // ""
     elif .type == "result" then .result // ""
     elif .type == "system" then .subtype // ""
     else "" end' 2>/dev/null || true)
-  if echo "$USAGE_TEXT" | grep -qi "out of extra usage\|out of.*usage\|usage.*exceeded"; then
+  if echo "$USAGE_TEXT" | grep -qi "out of extra usage\|out of.*usage\|usage.*exceeded\|hit your limit"; then
     echo "🏭 ⚠️ CC usage 超過検出。残りイテレーションをスキップ。"
     notify_slack "⚠️ CC usage 超過。イテレーション $i で停止。"
     break
@@ -261,6 +271,28 @@ for us in d['userStories']:
     done <<< "$CURR_PASSES"
 
     PREV_PASSES="$CURR_PASSES"
+  fi
+
+  # 5-attempt limit: same US failing 5 times = BLOCKED
+  # Source: harrymunro/ralph-wiggum — "If you cannot make a story pass after N attempts: STOP"
+  # Source: EyeRest 20260307 post-mortem — prevent infinite retry loops
+  CURRENT_US=$(python3 -c "
+import json
+with open('$SCRIPT_DIR/prd.json') as f: d = json.load(f)
+for us in d['userStories']:
+    if not us['passes']:
+        print(us['id']); break
+" 2>/dev/null || echo "UNKNOWN")
+  if [ "$CURRENT_US" = "$LAST_FAILED_US" ]; then
+    FAIL_COUNT=$((FAIL_COUNT + 1))
+  else
+    FAIL_COUNT=1
+    LAST_FAILED_US="$CURRENT_US"
+  fi
+  if [ "$FAIL_COUNT" -ge 5 ]; then
+    echo "🏭 ❌ $CURRENT_US が5回連続失敗。BLOCKED。"
+    notify_slack "❌ $CURRENT_US が5回連続失敗。BLOCKED。手動対応必要。"
+    break
   fi
 
   if echo "$OUTPUT" | grep -q "<promise>COMPLETE</promise>"; then
