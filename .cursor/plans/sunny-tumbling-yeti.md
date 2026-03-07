@@ -1,11 +1,54 @@
-# ASC CLI 0.37.2 Factory Pipeline Upgrade — 全体刷新
+# ASC CLI 0.37.2 Factory Pipeline Upgrade — 即時パッチ + 全体刷新
 
 ## Context
 
 ASC CLI 0.37.2 (2026-03-06) で高レベルコマンドが多数追加された。
 FrostDip US-008a が **5回連続失敗**（axe空ツリー、座標タップ失敗、UserDefaultsキー名ミス等）。
-US-008a だけでなく **ファクトリー全体（US-005a～US-010）** を新コマンドで刷新し、
-4,103行のスペック → ~2,000行、iteration数 20-25 → 14-17 に削減する。
+
+**即時パッチ（P1-P7）:** E2E テスト実証済みの修正を `us-008-release.md` に適用。
+**全体刷新:** US-005a～US-010 を新コマンドで刷新（別フェーズ）。
+
+---
+
+## 即時パッチ（E2E テスト 2026-03-08 実証済み）
+
+### 対象ファイル
+`references/us-008-release.md`
+
+### P1: screenshots.json スキーマ修正（Step 1）
+- `sequences` → `steps`
+- `seconds` → `duration_ms`
+- トップレベル: `"app": { "bundle_id": "$BUNDLE_ID" }`
+
+### P2: locale 切替フロー修正（Step 1）
+- en-US 撮影前: `defaults write NSGlobalDomain AppleLanguages -array "en"` 明示セット
+- ja 切替: `uninstall → install`（defaults delete だけでは不十分）
+- 撮影後: en に戻す
+
+### P3: 通知画面ハンドリング（Step 1）
+- `onboarding_skip_notifications` を使って通知ダイアログ回避
+- `wait_for` が通知ダイアログでブロックされる問題を回避
+
+### P4: device-type マッピング注記（Step 1）
+- `IPHONE_69` → ASC は `APP_IPHONE_67` にマッピング（正常動作、注記追加）
+
+### P5: Step 1h Review screenshot 全面書き換え
+- axe tap/describe-ui 全削除
+- `asc screenshots run --plan` + review-screenshots.json で置き換え
+- CC が a11y ID を grep → plan 動的生成 → 実行
+
+### P6: localizations upload フラグ修正（Step 2）
+- `--version`（正しいフラグ名確認済み）
+- `.strings` ファイルフォーマット明記
+
+### P7: localizations list フラグ修正（Step 1）
+- `--version`（正しいフラグ名確認済み — 変更不要）
+
+### P8: Decision Table（Step 8）
+- ✅ 既にコミット済み（c363f005）
+
+### 適用状態: ✅ 全パッチ適用済み（2026-03-08 確認）
+P1-P8 全て `us-008-release.md` に反映済み。grep で全キーワード確認完了。
 
 ---
 
@@ -434,34 +477,35 @@ asc workflow run release_full VERSION:1.0.0 BUILD_ID:xxx  # 全自動
 | K | `asc release run` | ✅ OK | dry-run → confirm フロー。Prerequisites リスト明確 |
 | M | CLAUDE.md ASC skills refs | ✅ OK | 4行追加 |
 
-### 残存リスク（本 Plan で解決予定）
+### 残存リスク — ✅ 全解決済み（2026-03-08）
 
-| # | 問題 | 深刻度 | 解決方法 |
-|---|------|--------|---------|
-| 1 | Review screenshot が依然 `axe tap --label` に依存 | ⚠️ WARNING | `asc screenshots run --plan` 移行で解決 |
-| 2 | `axe describe-ui` 空ツリー問題（P1）は未解決 | ⚠️ WARNING | 同上（axe 不要になる） |
-| 3 | `asc release run` Prerequisites 7項目 — CC が抜かす可能性 | ℹ️ INFO | workflow.json の `before_all` に組み込み |
-
----
-
-## workflow.json 修正メモ（実装時に反映）
-
-Plan 内の workflow.json テンプレートは UDID_61/65 のままだが、実装時は **UDID_69 に統一**する。
-screenshots workflow の steps を 9 → 4 に削減（6.9" のみ × 2ロケール = 4コマンド）。
+| # | 問題 | 解決状態 | コミット/証拠 |
+|---|------|---------|-------------|
+| 1 | Review screenshot の axe 依存 | ✅ P5 で解決 | `review-screenshots.json` + `asc screenshots run --plan` に移行済み |
+| 2 | `axe describe-ui` 空ツリー | ✅ P5 で解決 | axe 禁止ルール追加済み |
+| 3 | `asc release run` Prerequisites | ✅ P8 で解決 | Decision Table で 19 error.id → 自動修正マッピング |
 
 ---
 
-## 検証
+## E2E テスト結果（2026-03-08 FrostDip 実証）
 
-実装後、以下で確認:
-1. `asc workflow validate` → workflow.json 構文OK
-2. `asc screenshots run --help` → フラグ確認
-3. `asc publish appstore --help` → フラグ確認
-4. `asc publish testflight --help` → フラグ確認
-5. 次回の ralph.sh 実行で US-008a が 1 iteration で完了するか観察
+| コマンド | 結果 |
+|---------|------|
+| `asc screenshots run --plan` (en-US) | ✅ 19/19 steps |
+| `asc screenshots run --plan` (ja) | ✅ 19/19 steps（uninstall 必須） |
+| `asc screenshots upload` (en-US) | ✅ 5/5 COMPLETE |
+| `asc screenshots upload` (ja) | ✅ 5/5 COMPLETE |
+| `asc localizations upload --dry-run` | ✅ 2 locales |
+| `asc metadata pull/push --dry-run` | ✅ |
+| `asc release run --dry-run` (Desk Stretch) | ✅ 4/5 steps（validate で正しくブロック） |
 
-### Task 3: `asc release run` E2E テスト（Plan mode 解除後に実行）
+---
 
-FrostDip（APP_ID 取得 → dry-run → 出力確認）で `asc release run` が正常動作するか検証する。
-- `asc release run --dry-run --pretty` で全 Prerequisites のバリデーション結果を確認
-- エラーがあれば Plan に反映してから本実装に進む
+## 次フェーズ: 全体刷新（未実装）
+
+残りの大規模変更は別フェーズで実施:
+1. CLAUDE.md コマンドテーブル更新（15コマンド追加）
+2. us-005a-infra.md: `asc auth doctor` + `app-setup` 追加
+3. us-009-submit.md: `asc release run` / `submit create` 統合
+4. workflow.json テンプレート（UDID_69 統一）
+5. reference md → mini skill 移行（レシピの DRY 化）
