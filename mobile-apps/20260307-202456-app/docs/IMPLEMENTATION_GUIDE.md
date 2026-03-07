@@ -48,11 +48,10 @@ Source: [RevenueCat Best Practices](https://www.revenuecat.com/docs/getting-star
 | Phase | Features | Key Files | Complexity |
 |-------|----------|-----------|------------|
 | Phase 1: Project Setup | — | xcconfig, PrivacyInfo.xcprivacy, SPM | Low |
-| Phase 2: Core Timer | F-001, F-002, F-003 | TimerService, NotificationService, TimerView, RestView, TimerViewModel | Medium |
-| Phase 3: Data & Stats | F-004, F-005 | BreakSession, EyeExercise, StatsView, StatsViewModel, ExerciseListView | Medium |
-| Phase 4: Onboarding | F-006, F-013 | OnboardingView, OnboardingViewModel, PaywallView, PaywallViewModel | Medium |
-| Phase 5: Premium Features | F-007, F-008, F-009, F-010, F-011 | SubscriptionService, ExerciseDetailView, SettingsViewModel, ExerciseViewModel | High |
-| Phase 6: Settings & Polish | F-012 | SettingsView, Localizable.xcstrings, DESIGN_SYSTEM tokens | Medium |
+| Phase 2: Core Features | F-001, F-002, F-003, F-004, F-005 | TimerService, NotificationService, TimerView, RestView, TimerViewModel, StatsView, StatsViewModel, ExerciseListView | Medium |
+| Phase 3: Monetization | F-006, F-013 | SubscriptionService, PaywallView, PaywallViewModel, OnboardingView, OnboardingViewModel | Medium |
+| Phase 4: Polish | F-007, F-008, F-009, F-010, F-011, F-012 | SettingsView, SettingsViewModel, ExerciseDetailView, ExerciseViewModel, Localizable.xcstrings, DESIGN_SYSTEM tokens | High |
+| Phase 5: Testing & Release | — | Unit tests, Integration tests, Maestro E2E, Greenlight | Medium |
 
 ---
 
@@ -131,34 +130,89 @@ import BackgroundTasks
 final class TimerService: ObservableObject {
     @Published var remainingSeconds: Int = 0
     @Published var isRunning: Bool = false
+    @Published var isPaused: Bool = false
 
     private var timer: Timer?
+    private var targetFireDate: Date?
     private let backgroundTaskIdentifier = "com.aniccafactory.eyerest.refresh"
+    private let notificationService: NotificationServiceProtocol
+
+    init(notificationService: NotificationServiceProtocol = NotificationService()) {
+        self.notificationService = notificationService
+    }
 
     func startTimer(intervalMinutes: Int) {
         remainingSeconds = intervalMinutes * 60
+        targetFireDate = Date().addingTimeInterval(TimeInterval(remainingSeconds))
         isRunning = true
+        isPaused = false
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             self?.tick()
         }
         scheduleBackgroundRefresh(in: TimeInterval(intervalMinutes * 60))
     }
 
+    func pauseTimer() {
+        timer?.invalidate()
+        timer = nil
+        isPaused = true
+        targetFireDate = nil
+    }
+
+    func resumeTimer() {
+        guard isPaused, remainingSeconds > 0 else { return }
+        isPaused = false
+        targetFireDate = Date().addingTimeInterval(TimeInterval(remainingSeconds))
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+            self?.tick()
+        }
+    }
+
     func stopTimer() {
         timer?.invalidate()
         timer = nil
         isRunning = false
+        isPaused = false
+        targetFireDate = nil
         BGTaskScheduler.shared.cancel(taskRequestWithIdentifier: backgroundTaskIdentifier)
     }
 
     private func tick() {
         guard remainingSeconds > 0 else {
             timer?.invalidate()
-            // Trigger break notification
-            NotificationService.shared.scheduleBreakNotification(in: 0)
+            // Fire immediately via nil trigger (timeInterval: 0 crashes)
+            notificationService.fireImmediateBreakNotification()
             return
         }
         remainingSeconds -= 1
+    }
+
+    /// Called on scenePhase == .background — save state and rely on scheduled notification
+    func handleBackgroundTransition() {
+        guard isRunning, let targetFireDate else { return }
+        timer?.invalidate()
+        timer = nil
+        UserDefaults.standard.set(targetFireDate.timeIntervalSince1970, forKey: "targetFireDate")
+        notificationService.scheduleBreakNotification(in: targetFireDate.timeIntervalSinceNow)
+    }
+
+    /// Called on scenePhase == .active — resume from saved state
+    func handleForegroundTransition() {
+        guard isRunning else { return }
+        let saved = UserDefaults.standard.double(forKey: "targetFireDate")
+        guard saved > 0 else { return }
+        let remaining = Date(timeIntervalSince1970: saved).timeIntervalSinceNow
+        if remaining <= 0 {
+            remainingSeconds = 0
+            notificationService.fireImmediateBreakNotification()
+        } else {
+            remainingSeconds = Int(remaining)
+            targetFireDate = Date().addingTimeInterval(remaining)
+            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+                self?.tick()
+            }
+        }
+        UserDefaults.standard.removeObject(forKey: "targetFireDate")
     }
 
     func scheduleBackgroundRefresh(in seconds: TimeInterval) {
@@ -175,8 +229,7 @@ final class TimerService: ObservableObject {
 // Services/NotificationService.swift
 import UserNotifications
 
-final class NotificationService {
-    static let shared = NotificationService()
+final class NotificationService: NotificationServiceProtocol {
 
     func requestPermission() async -> Bool {
         let center = UNUserNotificationCenter.current()
@@ -188,22 +241,30 @@ final class NotificationService {
     }
 
     func scheduleBreakNotification(in seconds: TimeInterval) {
+        guard seconds > 0 else {
+            fireImmediateBreakNotification()
+            return
+        }
+        let content = makeBreakContent()
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: seconds, repeats: false)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request)
+    }
+
+    /// Fire notification immediately (nil trigger = instant delivery, avoids timeInterval: 0 crash)
+    func fireImmediateBreakNotification() {
+        let content = makeBreakContent()
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
+        UNUserNotificationCenter.current().add(request)
+    }
+
+    private func makeBreakContent() -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
         content.title = NSLocalizedString("notification_title", comment: "")
         content.body = NSLocalizedString("notification_body", comment: "")
         content.sound = .default
         content.categoryIdentifier = "eyerest.break"
-
-        let trigger = seconds > 0
-            ? UNTimeIntervalNotificationTrigger(timeInterval: seconds, repeats: false)
-            : nil
-
-        let request = UNNotificationRequest(
-            identifier: UUID().uuidString,
-            content: content,
-            trigger: trigger
-        )
-        UNUserNotificationCenter.current().add(request)
+        return content
     }
 
     func cancelAllNotifications() {
@@ -277,7 +338,19 @@ struct EyeRestApp: App {
 }
 ```
 
-### 5.2 SubscriptionServiceProtocol (Protocol DI)
+### 5.2 NotificationServiceProtocol (Protocol DI)
+
+```swift
+// Protocols/NotificationServiceProtocol.swift
+protocol NotificationServiceProtocol {
+    func requestPermission() async -> Bool
+    func scheduleBreakNotification(in seconds: TimeInterval)
+    func fireImmediateBreakNotification()
+    func cancelAllNotifications()
+}
+```
+
+### 5.3 SubscriptionServiceProtocol (Protocol DI)
 
 ```swift
 // Protocols/SubscriptionServiceProtocol.swift

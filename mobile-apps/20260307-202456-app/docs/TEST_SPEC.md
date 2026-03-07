@@ -15,14 +15,14 @@ Source: [Martin Fowler — Test Pyramid](https://martinfowler.com/bliki/TestPyra
        │Integration │  20% — Service interactions (8 tests)
        │  (XCTest)  │
       ┌┴────────────┴┐
-      │  Unit Tests   │  70% — Models, ViewModels, Services (32+ tests)
+      │  Unit Tests   │  70% — Models, ViewModels, Services (37+ tests)
       │   (XCTest)    │
       └───────────────┘
 ```
 
 | Layer | Framework | Count | Coverage Target |
 |-------|-----------|-------|----------------|
-| Unit | XCTest | 32+ | 80%+ of Models, ViewModels, Services |
+| Unit | XCTest | 37+ | 80%+ of Models, ViewModels, Services |
 | Integration | XCTest | 8+ | Key service-to-service interactions |
 | E2E | Maestro | 6 | Critical user flows |
 

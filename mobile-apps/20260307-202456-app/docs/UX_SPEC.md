@@ -118,7 +118,14 @@ Source: [Apple HIG — Tab bars](https://developer.apple.com/design/human-interf
 | Modal | Presentation | Trigger | Dismissal |
 |-------|-------------|---------|-----------|
 | RestView | `.fullScreenCover` | Timer reaches zero / notification tap | Auto-dismiss after 20s countdown |
-| PaywallView | `.sheet` (page) | Onboarding final step / Settings "Upgrade" / Premium feature tap | [Maybe Later] button or swipe down |
+| PaywallView | `.sheet` (page) | Onboarding final step / Settings "Upgrade" / Premium feature tap | Context-dependent (see below) |
+
+**PaywallView Dismissal Behavior:**
+
+| Context | [Maybe Later] | [X] Close | Swipe Down |
+|---------|:---:|:---:|:---:|
+| Onboarding (final step) | YES | NO | NO (`.interactiveDismissDisabled`) |
+| Settings / Premium feature tap | YES | YES | YES |
 | SettingsView | `NavigationLink` push | Gear icon in Timer nav bar | Back button |
 
 ---
@@ -301,7 +308,7 @@ Source: DESIGN_SYSTEM.md — Color tokens, typography, spacing applied
 │                                 │
 │ TIMER                           │ ← Inset grouped list
 │ ┌──────────────────────────┐    │
-│ │ Interval     20 min   >  │    │ ← Stepper (free: 20 fixed)
+│ │ Interval     20 min   >  │    │ ← Free: visible but tap → PaywallView. Premium: stepper 10-30
 │ │ Sound        [toggle]    │    │
 │ └──────────────────────────┘    │
 │                                 │

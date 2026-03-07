@@ -83,3 +83,31 @@
   - accessibilityIdentifier naming convention {screen}_{element} creates clear contract between UX_SPEC §7, TEST_SPEC §4, and Maestro E2E flows
   - PRD prices match check: grep for dollar amounts in PRD vs RELEASE_SPEC will show mismatch if description text includes market data prices — only subscription prices need to match
 ---
+
+## 2026-03-07 - US-004-R: Spec Review (all 7 documents)
+- **Reviewer:** code-quality-reviewer agent (.cursor/agents/code-quality-reviewer.md)
+- **Initial findings:** 5 CRITICAL, 8 WARNING, 5 SUGGESTION
+- **All 5 CRITICAL fixed:**
+  - C-1: Removed redundant `fatigueLevel` from BreakSession (data in FatigueEntry via sessionId)
+  - C-2/W-8: Added NotificationServiceProtocol + TimerServiceProtocol for consistent Protocol DI across all 3 services
+  - C-3: Added `fireImmediateBreakNotification()` method (nil trigger avoids timeInterval:0 crash)
+  - C-4: Added Components/ directory with 10 reusable SwiftUI components to ARCHITECTURE.md
+  - C-5: Added WCAG AA contrast usage rules (brand colors restricted to large text/non-text elements)
+- **All 8 WARNING fixed:**
+  - W-1: Documented background/foreground transition strategy (save targetFireDate to UserDefaults, restore on active)
+  - W-2: Fixed stale test count (32+ → 37+ unit tests)
+  - W-3: Added 3 missing test files (OnboardingViewModelTests, PaywallViewModelTests, EyeExerciseTests)
+  - W-4: Clarified free-tier interval behavior (visible but tap → PaywallView)
+  - W-5: Aligned Phase Breakdown table with actual section order (5 phases, not 6)
+  - W-6: Defined PaywallView dismissal behavior per context (onboarding: Maybe Later only, no swipe)
+  - W-7: Badge label text uses text.primary (not brand.accent) for WCAG AA compliance
+  - W-8: Added pauseTimer()/resumeTimer() to TimerService API
+- **Post-fix verification:** Gate 1/2/3 PASS, Rule 17/20/20b/21 PASS, 2717 lines total, CRITICAL = 0
+- Files modified: docs/ARCHITECTURE.md, docs/IMPLEMENTATION_GUIDE.md, docs/DESIGN_SYSTEM.md, docs/UX_SPEC.md, docs/TEST_SPEC.md
+- **Learnings for future iterations:**
+  - Protocol DI must be applied to ALL services, not just SubscriptionService — NotificationService singleton breaks testability
+  - Data model normalization: never store a field in two places (BreakSession.fatigueLevel + FatigueEntry.level = drift risk)
+  - Timer.scheduledTimer stops in background — MUST document foreground/background transition with UserDefaults persistence
+  - WCAG AA: brand colors under 4.5:1 contrast MUST be restricted to large text (>= 18pt bold) or non-text elements
+  - Phase Breakdown table in IMPL_GUIDE must match the actual section headers — mismatch confuses implementers
+---

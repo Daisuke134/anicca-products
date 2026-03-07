@@ -282,6 +282,15 @@ Source: [WCAG 2.1 AA](https://www.w3.org/WAI/WCAG21/quickref/) — Contrast, tex
 | `brand.accent` #F46036 on white | 3.28:1 | PASS for large text only — use with `.headline` or larger |
 | Interactive elements | 3:1 against background | All brand colors meet this on both modes |
 
+### Contrast Usage Rules (MUST)
+
+| Rule | Detail |
+|------|--------|
+| `brand.primary` text | MUST only be used for large text (>= 18pt bold / 14pt bold) or non-text UI elements (rings, icons). Body text MUST use `text.primary` (`.label`) |
+| `brand.accent` text | MUST only be used as background tint/icon color on badges, NOT for small text labels. Badge label text MUST use `text.primary` for readability |
+| `BreakCountBadge` | Badge background: `brand.accent` tint. Badge label: `text.primary` (not accent color) |
+| Normal body text | MUST always use semantic colors (`text.primary`, `text.secondary`) — never brand colors |
+
 ### Dynamic Type Support
 
 | Requirement | Implementation |

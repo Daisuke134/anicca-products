@@ -38,10 +38,11 @@ Source: product-plan.md §5 Technical Architecture
 │                     Service Layer                      │
 │  ┌────────────────┐ ┌──────────────────────────────┐  │
 │  │ TimerService   │ │ SubscriptionService          │  │
-│  │ (Protocol DI)  │ │ (SubscriptionServiceProtocol)│  │
+│  │(TimerSvcProto) │ │ (SubscriptionServiceProtocol)│  │
 │  └───────┬────────┘ └──────────────┬───────────────┘  │
 │  ┌───────▼────────┐                │                  │
-│  │ NotificationSvc│                │                  │
+│  │NotificationSvc │                │                  │
+│  │(NotifSvcProto) │                │                  │
 │  └───────┬────────┘                │                  │
 └──────────┼─────────────────────────┼──────────────────┘
            │                         │
@@ -87,12 +88,25 @@ EyeRestios/
 │   │   ├── SettingsView.swift            # Settings screen (F-012)
 │   │   ├── OnboardingView.swift          # Onboarding flow (F-006)
 │   │   └── PaywallView.swift             # Subscription paywall (F-013, Rule 20)
+│   ├── Components/
+│   │   ├── TimerRing.swift               # Circular progress indicator (DESIGN_SYSTEM §4)
+│   │   ├── BreakCountBadge.swift         # Daily break counter with streak
+│   │   ├── ExerciseCard.swift            # Exercise preview card
+│   │   ├── FatigueLevelPicker.swift      # 1-5 scale selector with face icons
+│   │   ├── PremiumBadge.swift            # "PRO" label for premium features
+│   │   ├── StatCard.swift               # Metric display card
+│   │   ├── WeeklyChart.swift            # 7-day bar chart
+│   │   ├── PlanToggle.swift             # Monthly/Annual subscription toggle
+│   │   ├── FeatureRow.swift             # Paywall feature benefit row
+│   │   └── OnboardingPage.swift         # Single onboarding page template
 │   ├── Services/
 │   │   ├── TimerService.swift            # BackgroundTasks + timer management
 │   │   ├── NotificationService.swift     # UNUserNotificationCenter scheduling
 │   │   └── SubscriptionService.swift     # RevenueCat wrapper (Protocol DI)
 │   ├── Protocols/
-│   │   └── SubscriptionServiceProtocol.swift  # Subscription abstraction for testability
+│   │   ├── SubscriptionServiceProtocol.swift  # Subscription abstraction for testability
+│   │   ├── NotificationServiceProtocol.swift  # Notification abstraction for testability
+│   │   └── TimerServiceProtocol.swift         # Timer abstraction for testability
 │   ├── Resources/
 │   │   ├── Localizable.xcstrings         # en-US + ja String Catalogs
 │   │   ├── Assets.xcassets               # App icons, colors, images
@@ -105,7 +119,10 @@ EyeRestios/
 │   ├── StatsViewModelTests.swift
 │   ├── SubscriptionServiceTests.swift
 │   ├── BreakSessionTests.swift
-│   └── FatigueEntryTests.swift
+│   ├── FatigueEntryTests.swift
+│   ├── OnboardingViewModelTests.swift
+│   ├── PaywallViewModelTests.swift
+│   └── EyeExerciseTests.swift
 ├── maestro/
 │   ├── onboarding.yaml
 │   ├── timer.yaml
@@ -154,7 +171,7 @@ final class BreakSession {
     var startedAt: Date             // When the break started
     var completedAt: Date           // When the 20-sec rest finished
     var intervalMinutes: Int         // Timer interval used (10-30)
-    var fatigueLevel: Int?          // Optional 1-5 self-report (F-009)
+    // Fatigue data is stored in FatigueEntry (linked via sessionId) — no duplication
 
     init(intervalMinutes: Int = 20) {
         self.id = UUID()
@@ -219,16 +236,21 @@ struct EyeExercise: Identifiable, Codable {
 | Method | Signature | Description |
 |--------|-----------|-------------|
 | startTimer | `func startTimer(intervalMinutes: Int)` | Start countdown, schedule background task |
+| pauseTimer | `func pauseTimer()` | Pause running timer, clear targetFireDate |
+| resumeTimer | `func resumeTimer()` | Resume paused timer from remainingSeconds |
 | stopTimer | `func stopTimer()` | Cancel running timer and background task |
-| scheduleBackgroundRefresh | `func scheduleBackgroundRefresh()` | Register BGAppRefreshTaskRequest for next break |
+| scheduleBackgroundRefresh | `func scheduleBackgroundRefresh(in: TimeInterval)` | Register BGAppRefreshTaskRequest for next break |
 | handleBackgroundTask | `func handleBackgroundTask(_ task: BGTask)` | Fire notification and reschedule |
+| handleBackgroundTransition | `func handleBackgroundTransition()` | Save targetFireDate to UserDefaults, invalidate Timer, rely on notification |
+| handleForegroundTransition | `func handleForegroundTransition()` | Restore from saved targetFireDate, resume or trigger rest |
 
-### NotificationService
+### NotificationService (NotificationServiceProtocol)
 
 | Method | Signature | Description |
 |--------|-----------|-------------|
 | requestPermission | `func requestPermission() async -> Bool` | Request UNUserNotificationCenter authorization |
 | scheduleBreakNotification | `func scheduleBreakNotification(in seconds: TimeInterval)` | Schedule local notification for next break |
+| fireImmediateBreakNotification | `func fireImmediateBreakNotification()` | Fire notification immediately (nil trigger) |
 | cancelAllNotifications | `func cancelAllNotifications()` | Remove all pending notifications |
 | checkPermissionStatus | `func checkPermissionStatus() async -> UNAuthorizationStatus` | Check current notification authorization |
 
