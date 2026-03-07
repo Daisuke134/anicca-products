@@ -1,3 +1,14 @@
+## 2026-03-08 - US-005a: Privacy Policy + ASC App Creation
+
+- **Quality Gate:** docs/PRD.md, ARCHITECTURE.md, IMPLEMENTATION_GUIDE.md 全PASS
+- **Keychain unlock:** 成功
+- **Project env dir:** ~/.config/mobileapp-builder/projects/lymphaflow/ 作成済み
+- **Bundle ID 登録:** com.aniccafactory.lymphaflow → ID: SBG55WHYUZ ✅
+- **iris session:** `{"authenticated":false}` → **EXPIRED**
+- WAITING_FOR_HUMAN: iris session expired。iPhoneの6桁コードで `asc web auth login` を実行後、次のiterationで再開してください。
+
+---
+
 ## 2026-03-08 - US-004-R: Spec Review (all 7 documents)
 
 - **code-quality-reviewer agent 実行:** 7ドキュメント全て読み込み、CRITICAL=0、WARNING=8件を検出

@@ -94,7 +94,7 @@
       ],
       "priority": 5,
       "passes": false,
-      "notes": ""
+      "notes": "WAITING_FOR_HUMAN: iris session expired。Bundle ID com.aniccafactory.lymphaflow 登録済み (SBG55WHYUZ)。asc web auth login で再認証後、次のiterationでASCアプリ作成を再開。"
     },
     {
       "id": "US-005b",
