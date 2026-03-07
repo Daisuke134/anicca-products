@@ -24,24 +24,28 @@ struct MainTabView: View {
                     Label("Timer", systemImage: "timer")
                 }
                 .tag(0)
+                .accessibilityIdentifier(AccessibilityID.tabTimer)
 
             HistoryView()
                 .tabItem {
                     Label("History", systemImage: "clock.arrow.circlepath")
                 }
                 .tag(1)
+                .accessibilityIdentifier(AccessibilityID.tabHistory)
 
             ProgressDashboardView()
                 .tabItem {
                     Label("Progress", systemImage: "chart.line.uptrend.xyaxis")
                 }
                 .tag(2)
+                .accessibilityIdentifier(AccessibilityID.tabProgress)
 
             SettingsView()
                 .tabItem {
                     Label("Settings", systemImage: "gearshape")
                 }
                 .tag(3)
+                .accessibilityIdentifier(AccessibilityID.tabSettings)
         }
     }
 }

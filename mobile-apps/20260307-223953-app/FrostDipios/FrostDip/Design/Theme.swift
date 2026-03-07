@@ -28,7 +28,9 @@ enum Theme {
         static let subheadline = Font.subheadline
         static let footnote = Font.footnote
         static let caption = Font.caption
-        static let timerDisplay = Font.system(size: 72, weight: .ultraLight, design: .monospaced)
+        static let timerDisplay = Font.system(size: 72, weight: .bold, design: .monospaced)
+        static let hrDisplay = Font.system(size: 36, weight: .semibold, design: .monospaced)
+        static let temperatureDisplay = Font.system(size: 24, weight: .medium, design: .monospaced)
         static let timerSmall = Font.system(size: 32, weight: .light, design: .monospaced)
     }
 

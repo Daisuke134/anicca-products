@@ -98,4 +98,10 @@ enum AccessibilityID {
     static let settingsUpgrade = "settings_upgrade"
     static let settingsRestore = "settings_restore"
     static let settingsPrivacy = "settings_privacy"
+
+    // Tab Bar
+    static let tabTimer = "tab_timer"
+    static let tabHistory = "tab_history"
+    static let tabProgress = "tab_progress"
+    static let tabSettings = "tab_settings"
 }

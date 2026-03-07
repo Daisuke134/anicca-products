@@ -235,3 +235,21 @@
   - SubscriptionService.isPremium drives premium gating — same instance must be shared for consistent state
   - HistoryView 7-day filter: Calendar.date(byAdding: .day, value: -7) for free tier cutoff
 ---
+
+## 2026-03-08 - US-006d: TDD Polish (DESIGN_SYSTEM tokens, a11y IDs, Localization)
+- Theme.swift typography updated: timerDisplay weight → .bold (per DESIGN_SYSTEM spec), hrDisplay (36pt semibold monospaced) and temperatureDisplay (24pt medium monospaced) added
+- Tab a11y IDs added: tab_timer, tab_history, tab_progress, tab_settings in AccessibilityID enum + applied to MainTabView in ContentView.swift
+- Localizable.xcstrings created: 80+ strings with en (source) + ja translations covering all user-facing text across 11 screens
+- project.yml updated: knownRegions [en, ja], defaultLocalization: en
+- PrivacyInfo.xcprivacy confirmed at Resources/ (CA92.1 UserDefaults)
+- ITSAppUsesNonExemptEncryption = NO confirmed in Info.plist
+- 91 tests ALL PASS (0 failures), fastlane build PASS
+- Greenlight CRITICAL=0, Mock=0, RevenueCatUI=0, AI APIs=0
+- Files created: FrostDipios/FrostDip/Localizable.xcstrings
+- Files modified: Design/Theme.swift (typography), Models/PlungeSession.swift (AccessibilityID enum), App/ContentView.swift (tab a11y IDs), project.yml (localization)
+- **Learnings for future iterations:**
+  - Xcode String Catalogs (.xcstrings) are JSON-based and auto-picked up by SwiftUI Text() views — no NSLocalizedString() calls needed
+  - Tab accessibilityIdentifiers must be set on the tab content view (e.g. TimerView().accessibilityIdentifier()), not on the Label
+  - SourceKit "Cannot find in scope" errors for cross-file references are analysis-only — actual build succeeds
+  - xcodegen knownRegions + defaultLocalization in options section enables localization support
+---
