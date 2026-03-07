@@ -11,6 +11,7 @@ final class SubscriptionService: SubscriptionServiceProtocol {
     static let shared = SubscriptionService()
 
     private(set) var isPremium: Bool = false
+    private(set) var isConfigured: Bool = false
 
     func configure(apiKey: String) {
         #if DEBUG
@@ -25,15 +26,18 @@ final class SubscriptionService: SubscriptionServiceProtocol {
             .build()
         Purchases.configure(with: config)
         #endif
+        isConfigured = true
     }
 
     func fetchOfferings() async throws -> [Package] {
+        guard isConfigured else { return [] }
         let offerings = try await Purchases.shared.offerings()
         guard let current = offerings.current else { return [] }
         return current.availablePackages
     }
 
     func purchase(package: Package) async throws -> Bool {
+        guard isConfigured else { return false }
         #if DEBUG
         do {
             _ = try await Purchases.shared.purchase(package: package)
@@ -54,6 +58,7 @@ final class SubscriptionService: SubscriptionServiceProtocol {
     }
 
     func restorePurchases() async throws -> Bool {
+        guard isConfigured else { return false }
         let customerInfo = try await Purchases.shared.restorePurchases()
         let active = customerInfo.entitlements["premium"]?.isActive == true
         self.isPremium = active
@@ -61,6 +66,7 @@ final class SubscriptionService: SubscriptionServiceProtocol {
     }
 
     func listenForUpdates(onChange: @escaping (Bool) -> Void) {
+        guard isConfigured else { return }
         Task {
             for await customerInfo in Purchases.shared.customerInfoStream {
                 let active = customerInfo.entitlements["premium"]?.isActive == true

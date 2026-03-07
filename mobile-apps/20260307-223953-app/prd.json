@@ -194,8 +194,8 @@
         "smokeTest tag exists on 2+ flows"
       ],
       "priority": 7,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "6 Maestro E2E flows ALL PASS: 01-onboarding (smokeTest), 02-timer, 03-settings, 04-payment-monthly-success (smokeTest), 05-payment-annual-success, 06-payment-failure. Fixes: (1) xcconfig configFiles for RC_API_KEY (was XCCONFIG_FILE — xcodegen ignored), (2) SubscriptionService isConfigured guard (Purchases.shared crash without configure), (3) uiPreviewMode auto-completes purchases — payment flows use optional dialog tap. All id: selectors, clearState+clearKeychain+takeScreenshot in every flow. 91 unit tests still PASS."
     },
     {
       "id": "US-008a",

@@ -18,6 +18,12 @@
 - SubscriptionService MUST be singleton (`static let shared`) — SwiftUI re-creates view structs, so `let service = Service()` loses state
 - Timer.scheduledTimer defaults to RunLoop .default (pauses on scroll) — use `RunLoop.current.add(timer, forMode: .common)` for user-facing timers
 - assertionFailure in @main App.init() crashes test runner — never use in app entry point
+- xcodegen xcconfig: use `configFiles:` at target level, NOT `XCCONFIG_FILE` in settings.configs
+- Purchases.shared crashes if not configured — guard all calls with `isConfigured` flag on SubscriptionService
+- Maestro: NavigationStack/TabView container a11y IDs invisible — use child element IDs for assertions
+- Maestro: Tab bar items need text: selector (a11y ID on content view invisible when tab not selected)
+- Maestro: uiPreviewMode auto-completes RC purchases — make "Test valid purchase" tap optional
+- Maestro path: `$HOME/.maestro/bin/maestro` (not in /opt/homebrew/bin)
 
 ---
 
@@ -280,4 +286,34 @@
   - Timer.scheduledTimer uses RunLoop .default mode which pauses during scroll — always use RunLoop .common for user-facing timers
   - HealthKit query callbacks run on arbitrary background queues — protect shared mutable state with NSLock
   - SwiftUI .onDelete handler must call modelContext.delete() explicitly — no implicit SwiftData deletion
+---
+
+## 2026-03-08 - US-007: Testing (Maestro E2E)
+- 6 Maestro E2E flows ALL PASS (6/6, 2m 20s):
+  - 01-onboarding.yaml (smokeTest): Welcome → Experience → Notifications → Paywall → Maybe Later → Timer
+  - 02-timer.yaml: Onboarding skip → Breathing prep → Skip → Timer run → Pause → Stop
+  - 03-settings.yaml: Onboarding skip → Settings tab → Verify elements → Upgrade → Paywall → Dismiss
+  - 04-payment-monthly-success.yaml (smokeTest): Onboarding → Paywall → Monthly → CTA → Timer
+  - 05-payment-annual-success.yaml: Onboarding → Paywall → Annual → CTA → Timer
+  - 06-payment-failure.yaml: Onboarding → Paywall → Verify all plans + CTA + Maybe Later → Dismiss → Timer
+- Critical fixes during implementation:
+  1. project.yml `XCCONFIG_FILE` → `configFiles` (xcodegen ignores XCCONFIG_FILE in settings.configs)
+  2. SubscriptionService `isConfigured` guard on all Purchases.shared calls (crash without configure)
+  3. RC_API_KEY now properly embedded in built .app (was empty string before xcconfig fix)
+- Flow adjustments for uiPreviewMode:
+  - Purchase dialog "Test valid purchase" made optional (uiPreviewMode auto-completes)
+  - Payment failure flow tests UI elements + dismiss path (uiPreviewMode can't simulate failure)
+  - Container-level a11y IDs (timer_view, settings_view) not visible to Maestro on NavigationStack — use child element IDs
+  - Tab bar a11y IDs on content views not visible when tab unselected — use text: "Settings" selector
+- Gate checks: 6 flows, clearState in all, takeScreenshot in all, 2 smokeTest tags, 0 point: selectors
+- 91 unit tests still PASS (0 failures)
+- Files created: (maestro flows already existed from previous iteration)
+- Files modified: FrostDipios/project.yml (configFiles), FrostDip/Services/SubscriptionService.swift (isConfigured guard), maestro/*.yaml (selector fixes)
+- **Learnings for future iterations:**
+  - xcodegen `configFiles:` at target level is the correct way to reference .xcconfig files — NOT `XCCONFIG_FILE` in settings.configs
+  - Purchases.shared crashes with assertionFailure if Purchases.configure() wasn't called — always guard with isConfigured flag
+  - uiPreviewMode auto-completes purchases without showing RC Test Store dialog — make dialog taps optional
+  - SwiftUI NavigationStack/TabView container a11y IDs are invisible to Maestro — always use child element IDs for assertions
+  - Tab bar items need text: selectors when a11y IDs are on content views (invisible when tab unselected)
+  - Maestro runs flows in parallel by default — each flow must be self-contained with clearState
 ---

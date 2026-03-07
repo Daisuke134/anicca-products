@@ -19,6 +19,18 @@ platform :ios do
     )
   end
 
+  desc "Build for simulator (Maestro E2E)"
+  lane :build_for_simulator do
+    build_app(
+      scheme: "FrostDip",
+      configuration: "Debug",
+      destination: "generic/platform=iOS Simulator",
+      derived_data_path: "build/DerivedData",
+      skip_archive: true,
+      skip_codesigning: true
+    )
+  end
+
   desc "Archive and upload to ASC"
   lane :release do
     build_app(

@@ -28,6 +28,9 @@ targets:
     platform: iOS
     sources:
       - FrostDip
+    configFiles:
+      Debug: FrostDip/Config/Debug.xcconfig
+      Release: FrostDip/Config/Release.xcconfig
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.aniccafactory.frostdip
@@ -37,9 +40,6 @@ targets:
       configs:
         Debug:
           SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
-          XCCONFIG_FILE: FrostDip/Config/Debug.xcconfig
-        Release:
-          XCCONFIG_FILE: FrostDip/Config/Release.xcconfig
     dependencies:
       - package: RevenueCat
         product: RevenueCat
