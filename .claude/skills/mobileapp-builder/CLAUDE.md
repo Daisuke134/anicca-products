@@ -176,6 +176,8 @@ Only general, reusable patterns — not story-specific details.
 各USの実行時は必ず対応する `references/us-XXX.md` を読むこと。
 この CLAUDE.md には詳細を書かない。references が常に正本。
 
+| US-010 | Build Report | logs/ トークン集計 → build-report.json → Slack + X 投稿 | us-010-report |
+
 ## WAITING_FOR_HUMAN
 progress.txt に `WAITING_FOR_HUMAN: <what you need>` を書いて passes: false にする。
 ralph.sh が検知して Slack に通知する。

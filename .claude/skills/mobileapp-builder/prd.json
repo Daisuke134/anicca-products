@@ -272,6 +272,18 @@
       "priority": 9,
       "passes": false,
       "notes": ""
+    },
+    {
+      "id": "US-010",
+      "title": "Build Report: Token Usage + Slack + X Post",
+      "acceptanceCriteria": [
+        "build-report.json saved in app directory",
+        "Report posted to Slack #metrics",
+        "Report + product page screenshots posted to X via Postiz API"
+      ],
+      "priority": 10,
+      "passes": false,
+      "notes": ""
     }
   ]
 }
