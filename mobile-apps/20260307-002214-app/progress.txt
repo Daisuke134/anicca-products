@@ -58,6 +58,45 @@
 | CFBundleIconName required | iOS 11+ で Info.plist に `CFBundleIconName=AppIcon` 必須。未設定だと IPA validation で "Missing required icon file" エラー |
 | ExportOptions destination upload | ExportOptions.plist に `destination: upload` を設定すると exportArchive 時に自動で ASC にアップロードされる |
 | Build appears in ASC API delay | アップロード成功後、ASC API にビルドが表示されるまで約60-90秒かかる |
+| betaAppReviewDetails phone format | ASC API contactPhone は `+81-90-1234-5678` のダッシュ付きフォーマットのみ受付。E.164(`+819012345678`) / 括弧付き / スペース区切りは全て INVALID_PHONE_NUMBER |
+| betaAppLocalization required | External TestFlight submit 前に `POST /v1/betaAppLocalizations` で en-US description を設定必須。未設定だと "Beta App Description is missing" エラー |
+| primaryCategory must be set | primaryCategory 未設定だと INVALID_BINARY で提出拒否。`PATCH /v1/appInfos/{id}` で relationships.primaryCategory を設定 |
+
+---
+
+## 2026-03-07 - US-008e: Preflight validation + TestFlight + Slack (COMPLETE)
+
+- **Status: COMPLETE — all AC verified with evidence**
+- **Evidence:**
+  - AC1: Submission checklist all PASS
+    - Greenlight: GREENLIT (no critical issues)
+    - B1: processingState=VALID (BUILD_ID=76388ee2)
+    - B2: version 1.0, state=PREPARE_FOR_SUBMISSION
+    - B3: Xcode 26.2
+    - D2-D4: Weekly/Monthly/Annual all READY_TO_SUBMIT
+    - D5-D7: 175 prices each
+    - D11-D13: 39 localizations each
+    - E1-E3: en-US + ja metadata complete (description, keywords, supportUrl, promotionalText, marketingUrl)
+    - E4: IPHONE_61 + IPHONE_65 screenshot sets for en-US and ja
+    - E7: copyright="2026 Daisuke Kobayashi"
+    - E12: primaryCategory=HEALTH_AND_FITNESS (fixed during this US — was empty)
+  - AC2: `asc validate --app 6760196743 --version-id fab3c316-...` -> errors=0, warnings=0, blocking=0 PASS
+  - AC3: TestFlight distributed
+    - Beta group "External Testers" created (id=7a4e355a)
+    - Build added to group
+    - betaAppReviewDetails set (contact + demoAccountRequired=false)
+    - betaAppLocalization en-US created (description + feedbackEmail)
+    - betaBuildLocalization en-US created (whatsNew)
+    - Beta review submitted -> WAITING_FOR_BETA_REVIEW
+    - Tester keiodaisuke@gmail.com added to External Testers
+    - internalBuildState=READY_FOR_BETA_TESTING
+  - AC4: Slack #metrics notified with TestFlight status PASS
+- **Learnings for future iterations:**
+  - ASC contactPhone format: `+81-90-1234-5678` (dashes required, E.164 rejected)
+  - External TestFlight requires betaAppLocalization (description) before submit
+  - primaryCategory must be set explicitly — PATCH /v1/appInfos with relationships
+  - asc auth has no `token` subcommand — generate JWT via PyJWT manually for REST API calls
+  - AuthKey path: `~/.appstoreconnect/private_keys/AuthKey_<KEY_ID>.p8`
 
 ---
 

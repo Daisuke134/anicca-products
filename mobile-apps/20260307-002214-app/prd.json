@@ -257,8 +257,8 @@
         "Slack #metrics notified with TestFlight link"
       ],
       "priority": 8.5,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "AC1: Submission checklist A-F all PASS. Greenlight=GREENLIT. B1=VALID, B2=v1.0 PREPARE_FOR_SUBMISSION, B3=Xcode 26.2. D2-D4=READY_TO_SUBMIT (weekly/monthly/annual). D5-D7=175 prices each. D11-D13=39 localizations each. E1-E3=en-US+ja metadata set. E4=IPHONE_61+IPHONE_65 both locales. E7=copyright 2026 Daisuke Kobayashi. E12=primaryCategory HEALTH_AND_FITNESS (fixed during this US). AC2: asc validate Errors=0, Warnings=0, Blocking=0. AC3: TestFlight distributed — beta group 'External Testers' created, build added, beta review submitted (WAITING_FOR_BETA_REVIEW), tester keiodaisuke@gmail.com added, betaBuildLocalization whatsNew set. AC4: Slack notified with TestFlight status."
     },
     {
       "id": "US-009",
