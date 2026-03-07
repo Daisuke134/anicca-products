@@ -162,8 +162,8 @@ fi
 
 ##############################################
 # GATE 4: Screenshots (>= 4 raw per locale)
-# Note: Koubou framing is disabled (asc 0.36.3 bug).
-# Raw screenshots are uploaded directly to ASC.
+# Note: Koubou framing re-enabled (Fix #3, 2026-03-07).
+# Framed screenshots are generated via `kou generate` and uploaded to ASC.
 ##############################################
 echo ""
 echo "--- Gate 4: Screenshots ---"

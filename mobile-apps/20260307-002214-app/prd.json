@@ -270,8 +270,8 @@
         "Slack #metrics notified: WAITING_FOR_REVIEW"
       ],
       "priority": 9,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "AC1: .app-privacy-done exists (human completed App Privacy via ASC Web). AC2: asc review submissions-submit -> state=WAITING_FOR_REVIEW (submission 3f28c788, submitted 2026-03-07T09:56:41Z). AC3: Slack notified. Pricing fix: Free ($0.00) price schedule created (was missing, blocking submission). asc validate: Errors=0, Warnings=0, Blocking=0."
     }
   ]
 }

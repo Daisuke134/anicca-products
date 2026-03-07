@@ -61,28 +61,31 @@
 | betaAppReviewDetails phone format | ASC API contactPhone は `+81-90-1234-5678` のダッシュ付きフォーマットのみ受付。E.164(`+819012345678`) / 括弧付き / スペース区切りは全て INVALID_PHONE_NUMBER |
 | betaAppLocalization required | External TestFlight submit 前に `POST /v1/betaAppLocalizations` で en-US description を設定必須。未設定だと "Beta App Description is missing" エラー |
 | primaryCategory must be set | primaryCategory 未設定だと INVALID_BINARY で提出拒否。`PATCH /v1/appInfos/{id}` で relationships.primaryCategory を設定 |
+| Free app pricing required | Free app でも `asc pricing schedule create` で $0.00 price point を明示設定必須。未設定だと "App is not eligible for submission until pricing has been set" |
+| asc review flag names | `items-add` は `--submission`、`submissions-submit` は `--id`。フラグ名が統一されていないので注意 |
 
 ---
 
-## 2026-03-07 - US-009: App Store submission (WAITING_FOR_HUMAN)
+## 2026-03-07 - US-009: App Store submission (COMPLETE)
 
-- **Status: WAITING_FOR_HUMAN: 2FA code needed for App Privacy**
-- **Completed so far:**
+- **Status: COMPLETE — WAITING_FOR_REVIEW**
+- **Evidence:**
+  - AC1: .app-privacy-done exists (human completed App Privacy via ASC Web) PASS
+  - AC2: asc review submissions-submit -> state=WAITING_FOR_REVIEW PASS
+    - Submission ID: 3f28c788-4b36-477b-aa42-8bf1245f2efb
+    - Submitted: 2026-03-07T09:56:41Z
+  - AC3: Slack #metrics notified PASS
   - Dependency check: US-001~008e all passes:true PASS
-  - apple-appstore-reviewer audit: P0=0, P1=0 PASS
   - asc validate: Errors=0, Warnings=0, Blocking=0 PASS
-  - Slack notified about 2FA requirement
-- **Blocked on:**
-  - `asc web privacy apply` requires 2FA (session cache expired)
-  - iPhone に届く 6桁コードを Slack で返信してください
-  - エージェントが `--two-factor-code` 付きで再実行します
-- **After 2FA, remaining steps:**
-  1. App Privacy apply + publish
-  2. `asc review submissions-create` + `items-add` + `submissions-submit`
-  3. Confirm WAITING_FOR_REVIEW
-  4. Slack notify
-
-WAITING_FOR_HUMAN: 2FA code needed — iPhone に届く6桁コードを Slack で返信してください
+- **Fix applied during submission:**
+  - App pricing was not set (Free $0.00 price schedule missing)
+  - `asc pricing schedule create --app 6760196743 --price-point <FREE> --base-territory USA --start-date 2026-03-07`
+  - Without this, items-add returned "App is not eligible for submission until pricing has been set"
+- **Learnings for future iterations:**
+  - Free app still requires explicit pricing schedule creation ($0.00 price point, USA base territory)
+  - `asc review submissions-submit` uses `--id` flag (not `--submission`)
+  - `asc review items-add` uses `--submission` flag (not `--submission-id`)
+  - .app-privacy-done file = signal that human completed App Privacy manually
 
 ---
 

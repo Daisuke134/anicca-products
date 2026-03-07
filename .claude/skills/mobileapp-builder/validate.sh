@@ -162,8 +162,8 @@ fi
 
 ##############################################
 # GATE 4: Screenshots (>= 4 raw per locale)
-# Note: Koubou framing is disabled (asc 0.36.3 bug).
-# Raw screenshots are uploaded directly to ASC.
+# Note: Koubou framing re-enabled (Fix #3, 2026-03-07).
+# Framed screenshots are generated via `kou generate` and uploaded to ASC.
 ##############################################
 echo ""
 echo "--- Gate 4: Screenshots ---"
@@ -268,12 +268,25 @@ for v in d.get('data',[]):
 
   if [ -n "$VER_ID" ]; then
     VALIDATE_OUT=$(asc validate --app "$APP_ID" --version-id "$VER_ID" --platform IOS 2>&1 || echo "CHECK_FAILED")
-    if echo "$VALIDATE_OUT" | grep -q "Errors: 0"; then
-      log_pass "ASC validate: Errors=0"
-    elif echo "$VALIDATE_OUT" | grep -q "CHECK_FAILED"; then
+    if echo "$VALIDATE_OUT" | grep -q "CHECK_FAILED"; then
       log_skip "ASC validate check failed (API error)"
     else
-      log_fail "ASC validate errors found: $(echo "$VALIDATE_OUT" | grep -i 'error' | head -3)"
+      # Fix #11: asc validate returns JSON — parse with python3 instead of grep
+      VALIDATE_ERRORS=$(echo "$VALIDATE_OUT" | python3 -c "
+import json,sys
+try:
+    d=json.load(sys.stdin)
+    print(d.get('summary',{}).get('errors',999))
+except:
+    import re
+    m=re.search(r'[Ee]rrors[:\s]+(\d+)', '$VALIDATE_OUT')
+    print(m.group(1) if m else 999)
+" 2>/dev/null || echo "999")
+      if [ "$VALIDATE_ERRORS" = "0" ]; then
+        log_pass "ASC validate: Errors=0"
+      else
+        log_fail "ASC validate errors: $VALIDATE_ERRORS (output: $(echo "$VALIDATE_OUT" | head -3))"
+      fi
     fi
   else
     log_skip "No version found for APP_ID=$APP_ID"
