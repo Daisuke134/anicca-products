@@ -244,8 +244,8 @@
         "Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT"
       ],
       "priority": 8.4,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "AC1: Age Rating 22 items set (healthOrWellnessTopics=true, all others NONE/false). AC2: Review Details demoAccountRequired=false, contact info set (Daisuke Kobayashi). AC3: Availability 175/175 territories available, availableInNewTerritories=true. AC4: Pricing free app (Tier 0), subscriptions configured in US-005b (175 prices each). AC5: usesNonExemptEncryption=false (Info.plist), encryption declaration created (containsThirdPartyCryptography=true for HTTPS/TLS). AC6: contentRightsDeclaration=DOES_NOT_USE_THIRD_PARTY_CONTENT. Copyright=2026 Daisuke Kobayashi. All AC PASS."
     },
     {
       "id": "US-008e",

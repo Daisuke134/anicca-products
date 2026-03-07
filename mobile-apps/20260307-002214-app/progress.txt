@@ -49,10 +49,35 @@
 | Notification permission cross-sim | 6.1" sim で通知許可した後、6.5" sim では既に OS レベルで許可済みの場合あり。オンボーディング Page 3 がスキップされ直接 Paywall に遷移する |
 | ASC keywords 100 char limit | en-US keywords は100文字以内。PRD の keywords をそのまま使うと超過する場合あり。低優先キーワードを削除して調整 |
 | asc localizations update types | `--type app-info` は name/subtitle/privacyPolicyUrl。`--version VERSION_ID` は description/keywords/supportUrl/promotionalText/marketingUrl。別コマンド |
+| age-rating requires all attributes | `asc age-rating set` は parentalControls + ageAssurance を含む全属性が必須。1つでも欠けると 400 エラー |
+| review details contactFirstName | `asc review details-update` は contactFirstName が必須。REST API PATCH の方が確実 |
+| availability v2 inline creation | `asc pricing availability set` は v2 territory inline creation に対応していない。REST API `POST /v2/appAvailabilities` で `${ta-N}` local ID パターンを使う |
+| content rights via app PATCH | contentRightsDeclaration は `PATCH /v1/apps/{id}` で設定。asc CLI にサブコマンドなし |
+| encryption plist overrides API | Info.plist に ITSAppUsesNonExemptEncryption=NO があると、API の encryption declaration assign-builds は不要（plist が優先） |
 | xcodebuild API Key auth | Xcode アカウント未設定時は `-allowProvisioningUpdates -authenticationKeyPath -authenticationKeyID -authenticationKeyIssuerID` の4フラグで自動プロビジョニング |
 | CFBundleIconName required | iOS 11+ で Info.plist に `CFBundleIconName=AppIcon` 必須。未設定だと IPA validation で "Missing required icon file" エラー |
 | ExportOptions destination upload | ExportOptions.plist に `destination: upload` を設定すると exportArchive 時に自動で ASC にアップロードされる |
 | Build appears in ASC API delay | アップロード成功後、ASC API にビルドが表示されるまで約60-90秒かかる |
+
+---
+
+## 2026-03-07 - US-008d: ASC compliance (age rating + encryption + rights + availability + pricing + review details) (COMPLETE)
+
+- **Status: COMPLETE — all AC verified with evidence**
+- **Evidence:**
+  - AC1: Age Rating 22 items set via `asc age-rating set --app 6760196743`. healthOrWellnessTopics=true, all others NONE/false. appStoreAgeRating=FOUR_PLUS PASS
+  - AC2: Review Details demoAccountRequired=false via REST API PATCH. Contact: Daisuke Kobayashi, keiodaisuke@gmail.com PASS
+  - AC3: Availability 175/175 territories available via REST API v2 POST /v2/appAvailabilities. availableInNewTerritories=true PASS
+  - AC4: Pricing: Free app (Tier 0, no manual prices). Subscriptions configured in US-005b (175 prices per sub) PASS
+  - AC5: usesNonExemptEncryption=false (via build Info.plist). Encryption declaration created (containsThirdPartyCryptography=true for HTTPS/TLS) PASS
+  - AC6: contentRightsDeclaration=DOES_NOT_USE_THIRD_PARTY_CONTENT via REST API PATCH /v1/apps PASS
+  - Copyright: "2026 Daisuke Kobayashi" via `asc versions update --copyright` PASS
+- **Learnings for future iterations:**
+  - `asc age-rating set` requires ALL attributes including parentalControls and ageAssurance — omitting any causes 400 error
+  - `asc review details-update` requires contactFirstName — use REST API PATCH for reliability
+  - `asc pricing availability set` doesn't support v2 inline creation — use REST API directly
+  - contentRightsDeclaration is set via app-level PATCH, not a separate endpoint
+  - If Info.plist has ITSAppUsesNonExemptEncryption=NO, encryption declaration assign-builds is unnecessary
 
 ---
 
