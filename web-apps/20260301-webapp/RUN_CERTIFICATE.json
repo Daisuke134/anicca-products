@@ -1,1 +1,0 @@
-{"status": "PASS", "url": "http://localhost:3000", "timestamp": "2026-03-01T10:00:00.000Z", "httpCode": 200, "buildTime": "827.9ms", "routes": ["/", "/stats", "/pricing", "/success", "/api/checkout"]}

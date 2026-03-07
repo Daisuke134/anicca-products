@@ -11,7 +11,7 @@ set -e  # snarktank/ralph original: no pipefail
 trap 'echo "🔴 ERROR on line $LINENO (exit $?)" >&2; curl -s -X POST "${SLACK_WEBHOOK_AGENTS:-}" -H "Content-type: application/json" -d "{\"text\":\"🔴 ralph.sh line $LINENO で異常終了 (exit $?)\"}" 2>/dev/null || true' ERR
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-MAX_ITERATIONS="${1:-5}"
+MAX_ITERATIONS="${1:-50}"
 SLACK_CHANNEL="${SLACK_CHANNEL_ID:-C091G3PKHL2}"
 
 # PATH: kou (Koubou) binary location

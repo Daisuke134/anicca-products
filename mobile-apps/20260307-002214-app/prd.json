@@ -207,8 +207,8 @@
         "Subscription review screenshots uploaded for Monthly + Annual"
       ],
       "priority": 8.1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Screenshots captured: en-US 5+4=9 (6.1\"+6.5\"), ja 5+4=9 (6.1\"+6.5\"). Resolutions: 1206x2622 (IPHONE_61) + 1284x2778 (IPHONE_65). MD5: en≠ja PASS, no same-locale duplicates PASS. ASC upload: en-US IPHONE_61 (5 COMPLETE) + IPHONE_65 (4 COMPLETE), ja IPHONE_61 (5 COMPLETE) + IPHONE_65 (4 COMPLETE). Review screenshots: Weekly/Monthly/Annual all 3 uploaded+committed via REST API. iPad not required (TARGETED_DEVICE_FAMILY=1). AC1-4 all PASS."
     },
     {
       "id": "US-008b",

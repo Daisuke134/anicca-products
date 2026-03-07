@@ -41,6 +41,48 @@
 | NSLocalizedString for PrimaryButton | PrimaryButton の title は String 型。LocalizedStringKey ではなく NSLocalizedString() でラップして渡す |
 | RC configure single source | RevenueCat Purchases.configure() は1箇所のみ。App struct ではなく SubscriptionService.configure() に集約。重複呼び出し禁止 |
 | Localization key naming | dot-notation keys (e.g. timer.status.ready) を使い、en + ja 両方を xcstrings に明示記載。暗黙のキー＝値パターン禁止 |
+| axe UDID quoting | `axe describe-ui --udid "$UDID"` はシェル展開で空文字になる場合あり。`/opt/homebrew/bin/axe describe-ui --udid D5822...` と直接埋め込むか、変数を && で連結 |
+| xcodebuild destination id | `xcodebuild -destination "platform=iOS Simulator,id=$UDID"` は Xcode 26.2 で `missing value for key 'id'` エラー。`-destination 'platform=iOS Simulator,name=iPhone 17 Pro'` を使う |
+| 6.5" simulator creation | Xcode 26.2 に iPhone 14 Plus シミュレータがデフォルトで存在しない。`xcrun simctl create` で作成必須 |
+| ja localization creation | `asc localizations update --locale ja` は既存ロケールのみ更新可。新規作成は REST API `POST /v1/appStoreVersionLocalizations` + JWT 必須 |
+| Review screenshot 3-step | `asc subscriptions review-screenshots create` は reservation のみ。PUT (upload) → PATCH (commit) を自前で実行する必要あり。Python + PyJWT で JWT 生成 → urllib で完結 |
+| Notification permission cross-sim | 6.1" sim で通知許可した後、6.5" sim では既に OS レベルで許可済みの場合あり。オンボーディング Page 3 がスキップされ直接 Paywall に遷移する |
+
+---
+
+## 2026-03-07 - US-008a: Screenshots (capture + upload + review screenshot) (COMPLETE)
+
+- **Status: COMPLETE — all AC verified with evidence**
+- **Evidence:**
+  - AC1: Screenshots captured via AXe + asc screenshots capture: en-US 5+4=9 (6.1"+6.5"), ja 5+4=9 (6.1"+6.5") PASS
+  - AC2: MD5 en≠ja PASS (en: 726413b8..., ja: 9c97a488...), no same-locale duplicates (0+0) PASS
+  - AC3: ASC upload: en-US IPHONE_61 5 COMPLETE, IPHONE_65 4 COMPLETE; ja IPHONE_61 5 COMPLETE, IPHONE_65 4 COMPLETE PASS
+  - AC4: Review screenshots: Weekly (528c46ba) + Monthly (d213fce2) + Annual (c78d68eb) all uploaded+committed PASS
+- **Resolutions:**
+  - IPHONE_61: 1206x2622 (iPhone 17 Pro)
+  - IPHONE_65: 1284x2778 (iPhone 14 Plus — created via simctl)
+- **iPad:** Not required (TARGETED_DEVICE_FAMILY=1, iPhone only)
+- **Screens captured (4 per locale per device):**
+  1. screen1_welcome — Onboarding page 1
+  2. screen2_features — Onboarding page 2
+  3. screen3_paywall — Soft paywall (with pricing)
+  4. screen4_home — Timer screen (20:00 ready)
+  5. screen3_notifications — Notification permission page (6.1" only, extra)
+- **Files created:**
+  - `screenshots/raw/en-US/` — 5 PNGs (1206x2622)
+  - `screenshots/raw/ja/` — 5 PNGs (1206x2622)
+  - `screenshots/raw-65/en-US/` — 4 PNGs (1284x2778)
+  - `screenshots/raw-65/ja/` — 4 PNGs (1284x2778)
+- **ASC changes:**
+  - ja version localization created (6668f455) via REST API
+  - 4 screenshot sets uploaded (en-US×2 + ja×2)
+  - 3 review screenshots uploaded (Weekly+Monthly+Annual)
+- **Learnings for future iterations:**
+  - axe UDID は /opt/homebrew/bin/axe で直接フルパス指定が安定
+  - xcodebuild destination は name= の方が id= より安定（Xcode 26.2）
+  - asc localizations update は既存ロケールのみ。新規は REST API POST 必須
+  - review screenshot は create → PUT → PATCH (commit) の3ステップ。Python + PyJWT で完結
+  - 6.1" sim で通知許可済みだと 6.5" sim でオンボーディング Page 3 がスキップされる
 
 ---
 
