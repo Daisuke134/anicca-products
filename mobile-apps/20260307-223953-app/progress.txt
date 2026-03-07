@@ -1,0 +1,24 @@
+## Codebase Patterns
+
+- iTunes Search API: `curl -s "https://itunes.apple.com/search?term=KEYWORD&media=software&entity=software&limit=10" | jq '.results[]'`
+- iTunes Reviews API: `curl -s "https://itunes.apple.com/us/rss/customerreviews/page=1/id=APP_ID/sortby=mostrecent/json" | jq '.feed.entry[]'`
+- DuckDuckGo fallback when Google CAPTCHA blocks: `firecrawl scrape "https://html.duckduckgo.com/html/?q=QUERY" markdown`
+- Apify TikTok scraper requires `mcpc mcp.apify.com login` before use — auth token expires frequently
+- Exclusion categories must be dynamically built from `ls mobile-apps/` + reading each app's `spec/01-trend.md`
+
+---
+
+## 2026-03-07 - US-001: Trend Research + Idea Selection
+- Selected: FrostDip (Cold plunge & ice bath tracker), score 8.5/10
+- 25+ raw ideas generated across 5 lenses
+- iTunes API confirmed HUGE market gap: top standalone tracker Brisk has only 58 reviews
+- Cold plunge market: $512.9M in 2026 (Persistence Market Research)
+- 12 exclusion categories dynamically generated from existing apps
+- Top 5: FrostDip (8.5), ContrastTimer (7.7), SupplTrack (7.5), FlexTrack (6.9), WalkStory (6.8)
+- Files: spec/01-trend.md
+- **Learnings for future iterations:**
+  - Google CAPTCHA blocks Firecrawl scrapes — use DuckDuckGo HTML endpoint as fallback
+  - Apify TikTok scraper auth expires — need `mcpc mcp.apify.com login` before each session
+  - Cold plunge tracker category has extremely low competition — most apps <100 reviews
+  - Plunge app (1,518 reviews) is hardware-tied with terrible UX — standalone opportunity is massive
+---
