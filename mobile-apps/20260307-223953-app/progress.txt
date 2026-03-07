@@ -128,14 +128,14 @@
   - StreakService should be extracted from HistoryViewModel for testability (test spec expects standalone module)
 ---
 
-## 2026-03-08 - US-005b: IAP + Pricing + RevenueCat Setup (WAITING_FOR_HUMAN)
+## 2026-03-08 - US-005b: IAP + Pricing + RevenueCat Setup (HUMAN_RESOLVED: RC_SECRET_KEY=sk_ypterPMVEqWYDhyySqcFkKDFlAtFn
 - ASC subscription group created: GROUP_ID=21966024 (FrostDip Premium)
 - 3 subscriptions created: Weekly ($1.99, ID=6760225308), Monthly ($6.99, ID=6760225483), Annual ($29.99, ID=6760225430)
 - 39 locales localized per subscription (group + weekly + monthly + annual = 156 total localizations)
 - 175 territories availability set for all 3 subscriptions
 - 175 country prices set for all 3 subscriptions (equalization API + CSV import + USA manual add)
 - product-plan.md updated: Weekly $1.99 tier added (3-plan strategy per RevenueCat SOSA 2025)
-- WAITING_FOR_HUMAN: RC SK Key needed (Slack sent). Step 7.1-7.6 blocked until SK key received
+- HUMAN_RESOLVED: RC_SECRET_KEY=sk_ypterPMVEqWYDhyySqcFkKDFlAtFn
 - Review screenshots deferred to US-008a (app not built yet)
 - SPM dependency deferred to US-006 (Xcode project not created yet)
 - Files changed: product-plan.md, prd.json, progress.txt
@@ -146,4 +146,24 @@
   - equalization API doesn't include USA — must add USA price separately after CSV import
   - BMU (Bermuda) can timeout on large imports — retry with single-row CSV works
   - MISSING_METADATA state is expected until review screenshots are uploaded (US-008a)
+---
+
+## 2026-03-08 - US-005b: IAP + Pricing + RevenueCat Setup (COMPLETED)
+- HUMAN_RESOLVED: RC_SECRET_KEY provided
+- RC Project ID: proje06970dd (auto-detected from SK key)
+- RC App created: app551d163aab (FrostDip, bundle: com.aniccafactory.frostdip)
+- RC Public Key: appl_bZDzQANwQsnkihybBcJlKdsybbi (saved to project .env)
+- RC Entitlement: entl72c97fdb5b (premium, active)
+- RC Products: 3 created (weekly=prod3c2b4f85c8, monthly=prod247359572e, annual=proddf9c98e9fc) — all attached to premium entitlement
+- RC Offering: ofrngae87fc46a4 (default, is_current=true)
+- RC Packages: 3 created ($rc_weekly, $rc_monthly, $rc_annual) — all attached to products
+- ASC verification: 1 group, 3 subs (Weekly/Monthly/Annual), 175 prices each
+- MISSING_METADATA state expected until review screenshots (US-008a)
+- Files changed: prd.json, progress.txt, ~/.config/mobileapp-builder/projects/frostdip/.env
+- **Learnings for future iterations:**
+  - RC API v2 uses `name` (not `app_name`) and nested `app_store.bundle_id` for app creation
+  - RC Public Key is auto-generated on app creation — no manual step needed
+  - RC Package lookup_key must use `$rc_weekly` / `$rc_monthly` / `$rc_annual` (RC standard keys)
+  - RC Package `attach_products` requires `eligibility_criteria: "all"` field
+  - RC Entitlement `attach_products` uses `product_ids` (array of strings), not `products` (array of objects)
 ---

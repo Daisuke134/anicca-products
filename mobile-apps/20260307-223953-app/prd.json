@@ -108,8 +108,8 @@
         "Typecheck passes"
       ],
       "priority": 5.5,
-      "passes": false,
-      "notes": "WAITING_FOR_HUMAN: RC SK Key needed. ASC IAP complete: GROUP_ID=21966024, WEEKLY_ID=6760225308 ($1.99), MONTHLY_ID=6760225483 ($6.99), ANNUAL_ID=6760225430 ($29.99). 39 locales per subscription. 175 territories per subscription. SPM deferred to US-006."
+      "passes": true,
+      "notes": "ASC IAP complete: GROUP_ID=21966024, WEEKLY=$1.99 (6760225308), MONTHLY=$6.99 (6760225483), ANNUAL=$29.99 (6760225430). 39 locales, 175 territories, 175 prices per sub. RC setup complete: Project=proje06970dd, App=app551d163aab, Entitlement=entl72c97fdb5b (premium), 3 Products (weekly/monthly/annual), Offering=ofrngae87fc46a4 (default, is_current=true), 3 Packages ($rc_weekly/$rc_monthly/$rc_annual). RC_IOS_PUBLIC_KEY=appl_bZDzQANwQsnkihybBcJlKdsybbi. SPM deferred to US-006."
     },
     {
       "id": "US-006a",
