@@ -478,10 +478,14 @@ JA_DUPES=$(/usr/bin/openssl dgst -md5 screenshots/raw/ja/*.png | awk '{print $2}
 echo "✅ MD5 checks passed: en≠ja, no same-locale duplicates"
 ```
 
-### 1f: デバイスフレーム + ヘッドライン合成（Koubou — Fix #3 + #9）
+### 1f: デバイスフレーム + ヘッドライン合成 — ⚠️ DISABLED (2026-03-07)
 
-Source: Koubou v0.14.0 — pip install koubou==0.14.0
-Verified: 2026-03-07 Mac Mini — `kou generate` でフレーム合成成功
+**このセクション（1f）は無効。スキップすること。**
+生スクショ（screenshots/raw/）をそのまま ASC にアップロードする（セクション 1f2 に進め）。
+Koubou / `kou generate` は使わない。
+
+~~Source: Koubou v0.14.0 — pip install koubou==0.14.0~~
+~~Verified: 2026-03-07 Mac Mini — `kou generate` でフレーム合成成功~~
 
 ```bash
 # kou が PATH にあることを確認
@@ -735,7 +739,7 @@ echo "✅ Review screenshots uploaded for MONTHLY=$MONTHLY_ID and ANNUAL=$ANNUAL
 - ⛔ axe-shim（偽物）禁止
 - ⛔ `--locale` フラグ禁止（存在しない。`--version-localization LOC_ID` を使う）
 - ⛔ `--file` フラグ禁止（screenshots upload では存在しない。`--path DIR` を使う）
-- ✅ Koubou / `kou generate` でフレーム合成する（Fix #3 で解禁。PATH に /Users/anicca/Library/Python/3.9/bin を追加すること）
+- ⛔ Koubou / `kou generate` 禁止（DISABLED 2026-03-07）。生スクショをそのままアップロードすること
 - ⛔ Home 画面を Review Screenshot にアップロードするな（Paywall 画面を撮れ）
 - ⛔ Paywall 画面をプロダクトページスクショに含めるな（Fix #1: レビュースクショ用の Step 1h でのみ使う）
 

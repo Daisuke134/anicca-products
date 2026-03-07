@@ -35,13 +35,35 @@ For the complete step-by-step setup → **[SETUP.md](./SETUP.md)**
 
 **Summary of what you need:**
 
-| Category | Items |
-|----------|-------|
-| **Accounts** | Apple Developer ($99/yr), RevenueCat, Apify, X Developer, OpenAI, Slack |
-| **Env vars** | `ASC_KEY_ID`, `ASC_ISSUER_ID`, `X_BEARER_TOKEN`, `APIFY_TOKEN`, `OPENAI_API_KEY`, `SLACK_BOT_TOKEN` + 6 more |
-| **CLI tools** | `asc`, `fastlane`, `greenlight`, `imagemagick`, `snapai`, `ios-deploy`, Python Pillow/PyJWT |
-| **MCP servers** | Pencil MCP (`@pencil-so/mcp`) + Maestro MCP (`@maestro-org/mcp-server`) in Claude Code |
-| **Sub-skills** | `x-research`, `tiktok-research`, `apify-trend-analysis`, `ralph-autonomous-dev`, `screenshot-creator`, `slack-approval` |
+### OpenClaw (Cron Trigger)
+
+| Key | Purpose | Required |
+|-----|---------|----------|
+| OpenClaw subscription | Gateway runtime | ✅ |
+| LLM API key (Anthropic/OpenAI) | OpenClaw model | ✅ |
+
+### Builder (CC Side)
+
+| Key | Purpose | Required |
+|-----|---------|----------|
+| Claude Code subscription (Max) | CC execution | ✅ |
+| `ASC_KEY_ID` + `ASC_ISSUER_ID` + `ASC_KEY_PATH` | App Store Connect API | ✅ |
+| `APPLE_ID` + `APPLE_ID_PASSWORD` | 2FA (web privacy, app create) | ✅ |
+| `RC_API_KEY` + `RC_SECRET_KEY` | RevenueCat | ✅ |
+| `SLACK_WEBHOOK_AGENTS` | Slack notifications | Optional |
+| `FIRECRAWL_API_KEY` | Privacy policy generation | Optional |
+| `X_BEARER_TOKEN` | Trend research (X) | Optional |
+| `APIFY_API_TOKEN` | Trend research (TikTok) | Optional |
+
+### CLI Tools
+
+`claude`, `asc`, `xcrun`, `xcodebuild`, `jq`, `python3`, `curl`, `git`
+
+### Subagents
+
+| File | Purpose |
+|------|---------|
+| `.claude/agents/code-quality-reviewer.md` | Code/spec review via Agent tool |
 
 ## Installation
 

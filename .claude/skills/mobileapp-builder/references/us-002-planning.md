@@ -77,17 +77,9 @@ Source: Uptech MVP Guide — https://www.uptech.team/blog/build-an-mvp
 | Sign in with Apple（認証フロー） | テスト困難、Maestro E2E で自動化不可 |
 | CoreData / CloudKit sync | 複雑、デバッグ困難。SwiftData or UserDefaults で十分 |
 
-| ✅ ALLOWED（推奨テクノロジー） | 理由 |
-|-------------------------------|------|
-| ローカルストレージ（UserDefaults / SwiftData） | シンプル、テスト容易 |
-| ローカル通知（UNUserNotificationCenter） | 実績あり、テスト容易 |
-| タイマー / カウンター / トラッカー | シンプルなロジック |
-| シンプルなUI（リスト/カード/フォーム/チャート） | SwiftUI標準コンポーネント |
-| StoreKit 2 サブスクリプション（RevenueCat経由） | 収益化の標準パターン |
-| 基本的なアニメーション（SwiftUI .animation） | ポリッシュに必要 |
-| Maestro E2E テスト可能なUIフロー | 品質保証の前提 |
+PROHIBITEDに該当しない全てのSwiftUI標準テクノロジーは使用可能。CCはPRDのトレンドリサーチとMVPスコープに基づき自由に技術選定してよい。
 
-**Agent 2 は Must Have 判定時にこのリストを必ず参照し、PROHIBITED に該当する機能は自動的に Won't Have に分類すること。**
+**Agent 2 は Must Have 判定時に PROHIBITED リストを必ず参照し、PROHIBITED に該当する機能は自動的に Won't Have に分類すること。**
 
 **MoSCoW 判定フロー:**
 Source: [ProductPlan: MoSCoW](https://www.productplan.com/glossary/moscow-prioritization/) — 「Must Have: Critical for current delivery. Won't Have: Agreed as out of scope.」
