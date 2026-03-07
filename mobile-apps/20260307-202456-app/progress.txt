@@ -1,0 +1,23 @@
+## Codebase Patterns
+
+- PATH setup required for every bash command: `export PATH="/opt/homebrew/bin:/Users/anicca/Library/Python/3.9/bin:/usr/local/bin:/usr/bin:/bin:$PATH" && export ASC_BYPASS_KEYCHAIN=true`
+- iTunes Search API for competitor analysis: `curl -s "https://itunes.apple.com/search?term=KEYWORD&media=software&entity=software&limit=10" | jq '.results[]'`
+- iTunes Reviews API for pain point extraction: `curl -s "https://itunes.apple.com/us/rss/customerreviews/page=1/id=APP_ID/sortby=mostrecent/json" | jq '.feed.entry[] | select((.["im:rating"].label | tonumber) <= 2)'`
+- Firecrawl for web search: `/opt/homebrew/bin/firecrawl scrape "URL" markdown`
+- Exclusion category list must be dynamically built from `ls mobile-apps/` at runtime
+
+---
+
+## 2026-03-07 - US-001: Trend Research + Idea Selection
+- **Selected app:** EyeRest -- reliable, no-login 20-20-20 eye care timer
+- **Overall score:** 8.2 (highest of 5 shortlisted ideas)
+- **Key insight:** Eye Care 20 20 20 (365 reviews, 4.34 rating) has 16 star-1 reviews citing forced login, broken background timer, and unreliable notifications. Clear "build a better mousetrap" opportunity.
+- **Runner-up:** ColdStreak (cold exposure tracker, score 8.1)
+- Files created: spec/01-trend.md
+- **Research stats:** 26 raw ideas across 5 lenses, 4 web searches, 5 iTunes API queries, 1 star-review extraction
+- **Learnings for future iterations:**
+  - mcpc TikTok hashtag scraper returned empty -- use WebSearch as fallback for trend data
+  - iTunes Search API returns max 10 results per query; use specific keywords for niche discovery
+  - Star-1-2 reviews are the most valuable data source for identifying specific user pain points to solve
+  - Eye care app niche has the weakest competition of any health category analyzed (365 reviews vs 445K+ for fasting, 820K+ for brain training)
+---
