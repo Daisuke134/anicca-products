@@ -209,3 +209,29 @@
   - PaywallViewModel needs packages loaded before purchase() works — guard prevents index out of bounds
   - Onboarding 3-act structure (Problem → Personalization → Commitment → Paywall) follows Mau conversion pattern
 ---
+
+## 2026-03-08 - US-006c: TDD Core Screens (Timer, Settings, ProgressDashboard)
+- TimerViewModel (@Observable): state machine (idle/breathing/running/paused/completed), zero-division guard (coldTime=0 blocks start), protocol selector from defaultProtocols(), formattedTime helper, session creation on completion with temperature and protocol name
+- TimerView: circular timer ring with progress animation, breathing phase overlay, heart rate display, temperature stepper (0-20C, 0.5 step), action buttons (Prep/Start/Pause/Resume/Stop) per state, protocol picker (Menu), SessionSummaryView sheet on completion
+- BreathingPrepView: animated circle scaling with phase (inhale=1.0, exhale=0.6), phase text, skip button
+- SessionSummaryView: stats (duration, temperature, HR, protocol), notes text field, Done/Delete toolbar buttons, saves to SwiftData + records streak
+- SettingsViewModel (@Observable): temperature unit toggle persisted, notifications toggle, showPaywall flag, appVersion from Bundle
+- SettingsView: Preferences section (temp unit segmented picker, notification toggle), Subscription section (Upgrade → PaywallView sheet, Restore Purchases), About section (Privacy Policy link, version)
+- ProgressViewModel (@Observable): stats aggregation (totalSessions, averageDuration, averageTemperature with nil handling), static DateFormatter for weekday labels, formattedDuration helper
+- ProgressDashboardView: streak counters (current/longest), 30-day calendar grid (LazyVGrid, dots for sessions), Swift Charts duration trend (LineMark + PointMark), 3 stat cards (total/avg dur/avg temp), free user blurred preview with lock icon and "Unlock Progress" upgrade button → PaywallView sheet
+- HistoryView: 7-day filter for free users / unlimited for premium, SessionCardView (icon, duration, temp, HR), swipe to delete, upgrade banner for gated content
+- SessionDetailView: full session info (date, duration, protocol, metrics, notes)
+- ContentView.MainTabView: wired to real screens (TimerView, HistoryView, ProgressDashboardView, SettingsView)
+- 37 new tests (18 TimerViewModel + 8 Settings + 11 Progress), total 91 tests ALL PASS (0 failures)
+- Greenlight CRITICAL=0, WARN=1 (PLACEHOLDER check logic — expected)
+- Gate: Mock=0, RevenueCat=7 imports, RevenueCatUI=0, AI APIs=0
+- Files created: ViewModels/TimerViewModel.swift, ViewModels/SettingsViewModel.swift, ViewModels/ProgressViewModel.swift, Views/Timer/TimerView.swift, Views/Timer/BreathingPrepView.swift, Views/Timer/SessionSummaryView.swift, Views/Settings/SettingsView.swift, Views/Progress/ProgressDashboardView.swift, Views/History/HistoryView.swift
+- Files modified: App/ContentView.swift (MainTabView wired to real screens)
+- Tests created: ViewModelTests/TimerViewModelTests.swift, ViewModelTests/SettingsViewModelTests.swift, ViewModelTests/ProgressViewModelTests.swift
+- **Learnings for future iterations:**
+  - PaywallView init uses isOnboarding/onDismiss params (not onComplete) — check existing init before calling
+  - Static DateFormatter on ProgressViewModel avoids re-creation per render cycle — standard iOS optimization
+  - TimerViewModel zero-division guard: check coldTime > 0 before startTimer() prevents NaN/crash
+  - SubscriptionService.isPremium drives premium gating — same instance must be shared for consistent state
+  - HistoryView 7-day filter: Calendar.date(byAdding: .day, value: -7) for free tier cutoff
+---

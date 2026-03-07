@@ -19,33 +19,29 @@ struct MainTabView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            Text("Timer")
+            TimerView()
                 .tabItem {
                     Label("Timer", systemImage: "timer")
                 }
                 .tag(0)
-                .accessibilityIdentifier(AccessibilityID.timerView)
 
-            Text("History")
+            HistoryView()
                 .tabItem {
                     Label("History", systemImage: "clock.arrow.circlepath")
                 }
                 .tag(1)
-                .accessibilityIdentifier(AccessibilityID.historyView)
 
-            Text("Progress")
+            ProgressDashboardView()
                 .tabItem {
                     Label("Progress", systemImage: "chart.line.uptrend.xyaxis")
                 }
                 .tag(2)
-                .accessibilityIdentifier(AccessibilityID.progressView)
 
-            Text("Settings")
+            SettingsView()
                 .tabItem {
                     Label("Settings", systemImage: "gearshape")
                 }
                 .tag(3)
-                .accessibilityIdentifier(AccessibilityID.settingsView)
         }
     }
 }

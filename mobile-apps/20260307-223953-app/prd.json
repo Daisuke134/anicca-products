@@ -151,8 +151,8 @@
         "Typecheck passes"
       ],
       "priority": 6.3,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "TimerViewModel (@Observable, state machine: idle/breathing/running/paused/completed, zero-division guard, protocol selector), TimerView (circular timer ring, temperature stepper, action buttons, protocol picker, session summary sheet), BreathingPrepView (animated circle with phase), SessionSummaryView (stats + notes + save/delete), SettingsViewModel (temp unit toggle, notification toggle, paywall sheet), SettingsView (preferences/subscription/about sections), ProgressViewModel (stats aggregation, static DateFormatter, weekday labels), ProgressDashboardView (streak counters, 30-day calendar, Charts duration trend, stat cards, free user blurred preview + upgrade gate), HistoryView (7-day free / unlimited premium, session cards, swipe delete, upgrade banner), SessionDetailView. 91 tests ALL PASS (0 failures). Greenlight CRITICAL=0. Mock=0. RevenueCatUI=0. AI APIs=0."
     },
     {
       "id": "US-006d",
