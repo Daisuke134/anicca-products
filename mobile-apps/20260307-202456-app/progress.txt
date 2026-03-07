@@ -37,3 +37,20 @@
   - iTunes API name uniqueness check: partial matches with 0 reviews are acceptable (dead apps)
   - PROHIBITED features list from US-002 reference must be cross-checked against MoSCoW -- auto-reject to Won't Have
 ---
+
+## 2026-03-07 - US-003: Market Research
+- **Output:** competitive-analysis.md (7 sections) + market-research.md (5 sections)
+- **Competitors profiled:** 7 total (3 direct: Eye Care 20 20 20, Relax Eyes-Pro, Eye Reliever + 4 indirect: Vision Workout, Eyeye, Eye Recovery Training, Relaxeye)
+- **Reviews analyzed:** 21 star-1-2 reviews (19 Eye Care 20 20 20, 2 Relax Eyes-Pro)
+- **Market sizing:** TAM $181.6M (bottom-up, app-only), SAM $27.2M, SOM Y1 $2,720 / Y3 $54,400
+- **POEM score:** 20/25 (Strong Opportunity). Customer 4, Product 5, Timing 4, Competition 5, Finance 2
+- **Negative signal:** Niche may be too small for subscription -- top competitor 365 reviews over 11 years (~3,300 installs/year)
+- **New competitors discovered:** Eye Break: GlanceAway (0 reviews), Eye Break Timer (0 reviews), Eye Break: Eye Health Timer (0 reviews), Eye Rest Reminder: Break (0 reviews) -- 4+ new 20-20-20 apps launched with 0 traction = market being actively explored
+- Files created: competitive-analysis.md, market-research.md
+- **Learnings for future iterations:**
+  - iTunes Search API with 5+ different keywords captures broader competitor landscape than single query
+  - Grand View Research pages are mostly navigation -- use product-plan.md cached references instead of re-scraping
+  - Statista requires login -- use RevenueCat SOSA as free alternative for H&F market data
+  - Bottom-up TAM cross-check against top-down catches inflated estimates (app-only = ~5% of total market including hardware)
+  - POEM Finance axis is the honest differentiator -- niche indie apps rarely score above 2/5 on finance
+---
