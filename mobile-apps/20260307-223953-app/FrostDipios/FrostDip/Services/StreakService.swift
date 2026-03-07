@@ -19,7 +19,7 @@ struct StreakService {
                 return
             }
 
-            let yesterday = calendar.date(byAdding: .day, value: -1, to: today)!
+            guard let yesterday = calendar.date(byAdding: .day, value: -1, to: today) else { return }
             if calendar.isDate(lastDay, inSameDayAs: yesterday) {
                 preferences.currentStreak = preferences.currentStreak + 1
             } else {

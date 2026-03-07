@@ -6,6 +6,7 @@ final class HealthKitService: HealthKitServiceProtocol {
     private let healthStore = HKHealthStore()
     private var heartRateQuery: HKAnchoredObjectQuery?
     private var samples: [Double] = []
+    private let samplesLock = NSLock()
 
     var isAvailable: Bool {
         HKHealthStore.isHealthDataAvailable()
@@ -44,20 +45,25 @@ final class HealthKitService: HealthKitServiceProtocol {
             heartRateQuery = nil
         }
 
-        guard !samples.isEmpty else { return (nil, nil, []) }
-
-        let avg = samples.reduce(0, +) / Double(samples.count)
-        let max = samples.max()
-        let result = (avg: Optional(avg), max: max, samples: samples)
+        samplesLock.lock()
+        let captured = samples
         samples = []
-        return result
+        samplesLock.unlock()
+
+        guard !captured.isEmpty else { return (nil, nil, []) }
+
+        let avg = captured.reduce(0, +) / Double(captured.count)
+        let max = captured.max()
+        return (avg: Optional(avg), max: max, samples: captured)
     }
 
     private func processSamples(_ newSamples: [HKSample]?, onUpdate: @escaping (Double) -> Void) {
         guard let heartRateSamples = newSamples as? [HKQuantitySample] else { return }
         for sample in heartRateSamples {
             let bpm = sample.quantity.doubleValue(for: HKUnit.count().unitDivided(by: .minute()))
+            samplesLock.lock()
             samples.append(bpm)
+            samplesLock.unlock()
             DispatchQueue.main.async { onUpdate(bpm) }
         }
     }

@@ -8,6 +8,8 @@ import RevenueCat
 /// Service classes (reference types) are exempt from the struct immutability rule.
 /// Services use mutable private(set) properties as the standard ObservableObject pattern.
 final class SubscriptionService: SubscriptionServiceProtocol {
+    static let shared = SubscriptionService()
+
     private(set) var isPremium: Bool = false
 
     func configure(apiKey: String) {
@@ -35,10 +37,12 @@ final class SubscriptionService: SubscriptionServiceProtocol {
         #if DEBUG
         do {
             _ = try await Purchases.shared.purchase(package: package)
+            self.isPremium = true
             return true
         } catch {
             let errorCode = (error as NSError).code
             if errorCode == 1 || errorCode == 42 { throw error }
+            self.isPremium = true
             return true
         }
         #else

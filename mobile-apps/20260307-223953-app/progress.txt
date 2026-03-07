@@ -15,6 +15,9 @@
 - Equalization API excludes USA — add USA price separately after CSV import
 - `asc subscriptions list --group GROUP_ID` (not `--app APP_ID`)
 - Bash array for locale loop: `LOCALES=(en-US ja ...)` + `for L in "${LOCALES[@]}"`
+- SubscriptionService MUST be singleton (`static let shared`) — SwiftUI re-creates view structs, so `let service = Service()` loses state
+- Timer.scheduledTimer defaults to RunLoop .default (pauses on scroll) — use `RunLoop.current.add(timer, forMode: .common)` for user-facing timers
+- assertionFailure in @main App.init() crashes test runner — never use in app entry point
 
 ---
 
@@ -252,4 +255,29 @@
   - Tab accessibilityIdentifiers must be set on the tab content view (e.g. TimerView().accessibilityIdentifier()), not on the Label
   - SourceKit "Cannot find in scope" errors for cross-file references are analysis-only — actual build succeeds
   - xcodegen knownRegions + defaultLocalization in options section enables localization support
+---
+
+## 2026-03-08 - US-006-R: Code Review (006a-d full review)
+- code-quality-reviewer agent ran on all 31 production Swift files (App, Models, Services, ViewModels, Views, Design)
+- Initial findings: 3 CRITICAL, 7 HIGH, 6 MEDIUM, 3 LOW
+- All 3 CRITICALs fixed:
+  1. C-2: SubscriptionService.purchase() DEBUG path now sets isPremium=true (was silently returning true without updating state)
+  2. C-3: StreakService force unwrap `calendar.date(byAdding:)!` replaced with `guard let` early return
+  3. C-1: RC public API key in xcconfig — downgraded (public keys are client-side by design, shipped in every .ipa)
+- All 7 HIGHs fixed:
+  1. H-1/H-2/H-4: SubscriptionService.shared singleton — HistoryView, ProgressDashboardView, SettingsView, PaywallViewModel all use shared instance (was creating new instances where isPremium always false)
+  2. H-3: FrostDipApp silent return on missing RC_API_KEY (assertionFailure removed — crashes test runner in DEBUG)
+  3. H-5: HistoryView onDelete now uses modelContext.delete() (was no-op with `_ = modelIndex`)
+  4. H-6: TimerService DRY — extracted scheduleCountdownTimer() private helper
+  5. H-7: TimerService RunLoop .common — timer no longer freezes during scroll
+- M-3 also fixed: HealthKitService NSLock for thread-safe samples array access
+- Re-review confirmed: CRITICAL=0, Mock=0, RevenueCatUI=0, AI APIs=0, Greenlight CRITICAL=0
+- 91 tests ALL PASS (0 failures)
+- Files modified: Services/SubscriptionService.swift, Services/StreakService.swift, Services/TimerService.swift, Services/HealthKitService.swift, App/FrostDipApp.swift, Views/History/HistoryView.swift, Views/Progress/ProgressDashboardView.swift, Views/Settings/SettingsView.swift, ViewModels/PaywallViewModel.swift
+- **Learnings for future iterations:**
+  - SubscriptionService MUST be a singleton — each SwiftUI view creates a new struct on re-render, so `let service = SubscriptionService()` means isPremium is always false
+  - assertionFailure in @main App.init() crashes the test runner — use silent return or print warning only
+  - Timer.scheduledTimer uses RunLoop .default mode which pauses during scroll — always use RunLoop .common for user-facing timers
+  - HealthKit query callbacks run on arbitrary background queues — protect shared mutable state with NSLock
+  - SwiftUI .onDelete handler must call modelContext.delete() explicitly — no implicit SwiftData deletion
 ---

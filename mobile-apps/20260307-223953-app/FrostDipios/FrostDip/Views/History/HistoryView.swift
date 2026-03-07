@@ -3,9 +3,10 @@ import SwiftData
 
 struct HistoryView: View {
     @Query(sort: \PlungeSession.date, order: .reverse) private var sessions: [PlungeSession]
+    @Environment(\.modelContext) private var modelContext
     @State private var showPaywall = false
 
-    private let subscriptionService = SubscriptionService()
+    private let subscriptionService = SubscriptionService.shared
 
     private var visibleSessions: [PlungeSession] {
         if subscriptionService.isPremium {
@@ -29,10 +30,7 @@ struct HistoryView: View {
                 .onDelete { indexSet in
                     for index in indexSet {
                         let session = visibleSessions[index]
-                        if let modelIndex = sessions.firstIndex(where: { $0.id == session.id }) {
-                            // Deletion handled by SwiftData context
-                            _ = modelIndex
-                        }
+                        modelContext.delete(session)
                     }
                 }
 

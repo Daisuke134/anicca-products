@@ -60,7 +60,7 @@ struct SettingsView: View {
 
             Button("Restore Purchases") {
                 Task {
-                    _ = try? await SubscriptionService().restorePurchases()
+                    _ = try? await SubscriptionService.shared.restorePurchases()
                 }
             }
             .accessibilityIdentifier(AccessibilityID.settingsRestore)

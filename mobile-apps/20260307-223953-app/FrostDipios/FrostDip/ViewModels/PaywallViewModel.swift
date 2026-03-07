@@ -11,7 +11,7 @@ final class PaywallViewModel {
 
     private let subscriptionService: SubscriptionServiceProtocol
 
-    init(subscriptionService: SubscriptionServiceProtocol = SubscriptionService()) {
+    init(subscriptionService: SubscriptionServiceProtocol = SubscriptionService.shared) {
         self.subscriptionService = subscriptionService
     }
 

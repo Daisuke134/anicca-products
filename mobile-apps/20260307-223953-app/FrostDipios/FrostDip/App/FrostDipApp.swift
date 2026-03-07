@@ -1,6 +1,5 @@
 import SwiftUI
 import SwiftData
-import RevenueCat
 
 @main
 struct FrostDipApp: App {
@@ -11,12 +10,7 @@ struct FrostDipApp: App {
             return
         }
 
-        #if DEBUG
-        Purchases.logLevel = .debug
-        #endif
-
-        let subscriptionService = SubscriptionService()
-        subscriptionService.configure(apiKey: apiKey)
+        SubscriptionService.shared.configure(apiKey: apiKey)
     }
 
     var body: some Scene {

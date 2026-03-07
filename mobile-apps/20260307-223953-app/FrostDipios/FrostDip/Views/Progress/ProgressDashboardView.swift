@@ -7,7 +7,7 @@ struct ProgressDashboardView: View {
     @Query(sort: \PlungeSession.date, order: .reverse) private var sessions: [PlungeSession]
     @State private var showPaywall = false
 
-    private let subscriptionService = SubscriptionService()
+    private let subscriptionService = SubscriptionService.shared
 
     var body: some View {
         NavigationStack {

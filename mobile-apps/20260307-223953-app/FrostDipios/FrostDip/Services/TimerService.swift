@@ -14,19 +14,7 @@ final class TimerService: TimerServiceProtocol {
         onCompleteHandler = onComplete
 
         onTick(remaining)
-
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            guard let self else { return }
-            self.remaining -= 1
-            if self.remaining <= 0 {
-                self.remaining = 0
-                onTick(0)
-                self.stopTimer()
-                onComplete()
-            } else {
-                onTick(self.remaining)
-            }
-        }
+        scheduleCountdownTimer()
     }
 
     func pauseTimer() {
@@ -35,19 +23,8 @@ final class TimerService: TimerServiceProtocol {
     }
 
     func resumeTimer() {
-        guard let onTick = onTickHandler, let onComplete = onCompleteHandler else { return }
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            guard let self else { return }
-            self.remaining -= 1
-            if self.remaining <= 0 {
-                self.remaining = 0
-                onTick(0)
-                self.stopTimer()
-                onComplete()
-            } else {
-                onTick(self.remaining)
-            }
-        }
+        guard onTickHandler != nil, onCompleteHandler != nil else { return }
+        scheduleCountdownTimer()
     }
 
     func stopTimer() {
@@ -66,7 +43,7 @@ final class TimerService: TimerServiceProtocol {
 
         onPhaseChange(.inhale)
 
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+        let newTimer = Timer(timeInterval: 1.0, repeats: true) { [weak self] _ in
             guard let self else { return }
             elapsed += 1
 
@@ -85,5 +62,27 @@ final class TimerService: TimerServiceProtocol {
                 onPhaseChange(.exhale)
             }
         }
+        RunLoop.current.add(newTimer, forMode: .common)
+        timer = newTimer
+    }
+
+    // MARK: - Private
+
+    private func scheduleCountdownTimer() {
+        guard let onTick = onTickHandler, let onComplete = onCompleteHandler else { return }
+        let newTimer = Timer(timeInterval: 1.0, repeats: true) { [weak self] _ in
+            guard let self else { return }
+            self.remaining -= 1
+            if self.remaining <= 0 {
+                self.remaining = 0
+                onTick(0)
+                self.stopTimer()
+                onComplete()
+            } else {
+                onTick(self.remaining)
+            }
+        }
+        RunLoop.current.add(newTimer, forMode: .common)
+        timer = newTimer
     }
 }
