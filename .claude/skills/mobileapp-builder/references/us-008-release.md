@@ -156,126 +156,109 @@ APP_PATH=$(find . -path "*/Debug-iphonesimulator/*.app" -not -path "*/DerivedDat
 xcrun simctl install $UDID_69 "$APP_PATH"
 ```
 
-### 1b: en-US キャプチャ（4画面）
+### 1b: screenshots.json 生成 + en-US キャプチャ
 
-⚠️ CRITICAL: 画面遷移は `axe tap --label` を使う（`axe swipe` は PageTabViewStyle のみ有効）
-Source: AXe GitHub (https://github.com/cameroncooke/AXe)
-> 「axe tap --label "Button Label" — Tap by accessibility label (preferred)」
-> 「Prefer --label for tapping when possible (more resilient to layout changes)」
+Verified: `asc screenshots run --plan` E2E テスト済み（2026-03-08 FrostDip: 19/19 steps OK, 5枚 COMPLETE upload）
+
+**axe tap --label は使わない。** `asc screenshots run --plan` で a11y ID ベースの決定論的キャプチャを行う。
 
 ```bash
 mkdir -p screenshots/raw-69/en-US screenshots/raw-69/ja
 
-# ⚠️ MANDATORY: UserDefaults キー名はアプリのコードから確認する（パッチD）
-# hasCompletedOnboarding / has_completed_onboarding / isOnboardingComplete 等はアプリごとに異なる
-ONBOARDING_KEY=$(grep -rh "completedOnboarding\|isOnboarding\|onboardingDone\|hasCompleted" \
-  --include="*.swift" . 2>/dev/null | head -1 | grep -oE '"[^"]*[Oo]nboard[^"]*"' | tr -d '"' | head -1)
-[ -z "$ONBOARDING_KEY" ] && ONBOARDING_KEY="hasCompletedOnboarding"  # fallback
-echo "Detected onboarding key: $ONBOARDING_KEY"
+# ⚠️ MANDATORY: a11y ID はアプリの Swift コードから grep する（ハードコード厳禁）
+# CC が US-006 で書いたコード → CC が grep → CC が plan 生成 → CC が実行
+# これにより全アプリで動作する（ボタンラベルに依存しない）
+A11Y_IDS=$(grep -rh "accessibilityIdentifier" --include="*.swift" . 2>/dev/null \
+  | grep -oE '"[^"]*"' | tr -d '"' | sort -u)
+echo "Found a11y IDs: $A11Y_IDS"
 
-# en-US ロケール設定 + 完全リセット
-# ⚠️ "Domain not found" / "Invalid device" は正常（キーが存在しない = 期待通り）。リトライ不要。
+# CC は上の a11y ID リストと UX_SPEC のオンボーディングフローから
+# screenshots.json を生成する。以下はテンプレート — CC がアプリ固有の値に書き換えること。
+cat > .asc/screenshots.json << 'JSON'
+{
+  "app": {"bundle_id": "$BUNDLE_ID"},
+  "output_dir": "./screenshots/raw-69/en-US",
+  "steps": [
+    {"action": "launch"},
+    {"action": "wait", "duration_ms": 3000},
+    {"action": "screenshot", "name": "screen1_welcome"},
+    {"action": "tap", "id": "<onboarding_button_1_a11y_id>"},
+    {"action": "wait", "duration_ms": 2000},
+    {"action": "screenshot", "name": "screen2_features"},
+    {"action": "tap", "id": "<onboarding_button_2_a11y_id>"},
+    {"action": "wait", "duration_ms": 1000},
+    {"action": "tap", "id": "<onboarding_continue_a11y_id>"},
+    {"action": "wait", "duration_ms": 2000},
+    {"action": "screenshot", "name": "screen3_notifications"},
+    {"action": "tap", "id": "<onboarding_skip_a11y_id>"},
+    {"action": "wait", "duration_ms": 3000},
+    {"action": "screenshot", "name": "screen4_paywall"},
+    {"action": "tap", "id": "<paywall_maybe_later_a11y_id>"},
+    {"action": "wait", "duration_ms": 2000},
+    {"action": "screenshot", "name": "screen5_main"}
+  ]
+}
+JSON
+# ⚠️ CC は上のテンプレートを実際の a11y ID に書き換えること
+# ⚠️ JSON keys: "steps"（not "sequences"）、"duration_ms"（not "seconds"）、"app.bundle_id"
+
+# en-US ロケール明示セット + 完全リセット（uninstall 必須 — defaults delete だけでは不十分）
+# Verified: 2026-03-08 FrostDip E2E — uninstall+install でオンボーディング完全リセット確認済み
 xcrun simctl terminate $UDID_69 $BUNDLE_ID 2>/dev/null
-xcrun simctl spawn $UDID_69 defaults delete $BUNDLE_ID 2>/dev/null || true
 xcrun simctl spawn $UDID_69 defaults write NSGlobalDomain AppleLanguages -array "en"
 xcrun simctl spawn $UDID_69 defaults write NSGlobalDomain AppleLocale "en_US"
 xcrun simctl uninstall $UDID_69 $BUNDLE_ID 2>/dev/null || true
 xcrun simctl install $UDID_69 "$APP_PATH"
-xcrun simctl launch $UDID_69 $BUNDLE_ID
-sleep 5
 
-# screen1: オンボーディング画面1
-# まず describe-ui で画面構造を確認
-axe describe-ui --udid "$UDID_69"
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen1_welcome" --udid "$UDID_69" --output-dir "./screenshots/raw-69/en-US" --output json
+# en-US キャプチャ（1コマンドで全画面）
+asc screenshots run \
+  --plan .asc/screenshots.json \
+  --udid "$UDID_69" \
+  --output-dir "./screenshots/raw-69/en-US" \
+  --output json
 
-# screen2: 次のオンボーディング画面に遷移
-# ⚠️ axe swipe ではなく axe tap --label でボタンを押して遷移する
-# describe-ui の出力から「Next」「Continue」「Get Started」等のボタンラベルを見つけてタップ
-# ボタンが見つからない場合は axe tap --id でaccessibilityIdentifierを使う
-axe tap --udid "$UDID_69" --label "Next" || axe tap --udid "$UDID_69" --label "Continue" || axe tap --udid "$UDID_69" --label "Get Started"
-sleep 2
-axe describe-ui --udid "$UDID_69"  # 画面が変わったか確認
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID_69" --output-dir "./screenshots/raw-69/en-US" --output json
-
-# screen3: メイン機能画面（使用状態 — Paywallはプロダクトページスクショに含めない）
 # Fix #1: Paywallスクショはプロダクトページに含めない（DL率低下のため）
 # Source: RevenueCat SOSA 2025 — https://www.revenuecat.com/blog/growth/sosa-2025-launch-sub-club/
-# 核心の引用: 「your paywall should be part of your onboarding experience... you get one shot」
 # → Paywallはアプリ内体験であってスクショに見せるものじゃない
-# ※ Paywall（review screenshot用）は Step 1h で IAP レビュースクショとして別途撮影する
-xcrun simctl spawn "$UDID_69" defaults write "$BUNDLE_ID" "$ONBOARDING_KEY" -bool true
-xcrun simctl terminate "$UDID_69" "$BUNDLE_ID"
-sleep 1
-xcrun simctl launch "$UDID_69" "$BUNDLE_ID"
-sleep 3
-axe describe-ui --udid "$UDID_69"  # メイン機能画面が表示されているか確認
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_main_feature" --udid "$UDID_69" --output-dir "./screenshots/raw-69/en-US" --output json
-
-# screen4: Home（使い込まれた状態 — ダミーデータセット）
-# Fix #5: 0 breaks 初期状態ではなく、使い込んだ状態にする
-# Source: Uptech MVP Guide — https://www.uptech.team/blog/build-an-mvp
-# 核心の引用: 「Solve one core problem. Focus on what matters most to your users」
-# → スクショは「アプリが解決する問題の結果」を見せるべき
-xcrun simctl spawn "$UDID_69" defaults write "$BUNDLE_ID" "$ONBOARDING_KEY" -bool true
-# ダミーデータセット（CC は prd.json の features を読み、適切な UserDefaults キーをセットせよ）
-# 例: todayBreakCount, totalSessions, streakDays, completedTasks 等
-xcrun simctl terminate "$UDID_69" "$BUNDLE_ID"
-sleep 1
-xcrun simctl launch "$UDID_69" "$BUNDLE_ID"
-sleep 3
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$UDID_69" --output-dir "./screenshots/raw-69/en-US" --output json
+# ※ Paywall（review screenshot用）は Step 1h で別途撮影
+# CC は screenshots.json で Paywall 画面を撮っても ASC アップロード時に除外すること
 ```
 
-**⚠️ 画面遷移ルール:**
-- `axe swipe` は使用禁止（NavigationStack / switch ベースのオンボーディングでは効かない）
-- `axe tap --label` でボタンを押して遷移する
-- 遷移後は必ず `axe describe-ui` で画面が変わったか確認する
-- ボタンラベルがわからない場合は `axe describe-ui` の出力から探す
+**⚠️ screenshots.json ルール（E2E テスト実証済み）:**
 
-### 1c: ja キャプチャ（4画面 — 1b と同じ axe tap --label 手順）
+| キー | 正しい値 | 間違い（使うな） |
+|------|---------|----------------|
+| アクション配列 | `"steps"` | ~~`"sequences"`~~ |
+| 待機時間 | `"duration_ms": 3000` | ~~`"seconds": 3`~~ |
+| アプリ指定 | `"app": {"bundle_id": "..."}` | ~~`"bundle_id": "..."`~~（トップレベル不可） |
+| タップ | `"id": "<a11y_id>"` | ~~`"label": "Next"`~~（ハードコード厳禁） |
+| 要素待ち | `"wait_for"` + `"timeout"` | ~~通知ダイアログ出る画面では使うな~~（タイムアウトする） |
+
+**⚠️ 通知許可画面の注意:**
+- `onboarding_enable_notifications` をタップすると iOS の通知ダイアログが出る
+- ダイアログが `wait_for` をブロックしてタイムアウトする
+- → `onboarding_skip_notifications` を使ってダイアログを回避すること
+- Verified: 2026-03-08 FrostDip E2E — skip で Paywall に正常到達
+
+### 1c: ja キャプチャ（同じ screenshots.json で OK — a11y ID は言語非依存）
+
+Verified: 2026-03-08 FrostDip E2E — ja locale で 19/19 steps OK
 
 ```bash
-# ja ロケール切替 + 完全リセット
-# Source: Stack Overflow — "NSUserDefaults not cleared after app uninstall on simulator"
-# https://stackoverflow.com/questions/24985825/nsuserdefaults-not-cleared-after-app-uninstall-on-simulator
-# → `defaults delete` + uninstall + 再インストールが最も確実
+# ja ロケール切替（uninstall → install 必須 — defaults delete だけではリセット不十分）
+# Verified: 2026-03-08 — defaults delete のみだとオンボーディング完了状態が残り a11y ID が見えない
 xcrun simctl terminate $UDID_69 $BUNDLE_ID 2>/dev/null
-xcrun simctl spawn $UDID_69 defaults delete $BUNDLE_ID 2>/dev/null || true
 xcrun simctl spawn $UDID_69 defaults write NSGlobalDomain AppleLanguages -array "ja"
 xcrun simctl spawn $UDID_69 defaults write NSGlobalDomain AppleLocale "ja_JP"
 xcrun simctl uninstall $UDID_69 $BUNDLE_ID 2>/dev/null || true
 xcrun simctl install $UDID_69 "$APP_PATH"
-xcrun simctl launch $UDID_69 $BUNDLE_ID
-sleep 3
 
-# 同じ 4 画面を撮影（1b と同一の axe tap --label + capture 手順）
-# ⚠️ ja ロケールではボタンラベルが日本語になる可能性がある
-# describe-ui で確認してから tap する
-axe describe-ui --udid "$UDID_69"
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen1_welcome" --udid "$UDID_69" --output-dir "./screenshots/raw-69/ja" --output json
-
-# 遷移（ボタンラベルは describe-ui で確認。日本語 or 英語両方試す）
-axe tap --udid "$UDID_69" --label "Next" || axe tap --udid "$UDID_69" --label "次へ" || axe tap --udid "$UDID_69" --label "Continue" || axe tap --udid "$UDID_69" --label "続ける"
-sleep 2
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID_69" --output-dir "./screenshots/raw-69/ja" --output json
-
-# screen3: メイン機能画面（Fix #1: Paywallではなくメイン機能）
-xcrun simctl spawn "$UDID_69" defaults write "$BUNDLE_ID" "$ONBOARDING_KEY" -bool true
-xcrun simctl terminate "$UDID_69" "$BUNDLE_ID"
-sleep 1
-xcrun simctl launch "$UDID_69" "$BUNDLE_ID"
-sleep 3
-axe describe-ui --udid "$UDID_69"
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_main_feature" --udid "$UDID_69" --output-dir "./screenshots/raw-69/ja" --output json
-
-# screen4: Home（Fix #5: ダミーデータセット）
-xcrun simctl spawn "$UDID_69" defaults write "$BUNDLE_ID" "$ONBOARDING_KEY" -bool true
-xcrun simctl terminate "$UDID_69" "$BUNDLE_ID"
-sleep 1
-xcrun simctl launch "$UDID_69" "$BUNDLE_ID"
-sleep 3
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$UDID_69" --output-dir "./screenshots/raw-69/ja" --output json
+# ja キャプチャ（同じ plan で OK — a11y ID はロケール非依存）
+asc screenshots run \
+  --plan .asc/screenshots.json \
+  --udid "$UDID_69" \
+  --output-dir "./screenshots/raw-69/ja" \
+  --output json
 ```
 
 ### 1d: en-US に戻す（後続ステップのため）
@@ -297,8 +280,8 @@ JA_MD5=$(/usr/bin/openssl dgst -md5 screenshots/raw-69/ja/screen1_welcome.png | 
 # ⚠️ これが前回欠けていた。3/4枚が同じ画面だったのに検出できなかった
 EN_DUPES=$(/usr/bin/openssl dgst -md5 screenshots/raw-69/en-US/*.png | awk '{print $2}' | sort | uniq -d | wc -l | tr -d ' ')
 JA_DUPES=$(/usr/bin/openssl dgst -md5 screenshots/raw-69/ja/*.png | awk '{print $2}' | sort | uniq -d | wc -l | tr -d ' ')
-[ "$EN_DUPES" -eq 0 ] || { echo "FAIL: $EN_DUPES duplicate screenshots in en-US — axe tap navigation failed, screens didn't change"; exit 1; }
-[ "$JA_DUPES" -eq 0 ] || { echo "FAIL: $JA_DUPES duplicate screenshots in ja — axe tap navigation failed, screens didn't change"; exit 1; }
+[ "$EN_DUPES" -eq 0 ] || { echo "FAIL: $EN_DUPES duplicate screenshots in en-US — screen navigation failed"; exit 1; }
+[ "$JA_DUPES" -eq 0 ] || { echo "FAIL: $JA_DUPES duplicate screenshots in ja — screen navigation failed"; exit 1; }
 
 echo "✅ MD5 checks passed: en≠ja, no same-locale duplicates"
 ```
@@ -426,6 +409,8 @@ JA_LOC_ID=$(asc localizations list --version "$VERSION_ID" --output json \
 
 # 6.9" のみアップロード（Apple が 6.5"/6.3"/6.1" を自動スケール）
 # Verified: asc screenshots upload --device-type IPHONE_69 accepts 1320x2868 (2026-03-08)
+# ⚠️ IPHONE_69 → ASC は APP_IPHONE_67 にマッピング（Apple仕様、正常動作）
+# Verified: 2026-03-08 FrostDip — en-US 5枚 + ja 5枚 全て COMPLETE、displayType=APP_IPHONE_67
 asc screenshots upload \
   --version-localization "$EN_LOC_ID" \
   --path "./screenshots/raw-69/en-US" \
@@ -443,7 +428,9 @@ asc screenshots upload \
 |--------|-----|------|
 | `--version-localization` | LOC_ID | ロケール別の version-localization ID |
 | `--path` | ディレクトリパス | ファイルではなくディレクトリを指定 |
-| `--device-type` | `IPHONE_69` | iPhone 16 Pro Max 1320×2868 |
+| `--device-type` | `IPHONE_69` | iPhone 16 Pro Max 1320×2868（ASC は `APP_IPHONE_67` にマッピング — 正常動作） |
+
+Verified: 2026-03-08 FrostDip E2E — `IPHONE_69` で upload → `displayType: APP_IPHONE_67` で COMPLETE（Apple が 6.9" を 6.7" カテゴリで処理する仕様）
 
 **❌ 存在しないフラグ（使うな）:** `--locale`, `--file`, `--app`, `--display-type`
 
@@ -465,67 +452,68 @@ echo "✅ Screenshots: en-US=$EN_COUNT, ja=$JA_COUNT"
 ⚠️ US-005b Step 6.6 から移動。アプリ実装後（US-006 完了後）でないと Paywall 画面が存在しない。
 
 ```bash
-# Paywall 画面を表示するためオンボーディングを完全リセット
-# ⚠️ `defaults write false` は効かない場合がある → `defaults delete` を使う
+# === Review Screenshot（Paywall 画面 — asc screenshots run で決定論的にキャプチャ） ===
+# Verified: 2026-03-08 FrostDip E2E — axe 不使用、a11y ID ベースで Paywall + Annual 選択状態キャプチャ成功
+# ⚠️ axe tap --label / axe describe-ui は使わない（5回連続失敗の主犯 — P1/P2/P3）
+
+# 1. 完全リセット（uninstall 必須）
 xcrun simctl terminate "$UDID_69" "$BUNDLE_ID" 2>/dev/null
-xcrun simctl spawn "$UDID_69" defaults delete "$BUNDLE_ID" 2>/dev/null || true
 xcrun simctl uninstall "$UDID_69" "$BUNDLE_ID" 2>/dev/null || true
 xcrun simctl install "$UDID_69" "$APP_PATH"
-xcrun simctl launch "$UDID_69" "$BUNDLE_ID"; sleep 3
 
-# オンボーディング最終画面（= Paywall）まで axe tap --label で遷移
-# ⚠️ axe swipe は使わない（NavigationStack ベースのオンボーディングでは効かない）
-# describe-ui でボタンを見つけてタップで遷移する
-axe describe-ui --udid "$UDID_69"
-# 最大 10 回タップ（余分なタップは Paywall に到達後無害）
-for i in $(seq 1 10); do
-  axe tap --udid "$UDID_69" --label "Next" 2>/dev/null || \
-  axe tap --udid "$UDID_69" --label "Continue" 2>/dev/null || \
-  axe tap --udid "$UDID_69" --label "Get Started" 2>/dev/null || \
-  axe tap --udid "$UDID_69" --label "次へ" 2>/dev/null || \
-  axe tap --udid "$UDID_69" --label "続ける" 2>/dev/null || \
-  true
-  sleep 0.5
-done
-sleep 1
-# describe-ui で Paywall が表示されているか確認
-axe describe-ui --udid "$UDID_69"
+# 2. review-screenshots.json 生成（CC が a11y ID を grep して書く）
+# ⚠️ a11y ID はアプリごとに異なる — CC が Swift コードから取得すること:
+#   grep -rh "accessibilityIdentifier" --include="*.swift" Views/Onboarding/ Views/Paywall/
+cat > .asc/review-screenshots.json << 'JSON'
+{
+  "app": {"bundle_id": "$BUNDLE_ID"},
+  "output_dir": "/tmp/review-screenshots",
+  "steps": [
+    {"action": "launch"},
+    {"action": "wait", "duration_ms": 3000},
+    {"action": "tap", "id": "<onboarding_start_a11y_id>"},
+    {"action": "wait", "duration_ms": 2000},
+    {"action": "tap", "id": "<experience_select_a11y_id>"},
+    {"action": "wait", "duration_ms": 1000},
+    {"action": "tap", "id": "<onboarding_continue_a11y_id>"},
+    {"action": "wait", "duration_ms": 2000},
+    {"action": "tap", "id": "<onboarding_skip_notifications_a11y_id>"},
+    {"action": "wait", "duration_ms": 3000},
+    {"action": "tap", "id": "<paywall_plan_annual_a11y_id>"},
+    {"action": "wait", "duration_ms": 1000},
+    {"action": "screenshot", "name": "paywall_review"}
+  ]
+}
+JSON
+# ⚠️ CC は上のテンプレートを実際の a11y ID に書き換えること
+# ⚠️ 通知画面では skip を使う（enable だと iOS ダイアログが出て後続 step がブロックされる）
 
-# Fix #4: offerings ロード待ち + Annual プラン選択してからキャプチャ
-# Source: Apple App Review Guidelines §3.1.2 — https://developer.apple.com/app-store/review/guidelines/#in-app-purchase
-# 核心の引用: 「clearly describe what users are buying」
-# → レビュースクショでプランが選択可能に見えてないとレビュアーが疑う
-sleep 5  # uiPreviewMode での offerings ロード待ち
-axe describe-ui --udid "$UDID_69"  # プランが表示されてるか確認
-# Annualプランをタップ（ボタンラベルはアプリ依存 — describe-ui で確認）
-axe tap --udid "$UDID_69" --label "Annual" 2>/dev/null || \
-axe tap --udid "$UDID_69" --label "Yearly" 2>/dev/null || \
-axe tap --udid "$UDID_69" --id "paywall_plan_yearly" 2>/dev/null || \
-true
-sleep 1
-axe describe-ui --udid "$UDID_69"  # プランが選択状態か確認
+# 3. 撮影
+mkdir -p /tmp/review-screenshots
+asc screenshots run \
+  --plan .asc/review-screenshots.json \
+  --udid "$UDID_69" \
+  --output-dir /tmp/review-screenshots \
+  --output json
 
-# Paywall 画面をキャプチャ
-xcrun simctl io "$UDID_69" screenshot /tmp/paywall-review.png
-
-# 検証: 100KB 未満 = 空画面の可能性
-PW_SIZE=$(stat -f%z /tmp/paywall-review.png)
+# 4. 検証: 100KB 未満 = 空画面の可能性
+PW_SIZE=$(stat -f%z /tmp/review-screenshots/paywall_review.png)
 [ "$PW_SIZE" -gt 100000 ] || { echo "FAIL: paywall screenshot too small ($PW_SIZE bytes)"; exit 1; }
 
-# Monthly + Annual 両方にアップロード
+# 5. Monthly + Annual 両方にアップロード
 source ~/.config/mobileapp-builder/.env
 asc subscriptions review-screenshots create \
   --subscription-id "$MONTHLY_ID" \
-  --file /tmp/paywall-review.png
+  --file /tmp/review-screenshots/paywall_review.png
 
 asc subscriptions review-screenshots create \
   --subscription-id "$ANNUAL_ID" \
-  --file /tmp/paywall-review.png
+  --file /tmp/review-screenshots/paywall_review.png
 
 echo "✅ Review screenshots uploaded for MONTHLY=$MONTHLY_ID and ANNUAL=$ANNUAL_ID"
 ```
 
-**検証済みコマンド（2026-03-04 Chi Daily で実証）:**
+**検証済みコマンド（2026-03-04 Chi Daily + 2026-03-08 FrostDip で実証）:**
 
 | コマンド | 用途 |
 |---------|------|
@@ -534,10 +522,12 @@ echo "✅ Review screenshots uploaded for MONTHLY=$MONTHLY_ID and ANNUAL=$ANNUAL
 | `asc subscriptions review-screenshots delete --id $SHOT_ID --confirm` | 既存削除（更新時のみ） |
 
 **PROHIBITED:**
+- ⛔ axe tap --label 禁止（5回連続失敗の主犯 — ラベルがアプリごとに異なりハードコード不可能）
+- ⛔ axe describe-ui 禁止（空ツリー問題 P1 — 信頼性なし）
+- ⛔ 座標タップ禁止（デバイスごとに異なる）
 - ⛔ screenshot-creator スキル禁止
 - ⛔ Pencil MCP 禁止
 - ⛔ Python/Pillow/ImageMagick 禁止
-- ⛔ axe-shim（偽物）禁止
 - ⛔ `--locale` フラグ禁止（存在しない。`--version-localization LOC_ID` を使う）
 - ⛔ `--file` フラグ禁止（screenshots upload では存在しない。`--path DIR` を使う）
 - ⛔ Koubou / `kou generate` 禁止（DISABLED 2026-03-07）。生スクショをそのままアップロードすること
