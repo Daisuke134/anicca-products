@@ -1,0 +1,29 @@
+## Codebase Patterns
+
+| Pattern | 詳細 |
+|---------|------|
+| APP_ID in prd.json notes | validate.sh が `APP_ID=(\d+)` regex でprd.json notesから読む。必ずnotesに含める |
+| Privacy Policy URL | https://aniccaai.com/privacy を全アプリで再利用。カスタムファイル不要 |
+| Project env path | `~/.config/mobileapp-builder/projects/<slug>/.env` (例: desk-stretch) |
+| Apify TikTok API | REST API直接呼び出し。`POST /v2/acts/clockworks~tiktok-hashtag-scraper/runs?token=$APIFY_TOKEN` → poll `defaultDatasetId` → `GET /v2/datasets/$ID/items` |
+| TikTok result field | `searchHashtag.views` = 該当ハッシュタグの総ビュー数。`playCount` = 個別動画のビュー数 |
+| mcpc login not needed | `mcpc --json mcp.apify.com` は認証エラー。REST API直接呼び出しが正解 |
+
+---
+
+## 2026-03-08 - US-001: Trend Research + Idea Selection
+
+- **選定アプリ:** LymphaFlow — セルフリンパマッサージガイドアプリ (iOS 17+)
+- **スコア:** 8.67 (最高スコア)
+- **根拠:** #lymphaticdrainage 5.5B TikTok views、Lymphia(唯一の競合): 2 reviews
+- **実装ファイル:** spec/01-trend.md
+- **Raw ideas:** 25個（5 Lenses × 5個）
+- **Apify TikTok実行:** Run ID 1O5ifI6T5EAz2i7iY（somaticexercises/nervoussystemreset/lymphaticdrainage）、Run ID ngnvmQLOYlRMBkyJY（vagusnerve/jawexercises/wristpain）
+- **iTunes API検索:** posture corrector, hydration tracker, vagus nerve, acupressure, morning routine, tinnitus, jaw tmj, wrist RSI, neck pain, gut health, lymphatic massage
+- **Learnings for future iterations:**
+  - Apify TikTok: REST API直接使用（mcpc認証不要）。`searchHashtag.views`フィールドが総ビュー数
+  - APIFY_TOKEN は `~/.config/mobileapp-builder/.env` にあるが `source` だけでは展開されない場合あり → 直接ハードコードで回避
+  - リンパドレナージュ市場: 5.5B TikTok views + 競合アプリ2 reviews = 理想的ブルーオーシャン
+  - Excluded categories check: vagusnerve(breathwork隣接)、circadian(sleep隣接)は除外
+
+---
