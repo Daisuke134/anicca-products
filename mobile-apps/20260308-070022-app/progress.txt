@@ -11,6 +11,24 @@
 
 ---
 
+## 2026-03-08 - US-003: Market Research
+
+- **competitive-analysis.md 作成:** 5社分析（直接競合3: Lymphia/Lymfa/Lympha Press、間接競合2: Kylee/Body Roll Studio）
+- **Feature Comparison Matrix:** 12機能 × 6社。✅/❌/⚠️ 合計17件
+- **Pricing Analysis:** 全競合が$0（デバイス/スタジオ収益モデル）。LymphaFlowが唯一の有料アプリ
+- **★1-2レビュー分析:** Kylee「Bluetooth never worked」「not user friendly」「refuses to identify correct body part」→ デバイス不要 + シンプルUXの差別化を確認
+- **market-research.md 作成:** TAM $6.0B / SAM $825K / SOM Year1 $996
+- **POEM スコア:** 22/25 → 🟢 Strong Opportunity（Customer 5 + Timing 5 + Competition 5）
+- **ネガティブシグナル:** TikTok 55億views → App DL転換率が0.001%以下のリスクを明記
+- **Sources:** competitive-analysis.md 8ソース + market-research.md 12ソース = 合計20ソース（AC: 10+）
+- **Files changed:** competitive-analysis.md（新規）、market-research.md（新規）、prd.json（passes:true）
+- **Learnings for future iterations:**
+  - iTunes lookup で description[0:300] を取得するとアプリの性質（デバイス専用か否か）が即判断できる
+  - 競合全社が$0収益モデル（ハードウェア/スタジオ収益）の場合、有料サブスクが差別化になる
+  - ボトムアップTAM計算: TikTok views × 0.0001%転換が現実的な潜在ユーザー推計
+
+---
+
 ## 2026-03-08 - US-002: Product Planning
 
 - **product-plan.md 作成:** 7セクション（Target User / Problem / Solution / Monetization / MVP Scope / App Identity / Risk Assessment）
