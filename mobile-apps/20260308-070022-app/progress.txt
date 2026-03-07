@@ -1,3 +1,20 @@
+## 2026-03-08 - US-004-R: Spec Review (all 7 documents)
+
+- **code-quality-reviewer agent 実行:** 7ドキュメント全て読み込み、CRITICAL=0、WARNING=8件を検出
+- **CRITICAL violations チェック:** Rule 17/20/20b/21 全PASS（Mixpanel/RevenueCatUI/ATT/外部AI API = 全ゼロ）
+- **WARNING 修正（実装前リスク対処）:**
+  - W7: accessibilityIdentifier命名を `_btn` → `_button` に統一（UX_SPEC.md + IMPL_GUIDEの参照一致）
+  - W6: DSSpacing定数をDESIGN_SYSTEM.md と完全一致に修正（md:16→12、base:16追加、xxxl:64追加）
+  - W2: E2E フロー数を「6フロー」→「8フロー」に修正（TEST_SPECの8フローと整合）
+  - W1: Fastfileパスを `aniccaios/` → `LymphaFlowios/` に修正
+- **Files changed:** docs/UX_SPEC.md（accessibilityIdentifier統一）、docs/IMPLEMENTATION_GUIDE.md（DSSpacing+E2E数+Fastfile path修正）、prd.json（passes:true）
+- **Learnings for future iterations:**
+  - accessibilityIdentifier の SSOT は UX_SPEC.md §7 に集約。他ドキュメントの定義は UX_SPEC 参照に留めること
+  - DSSpacing 等のトークン定数は DESIGN_SYSTEM.md が SSOT。IMPLEMENTATION_GUIDE にコピーする場合は値を正確に転記すること
+  - code-quality-reviewer agent は spec doc レビューにも効果的。git diff ではなく明示的なファイルリストを prompt に記載することで確実に7ファイルをレビューさせること
+
+---
+
 ## Codebase Patterns
 
 | Pattern | 詳細 |

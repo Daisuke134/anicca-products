@@ -129,7 +129,7 @@ DEVELOPMENT_TEAM = $(TEAM_ID)
 ### 3-4. Fastfile
 
 ```ruby
-# aniccaios/fastlane/Fastfile
+# LymphaFlowios/fastlane/Fastfile
 lane :test do
   scan(
     scheme: "LymphaFlow",
@@ -489,12 +489,14 @@ enum DSFont {
 
 // Spacing.swift
 enum DSSpacing {
-    static let xs: CGFloat = 4
-    static let sm: CGFloat = 8
-    static let md: CGFloat = 16
-    static let lg: CGFloat = 24
-    static let xl: CGFloat = 32
-    static let xxl: CGFloat = 48
+    static let xs:   CGFloat = 4
+    static let sm:   CGFloat = 8
+    static let md:   CGFloat = 12   // カード内パディング（コンパクト）
+    static let base: CGFloat = 16   // 標準パディング（スクリーンマージン）
+    static let lg:   CGFloat = 24
+    static let xl:   CGFloat = 32
+    static let xxl:  CGFloat = 48
+    static let xxxl: CGFloat = 64
 }
 ```
 
@@ -535,7 +537,7 @@ enum DSSpacing {
 | NotificationService | 4 | schedule/cancel |
 | HomeViewModel | 4 | free/pro filter |
 
-### E2E Tests（Maestro 6フロー）
+### E2E Tests（Maestro 8フロー）
 
 | フロー | ファイル | タグ |
 |-------|---------|------|

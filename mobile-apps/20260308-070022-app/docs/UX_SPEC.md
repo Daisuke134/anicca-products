@@ -280,8 +280,8 @@ Source: [Apple HIG Accessibility Identifiers](https://developer.apple.com/docume
 | `paywall_view` | SCR-005 | PaywallView コンテナ | View |
 | `paywall_annual_option` | SCR-005 | Annual プラン選択 | Button |
 | `paywall_monthly_option` | SCR-005 | Monthly プラン選択 | Button |
-| `paywall_cta_btn` | SCR-005 | CTA ボタン（Trial / Subscribe）| Button |
-| `paywall_maybe_later_btn` | SCR-005 | Maybe Later / ✕ ボタン | Button |
+| `paywall_cta_button` | SCR-005 | CTA ボタン（Trial / Subscribe）| Button |
+| `paywall_maybe_later_button` | SCR-005 | Maybe Later / ✕ ボタン | Button |
 | `home_view` | SCR-006 | HomeView コンテナ | View |
 | `routine_card_{id}` | SCR-006 | ルーティンカード（例: `routine_card_face`）| Button |
 | `pro_lock_badge` | SCR-006 | Pro ロックバッジ | View |
