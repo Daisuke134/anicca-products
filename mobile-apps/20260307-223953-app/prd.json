@@ -137,8 +137,8 @@
         "Typecheck passes"
       ],
       "priority": 6.2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "MVVM split: OnboardingViewModel + PaywallViewModel (both @Observable). 4-step onboarding: WelcomeView → ExperienceLevelView → NotificationPermissionView → PaywallView. PaywallView self-built SwiftUI with Purchases.shared.purchase(package:), 3-plan pricing grid (weekly/monthly/annual), benefit bullets, social proof, FAQ, legal links. No RevenueCatUI (0 imports). AccessibilityIDs aligned to UX_SPEC (45 IDs). 54 tests ALL PASS (0 failures). Greenlight CRITICAL=0. Mock=0. AI APIs=0."
     },
     {
       "id": "US-006c",

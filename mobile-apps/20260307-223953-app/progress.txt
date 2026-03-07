@@ -190,3 +190,22 @@
   - iPhone 16 Pro sim may not exist — fastlane falls back to iPhone 17 Pro automatically
   - RevenueCat 5.61.0 resolved via SPM (cached) — no manual version pin needed
 ---
+
+## 2026-03-08 - US-006b: TDD Onboarding + Monetization (MVVM, Onboarding, PaywallView)
+- MVVM split: OnboardingViewModel (@Observable, 4-step state machine) + PaywallViewModel (@Observable, purchase/restore/load)
+- 4-step onboarding flow: WelcomeView (hook + CTA) → ExperienceLevelView (3 levels + mirror text) → NotificationPermissionView (permission request + skip) → PaywallView (soft paywall)
+- PaywallView: self-built SwiftUI, Purchases.shared.purchase(package:), 3-plan pricing grid (weekly $1.99 / monthly $6.99 / annual $29.99), benefit bullets x5, social proof, FAQ x3, legal links (Privacy Policy + Terms), restore purchases
+- OnboardingContainerView: coordinator pattern with slide/fade transitions
+- AccessibilityIDs fully aligned to UX_SPEC (45 IDs across all screens)
+- ContentView updated: onboarding gate → OnboardingContainerView, MainTabView unchanged
+- 18 new tests (10 OnboardingViewModel + 8 PaywallViewModel), total 54 tests ALL PASS
+- Greenlight CRITICAL=0, Mock=0, RevenueCatUI=0, AI APIs=0
+- Files created: ViewModels/OnboardingViewModel.swift, ViewModels/PaywallViewModel.swift, Views/Onboarding/OnboardingContainerView.swift, Views/Onboarding/WelcomeView.swift, Views/Onboarding/ExperienceLevelView.swift, Views/Onboarding/NotificationPermissionView.swift, Views/Onboarding/PaywallView.swift
+- Files modified: App/ContentView.swift, Models/PlungeSession.swift (AccessibilityID update)
+- Tests created: ViewModelTests/OnboardingViewModelTests.swift, ViewModelTests/PaywallViewModelTests.swift
+- **Learnings for future iterations:**
+  - RevenueCat Package objects can't be easily mocked in unit tests — test the guard path and restore path instead
+  - @Observable requires iOS 17+ — project.yml deploymentTarget must match
+  - PaywallViewModel needs packages loaded before purchase() works — guard prevents index out of bounds
+  - Onboarding 3-act structure (Problem → Personalization → Commitment → Paywall) follows Mau conversion pattern
+---

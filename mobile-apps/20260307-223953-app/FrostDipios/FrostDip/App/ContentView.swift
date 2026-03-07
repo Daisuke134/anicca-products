@@ -7,8 +7,9 @@ struct ContentView: View {
         if hasCompletedOnboarding {
             MainTabView()
         } else {
-            Text("Welcome to FrostDip")
-                .accessibilityIdentifier(AccessibilityID.onboardingView)
+            OnboardingContainerView(onComplete: {
+                hasCompletedOnboarding = true
+            })
         }
     }
 }
@@ -37,7 +38,7 @@ struct MainTabView: View {
                     Label("Progress", systemImage: "chart.line.uptrend.xyaxis")
                 }
                 .tag(2)
-                .accessibilityIdentifier(AccessibilityID.progressDashboard)
+                .accessibilityIdentifier(AccessibilityID.progressView)
 
             Text("Settings")
                 .tabItem {
