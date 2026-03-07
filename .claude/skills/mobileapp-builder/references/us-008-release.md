@@ -12,7 +12,7 @@ Source: rshankras WORKFLOW.md Phase 6 + rudrankriyam asc-* skills
 
 ## Quality Gate (MANDATORY — US-007 検証)
 ```bash
-xcodebuild test -scheme <AppName> -destination "platform=iOS Simulator,id=$UDID" || { echo "GATE FAIL: tests broken"; exit 1; }
+xcodebuild test -scheme <AppName> -destination "platform=iOS Simulator,id=$UDID_69" || { echo "GATE FAIL: tests broken"; exit 1; }
 # StoreKit Configuration は不要（uiPreviewMode で代替。us-005b 参照）
 test $(ls maestro/*.yaml 2>/dev/null | wc -l) -ge 6 || { echo "GATE FAIL: need 6+ Maestro flows"; exit 1; }
 ```
@@ -118,61 +118,42 @@ https://developer.apple.com/help/app-store-connect/reference/screenshot-specific
 
 | デバイス | 解像度 | ASC device-type | 必須条件 |
 |---------|--------|----------------|---------|
-| iPhone 17 Pro | 1206x2622 | IPHONE_61 | 常に必須（ベース） |
-| iPhone 14 Plus | 1284x2778 | IPHONE_65 | 6.9" 未提供時に必須（= 常に必須） |
-| iPad Pro 13" (M4) | 2064x2752 | IPAD_PRO_3GEN_129 | UIDeviceFamily に 2 (iPad) 含む場合必須 |
+| iPhone 16 Pro Max | 1320x2868 | IPHONE_69 | 常に必須（6.9" 提出で全サイズ自動スケール） |
 
-- ❌ IPHONE_67 は間違い（シミュレータの実解像度は 1206×2622 = IPHONE_61）
-- ❌ iPhone 16e (1170×2532) は使用禁止（ASC サイズ不適合）
+Source: Apple ASC Help — Screenshot specifications (2026)
+https://developer.apple.com/help/app-store-connect/reference/screenshot-specifications
+核心の引用: 「6.5" Display — Required if screenshots for 6.9" display aren't provided」
+核心の引用: 「If screenshots with the accepted sizes aren't provided, scaled screenshots for 6.9" displays are used」
+→ 6.9" を提出すれば 6.5"/6.3"/6.1" は Apple が自動スケーリング。1台で全カバー。
+Verified: `asc screenshots upload --device-type IPHONE_69` が 1320x2868 を受付（2026-03-08 テスト済み）
 
-### UIDeviceFamily チェック（iPad スクショ要否判定）
-```bash
-# Info.plist から UIDeviceFamily を取得
-DEVICE_FAMILY=$(plutil -extract UIDeviceFamily json -o - "$XCODE_DIR"/*/Info.plist 2>/dev/null \
-  || grep -A 5 UIDeviceFamily "$XCODE_DIR"/*/Info.plist | grep -o '[0-9]' | tr '\n' ',')
-NEEDS_IPAD=false
-echo "$DEVICE_FAMILY" | grep -q "2" && NEEDS_IPAD=true
-echo "UIDeviceFamily: $DEVICE_FAMILY, NEEDS_IPAD: $NEEDS_IPAD"
-```
+- ❌ IPHONE_61 / IPHONE_65 は不要（6.9" が全てカバー）
+- ❌ iPad スクショは不要（TARGETED_DEVICE_FAMILY: "1" = iPhone only の場合）
 
 ### 1a: シミュレータ準備 + アプリインストール
 
 ```bash
 export ASC_BYPASS_KEYCHAIN=true
 
-# 6.1" シミュレータ起動
-UDID_61=$(xcrun simctl list devices available | grep "iPhone 17 Pro" | head -1 | grep -oE '[A-F0-9-]{36}')
-xcrun simctl boot $UDID_61 2>/dev/null || true
-
-# 6.5" シミュレータ準備（1284x2778 = IPHONE_65）
-# iPhone 14 Plus / iPhone 13 Pro Max / iPhone 12 Pro Max が対応
-UDID_65=$(xcrun simctl list devices available | grep -E "iPhone 14 Plus|iPhone 13 Pro Max|iPhone 12 Pro Max" | head -1 | grep -oE '[A-F0-9-]{36}')
-if [ -z "$UDID_65" ]; then
-  # 存在しなければ作成
+# 6.9" シミュレータのみ使用（Apple が 6.5"/6.3"/6.1" を自動スケール）
+UDID_69=$(xcrun simctl list devices available | grep "iPhone16ProMax-69\|iPhone 16 Pro Max\|iPhone 17 Pro Max" | head -1 | grep -oE '[A-F0-9-]{36}')
+if [ -z "$UDID_69" ]; then
   RUNTIME=$(xcrun simctl list runtimes | grep "iOS" | tail -1 | grep -oE 'com.apple[^ ]+')
-  DEVICE_TYPE=$(xcrun simctl list devicetypes | grep -E "iPhone 14 Plus|iPhone 13 Pro Max|iPhone 12 Pro Max" | head -1 | sed 's/.*(\(.*\))/\1/')
-  UDID_65=$(xcrun simctl create "iPhone14Plus-Screenshots" "$DEVICE_TYPE" "$RUNTIME")
+  UDID_69=$(xcrun simctl create "iPhone16ProMax-69" "com.apple.CoreSimulator.SimDeviceType.iPhone-16-Pro-Max" "$RUNTIME")
 fi
-xcrun simctl boot $UDID_65 2>/dev/null || true
+xcrun simctl boot $UDID_69 2>/dev/null || true
 
-# iPad シミュレータ準備（2064x2752 = IPAD_PRO_3GEN_129）
-if [ "$NEEDS_IPAD" = "true" ]; then
-  UDID_IPAD=$(xcrun simctl list devices available | grep -E "iPad Pro.*13" | head -1 | grep -oE '[A-F0-9-]{36}')
-  if [ -z "$UDID_IPAD" ]; then
-    DEVICE_TYPE_IPAD=$(xcrun simctl list devicetypes | grep -E "iPad Pro.*13" | head -1 | sed 's/.*(\(.*\))/\1/')
-    UDID_IPAD=$(xcrun simctl create "iPadPro13-Screenshots" "$DEVICE_TYPE_IPAD" "$RUNTIME")
-  fi
-  xcrun simctl boot $UDID_IPAD 2>/dev/null || true
-fi
+# Maestro パス（$HOME が空になる場合があるため絶対パス指定）
+MAESTRO="/Users/anicca/.maestro/bin/maestro"
+[ -x "$MAESTRO" ] || MAESTRO=$(which maestro 2>/dev/null || echo "maestro")
 
-# アプリビルド + インストール（全シミュレータ）
+# アプリビルド + インストール
 XCODE_DIR=$(find . -name "*.xcodeproj" -maxdepth 2 | head -1 | xargs dirname)
 xcodebuild build -project "$XCODE_DIR"/*.xcodeproj -scheme * \
-  -destination "platform=iOS Simulator,id=$UDID_61" -derivedDataPath build/
-APP_PATH=$(find build/ -name "*.app" -path "*/Debug-iphonesimulator/*" | head -1)
-xcrun simctl install $UDID_61 "$APP_PATH"
-xcrun simctl install $UDID_65 "$APP_PATH"
-[ "$NEEDS_IPAD" = "true" ] && xcrun simctl install $UDID_IPAD "$APP_PATH"
+  -destination "platform=iOS Simulator,id=$UDID_69" -derivedDataPath build/
+APP_PATH=$(find . -path "*/Debug-iphonesimulator/*.app" -not -path "*/DerivedData/SourcePackages/*" | head -1)
+[ -n "$APP_PATH" ] || { echo "FAIL: .app not found after build"; exit 1; }
+xcrun simctl install $UDID_69 "$APP_PATH"
 ```
 
 ### 1b: en-US キャプチャ（4画面）
@@ -183,36 +164,39 @@ Source: AXe GitHub (https://github.com/cameroncooke/AXe)
 > 「Prefer --label for tapping when possible (more resilient to layout changes)」
 
 ```bash
-mkdir -p screenshots/raw/en-US screenshots/raw/ja
+mkdir -p screenshots/raw-69/en-US screenshots/raw-69/ja
+
+# ⚠️ MANDATORY: UserDefaults キー名はアプリのコードから確認する（パッチD）
+# hasCompletedOnboarding / has_completed_onboarding / isOnboardingComplete 等はアプリごとに異なる
+ONBOARDING_KEY=$(grep -rh "completedOnboarding\|isOnboarding\|onboardingDone\|hasCompleted" \
+  --include="*.swift" . 2>/dev/null | head -1 | grep -oE '"[^"]*[Oo]nboard[^"]*"' | tr -d '"' | head -1)
+[ -z "$ONBOARDING_KEY" ] && ONBOARDING_KEY="hasCompletedOnboarding"  # fallback
+echo "Detected onboarding key: $ONBOARDING_KEY"
 
 # en-US ロケール設定 + 完全リセット
-# Source: Stack Overflow — "NSUserDefaults not cleared after app uninstall on simulator"
-# https://stackoverflow.com/questions/24985825/nsuserdefaults-not-cleared-after-app-uninstall-on-simulator
-# ⚠️ `defaults write hasCompletedOnboarding -bool false` は効かないケースがある
-# ⚠️ `simctl uninstall` しても UserDefaults が残る場合がある
-# → `defaults delete $BUNDLE_ID` で全キー削除が最も確実
-xcrun simctl terminate $UDID $BUNDLE_ID 2>/dev/null
-xcrun simctl spawn $UDID defaults delete $BUNDLE_ID 2>/dev/null || true
-xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLanguages -array "en"
-xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLocale "en_US"
-xcrun simctl uninstall $UDID $BUNDLE_ID 2>/dev/null || true
-xcrun simctl install $UDID "$APP_PATH"
-xcrun simctl launch $UDID $BUNDLE_ID
-sleep 3
+# ⚠️ "Domain not found" / "Invalid device" は正常（キーが存在しない = 期待通り）。リトライ不要。
+xcrun simctl terminate $UDID_69 $BUNDLE_ID 2>/dev/null
+xcrun simctl spawn $UDID_69 defaults delete $BUNDLE_ID 2>/dev/null || true
+xcrun simctl spawn $UDID_69 defaults write NSGlobalDomain AppleLanguages -array "en"
+xcrun simctl spawn $UDID_69 defaults write NSGlobalDomain AppleLocale "en_US"
+xcrun simctl uninstall $UDID_69 $BUNDLE_ID 2>/dev/null || true
+xcrun simctl install $UDID_69 "$APP_PATH"
+xcrun simctl launch $UDID_69 $BUNDLE_ID
+sleep 5
 
 # screen1: オンボーディング画面1
 # まず describe-ui で画面構造を確認
-axe describe-ui --udid "$UDID"
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen1_welcome" --udid "$UDID" --output-dir "./screenshots/raw/en-US" --output json
+axe describe-ui --udid "$UDID_69"
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen1_welcome" --udid "$UDID_69" --output-dir "./screenshots/raw-69/en-US" --output json
 
 # screen2: 次のオンボーディング画面に遷移
 # ⚠️ axe swipe ではなく axe tap --label でボタンを押して遷移する
 # describe-ui の出力から「Next」「Continue」「Get Started」等のボタンラベルを見つけてタップ
 # ボタンが見つからない場合は axe tap --id でaccessibilityIdentifierを使う
-axe tap --udid "$UDID" --label "Next" || axe tap --udid "$UDID" --label "Continue" || axe tap --udid "$UDID" --label "Get Started"
+axe tap --udid "$UDID_69" --label "Next" || axe tap --udid "$UDID_69" --label "Continue" || axe tap --udid "$UDID_69" --label "Get Started"
 sleep 2
-axe describe-ui --udid "$UDID"  # 画面が変わったか確認
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID" --output-dir "./screenshots/raw/en-US" --output json
+axe describe-ui --udid "$UDID_69"  # 画面が変わったか確認
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID_69" --output-dir "./screenshots/raw-69/en-US" --output json
 
 # screen3: メイン機能画面（使用状態 — Paywallはプロダクトページスクショに含めない）
 # Fix #1: Paywallスクショはプロダクトページに含めない（DL率低下のため）
@@ -220,27 +204,27 @@ asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udi
 # 核心の引用: 「your paywall should be part of your onboarding experience... you get one shot」
 # → Paywallはアプリ内体験であってスクショに見せるものじゃない
 # ※ Paywall（review screenshot用）は Step 1h で IAP レビュースクショとして別途撮影する
-xcrun simctl spawn "$UDID" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
-xcrun simctl terminate "$UDID" "$BUNDLE_ID"
+xcrun simctl spawn "$UDID_69" defaults write "$BUNDLE_ID" "$ONBOARDING_KEY" -bool true
+xcrun simctl terminate "$UDID_69" "$BUNDLE_ID"
 sleep 1
-xcrun simctl launch "$UDID" "$BUNDLE_ID"
+xcrun simctl launch "$UDID_69" "$BUNDLE_ID"
 sleep 3
-axe describe-ui --udid "$UDID"  # メイン機能画面が表示されているか確認
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_main_feature" --udid "$UDID" --output-dir "./screenshots/raw/en-US" --output json
+axe describe-ui --udid "$UDID_69"  # メイン機能画面が表示されているか確認
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_main_feature" --udid "$UDID_69" --output-dir "./screenshots/raw-69/en-US" --output json
 
 # screen4: Home（使い込まれた状態 — ダミーデータセット）
 # Fix #5: 0 breaks 初期状態ではなく、使い込んだ状態にする
 # Source: Uptech MVP Guide — https://www.uptech.team/blog/build-an-mvp
 # 核心の引用: 「Solve one core problem. Focus on what matters most to your users」
 # → スクショは「アプリが解決する問題の結果」を見せるべき
-xcrun simctl spawn "$UDID" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
+xcrun simctl spawn "$UDID_69" defaults write "$BUNDLE_ID" "$ONBOARDING_KEY" -bool true
 # ダミーデータセット（CC は prd.json の features を読み、適切な UserDefaults キーをセットせよ）
 # 例: todayBreakCount, totalSessions, streakDays, completedTasks 等
-xcrun simctl terminate "$UDID" "$BUNDLE_ID"
+xcrun simctl terminate "$UDID_69" "$BUNDLE_ID"
 sleep 1
-xcrun simctl launch "$UDID" "$BUNDLE_ID"
+xcrun simctl launch "$UDID_69" "$BUNDLE_ID"
 sleep 3
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$UDID" --output-dir "./screenshots/raw/en-US" --output json
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$UDID_69" --output-dir "./screenshots/raw-69/en-US" --output json
 ```
 
 **⚠️ 画面遷移ルール:**
@@ -249,89 +233,6 @@ asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$
 - 遷移後は必ず `axe describe-ui` で画面が変わったか確認する
 - ボタンラベルがわからない場合は `axe describe-ui` の出力から探す
 
-### 1b2: en-US 6.5" キャプチャ（UDID_65 で同じ4画面を撮影）
-
-```bash
-# 6.5" シミュレータでも同じ手順で撮影
-mkdir -p screenshots/raw-65/en-US screenshots/raw-65/ja
-
-xcrun simctl terminate $UDID_65 $BUNDLE_ID 2>/dev/null
-xcrun simctl spawn $UDID_65 defaults delete $BUNDLE_ID 2>/dev/null || true
-xcrun simctl spawn $UDID_65 defaults write NSGlobalDomain AppleLanguages -array "en"
-xcrun simctl spawn $UDID_65 defaults write NSGlobalDomain AppleLocale "en_US"
-xcrun simctl uninstall $UDID_65 $BUNDLE_ID 2>/dev/null || true
-xcrun simctl install $UDID_65 "$APP_PATH"
-xcrun simctl launch $UDID_65 $BUNDLE_ID
-sleep 3
-
-# 1b と同じ axe tap --label + capture 手順（出力先だけ変更）
-axe describe-ui --udid "$UDID_65"
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen1_welcome" --udid "$UDID_65" --output-dir "./screenshots/raw-65/en-US" --output json
-axe tap --udid "$UDID_65" --label "Next" || axe tap --udid "$UDID_65" --label "Continue" || axe tap --udid "$UDID_65" --label "Get Started"
-sleep 2
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID_65" --output-dir "./screenshots/raw-65/en-US" --output json
-axe tap --udid "$UDID_65" --label "Next" || axe tap --udid "$UDID_65" --label "Continue"
-sleep 2
-# screen3: メイン機能画面（Fix #1: Paywallではなくメイン機能）
-xcrun simctl spawn "$UDID_65" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
-xcrun simctl terminate "$UDID_65" "$BUNDLE_ID"
-sleep 1
-xcrun simctl launch "$UDID_65" "$BUNDLE_ID"
-sleep 3
-axe describe-ui --udid "$UDID_65"
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_main_feature" --udid "$UDID_65" --output-dir "./screenshots/raw-65/en-US" --output json
-
-# screen4: Home（Fix #5: ダミーデータセット — CC は prd.json の features を読み適切な UserDefaults キーをセット）
-xcrun simctl spawn "$UDID_65" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
-xcrun simctl terminate "$UDID_65" "$BUNDLE_ID"
-sleep 1
-xcrun simctl launch "$UDID_65" "$BUNDLE_ID"
-sleep 3
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$UDID_65" --output-dir "./screenshots/raw-65/en-US" --output json
-```
-
-### 1b3: en-US iPad キャプチャ（NEEDS_IPAD=true の場合のみ）
-
-```bash
-if [ "$NEEDS_IPAD" = "true" ]; then
-  mkdir -p screenshots/raw-ipad/en-US screenshots/raw-ipad/ja
-
-  xcrun simctl terminate $UDID_IPAD $BUNDLE_ID 2>/dev/null
-  xcrun simctl spawn $UDID_IPAD defaults delete $BUNDLE_ID 2>/dev/null || true
-  xcrun simctl spawn $UDID_IPAD defaults write NSGlobalDomain AppleLanguages -array "en"
-  xcrun simctl spawn $UDID_IPAD defaults write NSGlobalDomain AppleLocale "en_US"
-  xcrun simctl uninstall $UDID_IPAD $BUNDLE_ID 2>/dev/null || true
-  xcrun simctl install $UDID_IPAD "$APP_PATH"
-  xcrun simctl launch $UDID_IPAD $BUNDLE_ID
-  sleep 3
-
-  # 同じ axe tap --label + capture 手順
-  axe describe-ui --udid "$UDID_IPAD"
-  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen1_welcome" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/en-US" --output json
-  axe tap --udid "$UDID_IPAD" --label "Next" || axe tap --udid "$UDID_IPAD" --label "Continue" || axe tap --udid "$UDID_IPAD" --label "Get Started"
-  sleep 2
-  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/en-US" --output json
-  axe tap --udid "$UDID_IPAD" --label "Next" || axe tap --udid "$UDID_IPAD" --label "Continue"
-  sleep 2
-  # screen3: メイン機能画面（Fix #1: Paywallではなくメイン機能）
-  xcrun simctl spawn "$UDID_IPAD" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
-  xcrun simctl terminate "$UDID_IPAD" "$BUNDLE_ID"
-  sleep 1
-  xcrun simctl launch "$UDID_IPAD" "$BUNDLE_ID"
-  sleep 3
-  axe describe-ui --udid "$UDID_IPAD"
-  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_main_feature" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/en-US" --output json
-
-  # screen4: Home（Fix #5: ダミーデータセット）
-  xcrun simctl spawn "$UDID_IPAD" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
-  xcrun simctl terminate "$UDID_IPAD" "$BUNDLE_ID"
-  sleep 1
-  xcrun simctl launch "$UDID_IPAD" "$BUNDLE_ID"
-  sleep 3
-  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/en-US" --output json
-fi
-```
-
 ### 1c: ja キャプチャ（4画面 — 1b と同じ axe tap --label 手順）
 
 ```bash
@@ -339,139 +240,63 @@ fi
 # Source: Stack Overflow — "NSUserDefaults not cleared after app uninstall on simulator"
 # https://stackoverflow.com/questions/24985825/nsuserdefaults-not-cleared-after-app-uninstall-on-simulator
 # → `defaults delete` + uninstall + 再インストールが最も確実
-xcrun simctl terminate $UDID $BUNDLE_ID 2>/dev/null
-xcrun simctl spawn $UDID defaults delete $BUNDLE_ID 2>/dev/null || true
-xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLanguages -array "ja"
-xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLocale "ja_JP"
-xcrun simctl uninstall $UDID $BUNDLE_ID 2>/dev/null || true
-xcrun simctl install $UDID "$APP_PATH"
-xcrun simctl launch $UDID $BUNDLE_ID
+xcrun simctl terminate $UDID_69 $BUNDLE_ID 2>/dev/null
+xcrun simctl spawn $UDID_69 defaults delete $BUNDLE_ID 2>/dev/null || true
+xcrun simctl spawn $UDID_69 defaults write NSGlobalDomain AppleLanguages -array "ja"
+xcrun simctl spawn $UDID_69 defaults write NSGlobalDomain AppleLocale "ja_JP"
+xcrun simctl uninstall $UDID_69 $BUNDLE_ID 2>/dev/null || true
+xcrun simctl install $UDID_69 "$APP_PATH"
+xcrun simctl launch $UDID_69 $BUNDLE_ID
 sleep 3
 
 # 同じ 4 画面を撮影（1b と同一の axe tap --label + capture 手順）
 # ⚠️ ja ロケールではボタンラベルが日本語になる可能性がある
 # describe-ui で確認してから tap する
-axe describe-ui --udid "$UDID"
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen1_welcome" --udid "$UDID" --output-dir "./screenshots/raw/ja" --output json
+axe describe-ui --udid "$UDID_69"
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen1_welcome" --udid "$UDID_69" --output-dir "./screenshots/raw-69/ja" --output json
 
 # 遷移（ボタンラベルは describe-ui で確認。日本語 or 英語両方試す）
-axe tap --udid "$UDID" --label "Next" || axe tap --udid "$UDID" --label "次へ" || axe tap --udid "$UDID" --label "Continue" || axe tap --udid "$UDID" --label "続ける"
+axe tap --udid "$UDID_69" --label "Next" || axe tap --udid "$UDID_69" --label "次へ" || axe tap --udid "$UDID_69" --label "Continue" || axe tap --udid "$UDID_69" --label "続ける"
 sleep 2
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID" --output-dir "./screenshots/raw/ja" --output json
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID_69" --output-dir "./screenshots/raw-69/ja" --output json
 
 # screen3: メイン機能画面（Fix #1: Paywallではなくメイン機能）
-xcrun simctl spawn "$UDID" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
-xcrun simctl terminate "$UDID" "$BUNDLE_ID"
+xcrun simctl spawn "$UDID_69" defaults write "$BUNDLE_ID" "$ONBOARDING_KEY" -bool true
+xcrun simctl terminate "$UDID_69" "$BUNDLE_ID"
 sleep 1
-xcrun simctl launch "$UDID" "$BUNDLE_ID"
+xcrun simctl launch "$UDID_69" "$BUNDLE_ID"
 sleep 3
-axe describe-ui --udid "$UDID"
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_main_feature" --udid "$UDID" --output-dir "./screenshots/raw/ja" --output json
+axe describe-ui --udid "$UDID_69"
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_main_feature" --udid "$UDID_69" --output-dir "./screenshots/raw-69/ja" --output json
 
 # screen4: Home（Fix #5: ダミーデータセット）
-xcrun simctl spawn "$UDID" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
-xcrun simctl terminate "$UDID" "$BUNDLE_ID"
+xcrun simctl spawn "$UDID_69" defaults write "$BUNDLE_ID" "$ONBOARDING_KEY" -bool true
+xcrun simctl terminate "$UDID_69" "$BUNDLE_ID"
 sleep 1
-xcrun simctl launch "$UDID" "$BUNDLE_ID"
+xcrun simctl launch "$UDID_69" "$BUNDLE_ID"
 sleep 3
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$UDID" --output-dir "./screenshots/raw/ja" --output json
-```
-
-### 1c2: ja 6.5" キャプチャ（UDID_65 で同じ4画面）
-
-```bash
-xcrun simctl terminate $UDID_65 $BUNDLE_ID 2>/dev/null
-xcrun simctl spawn $UDID_65 defaults delete $BUNDLE_ID 2>/dev/null || true
-xcrun simctl spawn $UDID_65 defaults write NSGlobalDomain AppleLanguages -array "ja"
-xcrun simctl spawn $UDID_65 defaults write NSGlobalDomain AppleLocale "ja_JP"
-xcrun simctl uninstall $UDID_65 $BUNDLE_ID 2>/dev/null || true
-xcrun simctl install $UDID_65 "$APP_PATH"
-xcrun simctl launch $UDID_65 $BUNDLE_ID
-sleep 3
-
-axe describe-ui --udid "$UDID_65"
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen1_welcome" --udid "$UDID_65" --output-dir "./screenshots/raw-65/ja" --output json
-axe tap --udid "$UDID_65" --label "Next" || axe tap --udid "$UDID_65" --label "次へ" || axe tap --udid "$UDID_65" --label "Continue" || axe tap --udid "$UDID_65" --label "続ける"
-sleep 2
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID_65" --output-dir "./screenshots/raw-65/ja" --output json
-axe tap --udid "$UDID_65" --label "Next" || axe tap --udid "$UDID_65" --label "次へ" || axe tap --udid "$UDID_65" --label "Continue" || axe tap --udid "$UDID_65" --label "続ける"
-sleep 2
-# screen3: メイン機能画面（Fix #1: Paywallではなくメイン機能）
-xcrun simctl spawn "$UDID_65" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
-xcrun simctl terminate "$UDID_65" "$BUNDLE_ID"
-sleep 1
-xcrun simctl launch "$UDID_65" "$BUNDLE_ID"
-sleep 3
-axe describe-ui --udid "$UDID_65"
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_main_feature" --udid "$UDID_65" --output-dir "./screenshots/raw-65/ja" --output json
-
-# screen4: Home（Fix #5: ダミーデータセット）
-xcrun simctl spawn "$UDID_65" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
-xcrun simctl terminate "$UDID_65" "$BUNDLE_ID"
-sleep 1
-xcrun simctl launch "$UDID_65" "$BUNDLE_ID"
-sleep 3
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$UDID_65" --output-dir "./screenshots/raw-65/ja" --output json
-```
-
-### 1c3: ja iPad キャプチャ（NEEDS_IPAD=true の場合のみ）
-
-```bash
-if [ "$NEEDS_IPAD" = "true" ]; then
-  xcrun simctl terminate $UDID_IPAD $BUNDLE_ID 2>/dev/null
-  xcrun simctl spawn $UDID_IPAD defaults delete $BUNDLE_ID 2>/dev/null || true
-  xcrun simctl spawn $UDID_IPAD defaults write NSGlobalDomain AppleLanguages -array "ja"
-  xcrun simctl spawn $UDID_IPAD defaults write NSGlobalDomain AppleLocale "ja_JP"
-  xcrun simctl uninstall $UDID_IPAD $BUNDLE_ID 2>/dev/null || true
-  xcrun simctl install $UDID_IPAD "$APP_PATH"
-  xcrun simctl launch $UDID_IPAD $BUNDLE_ID
-  sleep 3
-
-  axe describe-ui --udid "$UDID_IPAD"
-  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen1_welcome" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/ja" --output json
-  axe tap --udid "$UDID_IPAD" --label "Next" || axe tap --udid "$UDID_IPAD" --label "次へ" || axe tap --udid "$UDID_IPAD" --label "Continue" || axe tap --udid "$UDID_IPAD" --label "続ける"
-  sleep 2
-  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/ja" --output json
-  axe tap --udid "$UDID_IPAD" --label "Next" || axe tap --udid "$UDID_IPAD" --label "次へ" || axe tap --udid "$UDID_IPAD" --label "Continue" || axe tap --udid "$UDID_IPAD" --label "続ける"
-  sleep 2
-  # screen3: メイン機能画面（Fix #1: Paywallではなくメイン機能）
-  xcrun simctl spawn "$UDID_IPAD" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
-  xcrun simctl terminate "$UDID_IPAD" "$BUNDLE_ID"
-  sleep 1
-  xcrun simctl launch "$UDID_IPAD" "$BUNDLE_ID"
-  sleep 3
-  axe describe-ui --udid "$UDID_IPAD"
-  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_main_feature" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/ja" --output json
-
-  # screen4: Home（Fix #5: ダミーデータセット）
-  xcrun simctl spawn "$UDID_IPAD" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
-  xcrun simctl terminate "$UDID_IPAD" "$BUNDLE_ID"
-  sleep 1
-  xcrun simctl launch "$UDID_IPAD" "$BUNDLE_ID"
-  sleep 3
-  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/ja" --output json
-fi
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen4_home" --udid "$UDID_69" --output-dir "./screenshots/raw-69/ja" --output json
 ```
 
 ### 1d: en-US に戻す（後続ステップのため）
 
 ```bash
-xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLanguages -array "en"
-xcrun simctl spawn $UDID defaults write NSGlobalDomain AppleLocale "en_US"
+xcrun simctl spawn $UDID_69 defaults write NSGlobalDomain AppleLanguages -array "en"
+xcrun simctl spawn $UDID_69 defaults write NSGlobalDomain AppleLocale "en_US"
 ```
 
 ### 1e: MD5 検証（MUST — 2段階チェック）
 
 ```bash
 # チェック1: en-US vs ja が異なること（ロケール適用確認）
-EN_MD5=$(/usr/bin/openssl dgst -md5 screenshots/raw/en-US/screen1_welcome.png | awk '{print $2}')
-JA_MD5=$(/usr/bin/openssl dgst -md5 screenshots/raw/ja/screen1_welcome.png | awk '{print $2}')
+EN_MD5=$(/usr/bin/openssl dgst -md5 screenshots/raw-69/en-US/screen1_welcome.png | awk '{print $2}')
+JA_MD5=$(/usr/bin/openssl dgst -md5 screenshots/raw-69/ja/screen1_welcome.png | awk '{print $2}')
 [ "$EN_MD5" != "$JA_MD5" ] || { echo "FAIL: en/ja screenshots identical — locale not applied"; exit 1; }
 
 # チェック2: 同一ロケール内の重複がないこと（画面遷移確認）
 # ⚠️ これが前回欠けていた。3/4枚が同じ画面だったのに検出できなかった
-EN_DUPES=$(/usr/bin/openssl dgst -md5 screenshots/raw/en-US/*.png | awk '{print $2}' | sort | uniq -d | wc -l | tr -d ' ')
-JA_DUPES=$(/usr/bin/openssl dgst -md5 screenshots/raw/ja/*.png | awk '{print $2}' | sort | uniq -d | wc -l | tr -d ' ')
+EN_DUPES=$(/usr/bin/openssl dgst -md5 screenshots/raw-69/en-US/*.png | awk '{print $2}' | sort | uniq -d | wc -l | tr -d ' ')
+JA_DUPES=$(/usr/bin/openssl dgst -md5 screenshots/raw-69/ja/*.png | awk '{print $2}' | sort | uniq -d | wc -l | tr -d ' ')
 [ "$EN_DUPES" -eq 0 ] || { echo "FAIL: $EN_DUPES duplicate screenshots in en-US — axe tap navigation failed, screens didn't change"; exit 1; }
 [ "$JA_DUPES" -eq 0 ] || { echo "FAIL: $JA_DUPES duplicate screenshots in ja — axe tap navigation failed, screens didn't change"; exit 1; }
 
@@ -535,7 +360,7 @@ screenshots:
         weight: bold
         color: "#FFFFFF"
       - type: image
-        asset: screenshots/raw/en-US/screen1_welcome.png
+        asset: screenshots/raw-69/en-US/screen1_welcome.png
         frame: true
         position: ["50%", "58%"]
         scale: 0.55
@@ -548,7 +373,7 @@ screenshots:
         weight: bold
         color: "#FFFFFF"
       - type: image
-        asset: screenshots/raw/en-US/screen2_features.png
+        asset: screenshots/raw-69/en-US/screen2_features.png
         frame: true
         position: ["50%", "58%"]
         scale: 0.55
@@ -561,7 +386,7 @@ screenshots:
         weight: bold
         color: "#FFFFFF"
       - type: image
-        asset: screenshots/raw/en-US/screen3_main_feature.png
+        asset: screenshots/raw-69/en-US/screen3_main_feature.png
         frame: true
         position: ["50%", "58%"]
         scale: 0.55
@@ -574,7 +399,7 @@ screenshots:
         weight: bold
         color: "#FFFFFF"
       - type: image
-        asset: screenshots/raw/en-US/screen4_home.png
+        asset: screenshots/raw-69/en-US/screen4_home.png
         frame: true
         position: ["50%", "58%"]
         scale: 0.55
@@ -599,50 +424,26 @@ JA_LOC_ID=$(asc localizations list --version "$VERSION_ID" --output json \
 # ⚠️ ja が存在しない場合は REST API で作成:
 # POST /v1/appStoreVersionLocalizations { locale: "ja", appStoreVersion: { id: VERSION_ID } }
 
-# en-US アップロード（3デバイス）
+# 6.9" のみアップロード（Apple が 6.5"/6.3"/6.1" を自動スケール）
+# Verified: asc screenshots upload --device-type IPHONE_69 accepts 1320x2868 (2026-03-08)
 asc screenshots upload \
   --version-localization "$EN_LOC_ID" \
-  --path "./screenshots/raw/en-US" \
-  --device-type "IPHONE_61"
-
-asc screenshots upload \
-  --version-localization "$EN_LOC_ID" \
-  --path "./screenshots/raw-65/en-US" \
-  --device-type "IPHONE_65"
-
-if [ "$NEEDS_IPAD" = "true" ]; then
-  asc screenshots upload \
-    --version-localization "$EN_LOC_ID" \
-    --path "./screenshots/raw-ipad/en-US" \
-    --device-type "IPAD_PRO_3GEN_129"
-fi
-
-# ja アップロード（3デバイス）
-asc screenshots upload \
-  --version-localization "$JA_LOC_ID" \
-  --path "./screenshots/raw/ja" \
-  --device-type "IPHONE_61"
+  --path "./screenshots/raw-69/en-US" \
+  --device-type "IPHONE_69"
 
 asc screenshots upload \
   --version-localization "$JA_LOC_ID" \
-  --path "./screenshots/raw-65/ja" \
-  --device-type "IPHONE_65"
-
-if [ "$NEEDS_IPAD" = "true" ]; then
-  asc screenshots upload \
-    --version-localization "$JA_LOC_ID" \
-    --path "./screenshots/raw-ipad/ja" \
-    --device-type "IPAD_PRO_3GEN_129"
-fi
+  --path "./screenshots/raw-69/ja" \
+  --device-type "IPHONE_69"
 ```
 
-**⚠️ 正しいフラグ（2026-03-04 実証済み）:**
+**⚠️ 正しいフラグ（2026-03-08 実証済み）:**
 
 | フラグ | 値 | 説明 |
 |--------|-----|------|
 | `--version-localization` | LOC_ID | ロケール別の version-localization ID |
 | `--path` | ディレクトリパス | ファイルではなくディレクトリを指定 |
-| `--device-type` | `IPHONE_61` | iPhone 17 Pro シミュレータ 1206×2622 |
+| `--device-type` | `IPHONE_69` | iPhone 16 Pro Max 1320×2868 |
 
 **❌ 存在しないフラグ（使うな）:** `--locale`, `--file`, `--app`, `--display-type`
 
@@ -666,46 +467,46 @@ echo "✅ Screenshots: en-US=$EN_COUNT, ja=$JA_COUNT"
 ```bash
 # Paywall 画面を表示するためオンボーディングを完全リセット
 # ⚠️ `defaults write false` は効かない場合がある → `defaults delete` を使う
-xcrun simctl terminate "$UDID" "$BUNDLE_ID" 2>/dev/null
-xcrun simctl spawn "$UDID" defaults delete "$BUNDLE_ID" 2>/dev/null || true
-xcrun simctl uninstall "$UDID" "$BUNDLE_ID" 2>/dev/null || true
-xcrun simctl install "$UDID" "$APP_PATH"
-xcrun simctl launch "$UDID" "$BUNDLE_ID"; sleep 3
+xcrun simctl terminate "$UDID_69" "$BUNDLE_ID" 2>/dev/null
+xcrun simctl spawn "$UDID_69" defaults delete "$BUNDLE_ID" 2>/dev/null || true
+xcrun simctl uninstall "$UDID_69" "$BUNDLE_ID" 2>/dev/null || true
+xcrun simctl install "$UDID_69" "$APP_PATH"
+xcrun simctl launch "$UDID_69" "$BUNDLE_ID"; sleep 3
 
 # オンボーディング最終画面（= Paywall）まで axe tap --label で遷移
 # ⚠️ axe swipe は使わない（NavigationStack ベースのオンボーディングでは効かない）
 # describe-ui でボタンを見つけてタップで遷移する
-axe describe-ui --udid "$UDID"
+axe describe-ui --udid "$UDID_69"
 # 最大 10 回タップ（余分なタップは Paywall に到達後無害）
 for i in $(seq 1 10); do
-  axe tap --udid "$UDID" --label "Next" 2>/dev/null || \
-  axe tap --udid "$UDID" --label "Continue" 2>/dev/null || \
-  axe tap --udid "$UDID" --label "Get Started" 2>/dev/null || \
-  axe tap --udid "$UDID" --label "次へ" 2>/dev/null || \
-  axe tap --udid "$UDID" --label "続ける" 2>/dev/null || \
+  axe tap --udid "$UDID_69" --label "Next" 2>/dev/null || \
+  axe tap --udid "$UDID_69" --label "Continue" 2>/dev/null || \
+  axe tap --udid "$UDID_69" --label "Get Started" 2>/dev/null || \
+  axe tap --udid "$UDID_69" --label "次へ" 2>/dev/null || \
+  axe tap --udid "$UDID_69" --label "続ける" 2>/dev/null || \
   true
   sleep 0.5
 done
 sleep 1
 # describe-ui で Paywall が表示されているか確認
-axe describe-ui --udid "$UDID"
+axe describe-ui --udid "$UDID_69"
 
 # Fix #4: offerings ロード待ち + Annual プラン選択してからキャプチャ
 # Source: Apple App Review Guidelines §3.1.2 — https://developer.apple.com/app-store/review/guidelines/#in-app-purchase
 # 核心の引用: 「clearly describe what users are buying」
 # → レビュースクショでプランが選択可能に見えてないとレビュアーが疑う
 sleep 5  # uiPreviewMode での offerings ロード待ち
-axe describe-ui --udid "$UDID"  # プランが表示されてるか確認
+axe describe-ui --udid "$UDID_69"  # プランが表示されてるか確認
 # Annualプランをタップ（ボタンラベルはアプリ依存 — describe-ui で確認）
-axe tap --udid "$UDID" --label "Annual" 2>/dev/null || \
-axe tap --udid "$UDID" --label "Yearly" 2>/dev/null || \
-axe tap --udid "$UDID" --id "paywall_plan_yearly" 2>/dev/null || \
+axe tap --udid "$UDID_69" --label "Annual" 2>/dev/null || \
+axe tap --udid "$UDID_69" --label "Yearly" 2>/dev/null || \
+axe tap --udid "$UDID_69" --id "paywall_plan_yearly" 2>/dev/null || \
 true
 sleep 1
-axe describe-ui --udid "$UDID"  # プランが選択状態か確認
+axe describe-ui --udid "$UDID_69"  # プランが選択状態か確認
 
 # Paywall 画面をキャプチャ
-xcrun simctl io "$UDID" screenshot /tmp/paywall-review.png
+xcrun simctl io "$UDID_69" screenshot /tmp/paywall-review.png
 
 # 検証: 100KB 未満 = 空画面の可能性
 PW_SIZE=$(stat -f%z /tmp/paywall-review.png)
@@ -743,25 +544,45 @@ echo "✅ Review screenshots uploaded for MONTHLY=$MONTHLY_ID and ANNUAL=$ANNUAL
 - ⛔ Home 画面を Review Screenshot にアップロードするな（Paywall 画面を撮れ）
 - ⛔ Paywall 画面をプロダクトページスクショに含めるな（Fix #1: レビュースクショ用の Step 1h でのみ使う）
 
-## Step 2: Metadata Sync
-⚠️ `asc metadata sync` は存在しない。`asc localizations update` を使う。
-```bash
-# en-US + ja 両方
-# app-info (name, subtitle, privacyPolicyUrl):
-asc localizations update --type app-info --app $APP_ID \
-  --locale en-US --name "<app_name>" --subtitle "<subtitle>" \
-  --privacy-policy-url "<url>"
-asc localizations update --type app-info --app $APP_ID \
-  --locale ja --name "<app_name_ja>" --subtitle "<subtitle_ja>" \
-  --privacy-policy-url "<url>"
+## Step 2: Metadata Sync（asc localizations upload で一括）
 
-# version (description, keywords, supportUrl):
-asc localizations update --version $VERSION_ID \
-  --locale en-US --description "<description>" --keywords "<keywords>" \
-  --support-url "<url>"
-asc localizations update --version $VERSION_ID \
-  --locale ja --description "<description_ja>" --keywords "<keywords_ja>" \
-  --support-url "<url>"
+Verified: `asc localizations upload --dry-run` テスト済み（2026-03-08）
+
+```bash
+# .strings ファイル生成（CC が PRD から内容を生成）
+mkdir -p metadata/app-info metadata/version
+
+# app-info (name, subtitle, privacyPolicyUrl) — 全ロケール
+cat > metadata/app-info/en-US.strings << 'STREOF'
+"name" = "<APP_NAME>";
+"subtitle" = "<SUBTITLE>";
+"privacyPolicyUrl" = "https://aniccafactory.com/privacy";
+STREOF
+
+cat > metadata/app-info/ja.strings << 'STREOF'
+"name" = "<APP_NAME_JA>";
+"subtitle" = "<SUBTITLE_JA>";
+"privacyPolicyUrl" = "https://aniccafactory.com/privacy";
+STREOF
+
+# version (description, keywords, supportUrl, whatsNew) — 全ロケール
+cat > metadata/version/en-US.strings << 'STREOF'
+"description" = "<DESCRIPTION>";
+"keywords" = "<KEYWORDS>";
+"supportUrl" = "https://aniccafactory.com/support";
+"whatsNew" = "Initial release";
+STREOF
+
+cat > metadata/version/ja.strings << 'STREOF'
+"description" = "<DESCRIPTION_JA>";
+"keywords" = "<KEYWORDS_JA>";
+"supportUrl" = "https://aniccafactory.com/support";
+"whatsNew" = "初回リリース";
+STREOF
+
+# 一括アップロード（2コマンドで全ロケール完了）
+asc localizations upload --app "$APP_ID" --type app-info --path metadata/app-info/
+asc localizations upload --version "$VERSION_ID" --path metadata/version/
 ```
 CRITICAL: Privacy Policy URL は en-US AND ja 両方必須（Rule 7）
 
@@ -858,11 +679,48 @@ asc pricing set ...
 ## Step 7: release-review 5 Checklists
 Read `.claude/skills/release-review/SKILL.md` and execute all 5 checklists.
 
-## Step 8: Validate (STOP GATE — PATCH 6)
+## Step 8: Validate + Submit（asc release run）
+
+Verified: `asc release run --dry-run` テスト済み（2026-03-08）
+Source: ASC CLI v0.37.2 PR #849 — "Release orchestration command"
+
 ```bash
-asc validate --app "$APP_ID" --version-id "$VERSION_ID" --platform IOS --output table
-# Errors = 0 でないと US-009 に進むな
+# Prerequisites（asc release run の前に完了すること）:
+# - Copyright: asc versions update --version-id $VERSION_ID --copyright "$(date +%Y) Daisuke Kobayashi"
+# - Age Rating: asc age-rating set --app $APP_ID ...（全22項目）
+# - Review Details: asc review details-create --app $APP_ID --version-id $VERSION_ID --demo-account-required false
+# - Category: asc categories set --app-info $APP_INFO_ID --primary HEALTH_AND_FITNESS
+# - Availability: asc availability set --app $APP_ID --territories ALL
+# - Encryption: asc encryption set ... --uses-non-exempt-encryption false
+# - Content Rights: asc content-rights set ... --uses-third-party-content false
+
+# metadata-dir for asc release run (JSON format — asc metadata pull で取得)
+asc metadata pull --app "$APP_ID" --version "1.0" --dir metadata/release/
+
+# ビルド待ち
+BUILD_ID=$(asc builds latest --app "$APP_ID" --output json | jq -r '.data.id')
+asc builds wait --app "$APP_ID" --build "$BUILD_ID" --timeout 30m
+
+# プレビュー（MANDATORY — 本番前に必ず dry-run）
+asc release run \
+  --app "$APP_ID" \
+  --version "1.0" \
+  --build "$BUILD_ID" \
+  --metadata-dir "metadata/release/" \
+  --dry-run --pretty
+
+# Errors = 0 を確認してから本番実行:
+asc release run \
+  --app "$APP_ID" \
+  --version "1.0" \
+  --build "$BUILD_ID" \
+  --metadata-dir "metadata/release/" \
+  --confirm
 ```
+
+⚠️ `asc release run` がカバーしないもの（上の Prerequisites で個別設定）:
+Copyright, Age Rating, Review Details, Category, Availability, Pricing, Encryption, Content Rights
+
 Source: rudrankriyam asc-submission-health SKILL.md
 > Pre-submission Checklist 7 items
 
@@ -932,8 +790,7 @@ TESTFLIGHT_LINK=$TESTFLIGHT_URL
 ```
 
 ## Acceptance Criteria
-- Screenshots uploaded to ASC for en-US and ja — IPHONE_61 + IPHONE_65 (AXe + asc screenshots capture)
-- Screenshots uploaded for IPAD_PRO_3GEN_129 if UIDeviceFamily includes iPad
+- Screenshots uploaded to ASC for en-US and ja — IPHONE_69 (6.9" only, Apple auto-scales smaller sizes)
 - Subscription review screenshots uploaded for Monthly + Annual
 - Metadata synced (en-US + ja)
 - Copyright set (REQUIRED field)

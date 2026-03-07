@@ -1,9 +1,9 @@
 ---
 name: asc-cli-usage
-description: Guidance for using the App Store Connect CLI in this repo (flags, output formats, pagination, auth, and discovery). Use when asked to run or design asc commands or interact with App Store Connect via the CLI.
+description: Guidance for using asc cli in this repo (flags, output formats, pagination, auth, and discovery). Use when asked to run or design asc commands or interact with App Store Connect via the CLI.
 ---
 
-# ASC CLI usage
+# asc cli usage
 
 Use this skill when you need to run or design `asc` commands for App Store Connect.
 
@@ -24,10 +24,9 @@ Use this skill when you need to run or design `asc` commands for App Store Conne
 - `--pretty` is only valid with JSON output.
 
 ## Authentication and defaults
-- Prefer keychain auth via `asc auth login` (or `./scripts/asc-auth-login.sh` to register from .env).
+- Prefer keychain auth via `asc auth login`.
 - Fallback env vars: `ASC_KEY_ID`, `ASC_ISSUER_ID`, `ASC_PRIVATE_KEY_PATH`, `ASC_PRIVATE_KEY`, `ASC_PRIVATE_KEY_B64`.
 - `ASC_APP_ID` can provide a default app ID.
-- This repo: Use `./scripts/asc.sh <subcommand>...` when keychain is not configured; it sources .env automatically.
 
 ## Timeouts
 - `ASC_TIMEOUT` / `ASC_TIMEOUT_SECONDS` control request timeouts.

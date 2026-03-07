@@ -46,10 +46,100 @@
       "sourceType": "github",
       "computedHash": "848a1946f838e1b36f4af8b65caeea9e5bfa486d6059325520bb6124c05b0526"
     },
+    "asc-app-create-ui": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "22ed3a39768343692274081caf7cdb9b4568ce246d35bbc8c2eaf0c9adbd2fbc"
+    },
+    "asc-build-lifecycle": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "8d489c578c24139f8d71cdef161d820a74a1ad892fea9b60aefe376e4d115cda"
+    },
+    "asc-cli-usage": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "2d511c34eef026279880310f2afb734e693df3f95ccf46a36f8bcaa1c0b8b3f2"
+    },
+    "asc-crash-triage": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "f35c5099bed8159307a6b406717531807676f86a6860ae32cee4a6271779a381"
+    },
+    "asc-id-resolver": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "6289c851dded0fb1599dfab3934d0664d9f7c4e4dbacd585ee8c07161e3bb5fc"
+    },
+    "asc-localize-metadata": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "d155bfe5fce46bda9e5257b48e592f200922cd28c63faf02925e8aa1018d0197"
+    },
+    "asc-metadata-sync": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "3af743b475b3b04ff48f2a205c6b2721891e94f41472583267428e267a6e4114"
+    },
+    "asc-notarization": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "5a352a16af1bc65d8edb39ee676f39a0388df43ef896a44d8f0a111be7568b06"
+    },
+    "asc-ppp-pricing": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "48647761fbb621dfd2b682f5bf4963b307a56dc725a58628ffa5e9d231f38f65"
+    },
+    "asc-release-flow": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "c9fe7d13295bb02d99d782381f48cdab1f2ae1a94cadb859008b7d070a8927bb"
+    },
+    "asc-revenuecat-catalog-sync": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "328eb58cf454aa309187740145d9115ea6c4cb95877f109f274580c8854f6a41"
+    },
     "asc-shots-pipeline": {
       "source": "rudrankriyam/app-store-connect-cli-skills",
       "sourceType": "github",
       "computedHash": "6240f9cd3445c7f9b57e2b5699b009cb7ec1a90a64a8ba8ec55440301b710a5d"
+    },
+    "asc-signing-setup": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "c8e14e07a120c98c96253648320850bfd8a52453967b2477ff20bc51904aaa95"
+    },
+    "asc-submission-health": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "d897a86557cba6de2770449986833bf247db14b97ab82253d25aa92d67ec9a3a"
+    },
+    "asc-subscription-localization": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "f00704ce8d14d6ff0c4bd43256bd65a294de9caa5d7b5fc3151de806daef2de2"
+    },
+    "asc-testflight-orchestration": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "049de469a84ff071fe3aa4a8086a64d966146494763c63c137df2b2e3813caeb"
+    },
+    "asc-wall-submit": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "87cda1a383c97dc1e6a5006e6d2ea83acf3010f25347534d0b236d78e6f473bc"
+    },
+    "asc-workflow": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "c43ccbef1ac00e85a39b238d5ca38da67329bd58c1451426604b23173594a4f2"
+    },
+    "asc-xcode-build": {
+      "source": "rudrankriyam/app-store-connect-cli-skills",
+      "sourceType": "github",
+      "computedHash": "6276349e02529cb05129545a4a7ebc4673d06b7654d45cf6ee11ac87d0af674e"
     },
     "axe-ios-simulator": {
       "source": "0xbigboss/claude-code",

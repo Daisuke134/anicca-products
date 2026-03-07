@@ -176,6 +176,12 @@ Only general, reusable patterns — not story-specific details.
 各USの実行時は必ず対応する `references/us-XXX.md` を読むこと。
 この CLAUDE.md には詳細を書かない。references が常に正本。
 
+### ASC CLI スキル（補助参照 — 必要に応じて読む）
+- US-008a screenshots: `.agents/skills/asc-shots-pipeline/SKILL.md` (screenshot pipeline patterns)
+- US-008b metadata: `.agents/skills/asc-metadata-sync/SKILL.md` (metadata sync patterns)
+- US-008e release: `.agents/skills/asc-release-flow/SKILL.md` (release flow)
+- CLI usage: `.agents/skills/asc-cli-usage/SKILL.md` (flags/output/auth guidance)
+
 | US-010 | Build Report | logs/ トークン集計 → build-report.json → Slack + X 投稿 | us-010-report |
 
 ## WAITING_FOR_HUMAN
