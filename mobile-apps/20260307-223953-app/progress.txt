@@ -28,6 +28,12 @@
 - axe tap --id broken on iOS 26 (can't find SwiftUI accessibilityIdentifier) — use Maestro for navigation instead
 - Screenshots: 6.9" only (IPHONE_69 → ASC maps to APP_IPHONE_67) — Apple auto-scales to all smaller sizes
 - @AppStorage("selected_tab") on MainTabView enables external tab selection via `defaults write` for screenshot automation
+- xcodebuild API key: use key from `~/.appstoreconnect/private_keys/AuthKey_{KEY_ID}.p8` (NOT Downloads). KEY_ID=646Y27MJ8C
+- DEVELOPMENT_TEAM = Team ID (S5U8UH3JLJ from bundle seedId), NOT bundle registration ID (GCVGP8K25Q)
+- HealthKit entitlement: `com.apple.developer.healthkit.access: []` (empty array) for basic HR — `health-records` needs Apple approval
+- NSHealthUpdateUsageDescription REQUIRED in Info.plist even for read-only HealthKit — Apple validates both Share+Update
+- BGTaskSchedulerPermittedIdentifiers REQUIRED when UIBackgroundModes includes "processing"
+- BUILD_ID=0149dff3-c222-455b-b286-a023600da006, VERSION_ID=291d2259-6d6a-45ff-8898-187bdb516810
 
 ---
 
@@ -357,4 +363,26 @@
   - ASC keywords limit is 100 characters (not 100 keywords) — trim lowest-priority terms first
   - `asc localizations upload --version` auto-skips whatsNew for initial releases (warning, not error)
   - `asc localizations upload --app --type app-info` sets privacyPolicyUrl per locale
+---
+
+## 2026-03-08 - US-008c: IPA Build + Upload + Version Attach
+- IPA built via xcodebuild archive + export (Automatic signing, TEAM=S5U8UH3JLJ)
+- Uploaded via xcrun altool (Delivery UUID=0149dff3-c222-455b-b286-a023600da006, 4.5MB, 36.5MB/s)
+- processingState=VALID (confirmed via asc builds list)
+- Build attached to version 291d2259 (v1.0) via asc versions attach-build
+- Fixes applied before successful upload:
+  1. health-records entitlement removed (Verifiable Health Records not needed — basic HealthKit only)
+  2. DEVELOPMENT_TEAM corrected to S5U8UH3JLJ (was GCVGP8K25Q which is the bundle ID registration ID)
+  3. NSHealthUpdateUsageDescription added to Info.plist (required for HealthKit write access)
+  4. BGTaskSchedulerPermittedIdentifiers added (required when UIBackgroundModes=processing)
+  5. HealthKit capability registered on bundle ID GCVGP8K25Q via asc bundle-ids capabilities add
+- API key: 646Y27MJ8C at ~/.appstoreconnect/private_keys/AuthKey_646Y27MJ8C.p8 (NOT the Downloads/AuthKey_D637C7RGFN.p8)
+- Files modified: project.yml (DEVELOPMENT_TEAM, entitlements), FrostDip.entitlements (removed health-records), Info.plist (NSHealthUpdateUsageDescription, BGTaskSchedulerPermittedIdentifiers)
+- **Learnings for future iterations:**
+  - xcodebuild API key auth: key ID must match the filename AuthKey_{ID}.p8 and the asc config (646Y27MJ8C), NOT the AuthKey in Downloads
+  - DEVELOPMENT_TEAM must be the Team ID (S5U8UH3JLJ from seedId), not the Bundle ID registration ID (GCVGP8K25Q)
+  - HealthKit entitlement com.apple.developer.healthkit.access with empty array is sufficient for basic HR reading — health-records requires special Apple approval
+  - NSHealthUpdateUsageDescription is REQUIRED even if app only reads HR — Apple validates both Share and Update descriptions
+  - BGTaskSchedulerPermittedIdentifiers MUST list at least one task ID when UIBackgroundModes includes "processing"
+  - Build processing from upload to VALID takes ~90 seconds
 ---
