@@ -398,5 +398,34 @@ Source:
 
 詳細は `.claude/skills/maestro-ui-testing/SKILL.md` の RC Test Store セクションを参照。
 
+## Price Validation Gate (MANDATORY — Fix #8)
+
+Source: RevenueCat SOSA 2025 — https://www.revenuecat.com/blog/growth/sosa-2025-launch-sub-club/
+核心の引用: 「lower-priced apps have higher retention rates... you've got to play around with that price curve」
+
+```bash
+# PRD価格とASC実際の価格を照合
+source ~/.config/mobileapp-builder/.env
+source ~/.config/mobileapp-builder/projects/<slug>/.env
+
+echo "=== PRD定義価格 ==="
+python3 -c "
+import json
+d = json.load(open('prd.json'))
+pricing = d.get('pricing', d.get('monetization', {}))
+print(json.dumps(pricing, indent=2, ensure_ascii=False))
+" 2>/dev/null || echo "PRD pricing section not found"
+
+echo ""
+echo "=== ASC実際の価格 ==="
+asc subscriptions groups list --app "$APP_ID" --output table 2>/dev/null
+asc subscriptions list --app "$APP_ID" --output table 2>/dev/null
+
+echo ""
+echo "⚠️ PRDの価格とASCの価格が一致していることを確認せよ"
+echo "不一致の場合: prd.json を更新するか ASC の価格を変更する"
+# CC は両方の出力を比較し、不一致があれば prd.json を実際の価格に合わせて更新する
+```
+
 ## 次のステップ
 US-005b 完了後、US-006（実装）に進む。

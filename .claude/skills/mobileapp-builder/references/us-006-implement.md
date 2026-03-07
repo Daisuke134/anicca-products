@@ -95,12 +95,32 @@ cat > ${APP_NAME}ios/${APP_NAME}/PrivacyInfo.xcprivacy << 'PRIVEOF'
 PRIVEOF
 ```
 
-## Step: App Icon (1024x1024 single image, universal idiom)
+## Step: App Icon (1024x1024 single image, universal idiom) — Fix #7
+
+Source: Apple HIG — App Icons
+https://developer.apple.com/design/human-interface-guidelines/app-icons
+核心の引用: 「Every app must have a beautiful, memorable icon... provide a single 1024×1024 px image」
 
 ```bash
 # Generate with PIL, then place at:
 # Resources/Assets.xcassets/AppIcon.appiconset/1024.png
 # Contents.json: "idiom": "universal", "platform": "ios", "size": "1024x1024"
+```
+
+### App Icon Gate Check (MANDATORY — Fix #7)
+```bash
+# アプリアイコン存在チェック — ビルド前に必ず実行
+ICON_SET=$(find . -name "AppIcon.appiconset" -not -path "*/build/*" | head -1)
+ICON_FILE=$(find "$ICON_SET" -name "*.png" -size +10k 2>/dev/null | head -1)
+if [ -z "$ICON_FILE" ]; then
+  echo "❌ GATE FAIL: No app icon (1024x1024) found in $ICON_SET"
+  echo "Generate a simple branded icon using Python/Pillow before proceeding"
+  exit 1
+fi
+# サイズ検証
+ICON_SIZE=$(python3 -c "from PIL import Image; img=Image.open('$ICON_FILE'); print(f'{img.width}x{img.height}')" 2>/dev/null || echo "unknown")
+[ "$ICON_SIZE" = "1024x1024" ] || { echo "❌ GATE FAIL: App icon is $ICON_SIZE (must be 1024x1024)"; exit 1; }
+echo "✅ App icon found: $ICON_FILE ($ICON_SIZE)"
 ```
 
 ## Step: PaywallView (自前 SwiftUI — RevenueCatUI 禁止)

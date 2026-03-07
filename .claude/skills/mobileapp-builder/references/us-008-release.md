@@ -74,6 +74,22 @@ if [ -z "$XCSTRINGS" ]; then
   # 4. 再ビルド + 再インストール
   echo "✅ Localizable.xcstrings created — rebuild required"
 fi
+
+# .xcstrings 内容検証（MANDATORY — Fix #2: %% タイポ防止）
+# Source: Apple Developer Documentation
+# https://developer.apple.com/documentation/xcode/localizing-and-varying-text-with-a-string-catalog
+# 核心の引用: 「Use a string catalog to translate text」
+# → .xcstrings は JSON 形式で % をそのまま書く。String(localized:) は %% エスケープ不要。
+XCSTRINGS=$(find . -name "*.xcstrings" -not -path "*/build/*" | head -1)
+if [ -n "$XCSTRINGS" ]; then
+  DOUBLE_PCT=$(grep -c '%%' "$XCSTRINGS" 2>/dev/null || echo "0")
+  if [ "$DOUBLE_PCT" -gt 0 ]; then
+    echo "❌ FAIL: $DOUBLE_PCT occurrences of %% found in $XCSTRINGS"
+    echo "String(localized:) does not require %% escaping. Auto-fixing..."
+    sed -i '' 's/%%/%/g' "$XCSTRINGS"
+    echo "✅ AUTO-FIXED: %% → %"
+  fi
+fi
 ```
 
 ### PROHIBITED
@@ -198,14 +214,28 @@ sleep 2
 axe describe-ui --udid "$UDID"  # 画面が変わったか確認
 asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID" --output-dir "./screenshots/raw/en-US" --output json
 
-# screen3: Paywall画面に遷移
-axe tap --udid "$UDID" --label "Next" || axe tap --udid "$UDID" --label "Continue"
-sleep 2
-axe describe-ui --udid "$UDID"  # PaywallViewが表示されているか確認
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_paywall" --udid "$UDID" --output-dir "./screenshots/raw/en-US" --output json
-
-# screen4: Home（オンボーディングスキップ → 再起動）
+# screen3: メイン機能画面（使用状態 — Paywallはプロダクトページスクショに含めない）
+# Fix #1: Paywallスクショはプロダクトページに含めない（DL率低下のため）
+# Source: RevenueCat SOSA 2025 — https://www.revenuecat.com/blog/growth/sosa-2025-launch-sub-club/
+# 核心の引用: 「your paywall should be part of your onboarding experience... you get one shot」
+# → Paywallはアプリ内体験であってスクショに見せるものじゃない
+# ※ Paywall（review screenshot用）は Step 1h で IAP レビュースクショとして別途撮影する
 xcrun simctl spawn "$UDID" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
+xcrun simctl terminate "$UDID" "$BUNDLE_ID"
+sleep 1
+xcrun simctl launch "$UDID" "$BUNDLE_ID"
+sleep 3
+axe describe-ui --udid "$UDID"  # メイン機能画面が表示されているか確認
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_main_feature" --udid "$UDID" --output-dir "./screenshots/raw/en-US" --output json
+
+# screen4: Home（使い込まれた状態 — ダミーデータセット）
+# Fix #5: 0 breaks 初期状態ではなく、使い込んだ状態にする
+# Source: Uptech MVP Guide — https://www.uptech.team/blog/build-an-mvp
+# 核心の引用: 「Solve one core problem. Focus on what matters most to your users」
+# → スクショは「アプリが解決する問題の結果」を見せるべき
+xcrun simctl spawn "$UDID" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
+# ダミーデータセット（CC は prd.json の features を読み、適切な UserDefaults キーをセットせよ）
+# 例: todayBreakCount, totalSessions, streakDays, completedTasks 等
 xcrun simctl terminate "$UDID" "$BUNDLE_ID"
 sleep 1
 xcrun simctl launch "$UDID" "$BUNDLE_ID"
@@ -242,7 +272,16 @@ sleep 2
 asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID_65" --output-dir "./screenshots/raw-65/en-US" --output json
 axe tap --udid "$UDID_65" --label "Next" || axe tap --udid "$UDID_65" --label "Continue"
 sleep 2
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_paywall" --udid "$UDID_65" --output-dir "./screenshots/raw-65/en-US" --output json
+# screen3: メイン機能画面（Fix #1: Paywallではなくメイン機能）
+xcrun simctl spawn "$UDID_65" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
+xcrun simctl terminate "$UDID_65" "$BUNDLE_ID"
+sleep 1
+xcrun simctl launch "$UDID_65" "$BUNDLE_ID"
+sleep 3
+axe describe-ui --udid "$UDID_65"
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_main_feature" --udid "$UDID_65" --output-dir "./screenshots/raw-65/en-US" --output json
+
+# screen4: Home（Fix #5: ダミーデータセット — CC は prd.json の features を読み適切な UserDefaults キーをセット）
 xcrun simctl spawn "$UDID_65" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
 xcrun simctl terminate "$UDID_65" "$BUNDLE_ID"
 sleep 1
@@ -274,7 +313,16 @@ if [ "$NEEDS_IPAD" = "true" ]; then
   asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/en-US" --output json
   axe tap --udid "$UDID_IPAD" --label "Next" || axe tap --udid "$UDID_IPAD" --label "Continue"
   sleep 2
-  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_paywall" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/en-US" --output json
+  # screen3: メイン機能画面（Fix #1: Paywallではなくメイン機能）
+  xcrun simctl spawn "$UDID_IPAD" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
+  xcrun simctl terminate "$UDID_IPAD" "$BUNDLE_ID"
+  sleep 1
+  xcrun simctl launch "$UDID_IPAD" "$BUNDLE_ID"
+  sleep 3
+  axe describe-ui --udid "$UDID_IPAD"
+  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_main_feature" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/en-US" --output json
+
+  # screen4: Home（Fix #5: ダミーデータセット）
   xcrun simctl spawn "$UDID_IPAD" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
   xcrun simctl terminate "$UDID_IPAD" "$BUNDLE_ID"
   sleep 1
@@ -311,10 +359,16 @@ axe tap --udid "$UDID" --label "Next" || axe tap --udid "$UDID" --label "次へ"
 sleep 2
 asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID" --output-dir "./screenshots/raw/ja" --output json
 
-axe tap --udid "$UDID" --label "Next" || axe tap --udid "$UDID" --label "次へ" || axe tap --udid "$UDID" --label "Continue" || axe tap --udid "$UDID" --label "続ける"
-sleep 2
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_paywall" --udid "$UDID" --output-dir "./screenshots/raw/ja" --output json
+# screen3: メイン機能画面（Fix #1: Paywallではなくメイン機能）
+xcrun simctl spawn "$UDID" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
+xcrun simctl terminate "$UDID" "$BUNDLE_ID"
+sleep 1
+xcrun simctl launch "$UDID" "$BUNDLE_ID"
+sleep 3
+axe describe-ui --udid "$UDID"
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_main_feature" --udid "$UDID" --output-dir "./screenshots/raw/ja" --output json
 
+# screen4: Home（Fix #5: ダミーデータセット）
 xcrun simctl spawn "$UDID" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
 xcrun simctl terminate "$UDID" "$BUNDLE_ID"
 sleep 1
@@ -342,7 +396,16 @@ sleep 2
 asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID_65" --output-dir "./screenshots/raw-65/ja" --output json
 axe tap --udid "$UDID_65" --label "Next" || axe tap --udid "$UDID_65" --label "次へ" || axe tap --udid "$UDID_65" --label "Continue" || axe tap --udid "$UDID_65" --label "続ける"
 sleep 2
-asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_paywall" --udid "$UDID_65" --output-dir "./screenshots/raw-65/ja" --output json
+# screen3: メイン機能画面（Fix #1: Paywallではなくメイン機能）
+xcrun simctl spawn "$UDID_65" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
+xcrun simctl terminate "$UDID_65" "$BUNDLE_ID"
+sleep 1
+xcrun simctl launch "$UDID_65" "$BUNDLE_ID"
+sleep 3
+axe describe-ui --udid "$UDID_65"
+asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_main_feature" --udid "$UDID_65" --output-dir "./screenshots/raw-65/ja" --output json
+
+# screen4: Home（Fix #5: ダミーデータセット）
 xcrun simctl spawn "$UDID_65" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
 xcrun simctl terminate "$UDID_65" "$BUNDLE_ID"
 sleep 1
@@ -371,7 +434,16 @@ if [ "$NEEDS_IPAD" = "true" ]; then
   asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen2_features" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/ja" --output json
   axe tap --udid "$UDID_IPAD" --label "Next" || axe tap --udid "$UDID_IPAD" --label "次へ" || axe tap --udid "$UDID_IPAD" --label "Continue" || axe tap --udid "$UDID_IPAD" --label "続ける"
   sleep 2
-  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_paywall" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/ja" --output json
+  # screen3: メイン機能画面（Fix #1: Paywallではなくメイン機能）
+  xcrun simctl spawn "$UDID_IPAD" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
+  xcrun simctl terminate "$UDID_IPAD" "$BUNDLE_ID"
+  sleep 1
+  xcrun simctl launch "$UDID_IPAD" "$BUNDLE_ID"
+  sleep 3
+  axe describe-ui --udid "$UDID_IPAD"
+  asc screenshots capture --bundle-id "$BUNDLE_ID" --name "screen3_main_feature" --udid "$UDID_IPAD" --output-dir "./screenshots/raw-ipad/ja" --output json
+
+  # screen4: Home（Fix #5: ダミーデータセット）
   xcrun simctl spawn "$UDID_IPAD" defaults write "$BUNDLE_ID" hasCompletedOnboarding -bool true
   xcrun simctl terminate "$UDID_IPAD" "$BUNDLE_ID"
   sleep 1
@@ -406,7 +478,113 @@ JA_DUPES=$(/usr/bin/openssl dgst -md5 screenshots/raw/ja/*.png | awk '{print $2}
 echo "✅ MD5 checks passed: en≠ja, no same-locale duplicates"
 ```
 
-### 1f: ASC アップロード（フレームなし — 生スクショ直接）
+### 1f: デバイスフレーム + ヘッドライン合成（Koubou — Fix #3 + #9）
+
+Source: Koubou v0.14.0 — pip install koubou==0.14.0
+Verified: 2026-03-07 Mac Mini — `kou generate` でフレーム合成成功
+
+```bash
+# kou が PATH にあることを確認
+export PATH="/Users/anicca/Library/Python/3.9/bin:$PATH"
+which kou || { pip3 install koubou==0.14.0 && echo "✅ Koubou installed"; }
+
+# ヘッドライン生成ルール（Fix #9 — MANDATORY）:
+# 1. スクショのヘッドラインはアプリ内テキストのコピーではなく「価値提案」を書く
+# 2. 各スクショのヘッドラインは異なるベネフィットをハイライトする
+# 3. パターン: screen1=主要価値提案, screen2=機能ハイライト, screen3=使用結果, screen4=CTA
+# 4. PRD の tagline + value_proposition + key_features から導出する
+# 5. アプリ内テキストとヘッドラインが同じ文言にならないこと
+#
+# 例:
+#   ❌ "Your Eyes Need Breaks"（アプリ内テキストのコピー）
+#   ✅ "The 20-20-20 Rule, Automated"（価値提案）
+
+# PRIMARY_COLOR は PRD の design_system.primary から取得する
+PRIMARY_COLOR=$(python3 -c "import json; d=json.load(open('prd.json')); print(d.get('designSystem',{}).get('primaryColor','#0A7AFF'))" 2>/dev/null || echo "#0A7AFF")
+
+# CC が PRD から4つのヘッドライン（en + ja）を生成し、Koubou YAML を作成する
+# デバイスフレーム名は色を含む正式名が必要:
+#   ✅ "iPhone 16 Pro - Black Titanium - Portrait"
+#   ❌ "iPhone 15 Pro Portrait"（エラーになる）
+# kou list-frames で利用可能なフレーム名を確認すること
+
+cat > koubou-config.yaml << YAML
+project:
+  name: $APP_NAME
+  device: "iPhone 16 Pro - Black Titanium - Portrait"
+  output_dir: screenshots/framed/en-US
+  output_size: iPhone6_7
+
+defaults:
+  background:
+    type: linear
+    colors: ["$PRIMARY_COLOR", "#1a1a2e"]
+    direction: 180
+
+screenshots:
+  screen1:
+    content:
+      - type: text
+        content: "<HEADLINE_1_EN>"
+        position: ["50%", "10%"]
+        size: 48
+        weight: bold
+        color: "#FFFFFF"
+      - type: image
+        asset: screenshots/raw/en-US/screen1_welcome.png
+        frame: true
+        position: ["50%", "58%"]
+        scale: 0.55
+  screen2:
+    content:
+      - type: text
+        content: "<HEADLINE_2_EN>"
+        position: ["50%", "10%"]
+        size: 48
+        weight: bold
+        color: "#FFFFFF"
+      - type: image
+        asset: screenshots/raw/en-US/screen2_features.png
+        frame: true
+        position: ["50%", "58%"]
+        scale: 0.55
+  screen3:
+    content:
+      - type: text
+        content: "<HEADLINE_3_EN>"
+        position: ["50%", "10%"]
+        size: 48
+        weight: bold
+        color: "#FFFFFF"
+      - type: image
+        asset: screenshots/raw/en-US/screen3_main_feature.png
+        frame: true
+        position: ["50%", "58%"]
+        scale: 0.55
+  screen4:
+    content:
+      - type: text
+        content: "<HEADLINE_4_EN>"
+        position: ["50%", "10%"]
+        size: 48
+        weight: bold
+        color: "#FFFFFF"
+      - type: image
+        asset: screenshots/raw/en-US/screen4_home.png
+        frame: true
+        position: ["50%", "58%"]
+        scale: 0.55
+YAML
+
+kou generate koubou-config.yaml
+echo "✅ Framed screenshots generated in screenshots/framed/en-US/"
+
+# ja 用にも同様の YAML を生成（ヘッドラインを日本語に変更）
+# 6.5" 用は output_size: iPhone6_7 のまま（ASCが自動リサイズ）
+# iPad 用は device: "iPad Pro 13 (M4) - Silver" + output_size: iPadPro13 に変更
+```
+
+### 1f2: ASC アップロード（フレーム付きスクショ）
 
 ```bash
 # version-localization ID 取得
@@ -508,6 +686,20 @@ sleep 1
 # describe-ui で Paywall が表示されているか確認
 axe describe-ui --udid "$UDID"
 
+# Fix #4: offerings ロード待ち + Annual プラン選択してからキャプチャ
+# Source: Apple App Review Guidelines §3.1.2 — https://developer.apple.com/app-store/review/guidelines/#in-app-purchase
+# 核心の引用: 「clearly describe what users are buying」
+# → レビュースクショでプランが選択可能に見えてないとレビュアーが疑う
+sleep 5  # uiPreviewMode での offerings ロード待ち
+axe describe-ui --udid "$UDID"  # プランが表示されてるか確認
+# Annualプランをタップ（ボタンラベルはアプリ依存 — describe-ui で確認）
+axe tap --udid "$UDID" --label "Annual" 2>/dev/null || \
+axe tap --udid "$UDID" --label "Yearly" 2>/dev/null || \
+axe tap --udid "$UDID" --id "paywall_plan_yearly" 2>/dev/null || \
+true
+sleep 1
+axe describe-ui --udid "$UDID"  # プランが選択状態か確認
+
 # Paywall 画面をキャプチャ
 xcrun simctl io "$UDID" screenshot /tmp/paywall-review.png
 
@@ -543,8 +735,9 @@ echo "✅ Review screenshots uploaded for MONTHLY=$MONTHLY_ID and ANNUAL=$ANNUAL
 - ⛔ axe-shim（偽物）禁止
 - ⛔ `--locale` フラグ禁止（存在しない。`--version-localization LOC_ID` を使う）
 - ⛔ `--file` フラグ禁止（screenshots upload では存在しない。`--path DIR` を使う）
-- ⛔ Koubou / `asc screenshots frame` 禁止（asc 0.36.3 バグ。生スクショ直接アップロード）
+- ✅ Koubou / `kou generate` でフレーム合成する（Fix #3 で解禁。PATH に /Users/anicca/Library/Python/3.9/bin を追加すること）
 - ⛔ Home 画面を Review Screenshot にアップロードするな（Paywall 画面を撮れ）
+- ⛔ Paywall 画面をプロダクトページスクショに含めるな（Fix #1: レビュースクショ用の Step 1h でのみ使う）
 
 ## Step 2: Metadata Sync
 ⚠️ `asc metadata sync` は存在しない。`asc localizations update` を使う。
@@ -568,16 +761,52 @@ asc localizations update --version $VERSION_ID \
 ```
 CRITICAL: Privacy Policy URL は en-US AND ja 両方必須（Rule 7）
 
-## Step 3: Build + Upload
+## Step 3: Build + Upload (Fix #6: xcodebuild + ASC API Key auth)
+
+Source: Apple Developer Documentation — xcodebuild
+https://developer.apple.com/documentation/xcode/distributing-your-app-for-testing-and-release
+核心の引用: 「xcodebuild supports authentication via App Store Connect API keys using -authenticationKeyPath, -authenticationKeyID, and -authenticationKeyIssuerID」
+
 ```bash
-# Archive
-xcodebuild archive -scheme <AppName> -archivePath build/<AppName>.xcarchive
+source ~/.config/mobileapp-builder/.env
+
+# Archive（xcodebuild + ASC API Key auth — headless CI 向け正規手順）
+xcodebuild archive \
+  -project *.xcodeproj -scheme "$SCHEME" \
+  -archivePath build/app.xcarchive \
+  -destination "generic/platform=iOS" \
+  -allowProvisioningUpdates \
+  -authenticationKeyPath "$ASC_KEY_PATH" \
+  -authenticationKeyID "$ASC_KEY_ID" \
+  -authenticationKeyIssuerID "$ASC_ISSUER_ID" \
+  CODE_SIGN_STYLE=Automatic \
+  DEVELOPMENT_TEAM="$TEAM_ID"
+
 # Export
-xcodebuild -exportArchive -archivePath build/<AppName>.xcarchive \
-  -exportPath build/ -exportOptionsPlist ExportOptions.plist
+cat > build/exportOptions.plist << 'PLIST'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>method</key><string>app-store</string>
+  <key>signingStyle</key><string>automatic</string>
+  <key>uploadSymbols</key><true/>
+  <key>compileBitcode</key><false/>
+</dict></plist>
+PLIST
+
+xcodebuild -exportArchive \
+  -archivePath build/app.xcarchive \
+  -exportPath build/export \
+  -exportOptionsPlist build/exportOptions.plist \
+  -allowProvisioningUpdates \
+  -authenticationKeyPath "$ASC_KEY_PATH" \
+  -authenticationKeyID "$ASC_KEY_ID" \
+  -authenticationKeyIssuerID "$ASC_ISSUER_ID"
+
 # Upload
-xcrun altool --upload-app -f build/<AppName>.ipa -t ios \
-  --apiKey $ASC_KEY_ID --apiIssuer $ASC_ISSUER_ID
+IPA_PATH=$(find build/export -name "*.ipa" | head -1)
+xcrun altool --upload-app -f "$IPA_PATH" -t ios \
+  --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID"
 ```
 
 ## Step 4: Review Details (PATCH 4)

@@ -64,6 +64,28 @@
 
 ---
 
+## 2026-03-07 - US-009: App Store submission (WAITING_FOR_HUMAN)
+
+- **Status: WAITING_FOR_HUMAN: 2FA code needed for App Privacy**
+- **Completed so far:**
+  - Dependency check: US-001~008e all passes:true PASS
+  - apple-appstore-reviewer audit: P0=0, P1=0 PASS
+  - asc validate: Errors=0, Warnings=0, Blocking=0 PASS
+  - Slack notified about 2FA requirement
+- **Blocked on:**
+  - `asc web privacy apply` requires 2FA (session cache expired)
+  - iPhone に届く 6桁コードを Slack で返信してください
+  - エージェントが `--two-factor-code` 付きで再実行します
+- **After 2FA, remaining steps:**
+  1. App Privacy apply + publish
+  2. `asc review submissions-create` + `items-add` + `submissions-submit`
+  3. Confirm WAITING_FOR_REVIEW
+  4. Slack notify
+
+WAITING_FOR_HUMAN: 2FA code needed — iPhone に届く6桁コードを Slack で返信してください
+
+---
+
 ## 2026-03-07 - US-008e: Preflight validation + TestFlight + Slack (COMPLETE)
 
 - **Status: COMPLETE — all AC verified with evidence**
