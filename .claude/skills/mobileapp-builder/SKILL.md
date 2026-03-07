@@ -100,6 +100,13 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 39 | **毎 iteration = 新 CC プロセス（フレッシュ context）**。前回の学びは progress.txt のみ |
 | 41 | **IAP は3プラン必須: weekly + monthly + annual**。Source: RevenueCat State of Subscription Apps 2025 (https://www.revenuecat.com/state-of-subscription-apps-2025/) — "Weekly plans capturing 47% of total revenue" |
 | 42 | **US-005a 開始時に iris セッション確認必須**。`asc web auth status` で authenticated=false なら即 WAITING_FOR_HUMAN。retry 禁止。Source: Internal — iris session expiry blocked 5+ factory runs |
+| 43 | **XcodeBuildMCP使用（raw xcodebuild禁止）**。Never use raw xcodebuild commands. Always use MCP tool: `mcp__xcodebuildmcp__build_sim_name_proj`, `mcp__xcodebuildmcp__test_sim_name_proj`. Source: https://gist.github.com/joelklabo/6df9fa603bec3478dec7efc17ea44596 |
+| 44 | **iOS Simulator Skill（自動検出・自動起動）**。シミュレータ起動・操作はios-simulator-skillに任せる。手動でsimctl起動しない。Claude Code automatically detects when to use this skill. Source: https://github.com/conorluddy/ios-simulator-skill |
+| 45 | **フィードバックループを閉じる**。ビルド後は必ずシミュレータで起動し、動作確認を実施。エラーログをClaude Codeが直接読めるようにする。"Focus on closing the feedback loop, i.e., claude code does best when it can process the result of its changes in the most direct way possible." Source: https://plankenau.com/blog/post/claude-coding-an-ios-app |
+| 46 | **.pbxprojファイルはClaude Codeに触らせない（CRITICAL）**。新規ファイル作成はClaude Codeで、Xcodeプロジェクトへの追加は手動で行う。.pbxprojの直接編集を絶対禁止。"Never let AI modify .pbxproj files. Create files with Claude Code, add them to Xcode manually." Source: https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj |
+| 47 | **iOS 26対応 — 新age rating system**。iOS 26以降のage ratingを正しく設定。古いrating keyは使わない。"Ratings for all apps and games on the App Store have been automatically updated to align with our new age rating system" Source: https://developer.apple.com/news/upcoming-requirements/ |
+| 48 | **xcodebuild -destination で複数デバイステスト**。xcodebuild test実行時に `-destination 'platform=iOS Simulator,name=iPhone 16 Pro'` で明示的にデバイス指定。Source: https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/testing_with_xcode/chapters/08-automation.html |
+| 49 | **Kodeco iOS Build Automation Guide準拠**。ビルド→アーカイブ→エクスポート→アップロードの全自動化パイプラインをKodecoガイドに従って実装。Source: https://www.kodeco.com/books/ios-app-distribution-best-practices/v1.0/chapters/12-build-automation |
 
 ## Quality Gate Pattern
 
