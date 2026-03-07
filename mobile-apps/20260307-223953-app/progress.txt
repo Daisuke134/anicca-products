@@ -342,3 +342,19 @@
   - Paywall screenshots should NOT go on product page (Fix #1) — only for review screenshots (Step 1h)
   - @AppStorage for selectedTab enables external tab selection via `defaults write` for screenshot automation
 ---
+
+## 2026-03-08 - US-008b: ASC Metadata Sync (en-US + ja)
+- Created metadata .strings files: app-info (en-US, ja) + version (en-US, ja)
+- app-info: name, subtitle, privacyPolicyUrl per locale
+- version: description, keywords, promotionalText, supportUrl per locale
+- Uploaded via `asc localizations upload --app` (app-info) + `--version` (version)
+- Keywords trimmed: en-US 120→92 chars (removed "ice bath tracker", "cold water" — below 100 char limit)
+- whatsNew auto-skipped by ASC (initial release has no What's New section)
+- Privacy Policy URL verified for BOTH en-US and ja: https://aniccaai.com/privacy
+- Files created: metadata/app-info/en-US.strings, metadata/app-info/ja.strings, metadata/version/en-US.strings, metadata/version/ja.strings
+- Files modified: prd.json (US-008b passes:true)
+- **Learnings for future iterations:**
+  - ASC keywords limit is 100 characters (not 100 keywords) — trim lowest-priority terms first
+  - `asc localizations upload --version` auto-skips whatsNew for initial releases (warning, not error)
+  - `asc localizations upload --app --type app-info` sets privacyPolicyUrl per locale
+---
