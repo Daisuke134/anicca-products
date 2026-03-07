@@ -286,115 +286,9 @@ JA_DUPES=$(/usr/bin/openssl dgst -md5 screenshots/raw-69/ja/*.png | awk '{print 
 echo "✅ MD5 checks passed: en≠ja, no same-locale duplicates"
 ```
 
-### 1f: デバイスフレーム + ヘッドライン合成 — ⚠️ DISABLED (2026-03-07)
+### 1f: デバイスフレーム — DISABLED (2026-03-07). Skip to 1f2.
 
-**このセクション（1f）は無効。スキップすること。**
-生スクショ（screenshots/raw/）をそのまま ASC にアップロードする（セクション 1f2 に進め）。
-Koubou / `kou generate` は使わない。
-
-~~Source: Koubou v0.14.0 — pip install koubou==0.14.0~~
-~~Verified: 2026-03-07 Mac Mini — `kou generate` でフレーム合成成功~~
-
-```bash
-# kou が PATH にあることを確認
-export PATH="/Users/anicca/Library/Python/3.9/bin:$PATH"
-which kou || { pip3 install koubou==0.14.0 && echo "✅ Koubou installed"; }
-
-# ヘッドライン生成ルール（Fix #9 — MANDATORY）:
-# 1. スクショのヘッドラインはアプリ内テキストのコピーではなく「価値提案」を書く
-# 2. 各スクショのヘッドラインは異なるベネフィットをハイライトする
-# 3. パターン: screen1=主要価値提案, screen2=機能ハイライト, screen3=使用結果, screen4=CTA
-# 4. PRD の tagline + value_proposition + key_features から導出する
-# 5. アプリ内テキストとヘッドラインが同じ文言にならないこと
-#
-# 例:
-#   ❌ "Your Eyes Need Breaks"（アプリ内テキストのコピー）
-#   ✅ "The 20-20-20 Rule, Automated"（価値提案）
-
-# PRIMARY_COLOR は PRD の design_system.primary から取得する
-PRIMARY_COLOR=$(python3 -c "import json; d=json.load(open('prd.json')); print(d.get('designSystem',{}).get('primaryColor','#0A7AFF'))" 2>/dev/null || echo "#0A7AFF")
-
-# CC が PRD から4つのヘッドライン（en + ja）を生成し、Koubou YAML を作成する
-# デバイスフレーム名は色を含む正式名が必要:
-#   ✅ "iPhone 16 Pro - Black Titanium - Portrait"
-#   ❌ "iPhone 15 Pro Portrait"（エラーになる）
-# kou list-frames で利用可能なフレーム名を確認すること
-
-cat > koubou-config.yaml << YAML
-project:
-  name: $APP_NAME
-  device: "iPhone 16 Pro - Black Titanium - Portrait"
-  output_dir: screenshots/framed/en-US
-  output_size: iPhone6_7
-
-defaults:
-  background:
-    type: linear
-    colors: ["$PRIMARY_COLOR", "#1a1a2e"]
-    direction: 180
-
-screenshots:
-  screen1:
-    content:
-      - type: text
-        content: "<HEADLINE_1_EN>"
-        position: ["50%", "10%"]
-        size: 48
-        weight: bold
-        color: "#FFFFFF"
-      - type: image
-        asset: screenshots/raw-69/en-US/screen1_welcome.png
-        frame: true
-        position: ["50%", "58%"]
-        scale: 0.55
-  screen2:
-    content:
-      - type: text
-        content: "<HEADLINE_2_EN>"
-        position: ["50%", "10%"]
-        size: 48
-        weight: bold
-        color: "#FFFFFF"
-      - type: image
-        asset: screenshots/raw-69/en-US/screen2_features.png
-        frame: true
-        position: ["50%", "58%"]
-        scale: 0.55
-  screen3:
-    content:
-      - type: text
-        content: "<HEADLINE_3_EN>"
-        position: ["50%", "10%"]
-        size: 48
-        weight: bold
-        color: "#FFFFFF"
-      - type: image
-        asset: screenshots/raw-69/en-US/screen3_main_feature.png
-        frame: true
-        position: ["50%", "58%"]
-        scale: 0.55
-  screen4:
-    content:
-      - type: text
-        content: "<HEADLINE_4_EN>"
-        position: ["50%", "10%"]
-        size: 48
-        weight: bold
-        color: "#FFFFFF"
-      - type: image
-        asset: screenshots/raw-69/en-US/screen4_home.png
-        frame: true
-        position: ["50%", "58%"]
-        scale: 0.55
-YAML
-
-kou generate koubou-config.yaml
-echo "✅ Framed screenshots generated in screenshots/framed/en-US/"
-
-# ja 用にも同様の YAML を生成（ヘッドラインを日本語に変更）
-# 6.5" 用は output_size: iPhone6_7 のまま（ASCが自動リサイズ）
-# iPad 用は device: "iPad Pro 13 (M4) - Silver" + output_size: iPadPro13 に変更
-```
+生スクショをそのままアップロード。Koubou / `kou generate` は使わない。
 
 ### 1f2: ASC アップロード（フレーム付きスクショ）
 
@@ -669,21 +563,49 @@ asc pricing set ...
 ## Step 7: release-review 5 Checklists
 Read `.claude/skills/release-review/SKILL.md` and execute all 5 checklists.
 
+## Step 7.5: Prerequisites Guard（asc release run の前に全項目を確認・設定）
+
+**MANDATORY — Step 8 の前に実行。** これを飛ばすと dry-run で 7 個の BLOCK が出てリトライ回数を消費する。
+
+```bash
+# === Prerequisites（全て冪等 — 設定済みなら上書き、未設定なら新規作成） ===
+CURRENT_YEAR=$(date +%Y)
+DEVELOPER_NAME="Daisuke Kobayashi"
+
+# 1. Copyright
+asc versions update --version-id "$VERSION_ID" --copyright "$CURRENT_YEAR $DEVELOPER_NAME"
+
+# 2. Age Rating（全22項目 NONE）
+asc age-rating set --app "$APP_ID" --version-id "$VERSION_ID" \
+  --violence-cartoon NONE --violence-realistic NONE --violence-graphic NONE \
+  --sexual-content NONE --nudity NONE --profanity NONE --mature-themes NONE \
+  --horror NONE --gambling NONE --alcohol-tobacco NONE --medical NONE \
+  --contests NONE --unrestricted-web-access false --gambling-simulated false
+
+# 3. Review Details
+asc review details-create --app "$APP_ID" --version-id "$VERSION_ID" --demo-account-required false 2>/dev/null || true
+
+# 4. Category（PRD の appStoreCategory から取得。CC が書き換えること）
+asc categories set --app-info "$APP_INFO_ID" --primary HEALTH_AND_FITNESS
+
+# 5. Availability
+asc availability set --app "$APP_ID" --territories ALL
+
+# 6. Encryption
+asc encryption set --app "$APP_ID" --version-id "$VERSION_ID" --uses-non-exempt-encryption false
+
+# 7. Content Rights
+asc content-rights set --app "$APP_ID" --version-id "$VERSION_ID" --uses-third-party-content false
+
+echo "✅ All 7 prerequisites set"
+```
+
 ## Step 8: Validate + Submit（asc release run）
 
 Verified: `asc release run --dry-run` テスト済み（2026-03-08）
 Source: ASC CLI v0.37.2 PR #849 — "Release orchestration command"
 
 ```bash
-# Prerequisites（asc release run の前に完了すること）:
-# - Copyright: asc versions update --version-id $VERSION_ID --copyright "$(date +%Y) Daisuke Kobayashi"
-# - Age Rating: asc age-rating set --app $APP_ID ...（全22項目）
-# - Review Details: asc review details-create --app $APP_ID --version-id $VERSION_ID --demo-account-required false
-# - Category: asc categories set --app-info $APP_INFO_ID --primary HEALTH_AND_FITNESS
-# - Availability: asc availability set --app $APP_ID --territories ALL
-# - Encryption: asc encryption set ... --uses-non-exempt-encryption false
-# - Content Rights: asc content-rights set ... --uses-third-party-content false
-
 # metadata-dir for asc release run (JSON format — asc metadata pull で取得)
 asc metadata pull --app "$APP_ID" --version "1.0" --dir metadata/release/
 
@@ -799,9 +721,8 @@ for step in d.get('steps', []):
 done
 ```
 
-⚠️ `asc release run` がカバーしないもの（上の Prerequisites で個別設定）:
-Copyright, Age Rating, Review Details, Category, Availability, Pricing, Encryption, Content Rights
-→ ただし Decision Table により、これらが未設定の場合は自動修正される。
+⚠️ `asc release run` がカバーしないもの → **Step 7.5 で事前設定済み。**
+Decision Table は Step 7.5 を飛ばした場合のフォールバック。
 
 Source: rudrankriyam asc-submission-health SKILL.md
 > Pre-submission Checklist 7 items
