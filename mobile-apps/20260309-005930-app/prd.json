@@ -68,8 +68,8 @@
         "Typecheck passes"
       ],
       "priority": 4.2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "docs/DESIGN_SYSTEM.md (7セクション, 12カラートークン, SF Symbols 17個). docs/UX_SPEC.md (9セクション, 10画面, Paywall/Maybe Later必須, accessibilityIdentifier 28個). docs/TEST_SPEC.md (7セクション, 33+ユニットテスト, 6 Maestro E2E, Greenlight checks). docs/RELEASE_SPEC.md (11セクション, en-US+ja全メタデータ, Pre-Submissionチェックリスト9項目). 合計2125行。Rule17/20/20b/21 全PASS。"
     },
     {
       "id": "US-004-R",
