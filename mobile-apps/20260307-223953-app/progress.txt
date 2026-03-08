@@ -455,3 +455,19 @@
   - `asc versions attach-build` is idempotent — safe to re-run even if already attached
   - Build remains VALID across days (no expiry during PREPARE_FOR_SUBMISSION state)
 ---
+
+## 2026-03-08 - US-008a: Screenshots (capture + upload + review screenshot) [RE-RUN #2]
+- Maestro-driven capture on iPhone16ProMax-69 (D1A87F1F, iOS 26.2)
+- en-US 4 screenshots: screen1_welcome, screen2_timer, screen3_history, screen4_progress
+- ja 4 screenshots: same screens with Japanese localization (履歴/進捗 tab text selectors)
+- MD5: en≠ja PASS, 0 same-locale duplicates PASS
+- Deleted 10 existing en-US + 8 existing ja APP_IPHONE_67 screenshots via REST API (DELETE /v1/appScreenshots/{id})
+- ASC upload: en-US 4 COMPLETE + ja 4 COMPLETE (APP_IPHONE_67, displayType per Apple mapping)
+- Review screenshots: Monthly (6760225483) state=COMPLETE, Annual (6760225430) state=COMPLETE (pre-existing, "already exists" error expected)
+- Evidence: en-US=4 shots, ja=4 shots confirmed via REST API GET /v1/appScreenshotSets/{id}/appScreenshots
+- Files: screenshots/raw-69/en-US/ (4 PNG), screenshots/raw-69/ja/ (4 PNG)
+- **Learnings for future iterations:**
+  - `asc screenshots upload` "Too many screenshots" = set already has shots from prior run — delete via REST API DELETE /v1/appScreenshots/{id} first
+  - Review screenshot "already exists" error = it's pre-existing and valid — check via GET /v1/subscriptions/{id}/appStoreReviewScreenshot not /v1/subscriptions/{id}/subscriptionImages
+  - subscriptionImages endpoint = empty; appStoreReviewScreenshot endpoint = correct for review screenshots
+---

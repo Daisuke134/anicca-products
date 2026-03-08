@@ -208,7 +208,7 @@
       ],
       "priority": 8.1,
       "passes": true,
-      "notes": "Maestro-driven screenshot capture on iPhone 16 Pro Max (1320x2868). en-US 8 + ja 8 = 16 screenshots total on APP_IPHONE_67 (Apple auto-scales). MD5 verified: en!=ja (locale applied), 0 same-locale duplicates. Review screenshots confirmed for Weekly (6760225308), Monthly (6760225483), Annual (6760225430) — Paywall with Annual selected. UDID_69=D1A87F1F-10D9-4372-83A4-66904D99B3AC (iPhone16ProMax-69 created fresh on iOS 26.2)."
+      "notes": "Maestro-driven capture: en-US 4 screenshots (Welcome/Timer/History/Progress) + ja 4 screenshots. MD5: en≠ja PASS, 0 same-locale duplicates PASS. ASC upload: en-US=4 COMPLETE (APP_IPHONE_67), ja=4 COMPLETE (APP_IPHONE_67). Review screenshots: Monthly=COMPLETE (eadab140), Annual=COMPLETE (004dac60)."
     },
     {
       "id": "US-008b",
@@ -218,8 +218,8 @@
         "Privacy Policy URL set for en-US AND ja"
       ],
       "priority": 8.2,
-      "passes": true,
-      "notes": "Metadata synced via asc localizations upload. app-info: en-US + ja (name, subtitle, privacyPolicyUrl). version: en-US + ja (description, keywords, promotionalText, supportUrl). Privacy Policy URL=https://aniccaai.com/privacy set for both locales. Keywords: en-US 92 chars, ja 10 keywords. whatsNew auto-skipped (initial release). [fix-verified 2026-03-08: app-info privacy URL confirmed on both locales via ASC API]"
+      "passes": false,
+      "notes": ""
     },
     {
       "id": "US-008c",
@@ -229,8 +229,8 @@
         "Build attached to version"
       ],
       "priority": 8.3,
-      "passes": true,
-      "notes": "BUILD_ID=0149dff3-c222-455b-b286-a023600da006. processingState=VALID (verified 2026-03-08). Build attached to version 291d2259-6d6a-45ff-8898-187bdb516810 v1.0 (attached:true via asc versions attach-build). Version state=PREPARE_FOR_SUBMISSION."
+      "passes": false,
+      "notes": ""
     },
     {
       "id": "US-008d",
@@ -245,7 +245,7 @@
       ],
       "priority": 8.4,
       "passes": false,
-      "notes": "Copyright: 2026 Daisuke Kobayashi. Age Rating: all 22 items NONE + healthOrWellnessTopics=true → 4+. Review Details: demoAccountRequired=false, contact info set (raw API PATCH). Category: HEALTH_AND_FITNESS. Availability: 175/175 territories available, availableInNewTerritories=true (v2 API). Encryption: usesNonExemptEncryption=false (build attribute from Info.plist). Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT. Pricing: FREE app + 3 subscriptions (US-005b). [reset for fix verification 2026-03-08]"
+      "notes": ""
     },
     {
       "id": "US-008e",
@@ -258,7 +258,7 @@
       ],
       "priority": 8.5,
       "passes": false,
-      "notes": " [reset for fix verification 2026-03-08]"
+      "notes": ""
     },
     {
       "id": "US-009",
@@ -271,7 +271,7 @@
       ],
       "priority": 9,
       "passes": false,
-      "notes": " [reset for fix verification 2026-03-08]"
+      "notes": ""
     },
     {
       "id": "US-010",
