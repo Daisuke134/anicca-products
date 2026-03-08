@@ -98,6 +98,7 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 37 | **アイコンはビルド前に配置**。後から変更は version bump + 再ビルド |
 | 38 | **SPM に RevenueCatUI を追加しない。RevenueCat のみ** |
 | 39 | **毎 iteration = 新 CC プロセス（フレッシュ context）**。前回の学びは progress.txt のみ |
+| 41 | **.pbxproj ファイルを CC が編集禁止**。Source: Kris Puckett (https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj) 核心の引用: 「Never let AI modify .pbxproj files. Create files with Claude Code, add them to Xcode manually.」 |
 | 41 | **IAP は3プラン必須: weekly + monthly + annual**。Source: RevenueCat State of Subscription Apps 2025 (https://www.revenuecat.com/state-of-subscription-apps-2025/) — "Weekly plans capturing 47% of total revenue" |
 | 42 | **US-005a 開始時に iris セッション確認必須**。`asc web auth status` で authenticated=false なら即 WAITING_FOR_HUMAN。retry 禁止。Source: Internal — iris session expiry blocked 5+ factory runs |
 | 43 | **XcodeBuildMCP使用（raw xcodebuild禁止）**。Never use raw xcodebuild commands. Always use MCP tool: `mcp__xcodebuildmcp__build_sim_name_proj`, `mcp__xcodebuildmcp__test_sim_name_proj`. Source: https://gist.github.com/joelklabo/6df9fa603bec3478dec7efc17ea44596 |
