@@ -128,8 +128,8 @@ LumaRed は、赤色光デバイス所持者向けの完全自己完結型コン
 
 | Product | ID | Type |
 |---------|-----|------|
-| Monthly | `lumaRed_monthly_499` | Non-consumable subscription |
-| Annual | `lumaRed_annual_2999` | Non-consumable subscription |
+| Monthly | `lumaRed_monthly_499` | Auto-renewable subscription |
+| Annual | `lumaRed_annual_2999` | Auto-renewable subscription |
 | Entitlement | `premium` | — |
 | Offering | `default` | — |
 

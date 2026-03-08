@@ -91,3 +91,20 @@
 - DESIGN_SYSTEM は UX_SPEC より先に作成必須（Color Tokens が UX Wireframe で参照される）
 - TEST_SPEC の Greenlight セクションは実際の grep コマンドではなく `greenlight preflight` 参照に統一
 ---
+
+## 2026-03-09 - US-004-R: Spec Review (all 7 documents)
+
+- code-quality-reviewer agent で 7 ドキュメントを全量レビュー
+- Rule 17/20/20b/21 全 CLEAN（Mixpanel, RevenueCatUI, ATT, OpenAI/Anthropic 等 なし）
+- CRITICAL 3件修正:
+  1. accessibilityIdentifier 不一致 → IMPL_GUIDE を UX_SPEC §7 正本に統一（paywall_maybe_later_button, timer_countdown_label, protocol_detail_start_button, dashboard_streak_value, settings_upgrade_button, settings_restore_button）
+  2. TimerViewModel.complete() ハードコード → durationCompleted/bodyPart 引数受け取りに修正
+  3. PRD.md プロダクトType "Non-consumable subscription" → "Auto-renewable subscription" に修正
+- WARNING 5件（fetchAll()ソート順, バックグラウンドAPI混在, SC-01ワイヤーフレーム欠落, SessionService mutation, Privacy Policy URL欠落）は実装フェーズで対応
+- Files changed: docs/IMPLEMENTATION_GUIDE.md, docs/PRD.md, prd.json
+
+**Learnings for future iterations:**
+- UX_SPEC §7 が accessibilityIdentifier の正本。IMPL_GUIDE のサンプルコードは必ず UX_SPEC に合わせる
+- RevenueCat サブスクリプションは必ず "Auto-renewable subscription" タイプ（Non-consumable は買い切り）
+- TimerViewModel.complete() は durationCompleted と bodyPart を引数で受け取る設計が正しい
+---

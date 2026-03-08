@@ -419,7 +419,7 @@ struct PaywallView: View {
                 Button("Maybe Later") {
                     dismiss()
                 }
-                .accessibilityIdentifier("paywall_maybe_later")
+                .accessibilityIdentifier("paywall_maybe_later_button")
                 .foregroundColor(.secondary)
 
                 // Privacy + Terms
@@ -472,13 +472,13 @@ class TimerViewModel: ObservableObject {
         }
     }
 
-    func complete(protocolId: String, sessionService: SessionServiceProtocol) {
+    func complete(protocolId: String, durationCompleted: Int, bodyPart: BodyPart, sessionService: SessionServiceProtocol) {
         let session = Session(
             id: UUID(),
             date: Date(),
             protocolId: protocolId,
-            durationCompleted: /* actual */ 0,
-            bodyPart: .face
+            durationCompleted: durationCompleted,  // 実際のセッション秒数を受け取る
+            bodyPart: bodyPart                       // 実際のボディパーツを受け取る
         )
         sessionService.save(session: session)
         isRunning = false
@@ -520,15 +520,15 @@ class TimerViewModel: ObservableObject {
 | `home_protocol_list` | HomeView | プロトコル一覧 ScrollView |
 | `protocol_card_face` | HomeView | 顔プロトコルカード |
 | `protocol_card_joint` | HomeView | 関節プロトコルカード |
-| `timer_start_button` | TimerView | タイマー開始ボタン |
-| `timer_display` | TimerView | 残り時間表示 |
+| `protocol_detail_start_button` | TimerView | タイマー開始ボタン（UX_SPEC §7 正本） |
+| `timer_countdown_label` | TimerView | 残り時間表示（UX_SPEC §7 正本） |
 | `paywall_title` | PaywallView | ペイウォールタイトル |
-| `paywall_maybe_later` | PaywallView | Maybe Later ボタン |
+| `paywall_maybe_later_button` | PaywallView | Maybe Later ボタン（UX_SPEC §7 正本） |
 | `paywall_subscribe_monthly` | PaywallView | 月額購入ボタン |
 | `paywall_subscribe_annual` | PaywallView | 年額購入ボタン |
-| `dashboard_streak` | DashboardView | 連続日数表示 |
-| `settings_upgrade` | SettingsView | アップグレードボタン |
-| `settings_restore` | SettingsView | 購入復元ボタン |
+| `dashboard_streak_value` | DashboardView | 連続日数表示（UX_SPEC §7 正本） |
+| `settings_upgrade_button` | SettingsView | アップグレードボタン（UX_SPEC §7 正本） |
+| `settings_restore_button` | SettingsView | 購入復元ボタン（UX_SPEC §7 正本） |
 
 ---
 
