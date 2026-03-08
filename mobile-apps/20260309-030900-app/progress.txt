@@ -1,0 +1,19 @@
+## Codebase Patterns
+- APP_DIR固有spec → APP_DIR/spec/ ではなく mobile-apps/<appname>/spec/ に作成
+- TikTok Apify: hashtags配列内は {name: "hashtag"} 形式 (str非対応)。playCount/diggCountでビュー/いいね取得
+- iTunes Search API: trackId, trackName, averageUserRating, userRatingCount フィールドを使う
+- NEUROFIT 651件レビュー → vagus nerve は極低競合カテゴリ（2026-03現在）
+
+---
+
+## 2026-03-09 - US-001: Trend Research + Idea Selection
+- VagusReset (迷走神経デイリーリセット) を選定
+- overall_score=8.50 (5アイデア中1位)
+- TikTok実測: #vagusnerve 1,500,000+ views (Apify clockworks~tiktok-hashtag-scraper)
+- App Store: NEUROFIT™ 651件, Vagal Tones 0件 = 極低競合
+- ★1-2レビュー洞察: センサー依存・課金後コンテンツなし → センサー不要+コンテンツ充実で差別化
+- ファイル作成: mobile-apps/vagus-reset/spec/01-trend.md
+- **Learnings for future iterations:**
+  - 除外カテゴリに「呼吸法」がある → 迷走神経アプリ実装時は哼り/うがい/冷水/笑いに限定（呼吸エクササイズは含めない）
+  - 競合0件アプリ = 市場がない可能性 vs チャンス。1-2件の低競合が最適
+---
