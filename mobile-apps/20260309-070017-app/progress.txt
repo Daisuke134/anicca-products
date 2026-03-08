@@ -1,0 +1,28 @@
+## Codebase Patterns
+
+- App: Zone2Daily (Zone 2 心拍数トレーニングコンパニオン)
+- Bundle ID: TBD (US-005a で決定)
+- HealthKit: HR + Workout Session の読み取り
+- 課金: $4.99/月, $29.99/年
+- 数式: Zone 2 Target HR = 180 - age (Maffetone Method)
+- AI API: 完全禁止 (Rule 23)
+
+---
+
+## 2026-03-09 - US-001: Trend Research + Idea Selection
+
+- spec/01-trend.md 作成完了
+- 5 Lens × 1アイデア = 5個生成
+- Feasibility Filtering: 5個 PASS、4個 FAIL
+- Top 3 Shortlist: Zone2Daily (9.0) > SunProtocol (7.67) > RespiRate (7.58)
+- 選定: Zone2Daily — Zone 2 心拍数コーチアプリ
+- TikTok: #zone2cardio + #zone2training = 1.4M+ views ✅
+- App Store: 競合「Zone 2: Heart Rate Training」226 reviews のみ ✅
+- Apify dataset: mVhGpSdPTa48eXLlC, qyptziLPtXuwQaDRt
+- Files changed: spec/01-trend.md, prd.json, progress.txt
+
+**Learnings for future iterations:**
+- Zone 2 専用に特化（全ゾーンアプリとの差別化ポイント）
+- HealthKit WorkoutSession API は iOS 17+ で Workout type 指定が必要
+- Maffetone: 180−年齢。Karvonen: (HRmax−HRrest)×0.6 + HRrest。両方実装可能
+---
