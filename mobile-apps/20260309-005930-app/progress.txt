@@ -1,0 +1,27 @@
+## Codebase Patterns
+
+| パターン | 詳細 |
+|---------|------|
+| APP_DIR | /Users/anicca/anicca-project/mobile-apps/20260309-005930-app/ |
+| App Name | LumaRed |
+| Bundle ID | (US-005a で決定) |
+| Category | Health & Fitness / Biohacking |
+| Key Files | spec/01-trend.md, prd.json, progress.txt |
+| Subscription | $4.99/月, $29.99/年 |
+
+---
+
+## 2026-03-09 - US-001: Trend Research + Idea Selection
+
+- 5 Lens リサーチ実施。最終選定: **LumaRed**（赤色光療法コンパニオンアプリ）
+- iTunes Search API で競合調査: top競合 "Redd Light Therapy" 69 reviews（市場ほぼ空白）
+- Apify TikTok: #redlighttherapy 698K plays, #biohacking 4.1M plays でトレンド確認
+- 5アイデア生成、Feasibility Filter 通過3件（BioStack は Habit Tracker 136K reviews で C=3 FAIL）
+- overall_score: LumaRed 8.42 > Zone2Coach 8.17 > VagusReset 7.83
+- Files changed: spec/01-trend.md (created), prd.json (US-001 passes=true)
+
+**Learnings for future iterations:**
+- 赤色光療法アプリは App Store でほぼ市場空白。iOS の Timer + Charts + BackgroundTasks で実装可能
+- 静的コンテンツ（プロトコルライブラリ）+ タイマー + ログ構成でAI/API コスト不要
+- 除外カテゴリ判断: mobile-apps/ に既存アプリが多数あるため、必ず ls + spec読み取りで動的除外リストを構築
+---
