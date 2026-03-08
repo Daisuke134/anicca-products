@@ -25,3 +25,18 @@
 - 静的コンテンツ（プロトコルライブラリ）+ タイマー + ログ構成でAI/API コスト不要
 - 除外カテゴリ判断: mobile-apps/ に既存アプリが多数あるため、必ず ls + spec読み取りで動的除外リストを構築
 ---
+
+## 2026-03-09 - US-002: Product Planning
+- product-plan.md 作成（7セクション: Target User, Problem, Solution, Monetization, MVP Scope, App Identity, Risk Assessment）
+- 競合分析: Redd Light Therapy (69 reviews, Free), SUNI (2 reviews), Red Light For Your Eyes (18 reviews, $4.99)
+- 市場: RLT市場 $354M (2022) → $1.13B (2029) CAGR 15.47%
+- 価格: $4.99/月, $29.99/年（RevenueCat H&F median準拠）
+- 名前チェック: LumaRed iTunes 0 exact matches ✅
+- Bundle ID: com.aniccafactory.lumared
+- Files changed: product-plan.md (created), prd.json (US-002 passes=true)
+
+**Learnings for future iterations:**
+- RevenueCat H&F median ($7.73/月, $29.65/年) を基準にして価格設定する。$4.99/月 = median の 65%で範囲内
+- PROHIBITED リスト（HealthKit, Camera, LLM, Live Activities）はMVP Scope Won't Have に全て明記すること
+- iTunes 名前チェックは curl + jq で「0 exact matches」を証拠として記録必須
+---
