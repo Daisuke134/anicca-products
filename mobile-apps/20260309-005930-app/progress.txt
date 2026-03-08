@@ -4,7 +4,7 @@
 |---------|------|
 | APP_DIR | /Users/anicca/anicca-project/mobile-apps/20260309-005930-app/ |
 | App Name | LumaRed |
-| Bundle ID | (US-005a で決定) |
+| Bundle ID | com.aniccafactory.lumared (Bundle ID registered: LTNHH6B63K) |
 | Category | Health & Fitness / Biohacking |
 | Key Files | spec/01-trend.md, prd.json, progress.txt |
 | Subscription | $4.99/月, $29.99/年 |
@@ -107,4 +107,32 @@
 - UX_SPEC §7 が accessibilityIdentifier の正本。IMPL_GUIDE のサンプルコードは必ず UX_SPEC に合わせる
 - RevenueCat サブスクリプションは必ず "Auto-renewable subscription" タイプ（Non-consumable は買い切り）
 - TimerViewModel.complete() は durationCompleted と bodyPart を引数で受け取る設計が正しい
+---
+
+## 2026-03-09 - US-005a: Infrastructure (Privacy + ASC App Creation)
+
+WAITING_FOR_HUMAN: iris web session expired. 2FA code required to re-authenticate.
+
+**完了済み:**
+- privacy-policy.md 作成（URL: https://aniccaai.com/privacy）
+- ~/.config/mobileapp-builder/projects/lumared/ ディレクトリ作成
+- Bundle ID com.aniccafactory.lumared 登録確認（既存 ID: LTNHH6B63K）
+- `asc web auth login` 実行済み → Apple デバイスに 2FA コードが届いているはず
+
+**ブロック理由:** `asc apps create` は Apple ID 認証（web session）が必須。iris session expired。
+
+**次のイテレーションで実行:**
+```bash
+source ~/.config/mobileapp-builder/.env
+security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db
+ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web auth login --apple-id "$APPLE_ID" --two-factor-code <6桁コード>
+asc web auth status --apple-id "$APPLE_ID"  # → {"authenticated":true}
+ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc apps create --name "LumaRed" --bundle-id "com.aniccafactory.lumared" --sku "lumared" --platform IOS --primary-locale "en-US" --apple-id "$APPLE_ID" --output json
+```
+
+**Learnings for future iterations:**
+- `asc apps create` は API key 認証 NOT 対応。必ず iris web session が必要
+- iris session は 7日程度で expire する。ralph.sh PREFLIGHT Check 6 でセッション確認必須
+- 2FA 送信: `ASC_WEB_PASSWORD="..." asc web auth login --apple-id ...` → エラー時に Apple デバイスに 2FA コードが届く
+- 次のイテレーション冒頭で `security unlock-keychain` + `asc web auth login --two-factor-code <CODE>` で復帰可能
 ---
