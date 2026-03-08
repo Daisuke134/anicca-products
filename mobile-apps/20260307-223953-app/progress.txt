@@ -471,3 +471,17 @@
   - Review screenshot "already exists" error = it's pre-existing and valid — check via GET /v1/subscriptions/{id}/appStoreReviewScreenshot not /v1/subscriptions/{id}/subscriptionImages
   - subscriptionImages endpoint = empty; appStoreReviewScreenshot endpoint = correct for review screenshots
 ---
+
+## 2026-03-08 - US-008b: ASC Metadata Sync (en-US + ja) [STATE SYNC]
+- prd.json was passes:false due to previous reset (validate.sh had not reset — prd.json was stale)
+- Verified via ASC API:
+  - app-info: en-US name="Cold Plunge Timer - FrostDip" privacyPolicyUrl=https://aniccaai.com/privacy ✅
+  - app-info: ja name="Cold Plunge Timer - FrostDip" privacyPolicyUrl=https://aniccaai.com/privacy ✅
+  - version en-US: desc_len=1289, keywords=92 chars, supportUrl set ✅
+  - version ja: desc_len=639, keywords=10 terms, supportUrl set ✅
+- prd.json updated: passes:true
+- Also synced US-008c (processingState=VALID, build attached to version 291d2259) → passes:true
+- **Learnings for future iterations:**
+  - prd.json can become stale if previous iteration was reset by ralph.sh — re-verify via ASC API and resync
+  - `asc localizations list --app $APP_ID --type app-info` confirms app-info locale fields
+---

@@ -218,8 +218,8 @@
         "Privacy Policy URL set for en-US AND ja"
       ],
       "priority": 8.2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "app-info: en-US+ja name+privacyPolicyUrl=https://aniccaai.com/privacy. version: en-US desc=1289 chars, keywords=92 chars; ja desc=639 chars, keywords=10 terms. Both locales confirmed via asc localizations list."
     },
     {
       "id": "US-008c",
@@ -229,8 +229,8 @@
         "Build attached to version"
       ],
       "priority": 8.3,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "BUILD_ID=0149dff3-c222-455b-b286-a023600da006 processingState=VALID. Attached to VERSION_ID=291d2259-6d6a-45ff-8898-187bdb516810 (v1.0 PREPARE_FOR_SUBMISSION). Version state=PREPARE_FOR_SUBMISSION confirmed."
     },
     {
       "id": "US-008d",
