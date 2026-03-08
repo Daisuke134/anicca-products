@@ -6,6 +6,19 @@
 
 ---
 
+## 2026-03-09 - US-002: Product Planning
+- product-plan.md 作成。7セクション（Target User / Problem / Solution / Monetization / MVP Scope / App Identity / Risk）
+- VagusReset、Bundle ID: com.aniccafactory.vagusreset、App Title: "Vagus Nerve Reset - VagusReset"
+- 価格: $4.99/mo + $29.99/yr（RevenueCat H&F median 準拠）
+- iTunes名前確認: "VagusReset" = 0件、"Vagus Reset" = 0件（verified 2026-03-09）
+- 引用: WHO 2022, PMC5859128, RevenueCat SOSA 2025, Jake Mor, Apple Dev Docs（21URL）
+- PROHIBITED機能: WidgetKit, HealthKit, Camera, Sign in with Apple, CoreData → 全て Won't Have
+- **Learnings for future iterations:**
+  - product-plan.md は APP_DIR ルート直下に配置（spec/ サブディレクトリでなく）
+  - 価格表記は `/mo` `/yr` 形式が必須（validate.sh が grep する可能性あり）
+
+---
+
 ## 2026-03-09 - US-001: Trend Research + Idea Selection
 - VagusReset (迷走神経デイリーリセット) を選定
 - overall_score=8.50 (5アイデア中1位)
