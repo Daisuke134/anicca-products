@@ -1,3 +1,17 @@
+## 2026-03-09 - US-005a: Privacy Policy + ASC app creation
+- Bundle ID 登録: com.aniccafactory.vagusreset (ID=9WDMY56FKT)
+- ASC App 作成: APP_ID=6760264773 (asc web apps create + keychain cache)
+- APP_ID 保存: ~/.config/mobileapp-builder/projects/vagus-reset/.env
+- App Privacy: DATA_NOT_COLLECTED apply + publish → published:true ✅
+- Privacy Policy URL: https://aniccaai.com/privacy（既存URL、カスタム生成不要）
+- PrivacyInfo.xcprivacy + Info.plist は US-006 で実施（iOSプロジェクト作成後）
+- **Learnings for future iterations:**
+  - `asc apps create` は interactive prompt を要求 → `asc web apps create` (irisセッション) を使う
+  - `asc web apps create` はキャッシュセッションがあれば `--apple-id` 不要
+  - `ASC_WEB_PASSWORD` env var prefix ではなく `export ASC_WEB_PASSWORD=` か `--password` flag が必要
+  - iris session: `ASC_WEB_SESSION_CACHE_BACKEND` を unset しないと keychain 読まない → 必ず unset
+---
+
 ## 2026-03-09 - US-004-R: Spec Review (all 7 documents)
 - code-quality-reviewer agent 実行: 5 CRITICAL / 8 WARNINGS / 5 SUGGESTIONS 検出
 - 全5 CRITICAL 修正: ARCHITECTURE.md バッククォート / PaywallView エラーハンドリング / StreakService 実装仕様 / resume() 追加 / Fastfile レーン追加

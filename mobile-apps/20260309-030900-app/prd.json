@@ -93,8 +93,8 @@
         "App created in ASC (APP_ID recorded in .env)"
       ],
       "priority": 5,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Bundle ID=com.aniccafactory.vagusreset (9WDMY56FKT)登録。APP_ID=6760264773 作成・保存（~/.config/mobileapp-builder/projects/vagus-reset/.env）。App Privacy=DATA_NOT_COLLECTED published:true。Privacy Policy=https://aniccaai.com/privacy（既存URL使用）。PrivacyInfo.xcprivacy + Info.plist は US-006 で実行。2026-03-09"
     },
     {
       "id": "US-005b",
