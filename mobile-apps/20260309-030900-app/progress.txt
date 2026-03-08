@@ -6,6 +6,19 @@
 
 ---
 
+## 2026-03-09 - US-003: Market Research
+- competitive-analysis.md 作成。7競合分析（直接5: NEUROFIT/Settle/VagusVibe/FlowMD/Vagus+、間接2: ApolloNeuro/HeartMath）
+- market-research.md 作成。TAM=$6.7B / SAM=$43.5M / SOM Year1=$4,350〜Year3=$87,000
+- POEM Score: 21/25（🟢 Strong Opportunity）
+- ネガティブシグナル: 低競合=小市場リスク、Year1 SOM小規模、TikTokトレンド持続不確実
+- iTunes API実測（2026-03-09）: 全競合データ収集。★1-2レビュー分析でNEUROFITの3大弱点特定
+- 全8チェック✅PASS
+- **Learnings for future iterations:**
+  - iTunes Customer Reviews RSS APIはlimit使用不可。全レビュー返却（paginated）
+  - ★1-2レビュー取得には `select((.["im:rating"].label | tonumber) <= 2)` フィルタを使う
+
+---
+
 ## 2026-03-09 - US-002: Product Planning
 - product-plan.md 作成。7セクション（Target User / Problem / Solution / Monetization / MVP Scope / App Identity / Risk）
 - VagusReset、Bundle ID: com.aniccafactory.vagusreset、App Title: "Vagus Nerve Reset - VagusReset"
