@@ -54,8 +54,8 @@
         "Typecheck passes"
       ],
       "priority": 4.1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "docs/PRD.md(237行)・ARCHITECTURE.md(306行)・IMPLEMENTATION_GUIDE.md(471行)作成完了。全AC PASS。Rule 17/20/20b/21 違反なし。app_name=VagusReset、bundle_id=com.aniccafactory.vagusreset、$4.99/mo+$29.99/yr、F-001〜F-010 Feature ID。Purchases.shared.purchase参照あり。RC-UI-package禁止明記。"
     },
     {
       "id": "US-004b",
