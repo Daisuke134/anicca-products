@@ -132,6 +132,31 @@ if [ "$PREFLIGHT_FAIL" -eq 1 ]; then
   exit 1
 fi
 
+# Check 6: iris session（2FA が必要な ASC 操作の前提）
+echo -n "  [6/6] iris session... "
+IRIS_STATUS=$(asc web auth status 2>&1 || echo "IRIS_FAIL")
+if echo "$IRIS_STATUS" | grep -q 'authenticated.*false\|not authenticated\|session.*expired\|IRIS_FAIL'; then
+  echo "⚠️ iris expired — 2FA 必要"
+  notify_slack "⏸️ PREFLIGHT: iris session expired。2FA コード必要:\n\`asc web auth login\`"
+  WAIT_COUNT=0
+  while [ $WAIT_COUNT -lt 960 ]; do
+    IRIS_RECHECK=$(asc web auth status 2>&1 || echo "IRIS_FAIL")
+    if echo "$IRIS_RECHECK" | grep -q 'authenticated.*true'; then
+      echo "  ✅ iris session restored"
+      break
+    fi
+    sleep 30
+    WAIT_COUNT=$((WAIT_COUNT + 1))
+  done
+  if [ $WAIT_COUNT -ge 960 ]; then
+    echo "❌ iris session タイムアウト（8時間）"
+    notify_slack "❌ iris session タイムアウト（8時間）。手動対応必要。"
+    exit 2
+  fi
+else
+  echo "✅"
+fi
+
 echo "🟢 PREFLIGHT OK — 全チェック通過"
 
 # Fix #7: Sync template references + validate.sh to app dir every run.
@@ -166,10 +191,10 @@ for i in $(seq 1 $MAX_ITERATIONS); do
   while [ -f "$SCRIPT_DIR/progress.txt" ] && grep -q "WAITING_FOR_HUMAN" "$SCRIPT_DIR/progress.txt"; do
     echo "🏭 ⏸️ WAITING_FOR_HUMAN 検出。人間の入力待ち... (${WAIT_COUNT}回目)"
     WAIT_COUNT=$((WAIT_COUNT + 1))
-    if [ $WAIT_COUNT -ge 480 ]; then  # 4時間（30秒×480）
-      echo "🏭 ❌ WAITING_FOR_HUMAN タイムアウト（4時間）"
-      notify_slack "❌ WAITING_FOR_HUMAN タイムアウト（4時間）。手動対応必要。"
-      break 2
+    if [ $WAIT_COUNT -ge 960 ]; then  # 8時間（30秒×960）
+      echo "🏭 ❌ WAITING_FOR_HUMAN タイムアウト（8時間）"
+      notify_slack "❌ WAITING_FOR_HUMAN タイムアウト（8時間）。手動対応必要。"
+      exit 2
     fi
     sleep 30
   done

@@ -189,3 +189,10 @@ Only general, reusable patterns — not story-specific details.
 progress.txt に `WAITING_FOR_HUMAN: <what you need>` を書いて passes: false にする。
 ralph.sh が検知して Slack に通知する。
 次のイテレーションで .env を確認して再開する。
+
+## US-008 連続実行ルール（CRITICAL）
+US-008a を開始したら、US-008e まで連続で完了させること。
+途中で他の US（US-004b, US-004-R, US-005a 等）に移動してはならない。
+prd.json の priority 順を無視して、US-008a → 008b → 008c → 008d → 008e の順に実行する。
+理由: US-008a-d で取得した VERSION_ID, BUILD_ID, LOC_ID 等の環境変数が
+有効な間に全ステップを完了しないと、途中で別の US に飛ばされてセッションが切れる。
