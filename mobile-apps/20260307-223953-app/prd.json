@@ -229,8 +229,8 @@
         "Build attached to version"
       ],
       "priority": 8.3,
-      "passes": false,
-      "notes": "IPA built via xcodebuild archive+export (Automatic signing, TEAM=S5U8UH3JLJ). Uploaded via xcrun altool (Delivery UUID=0149dff3-c222-455b-b286-a023600da006). processingState=VALID. Build attached to version 291d2259 (v1.0). Fixes: (1) health-records entitlement removed (only basic HealthKit needed), (2) DEVELOPMENT_TEAM corrected S5U8UH3JLJ (was GCVGP8K25Q=bundleId ID), (3) NSHealthUpdateUsageDescription added, (4) BGTaskSchedulerPermittedIdentifiers added for UIBackgroundModes processing, (5) HealthKit capability registered on bundle ID via ASC API. [reset for fix verification 2026-03-08]"
+      "passes": true,
+      "notes": "BUILD_ID=0149dff3-c222-455b-b286-a023600da006. processingState=VALID (verified 2026-03-08). Build attached to version 291d2259-6d6a-45ff-8898-187bdb516810 v1.0 (attached:true via asc versions attach-build). Version state=PREPARE_FOR_SUBMISSION."
     },
     {
       "id": "US-008d",
@@ -272,6 +272,18 @@
       "priority": 9,
       "passes": false,
       "notes": " [reset for fix verification 2026-03-08]"
+    },
+    {
+      "id": "US-010",
+      "title": "Build Report: Token Usage + Slack + X Post",
+      "description": "Generate build report with token usage, post to Slack #metrics, and post to X via Postiz API",
+      "acceptanceCriteria": [
+        "build-report.json saved in app dir",
+        "Slack #metrics post sent with app name + token count + screenshots",
+        "X post sent via Postiz API (@aniccaxxx)"
+      ],
+      "passes": false,
+      "notes": ""
     }
   ]
 }

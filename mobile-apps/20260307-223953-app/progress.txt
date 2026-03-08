@@ -445,3 +445,13 @@
   - `asc localizations list --app $APP_ID --type app-info` confirms app-info privacy URLs
   - privacyPolicyUrl lives in app-info localization, NOT version localization (version shows empty — normal)
 ---
+
+## 2026-03-08 - US-008c: IPA Build + Upload + Version Attach [FIX VERIFICATION]
+- processingState=VALID confirmed: BUILD_ID=0149dff3-c222-455b-b286-a023600da006
+- Build attached to version 291d2259-6d6a-45ff-8898-187bdb516810 (v1.0): {"attached":true}
+- Version state=PREPARE_FOR_SUBMISSION
+- No new build needed — existing build from prior iteration still VALID
+- **Learnings for future iterations:**
+  - `asc versions attach-build` is idempotent — safe to re-run even if already attached
+  - Build remains VALID across days (no expiry during PREPARE_FOR_SUBMISSION state)
+---
