@@ -544,3 +544,11 @@ TESTFLIGHT_LINK=https://testflight.apple.com/join/3kVhjVfs
   - validate.sh Gate 2 Greenlight scan may flag 1320x2868 as "wrong dimensions" — this is Apple mapping 6.9"→APP_IPHONE_67 internally, not an error
   - When passes is reset by validate.sh, check if the gate itself had a bug before re-doing work
 ---
+
+## 2026-03-08 - US-009: App Store submission (App Privacy + submit)
+- WAITING_FOR_HUMAN: 2FA code needed for App Privacy declaration
+- apple-appstore-reviewer audit: P0=0, P1=0, P2=1 (social proof text), P3=3
+- asc validate: Errors=0, Warnings=6 (all SKIP per Decision Table)
+- App Privacy apply failed: session expired, 2FA required
+- iPhone に届く 6桁コードを Slack で返信してください
+---

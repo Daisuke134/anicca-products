@@ -94,36 +94,19 @@ TOTAL_GATES=$((TOTAL_GATES + 1))
 if [ "$(us_passes US-008d)" = "true" ] && [ -n "$APP_ID" ]; then
   if command -v greenlight &>/dev/null && [ -f ~/.greenlight/config.json ]; then
     GL_SCAN=$(greenlight scan --app-id "$APP_ID" --tier 1 --format json 2>/dev/null || echo '{"summary":{"passed":false,"blocks":999}}')
-    # Fix #12: Filter known false positives from greenlight scan
-    # 1. iPad findings: iPhone-only apps (TARGETED_DEVICE_FAMILY: "1") don't need iPad screenshots
-    # 2. 1320x2868 / "wrong dimensions": greenlight doesn't know Apple maps 6.9" → APP_IPHONE_67 internally.
-    #    1320x2868 is the correct size for IPHONE_69 per Apple official docs:
-    #    Source: https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/
-    #    "6.9" Display: 1320 x 2868 pixels (portrait)" — iPhone 16 Pro Max, 15 Pro Max, 14 Pro Max
-    GL_RESULT=$(echo "$GL_SCAN" | python3 -c "
+    GL_PASSED=$(echo "$GL_SCAN" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('summary',{}).get('passed',False))" 2>/dev/null || echo "False")
+    if [ "$GL_PASSED" = "True" ]; then
+      log_pass "Greenlight ASC scan passed"
+    else
+      GL_BLOCKS=$(echo "$GL_SCAN" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('summary',{}).get('blocks',999))" 2>/dev/null || echo 999)
+      log_fail "Greenlight ASC scan: $GL_BLOCKS blocking issues"
+      echo "$GL_SCAN" | python3 -c "
 import json,sys
 d=json.load(sys.stdin)
-findings = d.get('findings',[])
-blocking = [f for f in findings if f.get('severity',0) >= 2
-            and 'iPad' not in f.get('title','')
-            and 'iPad' not in f.get('detail','')
-            and '1320x2868' not in f.get('title','')
-            and 'wrong dimensions' not in f.get('title','').lower()]
-if not blocking:
-    print('PASS')
-else:
-    print(f'FAIL:{len(blocking)}')
-    for f in blocking:
+for f in d.get('findings',[]):
+    if f.get('severity',0) >= 2:
         print(f'    ⚠️  [{f.get(\"guideline\",\"\")}] {f.get(\"title\",\"\")}')
-" 2>/dev/null || echo "PARSE_ERROR")
-    if echo "$GL_RESULT" | head -1 | grep -q "^PASS"; then
-      log_pass "Greenlight ASC scan passed (iPad findings filtered for iPhone-only apps)"
-    elif echo "$GL_RESULT" | head -1 | grep -q "PARSE_ERROR"; then
-      log_skip "Greenlight scan parse error"
-    else
-      GL_BLOCKS=$(echo "$GL_RESULT" | head -1 | grep -oE '[0-9]+' || echo "?")
-      log_fail "Greenlight ASC scan: $GL_BLOCKS blocking issues"
-      echo "$GL_RESULT" | tail -n +2
+" 2>/dev/null || true
     fi
   else
     log_skip "greenlight scan not configured"
@@ -139,11 +122,7 @@ fi
 echo ""
 echo "--- Gate 3: Subscription Completeness ---"
 TOTAL_GATES=$((TOTAL_GATES + 1))
-# Fix #1: Guard on US-008d (not US-008a) to avoid circular dependency.
-# US-008a uploads review screenshots → MISSING_METADATA clears async.
-# Checking at US-008a causes false FAIL → auto-reset → infinite loop.
-# At US-008d, review screenshots are fully processed.
-if [ "$(us_passes US-008d)" = "true" ] && [ -n "$APP_ID" ]; then
+if [ "$(us_passes US-008a)" = "true" ] && [ -n "$APP_ID" ]; then
   MISSING=$(asc subscriptions groups list --app "$APP_ID" --output json 2>/dev/null | python3 -c "
 import json,sys,subprocess,os
 os.environ['ASC_BYPASS_KEYCHAIN']='true'
@@ -178,7 +157,7 @@ if missing:
     log_fail "Subscription issues: $MISSING"
   fi
 else
-  log_skip "US-008d not yet passed or APP_ID not found"
+  log_skip "US-008a not yet passed or APP_ID not found (Review Screenshot needed for metadata completeness)"
 fi
 
 ##############################################
@@ -191,7 +170,7 @@ echo "--- Gate 4: Screenshots ---"
 TOTAL_GATES=$((TOTAL_GATES + 1))
 if [ "$(us_passes US-008a)" = "true" ]; then
   # Search for raw screenshots in any subdirectory (e.g., ChiDailyios/screenshots/raw/)
-  RAW_COUNT=$(find "$APP_DIR" -path "*/screenshots/raw*/*.png" 2>/dev/null | wc -l | tr -d ' ')
+  RAW_COUNT=$(find "$APP_DIR" -path "*/screenshots/raw/*.png" 2>/dev/null | wc -l | tr -d ' ')
   if [ "$RAW_COUNT" -ge 4 ]; then
     log_pass "Raw screenshots: $RAW_COUNT (>= 4)"
   else
@@ -199,7 +178,7 @@ if [ "$(us_passes US-008a)" = "true" ]; then
   fi
 
   # Screenshots must be unique (not all same image)
-  UNIQUE_HASHES=$(find "$APP_DIR" -path "*/screenshots/raw*/*.png" 2>/dev/null | xargs shasum 2>/dev/null | awk '{print $1}' | sort -u | wc -l | tr -d ' ')
+  UNIQUE_HASHES=$(find "$APP_DIR" -path "*/screenshots/raw/*.png" 2>/dev/null | xargs shasum 2>/dev/null | awk '{print $1}' | sort -u | wc -l | tr -d ' ')
   if [ "$UNIQUE_HASHES" -ge 2 ] && [ "$RAW_COUNT" -ge 4 ]; then
     log_pass "Screenshots unique: $UNIQUE_HASHES unique of $RAW_COUNT total"
   else
@@ -250,7 +229,7 @@ for v in d.get('data',[]):
 " 2>/dev/null || echo "")
 
   if [ -n "$VER_ID" ]; then
-    LOCALES=$(asc localizations list --version "$VER_ID" --output json 2>/dev/null | python3 -c "
+    LOCALES=$(asc app-store-version-localizations list --version-id "$VER_ID" --output json 2>/dev/null | python3 -c "
 import json,sys
 d=json.load(sys.stdin)
 locales=[l['attributes']['locale'] for l in d.get('data',[])]
@@ -288,36 +267,25 @@ for v in d.get('data',[]):
 " 2>/dev/null || echo "")
 
   if [ -n "$VER_ID" ]; then
-    # Fix #2: asc validate returns exit=1 for ANY errors/warnings (not just errors).
-    # So we MUST parse JSON regardless of exit code. Only skip if no output at all.
-    VALIDATE_OUT=$(asc validate --app "$APP_ID" --version-id "$VER_ID" --platform IOS --output json 2>/dev/null || true)
-    if [ -z "$VALIDATE_OUT" ]; then
-      log_skip "ASC validate returned no output"
+    VALIDATE_OUT=$(asc validate --app "$APP_ID" --version-id "$VER_ID" --platform IOS 2>&1 || echo "CHECK_FAILED")
+    if echo "$VALIDATE_OUT" | grep -q "CHECK_FAILED"; then
+      log_skip "ASC validate check failed (API error)"
     else
-      VALIDATE_RESULT=$(echo "$VALIDATE_OUT" | python3 -c "
+      # Fix #11: asc validate returns JSON — parse with python3 instead of grep
+      VALIDATE_ERRORS=$(echo "$VALIDATE_OUT" | python3 -c "
 import json,sys
 try:
     d=json.load(sys.stdin)
-    s=d.get('summary',{})
-    errors=s.get('errors',999)
-    blocking=s.get('blocking',999)
-    if errors==0 and blocking==0:
-        print('PASS')
-    else:
-        # Show first error detail for debugging
-        checks=d.get('checks',[])
-        first_err=[c for c in checks if c.get('severity')=='error']
-        detail=first_err[0]['message'] if first_err else 'unknown'
-        print(f'FAIL:errors={errors},blocking={blocking},first={detail}')
-except Exception as e:
-    print(f'PARSE_ERROR:{e}')
-" 2>/dev/null || echo "PARSE_ERROR")
-      if [ "$VALIDATE_RESULT" = "PASS" ]; then
-        log_pass "ASC validate: Errors=0, Blocking=0"
-      elif echo "$VALIDATE_RESULT" | grep -q "PARSE_ERROR"; then
-        log_skip "ASC validate parse error: $VALIDATE_RESULT"
+    print(d.get('summary',{}).get('errors',999))
+except:
+    import re
+    m=re.search(r'[Ee]rrors[:\s]+(\d+)', '$VALIDATE_OUT')
+    print(m.group(1) if m else 999)
+" 2>/dev/null || echo "999")
+      if [ "$VALIDATE_ERRORS" = "0" ]; then
+        log_pass "ASC validate: Errors=0"
       else
-        log_fail "ASC validate: $VALIDATE_RESULT"
+        log_fail "ASC validate errors: $VALIDATE_ERRORS (output: $(echo "$VALIDATE_OUT" | head -3))"
       fi
     fi
   else

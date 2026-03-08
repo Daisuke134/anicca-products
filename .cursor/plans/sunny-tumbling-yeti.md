@@ -501,11 +501,357 @@ asc workflow run release_full VERSION:1.0.0 BUILD_ID:xxx  # 全自動
 
 ---
 
-## 次フェーズ: 全体刷新（未実装）
+## 全フェーズブレイクダウン（修正版 2026-03-08）
 
-残りの大規模変更は別フェーズで実施:
-1. CLAUDE.md コマンドテーブル更新（15コマンド追加）
-2. us-005a-infra.md: `asc auth doctor` + `app-setup` 追加
-3. us-009-submit.md: `asc release run` / `submit create` 統合
-4. workflow.json テンプレート（UDID_69 統一）
-5. reference md → mini skill 移行（レシピの DRY 化）
+### 鉄則
+
+| # | ルール |
+|---|--------|
+| 1 | **1フェーズ = 1スキル**（複数スキル呼び出し禁止） |
+| 2 | **全ASC CLIコマンド `--help` 検証済み** ✅ |
+| 3 | **品質レビュー = code-quality-reviewer サブエージェント**（codex-review ではない） |
+| 4 | **スキルがない → 新規作成** |
+| 5 | **スキル大きすぎ → フェーズ分割** |
+| 6 | **スキル = レシピ（how）、reference md = オーケストレーター（what/when）** |
+
+### コマンド存在検証（全件 `--help` 確認済み）
+
+| コマンド | 存在 | 主要フラグ |
+|---------|------|-----------|
+| `asc auth doctor` | ✅ | `--fix --confirm --output json` |
+| `asc app-setup categories set` | ✅ | `--app --primary --secondary` |
+| `asc app-setup availability set` | ✅ | `--app --territory --available` |
+| `asc screenshots run` | ✅ | `--plan --bundle-id --output-dir` |
+| `asc screenshots upload` | ✅ | `--version-localization --path --device-type` |
+| `asc screenshots frame` | ✅ | `--input --config`（Koubou v0.14.0） |
+| `asc metadata push` | ✅ | `--app --version --dir --dry-run` |
+| `asc metadata pull` | ✅ | `--app --version --dir` |
+| `asc localizations upload` | ✅ | `--version --path --locale` |
+| `asc diff localizations` | ✅ | `--app --path --version` |
+| `asc publish appstore` | ✅ | `--app --ipa --version --wait --submit` |
+| `asc publish testflight` | ✅ | `--app --ipa --group --wait --notify` |
+| `asc validate` | ✅ | `--app --version --strict` |
+| `asc validate testflight` | ✅ | `--app --build` |
+| `asc validate iap` | ✅ | `--app --strict` |
+| `asc validate subscriptions` | ✅ | `--app` |
+| `asc submit create` | ✅ | `--app --version --build --confirm` |
+| `asc release run` | ✅ | `--app --version --build --metadata-dir --dry-run --confirm` |
+| `asc release-notes generate` | ✅ | `--since-tag --since-ref` |
+| `asc status` | ✅ | `--app --output table/json` |
+| `asc workflow run` | ✅ | `<name> KEY:VALUE` |
+| `asc notify slack` | ✅ | `--webhook --message` |
+
+---
+
+### フェーズ一覧
+
+```
+US-001 ─→ US-002 ─→ US-003 ─→ US-004a ─→ US-004b ─→ US-004-R
+  │          │          │          │           │           │
+  prd     architect   ux-spec  impl-spec   tdd-work    c-q-r
+                                             flow      (gate)
+                                                         │
+US-005a ─→ US-005b ─→ US-005c ─→ US-006 ─→ US-006-R ─→ US-007
+  │          │          │          │          │           │
+signing    pricing   rc-sync   app-build  greenlight  maestro
+                                             (gate)
+                                                │
+US-008a ─→ US-008b ─→ US-008c ─→ US-008d ─→ US-008e ─→ US-009 ─→ US-010
+  │          │          │          │          │          │          │
+shots     metadata   xc-build  sub-health  testflight release  changelog
+pipeline    sync      +upload              orch.       flow
+```
+
+---
+
+### Phase 1: US-001 — トレンド発見
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `prd-generator` |
+| やること | App Store/市場トレンド調査 → PRD生成 |
+| 主要ツール | CC生成（コード不要） |
+| 閉ループ | code-quality-reviewer サブエージェント → blocking=0 まで |
+| 変更不要 | ✅ 既存スキルそのまま |
+
+### Phase 2: US-002 — アーキテクチャ
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `architecture-spec` |
+| やること | PRD → ARCHITECTURE.md 生成 |
+| 主要ツール | CC生成 |
+| 閉ループ | code-quality-reviewer サブエージェント → blocking=0 まで |
+| 変更不要 | ✅ 既存スキルそのまま |
+
+### Phase 3: US-003 — UX 設計
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `ux-spec` |
+| やること | ARCHITECTURE.md → UX_SPEC 生成（a11y ID含む） |
+| 主要ツール | CC生成 |
+| 閉ループ | code-quality-reviewer サブエージェント → blocking=0 まで |
+| 変更不要 | ✅ 既存スキルそのまま |
+
+### Phase 4a: US-004a — スペック群生成
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `implementation-spec` |
+| やること | DESIGN_SYSTEM, UX_SPEC, TEST_SPEC, RELEASE_SPEC 生成 |
+| 主要ツール | CC生成 |
+| 閉ループ | code-quality-reviewer サブエージェント → blocking=0 まで |
+| 変更不要 | ✅ 既存スキルそのまま |
+
+### Phase 4b: US-004b — TDD 実装
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `tdd-workflow` |
+| やること | RED → GREEN → REFACTOR サイクル |
+| 主要ツール | `fastlane test` |
+| 閉ループ | テスト全pass + coverage 80%+ まで |
+| 変更不要 | ✅ 既存スキルそのまま |
+
+### Gate: US-004-R — スペックレビュー
+
+| 項目 | 値 |
+|------|-----|
+| 実行方法 | **code-quality-reviewer サブエージェント**（スキルではない） |
+| やること | US-001〜004 の全成果物レビュー |
+| 閉ループ | blocking=0 になるまで最大5回反復 |
+| 注意 | ~~codex-review~~ ではない |
+
+### Phase 5a: US-005a — インフラ（認証 + App作成 + 署名）
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `asc-signing-setup` |
+| やること | 認証診断 → Bundle ID登録 → App作成 → カテゴリ/地域設定 |
+| 主要コマンド | `asc auth doctor --fix --confirm` → `asc app-setup categories set` → `asc app-setup availability set` |
+| 閉ループ | `asc auth doctor --output json` → issues=0 まで retry |
+| **要更新** | ⚠️ `auth doctor` + `app-setup` コマンドをスキルに追加 |
+
+```bash
+# Phase 5a フロー
+asc auth doctor --output json                    # 1. 認証診断
+asc auth doctor --fix --confirm                  # 2. 問題あれば修復
+# ... 既存の signing + app create ...
+asc app-setup categories set --app "$APP_ID" --primary HEALTH_AND_FITNESS
+asc app-setup availability set --app "$APP_ID" --territory "USA,JPN" --available true
+```
+
+### Phase 5b: US-005b — 価格設定
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `asc-ppp-pricing` |
+| やること | 175カ国の価格ティア設定 |
+| 主要コマンド | ASC API 直接（低レベル） |
+| 閉ループ | pricing verify → 不一致あれば retry |
+| 変更不要 | ✅ 既存スキルそのまま |
+
+### Phase 5c: US-005c — RevenueCat カタログ同期
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `asc-revenuecat-catalog-sync` |
+| やること | ASC subscriptions ↔ RC products/entitlements/offerings 同期 |
+| 主要コマンド | RC MCP ツール |
+| 閉ループ | audit diff → 差分0 まで retry |
+| 変更不要 | ✅ 既存スキルそのまま |
+| 注意 | US-005b から分離（1フェーズ1スキル原則） |
+
+### Phase 6: US-006 — 実装 + ビルド
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `app-builder` |
+| やること | Xcode プロジェクト作成 → Swift実装 → TDD → ビルド成功 |
+| 主要ツール | `fastlane build`, TDD |
+| 閉ループ | ビルド成功 + テスト全pass まで |
+| 変更不要 | ✅ 既存スキルそのまま |
+
+### Gate: US-006-R — ビルドレビュー
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `greenlight` |
+| やること | `greenlight preflight <app_dir>` → CRITICAL=0 確認 |
+| 閉ループ | CRITICAL=0 まで修正 → 再実行ループ |
+| 変更不要 | ✅ 既存スキルそのまま |
+
+### Phase 7: US-007 — E2Eテスト
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `maestro-e2e` |
+| やること | Maestro フロー 6+ 作成 → 全pass |
+| 主要ツール | Maestro MCP |
+| 閉ループ | 6+ flows 全pass まで |
+| 変更不要 | ✅ 既存スキルそのまま |
+
+### Phase 8a: US-008a — スクリーンショット
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `asc-shots-pipeline` |
+| やること | screenshots.json 生成 → 撮影 → アップロード |
+| 主要コマンド | `asc screenshots run --plan` → `asc screenshots upload` |
+| 閉ループ | upload 結果 5/5 COMPLETE まで retry |
+| **要更新** | ⚠️ axe 依存全削除 → `screenshots run --plan` に移行 |
+
+```bash
+# Phase 8a フロー（E2E実証済み）
+# 1. CC が a11y ID から screenshots.json を動的生成
+# 2. en-US 撮影
+defaults write NSGlobalDomain AppleLanguages -array "en"
+asc screenshots run --plan .asc/screenshots.json --udid $UDID_69 --output-dir ./screenshots/raw/en-US
+# 3. ja 撮影（uninstall → install で状態リセット）
+xcrun simctl uninstall $UDID_69 $BUNDLE_ID
+defaults write NSGlobalDomain AppleLanguages -array "ja"
+xcrun simctl install $UDID_69 "$APP_PATH"
+asc screenshots run --plan .asc/screenshots.json --udid $UDID_69 --output-dir ./screenshots/raw/ja
+# 4. アップロード
+asc screenshots upload --version-localization "$EN_LOC_ID" --path ./screenshots/raw/en-US --device-type IPHONE_69
+asc screenshots upload --version-localization "$JA_LOC_ID" --path ./screenshots/raw/ja --device-type IPHONE_69
+```
+
+### Phase 8b: US-008b — メタデータ
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `asc-metadata-sync` |
+| やること | metadata ファイル生成 → diff確認 → push → localizations upload |
+| 主要コマンド | `asc diff localizations` → `asc metadata push` → `asc localizations upload` |
+| 閉ループ | push 後に `asc metadata pull` で検証 → 差分0 まで |
+| **要更新** | ⚠️ `metadata push` + `localizations upload` コマンド追加 |
+
+```bash
+# Phase 8b フロー
+asc diff localizations --app "$APP_ID" --path ./metadata --version "$VER_ID"  # 差分確認
+asc metadata push --app "$APP_ID" --version "$VERSION" --dir ./metadata       # push
+asc localizations upload --version "$VERSION_ID" --path ./localizations       # .strings upload
+```
+
+### Phase 8c: US-008c — ビルド + アップロード
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `asc-xcode-build` |
+| やること | archive → export → IPA upload → version attach |
+| 主要コマンド | `fastlane build` → `asc publish appstore --wait` |
+| 閉ループ | build processing complete まで `--wait` が自動待機 |
+| **要更新** | ⚠️ `asc publish appstore` コマンド追加（upload + attach 一体化） |
+
+```bash
+# Phase 8c フロー
+cd aniccaios && fastlane build                                    # archive + export
+asc publish appstore --app "$APP_ID" --ipa "$IPA_PATH" --version "$VERSION" --wait --output json
+```
+
+### Phase 8d: US-008d — プリフライト検証
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `asc-submission-health` |
+| やること | version + IAP + subscriptions + TestFlight バリデーション |
+| 主要コマンド | `asc validate --strict` + `asc validate iap` + `asc validate subscriptions` |
+| 閉ループ | 全 validate pass まで → エラーは Decision Table で自動修正 |
+| **要更新** | ⚠️ 3種バリデーション追加 |
+
+```bash
+# Phase 8d フロー
+asc validate --app "$APP_ID" --version "$VERSION" --strict
+asc validate iap --app "$APP_ID" --strict
+asc validate subscriptions --app "$APP_ID"
+asc status --app "$APP_ID" --output table
+```
+
+### Phase 8e: US-008e — TestFlight 配布
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `asc-testflight-orchestration` |
+| やること | TF validate → distribute → 通知 |
+| 主要コマンド | `asc validate testflight` → `asc publish testflight --wait --notify` |
+| 閉ループ | distribute 成功 まで |
+| **要更新** | ⚠️ `publish testflight` 1コマンド化 |
+
+```bash
+# Phase 8e フロー
+asc validate testflight --app "$APP_ID" --build "$BUILD_ID"
+asc publish testflight --app "$APP_ID" --ipa "$IPA_PATH" --group "$GROUP_ID" --wait --notify --output json
+```
+
+### Phase 9: US-009 — App Store 提出
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `asc-release-flow` |
+| やること | dry-run → confirm で全自動提出 |
+| 主要コマンド | `asc release run --dry-run` → `asc release run --confirm` |
+| 閉ループ | Decision Table 19件（error.id → action マッピング）で自動修正 → retry |
+| **要更新** | ⚠️ `asc release run` 統合（ensure_version + metadata + build + validate + submit） |
+
+```bash
+# Phase 9 フロー
+asc release run --app "$APP_ID" --version "$VERSION" --build "$BUILD_ID" \
+  --metadata-dir ./metadata --dry-run --output json          # 1. ドライラン
+# CC が JSON を解析 → Decision Table で問題修正
+asc release run --app "$APP_ID" --version "$VERSION" --build "$BUILD_ID" \
+  --metadata-dir ./metadata --confirm --output json          # 2. 本番提出
+```
+
+### Phase 10: US-010 — ビルドレポート
+
+| 項目 | 値 |
+|------|-----|
+| スキル | `changelog-generator` |
+| やること | git履歴 → What's New 生成 → Slack通知 |
+| 主要コマンド | `asc release-notes generate --since-tag $TAG` |
+| 閉ループ | — (レポート生成のみ) |
+| 変更不要 | ✅ 既存スキルそのまま |
+
+---
+
+### スキル更新一覧
+
+| # | スキル | 操作 | 追加するコマンド |
+|---|--------|------|----------------|
+| 1 | `asc-signing-setup` | 更新 | `asc auth doctor`, `asc app-setup categories/availability set` |
+| 2 | `asc-shots-pipeline` | 更新 | `asc screenshots run --plan`, axe 全削除 |
+| 3 | `asc-metadata-sync` | 更新 | `asc metadata push`, `asc localizations upload` |
+| 4 | `asc-xcode-build` | 更新 | `asc publish appstore --wait` |
+| 5 | `asc-submission-health` | 更新 | `asc validate iap/subscriptions` |
+| 6 | `asc-testflight-orchestration` | 更新 | `asc publish testflight --wait --notify` |
+| 7 | `asc-release-flow` | 更新 | `asc release run --dry-run/--confirm` + Decision Table |
+
+### reference md 更新一覧
+
+| # | ファイル | 操作 |
+|---|---------|------|
+| 1 | `us-005a-infra.md` | `auth doctor` + `app-setup` ステップ追加 |
+| 2 | `us-008-release.md` | Step 1→`screenshots run`, Step 2→`metadata push`, Step 3→`publish appstore`, Step 8→validate 3種, Step 9→`publish testflight` |
+| 3 | `us-009-submit.md` | `asc release run` に統合 |
+| 4 | `CLAUDE.md` | ASC CLI コマンドテーブル 22件追加 |
+
+### 実装順序
+
+1. **CLAUDE.md** — CC が新コマンドを認識（全USに影響）
+2. **7スキル更新** — レシピにコマンド追加
+3. **us-008-release.md** — 最大改善（948行 → ~300行）
+4. **us-005a-infra.md** — auth doctor + app-setup
+5. **us-009-submit.md** — release run 統合
+
+### 検証方法
+
+```bash
+# 各スキル更新後、FrostDip で E2E 検証
+asc auth doctor --output json                    # Phase 5a
+asc screenshots run --plan .asc/screenshots.json # Phase 8a
+asc metadata push --app $APP_ID --dir ./metadata --dry-run  # Phase 8b
+asc validate --app $APP_ID --version $VER --strict          # Phase 8d
+asc release run --app $APP_ID --version $VER --dry-run      # Phase 9
+```
