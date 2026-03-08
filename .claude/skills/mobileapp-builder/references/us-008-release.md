@@ -626,13 +626,28 @@ curl -s -X POST "https://api.appstoreconnect.apple.com/v2/appAvailabilities" \
   -H "Authorization: Bearer $JWT" -H "Content-Type: application/json" \
   -d "$PAYLOAD"
 
-# 3. Pricing (free tier — subscription pricing set in US-005b)
-# Base app = free. Find free price-point:
-FREE_PP=$(asc pricing price-points list --app "$APP_ID" --filter-territory USA --output json \
-  | python3 -c "import json,sys; d=json.load(sys.stdin); print([p['id'] for p in d['data'] if p['attributes'].get('customerPrice','0')=='0'][0])" 2>/dev/null)
-if [ -n "$FREE_PP" ]; then
-  asc pricing schedule create --app "$APP_ID" --price-point "$FREE_PP" --base-territory USA
-fi
+# 3. Pricing
+# サブスクアプリ: アプリ本体は FREE（デフォルト）。サブスク pricing は US-005b で設定済み。
+# ここでは サブスクが READY_TO_SUBMIT であることを確認するだけ。
+# ⚠️ `asc pricing schedule create` は使わない（サブスクアプリには不要、エラーになる）
+
+SUB_GROUP=$(asc subscriptions groups list --app "$APP_ID" --output json | python3 -c "import json,sys; d=json.load(sys.stdin); print(d['data'][0]['id'])" 2>/dev/null)
+echo "Subscription group: $SUB_GROUP"
+
+asc subscriptions list --group "$SUB_GROUP" --output json | python3 -c "
+import json,sys
+d=json.load(sys.stdin)
+all_ready=True
+for s in d['data']:
+    name=s['attributes']['name']
+    state=s['attributes']['state']
+    period=s['attributes']['subscriptionPeriod']
+    ok='✅' if state in ('READY_TO_SUBMIT','WAITING_FOR_REVIEW','APPROVED') else '❌'
+    if state not in ('READY_TO_SUBMIT','WAITING_FOR_REVIEW','APPROVED'): all_ready=False
+    print(f'{ok} {name}: {state} ({period})')
+if all_ready: print('PRICING OK: all subscriptions ready')
+else: print('PRICING FAIL: some subscriptions not ready'); sys.exit(1)
+"
 ```
 
 Verified: 2026-03-06 desk-stretch で全コマンド成功確認済み。
