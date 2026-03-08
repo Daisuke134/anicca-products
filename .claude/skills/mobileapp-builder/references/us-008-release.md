@@ -552,37 +552,22 @@ asc age-rating set --app "$APP_ID" --version-id "$VERSION_ID" \
   --horror NONE --gambling NONE --alcohol-tobacco NONE --medical NONE \
   --contests NONE --unrestricted-web-access false --gambling-simulated false
 
-# Review Details (Fix #9: phone format must be "+CC SP NNNN NNNN")
-# Verified 2026-03-08: details-create works for NEW versions.
-# If already exists → "Resource already exists" error → use details-update.
+# Review Details
+# Verified 2026-03-08: Apple AUTO-CREATES review details when version is created.
+# details-create is NEVER needed. Always use details-for-version → details-update.
 # Phone format: "+81 80 1234 5678" (space-separated, NOT +819000000000)
 
-# Try create first, fallback to update
-asc review details-create \
-  --version-id "$VERSION_ID" \
+DETAIL_ID=$(asc review details-for-version --version-id "$VERSION_ID" --output json \
+  | python3 -c "import json,sys; print(json.load(sys.stdin)['data']['id'])")
+
+asc review details-update \
+  --id "$DETAIL_ID" \
   --contact-first-name "Daisuke" \
   --contact-last-name "Kobayashi" \
   --contact-phone "+81 80 1234 5678" \
   --contact-email "keiodaisuke@gmail.com" \
-  --demo-account-required false \
   --notes "No login required. Open app and use immediately." \
-  --output json 2>/dev/null
-
-if [ $? -ne 0 ]; then
-  # Already exists → get ID and update
-  DETAIL_ID=$(asc review details-for-version --version-id "$VERSION_ID" --output json 2>/dev/null \
-    | python3 -c "import json,sys; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
-  if [ -n "$DETAIL_ID" ]; then
-    asc review details-update \
-      --id "$DETAIL_ID" \
-      --contact-first-name "Daisuke" \
-      --contact-last-name "Kobayashi" \
-      --contact-phone "+81 80 1234 5678" \
-      --contact-email "keiodaisuke@gmail.com" \
-      --notes "No login required. Open app and use immediately." \
-      --output json
-  fi
-fi
+  --output json
 ```
 
 ### Encryption (ITSAppUsesNonExemptEncryption)
