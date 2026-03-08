@@ -93,8 +93,8 @@
         "App created in ASC (APP_ID recorded in .env)"
       ],
       "priority": 5,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "APP_ID=6760271560。Privacy Policy URL: https://aniccaai.com/privacy（既存URL使用、カスタムホスティング不要 per ref Step 1）。PrivacyInfo.xcprivacy + ITSApp: US-006でiOSプロジェクト作成後に追加（ref Step 2/3 明示的にスキップ）。asc web apps create（irisセッション）でASCアプリ作成成功。App Privacy: DATA_NOT_COLLECTED published=true。Bundle: com.aniccafactory.zone2daily。~/.config/mobileapp-builder/projects/zone2daily/.envにAPP_ID保存。"
     },
     {
       "id": "US-005b",

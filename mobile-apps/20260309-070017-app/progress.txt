@@ -1,3 +1,21 @@
+## 2026-03-09 - US-005a: Privacy Policy + ASC App Creation
+
+- Privacy Policy: https://aniccaai.com/privacy（既存URL使用、カスタムホスティング不要）
+- PrivacyInfo.xcprivacy + ITSApp: US-006で追加（ref Step 2/3 明示スキップ）
+- Bundle ID登録: com.aniccafactory.zone2daily（asc bundle-ids create）
+- ASCアプリ作成: asc web apps create（irisセッション使用 → 2FA不要）→ APP_ID=6760271560
+- App Privacy: DATA_NOT_COLLECTED applied + published=true（asc web privacy）
+- APP_ID保存: ~/.config/mobileapp-builder/projects/zone2daily/.env
+- Files changed: prd.json, progress.txt
+
+**Learnings for future iterations:**
+- asc apps create は2FAが必要だがirisセッション（asc web auth status=true）では不十分
+- asc web apps create（EXPERIMENTAL）はirisセッションのキャッシュを使い2FA不要
+- expect+DSRレスポンス+Slackポーリングでインタラクティブ2FA自動化は可能（参考実装完成）
+- Slackポーリングは人間ユーザーIDでフィルタ必須（ボットメッセージに6桁数字が含まれる）
+- アンカーTSは通知送信直前に取得すること（古いコードを誤検出防止）
+---
+
 ## 2026-03-09 - US-004-R: Spec Review (all 7 documents)
 
 - code-quality-reviewer agent で全7ドキュメントをレビュー
