@@ -182,11 +182,6 @@ else
   fi
 fi
 
-# Check 7: RevenueCat SK Key（新アプリ — 必ず手動セットアップ必要）
-echo -n "  [7/7] RevenueCat SK Key... "
-echo "⏳ 手動セットアップ必要"
-notify_slack "📱 RC セットアップお願いします:\n1. https://app.revenuecat.com → + Create new project → 任意の名前でOK\n2. Settings → API Keys → + New secret API key\n3. sk_... をこのチャットに貼ってください\n\n⚠️ US-005b までに必要。CC は先に進みます。"
-
 echo "🟢 PREFLIGHT OK — 全チェック通過"
 
 # Fix #7: Sync template references + validate.sh to app dir every run.

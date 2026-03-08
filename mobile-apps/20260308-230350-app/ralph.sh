@@ -17,6 +17,7 @@ SLACK_CHANNEL="${SLACK_CHANNEL_ID:-C091G3PKHL2}"
 # PATH: kou (Koubou) binary location
 export PATH="/Users/anicca/Library/Python/3.9/bin:$PATH"
 export ASC_BYPASS_KEYCHAIN=true
+export ASC_WEB_SESSION_CACHE_BACKEND=file
 
 # Source secrets from .env (Twelve-Factor App: https://12factor.net/config)
 if [ -f ~/.config/mobileapp-builder/.env ]; then
@@ -132,27 +133,13 @@ if [ "$PREFLIGHT_FAIL" -eq 1 ]; then
   exit 1
 fi
 
-# Keychain unlock（Check 6 の前提 — セッションは keychain に保存されている）
-# Source: App-Store-Connect-CLI/internal/web/session_cache.go L103-118
-# auto モード = keychain 優先。keychain locked だと読めない → false になる
-security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db 2>/dev/null || true
-
-# .env から読み込まれた汚染 env var を除去（file backend は keychain を読まないので使わない）
-unset ASC_WEB_LAST_LOGIN ASC_WEB_SESSION_CACHE_BACKEND
-
-# Check 6: iris session（keychain から読み取り — auto モード）
+# Check 6: iris session（ASC web 操作の前提 — file backend で keychain 回避）
 echo -n "  [6/6] iris session... "
 IRIS_STATUS=$(asc web auth status --apple-id "$APPLE_ID" 2>&1 || echo "IRIS_FAIL")
 if echo "$IRIS_STATUS" | grep -q 'authenticated.*true'; then
   echo "✅"
 else
   echo "⚠️ iris expired — 2FA 必要"
-
-  # Apple に 2FA コード送信を要求（これがないと iPhone にコードが届かない）
-  echo "  📱 Apple に 2FA コード送信を要求中..."
-  ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web auth login \
-    --apple-id "$APPLE_ID" 2>&1 || true
-
   notify_slack "⏸️ iris session expired。iPhoneに届く6桁コードを送ってください。"
 
   WAIT_COUNT=0
@@ -181,11 +168,6 @@ else
     exit 2
   fi
 fi
-
-# Check 7: RevenueCat SK Key（新アプリ — 必ず手動セットアップ必要）
-echo -n "  [7/7] RevenueCat SK Key... "
-echo "⏳ 手動セットアップ必要"
-notify_slack "📱 RC セットアップお願いします:\n1. https://app.revenuecat.com → + Create new project → 任意の名前でOK\n2. Settings → API Keys → + New secret API key\n3. sk_... をこのチャットに貼ってください\n\n⚠️ US-005b までに必要。CC は先に進みます。"
 
 echo "🟢 PREFLIGHT OK — 全チェック通過"
 

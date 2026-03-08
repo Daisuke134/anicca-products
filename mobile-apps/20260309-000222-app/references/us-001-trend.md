@@ -5,11 +5,11 @@ Source: ghuntley.com/ralph — "use as little context as possible"
 
 | ルール | 値 | 根拠 |
 |--------|-----|------|
-| アイデア生成 | 最大 5 個 | 時間節約: 1 Lens 1 アイデアで十分 |
-| 深掘り | トップ 1 のみ | 選定アプリ 1 つに集中 |
-| 競合分析 | 3 社まで | 最小限で十分 |
-| Web 検索 | 1 Lens あたり最大 2 クエリ | 検索は高コスト（1回 ~100K tokens） |
-| 合計検索回数 | 最大 8 回/US-001 | 4 Lens × 2（Lens 1 検索不要） |
+| アイデア生成 | 最大 10 個 | FrostDip は 25+ 生成で 15M 浪費 |
+| 深掘り | トップ 3 のみ | 残り 7 は one-liner で十分 |
+| 競合分析 | 5 社まで | FrostDip は 8 社で過剰 |
+| Web 検索 | 1 アイデアあたり最大 3 クエリ | 検索は高コスト（1回 ~100K tokens） |
+| 合計検索回数 | 最大 15 回/US-001 | 10 ideas × 1 + top 3 × 1.67 |
 
 Source: rshankras idea-generator SKILL.md
 URL: https://github.com/rshankras/claude-code-apple-skills/blob/main/skills/product/idea-generator/SKILL.md
@@ -81,7 +81,7 @@ ls mobile-apps/
 
 | ルール | 値 |
 |--------|-----|
-| WebSearch 最低回数 | **5回**（Lens 2-5 × 1-2回） |
+| WebSearch 最低回数 | **10回**（5 Lens × 2回以上） |
 | Apify TikTok | Lens 5 で必須（定量データ取得） |
 | iTunes Search API | Lens 4 で必須（競合分析 + ★1-2 レビュー） |
 | キーワード多様性 | 英語 + 日本語、一般化・隣接分野含む |
@@ -91,9 +91,9 @@ ls mobile-apps/
 
 ### 2. Five Brainstorming Lenses
 
-**各 Lens で1個のベストアイデアを生成する。量より質を優先。**
+**各 Lens で最低5個のアイデアを生成する。5個未満の場合、検索キーワードを変えて追加生成を繰り返す。**
 
-合計: 5 Lens × 1個 = **最低5個の raw ideas** → Filtering → Scoring → Top 3
+合計: 5 Lens × 5個 = **最低25個の raw ideas** → Filtering → Scoring → Top 5
 
 ---
 
@@ -197,11 +197,12 @@ curl -s "https://itunes.apple.com/us/rss/customerreviews/page=1/id=APP_ID/sortby
 **Step 5c:** TikTok ハッシュタグスクレイパーで定量検証:
 ```bash
 source ~/.config/mobileapp-builder/.env
-curl -s "https://api.apify.com/v2/acts/clockworks~tiktok-hashtag-scraper/run-sync-get-dataset-items?token=$APIFY_TOKEN" \
-  -X POST -H "Content-Type: application/json" \
-  -d '{"hashtags": ["HASHTAG1", "HASHTAG2", "HASHTAG3"], "resultsPerPage": 5}'
-
-# ⛔ mcpc / MCP 経由の Apify アクセスは絶対禁止（stdin hang の原因）
+mcpc --json mcp.apify.com \
+  --header "Authorization: Bearer $APIFY_TOKEN" \
+  tools-call run-actor \
+  actorId:="clockworks/tiktok-hashtag-scraper" \
+  input:='{"hashtags": ["HASHTAG1", "HASHTAG2", "HASHTAG3"], "resultsPerPage": 10}' | \
+  jq -r '.content[0].text'
 ```
 
 **Step 5d:** ビュー数で判定:
@@ -256,11 +257,11 @@ overall_score = (S×1.5 + P×1.0 + M×1.0 + C×1.0 + T×1.5) / 6.0
 S=8, P=7, M=9, C=6, T=8
 → (8×1.5 + 7 + 9 + 6 + 8×1.5) / 6.0 = (12+7+9+6+12) / 6.0 = **7.67**
 
-**Filtering 通過アイデアを overall_score 降順でソートし、Top 3 を Shortlist にする。**
+**Filtering 通過アイデアを overall_score 降順でソートし、Top 5 を Shortlist にする。**
 
 ---
 
-### 5. Shortlist Output (Top 3)
+### 5. Shortlist Output (Top 5)
 
 各アイデアに以下のフィールドを必ず含める:
 
@@ -331,7 +332,7 @@ mkdir -p mobile-apps/${APP_NAME}/spec
 |---------|---|---|---|---|---|------|
 | ... | X | X | X | X | X | PASS / FAIL（理由） |
 
-## Shortlist (Top 3)
+## Shortlist (Top 5)
 
 ### Rank 1: [App Name]
 
@@ -378,9 +379,9 @@ mkdir -p mobile-apps/${APP_NAME}/spec
 | # | 基準 | 検証方法 |
 |---|------|---------|
 | 1 | `mobile-apps/<app>/spec/01-trend.md` が存在する | `test -f mobile-apps/<app>/spec/01-trend.md` |
-| 2 | Raw ideas が最低5個（5 Lens × 1個）生成されている | 01-trend.md の各 Lens セクションにアイデア1個以上 |
+| 2 | Raw ideas が最低25個（5 Lens × 5個）生成されている | 01-trend.md の各 Lens セクションにアイデア5個以上 |
 | 3 | Feasibility Filtering テーブルが存在する | PASS/FAIL + 理由が全アイデアに付いている |
-| 4 | Top 3 Shortlist が存在し、全フィールドが埋まっている | 13フィールド × 3アイデア |
+| 4 | Top 5 Shortlist が存在し、全フィールドが埋まっている | 13フィールド × 5アイデア |
 | 5 | overall_score が計算式通りに算出されている | 手動検算で一致 |
 | 6 | 各トレンドにソース（URL）が引用されている | grep で URL が 3件以上 |
 | 7 | Step 0 の除外カテゴリが動的に生成されている | `ls mobile-apps/` の結果と一致 |
