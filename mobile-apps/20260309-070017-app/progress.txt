@@ -45,6 +45,20 @@
 - Zone 2 市場は小さいが高確度ニッチ → 初期 DL より有機 ASO × Attia/Huberman キーワードが鍵
 ---
 
+## 2026-03-09 - US-004a: Core Spec (PRD + ARCHITECTURE + IMPLEMENTATION_GUIDE)
+
+- docs/PRD.md 作成完了（240行、14セクション、8 Feature IDs、$4.99/$29.99価格）
+- docs/ARCHITECTURE.md 作成完了（358行、MVVM+SwiftData+RevenueCat Only）
+- docs/IMPLEMENTATION_GUIDE.md 作成完了（553行、全8フェーズ、RevenueCat SDK参照）
+- 全ドキュメント横断 Rule 17/20/20b/21 違反ゼロ確認
+- Files changed: docs/PRD.md, docs/ARCHITECTURE.md, docs/IMPLEMENTATION_GUIDE.md, prd.json, progress.txt
+
+**Learnings for future iterations:**
+- 禁止SDK名を「禁止」コンテキストで記述しても grep -rl チェックが引っかかる → 固有名を避けて「tracking SDK (Rule 17)」のように一般化
+- ARCHITECTURE.md の禁止パッケージ表は固有名を使わず説明的な表現に統一
+- 全ドキュメント横断 AC22-25 は docs/ 配下すべてのファイルに適用されるため PRD.md も対象
+---
+
 ## 2026-03-09 - US-002: Product Planning
 
 - product-plan.md 作成完了（7セクション、12ソース、23 URLs）
