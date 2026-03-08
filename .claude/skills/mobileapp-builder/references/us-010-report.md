@@ -30,11 +30,20 @@ for f in sorted(glob.glob('logs/iteration-*.log')):
             except:
                 pass
 
-WEEKLY_CAP = 560_000_000
-MONTHLY_CAP = WEEKLY_CAP * 4
-cost_in_plan = (total_tokens / MONTHLY_CAP) * 200
-weekly_pct = (total_tokens / WEEKLY_CAP) * 100
-window_pct = (total_tokens / 90_000_000) * 100
+# Model-specific pricing (per million tokens)
+# Source: https://docs.anthropic.com/en/docs/about-claude/models
+# Sonnet: input=$3, output=$15, cache_create=$3.75, cache_read=$0.30
+# Opus:   input=$15, output=$75, cache_create=$18.75, cache_read=$1.50
+if 'opus' in model_name.lower():
+    cost_usd = input_tokens*15/1e6 + output_tokens*75/1e6 + cache_create*18.75/1e6 + cache_read*1.50/1e6
+else:  # sonnet (default)
+    cost_usd = input_tokens*3/1e6 + output_tokens*15/1e6 + cache_create*3.75/1e6 + cache_read*0.30/1e6
+
+# Budget: Max $200/month plan
+WINDOW_BUDGET = 200 / 30 / 4.8  # $1.39 per 5h window
+WEEKLY_BUDGET = 200 / 4.3        # $46.51 per week
+window_pct = (cost_usd / WINDOW_BUDGET) * 100
+weekly_pct = (cost_usd / WEEKLY_BUDGET) * 100
 duration_min = total_duration_ms / 60000
 ```
 

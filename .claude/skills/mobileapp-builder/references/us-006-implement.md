@@ -80,7 +80,7 @@ UDID=$(xcrun simctl list devices available | grep "iPhone 16" | head -1 | grep -
 
 ```bash
 source ~/.config/mobileapp-builder/.env
-export ASC_BYPASS_KEYCHAIN=true
+# ASC_BYPASS_KEYCHAIN は設定禁止（iris session が読めなくなる）
 grep -q "RevenueCat" ${APP_NAME}ios/project.yml || { echo "GATE FAIL: no RevenueCat in project.yml"; exit 1; }
 asc subscriptions groups list --app $APP_ID | grep -q "group" || { echo "GATE FAIL: no IAP groups"; exit 1; }
 ```

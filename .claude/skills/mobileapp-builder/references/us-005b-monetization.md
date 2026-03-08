@@ -5,12 +5,12 @@
 ## .env ファイル構造
 ```
 ~/.config/mobileapp-builder/.env                    ← グローバル（Apple ID, Keychain, Slack等）
-~/.config/mobileapp-builder/projects/<slug>/.env     ← プロジェクト固有（APP_ID, GROUP_ID, RC_IOS_PUBLIC_KEY等）
+./.env     ← アプリ固有（APP_ID, GROUP_ID, RC_SECRET_KEY, RC_IOS_PUBLIC_KEY等）
 ```
 全 Step の冒頭で両方を source する:
 ```bash
 source ~/.config/mobileapp-builder/.env
-source ~/.config/mobileapp-builder/projects/<slug>/.env
+source ./.env
 ```
 
 ## Source Skills (参考のみ — 読み込み不要。コマンドは下記に全てインライン)
@@ -19,7 +19,7 @@ source ~/.config/mobileapp-builder/projects/<slug>/.env
 ## Quality Gate (MANDATORY — US-005a の成果物検証)
 ```bash
 source ~/.config/mobileapp-builder/.env
-source ~/.config/mobileapp-builder/projects/<slug>/.env
+source ./.env
 test -n "$APP_ID" || { echo "GATE FAIL: APP_ID not set"; exit 1; }
 ```
 
@@ -30,7 +30,7 @@ test -n "$APP_ID" || { echo "GATE FAIL: APP_ID not set"; exit 1; }
 ### 6.1: サブスクリプショングループ作成
 ```bash
 GROUP_ID=$(asc subscriptions groups create --app $APP_ID --reference-name "<AppName> Premium" --output json 2>&1 | jq -r '.data.id')
-echo "GROUP_ID=$GROUP_ID" >> ~/.config/mobileapp-builder/projects/<slug>/.env
+echo "GROUP_ID=$GROUP_ID" >> ./.env
 ```
 
 ### 6.2: サブスクリプション作成
@@ -52,13 +52,13 @@ Source: iOS Paywall Design Guide (https://adapty.io/blog/how-to-design-ios-paywa
 
 ```bash
 WEEKLY_ID=$(asc subscriptions create --group $GROUP_ID --ref-name "Weekly" --product-id "<bundle_id>.weekly" --subscription-period ONE_WEEK --output json 2>&1 | jq -r '.data.id')
-echo "WEEKLY_ID=$WEEKLY_ID" >> ~/.config/mobileapp-builder/projects/<slug>/.env
+echo "WEEKLY_ID=$WEEKLY_ID" >> ./.env
 
 MONTHLY_ID=$(asc subscriptions create --group $GROUP_ID --ref-name "Monthly" --product-id "<bundle_id>.monthly" --subscription-period ONE_MONTH --output json 2>&1 | jq -r '.data.id')
-echo "MONTHLY_ID=$MONTHLY_ID" >> ~/.config/mobileapp-builder/projects/<slug>/.env
+echo "MONTHLY_ID=$MONTHLY_ID" >> ./.env
 
 ANNUAL_ID=$(asc subscriptions create --group $GROUP_ID --ref-name "Annual" --product-id "<bundle_id>.annual" --subscription-period ONE_YEAR --output json 2>&1 | jq -r '.data.id')
-echo "ANNUAL_ID=$ANNUAL_ID" >> ~/.config/mobileapp-builder/projects/<slug>/.env
+echo "ANNUAL_ID=$ANNUAL_ID" >> ./.env
 ```
 
 ### 6.3: ローカリゼーション（グループ + サブスク、全37言語）
@@ -195,7 +195,7 @@ WAITING_FOR_HUMAN: RC Setup
 ### 7.1: SK Key 受信 → 変数準備
 ```bash
 source ~/.config/mobileapp-builder/.env
-source ~/.config/mobileapp-builder/projects/<slug>/.env
+source ./.env
 RC_SECRET_KEY="<sk_... from Slack>"
 RC_BASE="https://api.revenuecat.com/v2"
 AUTH="Authorization: Bearer $RC_SECRET_KEY"
@@ -222,7 +222,7 @@ echo "✅ RC App: $RC_APP_ID"
 ```bash
 RC_PUBLIC_KEY=$(curl -s "$RC_BASE/projects/$RC_PROJECT_ID/apps/$RC_APP_ID/public_api_keys" \
   -H "$AUTH" | jq -r '.items[0].key')
-echo "RC_IOS_PUBLIC_KEY=$RC_PUBLIC_KEY" >> ~/.config/mobileapp-builder/projects/<slug>/.env
+echo "RC_IOS_PUBLIC_KEY=$RC_PUBLIC_KEY" >> ./.env
 ```
 ⚠️ Public Key は App 作成時に自動生成される。Products/Offerings の前に取得可能。
 
@@ -474,7 +474,7 @@ Source: RevenueCat SOSA 2025 — https://www.revenuecat.com/blog/growth/sosa-202
 ```bash
 # PRD価格とASC実際の価格を照合
 source ~/.config/mobileapp-builder/.env
-source ~/.config/mobileapp-builder/projects/<slug>/.env
+source ./.env
 
 echo "=== PRD定義価格 ==="
 python3 -c "

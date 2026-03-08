@@ -16,7 +16,7 @@ SLACK_CHANNEL="${SLACK_CHANNEL_ID:-C091G3PKHL2}"
 
 # PATH: kou (Koubou) binary location
 export PATH="/Users/anicca/Library/Python/3.9/bin:$PATH"
-export ASC_BYPASS_KEYCHAIN=true
+# ASC_BYPASS_KEYCHAIN は設定禁止（keychain の iris session が読めなくなる）
 
 # Source secrets from .env (Twelve-Factor App: https://12factor.net/config)
 if [ -f ~/.config/mobileapp-builder/.env ]; then
@@ -132,58 +132,11 @@ if [ "$PREFLIGHT_FAIL" -eq 1 ]; then
   exit 1
 fi
 
-# Keychain unlock（Check 6 の前提 — セッションは keychain に保存されている）
-# Source: App-Store-Connect-CLI/internal/web/session_cache.go L103-118
-# auto モード = keychain 優先。keychain locked だと読めない → false になる
-security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db 2>/dev/null || true
+# Check 6 (iris session) は削除済み — US-005a Step 4.9 で直接認証する
+# 理由: PREFLIGHT と US-005a の間（40分+）で session が expire する可能性がある
 
-# .env から読み込まれた汚染 env var を除去（file backend は keychain を読まないので使わない）
-unset ASC_WEB_LAST_LOGIN ASC_WEB_SESSION_CACHE_BACKEND
-
-# Check 6: iris session（keychain から読み取り — auto モード）
-echo -n "  [6/6] iris session... "
-IRIS_STATUS=$(asc web auth status --apple-id "$APPLE_ID" 2>&1 || echo "IRIS_FAIL")
-if echo "$IRIS_STATUS" | grep -q 'authenticated.*true'; then
-  echo "✅"
-else
-  echo "⚠️ iris expired — 2FA 必要"
-
-  # Apple に 2FA コード送信を要求（これがないと iPhone にコードが届かない）
-  echo "  📱 Apple に 2FA コード送信を要求中..."
-  ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web auth login \
-    --apple-id "$APPLE_ID" 2>&1 || true
-
-  notify_slack "⏸️ iris session expired。iPhoneに届く6桁コードを送ってください。"
-
-  WAIT_COUNT=0
-  while [ $WAIT_COUNT -lt 960 ]; do
-    LATEST_MSG=$(/opt/homebrew/bin/openclaw message read --channel slack --target "$SLACK_CHANNEL" --limit 1 --json 2>/dev/null | jq -r '.payload.messages[0].text // empty' 2>/dev/null || true)
-    TWO_FA_CODE=$(echo "$LATEST_MSG" | grep -oE '[0-9]{6}' | head -1)
-
-    if [ -n "$TWO_FA_CODE" ]; then
-      echo "  🔑 2FA コード検出: $TWO_FA_CODE"
-      ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web auth login \
-        --apple-id "$APPLE_ID" --two-factor-code "$TWO_FA_CODE" 2>&1
-
-      IRIS_RECHECK=$(asc web auth status --apple-id "$APPLE_ID" 2>&1 || echo "FAIL")
-      if echo "$IRIS_RECHECK" | grep -q 'authenticated.*true'; then
-        echo "  ✅ iris session restored"
-        break
-      fi
-    fi
-    sleep 30
-    WAIT_COUNT=$((WAIT_COUNT + 1))
-  done
-
-  if [ $WAIT_COUNT -ge 960 ]; then
-    echo "❌ iris session タイムアウト（8時間）"
-    notify_slack "❌ iris session タイムアウト（8時間）。手動対応必要。"
-    exit 2
-  fi
-fi
-
-# Check 7: RevenueCat SK Key（新アプリ — 必ず手動セットアップ必要）
-echo -n "  [7/7] RevenueCat SK Key... "
+# Check 6: RevenueCat SK Key（新アプリ — 必ず手動セットアップ必要）
+echo -n "  [6/6] RevenueCat SK Key... "
 echo "⏳ 手動セットアップ必要"
 notify_slack "📱 RC セットアップお願いします:\n1. https://app.revenuecat.com → + Create new project → 任意の名前でOK\n2. Settings → API Keys → + New secret API key\n3. sk_... をこのチャットに貼ってください\n\n⚠️ US-005b までに必要。CC は先に進みます。"
 
@@ -216,15 +169,13 @@ for i in $(seq 1 $MAX_ITERATIONS); do
   fi
 
   # F3-b: Slack 監視 — sk_... / 2FA コードを .env に自動保存
-  LATEST_MSG=$(/opt/homebrew/bin/openclaw message read --channel slack --target "$SLACK_CHANNEL" --limit 1 --json 2>/dev/null | jq -r '.payload.messages[0].text // empty' 2>/dev/null || true)
-  SK_KEY=$(echo "$LATEST_MSG" | grep -oE 'sk_[A-Za-z0-9_]+' | head -1)
+  LATEST_MSGS=$(/opt/homebrew/bin/openclaw message read --channel slack --target "$SLACK_CHANNEL" --limit 5 --json 2>/dev/null | jq -r '[.payload.messages[].text // empty] | join("\n")' 2>/dev/null || true)
+  SK_KEY=$(echo "$LATEST_MSGS" | grep -oE 'sk_[A-Za-z0-9_]+' | head -1)
   if [ -n "$SK_KEY" ]; then
-    SLUG=$(python3 -c "import json; print(json.load(open('$SCRIPT_DIR/prd.json')).get('project',''))" 2>/dev/null)
-    PROJECT_ENV="$HOME/.config/mobileapp-builder/projects/$SLUG/.env"
-    mkdir -p "$(dirname "$PROJECT_ENV")"
-    if ! grep -q "RC_SECRET_KEY" "$PROJECT_ENV" 2>/dev/null; then
-      echo "RC_SECRET_KEY=$SK_KEY" >> "$PROJECT_ENV"
-      echo "  🔑 RC SK鍵を $PROJECT_ENV に保存"
+    APP_ENV="$SCRIPT_DIR/.env"
+    if ! grep -q "RC_SECRET_KEY" "$APP_ENV" 2>/dev/null; then
+      echo "RC_SECRET_KEY=$SK_KEY" >> "$APP_ENV"
+      echo "  🔑 RC SK鍵を $APP_ENV に保存"
     fi
   fi
 
@@ -254,23 +205,23 @@ with open('$SCRIPT_DIR/progress.txt', 'w') as f:
   while [ -f "$SCRIPT_DIR/progress.txt" ] && grep -q "WAITING_FOR_HUMAN" "$SCRIPT_DIR/progress.txt"; do
     echo "🏭 ⏸️ WAITING_FOR_HUMAN 検出。Slack 監視中... (${WAIT_COUNT}回目)"
 
-    LATEST_MSG=$(/opt/homebrew/bin/openclaw message read --channel slack --target "$SLACK_CHANNEL" --limit 1 --json 2>/dev/null | jq -r '.payload.messages[0].text // empty' 2>/dev/null || true)
+    LATEST_MSGS=$(/opt/homebrew/bin/openclaw message read --channel slack --target "$SLACK_CHANNEL" --limit 5 --json 2>/dev/null | jq -r '[.payload.messages[].text // empty] | join("\n")' 2>/dev/null || true)
 
     # RC SK鍵検出
-    SK_KEY=$(echo "$LATEST_MSG" | grep -oE 'sk_[A-Za-z0-9_]+' | head -1)
+    SK_KEY=$(echo "$LATEST_MSGS" | grep -oE 'sk_[A-Za-z0-9_]+' | head -1)
     if [ -n "$SK_KEY" ]; then
       echo "  🔑 RC SK鍵検出"
-      SLUG=$(python3 -c "import json; print(json.load(open('$SCRIPT_DIR/prd.json')).get('project',''))" 2>/dev/null)
-      PROJECT_ENV="$HOME/.config/mobileapp-builder/projects/$SLUG/.env"
-      mkdir -p "$(dirname "$PROJECT_ENV")"
-      echo "RC_SECRET_KEY=$SK_KEY" >> "$PROJECT_ENV"
+      APP_ENV="$SCRIPT_DIR/.env"
+      if ! grep -q "RC_SECRET_KEY" "$APP_ENV" 2>/dev/null; then
+        echo "RC_SECRET_KEY=$SK_KEY" >> "$APP_ENV"
+      fi
       sed -i '' '/WAITING_FOR_HUMAN/d' "$SCRIPT_DIR/progress.txt"
-      echo "  ✅ SK鍵を $PROJECT_ENV に保存。WAITING_FOR_HUMAN 解除"
+      echo "  ✅ SK鍵を $APP_ENV に保存。WAITING_FOR_HUMAN 解除"
       break
     fi
 
     # 2FA コード検出（フォールバック）
-    TWO_FA=$(echo "$LATEST_MSG" | grep -oE '^[0-9]{6}$' | head -1)
+    TWO_FA=$(echo "$LATEST_MSGS" | grep -oE '^[0-9]{6}$' | head -1)
     if [ -n "$TWO_FA" ]; then
       echo "  🔑 2FA コード検出: $TWO_FA"
       ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web auth login \

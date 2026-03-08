@@ -90,19 +90,59 @@ security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keych
 
 **人間介入不要。** API Key認証で常に自動実行される。
 
-## Step 4.9: iris セッション確認（keychain auto モード — ralph.sh PREFLIGHT で検証済み）
+## Step 4.9: iris セッション確認 + 2FA 認証（必要な場合）
 
 ```bash
 source ~/.config/mobileapp-builder/.env
-# ASC_WEB_SESSION_CACHE_BACKEND は設定しない（auto = keychain 優先）
-# ralph.sh PREFLIGHT Check 6 で keychain unlock + session 確認済み
+[ -f ./.env ] && source ./.env
+security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db 2>/dev/null || true
+unset ASC_WEB_LAST_LOGIN ASC_WEB_SESSION_CACHE_BACKEND ASC_BYPASS_KEYCHAIN
 
-SESSION_STATUS=$(asc web auth status --apple-id "$APPLE_ID" 2>&1)
-if echo "$SESSION_STATUS" | grep -q '"authenticated":true'; then
+IRIS_STATUS=$(asc web auth status --apple-id "$APPLE_ID" 2>&1 || echo "IRIS_FAIL")
+
+if echo "$IRIS_STATUS" | grep -q 'authenticated.*true'; then
   echo "✅ iris session active"
 else
-  echo "❌ iris session expired — ralph.sh PREFLIGHT が検知してるはず"
-  exit 1
+  echo "⚠️ iris session expired — 2FA 必要"
+
+  # Step A: Apple に 2FA コード送信を要求
+  ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web auth login \
+    --apple-id "$APPLE_ID" 2>&1 || true
+
+  # Step B: WAITING_FOR_HUMAN — Slack で 2FA コード要求
+  echo "WAITING_FOR_HUMAN" >> progress.txt
+  curl -s -X POST "${SLACK_WEBHOOK_AGENTS}" -H 'Content-type: application/json' \
+    -d '{"text":"⏸️ iris session expired（US-005a）。iPhoneに届く6桁コードを Slack に送ってください。"}' 2>/dev/null || true
+
+  # Step C: Slack ポーリング（5件、30秒間隔、最大8時間）
+  SLACK_CHANNEL_ID="${SLACK_CHANNEL_ID:-C091G3PKHL2}"
+  WAIT_COUNT=0
+  while [ $WAIT_COUNT -lt 960 ]; do
+    LATEST_MSGS=$(/opt/homebrew/bin/openclaw message read \
+      --channel slack --target "$SLACK_CHANNEL_ID" --limit 5 --json 2>/dev/null \
+      | jq -r '[.payload.messages[].text // empty] | join("\n")' 2>/dev/null || true)
+    TWO_FA_CODE=$(echo "$LATEST_MSGS" | grep -oE '[0-9]{6}' | head -1)
+
+    if [ -n "$TWO_FA_CODE" ]; then
+      echo "🔑 2FA コード検出: $TWO_FA_CODE"
+      ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web auth login \
+        --apple-id "$APPLE_ID" --two-factor-code "$TWO_FA_CODE" 2>&1
+
+      IRIS_RECHECK=$(asc web auth status --apple-id "$APPLE_ID" 2>&1 || echo "FAIL")
+      if echo "$IRIS_RECHECK" | grep -q 'authenticated.*true'; then
+        echo "✅ iris session restored"
+        sed -i '' '/WAITING_FOR_HUMAN/d' progress.txt
+        break
+      fi
+    fi
+    sleep 30
+    WAIT_COUNT=$((WAIT_COUNT + 1))
+  done
+
+  if [ $WAIT_COUNT -ge 960 ]; then
+    echo "❌ iris session タイムアウト（8時間）"
+    exit 2
+  fi
 fi
 ```
 
@@ -121,7 +161,6 @@ echo "✅ Bundle ID confirmed"
 ### 5.1: アプリ作成（keychain セッション有効 → 2FA 不要）
 ```bash
 source ~/.config/mobileapp-builder/.env
-# ASC_WEB_SESSION_CACHE_BACKEND は設定しない（auto = keychain 優先）
 
 APP_RESULT=$(ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc apps create \
   --name "<app_name>" \
@@ -152,7 +191,6 @@ fi
 ```bash
 source ~/.config/mobileapp-builder/.env
 source ~/.config/mobileapp-builder/projects/<slug>/.env
-# ASC_WEB_SESSION_CACHE_BACKEND は設定しない（auto = keychain 優先）
 
 echo '{"schemaVersion":1,"dataUsages":[{"dataProtections":["DATA_NOT_COLLECTED"]}]}' > /tmp/privacy.json
 

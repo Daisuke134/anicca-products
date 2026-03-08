@@ -33,7 +33,6 @@ APP_DIR = このファイル (CLAUDE.md) が置かれているディレクトリ
 10. Append progress to `$APP_DIR/progress.txt`
 11. Report via Slack (BOTH, curl FIRST):
     source ~/.config/mobileapp-builder/.env
-    [ -f ./.env ] && source ./.env
     curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '{"text":"🏭 <US-ID> 完了: <summary>"}'
 
 ## Special Slack Reports (US-001, US-007)
@@ -132,7 +131,6 @@ Run the command. See the output. Report the evidence.
 Before any signing/build:
 ```
 source ~/.config/mobileapp-builder/.env
-[ -f ./.env ] && source ./.env
 security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db
 ```
 
