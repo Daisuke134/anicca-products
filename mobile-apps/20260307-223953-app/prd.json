@@ -257,8 +257,8 @@
         "Slack #metrics notified with TestFlight link"
       ],
       "priority": 8.5,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "release-review 5/5 PASS: Security(no hardcoded secrets, xcconfig RC_API_KEY, no http://, no print in prod), Privacy(PrivacyInfo.xcprivacy CA92.1, no ATT, no Mixpanel, HealthKit usage strings), UX(4-step onboarding, empty states, 53 a11y IDs), Distribution(bundle=com.aniccafactory.frostdip, v1.0, VALID build, ITSAppUsesNonExemptEncryption=NO), API(RevenueCatUI=0, no AI APIs). dry-run errors=0. TestFlight: GROUP_ID=b46584b2-783c-487b-9507-ccadbbe84846 (External Testers), betaReviewState=WAITING_FOR_REVIEW, publicLink=https://testflight.apple.com/join/3kVhjVfs. Beta app localization + review details set. Slack #metrics notified."
     },
     {
       "id": "US-009",

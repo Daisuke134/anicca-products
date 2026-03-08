@@ -507,3 +507,30 @@
   - `subscriptions.images.recommended` warnings are SKIP per Decision Table (promotional images optional)
   - `subscriptions.review_readiness.needs_attention` warnings are SKIP (submit happens at review submission time)
 ---
+
+## 2026-03-08 - US-008e: Preflight Validation + TestFlight Distribution
+- release-review 5 checklists ALL PASS:
+  - Security: no hardcoded secrets, xcconfig for RC_API_KEY, no http://, no prod print statements
+  - Privacy: PrivacyInfo.xcprivacy (CA92.1) exists, no ATT (Rule 20b), no Mixpanel (Rule 17), HealthKit usage descriptions present
+  - UX: 4-step onboarding, empty states in History/Progress, 53 accessibility identifiers
+  - Distribution: bundle=com.aniccafactory.frostdip, version=1.0, build=VALID, ITSAppUsesNonExemptEncryption=NO, icon=1024.png
+  - API: RevenueCatUI=0 imports, no AI APIs, no production logging
+- dry-run: status=dry-run, errors=0, warnings=6 (all SKIP per Decision Table) ✅
+- TestFlight: GROUP_ID=b46584b2-783c-487b-9507-ccadbbe84846 (External Testers created)
+- Beta app localization (en-US) created: description + feedbackEmail + privacyPolicyUrl + marketingUrl
+- Beta build localization: test notes added ("Please test: timer, history, streak, paywall")
+- Beta App Review Details: contact=Daisuke Kobayashi, email=keiodaisuke@gmail.com, demoAccountRequired=false
+- Beta review submitted: betaReviewState=WAITING_FOR_REVIEW ✅
+- Public TestFlight link: https://testflight.apple.com/join/3kVhjVfs (publicLinkEnabled=true)
+- Tester keiodaisuke@gmail.com added to External Testers group
+- Slack #metrics notified ✅
+- **Learnings for future iterations:**
+  - betaAppReviewDetails is separate from appStoreReviewDetails — must be set separately via PATCH /v1/betaAppReviewDetails/$APP_ID
+  - betaAppLocalizations must be created (POST /v1/betaAppLocalizations) before review submit — required: description + feedbackEmail
+  - betaBuildLocalizations (test notes) also required for external review submission
+  - External beta review requires: betaAppLocalization + betaAppReviewDetail (contact info) + betaBuildLocalization (what's new)
+  - publicLink is generated immediately when publicLinkEnabled=true via PATCH /v1/betaGroups/{id}
+  - build-debug/ and FrostDipios/build/ must be in .gitignore — SPM packages can be 1GB+
+  - After failed push due to large files: git reset HEAD~1, add to .gitignore, git rm -r --cached, recommit
+TESTFLIGHT_LINK=https://testflight.apple.com/join/3kVhjVfs
+---
