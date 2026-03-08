@@ -538,27 +538,112 @@ https://developer.apple.com/documentation/appstoreconnectapi/appstoreversion/att
 > `copyright` — string attribute on AppStoreVersion
 
 ```bash
+source ~/.config/mobileapp-builder/.env
+
 # Copyright (REQUIRED — 未設定だと提出時にエラー)
 CURRENT_YEAR=$(date +%Y)
-DEVELOPER_NAME="Daisuke Kobayashi"  # .env から取得可能にする
+DEVELOPER_NAME="Daisuke Kobayashi"
 asc versions update --version-id "$VERSION_ID" --copyright "$CURRENT_YEAR $DEVELOPER_NAME"
 
-# Age Rating: all 22 items
-asc age-rating set --app $APP_ID --version-id $VERSION_ID ...
-# Encryption
-asc encryption set --app $APP_ID --version-id $VERSION_ID --uses-non-exempt-encryption false
-# Content Rights
-asc content-rights set --app $APP_ID --version-id $VERSION_ID --uses-third-party-content false
+# Age Rating: all 22 items NONE (FOUR_PLUS)
+asc age-rating set --app "$APP_ID" --version-id "$VERSION_ID" \
+  --violence-cartoon NONE --violence-realistic NONE --violence-graphic NONE \
+  --sexual-content NONE --nudity NONE --profanity NONE --mature-themes NONE \
+  --horror NONE --gambling NONE --alcohol-tobacco NONE --medical NONE \
+  --contests NONE --unrestricted-web-access false --gambling-simulated false
+
+# Review Details (Fix #9: phone format must be "+CC SP NNNN NNNN")
+# ⚠️ `asc review details-create` exists. REST API PATCH also works.
+asc review details-create --app "$APP_ID" --version-id "$VERSION_ID" --demo-account-required false 2>/dev/null || true
+# If CLI fails, use REST API PATCH:
+JWT=$(python3 -c "
+import jwt, time
+with open('$ASC_KEY_PATH') as f: key = f.read()
+now = int(time.time())
+token = jwt.encode({'iss': '$ASC_ISSUER_ID', 'iat': now, 'exp': now+1200, 'aud': 'appstoreconnect-v1'},
+                   key, algorithm='ES256', headers={'kid': '$ASC_KEY_ID', 'typ': 'JWT'})
+print(token)
+")
+# Get review detail ID
+DETAIL_ID=$(curl -s "https://api.appstoreconnect.apple.com/v1/appStoreVersions/$VERSION_ID/appStoreReviewDetail" \
+  -H "Authorization: Bearer $JWT" | python3 -c "import json,sys; print(json.load(sys.stdin)['data']['id'])")
+# PATCH with correct phone format (+CC SP NNNN NNNN)
+curl -s -X PATCH "https://api.appstoreconnect.apple.com/v1/appStoreReviewDetails/$DETAIL_ID" \
+  -H "Authorization: Bearer $JWT" -H "Content-Type: application/json" \
+  -d "{\"data\":{\"type\":\"appStoreReviewDetails\",\"id\":\"$DETAIL_ID\",\"attributes\":{
+    \"contactFirstName\":\"Daisuke\",\"contactLastName\":\"Kobayashi\",
+    \"contactPhone\":\"+81 80 1234 5678\",\"contactEmail\":\"keiodaisuke@gmail.com\",
+    \"demoAccountRequired\":false,
+    \"notes\":\"No login required. Open app and use immediately.\"
+  }}}"
 ```
+
+### Encryption (ITSAppUsesNonExemptEncryption)
+
+⚠️ `asc encryption set` は**存在しない**。Info.plist に `ITSAppUsesNonExemptEncryption = NO` を設定する（US-005a で済み）。
+ASC 側での宣言は不要（Info.plist の値が自動的に使われる）。
+
+### Content Rights
+
+⚠️ `asc content-rights set` は**存在しない**。REST API で設定:
+
+```bash
+curl -s -X PATCH "https://api.appstoreconnect.apple.com/v1/apps/$APP_ID" \
+  -H "Authorization: Bearer $JWT" -H "Content-Type: application/json" \
+  -d "{\"data\":{\"type\":\"apps\",\"id\":\"$APP_ID\",\"attributes\":{
+    \"contentRightsDeclaration\":\"DOES_NOT_USE_THIRD_PARTY_CONTENT\"
+  }}}"
+```
+
+Verified: 2026-03-06 desk-stretch で `PATCH /v1/apps/{id}` 成功確認済み。
 
 ## Step 6: Availability + Pricing
 CRITICAL: availability BEFORE pricing（Rule 6）
+
+⚠️ `asc availability set --territories ALL` は**存在しない**。REST API v2 を使う:
+
 ```bash
-# Availability first
-asc availability set --app $APP_ID --territories ALL
-# Then pricing (use price-point ID, NOT --tier 0)
-asc pricing set ...
+# 1. 全テリトリー取得
+TERRITORIES=$(asc pricing territories list --paginate | python3 -c "
+import json,sys
+d=json.load(sys.stdin)
+print([t['id'] for t in d['data']])
+")
+
+# 2. POST /v2/appAvailabilities with territoryAvailabilities
+PAYLOAD=$(python3 -c "
+import json
+territories = $TERRITORIES
+ta_data = []
+included = []
+for i, t in enumerate(territories):
+    local_id = f'ta{i}'
+    ta_data.append({'type': 'territoryAvailabilities', 'id': local_id})
+    included.append({'type': 'territoryAvailabilities', 'id': local_id,
+                     'attributes': {'available': True},
+                     'relationships': {'territory': {'data': {'type': 'territories', 'id': t}}}})
+print(json.dumps({
+    'data': {'type': 'appAvailabilities',
+             'attributes': {'availableInNewTerritories': True},
+             'relationships': {'app': {'data': {'type': 'apps', 'id': '$APP_ID'}},
+                              'territoryAvailabilities': {'data': ta_data}}},
+    'included': included
+}))
+")
+curl -s -X POST "https://api.appstoreconnect.apple.com/v2/appAvailabilities" \
+  -H "Authorization: Bearer $JWT" -H "Content-Type: application/json" \
+  -d "$PAYLOAD"
+
+# 3. Pricing (free tier — subscription pricing set in US-005b)
+# Base app = free. Find free price-point:
+FREE_PP=$(asc pricing price-points list --app "$APP_ID" --filter-territory USA --output json \
+  | python3 -c "import json,sys; d=json.load(sys.stdin); print([p['id'] for p in d['data'] if p['attributes'].get('customerPrice','0')=='0'][0])" 2>/dev/null)
+if [ -n "$FREE_PP" ]; then
+  asc pricing schedule create --app "$APP_ID" --price-point "$FREE_PP" --base-territory USA
+fi
 ```
+
+Verified: 2026-03-06 desk-stretch で全コマンド成功確認済み。
 
 ## Step 7: release-review 5 Checklists
 Read `.claude/skills/release-review/SKILL.md` and execute all 5 checklists.
@@ -588,16 +673,18 @@ asc review details-create --app "$APP_ID" --version-id "$VERSION_ID" --demo-acco
 # 4. Category（PRD の appStoreCategory から取得。CC が書き換えること）
 asc categories set --app-info "$APP_INFO_ID" --primary HEALTH_AND_FITNESS
 
-# 5. Availability
-asc availability set --app "$APP_ID" --territories ALL
+# 5. Availability — use REST API v2 (asc availability set doesn't exist)
+# Already handled in Step 6 above. Skip if already set.
 
-# 6. Encryption
-asc encryption set --app "$APP_ID" --version-id "$VERSION_ID" --uses-non-exempt-encryption false
+# 6. Encryption — handled by Info.plist ITSAppUsesNonExemptEncryption=NO (US-005a)
+# No ASC API call needed.
 
-# 7. Content Rights
-asc content-rights set --app "$APP_ID" --version-id "$VERSION_ID" --uses-third-party-content false
+# 7. Content Rights — REST API PATCH /v1/apps
+curl -s -X PATCH "https://api.appstoreconnect.apple.com/v1/apps/$APP_ID" \
+  -H "Authorization: Bearer $JWT" -H "Content-Type: application/json" \
+  -d "{\"data\":{\"type\":\"apps\",\"id\":\"$APP_ID\",\"attributes\":{\"contentRightsDeclaration\":\"DOES_NOT_USE_THIRD_PARTY_CONTENT\"}}}"
 
-echo "✅ All 7 prerequisites set"
+echo "✅ All prerequisites set"
 ```
 
 ## Step 8: Validate + Submit（asc release run）
@@ -671,8 +758,8 @@ dry-run で `BLOCK:<error.id>` が出たら、以下のテーブルに従って�
 | `review_details.missing` | ✅ | `asc review details-create --app $APP_ID --version-id $VERSION_ID --demo-account-required false` → 再実行 |
 | `age_rating.missing` | ✅ | `asc age-rating set --app $APP_ID ...` → 再実行 |
 | `copyright.missing` | ✅ | `asc versions update --version-id $VERSION_ID --copyright "$(date +%Y) Daisuke Kobayashi"` → 再実行 |
-| `encryption.missing` | ✅ | `asc encryption set ... --uses-non-exempt-encryption false` → 再実行 |
-| `content_rights.missing` | ✅ | `asc content-rights set ... --uses-third-party-content false` → 再実行 |
+| `encryption.missing` | ✅ | Info.plist に `ITSAppUsesNonExemptEncryption=NO` 確認 → 再ビルド+アップロード |
+| `content_rights.missing` | ✅ | `curl PATCH /v1/apps/$APP_ID` で `contentRightsDeclaration=DOES_NOT_USE_THIRD_PARTY_CONTENT` → 再実行 |
 | `privacy.missing` | ❌ | `WAITING_FOR_HUMAN: Privacy Policy 未設定。2FA + asc web privacy apply が必要` |
 | unknown error | ❌ | `BLOCKED: unknown error — <full error message>` をログに出力して停止 |
 

@@ -53,7 +53,7 @@ curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '
 | 19 | **全ての `asc` コマンドに `export ASC_BYPASS_KEYCHAIN=true` を設定すること**。未設定だとハングする |
 | 20 | **オンボーディング最終画面はソフトペイウォール必須**。自前 SwiftUI PaywallView + Purchases.shared.purchase(package:)。RevenueCatUI 禁止。[Maybe Later] で閉じれる |
 | 20b | **ATT 禁止**。AppTrackingTransparency / NSUserTrackingUsageDescription は使わない。スクショに ATT ダイアログが写り込む |
-| 21 | **1 iteration = 1 US（厳守）**。2つ以上のUSを1イテレーションで実行したら即座に停止。次のイテレーションで続行。500ターン超過も即停止 |
+| 21 | **1 iteration = 1 US（HARD STOP）**。1つのUSを `passes: true` にしたら、**その瞬間に作業を終了**する。次のUSに手を出すな。progress.txt を更新して終了。ralph.sh が次の iteration を起動する。これは提案ではなく**絶対ルール**。違反するとトークンが無駄になる（validate.sh は1USしか検証しない）。500ターン超過も即停止 |
 | 22 | **PATH 設定（全イテレーション冒頭で実行）**: `export PATH="/Users/anicca/Library/Python/3.9/bin:$PATH"` と `export ASC_BYPASS_KEYCHAIN=true` |
 | 23 | **AI API / 外部 API コスト禁止** — OpenAI, Anthropic, Gemini, Apple FoundationModels（iOS 26+ = ユーザー基盤小）一切禁止。アプリは完全自己完結。ローカル・静的コンテンツのみ。バックエンド不要。理由: 月収 $29 vs API コスト $300+ |
 | 23 | **AI API / AI モデル / 外部 AI サービス完全禁止**。OpenAI, Anthropic, Google Generative AI, Apple FoundationModels 一切不可。月額収益 $29 vs API コスト $300+。FoundationModels は iOS 26+ のみでユーザーベース皆無。オンデバイスロジック or 静的キュレーションコンテンツで代替 |
@@ -63,7 +63,7 @@ curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '
 | タスク | 正しいコマンド | スキル |
 |--------|---------------|--------|
 | スクショ capture | `asc screenshots capture --bundle-id ... --udid ... --output-dir ... --output json` | asc-shots-pipeline |
-| スクショ upload | `asc screenshots upload --version-localization LOC_ID --path DIR --device-type IPHONE_67` | asc-shots-pipeline |
+| スクショ upload | `asc screenshots upload --version-localization LOC_ID --path DIR --device-type IPHONE_69` | asc-shots-pipeline |
 | Review screenshot | `asc subscriptions review-screenshots create --subscription-id ID --file PATH` | — |
 | ビルド最新取得 | `asc builds list --app APP_ID --sort -uploadedDate --limit 1` | asc-build-lifecycle |
 | ビルドをグループ追加 | `asc builds add-groups --build BUILD_ID --group GROUP_ID` | asc-testflight-orchestration |

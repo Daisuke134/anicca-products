@@ -54,15 +54,8 @@ PREFLIGHT_FAIL=0
 
 # Check 1: CC token valid
 echo -n "  [1/5] CC OAuth token... "
-# Try env var first, then keychain
+# Fix #6: .env only — Keychain tokens deleted 2026-03-07
 TEST_TOKEN="${CLAUDE_CODE_OAUTH_TOKEN:-}"
-if [ -z "$TEST_TOKEN" ]; then
-  TEST_TOKEN=$(security find-generic-password -s 'Claude Code-credentials' -w 2>/dev/null \
-    | python3 -c "import json,sys; print(json.loads(sys.stdin.read().strip())['claudeAiOauth']['accessToken'])" 2>/dev/null || echo "")
-  if [ -n "$TEST_TOKEN" ]; then
-    export CLAUDE_CODE_OAUTH_TOKEN="$TEST_TOKEN"
-  fi
-fi
 if [ -z "$TEST_TOKEN" ]; then
   echo "❌ トークンなし"
   PREFLIGHT_FAIL=1
@@ -140,6 +133,17 @@ if [ "$PREFLIGHT_FAIL" -eq 1 ]; then
 fi
 
 echo "🟢 PREFLIGHT OK — 全チェック通過"
+
+# Fix #7: Sync template references + validate.sh to app dir every run.
+# Prevents stale recipes from causing failures (desk-stretch post-mortem).
+TEMPLATE_DIR="/Users/anicca/anicca-project/.claude/skills/mobileapp-builder"
+if [ -d "$TEMPLATE_DIR/references" ] && [ "$SCRIPT_DIR" != "$TEMPLATE_DIR" ]; then
+  echo "🔄 テンプレート同期: references/ + validate.sh"
+  rsync -a --update "$TEMPLATE_DIR/references/" "$SCRIPT_DIR/references/"
+  cp "$TEMPLATE_DIR/validate.sh" "$SCRIPT_DIR/validate.sh"
+  chmod +x "$SCRIPT_DIR/validate.sh"
+fi
+
 echo ""
 
 PREV_PASSES=""
@@ -147,14 +151,13 @@ FAIL_COUNT=0
 LAST_FAILED_US=""
 
 for i in $(seq 1 $MAX_ITERATIONS); do
-  # Token refresh: read fresh token from Keychain before each iteration
-  # Source: https://github.com/AndyMik90/Auto-Claude/issues/1518
-  # "Claude CLI terminal works for days because it has internal token refresh logic"
-  # "claude -p" pipe mode does NOT refresh — must read fresh token each iteration
-  FRESH_TOKEN=$(security find-generic-password -s 'Claude Code-credentials' -w 2>/dev/null \
-    | python3 -c "import json,sys; print(json.loads(sys.stdin.read().strip())['claudeAiOauth']['accessToken'])" 2>/dev/null || echo "")
-  if [ -n "$FRESH_TOKEN" ]; then
-    export CLAUDE_CODE_OAUTH_TOKEN="$FRESH_TOKEN"
+  # Fix #6: Token refresh — .env only (Keychain tokens deleted 2026-03-07).
+  # Re-source .env each iteration in case token was manually updated.
+  if [ -f ~/.config/mobileapp-builder/.env ]; then
+    REFRESHED_TOKEN=$(grep '^CLAUDE_CODE_OAUTH_TOKEN=' ~/.config/mobileapp-builder/.env 2>/dev/null | cut -d= -f2-)
+    if [ -n "$REFRESHED_TOKEN" ]; then
+      export CLAUDE_CODE_OAUTH_TOKEN="$REFRESHED_TOKEN"
+    fi
   fi
 
   # WAITING_FOR_HUMAN: don't burn iterations while waiting for human input
@@ -163,9 +166,9 @@ for i in $(seq 1 $MAX_ITERATIONS); do
   while [ -f "$SCRIPT_DIR/progress.txt" ] && grep -q "WAITING_FOR_HUMAN" "$SCRIPT_DIR/progress.txt"; do
     echo "🏭 ⏸️ WAITING_FOR_HUMAN 検出。人間の入力待ち... (${WAIT_COUNT}回目)"
     WAIT_COUNT=$((WAIT_COUNT + 1))
-    if [ $WAIT_COUNT -ge 120 ]; then  # 1時間（30秒×120）
-      echo "🏭 ❌ WAITING_FOR_HUMAN タイムアウト（1時間）"
-      notify_slack "❌ WAITING_FOR_HUMAN タイムアウト（1時間）。手動対応必要。"
+    if [ $WAIT_COUNT -ge 480 ]; then  # 4時間（30秒×480）
+      echo "🏭 ❌ WAITING_FOR_HUMAN タイムアウト（4時間）"
+      notify_slack "❌ WAITING_FOR_HUMAN タイムアウト（4時間）。手動対応必要。"
       break 2
     fi
     sleep 30
@@ -219,7 +222,10 @@ for us in d['userStories']:
   echo ""
   echo "🏭 Iteration $i 終了: $(date)"
 
-  # 1 US enforcement: イテレーション後に新しく passes:true になった US を数える
+  # Fix #4: 1 US enforcement — warn only, don't reset.
+  # CC is instructed to hard-stop after 1 US via CLAUDE.md.
+  # Resetting after the fact wastes tokens (CC already did the work).
+  # We log a warning for monitoring but trust CLAUDE.md enforcement.
   if [ -f "$SCRIPT_DIR/prd.json" ]; then
     AFTER_PASSES=$(python3 -c "
 import json
@@ -227,7 +233,6 @@ with open('$SCRIPT_DIR/prd.json') as f: d = json.load(f)
 for us in d['userStories']:
     if us['passes']: print(us['id'])
 " 2>/dev/null || true)
-    # 差分を取って新しく完了した US を数える
     NEW_PASSES=""
     while IFS= read -r us_id; do
       if [ -n "$us_id" ] && ! echo "$BEFORE_PASSES" | grep -qF "$us_id"; then
@@ -236,22 +241,8 @@ for us in d['userStories']:
     done <<< "$AFTER_PASSES"
     NEW_COUNT=$(echo "$NEW_PASSES" | xargs | wc -w | tr -d ' ')
     if [ "$NEW_COUNT" -gt 1 ]; then
-      echo "🔴 1 US enforcement 違反: $NEW_COUNT US が1イテレーションで完了 ($NEW_PASSES)"
-      notify_slack "🔴 1 US enforcement 違反: ${NEW_COUNT} US が1イテレーションで完了。最後の1つ以外をリセット。"
-      # 最初に完了した1つだけ残して、残りをリセット
-      KEEP_FIRST=$(echo "$NEW_PASSES" | xargs | awk '{print $1}')
-      python3 -c "
-import json
-with open('$SCRIPT_DIR/prd.json') as f: prd = json.load(f)
-new_passes = '$NEW_PASSES'.split()
-keep = '$KEEP_FIRST'
-for us in prd['userStories']:
-    if us['id'] in new_passes and us['id'] != keep:
-        us['passes'] = False
-        us['notes'] = us.get('notes','') + ' [reset: 1 US per iteration rule]'
-        print(f'🔄 {us[\"id\"]} reset to passes:false (1 US rule)')
-with open('$SCRIPT_DIR/prd.json','w') as f: json.dump(prd, f, indent=2, ensure_ascii=False)
-" 2>/dev/null || true
+      echo "⚠️ 1 US enforcement: $NEW_COUNT US completed in 1 iteration ($NEW_PASSES) — logged, not reset"
+      notify_slack "⚠️ 1 US enforcement: ${NEW_COUNT} US in 1 iteration ($NEW_PASSES). Logged only."
     fi
   fi
 
@@ -302,29 +293,37 @@ for us in d['userStories']:
   fi
 
   # validate.sh — external quality gate (Source: SonarQube pattern)
-  # Auto-reset: validate.sh FAIL → passes:true を passes:false にリセット
+  # Fix #3: Only reset the LATEST completed US, not all mentioned in output.
+  # validate.sh output mentions US IDs in gate descriptions — partial match caused
+  # unrelated US to be reset. Now we only reset the US that was just completed.
   if [ -f "$SCRIPT_DIR/validate.sh" ]; then
     echo "🔍 validate.sh 実行中..."
-    "$SCRIPT_DIR/validate.sh" || {
-      echo "🔴 validate.sh FAILED — auto-resetting passes:true → false"
-      notify_slack "🔴 validate.sh FAILED at iteration $i — auto-reset実行"
-      # Auto-reset: validate.sh が FAIL した US の passes を false に戻す
-      if [ -f "$SCRIPT_DIR/prd.json" ]; then
-        python3 -c "
-import json, subprocess, re
+    VALIDATE_OUTPUT=$("$SCRIPT_DIR/validate.sh" 2>&1)
+    VALIDATE_EXIT=$?
+    echo "$VALIDATE_OUTPUT"
+    if [ $VALIDATE_EXIT -ne 0 ]; then
+      echo "🔴 validate.sh FAILED (exit=$VALIDATE_EXIT)"
+      # Only reset the CURRENT US (highest priority passes:false candidate)
+      # Don't re-run validate.sh (expensive) — use the output we already have
+      if [ -f "$SCRIPT_DIR/prd.json" ] && echo "$VALIDATE_OUTPUT" | grep -q "❌ FAIL"; then
+        RESET_US=$(python3 -c "
+import json
 with open('$SCRIPT_DIR/prd.json') as f: prd = json.load(f)
-result = subprocess.run(['$SCRIPT_DIR/validate.sh'], capture_output=True, text=True)
-output = result.stdout + result.stderr
-# FAIL した US を検出してリセット
-for us in prd['userStories']:
-    if us['passes'] and us['id'] in output:
-        us['passes'] = False
-        us['notes'] = us.get('notes','') + ' [auto-reset by ralph.sh]'
-        print(f'🔄 {us[\"id\"]} reset to passes:false')
-with open('$SCRIPT_DIR/prd.json','w') as f: json.dump(prd, f, indent=2, ensure_ascii=False)
-" 2>/dev/null || true
+# Find the last US that was set to passes:true (most recently completed)
+completed = [us for us in prd['userStories'] if us['passes']]
+if completed:
+    last = completed[-1]
+    last['passes'] = False
+    last['notes'] = last.get('notes','') + ' [auto-reset by validate.sh]'
+    print(f'🔄 {last[\"id\"]} reset to passes:false')
+    with open('$SCRIPT_DIR/prd.json','w') as f: json.dump(prd, f, indent=2, ensure_ascii=False)
+else:
+    print('No US to reset')
+" 2>/dev/null || echo "reset failed")
+        echo "$RESET_US"
+        notify_slack "🔴 validate.sh FAILED at iteration $i — $RESET_US"
       fi
-    }
+    fi
   fi
 
   # Check for WAITING_FOR_HUMAN in progress.txt → Slack notify
