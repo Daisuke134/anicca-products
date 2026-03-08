@@ -553,29 +553,36 @@ asc age-rating set --app "$APP_ID" --version-id "$VERSION_ID" \
   --contests NONE --unrestricted-web-access false --gambling-simulated false
 
 # Review Details (Fix #9: phone format must be "+CC SP NNNN NNNN")
-# ⚠️ `asc review details-create` exists. REST API PATCH also works.
-asc review details-create --app "$APP_ID" --version-id "$VERSION_ID" --demo-account-required false 2>/dev/null || true
-# If CLI fails, use REST API PATCH:
-JWT=$(python3 -c "
-import jwt, time
-with open('$ASC_KEY_PATH') as f: key = f.read()
-now = int(time.time())
-token = jwt.encode({'iss': '$ASC_ISSUER_ID', 'iat': now, 'exp': now+1200, 'aud': 'appstoreconnect-v1'},
-                   key, algorithm='ES256', headers={'kid': '$ASC_KEY_ID', 'typ': 'JWT'})
-print(token)
-")
-# Get review detail ID
-DETAIL_ID=$(curl -s "https://api.appstoreconnect.apple.com/v1/appStoreVersions/$VERSION_ID/appStoreReviewDetail" \
-  -H "Authorization: Bearer $JWT" | python3 -c "import json,sys; print(json.load(sys.stdin)['data']['id'])")
-# PATCH with correct phone format (+CC SP NNNN NNNN)
-curl -s -X PATCH "https://api.appstoreconnect.apple.com/v1/appStoreReviewDetails/$DETAIL_ID" \
-  -H "Authorization: Bearer $JWT" -H "Content-Type: application/json" \
-  -d "{\"data\":{\"type\":\"appStoreReviewDetails\",\"id\":\"$DETAIL_ID\",\"attributes\":{
-    \"contactFirstName\":\"Daisuke\",\"contactLastName\":\"Kobayashi\",
-    \"contactPhone\":\"+81 80 1234 5678\",\"contactEmail\":\"keiodaisuke@gmail.com\",
-    \"demoAccountRequired\":false,
-    \"notes\":\"No login required. Open app and use immediately.\"
-  }}}"
+# Verified 2026-03-08: details-create works for NEW versions.
+# If already exists → "Resource already exists" error → use details-update.
+# Phone format: "+81 80 1234 5678" (space-separated, NOT +819000000000)
+
+# Try create first, fallback to update
+asc review details-create \
+  --version-id "$VERSION_ID" \
+  --contact-first-name "Daisuke" \
+  --contact-last-name "Kobayashi" \
+  --contact-phone "+81 80 1234 5678" \
+  --contact-email "keiodaisuke@gmail.com" \
+  --demo-account-required false \
+  --notes "No login required. Open app and use immediately." \
+  --output json 2>/dev/null
+
+if [ $? -ne 0 ]; then
+  # Already exists → get ID and update
+  DETAIL_ID=$(asc review details-for-version --version-id "$VERSION_ID" --output json 2>/dev/null \
+    | python3 -c "import json,sys; print(json.load(sys.stdin)['data']['id'])" 2>/dev/null)
+  if [ -n "$DETAIL_ID" ]; then
+    asc review details-update \
+      --id "$DETAIL_ID" \
+      --contact-first-name "Daisuke" \
+      --contact-last-name "Kobayashi" \
+      --contact-phone "+81 80 1234 5678" \
+      --contact-email "keiodaisuke@gmail.com" \
+      --notes "No login required. Open app and use immediately." \
+      --output json
+  fi
+fi
 ```
 
 ### Encryption (ITSAppUsesNonExemptEncryption)
