@@ -554,3 +554,17 @@ TESTFLIGHT_LINK=https://testflight.apple.com/join/3kVhjVfs
 ---
 2FA_CODE=778201
 [Sun Mar  8 14:51:48 JST 2026] App Privacy skipped - 2FA codes expired. asc validate: errors=0, blocking=0. Proceeding with submission.
+
+## 2026-03-08 - US-010: Build Report (Token Usage + Slack + X Post)
+- build-report.json saved (totalTokens=134M, costInPlan=$12.03, 22 iterations, 291min)
+- Slack #metrics notified with full stats + TestFlight link
+- X posted via Postiz API with 4 screenshots (HTTP 201, @aniccaxxx)
+- **Evidence:**
+  - `test -f build-report.json` → EXISTS
+  - Slack: ok
+  - X post: HTTP 201
+- **Learnings for future iterations:**
+  - Bash `for VAR in $MULTILINE` fails with newlines from `ls` — use bash array `IMGS=("a" "b")` + `for IMG in "${IMGS[@]}"`
+  - `tail -1` on macOS: use `tail -n 1` for HTTP code parsing (though `| tail -1` works too)
+  - Postiz upload returns `{"id":"...","path":"https://uploads.postiz.com/..."}` — extract `id` + `path` for image JSON
+---
