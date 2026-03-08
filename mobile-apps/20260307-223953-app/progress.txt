@@ -485,3 +485,25 @@
   - prd.json can become stale if previous iteration was reset by ralph.sh — re-verify via ASC API and resync
   - `asc localizations list --app $APP_ID --type app-info` confirms app-info locale fields
 ---
+
+## 2026-03-08 - US-008d: ASC Compliance [STATE SYNC + FIX]
+- prd.json was passes:false due to previous reset
+- Verified via ASC API:
+  - Age Rating: all 22 items NONE → ageRating=4+ ✅
+  - Review Details: demoAccountRequired=false, contactFirstName=Daisuke ✅
+  - Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT ✅
+  - Pricing: Annual/Monthly/Weekly = READY_TO_SUBMIT ✅
+  - Encryption: ITSAppUsesNonExemptEncryption=NO (Info.plist) ✅
+- Copyright was None — fixed via REST PATCH /v1/appStoreVersions: "2026 Daisuke Kobayashi" ✅
+- dry-run attempt 1: errors=4 (APP_IPHONE_65 + APP_IPHONE_61 empty sets blocking for en-US+ja)
+- Fix: Deleted 4 empty screenshot sets via DELETE /v1/appScreenshotSets/{id} (HTTP 204 each)
+- dry-run attempt 2: status=dry-run, errors=0, warnings=6 (promotional images + READY_TO_SUBMIT — SKIP per Decision Table) ✅
+- prd.json updated: passes:true
+- **Learnings for future iterations:**
+  - Empty screenshot sets (no screenshots uploaded to them) block dry-run with `screenshots.required.set_nonempty`
+  - DELETE /v1/appScreenshotSets/{id} removes empty sets so Apple can auto-scale from 6.9"
+  - Copyright field can become None after API resets — always verify + fix via REST PATCH /v1/appStoreVersions/{id}
+  - `asc versions update --copyright` returns ID-only JSON (not full attrs) — use REST PATCH for reliable set+verify
+  - `subscriptions.images.recommended` warnings are SKIP per Decision Table (promotional images optional)
+  - `subscriptions.review_readiness.needs_attention` warnings are SKIP (submit happens at review submission time)
+---

@@ -244,8 +244,8 @@
         "Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT"
       ],
       "priority": 8.4,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Copyright='2026 Daisuke Kobayashi' via REST PATCH. Age Rating: 22 items all NONE (4+). Review Details: demoAccountRequired=false, contactFirstName=Daisuke via asc review details-for-version. Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT via REST PATCH. Pricing: Annual/Monthly/Weekly=READY_TO_SUBMIT. Encryption: ITSAppUsesNonExemptEncryption=NO (Info.plist). Deleted 4 empty screenshot sets (APP_IPHONE_65+APP_IPHONE_61 for en-US+ja) that were blocking dry-run. dry-run: status=dry-run, errors=0, warnings=6 (promotional images + READY_TO_SUBMIT — all SKIP per Decision Table)."
     },
     {
       "id": "US-008e",
