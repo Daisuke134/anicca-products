@@ -412,3 +412,24 @@
   - For FREE apps (subscription only), no app-level pricing schedule needed — subscription pricing handles everything
   - Encryption declaration creation via API requires containsProprietaryCryptography=true OR both containsThirdPartyCryptography+availableOnFrenchStore=true — not applicable for apps that don't use encryption (ITSAppUsesNonExemptEncryption=NO suffices)
 ---
+
+## Re-run from US-008a (2026-03-08 13:10 JST)
+- US-008a~009 reset to passes:false for fix verification
+- Local screenshots deleted
+- validate.sh + ralph.sh + us-008-release.md + CLAUDE.md all patched (commit 662a99cd)
+- Key fixes: Gate 3 guard moved to US-008d, Gate 7 JSON parse, ASC CLI fake commands replaced with REST API
+
+## 2026-03-08 - US-008a: Screenshots (capture + upload + review screenshot) [RE-RUN]
+- Created iPhone16ProMax-69 simulator (UDID=D1A87F1F-10D9-4372-83A4-66904D99B3AC) with iOS 26.2
+- en-US 4 screenshots: Welcome, Timer, History, Progress (Maestro screenshot-en.yaml)
+- ja 4 screenshots: same screens with Japanese (Maestro screenshot-ja.yaml)
+- MD5: en≠ja PASS, 0 same-locale duplicates PASS
+- ASC upload: en-US 8 + ja 8 = 16 total (APP_IPHONE_67, 4 new + 4 from prior iteration each)
+- Review screenshots confirmed via REST API for Weekly/Monthly/Annual (already existed from prior run)
+- Files: screenshots/raw-69/en-US/ (4 PNG), screenshots/raw-69/ja/ (4 PNG)
+- **Learnings for future iterations:**
+  - `asc screenshots list` returns 'sets' key (not 'data') — use `d.get('sets',[])` not `d.get('data',[])`
+  - `asc subscriptions review-screenshots list` does NOT exist — use REST API to check
+  - Review screenshot "Screenshot already exists" error = it's already there from prior run (verify via REST API)
+  - iPhone 16 Pro Max simulator must be CREATED fresh if not in device list (xcrun simctl create + runtime)
+---
