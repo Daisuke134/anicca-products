@@ -213,7 +213,7 @@ import Foundation
 
     func loadWeeklyData(sessions: [WorkoutSession]) {
         let calendar = Calendar.current
-        let startOfWeek = calendar.startOfWeek(for: .now)
+        let startOfWeek = calendar.dateInterval(of: .weekOfYear, for: .now)?.start ?? .now
         let thisWeek = sessions.filter { $0.date >= startOfWeek }
         weeklyZone2Minutes = thisWeek.reduce(0) { $0 + $1.zone2Minutes }
         streak = calculateStreak(sessions: sessions)
@@ -266,7 +266,11 @@ import RevenueCat  // Rule 20: SDK only
     init() {
         let apiKey = Bundle.main.infoDictionary?["RC_API_KEY"] as? String ?? ""
         Purchases.configure(withAPIKey: apiKey)
-        Purchases.logLevel = .debug  // Debug のみ。Release は .error
+        #if DEBUG
+        Purchases.logLevel = .debug
+        #else
+        Purchases.logLevel = .error
+        #endif
     }
 
     var body: some Scene {
@@ -317,12 +321,12 @@ struct PaywallView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .disabled(selectedPackage == nil || isPurchasing)
-                .accessibilityIdentifier("paywall_cta_button")
+                .accessibilityIdentifier("btn_subscribe")
 
                 // Maybe Later — Rule 20 MANDATORY
                 Button("Maybe Later") { dismiss() }
                     .foregroundColor(.secondary)
-                    .accessibilityIdentifier("paywall_maybe_later_button")
+                    .accessibilityIdentifier("btn_maybe_later")
 
                 // Privacy links
                 privacyLinksSection
@@ -401,11 +405,11 @@ Source: [RevenueCat — Purchase Package](https://docs.revenuecat.com/docs/ios#m
 {
   "sourceLanguage": "en",
   "strings": {
-    "onboarding.title": {
+    "onboarding.age.title": {
       "extractionState": "manual",
       "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "What's your age?" } },
-        "ja": { "stringUnit": { "state": "translated", "value": "年齢を教えてください" } }
+        "en": { "stringUnit": { "state": "translated", "value": "How old are you?" } },
+        "ja": { "stringUnit": { "state": "translated", "value": "何歳ですか？" } }
       }
     },
     "dashboard.weeklyGoal": {
@@ -438,13 +442,16 @@ Source: [RevenueCat — Purchase Package](https://docs.revenuecat.com/docs/ios#m
 import SwiftUI
 
 extension Color {
-    // Brand tokens (from DESIGN_SYSTEM.md)
-    static let zone2Primary = Color("zone2Primary")       // #1DB954 (Zone 2 Green)
-    static let zone2Background = Color("zone2Background") // #0A0A0A (Dark)
-    static let zone2Surface = Color("zone2Surface")       // #1A1A1A (Card bg)
-    static let zone2Text = Color("zone2Text")             // #FFFFFF (Primary text)
-    static let zone2TextSecondary = Color("zone2TextSecondary") // #8E8E93
-    static let zone2Warning = Color("zone2Warning")       // #FF9F0A (HR too high)
+    // Brand tokens (DESIGN_SYSTEM.md §1 — exact token names)
+    static let brandPrimary = Color("brandPrimary")         // #F97316 orange (CTA, active)
+    static let brandSuccess = Color("brandSuccess")          // #22C55E green (Zone 2 in-range)
+    static let brandWarning = Color("brandWarning")          // #EAB308 yellow (Zone 2 boundary)
+    static let brandDanger = Color("brandDanger")            // #EF4444 red (Zone 2 exceeded)
+    static let bgPrimary = Color("bgPrimary")                // #FFF / #0A0A0A
+    static let bgSecondary = Color("bgSecondary")            // #F5F5F5 / #171717
+    static let surfaceCard = Color("surfaceCard")            // #FFF / #1C1C1C
+    static let textPrimary = Color("textPrimary")            // #0A0A0A / #FAFAFA
+    static let textSecondary = Color("textSecondary")        // #525252 / #A3A3A3
 }
 ```
 
@@ -462,14 +469,14 @@ struct SettingsView: View {
         Form {
             Section("Profile") {
                 Stepper("Age: \(profile.age)", value: $profile.age, in: 10...100)
-                    .accessibilityIdentifier("settings_age_stepper")
+                    .accessibilityIdentifier("input_age_settings")
                 Stepper("Weekly Goal: \(profile.weeklyGoalMinutes) min",
                         value: $profile.weeklyGoalMinutes, in: 30...600, step: 30)
                     .accessibilityIdentifier("settings_weekly_goal_stepper")
             }
             Section {
                 Button("Upgrade to Premium") { showPaywall = true }
-                    .accessibilityIdentifier("settings_upgrade_button")
+                    .accessibilityIdentifier("btn_upgrade")
             }
         }
         .navigationTitle("Settings")

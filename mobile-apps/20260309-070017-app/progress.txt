@@ -1,3 +1,27 @@
+## 2026-03-09 - US-004-R: Spec Review (all 7 documents)
+
+- code-quality-reviewer agent で全7ドキュメントをレビュー
+- CRITICAL=0 → PASS。Rule 17/20/20b/21 全て違反なし
+- HIGH 6件修正:
+  - H-002: PaywallView accessibilityIdentifier を UX_SPEC に統一 (btn_subscribe / btn_maybe_later)
+  - H-003: SettingsView accessibilityIdentifier を UX_SPEC に統一 (input_age_settings / btn_upgrade)
+  - H-004: Privacy Policy URL を anicca-products ベースに統一（RELEASE_SPEC 2箇所）
+  - H-005: Colors.swift トークン名を DESIGN_SYSTEM.md §1 と完全一致（brandPrimary 等）
+  - H-006: Greenlight Rule 20 grep を `import RevenueCatUI` 検索に修正
+  - H-001: UX_SPEC §7・§8 で btn_start_workout 定義済み（実装時に確認）
+- MEDIUM 3件修正:
+  - M-001: startOfWeek → calendar.dateInterval(of: .weekOfYear, for: .now)?.start
+  - M-005: Purchases.logLevel を #if DEBUG で分岐（Release は .error）
+  - M-006: ローカライズキーを onboarding.age.title / "How old are you?" に統一
+  - M-007: Zone2Dailyios → zone2dailyios（小文字統一）
+- Files changed: docs/IMPLEMENTATION_GUIDE.md, docs/TEST_SPEC.md, docs/RELEASE_SPEC.md, prd.json, progress.txt
+
+**Learnings for future iterations:**
+- accessibilityIdentifier は UX_SPEC §7 を SSOT とし、IMPLEMENTATION_GUIDE コードスニペットは必ず一致させる
+- Colors.swift の extension 変数名はドット記法不可なのでキャメルケースに変換（brand.primary → brandPrimary）
+- Calendar.startOfWeek(for:) は存在しない。dateInterval(of: .weekOfYear, for:)?.start を使う
+---
+
 ## 2026-03-09 - US-004b: UX Spec (UX_SPEC + DESIGN_SYSTEM + TEST_SPEC + RELEASE_SPEC)
 
 - docs/DESIGN_SYSTEM.md 作成完了（185行、7セクション、24カラートークン、SF Symbols 13個）

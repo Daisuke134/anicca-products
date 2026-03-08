@@ -33,7 +33,7 @@ Source: [ASC CLI Documentation](https://developer.apple.com/documentation/appsto
 | **Keywords** | zone 2 cardio,heart rate zone,maffetone method,aerobic training,fat burning zone,cardio tracker,peter attia zone 2,zone 2 training |
 | **Promotional Text** | Train in the fat-burning zone. Maffetone formula calculates your exact Zone 2 heart rate. Track weekly minutes, build streaks. |
 | **Description** | Zone2Daily is the simplest way to train smarter using Zone 2 cardio — the proven protocol recommended by Peter Attia and Andrew Huberman for fat burning, longevity, and endurance.\n\n**What is Zone 2?**\nZone 2 is the aerobic training zone where your heart rate stays between 60-70% of your maximum. The Maffetone formula (180 minus your age) gives you your exact upper limit. Most people train too hard — Zone2Daily keeps you on track.\n\n**Features:**\n• Instant Zone 2 HR calculation (just enter your age)\n• Workout timer with Zone 2 time tracking\n• Weekly dashboard: track progress toward 150 min/week goal\n• Daily streak counter\n• Morning reminder notifications\n\n**Why Zone2Daily?**\nUnlike complex multi-zone apps, Zone2Daily focuses entirely on Zone 2 — the single most important zone for metabolic health. No complicated setup, no subscriptions required to see your target HR.\n\nPremium unlocks unlimited workout history and the full weekly analytics dashboard.\n\nPrivacy: No data leaves your device. No account required. |
-| **Privacy Policy URL** | https://daisuke134.github.io/zone2daily/privacy-policy |
+| **Privacy Policy URL** | https://daisuke134.github.io/anicca-products/zone2daily/privacy-policy |
 
 ### ja
 
@@ -44,7 +44,7 @@ Source: [ASC CLI Documentation](https://developer.apple.com/documentation/appsto
 | **Keywords** | ゾーン2,有酸素運動,心拍数ゾーン,マフェトン法,脂肪燃焼,カーディオ,トレーニング追跡,ピーターアティア |
 | **Promotional Text** | 脂肪燃焼ゾーンでトレーニング。マフェトン式であなたのゾーン2目標心拍数を自動計算。週間分数を追跡してストリークを積み上げよう。 |
 | **Description** | Zone2Daily は、Peter Attia と Andrew Huberman が推奨するゾーン2カーディオで賢くトレーニングするための最もシンプルなアプリです。\n\n**ゾーン2とは？**\nゾーン2は、心拍数が最大心拍数の60〜70%に保たれた有酸素トレーニングゾーンです。マフェトン式（180マイナス年齢）があなたの正確な上限値を計算します。多くの人が運動しすぎています — Zone2Daily があなたを正しいゾーンに保ちます。\n\n**機能:**\n• 瞬時のゾーン2心拍数計算（年齢を入力するだけ）\n• ゾーン2時間追跡付きワークアウトタイマー\n• 週間ダッシュボード：週150分目標への進捗を追跡\n• 毎日のストリークカウンター\n• 朝のリマインダー通知\n\nプレミアムで無制限のワークアウット履歴と週間分析ダッシュボードが解放されます。\n\nプライバシー：データはデバイスから出ません。アカウント不要。 |
-| **Privacy Policy URL** | https://daisuke134.github.io/zone2daily/privacy-policy |
+| **Privacy Policy URL** | https://daisuke134.github.io/anicca-products/zone2daily/privacy-policy |
 
 ---
 

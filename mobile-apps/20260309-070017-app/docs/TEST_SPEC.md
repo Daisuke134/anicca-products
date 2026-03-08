@@ -200,10 +200,9 @@ ANALYTICS=$(grep -rE "import (Amplitude|AppsFlyer)" Zone2Daily/ --include="*.swi
 **🔴 Rule 20 — RC UI extension 禁止（自前 PaywallView 必須）**
 
 ```bash
-# RC UI extension import が混入していないか（Rule 20: RC SDK のみ許可）
-# RC SDK (purchases-ios) は許可。UI extension は禁止。
-RCUI=$(grep -r "import Purchases" Zone2Daily/ --include="*.swift" | grep -v "^import RevenueCat$")
-[ -z "$RCUI" ] && echo "PASS: Rule 20 (no RC UI extension)" || echo "FAIL: RC UI extension found: $RCUI"
+# RevenueCatUI import が混入していないか（Rule 20: RevenueCat SDK のみ許可）
+RCUI=$(grep -r "import RevenueCatUI" Zone2Daily/ --include="*.swift")
+[ -z "$RCUI" ] && echo "PASS: Rule 20 (no RevenueCatUI)" || echo "FAIL: RevenueCatUI found: $RCUI"
 
 # Mock が本番コードに混入していないか（Tests/ 除外）
 MOCK=$(grep -rw "class Mock" Zone2Daily/ --include="*.swift" | grep -v Tests)
@@ -253,11 +252,11 @@ HK=$(grep -r "import HealthKit\|import CloudKit" Zone2Daily/ --include="*.swift"
 
 | タスク | コマンド | 合格基準 |
 |--------|---------|---------|
-| Unit + Integration テスト | `cd Zone2Dailyios && fastlane test` | 全テスト PASS、Coverage ≥ 70% |
+| Unit + Integration テスト | `cd zone2dailyios && fastlane test` | 全テスト PASS、Coverage ≥ 70% |
 | E2E（全フロー） | `maestro test maestro/` | 6/6 flows PASS |
 | E2E（スモークテストのみ） | `maestro test maestro/ --include-tags smokeTest` | 2/2 flows PASS |
 | Greenlight（Rule チェック） | `greenlight preflight Zone2DailyApp/` | CRITICAL = 0 |
-| 型チェック | `cd Zone2Dailyios && fastlane build` | Build SUCCESS / Warnings 0 |
+| 型チェック | `cd zone2dailyios && fastlane build` | Build SUCCESS / Warnings 0 |
 
 ### Test Configuration
 
