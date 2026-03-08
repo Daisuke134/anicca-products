@@ -174,7 +174,7 @@ Source: [Grand View Research — Fitness App Market 2024](https://www.grandviewr
 | データ収集 | なし（ローカル SwiftData のみ） |
 | ATT | 不使用 — **Rule 20b**: AppTrackingTransparency 禁止 |
 | PrivacyInfo.xcprivacy | 必須: NSPrivacyAccessedAPICategoryUserDefaults CA92.1 |
-| Analytics SDK | 禁止 — **Rule 17**: サードパーティ tracking SDK 一切不可 |
+| サードパーティ tracking SDK | 禁止 — **Rule 17**: tracking / event SDK 一切不可 |
 | AI API | 禁止 — **Rule 21**: AI API / AI モデル一切不可 |
 
 Source: [Apple Privacy Manifest](https://developer.apple.com/documentation/bundleresources/privacy_manifest_files) — 「Apps must include PrivacyInfo.xcprivacy for required reason API usage.」
