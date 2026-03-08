@@ -94,12 +94,16 @@ TOTAL_GATES=$((TOTAL_GATES + 1))
 if [ "$(us_passes US-008d)" = "true" ] && [ -n "$APP_ID" ]; then
   if command -v greenlight &>/dev/null && [ -f ~/.greenlight/config.json ]; then
     GL_SCAN=$(greenlight scan --app-id "$APP_ID" --tier 1 --format json 2>/dev/null || echo '{"summary":{"passed":false,"blocks":999}}')
-    # Fix #12: Filter out iPad findings for iPhone-only apps (TARGETED_DEVICE_FAMILY: "1")
+    # Fix #12: Filter known false positives from greenlight scan
+    # 1. iPad findings: iPhone-only apps (TARGETED_DEVICE_FAMILY: "1") don't need iPad screenshots
+    # 2. 1320x2868 / "wrong dimensions": greenlight doesn't know Apple maps 6.9" → APP_IPHONE_67 internally.
+    #    1320x2868 is the correct size for IPHONE_69 per Apple official docs:
+    #    Source: https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/
+    #    "6.9" Display: 1320 x 2868 pixels (portrait)" — iPhone 16 Pro Max, 15 Pro Max, 14 Pro Max
     GL_RESULT=$(echo "$GL_SCAN" | python3 -c "
 import json,sys
 d=json.load(sys.stdin)
 findings = d.get('findings',[])
-# Filter: ignore iPad-related findings (iPhone-only apps don't need iPad screenshots)
 blocking = [f for f in findings if f.get('severity',0) >= 2
             and 'iPad' not in f.get('title','')
             and 'iPad' not in f.get('detail','')
