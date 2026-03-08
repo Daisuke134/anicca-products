@@ -298,8 +298,7 @@ for us in d['userStories']:
   # unrelated US to be reset. Now we only reset the US that was just completed.
   if [ -f "$SCRIPT_DIR/validate.sh" ]; then
     echo "🔍 validate.sh 実行中..."
-    VALIDATE_OUTPUT=$("$SCRIPT_DIR/validate.sh" 2>&1)
-    VALIDATE_EXIT=$?
+    VALIDATE_OUTPUT=$("$SCRIPT_DIR/validate.sh" 2>&1) && VALIDATE_EXIT=0 || VALIDATE_EXIT=$?
     echo "$VALIDATE_OUTPUT"
     if [ $VALIDATE_EXIT -ne 0 ]; then
       echo "🔴 validate.sh FAILED (exit=$VALIDATE_EXIT)"
