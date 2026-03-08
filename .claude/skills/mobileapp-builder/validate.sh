@@ -185,7 +185,7 @@ echo "--- Gate 4: Screenshots ---"
 TOTAL_GATES=$((TOTAL_GATES + 1))
 if [ "$(us_passes US-008a)" = "true" ]; then
   # Search for raw screenshots in any subdirectory (e.g., ChiDailyios/screenshots/raw/)
-  RAW_COUNT=$(find "$APP_DIR" -path "*/screenshots/raw/*.png" 2>/dev/null | wc -l | tr -d ' ')
+  RAW_COUNT=$(find "$APP_DIR" -path "*/screenshots/raw*/*.png" 2>/dev/null | wc -l | tr -d ' ')
   if [ "$RAW_COUNT" -ge 4 ]; then
     log_pass "Raw screenshots: $RAW_COUNT (>= 4)"
   else
@@ -193,7 +193,7 @@ if [ "$(us_passes US-008a)" = "true" ]; then
   fi
 
   # Screenshots must be unique (not all same image)
-  UNIQUE_HASHES=$(find "$APP_DIR" -path "*/screenshots/raw/*.png" 2>/dev/null | xargs shasum 2>/dev/null | awk '{print $1}' | sort -u | wc -l | tr -d ' ')
+  UNIQUE_HASHES=$(find "$APP_DIR" -path "*/screenshots/raw*/*.png" 2>/dev/null | xargs shasum 2>/dev/null | awk '{print $1}' | sort -u | wc -l | tr -d ' ')
   if [ "$UNIQUE_HASHES" -ge 2 ] && [ "$RAW_COUNT" -ge 4 ]; then
     log_pass "Screenshots unique: $UNIQUE_HASHES unique of $RAW_COUNT total"
   else
