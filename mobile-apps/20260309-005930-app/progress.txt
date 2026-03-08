@@ -8,6 +8,9 @@
 | Category | Health & Fitness / Biohacking |
 | Key Files | spec/01-trend.md, prd.json, progress.txt |
 | Subscription | $4.99/月, $29.99/年 |
+| iTunes lookup | `curl -s "https://itunes.apple.com/lookup?id={ID}" \| jq '.results[0] \| {name, rating, reviews, price, description, version}'` |
+| iTunes RSS reviews | `curl -s "https://itunes.apple.com/us/rss/customerreviews/page=1/id={ID}/sortby=mostrecent/json" \| jq '.feed.entry[]? \| select((.["im:rating"].label \| tonumber) <= 2)'` |
+| SOM表現 | ダウンロード × 転換率 × ARPU = ARR の具体数字で表現（%だけでは小さく見えすぎる） |
 
 ---
 
@@ -39,4 +42,23 @@
 - RevenueCat H&F median ($7.73/月, $29.65/年) を基準にして価格設定する。$4.99/月 = median の 65%で範囲内
 - PROHIBITED リスト（HealthKit, Camera, LLM, Live Activities）はMVP Scope Won't Have に全て明記すること
 - iTunes 名前チェックは curl + jq で「0 exact matches」を証拠として記録必須
+---
+
+## 2026-03-09 - US-003: Market Research
+
+- competitive-analysis.md 作成（7社分析: 直接5社 + 間接2社）
+- 直接競合: Redd Light Therapy (69rev), Red Light For Your Eyes (18rev/$4.99), MITO LIGHT (0rev), SUNI (2rev), Red Light Method Studio (1rev)
+- 間接競合: Lumenate (7,345rev), The Ultimate Human (122rev)
+- Feature Matrix: 10機能 × 5アプリ — 全直接競合がタイマー/ログ/プロトコル全て ❌
+- market-research.md 作成（TAM/SAM/SOM + POEM 21/25 Strong Opportunity）
+- TAM: $83M top-down / $600K bottom-up。SAM: $676K (US+JP iOS)
+- SOM: Year1 $2,399 ARR / Year2 $11,996 / Year3 $44,985
+- POEM: Customer 4, Product 4, Timing 5, Competition 5, Finance 3 = 21/25 🟢
+- ネガティブシグナル3点: 市場の小ささ、科学的議論、デバイス依存
+- Files changed: competitive-analysis.md (created), market-research.md (created), prd.json (US-003 passes=true)
+
+**Learnings for future iterations:**
+- iTunes lookup API (`/lookup?id=`) で詳細情報。RSS reviews で低評価レビュー取得
+- SOM は「SAM × %」より「ダウンロード × 転換率 × ARPU = ARR」の具体数字が説得力高い
+- 競合分類は直接3社+間接2社の5社以上。acceptance criteria は `grep -c "^#### ###"` でカウント
 ---
