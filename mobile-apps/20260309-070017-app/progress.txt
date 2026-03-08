@@ -28,6 +28,23 @@
 - Maffetone: 180−年齢。Karvonen: (HRmax−HRrest)×0.6 + HRrest。両方実装可能
 ---
 
+## 2026-03-09 - US-003: Market Research
+
+- competitive-analysis.md 作成完了（6競合分析、19 Matrix エントリ、10+ ソース）
+- market-research.md 作成完了（TAM $88M / SAM $9.8M / SOM Year3 $19.6K）
+- POEM スコア: 20/25 🟢 Strong Opportunity
+- 直接競合: Zone 2: HR Training（226 reviews）のみ = 大きな市場ギャップ確認
+- ユーザーペイン確認: HRR 計算方式不満、Apple Watch 接続問題、Zone 2 のみカウント不可
+- 差別化ポイント確定: Maffetone 式 + 手動ログ（デバイス不要）+ 週間 150 分ゴール
+- ネガティブシグナル: Zone 2 ニッチの市場天井は低い（直接競合が無課金で 226 reviews のみ）
+- Files changed: competitive-analysis.md, market-research.md, prd.json, progress.txt
+
+**Learnings for future iterations:**
+- iTunes Search API は shell loop より1コマンドずつ実行する方が安全（pipe エラー回避）
+- RSS review API: `.feed.entry[]?` で null を安全にスキップ可能
+- Zone 2 市場は小さいが高確度ニッチ → 初期 DL より有機 ASO × Attia/Huberman キーワードが鍵
+---
+
 ## 2026-03-09 - US-002: Product Planning
 
 - product-plan.md 作成完了（7セクション、12ソース、23 URLs）
