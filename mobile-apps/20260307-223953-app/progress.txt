@@ -433,3 +433,15 @@
   - Review screenshot "Screenshot already exists" error = it's already there from prior run (verify via REST API)
   - iPhone 16 Pro Max simulator must be CREATED fresh if not in device list (xcrun simctl create + runtime)
 ---
+
+## 2026-03-08 - US-008b: ASC Metadata Sync (en-US + ja) [FIX VERIFICATION]
+- Verification: app-info en-US + ja (name, subtitle, privacyPolicyUrl=https://aniccaai.com/privacy) ✅
+- Verification: version en-US (desc_len=1289, keywords=92 chars, promotionalText, supportUrl) ✅
+- Verification: version ja (desc_len=639, keywords=10 terms, promotionalText, supportUrl) ✅
+- Privacy Policy URL confirmed on BOTH locales via `asc localizations list --app $APP_ID --type app-info`
+- metadata/app-info/{en-US,ja}.strings + metadata/version/{en-US,ja}.strings all exist
+- Files changed: prd.json (US-008b passes:true)
+- **Learnings for future iterations:**
+  - `asc localizations list --app $APP_ID --type app-info` confirms app-info privacy URLs
+  - privacyPolicyUrl lives in app-info localization, NOT version localization (version shows empty — normal)
+---

@@ -218,8 +218,8 @@
         "Privacy Policy URL set for en-US AND ja"
       ],
       "priority": 8.2,
-      "passes": false,
-      "notes": "Metadata synced via asc localizations upload. app-info: en-US + ja (name, subtitle, privacyPolicyUrl). version: en-US + ja (description, keywords, promotionalText, supportUrl). Privacy Policy URL=https://aniccaai.com/privacy set for both locales. Keywords trimmed to 92 chars en-US (100 char limit). whatsNew auto-skipped (initial release). [reset for fix verification 2026-03-08]"
+      "passes": true,
+      "notes": "Metadata synced via asc localizations upload. app-info: en-US + ja (name, subtitle, privacyPolicyUrl). version: en-US + ja (description, keywords, promotionalText, supportUrl). Privacy Policy URL=https://aniccaai.com/privacy set for both locales. Keywords: en-US 92 chars, ja 10 keywords. whatsNew auto-skipped (initial release). [fix-verified 2026-03-08: app-info privacy URL confirmed on both locales via ASC API]"
     },
     {
       "id": "US-008c",
