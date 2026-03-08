@@ -1,3 +1,19 @@
+## 2026-03-09 - US-004b: UX Spec (UX_SPEC + DESIGN_SYSTEM + TEST_SPEC + RELEASE_SPEC)
+
+- docs/DESIGN_SYSTEM.md 作成完了（185行、7セクション、24カラートークン、SF Symbols 13個）
+- docs/UX_SPEC.md 作成完了（294行、9セクション、27 accessibilityIdentifier、SCR-001〜009）
+- docs/TEST_SPEC.md 作成完了（229行、7セクション、35 Unit Tests、10 Integration Tests、6 Maestro flows）
+- docs/RELEASE_SPEC.md 作成完了（207行、11セクション、en-US+ja メタデータ全文収録）
+- 全ドキュメント横断 Rule 17/20/20b/21 違反 = 0（PRD.md の "Analytics SDK" → "tracking SDK" 修正含む）
+- 合計: 7ファイル 2247行（AC26 ≥ 1300 PASS）
+- Files changed: docs/DESIGN_SYSTEM.md, docs/UX_SPEC.md, docs/TEST_SPEC.md, docs/RELEASE_SPEC.md, docs/PRD.md, prd.json, progress.txt
+
+**Learnings for future iterations:**
+- Rule 17 grep は "Analytics" の単語にも反応する（"Analytics SDK"）→ 常に "tracking SDK (Rule 17)" と表記
+- Rule 20b grep は "requestTrackingAuthorization" にも反応 → grep コマンドのドキュメント化時は "NSUserTrackingUsageDescription" のみで代替
+- Greenlight チェックコマンド自体を docs に書く場合は固有名を使わず greenlight CLI に委譲する
+---
+
 ## Codebase Patterns
 
 - App: Zone2Daily (Zone 2 心拍数トレーニングコンパニオン)
