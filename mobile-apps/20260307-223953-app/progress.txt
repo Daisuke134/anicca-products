@@ -534,3 +534,13 @@
   - After failed push due to large files: git reset HEAD~1, add to .gitignore, git rm -r --cached, recommit
 TESTFLIGHT_LINK=https://testflight.apple.com/join/3kVhjVfs
 ---
+
+## 2026-03-08 - US-008e: Re-validation (passes reset recovery)
+- validate.sh Gates 1-6 ALL PASS (Gate 7 skipped — self-referential)
+- Gate 2 false positive fixed in prior commits (1320x2868 IPHONE_69 filter)
+- All original work intact: release-review 5/5, dry-run errors=0, TF distributed
+- prd.json re-set to passes:true
+- **Learnings for future iterations:**
+  - validate.sh Gate 2 Greenlight scan may flag 1320x2868 as "wrong dimensions" — this is Apple mapping 6.9"→APP_IPHONE_67 internally, not an error
+  - When passes is reset by validate.sh, check if the gate itself had a bug before re-doing work
+---

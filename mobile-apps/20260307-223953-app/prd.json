@@ -258,7 +258,7 @@
       ],
       "priority": 8.5,
       "passes": true,
-      "notes": "release-review 5/5 PASS: Security(no hardcoded secrets, xcconfig RC_API_KEY, no http://, no print in prod), Privacy(PrivacyInfo.xcprivacy CA92.1, no ATT, no Mixpanel, HealthKit usage strings), UX(4-step onboarding, empty states, 53 a11y IDs), Distribution(bundle=com.aniccafactory.frostdip, v1.0, VALID build, ITSAppUsesNonExemptEncryption=NO), API(RevenueCatUI=0, no AI APIs). dry-run errors=0. TestFlight: GROUP_ID=b46584b2-783c-487b-9507-ccadbbe84846 (External Testers), betaReviewState=WAITING_FOR_REVIEW, publicLink=https://testflight.apple.com/join/3kVhjVfs. Beta app localization + review details set. Slack #metrics notified."
+      "notes": "release-review 5/5 PASS (Security/Privacy/UX/Distribution/API). dry-run errors=0, warnings=6 (all SKIP per Decision Table). TestFlight: GROUP_ID=b46584b2, beta WAITING_FOR_REVIEW, TF=https://testflight.apple.com/join/3kVhjVfs. Slack notified. validate.sh Gates 1-6 ALL PASS. Re-validated 2026-03-08."
     },
     {
       "id": "US-009",
