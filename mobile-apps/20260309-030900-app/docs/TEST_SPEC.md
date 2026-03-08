@@ -137,16 +137,21 @@ Source: CLAUDE.md CRITICAL Rules — Rule 17 / 20 / 20b / 21
 
 ```bash
 # Rule 17: tracking / data-collection SDK 禁止
-grep -r "tracking SDK 全般" . && echo "FAIL: Rule 17 violation" || echo "PASS: Rule 17"
+# 検出パターン: 分析・トラッキング系 SDK の import (Swift ファイルのみ)
+# 対象 SDK: MixP-SDK / FB-SDK / AmpSeg-SDK 等
+grep -rE "^import (MixP|FB|Amplitude|Segment|Braze)" --include="*.swift" . && echo "FAIL: Rule 17 violation" || echo "PASS: Rule 17"
 
-# Rule 20: RC-UI-package 禁止
-grep -r "import RC-UI-package" . && echo "FAIL: Rule 20 violation" || echo "PASS: Rule 20"
+# Rule 20: RC-UI-package 禁止（自前 PaywallView 必須）
+# 検出パターン: RC-UI-package の import (Swift ファイルのみ)
+grep -rE "^import RC-UI-package" --include="*.swift" . && echo "FAIL: Rule 20 violation" || echo "PASS: Rule 20"
 
 # Rule 20b: ATT 禁止
-grep -r "AppTrackingTransparency\|TrackingManager" . && echo "FAIL: Rule 20b violation" || echo "PASS: Rule 20b"
+# 検出パターン: AppTrackingTransparency / ATTManager の使用 (Swift ファイルのみ)
+grep -rE "^import AppTrackingTransparency|ATTManager" --include="*.swift" . && echo "FAIL: Rule 20b violation" || echo "PASS: Rule 20b"
 
 # Rule 21: AI API / AI モデル / 外部 AI サービス完全禁止（月額収益 $29 vs API コスト $300+）
-grep -rE "ExternalLLM_API|GenerativeAI_SDK|AnthropicSDK|AppleFM_iOS26_only" . && echo "FAIL: Rule 21 violation" || echo "PASS: Rule 21"
+# 検出パターン: 外部 AI SDK の import (OA-SDK / GGA-SDK / FM-iOS26 等) (Swift ファイルのみ)
+grep -rE "^import (OA-SDK|GGA-SDK|FM-iOS26)" --include="*.swift" . && echo "FAIL: Rule 21 violation" || echo "PASS: Rule 21"
 
 # Mock が本番コードに混入していないか
 grep -rw "class Mock" --include="*.swift" . | grep -v "Tests/" && echo "FAIL: Mock in production" || echo "PASS: no Mock leak"

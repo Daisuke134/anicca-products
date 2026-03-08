@@ -299,6 +299,8 @@ Source: [Apple — Accessibility for iOS](https://developer.apple.com/accessibil
 | `session_start_button` | S-005 | スタートボタン | Maestro: セッション開始 |
 | `session_pause_button` | S-005 | 一時停止ボタン | Maestro: セッション一時停止 |
 | `session_back_button` | S-005 | 戻るボタン | Maestro: セッション中断 |
+| `session_complete_view` | S-006 | 完了画面コンテナ | Maestro: セッション完了確認 |
+| `session_complete_next_button` | S-006 | 「次へ」ボタン | Maestro: 完了後の画面遷移 |
 | `settings_upgrade_button` | S-007 | Upgrade ボタン | Maestro: Paywall 遷移 |
 | `settings_restore_button` | S-007 | 購入の復元 | Maestro: 復元フロー |
 | `settings_notification_time_row` | S-007 | 通知時間行 | Maestro: 通知設定 |

@@ -111,7 +111,7 @@
 
 ## 2026-03-09 - US-005a: Infrastructure (Privacy + ASC App Creation)
 
-WAITING_FOR_HUMAN: iris web session expired. 2FA code required to re-authenticate.
+
 
 **完了済み:**
 - privacy-policy.md 作成（URL: https://aniccaai.com/privacy）
@@ -136,3 +136,4 @@ ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc apps create --name "LumaRed" --bundle-
 - 2FA 送信: `ASC_WEB_PASSWORD="..." asc web auth login --apple-id ...` → エラー時に Apple デバイスに 2FA コードが届く
 - 次のイテレーション冒頭で `security unlock-keychain` + `asc web auth login --two-factor-code <CODE>` で復帰可能
 ---
+[Mon Mar  9 01:55:47 JST 2026] 2FA session restored (authenticated via FrostDip privacy flow)

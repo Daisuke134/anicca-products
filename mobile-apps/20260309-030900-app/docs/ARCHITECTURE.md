@@ -112,7 +112,7 @@ VagusReset/
 | 禁止パッケージ | 理由 |
 |-------------|------|
 | RC-UI-package | Rule 20: 自前 PaywallView 必須 |
-| `tracking SDK 全般（Rule 17） | Rule 17: Greenlight CRITICAL = リジェクト |
+| `tracking SDK 全般`（Rule 17） | Rule 17: Greenlight CRITICAL = リジェクト |
 | 外部 LLM API SDK 全般（Rule 21） | Rule 21: AI API コスト禁止 |
 | `AppTrackingTransparency` | Rule 20b: ATT 禁止 |
 
@@ -158,11 +158,11 @@ struct ExerciseSession: Codable {
 
 ### SubscriptionServiceProtocol
 ```swift
-protocol SubscriptionServiceProtocol {
-    var isPremium: Bool { get async }
-    func fetchOfferings() async throws -> [Package]
+protocol SubscriptionServiceProtocol: ObservableObject {
+    var isPremium: Bool { get }
+    func fetchOfferings() async throws -> Offerings
     func purchase(package: Package) async throws -> PurchaseResultData
-    func restorePurchases() async throws
+    func restorePurchases() async throws -> CustomerInfo
 }
 ```
 **実装:** `SubscriptionService` — RevenueCat `Purchases.shared` を直接呼ぶ

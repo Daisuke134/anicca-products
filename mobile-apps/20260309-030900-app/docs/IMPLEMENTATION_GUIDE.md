@@ -225,8 +225,20 @@ class StreakService {
     }
 
     func getCurrentStreak() -> Int { defaults.integer(forKey: kCurrent) }
-    func getLastSessionDate() -> Date? { /* ISO8601 decode */ nil }
-    func getCompletedDates() -> [Date] { /* ISO8601 decode */ [] }
+
+    func getLastSessionDate() -> Date? {
+        guard let isoString = defaults.stringArray(forKey: kDates)?.last else { return nil }
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withFullDate]
+        return formatter.date(from: isoString)
+    }
+
+    func getCompletedDates() -> [Date] {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withFullDate]
+        return (defaults.stringArray(forKey: kDates) ?? [])
+            .compactMap { formatter.date(from: $0) }
+    }
 }
 ```
 
@@ -261,6 +273,12 @@ class SessionViewModel: ObservableObject {
     }
 
     func pause() { isRunning = false; timer?.cancel() }
+
+    func resume() {
+        guard !isRunning, !isComplete else { return }
+        // timeRemaining はリセットしない — 一時停止した位置から再開
+        start()
+    }
 
     private func complete() {
         timer?.cancel()
@@ -382,8 +400,16 @@ struct PaywallView: View {
         guard let package = selectedPackage else { return }
         isPurchasing = true
         defer { isPurchasing = false }
-        _ = try? await subscriptionService.purchase(package: package)
-        isPresented = false
+        do {
+            let result = try await subscriptionService.purchase(package: package)
+            if !result.userCancelled {
+                isPresented = false
+            }
+        } catch {
+            // ARCHITECTURE.md §12: 購入失敗時はエラーアラートを表示
+            errorMessage = error.localizedDescription
+            showErrorAlert = true
+        }
     }
 }
 ```
@@ -462,6 +488,14 @@ end
 
 lane :build do
   gym(scheme: "VagusReset", export_method: "development")
+end
+
+lane :archive do
+  gym(scheme: "VagusReset", export_method: "app-store")
+end
+
+lane :upload_to_asc do
+  deliver(skip_screenshots: true, skip_metadata: true)
 end
 
 lane :release do
