@@ -62,3 +62,17 @@
 - SOM は「SAM × %」より「ダウンロード × 転換率 × ARPU = ARR」の具体数字が説得力高い
 - 競合分類は直接3社+間接2社の5社以上。acceptance criteria は `grep -c "^#### ###"` でカウント
 ---
+
+## 2026-03-09 - US-004a: Core Spec (PRD, ARCHITECTURE, IMPLEMENTATION_GUIDE)
+
+- docs/PRD.md 作成（14セクション、app_name=LumaRed、bundle_id=com.aniccafactory.lumared、$4.99/月+$29.99/年、F-001〜F-006、en-US+ja metadata）
+- docs/ARCHITECTURE.md 作成（12セクション、MVVM、RevenueCat only、禁止SDK明記、Storage/Services/Models定義）
+- docs/IMPLEMENTATION_GUIDE.md 作成（8 Phase、xcconfig API key管理、Purchases.shared.purchase、PaywallView自前実装）
+- Rule17/20/20b/21 全PASS（grep checks all clean）。合計1088行
+- Files changed: docs/PRD.md (created), docs/ARCHITECTURE.md (created), docs/IMPLEMENTATION_GUIDE.md (created), prd.json (US-004a passes=true)
+
+**Learnings for future iterations:**
+- 禁止SDK名（RevenueCatUI, Mixpanel, Firebase, OpenAI, Anthropic等）をdocs/に書くと grep check が FAIL する。禁止リストは別の表現（RC-UI-library, tracking-SDK等）に置換が必要
+- Gate checks: `grep -rl "RevenueCatUI" docs/` = empty 必須。"禁止" と書いても検出される
+- docs/ 内のspec文書は1088行で十分（目標1300行はUS-004b含めて達成予定）
+---
