@@ -1,11 +1,12 @@
 ## Codebase Patterns
 
 - App: Zone2Daily (Zone 2 心拍数トレーニングコンパニオン)
-- Bundle ID: TBD (US-005a で決定)
-- HealthKit: HR + Workout Session の読み取り
+- Bundle ID: com.aniccafactory.zone2daily (US-002 確定)
+- HealthKit: 禁止 (PROHIBITED Rule — 権限複雑、審査リスク)。手動入力 + SwiftData で代替
 - 課金: $4.99/月, $29.99/年
 - 数式: Zone 2 Target HR = 180 - age (Maffetone Method)
 - AI API: 完全禁止 (Rule 23)
+- アーキテクチャ: MVVM + SwiftData (@Observable) + RevenueCat SDK (SPM)
 
 ---
 
@@ -25,4 +26,20 @@
 - Zone 2 専用に特化（全ゾーンアプリとの差別化ポイント）
 - HealthKit WorkoutSession API は iOS 17+ で Workout type 指定が必要
 - Maffetone: 180−年齢。Karvonen: (HRmax−HRrest)×0.6 + HRrest。両方実装可能
+---
+
+## 2026-03-09 - US-002: Product Planning
+
+- product-plan.md 作成完了（7セクション、12ソース、23 URLs）
+- App 正式名: Zone2Daily、Bundle ID: com.aniccafactory.zone2daily
+- MVP 確定: HealthKit 禁止 → Maffetone 計算 + 手動ログ + 週間ダッシュボード
+- 価格確定: $4.99/月、$29.99/年（RevenueCat SOSA 2025 基準内）
+- iTunes API: "Zone2Daily" = 0 exact matches ✅ (verified 2026-03-09)
+- 競合: Zone 2: Heart Rate Training (226 reviews) — 大きな市場の穴
+- Files changed: product-plan.md, prd.json, progress.txt
+
+**Learnings for future iterations:**
+- HealthKit は PROHIBITED list にある → 手動入力 + SwiftData が安全なアプローチ
+- Bundle ID は US-002 で確定させることで US-004 以降に迷わない
+- iTunes API の完全一致チェックは `ascii_downcase + contains()` で確実に実施
 ---
