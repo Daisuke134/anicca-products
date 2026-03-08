@@ -45,6 +45,11 @@ Source: RevenueCat Blog — Annual Subscriptions Pros & Cons (https://www.revenu
 
 **3プラン必須（weekly + monthly + annual）。2プランは機会損失。**
 
+Source: iOS Paywall Design Guide (https://adapty.io/blog/how-to-design-ios-paywall/)
+> "Dynamic paywalls with segmented or time-based discounts deliver approximately 35% higher conversion rates than static alternatives"
+
+→ 静的Paywallではなくユーザーセグメントやタイミングベースのオファーをデフォルト化する（実装: Paywall Builder使用時のみ。hard-codedペイウォールでは対応困難）
+
 ```bash
 WEEKLY_ID=$(asc subscriptions create --group $GROUP_ID --ref-name "Weekly" --product-id "<bundle_id>.weekly" --subscription-period ONE_WEEK --output json 2>&1 | jq -r '.data.id')
 echo "WEEKLY_ID=$WEEKLY_ID" >> ~/.config/mobileapp-builder/projects/<slug>/.env
@@ -300,6 +305,69 @@ done
 > ⚠️ **US-006 で実行。** Xcode プロジェクト作成後に RevenueCat SPM を追加する。US-005b ではスキップ。
 
 RevenueCat を Xcode プロジェクトに追加（RevenueCatUI は使わない — Rule 20）。
+
+## Paywall UI Best Practices（US-006で実装）
+
+### Animation（必須 — 2.9x conversion boost）
+Source: iOS Paywall Design Guide (https://adapty.io/blog/how-to-design-ios-paywall/)
+> "Animated paywalls produce 2.9× higher conversion rates than static designs"
+
+Source: 5 overlooked paywall improvements (https://www.revenuecat.com/blog/growth/paywall-conversion-boosters/)
+> "When implemented correctly, animated elements typically increase conversion rates by 12-18% compared to static alternatives"
+
+**実装必須:**
+- CTAボタンの subtle pulsing (SwiftUI `.animation(.easeInOut(duration: 1.0).repeatForever())`)
+- Pricing options の entrance effects (`.transition(.scale)`)
+- Benefit showcase の carousel animation
+
+### CTA Copy（Benefit-driven）
+Source: Engaging Paywall Screens (https://blog.funnelfox.com/effective-paywall-screen-designs-mobile-apps/)
+> "Benefit-driven CTAs ('Start my plan') outperform generic ones ('Subscribe')"
+
+**実装: "Start my plan" / "Unlock full access" / "Get my personalized report" 等のbenefit-driven textに変更**
+
+### Price Anchoring
+Source: 5 overlooked paywall improvements (https://www.revenuecat.com/blog/growth/paywall-conversion-boosters/)
+> "Effectively anchoring your premium price against strategic reference points can make your offering appear significantly more valuable"
+
+**実装:**
+- 月額換算表示（年額プランの場合: "Just $2.49/month"）
+- 日常購入品との比較（"Less than a coffee per week"）
+- 割引率の視覚的強調（"Save 50%" badge + strikethrough price）
+
+### Free Trial Messaging（繰り返し強調）
+Source: 5 overlooked paywall improvements (https://www.revenuecat.com/blog/growth/paywall-conversion-boosters/)
+> "Simply including a 'Start Free Trial' button isn't enough—the trial offer should be a central, recurring element throughout your paywall"
+
+**実装:**
+- Headline: "Try Premium Free for 7 Days"
+- Supporting copy: "No commitment. Cancel anytime."
+- Visual element: timer icon or calendar graphic
+- CTA button: "Start my free week"
+
+### Social Proof（+10-15% conversion）
+Source: iOS Paywall Design Guide (https://adapty.io/blog/how-to-design-ios-paywall/)
+> "Social proof (reviews): +10% to +15%"
+
+**実装: App Store reviews/ratingsをPaywall内に表示**
+
+### Personalization（+17% conversion）
+Source: iOS Paywall Design Guide (https://adapty.io/blog/how-to-design-ios-paywall/)
+> "User name personalization: +17%"
+
+**実装: ユーザー名をheadlineに含める（"John, unlock your premium features"）**
+
+### Placement（必須 — onboarding直後）
+Source: Mobile App Onboarding: 5 Paywall Optimization Strategies (https://appagent.com/blog/mobile-app-onboarding-5-paywall-optimization-strategies/)
+> "Ensure that most existing users see the paywall by placing it immediately after the onboarding process"
+
+**実装: オンボーディング完了直後に1度Paywallを表示する**
+
+### Messaging Consistency
+Source: Engaging Paywall Screens (https://blog.funnelfox.com/effective-paywall-screen-designs-mobile-apps/)
+> "Consistent messaging from ad to onboarding to paywall increases conversions"
+
+**実装: 広告・オンボーディング・Paywallでトーン/メッセージ/ビジュアルを一貫させる**
 
 ## RC Test Store（E2E テスト用 — US-007 で使用）
 

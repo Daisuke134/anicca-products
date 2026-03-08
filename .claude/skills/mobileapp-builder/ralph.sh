@@ -17,6 +17,7 @@ SLACK_CHANNEL="${SLACK_CHANNEL_ID:-C091G3PKHL2}"
 # PATH: kou (Koubou) binary location
 export PATH="/Users/anicca/Library/Python/3.9/bin:$PATH"
 export ASC_BYPASS_KEYCHAIN=true
+export ASC_WEB_SESSION_CACHE_BACKEND=file
 
 # Source secrets from .env (Twelve-Factor App: https://12factor.net/config)
 if [ -f ~/.config/mobileapp-builder/.env ]; then
@@ -132,29 +133,40 @@ if [ "$PREFLIGHT_FAIL" -eq 1 ]; then
   exit 1
 fi
 
-# Check 6: iris session（2FA が必要な ASC 操作の前提）
+# Check 6: iris session（ASC web 操作の前提 — file backend で keychain 回避）
 echo -n "  [6/6] iris session... "
-IRIS_STATUS=$(asc web auth status 2>&1 || echo "IRIS_FAIL")
-if echo "$IRIS_STATUS" | grep -q 'authenticated.*false\|not authenticated\|session.*expired\|IRIS_FAIL'; then
+IRIS_STATUS=$(asc web auth status --apple-id "$APPLE_ID" 2>&1 || echo "IRIS_FAIL")
+if echo "$IRIS_STATUS" | grep -q 'authenticated.*true'; then
+  echo "✅"
+else
   echo "⚠️ iris expired — 2FA 必要"
-  notify_slack "⏸️ PREFLIGHT: iris session expired。2FA コード必要:\n\`asc web auth login\`"
+  notify_slack "⏸️ iris session expired。iPhoneに届く6桁コードを送ってください。"
+
   WAIT_COUNT=0
   while [ $WAIT_COUNT -lt 960 ]; do
-    IRIS_RECHECK=$(asc web auth status 2>&1 || echo "IRIS_FAIL")
-    if echo "$IRIS_RECHECK" | grep -q 'authenticated.*true'; then
-      echo "  ✅ iris session restored"
-      break
+    LATEST_MSG=$(/opt/homebrew/bin/openclaw message read --channel slack --target "$SLACK_CHANNEL" --limit 1 --json 2>/dev/null | jq -r '.[0].text // empty')
+    TWO_FA_CODE=$(echo "$LATEST_MSG" | grep -oE '[0-9]{6}' | head -1)
+
+    if [ -n "$TWO_FA_CODE" ]; then
+      echo "  🔑 2FA コード検出: $TWO_FA_CODE"
+      ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web auth login \
+        --apple-id "$APPLE_ID" --two-factor-code "$TWO_FA_CODE" 2>&1
+
+      IRIS_RECHECK=$(asc web auth status --apple-id "$APPLE_ID" 2>&1 || echo "FAIL")
+      if echo "$IRIS_RECHECK" | grep -q 'authenticated.*true'; then
+        echo "  ✅ iris session restored"
+        break
+      fi
     fi
     sleep 30
     WAIT_COUNT=$((WAIT_COUNT + 1))
   done
+
   if [ $WAIT_COUNT -ge 960 ]; then
     echo "❌ iris session タイムアウト（8時間）"
     notify_slack "❌ iris session タイムアウト（8時間）。手動対応必要。"
     exit 2
   fi
-else
-  echo "✅"
 fi
 
 echo "🟢 PREFLIGHT OK — 全チェック通過"
@@ -185,13 +197,73 @@ for i in $(seq 1 $MAX_ITERATIONS); do
     fi
   fi
 
-  # WAITING_FOR_HUMAN: don't burn iterations while waiting for human input
-  # Source: https://github.com/snarktank/ralph — "pause until resolved"
+  # F3-b: Slack 監視 — sk_... / 2FA コードを .env に自動保存
+  LATEST_MSG=$(/opt/homebrew/bin/openclaw message read --channel slack --target "$SLACK_CHANNEL" --limit 1 --json 2>/dev/null | jq -r '.[0].text // empty')
+  SK_KEY=$(echo "$LATEST_MSG" | grep -oE 'sk_[A-Za-z0-9_]+' | head -1)
+  if [ -n "$SK_KEY" ]; then
+    SLUG=$(python3 -c "import json; print(json.load(open('$SCRIPT_DIR/prd.json')).get('project',''))" 2>/dev/null)
+    PROJECT_ENV="$HOME/.config/mobileapp-builder/projects/$SLUG/.env"
+    mkdir -p "$(dirname "$PROJECT_ENV")"
+    if ! grep -q "RC_SECRET_KEY" "$PROJECT_ENV" 2>/dev/null; then
+      echo "RC_SECRET_KEY=$SK_KEY" >> "$PROJECT_ENV"
+      echo "  🔑 RC SK鍵を $PROJECT_ENV に保存"
+    fi
+  fi
+
+  # F7-b: progress.txt サイズ管理（10KB 上限）
+  if [ -f "$SCRIPT_DIR/progress.txt" ]; then
+    PROGRESS_SIZE=$(wc -c < "$SCRIPT_DIR/progress.txt" | tr -d ' ')
+    if [ "$PROGRESS_SIZE" -gt 10240 ]; then
+      echo "🏭 progress.txt ${PROGRESS_SIZE}B > 10KB — アーカイブ実行"
+      ARCHIVE_FILE="$SCRIPT_DIR/logs/progress-archive-$(date +%Y%m%d-%H%M%S).txt"
+      cp "$SCRIPT_DIR/progress.txt" "$ARCHIVE_FILE"
+      python3 -c "
+import re
+with open('$SCRIPT_DIR/progress.txt') as f: content = f.read()
+sections = re.split(r'\n---\n', content)
+patterns = sections[0] if sections[0].startswith('## Codebase') else ''
+recent = '\n---\n'.join(sections[-2:]) if len(sections) > 2 else '\n---\n'.join(sections)
+with open('$SCRIPT_DIR/progress.txt', 'w') as f:
+    if patterns: f.write(patterns + '\n---\n')
+    f.write(recent)
+" 2>/dev/null || true
+      echo "  ✅ アーカイブ: $ARCHIVE_FILE"
+    fi
+  fi
+
+  # F3-c: WAITING_FOR_HUMAN auto-resolve（Slack から入力を自動取得）
   WAIT_COUNT=0
   while [ -f "$SCRIPT_DIR/progress.txt" ] && grep -q "WAITING_FOR_HUMAN" "$SCRIPT_DIR/progress.txt"; do
-    echo "🏭 ⏸️ WAITING_FOR_HUMAN 検出。人間の入力待ち... (${WAIT_COUNT}回目)"
+    echo "🏭 ⏸️ WAITING_FOR_HUMAN 検出。Slack 監視中... (${WAIT_COUNT}回目)"
+
+    LATEST_MSG=$(/opt/homebrew/bin/openclaw message read --channel slack --target "$SLACK_CHANNEL" --limit 1 --json 2>/dev/null | jq -r '.[0].text // empty')
+
+    # RC SK鍵検出
+    SK_KEY=$(echo "$LATEST_MSG" | grep -oE 'sk_[A-Za-z0-9_]+' | head -1)
+    if [ -n "$SK_KEY" ]; then
+      echo "  🔑 RC SK鍵検出"
+      SLUG=$(python3 -c "import json; print(json.load(open('$SCRIPT_DIR/prd.json')).get('project',''))" 2>/dev/null)
+      PROJECT_ENV="$HOME/.config/mobileapp-builder/projects/$SLUG/.env"
+      mkdir -p "$(dirname "$PROJECT_ENV")"
+      echo "RC_SECRET_KEY=$SK_KEY" >> "$PROJECT_ENV"
+      sed -i '' '/WAITING_FOR_HUMAN/d' "$SCRIPT_DIR/progress.txt"
+      echo "  ✅ SK鍵を $PROJECT_ENV に保存。WAITING_FOR_HUMAN 解除"
+      break
+    fi
+
+    # 2FA コード検出（フォールバック）
+    TWO_FA=$(echo "$LATEST_MSG" | grep -oE '^[0-9]{6}$' | head -1)
+    if [ -n "$TWO_FA" ]; then
+      echo "  🔑 2FA コード検出: $TWO_FA"
+      ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web auth login \
+        --apple-id "$APPLE_ID" --two-factor-code "$TWO_FA" 2>&1
+      sed -i '' '/WAITING_FOR_HUMAN/d' "$SCRIPT_DIR/progress.txt"
+      echo "  ✅ 2FA ログイン完了。WAITING_FOR_HUMAN 解除"
+      break
+    fi
+
     WAIT_COUNT=$((WAIT_COUNT + 1))
-    if [ $WAIT_COUNT -ge 960 ]; then  # 8時間（30秒×960）
+    if [ $WAIT_COUNT -ge 960 ]; then
       echo "🏭 ❌ WAITING_FOR_HUMAN タイムアウト（8時間）"
       notify_slack "❌ WAITING_FOR_HUMAN タイムアウト（8時間）。手動対応必要。"
       exit 2
@@ -283,6 +355,14 @@ for us in d['userStories']:
     while IFS= read -r line; do
       if [ -n "$line" ] && ! echo "$PREV_PASSES" | grep -qF "$line"; then
         notify_slack "✅ $line"
+      fi
+    done <<< "$CURR_PASSES"
+
+    # F3-a: US-001 完了時に RC SK鍵の先行依頼
+    while IFS= read -r line; do
+      if echo "$line" | grep -q "US-001" && ! echo "$PREV_PASSES" | grep -qF "$line"; then
+        APP_NAME=$(python3 -c "import json; print(json.load(open('$SCRIPT_DIR/prd.json')).get('project','unknown'))" 2>/dev/null)
+        notify_slack "📱 RC セットアップお願いします（2分）:\n1. https://app.revenuecat.com → + Create new project → 名前: $APP_NAME\n2. Settings → API Keys → + New secret API key\n3. 権限を全て Read & Write → Generate\n4. sk_... をこのチャットに貼ってください"
       fi
     done <<< "$CURR_PASSES"
 

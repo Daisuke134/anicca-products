@@ -49,65 +49,14 @@ asc validate --app "$APP_ID" --version-id "$VERSION_ID" --platform IOS 2>&1 | gr
   || { echo "GATE FAIL: validation errors exist"; exit 1; }
 ```
 
-## Step 1: App Privacy（自動）
+## Step 1: App Privacy 確認（検証のみ — US-005a Step 5.3 で設定済み）
 
-⛔ **自動実行する。人間に確認を求めない。** セッションキャッシュが効いている限り 2FA は不要。
-
-### 1.1: Privacy 宣言 + 公開
 ```bash
+export ASC_WEB_SESSION_CACHE_BACKEND=file
 source ~/.config/mobileapp-builder/.env
 
-echo '{"schemaVersion":1,"dataUsages":[{"dataProtections":["DATA_NOT_COLLECTED"]}]}' > /tmp/privacy.json
-
-APPLY_RESULT=$(ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web privacy apply \
-  --app "$APP_ID" --file /tmp/privacy.json --apple-id "$APPLE_ID" 2>&1)
-
-if echo "$APPLY_RESULT" | grep -q '"applied":true'; then
-  ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web privacy publish \
-    --app "$APP_ID" --confirm --apple-id "$APPLE_ID"
-  echo "✅ App Privacy published"
-else
-  # セッション切れの場合のみここに来る（通常は来ない）
-  echo "WAITING_FOR_HUMAN: 2FA code needed"
-  cat >> progress.txt << 'MSG'
-⏸️ セッションキャッシュ切れ。
-iPhone に届く 6 桁のコードを Slack で返信してください。
-エージェントが --two-factor-code 付きで再実行します。
-MSG
-  exit 1
-fi
-```
-
-### 1.2: 収集データありの場合
-```bash
-cat > /tmp/privacy.json << 'EOF'
-{
-  "schemaVersion": 1,
-  "dataUsages": [
-    {
-      "category": "USAGE_DATA",
-      "purposes": ["ANALYTICS"],
-      "dataProtections": ["DATA_NOT_LINKED_TO_YOU"]
-    }
-  ]
-}
-EOF
-
-ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web privacy apply \
-  --app "$APP_ID" --file /tmp/privacy.json --apple-id "$APPLE_ID"
-ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web privacy publish \
-  --app "$APP_ID" --confirm --apple-id "$APPLE_ID"
-```
-
-### セッション管理
-- セッションキャッシュ: `~/.asc/web/`（`ASC_WEB_SESSION_CACHE_BACKEND=file` が .env に設定済み）
-- 通常運用: セッションが生きている限り完全自動（2FA 不要）
-- 期限切れ時のみ WAITING_FOR_HUMAN（Slack で 6桁コード返すだけ）
-
-### 1.3: 検証
-```bash
-ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web privacy pull --app "$APP_ID"
-# published: true を確認
+PRIVACY_CHECK=$(ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web privacy pull --app "$APP_ID" --apple-id "$APPLE_ID" 2>&1)
+echo "$PRIVACY_CHECK" | grep -q '"published":true' && echo "✅ App Privacy confirmed" || echo "⚠️ App Privacy not published — US-005a Step 5.3 を再実行"
 ```
 
 ## Step 2: Submit for Review

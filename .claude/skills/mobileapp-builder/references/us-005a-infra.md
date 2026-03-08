@@ -90,29 +90,22 @@ security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keych
 
 **人間介入不要。** API Key認証で常に自動実行される。
 
-## Step 4.9: iris セッション事前確認 (CRITICAL — 5回以上の繰り返しブロックを防ぐ)
-
-Source: Internal feedback — iris session expiry blocks apps across 5+ factory runs without early detection
-> "irisセッション失効 + 2FA必要" appeared in progress.txt of 20260302, 20260303, 20260304 apps (3+ occurrences each)
+## Step 4.9: iris セッション確認（file backend — keychain 不要）
 
 ```bash
 source ~/.config/mobileapp-builder/.env
-SESSION_STATUS=$(asc web auth status 2>&1)
-if echo "$SESSION_STATUS" | grep -q '"authenticated":false\|authenticated.*false\|not authenticated\|session.*expired'; then
-  echo "⚠️ iris session EXPIRED — requesting 2FA immediately"
-  # Slack通知: 即 WAITING_FOR_HUMAN にして無駄な retry を防ぐ
-  curl -s -X POST "$SLACK_WEBHOOK_AGENTS" \
-    -H "Content-Type: application/json" \
-    -d '{"text":"WAITING_FOR_HUMAN: iris session expired\niPhoneに届く6桁コードを送ってください。\n`asc web auth login --apple-id '"$APPLE_ID"' --password '"$APPLE_ID_PASSWORD"' --two-factor-code <CODE>`"}'
-  exit 0  # WAITING_FOR_HUMAN — 次 iteration でコード受信後に再実行
-else
+export ASC_WEB_SESSION_CACHE_BACKEND=file
+
+SESSION_STATUS=$(asc web auth status --apple-id "$APPLE_ID" 2>&1)
+if echo "$SESSION_STATUS" | grep -q '"authenticated":true'; then
   echo "✅ iris session active"
+else
+  echo "❌ iris session expired — ralph.sh PREFLIGHT が検知してるはず"
+  exit 1
 fi
 ```
 
-**⛔ セッション失効を検出したら即 WAITING_FOR_HUMAN。retry 禁止。**
-
-## Step 5: ASC App Creation（~/bin/asc apps create — Apple ID 認証 + 2FA）
+## Step 5: ASC App Creation（セッション有効 → 2FA 不要）
 
 ### 5.0: Bundle ID 存在確認（前提チェック）
 ```bash
@@ -124,31 +117,18 @@ asc bundle-ids list --output json 2>&1 | jq -e --arg bid "<bundle_id>" '.data[] 
 echo "✅ Bundle ID confirmed"
 ```
 
-### 5.1: 2FA コード取得（WAITING_FOR_HUMAN）
-
-⛔ **2FA コードを受け取るまで apps create を実行しない。**
-CC は Slack で以下を送信:
-```
-WAITING_FOR_HUMAN: ASC App Creation
-📱 App Store Connect アプリ作成に 2FA コードが必要です（30秒）:
-1. 以下のコマンドを実行すると iPhone に 6桁コードが届きます
-2. 届いた 6桁コードをこのチャットに貼り付けてください
-
-それだけでOKです。残りは全て自動で行います。
-```
-
-### 5.2: アプリ作成（2FA コード受信後）
+### 5.1: アプリ作成（file backend でセッション有効 → 2FA 不要）
 ```bash
 source ~/.config/mobileapp-builder/.env
-APP_RESULT=$(~/bin/asc apps create \
+export ASC_WEB_SESSION_CACHE_BACKEND=file
+
+APP_RESULT=$(ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc apps create \
   --name "<app_name>" \
   --bundle-id "<bundle_id>" \
   --sku "<slug>" \
   --platform IOS \
   --primary-locale "en-US" \
   --apple-id "$APPLE_ID" \
-  --password "$APPLE_ID_PASSWORD" \
-  --two-factor-code <CODE_FROM_SLACK> \
   --output json 2>&1)
 
 if echo "$APP_RESULT" | jq -e '.data.id' > /dev/null 2>&1; then
@@ -156,8 +136,7 @@ if echo "$APP_RESULT" | jq -e '.data.id' > /dev/null 2>&1; then
   echo "APP_ID=$APP_ID" >> ~/.config/mobileapp-builder/projects/<slug>/.env
   echo "✅ ASC App created: $APP_ID"
 else
-  echo "❌ App creation failed:"
-  echo "$APP_RESULT"
+  echo "❌ App creation failed: $APP_RESULT"
   exit 1
 fi
 ```
@@ -166,6 +145,25 @@ fi
 `--auto-rename` はデフォルト true。名前が既に使われている場合、
 `<app_name> - <sku>` に自動リネームされる。
 作成後に ASC ダッシュボードまたは `asc app-info` で正しい名前に更新可能。
+
+## Step 5.3: App Privacy（DATA_NOT_COLLECTED — US-009 から移動）
+
+```bash
+source ~/.config/mobileapp-builder/.env
+source ~/.config/mobileapp-builder/projects/<slug>/.env
+export ASC_WEB_SESSION_CACHE_BACKEND=file
+
+echo '{"schemaVersion":1,"dataUsages":[{"dataProtections":["DATA_NOT_COLLECTED"]}]}' > /tmp/privacy.json
+
+ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web privacy apply \
+  --app "$APP_ID" --file /tmp/privacy.json --apple-id "$APPLE_ID"
+ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web privacy publish \
+  --app "$APP_ID" --confirm --apple-id "$APPLE_ID"
+
+# 検証
+PRIVACY_CHECK=$(ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web privacy pull --app "$APP_ID" --apple-id "$APPLE_ID" 2>&1)
+echo "$PRIVACY_CHECK" | grep -q '"published":true' && echo "✅ App Privacy published" || { echo "❌ App Privacy failed"; exit 1; }
+```
 
 ## 次のステップ
 US-005a 完了後、`references/us-005b-monetization.md` に進む。

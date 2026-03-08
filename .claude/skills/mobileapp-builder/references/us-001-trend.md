@@ -1,5 +1,16 @@
 # US-001: Trend Research + Idea Selection
 
+## トレンドリサーチ制限（トークン節約 — MUST）
+Source: ghuntley.com/ralph — "use as little context as possible"
+
+| ルール | 値 | 根拠 |
+|--------|-----|------|
+| アイデア生成 | 最大 10 個 | FrostDip は 25+ 生成で 15M 浪費 |
+| 深掘り | トップ 3 のみ | 残り 7 は one-liner で十分 |
+| 競合分析 | 5 社まで | FrostDip は 8 社で過剰 |
+| Web 検索 | 1 アイデアあたり最大 3 クエリ | 検索は高コスト（1回 ~100K tokens） |
+| 合計検索回数 | 最大 15 回/US-001 | 10 ideas × 1 + top 3 × 1.67 |
+
 Source: rshankras idea-generator SKILL.md
 URL: https://github.com/rshankras/claude-code-apple-skills/blob/main/skills/product/idea-generator/SKILL.md
 
