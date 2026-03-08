@@ -144,7 +144,7 @@ else
 
   WAIT_COUNT=0
   while [ $WAIT_COUNT -lt 960 ]; do
-    LATEST_MSG=$(/opt/homebrew/bin/openclaw message read --channel slack --target "$SLACK_CHANNEL" --limit 1 --json 2>/dev/null | jq -r '.[0].text // empty')
+    LATEST_MSG=$(/opt/homebrew/bin/openclaw message read --channel slack --target "$SLACK_CHANNEL" --limit 1 --json 2>/dev/null | jq -r '.payload.messages[0].text // empty' 2>/dev/null || true)
     TWO_FA_CODE=$(echo "$LATEST_MSG" | grep -oE '[0-9]{6}' | head -1)
 
     if [ -n "$TWO_FA_CODE" ]; then
@@ -198,7 +198,7 @@ for i in $(seq 1 $MAX_ITERATIONS); do
   fi
 
   # F3-b: Slack 監視 — sk_... / 2FA コードを .env に自動保存
-  LATEST_MSG=$(/opt/homebrew/bin/openclaw message read --channel slack --target "$SLACK_CHANNEL" --limit 1 --json 2>/dev/null | jq -r '.[0].text // empty')
+  LATEST_MSG=$(/opt/homebrew/bin/openclaw message read --channel slack --target "$SLACK_CHANNEL" --limit 1 --json 2>/dev/null | jq -r '.payload.messages[0].text // empty' 2>/dev/null || true)
   SK_KEY=$(echo "$LATEST_MSG" | grep -oE 'sk_[A-Za-z0-9_]+' | head -1)
   if [ -n "$SK_KEY" ]; then
     SLUG=$(python3 -c "import json; print(json.load(open('$SCRIPT_DIR/prd.json')).get('project',''))" 2>/dev/null)
@@ -236,7 +236,7 @@ with open('$SCRIPT_DIR/progress.txt', 'w') as f:
   while [ -f "$SCRIPT_DIR/progress.txt" ] && grep -q "WAITING_FOR_HUMAN" "$SCRIPT_DIR/progress.txt"; do
     echo "🏭 ⏸️ WAITING_FOR_HUMAN 検出。Slack 監視中... (${WAIT_COUNT}回目)"
 
-    LATEST_MSG=$(/opt/homebrew/bin/openclaw message read --channel slack --target "$SLACK_CHANNEL" --limit 1 --json 2>/dev/null | jq -r '.[0].text // empty')
+    LATEST_MSG=$(/opt/homebrew/bin/openclaw message read --channel slack --target "$SLACK_CHANNEL" --limit 1 --json 2>/dev/null | jq -r '.payload.messages[0].text // empty' 2>/dev/null || true)
 
     # RC SK鍵検出
     SK_KEY=$(echo "$LATEST_MSG" | grep -oE 'sk_[A-Za-z0-9_]+' | head -1)

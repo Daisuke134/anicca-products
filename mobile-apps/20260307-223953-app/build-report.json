@@ -1,0 +1,11 @@
+{
+  "appName": "mobileapp-factory",
+  "description": "Build and submit one iOS app to App Store",
+  "totalTokens": 134711848,
+  "costInPlan": 12.03,
+  "iterationCount": 42,
+  "durationMinutes": 291,
+  "weeklyUsagePercent": 24.1,
+  "windowUsagePercent": 149.7,
+  "buildDate": "2026-03-08"
+}
