@@ -90,11 +90,12 @@ security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keych
 
 **人間介入不要。** API Key認証で常に自動実行される。
 
-## Step 4.9: iris セッション確認（file backend — keychain 不要）
+## Step 4.9: iris セッション確認（keychain auto モード — ralph.sh PREFLIGHT で検証済み）
 
 ```bash
 source ~/.config/mobileapp-builder/.env
-export ASC_WEB_SESSION_CACHE_BACKEND=file
+# ASC_WEB_SESSION_CACHE_BACKEND は設定しない（auto = keychain 優先）
+# ralph.sh PREFLIGHT Check 6 で keychain unlock + session 確認済み
 
 SESSION_STATUS=$(asc web auth status --apple-id "$APPLE_ID" 2>&1)
 if echo "$SESSION_STATUS" | grep -q '"authenticated":true'; then
@@ -117,10 +118,10 @@ asc bundle-ids list --output json 2>&1 | jq -e --arg bid "<bundle_id>" '.data[] 
 echo "✅ Bundle ID confirmed"
 ```
 
-### 5.1: アプリ作成（file backend でセッション有効 → 2FA 不要）
+### 5.1: アプリ作成（keychain セッション有効 → 2FA 不要）
 ```bash
 source ~/.config/mobileapp-builder/.env
-export ASC_WEB_SESSION_CACHE_BACKEND=file
+# ASC_WEB_SESSION_CACHE_BACKEND は設定しない（auto = keychain 優先）
 
 APP_RESULT=$(ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc apps create \
   --name "<app_name>" \
@@ -151,7 +152,7 @@ fi
 ```bash
 source ~/.config/mobileapp-builder/.env
 source ~/.config/mobileapp-builder/projects/<slug>/.env
-export ASC_WEB_SESSION_CACHE_BACKEND=file
+# ASC_WEB_SESSION_CACHE_BACKEND は設定しない（auto = keychain 優先）
 
 echo '{"schemaVersion":1,"dataUsages":[{"dataProtections":["DATA_NOT_COLLECTED"]}]}' > /tmp/privacy.json
 

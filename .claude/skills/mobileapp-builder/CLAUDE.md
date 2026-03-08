@@ -11,7 +11,7 @@ Source: Claude Code Docs — https://docs.anthropic.com/en/docs/claude-code/over
 **Every single `Bash` tool call MUST start with this line. No exceptions:**
 
 ```bash
-export PATH="/opt/homebrew/bin:/Users/anicca/Library/Python/3.9/bin:/usr/local/bin:/usr/bin:/bin:$PATH" && export ASC_BYPASS_KEYCHAIN=true && export ASC_WEB_SESSION_CACHE_BACKEND=file
+export PATH="/opt/homebrew/bin:/Users/anicca/Library/Python/3.9/bin:/usr/local/bin:/usr/bin:/bin:$PATH" && export ASC_BYPASS_KEYCHAIN=true
 ```
 
 Without this, `asc`, `fastlane`, `xcrun`, `simctl`, `axe`, `jq`, `ls`, `tail`, `grep` and all other commands will fail with `command not found`.
@@ -59,7 +59,7 @@ curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '
 | 23 | **AI API / 外部 API コスト禁止** — OpenAI, Anthropic, Gemini, Apple FoundationModels（iOS 26+ = ユーザー基盤小）一切禁止。アプリは完全自己完結。ローカル・静的コンテンツのみ。バックエンド不要。理由: 月収 $29 vs API コスト $300+ |
 | 23 | **AI API / AI モデル / 外部 AI サービス完全禁止**。OpenAI, Anthropic, Google Generative AI, Apple FoundationModels 一切不可。月額収益 $29 vs API コスト $300+。FoundationModels は iOS 26+ のみでユーザーベース皆無。オンデバイスロジック or 静的キュレーションコンテンツで代替 |
 | 25 | **progress.txt 管理**: Codebase Patterns + 現在 US の記録のみ保持。完了 US の詳細は `logs/us-XXX-summary.md` に移動。10KB 以下維持。Source: Anthropic harnesses — context 膨張防止 |
-| 26 | **WAITING_FOR_HUMAN 最小化**: iris session / asc apps create / App Privacy は `ASC_WEB_SESSION_CACHE_BACKEND=file` で 2FA 不要。RC SK鍵のみ WAITING_FOR_HUMAN 使用可（ralph.sh が Slack から自動取得）。Source: BreathCalm 実証（2026-03-08） |
+| 26 | **WAITING_FOR_HUMAN 最小化**: iris session は keychain（auto モード）で管理。`ASC_WEB_SESSION_CACHE_BACKEND=file` は絶対に設定するな（keychain を読まなくなる）。Check 6 の前に `security unlock-keychain` 必須。RC SK鍵のみ WAITING_FOR_HUMAN 使用可。Source: session_cache.go L103-118 |
 
 ## ASC CLI 正しいコマンド（skill 準拠）
 

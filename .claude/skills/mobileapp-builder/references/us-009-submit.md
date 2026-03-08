@@ -52,8 +52,8 @@ asc validate --app "$APP_ID" --version-id "$VERSION_ID" --platform IOS 2>&1 | gr
 ## Step 1: App Privacy 確認（検証のみ — US-005a Step 5.3 で設定済み）
 
 ```bash
-export ASC_WEB_SESSION_CACHE_BACKEND=file
 source ~/.config/mobileapp-builder/.env
+security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db 2>/dev/null || true
 
 PRIVACY_CHECK=$(ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc web privacy pull --app "$APP_ID" --apple-id "$APPLE_ID" 2>&1)
 echo "$PRIVACY_CHECK" | grep -q '"published":true' && echo "✅ App Privacy confirmed" || echo "⚠️ App Privacy not published — US-005a Step 5.3 を再実行"
