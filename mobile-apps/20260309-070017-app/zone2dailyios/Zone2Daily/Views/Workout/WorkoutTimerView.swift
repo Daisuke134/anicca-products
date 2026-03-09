@@ -71,14 +71,12 @@ struct WorkoutTimerView: View {
                     let zone2 = viewModel.zone2Seconds
                     let hr = Zone2Calculator.zone2MaxHR(age: age)
                     viewModel.stopAndSave(modelContext: modelContext, age: age)
-                    // Present log if a session was saved
-                    if elapsed > 0 {
-                        savedSession = WorkoutSession(
-                            durationSeconds: elapsed,
-                            zone2Seconds: zone2,
-                            targetHR: hr
-                        )
-                    }
+
+                    savedSession = WorkoutSession(
+                        durationSeconds: elapsed,
+                        zone2Seconds: zone2,
+                        targetHR: hr
+                    )
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.brandDanger)

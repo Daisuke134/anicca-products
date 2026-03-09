@@ -14,12 +14,14 @@ platform :ios do
 
   desc "Build for simulator (Debug)"
   lane :build_for_simulator do
-    xcodebuild(
-      scheme: "Zone2Daily",
-      configuration: "Debug",
-      sdk: "iphonesimulator",
-      derived_data_path: "build/DerivedData",
-      xcargs: "-destination 'platform=iOS Simulator,name=iPhone 16 Pro'"
+    sh(
+      "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 xcodebuild " \
+      "-scheme Zone2Daily " \
+      "-configuration Debug " \
+      "-sdk iphonesimulator " \
+      "-destination 'platform=iOS Simulator,name=iPhone 17 Pro' " \
+      "-derivedDataPath build/DerivedData " \
+      "build 2>&1 | tail -5"
     )
   end
 

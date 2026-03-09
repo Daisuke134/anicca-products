@@ -11,6 +11,7 @@ import RevenueCat
 
 struct PaywallView: View {
     @Environment(\.dismiss) private var dismiss
+    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     @State private var packages: [Package] = []
     @State private var selectedPackage: Package?
     @State private var isPurchasing = false
@@ -19,6 +20,8 @@ struct PaywallView: View {
     @State private var isLoadingOfferings = true
 
     let subscriptionService: SubscriptionServiceProtocol
+    /// Called when the user completes or skips the paywall (onboarding context only)
+    var onComplete: (() -> Void)?
 
     var body: some View {
         ScrollView {
@@ -139,9 +142,12 @@ struct PaywallView: View {
             .accessibilityIdentifier("btn_subscribe")
 
             // Rule 20: [Maybe Later] mandatory
-            Button("Maybe Later") { dismiss() }
-                .foregroundStyle(.secondary)
-                .accessibilityIdentifier("btn_maybe_later")
+            Button("Maybe Later") {
+                hasCompletedOnboarding = true
+                onComplete?()
+            }
+            .foregroundStyle(.secondary)
+            .accessibilityIdentifier("btn_maybe_later")
 
             Button("Restore Purchases") {
                 Task { await restorePurchasesAction() }
@@ -186,7 +192,19 @@ struct PaywallView: View {
     private func loadPackages() async {
         isLoadingOfferings = true
         defer { isLoadingOfferings = false }
+        #if DEBUG
+        // Retry up to 5 times with 2s delay — RC SDK may need time after clearKeychain in E2E tests
+        for attempt in 1...5 {
+            let result = (try? await subscriptionService.fetchOfferings()) ?? []
+            if !result.isEmpty {
+                packages = result
+                break
+            }
+            if attempt < 5 { try? await Task.sleep(for: .seconds(2)) }
+        }
+        #else
         packages = (try? await subscriptionService.fetchOfferings()) ?? []
+        #endif
         selectedPackage = packages.first(where: { $0.packageType == .annual }) ?? packages.first
     }
 
@@ -196,7 +214,8 @@ struct PaywallView: View {
         defer { isPurchasing = false }
         do {
             _ = try await subscriptionService.purchase(package: pkg)
-            dismiss()
+            hasCompletedOnboarding = true
+            onComplete?()
         } catch {
             errorMessage = "Purchase failed. Please try again."
         }

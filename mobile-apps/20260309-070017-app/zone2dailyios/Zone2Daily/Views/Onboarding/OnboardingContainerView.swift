@@ -18,13 +18,12 @@ struct OnboardingContainerView: View {
                 .tag(1)
             NotificationPermissionView(viewModel: viewModel)
                 .tag(2)
-            PaywallView(subscriptionService: subscriptionService)
+            PaywallView(subscriptionService: subscriptionService, onComplete: {
+                hasCompletedOnboarding = true
+            })
                 .tag(3)
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
         .accessibilityIdentifier("screen_onboarding")
-        .onChange(of: viewModel.isComplete) { _, isComplete in
-            if isComplete { hasCompletedOnboarding = true }
-        }
     }
 }

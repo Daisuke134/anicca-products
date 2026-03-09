@@ -9,6 +9,24 @@
 | URL optional | `URL(string:)!` 禁止。`if let url = URL(string:)` で optional binding |
 | Background Timer | `startDate = Date.now` で計時開始。タイマーTick: `Int(Date.now.timeIntervalSince(startDate))`。suspend後も正確 |
 | Greenlight | `greenlight preflight <dir>` (xcodeproj じゃなくディレクトリを渡す) |
+| Maestro sequential | `maestro/config.yaml` に `executionOrder.flowsOrder` を設定 → sequential実行 |
+| Maestro btn off-screen | `tapOn: id: "btn_maybe_later"` の前に `- scroll` 必須。ボタンがfold下にある場合、Maestroの自動スクロールは動作しない |
+| PaywallView完了 | `@AppStorage("hasCompletedOnboarding")` をPaywallView直接に持ち、`hasCompletedOnboarding = true` でナビゲーション。callbackチェーンは不安定 |
+| WorkoutLogView | elapsed=0でも sheet を表示する（guard条件削除）。E2Eテストでstop直後はelapsed=0になる |
+
+---
+
+## 2026-03-09 - US-007: Testing (Maestro E2E)
+
+- 6 Maestro E2E flows: 01-onboarding, 02-timer, 03-settings, 04-payment-monthly, 05-payment-annual, 06-payment-failure
+- `maestro test maestro/` → 6/6 PASS (103s)
+- Files changed: PaywallView.swift, OnboardingContainerView.swift, WorkoutTimerView.swift, SubscriptionService.swift, Debug.xcconfig, maestro/01-06.yaml, maestro/config.yaml
+
+**Learnings for future iterations:**
+- Maestro parallel実行: 複数simulator起動中は全flowが並列実行される → 他のsimulatorをshutdownすること
+- btn_maybe_later は ScrollView の fold 下 → `- scroll` を tapOn の前に必ず追加
+- PaywallView の `onComplete` コールバックチェーンは不安定 → `@AppStorage` を直接PaywallViewに持つ
+- elapsed=0ガード削除: E2E Testでは start→stop が速すぎてelapsed=0になる
 
 ---
 

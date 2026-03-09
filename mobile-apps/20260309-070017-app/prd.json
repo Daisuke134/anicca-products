@@ -194,8 +194,8 @@
         "smokeTest tag exists on 2+ flows"
       ],
       "priority": 7,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "6 Maestro E2E flows ALL PASS (103s). Fixes: scroll before btn_maybe_later, hasCompletedOnboarding=true directly in PaywallView, WorkoutTimerView always shows log, config.yaml executionOrder for sequential run"
     },
     {
       "id": "US-008a",
