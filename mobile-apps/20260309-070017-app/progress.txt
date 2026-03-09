@@ -1,4 +1,17 @@
 
+## 2026-03-09 - US-010: Build Report (Token Usage + Slack + X Post)
+
+- Token集計: 8 iteration-*.log ファイル → totalTokens=99.8M, cost=$44.20
+- build-report.json 保存 (appName/description/bundleId/totalTokens/cost/iterations/duration/weeklyUsagePercent)
+- Slack #metrics 投稿: ok
+- X投稿 via Postiz: postId=cmmisvld300vmpq0ylg7iaolu (4スクショ: screen1/2/4/5 en-US)
+
+**Learnings for future iterations:**
+- Postiz upload: curl -F "file=@path.png" → JSON {id, path}。ループ内変数展開でシングルクォートのfor文はOK
+- Postiz posts API: "type":"now" + "date": current UTC ISO8601 で即時投稿
+
+---
+
 ## 2026-03-09 - US-009: App Store submission (App Privacy + submit)
 
 - apple-appstore-reviewer audit: P1 found — fabricated social proof (4.9 rating / 2000+ athletes) → removed
