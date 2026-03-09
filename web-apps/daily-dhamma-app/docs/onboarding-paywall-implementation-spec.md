@@ -60,27 +60,26 @@
 │  "Restore Purchases"    │
 └────────────────────────┘
 
-改善後:
-┌────────────────────────┐
-│      [X] (3秒遅延)     │
-│    🌸 アイコン          │
-│  "Your Mindful Journey  │  ← パーソナライズ
-│   Starts Today"         │
-│  "Join 10,000+ who..."  │  ← ソーシャルプルーフ
-│                         │
-│  ┌─FREE──┬─PREMIUM──┐  │  ← 比較表
-│  │ 10法句│ 全法句経  │  │
-│  │ 3通知 │ 10通知    │  │
-│  │  ❌   │ ブックマーク│  │
-│  └───────┴──────────┘  │
-│                         │
-│  [Monthly]              │
-│  [Yearly ⭐ BEST VALUE] │  ← バッジ＋Save%
-│                         │
-│  [Start Free Trial]     │  ← trial CTA
-│  "Maybe later"          │  ← 控えめ
-│  "Restore Purchases"    │
-└────────────────────────┘
+改善後（Multi-Step Paywall — Cravotta Method）:
+
+Step 1: Risk-Free Primer          Step 2: Transparency Promise        Step 3: The Hard Close
+┌────────────────────────┐    ┌────────────────────────┐    ┌────────────────────────┐
+│    🌸                   │    │    📅                   │    │      [X] (3秒遅延)     │
+│  "Try Daily Dhamma     │    │  "We'll remind you     │    │    🌸 アイコン          │
+│   for free"            │    │   before any charge"   │    │  "{パーソナライズ       │
+│                         │    │                         │    │    ヘッドライン}"       │
+│  "Experience ancient   │    │  ✅ Today — Free start  │    │  "1万人以上..."         │
+│   wisdom at no cost"   │    │  🔔 Day 5 — Reminder   │    │                         │
+│                         │    │  💳 Day 7 — Sub starts │    │  ┌FREE──┬PREMIUM──┐    │
+│  • 価格表示なし         │    │                         │    │  │ 10  │ 全423   │    │
+│  • 心拍数を下げる       │    │  "Cancel anxiety除去"  │    │  │ 3回 │ 10回    │    │
+│                         │    │                         │    │  └─────┴─────────┘    │
+│  [Continue]             │    │  [Got it]               │    │  [Monthly]              │
+│  ● ○ ○                 │    │  ○ ● ○                 │    │  [Yearly ⭐ BEST VALUE] │
+└────────────────────────┘    └────────────────────────┘    │  [Start Free Trial]     │
+                                                            │  "Maybe later"          │
+                                                            │  ○ ○ ●                 │
+                                                            └────────────────────────┘
 ```
 
 ---
@@ -101,26 +100,28 @@
 | T8 | Progress bar コンポーネント（全スライド共通） | `app/onboarding.tsx` | unit |
 | T9 | EN/JA ローカライズ: 全新規テキスト追加 | `locales/en.json`, `locales/ja.json` | unit (i18n test) |
 
-### Phase 2: Paywall リニューアル
+### Phase 2: Multi-Step Paywall（Cravotta Method）
 
 | # | タスク | ファイル | テスト |
 |---|--------|---------|--------|
-| T10 | Headline をパーソナライズ化（onboardingAnswers.goal に基づく） | `app/paywall.tsx` | unit |
-| T11 | Social proof テキスト追加（「Join 10,000+...」） | `app/paywall.tsx`, `locales/*` | unit |
-| T12 | Free vs Premium 比較表コンポーネント | `app/paywall.tsx` | unit |
-| T13 | Yearly プランに「BEST VALUE」バッジ + 「Save X%」表示 | `app/paywall.tsx`, `locales/*` | unit |
-| T14 | CTA テキスト変更: 「Subscribe Now」→「Start Free Trial」 | `app/paywall.tsx`, `locales/*` | unit |
-| T15 | X ボタン 3秒遅延表示 | `app/paywall.tsx` | unit |
-| T16 | 「Continue with Free」→「Maybe later」+ スタイル控えめ化 | `app/paywall.tsx`, `locales/*` | unit |
+| T10 | Paywall を3ステップ構成にリファクタ（Step state管理） | `app/paywall.tsx` | unit |
+| T11 | Step 1: Risk-Free Primer 画面（価格なし、「Try for free」） | `app/paywall.tsx`, `locales/*` | unit |
+| T12 | Step 2: Transparency Promise 画面（Trial timeline、Day 5 reminder） | `app/paywall.tsx`, `locales/*` | unit |
+| T13 | Step 3: Hard Close（パーソナライズ headline + social proof + 比較表 + plan cards） | `app/paywall.tsx`, `locales/*` | unit |
+| T14 | Yearly プランに「BEST VALUE」バッジ + 「Save X%」表示 | `app/paywall.tsx`, `locales/*` | unit |
+| T15 | X ボタン Step 3 のみ表示、3秒遅延 | `app/paywall.tsx` | unit |
+| T16 | Trial Reminder 通知スケジュール（Day 5 ローカル通知） | `utils/notifications.ts`, `locales/*` | unit |
+| T17 | 3ドットインジケーター + スライドアニメーション | `app/paywall.tsx` | unit |
 
 ### Phase 3: テスト & 提出
 
 | # | タスク | ファイル | テスト |
 |---|--------|---------|--------|
-| T17 | Onboarding unit tests（全スライド遷移、state 保存） | `__tests__/onboarding.test.ts` | - |
-| T18 | Maestro E2E: onboarding full flow | `maestro/onboarding/01-full-flow.yaml` | - |
-| T19 | Maestro E2E: paywall display + plan selection | `maestro/paywall/02-paywall-revamp.yaml` | - |
-| T20 | EAS Build + App Store submission | - | - |
+| T18 | Onboarding unit tests（全スライド遷移、state 保存） | `__tests__/onboarding.test.ts` | - |
+| T19 | Paywall unit tests（3ステップ遷移、パーソナライズ、reminder scheduling） | `__tests__/paywall.test.ts` | - |
+| T20 | Maestro E2E: onboarding full flow | `maestro/onboarding/01-full-flow.yaml` | - |
+| T21 | Maestro E2E: multi-step paywall flow | `maestro/paywall/02-paywall-revamp.yaml` | - |
+| T22 | EAS Build + App Store submission | - | - |
 
 ---
 
@@ -171,6 +172,17 @@
 | `paywall.plan.savePercent` | "Save {percent}%" | "{percent}%お得" |
 | `paywall.cta` | "Start Free Trial" | "無料トライアルを始める" |
 | `paywall.free` | "Maybe later" | "あとで" |
+| `paywall.step1.title` | "Try Daily Dhamma\nfor free" | "Daily Dhamma を\n無料でお試しください" |
+| `paywall.step1.subtitle` | "We want you to experience the full power of ancient wisdom — at no cost" | "古代の智慧の力を、まずは無料で体験してください" |
+| `paywall.step1.cta` | "Continue" | "次へ" |
+| `paywall.step2.title` | "We'll remind you\nbefore any charge" | "課金前に\n必ずお知らせします" |
+| `paywall.step2.timeline.day1` | "Today — Start your free trial" | "今日 — 無料トライアル開始" |
+| `paywall.step2.timeline.day5` | "Day 5 — We'll send you a reminder" | "5日目 — リマインダーをお送りします" |
+| `paywall.step2.timeline.day7` | "Day 7 — Trial ends, subscription begins" | "7日目 — トライアル終了、サブスクリプション開始" |
+| `paywall.step2.cta` | "Got it" | "了解しました" |
+| `paywall.step3.title` | "Choose your plan" | "プランを選択" |
+| `paywall.trialReminder.title` | "Your trial ends tomorrow" | "トライアルは明日終了します" |
+| `paywall.trialReminder.body` | "Your Daily Dhamma free trial ends tomorrow. Cancel anytime in Settings." | "Daily Dhammaの無料トライアルは明日終了します。設定からいつでもキャンセルできます。" |
 
 ---
 
@@ -269,7 +281,16 @@ appId: com.dailydhamma.app
 - waitForAnimationToEnd
 - assertVisible: "Never miss"
 - tapOn: "Enable Notifications"
-# Paywall
+# Paywall Step 1: Risk-Free Primer
+- assertVisible: "Try Daily Dhamma"
+- assertVisible: "for free"
+- assertNotVisible: "$"
+- tapOn: "Continue"
+# Paywall Step 2: Transparency Promise
+- assertVisible: "remind you"
+- assertVisible: "Day 5"
+- tapOn: "Got it"
+# Paywall Step 3: Hard Close
 - assertVisible: "Inner Peace"
 - assertVisible: "BEST VALUE"
 - assertVisible: "Start Free Trial"

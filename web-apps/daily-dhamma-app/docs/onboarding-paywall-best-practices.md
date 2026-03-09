@@ -14,6 +14,8 @@
 | PaywallScreens.com（10,229 paywalls） | $500K+/月のアプリはほぼ全て onboarding → personalized paywall パターン |
 | Scott Belsky（Adobe CPO） | 「最初の15秒で人は lazy, vain, selfish」 |
 | Ramli John（Appcues） | 「End goal of user onboarding is habit formation」 |
+| Steven Cravotta（Puff Count $40K MRR → exit, Wordle creator） | 「If your paywall is a single screen with a Buy button, you're losing 40% of potential revenue」 |
+| Superwall（Free Trial Reminders feature） | Multi-step paywall で trial reminder を送信する機能を SaaS として提供 |
 
 ---
 
@@ -97,6 +99,71 @@
 | 価格表示 | "$X.XX/month" | "$X.XX/year" + **「$X.XX/month — Save 58%」** |
 | ボーダー | 通常 | **ゴールド＋太い＋グロー効果** |
 | デフォルト選択 | ❌ | ✅ |
+
+---
+
+## 3.5 Multi-Step Paywall（Cravotta Method — CVR 2x）
+
+> Source: Steven Cravotta (@StevenCravotta, Feb 18 2026, 35.2K views)
+> 核心: 「Trust is the highest-leverage variable in mobile apps. This sequence doubles trial conversion rates.」
+
+### 原則
+
+**Single-screen paywall（「Buy」ボタン1枚）は potential revenue の40%を失う。**
+$100K+/月のアプリは single-screen paywall を使わない。代わりに3ステップの trust bridge を構築する。
+
+### 3-Step Sequence
+
+| Step | 画面名 | 目的 | 表示内容 | 心理効果 |
+|------|--------|------|----------|----------|
+| **Step 1** | **Risk-Free Primer** | 心拍数を下げる | 価格を見せない。「We want you to try our app for free」のみ | 「売りつけられる」恐怖を除去 |
+| **Step 2** | **Transparency Promise** | 「忘れてキャンセルできない」不安を除去 | Trial タイムライン表示。「Day 5 に通知を送ります。課金前にお知らせします」 | Cancel anxiety を完全除去 |
+| **Step 3** | **The Hard Close** | 安心した状態で購入決断 | 実際の Plan 選択 + CTA。Step 1-2 で安心済みなのでコンバージョン率UP | Felt safety → action |
+
+### フロー図
+
+```
+┌──────────────────┐    ┌──────────────────────┐    ┌──────────────────┐
+│  STEP 1          │    │  STEP 2              │    │  STEP 3          │
+│  Risk-Free Primer│ →  │  Transparency Promise │ →  │  The Hard Close  │
+│                  │    │                       │    │                  │
+│  "Try for free"  │    │  📅 Trial Timeline    │    │  Plan Selection  │
+│  No price shown  │    │  "We'll remind you    │    │  [Monthly]       │
+│                  │    │   on Day 5"           │    │  [Yearly ⭐]     │
+│  [Continue]      │    │  [Continue]           │    │  [Start Trial]   │
+└──────────────────┘    └──────────────────────┘    └──────────────────┘
+```
+
+### 効果
+
+| メトリクス | Single-Screen Paywall | Multi-Step Paywall | 改善率 |
+|-----------|----------------------|-------------------|--------|
+| Trial start rate | ~8% | ~16% | **+100%（2倍）** |
+| 心理的安全性 | 低（いきなり価格） | 高（段階的に信頼構築） | — |
+| Cancel anxiety | 高 | 低（Day 5 reminder 約束） | — |
+
+### Daily Dhamma への適用テキスト
+
+| Key | EN | JA |
+|-----|----|----|
+| `paywall.step1.title` | "Try Daily Dhamma\nfor free" | "Daily Dhamma を\n無料でお試しください" |
+| `paywall.step1.subtitle` | "We want you to experience the full power of ancient wisdom — at no cost" | "古代の智慧の力を、まずは無料で体験してください" |
+| `paywall.step1.cta` | "Continue" | "次へ" |
+| `paywall.step2.title` | "We'll remind you\nbefore any charge" | "課金前に\n必ずお知らせします" |
+| `paywall.step2.timeline.day1` | "Today — Start your free trial" | "今日 — 無料トライアル開始" |
+| `paywall.step2.timeline.day5` | "Day 5 — We'll send you a reminder" | "5日目 — リマインダーをお送りします" |
+| `paywall.step2.timeline.day7` | "Day 7 — Trial ends, subscription begins" | "7日目 — トライアル終了、サブスクリプション開始" |
+| `paywall.step2.cta` | "Got it" | "了解しました" |
+| `paywall.step3.title` | "Choose your plan" | "プランを選択" |
+
+### 実装ノート
+
+| 項目 | 詳細 |
+|------|------|
+| Trial Reminder 通知 | `expo-notifications` で Day 5 にローカル通知をスケジュール |
+| Step 1 の X ボタン | 非表示（3ステップ中は進むしかない）。Step 3 に「Maybe later」 |
+| Progress | 3ドットインジケーター（Step 1 / 2 / 3） |
+| アニメーション | 各ステップ間はスライド遷移（左→右） |
 
 ---
 

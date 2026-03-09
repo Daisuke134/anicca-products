@@ -47,12 +47,16 @@ Read the app's onboarding files and evaluate against this checklist:
 
 | Check | Best Practice | Weight |
 |-------|--------------|--------|
-| Personalized headline | Based on onboarding answers | CRITICAL |
+| **Multi-step paywall (3 steps)** | Risk-Free Primer → Transparency Promise → Hard Close | CRITICAL |
+| Step 1 shows NO price | "Try for free" only, lower heart rate | CRITICAL |
+| Step 2 shows trial timeline + Day 5 reminder | Remove cancel anxiety | CRITICAL |
+| Trial reminder notification scheduled | Local push on Day 5 of trial | HIGH |
+| Personalized headline (Step 3) | Based on onboarding answers | CRITICAL |
 | Social proof | "Join X+ users" type text | HIGH |
 | Free vs Premium comparison table | Side-by-side feature comparison | HIGH |
 | Yearly plan has "BEST VALUE" badge | + "Save X%" calculation | HIGH |
 | CTA says "Start Free Trial" | Not "Subscribe Now" | HIGH |
-| Close button delayed 3-5 seconds | Reduce instant dismissal | MEDIUM |
+| Close button delayed 3-5 seconds | Only on Step 3 | MEDIUM |
 | "Maybe later" instead of "Continue with Free" | Less prominent skip option | MEDIUM |
 | Legal footer | Terms + Privacy + Cancel anytime | CRITICAL |
 | Restore Purchases button | Apple requirement | CRITICAL |
@@ -101,8 +105,33 @@ Each slide MUST have:
 - Single clear CTA button
 - Smooth animation transition (fade + scale)
 
-## Paywall Layout Template
+## Multi-Step Paywall (Cravotta Method — CVR 2x)
 
+Source: Steven Cravotta (@StevenCravotta, Puff Count creator $40K MRR, Wordle creator)
+Core insight: "If your paywall is a single screen with a Buy button, you're losing 40% of potential revenue."
+Result: Trial conversion rate doubles compared to single-screen paywall.
+
+### 3-Step Trust Bridge
+
+| Step | Screen | Purpose | Key Rule |
+|------|--------|---------|----------|
+| Step 1 | **Risk-Free Primer** | Lower heart rate | NO price shown. "Try for free" only |
+| Step 2 | **Transparency Promise** | Remove cancel anxiety | Show trial timeline + "We remind you on Day 5" |
+| Step 3 | **The Hard Close** | Convert in felt-safety state | Personalized headline + comparison + plans |
+
+### Step 1: Risk-Free Primer
+- MUST NOT show any price
+- Copy focuses entirely on "free trial" aspect
+- Single CTA: "Continue"
+- No close/skip button on this step
+
+### Step 2: Transparency Promise
+- Show visual timeline: Today → Day 5 (reminder) → Day 7 (charge)
+- Promise: "We will send you a notification before any charge"
+- Schedule local notification for Day 5 (trial reminder)
+- Single CTA: "Got it"
+
+### Step 3: The Hard Close (Full Paywall)
 ```
 ┌────────────────────────────┐
 │           [X] (3s delay)   │
