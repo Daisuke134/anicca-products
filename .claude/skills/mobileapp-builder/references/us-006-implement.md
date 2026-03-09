@@ -216,6 +216,41 @@ project.yml template: see current file or docs/ARCHITECTURE.md. Key points:
 - Test target: `GENERATE_INFOPLIST_FILE: YES`
 - `.xcodeproj` in .gitignore
 
+### iPhone-only + iPad Multitasking Opt-out（MANDATORY）
+Source: Stack Overflow (https://stackoverflow.com/questions/32559724) — 543 upvotes
+核心の引用: 「check the 'Requires Full Screen' checkbox under General > Targets」
+Source: Apple (https://developer.apple.com/documentation/bundleresources/information_property_list/uisupportedinterfaceorientations)
+核心の引用: 「you need to include all orientations to support iPad multitasking」
+
+project.yml の info.properties に必ず追加:
+```yaml
+info:
+  properties:
+    UIRequiresFullScreen: true           # ← iPad multitasking opt-out
+    UISupportedInterfaceOrientations:
+      - UIInterfaceOrientationPortrait
+```
+
+settings.base に必ず追加:
+```yaml
+settings:
+  base:
+    TARGETED_DEVICE_FAMILY: "1"          # ← iPhone only（"1,2" = Universal, "2" = iPad only）
+```
+
+xcodegen 後の検証ゲート（MANDATORY — archive 前に実行）:
+```bash
+IPAD_LEAK=$(grep 'TARGETED_DEVICE_FAMILY = "1,2"' *.xcodeproj/project.pbxproj | grep -v "tests" || true)
+if [ -n "$IPAD_LEAK" ]; then
+  echo "❌ TARGETED_DEVICE_FAMILY '1,2' leaked into main target. Fix project.yml."
+  exit 1
+fi
+echo "✅ All main targets are iPhone-only (TARGETED_DEVICE_FAMILY = 1)"
+```
+
+❌ `UIRequiresFullScreen` なし + `TARGETED_DEVICE_FAMILY: "1"` → xcodegen がReleaseで `1,2` を混入するリスク → ITMS-90474 拒否
+✅ `UIRequiresFullScreen: true` + `TARGETED_DEVICE_FAMILY: "1"` + 検証ゲート → 確実にiPhone-only
+
 ## Step: PrivacyInfo.xcprivacy
 
 ```bash

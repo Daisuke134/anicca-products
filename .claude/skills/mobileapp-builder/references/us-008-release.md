@@ -545,10 +545,22 @@ xcodebuild -exportArchive \
   -authenticationKeyID "$ASC_KEY_ID" \
   -authenticationKeyIssuerID "$ASC_ISSUER_ID"
 
-# Upload
+# Validate BEFORE Upload (MANDATORY)
+# Source: Zone2Daily 2026-03-09 postmortem — altool upload "SUCCEEDED" but builds=0
+# Apple's upload only checks file transfer, NOT bundle validity.
+# Server-side validation silently rejects invalid bundles (no API error, no builds appear).
+# ALWAYS validate first to catch errors locally before wasting 30+ min polling.
 IPA_PATH=$(find build/export -name "*.ipa" | head -1)
+xcrun altool --validate-app -f "$IPA_PATH" -t ios \
+  --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID" 2>&1
+# If validate fails, fix the issue and re-archive/re-export before uploading.
+
+# Upload (only after validate passes)
 xcrun altool --upload-app -f "$IPA_PATH" -t ios \
   --apiKey "$ASC_KEY_ID" --apiIssuer "$ASC_ISSUER_ID"
+
+# altool execution: use Bash (sync, timeout 300s). Do NOT use Task (background).
+# IPA transfer takes seconds. Background + sleep loop wastes turns.
 ```
 
 ## Step 4: Review Details (PATCH 4)
