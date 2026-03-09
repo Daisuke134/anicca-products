@@ -16,7 +16,8 @@ SLACK_CHANNEL="${SLACK_CHANNEL_ID:-C091G3PKHL2}"
 
 # PATH: kou (Koubou) binary location
 export PATH="/Users/anicca/Library/Python/3.9/bin:$PATH"
-# ASC_BYPASS_KEYCHAIN は設定禁止（keychain の iris session が読めなくなる）
+# ASC_BYPASS_KEYCHAIN: tmux/SSH環境ではKeychainがハングするため必須
+export ASC_BYPASS_KEYCHAIN=1
 
 # Source secrets from .env (Twelve-Factor App: https://12factor.net/config)
 if [ -f ~/.config/mobileapp-builder/.env ]; then

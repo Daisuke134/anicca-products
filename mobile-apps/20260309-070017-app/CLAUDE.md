@@ -200,3 +200,7 @@ US-008a を開始したら、US-008e まで連続で完了させること。
 prd.json の priority 順を無視して、US-008a → 008b → 008c → 008d → 008e の順に実行する。
 理由: US-008a-d で取得した VERSION_ID, BUILD_ID, LOC_ID 等の環境変数が
 有効な間に全ステップを完了しないと、途中で別の US に飛ばされてセッションが切れる。
+
+## ASC CLI ルール（CRITICAL）
+全ての `asc` コマンド実行時は `export ASC_BYPASS_KEYCHAIN=1` を必ず設定すること。
+tmux/SSH環境ではKeychainアクセスがハングするため。irisセッション（asc web）も問題なく動作する。
