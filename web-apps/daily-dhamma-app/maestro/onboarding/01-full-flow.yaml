@@ -1,0 +1,40 @@
+appId: com.dailydhamma.app
+---
+# Onboarding Full Flow E2E Test
+# Step 1: Welcome Hero
+- assertVisible: "Find Your Daily"
+- assertVisible: "Moment of Peace"
+- tapOn:
+    id: "onboarding_cta"
+
+# Step 2: Q1 — What brings you here?
+- assertVisible: "What brings you here?"
+- tapOn:
+    id: "onboarding_q1_peace"
+- tapOn:
+    id: "onboarding_cta"
+
+# Step 3: Value Proposition
+- assertVisible: "good company"
+- tapOn:
+    id: "onboarding_cta"
+
+# Step 4: Q2 — When would you like your daily wisdom?
+- assertVisible: "When would you like"
+- tapOn:
+    id: "onboarding_q2_morning"
+- tapOn:
+    id: "onboarding_cta"
+
+# Step 5: Building Your Plan (auto-advances after 1.5s)
+- assertVisible: "Creating your practice"
+- waitForAnimationToEnd
+
+# Step 6: Notification Permission
+- assertVisible: "Never miss your"
+- tapOn:
+    id: "onboarding_cta"
+
+# Should navigate to Paywall Step 1
+- assertVisible: "Try Daily Dhamma"
+- assertVisible: "for free"

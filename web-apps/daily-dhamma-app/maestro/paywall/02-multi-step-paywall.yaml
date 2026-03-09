@@ -1,0 +1,36 @@
+appId: com.dailydhamma.app
+---
+# Multi-Step Paywall E2E Test (Cravotta Method)
+# Assumes user has completed onboarding and is on paywall
+
+# Step 1: Risk-Free Primer
+- assertVisible: "Try Daily Dhamma"
+- assertVisible: "for free"
+- assertNotVisible: "$"
+- tapOn:
+    id: "paywall_step1_cta"
+
+# Step 2: Transparency Promise
+- assertVisible: "remind you"
+- assertVisible: "Day 5"
+- assertVisible: "Day 7"
+- tapOn:
+    id: "paywall_step2_cta"
+
+# Step 3: Hard Close
+- assertVisible: "BEST VALUE"
+- assertVisible:
+    id: "paywall_cta"
+
+# Wait for X button (3 second delay)
+- extendedWaitUntil:
+    visible:
+      id: "paywall_close"
+    timeout: 5000
+
+# Tap Maybe Later to exit
+- tapOn:
+    id: "paywall_skip"
+
+# Should be on main screen
+- assertVisible: "Daily Dhamma"
