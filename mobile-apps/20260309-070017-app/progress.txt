@@ -12,6 +12,24 @@
 
 ---
 
+## 2026-03-09 - US-006-R: Code Review (006a-d full review)
+
+- code-quality-reviewer agent 実行 → CRITICAL=2発見
+- CRITICAL-1: Release.xcconfig に RC API key がコミット済み → Release.local.xcconfig (gitignored) に移動
+- CRITICAL-2: entitlementVerificationMode 本番で .informational → .enforced に変更
+- HIGH-1: WorkoutViewModel @MainActor 追加（UIApplication thread safety）
+- HIGH-2: calculateStreak O(n²) → O(n)（Set<Day> lookup）
+- HIGH-3: AgeInputView.saveProfile() 重複挿入修正（@Query + upsert）
+- WorkoutViewModelTests: @MainActor 追加
+- fastlane test PASS (61/61), Greenlight CRITICAL=0
+
+**Learnings for future iterations:**
+- xcconfig: .local.xcconfig だけでなく本体 xcconfig も placeholder に差し替えること
+- @Observable + @MainActor: Test class も同じく @MainActor が必要
+- Timer([weak self]) + @MainActor: MainActor.assumeIsolated {} でSendable警告解消
+
+---
+
 ## 2026-03-09 - US-006d: TDD Polish (DESIGN_SYSTEM tokens, a11y IDs, Localization)
 
 - AgeInputView: +/-ボタン → Slider(10...80) + slider_age + label_zone2_hr ID追加

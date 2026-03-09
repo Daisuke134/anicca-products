@@ -180,8 +180,8 @@
         "All blocking issues resolved"
       ],
       "priority": 6.5,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "code-quality-reviewer実行。CRITICAL=2→0修正: C1=Release.xcconfig APIキー除去→Release.local.xcconfig(gitignored)に移動, C2=entitlementVerificationMode本番.enforced化。HIGH=3→0修正: H1=WorkoutViewModel @MainActor追加, H2=calculateStreak O(n²)→O(n), H3=AgeInputView重複挿入バグ修正。WorkoutViewModelTests @MainActor追加。fastlane test PASS(61/61), Greenlight CRITICAL=0, Mock in production=0."
     },
     {
       "id": "US-007",
