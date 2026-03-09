@@ -261,17 +261,37 @@ for us in d['userStories']:
   # Stream-json for real-time output (Source: aihero.dev)
   tmpfile=$(mktemp)
   stream_text='if .type == "assistant" then (.message.content[]? | select(.type == "text") | .text) // "" elif .type == "result" then .result // "" else "" end'
-  claude --dangerously-skip-permissions --verbose --print --output-format stream-json --mcp-config ~/.claude/mcp.json --model opusplan < "$SCRIPT_DIR/CLAUDE.md" 2>&1 | grep --line-buffered '^{' | tee "$tmpfile" | tee -a "$LOG_FILE" | jq --unbuffered -rj "$stream_text" || true
+
+  # Patch 15: gtimeout watchdog (150 min max per iteration)
+  # Source: stackoverflow.com/questions/687948 — "background process with timeout"
+  # Source: linuxize.com/post/timeout-command-in-linux — "Use -k to enforce a kill after a grace period"
+  # Source: stackoverflow.com/questions/3504945 — "brew install coreutils — then use gtimeout"
+  # Why: CC's Task tool spawns background processes that prevent --print exit.
+  #   The pipeline (claude | grep | tee | jq) blocks until CC exits.
+  #   Any kill code AFTER the pipeline never executes if CC hangs.
+  #   gtimeout wraps the entire pipeline and kills it externally after max time.
+  #   --kill-after=30: send SIGTERM, wait 30s, then SIGKILL if still alive.
+  MAX_CC_SECONDS=9000  # 150 min (longest observed: 83 min for US-007)
+  gtimeout --kill-after=30 "$MAX_CC_SECONDS" bash -c "claude --dangerously-skip-permissions --verbose --print --output-format stream-json --mcp-config ~/.claude/mcp.json --model opusplan < '$SCRIPT_DIR/CLAUDE.md' 2>&1 | grep --line-buffered '^{' | tee '$tmpfile' | tee -a '$LOG_FILE' | jq --unbuffered -rj '$stream_text'"
+  TIMEOUT_EXIT=$?
+
   OUTPUT=$(cat "$tmpfile")
   rm -f "$tmpfile"
 
-  # Safety: kill any lingering CC process (background Task tool can prevent --print exit)
-  # Source: Zone2Daily 2026-03-09 postmortem — CC re-init after task_notification
+  if [ "$TIMEOUT_EXIT" -eq 124 ]; then
+    echo "🏭 ⚠️ CC timeout (${MAX_CC_SECONDS}s). Force killed by gtimeout."
+    notify_slack "⚠️ CC timeout (${MAX_CC_SECONDS}s) at iteration $i. Force killed."
+  fi
+
+  # Patch 15b: Pipeline COMPLETE detection safety — kill any lingering CC after pipeline exits
+  # Even with gtimeout, CC child processes (Task tool spawns) may survive.
   CC_PID=$(pgrep -f "claude.*--dangerously-skip" 2>/dev/null | grep -v $$ || true)
   if [ -n "$CC_PID" ]; then
-    echo "🏭 ⚠️ CC still alive after --print (PID $CC_PID). Killing..."
+    echo "🏭 ⚠️ CC still alive after pipeline (PID $CC_PID). Killing..."
     kill "$CC_PID" 2>/dev/null || true
     sleep 2
+    # Force kill if still alive
+    kill -9 "$CC_PID" 2>/dev/null || true
   fi
 
   # Detect rate_limit_event JSON (status: "rejected") — catches 5-hour rate limit
