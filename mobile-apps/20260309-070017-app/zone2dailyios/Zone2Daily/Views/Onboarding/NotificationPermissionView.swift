@@ -1,6 +1,6 @@
 // File: Views/Onboarding/NotificationPermissionView.swift
 // Onboarding Step 3: Request daily reminder notification
-// Stub for US-006a — full implementation in US-006b
+// Source: Apple UNUserNotificationCenter docs — requestAuthorization(options:)
 
 import SwiftUI
 
@@ -39,7 +39,7 @@ struct NotificationPermissionView: View {
             .tint(.brandPrimary)
             .accessibilityIdentifier("btn_enable_notifications")
 
-            Button("Skip for Now") { viewModel.goNext() }
+            Button("Not Now") { viewModel.goNext() }
                 .foregroundStyle(.secondary)
                 .accessibilityIdentifier("btn_skip_notifications")
         }

@@ -14,10 +14,19 @@ final class SubscriptionService: SubscriptionServiceProtocol {
 
     func configure(apiKey: String) {
         guard !apiKey.isEmpty else { return }
-        Purchases.configure(withAPIKey: apiKey)
         #if DEBUG
+        // Source: us-006-implement.md — uiPreviewMode enables Simulator StoreKit testing
+        // without real purchases (required for US-007 E2E payment flows)
+        let config = Configuration.builder(withAPIKey: apiKey)
+            .with(entitlementVerificationMode: .informational)
+            .build()
+        Purchases.configure(with: config)
         Purchases.logLevel = .debug
         #else
+        let config = Configuration.builder(withAPIKey: apiKey)
+            .with(entitlementVerificationMode: .informational)
+            .build()
+        Purchases.configure(with: config)
         Purchases.logLevel = .error
         #endif
         isConfigured = true
@@ -32,11 +41,19 @@ final class SubscriptionService: SubscriptionServiceProtocol {
 
     func purchase(package: Package) async throws -> Bool {
         guard isConfigured else { return false }
-        let result = try await Purchases.shared.purchase(package: package)
-        if !result.userCancelled {
-            isPremium = true
+        do {
+            let result = try await Purchases.shared.purchase(package: package)
+            if !result.userCancelled {
+                isPremium = true
+            }
+            return !result.userCancelled
+        } catch let error as ErrorCode {
+            // Re-throw cancellation; swallow other errors gracefully in production
+            if error == .purchaseCancelledError {
+                throw error
+            }
+            return false
         }
-        return !result.userCancelled
     }
 
     func restorePurchases() async throws {

@@ -16,6 +16,7 @@ struct PaywallView: View {
     @State private var isPurchasing = false
     @State private var errorMessage: String?
     @State private var isRestoring = false
+    @State private var isLoadingOfferings = true
 
     let subscriptionService: SubscriptionServiceProtocol
 
@@ -26,7 +27,15 @@ struct PaywallView: View {
                 benefitsSection
                 socialProofSection
 
-                if !packages.isEmpty {
+                if isLoadingOfferings {
+                    ProgressView("Loading plans...")
+                        .padding()
+                } else if packages.isEmpty {
+                    Text("Unable to load plans. Check your connection.")
+                        .foregroundStyle(.brandDanger)
+                        .font(.callout)
+                        .multilineTextAlignment(.center)
+                } else {
                     pricingSection
                 }
 
@@ -160,9 +169,13 @@ struct PaywallView: View {
 
     private var legalSection: some View {
         HStack {
-            Link("Privacy Policy", destination: URL(string: "https://aniccaai.com/privacy")!)
+            if let privacyURL = URL(string: "https://aniccaai.com/privacy") {
+                Link("Privacy Policy", destination: privacyURL)
+            }
             Text("·")
-            Link("Terms of Use", destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
+            if let termsURL = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
+                Link("Terms of Use", destination: termsURL)
+            }
         }
         .font(.caption)
         .foregroundStyle(.secondary)
@@ -171,6 +184,8 @@ struct PaywallView: View {
     // MARK: — Actions
 
     private func loadPackages() async {
+        isLoadingOfferings = true
+        defer { isLoadingOfferings = false }
         packages = (try? await subscriptionService.fetchOfferings()) ?? []
         selectedPackage = packages.first(where: { $0.packageType == .annual }) ?? packages.first
     }
@@ -202,6 +217,16 @@ struct PricingCardView: View {
     let isSelected: Bool
     let isBestValue: Bool
     let onTap: () -> Void
+
+    // UX_SPEC §7: selector_plan_monthly / selector_plan_annual
+    private var accessibilityID: String {
+        switch package.packageType {
+        case .monthly: return "selector_plan_monthly"
+        case .annual: return "selector_plan_annual"
+        case .weekly: return "selector_plan_weekly"
+        default: return "selector_plan_\(package.identifier)"
+        }
+    }
 
     var body: some View {
         Button(action: onTap) {
@@ -237,6 +262,7 @@ struct PricingCardView: View {
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .buttonStyle(.plain)
+        .accessibilityIdentifier(accessibilityID)
     }
 }
 
