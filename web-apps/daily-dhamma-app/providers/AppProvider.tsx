@@ -9,6 +9,12 @@ import {
   getNotificationPermissionStatus,
   cancelAllNotifications,
 } from '@/utils/notifications';
+import {
+  OnboardingAnswers,
+  defaultOnboardingAnswers,
+  loadOnboardingAnswers,
+  saveOnboardingAnswers,
+} from './onboardingAnswers';
 
 interface AppSettings {
   hasCompletedOnboarding: boolean;
@@ -35,7 +41,22 @@ const STORAGE_KEY = 'daily_dharma_settings';
 export const [AppProvider, useApp] = createContextHook(() => {
   const queryClient = useQueryClient();
   const [settings, setSettings] = useState<AppSettings>(defaultSettings);
+  const [onboardingAnswers, setOnboardingAnswersState] = useState<OnboardingAnswers>(defaultOnboardingAnswers);
   const { isPremium: rcIsPremium } = useRevenueCat();
+
+  // Load onboarding answers from AsyncStorage
+  useEffect(() => {
+    loadOnboardingAnswers().then(setOnboardingAnswersState);
+  }, []);
+
+  const setOnboardingAnswer = useCallback(<K extends keyof OnboardingAnswers>(
+    key: K,
+    value: OnboardingAnswers[K],
+  ) => {
+    const updated = { ...onboardingAnswers, [key]: value };
+    setOnboardingAnswersState(updated);
+    saveOnboardingAnswers(updated);
+  }, [onboardingAnswers]);
 
   const settingsQuery = useQuery({
     queryKey: ['app-settings'],
@@ -155,5 +176,7 @@ export const [AppProvider, useApp] = createContextHook(() => {
     setPremium,
     toggleBookmark,
     isBookmarked,
+    onboardingAnswers,
+    setOnboardingAnswer,
   };
 });

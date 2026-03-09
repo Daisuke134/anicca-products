@@ -1,52 +1,107 @@
 {
   "onboarding": {
-    "slide1": {
-      "title": "現代の心に\n古代の智慧を",
-      "subtitle": "法句経の普遍の教えに\n安らぎを見つけてください"
+    "welcome": {
+      "title": "毎日の\n心の安らぎを見つける",
+      "subtitle": "あなたのための、古代の智慧"
     },
-    "slide2": {
-      "title": "毎日の法句経を\nロック画面に",
-      "subtitle": "視点を変える智慧で\n毎日を始めましょう"
+    "q1": {
+      "title": "あなたの目的は？",
+      "option": {
+        "peace": "心の平穏",
+        "wisdom": "毎日の智慧",
+        "routine": "朝のルーティン",
+        "mindfulness": "マインドフルネス"
+      }
     },
-    "slide3": {
-      "title": "毎日マインドフルに過ごす",
-      "subtitle": "通知を有効にすることで、毎朝の法句経と日中のマインドフルネスリマインダーの受信に同意します。\n\nいつでも設定から無効にできます。"
+    "value": {
+      "title": "多くの人が実践しています",
+      "stat": "1万人以上が毎朝\n古代の智慧で1日を始めています"
+    },
+    "q2": {
+      "title": "毎日の智慧を\nいつ受け取りますか？",
+      "option": {
+        "morning": "朝",
+        "midday": "昼",
+        "evening": "夕方",
+        "custom": "カスタム"
+      }
+    },
+    "building": {
+      "title": "あなた専用のプランを作成中...",
+      "subtitle": "毎日の智慧をパーソナライズしています"
+    },
+    "notif": {
+      "title": "毎日の智慧を\n見逃さない",
+      "subtitle": "お好みの時間にやさしい通知をお届けします"
     },
     "continue": "次へ",
     "enableNotifications": "通知を有効にする",
     "skip": "スキップ"
   },
   "paywall": {
-    "title": "修行を\n深める",
-    "subtitle": "より多くの法句経と通知を利用可能に",
-    "feature": {
+    "title": {
+      "personalized": {
+        "peace": "心の平穏への\nあなたの道",
+        "wisdom": "あなたの毎日の\n智慧が待っています",
+        "routine": "あなたの朝の\n儀式が整いました",
+        "mindfulness": "マインドフルな旅が\n今日始まる"
+      },
+      "default": "マインドフルな旅が\n今日始まる"
+    },
+    "socialProof": "1万人以上の実践者と一緒に",
+    "compare": {
+      "free": "無料",
+      "premium": "プレミアム",
       "verses": {
-        "title": "プレミアム法句経",
-        "desc": "より多くの法句経の教えを利用できます"
+        "free": "10の法句経",
+        "premium": "全423の法句経"
       },
       "reminders": {
-        "title": "より多くの通知",
-        "desc": "1日最大10回のマインドフルネス通知"
+        "free": "1日3回",
+        "premium": "1日最大10回"
       },
       "bookmark": {
-        "title": "ブックマーク",
-        "desc": "お気に入りの法句経を保存できます"
+        "free": "—",
+        "premium": "無制限"
       }
     },
     "plan": {
       "monthly": "月額プラン",
       "yearly": "年額プラン",
       "perMonth": "/月",
-      "perYear": "/年"
+      "perYear": "/年",
+      "bestValue": "最もお得",
+      "savePercent": "{percent}%お得"
     },
-    "cta": "登録する",
-    "free": "無料で続ける",
+    "cta": "無料トライアルを始める",
+    "free": "あとで",
     "restore": "購入を復元",
     "restoring": "復元中...",
     "loading": "プランを読み込み中...",
     "terms": "いつでもキャンセル可 • キャンセルしない限り自動更新",
     "termsOfUse": "利用規約",
     "privacyPolicy": "プライバシーポリシー",
+    "step1": {
+      "title": "Daily Dhamma を\n無料でお試しください",
+      "subtitle": "古代の智慧の力を、まずは無料で体験してください",
+      "cta": "次へ"
+    },
+    "step2": {
+      "title": "課金前に\n必ずお知らせします",
+      "timeline": {
+        "day1": "今日 — 無料トライアル開始",
+        "day5": "5日目 — リマインダーをお送りします",
+        "day7": "7日目 — トライアル終了、サブスクリプション開始"
+      },
+      "cta": "了解しました"
+    },
+    "step3": {
+      "title": "プランを選択"
+    },
+    "trialReminder": {
+      "title": "トライアルは明日終了します",
+      "body": "Daily Dhammaの無料トライアルは明日終了します。設定からいつでもキャンセルできます。"
+    },
     "alert": {
       "error": {
         "title": "エラー",

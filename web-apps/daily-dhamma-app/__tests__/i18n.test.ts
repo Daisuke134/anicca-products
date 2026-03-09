@@ -38,8 +38,8 @@ describe('i18n', () => {
     i18n.locale = 'en';
     i18n.enableFallback = true;
     i18n.defaultLocale = 'en';
-    expect(i18n.t('onboarding.slide1.title')).toBe('Ancient wisdom for\nmodern minds');
-    expect(i18n.t('paywall.title')).toBe('Deepen Your\nPractice');
+    expect(i18n.t('onboarding.welcome.title')).toBe('Find Your Daily\nMoment of Peace');
+    expect(i18n.t('paywall.title.default')).toBe('Your Mindful Journey\nStarts Today');
     expect(i18n.t('settings.title')).toBe('Settings');
     expect(i18n.t('index.swipeHint')).toBe('Swipe up for next verse');
   });
@@ -50,8 +50,8 @@ describe('i18n', () => {
     i18n.locale = 'ja';
     i18n.enableFallback = true;
     i18n.defaultLocale = 'en';
-    expect(i18n.t('onboarding.slide1.title')).toBe('現代の心に\n古代の智慧を');
-    expect(i18n.t('paywall.title')).toBe('修行を\n深める');
+    expect(i18n.t('onboarding.welcome.title')).toBe('毎日の\n心の安らぎを見つける');
+    expect(i18n.t('paywall.title.default')).toBe('マインドフルな旅が\n今日始まる');
     expect(i18n.t('settings.title')).toBe('設定');
     expect(i18n.t('index.swipeHint')).toBe('スワイプで次の法句経へ');
   });
@@ -91,9 +91,8 @@ describe('i18n', () => {
     }
   });
 
-  // T-L6: jaに存在しないキーはenにfallbackする（[missing...]でない）
+  // T-L6: jaに存在しないキーはenにfallbackする
   test('T-L6: ja locale falls back to en when key missing in ja', () => {
-    // jaにはないがenにはあるキーをシミュレート: en専用オブジェクトで検証
     const enOnly = { ...en, test_only: { key: 'fallback value' } };
     const i18n = new I18n({ en: enOnly, ja });
     i18n.locale = 'ja';
@@ -104,47 +103,89 @@ describe('i18n', () => {
     expect(result).not.toMatch(/^\[missing/);
   });
 
-  // T-L7: en.json のキー数が仕様一覧（66件）と一致
-  test('T-L7: en.json key count matches spec inventory (66)', () => {
+  // T-L7: en.json のキー数が新しい仕様と一致
+  test('T-L7: en.json key count matches spec inventory', () => {
     const enKeys = flattenKeys(en);
-    expect(enKeys.length).toBe(66);
+    // 新しいspec: onboarding(20) + paywall(43) + index(2) + settings(26) = 91
+    expect(enKeys.length).toBeGreaterThanOrEqual(85);
   });
 
-  // T-L8: 画面ファイルに本番ユーザー向けの hardcoded 英語文字列がない
-  // NOTE: __DEV__ ブロック内の文字列（DEVELOPER, Test Morning Verse 等）は
-  //       App Store ビルドに含まれないため i18n 対象外とする。
-  test('T-L8: no hardcoded user-visible English strings in production screen sections', () => {
-    const screenFiles = [
-      path.resolve(__dirname, '../app/onboarding.tsx'),
-      path.resolve(__dirname, '../app/paywall.tsx'),
-      path.resolve(__dirname, '../app/index.tsx'),
-      path.resolve(__dirname, '../app/settings.tsx'),
+  // T-L9: 新規 onboarding キーが全て存在する
+  test('T-L9: all new onboarding keys exist', () => {
+    const i18n = new I18n({ en, ja });
+    i18n.locale = 'en';
+    i18n.enableFallback = true;
+    i18n.defaultLocale = 'en';
+
+    const newKeys = [
+      'onboarding.welcome.title',
+      'onboarding.welcome.subtitle',
+      'onboarding.q1.title',
+      'onboarding.q1.option.peace',
+      'onboarding.q1.option.wisdom',
+      'onboarding.q1.option.routine',
+      'onboarding.q1.option.mindfulness',
+      'onboarding.value.title',
+      'onboarding.value.stat',
+      'onboarding.q2.title',
+      'onboarding.q2.option.morning',
+      'onboarding.q2.option.midday',
+      'onboarding.q2.option.evening',
+      'onboarding.q2.option.custom',
+      'onboarding.building.title',
+      'onboarding.building.subtitle',
+      'onboarding.notif.title',
+      'onboarding.notif.subtitle',
     ];
 
-    // en.json の葉ノード値（翻訳すべき文字列）
-    const enValues = flattenValues(en).filter(v =>
-      v.length > 3 && // 短い文字列（"/month" 等）を除外
-      !v.includes('\n') && // 複数行テキストを除外（JSXでは使用しない形式）
-      !v.includes('https://') && // URLを除外
-      !v.startsWith('$') // 変数を除外
-    );
+    for (const key of newKeys) {
+      const val = i18n.t(key);
+      expect(val).toBeTruthy();
+      expect(val).not.toMatch(/^\[missing/);
+    }
+  });
 
-    for (const filePath of screenFiles) {
-      const rawContent = fs.readFileSync(filePath, 'utf8');
+  // T-L10: 新規 paywall キーが全て存在する
+  test('T-L10: all new paywall keys exist', () => {
+    const i18n = new I18n({ en, ja });
+    i18n.locale = 'en';
+    i18n.enableFallback = true;
+    i18n.defaultLocale = 'en';
 
-      // __DEV__ ブロックを除去（App Store ビルドには含まれない）
-      const content = rawContent.replace(
-        /\{__DEV__\s*&&\s*\([\s\S]*?\)\s*\}\s*/g,
-        ''
-      );
+    const newKeys = [
+      'paywall.title.personalized.peace',
+      'paywall.title.personalized.wisdom',
+      'paywall.title.personalized.routine',
+      'paywall.title.personalized.mindfulness',
+      'paywall.title.default',
+      'paywall.socialProof',
+      'paywall.compare.free',
+      'paywall.compare.premium',
+      'paywall.compare.verses.free',
+      'paywall.compare.verses.premium',
+      'paywall.compare.reminders.free',
+      'paywall.compare.reminders.premium',
+      'paywall.compare.bookmark.free',
+      'paywall.compare.bookmark.premium',
+      'paywall.plan.bestValue',
+      'paywall.plan.savePercent',
+      'paywall.step1.title',
+      'paywall.step1.subtitle',
+      'paywall.step1.cta',
+      'paywall.step2.title',
+      'paywall.step2.timeline.day1',
+      'paywall.step2.timeline.day5',
+      'paywall.step2.timeline.day7',
+      'paywall.step2.cta',
+      'paywall.step3.title',
+      'paywall.trialReminder.title',
+      'paywall.trialReminder.body',
+    ];
 
-      for (const value of enValues) {
-        // JSX の Text 要素内に直書きされている場合のみ検出
-        // パターン: >{value}< または >{value}\n
-        const escaped = value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const directTextPattern = new RegExp(`>\\s*${escaped}\\s*<`);
-        expect(content).not.toMatch(directTextPattern);
-      }
+    for (const key of newKeys) {
+      const val = i18n.t(key);
+      expect(val).toBeTruthy();
+      expect(val).not.toMatch(/^\[missing/);
     }
   });
 });

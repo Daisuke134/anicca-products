@@ -1,52 +1,107 @@
 {
   "onboarding": {
-    "slide1": {
-      "title": "Ancient wisdom for\nmodern minds",
-      "subtitle": "Find peace in the timeless teachings\nof the Dhammapada"
+    "welcome": {
+      "title": "Find Your Daily\nMoment of Peace",
+      "subtitle": "Ancient wisdom, personalized for you"
     },
-    "slide2": {
-      "title": "Daily verses on\nyour lock screen",
-      "subtitle": "Start each day with wisdom\nthat transforms your perspective"
+    "q1": {
+      "title": "What brings you here?",
+      "option": {
+        "peace": "Inner peace",
+        "wisdom": "Daily wisdom",
+        "routine": "Morning routine",
+        "mindfulness": "Mindfulness"
+      }
     },
-    "slide3": {
-      "title": "Stay mindful each day",
-      "subtitle": "By enabling notifications, you agree to receive daily morning wisdom verses and mindfulness reminders throughout the day.\n\nYou can disable these anytime in Settings."
+    "value": {
+      "title": "You're in good company",
+      "stat": "10,000+ people start each day\nwith ancient wisdom"
+    },
+    "q2": {
+      "title": "When would you like\nyour daily wisdom?",
+      "option": {
+        "morning": "Morning",
+        "midday": "Midday",
+        "evening": "Evening",
+        "custom": "Custom time"
+      }
+    },
+    "building": {
+      "title": "Creating your practice...",
+      "subtitle": "Personalizing your daily wisdom"
+    },
+    "notif": {
+      "title": "Never miss your\ndaily wisdom",
+      "subtitle": "Get a gentle reminder at your preferred time"
     },
     "continue": "Continue",
     "enableNotifications": "Enable Notifications",
     "skip": "Skip"
   },
   "paywall": {
-    "title": "Deepen Your\nPractice",
-    "subtitle": "Unlock more verses and reminders",
-    "feature": {
+    "title": {
+      "personalized": {
+        "peace": "Your Path to\nInner Peace",
+        "wisdom": "Your Daily Wisdom\nAwaits",
+        "routine": "Your Morning\nRitual is Ready",
+        "mindfulness": "Your Mindful Journey\nStarts Today"
+      },
+      "default": "Your Mindful Journey\nStarts Today"
+    },
+    "socialProof": "Join 10,000+ mindful practitioners",
+    "compare": {
+      "free": "Free",
+      "premium": "Premium",
       "verses": {
-        "title": "Premium Verses",
-        "desc": "Unlock many more Dhammapada teachings"
+        "free": "10 verses",
+        "premium": "All 423 verses"
       },
       "reminders": {
-        "title": "More Reminders",
-        "desc": "Up to 10 mindfulness moments per day"
+        "free": "3x / day",
+        "premium": "Up to 10x / day"
       },
       "bookmark": {
-        "title": "Bookmarking",
-        "desc": "Save your favorite verses"
+        "free": "—",
+        "premium": "Unlimited"
       }
     },
     "plan": {
       "monthly": "Monthly",
       "yearly": "Yearly",
       "perMonth": "/month",
-      "perYear": "/year"
+      "perYear": "/year",
+      "bestValue": "BEST VALUE",
+      "savePercent": "Save {percent}%"
     },
-    "cta": "Subscribe Now",
-    "free": "Continue with Free",
+    "cta": "Start Free Trial",
+    "free": "Maybe later",
     "restore": "Restore Purchases",
     "restoring": "Restoring...",
     "loading": "Loading plans...",
     "terms": "Cancel anytime • Auto-renews unless cancelled",
     "termsOfUse": "Terms of Use",
     "privacyPolicy": "Privacy Policy",
+    "step1": {
+      "title": "Try Daily Dhamma\nfor free",
+      "subtitle": "We want you to experience the full power of ancient wisdom — at no cost",
+      "cta": "Continue"
+    },
+    "step2": {
+      "title": "We'll remind you\nbefore any charge",
+      "timeline": {
+        "day1": "Today — Start your free trial",
+        "day5": "Day 5 — We'll send you a reminder",
+        "day7": "Day 7 — Trial ends, subscription begins"
+      },
+      "cta": "Got it"
+    },
+    "step3": {
+      "title": "Choose your plan"
+    },
+    "trialReminder": {
+      "title": "Your trial ends tomorrow",
+      "body": "Your Daily Dhamma free trial ends tomorrow. Cancel anytime in Settings."
+    },
     "alert": {
       "error": {
         "title": "Error",
