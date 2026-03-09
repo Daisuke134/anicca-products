@@ -26,7 +26,7 @@ Welcome → Struggles → LiveDemo → Notifications → [Paywall: single fullSc
 | 5 | ゴール設定がない | コミットメント・一貫性の心理原則を活用していない |
 | 6 | ソーシャルプルーフが弱い | Welcome に「Join thousands」のみ。具体的数字・パーソナライズなし |
 | 7 | 通知許可の動機付けが弱い | なぜ通知が必要かの価値説明が不十分 |
-| 8 | Exit Offer なし | ペイウォール離脱ユーザーの回収手段がない |
+| 8 | Drawer Offer なし | ペイウォール離脱ユーザーの回収手段がない |
 
 ### 改善後フロー（12ステップ + 3ステップペイウォール）
 
@@ -57,7 +57,7 @@ Welcome → Struggles → LiveDemo → Notifications → [Paywall: single fullSc
 │  [9] Risk-Free Primer  「まず無料で試してください」                    │
 │  [10] Trial Timeline   Blinkistタイムライン（Day1→Day5通知→Day7課金） │
 │  [11] Plan Selection   プラン選択 + CTA                               │
-│  [12] [Exit Offer]     ×押下時のみ: 別オファー                        │
+│  [12] [Drawer Offer]     ×押下時のみ: 別オファー                        │
 │                                                                       │
 └───────────────────────────────────────────────────────────────────────┘
 ```
@@ -78,7 +78,7 @@ Welcome → Struggles → LiveDemo → Notifications → [Paywall: single fullSc
 | `Onboarding/PaywallPrimerStepView.swift` | Risk-Free Primer画面 |
 | `Onboarding/TrialTimelineStepView.swift` | Blinkistタイムライン画面 |
 | `Onboarding/PlanSelectionStepView.swift` | プラン選択画面（RevenueCat統合） |
-| `Onboarding/ExitOfferView.swift` | Exit Offer モーダル |
+| `Onboarding/DrawerOfferView.swift` | Drawer Offer モーダル |
 
 ### 既存変更
 
@@ -349,17 +349,22 @@ Welcome → Struggles → LiveDemo → Notifications → [Paywall: single fullSc
 - `Purchases.shared.purchase(package:)` で購入実行
 - 既存の `handlePaywallSuccess` / `handlePaywallDismissedAsFree` を再利用
 
-### Step 12: Exit Offer（×ボタン押下時のみ）
+### Step 12: Drawer Offer（×ボタン押下時のみ）
 
-**ファイル:** `ExitOfferView.swift`
+**ファイル:** `DrawerOfferView.swift`
+
+> **注意:** Drawer Offer（モーダル）は Apple Guideline 5.6 でリジェクト事例あり（RevenueCat 2026/03）。
+> 代わりに Drawer戦略（自然なスライドアップ）を採用。
 
 | 要素 | 内容 |
 |------|------|
 | 表示条件 | PlanSelection の×ボタン押下時 |
-| タイトル | 「Not ready to commit?」 |
-| サブタイトル | 「Try Anicca free for 3 days first.」 |
-| CTA | 「Start 3-Day Free Trial」 |
+| UIパターン | 画面下部からスライドアップ（`.sheet` ではなくカスタムDrawer） |
+| タイトル | 「Not ready for a year?」 |
+| サブタイトル | 年額を週額に換算: 「That's just $0.96/week — less than a cup of coffee」 |
+| CTA | 「Start Free Trial」 |
 | Skip | 「Maybe later」（フリープランで完了） |
+| **禁止** | 大幅値引き表示（ブランド価値低下防止。値引きはイベント限定） |
 
 ---
 
@@ -397,7 +402,7 @@ enum PaywallStep: Int {
 1. `switch step` を12ケース対応に
 2. `OnboardingProgressBar` を全ステップ（ペイウォール除く）で表示
 3. ペイウォール部分を `fullScreenCover` から画面内遷移に変更（3ステップシーケンス）
-4. Exit Offer を `sheet` で表示
+4. Drawer Offer を `sheet` で表示
 5. `advance()` メソッドを12ステップ対応に
 
 ---
@@ -438,9 +443,9 @@ enum PaywallStep: Int {
 | `onboarding_paywall_plan_viewed` | Paywall Step 3 表示 |
 | `onboarding_paywall_purchased` | 購入完了 |
 | `onboarding_paywall_dismissed_free` | ×ボタン → フリー |
-| `onboarding_exit_offer_shown` | Exit Offer 表示 |
-| `onboarding_exit_offer_accepted` | Exit Offer 受諾 |
-| `onboarding_exit_offer_declined` | Exit Offer 拒否 |
+| `onboarding_drawer_offer_shown` | Drawer Offer 表示 |
+| `onboarding_drawer_offer_accepted` | Drawer Offer 受諾 |
+| `onboarding_drawer_offer_declined` | Drawer Offer 拒否 |
 | `onboarding_completed` | 全フロー完了 |
 
 ---
@@ -500,9 +505,9 @@ var struggleFrequency: String? // 頻度（"daily", "several", "weekly", "occasi
 | フロー | 内容 |
 |--------|------|
 | `onboarding_full_flow.yaml` | 12ステップ完走 → 購入 |
-| `onboarding_free_user.yaml` | 12ステップ → ペイウォール×→ Exit Offer → Maybe later |
+| `onboarding_free_user.yaml` | 12ステップ → ペイウォール×→ Drawer Offer → Maybe later |
 | `onboarding_existing_user.yaml` | Sign In with Apple → スキップ |
-| `onboarding_exit_offer.yaml` | ペイウォール× → Exit Offer → 3日トライアル |
+| `onboarding_drawer_offer.yaml` | ペイウォール× → Drawer Offer → 3日トライアル |
 
 ---
 
@@ -512,7 +517,7 @@ var struggleFrequency: String? // 頻度（"daily", "several", "weekly", "occasi
 |-------|------|------|
 | **Phase A** | `OnboardingStep` enum 拡張 + `OnboardingProgressBar` + `OnboardingFlowView` スケルトン | なし |
 | **Phase B** | 新規ステップView 5つ（StruggleDepth, Goals, PersonalizedInsight, ValueProp）| Phase A |
-| **Phase C** | 3ステップペイウォール（Primer, Timeline, PlanSelection）+ Exit Offer | Phase A |
+| **Phase C** | 3ステップペイウォール（Primer, Timeline, PlanSelection）+ Drawer Offer | Phase A |
 | **Phase D** | 既存ステップ改善（Welcome, Struggles, Demo, Notifications コピー変更）| Phase A |
 | **Phase E** | ローカライズ（EN/JA全キー） | Phase B, C, D |
 | **Phase F** | アナリティクス全イベント追加 | Phase B, C, D |

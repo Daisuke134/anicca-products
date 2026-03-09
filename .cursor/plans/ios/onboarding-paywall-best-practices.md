@@ -280,6 +280,74 @@
 
 ---
 
+---
+
+## 13. Hook Model（Nir Eyal「Hooked」）
+
+| ステップ | 内容 | Anicca での実装 |
+|---------|------|----------------|
+| **1. Trigger** | External: 通知。Internal: 感情（不安、退屈） | Nudge通知 (9am/2pm/8pm) = External → 習慣化後は Internal |
+| **2. Action** | 最小限の努力で実行可能に | Nudge への返答を1タップに |
+| **3. Variable Reward** | 予測不能な報酬 → ドーパミン | 毎回異なるNudge内容、パーソナライズドインサイト |
+| **4. Investment** | ユーザーが時間/データを投入 → 次のTriggerを生成 | プロフィール入力、振り返り、好み学習 |
+
+> Source: Nir Eyal "Hooked: How to Build Habit-Forming Products"
+
+---
+
+## 14. トップアプリのオンボーディング分析
+
+| アプリ | ステップ数 | 核心戦略 | ペイウォール | ソース |
+|--------|----------|---------|------------|--------|
+| **Headspace** | 87 | 各ステップ超軽量。実際の瞑想体験を組込み | 体験後 | UserOnboard |
+| **Duolingo** | 77 | **サインアップ前に価値提供**。登録前にレッスン体験 | フリーミアム（Streak/ハート） | UserOnboard |
+| **Calm** | 15-20 | 悩み選択 → パーソナライズ推奨 → 価値提示 | オンボ後 | 業界分析 |
+| **Noom** | 30+ | 多段階質問（会話のように感じる微細ステップ） | オンボ後 | 業界分析 |
+| **Clear 30** | 7 | 目標→社会的証明→ペインポイント→ソリューション | オンボ後 | Superwall ($10K→$30K/月) |
+| **Blinkist** | 10-15 | タイムライン型ペイウォール | オンボ後 | RevenueCat (+23% CV) |
+
+**共通パターン:** 全て「体験/パーソナライズ → ペイウォール」の順。ペイウォールを先に出すアプリは**ゼロ**。
+
+---
+
+## 15. Exit Offer / Drawer戦略の注意点
+
+| 戦略 | iOS | Android | ソース |
+|------|-----|---------|--------|
+| **Exit Offer**（×押下でモーダル） | **中リスク** — Apple Guideline 5.6 でリジェクト事例あり | OK | RevenueCat 2026/03 |
+| **Drawer戦略**（段階的オファー） | **低リスク** — 自然な流れなら | OK | Superwall Jonathan Parra |
+
+**iOSでの推奨:**
+- Exit Offer（攻撃的なモーダル）→ **避ける**
+- Drawer戦略（×押下後にスライドアップで「年額の準備できない？週額はどう？」）→ **採用**
+- 最終段階で25-33%ディスカウント → **イベント限定のみ**（ブランド価値低下防止）
+
+---
+
+## 16. コスト透明性テクニック
+
+| テクニック | 効果 | ソース |
+|----------|------|--------|
+| オンボーディング中にアプリが有料であることを伝える | **+3% CV** | Clear 30 |
+| 習慣コスト vs アプリコストの対比 | 価格抵抗を大幅軽減 | Clear 30 |
+
+> 核心引用: 「If people are really upset and asking why they have to pay for your app after going through your onboarding, you're doing something wrong」 — Thatcher Kloff, Clear 30
+
+---
+
+## 17. Demand Score（ユーザーインテントスコアリング、v2以降）
+
+| 項目 | 内容 |
+|------|------|
+| 概要 | Superwallがユーザーごとに1-100のスコア付与（購入意思） |
+| データソース | デバイスモデル、OS版、デバイス年齢、国、接続タイプ、起動回数 |
+| 活用法 | スコア70+→年額直見せ、30-60→長めトライアル/低価格帯 |
+| 重要発見 | スコア75以下で課金失敗が急増 |
+
+> **v1では不要。** Superwall SDK統合はv2以降で検討。
+
+---
+
 > **Value Equation (Superwall/Clear 30):**
 > `Dream Outcome × Likelihood of Achievement / (Time Delay + Effort + Sacrifice)`
 >
