@@ -13,6 +13,24 @@
 | Maestro btn off-screen | `tapOn: id: "btn_maybe_later"` の前に `- scroll` 必須。ボタンがfold下にある場合、Maestroの自動スクロールは動作しない |
 | PaywallView完了 | `@AppStorage("hasCompletedOnboarding")` をPaywallView直接に持ち、`hasCompletedOnboarding = true` でナビゲーション。callbackチェーンは不安定 |
 | WorkoutLogView | elapsed=0でも sheet を表示する（guard条件削除）。E2Eテストでstop直後はelapsed=0になる |
+| iOS26+ UserDefaults | `xcrun simctl uninstall` でもUserDefaultsが消去されない。`xcrun simctl spawn $UDID defaults write $BUNDLE_ID key -bool false` で手動リセット必須 |
+| Onboarding reset | スクショ撮り直しは uninstall+install だけでは不十分。`defaults write hasCompletedOnboarding -bool false` が必要 |
+
+---
+
+## 2026-03-09 - US-008a: Screenshots (capture + upload + review screenshot)
+
+- en-US 4枚 + ja 4枚 asc screenshots run で撮影・ASCアップロード完了 (displayType: APP_IPHONE_67)
+- MD5 mismatch確認: en≠ja PASS (screen1, screen4 両方)
+- Review screenshot (Paywall画面) → Monthly + Annual にアップロード完了
+- Files: .asc/screenshots.json, .asc/screenshots-ja.json, .asc/review-screenshots.json, screenshots/raw-69/
+
+**Learnings for future iterations:**
+- iOS 26+ で `xcrun simctl uninstall` はUserDefaultsを消去しない → `defaults write key -bool false` で手動リセット
+- `asc screenshots run --plan` の `launch` action で onboarding state がリセットされない → 事前にdefaults writeが必須
+- Paywall画面はプロダクトページに含めない (Fix #1)。review-screenshots.jsonで別途撮影
+- IPHONE_69でアップロード → ASCは APP_IPHONE_67 にマッピング（正常動作）
+- VERSION_ID=09c6d80a, EN_LOC_ID=7b9bd1ba, JA_LOC_ID=3f1547f4, UDID_69=1D9F5D85
 
 ---
 

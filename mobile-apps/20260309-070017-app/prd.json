@@ -207,8 +207,8 @@
         "Subscription review screenshots uploaded for Monthly + Annual"
       ],
       "priority": 8.1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "en-US 4枚 + ja 4枚 アップロード完了(IPHONE_69/APP_IPHONE_67)。MD5 mismatch確認済み。Review screenshot(paywall)をMonthly/Annualにアップロード完了。UDID_69=1D9F5D85、VERSION_ID=09c6d80a、EN_LOC_ID=7b9bd1ba、JA_LOC_ID=3f1547f4。iOS26+ uninstallでUserDefaults不消去 → defaults write key -bool false で回避。"
     },
     {
       "id": "US-008b",
