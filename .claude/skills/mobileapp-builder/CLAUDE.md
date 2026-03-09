@@ -52,7 +52,7 @@ curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '
 | 17 | **Mixpanel 禁止**。アナリティクス SDK は一切入れない。Greenlight が tracking SDK 検出 = CRITICAL |
 | 18 | **screenshot-creator スキル使用禁止**。Koubou（`asc screenshots frame`）のみ |
 | 19 | **`ASC_BYPASS_KEYCHAIN=true` は絶対禁止。** iris session は US-005a Step 4.9 で管理する。`security unlock-keychain` + `unset ASC_BYPASS_KEYCHAIN` を使うこと |
-| 20 | **オンボーディング最終画面はソフトペイウォール必須**。自前 SwiftUI PaywallView + Purchases.shared.purchase(package:)。RevenueCatUI 禁止。[Maybe Later] で閉じれる |
+| 20 | **オンボーディング最終画面はソフトペイウォール必須**。自前 SwiftUI PaywallView + Purchases.shared.purchase(package:)。RevenueCatUI 禁止。[Maybe Later] で閉じれる。Paywall はオンボーディング直後に配置（100% visibility rate 確保）。Source: https://appagent.com/blog/mobile-app-onboarding-5-paywall-optimization-strategies/ — 「Ensure that most existing users see the paywall by placing it immediately after the onboarding process」 |
 | 20b | **ATT 禁止**。AppTrackingTransparency / NSUserTrackingUsageDescription は使わない。スクショに ATT ダイアログが写り込む |
 | 21 | **1 iteration = 1 US（HARD STOP）**。1つのUSを `passes: true` にしたら、**その瞬間に作業を終了**する。次のUSに手を出すな。progress.txt を更新して終了。ralph.sh が次の iteration を起動する。これは提案ではなく**絶対ルール**。違反するとトークンが無駄になる（validate.sh は1USしか検証しない）。500ターン超過も即停止 |
 | 22 | **バックグラウンドタスク禁止（Task ツール）**。`Task` で長時間コマンドをバックグラウンド実行すると、--print モードのexit を妨げる。全コマンドは同期実行（Bash）で実行し、Task を使わない。find/grep等の探索は Bash で直接実行する |

@@ -131,23 +131,31 @@ Phase 3: Execution（IMPLEMENTATION_GUIDE.md + TEST_SPEC.md + RELEASE_SPEC.md）
 Source: https://blog.funnelfox.com/effective-paywall-screen-designs-mobile-apps/
 Source: https://adapty.io/blog/how-to-design-ios-paywall/
 Source: https://appagent.com/blog/mobile-app-onboarding-5-paywall-optimization-strategies/
+Source: https://www.businessofapps.com/data/app-subscription-trial-benchmarks/ (2026-03-09 updated)
 
 | Element | Requirement | Conversion Impact | Source |
 |---------|------------|-------------------|--------|
-| **Pricing Plans** | 3 plans minimum (weekly + monthly + annual) | 3 products vs 2: +44% | Adapty iOS Paywall Guide |
+| **Pricing Plans** | 2-3 plans (monthly + annual OR weekly + monthly + annual) | 2 products vs 1: +61%; 3 products vs 2: +44% | Adapty iOS Paywall Guide (2026) |
+| **Dynamic Segmentation** | Serve different paywall experiences based on user segments, behavior, time | +35% higher conversion vs static | Adapty iOS Paywall Guide (2026-01-03) |
+| **Personalization** | Add user's name to paywall copy ("John, unlock your premium features") | +17% | Adapty iOS Paywall Guide (2026) |
 | **Discount Badge** | "Save 50%" badge + strikethrough original price | +20% to +30% | Adapty iOS Paywall Guide |
 | **CTA Copy** | Benefit-driven ("Start my plan" / "Unlock full access") NOT generic ("Subscribe") | Outperforms generic CTAs | Funnelfox Paywall Guide |
-| **Paywall Placement** | Immediately after onboarding (100% visibility rate) | Up to +234% | Appagent Paywall Optimization |
+| **Paywall Placement** | Immediately after onboarding (100% visibility rate) | Up to +234% | Appagent Paywall Optimization (2024-02-26) |
 | **Paywall Length** | Long-form with benefits + FAQ + social proof | Up to 12× revenue | Appagent Paywall Optimization |
 | **Social Proof** | Include review count, average rating, user testimonials | Boosts credibility | Funnelfox Paywall Guide |
-| **Animation** | Add subtle motion on CTAs, benefit carousels | 2.9× higher conversion | Adapty iOS Paywall Guide |
-| **Message Consistency** | Ad → Onboarding → Paywall must use same tone, visuals, promise | Increases conversions | Funnelfox Paywall Guide |
+| **Animation** | Add subtle motion on CTAs, benefit carousels, countdown timers | Animated vs static: 2.9× higher; Strategic animation: +12-18% | Adapty iOS Paywall Guide (2026) |
+| **Message Consistency** | Ad → Onboarding → Paywall must use same tone, visuals, promise | Increases conversions | Funnelfox Paywall Guide (2025-12-02) |
+| **Trial Timeline Visualization** | Visual timeline showing what happens during and after trial period | Apple-endorsed pattern, reduces refund requests | Adapty iOS Paywall Guide (2026) |
+| **Day 1 Trial Trigger** | 78% of users start trial in first week; majority convert day 1 | Prioritize day 1 paywall visibility | Business of Apps Trial Benchmarks (2026) |
+| **Regional A/B Testing** | Conduct regular A/B tests by region to capture cultural nuances | Improves regional conversion | RevenueCat Paywall Guide (2025-11-21) |
 
 **Mandatory Paywall Elements:**
 1. Clear headline reflecting value (not feature list)
-2. 3-5 bullet points of specific benefits (tangible outcomes)
-3. Pricing grid: highlight "Best Value" / "Most Popular"
+2. 3-5 bullet points of specific benefits (tangible outcomes, not features)
+3. Pricing grid: 2-3 tiers, highlight "Best Value" / "Most Popular"
 4. Discount percentage visible ("Save 50%")
+5. Visual trial timeline showing when billing starts
+6. "Cancel anytime" reassurance near CTA
 5. Benefit-driven CTA button
 6. FAQ section (billing details, cancellation policy)
 7. Social proof (review count, rating, testimonials)
