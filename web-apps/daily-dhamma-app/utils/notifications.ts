@@ -143,6 +143,53 @@ export async function scheduleStayPresentNotifications(frequency: number, isPrem
   console.log('[Notifications] Stay present notifications scheduled');
 }
 
+export async function scheduleTrialReminder() {
+  if (Platform.OS === 'web') {
+    console.log('[Notifications] Web platform - skipping trial reminder');
+    return;
+  }
+
+  console.log('[Notifications] Scheduling trial reminder for Day 5');
+
+  // Cancel existing trial reminders
+  const existingNotifications = await Notifications.getAllScheduledNotificationsAsync();
+  const trialReminderIds = existingNotifications
+    .filter(n => n.identifier.startsWith('trial-reminder'))
+    .map(n => n.identifier);
+
+  for (const id of trialReminderIds) {
+    await Notifications.cancelScheduledNotificationAsync(id);
+  }
+
+  // Schedule Day 5 reminder
+  const triggerDate = new Date();
+  triggerDate.setDate(triggerDate.getDate() + 5);
+  triggerDate.setHours(10, 0, 0, 0);
+
+  const locale = getDeviceLocale();
+  const lang = locale.toLowerCase().split('-')[0];
+  const title = lang === 'ja'
+    ? 'トライアルは明日終了します'
+    : 'Your trial ends tomorrow';
+  const body = lang === 'ja'
+    ? 'Daily Dhammaの無料トライアルは明日終了します。設定からいつでもキャンセルできます。'
+    : 'Your Daily Dhamma free trial ends tomorrow. Cancel anytime in Settings.';
+
+  await Notifications.scheduleNotificationAsync({
+    identifier: 'trial-reminder-day5',
+    content: {
+      title,
+      body,
+    },
+    trigger: {
+      type: Notifications.SchedulableTriggerInputTypes.DATE,
+      date: triggerDate,
+    },
+  });
+
+  console.log('[Notifications] Trial reminder scheduled for', triggerDate.toISOString());
+}
+
 export async function cancelAllNotifications() {
   if (Platform.OS === 'web') return;
 
