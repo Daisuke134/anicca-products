@@ -122,8 +122,8 @@
         "Typecheck passes"
       ],
       "priority": 6.1,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "zone2dailyios/ 作成。xcodegen + RevenueCat SPM 5.61.0。xcconfig Debug/Release でRC_API_KEY管理（gitignore済み）。SubscriptionService: Protocol DI + isConfigured guard実装。Zone2Calculator(Maffetone), NotificationService, WorkoutSession/UserProfile SwiftData Models完成。Tests: 32/32 PASS。Greenlight CRITICAL=0。BUILD SUCCEEDED。"
     },
     {
       "id": "US-006b",

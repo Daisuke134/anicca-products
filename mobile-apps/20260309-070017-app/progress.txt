@@ -1,3 +1,26 @@
+## 2026-03-09 - US-006a: TDD Data Layer (xcconfig + Protocol DI + Models + Services)
+
+- zone2dailyios/ iOS プロジェクト作成 (xcodegen v5.x + RevenueCat SPM 5.61.0)
+- xcconfig: Debug.xcconfig / Release.xcconfig で RC_API_KEY 管理 (gitignored)
+- Models: WorkoutSession.swift (SwiftData @Model), UserProfile.swift (Maffetone zone2MaxHR/zone2MinHR)
+- Services: Zone2Calculator (pure fn, Maffetone 180-age), SubscriptionService (Protocol DI + isConfigured guard), NotificationService (actor, UNCalendarNotificationTrigger)
+- ViewModels: DashboardViewModel (@Observable, dateInterval weekOfYear fix), WorkoutViewModel, OnboardingViewModel
+- Views: 全スタブ実装 (MainTabView, Onboarding/*, Dashboard, Workout, Settings, PaywallView)
+- DesignSystem: Colors.swift (9 token + ShapeStyle extension), Typography, Spacing (4pt grid)
+- Assets: 1024x1024 アイコン生成 (Python/PIL), Color assets 9セット
+- PrivacyInfo.xcprivacy: CA92.1 (NSPrivacyAccessedAPICategoryUserDefaults)
+- Tests: 32 tests PASS (0 failures) — Zone2Calculator 9, WorkoutSession 6, DashboardViewModel 10, UserProfile 4, WorkoutViewModel 3
+- Greenlight: CRITICAL=0, PASS
+- BUILD SUCCEEDED
+
+**Learnings for future iterations:**
+- `Purchases.Configuration.builder()` → RevenueCat 5.x では `Purchases.Configuration` は不在。`Purchases.configure(withAPIKey:)` をそのまま使う
+- `@_spi(Internal)` + `DangerousSettings(uiPreviewMode:)` は RC 5.x では使えない → シンプルに configure() のみ
+- xcodegen の `configFiles:` セクションで xcconfig を設定（`settings: XCCONFIG_FILE:` は無効）
+- Fastlane device は起動中のシミュレータ名と一致させる必須（iPhone 16 Pro → iPhone 17 Pro）
+- Color extension に `ShapeStyle where Self == Color` の extension も追加しないと View で `.brandPrimary` が使えない
+---
+
 ## 2026-03-09 - US-005b: IAP + Pricing + RevenueCat Setup
 
 - 3プラン作成: Weekly($1.99/週), Monthly($4.99/月), Annual($29.99/年)
