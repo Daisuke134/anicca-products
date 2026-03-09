@@ -108,8 +108,8 @@
         "Typecheck passes"
       ],
       "priority": 5.5,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "GROUP_ID=21968001。3プラン作成: WEEKLY_ID=6760273120($1.99), MONTHLY_ID=6760273065($4.99), ANNUAL_ID=6760273121($29.99)。全37言語ローカリゼーション完了。175テリトリー availability + pricing 設定完了(weekly:174+USA, monthly:174+USA, annual:174+USA)。RC: project=proj8f8e55dc, app=app6ce1e68b1b, 3 products + 1 offering(default) + 1 entitlement(premium)。RC_IOS_PUBLIC_KEY=appl_PyWBfWiUnXVPIGciQLoMPcsYZkT。SPM + Typecheck はUS-006aで実施(ref Step 7.6)。"
     },
     {
       "id": "US-006a",

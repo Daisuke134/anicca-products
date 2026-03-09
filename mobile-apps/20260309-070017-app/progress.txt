@@ -1,3 +1,26 @@
+## 2026-03-09 - US-005b: IAP + Pricing + RevenueCat Setup
+
+- 3プラン作成: Weekly($1.99/週), Monthly($4.99/月), Annual($29.99/年)
+- グループ: GROUP_ID=21968001 "Zone2Daily Premium"
+- 全37言語ローカリゼーション完了（グループ + 3サブスク）
+- availability: 175テリトリー × 3プラン 設定完了
+- pricing: equalization API → CSV → `prices import`で174カ国 + USA追加（各プラン failed=0）
+- RC Project: proj8f8e55dc, RC App: app6ce1e68b1b
+- RC Products: weekly(prod1ad932420f), monthly(prod3f033260f7), annual(prod51e67b6fad)
+- RC Offering: ofrng6d2e8970cc (lookup_key=default)
+- RC Entitlement: entld47a18e943 (premium) → 全3Product紐付け完了
+- RC_IOS_PUBLIC_KEY: appl_PyWBfWiUnXVPIGciQLoMPcsYZkT
+- SPM + Typecheck: US-006aで実施（ref Step 7.6 に従いスキップ）
+- Files changed: .env, prd.json, progress.txt
+
+**Learnings for future iterations:**
+- `for LOCALE in $LOCALES` はシェル変数展開で全LOCALESが1引数になる。必ず `for LOCALE in ar-SA ca cs...` と直接列挙すること
+- `PROD_ID=$([ cond ] && echo A || [ cond ] && echo B || echo C)` パターンはループで変数が残留しやすい → 各ループで個別に変数を直接使うこと
+- availability の設定後に pricing を設定（逆順は Apple API 500）
+- equalization CSV に USA は含まれない → `asc subscriptions prices add --territory USA` で別途追加必須
+- RC Public Key は App 作成直後に自動生成（Products/Offerings 前に取得可能）
+---
+
 ## 2026-03-09 - US-005a: Privacy Policy + ASC App Creation
 
 - Privacy Policy: https://aniccaai.com/privacy（既存URL使用、カスタムホスティング不要）
