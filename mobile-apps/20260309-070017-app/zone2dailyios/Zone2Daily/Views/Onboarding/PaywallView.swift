@@ -18,6 +18,7 @@ struct PaywallView: View {
     @State private var errorMessage: String?
     @State private var isRestoring = false
     @State private var isLoadingOfferings = true
+    @State private var restoreMessage: String?
 
     let subscriptionService: SubscriptionServiceProtocol
     /// Called when the user completes or skips the paywall (onboarding context only)
@@ -55,6 +56,14 @@ struct PaywallView: View {
             .padding()
         }
         .task { await loadPackages() }
+        .alert("Restore Purchases", isPresented: Binding(
+            get: { restoreMessage != nil },
+            set: { if !$0 { restoreMessage = nil } }
+        )) {
+            Button("OK") { restoreMessage = nil }
+        } message: {
+            Text(restoreMessage ?? "")
+        }
         .accessibilityIdentifier("screen_paywall")
     }
 
@@ -71,7 +80,7 @@ struct PaywallView: View {
                 .multilineTextAlignment(.center)
                 .accessibilityIdentifier("paywall_headline")
 
-            Text("Join thousands training smarter with Zone 2")
+            Text("Train smarter with Zone 2")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -99,8 +108,8 @@ struct PaywallView: View {
 
     private var socialProofSection: some View {
         HStack {
-            Image(systemName: "star.fill").foregroundStyle(.brandWarning)
-            Text("4.9 · 2,000+ athletes training in Zone 2")
+            Image(systemName: "heart.fill").foregroundStyle(.brandPrimary)
+            Text("Zone 2 is the #1 protocol for metabolic health")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
         }
@@ -164,7 +173,7 @@ struct PaywallView: View {
             Text("FAQ")
                 .font(.headline)
 
-            FAQRow(q: "When will I be charged?", a: "Your subscription starts after your free trial (if any). Cancel anytime.")
+            FAQRow(q: "When will I be charged?", a: "You will be charged when you subscribe. Cancel anytime in iOS Settings → Apple ID → Subscriptions.")
             FAQRow(q: "How do I cancel?", a: "Go to iOS Settings → Apple ID → Subscriptions → Zone2Daily.")
             FAQRow(q: "Does it work offline?", a: "Yes. All workout data is stored locally on your device.")
         }
@@ -224,8 +233,18 @@ struct PaywallView: View {
     private func restorePurchasesAction() async {
         isRestoring = true
         defer { isRestoring = false }
-        try? await subscriptionService.restorePurchases()
-        dismiss()
+        do {
+            try await subscriptionService.restorePurchases()
+            if subscriptionService.isPremium {
+                restoreMessage = "Purchases restored successfully!"
+                hasCompletedOnboarding = true
+                onComplete?()
+            } else {
+                restoreMessage = "No active subscription found."
+            }
+        } catch {
+            restoreMessage = "Restore failed. Please try again."
+        }
     }
 }
 
