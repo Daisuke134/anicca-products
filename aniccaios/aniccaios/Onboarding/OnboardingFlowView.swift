@@ -7,25 +7,62 @@ import StoreKit
 struct OnboardingFlowView: View {
     @EnvironmentObject private var appState: AppState
     @State private var step: OnboardingStep = .welcome
-    @State private var showPaywall = false
+    @State private var paywallStep: PaywallStep? = nil
+    @State private var showDrawer = false
     @State private var didPurchaseOnPaywall = false
 
     var body: some View {
         ZStack {
             AppBackground()
-            Group {
-                switch step {
-                case .welcome:
-                    WelcomeStepView(next: advance)
-                case .struggles:
-                    StrugglesStepView(next: advance)
-                case .liveDemo:
-                    DemoNudgeStepView(next: advance)
-                case .notifications:
-                    NotificationPermissionStepView(next: advance)
+
+            VStack(spacing: 0) {
+                // Progress bar — hidden during paywall steps
+                if paywallStep == nil {
+                    OnboardingProgressBar(step: step)
+                        .padding(.horizontal, 16)
+                        .padding(.top, 8)
+                }
+
+                Group {
+                    if let paywallStep {
+                        paywallContent(for: paywallStep)
+                    } else {
+                        onboardingContent(for: step)
+                    }
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+
+            // Drawer overlay
+            if showDrawer {
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        withAnimation(.spring(response: 0.3)) {
+                            showDrawer = false
+                        }
+                    }
+
+                VStack {
+                    Spacer()
+                    DrawerOfferView(
+                        weeklyPrice: weeklyPriceString,
+                        onStartTrial: {
+                            withAnimation(.spring(response: 0.3)) {
+                                showDrawer = false
+                            }
+                            // Go back to plan selection (user can purchase from there)
+                        },
+                        onSkip: {
+                            withAnimation(.spring(response: 0.3)) {
+                                showDrawer = false
+                            }
+                            handlePaywallDismissedAsFree()
+                        }
+                    )
+                    .transition(.move(edge: .bottom))
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .onAppear {
             step = appState.onboardingStep
@@ -50,39 +87,67 @@ struct OnboardingFlowView: View {
                 await SubscriptionManager.shared.refreshOfferings()
             }
         }
-        .fullScreenCover(isPresented: $showPaywall, onDismiss: {
-            if !didPurchaseOnPaywall {
-                handlePaywallDismissedAsFree()
-            }
-        }) {
-            ZStack(alignment: .topTrailing) {
-                paywallContent(displayCloseButton: false)
-                    .interactiveDismissDisabled(true)
-                    .onPurchaseCompleted { customerInfo in
-                        AnalyticsManager.shared.track(.onboardingPaywallPurchased)
-                        handlePaywallSuccess(customerInfo: customerInfo)
-                    }
-                    .onRestoreCompleted { customerInfo in
-                        if customerInfo.entitlements[AppConfig.revenueCatEntitlementId]?.isActive == true {
-                            handlePaywallSuccess(customerInfo: customerInfo)
-                        }
-                    }
-                    .onAppear {
-                        AnalyticsManager.shared.track(.onboardingPaywallViewed)
-                    }
+    }
 
-                Button { showPaywall = false } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: 28))
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(.gray, Color(.systemGray5))
-                }
-                .padding(.top, 16)
-                .padding(.trailing, 16)
-                .accessibilityIdentifier("paywall-close-button")
-            }
+    // MARK: - Onboarding Steps
+
+    @ViewBuilder
+    private func onboardingContent(for step: OnboardingStep) -> some View {
+        switch step {
+        case .welcome:
+            WelcomeStepView(next: advance)
+        case .struggles:
+            StrugglesStepView(next: advance)
+        case .struggleDepth:
+            StruggleDepthStepView(next: advance)
+        case .goals:
+            GoalsStepView(next: advance)
+        case .personalizedInsight:
+            PersonalizedInsightStepView(next: advance)
+        case .valueProp:
+            ValuePropStepView(next: advance)
+        case .liveDemo:
+            DemoNudgeStepView(next: advance)
+        case .notifications:
+            NotificationPermissionStepView(next: advance)
         }
     }
+
+    // MARK: - Paywall Steps
+
+    @ViewBuilder
+    private func paywallContent(for step: PaywallStep) -> some View {
+        switch step {
+        case .primer:
+            PaywallPrimerStepView(next: {
+                withAnimation {
+                    paywallStep = .timeline
+                }
+            })
+        case .timeline:
+            TrialTimelineStepView(next: {
+                withAnimation {
+                    paywallStep = .planSelection
+                }
+            })
+        case .planSelection:
+            PlanSelectionStepView(
+                onPurchaseSuccess: { customerInfo in
+                    handlePaywallSuccess(customerInfo: customerInfo)
+                },
+                onDismiss: {
+                    handlePaywallDismissedAsFree()
+                },
+                onShowDrawer: {
+                    withAnimation(.spring(response: 0.3)) {
+                        showDrawer = true
+                    }
+                }
+            )
+        }
+    }
+
+    // MARK: - Navigation
 
     private func advance() {
         switch step {
@@ -91,6 +156,14 @@ struct OnboardingFlowView: View {
             step = .struggles
         case .struggles:
             AnalyticsManager.shared.track(.onboardingStrugglesCompleted)
+            step = .struggleDepth
+        case .struggleDepth:
+            step = .goals
+        case .goals:
+            step = .personalizedInsight
+        case .personalizedInsight:
+            step = .valueProp
+        case .valueProp:
             step = .liveDemo
         case .liveDemo:
             AnalyticsManager.shared.track(.onboardingLiveDemoCompleted)
@@ -106,14 +179,16 @@ struct OnboardingFlowView: View {
     private func completeOnboarding() {
         AnalyticsManager.shared.track(.onboardingCompleted)
 
-        // 既存Proユーザー（再インストール等）→ Paywall スキップ
+        // Existing Pro user (reinstall etc.) → skip paywall
         if appState.subscriptionInfo.isEntitled {
             completeOnboardingForExistingPro()
             return
         }
 
-        // 未課金 → Paywall を表示
-        showPaywall = true
+        // Not subscribed → show 3-step paywall
+        withAnimation {
+            paywallStep = .primer
+        }
     }
 
     private func completeOnboardingForExistingPro() {
@@ -126,7 +201,6 @@ struct OnboardingFlowView: View {
 
     private func handlePaywallSuccess(customerInfo: CustomerInfo) {
         didPurchaseOnPaywall = true
-        showPaywall = false
         Task {
             appState.updateSubscriptionInfo(from: customerInfo)
             await ProblemNotificationScheduler.shared
@@ -159,14 +233,16 @@ struct OnboardingFlowView: View {
         appState.markReviewRequested()
     }
 
-    @ViewBuilder
-    private func paywallContent(displayCloseButton: Bool) -> some View {
-        if let offering = appState.cachedOffering {
-            PaywallView(offering: offering, displayCloseButton: displayCloseButton)
-                .applyDebugIntroEligibility()
-        } else {
-            PaywallView(displayCloseButton: displayCloseButton)
-                .applyDebugIntroEligibility()
+    // MARK: - Helpers
+
+    private var weeklyPriceString: String {
+        if let yearly = appState.cachedOffering?.availablePackages.first(where: { $0.packageType == .annual }) {
+            let weeklyPrice = yearly.storeProduct.price as Decimal / 52
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .currency
+            formatter.locale = yearly.storeProduct.priceFormatter?.locale ?? .current
+            return formatter.string(from: weeklyPrice as NSDecimalNumber) ?? yearly.localizedPriceString
         }
+        return "$0.96"
     }
 }

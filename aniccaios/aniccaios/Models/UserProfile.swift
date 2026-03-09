@@ -100,6 +100,10 @@ struct UserProfile: Codable {
     var nudgeIntensity: NudgeIntensity
     var stickyMode: Bool
 
+    // Onboarding v2: goals and struggle frequency
+    var goals: [String]
+    var struggleFrequency: String?
+
     // Phase 3: Proactive Agent
     var problemDetails: [String: [String]]  // 深掘り回答（問題ID: 選択した選択肢）
     var customProblems: [CustomProblem]      // カスタム課題
@@ -139,6 +143,8 @@ struct UserProfile: Codable {
         summary: String = "",
         nudgeIntensity: NudgeIntensity = .default,
         stickyMode: Bool = true,
+        goals: [String] = [],
+        struggleFrequency: String? = nil,
         problemDetails: [String: [String]] = [:],
         customProblems: [CustomProblem] = []
     ) {
@@ -160,6 +166,8 @@ struct UserProfile: Codable {
         self.summary = summary
         self.nudgeIntensity = nudgeIntensity
         self.stickyMode = stickyMode
+        self.goals = goals
+        self.struggleFrequency = struggleFrequency
         self.problemDetails = problemDetails
         self.customProblems = customProblems
     }
@@ -176,9 +184,12 @@ struct UserProfile: Codable {
         // v0.3
         case ideals, struggles, big5, keywords, summary, nudgeIntensity, stickyMode
         
+        // Onboarding v2
+        case goals, struggleFrequency
+
         // Phase 3: Proactive Agent
         case problemDetails, customProblems
-        
+
         // legacy (read-only)
         case idealTraits
         case problems
@@ -230,6 +241,10 @@ struct UserProfile: Codable {
             stickyMode = true
         }
 
+        // Onboarding v2
+        goals = try container.decodeIfPresent([String].self, forKey: .goals) ?? []
+        struggleFrequency = try container.decodeIfPresent(String.self, forKey: .struggleFrequency)
+
         // Phase 3: Proactive Agent
         problemDetails = try container.decodeIfPresent([String: [String]].self, forKey: .problemDetails) ?? [:]
         customProblems = try container.decodeIfPresent([CustomProblem].self, forKey: .customProblems) ?? []
@@ -260,6 +275,10 @@ struct UserProfile: Codable {
         try container.encode(summary, forKey: .summary)
         try container.encode(nudgeIntensity, forKey: .nudgeIntensity)
         try container.encode(stickyMode, forKey: .stickyMode)
+
+        // Onboarding v2
+        try container.encode(goals, forKey: .goals)
+        try container.encodeIfPresent(struggleFrequency, forKey: .struggleFrequency)
 
         // Phase 3: Proactive Agent
         try container.encode(problemDetails, forKey: .problemDetails)

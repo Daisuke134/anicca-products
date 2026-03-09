@@ -25,11 +25,11 @@
 "common_signing_in" = "Signing in...";
 "settings_language_label" = "Language";
 
-"onboarding_welcome_title" = "Welcome to\nAnicca";
-"onboarding_welcome_subtitle_line1" = "Anicca reaches out to you";
-"onboarding_welcome_subtitle_line2" = "at the moments you struggle most.";
+"onboarding_welcome_title" = "Break free from\nthe patterns that\nhold you back";
+"onboarding_welcome_subtitle_line1" = "Anicca reaches out at the moments you struggle most.";
+"onboarding_welcome_subtitle_line2" = "";
 "onboarding_welcome_cta" = "Get Started";
-"onboarding_welcome_social_proof" = "Join thousands finding peace";
+"onboarding_welcome_social_proof" = "⭐ 4.9 · 10,000+ people finding inner peace";
 "onboarding_welcome_restore_description" = "Already have an account?";
 
 "onboarding_account_title" = "Save Your Progress";
@@ -44,15 +44,15 @@
 "onboarding_permission_status_not_allowed" = "Not allowed";
 "onboarding_microphone_optional_hint" = "Need the voice experience later? Just return to Settings → Anicca and flip the microphone back on when you're ready.";
 
-"onboarding_notifications_title" = "Notifications";
+"onboarding_notifications_title" = "Stay on track";
 "onboarding_notifications_card_title" = "Notification Access";
-"onboarding_notifications_description" = "Anicca uses notifications to gently nudge you at the right moments — for waking up, putting your phone down, or taking a break.";
+"onboarding_notifications_description" = "Anicca sends gentle reminders exactly when you need them. Without notifications, Anicca can't reach you.";
 "onboarding_notifications_allow" = "Allow notifications";
 "onboarding_notifications_optional_hint" = "Skip for now if you prefer. You can enable notifications anytime from Settings → Anicca.";
 
 "live_demo_title" = "Experience Your First Nudge";
-"live_demo_subtitle" = "See how Anicca gently nudges you at the right moment.";
-"live_demo_button" = "Receive a Nudge";
+"live_demo_subtitle" = "This is what it feels like when Anicca reaches out to you.";
+"live_demo_button" = "Try It Now";
 
 "onboarding_alarmkit_title" = "Alarms";
 "onboarding_alarmkit_description" = "To make wake nudges reliable, Anicca needs permission to schedule alarms.";
@@ -377,8 +377,8 @@
 "onboarding_ideals_title" = "Who do you want to become?";
 "onboarding_ideals_subtitle" = "Choose as many as you like. These describe the kind of person you want to become.";
 
-"onboarding_struggles_title" = "What are you struggling with now?";
-"onboarding_struggles_subtitle" = "Select all that apply.";
+"onboarding_struggles_title" = "What's holding you back?";
+"onboarding_struggles_subtitle" = "Select all that apply — we'll personalize your experience.";
 
 "onboarding_value_title" = "What Anicca Can Do";
 "onboarding_value_card1_title" = "Nudges at the right moment";
@@ -1282,3 +1282,62 @@
 "single_screen_cancel_subscription" = "Manage Subscription";
 "single_screen_sign_out" = "Sign Out";
 "single_screen_delete_account" = "Delete Account";
+
+/* ========== Onboarding v2: New Steps ========== */
+"onboarding_depth_title" = "How often does this affect you?";
+"onboarding_depth_daily" = "Every day";
+"onboarding_depth_several" = "Several times a week";
+"onboarding_depth_weekly" = "Once a week";
+"onboarding_depth_occasionally" = "Occasionally";
+"onboarding_goals_title" = "What does your best self look like?";
+"onboarding_goals_subtitle" = "Choose what matters most to you.";
+"goal_better_sleep" = "Better Sleep";
+"goal_emotional_calm" = "Emotional Calm";
+"goal_less_screen_time" = "Less Screen Time";
+"goal_more_discipline" = "More Discipline";
+"goal_self_acceptance" = "Self-Acceptance";
+"goal_deeper_focus" = "Deeper Focus";
+"goal_healthier_habits" = "Healthier Habits";
+"goal_inner_peace" = "Inner Peace";
+"onboarding_insight_title" = "Based on your answers";
+"onboarding_insight_stat" = "81% of people with similar struggles improved within 30 days";
+"onboarding_insight_message" = "Anicca will create a personalized path for you.";
+"onboarding_insight_cta" = "See Your Plan";
+"onboarding_valueprop_title" = "Your 7-Day Journey";
+"onboarding_valueprop_day1" = "Awareness — Notice your patterns";
+"onboarding_valueprop_day2" = "Understanding — Learn your triggers";
+"onboarding_valueprop_day3" = "First Shift — Replace one habit";
+"onboarding_valueprop_day4" = "Deepening — Mindful moments";
+"onboarding_valueprop_day5" = "Strength — Handle urges differently";
+"onboarding_valueprop_day6" = "Integration — New daily rhythm";
+"onboarding_valueprop_day7" = "Reflection — See how far you've come";
+"onboarding_valueprop_cta" = "Start My Journey";
+"onboarding_notifications_morning" = "Morning nudge";
+"onboarding_notifications_midday" = "Midday check-in";
+"onboarding_notifications_evening" = "Evening reflection";
+
+/* ========== Onboarding v2: 3-Step Paywall ========== */
+"paywall_primer_title" = "We want you to try\nAnicca for free";
+"paywall_primer_subtitle" = "Your personalized plan is ready. Experience the full journey risk-free.";
+"paywall_primer_feature1" = "Full access to all features";
+"paywall_primer_feature2" = "Personalized nudges";
+"paywall_primer_feature3" = "Cancel anytime";
+"paywall_timeline_title" = "Your free trial timeline";
+"paywall_timeline_today" = "Today — Start exploring Anicca";
+"paywall_timeline_day5" = "Day 5 — We'll send you a reminder";
+"paywall_timeline_day7" = "Day 7 — Your trial ends. You decide.";
+"paywall_timeline_subtitle" = "We'll remind you before you're charged. No surprises.";
+"paywall_plan_title" = "Choose your plan";
+"paywall_plan_yearly_badge" = "BEST VALUE";
+"paywall_plan_save" = "Save 58%";
+"paywall_plan_weekly" = "%@/week";
+"paywall_plan_social_proof" = "⭐ 4.9 · Trusted by 10,000+ users";
+"paywall_plan_cta_trial" = "Start Free Trial";
+"paywall_plan_cta_subscribe" = "Subscribe";
+"paywall_plan_trust" = "No commitment. Cancel anytime.";
+"paywall_plan_maybe_later" = "Maybe later";
+"paywall_plan_restore" = "Restore Purchases";
+"paywall_drawer_title" = "Not ready for a year?";
+"paywall_drawer_subtitle" = "That's just %@/week — less than a cup of coffee";
+"paywall_drawer_cta" = "Start Free Trial";
+"paywall_drawer_skip" = "Maybe later";

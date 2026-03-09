@@ -74,7 +74,7 @@ final class AppState: ObservableObject {
 
     // Soft Paywall: OnboardingStep version flag
     private let onboardingStepVersionKey = "com.anicca.onboardingStepVersion"
-    private static let currentOnboardingVersion = 2  // v1.6.1 で rawValue 体系変更
+    private static let currentOnboardingVersion = 3  // v2: 8-step onboarding (was 2 in v1.6.1)
 
     private init() {
         self.isOnboardingComplete = defaults.bool(forKey: onboardingKey)
@@ -85,8 +85,11 @@ final class AppState: ObservableObject {
             let savedVersion = defaults.integer(forKey: onboardingStepVersionKey)
 
             if savedVersion >= Self.currentOnboardingVersion {
-                // v1.6.1 以降: 新rawValueをそのまま使用
+                // v2 (version 3) 以降: 新rawValueをそのまま使用
                 self.onboardingStep = OnboardingStep(rawValue: rawValue) ?? .welcome
+            } else if savedVersion == 2 {
+                // v1.6.1 (version 2): 旧4-step enum → 新8-step enum
+                self.onboardingStep = OnboardingStep.migratedFromV1RawValue(rawValue)
             } else {
                 // legacy (savedVersion=0 or 1): migration関数を通す
                 self.onboardingStep = OnboardingStep.migratedFromLegacyRawValue(rawValue)
@@ -410,6 +413,8 @@ final class AppState: ObservableObject {
             // v0.3 traits
             "ideals": profile.ideals,
             "struggles": profile.struggles,
+            "goals": profile.goals,
+            "struggleFrequency": profile.struggleFrequency ?? "",
             "keywords": profile.keywords,
             "summary": profile.summary,
             "nudgeIntensity": profile.nudgeIntensity.rawValue,

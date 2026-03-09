@@ -1,25 +1,32 @@
 import Foundation
 
-enum OnboardingStep: Int {
-    case welcome       // 0
-    case struggles     // 1  (value 削除、rawValue 変更)
-    case liveDemo      // 2  (新規追加)
-    case notifications // 3
+enum OnboardingStep: Int, CaseIterable {
+    case welcome           // 0
+    case struggles         // 1
+    case struggleDepth     // 2
+    case goals             // 3
+    case personalizedInsight // 4
+    case valueProp         // 5
+    case liveDemo          // 6
+    case notifications     // 7
+}
+
+enum PaywallStep: Int {
+    case primer            // 0
+    case timeline          // 1
+    case planSelection     // 2
 }
 
 extension OnboardingStep {
-    /// 旧RawValue（v1.6.1以前）から現在の enum へマップする。
-    ///
-    /// ★ 呼び出し側（AppState）でバージョン判定を行い、この関数は legacy 値のみに適用する。
-    /// v1.6.1 以降で保存された値は `OnboardingStep(rawValue:)` を直接使用する。
+    /// v1.6.1以前（旧4-step enum）からの legacy migration。
     ///
     /// ## rawValue履歴
     /// - v0.4:   0=welcome, 4=name, 11=att
     /// - v1.6.0: 0=welcome, 1=value, 2=struggles, 3=notifications, 4=att
     /// - v1.6.1: 0=welcome, 1=struggles, 2=liveDemo, 3=notifications（value削除、ATT削除）
+    /// - v2:     0=welcome, 1=struggles, 2=struggleDepth, 3=goals, 4=personalizedInsight, 5=valueProp, 6=liveDemo, 7=notifications
     static func migratedFromLegacyRawValue(_ rawValue: Int) -> OnboardingStep {
         // v1.6.0以前からの移行マッピング
-        // 保存された rawValue が現在のEnumに存在しない場合のフォールバック
         switch rawValue {
         case 0: return .welcome
         case 1: return .struggles       // 旧 value/account → struggles（value 削除）
@@ -31,6 +38,18 @@ extension OnboardingStep {
         case 11, 12: return .notifications // 旧 att/alarmkit → notifications
         default:
             return .welcome
+        }
+    }
+
+    /// v1.6.1（旧4-step enum: 0=welcome, 1=struggles, 2=liveDemo, 3=notifications）
+    /// から v2（8-step enum）への移行マッピング。
+    static func migratedFromV1RawValue(_ rawValue: Int) -> OnboardingStep {
+        switch rawValue {
+        case 0: return .welcome           // welcome → welcome
+        case 1: return .struggles         // struggles → struggles
+        case 2: return .liveDemo          // liveDemo(2) → liveDemo(6)
+        case 3: return .notifications     // notifications(3) → notifications(7)
+        default: return .welcome
         }
     }
 }

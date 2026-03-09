@@ -1,33 +1,27 @@
 import SwiftUI
 
-struct StrugglesStepView: View {
+/// Phase 2: INVEST — chip selection for goals (like Struggles).
+struct GoalsStepView: View {
     let next: () -> Void
     @EnvironmentObject private var appState: AppState
 
-    // Proactive Agent: 13個の問題タイプ
     private let options: [String] = [
-        "staying_up_late", "cant_wake_up", "self_loathing",
-        "rumination", "procrastination", "anxiety",
-        "lying", "bad_mouthing", "porn_addiction",
-        "alcohol_dependency", "anger", "obsessive",
-        "loneliness"
+        "better_sleep", "emotional_calm", "less_screen_time", "more_discipline",
+        "self_acceptance", "deeper_focus", "healthier_habits", "inner_peace"
     ]
 
     @State private var selected: Set<String> = []
 
     var body: some View {
         VStack(spacing: 24) {
-            Text(String(localized: "onboarding_struggles_title"))
-                .font(.system(size: 36, weight: .bold))
-                .fontWeight(.heavy)
-                .lineSpacing(4) // line-height 40px
-                .minimumScaleFactor(0.8)
+            Text(String(localized: "onboarding_goals_title"))
+                .font(.system(size: 32, weight: .bold))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AppTheme.Colors.label)
                 .padding(.top, 40)
                 .padding(.horizontal, 24)
 
-            Text(String(localized: "onboarding_struggles_subtitle"))
+            Text(String(localized: "onboarding_goals_subtitle"))
                 .font(.system(size: 16))
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -39,7 +33,7 @@ struct StrugglesStepView: View {
                     GridItem(.flexible(), spacing: 12)
                 ], spacing: 12) {
                     ForEach(options, id: \.self) { key in
-                        chipButton(kind: "problem", key: key)
+                        chipButton(key: key)
                     }
                 }
                 .padding(.horizontal, 24)
@@ -49,10 +43,7 @@ struct StrugglesStepView: View {
             .scrollIndicators(.visible)
 
             Button {
-                var profile = appState.userProfile
-                profile.problems = Array(selected)
-                appState.updateUserProfile(profile, sync: true)
-                next()
+                saveAndAdvance()
             } label: {
                 Text(String(localized: "common_next"))
                     .font(.system(size: 18, weight: .semibold))
@@ -63,18 +54,18 @@ struct StrugglesStepView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 28))
             }
             .disabled(selected.isEmpty)
-            .accessibilityIdentifier("onboarding-struggles-next")
+            .accessibilityIdentifier("onboarding-goals-next")
             .padding(.horizontal, 24)
             .padding(.bottom, 64)
         }
         .background(AppBackground())
         .onAppear {
-            selected = Set(appState.userProfile.problems)
+            selected = Set(appState.userProfile.goals)
         }
     }
 
     @ViewBuilder
-    private func chipButton(kind: String, key: String) -> some View {
+    private func chipButton(key: String) -> some View {
         let isSelected = selected.contains(key)
         Button {
             if isSelected {
@@ -83,7 +74,7 @@ struct StrugglesStepView: View {
                 selected.insert(key)
             }
         } label: {
-            Text(NSLocalizedString("\(kind)_\(key)", comment: ""))
+            Text(NSLocalizedString("goal_\(key)", comment: ""))
                 .font(.system(size: 14, weight: .medium))
                 .lineLimit(2)
                 .minimumScaleFactor(0.8)
@@ -96,9 +87,16 @@ struct StrugglesStepView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .buttonStyle(.plain)
-        .accessibilityIdentifier("onboarding-struggle-\(key)")
+        .accessibilityIdentifier("onboarding-goal-\(key)")
+    }
+
+    private func saveAndAdvance() {
+        var profile = appState.userProfile
+        profile.goals = Array(selected)
+        appState.updateUserProfile(profile, sync: true)
+        AnalyticsManager.shared.track(.onboardingGoalsCompleted, properties: [
+            "goals_count": selected.count
+        ])
+        next()
     }
 }
-
-
-

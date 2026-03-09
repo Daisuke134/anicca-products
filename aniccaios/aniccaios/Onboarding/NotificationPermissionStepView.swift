@@ -9,26 +9,48 @@ struct NotificationPermissionStepView: View {
     @State private var notificationGranted = false
     @State private var notificationDenied = false
     @State private var isRequesting = false
-    // v3: 既に許可済みでも画面は表示、自動遷移しない
     @State private var hasAttemptedPermission = false
+
+    private let timeSlots: [(icon: String, key: String)] = [
+        ("sunrise.fill", "onboarding_notifications_morning"),
+        ("sun.max.fill", "onboarding_notifications_midday"),
+        ("moon.fill", "onboarding_notifications_evening")
+    ]
 
     var body: some View {
         VStack(spacing: 24) {
             Text(String(localized: "onboarding_notifications_title"))
-                .font(AppTheme.Typography.onboardingTitle)
-                .fontWeight(.heavy)
-                .lineLimit(1)
-                .minimumScaleFactor(0.7)
-                .allowsTightening(true)
+                .font(.system(size: 32, weight: .bold))
                 .foregroundStyle(AppTheme.Colors.label)
                 .padding(.top, 40)
 
             Text(String(localized: "onboarding_notifications_description"))
-                .font(.subheadline)
+                .font(.system(size: 16))
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal)
+                .padding(.horizontal, 24)
 
+            // Value framing: show what notifications deliver
+            VStack(spacing: 12) {
+                ForEach(timeSlots, id: \.key) { slot in
+                    HStack(spacing: 12) {
+                        Image(systemName: slot.icon)
+                            .font(.system(size: 20))
+                            .foregroundStyle(AppTheme.Colors.accent)
+                            .frame(width: 28)
+
+                        Text(String(localized: String.LocalizationValue(slot.key)))
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundStyle(AppTheme.Colors.label)
+
+                        Spacer()
+                    }
+                    .padding(.horizontal, 32)
+                }
+            }
+            .padding(.top, 8)
+
+            Spacer()
 
             Button {
                 if hasAttemptedPermission {
@@ -56,12 +78,11 @@ struct NotificationPermissionStepView: View {
             }
             .disabled(isRequesting)
             .accessibilityIdentifier("onboarding-notifications-allow")
-
+            .padding(.horizontal, 24)
+            .padding(.bottom, 64)
         }
-        .padding(24)
         .background(AppBackground())
         .onAppear {
-            // v3: autoAdvance を false にして自動遷移を廃止
             Task { await refreshAuthorizationState(autoAdvance: false) }
         }
     }
@@ -77,10 +98,8 @@ struct NotificationPermissionStepView: View {
                 isRequesting = false
                 hasAttemptedPermission = true
                 if granted {
-                    // v1.6.3: ensure APNs device token registration runs in the first session.
                     UIApplication.shared.registerForRemoteNotifications()
                 }
-                // ★ 許可/拒否後に自動で次へ遷移
                 next()
             }
         }
@@ -95,12 +114,8 @@ struct NotificationPermissionStepView: View {
             let timeSensitiveOk = settings.timeSensitiveSetting != .disabled
             notificationGranted = authorized && timeSensitiveOk
             notificationDenied = settings.authorizationStatus == .denied
-
-            // v3: autoAdvance は常に無効（画面を必ず表示）
         }
     }
-
-    // 『あとで設定』ハンドラは削除（5.1.1対策）
 
     private func openSettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
