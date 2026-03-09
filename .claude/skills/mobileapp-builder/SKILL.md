@@ -108,6 +108,15 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 47 | **iOS 26対応 — 新age rating system**。iOS 26以降のage ratingを正しく設定。古いrating keyは使わない。"Ratings for all apps and games on the App Store have been automatically updated to align with our new age rating system" Source: https://developer.apple.com/news/upcoming-requirements/ |
 | 48 | **xcodebuild -destination で複数デバイステスト**。xcodebuild test実行時に `-destination 'platform=iOS Simulator,name=iPhone 16 Pro'` で明示的にデバイス指定。Source: https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/testing_with_xcode/chapters/08-automation.html |
 | 49 | **Kodeco iOS Build Automation Guide準拠**。ビルド→アーカイブ→エクスポート→アップロードの全自動化パイプラインをKodecoガイドに従って実装。Source: https://www.kodeco.com/books/ios-app-distribution-best-practices/v1.0/chapters/12-build-automation |
+| 50 | **必ず plan mode で開始**。全タスク開始時に plan mode でインタビューし、段階的計画を立てる。"always start with plan mode. ask Claude to interview you; ask the user a question" Source: https://github.com/shanraisshan/claude-code-best-practice |
+| 51 | **変更後は必ずテスト**。Clean build folder (Cmd+Shift+K) → run → console 確認。"Test after every change!! Catch issues before they compound." Source: https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj |
+| 52 | **1コンポーネント限定**。1セッションで1コンポーネントのみ実装。"Don't ask to 'refactor the whole app' Smaller scope = better results." Source: https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj |
+| 53 | **iOS gotcha を即記録**。iOS 26 API問題等は .claude/rules/platform-gotchas.md に即追記。"NO .background() before .glassEffect() saved me from repeating that mistake 50+ times." Source: https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj |
+| 54 | **CLAUDE.md は200行以内**。超える場合は .claude/rules/ に分割。"CLAUDE.md should target under 200 lines per file. 60 lines in humanlayer" Source: https://github.com/shanraisshan/claude-code-best-practice |
+| 55 | **/compact at 50% context**。context 50%到達で手動 /compact 実行。"avoid agent dumb zone, do manual /compact at max 50%." Source: https://github.com/shanraisshan/claude-code-best-practice |
+| 56 | **Cross-model QA**。実装完了後 Codex で plan/code をレビュー。"use a cross-model for QA — e.g. Codex for plan and implementation review" Source: https://github.com/shanraisshan/claude-code-best-practice |
+| 57 | **Feature flags for experimental**。新機能は feature flag で on/off。"Toggle new features on/off without rebuilding. Makes rolling back instant." Source: https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj |
+| 58 | **Debug logging を必ず追加**。複雑なフローには Logger 追加。"Ask Claude Code to add Logger statements for complex flows." Source: https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj |
 
 ## Quality Gate Pattern
 
