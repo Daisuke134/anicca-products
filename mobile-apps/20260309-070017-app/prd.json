@@ -270,8 +270,8 @@
         "Slack #metrics notified: WAITING_FOR_REVIEW"
       ],
       "priority": 9,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "App Privacy: DATA_NOT_COLLECTED (set in US-005a, published=true) | NEW BUILD: version=2, BUILD_ID=a8e03258-edf0-4341-813d-ddb7841df720 (PaywallView fabricated social proof fix) | App price: FREE (schedule created 2026-03-08 base USA) | SUBMISSION_ID=a584a39d-bc60-4849-a23b-3d7fbb74fcc3 | state=WAITING_FOR_REVIEW | submittedDate=2026-03-09T06:25:09Z | P1 fix: removed 4.9 rating + 2000+ athletes fabricated social proof from PaywallView"
     },
     {
       "id": "US-010",

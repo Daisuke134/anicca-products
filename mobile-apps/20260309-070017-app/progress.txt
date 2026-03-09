@@ -1,4 +1,23 @@
 
+## 2026-03-09 - US-009: App Store submission (App Privacy + submit)
+
+- apple-appstore-reviewer audit: P1 found — fabricated social proof (4.9 rating / 2000+ athletes) → removed
+- PaywallView.swift: socialProofSection → neutral text, FAQ trial text fixed, restore feedback alert added
+- New archive + IPA export (build/app.xcarchive 15:11 → build/export2/Zone2Daily.ipa)
+- Uploaded new IPA → BUILD_ID=a8e03258-edf0-4341-813d-ddb7841df720 (version=2, processingState=VALID)
+- App pricing: FREE (schedule created start-date=2026-03-08, base=USA, tier=0)
+- Build attached to VERSION_ID=09c6d80a
+- Review submission created SUBMISSION_ID=a584a39d → items-add → submissions-submit
+- state=WAITING_FOR_REVIEW (submittedDate=2026-03-09T06:25:09Z)
+
+**Learnings for future iterations:**
+- App pricing must be set BEFORE review submission (items-add fails with "App is not eligible for submission until pricing has been set")
+- pricing schedule create start-date: must match app creation date (not today, not past-before-app)
+- FREE price point ID (tier 0) = `eyJzIjoiNjc2MDI3MTU2MCIsInQiOiJVU0EiLCJwIjoiMTAwMDAifQ` (app-specific, look up via `asc pricing price-points --territory USA`)
+- App Privacy DATA_NOT_COLLECTED set in US-005a survives new build uploads — no need to re-set
+
+---
+
 ## Codebase Patterns
 
 | パターン | 詳細 |
