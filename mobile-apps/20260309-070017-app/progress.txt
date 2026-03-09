@@ -1,4 +1,33 @@
 
+## Codebase Patterns
+
+| パターン | 詳細 |
+|--------|------|
+| fastlane test | `LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 fastlane test` 必須（xcpretty UTF-8 バグ回避） |
+| xcodegen | ファイル追加後は `xcodegen generate` 必須（テストファイル含め自動pick-up） |
+| SubscriptionService env | `@Environment(SubscriptionService.self)` で取得。`SubscriptionService()` 新規生成禁止 |
+| URL optional | `URL(string:)!` 禁止。`if let url = URL(string:)` で optional binding |
+
+---
+
+## 2026-03-09 - US-006b: Onboarding + Monetization
+
+- OnboardingViewModelTests 11テスト追加(43/43 PASS)
+- SubscriptionService: Configuration.builder + entitlementVerificationMode
+- OnboardingContainerView: @Environment(SubscriptionService.self) へ修正
+- PaywallView: URL force-unwrap → optional binding
+- PaywallView: offerings empty state + isLoadingOfferings
+- PaywallView: PricingCardView a11y IDs → selector_plan_monthly/annual
+- NotificationPermissionView: "Not Now" テキスト修正 (UX_SPEC準拠)
+- Greenlight CRITICAL=0, fastlane test PASS
+
+**Learnings:**
+- fastlane test は LANG=en_US.UTF-8 必須（xcpretty の ASCII/UTF-8 バグ）
+- xcodegen generate はテストファイル追加後に必ず実行
+- OnboardingContainerView は env から SubscriptionService を取得すること
+
+---
+
 ## 2026-03-09 - US-002: Product Planning
 
 - product-plan.md 作成完了（7セクション、12ソース、23 URLs）
