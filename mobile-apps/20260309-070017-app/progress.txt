@@ -12,6 +12,22 @@
 
 ---
 
+## 2026-03-09 - US-006d: TDD Polish (DESIGN_SYSTEM tokens, a11y IDs, Localization)
+
+- AgeInputView: +/-ボタン → Slider(10...80) + slider_age + label_zone2_hr ID追加
+- WorkoutLogView: input_zone2_minutes Stepper + @State zone2MinutesInput + btn_save_workout
+- SettingsView: toggle_notifications Toggle + 通知ON/OFF + Privacy/Terms リンク追加
+- Localizable.xcstrings: en-US + ja 12キー (UX_SPEC §9準拠)
+- Resources/PrivacyInfo.xcprivacy 重複削除（Zone2Daily/ に統一）
+- fastlane test PASS (61/61), Archive SUCCEEDED, Greenlight CRITICAL=0
+
+**Learnings for future iterations:**
+- Duplicate PrivacyInfo.xcprivacy: sources: + resources: 両方に置くと "Multiple commands produce" エラー → どちらか片方のみ
+- fastlane build は Archive Succeeded でも provisioning profile なければ export 失敗（正常、US-008c で対処）
+- Write ツールで上書き前に必ず Read 必須（ツールの制約）
+
+---
+
 ## 2026-03-09 - US-006c: Core Screens (Timer, Settings, ProgressDashboard)
 
 - WorkoutViewModel: UIBackgroundTask + startDate anchor (background accuracy)

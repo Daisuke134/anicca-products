@@ -167,8 +167,8 @@
         "Typecheck passes"
       ],
       "priority": 6.4,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "AgeInputView: Slider(10-80) + slider_age + label_zone2_hr。WorkoutLogView: input_zone2_minutes Stepper追加。SettingsView: toggle_notifications Toggle + 通知ON/OFF + Privacy/Terms。Localizable.xcstrings: en-US+ja 12キー。重複PrivacyInfo削除(Zone2Daily/に統一)。fastlane test PASS(61/61)。Archive SUCCEEDED。Greenlight CRITICAL=0。全UX_SPEC §7 a11y IDs確認済み。"
     },
     {
       "id": "US-006-R",
