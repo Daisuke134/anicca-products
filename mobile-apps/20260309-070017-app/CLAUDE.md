@@ -55,6 +55,7 @@ curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '
 | 20 | **オンボーディング最終画面はソフトペイウォール必須**。自前 SwiftUI PaywallView + Purchases.shared.purchase(package:)。RevenueCatUI 禁止。[Maybe Later] で閉じれる |
 | 20b | **ATT 禁止**。AppTrackingTransparency / NSUserTrackingUsageDescription は使わない。スクショに ATT ダイアログが写り込む |
 | 21 | **1 iteration = 1 US（HARD STOP）**。1つのUSを `passes: true` にしたら、**その瞬間に作業を終了**する。次のUSに手を出すな。progress.txt を更新して終了。ralph.sh が次の iteration を起動する。これは提案ではなく**絶対ルール**。違反するとトークンが無駄になる（validate.sh は1USしか検証しない）。500ターン超過も即停止 |
+| 22 | **バックグラウンドタスク禁止（Task ツール）**。`Task` で長時間コマンドをバックグラウンド実行すると、--print モードのexit を妨げる。全コマンドは同期実行（Bash）で実行し、Task を使わない。find/grep等の探索は Bash で直接実行する |
 | 22 | **PATH 設定のみ（全イテレーション冒頭で実行）**: `export PATH="/opt/homebrew/bin:/Users/anicca/Library/Python/3.9/bin:/usr/local/bin:/usr/bin:/bin:$PATH"` |
 | 24 | **スクショは 6.9" (IPHONE_69) のみ。1320x2868 が正しいサイズ。** 6.5"/6.1"/5.5" は不要（Apple が 6.9" から自動スケール）。6.7" で再キャプチャしようとするな。Source: https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/ |
 | 23 | **AI API / 外部 API コスト禁止** — OpenAI, Anthropic, Gemini, Apple FoundationModels（iOS 26+ = ユーザー基盤小）一切禁止。アプリは完全自己完結。ローカル・静的コンテンツのみ。バックエンド不要。理由: 月収 $29 vs API コスト $300+ |

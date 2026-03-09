@@ -266,6 +266,15 @@ for us in d['userStories']:
   OUTPUT=$(cat "$tmpfile")
   rm -f "$tmpfile"
 
+  # Safety: kill any lingering CC process (background Task tool can prevent --print exit)
+  # Source: Zone2Daily 2026-03-09 postmortem — CC re-init after task_notification
+  CC_PID=$(pgrep -f "claude.*--dangerously-skip" 2>/dev/null | grep -v $$ || true)
+  if [ -n "$CC_PID" ]; then
+    echo "🏭 ⚠️ CC still alive after --print (PID $CC_PID). Killing..."
+    kill "$CC_PID" 2>/dev/null || true
+    sleep 2
+  fi
+
   # Detect rate_limit_event JSON (status: "rejected") — catches 5-hour rate limit
   # Source: EyeRest 20260307 post-mortem — iterations 8-50 wasted by not detecting this
   if echo "$OUTPUT" | jq -e 'select(.type == "rate_limit_event" and .rate_limit_info.status == "rejected")' &>/dev/null; then
