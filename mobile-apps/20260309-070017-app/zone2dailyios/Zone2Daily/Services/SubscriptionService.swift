@@ -28,9 +28,9 @@ final class SubscriptionService: SubscriptionServiceProtocol {
             .build()
         Purchases.configure(with: config)
         #else
-        // Source: RevenueCat docs — use .enforced in production to block tampered receipts
+        // Source: RevenueCat docs — .enforced not yet available in RC 5.x, use .informational
         let config = Configuration.builder(withAPIKey: apiKey)
-            .with(entitlementVerificationMode: .enforced)
+            .with(entitlementVerificationMode: .informational)
             .build()
         Purchases.configure(with: config)
         Purchases.logLevel = .error

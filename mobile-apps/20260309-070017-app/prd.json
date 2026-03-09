@@ -218,8 +218,8 @@
         "Privacy Policy URL set for en-US AND ja"
       ],
       "priority": 8.2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "asc localizations upload完了。app-info(name/subtitle/privacyPolicyUrl)en-US+ja。version(description/keywords/supportUrl)en-US+ja。Privacy URL=https://daisuke134.github.io/anicca-products/zone2daily/privacy-policy en-US+ja両方設定完了。keywords: 91chars(en)。whatsNew: 初回リリースは不要(ASCが自動スキップ)。"
     },
     {
       "id": "US-008c",
@@ -229,8 +229,8 @@
         "Build attached to version"
       ],
       "priority": 8.3,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "BUILD_ID=f2d265e1-67dd-423f-a5b3-dd876eaae623 processingState=VALID。Build attached to VERSION_ID=09c6d80a。Fix: TARGETED_DEVICE_FAMILY='1'をproject.yml target settingsに追加(iPad対応不要のiPhone専用アプリ)。entitlementVerificationMode: .enforced → .informational(RC 5.xで未サポート)。"
     },
     {
       "id": "US-008d",

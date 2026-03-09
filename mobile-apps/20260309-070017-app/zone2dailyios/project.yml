@@ -16,6 +16,7 @@ settings:
     DEVELOPMENT_TEAM: S5U8UH3JLJ
     CODE_SIGN_STYLE: Automatic
     ENABLE_HARDENED_RUNTIME: YES
+    TARGETED_DEVICE_FAMILY: "1"
 
 packages:
   RevenueCat:
@@ -38,6 +39,7 @@ targets:
         DEVELOPMENT_TEAM: S5U8UH3JLJ
         CODE_SIGN_STYLE: Automatic
         SWIFT_ACTIVE_COMPILATION_CONDITIONS: $(inherited)
+        TARGETED_DEVICE_FAMILY: "1"
     configFiles:
       Debug: Zone2Daily/Config/Debug.xcconfig
       Release: Zone2Daily/Config/Release.xcconfig
