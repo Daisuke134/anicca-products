@@ -244,8 +244,8 @@
         "Content Rights: DOES_NOT_USE_THIRD_PARTY_CONTENT"
       ],
       "priority": 8.4,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "copyright=2026 Daisuke Kobayashi | ageRating=FOUR_PLUS | reviewDetails=demoAccountRequired:false | availability=175 territories | contentRights=DOES_NOT_USE_THIRD_PARTY_CONTENT | category=HEALTH_AND_FITNESS | allSubscriptions=READY_TO_SUBMIT"
     },
     {
       "id": "US-008e",
@@ -257,8 +257,8 @@
         "Slack #metrics notified with TestFlight link"
       ],
       "priority": 8.5,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "greenlight: ja keywords fixed (81 bytes) + false positive 6.7\" skip (Rule 24) | dry-run: errors=0 blocking=0 | TestFlight: betaReviewState=WAITING_FOR_REVIEW | publicLink=https://testflight.apple.com/join/wHJEg7v3"
     },
     {
       "id": "US-009",

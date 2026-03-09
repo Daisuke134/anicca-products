@@ -132,3 +132,30 @@
 - Bundle ID は US-002 で確定させることで US-004 以降に迷わない
 - iTunes API の完全一致チェックは `ascii_downcase + contains()` で確実に実施
 ---
+
+## 2026-03-09 - US-008d: ASC Compliance
+- copyright=2026 Daisuke Kobayashi
+- ageRating=FOUR_PLUS (all 22 items NONE, health-or-wellness-topics=true)
+- reviewDetails=demoAccountRequired:false (REST PATCH required — asc CLI doesn't properly set false)
+- availability=175 territories via v2/appAvailabilities (local IDs format: ${ta_N})
+- contentRights=DOES_NOT_USE_THIRD_PARTY_CONTENT
+- category=HEALTH_AND_FITNESS
+- weekly subscription review screenshot uploaded (READY_TO_SUBMIT)
+- **Learnings:**
+  - age-rating set requires --age-assurance, --health-or-wellness-topics, --parental-controls, --messaging-and-chat
+  - demoAccountRequired=false: asc CLI doesn't update, use REST PATCH
+  - v2/appAvailabilities territoryAvailabilities local IDs must use ${ta_N} format
+---
+
+## 2026-03-09 - US-008e: Preflight + TestFlight
+- greenlight: ja keywords fixed (143 bytes → 81 bytes), 6.7" screenshot BLOCK is false positive (Rule 24)
+- asc release run dry-run: errors=0 blocking=0 (6 warnings all skippable per Decision Table)
+- Beta group created: b32808a7 "External Testers"
+- Beta review submitted: WAITING_FOR_REVIEW
+- TestFlight public link: https://testflight.apple.com/join/wHJEg7v3
+- betaAppReviewDetail contact required for submission (firstName/lastName/phone/email)
+- **Learnings:**
+  - betaAppReviewDetail (separate from App Store review detail) must have contact info for beta submission
+  - asc beta-app-localizations create required before testflight review submit
+  - beta group must be created fresh — GROUP_ID from .env was US-005b subscription group (wrong)
+---
