@@ -6,11 +6,26 @@
 import Foundation
 import Observation
 
+/// 7-day activity entry for the weekly bar chart
+struct WeekdayActivity {
+    let label: String       // e.g. "Mon"
+    let hasActivity: Bool
+    let minutes: Double
+}
+
 @Observable
 final class DashboardViewModel {
     var weeklyZone2Minutes: Double = 0
     var weeklyGoalMinutes: Int = 150
     var streak: Int = 0
+    var weekdayActivity: [WeekdayActivity] = []
+
+    /// Reused across calls — Source: docs/IMPLEMENTATION_GUIDE.md — M-001 DateFormatter optimization
+    private static let weekdayFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "EEE"  // "Mon", "Tue", etc.
+        return f
+    }()
 
     func loadWeeklyData(sessions: [WorkoutSession]) {
         let calendar = Calendar.current
@@ -19,10 +34,27 @@ final class DashboardViewModel {
         let thisWeek = sessions.filter { $0.date >= startOfWeek }
         weeklyZone2Minutes = thisWeek.reduce(0) { $0 + $1.zone2Minutes }
         streak = calculateStreak(sessions: sessions)
+        weekdayActivity = buildWeekdayActivity(sessions: sessions, calendar: calendar)
     }
 
     var progressFraction: Double {
         min(weeklyZone2Minutes / Double(weeklyGoalMinutes), 1.0)
+    }
+
+    /// Build 7 entries ending today, ordered oldest → newest
+    private func buildWeekdayActivity(sessions: [WorkoutSession], calendar: Calendar) -> [WeekdayActivity] {
+        return (0..<7).map { offset in
+            let date = calendar.date(byAdding: .day, value: -(6 - offset), to: .now)!
+            let dayStart = calendar.startOfDay(for: date)
+            let dayEnd = calendar.date(byAdding: .day, value: 1, to: dayStart)!
+            let daySessions = sessions.filter { $0.date >= dayStart && $0.date < dayEnd }
+            let dayMinutes = daySessions.reduce(0.0) { $0 + $1.zone2Minutes }
+            return WeekdayActivity(
+                label: Self.weekdayFormatter.string(from: date),
+                hasActivity: dayMinutes > 0,
+                minutes: dayMinutes
+            )
+        }
     }
 
     /// Count consecutive days ending today where zone2Seconds > 0

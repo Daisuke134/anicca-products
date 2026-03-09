@@ -92,4 +92,42 @@ final class DashboardViewModelTests: XCTestCase {
         }
         XCTAssertFalse(sut.canLogWorkout(sessions: sessions, isPremium: false))
     }
+
+    // MARK: — weekdayActivity
+
+    func test_weekdayActivity_returnsSevenEntries() {
+        sut.loadWeeklyData(sessions: [])
+        XCTAssertEqual(sut.weekdayActivity.count, 7)
+    }
+
+    func test_weekdayActivity_noSessions_allHaveNoActivity() {
+        sut.loadWeeklyData(sessions: [])
+        XCTAssertTrue(sut.weekdayActivity.allSatisfy { !$0.hasActivity })
+    }
+
+    func test_weekdayActivity_todaySession_atLeastOneActive() {
+        let session = WorkoutSession(date: .now, durationSeconds: 600, zone2Seconds: 300, targetHR: 150)
+        sut.loadWeeklyData(sessions: [session])
+        XCTAssertTrue(sut.weekdayActivity.contains { $0.hasActivity })
+    }
+
+    func test_weekdayActivity_oldSession_noneActive() {
+        let old = Calendar.current.date(byAdding: .day, value: -10, to: .now)!
+        let session = WorkoutSession(date: old, durationSeconds: 600, zone2Seconds: 300, targetHR: 150)
+        sut.loadWeeklyData(sessions: [session])
+        XCTAssertTrue(sut.weekdayActivity.allSatisfy { !$0.hasActivity })
+    }
+
+    func test_weekdayActivity_allLabelsNonEmpty() {
+        sut.loadWeeklyData(sessions: [])
+        XCTAssertTrue(sut.weekdayActivity.allSatisfy { !$0.label.isEmpty })
+    }
+
+    func test_weekdayActivity_minutesAccumulate() {
+        let s1 = WorkoutSession(date: .now, durationSeconds: 1200, zone2Seconds: 600, targetHR: 150)
+        let s2 = WorkoutSession(date: .now, durationSeconds: 600, zone2Seconds: 300, targetHR: 150)
+        sut.loadWeeklyData(sessions: [s1, s2])
+        let todayEntry = sut.weekdayActivity.last!  // last = today
+        XCTAssertEqual(todayEntry.minutes, 15.0, accuracy: 0.1)
+    }
 }
