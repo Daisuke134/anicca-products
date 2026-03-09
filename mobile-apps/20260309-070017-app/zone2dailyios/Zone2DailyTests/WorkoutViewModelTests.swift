@@ -5,6 +5,7 @@
 import XCTest
 @testable import Zone2Daily
 
+@MainActor
 final class WorkoutViewModelTests: XCTestCase {
     var sut: WorkoutViewModel!
 

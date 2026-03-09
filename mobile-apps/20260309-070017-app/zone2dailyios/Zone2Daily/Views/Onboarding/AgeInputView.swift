@@ -8,6 +8,7 @@ import SwiftData
 struct AgeInputView: View {
     @Bindable var viewModel: OnboardingViewModel
     @Environment(\.modelContext) private var modelContext
+    @Query private var profiles: [UserProfile]
 
     var isValid: Bool { viewModel.age >= 10 && viewModel.age <= 80 }
 
@@ -73,8 +74,13 @@ struct AgeInputView: View {
     }
 
     private func saveProfile() {
-        let profile = UserProfile(age: viewModel.age)
-        modelContext.insert(profile)
+        // Upsert: update existing profile if present, else insert
+        if let existing = profiles.first {
+            existing.age = viewModel.age
+        } else {
+            let profile = UserProfile(age: viewModel.age)
+            modelContext.insert(profile)
+        }
         try? modelContext.save()
     }
 }

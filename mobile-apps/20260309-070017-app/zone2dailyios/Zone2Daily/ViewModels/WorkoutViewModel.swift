@@ -9,6 +9,7 @@ import Observation
 import UIKit
 
 @Observable
+@MainActor
 final class WorkoutViewModel {
     var elapsedSeconds: Int = 0
     var zone2Seconds: Int = 0
@@ -36,11 +37,14 @@ final class WorkoutViewModel {
         }
 
         // Use .common RunLoop mode so timer fires during scroll gestures
+        // MainActor.assumeIsolated: Timer fires on RunLoop.main, so main actor isolation is guaranteed
         let t = Timer(timeInterval: 1.0, repeats: true) { [weak self] _ in
-            guard let self, let startDate = self.startDate else { return }
-            // Compute from startDate for background accuracy (elapsed is correct even after suspend)
-            self.elapsedSeconds = max(0, Int(Date.now.timeIntervalSince(startDate)))
-            self.zone2Seconds = self.elapsedSeconds
+            MainActor.assumeIsolated {
+                guard let self, let startDate = self.startDate else { return }
+                // Compute from startDate for background accuracy (elapsed is correct even after suspend)
+                self.elapsedSeconds = max(0, Int(Date.now.timeIntervalSince(startDate)))
+                self.zone2Seconds = self.elapsedSeconds
+            }
         }
         RunLoop.main.add(t, forMode: .common)
         timer = t

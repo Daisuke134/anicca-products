@@ -57,22 +57,19 @@ final class DashboardViewModel {
         }
     }
 
-    /// Count consecutive days ending today where zone2Seconds > 0
+    /// Count consecutive days ending today where zone2Seconds > 0 — O(n)
     private func calculateStreak(sessions: [WorkoutSession]) -> Int {
         let calendar = Calendar.current
+        // Build Set of active days for O(1) lookup
+        let activeDays = Set(sessions
+            .filter { $0.zone2Seconds > 0 }
+            .map { calendar.startOfDay(for: $0.date) }
+        )
         var count = 0
-        var checkDate = Date.now
-        let sorted = sessions.sorted { $0.date > $1.date }
-
+        var checkDate = calendar.startOfDay(for: .now)
         for _ in 0..<365 {
-            let hasSession = sorted.contains {
-                calendar.isDate($0.date, inSameDayAs: checkDate) && $0.zone2Seconds > 0
-            }
-            if hasSession {
-                count += 1
-            } else {
-                break
-            }
+            guard activeDays.contains(checkDate) else { break }
+            count += 1
             guard let prev = calendar.date(byAdding: .day, value: -1, to: checkDate) else { break }
             checkDate = prev
         }
