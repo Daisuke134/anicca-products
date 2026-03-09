@@ -151,8 +151,8 @@
         "Typecheck passes"
       ],
       "priority": 6.3,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "WorkoutViewModel: UIBackgroundTask + startDate anchor for background accuracy. WorkoutLogView: SCR-008 post-workout summary sheet. WeeklyProgressView: SCR-006 7-day bar chart. DashboardViewModel: static DateFormatter + weekdayActivity(7). DashboardView: HR target card + WeeklyProgressView + free tier 3-session limit. PrivacyInfo.xcprivacy added. 61/61 tests PASS. Greenlight CRITICAL=0."
     },
     {
       "id": "US-006d",

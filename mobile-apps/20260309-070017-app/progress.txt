@@ -7,6 +7,25 @@
 | xcodegen | ファイル追加後は `xcodegen generate` 必須（テストファイル含め自動pick-up） |
 | SubscriptionService env | `@Environment(SubscriptionService.self)` で取得。`SubscriptionService()` 新規生成禁止 |
 | URL optional | `URL(string:)!` 禁止。`if let url = URL(string:)` で optional binding |
+| Background Timer | `startDate = Date.now` で計時開始。タイマーTick: `Int(Date.now.timeIntervalSince(startDate))`。suspend後も正確 |
+| Greenlight | `greenlight preflight <dir>` (xcodeproj じゃなくディレクトリを渡す) |
+
+---
+
+## 2026-03-09 - US-006c: Core Screens (Timer, Settings, ProgressDashboard)
+
+- WorkoutViewModel: UIBackgroundTask + startDate anchor (background accuracy)
+- WorkoutLogView: 新規 SCR-008（ワークアウト終了後サマリー sheet）
+- WeeklyProgressView: 新規 SCR-006（7日間バーチャート）
+- DashboardViewModel: static DateFormatter + weekdayActivity(7) プロパティ
+- DashboardView: HR target card + WeeklyProgressView 統合 + 無料3件制限
+- PrivacyInfo.xcprivacy: 追加（Greenlight CRITICAL=0）
+- Tests: 61/61 PASS (WorkoutViewModelTests 10 + DashboardViewModelTests 6 追加)
+
+**Learnings for future iterations:**
+- `greenlight preflight <dir>` (xcodeproj ではなくディレクトリを渡す)
+- Background timer は startDate アンカー方式 (suspend 後も正確)
+- private(set) var はテストから直接代入不可 → startTimer() 経由でテスト
 
 ---
 
