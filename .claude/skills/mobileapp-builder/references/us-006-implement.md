@@ -41,6 +41,31 @@ configFiles:
   Release: Config/Release.local.xcconfig
 ```
 
+### xcconfig ファイル順序ルール（CRITICAL）
+Source: dev.to/donniejp — 「secrets xcconfig must never be committed/pushed to git」
+Source: moinulhassan.medium.com — 「make sure that config file does not reach the server」
+
+構造（この順序を厳守）:
+```
+# Debug.xcconfig（gitにコミットされる）
+RC_API_KEY = placeholder_replace_in_local    ← 1. placeholder定義（先）
+MIXPANEL_TOKEN = placeholder
+// ... other non-secret settings ...
+#include? "Debug.local.xcconfig"              ← 2. ローカル上書き（最後）
+```
+
+APIキー（RC_API_KEY, MIXPANEL_TOKEN等）は `*.local.xcconfig` にのみ記載。
+Debug.xcconfig / Release.xcconfig にはplaceholderのみ。
+
+.gitignore に追加:
+```
+*.local.xcconfig
+```
+
+❌ `#include?` を先に書く → ローカル値がplaceholderで上書きされる
+❌ Debug.xcconfig / Release.xcconfig に実APIキーを記載 → gitコミット = セキュリティインシデント
+✅ `#include?` を最後に書く → ローカル値が有効になる
+
 ## SubscriptionService isConfigured guard（MANDATORY）
 
 Purchases.configure() が呼ばれる前に Purchases.shared にアクセスすると
@@ -80,7 +105,7 @@ UDID=$(xcrun simctl list devices available | grep "iPhone 16" | head -1 | grep -
 
 ```bash
 source ~/.config/mobileapp-builder/.env
-# ASC_BYPASS_KEYCHAIN は設定禁止（iris session が読めなくなる）
+export ASC_BYPASS_KEYCHAIN=1  # tmux/cron環境でKeychainハング防止。irisセッションも正常動作確認済み。
 grep -q "RevenueCat" ${APP_NAME}ios/project.yml || { echo "GATE FAIL: no RevenueCat in project.yml"; exit 1; }
 asc subscriptions groups list --app $APP_ID | grep -q "group" || { echo "GATE FAIL: no IAP groups"; exit 1; }
 ```
@@ -100,6 +125,14 @@ Source: tdd-feature SKILL.md — "TDD Execution Order: Models → Services → V
 1. AppState → MVVM split (ViewModels)
 2. Onboarding flow (notification permission step)
 3. Onboarding hook (UX_SPEC compliant — see ios-ux-design references/onboarding.md)
+
+**onboarding完了フラグのパターン（MANDATORY）:**
+Source: stackoverflow.com/questions/74255552 — 「@AppStorage("show_onboarding") を各Viewに直接定義」
+Source: medium.com/@jpmtech — 「add the same call to AppStorage with the same default value」
+
+❌ onComplete?() → viewModel.complete() → isComplete → .onChange → hasCompleted （間接チェーン = 壊れやすい）
+✅ @AppStorage("hasCompletedOnboarding") var hasCompletedOnboarding = false を PaywallView に直接定義。ボタンタップで直接 hasCompletedOnboarding = true。
+理由: .onChange チェーンはSwiftUIのライフサイクルでタイミングが不安定。@AppStorage直接設定は確実。
 4. PaywallView: offerings error display + DESIGN_SYSTEM tokens
 5. PaywallView: remove false claims (Rule 21: AI禁止)
 6. URL force-unwrap → optional binding
@@ -148,12 +181,26 @@ Source: Funnelfox — "Consistent messaging from ad to onboarding to paywall inc
 4. Settings: Upgrade → PaywallView navigation
 5. ProgressDashboard: DateFormatter optimization + weekday labels
 
+**WorkoutTimerView 実装ルール:**
+- Stop ボタンは常に WorkoutLogView に遷移する（elapsed=0 でも）
+- 理由: Maestro E2E テストで即 Stop しても画面遷移を検証できる必要がある
+- elapsed=0 のセッションは WorkoutLogView 内で「セッションなし」表示にする（ガードで遷移を阻止しない）
+
 ### 006d: Polish + Resources
 1. DESIGN_SYSTEM tokens across all Views
 2. All a11y IDs aligned to TEST_SPEC
 3. PrivacyInfo.xcprivacy + ITSAppUsesNonExemptEncryption
 4. Localization (.xcstrings)
 5. PainAreaSelectionView: disabled button helper text
+
+**a11y ID 配置ルール（CRITICAL — Maestro E2E 互換性）:**
+Source: docs.maestro.dev/platform-support/ios-swiftui — 「assign accessibilityIdentifier for UI element that needs to be accessed」
+
+❌ コンテナ（NavigationStack, TabView, VStack, ScrollView）に a11y ID を付ける → Maestroが検出不可
+✅ 末端の操作可能要素（Button, Text, TextField, Toggle）に a11y ID を付ける
+例:
+❌ `NavigationStack { ... }.accessibilityIdentifier("screen_settings")`
+✅ `Text("Settings").accessibilityIdentifier("label_settings_title")`
 
 **Each sub-session follows Canon TDD:** Test List → RED → GREEN → REFACTOR → repeat
 

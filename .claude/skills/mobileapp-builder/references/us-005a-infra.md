@@ -95,8 +95,8 @@ security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keych
 ```bash
 source ~/.config/mobileapp-builder/.env
 [ -f ./.env ] && source ./.env
+export ASC_BYPASS_KEYCHAIN=1  # tmux/cron環境でKeychainハング防止
 security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db 2>/dev/null || true
-unset ASC_WEB_LAST_LOGIN ASC_WEB_SESSION_CACHE_BACKEND ASC_BYPASS_KEYCHAIN
 
 IRIS_STATUS=$(asc web auth status --apple-id "$APPLE_ID" 2>&1 || echo "IRIS_FAIL")
 
@@ -158,17 +158,23 @@ asc bundle-ids list --output json 2>&1 | jq -e --arg bid "<bundle_id>" '.data[] 
 echo "✅ Bundle ID confirmed"
 ```
 
-### 5.1: アプリ作成（keychain セッション有効 → 2FA 不要）
+### 5.1: アプリ作成（iris セッション使用 — 2FA 不要）
+
+> **CRITICAL**: `asc apps create` は Apple ID 認証（2FA必須）→ headless/tmux環境で使用禁止。
+> `asc web apps create` は iris session（cached認証）→ 2FA不要で自動実行可能。
+> Source: fastlane docs — 「Using an API key removes the need for 2 factor issues on your CI」
+> (https://docs.fastlane.tools/getting-started/ios/authentication/)
+
 ```bash
 source ~/.config/mobileapp-builder/.env
+export ASC_BYPASS_KEYCHAIN=1  # tmux/cron環境でKeychainハング防止
 
-APP_RESULT=$(ASC_WEB_PASSWORD="$APPLE_ID_PASSWORD" asc apps create \
+APP_RESULT=$(asc web apps create \
   --name "<app_name>" \
   --bundle-id "<bundle_id>" \
   --sku "<slug>" \
   --platform IOS \
   --primary-locale "en-US" \
-  --apple-id "$APPLE_ID" \
   --output json 2>&1)
 
 if echo "$APP_RESULT" | jq -e '.data.id' > /dev/null 2>&1; then
