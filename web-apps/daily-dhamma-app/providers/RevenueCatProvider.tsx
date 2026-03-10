@@ -11,12 +11,19 @@ import createContextHook from '@nkzw/create-context-hook';
 
 function getRCToken() {
   if (__DEV__ || Platform.OS === 'web') {
-    return process.env.EXPO_PUBLIC_REVENUECAT_TEST_API_KEY;
+    const testKey = process.env.EXPO_PUBLIC_REVENUECAT_TEST_API_KEY;
+    if (testKey) return testKey;
+    // Fallback to production key for sandbox testing
+    return Platform.select({
+      ios: process.env.EXPO_PUBLIC_REVENUECAT_IOS_API_KEY,
+      android: process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY,
+      default: undefined,
+    });
   }
   return Platform.select({
     ios: process.env.EXPO_PUBLIC_REVENUECAT_IOS_API_KEY,
     android: process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY,
-    default: process.env.EXPO_PUBLIC_REVENUECAT_TEST_API_KEY,
+    default: undefined,
   });
 }
 
