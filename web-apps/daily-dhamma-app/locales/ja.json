@@ -53,14 +53,17 @@
       "free": "無料",
       "premium": "プレミアム",
       "verses": {
+        "label": "法句経",
         "free": "10の法句経",
         "premium": "全423の法句経"
       },
       "reminders": {
+        "label": "通知",
         "free": "1日3回",
         "premium": "1日最大10回"
       },
       "bookmark": {
+        "label": "ブックマーク",
         "free": "—",
         "premium": "無制限"
       }

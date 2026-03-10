@@ -152,7 +152,8 @@ export default function PaywallScreen() {
     router.replace('/');
   };
 
-  const formatPrice = (pkg: PurchasesPackage | undefined) => formatPackagePrice(pkg);
+  const formatPrice = (pkg: PurchasesPackage | undefined, fallback: string = '') =>
+    formatPackagePrice(pkg, fallback);
 
   const isLoading = isPurchasing || isRestoring;
 
@@ -304,7 +305,12 @@ export default function PaywallScreen() {
           </View>
           {/* Verses */}
           <View style={[styles.compareRow, { borderBottomColor: colors.border }]}>
-            <Text style={[styles.compareRowLabel, { color: colors.text }]}>📜</Text>
+            <View style={styles.compareRowLabelCell}>
+              <Text style={styles.compareRowEmoji}>📜</Text>
+              <Text style={[styles.compareRowLabelText, { color: colors.text }]}>
+                {t('paywall.compare.verses.label')}
+              </Text>
+            </View>
             <Text style={[styles.compareRowValue, { color: colors.textMuted }]}>
               {t('paywall.compare.verses.free')}
             </Text>
@@ -314,7 +320,12 @@ export default function PaywallScreen() {
           </View>
           {/* Reminders */}
           <View style={[styles.compareRow, { borderBottomColor: colors.border }]}>
-            <Text style={[styles.compareRowLabel, { color: colors.text }]}>🔔</Text>
+            <View style={styles.compareRowLabelCell}>
+              <Text style={styles.compareRowEmoji}>🔔</Text>
+              <Text style={[styles.compareRowLabelText, { color: colors.text }]}>
+                {t('paywall.compare.reminders.label')}
+              </Text>
+            </View>
             <Text style={[styles.compareRowValue, { color: colors.textMuted }]}>
               {t('paywall.compare.reminders.free')}
             </Text>
@@ -324,7 +335,12 @@ export default function PaywallScreen() {
           </View>
           {/* Bookmarks */}
           <View style={styles.compareRow}>
-            <Text style={[styles.compareRowLabel, { color: colors.text }]}>🔖</Text>
+            <View style={styles.compareRowLabelCell}>
+              <Text style={styles.compareRowEmoji}>🔖</Text>
+              <Text style={[styles.compareRowLabelText, { color: colors.text }]}>
+                {t('paywall.compare.bookmark.label')}
+              </Text>
+            </View>
             <Text style={[styles.compareRowValue, { color: colors.textMuted }]}>
               {t('paywall.compare.bookmark.free')}
             </Text>
@@ -372,7 +388,7 @@ export default function PaywallScreen() {
                   </View>
                 </View>
                 <Text style={[styles.planCardPrice, { color: colors.text }]}>
-                  {formatPrice(monthlyPackage)}
+                  {formatPrice(monthlyPackage, '$9.99')}
                   <Text style={[styles.planCardPeriod, { color: colors.textMuted }]}>
                     {t('paywall.plan.perMonth')}
                   </Text>
@@ -416,7 +432,7 @@ export default function PaywallScreen() {
                   </View>
                 </View>
                 <Text style={[styles.planCardPrice, { color: colors.text }]}>
-                  {formatPrice(yearlyPackage)}
+                  {formatPrice(yearlyPackage, '$49.99')}
                   <Text style={[styles.planCardPeriod, { color: colors.textMuted }]}>
                     {t('paywall.plan.perYear')}
                   </Text>
@@ -694,9 +710,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     borderBottomWidth: 1,
   },
-  compareRowLabel: {
-    flex: 1,
-    fontSize: 20,
+  compareRowLabelCell: {
+    flex: 1.2,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  compareRowEmoji: {
+    fontSize: 18,
+  },
+  compareRowLabelText: {
+    fontSize: 13,
+    fontWeight: '500',
   },
   compareRowValue: {
     flex: 1,

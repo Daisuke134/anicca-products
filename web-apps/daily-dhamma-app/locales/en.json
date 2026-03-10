@@ -53,14 +53,17 @@
       "free": "Free",
       "premium": "Premium",
       "verses": {
+        "label": "Verses",
         "free": "10 verses",
         "premium": "All 423 verses"
       },
       "reminders": {
+        "label": "Reminders",
         "free": "3x / day",
         "premium": "Up to 10x / day"
       },
       "bookmark": {
+        "label": "Bookmarks",
         "free": "—",
         "premium": "Unlimited"
       }

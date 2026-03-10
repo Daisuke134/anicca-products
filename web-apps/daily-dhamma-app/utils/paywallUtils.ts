@@ -28,8 +28,9 @@ export function findYearlyPackage(
  * パッケージの価格文字列を返す。パッケージが undefined の場合は空文字を返す。
  */
 export function formatPackagePrice(
-  pkg: PurchasesPackage | undefined
+  pkg: PurchasesPackage | undefined,
+  fallback: string = ''
 ): string {
-  if (!pkg) return '';
+  if (!pkg) return fallback;
   return pkg.product.priceString;
 }
