@@ -5,37 +5,37 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000374">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000348">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: app_store_connect_api_key" time="0.0025">
+      <testcase classname="fastlane.lanes" name="1: app_store_connect_api_key" time="0.001503">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: source ~/.config/mobileapp-builder/.env &amp;&amp; security unlock-keychain -p &quot;$KEYCHAIN_PASSWORD&quot; ~/Library/Keychains/login.keychain-db" time="0.011916">
+      <testcase classname="fastlane.lanes" name="2: source ~/.config/mobileapp-builder/.env &amp;&amp; security unlock-keychain -p &quot;$KEYCHAIN_PASSWORD&quot; ~/Library/Keychains/login.keychain-db" time="0.01244">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: get_provisioning_profile" time="1.947756">
+      <testcase classname="fastlane.lanes" name="3: get_provisioning_profile" time="1.944555">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: get_provisioning_profile" time="1.560111">
+      <testcase classname="fastlane.lanes" name="4: get_provisioning_profile" time="1.459589">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: build_app" time="70.280707">
+      <testcase classname="fastlane.lanes" name="5: build_app" time="64.324755">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="6: xcodebuild -exportArchive -archivePath &apos;/Users/anicca/Library/Developer/Xcode/Archives/2026-03-11/aniccaios 2026-03-11 03.35.46.xcarchive&apos; -exportPath &apos;/tmp/aniccaios-export&apos; -exportOptionsPlist &apos;/tmp/ExportOptions.plist&apos; -allowProvisioningUpdates -authenticationKeyPath /Users/anicca/.appstoreconnect/private_keys/AuthKey_646Y27MJ8C.p8 -authenticationKeyID 646Y27MJ8C -authenticationKeyIssuerID f53272d9-c12d-4d9d-811c-4eb658284e74" time="11.255485">
+      <testcase classname="fastlane.lanes" name="6: xcodebuild -exportArchive -archivePath &apos;/Users/anicca/Library/Developer/Xcode/Archives/2026-03-11/aniccaios 2026-03-11 03.52.48.xcarchive&apos; -exportPath &apos;/tmp/aniccaios-export&apos; -exportOptionsPlist &apos;/tmp/ExportOptions.plist&apos; -allowProvisioningUpdates -authenticationKeyPath /Users/anicca/.appstoreconnect/private_keys/AuthKey_646Y27MJ8C.p8 -authenticationKeyID 646Y27MJ8C -authenticationKeyIssuerID f53272d9-c12d-4d9d-811c-4eb658284e74" time="11.579133">
         
       </testcase>
     
