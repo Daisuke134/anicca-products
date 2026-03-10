@@ -42,6 +42,7 @@ export async function scheduleMorningVerseNotification(time: string, isPremium: 
   }
 
   const locale = getDeviceLocale();
+  const lang = locale.toLowerCase().split('-')[0];
   const [hours, minutes] = time.split(':').map(Number);
   const daysToSchedule = 7; // 7日分をスケジュール（morning notificationsは合計数が少ないため固定7日）
 
@@ -62,7 +63,7 @@ export async function scheduleMorningVerseNotification(time: string, isPremium: 
     await Notifications.scheduleNotificationAsync({
       identifier: `morning-verse-${day}`,
       content: {
-        title: 'Daily Dhamma',
+        title: lang === 'ja' ? 'デイリーダンマ' : 'Daily Dhamma',
         body: getLocalizedVerse(verse, locale),
         data: { verseId: verse.id },
       },
@@ -83,6 +84,7 @@ export async function scheduleStayPresentNotifications(frequency: number, isPrem
   }
 
   const locale = getDeviceLocale();
+  const lang = locale.toLowerCase().split('-')[0];
   const actualFrequency = isPremium ? frequency : Math.min(frequency, 3);
   // iOS上限64通知を超えないよう daysToSchedule を動的計算
   // 合計 = morning(daysToSchedule) + stayPresent(frequency × daysToSchedule) ≤ 60
@@ -129,7 +131,7 @@ export async function scheduleStayPresentNotifications(frequency: number, isPrem
       await Notifications.scheduleNotificationAsync({
         identifier: `stay-present-${day}-${i}`,
         content: {
-          title: 'Daily Dhamma',
+          title: lang === 'ja' ? 'デイリーダンマ' : 'Daily Dhamma',
           body: message,
         },
         trigger: {

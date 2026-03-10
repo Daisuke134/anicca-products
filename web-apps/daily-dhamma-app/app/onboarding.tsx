@@ -68,7 +68,7 @@ export default function OnboardingScreen() {
     } else {
       await requestNotificationPermission();
       completeOnboarding();
-      router.replace('/paywall');
+      router.replace('/paywall?source=onboarding');
     }
   };
 

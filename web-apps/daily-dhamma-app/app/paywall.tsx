@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator, Alert, Linking } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { X, Check, Flower2, Sparkles, Bell } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import Colors from '@/constants/colors';
 import { useRevenueCat } from '@/providers/RevenueCatProvider';
-import { PurchasesPackage } from 'react-native-purchases';
+import { PurchasesPackage, PURCHASES_ERROR_CODE } from 'react-native-purchases';
 import { t, TranslationKey } from '@/utils/i18n';
 import { findMonthlyPackage, findYearlyPackage, formatPackagePrice } from '@/utils/paywallUtils';
 
@@ -21,9 +21,21 @@ const featureKeys: Array<{ icon: React.ComponentType<{ size: number; color: stri
 
 export default function PaywallScreen() {
   const router = useRouter();
+  const { source } = useLocalSearchParams<{ source?: string }>();
+  const isOnboarding = source === 'onboarding';
   const insets = useSafeAreaInsets();
   const colors = Colors.light;
   const [selectedPlan, setSelectedPlan] = useState<'yearly' | 'monthly'>('yearly');
+  const [showClose, setShowClose] = useState(!isOnboarding);
+
+  useEffect(() => {
+    if (!isOnboarding) {
+      setShowClose(true);
+      return;
+    }
+    const timer = setTimeout(() => setShowClose(true), 3000);
+    return () => clearTimeout(timer);
+  }, [isOnboarding]);
 
   const {
     currentOffering,
@@ -51,8 +63,8 @@ export default function PaywallScreen() {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       router.replace('/');
     } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Purchase failed';
-      if (!errorMessage.includes('cancelled') && !errorMessage.includes('PURCHASE_CANCELLED')) {
+      const purchaseError = error as Error & { code?: string };
+      if (purchaseError.code !== PURCHASES_ERROR_CODE.PURCHASE_CANCELLED_ERROR) {
         Alert.alert(t('paywall.alert.purchaseFailed.title'), t('paywall.alert.purchaseFailed.msg'));
       }
     }
@@ -92,14 +104,16 @@ export default function PaywallScreen() {
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
-        <TouchableOpacity
-          style={[styles.closeButton, { backgroundColor: colors.backgroundSecondary }]}
-          onPress={handleSkip}
-          activeOpacity={0.7}
-          disabled={isLoading}
-        >
-          <X size={20} color={colors.textSecondary} />
-        </TouchableOpacity>
+        {showClose && (
+          <TouchableOpacity
+            style={[styles.closeButton, { backgroundColor: colors.backgroundSecondary }]}
+            onPress={handleSkip}
+            activeOpacity={0.7}
+            disabled={isLoading}
+          >
+            <X size={20} color={colors.textSecondary} />
+          </TouchableOpacity>
+        )}
       </View>
 
       <ScrollView
