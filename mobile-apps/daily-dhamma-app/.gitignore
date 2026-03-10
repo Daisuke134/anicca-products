@@ -43,5 +43,5 @@ yarn-error.*
 .env
 rork-eslint.config.js
 # Local signing credentials
-ios/certs/
+certs/
 credentials.json
