@@ -29,8 +29,8 @@
         "Typecheck passes"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "2026-03-11: product-plan.md 作成完了。7セクション全揃い。$7.99/月・$29.99/年（RevenueCat SOSA中央値準拠）。iTunes「SomaticFlow」0 exact matches確認。http参照22件（>10）。全AC PASS。"
     },
     {
       "id": "US-003",

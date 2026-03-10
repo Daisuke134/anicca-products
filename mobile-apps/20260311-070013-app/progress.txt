@@ -1,6 +1,10 @@
 ## Codebase Patterns
 
 - アプリ名: SomaticFlow (somatic-flow)
+- Bundle ID: com.aniccafactory.somaticflow
+- App Title (ASO): "Somatic Exercises - SomaticFlow"
+- 価格: $7.99/月・$29.99/年 (Annual saves 69%)
+- RC Packages: com.aniccafactory.somaticflow.monthly / .annual
 - カテゴリ: ソマティックエクサイズ / 神経系リリース
 - 除外済みカテゴリ: 呼吸法, 睡眠, 感謝日記, 気分チェックイン, TCM, カフェイン, 目の休憩, コールドプランジ, リンパ, アーシング, 赤色光療法, Zone2, ストレッチ, 迷走神経, マインドフルネス, ストレス, アファメーション
 
@@ -19,4 +23,17 @@
   - Apify TikTok scraper: hashtag フィールドが null で返ってくる場合がある。playCount のみで判断可能
   - iTunes review RSS: `https://itunes.apple.com/us/rss/customerreviews/page=1/id=APP_ID/sortby=mostrecent/json`
   - Somatic exercises カテゴリは App Store でほぼ無競合（最大297 reviews）
+---
+
+## 2026-03-11 - US-002: Product Planning
+
+- product-plan.md 作成（7セクション: Target User, Problem, Solution, Monetization, MVP Scope, App Identity, Risk Assessment）
+- 価格: $7.99/月・$29.99/年（RevenueCat SOSA 2025 中央値準拠。Annual saves 69%）
+- アプリ名: SomaticFlow — iTunes 0 exact matches 確認済み（2026-03-11）
+- Bundle ID: com.aniccafactory.somaticflow
+- ファイル: product-plan.md
+- **Learnings for future iterations:**
+  - iTunes name check: `jq '[.results[] | select(.trackName | ascii_downcase | contains("somaticflow"))] | length'`
+  - RevenueCat SOSA 2025 H&F median: $7.73/月・$29.65/年 → Monthly $7.99, Annual $29.99 が中央値近傍
+  - CoreHaptics を競合との差別化ポイントに設定（全競合が未使用）
 ---
