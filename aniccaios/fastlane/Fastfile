@@ -217,7 +217,8 @@ platform :ios do
         stripSwiftSymbols: true,
         generateAppStoreInformation: true
       },
-      clean: true
+      clean: true,
+      xcargs: "-allowProvisioningUpdates -authenticationKeyPath '#{API_KEY_PATH}' -authenticationKeyID '#{API_KEY_ID}' -authenticationKeyIssuerID '#{API_ISSUER_ID}'"
     )
     
     UI.success("✅ Build completed! IPA: #{lane_context[SharedValues::IPA_OUTPUT_PATH]}")
