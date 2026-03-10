@@ -4,6 +4,24 @@
 
 **Read first:** `.claude/skills/tdd-feature/SKILL.md` — Canon TDD 5-step cycle, iOS patterns, Fastlane commands
 
+## Project Setup Rules（MANDATORY）
+
+### ❌ Never Let AI Modify .pbxproj Files
+
+**Source**: How to build an iOS app with Claude Code: Essential Rules  
+**URL**: https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj  
+**核心の引用**: 「Never let AI modify .pbxproj files. Create files with Claude Code, add them to Xcode manually.」
+
+**Reason**: .pbxproj は複雑なバイナリ風テキスト。AI が編集すると高確率で破損する。
+
+**Protocol**:
+1. Claude Code で新しい .swift ファイルを作成する
+2. Xcode を開く
+3. 手動で "Add Files to Project..." から追加する
+4. project.pbxproj を git add する（手動追加後）
+
+**Alternative**: XcodeGen を使う場合は project.yml を AI に編集させて、`xcodegen generate` で .pbxproj を自動生成する（推奨）
+
 ## Fastfile 必須レーン（MANDATORY）
 
 Fastfile に以下3レーンを必ず含める。US-007 Maestro E2E の前提条件。
