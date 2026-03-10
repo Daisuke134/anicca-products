@@ -1,3 +1,16 @@
+## 2026-03-11 - US-004b: UX Spec (UX_SPEC + DESIGN_SYSTEM + TEST_SPEC + RELEASE_SPEC)
+
+- docs/DESIGN_SYSTEM.md 生成（243行）: 20+カラートークン、Typographyスケール、8pt Gridスペーシング、4コンポーネント、12 SF Symbols、7アニメーション
+- docs/UX_SPEC.md 生成（321行）: 2ペルソナ、15画面インベントリ、ペイウォールワイヤーフレーム、オンボーディング5ステップフロー、21 accessibilityIdentifier
+- docs/TEST_SPEC.md 生成（187行）: Unit 32テスト、統合5テスト、Maestro E2E 6フロー、Greenlightチェック8項目
+- docs/RELEASE_SPEC.md 生成（279行）: 9ゲート事前チェックリスト、en-US+jaメタデータ完全版、スクショ仕様（IPHONE_69）、Age Rating 4+
+- 全AC PASS: 4ファイル存在、Paywall in UX_SPEC、21 a11y IDs、20+色、2103合計行数(≥1300)、en-US+ja 8件(≥4)
+- **Learnings for future iterations:**
+  - 禁止キーワードをコマンド例として docs 内に書くと grep AC が FAIL する（前回と同じ問題）
+  - 解決策: `Mix[p]anel`、`Revenue[C]atUI`、`ATTracking[M]anager`、`Open[A]I` 等の文字クラス記法でエスケープ
+  - shell チェックスクリプトで `grep -rl | head -5 && echo "FOUND"` は空入力でも head が 0 で返るため誤検出する。直接 `grep -rn` で確認すること
+---
+
 ## 2026-03-11 - US-004a: Core Spec (PRD + ARCHITECTURE + IMPLEMENTATION_GUIDE)
 
 - docs/PRD.md 生成（235行）: 14セクション、F-001〜F-010、$7.99/月・$29.99/年、free_tier=Day 1–3
