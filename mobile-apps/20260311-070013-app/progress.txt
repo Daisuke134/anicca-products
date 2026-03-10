@@ -1,0 +1,22 @@
+## Codebase Patterns
+
+- アプリ名: SomaticFlow (somatic-flow)
+- カテゴリ: ソマティックエクサイズ / 神経系リリース
+- 除外済みカテゴリ: 呼吸法, 睡眠, 感謝日記, 気分チェックイン, TCM, カフェイン, 目の休憩, コールドプランジ, リンパ, アーシング, 赤色光療法, Zone2, ストレッチ, 迷走神経, マインドフルネス, ストレス, アファメーション
+
+---
+
+## 2026-03-11 - US-001: Trend Research + Idea Selection
+
+- 5 Lens リサーチ完了（内部知識 + iTunes API + TikTok Apify）
+- 選定アプリ: **SomaticFlow** (somatic exercises daily routine)
+- 競合最大: 「Somatic Exercises」297 reviews（極めて低競合）
+- TikTok: #somatichealing 200万再生, #somaticexercises 260万再生
+- ペインポイント: テキストのみ・音声なし・UIが複雑
+- ファイル: spec/01-trend.md
+- overall_score: 8.7 (S:9 P:8 M:8 C:9 T:9)
+- **Learnings for future iterations:**
+  - Apify TikTok scraper: hashtag フィールドが null で返ってくる場合がある。playCount のみで判断可能
+  - iTunes review RSS: `https://itunes.apple.com/us/rss/customerreviews/page=1/id=APP_ID/sortby=mostrecent/json`
+  - Somatic exercises カテゴリは App Store でほぼ無競合（最大297 reviews）
+---
