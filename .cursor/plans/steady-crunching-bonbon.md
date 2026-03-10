@@ -1,161 +1,218 @@
-# Daily Dhamma v1.1.0 — 3 Fix Spec
+# Daily Dhamma v1.1.0 — Multi-Step Paywall + 正語コピー + スキル改善
 
 ## Context
 
-シミュレーターでオンボーディング v2 を確認した結果、3つの問題を発見。App Store 提出前に修正必須。
-コード検証 + 品質レビュー済み。BLOCKING 2件を修正、UX改善2件を追加。
+3-step paywall（Cravotta Method）は `docs/onboarding-paywall-implementation-spec.md` に設計済みだが**コード未実装**。
+現状の `paywall.tsx` は単一画面。Fix 1（error.code）と Fix 3（通知i18n）は実装済み・push済み（release/1.7.0直接 = ルール違反）。
+
+残り問題：
+1. **設定/ブックマークからPaywall → Step 3（本体）だけ出すべき** → 3ステップ実装 + source routing
+2. **「1万人以上の実践者」は虚偽 → Right Speech違反** → Authority + Content Volume Proof に変更
+3. **ios-app-onboarding スキルが `.claude/skills/` にない** → 移動 + 不足項目追加
+
+**作業ブランチ:** release/1.7.0 直接（ワークツリー不使用、ユーザー承認済み）
 
 ---
 
-## Fix 1: 購入エラーハンドリング改善
+## TODO
 
-### 根本原因
+### 環境整備
 
-**シミュレーターでの購入失敗は想定動作。バグではない。** StoreKit APIがシミュレーターで動作しない。
+| # | タスク | ファイル |
+|---|--------|---------|
+| T1 | スキル移動: `skills/ios-app-onboarding/` → `.claude/skills/ios-app-onboarding/` | SKILL.md |
+| T2 | メモリ更新:「ios-app-onboarding = オンボーディング+ペイウォールBPの決定版スキル」 | MEMORY.md |
 
-Source: RevenueCat Docs (test-and-launch/sandbox)
+### スキル改善（T1 の後）
 
-### 問題
+| # | タスク | 追加内容 |
+|---|--------|---------|
+| T3 | Social Proof Phase戦略セクション追加 | Phase 1（0-100）: Authority+Content Volume、Phase 2（100-1000）: App Store Rating、Phase 3（1000+）: 実数 |
+| T4 | Source routing セクション追加 | onboarding→3ステップ全表示、設定/機能制限→Step 3直行（X即表示、dotsなし） |
+| T5 | 倫理ガイドライン追加 | Banned Patternsに「虚偽ソーシャルプルーフ（検証不可能なユーザー数）→ BANNED」 |
+| T6 | Prayer Lock 3項目追加 | Answer Mirroring、Review Modal After Core Experience、Anti-Patterns テーブル |
 
-`app/paywall.tsx:120-125` のキャンセル検出が**文字列マッチ**で脆弱。Providerは正しく `.code` を使用。
+### Paywall実装
 
-### 修正
+| # | タスク | ファイル |
+|---|--------|---------|
+| T7 | `paywall.tsx` を3ステップ構成にリファクタ（PaywallStep state管理） | `app/paywall.tsx` |
+| T8 | Step 1: Risk-Free Primer UI（価格なし、CTA "次へ"） | `app/paywall.tsx` |
+| T9 | Step 2: Transparency Promise UI（timeline、CTA "了解しました"） | `app/paywall.tsx` |
+| T10 | Step 3: Hard Close UI（比較表、BEST VALUE、Social Proof、CTA変更） | `app/paywall.tsx` |
+| T11 | Source routing: `source=onboarding` → Step 1開始、それ以外 → Step 3直行 | `app/paywall.tsx` |
+| T12 | X ボタン制御: Step 1/2 非表示、Step 3 onboarding=3秒遅延/設定=即表示 | `app/paywall.tsx` |
+| T13 | Step dots（● ○ ○）onboarding時のみ表示 | `app/paywall.tsx` |
+| T14 | Trial Reminder 通知（Day 5）スケジュール関数追加 | `utils/notifications.ts` |
 
-| ファイル | 行 | 変更 |
-|---------|-----|------|
-| `app/paywall.tsx` | import | `PURCHASES_ERROR_CODE` を `react-native-purchases` から追加 |
-| `app/paywall.tsx` | 120-125 | `.code` チェックに変更 |
+### コピー変更
 
-```typescript
-// import変更
-import { PurchasesPackage, PURCHASES_ERROR_CODE } from 'react-native-purchases';
+| # | タスク | ファイル |
+|---|--------|---------|
+| T15 | ソーシャルプルーフ変更:「1万人」→「2,500年の智慧。423の教え。」 | `locales/*.json` |
+| T16 | CTA変更:「登録する」→「無料トライアルを始める」 | `locales/*.json` |
+| T17 | Skip変更:「無料で続ける」→「あとで」 | `locales/*.json` |
+| T18 | 全新規キー追加（step1/step2/compare/bestValue/trialReminder） | `locales/*.json` |
+| T19 | 日本語テキスト「デイリーダンマ」統一 | `locales/ja.json` |
 
-// catch変更
-} catch (error: unknown) {
-  const purchaseError = error as Error & { code?: string };
-  if (purchaseError.code !== PURCHASES_ERROR_CODE.PURCHASE_CANCELLED_ERROR) {
-    Alert.alert(t('paywall.alert.purchaseFailed.title'), t('paywall.alert.purchaseFailed.msg'));
-  }
-}
-```
+### 検証
 
----
+| # | タスク |
+|---|--------|
+| T20 | `npm test` 全パス |
+| T21 | シミュレーター JA: オンボーディング→Step 1→2→3（X 3秒遅延、dots、比較表、BEST VALUE） |
+| T22 | メイン→ブックマーク→Step 3直行（X即表示、dotsなし） |
+| T23 | 設定→プレミアム→Step 3直行 |
+| T24 | ソーシャルプルーフ「2,500年」確認、CTA「無料トライアル」確認 |
+| T25 | コミット & push |
 
-## Fix 2: 設定/プレミアム機能からのPaywallを直接表示
+### 別タスク
 
-### 根本原因
-
-ルートパラメータなし。全アクセスが3ステップフローを表示。
-
-| アクセス元 | 現在 | 修正後 |
-|-----------|------|--------|
-| オンボーディング（`onboarding.tsx:129`） | 3ステップ | 3ステップ（正しい） |
-| ブックマーク（`index.tsx:49`） | 3ステップ | **直接 hard-close** |
-| 設定バナー（`settings.tsx:98`） | 3ステップ | **直接 hard-close** |
-| 設定頻度（`settings.tsx:172`） | 3ステップ | **直接 hard-close** |
-
-### 修正
-
-| ファイル | 行 | 変更 |
-|---------|-----|------|
-| `app/paywall.tsx` | import | `useLocalSearchParams` を `expo-router` から追加 |
-| `app/paywall.tsx` | 37付近 | sourceパラメータ取得 + 初期ステップ分岐 |
-| `app/paywall.tsx` | step dots | non-onboarding時は非表示 |
-| `app/paywall.tsx` | X button | non-onboarding時は即表示（3秒ディレイなし） |
-| `app/onboarding.tsx` | 129 | `?source=onboarding` パラメータ追加 |
-
-**paywall.tsx:**
-```typescript
-// import
-import { useRouter, useLocalSearchParams } from 'expo-router';
-
-// state
-const { source } = useLocalSearchParams<{ source?: string }>();
-const isOnboarding = source === 'onboarding';
-const [currentStep, setCurrentStep] = useState<PaywallStep>(
-  isOnboarding ? 'risk-free' : 'hard-close'
-);
-
-// X button: non-onboarding時は即表示
-useEffect(() => {
-  if (currentStep === 'hard-close') {
-    if (!isOnboarding) {
-      setShowClose(true);  // 即表示
-      return;
-    }
-    const timer = setTimeout(() => setShowClose(true), 3000);
-    return () => clearTimeout(timer);
-  }
-  setShowClose(false);
-}, [currentStep, isOnboarding]);
-
-// step dots: non-onboarding時は非表示
-{isOnboarding && renderStepDots()}
-```
-
-**onboarding.tsx:**
-```typescript
-// 129行目
-router.replace('/paywall?source=onboarding');
-```
+| # | タスク |
+|---|--------|
+| T26 | App Store表示名: **JA のみ**「デイリーダンマ」に変更（EN は "Daily Dhamma" のまま）（`asc metadata update`） |
 
 ---
 
-## Fix 3: プッシュ通知タイトルのローカライズ
+## Paywall 3ステップ構造
 
-### 根本原因
+```
+type PaywallStep = 'risk-free' | 'transparency' | 'hard-close';
 
-UI画面91キーは完全ローカライズ済み。通知タイトル2箇所のみハードコード。
-
-### 修正
-
-| ファイル | 行 | 変更 |
-|---------|-----|------|
-| `utils/notifications.ts` | 44後 | `scheduleMorningVerseNotification` に `lang` 変数追加 |
-| `utils/notifications.ts` | 65 | タイトルローカライズ |
-| `utils/notifications.ts` | 85後 | `scheduleStayPresentNotifications` に `lang` 変数追加 |
-| `utils/notifications.ts` | 132 | タイトルローカライズ |
-
-**scheduleMorningVerseNotification（L44付近）:**
-```typescript
-const locale = getDeviceLocale();
-const lang = locale.toLowerCase().split('-')[0];  // ← 追加
-const [hours, minutes] = time.split(':').map(Number);
-// ...
-// L65:
-title: lang === 'ja' ? 'デイリーダンマ' : 'Daily Dhamma',
+source === 'onboarding' → Step 1 → Step 2 → Step 3
+source !== 'onboarding' → Step 3 直行
 ```
 
-**scheduleStayPresentNotifications（L85付近）:**
-```typescript
-const locale = getDeviceLocale();
-const lang = locale.toLowerCase().split('-')[0];  // ← 追加
-const actualFrequency = isPremium ? frequency : Math.min(frequency, 3);
-// ...
-// L132:
-title: lang === 'ja' ? 'デイリーダンマ' : 'Daily Dhamma',
+### Step 1: Risk-Free Primer
+
+| 要素 | EN | JA |
+|------|-----|-----|
+| Icon | 🌸 | 🌸 |
+| Title | Try Daily Dhamma\nfor free | デイリーダンマを\n無料でお試しください |
+| Subtitle | Experience the full power of ancient wisdom — at no cost | 古代の智慧の力を、まずは無料で体験してください |
+| 価格 | **なし** | **なし** |
+| CTA | Continue | 次へ |
+| Dots | ● ○ ○ | ● ○ ○ |
+
+### Step 2: Transparency Promise
+
+| 要素 | EN | JA |
+|------|-----|-----|
+| Icon | 📅 | 📅 |
+| Title | We'll remind you\nbefore any charge | 課金前に\n必ずお知らせします |
+| Timeline ✅ | Today — Start your free trial | 今日 — 無料トライアル開始 |
+| Timeline 🔔 | Day 5 — We'll send you a reminder | 5日目 — リマインダーをお送りします |
+| Timeline 💳 | Day 7 — Trial ends, subscription begins | 7日目 — トライアル終了、サブスクリプション開始 |
+| CTA | Got it | 了解しました |
+| Dots | ○ ● ○ | ○ ● ○ |
+
+### Step 3: Hard Close
+
+| 要素 | EN | JA |
+|------|-----|-----|
+| X button | onboarding: 3秒遅延 / 設定: 即表示 | 同左 |
+| Icon | 🌸 | 🌸 |
+| Title | Your Mindful Journey\nStarts Today | マインドフルな旅が\n今日始まる |
+| Social Proof | 2,500 years of wisdom. 423 verses for daily practice. | 2,500年の智慧。毎日の修行のための423の教え。 |
+| 比較表 Free | 10 verses / 3x day / — | 10の法句経 / 1日3回 / — |
+| 比較表 Premium | All 423 / Up to 10x / Unlimited | 全423 / 最大10回 / 無制限 |
+| Yearly バッジ | ⭐ BEST VALUE | ⭐ 最もお得 |
+| CTA | Start Free Trial | 無料トライアルを始める |
+| Skip | Maybe later | あとで |
+| Dots | ○ ○ ●（onboardingのみ） | ○ ○ ●（onboardingのみ） |
+
+---
+
+## スキル改善パッチ詳細
+
+対象: `skills/ios-app-onboarding/SKILL.md` → `.claude/skills/ios-app-onboarding/SKILL.md`
+
+### P1: Social Proof Phase戦略（Conversion Optimization セクション後に追加）
+
+```markdown
+## Social Proof Phase Strategy
+
+| Phase | Condition | What to Show | Source |
+|-------|-----------|-------------|--------|
+| **Phase 1 (0-100 users)** | No credible user count | Authority Proof + Content Volume Proof | NN/Group Authority Principle |
+| **Phase 2 (100-1000 users)** | 10+ App Store reviews | Add "Rated X.X on App Store" | CXL: verifiable social proof is most effective |
+| **Phase 3 (1,000+ users)** | Credible number | Real user count social proof | Standard best practice |
+
+### Phase 1 Alternatives (When User Count is Too Low)
+
+| Type | Example (EN) | Example (JA) | Source |
+|------|-------------|-------------|--------|
+| Authority Proof | "2,500 years of wisdom" | "2,500年の智慧" | NN/Group Authority Principle |
+| Content Volume | "423 verses from the Pali Canon" | "パーリ聖典から423の教え" | Cialdini: specific verifiable numbers |
+| Risk Removal | "7-day free trial. Cancel anytime." | "7日間無料。いつでもキャンセル可能。" | Cravotta: CVR 2x |
+
+> **NEVER use fake user numbers.** Unverifiable claims destroy trust — the highest-leverage variable.
 ```
 
-**Trial Reminder（L170-176）:** 変更なし（既に正しいパターン）。
+### P2: Source Routing（Multi-Step Paywall セクション後に追加）
+
+```markdown
+## Paywall Source Routing
+
+| Access Point | Flow | X Button | Step Dots |
+|-------------|------|----------|-----------|
+| Onboarding completion | Step 1 → 2 → 3 | Step 3 only, 3s delay | Visible |
+| Settings / Feature gate | Step 3 only | Immediate | Hidden |
+```
+
+### P3: Banned Patterns に追加
+
+```markdown
+| **Fake social proof** | **BANNED** | Right Speech / trust destruction. Use Authority Proof instead |
+```
+
+### P4: Prayer Lock 3項目（Workflow セクション後に追加）
+
+```markdown
+## Additional Design Rules (Prayer Lock / Mau)
+
+| Rule | Detail |
+|------|--------|
+| **Answer Mirroring** | Mirror user's onboarding answers back in subsequent screens to create personalization feeling |
+| **Review Modal After Core Experience** | Request App Store review RIGHT AFTER user completes core feature (peak satisfaction) |
+
+### Anti-Patterns
+
+| Bad | Good |
+|-----|------|
+| Skip straight to paywall | 3-act structure with value delivery first |
+| Ask questions without using answers | Mirror answers back in later screens |
+| Describe features in text | Let users experience the core feature |
+| Hard paywall (no skip) | Soft paywall with [Maybe Later] |
+| Generic "Welcome to AppName" | Problem-focused hook that resonates |
+| Request review on first launch | Request after core feature completion |
+| Fake user numbers | Authority/Content Volume proof |
+```
 
 ---
 
 ## 修正対象ファイル一覧
 
-| ファイル | Fix # | 変更内容 |
-|---------|-------|---------|
-| `app/paywall.tsx` | 1, 2 | import追加 + source分岐 + error.code + X即表示 + dots非表示 |
-| `app/onboarding.tsx` | 2 | 1行（`?source=onboarding`） |
-| `utils/notifications.ts` | 3 | `lang`変数追加2箇所 + タイトルローカライズ2箇所 |
+| ファイル | 変更内容 |
+|---------|---------|
+| `.claude/skills/ios-app-onboarding/SKILL.md` | 移動 + P1-P4 追加 |
+| `mobile-apps/daily-dhamma-app/app/paywall.tsx` | 3ステップ state + Step 1/2/3 UI + source routing + X制御 + dots + 比較表 |
+| `mobile-apps/daily-dhamma-app/locales/en.json` | 全新規キー + cta/free/socialProof変更 |
+| `mobile-apps/daily-dhamma-app/locales/ja.json` | 同上（日本語、「デイリーダンマ」統一） |
+| `mobile-apps/daily-dhamma-app/utils/notifications.ts` | `scheduleTrialReminder()` 追加 |
+| MEMORY.md | スキル記録追加 |
+
+---
 
 ## 検証手順
 
 | Step | やること |
 |------|---------|
-| 1 | コード修正（3ファイル） |
-| 2 | `npm test` — 既存66テスト全パス |
-| 3 | `npx expo run:ios`（EN）→ オンボーディング完走 → 3ステップPaywall + ドット表示確認 |
-| 4 | メイン画面 → ブックマーク → **直接Paywall** + ドットなし + X即表示 確認 |
-| 5 | 設定 → プレミアムバナー → **直接Paywall** + ドットなし + X即表示 確認 |
-| 6 | シミュレーター言語JA → 全画面日本語確認 |
-| 7 | コミット & push |
+| 1 | release/1.7.0 で直接コード修正 |
+| 2 | `npm test` — 既存48テスト全パス |
+| 3 | シミュレーター JA アンインストール → 再インストール |
+| 4 | オンボーディング完走 → Step 1→2→3（X 3秒遅延、dots、比較表、BEST VALUE）確認 |
+| 5 | メイン→ブックマーク→Step 3直行（X即表示、dotsなし）確認 |
+| 6 | 設定→プレミアム→Step 3直行 確認 |
+| 7 | 「2,500年の智慧」確認、「無料トライアルを始める」確認 |
+| 8 | コミット & push |

@@ -70,3 +70,39 @@ Apply Apple HIG principles:
 - 44pt minimum touch targets
 - Standard iOS navigation patterns
 - Respect safe areas and Dynamic Island
+
+## JP Localization Rules
+
+Source: Calm JP / Meditopia JP / Apple HIG Localization
+
+| # | Rule | Detail |
+|---|------|--------|
+| 1 | **直訳禁止** | 英語の直訳は冷たく響く。意味を汲み取り日本語の自然な表現に再構成する |
+| 2 | **共感・寄り添い表現** | 「〜しませんか」より「〜できます」「〜していい」。命令形を避け、許可・安心の語調 |
+| 3 | **大げさ表現回避** | 「旅」「journey」「自由」等は日本語では大仰。「毎日」「変化」等の身近な言葉を使う |
+| 4 | **敬語レベル統一** | です/ます調で統一。タイトルのみ体言止めまたは「〜しよう」許可 |
+| 5 | **改行で視認性確保** | 長い1行より適切な位置で `\n` を入れて読みやすくする |
+
+## Social Proof Rules
+
+Source: Jake Mor (Superwall CEO) — "Social proof must be verifiable"
+
+| # | Rule | Detail |
+|---|------|--------|
+| 1 | **検証可能な数字のみ** | App Store レーティング、実測データのみ使用可。虚偽の数字は Apple Review ガイドライン違反リスク |
+| 2 | **ユーザー数は事実ベース** | 「10,000+」等の誇張禁止。実際のダウンロード数が確認できない場合は使わない |
+| 3 | **レーティング + リスク除去** | Social proof と "Cancel anytime" を組み合わせる（Calm パターン） |
+
+## Paywall Design 7 Elements
+
+Source: Adapty iOS Paywall Design Guide 2026 + Blinkist/Calm/Headspace patterns
+
+| # | Element | Detail |
+|---|---------|--------|
+| 1 | **ベネフィット見出し** | 機能名ではなくユーザー価値（「プランを選択」→「あなたの可能性を解き放とう」） |
+| 2 | **ベネフィットリスト** | 3項目、チェックマーク付き。機能ではなく成果を書く |
+| 3 | **プラン選択** | 2-3プラン。年間に BEST VALUE バッジ。デフォルト選択は年間 |
+| 4 | **Social Proof** | 検証可能な数字のみ（上記ルール参照） |
+| 5 | **CTA** | アクション動詞 + "Free Trial"。ボタンは画面幅いっぱい、56pt高、角丸28 |
+| 6 | **Risk Reversal** | 「いつでも解約OK」を2箇所以上（social proof行 + trust行） |
+| 7 | **Soft Dismiss** | Maybe Later → Drawer 再オファー。ハードブロック禁止 |

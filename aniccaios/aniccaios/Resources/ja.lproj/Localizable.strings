@@ -25,11 +25,11 @@
 "common_signing_in" = "サインイン中…";
 "settings_language_label" = "言語";
 
-"onboarding_welcome_title" = "あなたを縛る\nパターンから\n自由になろう";
+"onboarding_welcome_title" = "もう、ひとりで\n抱えなくていい";
 "onboarding_welcome_subtitle_line1" = "一番つらい瞬間に、アニッチャが寄り添います。";
 "onboarding_welcome_subtitle_line2" = "";
 "onboarding_welcome_cta" = "はじめる";
-"onboarding_welcome_social_proof" = "⭐ 4.9 · 10,000人以上が内なる安らぎを実感";
+"onboarding_welcome_social_proof" = "⭐ App Store 評価 5.0";
 "onboarding_welcome_restore_description" = "以前使っていた方はこちら";
 
 "onboarding_account_title" = "進捗を保存";
@@ -44,7 +44,7 @@
 "onboarding_permission_status_not_allowed" = "未許可";
 "onboarding_microphone_optional_hint" = "音声体験が必要になったら、設定→アニッチャでマイクをオンにし直してください。";
 
-"onboarding_notifications_title" = "軌道を外さないために";
+"onboarding_notifications_title" = "大切な瞬間を逃さないために";
 "onboarding_notifications_card_title" = "通知アクセス";
 "onboarding_notifications_description" = "必要な瞬間に、やさしいリマインダーを届けます。通知がないと、アニッチャはあなたに届けられません。";
 "onboarding_notifications_allow" = "通知を許可";
@@ -377,7 +377,7 @@
 "onboarding_ideals_title" = "どんな自分になりたいですか？";
 "onboarding_ideals_subtitle" = "いくつでも選んでください。なりたい自分を表しています。";
 
-"onboarding_struggles_title" = "何があなたを止めていますか？";
+"onboarding_struggles_title" = "今、何に悩んでいますか？";
 "onboarding_struggles_subtitle" = "当てはまるものを全て選んでください — あなた専用に調整します。";
 
 "onboarding_value_title" = "アニッチャができること";
@@ -1303,7 +1303,7 @@
 "onboarding_insight_stat" = "同じ悩みを持つ81%の人が30日以内に改善しました";
 "onboarding_insight_message" = "アニッチャがあなた専用の道を作ります。";
 "onboarding_insight_cta" = "あなたのプランを見る";
-"onboarding_valueprop_title" = "あなたの7日間の旅";
+"onboarding_valueprop_title" = "7日間で変わる、あなたの毎日";
 "onboarding_valueprop_day1" = "気づき — パターンに気づく";
 "onboarding_valueprop_day2" = "理解 — トリガーを学ぶ";
 "onboarding_valueprop_day3" = "最初の変化 — 1つの習慣を置き換える";
@@ -1317,26 +1317,35 @@
 "onboarding_notifications_evening" = "夜の振り返り";
 
 /* ========== Onboarding v2: 3-Step Paywall ========== */
-"paywall_primer_title" = "まずは無料で\nアニッチャを試してください";
-"paywall_primer_subtitle" = "あなた専用プランの準備ができました。リスクなしで全ての旅を体験してください。";
+"paywall_primer_title" = "まずは無料で\n体験してみてください";
+"paywall_primer_subtitle" = "あなた専用のプランができました。7日間、すべての機能を無料でお試しいただけます。";
 "paywall_primer_feature1" = "全機能にアクセス";
 "paywall_primer_feature2" = "パーソナライズされたナッジ";
 "paywall_primer_feature3" = "いつでもキャンセル可能";
-"paywall_timeline_title" = "無料トライアルのタイムライン";
+"paywall_timeline_title" = "無料トライアルの\nタイムライン";
 "paywall_timeline_today" = "今日 — アニッチャを探索開始";
 "paywall_timeline_day5" = "5日目 — リマインダーをお送りします";
 "paywall_timeline_day7" = "7日目 — トライアル終了。あなたが決めます。";
 "paywall_timeline_subtitle" = "課金前にお知らせします。サプライズはありません。";
-"paywall_plan_title" = "プランを選択";
+"paywall_plan_title" = "あなたの可能性を\n解き放とう";
 "paywall_plan_yearly_badge" = "おすすめ";
 "paywall_plan_save" = "58%お得";
 "paywall_plan_weekly" = "%@/週";
-"paywall_plan_social_proof" = "⭐ 4.9 · 10,000人以上が利用中";
+"paywall_plan_social_proof" = "⭐ App Store 評価 5.0 · いつでも解約OK";
+"paywall_benefit_1" = "つらい瞬間にパーソナルナッジ";
+"paywall_benefit_2" = "AIガイド付き内省セッション";
+"paywall_benefit_3" = "変化の記録・可視化";
 "paywall_plan_cta_trial" = "無料トライアルを始める";
 "paywall_plan_cta_subscribe" = "登録する";
 "paywall_plan_trust" = "いつでもキャンセル可能。";
 "paywall_plan_maybe_later" = "あとで";
 "paywall_plan_restore" = "購入を復元";
+"paywall_plan_weekly_breakdown" = "%@/週";
+"paywall_plan_trial_label" = "7日間無料トライアル";
+"paywall_cancel_title" = "解約はかんたん";
+"paywall_cancel_description" = "設定 → サブスクリプション → キャンセル。2タップで完了。";
+"paywall_legal_terms" = "利用規約";
+"paywall_legal_privacy" = "プライバシーポリシー";
 "paywall_drawer_title" = "年額の準備ができない？";
 "paywall_drawer_subtitle" = "週たったの%@ — コーヒー1杯以下です";
 "paywall_drawer_cta" = "無料トライアルを始める";

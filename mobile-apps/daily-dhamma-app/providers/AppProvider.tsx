@@ -10,6 +10,9 @@ import {
   cancelAllNotifications,
 } from '@/utils/notifications';
 
+export type OnboardingGoal = 'peace' | 'wisdom' | 'routine' | 'mindfulness';
+export type OnboardingTime = 'morning' | 'midday' | 'evening';
+
 interface AppSettings {
   hasCompletedOnboarding: boolean;
   isPremium: boolean;
@@ -18,6 +21,8 @@ interface AppSettings {
   morningNotificationTime: string;
   darkMode: boolean;
   bookmarkedVerses: number[];
+  onboardingGoal: OnboardingGoal | null;
+  onboardingTime: OnboardingTime | null;
 }
 
 const defaultSettings: AppSettings = {
@@ -28,6 +33,8 @@ const defaultSettings: AppSettings = {
   morningNotificationTime: '07:00',
   darkMode: false,
   bookmarkedVerses: [],
+  onboardingGoal: null,
+  onboardingTime: null,
 };
 
 const STORAGE_KEY = 'daily_dharma_settings';

@@ -29,7 +29,7 @@
 "onboarding_welcome_subtitle_line1" = "Anicca reaches out at the moments you struggle most.";
 "onboarding_welcome_subtitle_line2" = "";
 "onboarding_welcome_cta" = "Get Started";
-"onboarding_welcome_social_proof" = "⭐ 4.9 · 10,000+ people finding inner peace";
+"onboarding_welcome_social_proof" = "⭐ 5.0 on the App Store";
 "onboarding_welcome_restore_description" = "Already have an account?";
 
 "onboarding_account_title" = "Save Your Progress";
@@ -1327,16 +1327,25 @@
 "paywall_timeline_day5" = "Day 5 — We'll send you a reminder";
 "paywall_timeline_day7" = "Day 7 — Your trial ends. You decide.";
 "paywall_timeline_subtitle" = "We'll remind you before you're charged. No surprises.";
-"paywall_plan_title" = "Choose your plan";
+"paywall_plan_title" = "Unlock your full potential";
 "paywall_plan_yearly_badge" = "BEST VALUE";
 "paywall_plan_save" = "Save 58%";
 "paywall_plan_weekly" = "%@/week";
-"paywall_plan_social_proof" = "⭐ 4.9 · Trusted by 10,000+ users";
+"paywall_plan_social_proof" = "⭐ 5.0 on the App Store · Cancel anytime";
+"paywall_benefit_1" = "Personalized nudges at key moments";
+"paywall_benefit_2" = "AI-guided self-reflection sessions";
+"paywall_benefit_3" = "Track and visualize your progress";
 "paywall_plan_cta_trial" = "Start Free Trial";
 "paywall_plan_cta_subscribe" = "Subscribe";
 "paywall_plan_trust" = "No commitment. Cancel anytime.";
 "paywall_plan_maybe_later" = "Maybe later";
 "paywall_plan_restore" = "Restore Purchases";
+"paywall_plan_weekly_breakdown" = "%@/week";
+"paywall_plan_trial_label" = "7-day free trial";
+"paywall_cancel_title" = "Easy to cancel";
+"paywall_cancel_description" = "Settings → Subscriptions → Cancel. Done in 2 taps.";
+"paywall_legal_terms" = "Terms of Use";
+"paywall_legal_privacy" = "Privacy Policy";
 "paywall_drawer_title" = "Not ready for a year?";
 "paywall_drawer_subtitle" = "That's just %@/week — less than a cup of coffee";
 "paywall_drawer_cta" = "Start Free Trial";

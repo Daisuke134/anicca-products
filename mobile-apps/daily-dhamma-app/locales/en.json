@@ -1,20 +1,67 @@
 {
   "onboarding": {
     "slide1": {
-      "title": "Ancient wisdom for\nmodern minds",
-      "subtitle": "Find peace in the timeless teachings\nof the Dhammapada"
+      "title": "Find peace in\njust 30 seconds a day",
+      "subtitle": "2,500 years of wisdom, delivered to you each morning"
     },
     "slide2": {
-      "title": "Daily verses on\nyour lock screen",
-      "subtitle": "Start each day with wisdom\nthat transforms your perspective"
+      "title": "What brings you to\nDaily Dhamma?",
+      "option": {
+        "peace": "Inner peace",
+        "wisdom": "Daily wisdom",
+        "routine": "Morning routine",
+        "mindfulness": "Mindfulness practice"
+      }
     },
     "slide3": {
-      "title": "Stay mindful each day",
-      "subtitle": "By enabling notifications, you agree to receive daily morning wisdom verses and mindfulness reminders throughout the day.\n\nYou can disable these anytime in Settings."
+      "title": "The Dhammapada has guided\nmillions for 2,500 years",
+      "stat1": "423 verses of timeless wisdom",
+      "stat2": "Translated into 50+ languages",
+      "stat3": "Practiced by monks and modern minds alike"
+    },
+    "slide4": {
+      "title": "When would you like\nyour daily wisdom?",
+      "option": {
+        "morning": "Morning",
+        "morningRec": "recommended",
+        "midday": "Midday",
+        "evening": "Evening"
+      }
+    },
+    "slide5": {
+      "title": "Creating your\npersonal practice...",
+      "item1": "Selecting verses for you",
+      "item2": "Setting your schedule",
+      "item3": "Personalizing your journey"
+    },
+    "slide6": {
+      "title": "Your practice is ready",
+      "goal": "Goal",
+      "schedule": "Schedule",
+      "verses": "423 verses selected for you",
+      "cta": "Start my journey"
+    },
+    "slide7": {
+      "title": "Never miss your\nmorning wisdom",
+      "subtitle": {
+        "morning": "Get your personalized verse delivered every morning",
+        "midday": "Get your personalized verse delivered every midday",
+        "evening": "Get your personalized verse delivered every evening"
+      }
     },
     "continue": "Continue",
     "enableNotifications": "Enable Notifications",
-    "skip": "Skip"
+    "notNow": "Not now",
+    "skip": "Skip",
+    "result": {
+      "peace": "Inner peace & calm",
+      "wisdom": "Daily wisdom & growth",
+      "routine": "Mindful morning routine",
+      "mindfulness": "Mindfulness practice",
+      "morning": "Every morning",
+      "midday": "Every midday",
+      "evening": "Every evening"
+    }
   },
   "paywall": {
     "title": "Deepen Your\nPractice",

@@ -222,9 +222,9 @@
       "computedHash": "e3e712ef7315502b58e33516978d9496c8551aff4ec0834b9a24db088fd6252c"
     },
     "paywall-upgrade-cro": {
-      "source": "sickn33/antigravity-awesome-skills",
+      "source": "coreyhaines31/marketingskills",
       "sourceType": "github",
-      "computedHash": "0da309e8c6c4bc1c551c26c677c038788a8feead13dbaab31a600a6a6f9170e4"
+      "computedHash": "f3955bea72dc22cf5b8e2387ee310a519302ab02518498e045055b1b9bd62a0f"
     },
     "remotion-best-practices": {
       "source": "remotion-dev/skills",
