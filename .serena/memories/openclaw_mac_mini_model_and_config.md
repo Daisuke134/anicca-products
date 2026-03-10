@@ -31,3 +31,22 @@ with open('/Users/anicca/.openclaw/openclaw.json', 'w') as f:
 openclaw gateway restart
 openclaw models status --plain  # 確認
 ```
+
+## Mac Mini デフォルトモデル確認方法（2026-03-07 確定）
+
+**Mac Mini の OpenClaw デフォルトモデル: `anthropic/claude-opus-4-6`**
+
+### 確認コマンド（必ずこれを使う）
+
+```bash
+ssh anicca@100.99.82.95 "cat /Users/anicca/.openclaw/openclaw.json | python3 -c \"import json,sys; d=json.load(sys.stdin); m=d.get('agents',{}).get('defaults',{}).get('model',{}); print(json.dumps(m, indent=2))\""
+```
+
+### ⚠️ 絶対禁止: MacBook config と混同するな
+
+| 場所 | パス | 用途 |
+|------|------|------|
+| **Mac Mini（正解）** | `/Users/anicca/.openclaw/openclaw.json` | Anicca エージェントの設定 |
+| **MacBook（間違い）** | `/Users/cbns03/.openclaw/openclaw.json` | ローカル TUI クライアント設定（モデルは別） |
+
+MacBook の config には `openai-codex/gpt-5.3-codex` が入っているが、それは TUI クライアント用。Anicca が使うモデルは Mac Mini の config を見ること。

@@ -35,8 +35,6 @@
       "mcp__conway__*"
     ],
     "deny": [
-      "Bash(rm -rf *)",
-      "Bash(ssh anicca@*)",
       "Bash(xcodebuild *)"
     ]
   },

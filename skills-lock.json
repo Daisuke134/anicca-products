@@ -26,6 +26,11 @@
       "sourceType": "github",
       "computedHash": "b0cb5be0503921c6bb4b9c62d9a5633e35d4ea04005678916e45ffed3d268107"
     },
+    "app-store-opportunity-research": {
+      "source": "froessell/app-store-opportunity-research",
+      "sourceType": "github",
+      "computedHash": "3f530fad3e4936a5292e84adf343de8be7bc383a4476fd03fff1ffa6b3a2530c"
+    },
     "app-store-scraper": {
       "source": "mintuz/claude-plugins",
       "sourceType": "github",
