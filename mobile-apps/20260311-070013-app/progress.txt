@@ -25,6 +25,19 @@
   - Somatic exercises カテゴリは App Store でほぼ無競合（最大297 reviews）
 ---
 
+## 2026-03-11 - US-003: Market Research
+- competitive-analysis.md 作成（直接競合5社+間接競合2社、計7社分析）
+- market-research.md 作成（TAM/SAM/SOM + POEM スコア 21/25 = 🟢 Strong Opportunity）
+- iTunes Search/Lookup/Reviews RSS API 全実行（証拠ベース）
+- POEM ネガティブシグナル: Subscription Fatigue（H&F trial-to-paid 5%に低下）記載
+- ファイル: competitive-analysis.md, market-research.md, prd.json
+- **Learnings for future iterations:**
+  - US市場ボトムアップ: 競合レビュー合計 × 100 = 推定インストール数（業界目安）
+  - TAM/SOMは絶対値より「インディーとして現実的か」で判断（Year3 $8.6K = 720有料ユーザー）
+  - POEM Timing軸はTikTokビュー数で定量化可能（#somatichealing 200万 → T=5）
+
+---
+
 ## 2026-03-11 - US-002: Product Planning
 
 - product-plan.md 作成（7セクション: Target User, Problem, Solution, Monetization, MVP Scope, App Identity, Risk Assessment）
