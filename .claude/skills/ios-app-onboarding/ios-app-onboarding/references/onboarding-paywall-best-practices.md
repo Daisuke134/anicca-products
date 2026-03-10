@@ -271,4 +271,67 @@ Source: Adapty iOS Paywall Design Guide 2026 + Blinkist/Calm/Headspace patterns
 
 ---
 
+## 12. A/Bテスト実証データ（6ケーススタディ）
+
+| # | App | テスト内容 | 結果 | Source |
+|---|-----|----------|------|--------|
+| 1 | **Blinkist** | "How your free trial works" 解約方法セクション追加 | **+23% trial, -55% complaints, push opt-in 6→74%** | RevenueCat Bootcamp |
+| 2 | **Moonly** | 年間プランのみトライアル付与+CTA変更 | **+39% CVR, +47% revenue/100 installs** | RevenueCat Bootcamp |
+| 3 | **Headspace** | 年間14日/月間7日トライアル+イラスト+タイムライン | **Double-digit CVR increase** | RevenueCat Case Study |
+| 4 | **Mojo** | 年間のみ表示、月間はリンク経由 | **+15-20% yearly proportion** | Superwall Bootcamp |
+| 5 | **Instasize** | ヒーロー画像+ベネフィットリスト+Free Trial CTA | **+7% premium subs** | Superwall Case Study |
+| 6 | **Opal** | paywall前に衝撃的数字で動機付け | **7%→17% trial CVR** | Superwall Bootcamp |
+
+---
+
+## 13. 年間カードデザインルール
+
+Source: Moonly A/B (+39% CVR), Superwall Bootcamp (weekly breakdown +10-15%)
+
+| # | Rule | Detail |
+|---|------|--------|
+| 1 | **BEST VALUE バッジ** | カード上部左寄せ。Capsule形状、accent背景、白文字、10pt bold |
+| 2 | **常時 accent 2px border** | 年間カードは選択状態に関わらず常に accent カラーの太枠で囲む |
+| 3 | **accent 背景 8-10%** | 選択時は `accent.opacity(0.08)` 背景。未選択時は `buttonUnselected` |
+| 4 | **週額表示** | `yearlyPrice / 52` → `$0.96/week` をカード内に表示。perception shift で +10-15% CVR |
+| 5 | **トライアル条件表示** | `introductoryDiscount != nil` の場合のみ「7-day free trial」を表示 |
+| 6 | **月間カードは控えめ** | border なし、`buttonUnselected` 背景、バッジなし。年間との視覚差を明確に |
+| 7 | **デフォルト選択** | `onAppear` で年間を自動選択。なければ月間にフォールバック |
+
+### 週額計算コード
+
+```swift
+let yearlyPrice = package.storeProduct.price as Decimal
+let weeklyPrice = yearlyPrice / 52
+let formatter = NumberFormatter()
+formatter.numberStyle = .currency
+formatter.locale = package.storeProduct.priceFormatter?.locale ?? .current
+formatter.maximumFractionDigits = 2
+let weeklyString = formatter.string(from: weeklyPrice as NSDecimalNumber) ?? ""
+```
+
+---
+
+## 14. 解約説明セクション（CRITICAL — 日本市場必須）
+
+Source: Blinkist A/B (+23% CVR, -55% complaints), 日本市場の cancel anxiety は特に強い
+
+| # | Rule | Detail |
+|---|------|--------|
+| 1 | **必須** | 日本市場向けアプリでは解約説明セクションを CRITICAL として必ず含める |
+| 2 | **位置** | CTA + trust テキストの下、Maybe Later の上 |
+| 3 | **デザイン** | `secondarySystemBackground` or `buttonUnselected` 背景、12pt 角丸、padding 10-12 |
+| 4 | **内容** | タイトル「解約はかんたん」+ 具体的手順「設定 → サブスクリプション → キャンセル。2タップで完了。」 |
+| 5 | **EN/JA** | EN: "Easy to cancel" / "Settings → Subscriptions → Cancel. Done in 2 taps." |
+
+### Audit チェックリスト追加項目
+
+| Check | Weight |
+|-------|--------|
+| 解約説明セクションが paywall に存在する | **CRITICAL** |
+| 具体的な手順（Settings → Subscriptions → Cancel）が含まれる | **CRITICAL** |
+| Legal footer（Terms + Privacy）がある | **CRITICAL** |
+
+---
+
 最終更新: 2026-03-11

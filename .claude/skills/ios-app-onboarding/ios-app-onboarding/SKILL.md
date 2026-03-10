@@ -130,6 +130,9 @@ Onboarding's job = Maximize Dream Outcome & Likelihood, minimize perceived Time/
 | Legal footer | Terms + Privacy + Cancel anytime | CRITICAL |
 | Restore Purchases button | Apple requirement | CRITICAL |
 | **NO Toggle Paywall** | Apple rejects since Jan 2026 (Guideline 3.1.2) | CRITICAL |
+| **Cancel explanation section** | "Easy to cancel" + specific steps (Settings → Subs → Cancel) | **CRITICAL** |
+| **Weekly price breakdown** | $49.99/yr → "$0.96/week" in yearly card | HIGH |
+| **Yearly card visual emphasis** | Always accent border + badge + trial label | HIGH |
 | Drawer offer (not Exit Offer modal) | On × press: slide-up with weekly reframe | MEDIUM |
 
 ### Step 3: Generate Improvement Recommendations
@@ -237,23 +240,33 @@ Result: Trial conversion rate doubles compared to single-screen paywall.
 │       🎯 App Icon          │
 │  "{Personalized Headline}" │
 │                            │
-│  ┌─FREE──┬──PREMIUM───┐   │  ← Comparison table
-│  │ basic │ full access │   │
-│  │ limit │ unlimited   │   │
-│  │  ❌   │     ✅      │   │
-│  └───────┴────────────┘   │
+│  ✓ Benefit 1               │  ← Benefit checklist (3 items)
+│  ✓ Benefit 2               │
+│  ✓ Benefit 3               │
 │                            │
-│  [ Monthly    $X.XX/mo ]   │
-│  [ Yearly ⭐ BEST VALUE ]  │  ← Pre-selected, Save%, weekly breakdown
-│     "$0.XX/week"           │
+│  ┌─── accent 2px border ──┐│  ← Yearly card: always bordered
+│  │ ⭐ BEST VALUE           ││     accent 8% background
+│  │ Annual    $49.99/yr     ││
+│  │ $0.96/week              ││  ← Weekly breakdown (MUST)
+│  │ 7-day free trial        ││  ← Trial label (if eligible)
+│  └─────────────────────────┘│
+│  ┌─────────────────────────┐│  ← Monthly: no border, muted bg
+│  │ Monthly   $9.99/mo      ││
+│  └─────────────────────────┘│
 │                            │
-│  ⭐ 4.9 · X,000+ users    │  ← Social proof above CTA
+│  ⭐ 4.9 · Cancel anytime   │  ← Social proof above CTA
 │  [=== Start Free Trial ===]│  ← Primary CTA
 │  No commitment. Cancel     │
 │  anytime.                  │
-│      "Maybe later"         │  ← Subtle
-│    "Restore Purchases"     │
-│  Terms • Privacy           │
+│                            │
+│  ┌─ Cancel explanation ───┐│  ← CRITICAL (JP market)
+│  │ 解約はかんたん           ││     Blinkist: +23% CVR
+│  │ Settings → Subs →      ││     -55% complaints
+│  │ Cancel. 2 taps.        ││
+│  └─────────────────────────┘│
+│                            │
+│  "Maybe later"  "Restore"  │  ← Subtle
+│  Terms · Privacy           │  ← Legal footer (Apple 3.1.1)
 └────────────────────────────┘
 ```
 
@@ -340,7 +353,7 @@ Result: Trial conversion rate doubles compared to single-screen paywall.
 | Price sensitivity | ¥1,500/mo feels high. Annual discount effective | Push annual + weekly breakdown |
 | Trust priority | Review/word-of-mouth culture | Strong social proof |
 | Politeness | Keigo/polite expressions preferred | All copy in 丁寧語 |
-| Cancel anxiety | Stronger than US — fear of forgetting to cancel | Trial reminder especially emphasized |
+| Cancel anxiety | **CRITICAL** — Stronger than US — fear of forgetting to cancel | Cancel explanation section MUST be included + Trial reminder especially emphasized |
 | Privacy | Cautious about data collection | "Processed on device" messaging |
 
 ---
