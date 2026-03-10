@@ -67,7 +67,7 @@ struct PlanSelectionStepView: View {
                                 planCard(
                                     package: monthly,
                                     title: monthly.storeProduct.localizedTitle,
-                                    priceLabel: monthly.localizedPriceString + "/mo",
+                                    priceLabel: monthly.localizedPriceString + String(localized: "paywall_plan_period_monthly"),
                                     badge: nil,
                                     saveLabel: nil,
                                     weeklyLabel: nil,
@@ -220,7 +220,7 @@ struct PlanSelectionStepView: View {
                             .font(.system(size: 16, weight: .semibold))
                             .foregroundStyle(AppTheme.Colors.label)
 
-                        Text(package.localizedPriceString + "/yr")
+                        Text(package.localizedPriceString + String(localized: "paywall_plan_period_yearly"))
                             .font(.system(size: 14))
                             .foregroundStyle(.secondary)
 

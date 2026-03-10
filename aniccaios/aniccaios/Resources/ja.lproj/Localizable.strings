@@ -1341,6 +1341,8 @@
 "paywall_plan_maybe_later" = "あとで";
 "paywall_plan_restore" = "購入を復元";
 "paywall_plan_weekly_breakdown" = "%@/週";
+"paywall_plan_period_yearly" = "/年";
+"paywall_plan_period_monthly" = "/月";
 "paywall_plan_trial_label" = "7日間無料トライアル";
 "paywall_cancel_title" = "解約はかんたん";
 "paywall_cancel_description" = "設定 → サブスクリプション → キャンセル。2タップで完了。";
