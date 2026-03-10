@@ -221,7 +221,7 @@ extension SubscriptionManager: PurchasesDelegate {
                 let price: Double
                 if let offering = AppState.shared.cachedOffering,
                    let package = offering.availablePackages.first(where: { $0.storeProduct.productIdentifier == productId }) {
-                    price = package.storeProduct.price as? Double ?? 9.99
+                    price = NSDecimalNumber(decimal: package.storeProduct.price).doubleValue
                 } else {
                     // フォールバック価格
                     price = 9.99

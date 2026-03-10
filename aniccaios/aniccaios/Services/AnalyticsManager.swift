@@ -75,7 +75,7 @@ final class AnalyticsManager {
         let viewCount = UserDefaults.standard.integer(forKey: viewCountKey) + 1
         UserDefaults.standard.set(viewCount, forKey: viewCountKey)
 
-        var properties: [String: Any] = [
+        var properties: [String: MixpanelType] = [
             "paywall_id": paywallId,
             "view_count": viewCount,
             "trigger": trigger

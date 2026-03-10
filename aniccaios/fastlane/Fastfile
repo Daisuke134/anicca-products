@@ -21,9 +21,9 @@ platform :ios do
   APP_ID = "6755129214"
   
   # App Store Connect API 認証設定
-  API_KEY_ID = "D637C7RGFN"
+  API_KEY_ID = "646Y27MJ8C"
   API_ISSUER_ID = "f53272d9-c12d-4d9d-811c-4eb658284e74"
-  API_KEY_PATH = File.expand_path("~/Downloads/AuthKey_D637C7RGFN.p8")
+  API_KEY_PATH = File.expand_path("~/.appstoreconnect/private_keys/AuthKey_646Y27MJ8C.p8")
   
   # API キーを取得
   def get_api_key
@@ -205,23 +205,71 @@ platform :ios do
 
   desc "Build, archive, and export IPA for App Store"
   lane :build do
+    api_key = get_api_key
+
+    # Unlock keychain for codesigning
+    sh("source ~/.config/mobileapp-builder/.env && security unlock-keychain -p \"$KEYCHAIN_PASSWORD\" ~/Library/Keychains/login.keychain-db")
+
+    # メインアプリ + NotificationService のみ（WidgetExtension は未使用のため除外）
+    get_provisioning_profile(
+      api_key: api_key,
+      app_identifier: BUNDLE_ID,
+      team_id: TEAM_ID
+    )
+    get_provisioning_profile(
+      api_key: api_key,
+      app_identifier: "ai.anicca.app.ios.AniccaNotificationService",
+      team_id: TEAM_ID
+    )
+
+    # Step 1: Archive (fastlane build_app の archive のみ使用)
     build_app(
       scheme: SCHEME,
-      export_method: "app-store",
-      export_options: {
-        method: "app-store",
-        teamID: TEAM_ID,
-        signingStyle: "automatic",
-        uploadBitcode: false,
-        uploadSymbols: true,
-        stripSwiftSymbols: true,
-        generateAppStoreInformation: true
-      },
-      clean: true,
-      xcargs: "-allowProvisioningUpdates -authenticationKeyPath '#{API_KEY_PATH}' -authenticationKeyID '#{API_KEY_ID}' -authenticationKeyIssuerID '#{API_ISSUER_ID}'"
+      skip_package_ipa: true,
+      clean: false,
+      xcargs: "-allowProvisioningUpdates -authenticationKeyPath #{API_KEY_PATH} -authenticationKeyID #{API_KEY_ID} -authenticationKeyIssuerID #{API_ISSUER_ID} DEVELOPMENT_TEAM=#{TEAM_ID} CODE_SIGN_STYLE=Automatic"
     )
-    
-    UI.success("✅ Build completed! IPA: #{lane_context[SharedValues::IPA_OUTPUT_PATH]}")
+
+    archive_path = Actions.lane_context[SharedValues::XCODEBUILD_ARCHIVE]
+    UI.important("📦 Archive: #{archive_path}")
+
+    # Step 2: Export with xcodebuild (app-store-connect method + automatic signing)
+    export_path = "/tmp/aniccaios-export"
+    FileUtils.rm_rf(export_path)
+
+    export_plist = "/tmp/ExportOptions.plist"
+    File.write(export_plist, <<~PLIST)
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+          <key>method</key>
+          <string>app-store-connect</string>
+          <key>teamID</key>
+          <string>#{TEAM_ID}</string>
+          <key>signingStyle</key>
+          <string>automatic</string>
+          <key>uploadBitcode</key>
+          <false/>
+          <key>uploadSymbols</key>
+          <true/>
+      </dict>
+      </plist>
+    PLIST
+
+    sh("xcodebuild -exportArchive " \
+       "-archivePath '#{archive_path}' " \
+       "-exportPath '#{export_path}' " \
+       "-exportOptionsPlist '#{export_plist}' " \
+       "-allowProvisioningUpdates " \
+       "-authenticationKeyPath #{API_KEY_PATH} " \
+       "-authenticationKeyID #{API_KEY_ID} " \
+       "-authenticationKeyIssuerID #{API_ISSUER_ID}")
+
+    ipa_path = "#{export_path}/aniccaios.ipa"
+    Actions.lane_context[SharedValues::IPA_OUTPUT_PATH] = ipa_path
+
+    UI.success("✅ Build completed! IPA: #{ipa_path}")
   end
 
   desc "Upload IPA to App Store Connect"
