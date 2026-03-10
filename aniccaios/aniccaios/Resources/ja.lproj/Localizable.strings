@@ -1284,21 +1284,21 @@
 "single_screen_delete_account" = "アカウントを削除";
 
 /* ========== Onboarding v2: New Steps ========== */
-"onboarding_depth_title" = "どのくらいの頻度で影響を受けていますか？";
+"onboarding_depth_title" = "選んだ悩みは、どのくらいの頻度で起きますか？";
 "onboarding_depth_daily" = "毎日";
 "onboarding_depth_several" = "週に数回";
 "onboarding_depth_weekly" = "週に1回";
 "onboarding_depth_occasionally" = "たまに";
 "onboarding_goals_title" = "最高の自分は、どんな姿ですか？";
 "onboarding_goals_subtitle" = "大切なものを選んでください。";
-"goal_better_sleep" = "良い睡眠";
-"goal_emotional_calm" = "心の穏やかさ";
-"goal_less_screen_time" = "スクリーン時間の削減";
-"goal_more_discipline" = "自律心";
-"goal_self_acceptance" = "自己受容";
-"goal_deeper_focus" = "深い集中力";
-"goal_healthier_habits" = "健康的な習慣";
-"goal_inner_peace" = "内なる平和";
+"goal_better_sleep" = "ぐっすり眠れている";
+"goal_emotional_calm" = "心が穏やか";
+"goal_less_screen_time" = "スマホに振り回されない";
+"goal_more_discipline" = "自分をコントロールできている";
+"goal_self_acceptance" = "自分を受け入れている";
+"goal_deeper_focus" = "深く集中できている";
+"goal_healthier_habits" = "健康的に暮らしている";
+"goal_inner_peace" = "心が静かで安らいでいる";
 "onboarding_insight_title" = "あなたの回答に基づいて";
 "onboarding_insight_stat" = "同じ悩みを持つ81%の人が30日以内に改善しました";
 "onboarding_insight_message" = "アニッチャがあなた専用の道を作ります。";
@@ -1312,9 +1312,9 @@
 "onboarding_valueprop_day6" = "統合 — 新しい日々のリズム";
 "onboarding_valueprop_day7" = "振り返り — どこまで来たか確認する";
 "onboarding_valueprop_cta" = "旅を始める";
-"onboarding_notifications_morning" = "朝のナッジ";
-"onboarding_notifications_midday" = "昼のチェックイン";
-"onboarding_notifications_evening" = "夜の振り返り";
+"onboarding_notifications_morning" = "朝の通知";
+"onboarding_notifications_midday" = "昼の通知";
+"onboarding_notifications_evening" = "夜の通知";
 
 /* ========== Onboarding v2: 3-Step Paywall ========== */
 "paywall_primer_title" = "まずは無料で\n体験してみてください";

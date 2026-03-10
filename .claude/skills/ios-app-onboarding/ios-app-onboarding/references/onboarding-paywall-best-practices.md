@@ -334,4 +334,50 @@ Source: Blinkist A/B (+23% CVR, -55% complaints), 日本市場の cancel anxiety
 
 ---
 
+## 15. 質問と回答の形式一致ルール
+
+Source: NNGroup / Alita Kendrick — Mobile-App Onboarding: An Analysis of Components and Techniques
+Source: Appcues / Ramli John — 6 User Onboarding Best Practices
+Source: UX Planet / Nick Babich — Best Practices for Onboarding
+
+| # | Rule | Detail |
+|---|------|--------|
+| 1 | **質問の主語を必ず明示する** | 「これについて」「それは」等の曖昧な指示語禁止。前画面の文脈を具体的に受ける（例:「選んだ悩みは、どのくらいの頻度で起きますか？」） |
+| 2 | **回答形式を質問形式に一致させる** | 「どんな姿？」→ 状態描写（〜している）。「何を？」→ 名詞/目標。形式不一致は認知負荷を上げる |
+| 3 | **JA: 受動態禁止** | 「影響を受けていますか」→「起きますか」「悩んでいますか」。能動的・口語的な表現を使う |
+| 4 | **JA: 専門用語禁止** | 「ナッジ」「チェックイン」等のカタカナ専門語は一般ユーザーに通じない。「通知」「確認」に置換 |
+
+### 形式一致の例
+
+| 質問形式 | 正しい回答形式 | NGな回答形式 |
+|----------|-------------|------------|
+| 「どんな姿ですか？」 | ぐっすり眠れている / 心が穏やか | 良い睡眠 / 心の穏やかさ（名詞） |
+| 「何に悩んでいますか？」 | 夜更かし / 先延ばし（名詞OK） | — |
+| 「どのくらいの頻度で？」 | 毎日 / 週に数回 | — |
+
+---
+
+## 16. ウェルネスアプリの質問パターン分析
+
+Source: Calm, Headspace, Balance, Noom, Fastic のオンボーディング分析
+
+| アプリ | 質問数 | 頻度質問の聞き方 | ゴール質問の聞き方 |
+|--------|--------|-----------------|------------------|
+| **Calm** | 3-4問 | なし（目的選択のみ） | 「What brings you to Calm?」→ 動詞句 |
+| **Headspace** | 4-5問 | 「How often do you feel stressed?」（具体的） | 「What's your main goal?」→ 短文 |
+| **Balance** | 5-6問 | なし（経験レベルで代替） | 「What would you like to work on?」→ 動詞句 |
+| **Noom** | 8-12問 | 「How often do you find yourself struggling with this?」 | 「What does success look like for you?」→ 状態描写 |
+| **Fastic** | 6-8問 | 「How active are you?」（具体的行動） | 体重目標（数値入力） |
+
+### 共通ルール
+
+| # | Rule |
+|---|------|
+| 1 | 頻度質問は必ず**何についての頻度か**を主語で明示する |
+| 2 | ゴール質問の選択肢は**名詞単体禁止**。動詞句 or 状態描写 |
+| 3 | 最適質問数: 瞑想系 3-5問、行動変容系 5-8問、フィットネス系 8-12問 |
+| 4 | 進捗インジケータ必須。「あと何問？」が分からないと離脱する |
+
+---
+
 最終更新: 2026-03-11

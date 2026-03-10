@@ -1284,21 +1284,21 @@
 "single_screen_delete_account" = "Delete Account";
 
 /* ========== Onboarding v2: New Steps ========== */
-"onboarding_depth_title" = "How often does this affect you?";
+"onboarding_depth_title" = "How often do you struggle with these?";
 "onboarding_depth_daily" = "Every day";
 "onboarding_depth_several" = "Several times a week";
 "onboarding_depth_weekly" = "Once a week";
 "onboarding_depth_occasionally" = "Occasionally";
 "onboarding_goals_title" = "What does your best self look like?";
 "onboarding_goals_subtitle" = "Choose what matters most to you.";
-"goal_better_sleep" = "Better Sleep";
-"goal_emotional_calm" = "Emotional Calm";
-"goal_less_screen_time" = "Less Screen Time";
-"goal_more_discipline" = "More Discipline";
-"goal_self_acceptance" = "Self-Acceptance";
-"goal_deeper_focus" = "Deeper Focus";
-"goal_healthier_habits" = "Healthier Habits";
-"goal_inner_peace" = "Inner Peace";
+"goal_better_sleep" = "Sleeping well";
+"goal_emotional_calm" = "Feeling calm";
+"goal_less_screen_time" = "Less screen time";
+"goal_more_discipline" = "Being disciplined";
+"goal_self_acceptance" = "Accepting myself";
+"goal_deeper_focus" = "Deeply focused";
+"goal_healthier_habits" = "Living healthier";
+"goal_inner_peace" = "At peace";
 "onboarding_insight_title" = "Based on your answers";
 "onboarding_insight_stat" = "81% of people with similar struggles improved within 30 days";
 "onboarding_insight_message" = "Anicca will create a personalized path for you.";
