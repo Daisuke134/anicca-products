@@ -299,7 +299,7 @@ Source: [Maestro Testing Docs](https://maestro.mobile.dev/) — 「Use accessibi
 |---------|---------|--------|---------|
 | Swipe Left | オンボーディング各Step | 次のステップへ | スライドアニメーション |
 | Tap | エクサイズカード | ExerciseSessionView にPush | タップフィードバック |
-| Long Press | ライブラリエクサイズ | お気に入りに追加 | ハプティクス（light） |
+| Long Press | エクサイズカード | プレビューシートを表示 | ハプティクス（light） |
 | Pull to Refresh | ProgramView | 進捗データ再読み込み | ローディングインジケータ |
 | Shake (via Haptics) | 筋膜リリース種別エクサイズ | CoreHaptics振動フィードバック | パターン振動 |
 | Timer Complete | ExerciseSessionView | 完了アニメーション → Pop | チェックマーク + success haptic |

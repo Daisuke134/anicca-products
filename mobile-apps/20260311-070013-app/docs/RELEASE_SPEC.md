@@ -62,7 +62,7 @@ Source: [App Store Connect: Screenshot Specs](https://developer.apple.com/help/a
 | Device Type | Size | Required |
 |-------------|------|---------|
 | IPHONE_69 (6.9") | 1320×2868 | ✅ REQUIRED（自動スケール元） |
-| iPad Pro | 2048×2732 | 任意（v1.1候補） |
+
 
 **Rule 24: 6.9" のみ。他サイズ不要。Apple が自動スケール。**
 

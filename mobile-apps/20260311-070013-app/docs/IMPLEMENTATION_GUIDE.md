@@ -372,13 +372,13 @@ struct PaywallView: View {
                 // 8. Maybe Later (Rule 20 — soft paywall)
                 if isSoftPaywall {
                     Button("Maybe Later") { dismiss() }
-                        .accessibilityIdentifier("paywall_maybe_later_button")
+                        .accessibilityIdentifier("paywall_close")
                 }
 
                 // 9. Restore + Privacy links
                 Button("Restore Purchases") { Task { await vm.restore() } }
                 HStack {
-                    Link("Privacy Policy", destination: URL(string: "https://daisuke134.github.io/anicca-products/somaticflow/privacy")!)
+                    Link("Privacy Policy", destination: URL(string: "https://daisuke134.github.io/anicca-products/somaticflow/privacy-policy.html")!)
                     Link("Terms of Use", destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
                 }
             }
@@ -439,6 +439,10 @@ lane :build do
     configuration: "Release",
     skip_package_ipa: true  # archive のみ（Widget Extension signing 問題回避）
   )
+end
+
+lane :test_with_coverage do
+  run_tests(scheme: "SomaticFlow", configuration: "Debug", xcargs: "-enableCodeCoverage YES")
 end
 ```
 
