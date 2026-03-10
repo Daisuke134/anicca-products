@@ -145,6 +145,31 @@ export async function scheduleStayPresentNotifications(frequency: number, isPrem
   console.log('[Notifications] Stay present notifications scheduled');
 }
 
+export async function scheduleTrialReminder() {
+  if (Platform.OS === 'web') return;
+
+  const locale = getDeviceLocale();
+  const lang = locale.toLowerCase().split('-')[0];
+
+  const triggerDate = new Date();
+  triggerDate.setDate(triggerDate.getDate() + 5);
+  triggerDate.setHours(10, 0, 0, 0);
+
+  await Notifications.scheduleNotificationAsync({
+    identifier: 'trial-reminder',
+    content: {
+      title: lang === 'ja' ? 'トライアル終了間近' : 'Trial ending soon',
+      body: lang === 'ja'
+        ? '無料トライアルが2日後に終了します。設定からいつでもキャンセルできます。'
+        : 'Your free trial ends in 2 days. Cancel anytime in Settings.',
+    },
+    trigger: {
+      type: Notifications.SchedulableTriggerInputTypes.DATE,
+      date: triggerDate,
+    },
+  });
+}
+
 export async function cancelAllNotifications() {
   if (Platform.OS === 'web') return;
 

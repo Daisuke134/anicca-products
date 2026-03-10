@@ -1,22 +1,56 @@
 import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator, Alert, Linking } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator, Alert, Linking, Animated } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { X, Check, Flower2, Sparkles, Bell } from 'lucide-react-native';
+import { X, Flower2, Check } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import Colors from '@/constants/colors';
 import { useRevenueCat } from '@/providers/RevenueCatProvider';
 import { PurchasesPackage, PURCHASES_ERROR_CODE } from 'react-native-purchases';
 import { t, TranslationKey } from '@/utils/i18n';
 import { findMonthlyPackage, findYearlyPackage, formatPackagePrice } from '@/utils/paywallUtils';
+import { scheduleTrialReminder } from '@/utils/notifications';
 
 const PRIVACY_POLICY_URL = 'https://aniccaai.com/dailydharma/privacy';
 const TERMS_URL = 'https://www.apple.com/legal/internet-services/itunes/dev/stdeula/';
 
-const featureKeys: Array<{ icon: React.ComponentType<{ size: number; color: string }>; titleKey: TranslationKey; descKey: TranslationKey }> = [
-  { icon: Sparkles, titleKey: 'paywall.feature.verses.title', descKey: 'paywall.feature.verses.desc' },
-  { icon: Bell,     titleKey: 'paywall.feature.reminders.title', descKey: 'paywall.feature.reminders.desc' },
-  { icon: Flower2,  titleKey: 'paywall.feature.bookmark.title', descKey: 'paywall.feature.bookmark.desc' },
+type PaywallStep = 'risk-free' | 'transparency' | 'hard-close';
+
+function StepDots({ current, colors }: { current: PaywallStep; colors: typeof Colors.light }) {
+  const steps: PaywallStep[] = ['risk-free', 'transparency', 'hard-close'];
+  return (
+    <View style={stepDotStyles.container}>
+      {steps.map((step) => (
+        <View
+          key={step}
+          style={[
+            stepDotStyles.dot,
+            { backgroundColor: step === current ? colors.gold : colors.border },
+          ]}
+        />
+      ))}
+    </View>
+  );
+}
+
+const stepDotStyles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 8,
+    marginTop: 24,
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+  },
+});
+
+const COMPARE_ROWS: Array<{ labelKey: TranslationKey; freeKey: TranslationKey; premiumKey: TranslationKey }> = [
+  { labelKey: 'paywall.compare.verses.label', freeKey: 'paywall.compare.verses.free', premiumKey: 'paywall.compare.verses.premium' },
+  { labelKey: 'paywall.compare.reminders.label', freeKey: 'paywall.compare.reminders.free', premiumKey: 'paywall.compare.reminders.premium' },
+  { labelKey: 'paywall.compare.bookmarks.label', freeKey: 'paywall.compare.bookmarks.free', premiumKey: 'paywall.compare.bookmarks.premium' },
 ];
 
 export default function PaywallScreen() {
@@ -25,17 +59,21 @@ export default function PaywallScreen() {
   const isOnboarding = source === 'onboarding';
   const insets = useSafeAreaInsets();
   const colors = Colors.light;
+
+  const initialStep: PaywallStep = isOnboarding ? 'risk-free' : 'hard-close';
+  const [step, setStep] = useState<PaywallStep>(initialStep);
   const [selectedPlan, setSelectedPlan] = useState<'yearly' | 'monthly'>('yearly');
   const [showClose, setShowClose] = useState(!isOnboarding);
 
   useEffect(() => {
+    if (step !== 'hard-close') return;
     if (!isOnboarding) {
       setShowClose(true);
       return;
     }
     const timer = setTimeout(() => setShowClose(true), 3000);
     return () => clearTimeout(timer);
-  }, [isOnboarding]);
+  }, [step, isOnboarding]);
 
   const {
     currentOffering,
@@ -43,7 +81,7 @@ export default function PaywallScreen() {
     purchasePackage,
     restorePurchases,
     isPurchasing,
-    isRestoring
+    isRestoring,
   } = useRevenueCat();
 
   const monthlyPackage = findMonthlyPackage(currentOffering?.availablePackages ?? []);
@@ -61,6 +99,7 @@ export default function PaywallScreen() {
     try {
       await purchasePackage(pkg);
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      scheduleTrialReminder().catch(() => {});
       router.replace('/');
     } catch (error: unknown) {
       const purchaseError = error as Error & { code?: string };
@@ -97,10 +136,103 @@ export default function PaywallScreen() {
     router.replace('/');
   };
 
-  const formatPrice = (pkg: PurchasesPackage | undefined) => formatPackagePrice(pkg);
+  const handleNext = () => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    if (step === 'risk-free') {
+      setStep('transparency');
+    } else if (step === 'transparency') {
+      setStep('hard-close');
+    }
+  };
 
+  const formatPrice = (pkg: PurchasesPackage | undefined) => formatPackagePrice(pkg);
   const isLoading = isPurchasing || isRestoring;
 
+  // Step 1: Risk-Free Primer
+  if (step === 'risk-free') {
+    return (
+      <View style={[styles.container, { backgroundColor: colors.background }]}>
+        <View style={[styles.header, { paddingTop: insets.top + 8 }]} />
+        <View style={[styles.centeredContent, { paddingBottom: insets.bottom + 24 }]}>
+          <View style={[styles.iconCircle, { backgroundColor: colors.backgroundSecondary }]}>
+            <Text style={styles.emoji}>🌸</Text>
+          </View>
+          <Text style={[styles.title, { color: colors.text }]}>
+            {t('paywall.step1.title')}
+          </Text>
+          <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
+            {t('paywall.step1.subtitle')}
+          </Text>
+
+          <View style={styles.ctaArea}>
+            <TouchableOpacity
+              testID="paywall_step1_cta"
+              style={[styles.purchaseButton, { backgroundColor: colors.gold }]}
+              onPress={handleNext}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.purchaseButtonText}>
+                {t('paywall.ctaContinue')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          {isOnboarding && <StepDots current="risk-free" colors={colors} />}
+        </View>
+      </View>
+    );
+  }
+
+  // Step 2: Transparency Promise
+  if (step === 'transparency') {
+    const timeline = [
+      { icon: '✅', key: 'paywall.step2.timeline.today' as TranslationKey },
+      { icon: '🔔', key: 'paywall.step2.timeline.day5' as TranslationKey },
+      { icon: '💳', key: 'paywall.step2.timeline.day7' as TranslationKey },
+    ];
+
+    return (
+      <View style={[styles.container, { backgroundColor: colors.background }]}>
+        <View style={[styles.header, { paddingTop: insets.top + 8 }]} />
+        <View style={[styles.centeredContent, { paddingBottom: insets.bottom + 24 }]}>
+          <View style={[styles.iconCircle, { backgroundColor: colors.backgroundSecondary }]}>
+            <Text style={styles.emoji}>📅</Text>
+          </View>
+          <Text style={[styles.title, { color: colors.text }]}>
+            {t('paywall.step2.title')}
+          </Text>
+
+          <View style={styles.timelineSection}>
+            {timeline.map((item, index) => (
+              <View key={index} style={styles.timelineRow}>
+                <Text style={styles.timelineIcon}>{item.icon}</Text>
+                <Text style={[styles.timelineText, { color: colors.text }]}>
+                  {t(item.key)}
+                </Text>
+              </View>
+            ))}
+          </View>
+
+          <View style={styles.ctaArea}>
+            <TouchableOpacity
+              testID="paywall_step2_cta"
+              style={[styles.purchaseButton, { backgroundColor: colors.gold }]}
+              onPress={handleNext}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.purchaseButtonText}>
+                {t('paywall.ctaGotIt')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          {isOnboarding && <StepDots current="transparency" colors={colors} />}
+        </View>
+      </View>
+    );
+  }
+
+  // Step 3: Hard Close
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       <View style={[styles.header, { paddingTop: insets.top + 8 }]}>
@@ -123,34 +255,41 @@ export default function PaywallScreen() {
       >
         <View style={styles.heroSection}>
           <View style={[styles.iconCircle, { backgroundColor: colors.backgroundSecondary }]}>
-            <Flower2 size={48} color={colors.gold} strokeWidth={1.2} />
+            <Text style={styles.emoji}>🌸</Text>
           </View>
           <Text style={[styles.title, { color: colors.text }]}>
-            {t('paywall.title')}
+            {t('paywall.step3.title')}
           </Text>
-          <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-            {t('paywall.subtitle')}
+          <Text style={[styles.socialProof, { color: colors.textSecondary }]}>
+            {t('paywall.step3.socialProof')}
           </Text>
         </View>
 
-        <View style={styles.featuresSection}>
-          {featureKeys.map((feature, index) => (
+        {/* Comparison Table */}
+        <View style={[styles.compareTable, { borderColor: colors.border }]}>
+          <View style={[styles.compareHeaderRow, { backgroundColor: colors.backgroundSecondary }]}>
+            <Text style={[styles.compareHeaderLabel, { color: colors.textMuted }]} />
+            <Text style={[styles.compareHeaderCell, { color: colors.textMuted }]}>
+              {t('paywall.compare.header.free')}
+            </Text>
+            <Text style={[styles.compareHeaderCell, { color: colors.gold, fontWeight: '700' }]}>
+              {t('paywall.compare.header.premium')}
+            </Text>
+          </View>
+          {COMPARE_ROWS.map((row, index) => (
             <View
               key={index}
-              style={[styles.featureRow, { borderBottomColor: colors.border }]}
+              style={[styles.compareRow, { borderTopColor: colors.border }]}
             >
-              <View style={[styles.featureIcon, { backgroundColor: colors.backgroundSecondary }]}>
-                <feature.icon size={20} color={colors.gold} />
-              </View>
-              <View style={styles.featureText}>
-                <Text style={[styles.featureTitle, { color: colors.text }]}>
-                  {t(feature.titleKey)}
-                </Text>
-                <Text style={[styles.featureDescription, { color: colors.textMuted }]}>
-                  {t(feature.descKey)}
-                </Text>
-              </View>
-              <Check size={18} color={colors.accent} />
+              <Text style={[styles.compareLabel, { color: colors.text }]}>
+                {t(row.labelKey)}
+              </Text>
+              <Text style={[styles.compareCell, { color: colors.textMuted }]}>
+                {t(row.freeKey)}
+              </Text>
+              <Text style={[styles.compareCell, { color: colors.text, fontWeight: '600' }]}>
+                {t(row.premiumKey)}
+              </Text>
             </View>
           ))}
         </View>
@@ -170,16 +309,18 @@ export default function PaywallScreen() {
                 style={[
                   styles.planOption,
                   selectedPlan === 'monthly' && styles.planOptionSelected,
-                  { borderColor: selectedPlan === 'monthly' ? colors.gold : colors.border }
+                  { borderColor: selectedPlan === 'monthly' ? colors.gold : colors.border },
                 ]}
                 onPress={() => handleSelectPlan('monthly')}
                 activeOpacity={0.8}
               >
                 <View style={styles.planOptionHeader}>
-                  <Text style={[styles.planOptionTitle, { color: colors.text }]}>{t('paywall.plan.monthly')}</Text>
+                  <Text style={[styles.planOptionTitle, { color: colors.text }]}>
+                    {t('paywall.plan.monthly')}
+                  </Text>
                   <View style={[
                     styles.radioCircle,
-                    { borderColor: selectedPlan === 'monthly' ? colors.gold : colors.border }
+                    { borderColor: selectedPlan === 'monthly' ? colors.gold : colors.border },
                   ]}>
                     {selectedPlan === 'monthly' && (
                       <View style={[styles.radioSelected, { backgroundColor: colors.gold }]} />
@@ -188,7 +329,9 @@ export default function PaywallScreen() {
                 </View>
                 <Text style={[styles.planOptionPrice, { color: colors.text }]}>
                   {formatPrice(monthlyPackage)}
-                  <Text style={[styles.planOptionPeriod, { color: colors.textMuted }]}>{t('paywall.plan.perMonth')}</Text>
+                  <Text style={[styles.planOptionPeriod, { color: colors.textMuted }]}>
+                    {t('paywall.plan.perMonth')}
+                  </Text>
                 </Text>
               </TouchableOpacity>
 
@@ -197,16 +340,23 @@ export default function PaywallScreen() {
                 style={[
                   styles.planOption,
                   selectedPlan === 'yearly' && styles.planOptionSelected,
-                  { borderColor: selectedPlan === 'yearly' ? colors.gold : colors.border }
+                  { borderColor: selectedPlan === 'yearly' ? colors.gold : colors.border },
                 ]}
                 onPress={() => handleSelectPlan('yearly')}
                 activeOpacity={0.8}
               >
                 <View style={styles.planOptionHeader}>
-                  <Text style={[styles.planOptionTitle, { color: colors.text }]}>{t('paywall.plan.yearly')}</Text>
+                  <View>
+                    <Text style={[styles.planOptionTitle, { color: colors.text }]}>
+                      {t('paywall.plan.yearly')}
+                    </Text>
+                    <Text style={[styles.bestValueBadge, { color: colors.gold }]}>
+                      {t('paywall.step3.bestValue')}
+                    </Text>
+                  </View>
                   <View style={[
                     styles.radioCircle,
-                    { borderColor: selectedPlan === 'yearly' ? colors.gold : colors.border }
+                    { borderColor: selectedPlan === 'yearly' ? colors.gold : colors.border },
                   ]}>
                     {selectedPlan === 'yearly' && (
                       <View style={[styles.radioSelected, { backgroundColor: colors.gold }]} />
@@ -215,7 +365,9 @@ export default function PaywallScreen() {
                 </View>
                 <Text style={[styles.planOptionPrice, { color: colors.text }]}>
                   {formatPrice(yearlyPackage)}
-                  <Text style={[styles.planOptionPeriod, { color: colors.textMuted }]}>{t('paywall.plan.perYear')}</Text>
+                  <Text style={[styles.planOptionPeriod, { color: colors.textMuted }]}>
+                    {t('paywall.plan.perYear')}
+                  </Text>
                 </Text>
               </TouchableOpacity>
             </View>
@@ -272,6 +424,8 @@ export default function PaywallScreen() {
             </Text>
           </TouchableOpacity>
         </View>
+
+        {isOnboarding && <StepDots current="hard-close" colors={colors} />}
       </ScrollView>
     </View>
   );
@@ -300,9 +454,15 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: 24,
   },
+  centeredContent: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 32,
+  },
   heroSection: {
     alignItems: 'center',
-    marginBottom: 32,
+    marginBottom: 24,
   },
   iconCircle: {
     width: 100,
@@ -311,6 +471,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 24,
+  },
+  emoji: {
+    fontSize: 48,
   },
   title: {
     fontSize: 34,
@@ -322,35 +485,77 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 17,
     textAlign: 'center',
+    lineHeight: 24,
   },
-  featuresSection: {
-    marginBottom: 32,
+  socialProof: {
+    fontSize: 15,
+    textAlign: 'center',
+    lineHeight: 22,
+    fontStyle: 'italic',
   },
-  featureRow: {
+  // Timeline (Step 2)
+  timelineSection: {
+    width: '100%',
+    marginTop: 32,
+    gap: 20,
+  },
+  timelineRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 16,
-    borderBottomWidth: 1,
-    gap: 14,
+    gap: 12,
   },
-  featureIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
+  timelineIcon: {
+    fontSize: 24,
+    width: 32,
+    textAlign: 'center',
   },
-  featureText: {
-    flex: 1,
-  },
-  featureTitle: {
+  timelineText: {
     fontSize: 16,
-    fontWeight: '500' as const,
-    marginBottom: 2,
+    flex: 1,
+    lineHeight: 22,
   },
-  featureDescription: {
+  // Comparison Table (Step 3)
+  compareTable: {
+    borderWidth: 1,
+    borderRadius: 12,
+    overflow: 'hidden',
+    marginBottom: 24,
+  },
+  compareHeaderRow: {
+    flexDirection: 'row',
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+  },
+  compareHeaderLabel: {
+    flex: 1.2,
+  },
+  compareHeaderCell: {
+    flex: 1,
+    textAlign: 'center',
+    fontSize: 13,
+    fontWeight: '600' as const,
+  },
+  compareRow: {
+    flexDirection: 'row',
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    borderTopWidth: 1,
+  },
+  compareLabel: {
+    flex: 1.2,
     fontSize: 14,
   },
+  compareCell: {
+    flex: 1,
+    textAlign: 'center',
+    fontSize: 14,
+  },
+  // CTA area
+  ctaArea: {
+    width: '100%',
+    marginTop: 40,
+  },
+  // Pricing
   loadingContainer: {
     alignItems: 'center',
     paddingVertical: 40,
@@ -391,6 +596,11 @@ const styles = StyleSheet.create({
   planOptionPeriod: {
     fontSize: 14,
     fontWeight: '400' as const,
+  },
+  bestValueBadge: {
+    fontSize: 11,
+    fontWeight: '700' as const,
+    marginTop: 2,
   },
   radioCircle: {
     width: 22,

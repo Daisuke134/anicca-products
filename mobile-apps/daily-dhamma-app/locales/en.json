@@ -19,6 +19,44 @@
   "paywall": {
     "title": "Deepen Your\nPractice",
     "subtitle": "Unlock more verses and reminders",
+    "step1": {
+      "title": "Try Daily Dhamma\nfor free",
+      "subtitle": "Experience the full power of ancient wisdom — at no cost"
+    },
+    "step2": {
+      "title": "We'll remind you\nbefore any charge",
+      "timeline": {
+        "today": "Today — Start your free trial",
+        "day5": "Day 5 — We'll send you a reminder",
+        "day7": "Day 7 — Trial ends, subscription begins"
+      }
+    },
+    "step3": {
+      "title": "Your Mindful Journey\nStarts Today",
+      "socialProof": "2,500 years of wisdom. 423 verses for daily practice.",
+      "bestValue": "⭐ BEST VALUE"
+    },
+    "compare": {
+      "header": {
+        "free": "Free",
+        "premium": "Premium"
+      },
+      "verses": {
+        "label": "Verses",
+        "free": "10 verses",
+        "premium": "All 423"
+      },
+      "reminders": {
+        "label": "Daily reminders",
+        "free": "3x day",
+        "premium": "Up to 10x"
+      },
+      "bookmarks": {
+        "label": "Bookmarks",
+        "free": "—",
+        "premium": "Unlimited"
+      }
+    },
     "feature": {
       "verses": {
         "title": "Premium Verses",
@@ -39,14 +77,20 @@
       "perMonth": "/month",
       "perYear": "/year"
     },
-    "cta": "Subscribe Now",
-    "free": "Continue with Free",
+    "cta": "Start Free Trial",
+    "ctaContinue": "Continue",
+    "ctaGotIt": "Got it",
+    "free": "Maybe later",
     "restore": "Restore Purchases",
     "restoring": "Restoring...",
     "loading": "Loading plans...",
     "terms": "Cancel anytime • Auto-renews unless cancelled",
     "termsOfUse": "Terms of Use",
     "privacyPolicy": "Privacy Policy",
+    "trialReminder": {
+      "title": "Trial ending soon",
+      "body": "Your free trial ends in 2 days. Cancel anytime in Settings."
+    },
     "alert": {
       "error": {
         "title": "Error",
