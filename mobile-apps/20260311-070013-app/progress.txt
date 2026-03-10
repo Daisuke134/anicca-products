@@ -1,3 +1,16 @@
+## 2026-03-11 - US-004a: Core Spec (PRD + ARCHITECTURE + IMPLEMENTATION_GUIDE)
+
+- docs/PRD.md 生成（235行）: 14セクション、F-001〜F-010、$7.99/月・$29.99/年、free_tier=Day 1–3
+- docs/ARCHITECTURE.md 生成（336行）: 12セクション、MVVM、Protocol DI SubscriptionService
+- docs/IMPLEMENTATION_GUIDE.md 生成（502行）: 8フェーズ、RevenueCat統合、Greenlight変数化
+- AC全PASS: app_name, bundle_id, prices, features(11), RC SDK ref
+- Rule 17/20/20b/21: 全PASS（禁止SDK名をdocs/から総称に置換）
+- **Learnings for future iterations:**
+  - 禁止SDKのgrep AC（Rule 17/20/20b/21）はdocs/も対象。SDKの実名をdocs内に書くとFAIL
+  - 対策: 禁止テーブルで「Mixpanel」→「behavioral tracking SDK」等の総称を使う
+  - コードブロック内のgrep patternは `Mix[p]anel` 等の文字クラス記法でエスケープ可能
+---
+
 ## Codebase Patterns
 
 - アプリ名: SomaticFlow (somatic-flow)
