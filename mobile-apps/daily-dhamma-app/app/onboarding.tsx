@@ -29,17 +29,16 @@ interface QuestionOption {
 export default function OnboardingScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const { completeOnboarding, updateSettings } = useApp();
+  const { updateSettings } = useApp();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [goal, setGoal] = useState<OnboardingGoal | null>(null);
   const [time, setTime] = useState<OnboardingTime | null>(null);
 
-  // Building plan animation
-  const [buildItems, setBuildItems] = useState<boolean[]>([false, false, false]);
-  const buildTimersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  // Building plan animation (spinning icon + progress bar)
+  const buildingProgress = useRef(new Animated.Value(0)).current;
+  const spinAnim = useRef(new Animated.Value(0)).current;
 
   // Slide transition animation
-  const slideAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
   const progressWidth = 0.2 + 0.8 * (currentSlide / (TOTAL_SLIDES - 1));
@@ -67,9 +66,11 @@ export default function OnboardingScreen() {
   };
 
   const handleSkip = () => {
-    completeOnboarding();
-    if (goal) updateSettings({ onboardingGoal: goal });
-    if (time) updateSettings({ onboardingTime: time });
+    updateSettings({
+      hasCompletedOnboarding: true,
+      ...(goal && { onboardingGoal: goal }),
+      ...(time && { onboardingTime: time }),
+    });
     router.replace('/');
   };
 
@@ -98,24 +99,30 @@ export default function OnboardingScreen() {
   };
 
   const finishOnboarding = () => {
-    completeOnboarding();
-    if (goal) updateSettings({ onboardingGoal: goal });
-    if (time) updateSettings({ onboardingTime: time });
+    updateSettings({
+      hasCompletedOnboarding: true,
+      ...(goal && { onboardingGoal: goal }),
+      ...(time && { onboardingTime: time }),
+    });
     router.replace('/paywall?source=onboarding');
   };
 
-  // Building plan: auto-advance after animation
+  // Building plan: spinning icon + progress bar, auto-advance after 1.5s
   useEffect(() => {
     if (currentSlide === 4) {
-      setBuildItems([false, false, false]);
-      const t1 = setTimeout(() => setBuildItems(prev => [true, prev[1], prev[2]]), 500);
-      const t2 = setTimeout(() => setBuildItems(prev => [prev[0], true, prev[2]]), 1000);
-      const t3 = setTimeout(() => setBuildItems(prev => [prev[0], prev[1], true]), 1500);
-      const t4 = setTimeout(() => animateToSlide(5), 2500);
-      buildTimersRef.current = [t1, t2, t3, t4];
-      return () => buildTimersRef.current.forEach(clearTimeout);
+      buildingProgress.setValue(0);
+      spinAnim.setValue(0);
+      Animated.loop(
+        Animated.timing(spinAnim, { toValue: 1, duration: 2000, useNativeDriver: true })
+      ).start();
+      Animated.timing(buildingProgress, { toValue: 1, duration: 1500, useNativeDriver: false }).start();
+      const timer = setTimeout(() => animateToSlide(5), 1500);
+      return () => clearTimeout(timer);
     }
   }, [currentSlide]);
+
+  const spin = spinAnim.interpolate({ inputRange: [0, 1], outputRange: ['0deg', '360deg'] });
+  const buildProgressWidth = buildingProgress.interpolate({ inputRange: [0, 1], outputRange: ['0%', '100%'] });
 
   // --- Slide renderers ---
 
@@ -217,32 +224,19 @@ export default function OnboardingScreen() {
     );
   };
 
-  const renderSlide5Building = () => {
-    const items: { key: TranslationKey }[] = [
-      { key: 'onboarding.slide5.item1' },
-      { key: 'onboarding.slide5.item2' },
-      { key: 'onboarding.slide5.item3' },
-    ];
-    return (
-      <View style={styles.slideContent}>
-        <Text style={styles.title}>{t('onboarding.slide5.title')}</Text>
-        <View style={styles.buildContainer}>
-          {items.map((item, i) => (
-            <Animated.View
-              key={i}
-              style={[
-                styles.buildRow,
-                { opacity: buildItems[i] ? 1 : 0.3 },
-              ]}
-            >
-              <Text style={styles.buildCheck}>{buildItems[i] ? '✅' : '⏳'}</Text>
-              <Text style={styles.buildText}>{t(item.key)}</Text>
-            </Animated.View>
-          ))}
+  const renderSlide5Building = () => (
+    <View style={styles.slideContent}>
+      <Animated.View style={{ transform: [{ rotate: spin }] }}>
+        <View style={styles.buildingIconCircle}>
+          <Text style={styles.buildingEmoji}>🌸</Text>
         </View>
+      </Animated.View>
+      <Text style={styles.title}>{t('onboarding.slide5.title')}</Text>
+      <View style={styles.buildingBarContainer}>
+        <Animated.View style={[styles.buildingBarFill, { width: buildProgressWidth as unknown as string }]} />
       </View>
-    );
-  };
+    </View>
+  );
 
   const renderSlide6Result = () => {
     const goalKey = goal ? `onboarding.result.${goal}` as TranslationKey : null;
@@ -492,25 +486,33 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  // Building plan slide
-  buildContainer: {
-    width: '100%',
-    gap: 24,
-    marginTop: 32,
-  },
-  buildRow: {
-    flexDirection: 'row',
+  // Building plan slide (spinning icon + progress bar)
+  buildingIconCircle: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: Colors.light.backgroundSecondary,
     alignItems: 'center',
-    gap: 16,
-    paddingHorizontal: 8,
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: Colors.light.border,
+    marginBottom: 32,
   },
-  buildCheck: {
-    fontSize: 24,
+  buildingEmoji: {
+    fontSize: 48,
   },
-  buildText: {
-    fontSize: 17,
-    color: Colors.light.textSecondary,
-    lineHeight: 24,
+  buildingBarContainer: {
+    width: '80%',
+    height: 6,
+    backgroundColor: Colors.light.border,
+    borderRadius: 3,
+    overflow: 'hidden',
+    marginTop: 24,
+  },
+  buildingBarFill: {
+    height: '100%',
+    backgroundColor: Colors.light.gold,
+    borderRadius: 3,
   },
 
   // Result slide
