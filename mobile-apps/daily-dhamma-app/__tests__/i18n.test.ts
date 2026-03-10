@@ -38,7 +38,7 @@ describe('i18n', () => {
     i18n.locale = 'en';
     i18n.enableFallback = true;
     i18n.defaultLocale = 'en';
-    expect(i18n.t('onboarding.slide1.title')).toBe('Ancient wisdom for\nmodern minds');
+    expect(i18n.t('onboarding.slide1.title')).toBe('Find peace in\njust 30 seconds a day');
     expect(i18n.t('paywall.title')).toBe('Deepen Your\nPractice');
     expect(i18n.t('settings.title')).toBe('Settings');
     expect(i18n.t('index.swipeHint')).toBe('Swipe up for next verse');
@@ -50,7 +50,7 @@ describe('i18n', () => {
     i18n.locale = 'ja';
     i18n.enableFallback = true;
     i18n.defaultLocale = 'en';
-    expect(i18n.t('onboarding.slide1.title')).toBe('現代の心に\n古代の智慧を');
+    expect(i18n.t('onboarding.slide1.title')).toBe('1日たった30秒で\n心の安らぎを');
     expect(i18n.t('paywall.title')).toBe('修行を\n深める');
     expect(i18n.t('settings.title')).toBe('設定');
     expect(i18n.t('index.swipeHint')).toBe('スワイプで次の法句経へ');
@@ -104,10 +104,10 @@ describe('i18n', () => {
     expect(result).not.toMatch(/^\[missing/);
   });
 
-  // T-L7: en.json のキー数が仕様一覧（90件）と一致
-  test('T-L7: en.json key count matches spec inventory (90)', () => {
+  // T-L7: en.json のキー数が仕様一覧（121件）と一致
+  test('T-L7: en.json key count matches spec inventory (121)', () => {
     const enKeys = flattenKeys(en);
-    expect(enKeys.length).toBe(90);
+    expect(enKeys.length).toBe(121);
   });
 
   // T-L8: 画面ファイルに本番ユーザー向けの hardcoded 英語文字列がない
