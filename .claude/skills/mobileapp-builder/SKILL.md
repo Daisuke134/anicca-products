@@ -118,6 +118,25 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 57 | **Feature flags for experimental**。新機能は feature flag で on/off。"Toggle new features on/off without rebuilding. Makes rolling back instant." Source: https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj |
 | 58 | **Debug logging を必ず追加**。複雑なフローには Logger 追加。"Ask Claude Code to add Logger statements for complex flows." Source: https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj |
 
+## REVENUE BEST PRACTICES (2026-03-11)
+
+Source: factory-bp-revenue — workspace/factory-evolution/revenue-bp-2026-03-11.md
+
+**PaywallView 実装時に適用すること:**
+
+| BP | Source | Lift |
+|----|--------|------|
+| **Paywall placement immediately after onboarding** | AppAgent 2024-02 | +234% CV |
+| **Consistent messaging from ad/onboarding to paywall** | FunnelFox 2025-12 | ↑CV |
+| **Dynamic paywalls with segmentation** | Adapty 2026-01 | +35% CV |
+| **Animated elements (subtle button pulsing, entrance effects)** | RevenueCat 2025-12 | +12-18% CV |
+| **Prominent discount percentage** | RevenueCat 2025-12 | +20-30% CV |
+| **Free trial emphasized multiple times (headline + button + copy)** | RevenueCat 2025-12 | +15-25% CV |
+| **Price anchoring (daily/monthly breakdown for annual)** | RevenueCat 2025-12 | ↑higher-tier selection |
+
+**適用先:** US-006b PaywallView implementation
+**検証:** prd.json US-006b acceptanceCriteria に含まれている
+
 ## Quality Gate Pattern
 
 Source: SonarQube (https://docs.sonarsource.com/sonarqube-cloud/standards/managing-quality-gates/introduction-to-quality-gates)

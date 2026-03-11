@@ -133,6 +133,12 @@
         "Onboarding flow complete (includes notification permission step)",
         "PaywallView uses Purchases.shared.purchase(package:) (self-built SwiftUI -- Rule 20)",
         "No RevenueCatUI import",
+        "Paywall placed immediately after onboarding (BP: appagent.com 2024-02)",
+        "Paywall messaging consistent with onboarding flow (BP: funnelfox.com 2025-12)",
+        "Discount percentage prominently displayed if offering discount (BP: RevenueCat 2025-12)",
+        "Free trial emphasized in multiple places (headline + button + supporting copy) (BP: RevenueCat 2025-12)",
+        "Price breakdown shows daily/monthly equivalent for annual plans (BP: RevenueCat 2025-12)",
+        "Subtle button animation on CTA (BP: Adapty 2026-01)",
         "fastlane test PASS",
         "Typecheck passes"
       ],
