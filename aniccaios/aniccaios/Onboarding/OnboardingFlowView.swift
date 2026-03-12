@@ -206,7 +206,6 @@ struct OnboardingFlowView: View {
             await ProblemNotificationScheduler.shared
                 .scheduleNotifications(for: appState.userProfile.struggles)
             appState.markOnboardingComplete()
-            requestReviewIfNeeded()
         }
     }
 
@@ -219,18 +218,6 @@ struct OnboardingFlowView: View {
         FreePlanService.shared.scheduleFreePlanNudges(problems: problems)
 
         appState.markOnboardingComplete()
-        requestReviewIfNeeded()
-    }
-
-    private func requestReviewIfNeeded() {
-        guard !appState.hasRequestedReview else { return }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            if let scene = UIApplication.shared.connectedScenes
-                .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
-                SKStoreReviewController.requestReview(in: scene)
-            }
-        }
-        appState.markReviewRequested()
     }
 
     // MARK: - Helpers

@@ -1,6 +1,7 @@
 import SwiftUI
 import UIKit
 import Combine
+import StoreKit
 import RevenueCat
 
 struct MainTabView: View {
@@ -78,6 +79,11 @@ struct MainTabView: View {
         let count = appState.nudgeCardCompletedCount
         appState.dismissNudgeCard()
 
+        // 初回ナッジカード完了時にレビューリクエスト
+        if count == 1 {
+            requestReviewIfNeeded()
+        }
+
         // Free ユーザーのみ: 3回目 or 7回目に Paywall 表示
         if (count == 3 || count == 7) && !appState.subscriptionInfo.isEntitled {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
@@ -85,6 +91,17 @@ struct MainTabView: View {
             }
             return
         }
+    }
+
+    private func requestReviewIfNeeded() {
+        guard !appState.hasRequestedReview else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            if let scene = UIApplication.shared.connectedScenes
+                .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+                SKStoreReviewController.requestReview(in: scene)
+            }
+        }
+        appState.markReviewRequested()
     }
 
     @ViewBuilder
