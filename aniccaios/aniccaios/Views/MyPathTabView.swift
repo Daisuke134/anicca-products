@@ -130,12 +130,6 @@ struct MyPathTabView: View {
                 AnalyticsManager.shared.trackPaywallDismissed(paywallId: "profile_upgrade")
             }) {
                 paywallContent
-                    .onPurchaseCompleted { customerInfo in
-                        showUpgradePaywall = false
-                    }
-                    .onRestoreCompleted { customerInfo in
-                        showUpgradePaywall = false
-                    }
                     .onAppear {
                         AnalyticsManager.shared.trackPaywallViewed(
                             paywallId: "profile_upgrade",
@@ -165,13 +159,17 @@ struct MyPathTabView: View {
 
     @ViewBuilder
     private var paywallContent: some View {
-        if let offering = appState.cachedOffering {
-            PaywallView(offering: offering)
-                .applyDebugIntroEligibility()
-        } else {
-            PaywallView()
-                .applyDebugIntroEligibility()
-        }
+        PlanSelectionStepView(
+            onPurchaseSuccess: { _ in
+                showUpgradePaywall = false
+            },
+            onDismiss: {
+                showUpgradePaywall = false
+            },
+            onShowDrawer: {
+                showUpgradePaywall = false
+            }
+        )
     }
 
     // MARK: - Account Section

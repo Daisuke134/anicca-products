@@ -1,9 +1,7 @@
 import SwiftUI
 import UIKit
 import Combine
-import StoreKit
 import RevenueCat
-import RevenueCatUI
 
 struct MainTabView: View {
     @EnvironmentObject private var appState: AppState
@@ -91,29 +89,17 @@ struct MainTabView: View {
 
     @ViewBuilder
     private func upgradePaywallView() -> some View {
-        if let offering = appState.cachedOffering {
-            PaywallView(offering: offering, displayCloseButton: false)
-                .applyDebugIntroEligibility()
-                .onPurchaseCompleted { customerInfo in
-                    handleUpgradePurchase(customerInfo: customerInfo)
-                }
-                .onRestoreCompleted { customerInfo in
-                    if customerInfo.entitlements[AppConfig.revenueCatEntitlementId]?.isActive == true {
-                        handleUpgradePurchase(customerInfo: customerInfo)
-                    }
-                }
-        } else {
-            PaywallView(displayCloseButton: false)
-                .applyDebugIntroEligibility()
-                .onPurchaseCompleted { customerInfo in
-                    handleUpgradePurchase(customerInfo: customerInfo)
-                }
-                .onRestoreCompleted { customerInfo in
-                    if customerInfo.entitlements[AppConfig.revenueCatEntitlementId]?.isActive == true {
-                        handleUpgradePurchase(customerInfo: customerInfo)
-                    }
-                }
-        }
+        PlanSelectionStepView(
+            onPurchaseSuccess: { customerInfo in
+                handleUpgradePurchase(customerInfo: customerInfo)
+            },
+            onDismiss: {
+                showUpgradePaywall = false
+            },
+            onShowDrawer: {
+                showUpgradePaywall = false
+            }
+        )
     }
 
     private func handleUpgradePurchase(customerInfo: CustomerInfo) {
