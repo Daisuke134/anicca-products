@@ -1348,6 +1348,8 @@
 "paywall_cancel_description" = "Settings → Subscriptions → Cancel. Done in 2 taps.";
 "paywall_legal_terms" = "Terms of Use";
 "paywall_legal_privacy" = "Privacy Policy";
+"paywall_plan_name_annual" = "Annual Plan";
+"paywall_plan_name_monthly" = "Monthly Plan";
 "paywall_drawer_title" = "Not ready for a year?";
 "paywall_drawer_subtitle" = "That's just %@/week — less than a cup of coffee";
 "paywall_drawer_cta" = "Start Free Trial";

@@ -1348,6 +1348,8 @@
 "paywall_cancel_description" = "設定 → サブスクリプション → キャンセル。2タップで完了。";
 "paywall_legal_terms" = "利用規約";
 "paywall_legal_privacy" = "プライバシーポリシー";
+"paywall_plan_name_annual" = "年額プラン";
+"paywall_plan_name_monthly" = "月額プラン";
 "paywall_drawer_title" = "年額の準備ができない？";
 "paywall_drawer_subtitle" = "週たったの%@ — コーヒー1杯以下です";
 "paywall_drawer_cta" = "無料トライアルを始める";

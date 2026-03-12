@@ -66,12 +66,12 @@ struct PlanSelectionStepView: View {
                             if let monthly = monthlyPackage {
                                 planCard(
                                     package: monthly,
-                                    title: monthly.storeProduct.localizedTitle,
+                                    title: String(localized: "paywall_plan_name_monthly"),
                                     priceLabel: monthly.localizedPriceString + String(localized: "paywall_plan_period_monthly"),
                                     badge: nil,
                                     saveLabel: nil,
                                     weeklyLabel: nil,
-                                    trialLabel: nil
+                                    trialLabel: monthly.storeProduct.introductoryDiscount != nil ? String(localized: "paywall_plan_trial_label") : nil
                                 )
                             }
                         }
@@ -216,7 +216,7 @@ struct PlanSelectionStepView: View {
 
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(package.storeProduct.localizedTitle)
+                        Text(String(localized: "paywall_plan_name_annual"))
                             .font(.system(size: 16, weight: .semibold))
                             .foregroundStyle(AppTheme.Colors.label)
 
