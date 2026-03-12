@@ -210,18 +210,7 @@ platform :ios do
     # Unlock keychain for codesigning
     sh("source ~/.config/mobileapp-builder/.env && security unlock-keychain -p \"$KEYCHAIN_PASSWORD\" ~/Library/Keychains/login.keychain-db")
 
-    # メインアプリ + NotificationService のみ（WidgetExtension は未使用のため除外）
-    get_provisioning_profile(
-      api_key: api_key,
-      app_identifier: BUNDLE_ID,
-      team_id: TEAM_ID
-    )
-    get_provisioning_profile(
-      api_key: api_key,
-      app_identifier: "ai.anicca.app.ios.AniccaNotificationService",
-      team_id: TEAM_ID
-    )
-
+    # Automatic signing handles provisioning via -allowProvisioningUpdates
     # Step 1: Archive (fastlane build_app の archive のみ使用)
     build_app(
       scheme: SCHEME,
