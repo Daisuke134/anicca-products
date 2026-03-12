@@ -108,10 +108,6 @@
 		<string>ai.anicca.app.ios.refresh</string>
 		<string>ai.anicca.app.ios.nudge-fetch</string>
 	</array>
-	<key>NSHealthShareUsageDescription</key>
-	<string>Anicca uses health data to understand your sleep patterns and provide personalized nudges.</string>
-	<key>NSHealthUpdateUsageDescription</key>
-	<string>Anicca may record your wellness activities to track your behavioral progress.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Anicca may use the microphone for voice-based interactions in future updates.</string>
 	<key>CFBundleURLTypes</key>
