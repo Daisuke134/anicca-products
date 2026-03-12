@@ -170,3 +170,105 @@
 | 3 | onboarding/paywall デザイン BP セクション追加 | 🟡 P1 | `us-004-specs.md` + `us-006-implement.md` |
 | 4 | Harvest Phase 定義を SKILL.md/CLAUDE.md に追加 | 🟡 P1 | `SKILL.md` + `CLAUDE.md` |
 | 5 | LLM-as-Judge 導入検討 | 🟠 P2 | `us-008-release.md` |
+| 6 | iOS 26 Compliance チェックリスト追加 | 🔴 P0 | 全US（特に US-006, US-008） |
+
+---
+
+## iOS 26 Compliance Best Practices (2026-03-12追加)
+
+**ソース**: iOS 26 Compliance Guide (https://www.isyncevolution.com/blog/apple-app-store-purge)
+**核心の引用**:
+> "Apple is enforcing a comprehensive modernization mandate touching architecture, toolchain, privacy compliance, and UI standards simultaneously."
+> "After April 28, 2026, Apple will reject any new submissions or updates not built with the Xcode 26 SDK."
+
+### 必須要件（Deadline: 2026-04-28）
+
+| 要件 | 内容 | 影響US | 検証方法 |
+|------|------|--------|---------|
+| **Xcode 26 SDK** | 全ビルドは Xcode 26 で実行 | US-006, US-008 | `xcodebuild -version` → "Xcode 26.x" |
+| **64-bit Only** | armv7, armv7s (32-bit) 完全削除 | US-006 | Build Settings → Architectures = "arm64" のみ |
+| **PrivacyInfo.xcprivacy** | プライバシーマニフェスト必須 | US-006 | プロジェクトルートに `PrivacyInfo.xcprivacy` 存在確認 |
+| **Liquid Glass UI** | iOS 26 新デザイン対応（透明 nav bar, tab bar, sheets） | US-006, US-008 | iOS 26シミュレータで目視確認 |
+| **No Deprecated APIs** | UIWebView 等の削除 | US-006 | Xcode warnings = 0 |
+
+### Xcode 26 Build Settings チェックリスト
+
+**ソース**: iOS Project Claude Code Setup Prompt (https://gist.github.com/joelklabo/6df9fa603bec3478dec7efc17ea44596)
+
+```bash
+# 1. Architectures
+# Build Settings → Architectures = "Standard Architectures (arm64)"
+grep -A5 "ARCHS" project.pbxproj | grep -v "armv7"
+
+# 2. Build Active Architecture Only
+# Release = NO（全アーキテクチャビルド）
+
+# 3. Minimum Deployment Target
+# iOS 16+ 推奨
+
+# 4. Valid Architectures
+# arm64 のみ
+```
+
+### PrivacyInfo.xcprivacy テンプレート
+
+**ソース**: Apple WWDC23 — Privacy Manifest
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>NSPrivacyTracking</key>
+    <false/>
+    <key>NSPrivacyTrackingDomains</key>
+    <array/>
+    <key>NSPrivacyCollectedDataTypes</key>
+    <array>
+        <!-- 収集するデータタイプを列挙 -->
+    </array>
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+        <!-- Required Reason API を列挙 -->
+    </array>
+</dict>
+</plist>
+```
+
+### Security Best Practices（AI-Assisted Development）
+
+**ソース**: Reddit r/ClaudeAI — Best practices after shipping iOS apps with Claude Code (https://www.reddit.com/r/ClaudeAI/comments/1ridakj/best_practices_ive_learned_after_shipping/)
+
+**核心の引用**:
+> "AI doesn't automatically enforce good practices. It gives you what you ask for."
+> "The senior engineer is still you."
+
+| BP | 内容 | 影響US | 実装場所 |
+|----|------|--------|---------|
+| **環境変数分離** | dev/prod で異なる API キー（.env.dev / .env.prod） | US-005, US-006 | `$APP_DIR/.env` |
+| **Day 1 Crash Reporting** | Sentry/Crashlytics を初期実装 | US-006 | AppDelegate |
+| **Server-Side Validation** | クライアント入力を信頼しない | US-006 | Backend API |
+| **Observability** | /health endpoint + 永続ログ | US-006 | Backend API |
+| **Rate Limiting** | Auth/書き込み API に制限 | US-006 | Backend API |
+| **No Hardcoded Secrets** | git commit 前に .env チェック | 全US | pre-commit hook |
+| **Staging Environment** | prod 完全ミラーの staging | US-008 | ASC TestFlight |
+| **CI/CD Pipeline** | ローカル以外でもビルド検証 | US-008 | 将来タスク |
+| **Documented Deployment** | デプロイ手順ドキュメント化 | US-008 | README.md |
+| **Test Unhappy Paths** | エラーケース・タイムアウト検証 | US-007 | Maestro flows |
+| **UTC Time Storage** | 全日時は UTC 保存、表示時にローカル変換 | US-006 | Models |
+
+### CLAUDE.md への埋め込み推奨
+
+**ソース**: Reddit r/ClaudeAI (同上)
+
+**核心の引用**:
+> "If you find this useful, you can actually feed this post to Claude Code at the start of your project. Just paste it into your CLAUDE.md file."
+
+→ mobileapp-builder/CLAUDE.md の "Project Rules" セクションに上記 BP を追加推奨
+
+---
+
+## 更新履歴
+
+- 2026-03-05: 初版（17+ソース）
+- 2026-03-12: iOS 26 Compliance + Security BP 追加（factory-bp-efficiency スキル実行結果）

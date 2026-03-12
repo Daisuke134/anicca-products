@@ -98,6 +98,10 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 37 | **アイコンはビルド前に配置**。後から変更は version bump + 再ビルド |
 | 38 | **SPM に RevenueCatUI を追加しない。RevenueCat のみ** |
 | 39 | **毎 iteration = 新 CC プロセス（フレッシュ context）**。前回の学びは progress.txt のみ |
+| 41 | **iOS 26 Compliance MANDATORY**: Xcode 26 SDK, 64-bit only (arm64), PrivacyInfo.xcprivacy, Liquid Glass UI対応。Source: https://www.isyncevolution.com/blog/apple-app-store-purge |
+| 42 | **Crash Reporting Day 1**: Sentry/Crashlytics等のクラッシュ監視を初期実装。「後で追加」は禁止。Source: https://www.reddit.com/r/ClaudeAI/comments/1ridakj/best_practices_ive_learned_after_shipping/ |
+| 43 | **Server-Side Validation**: クライアントからの入力は全て検証。LLMはハッピーパスを優先するため明示的に指示。Source: https://www.reddit.com/r/ClaudeAI/comments/1ridakj/best_practices_ive_learned_after_shipping/ |
+| 44 | **No Deprecated APIs**: UIWebView等の非推奨APIは全削除。Xcode 26 warnings=0必須。Source: https://developer.apple.com/news/ |
 | 41 | **.pbxproj ファイルを CC が編集禁止**。Source: Kris Puckett (https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj) 核心の引用: 「Never let AI modify .pbxproj files. Create files with Claude Code, add them to Xcode manually.」 |
 | 41 | **IAP は2-3プラン: monthly + annual OR weekly + monthly + annual**。Source: Adapty iOS Paywall Design Guide 2026 (https://adapty.io/blog/how-to-design-ios-paywall/) — 「2 products vs 1 product +61%; 3 products vs 2 products +44%」。RevenueCat State of Subscription Apps 2025 — "Weekly plans capturing 47% of total revenue" |
 | 42 | **US-005a 開始時に iris セッション確認必須**。`asc web auth status` で authenticated=false なら即 WAITING_FOR_HUMAN。retry 禁止。Source: Internal — iris session expiry blocked 5+ factory runs |
