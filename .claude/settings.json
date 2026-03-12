@@ -36,8 +36,7 @@
     ],
     "deny": [
       "Bash(rm -rf *)",
-      "Bash(ssh anicca@*)",
-      "Bash(xcodebuild *)"
+      "Bash(ssh anicca@*)"
     ]
   },
   "env": {
