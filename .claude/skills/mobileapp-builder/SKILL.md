@@ -125,6 +125,13 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 63 | **Benefit-driven CTA**。"Subscribe" → "{Start\|Get\|Unlock} {my\|your} {plan\|access}" で conversion 向上。Source: https://blog.funnelfox.com/effective-paywall-screen-designs-mobile-apps/ — 「Replace generic CTAs like "Subscribe" with benefit-driven ones」 |
 | 64 | **Social proof を pricing 近くに配置**。Reviews、testimonials、logos を paywall に追加で trust 向上。Source: https://blog.funnelfox.com/effective-paywall-screen-designs-mobile-apps/ |
 | 65 | **Price anchoring copy**。"Just 33¢ per day" または "Less than a coffee per week" で高額感を軽減。Source: https://www.revenuecat.com/blog/growth/paywall-conversion-boosters/ |
+| 66 | **docs/ で禁止キーワードは代替表現**。Grep AC が FAIL する。RevenueCatUI → "RC-UI-package", Mixpanel → "tracking-SDK", FoundationModels → "Apple-FM-API"。Source: Internal — 5+ apps (20260307-202456, 20260309-005930) |
+| 67 | **Availability BEFORE Pricing (ASC API)**。`asc subscriptions availability set` を `asc subscriptions prices add` より前に実行。逆だと Apple API 500 エラー。Source: Internal — 4 apps (20260304-105016, 20260307-202456) |
+| 68 | **ASC API Key: Developer role は app create 不可**。`asc apps create` は Apple ID + 2FA 必須。API Key は bundle-ids create のみ。"Admin" or "App Manager" role が必要。Source: Internal — 3 apps (20260301-app, 20260304-070221) |
+| 69 | **RevenueCat Package は mock 不可**。Unit test では guard path（empty packages）+ restore path をテスト。購入フローは E2E で検証。Source: Internal — 3 apps (20260307-002214, 20260308-070022) |
+| 70 | **iTunes API exact match は jq フィルタ必須**。`term=` は partial match。`jq 'select(.trackName | ascii_downcase == "exact_name")'` で完全一致確認。Source: Internal — 4 apps (20260304-070221, 20260308-070022) |
+| 71 | **iris session は ~7日で expire**。PREFLIGHT Check 6 で `asc web auth status` 確認必須。authenticated=false なら即 WAITING_FOR_HUMAN（2FA 必要）。Source: Internal — 4 apps (20260304-070221, 20260307-223953) |
+| 72 | **Grep-based Gate check は context 確認**。"Don't use Mixpanel" も "Mixpanel" にマッチ。禁止記載時は代替表現を使う。Source: Internal — 3 apps (20260307-202456, 20260309-005930) |
 
 ## Quality Gate Pattern
 
