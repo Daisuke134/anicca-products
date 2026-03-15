@@ -117,6 +117,13 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 56 | **Cross-model QA**。実装完了後 Codex で plan/code をレビュー。"use a cross-model for QA — e.g. Codex for plan and implementation review" Source: https://github.com/shanraisshan/claude-code-best-practice |
 | 57 | **Feature flags for experimental**。新機能は feature flag で on/off。"Toggle new features on/off without rebuilding. Makes rolling back instant." Source: https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj |
 | 58 | **Debug logging を必ず追加**。複雑なフローには Logger 追加。"Ask Claude Code to add Logger statements for complex flows." Source: https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj |
+| 59 | **Paywall に微細アニメーション**。Button pulse、entrance effects、motion で conversion +12~18%。静止画面の 2.9 倍。Source: https://adapty.io/blog/how-to-design-ios-paywall/ — 「Animated paywalls produce 2.9× higher conversion rates than static designs」 |
+| 60 | **Paywall で user name personalization**。"[Name], unlock your premium features" で conversion +17%。Source: https://adapty.io/blog/how-to-design-ios-paywall/ — 「Adding the user's name to paywall copy (increases conversions by 17%)」 |
+| 61 | **Discount percentage を prominent 表示**。"Save 50%" badge + strikethrough price で conversion +20~30%。Source: https://www.revenuecat.com/blog/growth/paywall-conversion-boosters/ |
+| 62 | **Free trial を複数箇所で強調**。Headline、CTA、pricing に繰り返し記載で conversion +15~25%。Source: https://adapty.io/blog/how-to-design-ios-paywall/ — 「Trial mentioned multiple times: +15% to +25%」 |
+| 63 | **Benefit-driven CTA**。"Subscribe" → "{Start\|Get\|Unlock} {my\|your} {plan\|access}" で conversion 向上。Source: https://blog.funnelfox.com/effective-paywall-screen-designs-mobile-apps/ — 「Replace generic CTAs like "Subscribe" with benefit-driven ones」 |
+| 64 | **Social proof を pricing 近くに配置**。Reviews、testimonials、logos を paywall に追加で trust 向上。Source: https://blog.funnelfox.com/effective-paywall-screen-designs-mobile-apps/ |
+| 65 | **Price anchoring copy**。"Just 33¢ per day" または "Less than a coffee per week" で高額感を軽減。Source: https://www.revenuecat.com/blog/growth/paywall-conversion-boosters/ |
 
 ## Quality Gate Pattern
 
