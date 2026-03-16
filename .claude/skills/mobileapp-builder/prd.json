@@ -23,7 +23,7 @@
       "acceptanceCriteria": [
         "product-plan.md exists",
         "Contains: target user, problem, solution, monetization, MVP scope",
-        "monetization section specifies subscription prices (monthly + annual)",
+        "monetization section specifies subscription prices (weekly, monthly, annual) — Source: https://adapty.io/blog/mobile-app-monetization-2026/ — Weekly = 55.5% of app revenue, install-to-trial 9.8% vs 1.8% annual",
         "All claims cite external sources",
         "curl itunes.apple.com/search for APP_NAME returns 0 exact name matches",
         "Typecheck passes"
@@ -101,9 +101,9 @@
       "title": "IAP + pricing + RevenueCat setup",
       "acceptanceCriteria": [
         "asc subscriptions groups list --app $APP_ID returns 1+ groups",
-        "asc subscriptions list --group $GROUP_ID returns monthly + annual products",
-        "asc subscriptions prices list --id $MONTHLY_ID returns 175 prices",
-        "RevenueCat dashboard shows 2 products + 1 offering",
+        "asc subscriptions list --group $GROUP_ID returns weekly, monthly, annual products (weekly primary — Source: https://adapty.io/blog/mobile-app-monetization-2026/ — 55.5% revenue share)",
+        "asc subscriptions prices list --id $WEEKLY_ID returns 175 prices",
+        "RevenueCat dashboard shows 3 products (weekly, monthly, annual) + 1 offering",
         "SPM dependency on RevenueCat added (RevenueCatUI prohibited -- Rule 20)",
         "Typecheck passes"
       ],
@@ -132,6 +132,10 @@
         "AppState split into MVVM ViewModels",
         "Onboarding flow complete (includes notification permission step)",
         "PaywallView uses Purchases.shared.purchase(package:) (self-built SwiftUI -- Rule 20)",
+        "PaywallView positioned immediately after onboarding — Source: https://appagent.com/blog/mobile-app-onboarding-5-paywall-optimization-strategies/ — 89.4% trial starts Day 0",
+        "PaywallView includes animations (button pulse, subtle entrance) — Source: https://adapty.io/blog/how-to-design-ios-paywall/ — 2.9x conversion vs static",
+        "PaywallView highlights free trial in headline + supporting copy — Source: https://www.revenuecat.com/blog/growth/paywall-conversion-boosters/ — Multiple touchpoints boost conversion",
+        "PaywallView uses price anchoring (monthly equivalent for annual) — Source: https://www.revenuecat.com/blog/growth/paywall-conversion-boosters/",
         "No RevenueCatUI import",
         "fastlane test PASS",
         "Typecheck passes"
