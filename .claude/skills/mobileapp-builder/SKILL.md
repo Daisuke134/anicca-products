@@ -98,6 +98,8 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 37 | **アイコンはビルド前に配置**。後から変更は version bump + 再ビルド |
 | 38 | **SPM に RevenueCatUI を追加しない。RevenueCat のみ** |
 | 39 | **毎 iteration = 新 CC プロセス（フレッシュ context）**。前回の学びは progress.txt のみ |
+| 41 | **CC が .pbxproj を編集禁止**。ファイル作成後は Xcode で手動追加。Source: Kris Puckett (https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj) 「Never let AI modify .pbxproj files. Create files with Claude Code, add them to Xcode manually.」|
+| 42 | **2026プライバシーガイドライン必須**。AIサービスとのデータ共有は明示的同意。Source: theapplaunchpad.com (https://theapplaunchpad.com/blog/app-store-review-guidelines) 「Apps must clearly disclose what data they collect, how it is used, and obtain consent before sharing it with third parties, especially AI services.」|
 | 41 | **.pbxproj 直接編集禁止**。CC がファイル作成→手動で Xcode に追加。Source: https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj 「Never let AI modify .pbxproj files. Create files with Claude Code, add them to Xcode manually.」 |
 | 41 | **.pbxproj ファイルを CC が編集禁止**。Source: Kris Puckett (https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj) 核心の引用: 「Never let AI modify .pbxproj files. Create files with Claude Code, add them to Xcode manually.」 |
 | 41 | **IAP は2-3プラン: monthly + annual OR weekly + monthly + annual**。Source: Adapty iOS Paywall Design Guide 2026 (https://adapty.io/blog/how-to-design-ios-paywall/) — 「2 products vs 1 product +61%; 3 products vs 2 products +44%」。RevenueCat State of Subscription Apps 2025 — "Weekly plans capturing 47% of total revenue" |
