@@ -44,7 +44,7 @@
 "onboarding_permission_status_not_allowed" = "Not allowed";
 "onboarding_microphone_optional_hint" = "Need the voice experience later? Just return to Settings → Anicca and flip the microphone back on when you're ready.";
 
-"onboarding_notifications_title" = "Stay on track";
+"onboarding_notifications_title" = "Don't miss your nudges";
 "onboarding_notifications_card_title" = "Notification Access";
 "onboarding_notifications_description" = "Anicca sends gentle reminders exactly when you need them. Without notifications, Anicca can't reach you.";
 "onboarding_notifications_allow" = "Allow notifications";
@@ -1319,10 +1319,15 @@
 "paywall_primer_feature1" = "Full access to all features";
 "paywall_primer_feature2" = "Personalized nudges";
 "paywall_primer_feature3" = "Cancel anytime";
-"paywall_plan_title" = "Choose your plan";
-"paywall_plan_title_personalized %@" = "Overcome %@ — your personalized plan";
+"paywall_plan_title" = "Your path to change starts here";
+"paywall_plan_subtitle" = "Start your 7-day free trial";
+"paywall_plan_feature_access" = "Full access to all features";
+"paywall_plan_feature_nudges" = "Personalized nudges";
+"paywall_plan_feature_cancel" = "Cancel anytime";
 "paywall_plan_yearly_badge" = "BEST VALUE";
-"paywall_plan_save" = "Save 58%";
+"paywall_plan_price_yearly" = "%@/yr";
+"paywall_plan_price_monthly" = "%@/mo";
+"paywall_plan_save_dynamic" = "Save %d%%";
 "paywall_plan_weekly" = "%@/week";
 "paywall_plan_cta_trial" = "Start Free Trial";
 "paywall_plan_cta_subscribe" = "Subscribe";

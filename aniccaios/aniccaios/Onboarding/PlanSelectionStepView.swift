@@ -28,13 +28,13 @@ struct PlanSelectionStepView: View {
         packages.first { $0.packageType == .monthly }
     }
 
-    private var personalizedTitle: String {
-        if let firstStruggle = appState.userProfile.struggles.first,
-           let problem = ProblemType(rawValue: firstStruggle) {
-            let name = problem.displayName
-            return String(localized: "paywall_plan_title_personalized \(name)")
-        }
-        return String(localized: "paywall_plan_title")
+    /// F6: Dynamic save percentage
+    private var savePct: Int? {
+        guard let yearly = yearlyPackage, let monthly = monthlyPackage else { return nil }
+        let yearlyPrice = (yearly.storeProduct.price as NSDecimalNumber).doubleValue
+        let monthlyPrice = (monthly.storeProduct.price as NSDecimalNumber).doubleValue
+        guard monthlyPrice > 0 else { return nil }
+        return Int((1.0 - yearlyPrice / (monthlyPrice * 12.0)) * 100)
     }
 
     var body: some View {
@@ -54,11 +54,26 @@ struct PlanSelectionStepView: View {
                 .padding(.top, 8)
             }
 
-            Text(personalizedTitle)
+            // F4: Fixed outcome-focused title
+            Text(String(localized: "paywall_plan_title"))
                 .font(.system(size: 28, weight: .bold))
                 .foregroundStyle(AppTheme.Colors.label)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
+
+            // F7: Subtitle + feature list
+            Text(String(localized: "paywall_plan_subtitle"))
+                .font(.system(size: 16))
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 24)
+
+            VStack(alignment: .leading, spacing: 8) {
+                featureRow(icon: "checkmark.circle.fill", key: "paywall_plan_feature_access")
+                featureRow(icon: "bell.badge.fill", key: "paywall_plan_feature_nudges")
+                featureRow(icon: "xmark.circle", key: "paywall_plan_feature_cancel")
+            }
+            .padding(.horizontal, 32)
 
             if packages.isEmpty {
                 ProgressView()
@@ -68,20 +83,23 @@ struct PlanSelectionStepView: View {
                 ScrollView {
                     VStack(spacing: 12) {
                         if let yearly = yearlyPackage {
+                            let priceStr = String(format: NSLocalizedString("paywall_plan_price_yearly", comment: ""), yearly.localizedPriceString)
+                            let saveStr: String? = savePct.map { String(format: NSLocalizedString("paywall_plan_save_dynamic", comment: ""), $0) }
                             planCard(
                                 package: yearly,
                                 title: yearly.storeProduct.localizedTitle,
-                                priceLabel: yearly.localizedPriceString + "/yr",
+                                priceLabel: priceStr,
                                 badge: String(localized: "paywall_plan_yearly_badge"),
-                                saveLabel: String(localized: "paywall_plan_save")
+                                saveLabel: saveStr
                             )
                         }
 
                         if let monthly = monthlyPackage {
+                            let priceStr = String(format: NSLocalizedString("paywall_plan_price_monthly", comment: ""), monthly.localizedPriceString)
                             planCard(
                                 package: monthly,
                                 title: monthly.storeProduct.localizedTitle,
-                                priceLabel: monthly.localizedPriceString + "/mo",
+                                priceLabel: priceStr,
                                 badge: nil,
                                 saveLabel: nil
                             )
@@ -163,6 +181,19 @@ struct PlanSelectionStepView: View {
             if selectedPackage == nil {
                 selectedPackage = yearlyPackage ?? monthlyPackage
             }
+        }
+    }
+
+    @ViewBuilder
+    private func featureRow(icon: String, key: String) -> some View {
+        HStack(spacing: 10) {
+            Image(systemName: icon)
+                .font(.system(size: 16))
+                .foregroundStyle(AppTheme.Colors.accent)
+                .frame(width: 24)
+            Text(String(localized: String.LocalizationValue(key)))
+                .font(.system(size: 14, weight: .medium))
+                .foregroundStyle(AppTheme.Colors.label)
         }
     }
 
