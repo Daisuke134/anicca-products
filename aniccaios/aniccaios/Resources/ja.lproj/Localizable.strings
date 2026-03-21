@@ -44,9 +44,9 @@
 "onboarding_permission_status_not_allowed" = "未許可";
 "onboarding_microphone_optional_hint" = "音声体験が必要になったら、設定→アニッチャでマイクをオンにし直してください。";
 
-"onboarding_notifications_title" = "ナッジ通知を受け取る";
+"onboarding_notifications_title" = "毎日の通知を受け取る";
 "onboarding_notifications_card_title" = "通知アクセス";
-"onboarding_notifications_description" = "必要な瞬間に、やさしいリマインダーを届けます。通知がないと、アニッチャはあなたに届けられません。";
+"onboarding_notifications_description" = "必要な瞬間に、やさしいリマインダーを届けます。通知がないと、あなたにメッセージを届けられません。";
 "onboarding_notifications_allow" = "通知を許可";
 "onboarding_notifications_optional_hint" = "今はスキップしても構いません。設定→アニッチャからいつでも通知をオンにできます。";
 
@@ -374,7 +374,7 @@
 "onboarding_ideals_title" = "どんな自分になりたいですか？";
 "onboarding_ideals_subtitle" = "いくつでも選んでください。なりたい自分を表しています。";
 
-"onboarding_struggles_title" = "あなたの悩みは？";
+"onboarding_struggles_title" = "どんなことに\n悩んでいますか？";
 "onboarding_struggles_subtitle" = "当てはまるものを全て選んでください — あなた専用に調整します。";
 
 "onboarding_value_title" = "アニッチャができること";
@@ -1281,12 +1281,12 @@
 "single_screen_delete_account" = "アカウントを削除";
 
 /* ========== Onboarding v2: New Steps ========== */
-"onboarding_depth_title" = "どのくらい困っている？";
+"onboarding_depth_title" = "どのくらいの頻度で\n悩んでいますか？";
 "onboarding_depth_daily" = "毎日";
 "onboarding_depth_several" = "週に数回";
 "onboarding_depth_weekly" = "週に1回";
 "onboarding_depth_occasionally" = "たまに";
-"onboarding_goals_title" = "最高の自分は、どんな姿ですか？";
+"onboarding_goals_title" = "最高の自分は\nどんな姿ですか？";
 "onboarding_goals_subtitle" = "大切なものを選んでください。";
 "goal_better_sleep" = "良い睡眠";
 "goal_emotional_calm" = "心の穏やかさ";
@@ -1297,7 +1297,7 @@
 "goal_healthier_habits" = "健康的な習慣";
 "goal_inner_peace" = "内なる平和";
 "onboarding_insight_title" = "あなたの回答に基づいて";
-"onboarding_insight_stat" = "同じ悩みを持つ81%の人が30日以内に改善しました";
+"onboarding_insight_stat" = "同じ悩みを持つ81%の人が\n30日以内に改善しました";
 "onboarding_insight_message" = "アニッチャがあなた専用の道を作ります。";
 "onboarding_insight_cta" = "あなたのプランを見る";
 "onboarding_valueprop_title" = "あなたの7日間の旅";
