@@ -50,9 +50,6 @@
 "onboarding_notifications_allow" = "通知を許可";
 "onboarding_notifications_optional_hint" = "今はスキップしても構いません。設定→アニッチャからいつでも通知をオンにできます。";
 
-"live_demo_title" = "最初の通知を体験しましょう";
-"live_demo_subtitle" = "アニッチャがあなたに寄り添う、その感覚を体験してください。";
-"live_demo_button" = "体験する";
 
 "onboarding_alarmkit_title" = "アラーム";
 "onboarding_alarmkit_description" = "確実に起床を促すために、アラームの利用許可が必要です。";
@@ -1322,22 +1319,15 @@
 "paywall_primer_feature1" = "全機能にアクセス";
 "paywall_primer_feature2" = "パーソナライズされたナッジ";
 "paywall_primer_feature3" = "いつでもキャンセル可能";
-"paywall_timeline_title" = "無料トライアルのタイムライン";
-"paywall_timeline_today" = "今日 — アニッチャを探索開始";
-"paywall_timeline_day5" = "5日目 — リマインダーをお送りします";
-"paywall_timeline_day7" = "7日目 — トライアル終了。あなたが決めます。";
-"paywall_timeline_subtitle" = "課金前にお知らせします。サプライズはありません。";
 "paywall_plan_title" = "プランを選択";
+"paywall_plan_title_personalized %@" = "%@を克服する — あなた専用プラン";
 "paywall_plan_yearly_badge" = "おすすめ";
 "paywall_plan_save" = "58%お得";
 "paywall_plan_weekly" = "%@/週";
-"paywall_plan_social_proof" = "⭐ 4.9 · 10,000人以上が利用中";
 "paywall_plan_cta_trial" = "無料トライアルを始める";
 "paywall_plan_cta_subscribe" = "登録する";
 "paywall_plan_trust" = "いつでもキャンセル可能。";
 "paywall_plan_maybe_later" = "あとで";
 "paywall_plan_restore" = "購入を復元";
-"paywall_drawer_title" = "年額の準備ができない？";
-"paywall_drawer_subtitle" = "週たったの%@ — コーヒー1杯以下です";
-"paywall_drawer_cta" = "無料トライアルを始める";
-"paywall_drawer_skip" = "あとで";
+"paywall_plan_terms" = "利用規約";
+"paywall_plan_privacy" = "プライバシー";

@@ -126,22 +126,13 @@ struct MyPathTabView: View {
                     .background(AppTheme.Colors.buttonUnselected)
                     .clipShape(Capsule())
             }
-            .sheet(isPresented: $showUpgradePaywall, onDismiss: {
-                AnalyticsManager.shared.trackPaywallDismissed(paywallId: "profile_upgrade")
-            }) {
+            .sheet(isPresented: $showUpgradePaywall) {
                 paywallContent
                     .onPurchaseCompleted { customerInfo in
                         showUpgradePaywall = false
                     }
                     .onRestoreCompleted { customerInfo in
                         showUpgradePaywall = false
-                    }
-                    .onAppear {
-                        AnalyticsManager.shared.trackPaywallViewed(
-                            paywallId: "profile_upgrade",
-                            trigger: "profile_plan_tap",
-                            offeringId: appState.cachedOffering?.identifier
-                        )
                     }
             }
         } else {

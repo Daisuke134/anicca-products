@@ -5,12 +5,12 @@ import RevenueCat
 struct PlanSelectionStepView: View {
     let onPurchaseSuccess: (CustomerInfo) -> Void
     let onDismiss: () -> Void
-    let onShowDrawer: () -> Void
 
     @EnvironmentObject private var appState: AppState
     @State private var selectedPackage: Package?
     @State private var isPurchasing = false
     @State private var errorMessage: String?
+    @State private var hasTracked = false
 
     private var offering: Offering? {
         appState.cachedOffering
@@ -28,12 +28,37 @@ struct PlanSelectionStepView: View {
         packages.first { $0.packageType == .monthly }
     }
 
+    private var personalizedTitle: String {
+        if let firstStruggle = appState.userProfile.struggles.first,
+           let problem = ProblemType(rawValue: firstStruggle) {
+            let name = problem.displayName
+            return String(localized: "paywall_plan_title_personalized \(name)")
+        }
+        return String(localized: "paywall_plan_title")
+    }
+
     var body: some View {
         VStack(spacing: 16) {
-            Text(String(localized: "paywall_plan_title"))
+            HStack {
+                Spacer()
+                Button {
+                    onDismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundStyle(.secondary)
+                        .frame(width: 32, height: 32)
+                }
+                .accessibilityIdentifier("paywall-dismiss")
+                .padding(.trailing, 16)
+                .padding(.top, 8)
+            }
+
+            Text(personalizedTitle)
                 .font(.system(size: 28, weight: .bold))
                 .foregroundStyle(AppTheme.Colors.label)
-                .padding(.top, 32)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 24)
 
             if packages.isEmpty {
                 ProgressView()
@@ -65,10 +90,6 @@ struct PlanSelectionStepView: View {
                     .padding(.horizontal, 24)
                     .padding(.top, 16)
                 }
-
-                Text(String(localized: "paywall_plan_social_proof"))
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(.secondary)
 
                 if let errorMessage {
                     Text(errorMessage)
@@ -107,7 +128,7 @@ struct PlanSelectionStepView: View {
 
                     HStack(spacing: 24) {
                         Button(String(localized: "paywall_plan_maybe_later")) {
-                            onShowDrawer()
+                            onDismiss()
                         }
                         .font(.system(size: 14, weight: .medium))
                         .foregroundStyle(.secondary)
@@ -120,13 +141,24 @@ struct PlanSelectionStepView: View {
                         .foregroundStyle(.secondary)
                         .accessibilityIdentifier("paywall-restore")
                     }
+
+                    HStack(spacing: 8) {
+                        Link(String(localized: "paywall_plan_terms"), destination: AppConfig.termsURL)
+                        Text("·").foregroundStyle(.secondary)
+                        Link(String(localized: "paywall_plan_privacy"), destination: AppConfig.privacyURL)
+                    }
+                    .font(.system(size: 12))
+                    .foregroundStyle(.secondary)
                 }
                 .padding(.bottom, 32)
             }
         }
         .background(AppBackground())
         .onAppear {
-            AnalyticsManager.shared.track(.paywallPlanSelectionViewed)
+            if !hasTracked {
+                hasTracked = true
+                AnalyticsManager.shared.track(.paywallPlanSelectionViewed)
+            }
             // Default to yearly
             if selectedPackage == nil {
                 selectedPackage = yearlyPackage ?? monthlyPackage
@@ -206,6 +238,11 @@ struct PlanSelectionStepView: View {
                 let result = try await Purchases.shared.purchase(package: package)
                 if result.customerInfo.entitlements[AppConfig.revenueCatEntitlementId]?.isActive == true {
                     AnalyticsManager.shared.track(.onboardingPaywallPurchased)
+                    if package.storeProduct.introductoryDiscount != nil {
+                        AnalyticsManager.shared.track(.trialStarted, properties: [
+                            "product_id": package.storeProduct.productIdentifier
+                        ])
+                    }
                     await MainActor.run {
                         isPurchasing = false
                         onPurchaseSuccess(result.customerInfo)

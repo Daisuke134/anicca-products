@@ -11,10 +11,6 @@ struct WelcomeStepView: View {
             Spacer()
 
             VStack(spacing: 24) {
-                Text(String(localized: "onboarding_welcome_social_proof"))
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(AppTheme.Colors.secondaryLabel)
-
                 Text(String(localized: "onboarding_welcome_title"))
                     .font(.system(size: 44, weight: .bold))
                     .lineLimit(3)
@@ -47,7 +43,7 @@ struct WelcomeStepView: View {
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
                         .frame(height: 56)
-                        .background(AppTheme.Colors.label)
+                        .background(AppTheme.Colors.accent)
                         .clipShape(RoundedRectangle(cornerRadius: 28))
                 }
                 .accessibilityIdentifier("onboarding-welcome-cta")
@@ -89,7 +85,8 @@ struct WelcomeStepView: View {
                         }
                     }
                     .signInWithAppleButtonStyle(.whiteOutline)
-                    .frame(height: 44)
+                    .frame(height: 36)
+                    .opacity(0.6)
                     .accessibilityIdentifier("onboarding-restore-button")
                     .padding(.horizontal, 16)
                 }

@@ -8,7 +8,6 @@ struct OnboardingFlowView: View {
     @EnvironmentObject private var appState: AppState
     @State private var step: OnboardingStep = .welcome
     @State private var paywallStep: PaywallStep? = nil
-    @State private var showDrawer = false
     @State private var didPurchaseOnPaywall = false
 
     var body: some View {
@@ -33,36 +32,6 @@ struct OnboardingFlowView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
 
-            // Drawer overlay
-            if showDrawer {
-                Color.black.opacity(0.4)
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        withAnimation(.spring(response: 0.3)) {
-                            showDrawer = false
-                        }
-                    }
-
-                VStack {
-                    Spacer()
-                    DrawerOfferView(
-                        weeklyPrice: weeklyPriceString,
-                        onStartTrial: {
-                            withAnimation(.spring(response: 0.3)) {
-                                showDrawer = false
-                            }
-                            // Go back to plan selection (user can purchase from there)
-                        },
-                        onSkip: {
-                            withAnimation(.spring(response: 0.3)) {
-                                showDrawer = false
-                            }
-                            handlePaywallDismissedAsFree()
-                        }
-                    )
-                    .transition(.move(edge: .bottom))
-                }
-            }
         }
         .onAppear {
             step = appState.onboardingStep
@@ -106,8 +75,6 @@ struct OnboardingFlowView: View {
             PersonalizedInsightStepView(next: advance)
         case .valueProp:
             ValuePropStepView(next: advance)
-        case .liveDemo:
-            DemoNudgeStepView(next: advance)
         case .notifications:
             NotificationPermissionStepView(next: advance)
         }
@@ -121,12 +88,6 @@ struct OnboardingFlowView: View {
         case .primer:
             PaywallPrimerStepView(next: {
                 withAnimation {
-                    paywallStep = .timeline
-                }
-            })
-        case .timeline:
-            TrialTimelineStepView(next: {
-                withAnimation {
                     paywallStep = .planSelection
                 }
             })
@@ -137,11 +98,6 @@ struct OnboardingFlowView: View {
                 },
                 onDismiss: {
                     handlePaywallDismissedAsFree()
-                },
-                onShowDrawer: {
-                    withAnimation(.spring(response: 0.3)) {
-                        showDrawer = true
-                    }
                 }
             )
         }
@@ -164,9 +120,6 @@ struct OnboardingFlowView: View {
         case .personalizedInsight:
             step = .valueProp
         case .valueProp:
-            step = .liveDemo
-        case .liveDemo:
-            AnalyticsManager.shared.track(.onboardingLiveDemoCompleted)
             step = .notifications
         case .notifications:
             AnalyticsManager.shared.track(.onboardingNotificationsCompleted)
@@ -185,7 +138,7 @@ struct OnboardingFlowView: View {
             return
         }
 
-        // Not subscribed → show 3-step paywall
+        // Not subscribed → show 2-step paywall
         withAnimation {
             paywallStep = .primer
         }
@@ -233,16 +186,4 @@ struct OnboardingFlowView: View {
         appState.markReviewRequested()
     }
 
-    // MARK: - Helpers
-
-    private var weeklyPriceString: String {
-        if let yearly = appState.cachedOffering?.availablePackages.first(where: { $0.packageType == .annual }) {
-            let weeklyPrice = yearly.storeProduct.price as Decimal / 52
-            let formatter = NumberFormatter()
-            formatter.numberStyle = .currency
-            formatter.locale = yearly.storeProduct.priceFormatter?.locale ?? .current
-            return formatter.string(from: weeklyPrice as NSDecimalNumber) ?? yearly.localizedPriceString
-        }
-        return "$0.96"
-    }
 }

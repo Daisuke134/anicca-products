@@ -33,14 +33,19 @@ class RevenueCatMetrics:
 class MixpanelMetrics:
     """7-day unique-user funnel counts from Mixpanel."""
     onboarding_started: Optional[int] = None
+    onboarding_welcome_completed: Optional[int] = None
     onboarding_struggles_completed: Optional[int] = None
-    onboarding_live_demo_completed: Optional[int] = None
+    onboarding_struggle_depth_completed: Optional[int] = None
+    onboarding_goals_completed: Optional[int] = None
+    onboarding_insight_completed: Optional[int] = None
+    onboarding_valueprop_completed: Optional[int] = None
     onboarding_notifications_completed: Optional[int] = None
     onboarding_completed: Optional[int] = None
-    onboarding_paywall_viewed: Optional[int] = None
-    onboarding_paywall_dismissed_free: Optional[int] = None
+    paywall_primer_viewed: Optional[int] = None
+    paywall_plan_selection_viewed: Optional[int] = None
     onboarding_paywall_purchased: Optional[int] = None
-    rc_trial_started_event: Optional[int] = None
+    trial_started: Optional[int] = None
+    onboarding_paywall_dismissed_free: Optional[int] = None
 
 
 @dataclass(frozen=True)
