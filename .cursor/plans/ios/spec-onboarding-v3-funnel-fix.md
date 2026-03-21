@@ -312,16 +312,16 @@ PHASE 4: PERMISSION (1ステップ)
 │ 通知許可     │
 └──────────────┘
 
-PHASE 5: CONVERT (3ステップペイウォール)
-┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-│ [P0] Primer  │→│ [P1] Trial   │→│ [P2] Plan    │
-│ "Try free"   │  │ Timeline     │  │ Selection    │
-│ 価格なし     │  │ Today→Day5   │  │              │
-│ ×なし        │  │ →Day7        │  │ [X]→メイン   │
-│              │  │ CTA強化      │  │ 個人化見出し │
-│              │  │              │  │ Terms追加    │
-└──────────────┘  └──────────────┘  │ ドロワー削除 │
-                                    └──────┬───────┘
+PHASE 5: CONVERT (2ステップペイウォール) ← Timeline削除
+┌──────────────┐  ┌──────────────┐
+│ [P0] Primer  │→│ [P1] Plan    │
+│ "Try free"   │  │ Selection    │
+│ 価格なし     │  │              │
+│ ×なし        │  │ [X]→メイン   │
+│              │  │ 個人化見出し │
+│              │  │ Terms追加    │
+│              │  │ ドロワー削除 │
+└──────────────┘  └──────┬───────┘
                                            │
                               ┌────────────┼────────────┐
                               ▼            ▼            ▼
@@ -352,12 +352,12 @@ PHASE 5: CONVERT (3ステップペイウォール)
 | SIWA | 大きい h:44 | **小さい h:36 + 薄く** | 新規ユーザーの注意をCTAに集中 |
 | パーソナライズ見出し | "Choose your plan"固定 | **悩みに基づく動的テキスト** | BP CRITICAL。CVR +20-40% |
 | Terms/Privacy | ❌ なし | ✅ **追加** | Apple必須。リジェクトリスク |
-| Timeline CTA | "Continue" | **"Start My Free Trial"** | 行動を明確にする |
+| Trial Timeline | ✅ PaywallStep P1 | 🗑️ **削除** | 22.2%離脱。Primer→Plan直行で十分 |
 | onAppear重複 | 毎回発火 | **1回だけ** | データ異常A1修正 |
 | trial_started | 未実装 | **購入成功時に判定・発火** | トライアル追跡 |
 | 朝メトリクスcron | 9イベント(2つ壊れ) | **全ステップ対応** | 毎日のファネル追跡 |
 | レガシーEnum | 15個残存 | **全削除** | コード衛生 |
-| ステップ数 | 11 (8オンボ+3ペイウォール) | 10 (7オンボ+3ペイウォール) | ライブデモ削除 |
+| ステップ数 | 11 (8オンボ+3ペイウォール) | **9 (7オンボ+2ペイウォール)** | ライブデモ+Timeline削除 |
 
 ### 2.3 TO-BE ペイウォール全画面 ASCII
 
@@ -390,37 +390,15 @@ PHASE 5: CONVERT (3ステップペイウォール)
 変更: なし
 ```
 
-#### P1: TrialTimelineStepView（CTA文言のみ変更）
+#### P1: TrialTimelineStepView → 🗑️ **完全削除**
 
 ```
-┌──────────────────────────────────────────────┐
-│                                              │
-│                   (Spacer)                   │
-│                                              │
-│        "Your free trial timeline"            │  32pt bold, center
-│                                              │
-│      ▶  Today — Start exploring Anicca      │  play.circle.fill
-│      │                                       │  (縦線 w:2 h:40 accent30%)
-│      🔔 Day 5 — We'll send you a reminder  │  bell.fill
-│      │                                       │
-│      ✅ Day 7 — Your trial ends.            │  checkmark.seal.fill
-│              You decide.                     │
-│                                              │
-│    "We'll remind you before you're           │  14pt, secondary, center
-│     charged. No surprises."                  │
-│                                              │
-│                   (Spacer)                   │
-│                                              │
-│    [======= Start My Free Trial =======]    │  ← CHANGED: "Continue"から変更
-│                                              │  18pt semibold, accent背景
-│              (padding-bottom: 64)            │
-│                                              │
-│    ×ボタン: なし ✅                          │
-└──────────────────────────────────────────────┘
-変更: CTAテキスト "Continue" → "Start My Free Trial"
+TrialTimelineStepView.swift → 削除
+PaywallStep enum から .timeline を削除
+Primer [Continue] → 直接 Plan Selection へ遷移
 ```
 
-#### P2: PlanSelectionStepView（大幅変更）
+#### P2→P1: PlanSelectionStepView（大幅変更）
 
 ```
 ┌──────────────────────────────────────────────┐
@@ -518,7 +496,7 @@ AnalyticsEvent の paywallDrawerViewed, paywallDrawerConverted → 削除
 
 | 項目 | 値 |
 |------|-----|
-| 影響ファイル | `PlanSelectionStepView.swift`, `PaywallPrimerStepView.swift`, `TrialTimelineStepView.swift` |
+| 影響ファイル | `PlanSelectionStepView.swift`, `PaywallPrimerStepView.swift` |
 | 内容 | 各画面に `@State private var hasTracked = false` 追加。`onAppear`で1回だけtrack |
 
 ### P4: Welcome画面CTA改善 🔧
@@ -554,13 +532,14 @@ AnalyticsEvent の paywallDrawerViewed, paywallDrawerConverted → 削除
 | 内容 | Restore Purchases下に `Terms · Privacy` リンク追加 |
 | Apple準拠 | CRITICAL |
 
-### P8: Timeline CTA文言変更 🔧
+### P8: Trial Timeline削除 🗑️
 
 | 項目 | 値 |
 |------|-----|
-| 影響ファイル | `TrialTimelineStepView.swift`, Localizable.strings |
-| AS-IS | "Continue" (common_continue) |
-| TO-BE | "Start My Free Trial" (新キー) |
+| 影響ファイル | `TrialTimelineStepView.swift`(削除), `OnboardingStep.swift`, `OnboardingFlowView.swift` |
+| 内容 | `TrialTimelineStepView.swift` 削除。`PaywallStep` enum から `.timeline` 削除。`OnboardingFlowView` の遷移ロジックで Primer → Plan Selection 直行 |
+| Mixpanel | `paywall_timeline_viewed` 削除 |
+| 期待効果 | 22.2%離脱回復 |
 
 ### P9: trial_started イベント実装 🔧
 
@@ -590,14 +569,14 @@ AnalyticsEvent の paywallDrawerViewed, paywallDrawerConverted → 削除
 | # | パッチ | 理由 |
 |---|--------|------|
 | 1 | **P2** ドロワー削除 + [X]/MaybeLater→メイン | 最大の構造変更。他のパッチの前提 |
-| 2 | **P3** onAppear重複修正 | データ正確化 |
+| 2 | **P8** Trial Timeline削除 | 構造変更。P2と同時にやるべき |
 | 3 | **P1** ライブデモ削除 | 13%離脱回復 |
-| 4 | **P5** ソーシャルプルーフ削除 | 嘘を消す |
-| 5 | **P7** Terms/Privacy追加 | Apple準拠 |
-| 6 | **P9** trial_started実装 | メトリクス |
-| 7 | **P4** Welcome CTA改善 | 20.6%離脱削減 |
-| 8 | **P6** パーソナライズ見出し | CVR改善 |
-| 9 | **P8** Timeline CTA変更 | CTA強化 |
+| 4 | **P3** onAppear重複修正 | データ正確化 |
+| 5 | **P5** ソーシャルプルーフ削除 | 嘘を消す |
+| 6 | **P7** Terms/Privacy追加 | Apple準拠 |
+| 7 | **P9** trial_started実装 | メトリクス |
+| 8 | **P4** Welcome CTA改善 | 20.6%離脱削減 |
+| 9 | **P6** パーソナライズ見出し | CVR改善 |
 | 10 | **P10** 朝メトリクスcron | ファネル追跡 |
 | 11 | **P11** レガシーEnum削除 | コード衛生 |
 
@@ -654,13 +633,8 @@ AnalyticsEvent の paywallDrawerViewed, paywallDrawerConverted → 削除
 [P0] "まずは無料でアニッチャを試して"
      ✅ 全機能  🔔 ナッジ  ❌ いつでもキャンセル
      [Continue] — 価格なし、×なし
-▼ [track: paywall_timeline_viewed]
-[P1] "無料トライアルのタイムライン"
-     ▶Today → 🔔Day5 → ✅Day7
-     "課金前にお知らせ。サプライズなし"
-     [Start My Free Trial]
 ▼ [track: paywall_plan_selection_viewed]
-[P2] "夜更かしを克服する — あなた専用のプラン" [X]
+[P1] "夜更かしを克服する — あなた専用のプラン" [X]
      [Yearly $49.99/yr ⭐BEST VALUE ✓]
      [Monthly $9.99/mo            ○]
      [Start Free Trial]
@@ -696,10 +670,9 @@ AnalyticsEvent の paywallDrawerViewed, paywallDrawerConverted → 削除
 | 7 | 通知許可 | `onboarding_notifications_completed` | advance() | ✅ |
 | 8 | オンボ完了 | `onboarding_completed` | completeOnboarding() | ✅ |
 | P0 | Primer | `paywall_primer_viewed` | onAppear | `hasTracked`ガード |
-| P1 | Timeline | `paywall_timeline_viewed` | onAppear | `hasTracked`ガード |
-| P2 | Plan | `paywall_plan_selection_viewed` | onAppear | `hasTracked`ガード |
+| P1 | Plan Selection | `paywall_plan_selection_viewed` | onAppear | `hasTracked`ガード |
 | — | 購入成功 | `onboarding_paywall_purchased` | RC購入成功 | ✅ |
 | — | Trial開始 | `trial_started` | 購入成功+trial判定 | ✅ |
 | — | 無料スキップ | `onboarding_paywall_dismissed_free` | [X] or MaybeLater | ✅ |
 
-**削除イベント:** `onboarding_live_demo_completed`, `paywall_drawer_viewed`, `paywall_drawer_converted`
+**削除イベント:** `onboarding_live_demo_completed`, `paywall_timeline_viewed`, `paywall_drawer_viewed`, `paywall_drawer_converted`
