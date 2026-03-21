@@ -601,54 +601,67 @@ AnalyticsEvent の paywallDrawerViewed, paywallDrawerConverted → 削除
 アプリ初起動
 │
 ▼ [track: onboarding_started]
-[1] Welcome — "変わりたいと思ったあなたへ"
-    CTA=accent色（大きい）、SIWA=小さく控えめ
+[1] Welcome — EN: "Break free from the patterns that hold you back"
+              JA: "あなたを縛るパターンから自由になろう"
+    CTA=accent色（大きい）、SIWA=h:36+opacity:0.6
 │ [track: onboarding_welcome_completed]
 ▼
-[2] Struggles — "何に苦しんでいますか？"
-    チップ選択（複数可）
+[2] Struggles — EN: "What's holding you back?"
+                JA: "あなたの悩みは？"
+    チップ選択（複数可、13種類）
 │ [track: onboarding_struggles_completed]
 ▼
-[3] Struggle Depth — "どのくらいの頻度で？"
+[3] Struggle Depth — EN: "How often does this affect you?"
+                     JA: "どのくらい困っている？"
     1タップ完了（毎日/週数回/たまに）
 │ [track: onboarding_struggle_depth_completed + {frequency}]
 ▼
-[4] Goals — "どうなりたいですか？"
+[4] Goals — EN: "What does your best self look like?"
+            JA: "最高の自分は、どんな姿ですか？"
     チップ選択（複数可）
 │ [track: onboarding_goals_completed + {goals_count}]
 ▼
-[5] Personalized Insight — "あなたの分析結果"
+[5] Personalized Insight — EN: "Based on your answers"
+                           JA: "あなたの回答に基づいて"
     ユーザーの回答をミラーリング表示
 │ [track: onboarding_insight_completed]
 ▼
-[6] Value Prop — "7日間のジャーニー"
+[6] Value Prop — EN: "Your 7-Day Journey"
+                 JA: "あなたの7日間の旅"
     プログラムプレビュー + コミットメント
 │ [track: onboarding_valueprop_completed]
 ▼
-[7] Notification Permission — "最適なタイミングでNudgeを届けます"
+[7] Notification Permission — EN: "Don't miss your nudges"
+                               JA: "ナッジ通知を受け取る"
+    CTA背景=accent色
 │ [track: onboarding_notifications_completed]
 │ [track: onboarding_completed]
 ▼
 ━━━ ペイウォール開始 ━━━
 ▼ [track: paywall_primer_viewed]
-[P0] "まずは無料でアニッチャを試して"
+[P0] EN: "We want you to try Anicca for free"
+     JA: "まずは無料でアニッチャを試してください"
      ✅ 全機能  🔔 ナッジ  ❌ いつでもキャンセル
      [Continue] — 価格なし、×なし
 ▼ [track: paywall_plan_selection_viewed]
-[P1] "夜更かしを克服する — あなた専用のプラン" [X]
-     [Yearly $49.99/yr ⭐BEST VALUE ✓]
-     [Monthly $9.99/mo            ○]
-     [Start Free Trial]
-     "No commitment. Cancel anytime."
-     "Maybe later"  "Restore"
-     Terms · Privacy
+[P1] EN: "Your path to change starts here" [X]
+     JA: "変わるための道は、ここから" [X]
+     サブタイトル EN: "Start your 7-day free trial"
+     サブタイトル JA: "7日間無料で全機能をお試し"
+     ✅ Full access / 全機能  🔔 Nudges / ナッジ  ❌ Cancel / キャンセル
+     [Yearly ローカライズ価格/年 ⭐BEST VALUE ✓] ← Save 動的計算
+     [Monthly ローカライズ価格/月          ○]
+     [Start Free Trial / 無料トライアルを始める]
+     "No commitment. Cancel anytime." / "いつでもキャンセル可能"
+     "Maybe later" / "あとで"  "Restore" / "購入を復元"
+     Terms · Privacy / 利用規約 · プライバシー
      │
      ├─ [購入CTA] → Apple決済 → 成功
      │   [track: onboarding_paywall_purchased]
      │   [track: trial_started + {product_id}] (introductoryDiscount有の場合のみ)
      │   → メイン画面
      │
-     ├─ [X] or [Maybe later]
+     ├─ [X] or [Maybe later / あとで]
      │   [track: onboarding_paywall_dismissed_free]
      │   → メイン画面（無料ユーザー）
      │
@@ -677,3 +690,108 @@ AnalyticsEvent の paywallDrawerViewed, paywallDrawerConverted → 削除
 | — | 無料スキップ | `onboarding_paywall_dismissed_free` | [X] or MaybeLater | ✅ |
 
 **削除イベント:** `onboarding_live_demo_completed`, `paywall_timeline_viewed`, `paywall_drawer_viewed`, `paywall_drawer_converted`
+
+---
+
+## 8. 追加修正パッチ（F1〜F8）— コピー/ローカライズ/デザイン改善
+
+> P1〜P11 は構造変更（画面削除・トラッキング修正）。F1〜F8 はコピー・ローカライズ・UIデザインの品質改善。
+> BP根拠: `ios-app-onboarding` スキル（RevenueCat 2025 / Superwall 4,500 A/B tests / Clear 30）
+
+### F1: 通知画面タイトル修正
+
+| 項目 | 値 |
+|------|-----|
+| 影響ファイル | `Localizable.strings (en/ja)` |
+| AS-IS EN | "Stay on track" |
+| TO-BE EN | **"Don't miss your nudges"** |
+| AS-IS JA | "軌道を外さないために" |
+| TO-BE JA | **"ナッジ通知を受け取る"** |
+| BP根拠 | スキル: "Value-framed notification permission"。具体的にアプリのコア機能（nudge）を名指し。損失回避バイアス |
+
+### F2: 悩み選択タイトル（JA のみ）
+
+| 項目 | 値 |
+|------|-----|
+| 影響ファイル | `ja.lproj/Localizable.strings` |
+| AS-IS | "何があなたを止めていますか？" |
+| TO-BE | **"あなたの悩みは？"** |
+| BP根拠 | 直訳で不自然。日本語として自然な表現に |
+
+### F3: 悩み深さタイトル（JA のみ）
+
+| 項目 | 値 |
+|------|-----|
+| 影響ファイル | `ja.lproj/Localizable.strings` |
+| AS-IS | "どのくらいの頻度で影響を受けていますか？" |
+| TO-BE | **"どのくらい困っている？"** |
+| BP根拠 | スキル: "Each step ultra-lightweight"。硬すぎる表現をカジュアルに |
+
+### F4: ペイウォールタイトル — アウトカムを売る
+
+| 項目 | 値 |
+|------|-----|
+| 影響ファイル | `PlanSelectionStepView.swift`, `Localizable.strings (en/ja)` |
+| 変更内容 | `personalizedTitle` computed property を削除。固定テキスト `paywall_plan_title` を使用 |
+| AS-IS EN | "Choose your plan" / "Overcome %@ — your personalized plan" |
+| TO-BE EN | **"Your path to change starts here"** |
+| AS-IS JA | "プランを選択" / "%@を克服する — あなた専用プラン" |
+| TO-BE JA | **"変わるための道は、ここから"** |
+| 削除キー | `paywall_plan_title_personalized` (en/ja) |
+| BP根拠 | スキル: "Sell the outcome, not the product" (+50% CVR)。具体的な悩み名をタイトルに入れるのはBP違反。アウトカム（変化）を売る。Welcome "Break free from the patterns" とブランド一貫性 |
+
+### F5: 価格期間のローカライズ（"/yr" "/mo" ハードコード修正）
+
+| 項目 | 値 |
+|------|-----|
+| 影響ファイル | `PlanSelectionStepView.swift`, `Localizable.strings (en/ja)` |
+| AS-IS | `localizedPriceString + "/yr"`, `+ "/mo"` ← 英語ハードコード |
+| TO-BE | `String(format: NSLocalizedString("paywall_plan_price_yearly", ...), price)` |
+| 新キー EN | `"paywall_plan_price_yearly" = "%@/year"`, `"paywall_plan_price_monthly" = "%@/mo"` |
+| 新キー JA | `"%@/年"`, `"%@/月"` |
+| BP根拠 | ローカライズ必須。日本語で "$49.99/yr" は意味不明 |
+
+### F6: 割引率の動的計算（"Save 58%" ハードコード修正）
+
+| 項目 | 値 |
+|------|-----|
+| 影響ファイル | `PlanSelectionStepView.swift`, `Localizable.strings (en/ja)` |
+| AS-IS | ハードコード "Save 58%" / "58%お得" |
+| TO-BE | `savePct = Int((1 - yearlyPrice / (monthlyPrice * 12)) * 100)` |
+| 新キー EN | `"paywall_plan_save_dynamic" = "Save %d%%"` |
+| 新キー JA | `"%d%%お得"` |
+| BP根拠 | 価格変更時に嘘にならない。常に正確 |
+
+### F7: Plan Selection サブタイトル + Feature list 追加
+
+| 項目 | 値 |
+|------|-----|
+| 影響ファイル | `PlanSelectionStepView.swift`, `Localizable.strings (en/ja)` |
+| 追加要素 | タイトル下にサブタイトル + ✅🔔❌ 3行の feature list |
+| サブタイトル EN | "Start your 7-day free trial" |
+| サブタイトル JA | "7日間無料で全機能をお試し" |
+| Feature list EN | ✅ Full access to all features / 🔔 Personalized nudges / ❌ Cancel anytime |
+| Feature list JA | ✅ 全機能にアクセス / 🔔 パーソナライズされたナッジ / ❌ いつでもキャンセル |
+| BP根拠 | スキル The Hard Close: comparison/features + social proof above CTA。ペイウォールが簡素すぎる問題を解決 |
+
+### F8: 通知ボタン背景色をaccent色に統一
+
+| 項目 | 値 |
+|------|-----|
+| 影響ファイル | `NotificationPermissionStepView.swift:75` |
+| AS-IS | `AppTheme.Colors.label`（初期状態のボタン色） |
+| TO-BE | `AppTheme.Colors.accent` |
+| BP根拠 | 全CTAボタンのaccent色統一。スキル: "Single clear CTA button" |
+
+### F1〜F8 実装順序
+
+| # | パッチ | 理由 |
+|---|--------|------|
+| 1 | **F4** ペイウォールタイトル | personalizedTitle削除 → 構造変更 |
+| 2 | **F5** 価格ローカライズ | ハードコード修正 |
+| 3 | **F6** 割引率動的計算 | ハードコード修正 |
+| 4 | **F7** サブタイトル+Feature list | UI改善 |
+| 5 | **F1** 通知タイトル | コピー修正 |
+| 6 | **F2** 悩み選択JA | コピー修正 |
+| 7 | **F3** 悩み深さJA | コピー修正 |
+| 8 | **F8** 通知ボタン色 | UI修正 |
