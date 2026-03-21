@@ -335,7 +335,7 @@ PHASE 5: CONVERT (2ステップペイウォール) ← Timeline削除
                          ▼         ▼
                       成功      キャンセル
                       purchased  (留まる)
-                      +trial_started (trial対象時のみ)
+                      +trial_started (introductoryDiscount有の場合のみ)
                       → メイン画面
 ```
 
@@ -673,7 +673,7 @@ AnalyticsEvent の paywallDrawerViewed, paywallDrawerConverted → 削除
 | P0 | Primer | `paywall_primer_viewed` | onAppear | `hasTracked`ガード |
 | P1 | Plan Selection | `paywall_plan_selection_viewed` | onAppear | `hasTracked`ガード |
 | — | 購入成功 | `onboarding_paywall_purchased` | RC購入成功 | ✅ |
-| — | Trial開始 | `trial_started` | 購入成功+trial判定 | ✅ |
+| — | Trial開始 | `trial_started` | 購入成功時、introductoryDiscount有の場合のみ | ✅ |
 | — | 無料スキップ | `onboarding_paywall_dismissed_free` | [X] or MaybeLater | ✅ |
 
 **削除イベント:** `onboarding_live_demo_completed`, `paywall_timeline_viewed`, `paywall_drawer_viewed`, `paywall_drawer_converted`
