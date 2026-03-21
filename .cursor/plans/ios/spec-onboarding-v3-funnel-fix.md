@@ -335,7 +335,7 @@ PHASE 5: CONVERT (2ステップペイウォール) ← Timeline削除
                          ▼         ▼
                       成功      キャンセル
                       purchased  (留まる)
-                      +trial_started
+                      +trial_started (trial対象時のみ)
                       → メイン画面
 ```
 
@@ -354,7 +354,7 @@ PHASE 5: CONVERT (2ステップペイウォール) ← Timeline削除
 | Terms/Privacy | ❌ なし | ✅ **追加** | Apple必須。リジェクトリスク |
 | Trial Timeline | ✅ PaywallStep P1 | 🗑️ **削除** | 22.2%離脱。Primer→Plan直行で十分 |
 | onAppear重複 | 毎回発火 | **1回だけ** | データ異常A1修正 |
-| trial_started | 未実装 | **購入成功時に判定・発火** | トライアル追跡 |
+| trial_started | 未実装 | **購入成功時、introductoryDiscount有の場合のみ発火** | トライアル追跡 |
 | 朝メトリクスcron | 9イベント(2つ壊れ) | **全ステップ対応** | 毎日のファネル追跡 |
 | レガシーEnum | 15個残存 | **全削除** | コード衛生 |
 | ステップ数 | 11 (8オンボ+3ペイウォール) | **9 (7オンボ+2ペイウォール)** | ライブデモ+Timeline削除 |
@@ -536,8 +536,9 @@ AnalyticsEvent の paywallDrawerViewed, paywallDrawerConverted → 削除
 
 | 項目 | 値 |
 |------|-----|
-| 影響ファイル | `TrialTimelineStepView.swift`(削除), `OnboardingStep.swift`, `OnboardingFlowView.swift` |
+| 影響ファイル | `TrialTimelineStepView.swift`(削除), `OnboardingStep.swift`, `OnboardingFlowView.swift`, `Localizable.strings (en/ja)` |
 | 内容 | `TrialTimelineStepView.swift` 削除。`PaywallStep` enum から `.timeline` 削除。`OnboardingFlowView` の遷移ロジックで Primer → Plan Selection 直行 |
+| Localizable削除キー | `paywall_timeline_title`, `paywall_timeline_today`, `paywall_timeline_day5`, `paywall_timeline_day7`, `paywall_timeline_subtitle`（5キー×2言語）。`common_continue` は他画面共通のため削除しない |
 | Mixpanel | `paywall_timeline_viewed` 削除 |
 | 期待効果 | 22.2%離脱回復 |
 
@@ -644,7 +645,7 @@ AnalyticsEvent の paywallDrawerViewed, paywallDrawerConverted → 削除
      │
      ├─ [購入CTA] → Apple決済 → 成功
      │   [track: onboarding_paywall_purchased]
-     │   [track: trial_started + {product_id}]
+     │   [track: trial_started + {product_id}] (introductoryDiscount有の場合のみ)
      │   → メイン画面
      │
      ├─ [X] or [Maybe later]
