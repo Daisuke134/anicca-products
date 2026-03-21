@@ -82,16 +82,27 @@ function main() {
   const args = process.argv.slice(2);
   const countIdx = args.indexOf("--count");
   const count = countIdx >= 0 ? parseInt(args[countIdx + 1], 10) : 10;
+  const langIdx = args.indexOf("--lang");
+  const lang = langIdx >= 0 ? args[langIdx + 1] : null;
 
   ensureDirs();
 
   const { creators } = loadCreators();
   const usedData = loadUsed();
 
+  const filtered = lang
+    ? creators.filter((c) => c.lang === lang)
+    : creators;
+
+  if (filtered.length === 0) {
+    console.log(`No creators found for lang: ${lang}`);
+    return [];
+  }
+
   const allDownloaded = [];
 
-  for (const creator of creators) {
-    console.log(`\n=== Scraping: ${creator.name} (${creator.url}) ===`);
+  for (const creator of filtered) {
+    console.log(`\n=== Scraping: ${creator.name} (${creator.url}) [${creator.lang}] ===`);
     const ids = scrapeCreator(creator.url, count, usedData.used);
     allDownloaded.push(...ids);
   }
