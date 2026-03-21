@@ -350,7 +350,7 @@ PHASE 5: CONVERT (2ステップペイウォール) ← Timeline削除
 | ソーシャルプルーフ | "⭐ 4.9 · 10,000+ users" | 🗑️ **削除** | 嘘。10,000ユーザーいない。レーティングは5.0 |
 | Welcome CTA | label色（地味）| **accent色（目立つ）** | 20.6%離脱削減 |
 | SIWA | 大きい h:44 | **小さい h:36 + 薄く** | 新規ユーザーの注意をCTAに集中 |
-| パーソナライズ見出し | "Choose your plan"固定 | **悩みに基づく動的テキスト** | BP CRITICAL。CVR +20-40% |
+| ペイウォールタイトル | "Choose your plan"固定 / personalizedTitle(悩み名含む動的) | **"Your path to change starts here" (固定、アウトカム訴求)** | "Sell the outcome, not the product" +50% CVR (Superwall)。F4で実装 |
 | Terms/Privacy | ❌ なし | ✅ **追加** | Apple必須。リジェクトリスク |
 | Trial Timeline | ✅ PaywallStep P1 | 🗑️ **削除** | 22.2%離脱。Primer→Plan直行で十分 |
 | onAppear重複 | 毎回発火 | **1回だけ** | データ異常A1修正 |
@@ -515,14 +515,13 @@ AnalyticsEvent の paywallDrawerViewed, paywallDrawerConverted → 削除
 | 内容 | `paywall_plan_social_proof` 表示を削除。Localizable.stringsからも削除 |
 | 理由 | "10,000+ users" は嘘。レーティングは5.0で4.9も嘘 |
 
-### P6: パーソナライズ見出し追加 🔧
+### P6: ~~パーソナライズ見出し追加~~ → **F4に統合済み。このパッチは無効**
 
 | 項目 | 値 |
 |------|-----|
-| 影響ファイル | `PlanSelectionStepView.swift`, Localizable.strings |
-| AS-IS | `"Choose your plan"` 固定 |
-| TO-BE | `appState.userProfile.struggles` の最初の悩みに基づく動的テキスト |
-| 期待効果 | CVR +20-40% (Superwall) |
+| ~~影響ファイル~~ | ~~`PlanSelectionStepView.swift`, Localizable.strings~~ |
+| 状態 | **F4で上書き。personalizedTitleは削除し、固定テキスト "Your path to change starts here" を使用** |
+| 理由 | 悩み名を見出しに入れるのはBP違反。"Sell the outcome, not the product" (+50% CVR) |
 
 ### P7: Terms/Privacy リンク追加 🔧
 
@@ -702,17 +701,20 @@ AnalyticsEvent の paywallDrawerViewed, paywallDrawerConverted → 削除
 
 | 項目 | 値 |
 |------|-----|
-| 影響ファイル | `Localizable.strings (en/ja)` |
+| 変更キー | `onboarding_notifications_title` |
+| 影響ファイル | `Localizable.strings (en/ja/fr/es/de/pt-BR)` |
 | AS-IS EN | "Stay on track" |
 | TO-BE EN | **"Don't miss your nudges"** |
 | AS-IS JA | "軌道を外さないために" |
 | TO-BE JA | **"ナッジ通知を受け取る"** |
 | BP根拠 | スキル: "Value-framed notification permission"。具体的にアプリのコア機能（nudge）を名指し。損失回避バイアス |
+| 他言語 | fr/es/de/pt-BR の `onboarding_notifications_title` も変更必要。ENキー変更のためフォールバックでは古い値が残る |
 
 ### F2: 悩み選択タイトル（JA のみ）
 
 | 項目 | 値 |
 |------|-----|
+| 変更キー | `onboarding_struggles_title` |
 | 影響ファイル | `ja.lproj/Localizable.strings` |
 | AS-IS | "何があなたを止めていますか？" |
 | TO-BE | **"あなたの悩みは？"** |
@@ -722,6 +724,7 @@ AnalyticsEvent の paywallDrawerViewed, paywallDrawerConverted → 削除
 
 | 項目 | 値 |
 |------|-----|
+| 変更キー | `onboarding_depth_title` |
 | 影響ファイル | `ja.lproj/Localizable.strings` |
 | AS-IS | "どのくらいの頻度で影響を受けていますか？" |
 | TO-BE | **"どのくらい困っている？"** |
@@ -747,9 +750,10 @@ AnalyticsEvent の paywallDrawerViewed, paywallDrawerConverted → 削除
 | 影響ファイル | `PlanSelectionStepView.swift`, `Localizable.strings (en/ja)` |
 | AS-IS | `localizedPriceString + "/yr"`, `+ "/mo"` ← 英語ハードコード |
 | TO-BE | `String(format: NSLocalizedString("paywall_plan_price_yearly", ...), price)` |
-| 新キー EN | `"paywall_plan_price_yearly" = "%@/year"`, `"paywall_plan_price_monthly" = "%@/mo"` |
+| 新キー EN | `"paywall_plan_price_yearly" = "%@/yr"`, `"paywall_plan_price_monthly" = "%@/mo"` |
 | 新キー JA | `"%@/年"`, `"%@/月"` |
 | BP根拠 | ローカライズ必須。日本語で "$49.99/yr" は意味不明 |
+| 他言語 | 新キーのため en にフォールバック。fr/es/de/pt-BR は別タスクで翻訳追加 |
 
 ### F6: 割引率の動的計算（"Save 58%" ハードコード修正）
 
@@ -761,6 +765,8 @@ AnalyticsEvent の paywallDrawerViewed, paywallDrawerConverted → 削除
 | 新キー EN | `"paywall_plan_save_dynamic" = "Save %d%%"` |
 | 新キー JA | `"%d%%お得"` |
 | BP根拠 | 価格変更時に嘘にならない。常に正確 |
+| 他言語 | 新キーのため en にフォールバック。fr/es/de/pt-BR は別タスクで翻訳追加 |
+| ゼロ除算ガード | `monthlyPrice == 0` の場合は saveLabel 非表示 |
 
 ### F7: Plan Selection サブタイトル + Feature list 追加
 
@@ -773,6 +779,7 @@ AnalyticsEvent の paywallDrawerViewed, paywallDrawerConverted → 削除
 | Feature list EN | ✅ Full access to all features / 🔔 Personalized nudges / ❌ Cancel anytime |
 | Feature list JA | ✅ 全機能にアクセス / 🔔 パーソナライズされたナッジ / ❌ いつでもキャンセル |
 | BP根拠 | スキル The Hard Close: comparison/features + social proof above CTA。ペイウォールが簡素すぎる問題を解決 |
+| 他言語 | 新キーのため en にフォールバック。fr/es/de/pt-BR は別タスクで翻訳追加 |
 
 ### F8: 通知ボタン背景色をaccent色に統一
 
