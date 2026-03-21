@@ -32,11 +32,11 @@
       "mcp__apple-docs__*",
       "mcp__maestro__*",
       "mcp__pencil__*",
-      "mcp__conway__*"
+      "mcp__conway__*",
+      "Bash(xcodebuild *)",
+      "Bash(asc *)"
     ],
-    "deny": [
-      "Bash(xcodebuild *)"
-    ]
+    "deny": []
   },
   "env": {
     "FASTLANE_SKIP_UPDATE_CHECK": "1",
