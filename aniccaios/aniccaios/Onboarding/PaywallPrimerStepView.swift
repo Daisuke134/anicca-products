@@ -3,6 +3,7 @@ import SwiftUI
 /// Phase 5: CONVERT — Step 1: "Try for free", no price shown.
 struct PaywallPrimerStepView: View {
     let next: () -> Void
+    @State private var hasTracked = false
 
     private let features: [(icon: String, key: String)] = [
         ("checkmark.circle.fill", "paywall_primer_feature1"),
@@ -61,6 +62,8 @@ struct PaywallPrimerStepView: View {
         }
         .background(AppBackground())
         .onAppear {
+            guard !hasTracked else { return }
+            hasTracked = true
             AnalyticsManager.shared.track(.paywallPrimerViewed)
         }
     }

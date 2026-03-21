@@ -45,13 +45,7 @@ struct MainTabView: View {
             }) {
                 ZStack(alignment: .topTrailing) {
                     upgradePaywallView()
-                        .onAppear {
-                            AnalyticsManager.shared.trackPaywallViewed(
-                                paywallId: "main_upgrade",
-                                trigger: "nudge_completion",
-                                offeringId: appState.cachedOffering?.identifier
-                            )
-                        }
+                        .onAppear { }
 
                     Button { showUpgradePaywall = false } label: {
                         Image(systemName: "xmark.circle.fill")
@@ -117,7 +111,7 @@ struct MainTabView: View {
     }
 
     private func handleUpgradePurchase(customerInfo: CustomerInfo) {
-        AnalyticsManager.shared.track(.upgradePaywallPurchased)
+        AnalyticsManager.shared.track(.purchaseCompleted)
         Task {
             appState.updateSubscriptionInfo(from: customerInfo)
             await ProblemNotificationScheduler.shared

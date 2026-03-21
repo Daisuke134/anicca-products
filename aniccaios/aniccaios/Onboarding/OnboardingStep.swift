@@ -7,14 +7,12 @@ enum OnboardingStep: Int, CaseIterable {
     case goals             // 3
     case personalizedInsight // 4
     case valueProp         // 5
-    case liveDemo          // 6
-    case notifications     // 7
+    case notifications     // 6
 }
 
 enum PaywallStep: Int {
     case primer            // 0
-    case timeline          // 1
-    case planSelection     // 2
+    case planSelection     // 1
 }
 
 extension OnboardingStep {
@@ -47,8 +45,8 @@ extension OnboardingStep {
         switch rawValue {
         case 0: return .welcome           // welcome → welcome
         case 1: return .struggles         // struggles → struggles
-        case 2: return .liveDemo          // liveDemo(2) → liveDemo(6)
-        case 3: return .notifications     // notifications(3) → notifications(7)
+        case 2: return .notifications     // liveDemo(2) → notifications (liveDemo deleted in v3)
+        case 3: return .notifications     // notifications(3) → notifications(6)
         default: return .welcome
         }
     }

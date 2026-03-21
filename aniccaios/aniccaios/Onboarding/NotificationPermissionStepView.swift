@@ -64,7 +64,7 @@ struct NotificationPermissionStepView: View {
                         .tint(.white)
                         .frame(maxWidth: .infinity)
                         .frame(height: 56)
-                        .background(AppTheme.Colors.label)
+                        .background(AppTheme.Colors.accent)
                         .clipShape(RoundedRectangle(cornerRadius: 28))
                 } else {
                     Text(hasAttemptedPermission ? String(localized: "common_continue") : String(localized: "onboarding_notifications_allow"))
@@ -72,7 +72,7 @@ struct NotificationPermissionStepView: View {
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity)
                         .frame(height: 56)
-                        .background(hasAttemptedPermission ? AppTheme.Colors.buttonSelected : AppTheme.Colors.label)
+                        .background(hasAttemptedPermission ? AppTheme.Colors.buttonSelected : AppTheme.Colors.accent)
                         .clipShape(RoundedRectangle(cornerRadius: 28))
                 }
             }

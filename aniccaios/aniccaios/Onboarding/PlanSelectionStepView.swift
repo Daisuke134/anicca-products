@@ -5,12 +5,12 @@ import RevenueCat
 struct PlanSelectionStepView: View {
     let onPurchaseSuccess: (CustomerInfo) -> Void
     let onDismiss: () -> Void
-    let onShowDrawer: () -> Void
 
     @EnvironmentObject private var appState: AppState
     @State private var selectedPackage: Package?
     @State private var isPurchasing = false
     @State private var errorMessage: String?
+    @State private var hasTracked = false
 
     private var offering: Offering? {
         appState.cachedOffering
@@ -28,12 +28,52 @@ struct PlanSelectionStepView: View {
         packages.first { $0.packageType == .monthly }
     }
 
+    /// F6: Dynamic save percentage
+    private var savePct: Int? {
+        guard let yearly = yearlyPackage, let monthly = monthlyPackage else { return nil }
+        let yearlyPrice = (yearly.storeProduct.price as NSDecimalNumber).doubleValue
+        let monthlyPrice = (monthly.storeProduct.price as NSDecimalNumber).doubleValue
+        guard monthlyPrice > 0 else { return nil }
+        return Int((1.0 - yearlyPrice / (monthlyPrice * 12.0)) * 100)
+    }
+
     var body: some View {
         VStack(spacing: 16) {
+            HStack {
+                Spacer()
+                Button {
+                    onDismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundStyle(.secondary)
+                        .frame(width: 32, height: 32)
+                }
+                .accessibilityIdentifier("paywall-dismiss")
+                .padding(.trailing, 16)
+                .padding(.top, 8)
+            }
+
+            // F4: Fixed outcome-focused title
             Text(String(localized: "paywall_plan_title"))
                 .font(.system(size: 28, weight: .bold))
                 .foregroundStyle(AppTheme.Colors.label)
-                .padding(.top, 32)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 24)
+
+            // F7: Subtitle + feature list
+            Text(String(localized: "paywall_plan_subtitle"))
+                .font(.system(size: 16))
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 24)
+
+            VStack(alignment: .leading, spacing: 8) {
+                featureRow(icon: "checkmark.circle.fill", key: "paywall_plan_feature_access")
+                featureRow(icon: "bell.badge.fill", key: "paywall_plan_feature_nudges")
+                featureRow(icon: "xmark.circle", key: "paywall_plan_feature_cancel")
+            }
+            .padding(.horizontal, 32)
 
             if packages.isEmpty {
                 ProgressView()
@@ -43,20 +83,23 @@ struct PlanSelectionStepView: View {
                 ScrollView {
                     VStack(spacing: 12) {
                         if let yearly = yearlyPackage {
+                            let priceStr = String(format: NSLocalizedString("paywall_plan_price_yearly", comment: ""), yearly.localizedPriceString)
+                            let saveStr: String? = savePct.map { String(format: NSLocalizedString("paywall_plan_save_dynamic", comment: ""), $0) }
                             planCard(
                                 package: yearly,
                                 title: yearly.storeProduct.localizedTitle,
-                                priceLabel: yearly.localizedPriceString + "/yr",
+                                priceLabel: priceStr,
                                 badge: String(localized: "paywall_plan_yearly_badge"),
-                                saveLabel: String(localized: "paywall_plan_save")
+                                saveLabel: saveStr
                             )
                         }
 
                         if let monthly = monthlyPackage {
+                            let priceStr = String(format: NSLocalizedString("paywall_plan_price_monthly", comment: ""), monthly.localizedPriceString)
                             planCard(
                                 package: monthly,
                                 title: monthly.storeProduct.localizedTitle,
-                                priceLabel: monthly.localizedPriceString + "/mo",
+                                priceLabel: priceStr,
                                 badge: nil,
                                 saveLabel: nil
                             )
@@ -65,10 +108,6 @@ struct PlanSelectionStepView: View {
                     .padding(.horizontal, 24)
                     .padding(.top, 16)
                 }
-
-                Text(String(localized: "paywall_plan_social_proof"))
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(.secondary)
 
                 if let errorMessage {
                     Text(errorMessage)
@@ -107,7 +146,7 @@ struct PlanSelectionStepView: View {
 
                     HStack(spacing: 24) {
                         Button(String(localized: "paywall_plan_maybe_later")) {
-                            onShowDrawer()
+                            onDismiss()
                         }
                         .font(.system(size: 14, weight: .medium))
                         .foregroundStyle(.secondary)
@@ -120,17 +159,41 @@ struct PlanSelectionStepView: View {
                         .foregroundStyle(.secondary)
                         .accessibilityIdentifier("paywall-restore")
                     }
+
+                    HStack(spacing: 8) {
+                        Link(String(localized: "paywall_plan_terms"), destination: AppConfig.termsURL)
+                        Text("·").foregroundStyle(.secondary)
+                        Link(String(localized: "paywall_plan_privacy"), destination: AppConfig.privacyURL)
+                    }
+                    .font(.system(size: 12))
+                    .foregroundStyle(.secondary)
                 }
                 .padding(.bottom, 32)
             }
         }
         .background(AppBackground())
         .onAppear {
-            AnalyticsManager.shared.track(.paywallPlanSelectionViewed)
+            if !hasTracked {
+                hasTracked = true
+                AnalyticsManager.shared.track(.paywallPlanSelectionViewed)
+            }
             // Default to yearly
             if selectedPackage == nil {
                 selectedPackage = yearlyPackage ?? monthlyPackage
             }
+        }
+    }
+
+    @ViewBuilder
+    private func featureRow(icon: String, key: String) -> some View {
+        HStack(spacing: 10) {
+            Image(systemName: icon)
+                .font(.system(size: 16))
+                .foregroundStyle(AppTheme.Colors.accent)
+                .frame(width: 24)
+            Text(String(localized: String.LocalizationValue(key)))
+                .font(.system(size: 14, weight: .medium))
+                .foregroundStyle(AppTheme.Colors.label)
         }
     }
 
@@ -206,6 +269,11 @@ struct PlanSelectionStepView: View {
                 let result = try await Purchases.shared.purchase(package: package)
                 if result.customerInfo.entitlements[AppConfig.revenueCatEntitlementId]?.isActive == true {
                     AnalyticsManager.shared.track(.onboardingPaywallPurchased)
+                    if package.storeProduct.introductoryDiscount != nil {
+                        AnalyticsManager.shared.track(.trialStarted, properties: [
+                            "product_id": package.storeProduct.productIdentifier
+                        ])
+                    }
                     await MainActor.run {
                         isPurchasing = false
                         onPurchaseSuccess(result.customerInfo)

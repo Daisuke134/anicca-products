@@ -15,14 +15,19 @@ MIXPANEL_EXPORT_URL = "https://data.mixpanel.com/api/2.0/export"
 
 _EVENTS: tuple[str, ...] = (
     "onboarding_started",
+    "onboarding_welcome_completed",
     "onboarding_struggles_completed",
-    "onboarding_live_demo_completed",
+    "onboarding_struggle_depth_completed",
+    "onboarding_goals_completed",
+    "onboarding_insight_completed",
+    "onboarding_valueprop_completed",
     "onboarding_notifications_completed",
     "onboarding_completed",
-    "onboarding_paywall_viewed",
-    "onboarding_paywall_dismissed_free",
+    "paywall_primer_viewed",
+    "paywall_plan_selection_viewed",
     "onboarding_paywall_purchased",
-    "rc_trial_started_event",
+    "trial_started",
+    "onboarding_paywall_dismissed_free",
 )
 
 
@@ -72,14 +77,19 @@ async def fetch_mixpanel_metrics(window: Optional[ReportingWindow] = None) -> Mi
 
     return MixpanelMetrics(
         onboarding_started=len(unique_users["onboarding_started"]),
+        onboarding_welcome_completed=len(unique_users["onboarding_welcome_completed"]),
         onboarding_struggles_completed=len(unique_users["onboarding_struggles_completed"]),
-        onboarding_live_demo_completed=len(unique_users["onboarding_live_demo_completed"]),
+        onboarding_struggle_depth_completed=len(unique_users["onboarding_struggle_depth_completed"]),
+        onboarding_goals_completed=len(unique_users["onboarding_goals_completed"]),
+        onboarding_insight_completed=len(unique_users["onboarding_insight_completed"]),
+        onboarding_valueprop_completed=len(unique_users["onboarding_valueprop_completed"]),
         onboarding_notifications_completed=len(unique_users["onboarding_notifications_completed"]),
         onboarding_completed=len(unique_users["onboarding_completed"]),
-        onboarding_paywall_viewed=len(unique_users["onboarding_paywall_viewed"]),
-        onboarding_paywall_dismissed_free=len(unique_users["onboarding_paywall_dismissed_free"]),
+        paywall_primer_viewed=len(unique_users["paywall_primer_viewed"]),
+        paywall_plan_selection_viewed=len(unique_users["paywall_plan_selection_viewed"]),
         onboarding_paywall_purchased=len(unique_users["onboarding_paywall_purchased"]),
-        rc_trial_started_event=len(unique_users["rc_trial_started_event"]),
+        trial_started=len(unique_users["trial_started"]),
+        onboarding_paywall_dismissed_free=len(unique_users["onboarding_paywall_dismissed_free"]),
     )
 
 

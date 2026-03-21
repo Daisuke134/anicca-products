@@ -98,6 +98,10 @@ enum AppConfig {
         proxyBaseURL.appendingPathComponent("mobile/nudge/delivery/\(id)")
     }
 
+    // Legal
+    static let termsURL = URL(string: "https://anicca.app/terms")!
+    static let privacyURL = URL(string: "https://anicca.app/privacy")!
+
     // v1.6.0: App version for schedule map selection
     static var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0.0"

@@ -44,15 +44,12 @@
 "onboarding_permission_status_not_allowed" = "Not allowed";
 "onboarding_microphone_optional_hint" = "Need the voice experience later? Just return to Settings → Anicca and flip the microphone back on when you're ready.";
 
-"onboarding_notifications_title" = "Stay on track";
+"onboarding_notifications_title" = "Don't miss your nudges";
 "onboarding_notifications_card_title" = "Notification Access";
 "onboarding_notifications_description" = "Anicca sends gentle reminders exactly when you need them. Without notifications, Anicca can't reach you.";
 "onboarding_notifications_allow" = "Allow notifications";
 "onboarding_notifications_optional_hint" = "Skip for now if you prefer. You can enable notifications anytime from Settings → Anicca.";
 
-"live_demo_title" = "Experience Your First Nudge";
-"live_demo_subtitle" = "This is what it feels like when Anicca reaches out to you.";
-"live_demo_button" = "Try It Now";
 
 "onboarding_alarmkit_title" = "Alarms";
 "onboarding_alarmkit_description" = "To make wake nudges reliable, Anicca needs permission to schedule alarms.";
@@ -1322,22 +1319,20 @@
 "paywall_primer_feature1" = "Full access to all features";
 "paywall_primer_feature2" = "Personalized nudges";
 "paywall_primer_feature3" = "Cancel anytime";
-"paywall_timeline_title" = "Your free trial timeline";
-"paywall_timeline_today" = "Today — Start exploring Anicca";
-"paywall_timeline_day5" = "Day 5 — We'll send you a reminder";
-"paywall_timeline_day7" = "Day 7 — Your trial ends. You decide.";
-"paywall_timeline_subtitle" = "We'll remind you before you're charged. No surprises.";
-"paywall_plan_title" = "Choose your plan";
+"paywall_plan_title" = "Your path to change starts here";
+"paywall_plan_subtitle" = "Start your 7-day free trial";
+"paywall_plan_feature_access" = "Full access to all features";
+"paywall_plan_feature_nudges" = "Personalized nudges";
+"paywall_plan_feature_cancel" = "Cancel anytime";
 "paywall_plan_yearly_badge" = "BEST VALUE";
-"paywall_plan_save" = "Save 58%";
+"paywall_plan_price_yearly" = "%@/yr";
+"paywall_plan_price_monthly" = "%@/mo";
+"paywall_plan_save_dynamic" = "Save %d%%";
 "paywall_plan_weekly" = "%@/week";
-"paywall_plan_social_proof" = "⭐ 4.9 · Trusted by 10,000+ users";
 "paywall_plan_cta_trial" = "Start Free Trial";
 "paywall_plan_cta_subscribe" = "Subscribe";
 "paywall_plan_trust" = "No commitment. Cancel anytime.";
 "paywall_plan_maybe_later" = "Maybe later";
 "paywall_plan_restore" = "Restore Purchases";
-"paywall_drawer_title" = "Not ready for a year?";
-"paywall_drawer_subtitle" = "That's just %@/week — less than a cup of coffee";
-"paywall_drawer_cta" = "Start Free Trial";
-"paywall_drawer_skip" = "Maybe later";
+"paywall_plan_terms" = "Terms";
+"paywall_plan_privacy" = "Privacy";

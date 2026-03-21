@@ -59,44 +59,7 @@ final class AnalyticsManager {
     }
     
     // MARK: - Convenience Methods
-    
-    /// オンボーディングステップ完了
-    func trackOnboardingStep(_ step: String, completed: Bool = true) {
-        track(.onboardingStepCompleted, properties: [
-            "step": step,
-            "completed": completed
-        ])
-    }
-    
-    /// Paywall表示（最重要メトリクス）
-    func trackPaywallViewed(paywallId: String, trigger: String, offeringId: String? = nil) {
-        // Paywall表示回数をインクリメント
-        let viewCountKey = "mixpanel_paywall_view_count"
-        let viewCount = UserDefaults.standard.integer(forKey: viewCountKey) + 1
-        UserDefaults.standard.set(viewCount, forKey: viewCountKey)
 
-        var properties: [String: Any] = [
-            "paywall_id": paywallId,
-            "view_count": viewCount,
-            "trigger": trigger
-        ]
-        if let offeringId = offeringId {
-            properties["offering_id"] = offeringId
-        }
-        track(.paywallViewed, properties: properties)
-    }
-    
-    /// Paywall閉じる
-    func trackPaywallDismissed(paywallId: String) {
-        let viewCountKey = "mixpanel_paywall_view_count"
-        let viewCount = UserDefaults.standard.integer(forKey: viewCountKey)
-        
-        track(.paywallDismissed, properties: [
-            "paywall_id": paywallId,
-            "view_count": viewCount
-        ])
-    }
-    
     /// トライアル開始
     func trackTrialStarted(productId: String) {
         track(.trialStarted, properties: [
@@ -136,75 +99,52 @@ final class AnalyticsManager {
 // MARK: - Analytics Events
 
 enum AnalyticsEvent: String {
-    // Onboarding
+    // App
     case appOpened = "app_opened"
+
+    // Onboarding funnel
     case onboardingStarted = "onboarding_started"
-    case onboardingStepCompleted = "onboarding_step_completed" // 互換性のため残す
-    case onboardingCompleted = "onboarding_completed"
-    
-    // Individual onboarding step events (for clearer Funnel analysis)
     case onboardingWelcomeCompleted = "onboarding_welcome_completed"
-    case onboardingAccountCompleted = "onboarding_account_completed"
-    case onboardingValueCompleted = "onboarding_value_completed"
-    case onboardingSourceCompleted = "onboarding_source_completed"
-    case onboardingNameCompleted = "onboarding_name_completed"
-    case onboardingGenderCompleted = "onboarding_gender_completed"
-    case onboardingAgeCompleted = "onboarding_age_completed"
-    case onboardingIdealsCompleted = "onboarding_ideals_completed"
     case onboardingStrugglesCompleted = "onboarding_struggles_completed"
-    case onboardingHabitsetupCompleted = "onboarding_habitsetup_completed"
-    case onboardingNotificationsCompleted = "onboarding_notifications_completed"
-    case onboardingAlarmkitCompleted = "onboarding_alarmkit_completed"
-    
-    // Paywall (CRITICAL - Jake Mor #1)
-    case paywallViewed = "paywall_viewed"
-    case paywallDismissed = "paywall_dismissed"
-    
-    // Onboarding Paywall (Jake Mor #1 - Most Important Metric)
-    case onboardingPaywallViewed = "onboarding_paywall_viewed"
-    case onboardingPaywallDismissed = "onboarding_paywall_dismissed"
-    case onboardingPaywallPurchased = "onboarding_paywall_purchased"
-    case onboardingLiveDemoCompleted = "onboarding_live_demo_completed"
     case onboardingStruggleDepthCompleted = "onboarding_struggle_depth_completed"
     case onboardingGoalsCompleted = "onboarding_goals_completed"
     case onboardingInsightCompleted = "onboarding_insight_completed"
     case onboardingValuePropCompleted = "onboarding_valueprop_completed"
+    case onboardingNotificationsCompleted = "onboarding_notifications_completed"
+    case onboardingCompleted = "onboarding_completed"
+
+    // Paywall funnel
     case paywallPrimerViewed = "paywall_primer_viewed"
-    case paywallTimelineViewed = "paywall_timeline_viewed"
     case paywallPlanSelectionViewed = "paywall_plan_selection_viewed"
-    case paywallDrawerViewed = "paywall_drawer_viewed"
-    case paywallDrawerConverted = "paywall_drawer_converted"
+    case onboardingPaywallPurchased = "onboarding_paywall_purchased"
     case onboardingPaywallDismissedFree = "onboarding_paywall_dismissed_free"
-    case upgradePaywallPurchased = "upgrade_paywall_purchased"
-    
+
     // Subscription
     case trialStarted = "trial_started"
     case trialCancelled = "trial_cancelled"
     case purchaseCompleted = "purchase_completed"
     case subscriptionRenewed = "subscription_renewed"
     case subscriptionCancelled = "subscription_cancelled"
-    
+
     // Voice Session
     case sessionStarted = "session_started"
     case sessionCompleted = "session_completed"
     case sessionFailed = "session_failed"
-    
+
     // Habits
     case habitCreated = "habit_created"
     case habitDeleted = "habit_deleted"
     case habitNotificationTapped = "habit_notification_tapped"
-    
+
     // Engagement
     case talkTabOpened = "talk_tab_opened"
     case settingsOpened = "settings_opened"
 
-    // Nudge (Phase 4)
+    // Nudge
     case nudgeTapped = "nudge_tapped"
     case nudgeIgnored = "nudge_ignored"
     case nudgePositiveFeedback = "nudge_positive_feedback"
     case nudgeNegativeFeedback = "nudge_negative_feedback"
-    
-    // Nudge (Phase 5 - Thompson Sampling)
     case nudgeScheduled = "nudge_scheduled"
 }
 

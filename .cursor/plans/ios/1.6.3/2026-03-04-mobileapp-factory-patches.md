@@ -1,11 +1,11 @@
-# Mobile App Factory + Builder パッチ一覧
+plea# Mobile App Factory + Builder パッチ一覧
 
 **日付**: 2026-03-04
 **対象**: Chi Daily (APP_ID: 6759994539, Bundle: com.aniccafactory.chidaily)
 **原則**: ASC CLI Skills (https://github.com/rudrankriyam/app-store-connect-cli-skills) に100%従う。オリジナル禁止。
 
 ---
-
+Tell me the full path of the spec that was basically fixing this whole fucking recipe. 
 ## 実テスト結果（2026-03-04 Mac Mini で実行）
 
 | テスト | コマンド | 結果 | 証拠 |
