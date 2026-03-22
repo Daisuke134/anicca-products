@@ -65,6 +65,11 @@ curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '
 | 23 | **AI API / AI モデル / 外部 AI サービス完全禁止**。OpenAI, Anthropic, Google Generative AI, Apple FoundationModels 一切不可。月額収益 $29 vs API コスト $300+。FoundationModels は iOS 26+ のみでユーザーベース皆無。オンデバイスロジック or 静的キュレーションコンテンツで代替 |
 | 25 | **progress.txt 管理**: Codebase Patterns + 現在 US の記録のみ保持。完了 US の詳細は `logs/us-XXX-summary.md` に移動。10KB 以下維持。Source: Anthropic harnesses — context 膨張防止 |
 | 26 | **WAITING_FOR_HUMAN 最小化**: iris session は keychain（auto モード）で管理。`ASC_WEB_SESSION_CACHE_BACKEND=file` は絶対に設定するな（keychain を読まなくなる）。Check 6 の前に `security unlock-keychain` 必須。RC SK鍵のみ WAITING_FOR_HUMAN 使用可。Source: session_cache.go L103-118 |
+| 27 | **.pbxproj 直接編集禁止**。新しいファイルは CC で作成し、Xcode で手動追加する。CC に .pbxproj を編集させるとプロジェクトが壊れる。Source: https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj — 「Never let AI modify .pbxproj files. Create files with Claude Code, add them to Xcode manually.」 |
+| 28 | **iOS 26 SDK 必須（2026年4月以降）**。Xcode プロジェクト設定で `IPHONEOS_DEPLOYMENT_TARGET = 26.0` 以上。4月以降の提出では古い SDK は審査リジェクト。Source: https://medium.com/@thakurneeshu280/apple-app-store-submission-changes-april-2026-5fa8bc265bbe — 「Starting April 2026, apps and games uploaded to App Store Connect need to meet minimum SDK requirements」 |
+| 29 | **プライバシー透明性（AI 連携アプリ）**。データ収集・利用を明示。Info.plist に `NSPrivacyCollectedDataTypes` + `NSPrivacyTracking` + AI 連携の開示。Source: https://theapplaunchpad.com/blog/app-store-review-guidelines — 「Privacy and data transparency are major priorities in 2026. Apps must clearly disclose what data they collect, how it is used, and obtain consent before sharing it with third parties, especially AI services.」 |
+| 30 | **ランダム/匿名チャット = UGC 審査**。チャット機能にはモデレーション + 通報機能必須（App Review Guideline 1.2）。Source: https://developer.apple.com/news/?id=d75yllv4 — 「apps with random or anonymous chat are subject to the 1.2 User-Generated Content guideline」（2026年2月6日更新） |
+| 31 | **ターゲット分割で並列ビルド**。依存関係を単純化し、モノリシックなターゲットを避ける（30-50%高速化）。Source: https://developer.apple.com/documentation/xcode/improving-the-speed-of-incremental-builds — 「To improve build performance, simplify your target's dependency list, and break up monolithic targets so that Xcode can do more work in parallel.」 |
 
 ## ASC CLI 正しいコマンド（skill 準拠）
 
