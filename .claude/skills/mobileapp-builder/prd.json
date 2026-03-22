@@ -23,7 +23,7 @@
       "acceptanceCriteria": [
         "product-plan.md exists",
         "Contains: target user, problem, solution, monetization, MVP scope",
-        "monetization section specifies subscription prices (weekly primary, monthly, annual) with 7-day free trial — Source: https://adapty.io/blog/high-performing-paywall-2026/ — Weekly+trial LTV $54.50 vs $7.40 without (636% increase)",
+        "monetization section specifies subscription prices (weekly primary, monthly, annual) with 7-14 day free trial (avoid 3-day: 55% cancel Day 0) — Source: https://www.revenuecat.com/blog/growth/subscription-app-trends-benchmarks-2026/ — 17-32 day trials convert 70% better than 3-day (42.5% vs 25.5%), but 7-day balances conversion + cash flow",
         "All claims cite external sources",
         "curl itunes.apple.com/search for APP_NAME returns 0 exact name matches",
         "Typecheck passes"

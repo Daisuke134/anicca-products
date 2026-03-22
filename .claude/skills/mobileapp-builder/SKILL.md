@@ -59,7 +59,7 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | # | Rule |
 |---|------|
 | 1 | **提出前に全サブスクが READY_TO_SUBMIT**。MISSING_METADATA → Guideline 2.1 拒否 |
-| 2 | **IAP pricing は全175カ国** |
+| 2 | **IAP pricing は全175カ国**。高価格サブスク（$9.99+/月）は低～中価格より trial conversion rate が高い。Source: https://www.revenuecat.com/blog/growth/subscription-app-trends-benchmarks-2026/ — 「Higher priced subscriptions have higher trial conversion rates than mid and lower priced」。デフォルト価格は $9.99/月を推奨 |
 | 3 | **Superwall 禁止。RevenueCat SDK のみ** |
 | 4 | **ビルドは `fastlane build` / `fastlane test`。xcodebuild 直接禁止。提出後は ASC CLI のみ** |
 | 5 | **validate.sh が STOP ゲート**。FAIL なら次に進まない |
@@ -76,7 +76,8 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 16 | **screenshot-creator スキル禁止。Koubou（`asc screenshots frame`）のみ** |
 | 17 | **自前 SwiftUI PaywallView 必須。RevenueCatUI.PaywallView 禁止** |
 | 18 | **ATT 禁止** |
-| 19 | **オンボーディング最終画面はソフトペイウォール** |
+| 19 | **オンボーディング最終画面はソフトペイウォール**。ただし、ハードペイウォール（フリーミアムなし）はソフトペイウォールより Day-35 trial-to-paid conversion が 5x 高い（10.7% vs 2.1%）。Source: https://www.revenuecat.com/blog/growth/subscription-app-trends-benchmarks-2026/ — 「hard paywalls have a median Day-35 trial-to-paid conversion rate of **10.7%**, compared to just **2.1%** for freemium apps」。キャッシュフロー優先ならハードペイウォールを検討 |
+| 19-BP1 | **動的ペイウォール（セグメント化・期間限定割引）は静的より 35% 高コンバージョン**。RevenueCat Experiments / Adapty を使用。Source: https://adapty.io/blog/how-to-design-ios-paywall/ — 「**Dynamic paywalls with segmented or time-based discounts deliver approximately 35% higher conversion rates than static alternatives**」 |
 | 20 | **validate.sh / ralph.sh を CC が編集・削除禁止（外部品質ゲート）** |
 | 40 | **テンプレート編集禁止**: `.claude/skills/mobileapp-builder/` 内の prd.json, SKILL.md, CLAUDE.md は CC 編集禁止。`$APP_DIR/prd.json` のみ編集可 |
 | 21 | **1アプリ = 1 RC プロジェクト** Source: https://community.revenuecat.com/general-questions-7/project-vs-app-1899 |
