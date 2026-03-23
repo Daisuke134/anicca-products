@@ -23,7 +23,7 @@
       "acceptanceCriteria": [
         "product-plan.md exists",
         "Contains: target user, problem, solution, monetization, MVP scope",
-        "monetization section specifies subscription prices (weekly primary, monthly, annual) with 7-14 day free trial (avoid 3-day: 55% cancel Day 0) — Source: https://www.revenuecat.com/blog/growth/subscription-app-trends-benchmarks-2026/ — 17-32 day trials convert 70% better than 3-day (42.5% vs 25.5%), but 7-day balances conversion + cash flow",
+        "monetization section specifies subscription prices (weekly primary, monthly, annual) with 3-7 day free trial (weekly+3-day trial = highest LTV: $54.50, 636% increase vs no-trial) — Source: https://adapty.io/blog/high-performing-paywall-2026/ — 'Weekly plan with a 3-day free trial brings in 1.5x the average LTV of all other configurations' + 7-day balances conversion + cash flow",
         "All claims cite external sources",
         "curl itunes.apple.com/search for APP_NAME returns 0 exact name matches",
         "Typecheck passes"
@@ -139,8 +139,10 @@
         "PaywallView personalizes headline with user name — Source: https://adapty.io/blog/how-to-design-ios-paywall/ — Personalization: +17% conversion",
         "PaywallView includes social proof section (reviews, ratings, user count) — Source: https://adapty.io/blog/how-to-design-ios-paywall/ — Social proof: +10-15% conversion",
         "PaywallView CTA uses benefit-driven text (e.g., 'Start My Plan') — Source: https://blog.funnelfox.com/effective-paywall-screen-designs-mobile-apps/ — Benefit CTAs outperform generic 'Subscribe'",
-        "PaywallView highlights 7-day free trial in headline + badge + disclaimer",
-        "PaywallView uses price anchoring (weekly equivalent for monthly/annual)",
+        "PaywallView highlights free trial in multiple locations (headline + CTA + supporting text) — Source: https://www.revenuecat.com/blog/growth/paywall-conversion-boosters/ — 'Simply including a Start Free Trial button isn't enough—the trial offer should be a central, recurring element throughout your paywall'",
+        "PaywallView uses price anchoring (weekly equivalent for monthly/annual) — Source: https://www.revenuecat.com/blog/growth/paywall-conversion-boosters/ — Price anchoring influences purchasing decisions",
+        "PaywallView shows prominent discount badge (e.g., 'Save 40%') if applicable — Source: https://www.revenuecat.com/blog/growth/paywall-conversion-boosters/ — 'displaying the discount percentage prominently... significantly outperforms designs that bury this information'",
+        "Post-paywall-close logic: if user dismisses without converting, show 24h limited offer screen — Source: https://adapty.io/blog/high-performing-paywall-2026/ — '10–15% ARPU increase, targeted only at non-converters'",
         "No RevenueCatUI import",
         "fastlane test PASS",
         "Typecheck passes"
