@@ -54,6 +54,59 @@ Source: rshankras ProductAgent WORKFLOW.md + snarktank/ralph
 WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `references/us-005b-monetization.md`（RC setup）を参照。
 
 
+## Claude Code Mental Model (NEW 2026-03-24)
+
+**Source**: Reddit r/ClaudeAI — Best practices after shipping iOS apps  
+**URL**: https://www.reddit.com/r/ClaudeAI/comments/1ridakj/best_practices_ive_learned_after_shipping/  
+**Core Quote**: "Claude Code is a brilliant junior developer who can write code faster than anyone I've ever seen. But like any junior dev, it needs guidance on architecture decisions, security practices, and long-term maintainability. **The senior engineer is still you.**"
+
+### What This Means for Factory
+
+| Claude Code Does Well | Needs Human/Senior Guidance |
+|----------------------|----------------------------|
+| Fast code generation | Architecture decisions |
+| Feature implementation | Security practices |
+| Boilerplate reduction | Long-term maintainability |
+| Happy path scenarios | Edge cases (network failures, unexpected API responses) |
+
+### Security & Quality Checklist (Every App)
+
+**Source**: Reddit r/ClaudeAI iOS best practices  
+**Core principle**: "AI doesn't automatically enforce good practices. It gives you what you ask for."
+
+| Category | Requirement | Verification |
+|----------|-------------|--------------|
+| **Secrets** | Never hardcode. Different tokens per environment (dev/staging/prod) | grep -r "api_key\|secret" --exclude=.env |
+| **Observability** | Crash reporting from day one (not after first angry review) | Check Sentry/Crashlytics init in AppDelegate |
+| **Logging** | Persistent logs (not just console) | Check Logger usage in critical paths |
+| **Health Check** | /health endpoint for backend | curl {API_URL}/health |
+| **Input Validation** | Server-side validation. Never trust client data | Check API routes for validation |
+| **Rate Limiting** | On auth and write operations | Check middleware in auth routes |
+| **Staging** | Real staging environment (mirrors production) | .env has STAGING vars |
+| **CORS** | Set to specific origins (not *) | Check backend CORS config |
+| **CI/CD** | Automated testing + deployment pipeline | Check Fastfile existence |
+| **Backups** | Test restore at least once | Document restore procedure |
+| **Time** | Store in UTC, convert on display | grep "Date()" and check timezone handling |
+
+### 2026 App Store Privacy Requirements (AI Apps)
+
+**Source**: AppLaunchpad App Store Review Guidelines 2026  
+**URL**: https://theapplaunchpad.com/blog/app-store-review-guidelines  
+**Core Quote**: "Privacy and data transparency are major priorities in 2026. Apps must clearly disclose what data they collect, how it is used, and obtain consent before sharing it with third parties, **especially AI services**."
+
+#### If Your App Uses AI
+
+| Requirement | Where to Implement |
+|------------|-------------------|
+| **What the AI does** | App description + in-app explainer |
+| **What data it uses** | PrivacyInfo.xcprivacy + App Privacy labels |
+| **How users can control/limit it** | Settings screen with AI toggle |
+| **AI provider disclosure** | Privacy Policy + in-app notice |
+| **Clear user consent** | Explicit opt-in before first AI call |
+
+**Rejection risk**: Apps that mislead users about AI capabilities or hide automated processes are more likely to be rejected.
+
+
 ## CRITICAL RULES
 
 | # | Rule |
