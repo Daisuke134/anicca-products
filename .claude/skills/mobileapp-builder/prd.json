@@ -24,6 +24,7 @@
         "product-plan.md exists",
         "Contains: target user, problem, solution, monetization, MVP scope",
         "monetization section specifies subscription prices (weekly primary, monthly, annual) with 3-7 day free trial (weekly+3-day trial = highest LTV: $54.50, 636% increase vs no-trial) — Source: https://adapty.io/blog/high-performing-paywall-2026/ — 'Weekly plan with a 3-day free trial brings in 1.5x the average LTV of all other configurations' + 7-day balances conversion + cash flow",
+        "monetization section includes economics targets: CPI $0.10-0.80 (Indie App Santa benchmark), LTV/CAC ratio ≥ 3:1 (sustainable growth standard) — Source: https://indieappsanta.com/2025/11/21/10349/ — 'Indie App Santa's typical cost-per-install of $0.10-0.80 delivers one of the lowest CACs available' + 'For sustainable growth, LTV typically exceeds CAC by at least 3:1'",
         "All claims cite external sources",
         "curl itunes.apple.com/search for APP_NAME returns 0 exact name matches",
         "Typecheck passes"
