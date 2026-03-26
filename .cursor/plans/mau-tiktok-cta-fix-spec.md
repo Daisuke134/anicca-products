@@ -1,4 +1,4 @@
-# mau-tiktok パイプライン完全仕様 v5
+# mau-tiktok パイプライン完全仕様 v7
 
 **Status:** IN PROGRESS
 **Date:** 2026-03-26
@@ -34,9 +34,9 @@
 | Instagram JA | `anicca.jp` (ID: `cmmzujxpa04ujp30yxqpg1vci`) |
 | Cron | **4回/日** (06:00 / 06:15 / 17:00 / 17:15 JST) |
 | 動画数 | **1本/cron** → 同じ1本を全プラットフォームに投稿 |
-| CTA構造 | Prayer Lock式 2フェーズ（質問→VALUE PROP）、白帯テキスト + カード画像 |
+| CTA構造 | Prayer Lock式 2フェーズ（質問→VALUE PROP）、白帯400px + カード1520px |
 | CTA尺 | **6秒**（Phase A 2s + Phase B 4s） |
-| BGM | phonk/ロックイン系（`bgm_phonk_trimmed.mp3` 約4.9秒、最後1秒カット） |
+| BGM | phonk/ロックイン系（`bgm_phonk_trimmed.mp3` 約4.9秒、ループ再生） |
 | CTA再利用 | CTA動画は1回作ったら全動画で再利用。毎回作らない |
 
 ---
@@ -95,7 +95,7 @@ scrape-hooks.js --lang en --count 1
 
 ---
 
-## CTA動画 v6 仕様（Prayer Lock 完全コピー）
+## CTA動画 v7 仕様（確定 — 白帯400px + カード1520px）
 
 ### 参考元: Prayer Lock YouTube Shorts フレーム分析
 
@@ -111,98 +111,88 @@ Prayer Lock 実物 (2本DL分析、1080x1920、各11.4s):
           pray with 'prayer lock'
           (it's on the app store)"
          フォント: ~80px、Bold、黒、全行同じサイズ・同じ色
-
-核心パターン:
-  1. 白帯なし。背景画像がフル画面(1080x1920)
-  2. テキストは上部に直接載せる（背景画像の明るいエリアに黒文字）
-  3. フォントは太字(Bold)、全行同じサイズ・同じ色（一貫性）
-  4. テキストだけが Phase A→B で切り替わる
-  5. "(it's on the app store)" も他の行と同じサイズ（小さくしない）
 ```
 
-### Anicca CTA v6 構造 (6s = 180 frames @ 30fps)
+### Anicca CTA v7 確定レイアウト (6s = 180 frames @ 30fps)
 
-**2レイアウト × 2言語 = 4本作成してダイス確認**
+**Option A のフォント（80px Bold Arial/ヒラギノ W8） + 白帯400px = 最終形。2本（EN + JA）のみ。**
 
 ```
-Option A: カード全画面背景 + テキスト直載せ（Prayer Lock 完コピ）
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  ┌─────────────────────────────────────┐
-  │  テキスト（上部、y=120px〜）           │
-  │  80px、Bold、黒、全行統一             │
+白帯(400px) + カード(1520px) — 確定レイアウト
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ┌─────────────────────────────────────┐ ← y=0
+  │██████████ 白帯 400px █████████████│
   │                                     │
-  │  procrastination カード画像            │
-  │  （全画面1080x1920にスケール）          │
-  │  テキストは画像の明るい上部エリアに載る   │
-  │                                     │
-  └─────────────────────────────────────┘
-
-Option B: 薄い白帯(200px) + カード
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  ┌─────────────────────────────────────┐
-  │██ 白帯 200px ██████████████████████│
   │  テキスト 80px Bold 黒              │
-  ├─────────────────────────────────────┤
-  │  procrastination カード画像           │
-  │  （1080x1720 エリアに大きく表示）       │
+  │  Phase A: 1行 → y=160 (中央)       │
+  │  Phase B: 3行 → y=60, y=150, y=240 │
   │                                     │
-  └─────────────────────────────────────┘
+  ├─────────────────────────────────────┤ ← y=400
+  │                                     │
+  │  procrastination カード画像           │
+  │  （1080x1520 エリアに scale+crop）    │
+  │                                     │
+  │                                     │
+  └─────────────────────────────────────┘ ← y=1920
 ```
 
 ### フォント設定（確定 — 全Phase・全行で統一）
 
 | 項目 | EN | JA |
 |------|-----|-----|
-| フォントファイル | `/System/Library/Fonts/Helvetica.ttc` (index=1, Bold) | `/System/Library/Fonts/ヒラギノ角ゴシック W8.ttc` (Std W8) |
+| フォントファイル | `/System/Library/Fonts/Supplemental/Arial Bold.ttf` | `/System/Library/Fonts/ヒラギノ角ゴシック W8.ttc` |
 | サイズ | **80px** | **80px** |
 | 色 | **黒 #000000** | **黒 #000000** |
-| 行間 | **85px** | **85px** |
-| テキスト開始Y | **120px** | **120px** |
 | 揃え | 中央 `x=(w-tw)/2` | 中央 `x=(w-tw)/2` |
 
 **全行同じサイズ・同じ色。ストアラインも同じ。グレー禁止。小さいフォント禁止。**
+**EN は Arial Bold.ttf（standalone .ttf）。Helvetica.ttc は fontindex 非対応のため使わない。**
 
-### CTA テキスト配置（確定）
+### CTA テキスト配置（確定 — 白帯400px内）
 
 ```
 EN:
-  Phase A (0-2s):
-    y=120: "still procrastinating??"          80px bold black
+  Phase A (0-2s):  白帯400px 中央に1行
+    y=160: "still procrastinating??"          80px bold black
 
-  Phase B (2-6s):
-    y=120: "stop procrastinating"             80px bold black
-    y=205: "with 'anicca'"                    80px bold black
-    y=290: "(it's on the app store)"          80px bold black
+  Phase B (2-6s):  白帯400px 内に3行
+    y=60:  "stop procrastinating"             80px bold black
+    y=150: "with 'anicca'"                    80px bold black
+    y=240: "(it's on the app store)"          80px bold black
+                                              ↑ アポストロフィはダブルクォートで囲んで回避
 
 JA:
-  Phase A (0-2s):
-    y=120: "まだ先延ばし？"                     80px bold black
+  Phase A (0-2s):  白帯400px 中央に1行
+    y=160: "まだ先延ばし？"                     80px bold black
 
-  Phase B (2-6s):
-    y=120: "アニッチャが"                       80px bold black
-    y=205: "先延ばしを通知してくれる"             80px bold black
-    y=290: "(App Storeで公開中)"               80px bold black
+  Phase B (2-6s):  白帯400px 内に3行
+    y=60:  "アニッチャが"                       80px bold black
+    y=150: "先延ばしを通知してくれる"             80px bold black
+    y=240: "(App Storeで公開中)"               80px bold black
 ```
+
+### アポストロフィ バグ修正
+
+**問題:** `text='(it'\''s on the app store)'` だと ffmpeg drawtext のパラメータがテキストとして表示される
+**原因:** シェルのシングルクォートエスケープが drawtext フィルタのパラメータ区切りを壊す
+**修正:** drawtext の text パラメータをダブルクォートで囲む: `text="(it's on the app store)"`
 
 ### CTA アセット
 
-| アセット | パス |
-|---------|------|
-| EN カード画像 | `/Users/anicca/anicca-project/assets/card-screenshots/en/procrastination_1.png` |
-| JA カード画像 | `/Users/anicca/Desktop/mau-tiktok-preview/new-ja/procrastination-jp.png` |
-| Anicca アイコン | `/Users/anicca/anicca-project/aniccaios/aniccaios/Assets.xcassets/AppIcon.appiconset/icon-1024.png` |
-| BGM (元) | `/Users/anicca/Desktop/ja-creator-samples/bgm_phonk_final.mp3` (約5.9秒) |
-| BGM (トリム済) | `/Users/anicca/Desktop/mau-tiktok-preview/bgm_phonk_trimmed.mp3` (4.9秒、最後1秒カット) |
+| アセット | パス | サイズ |
+|---------|------|--------|
+| EN カード画像 | `/Users/anicca/anicca-project/assets/card-screenshots/en/procrastination_1.png` | 780x1688 |
+| JA カード画像 | `/Users/anicca/Desktop/mau-tiktok-preview/new-ja/procrastination-jp.png` | 1179x2556 |
+| BGM (トリム済) | `/Users/anicca/Desktop/mau-tiktok-preview/bgm_phonk_trimmed.mp3` | 4.94秒 |
 
-### CTA 再利用用 JSON（確定値）
+### CTA 再利用用 JSON（v7 確定値）
 
 ```json
 {
   "font": {
     "en": {
-      "file": "/System/Library/Fonts/Helvetica.ttc",
-      "index": 1,
-      "name": "Helvetica Bold"
+      "file": "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
+      "name": "Arial Bold"
     },
     "ja": {
       "file": "/System/Library/Fonts/ヒラギノ角ゴシック W8.ttc",
@@ -210,39 +200,34 @@ JA:
     },
     "size": 80,
     "color": "black",
-    "lineSpacing": 85,
-    "startY": 120,
     "align": "center"
+  },
+  "layout": {
+    "whiteBand": { "height": 400, "color": "white" },
+    "cardArea": { "y": 400, "height": 1520 },
+    "canvas": { "width": 1080, "height": 1920 }
   },
   "text": {
     "en": {
-      "phaseA": ["still procrastinating??"],
-      "phaseB": ["stop procrastinating", "with 'anicca'", "(it's on the app store)"]
+      "phaseA": { "lines": ["still procrastinating??"], "yPositions": [160] },
+      "phaseB": { "lines": ["stop procrastinating", "with 'anicca'", "(it's on the app store)"], "yPositions": [60, 150, 240] }
     },
     "ja": {
-      "phaseA": ["まだ先延ばし？"],
-      "phaseB": ["アニッチャが", "先延ばしを通知してくれる", "(App Storeで公開中)"]
+      "phaseA": { "lines": ["まだ先延ばし？"], "yPositions": [160] },
+      "phaseB": { "lines": ["アニッチャが", "先延ばしを通知してくれる", "(App Storeで公開中)"], "yPositions": [60, 150, 240] }
     }
-  },
-  "background": {
-    "optionA": "fullscreen_card (1080x1920 scale+crop)",
-    "optionB": "thin_white_band (200px) + card (1080x1720)"
   },
   "duration": { "phaseA": 2, "phaseB": 4, "total": 6, "fps": 30, "totalFrames": 180 },
   "bgm": "bgm_phonk_trimmed.mp3"
 }
 ```
 
-### 出力ファイル（4本）
+### 出力ファイル（確定 — 2本のみ）
 
-| ファイル | レイアウト | 言語 |
-|---------|----------|------|
-| `cta_en_optA_fullbg.mp4` | Option A（カード全画面） | EN |
-| `cta_en_optB_thinband.mp4` | Option B（薄い白帯） | EN |
-| `cta_ja_optA_fullbg.mp4` | Option A（カード全画面） | JA |
-| `cta_ja_optB_thinband.mp4` | Option B（薄い白帯） | JA |
-
-ダイスが確認後、採用レイアウト（A or B）を確定。
+| ファイル | 言語 |
+|---------|------|
+| `cta_en_final.mp4` | EN |
+| `cta_ja_final.mp4` | JA |
 
 ### Remotion BP チェック (MUST)
 
@@ -267,7 +252,7 @@ JA:
 | Instagram Reels | 上60px | 下260px |
 | **安全領域** | **上100px以下** | **下280px以上** |
 
-テキストは y=120px 開始（安全領域内）。
+白帯テキストは y=60〜240px（安全領域内、白帯が背景なので視認性も完璧）。
 
 ---
 
@@ -361,10 +346,8 @@ node scripts/post-to-postiz.js --lang ja
 ├── post-log.json                         ← 投稿記録
 ├── config.json                           ← Postiz設定
 ├── cta/
-│   ├── en/cta_en_v1_nologo.mp4          ← v1 ロゴなし
-│   ├── en/cta_en_v2_logo.mp4           ← v2 ロゴあり
-│   ├── ja/cta_ja_v1_nologo.mp4
-│   ├── ja/cta_ja_v2_logo.mp4
+│   ├── en/cta_en_final.mp4              ← v7 確定版
+│   ├── ja/cta_ja_final.mp4              ← v7 確定版
 │   └── *.norm.mp4                        ← 正規化済み
 ├── hooks/
 │   ├── raw/{lang}/                       ← yt-dlp DL先
@@ -394,10 +377,9 @@ node scripts/post-to-postiz.js --lang ja
 ## 出力ルール
 
 - **絶対に上書きしない。** バージョン付き
-- CTA動画: `cta_{lang}_v1_nologo.mp4`, `cta_{lang}_v2_logo.mp4`
+- CTA動画: `cta_{lang}_final.mp4`（v7確定版）
 - stitched出力: `output/{lang}/mau_{lang}_{timestamp}.mp4`
 - CTA動画は1回作ったら全動画で再利用（毎回レンダリングしない）
-- ダイスがv1/v2を確認後、採用バージョンを確定
 
 ---
 
@@ -405,18 +387,19 @@ node scripts/post-to-postiz.js --lang ja
 
 | # | タスク | 状態 |
 |---|--------|------|
-| 1 | BGM最終カット（bgm_phonk_00002 → last 1s削除 → bgm_phonk_final.mp3） | 完了 |
-| 2 | JA クリエイター確定（seeyou） | 完了 |
-| 3 | Prayer Lock Shorts 分析 → CTA v5 構造確定 | 完了 |
-| 4 | BGM トリム（bgm_phonk_final → 最後1秒カット → bgm_phonk_trimmed.mp3） | 未着手 |
-| 5 | CTA v5 動画作成（EN v1 + EN v2 + JA v1 + JA v2 = 4本） | 未着手 |
-| 6 | ダイスが v1/v2 確認 → 採用バージョン確定 | 未着手 |
-| 7 | creators.json 作成 | 未着手 |
-| 8 | used_hooks.json 初期化 | 未着手 |
-| 9 | scrape-hooks.js 更新（seeyou確定反映） | 未着手 |
-| 10 | trim-and-stitch.js 更新（v5 CTA 6秒 + phonk BGM） | 未着手 |
-| 11 | post-to-postiz.js 新規作成 | 未着手 |
-| 12 | SKILL.md 更新（4 cron + seeyou確定） | 未着手 |
-| 13 | jobs.json に 4 cron 追加 | 未着手 |
-| 14 | `openclaw gateway restart` | 未着手 |
-| 15 | E2E テスト（手動1回実行） | 未着手 |
+| 1 | BGM最終カット（bgm_phonk_00002 → last 1s削除 → bgm_phonk_final.mp3） | ✅ 完了 |
+| 2 | JA クリエイター確定（seeyou） | ✅ 完了 |
+| 3 | Prayer Lock Shorts 分析 → CTA 構造確定 | ✅ 完了 |
+| 4 | BGM トリム（bgm_phonk_final → 最後1秒カット → bgm_phonk_trimmed.mp3） | ✅ 完了 |
+| 5 | CTA v4-v6 試作（8本）→ ダイスレビュー | ✅ 完了 |
+| 6 | CTA v7 レイアウト確定（白帯400px + カード1520px + Arial Bold 80px） | ✅ 完了 |
+| 7 | CTA v7 最終動画作成（cta_en_final.mp4 + cta_ja_final.mp4） | 🔄 進行中 |
+| 8 | creators.json 作成 | 未着手 |
+| 9 | used_hooks.json 初期化 | 未着手 |
+| 10 | scrape-hooks.js 更新（seeyou確定反映） | 未着手 |
+| 11 | trim-and-stitch.js 更新（v7 CTA 6秒 + phonk BGM） | 未着手 |
+| 12 | post-to-postiz.js 新規作成 | 未着手 |
+| 13 | SKILL.md 更新（4 cron + seeyou確定） | 未着手 |
+| 14 | jobs.json に 4 cron 追加 | 未着手 |
+| 15 | `openclaw gateway restart` | 未着手 |
+| 16 | E2E テスト（手動1回実行） | 未着手 |
