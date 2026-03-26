@@ -29,7 +29,8 @@
 |------|--------|
 | TikTok EN | `anicca.en7` (ID: `cmmtt62wq01lqn50yehk1f6dy`) |
 | TikTok JA | `aniccajp6` (ID: `cmmytdj1101w1p30ytx8lj0fw`) |
-| YouTube EN/JA共用 | `@anicca-ai` (ID: `cmmzukbkw04ulp30yfvijrwio`) |
+| YouTube EN | `@anicca-ai` (ID: `cmmzukbkw04ulp30yfvijrwio`) |
+| YouTube JA | JA専用 (ID: `cmn1oukj9012nnq0yqhouc3ib`) |
 | Instagram EN | `anicca.ai` (ID: `cmmzzg2es0539p30ycb94ayx0`) |
 | Instagram JA | `anicca.jp` (ID: `cmmzujxpa04ujp30yxqpg1vci`) |
 | Cron | **4回/日** (06:00 / 06:15 / 17:00 / 17:15 JST) |
@@ -44,7 +45,7 @@
 ## Cron スケジュール（4回/日、既存cronと重複回避）
 
 ```
-06:00  mau-tiktok-ja    ← TT aniccajp6 + IG anicca.jp + YT @anicca-ai
+06:00  mau-tiktok-ja    ← TT aniccajp6 + IG anicca.jp + YT cmn1oukj9(JA)
 06:15  mau-tiktok-en    ← TT anicca.en7 + IG anicca.ai + YT @anicca-ai
       --- 2時間45分空き ---
 09:00  slideshow-ja-1   ← (既存) TT @anicca.jp2 + IG JA
@@ -52,7 +53,7 @@
 12:30  reelclaw-en-1    ← (既存)
 15:00  slideshow-ja-2   ← (既存)
 15:30  slideshow-en-2   ← (既存)
-17:00  mau-tiktok-ja    ← TT aniccajp6 + IG anicca.jp + YT @anicca-ai
+17:00  mau-tiktok-ja    ← TT aniccajp6 + IG anicca.jp + YT cmn1oukj9(JA)
 17:15  mau-tiktok-en    ← TT anicca.en7 + IG anicca.ai + YT @anicca-ai
 18:00  slideshow-ja-3   ← (既存)
 21:00  reelclaw-ja-2    ← (既存)
@@ -173,9 +174,16 @@ JA:
 
 ### アポストロフィ バグ修正
 
-**問題:** `text='(it'\''s on the app store)'` だと ffmpeg drawtext のパラメータがテキストとして表示される
-**原因:** シェルのシングルクォートエスケープが drawtext フィルタのパラメータ区切りを壊す
-**修正:** drawtext の text パラメータをダブルクォートで囲む: `text="(it's on the app store)"`
+**問題:** `'` は ffmpeg filtergraph のクォート開始文字。`it's` の `'` が後続パラメータをテキスト化する
+**修正:** `textfile=` パラメータで外部ファイルから読み込み、filtergraph エスケープを完全回避
+
+```bash
+# ' を含むテキスト行は textfile で読み込む（MUST）
+echo -n "with 'anicca'" > /tmp/cta_line3.txt
+echo -n "(it's on the app store)" > /tmp/cta_line4.txt
+# drawtext=textfile=/tmp/cta_line3.txt:fontsize=80:...
+# drawtext=textfile=/tmp/cta_line4.txt:fontsize=80:...
+```
 
 ### CTA アセット
 
@@ -276,10 +284,19 @@ node scripts/trim-and-stitch.js --lang en --count 1
 node scripts/trim-and-stitch.js --lang ja --count 1
 ```
 
-1. フック動画を3秒にトリム (ffmpeg, 1080x1920)
-2. CTA動画と結合 (ffmpeg concat)
+1. フック動画を3秒にトリム (ffmpeg -t 3, 1080x1920, re-encode)
+2. CTA動画と結合 (ffmpeg filter_complex concat, **-c copy 禁止 → re-encode 必須**、タイムスタンプずれ防止)
 3. フック音声は3秒で終了、CTA部分は phonk BGM が流れる
 4. 出力: `output/{lang}/mau_{lang}_{timestamp}.mp4` (9秒 = hook 3s + CTA 6s)
+
+```bash
+# MUST: filter_complex concat で re-encode（-c copy だと尺が11sになる）
+ffmpeg -i hook_trimmed.mp4 -i cta_final.mp4 \
+  -filter_complex "[0:v][0:a][1:v][1:a]concat=n=2:v=1:a=1[outv][outa]" \
+  -map "[outv]" -map "[outa]" \
+  -c:v libx264 -preset fast -crf 18 -pix_fmt yuv420p \
+  -c:a aac -b:a 192k output.mp4
+```
 
 ### STEP 3: post-to-postiz.js
 
@@ -310,7 +327,50 @@ node scripts/post-to-postiz.js --lang ja
 | API Key | `~/.config/mobileapp-builder/.env` → `POSTIZ_API_KEY` |
 | Rate Limit | 30 req/hour |
 | 認証 | `Authorization: ${POSTIZ_API_KEY}` (Bearer prefix不要) |
-| 1回のcron消費 | upload 1 + create 1 = 2 req |
+| 1回のcron消費 | upload 1 + create 3 = 4 req (各プラットフォーム別) |
+
+### Postiz 投稿ルール（reelclaw 実績から — MUST）
+
+**各プラットフォーム別リクエスト必須。1リクエストに複数プラットフォーム混ぜるな。**
+
+```javascript
+// TikTok MUST パラメータ
+{
+  privacy_level: "PUBLIC_TO_EVERYONE",
+  content_posting_method: "DIRECT_POST",
+  video_made_with_ai: false,
+  autoAddMusic: "no",        // "yes" = BGM二重
+  duet: true, stitch: true, comment: true,
+  brand_content_toggle: false, brand_organic_toggle: false
+}
+
+// Instagram MUST パラメータ
+{
+  __type: "instagram-standalone",  // "instagram" だと失敗
+  post_type: "reel",
+  type: "now",
+  tags: []                         // 空配列必須
+}
+
+// YouTube MUST パラメータ
+{
+  __type: "youtube",
+  selfDeclaredMadeForKids: "no",
+  privacy: "public",
+  type: "now"
+}
+```
+
+### 投稿先 Integration ID
+
+| Lang | Platform | Account | Integration ID |
+|------|----------|---------|----------------|
+| EN | TikTok | anicca.en7 | `cmmtt62wq01lqn50yehk1f6dy` |
+| EN | Instagram | anicca.ai | `cmmzzg2es0539p30ycb94ayx0` |
+| EN | YouTube | @anicca-ai | `cmmzukbkw04ulp30yfvijrwio` |
+| JA | TikTok | aniccajp6 | `cmmytdj1101w1p30ytx8lj0fw` |
+| JA | Instagram | anicca.jp | `cmmzujxpa04ujp30yxqpg1vci` |
+| JA | YouTube | JA専用 | `cmn1oukj9012nnq0yqhouc3ib` |
 
 ---
 
@@ -393,8 +453,8 @@ node scripts/post-to-postiz.js --lang ja
 | 4 | CTA v4-v6 試作（8本）→ ダイスレビュー | ✅ 完了 |
 | 5 | CTA v7 確定（白帯400px + Arial Bold 80px + textfile apostrophe fix） | ✅ 完了 |
 | 6 | CTA v7 最終動画（cta_en_final.mp4 + cta_ja_final.mp4） | ✅ 完了 |
-| 7 | **サンプル hook DL → hook 3s + CTA 6s 結合 → EN/JA 完成品をダイス確認** | 🔜 次 |
-| 8 | **ダイスが完成品を承認** | 未着手 |
+| 7 | サンプル hook+CTA 結合 → EN/JA 完成品 (sample_full_en/ja.mp4) | ✅ 完了 |
+| 8 | **ダイスが完成品を承認** | 🔜 次 |
 | 9 | creators.json + used_hooks.json 初期化 | 未着手 |
 | 10 | scrape-hooks.js 完成 | 未着手 |
 | 11 | trim-and-stitch.js 完成 | 未着手 |
@@ -402,3 +462,15 @@ node scripts/post-to-postiz.js --lang ja
 | 13 | SKILL.md + jobs.json（4 cron + テスト cron） | 未着手 |
 | 14 | `openclaw gateway restart` → テスト cron 実行 → 確認 | 未着手 |
 | 15 | テスト cron 削除、本番4 cronだけ残す | 未着手 |
+
+---
+
+## ffmpeg Gotcha（スキル実装時 MUST）
+
+| # | 問題 | 修正 |
+|---|------|------|
+| 1 | `'` が filtergraph クォート開始文字と衝突 | `textfile=` でファイルから読み込み |
+| 2 | Helvetica.ttc の `fontindex` 非対応 | Arial Bold.ttf (standalone .ttf) を使う |
+| 3 | `-f concat -c copy` でタイムスタンプずれ (9s→11s) | `filter_complex concat` で re-encode |
+| 4 | BGM 4.9s < CTA 6s で `-shortest` 切れ | `-stream_loop -1 -i bgm -t 6` |
+| 5 | EN fontfile パスにスペース | `Arial\ Bold.ttf` でエスケープ |
