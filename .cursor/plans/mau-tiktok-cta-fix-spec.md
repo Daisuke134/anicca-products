@@ -77,10 +77,7 @@
 | 言語 | クリエイター | URL | カテゴリ |
 |------|-----------|-----|---------|
 | EN | ZackD Films | `https://www.youtube.com/@ZackDFilms/shorts` | brainrot-comedy |
-| JA候補1 | Frorav | `https://www.youtube.com/@Froravofficial/shorts` | brainrot-animation |
-| JA候補2 | seeyou | `https://www.youtube.com/@seeyou_seeyou2/shorts` | brainrot-animation |
-
-**JA クリエイターは候補2名をダイスが動画確認後に確定。**
+| JA | seeyou | `https://www.youtube.com/@seeyou_seeyou2/shorts` | brainrot-animation |
 
 ### スクレイプフロー
 
@@ -317,7 +314,6 @@ node scripts/post-to-postiz.js --lang ja
 {
   "creators": [
     { "name": "ZackD Films", "url": "https://www.youtube.com/@ZackDFilms/shorts", "lang": "en", "category": "brainrot-comedy" },
-    { "name": "Frorav", "url": "https://www.youtube.com/@Froravofficial/shorts", "lang": "ja", "category": "brainrot-animation" },
     { "name": "seeyou", "url": "https://www.youtube.com/@seeyou_seeyou2/shorts", "lang": "ja", "category": "brainrot-animation" }
   ]
 }
