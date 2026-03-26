@@ -387,19 +387,18 @@ node scripts/post-to-postiz.js --lang ja
 
 | # | タスク | 状態 |
 |---|--------|------|
-| 1 | BGM最終カット（bgm_phonk_00002 → last 1s削除 → bgm_phonk_final.mp3） | ✅ 完了 |
+| 1 | BGM最終カット + トリム | ✅ 完了 |
 | 2 | JA クリエイター確定（seeyou） | ✅ 完了 |
 | 3 | Prayer Lock Shorts 分析 → CTA 構造確定 | ✅ 完了 |
-| 4 | BGM トリム（bgm_phonk_final → 最後1秒カット → bgm_phonk_trimmed.mp3） | ✅ 完了 |
-| 5 | CTA v4-v6 試作（8本）→ ダイスレビュー | ✅ 完了 |
-| 6 | CTA v7 レイアウト確定（白帯400px + カード1520px + Arial Bold 80px） | ✅ 完了 |
-| 7 | CTA v7 最終動画作成（cta_en_final.mp4 + cta_ja_final.mp4） | 🔄 進行中 |
-| 8 | creators.json 作成 | 未着手 |
-| 9 | used_hooks.json 初期化 | 未着手 |
-| 10 | scrape-hooks.js 更新（seeyou確定反映） | 未着手 |
-| 11 | trim-and-stitch.js 更新（v7 CTA 6秒 + phonk BGM） | 未着手 |
+| 4 | CTA v4-v6 試作（8本）→ ダイスレビュー | ✅ 完了 |
+| 5 | CTA v7 確定（白帯400px + Arial Bold 80px + textfile apostrophe fix） | ✅ 完了 |
+| 6 | CTA v7 最終動画（cta_en_final.mp4 + cta_ja_final.mp4） | ✅ 完了 |
+| 7 | **サンプル hook DL → hook 3s + CTA 6s 結合 → EN/JA 完成品をダイス確認** | 🔜 次 |
+| 8 | **ダイスが完成品を承認** | 未着手 |
+| 9 | creators.json + used_hooks.json 初期化 | 未着手 |
+| 10 | scrape-hooks.js 完成 | 未着手 |
+| 11 | trim-and-stitch.js 完成 | 未着手 |
 | 12 | post-to-postiz.js 新規作成 | 未着手 |
-| 13 | SKILL.md 更新（4 cron + seeyou確定） | 未着手 |
-| 14 | jobs.json に 4 cron 追加 | 未着手 |
-| 15 | `openclaw gateway restart` | 未着手 |
-| 16 | E2E テスト（手動1回実行） | 未着手 |
+| 13 | SKILL.md + jobs.json（4 cron + テスト cron） | 未着手 |
+| 14 | `openclaw gateway restart` → テスト cron 実行 → 確認 | 未着手 |
+| 15 | テスト cron 削除、本番4 cronだけ残す | 未着手 |
