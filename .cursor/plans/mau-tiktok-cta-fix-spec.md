@@ -95,86 +95,94 @@ scrape-hooks.js --lang en --count 1
 
 ---
 
-## CTA動画 v5 仕様（Prayer Lock 完全コピー）
+## CTA動画 v6 仕様（Prayer Lock 完全コピー）
 
 ### 参考元: Prayer Lock YouTube Shorts フレーム分析
 
 ```
-Prayer Lock 実物 (2本DL分析、各11.4s):
+Prayer Lock 実物 (2本DL分析、1080x1920、各11.4s):
 
 0-3s     バズフック（バイラルアニメ映像 + 字幕テキスト）
-3-4.5s   ┌─ 白帯（上部）─────────────────────────┐
-         │  "did you pray today bro??"             │
-         ├─────────────────────────────────────────┤
-         │  Prayer Lock アイコン（中央）              │
-         │  暗い映像背景                             │
-         └─────────────────────────────────────────┘
-4.5-7.5s ┌─ 白帯（上部）─────────────────────────┐
-         │  "block your phone until you            │
-         │   pray with 'prayer lock'               │
-         │   (it's on the app store)"              │
-         ├─────────────────────────────────────────┤
-         │  Prayer Lock アイコン（中央）              │
-         │  明るい金色映像背景                        │
-         └─────────────────────────────────────────┘
-7.5-11s  同上 + 下部 "amen if you believe"
+3-5.5s   背景画像フル画面 + 上部にテキスト直載せ
+         "did you pray today bro??"
+         フォント: ~80px、Bold、黒、テキスト幅=画面の78%
+5.5-11s  背景画像フル画面 + 上部にテキスト直載せ
+         "block your phone until you
+          pray with 'prayer lock'
+          (it's on the app store)"
+         フォント: ~80px、Bold、黒、全行同じサイズ・同じ色
 
 核心パターン:
-  1. テキストは常に上部白帯（白背景 + 黒テキスト）
-  2. テキストだけが Phase A→B で切り替わる
-  3. カード/画像はテキストの下に常時表示
-  4. 背景は暗→明に変化（dramatic feel）
+  1. 白帯なし。背景画像がフル画面(1080x1920)
+  2. テキストは上部に直接載せる（背景画像の明るいエリアに黒文字）
+  3. フォントは太字(Bold)、全行同じサイズ・同じ色（一貫性）
+  4. テキストだけが Phase A→B で切り替わる
+  5. "(it's on the app store)" も他の行と同じサイズ（小さくしない）
 ```
 
-### Anicca CTA v5 構造 (6s = 180 frames @ 30fps)
+### Anicca CTA v6 構造 (6s = 180 frames @ 30fps)
 
-**2バージョン作成:** v1（ロゴなし）+ v2（ロゴあり）
+**2レイアウト × 2言語 = 4本作成してダイス確認**
 
 ```
-Phase A: 質問 (frame 0-60, 0-2s)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  ┌─ 白帯 (上部 450px) ─────────────────┐
-  │  EN: "still procrastinating??"       │
-  │  JA: "まだ先延ばし？"                  │
-  │  テキスト: 黒、spring fade in (0-15f) │
-  ├──────────────────────────────────────┤
+Option A: カード全画面背景 + テキスト直載せ（Prayer Lock 完コピ）
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ┌─────────────────────────────────────┐
+  │  テキスト（上部、y=120px〜）           │
+  │  80px、Bold、黒、全行統一             │
+  │                                     │
   │  procrastination カード画像            │
-  │  （白帯の下、全幅表示）                 │
-  │  アプリの実際のUX/Nudge画面            │
-  └──────────────────────────────────────┘
-  音楽: frame 45-60 で phonk フェードイン
+  │  （全画面1080x1920にスケール）          │
+  │  テキストは画像の明るい上部エリアに載る   │
+  │                                     │
+  └─────────────────────────────────────┘
 
-Phase B: VALUE PROP (frame 60-180, 2-6s)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  ┌─ 白帯 (上部 450px) ─────────────────┐
-  │  EN: "stop procrastinating           │
-  │       with 'anicca'                  │
-  │       (it's on the app store)"       │
-  │  JA: "アニッチャが                    │
-  │       先延ばしを通知してくれる          │
-  │       (App Storeで公開中)"            │
-  │  テキスト切替: spring swap (60-75f)   │
-  ├──────────────────────────────────────┤
-  │  procrastination カード画像（同じ）     │
-  │  [v2のみ] Aniccaアイコン オーバーレイ   │
-  │           spring登場 (75-90f)         │
-  └──────────────────────────────────────┘
-  音楽: phonk フル → frame 150-180 フェードアウト
+Option B: 薄い白帯(200px) + カード
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ┌─────────────────────────────────────┐
+  │██ 白帯 200px ██████████████████████│
+  │  テキスト 80px Bold 黒              │
+  ├─────────────────────────────────────┤
+  │  procrastination カード画像           │
+  │  （1080x1720 エリアに大きく表示）       │
+  │                                     │
+  └─────────────────────────────────────┘
 ```
 
-### CTA バージョン
+### フォント設定（確定 — 全Phase・全行で統一）
 
-| バージョン | Phase A | Phase B | ファイル名 |
-|-----------|---------|---------|-----------|
-| v1 (no logo) | 質問 + カード | バリュープロップ + カード | `cta_{lang}_v1_nologo.mp4` |
-| v2 (with logo) | 質問 + カード | バリュープロップ + カード + アイコン | `cta_{lang}_v2_logo.mp4` |
+| 項目 | EN | JA |
+|------|-----|-----|
+| フォントファイル | `/System/Library/Fonts/Helvetica.ttc` (index=1, Bold) | `/System/Library/Fonts/ヒラギノ角ゴシック W8.ttc` (Std W8) |
+| サイズ | **80px** | **80px** |
+| 色 | **黒 #000000** | **黒 #000000** |
+| 行間 | **85px** | **85px** |
+| テキスト開始Y | **120px** | **120px** |
+| 揃え | 中央 `x=(w-tw)/2` | 中央 `x=(w-tw)/2` |
 
-### CTA テキスト（確定）
+**全行同じサイズ・同じ色。ストアラインも同じ。グレー禁止。小さいフォント禁止。**
 
-| 要素 | EN | JA |
-|------|----|----|
-| Phase A 質問 | "still procrastinating??" | "まだ先延ばし？" |
-| Phase B VALUE PROP | "stop procrastinating\nwith 'anicca'\n(it's on the app store)" | "アニッチャが\n先延ばしを通知してくれる\n(App Storeで公開中)" |
+### CTA テキスト配置（確定）
+
+```
+EN:
+  Phase A (0-2s):
+    y=120: "still procrastinating??"          80px bold black
+
+  Phase B (2-6s):
+    y=120: "stop procrastinating"             80px bold black
+    y=205: "with 'anicca'"                    80px bold black
+    y=290: "(it's on the app store)"          80px bold black
+
+JA:
+  Phase A (0-2s):
+    y=120: "まだ先延ばし？"                     80px bold black
+
+  Phase B (2-6s):
+    y=120: "アニッチャが"                       80px bold black
+    y=205: "先延ばしを通知してくれる"             80px bold black
+    y=290: "(App Storeで公開中)"               80px bold black
+```
 
 ### CTA アセット
 
@@ -184,59 +192,57 @@ Phase B: VALUE PROP (frame 60-180, 2-6s)
 | JA カード画像 | `/Users/anicca/Desktop/mau-tiktok-preview/new-ja/procrastination-jp.png` |
 | Anicca アイコン | `/Users/anicca/anicca-project/aniccaios/aniccaios/Assets.xcassets/AppIcon.appiconset/icon-1024.png` |
 | BGM (元) | `/Users/anicca/Desktop/ja-creator-samples/bgm_phonk_final.mp3` (約5.9秒) |
-| BGM (トリム済) | `bgm_phonk_trimmed.mp3` (約4.9秒、最後1秒カット) |
+| BGM (トリム済) | `/Users/anicca/Desktop/mau-tiktok-preview/bgm_phonk_trimmed.mp3` (4.9秒、最後1秒カット) |
 
-### CTA Remotion 設定
+### CTA 再利用用 JSON（確定値）
 
 ```json
 {
-  "en": {
-    "phaseA": { "text": "still procrastinating??" },
-    "phaseB": { "text": "stop procrastinating\nwith 'anicca'\n(it's on the app store)" },
-    "cardImage": "procrastination_1_en.png",
-    "font": "Inter"
-  },
-  "ja": {
-    "phaseA": { "text": "まだ先延ばし？" },
-    "phaseB": { "text": "アニッチャが\n先延ばしを通知してくれる\n(App Storeで公開中)" },
-    "cardImage": "procrastination-jp.png",
-    "font": "Noto Sans JP"
-  },
-  "common": {
-    "fps": 30,
-    "width": 1080,
-    "height": 1920,
-    "durationFrames": 180,
-    "durationSeconds": 6,
-    "whiteBand": {
-      "height": 450,
-      "bgColor": "#FFFFFF",
-      "textColor": "#000000"
+  "font": {
+    "en": {
+      "file": "/System/Library/Fonts/Helvetica.ttc",
+      "index": 1,
+      "name": "Helvetica Bold"
     },
-    "bgm": "bgm_phonk_trimmed.mp3",
-    "bgmFadeIn": { "startFrame": 45, "endFrame": 60 },
-    "bgmFadeOut": { "startFrame": 150, "endFrame": 180 },
-    "icon": "anicca-icon.png",
-    "phases": {
-      "A": { "startFrame": 0, "endFrame": 60 },
-      "B": { "startFrame": 60, "endFrame": 180 }
+    "ja": {
+      "file": "/System/Library/Fonts/ヒラギノ角ゴシック W8.ttc",
+      "name": "Hiragino Kaku Gothic Std W8"
     },
-    "versions": ["v1_nologo", "v2_logo"]
-  }
+    "size": 80,
+    "color": "black",
+    "lineSpacing": 85,
+    "startY": 120,
+    "align": "center"
+  },
+  "text": {
+    "en": {
+      "phaseA": ["still procrastinating??"],
+      "phaseB": ["stop procrastinating", "with 'anicca'", "(it's on the app store)"]
+    },
+    "ja": {
+      "phaseA": ["まだ先延ばし？"],
+      "phaseB": ["アニッチャが", "先延ばしを通知してくれる", "(App Storeで公開中)"]
+    }
+  },
+  "background": {
+    "optionA": "fullscreen_card (1080x1920 scale+crop)",
+    "optionB": "thin_white_band (200px) + card (1080x1720)"
+  },
+  "duration": { "phaseA": 2, "phaseB": 4, "total": 6, "fps": 30, "totalFrames": 180 },
+  "bgm": "bgm_phonk_trimmed.mp3"
 }
 ```
 
-### アニメーション詳細
+### 出力ファイル（4本）
 
-| アニメーション | フレーム | 手法 | 設定 |
-|-------------|---------|------|------|
-| Phase A テキスト登場 | 0-15 | `spring()` fade in | `{ damping: 200 }` |
-| カード画像 | 0-180 | static | 白帯下に常時表示 |
-| BGM フェードイン | 45-60 | `<Audio>` volume callback | `interpolate(f, [45,60], [0,0.3])` |
-| テキスト A→B 切替 | 60-75 | `spring()` swap | `{ damping: 20, stiffness: 200 }` snappy |
-| BGM フル | 60-150 | volume 1.0 | — |
-| [v2] アイコン登場 | 75-90 | `spring()` scale | `{ damping: 8 }` bouncy |
-| BGM フェードアウト | 150-180 | `<Audio>` volume callback | `interpolate(f, [150,180], [1,0])` |
+| ファイル | レイアウト | 言語 |
+|---------|----------|------|
+| `cta_en_optA_fullbg.mp4` | Option A（カード全画面） | EN |
+| `cta_en_optB_thinband.mp4` | Option B（薄い白帯） | EN |
+| `cta_ja_optA_fullbg.mp4` | Option A（カード全画面） | JA |
+| `cta_ja_optB_thinband.mp4` | Option B（薄い白帯） | JA |
+
+ダイスが確認後、採用レイアウト（A or B）を確定。
 
 ### Remotion BP チェック (MUST)
 
@@ -249,9 +255,8 @@ Phase B: VALUE PROP (frame 60-180, 2-6s)
 | `<Audio>` from `@remotion/media` | MUST — volume callback でフェード |
 | `<Sequence>` + `premountFor` | MUST — Phase B 要素に適用 |
 | `<Series>` for Phase A→B | MUST — overlap なし |
-| Font: `@remotion/google-fonts` | MUST — Inter (EN), Noto Sans JP (JA)、subset指定 |
+| Font: `@remotion/google-fonts` | MUST — Inter Bold (EN), Noto Sans JP Bold (JA)、subset指定 |
 | No `<Video>` | MUST — 静止画 + テキスト + オーディオのみ |
-| `spring()` config | `{ damping: 200 }` smooth / `{ damping: 20, stiffness: 200 }` snappy / `{ damping: 8 }` bouncy |
 
 ### Green Zone テキスト配置
 
@@ -262,7 +267,7 @@ Phase B: VALUE PROP (frame 60-180, 2-6s)
 | Instagram Reels | 上60px | 下260px |
 | **安全領域** | **上100px以下** | **下280px以上** |
 
-白帯テキストは上100px〜450pxに配置（安全領域内）。カード画像は450px〜1640px（下280px確保）。
+テキストは y=120px 開始（安全領域内）。
 
 ---
 
