@@ -456,14 +456,16 @@ node scripts/post-to-postiz.js --lang ja
 | 5 | CTA v7 確定（白帯400px + Arial Bold 80px + textfile apostrophe fix） | ✅ 完了 |
 | 6 | CTA v7 最終動画（cta_en_final.mp4 + cta_ja_final.mp4） | ✅ 完了 |
 | 7 | サンプル hook+CTA 結合 → EN/JA 完成品 (sample_full_en/ja.mp4) | ✅ 完了 |
-| 8 | **ダイスが完成品を承認** | 🔜 次 |
-| 9 | creators.json + used_hooks.json 初期化 | 未着手 |
-| 10 | scrape-hooks.js 完成 | 未着手 |
-| 11 | trim-and-stitch.js 完成 | 未着手 |
-| 12 | post-to-postiz.js 新規作成 | 未着手 |
-| 13 | SKILL.md + jobs.json（4 cron + テスト cron） | 未着手 |
-| 14 | `openclaw gateway restart` → テスト cron 実行 → 確認 | 未着手 |
-| 15 | テスト cron 削除、本番4 cronだけ残す | 未着手 |
+| 8 | **ダイスが完成品を承認** | ✅ 完了 |
+| 9 | creators.json 更新（ZackD + seeyou のみ） | ✅ 完了 |
+| 10 | config.json 更新（YT JA + cron times + 1動画） | ✅ 完了 |
+| 11 | CTA v7 ファイルをworkspaceにコピー | ✅ 完了 |
+| 12 | scrape-hooks.js 修正（lang別ディレクトリ + count=1） | ✅ 完了 |
+| 13 | trim-and-stitch.js リライト（filter_complex + v7 CTA） | ✅ 完了 |
+| 14 | post-to-postiz.js 新規作成（reelclawテンプレート） | ✅ 完了 |
+| 15 | SKILL.md v7 リライト | ✅ 完了 |
+| 16 | jobs.json に4 cron + 1テストcron追加 | ✅ 完了 |
+| 17 | `openclaw gateway restart` → テスト cron 実行 → 確認 | 🔜 次 |
 
 ---
 
