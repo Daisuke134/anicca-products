@@ -33,7 +33,7 @@
 | YouTube JA | JA専用 (ID: `cmn1oukj9012nnq0yqhouc3ib`) |
 | Instagram EN | `anicca.ai` (ID: `cmmzzg2es0539p30ycb94ayx0`) |
 | Instagram JA | `anicca.jp` (ID: `cmmzujxpa04ujp30yxqpg1vci`) |
-| Cron | **4回/日** (06:00 / 06:15 / 17:00 / 17:15 JST) |
+| Cron | **4回/日** (08:00 / 08:15 / 17:00 / 17:15 JST) |
 | 動画数 | **1本/cron** → 同じ1本を全プラットフォームに投稿 |
 | CTA構造 | Prayer Lock式 2フェーズ（質問→VALUE PROP）、白帯400px + カード1520px |
 | CTA尺 | **6秒**（Phase A 2s + Phase B 4s） |
@@ -45,9 +45,9 @@
 ## Cron スケジュール（4回/日、既存cronと重複回避）
 
 ```
-06:00  mau-tiktok-ja    ← TT aniccajp6 + IG anicca.jp + YT cmn1oukj9(JA)
-06:15  mau-tiktok-en    ← TT anicca.en7 + IG anicca.ai + YT @anicca-ai
-      --- 2時間45分空き ---
+08:00  mau-tiktok-ja    ← TT aniccajp6 + IG anicca.jp + YT cmn1oukj9(JA)
+08:15  mau-tiktok-en    ← TT anicca.en7 + IG anicca.ai + YT @anicca-ai
+      --- 45分空き ---
 09:00  slideshow-ja-1   ← (既存) TT @anicca.jp2 + IG JA
 12:00  reelclaw-ja-1    ← (既存)
 12:30  reelclaw-en-1    ← (既存)
@@ -64,9 +64,9 @@
 
 | Cron | 時間 | 動画 | TikTok | YouTube | Instagram | 投稿数 |
 |------|------|------|--------|---------|-----------|--------|
-| mau-ja morning | 06:00 | 1本 | aniccajp6 | @anicca-ai | anicca.jp | 3 |
-| mau-en morning | 06:15 | 1本 | anicca.en7 | @anicca-ai | anicca.ai | 3 |
-| mau-ja evening | 17:00 | 1本 | aniccajp6 | @anicca-ai | anicca.jp | 3 |
+| mau-ja morning | 08:00 | 1本 | aniccajp6 | cmn1oukj9(JA) | anicca.jp | 3 |
+| mau-en morning | 08:15 | 1本 | anicca.en7 | @anicca-ai | anicca.ai | 3 |
+| mau-ja evening | 17:00 | 1本 | aniccajp6 | cmn1oukj9(JA) | anicca.jp | 3 |
 | mau-en evening | 17:15 | 1本 | anicca.en7 | @anicca-ai | anicca.ai | 3 |
 | **日計** | | **4本** | | | | **12投稿/日** |
 
