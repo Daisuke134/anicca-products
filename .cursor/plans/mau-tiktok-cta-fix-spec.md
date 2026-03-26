@@ -48,16 +48,18 @@
 08:00  mau-tiktok-ja    ← TT aniccajp6 + IG anicca.jp + YT cmn1oukj9(JA)
 08:15  mau-tiktok-en    ← TT anicca.en7 + IG anicca.ai + YT @anicca-ai
       --- 45分空き ---
-09:00  slideshow-ja-1   ← (既存) TT @anicca.jp2 + IG JA
-12:00  reelclaw-ja-1    ← (既存)
-12:30  reelclaw-en-1    ← (既存)
-15:00  slideshow-ja-2   ← (既存)
-15:30  slideshow-en-2   ← (既存)
+09:00  slideshow-ja-1   ← (既存) TT anicca.jp2 + IG anicca.jp
+09:30  slideshow-en-1   ← (既存) TT anicca.en + IG anicca.ai
+12:00  reelclaw-ja-1    ← (既存) TT anicca.jp2 + IG anicca.jp + YT cmn1oukj9
+12:30  reelclaw-en-1    ← (既存) TT anicca.en + IG anicca.ai + YT @anicca-ai
+15:00  slideshow-ja-2   ← (既存) TT anicca.jp2 + IG anicca.jp
+15:30  slideshow-en-2   ← (既存) TT anicca.en + IG anicca.ai
 17:00  mau-tiktok-ja    ← TT aniccajp6 + IG anicca.jp + YT cmn1oukj9(JA)
 17:15  mau-tiktok-en    ← TT anicca.en7 + IG anicca.ai + YT @anicca-ai
-18:00  slideshow-ja-3   ← (既存)
-21:00  reelclaw-ja-2    ← (既存)
-21:30  reelclaw-en-2    ← (既存)
+18:00  slideshow-ja-3   ← (既存) TT anicca.jp2 + IG anicca.jp
+18:30  slideshow-en-3   ← (既存) TT anicca.en + IG anicca.ai
+21:00  reelclaw-ja-2    ← (既存) TT anicca.jp2 + IG anicca.jp + YT cmn1oukj9
+21:30  reelclaw-en-2    ← (既存) TT anicca.en + IG anicca.ai + YT @anicca-ai
 ```
 
 ### 投稿マトリクス
@@ -474,3 +476,18 @@ node scripts/post-to-postiz.js --lang ja
 | 3 | `-f concat -c copy` でタイムスタンプずれ (9s→11s) | `filter_complex concat` で re-encode |
 | 4 | BGM 4.9s < CTA 6s で `-shortest` 切れ | `-stream_loop -1 -i bgm -t 6` |
 | 5 | EN fontfile パスにスペース | `Arial\ Bold.ttf` でエスケープ |
+| 6 | scrape-hooks.js が lang 別ディレクトリ未対応 | `hooks/raw/{lang}/` に保存するよう修正 |
+| 7 | trim-and-stitch.js が古い CTA パス参照 | `cta_{lang}_final.mp4` に変更 |
+| 8 | IG post_type が "post"（静止画用） | mau は動画 → `post_type: "reel"` に変更 |
+| 9 | Postiz Auth header | Bearer なし。`Authorization: ${KEY}` で OK（reelclaw 実績） |
+| 10 | YouTube privacy フィールド名 | `type: "public"` を使う（`privacy` ではない。reelclaw 実績） |
+
+## Sonnet cron 実行ルール
+
+| ルール | 理由 |
+|--------|------|
+| スクリプト3本を順に実行するだけ | Sonnet に判断させない。ロジックは全部スクリプト内 |
+| SKILL.md に「NEVER modify scripts」明記 | Sonnet がスクリプトを書き換えるのを防止 |
+| integration ID は config.json から読む | cron メッセージにハードコードしない |
+| POSTIZ_API_KEY は .env から直接読む | Sonnet に環境変数を渡す必要なし |
+| 各プラットフォーム別 API call | 1リクエストに混ぜると全失敗（reelclaw 実績） |
