@@ -118,6 +118,18 @@ APPEND to progress.txt (never replace):
 ---
 ```
 
+## Token Efficiency (BP 6)
+Source: ios-simulator-skill (https://github.com/conorluddy/ios-simulator-skill#output-efficiency)  
+核心の引用: 「All scripts minimize output by default. Screen analysis: 200+ lines → 5 lines (97.5% savings).」
+
+**デフォルト出力は 3-5 行のみ。詳細は必要時のみ。**
+- `Bash` コマンド出力は簡潔に（ログ全文を貼らない）
+- 長いログは `tail -20` / `grep` で要約
+- JSON 出力は `jq` で必要フィールドのみ抽出
+- 成功/失敗の結果だけ報告（詳細は求められたら）
+
+**目標**: トークン使用量を最小化し、conversation を集中させる。
+
 ## Mandatory Quality Gates (Backpressure)
 # Source: harrymunro/ralph-wiggum CLAUDE.md
 # Quote: "Quality gates are mandatory blockers, not suggestions"
