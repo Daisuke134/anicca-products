@@ -1,7 +1,7 @@
 # Spec: ReelFarm TikTok Factory — Closed-Loop Slideshow Automation
 
-**Status:** PLANNING
-**Date:** 2026-03-28
+**Status:** LIVE — LOOP A/B cron稼働中、EN4/JP4 automation作成済み
+**Date:** 2026-03-29（初版 2026-03-28）
 **Branch:** dev (実装時)
 **Author:** Claude Code + ダイス
 
@@ -649,14 +649,19 @@ Web App (aniccaai.com/factory) でユーザーのTikTok OAuthを受け取り、
 | Phase | やること | 担当 | 状態 |
 |-------|---------|------|------|
 | 0 | ReelFarmスキルインストール | CC | ✅完了 |
-| 1 | ダイス手動作業（OAuth接続、ID取得） | ダイス | ⬜ |
-| 2 | ReelFarm SKILL.md にLOOP A/Bパッチ追加 | Anicca/CC | ⬜ |
-| 3 | 初回automation作成（EN + JP） | Anicca | ⬜ |
-| 4 | jobs.json にLOOP A/B追加 | CC | ⬜ |
-| 5 | `openclaw gateway restart` | CC | ⬜ |
-| 6 | 1週間モニタリング & チューニング | Anicca | ⬜ |
-| 7 | Month 2: 新アカウント追加 | ダイス + Anicca | ⬜ |
-| 8 | Web App (factory) 構築開始 | CC | ⬜ |
+| 1 | ダイス手動作業（OAuth接続、ID取得） | ダイス | ✅完了（13アカウント接続済み） |
+| 2 | ReelFarm SKILL.md にLOOP A/Bパッチ追加 | CC | ✅完了（2026-03-29） |
+| 3 | 初回automation作成（EN4 + JP4） | CC | ✅完了（363ccc5e + 82056504） |
+| 4 | jobs.json にLOOP A/B追加 | CC | ✅完了（128f5702） |
+| 5 | `openclaw gateway restart` | CC | ✅完了 |
+| 6 | LOOP A手動テスト実行（anicca.en フック更新） | CC | ✅完了（15フック全更新） |
+| 7 | EN4/JP4 image_settings設定 | CC | ✅完了（collection_7142） |
+| 8 | SKILL.md修正パッチ（実行で判明した問題修正） | CC | ⬜ |
+| 9 | Aniccaでテスト実行（Just For Today cron） | CC | ⬜ |
+| 10 | 1週間モニタリング & チューニング | Anicca | ⬜ |
+| 11 | TikTokアカウント自動作成・ウォームアップ | CC + ダイス | ⬜ |
+| 12 | iOS改善ループ（screenshot/paywall/onboarding/UX）| CC | ⬜ |
+| 13 | Web App (factory) 構築開始 | CC | ⬜ |
 
 ---
 
@@ -777,4 +782,131 @@ MoneyPrinterV2的パイプライン = ナレーション付き動画（未導入
 
 ---
 
-最終更新: 2026-03-28 17:00 JST
+---
+
+## 2026-03-29 実行結果
+
+### LOOP A テスト実行（anicca.en — Anicca en 1）
+
+| 項目 | 結果 |
+|------|------|
+| 対象 | `3143be7b` Anicca en 1 (anicca.en) |
+| 分析投稿数 | 20件（3日間） |
+| 合計views | 120,971 |
+| 合計likes | 1,030 |
+| TOP | "Nobody Talks About How Exhausting It Is To Live In Your Own Head." = 47,963 views (score 19,242) |
+| 2nd | "You're Not Overthinking. Your Nervous System Is Stuck In Threat Mode." = 26,872 views (score 10,770) |
+| BOTTOM | "4 Ways/Steps/Things to..." パターン = 一律 ~950 views |
+| **勝ちパターン** | **感情的2人称 empathy 文 — No numbers, no lists** |
+| **負けパターン** | **「4 Ways to...」番号リスト形式 — 40倍低い** |
+| アクション | 旧15フック全削除 → 感情的2人称パターンの新15フックに置換 |
+| style変更 | なし（フックのみ） |
+
+### LOOP B テスト実行（EN4 + JP4 新automation作成）
+
+| 新automation | ID | アカウント | フック数 | crons(PST) | image_settings |
+|-------------|-----|-----------|---------|-----------|---------------|
+| Anicca EN4 — Inner Healing | `363ccc5e` | anicca.en4 | 10 | 07/13/19 | collection_7142 ✅ |
+| Anicca JP4 — 心の癒し | `82056504` | anicca.jp4 | 10 | 07/13/19 | collection_7142 ✅ |
+
+**合計アクティブautomation: 9個（旧7 + 新2）**
+
+### スキル修正が必要な点（実行で判明）
+
+| # | 問題 | 原因 | 修正 |
+|---|------|------|------|
+| 1 | `tiktok_account_username` がautomation APIレスポンスにない | API設計 | LOOP Aの先頭に「GET /tiktok/accounts でID→usernameマッピング構築」追加 |
+| 2 | `timeframe=3` で3日分ではなく20件返る | APIの挙動 | timeframeの解釈を注釈追加（件数ではなく日数だが上限あり） |
+| 3 | `self-improvement` `mindfulness` ニッチが0件 | ライブラリのデータ | LOOP Bで「まずGET /library/nichesで利用可能ニッチ確認」に変更 |
+| 4 | 投稿枠計算ロジックがない | 設計漏れ | 各アカウントの現在投稿数/日を計算し6未満のみに割当 |
+| 5 | image_settingsの設定が欠落 | 設計漏れ | 新automation作成時にcollection_7142をデフォルト設定 |
+| 6 | 1180 slideshowsキュー詰まりでサンプル生成不可 | ReelFarm同時制限(3) | LOOP B実行前にキュー確認ステップ追加 |
+| 7 | 「新アカウント必要」時のSlack通知が欠落 | 設計漏れ | 投稿枠フル時にSlackで手動ステップ通知 |
+
+---
+
+## TikTokアカウント自動作成・ウォームアップ
+
+### 調査結果（2026-03-29）
+
+**3つのアプローチ:**
+
+| # | 方法 | ツール | コスト | 自動化度 |
+|---|------|--------|--------|---------|
+| A | 既存アカウント購入 | BulkAccountsBuy | $20/aged(2-4年,1K followers), $1.50/fresh | 購入=Playwright自動化可、OAuth接続=手動 |
+| B | 自動ウォームアップ | l-portet/tiktok-warmup-bot (Node.js, 643★) | 無料 | iOS Voice Control経由でスクロール・いいね・フォロー自動化 |
+| C | アカウント作成 | hendrikbgr/TikTok-Account-Creator (Python, 206★) | 無料 | Selenium + プロキシで自動作成 |
+| D | US IP取得 | DansVPN ($2/月) | $2/月 | Outline VPN、CLI操作可能 |
+
+### ツール評価
+
+| ツール | 言語 | 方式 | シャドウバンリスク | 推奨 |
+|--------|------|------|----------------|------|
+| **l-portet/tiktok-warmup-bot** | Node.js | iOS Voice Control + ElevenLabs音声 | **低** — 物理デバイスシミュレーション | ✅ 使う |
+| hendrikbgr/TikTok-Account-Creator | Python | Selenium + ChromeDriver | **高** — ブラウザオートメーション検出される | ⚠️ 要注意 |
+| KD Pro | 不明(有料) | バルクウォームアップ | **中** — 専用ソフト | ❌ 有料、不透明 |
+
+### 推奨フロー
+
+```
+Step 1: DansVPN でUS IP取得 ($2/月)
+Step 2: ダイスが手動でTikTokアカウント作成（CAPTCHA回避のため）
+   or hendrikbgr/TikTok-Account-Creator でプロキシ経由自動作成（リスクあり）
+Step 3: l-portet/tiktok-warmup-bot でウォームアップ自動化（7日間）
+   - Mac Mini にインストール: npm install
+   - OpenClaw cronで毎日20分セッション
+   - Voice Controlで物理デバイスシミュレーション → シャドウバンリスク最小
+Step 4: ウォームアップ完了後、ダイスがReelFarm OAuth接続（手動必須）
+Step 5: LOOP Bが自動で新automationを割り当て
+```
+
+**手動ステップ:** アカウント作成（CAPTCHAのため）+ ReelFarm OAuth接続（ブラウザ必須）
+**自動化可能:** ウォームアップ（7日間cron）+ automation作成（LOOP B）
+
+---
+
+## iOS改善自動ループ（追加タスク）
+
+### 既存スキルとの対応
+
+| 改善対象 | 既存スキル | cron頻度 | 内容 |
+|---------|-----------|---------|------|
+| **App Store スクリーンショット** | `screenshot-ab` | 週1 | メトリクス確認→勝者判定→新ヘッドライン生成→PNG生成→VQA→承認→ASCアップロード→PPO実験 |
+| **Paywall** | `paywall-ab` | 3日ごと | RevenueCat Experiments でCVR A/Bテスト→勝者分析→新バリアント生成→承認→RC新実験 |
+| **オンボーディング** | (Eronred: `onboarding-optimization`) | 週1 | Mixpanel離脱ポイント分析→フロー修正→A/Bテスト |
+| **アプリ体験** | (なし — 新規作成必要) | 週1 | RevenueCat churn率分析→UX改善→SwiftUIコード修正→ビルド→提出 |
+| **ASO** | `aso` + Eronred `aso-skills` | 3日ごと | キーワード分析→メタデータ更新→ASCアップロード |
+| **app-metrics** | `app-metrics` | 毎日 | RevenueCat + Mixpanel + ASC CLIからメトリクス取得→workspace保存 |
+
+### Eronred/aso-skills（626★）
+
+| スキル | 用途 | Aniccaに必要か |
+|--------|------|--------------|
+| `aso-audit` | リスティング10項目スコア(0-100) | ✅ |
+| `keyword-research` | ボリューム×難易度×関連性 | ✅ |
+| `metadata-optimization` | タイトル/サブタイトル/キーワード最適化 | ✅ |
+| `screenshot-optimization` | 10枠スクリーンショット戦略 | ✅（screenshot-abと統合） |
+| `onboarding-optimization` | 初回フロー監査、アクティベーション定義 | ✅ |
+| `retention-optimization` | アクティベーション→習慣→エンゲージメント | ✅ |
+| `monetization-strategy` | 価格/paywall/トライアル最適化 | ✅（paywall-abと統合） |
+| `app-analytics` | イベント追跡計画、KPIフレームワーク | ✅ |
+| `competitor-tracking` | 週次競合監視 | ✅ |
+
+**注意:** Eronred aso-skills は **Appeeky API** 依存。API キーが必要。
+
+### 改善対象と問題
+
+```
+┌─────────────┐   ┌─────────────┐   ┌─────────────┐   ┌─────────────┐
+│ low impression│   │ low install │   │ low paywall │   │ high churn  │
+│ (marketing)   │   │ rate        │   │ CVR         │   │ rate        │
+│               │   │ (screenshot)│   │ (onb+paywall│   │ (app UX)    │
+│ → ReelFarm   │   │ → screenshot│   │  +pricing)  │   │ → UX改善    │
+│   TikTok Ads │   │   -ab loop  │   │ → paywall-ab│   │   retention │
+│   mau-tiktok │   │   ASO loop  │   │   onb loop  │   │   loop      │
+└─────────────┘   └─────────────┘   └─────────────┘   └─────────────┘
+```
+
+---
+
+最終更新: 2026-03-29 01:00 JST
