@@ -617,15 +617,121 @@ Web App (aniccaai.com/factory) でユーザーのTikTok OAuthを受け取り、
 
 ---
 
-## MoneyPrinterV2 統合検討（別セクション）
+## 競合調査 & State of the Art
 
-**GitHub:** https://github.com/FujiwaraChoki/MoneyPrinterV2
-**調査中** — 結果は別途追記。
+### TikTok マーケティング自動化プラットフォーム比較
 
-YouTube Shorts/TikTok動画の自動生成ツール。ReelFarmがスライドショー特化なのに対し、
-MoneyPrinterV2はナレーション付き動画生成。両方を組み合わせることで、
-スライドショー + 動画 の両軸でコンテンツ量を最大化できる可能性がある。
+Source: 各公式サイト（2026-03-28 Firecrawl スクレイプ）
+
+| 機能 | **LarryLoop** | **ReelFarm** | **Postiz** | **Agent-Media** | **Repurpose.io** | **Anicca Factory（俺ら）** |
+|------|-------------|----------|--------|------------|-------------|----------------------|
+| コンテンツ生成 | スライドショー | スライドショー+動画 | AIテキスト | UGC動画 | -- | **全部** |
+| 自動投稿 | TikTok+IG | TikTok | 20+ SNS | -- | クロスポスト | **TikTok+IG+YT** |
+| メトリクス追跡 | ビュー+**収益** | ビュー | 基本 | -- | -- | **ビュー+収益** |
+| 収益アトリビューション | **Stripe/RevenueCat** | -- | -- | -- | -- | **RevenueCat** |
+| 自動反復ループ | **毎週自動** | -- | -- | -- | -- | **毎日自動** |
+| マルチアカウント | プラン依存 | 無制限 | プラン依存 | -- | 3+/SNS | **無制限** |
+| アカウント作成 | -- | -- | -- | -- | -- | **代行（Phase 3）** |
+| ウォームアップ | -- | ガイドのみ | -- | -- | -- | **自動管理（Phase 3）** |
+| 最低価格 | $39/月 | $19/月 | $29/月 | クレジット | $35/月 | **$30/月** |
+
+### E2E マーケティング自動化の State of the Art
+
+| フェーズ | 現状 | 誰がやっているか |
+|---------|------|----------------|
+| 1. アカウント作成 | **誰もやっていない** | ToS違反リスクで全プラットフォームが回避 |
+| 2. ウォームアップ | **誰もやっていない** | ReelFarmがマニュアルガイド提供のみ |
+| 3. コンテンツ生成 | **最も成熟** | LarryLoop/ReelFarm（スライドショー）、Agent-Media（UGC動画） |
+| 4. 投稿 | **成熟** | TikTok OAuth APIで全ツール対応 |
+| 5. メトリクス分析 | **LarryLoopのみ真のクローズドループ** | 収益アトリビューション（Stripe/RevenueCat紐付け）はLarryLoopだけ |
+| 6. 反復改善 | **LarryLoopのみ** | 毎週自動で勝者分析→負けフック淘汰→次バッチ生成 |
+
+**結論:** 「完全E2E」は2026年3月時点で存在しない。最大ギャップはPhase 1-2（アカウント作成+ウォームアップ）。
+
+### アプリビルド+マーケティング統合プラットフォーム比較
+
+| 項目 | **Rork/Max** | **Bolt.new** | **Lovable** | **Creatify** | **Genstore** | **Anicca Factory** |
+|------|-------------|-------------|------------|------------|------------|-------------------|
+| ビルド自動化 | **App Store提出まで** | Webホスティング | Webホスティング | -- | ECストア | **App Store + マーケ** |
+| マーケ自動化 | -- | SEOのみ | -- | **広告配信+ROAS** | TikTok/Amazon連携 | **TikTok+IG+YT+広告** |
+| TikTok対応 | -- | -- | -- | 広告のみ | アプリ連携 | **オーガニック+広告** |
+| 決済統合 | 手動 | -- | -- | -- | Stripe | **RevenueCat自動** |
+| E2E Score | 40-50% | 30% | 25% | 70%(広告のみ) | 75%(ECのみ) | **目標100%** |
+
+**「Build→App Store→TikTokマーケ→収益」をワンストップで自動化するプラットフォームは存在しない。**
+Anicca Factory はこのギャップを埋める。
+
+### LarryLoopから学ぶべきこと
+
+| 学び | 詳細 |
+|------|------|
+| **収益アトリビューションが最大の差別化** | 「どの投稿が何ドルの収益を生んだか」をStripe/RevenueCatと紐付け |
+| **The Loop（自動反復）が核心** | 毎週: 勝者パターン分析→負けフック淘汰→次バッチ生成 |
+| **OpenClawスキルとしても提供** | LarryBrain.comで無料提供。統合可能 |
+| **$109K+の収益生成実績** | 11,000+ユーザー。証明済み |
 
 ---
 
-最終更新: 2026-03-28 16:30 JST
+## MoneyPrinterV2 分析
+
+**GitHub:** https://github.com/FujiwaraChoki/MoneyPrinterV2
+**Stars:** 26,862 | **License:** AGPL-3.0（要注意）
+
+### 概要
+
+| 項目 | 内容 |
+|------|------|
+| 正体 | YouTube Shorts/TikTok動画自動生成ツール |
+| パイプライン | トピック生成→スクリプト→AI画像→TTS→字幕→動画合成→アップロード |
+| LLM | Ollama（ローカル、llama3.2:3b） |
+| 画像生成 | Gemini API |
+| TTS | KittenTTS（ローカル） |
+| 字幕 | faster-whisper（ローカル）or AssemblyAI |
+| 動画合成 | MoviePy + ImageMagick |
+| 投稿 | Selenium + Firefox（YouTube/Twitter）、Post Bridge（TikTok/IG） |
+
+### 機能一覧
+
+| 機能 | 状態 | 詳細 |
+|------|------|------|
+| YouTube Shorts生成 | ✅ | フルパイプライン |
+| Twitter Bot | ✅ | トピックベースのツイート生成・投稿 |
+| アフィリエイト | ✅ | Amazon商品リンク→ピッチ生成→Twitter共有 |
+| ローカルビジネス発掘 | ✅ | Google Mapsスクレイピング→メール送信 |
+| CRONスケジューリング | ✅ | 1日1-3回の自動投稿 |
+
+### セットアップ手動作業
+
+| 作業 | 内容 |
+|------|------|
+| Ollama導入 | `ollama pull llama3.2:3b` |
+| Firefox Profile | YouTube/Twitterに**手動ログイン**済みプロファイル必要 |
+| config.json | APIキー設定 |
+| ImageMagick | `brew install imagemagick` |
+| Gemini API Key | Google AI Studioから取得 |
+
+### 統合判断
+
+| 結論 | 理由 |
+|------|------|
+| **コードそのままの統合は非推奨** | AGPL-3.0（anicca-productsリポに公開義務発生）、Selenium依存（壊れやすい）、Ollama固定、コード品質低 |
+| **アーキテクチャ参考に自前構築を推奨** | Claude API + Gemini画像 + KittenTTS + MoviePy で独自パイプライン |
+| **即座に使える部分** | KittenTTS（MIT）、faster-whisper（MIT）は独立利用可能 |
+| **別プロセスで動かすなら可** | AGPL対策として別プロセス/サブモジュール化が安全 |
+
+### 俺らにとっての価値
+
+```
+ReelFarm = スライドショー自動化（既に導入済み）
+reelclaw = UGC + デモ動画（既に導入済み）
+mau-tiktok = Hook + CTA動画（既に導入済み）
+MoneyPrinterV2的パイプライン = ナレーション付き動画（未導入）
+```
+
+**MoneyPrinterV2のアイデアは有用だが、AGPL問題のため自前構築が正解。**
+既存のRemotionスキル + Claude API + KittenTTS で同等のことができる。
+優先度は低い — まずReelFarm/reelclaw/mau-tiktokの最適化が先。
+
+---
+
+最終更新: 2026-03-28 17:00 JST
