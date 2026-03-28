@@ -460,6 +460,52 @@
         "to": "channel:C091G3PKHL2"
       },
       "enabled": true
+    },
+    {
+      "id": "reelfarm-metrics-loop",
+      "agentId": "anicca",
+      "jobId": "reelfarm-metrics-loop",
+      "name": "reelfarm-metrics-loop",
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 4 * * *",
+        "tz": "Asia/Tokyo"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Execute reelfarm skill in LOOP A mode (Daily Metrics Iteration). Read ~/.openclaw/skills/reelfarm/SKILL.md and follow the 'Cron Mode: Daily Metrics Iteration (LOOP A)' section exactly. API key: rf_DgLHPO6BylVQ8wS_oqMnhrAgLqee3cuvbnQl1S_wTL8. For ALL active automations (not just 2 — get them dynamically from GET /automations), fetch 3-day metrics, analyze top/bottom hooks by engagement score, update automation hooks via PATCH. Save results to ~/.openclaw/workspace/reelfarm/metrics/YYYY-MM-DD.json (use today Asia/Tokyo). CRITICAL: After you finish, you MUST post a summary of your execution results to Slack #metrics channel (channel ID: C091G3PKHL2). Use the exact report format in the LOOP A section of the skill. This Slack report is MANDATORY and non-negotiable. Do not skip it under any circumstances."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C091G3PKHL2"
+      },
+      "enabled": true
+    },
+    {
+      "id": "reelfarm-library-loop",
+      "agentId": "anicca",
+      "jobId": "reelfarm-library-loop",
+      "name": "reelfarm-library-loop",
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 4 * * 0",
+        "tz": "Asia/Tokyo"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Execute reelfarm skill in LOOP B mode (Weekly Library Exploration). Read ~/.openclaw/skills/reelfarm/SKILL.md and follow the 'Cron Mode: Weekly Library Exploration (LOOP B)' section exactly. API key: rf_DgLHPO6BylVQ8wS_oqMnhrAgLqee3cuvbnQl1S_wTL8. Scan related niches (spirituality, self-improvement, mental health, mindfulness, affirmation, meditation, productivity, wellness), find viral slideshows, analyze their structure, search Pinterest for images, create up to 2 new automations on accounts with posting capacity. Save results to ~/.openclaw/workspace/reelfarm/library/YYYY-MM-DD.json (use today Asia/Tokyo). CRITICAL: After you finish, you MUST post a summary of your execution results to Slack #metrics channel (channel ID: C091G3PKHL2). Use the exact report format in the LOOP B section of the skill. This Slack report is MANDATORY and non-negotiable. Do not skip it under any circumstances."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C091G3PKHL2"
+      },
+      "enabled": true
     }
   ]
 }
