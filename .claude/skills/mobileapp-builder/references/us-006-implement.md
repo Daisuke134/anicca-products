@@ -164,10 +164,33 @@ Source: https://appagent.com/blog/mobile-app-onboarding-5-paywall-optimization-s
 ```
 Source: Appagent — "Long-form paywalls: up to 12× revenue"
 
-**Animation (2.9× conversion boost):**
-- Add subtle `.animation(.easeInOut)` on CTA button tap
-- Optional: Benefit carousel with `.onAppear` fade-in
+**Animation (12-18% CVR boost — MANDATORY):**
+- CTA button: subtle pulse animation (`.scaleEffect` with `.repeatForever`) — NOT just on tap
+- Benefit bullets: `.onAppear` staggered fade-in
+- Pricing cards: gentle entrance animation
 Source: Adapty — "Animated vs static paywall: 2.9× higher"
+Source: RevenueCat Blog — 5 Overlooked Paywall Improvements (https://www.revenuecat.com/blog/growth/paywall-conversion-boosters/)
+Quote: 「When implemented correctly, animated elements typically increase conversion rates by 12-18% compared to static alternatives.」
+
+**Copywriting Rule (Clarity > Creativity):**
+- Paywall copy must state benefits directly in everyday language
+- NO jargon, NO clever wordplay at the expense of comprehension
+- Answer: "What benefit?" + "Why should I care?" + "How will this improve my life?"
+Source: RevenueCat Blog (https://www.revenuecat.com/blog/growth/paywall-conversion-boosters/)
+Quote: 「Users encountering a paywall aren't looking to be entertained — they're evaluating whether your product is worth their money.」
+
+**Discount Prominence (MANDATORY):**
+- Annual plan discount % must be large, visually distinct, above/near pricing
+- Use contrasting color or badge. Frame as "Save X%" not technical terms
+- Tie discount to a reason (first-time offer, launch special) — never naked discount
+Source: RevenueCat Blog (https://www.revenuecat.com/blog/growth/paywall-conversion-boosters/)
+Quote: 「When users can immediately quantify their savings, it creates urgency and provides a compelling reason to act now rather than later.」
+
+**Day-1 Paywall (82% rule):**
+- Paywall MUST appear during onboarding flow (not delayed to later sessions)
+- 82% of trial starts happen on install day — missing day-1 = losing 82% of potential trials
+Source: RevenueCat State of Subscription Apps 2025 (https://www.revenuecat.com/state-of-subscription-apps-2025/)
+Quote: 「82% of trial starts occur the same day a user installs an app」
 
 **Message Consistency:**
 - Paywall headline must match onboarding final screen message
