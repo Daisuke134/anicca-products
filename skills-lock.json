@@ -281,6 +281,31 @@
       "sourceType": "github",
       "computedHash": "2401ad80dc0a45f53416e6226154549fca8c39d2bcf648de9a8b2501a4352687"
     },
+    "superwall": {
+      "source": "superwall/skills",
+      "sourceType": "github",
+      "computedHash": "ecb6d5e2b33c3c2104aeeaffc004b3c893ef695a4880f9abdbc710d812effb52"
+    },
+    "superwall-android-quickstart": {
+      "source": "superwall/skills",
+      "sourceType": "github",
+      "computedHash": "42e2717e016df723db783e6d6ab21411f46d99a293d1f5c746cb8ea0ab1e12cc"
+    },
+    "superwall-expo-quickstart": {
+      "source": "superwall/skills",
+      "sourceType": "github",
+      "computedHash": "f93489eaba68493f55807fe1ecb6cd58f9973725bcfd16c799b924256b6739f3"
+    },
+    "superwall-flutter-quickstart": {
+      "source": "superwall/skills",
+      "sourceType": "github",
+      "computedHash": "b499d3b21fa6c117801483db1897ecdf70f4666e48863eb79c08f6bb74738af9"
+    },
+    "superwall-ios-quickstart": {
+      "source": "superwall/skills",
+      "sourceType": "github",
+      "computedHash": "e14392db24e52ad717f91902262a10912599fb92def65873080e8a4be7220822"
+    },
     "tiktok-research": {
       "source": "bradautomates/head-of-content",
       "sourceType": "github",

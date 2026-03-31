@@ -50,6 +50,26 @@ Source: iOS Paywall Design Guide (https://adapty.io/blog/how-to-design-ios-paywa
 
 → 静的Paywallではなくユーザーセグメントやタイミングベースのオファーをデフォルト化する（実装: Paywall Builder使用時のみ。hard-codedペイウォールでは対応困難）
 
+### Pricing & Paywall BP (2026-03-31 追加)
+
+Source: RevenueCat State of Subscription Apps 2025 (https://www.revenuecat.com/state-of-subscription-apps-2025/)
+> "A median conversion rate of 9.8% for high-priced apps, compared to 4.3% for low-priced apps"
+
+Source: Business of Apps Trial Benchmarks 2026 (https://www.businessofapps.com/data/app-subscription-trial-benchmarks/)
+> "Users opt-in for a trial faster with a hard paywall, with 78% starting a trial in the first week"
+
+Source: Adapty State of In-App Subscriptions 2026 (https://adapty.io/state-of-in-app-subscriptions/)
+> "Annual trial subscribers retain at 19.9% at Day 380, vs monthly 14.2%. Trial subscribers retain 1.4-1.7x better than direct buyers."
+
+Source: RevenueCat State of Subscription Apps 2026 (https://www.revenuecat.com/state-of-subscription-apps/)
+> "Health & fitness 68% annual"
+
+**ルール（全アプリ共通）:**
+1. **Hard paywall をデフォルトにする**（freemium禁止）。Day 0のオンボーディング直後にpaywall表示。82%のtrial開始はインストール当日。
+2. **Annual plan をpre-selected（デフォルト選択）にする**。Health/Wellnessは68%がannual。annual trialのDay 380リテンションは19.9%（monthlyの1.4x）。
+3. **価格を安くしすぎない**。高価格帯のtrial CVRは9.8%、低価格帯は4.3%。intent-drivenユーザーを集める方が効率的。
+4. **Trial必須**。direct purchaseよりtrial→paidの方がリテンション1.4-1.7x高い。全プランにfree trialを付ける。
+
 ```bash
 WEEKLY_ID=$(asc subscriptions create --group $GROUP_ID --ref-name "Weekly" --product-id "<bundle_id>.weekly" --subscription-period ONE_WEEK --output json 2>&1 | jq -r '.data.id')
 echo "WEEKLY_ID=$WEEKLY_ID" >> ./.env
