@@ -1,371 +1,374 @@
 ---
 name: screenshot-ab
-description: App Store スクリーンショット A/B テスト自動クローズドループ。メトリクス確認 → 勝者判定 → ヘッドライン生成（生成→採点→改善ループ）→ l.md Bible（make generate-store-screenshots）でPNG生成 → visual-qa採点 → Slackにダイスへ送る → ASCアップロード → PPO実験作成。Use when running screenshot-ab, App Store screenshot experiment, screenshot loop, スクショA/Bテスト, screenshot closed loop, screenshot automation, A/B test screenshots.
+description: "App Store スクリーンショット A/B テスト自動クローズドループ。前回 PPO 結果チェック → ヘッドライン生成 → ParthJadhav/app-store-screenshots で PNG 生成 → visual-qa → Slack 承認 → ASC CLI 0.48.0 でアップロード + 実験開始。Anicca iOS (ai.anicca.app.ios) 専用。EN + JA 両ロケール対応。Use when: screenshot A/B, スクショA/B, PPO experiment, screenshot iteration, App Store screenshot test, スクリーンショットテスト, screenshot-ab"
 ---
 
 # screenshot-ab
 
 App Store スクリーンショット A/B テストを自動で回すクローズドループスキル。
-**外部スキル依存ゼロ。このスキル1つで完結。**
+ParthJadhav/app-store-screenshots で広告スタイル PNG を生成し、ASC CLI 0.48.0 で PPO 実験を作成・開始する。
 
-## 初回セットアップ（新規ユーザー）
+**対象アプリ:** Daily Self Care - Anicca (`ai.anicca.app.ios`)
+**ロケール:** `en-US` + `ja`（両方必須）
+**画面数:** 4画面 × 2言語 = 8スクリーン
 
-→ `references/setup.md` を読む
+## Prerequisites
+
+| ツール | 確認コマンド |
+|--------|------------|
+| ASC CLI 0.48.0+ | `asc --version` |
+| Node.js 18+ | `node --version` |
+| ParthJadhav skill | `ls ~/.agents/skills/app-store-screenshots/` or `ls .agents/skills/app-store-screenshots/` |
+| Playwright | `npx playwright --version`（なければ `npx playwright install chromium`） |
+
+## ワークスペース
+
+```
+~/.openclaw/skills/screenshot-ab/workspace/
+├── screenshot-generator/     ← ParthJadhav スキャフォールド先
+├── export/en/ + ja/          ← 最終 PNG
+└── experiments.json          ← 状態管理
+```
+
+初回のみ: `bash scripts/setup-workspace.sh`
 
 ---
 
-## PHASE 0: アプリ情報を確認する（必須 — スキップ禁止）
+## PHASE 0: アプリ情報取得
 
-**App ID はハードコードしない。毎回 asc CLI で確認する。**
+**毎回実行。ハードコード禁止。**
 
 ```bash
-# App ID を取得
-asc apps list --output table
+APP_ID=$(asc apps list --output json | python3 -c "
+import json,sys
+for a in json.load(sys.stdin)['data']:
+    if a['attributes']['bundleId']=='ai.anicca.app.ios':
+        print(a['id']); break
+")
+echo "APP_ID=$APP_ID"
 
-# 対象アプリの App ID を確認して以降の変数に使う
-APP_ID="<確認した数字のID>"  # 例: 6755129214（Anicca）
-
-# サポートしているロケール（言語）を確認
-asc localizations list --version-id "$(asc versions list --app ${APP_ID} --platform IOS --state READY_FOR_SALE --output json | python3 -c 'import sys,json; print(json.load(sys.stdin)["data"][0]["id"])')" --output table
+VERSION_ID=$(asc versions list --app $APP_ID --output json | python3 -c "
+import json,sys
+versions = json.load(sys.stdin)['data']
+ready = [v for v in versions if v['attributes']['appStoreState']=='READY_FOR_SALE']
+print(ready[0]['id'])
+")
+echo "VERSION_ID=$VERSION_ID"
 ```
 
-**ロケール確認が最重要。**
+ロケール確認:
+```bash
+asc localizations list --version-id $VERSION_ID --output json | python3 -c "
+import json,sys
+for loc in json.load(sys.stdin)['data']:
+    print(f'{loc[\"id\"]}  {loc[\"attributes\"][\"locale\"]}')"
+```
 
-| ロケール | やること |
-|---------|---------|
-| en-US のみ | en-US の英語スクショだけ生成・アップロード |
-| ja のみ | ja の日本語スクショだけ生成・アップロード |
-| en-US + ja 両方 | **必ず両方のロケールでスクショを生成・アップロードする** |
-| それ以外 | 全ロケール分生成・アップロード |
-
-**Anicca は en-US + ja の2ロケール。両方に対応したスクショを作ること。**
+→ `references/asc-commands.md` に全コマンド記載。
 
 ---
 
-## パス（環境によって切り替え）
-
-| 環境 | experiments.json |
-|------|-----------------|
-| **MacBook（ローカルテスト）** | `/Users/cbns03/Downloads/anicca-project/.cursor/plans/ios/1.6.3/screenshot-ab-pil/experiments.json` |
-| **Mac Mini（Anicca 本番）** | `/Users/anicca/.openclaw/workspace/screenshot-ab/experiments.json` |
-| **screenshots.yaml** | `docs/screenshots/config/screenshots.yaml` |
-| **raw PNG 出力先** | `docs/screenshots/raw/` |
-| **processed PNG 出力先** | `docs/screenshots/processed/` |
-
----
-
-## PHASE 1: メトリクス確認
+## PHASE 1: 前回実験結果チェック
 
 ```bash
-cat <experiments.json のパス>
+cat ~/.openclaw/skills/screenshot-ab/workspace/experiments.json
 ```
 
-`current.experiment_id` を取得して CVR を確認する。
+`current.experiment_id` を確認。
 
 ```bash
-asc product-pages experiments treatments list --experiment-id "{experiment_id}"
+asc product-pages experiments list --v2 --app $APP_ID --output json --pretty
 ```
 
-**判断:**
+実験が存在する場合、Treatment の CVR を確認:
+```bash
+asc product-pages experiments treatments list --experiment-id $EXP_ID --output json --pretty
+```
+
+**判定テーブル:**
 
 | 条件 | アクション |
 |------|-----------|
-| experiment_id なし | → PHASE 3（新実験を始める） |
-| 経過 < 7日 | → EXIT（今日はスキップ） |
+| `current.experiment_id` なし | → PHASE 3（初回 — 新実験開始） |
+| 経過 < 7日 | → EXIT（データ不足。来週再チェック） |
 | Treatment CVR > Control CVR × 1.2 かつ 7日+ | → WINNER → PHASE 2 |
-| Treatment CVR <= Control CVR かつ 14日+ | → NULL → PHASE 2 |
-| 90日経過 | → NULL → PHASE 2 |
+| Treatment CVR <= Control CVR かつ 14日+ | → NULL（効果なし） → PHASE 2 |
+| 90日経過 | → 強制終了 → PHASE 2 |
+
+**WINNER の場合:** 実験を停止してから PHASE 2 へ。
+```bash
+asc product-pages experiments update --experiment-id $EXP_ID --started false --v2
+```
 
 ---
 
-## PHASE 2: 実験ログ更新
+## PHASE 2: experiments.json 更新
 
-`experiments.json` の `history` に追記する。
-
-```json
-{
-  "current": {},
-  "history": [
-    {
-      "experiment_id": "ppo_abc123",
-      "headline": "6 Years. 10 Apps. Still Nothing Changed.",
-      "result": "WINNER",
-      "control_cvr": 2.1,
-      "treatment_cvr": 3.2,
-      "days_ran": 9,
-      "ended_at": "2026-02-23"
-    }
-  ]
-}
-```
-
-勝ちパターン・負けパターンを `winning_patterns` / `losing_patterns` に追記して PHASE 3 に渡す。
-
----
-
-## PHASE 3: ヘッドライン生成（全ロケール分）
-
-→ `references/headline-gen.md` を読んでループを実行する
-
-**入力:** `winning_patterns`, `losing_patterns`, ペルソナ定義
-**出力:** screen1/screen2/screen3 の確定ヘッドライン（8/10 以上）× **サポートするロケール数分**
-
-**重要: ロケールごとに別のコピーを生成する。**
-
-| ロケール | ヘッドライン言語 | サブテキスト言語 |
-|---------|---------------|---------------|
-| `en-US` | 英語 | 英語 |
-| `ja` | 日本語 | 日本語 |
-
-**日本語スクショを en-US Treatment にアップロードしない。** ロケールとスクショの言語を必ず一致させること。
-
----
-
-## PHASE 4: スクショ生成（全ロケール分 — ロケールごとに繰り返す）
-
-**Step 4-1: screenshots.yaml のヘッドラインをロケールごとに更新する**
-
-→ `references/pipeline.md` の「screenshots.yaml 完全版」を参照
-各ロケールのヘッドラインを `caption.title` / `caption.subtitle` に書き込む。
-
-**Step 4-2: raw スクリーンショット確認**
-
-```
-docs/screenshots/raw/screen1.png, screen2.png, screen3.png が存在するか確認。
-なければ: make capture-only で XCUITest 撮影だけ実行（UI は変えない）。
-```
-
-**Step 4-3: ロケールごとに pencil_export.py で合成**
+→ `scripts/update-experiments-json.py` を使用。
 
 ```bash
-# ja（日本語）
-python3 docs/screenshots/scripts/pencil_export.py --locale ja
-# → 出力: docs/screenshots/processed/ja/screen1~3.png
-
-# en-US（英語）
-python3 docs/screenshots/scripts/pencil_export.py --locale en-US
-# → 出力: docs/screenshots/processed/en-US/screen1~3.png
+python3 scripts/update-experiments-json.py archive \
+  --result WINNER \
+  --control-cvr 2.1 \
+  --treatment-cvr 3.2 \
+  --days 12
 ```
 
-**pencil_export.py がロケール引数をサポートしていない場合:**
-`screens` 配列のヘッドライン・サブテキストを当該ロケールの文言に書き換えてから実行し、出力先を `processed/{locale}/` に変更する。
+勝ちパターン・負けパターンを追記:
+```bash
+python3 scripts/update-experiments-json.py add-pattern \
+  --type winning \
+  --pattern "感情的2人称 + 数字"
+```
+
+→ PHASE 3 へ。
+
+---
+
+## PHASE 3: ヘッドライン生成
+
+→ `references/headline-gen.md` を読んで実行する。
+→ `references/anicca-app-context.md` を読んでアプリ情報を把握する。
+
+**入力:**
+- `experiments.json` の `winning_patterns` / `losing_patterns`
+- `anicca-app-context.md` のペルソナ + 画面説明
+
+**出力:** 4画面 × 2言語 = 8ヘッドライン
+
+```
+Screen 1（Hero）: コアバリュー。ストップ・ザ・スクロール。最強の1行
+Screen 2（差別化）: 競合との違い。「XXXではない」パターン有効
+Screen 3（人気機能）: ユーザーが最も愛する機能
+Screen 4（社会的証明）: 結果 / 数字 / レビュー
+```
+
+**ルール:**
+- EN と JA は**別々のネイティブコピー**。翻訳禁止
+- 生成→採点ループ: 10案 → 自己採点 → 8/10+ 採用 → 不足なら再生成（max 3回）
+- 1秒ルール: App Store サムネイルサイズで読めること
+
+---
+
+## PHASE 4: スクショ生成
+
+### Step 4-1: raw キャプチャ確認
+
+```bash
+SCREENSHOTS_DIR="$HOME/.openclaw/skills/screenshot-ab/workspace/screenshot-generator/public/screenshots"
+ls "$SCREENSHOTS_DIR/en/" 2>/dev/null && ls "$SCREENSHOTS_DIR/ja/" 2>/dev/null
+```
+
+raw キャプチャがない場合:
+- **推奨:** シミュレータで 6.1" iPhone を起動 → 4画面を手動キャプチャ → `screenshots/en/` + `screenshots/ja/` に配置
+- **代替:** `asc screenshots capture --bundle-id ai.anicca.app.ios --name screen1`（実験的機能）
+
+**4画面:**
+
+| # | 画面 | キャプチャ方法 |
+|---|------|------------|
+| 1 | Today タブ（メイン） | アプリ起動直後 |
+| 2 | Nudge 通知 or Insight | タブ切替 |
+| 3 | 設定 or プロフィール | タブ切替 |
+| 4 | Onboarding（Paywall 前） | 初回起動フロー |
+
+### Step 4-2: ParthJadhav で page.tsx 生成/更新
+
+ParthJadhav/app-store-screenshots スキルを呼ぶ:
+
+```
+Build App Store screenshots for Anicca (Daily Self Care app).
+- 4 slides, EN + JA locales
+- Style: calm, premium, warm neutral with purple accent (#6B4CE6)
+- Headlines: [PHASE 3 で生成したヘッドライン]
+- Raw screenshots are in public/screenshots/en/ and public/screenshots/ja/
+- Export to workspace/export/
+```
+
+スキャフォールド先: `~/.openclaw/skills/screenshot-ab/workspace/screenshot-generator/`
+
+ParthJadhav が生成するもの:
+- `src/app/page.tsx` — 全スライド + ロケール切替 + テーマプリセット
+- `src/app/layout.tsx` — フォント設定
+- `public/mockup.png` — iPhone フレーム（スキル同梱）
+- `package.json` — Next.js + html-to-image 依存
+
+### Step 4-3: エクスポート
+
+```bash
+bash scripts/export-screenshots.sh
+```
 
 内部処理:
-1. `raw/screen1~3.png` を PhoneMockup に配置（LANCZOS リサイズ）
-2. CaptionArea に当該言語のヘッドライン・サブテキストを描画
-3. PhoneMockup に角丸ボーダー追加
-
-**出力（ロケール別）:**
-```
-docs/screenshots/processed/
-├── ja/
-│   ├── screen1.png  （780×1688 @2x → Step 7-1 で 1290×2796 にリサイズ）
-│   ├── screen2.png
-│   └── screen3.png
-└── en-US/
-    ├── screen1.png
-    ├── screen2.png
-    └── screen3.png
-```
+1. `cd workspace/screenshot-generator && npm install && npm run dev`
+2. Playwright でヘッドレスアクセス → 各スライド × 各ロケールの PNG エクスポート
+3. 出力: `workspace/export/en/screen1~4.png` + `workspace/export/ja/screen1~4.png`
+4. サイズ: 1284x2778（IPHONE_65 — ASC 必須サイズ）
 
 ---
 
 ## PHASE 5: visual-qa 採点
 
-→ `references/visual-qa.md` を読んで採点プロンプトを使う
+→ `references/visual-qa.md` を読んで採点プロンプトを使う。
 
-`processed/` の PNG 3枚を vision model で採点する。
+`workspace/export/` の PNG 8枚を vision model で採点する。
+
+| カテゴリ | 配点 | チェック |
+|---------|------|--------|
+| Clarity | 10 | ヘッドラインが1秒で読めるか |
+| Hierarchy | 10 | テキスト→デバイス→背景の視覚階層 |
+| Consistency | 10 | 4枚のトーン統一 |
+| Conversion | 10 | 「ダウンロード」を促す訴求力 |
+| Technical | 10 | 解像度 / 切り抜き / アライメント |
 
 | 結果 | アクション |
 |------|-----------|
-| PASS（40/50+） | → PHASE 6 へ |
-| FAIL（39/50以下） | → PHASE 3 に戻る（最大3回） |
-| 3回連続 FAIL | → Slack に警告 → EXIT |
+| 40/50+ | → PHASE 6 へ |
+| 39/50 以下 | → PHASE 3 に戻る（max 3回） |
+| 3回連続 FAIL | → Slack 警告 → EXIT |
 
 ---
 
-## PHASE 6: Slack 承認（ダイスが確認）
+## PHASE 6: Slack 承認
 
-**Step 6-1: processed/ の PNG 3枚を Slack C091G3PKHL2 にアップロード**
+### Step 6-1: PNG アップロード
 
-Slack Files v2 API（BOT_TOKEN は `.env` の `SLACK_BOT_TOKEN`）:
+`workspace/export/` の PNG 8枚を Slack `#metrics` にアップロードする。
+
+Slack Files v2 API（`SLACK_BOT_TOKEN` 使用）:
+```bash
+# 1. files.getUploadURLExternal
+# 2. PUT upload_url にバイナリ送信
+# 3. files.completeUploadExternal
 ```
-1. files.getUploadURLExternal（GET, query params: filename, length）
-2. PUT upload_url にファイルバイナリ送信
-3. files.completeUploadExternal（POST, JSON: files=[{id, title}], channel_id）
+
+### Step 6-2: 承認ボタン
+
 ```
-
-**Step 6-2: slack-approval スキルで ✅/❌ 承認ボタン送信**
-
-→ `.claude/skills/slack-approval/SKILL.md` を読んで `requestApproval()` を実行する
-
-```javascript
-const result = await requestApproval({
-  channel: 'C091G3PKHL2',
-  title:   '📸 App Store スクリーンショット確認',
-  detail:  `ヘッドライン: {headline}\nvisual-qa: {score}/50\nASCアップロードに進みますか？`
-});
+📸 App Store スクリーンショット確認
+EN: 4枚 / JA: 4枚
+visual-qa: XX/50
+ヘッドライン: [Screen 1 の EN ヘッドライン]
+ASCアップロードに進みますか？
+✅ Approve / ❌ Deny
 ```
 
 | 返答 | アクション |
 |------|-----------|
-| `approved` | → PHASE 7 へ |
-| `denied`   | → PHASE 3（ヘッドライン生成）に戻る |
+| ✅ Approved | → PHASE 7 へ |
+| ❌ Denied | → PHASE 3 に戻る |
 
 ---
 
-## PHASE 7: ASC アップロード・実験開始
+## PHASE 7: ASC アップロード + 実験作成 + 開始
 
-### 固定値（変えるな）
+→ `references/asc-commands.md` を読んで実行する。
 
-| 項目 | 値 |
-|------|-----|
-| **App ID** | `6755129214`（数字のみ。`1771826223384` は間違い） |
-| **Platform** | `IOS` |
-| **Traffic** | `50`（50/50 split） |
-| **Screenshot size** | `1290x2796`（processed/ の `780x1688` は App Store 非対応 → 必ずリサイズ） |
-| **Display type** | `APP_IPHONE_67`（`APP_IPHONE_69` は API に存在しない） |
-
-### Step 7-1: PNG リサイズ（必須）
-
-`processed/` の出力は `780x1688`。App Store は `1290x2796` を要求する。
+### Step 7-1: 実験作成
 
 ```bash
-mkdir -p docs/screenshots/resized
-for i in 1 2 3; do
-  sips -z 2796 1290 docs/screenshots/processed/screen${i}.png \
-    --out docs/screenshots/resized/screen${i}.png
-done
+EXP_ID=$(asc product-pages experiments create \
+  --v2 --app $APP_ID --platform IOS \
+  --name "screenshot-ab-v$(date +%Y%m%d)" \
+  --traffic-proportion 50 \
+  --output json | python3 -c "import json,sys; print(json.load(sys.stdin)['data']['id'])")
+echo "EXP_ID=$EXP_ID"
 ```
 
-### Step 7-2: PPO 実験・Treatment 作成（asc CLI）
-
-**重要: `asc screenshots upload` は Treatment localization に使えない（型不一致エラー）。**
-**`asc product-pages custom-pages create` は CLI バグで失敗する。**
-**PPO v2 experiments API を使う:**
+### Step 7-2: Treatment 作成
 
 ```bash
-# 1. 実験作成
-asc product-pages experiments create \
-  --v2 --app 6755129214 --platform IOS \
-  --name "screenshot-ab-v{N}" --traffic-proportion 50
-
-# 2. Treatment 作成
-asc product-pages experiments treatments create \
-  --experiment-id {EXPERIMENT_ID} \
-  --name "New Screenshots v{N}"
-
-# 3. en-US Treatment localization 作成
-asc product-pages experiments treatments localizations create \
-  --treatment-id {TREATMENT_ID} --locale en-US
-
-# 4. ja Treatment localization 作成
-asc product-pages experiments treatments localizations create \
-  --treatment-id {TREATMENT_ID} --locale ja
+TREAT_ID=$(asc product-pages experiments treatments create \
+  --experiment-id $EXP_ID \
+  --name "New Screenshots $(date +%Y%m%d)" \
+  --output json | python3 -c "import json,sys; print(json.load(sys.stdin)['data']['id'])")
+echo "TREAT_ID=$TREAT_ID"
 ```
 
-### Step 7-3: スクリーンショットアップロード（ロケールごとに繰り返す — Apple API 直接）
+### Step 7-3: Treatment localization 作成（EN + JA）
 
-**`asc screenshots upload` は `appStoreVersionLocalizations` 型のみ対応。Treatment localizations には使えない。Python スクリプトで直接 API を叩く。**
+```bash
+EN_LOC=$(asc product-pages experiments treatments localizations create \
+  --treatment-id $TREAT_ID --locale en-US \
+  --output json | python3 -c "import json,sys; print(json.load(sys.stdin)['data']['id'])")
 
-**アップロード対象: サポートする全ロケール**
+JA_LOC=$(asc product-pages experiments treatments localizations create \
+  --treatment-id $TREAT_ID --locale ja \
+  --output json | python3 -c "import json,sys; print(json.load(sys.stdin)['data']['id'])")
 
-```python
-# ロケールと Treatment localization ID のマッピング（実験作成時に取得）
-LOCALE_LOCALIZATION_MAP = {
-    'en-US': '{EN_LOCALIZATION_ID}',
-    'ja':    '{JA_LOCALIZATION_ID}',
-    # 他のロケールがあれば追加
-}
-
-for locale, localization_id in LOCALE_LOCALIZATION_MAP.items():
-    # 1. screenshotSet 取得 or 作成
-    resp = requests.post(f'{BASE_URL}/appScreenshotSets', ...)
-    if resp.status_code == 409:  # already exists
-        # エラー文中の UUID（最後の UUID）を取得
-        uuids = re.findall(r'[0-9a-f]{8}-[0-9a-f]{4}-...', error_detail)
-        set_id = uuids[-1]
-    else:
-        set_id = resp.json()['data']['id']
-
-    # 2. 既存スクリーンショットを全DELETE（必須 — これを忘れると 3枚+3枚=6枚になる）
-    existing = requests.get(f'{BASE_URL}/appScreenshotSets/{set_id}/appScreenshots', ...)
-    for ss in existing.json().get('data', []):
-        requests.delete(f'{BASE_URL}/appScreenshots/{ss["id"]}', ...)
-
-    # 3. そのロケールの新スクリーンショット3枚をアップロード
-    # ロケール別ディレクトリ: resized/{locale}/screen1~3.png
-    for path in [f'resized/{locale}/screen{i}.png' for i in range(1,4)]:
-        # reserve → PUT binary → commit
-        ...
+echo "EN_LOC=$EN_LOC  JA_LOC=$JA_LOC"
 ```
 
-**完全スクリプト:** `docs/screenshots/scripts/upload_treatment_screenshots.py`
+### Step 7-4: スクショアップロード
 
-### Step 7-4: 実験を審査提出（手動 — ダイスがやる）
+**方法 A: asc screenshots upload（推奨 — 要テスト）**
+```bash
+asc screenshots upload \
+  --version-localization $EN_LOC \
+  --path "$HOME/.openclaw/skills/screenshot-ab/workspace/export/en/" \
+  --device-type IPHONE_65 \
+  --replace
 
-**`reviewRequired: true` の実験は CLI/API から審査提出できない。**
-`asc product-pages experiments update --started true` → `"Can't start experiment, must be reviewed!"`
-`PATCH state: READY_FOR_REVIEW` → `"attribute 'state' can not be included in UPDATE request"`
+asc screenshots upload \
+  --version-localization $JA_LOC \
+  --path "$HOME/.openclaw/skills/screenshot-ab/workspace/export/ja/" \
+  --device-type IPHONE_65 \
+  --replace
+```
 
-**ダイスが ASC Web UI でやること:**
-https://appstoreconnect.apple.com → Anicca → App Store → **Product Page Optimization** → `screenshot-ab-v{N}` → **"Start Test"** ボタンを押す
+**方法 B: Apple API 直接（フォールバック）**
+```bash
+python3 scripts/upload-treatment-screenshots.py \
+  --en-loc $EN_LOC \
+  --ja-loc $JA_LOC \
+  --export-dir "$HOME/.openclaw/skills/screenshot-ab/workspace/export"
+```
 
-状態遷移: `PREPARE_FOR_SUBMISSION` → Apple Review → `RUNNING`
+### Step 7-5: 実験開始
 
-### Step 7-5: experiments.json を更新する
+```bash
+asc product-pages experiments update \
+  --experiment-id $EXP_ID \
+  --started true \
+  --v2
+```
 
-```json
-{
-  "current": {
-    "id": "{EXPERIMENT_ID}",
-    "name": "screenshot-ab-v{N}",
-    "state": "PREPARE_FOR_SUBMISSION",
-    "traffic_proportion": 50,
-    "treatment_id": "{TREATMENT_ID}",
-    "treatment_name": "New Screenshots v{N}",
-    "en_localization_id": "{EN_LOCALIZATION_ID}",
-    "ja_localization_id": "{JA_LOCALIZATION_ID}",
-    "screenshots": [
-      {"screen": 1, "headline": "...", "sub1": "...", "sub2": "..."},
-      {"screen": 2, "headline": "...", "sub1": "...", "sub2": "..."},
-      {"screen": 3, "headline": "...", "sub1": "...", "sub2": "..."}
-    ],
-    "created_at": "YYYY-MM-DD",
-    "review_pending": true
-  }
-}
+**`--started true` が `reviewRequired` エラーを返す場合:**
+→ Slack に「ASC Web UI で手動開始が必要」と通知。URL を含める:
+`https://appstoreconnect.apple.com/apps/$APP_ID/productpageoptimization`
+
+### Step 7-6: experiments.json 更新
+
+```bash
+python3 scripts/update-experiments-json.py set-current \
+  --experiment-id $EXP_ID \
+  --name "screenshot-ab-v$(date +%Y%m%d)" \
+  --treatment-id $TREAT_ID \
+  --en-loc $EN_LOC \
+  --ja-loc $JA_LOC \
+  --headlines-en "H1|H2|H3|H4" \
+  --headlines-ja "H1|H2|H3|H4"
+```
+
+### Step 7-7: Slack レポート
+
+```bash
+curl -s -X POST "$SLACK_WEBHOOK_AGENTS" \
+  -H 'Content-type: application/json' \
+  -d "{
+    \"text\": \"📸 screenshot-ab-v$(date +%Y%m%d) 開始\nTraffic: 50/50\nEN: 4枚 / JA: 4枚\n実験ID: $EXP_ID\nTreatment: $TREAT_ID\nヘッドライン EN: [Screen1 headline]\nヘッドライン JA: [Screen1 headline]\"
+  }"
 ```
 
 ---
 
-## experiments.json 完全フォーマット
+## エラーハンドリング
 
-```json
-{
-  "current": {
-    "experiment_id": "ppo_abc123",
-    "start_date": "2026-02-21",
-    "queue_position": 0,
-    "phase": "PIL",
-    "headline": "6 Years. 10 Apps. Still Nothing Changed.",
-    "before_cvr": 2.1,
-    "analytics_request_id": ""
-  },
-  "history": [],
-  "winning_patterns": [],
-  "losing_patterns": []
-}
-```
-
----
-
-## references/
-
-| ファイル | 内容 |
-|---------|------|
-| `references/setup.md` | 初回セットアップ（DebugManager.swift・XCUITest テンプレート） |
-| `references/pipeline.md` | Makefile + screenshots.yaml + extract/process スクリプト全文 |
-| `references/headline-gen.md` | ヘッドライン生成→採点→改善ループ |
-| `references/visual-qa.md` | App Store visual QA 50点採点プロンプト |
-| `references/slack-approval.md` | Slack 承認コマンド |
+| エラー | 対処 |
+|--------|------|
+| `asc` コマンド認証エラー | `security unlock-keychain` → ASC CLI トークンリフレッシュ |
+| `asc screenshots upload` が Treatment に対応しない | `scripts/upload-treatment-screenshots.py` に切替 |
+| `--started true` が reviewRequired | Slack に ASC Web UI URL を通知 |
+| ParthJadhav スキャフォールド失敗 | `rm -rf workspace/screenshot-generator && retry` |
+| Playwright タイムアウト | `npx playwright install chromium` → retry |
+| visual-qa 3回連続 FAIL | Slack 警告して EXIT。ヘッドラインの方向性を根本見直し |
