@@ -37,9 +37,9 @@
       "computedHash": "ead9d6fab638d98183e1c8659c616abc4285455dc5d0d939584c13a972708899"
     },
     "app-store-screenshots": {
-      "source": "inference-sh-6/skills",
+      "source": "ParthJadhav/app-store-screenshots",
       "sourceType": "github",
-      "computedHash": "6e4f5f7032e28111dde99239c1aa892fe64d97527cd8482d94fb17424f335cae"
+      "computedHash": "dc42167e4da1b28105d1ab39d20919099cfdda7885004f5bdf0a1bf73ff9074e"
     },
     "appfactory-builder": {
       "source": "0xaxiom/appfactory",
