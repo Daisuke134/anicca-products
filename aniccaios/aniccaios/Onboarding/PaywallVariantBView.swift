@@ -32,7 +32,8 @@ struct PaywallVariantBView: View {
         let price = (yearly.storeProduct.price as NSDecimalNumber).doubleValue / 365.0
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
-        formatter.locale = yearly.storeProduct.priceLocale
+        formatter.locale = Locale.current
+        formatter.currencyCode = yearly.storeProduct.currencyCode
         formatter.maximumFractionDigits = 2
         return formatter.string(from: NSNumber(value: price))
     }
