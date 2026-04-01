@@ -350,6 +350,7 @@
 				840BA3AE2EC77316005CDB8D /* ComponentsKit */,
 				840BA3B12EC77325005CDB8D /* WebRTC */,
 				84DE437E2F090BDA00198F6C /* Mixpanel */,
+				84PH00012F2B000000000001 /* PostHog */,
 			);
 			productName = aniccaios;
 			productReference = 8471AE7B2EB783E1002CECAA /* aniccaios.app */;
@@ -433,6 +434,7 @@
 				840BA3AD2EC77316005CDB8D /* XCRemoteSwiftPackageReference "ComponentsKit" */,
 				840BA3B02EC77325005CDB8D /* XCRemoteSwiftPackageReference "WebRTC" */,
 				84DE437B2F08F5D000198F6C /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
+				84PH00002F2B000000000000 /* XCRemoteSwiftPackageReference "posthog-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8471AE7C2EB783E1002CECAA /* Products */;
@@ -1548,6 +1550,14 @@
 				kind = branch;
 			};
 		};
+		84PH00002F2B000000000000 /* XCRemoteSwiftPackageReference "posthog-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/PostHog/posthog-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1575,6 +1585,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 84DE437B2F08F5D000198F6C /* XCRemoteSwiftPackageReference "mixpanel-swift" */;
 			productName = Mixpanel;
+		};
+		84PH00012F2B000000000001 /* PostHog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84PH00002F2B000000000000 /* XCRemoteSwiftPackageReference "posthog-ios" */;
+			productName = PostHog;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

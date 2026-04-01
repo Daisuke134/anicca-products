@@ -3,6 +3,8 @@ import UIKit
 import UserNotifications
 import OSLog
 import BackgroundTasks
+import PostHog
+import RevenueCat
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
@@ -24,6 +26,17 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 
         // Mixpanelは常に初期化（ファーストパーティAnalytics、IDFAを使用しない）
         AnalyticsManager.shared.configure()
+
+        // PostHog: A/B テスト + Session Replay（RevenueCat configure の後）
+        let phConfig = PostHogConfig(
+            apiKey: "phc_Mw4K3aByYDRuAlfe55u5OYJrTwTcwhPextZjOw8z2nw",
+            host: "https://us.i.posthog.com"
+        )
+        phConfig.sessionReplay = true
+        phConfig.sessionReplayConfig.maskAllTextInputs = true
+        phConfig.sessionReplayConfig.maskAllImages = false
+        PostHogSDK.shared.setup(phConfig)
+        PostHogSDK.shared.identify(Purchases.shared.appUserID)
 
         // ASA Attribution取得 → app_opened トラック（この順序が重要）
         Task {
