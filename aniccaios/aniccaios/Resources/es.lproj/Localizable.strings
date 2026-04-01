@@ -1297,6 +1297,7 @@
 "paywall_plan_weekly" = "%@/semana";
 "paywall_plan_cta_trial" = "Comenzar prueba gratuita";
 "paywall_plan_cta_subscribe" = "Suscribirse";
+"paywall_plan_cta_no_trial" = "Comenzar viaje";
 "paywall_plan_trust" = "Sin compromiso. Cancela cuando quieras.";
 "paywall_plan_maybe_later" = "Quizás después";
 "paywall_plan_restore" = "Restaurar compras";

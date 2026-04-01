@@ -1331,6 +1331,7 @@
 "paywall_plan_weekly" = "%@/週";
 "paywall_plan_cta_trial" = "無料トライアルを始める";
 "paywall_plan_cta_subscribe" = "登録する";
+"paywall_plan_cta_no_trial" = "旅を始める";
 "paywall_plan_trust" = "いつでもキャンセル可能。";
 "paywall_plan_maybe_later" = "あとで";
 "paywall_plan_restore" = "購入を復元";

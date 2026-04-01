@@ -126,7 +126,7 @@ struct PlanSelectionStepView: View {
                                     .tint(.white)
                             } else {
                                 let hasTrialEligibility = selectedPackage?.storeProduct.introductoryDiscount != nil
-                                Text(String(localized: hasTrialEligibility ? "paywall_plan_cta_trial" : "paywall_plan_cta_subscribe"))
+                                Text(String(localized: hasTrialEligibility ? "paywall_plan_cta_trial" : "paywall_plan_cta_no_trial"))
                             }
                         }
                         .font(.system(size: 18, weight: .semibold))
