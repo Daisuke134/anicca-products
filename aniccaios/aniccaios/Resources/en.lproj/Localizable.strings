@@ -1337,3 +1337,21 @@
 "paywall_plan_restore" = "Restore Purchases";
 "paywall_plan_terms" = "Terms";
 "paywall_plan_privacy" = "Privacy";
+
+// MARK: - Paywall Variant B (A/B Test)
+"paywall_b_title" = "Transform Your Daily Habits";
+"paywall_b_subtitle" = "Join thousands building better habits with AI-powered nudges";
+"paywall_b_feature_nudges" = "Smart nudges at the right moment";
+"paywall_b_feature_ai" = "AI-generated personalized guidance";
+"paywall_b_feature_personalized" = "Adapts to your unique struggles";
+"paywall_b_feature_feedback" = "Learns from your feedback";
+"paywall_b_feature_cancel" = "Cancel anytime, no questions asked";
+"paywall_b_per_year" = "/yr";
+"paywall_b_per_month" = "/mo";
+"paywall_b_daily_price" = "Just %@ per day";
+"paywall_b_trial_badge" = "%@ free trial included";
+"paywall_b_cta_trial" = "Start %@ Free Trial";
+"paywall_b_cta_no_trial" = "Start Your Journey Now";
+"paywall_b_review" = "\"Anicca helped me finally stick with meditation.\" ⭐⭐⭐⭐⭐";
+"paywall_b_trust_trial" = "Free trial · Cancel anytime · No charge until trial ends";
+"paywall_b_trust_no_trial" = "Cancel anytime · Satisfaction guaranteed";

@@ -1303,3 +1303,21 @@
 "paywall_plan_restore" = "Restaurar compras";
 "paywall_plan_terms" = "Términos";
 "paywall_plan_privacy" = "Privacidad";
+
+// MARK: - Paywall Variant B (A/B Test)
+"paywall_b_title" = "Transforma tus hábitos diarios";
+"paywall_b_subtitle" = "Únete a miles que construyen mejores hábitos con nudges de IA";
+"paywall_b_feature_nudges" = "Nudges inteligentes en el momento justo";
+"paywall_b_feature_ai" = "Guía personalizada generada por IA";
+"paywall_b_feature_personalized" = "Se adapta a tus dificultades únicas";
+"paywall_b_feature_feedback" = "Aprende de tus comentarios";
+"paywall_b_feature_cancel" = "Cancela cuando quieras, sin preguntas";
+"paywall_b_per_year" = "/año";
+"paywall_b_per_month" = "/mes";
+"paywall_b_daily_price" = "Solo %@ por día";
+"paywall_b_trial_badge" = "Prueba gratuita de %@ incluida";
+"paywall_b_cta_trial" = "Comenzar prueba gratuita de %@";
+"paywall_b_cta_no_trial" = "Comienza tu viaje ahora";
+"paywall_b_review" = "\"Anicca me ayudó a mantener la meditación.\" ⭐⭐⭐⭐⭐";
+"paywall_b_trust_trial" = "Prueba gratis · Cancela cuando quieras · Sin cobro hasta que termine";
+"paywall_b_trust_no_trial" = "Cancela cuando quieras · Satisfacción garantizada";

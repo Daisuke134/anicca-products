@@ -1337,3 +1337,21 @@
 "paywall_plan_restore" = "購入を復元";
 "paywall_plan_terms" = "利用規約";
 "paywall_plan_privacy" = "プライバシー";
+
+// MARK: - Paywall Variant B (A/B Test)
+"paywall_b_title" = "毎日の習慣を変える";
+"paywall_b_subtitle" = "AIナッジで、より良い習慣を築く人が増えています";
+"paywall_b_feature_nudges" = "最適なタイミングのスマートナッジ";
+"paywall_b_feature_ai" = "AI生成のパーソナライズされたガイダンス";
+"paywall_b_feature_personalized" = "あなたの悩みに合わせて適応";
+"paywall_b_feature_feedback" = "フィードバックから学習して改善";
+"paywall_b_feature_cancel" = "いつでもキャンセル可能";
+"paywall_b_per_year" = "/年";
+"paywall_b_per_month" = "/月";
+"paywall_b_daily_price" = "1日あたりたった%@";
+"paywall_b_trial_badge" = "%@の無料トライアル付き";
+"paywall_b_cta_trial" = "%@無料トライアルを始める";
+"paywall_b_cta_no_trial" = "今すぐ旅を始める";
+"paywall_b_review" = "「Aniccaのおかげで瞑想を続けられるようになりました」⭐⭐⭐⭐⭐";
+"paywall_b_trust_trial" = "無料トライアル · いつでもキャンセル · トライアル中は課金なし";
+"paywall_b_trust_no_trial" = "いつでもキャンセル · 満足保証";
