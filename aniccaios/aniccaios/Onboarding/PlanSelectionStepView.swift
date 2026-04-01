@@ -269,7 +269,8 @@ struct PlanSelectionStepView: View {
                 let result = try await Purchases.shared.purchase(package: package)
                 if result.customerInfo.entitlements[AppConfig.revenueCatEntitlementId]?.isActive == true {
                     AnalyticsManager.shared.track(.onboardingPaywallPurchased)
-                    if package.storeProduct.introductoryDiscount != nil {
+                    if package.packageType == .annual,
+                       package.storeProduct.introductoryDiscount != nil {
                         AnalyticsManager.shared.track(.trialStarted, properties: [
                             "product_id": package.storeProduct.productIdentifier
                         ])
