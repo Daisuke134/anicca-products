@@ -3,6 +3,7 @@ import RevenueCat
 import RevenueCatUI
 import UserNotifications
 import StoreKit
+import PostHog
 
 struct OnboardingFlowView: View {
     @EnvironmentObject private var appState: AppState
@@ -92,14 +93,20 @@ struct OnboardingFlowView: View {
                 }
             })
         case .planSelection:
-            PlanSelectionStepView(
-                onPurchaseSuccess: { customerInfo in
-                    handlePaywallSuccess(customerInfo: customerInfo)
-                },
-                onDismiss: {
-                    handlePaywallDismissedAsFree()
-                }
-            )
+            let variant = PostHogSDK.shared.getFeatureFlag("paywall-ab-test") as? String ?? "control"
+            if variant == "test" {
+                PaywallVariantBView(
+                    variant: variant,
+                    onPurchaseSuccess: { customerInfo in handlePaywallSuccess(customerInfo: customerInfo) },
+                    onDismiss: { handlePaywallDismissedAsFree() }
+                )
+            } else {
+                PlanSelectionStepView(
+                    onPurchaseSuccess: { customerInfo in handlePaywallSuccess(customerInfo: customerInfo) },
+                    onDismiss: { handlePaywallDismissedAsFree() },
+                    variant: variant
+                )
+            }
         }
     }
 
@@ -167,6 +174,9 @@ struct OnboardingFlowView: View {
         guard !didPurchaseOnPaywall else { return }
 
         AnalyticsManager.shared.track(.onboardingPaywallDismissedFree)
+        AnalyticsManager.shared.trackPostHog("paywall_dismissed", properties: [
+            "variant": PostHogSDK.shared.getFeatureFlag("paywall-ab-test") as? String ?? "control"
+        ])
 
         let problems = appState.userProfile.struggles.compactMap { ProblemType(rawValue: $0) }
         FreePlanService.shared.scheduleFreePlanNudges(problems: problems)

@@ -5,6 +5,7 @@ import RevenueCat
 struct PlanSelectionStepView: View {
     let onPurchaseSuccess: (CustomerInfo) -> Void
     let onDismiss: () -> Void
+    let variant: String
 
     @EnvironmentObject private var appState: AppState
     @State private var selectedPackage: Package?
@@ -176,6 +177,7 @@ struct PlanSelectionStepView: View {
             if !hasTracked {
                 hasTracked = true
                 AnalyticsManager.shared.track(.paywallPlanSelectionViewed)
+                AnalyticsManager.shared.trackPostHog("paywall_viewed", properties: ["variant": variant])
             }
             // Default to yearly
             if selectedPackage == nil {
@@ -269,6 +271,11 @@ struct PlanSelectionStepView: View {
                 let result = try await Purchases.shared.purchase(package: package)
                 if result.customerInfo.entitlements[AppConfig.revenueCatEntitlementId]?.isActive == true {
                     AnalyticsManager.shared.track(.onboardingPaywallPurchased)
+                    AnalyticsManager.shared.trackPostHog("paywall_purchased", properties: [
+                        "variant": variant,
+                        "plan_type": package.packageType == .annual ? "annual" : "monthly",
+                        "has_trial": package.storeProduct.introductoryDiscount != nil
+                    ])
                     if package.packageType == .annual,
                        package.storeProduct.introductoryDiscount != nil {
                         AnalyticsManager.shared.track(.trialStarted, properties: [

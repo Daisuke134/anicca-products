@@ -1,5 +1,6 @@
 import Foundation
 import Mixpanel
+import PostHog
 import OSLog
 
 /// アプリ全体のアナリティクスを管理するシングルトン
@@ -58,6 +59,12 @@ final class AnalyticsManager {
         logger.debug("Tracked event: \(event.rawValue, privacy: .public)")
     }
     
+    /// PostHog event tracking (A/B test layer — runs alongside Mixpanel)
+    func trackPostHog(_ eventName: String, properties: [String: Any]? = nil) {
+        PostHogSDK.shared.capture(eventName, properties: properties)
+        logger.debug("PostHog captured: \(eventName, privacy: .public)")
+    }
+
     // MARK: - Convenience Methods
 
     /// トライアル開始
