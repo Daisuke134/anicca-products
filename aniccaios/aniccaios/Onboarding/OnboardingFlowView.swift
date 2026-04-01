@@ -93,7 +93,12 @@ struct OnboardingFlowView: View {
                 }
             })
         case .planSelection:
-            let variant = PostHogSDK.shared.getFeatureFlag("paywall-ab-test") as? String ?? "control"
+            let variant: String = {
+                if let forced = ProcessInfo.processInfo.environment["PAYWALL_VARIANT"] {
+                    return forced
+                }
+                return PostHogSDK.shared.getFeatureFlag("paywall-ab-test") as? String ?? "control"
+            }()
             if variant == "test" {
                 PaywallVariantBView(
                     variant: variant,

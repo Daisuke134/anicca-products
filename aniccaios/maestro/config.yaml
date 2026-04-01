@@ -9,3 +9,4 @@ flows:
   - "onboarding/*"
   - "nudge/*"
   - "nudge/phase6/*"
+  - "v1.8.0/[0-9]*"
