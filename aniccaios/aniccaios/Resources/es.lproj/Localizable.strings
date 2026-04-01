@@ -1283,3 +1283,22 @@
 "nudge_loneliness_detail_12" = "La soledad es un sentimiento, no un hecho. Mándale un \"¿cómo estás?\" a 1 persona hoy.";
 "nudge_loneliness_detail_13" = "Un café sirve. Una tienda sirve. Siente la presencia humana. Sal ahora.";
 "nudge_loneliness_detail_14" = "En vez de hablar, escucha. Eso es conexión. Pregúntale a alguien \"¿cómo te va?\" hoy.";
+
+// MARK: - Paywall
+"paywall_plan_title" = "Tu camino al cambio empieza aquí";
+"paywall_plan_subtitle" = "Comienza tu viaje hacia el cambio";
+"paywall_plan_feature_access" = "Acceso completo a todas las funciones";
+"paywall_plan_feature_nudges" = "Nudges personalizados";
+"paywall_plan_feature_cancel" = "Cancela cuando quieras";
+"paywall_plan_yearly_badge" = "MEJOR VALOR";
+"paywall_plan_price_yearly" = "%@/año";
+"paywall_plan_price_monthly" = "%@/mes";
+"paywall_plan_save_dynamic" = "Ahorra %d%%";
+"paywall_plan_weekly" = "%@/semana";
+"paywall_plan_cta_trial" = "Comenzar prueba gratuita";
+"paywall_plan_cta_subscribe" = "Suscribirse";
+"paywall_plan_trust" = "Sin compromiso. Cancela cuando quieras.";
+"paywall_plan_maybe_later" = "Quizás después";
+"paywall_plan_restore" = "Restaurar compras";
+"paywall_plan_terms" = "Términos";
+"paywall_plan_privacy" = "Privacidad";
