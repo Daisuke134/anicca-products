@@ -658,6 +658,10 @@
 "problem_loneliness_positive_button" = "Reach Out 📱";
 "problem_loneliness_notification_title" = "Reach Out";
 
+// MARK: - Problem Delete
+"problem_delete_title" = "Remove this struggle?";
+"problem_delete_confirm" = "Remove";
+
 /* NudgeContent - staying_up_late */
 "nudge_staying_up_late_notification_1" = "Breathe, don't scroll.";
 "nudge_staying_up_late_notification_2" = "How many years have you lost to 'just 5 more minutes'?";

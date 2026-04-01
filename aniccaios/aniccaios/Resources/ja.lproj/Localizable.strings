@@ -658,6 +658,10 @@
 "problem_loneliness_positive_button" = "誰かに連絡する 📱";
 "problem_loneliness_notification_title" = "つながろう";
 
+// MARK: - Problem Delete
+"problem_delete_title" = "この悩みを削除しますか？";
+"problem_delete_confirm" = "削除";
+
 /* NudgeContent - staying_up_late */
 "nudge_staying_up_late_notification_1" = "スクロールより、呼吸。";
 "nudge_staying_up_late_notification_2" = "その「あと5分だけ」で、何年失ってきた？";

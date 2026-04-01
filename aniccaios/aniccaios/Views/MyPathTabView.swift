@@ -15,6 +15,7 @@ struct MyPathTabView: View {
     @State private var showLLMCacheEmptyAlert = false
     #endif
     @State private var showUpgradePaywall = false
+    @State private var problemToDelete: ProblemType?
 
     var body: some View {
         NavigationStack {
@@ -38,7 +39,7 @@ struct MyPathTabView: View {
                         if userProblems.isEmpty {
                             emptyStateView
                         } else {
-                            LazyVStack(spacing: 12) {
+                            List {
                                 ForEach(userProblems, id: \.self) { problem in
                                     HStack(spacing: 12) {
                                         Text(problem.icon)
@@ -51,11 +52,21 @@ struct MyPathTabView: View {
                                         Spacer()
                                     }
                                     .padding(16)
-                                    .background(AppTheme.Colors.cardBackground)
-                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .listRowBackground(AppTheme.Colors.cardBackground)
+                                    .listRowSeparator(.hidden)
+                                    .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                                        Button(role: .destructive) {
+                                            problemToDelete = problem
+                                        } label: {
+                                            Label(String(localized: "problem_delete_confirm"), systemImage: "trash")
+                                        }
+                                    }
                                 }
                             }
-                            .padding(.horizontal, 16)
+                            .listStyle(.plain)
+                            .frame(height: CGFloat(userProblems.count) * 76)
+                            .padding(.horizontal, 0)
                         }
                     }
 
@@ -101,6 +112,20 @@ struct MyPathTabView: View {
                 Button(String(localized: "common_ok")) { deleteAccountError = nil }
             } message: {
                 if let error = deleteAccountError { Text(error.localizedDescription) }
+            }
+            .alert(String(localized: "problem_delete_title"), isPresented: Binding(
+                get: { problemToDelete != nil },
+                set: { if !$0 { problemToDelete = nil } }
+            )) {
+                Button(String(localized: "problem_delete_confirm"), role: .destructive) {
+                    if let problem = problemToDelete {
+                        appState.removeProblem(problem)
+                        problemToDelete = nil
+                    }
+                }
+                Button(String(localized: "common_cancel"), role: .cancel) {
+                    problemToDelete = nil
+                }
             }
         }
     }

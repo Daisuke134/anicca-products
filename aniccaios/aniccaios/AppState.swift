@@ -685,6 +685,11 @@ final class AppState: ObservableObject {
         profile.struggles = struggles
         updateUserProfile(profile, sync: true)
     }
+
+    func removeProblem(_ problem: ProblemType) {
+        let updated = userProfile.struggles.filter { $0 != problem.rawValue }
+        updateTraits(ideals: userProfile.ideals, struggles: updated)
+    }
     
     func updateBig5(_ scores: Big5Scores?) {
         var profile = userProfile
