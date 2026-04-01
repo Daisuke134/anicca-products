@@ -232,6 +232,26 @@ gh secret list --repo Daisuke134/anicca.ai
 | `BRAVE_API_KEY` | ✅ | ✅ | — | — |
 | `EXA_API_KEY` | ✅ | ✅ | — | — |
 
+## PostHog
+
+| 項目 | 値 | 用途 |
+|------|-----|------|
+| `POSTHOG_PERSONAL_API_KEY` | `.claude.json` MCP 設定に保存（`phx_...`） | API 経由のデータ取得・feature flag 操作・Experiment 結果取得 |
+| `POSTHOG_PROJECT_ID` | `327882` | 全 API エンドポイントで使用 |
+| `POSTHOG_SDK_KEY` (public) | `phc_Mw4K3aByYDRuAlfe55u5OYJrTwTcwhPextZjOw8z2nw` | iOS SDK 初期化（AppDelegate.swift L32）、イベント送信。Public key なのでコードに埋め込み OK |
+| API Host | `https://us.posthog.com` (管理API) / `https://us.i.posthog.com` (SDK) | US リージョン |
+| MCP Server | `.claude.json` → `mcpServers.posthog` | Claude Code から PostHog API を MCP 経由で操作 |
+| Feature Flag ID | `628062` | `paywall-ab-test` の ID |
+| Experiment ID | `364239` | "Paywall A/B Test v1" の ID |
+
+### PostHog 保存先まとめ
+
+| 変数 | `.claude.json` MCP | Mac Mini `.env` | OpenClaw jobs |
+|------|:---:|:---:|:---:|
+| `POSTHOG_PERSONAL_API_KEY` | ✅ | ⬜（Cron 設定時に追加） | ⬜（Cron 設定時に追加） |
+| `POSTHOG_PROJECT_ID` | ✅ | — | — |
+| `POSTHOG_SDK_KEY` | — (iOS コード内) | — | — |
+
 ---
 
 **ルール:**
