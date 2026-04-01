@@ -115,16 +115,18 @@ struct PaywallVariantBView: View {
 
     private var heroSection: some View {
         VStack(spacing: 8) {
-            Text("🧘‍♂️")
-                .font(.system(size: 48))
+            Image("AppIcon60x60")
+                .resizable()
+                .frame(width: 64, height: 64)
+                .clipShape(RoundedRectangle(cornerRadius: 14))
 
-            Text(String(localized: "paywall_b_title"))
+            Text(paywallText("title", fallback: "paywall_b_title"))
                 .font(.system(size: 28, weight: .bold))
                 .foregroundStyle(AppTheme.Colors.label)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
 
-            Text(String(localized: "paywall_b_subtitle"))
+            Text(paywallText("subtitle", fallback: "paywall_b_subtitle"))
                 .font(.system(size: 15))
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -207,7 +209,7 @@ struct PaywallVariantBView: View {
             .accessibilityIdentifier("paywall-plan-cta")
             .padding(.horizontal, 24)
 
-            Text(String(localized: "paywall_b_review"))
+            Text(paywallText("review", fallback: "paywall_b_review"))
                 .font(.system(size: 13, weight: .medium))
                 .foregroundStyle(.secondary)
                 .italic()
@@ -247,8 +249,9 @@ struct PaywallVariantBView: View {
     @ViewBuilder
     private func featureRow(_ key: String) -> some View {
         HStack(spacing: 10) {
-            Text("✅")
-                .font(.system(size: 14))
+            Image(systemName: "checkmark.circle.fill")
+                .font(.system(size: 16))
+                .foregroundStyle(AppTheme.Colors.accent)
                 .frame(width: 24)
             Text(String(localized: String.LocalizationValue(key)))
                 .font(.system(size: 14, weight: .medium))
@@ -318,6 +321,16 @@ struct PaywallVariantBView: View {
         }
         .buttonStyle(.plain)
         .accessibilityIdentifier("paywall-plan-\(package.packageType.rawValue)")
+    }
+
+    // MARK: - Helpers
+
+    private func paywallText(_ key: String, fallback: String) -> String {
+        if let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any],
+           let text = payload[key] as? String {
+            return text
+        }
+        return String(localized: String.LocalizationValue(fallback))
     }
 
     // MARK: - Actions

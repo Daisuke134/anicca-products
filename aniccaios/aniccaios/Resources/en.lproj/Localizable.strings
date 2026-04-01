@@ -599,7 +599,7 @@
 /* ========== Phase 3: Proactive Agent ========== */
 
 /* My Path Tab */
-"mypath_header_description" = "Anicca understands your struggles and supports you at the right moments.";
+"mypath_header_description" = "We understand your struggles and support you at the right moments.";
 "mypath_section_current_struggles" = "Current Struggles";
 "mypath_empty_title" = "Add a struggle to work on";
 "mypath_empty_action" = "Add Struggle";
@@ -619,6 +619,10 @@
 "deep_dive_delete_alert_message" = "This problem will be removed from My Path";
 "deep_dive_tell_anicca_title" = "Tell Anicca";
 "deep_dive_tell_anicca_subtitle" = "Write anything you want Anicca to know about this problem";
+"mypath_deepdive_save" = "Save";
+"mypath_deepdive_delete" = "Delete this problem";
+"mypath_deepdive_delete_confirm_title" = "Delete this problem?";
+"mypath_deepdive_delete_confirm_message" = "This problem will be removed from My Path.";
 
 /* ProblemType Button Texts */
 "problem_staying_up_late_positive_button" = "Protect Tomorrow";
@@ -1337,14 +1341,15 @@
 "paywall_plan_cta_subscribe" = "Subscribe";
 "paywall_plan_cta_no_trial" = "Start Journey";
 "paywall_plan_trust" = "No commitment. Cancel anytime.";
+"paywall_plan_review" = "\"This app actually made me stop and think.\" — A real user";
 "paywall_plan_maybe_later" = "Maybe later";
 "paywall_plan_restore" = "Restore Purchases";
 "paywall_plan_terms" = "Terms";
 "paywall_plan_privacy" = "Privacy";
 
 // MARK: - Paywall Variant B (A/B Test)
-"paywall_b_title" = "Transform Your Daily Habits";
-"paywall_b_subtitle" = "Join thousands building better habits with AI-powered nudges";
+"paywall_b_title" = "Gentle nudges when you need them most";
+"paywall_b_subtitle" = "Daily cards to help you through your struggles";
 "paywall_b_feature_nudges" = "Smart nudges at the right moment";
 "paywall_b_feature_ai" = "AI-generated personalized guidance";
 "paywall_b_feature_personalized" = "Adapts to your unique struggles";
@@ -1356,7 +1361,7 @@
 "paywall_b_trial_badge" = "%@ free trial included";
 "paywall_b_cta_trial" = "Start %@ Free Trial";
 "paywall_b_cta_no_trial" = "Start Your Journey Now";
-"paywall_b_review" = "\"Anicca helped me finally stick with meditation.\" ⭐⭐⭐⭐⭐";
+"paywall_b_review" = "\"Anicca helped me be kinder to myself.\" — A real user";
 "paywall_b_trust_trial" = "Free trial · Cancel anytime · No charge until trial ends";
 "paywall_b_trust_no_trial" = "Cancel anytime · Satisfaction guaranteed";
 

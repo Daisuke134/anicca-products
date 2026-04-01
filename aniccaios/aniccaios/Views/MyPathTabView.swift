@@ -1,6 +1,7 @@
 import SwiftUI
 import RevenueCat
 import RevenueCatUI
+import PostHog
 
 /// My Path タブ - ユーザーが選択した問題（苦しみ）のリストを表示
 struct MyPathTabView: View {
@@ -16,6 +17,7 @@ struct MyPathTabView: View {
     #endif
     @State private var showUpgradePaywall = false
     @State private var problemToDelete: ProblemType?
+    @State private var selectedProblem: ProblemType?
 
     var body: some View {
         NavigationStack {
@@ -41,17 +43,24 @@ struct MyPathTabView: View {
                         } else {
                             List {
                                 ForEach(userProblems, id: \.self) { problem in
-                                    HStack(spacing: 12) {
-                                        Text(problem.icon)
-                                            .font(.system(size: 32))
+                                    Button { selectedProblem = problem } label: {
+                                        HStack(spacing: 12) {
+                                            Text(problem.icon)
+                                                .font(.system(size: 32))
 
-                                        Text(problem.displayName)
-                                            .font(.headline)
-                                            .foregroundStyle(AppTheme.Colors.label)
+                                            Text(problem.displayName)
+                                                .font(.headline)
+                                                .foregroundStyle(AppTheme.Colors.label)
 
-                                        Spacer()
+                                            Spacer()
+
+                                            Image(systemName: "chevron.right")
+                                                .font(.system(size: 14))
+                                                .foregroundStyle(AppTheme.Colors.secondaryLabel)
+                                        }
+                                        .padding(16)
                                     }
-                                    .padding(16)
+                                    .buttonStyle(.plain)
                                     .listRowBackground(AppTheme.Colors.cardBackground)
                                     .listRowSeparator(.hidden)
                                     .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
@@ -105,6 +114,10 @@ struct MyPathTabView: View {
                 AddProblemSheetView()
                     .environmentObject(appState)
             }
+            .sheet(item: $selectedProblem) { problem in
+                DeepDiveSheetView(problem: problem)
+                    .environmentObject(appState)
+            }
             .alert(String(localized: "common_error"), isPresented: Binding(
                 get: { deleteAccountError != nil },
                 set: { if !$0 { deleteAccountError = nil } }
@@ -153,12 +166,6 @@ struct MyPathTabView: View {
             }
             .sheet(isPresented: $showUpgradePaywall) {
                 paywallContent
-                    .onPurchaseCompleted { customerInfo in
-                        showUpgradePaywall = false
-                    }
-                    .onRestoreCompleted { customerInfo in
-                        showUpgradePaywall = false
-                    }
             }
         } else {
             // Pro: セカンダリボタン（Manage Subscription）
@@ -181,12 +188,19 @@ struct MyPathTabView: View {
 
     @ViewBuilder
     private var paywallContent: some View {
-        if let offering = appState.cachedOffering {
-            PaywallView(offering: offering)
-                .applyDebugIntroEligibility()
+        let variant = PostHogSDK.shared.getFeatureFlag("paywall-ab-test") as? String ?? "control"
+        if variant == "test" {
+            PaywallVariantBView(
+                variant: variant,
+                onPurchaseSuccess: { _ in showUpgradePaywall = false },
+                onDismiss: { showUpgradePaywall = false }
+            )
         } else {
-            PaywallView()
-                .applyDebugIntroEligibility()
+            PlanSelectionStepView(
+                onPurchaseSuccess: { _ in showUpgradePaywall = false },
+                onDismiss: { showUpgradePaywall = false },
+                variant: variant
+            )
         }
     }
 

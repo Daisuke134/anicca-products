@@ -598,7 +598,7 @@
 /* ========== Phase 3: Proactive Agent ========== */
 
 /* My Path Tab */
-"mypath_header_description" = "Anicca understands your struggles and supports you at the right moments.";
+"mypath_header_description" = "Entendemos tus dificultades y te apoyamos en los momentos adecuados.";
 "mypath_section_current_struggles" = "Current Struggles";
 "mypath_empty_title" = "Add a struggle to work on";
 "mypath_empty_action" = "Add Struggle";
@@ -617,7 +617,11 @@
 "deep_dive_delete_alert_title" = "Delete this problem?";
 "deep_dive_delete_alert_message" = "This problem will be removed from My Path";
 "deep_dive_tell_anicca_title" = "Tell Anicca";
-"deep_dive_tell_anicca_subtitle" = "Write anything you want Anicca to know about this problem";
+"deep_dive_tell_anicca_subtitle" = "Escribe lo que quieras que Anicca sepa sobre este problema";
+"mypath_deepdive_save" = "Guardar";
+"mypath_deepdive_delete" = "Eliminar este problema";
+"mypath_deepdive_delete_confirm_title" = "¿Eliminar este problema?";
+"mypath_deepdive_delete_confirm_message" = "Este problema será eliminado de Mi Camino.";
 
 /* ProblemType Button Texts */
 "problem_staying_up_late_positive_button" = "Protect Tomorrow";
@@ -1303,14 +1307,15 @@
 "paywall_plan_cta_subscribe" = "Suscribirse";
 "paywall_plan_cta_no_trial" = "Comenzar viaje";
 "paywall_plan_trust" = "Sin compromiso. Cancela cuando quieras.";
+"paywall_plan_review" = "\"Esta app me hizo detenerme y reflexionar.\" — Un usuario real";
 "paywall_plan_maybe_later" = "Quizás después";
 "paywall_plan_restore" = "Restaurar compras";
 "paywall_plan_terms" = "Términos";
 "paywall_plan_privacy" = "Privacidad";
 
 // MARK: - Paywall Variant B (A/B Test)
-"paywall_b_title" = "Transforma tus hábitos diarios";
-"paywall_b_subtitle" = "Únete a miles que construyen mejores hábitos con nudges de IA";
+"paywall_b_title" = "Nudges gentiles cuando más los necesitas";
+"paywall_b_subtitle" = "Tarjetas diarias para ayudarte con tus dificultades";
 "paywall_b_feature_nudges" = "Nudges inteligentes en el momento justo";
 "paywall_b_feature_ai" = "Guía personalizada generada por IA";
 "paywall_b_feature_personalized" = "Se adapta a tus dificultades únicas";
@@ -1322,7 +1327,7 @@
 "paywall_b_trial_badge" = "Prueba gratuita de %@ incluida";
 "paywall_b_cta_trial" = "Comenzar prueba gratuita de %@";
 "paywall_b_cta_no_trial" = "Comienza tu viaje ahora";
-"paywall_b_review" = "\"Anicca me ayudó a mantener la meditación.\" ⭐⭐⭐⭐⭐";
+"paywall_b_review" = "\"Anicca me ayudó a ser más amable conmigo mismo.\" — Un usuario real";
 "paywall_b_trust_trial" = "Prueba gratis · Cancela cuando quieras · Sin cobro hasta que termine";
 "paywall_b_trust_no_trial" = "Cancela cuando quieras · Satisfacción garantizada";
 

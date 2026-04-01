@@ -4,6 +4,7 @@ import Combine
 import StoreKit
 import RevenueCat
 import RevenueCatUI
+import PostHog
 
 struct MainTabView: View {
     @EnvironmentObject private var appState: AppState
@@ -40,23 +41,8 @@ struct MainTabView: View {
                     }
                 )
             }
-            .fullScreenCover(isPresented: $showUpgradePaywall, onDismiss: {
-                // Upgrade Paywall の X閉じ — Free のまま、特別な処理不要
-            }) {
-                ZStack(alignment: .topTrailing) {
-                    upgradePaywallView()
-                        .onAppear { }
-
-                    Button { showUpgradePaywall = false } label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: 28))
-                            .symbolRenderingMode(.palette)
-                            .foregroundStyle(.gray, Color(.systemGray5))
-                    }
-                    .padding(.top, 16)
-                    .padding(.trailing, 16)
-                    .accessibilityIdentifier("paywall-close-button")
-                }
+            .fullScreenCover(isPresented: $showUpgradePaywall) {
+                upgradePaywallView()
             }
             .task {
                 // Free ユーザーの日替わりローテーション再スケジュール
@@ -85,28 +71,19 @@ struct MainTabView: View {
 
     @ViewBuilder
     private func upgradePaywallView() -> some View {
-        if let offering = appState.cachedOffering {
-            PaywallView(offering: offering, displayCloseButton: false)
-                .applyDebugIntroEligibility()
-                .onPurchaseCompleted { customerInfo in
-                    handleUpgradePurchase(customerInfo: customerInfo)
-                }
-                .onRestoreCompleted { customerInfo in
-                    if customerInfo.entitlements[AppConfig.revenueCatEntitlementId]?.isActive == true {
-                        handleUpgradePurchase(customerInfo: customerInfo)
-                    }
-                }
+        let variant = PostHogSDK.shared.getFeatureFlag("paywall-ab-test") as? String ?? "control"
+        if variant == "test" {
+            PaywallVariantBView(
+                variant: variant,
+                onPurchaseSuccess: { customerInfo in handleUpgradePurchase(customerInfo: customerInfo) },
+                onDismiss: { showUpgradePaywall = false }
+            )
         } else {
-            PaywallView(displayCloseButton: false)
-                .applyDebugIntroEligibility()
-                .onPurchaseCompleted { customerInfo in
-                    handleUpgradePurchase(customerInfo: customerInfo)
-                }
-                .onRestoreCompleted { customerInfo in
-                    if customerInfo.entitlements[AppConfig.revenueCatEntitlementId]?.isActive == true {
-                        handleUpgradePurchase(customerInfo: customerInfo)
-                    }
-                }
+            PlanSelectionStepView(
+                onPurchaseSuccess: { customerInfo in handleUpgradePurchase(customerInfo: customerInfo) },
+                onDismiss: { showUpgradePaywall = false },
+                variant: variant
+            )
         }
     }
 

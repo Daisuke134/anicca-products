@@ -599,7 +599,7 @@
 /* ========== Phase 3: Proactive Agent ========== */
 
 /* My Path Tab */
-"mypath_header_description" = "アニッチャはあなたの苦しみを理解し、適切なタイミングで寄り添います。";
+"mypath_header_description" = "あなたの苦しみを理解し、適切なタイミングで寄り添います。";
 "mypath_section_current_struggles" = "今向き合っている課題";
 "mypath_empty_title" = "向き合いたい課題を追加してみましょう";
 "mypath_empty_action" = "課題を追加";
@@ -619,6 +619,10 @@
 "deep_dive_delete_alert_message" = "この問題は My Path から削除されます";
 "deep_dive_tell_anicca_title" = "アニッチャに伝える";
 "deep_dive_tell_anicca_subtitle" = "この問題について、アニッチャに知っておいてほしいことを書いてください";
+"mypath_deepdive_save" = "保存";
+"mypath_deepdive_delete" = "この課題を削除";
+"mypath_deepdive_delete_confirm_title" = "この課題を削除しますか？";
+"mypath_deepdive_delete_confirm_message" = "この課題はMy Pathから削除されます。";
 
 /* ProblemType Button Texts */
 "problem_staying_up_late_positive_button" = "明日を守る 💪";
@@ -1337,14 +1341,15 @@
 "paywall_plan_cta_subscribe" = "登録する";
 "paywall_plan_cta_no_trial" = "旅を始める";
 "paywall_plan_trust" = "いつでもキャンセル可能。";
+"paywall_plan_review" = "「このアプリのおかげで立ち止まって考えるようになりました」— 実際のユーザー";
 "paywall_plan_maybe_later" = "あとで";
 "paywall_plan_restore" = "購入を復元";
 "paywall_plan_terms" = "利用規約";
 "paywall_plan_privacy" = "プライバシー";
 
 // MARK: - Paywall Variant B (A/B Test)
-"paywall_b_title" = "毎日の習慣を変える";
-"paywall_b_subtitle" = "AIナッジで、より良い習慣を築く人が増えています";
+"paywall_b_title" = "あなたが必要な時に、そっと寄り添うナッジ";
+"paywall_b_subtitle" = "あなたの悩みに寄り添うカードを毎日受け取ろう";
 "paywall_b_feature_nudges" = "最適なタイミングのスマートナッジ";
 "paywall_b_feature_ai" = "AI生成のパーソナライズされたガイダンス";
 "paywall_b_feature_personalized" = "あなたの悩みに合わせて適応";
@@ -1356,7 +1361,7 @@
 "paywall_b_trial_badge" = "%@の無料トライアル付き";
 "paywall_b_cta_trial" = "%@無料トライアルを始める";
 "paywall_b_cta_no_trial" = "今すぐ旅を始める";
-"paywall_b_review" = "「Aniccaのおかげで瞑想を続けられるようになりました」⭐⭐⭐⭐⭐";
+"paywall_b_review" = "「Aniccaのおかげで自分に優しくなれました」— 実際のユーザー";
 "paywall_b_trust_trial" = "無料トライアル · いつでもキャンセル · トライアル中は課金なし";
 "paywall_b_trust_no_trial" = "いつでもキャンセル · 満足保証";
 

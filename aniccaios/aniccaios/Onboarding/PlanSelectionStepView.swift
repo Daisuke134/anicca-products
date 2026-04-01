@@ -1,5 +1,6 @@
 import SwiftUI
 import RevenueCat
+import PostHog
 
 /// Phase 5: CONVERT — Step 3: Custom paywall with RevenueCat packages.
 struct PlanSelectionStepView: View {
@@ -56,7 +57,7 @@ struct PlanSelectionStepView: View {
             }
 
             // F4: Fixed outcome-focused title
-            Text(String(localized: "paywall_plan_title"))
+            Text(paywallText("title", fallback: "paywall_plan_title"))
                 .font(.system(size: 28, weight: .bold))
                 .foregroundStyle(AppTheme.Colors.label)
                 .multilineTextAlignment(.center)
@@ -144,6 +145,13 @@ struct PlanSelectionStepView: View {
                     Text(String(localized: "paywall_plan_trust"))
                         .font(.system(size: 13))
                         .foregroundStyle(.secondary)
+
+                    Text(paywallText("review", fallback: "paywall_plan_review"))
+                        .font(.system(size: 13, weight: .medium))
+                        .foregroundStyle(.secondary)
+                        .italic()
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 24)
 
                     HStack(spacing: 24) {
                         Button(String(localized: "paywall_plan_maybe_later")) {
@@ -259,6 +267,14 @@ struct PlanSelectionStepView: View {
         }
         .buttonStyle(.plain)
         .accessibilityIdentifier("paywall-plan-\(package.packageType.rawValue)")
+    }
+
+    private func paywallText(_ key: String, fallback: String) -> String {
+        if let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any],
+           let text = payload[key] as? String {
+            return text
+        }
+        return String(localized: String.LocalizationValue(fallback))
     }
 
     private func purchase() {
