@@ -36,6 +36,12 @@ struct PlanSelectionStepView: View {
         return payload["hard_paywall"] as? Bool ?? false
     }
 
+    /// X button visibility — controlled from PostHog payload
+    private var showXButton: Bool {
+        guard let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any] else { return false }
+        return payload["show_x_button"] as? Bool ?? false
+    }
+
     /// F6: Dynamic save percentage
     private var savePct: Int? {
         guard let yearly = yearlyPackage, let monthly = monthlyPackage else { return nil }
@@ -47,7 +53,7 @@ struct PlanSelectionStepView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            if !isHardPaywall {
+            if showXButton {
                 HStack {
                     Spacer()
                     Button {
@@ -71,17 +77,17 @@ struct PlanSelectionStepView: View {
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
 
-            // F7: Subtitle + feature list
-            Text(String(localized: "paywall_plan_subtitle"))
+            // F7: Subtitle + feature list (PostHog controlled)
+            Text(paywallText("subtitle", fallback: "paywall_plan_subtitle"))
                 .font(.system(size: 16))
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
 
             VStack(alignment: .leading, spacing: 8) {
-                featureRow(icon: "checkmark.circle.fill", key: "paywall_plan_feature_access")
-                featureRow(icon: "bell.badge.fill", key: "paywall_plan_feature_nudges")
-                featureRow(icon: "xmark.circle", key: "paywall_plan_feature_cancel")
+                featureRow(icon: "checkmark.circle.fill", text: paywallText("feature1", fallback: "paywall_plan_feature_access"))
+                featureRow(icon: "bell.badge.fill", text: paywallText("feature2", fallback: "paywall_plan_feature_nudges"))
+                featureRow(icon: "xmark.circle", text: paywallText("feature3", fallback: "paywall_plan_feature_cancel"))
             }
             .padding(.horizontal, 32)
 
@@ -136,7 +142,7 @@ struct PlanSelectionStepView: View {
                                     .tint(.white)
                             } else {
                                 let hasTrialEligibility = selectedPackage?.storeProduct.introductoryDiscount != nil
-                                Text(String(localized: hasTrialEligibility ? "paywall_plan_cta_trial" : "paywall_plan_cta_no_trial"))
+                                Text(paywallText("cta", fallback: hasTrialEligibility ? "paywall_plan_cta_trial" : "paywall_plan_cta_no_trial"))
                             }
                         }
                         .font(.system(size: 18, weight: .semibold))
@@ -150,7 +156,7 @@ struct PlanSelectionStepView: View {
                     .accessibilityIdentifier("paywall-plan-cta")
                     .padding(.horizontal, 24)
 
-                    Text(String(localized: "paywall_plan_trust"))
+                    Text(paywallText("trust", fallback: "paywall_plan_trust"))
                         .font(.system(size: 13))
                         .foregroundStyle(.secondary)
 
@@ -205,13 +211,13 @@ struct PlanSelectionStepView: View {
     }
 
     @ViewBuilder
-    private func featureRow(icon: String, key: String) -> some View {
+    private func featureRow(icon: String, text: String) -> some View {
         HStack(spacing: 10) {
             Image(systemName: icon)
                 .font(.system(size: 16))
                 .foregroundStyle(AppTheme.Colors.accent)
                 .frame(width: 24)
-            Text(String(localized: String.LocalizationValue(key)))
+            Text(text)
                 .font(.system(size: 14, weight: .medium))
                 .foregroundStyle(AppTheme.Colors.label)
         }

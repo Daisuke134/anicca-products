@@ -74,6 +74,12 @@ struct PaywallVariantBView: View {
         return payload["hard_paywall"] as? Bool ?? false
     }
 
+    /// X button visibility — controlled from PostHog payload
+    private var showXButton: Bool {
+        guard let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any] else { return false }
+        return payload["show_x_button"] as? Bool ?? false
+    }
+
     var body: some View {
         VStack(spacing: 12) {
             dismissButton
@@ -106,7 +112,7 @@ struct PaywallVariantBView: View {
 
     @ViewBuilder
     private var dismissButton: some View {
-        if !isHardPaywall {
+        if showXButton {
             HStack {
                 Spacer()
                 Button { onDismiss() } label: {
@@ -145,11 +151,11 @@ struct PaywallVariantBView: View {
 
     private var featureList: some View {
         VStack(alignment: .leading, spacing: 8) {
-            featureRow("paywall_b_feature_nudges")
-            featureRow("paywall_b_feature_ai")
-            featureRow("paywall_b_feature_personalized")
-            featureRow("paywall_b_feature_feedback")
-            featureRow("paywall_b_feature_cancel")
+            featureRow(paywallText("feature1", fallback: "paywall_b_feature_nudges"))
+            featureRow(paywallText("feature2", fallback: "paywall_b_feature_ai"))
+            featureRow(paywallText("feature3", fallback: "paywall_b_feature_personalized"))
+            featureRow(paywallText("feature4", fallback: "paywall_b_feature_feedback"))
+            featureRow(paywallText("feature5", fallback: "paywall_b_feature_cancel"))
         }
         .padding(.horizontal, 32)
     }
@@ -202,9 +208,9 @@ struct PaywallVariantBView: View {
                     if isPurchasing {
                         ProgressView().tint(.white)
                     } else if hasTrialEligibility, let period = trialPeriodText {
-                        Text(String(format: NSLocalizedString("paywall_b_cta_trial", comment: ""), period))
+                        Text(paywallText("cta", fallback: String(format: NSLocalizedString("paywall_b_cta_trial", comment: ""), period)))
                     } else {
-                        Text(String(localized: "paywall_b_cta_no_trial"))
+                        Text(paywallText("cta", fallback: "paywall_b_cta_no_trial"))
                     }
                 }
                 .font(.system(size: 18, weight: .semibold))
@@ -224,7 +230,7 @@ struct PaywallVariantBView: View {
                 .italic()
                 .padding(.horizontal, 24)
 
-            Text(String(localized: hasTrialEligibility ? "paywall_b_trust_trial" : "paywall_b_trust_no_trial"))
+            Text(paywallText("trust", fallback: hasTrialEligibility ? "paywall_b_trust_trial" : "paywall_b_trust_no_trial"))
                 .font(.system(size: 12))
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -258,13 +264,13 @@ struct PaywallVariantBView: View {
     // MARK: - Components
 
     @ViewBuilder
-    private func featureRow(_ key: String) -> some View {
+    private func featureRow(_ text: String) -> some View {
         HStack(spacing: 10) {
             Image(systemName: "checkmark.circle.fill")
                 .font(.system(size: 16))
                 .foregroundStyle(AppTheme.Colors.accent)
                 .frame(width: 24)
-            Text(String(localized: String.LocalizationValue(key)))
+            Text(text)
                 .font(.system(size: 14, weight: .medium))
                 .foregroundStyle(AppTheme.Colors.label)
         }
