@@ -1348,7 +1348,7 @@
 "paywall_plan_privacy" = "Privacy";
 
 // MARK: - Paywall Variant B (A/B Test)
-"paywall_b_title" = "Gentle nudges when you need them most";
+"paywall_b_title" = "Gentle words when you need them most";
 "paywall_b_subtitle" = "Daily cards to help you through your struggles";
 "paywall_b_feature_nudges" = "Smart nudges at the right moment";
 "paywall_b_feature_ai" = "AI-generated personalized guidance";
