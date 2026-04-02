@@ -432,7 +432,7 @@ export async function runProblemNudgeApnsSender(nowUtc = new Date(), { apnsClien
       const sendOne = async ({ problemType, scheduledTime, slotIndex, slotsPerDay }) => {
         if (!isSlotDue({ nowUtc, timezone, scheduledTime })) return;
 
-        const totalVariants = problemType === 'staying_up_late' ? 70 : 42;
+        const totalVariants = 60;
         const deliveryDayLocal = computeDeliveryDayLocal({ nowUtc, timezone, problemType, scheduledTime });
         const dayIndex = Math.max(0, dayDiff(deliveryDayLocal, day0Local));
         const variantIndex = getVariantIndex(dayIndex, slotIndex, slotsPerDay, totalVariants);
