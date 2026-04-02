@@ -41,13 +41,14 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         PostHogSDK.shared.identify(Purchases.shared.appUserID)
 
         // TikTok Business SDK: install + purchase 自動追跡（ATTなし）
-        let ttConfig = TikTokConfig(
+        if let ttConfig = TikTokConfig(
             accessToken: "TTb5OwyxPDGWM0zYywD5K2tgJMppH0Wb",
             appId: "6755129214",
             tiktokAppId: "7593741049791217671"
-        )
-        ttConfig.setLogLevel(.none)
-        TikTokBusiness.initializeSdk(ttConfig)
+        ) {
+            ttConfig.setLogLevel(TikTokLogLevelSuppress)
+            TikTokBusiness.initializeSdk(ttConfig)
+        }
 
         // ASA Attribution取得 → app_opened トラック（この順序が重要）
         Task {

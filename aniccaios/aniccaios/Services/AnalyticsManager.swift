@@ -86,7 +86,7 @@ final class AnalyticsManager {
         Mixpanel.mainInstance().people.trackCharge(amount: revenue)
 
         // TikTok: Subscribe event for purchase optimization campaigns
-        let ttEvent = TikTokBaseEvent(eventName: .subscribe)
+        let ttEvent = TikTokBaseEvent(eventName: "Subscribe")
         TikTokBusiness.trackTTEvent(ttEvent)
         logger.debug("TikTok Subscribe event sent")
     }
