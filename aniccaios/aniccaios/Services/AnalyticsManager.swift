@@ -86,9 +86,13 @@ final class AnalyticsManager {
         Mixpanel.mainInstance().people.trackCharge(amount: revenue)
 
         // TikTok: Subscribe event for purchase optimization campaigns
+        // currency + value は ROAS 最適化に必須（Source: TikTok Business API docs）
         let ttEvent = TikTokBaseEvent(eventName: "Subscribe")
+        ttEvent.addProperty(withKey: "currency", value: "USD")
+        ttEvent.addProperty(withKey: "value", value: String(format: "%.2f", revenue))
+        ttEvent.addProperty(withKey: "description", value: productId)
         TikTokBusiness.trackTTEvent(ttEvent)
-        logger.debug("TikTok Subscribe event sent")
+        logger.debug("TikTok Subscribe event sent: \(productId) $\(revenue)")
     }
     
     /// 音声セッション開始

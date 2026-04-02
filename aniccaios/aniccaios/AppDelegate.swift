@@ -40,7 +40,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         PostHogSDK.shared.setup(phConfig)
         PostHogSDK.shared.identify(Purchases.shared.appUserID)
 
-        // TikTok Business SDK: install + purchase 自動追跡（ATTなし）
+        // TikTok Business SDK: install自動追跡 + Subscribe手動追跡（ATTなし）
+        // disablePaymentTracking: StoreKit自動Purchaseをオフ → 二重送信防止
+        // Subscribe は AnalyticsManager.trackPurchaseCompleted() で手動送信（currency/value付き）
         if let ttConfig = TikTokConfig(
             accessToken: "TTb5OwyxPDGWM0zYywD5K2tgJMppH0Wb",
             appId: "6755129214",
@@ -48,6 +50,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         ) {
             ttConfig.automaticTrackingEnabled = true
             ttConfig.setLogLevel(TikTokLogLevelSuppress)
+            ttConfig.disablePaymentTracking()
             TikTokBusiness.initializeSdk(ttConfig)
         }
 
