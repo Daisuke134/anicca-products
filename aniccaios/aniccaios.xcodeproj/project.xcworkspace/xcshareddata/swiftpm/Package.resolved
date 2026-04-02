@@ -1,5 +1,5 @@
 {
-  "originHash" : "8bfe3b94fb0dc39812227c5d306c1675d19eaed70321eaf2a8c7dfa59e9f4560",
+  "originHash" : "e7506c5ef0950fa63ed68d2e5ad3bb8e7809eb4c5141ec2038d4eac172e6536f",
   "pins" : [
     {
       "identity" : "autolayout",
@@ -53,6 +53,15 @@
       "state" : {
         "revision" : "b11e3e4eefdd0c78b2181a0ad7affdb9362ec4a3",
         "version" : "5.55.1"
+      }
+    },
+    {
+      "identity" : "tiktok-business-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tiktok/tiktok-business-ios-sdk",
+      "state" : {
+        "revision" : "79faf4f1a8a15b039cb0d41a5186ea32fff86cb2",
+        "version" : "1.6.0"
       }
     },
     {
