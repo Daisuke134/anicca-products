@@ -1,10 +1,12 @@
 import SwiftUI
 import RevenueCat
+import PostHog
 
 /// Phase 5: CONVERT — Step 3: Custom paywall with RevenueCat packages.
 struct PlanSelectionStepView: View {
     let onPurchaseSuccess: (CustomerInfo) -> Void
     let onDismiss: () -> Void
+    let variant: String
 
     @EnvironmentObject private var appState: AppState
     @State private var selectedPackage: Package?
@@ -28,6 +30,18 @@ struct PlanSelectionStepView: View {
         packages.first { $0.packageType == .monthly }
     }
 
+    /// F19: Hard paywall — hides dismiss/skip controls when PostHog payload says so
+    private var isHardPaywall: Bool {
+        guard let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any] else { return false }
+        return payload["hard_paywall"] as? Bool ?? false
+    }
+
+    /// X button visibility — controlled from PostHog payload
+    private var showXButton: Bool {
+        guard let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any] else { return false }
+        return payload["show_x_button"] as? Bool ?? false
+    }
+
     /// F6: Dynamic save percentage
     private var savePct: Int? {
         guard let yearly = yearlyPackage, let monthly = monthlyPackage else { return nil }
@@ -39,39 +53,41 @@ struct PlanSelectionStepView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            HStack {
-                Spacer()
-                Button {
-                    onDismiss()
-                } label: {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundStyle(.secondary)
-                        .frame(width: 32, height: 32)
+            if showXButton {
+                HStack {
+                    Spacer()
+                    Button {
+                        onDismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundStyle(.secondary)
+                            .frame(width: 32, height: 32)
+                    }
+                    .accessibilityIdentifier("paywall-dismiss")
+                    .padding(.trailing, 16)
+                    .padding(.top, 8)
                 }
-                .accessibilityIdentifier("paywall-dismiss")
-                .padding(.trailing, 16)
-                .padding(.top, 8)
             }
 
             // F4: Fixed outcome-focused title
-            Text(String(localized: "paywall_plan_title"))
+            Text(paywallText("title", fallback: "paywall_plan_title"))
                 .font(.system(size: 28, weight: .bold))
                 .foregroundStyle(AppTheme.Colors.label)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
 
-            // F7: Subtitle + feature list
-            Text(String(localized: "paywall_plan_subtitle"))
+            // F7: Subtitle + feature list (PostHog controlled)
+            Text(paywallText("subtitle", fallback: "paywall_plan_subtitle"))
                 .font(.system(size: 16))
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
 
             VStack(alignment: .leading, spacing: 8) {
-                featureRow(icon: "checkmark.circle.fill", key: "paywall_plan_feature_access")
-                featureRow(icon: "bell.badge.fill", key: "paywall_plan_feature_nudges")
-                featureRow(icon: "xmark.circle", key: "paywall_plan_feature_cancel")
+                featureRow(icon: "checkmark.circle.fill", text: paywallText("feature1", fallback: "paywall_plan_feature_access"))
+                featureRow(icon: "bell.badge.fill", text: paywallText("feature2", fallback: "paywall_plan_feature_nudges"))
+                featureRow(icon: "xmark.circle", text: paywallText("feature3", fallback: "paywall_plan_feature_cancel"))
             }
             .padding(.horizontal, 32)
 
@@ -126,7 +142,7 @@ struct PlanSelectionStepView: View {
                                     .tint(.white)
                             } else {
                                 let hasTrialEligibility = selectedPackage?.storeProduct.introductoryDiscount != nil
-                                Text(String(localized: hasTrialEligibility ? "paywall_plan_cta_trial" : "paywall_plan_cta_subscribe"))
+                                Text(paywallText("cta", fallback: hasTrialEligibility ? "paywall_plan_cta_trial" : "paywall_plan_cta_no_trial"))
                             }
                         }
                         .font(.system(size: 18, weight: .semibold))
@@ -140,17 +156,26 @@ struct PlanSelectionStepView: View {
                     .accessibilityIdentifier("paywall-plan-cta")
                     .padding(.horizontal, 24)
 
-                    Text(String(localized: "paywall_plan_trust"))
+                    Text(paywallText("trust", fallback: "paywall_plan_trust"))
                         .font(.system(size: 13))
                         .foregroundStyle(.secondary)
 
-                    HStack(spacing: 24) {
-                        Button(String(localized: "paywall_plan_maybe_later")) {
-                            onDismiss()
-                        }
-                        .font(.system(size: 14, weight: .medium))
+                    Text(paywallText("review", fallback: "paywall_plan_review"))
+                        .font(.system(size: 13, weight: .medium))
                         .foregroundStyle(.secondary)
-                        .accessibilityIdentifier("paywall-maybe-later")
+                        .italic()
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 24)
+
+                    HStack(spacing: 24) {
+                        if !isHardPaywall {
+                            Button(String(localized: "paywall_plan_maybe_later")) {
+                                onDismiss()
+                            }
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(.secondary)
+                            .accessibilityIdentifier("paywall-maybe-later")
+                        }
 
                         Button(String(localized: "paywall_plan_restore")) {
                             restorePurchases()
@@ -176,6 +201,7 @@ struct PlanSelectionStepView: View {
             if !hasTracked {
                 hasTracked = true
                 AnalyticsManager.shared.track(.paywallPlanSelectionViewed)
+                AnalyticsManager.shared.trackPostHog("paywall_viewed", properties: ["variant": variant])
             }
             // Default to yearly
             if selectedPackage == nil {
@@ -185,13 +211,13 @@ struct PlanSelectionStepView: View {
     }
 
     @ViewBuilder
-    private func featureRow(icon: String, key: String) -> some View {
+    private func featureRow(icon: String, text: String) -> some View {
         HStack(spacing: 10) {
             Image(systemName: icon)
                 .font(.system(size: 16))
                 .foregroundStyle(AppTheme.Colors.accent)
                 .frame(width: 24)
-            Text(String(localized: String.LocalizationValue(key)))
+            Text(text)
                 .font(.system(size: 14, weight: .medium))
                 .foregroundStyle(AppTheme.Colors.label)
         }
@@ -259,6 +285,20 @@ struct PlanSelectionStepView: View {
         .accessibilityIdentifier("paywall-plan-\(package.packageType.rawValue)")
     }
 
+    private func paywallText(_ key: String, fallback: String) -> String {
+        let lang = Locale.current.languageCode ?? "en"
+        if let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any] {
+            let localizedKey = "\(key)_\(lang)"
+            if let text = payload[localizedKey] as? String {
+                return text
+            }
+            if let text = payload[key] as? String {
+                return text
+            }
+        }
+        return String(localized: String.LocalizationValue(fallback))
+    }
+
     private func purchase() {
         guard let package = selectedPackage else { return }
         isPurchasing = true
@@ -269,7 +309,13 @@ struct PlanSelectionStepView: View {
                 let result = try await Purchases.shared.purchase(package: package)
                 if result.customerInfo.entitlements[AppConfig.revenueCatEntitlementId]?.isActive == true {
                     AnalyticsManager.shared.track(.onboardingPaywallPurchased)
-                    if package.storeProduct.introductoryDiscount != nil {
+                    AnalyticsManager.shared.trackPostHog("paywall_purchased", properties: [
+                        "variant": variant,
+                        "plan_type": package.packageType == .annual ? "annual" : "monthly",
+                        "has_trial": package.storeProduct.introductoryDiscount != nil
+                    ])
+                    if package.packageType == .annual,
+                       package.storeProduct.introductoryDiscount != nil {
                         AnalyticsManager.shared.track(.trialStarted, properties: [
                             "product_id": package.storeProduct.productIdentifier
                         ])

@@ -54,11 +54,19 @@ Source: rshankras ProductAgent WORKFLOW.md + snarktank/ralph
 WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `references/us-005b-monetization.md`（RC setup）を参照。
 
 
-## Claude Code Mental Model (NEW 2026-03-24)
+## Claude Code Mental Model (NEW 2026-03-24, UPDATED 2026-03-29)
 
-**Source**: Reddit r/ClaudeAI — Best practices after shipping iOS apps  
+**Source 1**: Reddit r/ClaudeAI — Best practices after shipping iOS apps  
 **URL**: https://www.reddit.com/r/ClaudeAI/comments/1ridakj/best_practices_ive_learned_after_shipping/  
 **Core Quote**: "Claude Code is a brilliant junior developer who can write code faster than anyone I've ever seen. But like any junior dev, it needs guidance on architecture decisions, security practices, and long-term maintainability. **The senior engineer is still you.**"
+
+**Source 2**: GitHub Gist — iOS Project Claude Code Setup  
+**URL**: https://gist.github.com/joelklabo/6df9fa603bec3478dec7efc17ea44596  
+**Core Quote**: "Never use raw xcodebuild commands. Always use the appropriate MCP tool: Building: `mcp__xcodebuildmcp__build_sim_name_proj`, Testing: `mcp__xcodebuildmcp__test_sim_name_proj`"
+
+**Source 3**: Medium — Claude Code Plugins for iOS Teams  
+**URL**: https://medium.com/@wesleymatlock/claude-code-plugins-for-ios-teams-automation-agents-and-guardrails-221a68eb57d5  
+**Core Quote**: "If you wouldn't trust a junior engineer to do it unsupervised, don't hand it to an agent yet." / "Plugins are policy. Skills are tools. Agents are specialized subagents."
 
 ### What This Means for Factory
 
@@ -69,6 +77,26 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | Boilerplate reduction | Long-term maintainability |
 | Happy path scenarios | Edge cases (network failures, unexpected API responses) |
 
+### Build Failure Protocol (NEW 2026-03-29)
+
+**Source**: Reddit r/ClaudeAI iOS best practices  
+**Core Quote**: "The most dangerous pattern was what happens when a build or test *fails*. Claude's default behavior is to **make a shallow fix and retry immediately**."
+
+**Rule**: When build/test fails, do NOT let CC retry with shallow fix.
+
+1. **Capture Failure Log**: Save full error log to `logs/build-error-{timestamp}.log`
+2. **Analyze Root Cause**: Read error log, identify root cause (not symptom)
+3. **Document Decision**: Write analysis to `logs/build-fix-{timestamp}.md` with:
+   - Error symptom
+   - Root cause
+   - Proposed fix
+   - Risk assessment
+4. **Fix Once, Properly**: Implement fix with full context (not quick patch)
+5. **Verify Fix**: Run build again, confirm success
+6. **Update SKILL.md if Pattern**: If error pattern repeats across apps, add to this SKILL.md
+
+**Prohibited**: Immediate retry without root cause analysis. Shallow fixes that hide deeper issues.
+
 ### Security & Quality Checklist (Every App)
 
 **Source**: Reddit r/ClaudeAI iOS best practices  
@@ -76,7 +104,7 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 
 | Category | Requirement | Verification |
 |----------|-------------|--------------|
-| **Secrets** | Never hardcode. Different tokens per environment (dev/staging/prod) | grep -r "api_key\|secret" --exclude=.env |
+| **Secrets** | Never hardcode. Different tokens per environment (dev/staging/prod). Use .env + Keychain only | grep -r "api_key\|secret" --exclude=.env. iOS: KeychainAccess wrapper. Backend: dotenv |
 | **Observability** | Crash reporting from day one (not after first angry review) | Check Sentry/Crashlytics init in AppDelegate |
 | **Logging** | Persistent logs (not just console) | Check Logger usage in critical paths |
 | **Health Check** | /health endpoint for backend | curl {API_URL}/health |
@@ -86,7 +114,7 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | **CORS** | Set to specific origins (not *) | Check backend CORS config |
 | **CI/CD** | Automated testing + deployment pipeline | Check Fastfile existence |
 | **Backups** | Test restore at least once | Document restore procedure |
-| **Time** | Store in UTC, convert on display | grep "Date()" and check timezone handling |
+| **Time** | Store in UTC, convert on display. Never mix UTC/local/JS defaults | grep "Date()" and check timezone handling. All DB timestamps = UTC. All API responses = ISO 8601 with Z suffix |
 
 ### 2026 App Store Privacy Requirements (AI Apps)
 
@@ -172,6 +200,8 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 43 | **XcodeBuildMCP使用（raw xcodebuild禁止）**。Never use raw xcodebuild commands. Always use MCP tool: `mcp__xcodebuildmcp__build_sim_name_proj`, `mcp__xcodebuildmcp__test_sim_name_proj`. Source: https://gist.github.com/joelklabo/6df9fa603bec3478dec7efc17ea44596 |
 | 44 | **iOS Simulator Skill（自動検出・自動起動）**。シミュレータ起動・操作はios-simulator-skillに任せる。手動でsimctl起動しない。Claude Code automatically detects when to use this skill. Source: https://github.com/conorluddy/ios-simulator-skill |
 | 45 | **フィードバックループを閉じる**。ビルド後は必ずシミュレータで起動し、動作確認を実施。エラーログをClaude Codeが直接読めるようにする。"Focus on closing the feedback loop, i.e., claude code does best when it can process the result of its changes in the most direct way possible." Source: https://plankenau.com/blog/post/claude-coding-an-ios-app |
+| 45-NEW | **Service Layer for API Calls（NEW 2026-03-29）**。全外部API呼び出しは独立したサービス層でラップ。rate limiting、caching、provider swapを考慮した設計。"When you're calling third-party APIs, take the extra time to create a clean service layer. Your future self will thank you when you need to add caching or swap providers." Source: https://www.reddit.com/r/ClaudeAI/comments/1ridakj/best_practices_ive_learned_after_shipping/ |
+| 45-NEW2 | **Observability from Day 1（NEW 2026-03-29）**。Crash reporting（Sentry/Crashlytics）をプロジェクト初期から組み込む。"Crash reporting from day one, not after the first angry user review. Actual logging that persists somewhere, not just my terminal history." Source: https://www.reddit.com/r/ClaudeAI/comments/1ridakj/best_practices_ive_learned_after_shipping/ |
 | 46 | **.pbxprojファイルはClaude Codeに触らせない（CRITICAL）**。新規ファイル作成はClaude Codeで、Xcodeプロジェクトへの追加は手動で行う。.pbxprojの直接編集を絶対禁止。"Never let AI modify .pbxproj files. Create files with Claude Code, add them to Xcode manually." Source: https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj |
 | 47 | **iOS 26対応 — 新age rating system**。iOS 26以降のage ratingを正しく設定。古いrating keyは使わない。"Ratings for all apps and games on the App Store have been automatically updated to align with our new age rating system" Source: https://developer.apple.com/news/upcoming-requirements/ |
 | 48 | **xcodebuild -destination で複数デバイステスト**。xcodebuild test実行時に `-destination 'platform=iOS Simulator,name=iPhone 16 Pro'` で明示的にデバイス指定。Source: https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/testing_with_xcode/chapters/08-automation.html |
@@ -247,6 +277,10 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 110 | **17–32日Trial = 70%高CVR（3日比）**。17–32 days trials: 42.5% median conversion vs. <4 days trials: 25.5%。Long trials give users time to integrate app into habits。3日 trial は cash flow 優先（短期収益重視）時のみ。Source: https://www.revenuecat.com/blog/growth/subscription-app-trends-benchmarks-2026/ (2026-03-20) — 「Trials of 17-32 days convert 70% better than 3-day trials (42.5% vs 25.5%).」 |
 | 111 | **Annual Sub = Month 1 に 35% Cancel**。35% of annual cancellations occur in Month 1。72% cancel in Year 1（2025年は56%）。Users immediately toggle off auto-renew。Battle for Year 2 starts in Week 1。Month 1 intensive value reinforcement + win-back campaigns 必須。Source: https://www.revenuecat.com/blog/growth/subscription-app-trends-benchmarks-2026/ (2026-03-20) — 「Over one third of users cancel auto-renewal within the first month. 35% of all annual cancellations.」 |
 | 112 | **Google Play Billing = 31% Involuntary Churn**。31% of Google Play cancellations are involuntary billing failures（App Store は 14%）。Dunning process 最適化 + grace periods で 15-20% lost revenue を即時回収可能。Android app は billing infrastructure が最優先課題。Source: https://www.revenuecat.com/blog/growth/subscription-app-trends-benchmarks-2026/ (2026-03-20) — 「31% of Google Play cancellations are involuntary billing failures — over double the rate of the App Store (14%).」 |
+| 113 | **Consistent Messaging: Ad→Onboarding→Paywall**。同じ価値提案、同じトーン、同じビジュアルで conversion 向上。一貫性がない = 信頼損失 = CVR低下。Source: https://blog.funnelfox.com/effective-paywall-screen-designs-mobile-apps/ (2026-03-27) — 「Consistent messaging from ad to onboarding to paywall increases conversions」 |
+| 114 | **Paywall配置 = Onboarding完了直後（最重要placement）**。89.4% の trial starts が Day 0。Onboarding → Paywall が全体の trial acquisition strategy。遅延配置は機会損失。Source: https://appagent.com/blog/mobile-app-onboarding-5-paywall-optimization-strategies/ (2026-03-27) — 「Ensure that most existing users see the paywall by placing it immediately after the onboarding process」 |
+| 115 | **Regional A/B Testing 必須（文化的ニュアンス捕捉）**。Top 5 markets（日本・米国・英国・ドイツ・フランス）で独立テスト。Localization win rate 62.3%（最高）。Region-blind test は無効。Source: https://www.revenuecat.com/blog/growth/guide-to-mobile-paywalls-subscription-apps/ (2026-03-27) — 「Conducting regular A/B tests by region is important to capture cultural nuances」 |
+| 116 | **Apple Free Trial Toggle 禁止（2026年2月～）**。Apple is now rejecting apps that use a free trial toggle on their paywalls。Toggle UI 削除必須。代替: 2プラン（trial有/無）を並列表示。Source: https://www.revenuecat.com/blog/growth/paywall-redesigns-case-studies/ (2026-03-27) — 「Sadly, as of February 2026, Apple is now rejecting apps that use a free trial toggle on their paywalls」 |
 
 ## Quality Gate Pattern
 

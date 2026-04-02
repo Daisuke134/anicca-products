@@ -1,8 +1,12 @@
 // v1.6.1 — ATT/Singular削除
+// v1.8.0 — TikTok Business SDK追加（ATTなし、IDFAゼロ運用）
 import UIKit
 import UserNotifications
 import OSLog
 import BackgroundTasks
+import PostHog
+import RevenueCat
+import TikTokBusinessSDK
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
@@ -24,6 +28,39 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
 
         // Mixpanelは常に初期化（ファーストパーティAnalytics、IDFAを使用しない）
         AnalyticsManager.shared.configure()
+
+        // PostHog: A/B テスト + Session Replay（RevenueCat configure の後）
+        let phConfig = PostHogConfig(
+            apiKey: "phc_Mw4K3aByYDRuAlfe55u5OYJrTwTcwhPextZjOw8z2nw",
+            host: "https://us.i.posthog.com"
+        )
+        phConfig.sessionReplay = true
+        phConfig.sessionReplayConfig.maskAllTextInputs = true
+        phConfig.sessionReplayConfig.maskAllImages = false
+        PostHogSDK.shared.setup(phConfig)
+        PostHogSDK.shared.identify(Purchases.shared.appUserID)
+        // identify() 後にフラグを明示リロード（ユーザーコンテキスト変更でpreload分が無効になるため）
+        // completion callback で featureFlagsReady を立てる → Paywall が nil を読まない
+        // Source: https://posthog.com/docs/libraries/ios/usage — "Ensuring flags are loaded before usage"
+        PostHogSDK.shared.reloadFeatureFlags {
+            Task { @MainActor in
+                AppState.shared.featureFlagsReady = true
+            }
+        }
+
+        // TikTok Business SDK: install自動追跡 + Subscribe手動追跡（ATTなし）
+        // disablePaymentTracking: StoreKit自動Purchaseをオフ → 二重送信防止
+        // Subscribe は AnalyticsManager.trackPurchaseCompleted() で手動送信（currency/value付き）
+        if let ttConfig = TikTokConfig(
+            accessToken: "TTb5OwyxPDGWM0zYywD5K2tgJMppH0Wb",
+            appId: "6755129214",
+            tiktokAppId: "7593741049791217671"
+        ) {
+            ttConfig.automaticTrackingEnabled = true
+            ttConfig.setLogLevel(TikTokLogLevelSuppress)
+            ttConfig.disablePaymentTracking()
+            TikTokBusiness.initializeSdk(ttConfig)
+        }
 
         // ASA Attribution取得 → app_opened トラック（この順序が重要）
         Task {

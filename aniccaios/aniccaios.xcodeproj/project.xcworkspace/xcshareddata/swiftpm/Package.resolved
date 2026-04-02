@@ -1,5 +1,5 @@
 {
-  "originHash" : "40e388aac84ad0c7d06a5012b33950c8ea1fa13db199283c846f5320986f58f2",
+  "originHash" : "e7506c5ef0950fa63ed68d2e5ad3bb8e7809eb4c5141ec2038d4eac172e6536f",
   "pins" : [
     {
       "identity" : "autolayout",
@@ -29,12 +29,39 @@
       }
     },
     {
+      "identity" : "plcrashreporter",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/microsoft/plcrashreporter.git",
+      "state" : {
+        "revision" : "0254f941c646b1ed17b243654723d0f071e990d0",
+        "version" : "1.12.2"
+      }
+    },
+    {
+      "identity" : "posthog-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/PostHog/posthog-ios.git",
+      "state" : {
+        "revision" : "9199aa2a26c9f2ee12e68869fc28ec4a205edabc",
+        "version" : "3.48.3"
+      }
+    },
+    {
       "identity" : "purchases-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RevenueCat/purchases-ios",
       "state" : {
         "revision" : "b11e3e4eefdd0c78b2181a0ad7affdb9362ec4a3",
         "version" : "5.55.1"
+      }
+    },
+    {
+      "identity" : "tiktok-business-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/tiktok/tiktok-business-ios-sdk",
+      "state" : {
+        "revision" : "79faf4f1a8a15b039cb0d41a5186ea32fff86cb2",
+        "version" : "1.6.0"
       }
     },
     {

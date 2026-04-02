@@ -1,72 +1,81 @@
-# Headline Generation Loop
+# ヘッドライン生成ループ
 
-ソース: recursive-improver / 核心の引用: 「生成→自己採点→診断→改善→再採点を全基準合格まで反復するスキル」
+## Screen ロール定義
 
----
+| # | ロール | 目的 | 例（EN） | 例（JA） |
+|---|--------|------|---------|---------|
+| 1 | Hero | コアバリュー。ストップ・ザ・スクロール | "Your Mind Deserves Better" | "あなたの心にもっと優しく" |
+| 2 | 差別化 | 競合との違い | "Not Another Meditation App" | "瞑想アプリじゃない" |
+| 3 | 人気機能 | 最も愛される機能 | "Nudges That Actually Work" | "本当に届くナッジ" |
+| 4 | 社会的証明 | 結果/数字/レビュー | "87% Feel Better in 7 Days" | "7日で87%が変化を実感" |
 
-## 入力
+## 採点基準（1-10）
 
-| 項目 | 内容 |
-|------|------|
-| 勝ちパターン | experiments.json の `winning_patterns`（例: `["問いかけ型"]`） |
-| 負けパターン | experiments.json の `losing_patterns`（例: `["数字型", "断言型"]`） |
-| ペルソナ | 25〜35歳、6〜7年間主体性の欠如と自己嫌悪のループから抜け出せていない。習慣アプリ10個以上試して全部3日坊主 |
-| 出力数 | 3画面分（screen1/screen2/screen3） |
+| 基準 | 配点 | 内容 |
+|------|------|------|
+| Emotional Hook | 3 | 感情を動かすか。「ふーん」ではなく「え？」を引き出す |
+| Specificity | 2 | 具体的か。「良いアプリ」ではなく「7日で変わる」 |
+| Brevity | 2 | 短いか。最大8語（EN）/ 15文字（JA） |
+| Curiosity Gap | 2 | 続きを見たくなるか。情報の隙間を作る |
+| Locale Fit | 1 | その言語のネイティブとして自然か。翻訳調でないか |
 
----
+**8/10+ で採用。7以下は却下。**
 
-## ループプロトコル（最大5回）
+## 生成ループ
 
 ```
-GENERATE（3画面分のヘッドライン生成）
-    ↓
-EVALUATE（下記採点基準で採点）
-    ↓
-全基準 8/10 以上？ → Yes → SHIP（screenshots.yaml に書き込む）
-    ↓ No
-DIAGNOSE（不合格理由を特定）
-    ↓
-IMPROVE（弱点を修正した新版を生成）
-    ↓
-RE-EVALUATE → ループ先頭に戻る（最大5回）
+1. experiments.json の winning_patterns と losing_patterns を読む
+2. anicca-app-context.md のペルソナ + 画面説明を読む
+3. 各 Screen ロールに対して 10案生成（EN / JA 別々）
+4. 各案を上記 5基準で自己採点
+5. 8/10+ のみ残す
+6. 各 Screen で最低 1案必要。不足なら再生成（max 3回）
+7. 3回ループしても 8+ が出ない → Slack 警告して EXIT
 ```
 
----
-
-## 採点基準（App Storeスクショ用）
-
-| # | 基準 | 閾値 | 説明 |
-|---|------|------|------|
-| 1 | ペインの直撃度 | 8/10 | 「6年間変われなかった」層に刺さるか |
-| 2 | 具体性 | 8/10 | 数字・年数・具体的な状況があるか |
-| 3 | 独自性 | 8/10 | 競合（Habitica/Calm/Streaks）と被らないか |
-| 4 | 改行の自然さ | 8/10 | `\n` の位置が読みやすいか（2〜3行構成） |
-| 5 | 3秒スクロール耐性 | 8/10 | スクロール中に目が止まるか |
-
----
-
-## 出力フォーマット（各イテレーション）
+## 出力フォーマット
 
 ```
 ## Iteration N
 
-### 生成物
-screen1: "HEADLINE\nLINE2\nLINE3"  subtitle: "Subtitle text."
-screen2: "HEADLINE\nLINE2\nLINE3"  subtitle: "Subtitle text."
-screen3: "HEADLINE\nLINE2\nLINE3"  subtitle: "Subtitle text."
+### EN Headlines
+screen1: "HEADLINE" subtitle: "Subtitle text"
+screen2: "HEADLINE" subtitle: "Subtitle text"
+screen3: "HEADLINE" subtitle: "Subtitle text"
+screen4: "HEADLINE" subtitle: "Subtitle text"
+
+### JA Headlines
+screen1: "ヘッドライン" subtitle: "サブテキスト"
+screen2: "ヘッドライン" subtitle: "サブテキスト"
+screen3: "ヘッドライン" subtitle: "サブテキスト"
+screen4: "ヘッドライン" subtitle: "サブテキスト"
 
 ### スコアカード
-| # | 基準 | screen1 | screen2 | screen3 | 判定 |
-|---|------|---------|---------|---------|------|
-| 1 | ペインの直撃度 | 9 | 8 | 7 | FAIL(s3) |
-| 2 | 具体性 | 8 | 9 | 8 | PASS |
+| # | 基準 | s1 | s2 | s3 | s4 | 判定 |
+|---|------|----|----|----|----|------|
+| 1 | Emotional Hook | 9 | 8 | 8 | 7 | FAIL(s4) |
 ...
 
-### 総合: FAIL → IMPROVE へ（screen3 の具体性を強化）
+### 総合: PASS / FAIL → [次のアクション]
 ```
 
----
+## EN / JA ルール
 
-## SHIP 後のアクション
+| ルール | 理由 |
+|--------|------|
+| **翻訳禁止** | EN→JA の直訳は不自然。各言語ネイティブのコピーライティング |
+| **同じ Screen で同じメッセージ** | Screen 1 は両言語とも「コアバリュー」。表現は別 |
+| **日本語は体言止め有効** | 「変わる、7日で。」のような倒置 + 体言止め |
+| **英語は 2人称有効** | "You're not broken." "Your mind deserves..." |
 
-確定したヘッドラインを `docs/screenshots/config/screenshots.yaml` の `caption.title` / `caption.subtitle` に書き込む。
+## 勝ちパターン（experiments.json から参照）
+
+- 感情的2人称（"Nobody talks about...", "You're not..."）→ 40x views
+- 数字 + 結果（"87% in 7 days"）
+- 否定形（"Not another...", "Stop trying to..."）
+
+## 負けパターン（回避）
+
+- 機能リスト（"Track, Measure, Improve"）
+- 一般的な動詞（"Discover", "Explore", "Transform"）
+- 長文（9語以上 / 16文字以上）

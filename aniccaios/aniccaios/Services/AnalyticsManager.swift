@@ -1,5 +1,7 @@
 import Foundation
 import Mixpanel
+import PostHog
+import TikTokBusinessSDK
 import OSLog
 
 /// アプリ全体のアナリティクスを管理するシングルトン
@@ -58,6 +60,12 @@ final class AnalyticsManager {
         logger.debug("Tracked event: \(event.rawValue, privacy: .public)")
     }
     
+    /// PostHog event tracking (A/B test layer — runs alongside Mixpanel)
+    func trackPostHog(_ eventName: String, properties: [String: Any]? = nil) {
+        PostHogSDK.shared.capture(eventName, properties: properties)
+        logger.debug("PostHog captured: \(eventName, privacy: .public)")
+    }
+
     // MARK: - Convenience Methods
 
     /// トライアル開始
@@ -76,6 +84,15 @@ final class AnalyticsManager {
         
         // Revenue tracking
         Mixpanel.mainInstance().people.trackCharge(amount: revenue)
+
+        // TikTok: Subscribe event for purchase optimization campaigns
+        // currency + value は ROAS 最適化に必須（Source: TikTok Business API docs）
+        let ttEvent = TikTokBaseEvent(eventName: "Subscribe")
+        ttEvent.addProperty(withKey: "currency", value: "USD")
+        ttEvent.addProperty(withKey: "value", value: String(format: "%.2f", revenue))
+        ttEvent.addProperty(withKey: "description", value: productId)
+        TikTokBusiness.trackTTEvent(ttEvent)
+        logger.debug("TikTok Subscribe event sent: \(productId) $\(revenue)")
     }
     
     /// 音声セッション開始

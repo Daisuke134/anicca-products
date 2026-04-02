@@ -18,6 +18,40 @@ SLACK_CHANNEL="${SLACK_CHANNEL_ID:-C091G3PKHL2}"
 export PATH="/Users/anicca/Library/Python/3.9/bin:$PATH"
 # ASC_BYPASS_KEYCHAIN は設定禁止（keychain の iris session が読めなくなる）
 
+# ============================================================
+# ERROR LOGGING — factory-bp-internal 用
+# Source: Addy Osmani — Self-Improving Coding Agents
+# Quote: 「By resetting its memory each iteration, the agent avoids accumulating confusion」
+# ============================================================
+log_error() {
+  local ERROR_MSG="$1"
+  local ERROR_TYPE="$2"
+  local LEARNINGS_DIR="${APP_DIR:-.}/.learnings"
+  mkdir -p "$LEARNINGS_DIR"
+  local ERRORS_FILE="$LEARNINGS_DIR/ERRORS.md"
+  local DATE_NOW=$(date '+%Y-%m-%d %H:%M')
+  if grep -qF "## $ERROR_TYPE" "$ERRORS_FILE" 2>/dev/null; then
+    python3 -c "
+import re
+with open('$ERRORS_FILE', 'r') as f: content = f.read()
+pattern = r'(## ${ERROR_TYPE}.*?Recurrence-Count: )(\d+)'
+content = re.sub(pattern, lambda m: m.group(1) + str(int(m.group(2)) + 1), content, flags=re.DOTALL)
+with open('$ERRORS_FILE', 'w') as f: f.write(content)
+" 2>/dev/null || true
+  else
+    cat >> "$ERRORS_FILE" << EOF
+
+## $ERROR_TYPE
+Date: $DATE_NOW
+Recurrence-Count: 1
+
+\`\`\`
+$ERROR_MSG
+\`\`\`
+EOF
+  fi
+}
+
 # Source secrets from .env (Twelve-Factor App: https://12factor.net/config)
 if [ -f ~/.config/mobileapp-builder/.env ]; then
   set -a
@@ -311,6 +345,7 @@ for us in d['userStories']:
   if echo "$USAGE_TEXT" | grep -qi "out of extra usage\|out of.*usage\|usage.*exceeded\|hit your limit"; then
     echo "🏭 ⚠️ CC usage 超過検出。残りイテレーションをスキップ。"
     notify_slack "⚠️ CC usage 超過。イテレーション $i で停止。"
+    log_error "CC usage limit exceeded at iteration $i" "CC_USAGE_EXCEEDED"
     break
   fi
 
@@ -386,6 +421,7 @@ for us in d['userStories']:
   if [ "$FAIL_COUNT" -ge 5 ]; then
     echo "🏭 ❌ $CURRENT_US が5回連続失敗。BLOCKED。"
     notify_slack "❌ $CURRENT_US が5回連続失敗。BLOCKED。手動対応必要。"
+    log_error "$CURRENT_US failed 5 consecutive times" "US_5X_FAIL_$CURRENT_US"
     break
   fi
 
@@ -424,6 +460,7 @@ else:
 " 2>/dev/null || echo "reset failed")
         echo "$RESET_US"
         notify_slack "🔴 validate.sh FAILED at iteration $i — $RESET_US"
+        log_error "validate.sh failed at iteration $i: $RESET_US" "VALIDATE_FAIL"
       fi
     fi
   fi
@@ -442,4 +479,5 @@ done
 
 echo "🏭 ❌ MAX_ITERATIONS ($MAX_ITERATIONS) に到達。完了せず。"
 notify_slack "❌ MAX_ITERATIONS ($MAX_ITERATIONS) に到達。完了せず。"
+log_error "MAX_ITERATIONS ($MAX_ITERATIONS) reached without completion" "MAX_ITERATIONS_REACHED"
 exit 1
