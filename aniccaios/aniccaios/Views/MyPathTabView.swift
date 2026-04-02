@@ -59,9 +59,11 @@ struct MyPathTabView: View {
                                                 .foregroundStyle(AppTheme.Colors.secondaryLabel)
                                         }
                                         .padding(16)
+                                        .background(AppTheme.Colors.cardBackground)
+                                        .clipShape(RoundedRectangle(cornerRadius: 12))
                                     }
                                     .buttonStyle(.plain)
-                                    .listRowBackground(AppTheme.Colors.cardBackground)
+                                    .listRowBackground(Color.clear)
                                     .listRowSeparator(.hidden)
                                     .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
                                     .swipeActions(edge: .trailing, allowsFullSwipe: false) {
