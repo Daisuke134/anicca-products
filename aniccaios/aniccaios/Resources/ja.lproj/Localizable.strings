@@ -1348,7 +1348,7 @@
 "paywall_plan_privacy" = "プライバシー";
 
 // MARK: - Paywall Variant B (A/B Test)
-"paywall_b_title" = "あなたが必要な時に、そっと寄り添うナッジ";
+"paywall_b_title" = "あなたが一番つらいとき、そっと届く言葉";
 "paywall_b_subtitle" = "あなたの悩みに寄り添うカードを毎日受け取ろう";
 "paywall_b_feature_nudges" = "最適なタイミングのスマートナッジ";
 "paywall_b_feature_ai" = "AI生成のパーソナライズされたガイダンス";

@@ -115,12 +115,10 @@ struct PaywallVariantBView: View {
 
     private var heroSection: some View {
         VStack(spacing: 8) {
-            if let uiImage = UIImage(named: "AppIcon") {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .frame(width: 64, height: 64)
-                    .clipShape(RoundedRectangle(cornerRadius: 14))
-            }
+            Image("AniccaLogo")
+                .resizable()
+                .frame(width: 64, height: 64)
+                .clipShape(RoundedRectangle(cornerRadius: 14))
 
             Text(paywallText("title", fallback: "paywall_b_title"))
                 .font(.system(size: 28, weight: .bold))
