@@ -76,7 +76,7 @@ struct MyPathTabView: View {
                                 }
                             }
                             .listStyle(.plain)
-                            .frame(height: CGFloat(userProblems.count) * 76)
+                            .frame(height: CGFloat(userProblems.count) * 88)
                             .padding(.horizontal, 0)
                         }
                     }
