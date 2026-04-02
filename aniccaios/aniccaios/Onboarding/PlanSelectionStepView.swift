@@ -270,7 +270,9 @@ struct PlanSelectionStepView: View {
     }
 
     private func paywallText(_ key: String, fallback: String) -> String {
-        if let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any],
+        let lang = Locale.current.languageCode ?? "en"
+        if lang == "en",
+           let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any],
            let text = payload[key] as? String {
             return text
         }

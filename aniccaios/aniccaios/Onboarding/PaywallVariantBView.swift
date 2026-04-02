@@ -115,10 +115,12 @@ struct PaywallVariantBView: View {
 
     private var heroSection: some View {
         VStack(spacing: 8) {
-            Image("AppIcon60x60")
-                .resizable()
-                .frame(width: 64, height: 64)
-                .clipShape(RoundedRectangle(cornerRadius: 14))
+            if let uiImage = UIImage(named: "AppIcon") {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .frame(width: 64, height: 64)
+                    .clipShape(RoundedRectangle(cornerRadius: 14))
+            }
 
             Text(paywallText("title", fallback: "paywall_b_title"))
                 .font(.system(size: 28, weight: .bold))
@@ -326,7 +328,9 @@ struct PaywallVariantBView: View {
     // MARK: - Helpers
 
     private func paywallText(_ key: String, fallback: String) -> String {
-        if let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any],
+        let lang = Locale.current.languageCode ?? "en"
+        if lang == "en",
+           let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any],
            let text = payload[key] as? String {
             return text
         }
