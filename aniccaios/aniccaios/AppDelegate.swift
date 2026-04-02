@@ -39,6 +39,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         phConfig.sessionReplayConfig.maskAllImages = false
         PostHogSDK.shared.setup(phConfig)
         PostHogSDK.shared.identify(Purchases.shared.appUserID)
+        // identify() 後にフラグを明示リロード（ユーザーコンテキスト変更でpreload分が無効になるため）
+        // Source: https://posthog.com/docs/libraries/ios/usage
+        PostHogSDK.shared.reloadFeatureFlags()
 
         // TikTok Business SDK: install自動追跡 + Subscribe手動追跡（ATTなし）
         // disablePaymentTracking: StoreKit自動Purchaseをオフ → 二重送信防止
