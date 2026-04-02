@@ -25,8 +25,8 @@
 "common_signing_in" = "サインイン中…";
 "settings_language_label" = "言語";
 
-"onboarding_welcome_title" = "あなたを縛る\nパターンから\n自由になろう";
-"onboarding_welcome_subtitle_line1" = "一番つらい瞬間に、アニッチャが寄り添います。";
+"onboarding_welcome_title" = "一番つらいときに\nやさしい言葉を";
+"onboarding_welcome_subtitle_line1" = "あなたに合った言葉を厳選してお届けします。";
 "onboarding_welcome_subtitle_line2" = "";
 "onboarding_welcome_cta" = "はじめる";
 "onboarding_welcome_social_proof" = "⭐ 4.9 · 10,000人以上が内なる安らぎを実感";
@@ -1327,8 +1327,8 @@
 "paywall_primer_feature1" = "全機能にアクセス";
 "paywall_primer_feature2" = "パーソナライズされたナッジ";
 "paywall_primer_feature3" = "いつでもキャンセル可能";
-"paywall_plan_title" = "変わるための道は、ここから";
-"paywall_plan_subtitle" = "変化への旅を始めよう";
+"paywall_plan_title" = "やさしい一言を、\n毎日のひとときに";
+"paywall_plan_subtitle" = "あなたに合った言葉を厳選してお届けします。";
 "paywall_plan_feature_access" = "全機能にアクセス";
 "paywall_plan_feature_nudges" = "パーソナライズされたナッジ";
 "paywall_plan_feature_cancel" = "いつでもキャンセル";

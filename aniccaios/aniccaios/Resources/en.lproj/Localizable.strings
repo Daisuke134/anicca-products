@@ -25,8 +25,8 @@
 "common_signing_in" = "Signing in...";
 "settings_language_label" = "Language";
 
-"onboarding_welcome_title" = "Break free from\nthe patterns that\nhold you back";
-"onboarding_welcome_subtitle_line1" = "Anicca reaches out at the moments you struggle most.";
+"onboarding_welcome_title" = "A kind word\nwhen you need it\nmost";
+"onboarding_welcome_subtitle_line1" = "Daily cards with words chosen just for you.";
 "onboarding_welcome_subtitle_line2" = "";
 "onboarding_welcome_cta" = "Get Started";
 "onboarding_welcome_social_proof" = "⭐ 4.9 · 10,000+ people finding inner peace";
@@ -1327,8 +1327,8 @@
 "paywall_primer_feature1" = "Full access to all features";
 "paywall_primer_feature2" = "Personalized nudges";
 "paywall_primer_feature3" = "Cancel anytime";
-"paywall_plan_title" = "Your path to change starts here";
-"paywall_plan_subtitle" = "Start your journey to change";
+"paywall_plan_title" = "A gentle word\nfor your daily moments";
+"paywall_plan_subtitle" = "Daily cards with words chosen just for you.";
 "paywall_plan_feature_access" = "Full access to all features";
 "paywall_plan_feature_nudges" = "Personalized nudges";
 "paywall_plan_feature_cancel" = "Cancel anytime";
