@@ -46,6 +46,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             appId: "6755129214",
             tiktokAppId: "7593741049791217671"
         ) {
+            ttConfig.automaticTrackingEnabled = true
             ttConfig.setLogLevel(TikTokLogLevelSuppress)
             TikTokBusiness.initializeSdk(ttConfig)
         }
