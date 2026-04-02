@@ -43,6 +43,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         // completion callback で featureFlagsReady を立てる → Paywall が nil を読まない
         // Source: https://posthog.com/docs/libraries/ios/usage — "Ensuring flags are loaded before usage"
         PostHogSDK.shared.reloadFeatureFlags {
+            let flag = PostHogSDK.shared.getFeatureFlag("paywall-ab-test")
+            let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test")
+            print("🔍 [PostHog RELOAD COMPLETE] flag=\(String(describing: flag)) payload=\(payload == nil ? "nil" : "EXISTS")")
             Task { @MainActor in
                 AppState.shared.featureFlagsReady = true
             }
