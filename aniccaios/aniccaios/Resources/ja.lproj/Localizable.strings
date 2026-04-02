@@ -26,7 +26,7 @@
 "settings_language_label" = "言語";
 
 "onboarding_welcome_title" = "一番つらいときに\nやさしい言葉を";
-"onboarding_welcome_subtitle_line1" = "あなたに合った言葉を厳選してお届けします。";
+"onboarding_welcome_subtitle_line1" = "あなたにあった言葉を\n厳選してお届けします。";
 "onboarding_welcome_subtitle_line2" = "";
 "onboarding_welcome_cta" = "はじめる";
 "onboarding_welcome_social_proof" = "⭐ 4.9 · 10,000人以上が内なる安らぎを実感";
@@ -1328,7 +1328,7 @@
 "paywall_primer_feature2" = "パーソナライズされたナッジ";
 "paywall_primer_feature3" = "いつでもキャンセル可能";
 "paywall_plan_title" = "やさしい一言を、\n毎日のひとときに";
-"paywall_plan_subtitle" = "あなたに合った言葉を厳選してお届けします。";
+"paywall_plan_subtitle" = "あなたにあった言葉を\n厳選してお届けします。";
 "paywall_plan_feature_access" = "全機能にアクセス";
 "paywall_plan_feature_nudges" = "パーソナライズされたナッジ";
 "paywall_plan_feature_cancel" = "いつでもキャンセル";
