@@ -5,22 +5,12 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000168">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000151">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: build_app" time="75.448604">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="2: codesign --remove-signature &apos;/Users/anicca/anicca-project/aniccaios/fastlane/build/aniccaios.xcarchive/Products/Applications/aniccaios.app/Frameworks/WebRTC.framework&apos;" time="0.018171">
-        
-      </testcase>
-    
-      
-      <testcase classname="fastlane.lanes" name="3: xcodebuild -exportArchive -archivePath &apos;/Users/anicca/anicca-project/aniccaios/fastlane/build/aniccaios.xcarchive&apos; -exportOptionsPlist &apos;/Users/anicca/anicca-project/aniccaios/fastlane/build/ExportOptions.plist&apos; -exportPath &apos;/Users/anicca/anicca-project/aniccaios/fastlane/build/export&apos; -allowProvisioningUpdates" time="2.459623">
+      <testcase classname="fastlane.lanes" name="1: shell command" time="2.086855">
         
       </testcase>
     

@@ -140,14 +140,9 @@ enum ProblemType: String, Codable, CaseIterable, Sendable {
     }
 
     /// 通知文言のバリアント数
-    /// v1.6.1: 2週間新鮮体験のため拡張 (stayingUpLate: 21, others: 14)
+    /// v1.8.0: 全問題60バリアントに拡張（20日間新鮮体験）
     var notificationVariantCount: Int {
-        switch self {
-        case .stayingUpLate:
-            return 21  // 5回/日 × 4.2日
-        default:
-            return 14  // 3回/日 × 4.67日
-        }
+        return 60
     }
 
     /// 問題タイプから初期化（rawValueから）

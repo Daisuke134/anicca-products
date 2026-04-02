@@ -29,6 +29,9 @@ final class AppState: ObservableObject {
     @Published private(set) var isOnboardingComplete: Bool
     @Published private(set) var onboardingStep: OnboardingStep
     @Published private(set) var cachedOffering: Offering?
+    /// PostHog feature flags がサーバーから到着済みか（初回起動時の nil 防止）
+    /// Source: https://posthog.com/docs/libraries/ios/usage — "Ensuring flags are loaded before usage"
+    @Published var featureFlagsReady: Bool = false
 
     // MARK: - Proactive Agent: NudgeCard
     @Published var pendingNudgeCard: NudgeContent? = nil
@@ -684,6 +687,11 @@ final class AppState: ObservableObject {
         profile.ideals = ideals
         profile.struggles = struggles
         updateUserProfile(profile, sync: true)
+    }
+
+    func removeProblem(_ problem: ProblemType) {
+        let updated = userProfile.struggles.filter { $0 != problem.rawValue }
+        updateTraits(ideals: userProfile.ideals, struggles: updated)
     }
     
     func updateBig5(_ scores: Big5Scores?) {
