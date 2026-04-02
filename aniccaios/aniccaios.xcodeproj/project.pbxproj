@@ -351,6 +351,7 @@
 				840BA3B12EC77325005CDB8D /* WebRTC */,
 				84DE437E2F090BDA00198F6C /* Mixpanel */,
 				84PH00012F2B000000000001 /* PostHog */,
+				84TT00012F2C000000000001 /* TikTokBusinessSDK */,
 			);
 			productName = aniccaios;
 			productReference = 8471AE7B2EB783E1002CECAA /* aniccaios.app */;
@@ -435,6 +436,7 @@
 				840BA3B02EC77325005CDB8D /* XCRemoteSwiftPackageReference "WebRTC" */,
 				84DE437B2F08F5D000198F6C /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
 				84PH00002F2B000000000000 /* XCRemoteSwiftPackageReference "posthog-ios" */,
+				84TT00002F2C000000000000 /* XCRemoteSwiftPackageReference "tiktok-business-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8471AE7C2EB783E1002CECAA /* Products */;
@@ -1558,6 +1560,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		84TT00002F2C000000000000 /* XCRemoteSwiftPackageReference "tiktok-business-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tiktok/tiktok-business-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1590,6 +1600,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 84PH00002F2B000000000000 /* XCRemoteSwiftPackageReference "posthog-ios" */;
 			productName = PostHog;
+		};
+		84TT00012F2C000000000001 /* TikTokBusinessSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 84TT00002F2C000000000000 /* XCRemoteSwiftPackageReference "tiktok-business-ios-sdk" */;
+			productName = TikTokBusinessSDK;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

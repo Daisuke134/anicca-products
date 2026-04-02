@@ -1,6 +1,7 @@
 import Foundation
 import Mixpanel
 import PostHog
+import TikTokBusinessSDK
 import OSLog
 
 /// アプリ全体のアナリティクスを管理するシングルトン
@@ -83,6 +84,11 @@ final class AnalyticsManager {
         
         // Revenue tracking
         Mixpanel.mainInstance().people.trackCharge(amount: revenue)
+
+        // TikTok: Subscribe event for purchase optimization campaigns
+        let ttEvent = TikTokBaseEvent(eventName: .subscribe)
+        TikTokBusiness.trackTTEvent(ttEvent)
+        logger.debug("TikTok Subscribe event sent")
     }
     
     /// 音声セッション開始

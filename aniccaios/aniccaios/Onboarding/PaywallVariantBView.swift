@@ -68,6 +68,12 @@ struct PaywallVariantBView: View {
         selectedPackage?.storeProduct.introductoryDiscount != nil
     }
 
+    /// F19: Hard paywall — hides dismiss/skip controls when PostHog payload says so
+    private var isHardPaywall: Bool {
+        guard let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any] else { return false }
+        return payload["hard_paywall"] as? Bool ?? false
+    }
+
     var body: some View {
         VStack(spacing: 12) {
             dismissButton
@@ -98,18 +104,21 @@ struct PaywallVariantBView: View {
 
     // MARK: - Sections
 
+    @ViewBuilder
     private var dismissButton: some View {
-        HStack {
-            Spacer()
-            Button { onDismiss() } label: {
-                Image(systemName: "xmark")
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(.secondary)
-                    .frame(width: 32, height: 32)
+        if !isHardPaywall {
+            HStack {
+                Spacer()
+                Button { onDismiss() } label: {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundStyle(.secondary)
+                        .frame(width: 32, height: 32)
+                }
+                .accessibilityIdentifier("paywall-dismiss")
+                .padding(.trailing, 16)
+                .padding(.top, 8)
             }
-            .accessibilityIdentifier("paywall-dismiss")
-            .padding(.trailing, 16)
-            .padding(.top, 8)
         }
     }
 
@@ -222,10 +231,12 @@ struct PaywallVariantBView: View {
                 .padding(.horizontal, 24)
 
             HStack(spacing: 24) {
-                Button(String(localized: "paywall_plan_maybe_later")) { onDismiss() }
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundStyle(.secondary)
-                    .accessibilityIdentifier("paywall-maybe-later")
+                if !isHardPaywall {
+                    Button(String(localized: "paywall_plan_maybe_later")) { onDismiss() }
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundStyle(.secondary)
+                        .accessibilityIdentifier("paywall-maybe-later")
+                }
 
                 Button(String(localized: "paywall_plan_restore")) { restorePurchases() }
                     .font(.system(size: 14, weight: .medium))
@@ -327,10 +338,14 @@ struct PaywallVariantBView: View {
 
     private func paywallText(_ key: String, fallback: String) -> String {
         let lang = Locale.current.languageCode ?? "en"
-        if lang == "en",
-           let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any],
-           let text = payload[key] as? String {
-            return text
+        if let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any] {
+            let localizedKey = "\(key)_\(lang)"
+            if let text = payload[localizedKey] as? String {
+                return text
+            }
+            if let text = payload[key] as? String {
+                return text
+            }
         }
         return String(localized: String.LocalizationValue(fallback))
     }

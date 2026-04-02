@@ -30,6 +30,12 @@ struct PlanSelectionStepView: View {
         packages.first { $0.packageType == .monthly }
     }
 
+    /// F19: Hard paywall — hides dismiss/skip controls when PostHog payload says so
+    private var isHardPaywall: Bool {
+        guard let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any] else { return false }
+        return payload["hard_paywall"] as? Bool ?? false
+    }
+
     /// F6: Dynamic save percentage
     private var savePct: Int? {
         guard let yearly = yearlyPackage, let monthly = monthlyPackage else { return nil }
@@ -41,19 +47,21 @@ struct PlanSelectionStepView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            HStack {
-                Spacer()
-                Button {
-                    onDismiss()
-                } label: {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundStyle(.secondary)
-                        .frame(width: 32, height: 32)
+            if !isHardPaywall {
+                HStack {
+                    Spacer()
+                    Button {
+                        onDismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundStyle(.secondary)
+                            .frame(width: 32, height: 32)
+                    }
+                    .accessibilityIdentifier("paywall-dismiss")
+                    .padding(.trailing, 16)
+                    .padding(.top, 8)
                 }
-                .accessibilityIdentifier("paywall-dismiss")
-                .padding(.trailing, 16)
-                .padding(.top, 8)
             }
 
             // F4: Fixed outcome-focused title
@@ -154,12 +162,14 @@ struct PlanSelectionStepView: View {
                         .padding(.horizontal, 24)
 
                     HStack(spacing: 24) {
-                        Button(String(localized: "paywall_plan_maybe_later")) {
-                            onDismiss()
+                        if !isHardPaywall {
+                            Button(String(localized: "paywall_plan_maybe_later")) {
+                                onDismiss()
+                            }
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundStyle(.secondary)
+                            .accessibilityIdentifier("paywall-maybe-later")
                         }
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundStyle(.secondary)
-                        .accessibilityIdentifier("paywall-maybe-later")
 
                         Button(String(localized: "paywall_plan_restore")) {
                             restorePurchases()
@@ -271,10 +281,14 @@ struct PlanSelectionStepView: View {
 
     private func paywallText(_ key: String, fallback: String) -> String {
         let lang = Locale.current.languageCode ?? "en"
-        if lang == "en",
-           let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any],
-           let text = payload[key] as? String {
-            return text
+        if let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any] {
+            let localizedKey = "\(key)_\(lang)"
+            if let text = payload[localizedKey] as? String {
+                return text
+            }
+            if let text = payload[key] as? String {
+                return text
+            }
         }
         return String(localized: String.LocalizationValue(fallback))
     }
