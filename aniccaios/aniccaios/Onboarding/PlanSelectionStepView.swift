@@ -198,14 +198,6 @@ struct PlanSelectionStepView: View {
         }
         .background(AppBackground())
         .onAppear {
-            // DEBUG: PostHog flag/payload 状態確認
-            let flagValue = PostHogSDK.shared.getFeatureFlag("paywall-ab-test")
-            let payloadValue = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test")
-            print("🔍 [PostHog DEBUG] featureFlag=\(String(describing: flagValue)) payload=\(payloadValue == nil ? "nil" : "EXISTS(\(type(of: payloadValue!)))")")
-            if let dict = payloadValue as? [String: Any] {
-                print("🔍 [PostHog DEBUG] show_x_button=\(dict["show_x_button"] ?? "MISSING") hard_paywall=\(dict["hard_paywall"] ?? "MISSING")")
-            }
-
             if !hasTracked {
                 hasTracked = true
                 AnalyticsManager.shared.track(.paywallPlanSelectionViewed)
