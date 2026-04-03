@@ -40,19 +40,31 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         PostHogSDK.shared.setup(phConfig)
         PostHogSDK.shared.identify(Purchases.shared.appUserID)
 
-        // TikTok Business SDK: install自動追跡 + Subscribe手動追跡（ATTなし）
-        // disablePaymentTracking: StoreKit自動Purchaseをオフ → 二重送信防止
-        // Subscribe は AnalyticsManager.trackPurchaseCompleted() で手動送信（currency/value付き）
+        // TikTok Business SDK: 全イベント手動送信（ATTなし）
+        // automaticTrackingEnabled = false（デフォルト）: SDK自動追跡OFF
+        //   理由: automaticTracking ON → サーバー設定が disablePaymentTracking() を上書き
+        //         → Purchase 大量発火（TikTokBusiness.m L951）
+        // InstallApp / LaunchAPP / Subscribe は全て手動で正確に1回ずつ送信
         if let ttConfig = TikTokConfig(
             accessToken: "TTb5OwyxPDGWM0zYywD5K2tgJMppH0Wb",
             appId: "6755129214",
             tiktokAppId: "7593741049791217671"
         ) {
-            ttConfig.automaticTrackingEnabled = true
+            ttConfig.disableAutomaticTracking()
             ttConfig.setLogLevel(TikTokLogLevelSuppress)
-            ttConfig.disablePaymentTracking()
             TikTokBusiness.initializeSdk(ttConfig)
         }
+
+        // 手動 InstallApp（初回起動のみ、1回だけ）
+        if !UserDefaults.standard.bool(forKey: "tiktokInstallTracked") {
+            let installEvent = TikTokBaseEvent(eventName: "InstallApp")
+            TikTokBusiness.trackTTEvent(installEvent)
+            UserDefaults.standard.set(true, forKey: "tiktokInstallTracked")
+        }
+
+        // 手動 LaunchAPP（毎回起動、1回だけ）
+        let launchEvent = TikTokBaseEvent(eventName: "LaunchAPP")
+        TikTokBusiness.trackTTEvent(launchEvent)
 
         // ASA Attribution取得 → app_opened トラック（この順序が重要）
         Task {
