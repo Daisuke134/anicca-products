@@ -482,7 +482,7 @@
         "channel": "slack",
         "to": "channel:C091G3PKHL2"
       },
-      "enabled": false
+      "enabled": true
     },
     {
       "id": "reelfarm-library-loop",
