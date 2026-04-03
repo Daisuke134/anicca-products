@@ -39,6 +39,14 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         phConfig.sessionReplayConfig.maskAllImages = false
         PostHogSDK.shared.setup(phConfig)
         PostHogSDK.shared.identify(Purchases.shared.appUserID)
+        // identify() 後にフラグを明示リロード（ユーザーコンテキスト変更でpreload分が無効になるため）
+        // completion callback で featureFlagsReady を立てる → Paywall が nil を読まない
+        // Source: https://posthog.com/docs/libraries/ios/usage — "Ensuring flags are loaded before usage"
+        PostHogSDK.shared.reloadFeatureFlags {
+            Task { @MainActor in
+                AppState.shared.featureFlagsReady = true
+            }
+        }
 
         // TikTok Business SDK: 全イベント手動送信（ATTなし）
         // automaticTrackingEnabled = false（デフォルト）: SDK自動追跡OFF

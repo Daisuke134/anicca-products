@@ -93,24 +93,35 @@ struct OnboardingFlowView: View {
                 }
             })
         case .planSelection:
-            let variant: String = {
-                if let forced = ProcessInfo.processInfo.environment["PAYWALL_VARIANT"] {
-                    return forced
+            if !appState.featureFlagsReady {
+                // PostHog フラグ到着待ち（初回起動時のみ発生）
+                // Source: https://posthog.com/docs/libraries/ios/usage — "Ensuring flags are loaded before usage"
+                VStack {
+                    Spacer()
+                    ProgressView()
+                    Spacer()
                 }
-                return PostHogSDK.shared.getFeatureFlag("paywall-ab-test") as? String ?? "control"
-            }()
-            if variant == "test" {
-                PaywallVariantBView(
-                    variant: variant,
-                    onPurchaseSuccess: { customerInfo in handlePaywallSuccess(customerInfo: customerInfo) },
-                    onDismiss: { handlePaywallDismissedAsFree() }
-                )
+                .background(AppBackground())
             } else {
-                PlanSelectionStepView(
-                    onPurchaseSuccess: { customerInfo in handlePaywallSuccess(customerInfo: customerInfo) },
-                    onDismiss: { handlePaywallDismissedAsFree() },
-                    variant: variant
-                )
+                let variant: String = {
+                    if let forced = ProcessInfo.processInfo.environment["PAYWALL_VARIANT"] {
+                        return forced
+                    }
+                    return PostHogSDK.shared.getFeatureFlag("paywall-ab-test") as? String ?? "control"
+                }()
+                if variant == "test" {
+                    PaywallVariantBView(
+                        variant: variant,
+                        onPurchaseSuccess: { customerInfo in handlePaywallSuccess(customerInfo: customerInfo) },
+                        onDismiss: { handlePaywallDismissedAsFree() }
+                    )
+                } else {
+                    PlanSelectionStepView(
+                        onPurchaseSuccess: { customerInfo in handlePaywallSuccess(customerInfo: customerInfo) },
+                        onDismiss: { handlePaywallDismissedAsFree() },
+                        variant: variant
+                    )
+                }
             }
         }
     }

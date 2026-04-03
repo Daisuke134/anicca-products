@@ -29,6 +29,9 @@ final class AppState: ObservableObject {
     @Published private(set) var isOnboardingComplete: Bool
     @Published private(set) var onboardingStep: OnboardingStep
     @Published private(set) var cachedOffering: Offering?
+    /// PostHog feature flags がサーバーから到着済みか（初回起動時の nil 防止）
+    /// Source: https://posthog.com/docs/libraries/ios/usage — "Ensuring flags are loaded before usage"
+    @Published var featureFlagsReady: Bool = false
 
     // MARK: - Proactive Agent: NudgeCard
     @Published var pendingNudgeCard: NudgeContent? = nil
