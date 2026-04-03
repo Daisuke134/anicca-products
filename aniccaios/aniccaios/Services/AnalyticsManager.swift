@@ -110,6 +110,7 @@ final class AnalyticsManager {
         ttEvent.addProperty(withKey: "content_type", value: "paywall")
         TikTokBusiness.trackTTEvent(ttEvent)
         logger.debug("TikTok ViewContent (paywall) event sent")
+        updateSKANConversionValue(2)
     }
 
     /// SKAdNetwork conversion value 更新
@@ -117,11 +118,11 @@ final class AnalyticsManager {
         if #available(iOS 16.1, *) {
             let coarse: SKAdNetwork.CoarseConversionValue = value >= 3 ? .high : value >= 1 ? .medium : .low
             SKAdNetwork.updatePostbackConversionValue(value, coarseValue: coarse) { error in
-                if let error { print("[SKAN] update failed: \(error)") }
+                if let error { self.logger.error("SKAN update failed: \(error.localizedDescription)") }
             }
         } else if #available(iOS 15.4, *) {
             SKAdNetwork.updatePostbackConversionValue(value) { error in
-                if let error { print("[SKAN] update failed: \(error)") }
+                if let error { self.logger.error("SKAN update failed: \(error.localizedDescription)") }
             }
         }
         logger.debug("SKAN conversion value updated: \(value)")
