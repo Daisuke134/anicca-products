@@ -101,6 +101,7 @@ struct PaywallVariantBView: View {
                 hasTracked = true
                 AnalyticsManager.shared.track(.paywallPlanSelectionViewed)
                 AnalyticsManager.shared.trackPostHog("paywall_viewed", properties: ["variant": variant])
+                AnalyticsManager.shared.trackPaywallViewed()
             }
             if selectedPackage == nil {
                 selectedPackage = yearlyPackage ?? monthlyPackage

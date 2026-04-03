@@ -2,6 +2,7 @@ import Foundation
 import Mixpanel
 import PostHog
 import TikTokBusinessSDK
+import StoreKit
 import OSLog
 
 /// アプリ全体のアナリティクスを管理するシングルトン
@@ -93,6 +94,37 @@ final class AnalyticsManager {
         ttEvent.addProperty(withKey: "description", value: productId)
         TikTokBusiness.trackTTEvent(ttEvent)
         logger.debug("TikTok Subscribe event sent: \(productId) $\(revenue)")
+        updateSKANConversionValue(3)
+    }
+
+    /// オンボーディング完了 → TikTok CompleteRegistration
+    func trackRegistrationCompleted() {
+        let ttEvent = TikTokBaseEvent(eventName: "CompleteRegistration")
+        TikTokBusiness.trackTTEvent(ttEvent)
+        logger.debug("TikTok CompleteRegistration event sent")
+    }
+
+    /// ペイウォール表示 → TikTok ViewContent
+    func trackPaywallViewed() {
+        let ttEvent = TikTokBaseEvent(eventName: "ViewContent")
+        ttEvent.addProperty(withKey: "content_type", value: "paywall")
+        TikTokBusiness.trackTTEvent(ttEvent)
+        logger.debug("TikTok ViewContent (paywall) event sent")
+    }
+
+    /// SKAdNetwork conversion value 更新
+    func updateSKANConversionValue(_ value: Int) {
+        if #available(iOS 16.1, *) {
+            let coarse: SKAdNetwork.CoarseConversionValue = value >= 3 ? .high : value >= 1 ? .medium : .low
+            SKAdNetwork.updatePostbackConversionValue(value, coarseValue: coarse) { error in
+                if let error { print("[SKAN] update failed: \(error)") }
+            }
+        } else if #available(iOS 15.4, *) {
+            SKAdNetwork.updatePostbackConversionValue(value) { error in
+                if let error { print("[SKAN] update failed: \(error)") }
+            }
+        }
+        logger.debug("SKAN conversion value updated: \(value)")
     }
     
     /// 音声セッション開始

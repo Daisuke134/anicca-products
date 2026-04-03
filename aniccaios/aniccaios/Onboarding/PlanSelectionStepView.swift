@@ -202,6 +202,7 @@ struct PlanSelectionStepView: View {
                 hasTracked = true
                 AnalyticsManager.shared.track(.paywallPlanSelectionViewed)
                 AnalyticsManager.shared.trackPostHog("paywall_viewed", properties: ["variant": variant])
+                AnalyticsManager.shared.trackPaywallViewed()
             }
             // Default to yearly
             if selectedPackage == nil {

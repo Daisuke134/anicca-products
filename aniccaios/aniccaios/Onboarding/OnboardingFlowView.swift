@@ -154,6 +154,8 @@ struct OnboardingFlowView: View {
 
     private func completeOnboarding() {
         AnalyticsManager.shared.track(.onboardingCompleted)
+        AnalyticsManager.shared.trackRegistrationCompleted()
+        AnalyticsManager.shared.updateSKANConversionValue(1)
 
         // Existing Pro user (reinstall etc.) → skip paywall
         if appState.subscriptionInfo.isEntitled {
