@@ -335,26 +335,63 @@ final class SingularManager {
  }
 ```
 
-### PATCH 6: SPM 依存（Claude Code が実行）
+### PATCH 6: SPM 依存（Claude Code が xcodeproj gem で実行）
 
-**ダイスの手動作業なし。** `Package.resolved` + `project.pbxproj` を直接編集。
+**ダイスの手動作業なし。** `xcodeproj` Ruby gem（CocoaPods/fastlane が使う公式ライブラリ）で pbxproj を安全に編集。
+
+Source: https://github.com/CocoaPods/Xcodeproj
 
 | 操作 | 対象 |
 |------|------|
 | **削除** | TikTokBusinessSDK（SPM） |
-| **追加** | Singular-iOS-SDK（`https://github.com/singular-labs/Singular-iOS-SDK`） |
+| **追加** | Singular-iOS-SDK v12.9.2（`https://github.com/singular-labs/Singular-iOS-SDK`） |
+
+**Step 1: xcodeproj gem で pbxproj を編集**
+
+```ruby
+/opt/homebrew/opt/ruby/bin/ruby <<'RUBY'
+require 'xcodeproj'
+project = Xcodeproj::Project.open('aniccaios/aniccaios.xcodeproj')
+target = project.targets.find { |t| t.name == 'aniccaios' }
+
+# TikTokBusinessSDK 削除
+tiktok_dep = target.package_product_dependencies.find { |d| d.product_name == 'TikTokBusinessSDK' }
+tiktok_dep.remove_from_project if tiktok_dep
+tiktok_ref = project.root_object.package_references.find { |r| r.repositoryURL.include?('tiktok-business-ios-sdk') }
+tiktok_ref.remove_from_project if tiktok_ref
+
+# Singular 追加
+singular_ref = project.new(Xcodeproj::Project::Object::XCRemoteSwiftPackageReference)
+singular_ref.repositoryURL = 'https://github.com/singular-labs/Singular-iOS-SDK'
+singular_ref.requirement = { 'kind' => 'upToNextMajorVersion', 'minimumVersion' => '12.9.2' }
+project.root_object.package_references << singular_ref
+
+singular_dep = project.new(Xcodeproj::Project::Object::XCSwiftPackageProductDependency)
+singular_dep.product_name = 'Singular'
+singular_dep.package = singular_ref
+target.package_product_dependencies << singular_dep
+
+project.save
+puts 'Done: TikTokBusinessSDK removed, Singular added.'
+RUBY
+```
+
+**Step 2: Package.resolved 削除 + 依存解決**
+
+```bash
+rm -f aniccaios/aniccaios.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+cd aniccaios && xcodebuild -resolvePackageDependencies -project aniccaios.xcodeproj -scheme aniccaios
+```
+
+**安全策:**
+- 実行前: `cp -r aniccaios.xcodeproj aniccaios.xcodeproj.bak`
+- 失敗時: `git checkout -- aniccaios/aniccaios.xcodeproj` で即復元
 
 追加時に Link Binary with Libraries で以下を確認:
-- Libsqlite3.0.tbd
-- SystemConfiguration.framework
-- Security.framework
-- Libz.tbd
 - AdSupport.framework
-- WebKit.framework
-- StoreKit.framework（既にある）
 - AdServices.framework（Optional マーク）
-
-**方法:** `xcodebuild -resolvePackageDependencies` + pbxproj の SPM セクション編集
+- StoreKit.framework（既にある）
+- その他（SystemConfiguration, Security, Libz, Libsqlite3.0, WebKit）は Singular SDK が自動リンク
 
 ---
 
