@@ -74,10 +74,10 @@ struct PaywallVariantBView: View {
         return payload["hard_paywall"] as? Bool ?? true
     }
 
-    /// X button visibility — controlled from PostHog payload, defaults to true
+    /// X button visibility — controlled from PostHog payload, defaults to false (hard paywall)
     private var showXButton: Bool {
-        guard let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any] else { return true }
-        return payload["show_x_button"] as? Bool ?? true
+        guard let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any] else { return false }
+        return payload["show_x_button"] as? Bool ?? false
     }
 
     var body: some View {
