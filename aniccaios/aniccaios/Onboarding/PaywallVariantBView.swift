@@ -384,6 +384,8 @@ struct PaywallVariantBView: View {
                         isPurchasing = false
                         onPurchaseSuccess(result.customerInfo)
                     }
+                } else {
+                    await MainActor.run { isPurchasing = false }
                 }
             } catch {
                 await MainActor.run {

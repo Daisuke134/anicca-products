@@ -178,12 +178,12 @@ struct OnboardingFlowView: View {
 
     private func handlePaywallSuccess(customerInfo: CustomerInfo) {
         didPurchaseOnPaywall = true
+        appState.updateSubscriptionInfo(from: customerInfo)
+        appState.markOnboardingComplete()
+        requestReviewIfNeeded()
         Task {
-            appState.updateSubscriptionInfo(from: customerInfo)
             await ProblemNotificationScheduler.shared
                 .scheduleNotifications(for: appState.userProfile.struggles)
-            appState.markOnboardingComplete()
-            requestReviewIfNeeded()
         }
     }
 
