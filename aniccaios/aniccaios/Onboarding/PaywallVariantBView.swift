@@ -68,11 +68,17 @@ struct PaywallVariantBView: View {
         selectedPackage?.storeProduct.introductoryDiscount != nil
     }
 
-    /// Hard paywall — X button is always shown, so hide "Maybe later"
-    private var isHardPaywall: Bool { true }
+    /// Hard paywall — controlled from PostHog payload, defaults to true
+    private var isHardPaywall: Bool {
+        guard let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any] else { return true }
+        return payload["hard_paywall"] as? Bool ?? true
+    }
 
-    /// X button — always visible
-    private var showXButton: Bool { true }
+    /// X button visibility — controlled from PostHog payload, defaults to true
+    private var showXButton: Bool {
+        guard let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any] else { return true }
+        return payload["show_x_button"] as? Bool ?? true
+    }
 
     var body: some View {
         VStack(spacing: 12) {

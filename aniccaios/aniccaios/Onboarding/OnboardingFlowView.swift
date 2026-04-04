@@ -103,11 +103,25 @@ struct OnboardingFlowView: View {
                 }
                 .background(AppBackground())
             } else {
-                PaywallVariantBView(
-                    variant: PostHogSDK.shared.getFeatureFlag("paywall-ab-test") as? String ?? "test",
-                    onPurchaseSuccess: { customerInfo in handlePaywallSuccess(customerInfo: customerInfo) },
-                    onDismiss: { handlePaywallDismissedAsFree() }
-                )
+                let variant: String = {
+                    if let forced = ProcessInfo.processInfo.environment["PAYWALL_VARIANT"] {
+                        return forced
+                    }
+                    return PostHogSDK.shared.getFeatureFlag("paywall-ab-test") as? String ?? "test"
+                }()
+                if variant == "test" {
+                    PaywallVariantBView(
+                        variant: variant,
+                        onPurchaseSuccess: { customerInfo in handlePaywallSuccess(customerInfo: customerInfo) },
+                        onDismiss: { handlePaywallDismissedAsFree() }
+                    )
+                } else {
+                    PlanSelectionStepView(
+                        onPurchaseSuccess: { customerInfo in handlePaywallSuccess(customerInfo: customerInfo) },
+                        onDismiss: { handlePaywallDismissedAsFree() },
+                        variant: variant
+                    )
+                }
             }
         }
     }
