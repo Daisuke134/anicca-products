@@ -24,6 +24,8 @@ final class SingularManager {
         // ATT なし: waitForTrackingAuthorization は設定しない
         // SKAN は SDK 12.0.6+ で自動有効（Singular Dashboard で Managed Mode）
         config.launchOptions = launchOptions
+        config.skAdNetworkEnabled = true
+        config.enableLogging = true
 
         Singular.start(config)
         isConfigured = true

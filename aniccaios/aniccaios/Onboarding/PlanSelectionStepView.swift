@@ -308,7 +308,7 @@ struct PlanSelectionStepView: View {
         Task {
             do {
                 let result = try await Purchases.shared.purchase(package: package)
-                if result.customerInfo.entitlements[AppConfig.revenueCatEntitlementId]?.isActive == true {
+                if !result.userCancelled {
                     AnalyticsManager.shared.track(.onboardingPaywallPurchased)
                     AnalyticsManager.shared.trackPostHog("paywall_purchased", properties: [
                         "variant": variant,
@@ -324,10 +324,6 @@ struct PlanSelectionStepView: View {
                     await MainActor.run {
                         isPurchasing = false
                         onPurchaseSuccess(result.customerInfo)
-                    }
-                } else {
-                    await MainActor.run {
-                        isPurchasing = false
                     }
                 }
             } catch {
