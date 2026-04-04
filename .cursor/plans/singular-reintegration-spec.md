@@ -335,7 +335,9 @@ final class SingularManager {
  }
 ```
 
-### PATCH 6: SPM 依存（Xcode 手動操作）
+### PATCH 6: SPM 依存（Claude Code が実行）
+
+**ダイスの手動作業なし。** `Package.resolved` + `project.pbxproj` を直接編集。
 
 | 操作 | 対象 |
 |------|------|
@@ -352,27 +354,41 @@ final class SingularManager {
 - StoreKit.framework（既にある）
 - AdServices.framework（Optional マーク）
 
+**方法:** `xcodebuild -resolvePackageDependencies` + pbxproj の SPM セクション編集
+
 ---
 
 ## テスト検証
 
-### Singular Testing Console
+### 検証フェーズ: TestFlight（App Store 提出前）
+
+TestFlight で**パイプラインが動作すること**を100%確認してから App Store に出す。
+
+| Step | 検証内容 | 方法 | 確認場所 |
+|------|---------|------|---------|
+| T1 | TestFlight ビルド配布 | fastlane | App Store Connect |
+| T2 | デバイス IDFV を取得 | Xcode コンソール or Settings → General → About | メモ |
+| T3 | Testing Console にデバイス登録 | Singular Dashboard → Developer Tools → Testing Console → IDFV 入力 | Singular |
+| T4 | Install（session）確認 | アプリ起動 → Testing Console にリアルタイム表示 | Singular Testing Console |
+| T5 | Purchase 確認 | sandbox 購入 → RevenueCat Dashboard で `$idfv` 属性が設定されていること確認 → Singular に `rc_initial_purchase_event` が届く | RevenueCat + Singular |
+
+### 検証フェーズ: App Store 提出後
 
 | Step | 検証内容 | 方法 |
 |------|---------|------|
-| 1 | IDFV を取得 | Xcode コンソールで `UIDevice.current.identifierForVendor` を確認 |
-| 2 | Testing Console にデバイス登録 | Singular Dashboard → Developer Tools → Testing Console → IDFV 入力 |
-| 3 | Install イベント確認 | アプリ起動 → Testing Console に session が表示される |
-| 4 | Purchase イベント確認 | **実購入が必要**（sandbox でもOK）→ RevenueCat → Singular に `rc_initial_purchase_event` が届く |
+| P1 | TikTok Events Manager で「Subscribe」イベント表示 | Events Manager → Overview |
+| P2 | TikTok Ads Manager でコンバージョン列に数値表示 | Ads Manager → キャンペーン一覧 |
+| P3 | 反映待ち | App Store 配布後 24-48 時間 |
 
-### TikTok Ads Manager 検証
+### なぜ App Store 提出が必要か
 
-| Step | 検証内容 |
-|------|---------|
-| 1 | Events Manager → Overview で「Subscribe」イベントが表示されるか確認 |
-| 2 | Ads Manager → 既存キャンペーンでコンバージョン列に数値が表示されるか確認 |
+| 理由 | 詳細 |
+|------|------|
+| 現ビルド（1.8.1）に Singular SDK がない | TikTok SDK のまま。MMP 経由の attribution が発生しない |
+| `collectDeviceIdentifiers()` がない | RevenueCat → Singular にイベントが一切送信されない |
+| TikTok SAN attribution | 実広告クリック → App Store DL → Singular attribution → TikTok Ads Manager。この流れは App Store ビルドでのみ発生 |
 
-**注意:** TikTok Ads Manager にデータが反映されるのは App Store で新ビルドが配布され、**実ユーザーが新バージョンをインストールした後。** TestFlight でのテストは Singular Testing Console でのみ確認可能。
+**TestFlight でパイプライン検証 → OK → App Store 提出 → 実広告ユーザーでコンバージョン確認**
 
 ---
 
@@ -381,13 +397,16 @@ final class SingularManager {
 ```
 1. release/1.8.0 を dev にマージ（TikTok SDK 等の変更を dev に戻す）
 2. dev から worktree 作成: ../anicca-singular (feature/singular-reintegration)
-3. worktree で PATCH 1-5 実装
-4. ダイスが Xcode で PATCH 6（SPM 操作）
-5. feature/singular-reintegration → dev マージ
-6. dev → main マージ（ダイス確認後）
-7. main から release/1.8.2 ブランチ作成
-8. fastlane ビルド → TestFlight → テスト → App Store 提出
+3. worktree で PATCH 1-6 全て実装（Claude Code が SPM 操作含めて全実行）
+4. feature/singular-reintegration → dev マージ
+5. dev → main マージ（ダイス確認後）
+6. main から release/1.8.2 ブランチ作成
+7. fastlane ビルド → TestFlight
+8. TestFlight テスト（T1-T5）→ 全パス確認
+9. App Store 提出
 ```
+
+**ダイスの手動作業:** Dashboard 設定（D1-D3）のみ。コード/ビルド/提出は全て Claude Code が実行。
 
 ---
 
