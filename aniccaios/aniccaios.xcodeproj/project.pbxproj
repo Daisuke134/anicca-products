@@ -351,7 +351,7 @@
 				840BA3B12EC77325005CDB8D /* WebRTC */,
 				84DE437E2F090BDA00198F6C /* Mixpanel */,
 				84PH00012F2B000000000001 /* PostHog */,
-				84TT00012F2C000000000001 /* TikTokBusinessSDK */,
+				EF17B89AF1FF1936EB1AE58E /* Singular */,
 			);
 			productName = aniccaios;
 			productReference = 8471AE7B2EB783E1002CECAA /* aniccaios.app */;
@@ -436,7 +436,7 @@
 				840BA3B02EC77325005CDB8D /* XCRemoteSwiftPackageReference "WebRTC" */,
 				84DE437B2F08F5D000198F6C /* XCRemoteSwiftPackageReference "mixpanel-swift" */,
 				84PH00002F2B000000000000 /* XCRemoteSwiftPackageReference "posthog-ios" */,
-				84TT00002F2C000000000000 /* XCRemoteSwiftPackageReference "tiktok-business-ios-sdk" */,
+				C4B1D88B80DC2E78A575FFA4 /* XCRemoteSwiftPackageReference "Singular-iOS-SDK" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8471AE7C2EB783E1002CECAA /* Products */;
@@ -1560,12 +1560,12 @@
 				minimumVersion = 3.0.0;
 			};
 		};
-		84TT00002F2C000000000000 /* XCRemoteSwiftPackageReference "tiktok-business-ios-sdk" */ = {
+		C4B1D88B80DC2E78A575FFA4 /* XCRemoteSwiftPackageReference "Singular-iOS-SDK" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/tiktok/tiktok-business-ios-sdk";
+			repositoryURL = "https://github.com/singular-labs/Singular-iOS-SDK";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.0;
+				minimumVersion = 12.9.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1601,10 +1601,10 @@
 			package = 84PH00002F2B000000000000 /* XCRemoteSwiftPackageReference "posthog-ios" */;
 			productName = PostHog;
 		};
-		84TT00012F2C000000000001 /* TikTokBusinessSDK */ = {
+		EF17B89AF1FF1936EB1AE58E /* Singular */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 84TT00002F2C000000000000 /* XCRemoteSwiftPackageReference "tiktok-business-ios-sdk" */;
-			productName = TikTokBusinessSDK;
+			package = C4B1D88B80DC2E78A575FFA4 /* XCRemoteSwiftPackageReference "Singular-iOS-SDK" */;
+			productName = Singular;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

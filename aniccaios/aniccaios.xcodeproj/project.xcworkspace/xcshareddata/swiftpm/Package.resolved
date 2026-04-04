@@ -1,5 +1,5 @@
 {
-  "originHash" : "e7506c5ef0950fa63ed68d2e5ad3bb8e7809eb4c5141ec2038d4eac172e6536f",
+  "originHash" : "bc9fd94c6cc17c19dad7ba553e3ceae4488d3bced6169180b97a99461411ac72",
   "pins" : [
     {
       "identity" : "autolayout",
@@ -15,8 +15,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/componentskit/ComponentsKit",
       "state" : {
-        "revision" : "fe56aaf6a1a633ce59944b737ce93a46f161e2fd",
-        "version" : "1.5.4"
+        "revision" : "e47e4976667b9a34c9c39d5a1227d2c73ef2154e",
+        "version" : "1.6.1"
+      }
+    },
+    {
+      "identity" : "json-logic-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/advantagefse/json-logic-swift",
+      "state" : {
+        "revision" : "9088eed1b26937fe13d248aa24d7632a51be28e2",
+        "version" : "1.2.4"
       }
     },
     {
@@ -25,7 +34,7 @@
       "location" : "https://github.com/mixpanel/mixpanel-swift",
       "state" : {
         "branch" : "master",
-        "revision" : "5ecded282e1468a5b6ac60e16569cc074f814db3"
+        "revision" : "6e2a786b1e88b57b90f5a6d401337bc1bb2ba69c"
       }
     },
     {
@@ -42,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/PostHog/posthog-ios.git",
       "state" : {
-        "revision" : "9199aa2a26c9f2ee12e68869fc28ec4a205edabc",
-        "version" : "3.48.3"
+        "revision" : "af5b8e4c1a8e68c1e99ccbb62521f35e3928eb8d",
+        "version" : "3.49.0"
       }
     },
     {
@@ -51,17 +60,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RevenueCat/purchases-ios",
       "state" : {
-        "revision" : "b11e3e4eefdd0c78b2181a0ad7affdb9362ec4a3",
-        "version" : "5.55.1"
+        "revision" : "66f81c19e29170cecc1f155c62cd586cf53b8400",
+        "version" : "5.67.1"
       }
     },
     {
-      "identity" : "tiktok-business-ios-sdk",
+      "identity" : "singular-ios-sdk",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/tiktok/tiktok-business-ios-sdk",
+      "location" : "https://github.com/singular-labs/Singular-iOS-SDK",
       "state" : {
-        "revision" : "79faf4f1a8a15b039cb0d41a5186ea32fff86cb2",
-        "version" : "1.6.0"
+        "revision" : "ed4e1caad42ed97dd1b01943890f0df2812cbd81",
+        "version" : "12.10.1"
       }
     },
     {

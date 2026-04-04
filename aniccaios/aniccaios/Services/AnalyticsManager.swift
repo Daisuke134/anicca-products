@@ -1,7 +1,6 @@
 import Foundation
 import Mixpanel
 import PostHog
-import TikTokBusinessSDK
 import StoreKit
 import OSLog
 
@@ -86,30 +85,13 @@ final class AnalyticsManager {
         // Revenue tracking
         Mixpanel.mainInstance().people.trackCharge(amount: revenue)
 
-        // TikTok: Subscribe event for purchase optimization campaigns
-        // currency + value は ROAS 最適化に必須（Source: TikTok Business API docs）
-        let ttEvent = TikTokBaseEvent(eventName: "Subscribe")
-        ttEvent.addProperty(withKey: "currency", value: "USD")
-        ttEvent.addProperty(withKey: "value", value: String(format: "%.2f", revenue))
-        ttEvent.addProperty(withKey: "description", value: productId)
-        TikTokBusiness.trackTTEvent(ttEvent)
-        logger.debug("TikTok Subscribe event sent: \(productId) $\(revenue)")
+        // Purchase は RevenueCat → Singular → TikTok SAN で自動送信（二重カウント防止）
         updateSKANConversionValue(3)
     }
 
-    /// オンボーディング完了 → TikTok CompleteRegistration
-    func trackRegistrationCompleted() {
-        let ttEvent = TikTokBaseEvent(eventName: "CompleteRegistration")
-        TikTokBusiness.trackTTEvent(ttEvent)
-        logger.debug("TikTok CompleteRegistration event sent")
-    }
-
-    /// ペイウォール表示 → TikTok ViewContent
+    /// ペイウォール表示
     func trackPaywallViewed() {
-        let ttEvent = TikTokBaseEvent(eventName: "ViewContent")
-        ttEvent.addProperty(withKey: "content_type", value: "paywall")
-        TikTokBusiness.trackTTEvent(ttEvent)
-        logger.debug("TikTok ViewContent (paywall) event sent")
+        track(.paywallPlanSelectionViewed)
         updateSKANConversionValue(2)
     }
 

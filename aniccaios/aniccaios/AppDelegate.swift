@@ -1,12 +1,10 @@
-// v1.6.1 — ATT/Singular削除
-// v1.8.0 — TikTok Business SDK追加（ATTなし、IDFAゼロ運用）
+// v1.8.2 — Singular SDK 再統合 + RevenueCat→Singular→TikTok SAN
 import UIKit
 import UserNotifications
 import OSLog
 import BackgroundTasks
 import PostHog
 import RevenueCat
-import TikTokBusinessSDK
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
@@ -48,19 +46,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             }
         }
 
-        // TikTok Business SDK: install自動追跡 + Subscribe手動追跡（ATTなし）
-        // disablePaymentTracking: StoreKit自動Purchaseをオフ → 二重送信防止
-        // Subscribe は AnalyticsManager.trackPurchaseCompleted() で手動送信（currency/value付き）
-        if let ttConfig = TikTokConfig(
-            accessToken: "TTb5OwyxPDGWM0zYywD5K2tgJMppH0Wb",
-            appId: "6755129214",
-            tiktokAppId: "7593741049791217671"
-        ) {
-            ttConfig.automaticTrackingEnabled = true
-            ttConfig.setLogLevel(TikTokLogLevelSuppress)
-            ttConfig.disablePaymentTracking()
-            TikTokBusiness.initializeSdk(ttConfig)
-        }
+        // Singular SDK: Install attribution + SKAN 管理（ATT なし、IDFV + SKAN 運用）
+        // Purchase は RevenueCat → Singular S2S で自動送信（アプリ側不要）
+        SingularManager.shared.configure(launchOptions: launchOptions)
 
         // ASA Attribution取得 → app_opened トラック（この順序が重要）
         Task {

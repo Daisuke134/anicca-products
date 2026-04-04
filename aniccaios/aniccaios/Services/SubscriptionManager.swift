@@ -1,5 +1,6 @@
 import RevenueCat
 import Foundation
+import AdSupport
 
 @MainActor
 final class SubscriptionManager: NSObject {
@@ -32,7 +33,12 @@ final class SubscriptionManager: NSObject {
         )
         
         Purchases.shared.delegate = self
-        
+
+        // RevenueCat → Singular 連携に必須
+        // $idfa（ATT なしの場合は all-zeros）と $idfv を RevenueCat に渡す
+        // これがないと RevenueCat → Singular にイベントが送信されない
+        Purchases.shared.attribution.collectDeviceIdentifiers()
+
         // 起動直後にSDKキャッシュのOfferingをAppStateへプリロード
         if let cached = Purchases.shared.cachedOfferings,
            let preloaded = cached.offering(identifier: AppConfig.revenueCatPaywallId) ?? cached.current {
