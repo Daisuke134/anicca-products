@@ -5,27 +5,27 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000154">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000134">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: shell command" time="2.95865">
+      <testcase classname="fastlane.lanes" name="1: shell command" time="1.31405">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: xcodebuild build -scheme &apos;aniccaios&apos; -project &apos;/Users/anicca/anicca-project/aniccaios/aniccaios.xcodeproj&apos; -destination &apos;platform=iOS,id=00008120-000914362E87A01E&apos; -configuration &apos;Debug&apos; -derivedDataPath &apos;/Users/anicca/anicca-project/aniccaios/fastlane/build/DerivedData&apos; -allowProvisioningUpdates ONLY_ACTIVE_ARCH=YES 2&gt;&amp;1 | tee &apos;/Users/anicca/anicca-project/aniccaios/fastlane/build/DerivedData/build_for_device.log&apos; | xcpretty" time="9.178668">
+      <testcase classname="fastlane.lanes" name="2: xcodebuild build -scheme &apos;aniccaios&apos; -project &apos;/Users/anicca/anicca-project/aniccaios/aniccaios.xcodeproj&apos; -destination &apos;platform=iOS,id=00008120-000914362E87A01E&apos; -configuration &apos;Debug&apos; -derivedDataPath &apos;/Users/anicca/anicca-project/aniccaios/fastlane/build/DerivedData&apos; -allowProvisioningUpdates ONLY_ACTIVE_ARCH=YES 2&gt;&amp;1 | tee &apos;/Users/anicca/anicca-project/aniccaios/fastlane/build/DerivedData/build_for_device.log&apos; | xcpretty" time="3.40042">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: ios-deploy --bundle &apos;/Users/anicca/anicca-project/aniccaios/fastlane/build/DerivedData/Build/Products/Debug-iphoneos/aniccaios.app&apos; --justlaunch --no-wifi 2&gt;&amp;1 || true" time="8.380295">
+      <testcase classname="fastlane.lanes" name="3: ios-deploy --bundle &apos;/Users/anicca/anicca-project/aniccaios/fastlane/build/DerivedData/Build/Products/Debug-iphoneos/aniccaios.app&apos; --justlaunch --no-wifi 2&gt;&amp;1 || true" time="19.367049">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: notification" time="0.60058">
+      <testcase classname="fastlane.lanes" name="4: notification" time="0.173877">
         
       </testcase>
     
