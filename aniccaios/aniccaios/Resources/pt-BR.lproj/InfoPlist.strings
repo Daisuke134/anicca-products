@@ -1,3 +1,6 @@
+/* App display name */
+"CFBundleDisplayName" = "Anicca";
+
 /* Camera permission description */
 "NSCameraUsageDescription" = "A biblioteca WebRTC faz referência às APIs da câmera, mas este app não usa a câmera.";
 

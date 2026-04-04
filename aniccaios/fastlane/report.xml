@@ -5,19 +5,27 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000169">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000154">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: app_store_connect_api_key" time="0.001663">
+      <testcase classname="fastlane.lanes" name="1: shell command" time="2.95865">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: upload_to_app_store" time="1.7658">
+      <testcase classname="fastlane.lanes" name="2: xcodebuild build -scheme &apos;aniccaios&apos; -project &apos;/Users/anicca/anicca-project/aniccaios/aniccaios.xcodeproj&apos; -destination &apos;platform=iOS,id=00008120-000914362E87A01E&apos; -configuration &apos;Debug&apos; -derivedDataPath &apos;/Users/anicca/anicca-project/aniccaios/fastlane/build/DerivedData&apos; -allowProvisioningUpdates ONLY_ACTIVE_ARCH=YES 2&gt;&amp;1 | tee &apos;/Users/anicca/anicca-project/aniccaios/fastlane/build/DerivedData/build_for_device.log&apos; | xcpretty" time="9.178668">
         
-          <failure message="/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/fastlane/lib/fastlane/actions/actions_helper.rb:67:in &apos;Fastlane::Actions.execute_action&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/fastlane/lib/fastlane/runner.rb:255:in &apos;block in Fastlane::Runner#execute_action&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/fastlane/lib/fastlane/runner.rb:229:in &apos;Dir.chdir&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/fastlane/lib/fastlane/runner.rb:229:in &apos;Fastlane::Runner#execute_action&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/fastlane/lib/fastlane/runner.rb:157:in &apos;Fastlane::Runner#trigger_action_by_name&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/fastlane/lib/fastlane/fast_file.rb:159:in &apos;Fastlane::FastFile#method_missing&apos;&#10;Fastfile:268:in &apos;block (2 levels) in Fastlane::FastFile#parsing_binding&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/fastlane/lib/fastlane/lane.rb:41:in &apos;Fastlane::Lane#call&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/fastlane/lib/fastlane/runner.rb:49:in &apos;block in Fastlane::Runner#execute&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/fastlane/lib/fastlane/runner.rb:45:in &apos;Dir.chdir&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/fastlane/lib/fastlane/runner.rb:45:in &apos;Fastlane::Runner#execute&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/fastlane/lib/fastlane/lane_manager.rb:46:in &apos;Fastlane::LaneManager.cruise_lane&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/fastlane/lib/fastlane/command_line_handler.rb:34:in &apos;Fastlane::CommandLineHandler.handle&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/fastlane/lib/fastlane/commands_generator.rb:110:in &apos;block (2 levels) in Fastlane::CommandsGenerator#run&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/commander-4.6.0/lib/commander/command.rb:187:in &apos;Commander::Command#call&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/commander-4.6.0/lib/commander/command.rb:157:in &apos;Commander::Command#run&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/commander-4.6.0/lib/commander/runner.rb:444:in &apos;Commander::Runner#run_active_command&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/fastlane_core/lib/fastlane_core/ui/fastlane_runner.rb:124:in &apos;Commander::Runner#run!&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/commander-4.6.0/lib/commander/delegates.rb:18:in &apos;Commander::Delegates#run!&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/fastlane/lib/fastlane/commands_generator.rb:363:in &apos;Fastlane::CommandsGenerator#run&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/fastlane/lib/fastlane/commands_generator.rb:43:in &apos;Fastlane::CommandsGenerator.start&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/fastlane/lib/fastlane/cli_tools_distributor.rb:132:in &apos;Fastlane::CLIToolsDistributor.take_off&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/gems/fastlane-2.232.1/bin/fastlane:23:in &apos;&lt;top (required)&gt;&apos;&#10;/opt/homebrew/Cellar/ruby/4.0.1/lib/ruby/4.0.0/rubygems.rb:303:in &apos;Kernel#load&apos;&#10;/opt/homebrew/Cellar/ruby/4.0.1/lib/ruby/4.0.0/rubygems.rb:303:in &apos;Gem.activate_and_load_bin_path&apos;&#10;/opt/homebrew/Cellar/fastlane/2.232.1/libexec/bin/fastlane:25:in &apos;&lt;main&gt;&apos;&#10;&#10;The provided entity includes an attribute with a value that has already been used - The version number has been previously used. - /data/attributes/versionString" />
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: ios-deploy --bundle &apos;/Users/anicca/anicca-project/aniccaios/fastlane/build/DerivedData/Build/Products/Debug-iphoneos/aniccaios.app&apos; --justlaunch --no-wifi 2&gt;&amp;1 || true" time="8.380295">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: notification" time="0.60058">
         
       </testcase>
     

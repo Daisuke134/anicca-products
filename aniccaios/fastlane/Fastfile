@@ -45,8 +45,8 @@ platform :ios do
     # 接続デバイスを検出（xctrace の UDID を使用 — xcodebuild と互換性あり）
     device_lines = sh("xcrun xctrace list devices 2>&1", log: false)
       .split("\n")
-      .select { |l| l.include?("(") && !l.include?("Simulator") && !l.include?("MacBook") && !l.include?("== ") }
-      .reject { |l| l.strip.empty? }
+      .select { |l| l.include?("(") && !l.include?("Simulator") && !l.include?("MacBook") && !l.include?("Mac mini") && !l.include?("Mac Mini") && !l.include?("== ") }
+      .reject { |l| l.strip.empty? || l.include?("Mac") }
     UI.user_error!("❌ No connected device found. Please connect your iPhone.") if device_lines.empty?
     # フォーマット: "Device Name  (OS) (UDID)"
     match = device_lines.first.match(/^(.+?)\s+\([\d.]+\)\s+\(([A-F0-9\-]+)\)$/i)
@@ -59,11 +59,13 @@ platform :ios do
     UI.important("🔨 Building #{selected_scheme} for device...")
     build_log = "#{derived_data}/build_for_device.log"
     FileUtils.mkdir_p(derived_data)
+    config = options[:configuration] || "Debug"
     sh(
       "xcodebuild build " \
       "-scheme '#{selected_scheme}' " \
       "-project '#{project_path}' " \
       "-destination 'platform=iOS,id=#{device_id}' " \
+      "-configuration '#{config}' " \
       "-derivedDataPath '#{derived_data}' " \
       "-allowProvisioningUpdates " \
       "ONLY_ACTIVE_ARCH=YES " \
