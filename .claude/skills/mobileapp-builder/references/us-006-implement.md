@@ -192,6 +192,18 @@ Quote: 「When users can immediately quantify their savings, it creates urgency 
 Source: RevenueCat State of Subscription Apps 2025 (https://www.revenuecat.com/state-of-subscription-apps-2025/)
 Quote: 「82% of trial starts occur the same day a user installs an app」
 
+**Onboarding Flow Order (CRITICAL — 2026-04-05):**
+1. App launch → Congrats/Welcome screen (sunk cost bias start)
+2. Goal-based questions (personalization, no account yet)
+3. Wow moment / quick win in first 5 screens
+4. Rating prompt ← HERE (before paywall to avoid 1-star bombs)
+5. Paywall ← HERE (after rating = positive framing)
+6. Account creation ← LAST (onboarding before account = 2x install-to-trial)
+- Source: https://x.com/i/status/2016259199513010597 — "Onboarding before account creation: 2x install-to-trial"
+- Source: https://x.com/i/status/2021804198627577918 — "Ask for ratings before paywall to avoid 1-star bombs"
+- Source: https://x.com/i/status/1895820573185622512 — "One dev went from 0.1% to 12% trial starts by making the first screen actionable and frictionless"
+- Source: https://x.com/i/status/1989798727586922547 — "Wow moment in first 5 screens + 7-day trials > 3-day. 5x'd one app's CR in 3 days."
+
 **Message Consistency:**
 - Paywall headline must match onboarding final screen message
 - Use same tone/visuals from onboarding

@@ -73,6 +73,9 @@ Source: RevenueCat State of Subscription Apps 2026 (https://www.revenuecat.com/s
 6. **Rating prompt → paywall順序**。paywallの前にApp Store評価プロンプトを表示する（1-star bomb回避 + positive framing）。Source: https://x.com/i/status/2021804198627577918 — "Ask for ratings *before* paywall to avoid 1-star bombs."
 7. **Intro offer活用**。$0.99-$2.99/week introductory offerでpayer獲得→annual upsellに繋げる。freebie hunterではなくpayerをフィルタリングする。Source: https://x.com/i/status/1940451793697157562
 8. **PPPローカライズ**。uniform pricingではなく購買力平価（PPP）ベースで地域別価格を設定する。例: $7.99/week US → €9.99 DE, ₹149 IN。Source: https://x.com/i/status/2037074081816994253
+9. **Trial期間は7日をデフォルトにする（3日禁止）**。7日trialは3日比でCR 5倍の実績あり。Source: https://x.com/i/status/1989798727586922547 — 「Wow moment in first 5 screens + 7-day trials > 3-day. 5x'd one app's CR in 3 days."
+10. **Paywall copyはAIバリアントを3種類以上生成してA/Bテストする**。コピー変更だけでCR 1.6%→3.1%（2倍）の実績。Source: https://x.com/i/status/2018151227939246193 — "Use AI/ChatGPT for variants; one test doubled from 1.6% to 3.1%."
+11. **SuperwallによるパレットのリモートA/Bテストを必ずセットアップする**。Superwall有効化でdownload-to-trial 19%→29%。Source: https://x.com/i/status/2037246730220032478 — "A/B test paywalls/onboarding (e.g., Superwall): 19% → 29% download-to-trial"
 
 ```bash
 WEEKLY_ID=$(asc subscriptions create --group $GROUP_ID --ref-name "Weekly" --product-id "<bundle_id>.weekly" --subscription-period ONE_WEEK --output json 2>&1 | jq -r '.data.id')
