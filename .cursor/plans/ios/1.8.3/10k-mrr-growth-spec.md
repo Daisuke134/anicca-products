@@ -318,41 +318,19 @@ Source: adamlyttleapps skill — Screen 10 (Processing), 11 (App Demo), 12 (Valu
 
 ## 4. App Store スクリーンショット
 
-### PPO A/Bテスト — 2バリアント同時生成
+### 使う素材（raw-screenshots/）
 
-**Control（現行踏襲）:** 墨色ベース `#1A1918` + 金アクセント `#C9B382`
-**Treatment（新）:** ブルーベース `#0A1628` + 白アクセント `#E5E4E2`
+| SS# | EN素材 | JA素材 |
+|-----|--------|--------|
+| SS1 | `selfhatred-en.png` (FORGIVE YOURSELF / "Your worth isn't measured by productivity") | `self-hatred-ja.png` (自分を許せ / "あなたの価値は生産性で測れない") |
+| SS2 | `self-hatred2-en.png` (SELF-COMPASSION / "You're a much better person than you think") | `card-screenshots/ja/self_loathing_0.png` (自分を許せ / "今日も生きてる。それで十分。") |
+| SS3 | `procrastination-en.png` (DO IT NOW / "Done is better than perfect") | `procrastinatino-ja.png` (今すぐやれ / "完璧より完了") |
+| SS4 | `mypath-en.png` (My Path リスト) | `my-path-ja.png` (マイパス リスト) |
+| SS5 | `struffle-en.png` (What's holding you back?) | `ja-struggle.png` (どんなことに悩んでいますか？) |
 
-→ PPO（Product Page Optimization）で 50/50 traffic split。最低7日 → 90%信頼度で勝者確定。
+### 見出しテキスト（競合 Playwright スクレイプ結果に基づく）
 
-### デザインシステム
-
-| 項目 | Variant A（墨色） | Variant B（ブルー） |
-|------|-------------------|-------------------|
-| 背景 | `#1A1918` 墨色 + 和紙テクスチャ | `#0A1628` ダークネイビー + subtle gradient |
-| テキスト(見出し) | `#E5E4E2` オフホワイト | `#FFFFFF` 白 |
-| テキスト(本文) | `#A0A09E` グレー | `#8BA3C7` ライトブルーグレー |
-| アクセント | `#C9B382` 渋い金 | `#4A90D9` 落ち着いた青 |
-| CTA/Primary | `#4A90A4` 青 | `#5B9FE6` ブライトブルー |
-| Phone Frame | iPhone 15 Pro, Space Black | iPhone 15 Pro, Space Black |
-| フォント | SF Pro Display Bold 64pt | 同左 |
-| スタイル | 禅・わびさび | プレミアム・クリーン・信頼感 |
-
-Source: app-store-screenshots skill — 「Screenshots are advertisements, not documentation. Every screenshot sells one idea.」
-Source: aso best-practices.md — 「50%のユーザーは最初の3枚しか見ない」「60%のユーザーは3秒以内で離脱」
-
-### 6枚構成（v0.3の5枚 + Widget追加）
-
-| SS# | EN Headline | JA Headline | App画面 | 競合差別化 |
-|-----|-------------|-------------|---------|-----------|
-| 1 | End the Loop. | ループを、終わらせる。 | なし（タイポのみ） | Hero — ストップ・ザ・スクロール |
-| 2 | 13 Battles. We Fight Together. | 13の課題。一緒に向き合う。 | StrugglesStepView | パーソナライズ感 |
-| 3 | Words That Hit Hard | 刺さる言葉を、刺さる時に | NudgeCardView | コア機能デモ |
-| 4 | Your Path. Your Progress. | あなたの道。あなたの進捗。 | MyPathTabView | 継続性 |
-| 5 | Always There. Even Locked. | ロック画面にも、そばにいる。 | Widget on Home Screen | 競合差別化 #1 |
-| 6 | Break Free. | 自由になろう。 | なし（タイポ+円相） | CTA |
-
-### 競合スクショテキスト（Playwright で実際にスクレイプ済み）
+**競合スクショテキスト（Playwright で実際にスクレイプ済み）:**
 
 | SS# | I Am (709K reviews) | Motivation (1M reviews) |
 |-----|---------------------|------------------------|
@@ -363,22 +341,44 @@ Source: aso best-practices.md — 「50%のユーザーは最初の3枚しか見
 | 5 | 75+ categories | Themes for every mood |
 | 6 | Change your mindset | Change your mindset |
 
-### 必要な raw スクショ（シミュレータ撮影）
+**共通パターン:** SS1=通知+ウィジェット訴求、SS3=ウィジェット推し、SS6=マインドセット変革
 
-| SS# | 画面 | 状態 | EN/JA |
-|-----|------|------|-------|
-| 2 | StrugglesStepView | 3-4個選択済み | 両方 |
-| 3 | NudgeCardView | 夜更かしNudge表示 | 両方 |
-| 4 | MyPathTabView | 3-4課題表示 | 両方 |
-| 5 | Home Screen + Widget | Widget配置済み | 両方 |
+Source: app-store-screenshots skill — 「Screenshots are advertisements, not documentation. Every screenshot sells one idea.」
+Source: aso best-practices.md — 「50%のユーザーは最初の3枚しか見ない」「60%のユーザーは3秒以内で離脱」
 
-### 生成方法
-- ParthJadhav/app-store-screenshots skill (Next.js) で 2バリアント × 6枚 × 2言語 = 24 PNG 生成
-- iPhone mockup付き、1284x2778 (IPHONE_65) で出力
-- EN / JA の2言語（ES は EN と共有）
-- visual-qa で 40/50+ 採点後に ASC アップロード
+**Anicca スクショテキスト:**
 
-### PPO A/Bテスト ASC CLIコマンド
+| SS# | EN Headline | JA Headline | 競合との差別化 |
+|-----|-------------|-------------|---------------|
+| SS1 | Words that find you when you need them | あなたを見つける言葉がある | 競合は「reminders/motivation」→ Aniccaは「感情的つながり」 |
+| SS2 | Be kinder to yourself today | 今日、自分にやさしく | 競合は「personalized」→ Aniccaは「具体的行動」 |
+| SS3 | Done is better than perfect | 完璧より完了 | 競合は「widgets/themes」→ Aniccaは「行動促進カード」 |
+| SS4 | Your personal growth path | あなた専用の成長の道 | 競合は「categories数」→ Aniccaは「パーソナライズ旅」 |
+| SS5 | Made for what you're going through | あなたの悩みに寄り添うために | 競合にない：悩み選択画面 |
+
+- A/Bテスト: ASC CLI でスクリーンショットセットのA/Bテスト実施
+
+### PPO A/Bテスト — 2バリアント同時生成
+
+**Control（現行踏襲）:** 墨色ベース `#1A1918` + 金アクセント `#C9B382`
+**Treatment（新）:** ブルーベース `#0A1628` + 白アクセント `#E5E4E2`
+
+→ PPO（Product Page Optimization）で 50/50 traffic split。最低7日 → 90%信頼度で勝者確定。
+
+#### デザインシステム（2バリアント）
+
+| 項目 | Variant A（墨色/sumi） | Variant B（ブルー/blue） |
+|------|-------------------|-------------------|
+| 背景 | `#1A1918` 墨色 + 和紙テクスチャ | `#0A1628` ダークネイビー + subtle gradient |
+| テキスト(見出し) | `#E5E4E2` オフホワイト | `#FFFFFF` 白 |
+| テキスト(本文) | `#A0A09E` グレー | `#8BA3C7` ライトブルーグレー |
+| アクセント | `#C9B382` 渋い金 | `#4A90D9` 落ち着いた青 |
+| CTA/Primary | `#4A90A4` 青 | `#5B9FE6` ブライトブルー |
+| Phone Frame | iPhone 15 Pro, Space Black | iPhone 15 Pro, Space Black |
+| フォント | SF Pro Display Bold 64pt | 同左 |
+| スタイル | 禅・わびさび | プレミアム・クリーン・信頼感 |
+
+#### PPO ASC CLIコマンド
 
 ```bash
 # 実験作成（50/50 traffic split）
@@ -391,6 +391,11 @@ EXP_ID=$(asc product-pages experiments create \
 # Treatment作成 + ロケール + スクショアップロード + 実験開始
 # → 詳細は screenshot-ab スキル PHASE 7 参照
 ```
+
+### 生成方法
+- ParthJadhav/app-store-screenshots skill (Next.js) で 2バリアント × 5枚 × 2言語 = 20 PNG 生成
+- iPhone mockup付き、4解像度出力（6.9", 6.5", 6.3", 6.1"）
+- EN / JA の2言語（ES は EN と共有）
 
 ---
 
