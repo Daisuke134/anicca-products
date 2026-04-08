@@ -696,8 +696,25 @@ AFTER T11   → T14 (ダイスWidget動画) → T18 (Widget cron)
 AFTER T13+14→ T15 (Honne EN cron)
 ```
 
-**T1〜T4+T9 をまとめて1回の再提出（release/1.8.3）。**
-**T5-T8 は即実行可能（再提出不要）。**
+**T1〜T5+T11 をまとめて1回の再提出（release/1.8.3）。**
+**T7-T10 は即実行可能（再提出不要）。**
+
+---
+
+## 9.1 不確実点 — 全解決済み（2026-04-08 実機確認）
+
+| # | 項目 | 結果 | 確認方法 |
+|---|------|------|---------|
+| C1 | ASC CLI 構文 | `asc localizations update --app/--version` | `asc localizations update --help` 実行 |
+| C2 | APP_ID | `6755129214` | `asc apps list` 実行 |
+| C3 | VERSION_ID (1.8.2) | `42ab36d0-73d4-4e49-a3fb-bd94761a9285` | `asc versions list` 実行 |
+| C4 | Widget Entitlements | `group.ai.anicca.app.ios` 設定済み | `AniccaWidgetExtension.entitlements` 読み込み確認 |
+| C5 | ProblemType.icon | `.icon` (not `.emoji`) — L111 | コード読み込み確認 |
+| C6 | NudgeCardContent | 独立struct、再利用可能 | コード読み込み確認 |
+| C7 | fastlane | v2.232.1 `/opt/homebrew/bin/fastlane` | `fastlane --version` 実行 |
+| C8 | bun/node | bun 1.3.9 / node v25.6.1 | `bun --version && node --version` 実行 |
+
+**不確実点ゼロ。one-shot 実装可能。**
 
 ---
 

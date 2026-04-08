@@ -803,41 +803,52 @@ NudgeWidgetDataStore.sync(struggles: appState.userProfile.struggles)
 
 ## PATCH 11: ASO Metadata（ASC CLI で適用）
 
+### 検証済みコマンド（2026-04-08 実行確認済み）
+
+| 項目 | 値 |
+|------|-----|
+| ASC CLI | `/opt/homebrew/bin/asc` v1.x |
+| APP_ID | `6755129214` |
+| VERSION_ID (1.8.2) | `42ab36d0-73d4-4e49-a3fb-bd94761a9285` |
+| コマンド | `asc localizations update` |
+| app-info フィールド | `--name`, `--subtitle` (--app + --type app-info) |
+| version フィールド | `--keywords`, `--promotional-text` (--version) |
+
 ### EN (v2 — S1 L53 準拠: KW先、Anicca は無名)
 
 ```bash
 # Title — S1 L53: "Lead with keyword if not well-known" + L48: "[Primary Keyword] [Brand]"
-asc metadata set --locale en-US --name "Daily Affirmations - Anicca"
+asc localizations update --app 6755129214 --type app-info --locale "en-US" --name "Daily Affirmations - Anicca"
 # Subtitle — S1 L67: "Never repeat keywords from title" + L68: "Use the full 30 characters"
-asc metadata set --locale en-US --subtitle "Self Care & Positive Mindset"
+asc localizations update --app 6755129214 --type app-info --locale "en-US" --subtitle "Self Care & Positive Mindset"
 # Keywords — S1 L78-84: 重複ゼロ、singular、スペースなし
-asc metadata set --locale en-US --keywords "self love,mental health,anxiety,stress,wellness,mindfulness,mood,calm,quote,meditation,habit,healing"
+asc localizations update --version "42ab36d0-73d4-4e49-a3fb-bd94761a9285" --locale "en-US" --keywords "self love,mental health,anxiety,stress,wellness,mindfulness,mood,calm,quote,meditation,habit,healing"
 # Promo — S1 L117-120 + S5 L177: "Cancel anytime on every paywall"
-asc metadata set --locale en-US --promotionalText "Gentle words when you need them most. Choose your struggles. Get daily nudges. Cancel anytime."
+asc localizations update --version "42ab36d0-73d4-4e49-a3fb-bd94761a9285" --locale "en-US" --promotional-text "Gentle words when you need them most. Choose your struggles. Get daily nudges. Cancel anytime."
 ```
 
 ### JA (v2 — KW先 + 文字数改善)
 
 ```bash
 # Title — KW先（S1 L53）
-asc metadata set --locale ja --name "毎日のアファメーション - アニッチャ"
+asc localizations update --app 6755129214 --type app-info --locale "ja" --name "毎日のアファメーション - アニッチャ"
 # Subtitle — S1 L68: 12字→18字に改善
-asc metadata set --locale ja --subtitle "セルフケア・ポジティブ思考・心の安らぎ"
+asc localizations update --app 6755129214 --type app-info --locale "ja" --subtitle "セルフケア・ポジティブ思考・心の安らぎ"
 # Keywords — S1 L84: 56→70字に改善、Title/Sub重複ゼロ維持
-asc metadata set --locale ja --keywords "自己肯定感,不安,先延ばし,考えすぎ,ストレス,瞑想,自分を好きになる,習慣,名言,心の平和,マインドフルネス,セルフヘルプ,気分,癒し"
+asc localizations update --version "42ab36d0-73d4-4e49-a3fb-bd94761a9285" --locale "ja" --keywords "自己肯定感,不安,先延ばし,考えすぎ,ストレス,瞑想,自分を好きになる,習慣,名言,心の平和,マインドフルネス,セルフヘルプ,気分,癒し"
 # Promo — S1 L120 + S5 L177
-asc metadata set --locale ja --promotionalText "あなたが一番つらいとき、そっと届く言葉。13の課題に寄り添う。いつでもキャンセル可能。"
+asc localizations update --version "42ab36d0-73d4-4e49-a3fb-bd94761a9285" --locale "ja" --promotional-text "あなたが一番つらいとき、そっと届く言葉。13の課題に寄り添う。いつでもキャンセル可能。"
 ```
 
 ### ES (v2 — 全フィールド100%使用)
 
 ```bash
 # Title — S1 L53 + S1 L56: "Use the full 30 characters" → 30/30
-asc metadata set --locale es-ES --name "Afirmaciones Diarias - Anicca"
+asc localizations update --app 6755129214 --type app-info --locale "es-ES" --name "Afirmaciones Diarias - Anicca"
 # Subtitle — S1 L68: 30/30
-asc metadata set --locale es-ES --subtitle "Autocuidado y Bienestar Mental"
+asc localizations update --app 6755129214 --type app-info --locale "es-ES" --subtitle "Autocuidado y Bienestar Mental"
 # Keywords — S1 L84: 100/100
-asc metadata set --locale es-ES --keywords "autoestima,ansiedad,estrés,meditación,frases positiva,motivación,calma,hábito,bienestar,salud,pensamiento,amor propio"
+asc localizations update --version "42ab36d0-73d4-4e49-a3fb-bd94761a9285" --locale "es-ES" --keywords "autoestima,ansiedad,estrés,meditación,frases positiva,motivación,calma,hábito,bienestar,salud,pensamiento,amor propio"
 # Promo — S1 L120 + S5 L177
-asc metadata set --locale es-ES --promotionalText "Palabras suaves cuando más las necesitas. Elige tus luchas. Recibe nudges diarios. Cancela cuando quieras."
+asc localizations update --version "42ab36d0-73d4-4e49-a3fb-bd94761a9285" --locale "es-ES" --promotional-text "Palabras suaves cuando más las necesitas. Elige tus luchas. Recibe nudges diarios. Cancela cuando quieras."
 ```
