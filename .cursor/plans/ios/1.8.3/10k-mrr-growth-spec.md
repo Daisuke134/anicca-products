@@ -415,11 +415,11 @@ Source: aso best-practices.md — 「50%のユーザーは最初の3枚しか見
 
 | Option | Text | Chars | Keywords |
 |--------|------|-------|----------|
-| **推奨** | `Affirmations - Anicca` | 21/30 | affirmations ✓ |
+| **推奨** | `Daily Affirmations - Anicca` | 29/30 | daily ✓ affirmations ✓ |
 | Alt A | `Anicca: Daily Affirmations` | 27/30 | daily ✓ affirmations ✓ |
-| Alt B | `Self Care - Anicca` | 19/30 | self care ✓ |
+| Alt B | `Affirmations - Anicca` | 21/30 | affirmations ✓ |
 
-**決定: Alt A `Anicca: Daily Affirmations` (27/30)** — ブランド + #1 KW + #2 KW
+**決定: 推奨 `Daily Affirmations - Anicca` (29/30)** — S1 L53: "Lead with keyword if not well-known" + 競合 I Am / Motivation もKW先
 
 #### EN Subtitle (30 chars)
 
@@ -449,36 +449,36 @@ Characters: 99/100
 
 | Option | Text | Chars |
 |--------|------|-------|
-| **決定** | `アニッチャ: 毎日のアファメーション` | 16/30 |
+| **決定** | `毎日のアファメーション - アニッチャ` | 17/30 |
 
 #### JA Subtitle (30 chars)
 
 | Option | Text | Chars | Keywords (Title未使用) |
 |--------|------|-------|----------------------|
-| **決定** | `セルフケア・メンタルヘルス` | 13/30 |
+| **決定** | `セルフケア・ポジティブ思考・心の安らぎ` | 18/30 |
 
 #### JA Keywords (100 chars)
 
 ```
-自己肯定感,不安,先延ばし,考えすぎ,ストレス,瞑想,自分を好きになる,習慣,名言,心の平和,あにっちゃ,マインドフルネス
-Characters: 56/100（残り44文字 — 追加KW調査必要）
+自己肯定感,不安,先延ばし,考えすぎ,ストレス,瞑想,自分を好きになる,習慣,名言,心の平和,マインドフルネス,セルフヘルプ,気分,癒し
+Characters: 70/100
 ```
 
 #### ES Title / Subtitle / Keywords
 
 | 項目 | Before ⚠️ | After |
 |------|----------|-------|
-| **Name** | `Buddhist Nudges -- Anicca` | `Anicca: Afirmaciones Diarias` (29/30) |
-| **Subtitle** | `Sigue los 5 Preceptos` | `Autocuidado y bienestar mental` (30/30) |
-| **Keywords** | 現行 | `autoestima,ansiedad,estrés,meditación,frases positiva,motivación,calma,hábito,bienestar,salud` (91/100) |
+| **Name** | `Buddhist Nudges -- Anicca` | `Afirmaciones Diarias - Anicca` (30/30) |
+| **Subtitle** | `Sigue los 5 Preceptos` | `Autocuidado y Bienestar Mental` (30/30) |
+| **Keywords** | 現行 | `autoestima,ansiedad,estrés,meditación,frases positiva,motivación,calma,hábito,bienestar,salud,pensamiento,amor propio` (100/100) |
 
 #### Promo Text（全言語 — トライアルなし版）
 
 | 言語 | Text |
 |------|------|
-| EN | `Gentle words when you need them most. Cancel anytime.` |
-| JA | `あなたが一番つらいとき、そっと届く言葉。いつでもキャンセル可能。` |
-| ES | `Palabras que llegan cuando más las necesitas. Cancela cuando quieras.` |
+| EN | `Gentle words when you need them most. Choose your struggles. Get daily nudges. Cancel anytime.` (93/170) |
+| JA | `あなたが一番つらいとき、そっと届く言葉。13の課題に寄り添う。いつでもキャンセル可能。` (43/170) |
+| ES | `Palabras suaves cuando más las necesitas. Elige tus luchas. Recibe nudges diarios. Cancela cuando quieras.` (107/170) |
 
 **⚠️ トライアルなしなので Promo Text に「free trial」「無料トライアル」は書かない。**
 
