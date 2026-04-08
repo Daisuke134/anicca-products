@@ -381,6 +381,7 @@ final class AppState: ObservableObject {
 
         // Proactive Agent: 問題（苦しみ）が変更された場合、問題ベースの通知をスケジュール
         if Set(previousProfile.struggles) != Set(profile.struggles) {
+            NudgeWidgetDataStore.sync(struggles: profile.struggles)
             Task {
                 await ProblemNotificationScheduler.shared.scheduleNotifications(for: profile.struggles)
             }

@@ -192,6 +192,7 @@ struct PaywallVariantBView: View {
                 .font(.system(size: 13, weight: .medium))
                 .foregroundStyle(.secondary)
                 .italic()
+                .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
 
             Text(NSLocalizedString("paywall_b_trust_no_trial", comment: ""))

@@ -44,7 +44,7 @@
 "onboarding_permission_status_not_allowed" = "未許可";
 "onboarding_microphone_optional_hint" = "音声体験が必要になったら、設定→アニッチャでマイクをオンにし直してください。";
 
-"onboarding_notifications_title" = "毎日の通知を受け取る";
+"onboarding_notifications_title" = "毎日の声かけを受け取る";
 "onboarding_notifications_card_title" = "通知アクセス";
 "onboarding_notifications_description" = "必要な瞬間に、やさしいリマインダーを届けます。通知がないと、あなたにメッセージを届けられません。";
 "onboarding_notifications_allow" = "通知を許可";
@@ -1294,16 +1294,6 @@
 "onboarding_depth_several" = "週に数回";
 "onboarding_depth_weekly" = "週に1回";
 "onboarding_depth_occasionally" = "たまに";
-"onboarding_goals_title" = "最高の自分は\nどんな姿ですか？";
-"onboarding_goals_subtitle" = "大切なものを選んでください。";
-"goal_better_sleep" = "良い睡眠";
-"goal_emotional_calm" = "心の穏やかさ";
-"goal_less_screen_time" = "スクリーン時間の削減";
-"goal_more_discipline" = "自律心";
-"goal_self_acceptance" = "自己受容";
-"goal_deeper_focus" = "深い集中力";
-"goal_healthier_habits" = "健康的な習慣";
-"goal_inner_peace" = "内なる平和";
 "onboarding_insight_title" = "あなたの回答に基づいて";
 "onboarding_insight_stat" = "同じ悩みを持つ81%の人が\n30日以内に改善しました";
 "onboarding_insight_message" = "アニッチャがあなた専用の道を作ります。";
@@ -1317,7 +1307,7 @@
 "onboarding_valueprop_day6" = "統合 — 新しい日々のリズム";
 "onboarding_valueprop_day7" = "振り返り — どこまで来たか確認する";
 "onboarding_valueprop_cta" = "旅を始める";
-"onboarding_notifications_morning" = "朝のナッジ";
+"onboarding_notifications_morning" = "朝の声かけ";
 "onboarding_notifications_midday" = "昼のチェックイン";
 "onboarding_notifications_evening" = "夜の振り返り";
 
@@ -1325,12 +1315,12 @@
 "paywall_primer_title" = "あなた専用プランの\n準備ができました";
 "paywall_primer_subtitle" = "あなたのための言葉で、旅を始めましょう。";
 "paywall_primer_feature1" = "全機能にアクセス";
-"paywall_primer_feature2" = "パーソナライズされたナッジ";
+"paywall_primer_feature2" = "パーソナライズされたリマインダー";
 "paywall_primer_feature3" = "いつでもキャンセル可能";
 "paywall_plan_title" = "やさしい一言を、\n毎日のひとときに";
 "paywall_plan_subtitle" = "あなたにあった言葉を\n厳選してお届けします。";
 "paywall_plan_feature_access" = "全機能にアクセス";
-"paywall_plan_feature_nudges" = "パーソナライズされたナッジ";
+"paywall_plan_feature_nudges" = "パーソナライズされたリマインダー";
 "paywall_plan_feature_cancel" = "いつでもキャンセル";
 "paywall_plan_yearly_badge" = "おすすめ";
 "paywall_plan_price_yearly" = "%@/年";
@@ -1350,7 +1340,7 @@
 // MARK: - Paywall Variant B (A/B Test)
 "paywall_b_title" = "あなたが一番つらいとき、\nそっと届く言葉";
 "paywall_b_subtitle" = "あなたの悩みに寄り添うカードを毎日受け取ろう";
-"paywall_b_feature_nudges" = "最適なタイミングのスマートナッジ";
+"paywall_b_feature_nudges" = "最適なタイミングのリマインダー";
 "paywall_b_feature_ai" = "AI生成のパーソナライズされたガイダンス";
 "paywall_b_feature_personalized" = "あなたの悩みに合わせて適応";
 "paywall_b_feature_feedback" = "フィードバックから学習して改善";
@@ -1359,20 +1349,18 @@
 "paywall_b_per_month" = "/月";
 "paywall_b_daily_price" = "1日あたりたった%@";
 "paywall_b_cta_no_trial" = "今すぐ旅を始める";
-"paywall_b_review" = "「アニッチャのおかげで自分に優しくなれました」— 実際のユーザー";
+"paywall_b_review" = "「アニッチャのおかげで自分に優しくなれました」";
 "paywall_b_trust_no_trial" = "いつでもキャンセル · 満足保証";
 
 // MARK: - Onboarding New 3 Screens (1.8.3)
-"onboarding_processing_title" = "あなた専用プランを構築中...";
-"onboarding_demo_title" = "最初のナッジを体験しましょう";
-"onboarding_demo_action_heart" = "心に響いた";
-"onboarding_demo_action_more" = "もっと聞かせて";
+"onboarding_processing_title" = "あなた専用プランを準備しています";
+"onboarding_processing_step1" = "悩みを分析中...";
+"onboarding_processing_step2" = "プランを構築中...";
+"onboarding_processing_step3" = "最終調整中...";
+"onboarding_processing_struggles_header" = "あなたの悩み:";
+"onboarding_demo_title" = "最初の声かけを体験しましょう";
 "onboarding_demo_footer" = "これが毎日届くあなただけの言葉です。";
 "onboarding_demo_cta" = "続ける";
-"onboarding_value_delivery_title" = "あなたの最初のナッジ、保存しました。";
-"onboarding_value_delivery_subtitle" = "毎日、あなただけの言葉が届きます。";
-"onboarding_value_delivery_share" = "友達にシェア";
-"onboarding_value_delivery_cta" = "続ける";
 
 // MARK: - Nudge Expansion v1.8.0 — staying_up_late (22-60)
 "nudge_staying_up_late_notification_22" = "スマホに価値ある情報はもうない。";
@@ -2598,3 +2586,6 @@
 "nudge_loneliness_detail_58" = "次に店やエレベーターにいる時、アイコンタクトして微笑んで。その2秒のつながりがミラーニューロンを活性化し共有された人間性の小さな瞬間を生む。";
 "nudge_loneliness_detail_59" = "あなたは大事な存在。知ってる誰かに、一度助けた誰かに、遠くから見てる誰かに。存在は思ってる以上に多くの人生に影響を与えてる。";
 "nudge_loneliness_detail_60" = "今すぐ誰かに連絡しろ。メッセージを考えすぎるな——送るだけ。「遊ばない？」「会いたいよ」「元気？」喜ぶ人がいるから。";
+
+// MARK: - Widget
+"widget_description" = "毎日届く、あなたへの言葉";

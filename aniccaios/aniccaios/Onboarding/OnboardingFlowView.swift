@@ -70,18 +70,14 @@ struct OnboardingFlowView: View {
             StrugglesStepView(next: advance)
         case .struggleDepth:
             StruggleDepthStepView(next: advance)
-        case .goals:
-            GoalsStepView(next: advance)
         case .personalizedInsight:
             PersonalizedInsightStepView(next: advance)
-        case .valueProp:
-            ValuePropStepView(next: advance)
         case .processing:
             ProcessingStepView(next: advance)
+        case .valueProp:
+            ValuePropStepView(next: advance)
         case .appDemo:
             AppDemoStepView(next: advance)
-        case .valueDelivery:
-            ValueDeliveryStepView(next: advance)
         case .notifications:
             NotificationPermissionStepView(next: advance)
         }
@@ -143,18 +139,14 @@ struct OnboardingFlowView: View {
             AnalyticsManager.shared.track(.onboardingStrugglesCompleted)
             step = .struggleDepth
         case .struggleDepth:
-            step = .goals
-        case .goals:
             step = .personalizedInsight
         case .personalizedInsight:
-            step = .valueProp
-        case .valueProp:
             step = .processing
         case .processing:
+            step = .valueProp
+        case .valueProp:
             step = .appDemo
         case .appDemo:
-            step = .valueDelivery
-        case .valueDelivery:
             step = .notifications
         case .notifications:
             AnalyticsManager.shared.track(.onboardingNotificationsCompleted)

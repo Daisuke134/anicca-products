@@ -13,7 +13,7 @@ enum NudgeWidgetDataStore {
         for struggle in struggles {
             guard let problem = ProblemType(rawValue: struggle) else { continue }
             var texts: [String] = []
-            for i in 1...20 {
+            for i in 1...60 {
                 let key = "nudge_\(problem.rawValue)_notification_\(i)"
                 let text = NSLocalizedString(key, comment: "")
                 if text != key { texts.append(text) }

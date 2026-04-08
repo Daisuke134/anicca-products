@@ -4,13 +4,11 @@ enum OnboardingStep: Int, CaseIterable {
     case welcome           // 0
     case struggles         // 1
     case struggleDepth     // 2
-    case goals             // 3
-    case personalizedInsight // 4
+    case personalizedInsight // 3
+    case processing        // 4
     case valueProp         // 5
-    case processing        // 6
-    case appDemo           // 7
-    case valueDelivery     // 8
-    case notifications     // 9
+    case appDemo           // 6
+    case notifications     // 7
 }
 
 enum PaywallStep: Int {
@@ -25,7 +23,7 @@ extension OnboardingStep {
     /// - v0.4:   0=welcome, 4=name, 11=att
     /// - v1.6.0: 0=welcome, 1=value, 2=struggles, 3=notifications, 4=att
     /// - v1.6.1: 0=welcome, 1=struggles, 2=liveDemo, 3=notifications（value削除、ATT削除）
-    /// - v2:     0=welcome, 1=struggles, 2=struggleDepth, 3=goals, 4=personalizedInsight, 5=valueProp, 6=liveDemo, 7=notifications
+    /// - v2:     0=welcome, 1=struggles, 2=struggleDepth, 3=personalizedInsight, 4=processing, 5=valueProp, 6=appDemo, 7=notifications
     static func migratedFromLegacyRawValue(_ rawValue: Int) -> OnboardingStep {
         // v1.6.0以前からの移行マッピング
         switch rawValue {

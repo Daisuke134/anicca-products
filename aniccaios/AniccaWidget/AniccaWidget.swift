@@ -107,7 +107,7 @@ struct NudgeWidgetLockScreenView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text("🪷 " + entry.nudgeText)
+            Text(entry.nudgeText)
                 .font(.system(size: 12, weight: .medium))
                 .lineLimit(2)
                 .minimumScaleFactor(0.8)
@@ -120,6 +120,13 @@ struct NudgeWidgetLockScreenView: View {
 struct AniccaWidget: Widget {
     let kind = "AniccaWidget"
 
+    private var widgetDescription: String {
+        let preferred = Locale.preferredLanguages.first ?? "en"
+        if preferred.hasPrefix("ja") { return "毎日届く、あなたへの言葉" }
+        if preferred.hasPrefix("es") { return "Sabiduría diaria para tu crecimiento" }
+        return "Daily wisdom for your growth"
+    }
+
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: NudgeTimelineProvider()) { entry in
             if #available(iOS 17.0, *) {
@@ -130,7 +137,7 @@ struct AniccaWidget: Widget {
             }
         }
         .configurationDisplayName("Anicca")
-        .description("Daily nudge for your struggles")
+        .description(widgetDescription)
         .supportedFamilies([.systemSmall, .systemMedium, .accessoryRectangular])
     }
 }
