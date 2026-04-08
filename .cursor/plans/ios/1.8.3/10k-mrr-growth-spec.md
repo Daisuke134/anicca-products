@@ -102,10 +102,102 @@ Source: Apple Guideline 3.1.2(a) — `"risk-free"` / `"リスクなし"` は NG
 Source: github.com/adamlyttleapps/claude-skill-app-onboarding-questionnaire（14画面フレームワーク）
 Core Principle: "The user must DO something, not just watch. And they must get something back."
 
-### 現行フロー（8ステップ — 既に実装済み）
+### 修正フロー（12ステップ — adamlyttleapps スキル準拠）
+
+Source: adamlyttleapps/app-onboarding-questionnaire SKILL.md — 14画面アーキタイプ
+Source: onboarding-paywall-best-practices.md L64 — 「推奨 10-15ステップ」
+Source: ios-app-onboarding skill — Vara Framework「Max perceived value before paywall」
 
 ```
-Welcome → Struggles → StruggleDepth → Goals → PersonalizedInsight → ValueProp → Notifications → Primer → Paywall
+Welcome → Struggles → StruggleDepth → Goals → PersonalizedInsight → ValueProp → Processing → AppDemo → ValueDelivery → Notifications → Primer → Paywall
+```
+
+### スキル14画面準拠チェック
+
+| # | スキル要件 | Anicca | Status |
+|---|-----------|--------|:------:|
+| 1 | WELCOME — Hook + app preview | WelcomeStepView | ✅ |
+| 2 | GOAL ELICITATION — single-select | GoalsStepView | ✅ |
+| 3 | PAIN DISCOVERY — multi-select | StrugglesStepView | ✅ |
+| 4 | SOCIAL PROOF — testimonials | なし（レビュー不足） | ⚠️ SKIP v1.9 |
+| 5 | PAIN AMPLIFICATION — Tinder cards | なし | ⚠️ SKIP v1.9 |
+| 6 | PERSONALISED SOLUTION — stats | PersonalizedInsightStepView | ✅ |
+| 7 | COMPARISON TABLE — with/without | なし | ⚠️ SKIP (optional) |
+| 8 | PREFERENCE CONFIG | なし | ⚠️ SKIP v1.9 |
+| 9 | PERMISSION PRIMING | NotificationPermissionStepView | ✅ |
+| 10 | PROCESSING MOMENT — auto-advance | 🆕 ProcessingStepView | ✅ NEW |
+| 11 | APP DEMO — functional mini-version | 🆕 AppDemoStepView | ✅ NEW |
+| 12 | VALUE DELIVERY + VIRAL — share | 🆕 ValueDeliveryStepView | ✅ NEW |
+| 13 | ACCOUNT GATE | なし | ⚠️ SKIP (optional) |
+| 14 | PAYWALL | PaywallVariantBView | ✅ |
+
+### 新規画面（3つ追加）
+
+#### STEP 7: Processing Moment（自動進行 2秒）
+
+Source: adamlyttleapps skill Screen 10 — "Building X just for you... 1-3 seconds. Auto-advances."
+Source: onboarding-paywall-best-practices.md L85 — "Step 8: Live Demo — 実際のNudgeを体験"
+
+| | EN | JA |
+|---|---|---|
+| title | Building your personal plan... | あなた専用プランを構築中... |
+| animation | Spinner + fade-in text | 同左 |
+| auto-advance | 2秒後に自動遷移 | 同左 |
+
+実装: `aniccaios/aniccaios/Onboarding/ProcessingStepView.swift`（新規作成）
+
+#### STEP 8: App Demo（🔴 THE MOST IMPORTANT — スキル Screen 11）
+
+Source: adamlyttleapps skill Screen 11 — "Let the user actually USE the core app mechanic. NOT a tour — functional mini-version. Must produce TANGIBLE OUTPUT."
+Source: adamlyttleapps CLAUDE.md L38 — "The app demo is the differentiator. Most onboarding skills just do questionnaires."
+Source: onboarding-paywall-best-practices.md L108 — "Aha! Moment = 実際の体験 = 抽象的説明の100倍の説得力"
+
+| | EN | JA |
+|---|---|---|
+| title | Experience your first nudge | 最初のナッジを体験しましょう |
+| card headline | (パーソナライズ — struggles ベース) | (パーソナライズ) |
+| card body | (struggles ベース) | (struggles ベース) |
+| action 1 | ♡ This hits home | ♡ 心に響いた |
+| action 2 | 💬 Tell me more | 💬 もっと聞かせて |
+| footer | This is what Anicca sends you every day. | これが毎日届くあなただけの言葉です。 |
+| CTA | Continue | 続ける |
+
+実装:
+- `aniccaios/aniccaios/Onboarding/AppDemoStepView.swift`（新規作成）
+- 既存 NudgeCardView を再利用（本番と同じUIコンポーネント）
+- struggles の選択結果を OnboardingFlowView から受け取り、該当テーマの Nudge テキストをハードコード表示
+- ♡タップ → haptic feedback + カード保存アニメ → ValueDelivery に渡す
+- 💬タップ → 簡易Agent応答（テキスト1行 fade-in）
+
+#### STEP 9: Value Delivery + Viral Moment（スキル Screen 12）
+
+Source: adamlyttleapps skill Screen 12 — "Show tangible output from their demo + share button. This is where organic growth comes from."
+Source: adamlyttleapps CLAUDE.md L39 — "Viral moment is intentional. The demo must produce a shareable output."
+
+| | EN | JA |
+|---|---|---|
+| title | Your first nudge, saved. | あなたの最初のナッジ、保存しました。 |
+| subtitle | Every day, words crafted just for you. | 毎日、あなただけの言葉が届きます。 |
+| share button | 📤 Share with a friend | 📤 友達にシェア |
+| CTA | Continue | 続ける |
+
+実装:
+- `aniccaios/aniccaios/Onboarding/ValueDeliveryStepView.swift`（新規作成）
+- AppDemo で♡したカードを美しい画像としてレンダリング（UIGraphicsImageRenderer）
+- 📤タップ → UIActivityViewController（Instagram Stories / LINE / X 対応）
+- 画像下部に "— Anicca 🪷" ウォーターマーク
+- Continue → Notifications step へ
+
+### OnboardingFlowView.swift 修正
+
+変更箇所: `OnboardingFlowView.swift` L66-81 の step routing
+
+```swift
+// BEFORE:
+// welcome → struggles → struggleDepth → goals → personalizedInsight → valueProp → notifications → primer → paywall
+
+// AFTER:
+// welcome → struggles → struggleDepth → goals → personalizedInsight → valueProp → processing → appDemo → valueDelivery → notifications → primer → paywall
 ```
 
 ### 各画面テキスト（EXACT — Localizable.strings より）
@@ -201,25 +293,25 @@ Source: Cravotta Method — 「Multi-step paywall で CVR 2倍」
 ### 変更点まとめ
 
 ```
-フロー変更: なし（現行8ステップ維持）
+フロー変更: 8ステップ → 12ステップ（Processing + AppDemo + ValueDelivery 追加）
 Primer修正: risk-free/無料で試して → あなた専用プラン準備完了（trial言及なし）
 Paywall修正: trial関連テキスト全削除、CTA変更
 ASC修正: annual/monthly 両方のトライアル削除
 ```
 
-**Social Proof画面は追加しない**（実際のレビューがまだないため）
-**Processing画面は既存（PersonalizedInsightStepView）をそのまま使用**
+Source: adamlyttleapps skill — Screen 10 (Processing), 11 (App Demo), 12 (Value Delivery) は REQUIRED
 
 ### 実装ファイル
 
 | ファイル | 変更内容 |
 |---------|---------|
-| `en.lproj/Localizable.strings` L1325-1326 | Primer title/subtitle 修正 |
-| `ja.lproj/Localizable.strings` L1325-1326 | Primer title/subtitle 修正 |
-| `es.lproj/Localizable.strings` | Primerキー追加 |
-| `en.lproj/Localizable.strings` L1362-1365 | paywall_b_cta_trial → cta_no_trial に統一、trust_trial 削除 |
-| `ja.lproj/Localizable.strings` L1362-1365 | 同上 JA版 |
-| `es.lproj/Localizable.strings` L1328-1331 | 同上 ES版 |
+| `Onboarding/ProcessingStepView.swift` | 🆕 新規作成 — 2秒自動進行ローディング |
+| `Onboarding/AppDemoStepView.swift` | 🆕 新規作成 — NudgeCard体験（♡+💬） |
+| `Onboarding/ValueDeliveryStepView.swift` | 🆕 新規作成 — シェアカード+UIActivityViewController |
+| `Onboarding/OnboardingFlowView.swift` L66-81 | step routing 修正（12ステップ化） |
+| `en.lproj/Localizable.strings` | Primer修正 + 新規3画面キー追加 + trial削除 |
+| `ja.lproj/Localizable.strings` | 同上 JA版 |
+| `es.lproj/Localizable.strings` | Primerキー追加 + 新規3画面キー追加 + trial削除 |
 | `PaywallVariantBView.swift` | hasTrialEligibility 関連UI削除、CTA を no_trial 固定 |
 
 ---
@@ -277,12 +369,14 @@ Source: aso best-practices.md — 「50%のユーザーは最初の3枚しか見
 
 ### Sources
 
-| Source | 核心の引用 |
-|--------|-----------|
-| Eronred/aso-skills metadata-optimization | 「Lead with brand if well-known; lead with keyword if not」「Never repeat keywords across title, subtitle, and keyword field」 |
-| Eronred/aso-skills keyword-research | 「Use singular forms — Apple indexes both」「No spaces after commas」「Don't include app name or category name in keyword field」 |
-| aso-growth skill | 「Title = Keyword - App Name 形式。キーワードを前に」「スクショ1-2枚目は2-3秒で判断される」 |
-| aso best-practices.md | 「50%のユーザーは最初の3枚しか見ない」「最適化されたスクショはCVRを30%以上改善」 |
+| # | Source | Path | 核心の引用 |
+|---|--------|------|-----------|
+| S1 | Eronred/aso-skills metadata-optimization | `.claude/skills/aso-skills/skills/metadata-optimization/SKILL.md` | L49: `[Brand]: [Benefit Phrase]` / L67: "Never repeat keywords from title" / L79-85: 100字ルール |
+| S2 | Eronred/aso-skills keyword-research | `.claude/skills/aso-skills/skills/keyword-research/SKILL.md` | 「Use singular forms — Apple indexes both」「No spaces after commas」「Don't include app name or category name」 |
+| S3 | ASO best-practices.md | `.cursor/plans/ios/aso/best-practices.md` | 「50%は最初の3枚しか見ない」「60%は3秒以内で離脱」「最適化されたスクショはCVRを30%以上改善」「7語以内が理想」「ベネフィットを伝える（機能ではなく価値）」 |
+| S4 | v0.3 ASO Package | `.cursor/plans/ios/aso/v0.3-aso-package.md` | 過去タイトル履歴、デザインシステム |
+| S5 | onboarding-paywall-best-practices.md | `.cursor/plans/ios/onboarding-paywall-best-practices.md` | L177: `"No commitment. Cancel anytime." / "いつでもキャンセル可能。"` — Superwall 4,500テスト |
+| S6 | ios-app-onboarding skill | (session skill) | 「"No commitment. Cancel anytime." — On every paywall, below CTA」— Superwall |
 
 ### 現状（App Store Connect 取得済み）
 
@@ -573,29 +667,32 @@ Title JA: "ロック画面にアファメーションを設定する方法"
 | **T1** | **App Storeスクリーンショット生成（EN/JA/ES）** | **CC** | ✅(ASC) | 🔜 FIRST |
 | T2 | Primer + Paywall Localizable.strings修正（EN/JA/ES — trial全削除） | CC | ✅ | 🔜 |
 | T3 | PaywallVariantBView.swift — trial UI削除、CTA固定 | CC | ✅ | 🔜 |
-| T4 | ASO metadata 更新（EN/JA/ES — title+subtitle+keywords+promo） | CC | ✅(ASC) | 🔜 |
-| T5 | Honne JA 3 cron → reelclaw形式 | CC | ❌ | 🔜 |
-| T6 | 既存Anicca 4 cron修正（overlay削除+購入解除） | CC | ❌ | 🔜 |
-| T7 | SKILL.md購入制限解除 | CC | ❌ | 🔜 |
-| T8 | `openclaw gateway restart` | CC | ❌ | 🔜 |
-| T9 | Widget Extension開発 | CC | ✅ | 🔜 |
-| T10 | ビルド+提出 release/1.8.3 | CC | ✅ | 🔜 |
-| **T11** | **App Store Connect でトライアル削除（annual+monthly）** | **ダイス** | **✅** | ⏳ |
-| **T12** | **Widget demo動画撮影（EN+JA）** | **ダイス** | ❌ | ⏳ |
-| **T13** | **Honne EN TikTokアカウント作成** | **ダイス** | ❌ | ⏳ |
-| **T14** | **Postiz接続+integration ID** | **ダイス** | ❌ | ⏳ |
-| T15 | Honne EN cron 3つ追加 | CC | ❌ | 🔜 |
-| T16 | Anicca Widget cron 4つ追加 | CC | ❌ | 🔜 |
+| T4 | Onboarding 3画面追加（ProcessingStep + AppDemoStep + ValueDeliveryStep） | CC | ✅ | 🔜 |
+| T5 | OnboardingFlowView.swift — フロー routing 修正（12ステップ化） | CC | ✅ | 🔜 |
+| T6 | ASO metadata 更新（EN/JA/ES — title+subtitle+keywords+promo） | CC | ✅(ASC) | 🔜 |
+| T7 | Honne JA 3 cron → reelclaw形式 | CC | ❌ | 🔜 |
+| T8 | 既存Anicca 4 cron修正（overlay削除+購入解除） | CC | ❌ | 🔜 |
+| T9 | SKILL.md購入制限解除 | CC | ❌ | 🔜 |
+| T10 | `openclaw gateway restart` | CC | ❌ | 🔜 |
+| T11 | Widget Extension開発 | CC | ✅ | 🔜 |
+| T12 | ビルド+提出 release/1.8.3 | CC | ✅ | 🔜 |
+| **T13** | **App Store Connect でトライアル削除（annual+monthly）** | **ダイス** | **✅** | ⏳ |
+| **T14** | **Widget demo動画撮影（EN+JA）** | **ダイス** | ❌ | ⏳ |
+| **T15** | **Honne EN TikTokアカウント作成** | **ダイス** | ❌ | ⏳ |
+| **T16** | **Postiz接続+integration ID** | **ダイス** | ❌ | ⏳ |
+| T17 | Honne EN cron 3つ追加 | CC | ❌ | 🔜 |
+| T18 | Anicca Widget cron 4つ追加 | CC | ❌ | 🔜 |
 
 ### 実行順
 
 ```
 NOW         → T1 (Screenshots FIRST!)
-TODAY       → T2+T3 (Primer+Paywall fix) → T4 (ASO) → T5-T8 (cron+restart)
-TOMORROW    → T9 (Widget)
-DAY 3       → T10 (Build+Submit)
-PARALLEL    → T11 (ダイス trial削除) + T12-T14 (ダイスタスク)
-AFTER T9    → T12 (ダイスWidget動画) → T16 (Widget cron)
+TODAY       → T2+T3 (Primer+Paywall fix) → T4+T5 (Onboarding 3画面+routing) → T6 (ASO)
+TODAY CONT  → T7-T10 (cron+restart)
+TOMORROW    → T11 (Widget)
+DAY 3       → T12 (Build+Submit)
+PARALLEL    → T13 (ダイス trial削除) + T14-T16 (ダイスタスク)
+AFTER T11   → T14 (ダイスWidget動画) → T18 (Widget cron)
 AFTER T13+14→ T15 (Honne EN cron)
 ```
 
