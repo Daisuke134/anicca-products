@@ -38,36 +38,6 @@ struct PaywallVariantBView: View {
         return formatter.string(from: NSNumber(value: price))
     }
 
-    private var trialPeriodText: String? {
-        guard let discount = selectedPackage?.storeProduct.introductoryDiscount else { return nil }
-        let period = discount.subscriptionPeriod
-        let lang = Locale.current.languageCode ?? "en"
-        switch period.unit {
-        case .day:
-            if lang == "ja" { return "\(period.value)日間" }
-            if lang == "es" { return "\(period.value) día(s)" }
-            return period.value == 1 ? "1 Day" : "\(period.value) Days"
-        case .week:
-            if lang == "ja" { return "\(period.value)週間" }
-            if lang == "es" { return "\(period.value) semana(s)" }
-            return period.value == 1 ? "Week" : "\(period.value) Weeks"
-        case .month:
-            if lang == "ja" { return "\(period.value)ヶ月" }
-            if lang == "es" { return "\(period.value) mes(es)" }
-            return period.value == 1 ? "1 Month" : "\(period.value) Months"
-        case .year:
-            if lang == "ja" { return "\(period.value)年" }
-            if lang == "es" { return "\(period.value) año(s)" }
-            return period.value == 1 ? "1 Year" : "\(period.value) Years"
-        @unknown default:
-            return nil
-        }
-    }
-
-    private var hasTrialEligibility: Bool {
-        selectedPackage?.storeProduct.introductoryDiscount != nil
-    }
-
     /// Hard paywall — controlled from PostHog payload, defaults to true
     private var isHardPaywall: Bool {
         guard let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any] else { return true }
@@ -168,15 +138,11 @@ struct PaywallVariantBView: View {
                     planCard(
                         package: yearly,
                         priceLabel: yearly.localizedPriceString + String(localized: "paywall_b_per_year"),
-                        badge: String(localized: "paywall_plan_yearly_badge"),
+                        badge: savePct.map { "\(String(localized: "paywall_plan_yearly_badge")) · \(String(format: NSLocalizedString("paywall_plan_save_dynamic", comment: ""), $0))" }
+                            ?? String(localized: "paywall_plan_yearly_badge"),
                         dailyPriceLabel: dailyPrice.map {
                             String(format: NSLocalizedString("paywall_b_daily_price", comment: ""), $0)
-                        },
-                        trialBadge: (hasTrialEligibility && selectedPackage?.packageType == .annual)
-                            ? trialPeriodText.map {
-                                String(format: NSLocalizedString("paywall_b_trial_badge", comment: ""), $0)
-                            }
-                            : nil
+                        }
                     )
                 }
 
@@ -185,8 +151,7 @@ struct PaywallVariantBView: View {
                         package: monthly,
                         priceLabel: monthly.localizedPriceString + String(localized: "paywall_b_per_month"),
                         badge: nil,
-                        dailyPriceLabel: nil,
-                        trialBadge: nil
+                        dailyPriceLabel: nil
                     )
                 }
             }
@@ -208,10 +173,8 @@ struct PaywallVariantBView: View {
                 Group {
                     if isPurchasing {
                         ProgressView().tint(.white)
-                    } else if hasTrialEligibility, let period = trialPeriodText {
-                        Text(paywallText("cta", fallback: String(format: NSLocalizedString("paywall_b_cta_trial", comment: ""), period)))
                     } else {
-                        Text(paywallText("cta", fallback: "paywall_b_cta_no_trial"))
+                        Text(NSLocalizedString("paywall_b_cta_no_trial", comment: ""))
                     }
                 }
                 .font(.system(size: 18, weight: .semibold))
@@ -231,7 +194,7 @@ struct PaywallVariantBView: View {
                 .italic()
                 .padding(.horizontal, 24)
 
-            Text(paywallText("trust", fallback: hasTrialEligibility ? "paywall_b_trust_trial" : "paywall_b_trust_no_trial"))
+            Text(NSLocalizedString("paywall_b_trust_no_trial", comment: ""))
                 .font(.system(size: 12))
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -282,8 +245,7 @@ struct PaywallVariantBView: View {
         package: Package,
         priceLabel: String,
         badge: String?,
-        dailyPriceLabel: String?,
-        trialBadge: String?
+        dailyPriceLabel: String?
     ) -> some View {
         let isSelected = selectedPackage?.identifier == package.identifier
 
@@ -316,11 +278,6 @@ struct PaywallVariantBView: View {
                             .foregroundStyle(AppTheme.Colors.accent)
                     }
 
-                    if let trialBadge {
-                        Text(trialBadge)
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundStyle(.green)
-                    }
                 }
 
                 Spacer()
@@ -371,15 +328,8 @@ struct PaywallVariantBView: View {
                     AnalyticsManager.shared.track(.onboardingPaywallPurchased)
                     AnalyticsManager.shared.trackPostHog("paywall_purchased", properties: [
                         "variant": variant,
-                        "plan_type": package.packageType == .annual ? "annual" : "monthly",
-                        "has_trial": package.storeProduct.introductoryDiscount != nil
+                        "plan_type": package.packageType == .annual ? "annual" : "monthly"
                     ])
-                    if package.packageType == .annual,
-                       package.storeProduct.introductoryDiscount != nil {
-                        AnalyticsManager.shared.track(.trialStarted, properties: [
-                            "product_id": package.storeProduct.productIdentifier
-                        ])
-                    }
                     await MainActor.run {
                         isPurchasing = false
                         onPurchaseSuccess(result.customerInfo)
