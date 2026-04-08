@@ -696,10 +696,10 @@ Title JA: "ロック画面にアファメーションを設定する方法"
 | T3 | PaywallVariantBView.swift — trial UI削除+savePct表示 | CC | ✅ | `tdd-bug-fix` + `code-reviewer` | ✅ DONE |
 | T4 | Onboarding 2画面（Processing+AppDemo）※ValueDeliveryスキップ | CC | ✅ | `tdd-feature` + `ios-app-onboarding` | ✅ DONE |
 | T5 | OnboardingFlowView.swift — routing修正（ValueDeliveryスキップ、現8ステップ） | CC | ✅ | `tdd-feature` | ✅ DONE |
-| T6 | ASO metadata更新（EN/JA/ES） | CC | ✅(ASC) | `metadata-optimization` | 🔜 |
+| T6 | ASO metadata更新（EN/JA/ES） | CC | ✅(ASC) | `metadata-optimization` | ✅ DONE |
 | T11 | Widget Extension開発 | CC | ✅ | `tdd-feature` + `code-reviewer` | ✅ DONE |
 | T12a | シミュレータ EN+JA 目視確認（ダイスに見せる） | CC | — | `ios-simulator` | 🔜 |
-| T12 | ビルド+提出 release/1.8.3 | CC | ✅ | `greenlight` + `asc-workflow` | 🔜 |
+| T12 | ビルド+提出 release/1.8.3 | CC | ✅ | `greenlight` + `asc-workflow` | ✅ DONE (v1.8.3 build 9 uploaded) |
 
 ### フェーズ B: Cron + 自動化（再提出不要）
 
@@ -782,6 +782,7 @@ T12完了 → T-AB (PPO開始) → 7日後 → T-AB2 (結果確認)
 | C1 | ASC CLI 構文 | `asc localizations update --app/--version` | `asc localizations update --help` 実行 |
 | C2 | APP_ID | `6755129214` | `asc apps list` 実行 |
 | C3 | VERSION_ID (1.8.2) | `42ab36d0-73d4-4e49-a3fb-bd94761a9285` | `asc versions list` 実行 |
+| C3b | VERSION_ID (1.8.3) | `a6b6d3f4-3e03-475c-beb9-9ac2be72bab0` | `asc versions create` で作成済み |
 | C4 | Widget Entitlements | `group.ai.anicca.app.ios` 設定済み | `AniccaWidgetExtension.entitlements` 読み込み確認 |
 | C5 | ProblemType.icon | `.icon` (not `.emoji`) — L111 | コード読み込み確認 |
 | C6 | NudgeCardContent | 独立struct、再利用可能 | コード読み込み確認 |
