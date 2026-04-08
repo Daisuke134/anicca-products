@@ -58,18 +58,18 @@ type ThemeId = keyof typeof THEMES;
 // ─── Copy ───
 const COPY = {
   en: {
-    ss1: { headline: "Words that find you\nwhen you need them" },
-    ss2: { headline: "Be kinder\nto yourself today" },
-    ss3: { headline: "Done is better\nthan perfect" },
-    ss4: { headline: "Your personal\ngrowth path" },
-    ss5: { headline: "Made for what\nyou're going through" },
+    ss1: { headline: "Daily affirmation\ncards" },
+    ss2: { headline: "Be kind\nto yourself" },
+    ss3: { headline: "Small steps,\nbig change" },
+    ss4: { headline: "Built around\nyour struggles" },
+    ss5: { headline: "Made for\nwhat you feel" },
   },
   ja: {
-    ss1: { headline: "あなたを見つける\n言葉がある" },
-    ss2: { headline: "今日、\n自分にやさしく" },
-    ss3: { headline: "完璧より完了" },
-    ss4: { headline: "あなた専用の\n成長の道" },
-    ss5: { headline: "あなたの悩みに\n寄り添うために" },
+    ss1: { headline: "気分を変える、\n毎日の一言" },
+    ss2: { headline: "自分に\nやさしくなれる" },
+    ss3: { headline: "小さな一歩が、\n大きな変化に" },
+    ss4: { headline: "あなたの悩みに\n合わせて" },
+    ss5: { headline: "あなたのために\n作られた" },
   },
 } satisfies Record<Locale, Record<string, { headline: string }>>;
 
@@ -281,7 +281,7 @@ function Slide3({
         <Headline
           text={COPY[locale].ss3.headline}
           color={theme.accent}
-          fontSize={W * 0.1}
+          fontSize={W * 0.09}
         />
       </div>
       <div

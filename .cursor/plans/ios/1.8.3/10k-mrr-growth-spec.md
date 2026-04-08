@@ -346,22 +346,20 @@ Source: adamlyttleapps skill — Screen 10 (Processing), 11 (App Demo), 12 (Valu
 Source: app-store-screenshots skill — 「Screenshots are advertisements, not documentation. Every screenshot sells one idea.」
 Source: aso best-practices.md — 「50%のユーザーは最初の3枚しか見ない」「60%のユーザーは3秒以内で離脱」
 
-**Anicca スクショテキスト:**
+**Anicca スクショテキスト（PPO Treatment B）:**
 
-| SS# | EN Headline | JA Headline | 競合との差別化 |
-|-----|-------------|-------------|---------------|
-| SS1 | Words that find you when you need them | あなたを見つける言葉がある | 競合は「reminders/motivation」→ Aniccaは「感情的つながり」 |
-| SS2 | Be kinder to yourself today | 今日、自分にやさしく | 競合は「personalized」→ Aniccaは「具体的行動」 |
-| SS3 | Done is better than perfect | 完璧より完了 | 競合は「widgets/themes」→ Aniccaは「行動促進カード」 |
-| SS4 | Your personal growth path | あなた専用の成長の道 | 競合は「categories数」→ Aniccaは「パーソナライズ旅」 |
-| SS5 | Made for what you're going through | あなたの悩みに寄り添うために | 競合にない：悩み選択画面 |
+| SS# | EN Headline | JA Headline | 元ネタ |
+|-----|-------------|-------------|--------|
+| SS1 | Daily affirmation cards | 気分を変える、毎日の一言 | I Am "daily reminders" + カード差別化 |
+| SS2 | Be kind to yourself | 自分にやさしくなれる | Headspace "Be kind to your mind" |
+| SS3 | Small steps, big change | 小さな一歩が、大きな変化に | Finch "Small steps, big growth" |
+| SS4 | Built around your struggles | あなたの悩みに合わせて | Aniccaオリジナル（競合にない） |
+| SS5 | Made for what you feel | あなたのために作られた | Calm系の共感コピー |
 
-- A/Bテスト: ASC CLI でスクリーンショットセットのA/Bテスト実施
+### PPO A/Bテスト
 
-### PPO A/Bテスト — 2バリアント同時生成
-
-**Control（現行踏襲）:** 墨色ベース `#1A1918` + 金アクセント `#C9B382`
-**Treatment（新）:** ブルーベース `#0A1628` + 白アクセント `#E5E4E2`
+**A（Control）= 現在のApp Storeスクショそのまま**
+**B（Treatment）= sumi テーマ + 上記コピー**
 
 → PPO（Product Page Optimization）で 50/50 traffic split。最低7日 → 90%信頼度で勝者確定。
 
@@ -700,9 +698,8 @@ Title JA: "ロック画面にアファメーションを設定する方法"
 
 | # | タスク | 担当 | 再提出 | スキル | 状態 |
 |---|--------|------|--------|--------|------|
-| **T1** | **Screenshots 生成（2バリアント×6枚×2言語=24 PNG）** | **CC** | ✅(ASC) | `app-store-screenshots` + `screenshot-ab` | 🔜 NOW |
-| T1a | シミュレータ raw スクショ撮影（EN+JA各4画面） | CC | — | `ios-simulator` | 🔜 |
-| T1b | Next.js page.tsx 生成 + export（墨色+ブルー2バリアント） | CC | — | `app-store-screenshots` | 🔜 |
+| **T1** | **Screenshots 生成（sumi×5枚×2言語=10 PNG + 4解像度=40 PNG）** | **CC** | ✅(ASC) | `app-store-screenshots` | 🔜 NOW |
+| T1b | Next.js page.tsx 生成 + export（sumi テーマ） | CC | — | `app-store-screenshots` | ✅ DONE |
 | T1c | visual-qa 採点（40/50+必須） | CC | — | `screenshot-ab` PHASE 5 | 🔜 |
 | T2 | Primer + Paywall Localizable.strings修正（trial全削除） | CC | ✅ | `tdd-feature` + `code-reviewer` | 🔜 |
 | T3 | PaywallVariantBView.swift — trial UI削除+savePct表示 | CC | ✅ | `tdd-bug-fix` + `code-reviewer` | 🔜 |
