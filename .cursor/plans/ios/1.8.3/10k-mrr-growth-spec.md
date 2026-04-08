@@ -192,7 +192,43 @@ Source: github.com/adamlyttleapps/claude-skill-app-onboarding-questionnaire（14
 
 ## 6. TikTokクリエイティブ & バイラルフック
 
-### Anicca iOS — 4つのクリエイティブ
+### SGE調査結果（全引用付き）
+
+Source: [Social Growth Engineers](https://socialgrowthengineers.com) — 2026年4月8日時点
+
+#### 証明済みフォーマット（アプリTikTok）
+
+| フォーマット | 実績 | ソース記事 | Anicca/Honne適用 |
+|------------|------|-----------|-----------------|
+| **Sound-first** | Omnira: 50M views, 1.8M top | [SGE: One Sound Format Took This App Past 50M Views](https://socialgrowthengineers.com/one-sound-format-took-this-app-past-50m-views) | Anicca: 瞑想音声をフックに |
+| **Relationship drama hijack** | Sherlock: 21.8M views 1動画 | [SGE: How Apps Are Hijacking Relationship Drama](https://socialgrowthengineers.com/how-apps-are-hijacking-relationship-drama-right-now) | Honne AI: 本音解読=drama reveal |
+| **Faceless multi-account** | Macaron AI: 163M views, 500K DL, 8アカウント×28動画 | [SGE: They Copied Viral Videos = 500K Downloads](https://socialgrowthengineers.com/they-copied-viral-app-videos-and-turned-them-into-500k-downloads) | 両方: 複数アカウント戦略 |
+| **AI Chat call-style** | Juicy Chat AI: 32.1M views, 1クリエイター | [SGE: Call-Style Formula Behind Juicy Chat AI](https://socialgrowthengineers.com/the-call-style-formula-behind-juicy-chat-ais-32-1m-views) | Honne AI: AIキャラ会話形式 |
+| **Heartwarming "when..."** | 30M views in 3 videos | [SGE: Heartwarming trend 30M views](https://socialgrowthengineers.com/this-heartwarming-trend-generated-30m-views-in-3-videos) | Anicca: "when my phone knew exactly what I needed" |
+
+#### 今週のトレンド（2026年4月第2週 Trend Radar 108M Views）
+
+Source: [SGE: Trend Radar 108M Views](https://socialgrowthengineers.com/trend-radar-108m-views)
+
+| トレンド | 再生数 | Anicca/Honne適用 |
+|---------|--------|-----------------|
+| **"Clap if you're against it"** | 9M views | Honne: "Clap if you're against people who say 'I'm fine' when they're not" |
+| **Heartwarming "when..."** | 30M views / 3動画 | Anicca: "when i look at my lock screen and it says exactly what i needed to hear" |
+
+#### SGEの核心インサイト（原文引用）
+
+> **Omnira記事**: "The founder appears on screen, usually lip-syncing to a popular song, while the actual hook is the sound itself. The audio is presented as an 8D or bilateral-stimulation experience, and the CTA asks viewers to try it in a specific way."
+> — Top video hook: **"This is called bilateral stimulation. It activates both sides of your Hemispheres and can be Extremely soothing for those With an overloaded brain."** (1.8M views, 18.4K bookmarks)
+
+> **Relationship Drama記事**: "Relationship drama is dominating TikTok... It no longer matters what you sell. **If your app fits inside a breakup story, it can spread.**"
+
+> **Macaron AI記事**: "Instead of trying to invent original concepts for TikTok, Macaron seems to have **taken viral videos already proven for other apps and swapped in a Macaron-made mini-app as the demo**." — 163M views, 8 accounts, only 28 videos per account.
+
+> **Juicy Chat AI記事**: "Two characters → a call-style layout → a short dialogue powered by the app. **The app only gets a brief mention and is never pushed with a hard CPA angle.**" — 32.1M views from a single creator.
+
+---
+
+### Anicca iOS — 5つのクリエイティブ
 
 #### Creative 1: Widget Setup動画
 | 項目 | 値 |
@@ -200,47 +236,58 @@ Source: github.com/adamlyttleapps/claude-skill-app-onboarding-questionnaire（14
 | フック(EN) | "How to put affirmations on your lock screen 🥺" |
 | フック(JA) | "ロック画面に毎日変わる言葉を設定する方法 🥺" |
 | 撮影 | iPhoneウィジェット追加を画面録画。設定→ホーム画面→ロック画面→完成 |
-| ソース | "I Am" app（709Kレビュー）: レビューで「widget」が最多言及機能。"when I got the widget I looked at my phone everyday" |
+| ソース | App Store "I Am" app（709Kレビュー）: "when I got the widget I looked at my phone everyday" |
 | 音楽 | トレンドBGM（sad/emotional系） |
 | 配信 | reelclaw-ja-1, reelclaw-en-1 |
 
-#### Creative 2: Nudge通知デモ
+#### Creative 2: Sound-first format（Omniraモデル）
 | 項目 | 値 |
 |------|-----|
-| フック(EN) | "POV: You unlock your phone and AI already knows what you need to hear" |
-| フック(JA) | "POV: スマホ開いたらAIが今必要な言葉をくれた" |
-| 撮影 | ロック画面にwidget表示→タップ→カード全画面→感動 |
-| ソース | "Motivation" app（1Mレビュー）レビュー: "getting a positive or thoughtful quote a few times a day has a way of recentering me" |
-| 音楽 | トレンドBGM |
-| 配信 | reelclaw-ja-2, reelclaw-en-2 |
+| フック(EN) | "This sound activates both sides of your brain. Close your eyes." |
+| フック(JA) | "この音が脳の両半球を活性化する。目を閉じて。" |
+| 撮影 | Anicca瞑想画面のサウンドを前面に。顔出しで口パク or 目を閉じるリアクション |
+| ソース | [SGE: Omnira 50M views](https://socialgrowthengineers.com/one-sound-format-took-this-app-past-50m-views) — "the actual hook is the sound itself" — 1.8M views top video, 18.4K bookmarks |
+| コメント参考 | Omnira top comment: "feels like my brain got a hug" (26 likes) / "It feels like EMDR therapy" (11 likes) |
+| 音楽 | アプリ内サウンド自体がBGM |
 
-#### Creative 3: Bedtime Nudge
+#### Creative 3: Heartwarming "when..." trend
+| 項目 | 値 |
+|------|-----|
+| フック(EN) | "when i open my phone at 2am and my lock screen says 'you're not alone in this'" |
+| フック(JA) | "深夜2時にスマホ見たら「一人じゃないよ」って書いてあった時" |
+| 撮影 | soft face-cam + one line of text starting with "when…" → widget表示のclose-up |
+| ソース | [SGE: Heartwarming trend 30M views](https://socialgrowthengineers.com/this-heartwarming-trend-generated-30m-views-in-3-videos) — "Use this audio to talk about a moment when someone or something felt so cute you almost could not handle it." — 12.8M + 9.6M views |
+| 音楽 | "original sound - lwfly"（トレンドオーディオ） |
+
+#### Creative 4: Bedtime Nudge
 | 項目 | 値 |
 |------|-----|
 | フック(EN) | "My phone just told me I'll regret staying up. It's right." |
 | フック(JA) | "スマホに「明日後悔するよ」って言われた。正解。" |
 | 撮影 | 夜のBedtimeカード→「Protect Tomorrow」ボタン→タップ |
-| ソース | Playbook: "show the 'aha moment' in a single visual" — Bedtimeカードの二択（Protect Tomorrow / Hurt Myself）はvisual reveal |
+| ソース | App Store "I Am" app + Playbook: "show the 'aha moment' in a single visual" — 二択カードがvisual reveal |
 | 音楽 | night/chill系BGM |
 
-#### Creative 4: カード共有
+#### Creative 5: カード共有
 | 項目 | 値 |
 |------|-----|
 | フック(EN) | "Send this to someone who needs to hear it today 💙" |
 | フック(JA) | "今日これが必要な人に送って 💙" |
 | 撮影 | 美しいカード→ShareLink→Instagram/LINEに共有 |
-| ソース | "Motivation" appレビュー: "share the uplifting message of the day with your friends, or use the image for Instagram" |
+| ソース | App Store "Motivation" app（1Mレビュー）: "share the uplifting message of the day with your friends, or use the image for Instagram" |
 | 音楽 | uplifting系BGM |
 
-### Honne AI — 5つのクリエイティブ
+---
 
-#### Creative 1: 彼氏のLINE解読
+### Honne AI — 6つのクリエイティブ
+
+#### Creative 1: Relationship Drama Reveal（最重要）
 | 項目 | 値 |
 |------|-----|
 | フック(EN) | "I asked AI what my boyfriend ACTUALLY meant by 'I'm fine' 😳" |
 | フック(JA) | "彼氏の「大丈夫」をAIに本音翻訳させた結果 😳" |
-| 撮影 | メッセージ貼り付け→AI分析ローディング→結果reveal（本音テキスト） |
-| ソース | Playbook: "Face ratings, height predictors, food scanners all have a 'reveal' moment" — Honne AIの本音revealはこのパターン |
+| 撮影 | メッセージ貼り付け→AI分析ローディング→結果reveal（本音テキスト）。talking head + live reaction |
+| ソース | [SGE: How Apps Are Hijacking Relationship Drama](https://socialgrowthengineers.com/how-apps-are-hijacking-relationship-drama-right-now) — Sherlock: 21.8M views単体動画。"It no longer matters what you sell. If your app fits inside a breakup story, it can spread." |
 | 音楽 | suspense→reveal系BGM |
 
 #### Creative 2: 上司の本音
@@ -249,6 +296,7 @@ Source: github.com/adamlyttleapps/claude-skill-app-onboarding-questionnaire（14
 | フック(EN) | "POV: AI decoded what your boss REALLY thinks of you" |
 | フック(JA) | "POV: 上司のメールの本音をAIに暴かれた" |
 | 撮影 | 上司メール貼り付け→分析→衝撃の結果reveal |
+| ソース | SGE: Relationship Drama記事のパターン応用 — 「誰かの本音を暴く」フォーマットは関係性問わず有効 |
 | 音楽 | dramatic reveal系 |
 
 #### Creative 3: 既読スルー解読
@@ -257,6 +305,7 @@ Source: github.com/adamlyttleapps/claude-skill-app-onboarding-questionnaire（14
 | フック(EN) | "He left me on read. AI told me why. I wasn't ready 💔" |
 | フック(JA) | "既読スルーされた。AIに理由聞いたら…準備できてなかった 💔" |
 | 撮影 | 既読スルー画面→AI分析→本音reveal |
+| ソース | SGE: Sherlock動画のtop comment: "we're getting divorced" (492K likes) — 関係不安がコメントを爆発させる |
 | 音楽 | sad/emotional系 |
 
 #### Creative 4: 母親の本音
@@ -265,32 +314,47 @@ Source: github.com/adamlyttleapps/claude-skill-app-onboarding-questionnaire（14
 | フック(EN) | "My mom said 'do whatever you want.' AI said that's NOT what she meant" |
 | フック(JA) | "母の「好きにしなさい」AIに訳したら全然違った" |
 | 撮影 | 母のLINE→分析→本音reveal（心配してるのに…） |
+| ソース | [SGE: Heartwarming trend](https://socialgrowthengineers.com/this-heartwarming-trend-generated-30m-views-in-3-videos) — 感情的な small moment がバイラルする |
 | 音楽 | emotional/touching系 |
 
-#### Creative 5: 返信提案
+#### Creative 5: "Clap if you're against it" trend
 | 項目 | 値 |
 |------|-----|
-| フック(EN) | "AI wrote the PERFECT reply to my crush's confusing text" |
-| フック(JA) | "AIが片思い相手への完璧な返信を教えてくれた" |
-| 撮影 | メッセージ→分析→返信提案→コピー |
-| 音楽 | upbeat/confident系 |
+| フック(EN) | "Clap if you're against people who say 'I'm fine' when they're clearly NOT fine 👏" |
+| フック(JA) | "「大丈夫」って言うけど明らかに大丈夫じゃない人、拍手して 👏" |
+| 撮影 | face-cam + テキストオーバーレイ → アプリデモ（本音翻訳） |
+| ソース | [SGE: Trend Radar 108M Views](https://socialgrowthengineers.com/trend-radar-108m-views) — "Clap if you're against it" trend: 9M views。"This works well for social, dating, work, or study apps." |
+| 音楽 | "Clap if youre against it" トレンドオーディオ |
+
+#### Creative 6: Faceless Multi-Account（量産戦略）
+| 項目 | 値 |
+|------|-----|
+| 戦略 | Macaron AIモデル: 複数アカウント×少数動画で大量リーチ |
+| ソース | [SGE: Macaron AI 500K Downloads](https://socialgrowthengineers.com/they-copied-viral-app-videos-and-turned-them-into-500k-downloads) — "8 accounts × 28 videos each = 163M views, 500K downloads" |
+| 実行 | honne-en-1, honne-en-2, honne-en-3 の3アカウントで開始。各アカウント faceless screen recording。他の本音系アプリのバイラル動画フォーマットを借用→Honne AIで再現 |
+| 核心 | "Instead of trying to invent original concepts, take viral videos already proven for other apps and swap in your app as the demo" |
+
+---
 
 ### Honne AIバイラル機能
 
-Source: Playbook "YOUR APP MUST HAVE A VIRAL FEATURE: If you can screen record someone using your app, or show the 'aha moment' in a single visual, you have a winner."
+**証明済みバイラルパターン（SGE引用）:**
+
+> [SGE: Relationship Drama記事](https://socialgrowthengineers.com/how-apps-are-hijacking-relationship-drama-right-now): "The content sells the feeling of catching something you were not supposed to see: The fabricated evidence."
 
 **Honne AIのreveal moment = メッセージ分析結果画面**
 - ユーザーがメッセージ貼る → AIが分析 → **本音が表示される瞬間** = reveal moment
 - これは既に実装済み。追加開発不要。
 - TikTokクリエイティブでこのrevealを最大限活かす。
 
-**追加バイラル機能候補:**
+**追加バイラル機能（SGE引用ベース）:**
 
-| # | 機能 | 理由 |
-|---|------|------|
-| 1 | **分析結果シェアカード** | revealの結果を美しいカードでシェア→オーガニック拡散 |
-| 2 | **感情スコア表示**（1-5の感情レベルを大きくビジュアル化） | 数値reveal = TikTokで映える |
-| 3 | **「返信コーチ」モード** | Playbook: dating reply apps are trending |
+| # | 機能 | SGEソース | 理由 |
+|---|------|----------|------|
+| 1 | **分析結果シェアカード** | Macaron AI: シェアで拡散 | revealの結果を美しいカードでシェア→オーガニック拡散 |
+| 2 | **感情スコア表示**（1-5の感情レベルを大きくビジュアル化） | Omnira: 数値体験がコメントを爆発させる | TikTokで映える visual reveal |
+| 3 | **Faceless multi-account** | [SGE: Macaron AI](https://socialgrowthengineers.com/they-copied-viral-app-videos-and-turned-them-into-500k-downloads) | 3アカウント×28動画 = 数百万views目標 |
+| 4 | **Relationship drama hook** | [SGE: Drama記事](https://socialgrowthengineers.com/how-apps-are-hijacking-relationship-drama-right-now) | "If your app fits inside a breakup story, it can spread" |
 
 ---
 
