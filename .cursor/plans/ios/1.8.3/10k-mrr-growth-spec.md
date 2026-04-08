@@ -17,44 +17,85 @@
 
 ---
 
-## 1. Paywall Primer テキスト修正
+## 1. Paywall テキスト修正
 
 ### 背景
-- Annual planのトライアルを7日→3日に変更済み（ASC）
-- Primer画面の「try for free」テキストがハードコード
-- 動的テキスト（%@変数）はASCから3日を自動反映 → パッチ不要
+- ASCでAnnual planトライアルを7日→3日に変更済み（2026-04-08）
+- RevenueCatは `storeProduct.introductoryDiscount.subscriptionPeriod` から自動取得
+- `%@` 変数のテキストは自動で "3 days" に反映済み → パッチ不要
+- ハードコードされた「try for free」「risk-free」テキストのみ修正必要
 
-### 画面構成
+### 何がハードコードで何が動的か
 
 ```
-┌─ Primer Screen (PaywallPrimerStepView.swift) ─┐
-│                                                │
-│   "We want you to try Anicca for free"  ← FIX │
-│   "...risk-free."                       ← FIX │
-│   ✅ Feature 1                                 │
-│   🔔 Feature 2                                 │
-│   ✕ Feature 3                                  │
-│   [Continue]                                   │
-└────────────────────────────────────────────────┘
+┌─ Primer Screen (PaywallPrimerStepView.swift) ──────────────┐
+│  ❌ ハードコード（Localizable.strings直書き。PostHog制御外） │
+│                                                            │
+│  L1325: "We want you to try\nAnicca for free"    ← FIX    │
+│  L1326: "...Experience the full journey risk-free" ← FIX   │
+│  → 再提出必要                                              │
+└────────────────────────────────────────────────────────────┘
          ↓
-┌─ Pricing Screen (PaywallVariantBView.swift) ───┐
-│   Title (PostHog制御)                           │
-│   Features 1-5 (PostHog制御)                    │
-│   Annual $49.99/yr — "3 days free trial" ← 自動 │
-│   Monthly $9.99/mo — no trial                   │
-│   CTA: "Start 3-Day Free Trial"         ← 自動 │
-│   Trust text (PostHog制御)                      │
-└────────────────────────────────────────────────┘
+┌─ Pricing Screen (PaywallVariantBView.swift) ───────────────┐
+│  ✅ PostHog制御（payload設定で即変更、再提出不要）           │
+│  title, subtitle, feature1-5, cta, trust                   │
+│                                                            │
+│  ✅ 動的テキスト（RevenueCatから自動取得）                   │
+│  L1361: "%@ free trial included"  → 自動で "3 days"        │
+│  L1362: "Start %@ Free Trial"     → 自動で "3-Day"         │
+│  → パッチ不要                                              │
+│                                                            │
+│  PostHogの仕組み:                                           │
+│  paywallText("cta", fallback: "paywall_b_cta_trial")       │
+│  → payload["cta_ja"] or payload["cta"] を探す               │
+│  → なければ Localizable.strings の fallback を使う           │
+└────────────────────────────────────────────────────────────┘
 ```
 
-### パッチ
+### パッチ（Localizable.strings — 再提出必要）
 
 | ファイル | 行 | Before | After |
 |---------|-----|--------|-------|
-| `aniccaios/Resources/en.lproj/Localizable.strings` | 1325 | `"We want you to try\nAnicca for free"` | `"Start your\nAnicca journey"` |
-| `aniccaios/Resources/en.lproj/Localizable.strings` | 1326 | `"Your personalized plan is ready. Experience the full journey risk-free."` | `"Your personalized plan is ready."` |
-| `aniccaios/Resources/ja.lproj/Localizable.strings` | 対応行 | JA版の primer title | `"あなたのAniccaの\n旅を始めよう"` |
-| `aniccaios/Resources/ja.lproj/Localizable.strings` | 対応行 | JA版の primer subtitle | `"あなた専用プランの準備ができました。"` |
+| `en.lproj/Localizable.strings` | 1325 | `"We want you to try\nAnicca for free"` | `"Start your\nAnicca journey"` |
+| `en.lproj/Localizable.strings` | 1326 | `"...Experience the full journey risk-free."` | `"Your personalized plan is ready."` |
+| `ja.lproj/Localizable.strings` | 対応行 | JA版 primer title | `"あなたのAniccaの\n旅を始めよう"` |
+| `ja.lproj/Localizable.strings` | 対応行 | JA版 primer subtitle | `"あなた専用プランの準備ができました。"` |
+
+### PostHog payload変更（再提出不要、curl即実行）
+
+現在の状態: payload未設定 → fallback（Localizable.strings）を使用中
+
+| Key | 現在のfallback（EN） | 変更後 |
+|-----|---------------------|--------|
+| `cta` | "Start 3-Day Free Trial"（%@自動） | "Start Your Journey Now" |
+| `cta_ja` | "3日間無料トライアルを始める" | "今すぐ始めよう" |
+| `trust` | "Free trial · Cancel anytime · No charge until trial ends" | "3-day free trial · Cancel anytime · Secure" |
+| `trust_ja` | JA版 | "3日間無料 · いつでもキャンセル · 安心" |
+
+### PostHogコマンド
+
+```bash
+PH_KEY=$(python3 -c "import json; d=json.load(open('$HOME/.claude.json')); args=d['mcpServers']['posthog']['args']; print(args[args.index('--posthogApiKey')+1])")
+
+curl -s -X PATCH "https://us.posthog.com/api/projects/327882/feature_flags/628062" \
+  -H "Authorization: Bearer $PH_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "filters": {
+      "groups": [{"variant": "test", "properties": [], "rollout_percentage": 50}],
+      "payloads": {
+        "test": {
+          "cta": "Start Your Journey Now",
+          "cta_ja": "今すぐ始めよう",
+          "trust": "3-day free trial · Cancel anytime · Secure",
+          "trust_ja": "3日間無料 · いつでもキャンセル · 安心",
+          "hard_paywall": true,
+          "show_x_button": false
+        }
+      }
+    }
+  }'
+```
 
 ### 修正不要
 
@@ -63,13 +104,6 @@
 | `"Your 7-Day Journey"` (L1311) | トライアルではなく体験の説明 |
 | `"Start %@ Free Trial"` (L1362) | %@がASCから3-dayを自動取得 |
 | `"%@ free trial included"` (L1361) | 同上 |
-
-### PostHogで即変更（再提出不要）
-
-| Key | 現在 | 変更推奨 |
-|-----|------|---------|
-| `cta` | fallback to hardcoded | `"Start Your Journey Now"` |
-| `trust` | `"Free trial · Cancel anytime..."` | `"3-day free trial · Cancel anytime · Secure"` |
 
 ---
 
@@ -80,8 +114,7 @@ Source: App Store "I Am - Daily Affirmations"（709Kレビュー、4.8星）
 > レビュー: "when I got the widget I looked at my phone everyday reading these words and I feel like I have a lot of energy"
 
 Source: App Store "Motivation - Daily quotes"（1Mレビュー、4.8星）
-> "install the widget in your home screen and customize it from the app. You can have as many widgets as you want!"
-> "I enjoy having affirmations cycle through different themes throughout the day in my notifications bar and widgets"
+> "install the widget in your home screen and customize it from the app"
 
 ### 仕様
 
@@ -91,7 +124,7 @@ Source: App Store "Motivation - Daily quotes"（1Mレビュー、4.8星）
 | 表示内容 | ユーザーの選択した悩み（problem）に関連するNudgeテキスト |
 | 更新頻度 | 毎日変わる（TimelineReloadPolicy: `.atEnd`, 24h間隔） |
 | ロジック | QuoteProvider.swiftと同じ — day-of-yearベースで決定的ローテーション |
-| Premium限定 | **いいえ — 全ユーザーに開放**（バイラル係数最大化のため） |
+| Premium限定 | **いいえ — 全ユーザーに開放**（バイラル係数最大化） |
 | データ共有 | App Groups経由でUserDefaults共有（selected problems読み取り） |
 | デザイン | NudgeCardContentのミニ版 — アイコン + hook text + アプリロゴ |
 
@@ -103,288 +136,214 @@ Source: App Store "Motivation - Daily quotes"（1Mレビュー、4.8星）
 | `AniccaWidget/NudgeWidgetProvider.swift` | TimelineProvider（24h更新） |
 | `AniccaWidget/NudgeWidgetEntryView.swift` | Small/Medium/LockScreen View |
 | `AniccaWidget/Info.plist` | Widget Extension config |
-| 既存 `NudgeCardContent.swift` | 参考デザイン |
-| 既存 `QuoteProvider.swift` | ロジック参考 |
+
+### 実装手順
+
+1. Claude CodeがSwiftファイル全部作成
+2. Xcode で手動で Widget Extension target 追加（.pbxproj 編集禁止）
+3. App Groups entitlement 追加（メインアプリ + Widget）
+4. 再提出必要（release/1.8.3）
 
 ### 注意
 - Widget Extension は新 target → Xcode で手動追加（.pbxproj 編集禁止）
-- App Groups entitlement 追加必須
+- demo動画はWidget実装完了後にダイスが撮影
 
 ---
 
-## 3. カード共有機能
+## 3. Onboarding改善
 
-### 仕様
-
-| 項目 | 値 |
-|------|-----|
-| 場所 | NudgeCardView.swift のフィードバックボタン横にShareボタン追加 |
-| 方式 | ShareLink（iOS 16+）or UIActivityViewController（iOS 15互換） |
-| 共有物 | NudgeCardContentのスナップショット画像（ImageRenderer） + テキスト + App Storeリンク |
-| デザイン | カード下部に share icon（square.and.arrow.up） |
-
----
-
-## 4. App Store スクリーンショット再生成
-
-### 現在のスクリーンショット
-
-| # | EN | JA |
-|---|----|----|
-| 01 | "Gentle Words For Your Hardest Moments" + Self-Compassionカード | "一番辛い時に優しい言葉を" + 自分を許せカード |
-| 02 | "What weighs on you? We'll be there." + Struggle選択 | "何が苦しい？そばにいるよ" + 苦しみ選択 |
-| 03 | "Your pain. We get it." + My Path画面 | "一人で抱え込まなくていい" + マイパス |
-| 04 | "Protecting tomorrow's you." + Bedtimeカード | "明日のあなたを守る" + 大丈夫カード |
-
-### 改善案（全部カードベース）
-
-| # | EN見出し | JA見出し | カード内容 |
-|---|---------|---------|----------|
-| 01 | "Kind Words When You Need Them Most" | "一番辛い時に優しい言葉を" | Self-Compassionカード（現01ベース） |
-| 02 | "AI That Fights Back When You Can't" | "あなたが戦えない時、AIが戦う" | Bedtimeカード「Protect Tomorrow / Hurt Myself」 |
-| 03 | "A Nudge On Your Lock Screen, Every Day" | "ロック画面に、毎日のひと言" | Widget表示のモックアップ（Widget実装後） |
-| 04 | "Break The Loop. Start Today." | "ループを断ち切れ。今日から。" | 夜更かし or 先延ばしカード |
-
-### ファイルパス
-- EN: `.cursor/plans/ios/1.6.3/AppScreens-Anicca-1771826223384.render/apple/English (en-US)/iPhones  6.9/`
-- JA: `.cursor/plans/ios/1.6.3/AppScreens-Anicca-1771826223384.render/apple/Japanese (ja)/iPhones  6.9/`
-- Pipeline config: `docs/screenshots/config/screenshots.yaml`
-- デスクトップコピー: `~/Desktop/anicca-screenshots/`
-
----
-
-## 5. Onboarding改善（app-onboarding-questionnaire Framework）
-
-Source: github.com/adamlyttleapps/claude-skill-app-onboarding-questionnaire（14画面フレームワーク）
-
-### 現在 vs 改善
-
-| # | Playbook画面 | Aniccaの現状 | アクション |
-|---|-------------|-------------|----------|
-| 1 | Welcome | ✅ あり | テキスト改善 |
-| 2 | Goal Question | ❌ なし | **追加** |
-| 3 | Pain Points | ✅ Struggles | OK |
-| 4 | Social Proof | ❌ なし | **追加** |
-| 5 | Tinder Cards（スワイプ共感） | ❌ なし | **追加** |
-| 6 | Personalized Solution | ✅ PersonalizedInsight | OK |
-| 7 | Comparison Table | ❌ なし | Optional |
-| 8 | Preferences | ❌ なし | Optional |
-| 9 | Permission Priming | ✅ Notifications | テキスト改善 |
-| 10 | Processing Moment | ❌ なし | **追加** |
-| 11 | **App Demo** | ❌ **なし** | **必須追加** |
-| 12 | **Value Delivery + Viral Moment** | ❌ **なし** | **必須追加** |
-| 13 | Account Gate | ❌ なし | Skip |
-| 14 | Paywall | ✅ あり | テキスト改善（Section 1） |
+Source: github.com/adamlyttleapps/claude-skill-app-onboarding-questionnaire（14画面）
 
 ### 最重要追加画面
 
-**Screen 11: App Demo**
-- ユーザーの選択した悩みに対してAIがNudgeカードを即生成
-- 実際にカードを見せて「aha moment」を体験させる
-- 30秒以内で完了
+**Screen: App Demo（Paywall直前に挿入）**
+```
+┌─ App Demo Screen ──────────────────────────┐
+│                                            │
+│  ユーザーの選択した悩みに対して              │
+│  AIがNudgeカードを即生成                    │
+│                                            │
+│  ┌────────────────────────┐                │
+│  │  🌙 Bedtime Nudge       │                │
+│  │  "明日の自分を守ろう"    │                │
+│  │  [Protect Tomorrow]     │                │
+│  └────────────────────────┘                │
+│                                            │
+│  → 実際のカードを見せて aha moment          │
+│  → 30秒以内で完了                           │
+│  → [Continue to Plans]                     │
+└────────────────────────────────────────────┘
+```
 
-**Screen 12: Viral Moment**
-- 生成されたカードをシェア可能にする
-- ShareLink + "Send to a friend who needs this"
-- **これがオーガニック拡散のフック**
+**Screen: Social Proof（Struggles選択後に挿入）**
+```
+┌─ Social Proof Screen ──────────────────────┐
+│                                            │
+│  "12,847人が同じ悩みを選んでいます"          │
+│                                            │
+│  ⭐⭐⭐⭐⭐ "このアプリ、頭の中読まれてる"  │
+│  ⭐⭐⭐⭐⭐ "tried 50 apps, kept this one"  │
+│                                            │
+│  [Continue]                                │
+└────────────────────────────────────────────┘
+```
 
----
-
-## 6. TikTokクリエイティブ & バイラルフック
-
-### SGE調査結果（全引用付き）
-
-Source: [Social Growth Engineers](https://socialgrowthengineers.com) — 2026年4月8日時点
-
-#### 証明済みフォーマット（アプリTikTok）
-
-| フォーマット | 実績 | ソース記事 | Anicca/Honne適用 |
-|------------|------|-----------|-----------------|
-| **Sound-first** | Omnira: 50M views, 1.8M top | [SGE: One Sound Format Took This App Past 50M Views](https://socialgrowthengineers.com/one-sound-format-took-this-app-past-50m-views) | Anicca: 瞑想音声をフックに |
-| **Relationship drama hijack** | Sherlock: 21.8M views 1動画 | [SGE: How Apps Are Hijacking Relationship Drama](https://socialgrowthengineers.com/how-apps-are-hijacking-relationship-drama-right-now) | Honne AI: 本音解読=drama reveal |
-| **Faceless multi-account** | Macaron AI: 163M views, 500K DL, 8アカウント×28動画 | [SGE: They Copied Viral Videos = 500K Downloads](https://socialgrowthengineers.com/they-copied-viral-app-videos-and-turned-them-into-500k-downloads) | 両方: 複数アカウント戦略 |
-| **AI Chat call-style** | Juicy Chat AI: 32.1M views, 1クリエイター | [SGE: Call-Style Formula Behind Juicy Chat AI](https://socialgrowthengineers.com/the-call-style-formula-behind-juicy-chat-ais-32-1m-views) | Honne AI: AIキャラ会話形式 |
-| **Heartwarming "when..."** | 30M views in 3 videos | [SGE: Heartwarming trend 30M views](https://socialgrowthengineers.com/this-heartwarming-trend-generated-30m-views-in-3-videos) | Anicca: "when my phone knew exactly what I needed" |
-
-#### 今週のトレンド（2026年4月第2週 Trend Radar 108M Views）
-
-Source: [SGE: Trend Radar 108M Views](https://socialgrowthengineers.com/trend-radar-108m-views)
-
-| トレンド | 再生数 | Anicca/Honne適用 |
-|---------|--------|-----------------|
-| **"Clap if you're against it"** | 9M views | Honne: "Clap if you're against people who say 'I'm fine' when they're not" |
-| **Heartwarming "when..."** | 30M views / 3動画 | Anicca: "when i look at my lock screen and it says exactly what i needed to hear" |
-
-#### SGEの核心インサイト（原文引用）
-
-> **Omnira記事**: "The founder appears on screen, usually lip-syncing to a popular song, while the actual hook is the sound itself. The audio is presented as an 8D or bilateral-stimulation experience, and the CTA asks viewers to try it in a specific way."
-> — Top video hook: **"This is called bilateral stimulation. It activates both sides of your Hemispheres and can be Extremely soothing for those With an overloaded brain."** (1.8M views, 18.4K bookmarks)
-
-> **Relationship Drama記事**: "Relationship drama is dominating TikTok... It no longer matters what you sell. **If your app fits inside a breakup story, it can spread.**"
-
-> **Macaron AI記事**: "Instead of trying to invent original concepts for TikTok, Macaron seems to have **taken viral videos already proven for other apps and swapped in a Macaron-made mini-app as the demo**." — 163M views, 8 accounts, only 28 videos per account.
-
-> **Juicy Chat AI記事**: "Two characters → a call-style layout → a short dialogue powered by the app. **The app only gets a brief mention and is never pushed with a hard CPA angle.**" — 32.1M views from a single creator.
+### 実装
+- `OnboardingFlowView.swift` の step 配列に2画面追加
+- 新ファイル: `AppDemoStepView.swift`, `SocialProofStepView.swift`
+- 再提出必要
 
 ---
 
-### Anicca iOS — 5つのクリエイティブ
+## 4. App Store スクリーンショット
 
-#### Creative 1: Widget Setup動画
-| 項目 | 値 |
-|------|-----|
-| フック(EN) | "How to put affirmations on your lock screen 🥺" |
-| フック(JA) | "ロック画面に毎日変わる言葉を設定する方法 🥺" |
-| 撮影 | iPhoneウィジェット追加を画面録画。設定→ホーム画面→ロック画面→完成 |
-| ソース | App Store "I Am" app（709Kレビュー）: "when I got the widget I looked at my phone everyday" |
-| 音楽 | トレンドBGM（sad/emotional系） |
-| 配信 | reelclaw-ja-1, reelclaw-en-1 |
+### 現在のスクリーンショット
+- EN/JA各4枚: `~/Desktop/anicca-screenshots/` にコピー済み
+- 追加素材: `/Users/anicca/anicca-project/assets/raw-screenshots/self-hatred2-en.png`
 
-#### Creative 2: Sound-first format（Omniraモデル）
-| 項目 | 値 |
-|------|-----|
-| フック(EN) | "This sound activates both sides of your brain. Close your eyes." |
-| フック(JA) | "この音が脳の両半球を活性化する。目を閉じて。" |
-| 撮影 | Anicca瞑想画面のサウンドを前面に。顔出しで口パク or 目を閉じるリアクション |
-| ソース | [SGE: Omnira 50M views](https://socialgrowthengineers.com/one-sound-format-took-this-app-past-50m-views) — "the actual hook is the sound itself" — 1.8M views top video, 18.4K bookmarks |
-| コメント参考 | Omnira top comment: "feels like my brain got a hug" (26 likes) / "It feels like EMDR therapy" (11 likes) |
-| 音楽 | アプリ内サウンド自体がBGM |
+### 新スクリーンショット構成（5枚）
 
-#### Creative 3: Heartwarming "when..." trend
-| 項目 | 値 |
-|------|-----|
-| フック(EN) | "when i open my phone at 2am and my lock screen says 'you're not alone in this'" |
-| フック(JA) | "深夜2時にスマホ見たら「一人じゃないよ」って書いてあった時" |
-| 撮影 | soft face-cam + one line of text starting with "when…" → widget表示のclose-up |
-| ソース | [SGE: Heartwarming trend 30M views](https://socialgrowthengineers.com/this-heartwarming-trend-generated-30m-views-in-3-videos) — "Use this audio to talk about a moment when someone or something felt so cute you almost could not handle it." — 12.8M + 9.6M views |
-| 音楽 | "original sound - lwfly"（トレンドオーディオ） |
+```
+┌─ SS1: メインカード ─────────────────────┐
+│ EN: "Kind Words When You Need Them Most" │
+│ JA: "一番辛い時に優しい言葉を"            │
+│ → Self-Compassionカード表示              │
+└─────────────────────────────────────────┘
 
-#### Creative 4: Bedtime Nudge
-| 項目 | 値 |
-|------|-----|
-| フック(EN) | "My phone just told me I'll regret staying up. It's right." |
-| フック(JA) | "スマホに「明日後悔するよ」って言われた。正解。" |
-| 撮影 | 夜のBedtimeカード→「Protect Tomorrow」ボタン→タップ |
-| ソース | App Store "I Am" app + Playbook: "show the 'aha moment' in a single visual" — 二択カードがvisual reveal |
-| 音楽 | night/chill系BGM |
+┌─ SS2: Self-Hatred カード ───────────────┐
+│ EN: "Words That Fight Back For You"      │
+│ JA: "あなたの代わりに戦う言葉"            │
+│ → self-hatred2-en.png 使用              │
+└─────────────────────────────────────────┘
 
-#### Creative 5: カード共有
-| 項目 | 値 |
-|------|-----|
-| フック(EN) | "Send this to someone who needs to hear it today 💙" |
-| フック(JA) | "今日これが必要な人に送って 💙" |
-| 撮影 | 美しいカード→ShareLink→Instagram/LINEに共有 |
-| ソース | App Store "Motivation" app（1Mレビュー）: "share the uplifting message of the day with your friends, or use the image for Instagram" |
-| 音楽 | uplifting系BGM |
+┌─ SS3: Bedtime カード ──────────────────┐
+│ EN: "Protecting Tomorrow's You"         │
+│ JA: "明日のあなたを守る"                │
+│ → Bedtimeカード「Protect Tomorrow」     │
+└─────────────────────────────────────────┘
+
+┌─ SS4: My Path リスト ──────────────────┐
+│ EN: "Your Path. Your Pace."             │
+│ JA: "あなたのペースで、あなたの道を"     │
+│ → My Path画面のリスト表示               │
+└─────────────────────────────────────────┘
+
+┌─ SS5: 悩み選択 ────────────────────────┐
+│ EN: "We Start Where You Hurt"           │
+│ JA: "あなたの痛みから始める"             │
+│ → Struggles選択画面                     │
+└─────────────────────────────────────────┘
+```
+
+### パイプライン
+- `docs/screenshots/config/screenshots.yaml` 更新
+- EN/JA各5枚生成 → ASCにアップロード
 
 ---
 
-### Honne AI — 6つのクリエイティブ
+## 5. Reelclaw Cron（Anicca iOS）
 
-#### Creative 1: Relationship Drama Reveal（最重要）
-| 項目 | 値 |
-|------|-----|
-| フック(EN) | "I asked AI what my boyfriend ACTUALLY meant by 'I'm fine' 😳" |
-| フック(JA) | "彼氏の「大丈夫」をAIに本音翻訳させた結果 😳" |
-| 撮影 | メッセージ貼り付け→AI分析ローディング→結果reveal（本音テキスト）。talking head + live reaction |
-| ソース | [SGE: How Apps Are Hijacking Relationship Drama](https://socialgrowthengineers.com/how-apps-are-hijacking-relationship-drama-right-now) — Sherlock: 21.8M views単体動画。"It no longer matters what you sell. If your app fits inside a breakup story, it can spread." |
-| 音楽 | suspense→reveal系BGM |
+### 現行cron
 
-#### Creative 2: 上司の本音
-| 項目 | 値 |
-|------|-----|
-| フック(EN) | "POV: AI decoded what your boss REALLY thinks of you" |
-| フック(JA) | "POV: 上司のメールの本音をAIに暴かれた" |
-| 撮影 | 上司メール貼り付け→分析→衝撃の結果reveal |
-| ソース | SGE: Relationship Drama記事のパターン応用 — 「誰かの本音を暴く」フォーマットは関係性問わず有効 |
-| 音楽 | dramatic reveal系 |
-
-#### Creative 3: 既読スルー解読
-| 項目 | 値 |
-|------|-----|
-| フック(EN) | "He left me on read. AI told me why. I wasn't ready 💔" |
-| フック(JA) | "既読スルーされた。AIに理由聞いたら…準備できてなかった 💔" |
-| 撮影 | 既読スルー画面→AI分析→本音reveal |
-| ソース | SGE: Sherlock動画のtop comment: "we're getting divorced" (492K likes) — 関係不安がコメントを爆発させる |
-| 音楽 | sad/emotional系 |
-
-#### Creative 4: 母親の本音
-| 項目 | 値 |
-|------|-----|
-| フック(EN) | "My mom said 'do whatever you want.' AI said that's NOT what she meant" |
-| フック(JA) | "母の「好きにしなさい」AIに訳したら全然違った" |
-| 撮影 | 母のLINE→分析→本音reveal（心配してるのに…） |
-| ソース | [SGE: Heartwarming trend](https://socialgrowthengineers.com/this-heartwarming-trend-generated-30m-views-in-3-videos) — 感情的な small moment がバイラルする |
-| 音楽 | emotional/touching系 |
-
-#### Creative 5: "Clap if you're against it" trend
-| 項目 | 値 |
-|------|-----|
-| フック(EN) | "Clap if you're against people who say 'I'm fine' when they're clearly NOT fine 👏" |
-| フック(JA) | "「大丈夫」って言うけど明らかに大丈夫じゃない人、拍手して 👏" |
-| 撮影 | face-cam + テキストオーバーレイ → アプリデモ（本音翻訳） |
-| ソース | [SGE: Trend Radar 108M Views](https://socialgrowthengineers.com/trend-radar-108m-views) — "Clap if you're against it" trend: 9M views。"This works well for social, dating, work, or study apps." |
-| 音楽 | "Clap if youre against it" トレンドオーディオ |
-
-#### Creative 6: Faceless Multi-Account（量産戦略）
-| 項目 | 値 |
-|------|-----|
-| 戦略 | Macaron AIモデル: 複数アカウント×少数動画で大量リーチ |
-| ソース | [SGE: Macaron AI 500K Downloads](https://socialgrowthengineers.com/they-copied-viral-app-videos-and-turned-them-into-500k-downloads) — "8 accounts × 28 videos each = 163M views, 500K downloads" |
-| 実行 | honne-en-1, honne-en-2, honne-en-3 の3アカウントで開始。各アカウント faceless screen recording。他の本音系アプリのバイラル動画フォーマットを借用→Honne AIで再現 |
-| 核心 | "Instead of trying to invent original concepts, take viral videos already proven for other apps and swap in your app as the demo" |
-
----
-
-### Honne AIバイラル機能
-
-**証明済みバイラルパターン（SGE引用）:**
-
-> [SGE: Relationship Drama記事](https://socialgrowthengineers.com/how-apps-are-hijacking-relationship-drama-right-now): "The content sells the feeling of catching something you were not supposed to see: The fabricated evidence."
-
-**Honne AIのreveal moment = メッセージ分析結果画面**
-- ユーザーがメッセージ貼る → AIが分析 → **本音が表示される瞬間** = reveal moment
-- これは既に実装済み。追加開発不要。
-- TikTokクリエイティブでこのrevealを最大限活かす。
-
-**追加バイラル機能（SGE引用ベース）:**
-
-| # | 機能 | SGEソース | 理由 |
-|---|------|----------|------|
-| 1 | **分析結果シェアカード** | Macaron AI: シェアで拡散 | revealの結果を美しいカードでシェア→オーガニック拡散 |
-| 2 | **感情スコア表示**（1-5の感情レベルを大きくビジュアル化） | Omnira: 数値体験がコメントを爆発させる | TikTokで映える visual reveal |
-| 3 | **Faceless multi-account** | [SGE: Macaron AI](https://socialgrowthengineers.com/they-copied-viral-app-videos-and-turned-them-into-500k-downloads) | 3アカウント×28動画 = 数百万views目標 |
-| 4 | **Relationship drama hook** | [SGE: Drama記事](https://socialgrowthengineers.com/how-apps-are-hijacking-relationship-drama-right-now) | "If your app fits inside a breakup story, it can spread" |
-
----
-
-## 7. Honne AI Cron → Reelclaw移行
-
-### 現状
-
-| cron名 | 時間(JST) | 方式 | 問題 |
+| cron名 | 時間(JST) | 方式 | 状態 |
 |--------|----------|------|------|
-| honne-ja-morning | 09:00 | ffmpeg手動オーバーレイ | 独自実装、reelclaw未使用 |
-| honne-ja-afternoon | 15:00 | ffmpeg手動オーバーレイ | 同上 |
-| honne-ja-evening | 20:00 | ffmpeg手動オーバーレイ | 同上 |
+| reelclaw-ja-1 | 12:00 | larryスライド + demo動画 | ✅（error: usage exhausted → model切替で復旧予定） |
+| reelclaw-ja-2 | 21:00 | 同上 | ✅ |
+| reelclaw-en-1 | 12:30 | 同上 | ✅ |
+| reelclaw-en-2 | 21:30 | 同上 | ✅ |
 
-### 修正
+### 追加cron（Widget demo用 — Widget実装後に有効化）
 
-3つのcronのmessageをreelclaw形式に変更:
+| cron名 | 時間(JST) | 対象 | フック |
+|--------|----------|------|--------|
+| reelclaw-ja-3 | 07:00 | JA（通勤前） | Widget系フック |
+| reelclaw-ja-4 | 18:00 | JA（帰宅後） | Widget系フック |
+| reelclaw-en-3 | 16:30 | EN（US 03:30 EST） | Widget系フック |
+| reelclaw-en-4 | 01:30 | EN（US 12:30 EST） | Widget系フック |
 
-**パッチ先**: `/Users/anicca/.openclaw/cron/jobs.json`
+**結果: 毎日8投稿（JA 4 + EN 4）**
+- 既存4 = スライドショー形式（hooks-en/ja.json のプールから）
+- 新4 = Widget demo形式（新フック、ダイス撮影のWidget録画）
 
-**新message形式（honne-ja-morning例）:**
+### Title/Caption設定（全cron共通）
+
+| App | Platform | EN | JA |
+|-----|----------|----|----|
+| Anicca | TikTok title | "personalized self-care, right on your lock screen" | "ロック画面にあなた専用のセルフケア" |
+| Anicca | IG/YT | 同上 | 同上 |
+| Anicca | caption | "#selfcare #mentalhealth #affirmations #lockscreen #healing #fyp" | "#メンタルヘルス #自己肯定感 #ロック画面 #アファメーション #fyp" |
+
+### demo部分のテキストオーバーレイ削除
+
+**現行**: demo部分に "try Anicca — words like these, every day" 等のテキストがオーバーレイされる
+**変更**: demo部分にテキストオーバーレイなし。hook部分のみテキストあり。
+
+パッチ対象: `/Users/anicca/.openclaw/cron/jobs.json`
+
+各reelclaw cronのmessageに以下を追加:
+```
+## DEMO OVERLAY RULE
+DO NOT overlay any text on the demo video section.
+Text overlay is ONLY for the hook section (Step 3d).
+The demo video plays clean with no text/CTA overlay.
+```
+
+### フックローテーション方法
+
+既存cron: `hooks-en.json` / `hooks-ja.json` の100+個プールからランダム選択（lastUsed追跡で重複回避）
+新cron: 新Widget hookプール（下記Section 8）から選択。`demos-mapping.json` に `widget_hooks_en` / `widget_hooks_ja` セクション追加。
+
+---
+
+## 6. Reelclaw Cron（Honne AI）
+
+### 現行cron（ffmpeg手動 → reelclaw形式に移行）
+
+| cron名 | 時間(JST) | Before | After |
+|--------|----------|--------|-------|
+| honne-ja-morning | 09:00 | ffmpeg手動オーバーレイ | reelclaw SKILL.md形式 |
+| honne-ja-afternoon | 15:00 | 同上 | 同上 |
+| honne-ja-evening | 20:00 | 同上 | 同上 |
+
+### パッチ（jobs.json — 3 cronのmessage書換え）
+
 ```
 Execute ReelClaw skill.
-Read ~/.agents/skills/reelclaw/SKILL.md Steps 1-4.
+Read ~/.agents/skills/reelclaw/SKILL.md and follow it.
 TikTok integration: cmnit95mg015rrm0ye5vm8dhl
 Font: /System/Library/Fonts/ヒラギノ角ゴシック W7.ttc
-App: Honne AI (本音翻訳AI)
-Demo videos: ~/.openclaw/workspace/honne-ai/demos/
-Hook pool: Use hooks from honne-mapping.json
+App Name: 本音AI
 Language: ja
-DIRECT_POST. PUBLIC_TO_EVERYONE.
+Music: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3
+Demo videos: ~/.openclaw/workspace/honne-ai/demos/
+
+## MANDATORY OVERRIDES
+### TITLE & CAPTION
+- TikTok settings.title: "LINEの本音をAIが翻訳する"
+- ALL platforms content: "#本音翻訳 #LINE #恋愛 #人間関係 #fyp"
+
+### DEMO OVERLAY RULE
+DO NOT overlay any text on the demo video section.
+Text overlay is ONLY for the hook section.
+
+### HOOK POOL
+Use these hooks in rotation:
+- "彼氏の「大丈夫」をAIに本音翻訳させた結果 😳"
+- "既読スルーされた。AIに理由聞いたら覚悟できてなかった 💔"
+- "母の「好きにしなさい」をAIに翻訳したら全然違った"
+- "「大丈夫」って言うけど絶対大丈夫じゃない人、拍手して 👏"
+- "上司のメールの本音をAIに暴かれた"
+- "AIが好きな人への完璧な返信を教えてくれた"
+- "なんで誰もこのアプリ教えてくれなかったの..."
+- "付き合って3年目でこれ見つけたんだけど！？"
+- "元カレの最後のLINEをAIに見せた。本音がエグかった。"
+- "「了解」の本音をAIに聞いたら終わった 💀"
+
+### POSTING RULES
+1. 3 SEPARATE API calls: TikTok, Instagram, YouTube.
+2. TikTok: privacy_level: SELF_ONLY, content_posting_method: UPLOAD
+3. Do NOT report to Slack yourself.
+
 Report to Slack #metrics.
 ```
 
@@ -396,41 +355,217 @@ Report to Slack #metrics.
 | honne-en-afternoon | 13:30 | 00:30 | 21:30前日 |
 | honne-en-evening | 22:30 | 09:30 | 06:30 |
 
-**必要な準備:**
+### Title/Caption（Honne AI）
+
+| Platform | EN | JA |
+|----------|----|----|
+| TikTok title | "AI that reads between the lines of your texts" | "LINEの本音をAIが翻訳する" |
+| caption | "#honneai #texttranslator #relationshipadvice #airedflags #fyp" | "#本音翻訳 #LINE #恋愛 #人間関係 #fyp" |
+
+### 必要な準備（ダイス手動）
 1. 新TikTok ENアカウント作成
-2. Postiz integration ID取得
-3. EN用hookテキスト作成（Section 6のHonne AIフック参照）
-4. EN用デモ動画（既存JA動画流用 or EN字幕新規作成）
+2. Postiz接続 → integration ID取得
+3. EN用デモ動画撮影 or JA動画流用
 
 ---
 
-## 8. PostHog Paywall最適化（再提出不要）
+## 7. Reelclaw Skill フロー（End-to-End）
 
-PostHog Dashboard で `paywall-ab-test` feature flag の payload を変更:
+### 現行フロー
 
-| Key | 変更後 |
-|-----|--------|
-| `cta` | `"Start Your Journey Now"` |
-| `cta_ja` | `"旅を始めよう"` |
-| `trust` | `"3-day free trial · Cancel anytime · Secure"` |
-| `trust_ja` | `"3日間無料 · いつでもキャンセル · 安心"` |
+```
+┌─ Cron起動 ─────────────────────────────────────────┐
+│                                                     │
+│  1. SKILL.md を読む                                  │
+│  2. Hook選択（hookプールからランダム、lastUsed回避）   │
+│  3. Hook動画を選択 or 購入（UGCクリップ）             │
+│     ├─ Step 3a: 予算あれば新しいhook動画を購入        │
+│     └─ Step 3b: なければ既存ローカル12本から選択      │
+│  4. Demo動画を選択（rotation順）                     │
+│  5. ffmpegで結合:                                    │
+│     ├─ Hook部分: hook動画 + テキストオーバーレイ      │
+│     └─ Demo部分: demo動画（テキストなし ← NEW）       │
+│  6. BGM追加（bgm-cta.mp3）                           │
+│  7. Postiz APIで投稿（TT + IG + YT 3回）             │
+│  8. demos-mapping.json 更新（lastUsed）              │
+│  9. Slack #metrics にレポート                         │
+└─────────────────────────────────────────────────────┘
+```
+
+### Hook動画購入の復活
+
+**現行**: `新規クリップ購入禁止。ローカルの12本だけ使う。` がcron messageにある
+**変更**: 予算が許す限り新しいhook動画を購入可能にする
+
+パッチ: 各reelclaw cronのmessageから以下を削除:
+```diff
+- 7. 新規クリップ購入禁止。ローカルの12本だけ使う。
++ 7. 予算が許す場合は新しいhook動画を購入してよい。購入失敗 or 良いものがない場合はローカルの既存クリップを使う。
+```
+
+### Hook/動画/Demoの整合性
+
+```
+フックテキスト → フック動画 → デモ動画
+全て同じ感情トーンで揃える
+
+例:
+Hook: "深夜2時にスマホ見たら「一人じゃないよ」って書いてあった"
+ → Hook動画: 夜、暗い部屋、スマホを見る女性（sad/emotional）
+ → Demo動画: Anicca Widget ロック画面（夜のテーマ）
+
+Hook: "彼氏の「大丈夫」をAIに本音翻訳させた結果 😳"
+ → Hook動画: 驚いた顔の女性、スマホを見てる（surprise/drama）
+ → Demo動画: Honne AI メッセージ分析→本音reveal
+```
+
+SKILL.md のStep 3dでhook選択時に「テーマ/感情タグ」でマッチングする。
 
 ---
 
-## 実行順序
+## 8. バイラルフック完全リスト
 
-| # | タスク | 所要時間 | 再提出 |
-|---|--------|---------|--------|
-| 1 | Primer Localizable.strings修正 | 15分 | ✅ |
-| 2 | Widget Extension開発 | 3-4h | ✅ |
-| 3 | カード共有機能（ShareLink） | 1h | ✅ |
-| 4 | PostHog payload変更 | 10分 | ❌ |
-| 5 | App Storeスクリーンショット再生成 | 1-2h | ✅(ASC) |
-| 6 | TikTokクリエイティブ撮影 | 1h | ❌ |
-| 7 | Honne AI cron → reelclaw | 30分 | ❌ |
-| 8 | Honne AI EN TikTok + cron | 30分 | ❌ |
-| 9 | Onboarding改善 | 4-6h | ✅ |
-| 10 | Singular確認 | 15分 | ❌ |
+### SGE調査結果（全引用付き）
 
-**#1-3 をまとめて1回の再提出（release/1.8.3）。**
-**#4,7,8 は即実行可能（再提出不要）。**
+Source: [Social Growth Engineers](https://socialgrowthengineers.com) — 2026年4月8日時点
+
+| フォーマット | 実績 | ソース |
+|------------|------|--------|
+| **Sound-first** | Omnira: 50M views, 1.8M top | [SGE: One Sound Format](https://socialgrowthengineers.com/one-sound-format-took-this-app-past-50m-views) |
+| **Relationship drama** | Sherlock: 21.8M views 1動画 | [SGE: Relationship Drama](https://socialgrowthengineers.com/how-apps-are-hijacking-relationship-drama-right-now) |
+| **Faceless multi-account** | Macaron AI: 163M views, 500K DL | [SGE: Copied Videos = 500K DL](https://socialgrowthengineers.com/they-copied-viral-app-videos-and-turned-them-into-500k-downloads) |
+| **AI Chat call-style** | Juicy Chat AI: 32.1M views | [SGE: Juicy Chat AI](https://socialgrowthengineers.com/the-call-style-formula-behind-juicy-chat-ais-32-1m-views) |
+| **Heartwarming "when..."** | 30M views in 3 videos | [SGE: Heartwarming trend](https://socialgrowthengineers.com/this-heartwarming-trend-generated-30m-views-in-3-videos) |
+| **"Clap if you're against it"** | 9M views | [SGE: Trend Radar 108M](https://socialgrowthengineers.com/trend-radar-108m-views) |
+
+### SGE核心引用
+
+> "Relationship drama is dominating TikTok... **If your app fits inside a breakup story, it can spread.**" — SGE Relationship Drama記事
+
+> "Instead of trying to invent original concepts, **take viral videos already proven for other apps and swap in your app as the demo**." — SGE Macaron AI記事（163M views, 500K DL）
+
+> "**The app only gets a brief mention and is never pushed with a hard CPA angle.**" — SGE Juicy Chat AI記事（32.1M views）
+
+---
+
+### Anicca iOS — Widget系フック
+
+| # | EN | JA |
+|---|----|----|
+| W1 | "You're telling me I never knew you could put affirmations on your lockscreen?" | "ロック画面にアファメーション置けるの知らなかったんだけど？" |
+| W2 | "Since you're always on your phone" | "どうせずっとスマホ見てるんだから" |
+| W3 | "You're telling me I could've been watching affirmations this whole time?" | "え、ずっとアファメーション見れたってこと？" |
+| W4 | "How to put affirmation words on your lockscreen (it changes everyday)" | "ロック画面にアファメーションを設定する方法（毎日変わる）" |
+| W5 | "How to add positive affirmations on ur lockscreen (it changes everyday)" | "ポジティブなアファメーションをロック画面に追加する方法（毎日変わる）" |
+| W6 | "POV: you need those affirmations on your lockscreen bc you don't chase, you attract" | "POV: ロック画面にアファメーション必要。追いかけない、引き寄せる" |
+| W7 | "POV: you found an app that gives you new affirmations every hour" | "POV: 毎時間新しいアファメーションくれるアプリ見つけた" |
+| W8 | "How to put affirmations on your lock screen 🥺" | "ロック画面にアファメーションを設定する方法 🥺" |
+| W9 | "POV: your phone reminds you to be grateful" | "POV: スマホが感謝を思い出させてくれた" |
+| W10 | "The first thing I see every morning" | "毎朝、最初に目に入る言葉" |
+| W11 | "Why did nobody tell me about this..." | "なんで誰も教えてくれなかったの..." |
+| W12 | "4 years dealing with anxiety and I just find this!?" | "4年間不安と戦ってて今これ見つけたんだけど！？" |
+
+### Anicca iOS — 共感系フック
+
+| # | EN | JA |
+|---|----|----|
+| E1 | "tried 50 mental health apps. deleted 49. kept this one" | "メンタルアプリ50個試した。49個消した。これだけ残った" |
+| E2 | "my therapist asked what changed. i showed her my phone" | "セラピストに「何が変わった？」って聞かれてスマホ見せた" |
+| E3 | "Send this to someone who needs to hear it today 💙" | "今日これが必要な人に送って 💙" |
+| E4 | "when i open my phone at 2am and it says 'you're not alone'" | "深夜2時にスマホ見たら「一人じゃないよ」って書いてあった" |
+| E5 | "My phone just told me I'll regret staying up. It's right." | "スマホに「明日後悔するよ」って言われた。正解。" |
+
+### Honne AI フック
+
+| # | EN | JA |
+|---|----|----|
+| H1 | "I asked AI what my boyfriend ACTUALLY meant by 'I'm fine' 😳" | "彼氏の「大丈夫」をAIに本音翻訳させた結果 😳" |
+| H2 | "He left me on read. AI told me why. I wasn't ready 💔" | "既読スルーされた。AIに理由聞いたら覚悟できてなかった 💔" |
+| H3 | "My mom said 'do whatever you want.' AI said that's NOT what she meant" | "母の「好きにしなさい」をAIに翻訳したら全然違った" |
+| H4 | "Clap if you're against people who say 'I'm fine' when they're NOT 👏" | "「大丈夫」って言うけど絶対大丈夫じゃない人、拍手して 👏" |
+| H5 | "POV: AI decoded what your boss REALLY thinks of you" | "POV: 上司のメールの本音をAIに暴かれた" |
+| H6 | "AI wrote the PERFECT reply to my crush's confusing text" | "AIが好きな人への完璧な返信を教えてくれた" |
+| H7 | "Why did nobody tell me about this app..." | "なんで誰もこのアプリ教えてくれなかったの..." |
+| H8 | "3 years into my relationship and I just found this!?" | "付き合って3年目でこれ見つけたんだけど！？" |
+| H9 | "I showed AI my ex's last text. The truth hit different." | "元カレの最後のLINEをAIに見せた。本音がエグかった。" |
+| H10 | "AI told me what 'k' really means and I'm DONE 💀" | "「了解」の本音をAIに聞いたら終わった 💀" |
+
+### Anicca Larry既存フック（hooks-ja.json 140+個、hooks-en.json 100+個）
+
+既存のlarryスライドショー用フックは別ファイルで管理済み:
+- EN: `~/.openclaw/workspace/tiktok-marketing/hooks-en.json`
+- JA: `~/.openclaw/workspace/tiktok-marketing/hooks-ja.json`
+
+---
+
+## 9. PostHog Paywall最適化（再提出不要）
+
+Section 1 のPostHogコマンド参照。
+
+---
+
+## 10. 実行順序
+
+| # | タスク | 所要時間 | 再提出 | 誰 |
+|---|--------|---------|--------|-----|
+| T1 | PostHog payload変更（curl） | 10分 | ❌ | CC |
+| T2 | Honne JA 3 cron → reelclaw形式 | 30分 | ❌ | CC |
+| T3 | Anicca reelclaw 4 cron追加 | 30分 | ❌ | CC |
+| T4 | Reelclaw demo テキストオーバーレイ削除 | 15分 | ❌ | CC |
+| T5 | Hook動画購入制限解除 | 10分 | ❌ | CC |
+| T6 | openclaw gateway restart | 1分 | ❌ | CC |
+| T7 | Primer Localizable.strings修正 | 15分 | ✅ | CC |
+| T8 | Widget Extension開発 | 3-4h | ✅ | CC+ダイスXcode |
+| T9 | Onboarding改善（Demo+SocialProof画面） | 4-6h | ✅ | CC |
+| T10 | App Storeスクリーンショット再生成（5枚×2言語） | 1-2h | ✅(ASC) | CC |
+| T11 | ビルド+提出 | 30分 | ✅ | CC+ダイス |
+| T12 | ダイスがWidget demo動画撮影 | 30分 | ❌ | ダイス |
+| T13 | ダイスが新TT ENアカウント作成（Honne） | 15分 | ❌ | ダイス |
+| T14 | Postiz接続+integration ID取得 | 15分 | ❌ | ダイス |
+| T15 | Honne EN cron 3つ追加 | 30分 | ❌ | CC |
+| T16 | Singular Dashboard確認 | 15分 | ❌ | ダイス |
+| T17 | TikTok viral music DL | 30分 | ❌ | CC/ダイス |
+| T18+ | Factory毎日1アプリ | 4h/日 | ✅ | CC |
+
+### 実行順
+
+```
+TODAY NOW   → T1 (PostHog), T2+T3+T4+T5 (cron全部), T6 (restart)
+TODAY       → T7 (Primer fix)
+TOMORROW    → T8 (Widget Extension)
+DAY 3       → T9 (Onboarding), T10 (Screenshots)
+DAY 3       → T11 (Build+Submit)
+AFTER T8    → T12 (ダイスWidget動画撮影)
+PARALLEL    → T13+T14+T15 (Honne EN)
+DAILY       → T18+ (Factory)
+```
+
+**T7-T11 をまとめて1回の再提出（release/1.8.3）。**
+**T1-T6 は即実行可能（再提出不要）。**
+
+---
+
+## 11. 10K MRR ロードマップ（22日間）
+
+```
+現在: ~$40 MRR → 目標: $10,000 MRR（250倍）
+期限: 2026年4月30日（残り22日）
+```
+
+### 4本柱
+
+| 柱 | 戦略 | MRR貢献目標 |
+|----|------|------------|
+| Anicca iOS | TT広告+3-day trial+Widget+Onboarding改善+スクショ | $4,000 |
+| Honne AI | EN展開+TT JA/EN 6投稿/日+drama hook | $2,000 |
+| Factory新アプリ | 毎日1アプリ（Quote Widget/Sleep Sound等） | $3,000 |
+| 最適化 | PostHog A/B+Singular ROAS+ASO | $1,000 |
+
+### 週次
+
+| 週 | Anicca iOS | Honne AI | Factory |
+|----|-----------|----------|---------|
+| W1 (4/8-14) | Widget+Primer+cron8投稿開始 | EN版+cron開始 | 3アプリ |
+| W2 (4/15-21) | Onboarding+スクショ+resubmit | Faceless3垢 | 4アプリ |
+| W3 (4/22-28) | A/B test最適化+TT Scale | drama hookフル回転 | best appにfocus |
+| W4 (4/29-30) | 全チャネル最大化 | 全チャネル最大化 | 全チャネル最大化 |
