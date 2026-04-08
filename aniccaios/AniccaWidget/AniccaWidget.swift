@@ -37,7 +37,7 @@ struct NudgeTimelineProvider: TimelineProvider {
     private func makeEntry(for date: Date) -> NudgeEntry {
         let struggles = NudgeWidgetDataStore.loadStruggles()
         let texts = NudgeWidgetDataStore.loadTexts()
-        let dayOfYear = Calendar.current.component(.dayOfYear, from: date)
+        let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: date) ?? 1
 
         guard !struggles.isEmpty else {
             return NudgeEntry(date: date, nudgeText: "Be kind to yourself.", problemEmoji: "🪷")
