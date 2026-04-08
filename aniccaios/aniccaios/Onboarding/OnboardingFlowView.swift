@@ -167,6 +167,7 @@ struct OnboardingFlowView: View {
     private func completeOnboarding() {
         AnalyticsManager.shared.track(.onboardingCompleted)
         AnalyticsManager.shared.updateSKANConversionValue(1)
+        NudgeWidgetDataStore.sync(struggles: appState.userProfile.struggles)
 
         // Existing Pro user (reinstall etc.) → skip paywall
         if appState.subscriptionInfo.isEntitled {
