@@ -2,7 +2,6 @@ import SwiftUI
 
 struct ProcessingStepView: View {
     let next: () -> Void
-    @State private var progress: CGFloat = 0
     @State private var showText = false
 
     var body: some View {
