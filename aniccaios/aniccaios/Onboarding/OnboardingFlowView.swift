@@ -76,6 +76,12 @@ struct OnboardingFlowView: View {
             PersonalizedInsightStepView(next: advance)
         case .valueProp:
             ValuePropStepView(next: advance)
+        case .processing:
+            ProcessingStepView(next: advance)
+        case .appDemo:
+            AppDemoStepView(next: advance)
+        case .valueDelivery:
+            ValueDeliveryStepView(next: advance)
         case .notifications:
             NotificationPermissionStepView(next: advance)
         }
@@ -143,6 +149,12 @@ struct OnboardingFlowView: View {
         case .personalizedInsight:
             step = .valueProp
         case .valueProp:
+            step = .processing
+        case .processing:
+            step = .appDemo
+        case .appDemo:
+            step = .valueDelivery
+        case .valueDelivery:
             step = .notifications
         case .notifications:
             AnalyticsManager.shared.track(.onboardingNotificationsCompleted)

@@ -7,7 +7,10 @@ enum OnboardingStep: Int, CaseIterable {
     case goals             // 3
     case personalizedInsight // 4
     case valueProp         // 5
-    case notifications     // 6
+    case processing        // 6
+    case appDemo           // 7
+    case valueDelivery     // 8
+    case notifications     // 9
 }
 
 enum PaywallStep: Int {
