@@ -51,6 +51,16 @@ const THEMES = {
     invertFg: "#0A1628",
     style: "premium",
   },
+  teal: {
+    bg: "#0C2E3D",
+    fg: "#FFFFFF",
+    sub: "#8CC5D4",
+    accent: "#3FBFBF",
+    cta: "#2DA5A5",
+    invertBg: "#E4F4F4",
+    invertFg: "#0C2E3D",
+    style: "anicca",
+  },
 } as const;
 
 type ThemeId = keyof typeof THEMES;

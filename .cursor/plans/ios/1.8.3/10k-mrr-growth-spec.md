@@ -359,22 +359,27 @@ Source: aso best-practices.md — 「50%のユーザーは最初の3枚しか見
 ### PPO A/Bテスト
 
 **A（Control）= 現在のApp Storeスクショそのまま**
-**B（Treatment）= sumi テーマ + 上記コピー**
+**B（Treatment）= teal テーマ + 上記コピー**
 
 → PPO（Product Page Optimization）で 50/50 traffic split。最低7日 → 90%信頼度で勝者確定。
+→ PPO は READY_FOR_SALE 後に開始（提出時ではない）
 
-#### デザインシステム（2バリアント）
+#### デザインシステム（teal テーマ — 確定）
 
-| 項目 | Variant A（墨色/sumi） | Variant B（ブルー/blue） |
-|------|-------------------|-------------------|
-| 背景 | `#1A1918` 墨色 + 和紙テクスチャ | `#0A1628` ダークネイビー + subtle gradient |
-| テキスト(見出し) | `#E5E4E2` オフホワイト | `#FFFFFF` 白 |
-| テキスト(本文) | `#A0A09E` グレー | `#8BA3C7` ライトブルーグレー |
-| アクセント | `#C9B382` 渋い金 | `#4A90D9` 落ち着いた青 |
-| CTA/Primary | `#4A90A4` 青 | `#5B9FE6` ブライトブルー |
-| Phone Frame | iPhone 15 Pro, Space Black | iPhone 15 Pro, Space Black |
-| フォント | SF Pro Display Bold 64pt | 同左 |
-| スタイル | 禅・わびさび | プレミアム・クリーン・信頼感 |
+| 項目 | 値 |
+|------|-----|
+| 背景 | `#0C2E3D` ダークティール |
+| テキスト(見出し) | `#FFFFFF` 白 |
+| テキスト(本文) | `#8CC5D4` ライトティール |
+| アクセント | `#3FBFBF` ティール |
+| CTA/Primary | `#2DA5A5` ティール |
+| Inverted背景 | `#E4F4F4` ライト |
+| Invertedテキスト | `#0C2E3D` ダーク |
+| Phone Frame | iPhone 15 Pro, Space Black |
+| フォント | SF Pro Display Bold (`W * 0.09`) |
+| スタイル | Anicca teal — アプリアイコンと統一 |
+
+**理由:** Aniccaアプリアイコンがティール/アクア系。ブランドカラーと統一。
 
 #### PPO ASC CLIコマンド
 
@@ -391,9 +396,10 @@ EXP_ID=$(asc product-pages experiments create \
 ```
 
 ### 生成方法
-- ParthJadhav/app-store-screenshots skill (Next.js) で 2バリアント × 5枚 × 2言語 = 20 PNG 生成
-- iPhone mockup付き、4解像度出力（6.9", 6.5", 6.3", 6.1"）
+- ParthJadhav/app-store-screenshots skill (Next.js) で teal × 5枚 × 2言語 = 10 PNG 生成
+- iPhone mockup付き、**1解像度のみ (6.9" = 1320x2868)**（Apple が自動ダウンスケール）
 - EN / JA の2言語（ES は EN と共有）
+- 生成済み: `assets/app-store-screenshots/new_screenshots/en-teal/` + `ja-teal/`
 
 ---
 
@@ -698,8 +704,8 @@ Title JA: "ロック画面にアファメーションを設定する方法"
 
 | # | タスク | 担当 | 再提出 | スキル | 状態 |
 |---|--------|------|--------|--------|------|
-| **T1** | **Screenshots 生成（sumi×5枚×2言語=10 PNG + 4解像度=40 PNG）** | **CC** | ✅(ASC) | `app-store-screenshots` | 🔜 NOW |
-| T1b | Next.js page.tsx 生成 + export（sumi テーマ） | CC | — | `app-store-screenshots` | ✅ DONE |
+| **T1** | **Screenshots 生成（teal×5枚×2言語=10 PNG、1解像度 1320x2868）** | **CC** | ✅(ASC) | `app-store-screenshots` | ✅ DONE |
+| T1b | Next.js page.tsx 生成 + export（teal テーマ） | CC | — | `app-store-screenshots` | ✅ DONE |
 | T1c | visual-qa 採点（40/50+必須） | CC | — | `screenshot-ab` PHASE 5 | 🔜 |
 | T2 | Primer + Paywall Localizable.strings修正（trial全削除） | CC | ✅ | `tdd-feature` + `code-reviewer` | 🔜 |
 | T3 | PaywallVariantBView.swift — trial UI削除+savePct表示 | CC | ✅ | `tdd-bug-fix` + `code-reviewer` | 🔜 |
@@ -716,6 +722,7 @@ Title JA: "ロック画面にアファメーションを設定する方法"
 |---|--------|------|--------|------|
 | T7 | Honne JA 3 cron → reelclaw形式移行 | CC | `reelclaw` | 🔜 |
 | T8 | 既存Anicca 4 cron修正（overlay削除+購入解除） | CC | — | 🔜 |
+| **T8b** | **Postiz TikTok "#Postiz" caption fix（reelclaw skill修正）** | **CC** | — | 🔜 |
 | T9 | SKILL.md購入制限解除 | CC | — | 🔜 |
 | T10 | `openclaw gateway restart` | CC | — | 🔜 |
 | T18 | Anicca Widget cron 4つ追加（Widget demo動画後） | CC | `reelclaw` | ⏳ |
@@ -734,8 +741,8 @@ Title JA: "ロック画面にアファメーションを設定する方法"
 
 | # | タスク | 担当 | 依存 | 状態 |
 |---|--------|------|------|------|
-| T-AB | PPO スクショA/Bテスト開始（墨色 vs ブルー） | CC | T12 READY_FOR_SALE後 | ⏳ |
-| T-AB2 | 7日後 PPO結果確認 → 勝者採用 | CC | T-AB + 7日 | ⏳ |
+| T-AB | PPO スクショA/Bテスト開始（current vs teal） | CC | T12 READY_FOR_SALE後 | ⏳ |
+| T-AB2 | PPO結果確認 → 90%信頼度で勝者採用 | CC | T-AB開始後 | ⏳ |
 
 ### 実行フロー
 
@@ -748,7 +755,7 @@ T2+T3 (並行: Strings+Paywall) → T4+T5 (Onboarding+Routing)
 T6 (ASO) → T11 (Widget) → T12a (シミュレータ目視) → T12 (Build+Submit)
 
 ═══ PHASE B: Cron（T12と並行可） ═══
-T7+T8+T9 → T10 (gateway restart)
+T7+T8+T8b+T9 → T10 (gateway restart)
 
 ═══ PHASE C: ダイス（今すぐ開始可） ═══
 T13 (trial削除) ← 今すぐ
