@@ -12,8 +12,15 @@ struct NudgeEntry: TimelineEntry {
 // MARK: - Provider
 
 struct NudgeTimelineProvider: TimelineProvider {
+    private var fallbackText: String {
+        let preferred = Locale.preferredLanguages.first ?? "en"
+        if preferred.hasPrefix("ja") { return "自分に優しくしよう。" }
+        if preferred.hasPrefix("es") { return "Sé amable contigo mismo." }
+        return "Be kind to yourself."
+    }
+
     func placeholder(in context: Context) -> NudgeEntry {
-        NudgeEntry(date: Date(), nudgeText: "Be kind to yourself.", problemEmoji: "🪷")
+        NudgeEntry(date: Date(), nudgeText: fallbackText, problemEmoji: "🪷")
     }
 
     func getSnapshot(in context: Context, completion: @escaping (NudgeEntry) -> Void) {
@@ -40,12 +47,12 @@ struct NudgeTimelineProvider: TimelineProvider {
         let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: date) ?? 1
 
         guard !struggles.isEmpty else {
-            return NudgeEntry(date: date, nudgeText: "Be kind to yourself.", problemEmoji: "🪷")
+            return NudgeEntry(date: date, nudgeText: fallbackText, problemEmoji: "🪷")
         }
 
         let problemKey = struggles[dayOfYear % struggles.count]
         let problemTexts = texts[problemKey] ?? []
-        let text = problemTexts.isEmpty ? "Be kind to yourself." : problemTexts[dayOfYear % problemTexts.count]
+        let text = problemTexts.isEmpty ? fallbackText : problemTexts[dayOfYear % problemTexts.count]
         let emoji = ProblemType(rawValue: problemKey)?.icon ?? "🪷"
 
         return NudgeEntry(date: date, nudgeText: text, problemEmoji: emoji)
