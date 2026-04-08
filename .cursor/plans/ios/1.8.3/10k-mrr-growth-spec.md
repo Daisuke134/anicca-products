@@ -545,25 +545,25 @@ Characters: 70/100
 Title EN: "try anicca — words like these, every day"
 Title JA: "アニッチャ試してみて — こんな言葉が毎日届く"
 
-### NEW: Anicca Widget demo 4 cron（T6完了後に有効化）
+### NEW: Anicca Widget demo 4 cron（source-managed jobs.json）
 
 | cron | 時間(JST) | 言語 | フック元 | Hook動画 | Demo動画 | 投稿先 |
 |------|----------|------|---------|---------|---------|--------|
-| reelclaw-ja-3 | 07:00 | JA | Widget hooks W1-W12 JA | 感情マッチ | `assets/demos/ja/widget-demo.mp4`（ダイス撮影） | TT+IG+YT (JA) |
-| reelclaw-ja-4 | 18:00 | JA | Widget hooks W1-W12 JA (別) | 同上（別クリップ） | 同上 | 同上 |
-| reelclaw-en-3 | 16:30 | EN | Widget hooks W1-W12 EN | 感情マッチ | `assets/demos/en/widget-demo.mp4`（ダイス撮影） | TT+IG+YT (EN) |
-| reelclaw-en-4 | 01:30 | EN | Widget hooks W1-W12 EN (別) | 同上（別クリップ） | 同上 | 同上 |
+| reelclaw-anicca-ja-widget-1 | 08:00 | JA | Widget hooks W1-W12 JA | UGC 12本ローテ | `assets/reelclaw/ja-widget-videos/` 6本ローテ | TT+IG+YT (JA) |
+| reelclaw-anicca-ja-widget-2 | 18:00 | JA | Widget hooks W1-W12 JA (別) | 同上（別クリップ） | 同上（次テーマ） | 同上 |
+| reelclaw-anicca-en-widget-1 | 09:30 | EN | Widget hooks W1-W12 EN | UGC 12本ローテ | `assets/reelclaw/en-widget-videos/` 6本ローテ | TT+IG+YT (EN) |
+| reelclaw-anicca-en-widget-2 | 19:00 | EN | Widget hooks W1-W12 EN (別) | 同上（別クリップ） | 同上（次テーマ） | 同上 |
 
 Title EN: "how to put affirmations on your lockscreen"
 Title JA: "ロック画面にアファメーションを設定する方法"
 
-### Honne AI JA 3 cron（reelclaw形式に移行）
+### Honne AI JA 3 cron（reelclaw形式に移行 — hook source: honne-mapping.json videos[].hooks[]）
 
 | cron | 時間(JST) | フック元 | Title（3候補ローテーション） |
 |------|----------|---------|--------------------------|
-| honne-ja-morning | 09:00 | H1-H10 JA | ①LINEの本音をAIが翻訳する ②もう返信で悩まない ③あの人の本音、AIが教えてくれた |
-| honne-ja-afternoon | 15:00 | H1-H10 JA (別) | 同上 |
-| honne-ja-evening | 20:00 | H1-H10 JA (別) | 同上 |
+| reelclaw-honne-ja-1 | 09:00 | `honne-mapping.json videos[].hooks[]`（動画紐づき） | ①LINEの本音をAIが翻訳する ②もう返信で悩まない ③あの人の本音、AIが教えてくれた |
+| reelclaw-honne-ja-2 | 15:00 | 同上（別動画+別hook） | 同上 |
+| reelclaw-honne-ja-3 | 20:00 | 同上（別動画+別hook） | 同上 |
 
 投稿先: TT: cmnit95mg015rrm0ye5vm8dhl のみ
 
@@ -691,7 +691,7 @@ Title JA: "ロック画面にアファメーションを設定する方法"
 |---|--------|------|--------|--------|------|
 | **T1** | **Screenshots 生成（teal×5枚×2言語=10 PNG、1解像度 1320x2868）** | **CC** | ✅(ASC) | `app-store-screenshots` | ✅ DONE |
 | T1b | Next.js page.tsx 生成 + export（teal テーマ） | CC | — | `app-store-screenshots` | ✅ DONE |
-| T1c | visual-qa 採点（40/50+必須） | CC | — | `screenshot-ab` PHASE 5 | 🔜 |
+| ~~T1c~~ | ~~visual-qa 採点（40/50+必須）~~ | — | — | — | SKIP（不要） |
 | T2 | Primer + Paywall Localizable.strings修正（trial全削除） | CC | ✅ | `tdd-feature` + `code-reviewer` | ✅ DONE |
 | T3 | PaywallVariantBView.swift — trial UI削除+savePct表示 | CC | ✅ | `tdd-bug-fix` + `code-reviewer` | ✅ DONE |
 | T4 | Onboarding 2画面（Processing+AppDemo）※ValueDeliveryスキップ | CC | ✅ | `tdd-feature` + `ios-app-onboarding` | ✅ DONE |
@@ -702,6 +702,24 @@ Title JA: "ロック画面にアファメーションを設定する方法"
 | T12 | ビルド+提出 release/1.8.3 | CC | ✅ | `greenlight` + `asc-workflow` | 🔜 |
 
 ### フェーズ B: Cron + 自動化（再提出不要）
+
+### Phase B 実装注意（2026-04-09 レビュー反映）
+
+- Widget ReelClaw source-managed cron は `/Users/anicca/anicca-project/openclaw-skills/jobs.json` 上で新命名に統一する:
+  - `reelclaw-anicca-ja-widget-1`
+  - `reelclaw-anicca-ja-widget-2`
+  - `reelclaw-anicca-en-widget-1`
+  - `reelclaw-anicca-en-widget-2`
+- 既存 runtime cron:
+  - `reelclaw-ja-1`
+  - `reelclaw-ja-2`
+  - `reelclaw-en-1`
+  - `reelclaw-en-2`
+  は別系統であり、混同しないこと
+- Honne JA ReelClaw 化では、hook text source はまず `/Users/anicca/.openclaw/workspace/honne-ai/honne-mapping.json` を正本とする
+- `spec H1-H10` は将来の hook pool としては使えるが、本パッチでは data model migration を含めない
+- `/Users/anicca/.openclaw/workspace/MEMORY.md` の運用ルールにより、`openclaw gateway restart` は Dais の明示許可後のみ
+
 
 | # | タスク | 担当 | スキル | 状態 |
 |---|--------|------|--------|------|
@@ -726,7 +744,7 @@ Title JA: "ロック画面にアファメーションを設定する方法"
 
 | # | タスク | 担当 | 依存 | 状態 |
 |---|--------|------|------|------|
-| T-AB | PPO スクショA/Bテスト開始（current vs teal） | CC | T12提出と同時 | 🔜 |
+| T-AB | PPO スクショA/Bテスト開始（current vs teal） | CC | READY_FOR_SALE後 | 🔜 |
 | T-AB2 | PPO結果確認 → 90%信頼度で勝者採用 | CC | T-AB開始後 | ⏳ |
 
 ### 実行フロー

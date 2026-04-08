@@ -1,110 +1,148 @@
-# 1.8.3 Cron Patches — 完全実装パッチ
+# 1.8.3 Cron Patches — 完全実装パッチ（修正版）
 
 > Date: 2026-04-09
-> Reviewer: Anicca (ボス)
-> Status: PENDING REVIEW
+> Reviewer: Anicca
+> Status: REVIEWED / NEEDS MANUAL IMPLEMENTATION
 
 ---
 
-## PATCH 1: Widget cron 衝突回避 + EN動画リスト確定
+## PATCH 1: Widget cron — ID変更 + 時間修正 + フックテキスト元修正 + EN動画リスト確定
 
 **ファイル:** `/Users/anicca/anicca-project/openclaw-skills/jobs.json`
 
-### 1a. reelclaw-ja-morning 時間変更 (09:00 → 08:00)
+### 目的
+Anicca Widget demo 用の source-managed cron 4本を、runtime 既存 cron と混同しない名前に変更し、JST ベースの時刻・Widget hooks W1-W12・固定 demo video list を明示する。
 
-```diff
-      "id": "reelclaw-ja-morning",
+### 注意
+- この patch は **jobs.json の source 管理定義** を更新するものであり、runtime 既存 cron（`reelclaw-ja-1`, `reelclaw-ja-2`, `reelclaw-en-1`, `reelclaw-en-2`）を直接変更するものではない。
+- Hook text の daily rotation state は `jobs.json` では保持できない。したがってこの patch では **rotation rule を payload に明記するのみ** とし、実際の state 保存先は別 spec で管理する。
+- EN widget video source に `.mov` が含まれる。ReelClaw 側が `.mov` を安全に処理できることを事前確認すること。未確認なら `.mp4` に統一してから適用すること。
+
+### jobs.json の対象4件を以下で置換
+
+```json
+    {
+      "id": "reelclaw-anicca-ja-widget-1",
       "agentId": "anicca",
-      "jobId": "reelclaw-ja-morning",
-      "name": "reelclaw-ja-morning",
+      "jobId": "reelclaw-anicca-ja-widget-1",
+      "name": "reelclaw-anicca-ja-widget-1",
       "schedule": {
         "kind": "cron",
--       "expr": "0 9 * * *",
-+       "expr": "0 8 * * *",
+        "expr": "0 8 * * *",
         "tz": "Asia/Tokyo"
-      },
-```
-
-理由: 09:00にhonne-ja-morningが稼働中。衝突回避。
-
-### 1b. reelclaw-ja-evening 時間変更 (21:00 → 18:00)
-
-```diff
-      "id": "reelclaw-ja-evening",
-      "agentId": "anicca",
-      "jobId": "reelclaw-ja-evening",
-      "name": "reelclaw-ja-evening",
-      "schedule": {
-        "kind": "cron",
--       "expr": "0 21 * * *",
-+       "expr": "0 18 * * *",
-        "tz": "Asia/Tokyo"
-      },
-```
-
-理由: 21:00にreelclaw-ja-2(card) + Larry slideshow JA-3が稼働中。衝突回避。
-
-### 1c. reelclaw-en-morning 時間+TZ変更 + 動画リスト確定
-
-```diff
-      "id": "reelclaw-en-morning",
-      "agentId": "anicca",
-      "jobId": "reelclaw-en-morning",
-      "name": "reelclaw-en-morning",
-      "schedule": {
-        "kind": "cron",
--       "expr": "0 9 * * *",
--       "tz": "America/Los_Angeles"
-+       "expr": "30 9 * * *",
-+       "tz": "Asia/Tokyo"
       },
       "sessionTarget": "isolated",
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
--       "message": "Execute reelclaw skill. Language: en. Font: ~/Library/Fonts/TikTokSansDisplayBold.ttf. DEMO_MODE: NO_TRIM — Do NOT run Step 2 (Gemini analysis/trimming). Use the widget demo video AS-IS without cutting. The full video IS the demo. Video source: widget demo videos from /Users/anicca/anicca-project/assets/reelclaw/en-widget-videos/ (rotate all .MP4 files in directory). UGC hooks from ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_en_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Hook text from ~/.openclaw/workspace/tiktok-marketing/hooks-en.json. Publish to TikTok EN (draft), Instagram EN (direct), YouTube EN (direct) via Postiz. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2). This Slack report is MANDATORY."
-+       "message": "Execute reelclaw skill. Language: en. Font: ~/Library/Fonts/TikTokSansDisplayBold.ttf. DEMO_MODE: NO_TRIM — Do NOT run Step 2 (Gemini analysis/trimming). Use the widget demo video AS-IS without cutting. The full video IS the demo. Video source: widget demo videos from /Users/anicca/anicca-project/assets/reelclaw/en-widget-videos/ (rotate: anger.MP4, anxietty.MP4, obseeive-thinking.MP4, rumnation.mov, slef-hatred.MP4, styaling-up-late.MP4). UGC hooks from ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_en_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Hook text from ~/.openclaw/workspace/tiktok-marketing/hooks-en.json. Publish to TikTok EN (draft), Instagram EN (direct), YouTube EN (direct) via Postiz. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2). This Slack report is MANDATORY."
+        "message": "Execute reelclaw skill. Language: ja. App: Anicca (Widget demo). Font: /System/Library/Fonts/ヒラギノ角ゴシック W7.ttc. DEMO_MODE: NO_TRIM. Do NOT run Step 2 (Gemini analysis/trimming). Use the widget demo video AS-IS without cutting. The full video IS the demo. Video source: widget demo videos from /Users/anicca/anicca-project/assets/reelclaw/ja-widget-videos/ (rotate in this exact order: anger.MP4, choosewisely.MP4, compulsivethinjing.MP4, self-hatred-affirmatino.MP4, sleepinglate.MP4, stopiingrumination.MP4). UGC hook video source: ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_ja_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Hook text source: Widget hooks W1-W12 JA from spec. Daily rule: rotate without reusing the same hook on the same day across widget JA crons. Title: ロック画面にアファメーションを設定する方法. Caption: ロック画面にアファメーションを設定する方法\n\n#アファメーション #ロック画面 #セルフケア #メンタルヘルス #自己肯定感 #fyp. Publish to TikTok JA (draft), Instagram JA (direct), YouTube JA (direct) via Postiz. TikTok: cmnhlk3ju058lpn0ytilqdpo0. Instagram: cmnipef7g00oerm0y3dz4lamx. YouTube: cmn1oukj9012nnq0yqhouc3ib. DEMO OVERLAY RULE: DO NOT overlay text on demo section. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2)."
       },
-```
-
-### 1d. reelclaw-en-evening 時間+TZ変更 + 動画リスト確定
-
-```diff
-      "id": "reelclaw-en-evening",
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C091G3PKHL2"
+      },
+      "enabled": true
+    },
+    {
+      "id": "reelclaw-anicca-ja-widget-2",
       "agentId": "anicca",
-      "jobId": "reelclaw-en-evening",
-      "name": "reelclaw-en-evening",
+      "jobId": "reelclaw-anicca-ja-widget-2",
+      "name": "reelclaw-anicca-ja-widget-2",
       "schedule": {
         "kind": "cron",
--       "expr": "0 21 * * *",
--       "tz": "America/Los_Angeles"
-+       "expr": "0 19 * * *",
-+       "tz": "Asia/Tokyo"
+        "expr": "0 18 * * *",
+        "tz": "Asia/Tokyo"
       },
       "sessionTarget": "isolated",
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
--       "message": "Execute reelclaw skill. Language: en. Font: ~/Library/Fonts/TikTokSansDisplayBold.ttf. DEMO_MODE: NO_TRIM — Do NOT run Step 2 (Gemini analysis/trimming). Use the widget demo video AS-IS without cutting. The full video IS the demo. Video source: widget demo videos from /Users/anicca/anicca-project/assets/reelclaw/en-widget-videos/ (rotate all .MP4 files in directory). UGC hooks from ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_en_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Hook text from ~/.openclaw/workspace/tiktok-marketing/hooks-en.json. Publish to TikTok EN (draft), Instagram EN (direct), YouTube EN (direct) via Postiz. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2). This Slack report is MANDATORY."
-+       "message": "Execute reelclaw skill. Language: en. Font: ~/Library/Fonts/TikTokSansDisplayBold.ttf. DEMO_MODE: NO_TRIM — Do NOT run Step 2 (Gemini analysis/trimming). Use the widget demo video AS-IS without cutting. The full video IS the demo. Video source: widget demo videos from /Users/anicca/anicca-project/assets/reelclaw/en-widget-videos/ (rotate: anger.MP4, anxietty.MP4, obseeive-thinking.MP4, rumnation.mov, slef-hatred.MP4, styaling-up-late.MP4). UGC hooks from ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_en_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Hook text from ~/.openclaw/workspace/tiktok-marketing/hooks-en.json. Publish to TikTok EN (draft), Instagram EN (direct), YouTube EN (direct) via Postiz. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2). This Slack report is MANDATORY."
+        "message": "Execute reelclaw skill. Language: ja. App: Anicca (Widget demo). Font: /System/Library/Fonts/ヒラギノ角ゴシック W7.ttc. DEMO_MODE: NO_TRIM. Do NOT run Step 2 (Gemini analysis/trimming). Use the widget demo video AS-IS without cutting. The full video IS the demo. Video source: widget demo videos from /Users/anicca/anicca-project/assets/reelclaw/ja-widget-videos/ (rotate in this exact order: anger.MP4, choosewisely.MP4, compulsivethinjing.MP4, self-hatred-affirmatino.MP4, sleepinglate.MP4, stopiingrumination.MP4). UGC hook video source: ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_ja_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Hook text source: Widget hooks W1-W12 JA from spec. Daily rule: rotate without reusing the same hook on the same day across widget JA crons. Title: ロック画面にアファメーションを設定する方法. Caption: ロック画面にアファメーションを設定する方法\n\n#アファメーション #ロック画面 #セルフケア #メンタルヘルス #自己肯定感 #fyp. Publish to TikTok JA (draft), Instagram JA (direct), YouTube JA (direct) via Postiz. TikTok: cmnhlk3ju058lpn0ytilqdpo0. Instagram: cmnipef7g00oerm0y3dz4lamx. YouTube: cmn1oukj9012nnq0yqhouc3ib. DEMO OVERLAY RULE: DO NOT overlay text on demo section. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2)."
       },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C091G3PKHL2"
+      },
+      "enabled": true
+    },
+    {
+      "id": "reelclaw-anicca-en-widget-1",
+      "agentId": "anicca",
+      "jobId": "reelclaw-anicca-en-widget-1",
+      "name": "reelclaw-anicca-en-widget-1",
+      "schedule": {
+        "kind": "cron",
+        "expr": "30 9 * * *",
+        "tz": "Asia/Tokyo"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Execute reelclaw skill. Language: en. App: Anicca (Widget demo). Font: ~/Library/Fonts/TikTokSansDisplayBold.ttf. DEMO_MODE: NO_TRIM. Do NOT run Step 2 (Gemini analysis/trimming). Use the widget demo video AS-IS without cutting. The full video IS the demo. Video source: widget demo videos from /Users/anicca/anicca-project/assets/reelclaw/en-widget-videos/ (rotate in this exact order: anger.MP4, anxietty.MP4, obseeive-thinking.MP4, rumnation.mov, slef-hatred.MP4, styaling-up-late.MP4). UGC hook video source: ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_en_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Hook text source: Widget hooks W1-W12 EN from spec. Daily rule: rotate without reusing the same hook on the same day across widget EN crons. Title: how to put affirmations on your lockscreen. Caption: how to put affirmations on your lockscreen\n\n#affirmations #lockscreen #selfcare #mentalhealth #selflove #fyp. Publish to TikTok EN (draft), Instagram EN (direct), YouTube EN (direct) via Postiz. TikTok: cmn8y47do02mmo70yckb46dyu. Instagram: cmn8y95rg02d2qx0y09bbk5pb. YouTube: cmmzukbkw04ulp30yfvijrwio. DEMO OVERLAY RULE: DO NOT overlay text on demo section. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2)."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C091G3PKHL2"
+      },
+      "enabled": true
+    },
+    {
+      "id": "reelclaw-anicca-en-widget-2",
+      "agentId": "anicca",
+      "jobId": "reelclaw-anicca-en-widget-2",
+      "name": "reelclaw-anicca-en-widget-2",
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 19 * * *",
+        "tz": "Asia/Tokyo"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Execute reelclaw skill. Language: en. App: Anicca (Widget demo). Font: ~/Library/Fonts/TikTokSansDisplayBold.ttf. DEMO_MODE: NO_TRIM. Do NOT run Step 2 (Gemini analysis/trimming). Use the widget demo video AS-IS without cutting. The full video IS the demo. Video source: widget demo videos from /Users/anicca/anicca-project/assets/reelclaw/en-widget-videos/ (rotate in this exact order: anger.MP4, anxietty.MP4, obseeive-thinking.MP4, rumnation.mov, slef-hatred.MP4, styaling-up-late.MP4). UGC hook video source: ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_en_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Hook text source: Widget hooks W1-W12 EN from spec. Daily rule: rotate without reusing the same hook on the same day across widget EN crons. Title: how to put affirmations on your lockscreen. Caption: how to put affirmations on your lockscreen\n\n#affirmations #lockscreen #selfcare #mentalhealth #selflove #fyp. Publish to TikTok EN (draft), Instagram EN (direct), YouTube EN (direct) via Postiz. TikTok: cmn8y47do02mmo70yckb46dyu. Instagram: cmn8y95rg02d2qx0y09bbk5pb. YouTube: cmmzukbkw04ulp30yfvijrwio. DEMO OVERLAY RULE: DO NOT overlay text on demo section. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2)."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C091G3PKHL2"
+      },
+      "enabled": true
+    }
 ```
 
 ---
 
-## PATCH 2: Honne JA 3つ — reelclaw形式追加
+## PATCH 2: Honne JA 3つ — reelclaw形式追加（修正版）
 
 **ファイル:** `/Users/anicca/anicca-project/openclaw-skills/jobs.json`
 
-L601（最後のcron `reelclaw-en-evening` の閉じ `}` の後、`]` の前）に以下3つを追加:
+### 目的
+Honne JA を ReelClaw 化する。ただし **現行 `honne-mapping.json` の実データ構造と整合させる**。
+
+### 注意
+- 現行 `~/.openclaw/workspace/honne-ai/honne-mapping.json` の rotation key は
+  - `honne-ja-morning`
+  - `honne-ja-afternoon`
+  - `honne-ja-evening`
+  である。
+- この patch の cron 名は source-managed 側では `reelclaw-honne-ja-1/2/3` とするが、**payload は既存 rotation key を明示参照**する。
+- H1-H10 JA を独立 hook pool として使う設計は、現行 `honne-mapping.json` の `videos[].hooks[]` と衝突する。したがってこの patch では **hook text source は現行 `honne-mapping.json` を正本** とする。
+- つまりこの patch は「ReelClaw 化」であり、「H1-H10 へのデータモデル移行」は含めない。
+
+### 追加する3件
 
 ```json
     ,
     {
-      "id": "honne-ja-morning",
+      "id": "reelclaw-honne-ja-1",
       "agentId": "anicca",
-      "jobId": "honne-ja-morning",
-      "name": "honne-ja-morning",
+      "jobId": "reelclaw-honne-ja-1",
+      "name": "reelclaw-honne-ja-1",
       "schedule": {
         "kind": "cron",
         "expr": "0 9 * * *",
@@ -114,7 +152,7 @@ L601（最後のcron `reelclaw-en-evening` の閉じ `}` の後、`]` の前）�
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Execute reelclaw skill. Language: ja. App: Honne AI. Font: /System/Library/Fonts/ヒラギノ角ゴシック W7.ttc. DEMO_MODE: NO_TRIM — Do NOT run Step 2 (Gemini analysis/trimming). Use the demo video AS-IS without cutting. The full video IS the demo. Video source: Honne demo videos from ~/.openclaw/workspace/honne-ai/demos/ (rotate: boss-imnotmad.MP4, boss-sukinisureba.MP4, boss-yarikatamakaseru.MP4, huuhu-imnotmad.MP4, mom-sukinisureba.MP4, parent-imnotmad.MP4, sukinisureba-girlfriend.MP4, sukiniyare-boss.MP4). Use rotation from ~/.openclaw/workspace/honne-ai/honne-mapping.json rotation.lastUsed.honne-ja-morning. Hook text: use hooks array from honne-mapping.json for the selected video (3 hooks per video, rotate). UGC hooks from ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_ja_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Title: あの人の本音が知りたい人は、本音翻訳を試してみて. Caption: あの人の本音が知りたい人は、本音翻訳を試してみて\n\n#本音 #人間関係 #職場関係 #恋愛関係 #親子関係 #言いづらい #fyp. Publish to TikTok (cmnit95mg015rrm0ye5vm8dhl) ONLY via Postiz (draft, SELF_ONLY). ## DEMO OVERLAY RULE: DO NOT overlay text on demo section. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2). This Slack report is MANDATORY."
+        "message": "Execute reelclaw skill. Language: ja. App: Honne AI. Font: /System/Library/Fonts/ヒラギノ角ゴシック W7.ttc. DEMO_MODE: NO_TRIM. Do NOT run Step 2 (Gemini analysis/trimming). Use the demo video AS-IS without cutting. The full video IS the demo. Video source: ~/.openclaw/workspace/honne-ai/demos/ (rotate existing files in order defined by ~/.openclaw/workspace/honne-ai/honne-mapping.json). Rotation state source: ~/.openclaw/workspace/honne-ai/honne-mapping.json rotation.lastUsed.honne-ja-morning. Hook text source: ~/.openclaw/workspace/honne-ai/honne-mapping.json videos[].hooks[] (do not use spec H1-H10 in this patch). UGC hook video source: ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_ja_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Title rotation: ①LINEの本音をAIが翻訳する ②もう返信で悩まない ③あの人の本音、AIが教えてくれた. Caption: use selected title, then hashtags. Publish to TikTok ONLY via Postiz. TikTok integration: cmnit95mg015rrm0ye5vm8dhl. Posting mode: draft, SELF_ONLY. DEMO OVERLAY RULE: DO NOT overlay text on demo section. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2)."
       },
       "delivery": {
         "mode": "announce",
@@ -124,10 +162,10 @@ L601（最後のcron `reelclaw-en-evening` の閉じ `}` の後、`]` の前）�
       "enabled": true
     },
     {
-      "id": "honne-ja-afternoon",
+      "id": "reelclaw-honne-ja-2",
       "agentId": "anicca",
-      "jobId": "honne-ja-afternoon",
-      "name": "honne-ja-afternoon",
+      "jobId": "reelclaw-honne-ja-2",
+      "name": "reelclaw-honne-ja-2",
       "schedule": {
         "kind": "cron",
         "expr": "0 15 * * *",
@@ -137,7 +175,7 @@ L601（最後のcron `reelclaw-en-evening` の閉じ `}` の後、`]` の前）�
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Execute reelclaw skill. Language: ja. App: Honne AI. Font: /System/Library/Fonts/ヒラギノ角ゴシック W7.ttc. DEMO_MODE: NO_TRIM — Do NOT run Step 2 (Gemini analysis/trimming). Use the demo video AS-IS without cutting. The full video IS the demo. Video source: Honne demo videos from ~/.openclaw/workspace/honne-ai/demos/ (rotate: boss-imnotmad.MP4, boss-sukinisureba.MP4, boss-yarikatamakaseru.MP4, huuhu-imnotmad.MP4, mom-sukinisureba.MP4, parent-imnotmad.MP4, sukinisureba-girlfriend.MP4, sukiniyare-boss.MP4). Use rotation from ~/.openclaw/workspace/honne-ai/honne-mapping.json rotation.lastUsed.honne-ja-afternoon. Hook text: use hooks array from honne-mapping.json for the selected video (3 hooks per video, rotate). UGC hooks from ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_ja_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Title: あの人の本音が知りたい人は、本音翻訳を試してみて. Caption: あの人の本音が知りたい人は、本音翻訳を試してみて\n\n#本音 #人間関係 #職場関係 #恋愛関係 #親子関係 #言いづらい #fyp. Publish to TikTok (cmnit95mg015rrm0ye5vm8dhl) ONLY via Postiz (draft, SELF_ONLY). ## DEMO OVERLAY RULE: DO NOT overlay text on demo section. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2). This Slack report is MANDATORY."
+        "message": "Execute reelclaw skill. Language: ja. App: Honne AI. Font: /System/Library/Fonts/ヒラギノ角ゴシック W7.ttc. DEMO_MODE: NO_TRIM. Do NOT run Step 2 (Gemini analysis/trimming). Use the demo video AS-IS without cutting. The full video IS the demo. Video source: ~/.openclaw/workspace/honne-ai/demos/ (rotate existing files in order defined by ~/.openclaw/workspace/honne-ai/honne-mapping.json). Rotation state source: ~/.openclaw/workspace/honne-ai/honne-mapping.json rotation.lastUsed.honne-ja-afternoon. Hook text source: ~/.openclaw/workspace/honne-ai/honne-mapping.json videos[].hooks[] (do not use spec H1-H10 in this patch). UGC hook video source: ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_ja_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Title rotation: ①LINEの本音をAIが翻訳する ②もう返信で悩まない ③あの人の本音、AIが教えてくれた. Caption: use selected title, then hashtags. Publish to TikTok ONLY via Postiz. TikTok integration: cmnit95mg015rrm0ye5vm8dhl. Posting mode: draft, SELF_ONLY. DEMO OVERLAY RULE: DO NOT overlay text on demo section. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2)."
       },
       "delivery": {
         "mode": "announce",
@@ -147,10 +185,10 @@ L601（最後のcron `reelclaw-en-evening` の閉じ `}` の後、`]` の前）�
       "enabled": true
     },
     {
-      "id": "honne-ja-evening",
+      "id": "reelclaw-honne-ja-3",
       "agentId": "anicca",
-      "jobId": "honne-ja-evening",
-      "name": "honne-ja-evening",
+      "jobId": "reelclaw-honne-ja-3",
+      "name": "reelclaw-honne-ja-3",
       "schedule": {
         "kind": "cron",
         "expr": "0 20 * * *",
@@ -160,7 +198,7 @@ L601（最後のcron `reelclaw-en-evening` の閉じ `}` の後、`]` の前）�
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Execute reelclaw skill. Language: ja. App: Honne AI. Font: /System/Library/Fonts/ヒラギノ角ゴシック W7.ttc. DEMO_MODE: NO_TRIM — Do NOT run Step 2 (Gemini analysis/trimming). Use the demo video AS-IS without cutting. The full video IS the demo. Video source: Honne demo videos from ~/.openclaw/workspace/honne-ai/demos/ (rotate: boss-imnotmad.MP4, boss-sukinisureba.MP4, boss-yarikatamakaseru.MP4, huuhu-imnotmad.MP4, mom-sukinisureba.MP4, parent-imnotmad.MP4, sukinisureba-girlfriend.MP4, sukiniyare-boss.MP4). Use rotation from ~/.openclaw/workspace/honne-ai/honne-mapping.json rotation.lastUsed.honne-ja-evening. Hook text: use hooks array from honne-mapping.json for the selected video (3 hooks per video, rotate). UGC hooks from ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_ja_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Title: あの人の本音が知りたい人は、本音翻訳を試してみて. Caption: あの人の本音が知りたい人は、本音翻訳を試してみて\n\n#本音 #人間関係 #職場関係 #恋愛関係 #親子関係 #言いづらい #fyp. Publish to TikTok (cmnit95mg015rrm0ye5vm8dhl) ONLY via Postiz (draft, SELF_ONLY). ## DEMO OVERLAY RULE: DO NOT overlay text on demo section. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2). This Slack report is MANDATORY."
+        "message": "Execute reelclaw skill. Language: ja. App: Honne AI. Font: /System/Library/Fonts/ヒラギノ角ゴシック W7.ttc. DEMO_MODE: NO_TRIM. Do NOT run Step 2 (Gemini analysis/trimming). Use the demo video AS-IS without cutting. The full video IS the demo. Video source: ~/.openclaw/workspace/honne-ai/demos/ (rotate existing files in order defined by ~/.openclaw/workspace/honne-ai/honne-mapping.json). Rotation state source: ~/.openclaw/workspace/honne-ai/honne-mapping.json rotation.lastUsed.honne-ja-evening. Hook text source: ~/.openclaw/workspace/honne-ai/honne-mapping.json videos[].hooks[] (do not use spec H1-H10 in this patch). UGC hook video source: ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_ja_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Title rotation: ①LINEの本音をAIが翻訳する ②もう返信で悩まない ③あの人の本音、AIが教えてくれた. Caption: use selected title, then hashtags. Publish to TikTok ONLY via Postiz. TikTok integration: cmnit95mg015rrm0ye5vm8dhl. Posting mode: draft, SELF_ONLY. DEMO OVERLAY RULE: DO NOT overlay text on demo section. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2)."
       },
       "delivery": {
         "mode": "announce",
@@ -179,62 +217,46 @@ L601（最後のcron `reelclaw-en-evening` の閉じ `}` の後、`]` の前）�
 
 ```diff
 - | T1c | visual-qa 採点（40/50+必須） | CC | — | `screenshot-ab` PHASE 5 | 🔜 |
-+ | ~~T1c~~ | ~~visual-qa 採点~~ | — | — | — | SKIP（不要） |
++ | ~~T1c~~ | ~~visual-qa 採点（40/50+必須）~~ | — | — | — | SKIP（不要） |
 ```
 
 ---
 
 ## PATCH 4: ASO metadata更新（ASC CLI 12コマンド）
 
-```bash
-# EN Title
-asc localizations update --app 6755129214 --type app-info --locale "en-US" --name "Daily Affirmations - Anicca"
+**ファイル:** `/Users/anicca/anicca-project/.cursor/plans/ios/1.8.3/cron-patches.md`
 
-# EN Subtitle
-asc localizations update --app 6755129214 --type app-info --locale "en-US" --subtitle "Self Care & Positive Mindset"
-
-# EN Keywords
-asc localizations update --version "42ab36d0-73d4-4e49-a3fb-bd94761a9285" --locale "en-US" --keywords "self love,mental health,anxiety,stress,wellness,mindfulness,mood,calm,quote,meditation,habit,healing"
-
-# EN Promo
-asc localizations update --version "42ab36d0-73d4-4e49-a3fb-bd94761a9285" --locale "en-US" --promotional-text "Gentle words when you need them most. Choose your struggles. Get daily nudges. Cancel anytime."
-
-# JA Title
-asc localizations update --app 6755129214 --type app-info --locale "ja" --name "毎日のアファメーション - アニッチャ"
-
-# JA Subtitle
-asc localizations update --app 6755129214 --type app-info --locale "ja" --subtitle "セルフケア・ポジティブ思考・心の安らぎ"
-
-# JA Keywords
-asc localizations update --version "42ab36d0-73d4-4e49-a3fb-bd94761a9285" --locale "ja" --keywords "自己肯定感,不安,先延ばし,考えすぎ,ストレス,瞑想,自分を好きになる,習慣,名言,心の平和,マインドフルネス,セルフヘルプ,気分,癒し"
-
-# JA Promo
-asc localizations update --version "42ab36d0-73d4-4e49-a3fb-bd94761a9285" --locale "ja" --promotional-text "あなたが一番つらいとき、そっと届く言葉。13の課題に寄り添う。いつでもキャンセル可能。"
-
-# ES Title
-asc localizations update --app 6755129214 --type app-info --locale "es-ES" --name "Afirmaciones Diarias - Anicca"
-
-# ES Subtitle
-asc localizations update --app 6755129214 --type app-info --locale "es-ES" --subtitle "Autocuidado y Bienestar Mental"
-
-# ES Keywords
-asc localizations update --version "42ab36d0-73d4-4e49-a3fb-bd94761a9285" --locale "es-ES" --keywords "autoestima,ansiedad,estrés,meditación,frases positiva,motivación,calma,hábito,bienestar,salud,pensamiento,amor propio"
-
-# ES Promo
-asc localizations update --version "42ab36d0-73d4-4e49-a3fb-bd94761a9285" --locale "es-ES" --promotional-text "Palabras suaves cuando más las necesitas. Elige tus luchas. Recibe nudges diarios. Cancela cuando quieras."
-```
+この節は現状のままでよい。実行前に次だけ確認すること:
+- APP_ID: `6755129214`
+- VERSION_ID: `42ab36d0-73d4-4e49-a3fb-bd94761a9285`
+- locale: `en-US`, `ja`, `es-ES`
 
 ---
 
-## PATCH 5: openclaw gateway restart
+## PATCH 5: openclaw gateway restart（Dais承認後のみ）
+
+**ファイル:** `/Users/anicca/anicca-project/.cursor/plans/ios/1.8.3/cron-patches.md`
+
+```md
+## PATCH 5: openclaw gateway restart（Dais承認後のみ）
+
+**実行条件:** Dais の明示的な許可を得た後のみ実行
 
 ```bash
 openclaw gateway restart
 ```
 
+**注意:** MEMORY.md の運用ルールにより、Dais の許可なし restart は禁止。
+```
+
 ---
 
-## PATCH 6: App Store ビルド+提出
+## PATCH 6: App Store ビルド+提出（修正版）
+
+**ファイル:** `/Users/anicca/anicca-project/.cursor/plans/ios/1.8.3/cron-patches.md`
+
+```md
+## PATCH 6: App Store ビルド+提出（修正版）
 
 ```bash
 # 1. keychain unlock
@@ -242,28 +264,51 @@ cd /Users/anicca/anicca-10k-mrr/aniccaios
 source ~/.config/mobileapp-builder/.env
 security unlock-keychain -p "$KEYCHAIN_PASSWORD" ~/Library/Keychains/login.keychain-db
 
-# 2. archive (fastlane)
+# 2. archive
 fastlane build_app skip_package_ipa:true
 
-# 3. export (xcodebuild — widget extension automatic signing 回避)
-xcodebuild -exportArchive \
-  -archivePath ~/Library/Developer/Xcode/Archives/$(date +%Y-%m-%d)/aniccaios*.xcarchive \
-  -exportOptionsPlist ExportOptions.plist \
-  -exportPath /tmp/anicca-export
+# 3. archive path を明示確認
+ARCHIVE_PATH="$(ls -td ~/Library/Developer/Xcode/Archives/*/aniccaios*.xcarchive | head -1)"
+test -d "$ARCHIVE_PATH" || { echo "Archive not found"; exit 1; }
+echo "Archive: $ARCHIVE_PATH"
 
-# 4. deliver
+# 4. export path は永続パスを使う
+EXPORT_PATH="/Users/anicca/anicca-10k-mrr/build/export"
+mkdir -p "$EXPORT_PATH"
+
+xcodebuild -exportArchive \
+  -archivePath "$ARCHIVE_PATH" \
+  -exportOptionsPlist fastlane/build/export/ExportOptions.plist \
+  -exportPath "$EXPORT_PATH"
+
+# 5. deliver
 fastlane deliver \
-  --ipa /tmp/anicca-export/aniccaios.ipa \
+  --ipa "$EXPORT_PATH/aniccaios.ipa" \
   --skip_metadata true \
   --skip_screenshots true
 ```
 
+**注意:**
+- `/tmp` は使わない
+- archivePath にワイルドカード直指定しない
+- 実行前に branch と working tree を確認すること
+```
+
 ---
 
-## PATCH 7: PPO スクショA/Bテスト（提出と同時）
+## PATCH 7: PPO スクショA/Bテスト（READY_FOR_SALE 後に実行）
+
+**ファイル:** `/Users/anicca/anicca-project/.cursor/plans/ios/1.8.3/cron-patches.md`
+
+```md
+## PATCH 7: PPO スクショA/Bテスト（READY_FOR_SALE 後に実行）
+
+**前提条件:**
+- ビルドが Apple Review を通過し READY_FOR_SALE になっている
+- App Store Connect 上で対象バージョンが正常に認識されている
+- treatment screenshots が反映済み
 
 ```bash
-# 実験作成（50/50 traffic split）
 EXP_ID=$(asc product-pages experiments create \
   --v2 --app 6755129214 --platform IOS \
   --name "screenshot-ab-v$(date +%Y%m%d)" \
@@ -271,32 +316,40 @@ EXP_ID=$(asc product-pages experiments create \
   --output json | python3 -c "import json,sys; print(json.load(sys.stdin)['data']['id'])")
 
 echo "Experiment ID: $EXP_ID"
-
-# Treatment作成 + スクショアップロード + 実験開始
-# → 詳細は screenshot-ab スキル PHASE 7 参照
+```
 ```
 
 ---
 
-## PATCH 8: Postiz "#Postiz" caption fix
+## PATCH 8: Postiz "#Postiz" caption fix（まず調査）
+
+**ファイル:** `/Users/anicca/anicca-project/.cursor/plans/ios/1.8.3/cron-patches.md`
+
+```md
+## PATCH 8: Postiz "#Postiz" caption fix（まず調査）
+
+**これは実装修正パッチではなく、調査パッチ。**
 
 ```bash
-# Postiz セルフホスト Docker コンテナのソースを確認
 docker exec postiz grep -rn "#Postiz" /app/ 2>/dev/null
+```
 
-# 該当箇所を特定してキャプション追加ロジックを削除/修正
-# → 具体的なファイルパスはDocker内調査後に確定
+### 調査後に別途必要なもの
+- 該当ファイルの完全パス
+- 問題箇所の完全なコード断片
+- どう直すかの exact patch
+- 変更後にコンテナ再起動が必要かどうか
 ```
 
 ---
 
-## 実行順序
+## 実行順序（修正版）
 
-1. PATCH 1 (widget cron時間修正)
-2. PATCH 2 (honne reelclaw追加)
-3. PATCH 3 (spec T1c削除)
-4. PATCH 5 (gateway restart)
-5. PATCH 4 (ASO metadata)
-6. PATCH 6 (ビルド+提出)
-7. PATCH 7 (PPO A/B)
-8. PATCH 8 (Postiz fix)
+1. PATCH 1
+2. PATCH 2
+3. PATCH 3
+4. PATCH 4
+5. PATCH 6
+6. PATCH 7
+7. PATCH 8（調査）
+8. PATCH 5（restart が必要だと判明し、かつ Dais が許可した場合のみ）
