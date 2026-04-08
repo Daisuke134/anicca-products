@@ -521,7 +521,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Execute reelclaw skill. Language: ja. Font: /System/Library/Fonts/ヒラギノ角ゴシック W7.ttc. Video source: widget demo videos from /Users/anicca/anicca-project/assets/reelclaw/ja-widget-videos/ (rotate: choosewisely.MP4, compulsivethinjing.MP4, self-hatred-affirmatino.MP4, stopiingrumination.MP4). UGC hooks from ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_ja_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Hook text from ~/.openclaw/workspace/tiktok-marketing/hooks-ja.json. Publish to TikTok JA (draft), Instagram JA (direct), YouTube JA (direct) via Postiz. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2). This Slack report is MANDATORY."
+        "message": "Execute reelclaw skill. Language: ja. Font: /System/Library/Fonts/ヒラギノ角ゴシック W7.ttc. DEMO_MODE: NO_TRIM — Do NOT run Step 2 (Gemini analysis/trimming). Use the widget demo video AS-IS without cutting. The full video IS the demo. Video source: widget demo videos from /Users/anicca/anicca-project/assets/reelclaw/ja-widget-videos/ (rotate: anger.MP4, choosewisely.MP4, compulsivethinjing.MP4, self-hatred-affirmatino.MP4, sleepinglate.MP4, stopiingrumination.MP4). UGC hooks from ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_ja_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Hook text from ~/.openclaw/workspace/tiktok-marketing/hooks-ja.json. Publish to TikTok JA (draft), Instagram JA (direct), YouTube JA (direct) via Postiz. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2). This Slack report is MANDATORY."
       },
       "delivery": {
         "mode": "announce",
@@ -544,7 +544,53 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Execute reelclaw skill. Language: ja. Font: /System/Library/Fonts/ヒラギノ角ゴシック W7.ttc. Video source: widget demo videos from /Users/anicca/anicca-project/assets/reelclaw/ja-widget-videos/ (rotate: choosewisely.MP4, compulsivethinjing.MP4, self-hatred-affirmatino.MP4, stopiingrumination.MP4). UGC hooks from ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_ja_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Hook text from ~/.openclaw/workspace/tiktok-marketing/hooks-ja.json. Publish to TikTok JA (draft), Instagram JA (direct), YouTube JA (direct) via Postiz. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2). This Slack report is MANDATORY."
+        "message": "Execute reelclaw skill. Language: ja. Font: /System/Library/Fonts/ヒラギノ角ゴシック W7.ttc. DEMO_MODE: NO_TRIM — Do NOT run Step 2 (Gemini analysis/trimming). Use the widget demo video AS-IS without cutting. The full video IS the demo. Video source: widget demo videos from /Users/anicca/anicca-project/assets/reelclaw/ja-widget-videos/ (rotate: anger.MP4, choosewisely.MP4, compulsivethinjing.MP4, self-hatred-affirmatino.MP4, sleepinglate.MP4, stopiingrumination.MP4). UGC hooks from ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_ja_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Hook text from ~/.openclaw/workspace/tiktok-marketing/hooks-ja.json. Publish to TikTok JA (draft), Instagram JA (direct), YouTube JA (direct) via Postiz. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2). This Slack report is MANDATORY."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C091G3PKHL2"
+      },
+      "enabled": true
+    },
+    {
+      "id": "reelclaw-en-morning",
+      "agentId": "anicca",
+      "jobId": "reelclaw-en-morning",
+      "name": "reelclaw-en-morning",
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 9 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Execute reelclaw skill. Language: en. Font: ~/Library/Fonts/TikTokSansDisplayBold.ttf. DEMO_MODE: NO_TRIM — Do NOT run Step 2 (Gemini analysis/trimming). Use the widget demo video AS-IS without cutting. The full video IS the demo. Video source: widget demo videos from /Users/anicca/anicca-project/assets/reelclaw/en-widget-videos/ (rotate all .MP4 files in directory). UGC hooks from ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_en_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Hook text from ~/.openclaw/workspace/tiktok-marketing/hooks-en.json. Publish to TikTok EN (draft), Instagram EN (direct), YouTube EN (direct) via Postiz. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2). This Slack report is MANDATORY."
+      },
+      "delivery": {
+        "mode": "announce",
+        "channel": "slack",
+        "to": "channel:C091G3PKHL2"
+      },
+      "enabled": true
+    },
+    {
+      "id": "reelclaw-en-evening",
+      "agentId": "anicca",
+      "jobId": "reelclaw-en-evening",
+      "name": "reelclaw-en-evening",
+      "schedule": {
+        "kind": "cron",
+        "expr": "0 21 * * *",
+        "tz": "America/Los_Angeles"
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Execute reelclaw skill. Language: en. Font: ~/Library/Fonts/TikTokSansDisplayBold.ttf. DEMO_MODE: NO_TRIM — Do NOT run Step 2 (Gemini analysis/trimming). Use the widget demo video AS-IS without cutting. The full video IS the demo. Video source: widget demo videos from /Users/anicca/anicca-project/assets/reelclaw/en-widget-videos/ (rotate all .MP4 files in directory). UGC hooks from ~/.openclaw/workspace/tiktok-marketing/ugc-library/hooks/. CTA: ~/.openclaw/workspace/mau-tiktok/cta_en_final.mp4. BGM: ~/.openclaw/workspace/tiktok-marketing/music/bgm-cta.mp3. Hook text from ~/.openclaw/workspace/tiktok-marketing/hooks-en.json. Publish to TikTok EN (draft), Instagram EN (direct), YouTube EN (direct) via Postiz. CRITICAL: After you finish, you MUST post a summary to Slack #metrics channel (channel ID: C091G3PKHL2). This Slack report is MANDATORY."
       },
       "delivery": {
         "mode": "announce",
