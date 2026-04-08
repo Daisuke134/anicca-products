@@ -1322,8 +1322,8 @@
 "onboarding_notifications_evening" = "Evening reflection";
 
 /* ========== Onboarding v2: 3-Step Paywall ========== */
-"paywall_primer_title" = "We want you to try\nAnicca for free";
-"paywall_primer_subtitle" = "Your personalized plan is ready. Experience the full journey risk-free.";
+"paywall_primer_title" = "Your personalized plan\nis ready";
+"paywall_primer_subtitle" = "Start your journey with words crafted just for you.";
 "paywall_primer_feature1" = "Full access to all features";
 "paywall_primer_feature2" = "Personalized nudges";
 "paywall_primer_feature3" = "Cancel anytime";
@@ -1364,6 +1364,18 @@
 "paywall_b_review" = "\"Anicca helped me be kinder to myself.\" — A real user";
 "paywall_b_trust_trial" = "Free trial · Cancel anytime · No charge until trial ends";
 "paywall_b_trust_no_trial" = "Cancel anytime · Satisfaction guaranteed";
+
+// MARK: - Onboarding New 3 Screens (1.8.3)
+"onboarding_processing_title" = "Building your personal plan...";
+"onboarding_demo_title" = "Experience your first nudge";
+"onboarding_demo_action_heart" = "This hits home";
+"onboarding_demo_action_more" = "Tell me more";
+"onboarding_demo_footer" = "This is what Anicca sends you every day.";
+"onboarding_demo_cta" = "Continue";
+"onboarding_value_delivery_title" = "Your first nudge, saved.";
+"onboarding_value_delivery_subtitle" = "Every day, words crafted just for you.";
+"onboarding_value_delivery_share" = "Share with a friend";
+"onboarding_value_delivery_cta" = "Continue";
 
 // MARK: - Nudge Expansion v1.8.0 — staying_up_late (22-60)
 "nudge_staying_up_late_notification_22" = "Nothing on your phone is worth losing sleep.";

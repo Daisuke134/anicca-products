@@ -1322,8 +1322,8 @@
 "onboarding_notifications_evening" = "夜の振り返り";
 
 /* ========== Onboarding v2: 3-Step Paywall ========== */
-"paywall_primer_title" = "まずは無料で\nアニッチャを試してください";
-"paywall_primer_subtitle" = "あなた専用プランの準備ができました。リスクなしで全ての旅を体験してください。";
+"paywall_primer_title" = "あなた専用プランの\n準備ができました";
+"paywall_primer_subtitle" = "あなたのための言葉で、旅を始めましょう。";
 "paywall_primer_feature1" = "全機能にアクセス";
 "paywall_primer_feature2" = "パーソナライズされたナッジ";
 "paywall_primer_feature3" = "いつでもキャンセル可能";
@@ -1364,6 +1364,18 @@
 "paywall_b_review" = "「アニッチャのおかげで自分に優しくなれました」— 実際のユーザー";
 "paywall_b_trust_trial" = "無料トライアル · いつでもキャンセル · トライアル中は課金なし";
 "paywall_b_trust_no_trial" = "いつでもキャンセル · 満足保証";
+
+// MARK: - Onboarding New 3 Screens (1.8.3)
+"onboarding_processing_title" = "あなた専用プランを構築中...";
+"onboarding_demo_title" = "最初のナッジを体験しましょう";
+"onboarding_demo_action_heart" = "心に響いた";
+"onboarding_demo_action_more" = "もっと聞かせて";
+"onboarding_demo_footer" = "これが毎日届くあなただけの言葉です。";
+"onboarding_demo_cta" = "続ける";
+"onboarding_value_delivery_title" = "あなたの最初のナッジ、保存しました。";
+"onboarding_value_delivery_subtitle" = "毎日、あなただけの言葉が届きます。";
+"onboarding_value_delivery_share" = "友達にシェア";
+"onboarding_value_delivery_cta" = "続ける";
 
 // MARK: - Nudge Expansion v1.8.0 — staying_up_late (22-60)
 "nudge_staying_up_late_notification_22" = "スマホに価値ある情報はもうない。";

@@ -1331,6 +1331,25 @@
 "paywall_b_trust_trial" = "Prueba gratis · Cancela cuando quieras · Sin cobro hasta que termine";
 "paywall_b_trust_no_trial" = "Cancela cuando quieras · Satisfacción garantizada";
 
+// MARK: - Paywall Primer (1.8.3)
+"paywall_primer_title" = "Tu plan personalizado\nestá listo";
+"paywall_primer_subtitle" = "Comienza tu viaje con palabras creadas para ti.";
+"paywall_primer_feature1" = "Acceso completo a todas las funciones";
+"paywall_primer_feature2" = "Nudges personalizados";
+"paywall_primer_feature3" = "Cancela en cualquier momento";
+
+// MARK: - Onboarding New 3 Screens (1.8.3)
+"onboarding_processing_title" = "Creando tu plan personal...";
+"onboarding_demo_title" = "Experimenta tu primer nudge";
+"onboarding_demo_action_heart" = "Me llega al alma";
+"onboarding_demo_action_more" = "Cuéntame más";
+"onboarding_demo_footer" = "Esto es lo que Anicca te envía cada día.";
+"onboarding_demo_cta" = "Continuar";
+"onboarding_value_delivery_title" = "Tu primer nudge, guardado.";
+"onboarding_value_delivery_subtitle" = "Cada día, palabras creadas solo para ti.";
+"onboarding_value_delivery_share" = "Compartir con un amigo";
+"onboarding_value_delivery_cta" = "Continuar";
+
 // MARK: - Staying Up Late Nudge Variants (22-60) ES
 "nudge_staying_up_late_notification_22" = "Tu cuerpo se repara mientras duermes.";
 "nudge_staying_up_late_notification_23" = "¿Qué te mantiene despierto? ¿Vale la pena?";
