@@ -40,14 +40,16 @@
 
 ### Primer画面修正（Localizable.strings — 再提出必要）
 
-| ファイル | Before | After |
-|---------|--------|-------|
-| `en.lproj` L1325 | "We want you to try\nAnicca for free" | "Start your\nAnicca journey" |
-| `en.lproj` L1326 | "...Experience the full journey risk-free." | "Your personalized plan is ready." |
-| `ja.lproj` 対応行 | JA版 primer title | "あなたのAniccaの\n旅を始めよう" |
-| `ja.lproj` 対応行 | JA版 primer subtitle | "あなた専用プランの準備ができました。" |
-| `es.lproj` 対応行 | ES版 primer title | "Comienza tu\nviaje con Anicca" |
-| `es.lproj` 対応行 | ES版 primer subtitle | "Tu plan personalizado está listo." |
+| 言語 | キー | Before | After |
+|------|------|--------|-------|
+| EN | `paywall_primer_title` | `"We want you to try\nAnicca for free"` | `"Your personalized plan\nis ready"` |
+| EN | `paywall_primer_subtitle` | `"...Experience the full journey risk-free."` | `"Start with a free trial and experience the full journey."` |
+| JA | `paywall_primer_title` | `"まずは無料で\nアニッチャを試してください"` | `"あなた専用プランの\n準備ができました"` |
+| JA | `paywall_primer_subtitle` | `"...リスクなしで全ての旅を体験してください。"` | `"無料トライアルから始めて、全ての旅を体験してください。"` |
+| ES | `paywall_primer_title` | ⚠️ ES にキー未存在 | 追加: `"Tu plan personalizado\nestá listo"` |
+| ES | `paywall_primer_subtitle` | ⚠️ ES にキー未存在 | 追加: `"Comienza con una prueba gratuita y vive la experiencia completa."` |
+
+**修正理由:** `"risk-free"` / `"リスクなし"` / `"try for free"` は Apple 審査ガイドライン 3.1.2(a) で NG
 
 ---
 
@@ -80,114 +82,109 @@
 Source: github.com/adamlyttleapps/claude-skill-app-onboarding-questionnaire（14画面フレームワーク）
 Core Principle: "The user must DO something, not just watch. And they must get something back."
 
-### 新フロー
+### 現行フロー（8ステップ — 既に実装済み）
 
 ```
-現行: Welcome → Notifications → Struggles → Paywall
-新:   Welcome → Struggles → [Processing] → [App Demo] → Notifications → Paywall
+Welcome → Struggles → StruggleDepth → Goals → PersonalizedInsight → ValueProp → Notifications → Primer → Paywall
+```
+
+### 各画面テキスト（EXACT — Localizable.strings より）
+
+#### STEP 1: Welcome
+| | EN | JA |
+|---|---|---|
+| title | Kind words when you need them most | 一番つらいときに やさしい言葉を |
+| subtitle | Daily cards with words chosen just for you. | あなたにあった言葉を 厳選してお届けします。 |
+| CTA | Get Started | はじめる |
+
+#### STEP 2: Struggles（複数選択）
+| | EN | JA |
+|---|---|---|
+| title | What's holding you back? | どんなことに 悩んでいますか？ |
+| subtitle | Select all that apply — we'll personalize your experience. | 当てはまるものを全て選んでください — あなた専用に調整します。 |
+
+#### STEP 3: StruggleDepth（1タップ自動進行）
+| | EN | JA |
+|---|---|---|
+| title | How often does this affect you? | どのくらいの頻度で 悩んでいますか？ |
+| ○ daily | Every day | 毎日 |
+| ○ several | Several times a week | 週に数回 |
+| ○ weekly | Once a week | 週に1回 |
+| ○ occasionally | Occasionally | たまに |
+
+#### STEP 4: Goals（複数選択）
+| | EN | JA |
+|---|---|---|
+| title | What does your best self look like? | 最高の自分は どんな姿ですか？ |
+| subtitle | Choose what matters most to you. | 大切なものを選んでください。 |
+
+Goals: Better Sleep / Emotional Calm / Less Screen Time / More Discipline / Self-Acceptance / Deeper Focus / Healthier Habits / Inner Peace
+
+#### STEP 5: PersonalizedInsight（アニメーション — 既存 `PersonalizedInsightStepView.swift`）
+| | EN | JA |
+|---|---|---|
+| title | Based on your answers | あなたの回答に基づいて |
+| stat | 81% of people with similar struggles improved within 30 days | 同じ悩みを持つ81%の人が 30日以内に改善しました |
+| message | Anicca will create a personalized path for you. | アニッチャがあなた専用の道を作ります。 |
+| CTA | See Your Plan | あなたのプランを見る |
+
+#### STEP 6: ValueProp（7日間ジャーニー タイムライン — 既存 `ValuePropStepView.swift`）
+| Day | EN | JA |
+|-----|----|----|
+| title | Your 7-Day Journey | あなたの7日間の旅 |
+| 1 | Awareness — Notice your patterns | 気づき — パターンに気づく |
+| 2 | Understanding — Learn your triggers | 理解 — トリガーを学ぶ |
+| 3 | First Shift — Replace one habit | 最初の変化 — 1つの習慣を置き換える |
+| 4 | Deepening — Mindful moments | 深化 — マインドフルな瞬間 |
+| 5 | Strength — Handle urges differently | 強さ — 衝動に違う方法で対処する |
+| 6 | Integration — New daily rhythm | 統合 — 新しい日々のリズム |
+| 7 | Reflection — See how far you've come | 振り返り — どこまで来たか確認する |
+| CTA | Start My Journey | 旅を始める |
+
+#### STEP 7: Notifications
+| | EN | JA |
+|---|---|---|
+| title | Don't miss your nudges | 毎日の通知を受け取る |
+| description | Anicca sends gentle reminders exactly when you need them. | 必要な瞬間に、やさしいリマインダーを届けます。 |
+| CTA | Allow notifications | 通知を許可 |
+
+#### STEP 8: Primer（Trial教育 — ⚠️ 修正必要、上記参照）
+| | EN | JA |
+|---|---|---|
+| title | We want you to try Anicca for free ⚠️ | まずは無料で アニッチャを試してください ⚠️ |
+| subtitle | ...Experience the full journey risk-free. ⚠️ | ...リスクなしで全ての旅を体験 ⚠️ |
+| feature1 | Full access to all features | 全機能にアクセス |
+| feature2 | Personalized nudges | パーソナライズされたナッジ |
+| feature3 | Cancel anytime | いつでもキャンセル可能 |
+
+#### STEP 9: Paywall (Variant B — ハードペイウォール)
+| | EN | JA |
+|---|---|---|
+| title | Gentle words when you need them most | あなたが一番つらいとき、そっと届く言葉 |
+| subtitle | Daily cards to help you through your struggles | あなたの悩みに寄り添うカードを毎日受け取ろう |
+| features | ✓ Smart nudges ✓ AI guidance ✓ Adapts ✓ Learns ✓ Cancel anytime | ✓ スマートナッジ ✓ AIガイダンス ✓ 適応 ✓ 学習 ✓ キャンセル可 |
+| Annual | $49.99/yr BEST VALUE (Just $0.14/day, 7 Days trial) | ¥7,900/年 おすすめ (1日¥22, 7日間トライアル) |
+| Monthly | $9.99/mo | ¥1,500/月 |
+| CTA trial | Start 7 Days Free Trial | 7日間無料トライアルを始める |
+| review | "Anicca helped me be kinder to myself." | 「アニッチャのおかげで自分に優しくなれました」 |
+| trust | Free trial · Cancel anytime · No charge until trial ends | 無料トライアル · いつでもキャンセル · トライアル中は課金なし |
+
+**⚠️ 価格は RevenueCat から動的取得。上記は参考値。**
+
+### 新フロー変更点
+
+```
+現行: Welcome → Struggles → StruggleDepth → Goals → PersonalizedInsight → ValueProp → Notifications → Primer → Paywall
+修正: 追加画面なし。Primer テキスト修正のみ（risk-free → free trial）
 ```
 
 **Social Proof画面は追加しない**（実際のレビューがまだないため）
-
-### 追加画面詳細（EN / JA）
-
-**Screen: Processing Moment（既存画面があれば置き換え、なければ新規）**
-
-EN:
-```
-━━━━━━━━━━━━━━ 3/6 ━━━━━━━━━━━━━━
-
-              🔄
-         (spinning animation)
-
-     Creating your personalized
-     plan...
-
-     ✅ Analyzing your struggles
-     ✅ Setting optimal timing
-     🔄 Personalizing...
-
-     (auto-advance in 1-3 seconds)
-```
-
-JA:
-```
-━━━━━━━━━━━━━━ 3/6 ━━━━━━━━━━━━━━
-
-              🔄
-         (回転アニメーション)
-
-     あなた専用のプランを
-     作成しています...
-
-     ✅ 悩みの分析
-     ✅ 最適なタイミング設定
-     🔄 パーソナライズ中...
-
-     (1-3秒で自動遷移)
-```
-
-**Screen: App Demo（Paywall直前）**
-
-EN:
-```
-━━━━━━━━━━━━━━ 4/6 ━━━━━━━━━━━━━━
-
-     Your first Nudge is ready
-
-  ┌──────────────────────────────┐
-  │        🤍                    │
-  │    FORGIVE YOURSELF          │
-  │                              │
-  │  "Your worth isn't measured  │
-  │   by productivity."          │
-  │                              │
-  │  You are not your            │
-  │  productivity. You are       │
-  │  worthy of love and rest     │
-  │  just by existing.           │
-  │                              │
-  │  [Forgive Myself]   [Skip]   │
-  │       👍        👎           │
-  └──────────────────────────────┘
-
-  → Actual NudgeCard component
-  → Based on user's selected struggles
-
-        [ See Your Plan → ]
-```
-
-JA:
-```
-━━━━━━━━━━━━━━ 4/6 ━━━━━━━━━━━━━━
-
-     あなた専用のNudgeが完成しました
-
-  ┌──────────────────────────────┐
-  │        🤍                    │
-  │      自分を許せ               │
-  │                              │
-  │  あなたの価値は生産性で       │
-  │  測れない。                   │
-  │                              │
-  │  あなたは生産性じゃない。     │
-  │  存在するだけで愛と休息に     │
-  │  値する。                     │
-  │                              │
-  │  [自分を許す 🤍]   [スキップ] │
-  │       👍        👎           │
-  └──────────────────────────────┘
-
-  → 実際のNudgeCardコンポーネント使用
-  → ユーザーが選んだ悩みに基づく
-
-        [ プランを見る → ]
-```
+**Processing画面は既存（PersonalizedInsightStepView）をそのまま使用**
 
 ### 実装ファイル
-- `ProcessingStepView.swift` — 新規（既存あれば置き換え）
-- `AppDemoStepView.swift` — 新規
-- `OnboardingFlowView.swift` — step配列修正
+- `en.lproj/Localizable.strings` L1325-1326 — Primer修正
+- `ja.lproj/Localizable.strings` L1325-1326 — Primer修正
+- `es.lproj/Localizable.strings` — Primerキー追加
 
 ---
 
@@ -205,9 +202,16 @@ JA:
 
 ### 見出しテキスト
 
-**要調査: App Storeの競合アファメーションアプリのスクショテキストをスクレイプして、実績のあるコピーを参考にする。**
+| SS# | EN Headline | JA Headline |
+|-----|-------------|-------------|
+| SS1 | Words That Heal You From Within | 心の奥から癒す言葉 |
+| SS2 | Be Kinder to Yourself Today | 今日、自分にやさしく |
+| SS3 | Done Is Better Than Perfect | 完璧より完了 |
+| SS4 | Your Personal Growth Path | あなた専用の成長の道 |
+| SS5 | Personalized For Your Struggles | あなたの悩みに合わせて |
 
-- `asc` CLI + app-store-scraper skill でI Am, Motivation, ThinkUp等の競合スクショテキストを取得
+**競合分析結果:** I Am / Motivation はスクショテキストが画像埋め込みのためWeb版からテキスト抽出不可。ThinkUp / Shine は App Store ページ削除済み。競合 subtitle から学んだこと: "widgets" と "positive" が高頻度キーワード。
+
 - A/Bテスト: ASC CLI でスクリーンショットセットのA/Bテスト実施
 
 ### 生成方法
@@ -219,12 +223,39 @@ JA:
 
 ## 5. ASO最適化（EN / JA / ES）
 
-**要調査: asc CLI で現在のtitle, subtitle, keywords, promotion textを取得 → ASO skill でbefore/after最適化**
+### 現状（App Store Connect 取得済み）
 
-対象キーワード領域:
-- affirmation, quotes, manifestation, self-care, mental health, meditation
-- アファメーション, 名言, 自己肯定感, メンタルヘルス, セルフケア
-- afirmaciones, citas, autocuidado, salud mental
+| 項目 | EN (en-US) | JA (ja) | ES (es-ES) |
+|------|-----------|---------|------------|
+| **Name** | Daily Self Care - Anicca | 毎日のセルフケア - アニッチャ | Buddhist Nudges -- Anicca ⚠️ |
+| **Subtitle** | Daily Cards for Self Care | セルフケア・アファメーション | Sigue los 5 Preceptos ⚠️ |
+| **Keywords** | mindfulness,self care,behavior change,anxiety,stress,procrastination,wellness,meditation,habits,mood | マインドフルネス,セルフケア,メンタルヘルス,不安,集中,先延ばし,セルフヘルプ,考えすぎ,ストレス,習慣,あにっちゃ,アニッチャ | mindfulness,autocuidado,salud mental,ansiedad,enfoque,procrastinación,autoayuda,estrés,hábito |
+| **Promo Text** | なし | なし | なし |
+
+**⚠️ ES メタデータが完全に間違っている（古い設定が残存）**
+
+### 競合比較
+
+| アプリ | Name | Subtitle | ★ | Reviews |
+|--------|------|----------|---|---------|
+| **I am** | I am - Daily Affirmations | Positive widgets & motivation | 4.8 | 709K |
+| **Motivation** | Motivation - Daily quotes | Inspirational positive widgets | 4.8 | 1M |
+| **Anicca** | Daily Self Care - Anicca | Daily Cards for Self Care | 4.9 | 少数 |
+
+### 修正提案
+
+| 項目 | EN Before → After | JA Before → After | ES Before → After |
+|------|-------------------|-------------------|-------------------|
+| **Name** | `Daily Self Care - Anicca` → `Anicca: Daily Affirmations` | `毎日のセルフケア - アニッチャ` → `アニッチャ: 毎日のアファメーション` | `Buddhist Nudges -- Anicca` → `Anicca: Afirmaciones Diarias` |
+| **Subtitle** | `Daily Cards for Self Care` → `Self Care & Positive Mindset` | `セルフケア・アファメーション` → `セルフケア・メンタルヘルス` | `Sigue los 5 Preceptos` → `Autocuidado y bienestar mental` |
+| **Keywords** | 現行 → `affirmations,self care,mental health,anxiety,stress,self love,wellness,mindfulness,daily quotes,positive` | 現行 → `アファメーション,セルフケア,メンタルヘルス,不安,自己肯定感,先延ばし,マインドフルネス,ストレス,瞑想,自分を好きになる` | 現行 → `afirmaciones,autocuidado,salud mental,ansiedad,autoestima,bienestar,meditación,estrés,frases positivas,motivación` |
+| **Promo Text** | なし → `Start your free trial. Gentle words when you need them most.` | なし → `無料トライアル実施中。あなたが一番つらいとき、そっと届く言葉。` | なし → `Prueba gratuita disponible. Palabras que llegan cuando más las necesitas.` |
+
+**根拠:**
+- Source: [AppFollow ASO Guide](https://appfollow.io/aso) — 「Title + Subtitle に最重要キーワードを含める」
+- 競合 I Am (709K reviews) / Motivation (1M reviews) は "Daily Affirmations" / "Daily quotes" をタイトルに使用
+- 「affirmations」はカテゴリ最重要キーワード → タイトルに入れる
+- ES は古い "Buddhist Nudges" が残っており即修正必須
 
 ---
 
