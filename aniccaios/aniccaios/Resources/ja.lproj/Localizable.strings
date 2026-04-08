@@ -751,7 +751,7 @@
 /* NudgeContent - self_loathing */
 "nudge_self_loathing_notification_1" = "今日も生きてる。それで十分。";
 "nudge_self_loathing_notification_2" = "自分を責めるのをやめていい。";
-"nudge_self_loathing_notification_3" = "あなたは思ってるより良い人。";
+"nudge_self_loathing_notification_3" = "あなたは自分が思ってるより、ずっと良い人だよ。";
 "nudge_self_loathing_notification_4" = "自己批判は成長させない。自己慈悲が成長させる。";
 "nudge_self_loathing_notification_5" = "友達にそれ言う？なら自分にも言うな。";
 "nudge_self_loathing_notification_6" = "頑張ってる。それが大事。";
@@ -897,7 +897,7 @@
 /* NudgeContent - lying (v1.6.1 追加: 9-14) */
 "nudge_lying_notification_9" = "嘘で得るものより、失うものが大きい。";
 "nudge_lying_notification_10" = "嘘をやめろ。今すぐ。";
-"nudge_lying_notification_11" = "本当のことを言う勇気。";
+"nudge_lying_notification_11" = "本当のことを言う勇気、持ってるだろ。";
 "nudge_lying_notification_12" = "嘘をつく自分を嫌いになるな。";
 "nudge_lying_notification_13" = "正直は楽。嘘は疲れる。";
 "nudge_lying_notification_14" = "今日は正直でいられたか？";
@@ -977,10 +977,10 @@
 "nudge_alcohol_dependency_notification_2" = "ボトルは友達じゃない。";
 "nudge_alcohol_dependency_notification_3" = "本当に渇いてるのは何？";
 "nudge_alcohol_dependency_notification_4" = "明日の二日酔いは今夜の酒に値しない。";
-"nudge_alcohol_dependency_notification_5" = "渇望より強い。";
+"nudge_alcohol_dependency_notification_5" = "お前は渇望より強い。";
 "nudge_alcohol_dependency_notification_6" = "代わりに誰かに電話して。誰でもいい。";
 "nudge_alcohol_dependency_notification_7" = "酒は問題を解決しない。増やすだけ。";
-"nudge_alcohol_dependency_notification_8" = "素面の1時間は勝利。";
+"nudge_alcohol_dependency_notification_8" = "素面の1時間は勝利だ。";
 "nudge_alcohol_dependency_detail_1" = "永遠のことは考えるな。今日だけ。この1時間だけ。この瞬間だけ。1日ずつ—全ての回復はそうやって始まる。";
 "nudge_alcohol_dependency_detail_2" = "酒は友達のふりをするが、与えるより奪う。明日から幸せを借りてる。その代償を払うな。";
 "nudge_alcohol_dependency_detail_3" = "渇望は本当はアルコールへのものじゃない。逃避、安心、麻痺への渇望。本当に今必要なのは何？";
@@ -994,7 +994,7 @@
 "nudge_alcohol_dependency_notification_9" = "1杯目を断れ。2杯目は楽。";
 "nudge_alcohol_dependency_notification_10" = "飲まない理由を思い出せ。";
 "nudge_alcohol_dependency_notification_11" = "水を飲め。まず水。";
-"nudge_alcohol_dependency_notification_12" = "「今日だけ」は嘘。";
+"nudge_alcohol_dependency_notification_12" = "「今日だけ」は嘘だ。毎回そう言ってる。";
 "nudge_alcohol_dependency_notification_13" = "飲んだ翌朝を思い出せ。";
 "nudge_alcohol_dependency_notification_14" = "お前は酒より強い。";
 "nudge_alcohol_dependency_detail_9" = "最初の1杯が一番難しい。水を1杯飲んでから決めろ。";
@@ -1071,7 +1071,7 @@
 /* NudgeContent - loneliness */
 "nudge_loneliness_notification_1" = "孤独を感じてるのはあなただけじゃない。";
 "nudge_loneliness_notification_2" = "今日、誰か一人に連絡して。";
-"nudge_loneliness_notification_3" = "孤独は穏やかになれる。寂しさは永遠じゃない。";
+"nudge_loneliness_notification_3" = "孤独でも穏やかになれる。寂しさは永遠じゃない。";
 "nudge_loneliness_notification_4" = "誰かにメッセージ。「やあ」だけでも。";
 "nudge_loneliness_notification_5" = "つながりは小さな一歩から。";
 "nudge_loneliness_notification_6" = "一人でいることと孤独は違う。";
@@ -1391,7 +1391,7 @@
 "nudge_staying_up_late_notification_47" = "良い睡眠を取る権利がある。";
 "nudge_staying_up_late_notification_48" = "世界は明日もそこにある。";
 "nudge_staying_up_late_notification_49" = "睡眠中に脳が全てを整理する。";
-"nudge_staying_up_late_notification_50" = "置け。何も見逃さない。";
+"nudge_staying_up_late_notification_50" = "スマホを置け。寝てる間に見逃すものなんてない。";
 "nudge_staying_up_late_notification_51" = "この瞬間が明日の気分を決める。";
 "nudge_staying_up_late_notification_52" = "意志力はゼロ。とにかく止めろ。";
 "nudge_staying_up_late_notification_53" = "スマホを充電。自分も充電。";
@@ -1450,7 +1450,7 @@
 "nudge_cant_wake_up_notification_19" = "ベッドは嘘をついてる。起きろ。";
 "nudge_cant_wake_up_notification_20" = "チャンピオンは辛い時に起きる。";
 "nudge_cant_wake_up_notification_21" = "体は準備できてる。頭がサボってる。";
-"nudge_cant_wake_up_notification_22" = "直立が勝利。起き上がれ。";
+"nudge_cant_wake_up_notification_22" = "立ち上がれ。それだけで今日は勝ちだ。";
 "nudge_cant_wake_up_notification_23" = "カウントダウン：5、4、3、2、1。動け。";
 "nudge_cant_wake_up_notification_24" = "一番辛いのは最初の60秒。";
 "nudge_cant_wake_up_notification_25" = "スヌーズ＝負け。起きて勝て。";
@@ -1477,7 +1477,7 @@
 "nudge_cant_wake_up_notification_46" = "水を飲め。脳が脱水してる。";
 "nudge_cant_wake_up_notification_47" = "ストレッチ3回。今の仕事はそれだけ。";
 "nudge_cant_wake_up_notification_48" = "朝は勇敢な者のもの。";
-"nudge_cant_wake_up_notification_49" = "座るだけで戦いの半分。やれ。";
+"nudge_cant_wake_up_notification_49" = "まず座れ。それだけで半分勝ちだ。";
 "nudge_cant_wake_up_notification_50" = "アラーム後の毎秒が選択だ。";
 "nudge_cant_wake_up_notification_51" = "言い訳より先に起きろ。";
 "nudge_cant_wake_up_notification_52" = "目標にスヌーズボタンはない。";
@@ -1485,7 +1485,7 @@
 "nudge_cant_wake_up_notification_54" = "この起床時間を選んだ理由がある。";
 "nudge_cant_wake_up_notification_55" = "動きがエネルギーを生む。動き出せ。";
 "nudge_cant_wake_up_notification_56" = "今日にはギフトがある。見つけに行け。";
-"nudge_cant_wake_up_notification_57" = "冷水をバシャッ。瞬間的な覚醒。";
+"nudge_cant_wake_up_notification_57" = "顔に冷水をバシャッ。一瞬で目が覚める。";
 "nudge_cant_wake_up_notification_58" = "枕は嘘つき。「あと5分」と言って50分奪う。";
 "nudge_cant_wake_up_notification_59" = "立て。あとは簡単。";
 "nudge_cant_wake_up_notification_60" = "これがお前の人生。目を覚ませ。";
@@ -1547,10 +1547,10 @@
 "nudge_self_loathing_notification_22" = "自己批判はお前を良くしない。";
 "nudge_self_loathing_notification_23" = "不完全な行動は完璧な麻痺に勝る。";
 "nudge_self_loathing_notification_24" = "それを友達に言えるか？";
-"nudge_self_loathing_notification_25" = "自分自身の優しさに値する。";
+"nudge_self_loathing_notification_25" = "お前だって、自分に優しくしていい。";
 "nudge_self_loathing_notification_26" = "間違いはチャレンジの証拠。";
-"nudge_self_loathing_notification_27" = "完璧じゃなく、進歩。";
-"nudge_self_loathing_notification_28" = "価値は生産性で測れない。";
+"nudge_self_loathing_notification_27" = "完璧じゃなくていい。少しでも進んでればいい。";
+"nudge_self_loathing_notification_28" = "お前の価値は、どれだけ頑張ったかじゃ測れない。";
 "nudge_self_loathing_notification_29" = "今のままで十分。";
 "nudge_self_loathing_notification_30" = "自己嫌悪はただの習慣。断ち切れ。";
 "nudge_self_loathing_notification_31" = "自分についての優しい思い。今すぐ1つ。";
@@ -1562,7 +1562,7 @@
 "nudge_self_loathing_notification_37" = "自己慈悲は弱さじゃない。";
 "nudge_self_loathing_notification_38" = "回復は直線じゃない。悪い日もある。";
 "nudge_self_loathing_notification_39" = "内なる批判者に休日を与えろ。";
-"nudge_self_loathing_notification_40" = "自分が思うより大切な存在。";
+"nudge_self_loathing_notification_40" = "お前は自分が思ってるより、ずっと大切な存在だ。";
 "nudge_self_loathing_notification_41" = "「すべき」を「できる」に変えろ。";
 "nudge_self_loathing_notification_42" = "今日うまくいったことは？";
 "nudge_self_loathing_notification_43" = "思ってるよりうまくやってる。";
@@ -1571,8 +1571,8 @@
 "nudge_self_loathing_notification_46" = "頭の声はいつも正しくない。";
 "nudge_self_loathing_notification_47" = "遅れてない。自分の道を歩いてる。";
 "nudge_self_loathing_notification_48" = "呼吸しろ。ベストを尽くしてる。";
-"nudge_self_loathing_notification_49" = "こうあるべきの自分を手放せ。";
-"nudge_self_loathing_notification_50" = "お前の価値は議論の余地がない。";
+"nudge_self_loathing_notification_49" = "「こうあるべき」って理想、手放せ。";
+"nudge_self_loathing_notification_50" = "お前の価値は揺るがない。誰が何と言おうと。";
 "nudge_self_loathing_notification_51" = "自分の好きなところ1つ。さあ。";
 "nudge_self_loathing_notification_52" = "全部わかってる人はいない。";
 "nudge_self_loathing_notification_53" = "休息は仕事の一部。";
@@ -1581,7 +1581,7 @@
 "nudge_self_loathing_notification_56" = "不完全な自分を罰するのをやめろ。";
 "nudge_self_loathing_notification_57" = "過去は未来を定義しない。";
 "nudge_self_loathing_notification_58" = "胸に手を当てて。呼吸して。";
-"nudge_self_loathing_notification_59" = "愛される価値がある。自分自身からも。";
+"nudge_self_loathing_notification_59" = "お前は愛されていい。自分自身にもな。";
 "nudge_self_loathing_notification_60" = "今日は新しいスタート。受け入れろ。";
 "nudge_self_loathing_detail_15" = "1日の失敗、1つのミス、1つの挫折でお前は定義されない。アイデンティティは何千もの瞬間の合計。ほとんどは大丈夫だった。覚えておけ。";
 "nudge_self_loathing_detail_16" = "親友が同じミスをしたら「価値がない」と言うか？言わない。同じ恩赦を自分にも。声に出して自分に優しい言葉を。今すぐ。";
@@ -1750,7 +1750,7 @@
 "nudge_procrastination_notification_37" = "抵抗は始める直前が最も強い。";
 "nudge_procrastination_notification_38" = "言い訳はクリエイティブ。そのエネルギーを仕事に使え。";
 "nudge_procrastination_notification_39" = "不完全なまま出せ。改善は後で。";
-"nudge_procrastination_notification_40" = "今と理想のギャップは？行動。";
+"nudge_procrastination_notification_40" = "今と理想のギャップを埋めるのは行動だけだ。";
 "nudge_procrastination_notification_41" = "先延ばしは利息付きの借金。";
 "nudge_procrastination_notification_42" = "全タブ閉じろ。1つ開け。やれ。";
 "nudge_procrastination_notification_43" = "始めた瞬間に安堵を感じる。";
@@ -1845,7 +1845,7 @@
 "nudge_anxiety_notification_38" = "呼吸はリモコン。使って。";
 "nudge_anxiety_notification_39" = "不安が言うほど緊急じゃない。";
 "nudge_anxiety_notification_40" = "両足を床につけて。";
-"nudge_anxiety_notification_41" = "思考であって、危機じゃない。";
+"nudge_anxiety_notification_41" = "それはただの思考だ。危機じゃない。";
 "nudge_anxiety_notification_42" = "ハミングして。迷走神経が活性化する。";
 "nudge_anxiety_notification_43" = "これもまた過ぎ去る。";
 "nudge_anxiety_notification_44" = "外に出て。新鮮な空気が助けになる。";
@@ -1854,7 +1854,7 @@
 "nudge_anxiety_notification_47" = "不安は全てを緊急に見せる。違うのに。";
 "nudge_anxiety_notification_48" = "安全だよ。今ここで。";
 "nudge_anxiety_notification_49" = "10秒間、手を振って。";
-"nudge_anxiety_notification_50" = "感情は一時的。あなたは永続的。";
+"nudge_anxiety_notification_50" = "感情は一時的なもの。お前はずっとここにいる。";
 "nudge_anxiety_notification_51" = "不安に気づいて。不安にならないで。";
 "nudge_anxiety_notification_52" = "冷たい水をゆっくり飲んで。";
 "nudge_anxiety_notification_53" = "うまくいってることは？3つ挙げて。";
@@ -1927,11 +1927,11 @@
 "nudge_lying_notification_26" = "本物の関係には本物の正直さが必要。";
 "nudge_lying_notification_27" = "自分への嘘もカウントされる。";
 "nudge_lying_notification_28" = "沈黙は嘘より良い。";
-"nudge_lying_notification_29" = "安易な道より上の存在。";
+"nudge_lying_notification_29" = "お前は安易な道を選ぶ人間じゃない。";
 "nudge_lying_notification_30" = "正直な人なら何をする？";
 "nudge_lying_notification_31" = "正直さには勇気がいる。あなたにはある。";
 "nudge_lying_notification_32" = "一つの正直な会話が全てを変えうる。";
-"nudge_lying_notification_33" = "嘘は小さくする。真実は自由にする。";
+"nudge_lying_notification_33" = "嘘はお前を小さくする。真実はお前を自由にする。";
 "nudge_lying_notification_34" = "今、本当の自分でいる？";
 "nudge_lying_notification_35" = "品格は正直な瞬間に築かれる。";
 "nudge_lying_notification_36" = "人は完璧より正直さを尊敬する。";
@@ -1939,7 +1939,7 @@
 "nudge_lying_notification_38" = "正直さは平和への近道。";
 "nudge_lying_notification_39" = "言葉は約束。守れ。";
 "nudge_lying_notification_40" = "演じるのをやめて。ありのままで。";
-"nudge_lying_notification_41" = "弱さを見せるのは弱さじゃない。強さ。";
+"nudge_lying_notification_41" = "弱さを見せるのは弱さじゃない。それが強さだ。";
 "nudge_lying_notification_42" = "仮面は日に日に重くなる。";
 "nudge_lying_notification_43" = "正直な失敗は不正直な成功に勝る。";
 "nudge_lying_notification_44" = "真実を語れるほど自分を信じて。";
@@ -1949,7 +1949,7 @@
 "nudge_lying_notification_48" = "嘘は誰も守らない。";
 "nudge_lying_notification_49" = "言ったことを意味しろ。意味したことを言え。";
 "nudge_lying_notification_50" = "他人が信頼できる人になれ。";
-"nudge_lying_notification_51" = "本物であることは魅力的。";
+"nudge_lying_notification_51" = "本物であることは魅力的だ。嘘で飾るな。";
 "nudge_lying_notification_52" = "今日一つの真実。小さく始めて。";
 "nudge_lying_notification_53" = "嘘は牢獄を建て、真実は扉を開ける。";
 "nudge_lying_notification_54" = "嘘が必要なら、それを再考しろ。";
@@ -2025,7 +2025,7 @@
 "nudge_bad_mouthing_notification_29" = "誰もが見えない何かと闘ってる。";
 "nudge_bad_mouthing_notification_30" = "褒めるなら人前で。注意するなら二人きりで。";
 "nudge_bad_mouthing_notification_31" = "あなたの言葉を聞いたら相手はどう思う？";
-"nudge_bad_mouthing_notification_32" = "陰口は一時的なつながり、永続的なダメージ。";
+"nudge_bad_mouthing_notification_32" = "陰口で生まれるつながりは一瞬。ダメージはずっと残る。";
 "nudge_bad_mouthing_notification_33" = "強い人は持ち上げる。弱い人は引き下げる。";
 "nudge_bad_mouthing_notification_34" = "話す前に：本当？優しい？必要？";
 "nudge_bad_mouthing_notification_35" = "相手の全てを知らない。";
@@ -2052,7 +2052,7 @@
 "nudge_bad_mouthing_notification_56" = "出会った時より良い状態で去らせろ。";
 "nudge_bad_mouthing_notification_57" = "優しい言葉はタダだけど全てを意味する。";
 "nudge_bad_mouthing_notification_58" = "ネガティブに参加しなくていい。";
-"nudge_bad_mouthing_notification_59" = "全ての人は誰かの全世界。";
+"nudge_bad_mouthing_notification_59" = "どの人にも、その人を世界の全てだと思ってる誰かがいる。";
 "nudge_bad_mouthing_notification_60" = "受けたい優しさで話せ。";
 
 "nudge_bad_mouthing_detail_15" = "言葉には重みがある——一度発したら取り消せない。誰かを批判する前に10秒立ち止まって。それだけの価値がある？大抵、ない。";
@@ -2212,15 +2212,15 @@
 "nudge_alcohol_dependency_notification_22" = "渇望は嘘。必要ない。";
 "nudge_alcohol_dependency_notification_23" = "明日の朝を考えて。";
 "nudge_alcohol_dependency_notification_24" = "シラフの夜は全て勝利。";
-"nudge_alcohol_dependency_notification_25" = "奪われてるんじゃない。選んでる。";
+"nudge_alcohol_dependency_notification_25" = "我慢してるんじゃない。健康を選んでるんだ。";
 "nudge_alcohol_dependency_notification_26" = "一杯注ぐ代わりに誰かに電話。";
 "nudge_alcohol_dependency_notification_27" = "アルコールは明日から幸福を借りる。";
-"nudge_alcohol_dependency_notification_28" = "この習慣より良い存在。";
+"nudge_alcohol_dependency_notification_28" = "お前はこの習慣に負ける人間じゃない。";
 "nudge_alcohol_dependency_notification_29" = "渇望のきっかけは何？名前をつけて。";
 "nudge_alcohol_dependency_notification_30" = "睡眠が感謝する。";
-"nudge_alcohol_dependency_notification_31" = "20分。渇望の持続時間。";
+"nudge_alcohol_dependency_notification_31" = "渇望は20分で消える。耐えろ。";
 "nudge_alcohol_dependency_notification_32" = "テープを先送りして。結末は？";
-"nudge_alcohol_dependency_notification_33" = "物語を書き換えてる。続けて。";
+"nudge_alcohol_dependency_notification_33" = "お前は自分の物語を書き換えてる。続けろ。";
 "nudge_alcohol_dependency_notification_34" = "良いグラスに炭酸水。試して。";
 "nudge_alcohol_dependency_notification_35" = "最初の一口でコントロールを失う。";
 "nudge_alcohol_dependency_notification_36" = "シラフの日ごとに体が癒える。";
@@ -2228,7 +2228,7 @@
 "nudge_alcohol_dependency_notification_38" = "難しいこともシラフでできる。";
 "nudge_alcohol_dependency_notification_39" = "今夜を誇れる夜にしろ。";
 "nudge_alcohol_dependency_notification_40" = "アルコールは痛みだけじゃなく全てを鈍らせる。";
-"nudge_alcohol_dependency_notification_41" = "後悔のない朝に値する。";
+"nudge_alcohol_dependency_notification_41" = "お前は後悔のない朝を迎えていい。";
 "nudge_alcohol_dependency_notification_42" = "代わりに散歩に出て。";
 "nudge_alcohol_dependency_notification_43" = "飲まない不快感は過ぎ去る。";
 "nudge_alcohol_dependency_notification_44" = "シラフの日数を数えて。誇りに思え。";
@@ -2415,7 +2415,7 @@
 "nudge_obsessive_notification_31" = "80%できたら完了。";
 "nudge_obsessive_notification_32" = "編集をやめて。生き始めて。";
 "nudge_obsessive_notification_33" = "不確実さはOK。本当に。";
-"nudge_obsessive_notification_34" = "ループが問題。思考じゃない。";
+"nudge_obsessive_notification_34" = "繰り返してることが問題だ。考えの中身じゃない。";
 "nudge_obsessive_notification_35" = "鍵は一度かけた。自分を信じて。";
 "nudge_obsessive_notification_36" = "もう確認した。覚えてるだろう。";
 "nudge_obsessive_notification_37" = "全てが完璧である必要はない。";
@@ -2512,7 +2512,7 @@
 "nudge_loneliness_notification_31" = "カフェに行って。人の近くに座って。";
 "nudge_loneliness_notification_32" = "人を助けると孤独が癒える。";
 "nudge_loneliness_notification_33" = "あなたはここにいる意味がある。";
-"nudge_loneliness_notification_34" = "全員に分かってもらえなくても。誰かには。";
+"nudge_loneliness_notification_34" = "全員にわかってもらえなくていい。一人いれば十分だ。";
 "nudge_loneliness_notification_35" = "顔を出せ。辛い時こそ。";
 "nudge_loneliness_notification_36" = "欲しい友達になれ。";
 "nudge_loneliness_notification_37" = "SNSはつながりじゃない。本物を求めて。";

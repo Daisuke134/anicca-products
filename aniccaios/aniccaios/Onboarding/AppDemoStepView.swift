@@ -51,9 +51,7 @@ struct AppDemoStepView: View {
         }
         .padding()
         .onAppear {
-            withAnimation(.spring(response: 0.6).delay(0.3)) {
-                showCard = true
-            }
+            showCard = true
         }
     }
 }
