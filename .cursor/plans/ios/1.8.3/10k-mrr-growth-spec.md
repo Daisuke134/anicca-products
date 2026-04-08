@@ -722,7 +722,7 @@ Title JA: "ロック画面にアファメーションを設定する方法"
 |---|--------|------|--------|------|
 | T7 | Honne JA 3 cron → reelclaw形式移行 | CC | `reelclaw` | 🔜 |
 | T8 | 既存Anicca 4 cron修正（overlay削除+購入解除） | CC | — | 🔜 |
-| **T8b** | **Postiz TikTok "#Postiz" caption fix（reelclaw skill修正）** | **CC** | — | 🔜 |
+| **T8b** | **Postiz TikTok "#Postiz" caption fix — SaaS版がサーバーサイドで追加。Postizセルフホスト（Mac Mini Docker）で解決** | **CC** | — | 🔜 |
 | T9 | SKILL.md購入制限解除 | CC | — | 🔜 |
 | T10 | `openclaw gateway restart` | CC | — | 🔜 |
 | T18 | Anicca Widget cron 4つ追加（Widget demo動画後） | CC | `reelclaw` | ⏳ |
