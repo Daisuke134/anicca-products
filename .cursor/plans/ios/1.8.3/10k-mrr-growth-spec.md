@@ -19,37 +19,57 @@
 
 ## 1. PostHog A/B Test — 現状と方針
 
-### 実データ（2026-04-01〜04-08、PostHog API取得）
+### PostHog Feature Flag 設定（2026-04-08 API確認済み）
 
-| | control (Variant A) | test (Variant B) |
-|---|---|---|
-| 画面 | PlanSelectionStepView | PaywallVariantBView |
-| 表示回数 | 38 | 93 |
-| 購入数 | 6 (annual 3 + monthly 3) | 9 (annual 6 + monthly 3) |
-| CVR | 15.8% | 9.7% |
+```json
+{
+  "key": "paywall-ab-test",
+  "active": true,
+  "multivariate": {
+    "variants": [
+      { "key": "control", "name": "Variant A (soft paywall)", "rollout_percentage": 0 },
+      { "key": "test", "name": "Variant B (hard paywall)", "rollout_percentage": 100 }
+    ]
+  },
+  "groups": [{ "rollout_percentage": 100 }]
+}
+```
 
-サンプル数不足（n=131）で統計的有意差なし。データ収集継続。
+**現状: Variant B が 100%。A/Bテストは実質OFF。全ユーザーが Variant B を見ている。**
+過去データの control=38 / test=93 の不均等は、**以前の weight 設定が 50/50 じゃなかった時期のデータ**。
 
-### 方針: PostHogそのまま + Localizable修正のみ
+### 方針
 
-- PostHog A/Bテスト（デザインAかBか）はそのまま稼働継続
-- テキスト変更はLocalizable.strings修正 → 再提出
-- PostHog payloadによるテキスト動的変更は使わない
-- 価格は**100%動的**（RevenueCat `localizedPriceString` から取得。ハードコードなし）
-- Superwall/RC Paywalls移行は v1.9以降
+| 項目 | 決定 |
+|------|------|
+| A/Bテスト | **OFF** — Variant B 100%（現状維持） |
+| ペイウォール | **Variant B ハード** — Xボタンなし、Maybe Later なし |
+| トライアル | **なし** — App Store Connect でトライアル削除 |
+| 価格 | **100%動的** — RevenueCat `localizedPriceString`。ハードコードゼロ |
+| Superwall移行 | v1.9以降 |
+
+### RevenueCat 製品（API確認済み）
+
+| Product ID | Duration | Trial（現在） | Trial（修正後） |
+|---|---|---|---|
+| `ai.anicca.app.ios.annual` | P1Y | P3D (3日間) | **なし** |
+| `ai.anicca.app.ios.monthly` | P1M | P3D (3日間) | **なし** |
 
 ### Primer画面修正（Localizable.strings — 再提出必要）
+
+Source: ios-app-onboarding skill — Cravotta Method Step 1: 「NO price shown. Lower heart rate.」
+Source: Apple Guideline 3.1.2(a) — `"risk-free"` / `"リスクなし"` は NG
 
 | 言語 | キー | Before | After |
 |------|------|--------|-------|
 | EN | `paywall_primer_title` | `"We want you to try\nAnicca for free"` | `"Your personalized plan\nis ready"` |
-| EN | `paywall_primer_subtitle` | `"...Experience the full journey risk-free."` | `"Start with a free trial and experience the full journey."` |
+| EN | `paywall_primer_subtitle` | `"...Experience the full journey risk-free."` | `"Start your journey and experience the full path."` |
 | JA | `paywall_primer_title` | `"まずは無料で\nアニッチャを試してください"` | `"あなた専用プランの\n準備ができました"` |
-| JA | `paywall_primer_subtitle` | `"...リスクなしで全ての旅を体験してください。"` | `"無料トライアルから始めて、全ての旅を体験してください。"` |
+| JA | `paywall_primer_subtitle` | `"...リスクなしで全ての旅を体験してください。"` | `"旅を始めて、全ての体験を味わってください。"` |
 | ES | `paywall_primer_title` | ⚠️ ES にキー未存在 | 追加: `"Tu plan personalizado\nestá listo"` |
-| ES | `paywall_primer_subtitle` | ⚠️ ES にキー未存在 | 追加: `"Comienza con una prueba gratuita y vive la experiencia completa."` |
+| ES | `paywall_primer_subtitle` | ⚠️ ES にキー未存在 | 追加: `"Comienza tu viaje y vive la experiencia completa."` |
 
-**修正理由:** `"risk-free"` / `"リスクなし"` / `"try for free"` は Apple 審査ガイドライン 3.1.2(a) で NG
+**⚠️ トライアルなしなので「free trial」「無料トライアル」も書かない。**
 
 ---
 
@@ -157,34 +177,50 @@ Goals: Better Sleep / Emotional Calm / Less Screen Time / More Discipline / Self
 | feature2 | Personalized nudges | パーソナライズされたナッジ |
 | feature3 | Cancel anytime | いつでもキャンセル可能 |
 
-#### STEP 9: Paywall (Variant B — ハードペイウォール)
+#### STEP 9: Paywall (Variant B — ハードペイウォール、トライアルなし)
+
+Source: ios-app-onboarding skill — 「Hard paywall D35 Download→Paid: 12.11% vs Freemium 2.18%」
+Source: Cravotta Method — 「Multi-step paywall で CVR 2倍」
+
 | | EN | JA |
 |---|---|---|
 | title | Gentle words when you need them most | あなたが一番つらいとき、そっと届く言葉 |
 | subtitle | Daily cards to help you through your struggles | あなたの悩みに寄り添うカードを毎日受け取ろう |
 | features | ✓ Smart nudges ✓ AI guidance ✓ Adapts ✓ Learns ✓ Cancel anytime | ✓ スマートナッジ ✓ AIガイダンス ✓ 適応 ✓ 学習 ✓ キャンセル可 |
-| Annual | $49.99/yr BEST VALUE (Just $0.14/day, 7 Days trial) | ¥7,900/年 おすすめ (1日¥22, 7日間トライアル) |
-| Monthly | $9.99/mo | ¥1,500/月 |
-| CTA trial | Start 7 Days Free Trial | 7日間無料トライアルを始める |
-| review | "Anicca helped me be kinder to myself." | 「アニッチャのおかげで自分に優しくなれました」 |
-| trust | Free trial · Cancel anytime · No charge until trial ends | 無料トライアル · いつでもキャンセル · トライアル中は課金なし |
+| Annual | (RevenueCat動的) BEST VALUE + daily price | (RevenueCat動的) おすすめ + 1日あたり価格 |
+| Monthly | (RevenueCat動的) | (RevenueCat動的) |
+| CTA | Start Your Journey Now | 今すぐ旅を始める |
+| review | "Anicca helped me be kinder to myself." — A real user | 「アニッチャのおかげで自分に優しくなれました」— 実際のユーザー |
+| trust | Cancel anytime · Satisfaction guaranteed | いつでもキャンセル · 満足保証 |
+| ❌ Xボタン | なし | なし |
+| ❌ Maybe Later | なし | なし |
+| ❌ トライアル | なし（CTA・trust・badge 全てからtrial言及削除） | なし |
 
-**⚠️ 価格は RevenueCat から動的取得。上記は参考値。**
+**⚠️ 価格は100% RevenueCat `localizedPriceString` から動的取得。ハードコードゼロ。**
 
-### 新フロー変更点
+### 変更点まとめ
 
 ```
-現行: Welcome → Struggles → StruggleDepth → Goals → PersonalizedInsight → ValueProp → Notifications → Primer → Paywall
-修正: 追加画面なし。Primer テキスト修正のみ（risk-free → free trial）
+フロー変更: なし（現行8ステップ維持）
+Primer修正: risk-free/無料で試して → あなた専用プラン準備完了（trial言及なし）
+Paywall修正: trial関連テキスト全削除、CTA変更
+ASC修正: annual/monthly 両方のトライアル削除
 ```
 
 **Social Proof画面は追加しない**（実際のレビューがまだないため）
 **Processing画面は既存（PersonalizedInsightStepView）をそのまま使用**
 
 ### 実装ファイル
-- `en.lproj/Localizable.strings` L1325-1326 — Primer修正
-- `ja.lproj/Localizable.strings` L1325-1326 — Primer修正
-- `es.lproj/Localizable.strings` — Primerキー追加
+
+| ファイル | 変更内容 |
+|---------|---------|
+| `en.lproj/Localizable.strings` L1325-1326 | Primer title/subtitle 修正 |
+| `ja.lproj/Localizable.strings` L1325-1326 | Primer title/subtitle 修正 |
+| `es.lproj/Localizable.strings` | Primerキー追加 |
+| `en.lproj/Localizable.strings` L1362-1365 | paywall_b_cta_trial → cta_no_trial に統一、trust_trial 削除 |
+| `ja.lproj/Localizable.strings` L1362-1365 | 同上 JA版 |
+| `es.lproj/Localizable.strings` L1328-1331 | 同上 ES版 |
+| `PaywallVariantBView.swift` | hasTrialEligibility 関連UI削除、CTA を no_trial 固定 |
 
 ---
 
@@ -200,17 +236,33 @@ Goals: Better Sleep / Emotional Calm / Less Screen Time / More Discipline / Self
 | SS4 | `mypath-en.png` (My Path リスト) | `my-path-ja.png` (マイパス リスト) |
 | SS5 | `struffle-en.png` (What's holding you back?) | `ja-struggle.png` (どんなことに悩んでいますか？) |
 
-### 見出しテキスト
+### 見出しテキスト（競合 Playwright スクレイプ結果に基づく）
 
-| SS# | EN Headline | JA Headline |
-|-----|-------------|-------------|
-| SS1 | Words That Heal You From Within | 心の奥から癒す言葉 |
-| SS2 | Be Kinder to Yourself Today | 今日、自分にやさしく |
-| SS3 | Done Is Better Than Perfect | 完璧より完了 |
-| SS4 | Your Personal Growth Path | あなた専用の成長の道 |
-| SS5 | Personalized For Your Struggles | あなたの悩みに合わせて |
+**競合スクショテキスト（Playwright で実際にスクレイプ済み）:**
 
-**競合分析結果:** I Am / Motivation はスクショテキストが画像埋め込みのためWeb版からテキスト抽出不可。ThinkUp / Shine は App Store ページ削除済み。競合 subtitle から学んだこと: "widgets" と "positive" が高頻度キーワード。
+| SS# | I Am (709K reviews) | Motivation (1M reviews) |
+|-----|---------------------|------------------------|
+| 1 | Daily reminders to stay positive | Get motivation throughout the day |
+| 2 | Personalized affirmations | Change your thoughts, change your life |
+| 3 | Customizable widgets | 1000s of options to customize widgets |
+| 4 | 1000+ themes | Quotes for every situation |
+| 5 | 75+ categories | Themes for every mood |
+| 6 | Change your mindset | Change your mindset |
+
+**共通パターン:** SS1=通知+ウィジェット訴求、SS3=ウィジェット推し、SS6=マインドセット変革
+
+Source: app-store-screenshots skill — 「Screenshots are advertisements, not documentation. Every screenshot sells one idea.」
+Source: aso best-practices.md — 「50%のユーザーは最初の3枚しか見ない」「60%のユーザーは3秒以内で離脱」
+
+**Anicca スクショテキスト:**
+
+| SS# | EN Headline | JA Headline | 競合との差別化 |
+|-----|-------------|-------------|---------------|
+| SS1 | Words that find you when you need them | あなたを見つける言葉がある | 競合は「reminders/motivation」→ Aniccaは「感情的つながり」 |
+| SS2 | Be kinder to yourself today | 今日、自分にやさしく | 競合は「personalized」→ Aniccaは「具体的行動」 |
+| SS3 | Done is better than perfect | 完璧より完了 | 競合は「widgets/themes」→ Aniccaは「行動促進カード」 |
+| SS4 | Your personal growth path | あなた専用の成長の道 | 競合は「categories数」→ Aniccaは「パーソナライズ旅」 |
+| SS5 | Made for what you're going through | あなたの悩みに寄り添うために | 競合にない：悩み選択画面 |
 
 - A/Bテスト: ASC CLI でスクリーンショットセットのA/Bテスト実施
 
@@ -223,6 +275,15 @@ Goals: Better Sleep / Emotional Calm / Less Screen Time / More Discipline / Self
 
 ## 5. ASO最適化（EN / JA / ES）
 
+### Sources
+
+| Source | 核心の引用 |
+|--------|-----------|
+| Eronred/aso-skills metadata-optimization | 「Lead with brand if well-known; lead with keyword if not」「Never repeat keywords across title, subtitle, and keyword field」 |
+| Eronred/aso-skills keyword-research | 「Use singular forms — Apple indexes both」「No spaces after commas」「Don't include app name or category name in keyword field」 |
+| aso-growth skill | 「Title = Keyword - App Name 形式。キーワードを前に」「スクショ1-2枚目は2-3秒で判断される」 |
+| aso best-practices.md | 「50%のユーザーは最初の3枚しか見ない」「最適化されたスクショはCVRを30%以上改善」 |
+
 ### 現状（App Store Connect 取得済み）
 
 | 項目 | EN (en-US) | JA (ja) | ES (es-ES) |
@@ -231,31 +292,125 @@ Goals: Better Sleep / Emotional Calm / Less Screen Time / More Discipline / Self
 | **Subtitle** | Daily Cards for Self Care | セルフケア・アファメーション | Sigue los 5 Preceptos ⚠️ |
 | **Keywords** | mindfulness,self care,behavior change,anxiety,stress,procrastination,wellness,meditation,habits,mood | マインドフルネス,セルフケア,メンタルヘルス,不安,集中,先延ばし,セルフヘルプ,考えすぎ,ストレス,習慣,あにっちゃ,アニッチャ | mindfulness,autocuidado,salud mental,ansiedad,enfoque,procrastinación,autoayuda,estrés,hábito |
 | **Promo Text** | なし | なし | なし |
+| **Description** | "Break free from the cycle of failed habits..." | "習慣化の失敗ループから抜け出そう..." | "Anicca es tu companero diario..." |
 
-**⚠️ ES メタデータが完全に間違っている（古い設定が残存）**
+**⚠️ ES メタデータが完全に間違っている（古い設定が残存）— 即修正必須**
 
-### 競合比較
+### 競合比較（Playwright スクレイプ済み）
 
-| アプリ | Name | Subtitle | ★ | Reviews |
-|--------|------|----------|---|---------|
-| **I am** | I am - Daily Affirmations | Positive widgets & motivation | 4.8 | 709K |
-| **Motivation** | Motivation - Daily quotes | Inspirational positive widgets | 4.8 | 1M |
-| **Anicca** | Daily Self Care - Anicca | Daily Cards for Self Care | 4.9 | 少数 |
+| アプリ | Name 構造 | Subtitle 戦略 | ★ | Reviews |
+|--------|----------|-------------|---|---------|
+| **I am** | `I am - Daily Affirmations` (KW - Brand) | `Positive widgets & motivation` (KW+KW) | 4.8 | 709K |
+| **Motivation** | `Motivation - Daily quotes` (KW - KW) | `Inspirational positive widgets` (KW+KW) | 4.8 | 1M |
+| **Anicca** | `Daily Self Care - Anicca` (KW - Brand) | `Daily Cards for Self Care` (重複KW) | 4.9 | 少数 |
 
-### 修正提案
+### 現状の問題点（metadata-optimization skill ルール適用）
 
-| 項目 | EN Before → After | JA Before → After | ES Before → After |
-|------|-------------------|-------------------|-------------------|
-| **Name** | `Daily Self Care - Anicca` → `Anicca: Daily Affirmations` | `毎日のセルフケア - アニッチャ` → `アニッチャ: 毎日のアファメーション` | `Buddhist Nudges -- Anicca` → `Anicca: Afirmaciones Diarias` |
-| **Subtitle** | `Daily Cards for Self Care` → `Self Care & Positive Mindset` | `セルフケア・アファメーション` → `セルフケア・メンタルヘルス` | `Sigue los 5 Preceptos` → `Autocuidado y bienestar mental` |
-| **Keywords** | 現行 → `affirmations,self care,mental health,anxiety,stress,self love,wellness,mindfulness,daily quotes,positive` | 現行 → `アファメーション,セルフケア,メンタルヘルス,不安,自己肯定感,先延ばし,マインドフルネス,ストレス,瞑想,自分を好きになる` | 現行 → `afirmaciones,autocuidado,salud mental,ansiedad,autoestima,bienestar,meditación,estrés,frases positivas,motivación` |
-| **Promo Text** | なし → `Start your free trial. Gentle words when you need them most.` | なし → `無料トライアル実施中。あなたが一番つらいとき、そっと届く言葉。` | なし → `Prueba gratuita disponible. Palabras que llegan cuando más las necesitas.` |
+| 問題 | ルール違反 | Source |
+|------|----------|--------|
+| Title に「affirmation」がない | 「#1 target keyword を Title に含める」 | metadata-optimization |
+| Subtitle が Title と「Self Care」「Daily」重複 | 「Never repeat keywords from the title」 | metadata-optimization |
+| Keywords に Title/Subtitle のワード重複 | 「Never repeat words from title or subtitle」 | metadata-optimization |
+| Keywords にスペース後のカンマなし（OK）だが「behavior change」は検索されない | 「Prioritize by: volume × relevance」 | keyword-research |
+| Promo Text 未設定 | 「Timely messaging that doesn't require app review」 | metadata-optimization |
+| ES が完全に別アプリの設定 | — | — |
 
-**根拠:**
-- Source: [AppFollow ASO Guide](https://appfollow.io/aso) — 「Title + Subtitle に最重要キーワードを含める」
-- 競合 I Am (709K reviews) / Motivation (1M reviews) は "Daily Affirmations" / "Daily quotes" をタイトルに使用
-- 「affirmations」はカテゴリ最重要キーワード → タイトルに入れる
-- ES は古い "Buddhist Nudges" が残っており即修正必須
+### 修正提案（3オプション + character count）
+
+#### EN Title (30 chars)
+
+| Option | Text | Chars | Keywords |
+|--------|------|-------|----------|
+| **推奨** | `Affirmations - Anicca` | 21/30 | affirmations ✓ |
+| Alt A | `Anicca: Daily Affirmations` | 27/30 | daily ✓ affirmations ✓ |
+| Alt B | `Self Care - Anicca` | 19/30 | self care ✓ |
+
+**決定: Alt A `Anicca: Daily Affirmations` (27/30)** — ブランド + #1 KW + #2 KW
+
+#### EN Subtitle (30 chars)
+
+| Option | Text | Chars | Keywords (Title未使用) |
+|--------|------|-------|----------------------|
+| **推奨** | `Self Care & Positive Mindset` | 29/30 | self care ✓ positive ✓ mindset ✓ |
+| Alt A | `Mindful Self Care & Wellness` | 29/30 | mindful ✓ self care ✓ wellness ✓ |
+| Alt B | `Gentle Words for Self Care` | 27/30 | gentle ✓ self care ✓ |
+
+**決定: 推奨 `Self Care & Positive Mindset` (29/30)** — 競合が「positive」「widgets」使用、「mindset」は Change your mindset（競合SS6共通）
+
+#### EN Keywords (100 chars)
+
+```
+self love,mental health,anxiety,stress,wellness,mindfulness,mood,calm,quote,meditation,habit,healing
+Characters: 99/100
+```
+
+ルール適用:
+- ❌ Title の「daily」「affirmations」「anicca」除外（metadata-optimization: 重複禁止）
+- ❌ Subtitle の「self care」「positive」「mindset」除外（同上）
+- ✓ singular form のみ（keyword-research: Apple indexes both）
+- ✓ スペースなし（keyword-research）
+- ❌ 「app」「free」除外（keyword-research: Don't include）
+
+#### JA Title (30 chars)
+
+| Option | Text | Chars |
+|--------|------|-------|
+| **決定** | `アニッチャ: 毎日のアファメーション` | 16/30 |
+
+#### JA Subtitle (30 chars)
+
+| Option | Text | Chars | Keywords (Title未使用) |
+|--------|------|-------|----------------------|
+| **決定** | `セルフケア・メンタルヘルス` | 13/30 |
+
+#### JA Keywords (100 chars)
+
+```
+自己肯定感,不安,先延ばし,考えすぎ,ストレス,瞑想,自分を好きになる,習慣,名言,心の平和,あにっちゃ,マインドフルネス
+Characters: 56/100（残り44文字 — 追加KW調査必要）
+```
+
+#### ES Title / Subtitle / Keywords
+
+| 項目 | Before ⚠️ | After |
+|------|----------|-------|
+| **Name** | `Buddhist Nudges -- Anicca` | `Anicca: Afirmaciones Diarias` (29/30) |
+| **Subtitle** | `Sigue los 5 Preceptos` | `Autocuidado y bienestar mental` (30/30) |
+| **Keywords** | 現行 | `autoestima,ansiedad,estrés,meditación,frases positiva,motivación,calma,hábito,bienestar,salud` (91/100) |
+
+#### Promo Text（全言語 — トライアルなし版）
+
+| 言語 | Text |
+|------|------|
+| EN | `Gentle words when you need them most. Cancel anytime.` |
+| JA | `あなたが一番つらいとき、そっと届く言葉。いつでもキャンセル可能。` |
+| ES | `Palabras que llegan cuando más las necesitas. Cancela cuando quieras.` |
+
+**⚠️ トライアルなしなので Promo Text に「free trial」「無料トライアル」は書かない。**
+
+### Keyword Coverage Matrix（EN）
+
+| Keyword | Title | Subtitle | Keyword Field | 配置 |
+|---------|-------|----------|---------------|------|
+| affirmations | ✓ | | | Title |
+| daily | ✓ | | | Title |
+| self care | | ✓ | | Subtitle |
+| positive | | ✓ | | Subtitle |
+| mindset | | ✓ | | Subtitle |
+| self love | | | ✓ | KW Field |
+| mental health | | | ✓ | KW Field |
+| anxiety | | | ✓ | KW Field |
+| stress | | | ✓ | KW Field |
+| wellness | | | ✓ | KW Field |
+| mindfulness | | | ✓ | KW Field |
+| meditation | | | ✓ | KW Field |
+| calm | | | ✓ | KW Field |
+| quote | | | ✓ | KW Field |
+| mood | | | ✓ | KW Field |
+| habit | | | ✓ | KW Field |
+| healing | | | ✓ | KW Field |
+
+**重複ゼロ。17キーワードカバー。**
 
 ---
 
@@ -413,37 +568,39 @@ Title JA: "ロック画面にアファメーションを設定する方法"
 
 ## 9. 実行順序
 
-| # | タスク | 担当 | 手動 | 再提出 |
-|---|--------|------|------|--------|
-| T1 | Primer Localizable.strings修正（EN/JA/ES） | CC | ❌ | ✅ |
-| T2 | Honne JA 3 cron → reelclaw形式 | CC | ❌ | ❌ |
-| T3 | 既存Anicca 4 cron修正（overlay削除+購入解除） | CC | ❌ | ❌ |
-| T4 | SKILL.md購入制限解除 | CC | ❌ | ❌ |
-| T5 | `openclaw gateway restart` | CC | ❌ | ❌ |
-| T6 | Widget Extension開発（全ファイル+.pbxproj+entitlement） | CC | ❌ | ✅ |
-| T7 | Onboarding改善（Processing+AppDemo） | CC | ❌ | ✅ |
-| T8 | ASO最適化（EN/JA/ES title+subtitle+keywords） | CC | ❌ | ✅(ASC) |
-| T9 | App Storeスクリーンショット生成+A/Bテスト | CC | ❌ | ✅(ASC) |
-| T10 | ビルド+提出 release/1.8.3 | CC | ❌ | ✅ |
-| **T11** | **Widget demo動画撮影（EN+JA）** | **ダイス** | **✅** | ❌ |
-| **T12** | **Honne EN TikTokアカウント作成** | **ダイス** | **✅** | ❌ |
-| **T13** | **Postiz接続+integration ID** | **ダイス** | **✅** | ❌ |
-| T14 | Honne EN cron 3つ追加 | CC | ❌ | ❌ |
-| T15 | Anicca Widget cron 4つ追加 | CC | ❌ | ❌ |
+| # | タスク | 担当 | 再提出 | 状態 |
+|---|--------|------|--------|------|
+| **T1** | **App Storeスクリーンショット生成（EN/JA/ES）** | **CC** | ✅(ASC) | 🔜 FIRST |
+| T2 | Primer + Paywall Localizable.strings修正（EN/JA/ES — trial全削除） | CC | ✅ | 🔜 |
+| T3 | PaywallVariantBView.swift — trial UI削除、CTA固定 | CC | ✅ | 🔜 |
+| T4 | ASO metadata 更新（EN/JA/ES — title+subtitle+keywords+promo） | CC | ✅(ASC) | 🔜 |
+| T5 | Honne JA 3 cron → reelclaw形式 | CC | ❌ | 🔜 |
+| T6 | 既存Anicca 4 cron修正（overlay削除+購入解除） | CC | ❌ | 🔜 |
+| T7 | SKILL.md購入制限解除 | CC | ❌ | 🔜 |
+| T8 | `openclaw gateway restart` | CC | ❌ | 🔜 |
+| T9 | Widget Extension開発 | CC | ✅ | 🔜 |
+| T10 | ビルド+提出 release/1.8.3 | CC | ✅ | 🔜 |
+| **T11** | **App Store Connect でトライアル削除（annual+monthly）** | **ダイス** | **✅** | ⏳ |
+| **T12** | **Widget demo動画撮影（EN+JA）** | **ダイス** | ❌ | ⏳ |
+| **T13** | **Honne EN TikTokアカウント作成** | **ダイス** | ❌ | ⏳ |
+| **T14** | **Postiz接続+integration ID** | **ダイス** | ❌ | ⏳ |
+| T15 | Honne EN cron 3つ追加 | CC | ❌ | 🔜 |
+| T16 | Anicca Widget cron 4つ追加 | CC | ❌ | 🔜 |
 
 ### 実行順
 
 ```
-NOW         → T2+T3+T4 (cron修正) → T5 (restart)
-TODAY       → T1 (Primer fix), T8 (ASO)
-TOMORROW    → T6 (Widget)
-DAY 3       → T7 (Onboarding), T9 (Screenshots) → T10 (Build+Submit)
-AFTER T6    → T11 (ダイスWidget動画) → T15 (Widget cron)
-PARALLEL    → T12+T13 (ダイスHonne EN) → T14 (Honne EN cron)
+NOW         → T1 (Screenshots FIRST!)
+TODAY       → T2+T3 (Primer+Paywall fix) → T4 (ASO) → T5-T8 (cron+restart)
+TOMORROW    → T9 (Widget)
+DAY 3       → T10 (Build+Submit)
+PARALLEL    → T11 (ダイス trial削除) + T12-T14 (ダイスタスク)
+AFTER T9    → T12 (ダイスWidget動画) → T16 (Widget cron)
+AFTER T13+14→ T15 (Honne EN cron)
 ```
 
-**T1+T6+T7+T8+T9 をまとめて1回の再提出（release/1.8.3）。**
-**T2-T5 は即実行可能（再提出不要）。**
+**T1〜T4+T9 をまとめて1回の再提出（release/1.8.3）。**
+**T5-T8 は即実行可能（再提出不要）。**
 
 ---
 
