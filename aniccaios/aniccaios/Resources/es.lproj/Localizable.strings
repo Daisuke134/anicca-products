@@ -1324,11 +1324,8 @@
 "paywall_b_per_year" = "/año";
 "paywall_b_per_month" = "/mes";
 "paywall_b_daily_price" = "Solo %@ por día";
-"paywall_b_trial_badge" = "Prueba gratuita de %@ incluida";
-"paywall_b_cta_trial" = "Comenzar prueba gratuita de %@";
 "paywall_b_cta_no_trial" = "Comienza tu viaje ahora";
 "paywall_b_review" = "\"Anicca me ayudó a ser más amable conmigo mismo.\" — Un usuario real";
-"paywall_b_trust_trial" = "Prueba gratis · Cancela cuando quieras · Sin cobro hasta que termine";
 "paywall_b_trust_no_trial" = "Cancela cuando quieras · Satisfacción garantizada";
 
 // MARK: - Paywall Primer (1.8.3)

@@ -1358,11 +1358,8 @@
 "paywall_b_per_year" = "/yr";
 "paywall_b_per_month" = "/mo";
 "paywall_b_daily_price" = "Just %@ per day";
-"paywall_b_trial_badge" = "%@ free trial included";
-"paywall_b_cta_trial" = "Start %@ Free Trial";
 "paywall_b_cta_no_trial" = "Start Your Journey Now";
 "paywall_b_review" = "\"Anicca helped me be kinder to myself.\" — A real user";
-"paywall_b_trust_trial" = "Free trial · Cancel anytime · No charge until trial ends";
 "paywall_b_trust_no_trial" = "Cancel anytime · Satisfaction guaranteed";
 
 // MARK: - Onboarding New 3 Screens (1.8.3)

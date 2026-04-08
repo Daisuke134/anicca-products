@@ -1358,11 +1358,8 @@
 "paywall_b_per_year" = "/年";
 "paywall_b_per_month" = "/月";
 "paywall_b_daily_price" = "1日あたりたった%@";
-"paywall_b_trial_badge" = "%@の無料トライアル付き";
-"paywall_b_cta_trial" = "%@無料トライアルを始める";
 "paywall_b_cta_no_trial" = "今すぐ旅を始める";
 "paywall_b_review" = "「アニッチャのおかげで自分に優しくなれました」— 実際のユーザー";
-"paywall_b_trust_trial" = "無料トライアル · いつでもキャンセル · トライアル中は課金なし";
 "paywall_b_trust_no_trial" = "いつでもキャンセル · 満足保証";
 
 // MARK: - Onboarding New 3 Screens (1.8.3)
