@@ -318,19 +318,41 @@ Source: adamlyttleapps skill — Screen 10 (Processing), 11 (App Demo), 12 (Valu
 
 ## 4. App Store スクリーンショット
 
-### 使う素材（raw-screenshots/）
+### PPO A/Bテスト — 2バリアント同時生成
 
-| SS# | EN素材 | JA素材 |
-|-----|--------|--------|
-| SS1 | `selfhatred-en.png` (FORGIVE YOURSELF / "Your worth isn't measured by productivity") | `self-hatred-ja.png` (自分を許せ / "あなたの価値は生産性で測れない") |
-| SS2 | `self-hatred2-en.png` (SELF-COMPASSION / "You're a much better person than you think") | `ja_01.png`相当 (自分を許せ / "自分を責めないで") |
-| SS3 | `procrastination-en.png` (DO IT NOW / "Done is better than perfect") | `procrastinatino-ja.png` (今すぐやれ / "完璧より完了") |
-| SS4 | `mypath-en.png` (My Path リスト) | `my-path-ja.png` (マイパス リスト) |
-| SS5 | `struffle-en.png` (What's holding you back?) | `ja-struggle.png` (どんなことに悩んでいますか？) |
+**Control（現行踏襲）:** 墨色ベース `#1A1918` + 金アクセント `#C9B382`
+**Treatment（新）:** ブルーベース `#0A1628` + 白アクセント `#E5E4E2`
 
-### 見出しテキスト（競合 Playwright スクレイプ結果に基づく）
+→ PPO（Product Page Optimization）で 50/50 traffic split。最低7日 → 90%信頼度で勝者確定。
 
-**競合スクショテキスト（Playwright で実際にスクレイプ済み）:**
+### デザインシステム
+
+| 項目 | Variant A（墨色） | Variant B（ブルー） |
+|------|-------------------|-------------------|
+| 背景 | `#1A1918` 墨色 + 和紙テクスチャ | `#0A1628` ダークネイビー + subtle gradient |
+| テキスト(見出し) | `#E5E4E2` オフホワイト | `#FFFFFF` 白 |
+| テキスト(本文) | `#A0A09E` グレー | `#8BA3C7` ライトブルーグレー |
+| アクセント | `#C9B382` 渋い金 | `#4A90D9` 落ち着いた青 |
+| CTA/Primary | `#4A90A4` 青 | `#5B9FE6` ブライトブルー |
+| Phone Frame | iPhone 15 Pro, Space Black | iPhone 15 Pro, Space Black |
+| フォント | SF Pro Display Bold 64pt | 同左 |
+| スタイル | 禅・わびさび | プレミアム・クリーン・信頼感 |
+
+Source: app-store-screenshots skill — 「Screenshots are advertisements, not documentation. Every screenshot sells one idea.」
+Source: aso best-practices.md — 「50%のユーザーは最初の3枚しか見ない」「60%のユーザーは3秒以内で離脱」
+
+### 6枚構成（v0.3の5枚 + Widget追加）
+
+| SS# | EN Headline | JA Headline | App画面 | 競合差別化 |
+|-----|-------------|-------------|---------|-----------|
+| 1 | End the Loop. | ループを、終わらせる。 | なし（タイポのみ） | Hero — ストップ・ザ・スクロール |
+| 2 | 13 Battles. We Fight Together. | 13の課題。一緒に向き合う。 | StrugglesStepView | パーソナライズ感 |
+| 3 | Words That Hit Hard | 刺さる言葉を、刺さる時に | NudgeCardView | コア機能デモ |
+| 4 | Your Path. Your Progress. | あなたの道。あなたの進捗。 | MyPathTabView | 継続性 |
+| 5 | Always There. Even Locked. | ロック画面にも、そばにいる。 | Widget on Home Screen | 競合差別化 #1 |
+| 6 | Break Free. | 自由になろう。 | なし（タイポ+円相） | CTA |
+
+### 競合スクショテキスト（Playwright で実際にスクレイプ済み）
 
 | SS# | I Am (709K reviews) | Motivation (1M reviews) |
 |-----|---------------------|------------------------|
@@ -341,27 +363,34 @@ Source: adamlyttleapps skill — Screen 10 (Processing), 11 (App Demo), 12 (Valu
 | 5 | 75+ categories | Themes for every mood |
 | 6 | Change your mindset | Change your mindset |
 
-**共通パターン:** SS1=通知+ウィジェット訴求、SS3=ウィジェット推し、SS6=マインドセット変革
+### 必要な raw スクショ（シミュレータ撮影）
 
-Source: app-store-screenshots skill — 「Screenshots are advertisements, not documentation. Every screenshot sells one idea.」
-Source: aso best-practices.md — 「50%のユーザーは最初の3枚しか見ない」「60%のユーザーは3秒以内で離脱」
-
-**Anicca スクショテキスト:**
-
-| SS# | EN Headline | JA Headline | 競合との差別化 |
-|-----|-------------|-------------|---------------|
-| SS1 | Words that find you when you need them | あなたを見つける言葉がある | 競合は「reminders/motivation」→ Aniccaは「感情的つながり」 |
-| SS2 | Be kinder to yourself today | 今日、自分にやさしく | 競合は「personalized」→ Aniccaは「具体的行動」 |
-| SS3 | Done is better than perfect | 完璧より完了 | 競合は「widgets/themes」→ Aniccaは「行動促進カード」 |
-| SS4 | Your personal growth path | あなた専用の成長の道 | 競合は「categories数」→ Aniccaは「パーソナライズ旅」 |
-| SS5 | Made for what you're going through | あなたの悩みに寄り添うために | 競合にない：悩み選択画面 |
-
-- A/Bテスト: ASC CLI でスクリーンショットセットのA/Bテスト実施
+| SS# | 画面 | 状態 | EN/JA |
+|-----|------|------|-------|
+| 2 | StrugglesStepView | 3-4個選択済み | 両方 |
+| 3 | NudgeCardView | 夜更かしNudge表示 | 両方 |
+| 4 | MyPathTabView | 3-4課題表示 | 両方 |
+| 5 | Home Screen + Widget | Widget配置済み | 両方 |
 
 ### 生成方法
-- ParthJadhav/app-store-screenshots skill (Next.js) で生成
-- iPhone mockup付き、4解像度出力（6.9", 6.5", 6.3", 6.1"）
-- EN / JA / ES の3言語
+- ParthJadhav/app-store-screenshots skill (Next.js) で 2バリアント × 6枚 × 2言語 = 24 PNG 生成
+- iPhone mockup付き、1284x2778 (IPHONE_65) で出力
+- EN / JA の2言語（ES は EN と共有）
+- visual-qa で 40/50+ 採点後に ASC アップロード
+
+### PPO A/Bテスト ASC CLIコマンド
+
+```bash
+# 実験作成（50/50 traffic split）
+EXP_ID=$(asc product-pages experiments create \
+  --v2 --app 6755129214 --platform IOS \
+  --name "screenshot-ab-v$(date +%Y%m%d)" \
+  --traffic-proportion 50 \
+  --output json | python3 -c "import json,sys; print(json.load(sys.stdin)['data']['id'])")
+
+# Treatment作成 + ロケール + スクショアップロード + 実験開始
+# → 詳細は screenshot-ab スキル PHASE 7 参照
+```
 
 ---
 
@@ -660,44 +689,77 @@ Title JA: "ロック画面にアファメーションを設定する方法"
 
 ---
 
-## 9. 実行順序
+## 9. 実行順序（完全TODO）
 
-| # | タスク | 担当 | 再提出 | 状態 |
+### フェーズ A: iOS 1.8.3 実装+提出
+
+| # | タスク | 担当 | 再提出 | スキル | 状態 |
+|---|--------|------|--------|--------|------|
+| **T1** | **Screenshots 生成（2バリアント×6枚×2言語=24 PNG）** | **CC** | ✅(ASC) | `app-store-screenshots` + `screenshot-ab` | 🔜 NOW |
+| T1a | シミュレータ raw スクショ撮影（EN+JA各4画面） | CC | — | `ios-simulator` | 🔜 |
+| T1b | Next.js page.tsx 生成 + export（墨色+ブルー2バリアント） | CC | — | `app-store-screenshots` | 🔜 |
+| T1c | visual-qa 採点（40/50+必須） | CC | — | `screenshot-ab` PHASE 5 | 🔜 |
+| T2 | Primer + Paywall Localizable.strings修正（trial全削除） | CC | ✅ | `tdd-feature` + `code-reviewer` | 🔜 |
+| T3 | PaywallVariantBView.swift — trial UI削除+savePct表示 | CC | ✅ | `tdd-bug-fix` + `code-reviewer` | 🔜 |
+| T4 | Onboarding 3画面（Processing+AppDemo+ValueDelivery） | CC | ✅ | `tdd-feature` + `ios-app-onboarding` | 🔜 |
+| T5 | OnboardingFlowView.swift — routing修正（12ステップ化） | CC | ✅ | `tdd-feature` | 🔜 |
+| T6 | ASO metadata更新（EN/JA/ES） | CC | ✅(ASC) | `metadata-optimization` | 🔜 |
+| T11 | Widget Extension開発 | CC | ✅ | `tdd-feature` + `code-reviewer` | 🔜 |
+| T12a | シミュレータ EN+JA 目視確認（ダイスに見せる） | CC | — | `ios-simulator` | 🔜 |
+| T12 | ビルド+提出 release/1.8.3 | CC | ✅ | `greenlight` + `asc-workflow` | 🔜 |
+
+### フェーズ B: Cron + 自動化（再提出不要）
+
+| # | タスク | 担当 | スキル | 状態 |
 |---|--------|------|--------|------|
-| **T1** | **App Storeスクリーンショット生成（EN/JA/ES）** | **CC** | ✅(ASC) | 🔜 FIRST |
-| T2 | Primer + Paywall Localizable.strings修正（EN/JA/ES — trial全削除） | CC | ✅ | 🔜 |
-| T3 | PaywallVariantBView.swift — trial UI削除、CTA固定 | CC | ✅ | 🔜 |
-| T4 | Onboarding 3画面追加（ProcessingStep + AppDemoStep + ValueDeliveryStep） | CC | ✅ | 🔜 |
-| T5 | OnboardingFlowView.swift — フロー routing 修正（12ステップ化） | CC | ✅ | 🔜 |
-| T6 | ASO metadata 更新（EN/JA/ES — title+subtitle+keywords+promo） | CC | ✅(ASC) | 🔜 |
-| T7 | Honne JA 3 cron → reelclaw形式 | CC | ❌ | 🔜 |
-| T8 | 既存Anicca 4 cron修正（overlay削除+購入解除） | CC | ❌ | 🔜 |
-| T9 | SKILL.md購入制限解除 | CC | ❌ | 🔜 |
-| T10 | `openclaw gateway restart` | CC | ❌ | 🔜 |
-| T11 | Widget Extension開発 | CC | ✅ | 🔜 |
-| T12 | ビルド+提出 release/1.8.3 | CC | ✅ | 🔜 |
-| **T13** | **App Store Connect でトライアル削除（annual+monthly）** | **ダイス** | **✅** | ⏳ |
-| **T14** | **Widget demo動画撮影（EN+JA）** | **ダイス** | ❌ | ⏳ |
-| **T15** | **Honne EN TikTokアカウント作成** | **ダイス** | ❌ | ⏳ |
-| **T16** | **Postiz接続+integration ID** | **ダイス** | ❌ | ⏳ |
-| T17 | Honne EN cron 3つ追加 | CC | ❌ | 🔜 |
-| T18 | Anicca Widget cron 4つ追加 | CC | ❌ | 🔜 |
+| T7 | Honne JA 3 cron → reelclaw形式移行 | CC | `reelclaw` | 🔜 |
+| T8 | 既存Anicca 4 cron修正（overlay削除+購入解除） | CC | — | 🔜 |
+| T9 | SKILL.md購入制限解除 | CC | — | 🔜 |
+| T10 | `openclaw gateway restart` | CC | — | 🔜 |
+| T18 | Anicca Widget cron 4つ追加（Widget demo動画後） | CC | `reelclaw` | ⏳ |
+| T17 | Honne EN cron 3つ追加（ENアカウント作成後） | CC | `reelclaw` | ⏳ |
 
-### 実行順
+### フェーズ C: ダイス手動タスク
+
+| # | タスク | 担当 | 依存 | 状態 |
+|---|--------|------|------|------|
+| **T13** | **ASC でトライアル削除（annual+monthly）** | **ダイス** | なし | ⏳ 今すぐ可 |
+| **T14** | **Widget demo動画撮影（EN+JA）** | **ダイス** | T11完了後 | ⏳ |
+| **T15** | **Honne EN TikTokアカウント作成** | **ダイス** | なし | ⏳ 今すぐ可 |
+| **T16** | **Postiz接続+integration ID取得** | **ダイス** | T15完了後 | ⏳ |
+
+### フェーズ D: A/Bテスト+スケール
+
+| # | タスク | 担当 | 依存 | 状態 |
+|---|--------|------|------|------|
+| T-AB | PPO スクショA/Bテスト開始（墨色 vs ブルー） | CC | T12 READY_FOR_SALE後 | ⏳ |
+| T-AB2 | 7日後 PPO結果確認 → 勝者採用 | CC | T-AB + 7日 | ⏳ |
+
+### 実行フロー
 
 ```
-NOW         → T1 (Screenshots FIRST!)
-TODAY       → T2+T3 (Primer+Paywall fix) → T4+T5 (Onboarding 3画面+routing) → T6 (ASO)
-TODAY CONT  → T7-T10 (cron+restart)
-TOMORROW    → T11 (Widget)
-DAY 3       → T12 (Build+Submit)
-PARALLEL    → T13 (ダイス trial削除) + T14-T16 (ダイスタスク)
-AFTER T11   → T14 (ダイスWidget動画) → T18 (Widget cron)
-AFTER T13+14→ T15 (Honne EN cron)
+═══ PHASE A: iOS 1.8.3 ═══
+T1a (raw撮影) → T1b (2バリアント生成) → T1c (QA)
+       ↓
+T2+T3 (並行: Strings+Paywall) → T4+T5 (Onboarding+Routing)
+       ↓
+T6 (ASO) → T11 (Widget) → T12a (シミュレータ目視) → T12 (Build+Submit)
+
+═══ PHASE B: Cron（T12と並行可） ═══
+T7+T8+T9 → T10 (gateway restart)
+
+═══ PHASE C: ダイス（今すぐ開始可） ═══
+T13 (trial削除) ← 今すぐ
+T15 (Honne EN TikTok作成) ← 今すぐ → T16 (Postiz接続) → T17 (EN cron追加)
+T14 (Widget動画) ← T11完了後 → T18 (Widget cron追加)
+
+═══ PHASE D: A/Bテスト ═══
+T12完了 → T-AB (PPO開始) → 7日後 → T-AB2 (結果確認)
 ```
 
-**T1〜T5+T11 をまとめて1回の再提出（release/1.8.3）。**
-**T7-T10 は即実行可能（再提出不要）。**
+**Phase A: T1〜T12 をまとめて release/1.8.3 で提出。**
+**Phase B: T7-T10 は即実行可能（再提出不要）。**
+**Phase C: ダイスは T13+T15 を今すぐ並行で開始。**
 
 ---
 
