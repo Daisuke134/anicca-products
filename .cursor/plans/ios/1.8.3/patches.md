@@ -239,7 +239,21 @@ struct AppDemoStepView: View {
 }
 ```
 
-**注意**: `NudgeCardContent` は既存の shared component。`NudgeCardView.swift` L内部の body から content 部分を参照。もし `NudgeCardContent` が存在しない場合は、`notificationText` と `detailText` を直接 `Text()` で表示する簡易版にフォールバック。
+**NudgeCardContent は独立コンポーネントとして存在確認済み。**
+File: `Views/NudgeCardContent.swift` L6
+Params: `icon: String, title: String, hookText: String, detailText: String, isAIGenerated: Bool`
+
+使い方:
+```swift
+let content = NudgeContent.contentForToday(for: primaryStruggle)
+NudgeCardContent(
+    icon: primaryStruggle.icon,       // ProblemType.icon (L111) — "🌙" 等
+    title: primaryStruggle.notificationTitle,
+    hookText: content.notificationText,
+    detailText: content.detailText,
+    isAIGenerated: false
+)
+```
 
 ---
 
@@ -407,6 +421,24 @@ struct ShareSheet: UIViewControllerRepresentable {
 | 7 | L319-323 | `trialBadge` 表示ブロック | **削除** |
 | 8 | L375 | `"has_trial"` analytics property | **削除** |
 | 9 | L378-382 | `trialStarted` analytics tracking | **削除** |
+
+### savePct 表示追加（L168-180 yearly planCard badge）
+
+Source: ios-app-onboarding skill — 「Yearly plan has "BEST VALUE" badge + "Save X%" + weekly breakdown」
+
+```swift
+// BEFORE:
+badge: String(localized: "paywall_plan_yearly_badge"),
+
+// AFTER:
+badge: savePct.map { "\(String(localized: "paywall_plan_yearly_badge")) · Save \($0)%" }
+    ?? String(localized: "paywall_plan_yearly_badge"),
+```
+
+JA 版は Localizable.strings に追加:
+```
+"paywall_b_save_pct" = "%d%%お得";
+```
 
 ### CTA 修正（L211-215）
 
@@ -632,7 +664,7 @@ struct NudgeTimelineProvider: TimelineProvider {
         let problemKey = struggles[dayOfYear % struggles.count]
         let problemTexts = texts[problemKey] ?? []
         let text = problemTexts.isEmpty ? "Be kind to yourself." : problemTexts[dayOfYear % problemTexts.count]
-        let emoji = ProblemType(rawValue: problemKey)?.emoji ?? "🪷"
+        let emoji = ProblemType(rawValue: problemKey)?.icon ?? "🪷"
         
         return NudgeEntry(date: date, nudgeText: text, problemEmoji: emoji)
     }
