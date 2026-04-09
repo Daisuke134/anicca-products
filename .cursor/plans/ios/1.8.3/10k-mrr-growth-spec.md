@@ -723,11 +723,11 @@ Title JA: "ロック画面にアファメーションを設定する方法"
 
 | # | タスク | 担当 | スキル | 状態 |
 |---|--------|------|--------|------|
-| T7 | Honne JA 3 cron → reelclaw形式移行 | CC | `reelclaw` | 🔜 |
-| T8 | 既存Anicca 4 cron修正（overlay削除+購入解除） | CC | — | 🔜 |
-| **T8b** | **Postiz TikTok "#Postiz" caption fix — SaaS版がサーバーサイドで追加。Postizセルフホスト（Mac Mini Docker）で解決** | **CC** | — | 🔜 |
-| T9 | SKILL.md購入制限解除 | CC | — | 🔜 |
-| T10 | `openclaw gateway restart` | CC | — | 🔜 |
+| T7 | Honne JA 3 cron → reelclaw形式移行 | CC | `reelclaw` | ✅ DONE (cron-fix-spec P5+P6) |
+| T8 | 既存Anicca 4 cron修正（overlay削除+購入解除） | CC | — | ✅ DONE |
+| **T8b** | **Postiz TikTok "#Postiz" caption fix — SaaS版がサーバーサイドで追加。Postizセルフホスト（Mac Mini Docker）で解決** | **CC** | — | ✅ DONE |
+| T9 | SKILL.md購入制限解除 | CC | — | ✅ DONE (SKILL.md L202修正) |
+| T10 | `openclaw gateway restart` | CC | — | ✅ DONE (2026-04-09) |
 | T18 | Anicca Widget cron 4つ追加（Widget demo動画後） | CC | `reelclaw` | ⏳ |
 | T17 | Honne EN cron 3つ追加（ENアカウント作成後） | CC | `reelclaw` | ⏳ |
 
