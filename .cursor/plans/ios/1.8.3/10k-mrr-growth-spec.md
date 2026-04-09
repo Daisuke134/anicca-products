@@ -549,10 +549,10 @@ Title JA: "アニッチャ試してみて — こんな言葉が毎日届く"
 
 | cron | 時間(JST) | 言語 | フック元 | Hook動画 | Demo動画 | 投稿先 |
 |------|----------|------|---------|---------|---------|--------|
-| reelclaw-anicca-ja-widget-1 | 08:00 | JA | Widget hooks W1-W12 JA | UGC 12本ローテ | `assets/reelclaw/ja-widget-videos/` 6本ローテ | TT+IG+YT (JA) |
-| reelclaw-anicca-ja-widget-2 | 18:00 | JA | Widget hooks W1-W12 JA (別) | 同上（別クリップ） | 同上（次テーマ） | 同上 |
-| reelclaw-anicca-en-widget-1 | 09:30 | EN | Widget hooks W1-W12 EN | UGC 12本ローテ | `assets/reelclaw/en-widget-videos/` 6本ローテ | TT+IG+YT (EN) |
-| reelclaw-anicca-en-widget-2 | 19:00 | EN | Widget hooks W1-W12 EN (別) | 同上（別クリップ） | 同上（次テーマ） | 同上 |
+| reelclaw-anicca-ja-widget-1 | 08:00 | JA | /Users/anicca/.openclaw/workspace/tiktok-marketing/reelclaw-widget-hooks-ja.json | UGC 12本ローテ | `assets/reelclaw/ja-widget-videos/` 6本ローテ | TT+IG+YT (JA) |
+| reelclaw-anicca-ja-widget-2 | 18:00 | JA | /Users/anicca/.openclaw/workspace/tiktok-marketing/reelclaw-widget-hooks-ja.json | 同上（別クリップ） | 同上（次テーマ） | 同上 |
+| reelclaw-anicca-en-widget-1 | 09:30 | EN | /Users/anicca/.openclaw/workspace/tiktok-marketing/reelclaw-widget-hooks-en.json | UGC 12本ローテ | `assets/reelclaw/en-widget-videos/` 6本ローテ | TT+IG+YT (EN) |
+| reelclaw-anicca-en-widget-2 | 19:00 | EN | /Users/anicca/.openclaw/workspace/tiktok-marketing/reelclaw-widget-hooks-en.json | 同上（別クリップ） | 同上（次テーマ） | 同上 |
 
 Title EN: "how to put affirmations on your lockscreen"
 Title JA: "ロック画面にアファメーションを設定する方法"
@@ -561,9 +561,9 @@ Title JA: "ロック画面にアファメーションを設定する方法"
 
 | cron | 時間(JST) | フック元 | Title（3候補ローテーション） |
 |------|----------|---------|--------------------------|
-| reelclaw-honne-ja-1 | 09:00 | `honne-mapping.json videos[].hooks[]`（動画紐づき） | ①LINEの本音をAIが翻訳する ②もう返信で悩まない ③あの人の本音、AIが教えてくれた |
-| reelclaw-honne-ja-2 | 15:00 | 同上（別動画+別hook） | 同上 |
-| reelclaw-honne-ja-3 | 20:00 | 同上（別動画+別hook） | 同上 |
+| reelclaw-honne-ja-1 | 09:00 | `/Users/anicca/.openclaw/workspace/honne-ai/honne-hooks-ja.json` + mapping `/Users/anicca/.openclaw/workspace/honne-ai/honne-mapping.json` | ①LINEの本音をAIが翻訳する ②もう返信で悩まない ③あの人の本音、AIが教えてくれた |
+| reelclaw-honne-ja-2 | 15:00 | `/Users/anicca/.openclaw/workspace/honne-ai/honne-hooks-ja.json` + mapping `/Users/anicca/.openclaw/workspace/honne-ai/honne-mapping.json` | 同上 |
+| reelclaw-honne-ja-3 | 20:00 | `/Users/anicca/.openclaw/workspace/honne-ai/honne-hooks-ja.json` + mapping `/Users/anicca/.openclaw/workspace/honne-ai/honne-mapping.json` | 同上 |
 
 投稿先: TT: cmnit95mg015rrm0ye5vm8dhl のみ
 
@@ -571,9 +571,9 @@ Title JA: "ロック画面にアファメーションを設定する方法"
 
 | cron | 時間(JST) | フック元 | Title（3候補ローテーション） |
 |------|----------|---------|--------------------------|
-| honne-en-morning | 08:30 | H1-H10 EN | ①AI that reads between the lines ②stop overthinking their texts ③what they actually meant by that text |
-| honne-en-afternoon | 13:30 | H1-H10 EN (別) | 同上 |
-| honne-en-evening | 22:30 | H1-H10 EN (別) | 同上 |
+| honne-en-morning | 08:30 | /Users/anicca/.openclaw/workspace/honne-ai/honne-hooks-en.json | ①AI that reads between the lines ②stop overthinking their texts ③what they actually meant by that text |
+| honne-en-afternoon | 13:30 | /Users/anicca/.openclaw/workspace/honne-ai/honne-hooks-en.json | 同上 |
+| honne-en-evening | 22:30 | /Users/anicca/.openclaw/workspace/honne-ai/honne-hooks-en.json | 同上 |
 
 ### 全cron修正点
 
