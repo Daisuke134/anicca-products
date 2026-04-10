@@ -169,6 +169,10 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 19-BP9 | **Paywall 階層: 価値 → 機能 → 価格 → CTA**。ヘッドライン（value proposition）→ feature highlights → pricing → CTA の順。whitespace で clutter 回避。3秒ルール（3秒で理解できる）。Source: https://apphud.com/blog/design-high-converting-subscription-app-paywalls — 「Design and layout: Start with the headline (value), followed by a few visual feature highlights, then pricing, and finally a strong CTA. Use whitespace to prevent clutter.」 |
 | 19-BP10 | **Trial は paywall の中央要素として繰り返す**。headline, CTA, supporting copy, footer など複数箇所で trial を明示する。Source: https://www.revenuecat.com/blog/growth/paywall-conversion-boosters/ — 「the trial offer should be a central, recurring element throughout your paywall」 |
 | 19-BP11 | **Pricing は 3〜4 個の明確な段階に絞る**。段階制価格は各レベルの価値差を明示し、選択過多を避ける。Source: https://stripe.com/jp/resources/more/subscription-pricing-models-a-guide-for-businesses — 「段階制モデルでは、企業は自社の製品やサービスをさまざまなレベルまたは「段階」に分け、それぞれに機能セットと対応する価格を設定します。」 |
+| 19-BP12 | **Onboarding は value demo、説明会ではない**。30〜60秒以内に core value を体験させ、アカウントや trial は後回しにする。Source: https://x.com/i/status/2041356135869841427 — 「Deliver an "aha moment" (core value) in under 30–60 seconds, before asking for accounts, trials, or data.」 |
+| 19-BP13 | **Paywall は onboarding 中に見せる**。ピークモチベーション時に表示して trial 率を上げる。Source: https://x.com/i/status/1989798727586922547 — 「Show paywall during onboarding (peak motivation).」 |
+| 19-BP14 | **価格は強気に始める**。value based pricing を優先し、安売り前提を削除する。Source: https://x.com/i/status/2002351444993687707 — 「Price Higher Than You Think—Focus on Perceived Value」 |
+| 19-BP15 | **実験は headline と pricing から始める**。RevenueCat Experiments / Adapty で remote test を回す。Source: https://x.com/i/status/2037246730220032478 — 「Remote tests on headlines/pricing」 |
 | 20 | **validate.sh / ralph.sh を CC が編集・削除禁止（外部品質ゲート）** |
 | 40 | **テンプレート編集禁止**: `.claude/skills/mobileapp-builder/` 内の prd.json, SKILL.md, CLAUDE.md は CC 編集禁止。`$APP_DIR/prd.json` のみ編集可 |
 | 21 | **1アプリ = 1 RC プロジェクト** Source: https://community.revenuecat.com/general-questions-7/project-vs-app-1899 |
