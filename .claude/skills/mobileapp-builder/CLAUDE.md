@@ -88,6 +88,10 @@ curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '
 | 20-BP16 | **Paywall は onboarding 中に見せる**。ピークモチベーション時に表示して trial 率を上げる。Source: https://x.com/i/status/1989798727586922547 — 「Show paywall during onboarding (peak motivation).」 |
 | 20-BP17 | **価格は強気に始める**。value based pricing を優先し、安売り前提を削除する。Source: https://x.com/i/status/2002351444993687707 — 「Price Higher Than You Think—Focus on Perceived Value」 |
 | 20-BP18 | **実験は headline と pricing から始める**。RevenueCat Experiments / Adapty で remote test を回す。Source: https://x.com/i/status/2037246730220032478 — 「Remote tests on headlines/pricing」 |
+| 20-BP19 | **Onboarding は 30〜60秒で core value を見せる**。signup や trial より先に価値体験を入れる。Source: https://x.com/i/status/2041356135869841427 — 「Deliver an "aha moment" (core value) in under 30–60 seconds, before asking for accounts, trials, or data.」 |
+| 20-BP20 | **Paywall は onboarding 中に出す**。peak motivation のタイミングを逃さない。Source: https://x.com/i/status/1989798727586922547 — 「Show paywall during onboarding (peak motivation).」 |
+| 20-BP21 | **高めの価格から始める**。value based pricing を優先し、安売り前提を削除する。Source: https://x.com/i/status/2002351444993687707 — 「Price Higher Than You Think—Focus on Perceived Value」 |
+| 20-BP22 | **週次 intro で payer をふるい、年額をアンカーにする**。cheap weekly intro で導入し、annual を長期 default にする。Source: https://x.com/i/status/1940451793697157562 — 「Weekly trials → Annual anchors: Start with cheap weekly intros ($0.99–$2.99) to filter payers, upsell annual」 |
 | 20b | **ATT 禁止**。AppTrackingTransparency / NSUserTrackingUsageDescription は使わない。スクショに ATT ダイアログが写り込む |
 | 21 | **1 iteration = 1 US（HARD STOP）**。1つのUSを `passes: true` にしたら、**その瞬間に作業を終了**する。次のUSに手を出すな。progress.txt を更新して終了。ralph.sh が次の iteration を起動する。これは提案ではなく**絶対ルール**。違反するとトークンが無駄になる（validate.sh は1USしか検証しない）。500ターン超過も即停止 |
 | 22 | **バックグラウンドタスク禁止（Task ツール）**。`Task` で長時間コマンドをバックグラウンド実行すると、--print モードのexit を妨げる。全コマンドは同期実行（Bash）で実行し、Task を使わない。find/grep等の探索は Bash で直接実行する |

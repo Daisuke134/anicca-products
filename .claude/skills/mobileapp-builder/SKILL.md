@@ -48,6 +48,15 @@ Source: rshankras ProductAgent WORKFLOW.md + snarktank/ralph
 | US-008e | Preflight + TF | release-review + validate + TestFlight + Slack | `release-review` | `references/us-008-release.md` Steps 7-10 |
 | US-009 | Submit | App Privacy (auto: asc web privacy) + submit → WAITING_FOR_REVIEW | `asc-submission-health` | `references/us-009-submit.md` |
 
+## Revenue BP Update (2026-04-11)
+
+Source: `/Users/anicca/.openclaw/workspace/factory-evolution/revenue-bp-2026-04-11.md`
+
+### Apply to monetization work
+- Show core value in 30-60 seconds before asking for signup or trial.
+- Show the paywall during onboarding while motivation is highest.
+- Start pricing high, then optimize with headline and pricing experiments first.
+- Use weekly intro pricing to filter payers, then anchor annual as the long-term default.
 
 ## Slack Interaction
 
