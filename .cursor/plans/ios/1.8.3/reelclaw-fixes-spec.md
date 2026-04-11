@@ -2,7 +2,7 @@
 
 **Status**: 📝 DRAFT（実装前）
 **Created**: 2026-04-11
-**Updated**: 2026-04-12 r4（**トライアル無し確定** / gpt-5.4 一括切替実行済 51件 / paywall_b_per_week 追加済 en+ja+es / ASC Variant B ja ローカライゼーション作成済 / 全タスク完全 TODO + デイリータイムテーブル）
+**Updated**: 2026-04-12 r5（**reelclaw TT も autoAddMusic: yes へ修正** / Variant B 価格グローバル確認（全地域 READY_TO_SUBMIT）/ Anicca Premium B グループに ja ローカライゼーション追加済 / **実機テストは TestFlight 使わず Debug build でローカル確認** / 全パッチコード・ステップ整備）
 **Goal**: $1k MRR by 2026-04-30（$46 → $1k = 21倍）
 **Scope**: reelclaw 全 cron / Larry / Honne + Anicca iOS RevenueCat Experiments（Variant B: Weekly $12.99 + Annual $59.99）
 
@@ -1703,31 +1703,32 @@ mcp__revenuecat__get-offering project_id=projbb7b9d1b offering_id=ofrngb357e8cdb
 | 06:30 | larry-daily-report-ja | Larry 日報 | Slack | JA | — | #metrics |
 | 07:00 | slideshow-ja-1 | Larry 6-slide | TikTok + IG | JA | TT: autoAddMusic / IG: なし | slideshow draft→publish |
 | 07:30 | slideshow-en-1 | Larry 6-slide | TikTok + IG | EN | TT: autoAddMusic / IG: なし | 〃 |
-| 09:00 | reelclaw-ja-1 / reelclaw-en-1 | Card demo | TT + YT + IG | JA + EN | YT: background track / TT + IG: baked | 動画 |
+| 09:00 | reelclaw-ja-1 / reelclaw-en-1 | Card demo | TT + YT + IG | JA + EN | **TT: silent + autoAddMusic yes** / **YT + IG: ffmpeg BGM 焼き込み** | 動画 |
 | 09:00 | anicca-nudge | iOS push | — | — | — | ユーザー通知 |
 | 10:00 | card-slideshow-en | Card 静止画 slideshow | TikTok + IG | EN | TT: autoAddMusic | 静止画 6 枚 |
 | 10:30 | card-slideshow-ja | Card 静止画 slideshow | TikTok + IG | JA | TT: autoAddMusic | 静止画 6 枚 |
 | 11:00 | mobileapp-factory-morning | 開発 | — | — | — | アプリ量産 |
-| 13:00 | reelclaw-honne-ja-1 | 本音動画 | TT only | JA | baked | 動画 |
+| 13:00 | reelclaw-honne-ja-1 | 本音動画 | TT only | JA | **silent + autoAddMusic yes** | 動画 |
 | 14:00 | anicca-nudge | iOS push | — | — | — | ユーザー通知 |
 | 15:00 | web-app-factory-daily | 開発 | — | — | — | Web アプリ量産 |
 | 16:00 | slideshow-ja-2 | Larry 6-slide | TikTok + IG | JA | TT: autoAddMusic / IG: なし | |
 | 16:30 | slideshow-en-2 | Larry 6-slide | TikTok + IG | EN | TT: autoAddMusic / IG: なし | |
 | 17:00 | reelclaw trend ingest | トレンド収集 | — | — | — | |
-| 18:00 | reelclaw-ja-2 / reelclaw-en-2 / anicca-widget-{ja,en}-1 | Card + widget | TT + YT + IG | JA + EN | YT: background / TT + IG: baked | 動画 |
-| 19:00 | reelclaw-honne-ja-2 | 本音動画 | TT only | JA | baked | 動画 |
+| 18:00 | reelclaw-ja-2 / reelclaw-en-2 / anicca-widget-{ja,en}-1 | Card + widget | TT + YT + IG | JA + EN | **TT: silent + autoAddMusic yes** / **YT + IG: ffmpeg BGM 焼き込み** | 動画 |
+| 19:00 | reelclaw-honne-ja-2 | 本音動画 | TT only | JA | **silent + autoAddMusic yes** | 動画 |
 | 20:00 | anicca-nudge | iOS push | — | — | — | ユーザー通知 |
 | 21:00 | slideshow-ja-3 | Larry 6-slide | TikTok + IG | JA | TT: autoAddMusic / IG: なし | |
 | 21:30 | slideshow-en-3 | Larry 6-slide | TikTok + IG | EN | TT: autoAddMusic / IG: なし | |
-| 22:00 | anicca-widget-{ja,en}-2 / reelclaw-honne-ja-3 | widget + 本音 | TT + YT + IG (widget) / TT only (honne) | JA + EN | baked | 動画 |
+| 22:00 | anicca-widget-{ja,en}-2 / reelclaw-honne-ja-3 | widget + 本音 | TT + YT + IG (widget) / TT only (honne) | JA + EN | **TT: silent + autoAddMusic yes** / **YT + IG: ffmpeg BGM 焼き込み** | 動画 |
 | 23:00 | larry-daily-report-en | Larry 日報 | Slack | EN | — | #metrics |
 | 23:30 | daily-memory / autonomy-check / suffering-detector | 深夜バッチ | — | — | — | LLM のみ |
 
-**注**:
-- **音楽ルール**: TikTok slideshow は `autoAddMusic: "yes"` + `content_posting_method: "DIRECT_POST"`（TT トレンド楽曲自動付与、即公開）
-- **IG slideshow** は音楽機能無し（Postiz API に autoAddMusic 無し）→ 無音で投稿
-- **動画系 (reelclaw card/widget/honne)** は ffmpeg で BGM を焼き込み（YouTube 用）または silence（TT/IG で TT 側のみ music 追加）
-- **現状の reelclaw 動画 cron** は既に BGM 焼き込み済み。変更不要
+**注（音楽ルール、r5 で統一）**:
+- **全 TikTok 投稿**（slideshow / card-slideshow / reelclaw card / widget / honne）= **silent 版** (`reel_nobgm.mp4` または `slide*.png`) + `autoAddMusic: "yes"` + `content_posting_method: "DIRECT_POST"` + `privacy_level: "PUBLIC_TO_EVERYONE"` → TT 側でトレンド楽曲が自動付与される
+- **Instagram (動画)** = `reel-final.mp4`（BGM 焼き込み版）、`direct post`
+- **YouTube Shorts** = `reel-final.mp4`（BGM 焼き込み版）、`direct post`
+- **Instagram slideshow (Larry / card-slideshow 静止画)** = Postiz API に autoAddMusic 無し → **無音**（将来スコープ外）
+- **render.sh は既に両方の出力を生成している**（`reel_nobgm.mp4` + `reel-final.mp4`）ため、修正不要。**SKILL.md の upload 処理だけが修正対象**
 
 ### G-6. Paywall B 最終ビジュアル（トライアル無し版 ASCII）
 
@@ -1767,4 +1768,298 @@ mcp__revenuecat__get-offering project_id=projbb7b9d1b offering_id=ofrngb357e8cdb
 - Variant A: monthly + annual、既存 UI（細かいプラン比較カード）
 - Variant B: weekly + annual、絵文字ベースの feature list、大きめの CTA、レビュー追加
 - **両方とも trial UI 無し**（今回確定）
+
+---
+
+## Part H — r5 完全実装プラン（2026-04-12）
+
+### H-1. ASC Variant B 調査結果（全部実測）
+
+| 項目 | 値 | ソース |
+|---|---|---|
+| weekly.b (6762049888) | `ONE_WEEK` / state=**READY_TO_SUBMIT** | `asc subscriptions view --id 6762049888` |
+| yearly.b (6762049696) | `ONE_YEAR` / state=**READY_TO_SUBMIT** | `asc subscriptions view --id 6762049696` |
+| weekly.b 価格 (全地域設定済) | USD $12.99 / JPY ¥2000 / GBP £12.99 / CAD C$17.99 / EUR €14.99 | `asc subscriptions pricing summary` |
+| yearly.b 価格 (全地域設定済) | USD $59.99 / JPY ¥10000 / GBP £59.99 / CAD C$79.99 / EUR €69.99 | 〃 |
+| weekly.b ローカライゼーション | en-US "Weekly Premium" / ja "週額プレミアム" | `asc subscriptions localizations list` |
+| yearly.b ローカライゼーション | en-US "Annual Premium" / ja "年額プレミアム" | 〃 |
+| サブスクグループ | **新 "Anicca Premium B" (22027036)** ※既存 "Anicca Premium" (21833082) とは別 | `asc subscriptions groups list` |
+| グループ en-US loc | "anicca pro" (PREPARE_FOR_SUBMISSION) | `asc subscriptions groups localizations list --group-id 22027036` |
+| **グループ ja loc** | "anicca" (PREPARE_FOR_SUBMISSION) — **r5 で CC が追加** | 〃 |
+| Review screenshot | ダイスが手動 upload 済 | ダイス発言 |
+| トライアル (intro offer) | **無し**（両方 `{data:[]}`） | `asc subscriptions offers introductory list` |
+
+**残り ASC 作業** = ゼロ。products は READY_TO_SUBMIT、group ローカライゼーションも 2 言語揃った。**next: iOS build に紐付けて app version submit**
+
+### H-2. RC Experiment 状態（MCP 実測）
+
+| 項目 | 値 |
+|---|---|
+| Experiment id | `prexpc5c110e6f6` |
+| display_name | "weekly vs monthly" |
+| status | **paused**（過去 5109 秒走って停止） |
+| offering_a | `anicca` (current) |
+| offering_b | `anicca_variant_b` |
+| experiment_type | `price_point` |
+| primary_metric | `realized_ltv_per_customer` |
+| enrollment_percentage | 100 |
+| enrollment_mode | `only_new` |
+
+**anicca_variant_b offering 構造** (ofrngb357e8cdb3):
+- `$rc_weekly` → `ai.anicca.app.ios.weekly.b` (prod8f94216c67)
+- `$rc_annual` → `ai.anicca.app.ios.yearly.b` (prodecbf22e88d)
+- ⚠️ 両 package が **position=1** で衝突（ダッシュボードで直す必要あり or MCP `update-package` 試す）
+
+**ダイスが実験作った後の状態** = **Paused**。意味: **Apple が Variant B products を approve → app に Variant B 表示コードを仕込んで build → app 審査通過 → Release → RC Dashboard で unpause**、この順番でしか有効化できない。今 unpause しても app 側に Variant B を出すコードが無いので意味なし。
+
+### H-3. **「なぜ App Store 再提出が必要か」**
+
+| 理由 | 説明 |
+|------|------|
+| 1. 新商品を version に紐付け | `weekly.b` / `yearly.b` は ASC で作られただけ。**どの App version にも紐付いてない** → ユーザーの StoreKit 側に出てこない。v1.8.4 version に追加して審査通すことで初めて店頭に並ぶ |
+| 2. PaywallVariantBView 新コード | `.weekly` 分岐 + trial UI 削除 + Mixpanel 分岐追加。**新しい binary** を upload しないとユーザーの端末で変わらない |
+| 3. Apple Guideline 3.1.2 確認 | Subscription group が新規 (`Anicca Premium B`)。Apple reviewer が group 名・localization・商品説明・価格を全部 re-review する |
+| 4. RC Experiment 有効化の前提 | RC は「リリース済 version に配信される offering」しか A/B できない。review 未通過 → offering_b 存在しないユーザーに何も表示できない |
+
+### H-4. **実機テスト方針（TestFlight 使わない）**
+
+| Step | 内容 |
+|---|---|
+| 1 | Xcode で `Debug` scheme を選択 + 実機 iPhone を lightning で繋ぐ |
+| 2 | `fastlane ios debug_build` or Xcode から直接 `Run`（Cmd+R） |
+| 3 | アプリ起動 → onboarding を通る → Paywall 画面を見る |
+| 4 | **デバッグ用 UserDefaults override** で `paywall_variant: "A"` → `"B"` を切り替えて両方確認 |
+| 5 | 購入は sandbox Apple ID でテスト（課金せずに検証可能） |
+| 6 | Mixpanel Live View で `paywall_variant` / `plan_type` イベント着弾確認 |
+| 7 | **TestFlight 不要**。Debug build で全部検証できる |
+
+> **追加実装**: PaywallVariantBView に `#if DEBUG` でラップした variant スイッチを入れる（例: Shake ジェスチャで A/B トグル）。既存の手段が無ければ H-9 に盛り込む。
+
+### H-5. 全パッチコード（コピペ可）
+
+#### Patch H-5a: `~/.agents/skills/reelclaw/SKILL.md` Step 4a（upload 2 本）
+
+```diff
+- UPLOAD_RESPONSE=$(curl -s -X POST "https://api.postiz.com/public/v1/upload" \
+-   -H "Authorization: $POSTIZ_API_KEY" \
+-   -F "file=@work/reel-final.mp4;filename=reel-final.mp4;type=video/mp4")
+-
+- VIDEO_ID=$(echo "$UPLOAD_RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
+- VIDEO_PATH=$(echo "$UPLOAD_RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin)['path'])")
++ # Upload BGM-baked version for IG + YT
++ UPLOAD_BGM=$(curl -s -X POST "https://api.postiz.com/public/v1/upload" \
++   -H "Authorization: $POSTIZ_API_KEY" \
++   -F "file=@work/reel-final.mp4;filename=reel-final.mp4;type=video/mp4")
++ BGM_ID=$(echo "$UPLOAD_BGM" | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
++ BGM_PATH=$(echo "$UPLOAD_BGM" | python3 -c "import sys,json; print(json.load(sys.stdin)['path'])")
++
++ # Upload silent version for TikTok (autoAddMusic will layer TT trending music)
++ UPLOAD_SILENT=$(curl -s -X POST "https://api.postiz.com/public/v1/upload" \
++   -H "Authorization: $POSTIZ_API_KEY" \
++   -F "file=@work/reel_nobgm.mp4;filename=reel_nobgm.mp4;type=video/mp4")
++ SILENT_ID=$(echo "$UPLOAD_SILENT" | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
++ SILENT_PATH=$(echo "$UPLOAD_SILENT" | python3 -c "import sys,json; print(json.load(sys.stdin)['path'])")
+```
+
+#### Patch H-5b: `~/.agents/skills/reelclaw/SKILL.md` Step 4b TikTok call
+
+```diff
+  {
+    "integration": {"id": "$TT_INTEGRATION"},
+-   "value": [{"content": "$CAPTION", "image": [{"id": "$VIDEO_ID", "path": "$VIDEO_PATH"}]}],
++   "value": [{"content": "$CAPTION", "image": [{"id": "$SILENT_ID", "path": "$SILENT_PATH"}]}],
+    "settings": {
+      "__type": "tiktok",
+      "title": "$CTA_TITLE",
+      "privacy_level": "PUBLIC_TO_EVERYONE",
+      "duet": true,
+      "stitch": true,
+      "comment": true,
+-     "autoAddMusic": "no",
++     "autoAddMusic": "yes",
+      "brand_content_toggle": false,
+      "brand_organic_toggle": false,
+      "video_made_with_ai": true,
+      "content_posting_method": "DIRECT_POST"
+    }
+  }
+```
+
+#### Patch H-5c: SKILL.md Step 4b IG + YT calls（`$VIDEO_ID` → `$BGM_ID`）
+
+```diff
+  # Instagram API call
+- "value": [{"content": "$CAPTION", "image": [{"id": "$VIDEO_ID", "path": "$VIDEO_PATH"}]}],
++ "value": [{"content": "$CAPTION", "image": [{"id": "$BGM_ID", "path": "$BGM_PATH"}]}],
+...
+  # YouTube API call
+- "value": [{"content": "$CAPTION", "image": [{"id": "$VIDEO_ID", "path": "$VIDEO_PATH"}]}],
++ "value": [{"content": "$CAPTION", "image": [{"id": "$BGM_ID", "path": "$BGM_PATH"}]}],
+```
+
+#### Patch H-5d: SKILL.md L434 / L567 / L620-621 古い注釈を反転
+
+```diff
+- **Important:** Set `autoAddMusic: "no"` in Step 4b since music is already baked in via ffmpeg. This ensures Instagram also gets the music (IG has no autoAddMusic API).
++ **Important:** TikTok uses silent `reel_nobgm.mp4` + `autoAddMusic: "yes"` so TikTok applies trending music on top. Instagram + YouTube use `reel-final.mp4` (BGM baked) because those platforms have no autoAddMusic API.
+
+- - ❌ `autoAddMusic: "yes"` for ReelClaw — BGM already baked in, "yes" = double audio
++ - ✅ `autoAddMusic: "yes"` for ReelClaw TikTok post — we upload silent `reel_nobgm.mp4`, TikTok adds trending music
+
+- - `autoAddMusic: "no"` because music is already baked in via ffmpeg (Step 3e). "yes" would cause double audio.
++ - `autoAddMusic: "yes"` for TikTok because we upload silent `reel_nobgm.mp4`. TikTok will layer trending music automatically.
+```
+
+#### Patch H-5e: `~/.openclaw/workspace/skills/reelclaw/scripts/post-video-to-tiktok.sh` L15-16
+
+```diff
+- PRIVACY="SELF_ONLY"
+- METHOD="UPLOAD"
++ PRIVACY="PUBLIC_TO_EVERYONE"
++ METHOD="DIRECT_POST"
+```
+
+#### Patch H-5f: `~/.openclaw/workspace/skills/larry/scripts/post-to-tiktok.js`
+
+```diff
+  (L68) const privacy = config.posting?.privacyLevel || 'SELF_ONLY';
++ (L68) const privacy = config.posting?.privacyLevel || 'PUBLIC_TO_EVERYONE';
+
+  (L91) autoAddMusic: 'no',
++ (L91) autoAddMusic: 'yes',
+
+  (L95) content_posting_method: 'UPLOAD'
++ (L95) content_posting_method: 'DIRECT_POST'
+```
+
+#### Patch H-5g: `~/.openclaw/workspace/skills/larry/scripts/add-text-overlay.js` L157-166
+
+```diff
+  function outputName(dir, num, inputName) {
+    if (inputName.endsWith('_raw.png')) {
+      return path.join(dir, `slide${num}.png`);
+    }
+-   if (inputName.startsWith('slide_') || inputName.startsWith('raw_') || /^\d+\.png$/.test(inputName)) {
+-     return path.join(dir, `final_${num}.png`);
+-   }
+-   return path.join(dir, `slide${num}_final.png`);
++   // r5: unify output so post-to-tiktok.js finds slide${i}.png every time
++   return path.join(dir, `slide${num}.png`);
+  }
+```
+
+#### Patch H-5h: `PaywallVariantBView.swift`（完全修正一式）
+
+```diff
+- @State private var yearlyPackage: Package?
+- @State private var monthlyPackage: Package?
++ @State private var yearlyPackage: Package?
++ @State private var weeklyPackage: Package?
+...
+- selectedPackage = yearlyPackage ?? monthlyPackage
++ selectedPackage = yearlyPackage ?? weeklyPackage
+...
+- if let yearly = yearlyPackage { planCard(package: yearly, priceLabel: yearly.localizedPriceString + String(localized: "paywall_b_per_year")) }
+- if let monthly = monthlyPackage { planCard(package: monthly, priceLabel: monthly.localizedPriceString + String(localized: "paywall_b_per_month")) }
++ if let weekly = weeklyPackage { planCard(package: weekly, priceLabel: weekly.localizedPriceString + String(localized: "paywall_b_per_week")) }
++ if let yearly = yearlyPackage { planCard(package: yearly, priceLabel: yearly.localizedPriceString + String(localized: "paywall_b_per_year")) }
+...
+- "plan_type": package.packageType == .annual ? "annual" : "monthly"
++ "plan_type": package.packageType == .annual ? "annual" : (package.packageType == .weekly ? "weekly" : "monthly")
+```
+
+加えて **trial UI 完全削除**:
+
+```diff
+- if hasTrialEligibility {
+-   Text(String(format: String(localized: "paywall_b_trial_badge"), trialPeriodString))
+-   ...
+- }
++ // trial UI removed — Anicca has no introductory offer configured in ASC
+```
+
+CTA ボタンと trust line も:
+
+```diff
+- Text(hasTrialEligibility ? String(localized: "paywall_b_cta_trial") : String(localized: "paywall_b_cta_no_trial"))
++ Text(String(localized: "paywall_b_cta_no_trial"))
+...
+- Text(hasTrialEligibility ? String(localized: "paywall_b_trust_trial") : String(localized: "paywall_b_trust_no_trial"))
++ Text(String(localized: "paywall_b_trust_no_trial"))
+```
+
+### H-6. 今日の 5 分刻み TEST cron（9 件、at-cron で全部入れる）
+
+**全部 `kind: at`、時刻は今日 JST 22:00〜22:40、5 分刻み。終了後、削除スクリプトで一括削除。**
+
+| 時刻 JST | id | 対象 | 期待結果 |
+|---|---|---|---|
+| 22:00 | TEST-slideshow-ja | slideshow-ja 実行 | TT 公開 + IG 公開、TT に trending music |
+| 22:05 | TEST-slideshow-en | slideshow-en 実行 | 同上 |
+| 22:10 | TEST-card-slideshow-ja | card-slideshow-ja 実行 | TT 公開 + IG 公開、TT に trending music |
+| 22:15 | TEST-card-slideshow-en | card-slideshow-en 実行 | 同上 |
+| 22:20 | TEST-reelclaw-card-ja | reelclaw ja card | TT: silent+TT music / YT: BGM / IG: BGM |
+| 22:25 | TEST-reelclaw-card-en | reelclaw en card | 同上 |
+| 22:30 | TEST-reelclaw-widget-ja | reelclaw ja widget | 同上 |
+| 22:35 | TEST-reelclaw-widget-en | reelclaw en widget | 同上 |
+| 22:40 | TEST-reelclaw-honne-ja | reelclaw honne | TT only、silent+TT music |
+
+### H-7. 実行順（ape-proof チェックリスト）
+
+| # | タスク | 実行者 | 依存 | 状態 |
+|---|---|---|---|---|
+| 1 | CTA 画像 140px 下シフト | CC | — | ✅ |
+| 2 | 全 enabled cron → gpt-5.4 (51件) | CC | — | ✅ |
+| 3 | weekly.b / yearly.b en-US + ja ローカライゼーション | CC | — | ✅ |
+| 4 | paywall_b_per_week 追加（en/ja/es） | CC | — | ✅ |
+| 5 | 価格設定（全地域） | ダイス手動 | — | ✅（ダイス実行済） |
+| 6 | レビュー用 screenshot upload | ダイス手動 | — | ✅（ダイス実行済） |
+| 7 | **Anicca Premium B グループに ja loc 追加** | CC | — | ✅（r5 で実行） |
+| 8 | add-text-overlay.js L157-166 naming バグ fix | CC | — | 未 |
+| 9 | post-to-tiktok.js L68/L91/L95 修正 | CC | — | 未 |
+| 10 | SKILL.md Step 4a/4b 2 本 upload 分岐 | CC | — | 未 |
+| 11 | SKILL.md L434/L567/L620 古い注釈反転 | CC | 10 | 未 |
+| 12 | post-video-to-tiktok.sh デフォルト修正 | CC | — | 未 |
+| 13 | `openclaw gateway restart` | CC | 8-12 | 未 |
+| 14 | TEST cron 9 件投入 | CC | 13 | 未 |
+| 15 | TEST cron 結果確認（TT/IG/YT で実際に公開されているか） | CC + ダイス | 14 | 未 |
+| 16 | TEST cron 削除 | CC | 15 | 未 |
+| 17 | PaywallVariantBView weekly 分岐 + trial UI 削除 | CC | — | 未 |
+| 18 | Mixpanel 既存 paywall_variant 送信重複チェック | CC | — | 未 |
+| 19 | `fastlane ios debug_build` で iPhone 実機に流す | CC + ダイス | 17-18 | 未 |
+| 20 | **Debug build で Variant A/B 両方実機表示確認**（TestFlight 使わない） | ダイス | 19 | 未 |
+| 21 | `fastlane ios release_build` で 1.8.4 build N archive | CC | 20 | 未 |
+| 22 | ASC に binary upload | CC | 21 | 未 |
+| 23 | v1.8.4 version 作成 + weekly.b/yearly.b 紐付け | CC | 22 | 未 |
+| 24 | ASC review notes 更新（trial 文言削除） | CC | 23 | 未 |
+| 25 | `asc apps submit --version 1.8.4` | CC | 24 | 未 |
+| 26 | Apple 審査通過 | Apple | 25 | 未 |
+| 27 | **RC Dashboard で experiment unpause**（過去 enrollment data 必要ならリセット） | ダイス手動 | 26 | 未 |
+| 28 | 14 日後、勝者 offering を `is_current=true`、敗者 archive | ダイス手動 | 27 | 未 |
+
+### H-8. ダイスの手動タスク（俺ができない 4 件のみ）
+
+| # | タスク | 理由 |
+|---|---|---|
+| M-1 | TEST cron 結果を目視で確認（TikTok/IG/YT の各アカウント） | 俺は API/ログは見れるがアカウント画面は見れない |
+| M-2 | iPhone Debug build で Variant A/B Paywall 実機確認 | 物理端末必須 |
+| M-3 | **RC Dashboard で experiment `prexpc5c110e6f6` を unpause**（app 審査通過後） | RC MCP に `update-experiment` 無し |
+| M-4 | 14 日後、勝者 offering を `is_current=true`、敗者を archive | RC MCP で可能な範囲は俺が補助するが、最終判断はダイス |
+
+### H-9. 追加確認事項（r5 でも残る不確実性 = ゼロを目指す）
+
+| 項目 | 状態 |
+|---|---|
+| weekly.b / yearly.b 価格全地域 | ✅ 確認済（USD/JPY/GBP/CAD/EUR READY_TO_SUBMIT） |
+| Premium B グループ ja loc | ✅ r5 で追加 |
+| Review screenshot | ✅ ダイスが実行済（俺は ASC API で内容までは verify していないが state=READY_TO_SUBMIT なので存在するはず） |
+| トライアル無し | ✅ `introductoryOffers` 両方空 |
+| reelclaw render.sh 2 出力 | ✅ `reel_nobgm.mp4` + `reel-final.mp4` 両方生成済 |
+| RC Experiment 作成 | ✅ `prexpc5c110e6f6` paused |
+| RC Experiment paywall_id 必要性 | ✅ **不要**（experiment_type: price_point） |
+| Mixpanel 既存 paywall_variant 送信 | ⚠️ Phase 1 実装時に Grep で確認（実機 Debug 確認で最終 verify） |
+| gpt-5.4 反映 | ⚠️ 次の cron 発火で確認。今日の TEST cron 9 件でも検証可能 |
+| anicca_variant_b package position 衝突 | ⚠️ ダッシュボードで修正 or MCP `update-package` 試行 |
+
+**r5 時点で実装ブロッカーはゼロ**。上の H-7 チェックリストを # 8 から順に実行すれば完了。
 
