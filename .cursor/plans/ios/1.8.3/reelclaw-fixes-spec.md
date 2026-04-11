@@ -430,6 +430,25 @@ JA:
 **Source**: https://www.revenuecat.com/docs/tools/experiments
 **Quote**: 「Experiments allow you to test changes to your paywall and see the impact on your business metrics... `offerings.current` will return the offering assigned by the experiment for that user.」
 
+## B-0.1: Variant B 作成済み ID（2026-04-11 実行済）
+
+| 項目 | ID / 値 |
+|------|---------|
+| ASC group B | `22027036` "Anicca Premium B" |
+| ASC Weekly B | `6762049888` `ai.anicca.app.ios.weekly.b` $12.99 USA |
+| ASC Annual B | `6762049696` `ai.anicca.app.ios.yearly.b` $59.99 USA |
+| RC Weekly product | `prod8f94216c67` |
+| RC Annual product | `prodecbf22e88d` |
+| RC Offering | `ofrngb357e8cdb3` "anicca_variant_b" |
+| RC Weekly package | `pkgee0fa83d4a1` `$rc_weekly` |
+| RC Annual package | `pkge597d6c6c97` `$rc_annual` |
+| RC entitlement (既存) | `entlb820c43ab7` "anicca Pro" — 両 product attach 済 |
+
+**残り手動作業**:
+- ASC review submit（スクショ追加 + `asc subscriptions review submit`）
+- RC Dashboard で Experiment `paywall_ab_v1` 作成（MCP 未対応）
+- WW 展開（現状 USA のみ — 必要なら `asc subscriptions pricing availability edit --territories "USA,CAN,GBR,..."`）
+
 ## B-0: App Store Connect 現状（2026-04-11 調査済）
 
 | 項目 | 値 |
