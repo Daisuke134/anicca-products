@@ -145,6 +145,14 @@ final class SubscriptionManager: NSObject {
             offerings = result
             await MainActor.run {
                 // キャッシュを確実に更新
+                #if DEBUG
+                // DEBUG: RC Experiment をバイパスして Variant B を強制表示
+                if let variantB = result.offering(identifier: "anicca_variant_b") {
+                    print("[SubscriptionManager] DEBUG force Variant B offering: \(variantB.identifier), packages=\(variantB.availablePackages.map { $0.identifier })")
+                    AppState.shared.updateOffering(variantB)
+                    return
+                }
+                #endif
                 if let offering = result.offering(identifier: AppConfig.revenueCatPaywallId) ?? result.current {
                     AppState.shared.updateOffering(offering)
                 } else {
