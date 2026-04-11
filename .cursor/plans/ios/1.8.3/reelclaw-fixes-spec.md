@@ -2,7 +2,7 @@
 
 **Status**: 📝 DRAFT（実装前）
 **Created**: 2026-04-11
-**Updated**: 2026-04-12 r2（Option B: 2出力 ffmpeg / TT=autoAddMusic yes + UPLOAD public / IG,YT=BGM焼込 / Larry 再稼働 含む / RC paywall design は native SwiftUI 描画なので無関係）
+**Updated**: 2026-04-12 r3（Larry slideshow overlay バグ特定 / CTA 画像 140px 下シフト実行済 / gpt-5.4-mini→gpt-5.4 model switch / PaywallVariantBView weekly サポート / today-only 5 分刻み test cron / ASC Variant B 名前変更）
 **Goal**: $1k MRR by 2026-04-30（$46 → $1k = 21倍）
 **Scope**: reelclaw 全 cron / Larry / Honne + Anicca iOS RevenueCat Experiments（Variant B: Weekly $12.99 + Annual $59.99）
 
@@ -1087,4 +1087,554 @@ RC Dashboard で revenue / conversion / trial 比較
 
 ---
 
-**最終更新**: 2026-04-12（実測ベース訂正ラウンド 2: x 座標式 / inline text= 削除 / Step 3e 維持 / cron 3 カテゴリ別 payload.message 置換 / Larry 除外 / A-6d スキーマ修正）
+**最終更新**: 2026-04-12 r3（Larry slideshow overlay バグ / CTA 画像修正 / gpt-5.4 switch / weekly サポート / today-only test cron / ASC 名前修正）
+
+---
+
+# PART F — r3 追加修正（2026-04-12 ダイス追加要望への回答）
+
+## F-1. Larry 実態訂正（ダイスが正しい、俺が間違ってた）
+
+俺が r2 で "Larry は 2026-03-13 以降投稿してない" と言ったのは **完全な誤り**。正しい cron 名を見逃してた。
+
+**実際に稼働中の Larry/slideshow cron（jobs.json 直接確認、2026-04-12）**:
+
+| Cron 名 | schedule (JST) | model | enabled |
+|---|---|---|---|
+| `slideshow-ja-1` | 0 7 * * * | gpt-5.4-mini | ✅ |
+| `slideshow-ja-2` | 0 16 * * * | gpt-5.4-mini | ✅ |
+| `slideshow-ja-3` | 0 21 * * * | gpt-5.4-mini | ✅ |
+| `slideshow-en-1` | 30 7 * * * | gpt-5.4-mini | ✅ |
+| `slideshow-en-2` | 30 16 * * * | gpt-5.4-mini | ✅ |
+| `slideshow-en-3` | 30 21 * * * | gpt-5.4-mini | ✅ |
+| `card-slideshow-en` | 0 10 * * * | gpt-5.4-mini | ✅ |
+| `card-slideshow-ja` | 30 10 * * * | gpt-5.4-mini | ✅ |
+| `larry-trend-hunter-{ja,en}` | 0 4 / 30 4 * * * | gpt-5.4-mini | ✅ |
+| `larry-strategy-updater` | 0 5 * * * | gpt-5.4-mini | ✅ |
+| `larry-daily-report-{ja,en}` | 30 6 / 0 7 * * * | gpt-5.4-mini | ✅ |
+
+**実行証拠**: `~/.openclaw/workspace/tiktok-marketing/posts/` 配下に最新 2026-04-11-0700, 2026-04-11-0730-morning-en, evening-en-20260411-213028 等が存在。Larry も card-slideshow も日次投稿中（SELF_ONLY draft）。
+
+**結論**: Larry は動いてる。ダイスが正しい。
+
+## F-2. Larry slideshow text overlay 50% 失敗の根本原因（特定済）
+
+**バグ**: `~/.openclaw/workspace/skills/larry/scripts/add-text-overlay.js` L144-166 と `post-to-tiktok.js` L50 の不整合。
+
+**add-text-overlay.js のファイル名規約**（L144-166 実測）:
+
+| 入力ファイル名 | 出力ファイル名 |
+|---|---|
+| `slide${num}_raw.png` | `slide${num}.png`（**上書き**） |
+| `slide_${num}.png` | `final_${num}.png` |
+| `slide${num}.png` | **`slide${num}_final.png`**（別名） |
+| `raw_${num}.png` | `slide${num}_final.png` |
+| `${num}.png` | `slide${num}_final.png` |
+
+**post-to-tiktok.js L50**: 常に `slide${i}.png` を読んで upload
+
+→ エージェントが slide を `slide1_raw.png` として生成した日 = overlay が `slide1.png` を上書き = **OK**
+→ エージェントが slide を `slide1.png` として直接生成した日 = overlay は `slide1_final.png` に書かれる = uploader は raw の `slide1.png` を upload = **overlay 完全スキップ**
+
+これが 50% 失敗の原因。
+
+**実測証拠**:
+
+| post dir | 出力ファイル | 投稿結果 |
+|---|---|---|
+| `2026-04-11-0700` (ja) | `slide1-6.png` のみ、overlay/final なし | ❌ bare 投稿 |
+| `2026-04-11-0730-morning-en` | `slide1-6.png` + **`overlay1-6.png`** + `texts.json` | ⚠️ overlay 生成されたが命名違反（`slideN.png` に書き戻してない） |
+| `2026-04-10-afternoon-ja-slideshow-61d431fc` | `slide1-6.png` + `slide1-6_final.png` | ⚠️ `_final` あるが uploader が読まない |
+| `evening-en-20260411-213028` | `slide1-6.png` + `texts.json` | ❌ overlay 実行されず |
+
+### Patch F-2a: post-to-tiktok.js L50 — 優先順位付き読み込み
+
+**Before** (L46-65):
+```javascript
+for (let i = 1; i <= 6; i++) {
+  const filePath = path.join(dir, `slide${i}.png`);
+  if (!fs.existsSync(filePath)) {
+    console.error(`  ❌ Missing: ${filePath}`);
+    process.exit(1);
+  }
+  ...
+}
+```
+
+**After**:
+```javascript
+for (let i = 1; i <= 6; i++) {
+  // Priority: slide${i}_final.png > overlay${i}.png > slide${i}.png
+  // Reason: add-text-overlay.js outputs vary by input filename convention.
+  // We MUST upload the overlaid version if it exists, never the raw slide.
+  const candidates = [
+    `slide${i}_final.png`,
+    `overlay${i}.png`,
+    `final_${i}.png`,
+    `slide${i}.png`,
+  ];
+  let filePath = null;
+  for (const name of candidates) {
+    const p = path.join(dir, name);
+    if (fs.existsSync(p)) { filePath = p; break; }
+  }
+  if (!filePath) {
+    console.error(`  ❌ Missing slide ${i}: tried ${candidates.join(', ')}`);
+    process.exit(1);
+  }
+  // FAIL LOUD if only raw slide exists (overlay was skipped)
+  const finalExists = fs.existsSync(path.join(dir, `slide${i}_final.png`))
+                    || fs.existsSync(path.join(dir, `overlay${i}.png`))
+                    || fs.existsSync(path.join(dir, `final_${i}.png`));
+  const textsExist = fs.existsSync(path.join(dir, 'texts.json'));
+  if (!finalExists && textsExist) {
+    console.error(`  ❌ texts.json exists but no overlay output for slide ${i} — add-text-overlay.js was not run. ABORTING.`);
+    process.exit(1);
+  }
+  console.log(`  Uploading ${path.basename(filePath)}...`);
+  const resp = await uploadImage(filePath);
+  ...
+}
+```
+
+### Patch F-2b: add-text-overlay.js — 強制的に slide${num}.png に上書き
+
+**Before** (L157-166):
+```javascript
+function outputName(dir, num, inputName) {
+  if (inputName.endsWith('_raw.png')) {
+    return path.join(dir, `slide${num}.png`);
+  }
+  if (inputName.startsWith('slide_') || inputName.startsWith('raw_') || /^\d+\.png$/.test(inputName)) {
+    return path.join(dir, `final_${num}.png`);
+  }
+  return path.join(dir, `slide${num}_final.png`);
+}
+```
+
+**After**:
+```javascript
+function outputName(dir, num, inputName) {
+  // ALWAYS output to slide${num}.png, overwriting the raw input.
+  // This guarantees post-to-tiktok.js uploads the overlaid version.
+  // Back up the raw file as slide${num}_raw.png if it wasn't already named that.
+  const rawBackup = path.join(dir, `slide${num}_raw.png`);
+  const target = path.join(dir, `slide${num}.png`);
+  if (inputName !== `slide${num}_raw.png` && !fs.existsSync(rawBackup)) {
+    fs.copyFileSync(path.join(dir, inputName), rawBackup);
+  }
+  return target;
+}
+```
+
+### Patch F-2c: SKILL.md に明示的なフロー強制を追加
+
+SKILL.md Section 2 (overlay) と Section 3 (post) の間に以下を追加:
+
+```markdown
+### ⚠️ MANDATORY POST-PRECONDITION
+
+Before calling `post-to-tiktok.js`, verify ALL 6 slides are overlaid:
+
+```bash
+for i in 1 2 3 4 5 6; do
+  if [ ! -f "$dir/slide${i}.png" ]; then
+    echo "ERROR: slide${i}.png missing"
+    exit 1
+  fi
+  # slide${i}.png must be newer than texts.json (proves overlay ran after text generation)
+  if [ "$dir/texts.json" -nt "$dir/slide${i}.png" ]; then
+    echo "ERROR: slide${i}.png is older than texts.json — overlay was not re-run. ABORT."
+    exit 1
+  fi
+done
+```
+
+If this check fails, DO NOT post. Re-run `add-text-overlay.js` first.
+```
+
+## F-3. CTA image 上寄せ問題（実行済）
+
+**実測**: `~/.openclaw/workspace/tiktok-marketing/assets/cta/anicca-cta-{ja,en}.png` は 704x1472。「アニッチャ」/「Anicca」が上に寄りすぎて一部切れかけ。
+
+**実行済コマンド**（2026-04-12、anicca-cta-{ja,en}.backup-20260412.png として元画像 backup 済）:
+
+```bash
+cd ~/.openclaw/workspace/tiktok-marketing/assets/cta/
+# Backup
+cp anicca-cta-ja.png anicca-cta-ja.backup-20260412.png
+cp anicca-cta-en.png anicca-cta-en.backup-20260412.png
+
+# 下から 140px trim、上に 140px クリーム色を splice
+# サンプル背景色: srgb(251,242,232)
+magick anicca-cta-ja.png \
+  -gravity south -chop 0x140 \
+  -gravity north -background "srgb(251,242,232)" -splice 0x140 \
+  anicca-cta-ja.png
+
+magick anicca-cta-en.png \
+  -gravity south -chop 0x140 \
+  -gravity north -background "srgb(251,242,232)" -splice 0x140 \
+  anicca-cta-en.png
+```
+
+**結果**: 704x1472 維持、テキスト切れ解消、クリーム背景となじむ。
+
+**Larry/reelclaw cron 側の影響**: なし。スクリプトは既存 `anicca-cta-{ja,en}.png` をそのまま使う。毎回上書きしてる場合は影響するので、**CTA 画像の再生成を禁止する**ルールを SKILL.md に追加:
+
+```markdown
+### ⚠️ CTA Image は編集禁止
+
+`~/.openclaw/workspace/tiktok-marketing/assets/cta/anicca-cta-{ja,en}.png` は固定済みの最終版。slide6 として使う場合は **そのまま copy/read のみ**。再生成・overwrite 禁止。
+```
+
+## F-4. gpt-5.4-mini → gpt-5.4 移行
+
+**現状**: 全 marketing cron が `openai-codex/gpt-5.4-mini` で稼働中。mini は速くて安いが、指示遵守が緩く overlay スキップ等のエラーを引き起こしている。
+
+**ダイスは ChatGPT Pro plan**（$200/月）契約中。Pro plan の Codex 枠は:
+
+**Source**: https://openai.com/chatgpt/pricing/
+**Quote**: 「Pro / Maximize your productivity — 5x or 20x more usage / Pro reasoning with GPT-5.4 Pro / Maximum Codex tasks / Unlimited GPT-5.3 and file uploads」
+
+→ Pro plan は gpt-5.4 / gpt-5.4 Pro へのアクセス + Maximum Codex tasks。日 19 個の marketing cron 程度では上限に達しない。
+
+**移行方針**: marketing 系 cron 全部を `openai-codex/gpt-5.4-mini` → `openai-codex/gpt-5.4` に切り替える。
+
+### Patch F-4: jobs.json 一括 model 切替
+
+```python
+import json
+p = '/Users/anicca/.openclaw/cron/jobs.json'
+d = json.load(open(p))
+
+TARGETS = {
+    'slideshow-ja-1','slideshow-ja-2','slideshow-ja-3',
+    'slideshow-en-1','slideshow-en-2','slideshow-en-3',
+    'card-slideshow-ja','card-slideshow-en',
+    'larry-trend-hunter-ja','larry-trend-hunter-en',
+    'larry-strategy-updater',
+    'larry-daily-report-ja','larry-daily-report-en',
+    'reelclaw-ja-1','reelclaw-ja-2','reelclaw-en-1','reelclaw-en-2',
+    'reelclaw-anicca-ja-widget-1','reelclaw-anicca-ja-widget-2',
+    'reelclaw-anicca-en-widget-1','reelclaw-anicca-en-widget-2',
+    'reelclaw-honne-ja-1','reelclaw-honne-ja-2','reelclaw-honne-ja-3',
+}
+
+count = 0
+for job in d.get('jobs', []):
+    if job.get('name') in TARGETS:
+        if job['payload'].get('model') == 'openai-codex/gpt-5.4-mini':
+            job['payload']['model'] = 'openai-codex/gpt-5.4'
+            count += 1
+
+json.dump(d, open(p, 'w'), ensure_ascii=False, indent=2)
+print(f'switched {count} crons to gpt-5.4')
+```
+
+その後 `openclaw gateway restart`。
+
+## F-5. Today-only test cron（5 分刻み）
+
+**ダイスの要望**: patches を適用したら、各 cron を今日 1 回だけ 5 分刻みで発火させて直接投稿を確認する。俺が手動で run すると gpt エージェントが関与しないから意味ない。
+
+### Patch F-5: at-kind test cron を jobs.json に追加
+
+今日の日時（今 01:55 JST）基準で 5 分刻み:
+
+| cron 名 | at (UTC) | 役割 |
+|---|---|---|
+| `TEST-slideshow-ja-1-r3` | 2026-04-12T04:00:00Z | slideshow JA |
+| `TEST-slideshow-en-1-r3` | 2026-04-12T04:05:00Z | slideshow EN |
+| `TEST-card-slideshow-ja-r3` | 2026-04-12T04:10:00Z | card slideshow JA |
+| `TEST-card-slideshow-en-r3` | 2026-04-12T04:15:00Z | card slideshow EN |
+| `TEST-reelclaw-ja-r3` | 2026-04-12T04:20:00Z | reelclaw card JA |
+| `TEST-reelclaw-en-r3` | 2026-04-12T04:25:00Z | reelclaw card EN |
+| `TEST-widget-ja-r3` | 2026-04-12T04:30:00Z | widget JA |
+| `TEST-widget-en-r3` | 2026-04-12T04:35:00Z | widget EN |
+| `TEST-honne-ja-r3` | 2026-04-12T04:40:00Z | honne JA |
+
+**実装時**: 各 TEST-* cron は既存 cron の payload.message をコピー + `kind: "at"` + `at: <timestamp>` に変更。実装時に `jobs.json` 追加 + `openclaw gateway restart`。
+
+**注**: 日付は patches 適用日に書き換える。上記は例示。
+
+## F-6. PaywallVariantBView weekly サポート + 契約期間整合性
+
+### 実測コード（PaywallVariantBView.swift 全 425 行 読了）
+
+**現状の問題**:
+
+| L | コード | 問題 |
+|---|---|---|
+| 19-20 | `yearlyPackage`/`monthlyPackage` のみ定義 | **weekly が存在しない** |
+| 107 | `selectedPackage = yearlyPackage ?? monthlyPackage` | **weekly 選択不可** |
+| 167, 183 | `planCards` が annual + monthly のみ描画 | weekly が画面に出ない |
+| 170 | `yearly.localizedPriceString + "paywall_b_per_year"` | OK（annual 固定） |
+| 186 | `monthly.localizedPriceString + "paywall_b_per_month"` | **monthly 固定 = weekly の期間文字列がない** |
+| 374 | `package.packageType == .annual ? "annual" : "monthly"` | weekly → "monthly" と誤分類 |
+| 377 | `package.packageType == .annual` で trial 判定 | weekly の trial 判定なし |
+
+**→ このまま Variant B offering（weekly + annual）を返すと:**
+- **Annual は正常表示**
+- **Weekly は画面に出ない**（`.monthly` にマッチしないため）
+- ユーザーには annual しか見えない = weekly 12.99 を試せない = A/B テスト無意味
+
+**更に深刻（Apple リジェクトリスク）**: もし誰かが `.weekly` を `.monthly` 扱いで表示するように雑に fix したら、価格 $12.99 に対して「月額」表示になる = **契約期間表記と課金周期が不一致 = App Store Guideline 3.1.2 違反 = リジェクト・BAN リスク**。
+
+### Patch F-6a: weeklyPackage プロパティ追加
+
+**Edit** `aniccaios/aniccaios/Onboarding/PaywallVariantBView.swift` L17-20:
+
+```swift
+private var offering: Offering? { appState.cachedOffering }
+private var packages: [Package] { offering?.availablePackages ?? [] }
+private var yearlyPackage: Package? { packages.first { $0.packageType == .annual } }
+private var monthlyPackage: Package? { packages.first { $0.packageType == .monthly } }
+private var weeklyPackage: Package? { packages.first { $0.packageType == .weekly } }
+```
+
+### Patch F-6b: selectedPackage デフォルト更新 L106-108
+
+```swift
+if selectedPackage == nil {
+    // Variant B: yearly → weekly fallback. Variant A: yearly → monthly fallback.
+    selectedPackage = yearlyPackage ?? weeklyPackage ?? monthlyPackage
+}
+```
+
+### Patch F-6c: planCards に weekly card 追加 L164-196
+
+**After**:
+```swift
+private var planCards: some View {
+    ScrollView {
+        VStack(spacing: 12) {
+            if let yearly = yearlyPackage {
+                planCard(
+                    package: yearly,
+                    priceLabel: yearly.localizedPriceString + String(localized: "paywall_b_per_year"),
+                    badge: String(localized: "paywall_plan_yearly_badge"),
+                    dailyPriceLabel: dailyPrice.map {
+                        String(format: NSLocalizedString("paywall_b_daily_price", comment: ""), $0)
+                    },
+                    trialBadge: (hasTrialEligibility && selectedPackage?.packageType == .annual)
+                        ? trialPeriodText.map {
+                            String(format: NSLocalizedString("paywall_b_trial_badge", comment: ""), $0)
+                          }
+                        : nil
+                )
+            }
+
+            if let weekly = weeklyPackage {
+                planCard(
+                    package: weekly,
+                    priceLabel: weekly.localizedPriceString + String(localized: "paywall_b_per_week"),
+                    badge: nil,
+                    dailyPriceLabel: nil,
+                    trialBadge: nil
+                )
+            }
+
+            if let monthly = monthlyPackage {
+                planCard(
+                    package: monthly,
+                    priceLabel: monthly.localizedPriceString + String(localized: "paywall_b_per_month"),
+                    badge: nil,
+                    dailyPriceLabel: nil,
+                    trialBadge: nil
+                )
+            }
+        }
+        .padding(.horizontal, 24)
+        .padding(.top, 8)
+    }
+}
+```
+
+**契約期間整合性保証**: `weekly.localizedPriceString`（$12.99）+ `per_week`（週ごと）= 週課金と一致。Apple リジェクトリスクなし。
+
+### Patch F-6d: Localizable.strings に `paywall_b_per_week` 追加
+
+**Edit** `aniccaios/aniccaios/en.lproj/Localizable.strings`:
+```
+"paywall_b_per_week" = " / week";
+```
+
+**Edit** `aniccaios/aniccaios/ja.lproj/Localizable.strings`:
+```
+"paywall_b_per_week" = " / 週";
+```
+
+**Edit** `aniccaios/aniccaios/es.lproj/Localizable.strings`:
+```
+"paywall_b_per_week" = " / semana";
+```
+
+### Patch F-6e: purchase() analytics に weekly plan_type 追加 L372-376
+
+```swift
+AnalyticsManager.shared.trackPostHog("paywall_purchased", properties: [
+    "variant": variant,
+    "plan_type": {
+        switch package.packageType {
+        case .annual: return "annual"
+        case .weekly: return "weekly"
+        case .monthly: return "monthly"
+        default: return "unknown"
+        }
+    }(),
+    "has_trial": package.storeProduct.introductoryDiscount != nil
+])
+```
+
+## F-7. RC offering "anicca" 現状確認（MCP 実測 2026-04-12）
+
+**MCP call**: `get-offering project_id=projbb7b9d1b offering_id=ofrng78a01eb506 expand=[package,package.product]`
+
+| 項目 | 値 |
+|------|-----|
+| `id` | `ofrng78a01eb506` |
+| `lookup_key` | `anicca` |
+| `is_current` | **true** ✅ |
+| `state` | active |
+| `$rc_annual` package | `ai.anicca.app.ios.annual` (P1Y, P3D trial) ✅ + 旧 `yearly` (legacy) |
+| `$rc_monthly` package | `ai.anicca.app.ios.monthly` (P1M, P3D trial) ✅ + 旧 `monthly` (legacy) |
+
+**判定**: RC offering `anicca` は**最新の monthly/annual を反映している**。iOS SDK は platform-matched で ASC の `ai.anicca.app.ios.{annual,monthly}` を返す。問題なし。
+
+**legacy products（`yearly`, `monthly`）**: StoreKit config の古い残骸。アプリは iOS App Store store_id のみ使うので影響なし。cleanup は任意。
+
+## F-8. RC offering "anicca_variant_b" 現状確認（MCP 実測 2026-04-12）
+
+| 項目 | 値 |
+|------|-----|
+| `id` | `ofrngb357e8cdb3` |
+| `lookup_key` | `anicca_variant_b` |
+| `is_current` | **false** ✅（Experiment で切り替わる） |
+| `state` | active |
+| `$rc_annual` package | `ai.anicca.app.ios.yearly.b` display_name **"Anicca Annual B"** |
+| `$rc_weekly` package | `ai.anicca.app.ios.weekly.b` display_name **"Anicca Weekly B"** |
+| `subscription.duration` | **null（未同期）** ⚠️ |
+
+**問題 1: duration が null**
+
+ASC 側の state が `MISSING_METADATA` なので ASC localization（display name + description）が未入力 = RC が product detail を fetch できていない。ダイスが ASC で metadata を埋めれば同期される。
+
+**問題 2: display name に "B" 付き**
+
+`"Anicca Weekly B"` `"Anicca Annual B"` は A/B 識別子だが、ユーザーから見ると「Bって何？なんかテスト？」と不信感。paywall の plan card に表示される（`package.storeProduct.localizedTitle`）。
+
+### Patch F-8a: ASC で Variant B product の display name を修正
+
+**ASC CLI**:
+```bash
+# Weekly B: "Anicca Weekly B" → "Anicca Premium Weekly"
+asc iap update --id 6762049888 --name "Anicca Premium Weekly"
+
+# Annual B: "Anicca Annual B" → "Anicca Premium Annual"
+asc iap update --id 6762049696 --name "Anicca Premium Annual"
+```
+
+各ロケール（en/ja/es）で localization も同時更新:
+```bash
+asc iap localization set --id 6762049888 --locale en-US --name "Anicca Premium Weekly" --description "Weekly premium access to Anicca's AI mentor, affirmations, and widgets."
+asc iap localization set --id 6762049888 --locale ja --name "Anicca プレミアム 週額" --description "週額でAniccaのAIメンター、アファメーション、ウィジェットにアクセス。"
+# annual も同様
+```
+
+**Variant A との整合性**: Group A は `Annual Subscription` / `Monthly Subscription`。Group B は `Anicca Premium Weekly` / `Anicca Premium Annual` に揃える（A も合わせて `Anicca Premium Monthly` / `Anicca Premium Annual` に改名するのも一案）。
+
+### Patch F-8b: ASC Variant B localization 全ロケール記入 → MISSING_METADATA 解消
+
+ASC で:
+1. Weekly B に en/ja/es localization (name + description) 記入
+2. Annual B に en/ja/es localization (name + description) 記入
+3. Weekly B + Annual B の review screenshot アップロード（Group A のを流用可）
+
+これで state が `READY_TO_SUBMIT` → submit → `WAITING_FOR_REVIEW` → `APPROVED` に進行。
+
+### Patch F-8c: ASC metadata 入ったら RC で再同期確認
+
+```
+mcp__revenuecat__get-offering project_id=projbb7b9d1b offering_id=ofrngb357e8cdb3 expand=[package,package.product]
+```
+
+`subscription.duration` が `P1W` (weekly) と `P1Y` (annual) になっていれば OK。
+
+## F-9. ダイスが手動でやる作業（少ない、2〜3 個）
+
+| # | タスク | 場所 | 所要 |
+|---|---|---|---|
+| 1 | ASC で Variant B product localization 3 ロケール記入（Weekly + Annual） | ASC 画面 | 15 分 |
+| 2 | ASC で Variant B review screenshot アップロード（Group A から流用） | ASC 画面 | 5 分 |
+| 3 | RC Dashboard で Experiment 作成（Control=anicca, Treatment=anicca_variant_b, 50/50, 14 日） | RC 画面 | 5 分 |
+| 4 | v1.8.4 build を iPhone 実機で手動動作確認（Mac Mini + USB 接続） | Xcode | 10 分 |
+
+**v1.8.4 の iPhone 実機テスト手順**（俺が build して TestFlight アップロード後）:
+
+1. iPhone を Mac Mini に USB 接続
+2. `xcrun devicectl list devices` で接続確認
+3. TestFlight アプリから v1.8.4 build N をインストール
+4. onboarding → paywall 変数確認:
+   - Control: monthly $7.99 + annual $39.99 表示 + purchase
+   - Treatment: weekly $12.99 + annual $59.99 表示 + purchase
+5. Mixpanel Live View でイベント着弾確認: `paywall_viewed`, `paywall_plan_selection_viewed`, `paywall_purchased`（variant/plan_type 付き）
+6. purchase → unlock 確認
+7. restore purchases 確認
+
+## F-10. 完全統合 TODO リスト（r3）
+
+### Phase 1 — Reelclaw + Larry + CTA fix（マーケ復旧、P0、今日中）
+
+| # | タスク | 場所 | ステータス |
+|---|---|---|---|
+| 1 | CTA image shift 140px down | `~/.openclaw/workspace/tiktok-marketing/assets/cta/anicca-cta-{ja,en}.png` | ✅ 実行済 2026-04-12 |
+| 2 | SKILL.md に「CTA 画像編集禁止」ルール追加 | `~/.agents/skills/reelclaw/SKILL.md` + `~/.openclaw/workspace/skills/larry/SKILL.md` | |
+| 3 | Patch F-2a: post-to-tiktok.js L50 優先順位付き読込 | `~/.openclaw/workspace/skills/larry/scripts/post-to-tiktok.js` | |
+| 4 | Patch F-2b: add-text-overlay.js 出力を slide${num}.png に強制 | `~/.openclaw/workspace/skills/larry/scripts/add-text-overlay.js` | |
+| 5 | Patch F-2c: SKILL.md に post-precondition 追加 | `~/.openclaw/workspace/skills/larry/SKILL.md` | |
+| 6 | Patch A-1: reelclaw render.sh drawtext `x=(w-text_w)/2` + JA fontsize 56 | SKILL.md + 全 render.sh | |
+| 7 | Patch A-2: リテラル `\n` 削除 | SKILL.md | |
+| 8 | Patch A-5: drawtext 二重記載削除 | SKILL.md | |
+| 9 | Patch A-6a/b: render.sh を 2 出力分岐（final-bgm + final-nomusic） | SKILL.md + render.sh | |
+| 10 | Patch A-6c: 11 reelclaw cron 3 カテゴリ別 payload.message 書き換え（autoAddMusic yes + DIRECT_POST + PUBLIC_TO_EVERYONE） | `~/.openclaw/cron/jobs.json` | |
+| 11 | Larry/slideshow/card-slideshow cron も DIRECT_POST + autoAddMusic yes に切替（現状 draft/SELF_ONLY/autoAddMusic no） | SKILL.md + cron message 内の hardcode | |
+| 12 | Patch F-4: jobs.json 一括 model 切替 gpt-5.4-mini → gpt-5.4 | `~/.openclaw/cron/jobs.json` | |
+| 13 | `openclaw gateway restart` | Mac Mini | |
+| 14 | Patch F-5: TEST-*-r3 at-cron 追加（5 分刻み、9 本） | `~/.openclaw/cron/jobs.json` | |
+| 15 | 実機観測: 各 TEST cron 発火を待ち、投稿結果（TT direct / IG BGM / YT BGM）を確認 | Postiz dashboard + 各 SNS | |
+
+### Phase 2 — RevenueCat A/B（ダイス手動 + 俺の確認）
+
+| # | タスク | 場所 | ステータス |
+|---|---|---|---|
+| 16 | ASC Group A/B product 名前揃え（"Anicca Premium {Annual,Weekly}" 形式） | ASC CLI | |
+| 17 | ASC Variant B localization 3 ロケール記入（MISSING_METADATA 解消） | ASC 画面（ダイス手動） | |
+| 18 | ASC Variant B review screenshot アップロード | ASC 画面（ダイス手動） | |
+| 19 | ASC Variant B submit for review | ASC CLI | |
+| 20 | RC `get-offering anicca_variant_b` で duration が P1W/P1Y に同期されたか確認 | RC MCP | |
+| 21 | RC Dashboard で Experiment 作成（Control=anicca, Treatment=anicca_variant_b, 50/50, 14 日） | RC 画面（ダイス手動） | |
+
+### Phase 3 — iOS Swift パッチ + ビルド + 実機テスト
+
+| # | タスク | 場所 |
+|---|---|---|
+| 22 | dev から worktree 作成 | `git worktree add ../anicca-reelclaw-rc-ab -b feature/reelclaw-rc-ab-fix origin/dev` |
+| 23 | Patch F-6a/b/c/d/e: PaywallVariantBView weekly 対応 | `aniccaios/aniccaios/Onboarding/PaywallVariantBView.swift` + 3 ロケール Localizable.strings |
+| 24 | Patch B-4a: SubscriptionManager fallback 反転 | `aniccaios/aniccaios/Services/SubscriptionManager.swift` L43/L148 |
+| 25 | Patch B-4c/d: PostHog `paywall-ab-test` gating 削除 | `PaywallVariantBView.swift` + `OnboardingFlowView.swift` |
+| 26 | AnalyticsManager に `paywall_variant` + `purchase_package` プロパティ追加 | `aniccaios/aniccaios/Services/AnalyticsManager.swift` |
+| 27 | Version bump 1.8.3 → 1.8.4, build N+1 | `aniccaios/aniccaios/Info.plist` |
+| 28 | `fastlane beta` で Archive + TestFlight アップロード | Mac Mini fastlane |
+| 29 | TestFlight から iPhone（USB 接続）に配信 + 動作確認（F-9 手順） | Mac Mini + iPhone |
+| 30 | Mixpanel Live View で `paywall_variant` / `purchase_package` 着弾確認 | Mixpanel |
+
+### Phase 4 — App Store 提出 + Experiment 開始
+
+| # | タスク |
+|---|---|
+| 31 | ASC `asc metadata update` で review notes 更新（Variant B A/B 説明追加） |
+| 32 | `asc apps submit --version 1.8.4 --build N` で提出 |
+| 33 | Apple 審査通過（通常 24〜48h） |
+| 34 | Release → RC Dashboard で Experiment を Start |
+| 35 | 14 日経過後、勝者 offering を `is_current=true` に切替、敗者 archive |
