@@ -41,13 +41,14 @@ struct AppDemoStepView: View {
 
             Button(action: next) {
                 Text("onboarding_demo_cta")
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.accentColor)
+                    .font(.system(size: 18, weight: .semibold))
                     .foregroundStyle(.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 56)
+                    .background(AppTheme.Colors.accent)
+                    .clipShape(RoundedRectangle(cornerRadius: 28))
             }
+            .padding(.horizontal, 24)
         }
         .padding()
         .onAppear {

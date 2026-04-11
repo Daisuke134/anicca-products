@@ -70,16 +70,12 @@ struct PaywallVariantBView: View {
 
     private var heroSection: some View {
         VStack(spacing: 8) {
-            Image("AniccaLogo")
-                .resizable()
-                .frame(width: 64, height: 64)
-                .clipShape(RoundedRectangle(cornerRadius: 14))
-
             Text(String(localized: "paywall_b_title"))
                 .font(.system(size: 28, weight: .bold))
                 .foregroundStyle(AppTheme.Colors.label)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 24)
+                .padding(.top, 32)
 
             Text(String(localized: "paywall_b_subtitle"))
                 .font(.system(size: 15))
