@@ -1323,6 +1323,7 @@
 "paywall_b_feature_cancel" = "Cancela cuando quieras, sin preguntas";
 "paywall_b_per_year" = "/año";
 "paywall_b_per_month" = "/mes";
+"paywall_b_per_week" = "/semana";
 "paywall_b_daily_price" = "Solo %@ por día";
 "paywall_b_cta_no_trial" = "Comienza tu viaje ahora";
 "paywall_b_review" = "\"Anicca me ayudó a ser más amable conmigo.\"";
