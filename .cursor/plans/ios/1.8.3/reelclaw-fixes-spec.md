@@ -2,7 +2,7 @@
 
 **Status**: 📝 DRAFT（実装前）
 **Created**: 2026-04-11
-**Updated**: 2026-04-11（Superwall → RevenueCat Experiments にピボット、プラットフォームマトリクス確定）
+**Updated**: 2026-04-12（実測ベース訂正: x 座標 `(w-text_w)/2` / inline text= 削除 / Step 3e 維持 / cron 3 カテゴリ別 payload.message 置換 / Larry 除外）
 **Goal**: $1k MRR by 2026-04-30（$46 → $1k = 21倍）
 **Scope**: reelclaw 全 cron / Larry / Honne + Anicca iOS RevenueCat Experiments（Variant B: Weekly $12.99 + Annual $59.99）
 
@@ -17,6 +17,17 @@
 | reelclaw honne | ✅ | — | — | JA only |
 
 **ルール**: 上4つ（mau/larry/reelclaw card/widget）= TT/YT/IG、最後（honne）= TT のみ。
+
+**検証済現状（2026-04-12 実測）**:
+
+| スキル | TT 現状 | IG 現状 | YT 現状 | 備考 |
+|--------|---------|--------|---------|------|
+| reelclaw card (ja/en) | ❌ SELF_ONLY (draft) | ✅ direct (post_type: reel) | ✅ direct (public) | POSTING RULES セクション書き換え必要 |
+| reelclaw widget (ja/en) | ❌ DRAFT (自然言語) | ✅ direct (post_type: **post**) | ✅ direct (public) | 自然言語文字列置換必要 |
+| reelclaw honne (ja) | ❌ draft / SELF_ONLY | — (対象外) | — (対象外) | TT only 維持、文字列置換必要 |
+| larry | — (全 disabled) | — (実装なし) | — | 別 spec |
+
+**IG post_type の違い**: card は `reel`、widget は `post` を既に使っている（確認済）。本 spec では変更しない（別途判断）。
 
 ## 開発環境
 
@@ -38,9 +49,8 @@
 | `~/.openclaw/workspace/honne-ai/honne-hooks-ja.json` | ダイス選別後に差し替え |
 | `~/.openclaw/workspace/tiktok-marketing/assets/demos/ja/` | loose mp4 を trimmed/ 外から削除 |
 | `~/.openclaw/workspace/tiktok-marketing/assets/demos/demos-mapping.json` | rotation state reset |
-| `~/.openclaw/cron/jobs.json` | reelclaw 11 cron の message 書き換え（TikTok settings + YT/IG 追加） |
-| `~/.openclaw/workspace/skills/larry/scripts/post-to-tiktok.js` | TikTok 専用 → TT+IG 2プラットフォーム投稿に拡張（または posting cron で IG call 追加） |
-| `~/.openclaw/cron/jobs.json` larry 系 | **全て enabled=false 状態**。有効化 + TT/IG 両方投稿するよう message 書き換え |
+| `~/.openclaw/cron/jobs.json` | reelclaw 11 cron の `payload.message` 書き換え（3 カテゴリ別の文字列置換、Patch A-6d 参照） |
+| Larry 関連 | **本 spec から除外**。別 spec (`larry-reactivation-spec.md`) で対応 |
 | `aniccaios/aniccaios/Services/SubscriptionManager.swift` L43/L148 | `result.offering(id:) ?? result.current` → `result.current ?? result.offering(id:)` に順序反転（RC Experiments が current を差し替えるため） |
 | `aniccaios/aniccaios/Onboarding/PaywallVariantBView.swift` | weekly package 対応追加（現状 `.annual` / `.monthly` のみ）、display 名マッピング追加 |
 | `aniccaios/aniccaios/Onboarding/OnboardingFlowView.swift` L95-125 | PostHog `paywall-ab-test` gating 削除 → PaywallVariantBView を常時表示（RC が Variant を返す） |
@@ -94,6 +104,11 @@ open("/tmp/hook_line2.txt", "w").write(line2)
 ```
 
 Step 2: ffmpeg 2段 drawtext chain（line2 が空でも安全。y=310/390、80px gap）:
+
+**⚠️ 重要（2026-04-12 実測で発覚）**: x 座標は **必ず `(w-text_w)/2`** を使う。**旧式の `(60+(900-text_w)/2)` は使わない**。JA fontsize=64 で 14 文字以上だと `text_w > 900` → x が負値 → 左端が画面外に切れる。実測で widget-ja-20260411 と honne-ja-2 が両端切れで発生していた。
+
+さらに JA は fontsize を **56 に統一**（全角文字は幅が広いため 64 だと 2 行目も切れるケースあり）。**1 行あたり最大 11-12 文字**を hook 選別時に目安にする。
+
 ```bash
 FONT="$HOOK_FONT"   # from cron message Font: field
 if [ -s /tmp/hook_line2.txt ]; then
@@ -107,6 +122,8 @@ ffmpeg -y -hide_banner -loglevel error -i "reel-notext.mp4" \
   -c:v libx264 -preset fast -crf 18 -c:a copy -movflags +faststart \
   "reel-text.mp4"
 ```
+
+**SKILL.md L402-412 の inline `text=` variant は物理的に削除する**。残っているとエージェントが選択肢として選べてしまい、literal `\n` 描画が再発する。実際に honne-ja-2 の出力動画で `\n` が `n` として描画されているのを 2026-04-12 に確認済。
 
 Step 3: 出力検証（10% 失敗対策）:
 ```bash
@@ -235,122 +252,154 @@ CTA は Postiz `settings.title` で TikTok ネイティブに付与。ffmpeg ove
 
 ---
 
-## Problem 6: Draft 投稿 + ffmpeg 音楽 → DIRECT_POST + auto music
+## Problem 6: Draft 投稿 → DIRECT_POST（BGM 焼き込みは維持）
 
 **現象**:
-- 毎回 draft 保存 → ダイスが手動で投稿
-- 音楽は ffmpeg で bgm-cta.mp3 を焼き込み
+- TikTok 投稿が全部 draft 保存 → 誰にも見られない → install ゼロ
+- IG/YT は direct で既に公開されている（が overlay が読めないので Problem 1/2 の影響で価値がない）
 
-**原因**:
-1. **16 個の cron message が SKILL.md を override** して `privacy_level: SELF_ONLY, content_posting_method: UPLOAD, autoAddMusic: "no"` を強制
-2. SKILL.md Step 3e（L411-427）で ffmpeg 音楽焼き込み
+**原因（検証済 2026-04-12）**:
+1. **Card (reelclaw-ja/en)**: cron message に `POSTING RULES` セクションあり、`privacy_level: SELF_ONLY, content_posting_method: UPLOAD` を強制
+2. **Widget (reelclaw-anicca-{ja,en}-widget-*)**: cron message に自然言語で `Publish to TikTok {JA,EN} as DRAFT via Postiz` と書かれている（POSTING RULES セクションは無い）
+3. **Honne (reelclaw-honne-ja-*)**: cron message に `Posting mode: draft, SELF_ONLY` と書かれている（TT only）
+
+**⚠️ CRITICAL 訂正（2026-04-12、実測で発覚）**
+
+前バージョンの Patch A-6a/A-6b は **Instagram を壊す**ため破棄。
+
+SKILL.md L434 の明記:
+> **Important:** Set `autoAddMusic: "no"` in Step 4b since music is already baked in via ffmpeg. **This ensures Instagram also gets the music (IG has no autoAddMusic API).**
+
+ファクト: Instagram Postiz API には `autoAddMusic` 相当の field が無い。ffmpeg BGM 焼き込みを削除すると、IG 投稿は **完全無音** になる。Card/Widget は TT+IG+YT の 3 投稿なので IG 無音は致命的。
+
+**正しい方針**: Step 3e（BGM 焼き込み）を**維持**し、TikTok 設定で `autoAddMusic: "no"` のまま、`privacy_level` と `content_posting_method` だけを変更する。
 
 **Source**: https://docs.postiz.com/public-api/providers/tiktok
 
-| Field | Value | 出典 |
+| Field | Value | 理由 |
 |-------|-------|------|
-| `privacy_level` | `"PUBLIC_TO_EVERYONE"` | 「public post everyone can see」 |
-| `content_posting_method` | `"DIRECT_POST"` | 「Post directly to TikTok」 |
-| `autoAddMusic` | `"yes"` （**string**、not boolean） | 「`yes` → TikTok will auto-add music」 |
+| `privacy_level` | `"PUBLIC_TO_EVERYONE"` | draft → 公開 |
+| `content_posting_method` | `"DIRECT_POST"` | draft → 直接投稿 |
+| `autoAddMusic` | `"no"` （**維持**） | ffmpeg BGM 焼き込みを優先。TT は既存音声をそのまま流す。IG 無音問題を回避 |
 | `video_made_with_ai` | `false` | - |
-| `duet/stitch/comment` | `true` | Public Video example に合わせる |
+| `duet/stitch/comment` | `true` | エンゲージ誘発 |
 
-**注意**: Postiz 本番 TikTok 連携は既に direct post 承認済（ダイス確認済）。unaudited エラーは出ない前提。
+### Patch A-6a: SKILL.md Step 3e は削除しない（前版からの訂正）
 
-### Patch A-6a: SKILL.md Step 3e 削除（L411-429）
+**Step 3e（BGM 焼き込み）はそのまま維持。** 前版の Patch A-6a（削除）は破棄。
 
-**Before** (L411-429): ffmpeg amix/afade で bgm-cta.mp3 焼き込み + 「Set autoAddMusic: no」
+### Patch A-6b: SKILL.md Step 4b tiktok settings 修正
 
-**After**: 全削除。代わりに 1 行:
-```
-### 3e. Music
-
-**DO NOT** add music via ffmpeg. TikTok 側で `autoAddMusic: "yes"` に任せる。Instagram/YouTube には音楽なしで送信（BGM なしの reel は OK）。
-
-Input video for Step 4a upload: `reel-text.mp4` (step 3d output)。
-```
-
-**Why**: Postiz → TikTok direct post は auto music を TikTok 側で自動付与。手焼きは不要。
-
-### Patch A-6b: SKILL.md Step 4b tiktok settings 修正（L488-500）
-
-**Before** (L495):
-```
+**Before** (L488-500 付近):
+```json
+"privacy_level": "SELF_ONLY",
+"content_posting_method": "UPLOAD",
 "autoAddMusic": "no",
 ```
 
 **After**:
-```
-"autoAddMusic": "yes",
-```
-
-既存の L491 `privacy_level: PUBLIC_TO_EVERYONE` / L499 `content_posting_method: DIRECT_POST` はそのまま（正しい）。
-
-### Patch A-6c: 16 cron message の TikTok settings 書き換え
-
-対象 cron（全て override 構文を正しい設定に変更）:
-
-| Cron 名 | jobs.json 行 |
-|---------|-------------|
-| reelclaw-ja-1 | L4626 |
-| reelclaw-ja-2 | L4664 |
-| reelclaw-en-1 | L4887 |
-| reelclaw-en-2 | L4925 |
-| reelclaw-honne-ja-1 | L7178 |
-| reelclaw-honne-ja-2 | L7213 |
-| reelclaw-honne-ja-3 | L7248 |
-| reelclaw-anicca-ja-widget-1 | L7036 |
-| reelclaw-anicca-ja-widget-2 | L7072 |
-| reelclaw-anicca-en-widget-1 | L7107 |
-| reelclaw-anicca-en-widget-2 | L7142 |
-
-**Larry cron 現状**（2026-04-11 調査）:
-- `larry-draft-*`, `larry-post-morning`, `larry-post-afternoon`, `larry-post-evening` は **全て enabled=false**
-- 現在アクティブな larry は `larry-daily-report-en/ja`（レポート）と `larry-trend-hunter-en/ja`（トレンド収集）、`larry-strategy-updater` のみ
-- **Larry は今何も投稿していない** → Patch A-6e で posting cron を有効化 + IG 投稿ロジック追加が必要
-
-**Before** (現状の POSTING RULES 2):
-```
-2. TikTok: privacy_level: SELF_ONLY, content_posting_method: UPLOAD, video_made_with_ai: false, autoAddMusic: "no", duet: false, stitch: false, comment: false, brand_content_toggle: false, brand_organic_toggle: false.
+```json
+"privacy_level": "PUBLIC_TO_EVERYONE",
+"content_posting_method": "DIRECT_POST",
+"autoAddMusic": "no",
 ```
 
-**After**:
+`autoAddMusic` は **変更しない**（BGM は ffmpeg で焼き込み済みなので）。
+
+### Patch A-6c: 11 reelclaw cron 書き換え（3 カテゴリ別）
+
+**カテゴリ 1: Card（reelclaw-ja-1/2, reelclaw-en-1/2）= 4 cron**
+
+POSTING RULES セクションあり。文字列置換:
+
 ```
-2. TikTok: privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "yes", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false.
+BEFORE: privacy_level: SELF_ONLY, content_posting_method: UPLOAD, video_made_with_ai: false, autoAddMusic: "no", duet: false, stitch: false, comment: false, brand_content_toggle: false, brand_organic_toggle: false.
+AFTER:  privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "no", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false.
 ```
 
-**Larry slideshow（photo carousel）の注意**: Postiz docs は photo carousel mode を明記していない。Postiz ソース（`gitroomhq/postiz-app`）の `tiktok.provider.ts` を読んで photo carousel が direct post + autoAddMusic をサポートするか確認する必要あり。**未確認までは Larry だけ UPLOAD / autoAddMusic "no" に留める**。Reelclaw 動画は全員 direct post に切り替え。
+**カテゴリ 2: Widget（reelclaw-anicca-{ja,en}-widget-1/2）= 4 cron**
 
-### Patch A-6d: cron 書き換えスクリプト（実装時に実行）
+自然言語で `Publish to TikTok {JA,EN} as DRAFT via Postiz. TikTok draft creation is REQUIRED, not optional.` と書かれている。これを削除して POSTING RULES セクションを追加する:
+
+```
+BEFORE: Publish to TikTok JA as DRAFT via Postiz. TikTok draft creation is REQUIRED, not optional. If TikTok draft creation fails or is skipped, treat the run as FAILURE even if Instagram or YouTube succeed. Publish to Instagram JA (direct) and YouTube JA (direct) only after TikTok draft is created.
+AFTER:  Publish to TikTok, Instagram, YouTube via Postiz (3 separate direct posts). TikTok settings: privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "no", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false. ALL 3 platforms must post successfully — if any one fails, treat the run as FAILURE.
+```
+
+widget-en 版も同じ（`JA` → `EN`）。
+
+**カテゴリ 3: Honne（reelclaw-honne-ja-1/2/3）= 3 cron — TT ONLY**
+
+自然言語で `Publish to TikTok ONLY via Postiz. ... Posting mode: draft, SELF_ONLY.` と書かれている:
+
+```
+BEFORE: Publish to TikTok ONLY via Postiz. TikTok integration: cmnit95mg015rrm0ye5vm8dhl. Posting mode: draft, SELF_ONLY.
+AFTER:  Publish to TikTok ONLY via Postiz. TikTok integration: cmnit95mg015rrm0ye5vm8dhl. Posting mode: direct post, PUBLIC_TO_EVERYONE. TikTok settings: privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "no", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false.
+```
+
+### Patch A-6d: cron 書き換えスクリプト（3 カテゴリ対応、実装時に実行）
 
 ```python
-# 対象: reelclaw/honne 11 cron（larry は別対応）
-import json, re
+import json
 p = '/Users/anicca/.openclaw/cron/jobs.json'
 d = json.load(open(p))
-TARGETS = {
-    'reelclaw-ja-1', 'reelclaw-ja-2', 'reelclaw-en-1', 'reelclaw-en-2',
-    'reelclaw-honne-ja-1', 'reelclaw-honne-ja-2', 'reelclaw-honne-ja-3',
-    'reelclaw-anicca-ja-widget-1', 'reelclaw-anicca-ja-widget-2',
-    'reelclaw-anicca-en-widget-1', 'reelclaw-anicca-en-widget-2',
-}
-BEFORE = 'privacy_level: SELF_ONLY, content_posting_method: UPLOAD, video_made_with_ai: false, autoAddMusic: "no", duet: false, stitch: false, comment: false'
-AFTER  = 'privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "yes", duet: true, stitch: true, comment: true'
+
+# カテゴリ 1: Card
+CARD_TARGETS = {'reelclaw-ja-1','reelclaw-ja-2','reelclaw-en-1','reelclaw-en-2'}
+CARD_BEFORE = 'privacy_level: SELF_ONLY, content_posting_method: UPLOAD, video_made_with_ai: false, autoAddMusic: "no", duet: false, stitch: false, comment: false, brand_content_toggle: false, brand_organic_toggle: false.'
+CARD_AFTER  = 'privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "no", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false.'
+
+# カテゴリ 2: Widget (JA + EN)
+WIDGET_TARGETS = {'reelclaw-anicca-ja-widget-1','reelclaw-anicca-ja-widget-2','reelclaw-anicca-en-widget-1','reelclaw-anicca-en-widget-2'}
+def widget_patch(msg):
+    for lang in ('JA','EN'):
+        before = f'Publish to TikTok {lang} as DRAFT via Postiz. TikTok draft creation is REQUIRED, not optional. If TikTok draft creation fails or is skipped, treat the run as FAILURE even if Instagram or YouTube succeed. Publish to Instagram {lang} (direct) and YouTube {lang} (direct) only after TikTok draft is created.'
+        after  = f'Publish to TikTok, Instagram, YouTube via Postiz (3 separate direct posts). TikTok settings: privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "no", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false. ALL 3 platforms must post successfully — if any one fails, treat the run as FAILURE.'
+        if before in msg:
+            return msg.replace(before, after)
+    return None
+
+# カテゴリ 3: Honne
+HONNE_TARGETS = {'reelclaw-honne-ja-1','reelclaw-honne-ja-2','reelclaw-honne-ja-3'}
+HONNE_BEFORE = 'Posting mode: draft, SELF_ONLY.'
+HONNE_AFTER  = 'Posting mode: direct post, PUBLIC_TO_EVERYONE. TikTok settings: privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "no", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false.'
+
 count = 0
 for job in d.get('jobs', []):
-    if job.get('name') in TARGETS:
-        msg = job.get('input', {}).get('message', '')
-        if BEFORE in msg:
-            job['input']['message'] = msg.replace(BEFORE, AFTER)
-            count += 1
+    name = job.get('name','')
+    msg = job.get('payload', {}).get('message', '')
+    new_msg = None
+    if name in CARD_TARGETS and CARD_BEFORE in msg:
+        new_msg = msg.replace(CARD_BEFORE, CARD_AFTER)
+    elif name in WIDGET_TARGETS:
+        new_msg = widget_patch(msg)
+    elif name in HONNE_TARGETS and HONNE_BEFORE in msg:
+        new_msg = msg.replace(HONNE_BEFORE, HONNE_AFTER)
+    if new_msg:
+        job['payload']['message'] = new_msg
+        count += 1
 json.dump(d, open(p, 'w'), ensure_ascii=False, indent=2)
-print(f"updated {count} crons")
+print(f"updated {count}/11 crons")
 ```
+
+⚠️ 重要: **既存の spec にあった Patch A-6d は `job['input']['message']` を参照していたが、実際の jobs.json スキーマは `job['payload']['message']`。** 古いスクリプトは 0 件ヒットで silent success していた。修正済。
 
 その後:
 ```bash
 openclaw gateway restart
 ```
+
+### Patch A-6e: Larry は本 spec から除外（別 spec 必須）
+
+**現状（2026-04-12 検証済）**:
+- 9 個の larry posting/draft cron が **全て `enabled: false`**
+- `~/.openclaw/workspace/skills/larry/scripts/post-to-tiktok.js` は TikTok のみ（IG integration 呼び出しなし）
+- Larry は現在何も投稿していない
+
+**対応**: Larry の再稼働は別 spec（`larry-reactivation-spec.md`）に切り出す。本 reelclaw spec には含めない。理由:
+1. Larry は photo carousel（slideshow）= reelclaw とは技術スタックが違う
+2. IG integration 追加には `post-to-tiktok.js` リネーム + 2 API call 実装が必要
+3. Reelclaw 修正をブロックすべきでない
 
 **Why**: cron message が SKILL.md を override している限り、SKILL.md だけ直しても効果なし。両方直す必要あり。
 
@@ -919,12 +968,12 @@ RC Dashboard で revenue / conversion / trial 比較
 
 | レバー | 期待効果 | 実装コスト | 優先度 |
 |--------|---------|-----------|-------|
-| Reelclaw direct post 化 | SELF_ONLY→公開 = ×100（誰も見てない→到達） | 1日 | P0 |
-| Fix overlay / wrap / trim | 品質↑ → view through rate 1.5x | 1日 | P0 |
+| Reelclaw TT direct post 化 | SELF_ONLY→公開 = ×100 (TT は現状全部 draft で誰も見てない) | 1日 | P0 |
+| Fix overlay 両端切れ / literal \n / inline text= 削除 | 現状 IG/YT は公開されてるが overlay が読めず無効投稿 → まず読める状態に | 1日 | P0 |
 | Weekly $12.99 + Annual $59.99（Variant B） | 価格抵抗↓（週額）+ ARPU↑（年額 +50%）→ 期待 MRR 1.5-2x | 2日 | P0 |
 | RC Experiments A/B | 無料で offering 切替、データ収集 → 最適化 | 1日 | P0 |
 | Honne AI EN 版 | 新市場、install +30% | 5日 | P2 |
-| Larry direct post | 1日4投稿 追加チャネル | 1日 | P1 |
+| Larry 再稼働 (別 spec) | 1日4投稿 追加チャネル TT+IG | 1日 | P1 |
 | Reelclaw cron 2→4/day | 投稿量 2x | 1日 | P1 |
 
 **複合効果試算**:
@@ -945,4 +994,4 @@ RC Dashboard で revenue / conversion / trial 比較
 
 ---
 
-**最終更新**: 2026-04-11（Superwall → RC Experiments ピボット、プラットフォームマトリクス確定、larry posting cron 全 disabled 発覚を反映）
+**最終更新**: 2026-04-12（実測ベース訂正ラウンド 2: x 座標式 / inline text= 削除 / Step 3e 維持 / cron 3 カテゴリ別 payload.message 置換 / Larry 除外 / A-6d スキーマ修正）
