@@ -1323,6 +1323,7 @@
 "paywall_b_feature_cancel" = "Cancela cuando quieras, sin preguntas";
 "paywall_b_per_year" = "/año";
 "paywall_b_per_month" = "/mes";
+"paywall_b_per_week" = "/sem";
 "paywall_b_daily_price" = "Solo %@ por día";
 "paywall_b_trial_badge" = "Prueba gratuita de %@ incluida";
 "paywall_b_cta_trial" = "Comenzar prueba gratuita de %@";

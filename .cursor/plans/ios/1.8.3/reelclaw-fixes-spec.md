@@ -2,7 +2,7 @@
 
 **Status**: 📝 DRAFT（実装前）
 **Created**: 2026-04-11
-**Updated**: 2026-04-12 r3（Larry slideshow overlay バグ特定 / CTA 画像 140px 下シフト実行済 / gpt-5.4-mini→gpt-5.4 model switch / PaywallVariantBView weekly サポート / today-only 5 分刻み test cron / ASC Variant B 名前変更）
+**Updated**: 2026-04-12 r4（**トライアル無し確定** / gpt-5.4 一括切替実行済 51件 / paywall_b_per_week 追加済 en+ja+es / ASC Variant B ja ローカライゼーション作成済 / 全タスク完全 TODO + デイリータイムテーブル）
 **Goal**: $1k MRR by 2026-04-30（$46 → $1k = 21倍）
 **Scope**: reelclaw 全 cron / Larry / Honne + Anicca iOS RevenueCat Experiments（Variant B: Weekly $12.99 + Annual $59.99）
 
@@ -1638,3 +1638,133 @@ mcp__revenuecat__get-offering project_id=projbb7b9d1b offering_id=ofrngb357e8cdb
 | 33 | Apple 審査通過（通常 24〜48h） |
 | 34 | Release → RC Dashboard で Experiment を Start |
 | 35 | 14 日経過後、勝者 offering を `is_current=true` に切替、敗者 archive |
+
+---
+
+## Part G — r4 追加調査結果 & 実行済み項目（2026-04-12）
+
+### G-1. トライアル無し確定（ダイス正解 / 俺誤り）
+
+| 項目 | 値 |
+|------|-----|
+| 検証コマンド | `asc subscriptions offers introductory list --subscription-id 6755320744` (annual) + `6755320627` (monthly) |
+| 結果 | 両方 `{"data":[], "total": 0}` |
+| 意味 | **introductory offer が一切設定されていない = 3 日トライアルも何も無い** |
+| RC MCP の `trial_duration: P3D` | **stale data / 嘘**。実際の ASC が真実 |
+
+**影響範囲（要修正）**:
+
+| ファイル | 修正 |
+|---------|------|
+| PaywallVariantAView / PaywallView（既存） | `hasTrialEligibility` 判定を全部 `false` 扱いに。Trial badge / CTA trial / trust trial を非表示 |
+| PaywallVariantBView.swift | 同上。`paywall_b_trial_badge`, `paywall_b_cta_trial`, `paywall_b_trust_trial` 使用禁止 → `paywall_b_cta_no_trial`, `paywall_b_trust_no_trial` のみ |
+| ASC review notes | "free trial terms clearly stated below the purchase button" の文言削除必要 |
+| Localizable.strings `paywall_b_trial_*` | 将来 trial 導入時に備えて残すが、**現在未使用 dead code** としてコメント追加 |
+| **新しい offering 作成は不要** | 既存の annual/monthly/weekly 商品はそのまま。UI レベルで trial UI を隠すだけ |
+| **新しい experiment 作成も不要** | Offering はそのまま、paywall UI 変更だけで Variant B 効果測定可能 |
+
+### G-2. 全 enabled cron → `openai-codex/gpt-5.4` 一括切替（実行済み）
+
+| 項目 | 値 |
+|------|-----|
+| スクリプト | `python3` で `jobs.json` を再帰的に walk し `enabled: true` かつ `payload.model` 存在するものを全て `openai-codex/gpt-5.4` に置換 |
+| 件数 | **51 件切替**（旧 44 `gpt-5.4-mini` + 7 `anthropic/claude-sonnet-4-6` → 全て `gpt-5.4`） |
+| バックアップ | `jobs.json.bak-20260412` |
+| Gateway restart | ✅ `openclaw gateway restart` 実行済み |
+
+### G-3. ASC Variant B ローカライゼーション（実行済み）
+
+| 商品 | Locale | Name | Description | 結果 |
+|------|--------|------|-------------|------|
+| weekly.b (6762049888) | en-US | Weekly Premium | "Anicca proactive AI coach, billed weekly." (41 文字) | ✅ |
+| weekly.b | ja | 週額プレミアム | "Aniccaのプロアクティブ AIコーチ、週額課金。" | ✅ |
+| yearly.b (6762049696) | en-US | Annual Premium | "Anicca proactive AI coach, billed yearly." (41 文字) | ✅ |
+| yearly.b | ja | 年額プレミアム | "Aniccaのプロアクティブ AIコーチ、年額課金。" | ✅ |
+
+**注**: ASC description は max 55 文字制約あり。Spanish 作成不要（ダイス確認済み）。
+
+### G-4. Localizable.strings `paywall_b_per_week` 追加（実行済み）
+
+| Locale | 値 |
+|--------|-----|
+| en | `"paywall_b_per_week" = "/wk";` |
+| ja | `"paywall_b_per_week" = "/週";` |
+| es | `"paywall_b_per_week" = "/sem";` |
+
+（アプリは de/pt-BR/fr も対応しているが、`paywall_b_*` 系キーは元々 en/ja/es のみ。追加は 3 locale で完結）
+
+### G-5. デイリータイムテーブル（確定 / JST）
+
+| 時刻 JST | Cron id | スキル | Platform | 言語 | 音楽 | 備考 |
+|---|---|---|---|---|---|---|
+| 04:00 | larry-trend-hunter-ja | Larry トレンド収集 | — | JA | — | LLM のみ |
+| 04:30 | larry-trend-hunter-en | Larry トレンド収集 | — | EN | — | LLM のみ |
+| 05:00 | larry-strategy-updater | Larry 戦略更新 | — | — | — | LLM のみ |
+| 06:30 | larry-daily-report-ja | Larry 日報 | Slack | JA | — | #metrics |
+| 07:00 | slideshow-ja-1 | Larry 6-slide | TikTok + IG | JA | TT: autoAddMusic / IG: なし | slideshow draft→publish |
+| 07:30 | slideshow-en-1 | Larry 6-slide | TikTok + IG | EN | TT: autoAddMusic / IG: なし | 〃 |
+| 09:00 | reelclaw-ja-1 / reelclaw-en-1 | Card demo | TT + YT + IG | JA + EN | YT: background track / TT + IG: baked | 動画 |
+| 09:00 | anicca-nudge | iOS push | — | — | — | ユーザー通知 |
+| 10:00 | card-slideshow-en | Card 静止画 slideshow | TikTok + IG | EN | TT: autoAddMusic | 静止画 6 枚 |
+| 10:30 | card-slideshow-ja | Card 静止画 slideshow | TikTok + IG | JA | TT: autoAddMusic | 静止画 6 枚 |
+| 11:00 | mobileapp-factory-morning | 開発 | — | — | — | アプリ量産 |
+| 13:00 | reelclaw-honne-ja-1 | 本音動画 | TT only | JA | baked | 動画 |
+| 14:00 | anicca-nudge | iOS push | — | — | — | ユーザー通知 |
+| 15:00 | web-app-factory-daily | 開発 | — | — | — | Web アプリ量産 |
+| 16:00 | slideshow-ja-2 | Larry 6-slide | TikTok + IG | JA | TT: autoAddMusic / IG: なし | |
+| 16:30 | slideshow-en-2 | Larry 6-slide | TikTok + IG | EN | TT: autoAddMusic / IG: なし | |
+| 17:00 | reelclaw trend ingest | トレンド収集 | — | — | — | |
+| 18:00 | reelclaw-ja-2 / reelclaw-en-2 / anicca-widget-{ja,en}-1 | Card + widget | TT + YT + IG | JA + EN | YT: background / TT + IG: baked | 動画 |
+| 19:00 | reelclaw-honne-ja-2 | 本音動画 | TT only | JA | baked | 動画 |
+| 20:00 | anicca-nudge | iOS push | — | — | — | ユーザー通知 |
+| 21:00 | slideshow-ja-3 | Larry 6-slide | TikTok + IG | JA | TT: autoAddMusic / IG: なし | |
+| 21:30 | slideshow-en-3 | Larry 6-slide | TikTok + IG | EN | TT: autoAddMusic / IG: なし | |
+| 22:00 | anicca-widget-{ja,en}-2 / reelclaw-honne-ja-3 | widget + 本音 | TT + YT + IG (widget) / TT only (honne) | JA + EN | baked | 動画 |
+| 23:00 | larry-daily-report-en | Larry 日報 | Slack | EN | — | #metrics |
+| 23:30 | daily-memory / autonomy-check / suffering-detector | 深夜バッチ | — | — | — | LLM のみ |
+
+**注**:
+- **音楽ルール**: TikTok slideshow は `autoAddMusic: "yes"` + `content_posting_method: "DIRECT_POST"`（TT トレンド楽曲自動付与、即公開）
+- **IG slideshow** は音楽機能無し（Postiz API に autoAddMusic 無し）→ 無音で投稿
+- **動画系 (reelclaw card/widget/honne)** は ffmpeg で BGM を焼き込み（YouTube 用）または silence（TT/IG で TT 側のみ music 追加）
+- **現状の reelclaw 動画 cron** は既に BGM 焼き込み済み。変更不要
+
+### G-6. Paywall B 最終ビジュアル（トライアル無し版 ASCII）
+
+```
+┌──────────────────────────────────┐
+│                                  │
+│  あなたが一番つらいとき、          │ ← paywall_b_title
+│  そっと届く言葉                    │
+│                                  │
+│  あなたの悩みに寄り添う             │ ← paywall_b_subtitle
+│  カードを毎日受け取ろう             │
+│                                  │
+│  ★ 最適なタイミングのスマートナッジ  │ ← features
+│  ★ AI生成のパーソナライズガイド     │
+│  ★ あなたの悩みに合わせて適応       │
+│  ★ フィードバックから学習          │
+│  ★ いつでもキャンセル可能          │
+│                                  │
+│ ┌──────────┬───────────────────┐ │
+│ │ 週額       │ 年額 ◉            │ │ ← planCards (weekly + annual)
+│ │ $12.99/週 │ $59.99/年         │ │
+│ │           │ 58% OFF           │ │
+│ └──────────┴───────────────────┘ │
+│                                  │
+│  1日あたりたった$0.16             │ ← daily_price (from annual)
+│                                  │
+│  [  今すぐ旅を始める  ]            │ ← cta_no_trial (トライアル無し)
+│                                  │
+│  いつでもキャンセル · 満足保証       │ ← trust_no_trial
+│                                  │
+│  「アニッチャのおかげで自分に        │ ← review
+│   優しくなれました」— 実際のユーザー  │
+└──────────────────────────────────┘
+```
+
+**Control (Variant A) との比較**:
+- Variant A: monthly + annual、既存 UI（細かいプラン比較カード）
+- Variant B: weekly + annual、絵文字ベースの feature list、大きめの CTA、レビュー追加
+- **両方とも trial UI 無し**（今回確定）
+

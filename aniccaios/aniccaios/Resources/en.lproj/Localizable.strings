@@ -1357,6 +1357,7 @@
 "paywall_b_feature_cancel" = "Cancel anytime, no questions asked";
 "paywall_b_per_year" = "/yr";
 "paywall_b_per_month" = "/mo";
+"paywall_b_per_week" = "/wk";
 "paywall_b_daily_price" = "Just %@ per day";
 "paywall_b_trial_badge" = "%@ free trial included";
 "paywall_b_cta_trial" = "Start %@ Free Trial";
