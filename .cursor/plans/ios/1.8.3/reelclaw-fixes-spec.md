@@ -2,7 +2,7 @@
 
 **Status**: 📝 DRAFT（実装前）
 **Created**: 2026-04-11
-**Updated**: 2026-04-12（実測ベース訂正: x 座標 `(w-text_w)/2` / inline text= 削除 / Step 3e 維持 / cron 3 カテゴリ別 payload.message 置換 / Larry 除外）
+**Updated**: 2026-04-12 r2（Option B: 2出力 ffmpeg / TT=autoAddMusic yes + UPLOAD public / IG,YT=BGM焼込 / Larry 再稼働 含む / RC paywall design は native SwiftUI 描画なので無関係）
 **Goal**: $1k MRR by 2026-04-30（$46 → $1k = 21倍）
 **Scope**: reelclaw 全 cron / Larry / Honne + Anicca iOS RevenueCat Experiments（Variant B: Weekly $12.99 + Annual $59.99）
 
@@ -25,7 +25,21 @@
 | reelclaw card (ja/en) | ❌ SELF_ONLY (draft) | ✅ direct (post_type: reel) | ✅ direct (public) | POSTING RULES セクション書き換え必要 |
 | reelclaw widget (ja/en) | ❌ DRAFT (自然言語) | ✅ direct (post_type: **post**) | ✅ direct (public) | 自然言語文字列置換必要 |
 | reelclaw honne (ja) | ❌ draft / SELF_ONLY | — (対象外) | — (対象外) | TT only 維持、文字列置換必要 |
-| larry | — (全 disabled) | — (実装なし) | — | 別 spec |
+| larry | ❌ 全 disabled (2026-03-13 以降 error) | ❌ IG 実装なし | — | **本 spec 内で再稼働** |
+
+**Larry 実測ステータス (2026-04-12 `jobs.json` 直接確認)**:
+
+| Cron | enabled | lastRunStatus | 最終実行 |
+|---|:---:|:---:|---|
+| larry-post-morning/afternoon/evening | ❌ false | error | 2026-03-13 |
+| larry-draft-mid-morning-{en,ja} | ❌ false | error | 2026-03-15〜21 |
+| larry-draft-lunch-* | ❌ false | error | 2026-03-15〜21 |
+| larry-draft-late-* | ❌ false | error | 2026-03-15〜21 |
+| larry-daily-report-{en,ja} | ✅ true | success | 稼働中（**レポートのみ、投稿なし**） |
+| larry-trend-hunter-{en,ja} | ✅ true | success | 稼働中（**トレンド調査のみ**） |
+| larry-strategy-updater | ✅ true | success | 稼働中（**戦略更新のみ**） |
+
+**結論**: Larry は 2026-03-13 以降 **1 本も投稿していない**。Post/Draft cron が全 disabled + error。スクリプト `~/.openclaw/workspace/skills/larry/scripts/post-to-tiktok.js` は TikTok 専用で IG 統合なし（プラットフォーム配信マトリクスの `larry IG ✅` は**未実装**）。
 
 **IG post_type の違い**: card は `reel`、widget は `post` を既に使っている（確認済）。本 spec では変更しない（別途判断）。
 
@@ -50,7 +64,8 @@
 | `~/.openclaw/workspace/tiktok-marketing/assets/demos/ja/` | loose mp4 を trimmed/ 外から削除 |
 | `~/.openclaw/workspace/tiktok-marketing/assets/demos/demos-mapping.json` | rotation state reset |
 | `~/.openclaw/cron/jobs.json` | reelclaw 11 cron の `payload.message` 書き換え（3 カテゴリ別の文字列置換、Patch A-6d 参照） |
-| Larry 関連 | **本 spec から除外**。別 spec (`larry-reactivation-spec.md`) で対応 |
+| `~/.openclaw/cron/jobs.json` (Larry セクション) | larry-post-morning/afternoon/evening + larry-draft-* の `enabled: true` に戻す。原因調査後 |
+| `~/.openclaw/workspace/skills/larry/scripts/post-to-tiktok.js` | エラー調査 (2026-03-13 以降 error) |
 | `aniccaios/aniccaios/Services/SubscriptionManager.swift` L43/L148 | `result.offering(id:) ?? result.current` → `result.current ?? result.offering(id:)` に順序反転（RC Experiments が current を差し替えるため） |
 | `aniccaios/aniccaios/Onboarding/PaywallVariantBView.swift` | weekly package 対応追加（現状 `.annual` / `.monthly` のみ）、display 名マッピング追加 |
 | `aniccaios/aniccaios/Onboarding/OnboardingFlowView.swift` L95-125 | PostHog `paywall-ab-test` gating 削除 → PaywallVariantBView を常時表示（RC が Variant を返す） |
@@ -265,46 +280,89 @@ CTA は Postiz `settings.title` で TikTok ネイティブに付与。ffmpeg ove
 
 **⚠️ CRITICAL 訂正（2026-04-12、実測で発覚）**
 
-前バージョンの Patch A-6a/A-6b は **Instagram を壊す**ため破棄。
+**方針: Option B — 2 出力 ffmpeg 分岐（ダイス確定 2026-04-12）**
 
-SKILL.md L434 の明記:
-> **Important:** Set `autoAddMusic: "no"` in Step 4b since music is already baked in via ffmpeg. **This ensures Instagram also gets the music (IG has no autoAddMusic API).**
+ダイスの要望:
+- **TikTok**: TT 内蔵の trending music を使いたい（autoAddMusic=yes）
+- **Instagram / YouTube**: autoAddMusic API が無いので無音になる → **BGM を ffmpeg で焼き込み**
 
-ファクト: Instagram Postiz API には `autoAddMusic` 相当の field が無い。ffmpeg BGM 焼き込みを削除すると、IG 投稿は **完全無音** になる。Card/Widget は TT+IG+YT の 3 投稿なので IG 無音は致命的。
+ファクト:
+- Instagram Postiz API は `autoAddMusic` 非対応。BGM 焼き込み削除 = IG 完全無音。
+- TikTok `autoAddMusic: "yes"` は UPLOAD + trending music 自動付与を意味する。BGM 焼き込み済み動画を送るとユーザー選択された BGM と衝突する。
+- よって **TT 用と IG/YT 用で 2 つの mp4 を render.sh で生成する**。
 
-**正しい方針**: Step 3e（BGM 焼き込み）を**維持**し、TikTok 設定で `autoAddMusic: "no"` のまま、`privacy_level` と `content_posting_method` だけを変更する。
+**Source**: https://docs.postiz.com/public-api/providers/tiktok, SKILL.md L418-434
 
-**Source**: https://docs.postiz.com/public-api/providers/tiktok
+### Patch A-6a: SKILL.md Step 3e を 2 分岐出力に書き換え
 
-| Field | Value | 理由 |
-|-------|-------|------|
-| `privacy_level` | `"PUBLIC_TO_EVERYONE"` | draft → 公開 |
-| `content_posting_method` | `"DIRECT_POST"` | draft → 直接投稿 |
-| `autoAddMusic` | `"no"` （**維持**） | ffmpeg BGM 焼き込みを優先。TT は既存音声をそのまま流す。IG 無音問題を回避 |
-| `video_made_with_ai` | `false` | - |
-| `duet/stitch/comment` | `true` | エンゲージ誘発 |
+**Before** (L418-434 付近): Step 3e が `final.mp4` 1 本だけを生成
 
-### Patch A-6a: SKILL.md Step 3e は削除しない（前版からの訂正）
+**After**: Step 3e を 2 本出力に変更
 
-**Step 3e（BGM 焼き込み）はそのまま維持。** 前版の Patch A-6a（削除）は破棄。
+```bash
+# Step 3e — IG/YT 用 (BGM 焼き込み)
+ffmpeg -y -i "$work/base.mp4" -i "$HOME/.openclaw/workspace/skills/reelclaw/assets/bgm-cta.mp3" \
+  -filter_complex "[1:a]volume=0.8,afade=t=in:st=0:d=0.5,afade=t=out:st=9:d=0.5[a]" \
+  -map 0:v -map "[a]" -c:v copy -c:a aac -shortest \
+  "$work/final-bgm.mp4"
 
-### Patch A-6b: SKILL.md Step 4b tiktok settings 修正
-
-**Before** (L488-500 付近):
-```json
-"privacy_level": "SELF_ONLY",
-"content_posting_method": "UPLOAD",
-"autoAddMusic": "no",
+# Step 3e-bis — TikTok 用 (音声なし、autoAddMusic=yes で TT trending music を自動付与)
+cp "$work/base.mp4" "$work/final-nomusic.mp4"
 ```
 
-**After**:
+render.sh も同じ 2 出力化を全 workspace に適用:
+- `~/.openclaw/workspace/reelclaw-*/render.sh`
+- `~/.openclaw/workspace/honne-ai/render.sh`（honne は TT only なので `final-nomusic.mp4` のみで OK）
+
+### Patch A-6b: SKILL.md Step 4 payload 生成を 2 出力対応に
+
+**Before** (L488-500 付近): 全 platform が同じ `final.mp4` を参照
+
+**After**: platform ごとに別ファイル参照
+
 ```json
-"privacy_level": "PUBLIC_TO_EVERYONE",
-"content_posting_method": "DIRECT_POST",
-"autoAddMusic": "no",
+// TikTok payload
+{
+  "video_url": "<cdn_url>/final-nomusic.mp4",
+  "privacy_level": "PUBLIC_TO_EVERYONE",
+  "content_posting_method": "DIRECT_POST",
+  "autoAddMusic": "yes",
+  "video_made_with_ai": false,
+  "duet": true,
+  "stitch": true,
+  "comment": true,
+  "brand_content_toggle": false,
+  "brand_organic_toggle": false
+}
+
+// Instagram payload (post_type: reel for card, post for widget)
+{
+  "video_url": "<cdn_url>/final-bgm.mp4",
+  "__type": "instagram-standalone",
+  "post_type": "reel"
+}
+
+// YouTube payload
+{
+  "video_url": "<cdn_url>/final-bgm.mp4",
+  "__type": "youtube",
+  "type": "public",
+  "selfDeclaredMadeForKids": "no"
+}
 ```
 
-`autoAddMusic` は **変更しない**（BGM は ffmpeg で焼き込み済みなので）。
+| Platform | 使うファイル | TT 設定 |
+|----------|-------------|---------|
+| TikTok | `final-nomusic.mp4` | `autoAddMusic: "yes"` + `content_posting_method: "DIRECT_POST"` + `privacy_level: "PUBLIC_TO_EVERYONE"` |
+| Instagram | `final-bgm.mp4` | — |
+| YouTube | `final-bgm.mp4` | — |
+
+**Postiz docs 確認済** (https://docs.postiz.com/public-api/providers/tiktok):
+- `DIRECT_POST` = TikTok に直接投稿（公開）
+- `UPLOAD` = TikTok アプリを開いて手動で投稿（= draft と同じ）
+- `autoAddMusic: "yes"` は TT 側で trending music を自動付与（DIRECT_POST と併用可）
+
+→ 公開したいので **DIRECT_POST + autoAddMusic: "yes"** の組み合わせが正解。UPLOAD だと過去と同じく draft 扱いで誰にも見られない。
 
 ### Patch A-6c: 11 reelclaw cron 書き換え（3 カテゴリ別）
 
@@ -314,7 +372,7 @@ POSTING RULES セクションあり。文字列置換:
 
 ```
 BEFORE: privacy_level: SELF_ONLY, content_posting_method: UPLOAD, video_made_with_ai: false, autoAddMusic: "no", duet: false, stitch: false, comment: false, brand_content_toggle: false, brand_organic_toggle: false.
-AFTER:  privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "no", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false.
+AFTER:  privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "yes", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false.
 ```
 
 **カテゴリ 2: Widget（reelclaw-anicca-{ja,en}-widget-1/2）= 4 cron**
@@ -323,7 +381,7 @@ AFTER:  privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, 
 
 ```
 BEFORE: Publish to TikTok JA as DRAFT via Postiz. TikTok draft creation is REQUIRED, not optional. If TikTok draft creation fails or is skipped, treat the run as FAILURE even if Instagram or YouTube succeed. Publish to Instagram JA (direct) and YouTube JA (direct) only after TikTok draft is created.
-AFTER:  Publish to TikTok, Instagram, YouTube via Postiz (3 separate direct posts). TikTok settings: privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "no", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false. ALL 3 platforms must post successfully — if any one fails, treat the run as FAILURE.
+AFTER:  Publish to TikTok, Instagram, YouTube via Postiz (3 separate direct posts). TikTok settings: privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "yes", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false. ALL 3 platforms must post successfully — if any one fails, treat the run as FAILURE.
 ```
 
 widget-en 版も同じ（`JA` → `EN`）。
@@ -334,7 +392,7 @@ widget-en 版も同じ（`JA` → `EN`）。
 
 ```
 BEFORE: Publish to TikTok ONLY via Postiz. TikTok integration: cmnit95mg015rrm0ye5vm8dhl. Posting mode: draft, SELF_ONLY.
-AFTER:  Publish to TikTok ONLY via Postiz. TikTok integration: cmnit95mg015rrm0ye5vm8dhl. Posting mode: direct post, PUBLIC_TO_EVERYONE. TikTok settings: privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "no", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false.
+AFTER:  Publish to TikTok ONLY via Postiz. TikTok integration: cmnit95mg015rrm0ye5vm8dhl. Posting mode: direct post, PUBLIC_TO_EVERYONE. TikTok settings: privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "yes", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false.
 ```
 
 ### Patch A-6d: cron 書き換えスクリプト（3 カテゴリ対応、実装時に実行）
@@ -347,14 +405,14 @@ d = json.load(open(p))
 # カテゴリ 1: Card
 CARD_TARGETS = {'reelclaw-ja-1','reelclaw-ja-2','reelclaw-en-1','reelclaw-en-2'}
 CARD_BEFORE = 'privacy_level: SELF_ONLY, content_posting_method: UPLOAD, video_made_with_ai: false, autoAddMusic: "no", duet: false, stitch: false, comment: false, brand_content_toggle: false, brand_organic_toggle: false.'
-CARD_AFTER  = 'privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "no", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false.'
+CARD_AFTER  = 'privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "yes", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false.'
 
 # カテゴリ 2: Widget (JA + EN)
 WIDGET_TARGETS = {'reelclaw-anicca-ja-widget-1','reelclaw-anicca-ja-widget-2','reelclaw-anicca-en-widget-1','reelclaw-anicca-en-widget-2'}
 def widget_patch(msg):
     for lang in ('JA','EN'):
         before = f'Publish to TikTok {lang} as DRAFT via Postiz. TikTok draft creation is REQUIRED, not optional. If TikTok draft creation fails or is skipped, treat the run as FAILURE even if Instagram or YouTube succeed. Publish to Instagram {lang} (direct) and YouTube {lang} (direct) only after TikTok draft is created.'
-        after  = f'Publish to TikTok, Instagram, YouTube via Postiz (3 separate direct posts). TikTok settings: privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "no", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false. ALL 3 platforms must post successfully — if any one fails, treat the run as FAILURE.'
+        after  = f'Publish to TikTok, Instagram, YouTube via Postiz (3 separate direct posts). TikTok settings: privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "yes", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false. ALL 3 platforms must post successfully — if any one fails, treat the run as FAILURE.'
         if before in msg:
             return msg.replace(before, after)
     return None
@@ -362,7 +420,7 @@ def widget_patch(msg):
 # カテゴリ 3: Honne
 HONNE_TARGETS = {'reelclaw-honne-ja-1','reelclaw-honne-ja-2','reelclaw-honne-ja-3'}
 HONNE_BEFORE = 'Posting mode: draft, SELF_ONLY.'
-HONNE_AFTER  = 'Posting mode: direct post, PUBLIC_TO_EVERYONE. TikTok settings: privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "no", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false.'
+HONNE_AFTER  = 'Posting mode: direct post, PUBLIC_TO_EVERYONE. TikTok settings: privacy_level: PUBLIC_TO_EVERYONE, content_posting_method: DIRECT_POST, video_made_with_ai: false, autoAddMusic: "yes", duet: true, stitch: true, comment: true, brand_content_toggle: false, brand_organic_toggle: false.'
 
 count = 0
 for job in d.get('jobs', []):
@@ -389,17 +447,25 @@ print(f"updated {count}/11 crons")
 openclaw gateway restart
 ```
 
-### Patch A-6e: Larry は本 spec から除外（別 spec 必須）
+### Patch A-6e: Larry 再稼働（本 spec に含める — 2026-04-12 ダイス確定）
 
-**現状（2026-04-12 検証済）**:
-- 9 個の larry posting/draft cron が **全て `enabled: false`**
-- `~/.openclaw/workspace/skills/larry/scripts/post-to-tiktok.js` は TikTok のみ（IG integration 呼び出しなし）
-- Larry は現在何も投稿していない
+**現状（2026-04-12 検証済、jobs.json 直接ダンプ）**:
+- 9 個の larry posting/draft cron が **全て `enabled: false`**（post-morning/afternoon/evening + draft-mid-morning-{en,ja} + draft-lunch-{en,ja} + draft-late-{en,ja}）
+- 最終実行 2026-03-13〜21、`lastRunStatus: error`
+- アクティブなのは報告系のみ: larry-daily-report-{en,ja} / larry-trend-hunter-{en,ja} / larry-strategy-updater（投稿はしない）
+- `~/.openclaw/workspace/skills/larry/scripts/post-to-tiktok.js` は TikTok のみ（IG 呼び出しなし）
 
-**対応**: Larry の再稼働は別 spec（`larry-reactivation-spec.md`）に切り出す。本 reelclaw spec には含めない。理由:
-1. Larry は photo carousel（slideshow）= reelclaw とは技術スタックが違う
-2. IG integration 追加には `post-to-tiktok.js` リネーム + 2 API call 実装が必要
-3. Reelclaw 修正をブロックすべきでない
+**対応手順**:
+
+1. **原因調査**: `larry-post-morning` の `lastRunError` を読む（jobs.json 内）+ `~/.openclaw/logs/` で 2026-03-13 前後のスタックトレース確認
+2. **スクリプト修正**: post-to-tiktok.js のエラー箇所を直す（API 変更 / 認証切れ / 依存関係 破損 のどれか）
+3. **TikTok 設定を Option B に合わせる**: スクリプト内のハードコード `autoAddMusic: 'no'` / `privacy_level: 'SELF_ONLY'` / `content_posting_method: 'UPLOAD'` を `'yes'` / `'PUBLIC_TO_EVERYONE'` / `'DIRECT_POST'` に変更
+4. **cron enabled を true に戻す**: jobs.json で 9 個全て `enabled: true`
+5. **`openclaw gateway restart`**
+6. **手動 dry-run**: larry-post-morning を 1 回手動トリガー → TT に投稿されるか確認
+7. **Instagram 統合は後回し**（別 spec）: Larry は現状 TT のみでも OK。IG は Phase 2 で
+
+**注**: プラットフォーム配信マトリクスの `larry IG ✅` は**未実装**なので、本 spec では TT のみ再稼働する。IG 統合は次回 spec で。
 
 **Why**: cron message が SKILL.md を override している限り、SKILL.md だけ直しても効果なし。両方直す必要あり。
 
@@ -468,6 +534,33 @@ JA:
 # PART B — RevenueCat Experiments A/B（Variant B: Weekly $12.99 + Annual $59.99）
 
 **方針**: Superwall 導入やめ。**RevenueCat Experiments（無料・ローカライズ対応）** で offering 切り替え A/B を実施。iOS コード変更は最小限。
+
+## ⚠️ RC Dashboard の古い Paywall Design について（2026-04-12 調査結果）
+
+**ダイスの懸念**: "anicca-Default" offering に 3 年前の古い Paywall Design が紐付いている。削除 / deactivate / 新 offering 作成のどれか必要か？
+
+**調査結果**: **何もしなくて OK。古い Paywall Design はアプリに 1 ミリも表示されない。**
+
+**ファクト**:
+
+| 項目 | 状態 |
+|------|------|
+| RC Dashboard 内 `anicca-Default` offering の Paywall Design | 存在するが未使用 |
+| iOS アプリ `PaywallVariantBView.swift` L1-5 | `import SwiftUI` + `import RevenueCat` + `import PostHog` のみ。`import RevenueCatUI` **なし** |
+| 描画方法 | `offering?.availablePackages ?? []` を読んで **SwiftUI 自前描画** |
+| RC `PaywallView()` / `presentPaywallIfNeeded` | 一切使ってない |
+
+**Source**: https://www.revenuecat.com/docs/tools/paywalls/displaying-paywalls
+**Quote**: RC 公式の全 iOS コード例は `import RevenueCatUI` + `PaywallView()` または `.presentPaywallIfNeeded` を使用。これが唯一の RC Hosted Paywall 描画方法。
+
+**結論**: RC Hosted Paywall Design は `RevenueCatUI` SDK を経由しないと描画されない。Anicca は native SwiftUI で `offering.availablePackages` から price / period を読んで描画しているので、**RC 側の paywall design は完全に cosmetic/未使用**。
+
+**やるべきこと**:
+- ❌ `anicca-Default` の paywall design を削除する必要なし
+- ❌ 新しい offering を作り直す必要なし
+- ❌ deactivate も不要
+- ✅ Experiment 作成時に Control=`anicca` / Treatment=`anicca_variant_b` を指定するだけ
+- ✅ iOS 側は `PaywallVariantBView.swift` に weekly package サポート追加（B-4b 参照）
 
 **Variant 設計**:
 
