@@ -1,159 +1,168 @@
-//
-//  AniccaWidget.swift
-//  AniccaWidget
-//
-//  Created by CBNS03 on 2025/12/07.
-//
-
 import WidgetKit
 import SwiftUI
 
-// iOS 17+ 用のプロバイダー
-@available(iOS 17.0, *)
-struct Provider: AppIntentTimelineProvider {
-    func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationAppIntent())
-    }
+// MARK: - Entry
 
-    func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: configuration)
-    }
-    
-    func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration)
-            entries.append(entry)
-        }
-
-        return Timeline(entries: entries, policy: .atEnd)
-    }
-
-//    func relevances() async -> WidgetRelevances<ConfigurationAppIntent> {
-//        // Generate a list containing the contexts this widget is relevant in.
-//    }
+struct NudgeEntry: TimelineEntry {
+    let date: Date
+    let nudgeText: String
+    let problemEmoji: String
 }
 
-// iOS 16 用のプロバイダー
-struct LegacyProvider: TimelineProvider {
-    func placeholder(in context: Context) -> LegacyEntry {
-        LegacyEntry(date: Date())
+// MARK: - Provider
+
+struct NudgeTimelineProvider: TimelineProvider {
+    private var fallbackText: String {
+        let preferred = Locale.preferredLanguages.first ?? "en"
+        if preferred.hasPrefix("ja") { return "自分に優しくしよう。" }
+        if preferred.hasPrefix("es") { return "Sé amable contigo mismo." }
+        return "Be kind to yourself."
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (LegacyEntry) -> Void) {
-        completion(LegacyEntry(date: Date()))
+    func placeholder(in context: Context) -> NudgeEntry {
+        NudgeEntry(date: Date(), nudgeText: fallbackText, problemEmoji: "🪷")
     }
-    
-    func getTimeline(in context: Context, completion: @escaping (Timeline<LegacyEntry>) -> Void) {
-        var entries: [LegacyEntry] = []
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            entries.append(LegacyEntry(date: entryDate))
+
+    func getSnapshot(in context: Context, completion: @escaping (NudgeEntry) -> Void) {
+        let entry = makeEntry(for: Date())
+        completion(entry)
+    }
+
+    func getTimeline(in context: Context, completion: @escaping (Timeline<NudgeEntry>) -> Void) {
+        var entries: [NudgeEntry] = []
+        let calendar = Calendar.current
+        let now = Date()
+
+        for dayOffset in 0..<7 {
+            guard let date = calendar.date(byAdding: .day, value: dayOffset, to: calendar.startOfDay(for: now)) else { continue }
+            entries.append(makeEntry(for: date))
         }
+
         completion(Timeline(entries: entries, policy: .atEnd))
     }
+
+    private func makeEntry(for date: Date) -> NudgeEntry {
+        let struggles = NudgeWidgetDataStore.loadStruggles()
+        let texts = NudgeWidgetDataStore.loadTexts()
+        let dayOfYear = Calendar.current.ordinality(of: .day, in: .year, for: date) ?? 1
+
+        guard !struggles.isEmpty else {
+            return NudgeEntry(date: date, nudgeText: fallbackText, problemEmoji: "🪷")
+        }
+
+        let problemKey = struggles[dayOfYear % struggles.count]
+        let problemTexts = texts[problemKey] ?? []
+        let text = problemTexts.isEmpty ? fallbackText : problemTexts[dayOfYear % problemTexts.count]
+        let emoji = ProblemType(rawValue: problemKey)?.icon ?? "🪷"
+
+        return NudgeEntry(date: date, nudgeText: text, problemEmoji: emoji)
+    }
 }
 
-@available(iOS 17.0, *)
-struct SimpleEntry: TimelineEntry {
-    let date: Date
-    let configuration: ConfigurationAppIntent
-}
+// MARK: - Views
 
-struct LegacyEntry: TimelineEntry {
-    let date: Date
-}
-
-@available(iOS 17.0, *)
-struct AniccaWidgetEntryView: View {
-    var entry: Provider.Entry
+struct NudgeWidgetSmallView: View {
+    let entry: NudgeEntry
 
     var body: some View {
-        VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
+        VStack(alignment: .leading, spacing: 8) {
+            Text(entry.problemEmoji)
+                .font(.title2)
 
-            Text("Favorite Emoji:")
-            Text(entry.configuration.favoriteEmoji)
+            Spacer()
+
+            Text(entry.nudgeText)
+                .font(.system(size: 14, weight: .semibold))
+                .lineLimit(4)
+                .minimumScaleFactor(0.8)
+
+            Text("— Anicca")
+                .font(.system(size: 10))
+                .foregroundStyle(.secondary)
         }
+        .padding()
     }
 }
 
-struct LegacyWidgetEntryView: View {
-    var entry: LegacyEntry
+struct NudgeWidgetMediumView: View {
+    let entry: NudgeEntry
 
     var body: some View {
-        VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
+        HStack(spacing: 16) {
+            Text(entry.problemEmoji)
+                .font(.system(size: 36))
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(entry.nudgeText)
+                    .font(.system(size: 15, weight: .semibold))
+                    .lineLimit(3)
+                    .minimumScaleFactor(0.8)
+
+                Text("— Anicca 🪷")
+                    .font(.system(size: 11))
+                    .foregroundStyle(.secondary)
+            }
+
+            Spacer()
+        }
+        .padding()
+    }
+}
+
+struct NudgeWidgetLockScreenView: View {
+    let entry: NudgeEntry
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(entry.nudgeText)
+                .font(.system(size: 12, weight: .medium))
+                .lineLimit(2)
+                .minimumScaleFactor(0.8)
         }
     }
 }
 
-@available(iOS 17.0, *)
-struct AniccaWidgetModern: Widget {
-    let kind: String = "AniccaWidget"
+// MARK: - Widget
 
-    var body: some WidgetConfiguration {
-        AppIntentConfiguration(kind: kind, intent: ConfigurationAppIntent.self, provider: Provider()) { entry in
-            AniccaWidgetEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
-        }
+struct AniccaWidget: Widget {
+    let kind = "AniccaWidget"
+
+    private var widgetDescription: String {
+        let preferred = Locale.preferredLanguages.first ?? "en"
+        if preferred.hasPrefix("ja") { return "毎日届く、あなたへの言葉" }
+        if preferred.hasPrefix("es") { return "Sabiduría diaria para tu crecimiento" }
+        return "Daily wisdom for your growth"
     }
-}
-
-struct AniccaWidgetLegacy: Widget {
-    let kind: String = "AniccaWidget"
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: LegacyProvider()) { entry in
-            LegacyWidgetEntryView(entry: entry)
+        StaticConfiguration(kind: kind, provider: NudgeTimelineProvider()) { entry in
+            if #available(iOS 17.0, *) {
+                NudgeWidgetEntryView(entry: entry)
+                    .containerBackground(.fill.tertiary, for: .widget)
+            } else {
+                NudgeWidgetEntryView(entry: entry)
+            }
         }
         .configurationDisplayName("Anicca")
-        .description("Anicca Widget")
+        .description(widgetDescription)
+        .supportedFamilies([.systemSmall, .systemMedium, .accessoryRectangular])
     }
 }
 
-// WidgetBundle で分岐するため、単一の Widget 型を公開
-struct AniccaWidget: Widget {
-    let kind: String = "AniccaWidget"
-    
-    var body: some WidgetConfiguration {
-        if #available(iOS 17.0, *) {
-            return AniccaWidgetModern().body
-        } else {
-            return AniccaWidgetLegacy().body
+struct NudgeWidgetEntryView: View {
+    @Environment(\.widgetFamily) var family
+    let entry: NudgeEntry
+
+    var body: some View {
+        switch family {
+        case .systemSmall:
+            NudgeWidgetSmallView(entry: entry)
+        case .systemMedium:
+            NudgeWidgetMediumView(entry: entry)
+        case .accessoryRectangular:
+            NudgeWidgetLockScreenView(entry: entry)
+        default:
+            NudgeWidgetSmallView(entry: entry)
         }
     }
 }
-
-@available(iOS 17.0, *)
-extension ConfigurationAppIntent {
-    fileprivate static var smiley: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "😀"
-        return intent
-    }
-    
-    fileprivate static var starEyes: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "🤩"
-        return intent
-    }
-}
-
-// Preview を iOS 17+ に制限
-#if swift(>=5.9)
-@available(iOS 17.0, *)
-#Preview(as: .systemSmall) {
-    AniccaWidgetModern()
-} timeline: {
-    SimpleEntry(date: .now, configuration: .smiley)
-    SimpleEntry(date: .now, configuration: .starEyes)
-}
-#endif

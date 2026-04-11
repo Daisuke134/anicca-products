@@ -44,7 +44,7 @@
 "onboarding_permission_status_not_allowed" = "Not allowed";
 "onboarding_microphone_optional_hint" = "Need the voice experience later? Just return to Settings → Anicca and flip the microphone back on when you're ready.";
 
-"onboarding_notifications_title" = "Don't miss your nudges";
+"onboarding_notifications_title" = "Don't miss your reminders";
 "onboarding_notifications_card_title" = "Notification Access";
 "onboarding_notifications_description" = "Anicca sends gentle reminders exactly when you need them. Without notifications, Anicca can't reach you.";
 "onboarding_notifications_allow" = "Allow notifications";
@@ -1294,16 +1294,6 @@
 "onboarding_depth_several" = "Several times a week";
 "onboarding_depth_weekly" = "Once a week";
 "onboarding_depth_occasionally" = "Occasionally";
-"onboarding_goals_title" = "What does your best self look like?";
-"onboarding_goals_subtitle" = "Choose what matters most to you.";
-"goal_better_sleep" = "Better Sleep";
-"goal_emotional_calm" = "Emotional Calm";
-"goal_less_screen_time" = "Less Screen Time";
-"goal_more_discipline" = "More Discipline";
-"goal_self_acceptance" = "Self-Acceptance";
-"goal_deeper_focus" = "Deeper Focus";
-"goal_healthier_habits" = "Healthier Habits";
-"goal_inner_peace" = "Inner Peace";
 "onboarding_insight_title" = "Based on your answers";
 "onboarding_insight_stat" = "81% of people with similar struggles improved within 30 days";
 "onboarding_insight_message" = "Anicca will create a personalized path for you.";
@@ -1317,20 +1307,20 @@
 "onboarding_valueprop_day6" = "Integration — New daily rhythm";
 "onboarding_valueprop_day7" = "Reflection — See how far you've come";
 "onboarding_valueprop_cta" = "Start My Journey";
-"onboarding_notifications_morning" = "Morning nudge";
+"onboarding_notifications_morning" = "Morning reminder";
 "onboarding_notifications_midday" = "Midday check-in";
 "onboarding_notifications_evening" = "Evening reflection";
 
 /* ========== Onboarding v2: 3-Step Paywall ========== */
-"paywall_primer_title" = "We want you to try\nAnicca for free";
-"paywall_primer_subtitle" = "Your personalized plan is ready. Experience the full journey risk-free.";
+"paywall_primer_title" = "Your personalized plan\nis ready";
+"paywall_primer_subtitle" = "Start your journey with words crafted just for you.";
 "paywall_primer_feature1" = "Full access to all features";
-"paywall_primer_feature2" = "Personalized nudges";
+"paywall_primer_feature2" = "Personalized reminders";
 "paywall_primer_feature3" = "Cancel anytime";
 "paywall_plan_title" = "Gentle words\nfor your daily moments";
 "paywall_plan_subtitle" = "Daily cards with words chosen just for you.";
 "paywall_plan_feature_access" = "Full access to all features";
-"paywall_plan_feature_nudges" = "Personalized nudges";
+"paywall_plan_feature_nudges" = "Personalized reminders";
 "paywall_plan_feature_cancel" = "Cancel anytime";
 "paywall_plan_yearly_badge" = "BEST VALUE";
 "paywall_plan_price_yearly" = "%@/yr";
@@ -1350,20 +1340,28 @@
 // MARK: - Paywall Variant B (A/B Test)
 "paywall_b_title" = "Gentle words when you need them most";
 "paywall_b_subtitle" = "Daily cards to help you through your struggles";
-"paywall_b_feature_nudges" = "Smart nudges at the right moment";
+"paywall_b_feature_nudges" = "Reminders at the right moment";
 "paywall_b_feature_ai" = "AI-generated personalized guidance";
 "paywall_b_feature_personalized" = "Adapts to your unique struggles";
 "paywall_b_feature_feedback" = "Learns from your feedback";
 "paywall_b_feature_cancel" = "Cancel anytime, no questions asked";
 "paywall_b_per_year" = "/yr";
 "paywall_b_per_month" = "/mo";
+"paywall_b_per_week" = "/week";
 "paywall_b_daily_price" = "Just %@ per day";
-"paywall_b_trial_badge" = "%@ free trial included";
-"paywall_b_cta_trial" = "Start %@ Free Trial";
 "paywall_b_cta_no_trial" = "Start Your Journey Now";
-"paywall_b_review" = "\"Anicca helped me be kinder to myself.\" — A real user";
-"paywall_b_trust_trial" = "Free trial · Cancel anytime · No charge until trial ends";
+"paywall_b_review" = "\"Anicca helped me be kinder to myself.\"";
 "paywall_b_trust_no_trial" = "Cancel anytime · Satisfaction guaranteed";
+
+// MARK: - Onboarding New 3 Screens (1.8.3)
+"onboarding_processing_title" = "Setting everything up for you";
+"onboarding_processing_step1" = "Analyzing your struggles...";
+"onboarding_processing_step2" = "Building your plan...";
+"onboarding_processing_step3" = "Final adjustments...";
+"onboarding_processing_struggles_header" = "Your struggles:";
+"onboarding_demo_title" = "Experience your first reminder";
+"onboarding_demo_footer" = "This is what Anicca sends you every day.";
+"onboarding_demo_cta" = "Continue";
 
 // MARK: - Nudge Expansion v1.8.0 — staying_up_late (22-60)
 "nudge_staying_up_late_notification_22" = "Nothing on your phone is worth losing sleep.";
@@ -2572,3 +2570,6 @@
 "nudge_loneliness_detail_58" = "Next time you're in a store or elevator, make eye contact and smile. That 2-second connection activates mirror neurons and creates a tiny moment of shared humanity.";
 "nudge_loneliness_detail_59" = "You matter. To someone you know, to someone you helped once, to someone watching from a distance. Your existence impacts more lives than you realize.";
 "nudge_loneliness_detail_60" = "Reach out to someone right now. Don't overthink the message—just send it. 'Hey, want to hang out?' 'I miss you.' 'How are you?' Someone will be glad you did.";
+
+// MARK: - Widget
+"widget_description" = "Daily wisdom for your growth";

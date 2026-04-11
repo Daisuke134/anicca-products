@@ -1316,20 +1316,35 @@
 // MARK: - Paywall Variant B (A/B Test)
 "paywall_b_title" = "Palabras que llegan cuando más las necesitas";
 "paywall_b_subtitle" = "Tarjetas diarias para ayudarte con tus dificultades";
-"paywall_b_feature_nudges" = "Nudges inteligentes en el momento justo";
+"paywall_b_feature_nudges" = "Recordatorios en el momento justo";
 "paywall_b_feature_ai" = "Guía personalizada generada por IA";
 "paywall_b_feature_personalized" = "Se adapta a tus dificultades únicas";
 "paywall_b_feature_feedback" = "Aprende de tus comentarios";
 "paywall_b_feature_cancel" = "Cancela cuando quieras, sin preguntas";
 "paywall_b_per_year" = "/año";
 "paywall_b_per_month" = "/mes";
+"paywall_b_per_week" = "/semana";
 "paywall_b_daily_price" = "Solo %@ por día";
-"paywall_b_trial_badge" = "Prueba gratuita de %@ incluida";
-"paywall_b_cta_trial" = "Comenzar prueba gratuita de %@";
 "paywall_b_cta_no_trial" = "Comienza tu viaje ahora";
-"paywall_b_review" = "\"Anicca me ayudó a ser más amable conmigo mismo.\" — Un usuario real";
-"paywall_b_trust_trial" = "Prueba gratis · Cancela cuando quieras · Sin cobro hasta que termine";
+"paywall_b_review" = "\"Anicca me ayudó a ser más amable conmigo.\"";
 "paywall_b_trust_no_trial" = "Cancela cuando quieras · Satisfacción garantizada";
+
+// MARK: - Paywall Primer (1.8.3)
+"paywall_primer_title" = "Tu plan personalizado\nestá listo";
+"paywall_primer_subtitle" = "Comienza tu viaje con palabras creadas para ti.";
+"paywall_primer_feature1" = "Acceso completo a todas las funciones";
+"paywall_primer_feature2" = "Recordatorios personalizados";
+"paywall_primer_feature3" = "Cancela en cualquier momento";
+
+// MARK: - Onboarding New 3 Screens (1.8.3)
+"onboarding_processing_title" = "Preparando todo para ti";
+"onboarding_processing_step1" = "Analizando tus dificultades...";
+"onboarding_processing_step2" = "Construyendo tu plan...";
+"onboarding_processing_step3" = "Ajustes finales...";
+"onboarding_processing_struggles_header" = "Tus dificultades:";
+"onboarding_demo_title" = "Experimenta tu primer recordatorio";
+"onboarding_demo_footer" = "Esto es lo que Anicca te envía cada día.";
+"onboarding_demo_cta" = "Continuar";
 
 // MARK: - Staying Up Late Nudge Variants (22-60) ES
 "nudge_staying_up_late_notification_22" = "Tu cuerpo se repara mientras duermes.";
@@ -2563,4 +2578,7 @@
 "nudge_loneliness_detail_58" = "La próxima vez que estés en una tienda o elevador, haz contacto visual y sonríe. Esa conexión de 2 segundos activa neuronas espejo y crea un momento de humanidad compartida.";
 "nudge_loneliness_detail_59" = "Importas. Para alguien que conoces, para alguien que ayudaste una vez, para alguien que observa desde lejos. Tu existencia impacta más vidas de las que imaginas.";
 "nudge_loneliness_detail_60" = "Acércate a alguien ahora mismo. No pienses demasiado el mensaje — solo envíalo. '¿Quieres salir?' 'Te extraño.' '¿Cómo estás?' Alguien se alegrará de que lo hiciste.";
+
+// MARK: - Widget
+"widget_description" = "Sabiduría diaria para tu crecimiento";
 

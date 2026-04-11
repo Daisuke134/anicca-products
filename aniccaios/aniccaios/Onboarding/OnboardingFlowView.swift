@@ -3,7 +3,6 @@ import RevenueCat
 import RevenueCatUI
 import UserNotifications
 import StoreKit
-import PostHog
 
 struct OnboardingFlowView: View {
     @EnvironmentObject private var appState: AppState
@@ -70,12 +69,14 @@ struct OnboardingFlowView: View {
             StrugglesStepView(next: advance)
         case .struggleDepth:
             StruggleDepthStepView(next: advance)
-        case .goals:
-            GoalsStepView(next: advance)
         case .personalizedInsight:
             PersonalizedInsightStepView(next: advance)
+        case .processing:
+            ProcessingStepView(next: advance)
         case .valueProp:
             ValuePropStepView(next: advance)
+        case .appDemo:
+            AppDemoStepView(next: advance)
         case .notifications:
             NotificationPermissionStepView(next: advance)
         }
@@ -93,36 +94,14 @@ struct OnboardingFlowView: View {
                 }
             })
         case .planSelection:
-            if !appState.featureFlagsReady {
-                // PostHog フラグ到着待ち（初回起動時のみ発生）
-                // Source: https://posthog.com/docs/libraries/ios/usage — "Ensuring flags are loaded before usage"
-                VStack {
-                    Spacer()
-                    ProgressView()
-                    Spacer()
-                }
-                .background(AppBackground())
-            } else {
-                let variant: String = {
-                    if let forced = ProcessInfo.processInfo.environment["PAYWALL_VARIANT"] {
-                        return forced
-                    }
-                    return PostHogSDK.shared.getFeatureFlag("paywall-ab-test") as? String ?? "test"
-                }()
-                if variant == "test" {
-                    PaywallVariantBView(
-                        variant: variant,
-                        onPurchaseSuccess: { customerInfo in handlePaywallSuccess(customerInfo: customerInfo) },
-                        onDismiss: { handlePaywallDismissedAsFree() }
-                    )
-                } else {
-                    PlanSelectionStepView(
-                        onPurchaseSuccess: { customerInfo in handlePaywallSuccess(customerInfo: customerInfo) },
-                        onDismiss: { handlePaywallDismissedAsFree() },
-                        variant: variant
-                    )
-                }
-            }
+            // RC Experiment handles A/B via offering swap server-side.
+            // PaywallVariantBView always renders `current` offering — Variant A shows 2 cards (annual+monthly),
+            // Variant B shows 2 cards (annual+weekly) automatically based on which packages the offering contains.
+            PaywallVariantBView(
+                variant: "rc_experiment",
+                onPurchaseSuccess: { customerInfo in handlePaywallSuccess(customerInfo: customerInfo) },
+                onDismiss: { handlePaywallDismissedAsFree() }
+            )
         }
     }
 
@@ -137,12 +116,14 @@ struct OnboardingFlowView: View {
             AnalyticsManager.shared.track(.onboardingStrugglesCompleted)
             step = .struggleDepth
         case .struggleDepth:
-            step = .goals
-        case .goals:
             step = .personalizedInsight
         case .personalizedInsight:
+            step = .processing
+        case .processing:
             step = .valueProp
         case .valueProp:
+            step = .appDemo
+        case .appDemo:
             step = .notifications
         case .notifications:
             AnalyticsManager.shared.track(.onboardingNotificationsCompleted)
@@ -155,6 +136,7 @@ struct OnboardingFlowView: View {
     private func completeOnboarding() {
         AnalyticsManager.shared.track(.onboardingCompleted)
         AnalyticsManager.shared.updateSKANConversionValue(1)
+        NudgeWidgetDataStore.sync(struggles: appState.userProfile.struggles)
 
         // Existing Pro user (reinstall etc.) → skip paywall
         if appState.subscriptionInfo.isEntitled {
@@ -191,9 +173,6 @@ struct OnboardingFlowView: View {
         guard !didPurchaseOnPaywall else { return }
 
         AnalyticsManager.shared.track(.onboardingPaywallDismissedFree)
-        AnalyticsManager.shared.trackPostHog("paywall_dismissed", properties: [
-            "variant": PostHogSDK.shared.getFeatureFlag("paywall-ab-test") as? String ?? "control"
-        ])
 
         let problems = appState.userProfile.struggles.compactMap { ProblemType(rawValue: $0) }
         FreePlanService.shared.scheduleFreePlanNudges(problems: problems)

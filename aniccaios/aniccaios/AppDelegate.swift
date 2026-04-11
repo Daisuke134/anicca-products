@@ -24,6 +24,12 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         NotificationScheduler.shared.registerCategories()
         SubscriptionManager.shared.configure()
 
+        // Widget data sync
+        let struggles = AppState.shared.userProfile.struggles
+        if !struggles.isEmpty {
+            NudgeWidgetDataStore.sync(struggles: struggles)
+        }
+
         // Mixpanelは常に初期化（ファーストパーティAnalytics、IDFAを使用しない）
         AnalyticsManager.shared.configure()
 

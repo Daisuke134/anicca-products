@@ -1,7 +1,6 @@
 import SwiftUI
 import RevenueCat
 import RevenueCatUI
-import PostHog
 
 /// My Path タブ - ユーザーが選択した問題（苦しみ）のリストを表示
 struct MyPathTabView: View {
@@ -190,20 +189,11 @@ struct MyPathTabView: View {
 
     @ViewBuilder
     private var paywallContent: some View {
-        let variant = PostHogSDK.shared.getFeatureFlag("paywall-ab-test") as? String ?? "control"
-        if variant == "test" {
-            PaywallVariantBView(
-                variant: variant,
-                onPurchaseSuccess: { _ in showUpgradePaywall = false },
-                onDismiss: { showUpgradePaywall = false }
-            )
-        } else {
-            PlanSelectionStepView(
-                onPurchaseSuccess: { _ in showUpgradePaywall = false },
-                onDismiss: { showUpgradePaywall = false },
-                variant: variant
-            )
-        }
+        PaywallVariantBView(
+            variant: "rc_experiment",
+            onPurchaseSuccess: { _ in showUpgradePaywall = false },
+            onDismiss: { showUpgradePaywall = false }
+        )
     }
 
     // MARK: - Account Section
