@@ -5,22 +5,27 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000341">
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.000143">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: build_app" time="75.534025">
+      <testcase classname="fastlane.lanes" name="1: shell command" time="1.42217">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: codesign --remove-signature &apos;/Users/anicca/anicca-10k-mrr/aniccaios/fastlane/build/aniccaios.xcarchive/Products/Applications/aniccaios.app/Frameworks/WebRTC.framework&apos;" time="0.01818">
+      <testcase classname="fastlane.lanes" name="2: xcodebuild build -scheme &apos;aniccaios&apos; -project &apos;/Users/anicca/anicca-paywall-variant-b/aniccaios/aniccaios.xcodeproj&apos; -destination &apos;platform=iOS,id=00008120-000914362E87A01E&apos; -configuration &apos;Debug&apos; -derivedDataPath &apos;/Users/anicca/anicca-paywall-variant-b/aniccaios/fastlane/build/DerivedData&apos; -allowProvisioningUpdates ONLY_ACTIVE_ARCH=YES 2&gt;&amp;1 | tee &apos;/Users/anicca/anicca-paywall-variant-b/aniccaios/fastlane/build/DerivedData/build_for_device.log&apos; | xcpretty" time="39.336806">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: xcodebuild -exportArchive -archivePath &apos;/Users/anicca/anicca-10k-mrr/aniccaios/fastlane/build/aniccaios.xcarchive&apos; -exportOptionsPlist &apos;/Users/anicca/anicca-10k-mrr/aniccaios/fastlane/build/ExportOptions.plist&apos; -exportPath &apos;/Users/anicca/anicca-10k-mrr/aniccaios/fastlane/build/export&apos; -allowProvisioningUpdates" time="2.665649">
+      <testcase classname="fastlane.lanes" name="3: ios-deploy --bundle &apos;/Users/anicca/anicca-paywall-variant-b/aniccaios/fastlane/build/DerivedData/Build/Products/Debug-iphoneos/aniccaios.app&apos; --justlaunch --no-wifi 2&gt;&amp;1 || true" time="11.144768">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: notification" time="0.253215">
         
       </testcase>
     

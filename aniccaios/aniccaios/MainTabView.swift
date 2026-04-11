@@ -4,7 +4,6 @@ import Combine
 import StoreKit
 import RevenueCat
 import RevenueCatUI
-import PostHog
 
 struct MainTabView: View {
     @EnvironmentObject private var appState: AppState
@@ -71,20 +70,11 @@ struct MainTabView: View {
 
     @ViewBuilder
     private func upgradePaywallView() -> some View {
-        let variant = PostHogSDK.shared.getFeatureFlag("paywall-ab-test") as? String ?? "control"
-        if variant == "test" {
-            PaywallVariantBView(
-                variant: variant,
-                onPurchaseSuccess: { customerInfo in handleUpgradePurchase(customerInfo: customerInfo) },
-                onDismiss: { showUpgradePaywall = false }
-            )
-        } else {
-            PlanSelectionStepView(
-                onPurchaseSuccess: { customerInfo in handleUpgradePurchase(customerInfo: customerInfo) },
-                onDismiss: { showUpgradePaywall = false },
-                variant: variant
-            )
-        }
+        PaywallVariantBView(
+            variant: "rc_experiment",
+            onPurchaseSuccess: { customerInfo in handleUpgradePurchase(customerInfo: customerInfo) },
+            onDismiss: { showUpgradePaywall = false }
+        )
     }
 
     private func handleUpgradePurchase(customerInfo: CustomerInfo) {
