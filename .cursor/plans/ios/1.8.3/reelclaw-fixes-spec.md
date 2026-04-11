@@ -1,15 +1,28 @@
-# Reelclaw + Superwall Fixes Spec — v1.8.3 → v1.8.4
+# Reelclaw + RevenueCat A/B Fixes Spec — v1.8.3 → v1.8.4
 
 **Status**: 📝 DRAFT（実装前）
 **Created**: 2026-04-11
+**Updated**: 2026-04-11（Superwall → RevenueCat Experiments にピボット、プラットフォームマトリクス確定）
 **Goal**: $1k MRR by 2026-04-30（$46 → $1k = 21倍）
-**Scope**: reelclaw 全 cron / Larry / Honne + Anicca iOS Superwall SDK 統合 + Weekly $7.99 plan
+**Scope**: reelclaw 全 cron / Larry / Honne + Anicca iOS RevenueCat Experiments（Variant B: Weekly $12.99 + Annual $59.99）
+
+## プラットフォーム配信マトリクス（ダイス確定 2026-04-11）
+
+| スキル | TikTok | YouTube | Instagram | 言語 |
+|--------|:------:|:-------:|:---------:|------|
+| mau | ✅ EN | ✅ EN | — | EN only |
+| larry | ✅ | — | ✅ | EN + JA |
+| reelclaw card demo | ✅ | ✅ | ✅ | EN + JA |
+| reelclaw widget | ✅ | ✅ | ✅ | EN + JA |
+| reelclaw honne | ✅ | — | — | JA only |
+
+**ルール**: 上4つ（mau/larry/reelclaw card/widget）= TT/YT/IG、最後（honne）= TT のみ。
 
 ## 開発環境
 
 | 項目 | 値 |
 |------|-----|
-| 作業場所 | dev から worktree（`feature/reelclaw-superwall-fix`） |
+| 作業場所 | dev から worktree（`feature/reelclaw-rc-ab-fix`） |
 | ブランチ | 未作成（実装開始時に `origin/dev` から切る） |
 | 現ブランチ | release/1.8.2 |
 | 状態 | Spec only、実装禁止（ダイス OK 待ち） |
@@ -25,12 +38,13 @@
 | `~/.openclaw/workspace/honne-ai/honne-hooks-ja.json` | ダイス選別後に差し替え |
 | `~/.openclaw/workspace/tiktok-marketing/assets/demos/ja/` | loose mp4 を trimmed/ 外から削除 |
 | `~/.openclaw/workspace/tiktok-marketing/assets/demos/demos-mapping.json` | rotation state reset |
-| `~/.openclaw/cron/jobs.json` | 16 cron の message 書き換え（TikTok settings） |
-| `aniccaios/aniccaios/Subscription/RCPurchaseController.swift` | 新規作成 |
-| `aniccaios/aniccaios/AppDelegate.swift` or `aniccaiosApp.swift` | Superwall.configure 追加 |
-| `aniccaios/aniccaios/Services/SubscriptionManager.swift` | purchaseController 統合 |
-| `aniccaios/aniccaios/Onboarding/OnboardingFlowView.swift` L95-126 | paywall 呼出しを Superwall.shared.register に差し替え |
-| `aniccaios/aniccaios.xcodeproj/project.pbxproj` | SPM Superwall-iOS 4.0.0+ 追加（Xcode 手動） |
+| `~/.openclaw/cron/jobs.json` | reelclaw 11 cron の message 書き換え（TikTok settings + YT/IG 追加） |
+| `~/.openclaw/workspace/skills/larry/scripts/post-to-tiktok.js` | TikTok 専用 → TT+IG 2プラットフォーム投稿に拡張（または posting cron で IG call 追加） |
+| `~/.openclaw/cron/jobs.json` larry 系 | **全て enabled=false 状態**。有効化 + TT/IG 両方投稿するよう message 書き換え |
+| `aniccaios/aniccaios/Services/SubscriptionManager.swift` L43/L148 | `result.offering(id:) ?? result.current` → `result.current ?? result.offering(id:)` に順序反転（RC Experiments が current を差し替えるため） |
+| `aniccaios/aniccaios/Onboarding/PaywallVariantBView.swift` | weekly package 対応追加（現状 `.annual` / `.monthly` のみ）、display 名マッピング追加 |
+| `aniccaios/aniccaios/Onboarding/OnboardingFlowView.swift` L95-125 | PostHog `paywall-ab-test` gating 削除 → PaywallVariantBView を常時表示（RC が Variant を返す） |
+| `aniccaios/aniccaios/Services/SubscriptionManager.swift` L282-287 | weekly/annual B の display name マッピング追加 |
 
 ---
 
@@ -289,11 +303,11 @@ Input video for Step 4a upload: `reel-text.mp4` (step 3d output)。
 | reelclaw-anicca-ja-widget-2 | L7072 |
 | reelclaw-anicca-en-widget-1 | L7107 |
 | reelclaw-anicca-en-widget-2 | L7142 |
-| larry-morning-en | L1192 |
-| larry-morning-ja | (同スロット) |
-| larry-evening-en | (同スロット) |
-| larry-evening-ja | (同スロット) |
-| larry-daily-report-en | L1155（変更なし — report のみ） |
+
+**Larry cron 現状**（2026-04-11 調査）:
+- `larry-draft-*`, `larry-post-morning`, `larry-post-afternoon`, `larry-post-evening` は **全て enabled=false**
+- 現在アクティブな larry は `larry-daily-report-en/ja`（レポート）と `larry-trend-hunter-en/ja`（トレンド収集）、`larry-strategy-updater` のみ
+- **Larry は今何も投稿していない** → Patch A-6e で posting cron を有効化 + IG 投稿ロジック追加が必要
 
 **Before** (現状の POSTING RULES 2):
 ```
@@ -402,218 +416,247 @@ JA:
 
 ---
 
-# PART B — Superwall SDK 統合 + Weekly $7.99
+# PART B — RevenueCat Experiments A/B（Variant B: Weekly $12.99 + Annual $59.99）
 
-**目的**: Superwall dashboard で paywall A/B 切り替え自在。weekly $7.99 を追加して 2 x 2 = 4 variant テスト（weekly+annual vs monthly+annual × paywall A/B）。
+**方針**: Superwall 導入やめ。**RevenueCat Experiments（無料・ローカライズ対応）** で offering 切り替え A/B を実施。iOS コード変更は最小限。
 
-**Source**: https://superwall.com/docs/ios/guides/using-revenuecat
-**Quote**: 「call `purchaseController.syncSubscriptionStatus()` to keep Superwall's subscription status up to date with RevenueCat.」
+**Variant 設計**:
 
-## B-1: Weekly $7.99 を App Store Connect に登録
+| Variant | Weekly | Monthly | Annual | 月換算 MRR 最大 | 目的 |
+|---------|:------:|:-------:|:------:|:---------------:|------|
+| A（現状 offering `anicca`） | — | $7.99 | $39.99 | $7.99 | 既存、ベースライン |
+| B（新 offering `anicca_variant_b`） | $12.99 | — | $59.99 | ≈$56 | Weekly 価格抵抗↓ + Annual 高価格テスト |
+
+**Source**: https://www.revenuecat.com/docs/tools/experiments
+**Quote**: 「Experiments allow you to test changes to your paywall and see the impact on your business metrics... `offerings.current` will return the offering assigned by the experiment for that user.」
+
+## B-0: App Store Connect 現状（2026-04-11 調査済）
+
+| 項目 | 値 |
+|------|-----|
+| app | `6755129214` |
+| subscription group（現行） | `21833082` "Anicca Premium" |
+| Monthly A | `6755320627` `ai.anicca.app.ios.monthly` $7.99 |
+| Annual A | `6755320744` `ai.anicca.app.ios.yearly` $39.99 |
+| Introductory offer | 両方ゼロ（trial なし） |
+
+**重要制約**: 同一 subscription group に同じ duration の product を複数作ると「ユーザーに見せる価格がどちらか分からない」ため、Apple は推奨しない。**Variant B の product は新 subscription group "Anicca Premium B" を作成して分離する。**
+
+## B-1: Weekly $12.99 + Annual $59.99 を App Store Connect に登録（新 group）
 
 ```bash
-# Step 1: 既存 group ID 取得
-asc subscriptions groups list --app "$APP_ID"
+APP_ID=6755129214
 
-# Step 2: weekly subscription 作成
+# Step 1: 新 subscription group 作成
+asc subscriptions groups create \
+  --app "$APP_ID" \
+  --reference-name "Anicca Premium B"
+# → 返る group ID を $GROUP_B に保存
+
+# Step 2: Weekly $12.99 作成
 asc subscriptions setup \
   --app "$APP_ID" \
-  --group-reference-name "Anicca Premium" \
-  --reference-name "Anicca Weekly" \
-  --product-id "ai.anicca.app.ios.weekly" \
+  --group-id "$GROUP_B" \
+  --reference-name "Anicca Weekly B" \
+  --product-id "ai.anicca.app.ios.weekly.b" \
   --subscription-period ONE_WEEK \
   --locale "en-US" \
   --display-name "Weekly Premium" \
-  --price "7.99" \
+  --price "12.99" \
   --price-territory "USA" \
-  --territories "USA"
-
-# Step 3: JA localization
-asc subscriptions localizations create \
-  --subscription-id "$SUB_ID" \
-  --locale "ja" \
-  --display-name "週額プレミアム" \
-  --description "週ごとに自動更新"
-
-# Step 4: availability 全領域
-asc subscriptions pricing availability edit \
-  --subscription-id "$SUB_ID" \
   --territories "WW"
 
-# Step 5: review screenshot
-asc subscriptions review screenshots create \
-  --subscription-id "$SUB_ID" \
-  --file "./weekly_review.png"
+# Step 3: Annual $59.99 作成
+asc subscriptions setup \
+  --app "$APP_ID" \
+  --group-id "$GROUP_B" \
+  --reference-name "Anicca Annual B" \
+  --product-id "ai.anicca.app.ios.yearly.b" \
+  --subscription-period ONE_YEAR \
+  --locale "en-US" \
+  --display-name "Annual Premium" \
+  --price "59.99" \
+  --price-territory "USA" \
+  --territories "WW"
 
-# Step 6: 提出
-asc subscriptions review submit \
-  --subscription-id "$SUB_ID" \
-  --confirm
+# Step 4: JA localization（両方）
+asc subscriptions localizations create --subscription-id "$WEEKLY_B_ID" --locale "ja" --display-name "週額プレミアム" --description "週ごとに自動更新"
+asc subscriptions localizations create --subscription-id "$ANNUAL_B_ID" --locale "ja" --display-name "年額プレミアム" --description "年ごとに自動更新"
+
+# Step 5: introductory offer なし確認（trial 禁止 — ダイス指示）
+asc offers introductory list --subscription-id "$WEEKLY_B_ID"
+asc offers introductory list --subscription-id "$ANNUAL_B_ID"
+# あれば delete
+
+# Step 6: review screenshot + 提出
+asc subscriptions review screenshots create --subscription-id "$WEEKLY_B_ID" --file "./weekly_b_review.png"
+asc subscriptions review screenshots create --subscription-id "$ANNUAL_B_ID" --file "./annual_b_review.png"
+asc subscriptions review submit --subscription-id "$WEEKLY_B_ID" --confirm
+asc subscriptions review submit --subscription-id "$ANNUAL_B_ID" --confirm
 ```
 
 **Gotcha**: availability → pricing の順序（`.claude/rules/platform-gotchas.md`）。`setup` は一括で両方設定するので安全。
 
-## B-2: RevenueCat に weekly product 追加（MCP）
+## B-2: RevenueCat に Variant B offering / products / packages 作成（MCP）
+
+**RC 現状**（2026-04-11 調査済）:
+- project: `projbb7b9d1b`
+- iOS app: `app511ef26659`
+- 既存 offering: `ofrng78a01eb506` "anicca"（current）
+- entitlement: `entlb820c43ab7` "premium"
 
 ```json
-// Step 1: create-product
-{
-  "project_id": "<rc_project_id>",
-  "app_id": "<rc_app_id>",
-  "store_identifier": "ai.anicca.app.ios.weekly",
+// Step 1: Variant B の products 作成（MCP）
+mcp__revenuecat__create-product {
+  "project_id": "projbb7b9d1b",
+  "app_id": "app511ef26659",
+  "store_identifier": "ai.anicca.app.ios.weekly.b",
   "type": "subscription",
-  "display_name": "Anicca Weekly",
-  "title": "Weekly Premium"
+  "display_name": "Anicca Weekly B"
+}
+mcp__revenuecat__create-product {
+  "project_id": "projbb7b9d1b",
+  "app_id": "app511ef26659",
+  "store_identifier": "ai.anicca.app.ios.yearly.b",
+  "type": "subscription",
+  "display_name": "Anicca Annual B"
 }
 
-// Step 2: attach-products-to-entitlement（既存 "premium"）
-{
-  "project_id": "<rc_project_id>",
-  "entitlement_id": "premium",
-  "product_ids": ["<rc_weekly_product_id>"]
+// Step 2: Variant B offering 作成（current にしない）
+mcp__revenuecat__create-offering {
+  "project_id": "projbb7b9d1b",
+  "lookup_key": "anicca_variant_b",
+  "display_name": "Anicca Variant B",
+  "is_current": false
 }
 
-// Step 3: create-packages on existing offering
-{
-  "project_id": "<rc_project_id>",
-  "offering_id": "<rc_offering_id>",
-  "lookup_key": "$rc_weekly",
-  "display_name": "Weekly",
-  "position": 1
+// Step 3: packages を新 offering に追加
+mcp__revenuecat__create-packages {
+  "project_id": "projbb7b9d1b",
+  "offering_id": "<new_offering_id>",
+  "packages": [
+    {"lookup_key": "$rc_weekly", "display_name": "Weekly", "position": 1},
+    {"lookup_key": "$rc_annual", "display_name": "Annual", "position": 2}
+  ]
 }
 
-// Step 4: attach-products-to-package
-{
-  "package_id": "<package_id>",
-  "products": [{"product_id": "<rc_weekly_product_id>", "eligibility_criteria": "all"}]
+// Step 4: products を package に attach
+mcp__revenuecat__attach-products-to-package {
+  "package_id": "<weekly_pkg_id>",
+  "products": [{"product_id": "<rc_weekly_b_product_id>", "eligibility_criteria": "all"}]
+}
+mcp__revenuecat__attach-products-to-package {
+  "package_id": "<annual_pkg_id>",
+  "products": [{"product_id": "<rc_annual_b_product_id>", "eligibility_criteria": "all"}]
+}
+
+// Step 5: products を既存 entitlement "premium" に attach
+mcp__revenuecat__attach-products-to-entitlement {
+  "project_id": "projbb7b9d1b",
+  "entitlement_id": "entlb820c43ab7",
+  "product_ids": ["<rc_weekly_b_product_id>", "<rc_annual_b_product_id>"]
 }
 ```
 
-## B-3: Xcode SPM に Superwall-iOS 追加（手動）
+## B-3: RevenueCat Dashboard で Experiment 作成（手動 — MCP 未対応）
 
-Xcode → File → Add Package Dependencies → `https://github.com/superwall/Superwall-iOS` → Up to Next Major 4.0.0
+**RC MCP には create-experiment が無い** → Dashboard で手動作成:
 
-## B-4: RCPurchaseController.swift 新規作成
+1. RC Dashboard → Experiments → New Experiment
+2. Name: `paywall_ab_v1`
+3. Control: offering `anicca`（既存、Variant A = monthly $7.99 + annual $39.99）
+4. Treatment: offering `anicca_variant_b`（Variant B = weekly $12.99 + annual $59.99）
+5. Traffic split: 50/50
+6. Audience: `Platform = iOS` のみ
+7. Start date: 即日
+8. Duration: 14日
 
-**新規ファイル**: `aniccaios/aniccaios/Subscription/RCPurchaseController.swift`
+**結果**: 新規ユーザーに `Purchases.shared.getOfferings()` すると、RC が自動で 50% ずつ `result.current` に Variant A/B の offering を入れて返す。iOS 側のコードは `result.current` を読むだけで OK。
+
+## B-4: iOS Swift パッチ（最小限）
+
+### B-4a: SubscriptionManager.swift L43 + L148 — fallback の順序反転
+
+**Why**: 現行は `result.offering(identifier: "anicca") ?? result.current` になっていて、RC Experiments が差し替える `current` を**無視**してしまう。順序を反転して `current` を優先させる。
+
+**Before** (L43-47):
+```swift
+if let cached = Purchases.shared.cachedOfferings,
+   let preloaded = cached.offering(identifier: AppConfig.revenueCatPaywallId) ?? cached.current {
+```
+
+**After**:
+```swift
+if let cached = Purchases.shared.cachedOfferings,
+   let preloaded = cached.current ?? cached.offering(identifier: AppConfig.revenueCatPaywallId) {
+```
+
+**Before** (L148):
+```swift
+if let offering = result.offering(identifier: AppConfig.revenueCatPaywallId) ?? result.current {
+```
+
+**After**:
+```swift
+if let offering = result.current ?? result.offering(identifier: AppConfig.revenueCatPaywallId) {
+```
+
+### B-4b: PaywallVariantBView.swift — weekly package 対応
+
+**Before** (L164-196 付近):
+```swift
+private var yearlyPackage: Package? { packages.first { $0.packageType == .annual } }
+private var monthlyPackage: Package? { packages.first { $0.packageType == .monthly } }
+```
+
+**After**（weekly を追加）:
+```swift
+private var weeklyPackage: Package? { packages.first { $0.packageType == .weekly } }
+private var yearlyPackage: Package? { packages.first { $0.packageType == .annual } }
+private var monthlyPackage: Package? { packages.first { $0.packageType == .monthly } }
+```
+
+`planCards` の描画を、offering に含まれる package 種別で動的に構築するよう変更:
 
 ```swift
-import SuperwallKit
-import RevenueCat
-import StoreKit
-
-enum PurchasingError: LocalizedError {
-  case sk2ProductNotFound
-  var errorDescription: String? {
-    switch self {
-    case .sk2ProductNotFound:
-      return "Superwall didn't pass a StoreKit 2 product. Check SuperwallOption is NOT StoreKit 1."
-    }
-  }
-}
-
-final class RCPurchaseController: PurchaseController {
-  func syncSubscriptionStatus() {
-    assert(Purchases.isConfigured, "Configure RevenueCat before calling.")
-    Task {
-      for await customerInfo in Purchases.shared.customerInfoStream {
-        let ents = customerInfo.entitlements.activeInCurrentEnvironment.keys.map { Entitlement(id: $0) }
-        await MainActor.run {
-          Superwall.shared.subscriptionStatus = .active(Set(ents))
-        }
-      }
-    }
-  }
-
-  func purchase(product: SuperwallKit.StoreProduct) async -> PurchaseResult {
-    do {
-      guard let sk2Product = product.sk2Product else {
-        throw PurchasingError.sk2ProductNotFound
-      }
-      let storeProduct = RevenueCat.StoreProduct(sk2Product: sk2Product)
-      let result = try await Purchases.shared.purchase(product: storeProduct)
-      return result.userCancelled ? .cancelled : .purchased
-    } catch let error as ErrorCode where error == .paymentPendingError {
-      return .pending
-    } catch {
-      return .failed(error)
-    }
-  }
-
-  func restorePurchases() async -> RestorationResult {
-    do {
-      _ = try await Purchases.shared.restorePurchases()
-      return .restored
-    } catch {
-      return .failed(error)
-    }
-  }
+// Variant A: monthly + annual
+// Variant B: weekly + annual
+var availableCards: [PackageCard] {
+    var cards: [PackageCard] = []
+    if let w = weeklyPackage { cards.append(.init(pkg: w, label: "Weekly")) }
+    if let m = monthlyPackage { cards.append(.init(pkg: m, label: "Monthly")) }
+    if let y = yearlyPackage { cards.append(.init(pkg: y, label: "Annual")) }
+    return cards
 }
 ```
 
-## B-5: SubscriptionManager.swift に Superwall.configure 追加
+### B-4c: PaywallVariantBView.swift — PostHog hard paywall flag 削除
 
-**Before** (L28-36):
+**Before** (L72-75):
 ```swift
-Purchases.configure(
-    with: Configuration.Builder(withAPIKey: apiKey)
-        .with(entitlementVerificationMode: .informational)
-        .build()
-)
-Purchases.shared.delegate = self
+let payload = PostHogSDK.shared.getFeatureFlagPayload("paywall-ab-test") as? [String: Any]
+isHardPaywall = payload?["hard"] as? Bool ?? true
 ```
 
-**After**（同じ位置、直後に追記）:
+**After**:
 ```swift
-Purchases.configure(
-    with: Configuration.Builder(withAPIKey: apiKey)
-        .with(entitlementVerificationMode: .informational)
-        .build()
-)
-Purchases.shared.delegate = self
-
-// Superwall: use RCPurchaseController so RevenueCat stays the purchase processor
-let purchaseController = RCPurchaseController()
-Superwall.configure(
-    apiKey: AppConfig.superwallAPIKey,
-    purchaseController: purchaseController
-)
-purchaseController.syncSubscriptionStatus()
+isHardPaywall = true  // ダイス指示: 常に hard paywall、trial なし
 ```
 
-`import SuperwallKit` を 先頭に追加。
+### B-4d: OnboardingFlowView.swift L95-125 — PostHog gating 削除
 
-## B-6: Config.swift に superwallAPIKey 追加
-
-**Before** (L1-10):
-```swift
-private static let revenueCatAPIKeyKey = "REVENUECAT_API_KEY"
-// ...
-static var revenueCatAPIKey: String { infoValue(for: revenueCatAPIKeyKey) }
-```
-
-**After**（追加）:
-```swift
-private static let revenueCatAPIKeyKey = "REVENUECAT_API_KEY"
-private static let superwallAPIKeyKey = "SUPERWALL_API_KEY"
-// ...
-static var revenueCatAPIKey: String { infoValue(for: revenueCatAPIKeyKey) }
-static var superwallAPIKey: String { infoValue(for: superwallAPIKeyKey) }
-```
-
-Info.plist に `SUPERWALL_API_KEY` = `$(SUPERWALL_API_KEY)` を追加、xcconfig に実キー設定。
-
-## B-7: OnboardingFlowView.swift paywall 呼出し差し替え
-
-**Before** (L95-126):
+**Before** (L95-125):
 ```swift
 case .planSelection:
     if !appState.featureFlagsReady {
         ProgressView()
     } else {
-        let variant = PostHogSDK.shared.getFeatureFlag("paywall-ab-test") as? String ?? "test"
+        let variant: String = {
+            if let forced = ProcessInfo.processInfo.environment["PAYWALL_VARIANT"] { return forced }
+            return PostHogSDK.shared.getFeatureFlag("paywall-ab-test") as? String ?? "test"
+        }()
         if variant == "test" {
-            PaywallVariantBView(...)
+            PaywallVariantBView(variant: variant, ...)
         } else {
             PlanSelectionStepView(...)
         }
@@ -623,55 +666,41 @@ case .planSelection:
 **After**:
 ```swift
 case .planSelection:
-    Color.clear
-        .onAppear {
-            Superwall.shared.register(placement: "campaign_trigger") {
-                // 購入成功 or paywall dismiss 後
-                handlePaywallSuccess(customerInfo: nil)
-            }
-        }
+    PaywallVariantBView(
+        variant: "rc_experiment",  // RC 側で制御
+        ...
+    )
 ```
 
-PostHog の `paywall-ab-test` は削除。A/B は Superwall campaign の variants で行う。
+`PlanSelectionStepView.swift` は **削除禁止**（fallback 用に残す）。PostHog の `paywall-ab-test` flag / payload 参照は全削除。
 
-`PaywallVariantBView.swift` / `PlanSelectionStepView.swift` は削除せず残す（feature flag fallback 用）。
+### B-4e: SubscriptionManager.swift L282-287 — display name マッピング追加
 
-## B-8: Superwall MCP で Product / Entitlement / Paywall / Campaign 作成
+**Before**:
+```swift
+// hardcoded for "ai.anicca.app.ios.monthly" のみ
+```
 
-```json
-// 1. Products
-create_product { identifier: "ai.anicca.app.ios.weekly", price: 799, period: "week" }
-create_product { identifier: "ai.anicca.app.ios.monthly", price: 999, period: "month" }
-create_product { identifier: "ai.anicca.app.ios.yearly", price: 4999, period: "year" }
-
-// 2. Entitlement
-create_entitlement { identifier: "premium", products: ["weekly","monthly","yearly"] }
-
-// 3. Paywall A / B — Dashboard 必須
-// ダイスがビジュアル作成 → paywall_A_id, paywall_B_id 取得
-
-// 4. Campaign
-create_campaign {
-  application: "<app_id>",
-  placements: [{event_name: "campaign_trigger"}],
-  audiences: [{
-    variants: [
-      {type: "treatment", paywall: "<paywall_A_id>", percentage: 50},
-      {type: "treatment", paywall: "<paywall_B_id>", percentage: 50}
-    ]
-  }]
+**After**（weekly.b / yearly.b 追加）:
+```swift
+private func displayName(for productId: String) -> String {
+    switch productId {
+    case "ai.anicca.app.ios.monthly": return "Monthly Premium"
+    case "ai.anicca.app.ios.yearly":  return "Annual Premium"
+    case "ai.anicca.app.ios.weekly.b": return "Weekly Premium"
+    case "ai.anicca.app.ios.yearly.b": return "Annual Premium"
+    default: return "Premium"
+    }
 }
 ```
 
-**Manual (ダイス)**: Superwall Dashboard で 2 paywall の visual design だけ作る。その他全て MCP で自動化。
-
-## B-9: Re-submit to App Store
+## B-5: Re-submit to App Store
 
 ```bash
-cd aniccaios && fastlane <release-lane>
+cd aniccaios && fastlane release
 ```
 
-Version bump: 1.8.3 → 1.8.4（新機能: Superwall A/B）
+Version bump: 1.8.3 → 1.8.4（変更: RC Experiments 対応 + Weekly package 対応 + PostHog paywall flag 削除）
 
 ---
 
@@ -731,37 +760,55 @@ PostHog flag "paywall-ab-test"
 │ "test" │ other      │
 ↓        ↓
 PaywallVariantBView  PlanSelectionStepView
-(hardcoded in binary)
     ↓                    ↓
+固定 offering "anicca"（monthly+annual）
+    ↓
 Purchases.shared.purchase(package)
     ↓
 RevenueCat → App Store
 ```
 
-**制約**: paywall ビジュアル変更 = app resubmit 必要。A/B も PostHog 側で管理。
+**制約**: A/B は PostHog（UI だけ）、価格はハードコード。weekly 非対応。
 
-### AFTER（Superwall remote + RC purchase）
+### AFTER（RevenueCat Experiments offering swap）
 ```
 Onboarding
     ↓
-Superwall.shared.register("campaign_trigger")
+PaywallVariantBView（常時、PostHog 参照なし）
     ↓
-Superwall Dashboard の Campaign
-    ├─ 50% → Paywall A (weekly $7.99 highlighted)
-    └─ 50% → Paywall B (monthly $9.99 highlighted)
+Purchases.shared.getOfferings()
     ↓
-Superwall 表示 (remote, no resubmit)
+RevenueCat サーバー
     ↓
-User tap → RCPurchaseController.purchase()
+Experiment "paywall_ab_v1"
+    ├─ 50% → result.current = "anicca"            （Variant A: monthly $7.99 + annual $39.99）
+    └─ 50% → result.current = "anicca_variant_b"  （Variant B: weekly $12.99 + annual $59.99）
     ↓
-Purchases.shared.purchase(product: storeProduct)
+result.current.availablePackages
+    ↓
+PaywallVariantBView が packageType で動的描画
+    ├─ .weekly → Weekly card
+    ├─ .monthly → Monthly card
+    └─ .annual → Annual card
+    ↓
+User tap → Purchases.shared.purchase(package)
     ↓
 RevenueCat → App Store
     ↓
-customerInfoStream → Superwall.subscriptionStatus
+Experiment の attribution が自動で RC に記録
+    ↓
+RC Dashboard で revenue / conversion / trial 比較
 ```
 
-**利点**: paywall の見た目・コピー・価格 highlight を Superwall Dashboard から変更可能（再審査不要）。RevenueCat は購入処理の source of truth のまま。
+**利点**:
+- **無料**（Superwall と違って課金なし）
+- ローカライズは RC が既存の product メタデータを自動で拾う
+- iOS コード変更最小（offering 取得順序反転 + weekly 対応 + PostHog 削除のみ）
+- A/B データは RC dashboard で直接見れる（Mixpanel 不要）
+
+**制約**:
+- paywall ビジュアル変更は **app resubmit 必要**（Superwall との差分）
+- RC Experiment の作成は Dashboard 手動（MCP 未対応）
 
 ---
 
@@ -813,22 +860,30 @@ customerInfoStream → Superwall.subscriptionStatus
 | 35 | 今日テスト cron — reelclaw-anicca-en-widget-1 | CC | 23 | AUTO |
 | 36 | 今日テスト cron — reelclaw-anicca-en-widget-2 | CC | 23 | AUTO |
 | 37 | ダイス実機で各投稿確認 → ログ共有 | ダイス | 24-36 | MANUAL |
-| **D7: Superwall SDK（並行 or reelclaw 後）** | | | | |
-| 38 | `asc subscriptions setup` weekly $7.99 作成 | CC | 3 | AUTO |
-| 39 | `asc subscriptions review submit` | CC | 38 | AUTO |
-| 40 | RC MCP: create-product weekly + entitlement + package | CC | 38 | AUTO |
-| 41 | Xcode: SPM で Superwall-iOS 4.0.0+ 追加 | ダイス | - | **MANUAL** |
-| 42 | Superwall Dashboard: Paywall A / B visual 作成 | ダイス | - | **MANUAL** |
-| 43 | `RCPurchaseController.swift` 新規作成 | CC | 41 | AUTO |
-| 44 | `SubscriptionManager.swift` Superwall.configure 追加 | CC | 41,43 | AUTO |
-| 45 | `Config.swift` SUPERWALL_API_KEY 追加 + Info.plist / xcconfig | CC | 41 | AUTO |
-| 46 | `OnboardingFlowView.swift` L95-126 差し替え（register placement） | CC | 41,42,44 | AUTO |
-| 47 | Superwall MCP: create_product × 3 + create_entitlement + create_campaign | CC | 42 | AUTO |
-| 48 | fastlane でビルド + archive | CC | 43-47 | AUTO |
-| 49 | `asc` で TestFlight アップロード | CC | 48 | AUTO |
-| 50 | ダイス実機で Paywall A / B 両方確認 | ダイス | 49 | MANUAL |
-| 51 | App Store Connect submit v1.8.4 | CC | 50 | AUTO |
-| 52 | Apple 審査通過 → phased release | - | 51 | MANUAL |
+| **D7: RevenueCat Experiments（並行 or reelclaw 後）** | | | | |
+| 38 | ASC: 新 subscription group "Anicca Premium B" 作成 | CC | - | AUTO |
+| 39 | ASC: Weekly $12.99 B product 作成（ONE_WEEK） | CC | 38 | AUTO |
+| 40 | ASC: Annual $59.99 B product 作成（ONE_YEAR） | CC | 38 | AUTO |
+| 41 | ASC: 両 product JA localization | CC | 39,40 | AUTO |
+| 42 | ASC: introductory offer がゼロか確認（trial 禁止） | CC | 39,40 | AUTO |
+| 43 | ASC: review screenshot 追加 + submit | CC | 41 | AUTO |
+| 44 | RC MCP: create-product × 2（weekly_b, annual_b） | CC | 39,40 | AUTO |
+| 45 | RC MCP: create-offering "anicca_variant_b" | CC | 44 | AUTO |
+| 46 | RC MCP: create-packages（$rc_weekly, $rc_annual） | CC | 45 | AUTO |
+| 47 | RC MCP: attach-products-to-package × 2 | CC | 46 | AUTO |
+| 48 | RC MCP: attach-products-to-entitlement（entlb820c43ab7） | CC | 44 | AUTO |
+| 49 | **RC Dashboard: Experiment "paywall_ab_v1" 作成（手動）** | ダイス | 45-48 | **MANUAL** |
+| 50 | Swift: SubscriptionManager L43/L148 fallback 順序反転 | CC | 3 | AUTO |
+| 51 | Swift: PaywallVariantBView weekly package 対応 | CC | 3 | AUTO |
+| 52 | Swift: PaywallVariantBView PostHog hard flag 削除（isHardPaywall = true 固定） | CC | 3 | AUTO |
+| 53 | Swift: OnboardingFlowView L95-125 PostHog gating 削除 | CC | 3 | AUTO |
+| 54 | Swift: SubscriptionManager L282-287 display name マッピング追加 | CC | 3 | AUTO |
+| 55 | Swift: PostHog `paywall-ab-test` flag 参照を全削除（grep 確認） | CC | 52,53 | AUTO |
+| 56 | fastlane release — ビルド + archive + export + TestFlight upload | CC | 50-55 | AUTO |
+| 57 | ダイス実機で Variant A / B 両方確認（`PAYWALL_VARIANT` 環境変数 or Sandbox） | ダイス | 56 | MANUAL |
+| 58 | App Store Connect submit v1.8.4 | CC | 57 | AUTO |
+| 59 | Apple 審査通過 → phased release | - | 58 | MANUAL |
+| 60 | RC Dashboard で Experiment 結果モニタリング（14日） | ダイス | 59 | MANUAL |
 
 ---
 
@@ -847,8 +902,8 @@ customerInfoStream → Superwall.subscriptionStatus
 |--------|---------|-----------|-------|
 | Reelclaw direct post 化 | SELF_ONLY→公開 = ×100（誰も見てない→到達） | 1日 | P0 |
 | Fix overlay / wrap / trim | 品質↑ → view through rate 1.5x | 1日 | P0 |
-| Weekly $7.99 追加 | 価格抵抗↓ → CVR 1.5x（既存 Headspace 研究） | 2日 | P0 |
-| Superwall A/B | copy/価格 最適化 → CVR 1.3x | 3日 | P1 |
+| Weekly $12.99 + Annual $59.99（Variant B） | 価格抵抗↓（週額）+ ARPU↑（年額 +50%）→ 期待 MRR 1.5-2x | 2日 | P0 |
+| RC Experiments A/B | 無料で offering 切替、データ収集 → 最適化 | 1日 | P0 |
 | Honne AI EN 版 | 新市場、install +30% | 5日 | P2 |
 | Larry direct post | 1日4投稿 追加チャネル | 1日 | P1 |
 | Reelclaw cron 2→4/day | 投稿量 2x | 1日 | P1 |
@@ -864,11 +919,11 @@ customerInfoStream → Superwall.subscriptionStatus
 **結論**: $1k MRR は reelclaw direct post 化 + weekly + Honne EN が全部ハマれば 達成圏内。$10k はバイラルヒット必須（計算では届かない）。
 
 **優先順**:
-1. 今週: reelclaw fix 全部（P0）+ Superwall 下準備（asc weekly + RC MCP）
-2. 来週: Superwall SDK 統合 + v1.8.4 提出 + Honne EN spec
-3. 3週目: v1.8.4 リリース + Honne EN 実装
-4. 4週目: A/B データ見て paywall 最適化、結果で判断
+1. 今週: reelclaw fix 全部（P0）+ ASC Variant B products 作成 + RC Variant B offering/packages 作成
+2. 来週: Swift パッチ（fallback 反転 + weekly 対応 + PostHog 削除） + RC Experiment 作成 + v1.8.4 TestFlight
+3. 3週目: v1.8.4 リリース + Honne EN spec 実装
+4. 4週目: RC Experiment データ見て勝者 offering を `current` 昇格、敗者 archive
 
 ---
 
-**最終更新**: 2026-04-11
+**最終更新**: 2026-04-11（Superwall → RC Experiments ピボット、プラットフォームマトリクス確定、larry posting cron 全 disabled 発覚を反映）
