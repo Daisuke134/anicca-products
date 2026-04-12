@@ -1,0 +1,3 @@
+module.exports=[6474,a=>{a.v({className:"inter_17cde4a3-module__W_hzQW__className"})},85118,a=>{"use strict";var b=a.i(10966),c=a.i(6474);let d={className:c.default.className,style:{fontFamily:"'Inter', 'Inter Fallback'",fontStyle:"normal"}};null!=c.default.variable&&(d.variable=c.default.variable),a.s(["default",0,function({children:a}){return(0,b.jsx)("html",{lang:"en",className:"h-full antialiased",children:(0,b.jsx)("body",{className:`${d.className} min-h-full flex flex-col`,children:a})})},"metadata",0,{title:"Anicca App Store Screenshots",description:"Screenshot generator for Anicca iOS app"}],85118)},12251,a=>{a.n(a.i(85118))}];
+
+//# sourceMappingURL=%5Broot-of-the-server%5D__0o_5tki._.js.map
