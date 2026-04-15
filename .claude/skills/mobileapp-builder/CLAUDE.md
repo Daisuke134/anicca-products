@@ -259,3 +259,10 @@ US-008a を開始したら、US-008e まで連続で完了させること。
 prd.json の priority 順を無視して、US-008a → 008b → 008c → 008d → 008e の順に実行する。
 理由: US-008a-d で取得した VERSION_ID, BUILD_ID, LOC_ID 等の環境変数が
 有効な間に全ステップを完了しないと、途中で別の US に飛ばされてセッションが切れる。
+
+## Revenue BP Addendum (2026-04-15)
+
+- **最初の 30 秒でコア価値を見せる**。長い tutorial / carousel は省き、オンボーディング冒頭で「30-Second Win」を出してから paywall に進める。Source: https://x.com/i/status/1895820573185622512 — 「Deliver a "30-Second Win" First: Skip long tutorials or carousels—users ignore them. Let them interact with core features immediately.」
+- **Paywall は value の直後に置く**。価値体験の直後に hard paywall を出すと sunk cost が効く。Source: https://x.com/i/status/1989798727586922547 — 「Hit paywall after value (hard paywall post-investment leverages sunk cost).」
+- **pricing は weekly + annual を軸に始める**。weekly は test entry、annual は value anchor。trial は 3-7 日の短期で始める。Source: https://x.com/i/status/1907063908122099838 — 「3-7 day full-feature trial → weekly ($2-10, easy test) or annual (best value, e.g., $49/year)」
+- **pricing は競合 top 3 を見て launch する**。高評価競合より 1 ドル低く始め、レビュー後に再調整する。Source: https://x.com/i/status/2042539585029214697 — 「Analyze top 3 competitors' prices/ratings. Undercut high-rated ones by $1 at launch; raise after 100 reviews if >4.2 stars.」
