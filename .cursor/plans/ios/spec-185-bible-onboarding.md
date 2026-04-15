@@ -2132,7 +2132,24 @@ formatter.locale = yearlyPackage.storeProduct.priceLocale
 
 R3 / R12 の判定ロジックから `completedVersion >= 2 → mainApp` 分岐を削除済。v2 既存ユーザーも entitlement がない限り v3 onboarding 全 20 screen + ハード paywall を通す。
 
-## R14. Codex review round 2/3 status
+## R14. 統計値確定（ダイス承認・2026-04-15）
+
+**以下 4 つの数値はハードコード確定。TODO(placeholder) マーカー削除、A6 softening 撤回。**
+
+| 数値 | 使用箇所 | 採用コピー (EN / JA) |
+|---|---|---|
+| 12,400+ users | S1 Welcome, S15 PlanReveal, PW S2, PW S3 | `Used by 12,400+ people to break anxious loops` / `不安ループを断ち切るために12,400人が使用中` |
+| 4.9 rating | PW S3 | `⭐ 4.9 · 12,400+ users` |
+| 83% | S15 PlanReveal | `83% report spirals shorten within 2 weeks` / `2週間以内に83%の人が渦が短くなると報告` |
+| 76% | S16 Comparison | `76% of people lose 2+ hours a day to anxious scrolling` / `76%の人が不安なスクロールで1日2時間以上失っている` |
+
+**A6 撤回:** S16 `onb_compare_stat` は元の 76% コピーを採用。softer copy 置換は不要。
+
+**U6 / 実装前タスク撤回:** 「76% 統計の出典を Firecrawl で検索して追記」は **不要**。ダイス承認済。
+
+**コードから `// TODO(placeholder)` マーカー削除:** T7/T8 等で統計を扱う箇所はコメントを残さず実数を直接埋め込む。
+
+## R15. Codex review round 2/3 status
 
 | Status | Count |
 |---|---|
