@@ -1713,7 +1713,7 @@ func skip() {
 
 **強制ゲート:** Phase B / Phase C / Phase D / Phase E 完了ごとに、ダイスが Xcode UI で新規 .swift ファイルを target に追加 → `fastlane build` で compile pass を確認するまで次 phase 進行禁止。
 
-**対象新規ファイル（13 個）:**
+**対象新規ファイル（16 個、うち 2 はリネーム）:**
 ```
 NameInputStepView.swift
 AgeRangeStepView.swift
@@ -1837,7 +1837,262 @@ let savePercent = Int((1 - yearlyPrice.doubleValue / (weeklyPackage.storeProduct
 |---|---|
 | BLOCKING 解決 | 25 / 25 |
 | NON-BLOCKING 解決 | 7 / 7 |
-| 次ラウンド | Codex review round 2 で上記 A1-A21 の再レビュー |
+| 次ラウンド | Codex review round 2 完了 → R1-R12 で解決 |
+
+---
+
+# ADDENDA — Codex Review Round 2（R1-R12）
+
+round 2 で指摘された 6 BLOCKING + 6 NON-BLOCKING を以下で解決。前節 A1-A22 と矛盾する場合は本節を優先。
+
+## R1. 新規ファイル数の整合（R2-01 解決）
+
+A15 ヘッダを「16 個、うち 2 はリネーム」に訂正済み。T1-T33 patch table の新規ファイル数（T5-T7, T10-T16, T18, T19, T21, T22, T23, T26 = 16）と一致。
+
+## R2. v1/legacy migration 削除（R2-02 解決）
+
+**決定: v1 / legacy mapping 関数は作らない。**
+
+根拠: v1 は存在したことがなく、legacy rawValue は v2 に一本化済み。T3 で生成する migration 関数は `migratedFromV2RawValue` のみ。`migratedFromV1RawValue` / `migratedFromLegacyRawValue` の記述は T3 から削除する。
+
+**T3 最終シグネチャ:**
+```swift
+extension OnboardingStep {
+    static func migratedFromV2RawValue(_ raw: Int) -> OnboardingStep? { /* A1 */ }
+}
+```
+
+判定ロジック（A1）では `UserDefaults` に既存 `onboarding_current_step`（v2 raw）があり `completedVersion < 2` の場合のみ `migratedFromV2RawValue` を呼ぶ。それ以外（`completedVersion >= 2` または entitlement あり）は onboarding を skip するので migration 不要。
+
+## R3. アプリ kill 後の再開フロー（R2-03 解決）
+
+**新規 UserDefaults key 追加:**
+
+| Key | Type | Default | 用途 |
+|---|---|---|---|
+| `onboarding_questions_completed` | Bool | false | Screen 20 (Notifications) の advance 時に true 書き込み |
+
+**A1 の UserDefaults テーブルに上記行を追加。** A1 判定ロジックを以下で差し替え:
+
+```swift
+let completedVersion = UserDefaults.standard.integer(forKey: "onboarding_completed_version")
+let questionsDone = UserDefaults.standard.bool(forKey: "onboarding_questions_completed")
+// customerInfo は async 取得（R11 参照）
+let hasEntitlement = await fetchHasEntitlement()
+
+if completedVersion >= 3 || (completedVersion >= 2) || hasEntitlement {
+    if !hasEntitlement && completedVersion < 3 { UserDefaults.standard.set(3, forKey: "onboarding_completed_version") }
+    showMainApp = true
+} else if questionsDone {
+    // 質問は全部終わった。未購入で kill された → paywall から再開
+    showPaywallDirectly = true
+} else {
+    // 質問途中 or 未着手 → onboarding_current_step から再開（無ければ welcome）
+    showOnboarding = true
+}
+```
+
+**Screen 20 Notifications の advance() 実装:**
+```swift
+UserDefaults.standard.set(true, forKey: "onboarding_questions_completed")
+showPaywall = true
+```
+
+**購入成功時の advance:**
+```swift
+UserDefaults.standard.set(3, forKey: "onboarding_completed_version")
+// onboarding_questions_completed は残す（監査用）
+showPaywall = false
+showMainApp = true
+```
+
+これで A3「foreground 復帰時 showPaywall 再提示」と A13「completedVersion は paywall 後に書く」は両立する:
+- foreground 復帰 ＝ プロセスが生きている状態 → `showPaywall` state が保持されているので再提示
+- kill 後の再起動 ＝ `questionsDone=true && !hasEntitlement` → paywall から直接再開
+
+## R4. Onboarding NavigationStack 構造明示（R2-04 解決）
+
+**構造:**
+```swift
+// OnboardingFlowView.swift
+NavigationStack {
+    switch step {
+    case .welcome: WelcomeStepView()
+    case .name:    NameInputStepView()
+    // ...
+    case .notifications: NotificationPermissionStepView()
+    }
+}
+.navigationBarBackButtonHidden(true)   // system chevron 非表示
+.fullScreenCover(isPresented: $showPaywall) {
+    PaywallFlowContainer()
+        .interactiveDismissDisabled(true)
+    // 注: この fullScreenCover は OnboardingFlowView.NavigationStack の OUTSIDE に presents される
+}
+```
+
+**カスタム Back button:**
+- 各 Step view（Welcome 除く）は `.toolbar { ToolbarItem(placement: .topBarLeading) { CustomBackButton() } }` で自前 chevron を置く。
+- `CustomBackButton` の action:
+  ```swift
+  let prev = max(1, step.rawValue - 1)   // 1 = Name。Welcome(0) には戻さない
+  step = OnboardingStep(rawValue: prev) ?? .name
+  UserDefaults.standard.set(prev, forKey: "onboarding_current_step")
+  AnalyticsManager.shared.track(.onboardingStepBack(from: oldStep.analyticsName, to: step.analyticsName))
+  ```
+- Welcome (Screen 1) は Back button / toolbar を置かない。
+- system swipe-from-edge back は `.navigationBarBackButtonHidden(true)` だけでは無効化されないため、`OnboardingFlowView` に `.gesture(DragGesture().onChanged { _ in })` は **使わない** — 代わりに各 Step view を `.interactiveDismissDisabled(true)` は不要（fullScreenCover ではないため）だが、NavigationStack の swipe back を殺すには iOS 16+ `.navigationBarBackButtonHidden(true)` + path-based NavigationStack を使う。
+- **最終決定:** path-based NavigationStack(path: $path) ではなく、単一 View state machine（`@State var step`）で render。NavigationStack は root のみ、push しない。back = state 更新のみ → swipe back は起きない。
+
+## R5. Positional placeholders 修正（R2-05 解決）
+
+**A19 の localization key を以下に差し替え:**
+
+| Key | EN | JA |
+|---|---|---|
+| pw_s3_title_tpl | Your quiet mind, %1$@, %2$@/day | %1$@の静かな心を、1日 %2$@ で |
+| pw_s3_plan_weekly_tpl | Weekly · %1$@ / week | 週額 · %1$@ / 週 |
+| pw_s3_plan_yearly_tpl | Yearly · %1$@ / year ≈ %2$@ / week · Save %3$d%% | 年額 · %1$@ / 年 ≈ %2$@ / 週 · %3$d%%OFF |
+
+全 template は positional 必須（A8 ルール）。Localizable.xcstrings の source/target 両方で `%1$@`, `%2$@`, `%3$d` を使用。
+
+## R6. UIApplication.topViewController + SwiftUI share anchor（R2-06 解決）
+
+**決定: UIActivityViewController 直接 present をやめ、SwiftUI `.sheet` + `ShareLink`（iOS 16+）と fallback の UIViewControllerRepresentable で統一。**
+
+```swift
+// S18 Share button — iOS 15/16 両対応
+struct ShareButton: View {
+    let image: UIImage
+    @State private var isPresenting = false
+
+    var body: some View {
+        Button(action: { isPresenting = true }) {
+            Label("onb_share_button", systemImage: "square.and.arrow.up")
+        }
+        .sheet(isPresented: $isPresenting) {
+            ActivityViewControllerRepresentable(items: [image])
+        }
+    }
+}
+
+struct ActivityViewControllerRepresentable: UIViewControllerRepresentable {
+    let items: [Any]
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        vc.completionWithItemsHandler = { activity, completed, _, _ in
+            AnalyticsManager.shared.track(.shareCompleted(activityType: activity?.rawValue, completed: completed))
+        }
+        return vc
+    }
+    func updateUIViewController(_ vc: UIActivityViewController, context: Context) {}
+}
+```
+
+**iPad 対応:** `.sheet` は iPad で自動的に form sheet となり popover anchor 問題を回避。`UIActivityViewController.popoverPresentationController` の sourceView/sourceRect 手動設定は不要。iOS 15 も `.sheet(isPresented:)` が利用可能。
+
+**A18 の `UIApplication.shared.topViewController` / `shareButtonRef` の記述は無効化。** 上記 SwiftUI ネイティブ実装に差し替え。
+
+## R7. 本文 L1098-1114 進捗 bar 式の訂正（R2-NB-01 対応）
+
+本文側の旧式 `0.2 + 0.8 * (currentIndex / totalSteps)` は **A2 に統一**。T2（OnboardingProgressBar.swift）の patch 内容は A2 の式のみを使う。本文の該当ブロックは「**廃止（A2 参照）**」と注記するのみで実装には使わない。
+
+## R8. Mockup 進捗値の扱い（R2-NB-02 対応）
+
+全 mockup ヘッダ冒頭に以下の注記を追記する（本文編集なし、実装時ルール）:
+
+> **Progress % in mockups is illustrative only — use A2 formula as SSOT.**
+
+実装者はヘッダの `XX%` を直接コピーせず `OnboardingProgressBar(step: step)` の計算結果を使う。
+
+## R9. 価格計算を Decimal に統一（R2-NB-03 対応）
+
+A19 の計算ロジックを以下に差し替え:
+
+```swift
+let yearlyPrice: NSDecimalNumber = yearlyPackage.storeProduct.price
+let weeklyPrice: NSDecimalNumber = weeklyPackage.storeProduct.price
+
+let daily = yearlyPrice.dividing(by: NSDecimalNumber(value: 365))
+let weeklyFromYearly = yearlyPrice.dividing(by: NSDecimalNumber(value: 52))
+let weekly52 = weeklyPrice.multiplying(by: NSDecimalNumber(value: 52))
+
+// save% = (1 - yearly / (weekly * 52)) * 100 を Decimal で
+let ratio = yearlyPrice.dividing(by: weekly52)
+let savings = NSDecimalNumber.one.subtracting(ratio).multiplying(by: NSDecimalNumber(value: 100))
+var rounded = Decimal()
+var toRound = savings.decimalValue
+NSDecimalRound(&rounded, &toRound, 0, .plain)
+let savePercent = NSDecimalNumber(decimal: rounded).intValue
+```
+
+Double 変換は最後の `intValue` だけに限定し、途中計算は全て NSDecimalNumber / Decimal で行う。
+
+## R10. Analytics イベント追加（R2-NB-04 対応）
+
+A10 に以下を追加:
+
+| Event | Properties |
+|---|---|
+| `onboarding_step_back` | from: String, to: String |
+
+R4 の CustomBackButton で発火。
+
+## R11. U16 チェックリスト追記（R2-NB-05 対応）
+
+L1204 の「実装時の不確実性チェックリスト」テーブルに以下を追加:
+
+| ID | 不確実性 | 解消方法 |
+|---|---|---|
+| U16 | RevenueCat の `Purchases.shared.customerInfo` は async。AppState 起動時の同期判定で使えない | `fetchHasEntitlement()` を async function で用意し `Task { }` 内で判定 → `@Published` flag に反映。UI は `.onAppear { Task { ... } }` で待機表示。 |
+
+## R12. AppState 起動判定を async 化（R2-NB-06 対応）
+
+A1 判定ロジックの `Purchases.shared.customerInfo.entitlements.active.isEmpty` は compile しない。以下に差し替え:
+
+```swift
+// AppState.swift
+@MainActor
+func resolveInitialRoute() async {
+    let completedVersion = UserDefaults.standard.integer(forKey: "onboarding_completed_version")
+    let questionsDone = UserDefaults.standard.bool(forKey: "onboarding_questions_completed")
+
+    let hasEntitlement: Bool
+    do {
+        let info = try await Purchases.shared.customerInfo()
+        hasEntitlement = !info.entitlements.active.isEmpty
+    } catch {
+        hasEntitlement = false
+    }
+
+    if completedVersion >= 3 || completedVersion >= 2 || hasEntitlement {
+        if !hasEntitlement && completedVersion < 3 {
+            UserDefaults.standard.set(3, forKey: "onboarding_completed_version")
+        }
+        self.route = .mainApp
+    } else if questionsDone {
+        self.route = .paywallDirect
+    } else {
+        self.route = .onboarding
+    }
+}
+```
+
+呼び出し側:
+```swift
+// AniccaApp.swift
+.task { await appState.resolveInitialRoute() }
+```
+
+待機中は Splash 表示（既存 `SplashView` 利用）。
+
+## R13. Codex review round 2 status
+
+| Status | Count |
+|---|---|
+| BLOCKING 解決 | 6 / 6 (R1-R6) |
+| NON-BLOCKING 解決 | 6 / 6 (R7-R12) |
+| 次ラウンド | Codex review round 3 |
 
 ---
 
