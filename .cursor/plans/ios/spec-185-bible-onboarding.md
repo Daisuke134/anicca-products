@@ -1169,10 +1169,72 @@ var progress: Double {
 
 ---
 
+## Placeholder 数字ポリシー（B1 準拠）
+
+**B1 Bible 出典:**
+- 「The stats should be specific and credible. If the app is new and has no stats, use industry benchmarks or logical projections」
+- 「Mark these as placeholder content to be replaced with real reviews later」
+- 「Round numbers feel fake — stats should be specific」
+
+**決定:** すべての placeholder 数字は以下のルールで扱う。
+
+| 数字 | 出現箇所 | 扱い | 置換タイミング |
+|---|---|---|---|
+| 12,400+ users | Welcome S1, Paywall S3 | `// TODO(placeholder): Mixpanel DAU 集計後に実数置換` | post-launch 30日後 |
+| 4.9 rating | Paywall S3 | `// TODO(placeholder): App Store rating 50件以上で実数置換` | 50レビュー到達後 |
+| 83% spiral shortening | Plan Reveal S15 | `// TODO(placeholder): B1 業界ベンチマーク projection。post-launch 90日で自社データに置換` | 90日後 |
+| 76% scrolling loss | Comparison S16 | `// TODO(source): 業界統計引用必須。Statista / APA 等から URL + 引用取得` | **実装前**に確定 |
+| 30% spirals shorter Week 1 | Paywall S2 | `// TODO(placeholder): 自社 Mixpanel 後に置換` | 60日後 |
+| 68% users stress level | Stress Slider S9 | `// TODO(placeholder): B1 projection` | 60日後 |
+
+**実装ルール:**
+1. **すべての placeholder 数字は Swift コード内で定数化** — `AniccaStats.swift` に集約
+2. **各定数に `// PLACEHOLDER:` prefix コメント + 置換予定日** を必須
+3. **76% scrolling 統計**: 実装前に Statista / APA 等の業界統計を検索して URL + 原文引用を spec に追記（B1「industry benchmark」準拠）
+4. Testimonial テキスト (Maya, Ken) も同様に `// PLACEHOLDER:` マーク + 実レビュー取得後に差し替え
+5. **Round number 禁止**: 12,000 / 80% / 5.0 のような切りの良い数字は使わない（12,400 / 83% / 4.9 のように specificity を維持）
+
+---
+
+## 実装時の不確実性チェックリスト（Codex review 対象）
+
+実装開始前に下記をすべて解決する。未解決のまま実装着手禁止。
+
+| # | 項目 | 現状 | 解決方法 |
+|---|---|---|---|
+| U1 | `OnboardingStep` enum v2→v3 migration の互換性 | 既存 v2 8 cases、v3 20 cases | `migratedFromV2RawValue` に mapping 関数必須（spec T3） |
+| U2 | `OnboardingFlowView.advance()` の switch 網羅 | 不明 | 20 case すべて明示 + `@unknown default` 禁止 |
+| U3 | `UserProfile` 永続化スキーマ | 不明 | `@AppStorage("anicca_user_profile")` + `Codable` struct 定義を spec に追記 |
+| U4 | `{Name}` テンプレ展開方式 | String(format:) or LocalizedStringKey? | `String(localized: "key", defaultValue: "...")` + `String(format: template, name)` 統一 |
+| U5 | Tinder Swipe ジェスチャ仕様 | DragGesture 方向判定 | 閾値 100pt / right=agree / left=dismiss / 0.3s animation |
+| U6 | 76% scrolling 統計の出典 | 未確定 | **実装前に Firecrawl で業界統計検索 → spec 追記** |
+| U7 | Stress slider 動的 feedback 閾値 | 1-3, 4-6, 7-10 と spec L404 にあり | OK（確定済み） |
+| U8 | FeedbackFormView の送信先 | 未確定 | email: `feedback@anicca.app` or Airtable API? → 決定必須 |
+| U9 | Share card の `ImageRenderer` 互換性 | iOS 16+ API | iOS 15 fallback 必須 or `@available(iOS 16, *)` ガード |
+| U10 | `SKStoreReviewController.requestReview(in:)` iOS 16+ | iOS 15 対応 | iOS 15 では `SKStoreReviewController.requestReview()` 旧 API を使用 |
+| U11 | Win Back Offer の既存購読者告知 | 未確定 | ASC 生成 direct link をメール/App 内で告知するか? |
+| U12 | Maestro E2E で Paywall hard close 検証 | 新規 | `assertNotVisible(id: "close_button")` で確認 |
+| U13 | Analytics event 命名規則 | 不明 | `onboarding_{screen_id}_viewed` / `_completed` / `_skipped` 統一 |
+| U14 | Progress bar 計算の paywall 含有 | L1100 で totalSteps=20 | Paywall は進捗 bar 対象外（確定） |
+| U15 | 言語切替時の {Name} 保存 | 不明 | `@AppStorage` は言語非依存、問題なし |
+
+---
+
+## J1/J2/J3 決定ログ (2026-04-15)
+
+| # | 判断 | 決定 | 根拠 |
+|---|---|---|---|
+| J1 | Cravotta 3-step / Endowed Progress 等（B2-B7 由来）を継続採用するか | **YES** | ダイス判断 + 既存 1.8.4 の延長線 |
+| J2 | Rating Pre-Prompt (Screen 19) を残すか | **YES** | Rating 必須 + B1 Bible と矛盾しない |
+| J3 | Placeholder 数字の扱い | **継続 + TODO マーク + 実装前に業界統計調査** | B1「industry benchmarks or logical projections」「mark as placeholder」|
+
+---
+
 ## リファレンス
 
-- SKILL files: `.claude/skills/` 配下 6 ファイル
+- SKILL files: `.claude/skills/` 配下 6 ファイル（うち B1 = `app-onboarding-questionnaire/SKILL.md` のみ実在確認済）
 - 既存仕様: `.cursor/plans/ios/spec-onboarding-improvement.md`, `.cursor/plans/ios/spec-onboarding-v3-funnel-fix.md`, `.cursor/plans/ios/onboarding-paywall-best-practices.md`
+- Apple Win Back Offer: `https://developer.apple.com/documentation/storekit/supporting-win-back-offers-in-your-app`
 
 ---
 
