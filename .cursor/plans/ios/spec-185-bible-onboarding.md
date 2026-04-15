@@ -995,7 +995,7 @@ iOS 設定 → Apple ID → Subscriptions → Anicca → Cancel Subscription
 |---|---|---|---|
 | **T1** | `aniccaios/aniccaios/Onboarding/OnboardingStep.swift` | `enum OnboardingStep: Int` を 20 cases に拡張: welcome, name, age, goal, painPoints, struggleFreq, tinderPain, whatTried, stressLevel, socialProof, nudgeTimes, meditExp, referral, processing, planReveal, comparison, appDemo, valueDelivery, ratingPrompt, notifications | 改修 |
 | **T2** | `aniccaios/aniccaios/Onboarding/OnboardingStep.swift` | `enum PaywallStep: Int { primer, valueTimeline, planSelection }`（drawer なし） | 改修 |
-| **T3** | `aniccaios/aniccaios/Onboarding/OnboardingStep.swift` | `migratedFromLegacyRawValue` / `migratedFromV1RawValue` / `migratedFromV2RawValue` に v3 mapping 追加 | 改修 |
+| **T3** | `aniccaios/aniccaios/Onboarding/OnboardingStep.swift` | `migratedFromV2RawValue(_:)` のみ実装（R2/R13.2 により v1/legacy 関数は作らない） | 改修 |
 | **T4** | `aniccaios/aniccaios/Onboarding/OnboardingFlowView.swift` | `onboardingContent(for:)` switch を 20 cases に書き換え、`advance()` を全 case 対応、`paywallContent(for:)` を primer→valueTimeline→planSelection に拡張 | 改修 |
 | **T5** | `aniccaios/aniccaios/Onboarding/NameInputStepView.swift` | 新規: `TextField` + autofocus + UserDefaults 保存 | 新規 |
 | **T6** | `aniccaios/aniccaios/Onboarding/AgeRangeStepView.swift` | 新規: 6-option radio | 新規 |
@@ -1313,24 +1313,7 @@ static func migratedFromV2RawValue(_ raw: Int) -> OnboardingStep? {
 | `anicca_user_profile` | Data(JSON) | null | UserProfile Codable JSON |
 | `anicca_user_name` | String | "" | Name screen の値（{Name} テンプレ展開用に独立保持） |
 
-**判定ロジック (AppState 起動時):**
-```swift
-let completedVersion = UserDefaults.standard.integer(forKey: "onboarding_completed_version")
-let hasEntitlement = Purchases.shared.customerInfo.entitlements.active.isEmpty == false
-
-if completedVersion >= 3 {
-    // v3 完了済み → main app へ
-    showMainApp = true
-} else if completedVersion == 2 || hasEntitlement {
-    // v2 完了済み or 既存課金済 → main app へ（v3 はスキップ）
-    UserDefaults.standard.set(3, forKey: "onboarding_completed_version")
-    showMainApp = true
-} else {
-    // 未完了 or mid-flow → v3 を welcome から開始
-    UserDefaults.standard.set(0, forKey: "onboarding_current_step")
-    showOnboarding = true
-}
-```
+**判定ロジック:** 旧版は削除。**SSOT は R3 + R12 + R13.4**。本節を参照するな。
 
 ## A2. 進捗 bar 正式公式（BL-04 解決）
 
@@ -1877,8 +1860,8 @@ extension OnboardingStep {
 ```swift
 let completedVersion = UserDefaults.standard.integer(forKey: "onboarding_completed_version")
 let questionsDone = UserDefaults.standard.bool(forKey: "onboarding_questions_completed")
-// customerInfo は async 取得（R12 参照）
-let hasEntitlement = await fetchHasEntitlement()
+// customerInfo は async 取得。正式実装は R12 resolveInitialRoute() の inline 版を使う
+let hasEntitlement: Bool = /* R12 参照 */
 
 // v3 判定のみ。v2 既存ユーザーでも entitlement がなければ v3 onboarding を通す（ハード paywall 継続）。
 if hasEntitlement {
@@ -2118,7 +2101,15 @@ func withTimeout<T: Sendable>(seconds: TimeInterval, operation: @escaping @Senda
 
 ### R13.2 T3 patch table scrub
 
-L998 周辺の T3 記述から `migratedFromLegacyRawValue` / `migratedFromV1RawValue` を削除（R2 済）。実装時は `migratedFromV2RawValue` のみ。
+L998 の T3 行を `migratedFromV2RawValue(_:)` のみに書き換え済。実装時は同関数のみを生成する。
+
+### R13.5 iOS 15 fallback コードは dead code（実装不要）
+
+A4 / U9 / U10 の `#available(iOS 16.0, *)` else ブランチは **実装不要**。deployment target 16.6 のため直接 iOS 16+ API を呼ぶ。該当箇所の else は「過去の互換性注記」として残すのみ。
+
+### R13.6 withTimeout の RevenueCat cancel 挙動
+
+`Purchases.shared.customerInfo()` は内部 URLSession が非 cancellable。`withTimeout` の timeout 側が勝った場合、RC タスクはバックグラウンドで完走するが result は捨てられる（fire-and-forget）。leak ではなく splash を 3 秒で確実に抜けるための意図的挙動。
 
 ### R13.3 価格 format （R9 補足）
 
