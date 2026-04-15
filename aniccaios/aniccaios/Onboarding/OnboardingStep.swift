@@ -1,54 +1,77 @@
 import Foundation
 
-enum OnboardingStep: Int, CaseIterable {
-    case welcome           // 0
-    case struggles         // 1
-    case struggleDepth     // 2
-    case personalizedInsight // 3
-    case processing        // 4
-    case valueProp         // 5
-    case appDemo           // 6
-    case notifications     // 7
+/// v3 Onboarding flow — 20 cases (Bible-compliant 23-screen spec: 20 onboarding + 3 paywall).
+enum OnboardingStep: Int, CaseIterable, Codable {
+    case welcome = 0
+    case name = 1
+    case age = 2
+    case goal = 3
+    case painPoints = 4
+    case struggleFreq = 5
+    case tinderPain = 6
+    case whatTried = 7
+    case stressLevel = 8
+    case socialProof = 9
+    case nudgeTimes = 10
+    case meditExp = 11
+    case referral = 12
+    case processing = 13
+    case planReveal = 14
+    case comparison = 15
+    case appDemo = 16
+    case valueDelivery = 17
+    case ratingPrompt = 18
+    case notifications = 19
 }
 
-enum PaywallStep: Int {
-    case primer            // 0
-    case planSelection     // 1
+enum PaywallStep: Int, CaseIterable, Codable {
+    case primer = 0
+    case valueTimeline = 1
+    case planSelection = 2
 }
 
 extension OnboardingStep {
-    /// v1.6.1以前（旧4-step enum）からの legacy migration。
-    ///
-    /// ## rawValue履歴
-    /// - v0.4:   0=welcome, 4=name, 11=att
-    /// - v1.6.0: 0=welcome, 1=value, 2=struggles, 3=notifications, 4=att
-    /// - v1.6.1: 0=welcome, 1=struggles, 2=liveDemo, 3=notifications（value削除、ATT削除）
-    /// - v2:     0=welcome, 1=struggles, 2=struggleDepth, 3=personalizedInsight, 4=processing, 5=valueProp, 6=appDemo, 7=notifications
-    static func migratedFromLegacyRawValue(_ rawValue: Int) -> OnboardingStep {
-        // v1.6.0以前からの移行マッピング
+    /// v2 (8-step) → v3 (20-step) migration.
+    /// v2 schema: welcome=0, struggles=1, struggleDepth=2, personalizedInsight=3,
+    ///             processing=4, valueProp=5, appDemo=6, notifications=7
+    static func migratedFromV2RawValue(_ rawValue: Int) -> OnboardingStep? {
         switch rawValue {
         case 0: return .welcome
-        case 1: return .struggles       // 旧 value/account → struggles（value 削除）
-        case 2: return .struggles       // 旧 struggles → struggles（legacy only）
-        case 3: return .notifications   // v1.6.0 の .notifications=3 を保護（現行ユーザー優先）
-        case 5, 6, 7, 8: return .struggles  // 旧 name/gender/age/ideals → struggles（未実施防止）
-        case 4: return .notifications   // v1.6.0の.att → notifications（ATT削除後）
-        case 9, 10: return .notifications // 旧 habitSetup/notifications → notifications
-        case 11, 12: return .notifications // 旧 att/alarmkit → notifications
-        default:
-            return .welcome
+        case 1: return .painPoints       // struggles → painPoints
+        case 2: return .struggleFreq     // struggleDepth → struggleFreq
+        case 3: return .planReveal       // personalizedInsight → planReveal
+        case 4: return .processing
+        case 5: return .valueDelivery    // valueProp → valueDelivery
+        case 6: return .appDemo
+        case 7: return .notifications
+        default: return nil
         }
     }
+}
 
-    /// v1.6.1（旧4-step enum: 0=welcome, 1=struggles, 2=liveDemo, 3=notifications）
-    /// から v2（8-step enum）への移行マッピング。
-    static func migratedFromV1RawValue(_ rawValue: Int) -> OnboardingStep {
-        switch rawValue {
-        case 0: return .welcome           // welcome → welcome
-        case 1: return .struggles         // struggles → struggles
-        case 2: return .notifications     // liveDemo(2) → notifications (liveDemo deleted in v3)
-        case 3: return .notifications     // notifications(3) → notifications(6)
-        default: return .welcome
+extension OnboardingStep {
+    var analyticsName: String {
+        switch self {
+        case .welcome: return "welcome"
+        case .name: return "name"
+        case .age: return "age"
+        case .goal: return "goal"
+        case .painPoints: return "pain_points"
+        case .struggleFreq: return "struggle_freq"
+        case .tinderPain: return "tinder_pain"
+        case .whatTried: return "what_tried"
+        case .stressLevel: return "stress_level"
+        case .socialProof: return "social_proof"
+        case .nudgeTimes: return "nudge_times"
+        case .meditExp: return "medit_exp"
+        case .referral: return "referral"
+        case .processing: return "processing"
+        case .planReveal: return "plan_reveal"
+        case .comparison: return "comparison"
+        case .appDemo: return "app_demo"
+        case .valueDelivery: return "value_delivery"
+        case .ratingPrompt: return "rating_prompt"
+        case .notifications: return "notifications"
         }
     }
 }

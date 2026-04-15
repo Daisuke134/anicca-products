@@ -134,7 +134,7 @@ enum AnalyticsEvent: String {
     // App
     case appOpened = "app_opened"
 
-    // Onboarding funnel
+    // Onboarding funnel (v3 — spec-185 Bible-compliant 20-step)
     case onboardingStarted = "onboarding_started"
     case onboardingWelcomeCompleted = "onboarding_welcome_completed"
     case onboardingStrugglesCompleted = "onboarding_struggles_completed"
@@ -144,6 +144,17 @@ enum AnalyticsEvent: String {
     case onboardingValuePropCompleted = "onboarding_valueprop_completed"
     case onboardingNotificationsCompleted = "onboarding_notifications_completed"
     case onboardingCompleted = "onboarding_completed"
+    case onboardingStepAdvanced = "onboarding_step_advanced"
+    case onboardingStepBack = "onboarding_step_back"
+    case tinderPainCardAgreed = "tinder_pain_card_agreed"
+    case tinderPainCardDismissed = "tinder_pain_card_dismissed"
+    case shareCompleted = "share_completed"
+    case ratingPromptShown = "rating_prompt_shown"
+    case ratingPromptYesTapped = "rating_prompt_yes_tapped"
+    case ratingPromptNoTapped = "rating_prompt_no_tapped"
+    case ratingStoreReviewRequested = "rating_store_review_requested"
+    case feedbackFormSubmitted = "feedback_form_submitted"
+    case feedbackFormSkipped = "feedback_form_skipped"
 
     // Paywall funnel
     case paywallPrimerViewed = "paywall_primer_viewed"

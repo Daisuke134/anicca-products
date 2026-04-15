@@ -75,27 +75,31 @@ final class AppState: ObservableObject {
     private let lastNudgeResetMonthKey = "com.anicca.lastNudgeResetMonth"
     private let lastNudgeResetYearKey = "com.anicca.lastNudgeResetYear"
 
-    // Soft Paywall: OnboardingStep version flag
+    // OnboardingStep version flag — v4 = 1.8.5 Bible-compliant 20-step
     private let onboardingStepVersionKey = "com.anicca.onboardingStepVersion"
-    private static let currentOnboardingVersion = 3  // v2: 8-step onboarding (was 2 in v1.6.1)
+    private static let currentOnboardingVersion = 4  // v3: 20-step onboarding (spec-185)
+
+    // 1.8.5: questions finished flag (R3) — written after Notifications advance
+    private let onboardingQuestionsCompletedKey = "com.anicca.onboardingQuestionsCompleted"
+    @Published private(set) var onboardingQuestionsCompleted: Bool = false
 
     private init() {
         self.isOnboardingComplete = defaults.bool(forKey: onboardingKey)
 
-        // オンボーディング未完了時は強制的に.welcomeから開始
+        // オンボーディング未完了時は welcome から開始、途中の場合は保存された step を復元
         if defaults.bool(forKey: onboardingKey) {
             let rawValue = defaults.integer(forKey: onboardingStepKey)
             let savedVersion = defaults.integer(forKey: onboardingStepVersionKey)
 
             if savedVersion >= Self.currentOnboardingVersion {
-                // v2 (version 3) 以降: 新rawValueをそのまま使用
+                // v3 (1.8.5 20-step): rawValue をそのまま使用
                 self.onboardingStep = OnboardingStep(rawValue: rawValue) ?? .welcome
-            } else if savedVersion == 2 {
-                // v1.6.1 (version 2): 旧4-step enum → 新8-step enum
-                self.onboardingStep = OnboardingStep.migratedFromV1RawValue(rawValue)
+            } else if savedVersion == 3 {
+                // v2 (1.8.4 以前 8-step) → v3 20-step migrate
+                self.onboardingStep = OnboardingStep.migratedFromV2RawValue(rawValue) ?? .welcome
             } else {
-                // legacy (savedVersion=0 or 1): migration関数を通す
-                self.onboardingStep = OnboardingStep.migratedFromLegacyRawValue(rawValue)
+                // それ以前 legacy → 新規扱い
+                self.onboardingStep = .welcome
             }
         } else {
             defaults.removeObject(forKey: onboardingStepKey)
@@ -115,6 +119,7 @@ final class AppState: ObservableObject {
         self.nudgeCardCompletedCount = defaults.integer(forKey: nudgeCardCompletedCountKey)
         self.monthlyNudgeCount = defaults.integer(forKey: monthlyNudgeCountKey)
         self.hasRequestedReview = defaults.bool(forKey: hasRequestedReviewKey)
+        self.onboardingQuestionsCompleted = defaults.bool(forKey: onboardingQuestionsCompletedKey)
 
         // 月初リセットチェック
         checkAndResetMonthlyNudgeCountIfNeeded()
@@ -230,6 +235,12 @@ final class AppState: ObservableObject {
         defaults.set(step.rawValue, forKey: onboardingStepKey)
         // バージョンフラグを常に更新（新rawValue体系を使用中であることを記録）
         defaults.set(Self.currentOnboardingVersion, forKey: onboardingStepVersionKey)
+    }
+
+    /// 1.8.5 R3: 質問全 20 screen 完了時に呼ぶ。paywall 購入前に kill された場合、再起動で paywall 直接復帰を可能にする。
+    func markOnboardingQuestionsCompleted() {
+        onboardingQuestionsCompleted = true
+        defaults.set(true, forKey: onboardingQuestionsCompletedKey)
     }
     
     // MARK: - Authentication
