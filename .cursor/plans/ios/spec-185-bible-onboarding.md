@@ -1238,4 +1238,607 @@ var progress: Double {
 
 ---
 
-**END OF SPEC — 省略・ショートカット・隠蔽なし。全 23 screen、全 33 patch、全 Bible 引用を網羅。**
+---
+
+# ADDENDA — Codex Review Round 1 (2026-04-15)
+
+**本セクションは上記全セクションに優先する。矛盾がある場合は本 ADDENDA が正。**
+
+## A1. OnboardingStep v3 完全スキーマ（BL-01, BL-02, BL-03, BL-23 解決）
+
+**構造:** OnboardingStep は 20 cases（Screens 1-20）。Paywall は別 enum で fullScreenCover 内で管理。Paywall は OnboardingStep に含まれず、進捗 bar 対象外。
+
+```swift
+// OnboardingStep.swift
+enum OnboardingStep: Int, CaseIterable, Codable {
+    case welcome        = 0   // Screen 1
+    case name           = 1   // Screen 2
+    case age            = 2   // Screen 3
+    case goal           = 3   // Screen 4
+    case painPoints     = 4   // Screen 5
+    case struggleFreq   = 5   // Screen 6
+    case tinderPain     = 6   // Screen 7
+    case whatTried      = 7   // Screen 8
+    case stressLevel    = 8   // Screen 9
+    case socialProof    = 9   // Screen 10
+    case nudgeTimes     = 10  // Screen 11
+    case meditExp       = 11  // Screen 12
+    case referral       = 12  // Screen 13
+    case processing     = 13  // Screen 14
+    case planReveal     = 14  // Screen 15
+    case comparison     = 15  // Screen 16
+    case appDemo        = 16  // Screen 17
+    case valueDelivery  = 17  // Screen 18
+    case ratingPrompt   = 18  // Screen 19
+    case notifications  = 19  // Screen 20
+}
+
+enum PaywallStep: Int, CaseIterable, Codable {
+    case primer         = 0   // Screen 21
+    case valueTimeline  = 1   // Screen 22
+    case planSelection  = 2   // Screen 23
+}
+```
+
+### v2→v3 migration map（BL-03 解決）
+
+```swift
+// 既存 v2 enum（aniccaios/aniccaios/Onboarding/OnboardingStep.swift 現状）
+// welcome=0, struggles=1, struggleDepth=2, personalizedInsight=3,
+// processing=4, valueProp=5, appDemo=6, notifications=7
+
+static func migratedFromV2RawValue(_ raw: Int) -> OnboardingStep? {
+    switch raw {
+    case 0: return .welcome
+    case 1: return .painPoints      // struggles → painPoints
+    case 2: return .struggleFreq    // struggleDepth → struggleFreq
+    case 3: return .planReveal      // personalizedInsight → planReveal
+    case 4: return .processing
+    case 5: return .valueDelivery   // valueProp → valueDelivery
+    case 6: return .appDemo
+    case 7: return .notifications
+    default: return nil
+    }
+}
+```
+
+### Onboarding version key + 既存ユーザー扱い（BL-23 解決）
+
+`UserDefaults` / `@AppStorage` キー一覧:
+
+| Key | Type | Default | 用途 |
+|---|---|---|---|
+| `onboarding_completed_version` | Int | 0 | 完了した最新バージョン（v3 = 3） |
+| `onboarding_current_step` | Int | 0 | mid-flow の現在位置（OnboardingStep.rawValue） |
+| `anicca_user_profile` | Data(JSON) | null | UserProfile Codable JSON |
+| `anicca_user_name` | String | "" | Name screen の値（{Name} テンプレ展開用に独立保持） |
+
+**判定ロジック (AppState 起動時):**
+```swift
+let completedVersion = UserDefaults.standard.integer(forKey: "onboarding_completed_version")
+let hasEntitlement = Purchases.shared.customerInfo.entitlements.active.isEmpty == false
+
+if completedVersion >= 3 {
+    // v3 完了済み → main app へ
+    showMainApp = true
+} else if completedVersion == 2 || hasEntitlement {
+    // v2 完了済み or 既存課金済 → main app へ（v3 はスキップ）
+    UserDefaults.standard.set(3, forKey: "onboarding_completed_version")
+    showMainApp = true
+} else {
+    // 未完了 or mid-flow → v3 を welcome から開始
+    UserDefaults.standard.set(0, forKey: "onboarding_current_step")
+    showOnboarding = true
+}
+```
+
+## A2. 進捗 bar 正式公式（BL-04 解決）
+
+**SSOT: 公式を採用、mockup 上の数字は参考値（実装時は公式で上書き）。**
+
+```swift
+// OnboardingProgressBar.swift
+var progress: Double {
+    let totalSteps = 20.0
+    let currentIndex = Double(step.rawValue)  // 0-indexed
+    return 0.2 + 0.6 * (currentIndex / (totalSteps - 1))
+}
+```
+
+### Screen 別進捗値テーブル（正式）
+
+| Screen | rawValue | Progress |
+|---|---|---|
+| 1 Welcome | 0 | 20% |
+| 2 Name | 1 | 23% |
+| 3 Age | 2 | 26% |
+| 4 Goal | 3 | 30% |
+| 5 PainPoints | 4 | 33% |
+| 6 StruggleFreq | 5 | 36% |
+| 7 Tinder | 6 | 39% |
+| 8 WhatTried | 7 | 42% |
+| 9 Stress | 8 | 45% |
+| 10 SocialProof | 9 | 48% |
+| 11 NudgeTimes | 10 | 52% |
+| 12 MeditExp | 11 | 55% |
+| 13 Referral | 12 | 58% |
+| 14 Processing | 13 | 61% |
+| 15 PlanReveal | 14 | 64% |
+| 16 Comparison | 15 | 67% |
+| 17 AppDemo | 16 | 71% |
+| 18 ValueDelivery | 17 | 74% |
+| 19 RatingPrompt | 18 | 77% |
+| 20 Notifications | 19 | 80% |
+| Paywall S1-S3 | — | 進捗 bar 非表示 |
+
+## A3. Hard Paywall 強制実装ルール（BL-05, BL-06 解決）
+
+```swift
+// OnboardingFlowView.swift
+.fullScreenCover(isPresented: $showPaywall) {
+    PaywallFlowContainer()
+        .interactiveDismissDisabled(true)  // swipe down 禁止
+        // NavigationStack で包まない
+}
+```
+
+**Paywall 状態機械:**
+
+```swift
+// PaywallFlowContainer.swift
+@State private var paywallStep: PaywallStep = .primer
+// 戻るボタンなし。advance のみ
+func advance() {
+    switch paywallStep {
+    case .primer: paywallStep = .valueTimeline
+    case .valueTimeline: paywallStep = .planSelection
+    case .planSelection: break  // purchase or nothing
+    }
+}
+```
+
+**強制ルール:**
+| ルール | 実装 |
+|---|---|
+| × ボタンなし | 全 3 screen で Close button 実装禁止 |
+| Swipe down で dismiss 不可 | `.interactiveDismissDisabled(true)` |
+| Back gesture 不可 | NavigationStack で wrap しない。単一 View state machine |
+| 戻る不可 | S1→S2→S3 のみ。back button なし |
+| 購入成功 | `Purchases.shared.customerInfoStream` で entitlement 検知 → `showPaywall = false` → onboarding 完了マーク |
+| 購入失敗 | Alert 表示、S3 に留まる |
+| アプリ foreground 復帰時 | entitlement 未取得なら `showPaywall = true` 再提示 |
+| 審査ガイドライン | Apple 5.6 は Hard Paywall を禁止していない（free tier が不要なら OK） |
+
+## A4. iOS 15 互換性（BL-07, BL-08 解決）
+
+### SKStoreReviewController（T22）
+
+```swift
+if #available(iOS 16.0, *) {
+    if let scene = UIApplication.shared.connectedScenes
+        .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+        SKStoreReviewController.requestReview(in: scene)
+    }
+} else {
+    SKStoreReviewController.requestReview()
+}
+```
+
+### ImageRenderer fallback（T21）
+
+```swift
+func renderShareImage<V: View>(_ view: V, size: CGSize) -> UIImage? {
+    if #available(iOS 16.0, *) {
+        let renderer = ImageRenderer(content: view.frame(width: size.width, height: size.height))
+        renderer.scale = UIScreen.main.scale
+        return renderer.uiImage
+    } else {
+        let controller = UIHostingController(rootView: view.frame(width: size.width, height: size.height))
+        controller.view.bounds = CGRect(origin: .zero, size: size)
+        controller.view.backgroundColor = .clear
+        let renderer = UIGraphicsImageRenderer(size: size)
+        return renderer.image { _ in
+            controller.view.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
+        }
+    }
+}
+```
+
+## A5. FeedbackFormView 送信先確定（BL-09 解決）
+
+| 項目 | 値 |
+|---|---|
+| 送信方法 | `MFMailComposeViewController` |
+| Recipient | `feedback@anicca.app` |
+| Subject | `Anicca 1.8.5 onboarding feedback` |
+| Body prefix | `[Device: \(UIDevice.current.model)] [iOS: \(UIDevice.current.systemVersion)] [Build: \(Bundle.main.buildNumber)]\n\n` |
+| Fallback | `MFMailComposeViewController.canSendMail() == false` の場合、`UIActivityViewController` で copyToPasteboard |
+| 完了 Analytics | `onboarding_feedback_submitted { length: Int }` |
+
+## A6. 76% 統計の出典確定（BL-10 解決）
+
+**方針:** 具体数字を削除し、Bible 準拠の softer copy に置換。U6 の「業界統計検索」は post-launch 作業に延期。
+
+### S16 Comparison Table コピー修正
+
+| Key | EN 旧 | EN 新 | JA 新 |
+|---|---|---|---|
+| onb_compare_stat | 76%% of people lose 2+ hours a day to anxious scrolling | Anxious scrolling costs most people hours every day | 不安なスクロールは毎日何時間も奪う |
+
+**根拠:** B1「write like a human, not a marketer」「fake round numbers are worse than no numbers」
+
+## A7. UserProfile Codable schema（BL-11 解決）
+
+```swift
+// aniccaios/aniccaios/Models/UserProfile.swift
+struct UserProfile: Codable, Equatable {
+    var name: String?
+    var ageRange: AgeRange?
+    var goal: Goal?
+    var painPoints: Set<PainPoint> = []
+    var struggleFrequency: StruggleFrequency?
+    var tinderPainAgreed: Set<String> = []
+    var triedMethods: Set<TriedMethod> = []
+    var stressLevel: Int?
+    var meditationExperience: MeditationExperience?
+    var nudgeTimes: Set<NudgeTime> = []
+    var referralSource: ReferralSource?
+
+    enum AgeRange: String, Codable, CaseIterable { case r13_17, r18_24, r25_34, r35_44, r45_54, r55plus }
+    enum Goal: String, Codable, CaseIterable { case anxiety, sleep, phone, critic, habit, overwhelm }
+    enum PainPoint: String, Codable, CaseIterable { case overthink, phone, replay, still, fake, stick }
+    enum StruggleFrequency: String, Codable, CaseIterable { case dailyPlus, daily, weekly, rare }
+    enum TriedMethod: String, Codable, CaseIterable { case meditation, journal, therapy, meds, exercise, books, nothing }
+    enum MeditationExperience: String, Codable, CaseIterable { case never, little, regular, years }
+    enum NudgeTime: String, Codable, CaseIterable { case morning, midday, evening, night }
+    enum ReferralSource: String, Codable, CaseIterable { case tiktok, instagram, x, appstore, friend, article, podcast, other }
+}
+
+// 永続化（@AppStorage wrapper）
+@propertyWrapper
+struct AppStorageCodable<T: Codable>: DynamicProperty {
+    let key: String
+    let defaultValue: T
+    @AppStorage private var rawData: Data
+    init(wrappedValue: T, _ key: String) {
+        self.key = key
+        self.defaultValue = wrappedValue
+        self._rawData = AppStorage(wrappedValue: Data(), key)
+    }
+    var wrappedValue: T {
+        get { (try? JSONDecoder().decode(T.self, from: rawData)) ?? defaultValue }
+        nonmutating set { rawData = (try? JSONEncoder().encode(newValue)) ?? Data() }
+    }
+}
+```
+
+### 各 screen の書き込み契約
+
+| Screen | 書き込みフィールド |
+|---|---|
+| 2 Name | `profile.name = ...` + `UserDefaults.standard.set(name, forKey: "anicca_user_name")` |
+| 3 Age | `profile.ageRange` |
+| 4 Goal | `profile.goal` |
+| 5 Pain | `profile.painPoints` |
+| 6 StruggleFreq | `profile.struggleFrequency` |
+| 7 Tinder | `profile.tinderPainAgreed`（agreed swipe のみ） |
+| 8 WhatTried | `profile.triedMethods` |
+| 9 Stress | `profile.stressLevel` (1-10) |
+| 10 SocialProof | なし（読み取り専用） |
+| 11 NudgeTimes | `profile.nudgeTimes` |
+| 12 MeditExp | `profile.meditationExperience` |
+| 13 Referral | `profile.referralSource` + Mixpanel super property |
+| 14 Processing | なし |
+| 15 PlanReveal | なし（読み取り専用） |
+| 16 Comparison | なし |
+| 17 AppDemo | なし（完了フラグのみ） |
+| 18 ValueDelivery | なし |
+| 19 RatingPrompt | `appState.hasRequestedReview = true`（profile に非含有） |
+| 20 Notifications | `profile` に permission status 不含（AppState で別管理） |
+
+## A8. ローカライズ完全チェックリスト（BL-12 解決）
+
+**既存キー方針:** 削除禁止。`xcstrings` の `stale: true` マークで残す。
+
+### 必須追加カテゴリ（上記 key table 以外）
+
+| カテゴリ | Key 例 |
+|---|---|
+| Back button | `common_back` = "Back" / "戻る" |
+| Error Alert | `err_purchase_failed_title`, `err_purchase_failed_body`, `err_network_title`, `err_network_body`, `err_ok` |
+| Paywall 共通 | `pw_restore`, `pw_terms`, `pw_privacy`, `pw_terms_url`, `pw_privacy_url` |
+| Permission denial | `notif_denied_title`, `notif_denied_body`（Settings 誘導） |
+| Feedback form | `feedback_send`, `feedback_cancel`, `feedback_success`, `feedback_error` |
+| Share | `share_title`, `share_body_tpl` |
+| Accessibility labels | `a11y_{screen}_back`, `a11y_{screen}_continue`, `a11y_tinder_swipe_right`, `a11y_tinder_swipe_left`, `a11y_stress_slider`, etc. |
+
+### JA/EN 語順ルール
+
+- 複数変数テンプレは `%1$@`, `%2$@` 形式を必須使用（positional）
+- 例: `pw_s3_title_tpl`
+  - EN: `Your quiet mind, %1$@, %2$@/day`
+  - JA: `%1$@の静かな心を、1日 %2$@ で`
+
+## A9. Skip/Back paths（BL-13 解決）
+
+| Screen | Back | Skip | 挙動 |
+|---|---|---|---|
+| 1 Welcome | なし | Log in (リンク) | Log in → sign-in sheet (Apple ID / email)。既存購読者は main app 直行 |
+| 2-20 (オンボ) | あり | なし | system NavigationStack back。ただし Welcome には戻らない |
+| 19 Rating | あり | 自動（Yes/No どちらでも advance） | No → feedback sheet → 閉じたら advance |
+| 20 Notification | あり | "Not now" → advance | permission 拒否しても advance。paywall へ |
+| 21-23 Paywall | **なし** | **なし** | Hard paywall |
+
+**既存購読者検出:**
+```swift
+// AppState 起動時
+let hasEntitlement = !Purchases.shared.customerInfo.entitlements.active.isEmpty
+if hasEntitlement {
+    // onboarding skip, main app へ
+    UserDefaults.standard.set(3, forKey: "onboarding_completed_version")
+}
+```
+
+**Log in 実装（Screen 1）:** 1.8.5 では scope out。Log in tap は `print("TODO: 1.8.6 で実装")` + Analytics event `onboarding_login_tapped`。UI 上は表示するが無効化（grayed out）する方が誠実。→ **決定: grayed out + "Coming soon" tooltip**
+
+## A10. Analytics events 完全定義（BL-14 解決）
+
+**命名規則:** `onboarding_{screen_id}_{action}`
+
+### 全 events
+
+| Event | Properties | 発火タイミング |
+|---|---|---|
+| `onboarding_started` | `{ version: "v3" }` | Screen 1 初回表示 |
+| `onboarding_welcome_viewed` | - | S1 onAppear |
+| `onboarding_welcome_completed` | - | Get Started tap |
+| `onboarding_name_completed` | `{ name_length: Int }` | S2 Continue tap |
+| `onboarding_age_completed` | `{ age_range: String }` | S3 Continue tap |
+| `onboarding_goal_completed` | `{ goal_id: String }` | S4 Continue tap |
+| `onboarding_pain_completed` | `{ pain_count: Int, pains: [String] }` | S5 Continue tap |
+| `onboarding_frequency_completed` | `{ frequency: String }` | S6 Continue tap |
+| `onboarding_tinder_completed` | `{ agreed_count: Int, agreed: [String] }` | S7 全 card 終了 |
+| `onboarding_tried_completed` | `{ methods: [String] }` | S8 Continue tap |
+| `onboarding_stress_completed` | `{ level: Int }` | S9 Continue tap |
+| `onboarding_socialproof_viewed` | - | S10 onAppear |
+| `onboarding_socialproof_completed` | - | S10 Continue tap |
+| `onboarding_nudgetimes_completed` | `{ times: [String] }` | S11 Continue tap |
+| `onboarding_meditexp_completed` | `{ level: String }` | S12 Continue tap |
+| `onboarding_referral_completed` | `{ source: String }` | S13 Continue tap（+ super property） |
+| `onboarding_processing_completed` | - | S14 自動 advance |
+| `onboarding_plan_reveal_viewed` | - | S15 onAppear |
+| `onboarding_plan_reveal_completed` | - | S15 Continue tap |
+| `onboarding_comparison_completed` | - | S16 Continue tap |
+| `onboarding_demo_started` | - | S17 onAppear |
+| `onboarding_demo_completed` | `{ taps: Int, duration_ms: Int }` | S17 3回 tap 完了 |
+| `onboarding_value_delivery_viewed` | - | S18 onAppear |
+| `onboarding_share_tapped` | - | S18 Share tap |
+| `onboarding_share_completed` | `{ activity_type: String? }` | UIActivity 完了 |
+| `onboarding_rating_prompt_viewed` | - | S19 onAppear |
+| `onboarding_rating_prompt_yes` | - | S19 Yes tap |
+| `onboarding_rating_prompt_no` | - | S19 No tap |
+| `onboarding_feedback_submitted` | `{ length: Int }` | Feedback sheet 送信 |
+| `onboarding_notification_priming_viewed` | - | S20 onAppear |
+| `onboarding_notification_granted` | - | Enable → 許可 |
+| `onboarding_notification_denied` | - | Enable → 拒否 |
+| `onboarding_notification_skipped` | - | Not now tap |
+| `onboarding_paywall_primer_viewed` | - | PW S1 onAppear |
+| `onboarding_paywall_timeline_viewed` | - | PW S2 onAppear |
+| `onboarding_paywall_plans_viewed` | - | PW S3 onAppear |
+| `onboarding_paywall_purchase_started` | `{ package_id: String }` | CTA tap |
+| `onboarding_paywall_purchase_succeeded` | `{ package_id: String }` | entitlement 検知 |
+| `onboarding_paywall_purchase_failed` | `{ error_code: String }` | RC error |
+| `onboarding_completed` | `{ total_duration_ms: Int, screens_viewed: Int }` | paywall success 直後 |
+
+### Super properties
+
+| Property | 設定タイミング |
+|---|---|
+| `referral_source` | S13 完了時 |
+| `age_range` | S3 完了時 |
+| `goal_id` | S4 完了時 |
+| `meditation_experience` | S12 完了時 |
+| `onboarding_version` | = "v3"（常時） |
+
+## A11. RevenueCat offering 監査（BL-15 解決）
+
+**実装開始前必須タスク（U16 新設）:**
+
+```bash
+# MCP で RevenueCat API 叩いて現状 offering を確認
+# 期待値:
+#   ai.anicca.app.ios.yearly.b   → $59.99/year
+#   ai.anicca.app.ios.weekly.b   → $12.99/week
+# 差異があれば spec を更新
+```
+
+**実装時チェック:**
+- `Purchases.shared.offerings()` で current offering を取得
+- `currentOffering?.yearly` / `currentOffering?.weekly` / `currentOffering?.monthly` (monthly 追加の場合) の package が nil でないこと
+- nil なら placeholder price "—" 表示 + error alert
+
+## A12. Win Back Offer テスト手順（BL-16 解決）
+
+**StoreKit Testing (Xcode):**
+
+```bash
+# 1. .storekit 設定ファイル作成
+#    aniccaios/aniccaios.storekit に yearly.b + weekly.b 追加
+# 2. Xcode scheme で "StoreKit Configuration" 選択
+# 3. Editor → Set Subscription Renewal Rate → "Every 1 minute"
+# 4. Editor → Set Subscription Initial Purchase → "Yearly"
+# 5. Editor → Expire Subscription → 現在の購読を期限切れに
+# 6. 1 分待機（sandbox wall clock 加速）
+# 7. アプリ → iOS 設定（シミュレータは Apple ID 設定不可、実機 sandbox 推奨）
+# 8. Sandbox account で同一フロー
+```
+
+**前提認識:**
+- 1.8.5 リリース時点で lapsed subscriber はゼロ
+- Win Back は効果的に post-launch 30-365 日後から稼働
+- これは OK、リリース時の機能としては passive
+
+## A13. T24 Notification 挙動（BL-17 解決）
+
+```swift
+// NotificationPermissionStepView.swift（改修後）
+func requestPermission() async {
+    let granted = (try? await UNUserNotificationCenter.current()
+        .requestAuthorization(options: [.alert, .sound, .badge])) ?? false
+    AnalyticsManager.shared.track(granted ? .notifGranted : .notifDenied)
+    advance()  // 許可/拒否 どちらでも advance
+}
+func skip() {
+    AnalyticsManager.shared.track(.notifSkipped)
+    advance()
+}
+// advance() → OnboardingFlowView が showPaywall = true に遷移
+```
+
+**既存 view のチェック項目（実装前）:**
+- [ ] 進捗 bar のハードコード「最終 step」ロジックがあれば削除
+- [ ] `advance()` が正しく呼ばれているか
+- [ ] 完了後に `onboarding_completed_version = 3` を書かない（paywall 後に書く）
+
+## A14. ファイルリネーム禁止（BL-18 解決）
+
+**ルール:** `git mv` 禁止。リネーム対象は「新規作成 + 旧削除（Xcode UI 経由）」で対応。
+
+| 旧ファイル | 新ファイル | 手順 |
+|---|---|---|
+| `PersonalizedInsightStepView.swift` | `PersonalizedSolutionStepView.swift` | 新ファイルを Claude Code で作成 → Xcode で target 追加 → 旧ファイル Xcode で Delete (Move to Trash) |
+| `ValuePropStepView.swift` | `ValueDeliveryStepView.swift` | 同上 |
+
+## A15. Xcode project 統合ゲート（BL-19 解決）
+
+**強制ゲート:** Phase B / Phase C / Phase D / Phase E 完了ごとに、ダイスが Xcode UI で新規 .swift ファイルを target に追加 → `fastlane build` で compile pass を確認するまで次 phase 進行禁止。
+
+**対象新規ファイル（13 個）:**
+```
+NameInputStepView.swift
+AgeRangeStepView.swift
+GoalStepView.swift
+TinderPainCardsView.swift
+WhatTriedStepView.swift
+StressSliderStepView.swift
+SocialProofStepView.swift
+PreferredNudgeTimesView.swift
+MeditationExperienceStepView.swift
+ReferralSourceStepView.swift
+ComparisonTableStepView.swift
+PersonalizedSolutionStepView.swift   (rename)
+ValueDeliveryStepView.swift          (rename)
+RatingPrePromptStepView.swift
+FeedbackFormView.swift
+PaywallValueTimelineStepView.swift
+```
+
+（計 16 新規 — うち 2 はリネーム）
+
+## A16. App Demo tap 回数（BL-20 解決）
+
+| meditationExperience | tap count |
+|---|---|
+| never | 3 |
+| little | 5 |
+| regular | 7 |
+| years | 9 |
+
+Screen 17 mockup の「ゆっくり3回タップ」は never の例示。実装時は動的表示:
+- `onb_demo_body_tpl` = `You're about to spiral. Pause.\nTap the circle %d times, slowly.`
+
+## A17. Accessibility 必須項目（BL-21 解決）
+
+| 項目 | ルール |
+|---|---|
+| VoiceOver | 全インタラクティブ要素に `.accessibilityLabel` + `.accessibilityHint`。key: `a11y_*` |
+| Dynamic Type | `.font(.system(size:))` 禁止。必ず `.font(.title2)` 等 semantic style |
+| Reduced Motion | `@Environment(\.accessibilityReduceMotion)` チェック。Tinder swipe → fade / processing → static / progress bar → instant |
+| Tap target | 最小 44×44pt |
+| Stress slider | `.accessibilityAdjustableAction { .increment / .decrement }` 実装 |
+| Tinder swipe | VoiceOver 用に「Agree」「Dismiss」ボタンを透明オーバーレイで用意 |
+
+## A18. Share / Haptic / iPad 対応（BL-22 解決）
+
+```swift
+// S18 Share button
+func shareCard() {
+    guard let image = renderShareImage(shareCardView, size: CGSize(width: 1080, height: 1080))
+    else { return }
+    let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+    if UIDevice.current.userInterfaceIdiom == .pad {
+        activityVC.popoverPresentationController?.sourceView = shareButtonRef
+        activityVC.popoverPresentationController?.sourceRect = shareButtonRef.bounds
+    }
+    activityVC.completionWithItemsHandler = { activity, completed, _, _ in
+        AnalyticsManager.shared.track(.shareCompleted(activityType: activity?.rawValue))
+    }
+    UIApplication.shared.topViewController?.present(activityVC, animated: true)
+}
+// Share 完了しても自動 advance しない。ユーザーが Continue を別途 tap する。
+```
+
+Haptics: `UIImpactFeedbackGenerator(style: .soft)` は iOS 設定で無効ならシステムが自動 no-op。手動チェック不要。
+
+## A19. 価格ハードコード禁止（BL-24 解決）
+
+**全価格は RevenueCat `StoreProduct.localizedPriceString` から取得。**
+
+### S3 Paywall 修正 localization keys
+
+| Key | EN | JA |
+|---|---|---|
+| pw_s3_title_tpl | Your quiet mind, %1$@, %2$@/day | %1$@の静かな心を、1日 %2$@ で |
+| pw_s3_plan_weekly_tpl | Weekly · %@ / week | 週額 · %@ / 週 |
+| pw_s3_plan_yearly_tpl | Yearly · %@ / year ≈ %@ / week · Save %d%% | 年額 · %@ / 年 ≈ %@ / 週 · %d%%OFF |
+
+### 計算ロジック
+
+```swift
+// yearly package price / 365 → daily price
+let yearlyPrice = yearlyPackage.storeProduct.price   // NSDecimalNumber
+let dailyPrice = yearlyPrice.dividing(by: NSDecimalNumber(value: 365))
+let dailyString = formatCurrency(dailyPrice, locale: yearlyPackage.storeProduct.priceFormatter.locale)
+
+// yearly / 52 → weekly price (approx)
+let weeklyFromYearly = yearlyPrice.dividing(by: NSDecimalNumber(value: 52))
+
+// save % = (1 - yearly/(weekly*52)) * 100
+let savePercent = Int((1 - yearlyPrice.doubleValue / (weeklyPackage.storeProduct.price.doubleValue * 52)) * 100)
+```
+
+## A20. Maestro E2E 追加テスト（BL-25 解決）
+
+| ファイル | 目的 |
+|---|---|
+| `onboarding_full_flow.yaml` | 全 20 screen + PW 3 step → purchase |
+| `onboarding_resume_after_kill.yaml` | 各 step で kill → 再起動で同じ step から再開 |
+| `onboarding_existing_subscriber.yaml` | entitlement あり → onboarding skip → main app |
+| `onboarding_v2_migration.yaml` | v2 UserDefaults で起動 → 正しい v3 step にマップ |
+| `paywall_hard_no_dismiss.yaml` | PW S1/S2/S3 で swipe-down/back-gesture/× tap 全て失敗 |
+| `onboarding_rating_yes_path.yaml` | Yes → SKStoreReview 呼出確認 |
+| `onboarding_rating_no_path.yaml` | No → feedback sheet 表示 |
+
+## A21. その他 (non-blocking 対応)
+
+| ID | 対応 |
+|---|---|
+| NB-01 | 冒頭「Bible 出典一覧」の直後に警告追記: 「B2-B7 は prior specs 由来。.claude/skills/ に実ファイルなし。J1 判断で継続採用」 |
+| NB-02 | Target Metrics テーブルに「測定方法」列追加（Mixpanel funnel / RC cohort） |
+| NB-03 | Win Back ASC テーブルに Display Name / Localization 行追加 |
+| NB-04 | Tinder card 選択 → analytics only と明記（下流影響なし） |
+| NB-05 | Preferred Nudge Times: min 2 バリデーション追加 |
+| NB-06 | Patch table 見出しを「T1-T33 (T28 除外)」に修正 |
+| NB-07 | Progress bar で `OnboardingStep.allCases.firstIndex(of: step)` 使用推奨 |
+
+## A22. Codex review round 1 status
+
+| Status | Count |
+|---|---|
+| BLOCKING 解決 | 25 / 25 |
+| NON-BLOCKING 解決 | 7 / 7 |
+| 次ラウンド | Codex review round 2 で上記 A1-A21 の再レビュー |
+
+---
+
+**END OF SPEC — 省略・ショートカット・隠蔽なし。全 23 screen、全 33 patch、全 Bible 引用を網羅。ADDENDA A1-A22 で Codex review round 1 完全対応。**
