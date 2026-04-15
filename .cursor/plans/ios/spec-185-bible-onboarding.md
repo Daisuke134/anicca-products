@@ -1877,20 +1877,25 @@ extension OnboardingStep {
 ```swift
 let completedVersion = UserDefaults.standard.integer(forKey: "onboarding_completed_version")
 let questionsDone = UserDefaults.standard.bool(forKey: "onboarding_questions_completed")
-// customerInfo は async 取得（R11 参照）
+// customerInfo は async 取得（R12 参照）
 let hasEntitlement = await fetchHasEntitlement()
 
-if completedVersion >= 3 || (completedVersion >= 2) || hasEntitlement {
-    if !hasEntitlement && completedVersion < 3 { UserDefaults.standard.set(3, forKey: "onboarding_completed_version") }
+// v3 判定のみ。v2 既存ユーザーでも entitlement がなければ v3 onboarding を通す（ハード paywall 継続）。
+if hasEntitlement {
     showMainApp = true
+} else if completedVersion >= 3 {
+    // v3 完了かつ entitlement 消失（refund / expire 等）→ ハード paywall を直接提示
+    showPaywallDirectly = true
 } else if questionsDone {
-    // 質問は全部終わった。未購入で kill された → paywall から再開
+    // 質問は全部終わったが paywall 未購入で kill → paywall から再開
     showPaywallDirectly = true
 } else {
-    // 質問途中 or 未着手 → onboarding_current_step から再開（無ければ welcome）
+    // 未完了 / v2 既存 / 新規 → v3 onboarding を onboarding_current_step から再開
     showOnboarding = true
 }
 ```
+
+**v2 既存ユーザーの扱い決定:** `completedVersion = 2` でも entitlement がない限り v3 onboarding 全 20 screen を通す。根拠: v3 onboarding は質問によるパーソナライズ + ハード paywall が目的。v2 完了だけで skip すると paywall 露出機会を失う。ハード paywall ポリシーとも整合。
 
 **Screen 20 Notifications の advance() 実装:**
 ```swift
@@ -1932,7 +1937,7 @@ NavigationStack {
 ```
 
 **カスタム Back button:**
-- 各 Step view（Welcome 除く）は `.toolbar { ToolbarItem(placement: .topBarLeading) { CustomBackButton() } }` で自前 chevron を置く。
+- 各 Step view（Welcome 除く）は `.toolbar { ToolbarItem(placement: .navigationBarLeading) { CustomBackButton() } }` で自前 chevron を置く。**注: `.topBarLeading` は iOS 17+ なので不可。main app deployment target は 16.6。**
 - `CustomBackButton` の action:
   ```swift
   let prev = max(1, step.rawValue - 1)   // 1 = Name。Welcome(0) には戻さない
@@ -1941,8 +1946,7 @@ NavigationStack {
   AnalyticsManager.shared.track(.onboardingStepBack(from: oldStep.analyticsName, to: step.analyticsName))
   ```
 - Welcome (Screen 1) は Back button / toolbar を置かない。
-- system swipe-from-edge back は `.navigationBarBackButtonHidden(true)` だけでは無効化されないため、`OnboardingFlowView` に `.gesture(DragGesture().onChanged { _ in })` は **使わない** — 代わりに各 Step view を `.interactiveDismissDisabled(true)` は不要（fullScreenCover ではないため）だが、NavigationStack の swipe back を殺すには iOS 16+ `.navigationBarBackButtonHidden(true)` + path-based NavigationStack を使う。
-- **最終決定:** path-based NavigationStack(path: $path) ではなく、単一 View state machine（`@State var step`）で render。NavigationStack は root のみ、push しない。back = state 更新のみ → swipe back は起きない。
+- **最終決定:** path-based NavigationStack(path: $path) ではなく、単一 View state machine（`@State var step`）で render。NavigationStack は root のみ、push しない。`NavigationLink` / `NavigationStack(path:)` 一切不使用。back = state 更新のみ → system swipe-from-edge back は発生しない。
 
 ## R5. Positional placeholders 修正（R2-05 解決）
 
@@ -1958,7 +1962,7 @@ NavigationStack {
 
 ## R6. UIApplication.topViewController + SwiftUI share anchor（R2-06 解決）
 
-**決定: UIActivityViewController 直接 present をやめ、SwiftUI `.sheet` + `ShareLink`（iOS 16+）と fallback の UIViewControllerRepresentable で統一。**
+**決定: UIActivityViewController を SwiftUI `.sheet` + `UIViewControllerRepresentable` でラップ。`ShareLink` は `completionWithItemsHandler` が取れず `share_completed` 分析が失われるため **不採用**。**
 
 ```swift
 // S18 Share button — iOS 15/16 両対応
@@ -2059,21 +2063,38 @@ func resolveInitialRoute() async {
 
     let hasEntitlement: Bool
     do {
-        let info = try await Purchases.shared.customerInfo()
+        // 3 秒 timeout。ネットワーク不調で splash が張り付かないように。
+        let info = try await withTimeout(seconds: 3) {
+            try await Purchases.shared.customerInfo()
+        }
         hasEntitlement = !info.entitlements.active.isEmpty
     } catch {
-        hasEntitlement = false
+        hasEntitlement = false  // timeout / network error → offline 扱い
     }
 
-    if completedVersion >= 3 || completedVersion >= 2 || hasEntitlement {
-        if !hasEntitlement && completedVersion < 3 {
-            UserDefaults.standard.set(3, forKey: "onboarding_completed_version")
-        }
+    // R3 と同じ判定ロジック
+    if hasEntitlement {
         self.route = .mainApp
+    } else if completedVersion >= 3 {
+        self.route = .paywallDirect
     } else if questionsDone {
         self.route = .paywallDirect
     } else {
         self.route = .onboarding
+    }
+}
+
+// Timeout helper (Task group based)
+func withTimeout<T: Sendable>(seconds: TimeInterval, operation: @escaping @Sendable () async throws -> T) async throws -> T {
+    try await withThrowingTaskGroup(of: T.self) { group in
+        group.addTask { try await operation() }
+        group.addTask {
+            try await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
+            throw CancellationError()
+        }
+        let result = try await group.next()!
+        group.cancelAll()
+        return result
     }
 }
 ```
@@ -2086,7 +2107,41 @@ func resolveInitialRoute() async {
 
 待機中は Splash 表示（既存 `SplashView` 利用）。
 
-## R13. Codex review round 2 status
+## R13. Round 3 追加修正（R3 review 対応）
+
+### R13.1 Deployment target 明示
+
+**main app (`aniccaios` target) deployment target = iOS 16.6。** 以下は無効:
+- `ToolbarItemPlacement.topBarLeading` (iOS 17+) → `.navigationBarLeading` を使う
+- `ShareLink` の `completionWithItemsHandler` 代替は存在しないため採用しない
+- U9/U10 の iOS 15 fallback 記述は「過去の互換性注記」として残すのみ。実装では 16+ API を直接使用して良い（例外: iOS 17+ API は明示回避）
+
+### R13.2 T3 patch table scrub
+
+L998 周辺の T3 記述から `migratedFromLegacyRawValue` / `migratedFromV1RawValue` を削除（R2 済）。実装時は `migratedFromV2RawValue` のみ。
+
+### R13.3 価格 format （R9 補足）
+
+`daily` / `weeklyFromYearly` / `weekly` / `yearly` すべての NSDecimalNumber → 表示文字列変換は以下のいずれか:
+
+```swift
+// 推奨: RevenueCat StoreProduct.priceFormatter を流用
+let formatter = yearlyPackage.storeProduct.priceFormatter  // 既に locale 設定済み
+let dailyString = formatter.string(from: daily) ?? "-"
+
+// Fallback
+let formatter = NumberFormatter()
+formatter.numberStyle = .currency
+formatter.locale = yearlyPackage.storeProduct.priceLocale
+```
+
+**Double cast 禁止（Intへの最終変換 `savePercent` のみ例外）。**
+
+### R13.4 v2 既存ユーザー paywall 暴露（R3-02 解決）
+
+R3 / R12 の判定ロジックから `completedVersion >= 2 → mainApp` 分岐を削除済。v2 既存ユーザーも entitlement がない限り v3 onboarding 全 20 screen + ハード paywall を通す。
+
+## R14. Codex review round 2/3 status
 
 | Status | Count |
 |---|---|
