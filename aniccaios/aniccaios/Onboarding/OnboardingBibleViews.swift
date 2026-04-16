@@ -633,11 +633,11 @@ struct RatingPrePromptStepView: View {
             .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
             SKStoreReviewController.requestReview(in: scene)
         }
-        // Fallback: system may suppress dialog (3x/year limit)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) { [self] in
-            if awaitingReview {
-                awaitingReview = false
-                next()
+        // Fallback: system may suppress dialog (3x/year limit) or simulator
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            if self.awaitingReview {
+                self.awaitingReview = false
+                self.next()
             }
         }
     }
@@ -707,6 +707,7 @@ struct PaywallValueTimelineStepView: View {
 struct PaywallFlowContainer: View {
     let onPurchaseSuccess: (CustomerInfo) -> Void
     @State private var step: PaywallStep = .primer
+    @EnvironmentObject private var appState: AppState
 
     var body: some View {
         ZStack {
@@ -721,6 +722,24 @@ struct PaywallFlowContainer: View {
                     onDismiss: { /* hard paywall: no-op */ }
                 )
             }
+
+            #if DEBUG
+            VStack {
+                HStack {
+                    Spacer()
+                    Button {
+                        appState.markOnboardingComplete()
+                    } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .font(.system(size: 28))
+                            .foregroundStyle(.white.opacity(0.5))
+                    }
+                    .padding(.trailing, 16)
+                    .padding(.top, 16)
+                }
+                Spacer()
+            }
+            #endif
         }
     }
 }

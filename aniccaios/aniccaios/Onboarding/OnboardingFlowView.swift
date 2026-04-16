@@ -110,8 +110,9 @@ struct OnboardingFlowView: View {
 
     private func completeOnboardingForExistingPro() {
         Task {
+            let mapped = StrugglesStepView.mappedProblems(from: appState.userProfile.struggles)
             await ProblemNotificationScheduler.shared
-                .scheduleNotifications(for: appState.userProfile.struggles)
+                .scheduleNotifications(for: mapped)
             appState.markOnboardingComplete()
         }
     }
@@ -122,8 +123,9 @@ struct OnboardingFlowView: View {
         appState.markOnboardingComplete()
         showPaywall = false
         Task {
+            let mapped = StrugglesStepView.mappedProblems(from: appState.userProfile.struggles)
             await ProblemNotificationScheduler.shared
-                .scheduleNotifications(for: appState.userProfile.struggles)
+                .scheduleNotifications(for: mapped)
         }
     }
 }

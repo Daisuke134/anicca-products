@@ -4,6 +4,19 @@ struct StrugglesStepView: View {
     let next: () -> Void
     @EnvironmentObject private var appState: AppState
 
+    /// オンボ抽象カテゴリ → ProblemType 1:1 マッピング
+    static let problemMapping: [String: String] = [
+        "negative_thoughts": "self_loathing",
+        "putting_off": "procrastination",
+        "anxiety_overwhelm": "anxiety",
+        "stuck_habit": "rumination",
+        "emotions_take_over": "anger"
+    ]
+
+    static func mappedProblems(from struggles: [String]) -> [String] {
+        struggles.compactMap { problemMapping[$0] }
+    }
+
     // Bible Screen 3 (5-7 pain points) + Hick's Law: 5 options
     private let options: [String] = [
         "negative_thoughts",
@@ -65,7 +78,9 @@ struct StrugglesStepView: View {
         }
         .background(AppBackground())
         .onAppear {
-            selected = Set(appState.userProfile.problems)
+            if !appState.userProfile.problems.isEmpty && appState.onboardingStep == .painPoints {
+                selected = Set(appState.userProfile.problems)
+            }
         }
     }
 
