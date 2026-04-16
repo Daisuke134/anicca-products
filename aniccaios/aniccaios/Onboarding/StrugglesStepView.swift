@@ -34,19 +34,15 @@ struct StrugglesStepView: View {
                 .padding(.horizontal, 24)
 
             ScrollView {
-                LazyVGrid(columns: [
-                    GridItem(.flexible(), spacing: 12),
-                    GridItem(.flexible(), spacing: 12)
-                ], spacing: 12) {
+                VStack(spacing: 12) {
                     ForEach(options, id: \.self) { key in
-                        chipButton(kind: "problem", key: key)
+                        listRow(kind: "problem", key: key)
                     }
                 }
                 .padding(.horizontal, 24)
                 .padding(.top, 8)
                 .padding(.bottom, 16)
             }
-            .scrollIndicators(.visible)
 
             Button {
                 var profile = appState.userProfile
@@ -74,7 +70,7 @@ struct StrugglesStepView: View {
     }
 
     @ViewBuilder
-    private func chipButton(kind: String, key: String) -> some View {
+    private func listRow(kind: String, key: String) -> some View {
         let isSelected = selected.contains(key)
         Button {
             if isSelected {
@@ -83,17 +79,19 @@ struct StrugglesStepView: View {
                 selected.insert(key)
             }
         } label: {
-            Text(NSLocalizedString("\(kind)_\(key)", comment: ""))
-                .font(.system(size: 14, weight: .medium))
-                .lineLimit(2)
-                .minimumScaleFactor(0.8)
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity, minHeight: 56)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(isSelected ? AppTheme.Colors.buttonSelected : AppTheme.Colors.buttonUnselected)
-                .foregroundStyle(isSelected ? AppTheme.Colors.buttonTextSelected : AppTheme.Colors.label)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
+            HStack(spacing: 12) {
+                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                    .font(.system(size: 22))
+                    .foregroundColor(isSelected ? AppTheme.Colors.accent : .secondary)
+                Text(NSLocalizedString("\(kind)_\(key)", comment: ""))
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(AppTheme.Colors.label)
+                Spacer()
+            }
+            .padding(.horizontal, 16)
+            .frame(maxWidth: .infinity, minHeight: 56)
+            .background(isSelected ? AppTheme.Colors.buttonSelected : AppTheme.Colors.buttonUnselected)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .buttonStyle(.plain)
         .accessibilityIdentifier("onboarding-struggle-\(key)")

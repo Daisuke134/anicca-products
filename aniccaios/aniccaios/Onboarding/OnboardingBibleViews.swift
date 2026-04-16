@@ -2,60 +2,7 @@ import SwiftUI
 import StoreKit
 import RevenueCat
 
-// MARK: - S2 Name
-
-struct NameInputStepView: View {
-    let next: () -> Void
-    @EnvironmentObject private var appState: AppState
-    @State private var name: String = ""
-    @FocusState private var focused: Bool
-
-    var body: some View {
-        VStack(spacing: 24) {
-            Spacer().frame(height: 40)
-            Text("What should we call you?")
-                .font(.system(size: 32, weight: .bold))
-                .multilineTextAlignment(.center)
-                .foregroundStyle(AppTheme.Colors.label)
-                .padding(.horizontal, 24)
-
-            TextField("Your name", text: $name)
-                .font(.system(size: 22, weight: .medium))
-                .multilineTextAlignment(.center)
-                .focused($focused)
-                .padding()
-                .background(AppTheme.Colors.buttonUnselected)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .padding(.horizontal, 24)
-
-            Spacer()
-
-            Button {
-                var profile = appState.userProfile
-                profile.displayName = name.trimmingCharacters(in: .whitespaces)
-                appState.updateUserProfile(profile, sync: true)
-                next()
-            } label: {
-                Text("Continue")
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity).frame(height: 56)
-                    .background(name.trimmingCharacters(in: .whitespaces).isEmpty ? AppTheme.Colors.label.opacity(0.4) : AppTheme.Colors.accent)
-                    .clipShape(RoundedRectangle(cornerRadius: 28))
-            }
-            .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
-            .padding(.horizontal, 24)
-            .padding(.bottom, 48)
-        }
-        .background(AppBackground())
-        .onAppear {
-            name = appState.userProfile.displayName
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { focused = true }
-        }
-    }
-}
-
-// MARK: - S3 Age
+// MARK: - S2 Age
 
 struct AgeRangeStepView: View {
     let next: () -> Void
@@ -557,56 +504,7 @@ struct MeditationExperienceStepView: View {
     }
 }
 
-// MARK: - S13 Referral Source
-
-struct ReferralSourceStepView: View {
-    let next: () -> Void
-    @EnvironmentObject private var appState: AppState
-    private let options: [(key: String, label: String)] = [
-        ("tiktok", "TikTok"),
-        ("instagram", "Instagram"),
-        ("twitter", "X / Twitter"),
-        ("friend", "A friend"),
-        ("app_store", "App Store search"),
-        ("other", "Other")
-    ]
-
-    var body: some View {
-        VStack(spacing: 20) {
-            Spacer().frame(height: 40)
-            Text("Where did you hear about us?")
-                .font(.system(size: 28, weight: .bold))
-                .multilineTextAlignment(.center)
-                .foregroundStyle(AppTheme.Colors.label)
-                .padding(.horizontal, 24)
-
-            VStack(spacing: 12) {
-                ForEach(options, id: \.key) { opt in
-                    Button {
-                        var profile = appState.userProfile
-                        profile.acquisitionSource = opt.key
-                        appState.updateUserProfile(profile, sync: true)
-                        AnalyticsManager.shared.setUserProperty("acquisition_source", value: opt.key)
-                        next()
-                    } label: {
-                        Text(opt.label)
-                            .font(.system(size: 17, weight: .medium))
-                            .foregroundStyle(AppTheme.Colors.label)
-                            .frame(maxWidth: .infinity).frame(height: 56)
-                            .background(AppTheme.Colors.buttonUnselected)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
-                    }
-                    .buttonStyle(.plain)
-                }
-            }
-            .padding(.horizontal, 24)
-            Spacer()
-        }
-        .background(AppBackground())
-    }
-}
-
-// MARK: - S16 Comparison Table
+// MARK: - S14 Comparison Table
 
 struct ComparisonTableStepView: View {
     let next: () -> Void
