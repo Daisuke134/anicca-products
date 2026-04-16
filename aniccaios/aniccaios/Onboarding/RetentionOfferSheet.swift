@@ -34,15 +34,14 @@ struct RetentionOfferSheet: View {
 
             // Price card
             VStack(spacing: 12) {
-                Text(retentionPackage?.storeProduct.localizedPriceString ?? "$44.99")
-                    .font(.system(size: 36, weight: .heavy))
-                    .foregroundStyle(AppTheme.Colors.label)
-                    + Text(" / ")
-                    .font(.system(size: 18, weight: .medium))
-                    .foregroundStyle(.secondary)
-                    + Text(String(localized: "retention_per_year"))
-                    .font(.system(size: 18, weight: .medium))
-                    .foregroundStyle(.secondary)
+                HStack(alignment: .firstTextBaseline, spacing: 4) {
+                    Text(retentionPackage?.storeProduct.localizedPriceString ?? "$44.99")
+                        .font(.system(size: 36, weight: .heavy))
+                        .foregroundColor(AppTheme.Colors.label)
+                    Text("/ \(String(localized: "retention_per_year"))")
+                        .font(.system(size: 18, weight: .medium))
+                        .foregroundColor(.secondary)
+                }
 
                 Text(String(localized: "retention_discount_badge"))
                     .font(.system(size: 14, weight: .bold))
