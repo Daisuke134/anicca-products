@@ -4,13 +4,13 @@ struct StrugglesStepView: View {
     let next: () -> Void
     @EnvironmentObject private var appState: AppState
 
-    // Proactive Agent: 13個の問題タイプ
+    // Bible Screen 3 (5-7 pain points) + Hick's Law: 5 options
     private let options: [String] = [
-        "staying_up_late", "cant_wake_up", "self_loathing",
-        "rumination", "procrastination", "anxiety",
-        "lying", "bad_mouthing", "porn_addiction",
-        "alcohol_dependency", "anger", "obsessive",
-        "loneliness"
+        "negative_thoughts",
+        "putting_off",
+        "anxiety_overwhelm",
+        "stuck_habit",
+        "emotions_take_over"
     ]
 
     @State private var selected: Set<String> = []

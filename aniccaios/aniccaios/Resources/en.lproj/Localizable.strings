@@ -405,7 +405,13 @@
 "ideal_trait_grateful" = "Grateful";
 "ideal_trait_brave" = "Brave";
 "ideal_trait_patient" = "Patient";
-/* Proactive Agent: 13 problem types */
+/* Bible Screen 3 (R5/R6/R7): 5 pain points (Humanizer-natural copy) */
+"problem_negative_thoughts" = "My negative thoughts won't stop.";
+"problem_putting_off" = "I keep putting off what matters.";
+"problem_anxiety_overwhelm" = "Anxiety overwhelms me.";
+"problem_stuck_habit" = "I can't quit habits I want to break.";
+"problem_emotions_take_over" = "My emotions take over.";
+/* Proactive Agent: 13 problem types (legacy — kept for positive_button/negative_button/notification_title references) */
 "problem_staying_up_late" = "Staying up late";
 "problem_cant_wake_up" = "Can't wake up";
 "problem_self_loathing" = "Self-loathing";
@@ -2570,6 +2576,15 @@
 "nudge_loneliness_detail_58" = "Next time you're in a store or elevator, make eye contact and smile. That 2-second connection activates mirror neurons and creates a tiny moment of shared humanity.";
 "nudge_loneliness_detail_59" = "You matter. To someone you know, to someone you helped once, to someone watching from a distance. Your existence impacts more lives than you realize.";
 "nudge_loneliness_detail_60" = "Reach out to someone right now. Don't overthink the message—just send it. 'Hey, want to hang out?' 'I miss you.' 'How are you?' Someone will be glad you did.";
+
+// MARK: - Retention Offer (Will / Adam Lyttle pattern, A42)
+"retention_title" = "Wait — one moment";
+"retention_subtitle" = "Before you go, here's a special offer just for you.";
+"retention_per_year" = "year";
+"retention_discount_badge" = "25% OFF";
+"retention_bullet_cancel" = "Cancel anytime";
+"retention_bullet_features" = "Same Pro features";
+"retention_cta_accept" = "Accept Offer";
 
 // MARK: - Widget
 "widget_description" = "Daily wisdom for your growth";

@@ -405,7 +405,13 @@
 "ideal_trait_focused" = "集中力";
 "ideal_trait_grateful" = "感謝";
 "ideal_trait_brave" = "勇敢";
-/* Proactive Agent: 13問題タイプ */
+/* Bible Screen 3 (R5/R6/R7): 5 pain points (Humanizer 自然日本語) */
+"problem_negative_thoughts" = "ネガティブ思考が止まらない。";
+"problem_putting_off" = "やるべきことを後回しにしてしまう。";
+"problem_anxiety_overwhelm" = "不安に押しつぶされそうになる。";
+"problem_stuck_habit" = "やめたい習慣をやめられない。";
+"problem_emotions_take_over" = "感情に振り回されてしまう。";
+/* Proactive Agent: 13問題タイプ (legacy — positive_button/negative_button/notification_title 参照のため残す) */
 "problem_staying_up_late" = "夜更かし";
 "problem_cant_wake_up" = "起きれない";
 "problem_self_loathing" = "自己嫌悪";
@@ -2587,6 +2593,15 @@
 "nudge_loneliness_detail_58" = "次に店やエレベーターにいる時、アイコンタクトして微笑んで。その2秒のつながりがミラーニューロンを活性化し共有された人間性の小さな瞬間を生む。";
 "nudge_loneliness_detail_59" = "あなたは大事な存在。知ってる誰かに、一度助けた誰かに、遠くから見てる誰かに。存在は思ってる以上に多くの人生に影響を与えてる。";
 "nudge_loneliness_detail_60" = "今すぐ誰かに連絡しろ。メッセージを考えすぎるな——送るだけ。「遊ばない？」「会いたいよ」「元気？」喜ぶ人がいるから。";
+
+// MARK: - Retention Offer (Will / Adam Lyttle pattern, A42)
+"retention_title" = "ちょっと待って";
+"retention_subtitle" = "去る前に、特別なオファーがあります。";
+"retention_per_year" = "年";
+"retention_discount_badge" = "25% OFF";
+"retention_bullet_cancel" = "いつでもキャンセル可能";
+"retention_bullet_features" = "Pro 機能はそのまま";
+"retention_cta_accept" = "オファーを受け取る";
 
 // MARK: - Widget
 "widget_description" = "毎日届く、あなたへの言葉";

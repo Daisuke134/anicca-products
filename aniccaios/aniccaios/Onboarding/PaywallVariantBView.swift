@@ -13,6 +13,8 @@ struct PaywallVariantBView: View {
     @State private var isPurchasing = false
     @State private var errorMessage: String?
     @State private var hasTracked = false
+    @State private var hasShownRetention = false
+    @State private var showRetention = false
 
     private var offering: Offering? { appState.cachedOffering }
     private var packages: [Package] { offering?.availablePackages ?? [] }
@@ -62,6 +64,12 @@ struct PaywallVariantBView: View {
             }
             if selectedPackage == nil {
                 selectedPackage = yearlyPackage ?? monthlyPackage ?? weeklyPackage
+            }
+        }
+        .sheet(isPresented: $showRetention) {
+            RetentionOfferSheet { customerInfo in
+                showRetention = false
+                onPurchaseSuccess(customerInfo)
             }
         }
     }
@@ -280,7 +288,13 @@ struct PaywallVariantBView: View {
                         onPurchaseSuccess(result.customerInfo)
                     }
                 } else {
-                    await MainActor.run { isPurchasing = false }
+                    await MainActor.run {
+                        isPurchasing = false
+                        if !hasShownRetention {
+                            hasShownRetention = true
+                            showRetention = true
+                        }
+                    }
                 }
             } catch {
                 await MainActor.run {

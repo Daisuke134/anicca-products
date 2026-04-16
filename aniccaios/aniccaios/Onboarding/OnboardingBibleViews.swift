@@ -450,7 +450,7 @@ struct SocialProofStepView: View {
 
 struct PreferredNudgeTimesView: View {
     let next: () -> Void
-    @State private var selected: Set<String> = ["morning", "evening"]
+    @State private var selected: Set<String> = []  // R5/R6/R7: 事前選択削除
 
     private let options: [(key: String, label: String, icon: String)] = [
         ("morning", "Morning (9 AM)", "sunrise.fill"),
@@ -503,10 +503,11 @@ struct PreferredNudgeTimesView: View {
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity).frame(height: 56)
-                    .background(selected.count >= 2 ? AppTheme.Colors.accent : AppTheme.Colors.label.opacity(0.4))
+                    .background(AppTheme.Colors.accent)
                     .clipShape(RoundedRectangle(cornerRadius: 28))
+                    .opacity(selected.count >= 1 ? 1.0 : 0.5)
             }
-            .disabled(selected.count < 2)
+            .disabled(selected.count < 1)
             .padding(.horizontal, 24)
             .padding(.bottom, 48)
         }
@@ -610,11 +611,12 @@ struct ReferralSourceStepView: View {
 struct ComparisonTableStepView: View {
     let next: () -> Void
 
-    private let rows: [(label: String, without: String, with: String)] = [
-        ("Clarity on what to change", "Guessing", "Personalized plan"),
-        ("When to act", "Whenever you remember", "Nudged at the right moment"),
-        ("Support", "Alone", "AI that understands you"),
-        ("Progress", "Hit-or-miss", "Tracked & compounding")
+    // Bible Screen 7 (R5/R6/R7): 1 cell 1 icon. Without column = blank, Anicca column = ✓
+    private let rows: [String] = [
+        "Clarity on what to change",
+        "Nudged at the right moment",
+        "AI that understands you",
+        "Tracked & compounding progress"
     ]
 
     var body: some View {
@@ -642,22 +644,18 @@ struct ComparisonTableStepView: View {
                 .padding(.horizontal, 16).padding(.vertical, 12)
                 .background(AppTheme.Colors.buttonUnselected.opacity(0.5))
 
-                ForEach(Array(rows.enumerated()), id: \.offset) { _, row in
+                ForEach(Array(rows.enumerated()), id: \.offset) { _, label in
                     HStack {
-                        Text(row.label)
+                        Text(label)
                             .font(.system(size: 13))
                             .foregroundStyle(AppTheme.Colors.label)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Text(row.without)
-                            .font(.system(size: 12))
-                            .foregroundStyle(.red.opacity(0.8))
+                        Text("")
                             .frame(width: 90)
-                            .multilineTextAlignment(.center)
-                        Text(row.with)
-                            .font(.system(size: 12, weight: .medium))
+                        Image(systemName: "checkmark")
+                            .font(.system(size: 16, weight: .bold))
                             .foregroundStyle(.green)
                             .frame(width: 90)
-                            .multilineTextAlignment(.center)
                     }
                     .padding(.horizontal, 16).padding(.vertical, 14)
                     Divider()

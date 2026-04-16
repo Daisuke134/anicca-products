@@ -1,10 +1,8 @@
 import SwiftUI
-import AuthenticationServices
 
 struct WelcomeStepView: View {
     let next: () -> Void
     @EnvironmentObject private var appState: AppState
-    @State private var isRestoring = false
 
     var body: some View {
         VStack {
@@ -34,75 +32,20 @@ struct WelcomeStepView: View {
 
             Spacer()
 
-            VStack(spacing: 16) {
-                Button {
-                    next()
-                } label: {
-                    Text(String(localized: "onboarding_welcome_cta"))
-                        .font(.system(size: 18, weight: .semibold))
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 56)
-                        .background(AppTheme.Colors.accent)
-                        .clipShape(RoundedRectangle(cornerRadius: 28))
-                }
-                .accessibilityIdentifier("onboarding-welcome-cta")
-                .padding(.horizontal, 16)
-
-                // v0.4: 既存ユーザー向けの復元ボタン
-                VStack(spacing: 12) {
-                    Text(String(localized: "onboarding_welcome_restore_description"))
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                        .multilineTextAlignment(.center)
-
-                    SignInWithAppleButton(.signIn) { request in
-                        AuthCoordinator.shared.configure(request)
-                    } onCompletion: { result in
-                        isRestoring = true
-                        AuthCoordinator.shared.completeSignIn(result: result) { success in
-                            if success {
-                                Task {
-                                    await appState.bootstrapProfileFromServerIfAvailable()
-                                    // v0.5: 認証成功後の遷移を確実に
-                                    await MainActor.run {
-                                        let hasProfile = !appState.userProfile.displayName.isEmpty
-                                        let hasProblems = !appState.userProfile.struggles.isEmpty
-
-                                        if hasProfile || hasProblems {
-                                            // 既存ユーザー: オンボーディングをスキップしてメイン画面へ
-                                            appState.markOnboardingComplete()
-                                        } else {
-                                            // 新規ユーザー: オンボーディングを続行
-                                            next()
-                                        }
-                                        isRestoring = false
-                                    }
-                                }
-                            } else {
-                                isRestoring = false
-                            }
-                        }
-                    }
-                    .signInWithAppleButtonStyle(.whiteOutline)
-                    .frame(height: 36)
-                    .opacity(0.6)
-                    .accessibilityIdentifier("onboarding-restore-button")
-                    .padding(.horizontal, 16)
-                }
-                .padding(.top, 8)
+            Button {
+                next()
+            } label: {
+                Text(String(localized: "onboarding_welcome_cta"))
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 56)
+                    .background(AppTheme.Colors.accent)
+                    .clipShape(RoundedRectangle(cornerRadius: 28))
             }
+            .accessibilityIdentifier("onboarding-welcome-cta")
+            .padding(.horizontal, 16)
             .padding(.bottom, 48)
-        }
-        .disabled(isRestoring)
-        .overlay {
-            if isRestoring {
-                Color.black.opacity(0.3)
-                    .ignoresSafeArea()
-                ProgressView()
-                    .scaleEffect(1.5)
-                    .tint(.white)
-            }
         }
         .background(AppBackground())
     }

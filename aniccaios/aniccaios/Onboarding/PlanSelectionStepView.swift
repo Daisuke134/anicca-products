@@ -13,6 +13,8 @@ struct PlanSelectionStepView: View {
     @State private var isPurchasing = false
     @State private var errorMessage: String?
     @State private var hasTracked = false
+    @State private var hasShownRetention = false
+    @State private var showRetention = false
 
     private var offering: Offering? {
         appState.cachedOffering
@@ -209,6 +211,12 @@ struct PlanSelectionStepView: View {
                 selectedPackage = yearlyPackage ?? monthlyPackage
             }
         }
+        .sheet(isPresented: $showRetention) {
+            RetentionOfferSheet { customerInfo in
+                showRetention = false
+                onPurchaseSuccess(customerInfo)
+            }
+        }
     }
 
     @ViewBuilder
@@ -326,14 +334,23 @@ struct PlanSelectionStepView: View {
                         onPurchaseSuccess(result.customerInfo)
                     }
                 } else {
-                    await MainActor.run { isPurchasing = false }
+                    await MainActor.run {
+                        isPurchasing = false
+                        if !hasShownRetention {
+                            hasShownRetention = true
+                            showRetention = true
+                        }
+                    }
                 }
             } catch {
                 await MainActor.run {
                     isPurchasing = false
                     if let rcError = error as? RevenueCat.ErrorCode,
                        rcError == .purchaseCancelledError {
-                        // User cancelled, no error message
+                        if !hasShownRetention {
+                            hasShownRetention = true
+                            showRetention = true
+                        }
                     } else {
                         errorMessage = error.localizedDescription
                     }
