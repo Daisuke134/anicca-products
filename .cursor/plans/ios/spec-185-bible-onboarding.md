@@ -2866,4 +2866,120 @@ A32 の「ASC win-back create」セクションは本パッチで上書き、pro
 
 ---
 
-**END OF SPEC — 省略・ショートカット・隠蔽なし。全 23 screen、全 49 patch (A1-A40)、全 Bible 引用を網羅。ADDENDA A23-A33 で Bible 完全準拠 1次対応、ADDENDA A34-A40 で ダイス R5 review 完全反映 (2026-04-16 evening)。**
+**ADDENDA A23-A40 (R5 反映済み) — A41 で R6 反映 (2026-04-16 late evening)**
+
+---
+
+# ADDENDA A41 — R6 review (Retention 数学修正 + A/B test 停止 + 実装 patch 確定)
+
+## A41.1 — Retention Offer 価格と表示 (honest math)
+
+**ソース**: Will (Adam Lyttle 系外部ベスプラ、Bible B1 外。コア引用: "Set yours at $44.99/year. Do NOT show a retention offer any other way, as Apple will reject it.")
+**Anicca 適用**: 元 yearly.b = $59.99/yr。Will の $44.99 はそのまま使えない (元価格 $59.99 文脈外)。$49.99/yr に調整。
+
+| 計算 | 値 |
+|------|----|
+| (59.99 - 49.99) / 59.99 | 0.16669 = 16.669% |
+| 切り捨て (盛らない) | **16% OFF** |
+
+UI 表示は `16% OFF` で固定。`93% OFF` / `you will not see this offer again` / カウントダウン等のダークパターン要素は全削除。Apple Review-safe。前回 A39 の `93% OFF` は **撤回**。
+
+## A41.2 — A/B test 決定: STOP → B を current offering に固定
+
+A40 (一時凍結) を **更新**。ダイス R6 で「I'm fine with either, tell me」と決定権付与。
+
+| 理由 | 詳細 |
+|------|------|
+| Retention は B 価格構造前提 | $59.99/yr → $49.99/yr。A ($9.99/$49.99) と混在で Retention 効果測定が壊れる |
+| 1.8.5 は 20-step Bible + Retention の二重変更 | A/B 同時走で交絡 |
+| 後で再テスト可能 | クリーンベースライン取得後、Retention on/off で次サイクル |
+
+**実行**: ダイス手動で RC Experiment `prexpc5c110e6f6` Stop → 俺が MCP で `anicca_variant_b` を current offering に set (project `projbb7b9d1b`)。
+
+## A41.3 — 新 SKU + offering
+
+| 項目 | 値 |
+|------|----|
+| ASC 新 IAP | `anicca_pro_yearly_retention` $49.99/yr (intro 無し) |
+| RC offering | `anicca_retention` (annual package only) |
+| 露出条件 | cancel ボタン押下時のみ。それ以外で表示禁止 (Apple reject 回避、Will 由来) |
+
+A39 の win-back / promotional offer signing は **撤回**。Adam Lyttle pattern に合わせて単純な独立 SKU + 独立 offering で実装。サーバ署名不要。
+
+## A41.4 — 実装 patch (file paths exact)
+
+### NEW: `aniccaios/aniccaios/Onboarding/RetentionOfferSheet.swift`
+- `Purchases.shared.offerings()` で `anicca_retention` 取得 → `.annual` package
+- `onAccepted` / `onDeclined` callback
+- localized strings は A41.5 参照
+- 全文は実装時に作成（spec body の patch セクション参照）
+
+### PATCH: `aniccaios/aniccaios/Views/MyPathTabView.swift` L172-186
+```diff
++@State private var showingRetentionOffer = false
+ ...
+ Button {
+-    showingManageSubscription = true
++    showingRetentionOffer = true
+ } label: { ... }
+ .sheet(isPresented: $showingManageSubscription) { customerCenterContent }
++.sheet(isPresented: $showingRetentionOffer) {
++    RetentionOfferSheet(
++        onAccepted: { showingRetentionOffer = false },
++        onDeclined: {
++            showingRetentionOffer = false
++            showingManageSubscription = true
++        }
++    )
++}
+```
+
+## A41.5 — Localizable.strings 追加 (en + ja)
+
+```
+"retention_title" = "Wait — one moment";
+"retention_subtitle" = "Before you go, here's a special offer just for you.";
+"retention_was_price" = "was $59.99";
+"retention_discount_badge" = "16% OFF";
+"retention_bullet_cancel" = "Cancel anytime";
+"retention_bullet_features" = "Same Pro features";
+"retention_cta_accept" = "Accept Offer";
+"retention_cta_decline" = "No thanks, cancel";
+```
+```
+"retention_title" = "ちょっと待って";
+"retention_subtitle" = "去る前に、特別なオファーがあります。";
+"retention_was_price" = "通常 $59.99";
+"retention_discount_badge" = "16% OFF";
+"retention_bullet_cancel" = "いつでもキャンセル可能";
+"retention_bullet_features" = "Pro 機能はそのまま";
+"retention_cta_accept" = "オファーを受け取る";
+"retention_cta_decline" = "いいえ、キャンセルする";
+```
+
+## A41.6 — Resubmission TODO (1.8.5 向け)
+
+| # | 担当 | 内容 |
+|---|------|------|
+| 1 | ダイス | RC Experiment `prexpc5c110e6f6` Stop |
+| 2 | 俺(MCP) | `anicca_variant_b` current offering set |
+| 3 | ダイス | ASC 新IAP `anicca_pro_yearly_retention` $49.99/yr 作成 |
+| 4 | ダイス | availability → pricing 順で設定 |
+| 5 | 俺(MCP) | RC で product 登録 + entitlement `pro` attach |
+| 6 | 俺(MCP) | RC offering `anicca_retention` 作成 + annual package 紐付け |
+| 7 | 俺 | TD1 全実装 (A1-A22 + A23.1 + A24-A37 反映) |
+| 8 | 俺 | RetentionOfferSheet.swift 新規 + MyPathTabView diff + strings |
+| 9 | 俺 | Xcode project.pbxproj に新ファイル手動追加 |
+| 10 | 俺 | Maestro E2E: cancel → retention sheet → accept/decline 両分岐 |
+| 11 | 俺 | unit + simulator build green |
+| 12 | ダイス | Mac Mini Debug build 実機確認 |
+| 13 | 俺 | release/1.8.5 worktree from main、CFBundleShortVersionString=1.8.5 |
+| 14 | 俺 | fastlane archive → manual exportArchive |
+| 15 | 俺 | ASC binary upload + screenshots (新 onboarding 反映) |
+| 16 | 俺 | Review notes 英語: 20-step Bible onboarding + hard paywall + retention offer |
+| 17 | 俺 | greenlight preflight CRITICAL=0 → submit |
+| 18 | ダイス | 審査通過 → production 配信 |
+
+---
+
+**END OF SPEC — ADDENDA A23-A41 反映済み (2026-04-16 late evening)。Bible (B1) + Will (Retention) 出典明記。honest math、honest copy、no dark pattern。**
