@@ -2706,4 +2706,164 @@ L451 を以下に置換:
 
 ---
 
-**END OF SPEC — 省略・ショートカット・隠蔽なし。全 23 screen、全 43 patch (A1-A33)、全 Bible 引用を網羅。ADDENDA A1-A22 で Codex review round 1 完全対応、ADDENDA A23-A33 で Bible 完全準拠 (2026-04-16)。**
+---
+
+# ADDENDA A34-A38 — ダイス R5 review 反映 (2026-04-16 evening)
+
+## A34. Welcome 変更撤回 + A23 ロールバック
+
+**ダイス決定:** 「Welcome Screenについてはこのままでいいよ。今の文言あまり好きじゃないので。」
+- A23.2 (kinder inner voice 再導出) を**撤回**
+- A23.1 (SignInWithApple 完全削除) は**継続**
+- 現行 `onboarding_welcome_title = "Kind words when you need them most" / "一番つらいときに やさしい言葉を"` を維持
+- 現行 subtitle/CTA も維持
+
+## A35. Struggles 6個 → 5個再導出 (Hick's Law + Humanizer)
+
+**個数調査:**
+- [Hick's Law](https://lawsofux.com/hicks-law/): `Minimize choices when response times are critical`
+- [Headspace onboarding](https://goodux.appcues.com/blog/headspaces-mindful-onboarding-sequence): `frictionless. With only three simple questions...`
+- Bible B1 L158: `5-7 pain points`
+- 結論: 5 (Bible 下限 + Hick's 最小化)
+
+**Humanizer 原則 (academic skill から流用): 自然・冗長排除・口語・一人称**
+
+**5個確定 (A25 を上書き):**
+
+| # | EN | JA | 統合元 |
+|---|---|---|---|
+| 1 | `My negative thoughts won't stop.` | `ネガティブ思考が止まらない。` | rumination + obsessive + self_loathing |
+| 2 | `I keep putting off what matters.` | `やるべきことを後回しにしてしまう。` | procrastination + cant_wake_up + staying_up_late |
+| 3 | `Anxiety overwhelms me.` | `不安に押しつぶされそうになる。` | anxiety + loneliness |
+| 4 | `I can't quit habits I want to break.` | `やめたい習慣をやめられない。` | porn_addiction + alcohol_dependency + lying + bad_mouthing |
+| 5 | `My emotions take over.` | `感情に振り回されてしまう。` | anger + bad_mouthing |
+
+**ファイル:** `aniccaios/aniccaios/Onboarding/StrugglesStepView.swift`
+
+L7-14 を以下に置換:
+
+```swift
+private let options: [String] = [
+    "negative_thoughts",
+    "putting_off",
+    "anxiety_overwhelm",
+    "stuck_habit",
+    "emotions_take_over"
+]
+```
+
+**Localizable.strings 追加 (en + ja 両方):**
+
+```
+"problem_negative_thoughts" = "My negative thoughts won't stop.";
+"problem_putting_off" = "I keep putting off what matters.";
+"problem_anxiety_overwhelm" = "Anxiety overwhelms me.";
+"problem_stuck_habit" = "I can't quit habits I want to break.";
+"problem_emotions_take_over" = "My emotions take over.";
+```
+
+```
+"problem_negative_thoughts" = "ネガティブ思考が止まらない。";
+"problem_putting_off" = "やるべきことを後回しにしてしまう。";
+"problem_anxiety_overwhelm" = "不安に押しつぶされそうになる。";
+"problem_stuck_habit" = "やめたい習慣をやめられない。";
+"problem_emotions_take_over" = "感情に振り回されてしまう。";
+```
+
+旧 13 keys (`problem_staying_up_late` 等) は positive_button / negative_button / notification_title 等で他所で参照されているため**残置** (削除不可)。新 5 keys は追加のみ。
+
+## A36. Comparison Table 1セル1アイコン (A30 を上書き)
+
+**Bible 引用 (1文字単位):**
+- B1 L195: `Bold stat headline: "[X]% of people struggle with [problem]"`
+- B1 L197: `3-4 rows comparing outcomes (green ✓ vs red ✗)`
+- B1 L198: `Simple, scannable, no ambiguity about which side wins`
+
+**正しい解釈:**
+- Without 列の各セル: **赤 ✗ (xmark.circle.fill, .red) のみ**
+- Anicca 列の各セル: **緑 ✓ (checkmark.circle.fill, .green) のみ**
+- 1セル1アイコン
+- A30 で書いた「Without="bad" Anicca="good"」は誤読。A30 を本パッチで上書き
+
+**BEFORE がダメな理由 (Bible 根拠):**
+- 現行コード `OnboardingBibleViews.swift` L610-687 はプレーンテキスト
+- B1 L197 verbatim `(green ✓ vs red ✗)` は**色付きアイコン必須**を意味する
+- B1 L198 `scannable, no ambiguity` をテキストのみでは満たせない (視線が瞬時に勝者を理解できない)
+
+## A37. PreferredNudgeTimes ボタン状態 (A29 を補強)
+
+**`(disabled)` のメタ表記をUI上に出さない明示。** ASCII 上で `(disabled)` と書いたのは説明用注記であり、実装では:
+
+| 状態 | ラベル | 表示 |
+|---|---|---|
+| 0個選択 | `Continue` / `続ける` | 50% opacity、`.disabled(true)`、tap 不可 |
+| 1個以上選択 | `Continue` / `続ける` | 100% opacity、`.disabled(false)`、tap 可能 |
+
+**ラベル文字列は常に `Continue` / `続ける`。`(disabled)` の文字は絶対にUI に出さない。**
+
+## A38. Restore Purchases (A27 を撤回)
+
+**ダイス決定:** 「これはもう今のUIであるから不要です。」
+
+A27 (PlanSelection に Restore Purchases link 追加) を**撤回**。現行 PaywallVariantBView に Restore Purchases リンクが既に存在するため新規追加不要。
+
+## A39. Retention Offer UI 確定 (A32 を上書き)
+
+**ソース:**
+- ダイス引用 (Adam Lyttle):
+  > "Retention Offer / This is free money most people leave on the table. When a user tries to cancel their subscription, present a 'retention offer'. Set yours at $44.99/year. / Do NOT show a retention offer any other way, as Apple will reject it."
+- ダイス screenshot reference: `/Users/anicca/anicca-project/HFltgGUakAIXpOh.jpeg` (Glowly Premium 3-panel "Get Pro → Apple Pay × → Exclusive Offer")
+
+**UI 確定:**
+
+| 要素 | EN | JA |
+|---|---|---|
+| Title | `Exclusive Offer` | `特別オファー` |
+| Subtitle | `Don't miss out on Anicca's daily nudges and personalized cards.` | `Anicca の毎日のナッジとパーソナライズカードを手放さないで。` |
+| Hero icon | 🎁 (gift box, .purple) | 🎁 |
+| Big text | `93% OFF` | `93% OFF` |
+| Big text footnote | `(vs. weekly plan)` | `(週プラン比)` |
+| Reassurance | `You will not see this offer again.` | `このオファーは二度と表示されません。` |
+| Pricing pill | `Yearly  $44.99` + `[93% OFF]` badge | `年間  $44.99` + `[93% OFF]` |
+| Trust line | `✓ Cancel anytime` | `✓ いつでも解約可` |
+| Primary CTA | `Accept Offer` | `オファーを受ける` |
+| Footer | `Terms · Privacy · Restore Purchases` | `利用規約 · プライバシー · 購入を復元` |
+| Close button | `ⓧ` 左上 (タップで通常 cancel flow に戻る) | `ⓧ` |
+
+**93% OFF 計算根拠 (honest math):**
+- weekly.b $12.99 × 52 weeks = $675.48/year
+- yearly retention offer = $44.99
+- ($675.48 − $44.99) / $675.48 = 93.34% → `93% OFF (vs. weekly plan)`
+
+**注意:** スクショ Glowly の "80% OFF" は計算根拠不明。Anicca は honest math で 93% を採用、必ず footnote `(vs. weekly plan)` を併記してダーク・パターン回避。
+
+**$44.99 win-back 状態 (正直に再記載):**
+- USA $44.99 price point ID 生成: ✅ `eyJzIjoi...IjoiMTAzMDIifQ`
+- 174 territory 等価 ID: ✅ `/tmp/eq_ids.txt`
+- yearly.b に win-back offer attach: ❌ **未完了** (`asc subscriptions offers win-back create` が CLI バグで失敗)
+- yearly.b 現状 win-back offer 件数: **0**
+
+**実装方式の確定 (ASC win-back を使わない、promotional offer 採用):**
+Adam Lyttle pattern は iOS 18 native Win-Back を使わず、custom in-app sheet + StoreKit2 promotional offer を使う。ASC win-back 登録は不要。
+
+| ステップ | やる事 | 担当 |
+|---|---|---|
+| 1 | yearly.b の **promotional offer** $44.99 を ASC で作成 | ダイス (ASC Web、CLI 未対応の可能性) |
+| 2 | promotional offer の P8 signing key を ASC で発行 | ダイス |
+| 3 | apps/api 側で signature 生成 endpoint 実装 (`/v1/promo-offer/sign`) | Claude |
+| 4 | iOS 側 RetentionOfferSheet で signature 取得 → `Product.PurchaseOption.promotionalOffer(offerID:signature:nonce:keyID:timestamp:)` | Claude |
+| 5 | Cancel intent 検知 (StoreKit2 `Transaction.updates` listener + custom × button hook) | Claude |
+
+A32 の「ASC win-back create」セクションは本パッチで上書き、promotional offer 方式に確定。
+
+## A40. A/B test 一時凍結 (B-only 切替を保留)
+
+**ダイス決定:** 「これはやらんでいいわ。今回は。ちょっとまだ様子見たいし。」
+- 前回 ADDENDA A23-A33 末尾「両方継続」も「B-only 切替」も**両方撤回**
+- 現状維持: RC Experiment `prexpc5c110e6f6` running、Variant A/B 並走、ダイスが手動で止めるまで触らない
+- 1.8.5 binary 提出時も Variant A/B 両方の paywall コードを残す
+- Retention Offer (A39) は yearly.b (Variant B) でのみ動作。Variant A ユーザーには表示されない (yearly.b 加入者のみ対象)
+
+---
+
+**END OF SPEC — 省略・ショートカット・隠蔽なし。全 23 screen、全 49 patch (A1-A40)、全 Bible 引用を網羅。ADDENDA A23-A33 で Bible 完全準拠 1次対応、ADDENDA A34-A40 で ダイス R5 review 完全反映 (2026-04-16 evening)。**
