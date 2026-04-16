@@ -13,7 +13,7 @@ struct AgeRangeStepView: View {
     var body: some View {
         VStack(spacing: 16) {
             Spacer().frame(height: 40)
-            Text("How old are you?")
+            Text(String(localized: "onboarding_age_title"))
                 .font(.system(size: 32, weight: .bold))
                 .foregroundStyle(AppTheme.Colors.label)
 
@@ -49,19 +49,19 @@ struct GoalStepView: View {
     @EnvironmentObject private var appState: AppState
     @State private var selected: String? = nil
 
-    private let options: [(key: String, emoji: String, label: String)] = [
-        ("break_habit", "🚫", "Break a bad habit"),
-        ("build_discipline", "💪", "Build discipline"),
-        ("reduce_anxiety", "🧘", "Reduce anxiety"),
-        ("sleep_better", "😴", "Sleep better"),
-        ("focus_more", "🎯", "Focus more"),
-        ("feel_peace", "☮️", "Feel inner peace")
+    private let options: [(key: String, emoji: String, locKey: String)] = [
+        ("break_habit", "🚫", "goal_break_habit"),
+        ("build_discipline", "💪", "goal_build_discipline"),
+        ("reduce_anxiety", "🧘", "goal_reduce_anxiety"),
+        ("sleep_better", "😴", "goal_sleep_better"),
+        ("focus_more", "🎯", "goal_focus_more"),
+        ("feel_peace", "☮️", "goal_feel_peace")
     ]
 
     var body: some View {
         VStack(spacing: 16) {
             Spacer().frame(height: 40)
-            Text("What do you want to change?")
+            Text(String(localized: "onboarding_goal_title"))
                 .font(.system(size: 28, weight: .bold))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AppTheme.Colors.label)
@@ -79,7 +79,8 @@ struct GoalStepView: View {
                         } label: {
                             HStack {
                                 Text(opt.emoji).font(.system(size: 24))
-                                Text(opt.label).font(.system(size: 17, weight: .medium))
+                                Text(String(localized: String.LocalizationValue(opt.locKey)))
+                                    .font(.system(size: 17, weight: .medium))
                                     .foregroundStyle(AppTheme.Colors.label)
                                 Spacer()
                             }
@@ -104,12 +105,8 @@ struct GoalStepView: View {
 struct TinderPainCardsView: View {
     let next: () -> Void
 
-    private let cards = [
-        "I waste hours scrolling and regret it every night.",
-        "I say I'll change tomorrow, but tomorrow never comes.",
-        "I know what I should do, but I just can't make myself do it.",
-        "I feel anxious for no clear reason, almost every day.",
-        "I start things full of energy, then lose motivation fast."
+    private let cardKeys = [
+        "tinder_card_1", "tinder_card_2", "tinder_card_3", "tinder_card_4", "tinder_card_5"
     ]
     @State private var index = 0
     @State private var offset: CGSize = .zero
@@ -117,22 +114,22 @@ struct TinderPainCardsView: View {
     var body: some View {
         VStack {
             Spacer().frame(height: 24)
-            Text("Which of these sound like you?")
+            Text(String(localized: "onboarding_tinder_title"))
                 .font(.system(size: 24, weight: .bold))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AppTheme.Colors.label)
                 .padding(.horizontal, 24)
 
-            Text("Swipe right if it hits. Swipe left if not.")
+            Text(String(localized: "onboarding_tinder_subtitle"))
                 .font(.system(size: 14))
                 .foregroundStyle(.secondary)
                 .padding(.top, 8)
 
             Spacer()
 
-            if index < cards.count {
+            if index < cardKeys.count {
                 ZStack {
-                    Text("\"\(cards[index])\"")
+                    Text("\"\(String(localized: String.LocalizationValue(cardKeys[index])))\"")
                         .font(.system(size: 22, weight: .semibold))
                         .multilineTextAlignment(.center)
                         .foregroundStyle(AppTheme.Colors.label)
@@ -199,7 +196,7 @@ struct TinderPainCardsView: View {
             offset = .zero
             index += 1
         }
-        if index >= cards.count {
+        if index >= cardKeys.count {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { next() }
         }
     }
@@ -212,20 +209,20 @@ struct WhatTriedStepView: View {
     @EnvironmentObject private var appState: AppState
     @State private var selected: Set<String> = []
 
-    private let options: [(key: String, label: String)] = [
-        ("willpower", "Pure willpower"),
-        ("habit_apps", "Habit tracker apps"),
-        ("meditation", "Meditation apps"),
-        ("therapy", "Therapy"),
-        ("journaling", "Journaling"),
-        ("books", "Self-help books"),
-        ("nothing", "Nothing yet")
+    private let options: [(key: String, locKey: String)] = [
+        ("willpower", "tried_willpower"),
+        ("habit_apps", "tried_habit_apps"),
+        ("meditation", "tried_meditation"),
+        ("therapy", "tried_therapy"),
+        ("journaling", "tried_journaling"),
+        ("books", "tried_books"),
+        ("nothing", "tried_nothing")
     ]
 
     var body: some View {
         VStack(spacing: 20) {
             Spacer().frame(height: 40)
-            Text("What have you already tried?")
+            Text(String(localized: "onboarding_what_tried_title"))
                 .font(.system(size: 28, weight: .bold))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AppTheme.Colors.label)
@@ -241,7 +238,8 @@ struct WhatTriedStepView: View {
                             HStack {
                                 Image(systemName: isSelected ? "checkmark.square.fill" : "square")
                                     .foregroundStyle(isSelected ? AppTheme.Colors.accent : .secondary)
-                                Text(opt.label).font(.system(size: 17, weight: .medium))
+                                Text(String(localized: String.LocalizationValue(opt.locKey)))
+                                    .font(.system(size: 17, weight: .medium))
                                     .foregroundStyle(AppTheme.Colors.label)
                                 Spacer()
                             }
@@ -259,7 +257,7 @@ struct WhatTriedStepView: View {
             Button {
                 next()
             } label: {
-                Text("Continue")
+                Text(String(localized: "common_continue"))
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity).frame(height: 56)
@@ -284,7 +282,7 @@ struct StressSliderStepView: View {
     var body: some View {
         VStack(spacing: 24) {
             Spacer().frame(height: 40)
-            Text("How stressed do you feel right now?")
+            Text(String(localized: "onboarding_stress_title"))
                 .font(.system(size: 28, weight: .bold))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AppTheme.Colors.label)
@@ -299,16 +297,16 @@ struct StressSliderStepView: View {
                 .padding(.horizontal, 32)
 
             HStack {
-                Text("Calm").font(.caption).foregroundStyle(.secondary)
+                Text(String(localized: "stress_label_calm")).font(.caption).foregroundStyle(.secondary)
                 Spacer()
-                Text("Overwhelmed").font(.caption).foregroundStyle(.secondary)
+                Text(String(localized: "stress_label_overwhelmed")).font(.caption).foregroundStyle(.secondary)
             }
             .padding(.horizontal, 32)
 
             Spacer()
 
             Button { next() } label: {
-                Text("Continue")
+                Text(String(localized: "common_continue"))
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity).frame(height: 56)
@@ -330,7 +328,7 @@ struct SocialProofStepView: View {
     var body: some View {
         VStack(spacing: 24) {
             Spacer().frame(height: 40)
-            Text("You're not alone.")
+            Text(String(localized: "onboarding_social_title"))
                 .font(.system(size: 32, weight: .bold))
                 .foregroundStyle(AppTheme.Colors.label)
 
@@ -340,7 +338,7 @@ struct SocialProofStepView: View {
                         Image(systemName: "star.fill").foregroundStyle(.yellow)
                     }
                 }
-                Text("4.9 · 12,400+ people like you")
+                Text(String(localized: "onboarding_social_rating"))
                     .font(.system(size: 16, weight: .medium))
                     .foregroundStyle(.secondary)
             }
@@ -348,21 +346,21 @@ struct SocialProofStepView: View {
             ScrollView {
                 VStack(spacing: 16) {
                     testimonial(
-                        name: "Marcus, 28",
-                        tag: "Late-night scroller",
-                        text: "I used to stay up until 3am scrolling. Anicca nudged me right when I'd reach for my phone. Two weeks in, I'm sleeping again."
+                        name: String(localized: "social_name_1"),
+                        tag: String(localized: "social_tag_1"),
+                        text: String(localized: "social_text_1")
                     )
                     testimonial(
-                        name: "Sarah, 34",
-                        tag: "Anxious overthinker",
-                        text: "The voice sessions feel like talking to someone who actually gets it. My anxiety dropped in ways therapy alone couldn't crack."
+                        name: String(localized: "social_name_2"),
+                        tag: String(localized: "social_tag_2"),
+                        text: String(localized: "social_text_2")
                     )
                 }
                 .padding(.horizontal, 24)
             }
 
             Button { next() } label: {
-                Text("Continue")
+                Text(String(localized: "common_continue"))
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity).frame(height: 56)
@@ -397,24 +395,24 @@ struct SocialProofStepView: View {
 
 struct PreferredNudgeTimesView: View {
     let next: () -> Void
-    @State private var selected: Set<String> = []  // R5/R6/R7: 事前選択削除
+    @State private var selected: Set<String> = []
 
-    private let options: [(key: String, label: String, icon: String)] = [
-        ("morning", "Morning (9 AM)", "sunrise.fill"),
-        ("afternoon", "Afternoon (2 PM)", "sun.max.fill"),
-        ("evening", "Evening (8 PM)", "moon.stars.fill")
+    private let options: [(key: String, locKey: String, icon: String)] = [
+        ("morning", "nudge_morning", "sunrise.fill"),
+        ("afternoon", "nudge_afternoon", "sun.max.fill"),
+        ("evening", "nudge_evening", "moon.stars.fill")
     ]
 
     var body: some View {
         VStack(spacing: 20) {
             Spacer().frame(height: 40)
-            Text("When should we nudge you?")
+            Text(String(localized: "onboarding_nudge_title"))
                 .font(.system(size: 28, weight: .bold))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AppTheme.Colors.label)
                 .padding(.horizontal, 24)
 
-            Text("Pick at least 2")
+            Text(String(localized: "onboarding_nudge_subtitle"))
                 .font(.system(size: 14))
                 .foregroundStyle(.secondary)
 
@@ -427,7 +425,8 @@ struct PreferredNudgeTimesView: View {
                         HStack {
                             Image(systemName: opt.icon).foregroundStyle(AppTheme.Colors.accent)
                                 .frame(width: 28)
-                            Text(opt.label).font(.system(size: 17, weight: .medium))
+                            Text(String(localized: String.LocalizationValue(opt.locKey)))
+                                .font(.system(size: 17, weight: .medium))
                                 .foregroundStyle(AppTheme.Colors.label)
                             Spacer()
                             Image(systemName: isSelected ? "checkmark.square.fill" : "square")
@@ -446,7 +445,7 @@ struct PreferredNudgeTimesView: View {
             Spacer()
 
             Button { next() } label: {
-                Text("Continue")
+                Text(String(localized: "common_continue"))
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity).frame(height: 56)
@@ -466,17 +465,17 @@ struct PreferredNudgeTimesView: View {
 
 struct MeditationExperienceStepView: View {
     let next: () -> Void
-    private let options: [(key: String, label: String)] = [
-        ("never", "Never tried"),
-        ("few_times", "A few times"),
-        ("regularly", "Regularly"),
-        ("daily", "Daily practice")
+    private let options: [(key: String, locKey: String)] = [
+        ("never", "medit_never"),
+        ("few_times", "medit_few_times"),
+        ("regularly", "medit_regularly"),
+        ("daily", "medit_daily")
     ]
 
     var body: some View {
         VStack(spacing: 20) {
             Spacer().frame(height: 40)
-            Text("Have you meditated before?")
+            Text(String(localized: "onboarding_medit_title"))
                 .font(.system(size: 28, weight: .bold))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AppTheme.Colors.label)
@@ -487,7 +486,7 @@ struct MeditationExperienceStepView: View {
                     Button {
                         next()
                     } label: {
-                        Text(opt.label)
+                        Text(String(localized: String.LocalizationValue(opt.locKey)))
                             .font(.system(size: 17, weight: .medium))
                             .foregroundStyle(AppTheme.Colors.label)
                             .frame(maxWidth: .infinity).frame(height: 56)
@@ -509,12 +508,8 @@ struct MeditationExperienceStepView: View {
 struct ComparisonTableStepView: View {
     let next: () -> Void
 
-    // Bible Screen 7 (R5/R6/R7): 1 cell 1 icon. Without column = blank, Anicca column = ✓
-    private let rows: [String] = [
-        "Clarity on what to change",
-        "Nudged at the right moment",
-        "AI that understands you",
-        "Tracked & compounding progress"
+    private let rowKeys: [String] = [
+        "comparison_row_1", "comparison_row_2", "comparison_row_3", "comparison_row_4"
     ]
 
     var body: some View {
@@ -524,7 +519,7 @@ struct ComparisonTableStepView: View {
                 Text("76%")
                     .font(.system(size: 64, weight: .bold))
                     .foregroundStyle(AppTheme.Colors.accent)
-                Text("of people who track their habits with AI stick with them.")
+                Text(String(localized: "onboarding_comparison_stat"))
                     .font(.system(size: 16, weight: .medium))
                     .multilineTextAlignment(.center)
                     .foregroundStyle(AppTheme.Colors.label)
@@ -534,17 +529,17 @@ struct ComparisonTableStepView: View {
             VStack(spacing: 0) {
                 HStack {
                     Text("").frame(maxWidth: .infinity, alignment: .leading)
-                    Text("Without").font(.system(size: 13, weight: .semibold))
+                    Text(String(localized: "comparison_header_without")).font(.system(size: 13, weight: .semibold))
                         .foregroundStyle(.secondary).frame(width: 90)
-                    Text("Anicca").font(.system(size: 13, weight: .semibold))
+                    Text(String(localized: "comparison_header_anicca")).font(.system(size: 13, weight: .semibold))
                         .foregroundStyle(AppTheme.Colors.accent).frame(width: 90)
                 }
                 .padding(.horizontal, 16).padding(.vertical, 12)
                 .background(AppTheme.Colors.buttonUnselected.opacity(0.5))
 
-                ForEach(Array(rows.enumerated()), id: \.offset) { _, label in
+                ForEach(rowKeys, id: \.self) { key in
                     HStack {
-                        Text(label)
+                        Text(String(localized: String.LocalizationValue(key)))
                             .font(.system(size: 13))
                             .foregroundStyle(AppTheme.Colors.label)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -566,7 +561,7 @@ struct ComparisonTableStepView: View {
             Spacer()
 
             Button { next() } label: {
-                Text("Continue")
+                Text(String(localized: "common_continue"))
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity).frame(height: 56)
@@ -589,7 +584,7 @@ struct RatingPrePromptStepView: View {
     var body: some View {
         VStack(spacing: 24) {
             Spacer()
-            Text("Are you enjoying Anicca so far?")
+            Text(String(localized: "onboarding_rating_title"))
                 .font(.system(size: 28, weight: .bold))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AppTheme.Colors.label)
@@ -611,7 +606,7 @@ struct RatingPrePromptStepView: View {
                     requestStoreReview()
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { next() }
                 } label: {
-                    Text("Yes, I love it")
+                    Text(String(localized: "rating_yes"))
                         .font(.system(size: 18, weight: .semibold))
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity).frame(height: 56)
@@ -623,7 +618,7 @@ struct RatingPrePromptStepView: View {
                     AnalyticsManager.shared.track(.ratingPromptNoTapped)
                     showFeedback = true
                 } label: {
-                    Text("Not really")
+                    Text(String(localized: "rating_no"))
                         .font(.system(size: 17, weight: .medium))
                         .foregroundStyle(AppTheme.Colors.label)
                         .frame(maxWidth: .infinity).frame(height: 56)
@@ -674,7 +669,7 @@ struct FeedbackFormView: View {
                     AnalyticsManager.shared.track(.feedbackFormSubmitted, properties: ["length": text.count])
                     done()
                 } label: {
-                    Text("Send feedback")
+                    Text(String(localized: "feedback_send"))
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundStyle(.white)
                         .frame(maxWidth: .infinity).frame(height: 52)
@@ -684,11 +679,11 @@ struct FeedbackFormView: View {
                 .disabled(text.trimmingCharacters(in: .whitespaces).isEmpty)
                 .padding()
             }
-            .navigationTitle("Tell us what's off")
+            .navigationTitle(String(localized: "feedback_title"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Skip") {
+                    Button(String(localized: "feedback_skip")) {
                         AnalyticsManager.shared.track(.feedbackFormSkipped)
                         done()
                     }
@@ -703,17 +698,17 @@ struct FeedbackFormView: View {
 struct PaywallValueTimelineStepView: View {
     let next: () -> Void
 
-    private let milestones: [(week: String, text: String)] = [
-        ("Week 1", "First nudge hits at your weakest moment. You resist. Huge win."),
-        ("Week 4", "Morning anxiety drops. Sleep returns."),
-        ("Week 8", "You catch yourself before the old habit fires."),
-        ("Week 12", "The new default is locked in. You are not the same person.")
+    private let milestones: [(weekKey: String, textKey: String)] = [
+        ("timeline_week_1", "timeline_week_1_text"),
+        ("timeline_week_4", "timeline_week_4_text"),
+        ("timeline_week_8", "timeline_week_8_text"),
+        ("timeline_week_12", "timeline_week_12_text")
     ]
 
     var body: some View {
         VStack(spacing: 20) {
             Spacer().frame(height: 32)
-            Text("Here's what the next 12 weeks look like")
+            Text(String(localized: "paywall_timeline_title"))
                 .font(.system(size: 26, weight: .bold))
                 .multilineTextAlignment(.center)
                 .foregroundStyle(AppTheme.Colors.label)
@@ -728,9 +723,11 @@ struct PaywallValueTimelineStepView: View {
                                 Rectangle().fill(AppTheme.Colors.accent.opacity(0.3)).frame(width: 2)
                             }
                             VStack(alignment: .leading, spacing: 4) {
-                                Text(m.week).font(.system(size: 15, weight: .bold))
+                                Text(String(localized: String.LocalizationValue(m.weekKey)))
+                                    .font(.system(size: 15, weight: .bold))
                                     .foregroundStyle(AppTheme.Colors.accent)
-                                Text(m.text).font(.system(size: 15))
+                                Text(String(localized: String.LocalizationValue(m.textKey)))
+                                    .font(.system(size: 15))
                                     .foregroundStyle(AppTheme.Colors.label)
                             }
                             Spacer()
@@ -741,7 +738,7 @@ struct PaywallValueTimelineStepView: View {
             }
 
             Button { next() } label: {
-                Text("Continue")
+                Text(String(localized: "common_continue"))
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity).frame(height: 56)

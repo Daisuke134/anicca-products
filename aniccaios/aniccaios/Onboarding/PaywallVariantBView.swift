@@ -227,7 +227,7 @@ struct PaywallVariantBView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 8) {
-                        Text(package.storeProduct.localizedTitle)
+                        Text(localizedPlanTitle(for: package))
                             .font(.system(size: 16, weight: .semibold))
                             .foregroundStyle(AppTheme.Colors.label)
 
@@ -269,6 +269,15 @@ struct PaywallVariantBView: View {
         }
         .buttonStyle(.plain)
         .accessibilityIdentifier("paywall-plan-\(package.packageType.rawValue)")
+    }
+
+    private func localizedPlanTitle(for package: Package) -> String {
+        switch package.packageType {
+        case .annual: return String(localized: "paywall_b_plan_yearly")
+        case .monthly: return String(localized: "paywall_b_plan_monthly")
+        case .weekly: return String(localized: "paywall_b_plan_weekly")
+        default: return package.storeProduct.localizedTitle
+        }
     }
 
     // MARK: - Actions

@@ -90,7 +90,7 @@ struct StrugglesStepView: View {
             }
             .padding(.horizontal, 16)
             .frame(maxWidth: .infinity, minHeight: 56)
-            .background(isSelected ? AppTheme.Colors.buttonSelected : AppTheme.Colors.buttonUnselected)
+            .background(isSelected ? AppTheme.Colors.accent.opacity(0.15) : AppTheme.Colors.buttonUnselected)
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .buttonStyle(.plain)
