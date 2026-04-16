@@ -723,23 +723,6 @@ struct PaywallFlowContainer: View {
                 )
             }
 
-            #if DEBUG
-            VStack {
-                HStack {
-                    Spacer()
-                    Button {
-                        appState.markOnboardingComplete()
-                    } label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.system(size: 28))
-                            .foregroundStyle(.white.opacity(0.5))
-                    }
-                    .padding(.trailing, 16)
-                    .padding(.top, 16)
-                }
-                Spacer()
-            }
-            #endif
         }
     }
 }

@@ -59,7 +59,7 @@ struct StrugglesStepView: View {
 
             Button {
                 var profile = appState.userProfile
-                profile.problems = Array(selected)
+                profile.problems = Self.mappedProblems(from: Array(selected))
                 appState.updateUserProfile(profile, sync: true)
                 next()
             } label: {
@@ -78,9 +78,7 @@ struct StrugglesStepView: View {
         }
         .background(AppBackground())
         .onAppear {
-            if !appState.userProfile.problems.isEmpty && appState.onboardingStep == .painPoints {
-                selected = Set(appState.userProfile.problems)
-            }
+            // Forward-only flow: no restoration needed
         }
     }
 

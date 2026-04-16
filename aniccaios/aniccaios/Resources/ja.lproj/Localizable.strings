@@ -415,11 +415,11 @@
 "goal_feel_peace" = "心の平穏を感じる";
 "onboarding_tinder_title" = "あなたに当てはまるものは？";
 "onboarding_tinder_subtitle" = "共感したら右スワイプ。違ったら左スワイプ。";
-"tinder_card_1" = "毎晩スクロールに何時間も費やして\n後悔する。";
-"tinder_card_2" = "明日やろうと言い続けて、\nその明日は来ない。";
-"tinder_card_3" = "何をすべきか分かっているのに、\nどうしても動けない。";
-"tinder_card_4" = "はっきりした理由もなく、\nほぼ毎日不安を感じる。";
-"tinder_card_5" = "やる気満々で始めるのに、\nすぐモチベーションが消える。";
+"tinder_card_1" = "毎晩スクロールに何時間も費やして後悔する。";
+"tinder_card_2" = "明日やろうと言い続けて、その明日は来ない。";
+"tinder_card_3" = "何をすべきか分かっているのに、どうしても動けない。";
+"tinder_card_4" = "はっきりした理由もなく、ほぼ毎日不安を感じる。";
+"tinder_card_5" = "やる気満々で始めるのに、すぐモチベーションが消える。";
 "onboarding_what_tried_title" = "今まで何を試しましたか？";
 "tried_willpower" = "気合い・根性";
 "tried_habit_apps" = "習慣トラッカーアプリ";
