@@ -20,7 +20,6 @@ struct PaywallView: View {
     @State private var isPurchasing = false
     @State private var errorMessage: String?
     let onDismiss: () -> Void
-    var isHardPaywall: Bool = false
 
     var body: some View {
         VStack(spacing: 24) {
@@ -46,11 +45,11 @@ struct PaywallView: View {
                     }
                     .accessibilityIdentifier("paywall_plan_yearly")
                 }
-                if let weekly = offering.weekly {
-                    SecondaryButton(title: String(localized: "Weekly \(weekly.localizedPriceString)/wk")) {
-                        Task { await purchase(weekly) }
+                if let monthly = offering.monthly {
+                    SecondaryButton(title: String(localized: "Monthly \(monthly.localizedPriceString)/mo")) {
+                        Task { await purchase(monthly) }
                     }
-                    .accessibilityIdentifier("paywall_plan_weekly")
+                    .accessibilityIdentifier("paywall_plan_monthly")
                 }
             } else if errorMessage != nil {
                 Text(String(localized: "Could not load subscription options."))
@@ -66,13 +65,18 @@ struct PaywallView: View {
                     .foregroundColor(.red)
             }
 
+            Text(String(localized: "7-day free trial"))
+                .font(.footnote)
+                .foregroundColor(.secondary)
+                .accessibilityIdentifier("paywall_cta")
+
             HStack {
-                if !isHardPaywall {
-                    Button(String(localized: "Maybe Later")) { onDismiss() }
-                        .font(.subheadline)
-                        .accessibilityIdentifier("paywall_maybe_later")
-                }
+                Button(String(localized: "Maybe Later")) { onDismiss() }
+                    .font(.subheadline)
+                    .accessibilityIdentifier("paywall_maybe_later")
+
                 Spacer()
+
                 Button(String(localized: "Restore")) {
                     Task { await restore() }
                 }

@@ -13,7 +13,7 @@ struct OnboardingContainerView: View {
                 case 1:
                     PainAreaSelectionView(onNext: { currentStep = 2 })
                 case 2:
-                    PaywallView(onDismiss: { completeOnboarding() }, isHardPaywall: true)
+                    PaywallView(onDismiss: { completeOnboarding() })
                 default:
                     EmptyView()
                 }
