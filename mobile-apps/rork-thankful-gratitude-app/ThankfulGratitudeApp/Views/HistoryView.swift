@@ -33,6 +33,8 @@ struct HistoryView: View {
                 }
                 .padding(.horizontal, 16)
                 .padding(.bottom, 32)
+                .frame(maxWidth: 700)
+                .frame(maxWidth: .infinity)
             }
             .background(
                 LinearGradient(
