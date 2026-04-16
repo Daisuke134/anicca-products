@@ -1,6 +1,6 @@
 import Foundation
 
-/// v3 Onboarding flow — 18 cases (Bible-compliant: 18 onboarding + 3 paywall).
+/// v4 Onboarding flow — 19 cases (Bible-compliant: 19 onboarding + 2 paywall).
 enum OnboardingStep: Int, CaseIterable, Codable {
     case welcome = 0
     case age = 1
@@ -15,17 +15,17 @@ enum OnboardingStep: Int, CaseIterable, Codable {
     case meditExp = 10
     case processing = 11
     case planReveal = 12
-    case comparison = 13
-    case appDemo = 14
-    case valueDelivery = 15
-    case ratingPrompt = 16
-    case notifications = 17
+    case valueTimeline = 13
+    case comparison = 14
+    case appDemo = 15
+    case valueDelivery = 16
+    case ratingPrompt = 17
+    case notifications = 18
 }
 
 enum PaywallStep: Int, CaseIterable, Codable {
     case primer = 0
-    case valueTimeline = 1
-    case planSelection = 2
+    case planSelection = 1
 }
 
 extension OnboardingStep {
@@ -50,13 +50,9 @@ extension OnboardingStep {
 extension OnboardingStep {
     /// v4 (20-step) → v5 (18-step) migration: name(1) and referral(12) removed.
     static func migratedFromV4RawValue(_ rawValue: Int) -> OnboardingStep? {
-        // v4: welcome=0,name=1,age=2,goal=3,painPoints=4,struggleFreq=5,tinderPain=6,
-        //     whatTried=7,stressLevel=8,socialProof=9,nudgeTimes=10,meditExp=11,
-        //     referral=12,processing=13,planReveal=14,comparison=15,appDemo=16,
-        //     valueDelivery=17,ratingPrompt=18,notifications=19
         switch rawValue {
         case 0: return .welcome
-        case 1: return .age          // name removed → skip to age
+        case 1: return .age
         case 2: return .age
         case 3: return .goal
         case 4: return .painPoints
@@ -67,7 +63,7 @@ extension OnboardingStep {
         case 9: return .socialProof
         case 10: return .nudgeTimes
         case 11: return .meditExp
-        case 12: return .processing  // referral removed → skip to processing
+        case 12: return .processing
         case 13: return .processing
         case 14: return .planReveal
         case 15: return .comparison
@@ -77,6 +73,19 @@ extension OnboardingStep {
         case 19: return .notifications
         default: return nil
         }
+    }
+}
+
+extension OnboardingStep {
+    /// v5 (18-step) → v6 (19-step) migration: valueTimeline inserted at 13.
+    static func migratedFromV5RawValue(_ rawValue: Int) -> OnboardingStep? {
+        // v5: 0-12 same, 13=comparison, 14=appDemo, 15=valueDelivery, 16=ratingPrompt, 17=notifications
+        // v6: 0-12 same, 13=valueTimeline(new), 14=comparison, 15=appDemo, 16=valueDelivery, 17=ratingPrompt, 18=notifications
+        if rawValue <= 12 {
+            return OnboardingStep(rawValue: rawValue)
+        }
+        // 13+ shift by 1 (valueTimeline inserted)
+        return OnboardingStep(rawValue: rawValue + 1)
     }
 }
 
@@ -96,6 +105,7 @@ extension OnboardingStep {
         case .meditExp: return "medit_exp"
         case .processing: return "processing"
         case .planReveal: return "plan_reveal"
+        case .valueTimeline: return "value_timeline"
         case .comparison: return "comparison"
         case .appDemo: return "app_demo"
         case .valueDelivery: return "value_delivery"

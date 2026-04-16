@@ -457,12 +457,16 @@
 "comparison_row_2" = "Nudged at the right moment";
 "comparison_row_3" = "AI that understands you";
 "comparison_row_4" = "Tracked & compounding progress";
-"onboarding_rating_title" = "Are you enjoying Anicca so far?";
-"rating_yes" = "Yes, I love it";
-"rating_no" = "Not really";
-"feedback_send" = "Send feedback";
-"feedback_title" = "Tell us what's off";
-"feedback_skip" = "Skip";
+"onboarding_rating_title" = "Are you enjoying\nAnicca so far?";
+"rating_cta" = "Rate Anicca";
+
+// Age range labels
+"age_under_18" = "Under 18";
+"age_18_24" = "18–24";
+"age_25_34" = "25–34";
+"age_35_44" = "35–44";
+"age_45_54" = "45–54";
+"age_55_plus" = "55+";
 "common_continue" = "Continue";
 "paywall_timeline_title" = "Here's what the next 12 weeks look like";
 "timeline_week_1" = "Week 1";

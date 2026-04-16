@@ -4,7 +4,7 @@ import RevenueCatUI
 import UserNotifications
 import StoreKit
 
-/// 1.8.5 Bible-compliant onboarding: 18 onboarding steps + 3-step HARD paywall.
+/// 1.8.5 Bible-compliant onboarding: 19 onboarding steps + 2-step HARD paywall.
 /// Paywall presented via .fullScreenCover + .interactiveDismissDisabled. No × button, no swipe-dismiss, no NavigationStack wrap.
 struct OnboardingFlowView: View {
     @EnvironmentObject private var appState: AppState
@@ -72,6 +72,7 @@ struct OnboardingFlowView: View {
         case .meditExp:         MeditationExperienceStepView(next: advance)
         case .processing:       ProcessingStepView(next: advance)
         case .planReveal:       PersonalizedInsightStepView(next: advance)
+        case .valueTimeline:    PaywallValueTimelineStepView(next: advance)
         case .comparison:       ComparisonTableStepView(next: advance)
         case .appDemo:          AppDemoStepView(next: advance)
         case .valueDelivery:    ValuePropStepView(next: advance)

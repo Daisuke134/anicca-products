@@ -8,7 +8,7 @@ struct AgeRangeStepView: View {
     let next: () -> Void
     @EnvironmentObject private var appState: AppState
     private let options = ["under_18", "18_24", "25_34", "35_44", "45_54", "55_plus"]
-    private let labels = ["Under 18", "18–24", "25–34", "35–44", "45–54", "55+"]
+    private let labelKeys = ["age_under_18", "age_18_24", "age_25_34", "age_35_44", "age_45_54", "age_55_plus"]
 
     var body: some View {
         VStack(spacing: 16) {
@@ -25,7 +25,7 @@ struct AgeRangeStepView: View {
                         appState.updateUserProfile(profile, sync: true)
                         next()
                     } label: {
-                        Text(labels[idx])
+                        Text(String(localized: String.LocalizationValue(labelKeys[idx])))
                             .font(.system(size: 18, weight: .medium))
                             .foregroundStyle(AppTheme.Colors.label)
                             .frame(maxWidth: .infinity).frame(height: 56)
@@ -129,7 +129,7 @@ struct TinderPainCardsView: View {
 
             if index < cardKeys.count {
                 ZStack {
-                    Text("\"\(String(localized: String.LocalizationValue(cardKeys[index])))\"")
+                    Text(String(localized: String.LocalizationValue(cardKeys[index])))
                         .font(.system(size: 22, weight: .semibold))
                         .multilineTextAlignment(.center)
                         .foregroundStyle(AppTheme.Colors.label)
@@ -579,7 +579,7 @@ struct ComparisonTableStepView: View {
 
 struct RatingPrePromptStepView: View {
     let next: () -> Void
-    @State private var showFeedback = false
+    @State private var awaitingReview = false
 
     var body: some View {
         VStack(spacing: 24) {
@@ -600,94 +600,44 @@ struct RatingPrePromptStepView: View {
 
             Spacer()
 
-            VStack(spacing: 12) {
-                Button {
-                    AnalyticsManager.shared.track(.ratingPromptYesTapped)
-                    requestStoreReview()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) { next() }
-                } label: {
-                    Text(String(localized: "rating_yes"))
-                        .font(.system(size: 18, weight: .semibold))
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity).frame(height: 56)
-                        .background(AppTheme.Colors.accent)
-                        .clipShape(RoundedRectangle(cornerRadius: 28))
-                }
-
-                Button {
-                    AnalyticsManager.shared.track(.ratingPromptNoTapped)
-                    showFeedback = true
-                } label: {
-                    Text(String(localized: "rating_no"))
-                        .font(.system(size: 17, weight: .medium))
-                        .foregroundStyle(AppTheme.Colors.label)
-                        .frame(maxWidth: .infinity).frame(height: 56)
-                        .background(AppTheme.Colors.buttonUnselected)
-                        .clipShape(RoundedRectangle(cornerRadius: 28))
-                }
+            Button {
+                AnalyticsManager.shared.track(.ratingPromptYesTapped)
+                requestStoreReview()
+            } label: {
+                Text(String(localized: "rating_cta"))
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity).frame(height: 56)
+                    .background(AppTheme.Colors.accent)
+                    .clipShape(RoundedRectangle(cornerRadius: 28))
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 48)
         }
         .background(AppBackground())
         .onAppear { AnalyticsManager.shared.track(.ratingPromptShown) }
-        .sheet(isPresented: $showFeedback) {
-            FeedbackFormView(done: {
-                showFeedback = false
+        .onReceive(NotificationCenter.default.publisher(
+            for: UIApplication.didBecomeActiveNotification
+        )) { _ in
+            if awaitingReview {
+                awaitingReview = false
                 next()
-            })
+            }
         }
     }
 
     private func requestStoreReview() {
         AnalyticsManager.shared.track(.ratingStoreReviewRequested)
-        if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+        awaitingReview = true
+        if let scene = UIApplication.shared.connectedScenes
+            .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
             SKStoreReviewController.requestReview(in: scene)
         }
-    }
-}
-
-// MARK: - Feedback Form
-
-struct FeedbackFormView: View {
-    let done: () -> Void
-    @State private var text: String = ""
-    @Environment(\.dismiss) private var dismiss
-
-    var body: some View {
-        NavigationView {
-            VStack {
-                TextEditor(text: $text)
-                    .padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(AppTheme.Colors.label.opacity(0.2), lineWidth: 1)
-                    )
-                    .padding()
-
-                Button {
-                    AnalyticsManager.shared.track(.feedbackFormSubmitted, properties: ["length": text.count])
-                    done()
-                } label: {
-                    Text(String(localized: "feedback_send"))
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity).frame(height: 52)
-                        .background(AppTheme.Colors.accent)
-                        .clipShape(RoundedRectangle(cornerRadius: 26))
-                }
-                .disabled(text.trimmingCharacters(in: .whitespaces).isEmpty)
-                .padding()
-            }
-            .navigationTitle(String(localized: "feedback_title"))
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(String(localized: "feedback_skip")) {
-                        AnalyticsManager.shared.track(.feedbackFormSkipped)
-                        done()
-                    }
-                }
+        // Fallback: system may suppress dialog (3x/year limit)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4.0) { [self] in
+            if awaitingReview {
+                awaitingReview = false
+                next()
             }
         }
     }
@@ -763,9 +713,7 @@ struct PaywallFlowContainer: View {
             AppBackground()
             switch step {
             case .primer:
-                PaywallPrimerStepView(next: { step = .valueTimeline })
-            case .valueTimeline:
-                PaywallValueTimelineStepView(next: { step = .planSelection })
+                PaywallPrimerStepView(next: { step = .planSelection })
             case .planSelection:
                 PaywallVariantBView(
                     variant: "b",

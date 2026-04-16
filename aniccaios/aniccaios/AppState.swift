@@ -76,7 +76,7 @@ final class AppState: ObservableObject {
     private let lastNudgeResetYearKey = "com.anicca.lastNudgeResetYear"
 
     private let onboardingStepVersionKey = "com.anicca.onboardingStepVersion"
-    private static let currentOnboardingVersion = 5
+    private static let currentOnboardingVersion = 6
 
     // 1.8.5: questions finished flag (R3) — written after Notifications advance
     private let onboardingQuestionsCompletedKey = "com.anicca.onboardingQuestionsCompleted"
@@ -92,6 +92,8 @@ final class AppState: ObservableObject {
 
             if savedVersion >= Self.currentOnboardingVersion {
                 self.onboardingStep = OnboardingStep(rawValue: rawValue) ?? .welcome
+            } else if savedVersion == 5 {
+                self.onboardingStep = OnboardingStep.migratedFromV5RawValue(rawValue) ?? .welcome
             } else if savedVersion == 4 {
                 self.onboardingStep = OnboardingStep.migratedFromV4RawValue(rawValue) ?? .welcome
             } else if savedVersion == 3 {

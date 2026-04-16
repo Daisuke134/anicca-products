@@ -415,11 +415,11 @@
 "goal_feel_peace" = "心の平穏を感じる";
 "onboarding_tinder_title" = "あなたに当てはまるものは？";
 "onboarding_tinder_subtitle" = "共感したら右スワイプ。違ったら左スワイプ。";
-"tinder_card_1" = "毎晩スクロールに何時間も費やして後悔する。";
-"tinder_card_2" = "明日やろうと言い続けて、その明日は来ない。";
-"tinder_card_3" = "何をすべきか分かっているのに、どうしても動けない。";
-"tinder_card_4" = "はっきりした理由もなく、ほぼ毎日不安を感じる。";
-"tinder_card_5" = "やる気満々で始めるのに、すぐモチベーションが消える。";
+"tinder_card_1" = "毎晩スクロールに何時間も費やして\n後悔する。";
+"tinder_card_2" = "明日やろうと言い続けて、\nその明日は来ない。";
+"tinder_card_3" = "何をすべきか分かっているのに、\nどうしても動けない。";
+"tinder_card_4" = "はっきりした理由もなく、\nほぼ毎日不安を感じる。";
+"tinder_card_5" = "やる気満々で始めるのに、\nすぐモチベーションが消える。";
 "onboarding_what_tried_title" = "今まで何を試しましたか？";
 "tried_willpower" = "気合い・根性";
 "tried_habit_apps" = "習慣トラッカーアプリ";
@@ -456,14 +456,18 @@
 "comparison_row_2" = "最適なタイミングでナッジ";
 "comparison_row_3" = "あなたを理解するAI";
 "comparison_row_4" = "記録され積み上がる成長";
-"onboarding_rating_title" = "Aniccaは気に入りましたか？";
-"rating_yes" = "はい、最高です";
-"rating_no" = "いまいち";
-"feedback_send" = "フィードバックを送る";
-"feedback_title" = "何が気になりますか？";
-"feedback_skip" = "スキップ";
+"onboarding_rating_title" = "アニッチャは\n気に入りましたか？";
+"rating_cta" = "アニッチャを評価";
+
+// Age range labels
+"age_under_18" = "18歳未満";
+"age_18_24" = "18〜24歳";
+"age_25_34" = "25〜34歳";
+"age_35_44" = "35〜44歳";
+"age_45_54" = "45〜54歳";
+"age_55_plus" = "55歳以上";
 "common_continue" = "続ける";
-"paywall_timeline_title" = "これからの12週間はこうなる";
+"paywall_timeline_title" = "あなたが変わる12週間";
 "timeline_week_1" = "第1週";
 "timeline_week_1_text" = "一番弱い瞬間にナッジが来る。あなたは耐える。大きな一歩。";
 "timeline_week_4" = "第4週";
