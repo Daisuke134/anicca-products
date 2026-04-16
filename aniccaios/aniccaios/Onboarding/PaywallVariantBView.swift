@@ -13,6 +13,8 @@ struct PaywallVariantBView: View {
     @State private var isPurchasing = false
     @State private var errorMessage: String?
     @State private var hasTracked = false
+    @State private var hasShownRetention = false
+    @State private var showRetention = false
 
     private var offering: Offering? { appState.cachedOffering }
     private var packages: [Package] { offering?.availablePackages ?? [] }
@@ -62,6 +64,12 @@ struct PaywallVariantBView: View {
             }
             if selectedPackage == nil {
                 selectedPackage = yearlyPackage ?? monthlyPackage ?? weeklyPackage
+            }
+        }
+        .sheet(isPresented: $showRetention) {
+            RetentionOfferSheet { customerInfo in
+                showRetention = false
+                onPurchaseSuccess(customerInfo)
             }
         }
     }
@@ -219,7 +227,7 @@ struct PaywallVariantBView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 4) {
                     HStack(spacing: 8) {
-                        Text(package.storeProduct.localizedTitle)
+                        Text(localizedPlanTitle(for: package))
                             .font(.system(size: 16, weight: .semibold))
                             .foregroundStyle(AppTheme.Colors.label)
 
@@ -263,6 +271,15 @@ struct PaywallVariantBView: View {
         .accessibilityIdentifier("paywall-plan-\(package.packageType.rawValue)")
     }
 
+    private func localizedPlanTitle(for package: Package) -> String {
+        switch package.packageType {
+        case .annual: return String(localized: "paywall_b_plan_yearly")
+        case .monthly: return String(localized: "paywall_b_plan_monthly")
+        case .weekly: return String(localized: "paywall_b_plan_weekly")
+        default: return package.storeProduct.localizedTitle
+        }
+    }
+
     // MARK: - Actions
 
     private func purchase() {
@@ -280,7 +297,13 @@ struct PaywallVariantBView: View {
                         onPurchaseSuccess(result.customerInfo)
                     }
                 } else {
-                    await MainActor.run { isPurchasing = false }
+                    await MainActor.run {
+                        isPurchasing = false
+                        if !hasShownRetention {
+                            hasShownRetention = true
+                            showRetention = true
+                        }
+                    }
                 }
             } catch {
                 await MainActor.run {

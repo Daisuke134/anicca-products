@@ -4,13 +4,26 @@ struct StrugglesStepView: View {
     let next: () -> Void
     @EnvironmentObject private var appState: AppState
 
-    // Proactive Agent: 13個の問題タイプ
+    /// オンボ抽象カテゴリ → ProblemType 1:1 マッピング
+    static let problemMapping: [String: String] = [
+        "negative_thoughts": "self_loathing",
+        "putting_off": "procrastination",
+        "anxiety_overwhelm": "anxiety",
+        "stuck_habit": "rumination",
+        "emotions_take_over": "anger"
+    ]
+
+    static func mappedProblems(from struggles: [String]) -> [String] {
+        struggles.compactMap { problemMapping[$0] }
+    }
+
+    // Bible Screen 3 (5-7 pain points) + Hick's Law: 5 options
     private let options: [String] = [
-        "staying_up_late", "cant_wake_up", "self_loathing",
-        "rumination", "procrastination", "anxiety",
-        "lying", "bad_mouthing", "porn_addiction",
-        "alcohol_dependency", "anger", "obsessive",
-        "loneliness"
+        "negative_thoughts",
+        "putting_off",
+        "anxiety_overwhelm",
+        "stuck_habit",
+        "emotions_take_over"
     ]
 
     @State private var selected: Set<String> = []
@@ -34,23 +47,19 @@ struct StrugglesStepView: View {
                 .padding(.horizontal, 24)
 
             ScrollView {
-                LazyVGrid(columns: [
-                    GridItem(.flexible(), spacing: 12),
-                    GridItem(.flexible(), spacing: 12)
-                ], spacing: 12) {
+                VStack(spacing: 12) {
                     ForEach(options, id: \.self) { key in
-                        chipButton(kind: "problem", key: key)
+                        listRow(kind: "problem", key: key)
                     }
                 }
                 .padding(.horizontal, 24)
                 .padding(.top, 8)
                 .padding(.bottom, 16)
             }
-            .scrollIndicators(.visible)
 
             Button {
                 var profile = appState.userProfile
-                profile.problems = Array(selected)
+                profile.problems = Self.mappedProblems(from: Array(selected))
                 appState.updateUserProfile(profile, sync: true)
                 next()
             } label: {
@@ -69,12 +78,12 @@ struct StrugglesStepView: View {
         }
         .background(AppBackground())
         .onAppear {
-            selected = Set(appState.userProfile.problems)
+            // Forward-only flow: no restoration needed
         }
     }
 
     @ViewBuilder
-    private func chipButton(kind: String, key: String) -> some View {
+    private func listRow(kind: String, key: String) -> some View {
         let isSelected = selected.contains(key)
         Button {
             if isSelected {
@@ -83,17 +92,19 @@ struct StrugglesStepView: View {
                 selected.insert(key)
             }
         } label: {
-            Text(NSLocalizedString("\(kind)_\(key)", comment: ""))
-                .font(.system(size: 14, weight: .medium))
-                .lineLimit(2)
-                .minimumScaleFactor(0.8)
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity, minHeight: 56)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 8)
-                .background(isSelected ? AppTheme.Colors.buttonSelected : AppTheme.Colors.buttonUnselected)
-                .foregroundStyle(isSelected ? AppTheme.Colors.buttonTextSelected : AppTheme.Colors.label)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
+            HStack(spacing: 12) {
+                Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                    .font(.system(size: 22))
+                    .foregroundColor(isSelected ? AppTheme.Colors.accent : .secondary)
+                Text(NSLocalizedString("\(kind)_\(key)", comment: ""))
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(AppTheme.Colors.label)
+                Spacer()
+            }
+            .padding(.horizontal, 16)
+            .frame(maxWidth: .infinity, minHeight: 56)
+            .background(isSelected ? AppTheme.Colors.accent.opacity(0.15) : AppTheme.Colors.buttonUnselected)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .buttonStyle(.plain)
         .accessibilityIdentifier("onboarding-struggle-\(key)")

@@ -4,10 +4,12 @@ import RevenueCatUI
 import UserNotifications
 import StoreKit
 
+/// 1.8.5 Bible-compliant onboarding: 19 onboarding steps + 2-step HARD paywall.
+/// Paywall presented via .fullScreenCover + .interactiveDismissDisabled. No × button, no swipe-dismiss, no NavigationStack wrap.
 struct OnboardingFlowView: View {
     @EnvironmentObject private var appState: AppState
     @State private var step: OnboardingStep = .welcome
-    @State private var paywallStep: PaywallStep? = nil
+    @State private var showPaywall: Bool = false
     @State private var didPurchaseOnPaywall = false
 
     var body: some View {
@@ -15,38 +17,24 @@ struct OnboardingFlowView: View {
             AppBackground()
 
             VStack(spacing: 0) {
-                // Progress bar — hidden during paywall steps
-                if paywallStep == nil {
-                    OnboardingProgressBar(step: step)
-                        .padding(.horizontal, 16)
-                        .padding(.top, 8)
-                }
+                OnboardingProgressBar(step: step)
+                    .padding(.horizontal, 16)
+                    .padding(.top, 8)
 
                 Group {
-                    if let paywallStep {
-                        paywallContent(for: paywallStep)
-                    } else {
-                        onboardingContent(for: step)
-                    }
+                    onboardingContent(for: step)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-
         }
         .onAppear {
-            step = appState.onboardingStep
-
-            if step == .notifications {
-                Task {
-                    let settings = await UNUserNotificationCenter.current().notificationSettings()
-                    if settings.authorizationStatus != .notDetermined {
-                        await MainActor.run {
-                            completeOnboarding()
-                        }
-                        return
-                    }
-                }
+            // Paywall-direct resume (R3): questions 完了済 + entitlement なし → paywall 直接
+            if appState.onboardingQuestionsCompleted && !appState.subscriptionInfo.isEntitled {
+                showPaywall = true
+                return
             }
+
+            step = appState.onboardingStep
 
             if step == .welcome {
                 AnalyticsManager.shared.track(.onboardingStarted)
@@ -56,6 +44,14 @@ struct OnboardingFlowView: View {
                 await SubscriptionManager.shared.refreshOfferings()
             }
         }
+        .fullScreenCover(isPresented: $showPaywall) {
+            PaywallFlowContainer(
+                onPurchaseSuccess: { customerInfo in
+                    handlePaywallSuccess(customerInfo: customerInfo)
+                }
+            )
+            .interactiveDismissDisabled(true)
+        }
     }
 
     // MARK: - Onboarding Steps
@@ -63,97 +59,60 @@ struct OnboardingFlowView: View {
     @ViewBuilder
     private func onboardingContent(for step: OnboardingStep) -> some View {
         switch step {
-        case .welcome:
-            WelcomeStepView(next: advance)
-        case .struggles:
-            StrugglesStepView(next: advance)
-        case .struggleDepth:
-            StruggleDepthStepView(next: advance)
-        case .personalizedInsight:
-            PersonalizedInsightStepView(next: advance)
-        case .processing:
-            ProcessingStepView(next: advance)
-        case .valueProp:
-            ValuePropStepView(next: advance)
-        case .appDemo:
-            AppDemoStepView(next: advance)
-        case .notifications:
-            NotificationPermissionStepView(next: advance)
-        }
-    }
-
-    // MARK: - Paywall Steps
-
-    @ViewBuilder
-    private func paywallContent(for step: PaywallStep) -> some View {
-        switch step {
-        case .primer:
-            PaywallPrimerStepView(next: {
-                withAnimation {
-                    paywallStep = .planSelection
-                }
-            })
-        case .planSelection:
-            // RC Experiment handles A/B via offering swap server-side.
-            // PaywallVariantBView always renders `current` offering — Variant A shows 2 cards (annual+monthly),
-            // Variant B shows 2 cards (annual+weekly) automatically based on which packages the offering contains.
-            PaywallVariantBView(
-                variant: "rc_experiment",
-                onPurchaseSuccess: { customerInfo in handlePaywallSuccess(customerInfo: customerInfo) },
-                onDismiss: { handlePaywallDismissedAsFree() }
-            )
+        case .welcome:          WelcomeStepView(next: advance)
+        case .age:              AgeRangeStepView(next: advance)
+        case .goal:             GoalStepView(next: advance)
+        case .painPoints:       StrugglesStepView(next: advance)
+        case .struggleFreq:     StruggleDepthStepView(next: advance)
+        case .tinderPain:       TinderPainCardsView(next: advance)
+        case .whatTried:        WhatTriedStepView(next: advance)
+        case .stressLevel:      StressSliderStepView(next: advance)
+        case .socialProof:      SocialProofStepView(next: advance)
+        case .nudgeTimes:       PreferredNudgeTimesView(next: advance)
+        case .meditExp:         MeditationExperienceStepView(next: advance)
+        case .processing:       ProcessingStepView(next: advance)
+        case .planReveal:       PersonalizedInsightStepView(next: advance)
+        case .valueTimeline:    PaywallValueTimelineStepView(next: advance)
+        case .comparison:       ComparisonTableStepView(next: advance)
+        case .appDemo:          AppDemoStepView(next: advance)
+        case .valueDelivery:    ValuePropStepView(next: advance)
+        case .ratingPrompt:     RatingPrePromptStepView(next: advance)
+        case .notifications:    NotificationPermissionStepView(next: advance)
         }
     }
 
     // MARK: - Navigation
 
     private func advance() {
-        switch step {
-        case .welcome:
-            AnalyticsManager.shared.track(.onboardingWelcomeCompleted)
-            step = .struggles
-        case .struggles:
-            AnalyticsManager.shared.track(.onboardingStrugglesCompleted)
-            step = .struggleDepth
-        case .struggleDepth:
-            step = .personalizedInsight
-        case .personalizedInsight:
-            step = .processing
-        case .processing:
-            step = .valueProp
-        case .valueProp:
-            step = .appDemo
-        case .appDemo:
-            step = .notifications
-        case .notifications:
-            AnalyticsManager.shared.track(.onboardingNotificationsCompleted)
-            completeOnboarding()
-            return
-        }
-        appState.setOnboardingStep(step)
-    }
+        AnalyticsManager.shared.track(.onboardingStepAdvanced, properties: ["step": step.analyticsName])
 
-    private func completeOnboarding() {
-        AnalyticsManager.shared.track(.onboardingCompleted)
-        AnalyticsManager.shared.updateSKANConversionValue(1)
-        NudgeWidgetDataStore.sync(struggles: appState.userProfile.struggles)
+        if step == .notifications {
+            // R3: 全質問完了 → paywall 直接提示
+            appState.markOnboardingQuestionsCompleted()
+            AnalyticsManager.shared.track(.onboardingCompleted)
+            AnalyticsManager.shared.updateSKANConversionValue(1)
 
-        // Existing Pro user (reinstall etc.) → skip paywall
-        if appState.subscriptionInfo.isEntitled {
-            completeOnboardingForExistingPro()
+            // Existing Pro user (reinstall etc.) → skip paywall
+            if appState.subscriptionInfo.isEntitled {
+                completeOnboardingForExistingPro()
+                return
+            }
+
+            showPaywall = true
             return
         }
 
-        // Not subscribed → show 2-step paywall
-        withAnimation {
-            paywallStep = .primer
+        if let next = OnboardingStep(rawValue: step.rawValue + 1) {
+            step = next
+            appState.setOnboardingStep(step)
         }
     }
 
     private func completeOnboardingForExistingPro() {
         Task {
+            let mapped = StrugglesStepView.mappedProblems(from: appState.userProfile.struggles)
             await ProblemNotificationScheduler.shared
-                .scheduleNotifications(for: appState.userProfile.struggles)
+                .scheduleNotifications(for: mapped)
             appState.markOnboardingComplete()
         }
     }
@@ -162,34 +121,11 @@ struct OnboardingFlowView: View {
         didPurchaseOnPaywall = true
         appState.updateSubscriptionInfo(from: customerInfo)
         appState.markOnboardingComplete()
-        requestReviewIfNeeded()
+        showPaywall = false
         Task {
+            let mapped = StrugglesStepView.mappedProblems(from: appState.userProfile.struggles)
             await ProblemNotificationScheduler.shared
-                .scheduleNotifications(for: appState.userProfile.struggles)
+                .scheduleNotifications(for: mapped)
         }
     }
-
-    private func handlePaywallDismissedAsFree() {
-        guard !didPurchaseOnPaywall else { return }
-
-        AnalyticsManager.shared.track(.onboardingPaywallDismissedFree)
-
-        let problems = appState.userProfile.struggles.compactMap { ProblemType(rawValue: $0) }
-        FreePlanService.shared.scheduleFreePlanNudges(problems: problems)
-
-        appState.markOnboardingComplete()
-        requestReviewIfNeeded()
-    }
-
-    private func requestReviewIfNeeded() {
-        guard !appState.hasRequestedReview else { return }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            if let scene = UIApplication.shared.connectedScenes
-                .first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
-                SKStoreReviewController.requestReview(in: scene)
-            }
-        }
-        appState.markReviewRequested()
-    }
-
 }

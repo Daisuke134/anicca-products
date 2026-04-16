@@ -41,7 +41,7 @@ final class SubscriptionManager: NSObject {
 
         // 起動直後にSDKキャッシュのOfferingをAppStateへプリロード
         if let cached = Purchases.shared.cachedOfferings,
-           let preloaded = cached.offering(identifier: AppConfig.revenueCatPaywallId) ?? cached.current {
+           let preloaded = cached.current {
             print("[SubscriptionManager] Pre-loading cached offering: \(preloaded.identifier)")
             AppState.shared.updateOffering(preloaded)
         }
@@ -145,7 +145,7 @@ final class SubscriptionManager: NSObject {
             offerings = result
             await MainActor.run {
                 // キャッシュを確実に更新
-                if let offering = result.offering(identifier: AppConfig.revenueCatPaywallId) ?? result.current {
+                if let offering = result.current {
                     AppState.shared.updateOffering(offering)
                 } else {
                     AppState.shared.updateOffering(nil)

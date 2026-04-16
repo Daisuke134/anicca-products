@@ -45,7 +45,7 @@ struct ProcessingStepView: View {
                 .monospacedDigit()
 
             // Title
-            Text("onboarding_processing_title")
+            Text(String(localized: "onboarding_processing_title"))
                 .font(.system(size: 28, weight: .bold))
                 .foregroundStyle(AppTheme.Colors.label)
                 .multilineTextAlignment(.center)
@@ -75,7 +75,7 @@ struct ProcessingStepView: View {
             // Struggles card
             if !struggles.isEmpty {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("onboarding_processing_struggles_header")
+                    Text(String(localized: "onboarding_processing_struggles_header"))
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundStyle(AppTheme.Colors.label)
 
