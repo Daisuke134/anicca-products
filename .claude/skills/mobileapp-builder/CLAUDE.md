@@ -89,6 +89,8 @@ curl -s -X POST "$SLACK_WEBHOOK_AGENTS" -H 'Content-Type: application/json' -d '
 | 24 | **スクショは 6.9" (IPHONE_69) のみ。1320x2868 が正しいサイズ。** 6.5"/6.1"/5.5" は不要（Apple が 6.9" から自動スケール）。6.7" で再キャプチャしようとするな。Source: https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/ |
 | 23 | **AI API / 外部 API コスト禁止** — OpenAI, Anthropic, Gemini, Apple FoundationModels（iOS 26+ = ユーザー基盤小）一切禁止。アプリは完全自己完結。ローカル・静的コンテンツのみ。バックエンド不要。理由: 月収 $29 vs API コスト $300+ |
 | 23 | **AI API / AI モデル / 外部 AI サービス完全禁止**。OpenAI, Anthropic, Google Generative AI, Apple FoundationModels 一切不可。月額収益 $29 vs API コスト $300+。FoundationModels は iOS 26+ のみでユーザーベース皆無。オンデバイスロジック or 静的キュレーションコンテンツで代替 |
+| 20-BP4 | **オンボーディングで 30-Second Win を先に見せる**。価値を paywall 前に体験させる。Source: https://x.com/i/status/1895820573185622512 — 「Deliver a \"30-second win\" upfront」 |
+| 20-BP5 | **価格は 2-3 プランに整理し、年額を比較上有利に見せる**。Source: https://x.com/i/status/2044809040530674100 — 「Tier       | Price Example      | Best For」 |
 | 25 | **progress.txt 管理**: Codebase Patterns + 現在 US の記録のみ保持。完了 US の詳細は `logs/us-XXX-summary.md` に移動。10KB 以下維持。Source: Anthropic harnesses — context 膨張防止 |
 | 26 | **WAITING_FOR_HUMAN 最小化**: iris session は keychain（auto モード）で管理。`ASC_WEB_SESSION_CACHE_BACKEND=file` は絶対に設定するな（keychain を読まなくなる）。Check 6 の前に `security unlock-keychain` 必須。RC SK鍵のみ WAITING_FOR_HUMAN 使用可。Source: session_cache.go L103-118 |
 | 27 | **.pbxproj 直接編集禁止**。新しいファイルは CC で作成し、Xcode で手動追加する。CC に .pbxproj を編集させるとプロジェクトが壊れる。Source: https://www.linkedin.com/posts/kris-puckett-0109041b_if-youre-building-an-ios-app-with-claude-activity-7393778932807852032-Pkuj — 「Never let AI modify .pbxproj files. Create files with Claude Code, add them to Xcode manually.」 |
