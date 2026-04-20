@@ -28,7 +28,7 @@
         "monetization section uses 2-3 pricing plans (monthly, annual, or monthly/6-month/annual) with decoy pricing strategy for highest plan — Source: https://adapty.io/blog/how-to-design-ios-paywall/ — '2 products vs 1 product+61%' + '3 products vs 2 products+44%' + 'Use decoy pricing strategy'",
         "monetization section marks annual plan as 'Most Popular' (70%+ subscribers prefer annual) — Source: https://dev.to/paywallpro/the-complete-guide-to-app-monetization-and-subscription-optimization-9g4 — 'Data shows that over 70% of subscribers prefer annual plans'",
         "monetization section includes intro offer ($0.99-$2.99/week) to hook payers and lift yearly upsells — Source: https://x.com/i/status/1940451793697157562",
-        "onboarding section includes 30-second win (core value demo before paywall) + rating prompt before paywall — Source: https://x.com/i/status/1895820573185622512 + https://x.com/i/status/2021804198627577918",
+        "onboarding section includes 30-second win (core value demo before paywall) + rating prompt before paywall + guidance to first win after paywall — Source: https://x.com/i/status/1895820573185622512 + https://x.com/i/status/2021804198627577918 + https://x.com/i/status/2044806271040151936",
         "monetization section includes economics targets: CPI $0.10-0.80 (Indie App Santa benchmark), LTV/CAC ratio ≥ 3:1 (sustainable growth standard) — Source: https://indieappsanta.com/2025/11/21/10349/ — 'Indie App Santa's typical cost-per-install of $0.10-0.80 delivers one of the lowest CACs available' + 'For sustainable growth, LTV typically exceeds CAC by at least 3:1'",
         "All claims cite external sources",
         "curl itunes.apple.com/search for APP_NAME returns 0 exact name matches",
