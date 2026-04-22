@@ -157,8 +157,10 @@ WAITING_FOR_HUMAN の詳細は `references/us-005a-infra.md`（2FA）と `refere
 | 16 | **screenshot-creator スキル禁止。Koubou（`asc screenshots frame`）のみ** |
 | 17 | **自前 SwiftUI PaywallView 必須。RevenueCatUI.PaywallView 禁止** |
 | 18 | **ATT 禁止** |
-| 19 | **オンボーディング最終画面はソフトペイウォール**。ただし、ハードペイウォール（フリーミアムなし）はソフトペイウォールより Day-35 trial-to-paid conversion が 5x 高い（10.7% vs 2.1%）。Source: https://www.revenuecat.com/blog/growth/subscription-app-trends-benchmarks-2026/ — 「hard paywalls have a median Day-35 trial-to-paid conversion rate of **10.7%**, compared to just **2.1%** for freemium apps」。キャッシュフロー優先ならハードペイウォールを検討 |
+| 19 | **オンボーディング最終画面はソフトペイウォール**。ただし、キャッシュフロー優先ならハードペイウォールを検討する。ハードペイウォール（フリーミアムなし）は Day-35 trial-to-paid conversion が 10.7% で、フリーミアムの 2.1% より高い。Source: https://www.revenuecat.com/blog/growth/subscription-app-trends-benchmarks-2026/ — 「hard paywalls have a median Day-35 trial-to-paid conversion rate of **10.7%**, compared to just **2.1%** for freemium apps」。
 | 19-BP1 | **動的ペイウォール（セグメント化・期間限定割引）は静的より 35% 高コンバージョン**。RevenueCat Experiments / Adapty を使用。Source: https://adapty.io/blog/how-to-design-ios-paywall/ — 「**Dynamic paywalls with segmented or time-based discounts deliver approximately 35% higher conversion rates than static alternatives**」 |
+| 19-BP10A | **Paywall 前に 30-second win を必ず入れる**。核心価値を 30 秒以内に体験させてから課金導線へ進める。Source: https://x.com/i/status/1895820573185622512 — 「Deliver a \"30-second win\" upfront」 |
+| 19-BP11A | **onboarding は paywall で終わらない**。初回購入後も first win まで案内を続ける。Source: https://x.com/i/status/2044806271040151936 — 「onboarding doesn't end at paywall—guide to first win」 |
 | 19-BP2 | **ペイウォール閉じた後の 24h 限定オファー（ポストクローズオファー）は ARPU 10-15% 増**。非コンバータにのみ表示。Source: https://adapty.io/blog/high-performing-paywall-2026/ — 「A 24-hour welcome offer, targeted only at non-converters, captures price-sensitive users... 10–15% ARPU」 |
 | 19-BP3 | **ローカライゼーションテストは LTV 改善で最高勝率 62.3%**。英語+日本語は最低要件。Source: https://adapty.io/blog/high-performing-paywall-2026/ — 「Localization tests: 62.3% win rate on LTV — the highest of any category」 |
 | 19-BP4 | **無料トライアルは複数箇所で言及**（ヘッドライン+CTA+補助テキスト）。単一 CTA では不十分。Source: https://www.revenuecat.com/blog/growth/paywall-conversion-boosters/ — 「the trial offer should be a central, recurring element throughout your paywall」 |
