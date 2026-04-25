@@ -310,7 +310,10 @@ struct PaywallVariantBView: View {
                     isPurchasing = false
                     if let rcError = error as? RevenueCat.ErrorCode,
                        rcError == .purchaseCancelledError {
-                        // User cancelled
+                        if !hasShownRetention {
+                            hasShownRetention = true
+                            showRetention = true
+                        }
                     } else {
                         errorMessage = error.localizedDescription
                     }
