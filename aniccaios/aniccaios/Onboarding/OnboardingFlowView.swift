@@ -4,7 +4,7 @@ import RevenueCatUI
 import UserNotifications
 import StoreKit
 
-/// 1.8.5 Bible-compliant onboarding: 19 onboarding steps + 2-step HARD paywall.
+/// v7 onboarding: 11 steps + 2-step HARD paywall.
 /// Paywall presented via .fullScreenCover + .interactiveDismissDisabled. No × button, no swipe-dismiss, no NavigationStack wrap.
 struct OnboardingFlowView: View {
     @EnvironmentObject private var appState: AppState
@@ -28,7 +28,6 @@ struct OnboardingFlowView: View {
             }
         }
         .onAppear {
-            // Paywall-direct resume (R3): questions 完了済 + entitlement なし → paywall 直接
             if appState.onboardingQuestionsCompleted && !appState.subscriptionInfo.isEntitled {
                 showPaywall = true
                 return
@@ -60,22 +59,14 @@ struct OnboardingFlowView: View {
     private func onboardingContent(for step: OnboardingStep) -> some View {
         switch step {
         case .welcome:          WelcomeStepView(next: advance)
-        case .age:              AgeRangeStepView(next: advance)
         case .goal:             GoalStepView(next: advance)
         case .painPoints:       StrugglesStepView(next: advance)
         case .struggleFreq:     StruggleDepthStepView(next: advance)
-        case .tinderPain:       TinderPainCardsView(next: advance)
-        case .whatTried:        WhatTriedStepView(next: advance)
-        case .stressLevel:      StressSliderStepView(next: advance)
-        case .socialProof:      SocialProofStepView(next: advance)
         case .nudgeTimes:       PreferredNudgeTimesView(next: advance)
-        case .meditExp:         MeditationExperienceStepView(next: advance)
         case .processing:       ProcessingStepView(next: advance)
         case .planReveal:       PersonalizedInsightStepView(next: advance)
-        case .valueTimeline:    PaywallValueTimelineStepView(next: advance)
         case .comparison:       ComparisonTableStepView(next: advance)
         case .appDemo:          AppDemoStepView(next: advance)
-        case .valueDelivery:    ValuePropStepView(next: advance)
         case .ratingPrompt:     RatingPrePromptStepView(next: advance)
         case .notifications:    NotificationPermissionStepView(next: advance)
         }
@@ -87,12 +78,10 @@ struct OnboardingFlowView: View {
         AnalyticsManager.shared.track(.onboardingStepAdvanced, properties: ["step": step.analyticsName])
 
         if step == .notifications {
-            // R3: 全質問完了 → paywall 直接提示
             appState.markOnboardingQuestionsCompleted()
             AnalyticsManager.shared.track(.onboardingCompleted)
             AnalyticsManager.shared.updateSKANConversionValue(1)
 
-            // Existing Pro user (reinstall etc.) → skip paywall
             if appState.subscriptionInfo.isEntitled {
                 completeOnboardingForExistingPro()
                 return

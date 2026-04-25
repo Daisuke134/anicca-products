@@ -435,11 +435,11 @@
 "onboarding_social_rating" = "4.9 · 12,400人以上があなたと同じ";
 "social_name_1" = "タクヤ, 28歳";
 "social_tag_1" = "夜更かしスクローラー";
-"social_text_1" = "深夜3時までスクロールしてた。Aniccaがスマホに手を伸ばす瞬間にナッジしてくれた。2週間で眠れるようになった。";
+"social_text_1" = "深夜3時までスクロールしてた。アニッチャがスマホに手を伸ばす瞬間にナッジしてくれた。2週間で眠れるようになった。";
 "social_name_2" = "ミカ, 34歳";
 "social_tag_2" = "考えすぎる人";
 "social_text_2" = "音声セッションは本当に分かってくれる人と話してる感覚。セラピーだけでは解消できなかった不安が楽になった。";
-"onboarding_nudge_title" = "いつナッジしましょうか？";
+"onboarding_nudge_title" = "いつ言葉を届けましょうか？";
 "onboarding_nudge_subtitle" = "1つ以上選んでください";
 "nudge_morning" = "朝 (9時)";
 "nudge_afternoon" = "午後 (14時)";
@@ -449,9 +449,9 @@
 "medit_few_times" = "数回だけ";
 "medit_regularly" = "定期的にやっている";
 "medit_daily" = "毎日の習慣";
-"onboarding_comparison_stat" = "AIで習慣を管理した人が継続できています。";
+"onboarding_comparison_stat" = "アニッチャで習慣を管理した人が継続できています。";
 "comparison_header_without" = "なし";
-"comparison_header_anicca" = "Anicca";
+"comparison_header_anicca" = "アニッチャ";
 "comparison_row_1" = "何を変えるべきか明確になる";
 "comparison_row_2" = "最適なタイミングでナッジ";
 "comparison_row_3" = "あなたを理解するAI";

@@ -1,26 +1,18 @@
 import Foundation
 
-/// v4 Onboarding flow — 19 cases (Bible-compliant: 19 onboarding + 2 paywall).
+/// v7 Onboarding flow — 11 steps + 2 paywall.
 enum OnboardingStep: Int, CaseIterable, Codable {
     case welcome = 0
-    case age = 1
-    case goal = 2
-    case painPoints = 3
-    case struggleFreq = 4
-    case tinderPain = 5
-    case whatTried = 6
-    case stressLevel = 7
-    case socialProof = 8
-    case nudgeTimes = 9
-    case meditExp = 10
-    case processing = 11
-    case planReveal = 12
-    case valueTimeline = 13
-    case comparison = 14
-    case appDemo = 15
-    case valueDelivery = 16
-    case ratingPrompt = 17
-    case notifications = 18
+    case goal = 1
+    case painPoints = 2
+    case struggleFreq = 3
+    case nudgeTimes = 4
+    case processing = 5
+    case planReveal = 6
+    case comparison = 7
+    case appDemo = 8
+    case ratingPrompt = 9
+    case notifications = 10
 }
 
 enum PaywallStep: Int, CaseIterable, Codable {
@@ -29,63 +21,31 @@ enum PaywallStep: Int, CaseIterable, Codable {
 }
 
 extension OnboardingStep {
-    /// v2 (8-step) → v3 (18-step) migration.
-    /// v2 schema: welcome=0, struggles=1, struggleDepth=2, personalizedInsight=3,
-    ///             processing=4, valueProp=5, appDemo=6, notifications=7
-    static func migratedFromV2RawValue(_ rawValue: Int) -> OnboardingStep? {
+    /// v6 (19-step) → v7 (11-step) migration.
+    /// Removed: age(1), tinderPain(5), whatTried(6), stressLevel(7), socialProof(8), meditExp(10), valueTimeline(13), valueDelivery(16)
+    static func migratedFromV6RawValue(_ rawValue: Int) -> OnboardingStep? {
         switch rawValue {
         case 0: return .welcome
-        case 1: return .painPoints
-        case 2: return .struggleFreq
-        case 3: return .planReveal
-        case 4: return .processing
-        case 5: return .valueDelivery
-        case 6: return .appDemo
-        case 7: return .notifications
+        case 1: return .goal              // age → skip to goal
+        case 2: return .goal
+        case 3: return .painPoints
+        case 4: return .struggleFreq
+        case 5: return .nudgeTimes        // tinderPain → skip to nudgeTimes
+        case 6: return .nudgeTimes        // whatTried → skip to nudgeTimes
+        case 7: return .nudgeTimes        // stressLevel → skip to nudgeTimes
+        case 8: return .nudgeTimes        // socialProof → skip to nudgeTimes
+        case 9: return .nudgeTimes
+        case 10: return .processing       // meditExp → skip to processing
+        case 11: return .processing
+        case 12: return .planReveal
+        case 13: return .comparison       // valueTimeline → skip to comparison
+        case 14: return .comparison
+        case 15: return .appDemo
+        case 16: return .ratingPrompt     // valueDelivery → skip to ratingPrompt
+        case 17: return .ratingPrompt
+        case 18: return .notifications
         default: return nil
         }
-    }
-}
-
-extension OnboardingStep {
-    /// v4 (20-step) → v5 (18-step) migration: name(1) and referral(12) removed.
-    static func migratedFromV4RawValue(_ rawValue: Int) -> OnboardingStep? {
-        switch rawValue {
-        case 0: return .welcome
-        case 1: return .age
-        case 2: return .age
-        case 3: return .goal
-        case 4: return .painPoints
-        case 5: return .struggleFreq
-        case 6: return .tinderPain
-        case 7: return .whatTried
-        case 8: return .stressLevel
-        case 9: return .socialProof
-        case 10: return .nudgeTimes
-        case 11: return .meditExp
-        case 12: return .processing
-        case 13: return .processing
-        case 14: return .planReveal
-        case 15: return .comparison
-        case 16: return .appDemo
-        case 17: return .valueDelivery
-        case 18: return .ratingPrompt
-        case 19: return .notifications
-        default: return nil
-        }
-    }
-}
-
-extension OnboardingStep {
-    /// v5 (18-step) → v6 (19-step) migration: valueTimeline inserted at 13.
-    static func migratedFromV5RawValue(_ rawValue: Int) -> OnboardingStep? {
-        // v5: 0-12 same, 13=comparison, 14=appDemo, 15=valueDelivery, 16=ratingPrompt, 17=notifications
-        // v6: 0-12 same, 13=valueTimeline(new), 14=comparison, 15=appDemo, 16=valueDelivery, 17=ratingPrompt, 18=notifications
-        if rawValue <= 12 {
-            return OnboardingStep(rawValue: rawValue)
-        }
-        // 13+ shift by 1 (valueTimeline inserted)
-        return OnboardingStep(rawValue: rawValue + 1)
     }
 }
 
@@ -93,22 +53,14 @@ extension OnboardingStep {
     var analyticsName: String {
         switch self {
         case .welcome: return "welcome"
-        case .age: return "age"
         case .goal: return "goal"
         case .painPoints: return "pain_points"
         case .struggleFreq: return "struggle_freq"
-        case .tinderPain: return "tinder_pain"
-        case .whatTried: return "what_tried"
-        case .stressLevel: return "stress_level"
-        case .socialProof: return "social_proof"
         case .nudgeTimes: return "nudge_times"
-        case .meditExp: return "medit_exp"
         case .processing: return "processing"
         case .planReveal: return "plan_reveal"
-        case .valueTimeline: return "value_timeline"
         case .comparison: return "comparison"
         case .appDemo: return "app_demo"
-        case .valueDelivery: return "value_delivery"
         case .ratingPrompt: return "rating_prompt"
         case .notifications: return "notifications"
         }

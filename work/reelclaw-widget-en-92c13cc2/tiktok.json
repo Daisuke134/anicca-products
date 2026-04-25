@@ -1,0 +1,37 @@
+{
+  "type": "now",
+  "date": "2026-04-21T23:01:12.000Z",
+  "shortLink": false,
+  "tags": [],
+  "posts": [
+    {
+      "integration": {
+        "id": "cmnhlk3ju058lpn0ytilqdpo0"
+      },
+      "value": [
+        {
+          "content": "こんな言葉が欲しい人は、アニッチャ試してみて\n\n#メンタルヘルス #自己肯定感 #自己嫌悪 #癒し #共感 #仏教 #fyp",
+          "image": [
+            {
+              "id": "c57c7a87-fae6-4783-902d-e759d081524d",
+              "path": "https://uploads.postiz.com/KSfO6PscoQ.mp4"
+            }
+          ]
+        }
+      ],
+      "settings": {
+        "__type": "tiktok",
+        "title": "ロック画面にアファメーションを設定する方法",
+        "privacy_level": "SELF_ONLY",
+        "duet": false,
+        "stitch": false,
+        "comment": false,
+        "brand_content_toggle": false,
+        "brand_organic_toggle": false,
+        "video_made_with_ai": false,
+        "content_posting_method": "UPLOAD",
+        "autoAddMusic": "no"
+      }
+    }
+  ]
+}
