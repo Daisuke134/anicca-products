@@ -439,7 +439,7 @@
 "social_name_2" = "ミカ, 34歳";
 "social_tag_2" = "考えすぎる人";
 "social_text_2" = "音声セッションは本当に分かってくれる人と話してる感覚。セラピーだけでは解消できなかった不安が楽になった。";
-"onboarding_nudge_title" = "いつナッジしましょうか？";
+"onboarding_nudge_title" = "いつ言葉を届けましょうか？";
 "onboarding_nudge_subtitle" = "1つ以上選んでください";
 "nudge_morning" = "朝 (9時)";
 "nudge_afternoon" = "午後 (14時)";
@@ -449,7 +449,7 @@
 "medit_few_times" = "数回だけ";
 "medit_regularly" = "定期的にやっている";
 "medit_daily" = "毎日の習慣";
-"onboarding_comparison_stat" = "AIで習慣を管理した人が継続できています。";
+"onboarding_comparison_stat" = "Aniccaで習慣を管理した人が継続できています。";
 "comparison_header_without" = "なし";
 "comparison_header_anicca" = "Anicca";
 "comparison_row_1" = "何を変えるべきか明確になる";

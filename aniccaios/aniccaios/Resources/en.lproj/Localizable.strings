@@ -440,7 +440,7 @@
 "social_name_2" = "Sarah, 34";
 "social_tag_2" = "Anxious overthinker";
 "social_text_2" = "The voice sessions feel like talking to someone who actually gets it. My anxiety dropped in ways therapy alone couldn't crack.";
-"onboarding_nudge_title" = "When should we nudge you?";
+"onboarding_nudge_title" = "When should we notify you?";
 "onboarding_nudge_subtitle" = "Pick at least 1";
 "nudge_morning" = "Morning (9 AM)";
 "nudge_afternoon" = "Afternoon (2 PM)";
@@ -450,7 +450,7 @@
 "medit_few_times" = "A few times";
 "medit_regularly" = "Regularly";
 "medit_daily" = "Daily practice";
-"onboarding_comparison_stat" = "of people who track their habits with AI stick with them.";
+"onboarding_comparison_stat" = "of people who track their habits with Anicca stick with them.";
 "comparison_header_without" = "Without";
 "comparison_header_anicca" = "Anicca";
 "comparison_row_1" = "Clarity on what to change";
