@@ -516,7 +516,7 @@ struct ComparisonTableStepView: View {
         VStack(spacing: 20) {
             Spacer().frame(height: 24)
             VStack(spacing: 8) {
-                Text("76%")
+                Text("96%")
                     .font(.system(size: 64, weight: .bold))
                     .foregroundStyle(AppTheme.Colors.accent)
                 Text(String(localized: "onboarding_comparison_stat"))
