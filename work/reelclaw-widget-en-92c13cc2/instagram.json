@@ -1,28 +1,6 @@
-{
-  "type": "now",
-  "date": "2026-04-21T23:01:22.000Z",
-  "shortLink": false,
-  "tags": [],
-  "posts": [
-    {
-      "integration": {
-        "id": "cmnipef7g00oerm0y3dz4lamx"
-      },
-      "value": [
-        {
-          "content": "こんな言葉が欲しい人は、アニッチャ試してみて\n\n#メンタルヘルス #自己肯定感 #自己嫌悪 #癒し #共感 #仏教 #fyp",
-          "image": [
-            {
-              "id": "c57c7a87-fae6-4783-902d-e759d081524d",
-              "path": "https://uploads.postiz.com/KSfO6PscoQ.mp4"
-            }
-          ]
-        }
-      ],
-      "settings": {
-        "__type": "instagram-standalone",
-        "post_type": "post"
-      }
-    }
-  ]
-}
+[
+  {
+    "postId": "cmoaqyikh00ugmt0yrwdhvdtt",
+    "integration": "cmn8y95rg02d2qx0y09bbk5pb"
+  }
+]
