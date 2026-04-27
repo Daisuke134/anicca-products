@@ -172,3 +172,6 @@ CLAUDE.local.md
 .claude/settings.local.json
 .env.example
 .claude/skills/app-onboarding-questionnaire/
+.claude/skills/aso-skills/
+mobile-apps/rork--ai/
+mobile-apps/rork-lookmax-pro/
