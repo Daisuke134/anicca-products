@@ -1,4 +1,1 @@
-- Corrigido o problema do botão de fechar do paywall
-- Fluxo de integração melhorado com demonstração ao vivo
-- Localização completa em português brasileiro
-- Corrigidos erros de localização que exibiam texto sem tradução
+Anicca agora é Afirmações Diárias — os mesmos nudges gentis, agora apresentados como sua companheira gentil de autocuidado e manifestação com IA.
