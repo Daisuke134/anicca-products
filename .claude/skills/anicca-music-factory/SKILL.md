@@ -77,12 +77,28 @@ Response (finished):
 ```json
 {
   "status": "finished",
-  "audio_url": "https://...mp3",
-  "audio_url2": "https://...mp3",
-  "image_url": "https://...jpg",
-  "video_url": "https://...mp4"
+  "task_type": "suno",
+  "percentage": 100,
+  "songs": [
+    {
+      "song_id": "da7f...",
+      "lyrics": "[Instrumental]",
+      "duration": 179.84,
+      "audio_url": "https://cdn.apiframe.pro/songs/...-1.mp3",
+      "image_url": "https://musicfile.kie.ai/...jpeg"
+    },
+    {
+      "song_id": "bb34...",
+      "lyrics": "[Instrumental]",
+      "duration": 154.92,
+      "audio_url": "https://cdn.apiframe.pro/songs/...-2.mp3",
+      "image_url": "https://musicfile.kie.ai/...jpeg"
+    }
+  ]
 }
 ```
+
+Suno V5 returns 2 variations in `songs[]` array (typical duration: 2:30-3:30 each). For longer tracks (8+ minutes), call the `EXTEND` endpoint with the chosen song_id.
 
 ## Output structure (versioned, never overwrite)
 

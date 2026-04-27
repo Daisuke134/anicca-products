@@ -121,9 +121,14 @@ while [ "$ATTEMPT" -lt "$MAX_ATTEMPTS" ]; do
     echo "    attempt $ATTEMPT/$MAX_ATTEMPTS — status: $STATUS"
 
     if [ "$STATUS" = "finished" ]; then
-        AUDIO_A=$(echo "$FETCH" | jq -r '.audio_url // empty')
-        AUDIO_B=$(echo "$FETCH" | jq -r '.audio_url2 // empty')
-        IMAGE=$(echo "$FETCH"   | jq -r '.image_url // empty')
+        # apiframe returns songs[] array with audio_url + image_url per song
+        AUDIO_A=$(echo "$FETCH" | jq -r '.songs[0].audio_url // empty')
+        AUDIO_B=$(echo "$FETCH" | jq -r '.songs[1].audio_url // empty')
+        IMAGE=$(echo "$FETCH"   | jq -r '.songs[0].image_url // empty')
+        DUR_A=$(echo "$FETCH"   | jq -r '.songs[0].duration // 0')
+        DUR_B=$(echo "$FETCH"   | jq -r '.songs[1].duration // 0')
+        SONG_ID_A=$(echo "$FETCH" | jq -r '.songs[0].song_id // empty')
+        SONG_ID_B=$(echo "$FETCH" | jq -r '.songs[1].song_id // empty')
         break
     fi
 
@@ -167,6 +172,10 @@ jq -n \
     --arg model    "$MODEL" \
     --arg gen_at   "$GENERATED_AT" \
     --arg taskid   "$TASK_ID" \
+    --arg songid_a "${SONG_ID_A:-}" \
+    --arg songid_b "${SONG_ID_B:-}" \
+    --argjson dur_a "${DUR_A:-0}" \
+    --argjson dur_b "${DUR_B:-0}" \
     '{
         persona: $persona,
         persona_slug: $slug,
@@ -177,6 +186,10 @@ jq -n \
         instrumental: true,
         generated_at: $gen_at,
         task_id: $taskid,
+        song_id_a: $songid_a,
+        song_id_b: $songid_b,
+        duration_a_seconds: $dur_a,
+        duration_b_seconds: $dur_b,
         distrokid_uploaded: false,
         spotify_url: null,
         isrc: null,
