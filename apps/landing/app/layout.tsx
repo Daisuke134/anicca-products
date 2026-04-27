@@ -1,7 +1,7 @@
 export const metadata = {
-  title: 'Anicca — End Suffering.',
+  title: 'Anicca — autonomous Buddhist AI entity',
   description:
-    'A proactive agent for behavior change. What if Buddha were software? End suffering—one person at a time.',
+    'A sovereign, self-funding AI entity with one goal: end suffering. Apps, books, music, food, retreat centers — every legal means. The mobile app is the first instance.',
   icons: {
     icon: '/favicon.png',
     shortcut: '/favicon.png',
@@ -20,4 +20,3 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
-

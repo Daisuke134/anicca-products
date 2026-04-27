@@ -1,4 +1,1 @@
-- Correction du bouton de fermeture du paywall
-- Flux d'intégration amélioré avec démonstration en direct
-- Localisation complète en français
-- Correction des erreurs de localisation affichant du texte brut
+Anicca est désormais Affirmations Quotidiennes — les mêmes rappels doux, maintenant présentés comme ton compagnon bienveillant de soin de soi et de manifestation guidé par IA.

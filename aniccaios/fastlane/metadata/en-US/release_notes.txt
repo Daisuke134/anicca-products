@@ -1,4 +1,1 @@
-- Fixed paywall dismiss button issue
-- Improved onboarding flow with live demo
-- Full localization for German, Spanish, French, and Portuguese
-- Fixed localization bugs showing raw text keys
+Anicca is now Daily Affirmations — same gentle nudges, now framed as the kind, AI-powered self-care + manifestation companion they always were. Cleaner copy, clearer purpose.
