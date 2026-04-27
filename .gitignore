@@ -171,3 +171,4 @@ docs/screenshots/processed/
 CLAUDE.local.md
 .claude/settings.local.json
 .env.example
+.claude/skills/app-onboarding-questionnaire/
