@@ -25,8 +25,22 @@ struct aniccaiosApp: App {
                     #endif
                 }
                 .onOpenURL { url in
-                    // Debug deep link for E2E: anicca://debug/pushTap?messageId=<uuid>
                     guard url.scheme == "anicca" else { return }
+
+                    // 4-daily affirmation deep link: anicca://quote/<qid>
+                    if url.host == "quote" {
+                        let qid = url.lastPathComponent
+                        if !qid.isEmpty && qid != "quote" {
+                            NotificationCenter.default.post(
+                                name: .aniccaScrollToQuote,
+                                object: nil,
+                                userInfo: ["quoteId": qid]
+                            )
+                        }
+                        return
+                    }
+
+                    // Debug deep link for E2E: anicca://debug/pushTap?messageId=<uuid>
                     guard url.host == "debug" else { return }
                     guard url.path == "/pushTap" else { return }
                     guard let comps = URLComponents(url: url, resolvingAgainstBaseURL: false),

@@ -1,0 +1,1218 @@
+{
+  "version": "v1",
+  "compiled": "2026-05-13",
+  "evidence_files": [
+    "/tmp/ig-clones/iam_app_6.5-2.png",
+    "/tmp/ig-clones/iam_app_6.5-6.png",
+    "/tmp/ig-clones/iam_app_6.5-7.png",
+    "/tmp/ig-clones/iam_app_6.5-8.png",
+    "/tmp/ig-clones/hero_DIht2HVR3VC_2.jpg",
+    "/tmp/ig-clones/hero_DG37kbmtxdW_2.jpg",
+    "/tmp/ig-clones/hero_ChUXC1KNuTu_2.jpg"
+  ],
+  "rule": "Verbatim copy from established affirmation sources + verified i.am app screenshots. Zero original generation. Per Dais 2026-05-13: 'お前のオリジナルはいらねえよ' / 'コピーするんだよ'.",
+  "en": [
+    {
+      "id": "q001",
+      "text": "Abundance flows freely through me.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q002",
+      "text": "All that I need to know at any given moment is revealed to me. My intuition is always on my side.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q003",
+      "text": "As I forgive myself, it becomes easier to forgive others.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q004",
+      "text": "Every decision I make is the right one for me.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q005",
+      "text": "Every experience I have is perfect for my growth.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q006",
+      "text": "Every person, place, and thing on this planet is interconnected with love. I am at home in the Universe.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q007",
+      "text": "Everything in my life works now and forevermore.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q008",
+      "text": "I accept my power.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q009",
+      "text": "I am a joyful breeze entering a room.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q010",
+      "text": "I am an open channel for creative ideas.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q011",
+      "text": "I am beautiful, and everybody loves me.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q012",
+      "text": "I am grateful for my healthy body. I love life.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q013",
+      "text": "I am in perfect health.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q014",
+      "text": "I am one with the very Power that created me.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q015",
+      "text": "I am pain free and totally in sync with life.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q016",
+      "text": "I am patient, tolerant, and diplomatic.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q017",
+      "text": "I am safe.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q018",
+      "text": "I am surrounded by love.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q019",
+      "text": "I am surrounded by love. All is well.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q020",
+      "text": "I am the only person who has control over my eating habits. I can always resist something if I choose to.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q021",
+      "text": "I am unlimited in my wealth. All areas of my life are abundant and fulfilling.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q022",
+      "text": "I am worth loving. There is love all around me.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q023",
+      "text": "I deserve the best, and I accept it now. All my needs and desires are met before I even ask.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q024",
+      "text": "I draw love and acceptance into my life, and I accept it now.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q025",
+      "text": "I feel glorious, dynamic energy. I am active and alive.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q026",
+      "text": "I feel safe in the rhythm and flow of ever-changing life.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q027",
+      "text": "I flow easily with new experiences, new challenges, and new people who enter my life.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q028",
+      "text": "I forgive everyone in my past for all perceived wrongs. I release them with love.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q029",
+      "text": "I forgive myself and set myself free.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q030",
+      "text": "I go beyond barriers to possibilities.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q031",
+      "text": "I handle my own life with joy and ease.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q032",
+      "text": "I look within to find my treasures.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q033",
+      "text": "I love every cell of my body.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q034",
+      "text": "I now choose to release all hurt and resentment.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q035",
+      "text": "I now free myself from destructive fears and doubts.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q036",
+      "text": "I open my heart and sing the joys of love.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q037",
+      "text": "I rejoice in the love I encounter every day.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q038",
+      "text": "I see my parents as tiny children who need love.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q039",
+      "text": "I take brisk walks in the sunshine to invigorate my body and soul.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q040",
+      "text": "I take in and give out nourishment in perfect balance.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q041",
+      "text": "I want -- it’s an excellent way to attract happiness in my life.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q042",
+      "text": "Life brings me only good experiences. I am open to new and wonderful changes.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q043",
+      "text": "Love is powerful--your love and my love.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q044",
+      "text": "My body takes me everywhere easily and effortlessly.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q045",
+      "text": "My day begins and ends with gratitude and joy.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q046",
+      "text": "My heart is open. I speak with loving words.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q047",
+      "text": "My income is constantly increasing.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q048",
+      "text": "My life is joyously balanced with work and play.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q049",
+      "text": "My mind and body are in perfect balance. I am a harmonious being.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q050",
+      "text": "Nourishing Myself Is A Joyful Experience, And I Am Worth The Time Spent On My Healing.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q051",
+      "text": "This is a new day! I begin anew and claim and create all that is good.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q052",
+      "text": "Today I create a wonderful new day and a wonderful new future.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q053",
+      "text": "Today I listen to my feelings, and I am gentle with myself. I know that all of my feelings are my friends.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q054",
+      "text": "Today is going to be a really, really good day.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q055",
+      "text": "Today is the future I created yesterday.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q056",
+      "text": "We are all family, and the planet is our home.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q057",
+      "text": "Wellness is the natural state of my body. I believe in perfect health.",
+      "source": "Louise Hay",
+      "source_url": "https://www.louisehay.com/affirmations/"
+    },
+    {
+      "id": "q058",
+      "text": "dgh extracted: 100.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q059",
+      "text": "I am avoiding excessive carbs.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q060",
+      "text": "I am a winner.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q061",
+      "text": "I am not afraid to be wrong.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q062",
+      "text": "I am confident in the presence of others.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q063",
+      "text": "I am loved, and I am wanted.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q064",
+      "text": "I am grateful for the things I have.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q065",
+      "text": "I am committed to becoming the person I will become.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q066",
+      "text": "I am my own best chance for success.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q067",
+      "text": "I am constantly improving.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q068",
+      "text": "I am not dependent on anyone else.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q069",
+      "text": "I am happy, healthy, and centered.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q070",
+      "text": "I am content.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q071",
+      "text": "I am unique and a gift to the world.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q072",
+      "text": "I am a positive influence, and I surround myself with others like me.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q073",
+      "text": "I am calm and confident.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q074",
+      "text": "I am worthy of financial stability.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q075",
+      "text": "I am open-minded and willing to explore any path to success.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q076",
+      "text": "I am fully committed to achieving success in my life.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q077",
+      "text": "I am prepared for the challenges of the day.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q078",
+      "text": "I am energized by the thought of a new day.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q079",
+      "text": "I believe I can lose weight.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q080",
+      "text": "I have the power to control my weight through healthy eating and exercise.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q081",
+      "text": "I have faith in my.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q082",
+      "text": "I will speak with confidence and self-assurance.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q083",
+      "text": "I will say “No” when I do not have the time or inclination to act.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q084",
+      "text": "I dare to be different.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q085",
+      "text": "I do not need other people for happiness.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q086",
+      "text": "I choose hope over fear.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q087",
+      "text": "I will not take other people's negativity personally.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q088",
+      "text": "I am a diamond. It is time for me to shine.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q089",
+      "text": "I am a magnet for love.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q090",
+      "text": "I will stop apologizing for being myself.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q091",
+      "text": "I do not bow to my fears.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q092",
+      "text": "I will achieve all of my goals.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q093",
+      "text": "I set clear goals and work to complete them every day.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q094",
+      "text": "I have a plan of action to achieve my desires.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q095",
+      "text": "I only set goals that matter.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q096",
+      "text": "I will master distractions and keep my focus on my goals.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q097",
+      "text": "I must rely upon myself.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q098",
+      "text": "I will accept nothing but the best.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q099",
+      "text": "I desire to learn new things.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    },
+    {
+      "id": "q100",
+      "text": "I have a growth mindset.",
+      "source": "Develop Good Habits",
+      "source_url": "https://www.developgoodhabits.com/positive-affirmations/"
+    }
+  ],
+  "ja": [
+    {
+      "id": "q001",
+      "text": "私は今のままで充分です。",
+      "source": "i.am app (App Store screenshot 6.5-2/6.5-6/6.5-7/6.5-8)",
+      "source_url": "https://apps.apple.com/jp/app/i-am-positive-affirmations/id874656917"
+    },
+    {
+      "id": "q002",
+      "text": "私には美しい心と魂があります。",
+      "source": "i.am app (App Store screenshot 6.5-2/6.5-6/6.5-7/6.5-8)",
+      "source_url": "https://apps.apple.com/jp/app/i-am-positive-affirmations/id874656917"
+    },
+    {
+      "id": "q003",
+      "text": "物事は必要な形でうまくいく。",
+      "source": "i.am app (App Store screenshot 6.5-2/6.5-6/6.5-7/6.5-8)",
+      "source_url": "https://apps.apple.com/jp/app/i-am-positive-affirmations/id874656917"
+    },
+    {
+      "id": "q004",
+      "text": "私は、なりつつある自分にわくわくしている。",
+      "source": "i.am app (App Store screenshot 6.5-2/6.5-6/6.5-7/6.5-8)",
+      "source_url": "https://apps.apple.com/jp/app/i-am-positive-affirmations/id874656917"
+    },
+    {
+      "id": "q005",
+      "text": "私は愛と尊重を受けるに値する。",
+      "source": "i.am app (App Store screenshot 6.5-2/6.5-6/6.5-7/6.5-8)",
+      "source_url": "https://apps.apple.com/jp/app/i-am-positive-affirmations/id874656917"
+    },
+    {
+      "id": "q006",
+      "text": "私は毎日、豊かになっています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q007",
+      "text": "私は毎日、どんどん幸せになっていきます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q008",
+      "text": "私は自分の感情をすべて受け入れます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q009",
+      "text": "私は人生を思うように生きています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q010",
+      "text": "私はいつも明るく笑顔です。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q011",
+      "text": "私はなんて幸せなんだろう。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q012",
+      "text": "私は幸せ者です。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q013",
+      "text": "私は毎日、あらゆる点でよくなっています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q014",
+      "text": "私は必要なものを、すべて持っています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q015",
+      "text": "私は自分に自信を持っている。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q016",
+      "text": "私は人を許せる。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q017",
+      "text": "私はチャンスに恵まれている。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q018",
+      "text": "私は日々、あらゆる面でよくなりつつある。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q019",
+      "text": "私はいつでも愛を感じています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q020",
+      "text": "私はチャンスに愛されています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q021",
+      "text": "私は今現在、余りにも幸せで感謝しています。人生の良きもの全てを受け取っています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q022",
+      "text": "私は宇宙の力を信じています。宇宙が人生に与えてくれるもの全てを受け入れます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q023",
+      "text": "私は運がいい。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q024",
+      "text": "私はありのままの自分を受け入れ、愛しています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q025",
+      "text": "私は全ての出来事をチャンスに変える事ができます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q026",
+      "text": "私は、豊かに成長し続けています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q027",
+      "text": "私は常に成功している。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q028",
+      "text": "私はいつも明るくほがらかです。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q029",
+      "text": "私はいつも堂々としている。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q030",
+      "text": "私は心がオープンです、ありがとうございます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q031",
+      "text": "私は人を許すことができます、ありがとうございます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q032",
+      "text": "私は自分の能力を信じています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q033",
+      "text": "私は日々進歩し、才能が拡大しています。そのことを誇らしく思っています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q034",
+      "text": "私は私に必要なものをすべて持っています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q035",
+      "text": "私は毎日感動しています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q036",
+      "text": "私は毎日ワクワク過ごしている。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q037",
+      "text": "私はいつもリラックス、いつも笑顔です。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q038",
+      "text": "私は影響力を持っていて、とても貴重な存在である。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q039",
+      "text": "私はいつもうまくやれる。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q040",
+      "text": "私は大きな人間であり、もっと多くのことができる。もっと多くを手にすることができる。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q041",
+      "text": "私はやさしい心で満たされた心豊かな毎日を心地よくすごしている。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q042",
+      "text": "私は自分の人生に、生まれてきたことに感謝し満足している。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q043",
+      "text": "私はこの世のものでも見えない世界のものでも、自分と調和した物事を引き寄せることを望む。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q044",
+      "text": "私は毎日、たくさんの知識を吸収し発展していく自分が誇らしいです。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q045",
+      "text": "私は見えない世界の事柄の基盤は純粋で前向きなエネルギーであることを理解している。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q046",
+      "text": "私は成長したいと願う存在であり、成長と拡大が自然であるばかりでなく不可避であることがとても楽しい。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q047",
+      "text": "私はありあまる富を手に入れました、ありがとうございます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q048",
+      "text": "私は余りあるほどのお金を持っています、ありがとうございます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q049",
+      "text": "私はお金が大好きで、お金も私が大好きです。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q050",
+      "text": "私はお金を引き寄せる磁石です。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q051",
+      "text": "私はいつもお金には余裕があります。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q052",
+      "text": "私は欲しい物は何でも買う余裕があります。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q053",
+      "text": "私は高い報酬を得ています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q054",
+      "text": "私は人生で出会うすべてのお金に感謝します。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q055",
+      "text": "私はいつも十二分なお金を持っています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q056",
+      "text": "私は自分の収入が無限であると知っています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q057",
+      "text": "私はお金に価値があることを理解しています。お金は自由をもたらします。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q058",
+      "text": "私はお金を手にすると喜びを感じます。私はお金も心もすべてはエネルギーであることを理解しています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q059",
+      "text": "私は豊かさは無限であることを知っています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q060",
+      "text": "私は豊かさを手にする価値があることを確信しています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q061",
+      "text": "私は自分の利益と、私の心の富に感謝します。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q062",
+      "text": "私はお金持ちに相応しい人間です。私にはお金持ちになる権利があります。お金持ちになる運命にあります。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q063",
+      "text": "私は遊んでいてもお金持ちになれる運命です。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q064",
+      "text": "私はお金が大好きで、お金にいつも感謝しています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q065",
+      "text": "私はお金を手に入れて、豊かさと繁栄を楽しんでいます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q066",
+      "text": "私は遊んでいてもお金が舞い込んでくる。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q067",
+      "text": "私は経済的な繁栄を望む。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q068",
+      "text": "私は好きなことをしているだけで、たくさんのお金が入ってきます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q069",
+      "text": "私はお金に愛され、お金も私を愛しています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q070",
+      "text": "私は大好きなことを仕事にしていて、一緒に働いてくれている仲間たちに日々感謝しています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q071",
+      "text": "私は自分の大好きな仕事で世の中に大きな価値を提供していることを誇らしく思い、感謝しています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q072",
+      "text": "私は常に進歩していて、ますます大きな喜びと価値を社会に提供している。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q073",
+      "text": "私は仕事とお金に関連がないことを理解していて、私が何をしていようとお金は勝手に流れ込んでくる。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q074",
+      "text": "私はお金を自由に使い、ワクワクしてとても楽しい充実した毎日を送っている。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q075",
+      "text": "私はお金が自分を気分よくさせてくれるものだということを知っている。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q076",
+      "text": "私はお金を完璧に支配していて、お金が私のところに最大限に流れ込んでくる方法を知っている。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q077",
+      "text": "私はずっと愛せる人と出会って、幸せに暮らしています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q078",
+      "text": "私は魅力がさらに増し、私にぴったりの素敵な人と出会いました。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q079",
+      "text": "私は異性と楽しく過ごし、愛されるに相応しい存在です。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q080",
+      "text": "私は異性から無条件にチヤホヤされる魅力的な女性(男性)です。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q081",
+      "text": "私は理想の恋人に出会いました、ありがとうございます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q082",
+      "text": "私はなぜか分かりませんが、ひたすらにモテます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q083",
+      "text": "私は生まれつきモテます、ありがとうございます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q084",
+      "text": "私は幸せを引き寄せる体質なので、この恋愛もどんどん発展しています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q085",
+      "text": "私は一生を共にしたいと思える、かけがえのない人に出会って本当に幸せです。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q086",
+      "text": "私は私らしくいる今がもっとも魅力的で、私でいることで誰からも愛される。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q087",
+      "text": "私はとてもステキな人たちに囲まれて暮らしていて、毎日が幸せです。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q088",
+      "text": "私は魅力的な人間です。みんなから好かれていて、毎日楽しく笑顔で過ごしています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q089",
+      "text": "私は最高の仲間に囲まれていてとても幸せです、ありがとうございます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q090",
+      "text": "私は一流の人財に囲まれています、ありがとうございます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q091",
+      "text": "私は協力的で心温かい常識のある隣人に恵まれています。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q092",
+      "text": "私はよい人脈に恵まれている。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q093",
+      "text": "私はみんなから愛されています、ありがとうございます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q094",
+      "text": "私は誰からも愛されています、ありがとうございます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q095",
+      "text": "私は誰からも信頼されています、ありがとうございます。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q096",
+      "text": "私はどんな人も受け入れることができる大きな器の人間である。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q097",
+      "text": "私は今日も世界にポジティブな変化を起こす、そしてそんな仲間がどんどん集まってくる。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q098",
+      "text": "私は無条件で、暖かい尊敬の念を全ての人に対してもっている。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q099",
+      "text": "私は心からの感謝の念を日々周囲に伝えている。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    },
+    {
+      "id": "q100",
+      "text": "私は愛し、愛されている。",
+      "source": "玉野湖太 (note.com)",
+      "source_url": "https://note.com/tamano_tora/n/nbba06689facf"
+    }
+  ]
+}

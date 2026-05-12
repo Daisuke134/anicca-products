@@ -42,11 +42,10 @@ struct PaywallVariantBView: View {
     }
 
     private var hasTrialEligibility: Bool {
-        // Both weekly.b and yearly.b have a 3-day FREE_TRIAL configured in App Store Connect.
-        // We don't gate on storeProduct.introductoryDiscount because StoreKit on simulator
-        // (without a .storekit configuration file or sandbox sign-in) returns nil for it.
-        guard let pkg = selectedPackage else { return false }
-        return pkg.packageType == .annual || pkg.packageType == .weekly
+        // 2026-05-13 Dais directive: revert free trial. The 3-day trial copy never converged
+        // and disappointed users every time. Locked off here; both weekly.b and yearly.b now
+        // render the _no_trial copy ("Start my journey" + no "3 DAYS FREE" badge).
+        return false
     }
 
     var body: some View {

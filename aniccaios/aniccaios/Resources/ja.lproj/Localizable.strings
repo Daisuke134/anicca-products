@@ -2685,3 +2685,26 @@
 
 // MARK: - Widget
 "widget_description" = "毎日届く、あなたへの言葉";
+
+// MARK: - iAm Feed (2026-05-13 redesign)
+"settings_title" = "設定";
+"settings_theme" = "テーマ";
+"settings_notifications" = "通知";
+"settings_liked_quotes" = "お気に入り";
+"settings_subscription" = "サブスクリプション";
+"settings_subscription_placeholder" = "サブスクリプション管理は App Store で。";
+"settings_sign_out" = "サインアウト";
+"common_done" = "完了";
+"liked_empty_title" = "まだお気に入りはありません";
+"liked_empty_subtitle" = "♡ をタップしてアファメーションを保存。";
+"notifications_daily_count" = "1日の回数";
+"notifications_schedule_label" = "08:00 / 12:30 / 17:30 / 21:30";
+"notifications_footer" = "1日4回のアファメーション。通知タップでそのアファメーションが直接開きます。";
+"theme_silk_dusk" = "シルク・ダスク";
+"theme_sand_wave" = "サンド・ウェーブ";
+"theme_ocean_sunset" = "オーシャン・サンセット";
+"theme_midnight_dusk" = "ミッドナイト・ダスク";
+"theme_linen_cream" = "リネン・クリーム";
+"theme_sage_mist" = "セージ・ミスト";
+"theme_sky_dawn" = "スカイ・ドーン";
+"theme_rose_petal" = "ローズ・ペタル";
