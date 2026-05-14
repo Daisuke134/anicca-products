@@ -47,9 +47,6 @@ struct OnboardingFlowView: View {
             PaywallFlowContainer(
                 onPurchaseSuccess: { customerInfo in
                     handlePaywallSuccess(customerInfo: customerInfo)
-                },
-                onDismiss: {
-                    handlePaywallDismiss()
                 }
             )
             .interactiveDismissDisabled(true)

@@ -49,31 +49,18 @@ struct PaywallVariantBView: View {
     }
 
     var body: some View {
-        ZStack(alignment: .topTrailing) {
-            VStack(spacing: 12) {
-                heroSection
-                featureList
+        VStack(spacing: 12) {
+            heroSection
+            featureList
 
-                if packages.isEmpty {
-                    ProgressView()
-                        .padding(.top, 40)
-                    Spacer()
-                } else {
-                    planCards
-                    ctaSection
-                }
+            if packages.isEmpty {
+                ProgressView()
+                    .padding(.top, 40)
+                Spacer()
+            } else {
+                planCards
+                ctaSection
             }
-
-            Button(action: onDismiss) {
-                Image(systemName: "xmark")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundStyle(AppTheme.Colors.label.opacity(0.7))
-                    .frame(width: 32, height: 32)
-                    .background(.ultraThinMaterial, in: Circle())
-            }
-            .padding(.top, 12)
-            .padding(.trailing, 16)
-            .accessibilityIdentifier("paywall-close")
         }
         .background(AppBackground())
         .onAppear {
@@ -135,15 +122,6 @@ struct PaywallVariantBView: View {
                         dailyPriceLabel: dailyPrice.map {
                             String(format: NSLocalizedString("paywall_b_daily_price", comment: ""), $0)
                         }
-                    )
-                }
-
-                if let monthly = monthlyPackage {
-                    planCard(
-                        package: monthly,
-                        priceLabel: monthly.localizedPriceString + String(localized: "paywall_b_per_month"),
-                        badge: trialBadge(for: monthly),
-                        dailyPriceLabel: nil
                     )
                 }
 
