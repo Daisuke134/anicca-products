@@ -46,7 +46,7 @@ final class ThemeStore: ObservableObject {
            let id = ThemeID(rawValue: raw) {
             self.selected = id
         } else {
-            self.selected = .silkDusk
+            self.selected = .sageMist
         }
     }
 
