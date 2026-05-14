@@ -702,10 +702,11 @@ struct PaywallValueTimelineStepView: View {
     }
 }
 
-// MARK: - Paywall Flow Container (Hard Paywall — no dismiss)
+// MARK: - Paywall Flow Container (Soft Paywall — X dismisses to main)
 
 struct PaywallFlowContainer: View {
     let onPurchaseSuccess: (CustomerInfo) -> Void
+    let onDismiss: () -> Void
     @State private var step: PaywallStep = .primer
     @EnvironmentObject private var appState: AppState
 
@@ -719,7 +720,7 @@ struct PaywallFlowContainer: View {
                 PaywallVariantBView(
                     variant: "b",
                     onPurchaseSuccess: onPurchaseSuccess,
-                    onDismiss: { /* hard paywall: no-op */ }
+                    onDismiss: onDismiss
                 )
             }
 

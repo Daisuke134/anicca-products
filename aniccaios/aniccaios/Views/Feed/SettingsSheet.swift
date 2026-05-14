@@ -1,5 +1,7 @@
 import SwiftUI
 import Combine
+import RevenueCat
+import RevenueCatUI
 
 /// ↓ pull-down sheet from FeedRootView.
 /// 1mm clone of i.am app settings (modal sheet with categories: Theme / Notifications / Saved / Liked / Subscription / Account / Sign out).
@@ -49,8 +51,9 @@ struct SettingsSheet: View {
 
             Section {
                 NavigationLink {
-                    Text(String(localized: "settings_subscription_placeholder"))
-                        .padding()
+                    RevenueCatUI.CustomerCenterView()
+                        .navigationTitle(String(localized: "settings_subscription"))
+                        .navigationBarTitleDisplayMode(.inline)
                 } label: {
                     Label(String(localized: "settings_subscription"), systemImage: "creditcard")
                 }

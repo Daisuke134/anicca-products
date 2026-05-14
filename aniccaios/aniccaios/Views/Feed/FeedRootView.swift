@@ -3,9 +3,8 @@ import Combine
 import UIKit
 
 /// Anicca app root: full-bleed vertical paging feed.
-/// Background = single theme image shared across ALL 100 quotes. Swiping changes the quote text only.
-/// User changes the background via Settings sheet (pull-down) → Theme picker.
-/// 1:1 clone of i.am app / mantra.app pattern.
+/// Background = single theme image shared across ALL quotes. Swiping changes the quote text only.
+/// Top chrome (hamburger + settings) is locked in place, never moves on swipe.
 struct FeedRootView: View {
     @StateObject private var themeStore = ThemeStore()
     @StateObject private var likedStore = LikedQuotesStore()
@@ -14,31 +13,37 @@ struct FeedRootView: View {
     @State private var showSettings = false
 
     var body: some View {
-        ZStack {
-            // SHARED background (does NOT change across swipes).
-            themeStore.image
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-                .accessibilityHidden(true)
+        GeometryReader { geo in
+            ZStack(alignment: .top) {
+                // SHARED background (does NOT change across swipes).
+                themeStore.image
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: geo.size.width, height: geo.size.height + geo.safeAreaInsets.top + geo.safeAreaInsets.bottom)
+                    .ignoresSafeArea()
+                    .accessibilityHidden(true)
 
-            // Vertical paging via TabView (.page) + 90° rotation hack (works on iOS 15+).
-            GeometryReader { geo in
-                TabView(selection: $currentIndex) {
-                    ForEach(quotes.indices, id: \.self) { idx in
-                        QuoteCardView(quote: quotes[idx])
-                            .rotationEffect(.degrees(-90))
-                            .frame(width: geo.size.height, height: geo.size.width)
-                            .tag(idx)
+                // Vertical paging — each page is forced to screen width.
+                VerticalPager(count: quotes.count, currentIndex: $currentIndex) { idx in
+                    QuoteCardView(quote: quotes[idx], pageWidth: geo.size.width)
+                        .frame(width: geo.size.width, height: geo.size.height)
+                        .environmentObject(themeStore)
+                        .environmentObject(likedStore)
+                }
+                .frame(width: geo.size.width, height: geo.size.height)
+                .accessibilityIdentifier("feed-scroll")
+
+                // Top chrome — single settings button pinned top-right.
+                HStack {
+                    Spacer()
+                    chromeButton(systemName: "slider.horizontal.3", identifier: "feed-settings") {
+                        showSettings = true
                     }
                 }
-                .frame(width: geo.size.height, height: geo.size.width)
-                .rotationEffect(.degrees(90), anchor: .topLeading)
-                .offset(x: geo.size.width)
-                .tabViewStyle(.page(indexDisplayMode: .never))
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
+                .zIndex(10)
             }
-            .ignoresSafeArea()
-            .accessibilityIdentifier("feed-scroll")
         }
         .environmentObject(themeStore)
         .environmentObject(likedStore)
@@ -47,15 +52,6 @@ struct FeedRootView: View {
                 quotes = QuoteProvider.shared.all()
             }
         }
-        // Pull-down from top opens Settings.
-        .simultaneousGesture(
-            DragGesture(minimumDistance: 40, coordinateSpace: .global)
-                .onEnded { g in
-                    if g.startLocation.y < 80 && g.translation.height > 120 {
-                        showSettings = true
-                    }
-                }
-        )
         .sheet(isPresented: $showSettings) {
             if #available(iOS 16.0, *) {
                 NavigationStack {
@@ -80,6 +76,27 @@ struct FeedRootView: View {
                 withAnimation { currentIndex = idx }
             }
         }
+    }
+
+    @ViewBuilder
+    private func chromeButton(systemName: String, identifier: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Image(systemName: systemName)
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundStyle(.white)
+                .frame(width: 40, height: 40)
+                .background(
+                    Circle()
+                        .fill(.black.opacity(0.45))
+                )
+                .overlay(
+                    Circle()
+                        .stroke(.white.opacity(0.25), lineWidth: 0.5)
+                )
+                .contentShape(Circle())
+                .shadow(color: .black.opacity(0.4), radius: 8, y: 2)
+        }
+        .accessibilityIdentifier(identifier)
     }
 }
 

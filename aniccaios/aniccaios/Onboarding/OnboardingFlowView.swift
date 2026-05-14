@@ -47,6 +47,9 @@ struct OnboardingFlowView: View {
             PaywallFlowContainer(
                 onPurchaseSuccess: { customerInfo in
                     handlePaywallSuccess(customerInfo: customerInfo)
+                },
+                onDismiss: {
+                    handlePaywallDismiss()
                 }
             )
             .interactiveDismissDisabled(true)
@@ -109,6 +112,17 @@ struct OnboardingFlowView: View {
     private func handlePaywallSuccess(customerInfo: CustomerInfo) {
         didPurchaseOnPaywall = true
         appState.updateSubscriptionInfo(from: customerInfo)
+        appState.markOnboardingComplete()
+        showPaywall = false
+        Task {
+            let mapped = StrugglesStepView.mappedProblems(from: appState.userProfile.struggles)
+            await ProblemNotificationScheduler.shared
+                .scheduleNotifications(for: mapped)
+        }
+    }
+
+    private func handlePaywallDismiss() {
+        AnalyticsManager.shared.track(.onboardingPaywallDismissedFree)
         appState.markOnboardingComplete()
         showPaywall = false
         Task {

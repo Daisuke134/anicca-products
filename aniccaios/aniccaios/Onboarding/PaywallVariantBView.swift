@@ -49,18 +49,31 @@ struct PaywallVariantBView: View {
     }
 
     var body: some View {
-        VStack(spacing: 12) {
-            heroSection
-            featureList
+        ZStack(alignment: .topTrailing) {
+            VStack(spacing: 12) {
+                heroSection
+                featureList
 
-            if packages.isEmpty {
-                ProgressView()
-                    .padding(.top, 40)
-                Spacer()
-            } else {
-                planCards
-                ctaSection
+                if packages.isEmpty {
+                    ProgressView()
+                        .padding(.top, 40)
+                    Spacer()
+                } else {
+                    planCards
+                    ctaSection
+                }
             }
+
+            Button(action: onDismiss) {
+                Image(systemName: "xmark")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(AppTheme.Colors.label.opacity(0.7))
+                    .frame(width: 32, height: 32)
+                    .background(.ultraThinMaterial, in: Circle())
+            }
+            .padding(.top, 12)
+            .padding(.trailing, 16)
+            .accessibilityIdentifier("paywall-close")
         }
         .background(AppBackground())
         .onAppear {
@@ -149,6 +162,7 @@ struct PaywallVariantBView: View {
     }
 
     private func trialBadge(for package: Package) -> String? {
+        guard hasTrialEligibility else { return nil }
         guard package.packageType == .annual || package.packageType == .weekly else { return nil }
         return String(localized: "paywall_b_trial_badge")
     }
