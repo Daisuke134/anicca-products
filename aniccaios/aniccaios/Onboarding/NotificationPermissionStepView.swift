@@ -98,7 +98,8 @@ struct NotificationPermissionStepView: View {
                 isRequesting = false
                 hasAttemptedPermission = true
                 if granted {
-                    UIApplication.shared.registerForRemoteNotifications()
+                    // v1.8.7: notifications are local-only; no APNs registration.
+                    Task { await AffirmationNotificationScheduler.shared.reschedule() }
                 }
                 next()
             }

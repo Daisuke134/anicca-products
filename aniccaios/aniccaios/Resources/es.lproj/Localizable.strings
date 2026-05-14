@@ -1316,13 +1316,13 @@
 "paywall_plan_privacy" = "Privacidad";
 
 // MARK: - Paywall Variant B (A/B Test)
-"paywall_b_title" = "Palabras que llegan cuando más las necesitas";
-"paywall_b_subtitle" = "Tarjetas diarias para ayudarte con tus dificultades";
-"paywall_b_feature_nudges" = "Recordatorios en el momento justo";
-"paywall_b_feature_ai" = "Guía personalizada generada por IA";
-"paywall_b_feature_personalized" = "Se adapta a tus dificultades únicas";
-"paywall_b_feature_feedback" = "Aprende de tus comentarios";
-"paywall_b_feature_cancel" = "Cancela cuando quieras, sin preguntas";
+"paywall_b_title" = "Mente serena.\nCada día.";
+"paywall_b_subtitle" = "100 afirmaciones en 6 temas. Entregadas con calma.";
+"paywall_b_feature_nudges" = "De 1 a 4 recordatorios al día, a tu ritmo";
+"paywall_b_feature_ai" = "8 fondos hechos a mano";
+"paywall_b_feature_personalized" = "Imágenes para compartir sin marca";
+"paywall_b_feature_feedback" = "Sin anuncios. Nunca.";
+"paywall_b_feature_cancel" = "Cancela cuando quieras";
 "paywall_b_per_year" = "/año";
 "paywall_b_per_month" = "/mes";
 "paywall_b_per_week" = "/semana";
@@ -1330,7 +1330,7 @@
 "paywall_b_cta_no_trial" = "Comienza tu viaje ahora";
 "paywall_b_cta_trial" = "Comenzar gratis";
 "paywall_b_review" = "\"Anicca me ayudó a ser más amable conmigo.\"";
-"paywall_b_trust_no_trial" = "Cancela cuando quieras · Satisfacción garantizada";
+"paywall_b_trust_no_trial" = "Cancela cuando quieras · Sin anuncios";
 "paywall_b_trust_trial" = "3 días gratis, luego %@ · Cancela cuando quieras";
 "paywall_b_trial_badge" = "3 DÍAS GRATIS";
 

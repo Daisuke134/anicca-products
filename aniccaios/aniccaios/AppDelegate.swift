@@ -63,29 +63,30 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         }
 
         Task {
-            // APNs token registration is idempotent and may be delayed by iOS.
-            // Best-effort: if the user has already granted notification authorization, always (re)register
-            // on launch so token registration can recover without extra user actions.
-            let authorized = await NotificationScheduler.shared.isAuthorizedForAlerts()
-            if authorized {
-                await MainActor.run { UIApplication.shared.registerForRemoteNotifications() }
-            }
+            // v1.8.7: notifications are local-only. Run legacy purge once on upgrade
+            // so existing 1.8.6 users stop receiving Railway problem-nudge push.
+            await migrateLegacyPushIfNeeded()
             await SubscriptionManager.shared.refreshOfferings()
             await AuthHealthCheck.shared.warmBackend()
+            await AffirmationNotificationScheduler.shared.reschedule()
         }
         return true
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // v1.6.2: poll worker-sent nudges and schedule them locally (best-effort).
-        Task { await ServerNudgeInboxService.shared.pullAndScheduleIfAuthorized() }
-        // Best-effort: recover APNs token registration if it was delayed on first run.
-        Task {
-            let authorized = await NotificationScheduler.shared.isAuthorizedForAlerts()
-            if authorized {
-                await MainActor.run { UIApplication.shared.registerForRemoteNotifications() }
-            }
-        }
+        // v1.8.7: re-schedule local affirmation notifications on every foreground.
+        Task { await AffirmationNotificationScheduler.shared.reschedule() }
+    }
+
+    /// One-shot migration: drop APNs token from Railway, unregister at iOS, purge
+    /// any pending legacy notification requests still in the iOS DB. Idempotent.
+    private func migrateLegacyPushIfNeeded() async {
+        let key = "anicca.v187.legacyPushPurge"
+        if UserDefaults.standard.bool(forKey: key) { return }
+        await MainActor.run { UIApplication.shared.unregisterForRemoteNotifications() }
+        await PushTokenService.shared.markUnregistered()
+        await AffirmationNotificationScheduler.shared.purgeLegacyNotifications()
+        UserDefaults.standard.set(true, forKey: key)
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
@@ -104,8 +105,26 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         let content = response.notification.request.content
         let userInfo = content.userInfo
 
-        // v1.6.3: APNs-delivered Problem Nudge (remote push)
-        if let messageId = userInfo["messageId"] as? String, !messageId.isEmpty,
+        // v1.8.7: Affirmation quote tap → scroll Feed to that quote
+        if let quoteId = userInfo["quoteId"] as? String, !quoteId.isEmpty {
+            NotificationCenter.default.post(
+                name: .aniccaScrollToQuote,
+                object: nil,
+                userInfo: ["quoteId": quoteId]
+            )
+            return
+        }
+
+        // v1.8.7: legacy Problem Nudge push is no longer surfaced. Migration purge
+        // unregistered our token; any straggler push from Railway is ignored here.
+        if let messageId = userInfo["messageId"] as? String, !messageId.isEmpty {
+            _ = messageId
+            return
+        }
+
+        // v1.6.3: (LEGACY, dead code retained for ProblemType reference)
+        if false,
+           let messageId = userInfo["messageId"] as? String, !messageId.isEmpty,
            let problemRaw = userInfo["problemType"] as? String,
            let problem = ProblemType(rawValue: problemRaw) {
             switch identifier {

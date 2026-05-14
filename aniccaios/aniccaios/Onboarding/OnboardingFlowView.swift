@@ -99,9 +99,7 @@ struct OnboardingFlowView: View {
 
     private func completeOnboardingForExistingPro() {
         Task {
-            let mapped = StrugglesStepView.mappedProblems(from: appState.userProfile.struggles)
-            await ProblemNotificationScheduler.shared
-                .scheduleNotifications(for: mapped)
+            await AffirmationNotificationScheduler.shared.reschedule()
             appState.markOnboardingComplete()
         }
     }
@@ -112,20 +110,7 @@ struct OnboardingFlowView: View {
         appState.markOnboardingComplete()
         showPaywall = false
         Task {
-            let mapped = StrugglesStepView.mappedProblems(from: appState.userProfile.struggles)
-            await ProblemNotificationScheduler.shared
-                .scheduleNotifications(for: mapped)
-        }
-    }
-
-    private func handlePaywallDismiss() {
-        AnalyticsManager.shared.track(.onboardingPaywallDismissedFree)
-        appState.markOnboardingComplete()
-        showPaywall = false
-        Task {
-            let mapped = StrugglesStepView.mappedProblems(from: appState.userProfile.struggles)
-            await ProblemNotificationScheduler.shared
-                .scheduleNotifications(for: mapped)
+            await AffirmationNotificationScheduler.shared.reschedule()
         }
     }
 }

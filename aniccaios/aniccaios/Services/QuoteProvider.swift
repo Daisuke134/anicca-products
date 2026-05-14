@@ -16,7 +16,43 @@ final class QuoteProvider {
     func all(preferredLanguage: LanguagePreference = LanguagePreference.detectDefault()) -> [Quote] {
         switch preferredLanguage {
         case .ja: return Self.ja
-        case .en, .de, .fr, .es, .ptBR: return Self.en
+        case .es: return Self.es
+        case .en, .de, .fr, .ptBR: return Self.en
+        }
+    }
+
+    /// Per-device seeded shuffle for notification rotation.
+    /// Returns N quote IDs for the given day, drawn from a deterministic shuffle of the pool
+    /// that depends on `installSeed` (unique per device) and the 60-day cycle index.
+    /// Guarantees no repeat within a 60-day cycle, different order per device, and
+    /// re-shuffle at each cycle boundary.
+    func notificationIds(
+        forDate date: Date,
+        count: Int,
+        installSeed: UInt64,
+        preferredLanguage: LanguagePreference = LanguagePreference.detectDefault(),
+        calendar: Calendar = .current
+    ) -> [String] {
+        let pool = all(preferredLanguage: preferredLanguage)
+        guard !pool.isEmpty, count > 0 else { return [] }
+
+        let installEpochDays = installSeed % UInt64(max(pool.count, 1))
+        let dayNumber: Int = {
+            let ref = Date(timeIntervalSince1970: 0)
+            let comps = calendar.dateComponents([.day], from: ref, to: date)
+            return comps.day ?? 0
+        }()
+        let cycle = UInt64(max(dayNumber, 0)) / UInt64(pool.count)
+        let cycleSeed = installSeed ^ (cycle &* 2654435761)
+        var generator = SplitMix64(seed: cycleSeed)
+        var shuffled = pool
+        for i in stride(from: shuffled.count - 1, to: 0, by: -1) {
+            let j = Int(generator.next() % UInt64(i + 1))
+            shuffled.swapAt(i, j)
+        }
+        let dayInCycle = Int((UInt64(max(dayNumber, 0)) + installEpochDays) % UInt64(pool.count))
+        return (0..<count).map { slot in
+            shuffled[(dayInCycle * count + slot) % shuffled.count].id
         }
     }
 
@@ -192,6 +228,93 @@ final class QuoteProvider {
         Quote(id: "q059", text: "私は、数えられないものを、たくさん持っています。"),
         Quote(id: "q060", text: "私は、ある全てと、ある自分に、深く感謝しています。"),
     ]
+
+    private static let es: [Quote] = [
+        // Becoming / convertirse
+        Quote(id: "q001", text: "Me estoy convirtiendo en quien estoy destinado a ser."),
+        Quote(id: "q002", text: "Crezco, aprendo y me abro un poco más cada día."),
+        Quote(id: "q003", text: "Cada respiración me acerca a mi yo verdadero."),
+        Quote(id: "q004", text: "Aprendo en silencio de cada experiencia."),
+        Quote(id: "q005", text: "Confío en el ritmo de mi propio crecimiento."),
+        Quote(id: "q006", text: "Suelto quien fui para recibir quien soy."),
+        Quote(id: "q007", text: "Estoy exactamente donde necesito estar."),
+        Quote(id: "q008", text: "Vivo una vida con sentido, sin prisa."),
+        Quote(id: "q009", text: "Me abro a la próxima versión de mí mismo."),
+        Quote(id: "q010", text: "Cada día camino con un propósito tranquilo."),
+
+        // Love / amor
+        Quote(id: "q011", text: "Soy profundamente amado."),
+        Quote(id: "q012", text: "Estoy rodeado de amor en todas direcciones."),
+        Quote(id: "q013", text: "Merezco el amor que doy y el que recibo."),
+        Quote(id: "q014", text: "El amor fluye a través de mí con suavidad."),
+        Quote(id: "q015", text: "Siempre puedo sentir el amor que me rodea."),
+        Quote(id: "q016", text: "Algo más grande que mi miedo me sostiene."),
+        Quote(id: "q017", text: "Mi corazón está abierto a este momento y a esta vida."),
+        Quote(id: "q018", text: "Me amo lo suficiente para elegir lo verdadero."),
+        Quote(id: "q019", text: "Veo amor en los pequeños rincones de mi día."),
+        Quote(id: "q020", text: "Soy amado, y me permito sentirlo."),
+
+        // Peace / paz
+        Quote(id: "q021", text: "Estoy en paz con donde estoy y hacia dónde voy."),
+        Quote(id: "q022", text: "Llevo dentro un silencio al que siempre puedo volver."),
+        Quote(id: "q023", text: "En este instante, en esta respiración, estoy a salvo."),
+        Quote(id: "q024", text: "El silencio es mi hogar."),
+        Quote(id: "q025", text: "Mi centro permanece tranquilo aunque el mundo grite."),
+        Quote(id: "q026", text: "Descanso en el espacio entre mis pensamientos."),
+        Quote(id: "q027", text: "No tengo que arreglarlo todo. Puedo descansar."),
+        Quote(id: "q028", text: "Inhalo calma. Exhalo tensión."),
+        Quote(id: "q029", text: "Soy amable conmigo, especialmente los días difíciles."),
+        Quote(id: "q030", text: "Soy lo bastante suave para doblarme, lo bastante fuerte para quedarme."),
+
+        // Presence / presencia
+        Quote(id: "q031", text: "Aquí estoy, ahora. Es suficiente."),
+        Quote(id: "q032", text: "Esta respiración basta. Este momento basta."),
+        Quote(id: "q033", text: "Estoy despierto a las pequeñas maravillas del día."),
+        Quote(id: "q034", text: "No tengo que perseguir. El momento me encuentra."),
+        Quote(id: "q035", text: "Permito que este instante sea exactamente como es."),
+        Quote(id: "q036", text: "Vuelvo a mi respiración. Vuelvo a mí."),
+        Quote(id: "q037", text: "Estoy presente en este cuerpo, este lugar, esta hora."),
+        Quote(id: "q038", text: "Observo. Respiro. Comienzo de nuevo."),
+        Quote(id: "q039", text: "Todo lo que necesito vive en este momento."),
+        Quote(id: "q040", text: "Pertenezco a esta respiración, y ella me pertenece."),
+
+        // Confidence / confianza
+        Quote(id: "q041", text: "Tengo dentro de mí todo lo necesario para vivir esta vida."),
+        Quote(id: "q042", text: "Confío en mi voz, mi camino y mi propio tiempo."),
+        Quote(id: "q043", text: "Soy la tierra firme bajo mis propios pies."),
+        Quote(id: "q044", text: "Soy completo, tal como soy, en esta hora."),
+        Quote(id: "q045", text: "Soy mi mejor oportunidad para una vida con sentido."),
+        Quote(id: "q046", text: "Soy más fuerte que la voz que intenta empequeñecerme."),
+        Quote(id: "q047", text: "Confío en mí para atravesar lo que venga."),
+        Quote(id: "q048", text: "Tengo la fuerza para vivir con mente abierta."),
+        Quote(id: "q049", text: "Tengo permiso para ocupar mi espacio en esta vida."),
+        Quote(id: "q050", text: "Estoy firme. Estoy firme. Estoy firme."),
+
+        // Gratitude / gratitud
+        Quote(id: "q051", text: "Agradezco esta respiración, justo ahora."),
+        Quote(id: "q052", text: "Agradezco a este cuerpo que me lleva por hoy."),
+        Quote(id: "q053", text: "Hoy noto lo bueno y lo dejo crecer."),
+        Quote(id: "q054", text: "Soy feliz, sano y centrado en mí mismo."),
+        Quote(id: "q055", text: "Recibo lo que necesito, justo cuando lo necesito."),
+        Quote(id: "q056", text: "Me abro a lo que la vida me ofrece hoy."),
+        Quote(id: "q057", text: "Confío en que lo correcto llega en el momento correcto."),
+        Quote(id: "q058", text: "Sé que la abundancia vive dentro, no fuera."),
+        Quote(id: "q059", text: "Soy rico en lo que no se puede contar."),
+        Quote(id: "q060", text: "Doy gracias por todo lo que soy y por todo lo que tengo."),
+    ]
+}
+
+/// Small deterministic PRNG used for per-device notification shuffle.
+struct SplitMix64 {
+    private var state: UInt64
+    init(seed: UInt64) { self.state = seed == 0 ? 0x9E3779B97F4A7C15 : seed }
+    mutating func next() -> UInt64 {
+        state &+= 0x9E3779B97F4A7C15
+        var z = state
+        z = (z ^ (z >> 30)) &* 0xBF58476D1CE4E5B9
+        z = (z ^ (z >> 27)) &* 0x94D049BB133111EB
+        return z ^ (z >> 31)
+    }
 }
 
 extension LanguagePreference {

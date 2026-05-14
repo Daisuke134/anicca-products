@@ -386,12 +386,11 @@ final class AppState: ObservableObject {
         userProfile = profile
         saveUserProfile()
 
-        // Proactive Agent: 問題（苦しみ）が変更された場合、問題ベースの通知をスケジュール
+        // v1.8.7: struggles no longer drive notifications. Widget keeps using them
+        // for back-compat; affirmation notifications are scheduled via
+        // AffirmationNotificationScheduler from AppDelegate/Onboarding paths.
         if Set(previousProfile.struggles) != Set(profile.struggles) {
             NudgeWidgetDataStore.sync(struggles: profile.struggles)
-            Task {
-                await ProblemNotificationScheduler.shared.scheduleNotifications(for: profile.struggles)
-            }
         }
 
         if sync {
