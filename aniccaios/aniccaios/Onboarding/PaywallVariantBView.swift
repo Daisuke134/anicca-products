@@ -20,7 +20,6 @@ struct PaywallVariantBView: View {
     private var packages: [Package] { offering?.availablePackages ?? [] }
     private var yearlyPackage: Package? { packages.first { $0.packageType == .annual } }
     private var monthlyPackage: Package? { packages.first { $0.packageType == .monthly } }
-    private var weeklyPackage: Package? { packages.first { $0.packageType == .weekly } }
 
     private var savePct: Int? {
         guard let yearly = yearlyPackage, let monthly = monthlyPackage else { return nil }
@@ -70,7 +69,7 @@ struct PaywallVariantBView: View {
                 AnalyticsManager.shared.trackPaywallViewed()
             }
             if selectedPackage == nil {
-                selectedPackage = yearlyPackage ?? monthlyPackage ?? weeklyPackage
+                selectedPackage = yearlyPackage ?? monthlyPackage
             }
         }
         .sheet(isPresented: $showRetention) {
@@ -125,11 +124,11 @@ struct PaywallVariantBView: View {
                     )
                 }
 
-                if let weekly = weeklyPackage {
+                if let monthly = monthlyPackage {
                     planCard(
-                        package: weekly,
-                        priceLabel: weekly.localizedPriceString + String(localized: "paywall_b_per_week"),
-                        badge: trialBadge(for: weekly),
+                        package: monthly,
+                        priceLabel: monthly.localizedPriceString + String(localized: "paywall_b_per_month"),
+                        badge: trialBadge(for: monthly),
                         dailyPriceLabel: nil
                     )
                 }
@@ -141,7 +140,7 @@ struct PaywallVariantBView: View {
 
     private func trialBadge(for package: Package) -> String? {
         guard hasTrialEligibility else { return nil }
-        guard package.packageType == .annual || package.packageType == .weekly else { return nil }
+        guard package.packageType == .annual || package.packageType == .monthly else { return nil }
         return String(localized: "paywall_b_trial_badge")
     }
 
