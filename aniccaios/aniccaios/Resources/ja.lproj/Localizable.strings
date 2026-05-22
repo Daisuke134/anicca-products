@@ -1419,7 +1419,7 @@
 
 // MARK: - Paywall Variant B (A/B Test)
 "paywall_b_title" = "静かな心、\n毎日に。";
-"paywall_b_subtitle" = "6つのテーマ、100のことば。静かに、毎日に。";
+"paywall_b_subtitle" = "20のテーマ、200のことば。静かに、毎日に。";
 "paywall_b_feature_nudges" = "1日1〜4通、自分の時間に届く通知";
 "paywall_b_feature_ai" = "8種類の手描き背景";
 "paywall_b_feature_personalized" = "ウォーターマーク無しのシェア画像";

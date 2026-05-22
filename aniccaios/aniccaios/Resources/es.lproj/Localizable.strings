@@ -1317,7 +1317,7 @@
 
 // MARK: - Paywall Variant B (A/B Test)
 "paywall_b_title" = "Mente serena.\nCada día.";
-"paywall_b_subtitle" = "100 afirmaciones en 6 temas. Entregadas con calma.";
+"paywall_b_subtitle" = "200 afirmaciones en 20 temas. Entregadas con calma.";
 "paywall_b_feature_nudges" = "De 1 a 4 recordatorios al día, a tu ritmo";
 "paywall_b_feature_ai" = "8 fondos hechos a mano";
 "paywall_b_feature_personalized" = "Imágenes para compartir sin marca";

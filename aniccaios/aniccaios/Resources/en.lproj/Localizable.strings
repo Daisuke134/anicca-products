@@ -1420,7 +1420,7 @@
 
 // MARK: - Paywall Variant B (A/B Test)
 "paywall_b_title" = "Steady mind.\nEvery day.";
-"paywall_b_subtitle" = "100 affirmations across 6 themes. Calmly delivered.";
+"paywall_b_subtitle" = "200 affirmations across 20 themes. Calmly delivered.";
 "paywall_b_feature_nudges" = "1–4 reminders a day, on your schedule";
 "paywall_b_feature_ai" = "8 hand-crafted backgrounds";
 "paywall_b_feature_personalized" = "Clean share images";
