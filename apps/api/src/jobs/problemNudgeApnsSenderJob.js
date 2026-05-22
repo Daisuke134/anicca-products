@@ -287,6 +287,9 @@ export async function runProblemNudgeApnsSender(nowUtc = new Date(), { apnsClien
           pushTokenId: t.id,
           status: 'failed',
           nextAttemptAt: { lte: nowUtc },
+          // Only retry affirmation deliveries. Excludes any pre-migration problem-nudge
+          // rows so we never re-send stale problem-nudge copy under the AFFIRMATION shape.
+          delivery: { is: { problemType: AFFIRMATION_SENTINEL } },
         },
         take: 20,
         orderBy: { nextAttemptAt: 'asc' },
@@ -464,8 +467,10 @@ export async function runProblemNudgeApnsSender(nowUtc = new Date(), { apnsClien
               });
               if (already?.id) return { deliveryId: already.id, created: false };
 
+              // Count only affirmation deliveries against the free cap so leftover
+              // problem-nudge rows from a transition day cannot suppress affirmations.
               const used = await tx.nudgeDelivery.count({
-                where: { profileId, deliveryDayLocal: deliveryDayDate },
+                where: { profileId, problemType, deliveryDayLocal: deliveryDayDate },
               });
               if (used >= 3) return { deliveryId: null, created: false };
 

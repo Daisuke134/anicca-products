@@ -1,6 +1,9 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import baseLogger from '../../utils/logger.js';
+
+const MODULE_DIR = path.dirname(fileURLToPath(import.meta.url));
 
 const logger = baseLogger.withContext('AffirmationsLoader');
 
@@ -42,7 +45,7 @@ function catalogLangFor(lang) {
 
 function catalogPathFor(lang) {
   // This file lives in apps/api/src/modules/affirmations/
-  return path.join(path.dirname(new URL(import.meta.url).pathname), 'catalog', `${lang}.json`);
+  return path.join(MODULE_DIR, 'catalog', `${lang}.json`);
 }
 
 export function loadAffirmationCatalog(lang) {

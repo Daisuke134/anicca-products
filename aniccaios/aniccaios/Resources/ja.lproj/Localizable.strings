@@ -1430,7 +1430,6 @@
 "paywall_b_plan_weekly" = "週額プラン";
 "paywall_b_per_year" = "/年";
 "paywall_b_per_month" = "/月";
-"paywall_b_per_week" = "/週";
 "paywall_b_daily_price" = "1日あたりたった%@";
 "paywall_b_cta_no_trial" = "今すぐ旅を始める";
 "paywall_b_cta_trial" = "無料で始める";

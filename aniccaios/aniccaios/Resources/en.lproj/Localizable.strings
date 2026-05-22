@@ -1431,7 +1431,6 @@
 "paywall_b_plan_yearly" = "Annual Plan";
 "paywall_b_plan_monthly" = "Monthly Plan";
 "paywall_b_plan_weekly" = "Weekly Plan";
-"paywall_b_per_week" = "/week";
 "paywall_b_daily_price" = "Just %@ per day";
 "paywall_b_cta_no_trial" = "Start my journey";
 "paywall_b_cta_trial" = "Start For Free";
