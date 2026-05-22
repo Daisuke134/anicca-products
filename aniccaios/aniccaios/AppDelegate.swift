@@ -63,30 +63,29 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         }
 
         Task {
-            // v1.8.7: notifications are local-only. Run legacy purge once on upgrade
-            // so existing 1.8.6 users stop receiving Railway problem-nudge push.
-            await migrateLegacyPushIfNeeded()
+            // v1.8.7: affirmations are delivered REMOTELY (APNs) — no local scheduling.
+            // Register for remote notifications on launch if already authorized so the
+            // device token reaches the backend and recovers without extra user action.
+            await registerForRemoteIfAuthorized()
             await SubscriptionManager.shared.refreshOfferings()
             await AuthHealthCheck.shared.warmBackend()
-            await AffirmationNotificationScheduler.shared.reschedule()
         }
         return true
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // v1.8.7: re-schedule local affirmation notifications on every foreground.
-        Task { await AffirmationNotificationScheduler.shared.reschedule() }
+        // Best-effort: recover APNs token registration if it was delayed on first run.
+        Task { await registerForRemoteIfAuthorized() }
     }
 
-    /// One-shot migration: drop APNs token from Railway, unregister at iOS, purge
-    /// any pending legacy notification requests still in the iOS DB. Idempotent.
-    private func migrateLegacyPushIfNeeded() async {
-        let key = "anicca.v187.legacyPushPurge"
-        if UserDefaults.standard.bool(forKey: key) { return }
-        await MainActor.run { UIApplication.shared.unregisterForRemoteNotifications() }
-        await PushTokenService.shared.markUnregistered()
-        await AffirmationNotificationScheduler.shared.purgeLegacyNotifications()
-        UserDefaults.standard.set(true, forKey: key)
+    /// Register for remote notifications when the user has granted alert authorization.
+    /// Idempotent; iOS de-dupes. The resulting token is sent to the backend by
+    /// `didRegisterForRemoteNotificationsWithDeviceToken`.
+    private func registerForRemoteIfAuthorized() async {
+        let authorized = await NotificationScheduler.shared.isAuthorizedForAlerts()
+        if authorized {
+            await MainActor.run { UIApplication.shared.registerForRemoteNotifications() }
+        }
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
@@ -105,61 +104,14 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         let content = response.notification.request.content
         let userInfo = content.userInfo
 
-        // v1.8.7: Affirmation quote tap → scroll Feed to that quote
+        // v1.8.7: Affirmation quote tap (remote APNs) → scroll Feed to that quote.
+        // If quoteId is missing/unknown the Feed simply opens at the top (graceful).
         if let quoteId = userInfo["quoteId"] as? String, !quoteId.isEmpty {
             NotificationCenter.default.post(
                 name: .aniccaScrollToQuote,
                 object: nil,
                 userInfo: ["quoteId": quoteId]
             )
-            return
-        }
-
-        // v1.8.7: legacy Problem Nudge push is no longer surfaced. Migration purge
-        // unregistered our token; any straggler push from Railway is ignored here.
-        if let messageId = userInfo["messageId"] as? String, !messageId.isEmpty {
-            _ = messageId
-            return
-        }
-
-        // v1.6.3: (LEGACY, dead code retained for ProblemType reference)
-        if false,
-           let messageId = userInfo["messageId"] as? String, !messageId.isEmpty,
-           let problemRaw = userInfo["problemType"] as? String,
-           let problem = ProblemType(rawValue: problemRaw) {
-            switch identifier {
-            case UNNotificationDefaultActionIdentifier,
-                 NotificationScheduler.Action.startConversation.rawValue:
-                Task { @MainActor in
-                    do {
-                        let delivery = try await ProblemNudgeDeliveryService.shared.fetchDelivery(id: messageId)
-                        let nudgeContent = NudgeContent(
-                            problemType: problem,
-                            notificationText: delivery.hook,
-                            detailText: delivery.detail,
-                            variantIndex: delivery.variantIndex,
-                            isAIGenerated: false,
-                            llmNudgeId: nil
-                        )
-                        AppState.shared.showNudgeCard(nudgeContent)
-                    } catch {
-                        // Best-effort fallback: show a card using the APNs alert even if the API is unavailable.
-                        // This avoids "tap does nothing" in offline/5xx scenarios.
-                        print("Failed to fetch delivery \(messageId): \(error)")
-                        let fallback = NudgeContent(
-                            problemType: problem,
-                            notificationText: content.body,
-                            detailText: "",
-                            variantIndex: 0,
-                            isAIGenerated: false,
-                            llmNudgeId: nil
-                        )
-                        AppState.shared.showNudgeCard(fallback)
-                    }
-                }
-            default:
-                break
-            }
             return
         }
 
@@ -230,13 +182,11 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     }
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        // v1.8.7: notifications are remote-only. On registration failure we simply mark
+        // the token unregistered; there is no local-notification fallback by design.
         print("APNs registration failed: \(error)")
         Task { @MainActor in
             PushTokenService.shared.markUnregistered()
-            let problems = AppState.shared.userProfile.struggles
-            if !problems.isEmpty {
-                await ProblemNotificationScheduler.shared.scheduleNotifications(for: problems)
-            }
         }
     }
 }

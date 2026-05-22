@@ -38,118 +38,13 @@ final class ProblemNotificationScheduler: ProblemNotificationSchedulerProtocol {
 
     /// ユーザーの選択した問題に基づいて通知をスケジュール
     func scheduleNotifications(for problems: [String]) async {
-        // Free/Pro分岐
-        let isEntitled = await MainActor.run { AppState.shared.subscriptionInfo.isEntitled }
-        if !isEntitled {
-            // Free: always keep local free-plan nudges, even if APNs token is registered.
-            // (Backend may gate remote problem nudges by entitlement; avoid notification blackout.)
-            let freeIds = (0..<3).map { "free_nudge_\($0)" }
-            center.removePendingNotificationRequests(withIdentifiers: freeIds)
-            await removeAllProblemNotifications()
-            FreePlanService.shared.scheduleFreePlanNudges(struggles: problems)
-            return
-        }
-
-        // Entitled users: clear local problem notifications first (avoid duplicates).
+        // v1.8.7: notifications are remote-only (APNs). The local problem-nudge scheduler
+        // is retired. Clear any previously-scheduled local nudges (free + problem) so old
+        // builds upgrading in place stop firing locally, and schedule nothing further.
+        _ = problems
+        let freeIds = (0..<3).map { "free_nudge_\($0)" }
+        center.removePendingNotificationRequests(withIdentifiers: freeIds)
         await removeAllProblemNotifications()
-
-        // v1.6.3: APNs remote push is the primary delivery for entitled users.
-        let forceLocal = ProcessInfo.processInfo.arguments.contains("-forceLocalProblemNotifications")
-        if PushTokenService.shared.isRegistered && !forceLocal {
-            logger.info("Remote Problem Push enabled; skip local scheduling")
-            return
-        }
-
-        // Time Sensitive 設定チェック（計測用ログ）
-        if #available(iOS 15.0, *) {
-            let settings = await center.notificationSettings()
-            if settings.timeSensitiveSetting == .disabled {
-                logger.warning("Time Sensitive notifications are disabled by user. Nudges will not break through Focus modes.")
-            }
-        }
-
-        // ★ 重要: Free プランかつ月間上限到達済みの場合はスケジュールしない
-        let canSchedule = await MainActor.run { AppState.shared.canReceiveNudge }
-
-        if !canSchedule {
-            logger.info("Monthly nudge limit reached (Free plan). No notifications scheduled.")
-            return
-        }
-
-        var allSchedules: [(time: (hour: Int, minute: Int), problem: ProblemType)] = []
-
-        for problemRaw in problems {
-            guard let problem = ProblemType(rawValue: problemRaw) else { continue }
-
-            for time in problem.notificationSchedule {
-                allSchedules.append((time: (time.hour, time.minute), problem: problem))
-            }
-        }
-
-        // Sort by time (midnight-crossing slots treated as next day)
-        allSchedules.sort { lhs, rhs in
-            let lhsMin = lhs.time.hour < 6 ? lhs.time.hour * 60 + lhs.time.minute + 1440 : lhs.time.hour * 60 + lhs.time.minute
-            let rhsMin = rhs.time.hour < 6 ? rhs.time.hour * 60 + rhs.time.minute + 1440 : rhs.time.hour * 60 + rhs.time.minute
-            return lhsMin < rhsMin
-        }
-
-        // iOS limits pending notifications to 64. With 2-day window each slot uses up to 2.
-        // Trim excess slots (latest chronological slots dropped first).
-        let maxPendingNotifications = 64
-        let maxSlots = maxPendingNotifications / 2  // 32 slots × 2 days = 64
-        if allSchedules.count > maxSlots {
-            logger.warning("Trimming \(allSchedules.count) slots to \(maxSlots) (iOS 64 limit)")
-            allSchedules = Array(allSchedules.prefix(maxSlots))
-        }
-
-        // P4: usedVariants重複排除 / P5: Day1決定論的割り当て
-        var usedVariantsPerProblem: [ProblemType: Set<Int>] = [:]
-        var slotIndexPerProblem: [ProblemType: Int] = [:]
-        var scheduledCount = 0
-
-        // Day1判定（問題ごと）をMainActorで事前取得
-        var isDay1PerProblem: [ProblemType: Bool] = [:]
-        for schedule in allSchedules {
-            let problem = schedule.problem
-            if isDay1PerProblem[problem] == nil {
-                isDay1PerProblem[problem] = await MainActor.run {
-                    NudgeStatsManager.shared.isDay1(for: problem.rawValue)
-                }
-            }
-        }
-
-        for schedule in allSchedules {
-            let hour = schedule.time.hour
-            let minute = schedule.time.minute
-            let problem = schedule.problem
-
-            guard problem.isValidTime(hour: hour, minute: minute) else {
-                logger.info("Skipped \(problem.rawValue) at \(hour):\(minute) - outside valid time range")
-                continue
-            }
-
-            let slotIndex = slotIndexPerProblem[problem, default: 0]
-            let usedVariants = usedVariantsPerProblem[problem, default: []]
-            let isDay1 = isDay1PerProblem[problem] ?? false
-
-            let variantIndex = await scheduleNotification(
-                for: problem,
-                hour: hour,
-                minute: minute,
-                slotIndex: slotIndex,
-                usedVariants: usedVariants,
-                isDay1: isDay1
-            )
-
-            // Track used variants for dedup
-            if let idx = variantIndex {
-                usedVariantsPerProblem[problem, default: []].insert(idx)
-            }
-            slotIndexPerProblem[problem] = slotIndex + 1
-            scheduledCount += 1
-        }
-
-        logger.info("Scheduled \(scheduledCount) problem notifications (2-day window)")
     }
 
     /// すべての問題通知をキャンセル

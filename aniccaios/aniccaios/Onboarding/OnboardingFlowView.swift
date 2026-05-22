@@ -98,10 +98,9 @@ struct OnboardingFlowView: View {
     }
 
     private func completeOnboardingForExistingPro() {
-        Task {
-            await AffirmationNotificationScheduler.shared.reschedule()
-            appState.markOnboardingComplete()
-        }
+        // v1.8.7: remote-only notifications. APNs registration is triggered on
+        // permission grant and on app foreground — nothing to schedule locally.
+        appState.markOnboardingComplete()
     }
 
     private func handlePaywallSuccess(customerInfo: CustomerInfo) {
@@ -109,8 +108,5 @@ struct OnboardingFlowView: View {
         appState.updateSubscriptionInfo(from: customerInfo)
         appState.markOnboardingComplete()
         showPaywall = false
-        Task {
-            await AffirmationNotificationScheduler.shared.reschedule()
-        }
     }
 }

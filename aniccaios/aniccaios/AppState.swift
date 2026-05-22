@@ -387,8 +387,8 @@ final class AppState: ObservableObject {
         saveUserProfile()
 
         // v1.8.7: struggles no longer drive notifications. Widget keeps using them
-        // for back-compat; affirmation notifications are scheduled via
-        // AffirmationNotificationScheduler from AppDelegate/Onboarding paths.
+        // for back-compat; affirmation notifications are delivered remotely via APNs
+        // (backend), with no on-device scheduling.
         if Set(previousProfile.struggles) != Set(profile.struggles) {
             NudgeWidgetDataStore.sync(struggles: profile.struggles)
         }

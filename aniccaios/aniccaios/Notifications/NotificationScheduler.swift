@@ -149,50 +149,6 @@ final class NotificationScheduler {
         "NUDGE_MAIN_\(nudgeId)"
     }
 
-    // MARK: - 4-daily affirmation notifications (i.am clone)
-
-    /// Schedules 4 fixed-time local notifications per day (08:00 / 12:30 / 17:30 / 21:30 local).
-    /// Each notification body is a quote text; userInfo["quoteId"] enables deep-link to that exact quote.
-    /// Repeats daily indefinitely. Authorization must already be granted.
-    func scheduleDailyAffirmations() async {
-        let slots: [(hour: Int, minute: Int)] = [(8, 0), (12, 30), (17, 30), (21, 30)]
-        let language = AppState.shared.userProfile.preferredLanguage
-        let quoteIds = QuoteProvider.shared.todayNotificationIds(count: slots.count, preferredLanguage: language)
-
-        // Remove only our own slots, leaving server-driven NUDGE_MAIN_* untouched.
-        let identifiers = slots.map { "anicca.affirmation.\($0.hour).\($0.minute)" }
-        center.removePendingNotificationRequests(withIdentifiers: identifiers)
-
-        for (idx, slot) in slots.enumerated() {
-            guard idx < quoteIds.count, let quote = QuoteProvider.shared.byId(quoteIds[idx], preferredLanguage: language) else { continue }
-
-            let content = UNMutableNotificationContent()
-            content.title = localizedString("app_name")
-            content.body = quote.text
-            content.userInfo = ["quoteId": quote.id]
-            content.sound = .default
-
-            var components = DateComponents()
-            components.hour = slot.hour
-            components.minute = slot.minute
-            let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
-
-            let request = UNNotificationRequest(
-                identifier: identifiers[idx],
-                content: content,
-                trigger: trigger
-            )
-
-            do {
-                try await center.add(request)
-            } catch {
-                logger.error("Failed to schedule daily affirmation slot \(idx): \(error.localizedDescription, privacy: .public)")
-            }
-        }
-    }
-
-    /// Extract `quoteId` from a delivered/tapped notification's userInfo.
-    func quoteId(fromUserInfo userInfo: [AnyHashable: Any]) -> String? {
-        return userInfo["quoteId"] as? String
-    }
+    // v1.8.7: local daily-affirmation scheduling removed. Affirmations are delivered
+    // remotely via APNs (backend), so there is no on-device scheduling here.
 }
