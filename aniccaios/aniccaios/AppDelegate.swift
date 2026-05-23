@@ -157,22 +157,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             }
             return
         }
-
-        // Server-driven Nudge
-        if let nudgeId = NotificationScheduler.shared.nudgeId(fromIdentifier: notificationIdentifier) {
-            Task {
-                switch identifier {
-                case UNNotificationDismissActionIdentifier,
-                     NotificationScheduler.Action.dismissAll.rawValue:
-                    await NudgeTriggerService.shared.recordDismissed(nudgeId: nudgeId)
-                case NotificationScheduler.Action.startConversation.rawValue,
-                     UNNotificationDefaultActionIdentifier:
-                    await NudgeTriggerService.shared.recordOpened(nudgeId: nudgeId, actionIdentifier: identifier)
-                default:
-                    break
-                }
-            }
-        }
     }
 
     // MARK: - APNs registration
