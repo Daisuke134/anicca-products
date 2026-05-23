@@ -27,7 +27,6 @@
 		E81BA10340AD7BEFF6488EB4 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A9BCCF09BD4516FCF9B831 /* ScreenshotTests.swift */; };
 		F29A0962172B02EC2AF48600 /* NotificationHotfixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76CE63902F0DC6A555FFB103 /* NotificationHotfixTests.swift */; };
 		FEBAE36E43A36F64C5743079 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1FFFD13F67306F87B5AA845 /* Foundation.framework */; };
-		SOFT0001AAAA000000000001 /* OnboardingStepMigrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = SOFT0001BBBB000000000001 /* OnboardingStepMigrationTests.swift */; };
 		SUBINF1234567890ABCDEF /* SubscriptionInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = SUBINF9876543210FEDCBA /* SubscriptionInfoTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -97,7 +96,6 @@
 		E1A9BCCF09BD4516FCF9B831 /* ScreenshotTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
 		E1FFFD13F67306F87B5AA845 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		FE5786A433C595C56594222F /* aniccaiosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = aniccaiosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		SOFT0001BBBB000000000001 /* OnboardingStepMigrationTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = OnboardingStepMigrationTests.swift; sourceTree = "<group>"; };
 		SUBINF9876543210FEDCBA /* SubscriptionInfoTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SubscriptionInfoTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -275,7 +273,6 @@
 				76CE63902F0DC6A555FFB103 /* NotificationHotfixTests.swift */,
 				E074536A7E39DB9F93036849 /* NudgeLocalizationTests.swift */,
 				5539993CAC07B523C82A078D /* DayCyclingTests.swift */,
-				SOFT0001BBBB000000000001 /* OnboardingStepMigrationTests.swift */,
 			);
 			path = aniccaiosTests;
 			sourceTree = "<group>";
@@ -550,7 +547,6 @@
 				F29A0962172B02EC2AF48600 /* NotificationHotfixTests.swift in Sources */,
 				3762F96744B5E043FA73E510 /* NudgeLocalizationTests.swift in Sources */,
 				09624508B5E4DDDA28A62154 /* DayCyclingTests.swift in Sources */,
-				SOFT0001AAAA000000000001 /* OnboardingStepMigrationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

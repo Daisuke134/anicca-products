@@ -215,17 +215,12 @@ final class NotificationHotfixTests: XCTestCase {
         }
     }
 
-    // MARK: - P3: notificationVariantCount - v1.6.1拡張（stayingUpLate: 21, others: 14）
+    // MARK: - P3: notificationVariantCount - v1.8.0: 全問題60バリアントに拡張（20日間新鮮体験）
 
     func test_variantCount_allProblems() {
-        // v1.6.1: 2週間新鮮体験のため拡張
-        XCTAssertEqual(ProblemType.stayingUpLate.notificationVariantCount, 21) // 5回/日 × 4.2日
-
-        let fourteenVariantProblems: [ProblemType] = [.cantWakeUp, .selfLoathing, .rumination,
-            .procrastination, .anxiety, .lying, .badMouthing, .pornAddiction, .alcoholDependency,
-            .anger, .obsessive, .loneliness]
-        for problem in fourteenVariantProblems {
-            XCTAssertEqual(problem.notificationVariantCount, 14, "\(problem.rawValue) should have 14 variants") // 3回/日 × 4.67日
+        // v1.8.0: notificationVariantCount は全 ProblemType で 60 に統一
+        for problem in ProblemType.allCases {
+            XCTAssertEqual(problem.notificationVariantCount, 60, "\(problem.rawValue) should have 60 variants")
         }
     }
 
