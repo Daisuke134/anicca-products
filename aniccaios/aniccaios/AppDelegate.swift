@@ -99,10 +99,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         defer { completionHandler() }
 
-        let identifier = response.actionIdentifier
-        let notificationIdentifier = response.notification.request.identifier
-        let content = response.notification.request.content
-        let userInfo = content.userInfo
+        let userInfo = response.notification.request.content.userInfo
 
         // v1.8.7: Affirmation quote tap (remote APNs) → scroll Feed to that quote.
         // If quoteId is missing/unknown the Feed simply opens at the top (graceful).
@@ -112,50 +109,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                 object: nil,
                 userInfo: ["quoteId": quoteId]
             )
-            return
-        }
-
-        // Proactive Agent: Problem Nudge通知のハンドリング
-        if ProblemNotificationScheduler.isProblemNudge(identifier: notificationIdentifier) {
-            switch identifier {
-            case UNNotificationDefaultActionIdentifier,
-                 NotificationScheduler.Action.startConversation.rawValue:
-                if let nudgeContent = ProblemNotificationScheduler.nudgeContent(from: userInfo) {
-                    // nudge_tapped を記録
-                    let scheduledHour = userInfo["scheduledHour"] as? Int ?? 0
-                    Task { @MainActor in
-                        // NudgeStats に記録（isAIGeneratedとllmNudgeIdを含む）
-                        NudgeStatsManager.shared.recordTapped(
-                            problemType: nudgeContent.problemType.rawValue,
-                            variantIndex: nudgeContent.variantIndex,
-                            scheduledHour: scheduledHour,
-                            isAIGenerated: nudgeContent.isAIGenerated,
-                            llmNudgeId: nudgeContent.llmNudgeId
-                        )
-
-                        // Phase 7+8: hookFeedback "tapped" をサーバーに送信
-                        if let nudgeId = nudgeContent.llmNudgeId {
-                            Task {
-                                do {
-                                    try await NudgeFeedbackService.shared.handleNudgeTapped(nudgeId: nudgeId)
-                                } catch {
-                                    // エラーは無視（ユーザー体験を妨げない）
-                                    print("Failed to send tapped feedback: \(error)")
-                                }
-                            }
-                        }
-
-                        // NudgeCard を表示
-                        AppState.shared.showNudgeCard(nudgeContent)
-                    }
-                }
-            case NotificationScheduler.Action.dismissAll.rawValue,
-                 UNNotificationDismissActionIdentifier:
-                break
-            default:
-                break
-            }
-            return
         }
     }
 
