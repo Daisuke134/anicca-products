@@ -21,41 +21,6 @@ final class QuoteProvider {
         }
     }
 
-    /// Per-device seeded shuffle for notification rotation.
-    /// Returns N quote IDs for the given day, drawn from a deterministic shuffle of the pool
-    /// that depends on `installSeed` (unique per device) and the 60-day cycle index.
-    /// Guarantees no repeat within a 60-day cycle, different order per device, and
-    /// re-shuffle at each cycle boundary.
-    func notificationIds(
-        forDate date: Date,
-        count: Int,
-        installSeed: UInt64,
-        preferredLanguage: LanguagePreference = LanguagePreference.detectDefault(),
-        calendar: Calendar = .current
-    ) -> [String] {
-        let pool = all(preferredLanguage: preferredLanguage)
-        guard !pool.isEmpty, count > 0 else { return [] }
-
-        let installEpochDays = installSeed % UInt64(max(pool.count, 1))
-        let dayNumber: Int = {
-            let ref = Date(timeIntervalSince1970: 0)
-            let comps = calendar.dateComponents([.day], from: ref, to: date)
-            return comps.day ?? 0
-        }()
-        let cycle = UInt64(max(dayNumber, 0)) / UInt64(pool.count)
-        let cycleSeed = installSeed ^ (cycle &* 2654435761)
-        var generator = SplitMix64(seed: cycleSeed)
-        var shuffled = pool
-        for i in stride(from: shuffled.count - 1, to: 0, by: -1) {
-            let j = Int(generator.next() % UInt64(i + 1))
-            shuffled.swapAt(i, j)
-        }
-        let dayInCycle = Int((UInt64(max(dayNumber, 0)) + installEpochDays) % UInt64(pool.count))
-        return (0..<count).map { slot in
-            shuffled[(dayInCycle * count + slot) % shuffled.count].id
-        }
-    }
-
     func byId(_ id: String, preferredLanguage: LanguagePreference = LanguagePreference.detectDefault()) -> Quote? {
         return all(preferredLanguage: preferredLanguage).first { $0.id == id }
     }
@@ -69,14 +34,6 @@ final class QuoteProvider {
 
     func todayQuote() -> String {
         return todayQuote(preferredLanguage: LanguagePreference.detectDefault(), date: Date())
-    }
-
-    func todayNotificationIds(count: Int = 4, preferredLanguage: LanguagePreference = LanguagePreference.detectDefault(), date: Date = Date(), calendar: Calendar = .current) -> [String] {
-        let pool = all(preferredLanguage: preferredLanguage)
-        let dayOfYear = calendar.ordinality(of: .day, in: .year, for: date) ?? 1
-        let stride = pool.count / max(count, 1)
-        let base = (dayOfYear - 1) % pool.count
-        return (0..<count).map { pool[(base + $0 * stride) % pool.count].id }
     }
 
     // MARK: - Pools
@@ -806,19 +763,6 @@ final class QuoteProvider {
         Quote(id: "q199", text: "Descanso en la calma que no depende de las condiciones."),
         Quote(id: "q200", text: "Todo fluye, y yo fluyo en paz junto a ello."),
     ]
-}
-
-/// Small deterministic PRNG used for per-device notification shuffle.
-struct SplitMix64 {
-    private var state: UInt64
-    init(seed: UInt64) { self.state = seed == 0 ? 0x9E3779B97F4A7C15 : seed }
-    mutating func next() -> UInt64 {
-        state &+= 0x9E3779B97F4A7C15
-        var z = state
-        z = (z ^ (z >> 30)) &* 0xBF58476D1CE4E5B9
-        z = (z ^ (z >> 27)) &* 0x94D049BB133111EB
-        return z ^ (z >> 31)
-    }
 }
 
 extension LanguagePreference {
