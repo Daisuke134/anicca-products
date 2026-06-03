@@ -4,6 +4,11 @@
 <dict>
 	<key>ANICCA_PROXY_BASE_URL</key>
 	<string>$(INFOPLIST_KEY_ANICCA_PROXY_BASE_URL)</string>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>ai.anicca.app.ios.refresh</string>
+		<string>ai.anicca.app.ios.nudge-fetch</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -19,13 +24,30 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.8.6</string>
+	<string>1.9.1</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.anicca.ios</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>anicca</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>365</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MIXPANEL_TOKEN</key>
+	<string>$(INFOPLIST_KEY_MIXPANEL_TOKEN)</string>
 	<key>NSCameraUsageDescription</key>
 	<string>$(INFOPLIST_KEY_NSCameraUsageDescription)</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Anicca may use the microphone for voice-based interactions in future updates.</string>
 	<key>NSSupportsLiveActivities</key>
 	<true/>
 	<key>NSSupportsLiveActivitiesFrequentUpdates</key>
@@ -40,8 +62,6 @@
 	<string>$(INFOPLIST_KEY_REVENUECAT_CUSTOMER_CENTER_ID)</string>
 	<key>REVENUECAT_ENTITLEMENT_ID</key>
 	<string>$(INFOPLIST_KEY_REVENUECAT_ENTITLEMENT_ID)</string>
-	<key>MIXPANEL_TOKEN</key>
-	<string>$(INFOPLIST_KEY_MIXPANEL_TOKEN)</string>
 	<key>SKAdNetworkItems</key>
 	<array>
 		<dict>
@@ -109,29 +129,9 @@
 		<string>remote-notification</string>
 		<string>processing</string>
 	</array>
-	<key>BGTaskSchedulerPermittedIdentifiers</key>
-	<array>
-		<string>ai.anicca.app.ios.refresh</string>
-		<string>ai.anicca.app.ios.nudge-fetch</string>
-	</array>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Anicca may use the microphone for voice-based interactions in future updates.</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>com.anicca.ios</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>anicca</string>
-			</array>
-		</dict>
-	</array>
 	<key>UILaunchScreen</key>
 	<dict/>
 	<key>UIRequiresFullScreen</key>
 	<true/>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
 </dict>
 </plist>

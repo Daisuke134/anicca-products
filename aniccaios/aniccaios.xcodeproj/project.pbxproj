@@ -636,7 +636,7 @@
 				CODE_SIGN_ENTITLEMENTS = AniccaWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 364;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = AniccaWidget/Info.plist;
@@ -670,7 +670,7 @@
 				CODE_SIGN_ENTITLEMENTS = AniccaWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 364;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = AniccaWidget/Info.plist;
@@ -704,7 +704,7 @@
 				CODE_SIGN_ENTITLEMENTS = AniccaWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 364;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = AniccaWidget/Info.plist;
@@ -738,7 +738,7 @@
 				CODE_SIGN_ENTITLEMENTS = AniccaWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 364;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = AniccaWidget/Info.plist;
@@ -906,7 +906,7 @@
 				CODE_SIGN_ENTITLEMENTS = aniccaios/aniccaiosDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 364;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -957,7 +957,7 @@
 				CODE_SIGN_ENTITLEMENTS = aniccaios/aniccaiosDistribution.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 364;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -1075,7 +1075,7 @@
 				CODE_SIGN_ENTITLEMENTS = aniccaios/aniccaios.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 364;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -1186,7 +1186,7 @@
 				CODE_SIGN_ENTITLEMENTS = aniccaios/aniccaiosDistribution.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 364;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
@@ -1231,7 +1231,7 @@
 				CODE_SIGN_ENTITLEMENTS = AniccaNotificationService/AniccaNotificationService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 364;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AniccaNotificationService/Info.plist;
@@ -1262,7 +1262,7 @@
 				CODE_SIGN_ENTITLEMENTS = AniccaNotificationService/AniccaNotificationService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 364;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AniccaNotificationService/Info.plist;
@@ -1293,7 +1293,7 @@
 				CODE_SIGN_ENTITLEMENTS = AniccaNotificationService/AniccaNotificationService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 364;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AniccaNotificationService/Info.plist;
@@ -1324,7 +1324,7 @@
 				CODE_SIGN_ENTITLEMENTS = AniccaNotificationService/AniccaNotificationService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 364;
+				CURRENT_PROJECT_VERSION = 365;
 				DEVELOPMENT_TEAM = S5U8UH3JLJ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AniccaNotificationService/Info.plist;
