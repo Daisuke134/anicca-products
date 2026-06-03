@@ -2,10 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ANICCA_PROXY_BASE_URL</key>
+	<string>$(ANICCA_PROXY_BASE_URL)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.8.6</string>
+	<string>1.9.2</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>367</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionPointIdentifier</key>
@@ -13,7 +15,5 @@
 		<key>NSExtensionPrincipalClass</key>
 		<string>$(PRODUCT_MODULE_NAME).NotificationService</string>
 	</dict>
-	<key>ANICCA_PROXY_BASE_URL</key>
-	<string>$(ANICCA_PROXY_BASE_URL)</string>
 </dict>
 </plist>
