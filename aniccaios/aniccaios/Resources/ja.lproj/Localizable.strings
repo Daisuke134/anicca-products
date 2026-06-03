@@ -2708,3 +2708,23 @@
 "theme_sky_dawn" = "スカイ・ドーン";
 "theme_rose_petal" = "ローズ・ペタル";
 "quote_copied" = "コピーしました";
+
+/* v1.9.1 — billing issue recovery banner */
+"billing_issue_title" = "ご登録に確認が必要です";
+"billing_issue_action" = "タップしてお支払い情報を更新";
+
+/* v1.9.1 — newsletter signup */
+"newsletter_section_title" = "毎朝のメール";
+"newsletter_section_description" = "毎朝、 一つの affirmation をメールでお届けします。";
+"newsletter_email_placeholder" = "your@email.com";
+"newsletter_submit_button" = "登録する";
+"newsletter_unsubscribe_button" = "解除する";
+"newsletter_status_registered" = "登録済 (%@)";
+
+/* v1.9.1 — feedback form */
+"feedback_section_title" = "ご意見・改善要望";
+"feedback_link_label" = "改善してほしいこと";
+"feedback_placeholder" = "ご意見を聞かせてください (5-2000 文字)";
+"feedback_submit_button" = "送信";
+"feedback_pii_warning_title" = "個人情報を含む可能性";
+"feedback_pii_warning_message" = "メッセージに個人情報 (メール/電話番号) が含まれている可能性があります。 送信しますか?";

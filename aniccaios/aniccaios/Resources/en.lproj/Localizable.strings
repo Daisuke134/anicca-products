@@ -2692,3 +2692,23 @@
 "theme_sky_dawn" = "Sky Dawn";
 "theme_rose_petal" = "Rose Petal";
 "quote_copied" = "Copied";
+
+/* v1.9.1 — billing issue recovery banner */
+"billing_issue_title" = "Subscription needs attention";
+"billing_issue_action" = "Tap to update payment method";
+
+/* v1.9.1 — newsletter signup */
+"newsletter_section_title" = "Daily Email";
+"newsletter_section_description" = "Receive a daily affirmation email each morning.";
+"newsletter_email_placeholder" = "your@email.com";
+"newsletter_submit_button" = "Subscribe";
+"newsletter_unsubscribe_button" = "Unsubscribe";
+"newsletter_status_registered" = "Subscribed (%@)";
+
+/* v1.9.1 — feedback form */
+"feedback_section_title" = "Send Feedback";
+"feedback_link_label" = "Tell us what to improve";
+"feedback_placeholder" = "Share your thoughts (5-2000 characters)";
+"feedback_submit_button" = "Send";
+"feedback_pii_warning_title" = "Personal info detected";
+"feedback_pii_warning_message" = "Your message may contain personal info (email/phone). Send anyway?";
