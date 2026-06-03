@@ -8,6 +8,7 @@ import UIKit
 struct FeedRootView: View {
     @StateObject private var themeStore = ThemeStore()
     @StateObject private var likedStore = LikedQuotesStore()
+    @ObservedObject private var appState = AppState.shared
     @State private var quotes: [Quote] = []
     @State private var currentIndex: Int = 0
     @State private var showSettings = false
@@ -50,6 +51,12 @@ struct FeedRootView: View {
         .onAppear {
             if quotes.isEmpty {
                 quotes = QuoteProvider.shared.all()
+            }
+            // v1.9.1 cold-launch path: consume any quoteId queued by AppDelegate.didReceive
+            // (notification tap landed before .onReceive subscribed in cold-launch flow)
+            if let qid = appState.consumePendingQuoteId(),
+               let idx = quotes.firstIndex(where: { $0.id == qid }) {
+                withAnimation { currentIndex = idx }
             }
         }
         .sheet(isPresented: $showSettings) {

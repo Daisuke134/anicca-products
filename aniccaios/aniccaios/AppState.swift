@@ -36,6 +36,18 @@ final class AppState: ObservableObject {
     // MARK: - Proactive Agent: NudgeCard
     @Published var pendingNudgeCard: NudgeContent? = nil
 
+    // MARK: - v1.9.1: Cold-start notification tap → scroll target
+    /// Set by AppDelegate.userNotificationCenter(_:didReceive:) when the user taps a notification.
+    /// FeedRootView.onAppear consumes (read + clear) and scrolls to that quote.
+    /// This survives cold-launch where .onReceive subscribes too late.
+    @Published var pendingQuoteId: String? = nil
+
+    /// Atomic get-and-clear. Returns the queued quoteId once, then resets to nil.
+    func consumePendingQuoteId() -> String? {
+        defer { pendingQuoteId = nil }
+        return pendingQuoteId
+    }
+
     // MARK: - Nudge Card / Paywall / Review (Phase 4)
 
     /// NudgeCard完了回数（累計、レビュー・Paywall表示判定用）
