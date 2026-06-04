@@ -36,6 +36,21 @@ final class AppState: ObservableObject {
     // MARK: - Proactive Agent: NudgeCard
     @Published var pendingNudgeCard: NudgeContent? = nil
 
+    // MARK: - ④ 1.9.3 cold-start race (pull-only)
+    // ★ @Published にしない — FeedRootView は購読せず .onAppear で一度だけ pull する (再描画グラフ不変)。
+    var pendingQuoteId: String? = nil
+
+    /// atomic get-and-clear。 FeedRootView.onAppear が cold-launch 時に一度だけ pull する。
+    func consumePendingQuoteId() -> String? {
+        defer { pendingQuoteId = nil }
+        return pendingQuoteId
+    }
+
+    /// ⑥ 1.9.3 newsletter: lead-magnet endpoint の lang param 変換 (★ I-1: ja は "jp")。
+    static func newsletterLang(for pref: LanguagePreference) -> String {
+        pref == .ja ? "jp" : "en"
+    }
+
     // MARK: - Nudge Card / Paywall / Review (Phase 4)
 
     /// NudgeCard完了回数（累計、レビュー・Paywall表示判定用）

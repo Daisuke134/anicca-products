@@ -25,6 +25,7 @@
 		A0714DDB2FC1D35400D7F9C7 /* PostHog in Frameworks */ = {isa = PBXBuildFile; productRef = 84PH00012F2B000000000001 /* PostHog */; };
 		A0714DDC2FC1D35400D7F9C7 /* Singular in Frameworks */ = {isa = PBXBuildFile; productRef = EF17B89AF1FF1936EB1AE58E /* Singular */; };
 		A2A557539B41673D5F86B4DD /* BetaDistributionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65F6D43EDB935AF0AB2C0DD /* BetaDistributionTests.swift */; };
+		AD56011074FF0B0ADAB95D12 /* ColdStartRaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C8450DB3B9F29FC7C2120C6 /* ColdStartRaceTests.swift */; };
 		E81BA10340AD7BEFF6488EB4 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A9BCCF09BD4516FCF9B831 /* ScreenshotTests.swift */; };
 		F29A0962172B02EC2AF48600 /* NotificationHotfixTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76CE63902F0DC6A555FFB103 /* NotificationHotfixTests.swift */; };
 		FEBAE36E43A36F64C5743079 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1FFFD13F67306F87B5AA845 /* Foundation.framework */; };
@@ -81,6 +82,7 @@
 /* Begin PBXFileReference section */
 		134D591FFF1E0B40CA405490 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5539993CAC07B523C82A078D /* DayCyclingTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DayCyclingTests.swift; sourceTree = "<group>"; };
+		6C8450DB3B9F29FC7C2120C6 /* ColdStartRaceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ColdStartRaceTests.swift; sourceTree = "<group>"; };
 		76CE63902F0DC6A555FFB103 /* NotificationHotfixTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NotificationHotfixTests.swift; sourceTree = "<group>"; };
 		8400344D2EE52C5100A2F44C /* AniccaWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AniccaWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		8400344F2EE52C5100A2F44C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -279,6 +281,7 @@
 				5539993CAC07B523C82A078D /* DayCyclingTests.swift */,
 				E929EBA4B0A6E7607E81750E /* RegisterPathTests.swift */,
 				C4AA3D8CB7394256E812E90C /* TestURLProtocol.swift */,
+				6C8450DB3B9F29FC7C2120C6 /* ColdStartRaceTests.swift */,
 			);
 			path = aniccaiosTests;
 			sourceTree = "<group>";
@@ -555,6 +558,7 @@
 				09624508B5E4DDDA28A62154 /* DayCyclingTests.swift in Sources */,
 				FF0A2BC1BE633C6517729243 /* RegisterPathTests.swift in Sources */,
 				25AAC449F91F8B69E1A2F287 /* TestURLProtocol.swift in Sources */,
+				AD56011074FF0B0ADAB95D12 /* ColdStartRaceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

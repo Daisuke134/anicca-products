@@ -20,6 +20,17 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             AppState.shared.resetState()
         }
 
+        // ④ 1.9.3: UITest launch arg/env parse (DEBUG only, dead code in production)
+        #if DEBUG
+        let uiArgs = ProcessInfo.processInfo.arguments
+        let uiEnv = ProcessInfo.processInfo.environment
+        if let idx = uiArgs.firstIndex(of: "-pendingQuoteIdOnLaunch"), idx + 1 < uiArgs.count {
+            AppState.shared.pendingQuoteId = uiArgs[idx + 1]
+        } else if let qid = uiEnv["PENDING_QUOTE_ID_ON_LAUNCH"] {
+            AppState.shared.pendingQuoteId = qid
+        }
+        #endif
+
         UNUserNotificationCenter.current().delegate = self
         NotificationScheduler.shared.registerCategories()
         SubscriptionManager.shared.configure()
@@ -104,11 +115,14 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         // v1.8.7: Affirmation quote tap (remote APNs) → scroll Feed to that quote.
         // If quoteId is missing/unknown the Feed simply opens at the top (graceful).
         if let quoteId = userInfo["quoteId"] as? String, !quoteId.isEmpty {
+            // warm path: FeedRootView.onReceive が既に購読していれば拾う
             NotificationCenter.default.post(
                 name: .aniccaScrollToQuote,
                 object: nil,
                 userInfo: ["quoteId": quoteId]
             )
+            // ④ cold-launch queue: FeedRootView.onAppear が pull するまで AppState に保持
+            Task { @MainActor in AppState.shared.pendingQuoteId = quoteId }
         }
     }
 

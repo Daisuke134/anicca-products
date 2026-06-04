@@ -51,6 +51,11 @@ struct FeedRootView: View {
             if quotes.isEmpty {
                 quotes = QuoteProvider.shared.all()
             }
+            // ④ cold-launch: AppState.shared を一度だけ pull (★ プロパティ購読を追加せず再描画グラフ不変)
+            if let qid = AppState.shared.consumePendingQuoteId(),
+               let idx = quotes.firstIndex(where: { $0.id == qid }) {
+                withAnimation { currentIndex = idx }
+            }
         }
         .sheet(isPresented: $showSettings) {
             if #available(iOS 16.0, *) {
