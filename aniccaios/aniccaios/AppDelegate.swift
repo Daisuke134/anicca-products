@@ -63,29 +63,29 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         }
 
         Task {
-            // v1.8.7: affirmations are delivered REMOTELY (APNs) — no local scheduling.
-            // Register for remote notifications on launch if already authorized so the
-            // device token reaches the backend and recovers without extra user action.
-            await registerForRemoteIfAuthorized()
+            // ① 1.9.3 fix: register UNCONDITIONALLY (旧 if-authorized gate 除去 = 土曜から通知停止の真因)。
+            // iOS が permission を内部処理: 許可なしなら didRegisterForRemoteNotifications が発火しないだけ (無害)。
+            await registerForRemoteNotifications()
             await SubscriptionManager.shared.refreshOfferings()
             await AuthHealthCheck.shared.warmBackend()
+            // 前回 register POST が失敗していたら次起動で再試行。
+            if UserDefaults.standard.bool(forKey: "com.anicca.pushTokenRegistrationPending") {
+                await registerForRemoteNotifications()
+            }
         }
         return true
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Best-effort: recover APNs token registration if it was delayed on first run.
-        Task { await registerForRemoteIfAuthorized() }
+        // Best-effort: recover APNs token registration on every foreground (idempotent).
+        Task { await registerForRemoteNotifications() }
     }
 
-    /// Register for remote notifications when the user has granted alert authorization.
-    /// Idempotent; iOS de-dupes. The resulting token is sent to the backend by
-    /// `didRegisterForRemoteNotificationsWithDeviceToken`.
-    private func registerForRemoteIfAuthorized() async {
-        let authorized = await NotificationScheduler.shared.isAuthorizedForAlerts()
-        if authorized {
-            await MainActor.run { UIApplication.shared.registerForRemoteNotifications() }
-        }
+    /// ① 1.9.3: Unconditionally register for remote notifications. iOS de-dupes internally.
+    /// The resulting token is sent to the backend by `didRegisterForRemoteNotificationsWithDeviceToken`.
+    /// If the user has no permission, the callback simply never fires (safe).
+    private func registerForRemoteNotifications() async {
+        await MainActor.run { UIApplication.shared.registerForRemoteNotifications() }
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {

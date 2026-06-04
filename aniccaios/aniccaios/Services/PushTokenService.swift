@@ -12,6 +12,7 @@ final class PushTokenService {
     private let logger = Logger(subsystem: "com.anicca.ios", category: "PushTokenService")
     private let defaults = UserDefaults.standard
     private let registeredKey = "com.anicca.apnsTokenRegistered"
+    private let pendingKey = "com.anicca.pushTokenRegistrationPending"
 
     private init() {}
 
@@ -23,68 +24,57 @@ final class PushTokenService {
         defaults.set(false, forKey: registeredKey)
     }
 
+    /// ① 1.9.3 fix: 3 retry (0s/1s/2s) + pending flag。 全失敗で next-launch retry 用 flag を立てる。
     func register(deviceToken: Data) async {
         let hex = deviceToken.map { String(format: "%02x", $0) }.joined()
-        guard hex.count == 64 else {
-            logger.error("Invalid device token length: \(hex.count, privacy: .public)")
-            return
+        let delays: [UInt64] = [0, 1_000_000_000, 2_000_000_000]
+        for (attempt, delay) in delays.enumerated() {
+            if delay > 0 { try? await Task.sleep(nanoseconds: delay) }
+            if await postOnce(hex: hex, attempt: attempt + 1) {
+                defaults.set(false, forKey: pendingKey)
+                return
+            }
         }
+        defaults.set(true, forKey: pendingKey)
+        logger.error("Push token register: all 3 attempts failed, pending flag set for next launch")
+        await restoreLocalProblemNotifications()
+    }
 
+    /// Single POST attempt。 成功 (2xx) で true。 既存の remote-enabled 分岐ロジックを維持。
+    private func postOnce(hex: String, attempt: Int) async -> Bool {
         var request = URLRequest(url: AppConfig.pushTokenRegisterURL)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        // Bind to device (no user-id required; backend will resolve securely).
         request.setValue(AppState.shared.resolveDeviceId(), forHTTPHeaderField: "device-id")
-
-        // Help backend pick correct timezone/lang SSOT.
         request.setValue(TimeZone.current.identifier, forHTTPHeaderField: "x-timezone")
         request.setValue(AppState.shared.effectiveLanguage.rawValue, forHTTPHeaderField: "x-lang")
-
-        let body: [String: Any] = [
-            "token": hex,
-            "platform": "ios"
-        ]
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        request.httpBody = try? JSONSerialization.data(withJSONObject: ["token": hex, "platform": "ios"])
 
         do {
             let (data, response) = try await NetworkSessionManager.shared.session.data(for: request)
-            guard let http = response as? HTTPURLResponse else { return }
-            if (200..<300).contains(http.statusCode) {
-                // Backend must confirm remote delivery is enabled. Otherwise disabling local
-                // scheduling can cause a notification blackout.
-                let json = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
-                // Only disable local Problem notifications when the server confirms
-                // the user is actually eligible for remote Problem nudges (entitlement-gated).
-                // This avoids a "free user blackout" if APNs config is OK but server won't send.
-                let isRemoteEnabled = (json?["remoteProblemNudgesEnabled"] as? Bool) == true
-                if isRemoteEnabled {
-                    defaults.set(true, forKey: registeredKey)
-                    // Remove any locally scheduled problem notifications to avoid duplicates once
-                    // server-side APNs delivery is active.
-                    await ProblemNotificationScheduler.shared.cancelAllNotifications()
-                    // Also clear any free-plan scheduled ids (defensive; avoids double-delivery if plan changes).
-                    let freeIds = (0..<3).map { "free_nudge_\($0)" }
-                    UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: freeIds)
-                } else {
-                    // If remote delivery is not enabled, ensure local scheduling is NOT disabled.
-                    markUnregistered()
-                    logger.warning("Remote delivery not enabled; keeping local Problem notifications active")
-                    // Best-effort: re-schedule local Problem notifications if we already have struggles.
-                    let problems = AppState.shared.userProfile.struggles
-                    if !problems.isEmpty {
-                        await ProblemNotificationScheduler.shared.scheduleNotifications(for: problems)
-                    }
-                }
-                return
+            guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
+                logger.error("Push token register failed (attempt \(attempt, privacy: .public))")
+                return false
             }
-            // Fail-safe: if registration fails, do not keep remote-only mode enabled.
-            await restoreLocalProblemNotifications()
-            logger.error("Push token register failed http=\(http.statusCode, privacy: .public)")
+            let json = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any]
+            let isRemoteEnabled = (json?["remoteProblemNudgesEnabled"] as? Bool) == true
+            if isRemoteEnabled {
+                defaults.set(true, forKey: registeredKey)
+                await ProblemNotificationScheduler.shared.cancelAllNotifications()
+                let freeIds = (0..<3).map { "free_nudge_\($0)" }
+                UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: freeIds)
+            } else {
+                markUnregistered()
+                logger.warning("Remote delivery not enabled; keeping local Problem notifications active")
+                let problems = AppState.shared.userProfile.struggles
+                if !problems.isEmpty {
+                    await ProblemNotificationScheduler.shared.scheduleNotifications(for: problems)
+                }
+            }
+            return true
         } catch {
-            // Fail-safe: network errors should not keep remote-only mode enabled.
-            await restoreLocalProblemNotifications()
-            logger.error("Push token register failed: \(error.localizedDescription, privacy: .public)")
+            logger.error("Push token register network error: \(error.localizedDescription, privacy: .public) (attempt \(attempt, privacy: .public))")
+            return false
         }
     }
 
