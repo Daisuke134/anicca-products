@@ -2713,3 +2713,10 @@
 "feedback_section_title" = "ご意見・改善要望";
 "feedback_link_label" = "改善してほしいこと";
 "feedback_submit_button" = "送信";
+
+/* v1.9.3 newsletter */
+"newsletter_section_title" = "毎朝の手紙";
+"newsletter_section_footer" = "毎朝ひとつ、 無常についての短い手紙が届きます。";
+"newsletter_email_placeholder" = "your@email.com";
+"newsletter_submit_button" = "登録する";
+"newsletter_status_registered" = "毎朝の手紙を登録しました。";

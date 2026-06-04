@@ -2614,3 +2614,10 @@
 "feedback_section_title" = "Send Feedback";
 "feedback_link_label" = "Tell us what to improve";
 "feedback_submit_button" = "Send";
+
+/* v1.9.3 newsletter */
+"newsletter_section_title" = "Daily Letter";
+"newsletter_section_footer" = "One short letter every morning, on impermanence.";
+"newsletter_email_placeholder" = "your@email.com";
+"newsletter_submit_button" = "Subscribe";
+"newsletter_status_registered" = "Subscribed to the daily letter.";

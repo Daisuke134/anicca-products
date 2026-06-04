@@ -59,13 +59,10 @@ struct SettingsSheet: View {
                 }
             }
 
-            Section {
-                Button(role: .destructive) {
-                    // Sign out hook — kept minimal here; app-level wiring stays in AppState.
-                } label: {
-                    Label(String(localized: "settings_sign_out"), systemImage: "rectangle.portrait.and.arrow.right")
-                }
-            }
+            // ⑥⑦ 1.9.3: 毎朝の手紙 (既存 Daily Anicca Letter 接続) + ご意見・改善要望
+            // (② サインアウト Section は削除 — サインイン UI 不在の死んだ no-op ボタンだった)
+            NewsletterSection()
+            FeedbackSection()
         }
         .listStyle(.insetGrouped)
         .navigationTitle(String(localized: "settings_title"))
@@ -251,6 +248,64 @@ struct FeedbackFormView: View {
                 errorMsg = "Failed. Please try again."; return
             }
             sent = true; text = ""
+        } catch { errorMsg = error.localizedDescription }
+    }
+}
+
+// MARK: - ⑥ 1.9.3 Newsletter section (既存 Daily Anicca Letter 接続)
+
+struct NewsletterSection: View {
+    @State private var email = ""
+    @State private var registered = false
+    @State private var submitting = false
+    @State private var errorMsg: String?
+
+    var body: some View {
+        Section {
+            if registered {
+                Text(String(localized: "newsletter_status_registered"))
+                    .accessibilityIdentifier("newsletter-status-text")
+            } else {
+                TextField(String(localized: "newsletter_email_placeholder"), text: $email)
+                    .textContentType(.emailAddress).autocapitalization(.none).disableAutocorrection(true)
+                    .accessibilityIdentifier("newsletter-email-field")
+                if let e = errorMsg { Text(e).font(.caption).foregroundStyle(.red) }
+                Button {
+                    Task { await submit() }
+                } label: {
+                    HStack { if submitting { ProgressView() }; Text(String(localized: "newsletter_submit_button")) }
+                }
+                .accessibilityIdentifier("newsletter-submit-button")
+                .disabled(submitting || !isValidEmail(email))
+            }
+        } header: {
+            Text(String(localized: "newsletter_section_title"))
+        } footer: {
+            Text(String(localized: "newsletter_section_footer")).font(.caption2).foregroundStyle(.secondary)
+        }
+        .accessibilityIdentifier("newsletter-section")
+    }
+
+    private func isValidEmail(_ s: String) -> Bool {
+        s.range(of: #"^[^@\s]+@[^@\s]+\.[^@\s]+$"#, options: .regularExpression) != nil
+    }
+
+    @MainActor private func submit() async {
+        submitting = true; defer { submitting = false }; errorMsg = nil
+        guard let url = URL(string: "https://aniccaai.com/.netlify/functions/lead-magnet") else { return }
+        var req = URLRequest(url: url)
+        req.httpMethod = "POST"
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.httpBody = try? JSONSerialization.data(withJSONObject: [
+            "email": email,
+            "lang": AppState.newsletterLang(for: AppState.shared.effectiveLanguage)  // ★ ja → "jp"
+        ])
+        do {
+            let (_, resp) = try await URLSession.shared.data(for: req)
+            guard let http = resp as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
+                errorMsg = "Failed. Please try again."; return
+            }
+            registered = true
         } catch { errorMsg = error.localizedDescription }
     }
 }

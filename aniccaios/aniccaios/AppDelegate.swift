@@ -9,6 +9,15 @@ import RevenueCat
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        // ④/⑥/⑦ 1.9.3 UITest: skip onboarding so Maestro can reach Feed + Settings.
+        // Must run BEFORE AppState.shared init reads the onboarding flag. DEBUG-only dead code.
+        #if DEBUG
+        if ProcessInfo.processInfo.environment["UITEST_SKIP_ONBOARDING"] == "1"
+            || ProcessInfo.processInfo.arguments.contains("-uiTestSkipOnboarding") {
+            UserDefaults.standard.set(true, forKey: "com.anicca.onboardingComplete")
+        }
+        #endif
+
         let proxy = Bundle.main.object(forInfoDictionaryKey: "ANICCA_PROXY_BASE_URL") as? String ?? "nil"
         print("ANICCA_PROXY_BASE_URL =", proxy)
 
@@ -53,7 +62,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         phConfig.sessionReplayConfig.maskAllTextInputs = true
         phConfig.sessionReplayConfig.maskAllImages = false
         PostHogSDK.shared.setup(phConfig)
-        PostHogSDK.shared.identify(Purchases.shared.appUserID)
+        // RevenueCat 未 configure 時 (UITest skip) に Purchases.shared が crash するのを防ぐ。
+        if SubscriptionManager.shared.isConfigured {
+            PostHogSDK.shared.identify(Purchases.shared.appUserID)
+        }
         // identify() 後にフラグを明示リロード（ユーザーコンテキスト変更でpreload分が無効になるため）
         // completion callback で featureFlagsReady を立てる → Paywall が nil を読まない
         // Source: https://posthog.com/docs/libraries/ios/usage — "Ensuring flags are loaded before usage"
