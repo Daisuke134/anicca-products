@@ -1,0 +1,25 @@
+appId: ai.anicca.app.ios
+name: v1.9.3 Newsletter signup
+tags: [v1.9.3, newsletter]
+---
+- launchApp:
+    arguments:
+      UITESTING: "true"
+      UITEST_SKIP_ONBOARDING: "1"
+- extendedWaitUntil:
+    visible:
+      text: "キャンセル|Cancel"
+    timeout: 8000
+    optional: true
+- tapOn:
+    text: "キャンセル|Cancel"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "feed-settings"
+    timeout: 30000
+- tapOn:
+    id: "feed-settings"
+- assertVisible:
+    id: "newsletter-section"
+- takeScreenshot: "v193-02-newsletter"

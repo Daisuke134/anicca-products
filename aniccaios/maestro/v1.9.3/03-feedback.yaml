@@ -1,0 +1,32 @@
+appId: ai.anicca.app.ios
+name: v1.9.3 Feedback send
+tags: [v1.9.3, feedback]
+---
+- launchApp:
+    arguments:
+      UITESTING: "true"
+      UITEST_SKIP_ONBOARDING: "1"
+- extendedWaitUntil:
+    visible:
+      text: "キャンセル|Cancel"
+    timeout: 8000
+    optional: true
+- tapOn:
+    text: "キャンセル|Cancel"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "feed-settings"
+    timeout: 30000
+- tapOn:
+    id: "feed-settings"
+- scrollUntilVisible:
+    element:
+      id: "feedback-section"
+    direction: DOWN
+    timeout: 10000
+- tapOn:
+    text: "改善してほしいこと|Tell us what to improve"
+- assertVisible:
+    id: "feedback-textarea"
+- takeScreenshot: "v193-03-feedback"

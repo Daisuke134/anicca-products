@@ -1,0 +1,22 @@
+appId: ai.anicca.app.ios
+name: v1.9.3 Cold-launch pendingQuoteId
+tags: [v1.9.3, cold-start]
+---
+- launchApp:
+    arguments:
+      UITESTING: "true"
+      UITEST_SKIP_ONBOARDING: "1"
+      PENDING_QUOTE_ID_ON_LAUNCH: "q042"
+- extendedWaitUntil:
+    visible:
+      text: "キャンセル|Cancel"
+    timeout: 8000
+    optional: true
+- tapOn:
+    text: "キャンセル|Cancel"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "feed-settings"
+    timeout: 30000
+- takeScreenshot: "v193-01-cold-launch"

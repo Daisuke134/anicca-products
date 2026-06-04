@@ -1,0 +1,32 @@
+appId: ai.anicca.app.ios
+name: v1.9.3 IM-feed regression
+tags: [v1.9.3, regression]
+---
+- launchApp:
+    arguments:
+      UITESTING: "true"
+      UITEST_SKIP_ONBOARDING: "1"
+- extendedWaitUntil:
+    visible:
+      text: "キャンセル|Cancel"
+    timeout: 8000
+    optional: true
+- tapOn:
+    text: "キャンセル|Cancel"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "feed-settings"
+    timeout: 30000
+- assertVisible:
+    id: "feed-scroll"
+- swipe:
+    direction: UP
+- tapOn:
+    id: "quote-like"
+    optional: true
+- tapOn:
+    id: "feed-settings"
+- assertVisible:
+    id: "settings-theme"
+- takeScreenshot: "v193-04-regression"
