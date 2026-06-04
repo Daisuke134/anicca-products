@@ -84,7 +84,7 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "-resetOnLaunch"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
       <StoreKitConfigurationFileReference

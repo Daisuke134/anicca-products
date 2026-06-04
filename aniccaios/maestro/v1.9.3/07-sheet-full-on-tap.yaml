@@ -1,0 +1,29 @@
+appId: ai.anicca.app.ios
+name: v1.9.3 Settings sheet opens FULL on first tap (no extra swipe needed)
+tags: [v1.9.3, settings, detent]
+---
+- launchApp:
+    arguments:
+      UITESTING: "true"
+      UITEST_SKIP_ONBOARDING: "1"
+- extendedWaitUntil:
+    visible:
+      text: "キャンセル|Cancel"
+    timeout: 8000
+    optional: true
+- tapOn:
+    text: "キャンセル|Cancel"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "feed-settings"
+    timeout: 30000
+- tapOn:
+    id: "feed-settings"
+# NO swipe here — with .large-only detent the full sheet must be visible immediately.
+# Both the newsletter field and the feedback row must be on screen on first tap.
+- assertVisible:
+    text: "your@email.com"
+- assertVisible:
+    text: "改善してほしいこと|Tell us what to improve"
+- takeScreenshot: "v193-07-sheet-full-on-tap"

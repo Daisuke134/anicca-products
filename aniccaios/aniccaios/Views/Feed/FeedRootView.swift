@@ -64,7 +64,9 @@ struct FeedRootView: View {
                         .environmentObject(themeStore)
                         .environmentObject(likedStore)
                 }
-                .presentationDetents([.medium, .large])
+                // Open full-height immediately (no .medium) so newsletter + feedback
+                // are visible on first tap without an extra swipe-up.
+                .presentationDetents([.large])
                 .presentationDragIndicator(.visible)
             } else {
                 NavigationView {
