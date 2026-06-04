@@ -189,3 +189,68 @@ struct NotificationsSettingsView: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 }
+
+// MARK: - ⑦ 1.9.3 Feedback section
+
+struct FeedbackSection: View {
+    var body: some View {
+        Section {
+            NavigationLink { FeedbackFormView() } label: {
+                Label(String(localized: "feedback_link_label"), systemImage: "envelope")
+            }
+            .accessibilityIdentifier("feedback-link")
+        } header: {
+            Text(String(localized: "feedback_section_title"))
+        }
+        .accessibilityIdentifier("feedback-section")
+    }
+}
+
+struct FeedbackFormView: View {
+    @State private var text: String = ""
+    @State private var sent = false
+    @State private var errorMsg: String?
+
+    var body: some View {
+        Form {
+            Section {
+                TextEditor(text: $text).frame(minHeight: 180)
+                    .accessibilityIdentifier("feedback-textarea")
+                Text("\(text.count) / 2000").font(.caption2)
+                    .foregroundStyle(text.count > 2000 ? .red : .secondary)
+            }
+            if let e = errorMsg { Section { Text(e).foregroundStyle(.red).font(.caption) } }
+            Section {
+                Button {
+                    Task { await submit() }
+                } label: {
+                    Text(sent ? "✓ Sent" : String(localized: "feedback_submit_button"))
+                }
+                .accessibilityIdentifier("feedback-submit-button")
+                .disabled(sent || text.count < 5 || text.count > 2000)
+            }
+        }
+        .navigationTitle(String(localized: "feedback_section_title"))
+        .navigationBarTitleDisplayMode(.inline)
+    }
+
+    @MainActor private func submit() async {
+        errorMsg = nil
+        guard let url = URL(string: "https://aniccaai.com/.netlify/functions/feedback") else { return }
+        var req = URLRequest(url: url)
+        req.httpMethod = "POST"
+        req.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        req.httpBody = try? JSONSerialization.data(withJSONObject: [
+            "text": text,
+            "locale": AppState.shared.effectiveLanguage.rawValue,
+            "appVersion": AppConfig.appVersion
+        ])
+        do {
+            let (_, resp) = try await URLSession.shared.data(for: req)
+            guard let http = resp as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
+                errorMsg = "Failed. Please try again."; return
+            }
+            sent = true; text = ""
+        } catch { errorMsg = error.localizedDescription }
+    }
+}

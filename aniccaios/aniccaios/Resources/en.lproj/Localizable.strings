@@ -2692,3 +2692,8 @@
 "theme_sky_dawn" = "Sky Dawn";
 "theme_rose_petal" = "Rose Petal";
 "quote_copied" = "Copied";
+
+/* v1.9.3 feedback */
+"feedback_section_title" = "Send Feedback";
+"feedback_link_label" = "Tell us what to improve";
+"feedback_submit_button" = "Send";

@@ -2708,3 +2708,8 @@
 "theme_sky_dawn" = "スカイ・ドーン";
 "theme_rose_petal" = "ローズ・ペタル";
 "quote_copied" = "コピーしました";
+
+/* v1.9.3 feedback */
+"feedback_section_title" = "ご意見・改善要望";
+"feedback_link_label" = "改善してほしいこと";
+"feedback_submit_button" = "送信";
