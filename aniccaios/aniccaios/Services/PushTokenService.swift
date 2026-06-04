@@ -27,6 +27,11 @@ final class PushTokenService {
     /// ① 1.9.3 fix: 3 retry (0s/1s/2s) + pending flag。 全失敗で next-launch retry 用 flag を立てる。
     func register(deviceToken: Data) async {
         let hex = deviceToken.map { String(format: "%02x", $0) }.joined()
+        // I-B: 不正長トークンは retry を無駄打ちせず早期 return (APNs token は 32byte=64hex)。
+        guard hex.count == 64 else {
+            logger.error("Invalid device token length: \(hex.count, privacy: .public)")
+            return
+        }
         let delays: [UInt64] = [0, 1_000_000_000, 2_000_000_000]
         for (attempt, delay) in delays.enumerated() {
             if delay > 0 { try? await Task.sleep(nanoseconds: delay) }

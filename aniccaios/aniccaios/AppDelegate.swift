@@ -133,8 +133,13 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                 object: nil,
                 userInfo: ["quoteId": quoteId]
             )
-            // ④ cold-launch queue: FeedRootView.onAppear が pull するまで AppState に保持
-            Task { @MainActor in AppState.shared.pendingQuoteId = quoteId }
+            // ④ cold-launch queue のみ pendingQuoteId をセット (I-A: warm/active 時はセットしない
+            // → onReceive が即 scroll 済。 残留させると後の FeedRootView 再生成で古い quote へ誤ジャンプ)。
+            Task { @MainActor in
+                if UIApplication.shared.applicationState != .active {
+                    AppState.shared.pendingQuoteId = quoteId
+                }
+            }
         }
     }
 
