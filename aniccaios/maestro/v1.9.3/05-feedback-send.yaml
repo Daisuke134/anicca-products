@@ -1,0 +1,48 @@
+appId: ai.anicca.app.ios
+name: v1.9.3 Feedback SEND end-to-end (asserts success, not just form visible)
+tags: [v1.9.3, feedback, e2e-send]
+---
+- launchApp:
+    arguments:
+      UITESTING: "true"
+      UITEST_SKIP_ONBOARDING: "1"
+- extendedWaitUntil:
+    visible:
+      text: "キャンセル|Cancel"
+    timeout: 8000
+    optional: true
+- tapOn:
+    text: "キャンセル|Cancel"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "feed-settings"
+    timeout: 30000
+- tapOn:
+    id: "feed-settings"
+- scrollUntilVisible:
+    element:
+      id: "feedback-section"
+    direction: DOWN
+    timeout: 10000
+- tapOn:
+    text: "改善してほしいこと|Tell us what to improve"
+- assertVisible:
+    id: "feedback-textarea"
+- tapOn:
+    id: "feedback-textarea"
+- inputText: "Maestro E2E to keiodaisuke@gmail.com — Netlify functions now live, verifying real send."
+# TextEditor exposes no standard keyboard dismiss; tap the nav title to resign first responder.
+- tapOn:
+    text: "ご意見・改善要望|Feedback"
+    optional: true
+- tapOn:
+    id: "feedback-submit-button"
+# SUCCESS = button label flips to "✓ Sent". FAILURE would show "Failed. Please try again."
+- extendedWaitUntil:
+    visible:
+      text: "✓ Sent"
+    timeout: 15000
+- assertNotVisible:
+    text: "Failed. Please try again."
+- takeScreenshot: "v193-05-feedback-SENT"

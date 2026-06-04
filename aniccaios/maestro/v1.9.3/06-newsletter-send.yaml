@@ -1,0 +1,50 @@
+appId: ai.anicca.app.ios
+name: v1.9.3 Newsletter SIGNUP end-to-end (asserts registered status)
+tags: [v1.9.3, newsletter, e2e-send]
+---
+- launchApp:
+    arguments:
+      UITESTING: "true"
+      UITEST_SKIP_ONBOARDING: "1"
+- extendedWaitUntil:
+    visible:
+      text: "キャンセル|Cancel"
+    timeout: 8000
+    optional: true
+- tapOn:
+    text: "キャンセル|Cancel"
+    optional: true
+- extendedWaitUntil:
+    visible:
+      id: "feed-settings"
+    timeout: 30000
+- tapOn:
+    id: "feed-settings"
+# Settings sheet opens at .medium detent; expand to .large so the bottom newsletter
+# field isn't clipped at the screen edge.
+- swipe:
+    direction: UP
+    duration: 400
+# NOTE: the Section-level .accessibilityIdentifier("newsletter-section") shadows the
+# child TextField/Button ids in the a11y tree, so select the field by its placeholder
+# and the button by its label text.
+- assertVisible:
+    text: "your@email.com"
+- tapOn:
+    text: "your@email.com"
+- inputText: "anicca-e2e@aniccaai.com"
+# Keyboard covers the submit button. Return key resigns the TextField first responder
+# in SwiftUI, hiding the keyboard so 登録する becomes hittable.
+- pressKey: Enter
+- assertVisible:
+    text: "登録する"
+- tapOn:
+    text: "登録する"
+# SUCCESS = registered status text replaces the form. FAILURE would show "Failed. Please try again."
+- extendedWaitUntil:
+    visible:
+      text: "毎朝の手紙を登録しました。"
+    timeout: 15000
+- assertNotVisible:
+    text: "Failed. Please try again."
+- takeScreenshot: "v193-06-newsletter-REGISTERED"
