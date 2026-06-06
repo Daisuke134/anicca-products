@@ -210,6 +210,24 @@ platform :ios do
     archive_path = File.expand_path("./build/aniccaios.xcarchive")
     export_path = File.expand_path("./build/export")
 
+    # 2026-06-07 Dais directive (HARD RULE 0.22): errSecInternalComponent (-34018) on
+    # AniccaNotificationService.appex during `Sign /...appex` step. Root cause = login
+    # keychain locked / not in search list when fastlane invoked from non-interactive
+    # shell (Claude Code Bash, ssh, cron). codesign can't access the signing identity
+    # so the .appex sign step fails with errSecInternalComponent.
+    # BP: unlock + set keychain settings + force login.keychain-db first in search list
+    # BEFORE build_app runs codesign. Source: Apple Dev Forums + Fastlane #17031.
+    keychain_path = File.expand_path("~/Library/Keychains/login.keychain-db")
+    keychain_pwd = ENV["LOGIN_KEYCHAIN_PWD"] || ENV["KEYCHAIN_PASSWORD"]
+    if keychain_pwd && File.exist?(keychain_path)
+      sh("security unlock-keychain -p '#{keychain_pwd}' '#{keychain_path}'")
+      sh("security set-keychain-settings -lut 7200 '#{keychain_path}'")
+      sh("security list-keychains -d user -s '#{keychain_path}' login.keychain")
+      UI.success("🔓 Login keychain unlocked + set as primary signing keychain")
+    else
+      UI.important("⚠️  LOGIN_KEYCHAIN_PWD not set in env — codesign may fail with errSecInternalComponent if keychain is locked")
+    end
+
     # Step 1: Archive only (skip_package_ipa to avoid Widget Extension export failure)
     build_app(
       scheme: SCHEME,
