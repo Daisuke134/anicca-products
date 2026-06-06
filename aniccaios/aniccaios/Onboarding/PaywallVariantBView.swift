@@ -41,13 +41,10 @@ struct PaywallVariantBView: View {
     }
 
     private var hasTrialEligibility: Bool {
-        // 2026-05-22 Dais directive: free trial back ON. annual.b and monthly.b ($9.99/mo)
-        // both have a 3-day FREE_TRIAL configured in App Store Connect (verified across all
-        // 174 territories). We don't gate on storeProduct.introductoryDiscount because StoreKit
-        // on simulator (no .storekit config / sandbox sign-in) returns nil for it, so we trust
-        // the package type and default to the trial side when no package is selected yet.
-        guard let pkg = selectedPackage else { return true }
-        return pkg.packageType == .annual || pkg.packageType == .monthly
+        // 2026-06-07 Dais directive: free trial REMOVED. Always show "subscribe" — no trial branch.
+        // App Store Connect introductory FREE_TRIAL offers also deleted across all territories
+        // for monthly.b / yearly.b / weekly.b / yearly.retention.
+        return false
     }
 
     var body: some View {
