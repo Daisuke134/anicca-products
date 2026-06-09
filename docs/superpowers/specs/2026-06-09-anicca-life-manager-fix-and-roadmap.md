@@ -438,3 +438,63 @@ DAY 1+ (identical experience to OSS, but cloud-hosted):
 | auto-cancel | n/a | wild treasury → free |
 
 ★ core/ is byte-identical. Only WHERE it runs + WHO owns keys + billing differ. ★
+
+---
+
+## 13. OS-agnostic core (macOS tools disabled on cloud) — how
+
+The phone call for Anicca life-manager needs ONLY: speak persona message,
+converse, hang_up. It does NOT need Mac control (screen/video/brightness).
+
+sutando conversation-server.ts:713 registers ALL macOS inline tools:
+```ts
+for (const t of inlineTools) { if (!seen.has(t.name)) { tools.push(t); ... } }
+```
+`inlineTools` = openFile, pressKey, captureScreen, typeText, volume, brightness,
+clipboard, slideControl, fullscreen, etc. (all execSync osascript → macOS only).
+
+**Fix (deploy flag, gate the macOS tools)**:
+```ts
+const DEPLOY = process.env.ANICCA_DEPLOY || 'local';        // 'local' | 'cloud'
+const PHONE_MINIMAL = DEPLOY === 'cloud';                   // Linux sandbox
+...
+// only register macOS inline tools when NOT cloud
+if (!PHONE_MINIMAL) {
+  for (const t of inlineTools) { if (!seen.has(t.name)) { tools.push(t); seen.add(t.name); } }
+}
+// also gate ownerOnlyTools + the owner fast-path Mac sections behind !PHONE_MINIMAL
+```
+Result: on cloud (Linux Daytona sandbox), `ANICCA_DEPLOY=cloud` → phone agent
+registers only hang_up + get_current_time → no osascript ever invoked. Same
+core/, same conversation engine, OS-agnostic. The persona prompt (Anicca:
+wake/meditate/etc) is identical; only the Mac-control toolset is stripped.
+
+BP: docs.pipecat.ai/pipecat/features/gemini-live "deploy to your own
+infrastructure" — voice pipeline (Twilio↔Gemini Live) is pure network, OS-free.
+The only OS coupling is the optional Mac-control toolset, gated by the flag.
+
+→ Task: add ANICCA_DEPLOY flag to conversation-server.ts (patch record), wire
+into Daytona sandbox init.sh as ANICCA_DEPLOY=cloud.
+
+## 14. STRATEGY decision: web-primary + Dais dogfoods cloud (Dais 2026-06-09)
+
+**Decision**: ★ Go web-app-primary. Dais uses a CLOUD owner account (free),
+not a local Mac setup. OSS code stays public for self-hosters. ★
+
+Why (dogfooding best practice — Stripe/Supabase/Linear all run their own cloud):
+| | Dais self-hosts local | Dais dogfoods cloud (chosen) |
+|---|---|---|
+| experiences what users get | NO (different setup/bugs) | YES (identical to paying users) |
+| catches web user bugs | NO | YES (feels every issue first) |
+| maintenance | 2 paths (his local + web) | 1 path (web) |
+| uptime | his Mac (sleeps, fragile) | server 24/7 (reliable) |
+| cost to Dais | own API ~$25/mo | $0 (owner account) |
+
+Migration path:
+1. NOW: local Mac is Dais's bridge (just fixed, working).
+2. BUILD: PHASE 3 web/cloud (Daytona spawn + control-plane).
+3. THEN: Dais migrates to a cloud owner account (free), dogfoods, retires local Mac.
+
+OSS remains: code public (anicca-oss), self-hosters can run their own. But the
+canonical product + Dais's own usage = web/cloud. This kills local/cloud drift
+because Dais lives on the same substrate as paying users.
