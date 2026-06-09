@@ -259,3 +259,81 @@ PHASE 3 — web SaaS (cloud, mostly unbuilt):
 ```
 
 Subscription = web only. OSS users set own LLM keys. (Dais 2026-06-09)
+
+---
+
+## 9. Architecture decision: MERGE into ONE OSS repo (Dais 2026-06-09)
+
+**Decision (best practice, not opinion)**: ★ ONE OSS codebase, ONE core, two deployment modes ★.
+NOT two separate codebases.
+
+Precedent (OSS products that ship BOTH self-host + cloud from one repo):
+- Supabase, PostHog, Plausible, Cal.com — all single OSS repo, cloud = same code + thin control-plane.
+
+```
+anicca-oss (ONE repo, MIT, public)
+│
+├── core/  ← ★ IDENTICAL for local AND cloud ★ (the life manager)
+│     skills/anicca-life-manager/
+│       telegram_bot.py        GPS sink (Telegram Live Location)
+│       lateness_check.py      gcal × GPS × time → decide → call
+│       gcal_departures.py     event → departBy (routine_at_home aware)
+│       transit_lookup.py      Geocoding + Firecrawl(MUIT→住所) + transitous(route)
+│       realtime_guide.py      step-by-step Telegram guide during travel
+│     vendor/sutando/          phone-conversation (Charon, Gemini Live, Twilio)
+│
+├── deploy/local/   ← OSS user (self-host)
+│     install.sh              clone + .env(own keys) + launchd plists
+│     → runs core on user's Mac, user pays own LLM/Twilio
+│     → NO subscription
+│
+└── apps/control-plane/  ← ★ CLOUD ONLY (thin layer) ★
+      web/      aniccaai.com/install LP + Stripe Checkout + Telegram onboarding
+      api/      Stripe webhook → Daytona sandbox spawn (runs SAME core/)
+      vault/    per-user OAuth tokens (Supabase RLS)
+      treasury/ wild-Anicca earnings → auto-cancel sub when self-funded
+      → cloud user pays $49.99/mo, we host, same core runs in their sandbox
+```
+
+**Why merge, not separate**:
+| | Merged (chosen) | Separated (rejected) |
+|---|---|---|
+| Bug fix | fix once, both get it | fix twice, drift |
+| OSS promise | full product is OSS | cloud-only features hidden |
+| local=cloud parity | guaranteed (same core/) | diverges over time |
+| maintenance | 1 repo | 2 repos, 2x work |
+
+**The ONLY difference local vs cloud**:
+- WHERE core/ runs: user's Mac (local) vs Daytona sandbox (cloud)
+- WHO owns keys: user (local) vs us (cloud)
+- BILLING: none (local) vs Stripe $49.99/mo (cloud)
+- control-plane (apps/control-plane/) exists ONLY for cloud; local ignores it
+
+★ Subscription = cloud only. OSS local user sets own keys, no charge. Both run the identical life-manager core. ★
+
+## 10. Life manager — how it works (canonical flow)
+
+```
+EVERY 5 MIN (cron */5, 24/7):
+  ┌────────────────────────────────────────────────────────────────┐
+  │ 1. get_location()  ← state/location/<uid>.json (digit-only glob)│
+  │      Telegram Live Location, refreshed every 5s by telegram_bot │
+  │ 2. get_departures() ← Google Calendar (next 7 days of events)   │
+  │      each event classified: routine_at_home OR travel           │
+  │      venue resolved: Geocoding → (fail) Firecrawl "<name> 住所"  │
+  │      route + departBy: transitous (train) for travel events     │
+  │ 3. decide(now, location, events):                               │
+  │      travel event, en route, on time      → ok (silent)         │
+  │      travel event, arrived                 → ok (silent)        │
+  │      travel event, departBy passed+still home → CALL (leave now)│
+  │      routine_at_home (wake/瞑想/就寝/薬), departBy → CALL        │
+  │      quiet hours 23:30-05:30: silent EXCEPT routine punch-through│
+  │ 4. if CALL:                                                     │
+  │      _build_anicca_voice_prompt(ctx + GPS + route + event)      │
+  │      POST sutando :3100/call {to, message}                      │
+  │      Twilio Media Streams ↔ Gemini Live (Charon male, ja-JP)    │
+  │      ☎️ "Dais さん、 瞑想の時間です" → 双方向会話 → hang_up      │
+  │ 5. if travel + moving: realtime_guide pushes Telegram text      │
+  │      at each leg (改札/乗換/降りる駅/方向違い)                   │
+  └────────────────────────────────────────────────────────────────┘
+```
