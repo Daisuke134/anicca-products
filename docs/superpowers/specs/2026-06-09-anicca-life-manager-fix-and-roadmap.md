@@ -364,3 +364,77 @@ caller: then what's 1 + 2?
 agent : 1 + 2は3ですよ。
 caller: Okay, it's working, it's working. It's good.   ← Dais confirmed
 ```
+
+---
+
+## 12. OSS (local) vs WEB (cloud) user experience
+
+### 12.1 OSS user UX (= Dais-type, self-host)
+
+```
+WHO: own Mac always-on, own API keys, no subscription.
+
+DAY 0 install (15 min):
+  aniccaai.com/oss → paste 1 prompt into Claude Code/Cursor
+    AI asks 1-at-a-time: GEMINI_API_KEY, TELEGRAM_BOT_TOKEN, TWILIO_*,
+    GOOGLE_API_KEY, FIRECRAWL_API_KEY → ~/.openclaw/.env
+  6 launchd daemons start (telegram_bot, lateness_check */5,
+    realtime_guide, sutando phone, tunnel, tunnel-watcher)
+  Telegram /start → Live Location + Google Calendar
+
+DAY 1+:
+  06:00 ☎️ "Dais さん、アニッチャです。起きる時間です"
+  06:30 ☎️ "瞑想の時間です"  07:00 ☎️ "薬飲みましたか?"
+  08:14 ☎️ "中野まで34分、今出れば10分前着" → 移動中 Telegram 駅案内
+  (late risk) → renraku draft → user approves → send
+  22:45 ☎️ "寝る準備を"   每朝 📧 daily message
+
+  Runs on USER's GEMINI_API_KEY (pay-per-use ~$10-25/mo). No subscription.
+```
+
+### 12.2 WEB user UX (= general public, cloud SaaS)
+
+```
+WHO: normal person. won't install. has Telegram. pays monthly.
+
+T=0   aniccaai.com/install → 1 button "Telegram で 始める"
+T=3   @anicca_bot opens:
+        "名前を教えて" → "Dais"
+T=10  "Google カレンダー 繋いで (任意)" → [Continue with Google] biometric
+T=20  "明日14:00 部長会議@大手町 ですね。 ご自宅の住所は?" → text/voice
+T=35  "ライブ位置情報を共有して" → 1 tap (Telegram standard)
+T=50  "電話番号を共有" → 1 tap
+T=55  Anicca: "登録完了。 月$49.99、 最初7日無料"
+        [ Start free trial → Stripe Checkout ] → Apple Pay biometric
+T=60  "明日朝6:30にお電話します"
+
+  ── BACKEND (user touches NOTHING) ──
+  Stripe webhook (paid) → apps/api → spawn Daytona sandbox (1/user)
+    sandbox init.sh starts SAME core/ (telegram_bot, lateness_check,
+      realtime_guide, sutando phone — macOS-only tools disabled on Linux)
+    OAuth tokens injected from vault (Supabase RLS)
+    OUR Gemini key + OUR Twilio number pay for this user
+
+DAY 1+ (identical experience to OSS, but cloud-hosted):
+  06:30 ☎️ Charon (OUR Twilio number) "起きる時間です" → 双方向
+  every action time → call/notify. 24/7. we monitor, we self-heal.
+
+  Cost: $49.99/mo (7-day free trial). /cancel = 1 Telegram command.
+  Auto-free: when wild-Anicca treasury can fund this user's compute,
+    Anicca cancels the Stripe sub itself + mails "you're free now".
+```
+
+### 12.3 OSS vs WEB difference table
+
+| | OSS (local) | WEB (cloud) |
+|---|---|---|
+| install | Claude Code 1 prompt (15min) | aniccaai.com 1 button (60s) |
+| runs where | own Mac (~/.openclaw) | Daytona sandbox (Linux) |
+| keys | user's own GEMINI/TWILIO | OURS |
+| voice engine | Gemini (user key) | Gemini (our key) |
+| billing | none | $49.99/mo (7d trial) |
+| sutando macOS tools | available | DISABLED (Linux, phone-only) |
+| uptime | user's Mac | we monitor 24/7 |
+| auto-cancel | n/a | wild treasury → free |
+
+★ core/ is byte-identical. Only WHERE it runs + WHO owns keys + billing differ. ★
