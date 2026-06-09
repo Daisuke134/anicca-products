@@ -626,3 +626,94 @@ apps/api billing/index.js exists but is for iOS RevenueCat, not web subs.
 ★ HONEST STATE: LOCAL core (位置→ルート→電話) is REAL and run-verified today.
 Everything web is design-only. Next real work = wire 🟡 (renraku + daily mail cron)
 to finish LOCAL, then build web from §15 design. ★
+
+---
+
+## 17. Final architecture: ONE server (Pipecat), Mac version retired
+
+**Decision (Dais 2026-06-09)**: build ONE server version that works anywhere for
+100s of users. sutando (macOS-coupled, TypeScript + bodhi + Mac tools) was good
+for Dais's local Mac validation; the SERVER product's voice layer = ★ Pipecat ★
+(Python, server-native, OS-agnostic). Dais dogfoods the server; Mac version retired.
+
+BP:
+- docs.pipecat.ai/pipecat/features/gemini-live — "production-ready voice agents,
+  Gemini Live for telephony, web, mobile" (server-designed, 1-970-LIVE-API live demo)
+- daily.co/products/pipecat-cloud — "enterprise infra, automatic scaling, containerized"
+- github pipecat-examples/phone-chatbot/daily-twilio-sip-dial-out/server.py — dial-out reference
+
+```
+ANICCA server (Railway / Pipecat Cloud, no macOS dependency):
+  INGRESS: grammY/python Telegram bot (webhook) + Stripe webhook
+  STORE:   Supabase (users/locations/oauth_tokens/trust_balance/interventions, RLS)
+  BRAIN:   Temporal per-user DailyLifeWorkflow (durable)
+             location signal → gcal read → geocode(Geocoding→Firecrawl) →
+             route(transitous) → departBy(−10min−15min) → timer → decide() Activity
+  VOICE:   Pipecat phone server (Twilio Media Streams ↔ Gemini Live, Charon ja)
+  OUT:     Resend (mail) + Twilio (call) + LINE/Gmail (relay)
+
+  decide() + transit_lookup = SAME Python already run-verified in local.
+  Only rebuilt: voice layer (sutando→Pipecat), scheduler (cron→Temporal),
+  state (files→Supabase).
+```
+
+## 18. The TWO outbounds — technical detail (BP-verified)
+
+Anicca has exactly TWO outbound channels. Both are server-side, OS-agnostic.
+
+### Outbound A — VOICE CALL (Anicca calls the user)
+
+```
+Trigger: Temporal timer fires → callUser() Activity
+  → POST to Pipecat dial-out server /start {phone, persona_prompt}
+  → Pipecat: Twilio REST API POST /Calls (programmable voice)
+       BP: twilio.com/docs/voice/api "make outbound call = POST to Calls resource"
+  → Twilio rings user; on answer → TwiML <Connect><Stream> → WSS to Pipecat
+  → Pipecat pipeline: Twilio Media Streams (mu-law 8kHz)
+       ↔ Gemini Live (native audio, Charon, ja-JP)  ← bidirectional, interruptible
+  → persona_prompt carries: current GPS + route + event + "you are Anicca"
+  → user converses; Gemini responds; hang_up tool ends call
+
+  BP refs:
+   - twilio.com/docs/voice/tutorials/how-to-make-outbound-phone-calls
+   - docs.pipecat.ai/pipecat/telephony/twilio-websockets (dial-out test flow)
+   - github pipecat-examples .../daily-twilio-sip-dial-out/server.py (/start endpoint)
+  Cost: Twilio ~$0.013/min + Gemini Live tokens. Our keys (web) / user key (OSS).
+```
+
+### Outbound B — STAKEHOLDER RELAY (Anicca contacts others, user-approved)
+
+```
+Trigger: workflow detects late-risk (user position vs required arrival)
+  → get event.attendees (from gcal) → LLM drafts reply
+  → Telegram: "佐藤さんへ『15:00着』送る? [返信先▼][返信案 edit][承認]"
+  → user taps 承認 (Telegram callback → workflow signal)
+  → send via the right channel:
+       EMAIL  → Gmail API messages.send WITH threadId + In-Reply-To header
+                = appears as a REPLY in the existing thread (not a new mail)
+                BP: developers.google.com/workspace/gmail/api/guides/sending
+                    (messages.send; thread reply needs References/In-Reply-To)
+       LINE   → LINE Messaging API Push Message (to: userId)
+                = sends without the recipient messaging first
+                BP: developers.line.biz Messaging API + aws blog "Push Message API
+                    sends to LINE users without requiring the user to message first"
+       (fallback) Resend for plain notifications
+
+  KEY: user ALWAYS approves the recipient + draft before send (公開文:
+       「返信先・返信案を承認後に、即時連絡」). No auto-send without tap.
+  BP refs:
+   - developers.google.com/workspace/gmail/api/guides/sending (reply-in-thread)
+   - developers.line.biz/en/docs (Push Message, no prior-message needed)
+   - unipile.com/email-api-guide (act on behalf of user's real Gmail via OAuth)
+  Auth: per-user Gmail OAuth token (Supabase vault) for email-as-user;
+        LINE channel access token for LINE push.
+```
+
+### Why two outbounds, not more
+- Voice = the primary intervention (wake/move/sleep). High-attention.
+- Relay = trust protection (don't make the user lose face when late). Approved.
+- Telegram text (guide/approve) is in-band, not counted as "outbound" — it's the
+  control surface the user already opted into.
+
+★ Both outbounds run server-side (Twilio API + Gmail/LINE API = pure HTTP), zero
+macOS dependency. Verified by BP that all are cloud-native. ★
