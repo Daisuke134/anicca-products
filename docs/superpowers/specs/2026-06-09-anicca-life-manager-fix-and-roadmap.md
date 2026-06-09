@@ -717,3 +717,72 @@ Trigger: workflow detects late-risk (user position vs required arrival)
 
 ★ Both outbounds run server-side (Twilio API + Gmail/LINE API = pure HTTP), zero
 macOS dependency. Verified by BP that all are cloud-native. ★
+
+---
+
+## 19. Stakeholder relay — REAL strategy (BP-verified 2026-06-09)
+
+Problem: the user's coworkers/family are on Gmail, LINE, WhatsApp — but they have
+NOT added Anicca's bot. How does Anicca contact them on the user's behalf?
+
+BP findings:
+- LINE Messaging API push = ONLY to YOUR bot's friends (so coworkers unreachable directly).
+  developers.line.biz/reference/messaging-api `/v2/bot/message/push`
+- LINE Notify = ★ DEAD, terminated 2025-03-31 ★. (developers.line.biz EOL news)
+- Personal LINE automation (Selenium) = ToS violation, ban risk. NOT used.
+- WhatsApp Business API (Cloud API) = CAN message any number, BUT outside a 24h
+  service window requires pre-approved TEMPLATE messages (Meta approval).
+  developers.facebook.com .../whatsapp/messages/send-messages
+- ★ DEEP LINKS = the breakthrough ★: `wa.me/<num>?text=<prefilled>` (WhatsApp),
+  `https://line.me/R/share?text=<text>` (LINE share). User taps once → their app
+  opens with the message pre-written → user taps send. ToS-safe, any contact.
+  appsflyer.com/blog/deep-linking/whatsapp-deep-link
+
+### Tiered relay (matches 公開文「返信先・返信案を承認後に、即時連絡」)
+
+```
+Anicca drafts the message, then routes by where the contact is:
+
+TIER 1 — EMAIL (coworkers, formal) ── FULLY AUTOMATED
+  user's Gmail OAuth → messages.send + threadId + In-Reply-To
+  → arrives as a REPLY from the user; recipient never needs to know Anicca
+  → confidence: ◎ (most work contacts have email)
+
+TIER 2 — WhatsApp / LINE (family, friends) ── ONE-TAP via DEEP LINK
+  Anicca builds deep link with pre-filled approved text:
+    WhatsApp: https://wa.me/<E164>?text=<urlencoded draft>
+    LINE:     https://line.me/R/share?text=<urlencoded draft>
+  → Anicca sends the link to the user in Telegram (the approval surface)
+  → user taps → WhatsApp/LINE opens to that contact, message pre-written
+  → user taps send (= the "approval" AND "send" are one tap)
+  → ToS-safe (user sends from their own account), works for ANY contact
+
+TIER 3 — SMS (phone-only contacts) ── Twilio
+  Twilio Messages API → SMS to the number (from our/user Twilio number)
+
+The user ALWAYS approves before send (公開文 compliant). For email the approval is
+a Telegram [送信] button; for WhatsApp/LINE the deep-link tap IS the approval+send.
+```
+
+### UX example
+
+```
+Anicca (Telegram):
+ 「部長会議に5分遅れそうです。 佐藤部長に連絡しますか?
+   返信案: 「すみません、5分ほど遅れます。15:05には着きます。」
+
+   [📧 部長のメールに返信]      ← Gmail OAuth, fully auto
+   [💬 WhatsApp で送る]         ← opens wa.me/<num>?text=... pre-filled
+   [💚 LINE で送る]             ← opens line.me/R/share?text=... pre-filled
+   [✏️ 文面を編集]
+ 」
+user taps [💚 LINE で送る] → LINE opens, 佐藤部長 chat, message ready → tap send
+```
+
+### Why this beats "Anicca sends as the user automatically"
+- Personal LINE/WhatsApp automation = ToS ban risk → NEVER auto-drive personal apps.
+- Deep link = user's own one tap = compliant + zero risk + works for every contact
+  regardless of which app, because it just opens the app the user already has.
+
+★ Email = full auto (OAuth). LINE/WhatsApp = one-tap deep link (the approval).
+SMS = Twilio. Covers Gmail + LINE + WhatsApp contacts, all ToS-safe. ★
