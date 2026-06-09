@@ -786,3 +786,47 @@ user taps [💚 LINE で送る] → LINE opens, 佐藤部長 chat, message ready
 
 ★ Email = full auto (OAuth). LINE/WhatsApp = one-tap deep link (the approval).
 SMS = Twilio. Covers Gmail + LINE + WhatsApp contacts, all ToS-safe. ★
+
+---
+
+## 20. Stakeholder relay — repo options (BP, github stars)
+
+### WhatsApp
+
+| repo | type | risk | use |
+|---|---|---|---|
+| **WhiskeySockets/Baileys** | unofficial, WebSocket (no browser), TS, ~15k★ | ToS gray (ban risk on personal #) | send as user's WhatsApp, no Selenium |
+| **pedroslopez/whatsapp-web.js** | unofficial, Puppeteer (WhatsApp Web), ~15k★ | ToS gray, heavier (browser) | same, browser-driven |
+| avoylenko/wwebjs-api | REST wrapper of whatsapp-web.js | same | easy HTTP interface |
+| **Meta WhatsApp Business Cloud API** | ★ OFFICIAL ★ | none (compliant) | any number, but template-approval outside 24h window |
+
+### LINE
+
+| repo | type | risk | use |
+|---|---|---|---|
+| **line/line-bot-sdk-nodejs**, **line-bot-sdk-python** | ★ OFFICIAL ★ | none | push ONLY to bot's friends (coworkers unreachable) |
+| CHRLINE / unofficial reverse-eng libs | unofficial (benv.io, lutwidse) | ★ HIGH ban risk ★ | send as personal LINE — NOT recommended |
+| (deep link) line.me/R/share?text= | official URL scheme | none | one-tap user-sent (§19) |
+
+### Decision (BP-grounded)
+
+```
+TIER 1 EMAIL    → Gmail API (official OAuth)        full auto, ◎ for coworkers
+TIER 2 WhatsApp → Meta Cloud API (official) for templates / time-sensitive
+                  OR deep link wa.me?text= (one-tap) for free-form
+TIER 3 LINE     → deep link line.me/R/share (one-tap)  ← official, safe
+                  (NOT unofficial reverse-eng libs = ban risk)
+TIER 4 SMS      → Twilio (official)
+
+Unofficial WhatsApp (Baileys/whatsapp-web.js) = available + powerful, but ToS
+gray + ban risk on the USER's personal number. Reserve as opt-in advanced mode
+for self-host OSS users who accept the risk; NOT default for paying web users.
+
+For the WEB product (paying users, our reputation): official-only —
+Gmail API + Meta WhatsApp Cloud API + LINE official + deep links + Twilio.
+For OSS self-host: user MAY enable Baileys/whatsapp-web.js at their own risk.
+```
+
+★ Default = official APIs + deep links (zero ban risk). Unofficial libs
+(Baileys, whatsapp-web.js, CHRLINE) = documented options for OSS power-users,
+opt-in, not default. ★
