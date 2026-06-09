@@ -183,3 +183,79 @@ CLOUD  = per-user Daytona sandbox, our keys, sandbox init.sh daemons, $49.99/mo
 - Firecrawl venue fallback (MUIT → address) (commit 2e28a4b9b).
 
 ★ Subscription = web only. OSS users set their own LLM keys (Dais 2026-06-09). ★
+
+---
+
+## 6. Heartbeat schedule guarantee (Dais 2026-06-09)
+
+Verified from `~/.openclaw/cron/jobs.json` + `profile.json`:
+
+| Fact | Value |
+|---|---|
+| cron `anicca-lateness-heartbeat-shell` | `*/5 * * * *` Asia/Tokyo, enabled — fires every 5 min, 24/7 |
+| quiet hours | 23:30–05:30 (profile.alarm.quietHoursStart/End) |
+| quiet-hours behavior | ordinary routine polling silenced, BUT wake/meditation/meds/sleep events within QUIET_OVERRIDE_MIN(30) PUNCH THROUGH and still call |
+
+**Effective coverage**:
+```
+05:30 ─────────────────── 23:30   = FULLY ACTIVE (every event → call)
+23:30 ─────────────────── 05:30   = quiet, BUT wake/瞑想/就寝/薬 events still call (punch-through)
+```
+→ Anicca can call at ANY time of day for action events (incl. wake-up during sleep window).
+→ This is GUARANTEED ONLY AFTER the glob bug fix (§2.A). Until then everything returns no-location.
+
+## 7. Git recovery (2026-06-09 incident)
+
+Root cause: prior sessions committed to local `main` but never pushed → 3074 unpushed
+commits accumulated + local main diverged 3074-ahead / 37-behind from origin/main.
+On top, 414 uncommitted WIP files (secrets + junk + real docs + stale iOS/landing).
+
+| Step | Status |
+|---|---|
+| G-0 backup 3074 commits → origin/backup/main-3074-unpushed-2026-06-09 | ✅ DONE (b1243b94) |
+| G-1 remove broken symlink .claude/skills/frontend-design | pending |
+| G-2 .gitignore junk+secret, rm $(date) broken dir | pending |
+| G-3 commit real docs (superpowers/memories non-secret) to main | pending |
+| G-4 reconcile main with origin/main, push | pending |
+| G-5 triage iOS/landing 376 stale (mostly already in backup) | pending |
+| G-6 HENCEFORTH: 1 edit = 1 commit = 1 push (HARD RULE 0.00) | ongoing |
+
+## 8. FULL TODO (canonical, TaskList #13-#34)
+
+```
+GIT RECOVERY (urgent, blocking clean state):
+  G-0 ✅ backup 3074 commits to GitHub
+  G-1 rm broken symlink
+  G-2 gitignore junk+secret, rm $(date) dir
+  G-3 commit real docs to main + push
+  G-4 reconcile main ↔ origin/main + push
+  G-5 triage iOS/landing stale
+  G-6 push-as-you-go forever
+
+PHASE 0 — make Anicca call at all times (LOCAL first):
+  0-1 (#13) glob bug fix stem.isdigit()   ← my regression, do now
+  0-2       Dais re-shares Live Location
+  0-3 (#14) verify fresh location age<60s
+  0-4 (#15) E2E wake/瞑想/就寝 real call (Charon male)
+  0-5 (#16) move guide_state to state/guide/
+
+PHASE 1 — local refactor:
+  1-1 (#17) consolidate lateness-guard + anicca-life-manager
+
+PHASE 2 — local feature completion (public-copy promises):
+  2-1 (#18) intervention self-improvement loop
+  2-2 (#19) trust balance counter
+  2-3 (#20) daily email
+  2-4 (#21) lateness → stakeholder notify + approval
+
+PHASE 3 — web SaaS (cloud, mostly unbuilt):
+  3-1 (#22) /install SaaS LP + /oss split
+  3-3 (#23) Stripe $49.99/mo + 7d trial (web only)
+  3-4 (#24) Telegram 60s onboarding
+  3-5 (#25) Stripe webhook → Daytona spawn
+  3-6 (#26) Daytona sandbox 5 daemons
+  3-7 (#27) OAuth token vault
+  3-9 (#28) auto-cancel (wild treasury → free)
+```
+
+Subscription = web only. OSS users set own LLM keys. (Dais 2026-06-09)
