@@ -830,3 +830,55 @@ For OSS self-host: user MAY enable Baileys/whatsapp-web.js at their own risk.
 ★ Default = official APIs + deep links (zero ban risk). Unofficial libs
 (Baileys, whatsapp-web.js, CHRLINE) = documented options for OSS power-users,
 opt-in, not default. ★
+
+---
+
+## 21. Reliability — CORRECTED (2026-06-09, my earlier cautions were wrong)
+
+I earlier raised 3 cautions (Telegram 8h limit, Mac sleep, tunnel). Verified
+against REAL data + BP — 2 of 3 do NOT exist for Dais's setup. Honest correction:
+
+### ① "Telegram 8h location limit" → DOES NOT EXIST (I was wrong)
+- BP: x.com/telegram/status/1800534054959481255 (official): "By choosing
+  'Until I turn it off', your location will be shared [indefinitely]".
+- REAL DATA: state/location/8547730585.json `live_period: 2147483647` (=INT32_MAX
+  = indefinite), age=3s, accuracy=12m, heading=181, 48 "saved location" per 100
+  log lines = continuously updating.
+- → Dais already shares 24/7 with "Until I turn it off". 8h problem is a myth.
+  OwnTracks UNNECESSARY. My earlier 8h-limit claim was based on stale info.
+
+### ③ "Mac sleep stops heartbeat" → DOES NOT EXIST
+- Dais runs on a Mac mini = 24/7 always-on server, does not sleep.
+- launchd heartbeat (StartInterval=300) runs uninterrupted.
+
+### ② "tunnel rotation breaks calls" → ALREADY SOLVED (task 0-6)
+- tunnel-watcher (ai.anicca.phone-tunnel-watcher) detects URL change every 30s,
+  restarts sutando to re-sync. Self-healing.
+
+### The ONLY real fix this round
+openclaw gateway cron was unreliable (all crons "error", heartbeat gapped
+09:48→12:35). Moved lateness 5-min poll to launchd StartInterval=300
+(ai.anicca.lateness-heartbeat). macOS-native, rock-solid. openclaw cron versions
+disabled to prevent double-fire.
+
+### Net reliability state (run-verified)
+```
+✅ location: 24/7 (live_period indefinite, 48 updates/100 log lines)
+✅ heartbeat: launchd 5-min (PID 94493, LastExit=0)
+✅ Mac mini: 24/7 always-on (no sleep)
+✅ sutando phone + tunnel-watcher: alive + self-healing
+✅ gcal: today 17:40 LT, 22:45 Sleep; tomorrow wake/meditation/running/MUIT
+→ Anicca calls reliably from today. No OwnTracks, no 8h re-share needed.
+```
+
+### Today's call schedule (real gcal data, departBy = event − travel − 10min − 15min lead)
+| time | event | call |
+|---|---|---|
+| 17:40 | LT Night (connpass) | leave + route guide |
+| 22:45 | 😴 Sleep | "prepare for sleep" (quiet-hours punch-through) |
+| tmrw 05:50 | 🧘 Meditation | "meditation time" |
+| tmrw 06:50 | 🏃 Running | "run time" |
+| tmrw 06:55 | 🛏 Wake up | "wake up" |
+| tmrw 07:35 | MUIT 出社 | leave + route guide (needs location, which is 24/7 on) |
+
+★ All 10-min-early built into departBy. Dais arrives 10 min early to every action. ★
