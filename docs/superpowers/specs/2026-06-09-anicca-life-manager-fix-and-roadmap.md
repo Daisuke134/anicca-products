@@ -498,3 +498,85 @@ Migration path:
 OSS remains: code public (anicca-oss), self-hosters can run their own. But the
 canonical product + Dais's own usage = web/cloud. This kills local/cloud drift
 because Dais lives on the same substrate as paying users.
+
+---
+
+## 15. WEB architecture REVISED — multi-tenant, NOT per-user sandbox (2026-06-09)
+
+**Correction**: §11/§12 said "1 Daytona sandbox per user running the full core".
+That is over-engineering. The life-manager is DETERMINISTIC (gcal × location ×
+time → call) — it runs NO per-user arbitrary code. So per-user sandboxes are
+unnecessary cost/complexity. The right model = ★ ONE multi-tenant backend ★.
+
+Existing infra (verified 2026-06-09):
+- apps/api: Node/TS on Railway, Prisma + Supabase (already deployed)
+- Supabase (RLS-capable) for per-user data
+- Stripe migration tables present
+- Daytona CLI installed (only needed for wild-Anicca, NOT life-manager)
+
+### Multi-tenant web architecture
+
+```
+ONE Telegram bot (@anicca_bot)
+   serves ALL users by chat_id. onboarding + Live Location sink for everyone.
+        │ each user's GPS, name, phone, gcal-token → Supabase row (RLS by user_id)
+        ▼
+Supabase (per-user data, RLS)
+   users(id, name, phone, tg_chat_id, stripe_sub, ...)
+   oauth_tokens(user_id, gcal_token, ...)        ← vault
+   locations(user_id, lat, lon, received_at)     ← live GPS
+   events_cache(user_id, ...)  interventions(user_id, ...)  trust_balance(user_id, n)
+        ▲
+        │ read/write
+ONE apps/api cron (Railway, every 5 min)
+   for each PAYING user:
+     load location + gcal + profile from Supabase
+     run the SAME decide() logic (gcal × GPS × time)
+     if CALL → POST sutando /call (user's phone, persona prompt)
+     if late-risk → renraku draft → Telegram approve → send
+        │
+        ▼
+ONE sutando phone server (ANICCA_DEPLOY=cloud, Linux, macOS tools off)
+   places calls to ANY user's number with OUR Twilio + OUR Gemini key
+   Charon male, Gemini Live, bidirectional
+```
+
+### Why multi-tenant beats per-user sandbox
+
+| | per-user Daytona sandbox | multi-tenant 1 backend (chosen) |
+|---|---|---|
+| cost | $0.30/day × N users | ~$20/mo Railway total + per-call Twilio + per-token Gemini |
+| complexity | spawn/teardown per signup | standard SaaS cron loop |
+| isolation | full VM | Supabase RLS per row |
+| needed for life-manager? | NO (deterministic) | YES |
+| Daytona still used for | wild-Anicca (autonomous earner) only | — |
+
+### Public-copy feature → web component map
+
+| 公開文 | web component |
+|---|---|
+| 位置を常に把握 | Telegram bot Live Location → Supabase locations |
+| 行動時刻に電話・通知 | apps/api 5-min cron → decide() → sutando /call |
+| 10分前行動 | decide() buffer logic (same as local) |
+| Telegram で 名前/電話/位置/cal 連携 | Telegram onboarding → Supabase users + oauth_tokens |
+| 遅刻時 関係者へ承認後連絡 | renraku → Telegram approve button → send |
+| 介入を自己改善 | interventions table → per-user tuning in decide() |
+| 信用残高が溜まる | trust_balance table, increment on on-time |
+| 毎朝メール | apps/api daily cron → per-user email |
+| サブスク課金→自動解約 | Stripe Checkout + webhook; wild-treasury cron cancels |
+
+★ SAME decide()/transit_lookup logic. Local reads files; web reads Supabase
+rows and loops all users. ONE bot, ONE phone server, ONE cron — multi-tenant. ★
+
+### Build order (PHASE 3, revised)
+```
+3-1 /install SaaS LP (public copy) + /oss split
+3-4 Telegram onboarding (name/phone/loc/cal → Supabase)
+3-3 Stripe Checkout $49.99/mo + 7d trial + webhook
+3-2 apps/api: port decide()/transit_lookup to read Supabase, 5-min multi-user cron
+3-8 sutando phone server on Railway/Fly (ANICCA_DEPLOY=cloud), our Twilio+Gemini
+3-7 OAuth vault (Supabase RLS) + Live Location → Supabase
+3-x daily email cron + trust_balance + interventions tables
+3-9 auto-cancel (wild treasury → Stripe cancel → free mail)
+   (per-user Daytona sandbox = DROPPED for life-manager)
+```
