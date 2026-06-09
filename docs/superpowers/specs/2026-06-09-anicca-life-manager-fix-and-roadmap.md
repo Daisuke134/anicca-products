@@ -337,3 +337,30 @@ EVERY 5 MIN (cron */5, 24/7):
   │      at each leg (改札/乗換/降りる駅/方向違い)                   │
   └────────────────────────────────────────────────────────────────┘
 ```
+
+---
+
+## 11. Phone call bugs fixed (2026-06-09, transcript-verified)
+
+| Bug | Root cause | Fix | Verify |
+|---|---|---|---|
+| "application error, goodbye" | dialout → dead port 7860 (old pipecat) | run.sh + secrets → port 3100 (sutando) | call connects |
+| call connects but silent | cloudflared quick tunnel rotated URL on restart; sutando cached old URL at startup | restart sutando to re-read live tunnel URL | WS connects, VoiceSession starts |
+| agent says "I'm Sutando" | sutando buildAgent() hardcodes 'You are Sutando' | patch line 503: outbound call with purpose → purpose IS the lead persona (Anicca). patches/sutando/0001-anicca-identity-override.patch | transcript: "Dais さん、アニッチャです" |
+| not responding to user | (was actually working; masked by above bugs) | — | transcript: caller "1+2?" → agent "1+2は3ですよ", Dais said "it's working" |
+
+**Remaining (task 0-6, permanent)**: cloudflared quick tunnel rotates URL → need
+named tunnel (phone.aniccaai.com fixed) OR auto-restart sutando on URL change.
+Currently mitigated by manual sutando restart.
+
+**E2E proof** (call CAb136, transcript ~/.sutando/workspace/logs/conversation.log):
+```
+agent : Dais さん、アニッチャです
+caller: Can you hear me?
+agent : もちろん、聞こえていますよ。どうしましたか?
+caller: what's your name?
+agent : Dais さん、アニッチャです。何かお用ですか?
+caller: then what's 1 + 2?
+agent : 1 + 2は3ですよ。
+caller: Okay, it's working, it's working. It's good.   ← Dais confirmed
+```
