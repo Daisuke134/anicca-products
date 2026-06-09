@@ -882,3 +882,119 @@ disabled to prevent double-fire.
 | tmrw 07:35 | MUIT 出社 | leave + route guide (needs location, which is 24/7 on) |
 
 ★ All 10-min-early built into departBy. Dais arrives 10 min early to every action. ★
+
+---
+
+## 22. RENRAKU (stakeholder relay) — code-level design (task #21)
+
+### What renraku.py ALREADY has (read 2026-06-09)
+```
+renraku.py (181 lines):
+  compose(sender, event, minutes)  → message text (Dais 2026-05-31 template:
+       no event name, no name, just apology "約N分遅刻、申し訳ございません")
+  send_gmail(to, subject, body)    → via `gog gmail send` CLI ✅ works
+  send_renraku(event, minutes, attendees):
+    recipient resolution order:
+      1. profile.stakeholder_for(event) → registered email/slack
+      2. calendar attendees → email      ← gcal has attendee emails
+      3. firecrawl_find_contact()        → web search for official contact
+      4. no recipient → Slack draft for manual forward
+    auto_send_allowed(profile) gate: if OFF → posts to SLACK "確認待ち"
+```
+
+### The GAPS (why it's 🟡 not ✅)
+```
+1. Approval goes to SLACK, not Telegram, and is NOT a button flow
+   (just a "確認待ち" text — user can't approve with one tap)
+2. lateness_check does NOT call send_renraku (grep: not wired) → never triggers
+3. telegram_bot has NO CallbackQuery handler → no approval buttons exist
+4. No contact MEMORY (resolves every time; no "register once, reuse")
+5. No LINE/WhatsApp deep-link (email only)
+```
+
+### Code design to close the gaps (#21)
+
+```
+┌─ 1. WIRE: lateness_check.decide() = "guide"/late → trigger relay ──────────┐
+│  in lateness_check.py main(), when action in ("guide",) AND minutes_late>0: │
+│     event = nxt  (has summary, attendees, departByIso)                       │
+│     minutes = int(-mins)  (how late)                                         │
+│     renraku.propose_relay(event, minutes)   ← NEW (was send_renraku直送)     │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─ 2. CONTACT MEMORY (register once, reuse) ────────────────────────────────┐
+│  state/contacts.json:                                                       │
+│    { "佐藤部長": {"email":"sato@pixie.co.jp","line_url":null,                │
+│                  "relation":"上司","last_channel":"email","uses":3} }        │
+│  resolve_contacts(event):                                                    │
+│    1. gcal attendees (email) → save to contacts.json                        │
+│    2. if attendee name matches contacts.json → reuse (no re-search)          │
+│    3. gmail search "<name>" → extract email → save                           │
+│    4. firecrawl (org contact) → save                                         │
+│    → returns [{name, email, line_url?}], persisted so next time = instant   │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─ 3. TELEGRAM APPROVAL (inline keyboard, not Slack) ───────────────────────┐
+│  renraku.propose_relay(event, minutes):                                     │
+│    contacts = resolve_contacts(event)                                       │
+│    draft = compose(...)                                                      │
+│    for c in contacts:                                                        │
+│      buttons = []                                                            │
+│      if c.email:    buttons += [["📧 "+c.name+"にメール", cb:"relay:email:"+id]]│
+│      if c.line_url: buttons += [["💬 LINEで送る", url:c.line_url+draft]]      │
+│      buttons += [["✏️ 編集", cb:"relay:edit:"+id],["👤 宛先変更",cb:"relay:to"]]│
+│      tg_send(chat_id, f"{c.name}に連絡しますか?\n宛先:{c.email}\n>{draft}",   │
+│               inline_keyboard=buttons)                                       │
+│    persist pending relay → state/relay_pending/<id>.json {event,draft,contact}│
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─ 4. CALLBACK HANDLER (telegram_bot.py, NEW) ──────────────────────────────┐
+│  app.add_handler(CallbackQueryHandler(on_relay_callback))                   │
+│  on_relay_callback(update):                                                 │
+│    data = update.callback_query.data  # "relay:email:<id>"                   │
+│    pend = read state/relay_pending/<id>.json                                │
+│    if action=="email":                                                       │
+│       renraku.send_gmail(pend.contact.email, subject, pend.draft)            │
+│       answer "✅ 送信しました"; bump contacts[name].uses; clear pending      │
+│    if action=="edit":  prompt user for new text → re-propose                │
+│    # LINE/WhatsApp = url button (no callback) → opens app pre-filled, user   │
+│    #   taps send in their own app (= the approval IS the tap)               │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─ 5. DEEP LINK (LINE/WhatsApp, §19) ───────────────────────────────────────┐
+│  line_url  = "https://line.me/R/share?text=" + urlquote(draft)              │
+│  wa_url    = "https://wa.me/" + e164 + "?text=" + urlquote(draft)           │
+│  → as Telegram inline url-button → one tap opens app with draft pre-filled  │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+### Data flow (one renraku cycle)
+```
+heartbeat (5min) → decide()="guide" + late → renraku.propose_relay(event, min)
+  → resolve_contacts() [gcal attendee / contacts.json memory / gmail / firecrawl]
+  → compose(draft)
+  → Telegram message + inline buttons [📧メール][💬LINE][✏️編集]
+  → user taps [📧メール]
+      → CallbackQuery → renraku.send_gmail() → "✅送信" + contacts.uses++
+    OR taps [💬LINE]
+      → url button opens LINE pre-filled → user sends in LINE
+  → log state/renraku_sent.json (idempotency: once per event)
+```
+
+### Files to touch (#21)
+```
+renraku.py            + propose_relay() + resolve_contacts() + deep_link helpers
+                        (keep compose/send_gmail; replace Slack-confirm with Telegram)
+telegram_bot.py       + CallbackQueryHandler(on_relay_callback) + edit flow
+lateness_check.py     + wire: action="guide"&late → renraku.propose_relay
+state/contacts.json   NEW (contact memory)
+state/relay_pending/  NEW (pending approvals)
+```
+
+### Test (run-verify before claiming done)
+```
+1. inject a past-departBy event with an attendee email → run.sh
+   → expect Telegram message with [📧] button
+2. tap [📧] → expect gmail sent (gog) + "✅送信" + contacts.json updated
+3. re-run same event → expect contact resolved from memory (no re-search)
+```
