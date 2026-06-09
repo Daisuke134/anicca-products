@@ -580,3 +580,49 @@ rows and loops all users. ONE bot, ONE phone server, ONE cron — multi-tenant. 
 3-9 auto-cancel (wild treasury → Stripe cancel → free mail)
    (per-user Daytona sandbox = DROPPED for life-manager)
 ```
+
+---
+
+## 16. WHAT ACTUALLY WORKS — run-verified 2026-06-09 (no plans, only proof)
+
+Each capability was RUN and verified (not assumed). ✅ = ran & passed.
+
+| # | 公開文 機能 | 実走テスト | 結果 |
+|---|---|---|---|
+| ③ | 位置を常に把握 | `get_location()` → lat=35.6796 age=1s | ✅ WORKS |
+| ④ | 目的地検索+ルート | `geocode('MUIT')`→中野(Firecrawl) + `build_itinerary('銀座駅')`→37分,1乗換 | ✅ WORKS |
+| ⑤ | 電話 (Charon双方向) | sutando PID稼働 + 直前call transcript: "アニッチャです"/"1+2は3ですよ"/Dais"it's working" | ✅ WORKS |
+| ⑦ | decide() 判定 | 瞑想@家 departBy=now → action=call | ✅ WORKS |
+| — | heartbeat 5分毎 | cron `*/5` fired, no-location gone, LT event 認識 | ✅ WORKS |
+| ⑥ | 遅刻→関係者連絡 | renraku.py 存在・syntax OK だが lateness_check に全配線+承認flow 未接続 | 🟡 PARTIAL |
+| ⑧ | 毎朝メール | anicca-report/scripts/run.sh 存在 ("mail the day's summary") だが ★cron未登録★ | 🟡 PARTIAL |
+| 介入自己改善 | (未実装) | code なし | ❌ NOT BUILT |
+| 信用残高 | (未実装) | code なし | ❌ NOT BUILT |
+| ② | Temporal per-user | `which temporal` → not found | ❌ NOT INSTALLED |
+| ① | Telegram onboarding (multi-user) | routes/*telegram* なし | ❌ NOT BUILT |
+| ⑨ | Stripe sub + 自動解約 | billing/index.js 存在(iOS RevenueCat用) だが web sub + treasury cancel 未配線 | ❌ NOT BUILT |
+
+### Truth summary (LOCAL, Dais's own Anicca)
+```
+✅ WORKING NOW (run-verified):
+   位置把握 + 目的地検索 + ルート(10分前逆算) + decide判定 + Charon双方向電話
+   + 5分毎heartbeat
+   = 公開文の「位置→ルート→10分前に電話＋ガイド」の CORE が動いている
+
+🟡 PARTIAL (exists, not fully wired):
+   遅刻時関係者連絡 (renraku.py 有、 全event配線+承認flow 未)
+   毎朝メール (anicca-report 有、 cron 未登録)
+
+❌ NOT BUILT:
+   介入自己改善 / 信用残高 counter
+   web 全体 (Temporal / onboarding / Stripe sub / 自動解約)
+```
+
+### Web (ALL not built — verified)
+Temporal not installed, no Telegram onboarding route, no web Stripe subscription
+flow, no auto-cancel. The §15 Temporal architecture is a DESIGN, not running code.
+apps/api billing/index.js exists but is for iOS RevenueCat, not web subs.
+
+★ HONEST STATE: LOCAL core (位置→ルート→電話) is REAL and run-verified today.
+Everything web is design-only. Next real work = wire 🟡 (renraku + daily mail cron)
+to finish LOCAL, then build web from §15 design. ★
