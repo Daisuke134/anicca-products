@@ -9,10 +9,14 @@ export const metadata = {
   },
 };
 
-import './globals.css';
+import '../globals.css';
 import React from 'react';
-import { display, mono, notoSansJP } from './fonts';
+import { display, mono, notoSansJP } from '../fonts';
 
+// Root layout for ALL non-localized routes (everything except /en/* /ja/*). This route
+// group has no `layout.tsx` above it, so it IS a root layout (Next.js: "any layout without
+// a layout.js above it is a root layout"). The /en /ja subtree gets its own root layout at
+// app/[lang]/layout.tsx, which is what lets <html lang> differ per locale in static HTML.
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${mono.variable} ${notoSansJP.variable}`}>
