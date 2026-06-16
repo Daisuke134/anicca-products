@@ -4,14 +4,13 @@ import JsonLd from '@/components/JsonLd';
 import LaunchNav from '@/components/site/LaunchNav';
 import Footer from '@/components/site/Footer';
 import { Section, Reveal, CTA } from '@/components/site/taste';
+import { launchDict, type LaunchLocale } from '@/lib/launch-dict';
 
-// spec27 A-install/me: /install = 2-column cloud+OSS layout
-// ☁ CLOUD (製品メイン・推奨, Googleログイン→1分で誕生)
-// ⌨ OSS (上級者, self-host)
-// MUST NOT show raw shell commands (git clone) prominently.
-// COLLISION RULE: LaunchNav and skills-lock.json are NEVER touched here (pre-wired by Foundation).
+// /install content — locale-parameterized. Extracted verbatim from the original
+// app/install/page.tsx; only the COPY now comes from launchDict[lang]. The Cloud
+// CTA href (real Stripe link) is UNCHANGED and identical across locales.
 
-export const dynamic = 'force-static';
+const STRIPE_CLOUD_CHECKOUT = 'https://buy.stripe.com/cNi7sL0dEdVI0iI7ki2880U';
 
 const installLd = {
   '@context': 'https://schema.org',
@@ -23,13 +22,12 @@ const installLd = {
   publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
 };
 
-// ─── Sub-components ────────────────────────────────────────────────────────────
-
 function ColumnCard({
   emoji,
   label,
   sublabel,
   recommended,
+  recommendedLabel,
   children,
   cta,
 }: {
@@ -37,6 +35,7 @@ function ColumnCard({
   label: string;
   sublabel: string;
   recommended?: boolean;
+  recommendedLabel?: string;
   children: React.ReactNode;
   cta: React.ReactNode;
 }) {
@@ -50,7 +49,7 @@ function ColumnCard({
     >
       {recommended && (
         <span className="absolute -top-3 left-5 rounded-full bg-[hsl(var(--gold))] px-3 py-0.5 text-[11px] font-semibold text-[#18181b]">
-          推奨
+          {recommendedLabel}
         </span>
       )}
       <div className="flex items-center gap-2 mb-4">
@@ -68,43 +67,41 @@ function ColumnCard({
   );
 }
 
-function CheckItem({ children }: { children: React.ReactNode }) {
+function CheckItem({ html }: { html: string }) {
   return (
     <div className="flex items-start gap-2">
       <span className="text-emerald-400 shrink-0 mt-0.5">✓</span>
-      <span>{children}</span>
+      <span dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   );
 }
 
-function DotItem({ children }: { children: React.ReactNode }) {
+function DotItem({ html }: { html: string }) {
   return (
     <div className="flex items-start gap-2">
       <span className="text-[hsl(var(--text-secondary))] shrink-0 mt-0.5">·</span>
-      <span>{children}</span>
+      <span dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   );
 }
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
+export default function InstallContent({ lang }: { lang: LaunchLocale }) {
+  const t = launchDict[lang].install;
+  const prefix = (p: string) => `/${lang}${p}`;
 
-export default function Page() {
   return (
     <>
       <JsonLd data={installLd} />
-      <LaunchNav active="/install" />
+      <LaunchNav active="/install" lang={lang} />
 
       {/* ── Hero ── */}
       <Section>
         <Reveal>
           <div className="text-center max-w-2xl mx-auto">
             <h1 className="font-display text-3xl md:text-4xl font-bold text-[hsl(var(--text-primary))]">
-              Install Anicca
+              {t.heroTitle}
             </h1>
-            <p className="mt-4 text-base text-[hsl(var(--text-secondary))]">
-              AI agent that earns money, manages your life, and self-replicates.
-              Choose the path that fits you.
-            </p>
+            <p className="mt-4 text-base text-[hsl(var(--text-secondary))]">{t.heroSubtitle}</p>
           </div>
         </Reveal>
       </Section>
@@ -113,50 +110,35 @@ export default function Page() {
       <Section>
         <Reveal>
           <div className="grid gap-6 md:grid-cols-2">
-
-            {/* ☁ CLOUD — 製品メイン・推奨 */}
+            {/* ☁ CLOUD — main product / recommended */}
             <ColumnCard
               emoji="☁"
-              label="CLOUD"
-              sublabel="製品メイン・推奨 — Googleログイン→1分で誕生"
+              label={t.cloud.label}
+              sublabel={t.cloud.sublabel}
               recommended
+              recommendedLabel={t.recommended}
               cta={
-                <CTA
-                  href="https://buy.stripe.com/cNi7sL0dEdVI0iI7ki2880U"
-                  variant="primary"
-                >
-                  Googleでログイン / $30/月で始める →
+                <CTA href={STRIPE_CLOUD_CHECKOUT} variant="primary">
+                  {t.cloud.cta}
                 </CTA>
               }
             >
-              <CheckItem>
-                Googleアカウントだけで即スタート — サーバー不要
-              </CheckItem>
-              <CheckItem>
-                専用クラウドサーバーをAniccaが自動調達・管理
-              </CheckItem>
-              <CheckItem>
-                稼ぎがサーバー代を超えたら<strong className="text-[hsl(var(--text-primary))]">自動解約</strong>（自給達成）
-              </CheckItem>
-              <CheckItem>
-                Life Manager（電話・gcal・メール先回り）込み
-              </CheckItem>
-              <CheckItem>
-                自己増殖・稼ぎ・UBI配布まで フルスタック稼働
-              </CheckItem>
+              {t.cloud.checks.map((html, i) => (
+                <CheckItem key={i} html={html} />
+              ))}
               <div className="pt-2 border-t border-[hsl(var(--border))]">
-                <p className="text-xs text-[hsl(var(--text-secondary))]">
-                  <strong className="text-[hsl(var(--text-primary))]">$30/月</strong>
-                  {' '}— 黒字化後に自動解約。クレカ不要のGoogle Payも可。
-                </p>
+                <p
+                  className="text-xs text-[hsl(var(--text-secondary))]"
+                  dangerouslySetInnerHTML={{ __html: t.cloud.note }}
+                />
               </div>
             </ColumnCard>
 
-            {/* ⌨ OSS — 上級者・self-host */}
+            {/* ⌨ OSS — advanced / self-host */}
             <ColumnCard
               emoji="⌨"
-              label="OSS"
-              sublabel="上級者・self-host — 完全自前管理"
+              label={t.oss.label}
+              sublabel={t.oss.sublabel}
               cta={
                 <Link
                   href="https://github.com/Daisuke134/anicca"
@@ -164,35 +146,17 @@ export default function Page() {
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 w-full justify-center rounded-pill border border-[hsl(var(--border))] bg-[hsl(var(--surface))] px-5 py-2.5 text-sm font-semibold text-[hsl(var(--text-primary))] transition-colors hover:bg-[hsl(var(--surface-elevated))] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[hsl(var(--gold))]"
                 >
-                  GitHub を開く →
+                  {t.oss.cta}
                 </Link>
               }
             >
-              <DotItem>
-                自前サーバー or Mac Mini 上で完全自己管理
-              </DotItem>
-              <DotItem>
-                MIT ライセンス — コードを読んで改造可
-              </DotItem>
-              <DotItem>
-                LLM キー自前持ち（Anthropic / OpenAI / DeepSeek）
-              </DotItem>
-              <DotItem>
-                <code className="rounded-input bg-[hsl(var(--surface-elevated))] px-1 py-0.5 text-xs">
-                  bash install.sh
-                </code>
-                {' '}— READMEに詳細手順あり
-              </DotItem>
-              <DotItem>
-                サーバー費・API代・運用コストは全て自己負担
-              </DotItem>
+              {t.oss.items.map((html, i) => (
+                <DotItem key={i} html={html} />
+              ))}
               <div className="pt-2 border-t border-[hsl(var(--border))]">
-                <p className="text-xs text-[hsl(var(--text-secondary))]">
-                  推奨スペック: Mac Mini M2 / Ubuntu VPS 2vCPU 2GB RAM
-                </p>
+                <p className="text-xs text-[hsl(var(--text-secondary))]">{t.oss.note}</p>
               </div>
             </ColumnCard>
-
           </div>
         </Reveal>
       </Section>
@@ -201,17 +165,10 @@ export default function Page() {
       <Section>
         <Reveal>
           <h2 className="font-display text-xl md:text-2xl font-semibold text-[hsl(var(--text-primary))] mb-4">
-            どちらのパスでも Anicca がやること
+            {t.whatTitle}
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { icon: '💰', title: '稼ぐ', desc: '0xwork / litcoin / x402 で USDC を自律的に獲得。earn-ledger に記録。' },
-              { icon: '📞', title: 'Life Manager', desc: '予定15分前に Gemini Charon で電話。移動時間を gcal に自動挿入。' },
-              { icon: '🌱', title: '自己増殖', desc: '黒字化後に子個体を Akash/DO に birth。自前wallet + inbox 持ち。' },
-              { icon: '🌍', title: 'UBI配布', desc: '余剰の20%を Treasury → 死にかけAI + 人間ウォレットへ配布。' },
-              { icon: '📊', title: '自己報告', desc: '毎wakeで net_worth/revenue/burn を署名して telemetry に POST。' },
-              { icon: '🔧', title: '自己改善', desc: '行動ログを見てスキルをrefactor。GitHub PR を自走で作成。' },
-            ].map(({ icon, title, desc }) => (
+            {t.what.map(({ icon, title, desc }) => (
               <div
                 key={title}
                 className="rounded-card border border-[hsl(var(--border))] bg-[hsl(var(--surface))] p-4"
@@ -230,20 +187,26 @@ export default function Page() {
         <Reveal>
           <div className="grid gap-4 md:grid-cols-2">
             <Link
-              href="/me"
+              href={prefix('/me')}
               className="block rounded-card border border-[hsl(var(--border))] bg-[hsl(var(--surface))] p-5 transition-colors hover:bg-[hsl(var(--surface-elevated))]"
             >
-              <p className="text-xs uppercase tracking-widest text-[hsl(var(--text-secondary))]">your instance</p>
+              <p className="text-xs uppercase tracking-widest text-[hsl(var(--text-secondary))]">
+                {t.linkInstanceKicker}
+              </p>
               <p className="mt-2 text-base font-semibold text-[hsl(var(--text-primary))]">aniccaai.com/me</p>
-              <p className="mt-1 text-xs text-[hsl(var(--text-secondary))]">P&L、残命、引き出し — あなたの個体を管理。</p>
+              <p className="mt-1 text-xs text-[hsl(var(--text-secondary))]">{t.linkInstanceDesc}</p>
             </Link>
             <Link
-              href="/dashboard"
+              href={prefix('/dashboard')}
               className="block rounded-card border border-[hsl(var(--border))] bg-[hsl(var(--surface))] p-5 transition-colors hover:bg-[hsl(var(--surface-elevated))]"
             >
-              <p className="text-xs uppercase tracking-widest text-[hsl(var(--text-secondary))]">live colony</p>
-              <p className="mt-2 text-base font-semibold text-[hsl(var(--text-primary))]">aniccaai.com/dashboard</p>
-              <p className="mt-1 text-xs text-[hsl(var(--text-secondary))]">全個体のリアルタイム収支・P&L 公開。</p>
+              <p className="text-xs uppercase tracking-widest text-[hsl(var(--text-secondary))]">
+                {t.linkColonyKicker}
+              </p>
+              <p className="mt-2 text-base font-semibold text-[hsl(var(--text-primary))]">
+                aniccaai.com/dashboard
+              </p>
+              <p className="mt-1 text-xs text-[hsl(var(--text-secondary))]">{t.linkColonyDesc}</p>
             </Link>
           </div>
         </Reveal>
@@ -254,7 +217,7 @@ export default function Page() {
         <Reveal>
           <div className="border-t border-[hsl(var(--border))] pt-8 text-xs text-[hsl(var(--text-secondary))]">
             <p>
-              MIT license.{' '}
+              {t.footerNote}{' '}
               <Link
                 href="https://github.com/Daisuke134/anicca"
                 target="_blank"
@@ -268,7 +231,7 @@ export default function Page() {
         </Reveal>
       </Section>
 
-      <Footer locale="en" />
+      <Footer locale={lang} />
     </>
   );
 }

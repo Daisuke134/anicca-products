@@ -5,7 +5,9 @@
 import { writeFile, mkdir } from "node:fs/promises";
 import { dirname } from "node:path";
 
-const OUT = new URL("../app/dashboard/_snapshot.json", import.meta.url);
+// Dashboard route lives under the (main) route group after the i18n refactor; the
+// DashboardClient imports the seed from this exact path.
+const OUT = new URL("../app/(main)/dashboard/_snapshot.json", import.meta.url);
 // Prefer the deployed function; allow override for preview builds.
 const SRC =
   process.env.DASHBOARD_SNAPSHOT_URL ||
@@ -24,6 +26,6 @@ async function main() {
   }
   await mkdir(dirname(OUT.pathname), { recursive: true });
   await writeFile(OUT, JSON.stringify(snapshot));
-  console.log(`[gen-dashboard-snapshot] wrote seed (${snapshot ? "live" : "empty"}) → app/dashboard/_snapshot.json`);
+  console.log(`[gen-dashboard-snapshot] wrote seed (${snapshot ? "live" : "empty"}) → app/(main)/dashboard/_snapshot.json`);
 }
 main();
