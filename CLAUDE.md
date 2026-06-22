@@ -11,10 +11,9 @@
 
 **鉄則(全エージェント・例外なし)**:
 1. ★ trunk = `main-internal`。runtime 作業を `main` に commit するな ★(`main` への commit は orphan 化 → gateway が main-internal に戻った瞬間 WIPE。2026-06-22 に1セッション分消失)。
-2. ベストプラクティス flow: `git checkout main-internal` → `git checkout -b feature/<name>` → 作業 → `git checkout main-internal && git merge --no-ff feature/<name>` → `git push origin main-internal`(新 commit のみ scan → secret 無し → 通る)→ feature 削除。
-3. `git push origin main` は**禁止**(secret-guard が阻止)。`--no-verify` で**回避するな**(.env を GitHub に漏らす)。
-4. `~/.openclaw` で `git worktree` 禁止(gateway は単一 checkout path を読む)。secret-guard が config 無しで error る時は `git checkout origin/main -- .gitleaks.toml` で復元(bypass しない)。
-5. gateway は working tree を読むので feature branch は短命に、merge は素早く。
+2. ★ **必ず worktree で作業** ★(= 「作業が消える」の根治。共有1チェックアウトで全 agent が直接 commit → ブランチ切替で上書き消失するのが原因)。`git -C ~/.openclaw worktree add ~/.openclaw-wt/<x> -b feature/<x> main-internal` → その隔離 dir で作業・commit → `git -C ~/.openclaw merge --no-ff feature/<x>` → `git -C ~/.openclaw push origin main-internal` → `worktree remove`。worktree は別 dir なので gateway の checkout を乱さない。
+3. `git push origin main` は**禁止**(secret-guard が阻止)。`--no-verify` で**回避するな**(.env を GitHub に漏らす)。secret-guard が config 無しで error る時は `git checkout origin/main -- .gitleaks.toml`。
+4. worktree は短命に(branch off main-internal → merge → remove)。stale worktree / 長命 feature branch を残すな。
 
 詳細 = `~/.openclaw/CLAUDE.md`(canonical) + memory `feedback_openclaw_trunk_is_main_internal`。3か所が食い違ったら `~/.openclaw/CLAUDE.md` が `~/.openclaw` について勝つ。
 
