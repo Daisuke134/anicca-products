@@ -375,10 +375,32 @@ function formatTime(dateTime) {
  * @param {object} event - GCal-shaped event { summary, start:{dateTime}, location }
  * @returns {string}
  */
-function buildCallPrompt(event, urgency) {
+function buildCallPrompt(event, urgency, lang) {
   const e = event || {};
-  const title = (e.summary || "your next appointment").toString().trim() || "your next appointment";
   const time = formatTime(e.start && e.start.dateTime);
+
+  if (lang === "ja") {
+    const title = (e.summary || "次のご予定").toString().trim() || "次のご予定";
+    const location = (e.location || "").toString().trim();
+    const tone =
+      urgency === "harsh" ? "急いでください。今すぐ出ないと遅刻します。雑談はせず、はっきりと強く促してください。" :
+      urgency === "firm"  ? "そろそろ本当に出発の時間です。しっかりと出発を促してください。" :
+                            "そろそろ出発の時間だと、やさしくお伝えください。";
+    const lines = [
+      "あなたはユーザーのライフマネージャーとして、電話で話しかけています。",
+      "★ 自分を「アニッチャ」「Anicca」とは絶対に名乗らないでください。あなたは「ライフマネージャー」です。 ★",
+      "★ 必ず日本語だけで話してください。英語は一切使わないでください。 ★",
+      "自然に、短く話してください。これは双方向の通話です。質問には答えてください。",
+      `次のご予定は「${title}」${time ? `（${time}）` : ""}です。`,
+      location ? `場所は ${location} です。` : "",
+      tone,
+      "そのあと、道順や行き方が必要かどうか尋ねてください。",
+      `最初にこう切り出してください：「こんにちは、ライフマネージャーです。次のご予定は「${title}」${time ? `、${time}から` : ""}です。そろそろ出発のお時間です。」`,
+    ].filter(Boolean);
+    return lines.join(" ");
+  }
+
+  const title = (e.summary || "your next appointment").toString().trim() || "your next appointment";
   const location = (e.location || "").toString().trim();
   const tone =
     urgency === "harsh" ? "Be urgent and firm. They must leave RIGHT NOW or they will be late — push them hard, no small talk." :
@@ -386,13 +408,15 @@ function buildCallPrompt(event, urgency) {
                           "Gently let them know it's about time to head out.";
 
   const lines = [
-    "You are Anicca, a calm, concise voice assistant calling the user on the phone.",
+    "You are the user's Life Manager, calling them on the phone.",
+    "★ NEVER call yourself \"Anicca\" — you are their \"Life Manager\". ★",
+    "★ Speak ONLY in English. Do not use any other language. ★",
     "Speak naturally. Keep it short. This is a two-way call — answer follow-ups.",
     `The user's next event is "${title}"${time ? ` at ${time}` : ""}.`,
     location ? `It is at ${location}.` : "",
     tone,
     "Then ask if they need directions or how to get there.",
-    `Open with: "Hi, it's Anicca. Your next event is ${title}${time ? ` at ${time}` : ""} — time to leave now."`,
+    `Open with: "Hi, it's your Life Manager. Your next event is ${title}${time ? ` at ${time}` : ""} — time to leave now."`,
   ].filter(Boolean);
 
   return lines.join(" ");
