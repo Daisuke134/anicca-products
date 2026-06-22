@@ -1,5 +1,10 @@
 # Anicca プロジェクト - 開発ガイドライン
 
+## 命名ルール — Anicca は日本語で「アニッチャ」(Dais 2026-06-23)
+
+日本語の記事・投稿・UI では Anicca を必ず **アニッチャ**(カタカナ) と表記する。英語ブランド名 "Anicca" は URL / repo 名 / 英語記事のみ。日本語名がある固有名詞は日本語で書く(= taste/記事の鉄則)。3か所同期: ここ + skill `ai-entity-article-writer` MORE LESSONS + memory `feedback_anicca_japanese_name_anitcha`。
+
+
 ## HARD RULE 0.40 — ~/.openclaw (anicca-dais) の trunk は `main-internal`。`main` に runtime 作業を commit するな (Dais 2026-06-22)
 
 `~/.openclaw` = LIVE runtime、push 先 = **github.com/Daisuke134/anicca-dais**(private)。この repo は **無関係な2履歴**を持つ:
