@@ -48,7 +48,20 @@ verified by whisper. v2 transcript: "ダイス、聞こえてる? 8時7分、ま
             mp4 to keiodaisuke@gmail.com for his approval BEFORE the auto-post cron goes live.
 ```
 
+## ★ LANGUAGE = ENGLISH for every test/seed call (Dais 2026-06-22) ★
+@anicca.comedy posts to an ENGLISH audience. Dais speaks English on the calls and Charon answers in
+English, so EVERY seeded/test wake call MUST be in English — the event title, the location, and the
+spoken conversation all English (e.g. "11am meeting in Shibuya", NOT "13時 渋谷で打合せ"). The recording
+is the content; it must be English so it lands with the English audience. build_ass_lm.py already
+auto-detects language (en → TikTok Sans), but the SOURCE call must be English. When placing a /test-call
+to generate content, pass an English `summary`/`location`. Never seed a Japanese-titled event for content.
+
 ## ★ CAPTION STYLE = monk-factory real-time word-synced jimaku (Dais 2026-06-21) — NOT static SRT ★
+BUILT 2026-06-22: `build_ass_lm.py` (whisper `--word_timestamps` JSON → phrase chunks, white text with
+ONE YELLOW keyword per phrase, centered-middle, natural case) + `make-reel-from-audio.sh` (burns the .ass
+over `assets/call-ui-bg.png` = the exact iOS call screen from anicca_wake_promo v2 that Dais perfected).
+Verified on the 2026-06-22 12:31 Shibuya wake call: frame shows "Shibuya." (yellow) "Would you like me"
+(white) synced to the spoken word; audio -23.6 dB; 1080×1920; 53s. Static SRT path retired.
 Static burned SRT was WRONG. The original `anicca_wake_promo_v2.mp4` was made with the ai-monk-factory
 real-time-transcription method (`~/.openclaw/skills/anicca-monk-factory-v3/scripts/burn-captions.sh` +
 `build_ass.py`): whisper `--word_timestamps` → an `.ass` of small word-synced chunks, CENTER, white text
