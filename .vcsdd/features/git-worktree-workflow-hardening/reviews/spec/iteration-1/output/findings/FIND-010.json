@@ -1,0 +1,14 @@
+{
+  "findingId": "FIND-010",
+  "dimension": "verification_readiness",
+  "category": "requirement_mismatch",
+  "severity": "major",
+  "description": "PROP-009 contradicts the grace=0 fixture delete path. PROP-009 asserts shouldProceedWithDelete returns FALSE at nowEpoch=quarantinedAtEpoch, but the fixture runs --grace-hours=0 and expects the second run to delete (arch lines 162, 169-172); REQ-003 line 91 allows GRACE_PERIOD_HOURS=0. Same-epoch second run makes the delete assertion unsatisfiable; epoch+1 makes it timing-dependent/flaky. The strictly-greater vs >= semantics are underspecified across PROP-009/010/011 and the fixture.",
+  "evidence": {
+    "filePath": "specs/verification-architecture.md",
+    "lineRange": "50",
+    "snippet": "PROP-009 | `shouldProceedWithDelete` returns false when `nowEpoch = quarantinedAtEpoch` (same run)"
+  },
+  "fix": "Define grace=0 unambiguously: either grace=0 = dry-run-only never deletes (fix the fixture), or gate is nowEpoch >= quarantinedAtEpoch + grace*3600 (fix PROP-009). Make fixture, REQ-003, PROP-009..011 consistent and remove timing dependence.",
+  "routeToPhase": "1b"
+}

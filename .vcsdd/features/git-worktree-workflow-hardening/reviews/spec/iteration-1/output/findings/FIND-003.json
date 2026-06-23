@@ -1,0 +1,14 @@
+{
+  "findingId": "FIND-003",
+  "dimension": "spec_fidelity",
+  "category": "security_surface",
+  "severity": "blocker",
+  "description": "Stashed-changes false-negative ACTIVE. Predicate 1 uses `git status --porcelain`, which does not report `git stash` contents. A merged+clean+stale+unlocked worktree holding a stash trips none of the five predicates -> reapable -> deleted -> stash silently destroyed. Direct violation of NFR-002 (zero false-negative ACTIVE). Stash appears nowhere in the spec.",
+  "evidence": {
+    "filePath": "specs/behavioral-spec.md",
+    "lineRange": "42",
+    "snippet": "`uncommitted_changes`: `git status --porcelain` in the worktree path returns one or more lines."
+  },
+  "fix": "Add a sixth ACTIVE predicate has_stash (`git stash list` scoped to worktree non-empty -> ACTIVE); add edge case + PROP; extend WorktreeRecord and classifyWorktree with hasStash.",
+  "routeToPhase": "1a"
+}

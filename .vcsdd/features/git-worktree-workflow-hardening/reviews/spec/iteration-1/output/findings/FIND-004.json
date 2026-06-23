@@ -1,0 +1,14 @@
+{
+  "findingId": "FIND-004",
+  "dimension": "spec_fidelity",
+  "category": "requirement_mismatch",
+  "severity": "major",
+  "description": "Trunk-ref correctness not pinned as a testable requirement and not fail-closed. Predicate 3 uses an abstract <trunk>, but the fixture/E2E hardcode --trunk=main while .openclaw trunk is main-internal. A wrong/defaulted/missing trunk makes `rev-list trunk..branch` compute against the wrong base; a wrong trunk that contains the work makes unmerged work look merged -> false-negative -> deletion. No REQ specifies per-repo trunk resolution or fail-closed behavior on unresolved trunk.",
+  "evidence": {
+    "filePath": "specs/verification-architecture.md",
+    "lineRange": "162",
+    "snippet": "After running `janitor --dry-run --repo=$REPO --grace-hours=0 --trunk=main`:"
+  },
+  "fix": "Add REQ: resolve trunk per-repo (anicca/anicca-project=main, .openclaw=main-internal, monk-factory=main); if trunk cannot be resolved or rev-list errors, classify ACTIVE (fail-closed). Add a PROP asserting wrong/missing trunk -> ACTIVE.",
+  "routeToPhase": "1a"
+}

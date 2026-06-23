@@ -1,0 +1,14 @@
+{
+  "findingId": "FIND-002",
+  "dimension": "spec_fidelity",
+  "category": "requirement_mismatch",
+  "severity": "blocker",
+  "description": "Inverse squash hazard. REQ-003 step 3 deletes via `git branch -d` (merged-only). git treats squash-merged branches as NOT fully merged, so `git branch -d` refuses them (admitted at line 88). Combined with FIND-001, real squash-merged branches are neither classified reapable nor deletable -> the reap pipeline is inert for the actual production workflow it was built to clean.",
+  "evidence": {
+    "filePath": "specs/behavioral-spec.md",
+    "lineRange": "84-88",
+    "snippet": "execute in order: `git worktree remove <path>` then `git branch -d <branch>`. ... `git branch -d` refuses because branch is unmerged ... do NOT use `-D`."
+  },
+  "fix": "Specify safe squash reap: confirm merge via patch-equivalence/gh PR state, accept that `git branch -d` refuses, define operator-gated `-D` path OR rely on GitHub delete_branch_on_merge for remote and require explicit operator confirmation for local squash-merged branches.",
+  "routeToPhase": "1a"
+}

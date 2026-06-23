@@ -1,0 +1,14 @@
+{
+  "findingId": "FIND-009",
+  "dimension": "verification_readiness",
+  "category": "verification_tool_mismatch",
+  "severity": "major",
+  "description": "The purity boundary hides the hardest correctness obligation in the untested impure shell. classifyWorktree takes mergedIntoTrunk as a pre-computed boolean; PROP-003 trusts it. Computing mergedIntoTrunk correctly (squash, detached HEAD, wrong trunk) lives in probeWorktree, which has NO proof obligation. The most safety-critical value flows in as a trusted input with zero verification of its production. PROP-001..008 prove the easy half, leaving the dangerous half unproven.",
+  "evidence": {
+    "filePath": "specs/verification-architecture.md",
+    "lineRange": "17",
+    "snippet": "`classifyWorktree(record: WorktreeRecord) → WorktreeStatus` | Evaluates all five ACTIVE predicates from plain-data input."
+  },
+  "fix": "Add Tier-1 integration PROPs that assert probeWorktree computes mergedIntoTrunk=false for a squash-merged-but-not-rev-list-merged branch, for detached HEAD, and for wrong/missing trunk. Pure-function tests are necessary but insufficient.",
+  "routeToPhase": "1b"
+}

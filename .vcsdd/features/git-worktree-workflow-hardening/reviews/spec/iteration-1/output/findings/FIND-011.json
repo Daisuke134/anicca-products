@@ -1,0 +1,14 @@
+{
+  "findingId": "FIND-011",
+  "dimension": "verification_readiness",
+  "category": "test_coverage",
+  "severity": "major",
+  "description": "Missing proof obligations and broken traceability. (1) REQ-013 (lefthook install across all four repos) has NO PROP and NO bead. (2) NFR-002 (zero false-negative ACTIVE) -- the most important safety property -- has no dedicated property/adversarial test; prose only. (3) Marker inconsistency: REQ-012 requires a 'MUTATING' marker but PROP-030 only asserts marker='DRY-RUN'; no PROP verifies the MUTATING-before-delete invariant value (PROP-013 asserts ordering, not the marker).",
+  "evidence": {
+    "filePath": "specs/verification-architecture.md",
+    "lineRange": "40-71",
+    "snippet": "Proof Obligations table: no row references REQ-013 or NFR-002; PROP-030 asserts marker=\"DRY-RUN\" only."
+  },
+  "fix": "Add PROPs for REQ-013 (install exits 0 in 4 repos + forbidden-branch commit fires hook), a metamorphic/property test for NFR-002 (random records with >=1 active signal must classify ACTIVE), and a PROP asserting the MUTATING marker is written+fsynced before the delete. Add beads for REQ-013 and NFR-002.",
+  "routeToPhase": "1b"
+}

@@ -1,0 +1,14 @@
+{
+  "findingId": "FIND-007",
+  "dimension": "spec_fidelity",
+  "category": "spec_gap",
+  "severity": "minor",
+  "description": "Branch-name regex inconsistency and divergence from live lefthook.yml. REQ-006 allows `main` and `main-internal` as feature-prefixes (e.g. `main/foo`) while also blocking commits on protected branches main/main-internal. The live /Users/anicca/anicca-project/lefthook.yml:20 does NOT permit `main-internal` or `spec` prefixes. The spec and the deployed hook diverge with no migration requirement.",
+  "evidence": {
+    "filePath": "specs/behavioral-spec.md",
+    "lineRange": "152",
+    "snippet": "`^(dev|main|main-internal|feature|fix|chore|release|app-factory|docs|spec)/[a-z0-9._-]+$` (or exactly `dev`)."
+  },
+  "fix": "Reconcile the regex with lefthook.yml:20; justify or remove main/main-internal/spec additions per-archetype; require REQ-013 to merge (not overwrite) aniccaai-landing-guard and align the regex.",
+  "routeToPhase": "1a"
+}

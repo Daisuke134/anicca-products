@@ -1,0 +1,14 @@
+{
+  "findingId": "FIND-006",
+  "dimension": "spec_fidelity",
+  "category": "spec_gap",
+  "severity": "major",
+  "description": "Clock-skew / mtime unreliability not handled for predicate 4. recent_activity depends on file mtime and commit ct. mtime can be future-dated (clock skew, restored backups, NFS) or reset by checkout/clean. isRecentActivity computes (nowEpoch - lastActivityEpoch) < grace*86400 with no guard for nowEpoch < lastActivityEpoch (future timestamp yields a negative elapsed that is < grace -> classified recent only by luck of sign; a far-future mtime could underflow expectations). REQ-002 handles epoch=0 but not future/negative-elapsed.",
+  "evidence": {
+    "filePath": "specs/behavioral-spec.md",
+    "lineRange": "45",
+    "snippet": "`recent_activity`: the timestamp of the latest commit in the worktree OR the most recent file mtime within the worktree path falls within the configured grace window (default 7 days)."
+  },
+  "fix": "Specify: lastActivityEpoch > nowEpoch -> recent_activity=true (fail-closed). Define activity timestamp = max(latest-commit-ct, max-file-mtime, index mtime). Add edge cases + PROP for future-dated mtime.",
+  "routeToPhase": "1a"
+}

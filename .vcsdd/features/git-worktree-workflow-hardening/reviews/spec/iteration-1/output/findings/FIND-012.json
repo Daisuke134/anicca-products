@@ -1,0 +1,14 @@
+{
+  "findingId": "FIND-012",
+  "dimension": "verification_readiness",
+  "category": "test_quality",
+  "severity": "minor",
+  "description": "PROP-014 (concurrent janitor) only asserts 'second exits / no duplicate mutations' but, given FIND-005, the lock does not cover the classify->delete window. The test could pass with the second instance exiting after the first already started a non-locked probe, masking the real race. The design does not force the adversarial interleave (B probes+classifies before A writes its log).",
+  "evidence": {
+    "filePath": "specs/verification-architecture.md",
+    "lineRange": "55",
+    "snippet": "PROP-014 | Concurrent janitor instances: second exits with \"already running\"; no duplicate mutations"
+  },
+  "fix": "Specify a deterministic interleave: start B probe+classify, pause, let A acquire lock+delete, resume B, assert B does NOT delete. Requires lock-protected critical section (FIND-005).",
+  "routeToPhase": "1b"
+}

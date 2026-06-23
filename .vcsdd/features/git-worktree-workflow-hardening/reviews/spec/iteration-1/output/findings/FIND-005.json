@@ -1,0 +1,14 @@
+{
+  "findingId": "FIND-005",
+  "dimension": "spec_fidelity",
+  "category": "requirement_mismatch",
+  "severity": "major",
+  "description": "Concurrency window between classify and delete. REQ-011 and REQ-003 edge case scope the lock to the quarantine-log WRITE only. The probe->classify->delete sequence is not required to run while holding the lock, so two janitors can each classify the same worktree as reapable, serialize only on the brief log write, and both proceed to delete. The verification architecture flags this as adversarial focus #3 (arch line 230) but no REQ closes it.",
+  "evidence": {
+    "filePath": "specs/behavioral-spec.md",
+    "lineRange": "89",
+    "snippet": "each instance must hold a file lock on the quarantine log before writing; second instance exits if lock is unavailable."
+  },
+  "fix": "Require the exclusive lock be held for the entire critical section (lock->probe->classify->log->mutate->unlock). Any instance failing to acquire performs zero probes and zero mutations. Make PROP-014 assert no overlapping mutation.",
+  "routeToPhase": "1a"
+}

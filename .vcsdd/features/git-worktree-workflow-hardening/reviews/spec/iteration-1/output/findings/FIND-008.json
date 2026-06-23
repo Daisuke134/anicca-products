@@ -1,0 +1,14 @@
+{
+  "findingId": "FIND-008",
+  "dimension": "verification_readiness",
+  "category": "test_coverage",
+  "severity": "blocker",
+  "description": "RED fixture cannot catch the production regression. The only reapable fixture (b) is created with `git merge --no-ff` (a true merge commit), but production uses squash-merge (design line 50). The entire suite (PROP-006, PROP-029, dry-run/confirmed-delete assertions) exercises a merge mode that does not occur in production and cannot catch FIND-001/FIND-002. False green: tests pass while the janitor is inert/unsafe on real squash-merged branches.",
+  "evidence": {
+    "filePath": "specs/verification-architecture.md",
+    "lineRange": "132",
+    "snippet": "git checkout main && git merge --no-ff feature/wt-b -m \"merge wt-b\""
+  },
+  "fix": "Add fixture (e): a squash-merged branch (`git merge --squash` + trunk commit, leftover feature/wt-e worktree) with explicit expected classification; add PROPs asserting squash-merged branches are correctly classified and reaped/refused per the chosen design.",
+  "routeToPhase": "1b"
+}

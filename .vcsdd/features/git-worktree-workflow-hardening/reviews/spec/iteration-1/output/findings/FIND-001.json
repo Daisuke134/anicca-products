@@ -1,0 +1,14 @@
+{
+  "findingId": "FIND-001",
+  "dimension": "spec_fidelity",
+  "category": "requirement_mismatch",
+  "severity": "blocker",
+  "description": "Squash-merge logical contradiction. Design line 50 mandates the squash-merge production flow; predicate 3 (unmerged_into_trunk) uses `git rev-list --count <trunk>..<branch> > 0`. After a squash-merge the branch commits are unreachable from trunk under their original SHAs, so rev-list returns >0 permanently -> every squash-merged worktree is classified ACTIVE forever and is NEVER reapable. The spec mentions squash zero times.",
+  "evidence": {
+    "filePath": "specs/behavioral-spec.md",
+    "lineRange": "44",
+    "snippet": "`unmerged_into_trunk`: `git rev-list --count <trunk>..<branch> > 0` — at least one commit on the branch is not reachable from the repo's trunk ref."
+  },
+  "fix": "Detect squash-merge via `git cherry trunk branch` / patch-id / `gh pr view --json state,mergedAt`; define mergedIntoTrunk TRUE for squash-merged branches; add EARS clause + edge cases for squash vs merge-commit vs rebase.",
+  "routeToPhase": "1a"
+}

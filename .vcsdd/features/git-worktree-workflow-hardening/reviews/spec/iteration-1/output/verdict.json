@@ -1,0 +1,136 @@
+{
+  "verdict": "FAIL",
+  "dimensions": {
+    "spec_fidelity": "FAIL",
+    "verification_readiness": "FAIL"
+  },
+  "reviewContext": {
+    "reviewType": "spec",
+    "feature": "git-worktree-workflow-hardening",
+    "phase": "1c",
+    "iteration": 1
+  },
+  "findings": [
+    {
+      "id": "FIND-001",
+      "dimension": "spec_fidelity",
+      "category": "requirement_mismatch",
+      "severity": "blocker",
+      "file": "specs/behavioral-spec.md",
+      "line": "44",
+      "issue": "Squash-merge logical contradiction. The design's Archetype A flow is squash-merge (design line 50: 'PR -> squash-merge -> GitHub auto-deletes remote branch'). Predicate 3 unmerged_into_trunk uses `git rev-list --count <trunk>..<branch> > 0`. After a GitHub squash-merge the branch's commits are NEVER reachable from trunk under their original SHAs, so rev-list returns >0 PERMANENTLY. Therefore every squash-merged worktree is classified ACTIVE forever and is NEVER reapable -- the janitor's primary intended target cannot be reaped in the actual production merge mode. The spec mentions squash zero times and never reconciles squash vs merge-commit vs rebase.",
+      "fix": "Add an explicit requirement: detect squash-merge via `git cherry trunk branch` (all '-' lines), or compare the branch's tree/patch-id against trunk, or trust the GitHub PR merge state (gh pr view --json mergedAt,state). Define mergedIntoTrunk so it is TRUE for squash-merged branches. Add an EARS clause and an edge case enumerating squash vs merge-commit vs rebase, each with the detection method."
+    },
+    {
+      "id": "FIND-002",
+      "dimension": "spec_fidelity",
+      "category": "requirement_mismatch",
+      "severity": "blocker",
+      "file": "specs/behavioral-spec.md",
+      "line": "84",
+      "issue": "The inverse squash hazard: REQ-003 step 3 deletes via `git branch -d` (merged-only). A squash-merged branch is, to git, NOT fully merged, so `git branch -d` REFUSES it (the edge case at line 88 admits this). Combined with FIND-001 this means: real squash-merged branches are (a) never classified reapable (predicate 3) and (b) even if they were, `git branch -d` would refuse them. The whole reap pipeline is inert for the actual production workflow, while the only thing it CAN reap is true merge-commit history. The spec presents the pipeline as working but it cannot delete the litter it was built to delete.",
+      "fix": "Specify how squash-merged branches are safely reaped: confirm merge via patch-equivalence/gh PR state, then accept that `git branch -d` will refuse and define an operator-gated (NOT automated) `-D` path, OR require the GitHub-side `delete_branch_on_merge` to handle the remote and document that local squash-merged branches require explicit operator confirmation. Make the squash path a first-class testable requirement."
+    },
+    {
+      "id": "FIND-003",
+      "dimension": "spec_fidelity",
+      "category": "security_surface",
+      "severity": "blocker",
+      "file": "specs/behavioral-spec.md",
+      "line": "42",
+      "issue": "Stashed-changes blind spot (false-negative ACTIVE). Predicate 1 uncommitted_changes uses `git status --porcelain`, which does NOT report `git stash` contents. Construct: an agent stashes WIP (`git stash`), the branch is merged + working tree clean + last activity >7 days + unlocked. All five predicates are FALSE -> reapable -> `git worktree remove` + `git branch -d` -> the stash (which is ref'd under the worktree/branch) is silently destroyed. This is exactly the zero-false-negative violation NFR-002 (line 295) forbids. Stash is never mentioned anywhere in the spec.",
+      "fix": "Add a sixth ACTIVE predicate `has_stash`: `git stash list` (scoped to the worktree) non-empty -> ACTIVE. Add an edge case and a PROP. Also consider reflog non-empty-since-trunk as a guard. Update the WorktreeRecord shape and classifyWorktree to include hasStash."
+    },
+    {
+      "id": "FIND-004",
+      "dimension": "spec_fidelity",
+      "category": "requirement_mismatch",
+      "severity": "major",
+      "file": "specs/verification-architecture.md",
+      "line": "162",
+      "issue": "Trunk-ref correctness is not pinned as a testable requirement. Predicate 3 references `<trunk>` abstractly, but the fixture and the dry-run assertion hardcode `--trunk=main` (arch lines 162, 169) while `.openclaw` trunk = `main-internal` (design line 37, REQ-008 line 193). If the janitor is invoked with a wrong/defaulted trunk, `rev-list trunk..branch` is computed against the wrong base: a branch fully merged into main-internal but compared against a non-existent or stale `main` could be mis-evaluated, and a wrong trunk that happens to contain the work could make unmerged work look merged -> false-negative -> deletion. No REQ specifies per-repo trunk resolution or that a missing/ambiguous trunk ref must fail-closed (treat as unmerged).",
+      "fix": "Add a REQ: trunk ref MUST be resolved per-repo (anicca/anicca-project=main, .openclaw=main-internal, monk-factory=main) and if the trunk ref cannot be resolved or `rev-list` errors, the worktree is classified ACTIVE (fail-closed). Add a PROP asserting a wrong/missing trunk yields ACTIVE, not reapable."
+    },
+    {
+      "id": "FIND-005",
+      "dimension": "spec_fidelity",
+      "category": "requirement_mismatch",
+      "severity": "major",
+      "file": "specs/behavioral-spec.md",
+      "line": "246",
+      "issue": "Concurrency window between classify and delete. REQ-011 (line 246) and REQ-003 edge case (line 89) scope the lock to the quarantine-log WRITE ('hold a file lock on the quarantine log before writing'). The probe -> pure classify -> REQ-003 step-3 delete sequence is NOT required to occur while holding the lock. Two janitors can each independently probe+classify the same worktree as reapable, then serialize only on the brief log write, and both proceed to `git worktree remove`/`git branch -d`. The verification architecture itself flags this as adversarial focus area #3 (arch line 230) but no REQ closes it. The lock as specified protects log integrity, not mutation exclusivity.",
+      "fix": "Strengthen REQ-011 to require the EXCLUSIVE lock be held for the entire critical section (lock -> probe -> classify -> log -> mutate -> unlock), not just the log write. Add an EARS clause that any instance failing to acquire the lock performs ZERO probes and ZERO mutations. Make PROP-014 assert no overlapping mutation, not merely 'second exits'."
+    },
+    {
+      "id": "FIND-006",
+      "dimension": "spec_fidelity",
+      "category": "spec_gap",
+      "severity": "major",
+      "file": "specs/behavioral-spec.md",
+      "line": "45",
+      "issue": "Clock-skew / mtime unreliability not handled for predicate 4. recent_activity (line 45) depends on file mtime and `git log -1 --format=%ct`. mtime can be in the future (clock skew, restored backups, NFS), can be reset by checkout/clean, and `lastActivityEpoch=0` is only partially handled (REQ-002 line 70 treats 0 as recent, but a future or negative-elapsed mtime is undefined). A worktree whose mtime is far in the past due to a `touch`/restore but is actively being edited via stash/index is not caught. isRecentActivity (arch line 18) computes `(nowEpoch - lastActivityEpoch) < graceWindowDays*86400` with no guard for nowEpoch < lastActivityEpoch.",
+      "fix": "Specify: if lastActivityEpoch > nowEpoch (future timestamp) treat as recent_activity=true (fail-closed). Specify the chosen activity timestamp = max(latest-commit-ct, max-file-mtime, index mtime). Add edge cases and a PROP for future-dated mtime."
+    },
+    {
+      "id": "FIND-007",
+      "dimension": "spec_fidelity",
+      "category": "spec_gap",
+      "severity": "minor",
+      "file": "specs/behavioral-spec.md",
+      "line": "152",
+      "issue": "Branch-name regex inconsistency. REQ-006 (line 152) allows prefixes `dev|main|main-internal|feature|fix|chore|release|app-factory|docs|spec`, including `main` and `main-internal` as VALID branch-name prefixes (e.g. `main/foo`), while simultaneously REQ-006 line 153 blocks commits on protected branches `main`/`main-internal`. Allowing a `main/...` prefixed branch is confusing and not reconciled with the existing repo lefthook.yml (line 20) which does NOT permit `main-internal` or `spec` prefixes. The spec and the live lefthook.yml diverge with no migration requirement.",
+      "fix": "Reconcile the regex with the live lefthook.yml (/Users/anicca/anicca-project/lefthook.yml:20). Either justify `main-internal`/`spec` additions explicitly per-archetype, or remove `main`/`main-internal` from the allowed feature-prefix set. State that REQ-013 must merge (not overwrite) the existing aniccaai-landing-guard and reconcile the regex."
+    },
+    {
+      "id": "FIND-008",
+      "dimension": "verification_readiness",
+      "category": "test_coverage",
+      "severity": "blocker",
+      "file": "specs/verification-architecture.md",
+      "line": "132",
+      "issue": "The RED fixture cannot catch the production regression. The only reapable fixture (b) is created with `git merge --no-ff` (arch line 132), i.e. a TRUE merge commit. The actual Archetype A production flow is squash-merge (design line 50). Therefore the entire test suite (PROP-006, PROP-029, the dry-run/confirmed-delete assertions arch lines 160-172) exercises a merge mode that does NOT occur in production, and would not catch the FIND-001/FIND-002 squash defects. This gives false green: tests pass while the janitor is inert (or unsafe) on real squash-merged branches.",
+      "fix": "Add a fixture (e): a squash-merged branch (`git merge --squash` + commit on trunk, then a remaining feature/wt-e worktree). Define its expected classification explicitly (reapable only if squash-merge detection works). Add PROPs that assert squash-merged branches are correctly classified and reaped/refused per the chosen design."
+    },
+    {
+      "id": "FIND-009",
+      "dimension": "verification_readiness",
+      "category": "verification_tool_mismatch",
+      "severity": "major",
+      "file": "specs/verification-architecture.md",
+      "line": "17",
+      "issue": "The purity boundary is real but it hides the hardest correctness obligation in the UNTESTED impure shell. classifyWorktree takes `mergedIntoTrunk` as a pre-computed boolean (spec line 16, arch line 17). PROP-003 tests the pure function trusting this boolean. But computing mergedIntoTrunk correctly (especially under squash-merge, detached HEAD, wrong trunk) lives in probeWorktree (arch line 28), which has NO proof obligation verifying its merge computation. The single most safety-critical number flows in as a trusted input with zero verification of how it is produced. PROP-001..008 prove the easy half and leave the dangerous half unproven.",
+      "fix": "Add Tier-1 integration PROPs against the fixture repo that assert probeWorktree computes mergedIntoTrunk=false for a squash-merged-but-not-rev-list-merged branch, =false for detached HEAD, and =false when trunk ref is wrong/missing. The pure-function tests are necessary but insufficient; the probe is where deletion safety actually lives."
+    },
+    {
+      "id": "FIND-010",
+      "dimension": "verification_readiness",
+      "category": "requirement_mismatch",
+      "severity": "major",
+      "file": "specs/verification-architecture.md",
+      "line": "50",
+      "issue": "PROP-009 contradicts the fixture's confirmed-delete path under grace=0. PROP-009 (line 50) asserts shouldProceedWithDelete returns FALSE when `nowEpoch = quarantinedAtEpoch`. But the fixture runs `--grace-hours=0` and expects the SECOND run to delete (arch lines 162, 169-172), and REQ-003 edge case (line 91) allows GRACE_PERIOD_HOURS=0. If the two runs occur at the same epoch second (fast test), grace=0 + PROP-009's same-epoch=false rule makes the confirmed-delete assertion unsatisfiable; if they occur at epoch+1, the test is timing-dependent and flaky. The grace=0 semantics (strictly-greater vs >=) are underspecified and self-contradictory across PROP-009/PROP-010/PROP-011 and the fixture.",
+      "fix": "Define grace=0 semantics unambiguously: either (a) grace=0 means dry-run-only and NEVER deletes (then the fixture's second-run delete assertion is wrong), or (b) the gate is `nowEpoch >= quarantinedAtEpoch + grace*3600` (then PROP-009 must change). Pick one and make the fixture, REQ-003, and PROP-009..011 consistent. Remove timing dependence from the integration assertion."
+    },
+    {
+      "id": "FIND-011",
+      "dimension": "verification_readiness",
+      "category": "test_coverage",
+      "severity": "major",
+      "file": "specs/verification-architecture.md",
+      "line": "40",
+      "issue": "Missing proof obligations / broken traceability. (1) REQ-013 (lefthook install across all four repos) has NO PROP and NO traceability bead -- it is unverified. (2) NFR-002 'zero false-negative ACTIVE classifications' (spec line 295) -- the single most important safety property of the whole feature -- has no dedicated property/adversarial test; it exists only as prose. (3) The mutation-evidence marker is inconsistent: REQ-012 (spec line 260) requires a 'MUTATING' marker, but PROP-030 (arch line 71) only asserts marker='DRY-RUN'; no PROP verifies the MUTATING-before-mutation invariant for the actual delete path (PROP-013 asserts ordering but not the marker value).",
+      "fix": "Add PROPs: one for REQ-013 (lefthook install exits 0 in all four repos + commit on forbidden branch fires hook), a property/metamorphic test for NFR-002 (randomized WorktreeRecords: any record with >=1 active signal must classify ACTIVE), and a PROP asserting the 'MUTATING' marker is written+fsynced before the delete call. Add corresponding traceability beads for REQ-013 and NFR-002."
+    },
+    {
+      "id": "FIND-012",
+      "dimension": "verification_readiness",
+      "category": "test_coverage",
+      "severity": "minor",
+      "file": "specs/verification-architecture.md",
+      "line": "55",
+      "issue": "PROP-014 (concurrent janitor) only asserts 'second exits with already running; no duplicate mutations' but, given FIND-005, the lock as specified does not cover the classify->delete window. The test as written could pass with the second instance exiting AFTER the first already started a non-locked probe, masking the real race. The integration test design does not force the adversarial interleave (instance B probes+classifies before instance A writes its log).",
+      "fix": "Specify the PROP-014 test to deterministically interleave: start B's probe+classify, pause, let A acquire lock+delete, then resume B and assert B does NOT also delete. This requires the critical section to be lock-protected (FIND-005). Without that, PROP-014 is not a real guard against double-deletion."
+    }
+  ],
+  "summary": "FAIL on both dimensions. The spec's own production flow is squash-merge (design line 50), yet predicate 3 (rev-list trunk..branch>0) and `git branch -d` both treat squash-merged branches as unmerged -- so the janitor can NEVER reap its primary target, while its only test fixture uses --no-ff merge (arch line 132) and therefore cannot catch this. Separately, the ACTIVE predicate set is INCOMPLETE: a merged+clean+stale+unlocked worktree holding a `git stash` trips none of the five predicates and would be deleted, silently destroying work -- a direct NFR-002 zero-false-negative violation. Trunk-ref resolution is unpinned (fixture hardcodes main; .openclaw is main-internal) and not fail-closed. The concurrency lock covers only the log write, not the classify->delete critical section, leaving a double-delete window the verification architecture itself flagged (arch line 230) but no REQ closes. On verification readiness: the hardest correctness obligation (how mergedIntoTrunk is computed under squash/detached/wrong-trunk) lives entirely in the untested impure probe with zero PROP; PROP-009 contradicts the grace=0 fixture delete path; and REQ-013 + NFR-002 have no proof obligations at all. TOP 3 deletion-of-active-work hazards: (1) FIND-003 stash blind spot -> reapable -> stash destroyed; (2) FIND-004 wrong/defaulted trunk -> unmerged work looks merged -> deleted; (3) FIND-005 classify->delete race -> two janitors both delete during grace bypass."
+}
