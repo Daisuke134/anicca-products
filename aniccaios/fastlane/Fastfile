@@ -264,7 +264,8 @@ platform :ios do
     ipa_path = lane_context[SharedValues::IPA_OUTPUT_PATH]
     
     unless ipa_path
-      ipa_path = Dir.glob(File.expand_path("../build/export/*.ipa", __dir__)).first ||
+      ipa_path = Dir.glob(File.expand_path("build/export/*.ipa", __dir__)).first ||
+                 Dir.glob(File.expand_path("../build/export/*.ipa", __dir__)).first ||
                  Dir.glob(File.expand_path("../*.ipa", __dir__)).first
       UI.user_error!("No IPA found. Run 'fastlane build' first.") unless ipa_path
       UI.message("📦 Found IPA: #{ipa_path}")
