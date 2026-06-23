@@ -1,0 +1,38 @@
+{
+  "verdict": "FAIL",
+  "dimensions": {
+    "spec_fidelity": "FAIL",
+    "verification_readiness": "PASS"
+  },
+  "reviewContext": {
+    "reviewType": "spec",
+    "feature": "git-worktree-workflow-hardening",
+    "phase": "1c",
+    "iteration": 2
+  },
+  "resolvedFromIter1": [
+    { "find": "FIND-001", "status": "resolved", "evidence": "specs/behavioral-spec.md:386-396 (REQ-014 squash-aware merged signal: PR-API primary + git cherry/diff/rev-list secondary); REQ-001 pred.3 line 105 now defers to REQ-014; arch PROP-031 line 84" },
+    { "find": "FIND-002", "status": "resolved", "evidence": "specs/behavioral-spec.md:398-403 (operator-gated PR-API-confirmed `git branch -D` squash reap path); REQ-003 line 160 routes -d vs -D explicitly; edge case line 164-165" },
+    { "find": "FIND-003", "status": "resolved", "evidence": "specs/behavioral-spec.md:108 (predicate 6 has_stash); WorktreeRecord stashCount line 44; edge line 123; arch PROP-006b line 52, PROP-035 line 88, fixture (e) lines 186-195" },
+    { "find": "FIND-004", "status": "resolved", "evidence": "specs/behavioral-spec.md:82-93 (Per-Repo Trunk Resolution Map + fail-closed TRUNK_UNRESOLVED); REQ-001 pred.3 trunkResolved=false; arch PROP-033 line 86" },
+    { "find": "FIND-005", "status": "resolved", "evidence": "specs/behavioral-spec.md:330-346 (REQ-011 exclusive lock for ENTIRE critical section, lock BEFORE any probe); REQ-003 step 3 re-probe+re-classify under lock line 160; arch PROP-014 line 65" },
+    { "find": "FIND-006", "status": "resolved", "evidence": "specs/behavioral-spec.md:106 (lastActivityEpoch>nowEpoch -> recent fail-closed; lastActivityEpoch=0 -> recent); arch isRecentActivity line 19, PROP-008d line 57, PROP-039 line 92" },
+    { "find": "FIND-007", "status": "resolved", "evidence": "specs/behavioral-spec.md:233,242 (main/main-internal are NOT feature prefixes, only protected; regex reconciliation note matches live lefthook.yml:20 exactly); cross-checked /Users/anicca/anicca-project/lefthook.yml:20" },
+    { "find": "FIND-008", "status": "resolved", "evidence": "specs/verification-architecture.md:157-169 fixture (b) now uses `git merge --squash` (line 166) + new fixture (e) stash; expected-classification table lines 203-209" },
+    { "find": "FIND-009", "status": "resolved", "evidence": "specs/verification-architecture.md:84-90 (PROP-031..035 verify probeWorktree merge computation for squash/PR/detached/wrong-trunk/stash); arch critical design note line 38" },
+    { "find": "FIND-010", "status": "resolved", "evidence": "specs/verification-architecture.md:252-270 (Grace Period Semantics section: `>=` gate; PROP-009 now strictly-less-than line 58; PROP-009b same-second grace=0 -> true line 59; REQ-003 line 177 grace=0 acceptance)" },
+    { "find": "FIND-011", "status": "resolved", "evidence": "specs/verification-architecture.md PROP-038 line 91 + BEAD-014 line 362 (REQ-013); PROP-036 line 89 + BEAD-015 line 363 (NFR-002 metamorphic); PROP-030b line 83 + PROP-013 line 63 (MUTATING marker before mutation)" },
+    { "find": "FIND-012", "status": "resolved", "evidence": "specs/verification-architecture.md:65 (PROP-014 deterministic interleave, asserts instance B performs ZERO probes/mutations); REQ-011 line 346 adversarial interleave clause" }
+  ],
+  "findings": [
+    {
+      "id": "FIND-013",
+      "severity": "major",
+      "file": "specs/behavioral-spec.md",
+      "line": "399",
+      "issue": "REQ-014 squash `-D` reap-path prerequisite list (line 399) is an INCOMPLETE restatement of the ACTIVE predicate set: it omits predicate 2 (unpushedCommits/upstreamMissing) and predicate 4 (recentActivity), while being presented as the self-contained guard for the only automated `git branch -D`. The canonical REQ-003 step-3 `if still reapable` gate (line 157/160) DOES enforce all six predicates, so no runtime hole exists when `-D` is routed through REQ-003 — but the spec defines the same guard twice with two different predicate sets and never states REQ-014's list must be conjoined with the REQ-003 reapable classification. An implementer coding the `-D` precondition from REQ-014 alone could force-delete a PR-merged worktree that still holds unpushed local commits or was active within grace.",
+      "fix": "State in REQ-014 that the line-399 prerequisites are IN ADDITION TO the worktree being classified reapable per REQ-003 (all six predicates INACTIVE), OR add unpushedCommits=false and recentActivity=false to the line-399 list so the `-D` guard is self-contained. Add a PROP asserting `git branch -D` is not invoked when unpushedCommits=true despite prMergedState='merged'."
+    }
+  ],
+  "summary": "FAIL on spec_fidelity, PASS on verification_readiness. All 12 iteration-1 findings are GENUINELY resolved (not name-dropped): FIND-001/002 closed by the new REQ-014 squash-aware signal (PR-API primary + git cherry/diff/rev-list secondary) and the operator-gated PR-API-confirmed `-D` path; FIND-003 closed by predicate-6 has_stash + fixture (e); FIND-004 by the per-repo trunk map + TRUNK_UNRESOLVED fail-closed; FIND-005 by REQ-011 full-critical-section exclusive lock with re-classify-under-lock at delete time; FIND-006 by future-mtime fail-closed; FIND-007 by main/main-internal demoted to protected-only (verified against live lefthook.yml:20); FIND-008 by the squash-merge fixture (b)+(e); FIND-009 by PROP-031..035 verifying the impure probe merge computation; FIND-010 by the canonical `>=` grace gate + PROP-009b; FIND-011 by PROPs/beads for REQ-013, NFR-002, and the MUTATING marker; FIND-012 by the deterministic-interleave PROP-014. The never-delete-active invariant now holds against stash (pred.6 + PROP-035), squash (REQ-014 + `-D` only on prMergedState='merged'), detached HEAD (structural + PROP-034), and concurrency (REQ-011 full-section lock + re-classify-under-lock + PROP-014). The offline/no-PR misread hazard is closed: `-D` requires explicit prMergedState='merged'; a never-PR'd branch whose `git diff trunk...branch` is coincidentally empty only reaches the SAFE `git branch -d` path (line 403), which git refuses for unreachable commits, halting safely. ONE new MAJOR finding (FIND-013): REQ-014's `-D` prerequisite list at line 399 is an incomplete restatement of the ACTIVE set (omits unpushedCommits and recentActivity) and duplicates the guard with a divergent predicate set — a spec internal inconsistency in the highest-priority safety requirement that invites a mis-implementation force-deleting unpushed/recent committed work. Because the most dangerous operation in the feature (automated `-D`) has an ambiguous, self-contradictory guard definition, spec_fidelity cannot PASS until REQ-014 is reconciled with REQ-003's reapable gate."
+}

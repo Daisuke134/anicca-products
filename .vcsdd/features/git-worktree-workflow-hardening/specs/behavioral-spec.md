@@ -396,7 +396,8 @@ And THE SYSTEM SHALL NOT proceed past step 3 until merge is confirmed.
 4. **Fail-closed on ambiguity**: If both the PR API and secondary signals are unavailable or produce errors, `unmerged_into_trunk = true` (treat as NOT merged).
 
 **Squash-aware reap path** (the only automated path where `git branch -D` is permitted):
-- Prerequisites: `prMergedState = 'merged'` (PR-API-confirmed), AND `uncommittedChanges = false`, AND `stashCount = 0`, AND `gitLocked = false`, AND `detachedHead = false`, AND `inProgressOp = null`.
+- **This path is reached ONLY from inside REQ-003 step 3's `if still reapable` AND-gate.** Its prerequisite list below is therefore ADDITIVE to — never a replacement for — the full six-predicate ACTIVE classification of REQ-001. A worktree MUST be classified non-ACTIVE by ALL of predicates 1–6 (and the two structural conditions) BEFORE this path is even evaluated. Restating the guard here does not narrow it.
+- Prerequisites (all of REQ-001's non-ACTIVE conditions, made explicit for this most-dangerous operation): `prMergedState = 'merged'` (PR-API-confirmed), AND `uncommittedChanges = false`, AND `unpushedCommits = false`, AND `recentActivity = false`, AND `stashCount = 0`, AND `gitLocked = false`, AND `detachedHead = false`, AND `inProgressOp = null`.
 - Log the PR number and `mergedAt` timestamp as evidence before any mutation.
 - Execute: `git worktree remove <path>` then `git branch -D <branch>`.
 - `git branch -D` is permitted ONLY on this path. On all other paths, only `git branch -d` is used.

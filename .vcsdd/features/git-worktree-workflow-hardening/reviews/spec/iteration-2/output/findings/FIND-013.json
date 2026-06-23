@@ -1,0 +1,10 @@
+{
+  "id": "FIND-013",
+  "dimension": "spec_fidelity",
+  "category": "requirement_mismatch",
+  "severity": "major",
+  "file": "specs/behavioral-spec.md",
+  "line": "399",
+  "issue": "REQ-014 'Squash-aware reap path' prerequisite list is INCOMPLETE relative to the full ACTIVE predicate set and is presented as if it were the self-contained guard for the only automated `git branch -D` call. Line 399 enumerates: prMergedState='merged', uncommittedChanges=false, stashCount=0, gitLocked=false, detachedHead=false, inProgressOp=null. This list OMITS predicate 2 (unpushedCommits / upstreamMissing) and predicate 4 (recentActivity). An implementer who reads REQ-014 as the definitive `-D` guard (it is titled 'the only automated path where git branch -D is permitted', line 398) and codes the `-D` precondition from this list alone would force-delete a worktree that is merged-into-trunk by PR but STILL has unpushed local commits ahead of upstream, OR was active within the grace window. The canonical safety net is REQ-003 step 3 ('if still reapable', line 160), where `reapable` = all six INACTIVE + no structural (line 157), which DOES AND-gate predicates 2 and 4. So no runtime hole exists IF the implementer routes `-D` exclusively through the REQ-003 `reapable` gate. The defect is that the spec states the guard TWICE with two DIFFERENT predicate sets and never says REQ-014's list is a subset that must be conjoined with the REQ-003 reapable gate. This is a genuine internal inconsistency that invites a mis-implementation losing unpushed/recent committed work via `-D`.",
+  "fix": "In REQ-014, change the 'Squash-aware reap path' prerequisites to either (a) explicitly state 'these prerequisites are IN ADDITION TO the worktree already being classified reapable per REQ-003 (all six predicates INACTIVE, including unpushedCommits=false and recentActivity=false)', or (b) add the two missing predicates (unpushedCommits=false AND recentActivity=false) to the line-399 list so the `-D` guard is self-contained and matches the full ACTIVE set. Add a PROP asserting `git branch -D` is NOT invoked when unpushedCommits=true even if prMergedState='merged'."
+}
