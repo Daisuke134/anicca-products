@@ -362,4 +362,4 @@ Binary verdict required per dimension. No "looks good" without file:line proof.
 | BEAD-013 | e2e | REQ-001, REQ-003 | PROP-029 | No-mock E2E: real repo dry-run |
 | BEAD-014 | req→prop | REQ-013 | PROP-038 | lefthook install across all four repos + commit fires hook |
 | BEAD-015 | req→prop | NFR-002 | PROP-036 | Zero false-negative ACTIVE: metamorphic property test |
-| BEAD-016 | req→prop | REQ-014 | PROP-031, PROP-032, PROP-033, PROP-034, PROP-035, PROP-037 | Squash-aware merge signal: all paths covered (PR-API, secondary signal, offline, detached, stash, -D guard) |
+| BEAD-016 | req→prop | REQ-014 | PROP-031, PROP-032, PROP-033, PROP-034, PROP-035, PROP-037, PROP-037b | Squash-aware merge signal: all paths covered (PR-API, secondary signal, offline, detached, stash, -D guard, full-gate conjunction FIND-013) |

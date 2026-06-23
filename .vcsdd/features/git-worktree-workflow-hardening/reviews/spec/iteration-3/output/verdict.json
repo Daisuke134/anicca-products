@@ -1,0 +1,87 @@
+{
+  "verdict": "PASS",
+  "dimensions": {
+    "spec_fidelity": "PASS",
+    "verification_readiness": "PASS"
+  },
+  "reviewContext": {
+    "reviewType": "spec",
+    "feature": "git-worktree-workflow-hardening",
+    "phase": "1c",
+    "iteration": 3
+  },
+  "find013Resolution": {
+    "status": "resolved",
+    "requirement_a_additive_and_routed_through_REQ003": {
+      "met": true,
+      "evidence": "specs/behavioral-spec.md:399 — REQ-014 'Squash-aware reap path' first bullet now states: 'This path is reached ONLY from inside REQ-003 step 3 if still reapable AND-gate. Its prerequisite list below is therefore ADDITIVE to — never a replacement for — the full six-predicate ACTIVE classification of REQ-001. A worktree MUST be classified non-ACTIVE by ALL of predicates 1-6 (and the two structural conditions) BEFORE this path is even evaluated. Restating the guard here does not narrow it.' Confirmed cross-link to REQ-003 step 3 at specs/behavioral-spec.md:160 (routes -d vs -D, -D only via REQ-014)."
+    },
+    "requirement_b_unpushed_and_recent_in_prereq_list": {
+      "met": true,
+      "evidence": "specs/behavioral-spec.md:400 — prerequisite list now reads: 'prMergedState = merged (PR-API-confirmed), AND uncommittedChanges = false, AND unpushedCommits = false, AND recentActivity = false, AND stashCount = 0, AND gitLocked = false, AND detachedHead = false, AND inProgressOp = null.' Both previously-omitted predicate 2 (unpushedCommits=false) and predicate 4 (recentActivity=false) are now present. The list is now the FULL six-predicate non-ACTIVE set plus both structural conditions."
+    },
+    "requirement_arch_PROP_for_minus_D_guard": {
+      "met": true,
+      "evidence": "specs/verification-architecture.md:91 — PROP-037b asserts deleteWorktree(..., squashPath=true) is NOT reachable for any record where unpushedCommits=true OR recentActivity=true: constructs a record with prMergedState='merged', uncommittedChanges=false, stashCount=0, gitLocked=false, detachedHead=false, inProgressOp=null BUT unpushedCommits=true -> asserts classifyWorktree returns active AND -D is never invoked; repeats with recentActivity=true. Tier 0, required:true, unit test on pure reap-decision fn + call-site assertion. Directly proves the -D path is conjoined with the full gate, never a divergent subset."
+    }
+  },
+  "resolvedFromIter2": [
+    {
+      "find": "FIND-013",
+      "status": "resolved",
+      "evidence": "specs/behavioral-spec.md:399 (ADDITIVE + reached only from REQ-003 reapable AND-gate); specs/behavioral-spec.md:400 (unpushedCommits=false AND recentActivity=false now in prereq list); specs/verification-architecture.md:91 (PROP-037b proves -D not invoked when unpushedCommits=true or recentActivity=true). Genuinely resolved, not name-dropped: the prerequisite enumeration and the routing clause both materially changed and the new testable PROP exists."
+    }
+  ],
+  "noRegressionOfIter1Fixes": {
+    "verified": true,
+    "spotChecks": [
+      "FIND-003 (stash): specs/behavioral-spec.md:108 predicate 6 has_stash intact; fixture (e) verification-architecture.md:187-196; PROP-006b:52, PROP-035:88 intact.",
+      "FIND-005 (full-section lock): specs/behavioral-spec.md:333-335 lock BEFORE any probe, held for ENTIRE critical section; REQ-003 step-3 re-classify-under-lock line 160 intact.",
+      "FIND-007 (main/main-internal protected-only): specs/behavioral-spec.md:233 + 242; cross-checked LIVE /Users/anicca/anicca-project/lefthook.yml:20 regex '^dev$|^(feature|fix|chore|release|app-factory|docs|spec)/[a-z0-9._-]+$' matches spec verbatim; aniccaai-landing-guard present at lefthook.yml:23.",
+      "FIND-010 (grace >= gate): specs/verification-architecture.md:259 canonical >= gate; PROP-009 strictly-less-than line 58; PROP-009b same-second grace=0 -> true line 59 intact.",
+      "FIND-001/002 (squash-aware signal + -D path): REQ-014 lines 388-404 intact and now hardened.",
+      "FIND-012 (deterministic interleave): PROP-014 line 65, REQ-011 line 346 intact."
+    ]
+  },
+  "adversarialReattacks": [
+    {
+      "attack": "stash + squash-merged + unpushed simultaneously",
+      "result": "BLOCKED",
+      "evidence": "Even with prMergedState='merged', predicate 2 (specs/behavioral-spec.md:104) and predicate 6 (line 108) fire -> classifyWorktree returns active (line 101). -D path (line 399) gated behind REQ-003 if still reapable requiring ALL six INACTIVE. PROP-037b (verification-architecture.md:91) covers unpushed leg; PROP-006b/PROP-035 cover stash leg."
+    },
+    {
+      "attack": "PR-merged-but-unpushed-local-commits (the exact FIND-013 hole)",
+      "result": "BLOCKED",
+      "evidence": "prMergedState='merged' but unpushedCommits=true -> predicate 2 fires (specs/behavioral-spec.md:104) -> ACTIVE. Line 400 now explicitly requires unpushedCommits=false; line 399 ties prereqs to full gate. PROP-037b asserts -D never invoked. The divergent-subset defect is closed."
+    },
+    {
+      "attack": "offline gh at delete time",
+      "result": "BLOCKED",
+      "evidence": "specs/behavioral-spec.md:391 falls through to secondary signal; line 404 — if PR-API signal cannot be obtained at delete-time re-probe, abort -D and use git branch -d which refuses the squash-merged branch and halts safely. Fail-closed line 396."
+    },
+    {
+      "attack": "concurrency re-check-under-lock",
+      "result": "BLOCKED",
+      "evidence": "REQ-003 step 3 (specs/behavioral-spec.md:160) re-probes and re-classifies under the REQ-011 exclusive lock; REQ-011 (line 333-335) acquires lock BEFORE any probe and holds it for the entire critical section; PROP-014 (verification-architecture.md:65) asserts instance B performs ZERO probes and ZERO mutations."
+    },
+    {
+      "attack": "detached HEAD with empty diff coincidence",
+      "result": "BLOCKED",
+      "evidence": "Line 400 requires detachedHead=false; structural condition specs/behavioral-spec.md:111 forces ACTIVE for detached HEAD regardless of predicates; PROP-008 (line 54) + PROP-034 (line 87)."
+    }
+  ],
+  "verificationReadiness": {
+    "everyReqHasProp": true,
+    "evidence": "REQ-001->PROP-001..008d,036,037b; REQ-002->PROP-006,039; REQ-003->PROP-009..013b; REQ-004->PROP-015,016; REQ-005->PROP-017; REQ-006->PROP-018..021; REQ-007->PROP-022; REQ-008->PROP-027; REQ-009->PROP-028; REQ-010->PROP-023,024; REQ-011->PROP-014; REQ-012->PROP-013,013b,030b; REQ-013->PROP-038; REQ-014->PROP-031..037,037b; NFR-002->PROP-036. All present.",
+    "newProp037bTestable": true,
+    "reapDecisionFunctionPure": true,
+    "pureCoreEvidence": "specs/behavioral-spec.md:16-20 classifyWorktree zero git calls; verification-architecture.md:18 ZERO I/O, zero git calls; PROP-037b is a Tier-0 unit test on the pure reap-decision fn, consistent with purity boundary."
+  },
+  "findings": [],
+  "minorObservations": [
+    {
+      "note": "Traceability bead BEAD-016 (verification-architecture.md:365, REQ-014 -> PROP-031,032,033,034,035,037) does not list the new PROP-037b, and BEAD-001 (line 350, REQ-001) also omits it. PROP-037b itself exists, is testable, Tier 0, required, and is mapped to REQ-014/REQ-001 in its own row (line 91). This is a cosmetic traceability-table omission, not a coverage or safety hole — the PROP is present and discoverable. Does NOT rise to a finding because no requirement loses coverage and no unsafe path is opened. Recommend (non-blocking) adding PROP-037b to BEAD-016 and BEAD-001 for completeness."
+    }
+  ],
+  "summary": "PASS on both dimensions. FIND-013 is GENUINELY resolved (not name-dropped): (a) specs/behavioral-spec.md:399 now states the squash -D reap path is reached ONLY from inside REQ-003 step 3's 'if still reapable' AND-gate and is ADDITIVE to the full six-predicate ACTIVE classification, never a replacement; (b) specs/behavioral-spec.md:400 now lists unpushedCommits=false AND recentActivity=false among the prerequisites, making the line-400 list the complete six-predicate non-ACTIVE set plus both structural conditions; and verification-architecture.md:91 adds PROP-037b asserting git branch -D is NOT invoked when unpushedCommits=true OR recentActivity=true (with the prMergedState='merged' adversarial construction). The 12 iteration-1 fixes show no regression (spot-checked FIND-003 stash, FIND-005 full-section lock, FIND-007 main/main-internal protected-only re-verified against LIVE lefthook.yml:20, FIND-010 grace >= gate, FIND-001/002 squash path, FIND-012 interleave). No NEW way to delete an active worktree was found. The never-delete-active invariant HOLDS against every strongest attack: stash + squash + unpushed simultaneously (predicates 2 and 6 fire -> active, behavioral-spec.md:104/108), PR-merged-but-unpushed-local-commits (predicate 2 fires; line 400 requires unpushedCommits=false; PROP-037b), offline gh at delete (fail-closed to git branch -d which refuses + halts, line 404), detached HEAD (structural ACTIVE line 111 + line 400 detachedHead=false), and concurrency (REQ-011 full-section lock acquired before any probe + re-classify-under-lock at REQ-003 step 3 + PROP-014 zero-op assertion). Every REQ has >=1 PROP; the new PROP-037b is testable and is a Tier-0 unit test on the PURE reap-decision function, preserving the purity boundary. ONE non-blocking cosmetic observation: PROP-037b is not yet listed in traceability beads BEAD-016/BEAD-001, but the PROP exists and no coverage is lost. No open findings."
+}

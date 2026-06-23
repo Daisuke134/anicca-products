@@ -1,3 +1,4 @@
 {"timestamp":"2026-06-23T02:31:38.900Z","event":"feature_created","featureName":"git-worktree-workflow-hardening","mode":"strict"}
 {"timestamp":"2026-06-23T02:32:53.545Z","event":"phase_transition","featureName":"git-worktree-workflow-hardening","from":"init","to":"1a","iteration":1,"phase":"1a"}
 {"timestamp":"2026-06-23T02:35:46.682Z","event":"phase_transition","featureName":"git-worktree-workflow-hardening","from":"1a","to":"1b","iteration":1,"phase":"1b"}
+{"timestamp":"2026-06-23T02:58:58.539Z","event":"gate_recorded","featureName":"git-worktree-workflow-hardening","phase":"1c","verdict":"PASS","reviewedBy":"adversary"}
