@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "features": {
+    "git-worktree-workflow-hardening": {
+      "status": "active",
+      "createdAt": "2026-06-23T02:31:38.897Z",
+      "mode": "strict",
+      "currentPhase": "1b",
+      "updatedAt": "2026-06-23T02:35:46.681Z"
+    }
+  },
+  "activeFeature": "git-worktree-workflow-hardening"
+}
