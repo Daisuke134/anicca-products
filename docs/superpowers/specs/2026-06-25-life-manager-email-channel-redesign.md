@@ -65,5 +65,29 @@ Resend email (From hello@, Reply-To reply+token@) → reply to it → Cloudflare
 calendar location patched (verify via Composio) + place remembered. Late-notice: event you'll be late for →
 attendee gets the Resend mail. Confirm ZERO Unipile calls.
 
-## Out of scope
-Telegram path unchanged (works). Calendar stays Composio. Gmail READ never implemented (no CASA).
+## v1 (Telegram-only SHIP) vs v1.5 (web) — phasing (Dais 2026-06-25)
+SHIP v1 = **Telegram only**. WRITE all web code now (E3/E4/E5 + onboarding) but do **NOT** deploy/expose it —
+verifying the reply-by-email loop (Resend sender domain + Cloudflare MX on reply.aniccaai.com + inbound worker)
+takes time, so we build + commit it and flip it on at v1.5 AFTER verification. Web surfaces stay "Coming soon".
+
+### v1 — SHIP NOW (Telegram only)
+- **[#17] Block web**: /life-manager DELETE the left「はじめる（月$20）」CTA; web card = "Coming soon" (disabled,
+  no /lm link); /lm page kept but gated behind a "coming soon" notice. EN+JA, taste skill, daily-driver verify.
+- **[#12] TG onboarding drops Gmail**: `telegram-onboard.js computeStage` removes the gmail stage →
+  name → calendar → phone → pay → done. `stageMessage` drops the gmail message. Persist `lm_users.email`
+  (nullable migration) from the Google sign-in done during the calendar OAuth.
+- **TG late-notice**: attendees are NOT on Telegram, so late-notice still needs email SEND. v1 = Resend
+  "on behalf of <user>" from hello@aniccaai.com (SEND-only, no read, free) — OR defer to v1.5 if it slows ship.
+- **[#18] Telegram-only E2E**: @LifeManagerBotbot → name → Connect Calendar (web OAuth, back to TG) → phone →
+  Subscribe (Stripe) → done; then wake call fires + location ask arrives IN Telegram + TG reply updates calendar.
+  No Gmail, no email connect, no Unipile.
+
+### v1.5 — WRITE NOW, ship after verification
+- **[#14] E3 mail-resend**, **[#15] E4 /inbound-email + Cloudflare Email Worker** (code now; the DNS MX flip +
+  Resend domain verify + deploy happen at verify time, NOT now), **[#16] E5 remove Unipile + web E2E**.
+- Flip-on checklist (later): Resend verify hello@ + reply.aniccaai.com → Cloudflare Email Routing catch-all MX
+  on reply.aniccaai.com → deploy worker → no-mock E2E → unblock /lm + the /life-manager web card.
+
+## Out of scope (this spec)
+Telegram path core unchanged (works). Calendar stays Composio. Gmail READ never implemented (no CASA).
+WhatsApp onboarding = future v2 (same shape as Telegram). gmail.send BYO-OAuth (from user's own Gmail) = later option.

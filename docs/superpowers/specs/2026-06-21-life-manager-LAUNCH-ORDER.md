@@ -567,3 +567,45 @@ After PHASE B (OpenClaw cutover) + PHASE C (3 cases incl. memory verified):
 アプリ版：aniccaai.com/life-manager
 ローカル版: https://github.com/Daisuke134/life-manager
 ```
+
+---
+
+## FULL REMAINING TODO — as of 2026-06-25 (v1 = Telegram-only ship; web → v1.5 write-don't-ship)
+
+PIVOT (Dais 2026-06-25): SHIP v1 on **Telegram only** (messengers = the main onboarding path). WRITE the
+web reply-by-email impl now but DON'T deploy/expose it until verified (v1.5). Web surfaces = "Coming soon".
+Email channel detail = `2026-06-25-life-manager-email-channel-redesign.md`.
+
+### ✅ DONE this session
+HARD-1..4 (dedup/Inngest/Stripe/isolation) · PHASE C (PC-1/2/3 location memory+judgment+autonomous witness) ·
+wake = T-10/T-5 (2 calls) · D-1 web QR chooser + 2-call copy + above-the-fold + "Start on the web" CTA ·
+D-1a dashboard one-time call button + server-side /test-call rate-limit · web new-user dogfood E2E (camofox—
+note: now BROWSER rule = CloakBrowser daily-driver) · browser-rule CLAUDE.md fix · E2 signed reply-token lib (8 tests).
+
+### ▶ v1 — SHIP NOW (Telegram only)
+- [ ] #17 Block web — /life-manager: delete left「はじめる（月$20）」CTA; web card = "Coming soon" (disabled);
+      /lm gated behind a "coming soon" notice (page kept). EN+JA, taste skill, daily-driver verify.
+- [ ] #12 TG onboarding drops Gmail — computeStage/stageMessage remove the gmail stage (name→calendar→phone→pay);
+      add `lm_users.email` migration + persist the Google email.
+- [ ] TG late-notice — Resend "on behalf of <user>" send to attendees (send-only, free) OR defer to v1.5.
+- [ ] #18 Telegram-only E2E — real @LifeManagerBotbot onboard → calendar → phone → Stripe → wake call + TG ask/reply.
+- [ ] Merge feature/lm-email-channel-redesign v1 parts → main → deploy (landing + life-call) → verify live.
+
+### ▶ v1.5 — WRITE NOW, ship after verification (web)
+- [ ] #14 E3 mail-resend (sendAsk/sendLateNotice).
+- [ ] #15 E4 /inbound-email webhook + Cloudflare Email Worker (code only; DNS/Resend-domain/deploy at flip time).
+- [ ] #16 E5 remove Unipile + web reply-by-email no-mock E2E.
+- [ ] FLIP-ON (later): Resend verify hello@ + reply.aniccaai.com → Cloudflare Email Routing MX → deploy →
+      E2E → unblock /lm + /life-manager web card.
+
+### ▶ Growth / distribution (D-track)
+- [ ] D-2 Capafy Leave-Time Planner (sell LM on Capafy).
+- [ ] D-3 content crons — TikTok + YouTube demo reels, warmup, idempotent.
+- [ ] D-4 Product Hunt launch.
+- [ ] D-5 articles JP+EN (build-in-public).
+- [ ] D-6 post-launch — directories, PH follow-up, churn-prevention.
+
+### ▶ Future (v2+)
+- [ ] WhatsApp onboarding (same shape as Telegram).
+- [ ] PHASE E — self-improve + proactive booking + merge into Anicca.
+- [ ] (option) gmail.send BYO-OAuth = late-notice truly "from the user's own Gmail" (sensitive scope, no CASA).
