@@ -748,7 +748,8 @@ ask/reply + travel blocks + late-notice. Gmail is never read/replied. Telegram i
 - [x] **3. Gallery** ✅ DONE 2026-06-26: 3 frames 1270×760 captured + visually verified (hero+Telegram QR, 4-skills, start) — clean, Telegram-first, no Gmail — generate 1270×760 PH images from the live /life-manager page (+ onboarding shots).
 - [x] **4. PH LAUNCH** ✅ SCHEDULED 2026-06-26 for Jun 27 12:01am PT (Successfully Scheduled, changeable). Stripe shoutout added. + product-hunt-publisher skill created/iterated. — existing draft "Life Manager — Anicca" is 90% filled (logged in as keiodaisuke); finish
       links/gallery/makers, then I press Launch + post the first comment. (irreversible public — I press per Dais.)
-- [ ] **5. X release post** — approved copy, JP+EN, X Premium long post, @aniccaxxx.
+- [ ] **5. X release post** — JP+EN, X Premium long post, @aniccaxxx. VIDEOS (verified by transcribing AUDIO, not subtitle): JA=~/.openclaw/skills/life-manager-video/assets/promo.mp4 (clean, JA voice); EN=~/.openclaw/state/lm-video/2026-06-25/2026-06-25T08-31-52-a0fbf994-e5e7-476d-9a75-c67f674a3541-reel.mp4 (ENGLISH VOICE: "this is your life manager... your next appointment..."). ★LESSON: a video can have EN subtitle + JA voice — verify the VOICE with whisper, not the .ass★. Timing: now or Jun 27 (with PH).
+  (old dais_call_en-reel = EN subtitle but JA voice, discarded.)
 
 ### ▶ AFTER LAUNCH (in order)
 - [ ] **6. autofill 3-case VCSDD re-verify** — (a) online vs physical classify, (b) unknown-address web search,
