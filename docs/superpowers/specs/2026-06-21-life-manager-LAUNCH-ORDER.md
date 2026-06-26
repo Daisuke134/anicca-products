@@ -760,3 +760,19 @@ ask/reply + travel blocks + late-notice. Gmail is never read/replied. Telegram i
 - [ ] **10. web v1.5** — #15 inbound (SendGrid/Mailgun MX+webhook) → #16 Unipile cleanup → #21 un-gate web → #22 E2E.
 - [ ] **11. D-6 directories** — BetaList/Peerlist/etc. + PH follow-up + churn-prevention.
 - [ ] **12. PHASE E** — self-improve + proactive booking + merge into Anicca.
+
+### ★ POSTIZ X-SCHEDULING RECIPE (researched 2026-06-27, the EXACT command) ★
+Post each (JA, EN) 30 min apart — consecutive (renzoku) posts = spam. Postiz schedules natively:
+```
+# 1. upload the video → {id, path}
+postiz upload ~/.openclaw/state/lm-video/launch-x/lm_wake_JA.mp4   # → {"id":..., "path":"https://uploads.postiz.com/xxx.mp4"}
+# 2. POST /posts with type:"schedule" + date (ISO 8601 UTC)
+curl -X POST https://api.postiz.com/public/v1/posts -H "Authorization: $POSTIZ_API_KEY" -H "Content-Type: application/json" -d '{
+  "type":"schedule", "date":"2026-06-27T07:00:00.000Z",
+  "posts":[{"integration":{"id":"cmm6d7m5703rwpr0yr5vtme3w"},
+            "value":[{"content":"<JA post text>","image":[{"id":"<upload id>","path":"<upload path>"}]}],
+            "settings":{"__type":"x"}}]}'
+```
+type: now|schedule|draft. X integration = cmm6d7m5703rwpr0yr5vtme3w (アニッチャ, provider x). EN scheduled
++30 min (e.g. 07:30:00Z). Verify with `postiz posts:list` (state=QUEUE/scheduled). Reversible (delete/reschedule).
+Videos VERIFIED by audio transcription: JA=lm_wake_JA.mp4 (JA voice clean), EN=lm_wake_EN.mp4 (ENGLISH voice).
