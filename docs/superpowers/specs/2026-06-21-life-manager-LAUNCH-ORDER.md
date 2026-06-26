@@ -745,7 +745,7 @@ ask/reply + travel blocks + late-notice. Gmail is never read/replied. Telegram i
       browser-verify the connect step reads "Connect Calendar" only.
 - [x] **2. Telegram-first links** (landing ✅ DONE+VERIFIED 2026-06-26: 0 /lm dead links, all CTAs → t.me; PH listing links done in step 4) — PH listing links/CTA + the /life-manager "try it" CTA point to
       t.me/LifeManagerBotbot (web onboarding is gated; standalone visitors must be sent to Telegram).
-- [ ] **3. Gallery** — generate 1270×760 PH images from the live /life-manager page (+ onboarding shots).
+- [x] **3. Gallery** ✅ DONE 2026-06-26: 3 frames 1270×760 captured + visually verified (hero+Telegram QR, 4-skills, start) — clean, Telegram-first, no Gmail — generate 1270×760 PH images from the live /life-manager page (+ onboarding shots).
 - [ ] **4. PH LAUNCH** — existing draft "Life Manager — Anicca" is 90% filled (logged in as keiodaisuke); finish
       links/gallery/makers, then I press Launch + post the first comment. (irreversible public — I press per Dais.)
 - [ ] **5. X release post** — approved copy, JP+EN, X Premium long post, @aniccaxxx.
