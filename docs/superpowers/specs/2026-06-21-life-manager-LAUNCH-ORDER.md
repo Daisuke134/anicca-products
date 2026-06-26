@@ -748,7 +748,7 @@ ask/reply + travel blocks + late-notice. Gmail is never read/replied. Telegram i
 - [x] **3. Gallery** ✅ DONE 2026-06-26: 3 frames 1270×760 captured + visually verified (hero+Telegram QR, 4-skills, start) — clean, Telegram-first, no Gmail — generate 1270×760 PH images from the live /life-manager page (+ onboarding shots).
 - [x] **4. PH LAUNCH** ✅ SCHEDULED 2026-06-26 for Jun 27 12:01am PT (Successfully Scheduled, changeable). Stripe shoutout added. + product-hunt-publisher skill created/iterated. — existing draft "Life Manager — Anicca" is 90% filled (logged in as keiodaisuke); finish
       links/gallery/makers, then I press Launch + post the first comment. (irreversible public — I press per Dais.)
-- [ ] **5. X release post** — JP+EN, X Premium long post, @aniccaxxx. VIDEOS (verified by transcribing AUDIO, not subtitle): JA=~/.openclaw/skills/life-manager-video/assets/promo.mp4 (clean, JA voice); EN=~/.openclaw/state/lm-video/2026-06-25/2026-06-25T08-31-52-a0fbf994-e5e7-476d-9a75-c67f674a3541-reel.mp4 (ENGLISH VOICE: "this is your life manager... your next appointment..."). ★LESSON: a video can have EN subtitle + JA voice — verify the VOICE with whisper, not the .ass★. Timing: now or Jun 27 (with PH).
+- [x] **5. X release post** ✅ SCHEDULED+VERIFIED 2026-06-27 (JA 12:00 JST + EN 09:00 PT, both QUEUE on X with video; postiz-skill recipe baked) — JP+EN, X Premium long post, @aniccaxxx. VIDEOS (verified by transcribing AUDIO, not subtitle): JA=~/.openclaw/skills/life-manager-video/assets/promo.mp4 (clean, JA voice); EN=~/.openclaw/state/lm-video/2026-06-25/2026-06-25T08-31-52-a0fbf994-e5e7-476d-9a75-c67f674a3541-reel.mp4 (ENGLISH VOICE: "this is your life manager... your next appointment..."). ★LESSON: a video can have EN subtitle + JA voice — verify the VOICE with whisper, not the .ass★. Timing: now or Jun 27 (with PH).
   (old dais_call_en-reel = EN subtitle but JA voice, discarded.)
 
 ### ▶ AFTER LAUNCH (in order)
@@ -776,3 +776,15 @@ curl -X POST https://api.postiz.com/public/v1/posts -H "Authorization: $POSTIZ_A
 type: now|schedule|draft. X integration = cmm6d7m5703rwpr0yr5vtme3w (アニッチャ, provider x). EN scheduled
 +30 min (e.g. 07:30:00Z). Verify with `postiz posts:list` (state=QUEUE/scheduled). Reversible (delete/reschedule).
 Videos VERIFIED by audio transcription: JA=lm_wake_JA.mp4 (JA voice clean), EN=lm_wake_EN.mp4 (ENGLISH voice).
+
+### ★ POSTIZ X-SCHEDULE — REQUIRED FIELDS (400 gotcha, fixed 2026-06-27) ★
+The X /posts body MUST also include (else 400): top-level `"shortLink": false` + `"tags": []`, and per-post
+`settings.who_can_reply_post` ∈ {everyone, following, mentionedUsers, subscribers, verified}. Full working body:
+`{"type":"schedule","date":"<ISO>","shortLink":false,"tags":[],"posts":[{"integration":{"id":"<X id>"},"value":[{"content":"...","image":[{"id":"<upload id>","path":"<upload path>"}]}],"settings":{"__type":"x","who_can_reply_post":"everyone"}}]}`
+Auth header = the raw API key (NOT "Bearer "). Verify: `postiz posts:list` → state QUEUE + publishDate + provider x;
+media not shown in list/detail (detail endpoint 404s) → confirm the upload `path` is HTTP 200 video/mp4. Render
+confirms on publish (releaseURL). NOTE: do NOT try the Postiz web UI login — the API is the path.
+
+#5 X DONE 2026-06-27: JA post cmqv2y7sv003rny0y8zk67z88 @ 2026-06-27T03:00Z (12:00 JST) + EN post
+cmqv2y9s3003tny0yesmbdv5p @ 2026-06-27T16:00Z (09:00 PT). Both QUEUE, X, video attached (valid mp4 200). 13h
+apart = anti-spam. Best-window: JA lunch JST, EN US-midday on PH launch day.
