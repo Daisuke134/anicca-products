@@ -743,7 +743,7 @@ ask/reply + travel blocks + late-notice. Gmail is never read/replied. Telegram i
       reads your calendar and your mail" + the /life-manager hero/feature/desc copy still mention Gmail/"your mail".
       v1 has NO Gmail → strip every Gmail/mail claim from launchStrings (EN+JA) so copy matches the build. VCSDD +
       browser-verify the connect step reads "Connect Calendar" only.
-- [ ] **2. Telegram-first links** — PH listing links/CTA + the /life-manager "try it" CTA point to
+- [x] **2. Telegram-first links** (landing ✅ DONE+VERIFIED 2026-06-26: 0 /lm dead links, all CTAs → t.me; PH listing links done in step 4) — PH listing links/CTA + the /life-manager "try it" CTA point to
       t.me/LifeManagerBotbot (web onboarding is gated; standalone visitors must be sent to Telegram).
 - [ ] **3. Gallery** — generate 1270×760 PH images from the live /life-manager page (+ onboarding shots).
 - [ ] **4. PH LAUNCH** — existing draft "Life Manager — Anicca" is 90% filled (logged in as keiodaisuke); finish
