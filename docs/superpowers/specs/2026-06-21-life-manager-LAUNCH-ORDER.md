@@ -748,8 +748,13 @@ ask/reply + travel blocks + late-notice. Gmail is never read/replied. Telegram i
 - [x] **3. Gallery** ✅ DONE 2026-06-26: 3 frames 1270×760 captured + visually verified (hero+Telegram QR, 4-skills, start) — clean, Telegram-first, no Gmail — generate 1270×760 PH images from the live /life-manager page (+ onboarding shots).
 - [x] **4. PH LAUNCH** ✅ SCHEDULED 2026-06-26 for Jun 27 12:01am PT (Successfully Scheduled, changeable). Stripe shoutout added. + product-hunt-publisher skill created/iterated. — existing draft "Life Manager — Anicca" is 90% filled (logged in as keiodaisuke); finish
       links/gallery/makers, then I press Launch + post the first comment. (irreversible public — I press per Dais.)
-- [x] **5. X release post** ✅ SCHEDULED+VERIFIED 2026-06-27 (JA 12:00 JST + EN 09:00 PT, both QUEUE on X with video; postiz-skill recipe baked) — JP+EN, X Premium long post, @aniccaxxx. VIDEOS (verified by transcribing AUDIO, not subtitle): JA=~/.openclaw/skills/life-manager-video/assets/promo.mp4 (clean, JA voice); EN=~/.openclaw/state/lm-video/2026-06-25/2026-06-25T08-31-52-a0fbf994-e5e7-476d-9a75-c67f674a3541-reel.mp4 (ENGLISH VOICE: "this is your life manager... your next appointment..."). ★LESSON: a video can have EN subtitle + JA voice — verify the VOICE with whisper, not the .ass★. Timing: now or Jun 27 (with PH).
-  (old dais_call_en-reel = EN subtitle but JA voice, discarded.)
+- [x] **5. X release post** — LIVE on @aniccaxxx 2026-06-27: JA (Dais posted, link+video ✓) + EN (live, both links t.co + video ✓). VIDEOS verified by AUDIO transcription (JA voice / EN voice). ⚠️ I left a DUPLICATE EN tweet (my consecutive-repost bug) — Dais to delete one.
+  ★★ THE REAL LESSON (Dais 2026-06-27, furious) ★★ The link was NEVER missing and length was NEVER the problem.
+  X auto-shortens every URL to t.co (displays "t.me/…" truncated — STILL clickable/works). My verify checked
+  for the raw "t.me" string → FALSE NEGATIVE → I wrongly "re-fixed" by reposting 3× consecutively = SPAM. The
+  "280/JA-2x truncates the URL" claim was a LIE built on broken verification. RULE: post ONCE → verify the LIVE
+  rendered tweet (a[href*="t.co"] anchor + video element) → NEVER repost, NEVER consecutive. See memory
+  feedback_x_posting_verify_live_never_repost + product-hunt-publisher SKILL §X-posting.
 
 ### ▶ AFTER LAUNCH (in order)
 - [ ] **6. autofill 3-case VCSDD re-verify** — (a) online vs physical classify, (b) unknown-address web search,
