@@ -757,11 +757,12 @@ ask/reply + travel blocks + late-notice. Gmail is never read/replied. Telegram i
   feedback_x_posting_verify_live_never_repost + product-hunt-publisher SKILL §X-posting.
 
 ### ▶ AFTER LAUNCH (in order)
-- [ ] **6. autofill 3-case VCSDD re-verify** — (a) online vs physical classify, (b) unknown-address web search,
-      (c) depart-by = start−travel−buffer. spec → test → fresh adversary → NO-MOCK E2E on a real calendar.
+- [x] **6. autofill 3-case** ✅ ALREADY DONE — covered by PC-1/PC-2/PC-3: eval harness adversary 2R PASS
+      (C1 filled / C2 online / C5 routines / C7 EN-JA, AI-decided not regex) + PC-3 LIVE witness on the
+      deployed Railway real calendar 2026-06-25. The separate re-verify was redundant (Dais 2026-06-27).
 - [ ] **7. D-3 reels + daily-log→TikTok** — 3 demo reel scripts ready; cron posts each day's LM log to TikTok.
 - [ ] **8. D-5 article publish** — JP+EN final drafts (adversary PASS) → note/Zenn/dev.to/Substack/X/TikTok.
-- [ ] **9. D-2 Capafy** — list Leave-Time Planner (CP2 credential-hosting bug to resolve).
+- [x] ~~**9. D-2 Capafy**~~ ❌ DROPPED (Dais 2026-06-27): no meaning — if the COMPLETE product sells, nobody buys a Capafy clone of it. Capafy A1-A5 / B1 / C1 items all cancelled.
 - [ ] **10. web v1.5** — #15 inbound (SendGrid/Mailgun MX+webhook) → #16 Unipile cleanup → #21 un-gate web → #22 E2E.
 - [ ] **11. D-6 directories** — BetaList/Peerlist/etc. + PH follow-up + churn-prevention.
 - [ ] **12. PHASE E** — self-improve + proactive booking + merge into Anicca.
