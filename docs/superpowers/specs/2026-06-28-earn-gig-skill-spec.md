@@ -412,6 +412,88 @@ def verify(item, gate_id):
 
 ★ どの tier も 人間 を 呼ばない ★ — tier 5 ですら 「skip して log」 = 自分 で完結。 翌 24h cron で V5 が pickup → 再 verify。 Dais は ★ aniccaai.com/dashboard で 後 で 結果 を見るだけ ★、 介入しない。
 
+### §7.4 ★ ART RULES (= 4-fork URL research 統合、 2026-06-28、 verified only) ★
+
+Dais 2026-06-28: 「gig work is an art... profile matters, reply speed matters, every one of these things matter」。 ★ 数値 ルール ★ で 体系化 = 既存 失敗 + art 欠如 を 同時 解消:
+
+| # | rule | source | bake 先 |
+|---|---|---|---|
+| 1 | 自己紹介 ≥ 800字 (= 5h+ で書く) | external/freelance-blogs | V2 LISTING |
+| 2 | 顔写真 or プロアイコン 必須 | coconala-blog + external | V2 LISTING |
+| 3 | 初期 価格 = 相場 -10〜30% | note + external | V2 LISTING |
+| 4 | 価格 ladder: 10件→¥3k / 20件→¥5k / 50件→¥10k | external | V2 + 24h compound |
+| 5 | ★ Reply speed ≤ 6h 推奨、 最悪 24h ★ | external (shikaku §6) | V4 INBOUND + 6h cron |
+| 6 | ★ Lancers algo max = 24h返信率 ≥ 80% ★ | external | V5 CONTINUOUS |
+| 7 | ★ 評価 4.8 維持 + 全 review 返信 必須 ★ | external + note | V5 CONTINUOUS |
+| 8 | ★ 評価 1 = 3 ヶ月復帰不可 / 評価 2 = アウト / 評価 3 = 崖 ★ | note (なると) | V4 + V5 |
+| 9 | ココナラ手数料 22% / Lancers 16.5% | note + external | B2 ledger 計算 |
+| 10 | 納期 +30% 余裕 (= 24h約束なら 18h完成) | external | V3 DELIVERABLE |
+| 11 | アフターフォロー = リピーター +40% | external | V5 自動 fu msg |
+| 12 | 試行錯誤 期間 = 6 ヶ月想定 (= ec.minikuru 2 ヶ月時給¥270) | coc-blog + ext | /goal milestone |
+| 13 | ★ 悪質購入者 5%、 ココナラ運営 = トラブル仲介 しない、 自衛必須 ★ | note | V4 INBOUND |
+| 14 | ランク: ゴールド = 売上 ¥5万/3M + 評価 4.8 + 本人確認 | note | STATE 月次 集計 |
+| 15 | ランク: プラチナ = 売上 ¥10万/3M | note | STATE 月次 集計 |
+
+### §7.5 GATE ENRICHMENT (= 4-fork 知見 を V1-V5 に直接 落とす)
+
+**V1 PROPOSAL-VERIFY (= 攻め)** — 新 check 追加:
+- ★ 案件名 verbatim 引用 必須 ★ (= template でない 証明、 dim5 強化)
+- ★ 課題要約 を 冒頭 1 文 ★ (= 採用率 ↑、 freelance-start §6)
+- ★ 「定型文」 keyword grep block (= 「ご提案させていただきます」 / 「お役に立てれば」 / 「初心者ですが」 等) ★
+- ★ 「友人/自演 レビュー 依頼」 keyword 即 FAIL ★ (= ToS 第13条(22) + 加盟店 第9条(34) 違反 防止)
+
+**V2 LISTING-VERIFY (= 出品)** — 新 check:
+- ★ 自己紹介 ≥ 800字 ★
+- ★ 数値実績 1個以上 表記 ★ (= 「N件」 表示)
+- ★ 1 枚目画像 = 有料素材 OR 文字入れ ★ (= ec.minikuru プラチナ 達成例)
+- ★ 顔写真 or プロアイコン ★
+- ★ 3 点 (= 顔写真 + 本人確認 + サンプル) 不揃い 出品 = FAIL ★ (= mtdc 現状 全部 該当、 SETUP 1 tap 候補)
+
+**V3 DELIVERABLE-VERIFY (= 納品)** — 新 check:
+- ★ 納期 余裕 +30% (= 24h 約束 → 18h 完成) ★
+- ★ 「途中キャンセル不可」 + 「遅延金 発生」 を 出品 説明 に明記 (= note 自衛策) ★
+- ★ 補助 LLM 役割明示 (= 顔判定 は API、 LLM は report 整形 のみ) ★ — 既 V1 r2 で 確認済
+
+**V4 INBOUND-VERIFY (= ★ 最 hard part、 Dais 厳命 ★)** — 大幅拡張:
+- ★ buyer 評価 < 4.8 / 取引完了率 < 80% = red flag、 受注前 alert ★
+- ★ 著作権 複雑 (= 法律/医療/政治/金融助言) = red flag → V4 慎重 query ★
+- ★ 異常文面 (= 暴言 / 取消脅迫 / 値引強要) = auto-skip + 通報 ★
+- ★ 「直接 連絡 先 交換」 keyword = 即 FAIL (= ToS 第13条(27) + 加盟店 第9条(35)) ★
+- ★ 即時 返信 = ≤ 6h SLA 厳守 (= ranking algo 連動) ★
+- ★ 質問 受信 → 5dim verify → 「お受けできかねます」 丁寧 断り OR 質問 返信 OR 即受注 の 3 分岐 ★
+
+**V5 CONTINUOUS-VERIFY (= 24h sweep)** — 新 check:
+- ★ 直近評価 < 4.8 = ALERT、 ≤ 3 で ★ 受注 一時停止 自動 (= 3ヶ月) ★
+- ★ 6h以内 未返信 検出 → self-escalate (= 即 reply tier 1-5 ladder) ★
+- ★ 評価 1 取得 → 3ヶ月 出品 停止 + 原因 root cause analysis ★
+- ★ 月次 ランク 推移 監視 → ゴールド/プラチナ 条件 進捗 表示 ★
+- ★ アフターフォロー = 全 完了 order に 「不明点いつでも」 メッセージ 自動 + リピーター 6-12ヶ月後 1回 限定 (= note ベース 規範) ★
+
+### §7.6 PLATFORM-DIFF (= ココナラ → Lancers / Upwork / Fiverr 横展開)
+
+| 軸 | ココナラ | Lancers |
+|---|---|---|
+| 主軸 | 出品 (= 棚) → 受待 + 受託 (= 応募) 補助 | ★ 受託 (= 応募) 主軸 ★、 出品 弱 |
+| 手数料 | 22% 税込 | 16.5% |
+| 初期 価格 | ¥500 メッセージ / ¥100 電話 / 段階 ladder | 文字単価 0.5-1 円 / 「時給 ¥1000以上」 ライン |
+| 評価 戦略 | 10-20 件 で 単価 ↑、 ゴールド 条件 達成 | 5-10 件 で 単価 ↑、 認定 ランサー |
+| 連絡 channel | トークルーム + 電話/ビデオ | メッセージ + 契約条件 + 納品物 一元 |
+| 振込 / KYC | 本人確認 + 銀行直接 (= mtdc 現状 KYC 未) | 仮払い → 検収 → 振込 |
+
+★ ココナラ pattern → Lancers 持ち込み NG (= verified) ★:
+- 出品 (棚) 主軸 戦略 = Lancers 不適 (= 棚 機能 弱)
+- 「即時納品 / 24h SLA」 過剰 promise = Lancers SEO 記事 文脈 で 信頼 ↓
+- ¥500 最安 gig 戦略 = Lancers 文字単価 概念 と 不一致
+
+★ 横展開 で 効く 共通 (= verified) ★:
+- 提案文 = 募集文要約 + 課題対応 + ポートフォリオ 2-3 本
+- AI honest 開示
+- 評価 = 資産
+- 継続案件 = 営業 ゼロ
+- 「数より質、 通過率 優先」
+
+---
+
 ### §7.3 5 gate 全部 走る base rate
 - V1 PROPOSAL: 攻め 1日 ≤3 proposal × 各 1-3 round = 3-9 verify/日
 - V2 LISTING: 新出品 N + 既存 12 gig × 24h re-check = 13+/日
