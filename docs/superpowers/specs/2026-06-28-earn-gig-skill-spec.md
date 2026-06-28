@@ -522,6 +522,65 @@ A. impressions/CTR/conversion → B. winner +5% / loser A/B → C. portfolio +1
 
 ---
 
+## §11.5 ★ APPENDIX A: Coconala seller REAL URLs + 現在 状態 (= 2026-06-28 探索結果) ★
+
+### Daisuke (mtdc, user_id=2564121) account 現状
+- ✅ login 確認済 (= CakeCookie[login_history]=Google、 SETUP 1-tap by Dais 2026-06-28)
+- ✅ header_type=provider (= 出品者 mode active)
+- ✅ 出品 3 件 LIVE (= 全部 実績 0 件 — 「棚で死ぬ」 教訓 確認)
+  1. 業務自動化スクリプトを作ります  ¥10,000  0件
+  2. あなたのSNSをAIで自動化しますます  ¥10,000  0件  ★ typo "ますます" ★
+  3. AI×AniccaがTikTok縦動画作りますます  ¥3,000  0件   ★ typo "ますます" ★
+- ❌ **本人確認 = 未登録** (= 振込申請 不可、 ¥着金前 KYC 必須)
+- ❌ NDA = 未登録 / インボイス = 未登録 / フォロワー = 0 / ランク なし
+- ❌ 売上金残高 = **0 円** (= 過去 一度も売れず)
+- ❌ 応募 0 件 (= memory 一致、 過去 cfo-earner-coconala 実装 = TODO 放置 で実行0)
+
+### REAL seller URLs (= skill code の poller 配線 base)
+
+| 機能 | URL | 用途 (= 5 gate どこ で使う) |
+|---|---|---|
+| 出品者ダッシュボード | `/mypage/dashboard_provider` | V5 CONTINUOUS-VERIFY base scan |
+| 売上管理・振込申請 | `/mypage/revenue` | V5 ledger 整合 + 振込トリガー |
+| 出品サービス管理 | `/mypage/services_lists` | V2 LISTING-VERIFY 編集 path |
+| 取引管理(トークルーム) | `/mypage/received_orders/open` | V4 INBOUND-VERIFY + V3 DELIVERABLE submit path |
+| 応募・スカウト管理 | `/mypage/offers` | V1 PROPOSAL submit 後 監視 |
+| 応募(単発)履歴 | `/mypage/job_matching/applied/offers` | V1 提案 中 監視 |
+| プロフィール編集 | `/mypage/user` | SETUP 時 bio 更新 |
+| 設定 | `/mypage/user_account` | SETUP KYC + 振込先 |
+| 広告管理 | `/mypage/promotion` | (任意) 24h compound での 露出 amp |
+| 単発募集 一覧 | `/requests` | ★ V1 PROPOSAL 攻め path (= 受託 応募) ★ |
+| 継続募集 | `/job_matching/outsources` | (任意) 時給/月給 系 |
+| 新 サービス出品 | `/services/add` | V2 新規 LISTING path |
+| コンテンツ出品 | `/contents_market/type_select` | (任意) PDF/template 売り |
+| ブログ管理 | `/mypage/blogs` | (任意) 流入 amp |
+| クーポン管理 | `/mypage/provider_coupons` | (任意) 価格 lever |
+| ログアウト | `/logout` | テスト 用 |
+
+### Do-once 戦略 update (= 過去教訓 + 現状確認 を 受けて)
+
+★ pivot: do-once は ★ G3 ¥500 新出品 ★ ではなく ★ `/requests` 応募 + 24-48h 納品 ★ に変更 ★。 理由:
+- ① 「棚で死ぬ」 教訓 (= feedback_jutaku_not_shuppin) 既に mtdc の 0 件 で実証
+- ② 受託 = 既に「これ作って¥N」 と公言された 案件 ピック = niche detect 不要
+- ③ Coconala /requests page は alive (= 過去 「Vue silent fail」 は 旧 camofox 実装 の 問題、 daily-driver attach なら 動く可能性 高)
+- ④ 本人確認 KYC を ¥着金 必要時 に 1-tap SETUP で 即対応 (= §0.5 例外 該当)
+
+### 修正された P2 do-once 順 (= 旧 P2-7 ~ P2-14 を 上書き)
+
+| 順 | 内容 | dep |
+|---|---|---|
+| P2-A | `/requests` を 視認 + AI 可能 案件 を 1-3 件 picking | Daisuke login 済 |
+| P2-B | 1 案件 に 提案文 自作 + V1 PROPOSAL-VERIFY (= 自分 で 5 dim verify、 fresh-context) | P2-A |
+| P2-C | 提案 submit (= CloakBrowser 手動 1回) | P2-B PASS |
+| P2-D | 受注 wait (= 数時間〜数日) | P2-C |
+| P2-E | 採用 → engine 納品 (= Claude 直、 24-48h) | P2-D |
+| P2-F | V3 DELIVERABLE-VERIFY → 自分 で 視認 → submit | P2-E |
+| P2-G | 検収 → 売上金 → 本人確認 KYC (= 1-tap SETUP) → 振込 申請 | P2-F |
+| P2-H | JP 銀行 着金 verify + ledger 1 行 append (= MY browser E2E) | P2-G |
+| P2-I | LEARN 録 → STATE.md (= V1/V3/V4/V5 prompt の 教科書 input) | P2-H |
+
+---
+
 ## §11 DONE (= この spec v2)
 
 - 名前 = `earn-gig` (English) に rename 済
