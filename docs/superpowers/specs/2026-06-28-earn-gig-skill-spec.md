@@ -28,6 +28,34 @@
 
 ---
 
+## §0.6 ★ STATUS-EMAIL HOOK (= Dais 視認、 承認 gate ではない) ★
+
+Dais 2026-06-28 verbatim: "review your output and then... mail that shit to me"
+
+### 設計
+全 gate (V1 PROPOSAL / V3 DELIVERABLE / V4 INBOUND / payout 発生) で、 PASS 直前 と submit 直後 に keiodaisuke@gmail.com に notify-only mail を 送る。 ★ 承認 待ち しない ★ — 送って 即 submit、 Dais は 後 で 読む。
+
+### Schema
+| trigger | mail subject | body |
+|---|---|---|
+| V1 PASS + submit 直前 | `[earn-gig] V1 PROPOSAL submit → coconala/req/{id}` | 案件 link + 提案文 全文 + adversary 5dim score |
+| V3 PASS + submit 直前 | `[earn-gig] V3 DELIVERABLE submit → coconala/order/{id}` | order link + deliverable summary + open-test 結果 |
+| V4 受信 + 自分 判定 | `[earn-gig] V4 INBOUND {accept|decline}: {client_id}` | client msg + 自己 verify 5dim + decision |
+| payout 着金 | `[earn-gig] ¥{N} 着金 — coconala order #{id}` | platform row + ledger row + 累計 |
+| V1/V3/V4 FAIL (= self-escalate tier 5 skip+log) | `[earn-gig] SKIP after escalate: {item_id}` | 5 dim findings + 5-tier ladder 履歴 + 24h re-attempt 予定 |
+
+### 送信路 (= 検討、 1 つ pick して実装)
+- A: Resend API (= RESEND_API_KEY あれば最速)
+- B: AgentMail から keiodaisuke@gmail.com 宛 (= IMAP/SMTP)
+- C: 既存 Gmail MCP (= claude_ai_Gmail 経由 keiodaisuke@gmail.com から 自分宛 send)
+
+### NOT human gate (= §0.5 厳守)
+- ★ 「Dais reply 待ち」 logic 物理 不在 ★
+- ★ ledger に `awaiting_dais_review` field 禁止 ★
+- ★ submit は mail 送信 と独立 ★ — mail 送信 失敗 でも submit は走る (= mail = best effort 通知)
+
+---
+
 ## §0.5 ★ MINIMAL HUMAN LOOP (= 上位原則、 Dais 2026-06-28 verbatim) ★
 
 Dais 2026-06-28 verbatim: "minimal human in the loop... it can be something that you just do once, but it cannot be something I do every single fucking day or something"
