@@ -28,6 +28,67 @@
 
 ---
 
+## §0.7 ★ ANTI-PIVOT / SUBMIT-FIRST DISCIPLINE (= 自己 gate 化 防止、 Dais 2026-06-28 厳命) ★
+
+### なぜ
+2026-06-28 = ★ 5 時間 走って 「応募する」 click 0 件 ★。 root cause = **私 が 自分 で gate になった**:
+- V1 PASS 後 「mail 送って Dais 確認 してから submit」 と gate 化 (= 実 §0.6 は notify-only と書いた 自分で違反)
+- 「PROOF も追加」 「research もっと」 で 既 PASS の v2 を 寝かして 新 scope 足した
+- 「応募 22+1契約 = 勝てない」 で 自分で pre-screen skip = Dais の 「whole process 体験」 違反
+- shiny-object: 新 info 来る度 全 plan 書き直し → 完了 < 半完了 N 件
+
+### 物理 hard rules (= 該当した瞬間 skill 起動 拒否 / 即 ALERT)
+
+| # | rule | enforce 方法 |
+|---|---|---|
+| AP-1 | ★ V1 PASS から submit までの SLA = **30 分** ★ | timer 起動 → 30 分超 = 即 ALERT、 timeout = pivot 違反 と記録 |
+| AP-2 | ★ Dais mail = ★ 完全 fire-and-forget ★、 reply 待ち 永禁 (= §0.6 厳格化) ★ | ledger schema に `awaiting_dais` 物理不在 + skill code grep block `wait_dais` / `dais_review_ok` |
+| AP-3 | ★ pre-screen skip 禁止 ★ — 「応募 N 多い」 「実績要件」 等の 統計 理由 で skip 禁止 | skip ledger = 理由 enum 必須 `["needs_dais_captcha","needs_dais_kyc","tos_violation","tool_not_installable","domain_skill_missing"]`、 他 = reject |
+| AP-4 | ★ 新 scope (PROOF / mail / research) = ★ 必ず PARALLEL ★、 既 PASS submit を blocking しない ★ | TaskCreate: 新 scope task は 既 submit task の `addBlockedBy` に入れる の **禁止**、 別 chain として 並走 |
+| AP-5 | ★ 1 候補 = 1 atomic chain `[make → verify → mail → submit]` ★、 chain 途中 で 他 候補 / research 挿入 禁止 | skill state machine: chain 進行中 は 他 chain 一切 触らない |
+| AP-6 | ★ pivot keyword auto-stop ★ — 自分の output 内 で 「pivot」 「let me first」 「reconsider」 「もっと 研究」 「actually」 検出 → 即 STOP + 「これ は scope-finish か scope-add か」 self-question | runtime lint: claude -p stdout grep |
+| AP-7 | ★ skip 許容 条件 = ★ 「私 が 自力で 動かす ツール が 物理 不在」 のみ ★ ★ — 「競合 多い」 「実績無い」 「難しそう」 = 禁止 reason | skip task に enum 必須、 違反 reason 提出 で skip 自動 reject |
+| AP-8 | ★ research/fork = 1 候補 に対して max **1 round** ★ — 「もっと research」 で 2 回目 spawn 禁止 | TaskList: research-* task は 各 候補 max 1 |
+| AP-9 | ★ V1 PASS = "make-the-thing PASS" であって "promise-text PASS" ではない ★ | §7.7 PROOF-OF-CAPABILITY と直結 (= adversary は artifact を 見る、 text だけ NG) |
+
+### 違反検出 例 (= 過去 5 時間 で 起きた事 を 物理排除)
+
+```
+2026-06-28 14:45  Face++ v2 V1 r2 PASS
+2026-06-28 14:50  ★ AP-1 違反 検出 ★: 5 分 経過 で submit 無し
+                  + AP-2 違反 検出: 「Dais mail 確認 してから submit」 思考 出現
+                  → 自動 ALERT: 「30 分 SLA、 PASS → 即 submit、 mail は parallel」
+2026-06-28 15:30  「research 4 fork」 計画
+                  ★ AP-4 違反 検出 ★: 既 PASS submit を blocking
+                  → 自動 ALERT: 「research は parallel chain、 submit は別 chain」
+2026-06-28 17:30  「PROOF setup 2-3h で v3 作る」 計画
+                  ★ AP-4 + AP-6 違反 ★: 既 PASS scope-add で 上書き
+                  → 「scope-finish or scope-add?」 self-question
+                  → 答え: scope-add = 別 task 化、 v2 は即 submit
+2026-06-28 18:00  「5120870 = 22応募1契約 で 勝てない skip」
+                  ★ AP-3 + AP-7 違反 ★: pre-screen skip + reason 「competitive」 = enum 外
+                  → 自動 reject、 submit 強制
+```
+
+### 1 候補 atomic chain (= 全 候補 共通)
+```
+[ MAKE the artifact (= 客 が 求める実物 を sample で作る) ]
+   ↓ (30 分以内)
+[ V1 PROPOSAL-VERIFY (= client_req + my_artifact を 渡す、 §7.7) ]
+   ↓ PASS (= 5 dim binary)
+[ MAIL Dais (= fire-and-forget、 reply 待たない、 §0.6) ]
+   ↓ (同時並列、 待たない)
+[ CDP SUBMIT (= 応募する click → form fill → submit) ]
+   ↓ submitted 確認
+[ ledger pre-row + STATE.md 更新 ]
+   ↓
+[ 次 候補 chain へ ]
+```
+
+★ chain 途中 で 他 候補 や research 入れない ★ — 1 chain 完走 後 次。
+
+---
+
 ## §0.6 ★ STATUS-EMAIL HOOK (= Dais 視認、 承認 gate ではない) ★
 
 Dais 2026-06-28 verbatim: "review your output and then... mail that shit to me"
@@ -411,6 +472,32 @@ def verify(item, gate_id):
 ```
 
 ★ どの tier も 人間 を 呼ばない ★ — tier 5 ですら 「skip して log」 = 自分 で完結。 翌 24h cron で V5 が pickup → 再 verify。 Dais は ★ aniccaai.com/dashboard で 後 で 結果 を見るだけ ★、 介入しない。
+
+### §7.7 ★ PROOF-OF-CAPABILITY (= V1 を 「文章 が良いか」 から 「実 artifact が client req を 満たすか」 に矯正) ★
+
+Dais 2026-06-28 verbatim: "did you actually do what they asked you to do or not?... we have to show them, hey, this is what we got and this is our accuracy"
+
+### 問題 の根本
+過去 V1 r2 PASS = ★ 提案文 の 文章 が 良いか ★ を 見ていた。 ★ 「client req に 対する 実 output が 存在し、 数字 で req を 満たすか」 は 一切 見ていない ★。
+
+### 修正
+V1 PROPOSAL-VERIFY adversary に **必ず 渡す**:
+1. ★ client req 全文 ★ (= 募集内容 + 必須条件 + 期待 数値 [= "FacePair 80-82% より高精度" 等])
+2. ★ 私 が 作った real artifact ★ (= 提案文 だけ では PASS 不可、 sample run output / PDF / GitHub Gist link 必須)
+3. ★ artifact が req の specific ask を 満たす evidence ★ (= ground truth と比較した accuracy %、 sample 1 件 開封テスト 結果、 等)
+
+### V1 5 dim (= 改訂後)
+| dim | 旧 (= 文章採点) | 新 (= artifact 採点) |
+|---|---|---|
+| 1 | brief 一致 (= 文 が brief 参照) | artifact が brief の 要求 数値/形式/種類 を 物理 含む |
+| 2 | skill 適合 (= 嘘 ない 文) | artifact が 動いた evidence (= API response / file MD5 / screenshot) |
+| 3 | unique value (= 文 で diff) | artifact が 競合 と diff な数値 を 出している |
+| 4 | ToS+AI 開示 (= 文 で disclose) | artifact 制作 ToS-safe、 disclose 表記 入り |
+| 5 | template でない (= 文 が 個別) | artifact が この client の data に 個別 適用 (= generic sample 不可) |
+
+### artifact 不在 = 即 FAIL (= 「文章 だけ で PASS」 物理排除)
+adversary prompt 必須 行:
+> 「Read the artifact file referenced in proposal. If file does not exist OR file is generic template OR no sample-run evidence, mark **overall FAIL** regardless of text quality.」
 
 ### §7.4 ★ ART RULES (= 4-fork URL research 統合、 2026-06-28、 verified only) ★
 
