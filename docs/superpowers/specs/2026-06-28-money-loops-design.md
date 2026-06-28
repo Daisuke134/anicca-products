@@ -33,3 +33,28 @@ spec化: まずEN 3×/日(HF無料1token)で立ち上げ → JPは別token → �
 - 実投稿(POST_ID) → cron 3×/日。
 - ebook 出品(集金)。
 - 多言語: JP token + base + account、その後 locale 横展開。
+
+---
+# ★★ FINAL-FINAL (2026-06-28, Dais 訂正): NO LatentSync. AUDIO-SWAP ★★
+
+Dais: 「LatentSync要らない。既存のHeyGen動画はもう口が動いてる。そこに新台本のElevenLabs/edge-tts音声を載せ替えるだけ。完璧同期じゃないがtweakしながらやる。」
+
+## 視覚step = audio-swap（再lip-syncしない）
+既存 HeyGen base動画(口が動いてる, base-videos/*.mp4)を音声尺にloop/trim → 元音声を捨て → 新TTS音声をmux → 1080x1920。口は元の動き＋新しい声＝喋ってるように見える。$0・即時(~7秒)・GPU/quota不要。
+- 実装: render-free.sh L43 `ffmpeg -stream_loop -1 -i base -i voice -t DUR -map 0:v -map 1:a ...`。検証済(/tmp/talkmonk.mp4)。
+- tweak余地: base動画は口がよく動く区間を選ぶ/台本尺をbase尺に寄せる。
+- ★LatentSync/MuseTalk/wav2lip 全廃 — 再lip-syncは劣化&quota&遅い。audio-swapが正解。★
+
+## パイプライン（確定）
+gen-script(フレッシュ台本/言語別) → TTS(edge-tts EN/VOICEVOX JP) → **render-free(base動画に音声載せ替え=喋る僧侶)** → burn-captions → gen-caption(+ebookリンク) → post(TikTok+IG) → ledger
+
+## 多言語(EN→JP→他) + 大量アカウント
+- 言語別: 台本言語 + TTS音声 + base動画 + 投稿アカウントを差替。
+- アカウント大量作成: ig-account-create パターン(CloakBrowser daily-driver)で自律。EN→JP→locale。
+- base動画が言語非依存(口の動きだけ)なので同じbaseを全言語で使い回せる(音声だけ変える)=スケール容易。
+
+## watercolor-monk-factory(JP)
+JP音声VOICEVOX化済(#5)。これも同audio-swap方式に統一(HeyGen依存を除去) or JP monk-earnとして吸収。
+
+## QUOTA問題は消滅
+audio-swapはローカルffmpegのみ=HF GPU不要 → 5分/日制限なし → 3×/日×多言語×多アカウントが全部$0で無制限に回せる。★これが大きい★
