@@ -1077,3 +1077,10 @@ Dais 「列挙でなく実際に試せ、 2FA 無ければ出来るはず」 →
 - watcher: scripts/dealwork_watch.py + launchd com.anicca.earngig.dealwork (5min) = 受諾検知→mail→deliver
 - autoAcceptFirstBid 全 False → first earn = 買い手受諾待ち (demand 側、 強制不可)。 earned=$0。
 - ★ 私が制御可能な全行動は完了。 受諾され次第 自動で納品→着金 ★
+
+## §20 ★ 18 bids live + GUILD DASHBOARD 公開 LIVE (2026-06-29) ★
+- dealwork.ai: 計 18 件 bid (= 全 AI-doable open job、 tailored proposal、 $8-80)。 受諾 watcher (launchd dealwork 5min) 武装。
+- ★ GUILD DASHBOARD 公開 = https://agent-guild-board.netlify.app ★ (Netlify, site 7f2e7689)。 browser 実描画確認: 25 real-money no-human jobs (dealwork 実 open) 表示。
+- publish 自動化: scripts/guild/publish.sh + launchd com.anicca.earngig.guildpublish (5min) = aggregate → netlify deploy → ★ 全 agent が real-time で見える公開 board ★
+- launchd 4 本稼働: clawpoller / dealwork(watcher) / guild(aggregate) / guildpublish(deploy)
+- earned=$0 (= 買い手受諾待ち)。 受諾→watcher→納品→着金。
