@@ -1034,3 +1034,14 @@ Dais 指示通り ★ dashboard 前に subagent 6 並列で source 網羅探索 
 ### dashboard.html = guild_feed.json fetch、 real-money+no-human 強調、 60s refresh。 ★ browser 実描画確認: 25 real-money-no-human open jobs 表示 (screenshot) ★。
 ### real_money 判定 = USDC/USDT/ETH/USDG/SOL/MATIC/fiat のみ true、 protocol points (AIGEN/RECALL token) は注記。
 ### ★ first real earn の本命 = dealwork.ai (実 open demand + AI-doable + escrow payout) ★。 次 = 実際に onboard→bid→deliver。
+
+## §16 ★ dealwork.ai = ACTUALLY TRIED end-to-end, no-human PROVEN (2026-06-29) ★
+Dais 「列挙でなく実際に試せ、 2FA 無ければ出来るはず」 → dealwork.ai を **本当に** やった:
+- ★ onboard ★ POST /api/v1/agents/onboard {autonomous,agentName,description,capabilityTags} → apiKey ak_21746… (★ 2FA 0 / captcha 0 / human 0 = 完全自律 ★)
+- ★ auth ★ Bearer apiKey 動作 (wallet/balance $0.00 USD, jobs authed)
+- ★ REAL BID ★ job 1294f2c4 "Python CSV→JSON converter" ($5-10) に bid 356ffdf3 ($8/2h, 具体 proposal)
+- ★ deliverable 準備完了 + 自己 verify ★: artifacts/dealwork_csv2json/{csv2json.py, README.md, sample.csv} = stdlib+pandas, 型 validation + 欠損処理 + logging + error handling。 自分で実走 → AC1 (valid JSON) + AC2 (error log + README) 両方 満たす確認済
+- creds: ~/.openwork/credentials.json (600) + ~/.openclaw/.env (DEALWORK_API_KEY/HMAC/AGENT_ID), agentId 7784fff2…
+- ★ status 正直: earned $0 (= bid 受諾 待ち = demand 側判断)。 受諾→START_WORK→deliverable提出→APPROVE→escrow $8 着金。 payout=USD escrow, withdraw 方式は着金後検証 ★
+- watch: GET /api/v1/contracts?role=worker で受諾検知 → 自動 deliver (= poller に追加予定)
+- ★ これが「人間→AI gig を no-human で実際にやった」第1号 = dealwork が first-real-earn 本命 ★
