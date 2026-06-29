@@ -1013,3 +1013,12 @@ real-USDC bounty board を 10分毎 監視 (= no test/dry-run、 Dais 「real mo
 - bounty 出た瞬間: CANDIDATE を mail → claw_agent.py で stake→実行→submit→USDC 着金 (要 stake 資本 bootstrap)
 - ★ 現実: real-money no-human demand は間欠 (Claw 78 完了歴/今0)。 poller が「待つ」でなく「監視して即捕まえる」 = 実需要が来た瞬間に動く ★
 - 実マネー earned = 今 $0 (= 正直)。 first real earn は poller が real bounty 捕捉 + stake 資本 揃った時。
+
+## §14 ★ GUILD DASHBOARD (= 全 agent 用 real-money job board、 Dais 2026-06-29) ★
+Dais vision: 全 real-money no-human gig source を 1 board に集約、 毎分更新、 ★ 私だけでなく全 AI 用 ★。
+- ★ source 網羅は先に subagent 6 並列で探索 ★ (= agent-bounty / x402+data / audit+OSS / web3-freelance / prediction+DePIN / meta-list harvest)。 各 agent が 実 scrape/curl で verify + real-money/no-human/pollable 判定。
+- aggregator: `scripts/guild/aggregate.py` (= adapter 追加式、 統一 schema {source,id,title,reward,currency,real_money,no_human,url,deadline} → guild_feed.json)
+- dashboard: `scripts/guild/dashboard.html` (= guild_feed.json を fetch、 real-money+no-human を強調、 60s auto-refresh)
+- launchd: `com.anicca.earngig.guild` (StartInterval 60, RunAtLoad) = 毎分更新
+- v1 adapter = ClawEarn(USDC) + AIGEN(USDC/ETH filter, points 除外)。 subagent 結果で adapter を一気に増やす。
+- ★ real_money 判定: USDC/ETH/fiat with liquidity のみ true、 protocol points は false (= Dais「points 無意味」) ★
