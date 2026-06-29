@@ -1,0 +1,70 @@
+# ANICCA FACELESS CLOSED-LOOP FACTORY — $0, copy-the-winner, self-iterating (2026-06-29)
+
+## 0. 大方針（Dais verbatim 2026-06-29）
+「lip-sync は scam、HeyGen は $20/月で矛盾。**口パクを完全に捨てる**。MoneyPrinterTurbo は TTS 内蔵の**完全無料の動画モデル**。これを再利用する。**実際に views を出してる物を完全にコピー（head-to-head）→ 生成物を本物(viral)と照合 verify → ループで iterate する閉ループ**を作る。必要なのは compute と intelligence だけ。$0 spent から金を生む。全 human-funded / self-funded AI が経済的に自立できる型にする。収益=アフィリ / ebook / チャンネル売却。」
+
+→ **核心**: ツールは無料の生産エンジン。勝つ鍵は「①本物のバイラルを採掘 ②勝ちテンプレを丸コピー ③無料で生成 ④本物と照合検証 ⑤回す」の閉ループ。monk はこの中の1ニッチに過ぎない。
+
+## 1. 制約（絶対）
+- **$0 spent**。固定費ゼロ（HeyGen/fal/有料API禁止）。使うのは compute + intelligence のみ。
+- **顔なし・口パクなし**（lip-sync 全廃 = fal/LatentSync/MuseTalk/wav2lip/HeyGen 不使用）。
+- 投稿は **DRAFT 承認制**（Dais OK まで実投稿しない）を継続。
+- BP: **勝者を1つ丸コピー（blend 禁止 = [[feedback_never_combine_copy_one_winner_whole]]）**、verify は fresh-context adversary（VSDD）。
+
+## 2. 無料ツール棚卸し（検証済 / 実在確認済）
+| 役割 | ツール | コスト | 状態 |
+|---|---|---|---|
+| トレンド採掘(公式) | **TikTok Creative Center**（hashtag/song/creator/video/keyword-insight/top-products、firecrawl で取得） | $0 | ✅ 生きてる（#happyfathersday 101.6K 等 取得確認 2026-06-29） |
+| バイラルDL(head-to-head入力) | **yt-dlp** (2026.03.17) | $0 | ✅ 設置済。TikTok/YT/IG URL → mp4 |
+| ~~トレンドAPI~~ | ~~tiktok-scraper (drawrowfly)~~ | $0 | ❌ **trend は session 無しで死亡**（started のみ・データ0）。採用しない |
+| 動画生成(顔なし) | **MoneyPrinterTurbo** (`~/MoneyPrinterTurbo`) = 台本(LLM)+Pexels/Pixabay ストック映像+TTS(200+言語)+字幕+BGM 全自動 | $0 | ✅ 実走済。要・無料 Pexels キー（gap） |
+| 台本/キャプション頭脳 | DeepSeek | 極小 | ✅ |
+| 字幕 | whisper(ローカル) / edge-subtitle | $0 | ✅ |
+| ナレーション声 | edge-tts(無料多言語) / VOICEVOX 青山龍星(JP無料) / ElevenLabs クローン(monk niche の声・低コスト) | $0〜低 | ✅ |
+| ストック映像 | Pexels / Pixabay(無料・著作権フリー) | $0 | 要 無料キー |
+| 配信 | post-tiktok.sh(browser) / Postiz(IG) / YT | $0 | ✅ 既設 |
+
+## 3. 閉ループ・アーキテクチャ（MINE→COPY→GENERATE→VERIFY→DISTRIBUTE→MONETIZE→LEARN）
+```
+① MINE     TikTok Creative Center で「views を出してる」hashtag/動画/keyword を採掘。
+           収益化可能ニッチに絞る（finance/money・AI tools・motivation/self-improvement・
+           facts/"did you know"・meditation/wisdom=monk）。
+② COPY     勝者バイラルを yt-dlp で DL → whisper 文字起こし → 構造分解(hook/尺/テンポ/
+           on-screen text/CTA/music)。★勝ちテンプレを1本まるごと抽出（blend 禁止）★。
+③ GENERATE MoneyPrinterTurbo（顔なし・$0）で同テンプレを再現: DeepSeek が勝者の構造で
+           新台本 → ストック映像 + 無料TTS + 字幕 + BGM。monk niche はクローン声を流用可。
+④ VERIFY   生成物 vs 本物(viral truth) を fresh-context adversary が照合採点
+           (hook強度/テンポ/retention trigger/CTA が勝者テンプレに一致するか) → 
+           乖離なら③に戻して iterate（=VSDD をバイラル性に適用）。PASS まで回す。
+⑤ DISTRIBUTE DRAFT 承認 → TikTok/IG/YT、多言語×多アカウント。
+⑥ MONETIZE  アフィリ(TikTok Shop/Amazon/AIツール) + 自社 ebook + 育ったチャンネル売却(月利20-40x)。
+⑦ LEARN    実 views を記録 → 勝った自作を①へ還流 → ループが締まる(closed loop)。
+```
+
+## 4. 収益（実態 = 出典付き、§3⑥）
+- **アフィリ**: 最確実（説明欄/bio にリンク。TikTok Shop / Amazon / AIツール aff）。
+- **自社 ebook**: 既存 S2 タスク（DeepSeek 生成→PDF→Payhip/note）。トラフィックを商品へ。
+- **チャンネル売却**: 10万-20万登録@月$3k → $60k-120k（月利20-40x、inreels.ai）。
+- ⚠️ **AdSense は AI/再利用判定で収益化拒否されやすい** → 価値付加必須・主軸にしない。
+- 出典: medium(@ijimoh905 1本$5k=広告+aff+商品)、reddit r/NewTubers(faceless 月$2,384+aff)、inreels.ai(売却倍率)。
+
+## 5. monk の扱い（1ニッチに格下げ・口パク廃止）
+クローン僧侶声をナレーションに、静謐な寺/自然/蝋燭のストック映像 + 字幕（顔なし・lip-sync無し・$0）。
+= meditation/wisdom ニッチのチャンネル。同エンジンで finance/AI/motivation チャンネルも並走。
+
+## 6. 既知の gap / 要対応
+- [ ] **Pexels 無料 API キー** 取得（MoneyPrinterTurbo の自律ストック映像に必須）。
+- [ ] TikTok 動画 DL の安定経路確定（yt-dlp first、失敗時 snaptik/別経路）。
+- [ ] Creative Center の構造化取得（hashtag/動画/keyword を JSON 化する mine スクリプト）。
+- [ ] 「勝ちテンプレ抽出」「viral 照合 verify」のプロンプト設計（VSDD adversary 流用）。
+
+## 7. 旧 monk lip-sync 路線 = 廃止
+`2026-06-28-money-loops-design.md` の FINAL-v3（fal lip-sync）は **本 spec で上書き**。声クローン(✅維持)以外の lip-sync 実装(lipsync.py / render-free.sh の fal 経路)は **使わない**（コードは残すが既定 OFF）。Dais: 「fal は scam、口パク全部要らない」。
+
+## 8. 実装フェーズ（コードは Dais GO 後 / 本 spec は SSOT）
+- P1 mine: Creative Center → トレンド JSON（収益ニッチ絞り）。
+- P2 copy: yt-dlp + whisper + 構造分解 → 勝ちテンプレ JSON。
+- P3 generate: MoneyPrinterTurbo 配線（Pexels キー + テンプレ駆動台本）。
+- P4 verify: fresh adversary が viral 照合 → iterate ループ。
+- P5 distribute: DRAFT 承認 → 多ニッチ×多言語×多アカウント。
+- P6 monetize: aff リンク + ebook ファネル + 売却候補管理。
