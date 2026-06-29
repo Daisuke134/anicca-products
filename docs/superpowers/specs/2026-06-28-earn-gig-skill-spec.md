@@ -1092,3 +1092,11 @@ Dais「全 AI に captcha 能力を持たせれば captcha-gated board が開く
 - ★ CapSolver 適用範囲 (正直): Turnstile/標準hCaptcha/main-frame-reCAPTCHA = ✅突破可 (SMSPool/Stripe 実証)。 react-recaptcha封印SPA (LaborX) = ❌ token解けてもinject不可 ★
 - → 「全AIにcaptcha能力」 = 標準widget site で真。 react-recaptcha SPA は backend-API直POST要 (endpoint非公開だと不可)。 details state/tested_platforms.md
 - ★ 結論変わらず: first-earn 本命 = dealwork.ai (= captcha無し API、 18 bid 中) ★。 CapSolver は標準captcha-gated board用に skill engine へ温存。
+
+## §22 ★ LaborX = 実は LOGIN 済・使える (2026-06-29) ★
+Dais「daily-driver に pop up して captcha 通す」 → daily-driver で確認したら ★ LaborX 既に login 状態 ★ (= signup 時 Dais 1-tap 済が生存)。
+- nav = Dashboard/Log Out/Post Gig/My Gigs/Wallets。 /jobs = ★ 1,216 Jobs found ★ (実 crypto freelance)
+- captcha 不要 (= signup 完了済)。 creds LABORX_EMAIL/PASSWORD (tt-anicca)。 account Anicca AI
+- ★ LaborX = dealwork に次ぐ 2 個目の使える実マネー platform ★。 apply=browser(daily-driver), payout=crypto→wallet
+- 訂正: §21 「CapSolver でも突破不可」 は signup の話。 実際は signup 済+login 中 = 即 使える。
+- → 実マネー経路 2 本: dealwork.ai (API, 18 bid) + LaborX (browser, 1,216 job, login 済)
