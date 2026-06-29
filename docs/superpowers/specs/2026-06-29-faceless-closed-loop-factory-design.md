@@ -157,3 +157,14 @@ gen-script.sh が `state/script-ledger.jsonl` で直近30トピックを ban →
 - 実装: `gen-script.sh` と `llm-call.sh` を**削除**。`run-daily.sh <script_file>` は決定論テールのみ。SKILL.md Step1 =「あなた（エージェント）が台本を書く」。
 - E2E 検証: Claude が自分のモデルで台本執筆(API無し)→ pipeline で動画+DRAFT(`19f1191bb35d738e`)。✅
 - mirror: memory `feedback_every_skill_must_be_model_agnostic`（更新済）。全スキルに適用。
+
+---
+# ★ POSTING ACCOUNTS + SCHEDULER (2026-06-29) ★
+## スケジューラ = `claude -p`（ローカル＋Claude、OpenClaw/DeepSeek 非依存）
+クラウド `/schedule` は不可（daily-driver `localhost:9222` に届かない＋データセンターIPはBAN）。投稿は daily-driver(住宅IP・実ログイン)必須＝ローカル。日次は `claude -p` で回す（スキルは AI-agnostic だが運用エンジンは Claude）。
+## YouTube チャンネル作成 = `youtube-channel-creator` に実フロー統合済（battle-test 済 step2/2まで）
+login-check → 作成 → 上級者認証ゲート → 電話 verify step1(国=日本/番号/SMS送信) → step2(`--code` で6桁) → 名前/ハンドル作成 → switcher で検証。学び: country欄に番号表示は正常・1番号=年2アカウント・logged out は 2FA「スマホでYesタップ」。
+## 唯一の人間/サービス touchpoint = SMS コード読み取り
+番号所有者が読む or SMS受信サービス番号(SMSPool/5sim/Google Voice)を --phone にして API でコード取得→ --code。2026-06-29: keiodaisuke番号で開始したが所有者が海外→コード保留(フロー自体は step2/2 到達で検証済)。
+## アカウント計画
+IG: ig-account-create(✅)+warmer(✅)+poster。YT: youtube-channel-creator(✅統合)。TikTok: daily-driver signup(IG同パターンで構築)。1プラットフォーム1 faceless マネーブランドから開始→同じ日次動画を横展開→`DRAFT_ONLY=0` で投稿。
