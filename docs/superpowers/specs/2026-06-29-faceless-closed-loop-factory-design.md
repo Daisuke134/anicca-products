@@ -114,3 +114,29 @@ Don't forget to follow me for more tips."
 4. 次の source of truth は moneytok の faceless 勝者を随時追加(@motivational.moneytok 短尺型も別テンプレ候補)。
 
 ## 即着手: F0 Pexels 無料キー → 第1コピー生成 → source 照合 → DRAFT メール承認。
+
+---
+# ★ BUILD STATUS (2026-06-29) — repeatable SKILL shipped + 投稿先アカウント方針 ★
+
+## スキル化 完了・検証済（Dais「top notch」承認後）
+**`faceless-money-factory`** = 毎日フレッシュな faceless マネー動画を $0 で生成する繰り返しスキル。
+- 実行: `~/.claude/skills/faceless-money-factory`（Skill tool 認識済）/ 永続: `github.com/Daisuke134/anicca` `skills/faceless-money-factory`（push 済）。
+- scripts: gen-script.sh（DeepSeek・**dedup ledger で毎回別トピック**・テンプレ準拠）/ fetch-broll.sh（Mixkit無料＋ローカルlibrary fallback）/ assemble.sh（whisperビート同期＋ループで全長カバー＋字幕）/ run-daily.sh（DRAFT既定）。
+- E2E 検証: 連続実行で「money accounts」→「Debt Snowball」→「50/30/20 Budget」と**毎回フレッシュ**生成・40-45s・縦1080x1920・$0・DRAFTメール自動送信。✅
+- v2 のバグ（末尾切れ／転換ラグ）は assemble.sh に修正済として内蔵。
+- 残磨き: 字幕語数調整 / BGM / adversary で source 照合 verify。
+
+## 「毎日フレッシュ・永遠に」= 担保済
+gen-script.sh が `state/script-ledger.jsonl` で直近30トピックを ban → LLM が新角度を強制。構造（勝ちテンプレ）固定・内容は毎回新規 = rotation でも slop でもない。cron で日次化すれば永続。
+
+## 投稿先アカウント方針（YT / TikTok / IG）
+- **採用しない**: `ShadowHackrs/gmail-account-creator`（3110★ だが **Windows専用・proprietary・5sim有料SMS依存** → headless Mac 不適）。
+- **採用**: 我々の実証済み **CloakBrowser daily-driver**（Dais 実Googleログイン・住宅IP・agentic）経路を横展開。
+  - IG: `ig-account-create`（✅実証）＋ `ig-account-warmer`（✅）＋ poster（別CCで実施）。
+  - YT: 既存 `youtube-channel-creator` スキル活用（YouTube channel = Google account + channel 作成）。Shorts 投稿。
+  - TikTok: daily-driver で Google/email signup（IG と同パターンで新規構築）。
+- 1プラットフォーム1アカウント（faceless マネーブランド）から開始 → 同じ日次動画を YT Shorts / TikTok / IG Reels に展開。
+- accounts 配線後 `DRAFT_ONLY=0` で run-daily が投稿（poster ステップ）。それまでは DRAFT メール承認制。
+
+## 次タスク（F系 継続）
+- F-skill ✅ done / F0 Pexsels（フル MoneyPrinterTurbo 用・任意）/ F4 adversary verify / F5 投稿アカウント(YT/TikTok/IG) / F6 ebook+aff 導線。
