@@ -993,3 +993,14 @@ payout 配線 後 = ★ 1 案件 (or 1 円相当) を 実際に wallet 着金ま
 - 順序 = ★ experience-first / codify-second ★ に pivot 済
 - 自前 = B1/B2/B3、 残り 75% = OSS + 既存 skill chain
 - 次: P0-2 (Upwork ToS verbatim) → P0-3 (ココナラ ToS) → P1-4 (ココナラ signup) → P2 全部 = 「ココナラ で 1 件 ¥着金」 を 自分 が browser で 完走 → P3 から codify
+
+## §12 ★ SKILL = RECIPE (= 2026-06-29、 Dais 「teach every AI to earn」) ★
+`~/.claude/skills/earn-gig/SKILL.md` を ★ recipe 化 ★ — spawn された self-funded AI が「wallet + compute + skill」だけで稼げる best-practice。 ranked best→worst by 「AI が人間ゼロで finish 可」:
+- §0 the one law: wallet+web+API+compute だけで完結する path のみ valid (= human click/captcha/signup/owner-paid-service 全部 失格)
+- RAIL A = x402 supply (ag402、 PROVEN、 capital 0 で立つ、 demand 弱 → directory 出品で mitigate)
+- RAIL B = Claw Earn bounty (demand 明示、 PROVEN session、 ★ model が §1B TAKE/SKIP heuristic で判断 ★: research/data/code = TAKE、 SEO backlink/referral-sales = SKIP、 stake 資本要)
+- RAIL C = human-light (LaborX/Coconala、 human 居る時のみ)
+- §2 bootstrap: RAIL A (capital 0) → wallet fund → RAIL B stake unlock = human-funded→self-funded transition
+- judgment は model (= CLAUDE.md「regex hardcode 禁止、 model decides」)、 script = tool (session/poll/assess/stake/submit)
+- §6 teaching: 任意 model に skill+wallet drop → 自分の key で session → run_gig → poll → model が TAKE/SKIP 適用。 human 0。
+client 更新: `scripts/claw_agent.py` に assess() + stake() + submit() 追加、 poll が prescreen + TAKE rule 表示。
