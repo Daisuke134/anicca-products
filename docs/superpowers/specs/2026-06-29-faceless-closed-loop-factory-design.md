@@ -168,3 +168,12 @@ login-check → 作成 → 上級者認証ゲート → 電話 verify step1(国=
 番号所有者が読む or SMS受信サービス番号(SMSPool/5sim/Google Voice)を --phone にして API でコード取得→ --code。2026-06-29: keiodaisuke番号で開始したが所有者が海外→コード保留(フロー自体は step2/2 到達で検証済)。
 ## アカウント計画
 IG: ig-account-create(✅)+warmer(✅)+poster。YT: youtube-channel-creator(✅統合)。TikTok: daily-driver signup(IG同パターンで構築)。1プラットフォーム1 faceless マネーブランドから開始→同じ日次動画を横展開→`DRAFT_ONLY=0` で投稿。
+
+---
+# ★ IG ACCOUNT LIVE + PROFILE (2026-06-29) ★
+**@money_blueprintdaily** = faceless マネーブランドの IG、**完全自律で作成＋プロフィール設定済**（人間ゼロ・電話なし・captchaなし）。
+- 作成: ig-account-create proven flow（cdp_incognito 隔離コンテキスト→native-setter fills→DOB clickxy/option→送信→email OTP `gog in:anywhere`(SPAM含む)→ホーム遷移）。creds=`~/.cloak/ig-moneyblueprint.json`(LIVE)。
+- プロフィール: icon（PIL モノグラム MB 金×緑・$0）＋ bio「Daily money habits & beginner finance tips. Save smarter, invest simply.」（**リンク無し=day-0ルール**）。VERIFY {bio:True, avatar:True}。
+- スキル統合: `ig-account-create/scripts/setup_profile.py` を**新規BUILT+実証**（icon=cdp.py setfile / bio=insert+scrollIntoView送信 / --website は warmup後のみ）。SKILL.md 更新（旧「setup_profile is TODO」→「BUILT+PROVEN」）。
+- ★ day-0ルール: affiliate/ebook リンクは bio/website に **warmup 7日後** に入れる（day-0商用リンク=suspend、@aiclipper.daily が死んだ原因）。★
+- 次: warmup（7日・loop内）→ faceless動画を @money_blueprintdaily に投稿(ig-reels-poster)→ warmup後 affiliate/ebook リンク。全体は earn/video スロットとして ONE loop(claude-p)が回す。
