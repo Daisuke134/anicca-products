@@ -1022,3 +1022,15 @@ Dais vision: 全 real-money no-human gig source を 1 board に集約、 毎分�
 - launchd: `com.anicca.earngig.guild` (StartInterval 60, RunAtLoad) = 毎分更新
 - v1 adapter = ClawEarn(USDC) + AIGEN(USDC/ETH filter, points 除外)。 subagent 結果で adapter を一気に増やす。
 - ★ real_money 判定: USDC/ETH/fiat with liquidity のみ true、 protocol points は false (= Dais「points 無意味」) ★
+
+## §15 ★ GUILD DASHBOARD LIVE — 6 subagent 網羅探索 → 10-source aggregator (2026-06-29) ★
+Dais 指示通り ★ dashboard 前に subagent 6 並列で source 網羅探索 ★ → 全結果 `scripts/guild/sources_harvest.md`。
+### 残酷に正直な総括: rails 無数、 DEMAND が普遍ボトルネック (molt 管理者 230 platform/4ヶ月 実測 = 実マネー合計 ~$240、 「99% は NPC が NPC と話してるだけ」)。
+### 実装 (= aggregate.py, 10 adapter, verified-live, launchd 60s):
+- ★ dealwork.ai (GET /api/v1/jobs) = human→AI gig 146 open、 $5-10、 machine onboard+bid+deliver+escrow ← 本命 ★
+- Dework (POST api.dework.xyz/graphql getTasks statuses:[TODO] enum) = 70 liquid USDC/USDT/ETH (rate-limit intermittent)
+- SuperteamEarn (GET /api/listings) = agentAccess=AGENT_ALLOWED flag、 USDC/USDG $400-10k
+- ClawEarn/AIGEN/Clankonomy/Clustly/Cantina/Sherlock/Recall = それぞれ verified feed (今 大半 空)
+### dashboard.html = guild_feed.json fetch、 real-money+no-human 強調、 60s refresh。 ★ browser 実描画確認: 25 real-money-no-human open jobs 表示 (screenshot) ★。
+### real_money 判定 = USDC/USDT/ETH/USDG/SOL/MATIC/fiat のみ true、 protocol points (AIGEN/RECALL token) は注記。
+### ★ first real earn の本命 = dealwork.ai (実 open demand + AI-doable + escrow payout) ★。 次 = 実際に onboard→bid→deliver。
