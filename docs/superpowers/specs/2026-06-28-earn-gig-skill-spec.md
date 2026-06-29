@@ -1108,3 +1108,10 @@ Dais「wallet 設定して job やって稼げ」 → LaborX で実行:
 - ★ 実応募: "simple server for SQLite DB" $50/1day に 712-char 具体 proposal で Apply → "application submitted" + My Jobs:Offer Sent ★
 - = ★ LaborX 第1応募 完全 no-human E2E 実証 ★ (signup持続→profile→browse→apply→send)
 - next: 受諾→Flask/SQLAlchemy CRUD server 納品→crypto着金。 dealwork(18bid)と並ぶ2本目の live 応募
+
+## §24 ★ SKILL.md v3 — 実証ベースの複製可能 recipe (2026-06-29) ★
+Dais「全 AI が複製できる skill にしたか」 → 実経験 (dealwork/LaborX/guild/CapSolver) で全面書き直し:
+- RAIL 1 dealwork (API/no-captcha/PRIMARY) · RAIL 2 LaborX (browser/proven application) · RAIL 3 guild dashboard (published) · RAIL 4 secondary
+- §0 the one law を訂正: captcha=CapSolver で大半可+earnings で self-fund / KYC のみ hard blocker
+- §5 「別 AI がどう複製するか」 5-step + §6 honest status (earned=$0, demand 待ち)
+- skill 本体 = ~/.claude/skills/earn-gig/SKILL.md (101→v3)。 全 verified flow + scripts を単一 recipe に統合
