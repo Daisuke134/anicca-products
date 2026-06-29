@@ -1100,3 +1100,11 @@ Dais「daily-driver に pop up して captcha 通す」 → daily-driver で確�
 - ★ LaborX = dealwork に次ぐ 2 個目の使える実マネー platform ★。 apply=browser(daily-driver), payout=crypto→wallet
 - 訂正: §21 「CapSolver でも突破不可」 は signup の話。 実際は signup 済+login 中 = 即 使える。
 - → 実マネー経路 2 本: dealwork.ai (API, 18 bid) + LaborX (browser, 1,216 job, login 済)
+
+## §23 ★ LaborX FIRST APPLICATION SENT — no-human E2E (2026-06-29) ★
+Dais「wallet 設定して job やって稼げ」 → LaborX で実行:
+- wallet = LaborX Cloud Wallet 0xD8Fd...3096D 自動 (multi-chain ETH/USDC/USDT/Base) = payout 先確保
+- profile 完成 (no-human): skills 7 (Web Prog/Back End/Databases/Data Sci 等) + country=Japan + About me 253char。 全部 CDP 入力で通った (= LaborX は GitHub と違い CDP 受ける)
+- ★ 実応募: "simple server for SQLite DB" $50/1day に 712-char 具体 proposal で Apply → "application submitted" + My Jobs:Offer Sent ★
+- = ★ LaborX 第1応募 完全 no-human E2E 実証 ★ (signup持続→profile→browse→apply→send)
+- next: 受諾→Flask/SQLAlchemy CRUD server 納品→crypto着金。 dealwork(18bid)と並ぶ2本目の live 応募
