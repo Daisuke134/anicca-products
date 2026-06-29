@@ -814,6 +814,25 @@ A. impressions/CTR/conversion → B. winner +5% / loser A/B → C. portfolio +1
 - Vue handler glitch: `el.click()` 不発 → `Input.dispatchMouseEvent` at button center coords
 - click 後 URL 不変 case: 別 tab に navigate された可能性 → `curl /json` で `/apply` を含む tab 探す
 
+### ★ HARD GATE: SMS 認証 必須 (= 公式 確定 2026-06-29) ★
+**Source**: https://coconala-support.zendesk.com/hc/ja/articles/218625197 verbatim
+> SMS認証が必要なケース
+> - ココナラ募集の **投稿・提案・応募・質問**
+
+ココナラ募集 (= 単発募集) の応募には ★ SMS 電話番号認証 が必須 ★。 未認証 account では:
+- `/requests/{id}` 詳細 page 閲覧 OK
+- 「応募する」 button visible で disabled でない (= UI から block 不明)
+- ★ click しても navigate せず ★、 直接 `/requests/{id}/apply` でも HTTP 404 「ログイン中のアカウントではアクセスできない」 が account-level で返る
+- 質問 textarea placeholder 自体 「※ 質問投稿には SMS 認証が必要です」 と書かれている
+
+**unlock 手順** (= human-required SETUP 1-tap per §0.5):
+1. https://coconala.com/mypage/sms にアクセス
+2. 電話番号 入力 → SMS 受信
+3. 6 桁 OTP 入力 → 認証完了
+4. account unlock → /requests/{id}/apply 200 OK
+
+**runtime 防衛**: 全 cron `run.sh` 起動時 に `GET /mypage/sms` で 認証 status check、 unauth なら 即 STOP + Dais 通知 (= 永久 NOOP 防止)。 cfo-earner-coconala の 過去失敗 (= apply ループ 永久 空回り) の真因 もこれ の可能性 高。
+
 ### Login state recovery
 - daily-driver Chromium restart → 全 tab logged out
 - Google OAuth: passkey 詰まりやすい → 「メールアドレスでログインする」 fallback
