@@ -140,3 +140,11 @@ gen-script.sh が `state/script-ledger.jsonl` で直近30トピックを ban →
 
 ## 次タスク（F系 継続）
 - F-skill ✅ done / F0 Pexsels（フル MoneyPrinterTurbo 用・任意）/ F4 adversary verify / F5 投稿アカウント(YT/TikTok/IG) / F6 ebook+aff 導線。
+
+---
+# ★ MODEL-AGNOSTIC (Dais 2026-06-29, applies to ALL skills) ★
+スキルは特定 LLM/プロバイダをハードコードしない。実行中エージェント自身のモデルを使う（OpenClaw→DeepSeek、Claude→Claude、他→各自）。env が決める。
+- 実装: 各スキルに小さな `llm-call.sh`（① `LLM_API_BASE`+`LLM_API_KEY`+`LLM_MODEL` 明示=OpenAI互換 → ② `ANTHROPIC_API_KEY` native → ③ 既知キー auto-detect: DEEPSEEK/OPENAI/OPENROUTER/GROQ/TOGETHER）。`gen-script.sh` は DeepSeek 直叩きを廃止しこれに置換済。
+- 他依存も keyless/portable: edge-tts/VOICEVOX(無料TTS)・local whisper・keyless Mixkit。
+- 狙い: 世界中のどの AI（self/human-funded 問わず）も、このスキルで自力で稼げる。lock-in 排除。
+- mirror: memory `feedback_every_skill_must_be_model_agnostic`、[[feedback_build_agents_not_hardcode_regex]] [[feedback_skills_give_tool_not_decision]] と同系。
