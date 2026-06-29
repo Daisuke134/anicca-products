@@ -68,3 +68,49 @@
 - P4 verify: fresh adversary が viral 照合 → iterate ループ。
 - P5 distribute: DRAFT 承認 → 多ニッチ×多言語×多アカウント。
 - P6 monetize: aff リンク + ebook ファネル + 売却候補管理。
+
+---
+# ★ LOCKED PICK (2026-06-29, Apify 実データで決定) ★
+
+## 採掘結果（clockworks/tiktok-hashtag-scraper, 各20本, $0=無料クレジット内）
+| ニッチ | hashtag総再生 | サンプル中央値再生 | 平均尺 |
+|---|---|---|---|
+| **moneytok** ★採用★ | 42.0B | **914,400** | 94s |
+| stoicism | 7.1B | 259,300 | 37s |
+| aitools | 9.1B | 154,900 | 41s |
+| mindfulness(旧monk) | 18.3B | 71,200 | 47s |
+→ moneytok が中央値で3.5〜13倍。monk/mindfulness は views 最弱で却下。
+
+## フォーマットが勝者を作る証拠（=Daisの仮説 verified）
+- @motivational.moneytok: 23Kフォロワーで **8.1M views**（faceless, 9s）
+- @mariahakinbi: 22Kフォロワーで 2M views、キャプ "s/o for the FORMAT! she has the same video"=コピーで勝利
+- フォロワー数でなく**フォーマット**が views を出す。
+
+## SOURCE OF TRUTH #1（コピー対象・head-to-head）
+**@breakyourbudget** https://www.tiktok.com/@breakyourbudget/video/6921827550083828997
+3M views / 57s / 720x1280 / **完全 faceless**（手＋ノート＋机の b-roll + でかい黒字白背景フック字幕）。
+### 勝ちテンプレ（抽出済）
+```
+HOOK(0-3s): "These are the exact <X> that helped me <具体的すごい結果>. Let's go."
+BODY: 番号リスト(First → now it gets more exciting → The third → And the last)、
+      各項 = 1つの具体概念 + 実行可能な数値ルール
+CTA: "Don't forget to follow me for more tips" + bio link → 無料リソース(ebook)
+VISUAL: faceless b-roll + 中央 黒字/白背景 字幕、テンポ速い
+尺: ~50-60s, 10前後のショート文
+```
+### 逐語(参考):
+"These are the exact bank accounts that I had in order to save a hundred K at 25. Let's go.
+First is a straight-up checking account... high yield savings account (収入の10%)... retirement
+account 401k/IRA (給料天引き5%)... brokerage (Fidelity/Vanguard, 退職口座maxしてから).
+Don't forget to follow me for more tips."
+
+別レーン: @mental.establishment(2.7M) = 有名人インタビュー切り抜き=借り物映像 → $0生成不可、不採用。
+
+## これで確定したパイプライン具体
+1. GENERATE: DeepSeek が moneytok の勝ちテンプレ(上記)で新リスト台本生成 → MoneyPrinterTurbo
+   (Pexels b-roll: desk/money/notepad/charts + 無料TTS + 黒字白背景字幕 + BGM)。顔なし・$0。
+2. VERIFY: adversary が 生成台本 vs source-of-truth テンプレ照合(フック式/番号/数値ルール/CTA)→PASSまで。
+3. ebook = 瞑想→**初心者向けマネーガイド**(高コンバート・ニッチ一致)に転換。
+4. 次の source of truth は moneytok の faceless 勝者を随時追加(@motivational.moneytok 短尺型も別テンプレ候補)。
+
+## 即着手: F0 Pexels 無料キー → 第1コピー生成 → source 照合 → DRAFT メール承認。
