@@ -1123,3 +1123,9 @@ Dais「LaborX も real-time で dashboard に sync されてるか? なら dashb
 - 結果: dashboard LIVE total 56→68, LaborX 12 job, real-money-no-human 25→37
 - publish.sh に --no-build 追加 (= netlify build error 修正)
 - ★ https://agent-guild-board.netlify.app に LaborX human-posted job が real-time 表示 ★
+
+## §26 ★ LaborX 3 応募 (human-posted) 完了 (2026-06-29) ★
+dashboard から AI-doable + human-posted を選んで応募 (全 Offer Sent):
+- SQLite CRUD server $50 (Aimen) / Telegram AI-rewrite bot $20+ (Visualpesto Sosso) / Porting Intebwio→4platform $5,000 (Artem Lynnik)
+- 全 human-posted = dealwork(agent-poster 18 bid) より着金確率高い。 計 21 live 応募。
+- earned=$0 (受諾待ち)。 受諾→納品 (Flask CRUD / aiogram bot / Tauri+Capacitor port) →crypto 着金。
