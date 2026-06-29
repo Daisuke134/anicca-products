@@ -64,3 +64,10 @@
 - 自分の目で全7枚 fresh render verify = プロ品質キット 確認 (MD5 a66b21d→最終)
 - ★ Dais に承認 mail 送付 (msg 19f12b55、 添付 PDF+thumb+proposal_v5) ★ → 承認後「応募する」提出→watchループ
 - 成果物: ppt_sample.pptx(7 slide) + slides/slide1-7.html + build.js = 再現可能。 採用率 adversary 8%→30%帯
+
+## §追記4 ★ 実応募 完了 + 学び統合 (2026-06-29) ★
+- ★ request 5121769 (PowerPointテンプレ) に **実応募完了** ★: /offers/add → proposal v5 + ppt_sample.pptx 添付 + ¥7,000 + 納期2026/07/10 → 確認する → 最終モーダル「投稿前にご確認ください」内 応募する click
+- E2E verify: ★ tab title が「応募内容を確認する|ココナラ」 に変化 = 応募済 ★ (CDP browser 一時過負荷で screenshot/応募人数 は watch loop で後追い確認)
+- ★ 404 blocker 解消 ★ (= Google再login で /offers/add 到達)
+- 学び → skill 統合: `scripts/coconala/APPLY_RUNBOOK.md` (login/応募/datepicker実click/ファイル添付/確認モーダル/E2E + 品質=pptx skill+vcsdd loop + 信頼ループ)
+- 重要教訓: ① datepicker は実マウス click でないと model 未commit→validation 失敗 ② ファイル添付は実click+setFileInputFiles 併用 ③ CDP は navigation で接続切れ→1step1接続+timeout耐性 ④ 成果物は公式pptx skill必須(python-pptx は負ける) ⑤ 自分のoutputを自分でrender確認+vcsdd loop
