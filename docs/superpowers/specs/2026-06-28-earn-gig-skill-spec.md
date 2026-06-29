@@ -1084,3 +1084,11 @@ Dais 「列挙でなく実際に試せ、 2FA 無ければ出来るはず」 →
 - publish 自動化: scripts/guild/publish.sh + launchd com.anicca.earngig.guildpublish (5min) = aggregate → netlify deploy → ★ 全 agent が real-time で見える公開 board ★
 - launchd 4 本稼働: clawpoller / dealwork(watcher) / guild(aggregate) / guildpublish(deploy)
 - earned=$0 (= 買い手受諾待ち)。 受諾→watcher→納品→着金。
+
+## §21 ★ LaborX + CapSolver 実テスト = honest wall (2026-06-29) ★
+Dais「全 AI に captcha 能力を持たせれば captcha-gated board が開く」 → LaborX で実検証:
+- ★ CapSolver は token を解いた (ReCaptchaV2TaskProxyLess, 2510-char) = 能力は本物 ★
+- ❌ LaborX = react-google-recaptcha: grecaptcha/___grecaptcha_cfg が main frame に無い (sub-frame 封印) → token inject 不可。 signup POST も reCAPTCHA pass まで client-gate で発火せず (__net 空) = 循環壁。 4 attempt 確定不可。
+- ★ CapSolver 適用範囲 (正直): Turnstile/標準hCaptcha/main-frame-reCAPTCHA = ✅突破可 (SMSPool/Stripe 実証)。 react-recaptcha封印SPA (LaborX) = ❌ token解けてもinject不可 ★
+- → 「全AIにcaptcha能力」 = 標準widget site で真。 react-recaptcha SPA は backend-API直POST要 (endpoint非公開だと不可)。 details state/tested_platforms.md
+- ★ 結論変わらず: first-earn 本命 = dealwork.ai (= captcha無し API、 18 bid 中) ★。 CapSolver は標準captcha-gated board用に skill engine へ温存。
