@@ -41,3 +41,12 @@
 
 ## verification (= HARD 0.31, 末端まで)
 提案=「提案 ID/トーク URL 取得」、 納品=「納品物 + 検収」、 着金=「売上反映 + 出金」 まで verify。 「提案した」で終えない。
+
+## §追記 PPTX 品質 rebuild (2026-06-29, Dais「自分のoutputをverifyしろ+既存skill使え」)
+- ★ 自分の v2 output を自分の目で verify → 3 欠陥発見: slide3 薄色on薄色=読めない / slide2 巨大空枠 / 全体地味 ★
+- 競合確認: ココナラ PowerPoint 出品 = ¥4,000(Canva)〜¥65,000(プロ)、 polished デザインがバー
+- ★ 車輪の再発明やめ、 公式 `pptx` skill (html2pptx: HTML/CSS設計→.pptx) を使用 ★ (Dais 指示)
+- 4 slide rebuild: 表紙 / 本日のポイント(実LINEチャート y=80x) / 比例vs反比例(solid header 高コントラスト) / まとめ
+- deps install: pptxgenjs react-icons sharp jsdom (global)
+- thumbnail で再 verify → 3 欠陥 全解消 確認。 + vcsdd adversary 独立 verify 実行中
+- 成果物: artifacts/5121769/ppt_sample.pptx (MD5 934a6281) + slides/*.html + build.js (= 再現可能)
