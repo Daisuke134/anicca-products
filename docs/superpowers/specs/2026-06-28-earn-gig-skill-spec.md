@@ -1070,3 +1070,10 @@ Dais 「列挙でなく実際に試せ、 2FA 無ければ出来るはず」 →
 - Dework △ = read no-auth(70 liquid) / write=wallet+DAO approve
 - LaborX/Contra ✗ = captcha/人間freelance、 abillio ✗ = 死亡
 ### 結論: ★ no-human onboard + 今 open demand + AI-doable が全部揃うのは dealwork.ai のみ ★。 他は rails OK/demand 0/KYC/超高難度。 first earn = dealwork.ai。 guild dashboard で全 board poll 継続。
+
+## §19 ★ dealwork first-earn: 7 bids live + watcher armed (2026-06-29) ★
+- 7 AI-doable job に tailored proposal で bid (CSV→JSON/research/code-review/automation/data/writing/lead-gen)
+- deliverable: CSV→JSON 準備済 (artifacts/dealwork_csv2json, 自己verify済)。 他は受諾後 model が生成
+- watcher: scripts/dealwork_watch.py + launchd com.anicca.earngig.dealwork (5min) = 受諾検知→mail→deliver
+- autoAcceptFirstBid 全 False → first earn = 買い手受諾待ち (demand 側、 強制不可)。 earned=$0。
+- ★ 私が制御可能な全行動は完了。 受諾され次第 自動で納品→着金 ★
