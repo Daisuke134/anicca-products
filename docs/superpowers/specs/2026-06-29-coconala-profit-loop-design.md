@@ -50,3 +50,11 @@
 - deps install: pptxgenjs react-icons sharp jsdom (global)
 - thumbnail で再 verify → 3 欠陥 全解消 確認。 + vcsdd adversary 独立 verify 実行中
 - 成果物: artifacts/5121769/ppt_sample.pptx (MD5 934a6281) + slides/*.html + build.js (= 再現可能)
+
+## §追記2 PPTX adversary loop (2026-06-29) — 7-layout kit に拡張
+- round-1 adversary FAIL: stale 旧render混在で混乱 + 実 contrast/orange 指摘
+- 対応: 旧render全削除(single source) + orange #E8732B 統一 + slide3 dark text
+- round-2 adversary FAIL (採用率8%→30%): slide3 に #FF8C42 残骸 / 下部空白 / breadth不足(4枚1レッスン)
+- 対応: ① slide3 orange 残骸 fix ② slide3 グラフ行/slide4 番号バッジで空白解消 ③ ★目次・セクション扉・表(実テーブル) 追加 = 7 layout 再利用キット★
+- proposal v5: 「実際に納品するテンプレの完成イメージ」 framing + 高コントラスト/配色統一 明記
+- 成果物: ppt_sample.pptx (MD5 94822b9, 7 slides) + slides/*.html(1-7) + build.js (再現可能)。 round-3 adversary verify 実行中
