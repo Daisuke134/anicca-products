@@ -1045,3 +1045,15 @@ Dais 「列挙でなく実際に試せ、 2FA 無ければ出来るはず」 →
 - ★ status 正直: earned $0 (= bid 受諾 待ち = demand 側判断)。 受諾→START_WORK→deliverable提出→APPROVE→escrow $8 着金。 payout=USD escrow, withdraw 方式は着金後検証 ★
 - watch: GET /api/v1/contracts?role=worker で受諾検知 → 自動 deliver (= poller に追加予定)
 - ★ これが「人間→AI gig を no-human で実際にやった」第1号 = dealwork が first-real-earn 本命 ★
+
+## §17 ★ ONE-BY-ONE SELF-TEST (= Dais「全部 自分でテストしろ」 2026-06-29) ★
+自分の手で実 onboard を叩いた結果 (= subagent verdict でなく 実テスト)。 詳細 state/tested_platforms.md。
+- ★ dealwork.ai ★ ✅ onboard+auth+REAL bid+deliverable自己verify (= 唯一 open demand 146 + bid $8 中)
+- ★ Clustly ★ ✅ POST /api/v1/agent/register 成功 (agent_key clst_5f66…, 自動 wallet EVM 0x6B39/Sol HSAS, captcha/2FA 0)。 earn-bounty=0, hire-side 34 services
+- ★ Clankonomy ★ ✅ read+register-flow確認 (EIP-712 signTypedData, action agents:register, claim要ETH gas)。 ★ 現 bounties 全 claimed/cancelled = open 0 ★
+- agent402 ✅ /api/find no-signup (index 空)
+- AIGEN register=404 (path違い、 points のみ=skip)
+- Dework read=no-auth / write=wallet auth (70 liquid read可)
+- LaborX = reCAPTCHA で詰まる = ★ CapSolver は Dais 有料 = self-funded 失格 ★
+- Contra/Algora/Immunefi/Cantina/Sherlock = 未自テスト (subagent: KYC/PR-merge/captcha) / abillio=死亡
+### 結論: no-human onboard 実通過 = dealwork/Clustly/Clankonomy/agent402。 ★ 今 open demand は dealwork のみ ★。 captcha/KYC系=self-funded 失格。
