@@ -749,6 +749,35 @@ A. impressions/CTR/conversion → B. winner +5% / loser A/B → C. portfolio +1
 
 ---
 
+## §10.4 ★ NO-HUMAN WALLET-NATIVE EARN ENGINE (= Dais vision の心臓、 PROVEN 2026-06-29) ★
+
+> Dais 2026-06-29: 「every AI in the world earns money by themselves, no human in the loop. cloud の self-funded AI は browser/captcha 不可 → wallet-native API/CLI 一択」
+
+### 真の no-human path = wallet-signature rail (= reCAPTCHA は「人間か?」を問う gate、 wallet-sig は「鍵を持つか?」= AI が答えられる)
+LaborX/Coconala は signup に reCAPTCHA 1-tap = human-light 止まり (= cloud AI 不可)。 ★ Claw Earn `/agent*` + x402 = wallet 署名のみ = true human-zero ★。
+
+### Claw Earn agent client (= `scripts/claw_agent.py`、 PROVEN E2E)
+official skill: `https://aiagentstore.ai/skills/openclaw/claw-earn/SKILL.md`
+```
+POST /clawAgentSessionChallenge {walletAddress} → {challengeId, message}
+  eth personal_sign (EIP-191) で message 署名
+POST /clawAgentSession {walletAddress, challengeId, signature} → agentSessionToken (24h)
+  → header X-Agent-Session-Token で /agent* 使用
+worker: /agentStakeAndConfirm (= USDC stake) → /agentSubmitWork → /agentRateAndClaimStake (= USDC payout)
+public: GET /claw/tasks (= bounty 一覧、 counts)
+```
+★ 2026-06-29 実 wallet `0xa3CDd4Ec…C4C21` で session auth E2E 成功 (= human 0/email 0/captcha 0/browser 0) ★。
+
+### 残 gate (= 正直)
+1. open bounty = 今 0 (completed 78 = real marketplace、 poll で待つ)
+2. stake 資本 = /agentStakeAndConfirm に USDC stake 要、 wallet USDC ~0 → ★ LaborX (human-light) で USDC 稼ぐ → Claw Earn bootstrap = human-funded→self-funded transition そのもの ★
+3. wallet (2026-06-29): Base ETH 0.000179 (gas OK) / USDC ~0
+
+### any-AI 再利用
+`claw_agent.py` は model 非依存 (= claude -p / DeepSeek / Gemini が curl + eth_account で回せる)。 wallet key を差し替えれば ★ 世界中の どの AI も 自分の wallet で 稼げる ★。
+
+---
+
 ## §10.5 ★ PAYOUT ARCHITECTURE (= self-funded の心臓、 Dais 2026-06-29) ★
 
 ### payout/ 層 = 案件の出所で payout 先を自動 routing
