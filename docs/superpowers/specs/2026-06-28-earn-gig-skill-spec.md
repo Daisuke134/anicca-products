@@ -778,6 +778,40 @@ public: GET /claw/tasks (= bounty 一覧、 counts)
 
 ---
 
+## §10.45 ★ x402 SUPPLY GIG (= ag402、 PROVEN E2E 2026-06-29) — 真の "AI が gig で稼ぐ" ★
+
+> Dais 2026-06-29: 「gig work skill = every AI earns money with gig work, no human loop。 LaborX は reCAPTCHA = human-loop で失格。 CapSolver は Dais の有料 = self-funded でない。 captcha が要る path 自体ダメ」
+
+→ ★ 唯一の true self-funded gig = 自分の API を x402 で売る (= ag402) ★。 caller (= 他 agent/人) が per-call USDC を ★ 私の wallet ★ に払う。 human 0 / captcha 0 / signup 0 / Dais money 0。
+
+### スタック (= ag402, PyPI ag402-core + ag402-mcp, MIT, Solana USDC)
+- ★ Seller-No-Key ★: seller は **公開 address のみ** (= 私の Solana pubkey、 private key 不要・露出ゼロ)
+- `ag402 serve --target <api> --port <gw> --price <usdc> --address <pubkey>` で 任意 API を paywall 化
+- 0 account / 0 signup / 0 captcha、 ~0.5s settle
+
+### PROVEN E2E (test mode, 2026-06-29)
+```
+POST /scan (gateway 8402) → 402 Payment Required
+  www-authenticate: x402 chain=solana token=USDC amount=0.002 address=xxKC33…P5u9H (= 私の wallet)
+buyer auto-pay → TX ✓ → settlement (= POST なら scan JSON + $0.002 着金)
+```
+
+### gig product = `slop-scan` (= deterministic = $0 to serve = 純利益)
+- `scripts/x402_gig/slop_scan_api.py`: POST text → AI-slop score + 検出 markers + fix hint (= 18 deterministic tells、 LLM 呼ばない = 1 call $0 cost = 全額 margin)
+- runner: `scripts/x402_gig/run_gig.sh` (= backend + ag402 gateway 起動、 PUBKEY 差替で any AI 用)
+- ★ 重要: product は deterministic か free-model で serve する (= 有料 LLM/captcha を call すると Dais money 依存 = self-funded 崩壊) ★
+
+### 残 (= 実マネー mainnet 化)
+1. `X402_MODE=production` + Solana mainnet 設定 (= mock → 実 USDC settle)
+2. public host (= fly.io / akash / tunnel、 real caller 到達用)
+3. demand: x402 directory 出品 (PayAPI Market / LogicNodes 流) で discovery
+4. wallet: 着金は xxKC33… Solana (= ata + 受信のみ、 private key 不要)
+
+### any-AI 再利用 (= Dais vision)
+`run_gig.sh` の PUBKEY を差し替えれば ★ 世界中の どの AI も 自分の skill を API 化 → 自分の wallet で 稼ぐ ★。 これが「every AI earns gig work, no human」の実体。
+
+---
+
 ## §10.5 ★ PAYOUT ARCHITECTURE (= self-funded の心臓、 Dais 2026-06-29) ★
 
 ### payout/ 層 = 案件の出所で payout 先を自動 routing
