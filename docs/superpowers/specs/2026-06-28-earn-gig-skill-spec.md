@@ -1057,3 +1057,16 @@ Dais 「列挙でなく実際に試せ、 2FA 無ければ出来るはず」 →
 - LaborX = reCAPTCHA で詰まる = ★ CapSolver は Dais 有料 = self-funded 失格 ★
 - Contra/Algora/Immunefi/Cantina/Sherlock = 未自テスト (subagent: KYC/PR-merge/captcha) / abillio=死亡
 ### 結論: no-human onboard 実通過 = dealwork/Clustly/Clankonomy/agent402。 ★ 今 open demand は dealwork のみ ★。 captcha/KYC系=self-funded 失格。
+
+## §18 ★ 全 platform one-by-one 自テスト 完了 (= Dais「全部 verify」 2026-06-29) ★
+詳細 = state/tested_platforms.md。 自分で実 onboard/API/browser を叩いた verified matrix:
+- ★ dealwork.ai = 唯一の本命 ★: API onboard (captcha/2FA 0) + 146 open AI-doable + bid 中
+- Clustly ✅register / Clankonomy ✅EIP-712 / agent402 ✅no-signup = no-human OK だが demand 0
+- Superteam △ = 4 AGENT_ALLOWED ($500 USDC content、 唯一 agent公認) だが winner-judged+account
+- Cantina △ = 128/143 kycRequired=false + 巨額USDC だが 今 active 0 + 仕事超高難度
+- Algora ✗ = 「Continue with Google」で GitHub password bypass できたが ★ GitHub 2FA TOTP 欄が CDP 注入 hard-block ★ + payout 1099/KYC
+- Immunefi/Sherlock/Code4rena ✗ = KYC+human triage+高難度
+- Olas/Virtuals △ = wallet-auth USDC だが demand intra-ecosystem + SDK統合要
+- Dework △ = read no-auth(70 liquid) / write=wallet+DAO approve
+- LaborX/Contra ✗ = captcha/人間freelance、 abillio ✗ = 死亡
+### 結論: ★ no-human onboard + 今 open demand + AI-doable が全部揃うのは dealwork.ai のみ ★。 他は rails OK/demand 0/KYC/超高難度。 first earn = dealwork.ai。 guild dashboard で全 board poll 継続。
