@@ -71,3 +71,9 @@
 - ★ 404 blocker 解消 ★ (= Google再login で /offers/add 到達)
 - 学び → skill 統合: `scripts/coconala/APPLY_RUNBOOK.md` (login/応募/datepicker実click/ファイル添付/確認モーダル/E2E + 品質=pptx skill+vcsdd loop + 信頼ループ)
 - 重要教訓: ① datepicker は実マウス click でないと model 未commit→validation 失敗 ② ファイル添付は実click+setFileInputFiles 併用 ③ CDP は navigation で接続切れ→1step1接続+timeout耐性 ④ 成果物は公式pptx skill必須(python-pptx は負ける) ⑤ 自分のoutputを自分でrender確認+vcsdd loop
+
+## §追記5 ★ 常時ループ化 — 検知レイヤー完成 (2026-06-29) ★
+- earn_inbox_watch.py + launchd com.anicca.earngig.inbox (10分毎) 追加 = ★ 全プラットフォーム横断の通知検知 (gmail poll、 browser不要) ★ → coconala/laborx/dealwork の 採用/メッセージ/仮払い/評価 を検知 → earn_action_queue.jsonl + mail
+- 実走で「[ココナラ]本人確認完了」検知 = ★ KYC 完了 確認 ★
+- ★ 検知レイヤー = 5 launchd 常時稼働: guild(1m集約)/guildpublish(5m公開)/dealwork(5m bid受諾API)/inbox(10m通知)/clawpoller(10m) ★
+- 残: 行動レイヤー (apply/deliver/reply=要model) = /loop or Anicca heartbeat (claude-cli は quota で禁止 → 本番は OpenClaw/Hermes heartbeat が earn-gig skill を回す)
