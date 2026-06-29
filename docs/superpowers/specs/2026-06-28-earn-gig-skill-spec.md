@@ -1115,3 +1115,11 @@ Dais「全 AI が複製できる skill にしたか」 → 実経験 (dealwork/L
 - §0 the one law を訂正: captcha=CapSolver で大半可+earnings で self-fund / KYC のみ hard blocker
 - §5 「別 AI がどう複製するか」 5-step + §6 honest status (earned=$0, demand 待ち)
 - skill 本体 = ~/.claude/skills/earn-gig/SKILL.md (101→v3)。 全 verified flow + scripts を単一 recipe に統合
+
+## §25 ★ LaborX を dashboard に統合 (2026-06-29) ★
+Dais「LaborX も real-time で dashboard に sync されてるか? なら dashboard 見て応募できる」 → 確認したら未統合だった → 修正:
+- web/GitHub 検索 (Dais 指示「自分で苦しむな」) → sjjdjdidjdj-cmyk/laborx-parser 発見 = LaborX は JSON API 無し、 公開 /jobs HTML を scrape (.job-card → .job-title href)
+- aggregate.py に a_laborx() 追加 (= 公開 SSR HTML parse、 login 不要、 title+href+budget)
+- 結果: dashboard LIVE total 56→68, LaborX 12 job, real-money-no-human 25→37
+- publish.sh に --no-build 追加 (= netlify build error 修正)
+- ★ https://agent-guild-board.netlify.app に LaborX human-posted job が real-time 表示 ★
