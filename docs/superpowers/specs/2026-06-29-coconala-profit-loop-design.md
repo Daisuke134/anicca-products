@@ -58,3 +58,9 @@
 - 対応: ① slide3 orange 残骸 fix ② slide3 グラフ行/slide4 番号バッジで空白解消 ③ ★目次・セクション扉・表(実テーブル) 追加 = 7 layout 再利用キット★
 - proposal v5: 「実際に納品するテンプレの完成イメージ」 framing + 高コントラスト/配色統一 明記
 - 成果物: ppt_sample.pptx (MD5 94822b9, 7 slides) + slides/*.html(1-7) + build.js (再現可能)。 round-3 adversary verify 実行中
+
+## §追記3 PPTX 完成 + Dais 承認待ち (2026-06-29)
+- round-3 adversary FAIL → 全 fix: ① デッキ順 論理化(表紙→目次→セクション扉→本文→比較→表→まとめ) ② 表 colW=placeholder幅 fit(改行/はみ出し解消、 x0-5/y0-400 全表示) ③ slide7 align中央 ④ 第3回/第1章 整合 ⑤ slide3/4 内部中央寄せ
+- 自分の目で全7枚 fresh render verify = プロ品質キット 確認 (MD5 a66b21d→最終)
+- ★ Dais に承認 mail 送付 (msg 19f12b55、 添付 PDF+thumb+proposal_v5) ★ → 承認後「応募する」提出→watchループ
+- 成果物: ppt_sample.pptx(7 slide) + slides/slide1-7.html + build.js = 再現可能。 採用率 adversary 8%→30%帯
