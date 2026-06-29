@@ -148,3 +148,12 @@ gen-script.sh が `state/script-ledger.jsonl` で直近30トピックを ban →
 - 他依存も keyless/portable: edge-tts/VOICEVOX(無料TTS)・local whisper・keyless Mixkit。
 - 狙い: 世界中のどの AI（self/human-funded 問わず）も、このスキルで自力で稼げる。lock-in 排除。
 - mirror: memory `feedback_every_skill_must_be_model_agnostic`、[[feedback_build_agents_not_hardcode_regex]] [[feedback_skills_give_tool_not_decision]] と同系。
+
+---
+# ★ CLARIFIED: AI-AGNOSTIC = スキルは LLM を呼ばない (Dais 2026-06-29) ★
+前回の「llm-call.sh で env からモデル自動検出」も**間違い**。エージェント自身がモデルなのだから、スキルに LLM 呼び出し・プロバイダ・API キー・モデル名を**一切置かない**。
+- 判断ステップ（台本生成・角度選定）= SKILL.md の**自然言語の指示**を読んでエージェントが自分のモデルで実行。
+- 決定論ステップ = `.sh` ツール（TTS/ffmpeg/whisper/DL/ledger）。LLM 無し。
+- 実装: `gen-script.sh` と `llm-call.sh` を**削除**。`run-daily.sh <script_file>` は決定論テールのみ。SKILL.md Step1 =「あなた（エージェント）が台本を書く」。
+- E2E 検証: Claude が自分のモデルで台本執筆(API無し)→ pipeline で動画+DRAFT(`19f1191bb35d738e`)。✅
+- mirror: memory `feedback_every_skill_must_be_model_agnostic`（更新済）。全スキルに適用。
