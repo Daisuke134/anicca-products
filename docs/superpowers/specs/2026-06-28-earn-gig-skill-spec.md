@@ -778,6 +778,58 @@ A. impressions/CTR/conversion → B. winner +5% / loser A/B → C. portfolio +1
 
 ---
 
+## §11.6 ★ APPENDIX B: Coconala /requests APPLY UI flow (= verified live 2026-06-29) ★
+
+### Source = official help
+- URL: https://coconala-support.zendesk.com/hc/ja/articles/218272718 (= ココナラ募集の流れ 単発型 応募者向け)
+
+### Full UI flow (= 各 step に URL + button text)
+```
+[1] GET /requests
+    → 単発募集 一覧 (= 281,593 件 全表示、 新着順)
+    skill: ~/.claude/skills/earn-gig/scripts/scan_requests_v2.py
+    output: ~/.claude/skills/earn-gig/state/requests_scan.json
+
+[2] GET /requests/{id}
+    → 詳細 page、 内 button: 「応募する」 = button.c-requestButtonPrimary_offer, type="submit"
+
+[3] click 「応募する」
+    → /requests/{id}/apply に navigate (= Vue SPA route)
+    NOTE 2026-06-29 mtdc 確認: 同 tab click 反応せず、 別 tab で /apply 開く事例あり
+    fallback: 直接 navigate `https://coconala.com/requests/{id}/apply` でも到達可能 (= 要 login)
+
+[4] GET /requests/{id}/apply
+    → 応募内容 入力 form 3 fields:
+      - 提案内容 (textarea, ≥ 文字数 minimum)
+      - 提案額    (input number, ≥ カテゴリ別 最低依頼価格)
+      - 完了予定日 (date input)
+    内 button: 「確認画面に進む」
+
+[5] click 「確認画面に進む」 → 確認 page → check 「個人情報同意」 → click 「応募する」 FINAL
+[6] redirect to /mypage/job_matching/applied/offers (= success 指標)
+```
+
+### selector + Vue glitch 対処
+- 応募する: `button` text=`'応募する'` AND `class~='c-requestButtonPrimary_offer'`
+- Vue handler glitch: `el.click()` 不発 → `Input.dispatchMouseEvent` at button center coords
+- click 後 URL 不変 case: 別 tab に navigate された可能性 → `curl /json` で `/apply` を含む tab 探す
+
+### Login state recovery
+- daily-driver Chromium restart → 全 tab logged out
+- Google OAuth: passkey 詰まりやすい → 「メールアドレスでログインする」 fallback
+- 認証ペア: `~/.openclaw/.env::COCONALA_EMAIL + COCONALA_PASSWORD` (= keiodaisuke@gmail.com)
+- Google fallback: `GOOGLE_LOGIN_EMAIL + GOOGLE_LOGIN_PASSWORD`
+
+### Skill scripts inventory (= ~/.claude/skills/earn-gig/scripts/)
+| script | purpose |
+|---|---|
+| scan_requests_v2.py | /requests 全 alive scan + 応募↑sort + JSON |
+| coc_apply_click.py {id} | /req/{id} 開く + 応募する click (= Vue/MouseEvent 両試行) |
+| coc_apply_with_network.py | click + Network capture (= debug) |
+| mail_dais.py | Resend で keiodaisuke@gmail.com 通知 |
+
+---
+
 ## §11 DONE (= この spec v2)
 
 - 名前 = `earn-gig` (English) に rename 済
