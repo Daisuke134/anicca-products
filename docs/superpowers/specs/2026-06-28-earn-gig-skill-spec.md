@@ -1004,3 +1004,12 @@ payout 配線 後 = ★ 1 案件 (or 1 円相当) を 実際に wallet 着金ま
 - judgment は model (= CLAUDE.md「regex hardcode 禁止、 model decides」)、 script = tool (session/poll/assess/stake/submit)
 - §6 teaching: 任意 model に skill+wallet drop → 自分の key で session → run_gig → poll → model が TAKE/SKIP 適用。 human 0。
 client 更新: `scripts/claw_agent.py` に assess() + stake() + submit() 追加、 poll が prescreen + TAKE rule 表示。
+
+## §13 ★ CLAW EARN POLLER = LIVE (launchd, 2026-06-29) ★
+real-USDC bounty board を 10分毎 監視 (= no test/dry-run、 Dais 「real money のみ」)。
+- script: `scripts/claw_poller.sh` (= GET /claw/tasks → 新規 take-able を prescreen → CANDIDATE は gog gmail で Dais 通知 → seen 記録)
+- launchd: `~/Library/LaunchAgents/com.anicca.earngig.clawpoller.plist` (StartInterval 600, RunAtLoad)
+- 実走確認: board 今 0 open → 正しく no-op (= fake mail 飛ばさず)
+- bounty 出た瞬間: CANDIDATE を mail → claw_agent.py で stake→実行→submit→USDC 着金 (要 stake 資本 bootstrap)
+- ★ 現実: real-money no-human demand は間欠 (Claw 78 完了歴/今0)。 poller が「待つ」でなく「監視して即捕まえる」 = 実需要が来た瞬間に動く ★
+- 実マネー earned = 今 $0 (= 正直)。 first real earn は poller が real bounty 捕捉 + stake 資本 揃った時。
