@@ -104,11 +104,21 @@ change on top of a regression. (Not exercisable in THIS pass, which produces onl
 version bump with no prior version to regress from — explicitly acknowledged as deferred to the
 second cycle, matching the treatment given to every other narrowed-scope item in this spec.)
 
-## REQ-010 — Weak/absent signal is a valid NO-OP, not a forced action
-IF, after REQ-006's SCORE+PICK, no non-noise leading-indicator signal exists to justify an action
-(design spec Rule 5 + "Early-stage grader" section) THEN the system SHALL record a NO-OP
-outer-cycle result rather than fabricate a lesson or apply a speculative fix. A recorded, evidenced
-NO-OP is a valid, successful completion of REQ-008 for that cycle.
+## REQ-010 — NO-OP is valid for BOTH "no signal" and "signal blocked" — never a forced action
+This requirement covers two materially different, but both legitimate, NO-OP preconditions:
+  (a) NO-SIGNAL: IF REQ-006's SCORE+PICK produces an EMPTY candidate list (no non-noise
+      leading-indicator signal exists at all, per design spec Rule 5 + "Early-stage grader")
+      THEN the system SHALL record a NO-OP outer-cycle result with which signals were considered
+      and why none qualified.
+  (b) SIGNAL-BLOCKED: IF REQ-006's list is non-empty but REQ-007 excludes every candidate as
+      out-of-scope (App Store/Stripe-Radar/financial-infra changes) THEN the system SHALL record a
+      NO-OP result for the action-application step SPECIFICALLY, and this record SHALL include
+      REQ-007's own flagged findings for each excluded candidate (never silently drop them —
+      "blocked because out of scope" is a materially different, and more actionable, outcome than
+      "no signal existed", and both facts must be visible in the record).
+In either case, a recorded, evidenced NO-OP (of the correct sub-type, with its required detail) is
+a valid, successful completion of REQ-008 for that cycle — fabricating a lesson or applying a
+speculative fix instead is not.
 
 ## REQ-011 — No-human-review gate via fresh-context adversary, not a human confirm prompt
 WHEN the OUTER cycle's diff (skill bump + PR) is ready, the system SHALL be verifiable by a

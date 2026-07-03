@@ -1,0 +1,6 @@
+{
+  "reviewType": "spec",
+  "artifactsToReview": ["specs/behavioral-spec.md", "specs/verification-architecture.md"],
+  "reviewDimensions": ["spec_fidelity", "verification_readiness"],
+  "priorIterationFindings": "iteration-2 found: dangling REQ-006/007 cross-reference (behavioral-spec.md line 52, fixed to REQ-006 only), REQ-006 'exactly one' with no fallback mechanism (reworked to a ranked candidate LIST), PROP-010 wrongly bundled into the 'safely actionable' conditional (reworked into two mutually-exclusive branches), PROP-001 OR instead of AND for two failure modes (fixed to require both independently). Verify these specific fixes hold and do a final pass for any remaining issues. This is iteration 3 of 3 (lean mode max)."
+}

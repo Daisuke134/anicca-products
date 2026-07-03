@@ -20,7 +20,7 @@ return" (tool fetches, deterministically, no interpretation).
 
 | ID | REQ | Verification tier | How verified |
 |---|---|---|---|
-| PROP-001 | REQ-001 | Tier 1 (real API call, success + BOTH failure paths) | Run each pull script live against the real API (success path); separately confirm a live auth failure (temporarily-invalid key) AND a live network-error simulation (unreachable host / DNS failure) EACH independently cause non-zero exit + zero bytes appended to the analytics file — both failure modes tested, not either-or |
+| PROP-001 | REQ-001 | Tier 1 (real API call, success + ALL THREE failure paths) | Run each pull script live against the real API (success path); separately confirm each of REQ-001's three named failure modes independently causes non-zero exit + zero bytes appended: (1) auth failure — temporarily-invalid key, (2) network error — unreachable host/DNS failure, (3) non-2xx response — a real API call that returns a client/server error status (e.g. a malformed request to a valid endpoint, or a rate-limited/maintenance response) distinct from an auth failure. All three tested independently, not just the first two |
 | PROP-002 | REQ-002 | Tier 1 (schema check on real output) | `jq` validate the appended line has `ts`/`slug`/`source`/`metrics` after a real run, for BOTH products |
 | PROP-003 | REQ-003 | Tier 1 (real re-run) | Run the same script twice, confirm 2 new lines, confirm line count grows monotonically, confirm no line is overwritten (diff old vs new file, old lines byte-identical) |
 | PROP-004 | REQ-004 | Tier 0 (static config read) | `products.json` has a `source` field per slug; a script errors clearly if asked to route an undeclared slug rather than guessing |

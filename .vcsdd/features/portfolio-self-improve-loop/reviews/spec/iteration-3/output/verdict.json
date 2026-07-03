@@ -1,0 +1,27 @@
+{
+  "verdict": "FAIL",
+  "dimensions": {
+    "spec_fidelity": "FAIL",
+    "verification_readiness": "FAIL"
+  },
+  "priorFindingsStatus": {
+    "FIND-001-dangling-REQ-006-007-crossref": "fixed",
+    "FIND-002-REQ-006-exactly-one-no-fallback": "partial",
+    "FIND-003-PROP-010-misgated-in-safely-actionable-conditional": "fixed",
+    "FIND-004-PROP-001-OR-instead-of-AND": "partial"
+  },
+  "findings": [
+    {
+      "dimension": "spec_fidelity",
+      "severity": "high",
+      "description": "REQ-010's NO-OP is now invoked by two textually-inconsistent triggers, and the fix for FIND-002 introduced this new mismatch rather than eliminating it. REQ-006 (behavioral-spec.md:70-71) invokes REQ-010 only for the case 'If the resulting list is empty' -- i.e. no candidate was ever produced. REQ-007 (behavioral-spec.md:84-86) separately invokes 'REQ-010's NO-OP for the action-application step' for a DIFFERENT case: the ranked list is NON-empty (real candidates/signals exist) but every one is excluded as out-of-scope (App Store/Stripe-Radar/financial-infra). REQ-010's own precondition text (behavioral-spec.md:108) is 'no non-noise leading-indicator signal exists to justify an action' -- which matches REQ-006's empty-list case but does NOT describe REQ-007's case, where a real, non-noise signal DOES exist and was merely excluded from action for safety reasons. REQ-010's normative text also never mandates that the flagged out-of-scope findings be part of the recorded NO-OP (it only says 'A recorded, evidenced NO-OP'), whereas REQ-007 explicitly requires 'the outer cycle SHALL still report the flagged findings' for its branch. An implementer who satisfies REQ-010 literally (record a NO-OP because 'no signal exists') when REQ-007's branch actually applies would produce a report that omits the real, blocked finding -- effectively under-reporting a genuine discovery as if nothing was found, which cuts against this same spec's own 'surfaced, not hidden' principle (REQ-005(b), line ~47) and the project's anti-fabrication/anti-dry-run stance (REQ-001 cites HARD RULE 0.24 + HONESTY Rule 4/5 for the identical concern). This is the same class of defect FIND-001 fixed one level up (a requirement referenced for a purpose its current text doesn't perform) -- it has resurfaced one level down, in REQ-010, as a side effect of this iteration's REQ-006/007 rework. Verification-architecture.md's PROP-010 row (line 51-55) correctly captures the INTENDED behavior ('with the flagged findings, must be verifiably recorded'), which shows the intent is right but the authoritative behavioral-spec.md REQ-010 text itself does not say this and does not match its own use-case at REQ-007.",
+      "location": "behavioral-spec.md:70-71 (REQ-006), behavioral-spec.md:84-86 (REQ-007), behavioral-spec.md:107-111 (REQ-010)"
+    },
+    {
+      "dimension": "verification_readiness",
+      "severity": "medium",
+      "description": "This iteration's fix to FIND-004/PROP-001 only addressed the OR-vs-AND half of the prior finding; the other half -- REQ-001 naming a THIRD failure mode never proof-obligated -- is unaddressed and was explicitly called out in the iteration-2 verdict. REQ-001 (behavioral-spec.md:16) requires fail-closed behavior on three distinct failure modes: 'auth error, network error, non-2xx response'. PROP-001 (verification-architecture.md:23) still only requires exercising two of the three: 'a live auth failure (temporarily-invalid key) AND a live network-error simulation (unreachable host / DNS failure)'. A generic non-2xx failure that is NOT an auth error (e.g. a 500 server error, a 429 rate-limit, a malformed-request 400) is never required to be exercised by any proof obligation. Given REQ-001's entire purpose is the spec's core anti-fabrication guarantee (it explicitly cites HARD RULE 0.24 no-dry-run and HONESTY Rule 4/5), shipping without live coverage of one of its three named failure paths leaves a real gap: a bug specific to the generic-non-2xx code path (as opposed to the auth-error path) could silently write a placeholder/fabricated line and never be caught by this pass's required proof obligations.",
+      "location": "verification-architecture.md:23 (PROP-001), behavioral-spec.md:16 (REQ-001)"
+    }
+  ]
+}
