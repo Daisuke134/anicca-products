@@ -42,16 +42,33 @@ collaterally blocked) touches live financial/security infrastructure directly, w
 out of scope for an autonomous first cycle per REQ-007's own exclusion list.
 
 ### Why candidate #2 (0 active trials) is flagged rather than auto-actioned this cycle
-A genuine investigation is needed before choosing a specific INNER action: is the
-`anicca_variant_b` offering's paywall actually surfacing the Annual/Weekly packages (the
-ones with `trial_duration: P3D`) to new users, or are most conversions landing on the
-no-trial Monthly/Lifetime packages? Answering this requires reading the live paywall
-config/App Store Connect screenshots or RevenueCat's paywall data, which this pass's
-2-product instrumentation slice doesn't yet pull. Applying a blind "fix" (e.g. editing
-paywall copy) without first confirming WHICH package the paywall actually presents risks
-either a no-op change or, worse, a regression on the app's live monetization surface —
-exactly the kind of "vanity action" the design spec's Anti-patterns section (Project
-Vend) warns against ("unverified done").
+**UPDATE (real investigation completed, RevenueCat Charts API, 2026-07-03 post-checkpoint)**:
+this candidate is CONFIRMED severely broken, not merely anomalous, and is now the
+clearest highest-leverage broken funnel stage found this cycle:
+  - Paywall config IS correct: the current live offering's paywall (`pw528706a38fc841ca`,
+    `anicca_variant_b`) only references `rc_annual`/`rc_weekly` package identifiers —
+    i.e. it DOES surface exactly the trial-eligible packages, not the no-trial
+    Monthly/Lifetime ones. This rules out "wrong packages shown" as the cause.
+  - `trials_new` chart (2026-06-04 to 2026-07-03, real RevenueCat data): **0 new trials
+    started in the entire 30-day window.**
+  - `initial_conversion` chart (7-day cohort window, 2026-06-01 to 2026-07-03, real data):
+    **268 new customers, 0 initial conversions (trial OR direct purchase) within 7 days —
+    a literal 0% conversion rate.**
+  - No experiment is running (`list-experiments status=running` returned empty) — this
+    isn't an A/B test artifact.
+This is a genuinely severe Revenue/Paywall-stage failure: essentially no one converts at
+all despite real installs, and the paywall's own configuration looks correct — meaning
+the root cause is most likely upstream of the paywall's package config (e.g. the paywall
+failing to display/load at all for most users, a StoreKit/purchase-flow bug in the
+shipped app build, or an offering-assignment mismatch between what RevenueCat's dashboard
+shows as "current" and what the live app actually requests). Diagnosing which of these it
+is requires inspecting the live iOS app's paywall-presentation code or a real
+device/simulator run — beyond a config-level fix, and beyond this pass's "read-only on
+Stripe/billing, one small INNER action" scope. Recommending this as the target for the
+NEXT cycle's INNER action (a real code investigation + fix), not something to guess at
+now. Applying a blind "fix" without confirming the actual failure point would risk
+exactly the "vanity action"/"unverified done" anti-pattern the design spec's Anti-patterns
+section (Project Vend) warns against.
 
 ## Outcome for Cycle 1 (REQ-010(b): SIGNAL-BLOCKED NO-OP)
 Both real candidates found this cycle are excluded from autonomous action for this
