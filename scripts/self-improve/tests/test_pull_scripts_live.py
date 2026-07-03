@@ -62,6 +62,7 @@ def test_revenuecat_network_error_fails_closed_writes_nothing():
         broken_path = Path(d) / "pull_revenuecat_broken.py"
         broken_path.write_text(broken)
         (Path(d) / "lib").symlink_to(SCRIPT_DIR / "lib")
+        (Path(d) / "products.json").symlink_to(SCRIPT_DIR / "products.json")
         env = {**os.environ, "SMTM_ANALYTICS_DIR": d}
         result = subprocess.run(
             [sys.executable, str(broken_path)], capture_output=True, text=True, env=env, timeout=30, cwd=d
@@ -99,6 +100,93 @@ def test_stripe_success_path_writes_real_schema_valid_line():
         assert rec["slug"] == "lm-stripe-5usd"
         assert rec["source"] == "stripe"
         assert "total_checkout_sessions" in rec["metrics"]
+        # REQ-005(b)/PROP-006: the charge-outcome enrichment must be REAL and present,
+        # not just checkout-session pass/fail (adversary finding, Phase 3 review —
+        # SCORE+PICK's fraud-vs-friction claim must be grounded in this file, not
+        # unarchived prose).
+        assert "charge_outcome_types" in rec["metrics"]
+        assert "charge_outcome_reasons" in rec["metrics"]
+
+
+def test_stripe_auth_failure_fails_closed_writes_nothing():
+    with tempfile.TemporaryDirectory() as d:
+        env = {**os.environ, "SMTM_ANALYTICS_DIR": d, "STRIPE_SECRET_KEY": "sk_definitely_invalid_key_xyz"}
+        result = _run("pull_stripe.py", env)
+        assert result.returncode != 0
+        assert not (Path(d) / "lm-stripe-5usd.jsonl").exists()
+
+
+def test_stripe_network_error_fails_closed_writes_nothing():
+    if not os.environ.get("STRIPE_SECRET_KEY"):
+        import pytest
+        pytest.skip("STRIPE_SECRET_KEY not set")
+    with tempfile.TemporaryDirectory() as d:
+        script = (SCRIPT_DIR / "pull_stripe.py").read_text()
+        broken = script.replace(
+            '"https://api.stripe.com/v1/checkout/sessions"',
+            '"https://api.stripe.invalid-tld-xyz-unreachable/v1/checkout/sessions"',
+        )
+        broken_path = Path(d) / "pull_stripe_broken_net.py"
+        broken_path.write_text(broken)
+        (Path(d) / "lib").symlink_to(SCRIPT_DIR / "lib")
+        (Path(d) / "products.json").symlink_to(SCRIPT_DIR / "products.json")
+        env = {**os.environ, "SMTM_ANALYTICS_DIR": d}
+        result = subprocess.run(
+            [sys.executable, str(broken_path)], capture_output=True, text=True, env=env, timeout=30, cwd=d
+        )
+        assert result.returncode != 0
+        assert "network" in result.stderr.lower()
+        assert not (Path(d) / "lm-stripe-5usd.jsonl").exists()
+
+
+def test_revenuecat_non2xx_response_fails_closed():
+    if not os.environ.get("REVENUECAT_V2_SECRET_KEY"):
+        import pytest
+        pytest.skip("REVENUECAT_V2_SECRET_KEY not set")
+    with tempfile.TemporaryDirectory() as d:
+        # a malformed/non-existent project id in a REAL request to the real, valid
+        # host exercises a genuine non-2xx response distinct from an auth failure
+        # (auth still succeeds; the specific project lookup 404s).
+        script = (SCRIPT_DIR / "pull_revenuecat.py").read_text()
+        broken = script.replace(
+            "project_id = _resolve_project_id(projects)",
+            "project_id = 'proj_this_id_does_not_exist_xyz'; _ = _resolve_project_id",
+        )
+        broken_path = Path(d) / "pull_revenuecat_broken_404.py"
+        broken_path.write_text(broken)
+        (Path(d) / "lib").symlink_to(SCRIPT_DIR / "lib")
+        (Path(d) / "products.json").symlink_to(SCRIPT_DIR / "products.json")
+        env = {**os.environ, "SMTM_ANALYTICS_DIR": d}
+        result = subprocess.run(
+            [sys.executable, str(broken_path)], capture_output=True, text=True, env=env, timeout=30, cwd=d
+        )
+        assert result.returncode != 0
+        assert not (Path(d) / "anicca-ios.jsonl").exists()
+
+
+def test_product_router_is_actually_wired_not_just_unit_tested():
+    """REQ-004 (adversary finding, Phase 3 review): lib/product_router.py and
+    products.json were fully built and unit-tested, but the pull scripts never
+    actually called them -- both hardcoded source= literals directly. This test
+    proves the wiring is real: if products.json declares the WRONG source for a
+    slug, the pull script must refuse to run rather than silently using its own
+    hardcoded literal anyway."""
+    import json as _json
+
+    with tempfile.TemporaryDirectory() as d:
+        (Path(d) / "lib").symlink_to(SCRIPT_DIR / "lib")
+        bad_config = {"anicca-ios": {"source": "stripe"}}  # deliberately wrong
+        (Path(d) / "products.json").write_text(_json.dumps(bad_config))
+        script = (SCRIPT_DIR / "pull_revenuecat.py").read_text()
+        broken_path = Path(d) / "pull_revenuecat_mismatch.py"
+        broken_path.write_text(script)
+        env = {**os.environ, "SMTM_ANALYTICS_DIR": d, "REVENUECAT_V2_SECRET_KEY": "sk_irrelevant_should_never_be_used"}
+        result = subprocess.run(
+            [sys.executable, str(broken_path)], capture_output=True, text=True, env=env, timeout=30, cwd=d
+        )
+        assert result.returncode != 0
+        assert "revenuecat-only" in result.stderr or "declares source" in result.stderr
+        assert not (Path(d) / "anicca-ios.jsonl").exists()
 
 
 def test_stripe_non2xx_response_fails_closed():
@@ -117,6 +205,7 @@ def test_stripe_non2xx_response_fails_closed():
         broken_path = Path(d) / "pull_stripe_broken.py"
         broken_path.write_text(broken)
         (Path(d) / "lib").symlink_to(SCRIPT_DIR / "lib")
+        (Path(d) / "products.json").symlink_to(SCRIPT_DIR / "products.json")
         env = {**os.environ, "SMTM_ANALYTICS_DIR": d}
         result = subprocess.run(
             [sys.executable, str(broken_path)], capture_output=True, text=True, env=env, timeout=30, cwd=d
