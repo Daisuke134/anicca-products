@@ -1,0 +1,28 @@
+RED phase evidence — sprint 1, portfolio-self-improve-loop
+Command: /opt/homebrew/bin/python3 -m pytest tests/test_analytics_writer.py -v
+Working dir: ~/anicca-portfolio-self-improve/scripts/self-improve
+
+============================= test session starts ==============================
+platform darwin -- Python 3.14.5, pytest-9.0.3, pluggy-1.6.0
+collecting ... collected 4 items
+
+tests/test_analytics_writer.py::test_append_writes_one_valid_line FAILED
+tests/test_analytics_writer.py::test_append_is_append_only_not_overwrite FAILED
+tests/test_analytics_writer.py::test_append_rejects_missing_required_fields FAILED
+tests/test_analytics_writer.py::test_route_product_reads_config_not_inline_judgment FAILED
+
+E   ModuleNotFoundError: No module named 'lib.analytics_writer'
+E   ModuleNotFoundError: No module named 'lib.product_router'
+
+============================== 4 failed in 0.07s ===============================
+
+All 4 tests failed because lib/analytics_writer.py and lib/product_router.py
+did not exist yet (REQ-002, REQ-003, REQ-004). This confirms the tests
+genuinely exercise not-yet-implemented behavior, not a tautology.
+
+new feature tests: fail (4/4, ModuleNotFoundError as shown above)
+regression baseline: pass (scripts/self-improve/ is a brand-new package this
+sprint; there is no pre-existing test suite in this path to regress — the
+sibling scripts/daily-metrics/ package's own existing test suite is untouched
+by this sprint's changes and was not modified)
+

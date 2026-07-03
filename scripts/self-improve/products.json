@@ -1,0 +1,11 @@
+{
+  "anicca-ios": {
+    "source": "revenuecat",
+    "note": "Live Anicca App Store app. RevenueCat project id is resolved dynamically at pull time (GET /v2/projects), not hardcoded here."
+  },
+  "lm-stripe-5usd": {
+    "source": "stripe",
+    "payment_link_id": "plink_1TgOluEeDsUAcaLSqXWXjUz7",
+    "note": "Life Manager $5 Stripe payment link (real, live, active -- traced from a real charge's payment_intent -> checkout session, NOT the NEXT_PUBLIC_STRIPE_LINK_5 env var, which points at a test-mode URL). See spec REQ-005(b): recent charge activity on this link is dominated by Stripe-Radar-blocked card-testing attempts (outcome.type=blocked), not genuine customer friction -- instrumentation records this as-is; SCORE+PICK must exclude it as noise, not treat it as a funnel bug."
+  }
+}

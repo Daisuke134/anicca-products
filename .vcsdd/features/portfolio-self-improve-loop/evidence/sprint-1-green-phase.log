@@ -1,0 +1,32 @@
+GREEN phase evidence — sprint 1, portfolio-self-improve-loop
+Command: SMTM_ANALYTICS_DIR=/tmp/smtm-test-analytics-final (set -a; source ~/.openclaw/.env; set +a) && /opt/homebrew/bin/python3 -m pytest tests/ -v
+Working dir: ~/anicca-portfolio-self-improve/scripts/self-improve
+
+============================= test session starts ==============================
+platform darwin -- Python 3.14.5, pytest-9.0.3, pluggy-1.6.0
+collecting ... collected 10 items
+
+tests/test_analytics_writer.py::test_append_writes_one_valid_line PASSED
+tests/test_analytics_writer.py::test_append_is_append_only_not_overwrite PASSED
+tests/test_analytics_writer.py::test_append_rejects_missing_required_fields PASSED
+tests/test_analytics_writer.py::test_route_product_reads_config_not_inline_judgment PASSED
+tests/test_pull_scripts_live.py::test_revenuecat_success_path_writes_real_schema_valid_line PASSED
+tests/test_pull_scripts_live.py::test_revenuecat_auth_failure_fails_closed_writes_nothing PASSED
+tests/test_pull_scripts_live.py::test_revenuecat_network_error_fails_closed_writes_nothing PASSED
+tests/test_pull_scripts_live.py::test_revenuecat_idempotent_rerun_appends_two_lines_no_overwrite PASSED
+tests/test_pull_scripts_live.py::test_stripe_success_path_writes_real_schema_valid_line PASSED
+tests/test_pull_scripts_live.py::test_stripe_non2xx_response_fails_closed PASSED
+
+============================== 10 passed in 5.29s ===============================
+
+target feature tests: pass (10/10, real live API calls to RevenueCat + Stripe,
+no mocks per HARD RULE 0.24 — includes success path, auth-failure fail-closed,
+network-error fail-closed, non-2xx-response fail-closed, and idempotent-rerun
+append-only checks)
+regression baseline: pass (no pre-existing tests in this new package to regress;
+sibling scripts/daily-metrics/ package untouched)
+
+Additionally verified against the REAL production analytics location (not /tmp):
+~/.smtm/analytics/anicca-ios.jsonl and ~/.smtm/analytics/lm-stripe-5usd.jsonl
+both contain real, schema-valid lines from a live run (see evidence/score-pick-cycle-1.md
+for the resulting SCORE+PICK analysis of this real data).
