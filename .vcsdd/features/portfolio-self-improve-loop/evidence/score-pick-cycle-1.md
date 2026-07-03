@@ -70,6 +70,25 @@ now. Applying a blind "fix" without confirming the actual failure point would ri
 exactly the "vanity action"/"unverified done" anti-pattern the design spec's Anti-patterns
 section (Project Vend) warns against.
 
+**Follow-up code trace (read-only, `aniccaios/` source, same session):**
+- `Services/SubscriptionManager.swift:140-151` (`refreshOfferings()`) correctly calls
+  RevenueCat's `getOfferings()` and uses `result.current` -- it does NOT hardcode a
+  stale offering identifier. This rules out "app requests the wrong offering" as the
+  cause; the code asks RevenueCat for whatever IS marked current server-side.
+- `Onboarding/PaywallVariantBView.swift:59-79`: when `packages.isEmpty` (i.e. offerings
+  failed to load, or loaded with zero packages), the view shows a spinner, then after a
+  timeout a "paywall_b_load_failed" message + retry/restore buttons -- it does NOT
+  silently skip the paywall or let the user through for free. So if THIS is the failure
+  mode, it should present as users getting VISIBLY STUCK on a loading/retry screen, not
+  a silent bypass -- plausible given 0% conversion, but not yet confirmed live.
+- The repo already has a Maestro E2E flow for exactly this: `aniccaios/maestro/v1.8.0/
+  04-paywall_variant_b_en.yaml` (+ variant_a and ja/es locale versions). This is the
+  concrete, scoped next step to CONFIRM (not guess) the failure mode: run that flow on
+  a real simulator and observe whether the paywall actually loads packages, hangs on
+  the empty-state spinner, or something else entirely. This was not run in this pass
+  (would require Xcode/simulator setup beyond this pass's investigation scope) --
+  recorded here as the concrete, ready-to-execute next step for whoever picks this up.
+
 ## Outcome for Cycle 1 (REQ-010(b): SIGNAL-BLOCKED NO-OP)
 Both real candidates found this cycle are excluded from autonomous action for this
 pass — #1 because the underlying evidence is noise (fraud, not a funnel bug) and
