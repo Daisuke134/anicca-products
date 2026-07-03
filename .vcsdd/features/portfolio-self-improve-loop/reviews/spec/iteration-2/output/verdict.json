@@ -1,0 +1,52 @@
+{
+  "verdict": "FAIL",
+  "dimensions": {
+    "spec_fidelity": "FAIL",
+    "verification_readiness": "FAIL"
+  },
+  "priorFindingsStatus": {
+    "FIND-001": "fixed",
+    "FIND-002": "partial",
+    "FIND-003": "fixed",
+    "FIND-004": "fixed",
+    "FIND-005": "fixed",
+    "FIND-006": "partial",
+    "FIND-007": "fixed"
+  },
+  "findings": [
+    {
+      "dimension": "spec_fidelity",
+      "severity": "critical",
+      "description": "DANGLING REQ REFERENCE surviving the renumbering. behavioral-spec.md REQ-005(b)'s NOTE says '...REQ-006/007's grading step SHALL NOT treat a Radar-blocked (outcome.type=blocked) charge as a genuine funnel/UX bottleneck signal...'. Under the CURRENT numbering, REQ-006 = SCORE+PICK (selection) and REQ-007 = INNER apply (side effect) -- neither one is a 'grading step'. Grading is REQ-008 ('WHEN REQ-007's INNER trace exists, the system SHALL: (a) read the trace + the real before/after-window instrumentation delta... (b) synthesize... lessons'). This phrase is a leftover from the PRE-renumbering draft (iteration-1 verdict confirms the old numbering had REQ-006=INNER and REQ-007=OUTER/grading, matching FIND-001's original description). The exact requirement this NOTE is trying to bind (do not treat Radar-blocked charges as real signal) is currently unattached to any REQ that actually does grading/interpretation -- it should reference REQ-006 (excluding the noise at selection time) and/or REQ-008 (excluding it at grading time), not 'REQ-006/007's grading step'.",
+      "location": "behavioral-spec.md:52"
+    },
+    {
+      "dimension": "spec_fidelity",
+      "severity": "high",
+      "description": "REQ-006 mandates SCORE+PICK 'SHALL select exactly one product x one candidate action' with no textual provision for (a) producing a ranked/alternate list of candidates, or (b) a 'no viable candidate at all' outcome. Yet REQ-007 requires falling through 'to the next candidate action that IS safely actionable' when the top pick is an out-of-scope category, and REQ-010 assumes a 'no non-noise leading-indicator signal exists to justify an action' outcome can occur directly 'after REQ-006's SCORE+PICK' (i.e. before REQ-007's INNER apply ever runs). None of REQ-006/007/010 specifies the actual mechanism (re-invoke SCORE+PICK excluding the disqualified/rejected candidate? output a ranked list up front?) that produces the 'next candidate' REQ-007 needs, or that recognizes the 'nothing to select' case REQ-010 needs. This is the same class of sequencing gap iteration-1's FIND-001 addressed for REQ-006/007, reintroduced one level down in the same requirement chain.",
+      "location": "behavioral-spec.md:59-66 (REQ-006), 68-79 (REQ-007), 100-104 (REQ-010)"
+    },
+    {
+      "dimension": "verification_readiness",
+      "severity": "high",
+      "description": "FIND-002 partial fix. The rewritten 'Required proof obligations for THIS pass' paragraph removes the original time-based scope-dodge ('only if time... rolls into next task'), but the replacement text bundles PROP-010 into the SAME conditional as PROP-007/008/011: 'PROP-007/008/010/011 if REQ-007's INNER action is safely actionable within this pass's guardrails'. This is backwards: PROP-010 verifies REQ-010's NO-OP recording, which by REQ-010's own text applies precisely when NO safely-actionable/non-noise candidate exists (the opposite branch). As written, PROP-010 is required exactly in the scenario where its own applicable precondition (no signal to act on) does not hold, and is left unaddressed in the scenario (no safely-actionable candidate) where it actually would need to be checked. The scope-dodge is not reintroduced verbatim, but the replacement is internally inconsistent about which branch actually requires PROP-010.",
+      "location": "verification-architecture.md:41-49"
+    },
+    {
+      "dimension": "verification_readiness",
+      "severity": "medium",
+      "description": "FIND-006 partial fix. PROP-001 was broadened from 'auth-failure only' to 'a live auth failure (temporarily-invalid key) OR a live network-error simulation (unreachable host)' -- but REQ-001 enumerates THREE distinct failure modes ('auth error, network error, non-2xx response'). PROP-001 (a) still never requires exercising a generic non-2xx response distinct from an auth-specific 401/403 (e.g. a 500 or 429 from the real API), and (b) uses 'OR' between the two modes it does name, so a verification run could satisfy PROP-001 having tested only ONE of the three named REQ-001 failure modes, not even both of the two PROP-001 itself lists.",
+      "location": "verification-architecture.md:23 (PROP-001), behavioral-spec.md:16 (REQ-001)"
+    }
+  ],
+  "convergenceSignals": {
+    "positiveEvidenceReviewed": [
+      "REQ-006's text explicitly states 'REQ-006 (this SCORE+PICK) and REQ-007 (INNER apply) are sequential, not circular: SCORE+PICK reads only the instrumentation file (REQ-002's real numbers), never a prior INNER trace' -- FIND-001's circularity is closed for the base case.",
+      "REQ-005(b) now names a concrete product (lm-stripe-5usd / NEXT_PUBLIC_STRIPE_LINK_5, confirmed present in docs/superpowers/specs/anicca/patches/P-install-me-flow.patch.md) with explicit selection criteria (real, verifiable, non-zero recent charge activity) -- FIND-003 closed.",
+      "REQ-005(a)'s dynamic project-id resolution claim was checked against the actual cited file: scripts/daily-metrics/revenuecat_client.py:29-32 does perform GET /v2/projects then items[0]['id'], matching the spec's description exactly -- FIND-004 closed with an accurate, non-hallucinated citation.",
+      "REQ-009 (regression guard) is now present verbatim with an explicit deferred-to-second-cycle acknowledgment matching the treatment of every other narrowed item, and PROP-009 documents it at Tier 0 -- FIND-005 closed.",
+      "PROP-007's verification method is now conditioned on 'a method appropriate to the ACTUAL action taken' (curl only in the deployed-content-change example, config/data read in the other) rather than hardwired to one action type -- FIND-007 closed.",
+      "Full grep of every REQ-0xx and PROP-0xx cross-reference in both files confirms no duplicate REQ numbers (REQ-001..011 all unique) and no PROP-ID mapped to the wrong REQ after renumbering -- the ONE dangling reference found (behavioral-spec.md:52's 'REQ-006/007's grading step') is documented above as its own finding, not a general renumbering failure."
+    ]
+  }
+}

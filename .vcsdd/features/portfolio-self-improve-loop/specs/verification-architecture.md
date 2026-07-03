@@ -20,7 +20,7 @@ return" (tool fetches, deterministically, no interpretation).
 
 | ID | REQ | Verification tier | How verified |
 |---|---|---|---|
-| PROP-001 | REQ-001 | Tier 1 (real API call, both success AND failure paths) | Run each pull script live against the real API (success path); separately confirm a live auth failure (temporarily-invalid key) OR a live network-error simulation (unreachable host) causes non-zero exit + zero bytes appended to the analytics file — not just the auth-failure case alone |
+| PROP-001 | REQ-001 | Tier 1 (real API call, success + BOTH failure paths) | Run each pull script live against the real API (success path); separately confirm a live auth failure (temporarily-invalid key) AND a live network-error simulation (unreachable host / DNS failure) EACH independently cause non-zero exit + zero bytes appended to the analytics file — both failure modes tested, not either-or |
 | PROP-002 | REQ-002 | Tier 1 (schema check on real output) | `jq` validate the appended line has `ts`/`slug`/`source`/`metrics` after a real run, for BOTH products |
 | PROP-003 | REQ-003 | Tier 1 (real re-run) | Run the same script twice, confirm 2 new lines, confirm line count grows monotonically, confirm no line is overwritten (diff old vs new file, old lines byte-identical) |
 | PROP-004 | REQ-004 | Tier 0 (static config read) | `products.json` has a `source` field per slug; a script errors clearly if asked to route an undeclared slug rather than guessing |
@@ -39,11 +39,19 @@ return" (tool fetches, deterministically, no interpretation).
 - Tier 3: fresh-context adversarial review of the diff, in addition to Tier 1/2 evidence.
 
 ## Required proof obligations for THIS pass (lean mode)
-Required, no exceptions: PROP-001 through PROP-006 (instrumentation + SCORE+PICK — the spec's
-primary explicit ask) AND PROP-007/008/010/011 if REQ-007's INNER action is safely actionable within
-this pass's guardrails (REQ-007's own text: if the top SCORE+PICK candidate is out of scope for
-autonomous action — e.g. it's the Stripe-fraud or paywall-configuration finding — the system falls
-through to the next safely-actionable candidate rather than skipping the cycle). PROP-009 is
-documentation-only in this pass (no prior version exists to test reversion against). If, after
-falling through all safely-actionable candidates, none exists, the pass is reported honestly as a
-partial checkpoint (per REQ-008's own text) — never silently marked complete.
+Required unconditionally: PROP-001 through PROP-006 (instrumentation + SCORE+PICK — the spec's
+primary explicit ask). PROP-009 is documentation-only in this pass (no prior version exists to
+test reversion against — never a live test here).
+
+The remaining two branches are MUTUALLY EXCLUSIVE outcomes of REQ-007's fall-through walk (exactly
+one of them is required, not both, and not neither):
+  - IF REQ-006's ranked list contains at least one safely-actionable candidate (per REQ-007's
+    exclusion list), THEN PROP-007, PROP-008, and PROP-011 are required (the real INNER/OUTER
+    cycle happened and must be verified end to end) — PROP-010 does NOT apply in this branch.
+  - IF every candidate in REQ-006's list is excluded as out-of-scope (e.g. the top signal is the
+    Stripe-fraud or paywall-configuration finding and nothing else safely-actionable exists), THEN
+    PROP-010 is required (the NO-OP-for-action-application result, with the flagged findings, must
+    be verifiably recorded) — PROP-007/008/011 do not apply in this branch, since there is no real
+    INNER action to verify.
+Either way, the pass's outcome (full cycle vs. flagged-NO-OP) SHALL be reported honestly and
+distinctly — never silently marked "complete" as if the other branch had occurred.

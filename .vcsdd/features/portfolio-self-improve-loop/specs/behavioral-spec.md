@@ -49,34 +49,41 @@ THE system SHALL instrument at minimum:
       (Stripe Radar blocking, `network_status=not_sent_to_network`), from multiple different
       countries/card-funding-types in a pattern consistent with card-testing/fraud probing rather
       than genuine customer friction. The instrumentation SHALL record the real charge
-      success/failure counts and failure reasons as-is; REQ-006/007's grading step SHALL NOT treat
+      success/failure counts and failure reasons as-is; REQ-006's SCORE+PICK step SHALL NOT treat
       a Radar-blocked (`outcome.type=blocked`) charge as a genuine funnel/UX bottleneck signal
       (design spec Rule 6 weighted evidence + Rule 5 weak/conflicting signal = NO-OP) — this is
       exactly the kind of noisy signal the early-stage grader must not act on.
 Further products are explicitly deferred to a later pass (spec's own portfolio-wide SCORE+PICK is
 out of scope here).
 
-## REQ-006 — SCORE+PICK: select the one lowest-broken-upstream-stage action from real data
+## REQ-006 — SCORE+PICK: rank candidate actions from real data, not just the single top pick
 WHEN REQ-005's instrumentation has run at least once for both products, the system SHALL apply the
 design spec's funnel-lever priority (0 Instrumentation → 1 Activation → 2 Retention → 3
-Revenue/Paywall → 4 Acquisition → 5 Referral) to the REAL data just pulled, and SHALL select
-exactly one product × one candidate action, excluding any signal REQ-005(b)'s NOTE disqualifies as
-noise. This selection SHALL be recorded (product, stage, evidence, chosen action) BEFORE the INNER
-step executes — REQ-006 (this SCORE+PICK) and REQ-007 (INNER apply) are sequential, not circular:
-SCORE+PICK reads only the instrumentation file (REQ-002's real numbers), never a prior INNER trace.
+Revenue/Paywall → 4 Acquisition → 5 Referral) to the REAL data just pulled, and SHALL produce an
+ORDERED list of candidate (product, stage, evidence, action, is-safely-actionable) tuples — not
+just a single "exactly one" pick — so that REQ-007's fallback (skip an out-of-scope top candidate,
+try the next) has a real list to fall through, rather than nothing. Any signal REQ-005(b)'s NOTE
+disqualifies as noise SHALL be excluded from the list entirely (not ranked low — excluded, so it
+can never be silently "picked" as a fallback either). This ranking SHALL be recorded (all
+candidates, not just the winner) BEFORE the INNER step executes — REQ-006 (SCORE+PICK) and REQ-007
+(INNER apply) are sequential, not circular: SCORE+PICK reads only the instrumentation file
+(REQ-002's real numbers), never a prior INNER trace. If the resulting list is empty, REQ-010's
+NO-OP applies.
 
 ## REQ-007 — ONE real INNER cycle: apply → real side effect → traced
-WHEN REQ-006 has selected one action, the system SHALL apply exactly one product/marketing skill
-action that produces a REAL, externally-observable side effect (e.g. a committed+pushed+deployed
-content change, NOT a draft/dry-run/simulation), and SHALL record one trace line stamped
-`skill:<name> v:<N> run_id:<uuid>` to the trace log alongside the analytics stream.
-The action SHALL be scoped to something independently reversible via git revert and SHALL NOT touch
-App Store Connect submission/pricing/metadata, Stripe Radar/fraud rules, or any other
-security/financial-infrastructure configuration directly (all of those require Dais's own review
-per HARD RULE 0.27/0.20's "substantive concern" carve-out — out of scope for this first cycle,
-regardless of what REQ-006 finds. If REQ-006's top pick IS one of those out-of-scope categories,
-the system SHALL surface it as a flagged finding for human/team-lead awareness rather than act on
-it, and SHALL fall through to the next candidate action that IS safely actionable).
+WHEN REQ-006 has produced a non-empty ranked candidate list, the system SHALL walk the list in
+order and apply the FIRST candidate that is safely actionable (see below), producing a REAL,
+externally-observable side effect (e.g. a committed+pushed+deployed content change, NOT a
+draft/dry-run/simulation), and SHALL record one trace line stamped `skill:<name> v:<N>
+run_id:<uuid>` to the trace log alongside the analytics stream.
+"Safely actionable" excludes: App Store Connect submission/pricing/metadata, Stripe Radar/fraud
+rules, or any other security/financial-infrastructure configuration (all of those require Dais's
+own review per HARD RULE 0.27/0.20's "substantive concern" carve-out — out of scope for this first
+cycle). Any candidate excluded this way SHALL be surfaced as a flagged finding for human/team-lead
+awareness rather than silently dropped. The applied action SHALL be scoped to something
+independently reversible via git revert. If every candidate in REQ-006's list is excluded this way,
+the outer cycle SHALL still report the flagged findings and fall to REQ-010's NO-OP for the
+action-application step specifically (not a silent skip).
 
 ## REQ-008 — ONE real OUTER cycle: grade, synthesize, version-bump, PR (never push main)
 WHEN REQ-007's INNER trace exists, the system SHALL: (a) read the trace + the real

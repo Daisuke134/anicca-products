@@ -1,0 +1,6 @@
+{
+  "reviewType": "spec",
+  "artifactsToReview": ["specs/behavioral-spec.md", "specs/verification-architecture.md"],
+  "reviewDimensions": ["spec_fidelity", "verification_readiness"],
+  "priorIterationFindings": "iteration-1 found FIND-001 (circular REQ-006/007), FIND-002 (scope-dodge on PROP-006-009), FIND-003 (unnamed 2nd product), FIND-004 (hardcoded project id), FIND-005 (dropped regression guard), FIND-006 (narrow PROP-001), FIND-007 (hardwired PROP-006 verification). All addressed in this revision -- verify the fixes actually hold, don't just trust the commit message."
+}
