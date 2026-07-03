@@ -1,0 +1,32 @@
+{
+  "featureName": "portfolio-self-improve-loop",
+  "mode": "lean",
+  "currentPhase": "1b",
+  "phaseHistory": [
+    {
+      "from": "init",
+      "to": "1a",
+      "timestamp": "2026-07-03T22:47:12.773Z",
+      "reason": "behavioral spec written"
+    },
+    {
+      "from": "1a",
+      "to": "1b",
+      "timestamp": "2026-07-03T22:47:12.777Z",
+      "reason": "verification architecture written"
+    }
+  ],
+  "iterations": {
+    "1a": 1,
+    "1b": 1
+  },
+  "proofObligations": [],
+  "traceability": {
+    "epicId": "VCSDD-portfolio-self-improve-loop-1783118648911",
+    "beads": []
+  },
+  "gates": {},
+  "sprintCount": 0,
+  "createdAt": "2026-07-03T22:44:08.910Z",
+  "updatedAt": "2026-07-03T22:47:12.777Z"
+}

@@ -1,0 +1,58 @@
+{
+  "verdict": "FAIL",
+  "dimensions": {
+    "spec_fidelity": "FAIL",
+    "verification_readiness": "FAIL"
+  },
+  "findings": [
+    {
+      "id": "FIND-001",
+      "dimension": "spec_fidelity",
+      "severity": "critical",
+      "description": "REQ-006 makes the INNER action's selection dependent on 'the OUTER step (see REQ-007)' choosing 'one lowest-broken-upstream-stage action'. But REQ-007 as written is gated by 'WHEN at least one INNER trace exists' -- i.e. REQ-007 can only run AFTER an INNER action has already produced a trace. This is circular: REQ-006 needs REQ-007 to pick the action before it can run, and REQ-007 needs REQ-006 to have already run before IT can run. Cross-checking the parent design doc confirms the confusion: there, 'OUTER' (daily claude -p Sonnet job) is defined purely as grading PAST traces + git history since the last skill-version bump and synthesizing lessons -- it never selects the NEXT action. Action selection is a SEPARATE step in the design's daily loop, '[2] SCORE+PICK one product x one bottleneck' (step 2, distinct from and prior to '[4] BUILD'). The behavioral spec never promotes SCORE+PICK to its own REQ; it silently borrows REQ-007's identity for a job REQ-007 does not perform. For the very first cycle in this scope (there is no prior trace to grade), nothing in behavioral-spec.md specifies who/what decides which action to apply.",
+      "location": "specs/behavioral-spec.md REQ-006 (lines 48-56) and REQ-007 (lines 58-64); contradicted by docs/superpowers/specs/2026-07-03-portfolio-self-improve-loop-design.md 'Loop shape' section (lines 10-12), which defines OUTER as reflection-over-past-traces and SCORE+PICK as a separate, earlier step"
+    },
+    {
+      "id": "FIND-002",
+      "dimension": "verification_readiness",
+      "severity": "critical",
+      "description": "verification-architecture.md's 'Required proof obligations for THIS pass' section downgrades PROP-006 through PROP-009 -- which cover REQ-006 (apply the INNER action), REQ-007 (OUTER grade/synthesize/bump/PR), REQ-008 (valid NO-OP) and REQ-009 (adversary + E2E gate) -- to 'required only if time in this pass allows landing a real INNER/OUTER cycle; if not reached this pass, they roll into the next task'. This directly contradicts behavioral-spec.md's own top-of-file scope statement, which states in normative terms that this pass will 'run exactly ONE real INNER ... -> OUTER ... cycle end to end', and contradicts the SHALL-language used throughout REQ-006/007/008/009 themselves. As written, this pass could be marked spec-fidelity-complete having proven only instrumentation (PROP-001/002/003/005) while never verifying the cycle that is the spec's own stated raison d'etre. This is exactly the kind of soft/optional carve-out the project's own discipline (no 'optional'/'TBD' in specs, all MUST) forbids -- it is a scope-dodge baked into the verification contract itself, not an honest tier assignment.",
+      "location": "specs/verification-architecture.md 'Required proof obligations for THIS pass' section (lines 38-41), contradicting specs/behavioral-spec.md scope note (lines 5-11) and REQ-006/007/008/009 SHALL clauses (lines 48-77)"
+    },
+    {
+      "id": "FIND-003",
+      "dimension": "spec_fidelity",
+      "severity": "high",
+      "description": "REQ-005(b) leaves the second real product entirely unnamed: 'one additional REAL, currently-live Stripe-billed product with verifiable non-zero historical activity (selected during implementation ... not invented)'. No selection criteria are given (what dollar/volume threshold counts as 'verifiable non-zero historical activity'? what timeframe?). Deferring which concrete product this pass targets to implementation time means the spec is not 100% concrete at spec-review time -- the actual selection judgment call happens after this gate has already signed off, with no further spec-review checkpoint defined for it.",
+      "location": "specs/behavioral-spec.md REQ-005(b) (lines 42-44)"
+    },
+    {
+      "id": "FIND-004",
+      "dimension": "spec_fidelity",
+      "severity": "medium",
+      "description": "REQ-005(a) hardcodes a specific external RevenueCat project id ('projbb7b9d1b') directly into spec prose, with no corroborating artifact (log, prior-run output) present alongside the spec in this review and no proof obligation that checks the ID's own validity (PROP-005 only checks the RETURNED metrics look plausible, not that the hardcoded id is the correct/current project id). This deviates from the established pattern already present in this same repo: scripts/daily-metrics/revenuecat_client.py (lines 29-32) resolves the project id dynamically via GET /v2/projects rather than hardcoding it -- the safer approach, since RevenueCat project ids are account-scoped and hardcoding one into a spec makes the spec silently stale if it's ever wrong or rotated. The spec neither reuses nor references this existing script/pattern.",
+      "location": "specs/behavioral-spec.md REQ-005(a) (line 40); scripts/daily-metrics/revenuecat_client.py (lines 29-32)"
+    },
+    {
+      "id": "FIND-005",
+      "dimension": "spec_fidelity",
+      "severity": "medium",
+      "description": "The parent design doc's '7 hard rules' includes rule 7: 'if previous bump's metric got WORSE -> REVERT, don't stack' -- a Project-Vend-derived safety guardrail. Every OTHER deliberately-narrowed piece of the parent design (the full daily loop, portfolio-wide SCORE+PICK, weekly money-retro) is explicitly called out as 'explicitly out of scope' in behavioral-spec.md's own scope note. The regression/revert guardrail is not mentioned anywhere in behavioral-spec.md, with no equivalent 'out of scope' acknowledgment -- it is simply silently absent, which is an inconsistent standard for what may be silently dropped vs. explicitly deferred within the same spec.",
+      "location": "specs/behavioral-spec.md scope note (lines 5-11), full REQ list (lines 12-83); docs/superpowers/specs/2026-07-03-portfolio-self-improve-loop-design.md '7 hard rules' item 7 (line 15)"
+    },
+    {
+      "id": "FIND-006",
+      "dimension": "verification_readiness",
+      "severity": "medium",
+      "description": "REQ-001 names three fail-closed trigger conditions: auth error, network error, and non-2xx response. PROP-001's 'How verified' column only exercises the auth-failure path ('confirm a live auth failure (bad key) causes non-zero exit + no analytics line written'). Two of REQ-001's three named failure modes (network error, non-2xx response) have no specified verification method anywhere in the proof-obligation table.",
+      "location": "specs/verification-architecture.md PROP-001 row (line 22); specs/behavioral-spec.md REQ-001 (line 16)"
+    },
+    {
+      "id": "FIND-007",
+      "dimension": "verification_readiness",
+      "severity": "high",
+      "description": "PROP-006's verification method is hardwired to one specific example: 'curl the live deployed URL and see the actual change'. But REQ-006 only gives 'a committed+pushed+deployed content change' as an 'e.g.' example of the generically-worded 'one product/marketing skill action' -- the actual action type is not fixed by the spec (per FIND-001, it is not even clear who selects it). If the action selected for this pass turns out not to be a deployed-URL content change (e.g. a directory submission, a cold-email send, a config-only change with no public URL), PROP-006 as written supplies no applicable verification method, so the proof obligation is only well-defined for a subset of the action space REQ-006 actually permits.",
+      "location": "specs/verification-architecture.md PROP-006 row (line 27); specs/behavioral-spec.md REQ-006 (lines 50-52)"
+    }
+  ]
+}

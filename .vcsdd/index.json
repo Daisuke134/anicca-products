@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "features": {
+    "portfolio-self-improve-loop": {
+      "status": "active",
+      "createdAt": "2026-07-03T22:44:08.910Z",
+      "mode": "lean",
+      "currentPhase": "1b",
+      "updatedAt": "2026-07-03T22:47:12.777Z"
+    }
+  },
+  "activeFeature": "portfolio-self-improve-loop"
+}
