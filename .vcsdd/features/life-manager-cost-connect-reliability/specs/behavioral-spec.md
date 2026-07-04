@@ -133,3 +133,9 @@ Portfolio self-improve loop (separate spec). Distribution content specifics. sel
 | **Goal 7 KEY-RESTRICT (Gemini key → generativelanguage)** | ✅ **DONE** — dedicated `life-manager-gemini` key API-restricted to generativelanguage (gcloud-verified), rotated on Railway+local, old leaked key deleted+invalidated (400), Gemini Live still works (live_ws_opened=1). IP-restriction n/a (Railway dynamic egress) |
 | C7 Self-improve loop (LM leading indicators) | ⏳ TODO (separate epic) |
 | Pipedream one-consent (Cal+Gmail) | ⏳ deferred epic (unbuilt: client creds only, needs project_id + dashboard setup) |
+
+### 6b. This feature = DONE. Remaining = separate epics (NOT this spec)
+All of `life-manager-cost-connect-reliability` (C1 voice, C2/C3 cost, C4 Composio calendar connect, C5/C6 money-path, Goal7 key-restrict) is shipped + prod-verified 2026-07-04. The following are NEW epics, each needs its own spec:
+- **E1 — Gmail-send** (late-notice mail): add gmail.send to a connected user (Composio or Pipedream). Small.
+- **E2 — Pipedream ONE-consent** (Cal+Gmail in a single OAuth): unbuilt; needs a Pipedream project_id (dashboard, doable autonomously via CloakBrowser with the existing CLIENT_ID/SECRET) + token-mint endpoint + connect-link onboarding + Pipedream-proxy calendar/mail transport. Deferred — Composio calendar works now.
+- **E3 — Self-improve HARNESS** (the big one): a `claude-p` loop (GLVS: goal-setter → /loop|/goal → VCSDD → STATE.md) that reads LM leading indicators (funnel: start→calendar→phone→pay→retain; activation; cost-per-outcome) and iterates the product ITSELF, human out of the loop. Framed as the experiment "give the AI every credential — how much can it earn?" Start with ONE cron→claude-p + one verified real earn/improvement, then widen; do NOT mass-migrate all ~157 OpenClaw crons (Anthropic quota burn + unverifiable). My job = build the LOOP, not write the AI's strategy (memory `feedback_build_the_harness_not_do_their_work`).
