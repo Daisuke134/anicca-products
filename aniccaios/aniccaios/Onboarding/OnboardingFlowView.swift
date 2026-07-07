@@ -36,6 +36,16 @@ struct OnboardingFlowView: View {
 
             step = appState.onboardingStep
 
+            // Guideline 5.6.3: the rating step was removed from the onboarding flow
+            // (must not request App Store review before the user reaches the paywall/app).
+            // The enum case + rawValue are kept for saved-progress / v6-migration
+            // compatibility, so a returning or v6-migrated user can still be restored
+            // onto it — redirect straight past it instead of surfacing the rating screen.
+            if step == .ratingPrompt, let next = Self.nextStep(after: step) {
+                step = next
+                appState.setOnboardingStep(step)
+            }
+
             if step == .welcome {
                 AnalyticsManager.shared.track(.onboardingStarted)
             }
@@ -70,7 +80,11 @@ struct OnboardingFlowView: View {
         case .processing:       ProcessingStepView(next: advance)
         case .planReveal:       PersonalizedInsightStepView(next: advance)
         case .comparison:       ComparisonTableStepView(next: advance)
-        case .ratingPrompt:     RatingPrePromptStepView(next: advance)
+        // Guideline 5.6.3: rating step removed from the flow. This case is unreachable
+        // in normal navigation (advance()/onAppear both skip it) — kept only so the
+        // switch stays exhaustive over OnboardingStep; falls back to the next real step
+        // instead of ever presenting RatingPrePromptStepView (SKStoreReviewController).
+        case .ratingPrompt:     NotificationPermissionStepView(next: advance)
         case .notifications:    NotificationPermissionStepView(next: advance)
         }
     }
@@ -94,10 +108,21 @@ struct OnboardingFlowView: View {
             return
         }
 
-        if let next = OnboardingStep(rawValue: step.rawValue + 1) {
+        if let next = Self.nextStep(after: step) {
             step = next
             appState.setOnboardingStep(step)
         }
+    }
+
+    /// Guideline 5.6.3: `.ratingPrompt` (rawValue 8) is never surfaced — the enum case is
+    /// kept only for saved-progress / v6-migration rawValue compatibility (see
+    /// OnboardingStep.swift). Normal `+1` navigation skips straight over it.
+    private static func nextStep(after current: OnboardingStep) -> OnboardingStep? {
+        guard var candidate = OnboardingStep(rawValue: current.rawValue + 1) else { return nil }
+        if candidate == .ratingPrompt {
+            candidate = OnboardingStep(rawValue: current.rawValue + 2) ?? candidate
+        }
+        return candidate
     }
 
     private func completeOnboardingForExistingPro() {
