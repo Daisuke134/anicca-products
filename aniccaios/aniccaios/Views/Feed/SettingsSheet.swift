@@ -8,11 +8,13 @@ import RevenueCatUI
 struct SettingsSheet: View {
     @EnvironmentObject var themeStore: ThemeStore
     @EnvironmentObject var likedStore: LikedQuotesStore
+    @EnvironmentObject var appState: AppState
     @Environment(\.dismiss) private var dismiss
 
     @State private var showThemePicker = false
     @State private var showSavedQuotes = false
     @State private var showLikedQuotes = false
+    @State private var showSignOutConfirm = false
 
     var body: some View {
         List {
@@ -61,10 +63,11 @@ struct SettingsSheet: View {
 
             Section {
                 Button(role: .destructive) {
-                    // Sign out hook — kept minimal here; app-level wiring stays in AppState.
+                    showSignOutConfirm = true
                 } label: {
                     Label(String(localized: "settings_sign_out"), systemImage: "rectangle.portrait.and.arrow.right")
                 }
+                .accessibilityIdentifier("settings-sign-out")
             }
         }
         .listStyle(.insetGrouped)
@@ -74,6 +77,19 @@ struct SettingsSheet: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button(String(localized: "common_done")) { dismiss() }
             }
+        }
+        // Guideline 2.1(a): Sign Out must actually sign the user out.
+        // confirmationDialog is safe on iPad too (no popover sourceView needed, SwiftUI handles it).
+        .confirmationDialog(
+            String(localized: "settings_sign_out"),
+            isPresented: $showSignOutConfirm,
+            titleVisibility: .visible
+        ) {
+            Button(String(localized: "settings_sign_out"), role: .destructive) {
+                appState.signOutPreservingSensorAccess()
+                dismiss()
+            }
+            Button(String(localized: "common_cancel"), role: .cancel) {}
         }
     }
 }
