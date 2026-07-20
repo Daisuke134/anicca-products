@@ -115,6 +115,32 @@ async function maybeAlertLowBalance(errorMsg, nowMs = Date.now()) {
     .catch((e) => console.error("[scheduler] low-balance alert send failed", e && e.message));
 }
 
+// General dial-failure alert (issue#10 follow-up): maybeAlertLowBalance above covers only ONE class of
+// persistent failure. Any OTHER placeCall failure — a rotated/expired TELNYX_API_KEY, a wrong
+// TELNYX_CONNECTION_ID, a Telnyx outage — currently fails on EVERY tick with only a console.error
+// (Railway logs nobody watches), which is the exact same "pre-event calls silently never fire" bug
+// under a different cause. Separate throttle state from the low-balance alert so the two never
+// suppress each other. Same pure-fn/side-effect split + Best-effort/NEVER-throws contract as above.
+const DIAL_FAILURE_ALERT_COOLDOWN_MS = LOW_BALANCE_ALERT_COOLDOWN_MS;
+let lastDialFailureAlertMs = 0;
+
+function shouldAlertDialFailure(errorMsg, nowMs, lastAlertMs) {
+  return Boolean(errorMsg) && !isLowBalanceError(errorMsg) && nowMs - lastAlertMs >= DIAL_FAILURE_ALERT_COOLDOWN_MS;
+}
+
+async function maybeAlertDialFailure(errorMsg, nowMs = Date.now()) {
+  if (!shouldAlertDialFailure(errorMsg, nowMs, lastDialFailureAlertMs)) return;
+  lastDialFailureAlertMs = nowMs;
+  const token = process.env.LM_TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.LM_ADMIN_TELEGRAM_CHAT_ID;
+  if (!token || !chatId) {
+    console.error(`[scheduler] DIAL FAILURE (no LM_ADMIN_TELEGRAM_CHAT_ID configured): ${errorMsg}`);
+    return;
+  }
+  await sendMessage(token, chatId, `⚠️ Life Manager wake call failed to dial (not a balance issue) — calls may be silently NOT firing.\n${errorMsg}`)
+    .catch((e) => console.error("[scheduler] dial-failure alert send failed", e && e.message));
+}
+
 // Resolve the call language for a user row: their EXPLICIT choice (lm_users.call_language, set via the
 // /lm toggle) wins; otherwise fall back to the phone country. So a US phone can choose Japanese and a
 // Japanese phone can choose English (Dais 2026-06-22).
@@ -223,6 +249,7 @@ async function wakeUserOnce(u, nowMs) {
         // is still in its window (the claim-before-dial order stays intact as the dedup guard).
         await releaseWake(u.uid, eventKey);
         await maybeAlertLowBalance(res.error);
+        await maybeAlertDialFailure(res.error);
       }
     }
   }
@@ -418,4 +445,6 @@ module.exports = {
   claimWake, releaseWake,
   // low-balance admin alert (issue#10): pure decision fns + the side-effecting sender
   isLowBalanceError, shouldAlertLowBalance, maybeAlertLowBalance, LOW_BALANCE_ALERT_COOLDOWN_MS,
+  // general dial-failure admin alert (issue#10 follow-up): same pattern for non-balance dial errors
+  shouldAlertDialFailure, maybeAlertDialFailure, DIAL_FAILURE_ALERT_COOLDOWN_MS,
 };
