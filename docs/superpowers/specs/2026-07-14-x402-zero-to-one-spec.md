@@ -63,15 +63,17 @@ self-pay / colony 内循環は 0→1 ではない（INV-7）。判定は `~/anic
   https://questflow.ai / https://questflow.ai/qdp/
 - 代替の公式提出面 `questflowai/awesome-a2a-hub` は非archiveで、CONTRIBUTINGがA2A-compatible agent/tool/resourceのPRを受付。AniccaをA2A agentと偽らずx402/MCP community resourceとしてPR #11を提出。1 file/1 commit、head `ea40c3f0`、署名Verified、merge state CLEAN、open:
   https://github.com/questflowai/awesome-a2a-hub/pull/11
-- ★2026-07-14 09:05Z 更新: external revenue = $0.004 USDC (外部 buyer 2件、on-chain 検証済)。zero-to-one 達成★
+- x402scan公式登録APIへAgentCashのSIWX署名付きでoriginを提出。31 endpointを発見したが、応答はHTTP 422 `no_valid_resources`、核心は `x402 v1 response detected — migrate to v2 spec`（31/31）。現行DISTの「`serve-v2.mjs`無変更」制約では解消せず、v2移行タスクへ送る:
+  https://www.x402scan.com/resources/register / https://www.x402scan.com/api/x402/registry/register-origin
+- external revenue の現行実測 = **$0.011 USDC / 外部入金9件**（Base公式RPC、240h scan、self-pay 12件/$8.208871を除外）。zero-to-one は達成済みだが、目標$1に対して1.1%。
 
 ## TODO 表（順序の正本）
 
 | 段 | owner | やること | done 判定 | 状態 |
 |---|---|---|---|---|
 | 0 | Fable(今) | ★恒久 disk fix★ — disk-full で session brick を二度と起こさない自動機構（調査→実装→launchd 常駐） | 閾値割れで自動 prune + 通知が実機で動く | ★done 2026-07-14★ (3層: autoprune/janitor/alerter, FORCE 実測 26→34GB, 正本 ~/.openclaw/skills/mac-health/README.md) |
-| 1 | Fable(今) | 経済圏 0→1: 外部 buyer 1件（seller payTo=0x810f 稼働中） | verify-inflow で EXTERNAL≥1 | ★done 2026-07-14★ EXTERNAL=2, $0.004 USDC (tx 0x2e06c55b… from 0x74610bd8…, tx 0xe75baae3… from 0x36a9b00e…, 両方 receipt 0x1) |
-| 1b | Fable(今) | demand 面の追加: x402scan 掲載確認・Agent402 index・directory PR follow | 各面で発見可能を実測 | partial — awesome-x402 PR #838更新(head `9baff113`)。Coinbase PR #190修復(head `9d18c7b6`, Verified, mergeable)。Onchainはcontact-onlyのためintegration問い合わせ済み(id `9ecaaca6…`)。QuestflowはQDP/A2A障害中のため公式resource PR #11提出(head `ea40c3f0`, Verified, CLEAN)。review/merge、Onchain返答、x402scan/Agent402 index待ち |
+| 1 | Fable(今) | 経済圏 0→1: 外部 buyer 1件（seller payTo=0x810f 稼働中） | verify-inflow で EXTERNAL≥1 | ★done★ Base公式RPC 240h実測で EXTERNAL=9 / $0.011 USDC（self-pay 12件/$8.208871を除外）。目標$1は未達（1.1%） |
+| 1b | Fable(今) | demand 面の追加: x402scan 掲載確認・Agent402 index・directory PR follow | 各面で発見可能を実測 | partial — awesome-x402 PR #838更新(head `9baff113`)。Coinbase PR #190修復(head `9d18c7b6`, Verified, mergeable)。Onchainはcontact-onlyのためintegration問い合わせ済み(id `9ecaaca6…`)。QuestflowはQDP/A2A障害中のため公式resource PR #11提出(head `ea40c3f0`, Verified, CLEAN)。x402scanはAgentCash SIWX署名付き登録を実行し、31 endpointの発見までは成功したが `422 no_valid_resources`、31/31が `x402 v1 response detected — migrate to v2 spec` で拒否。`serve-v2.mjs`無変更のDIST範囲では掲載不能。残りはAgent402 index、各PR review/merge、Onchain返答 |
 | 2 | claude-p loop | 実装済 2026-07-14: (a) `ANICCA_SLOT_ALLOWLIST` を loop に実装(commit 092ee1d7, unit 5/5, 回帰ゼロ, 既知baseline=wire-seam 1件は変更前から) (b) ★agent-economy-loop が claude-p 本体だった★(ANICCA_BRAIN=claude-p, home=.anicca-founder) — plist に allowlist=x402_sell + X402_PORT=8412 を注入して再起動、実ログ「slot allowlist active: x402_sell / live skills: report, cook, x402_sell」確認 (c) claude-p seller は sonnet subagent が skill 通りに完遂(:8412/:8443, payTo=0x904B, Bazaar 掲載 7/7 実JSON確認 = ★sonnet 再現性の証明★) (d) inflow watch per-instance 化(5c0cb8b5)。備考: telemetry 署名鍵(資金ゼロ)を露出事故により rotate 済 | claude-p wallet 0x904B に EXTERNAL≥1(watch 常駐中)、loop 無人稼働 | ★infra 完了・child-proof 済★ 11:49Z wake 実測: guard exempt「shop stays open」+ args={} (商品発明消滅、audit fix 4270e059 実証) |
 | 3 | Franklin | ★2026-07-16 是正: 下の「真因」を読め。この行の「seller 起動」前提は崩れている★ 配線済 2026-07-14: ★franklin2 = free/glm-4.7 が実験台★ (a) run.sh x402 strategy が facilitator creds を読む harness 修正(2025396a + OPENCLAW_ENV_FILE override) (b) funnel :10000→8413 (c) franklin2 plist に allowlist=x402_sell + X402_PORT/PUBLIC_URL 注入・再起動、実ログ「slot allowlist active」確認 (d) identity 実測: franklin=0x3EcCAD…8749 / franklin2=0xe7747F…7ce9(per-instance EVM、fail-closed gate 稼働) (e) verify-inflow の colony 集合を6 wallet に完備 (f) franklin2 inflow watch 常駐。残り: loop 自身の初 wake で seller 起動(監視中)→ Bazaar seed settle(親が recipe 手順6として1回)→ 掲載確認 → 外部着弾 | franklin2 wallet 0xe7747F… に EXTERNAL≥1 | ★配線完了・wake 待ち★ |
 | 4 | Fable | one-command 化: ①sub あり → `spin up claude-p loop`(sonnet, 0→1 の後 trade へ) ②sub なし → `spin up franklin loop`(free model)。bootstrap script 2本 | 新規マシンで 1 コマンド → seller 稼働まで自走 | pending |
@@ -164,7 +166,7 @@ TODO の正本 = `docs/STATUS.md` の T1〜T10 表 + TaskList（二重トラッ�
   クラウドサブドメイン 21.2%（Railway, Cloudflare Workers 実例あり）。全員が 1主体 = 1つの独立した URL
 - **★x402 取引の 47% は非オーガニック★**: BlockRun 自身のレポート(Artemis 推計)
   > "Artemis estimates that 47% of x402 transactions to date are non-organic—primarily teams gaming leaderboards"
-  → 我々の $0.011(8個の EOA が $0.001 ずつ単発)も bot の検品の可能性が高い。**これは需要ではない**。
+  → 我々の $0.011（外部入金9件）も bot の検品の可能性が高い。**これは需要ではない**。
   高単価化(段9)が本番という判断を補強する
 - **撤回**: 「BlockRun $173K/30d」は一次ソースを特定できず。実データは x402scan で Volume $5.5K/24h。この数字は使わない
 
@@ -226,7 +228,7 @@ Agora/Anicca はそれを起こす環境。これが我々の能力の証明。
 
 ### 欠けてる部品(実装順)
 1. franklin2 Bazaar 掲載(loop 自身が settle する仕組み) ← 次セッション /goal
-2. #16 全掲載面登録(x402scan/Agent402/MCP registry/BlockRun Add-yours) = distribution レバー(300x の実証済)
+2. #16 全掲載面登録(Agent402/MCP registry/BlockRun Add-yours。x402scanはv2移行後に再提出) = distribution レバー(300x の実証済)
 3. #17 self-improve engine(pwb-alphaevolve+GEPA+evolve.mjs gate) = 3セント→3ドルの変換器
 4. 商品の高単価化(data 仕入れ→再包装: akta/monid/parallel、doc 50 playbook)
 5. #10 Agora 配布 = framework 同梱の network effect(全 install が互いの買い手/売り手)
