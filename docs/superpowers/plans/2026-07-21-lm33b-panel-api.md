@@ -73,6 +73,6 @@
 - Produces: current order-8b status/evidence in the spec and a PR targeting `dev`.
 
 - [x] **Step 1: Update the LM-33b row** with the implemented contract and local verification evidence; do not claim staging evidence.
-- [ ] **Step 2: Run `npm test` and `npm run smoke:panel-api` fresh** and inspect `git diff --check` plus the scoped diff.
-- [ ] **Step 3: Fetch, stage only order-8b paths, commit, push, and open a PR to `dev`.**
+- [x] **Step 2: Run `npm test` and `npm run smoke:panel-api` fresh** and inspect `git diff --check` plus the scoped diff.
+- [x] **Step 3: Fetch, stage only order-8b paths, commit, push, and open a PR to `dev`.**
 - [ ] **Step 4: Send the required agmsg DONE report** with actual test output, five endpoint results, commit, and PR URL.
