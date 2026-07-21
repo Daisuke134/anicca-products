@@ -77,12 +77,15 @@ franklin の4商品(web-search/funding-rates/funding-rate-arb/research)が Fluor
   （https://github.com/microchipgnu/MCPay/blob/main/apps/app/src/app/register/page.tsx）。inspectionは200だが、
   `data.mcpay.tech/index/run`は証明書失効後にVercel `DEPLOYMENT_NOT_FOUND`を返す。既存の掲載依頼issue #48と同じfallbackで
   3店舗のreview requestを提出済み: https://github.com/microchipgnu/MCPay/issues/49
+- 掲載確認は未達。両review requestはopen・comment 0、MCPay `/servers`は`Something went wrong`、Fluora registry APIは
+  DNS解決不能で、検索面そのものが利用不能。3 seller walletを`verify-inflow.mjs 72`で再走査した結果は全て
+  `EXTERNAL=0 / externalUsdc=0`（¥0）。自己購入・自己送金でdoneにしない。
 
 ## 残作業（DIST-1 内、順）
 1. ✅ 3店舗を有効Funnel portのpath mountで公開し、各URLを公式MCP clientのfresh 2 sessionで実測
 2. ✅ mcp-server の launchd 化 + franklin2/claude-p展開（非差別、3/3 running）
 3. ✅ Fluora/MCPay の実 submitフロー調査 → 公式GitHubへreview request提出（issue #3 / #49）
-4. done: marketplace で検索可能 + 外部 buyer 実購入 on-chain（verify-inflow external≥1）
+4. ⏳ marketplace で検索可能 + 外部 buyer 実購入 on-chain（現在は運営API/review待ち、3店とも72h `EXTERNAL=0`）
 
 ## リスク
 - registry運営のAPI復旧・review承認は外部状態。issueを監視し、掲載後にmarketplace検索を実測する。
