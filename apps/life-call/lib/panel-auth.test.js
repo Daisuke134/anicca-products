@@ -115,7 +115,7 @@ test("LM-33a/33c: /panel with a live session renders the authenticated mirror wi
     now: () => new Date("2026-07-21T00:00:00.000Z"),
     fetchImpl: async (url) => {
       lookupUrl = url;
-      return { ok: true, status: 200, json: async () => [{ uid: "lm_u1" }] };
+      return { ok: true, status: 200, json: async () => [{ uid: "lm_u1", chat_id: "123" }] };
     },
   }, async (base) => {
     const response = await fetch(`${base}/panel`, {
@@ -134,7 +134,7 @@ test("LM-33a/33c: /panel with a live session renders the authenticated mirror wi
   assert.equal(lookup.pathname, "/rest/v1/lm_panel_sessions");
   assert.equal(lookup.searchParams.get("session_hash"), `eq.${crypto.createHash("sha256").update(session).digest("hex")}`);
   assert.equal(lookup.searchParams.get("expires_at"), "gt.2026-07-21T00:00:00.000Z");
-  assert.equal(lookup.searchParams.get("select"), "uid");
+  assert.equal(lookup.searchParams.get("select"), "uid,chat_id");
   assert.equal(lookup.searchParams.get("limit"), "1");
 });
 
@@ -210,7 +210,7 @@ test("LM-33a: Telegram recognizes only the /panel command", () => {
   assert.equal(isPanelCommand("show /panel"), false);
 });
 
-test("LM-33a: Telegram /panel sends the generated single-use URL", async () => {
+test("PANEL-0: Telegram /panel sends a clickable inline button without duplicating the opaque URL", async () => {
   const sent = [];
   const token = Buffer.alloc(32, 0x77).toString("base64url");
   const result = await sendPanelLink({ uid: "lm_u1", chatId: "123" }, {
@@ -224,11 +224,33 @@ test("LM-33a: Telegram /panel sends the generated single-use URL", async () => {
   });
   assert.equal(result.url, `https://life.example/panel?t=${token}`);
   assert.equal(sent.length, 1);
-  assert.deepEqual(sent[0], [
-    "telegram-token",
-    "123",
-    `Open your Anicca Life Manager panel (this link expires in 5 minutes and works once):\n${result.url}`,
-  ]);
+  assert.equal(sent[0][0], "telegram-token");
+  assert.equal(sent[0][1], "123");
+  assert.doesNotMatch(sent[0][2], new RegExp(token));
+  assert.equal(sent[0][3].reply_markup.inline_keyboard[0][0].url, result.url);
+});
+
+test("PANEL-0: used/expired/invalid token returns a human 403 with one new-link deep link", async () => {
+  const token = Buffer.alloc(32, 0x79).toString("base64url");
+  await withPanelServer({ botUsername: "LifeManagerBotbot", fetchImpl: async () => ({ ok: true, status: 200, json: async () => [] }) }, async (base) => {
+    const response = await fetch(`${base}/panel?t=${token}`, { redirect: "manual" });
+    assert.equal(response.status, 403);
+    assert.match(response.headers.get("content-type"), /text\/html/);
+    const html = await response.text();
+    assert.match(html, /Get a new dashboard link/);
+    assert.equal([...html.matchAll(/href="https:\/\/t\.me\/LifeManagerBotbot\?start=panel"/g)].length, 1);
+    assert.doesNotMatch(html, new RegExp(token));
+  });
+});
+
+test("PANEL-0: live session resolves immutable uid + telegram chat", async () => {
+  const { sessionScope } = require("./panel-auth.js");
+  const session = Buffer.alloc(32, 0x7a).toString("base64url");
+  const scope = await sessionScope(session, { supaUrl: "https://db.example", supaKey: "key", fetchImpl: async (url) => {
+    assert.equal(new URL(url).searchParams.get("select"), "uid,chat_id");
+    return { ok: true, json: async () => [{ uid: "u-a", chat_id: "101" }] };
+  } });
+  assert.deepEqual(scope, { uid: "u-a", chatId: "101" });
 });
 
 test("LM-33a: additive migration stores token/session hashes and atomically claims once before expiry", () => {
@@ -251,7 +273,7 @@ test("LM-33a: life-call wires GET /panel and Telegram /panel without changing /l
   assert.match(source, /sendPanelLink/);
   assert.match(source, /handlePanelRequest/);
   assert.match(source, /path === "\/panel"/);
-  assert.match(source, /if \(isPanelCommand\(u\.text\)\)/);
+  assert.match(source, /if \(isPanelCommand\(u\.text\) \|\| isPanelDeepLink\(u\.text\)/);
 
   const telegramSource = fs.readFileSync(path.join(__dirname, "telegram.js"), "utf8");
   assert.match(telegramSource, /return `\$\{root\}\/lm\?tg=/, "the /lm?tg onboarding handoff must remain");

@@ -17,7 +17,7 @@ function response(body, status = 200) {
 async function fixtureFetch(input) {
   const url = new URL(input);
   if (url.pathname.endsWith("/lm_panel_sessions")) {
-    return response(url.searchParams.get("session_hash") === `eq.${SESSION_HASH}` ? [{ uid: "fixture-u1" }] : []);
+    return response(url.searchParams.get("session_hash") === `eq.${SESSION_HASH}` ? [{ uid: "fixture-u1", chat_id: "101" }] : []);
   }
   assert.equal(url.searchParams.get("uid"), "eq.fixture-u1", `tenant filter missing: ${url}`);
   if (url.pathname.endsWith("/lm_users")) return response([{

@@ -1,7 +1,8 @@
 // LM-33b: authenticated, read-only JSON model for the Life Manager panel.
 "use strict";
 
-const { cookieValue, sessionUid } = require("./panel-auth.js");
+const { cookieValue, csrfToken, sessionScope, sessionUid } = require("./panel-auth.js");
+const { buildControlCenter, claimCalendarOAuthState, executeUserCommand, validateCommand } = require("./user-command.js");
 const { interpretCalendarEvent } = require("./calendar-interpreter.js");
 const { getCalendar } = require("./transport/index.js");
 const { lockedDiscoveryGates } = require("./feature-discovery.js");
@@ -251,25 +252,153 @@ function sendJson(res, status, body, extraHeaders = {}) {
   res.end(JSON.stringify(body));
 }
 
+async function readJson(req) {
+  return new Promise((resolve, reject) => {
+    let raw = "";
+    req.on("data", (chunk) => {
+      raw += chunk;
+      if (raw.length > 32 * 1024) reject(Object.assign(new Error("body_too_large"), { status: 413 }));
+    });
+    req.on("end", () => { try { resolve(JSON.parse(raw || "{}")); } catch { reject(Object.assign(new Error("invalid_json"), { status: 400 })); } });
+    req.on("error", reject);
+  });
+}
+
+function timingEqual(left, right) {
+  const a = Buffer.from(String(left || "")), b = Buffer.from(String(right || ""));
+  return a.length === b.length && a.length > 0 && require("node:crypto").timingSafeEqual(a, b);
+}
+
+function createSupabaseCommandStore(opts = {}) {
+  const base = String(opts.supaUrl || "").replace(/\/$/, "");
+  const fetchImpl = opts.fetchImpl || fetch;
+  async function rows(table, query) {
+    const response = await fetchImpl(`${base}/rest/v1/${table}?${query}`, { headers: headers(opts.supaKey) });
+    if (!response.ok) throw new Error("panel_store_read_failed");
+    const body = await response.json().catch(() => []); return Array.isArray(body) ? body : [];
+  }
+  async function patch(table, scope, body) {
+    const response = await fetchImpl(`${base}/rest/v1/${table}?uid=eq.${encodeURIComponent(scope.uid)}`, { method: "PATCH", headers: { ...headers(opts.supaKey), "content-type": "application/json", Prefer: "return=representation" }, body: JSON.stringify({ ...body, updated_at: new Date().toISOString() }) });
+    if (!response.ok) throw new Error("panel_store_write_failed");
+    const result = await response.json().catch(() => []); return result[0] || body;
+  }
+  return {
+    async readUser(scope) { return (await rows("lm_users", new URLSearchParams({ uid: `eq.${scope.uid}`, telegram_chat_id: `eq.${scope.chatId}`, select: "uid,name,telegram_chat_id,phone,call_language,wake_policy,calendar_provider,gmail_account_id,payout_destination", limit: "1" })))[0] || null; },
+    async readPreferences(scope) { return (await rows("lm_panel_preferences", new URLSearchParams({ uid: `eq.${scope.uid}`, select: "call_enabled,notifications_enabled,daily_automation_enabled,delegation_enabled,call_time_zone", limit: "1" })))[0] || {}; },
+    async readLocation(scope) { return (await rows("lm_user_locations", new URLSearchParams({ uid: `eq.${scope.uid}`, select: "observed_at,expires_at", limit: "1" })))[0] || null; },
+    async readReceipt(scope, key) { const row = (await rows("lm_panel_command_receipts", new URLSearchParams({ uid: `eq.${scope.uid}`, idempotency_key: `eq.${key}`, select: "request_hash,status,result", limit: "1" })))[0]; return row ? { requestHash: row.request_hash, status: row.status, result: row.result } : null; },
+    async claimReceipt(scope, key, value) { const response = await fetchImpl(`${base}/rest/v1/lm_panel_command_receipts`, { method: "POST", headers: { ...headers(opts.supaKey), "content-type": "application/json", Prefer: "return=minimal" }, body: JSON.stringify({ uid: scope.uid, chat_id: scope.chatId, idempotency_key: key, request_hash: value.requestHash, command_type: value.commandType, status: value.status }) }); if (response.status === 409) return false; if (!response.ok) throw new Error("panel_receipt_failed"); return true; },
+    async finishReceipt(scope, key, value) { const response = await fetchImpl(`${base}/rest/v1/lm_panel_command_receipts?uid=eq.${encodeURIComponent(scope.uid)}&idempotency_key=eq.${encodeURIComponent(key)}`, { method: "PATCH", headers: { ...headers(opts.supaKey), "content-type": "application/json", Prefer: "return=minimal" }, body: JSON.stringify({ status: value.status, result: value.result, updated_at: new Date().toISOString() }) }); if (!response.ok) throw new Error("panel_receipt_failed"); },
+    async patchPreferences(scope, body) { const existing = await this.readPreferences(scope); if (!Object.keys(existing).length) { const response = await fetchImpl(`${base}/rest/v1/lm_panel_preferences`, { method: "POST", headers: { ...headers(opts.supaKey), "content-type": "application/json", Prefer: "resolution=merge-duplicates,return=representation" }, body: JSON.stringify({ uid: scope.uid, ...body }) }); if (!response.ok) throw new Error("panel_store_write_failed"); const result = await response.json().catch(() => []); return result[0] || { ...existing, ...body }; } return patch("lm_panel_preferences", scope, body); },
+    async patchUser(scope, body) { return patch("lm_users", scope, body); },
+    async createOAuthState(scope, state) { const response = await fetchImpl(`${base}/rest/v1/lm_panel_oauth_states`, { method: "POST", headers: { ...headers(opts.supaKey), "content-type": "application/json", Prefer: "return=minimal" }, body: JSON.stringify({ state_hash: state.stateHash, uid: scope.uid, chat_id: scope.chatId, provider: state.provider, expires_at: state.expiresAt }) }); if (!response.ok) throw new Error("oauth_state_failed"); },
+    async claimOAuthState(scope, stateHash) { const response = await fetchImpl(`${base}/rest/v1/rpc/claim_lm_panel_oauth_state`, { method: "POST", headers: { ...headers(opts.supaKey), "content-type": "application/json" }, body: JSON.stringify({ p_state_hash: stateHash, p_uid: scope.uid, p_chat_id: scope.chatId }) }); if (!response.ok) throw new Error("oauth_state_failed"); return response.json().catch(() => false); },
+  };
+}
+
+async function handlePanelOAuthCallback(req, res, opts = {}) {
+  if (req.method !== "GET") { sendJson(res, 405, { error: "method_not_allowed" }, { Allow: "GET" }); return; }
+  const session = cookieValue(req.headers.cookie, "lm_panel_session");
+  const scope = await (opts.sessionScopeImpl || sessionScope)(session, opts);
+  if (!scope) { res.writeHead(401, { "content-type": "text/plain", "cache-control": "no-store" }); res.end("unauthorized"); return; }
+  const state = new URL(req.url || "/", "http://panel.local").searchParams.get("state");
+  const store = opts.commandStore || createSupabaseCommandStore(opts);
+  const claimed = await claimCalendarOAuthState(scope, state, { store });
+  res.writeHead(claimed ? 303 : 403, { ...(claimed ? { Location: "/panel" } : {}), "cache-control": "no-store", "referrer-policy": "no-referrer" });
+  res.end(claimed ? "" : "invalid oauth state");
+}
+
+async function composioCalendarStatus(scope, opts = {}) {
+  if (!opts.composioKey) return "INACTIVE";
+  const response = await (opts.fetchImpl || fetch)(`https://backend.composio.dev/api/v3/connected_accounts?user_ids=${encodeURIComponent(scope.uid)}&toolkit_slugs=googlecalendar`, { headers: { "x-api-key": opts.composioKey } });
+  if (!response.ok) throw new Error("provider_failed");
+  const body = await response.json().catch(() => ({}));
+  return (body.items || []).some((item) => item.status === "ACTIVE") ? "ACTIVE" : "INACTIVE";
+}
+
+async function composioCalendarAccounts(scope, opts = {}) {
+  if (!opts.composioKey) throw new Error("provider_unavailable");
+  const url = `https://backend.composio.dev/api/v3/connected_accounts?user_ids=${encodeURIComponent(scope.uid)}&toolkit_slugs=googlecalendar`;
+  const response = await (opts.fetchImpl || fetch)(url, { headers: { "x-api-key": opts.composioKey } });
+  if (!response.ok) throw new Error("provider_failed");
+  const body = await response.json().catch(() => ({}));
+  return Array.isArray(body.items) ? body.items : [];
+}
+
+async function composioCalendarDisconnect(scope, opts = {}) {
+  const accounts = await composioCalendarAccounts(scope, opts);
+  if (accounts.length === 0) return { provider: "calendar", state: "action_required" };
+  if (accounts.length !== 1 || !accounts[0].id) throw new Error("provider_ambiguous");
+  const account = accounts[0];
+  if (account.status !== "ACTIVE" || account.is_disabled === true || account.enabled === false) return { provider: "calendar", state: "action_required" };
+  const response = await (opts.fetchImpl || fetch)(`https://backend.composio.dev/api/v3/connected_accounts/${encodeURIComponent(account.id)}/status`, {
+    method: "PATCH",
+    headers: { "x-api-key": opts.composioKey, "content-type": "application/json" },
+    body: JSON.stringify({ enabled: false }),
+  });
+  if (!response.ok) throw new Error("provider_failed");
+  const readback = await composioCalendarAccounts(scope, opts);
+  if (readback.length !== 1 || readback[0].status === "ACTIVE" && readback[0].is_disabled !== true && readback[0].enabled !== false) throw new Error("provider_readback_failed");
+  return { provider: "calendar", state: "action_required" };
+}
+
+async function composioCalendarStart(scope, opts = {}) {
+  const accounts = await composioCalendarAccounts(scope, opts);
+  if (accounts.length === 0) return null;
+  if (accounts.length !== 1 || !accounts[0].id) throw new Error("provider_ambiguous");
+  const account = accounts[0];
+  if (account.status === "ACTIVE" && account.is_disabled !== true && account.enabled !== false) return { provider: "calendar", state: "connected" };
+  const response = await (opts.fetchImpl || fetch)(`https://backend.composio.dev/api/v3/connected_accounts/${encodeURIComponent(account.id)}/status`, {
+    method: "PATCH",
+    headers: { "x-api-key": opts.composioKey, "content-type": "application/json" },
+    body: JSON.stringify({ enabled: true }),
+  });
+  if (!response.ok) throw new Error("provider_failed");
+  const readback = await composioCalendarAccounts(scope, opts);
+  if (readback.length !== 1 || readback[0].status !== "ACTIVE" || readback[0].is_disabled === true || readback[0].enabled === false) throw new Error("provider_readback_failed");
+  return { provider: "calendar", state: "connected" };
+}
+
 async function handlePanelApiRequest(req, res, opts = {}) {
   const path = new URL(req.url || "/", "http://panel.local").pathname;
   const endpoint = path.startsWith("/api/panel/") ? path.slice("/api/panel/".length) : "";
-  if (!ENDPOINTS.has(endpoint)) {
+  if (!ENDPOINTS.has(endpoint) && endpoint !== "control-center" && endpoint !== "commands") {
     sendJson(res, 404, { error: "not_found" });
     return;
   }
 
   const session = cookieValue(req.headers.cookie, "lm_panel_session");
   const nowMs = opts.nowMs == null ? Date.now() : opts.nowMs;
-  const resolveSession = opts.sessionUidImpl || sessionUid;
-  const uid = await resolveSession(session, {
+  let scope;
+  if (opts.sessionScopeImpl) scope = await opts.sessionScopeImpl(session, opts);
+  else if (opts.sessionUidImpl) { const uid = await opts.sessionUidImpl(session, opts); scope = uid ? { uid, chatId: String(opts.sessionChatId || "legacy") } : null; }
+  else scope = await sessionScope(session, {
     supaUrl: opts.supaUrl,
     supaKey: opts.supaKey,
     fetchImpl: opts.fetchImpl,
     now: () => new Date(nowMs),
   });
-  if (!uid) {
+  if (!scope) {
     sendJson(res, 401, { error: "unauthorized" });
+    return;
+  }
+  if (endpoint === "commands") {
+    if (req.method !== "POST") { sendJson(res, 405, { error: "method_not_allowed" }, { Allow: "POST" }); return; }
+    if (!/^application\/json(?:;|$)/i.test(String(req.headers["content-type"] || ""))) { sendJson(res, 415, { error: "json_required" }); return; }
+    const expectedOrigin = String(opts.panelOrigin || opts.panelBaseUrl || "").replace(/\/$/, "");
+    if (!expectedOrigin || String(req.headers.origin || "") !== expectedOrigin) { sendJson(res, 403, { error: "origin_rejected" }); return; }
+    const expectedCsrf = scope.csrf || csrfToken(session);
+    if (!timingEqual(req.headers["x-lm-csrf"], expectedCsrf)) { sendJson(res, 403, { error: "csrf_rejected" }); return; }
+    const key = String(req.headers["idempotency-key"] || "");
+    if (!/^[A-Za-z0-9._:-]{8,128}$/.test(key)) { sendJson(res, 400, { error: "idempotency_required" }); return; }
+    try {
+      const command = validateCommand(await readJson(req));
+      const execute = opts.executeCommandImpl || executeUserCommand;
+      const store = opts.commandStore || createSupabaseCommandStore(opts);
+      const providerOpts = { ...opts, composioKey: opts.composioKey || process.env.COMPOSIO_API_KEY };
+      const result = await execute(scope, command, { ...providerOpts, store, idempotencyKey: key, composioAuthConfig: opts.composioAuthConfig || process.env.COMPOSIO_GCAL_AUTH_CONFIG, startCalendarConnection: opts.startCalendarConnection || ((value) => composioCalendarStart(value, providerOpts)), disconnectCalendar: opts.disconnectCalendar || ((value) => composioCalendarDisconnect(value, providerOpts)) });
+      sendJson(res, 200, result);
+    } catch (error) { sendJson(res, error.status || 502, { error: error.message === "invalid_action" ? "invalid_action" : "command_failed" }); }
     return;
   }
   if (req.method !== "GET") {
@@ -277,13 +406,23 @@ async function handlePanelApiRequest(req, res, opts = {}) {
     return;
   }
 
+  if (endpoint === "control-center") {
+    const store = opts.commandStore || createSupabaseCommandStore(opts);
+    const model = await (opts.buildControlCenterImpl || buildControlCenter)(scope, { ...opts, store, nowMs, calendarStatus: opts.calendarStatus || ((value) => composioCalendarStatus(value, { ...opts, composioKey: opts.composioKey || process.env.COMPOSIO_API_KEY })) });
+    sendJson(res, 200, { ...model, csrf: scope.csrf || csrfToken(session) }); return;
+  }
   const readers = { timeline, scores, ledger, gates, settings };
-  sendJson(res, 200, await readers[endpoint](uid, { ...opts, nowMs }));
+  sendJson(res, 200, await readers[endpoint](scope.uid, { ...opts, nowMs }));
 }
 
 module.exports = {
   CALL_MINUTES_BEFORE,
   todayBounds,
   aggregateCosts,
+  createSupabaseCommandStore,
+  composioCalendarStatus,
+  composioCalendarDisconnect,
+  composioCalendarStart,
+  handlePanelOAuthCallback,
   handlePanelApiRequest,
 };

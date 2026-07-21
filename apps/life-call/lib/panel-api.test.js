@@ -58,7 +58,7 @@ function makeFixture() {
     const url = new URL(input);
     calls.push({ url, init });
     if (url.pathname.endsWith("/lm_panel_sessions")) {
-      return jsonResponse(url.searchParams.get("session_hash") === `eq.${SESSION_HASH}` ? [{ uid: "u1" }] : []);
+      return jsonResponse(url.searchParams.get("session_hash") === `eq.${SESSION_HASH}` ? [{ uid: "u1", chat_id: "101" }] : []);
     }
     const uid = String(url.searchParams.get("uid") || "").replace(/^eq\./, "");
     const fixture = byUid[uid];
