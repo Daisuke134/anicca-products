@@ -57,6 +57,9 @@ franklin の4商品(web-search/funding-rates/funding-rate-arb/research)が Fluor
   false hypothesis=`tailscale funnel statusに:10001が表示されればpublic到達可能`。既存mountは削除せず、franklin1は既存
   tsbridgeへ独立node `franklin1-mcp`（backend `localhost:8090`）をadditiveに追加し、public URLを
   `https://franklin1-mcp.tail7a0ba4.ts.net/mcp`へ修正する。franklin2/claude-pは有効な:10000/:8443の`/mcp` mountを使う。
+  Funnel `--set-path=/mcp`はmount prefixをbackendへ保持しないため、targetが`http://127.0.0.1:8091`ではpublic
+  `/mcp`がbackend `/`へ届き404になる。targetを`http://127.0.0.1:8091/mcp`のように明示する。複数のFunnel config
+  更新を同時実行すると片方のmountが失われたため、franklin2とclaude-pは順次kickstartして各status/curlを直後に検証する。
 - 提出フロー調査（Fluora/MCPay の実 submit 手段）は中断（subagent kill）。未調査のまま。
 
 ## 残作業（DIST-1 内、順）
