@@ -50,10 +50,10 @@ franklin の4商品(web-search/funding-rates/funding-rate-arb/research)が Fluor
 ## 実装状況（2026-07-20 更新、実測）
 - adapter = `skills/earn/x402-sell/mcp-server.mjs`。設計 v2 採用（forward X-PAYMENT、serve-v2 無変更、二重払い構造的に不可能）。
 - E2E = `skills/earn/x402-sell/probe-dist1.mjs`、本番 CDP creds で **8/8 PASS**（commit 済み）。
-- live 配置（途中）: funnel 4ポートは serve-v2 4店で満杯 → 解 = **path 分岐**。franklin1 の :10001 に
-  `tailscale funnel --https=10001 --set-path=/mcp http://127.0.0.1:8090` を実行済み（config には `/`→8414 と
-  `/mcp`→8090 が共存反映）。mcp-server は手動起動（:8090、nohup、launchd 未化）。
-  **未検証**: public https://aniccanomac-mini-1.tail7a0ba4.ts.net:10001/mcp の疎通（初回 curl 000、直後で再試行前に中断）。
+- live 配置（現在の実測）: franklin1 の funnel config は :10001 で `/`→8414 と `/mcp`→8090 を保持する。
+  しかし8090 listenerと`mcp-server.mjs` processは存在せず、local `/mcp`は接続拒否で000、public `/mcp`は15秒timeoutで000。
+  `launchctl print gui/501/ai.anicca.mcp-franklin1`もservice未登録を返す。public 000の直接原因はpath routing以前に
+  MCP runtime不在であり、boot script + KeepAlive plistの導入が次の作業。
 - 提出フロー調査（Fluora/MCPay の実 submit 手段）は中断（subagent kill）。未調査のまま。
 
 ## 残作業（DIST-1 内、順）
