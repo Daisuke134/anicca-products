@@ -5,10 +5,12 @@ franklin の4商品(web-search/funding-rates/funding-rate-arb/research)が Fluor
 検索・購入可能になり、外部 buyer agent が MonetizedMCP 経由で1件購入するのを on-chain 確認。
 
 ## なぜ（実測根拠）
-- external $0 の真因は掲載でも商品でもなく「買い手が実際に browse する場に不在」(検索確定 2026-07-19)。
+- x402 の live 収益額と X4 状態 → `docs/STATUS.md`。本specが解くボトルネックは、買い手が実際に browse・購入する
+  発見面への到達と、そこから外部着金までを通すこと。
 - 買い手 agent は CDP Bazaar だけでなく MCP マーケットで探して買う。Fluora=「no sign-ups/no API keys/
   no humans in the loop」P2P マーケット、MonetizedMCP(monetizedmcp.org)+x402 ベース、fluora.ai/submit で登録。
-- 我々は HTTP x402 のみ=MonetizedMCP 層に未対応=Fluora に出せない。
+- HTTP x402 storefront と MonetizedMCP のprotocol gapはforward adapterで解消済み。残るのはlive配置、registry提出、
+  marketplace検索可能性、colony外buyerの実購入である。
 
 ## 不変条件（MUST）
 1. 既存 serve-v2 の x402 決済/payTo/検査器を壊さない（追加は additive のみ、外部 x402 挙動不変）。
