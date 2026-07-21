@@ -1462,12 +1462,9 @@ X402_PAYTO=<wallet> node verify-inflow.mjs 48
 harness を作り watch するだけ。seller を代打しない(run.sh を手で叩かない)。
 loop が自力で稼ぐのを見る。詰まったら harness を直す。**tool 出力を捏造しない(観測は実 result のみ)**。
 
-## ★★2026-07-19 検索で訂正: X4 は「待ち」でなく「build」できる（発見面は Bazaar だけでない）★★
-前「external $0 は需要待ち・強制不可」は検索不足の誤り(Stop hook 指摘)。実測(x402.org ecosystem):
-買い手 agent は CDP Bazaar 以外に MCP マーケット(Fluora=MonetizedMCP「agent が自律で探し購入」/ MCPay)や
-集約層(Onchain.fi/Questflow)で探して買う。我々は HTTP x402 のみ=agent が実購入する MCP 面に不在。
-→ buildable な道: DIST-1(4商品を MonetizedMCP wrap→Fluora/MCPay 掲載、coinbase/x402 の mcp example 参照) +
-DIST-2(awesome-x402/coinbase ecosystem/Onchain.fi/Questflow 登録)。self-pay 水増し=wash-trade=やらない。
+## DIST: X4 は「待ち」でなく発見面をbuildする
+DIST-1（MCP adapter・Fluora/MCPay）の正本 → `docs/superpowers/specs/2026-07-19-dist-1-monetizedmcp-fluora.md`
+DIST-2（x402 directory・Onchain.fi/Questflowの実在性訂正）の正本 → `docs/superpowers/specs/2026-07-14-x402-zero-to-one-spec.md`
 
 ## ★★AUTO mode 判断（Dais 提案 2026-07-19、実測証拠付き）★★
 Dais 提案: 両 franklin を free でなく auto(paid brain)で走らせる。論拠=free は self-orchestrate 不能(improve/update 0回実測)、賢い brain なら DIST(マーケット掲載/需要獲得)をやれる。
