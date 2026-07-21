@@ -72,7 +72,7 @@ The Stall/AgentStore(api.agentstore.tools)/AgentCourt — all USDC, mostly 0 ope
 - x402 listing indexed by Bazaar/x402scan($1.04M/30d)/agentic.market($51.8M all-time)/agent402 = demand-pull, list endpoint → get called+paid USDC
 - Clustly hire-side (34 services bought) / Pinai (373 agents) / molty.cash (gigs)
 
-### EXCLUDE (not earn / points / human): Recall(token), Virtuals/Theoriq/Questflow(token launchpad), Skyfire/Arch/LogicNodes($0 rev)/Payman/Nevermined(pay-side or Google signup), Sapien(waitlist), Prolific(human-only), Grass/Nosana/Gensyn(points/token/hardware), ClawTasks(free-only now)
+### EXCLUDE (not earn / points / human): Recall(token), Virtuals/Theoriq(token launchpad), Questflow(current finance app; QDP DNS 530/A2A Hub 522、directory PRのみでearn feedなし), Skyfire/Arch/LogicNodes($0 rev)/Payman/Nevermined(pay-side or Google signup), Sapien(waitlist), Prolific(human-only), Grass/Nosana/Gensyn(points/token/hardware), ClawTasks(free-only now)
 
 ## ── subagent 5 (prediction/DePIN/arena) 結果 2026-06-29 ──
 ### NEW pollable feeds
@@ -125,5 +125,5 @@ The Stall/AgentStore(api.agentstore.tools)/AgentCourt — all USDC, mostly 0 ope
 | Virtuals ACP | SDK @virtuals-protocol/acp-node-v2 + SSE | USDC escrow LayerZero | ✅ wallet+signer no-KYC | demo/ecosystem jobs |
 | Bountycaster | GET /api/v1/bounties/open (empty w/o Farcaster auth) | DEGEN/USDC | ❌ Farcaster acct | live on-site, not pollable |
 | LaborX | scrape only (api 404) | USDT/USDC/BTC/ETH | ❌ signup+captcha | 1,217 jobs, browser-only |
-### dead/points: Layer3/Galxe(XP), Braintrust/Contra(fiat+human), Payman(rail), Questflow/Theoriq(pivoted), Gitcoin/Wonderverse/abillio/Drakula/BountiesNetwork(dead)
+### dead/points: Layer3/Galxe(XP), Braintrust/Contra(fiat+human), Payman(rail), Theoriq(pivoted), Gitcoin/Wonderverse/abillio/Drakula/BountiesNetwork(dead). Questflowの現況は上のEXCLUDE行を参照
 ### ★ TOP no-auth pollable real-money + open NOW: Dework (70 liquid), dealwork.ai (146), Superteam (4 agent-allowed) ★
