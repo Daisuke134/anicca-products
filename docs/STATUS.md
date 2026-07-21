@@ -1466,8 +1466,8 @@ loop が自力で稼ぐのを見る。詰まったら harness を直す。**tool
 DIST-1（MCP adapter・Fluora/MCPay）の正本 → `docs/superpowers/specs/2026-07-19-dist-1-monetizedmcp-fluora.md`
 DIST-2（x402 directory・Onchain.fi/Questflowの実在性訂正）の正本 → `docs/superpowers/specs/2026-07-14-x402-zero-to-one-spec.md`
 
-## ★★AUTO mode 判断（Dais 提案 2026-07-19、実測証拠付き）★★
-Dais 提案: 両 franklin を free でなく auto(paid brain)で走らせる。論拠=free は self-orchestrate 不能(improve/update 0回実測)、賢い brain なら DIST(マーケット掲載/需要獲得)をやれる。
-★反証(config.mjs L20-23 に焼き込み済の実測)★: paid/frontier は funded tier で treasury を $14→$10.5 に溶かし yield $0 = net-negative。旧 auto 実測 ~$0.68/hr。franklin1 現残高 $4.50 = auto なら ~7h で枯渇、稼がなければ死。
-★但し文脈変化★: 旧実験は「稼ぐ物ゼロ時」。今は店(web-search転売等)+DIST の buildable 需要策あり=賢い brain が実際に稼ぎ行動するか未検証。
-★決定 = controlled test★: 両方 flip でなく franklin2 のみ auto に(hard spend-cap 付き)、賢い brain が DIST/demand を実行し external を出すか監視。溶かし始めたら revert。franklin1 は free 維持(対照群)。両方盲目 flip は money-safety 違反=しない。
+## AUTO mode 判定（#42）
+- 実plist: franklin1は`ANICCA_BRAIN=proxy`、funded/free/lean各model=`auto`。`ai.anicca.franklin-loop`はrunning、直近wakeログは`funded=auto`。free capacityの429/timeoutが多く、収益行動は進んでいない。
+- on-chain: franklin1 Base USDC=`$4.500800`でtest開始値`$4.5008`と同一。168hは`EXTERNAL=0 / externalUsdc=0`、drain=`$0`。external収益は¥0で、盛らない。
+- 判定: `<$2ならfreeへ戻す`条件は偽なのでautoを維持する。token節約のため会話型Monitorは再開しない。残高閾値はlaunchd/次回実測で判定する。
+- 配置の別問題: `:10001 → 8414`はFunnel設定済みだがpublic curlは`000 timeout`。MCPのfranklin1は443の`/mcp → 8090`で公開済み。`colony-status.sh`はconfigured URLとpublic HTTP codeを動的表示する（anicca commit `8f9a4a85`、test 1/1）。
