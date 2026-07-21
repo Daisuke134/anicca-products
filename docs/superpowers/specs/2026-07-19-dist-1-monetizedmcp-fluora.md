@@ -23,6 +23,10 @@ franklin の4商品(web-search/funding-rates/funding-rate-arb/research)が Fluor
 - API: `class MonetizedMCPServer` を継承し3 method 実装 = `priceListing({searchQuery})` / `paymentMethods()` / `makePurchase(req)`。
 - SDK は `PaymentsTools.verifyAndSettlePayment(...)` を持つが、本adapterは呼ばない。settleの正本を`serve-v2`だけに保つ。
 - `PaymentMethods.USDC_BASE_MAINNET`。CDP_API_KEY_ID/SECRET があれば CDP facilitator、無ければ x402.org。
+- SDK `0.1.23`付属HTTP runnerは1個の`McpServer`を全sessionで再利用し、2回目のinitializeで
+  `Already connected to a transport`を投げる。公式TypeScript SDK例はinitializeごとに`getServer()`で新しいserverを作る
+  （https://github.com/modelcontextprotocol/typescript-sdk/blob/1e1392e3f91583884fe82a0b4b91335875c3fba6/examples/guides/serving/sessions-state-scaling.examples.ts
+  — `await buildServer().connect(transport)`）。adapterのHTTP runnerもこの形にする。
 
 ## 確定設計（二重払いゼロ・handler 重複ゼロ）
 1. `serve-v2.mjs`は**完全無変更**。既存`paymentMiddleware`が唯一のverify+settle実行点であり、HTTP x402 buyerと
@@ -40,40 +44,47 @@ franklin の4商品(web-search/funding-rates/funding-rate-arb/research)が Fluor
 
 ## 実装手順（Fable 計画→build→検証）
 1. ✅ mcp-server.mjs作成（3 method、buyerのX-PAYMENTをserve-v2へforward、serve-v2変更なし）。
-2. ✅ E2E probe（probe-dist1.mjs）: serve-v2+mcp-server を子起動→MCP client で 8/8 PASS
+2. ✅ E2E probe（probe-dist1.mjs）: serve-v2+mcp-server を子起動→MCP client で 9/9 PASS
    （tools=3、price-listing 4件、payment-methods=payTo、make-purchase 無決済→402 forward、unknown-id graceful、
-   serve-v2 unpaid=402 で外部経路不変）。commit 済み。
+   serve-v2 unpaid=402 で外部経路不変、fresh 2 session連続initialize）。commit 済み。
 3. ✅ mcp-server を3店舗でKeepAlive live起動（public https `/mcp`まで到達）。
-4. ⏳ Fluora(fluora.ai/submit)+MCPay 登録（実 submit フロー調査中→human gate なら API/PR/tier-a-bypass）。
+4. ✅ Fluora + MCPayへ3店舗のregistry review requestを提出（公式form障害のため公式GitHub issue fallback）。
 5. done 検証: Fluora/MCPay で franklin 商品検索可能 + 外部 buyer 実購入 on-chain（verify-inflow external≥1）。
 
-## 実装状況（2026-07-20 更新、実測）
+## 実装状況（現在の実測）
 - adapter = `skills/earn/x402-sell/mcp-server.mjs`。設計 v2 採用（forward X-PAYMENT、serve-v2 無変更、二重払い構造的に不可能）。
-- E2E = `skills/earn/x402-sell/probe-dist1.mjs`、本番 CDP creds で **8/8 PASS**（commit 済み）。
-- live 配置（現在の実測）: franklin1 MCPはKeepAlive launchdでrunning、local `:8090/mcp`は400まで回復する。
-  ただし :10001 のpublic `/mcp`は20秒timeoutで000のまま。443/8443/10000は同じ端末・同じDNSで200を返す。
-  Tailscale公式仕様はFunnelのlisten portを`443`/`8443`/`10000`だけに限定する
+- E2E = `skills/earn/x402-sell/probe-dist1.mjs`、本番 CDP creds で **9/9 PASS**。2回目のfresh MCP sessionも同じ
+  `price-listing/payment-methods/make-purchase`を返し、SDK runnerの単一session crashを回帰検査する。
+- live 配置: launchd 3/3 `state = running`、local `8090/8091/8092` `/mcp`=400。公開URLは次の3本で、各URLを
+  公式MCP clientからfresh session 2回連続initializeし、毎回3 toolsを取得する。既存rootは3本とも200のまま。
+  - franklin1: `https://aniccanomac-mini-1.tail7a0ba4.ts.net/mcp`（443 `/mcp` mount）
+  - franklin2: `https://aniccanomac-mini-1.tail7a0ba4.ts.net:10000/mcp`
+  - claude-p: `https://aniccanomac-mini-1.tail7a0ba4.ts.net:8443/mcp`
+- `:10001`はFunnel statusに残るが公開endpointとして使わない。Tailscale公式仕様はFunnelのlisten portを
+  `443`/`8443`/`10000`だけに限定する
   （https://tailscale.com/docs/features/tailscale-funnel — “Funnel can only listen on ports 443, 8443, and 10000.”）。
-  false hypothesis=`tailscale funnel statusに:10001が表示されればpublic到達可能`。既存mountは削除せず、franklin1は既存
-  tsbridgeへ独立node `franklin1-mcp`（backend `localhost:8090`）をadditiveに追加し、public URLを
-  `https://franklin1-mcp.tail7a0ba4.ts.net/mcp`へ修正する。franklin2/claude-pは有効な:10000/:8443の`/mcp` mountを使う。
-  Funnel `--set-path=/mcp`はmount prefixをbackendへ保持しないため、targetが`http://127.0.0.1:8091`ではpublic
+  false hypothesis=`tailscale funnel statusに:10001が表示されればpublic到達可能`。既存mountと試験用tsbridge nodeは削除せず、
+  franklin1の正本URLを安定した443 `/mcp` mountへ切り替える。
+- Funnel `--set-path=/mcp`はmount prefixをbackendへ保持しないため、targetが`http://127.0.0.1:8091`ではpublic
   `/mcp`がbackend `/`へ届き404になる。targetを`http://127.0.0.1:8091/mcp`のように明示する。複数のFunnel config
-  更新を同時実行すると片方のmountが失われたため、franklin2とclaude-pは順次kickstartして各status/curlを直後に検証する。
-  最終実測はlaunchd 3/3 `state = running`、local `8090/8091/8092` `/mcp`=400、franklin2 public
-  `:10000/mcp`=400、claude-p public `:8443/mcp`=400、両既存root=200。franklin1-mcpはpublic DNSがA 2件/AAAA 2件を返し、
-  両public relay IPv4へTLS SNI付きcurlで400。作業端末のmacOS split-DNS resolverだけは新node名をまだNXDOMAIN cacheとして
-  扱うが、public DNSと両relayからendpoint公開を独立確認済み。adapter E2EもCDP creds込みでfresh 8/8 PASS。
-  boot/plist/TDDは`Daisuke134/anicca` branch `feature/dist1-mcp-launchd`へpush済み。
-- 提出フロー調査（Fluora/MCPay の実 submit 手段）は中断（subagent kill）。未調査のまま。
+  更新を同時実行すると片方のmountが失われるため、各instanceは順次kickstartしてstatus/MCP clientを直後に検証する。
+  boot/plist/TDD/複数session修正は`Daisuke134/anicca` branch `feature/dist1-mcp-launchd`へpush済み。
+- Fluora公式submitは「registryへsubmitし、approved後にhuman/agentからdiscoverable」と明記する
+  （https://www.fluora.ai/submit）。GitHub OAuth認可までは成功するが、frontendがPOSTするApp Runner API hostnameは
+  A/AAAAを返さずcallbackが失敗する。公式repoへ3店舗をまとめたreview requestを提出済み:
+  https://github.com/fluora-ai/fluora-mcp/issues/3
+- MCPayの現行UIは`https://mcpay.fun/register`。公式sourceのINDEX actionは`runIndex(url)`を呼ぶ
+  （https://github.com/microchipgnu/MCPay/blob/main/apps/app/src/app/register/page.tsx）。inspectionは200だが、
+  `data.mcpay.tech/index/run`は証明書失効後にVercel `DEPLOYMENT_NOT_FOUND`を返す。既存の掲載依頼issue #48と同じfallbackで
+  3店舗のreview requestを提出済み: https://github.com/microchipgnu/MCPay/issues/49
 
 ## 残作業（DIST-1 内、順）
-1. ✅ franklin1はtsbridge独立node、franklin2/claude-pは有効Funnel portのpath mountでpublic `/mcp`=400を実測
+1. ✅ 3店舗を有効Funnel portのpath mountで公開し、各URLを公式MCP clientのfresh 2 sessionで実測
 2. ✅ mcp-server の launchd 化 + franklin2/claude-p展開（非差別、3/3 running）
-3. Fluora(fluora.ai/submit)/MCPay の実 submit フロー確定 → 提出
+3. ✅ Fluora/MCPay の実 submitフロー調査 → 公式GitHubへreview request提出（issue #3 / #49）
 4. done: marketplace で検索可能 + 外部 buyer 実購入 on-chain（verify-inflow external≥1）
 
 ## リスク
-- Fluora submit が human gate を持つ可能性→API/PR/別マーケットにフォールバック(tier-a-bypass)。
-- tsbridge追加nodeまたはFunnel path routingがpublic `/mcp`を正しくforwardしない可能性→local GET 400とpublic GET 400を分けて実測する。
+- registry運営のAPI復旧・review承認は外部状態。issueを監視し、掲載後にmarketplace検索を実測する。
+- Funnel path routingの回帰はGET 400だけでは捕捉できないため、公式MCP clientでinitialize→tools/listを2 session連続実測する。
 - 4商品のmetadataがserve-v2とdriftする可能性→live配置前のprobeでid/price/required paramsを照合する。
