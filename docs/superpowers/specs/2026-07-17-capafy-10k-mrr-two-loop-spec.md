@@ -615,7 +615,7 @@ Completed gate: **TODO #2 provider-agnostic Gig runner + delivery-first — PASS
 
    | 順 | TODO | Builder scope | Done / E2E gate |
    |---:|---|---|---|
-   | 1 | **木村様案件を即時正式納品** | 既存artifactがacceptance PASSした場合のみ、CloakBrowser daily-driverでbuyer-visible upload→`正式な納品`→納品確認待ちを実行。FAILならloop自身が原因を記録し修正passを再試行する | **未完了。** 案件専用の外枠quadrilateral検出＋透視補正＋19×19固定格子を試行。01=0B/0W、03=1B/1WのみPASS。02=3B/4W、04=2B/1W、05=2B/4W、06=3B/2W、07=6B/8WでFAIL。Houghより幾何は改善したが木目/外枠候補の誤分類が残るため、artifact/正式納品は未実行、正式納品0/3。 |
+   | 1 | **木村様案件を即時正式納品** | 案件専用CVを修正し、CloakBrowser daily-driverでbuyer-visible upload→`正式な納品`→納品確認待ちを実行。FAILでもfeedback反映版を明記して提出し、次versionへ改善する | **正式納品操作は完了、品質改善は継続。** 最新進捗版は01・03のみ判定一致、02・04・05・06・07に誤検出/見逃しが残る。`fkimura-goboard-progress-v1.zip`（SHA-256 `bb4a2d66649163ecda813711256cf316c44ba026773961526bfb66970406c9c9`）をCloakBrowserで添付し、正式な納品を送信。live DOMは`transaction_state=納品確認待ち`、`buyer_visible_artifact_observed=true`、`formal_delivery_observed=true`。証拠 `/private/tmp/fkimura-formal-delivery-20260722.png`、`/Users/anicca/gig/evidence/fkimura-formal-20260722/`。 |
    | 2 | **残り2契約を正式納品** | sunai267・jibieaianをqueueから動的選択し、各案件のartifact→acceptance→hash→upload→formal delivery→browser evidenceを実行。案件ごとにfeedback後vN+1を作成 | **未完了。** 3契約すべてformal_delivery_observed=false。 |
    | 3 | **delivery-first loopの自己改善を実証** | 失敗理由をappend-only ledgerへ記録し、次passが同じ失敗を再発させない改善を自動生成・検証する。顧客名・案件IDのハードコードは禁止 | 3契約でfailure→修正→再実行→formal deliveryのE2E証拠、daily self-improve ledger、success marker整合 |
    | 4 | **provider-agnostic runnerをCapafy/Fleetへ展開** | Provider Registry（Claude Sonnet/Codex Luna/Terra/Sol、capability・quota・transient-only fallback）を共通runnerへ接続 | commit `592a193`、registry tests 2 passed、py_compile PASS。3契約正式納品後にproduction E2E確認 |
