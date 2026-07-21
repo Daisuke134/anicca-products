@@ -4,7 +4,7 @@ Fresh `gpt-5.6-sol` process-repair builder. Work only in `/Users/anicca/anicca-p
 
 Scope is VCSDD process artifacts only. Do not edit product source/tests, SQL, panel UI/API, contract/spec criteria, or canonical product spec. Do not start product blocker tests. No provider/network/OAuth/TG/email/call/deploy/merge/L3 side effect.
 
-Use TDD to build one narrow atomic migration tool under this feature's `scripts/` and fixture tests under its `tests/`. It must fail closed unless the input matches the exact observed invalid topology, support `--check` and atomic `--write` with same-directory temp+fsync+rename, be idempotent after a successful migration, and prove all non-authorized JSON fields are deep-equal.
+Do not build a migration framework or add migration source/tests. This metadata repair is not product behavior. Use guarded read-only assertions first, then `apply_patch` for the exact authorized JSON fields, then deep-equality/schema assertions. Abort before official API calls if the observed topology differs.
 
 Authorized transformations only:
 
@@ -17,8 +17,8 @@ Authorized transformations only:
    - FIND-010 `test_coverage → proof_gap`
    - FIND-002 and FIND-009 remain `test_coverage`.
 
-RED evidence must prove current state fails installed schema and exactly 8 findings fail semantic validation. GREEN fixtures must cover valid repair, idempotency, unknown shape/count, category/dimension mismatch, and value preservation. Before real write record hashes and structural counts; after write prove semantic diff is exactly 3 state key renames + 8 category replacements. Validate state, verdict, and all 10 findings with the installed schema.
+Before editing, prove current state fails installed schema and exactly 8 findings fail semantic validation; record hashes and structural counts. After editing, prove the semantic diff is exactly 3 state key renames + 8 category replacements and all other JSON values are deep-equal. Validate state, verdict, and all 10 findings with the installed schema.
 
-Only after all validation is GREEN, use installed official APIs to record Phase 3 adversary FAIL with root log SHA `a0fc7e4f01e50c0019866ca09e9cfae4c46e91264a443d4db12e0c08c3d8920a`, create exactly ten open adversary-finding beads if absent, and call official `routeFeedback(feature, "2a", ...)`. Require explicit history ending `4→2a`, truthful sprintCount=1, gate3 FAIL, 10 open beads, amended contract still unapproved, and no PASS artifact.
+Only after all validation is GREEN, use installed official APIs to record Phase 3 adversary FAIL with root log SHA `a0fc7e4f01e50c0019866ca09e9cfae4c46e91264a443d4db12e0c08c3d8920a`, create exactly ten open adversary-finding beads if absent, and call official `routeFeedback(feature, "2a", ...)`. Require explicit history ending `4→2a`, truthful feedback-loop `sprintCount=2`, gate3 FAIL, 10 open beads, amended contract still unapproved, and no PASS artifact.
 
-Run migration tests, installed state/runtime validators, installed schema validation for state/verdict/FIND-001..010, routing/trace count assertions, `git diff --check`, and exact path-scope check. Allowed changed/tracked paths: feature state, global `.vcsdd/history.jsonl`, exact sprint-1 review artifacts, and the new repair script/tests only. Commit, fetch/rebase safely, push, and prove clean `HEAD==upstream`. End `RESULT=STATE-REPAIRED` with full SHA/counts or `RESULT=BLOCKED` with no workaround.
+Run installed state/runtime validators, installed schema validation for state/verdict/FIND-001..010, routing/trace count assertions, `git diff --check`, and exact path-scope check. Allowed changed/tracked paths: feature state, global `.vcsdd/history.jsonl`, exact sprint-1 review artifacts, and one compact evidence summary only. Commit, fetch/rebase safely, push, and prove clean `HEAD==upstream`. End `RESULT=STATE-REPAIRED` with full SHA/counts or `RESULT=BLOCKED` with no workaround.
