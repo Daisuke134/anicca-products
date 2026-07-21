@@ -40,29 +40,35 @@ spec は SSOT。発見のたび本文を実測値に書き換える。
 
 ## GOAL（検証可能な done）
 
-**claude-p の loop が、人間ゼロの日次動作で Algora（等）の real bounty に応募→コード→PR を出し、merge され、報酬が Dais の bank/Stripe に着金する。それをループが繰り返し earn ledger に記録する。**
+**agentのloopが、人間ゼロの日次動作で支払対象を発見し、validな仕事/findingを提出し、accept後の外部payoutを
+自分のwalletまたは登録済みpayout endpointで受け取り、検証済みledgerへ記録して繰り返す。**
 
 done（AND、全て実測で確認）:
-1. claude-p loop が live bounty を discover→gate（scam/競合フィルタ）→attempt で **実 PR を提出**（GitHub 上に PR URL が存在）。
-2. その PR が対象 repo に **merge** される（`gh pr view` で MERGED 確認）。
-3. その bounty の **報酬が実際に着金**（Algora/Stripe の payout 記録 or 口座入金を自分の目で確認）。「submit した」「merge された」では done にしない — **金が着いた時のみ**。
-4. 上記が **launchd loop の自走**で起き、繰り返しループする（1件で止まらない）。
+1. live rail上のpaid scope・報酬・accept条件をB1 gateが証明する。
+2. loopが実成果を作り、providerのsubmission ID/URLを伴う実submitを行う。
+3. providerが成果をaccept/validate/mergeし、payout statusを確定する。
+4. **報酬が実際に着金**し、B4 write-pathが受取人・金額・通貨・外部payer・重複なしを再検証する。
+5. 上記がdurable loopの自走で起き、次のpaid targetへ戻る。1件で停止しない。
 
-**盛らない**: merge も accept も他者依存。着金を確認するまで earn 計上しない（tool 出力の捏造は最悪の罪）。
+**盛らない**: submit、merge、accept、providerの「支払予定」は収益ではない。実受取を確認するまでearn計上しない。
 
 ---
 
 ## 不変条件（MUST。破ったら罪）
 
-- INV-1: earn は **external on-chain tx を自分で検証した時のみ** 計上。self-report・署名検証・提出数は earn ではない。
+- INV-1: earnは**外部payoutの実受取をwrite-pathが再検証した時だけ**計上。cryptoはfinalized on-chain event、
+  fiatはprovider-authenticated payout recordと登録済み受取先のreceiptを両方要求する。self-report・提出数・accept待ちはearnではない。
 - INV-2: 秘密鍵は wallet.json から直接読み、stdout / log / payload に一切通さない。漏れたら即 rotate。
 - INV-3: claude-p の wallet からの支出は **gas のみ**（bounty 出資はしない、我々は earner）。gas 補給は USDC→ETH swap を cap $2 以内で自己実行。
 - INV-4: identity gate — record は claude-p 自身の wallet 宛の着金のみ。他人の wallet を混ぜない（`assertOwnIdentityOnly`）。
 - INV-5: poidh contract は `msg.sender==tx.origin` を強制 → **EOA のみ**。claude-p EOA を使う。SC wallet 不可。
 - INV-6: prompt-injection 防御を維持（既存 `run.sh:217` の config-exfil regex を on-chain 版でも保持。bounty の description は敵性入力として扱う）。
 - INV-7: loop は launchd 本体。Fable は executor を spawn して代行しない（コードを直す時だけ executor）。実行主体は本物の loop。
-- INV-8 [Sol#4]: **record write-path 自身が着金を再検証する**。caller 提供の `external/profitable/amount/status/tx` を証拠として受理しない。write-path で finalized receipt + chainId(Base=8453/Sol=mainnet) + 正しい contract + 自 wallet 宛の payout event + 第三者 issuer/funder + 未記録 tx を検証してから計上。
-- INV-9 [Sol#5]: 着金額は **payout event の receipt log を bigint wei で**検証（EVM は `Withdrawal`/`WithdrawalTo`、Solana は SPL transfer）。balance-delta は補助のみ（同一 block の他 tx / self-pay gas 差引で誤る）。number 化で精度を落とさない。
+- INV-8: **record write-path自身が着金を再検証する**。caller提供の`external/profitable/amount/status/tx`を証拠として受理しない。
+  crypto routeはfinalized receipt・chain・contract・自wallet宛event・第三者payer・未記録txを確認する。fiat routeは
+  provider APIのpayout ID/status/beneficiaryと登録済み受取先のreceiptを照合する。片方だけならpendingのままにする。
+- INV-9: 金額はcryptoではevent logのbigint base units、fiatではcurrency別integer minor unitsで検証する。
+  balance deltaや表示用floatは補助だけにし、ledger保存前にnumber化で精度を落とさない。
 - INV-10 [Sol#6]: gas 自己復旧に **recovery floor** を置く。approve+swap+withdraw の上限 gas を残す残高を下回る前に補給。ETH 枯渇後に swap gas を払えないデッドロックを防ぐ。swap は chain/router/recipient allowlist + exact-in 累積 $2 上限 + minOut + exact allowance + receipt/残高差検証。bootstrap 不能なら claim を止める。
 - INV-11 [Sol#7]: 秘密鍵は N1 内 in-process signer だけが固定 0600 file から読む。argv/env/child process/例外 dump に一切通さない。導出 address を 自 wallet に pin。全 broadcast 前に chainId/contract/sender/recipient を検証、withdraw 先は own wallet 固定。
 
@@ -70,17 +76,14 @@ done（AND、全て実測で確認）:
 
 ## RAIL 決定
 
-**2026-07-18 PIVOT（Dais: crypto 制約を外し bank 払いを許可）で rail 再確定。** crypto を外すと「real 在庫 × PR-merit accept × real money」を持つ **Algora（Stripe→bank）が primary に復活**。既存 harness がそのまま使える。
-
 | rail | 採否 | 理由 |
 |---|---|---|
-| **Algora（GitHub bounty, Stripe→bank）** | ★primary（今すぐ稼ぐ） | real なコード bounty 在庫・accept=PR merge の merit・payout=Stripe で Dais の bank へ。**既存 harness `profitable-claude/skills/bounty/` がまさにこれ用**（`GITHUB_IDENTITY=Daisuke134`）。難点=agent 飽和（8-10 PR/bounty）→ 既存の scam-filter/競合スコア/「merge する repo を狙う」で対処 |
-| IssueHunt / その他 fiat bounty 板 | secondary（在庫補完） | GitHub issue bounty、PayPal/bank 払い。Algora 在庫が薄い時の補完。recon で実態確認 |
-| Immunefi + Code4rena/Sherlock（audit） | scale phase | USDC を wallet 直・merit・実弾 $1k〜$10M。crypto payout phase と同時に。ゲート=valid finding 実力（高分散） |
-| poidh (Base) | 棚上げ＝crypto phase の mechanism | on-chain 配管・native-verify は実証済、crypto 直払い phase で再利用。income rail 不可(accept 8.6%) |
-| gib.work / Superteam | 却下 | gib=live dev 在庫1件・funder 裁量、Superteam=人間 claim。income にならない |
-
-**crypto payout は後続 phase**（Algora で稼ぐ実績ができてから、audit(Immunefi/Code4rena) で crypto wallet 直払いに拡張）。今は bank-first。
+| **huntr MFV/OSV** | **primary** | AI-native security work、paid scope、novel finding+PoCで評価。初回payout時だけfiat identity/KYC gate |
+| **Opire / Algora** | secondary | freshかつ低競合のPR型だけをrealtimeで取る。飽和済みdaily batchは使わない |
+| **Immunefi / Code4rena / Sherlock** | scale | crypto wallet直払い、高額、merit型。B4のcrypto verify完成後に拡張 |
+| HackerOne / Bugcrowd | gated secondary | paid scopeは広いがidentity/KYC・program policyをrailごとに検証してから有効化 |
+| poidh (Base) | mechanism reference | on-chain lib/native-verifyを再利用。accept率・案件構成のためincome railにはしない |
+| gib.work / Superteam / IssueHunt系 | disabled | live在庫、accept裁量、人間claim、停止サービスのいずれかで継続income条件を満たさない |
 
 ---
 
@@ -131,12 +134,14 @@ done（AND、全て実測で確認）:
             └──► record.mjs (INV-8/9 write-path 再検証) → earn ledger
               │
 [10] SELF-IMPROVE(週次 metrics/lessons/beat-prev-week) + [11] SELF-HEAL
-     └── 全部 launchd loop が無人で回す (R6 autonomy-hardening 前提)
+     └── 全部 durable loop が無人で回す (B2 autonomy-hardening 前提)
 ```
 
-**build phase**: (P1) strix + reconFTW を vendor、[2]-[7] pipeline を1 rail(=最小 huntr変種 or web BB) で通す → prove-3 で1件 validated finding。(P2) MONITOR[0]+SCORE[1] の自動化(bounty-targets-data/certstream/release feed)。(P3) rail を audit/Immunefi(crypto)へ拡張、payout 2系統(crypto+bank)配線(INV-8/9)。(P4) SELF-IMPROVE/HEAL + launchd 無人化(R6)。**LLM 予算は [3]仮説・[5]PoC・[6]judge の3点に集中、監視/recon は完全 script 化。**
+**build phase**: (P1) paid-scope MONITOR[0]+SCORE[1]を完成。(P2) [2]-[7] pipelineをhuntrの1対象で通す。
+(P3) submit/trackとfiat payout verifyを配線。(P4) SELF-IMPROVE/HEAL + durable無人化(B2)。(P5) crypto verify後に
+Immunefi/C4/Sherlockへ拡張。**LLM予算は[3]仮説・[5]PoC・[6]judgeへ集中し、監視/reconは決定論script化する。**
 
-## 実装（旧: poidh crypto-rail 用参照。crypto payout phase で再利用）
+## Legacy poidh crypto-rail参照（現行completion gateではない）
 
 土台 = `profitable-claude/skills/bounty/`（state machine は維持、rail 差し替え）。追加 lib は `~/anicca/skills/_shared/lib/`。
 
@@ -159,7 +164,7 @@ loop 配線:
 
 ---
 
-## TEST MATRIX（E2E judgment。各行 real side-effect を自分の目で）
+## Legacy poidh mechanism TEST MATRIX
 
 | # | シナリオ | 判定（実測） |
 |---|---|---|
@@ -173,16 +178,20 @@ loop 配線:
 | T8 | loop 自走 | `launchctl kickstart` 発火→loop 単独で T1→T7 を回す（人間介入ログ 0） |
 | T9 | negative | scam bounty（実体なし/撤回済）を gate が落とす。prompt-injection を含む description を弾く（INV-6） |
 
-E2E green = T1-T9 全通過 + done 1-4 の on-chain 着金を Fable が Basescan で確認。
+T1-T9はpoidh mechanismだけを検証する。現行bounty/work loopのdoneや外部収益には数えない。
 
 ---
 
-## PHASE（各 phase に exit proof。green まで次に進まない）
+## 現行PHASE（各phaseにexit proof。greenまで次へ進まない）
 
-- **Phase 0 — rail 確定 + mechanism 実証（Fable 手動 OK）**: (a) gib.work 検証で primary rail を確定。(b) 確定 rail で **第三者(非Anicca)が出資した実 bounty を1件、human-zero で正当に完遂 → merit accept → finalized crypto payout が自 wallet に着金 → INV-8/9 準拠で ledger に重複なく1行**。[Sol#3] 既存無関係 tx の検算だけでは exit proof にしない（accept/withdraw/第三者資金を必ず含む）。**exit proof = payout tx hash（Basescan/Solscan）+ write-path 再検証ログ + ledger 行**。ここが赤なら skill 化しない。poidh の read lib + native-verify は済（mechanism 側は green）。
-- **Phase 1 — skillify**: C1-C6 を実装、N1-N3 完成。bounty harness を on-chain rail に付け替え。**exit proof = T1-T7 green（1件、実 wallet 着金 or accept 待ち状態まで自動）**。
-- **Phase 2 — loop 化 + 稼ぐまで**: C7 配線、launchd 自走。`kickstart`→watch。**exit proof = T8 green かつ done 2（実着金）が loop 自走で発生**。稼ぐまで fix→再検証。
-- **Phase 3 — scale**: gas 自動補給、gib.work(USDC コード bounty) 追加、audit contest 拡張。黒字実測 → Franklin 横展開。
+- **Phase 0 — rail/spec確定**: primary=huntr、secondary=fresh Opire/Algora、scale=crypto audit、poidh=mechanism参照。
+  exit proof = 本文・GOAL・TODO・RAILにAlgora-primary/poidh-incomeの矛盾が0。
+- **Phase 1 — paid-scope + autonomy**: B1/B2をTDDで完成。exit proof = funded target fixtureとlive targetの両方で
+  scope/freshness/novelty gateが通り、非対話passがtimeout/budget内で完走。
+- **Phase 2 — live submit**: B3を実行。exit proof = provider submission ID/URL + 保存artifact + track state。
+- **Phase 3 — external payout**: accept後にB4を通す。exit proof = provider payout evidenceまたはtx hash + 実受取 +
+  write-path再検証log + 重複なしledger行。ここまでearnは¥0。
+- **Phase 4 — repeat + scale**: B5。exit proof = 2件目の外部payoutまたは黒字期間の再現後、crypto audit/他agentへ展開。
 
 ---
 
