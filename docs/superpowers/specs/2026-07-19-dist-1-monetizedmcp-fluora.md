@@ -50,19 +50,22 @@ franklin の4商品(web-search/funding-rates/funding-rate-arb/research)が Fluor
 ## 実装状況（2026-07-20 更新、実測）
 - adapter = `skills/earn/x402-sell/mcp-server.mjs`。設計 v2 採用（forward X-PAYMENT、serve-v2 無変更、二重払い構造的に不可能）。
 - E2E = `skills/earn/x402-sell/probe-dist1.mjs`、本番 CDP creds で **8/8 PASS**（commit 済み）。
-- live 配置（現在の実測）: franklin1 の funnel config は :10001 で `/`→8414 と `/mcp`→8090 を保持する。
-  しかし8090 listenerと`mcp-server.mjs` processは存在せず、local `/mcp`は接続拒否で000、public `/mcp`は15秒timeoutで000。
-  `launchctl print gui/501/ai.anicca.mcp-franklin1`もservice未登録を返す。public 000の直接原因はpath routing以前に
-  MCP runtime不在であり、boot script + KeepAlive plistの導入が次の作業。
+- live 配置（現在の実測）: franklin1 MCPはKeepAlive launchdでrunning、local `:8090/mcp`は400まで回復する。
+  ただし :10001 のpublic `/mcp`は20秒timeoutで000のまま。443/8443/10000は同じ端末・同じDNSで200を返す。
+  Tailscale公式仕様はFunnelのlisten portを`443`/`8443`/`10000`だけに限定する
+  （https://tailscale.com/docs/features/tailscale-funnel — “Funnel can only listen on ports 443, 8443, and 10000.”）。
+  false hypothesis=`tailscale funnel statusに:10001が表示されればpublic到達可能`。既存mountは削除せず、franklin1は既存
+  tsbridgeへ独立node `franklin1-mcp`（backend `localhost:8090`）をadditiveに追加し、public URLを
+  `https://franklin1-mcp.tail7a0ba4.ts.net/mcp`へ修正する。franklin2/claude-pは有効な:10000/:8443の`/mcp` mountを使う。
 - 提出フロー調査（Fluora/MCPay の実 submit 手段）は中断（subagent kill）。未調査のまま。
 
 ## 残作業（DIST-1 内、順）
-1. public /mcp 疎通検証（curl 再試行。000 続くなら funnel path-routing の制約を疑う）
+1. franklin1はtsbridge独立node、franklin2/claude-pは有効Funnel portのpath mountでpublic `/mcp`=400を実測
 2. mcp-server の launchd 化（nohup は reboot で死ぬ）+ franklin2/claude-p 展開（非差別）
 3. Fluora(fluora.ai/submit)/MCPay の実 submit フロー確定 → 提出
 4. done: marketplace で検索可能 + 外部 buyer 実購入 on-chain（verify-inflow external≥1）
 
 ## リスク
 - Fluora submit が human gate を持つ可能性→API/PR/別マーケットにフォールバック(tier-a-bypass)。
-- funnelのpath routingがpublic `/mcp`を正しくforwardしない可能性→local GET 400とpublic GET 400を分けて実測する。
+- tsbridge追加nodeまたはFunnel path routingがpublic `/mcp`を正しくforwardしない可能性→local GET 400とpublic GET 400を分けて実測する。
 - 4商品のmetadataがserve-v2とdriftする可能性→live配置前のprobeでid/price/required paramsを照合する。
