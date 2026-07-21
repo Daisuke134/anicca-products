@@ -21,12 +21,17 @@
 - 非差別(claude-p も franklin も同じ道具)= 2市場同時: 賢い assisted(企業) + broke self-funded(ミッション本体)。
 
 ## 正直な現実（全ての前提）
-- 今: Anicca external $0、agents external $0、CDP Bazaar カタログ未掲載(2026-07-19実測、1500/24846で0ヒット)。
-- ビジョンは本物だが証明はゼロ。「最初の agent economy 道具」になる道は【最初の外部1ドル】を通る。1ドル出ない限り pitch deck に過ぎない。
+- x402 の live 収益額と X4 状態 → `docs/STATUS.md`。掲載、self-pay、colony 内送金は external revenue に数えない。
+- 現在のボトルネックは単一カタログへの掲載有無ではなく、colony 外 buyer が実際に browse・購入する複数の発見面へ到達し、外部着金まで通すこと。
+- ビジョンは本物だが、証明ゲートは【最初の外部1ドル】。外部着金を on-chain 検証するまで「稼いだ」と言わない。
 
 ## 戦略の順序（物理を1回証明→複製）
-1. ★原子を証明★: 1体が外部1ドルを人間ゼロで稼ぐ = BAZAAR-INDEX(#38、カタログに載る) → X4(#31、外部tx)。
+1. ★原子を証明★: DIST-1/2 で Bazaar、MCP marketplace、x402 ecosystem registry など複数の発見面へ出し、colony 外 buyer の購入 → X4（外部着金）を通す。掲載だけでは完了にしない。実行順と live 状態 → `docs/superpowers/specs/2026-07-19-dist-1-monetizedmcp-fluora.md`、`docs/STATUS.md`。
 2. 複製可能に: OSS install.sh で第三者が人手ゼロで1体 bootstrap。
 3. 自己複製: spawn で稼ぐ agent が稼ぐ agent を産む → million へ。
 
-正本 SSOT: docs/STATUS.md。研究裏付け: docs/research/2026-07-19-two-tier-agent-tool-distribution-best-practices.md。
+## 外部一次資料
+- Coinbase x402 Bazaar — https://docs.cdp.coinbase.com/x402/bazaar — 「developers and AI agents browse and search for x402-enabled services」を提供する discovery layer。
+- Fluora Submit — https://www.fluora.ai/submit — 承認後、MonetizedMCP server は「discoverable by both humans and AI agents」になる。
+
+mission / product / 4 workstream の正本 → `docs/superpowers/specs/2026-07-19-anicca-one-repo-consolidation-spec.md`。live 状態 → `docs/STATUS.md`。研究裏付け → `docs/research/2026-07-19-two-tier-agent-tool-distribution-best-practices.md`。
