@@ -27,9 +27,20 @@ Dais 確定方針(2026-07-11):
 - 出品サービス管理: `coconala.com/mypage/services_lists`（title「出品サービス管理」）
 - 出品する: `coconala.com/services/add`
 - 取引中(出品側): `coconala.com/mypage/received_orders/open`（title「取引中｜取引管理(出品)」）
+- 購入前DM/問い合わせ一覧: `coconala.com/message`。`/mypage/messages` と `/mypage/talks` は 404。既存修正 `895fcfed` の実測を正とする。
 - 売上/取引通知: `/mypage/activities/transaction`、`/mypage/dashboard_provider`
 - 応募管理: `/mypage/job_matching/applied/offers`（単発/継続/スカウトのタブ）
 - ※ `/mypage/services` `/mypage/identifications` `/mypage/received_orders` 等は 404。上記が正。
+
+### B1 未返信回帰の現状
+
+- live collector は `https://coconala.com/mypage/messages` を開き、実画面で「ご指定のページが見つかりませんでした」を受けている。それにもかかわらず `inquiries: 0` を success として記録するため、購入前DMを全件取りこぼす。
+- このURLは旧repoで `/message` へ修正済みだが、`profitable-claude` への移設時に回帰する。既存解を再利用し、URLを再発見し直さない。
+- 正しい `/message` の各カードは `/mypage/direct_message/<room_id>` へリンクする。`/talkrooms/` selectorでは購入前DMを拾えない。
+- 対象threadは `opened=true / unreadCount=0` でもbuyerが最終発言者だった。未読だけを見る設計では、既読にした未返信を永久に失う。
+- hourly full pass 内のB1だけでは即応にならない。返信laneを重い出品・応募・納品laneから分離し、軽量検知は5分、通常返信は検知から10分、絶対上限30分とする。
+- 404、ログイン画面、bot block、空DOMは `queue_empty` ではなく `collector_unhealthy`。空キュー成功には、正しい受信箱title/URLと取得件数のground-truthが必要。
+- 今回の `earth0809.com` threadはmanual rescueで具体返信を送信し、同じthreadの再読でseller最終送信と送信時刻 `08:44:21` を確認する。これは現行harnessの合格を意味せず、live E2E fixtureとして使う。
 
 ---
 
@@ -39,7 +50,8 @@ Dais 確定方針(2026-07-11):
 [B0 出品] 自分の店を常時 手入れ・拡張: 下書き2件を完成公開/typo修正/
           公開3件を最適化(タイトル・説明・価格・画像)/AIが勝てるcat追加。
           → 受動 inbound 受注（100人と競合しない・応募2%床を回避）＝金脈
-[B1 返信] 全トークルーム返信・仮払い来たら納品・検収→評価（現状維持=十分）
+[B1 返信] 購入前DM + 購入後トークルームを5分ごとに検知し、10分以内に返信。
+          仮払い後は納品・検収→評価。返信laneはhourly full passから分離する。
 [B2 応募] 応募を継続、量↑・範囲↑(category直URL+keyword)・質↑（改善が主眼）
 [納品]    成果物作成→納品→検収→高評価→リピート
    各ステップ後 → cdp_snapshot.py で screenshot+action を trajectory に記録
@@ -61,9 +73,73 @@ Dais 確定方針(2026-07-11):
 
 ## §3 B0/B1/B2/納品 の capability 定義（= STARTUP prompt に「何をせよ」を明記する中身。今 B0 は存在しない）
 - **B0 出品(SHUPPIN・新規追加)**: 毎pass、`/mypage/services_lists` を読む→(a)下書き2件を完成させ公開 (b)typo・弱いタイトル/説明/価格/カバー画像を改善 (c)公開数が目標(例5-7)未満なら AIが勝てるcat(AI活用支援/資料作成PPT/SNS運用/記事/翻訳/文字起こし/LP/自動化)で `/services/add` から新規出品。成果物サンプルは公式 `pptx`/portfolio skill で作る。
-- **B1 返信/納品(現状維持)**: 全トークルーム sweep→返信・仮払い契約は成果物作成して納品・検収済は評価依頼。¥40k jibieaian を確実に 2026/08/14 まで納品完了させる。
+- **B1 返信/納品**: `/message` の購入前DMと `/mypage/received_orders/open` の購入後トークルームを別キューとして sweep する。buyer が最終送信者なら即返信し、仮払い契約は成果物作成→納品、検収済は評価依頼へ進める。返信検知を hourly full pass に埋め込まない。
 - **B2 応募(改善)**: `max_apply_per_pass` を上げ(5→10〜15)、scan を category直URL+keyword に拡張、AI禁止/実績必須/物理必須を除外、掲載直後(応募一桁)を優先。**質と量の両方を上げる**。
 - 各ステップで **cdp_snapshot.py `<pass_id> <seq> <label>`** を呼び trajectory を残す。
+
+### §3.1 B1 即応SLA（返信速度の正本）
+
+#### 優先順位と時間契約
+
+| priority | queue | 検知目標 | 実質返信目標 | breach |
+|---:|---|---:|---:|---:|
+| P0 | 購入済み初回連絡・修正依頼・進捗確認 | buyer送信から5分以内 | 検知から10分以内 | buyer送信から30分 |
+| P1 | 新規購入前DM・問い合わせ | buyer送信から5分以内 | 検知から10分以内 | buyer送信から30分 |
+
+時刻はplatform表示を取得してISO 8601へ変換し、内部ではUTC、報告ではJSTを使う。30分pollでは最悪30分待ち、hourly pollでは最悪60分待つため採用しない。5分ごとの処理はDOM/APIを読む軽量detectorだけとし、未返信がある時だけ最大2workerを起動する。P0を先に、同一priority内は `buyer_sent_at` が古い順に処理する。応募follow-up、出品、応募、学習はB1 SLA外としてhourly full passに残す。
+
+#### 検知契約
+
+1. 購入前DMは `https://coconala.com/message`、購入後取引は `https://coconala.com/mypage/received_orders/open` から取得する。pagination/infinite scrollを既知checkpointまで走査し、first viewportだけで終了しない。
+2. current URL、page title、受信箱container markerを検証する。404、login redirect、error page、container欠落は `collector_unhealthy`。正しいpage identityとcontainerを確認した上でmessage cardが0件なら `queue_empty` とする。
+3. `buyer_sent_at / message_id / thread_id / thread_url / observed_at / last_sender / reply_required` を永続化する。`opened/unreadCount` は補助情報であり、既読を返信済みと扱わない。顧客の生メッセージ本文・メール・cookieは保存しない。
+4. idempotency key はmessage IDがある場合 `platform + thread_id + message_id`。ない場合は `platform + thread_id + buyer_sent_at + thread内ordinal + normalized_hash` とする。normalizeはUnicode NFC、改行と連続空白の統一、前後空白除去だけを行い、同文の別送信を区別する。
+5. `pending -> claimed -> send_intent -> click_started -> verifying -> replied|failed|manual_review` を永続state machineにする。claimはSQLite transactionまたは原子的O_EXCL lockで1workerだけが所有し、単調増加する `fencing_token` を発行する。`send_intent` は `outgoing_hash / owner_id / fencing_token` を送信clickより前にwrite-aheadでcommitする。
+6. senderはclick直前のtransactionでowner・lease・fencing token・`click_started_at IS NULL` を再検証して `click_started` をcommitする。claim期限切れだけでは別workerへ送信権を渡さない。期限切れ時はsupervisorが旧owner processと専用browser sessionの停止を確認してtokenを失効させる。`click_started` 前に停止確認できた場合だけ新tokenでpre-send処理を再開できる。`click_started` 後またはclick実行有無が曖昧な場合、新ownerはverify専用とし、自動再送せず `manual_review` + criticalにする。これによりplatform側にidempotency APIがなくても自動送信clickをkeyごとに最大1回へ制限する。
+7. lifecycleとして `detected_at / queued_at / started_at / send_intent_at / click_started_at / replied_at / pre_send_attempt_count / send_click_count / last_error / owner_id / claim_expires_at / fencing_token` を永続化する。ACK/seen化は送信後ground-truthが取れた後だけ行う。
+8. collector heartbeatまたはsnapshotが10分以上古い、detector exitが非0、pending ageが15分を超える場合、返信laneだけを1回restartしfresh workerを起動する。次の再起動は5分backoff、3連続失敗でcritical。30分超過もcriticalとする。supervisor heartbeatやhourly full passの成否だけで健康判定しない。
+
+#### 返信品質契約
+
+返信は短く、次の4要素を含める。
+
+1. 共有内容を受領したことを伝える。
+2. 相手の依頼・質問へ直接答える。thread/order内の検証済み固有情報を1点使う。
+3. Web/InstagramのURLがあり2分以内に安全に確認できる場合だけ、外部で実測した固有情報を加える。リンク欠落・block・調査遅延時は「確認した」と主張せず、thread内事実で返信して外部調査を後続taskへ回す。
+4. こちらが次に行う具体的作業と最短の正直な予定を示す。
+5. 作業開始に本当に必要な未確定事項があれば、質問は1つに絞る。不要なら質問せず着手を宣言する。
+
+「受領しました」「本日連絡します」だけのackは実質返信に数えない。相手の質問・依頼へ具体的に答えるか、調査済みの初期診断と次アクションを示した時だけSLAを満たす。
+
+#### 送信後ground-truth
+
+- 返信成功はagentの自己申告やclick完了では判定しない。同じthreadを再読し、sellerが最終送信者で、送信本文の正規化hashが一致し、送信時刻とthread URLを取得できた時だけ `replied` とする。
+- send action後にDOM再読が失敗する曖昧状態では再送しない。fresh verifierがthreadを再読し、同じbuyer messageより後に同じoutgoing hashが存在すれば `replied` とする。`click_started` 済みまたはclick実行有無が不明なら、hashが不在またはthread自体を確認できない場合も自動再試行せず `manual_review` + criticalにする。再試行できるのは、旧owner process/sessionの停止と `click_started_at IS NULL` の両方を確認できたpre-send失敗だけとする。
+- browser navigation・selector取得など、`click_started` 前と証明できる失敗だけをpre-send retry対象にする。試行は初回 `t+0`、`t+2分`、`t+5分` の最大3回。3回失敗または初回から5分経過で `failed` + criticalへ遷移し、それ以上は自動再試行しない。各retry前に現owner・lease・fencing tokenをtransactionで再検証する。`send_click_count` はkeyごとに最大1とする。
+- 永続evidenceは `thread_url / seller_sent_at / outgoing_hash / last_sender` のみにする。screenshotが必要な場合は顧客本文・氏名・添付をmaskしowner-only `0600`、保持7日後に削除する。cookie・tokenは常に保存禁止。
+
+#### Acceptance matrix
+
+| queue | case | expected |
+|---|---|---|
+| P1 `/message` | 正しいpage + 0 cards | `queue_empty`、worker起動0 |
+| P1 `/message` | 404 / login redirect / container欠落 | `collector_unhealthy`、空キュー記録禁止 |
+| P1 `/message` | buyer-last（既読・未読どちらも） | `reply_required=true`、5分以内検知 |
+| P1 `/message` | seller-last | `reply_required=false`、送信0 |
+| P0 `/mypage/received_orders/open` | 正しいpage + 0 orders | `queue_empty`、worker起動0 |
+| P0 `/mypage/received_orders/open` | 404 / login redirect / container欠落 | `collector_unhealthy`、空キュー記録禁止 |
+| P0 `/mypage/received_orders/open` | buyer-lastの初回連絡・修正依頼・進捗確認 | `reply_required=true`、5分以内検知、P1より先にclaim |
+| P0 `/mypage/received_orders/open` | seller-last | `reply_required=false`、送信0 |
+| 同一keyへ2worker同時起動 | claim成功1、送信最大1 |
+| claim期限切れで旧ownerが生存 | 旧process/session停止とfence失効まで新ownerの送信0 |
+| `send_intent` commit直後にcrash | 停止確認後、新fenceでpre-send再開可能、送信最大1 |
+| `click_started` commit直後またはsend後にcrash/DOM timeout | blind retry 0、fresh verify。存在すれば`replied`、確認不能または不在なら`manual_review` + critical |
+| 送信前transient failure | `t+0/+2/+5分` の最大3回、以後`failed`、送信click 0 |
+| pending 15分 / 30分 | fresh worker / critical |
+
+決定論testはP0/P1それぞれの全caseについてexpected state、`pre_send_attempt_count`、`send_click_count`、fencing token、時刻差をassertする。全crash window（claim後、intent commit後、click_started commit後、click後、verify前）で旧owner停止・takeoverを競合実行し、keyごとのclickが最大1であることを固定clock/barrier testで検証する。clockをfixtureで固定し、`buyer_sent_at -> detected_at <= 5分`、`detected_at -> replied_at <= 10分`、`buyer_sent_at -> replied_at <= 30分` を別々に検証する。live E2Eは専用controlled buyerからP1新規DMを1件、専用controlled orderからP0購入後メッセージを1件送り、両方で同じ3時刻差とseller-last/hash一致を確認する。P0/P1のどちらか一方でも未実施ならB1 doneにしない。既にmanual返信済みの `earth0809` threadはP1 seller-last fixtureとして送信0・二重返信0を確認する。
+
+根拠: ココナラ公式は「購入されたら後回しにせず、すぐに一言トークルームで連絡」「すぐ対応できない場合は一次返信」と案内する（https://mag.coconala.com/articles/knowhow-prevent-48hcancel）。48時間は自動キャンセル上限であり、営業SLAではない。
 
 ---
 
@@ -90,7 +166,7 @@ Dais 確定方針(2026-07-11):
 |---|---|---|---|
 | **1** | **B0 capability 追加** | STARTUP に B0 出品ステップ明記 + `cdp_shuppin.py`(出品作成/編集/公開) + 下書き2件完成・typo修正 | `/mypage/services_lists` に **公開中の出品が増え/整い**、下書き0、typo無し（実DOM） |
 | **2** | **B2 改善** | max_apply↑・scan拡張・質向上を STARTUP に反映 | 1pass で応募数が実際に増え、AI禁止/物理案件を除外している（trajectory+実応募履歴） |
-| **3** | **B1 確実化** | ¥40k jibieaian の納品を完遂させる導線を明記 | 取引管理で jibieaian が「納品済→検収」へ進む（実DOM） |
+| **3** | **B1 即応lane** | 正しい `/message` と `/mypage/received_orders/open` collector + 5分detector + write-ahead intent/fencing付きreply worker + verify-before-resend + healthcheck を実装 | controlled buyerのP1新規DMとcontrolled orderのP0購入後メッセージで各1件、detect≤5分・reply≤検知後10分・total≤30分、seller-last/hash一致。全crash windowでclick最大1。earth0809既返信threadはsend 0（実DOM） |
 | **4** | **検証土台** | `gig_judge`(judge.py copy) + auditor を report-skeptical 化(結果画面読返し) | verifier が出品公開数/納品/売上を独立に読み二値判定を audit.jsonl に出す |
 | **5** | **自己修復** | verdict=false/¥0継続 → Reflexion+self-fix.sh 配線 | 壊れた時 次passで自分で直り再検証が回る |
 | **6** | **入金** | 出品 inbound か jibieaian 検収で初の実¥ | **売上画面 or 入金 tx を私が実読**で ¥>0 確認（自己申告不可） |
@@ -113,7 +189,7 @@ Dais 確定方針(2026-07-11):
 | §4 占い再分類(skip→listing 1カテゴリ) | 0% | strategy.json skip から「霊感/占い」除去→listing 対象へ |
 | §5 never-refuse 明記 | ~30% | 「合法・実行可能な依頼は絶対断らない、断るのは feasibility不可 or 違法/scam のみ」を prompt に |
 | §1 feasibility gate(可=browser完結/不可=電話SMS実地資格録音物理) | ~60% | 可/不可の明示定義を prompt に(skip列挙だけでなく) |
-| §67 DM 30分返信 nurture | ~80% | 現状維持(唯一効いてる) |
+| §67 DM 30分返信 nurture | 0% | §3.1を実装。現liveは誤URL `/mypage/messages` の404を `inquiries:0` success扱いするため未返信を検知できない |
 | §73 個別作文(テンプレ一斉禁止) | ~70% | 依頼固有の一文必須を強化 |
 | §69 最初の1件hack | ~10% | ニッチ絞る/競合上位10分析/プロフィール100%/本人確認/出品直後の露出ブースト期に即応募+通知者に即DM |
 
