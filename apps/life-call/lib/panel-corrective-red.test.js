@@ -16,6 +16,7 @@ const {
   handlePanelOAuthCallback,
   createSupabaseCommandStore,
 } = require("./panel-api.js");
+const { tick, travelTick, askTickAll, discoveryTick } = require("../scheduler.js");
 
 function response(items) { return { ok: true, json: async () => ({ items }) }; }
 function owned(uid, extra = {}) { return { id: "ca-1", user_id: uid, toolkit: { slug: "googlecalendar" }, status: "ACTIVE", ...extra }; }
@@ -28,6 +29,19 @@ test("FIND-001 unsupported delegation is honest and has no success action", asyn
   const model = await buildControlCenter({ uid: "u1", chatId: "c1" }, { store });
   assert.deepEqual(model.controls.delegation, { state: "unavailable", reason: "No safe delegated-action runtime is available" });
   assert.equal("delegation_enabled" in model.settings, false);
+});
+
+test("FIND-001 runtime OFF blocks call/DAILY/notification per user and ON permits peers", async () => {
+  const old = { c: process.env.COMPOSIO_API_KEY, m: process.env.LIFE_MAPS_KEY, s: process.env.SUPABASE_URL, g: process.env.GEMINI_API_KEY, k: process.env.SUPABASE_SERVICE_ROLE_KEY, t: process.env.LM_TELEGRAM_BOT_TOKEN };
+  Object.assign(process.env, { COMPOSIO_API_KEY: "fixture", LIFE_MAPS_KEY: "fixture", SUPABASE_URL: "https://fixture.invalid", SUPABASE_SERVICE_ROLE_KEY: "fixture", GEMINI_API_KEY: "fixture", LM_TELEGRAM_BOT_TOKEN: "fixture" });
+  const users = [{ uid: "off", call_enabled: false, daily_automation_enabled: false, notifications_enabled: false }, { uid: "on", call_enabled: true, daily_automation_enabled: true, notifications_enabled: true }];
+  const seen = { wake: [], travel: [], ask: [], discovery: [] };
+  await tick({ listUsers: async () => users, wake: async u => seen.wake.push(u.uid), now: 1 });
+  await travelTick({ listUsers: async () => users, travel: async u => seen.travel.push(u.uid) });
+  await askTickAll({ listUsers: async () => users, ask: async u => seen.ask.push(u.uid) });
+  await discoveryTick({ listUsers: async () => users, discover: async u => seen.discovery.push(u.uid), now: 1 });
+  assert.deepEqual(seen, { wake: ["on"], travel: ["on"], ask: ["on"], discovery: ["on"] });
+  for (const [key, value] of Object.entries({ COMPOSIO_API_KEY: old.c, LIFE_MAPS_KEY: old.m, SUPABASE_URL: old.s, GEMINI_API_KEY: old.g, SUPABASE_SERVICE_ROLE_KEY: old.k, LM_TELEGRAM_BOT_TOKEN: old.t })) value === undefined ? delete process.env[key] : process.env[key] = value;
 });
 
 test("FIND-002 pending and concurrent duplicate executes one mutation", async () => {

@@ -72,7 +72,8 @@ async function buildControlCenter(scope, deps = {}) {
   if (!store) throw new Error("store_required");
   const user = await store.readUser(scope);
   if (!user || String(user.telegram_chat_id) !== String(scope.chatId)) throw new Error("scope_mismatch");
-  const prefs = { call_enabled: true, notifications_enabled: true, daily_automation_enabled: true, delegation_enabled: false, call_time_zone: "Asia/Tokyo", ...(await store.readPreferences(scope)) };
+  const prefs = { call_enabled: true, notifications_enabled: true, daily_automation_enabled: true, call_time_zone: "Asia/Tokyo", ...(await store.readPreferences(scope)) };
+  delete prefs.delegation_enabled;
   const location = await store.readLocation(scope);
   const locationLive = Boolean(location && (!location.expires_at || Date.parse(location.expires_at) > (deps.nowMs == null ? Date.now() : deps.nowMs)));
   let calendarState = user.calendar_provider === "composio_gcal" ? "ACTIVE" : "INACTIVE";
@@ -82,7 +83,7 @@ async function buildControlCenter(scope, deps = {}) {
     identity: { name: user.name || "Life Manager user", uidRef: `user:${hash(user.uid).slice(0, 12)}` },
     context: { timeZone: prefs.call_time_zone, locationAvailable: locationLive },
     connections: {
-      calendar: calendarState === "ACTIVE" ? connection("connected", "Google Calendar is connected", ["connection.disconnect:calendar"]) : calendarState === "ERROR" ? connection("error", "Calendar status is temporarily unavailable") : connection("action_required", "Connect Google Calendar to manage your schedule", ["connection.start:calendar"]),
+      calendar: calendarState === "ACTIVE" ? { ...connection("connected", "Google Calendar is connected", ["connection.disconnect:calendar"]), actionLabel: "Disconnect calendar" } : calendarState === "ERROR" ? connection("error", "Calendar status is temporarily unavailable") : calendarState === "DISABLED" ? { ...connection("action_required", "Reconnect Google Calendar", ["connection.start:calendar"]), actionLabel: "Reconnect calendar" } : { ...connection("action_required", "Connect Google Calendar to manage your schedule", ["connection.start:calendar"]), actionLabel: "Connect calendar" },
       telegram: connection("connected", "This dashboard is linked to your Telegram chat"),
       location: locationLive ? connection("connected", "Live location permission is available") : connection("action_required", "Share live location in Telegram to unlock automatic late notices", ["instructions:location"]),
       call: !user.phone ? connection("action_required", "Add a phone number in Telegram", ["instructions:call"]) : prefs.call_enabled ? connection("connected", "Calls are enabled", ["setting.set:call_enabled:false"]) : connection("action_required", "Calls are turned off", ["setting.set:call_enabled:true"]),
@@ -90,7 +91,7 @@ async function buildControlCenter(scope, deps = {}) {
       wallet: user.payout_destination ? connection("connected", "Payout destination is configured") : connection("action_required", "Set up a payout destination in Telegram", ["instructions:wallet"]),
     },
     settings: { ...prefs, call_language: user.call_language || null, wake_policy: user.wake_policy || "travel-only" },
-    controls: { physical_automation: { state: "unavailable" }, mental_automation: { state: "unavailable" }, financial_automation: { state: "unavailable" } },
+    controls: { delegation: { state: "unavailable", reason: "No safe delegated-action runtime is available" }, physical_automation: { state: "unavailable" }, mental_automation: { state: "unavailable" }, financial_automation: { state: "unavailable" } },
   };
 }
 
@@ -104,10 +105,11 @@ async function executeUserCommand(scope, rawCommand, deps = {}) {
   const digest = requestHash(command), existing = await store.readReceipt(scope, key);
   if (existing) {
     if (existing.requestHash !== digest) { const error = new Error("idempotency_conflict"); error.status = 409; throw error; }
-    if (existing.result) return existing.result;
+    if (existing.status === "succeeded" && existing.result) return existing.result;
+    const error = new Error(existing.status === "pending" ? "idempotency_in_progress" : "idempotency_failed"); error.status = 409; throw error;
   } else {
     const claimed = await store.claimReceipt(scope, key, { requestHash: digest, commandType: command.type, status: "pending" });
-    if (!claimed) return executeUserCommand(scope, command, deps);
+    if (!claimed) { const error = new Error("idempotency_in_progress"); error.status = 409; throw error; }
   }
   try {
     let state;

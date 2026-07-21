@@ -223,7 +223,7 @@ const server = http.createServer((req, res) => {
     return;
   }
   if (path === "/panel/oauth/calendar") {
-    handlePanelOAuthCallback(req, res, { supaUrl: SUPA_URL, supaKey: SUPA_KEY }).catch(() => {
+    handlePanelOAuthCallback(req, res, { supaUrl: SUPA_URL, supaKey: SUPA_KEY, composioKey: COMPOSIO_KEY }).catch(() => {
       if (!res.headersSent) res.writeHead(500, { "content-type": "text/plain", "cache-control": "no-store" });
       res.end("oauth callback unavailable");
     });

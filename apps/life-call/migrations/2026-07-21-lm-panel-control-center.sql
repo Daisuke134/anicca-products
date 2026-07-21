@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS public.lm_panel_command_receipts (
   result jsonb,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now(),
-  PRIMARY KEY (uid, idempotency_key)
+  PRIMARY KEY (uid, chat_id, idempotency_key)
 );
 
 CREATE TABLE IF NOT EXISTS public.lm_panel_oauth_states (

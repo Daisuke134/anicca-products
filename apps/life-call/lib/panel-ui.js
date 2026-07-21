@@ -670,8 +670,8 @@ function renderPanelPage() {
     let controlCsrf = "";
     const connectionLabels = Object.freeze({ calendar: "Calendar", telegram: "Telegram", location: "Location", call: "Call", email: "Email", wallet: "Payout / wallet" });
 
-    function actionButton(action) {
-      if (action === "connection.start:calendar") return '<button class="control-action" type="button" aria-label="Connect calendar" data-action="connect-calendar">Reconnect calendar</button>';
+    function actionButton(action, item) {
+      if (action === "connection.start:calendar") { const label = item && item.actionLabel === "Reconnect calendar" ? "Reconnect calendar" : "Connect calendar"; return '<button class="control-action" type="button" aria-label="' + label + '" data-action="connect-calendar">' + label + '</button>'; }
       if (action === "connection.disconnect:calendar") return '<button class="control-action" type="button" data-command="connection.disconnect" data-action="disconnect-calendar">Disconnect calendar</button>';
       if (action === "instructions:location") return '<button class="control-action" type="button" data-action="instructions-location">Telegram instructions</button>';
       if (action === "instructions:wallet") return '<button class="control-action" type="button" data-action="instructions-wallet">Telegram instructions</button>';
@@ -688,7 +688,7 @@ function renderPanelPage() {
       const connections = data.connections || {};
       const cards = ["calendar", "telegram", "location", "call", "email", "wallet"].map(function (name) {
         const item = connections[name] || { state: "error", reason: "State unavailable", actions: [] };
-        const actions = (Array.isArray(item.actions) ? item.actions : []).map(actionButton).join("");
+        const actions = (Array.isArray(item.actions) ? item.actions : []).map(function (action) { return actionButton(action, item); }).join("");
         return '<article class="control-card"><p class="control-state">' + escapeHtml(item.state) + '</p><h3>' + escapeHtml(connectionLabels[name]) + '</h3><p class="control-reason">' + escapeHtml(item.reason) + '</p>' + actions + '</article>';
       }).join("");
       const settings = data.settings || {};
@@ -696,7 +696,7 @@ function renderPanelPage() {
         switchButton("toggle-calls", "Calls", settings.call_enabled),
         switchButton("toggle-notifications", "Notifications", settings.notifications_enabled),
         switchButton("toggle-daily", "DAILY automation", settings.daily_automation_enabled),
-        switchButton("toggle-delegation", "Delegation", settings.delegation_enabled),
+        '<p class="control-unavailable" role="status">Delegation unavailable: no safe delegated-action runtime is available.</p>',
       ].join("");
       return '<p><strong>' + escapeHtml((data.identity || {}).name || "Life Manager user") + '</strong></p><div class="control-grid" id="connection-cards">' + cards + '</div><div class="settings-controls" id="settings-controls">' + switches + '</div><p class="action-status" id="action-status" aria-live="polite"></p>';
     }
