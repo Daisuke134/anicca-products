@@ -43,7 +43,7 @@ franklin の4商品(web-search/funding-rates/funding-rate-arb/research)が Fluor
 2. ✅ E2E probe（probe-dist1.mjs）: serve-v2+mcp-server を子起動→MCP client で 8/8 PASS
    （tools=3、price-listing 4件、payment-methods=payTo、make-purchase 無決済→402 forward、unknown-id graceful、
    serve-v2 unpaid=402 で外部経路不変）。commit 済み。
-3. ⏳ mcp-server を live 起動（boot+funnel、public https /mcp）。
+3. ✅ mcp-server を3店舗でKeepAlive live起動（public https `/mcp`まで到達）。
 4. ⏳ Fluora(fluora.ai/submit)+MCPay 登録（実 submit フロー調査中→human gate なら API/PR/tier-a-bypass）。
 5. done 検証: Fluora/MCPay で franklin 商品検索可能 + 外部 buyer 実購入 on-chain（verify-inflow external≥1）。
 
@@ -60,11 +60,16 @@ franklin の4商品(web-search/funding-rates/funding-rate-arb/research)が Fluor
   Funnel `--set-path=/mcp`はmount prefixをbackendへ保持しないため、targetが`http://127.0.0.1:8091`ではpublic
   `/mcp`がbackend `/`へ届き404になる。targetを`http://127.0.0.1:8091/mcp`のように明示する。複数のFunnel config
   更新を同時実行すると片方のmountが失われたため、franklin2とclaude-pは順次kickstartして各status/curlを直後に検証する。
+  最終実測はlaunchd 3/3 `state = running`、local `8090/8091/8092` `/mcp`=400、franklin2 public
+  `:10000/mcp`=400、claude-p public `:8443/mcp`=400、両既存root=200。franklin1-mcpはpublic DNSがA 2件/AAAA 2件を返し、
+  両public relay IPv4へTLS SNI付きcurlで400。作業端末のmacOS split-DNS resolverだけは新node名をまだNXDOMAIN cacheとして
+  扱うが、public DNSと両relayからendpoint公開を独立確認済み。adapter E2EもCDP creds込みでfresh 8/8 PASS。
+  boot/plist/TDDは`Daisuke134/anicca` branch `feature/dist1-mcp-launchd`へpush済み。
 - 提出フロー調査（Fluora/MCPay の実 submit 手段）は中断（subagent kill）。未調査のまま。
 
 ## 残作業（DIST-1 内、順）
-1. franklin1はtsbridge独立node、franklin2/claude-pは有効Funnel portのpath mountでpublic `/mcp`=400を実測
-2. mcp-server の launchd 化（nohup は reboot で死ぬ）+ franklin2/claude-p 展開（非差別）
+1. ✅ franklin1はtsbridge独立node、franklin2/claude-pは有効Funnel portのpath mountでpublic `/mcp`=400を実測
+2. ✅ mcp-server の launchd 化 + franklin2/claude-p展開（非差別、3/3 running）
 3. Fluora(fluora.ai/submit)/MCPay の実 submit フロー確定 → 提出
 4. done: marketplace で検索可能 + 外部 buyer 実購入 on-chain（verify-inflow external≥1）
 
