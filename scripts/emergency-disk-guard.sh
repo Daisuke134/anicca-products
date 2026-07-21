@@ -4,7 +4,7 @@
 set -u
 export PATH=/opt/homebrew/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 
-POLICY_VERSION="p0-containment-v2"
+POLICY_VERSION="cleanup-control-v1"
 HOME_DIR="${EMERGENCY_GUARD_TEST_HOME:-$HOME}"
 STATE_DIR="$HOME_DIR/.openclaw/state"
 LEASE_DIR="$STATE_DIR/gig-workers"
@@ -13,6 +13,10 @@ LOG="$LOG_DIR/emergency-disk-guard.log"
 DECISION_LEDGER="$STATE_DIR/emergency-disk-guard-decisions.tsv"
 RECLAIM_LEDGER="$STATE_DIR/emergency-disk-guard-reclaim-v2.tsv"
 OPS_LEDGER="$STATE_DIR/emergency-disk-guard-ops-v2.tsv"
+CLEANUP_LEDGER="${CLEANUP_CONTROL_LEDGER:-$STATE_DIR/cleanup-control-ledger.jsonl}"
+CLEANUP_CONTROL="${CLEANUP_CONTROL_PATH:-$HOME_DIR/anicca-project/scripts/cleanup-control/cleanup_control.py}"
+CLEANUP_MANIFEST="${CLEANUP_CONTROL_MANIFEST:-$HOME_DIR/anicca-project/scripts/cleanup-control/artifact-lifecycle.json}"
+CLEANUP_QUARANTINE_ROOT="${CLEANUP_CONTROL_QUARANTINE_ROOT:-/Volumes/AniccaQuarantine/anicca-cleanup}"
 BACKPRESSURE="$STATE_DIR/disk-pressure.block"
 ALERT="$STATE_DIR/disk-pressure.alert"
 LOCK="$STATE_DIR/.emergency-disk-guard.lock"
@@ -494,7 +498,33 @@ if ! ensure_tsv_header "$RECLAIM_LEDGER" "$RECLAIM_HEADER" || \
   exit 3
 fi
 
-if [ "$TEST_MODE" -eq 0 ] || [ "${EMERGENCY_GUARD_TEST_ENABLE_RECLAIM:-0}" = 1 ]; then
+if [ "$TEST_MODE" -eq 0 ]; then
+  if [ ! -f "$CLEANUP_CONTROL" ]; then
+    append_decision "$CLEANUP_CONTROL" failure cleanup-control-missing
+  else
+    CLEANUP_SUMMARY=$(python3 "$CLEANUP_CONTROL" sweep \
+      --manifest "$CLEANUP_MANIFEST" \
+      --quarantine-root "$CLEANUP_QUARANTINE_ROOT" \
+      --ledger "$CLEANUP_LEDGER" 2>>"$LOG")
+    CLEANUP_RC=$?
+    if [ -n "$CLEANUP_SUMMARY" ]; then
+      CLEANUP_COUNTS=$(printf '%s' "$CLEANUP_SUMMARY" | python3 -c \
+        'import json,sys; d=json.load(sys.stdin); print(d.get("quarantined",0), d.get("bytes_quarantined",0))' \
+        2>/dev/null || true)
+      if [ -n "$CLEANUP_COUNTS" ]; then
+        RECLAIM_ELIGIBLE=${CLEANUP_COUNTS%% *}
+        RECLAIMED_TOTAL=${CLEANUP_COUNTS##* }
+      fi
+    fi
+    if [ "$CLEANUP_RC" -ne 0 ]; then
+      append_decision cleanup-control failure "cleanup-control-rc-$CLEANUP_RC"
+    fi
+  fi
+fi
+
+# Legacy direct-reclaim behavior is reachable only in the isolated guard test
+# harness. Production deletion authority belongs exclusively to cleanup_control.py.
+if [ "$TEST_MODE" -eq 1 ] && [ "${EMERGENCY_GUARD_TEST_ENABLE_RECLAIM:-0}" = 1 ]; then
   # Exact, known-regenerable caches only. No transcript, todo, lock, worktree,
   # deliverable, browser identity, cookies, Login Data, or session database.
   for bundle in "$HOME_DIR/Library/Application Support/Claude/vm_bundles/"*.bundle; do
