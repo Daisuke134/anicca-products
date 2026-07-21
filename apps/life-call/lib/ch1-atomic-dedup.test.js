@@ -12,6 +12,7 @@ process.env.SUPABASE_URL = process.env.SUPABASE_URL || "http://s";
 process.env.SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || "k";
 const {
   claimWake, releaseWake, isLowBalanceError, shouldAlertLowBalance, maybeAlertLowBalance, LOW_BALANCE_ALERT_COOLDOWN_MS,
+  shouldAlertDialFailure, maybeAlertDialFailure, DIAL_FAILURE_ALERT_COOLDOWN_MS,
 } = require("../scheduler.js");
 
 // Stub global.fetch to return a sequence of HTTP statuses, recording each call.
@@ -256,6 +257,47 @@ test("maybeAlertLowBalance: with admin chat configured, sends via the Telegram B
   assert.ok(s.calls[0].body.includes('"chat_id":"12345"'));
   await maybeAlertLowBalance("telnyx balance too low ($0.05)", t0 + 1000); // 1s later — still throttled
   assert.strictEqual(s.calls.length, 1, "a second failure inside the 6h window does not send another alert");
+  s.restore();
+  if (origToken !== undefined) process.env.LM_TELEGRAM_BOT_TOKEN = origToken; else delete process.env.LM_TELEGRAM_BOT_TOKEN;
+  if (origChat !== undefined) process.env.LM_ADMIN_TELEGRAM_CHAT_ID = origChat; else delete process.env.LM_ADMIN_TELEGRAM_CHAT_ID;
+});
+
+// ── issue#10 follow-up: general dial-failure admin alert (any non-balance placeCall failure) ──────
+// The low-balance alert above only covers ONE failure class. A rotated TELNYX_API_KEY / wrong
+// TELNYX_CONNECTION_ID / Telnyx outage fails EVERY tick with only a console.error today — same
+// "silently never fires" bug, different cause. shouldAlertDialFailure must fire for those and stay
+// silent for balance errors (maybeAlertLowBalance already owns that case, on its own throttle).
+test("shouldAlertDialFailure: fires for non-balance dial errors, never for balance errors, throttled 1/6h", () => {
+  const lastAlert = 10_000;
+  assert.strictEqual(
+    shouldAlertDialFailure("telnyx env missing (API/CONN/FROM)", lastAlert + DIAL_FAILURE_ALERT_COOLDOWN_MS, lastAlert),
+    true, "a non-balance dial error past the cooldown fires"
+  );
+  assert.strictEqual(
+    shouldAlertDialFailure("telnyx env missing (API/CONN/FROM)", lastAlert + 1000, lastAlert),
+    false, "inside the 6h cooldown — throttled"
+  );
+  assert.strictEqual(
+    shouldAlertDialFailure("telnyx balance too low ($0.10)", lastAlert + DIAL_FAILURE_ALERT_COOLDOWN_MS, lastAlert),
+    false, "a balance error never fires here — that's maybeAlertLowBalance's job"
+  );
+  assert.strictEqual(shouldAlertDialFailure("", lastAlert + DIAL_FAILURE_ALERT_COOLDOWN_MS, lastAlert), false, "empty error never fires");
+});
+
+test("maybeAlertDialFailure: with admin chat configured, sends via the Telegram Bot API and respects the throttle", async () => {
+  const origToken = process.env.LM_TELEGRAM_BOT_TOKEN, origChat = process.env.LM_ADMIN_TELEGRAM_CHAT_ID;
+  process.env.LM_TELEGRAM_BOT_TOKEN = "test_token";
+  process.env.LM_ADMIN_TELEGRAM_CHAT_ID = "12345";
+  const s = stubFetch([200, 200]);
+  const t0 = 3000 * 3600 * 1000; // far past prior tests' nowMs (module-level throttle state persists across tests)
+  await maybeAlertDialFailure("telnyx /calls 401: unauthorized", t0);
+  assert.strictEqual(s.calls.length, 1, "first non-balance dial failure sends an alert");
+  assert.match(s.calls[0].url, /api\.telegram\.org\/bottest_token\/sendMessage/);
+  assert.ok(s.calls[0].body.includes('"chat_id":"12345"'));
+  await maybeAlertDialFailure("telnyx /calls 401: unauthorized", t0 + 1000); // 1s later — still throttled
+  assert.strictEqual(s.calls.length, 1, "a second failure inside the 6h window does not send another alert");
+  await maybeAlertDialFailure("telnyx balance too low ($0.10)", t0 + 2000);
+  assert.strictEqual(s.calls.length, 1, "a balance error routed here still does not alert (not its job)");
   s.restore();
   if (origToken !== undefined) process.env.LM_TELEGRAM_BOT_TOKEN = origToken; else delete process.env.LM_TELEGRAM_BOT_TOKEN;
   if (origChat !== undefined) process.env.LM_ADMIN_TELEGRAM_CHAT_ID = origChat; else delete process.env.LM_ADMIN_TELEGRAM_CHAT_ID;
