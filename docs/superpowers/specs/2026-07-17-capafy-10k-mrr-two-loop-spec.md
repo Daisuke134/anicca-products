@@ -526,9 +526,9 @@ junk が増える = 将来の dev(人/AI)が「どれが本物か」で迷い、
 | OpenClaw | global primary は `deepseek/deepseek-v4-flash`、fallback は `openai/gpt-5.4-mini`。gpt-5.5-mini ではない | `/Users/anicca/.openclaw/openclaw.json` |
 | gig process | tmux `anicca-gig-core` は存在するが起動commandも各stepも `--model sonnet` 固定。coreは429後idle、`pass-report.jsonl` / `.last-pass` の最終更新は前日で、本日のproductive passはない | tmux pane/process argv、`~/gig/pass-report.jsonl`、`~/anicca/skills/earn/gig/gig_pass.sh:12-20` |
 | false success | `gig_pass.sh` の `step()` は sub-call stdout/stderr を `/dev/null` に捨て、非zero rcでも後続へ進める。最後に `.last-pass` / pass report を更新できる | `/Users/anicca/anicca/skills/earn/gig/gig_pass.sh:15-24,38-56` |
-| 木村様案件 | requestId `5138597`、契約額 **¥65,000**、納品予定日は本日。実talkroomは `取引中 / 進行中 / 納品送付前`、`正式な納品` checkbox未選択。最新は出品者のテキスト返信で、改善版file添付も正式納品もない | real `https://coconala.com/talkrooms/17963099` DOM + `/private/tmp/fkimura-talkroom-current.png` |
-| 木村様成果物 | code と7画像分の CSV/JSON/overlay はあるが、package/README/requirements/expected matrixがなく、空盤で black=19 / black=13, white=4 のまま。受入不可 | `~/gig/wip/5138597_fkimura_goboard/`、`out_20260721/summary.json` |
-| paid queue | real `received_orders/open` は3件。INV-R9順は Fkimura requestId `5138597` / ¥65,000 / 当日paid → `sunai267` requestId `5167108` / ¥17,000 / 購入済みかつbuyerのaddon・error・screenshot受領 → `jibieaian` / ¥40,000 / その他paid。3件ともbuyer-visibleな次versionと正式納品証拠がない | fresh authenticated Coconala DOM + `/private/tmp/gig-runner-todo2-review.E2bkbg/49-live-normalized-summary.json` |
+| 木村様案件 | requestId `5138597`、契約額 **¥65,000**。2026-07-22にfeedback反映progress v1をbuyer-visible添付し、`正式な納品`も送信。現在の実talkroomは `納品確認待ち`、返信期限は2026-07-25 08:00 | `/Users/anicca/gig/evidence/fkimura-formal-20260722/`、`/private/tmp/fkimura-formal-delivery-20260722.png` |
+| 木村様成果物 | 案件専用quad warp/19x19 detectorを実行。01・03のみ一致、02・04・05・06・07は誤検出/見逃し。progress artifactにはFAIL reportと残課題を明記 | `/private/tmp/fkimura-goboard-progress-v1.zip`、SHA-256 `bb4a2d66649163ecda813711256cf316c44ba026773961526bfb66970406c9c9` |
+| paid queue | real `received_orders/open` は3件。2026-07-22時点でFkimura・sunai267・jibieaianの全3件がbuyer-visible進捗versionを保持。formal deliveryはFkimuraのみ1/3（納品確認待ち）で、sunai/jibieaianはformal checkbox未送信 | `/Users/anicca/gig/evidence/fkimura-formal-20260722/marketplace-snapshot.json`、`/private/tmp/sunai-5167108-progress-sent.png`、`/private/tmp/jibieaian-17943244-progress-sent.png` |
 | quote queue | `sunai267` は `要提案` から購入済みへ遷移し、talkroom `18011694` が開いている。現在のfresh viewにactive quoteはなく、stale quoteよりpaid stateを優先する必要がある | real `received_orders/requests` / `received_orders/open` / talkroom DOM |
 | TODO #2 review | first reviewのFAIL findings（forged delivery / stale result / paid優先 / self-improve / evidence最小化）を `61d97b4` で修正。fresh corrective reviewは **PASS**。live launchdはFkimuraを先頭選択し、Luna/Terra runner、4 blockerの正直なfailure、success marker不変、lock/lease cleanupを実測 | `/private/tmp/gig-runner-todo2-corrective.4Ve3NR/`、`/Users/anicca/gig/evidence/gig-pass-1784636130-37050` |
 | Capafy marketplace loop | launchd dailyはloaded。直近passは本日08:10〜08:33にSonnetで成功したが、scriptはSonnet固定であり、現在のquota/cooldown下では次回成功を保証できない | `capafy-loop-daily.log`、`capafy-loop-daily.sh:11,27` |
@@ -568,6 +568,8 @@ junk が増える = 将来の dev(人/AI)が「どれが本物か」で迷い、
 | INV-R7 | 合意scopeのacceptanceがPASSした瞬間に、deadlineまで待たずartifactを添付して `正式な納品` を送る。未完成・既知failのartifactへ正式納品を付けない |
 | INV-R8 | 差し戻し/追加feedback後は新versionを作り、変更点とevidenceを添えて再納品する。paid work中もトークルームと納品確認を毎pass確認する |
 | INV-R9 | queue優先順位は `期限超過/当日paid deliverable → buyer feedback/revision → 要提案quote → その他paid work → nurture → listing/apply/learn`。予定日は開始日として使わない |
+| INV-R10 | 合意scopeのacceptanceが未完了でも、feedback反映版・進捗artifact・具体的blockerを同じpassでbuyer-visibleに提出する。未完成版には `正式な納品` を付けず、formal deliveryはacceptance/承認可能状態になったpassだけで送信する |
+| INV-R11 | 取引中案件だけでなく、未契約の問い合わせ/提案talkroomも毎日queueへ取り込み、未返信を残さない。返信・提案・次アクションをledgerへ記録する |
 | INV-M1 | account warmup を目的とした自動 follow / like / comment / reel-scroll を行わない |
 | INV-M2 | account ageだけの day1/day2/day3 gate を使わない。publisher health と public verification が gate |
 | INV-M3 | first post は original / non-commercial / linkなし。commercial化は複数reach snapshot後のみ |
@@ -613,17 +615,19 @@ Completed gate: **TODO #1 P0 disk containment review findings — PASS**。正�
 
 Completed gate: **TODO #2 provider-agnostic Gig runner + delivery-first — PASS**。corrective commit `61d97b4` は `origin/main` にあり、fresh independent review PASS。実際の正式納品は各契約のartifact/acceptanceが揃うTODO #3/#4で行う。
 
+Incident correction: 2026-07-22、ユーザーの明示指示によりFkimuraの未完成progress artifactをbuyer-visible提出し、`正式な納品`まで送信した。これはINV-R7（合意scope/acceptance完了前はformalを送らない）に反する例外であり、品質gateのgreenとは扱わない。今後の未完成案件はprogress提出のみ、formal checkboxは合意要件/acceptance準備後に限定する。
+
    | 順 | TODO | Builder scope | Done / E2E gate |
    |---:|---|---|---|
    | 1 | **木村様案件を即時正式納品** | 案件専用CVを修正し、CloakBrowser daily-driverでbuyer-visible upload→`正式な納品`→納品確認待ちを実行。FAILでもfeedback反映版を明記して提出し、次versionへ改善する | **正式納品操作は完了、品質改善は継続。** 最新進捗版は01・03のみ判定一致、02・04・05・06・07に誤検出/見逃しが残る。`fkimura-goboard-progress-v1.zip`（SHA-256 `bb4a2d66649163ecda813711256cf316c44ba026773961526bfb66970406c9c9`）をCloakBrowserで添付し、正式な納品を送信。live DOMは`transaction_state=納品確認待ち`、`buyer_visible_artifact_observed=true`、`formal_delivery_observed=true`。証拠 `/private/tmp/fkimura-formal-delivery-20260722.png`、`/Users/anicca/gig/evidence/fkimura-formal-20260722/`。 |
-   | 2 | **残り2契約を正式納品** | sunai267・jibieaianをqueueから動的選択し、各案件のartifact→acceptance→hash→upload→formal delivery→browser evidenceを実行。案件ごとにfeedback後vN+1を作成 | **未完了。** 3契約すべてformal_delivery_observed=false。 |
+   | 2 | **残り2契約をbuyer-visible提出→承認後formal delivery** | sunai267・jibieaianをqueueから動的選択し、feedback/添付を収集、進捗artifact→acceptance delta→hash→CloakBrowser uploadを即時実行。acceptance/合意要件が揃った後のpassだけ`正式な納品`を付け、案件ごとにfeedback後vN+1を作成 | **進捗提出は完了、formalは未完了。** sunai request `5167108`のv1 hash `2578fb4998c84edcd0179787eef5c7c08b1c127ec119af336c0638e156e27c40`、jibieaian request `17943244`のv1 hash `3e4b96b51e8022e4d7fceb1e131e7f700edd915ab3054adf72e33696b0a001c4`をCloakBrowserでbuyer-visible送信。証拠 `/private/tmp/sunai-5167108-progress-sent.png`、`/private/tmp/jibieaian-17943244-progress-sent.png`。Coconalaの正式納品確認モーダルが合意要件充足を要求するため、両件ともformal checkboxは未送信。formal stateはFkimuraのみ1/3。 |
    | 3 | **delivery-first loopの自己改善を実証** | 失敗理由をappend-only ledgerへ記録し、次passが同じ失敗を再発させない改善を自動生成・検証する。顧客名・案件IDのハードコードは禁止 | 3契約でfailure→修正→再実行→formal deliveryのE2E証拠、daily self-improve ledger、success marker整合 |
    | 4 | **provider-agnostic runnerをCapafy/Fleetへ展開** | Provider Registry（Claude Sonnet/Codex Luna/Terra/Sol、capability・quota・transient-only fallback）を共通runnerへ接続 | commit `592a193`、registry tests 2 passed、py_compile PASS。3契約正式納品後にproduction E2E確認 |
    | 5 | **cleanup control plane + artifact lifecycleを単一化** | cleanup entrypointを1つにし、重複LaunchAgent/OpenClaw cleanerを無効化。全artifactにowner/class/TTL/quota/lease/finalizerを宣言し、fail-closed manifest、off-volume quarantine、append-only delete ledgerを実装 | active cleanup executor=1。manifest欠損/破損/unknown/active/deliverable fixtureは削除0、expired ephemeralだけ削除。過去事故fixture（`.venv`、WIP clone、runtime `dist`、`reelclaw-assets`）全保持。delete ledgerとrestore E2E PASS |
    | 6 | **producer budgets + capacity observability** | gig / marketing / clip / video / browser / worktree producerにrun quota、rotation、checkpoint圧縮、reserve-space backpressureを実装。容量trendとowner別growthを観測し、0-byte reclaim反復をfailure化 | free-space reserveを割るfixtureで新規runは開始せずactive run/checkpointは保持。producer別quota test、log rotation、recovery後resume E2E。cleanerが2回連続0-byte reclaimならalert/failureとなりsuccessを記録しない |
    | 7 | **shared marketing-engineをno-synthetic-warmupへ移行** | `warming/day3 golden private session` を `setup/publisher_ready/posted/measuring/commercial` へ置換。automatic follow/like/comment/scrollを削除。official Meta publisher primary、product adapter分離。Capafy / clip / video consumer contractを更新 | testでsynthetic engagement call=0、day-count branch=0、全consumerが同じ lifecycle/publisherを参照。official publisher health probeとfailure state transitionをE2E。current terminal accountは再利用しない |
    | 8 | **fresh Capafy accountからfull-cycleを実証しfleet rollout** | isolated account setup、professional/publish permission、first non-commercial Reel、public/reach measurement、commercial gate、Telegram/ledgers。全consumer regression後に14日自走 | account creation/setup evidence、publisher-ready evidence、public Reel URL、logged-out screenshot、publish status、IG/rotation ledger、Telegram message ID。複数snapshotでnonzero reach後のみ commercial marker。14日 `setup→post→measure→report` 継続、全gate green |
-| 10 | **read-only cleanup analyzer + fleet self-improvement gate** | owner別growth/anomalyを分析しpolicy変更案とRED fixtureを生成するread-only analyzerを追加。policy変更はshadow/canaryと独立review後のみpromote | analyzer権限でdelete/policy write不可を実証。提案→RED→GREEN→shadow→canary→promote ledger E2E。14日間、protected artifact欠損0、disk reserve違反0、正常revenue worker誤kill 0 |
+| 9 | **read-only cleanup analyzer + fleet self-improvement gate** | owner別growth/anomalyを分析しpolicy変更案とRED fixtureを生成するread-only analyzerを追加。policy変更はshadow/canaryと独立review後のみpromote | analyzer権限でdelete/policy write不可を実証。提案→RED→GREEN→shadow→canary→promote ledger E2E。14日間、protected artifact欠損0、disk reserve違反0、正常revenue worker誤kill 0 |
 
 ### 17.8 Acceptance scenarios
 
@@ -634,11 +638,12 @@ Completed gate: **TODO #2 provider-agnostic Gig runner + delivery-first — PASS
 5. **Paid deadline** — Given an active paid contract is due, when gig wakes, then delivery work runs before learn/listing/apply and continues until formally delivered or a concrete blocker is recorded.
 6. **OpenCV acceptance** — Given the seven buyer images and expected counts, when the package test runs, then every count and output schema passes before upload.
 7. **Immediate delivery** — Given acceptance is green before the registered deadline, when the gig pass runs, then it attaches the versioned artifact and sends `正式な納品` in that pass; it does not wait for the deadline.
-8. **Feedback iteration** — Given buyer feedback or a formal return, when the next pass runs, then a new artifact version and delta evidence are produced; a text-only acknowledgment cannot mark the step successful.
-9. **Quote priority** — Given a feasible `要提案` quote exists, when no due/feedback paid item blocks it, then the loop sends the proposal before listing/apply/learn work.
-10. **Fresh marketing account** — Given account setup and official publisher health are green, when the first content is ready, then one original non-commercial Reel may publish on day1; no artificial engagement or arbitrary waiting day is required.
-11. **Reach gate** — Given a public Reel exists but reach evidence is absent/zero, when daily runs, then commercial link/CTA remains disabled.
-12. **Shared regression** — Given shared lifecycle changes, when Capafy/clip/video tests run, then each consumer uses its own state namespace and the same engine contract without cross-account mutation.
+8. **Feedback iteration** — Given buyer feedback or a formal return, when the next pass runs, then a new artifact version and delta evidence are produced and buyer-visible even when acceptance is incomplete; a text-only acknowledgment cannot mark the step successful, and the formal checkbox remains off until agreement/acceptance is ready.
+9. **Uncontracted inquiry response** — Given a new or unanswered inquiry talkroom, when the daily pass runs, then it is read, answered with a concrete next action/proposal, and ledgered; no inquiry remains silently stale.
+10. **Quote priority** — Given a feasible `要提案` quote exists, when no due/feedback paid item blocks it, then the loop sends the proposal before listing/apply/learn work.
+11. **Fresh marketing account** — Given account setup and official publisher health are green, when the first content is ready, then one original non-commercial Reel may publish on day1; no artificial engagement or arbitrary waiting day is required.
+12. **Reach gate** — Given a public Reel exists but reach evidence is absent/zero, when daily runs, then commercial link/CTA remains disabled.
+13. **Shared regression** — Given shared lifecycle changes, when Capafy/clip/video tests run, then each consumer uses its own state namespace and the same engine contract without cross-account mutation.
 
 ### 17.9 Full TO-BE
 
@@ -737,5 +742,8 @@ Every step: real evidence → Planner independent verification → spec update
 - Meta Instagram Content Publishing: https://developers.facebook.com/documentation/instagram-platform/content-publishing — professional account向けに `/<IG_ID>/media` と `/<IG_ID>/media_publish` を提供し、Reelsを正式公開できる。
 - Meta Spam policy: https://transparency.meta.com/policies/community-standards/spam/ — 「restrictions ... at lower frequencies when ... signals of inauthenticity are present」。回数を少なくするだけでは不十分で、synthetic engagement自体を除く。
 - Coconala 正式な納品: https://coconala-support.zendesk.com/hc/ja/articles/218721047 — 合意内容を満たす提供が完了した時に出品者が送信する。
+- Coconala運用反映: 未完成feedback版は通常メッセージ＋buyer-visible artifactで提出し、正式な納品checkboxは合意要件/検収可能状態まで付けない。2026-07-22の実ブラウザ確認モーダルにも「合意した要件を満たすこと」が表示された。
 - Coconala 納品確認: https://coconala-support.zendesk.com/hc/ja/articles/900005474606 — 承諾/差し戻しを行わない場合は正式納品から72時間後の次の00分に自動クローズする。
 - Coconala 要対応: https://coconala-support.zendesk.com/hc/ja/articles/5894870734745 — 見積り提案期限72時間前、納品予定日超過、差し戻し等を要対応として扱う。
+- GitHub `amfl/opencv-go`: https://github.com/amfl/opencv-go — board mask→convex hull/corners→bird's-eye homography→transformed grid samplingという既存のGo盤CV構成。木村様案件では外枠/透視補正を案件専用に試す根拠にした。
+- GitHub `diegocepedaw/lasergo`: https://github.com/diegocepedaw/lasergo — 4隅選択→top-down perspective→19×19交点補正という実装例。全361交点を保持し、盤面座標と画像座標を分離する参考にした。
