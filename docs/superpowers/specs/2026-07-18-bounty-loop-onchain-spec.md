@@ -22,18 +22,18 @@ spec は SSOT。発見のたび本文を実測値に書き換える。
 - 個人repoでnovel sandbox escape、huntr paid scopeのBentoMLでDockerfile command injection PoCを実再現。
 - poidh read lib + native-verify、19テストgreenと既知txの0.1297 ETH検出。これはcrypto mechanism参照であり収益証明ではない。
 - Algora batch実走はdiscover 63→survivor 0→earn 0。飽和済みPR型batchを主railにしない根拠として保持する。
+- B1 demand scoutはpayer signalがないcallを需要から除外し、`calls × median price ÷ listings`で供給調整する。live CDP Bazaar 24,802 listingsで340,350 calls・40,084 payer signals・8 paid-demand categories、test 155/155 green（anicca `c35afe2b`）。
 
 **残タスク（上から順）:**
 
 | # | 残タスク | done条件 | 依存 |
 |---|---|---|---|
-| B1 | **demand scout + hard gate** | paid volume・active buyers・live inventory・automation policy・KYC・wallet settlement・expected marginを機械判定し、falseならcomputeを使わない | — |
-| B2 | **x402 demand-product fit** | 実決済カテゴリから1商品を選び、既存4商品との差分、buyer、入力、delivery、価格を実データで固定 | B1 |
+| B2 | **x402 demand-product fit** | 未提供候補 `defi > audio > image` から1商品を選び、buyer、入力、delivery、median price、unit cost、positive marginを実データで固定 | B1 ✅ |
 | B3 | **distribute + observe** | public MCP/direct endpointを需要のあるdirectoryへ掲載し、listing URLとアクセス/402 telemetryを保存 | B2 |
 | B4 | **external payout verify + ledger** | 第三者payerのfinalized USDC transferをwrite-pathで再検証し、重複なく1行記録。現状は3 walletとも48h external inflow = $0 | B3 |
 | B5 | **repeat + bounty monitor** | x402の外部着金を再現して黒字化し、同時に全gateを通るbounty railが出た時だけsecurity pipelineを有効化 | B4 |
 
-**critical path = B1 → B2 → B3 → B4 → B5**。human identity/KYC/owner credentialが必要なrailは、このstrict laneから分離する。
+**critical path = B2 → B3 → B4 → B5**。B1は完了。human identity/KYC/owner credentialが必要なrailは、このstrict laneから分離する。
 
 ---
 
@@ -43,8 +43,8 @@ spec は SSOT。発見のたび本文を実測値に書き換える。
 外部payoutを受け取り、検証済みledgerへ記録して繰り返す。bountyは全gateを通った時だけ追加の供給源になる。**
 
 done（AND、全て実測で確認）:
-1. B1 gateがrecent paid volume・buyer・live demand・policy・identity・settlement・marginを証明する。
-2. loopが需要カテゴリに対応する商品を作り、public x402/MCP endpointとlisting evidenceを残す。
+1. B1 gateがrecent paid calls・payer signals・live category・supply-adjusted opportunityを証明する。
+2. B2がautomation・identity・wallet settlement・positive unit marginを確認し、需要カテゴリに対応する商品を作り、public x402/MCP endpointとlisting evidenceを残す。
 3. 外部buyerが商品を購入し、serve-v2の既存payment middlewareがverify+settleする。
 4. **報酬が実際に着金**し、B4 write-pathが受取人・金額・通貨・外部payer・重複なしを再検証する。
 5. 上記がdurable loopの自走で再現し、次の需要または改善へ戻る。1件で停止しない。
@@ -175,8 +175,8 @@ E2E green = T1-T9 全通過 + done 1-4 の on-chain 着金を Fable が Basescan
 
 - **Phase 0 — rail/spec確定**: primary=x402、bounty=research/monitor、Immunefi automation=NO-GO。
   exit proof = 本文・GOAL・TODO・RAIL・ASCIIにsecurity-audit-primaryの現行主張が0。
-- **Phase 1 — demand scout**: B1をTDDで完成。exit proof = fixtureとlive x402 dataの両方からpaid volume/buyer/categoryを返し、hard gateを判定する。
-- **Phase 2 — product + distribution**: B2/B3。exit proof = demand根拠、green tests、public endpoint、listing URL、request telemetry。
+- **Phase 1 — demand scout（COMPLETE）**: fixtureのpayer 0をNO-GO、live x402 dataをGOと判定。supply-adjusted score、live served category整合、155/155 green、commit `c35afe2b`。
+- **Phase 2 — product + distribution（ACTIVE）**: B2/B3。exit proof = demand根拠、positive unit margin、green tests、public endpoint、listing URL、request telemetry。
 - **Phase 3 — external payout**: B4。exit proof = tx hash + finalized receipt + external payer + write-path再検証log + 重複なしledger行。ここまでearnは¥0。
 - **Phase 4 — repeat + scale**: B5。exit proof = 2件目の外部payoutまたは黒字期間の再現。eligible bounty railがなければx402だけを拡張する。
 
@@ -195,13 +195,14 @@ E2E green = T1-T9 全通過 + done 1-4 の on-chain 着金を Fable が Basescan
 - 2026-07-18 [gib.work 実地検証]: **③使えない**。payout=wallet-native/USDC/no-KYC で human-zero 適合だが、`api.gib.work/explore` total=426 中 **isOpen=true 4件・dev は1件のみ**（板の実態は Social Media 213/Misc 87）。accept=funder 裁量（PR merge 自動払いでない）。認証=Solana wallet 署名（OAuth/email 不要）。→ 継続income railにならずdisabled。
 - 旧rail仮説の訂正: security auditがhuman-zero+crypto+実需要を同時に満たすという判断はfalse。Immunefiのautomation禁止、Sherlockのrecent KYC、CodeHawksのopen供給不足を後続実測で確認する。strict laneのprimaryはx402 sell。
 - live market実測: x402scanは直近30日15.87M tx・$741.58K volume・36.05K buyers・75K sellers、24h active merchants 2,778を表示する。需要はmodel routing、social data、enrichment/search、RPC/onchain data、voice、trading dataへ集中する。一方、Aniccaのclaude-p/franklin1/franklin2は48h external USDC inflowがすべて$0。市場不在ではなくproduct/distribution未成立として扱う。
+- B1 live verify: CDP Bazaar 24,802 listingsを全page取得し、30d 340,350 calls・40,084 payer signals・8 paid-demand categoriesでgate=true。served=`search,data,llm`。供給調整後の未提供候補はdefi 0.092695、audio 0.073828、image 0.04527。payer signal 0は候補から除外する。
 - 2026-07-18 [Sol review verdict = **STOP-AND-REVISIT-RAIL**]: 7 blocking。#1 poidh 攻略前提破綻（proof=現地/original、AI 画像不可、sentinel は発注者側）#2 accept 8.6%・open の 55/71 が30日超で墓場・収益性ゲート不在 #3 Phase0 が rail を証明しない #4 record.mjs が caller 提供値を盲信＝done 捏造可 #5 balance-delta は偽陰陽性→event log を bigint wei で #6 gas 自己復旧デッドロック #7 鍵 broadcast 前防御。→ INV-8〜11 に昇格・rail 降格・Phase0 再定義で反映済。
 - 2026-07-18 [71 open 全 dump・カテゴリ精査, Fable 実測]: AI が human-zero で勝てるのは **~10件のみ**（残りは現実世界/特定人物 proof）。AI 勝機案件: #263 "ship a real build"(0.0138ETH,claims2,純コード) / #107 "Farcaster Movie Trailer, Use AI"(0.0125ETH,claims3) / #237系 "tweet about \$Space proof=tweet URL"(claims0 多数, 0.001ETH) / #304 poem(claims9飽和) / #283 one question(claims1) / #301 NFT mint / #250 token split。→ **判定: poidh は mechanism 実証には適するがincome railとして薄い**（大半 \$3〜40、acceptはfunder依存）。
 
 ## OPEN RISK / honest gap
 
-- x402市場の総需要は実在するが、Anicca 3 walletの48h external inflowは$0。listing数ではなくbuyer/category/conversionをscoutへ入れない限り、同じ無需要商品を増やす危険がある。
+- x402市場の総需要とbuyer/category/supplyはscoutへ入るが、Anicca 3 walletの48h external inflowは$0。次はcategory集計から個別buyer jobへ掘り、商品別conversionを証明する。
 - x402scanの集計は市場全体であり、Anicca商品のaddressable demandを直接証明しない。商品ごとの402、paid purchase、repeat buyerを別に計測する。
 - x402の取引には極小額が多い。gross revenueではなくcompute/gas/listing cost差引後のmarginをhard gateにする。
 - bounty railは報酬額だけでGOにしない。automation policy、KYC/owner gate、current open supply、wallet settlementを毎回再検証する。
-- poidh/native-verifyはmechanism参照として残るが、現行Phase 1のcritical pathには入れない。
+- poidh/native-verifyはmechanism参照として残るが、現行critical pathには入れない。
