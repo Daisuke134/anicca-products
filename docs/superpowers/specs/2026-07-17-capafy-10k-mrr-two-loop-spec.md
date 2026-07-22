@@ -524,7 +524,7 @@ junk が増える = 将来の dev(人/AI)が「どれが本物か」で迷い、
 | Claude runtime | direct Sonnet はquota/cooldownで利用不能。全active revenue loopは共通runnerへ移行し、Reddit / Bountyの旧persistent coreも廃止した。healthcheck再実行後もrevenue direct Claude processは0件。Automaton runtimeのdirect Sonnetだけが残り、残りFleet rolloutで扱う | commits `8b5fbe8` / `2f31a4c`、process argv、各healthcheck / runtime entrypoint |
 | Codex runtime | `codex exec --ephemeral -m gpt-5.6-luna` と `gpt-5.6-terra` は read-only probe がともに rc=0、期待文字列を返す | `/private/tmp/codex-loop-probe.txt`、`/private/tmp/codex-terra-probe.txt` |
 | OpenClaw | global primary は `deepseek/deepseek-v4-flash`、fallback は `openai/gpt-5.4-mini`。gpt-5.5-mini ではない | `/Users/anicca/.openclaw/openclaw.json` |
-| gig process | tmux `anicca-gig-core` はprovider-free heartbeat supervisorとして生存する。実作業はlaunchd `ai.anicca.hf-gig-pass`が毎時27分にbounded passを起動し、共通runnerへtask classだけを渡す。直近launchdはruns=3 / last exit=1で、Sunaiへのbuyer-visible進捗送信までは実行するがformal pendingでpass failure。tmux生存だけを収益loop成功とは扱わない | tmux pane/process argv、`launchctl print gui/$(id -u)/ai.anicca.hf-gig-pass`、`gig_core_supervisor.sh`、`gig_pass.sh` |
+| gig process | tmux `anicca-gig-core` はprovider-free heartbeat supervisorとして生存する。実作業はlaunchd `ai.anicca.hf-gig-pass`が毎時27分にbounded passを起動し、共通runnerへtask classだけを渡す。12:27 passはrequest idのないdirect offerでledger例外になったが、stable identity fallbackとbuyer-wait stateを修正し、runs=8のkickstartではjibieaian v2を重複送信せずpollしてLuna LEARN→Terra B0へ継続する。tmux生存だけを収益loop成功とは扱わない | commit `6c74546`、`/Users/anicca/gig/evidence/gig-pass-1784692214-19630`、tmux pane/process argv、`launchctl print gui/$(id -u)/ai.anicca.hf-gig-pass` |
 | Gig provider order | production configはrepeatable/tool/high-valueの全classでCodex GPT-first。独立live probeはLuna/Terra/Solが各attempt 1で成功し、自然発火したGig reality verifierもCodex `gpt-5.6-sol` / attempt 1で成功する | commits `d1a51e3` / `551b777`、`/private/tmp/gpt-first-live-probes/`、`/Users/anicca/gig/trajectory/realityverify-1784681102-1848/agent-runner/summary.json` |
 | false success | `gig_pass.sh` の `step()` は sub-call stdout/stderr を `/dev/null` に捨て、非zero rcでも後続へ進める。最後に `.last-pass` / pass report を更新できる | `/Users/anicca/anicca/skills/earn/gig/gig_pass.sh:15-24,38-56` |
 | 木村様案件 | requestId `5138597`、契約額 **¥65,000**。progress v1の正式納品後、acceptance PASSのv2をbuyer-visible追送した。fresh reloadで本文・12.6MB ZIP・hashを同じ最新message DOMに確認。実talkroomは `納品確認待ち`、formal checkboxは送信済みdisabled、返信期限は2026-07-25 08:00 | `/Users/anicca/gig/evidence/fkimura-v2-resubmitted-{,file-}20260722.png`、`projects/5138597/delivery/v2/submission-evidence.json` |
@@ -571,6 +571,7 @@ junk が増える = 将来の dev(人/AI)が「どれが本物か」で迷い、
 | INV-R9 | queue優先順位は `期限超過/当日paid deliverable → buyer feedback/revision → 要提案quote → その他paid work → nurture → listing/apply/learn`。予定日は開始日として使わない |
 | INV-R10 | 合意scopeのacceptanceが未完了でも、feedback反映版・進捗artifact・具体的blockerを同じpassでbuyer-visibleに提出する。未完成版には `正式な納品` を付けず、formal deliveryはacceptance/承認可能状態になったpassだけで送信する |
 | INV-R11 | 取引中案件だけでなく、未契約の問い合わせ/提案talkroomも毎日queueへ取り込み、未返信を残さない。返信・提案・次アクションをledgerへ記録する |
+| INV-R12 | sellerのversioned artifactがbuyer-visibleで、より新しいbuyer返信がない間は同一進捗を再送しない。read-only pollをledgerへ残して下位収益行動へ進み、任意の新しいbuyer返信を観測したpassでpaid workflowを再開する |
 | INV-M1 | account warmup を目的とした自動 follow / like / comment / reel-scroll を行わない |
 | INV-M2 | account ageだけの day1/day2/day3 gate を使わない。publisher health と public verification が gate |
 | INV-M3 | first post は original / non-commercial / linkなし。commercial化は複数reach snapshot後のみ |
@@ -624,6 +625,8 @@ Completed gate: **sunai267 Bedrock addon v2 formal delivery — PASS**。buyer�
 
 Progress gate: **jibieaian buyer-review v2 — PASS / formal pending**。購入proposalの5項目をfixture化しRED 7/7からGREEN 7/7、送信sidecar追加後8/8へ反転した。公開一次情報からMakuake `ifu001` が終了済み（126,000円 / 126% / 3名）と判明したため、古い予告/カウントダウン案をblockし、post-campaign trust・製作進捗・鹿革/職人教育へ訂正。v2 ZIP `ddceb84d...41283` は8枚の1080×1350 sRGB、月5投稿、LINE本文5通、導線改善3件、UTM、素材指示、3ページKPI PDFを含み、fresh展開SHAが全件一致。12:27にformalなしでbuyer-visible提出し、fresh reloadで本文・6.0MB ZIP・hash・`取引中`を確認。commits `68661fd` / `43c45a3`、画面証拠 `/Users/anicca/gig/evidence/jibieaian-v2-review-20260722.png`。
 
+Progress gate: **jibieaian buyer-wait harness — PASS / approval pending**。12:27の自然passは`direct-offer:6198868`に`request_id`がなく`record_queue_selection()`で例外終了した。またbuyer-visible v2があるのに既存cadenceは同一progressを毎時再送する判定だった。stable identityを`request_id → talkroom_id → contract_id`へ統一し、既存ledger `17943244`を保持、seller artifact後の任意buyer返信を高優先feedbackとして再開し、それ以前はmutationなしで下位収益stepへ進む。REDはproject 2件、wait-shell、non-keyword reply priority、TOP_IDの計5系統。GREENはpytest 39件+23 subtests、shell E2E 8本。live kickstartは`id=17943244`、`awaiting buyer; live state polled without mutation`を記録し、`PAID_QUEUE_DELIVERY`を起動せずLuna LEARN→Terra B0へ継続する。commit `6c74546`、証拠 `/Users/anicca/gig/evidence/gig-pass-1784692214-19630`。
+
 Completed gate: **cleanup control plane + artifact lifecycle — PASS**。commit `796a7f247`。active executorの単一化、fail-closed manifest、off-volume quarantine、append-only ledger、restoreを実装しpytest 15件とguard主要6本がgreen。off-volume不在時は`quarantine_unavailable`で削除せずfail-closed。
 
 Completed gate: **producer budgets + capacity observability — PASS**。commit `ef54af2c6`。reserve/backpressure、6 producer別quota、rotation、0-byte reclaim failureを実装しpytest 22件とproduction `started→completed` E2Eがgreen。証拠 `/private/tmp/producer-capacity-e2e.J0kzy5/`。
@@ -640,7 +643,7 @@ Incident correction: 2026-07-22、ユーザーの明示指示によりFkimuraの
 | 6 | **fresh Capafy accountからfull-cycleを実証しfleet rolloutする** | isolated account setup、professional/publish permission、first non-commercial Reel、public/reach measurement、commercial gate、Telegram/ledgers。全consumer regression後に14日自走 | account creation/setup evidence、publisher-ready evidence、public Reel URL、logged-out screenshot、publish status、IG/rotation ledger、Telegram message ID。複数snapshotでnonzero reach後のみcommercial marker。14日 `setup→post→measure→report` 継続、全gate green |
 | 7 | **read-only cleanup analyzer + fleet self-improvement gate** | owner別growth/anomalyを分析しpolicy変更案とRED fixtureを生成するread-only analyzerを追加。policy変更はshadow/canaryと独立review後のみpromote | analyzer権限でdelete/policy write不可を実証。提案→RED→GREEN→shadow→canary→promote ledger E2E。14日間、protected artifact欠損0、disk reserve違反0、正常revenue worker誤kill 0 |
 
-Current execution: TODO 1のsunai267はformal `納品確認待ち`、jibieaianはbuyer-review v2提出まで完了。jibieaianの購入者承認をpollし、承認後にMeta/LINE access→公開/配信→KPI更新→formalの順で閉じる。未承認公開、未実測値の0埋め、完成artifactなしの追加テキスト、同一進捗文の重複送信は禁止する。
+Current execution: TODO 1のsunai267はformal `納品確認待ち`、jibieaianはbuyer-review v2提出と自律buyer-wait pollまで完了。購入者の新返信はまだなく、live stateは`取引中` / buyer-visible v2 / formal=false。GPT loopが返信をpollし、承認後にMeta/LINE access→公開/配信→KPI更新→formalの順で閉じる。未承認公開、未実測値の0埋め、完成artifactなしの追加テキスト、同一進捗文の重複送信は禁止する。
 
 ### 17.8 Acceptance scenarios
 
