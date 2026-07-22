@@ -153,12 +153,13 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `IN_PROGRESS / reply queue GREEN / reply evidence RED pending`
+- 状態: `IN_PROGRESS / reply queue GREEN / reply evidence RED verified`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - builder ownership: `scripts/reply_queue.py`、`scripts/reply_evidence.py`、`tests/test_reply_queue.py`、`tests/test_speedy_reply_evidence.py`
 - 非所有: `gig_pass.sh`、paid-work/delivery modulesと関連shell tests。builderはpure function/CLIとtestだけを作り、既存送信処理への配線はcode commit後にPlannerが行う。
 - 最新実測: code commit `68196f0`。`python3 -m unittest skills/gig-work/tests/test_reply_queue.py` は7 tests PASS。P1 deadline、paid lane除外、stable event identity、thread coalesce、privacy、owner-only CLI outputを固定する。`gig_pass.sh`への配線とlive sendは未実施。
+- evidence RED: code test commit `17473b6`。`python3 -m unittest skills/gig-work/tests/test_speedy_reply_evidence.py` は1 testを実行し、未実装の`reply_evidence.py`に対する`FileNotFoundError`でREDを確認する。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
