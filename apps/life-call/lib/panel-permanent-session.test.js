@@ -138,18 +138,23 @@ test("B1 resolver retry recovers the committed child, old candidate fails, and t
 });
 
 test("B1 real logout route requires POST exact origin and CSRF, revokes exact hash, clears cookie, and negatives do not mutate", async () => {
-  const raw = secret(10), revokes = [];
+  const raw = secret(10), revokes = [], familyId = "00000000-0000-4000-8000-000000000010";
+  const familyCsrf = auth.sha256(`${familyId}:panel-family-csrf`);
   await withServer((req, res) => auth.handlePanelRequest(req, res, {
     panelOrigin: "https://life.example", supaUrl: "https://db.example", supaKey: "service",
-    fetchImpl: async (url, init = {}) => { if (String(url).includes("revoke_lm_panel_session")) revokes.push(JSON.parse(init.body)); return jsonResponse(true); },
+    fetchImpl: async (url, init = {}) => {
+      if (String(url).includes("resolve_lm_panel_session")) return jsonResponse([{ uid: "u1", chat_id: "101", family_id: familyId, rotated: false, cookie_max_age: 2592000 }]);
+      if (String(url).includes("revoke_lm_panel_session")) revokes.push(JSON.parse(init.body));
+      return jsonResponse(true);
+    },
   }), async (base) => {
     for (const request of [
       { method: "GET" },
-      { method: "POST", headers: { origin: "https://evil.example", "x-lm-csrf": auth.csrfToken(raw) } },
+      { method: "POST", headers: { origin: "https://evil.example", "x-lm-csrf": familyCsrf } },
       { method: "POST", headers: { origin: "https://life.example", "x-lm-csrf": "bad" } },
     ]) await fetch(`${base}/panel/logout`, { ...request, headers: { cookie: `__Host-lm_panel_session=${raw}`, ...(request.headers || {}) }, redirect: "manual" });
     assert.equal(revokes.length, 0);
-    const ok = await fetch(`${base}/panel/logout`, { method: "POST", headers: { cookie: `__Host-lm_panel_session=${raw}`, origin: "https://life.example", "x-lm-csrf": auth.csrfToken(raw) }, redirect: "manual" });
+    const ok = await fetch(`${base}/panel/logout`, { method: "POST", headers: { cookie: `__Host-lm_panel_session=${raw}`, origin: "https://life.example", "x-lm-csrf": familyCsrf }, redirect: "manual" });
     assert.equal(ok.status, 303); assert.equal(ok.headers.get("location"), "/panel"); assert.match(ok.headers.get("set-cookie") || "", /Max-Age=0/);
   });
   assert.deepEqual(revokes, [{ p_session_hash: hash(raw) }]);

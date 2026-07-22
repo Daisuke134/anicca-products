@@ -184,9 +184,10 @@ async function handlePanelRequest(req, res, opts = {}) {
   if (pathname === "/panel/logout") {
     const session = cookieValue(req.headers.cookie, PANEL_COOKIE) || cookieValue(req.headers.cookie, "lm_panel_session");
     const expectedOrigin = String(opts.panelOrigin || opts.panelBaseUrl || "").replace(/\/$/, "");
-    const valid = req.method === "POST" && expectedOrigin && String(req.headers.origin || "") === expectedOrigin &&
-      timingEqual(req.headers["x-lm-csrf"], csrfToken(session));
-    if (!valid) { res.writeHead(req.method === "GET" ? 405 : 403, { Allow: "POST", "cache-control": "no-store" }); res.end(); return; }
+    if (req.method !== "POST") { res.writeHead(405, { Allow: "POST", "cache-control": "no-store" }); res.end(); return; }
+    if (!expectedOrigin || String(req.headers.origin || "") !== expectedOrigin) { res.writeHead(403, { Allow: "POST", "cache-control": "no-store" }); res.end(); return; }
+    const scope = await sessionScope(session, opts);
+    if (!scope || !timingEqual(req.headers["x-lm-csrf"], scope.csrf || csrfToken(session))) { res.writeHead(403, { Allow: "POST", "cache-control": "no-store" }); res.end(); return; }
     await revokePanelSession(session, opts);
     res.writeHead(303, { Location: "/panel", "Set-Cookie": clearPanelCookies(), "cache-control": "no-store" }); res.end(); return;
   }
