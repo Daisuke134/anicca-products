@@ -92,8 +92,13 @@ franklin の4商品(web-search/funding-rates/funding-rate-arb/research)が Fluor
   4 action（ensure/review/improve/update）へ修正（Anicca main `77db578b` / `6c213126`、focused 32/32 PASS）。
   live loopはPhase 1中`ANICCA_SLOT_ALLOWLIST=x402_sell`に集中し、自然wakeが
   `args={"action":"review"}`を選択。review実測はattempts24h=84、externalCount=0、externalUsd=0。
-- 次の自然wakeは`args={"action":"improve"}`を選び、fresh Bazaar 500件からDeFi gap
-  （11 listings、median $0.007）を返した。外部掲載PR #838もFranklin1 v2 storeを追加してhead
+- 次の自然wakeは`args={"action":"improve"}`を選んだ。初回結果のDeFi 11 listingsは先頭500件だけの
+  biased sampleだったため、市場scoutをCDP Bazaar全24,991 priced listings + 公式
+  `quality.l30DaysTotalCalls/l30DaysUniquePayers`へ修正した（Anicca main `5121eb5a` / `b7b42e83`、
+  x402-sell全test 119/119 PASS、独立review PASS）。live結果はDeFi=`1,014 listings / 9,398 calls/30d /
+  1,925 payer signals / median $0.01`、LLM=`191 / 5,677 / 334 / $0.01`。旧cacheは自動stale化される。
+- external判定はFranklin1 payToを明示して168h再検証し、`inflows=7 / selfPay=7 ($0.043) /
+  EXTERNAL=0 / externalUsdc=0`。外部収益はまだ$0。外部掲載PR #838もFranklin1 v2 storeを追加してhead
   `72ebb673`へ更新。旧Anicca 31 route + Franklin1 4 routeの全35 URL=402、MERGEABLE/CLEANを実測:
   https://github.com/xpaysh/awesome-x402/pull/838
 

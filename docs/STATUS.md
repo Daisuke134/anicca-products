@@ -61,9 +61,15 @@ x402 ゼロ→イチの唯一の道（順序固定）:
   `state=running`、log=`slot allowlist active: x402_sell`。再起動後の自然wakeでFranklin自身が
   `slot=x402_sell,args={"action":"review"}`を選び、`externalCount:0,externalUsd:0,attempts24h:84`、
   verdict=`no external sales yet — demand problem`をledgerへ記録した。手動`run.sh`実行はしていない。
-- 次の自然wakeは`args={"action":"improve"}`を選択。CDP Bazaar 500件のfresh scoutから
-  DeFi=`marketCount:11 / medianPriceUsd:$0.007`を最大の未提供gapとして返した。4商品はexternal売上0のため
-  drop候補だが、これは即削除命令ではなく次の商品仮説。既存DeFi seller 11件の内容を先に実測する。
+- 次の自然wakeは`args={"action":"improve"}`を選択したが、旧scoutはBazaar先頭500件だけを市場全体と
+  誤認し、DeFiを11 listingsの「空白」と判定していた。CDP公式discovery全24,991 priced listingsと
+  `quality.l30Days*`を使うよう修正（Anicca main `5121eb5a` / `b7b42e83`、x402-sell全test **119/119 PASS**、
+  独立review PASS）。live実測はDeFi=`1,014 listings / 9,398 paid calls/30d / 1,925 payer signals /
+  median $0.01`、次点LLM=`191 / 5,677 / 334 / $0.01`。DeFiは空白ではなく実需のある競争市場である。
+  旧cache schemaは自動stale化し、次の自律`improve`から全件の実需順位を使う。
+- Franklin1を明示した168h on-chain再検証は`inflows=7 / selfPay=7 ($0.043) / EXTERNAL=0 /
+  externalUsdc=0`。`X402_PAYTO`未指定shellはfounder walletを解決するため、instance判定では必ずFranklin1
+  payToを明示する。商品改善は進んだが、外部収益は依然 **$0**。
 - awesome-x402 PR #838は旧31商品Anicca店を保持したまま、Franklin1の4商品v2 storeも同じlistingへ追加。
   2 manifest=200、全35 route=402をfresh実測。head `72ebb673`、PRはopen / MERGEABLE / CLEAN:
   https://github.com/xpaysh/awesome-x402/pull/838
