@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / Telegram outbox GREEN / report publisher RED verified`
+- 状態: `PLANNER_INTEGRATION / Telegram report publisher GREEN / runtime wiring next`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
@@ -164,7 +164,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - remaining integration gap 2: Telegram durable outbox、即時event、毎時pulse、日次digestを実装し、business actionはTelegram障害から分離する。
 - remaining integration gap 3: `/mypage/received_orders/open` P0統合、failure injection、controlled live send/Telegram E2Eを実施する。未実施なので§6 #4/#7全体はPASSにしない。
 - integration strategy: speedy branchは最新mainへmergeする。connector hardening branchは旧baseからpaid/delivery filesも変更するため丸ごとmergeせず、characterization testを先に置いてCoconala manifest・outbox・collector契約の必要差分だけ移植する。
-- Planner最新実測: integration commit `profitable-claude f4f8767`をpushする。Gmail push routeに加え、Telegram reportをidempotent enqueue→fenced claim→send-started→ACK/unknownへ収束するat-most-once outboxを実装する。gig+runner全161 tests + 68 subtests、shell 14 suitesがPASSする。
+- Planner最新実測: integration commit `profitable-claude 7e458c1`をpushする。Telegram outboxにverified reply即時報告、毎時SLA pulse、既存売上日報+SLA、configured model route、OpenClaw JSON message ID ACKを追加する。gig+runner全165 tests + 68 subtests、shell 14 suitesがPASSする。
 - connector outbox RED: integration commit `4611813`をpushする。`test_connector_outbox.py`は38 testsすべてが必須`config/connectors/coconala.json`欠落でFAILし、manifest無しで動かないfail-closedを確認する。次はDais確認済みmanifestを移植して同38 testsをGREENにする。
 - connector outbox GREEN: integration commit `59d853c`をpushする。manifest追加後はoutbox 38 tests + 11 subtests PASS、全gig Python回帰113 tests + 34 subtests PASS。runtime senderへの配線は未実施。
 - collector RED: integration test commit `ec92fc7`をpushする。canonical collectorに`load_connector_manifest()`が無いため1 testが`AttributeError`でFAILし、現`MESSAGES_URL=/mypage/messages`もmanifestの`/message`契約と不一致である。次はpaid collector behaviorを保持してmanifest/page identityを移植する。
@@ -210,6 +210,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - Telegram outbox RED: integration test commit `cd93cb8`をpushする。idempotent enqueue、provider call 1回、message ID ACK、transport failure/ACK lossの`delivery_unknown`、`send_started` crashのunknown隔離とnon-retryを要求する。module未実装のため対象4 testsが期待どおりFAILする。
 - Telegram outbox GREEN: integration commit `f4f8767`をpushする。SQLite `BEGIN IMMEDIATE`、idempotent event key、lease/fence、provider call前`send_started`、ACK message ID、failure/expired executorの`delivery_unknown`隔離を実装する。同eventのprovider callは最大1回でunknownをblind retryしない。対象4 tests、gig+runner全161 tests + 68 subtests、shell 14 suitesがPASSする。
 - Telegram report publisher RED: integration test commit `8610a43`をpushする。verified reply即時報告のthread/検知→送信/SLA/ground-truth/configured route、毎時action/unknown pulse、既存売上日報+SLA、OpenClaw JSON message ID ACKを要求する。publisher未実装のため対象4 testsが期待どおりFAILする。
+- Telegram report publisher GREEN: integration commit `7e458c1`をpushする。private body/hashを含めず、verified thread、検知→送信、P1 SLA、ground-truth、configured routeを即時表示する。毎時はverified/pending/reconcile/breach/Telegram unknown、09:07日報は既存応募・返信納品・出品・検収売上に同SLAを追加する。対象4 tests、outbox含む8 tests、gig+runner全165 tests + 68 subtests、shell 14 suitesがPASSする。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
