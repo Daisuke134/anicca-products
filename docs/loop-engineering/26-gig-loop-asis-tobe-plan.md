@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / eventual-send reconcile GREEN / immediate detector next`
+- 状態: `PLANNER_INTEGRATION / eventual-send reconcile GREEN / 5-minute detector RED verified`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
@@ -203,6 +203,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - production cutover GREEN: integration commit `ecad445`をpushする。queue-emptyはmodel/browser call 0で0600 summaryを原子的に書き、非空queueはproduction `gig_pass.sh`からfenced laneへ入る。旧prompt/legacy verifierをruntime pathから除外し、lane failureをfalse-successにせず記録する。対象4 tests、gig+runner全147 tests + 61 subtests、shell 12 suitesがPASSする。
 - eventual-send reconcile RED: integration test commit `9496d19`をpushする。ACK喪失後のmatching hash発見はmodel/click 0で完了、整合性窓後のauthoritative absenceは同passで再queue→送信、窓内absenceは送らず継続監視する契約を追加する。bounded observationにhash/time対応がなく、laneが`reconcile_pending`を拾わないため対象4 testsが期待どおりFAILする。
 - eventual-send reconcile GREEN: integration commit `6dba865`をpushする。bounded seller hash/time対応表を永続本文なしで取得し、`reconcile_pending`を送信前にauthoritative readする。matching hashはmodel/click 0で完了、120秒窓後のabsenceだけ同passで再queue、窓内absence/duplicateは送らず次passへ残す。対象10 tests、gig+runner全150 tests + 61 subtests、shell 12 suitesがPASSする。
+- 5-minute detector RED: integration test commit `366966b`をpushする。軽量`collect -> queue -> outbox -> reply lane`、空キューmodel 0、同時trigger 1本、collector failureの非成功化、full passを呼ばない300秒LaunchAgentを要求する。detector/module/plist未実装のためPython 3 testsとshell 1 suiteが期待どおりFAILする。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
