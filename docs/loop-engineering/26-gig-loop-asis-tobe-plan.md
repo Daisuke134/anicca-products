@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / ephemeral composer GREEN / autonomous reply lane RED verified`
+- 状態: `PLANNER_INTEGRATION / autonomous reply lane GREEN / production CLI + gig_pass cutover next`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
@@ -198,6 +198,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - ephemeral composer RED: integration test commit `f356e80`をpushする。buyer-last限定、send-ready本文、empty/1000字超拒否、runner一時evidence全削除を要求し、adapter未実装のため対象3 testsが期待どおりFAILする。
 - ephemeral composer GREEN: integration commit `e6efa01`をpushする。private conversationをstdinだけでcomposition laneへ渡し、seller-lastをmodel前に拒否し、send-ready本文だけを返した後に全temporary evidenceを削除する。composer 3 tests + 2 subtests、gig+runner全143 tests + 61 subtestsがPASSする。
 - autonomous reply lane RED: integration test commit `d2c782c`をpushする。2 threadを個別action IDでfenced claimし両方`replied`へ到達、同queue再実行はmodel/click 0、collector unhealthyはclaim 0を要求し、lane未実装のため対象2 testsが期待どおりFAILする。
+- autonomous reply lane GREEN: integration commit `b7af86e`をpushする。threadごとのpending action IDをread-only lookupし、個別fenced claimで全queueを処理する。同projection再実行は全skip、collector unhealthyはclaim/model/click 0。lane 2 tests、gig+runner全145 tests + 61 subtestsがPASSする。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
