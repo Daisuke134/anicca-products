@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / live CDP browser port GREEN / model composer integration next`
+- 状態: `PLANNER_INTEGRATION / live CDP browser port GREEN / stdin-only composer lane RED verified`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
@@ -193,6 +193,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - live CDP browser port RED: integration test commit `3ed9f11`をpushする。実測selector、JST sender timeline、transient raw contextとhash-only bounded observationを要求し、browser port未実装のため対象3 testsが期待どおりFAILする。
 - live CDP browser port GREEN: integration commit `7e7e14a`をpushする。fresh authenticated tabでprivate threadを画像保存なしにread/fill/click/readし、`#DirectMessageBody`と`.js_handle-submit`をfail-closed検証する。port 3 tests、全130 tests + 40 subtestsがPASSする。
 - live read-only port verification: controlled sendなしでthread `9942584`を実測し、10 conversation rows、seller 3、last sender buyer、seller/buyer UTC時刻、64桁fingerprint/hash、bounded body非含有を確認する。
+- stdin-only composer lane RED: integration test commit `c308537`をpushする。`composition-agent`、GPT-first `Terra medium -> Luna high -> Claude`、raw promptのstdin限定、Codex user tools無効化を要求し、runner/config未実装のため3 testsが期待どおりFAILする。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
