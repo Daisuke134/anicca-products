@@ -68,6 +68,7 @@ self-pay / colony 内循環は 0→1 ではない（INV-7）。判定は `~/anic
   https://github.com/questflowai/awesome-a2a-hub/pull/11
 - x402scan公式登録APIへAgentCashのSIWX署名付きでoriginを提出。31 endpointを発見したが、応答はHTTP 422 `no_valid_resources`、核心は `x402 v1 response detected — migrate to v2 spec`（31/31）。現行DISTの「`serve-v2.mjs`無変更」制約では解消せず、v2移行タスクへ送る:
   https://www.x402scan.com/resources/register / https://www.x402scan.com/api/x402/registry/register-origin
+- protocol境界のfresh実測: 443 rootは402 body=`x402Version:1`かつ`PAYMENT-REQUIRED` headerなし。`:10000`/`:8443`はbody=v1互換を保ちながらheader=`x402Version:2`。したがってrootのx402scan拒否はcredentialsや登録手順ではなくlegacy seller本体で、既存flagだけでは切替不能。root置換は既存経路変更になるため別v2移行タスクで行う。
 - Agent402は公式の無認証・無料登録APIへ同originを冪等POSTし、HTTP 200 `listed:true`。公開indexも `toolCount:31`, `networks:["base"]`, `routable:true`, `health:1`, `history:[1,1,1,1,1]`, `error:null`。buyer用 `/api/route` の `research financial analysis` 検索にも同originの `/research` が返るため、登録だけでなく発見可能性まで実測済み:
   https://agent402.tools/sell / https://agent402.tools/api/index
 - Agent402 route metadataが `/research` を `POST`, `price:null/$0` と返す一方、公開OpenAPIと実402は `GET`, `$0.003` だった。原因はBazaar推測値とOpenAPIのmergeで、upstream PR #473を提出。推測methodだけをOpenAPIで補完し、既知/明示0価格を保持、曖昧pathとcross-method混入を拒否する回帰testを追加。head `b85045311a`、target test PASS、MERGEABLE。live反映はmerge/deploy待ち:
