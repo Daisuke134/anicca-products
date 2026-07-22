@@ -24,17 +24,16 @@ spec は SSOT。発見のたび本文を実測値に書き換える。
 - Algora batch実走はdiscover 63→survivor 0→earn 0。飽和済みPR型batchを主railにしない根拠として保持する。
 - B1 demand scoutはpayer signalがないcallを需要から除外し、`calls × median price ÷ listings`で供給調整する。live CDP Bazaar 24,802 listingsで340,350 calls・40,084 payer signals・8 paid-demand categories、test 155/155 green（anicca `c35afe2b`）。
 - B2 image resaleは`POST /image`、sale $0.05、fixed upstream `zai/cogview-4`、live quote $0.017751、gross margin $0.032249/request。buyer決済gate→agent wallet上流決済→URL納品、quote cap/float/daily cap/secret isolationを実装し164/164 green（anicca `ab659d36`,`8a82cec6`）。
-- B3 distributionは3店すべてのimage server配置を完了。各image launchdがrunning、既存Funnelの`/`・`/mcp`を維持して`/image`を追加し、public `POST /image`が402・50,000 atomic USDC・各agent固有payTo/resourceを返す。directory listingとtelemetry保存は未完（anicca `1fc1e445`,`ccc5cd8c`,`054589f9`,`923b65d5`,`2290cb36`、test 171/171 green）。
+- B3 distributionは完了。3店のimage launchd/public 402に加え、x402scanの公開listingへ`POST /image`・$0.05を掲載し、wallet別`attempts-*.jsonl`へprompt/headerを含まない402 telemetryを保存する。combined OpenAPIとtelemetryはanicca `cae3f416`,`aff39008`、test 175/175 green。
 
 **残タスク（上から順）:**
 
 | # | 残タスク | done条件 | 依存 |
 |---|---|---|---|
-| B3 | **distribute + observe（3/3配置済）** | 3店public 402 ✅。`POST /image`をBazaar/MCP directoryへ掲載し、listing URLとアクセス/402 telemetryを保存 | B2 ✅ |
-| B4 | **external payout verify + ledger** | 第三者payerのfinalized USDC transferをwrite-pathで再検証し、重複なく1行記録。現状は3 walletとも48h external inflow = $0 | B3 |
+| B4 | **external payout verify + ledger** | 第三者payerのfinalized USDC transferをwrite-pathで再検証し、重複なく1行記録。現状は3 walletともexternal inflow = $0 | B3 ✅ |
 | B5 | **repeat + bounty monitor** | x402の外部着金を再現して黒字化し、同時に全gateを通るbounty railが出た時だけsecurity pipelineを有効化 | B4 |
 
-**critical path = B3 → B4 → B5**。B1/B2は完了。human identity/KYC/owner credentialが必要なrailは、このstrict laneから分離する。
+**critical path = B4 → B5**。B1/B2/B3は完了。human identity/KYC/owner credentialが必要なrailは、このstrict laneから分離する。
 
 ---
 
@@ -74,7 +73,7 @@ done（AND、全て実測で確認）:
 
 | rail | 採否 | 理由 |
 |---|---|---|
-| **x402 sell** | **primary / GO** | x402scanで直近30日15.87M tx・$741.58K・36.05K buyers・75K sellersを確認。wallet直接settlement。現在のAnicca external inflowは3 walletとも48h $0なのでproduct/distribution改善が次 |
+| **x402 sell** | **primary / GO** | x402scanで直近30日15.87M tx・$741.58K・36.05K buyers・75K sellersを確認。wallet直接settlement。3店のimage listing/402 telemetryは成立し、external paid conversionの検証が次 |
 | **Immunefi** | **NO-GO for automation** | 190 programs、82 no-KYC、paid実績はある。一方Termsがrobot等によるWebsite accessを禁止するため、書面許可なしの自動submitはしない |
 | **Sherlock / CodeHawks** | monitor | payout実績はあるが、Sherlockのrecent finished 20件は全KYC、CodeHawksのlive public contestはjudging中でopen supply 0 |
 | **0xWork** | monitor | 累計510 tasks / 369 completed / $8,014.23 paidだが、current openは2件・$100だけで継続供給不足 |
@@ -177,7 +176,7 @@ E2E green = T1-T9 全通過 + done 1-4 の on-chain 着金を Fable が Basescan
 - **Phase 0 — rail/spec確定**: primary=x402、bounty=research/monitor、Immunefi automation=NO-GO。
   exit proof = 本文・GOAL・TODO・RAIL・ASCIIにsecurity-audit-primaryの現行主張が0。
 - **Phase 1 — demand scout（COMPLETE）**: fixtureのpayer 0をNO-GO、live x402 dataをGOと判定。supply-adjusted score、live served category整合、155/155 green、commit `c35afe2b`。
-- **Phase 2 — product + distribution（ACTIVE: B2 COMPLETE / B3 DEPLOY 3/3）**: image productの需要・unit margin・171/171 greenを確認。3店すべてlaunchd runningかつlocal/public 402。exit proof残り = listing URL、request telemetry。
+- **Phase 2 — product + distribution（COMPLETE）**: image productの需要・unit margin・175/175 green、3店のlaunchd/public 402、x402scan listing URL、wallet別request telemetryを確認。
 - **Phase 3 — external payout**: B4。exit proof = tx hash + finalized receipt + external payer + write-path再検証log + 重複なしledger行。ここまでearnは¥0。
 - **Phase 4 — repeat + scale**: B5。exit proof = 2件目の外部payoutまたは黒字期間の再現。eligible bounty railがなければx402だけを拡張する。
 
@@ -201,12 +200,14 @@ E2E green = T1-T9 全通過 + done 1-4 の on-chain 着金を Fable が Basescan
 - B3 franklin1 live verify: `launchctl print gui/501/ai.anicca.image-franklin1`はrunning。`https://aniccanomac-mini-1.tail7a0ba4.ts.net/image`への未決済POSTはpublic 402、amount=50000、resourceは同URL。Funnel `443`の既存`/`=200・`/mcp`=400も維持する。Tailscale公式仕様はFunnel公開ポートを443/8443/10000だけに限定するため、構成表示だけ残る10001は不採用（https://tailscale.com/docs/features/tailscale-funnel#limitations-and-restrictions）。
 - B3 franklin2 live verify: `launchctl print gui/501/ai.anicca.image-franklin2`はrunning。`https://aniccanomac-mini-1.tail7a0ba4.ts.net:10000/image`へのlocal/public未決済POSTは402、amount=50000、payTo=`0xe7747Fd899D8987821Bb4CB3D6aDf22565F87ce9`、resourceは同URL。Funnel `10000`の既存`/`=200・`/mcp`=400を維持し、stderrは空。
 - B3 claude-p live verify: `launchctl print gui/501/ai.anicca.image-claude-p`はrunning。`https://aniccanomac-mini-1.tail7a0ba4.ts.net:8443/image`へのlocal/public未決済POSTは402、amount=50000、payTo=`0x810F6D61F7606dEEE2657d3083E150a222Bc29C5`、resourceは同URL。Funnel `8443`の既存`/`=200・`/mcp`=400を維持し、stderrは空。
+- B3 directory verify: x402scan公開listingで3店すべての`POST /image`・`$0.05`を確認する（[franklin1](https://www.x402scan.com/server/7e8ebdc1-7c3d-419f-b76b-e41bab7bb86c)、[franklin2](https://www.x402scan.com/server/af9283bc-b1f8-4e50-b474-abb1f5d082e0)、[claude-p](https://www.x402scan.com/server/439753c7-81e9-4c3e-b383-3be9c7377d9e)）。SIWX署名による無料登録であり購入・送金なし。franklin2/claude-pはorigin登録と単体登録を両方実行したため同一`/image`が2行表示されるが、既存listing削除は行わない。
+- B3 telemetry verify: 3 image LaunchAgentはrunning。各公開URLへの未決済POSTは3/3で402を返し、`2026-07-22T20:21:12Z`に各agent固有walletの`attempts-<payTo>.jsonl`へ`route=/image, price=$0.05, payer=null, settled=false, status=402`を1行ずつ保存する。prompt/payment headerは保存しない。未決済attemptなので売上は$0 / ¥0。
 - 2026-07-18 [Sol review verdict = **STOP-AND-REVISIT-RAIL**]: 7 blocking。#1 poidh 攻略前提破綻（proof=現地/original、AI 画像不可、sentinel は発注者側）#2 accept 8.6%・open の 55/71 が30日超で墓場・収益性ゲート不在 #3 Phase0 が rail を証明しない #4 record.mjs が caller 提供値を盲信＝done 捏造可 #5 balance-delta は偽陰陽性→event log を bigint wei で #6 gas 自己復旧デッドロック #7 鍵 broadcast 前防御。→ INV-8〜11 に昇格・rail 降格・Phase0 再定義で反映済。
 - 2026-07-18 [71 open 全 dump・カテゴリ精査, Fable 実測]: AI が human-zero で勝てるのは **~10件のみ**（残りは現実世界/特定人物 proof）。AI 勝機案件: #263 "ship a real build"(0.0138ETH,claims2,純コード) / #107 "Farcaster Movie Trailer, Use AI"(0.0125ETH,claims3) / #237系 "tweet about \$Space proof=tweet URL"(claims0 多数, 0.001ETH) / #304 poem(claims9飽和) / #283 one question(claims1) / #301 NFT mint / #250 token split。→ **判定: poidh は mechanism 実証には適するがincome railとして薄い**（大半 \$3〜40、acceptはfunder依存）。
 
 ## OPEN RISK / honest gap
 
-- x402市場の総需要とbuyer/category/supplyはscoutへ入るが、Anicca 3 walletの48h external inflowは$0。次はcategory集計から個別buyer jobへ掘り、商品別conversionを証明する。
+- x402市場の総需要とbuyer/category/supplyはscoutへ入り、3店のimage listing/402 telemetryも成立するが、external inflowは$0。次は第三者paid purchaseを観測し、B4 write-pathでfinalized USDC transferを検証する。
 - x402scanの集計は市場全体であり、Anicca商品のaddressable demandを直接証明しない。商品ごとの402、paid purchase、repeat buyerを別に計測する。
 - x402の取引には極小額が多い。gross revenueではなくcompute/gas/listing cost差引後のmarginをhard gateにする。
 - bounty railは報酬額だけでGOにしない。automation policy、KYC/owner gate、current open supply、wallet settlementを毎回再検証する。
