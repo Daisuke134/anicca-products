@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / isolated worktree created / branch integration pending`
+- 状態: `PLANNER_INTEGRATION / speedy branch merged / connector contract RED pending`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
@@ -164,6 +164,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - integration gap 2: 現post-send captureには`outgoing_hashに一致するseller_message_hashes / seller_sent_at / talkroom_id付きfingerprint`が無い。Plannerはcaptureを拡張し、`reply_evidence.py verify`が`replied`を返した時だけ既存actionを完了する。`reconcile_pending`ではblind retryしない。
 - integration gap 3: `gig_pass.sh` line 443付近のinline `INQUIRIES_JSON`を`reply_queue.py build`へ置換し、line 510付近の`reply_inquiries()`でbefore/send/after/verifyを接続する。line 639のpaid queue前実行順は維持する。即時notification + 5分fallback detectorとcontrolled live E2Eは未実施なので、§6 #4全体はPASSにしない。
 - integration strategy: speedy branchは最新mainへmergeする。connector hardening branchは旧baseからpaid/delivery filesも変更するため丸ごとmergeせず、characterization testを先に置いてCoconala manifest・outbox・collector契約の必要差分だけ移植する。
+- Planner最新実測: integration commit `profitable-claude b5b0bec`をpushする。merge前baselineは59 tests + 23 subtests、merge後は75 tests + 23 subtestsがPASSし、既存`test_gig_inquiry_evidence.sh`もPASSする。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
