@@ -7,7 +7,7 @@ Franklin が自分のwalletとClawRouter/BlockRun computeを使い、外部buyer
 
 Doneは次の全条件で判定する。
 
-1. `x402_sell action=improve`が助言文だけで終わらず、実験状態を更新する。
+1. x402の収益controllerがbrainのtool call成否に依存せず、実験状態を更新する。
 2. 新商品`/llm`がFranklin自身のBlockRun computeを仕入れて返し、仕入上限より販売価格が高い。
 3. 実験は5分未満では二重適用せず、5分経過かつ外部売上増分ゼロの時だけ次へ進む。
 4. self-payはreward=0。外部settlementだけをrewardとし、外部売上が増えた実験は保持する。
@@ -40,8 +40,11 @@ Doneは次の全条件で判定する。
 ### 1. 売る商品: `/llm`
 
 - Input: `GET /llm?prompt=<text>`。prompt長とoutput tokenを上限固定する。
-- Supplier: local `blockrun chat`。human API keyを使わず、各instanceの`loadEvmKey()`で解決したagent walletだけを
-  child processへ渡す。Franklin1/2/claude-p間でwalletを共有しない。
+- Supplier: BlockRunのOpenAI互換endpoint。human API keyを使わず、各instanceの`loadEvmKey()`で解決したagent
+  walletだけでx402 payment payloadを署名する。Franklin1/2/claude-p間でwalletを共有しない。
+- 最初に未払いrequestで実quoteを取得し、公式`@blockrun/llm`の
+  `parsePaymentRequired / extractPaymentDetails / createPaymentPayload`で支払う。paid requestへ渡すheaderは
+  `Content-Type / User-Agent / PAYMENT-SIGNATURE`だけで、親processのcredentialsを継承しない。
 - 初期offerはsmart/eco compute、仕入上限`$0.010`、販売価格`$0.015`。handler成功時だけ200を返す。
 - float下限、日次仕入上限、per-call budget上限を支出前にfail-closedで検査する。
 - upstream失敗は5xx。既存x402 middlewareのsettle-on-success契約により、handler失敗時にbuyerをsettleしない。
@@ -66,7 +69,7 @@ controllerは5分ごとに評価できるが、seller restart/registry再登録�
 - 既存4 route、payment middleware、payTo、self/external判定は変更しない。追加商品はadditive。
 - wallet送金、self-buy、内部colony buyをbootstrapや収益として使わない。
 - `BLOCKRUN_WALLET_KEY`はbuyer inputから生成しない。agent自身のkeyだけをchild envへ渡し、stdout/logへ出さない。
-- promptはshell文字列として組み立てず`execFile`のargvで渡す。
+- promptはshellやchild processへ渡さず、長さを検査したJSON dataとしてbare `fetch`へ渡す。
 - controller/handlerはI/O注入可能にし、RED/GREENはwalletやnetworkを使わない。
 
 ## 検証
@@ -75,15 +78,31 @@ controllerは5分ごとに評価できるが、seller restart/registry再登録�
 2. Handler tests: prompt validation、支出guard、argv injection耐性、upstream error、成功JSON。
 3. Regression: `skills/earn/x402-sell/__tests__/*.test.mjs`全件。
 4. Live: Franklin1 manifestへ`/llm`、unpaid 402、既存route 402、launchd running。
-5. Natural wake: `action=improve`が`applied|waiting|winner`を記録し、recommendation-onlyではない。
+5. Natural wake: x402 skill実行時に`applied|waiting|winner`を記録し、recommendation-onlyではない。
 6. 5分監視: `verify-inflow`のexternal増分を実測。ゼロなら次variant、増えたらwinner保持。
+
+## Live evidence
+
+- 実装は`anicca` branch `feature/dist1-mcp-launchd`の`f851667c`までpush済み。
+- x402 regressionは`152/152 PASS`、runtime focused regressionは`24/24 PASS`、plist lintは`OK`。
+- Franklin1 public manifestは5商品を返し、`/llm`未払いrequestはHTTP 402を返す。payToは
+  `0x3EcCAD24794ca298D25378E9902A251322ea8749`で固定する。
+- 最初のBlockRun unpaid quoteは`$0.003`。全variantは仕入hard cap`$0.010`より高い
+  (`$0.015 / $0.012 / $0.020`)。
+- natural wakeは初回`eco-margin / $0.015`を`applied`、次wakeを`waiting`として記録する。
+- brainが一度`router_no_realized_action`になってもcontrollerを止めないため、
+  `ai.anicca.x402-experiment-franklin1`を独立launchd one-shotとして300秒間隔で実行する。
+- launchd初回実行はexit 0。外部売上0を検知し、`eco-margin / $0.015`から
+  `eco-market / $0.012`へローテーションし、seller restartと5商品再登録を完了する。public 402 quoteも
+  `maxAmountRequired=12000`へ変わる。
+- on-chain `verify-inflow.mjs 168`は`inflows=7 / selfPay=7 / EXTERNAL=0 / externalUsdc=0`。
+  現在の本物の外部売上は`$0 / ¥0`であり、self-pay `$0.043`は収益に数えない。
 
 ## TODO（この機能の正本）
 
-- [ ] RED: LLM resale handler + controller tests
-- [ ] GREEN: `/llm` additive route + spend guards
-- [ ] GREEN: 5分experiment state/action wiring
-- [ ] x402全回帰
-- [ ] Franklin1 live配布・公開402・自然wake
-- [ ] 5分external売上判定。`$0`なら次実験を継続
-
+- [x] RED: LLM resale handler + controller tests
+- [x] GREEN: `/llm` additive route + spend guards
+- [x] GREEN: 5分experiment state/action wiring
+- [x] x402全回帰
+- [x] Franklin1 live配布・公開402・自然wake
+- [x] 5分external売上判定。`$0 / ¥0`を正直に記録し、独立launchdで次実験を継続
