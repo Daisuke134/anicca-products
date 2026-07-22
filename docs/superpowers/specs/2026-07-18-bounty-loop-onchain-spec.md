@@ -6,13 +6,12 @@ spec は SSOT。発見のたび本文を実測値に書き換える。
 
 ## 現行決定
 
-- **primary = huntr MFV/OSV**。paid scope内のnovel security findingをPoC付きで提出し、外部payoutを得る。
-- **secondary = Opire / Algoraのfresh・低競合案件だけ**。日次batchで飽和済み案件へ5番手以降で入る方式は使わない。
-- **scale = Immunefi / Code4rena / Sherlock**。crypto wallet直払いへ広げるが、最初の実payoutより前に拡散しない。
-- **poidh = crypto payout mechanismの参照実装だけ**。accept率と案件構成からincome railにはしない。
-- human-zeroはdiscover→score→work→validate→submit→track→record→self-improveの日次運用に適用する。fiat railの
-  初回KYC/Stripe/bank登録はpayout発生後のbootstrap gateであり、日次loopへ人間を戻す理由にしない。
-- submit、PR、finding、accept待ちはearnではない。外部payoutの検証が終わるまで収益は¥0として扱う。
+- **strict human-zero primary = x402 sell**。直近30日の実決済需要、wallet直接決済、agent側KYC不要を同時に確認できる唯一のrailとして扱う。
+- **bounty loop = research/PoC engine + rail monitor**。脆弱性発見能力は維持するが、利用規約・KYC・live在庫・wallet受取の全gateを通るrailが現れるまで自動提出しない。
+- **Immunefi = NO-GO**。実需要とno-KYC programはあるが、Websiteへのrobot等による自動accessをTermsが禁止する。書面許可なしに無人submitしない。
+- **Sherlock / CodeHawks / 0xWork = monitor**。報酬実績はあるが、現在のeligible open supplyが継続loopを支えるほどない。
+- **Dealwork = training only**。agent APIは使えるがowner要件があり、agent accountのwithdrawal APIも禁止されるため、strict human-zero crypto railに数えない。
+- submit、PR、finding、accept待ちはearnではない。第三者からagent walletへの実着金を再検証するまで収益は¥0として扱う。
 
 ---
 
@@ -28,27 +27,29 @@ spec は SSOT。発見のたび本文を実測値に書き換える。
 
 | # | 残タスク | done条件 | 依存 |
 |---|---|---|---|
-| B1 | **paid-scope monitor + score** | huntr/Immunefi/SECURITY.md等の支払対象だけをqueueし、funding・scope・freshness・競合・noveltyを決定論で証明 | — |
-| B2 | **autonomy hardening** | fresh/no-resume起動、non-interactive trust、timeout、budget cap、対話prompt 0でlaunchd passが完走 | — |
-| B3 | **live submit + track** | paid scopeのvalid finding/deliverableを1件提出し、providerのsubmission ID/URLを保存。accept/rejectまでpoll | B1-B2 |
-| B4 | **payout verify + ledger** | cryptoはfinalized event、fiatはprovider-authenticated payout recordと実受取をwrite-pathで再検証し、重複なく1行記録 | B3 |
-| B5 | **repeat + scale** | 外部payoutを1件で止めず再現し、黒字railだけをImmunefi/C4/Sherlock・他agentへ拡張 | B4 |
+| B1 | **demand scout + hard gate** | paid volume・active buyers・live inventory・automation policy・KYC・wallet settlement・expected marginを機械判定し、falseならcomputeを使わない | — |
+| B2 | **x402 demand-product fit** | 実決済カテゴリから1商品を選び、既存4商品との差分、buyer、入力、delivery、価格を実データで固定 | B1 |
+| B3 | **distribute + observe** | public MCP/direct endpointを需要のあるdirectoryへ掲載し、listing URLとアクセス/402 telemetryを保存 | B2 |
+| B4 | **external payout verify + ledger** | 第三者payerのfinalized USDC transferをwrite-pathで再検証し、重複なく1行記録。現状は3 walletとも48h external inflow = $0 | B3 |
+| B5 | **repeat + bounty monitor** | x402の外部着金を再現して黒字化し、同時に全gateを通るbounty railが出た時だけsecurity pipelineを有効化 | B4 |
 
-**critical path = B1 + B2 → B3 → B4 → B5**。fiat KYCは実payout発生後のbootstrap gateであり、B1-B3を止めない。
+**critical path = B1 → B2 → B3 → B4 → B5**。human identity/KYC/owner credentialが必要なrailは、このstrict laneから分離する。
 
 ---
 
 ## GOAL（検証可能な done）
 
-**claude-p の loop が、人間ゼロの日次動作で Algora（等）の real bounty に応募→コード→PR を出し、merge され、報酬が Dais の bank/Stripe に着金する。それをループが繰り返し earn ledger に記録する。**
+**agentのloopが、人間ゼロで実決済需要を発見し、需要に合うx402商品をbuild/list/serveし、第三者buyerからagent自身のwalletへ
+外部payoutを受け取り、検証済みledgerへ記録して繰り返す。bountyは全gateを通った時だけ追加の供給源になる。**
 
 done（AND、全て実測で確認）:
-1. claude-p loop が live bounty を discover→gate（scam/競合フィルタ）→attempt で **実 PR を提出**（GitHub 上に PR URL が存在）。
-2. その PR が対象 repo に **merge** される（`gh pr view` で MERGED 確認）。
-3. その bounty の **報酬が実際に着金**（Algora/Stripe の payout 記録 or 口座入金を自分の目で確認）。「submit した」「merge された」では done にしない — **金が着いた時のみ**。
-4. 上記が **launchd loop の自走**で起き、繰り返しループする（1件で止まらない）。
+1. B1 gateがrecent paid volume・buyer・live demand・policy・identity・settlement・marginを証明する。
+2. loopが需要カテゴリに対応する商品を作り、public x402/MCP endpointとlisting evidenceを残す。
+3. 外部buyerが商品を購入し、serve-v2の既存payment middlewareがverify+settleする。
+4. **報酬が実際に着金**し、B4 write-pathが受取人・金額・通貨・外部payer・重複なしを再検証する。
+5. 上記がdurable loopの自走で再現し、次の需要または改善へ戻る。1件で停止しない。
 
-**盛らない**: merge も accept も他者依存。着金を確認するまで earn 計上しない（tool 出力の捏造は最悪の罪）。
+**盛らない**: submit、merge、accept、providerの「支払予定」は収益ではない。実受取を確認するまでearn計上しない。
 
 ---
 
@@ -70,17 +71,27 @@ done（AND、全て実測で確認）:
 
 ## RAIL 決定
 
-**2026-07-18 PIVOT（Dais: crypto 制約を外し bank 払いを許可）で rail 再確定。** crypto を外すと「real 在庫 × PR-merit accept × real money」を持つ **Algora（Stripe→bank）が primary に復活**。既存 harness がそのまま使える。
-
 | rail | 採否 | 理由 |
 |---|---|---|
-| **Algora（GitHub bounty, Stripe→bank）** | ★primary（今すぐ稼ぐ） | real なコード bounty 在庫・accept=PR merge の merit・payout=Stripe で Dais の bank へ。**既存 harness `profitable-claude/skills/bounty/` がまさにこれ用**（`GITHUB_IDENTITY=Daisuke134`）。難点=agent 飽和（8-10 PR/bounty）→ 既存の scam-filter/競合スコア/「merge する repo を狙う」で対処 |
-| IssueHunt / その他 fiat bounty 板 | secondary（在庫補完） | GitHub issue bounty、PayPal/bank 払い。Algora 在庫が薄い時の補完。recon で実態確認 |
-| Immunefi + Code4rena/Sherlock（audit） | scale phase | USDC を wallet 直・merit・実弾 $1k〜$10M。crypto payout phase と同時に。ゲート=valid finding 実力（高分散） |
-| poidh (Base) | 棚上げ＝crypto phase の mechanism | on-chain 配管・native-verify は実証済、crypto 直払い phase で再利用。income rail 不可(accept 8.6%) |
-| gib.work / Superteam | 却下 | gib=live dev 在庫1件・funder 裁量、Superteam=人間 claim。income にならない |
+| **x402 sell** | **primary / GO** | x402scanで直近30日15.87M tx・$741.58K・36.05K buyers・75K sellersを確認。wallet直接settlement。現在のAnicca external inflowは3 walletとも48h $0なのでproduct/distribution改善が次 |
+| **Immunefi** | **NO-GO for automation** | 190 programs、82 no-KYC、paid実績はある。一方Termsがrobot等によるWebsite accessを禁止するため、書面許可なしの自動submitはしない |
+| **Sherlock / CodeHawks** | monitor | payout実績はあるが、Sherlockのrecent finished 20件は全KYC、CodeHawksのlive public contestはjudging中でopen supply 0 |
+| **0xWork** | monitor | 累計510 tasks / 369 completed / $8,014.23 paidだが、current openは2件・$100だけで継続供給不足 |
+| **Dealwork** | training only | public jobsは低単価・高競合でowner要件あり。agent wallet withdrawal APIは403でstrict wallet-direct条件を満たさない |
+| **huntr / Opire / Algora / H1 / Bugcrowd** | gated research | policy、KYC、live paid scope、受取経路をrailごとに再実測し、全gateがtrueの時だけ有効化 |
+| poidh (Base) | mechanism reference | on-chain lib/native-verifyを再利用。accept率・案件構成のためincome railにはしない |
+| gib.work / Superteam / IssueHunt系 | disabled | live在庫、accept裁量、人間claim、停止サービスのいずれかで継続income条件を満たさない |
 
-**crypto payout は後続 phase**（Algora で稼ぐ実績ができてから、audit(Immunefi/Code4rena) で crypto wallet 直払いに拡張）。今は bank-first。
+### Demand gate（AND。1つでもfalseならbuild/submitしない）
+
+1. recentに第三者の実決済または実payoutがある。
+2. 現在購入されるproduct category、またはagentがclaim可能なlive workがある。
+3. Terms/APIがautomationを許可する。
+4. human credential・owner操作・KYCを日次loopに要求しない。
+5. agent自身のwalletへ直接settleでき、write-pathで検証できる。
+6. 予想収益がcompute・gas・listing costを上回る。
+
+根拠: [x402scan](https://www.x402scan.com/) は30日集計とcategory別merchantを表示する。[Immunefi programs](https://immunefi.com/bug-bounty/) はprogram・KYC・paid statusを公開する一方、[Immunefi Terms](https://immunefi.com/terms-of-use/) はrobot等によるWebsite accessを禁止する。[Sherlock contests](https://audits.sherlock.xyz/contests) と [CodeHawks contests](https://codehawks.cyfrin.io/contests) はcontest状態を公開する。[0xWork stats](https://api.0xwork.org/stats) はtask/payout集計を返す。[Dealwork Terms](https://dealwork.ai/terms) はagentにresponsible human/legal-entity ownerを要求する。
 
 ---
 
@@ -90,51 +101,34 @@ done（AND、全て実測で確認）:
 
 **★2026-07-19 prove-5: 払う標的で novel vuln 確保（Fable 再実行 verify）★**: BentoML(huntr 現金 rail, PANW スポンサー)の Dockerfile command injection(`docker.env` dict 形式→検証バイパス→生成 Dockerfile に RUN 注入→host RCE)。実 PoC で `id` 実行を実観測。約1時間で確保。→ **「払う established lib で novel を出す」は現実的と実証。** 唯一の bottleneck = first-to-report collision(hot 標的は他リサーチャーの private pending が掃討中)。**勝ち筋 = loop が全 huntr-payer を毎日 grind(speed+scale=先着) + self-improve で hot/掃討済 面を回避。** = $10k の道。残: huntr account/identity + 無人化(launchd) + 提出。
 
-## ★LOOP 設計 v2（フル ASCII, multi-rail, research-grounded 2026-07-19）★
+## ★LOOP 設計 v3（demand-first、human-zero hard gate）★
 
-勝ちの公式（研究一次情報）: **報酬 ∝ (novelty × severity) ÷ 発見人数**（C4 実測 `10·0.85^(split-1)/split` = 独自High ≈ 重複Highの約10倍）。全段は分母(dup)最小化のため。AI の構造的 edge = ①TIMING(新面に先着) ②JUDGE(dup/FP 自己棄却) ③BREADTH(人間が張れない数の rail 並列)。copy 土台 = `usestrix/strix`(42k★,Apache2)+`six2dez/reconftw`+`google/oss-fuzz-gen`(variant-analysis)+`Cyfrin/audit-checklist`+`arkadiyt/bounty-targets-data`+Sherlock AI の Plan→Research→Validate→Judge→Report。
+勝ちの公式は **外部収益 = 実需要 × discoverability × conversion × margin**。securityのnoveltyはbounty branch内の品質指標であり、rail適格性の代わりにならない。
 
 ```
-                 ANICCA BOUNTY LOOP  (every AI earns, zero-to-one)
-                 first threshold = 1件 現金を通す。done=着金のみ
+                 ANICCA EXTERNAL-INCOME LOOP
+                 first threshold = 第三者からagent walletへ $1。done=着金のみ
 
-[0] MONITOR  (deterministic, cron常駐 — TIMING edge=誰より先に新面へ)
-    web BB    : bounty-targets-data(30min diff)+certstream(新host)+notify
-    audit     : Code4rena/Sherlock/Immunefi の新 contest feed
-    AI/ML sec : PyPI/GitHub releases(keras/transformers/新loader)=先着
-    code      : Algora/Opire 新規$ラベル(comment<3=未飽和のみ)
-         └──► 新規・低競合ターゲットだけ queue へ
+[0] DEMAND SCOUT  x402scan paid volume/buyers/categories + eligible bounty inventory
+         └──► recent paid demandだけ queue へ
               │
-[1] SCORE&PICK  EV = reward ÷ 予想競合 × 鮮度 × AI勝率
-    特徴量抽出=script / 最終選定=model判断。dup 数学を最優先
-              │ 1 highest-EV target
-   ┌────────── PER-TARGET PIPELINE (strix/SWE-agent 土台) ──────────┐
-   │ [2] RECON   web:reconFTW  audit:clone+Slither  ML:loader+既知fix commit │
-   │ [3] HYPOTHESIZE ★model予算集中★ threat model / value-flow逆読み /        │
-   │        variant-analysis(既知修正commitの類似bug=盲目fuzzより当たる)      │
-   │ [4] NOVELTY-GATE  既知(CVE/issue/PR/hacktivity/過去提出)除外→既知なら捨てる│
-   │ [5] PoC/VALIDATE ★決定論実行で本物を証明★ web:headless browser /         │
-   │        audit:Foundry fork-test / ML:local load RCE + scanner未検知       │
-   │ [6] JUDGE ★最大投資=FP/dup を厳格棄却★ 通らねば提出しない(XBOW validator型)│
-   │ [7] REPORT  vulnクラス別テンプレ(script)+model執筆・policy準拠           │
-   └────────────────────────────────────────────────────────────────┘
-              │ validated・novel・PoC付き finding
-[8] SUBMIT  rail別 自動提出(web form/API): huntr/H1/Bugcrowd/C4/Sherlock/Immunefi/Algora
+[1] HARD GATE  paid? live? automation allowed? no KYC? wallet direct? margin positive?
+       │ true                                      │ false
+       v                                           └──► monitor only / compute $0
+[2] BUILD  x402 product: copy+tweak proven category → deterministic test → serve-v2
+       │     bounty: research/PoC only; eligible railがある時だけsubmit branchを開く
+[3] DISTRIBUTE  MCP/direct endpointを需要のあるdirectoryへ掲載
               │
-[9] TRACK→PAYOUT  accept/merge/validate まで poll。done=着金のみ
-   ┌──── CRYPTO ────┐              ┌──── BANK/FIAT ────┐
-   │ Immunefi/C4/    │              │ huntr/H1/Bugcrowd/ │
-   │ Sherlock/poidh  │              │ Algora = Stripe    │
-   │ USDC/ETH→wallet │              │ → Dais bank        │
-   │ on-chain verify │              │ (KYC 初回一回)      │
-   └────────┬────────┘              └─────────┬──────────┘
-            └──► record.mjs (INV-8/9 write-path 再検証) → earn ledger
+[4] SERVE→SETTLE  buyer X-PAYMENT → serve-v2 verify+settle once → agent wallet
               │
-[10] SELF-IMPROVE(週次 metrics/lessons/beat-prev-week) + [11] SELF-HEAL
-     └── 全部 launchd loop が無人で回す (R6 autonomy-hardening 前提)
+[5] VERIFY  finalized tx + external payer + amount + dedupe → earn ledger
+       │
+[6] SELF-IMPROVE  demand/conversion/revenue/computeを比較 → product/price/listing更新 → [0]
 ```
 
-**build phase**: (P1) strix + reconFTW を vendor、[2]-[7] pipeline を1 rail(=最小 huntr変種 or web BB) で通す → prove-3 で1件 validated finding。(P2) MONITOR[0]+SCORE[1] の自動化(bounty-targets-data/certstream/release feed)。(P3) rail を audit/Immunefi(crypto)へ拡張、payout 2系統(crypto+bank)配線(INV-8/9)。(P4) SELF-IMPROVE/HEAL + launchd 無人化(R6)。**LLM 予算は [3]仮説・[5]PoC・[6]judge の3点に集中、監視/recon は完全 script 化。**
+**build phase**: (P1) x402 demand scoutへpaid volume/buyer/categoryを追加。(P2) 最大需要gapの商品を1つbuild。
+(P3) public MCP/direct listingを増やし、402→purchase conversionを計測。(P4) external inflowをwrite-pathで検証。
+(P5) 黒字商品だけ複製し、bountyはDemand gateを全通過したrailだけ有効化する。
 
 ## 実装（旧: poidh crypto-rail 用参照。crypto payout phase で再利用）
 
@@ -179,10 +173,12 @@ E2E green = T1-T9 全通過 + done 1-4 の on-chain 着金を Fable が Basescan
 
 ## PHASE（各 phase に exit proof。green まで次に進まない）
 
-- **Phase 0 — rail 確定 + mechanism 実証（Fable 手動 OK）**: (a) gib.work 検証で primary rail を確定。(b) 確定 rail で **第三者(非Anicca)が出資した実 bounty を1件、human-zero で正当に完遂 → merit accept → finalized crypto payout が自 wallet に着金 → INV-8/9 準拠で ledger に重複なく1行**。[Sol#3] 既存無関係 tx の検算だけでは exit proof にしない（accept/withdraw/第三者資金を必ず含む）。**exit proof = payout tx hash（Basescan/Solscan）+ write-path 再検証ログ + ledger 行**。ここが赤なら skill 化しない。poidh の read lib + native-verify は済（mechanism 側は green）。
-- **Phase 1 — skillify**: C1-C6 を実装、N1-N3 完成。bounty harness を on-chain rail に付け替え。**exit proof = T1-T7 green（1件、実 wallet 着金 or accept 待ち状態まで自動）**。
-- **Phase 2 — loop 化 + 稼ぐまで**: C7 配線、launchd 自走。`kickstart`→watch。**exit proof = T8 green かつ done 2（実着金）が loop 自走で発生**。稼ぐまで fix→再検証。
-- **Phase 3 — scale**: gas 自動補給、gib.work(USDC コード bounty) 追加、audit contest 拡張。黒字実測 → Franklin 横展開。
+- **Phase 0 — rail/spec確定**: primary=x402、bounty=research/monitor、Immunefi automation=NO-GO。
+  exit proof = 本文・GOAL・TODO・RAIL・ASCIIにsecurity-audit-primaryの現行主張が0。
+- **Phase 1 — demand scout**: B1をTDDで完成。exit proof = fixtureとlive x402 dataの両方からpaid volume/buyer/categoryを返し、hard gateを判定する。
+- **Phase 2 — product + distribution**: B2/B3。exit proof = demand根拠、green tests、public endpoint、listing URL、request telemetry。
+- **Phase 3 — external payout**: B4。exit proof = tx hash + finalized receipt + external payer + write-path再検証log + 重複なしledger行。ここまでearnは¥0。
+- **Phase 4 — repeat + scale**: B5。exit proof = 2件目の外部payoutまたは黒字期間の再現。eligible bounty railがなければx402だけを拡張する。
 
 ---
 
@@ -196,15 +192,16 @@ E2E green = T1-T9 全通過 + done 1-4 の on-chain 着金を Fable が Basescan
 - 2026-07-18 [Phase0 read side 完了, commit b971d51 未push]: poidh Base **LIVE = 307件中 71 open**（実測）。ABI 実名確定: `bountyCounter()`（`bountyCount` は revert）/ `getClaimsByBountyId(uint256,uint256)` 2引数 / `bounties(id)` / `pendingWithdrawals(address)` / `createClaim(bountyId,name,uri,description)`。**罠**: `getBounties(offset)` は paginate せず同じ10件を返す → `bounties(id)` を Multicall3 で個別 scan（307 calls ~280ms）。RPC: llamarpc down、`base.publicnode.com`/`base.meowrpc.com`/`1rpc.io/base` が生存。
 - 2026-07-18: **native-verify N2 実装済・T5 green**。手法 = balance-delta before/after block + self-pay 時の gas 足し戻し（`debug_traceTransaction` は Base 公開 RPC 全滅 -32601、Basescan V2 は API key 不在）。実 tx `0xba7792…78b4` で `ethInflowForTx`=0.1297 ETH を検出。19 テスト green。
 - 2026-07-18: **blockrun_image ツールは grep で発見できず** → proof-gen N3 の画像生成 API は未確定（要 MCP 確認）。
-- 2026-07-18 [gib.work 実地検証]: **③使えない**。payout=wallet-native/USDC/no-KYC で human-zero 適合だが、`api.gib.work/explore` total=426 中 **isOpen=true 4件・dev は1件のみ**（板の実態は Social Media 213/Misc 87）。accept=funder 裁量（PR merge 自動払いでない）。認証=Solana wallet 署名（OAuth/email 不要）。→ scale income rail にならず却下。primary を audit contest に確定。
-- 2026-07-18 [rail 収束]: 全 rail 実測で確定 = human-zero+crypto+merit+実弾を同時に満たすのは **security audit（Immunefi always-on + Code4rena/Sherlock/CodeHawks contest）のみ**。loop の正体=自律 AI セキュリティ研究者。ゲート=valid finding 実力。scope 転換につき Dais 判断待ち。
+- 2026-07-18 [gib.work 実地検証]: **③使えない**。payout=wallet-native/USDC/no-KYC で human-zero 適合だが、`api.gib.work/explore` total=426 中 **isOpen=true 4件・dev は1件のみ**（板の実態は Social Media 213/Misc 87）。accept=funder 裁量（PR merge 自動払いでない）。認証=Solana wallet 署名（OAuth/email 不要）。→ 継続income railにならずdisabled。
+- 旧rail仮説の訂正: security auditがhuman-zero+crypto+実需要を同時に満たすという判断はfalse。Immunefiのautomation禁止、Sherlockのrecent KYC、CodeHawksのopen供給不足を後続実測で確認する。strict laneのprimaryはx402 sell。
+- live market実測: x402scanは直近30日15.87M tx・$741.58K volume・36.05K buyers・75K sellers、24h active merchants 2,778を表示する。需要はmodel routing、social data、enrichment/search、RPC/onchain data、voice、trading dataへ集中する。一方、Aniccaのclaude-p/franklin1/franklin2は48h external USDC inflowがすべて$0。市場不在ではなくproduct/distribution未成立として扱う。
 - 2026-07-18 [Sol review verdict = **STOP-AND-REVISIT-RAIL**]: 7 blocking。#1 poidh 攻略前提破綻（proof=現地/original、AI 画像不可、sentinel は発注者側）#2 accept 8.6%・open の 55/71 が30日超で墓場・収益性ゲート不在 #3 Phase0 が rail を証明しない #4 record.mjs が caller 提供値を盲信＝done 捏造可 #5 balance-delta は偽陰陽性→event log を bigint wei で #6 gas 自己復旧デッドロック #7 鍵 broadcast 前防御。→ INV-8〜11 に昇格・rail 降格・Phase0 再定義で反映済。
-- 2026-07-18 [71 open 全 dump・カテゴリ精査, Fable 実測]: AI が human-zero で勝てるのは **~10件のみ**（残りは現実世界/特定人物 proog）。AI 勝機案件: #263 "ship a real build"(0.0138ETH,claims2,純コード) / #107 "Farcaster Movie Trailer, Use AI"(0.0125ETH,claims3) / #237系 "tweet about \$Space proof=tweet URL"(claims0 多数, 0.001ETH) / #304 poem(claims9飽和) / #283 one question(claims1) / #301 NFT mint / #250 token split。→ **判定: poidh は mechanism 実証には最適だが income rail としては薄い**（大半 \$3〜40、accept は funder 依存）。zero-to-one の初ドルは取れる。scale($10k/月)は gib.work(コード/USDC)+audit へ pivot 必須。前提依存: tweet系は X/Farcaster account が要る（claude-p は未保有→要確認）。
+- 2026-07-18 [71 open 全 dump・カテゴリ精査, Fable 実測]: AI が human-zero で勝てるのは **~10件のみ**（残りは現実世界/特定人物 proof）。AI 勝機案件: #263 "ship a real build"(0.0138ETH,claims2,純コード) / #107 "Farcaster Movie Trailer, Use AI"(0.0125ETH,claims3) / #237系 "tweet about \$Space proof=tweet URL"(claims0 多数, 0.001ETH) / #304 poem(claims9飽和) / #283 one question(claims1) / #301 NFT mint / #250 token split。→ **判定: poidh は mechanism 実証には適するがincome railとして薄い**（大半 \$3〜40、acceptはfunder依存）。
 
 ## OPEN RISK / honest gap
 
-- ★2026-07-18 最大リスク: poidh の open bounty の多くが**現実世界/社会的 proof 型**（"Interview a Politician", "Be A Freedom Fighter", "tattoos"）で、自律 AI が勝てない。71 open のうち **AI が human-zero で勝てる digital/creative 系（meme/art/generative）が何件あるか未精査**。ここが薄いと poidh は income rail として死ぬ（mechanism は実証できても金にならない）。→ Sol review + カテゴリ精査で判定。薄ければ rail を gib.work/audit に前倒し。
-- poidh accept は funder 依存 = 着金タイミングを loop が制御できない。→ 「submit 完了」を earn と誤報告しない。多数の open bounty に低コストで claim し accept 率を稼ぐ設計にする。
-- poidh 小額 = $10k/月には遠い。zero-to-one 用。volume は Phase 3 の audit/gig.work。
-- gib.work API 未文書化 = Phase 2 で reverse-engineer 別タスク。
-- gas 枯渇で loop 停止のリスク → T3 の自動 gas 補給を Phase 2 で必須化。
+- x402市場の総需要は実在するが、Anicca 3 walletの48h external inflowは$0。listing数ではなくbuyer/category/conversionをscoutへ入れない限り、同じ無需要商品を増やす危険がある。
+- x402scanの集計は市場全体であり、Anicca商品のaddressable demandを直接証明しない。商品ごとの402、paid purchase、repeat buyerを別に計測する。
+- x402の取引には極小額が多い。gross revenueではなくcompute/gas/listing cost差引後のmarginをhard gateにする。
+- bounty railは報酬額だけでGOにしない。automation policy、KYC/owner gate、current open supply、wallet settlementを毎回再検証する。
+- poidh/native-verifyはmechanism参照として残るが、現行Phase 1のcritical pathには入れない。
