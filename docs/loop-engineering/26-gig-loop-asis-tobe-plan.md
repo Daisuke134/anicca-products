@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / eventual-send reconcile GREEN / 5-minute detector RED verified`
+- 状態: `PLANNER_INTEGRATION / 5-minute detector GREEN / Gmail push trigger next`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
@@ -164,7 +164,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - remaining integration gap 2: Telegram durable outbox、即時event、毎時pulse、日次digestを実装し、business actionはTelegram障害から分離する。
 - remaining integration gap 3: `/mypage/received_orders/open` P0統合、failure injection、controlled live send/Telegram E2Eを実施する。未実施なので§6 #4/#7全体はPASSにしない。
 - integration strategy: speedy branchは最新mainへmergeする。connector hardening branchは旧baseからpaid/delivery filesも変更するため丸ごとmergeせず、characterization testを先に置いてCoconala manifest・outbox・collector契約の必要差分だけ移植する。
-- Planner最新実測: integration commit `profitable-claude 6dba865`をpushする。production `gig_pass.sh`はtyped queue/outboxからfenced autonomous laneを呼び、delivery unknownもauthoritative readで完了または安全に再queueする。gig+runner全150 tests + 61 subtests、shell 12 suitesがPASSする。
+- Planner最新実測: integration commit `profitable-claude 8c84e35`をpushする。production full passと独立した軽量reply detectorを追加し、空キューmodel 0、process lock 1本、collector fail-closed、300秒fallbackを実装する。gig+runner全153 tests + 61 subtests、shell 13 suitesがPASSする。
 - connector outbox RED: integration commit `4611813`をpushする。`test_connector_outbox.py`は38 testsすべてが必須`config/connectors/coconala.json`欠落でFAILし、manifest無しで動かないfail-closedを確認する。次はDais確認済みmanifestを移植して同38 testsをGREENにする。
 - connector outbox GREEN: integration commit `59d853c`をpushする。manifest追加後はoutbox 38 tests + 11 subtests PASS、全gig Python回帰113 tests + 34 subtests PASS。runtime senderへの配線は未実施。
 - collector RED: integration test commit `ec92fc7`をpushする。canonical collectorに`load_connector_manifest()`が無いため1 testが`AttributeError`でFAILし、現`MESSAGES_URL=/mypage/messages`もmanifestの`/message`契約と不一致である。次はpaid collector behaviorを保持してmanifest/page identityを移植する。
@@ -204,6 +204,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - eventual-send reconcile RED: integration test commit `9496d19`をpushする。ACK喪失後のmatching hash発見はmodel/click 0で完了、整合性窓後のauthoritative absenceは同passで再queue→送信、窓内absenceは送らず継続監視する契約を追加する。bounded observationにhash/time対応がなく、laneが`reconcile_pending`を拾わないため対象4 testsが期待どおりFAILする。
 - eventual-send reconcile GREEN: integration commit `6dba865`をpushする。bounded seller hash/time対応表を永続本文なしで取得し、`reconcile_pending`を送信前にauthoritative readする。matching hashはmodel/click 0で完了、120秒窓後のabsenceだけ同passで再queue、窓内absence/duplicateは送らず次passへ残す。対象10 tests、gig+runner全150 tests + 61 subtests、shell 12 suitesがPASSする。
 - 5-minute detector RED: integration test commit `366966b`をpushする。軽量`collect -> queue -> outbox -> reply lane`、空キューmodel 0、同時trigger 1本、collector failureの非成功化、full passを呼ばない300秒LaunchAgentを要求する。detector/module/plist未実装のためPython 3 testsとshell 1 suiteが期待どおりFAILする。
+- 5-minute detector GREEN: integration commit `8c84e35`をpushする。bounded collector→typed queue/outbox→fenced laneだけを実行するdetector、`flock`同時発火抑止、0600結果、collector fail-closed、Homebrew Python固定の300秒LaunchAgentを実装する。Python 3 tests、gig+runner全153 tests + 61 subtests、shell 13 suitesとplist lintがPASSする。plist deploy/live fireはcutover gateまで未実施。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
