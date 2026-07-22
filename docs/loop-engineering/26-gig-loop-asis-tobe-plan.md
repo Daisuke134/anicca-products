@@ -2,9 +2,11 @@
 
 **これは gig ループを「自己検証・自己修復・自己改善する best-practice browser-use loop」に直すための唯一の durable 計画**。会話は compact で揮発する→ここに全部焼く。SSOT(00) の L1 はここを指す。検証BPの詳細は [25-browser-use-verify-selfimprove-bp.md](25-browser-use-verify-selfimprove-bp.md)。
 
-Dais 確定方針(2026-07-11):
-- **先に B0/B1/B2 の capability を loop に持たせる**（今は「やれと指示すらされていない」＝当然やらない。特に **B0 出品は harness に存在しない**）→ その上に検証/自己修復を載せる。
-- 移動/改名しない・その場で直す。一つずつ・各段階で **builderと別contextのreality-verifierが結果画面をbrowserで読んで**確認してから次へ。通常運転は人間の承認・下書き送信待ちをterminal stateにしない。
+Dais 確定方針:
+- B0出品・B1返信/納品・B2応募を一つのdurable loopへ統合し、売上に近いB1を最優先laneにする。その上に独立検証・自己修復・自己改善を載せる。
+- canonical codeは `~/profitable-claude/skills/gig-work/`、runtime stateは当機では `GIG_STATE_DIR=~/gig`。`~/anicca/skills/earn/gig/` はtombstoneであり編集しない。
+- Coconalaの利用可否・許可はDais確認済みとして固定し、agentは規約・許可の再検索へtokenを使わない。他platform追加時だけ一度onboarding manifestを作る。
+- 各段階をbuilderと別contextのreality-verifierが結果画面で確認する。通常運転は人間の承認・下書き送信待ちをterminal stateにしない。
 
 ---
 
@@ -42,6 +44,13 @@ Dais 確定方針(2026-07-11):
 - 404、ログイン画面、bot block、空DOMは `queue_empty` ではなく `collector_unhealthy`。空キュー成功には、正しい受信箱title/URLと取得件数のground-truthが必要。
 - 今回の `earth0809.com` threadはmanual rescueで具体返信を送信し、同じthreadの再読でseller最終送信と送信時刻 `08:44:21` を確認する。これは現行harnessの合格を意味せず、live E2E fixtureとして使う。
 
+### Telegram日報の現状
+
+- loaded LaunchAgent `ai.anicca.hf-gig-daily-report` が毎日09:07 JSTに canonical `gig_daily_report.sh` を実行する。
+- reporterは `~/gig/applied.jsonl / shuppin.jsonl / earnings.jsonl` を読み、累計の応募・返信/納品・公開出品・検収済売上だけを決定論で整形し、`openclaw message send --channel telegram --target "$GIG_REPORT_CHAT"` で送る。送信成功はOpenClawのTelegram message IDで確認できる。
+- 現行表示例は `応募累計:109 / 返信・納品:35 / 出品公開:6 / 売上:0件 ¥0`。これは累計snapshotであり、24時間差分、未返信、SLA、queue age、ground-truth検証率、model token cost、self-heal、Telegram再送状態を示さない。
+- TO-BEでもreport renderingはLLMなし。Telegramは観測面であり、承認・draft送信・返信内容選択を求めるhuman-in-the-loop UIにしない。
+
 ---
 
 ## §2 TO-BE（あるべき自走ループ）
@@ -49,48 +58,55 @@ Dais 確定方針(2026-07-11):
 ### §2.1 runtime / model routing（正本）
 
 ```text
-┌──────────────────────────────────────────────────────────────────────┐
-│ SCHEDULER / OBSERVER（LLMなし）                                      │
-│ event通知=即時 / fallback detector=5分 / full pass=1時間              │
-│ URL・page identity・last_sender・order state・deadline・idempotency   │
-└───────────────────────────────┬──────────────────────────────────────┘
-                                │ actionable eventだけ
-                                v
-┌──────────────────────────────────────────────────────────────────────┐
-│ DURABLE QUEUE（LLMなし）                                             │
-│ P0 paid/new order > P1 pre-purchase DM > delivery > B0 > B2          │
-│ SQLite outbox / thread coordination / lease / fencing / retry clock  │
-└───────────────────────────────┬──────────────────────────────────────┘
-                                v
-┌──────────────────────────── MODEL ROUTER ─────────────────────────────┐
-│ default executor: Terra medium                                       │
-│ reply/strategy judgment: Luna high                                   │
-│ learn/reflection/summary: Luna medium                                 │
-│ unknown incident: Luna xhigh -> Terra high                           │
-│ Sol: scheduled 0、下位model 2回失敗か高額/重大incidentのみ、最大2回/日 │
-│ GPT-onlyを先にE2E必須。Claude-onlyは同一contractの別adapterとして検証 │
-└───────────────────────────────┬──────────────────────────────────────┘
-                                v
-┌──────────────────────────────────────────────────────────────────────┐
-│ ALLOWLISTED EXECUTOR                                                  │
-│ reply / listing / proposal / artifact / delivery / follow-up         │
-│ modelは直接stateを確定せず、executorだけがside effectを実行           │
-└───────────────────────────────┬──────────────────────────────────────┘
-                                v
-┌──────────────────────────────────────────────────────────────────────┐
-│ GROUND-TRUTH VERIFIER（まず決定論、必要時fresh Luna high）            │
-│ outgoing hash/time/thread / listing public URL / order / paid amount │
-└─────────────────┬────────────────────────────────┬───────────────────┘
-                  │ PASS                           │ FAIL / UNKNOWN
-                  v                                v
-       ledger確定・次eventへ             reconcile -> self-fix -> canary
-                                                    │
-                                           PASSまでqueueを消さない
+ Coconala notification ─即時─┐
+ fallback inbox detector ─5分─┼──> OBSERVER / PAGE HEALTH（LLMなし）
+ listing/proposal/full pass ─1h┘    URL・identity・last_sender・deadline
+                                             │ actionable event
+                                             v
+┌───────────────────────────────────────────────────────────────────────┐
+│ DURABLE SQLITE QUEUE / OUTBOX（LLMなし）                              │
+│ P0 new order・購入後DM > P1購入前DM > delivery > B0 listing > B2 bid │
+│ event key / thread coordination / lease / fence / revision / retry   │
+└──────────────────────────────────┬────────────────────────────────────┘
+                                   v
+┌──────────────────────────── MODEL ROUTER ──────────────────────────────┐
+│ Terra medium = default executor / Luna high = reply・strategy         │
+│ Luna medium = learn・reflection / Luna xhigh -> Terra high = incident │
+│ Sol = scheduled 0、下位model独立fix 2回失敗か重大incident、最大2回/日 │
+│ GPT-only E2Eを先に固定。Claude-onlyは同一contractの別adapter          │
+└──────────────────────────────────┬────────────────────────────────────┘
+                                   v
+┌───────────────────────────────────────────────────────────────────────┐
+│ ALLOWLISTED EXECUTOR                                                   │
+│ reply / listing / proposal / artifact / delivery / follow-up          │
+│ modelは直接成功stateを書かず、executorだけがside effectを実行         │
+└──────────────────────────────────┬────────────────────────────────────┘
+                                   v
+┌───────────────────────────────────────────────────────────────────────┐
+│ GROUND-TRUTH VERIFIER（通常は決定論、必要時fresh Luna high）          │
+│ message hash/time/thread / listing URL / delivery ID / paid amount    │
+└──────────────────┬────────────────────────────────┬───────────────────┘
+                   │ VERIFIED                       │ FAIL / UNKNOWN
+                   v                                v
+       EVENT + REVENUE LEDGER              retry / reconcile
+                   │                                │
+                   │                     known -> deterministic repair
+                   │                     unknown -> Luna xhigh diagnose
+                   │                                -> Terra high TDD fix
+                   │                                -> replay/live/canary
+                   │                                └─PASSまでqueue保持
+                   v
+┌────────────────────── TELEGRAM OUTBOX（LLMなし） ──────────────────────┐
+│ 即時: 新規注文・返信/納品/入金verified・SLA breach・self-heal/rollback │
+│ 観察期間: 毎時:55 compact pulse（変更なしもhealthを通知）              │
+│ 卒業後: healthy空pulseを抑制、重要event即時 + 毎日09:07経営日報        │
+│ pre-send障害だけretry。send後ACK不明は再送せず次pulseでunknownを可視化  │
+└───────────────────────────────────────────────────────────────────────┘
 ```
 
 **無人運転契約**:
 
-1. live connectorへ登録できるのは公式APIまたは書面許可済みUI automationだけ。規約未確認connectorを `draft_only` でごまかさず、そもそもliveにしない。
+1. CoconalaはDais確認済みのenabled connectorとして扱い、規約・許可をpassごとに再検索しない。manifestは `authorization_source=user_confirmed / allowed_scope / prohibited_scope / rate_limit / reconciliation_mode / max_consistency_window / revoked_at` を一度固定する。他platformだけonboarding時に同じmanifestを作る。platform idempotency key、またはbounded consistency window後のauthoritative side-effect auditは技術的な重複防止契約として保持する。
 2. live connector上の合法・実行可能なeventは `sent_and_verified / delivered_and_verified / paid_and_verified` までactiveのまま保持する。`draft_only / rejected / manual_review / failed_terminal` をterminal stateにしない。
 3. model refusal・quota・timeoutは別GPT candidateへ自動routeする。Claudeが全停止しても `MODEL_FAMILY=gpt` だけで検知から入金確認まで完走する。
 4. platform outage・auth lossは `retry_wait` で継続し、指数backoff（上限60分）で自動復旧する。人間待ちを成功扱いせず、復旧までSLA breachを記録し続ける。
@@ -127,11 +143,11 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 ---
 
-## §3 B0/B1/B2/納品 の capability 定義（= STARTUP prompt に「何をせよ」を明記する中身。今 B0 は存在しない）
+## §3 B0/B1/B2/納品 の capability 定義（= STARTUP prompt に「何をせよ」を明記する中身。薄いB0は存在するが管理・検証・拡張が未完成）
 - **B0 出品(SHUPPIN・新規追加)**: 毎pass、`/mypage/services_lists` を読む→(a)下書き2件を完成させ公開 (b)typo・弱いタイトル/説明/価格/カバー画像を改善 (c)公開数が目標(例5-7)未満なら AIが勝てるcat(AI活用支援/資料作成PPT/SNS運用/記事/翻訳/文字起こし/LP/自動化)で `/services/add` から新規出品。成果物サンプルは公式 `pptx`/portfolio skill で作る。
 - **B1 返信/納品**: `/message` の購入前DMと `/mypage/received_orders/open` の購入後トークルームを別キューとして sweep する。buyer が最終送信者なら即返信し、仮払い契約は成果物作成→納品、検収済は評価依頼へ進める。返信検知を hourly full pass に埋め込まない。
 - **B2 応募(改善)**: `max_apply_per_pass` を上げ(5→10〜15)、scan を category直URL+keyword に拡張、AI禁止/実績必須/物理必須を除外、掲載直後(応募一桁)を優先。**質と量の両方を上げる**。
-- 各ステップで **cdp_snapshot.py `<pass_id> <seq> <label>`** を呼び trajectory を残す。
+- 各ステップで共通 `verification.capture` interfaceを呼び、masked screenshotとtrajectoryを残す。現行`cdp_snapshot.py`はcutover時にこのmoduleへ移す。
 
 ### §3.1 B1 即応SLA（返信速度の正本）
 
@@ -150,7 +166,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 1. 購入前DMは `https://coconala.com/message`、購入後取引は `https://coconala.com/mypage/received_orders/open` から取得する。pagination/infinite scrollを既知checkpointまで走査し、first viewportだけで終了しない。
 2. current URL、page title、受信箱container markerを検証する。404、login redirect、error page、container欠落は `collector_unhealthy`。正しいpage identityとcontainerを確認した上でmessage cardが0件なら `queue_empty` とする。
 3. 新規注文はbuyer発言の有無にかかわらず `order_created_at / order_id / thread_id / thread_url / seller_initial_contact_at / initial_contact_required` を取得する。`seller_initial_contact_at` が無い新規注文は `initial_contact_required=true` とし、buyer発言0件でもP0 workerを起動する。購入後buyer発言と購入前DMでは `buyer_sent_at / message_id / last_sender / reply_required` を取得する。共通で `event_type / origin_at / observed_at` を永続化する。`opened/unreadCount` は補助情報であり、既読を返信済みと扱わない。顧客の生メッセージ本文・メール・cookieは保存しない。
-4. event idempotency key は新規注文初回連絡なら `platform + order_id + initial_seller_contact`、message IDがあるbuyer発言なら `platform + thread_id + message_id`。message IDがないbuyer発言だけ `platform + thread_id + buyer_sent_at + thread内ordinal + normalized_hash` とする。normalizeはUnicode NFC、改行と連続空白の統一、前後空白除去だけを行い、同文の別送信を区別する。別event keyでも同一threadなら `platform + thread_id` をcoordination keyとし、DB unique constraintでactive outbox actionを最大1件にする。
+4. event idempotency key は新規注文初回連絡なら `platform + order_id + initial_seller_contact`、message IDがあるbuyer発言なら `platform + thread_id + message_id`。message IDがないbuyer発言だけ `platform + thread_id + buyer_sent_at + stable_ordinal + sha256_v1(normalized_body)` とする。`sha256_v1` はUnicode NFC、CRLF→LF、連続horizontal whitespaceの1space化、前後空白除去後のUTF-8 SHA-256。`stable_ordinal` は同一platform timestamp内のfull-thread DOM順を初回観測時にcheckpointへ固定し、再走時に再採番しない。timestampまたは安定順序を取得できなければ `collector_unhealthy` としてclaimしない。別event keyでも同一threadなら `platform + thread_id` をcoordination keyとし、DB unique constraintでactive outbox actionを最大1件にする。
 5. outbox actionは `covered_event_keys[]` を持ち、`pending -> claimed -> send_intent -> click_started -> verifying -> replied` を主state machineにする。回復side stateは `retry_wait / reconcile_pending` のみで、いずれもterminalではなく主stateへ戻る。claimはSQLite transactionまたは原子的O_EXCL lockでthreadごとに1workerだけが所有し、単調増加する `fencing_token` を発行する。各immutable intent revisionは `active|superseded` を持ち、`send_intent` は `outgoing_hash / owner_id / fencing_token / content_revision` を送信clickより前にwrite-aheadでcommitする。
 6. 新規注文初回連絡actionが `click_started` 前にあり、同threadのbuyer messageを検知した場合、別actionを作らない。同一transactionでbuyer event keyを `covered_event_keys` に追加し、buyer messageへ答える1返信へcontentを再生成して `content_revision` とfencing tokenを更新し、旧intent revisionと旧ownerを `superseded` にしてactionを新revisionの `claimed` へ戻す。この1返信のground-truthが取れた時点で `initial_contact_required` と `reply_required` の両方を充足する。senderは送信直前にthreadをfresh-readし、未取込buyer eventがあれば同じcoalesce transactionへ戻る。`click_started` 後に到着したbuyer eventだけは別の後続actionとして扱い、先行actionのground-truth確認後までclaimしない。
 7. senderはclick直前のtransactionでthread coordination key・owner・lease・fencing token・content revision・`click_started_at IS NULL` を再検証して `click_started` をcommitする。claim期限切れだけでは別workerへ送信権を渡さない。期限切れ時はsupervisorが旧owner processと専用browser sessionの停止を確認してtokenを失効させる。`click_started` 前に停止確認できた場合だけ新tokenでpre-send処理を再開する。`click_started` 後またはclick実行有無が曖昧な場合は `reconcile_pending` へ入り、fresh verifierとbounded consistency windowで自動解決する。人間review待ちへ遷移しない。
@@ -172,7 +188,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 #### 送信後ground-truth
 
 - 返信成功はagentの自己申告やclick完了では判定しない。同じthreadを再読し、対象 `origin_at` 以後に送信本文の正規化hashとseller送信時刻が存在し、thread URLが一致した時だけ先行actionを `replied` とする。seller送信後にbuyer messageが無ければseller-lastも確認する。seller送信後にbuyer messageがあれば、先行actionはhash/timeで完了させ、そのbuyer messageを別eventとして同じtransactionでpendingへ登録する。現在のlast senderを先行actionの成否と混同しない。
-- send action後にDOM再読が失敗する曖昧状態ではblind retryしないが、actionも停止させない。`t+0/+10秒/+30秒/+2分` にfresh verifierがthreadを再読し、対象 `origin_at` 以後に同じoutgoing hashが存在すれば `replied` とする。不在が続く場合は旧owner process/session停止とfence失効を確認し、30秒離した2回のabsence read後に新revisionを1回送る。以後も同じreconcile cycleを最大60分backoffで継続し、`replied` までqueueから消さない。
+- send action後にDOM再読が失敗する曖昧状態ではblind retryしないが、actionも停止させない。platform idempotency key対応connectorは同じkeyのまま再要求し、platform側でside effectを1件に畳む。authoritative-audit型connectorはmanifestの `max_consistency_window` が終わるまで `t+0/+10秒/+30秒/+2分/...` で照会し、その後に権威的auditが同じkey/hashの不在を返した場合だけ新revisionを1回送る。単なるDOM不在や任意の待機時間は未送信証明にしない。いずれの方式も無いconnectorはlive eligibility FAILであり、自動送信を開始しない。以後も同じreconcile cycleを最大60分backoffで継続し、`replied` までqueueから消さない。
 - browser navigation・selector取得など、`click_started` 前と証明できる失敗は初回 `t+0`、第2回 `t+2分`、第3回 `t+5分` で試行する。3回失敗後はterminal failureにせず `retry_wait` へ移り、`5/10/20/40/60分` backoffで自動再実行する。各retry前に現owner・lease・fencing tokenをtransactionで再検証する。通常pathの `send_click_count` はactive revisionごとに最大1、reconcile再送は新revisionとして記録する。
 - 永続evidenceは `thread_url / seller_sent_at / outgoing_hash / last_sender` のみにする。screenshotが必要な場合は顧客本文・氏名・添付をmaskしowner-only `0600`、保持7日後に削除する。cookie・tokenは常に保存禁止。
 
@@ -196,7 +212,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 | 同一thread coordination keyへ2worker同時起動 | claim成功1、active action 1、送信最大1 |
 | claim期限切れで旧ownerが生存 | 旧process/session停止とfence失効まで新ownerの送信0 |
 | `send_intent` commit直後にcrash | 停止確認後、新fenceでpre-send再開可能、送信最大1 |
-| `click_started` commit直後またはsend後にcrash/DOM timeout | blind retry 0、`reconcile_pending`。fresh verify→absence確認→新revision送信を自動継続し、最終`replied`、人間待ち0 |
+| `click_started` commit直後またはsend後にcrash/DOM timeout | blind retry 0、`reconcile_pending`。同じplatform idempotency keyで再要求、またはmanifest上限後のauthoritative non-delivery証明時だけ新revision送信。最終`replied`、重複0、人間待ち0 |
 | 送信前transient failure | `t+0/+2/+5分` 後も`retry_wait`で5〜60分backoffを継続、復旧後`replied`、terminal failure 0 |
 | Luna/Terra refusal・quota・timeout | 同familyの次candidateへroute、draft保存で終了0、最終`replied` |
 | Claude全停止 + `MODEL_FAMILY=gpt` | Claude process 0でP0/P1 detect→reply→verifyが完走 |
@@ -206,6 +222,21 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 根拠: ココナラ公式は「購入されたら後回しにせず、すぐに一言トークルームで連絡」「すぐ対応できない場合は一次返信」と案内する（https://mag.coconala.com/articles/knowhow-prevent-48hcancel）。48時間は自動キャンセル上限であり、営業SLAではない。
 
+### §3.2 全side effect共通のeventual-action契約
+
+返信以外にも同じdurable action envelopeを使う。`pending -> claimed -> intent_committed -> executing -> verifying -> verified` が主stateで、`retry_wait / reconcile_pending` だけを非terminal回復stateにする。executorはmodelの文章を直接実行せず、allowlist、policy manifest、expected current state、owner/lease/fencing token、immutable `action_revision` をtransaction内で再確認する。model refusal・quota・timeoutは同じtask familyの別candidateへrouteし、active actionをdraftやterminal failureへ落とさない。
+
+| action | idempotency / coordination key | authoritative ground truth |
+|---|---|---|
+| listing create/update | `platform + listing_id_or_client_key + desired_content_hash` | 公開listing ID、public URL、公開state、content hash/version |
+| proposal/application | `platform + job_id + seller_id + proposal_revision` | 応募履歴のapplication ID、job ID、本文hash、送信時刻 |
+| reply/follow-up | `platform + thread_id + covered_event_keys + content_revision` | thread上のseller message ID/hash/time |
+| artifact generation | `order_id + deliverable_slot + artifact_version` | atomic rename済みfile checksum、schema/preview test PASS |
+| formal delivery/revision | `platform + order_id + delivery_slot + artifact_checksum` | delivery ID/state、添付checksum、seller送信時刻 |
+| paid confirmation | `platform + order_id + payment_id`（read-only） | 売上/検収画面のpayment ID、amount、currency、paid state |
+
+platform side effectを伴うactionは、同じidempotency keyで再要求可能、またはmanifest上限後のauthoritative auditで実行/未実行を二値判定できるconnectorだけでlive実行する。各actionのfailure-injection E2Eは、`intent_committed`直後、request/click直後、verify timeout、provider refusal/quota、auth loss、stale lease、2 worker競合を注入し、最終`verified`、platform side effect 1件、draft/manual-review/terminal-failure 0をassertする。artifactだけはatomic filesystem operationで同checksumへ収束させる。paid confirmationは観測専用で、入金を生成したと偽らない。
+
 ---
 
 ## §4 検証設計（BP=25準拠。★決め手は screenshot でなく結果画面の実データ読返し★）
@@ -214,6 +245,47 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - report-**skeptical**: core の summary は渡すが「実際に起きたか screenshot/結果画面で二重確認せよ」と明示（judge.py L148/L143/L101）。ground_truth 不一致なら verdict 必ず false(L76)。二値判定(rubric中間スコア禁止)。
 - 金(¥)は **実 売上/検収 画面 or 入金でのみ PASS**（jsonl の自己申告では PASS しない）。
 - 別 context の fresh spawn で報告非依存を担保（= auditor が reality-verifier を起動）。
+
+### §4.1 Telegram reporting contract
+
+Telegramは承認面ではなく、Daisが自律loopの現実を観測するread-only control planeにする。report本文の生成・集計・dedupe・retryはすべて決定論で行い、model tokenを使わない。business actionとTelegram配信は別outboxにし、Telegram障害で返信・納品・応募を止めない。
+
+| trigger | cadence | content | Telegram failure |
+|---|---|---|---|
+| `new_order/replied/delivered/paid` がground-truth verified | event後60秒以内 | action、event age、platform ID、verified evidence ref、売上差分 | pre-send failureだけ同じreport keyをretry |
+| SLA 15分警告 / 30分breach、collector unhealthy、reconcile、rollback | 即時 | severity、active event数、oldest age、現在の自動復旧action、次retry | 人間承認を求めず復旧継続 |
+| graduation観察mode | 毎時:55 | health、直近1時間のdetected/verified、pending、oldest、SLA、duplicate、cost、delivery_unknown数 | at-most-once send |
+| 30日gate卒業後 | healthy空pulseは抑制 | 重要event即時 + 毎日09:07 digest | 同上 |
+| daily executive digest | 毎日09:07 JST | 24h差分 + 累計 + funnel + revenue + quality + model cost + self-heal | 同上 |
+
+`report_event_id = report_type + window_or_business_event_id + state + action_revision` をunique keyにし、stateを `pending -> send_started -> reported|delivery_unknown` とする。provider call直前に`send_started`をcommitし、pre-sendと証明できるfailureだけretryする。send成功後にACKだけ失った可能性がある時は同じreport keyをblind resendせず`delivery_unknown`にし、次のhourly/daily messageへunknown件数と対象report IDを載せる。Telegram successはCLI exit 0だけでなくprovider message IDを保存した時だけ `reported` とする。これにより同じreport keyのprovider callは最大1回で、Telegram障害がbusiness actionを止めない。顧客本文、氏名、cookie、tokenは送らず、thread/orderのopaque IDとmasked URLだけを使う。
+
+TO-BE daily messageは現行4行を次へ置換する。
+
+```text
+🧰 gig経営日報 | Coconala/mtdc | <YYYY-MM-DD 09:07 JST>
+状態: HEALTHY | mode=GPT-only | last_verified_pass=<age>
+
+💰 売上: 検収済 ¥<total>（24h +¥<delta> / <count>件）
+🧾 24h実行: 問合せ検知 <n> / 返信verified <n> / 応募 <n> / 出品更新 <n> / 納品 <n>
+📥 Queue: active <n> / P0 <n> / P1 <n> / oldest <age or none>
+⚡ SLA: detect p95 <m>分 / reply p95 <m>分 / 15分警告 <n> / 30分breach <n>
+🔎 検証: <pass>/<total> / duplicate 0 / false-success 0 / unverified <n>
+🧠 Model: Terra <calls> / Luna <calls> / Sol <calls> | 24h $<cost>
+🔧 Self-heal: incidents <n> / fixed <n> / rollback <n> / unresolved <n>
+📈 Funnel累計: 応募 <n> → 返信 <n> → 受注 <n> → 検収 <n>
+➡️ 次の自動action: <queueから決定論で最大3件>
+report_id=<id> | source=verified projection
+```
+
+instant messageは短くする。
+
+```text
+✅ gig action verified | reply | Coconala
+event_age=4m12s / SLA=PASS / thread=<opaque-id>
+model=Luna high / cost=$<cost> / evidence=<ref>
+次: follow-upを自動schedule（承認不要）
+```
 
 ---
 
@@ -225,9 +297,9 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - verdict=false / ¥0 継続 → **Reflexion**を次passへ注入。成功trajectoryは、再現fixture・修正前FAIL・修正後PASS・fresh verifier PASSが揃った場合だけ **AWM** workflow/skillへ昇格する。
 - auth wall、platform outage、quota、host OOM、規約未承認をcode bugと混同しない。provider circuit breakerとconnector healthで別routeへ切り替え、同じfixerを再spawnしない。
 - 自動code changeは最大3件/日、同fingerprint最大3attempt。人間が日常承認しなくてもrollback可能な変更だけ自動promoteする。
-- 連携ファイル: `~/.openclaw/state/.gig-core-selfheal-request.json`（STARTUP がpass冒頭で読む既存フック）、`~/anicca/skills/self/self-fix.sh`。
+- self-heal requestは `gig.sqlite3` の `repair_queue` にtransactional enqueueし、canonical `src/gig/healing/` がclaimする。旧 `~/.openclaw/state/.gig-core-selfheal-request.json` と `~/anicca/skills/self/self-fix.sh` へのruntime依存をcutoverで0にする。
 
-**babysit卒業gate（30日連続）**: P0/P1 missed-SLA=0、duplicate send=0、false-success=0、policy violation=0、通常日の人間介入=0、self-repair成功率>=80%、rollback成功率=100%、GPT-only E2E PASS。Claude復旧後はClaude-only E2EもPASSする。
+**babysit卒業gate（30日連続）**: P0/P1 missed-SLA=0、duplicate send=0、false-success=0、policy violation=0、通常日の人間介入=0、GPT-only E2E PASSを満たす。self-repair成功率は `fresh verifierまでPASSしたincident / fix attemptを開始したdistinct failure fingerprint` とし、自然incidentが不足する場合もcontrolled injectionで最低10件・5failure classを作り、8/10以上を必須にする。classはcollector URL、selector drift、provider refusal/quota、intent後crash、stale heartbeatを含む。rollback成功率は `rollback後にlast-known-goodのcontrolled E2EがPASS / rollbackを強制したdrill`、最低5件で5/5を必須とする。分母0はPASSにしない。Claude復旧後はClaude-only E2EもPASSする。
 
 ---
 
@@ -235,24 +307,26 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 | # | 段 | 残TODO | done（builderと別contextのverifierが確認） |
 |---:|---|---|---|
-| **0** | **live connector gate** | Coconalaを含む各platformで公式APIまたはUI automation書面許可、禁止action、rate limitをadapter manifestへ固定。未承認connectorはlive登録しない | live connectorすべてが`api_auto|ui_auto_approved`で、規約source/permission evidenceあり |
-| **1** | **GPT-only provider contract** | 現Claude-first routeを廃止し、Terra medium default、Luna high judgment、Luna medium routine、Luna xhigh→Terra high incident、Sol最大2回/日のtask classesへ変更。共通AgentTask/Result schemaと`MODEL_FAMILY`を実装 | Claude executable/credential 0でdetector→reply→listing→proposal→delivery→verify→self-fix E2E PASS。scheduled Sol 0 |
-| **2** | **deterministic kernel / health** | page identity、queue、outbox、lease/fence、retry、cost ledger、real `.last-pass`/snapshot healthを実装。supervisor heartbeatだけのfalse-greenを廃止 | 空キューでmodel call 0、stale passを10分以内にFAIL検知・自動restart、次pass成功を確認 |
-| **3** | **B1 即応lane** | 正しい`/message`と`/mypage/received_orders/open`、即時通知+5分detector、thread coalesce、eventual-send reconcileを実装 | P1 DM、P0 no-message order、P0 race、crash/timeout、model refusalで全eventがsend+hash/time/thread verified。人間待ち/terminal failure 0 |
-| **4** | **B0/B2/納品** | 下書き・typo・listing最適化、new-job scan、個別proposal、artifact作成、修正、formal delivery、検収を共通executorへ移す | 公開URL・応募履歴・talkroom・納品stateを実画面で確認。自己申告だけのclaim 0 |
-| **5** | **reality verifier** | 毎side effectの決定論verify、異常時fresh Luna high、日次sample review、funnel reconciliationを実装 | 実claim PASS / 偽claim FAIL / false-success 0。LLM verifierを空キュー・正常routineで呼ばない |
-| **6** | **self-heal / graduation** | fingerprint、Luna xhigh診断、Terra high test-first fix、canary、rollback、memory昇格gateを実装 | 注入bugを自分で発見→修正→再検証→promote。30日gateを満たす |
-| **7** | **Claude-only parity** | Claude adapterが復旧した時に同一contractを`claude-only`で実行。GPTへのcross-fallbackなし | GPT-onlyとClaude-onlyが同じcontrolled E2E fixtureで同じbusiness outcome |
-| **8** | **Coconala $10k net MRR** | diagnostic→sprint→recurring retainerのoffer ladder、10前後の継続client、upsell/retentionを自動運用 | fee後net MRR >= $10kを売上画面で3か月連続確認。22% feeならGMV目安 >= $12,821/月 |
-| **9** | **multi-platform $100k MRR** | 許可済みmarketplace adapterとown inbound、共通CRM/delivery、vertical playbook、partner capacityを追加 | channel別CAC/close/retention/profitが可視化され、net MRR >= $100k |
-| **10** | **own product $10M MRR** | gig workflowをmulti-tenant SaaS/API/enterprise/transaction marketplaceへ製品化。marketplace依存をlead sourceへ縮小 | SaaS+enterprise+take-rateの実売上合計がMRR >= $10M。gig GMVをMRRと偽らない |
+| **0** | **Coconala connector hardening** | Dais確認済みenabled状態をmanifestへ固定し、規約・許可の再検索を禁止。正しいURL/page identity、rate limit、idempotency/audit、kill switchだけを技術実装 | policy web/model call 0、`user_confirmed` manifest、404 false-green 0、曖昧送信reconcile test PASS |
+| **1** | **canonical tree cutover** | 現行behaviorのcharacterization testを先に固定し、§9へmodule移動。state/self-healをgig.sqlite3へ統合し、launchdを新binへ原子cutover。旧path/duplicate/archiveをzero-reference後に削除 | current fixtures全PASS、loaded plist全てcanonical bin、旧Anicca/self-fix/file-request参照0、二重process 0、rollback drill PASS |
+| **2** | **GPT-only provider contract** | 現Claude-first routeを廃止し、Terra medium default、Luna high judgment、Luna medium routine、Luna xhigh→Terra high incident、Sol最大2回/日のtask classesへ変更。共通AgentTask/Result schemaと`MODEL_FAMILY`を実装 | Claude executable/credential 0でdetector→reply→listing→proposal→delivery→verify→self-fix E2E PASS。scheduled Sol 0 |
+| **3** | **deterministic kernel / health** | page identity、queue、outbox、lease/fence、retry、cost ledger、real `.last-pass`/snapshot healthを実装。supervisor heartbeatだけのfalse-greenを廃止 | 空キューでmodel call 0、stale passを10分以内にFAIL検知・自動restart、次pass成功を確認 |
+| **4** | **B1 即応lane** | 正しい`/message`と`/mypage/received_orders/open`、即時通知+5分detector、thread coalesce、eventual-send reconcileを実装 | P1 DM、P0 no-message order、P0 race、crash/timeout、model refusalで全eventがsend+hash/time/thread verified。人間待ち/terminal failure 0 |
+| **5** | **B0/B2/納品** | 下書き・typo・listing最適化、new-job scan、個別proposal、artifact作成、修正、formal delivery、検収を§3.2の共通action envelopeへ移す | 公開URL・応募履歴・talkroom・納品stateを実画面で確認。全actionのfailure-injection E2Eが最終verified、side effect 1件、draft/manual/terminal 0 |
+| **6** | **reality verifier** | 毎side effectの決定論verify、異常時fresh Luna high、日次sample review、funnel reconciliationを実装 | 実claim PASS / 偽claim FAIL / false-success 0。LLM verifierを空キュー・正常routineで呼ばない |
+| **7** | **Telegram observability** | verified event publisher、telegram outbox、即時event、毎時graduation pulse、09:07 digest、at-most-once deliveryを決定論で実装 | fixture文面一致、LLM call 0、ACK-loss時provider call 1・delivery_unknown、次digestにunknown表示、Telegram outage中もbusiness action継続 |
+| **8** | **self-heal / graduation** | fingerprint、Luna xhigh診断、Terra high test-first fix、canary、rollback、memory昇格gateを実装 | 注入bugを自分で発見→修正→再検証→promote。30日gateを満たす |
+| **9** | **Claude-only parity** | Claude adapterが復旧した時に同一contractを`claude-only`で実行。GPTへのcross-fallbackなし | GPT-onlyとClaude-onlyが同じcontrolled E2E fixtureで同じbusiness outcome |
+| **10** | **Coconala $10k net MRR** | diagnostic→sprint→recurring retainerのoffer ladder、10前後の継続client、upsell/retentionを自動運用 | fee後net MRR >= $10kを売上画面で3か月連続確認。22% feeならGMV目安 >= $12,821/月 |
+| **11** | **multi-platform $100k MRR** | onboarding済みmarketplace adapterとown inbound、共通CRM/delivery、vertical playbook、partner capacityを追加 | channel別CAC/close/retention/profitが可視化され、net MRR >= $100k |
+| **12** | **own product $10M MRR** | gig workflowをmulti-tenant SaaS/API/enterprise/transaction marketplaceへ製品化。marketplace依存をlead sourceへ縮小 | SaaS+enterprise+take-rateの実売上合計がMRR >= $10M。gig GMVをMRRと偽らない |
 
 **done 全体**: live connector上の合法・実行可能eventが、人間のdraft承認なしで検知→実行→ground-truth確認→自己修復まで閉じ、実売上が結果画面で確認できた時だけdone。送信・納品・入金確認に到達していないactive eventを「完了」と言わない。
 
 ---
 
 ## §6.5 gig 稼ぎ戦略 spec(2026-07-08) 完全実装チェックリスト（★Dais 原案・全部やる・忘れ厳禁★）
-正本 spec = `docs/superpowers/specs/2026-07-08-gig-feasibility-volume-listing-design.md`。★spec の scope は `~/profitable-claude/...` を指すが **live loop は `~/anicca/skills/earn/gig/`**。end-state は profitable-claude(G-PRODUCTIZE)だが当面 anicca live に実装する★。現実装率(2026-07-11 監査):
+正本 spec = `docs/superpowers/specs/2026-07-08-gig-feasibility-volume-listing-design.md`。live/canonical loopは `~/profitable-claude/skills/gig-work/`。旧 `~/anicca/skills/earn/gig/` はtombstoneで編集しない。現実装率(2026-07-11 監査):
 
 | spec MUST | 現% | 実装する内容 |
 |---|---|---|
@@ -271,25 +345,209 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 **全体 ~30-40% → 目標 100%。** 各項目 done = 私が結果画面 or loop出力で実装を実確認。
 
-## §8 増分2b 設計 — own-eyes 検証を loop に焼く（reality-verifier を自走化）★実装中★
+## §7 reality-verifier 詳細契約（§6 #5に従って実装）
 目的: main sessionの手動navigate→screenshot→判定を、**provider-independent runnerが必要時に起動するfresh verifier**へ置換する。GPT-onlyのdefaultは Luna high、Claude-onlyではClaude adapterを使う。auditorがcoreのjsonlを信じず、実画面でreport-skeptical判定する。正常routineは決定論gateだけで完了し、fresh LLM verifierは異常・高価値side effect・日次sampleに限定する。
-触るファイル(live `~/anicca/skills/earn/gig/`):
-1. **gig_judge.py**（新規・`scratchpad/judge_bu.py`=browser-use/benchmark judge.py 198L を copy+tweak）: `JudgementResult{reasoning,verdict:bool,failure_reason,impossible_task,reached_captcha}` + `build_verifier_prompt(claims, ground_truth)`。system prompt は judge.py L79-163 を踏襲（report-skeptical: L148「be initially doubtful of self reported success」/L101「報告完了でも画面が未完了なら false」/L76「ground_truth 不一致なら必ず false」）。ground_truth = /mypage/services_lists・/received_orders/open・売上 の実DOM。
-2. **gig_reality_verify.sh**（新規・runner）: 直近 N の shuppin.jsonl/applied.jsonl/earnings.jsonl の claim を読む → 共通agent-runnerを `MODEL_FAMILY=gpt / task_class=verifier`（Luna high default）でfresh spawnし、「結果ページにnavigate → cdp_snapshotでscreenshot → 実DOMを読む → claimが実画面に実在するか二値判定しJudgementResult JSONを出せ」と指示 → verdictをparse → `~/gig/audit-reality.jsonl` に追記 → verdict=falseなら `~/.openclaw/state/.gig-core-selfheal-request.json{reason,failure_reason,ts,failure_fingerprint}` を書く。Claude-only smokeでは同じprompt/schemaをClaude adapterで実行する。
-3. **auditor.sh**: 既存の決定論 verdict の後に gig_reality_verify.sh を呼ぶ（launchd :45 毎時、新規 job 不要）。
-4. **self-heal**: selfheal-request を次 core pass が冒頭で読む（既存フック）+ self-fix.sh がコード修正。
-検証(RED/GREEN): gig_judge.py が import/parse OK・gig_reality_verify.sh bash -n・**実 claim(現 live 3出品)→PASS / 偽 claim→FAIL** を実走で確認（=私の手動検証と同じ結論を loop が自力で出すこと）。
+触るcanonical root: `~/profitable-claude/skills/gig-work/`（§9 treeへ順次refactor）:
+1. **verification/reality.py**（現`gig_judge.py`を移設）: `JudgementResult{reasoning,verdict:bool,failure_reason,impossible_task,reached_captcha}` + `build_verifier_prompt(claims, ground_truth)`。report-skeptical promptと、ground_truth不一致なら必ずfalseの契約を保持する。ground_truth = /mypage/services_lists・/received_orders/open・売上 の実DOM。
+2. **verification/reality.py**: 未検証claimをSQLite projectionから読む → 共通agent-runnerを `MODEL_FAMILY=gpt / task_class=verifier`（Luna high default）でfresh spawnし、結果ページの実DOMで二値判定 → verdictを`verification_results`へtransactional追記 → verdict=falseなら同transactionで`repair_queue{reason,failure_reason,ts,failure_fingerprint}`へenqueueする。Claude-only smokeでは同じprompt/schemaをClaude adapterで実行する。
+3. **verification/deterministic.py + orchestration/scheduler.py**: launchd :45 毎時にまず「未検証side effect・異常・日次sample」の有無を決定論で判定し、対象がある時だけreality verifierを呼ぶ。正常な空キューではmodel call 0、新規jobは作らない。
+4. **self-heal**: `src/gig/healing/` がrepair queueをclaimし、test-first fix、canary、rollbackまで実行する。旧file request / external self-fix依存は使わない。
+検証(RED/GREEN): verifier schema/import test、deterministic gate test、**実claim→PASS / 偽claim→FAIL** のcontrolled liveを確認する（=手動検証と同じ結論をloopが自力で出すこと）。
 ※判断=agent（画面を見て真偽）/決定論=起動・記帳・selfheal-request 書込のみ。regex 判定禁止。
 
-## §7 既に作った物 / 状態
-- ✅ `~/anicca/skills/earn/gig/scripts/cdp_snapshot.py` — trajectory capture。**実 :9222 で screenshot 実撮影・成功確認済**（1920×854 PNG + trajectory.jsonl 生成、URL/title 記録）。
+## §8 既に作った物 / 状態
+- ✅ `~/profitable-claude/skills/gig-work/scripts/cdp_snapshot.py` — trajectory capture。**実 :9222 で screenshot 実撮影・成功確認済**（1920×854 PNG + trajectory.jsonl 生成、URL/title 記録）。
 - ✅ `docs/loop-engineering/25-...bp.md` — 検証+自己改善BP（judge.py 実物裏取り）。
 - ✅ 段#1 B0 capability: STARTUP に B0 SHUPPIN + trajectory + cron idempotent + max_apply 5→12 追加、commit+push、restart 活性化。
 - ✅ **B0 実発火(2026-07-11 23:57)**: loop 自己申告で 下書き2件公開(業務AI活用診断¥8000/id4302213・SEO診断¥10000/id4244912) + 新規1件(見やすいパワポ¥8000/id4308502)。★未検証(reports lie)★ + typo「作りますます」残 + trajectory PNG 0枚(cdp_snapshot 未呼出=配線未効)。
 - ✅ **増分1(出品playbook格上げ) = 完了・merge・live・活性化(2026-07-12)**: adversary PASS(0 blocking, 6/6 REQ)、verify 11/11 VERIFIED実行。main へ fast-forward merge、live `~/gig/strategy.json` の占い削除(20→19)、bash -n OK、restart 済(ALIVE)、push 済、worktree掃除済。gig-cli.sh に LISTING PLAYBOOK/APPLY SPEED RULE/NEVER-REFUSE/FEASIBILITY GATE の4ブロック live。
-- ⬜ **RESUME(compact後ここから) — 増分1の検証 + 増分2**:
-  1. ★私が browser :9222 で own-eyes 確認(未実施)★: /mypage/services_lists で 増分1後の新パスが (a)3サービス公開中か (b)typo「作りますます」を直したか (c)松竹梅/モニター価格/ベネフィットtitle を反映したか / trajectory PNG(~/gig/trajectory/)が出るように なったか。self-report(shuppin.jsonl)でなく実画面で。
-  2. B0発火の既確認(23:57): 下書き2公開(4302213/4244912)+新規1(4308502)。※これも browser で live 実在を確認する。
-  3. 増分2以降(順に・各VCSDD-lean): funnel metrics(gig-funnel.jsonl+auditor集計) → 50/50 BP web検索自己改善(B4にfirecrawl/agent-reach) → verifier土台(gig_judge=judge.py copy+auditor report-skeptical化) → self-heal配線(Reflexion+self-fix.sh)。tracker=§6.5。
+- 現行の実行順は§6だけを正本とする。過去のB0発火claim（下書き2公開 4302213/4244912、新規1件 4308502）、typo修正、playbook反映、trajectory PNGは未検証debtとして§6 #4/#5で実画面確認する。
 - copy元 judge.py: scratchpad/judge_bu.py（raw main 198L, VERIFIED）。
 
+## §9 refactored clean folder tree（TO-BE正本）
+
+shellはlaunchd/CLIの薄い入口だけにし、business logicはPython packageへ集約する。tracked code、runtime state、secret、evidenceを物理的に分け、root直下の散在script、`archive/`、tracked `artifacts/`、`__pycache__/`、旧repoコピーを残さない。
+
+```text
+~/profitable-claude/
+├── README.md
+├── install.sh
+├── .env.example
+├── config/
+│   └── loop-registry.json                 # loop/cadence/evidence/reporting SSOT
+├── bin/
+│   ├── start-all.sh
+│   └── status.sh
+└── skills/
+    └── gig-work/
+        ├── SKILL.md                       # scope・entrypoint・安全契約
+        ├── README.md                      # operator quickstart、§6への参照
+        ├── pyproject.toml                 # Python依存・CLI entrypoints
+        ├── bin/                           # 薄い実行入口だけ
+        │   ├── gig-loop
+        │   ├── gig-detector
+        │   ├── gig-worker
+        │   ├── gig-healthcheck
+        │   ├── gig-auditor
+        │   └── gig-report
+        ├── config/
+        │   ├── runtime.json               # concurrency/backoff/state path
+        │   ├── models.json                # Terra/Luna/Sol task routing
+        │   ├── sla.json                   # P0/P1 clock contract
+        │   ├── reporting.json             # Telegram cadence/chat env/dedupe
+        │   └── connectors/
+        │       └── coconala.json          # user_confirmed + URL/page/audit contract
+        ├── src/
+        │   └── gig/
+        │       ├── app.py                 # dependency composition only
+        │       ├── domain/
+        │       │   ├── events.py          # BusinessEvent
+        │       │   ├── actions.py         # ActionEnvelope/revision
+        │       │   ├── states.py          # nonterminal state machines
+        │       │   └── evidence.py        # masked EvidenceRef
+        │       ├── kernel/
+        │       │   ├── db.py              # SQLite migrations/transactions
+        │       │   ├── queue.py            # priority durable queue
+        │       │   ├── outbox.py           # business side-effect outbox
+        │       │   ├── leases.py           # ownership/fencing
+        │       │   ├── retry.py            # retry/reconcile clock
+        │       │   └── health.py           # page/pass/snapshot health
+        │       ├── providers/
+        │       │   ├── contract.py         # AgentTask/AgentResult
+        │       │   ├── router.py           # task class -> model/effort
+        │       │   ├── openai.py            # GPT-only adapter
+        │       │   └── anthropic.py         # Claude-only adapter
+        │       ├── connectors/
+        │       │   ├── base.py
+        │       │   └── coconala/
+        │       │       ├── client.py        # browser/API transport
+        │       │       ├── identity.py      # URL/title/container health
+        │       │       ├── inbox.py         # /message buyer-last detection
+        │       │       ├── orders.py        # received_orders/open
+        │       │       ├── listings.py
+        │       │       ├── proposals.py
+        │       │       ├── delivery.py
+        │       │       └── audit.py          # authoritative result reread
+        │       ├── actions/
+        │       │   ├── reply.py
+        │       │   ├── listing.py
+        │       │   ├── proposal.py
+        │       │   ├── artifact.py
+        │       │   ├── delivery.py
+        │       │   └── follow_up.py
+        │       ├── verification/
+        │       │   ├── invariants.py
+        │       │   ├── capture.py            # masked screenshot/trajectory
+        │       │   ├── deterministic.py
+        │       │   ├── reality.py            # fresh Luna high when required
+        │       │   └── reconcile.py
+        │       ├── healing/
+        │       │   ├── fingerprint.py
+        │       │   ├── diagnose.py            # Luna xhigh
+        │       │   ├── fix.py                 # Terra high TDD runner
+        │       │   ├── canary.py
+        │       │   ├── rollback.py
+        │       │   └── memory.py
+        │       ├── analytics/
+        │       │   ├── funnel.py
+        │       │   ├── revenue.py
+        │       │   ├── sla.py
+        │       │   └── cost.py
+        │       ├── reporting/
+        │       │   ├── events.py              # verified event publisher
+        │       │   ├── outbox.py              # Telegram durable outbox
+        │       │   ├── telegram.py            # OpenClaw transport/message ID
+        │       │   ├── instant.py
+        │       │   ├── hourly.py
+        │       │   └── daily.py
+        │       └── orchestration/
+        │           ├── scheduler.py
+        │           ├── detector.py
+        │           ├── worker.py
+        │           └── supervisor.py
+        ├── prompts/
+        │   ├── reply.md
+        │   ├── listing.md
+        │   ├── proposal.md
+        │   ├── delivery.md
+        │   ├── verifier.md
+        │   └── self_heal.md
+        ├── schemas/
+        │   ├── agent_task.schema.json
+        │   ├── agent_result.schema.json
+        │   ├── action_event.schema.json
+        │   ├── verifier_result.schema.json
+        │   └── telegram_report.schema.json
+        ├── launchd/
+        │   ├── ai.anicca.hf-gig-detector.plist
+        │   ├── ai.anicca.hf-gig-full-pass.plist
+        │   ├── ai.anicca.hf-gig-healthcheck.plist
+        │   ├── ai.anicca.hf-gig-auditor.plist
+        │   └── ai.anicca.hf-gig-report.plist
+        ├── references/
+        │   ├── runbook.md
+        │   ├── strategy.default.json
+        │   └── coconala-playbook.md
+        ├── migrations/
+        │   ├── import_legacy_jsonl.py
+        │   └── migrate_sqlite.py
+        └── tests/
+            ├── unit/
+            │   ├── test_queue.py
+            │   ├── test_router.py
+            │   ├── test_reporting.py
+            │   └── test_fingerprint.py
+            ├── integration/
+            │   ├── test_coconala_collector.py
+            │   ├── test_action_outbox.py
+            │   ├── test_telegram_outbox.py
+            │   └── test_self_heal.py
+            ├── replay/
+            │   ├── test_crash_windows.py
+            │   ├── test_selector_drift.py
+            │   └── test_provider_failover.py
+            ├── e2e/
+            │   ├── test_gpt_only.py
+            │   ├── test_claude_only.py
+            │   ├── test_reply_delivery_paid.py
+            │   └── test_daily_report.py
+            └── fixtures/
+                ├── coconala/
+                ├── model_results/
+                └── telegram/
+```
+
+Runtime/private dataはrepo外へ分離する。
+
+```text
+$PC_HOME/                              # default ~/.profitable-claude
+├── .env                               # 0600、Telegram/model secrets
+├── vault/                             # 0700、browser/login session
+├── logs/
+│   └── gig/
+└── state/
+    └── gig/                           # 当機はGIG_STATE_DIR=~/gigで互換mapping
+        ├── gig.sqlite3                # event/action/outbox/report/cost SSOT
+        ├── artifacts/<order_id>/
+        ├── evidence/<event_id>/       # masked、retention 7日
+        ├── reports/<report_id>.json
+        ├── trajectories/<pass_id>/
+        └── locks/
+```
+
+Refactor mappingは一意にする。
+
+| current | TO-BE |
+|---|---|
+| `gig-cli.sh / run.sh / gig_pass.sh / monitor.sh` | `bin/` + `src/gig/orchestration/` |
+| `gig_daily_report.sh` | `src/gig/reporting/{daily,telegram,outbox}.py` |
+| `auditor.sh / gig_judge.py / gig_reality_verify.sh` | `src/gig/verification/` |
+| `scripts/cdp_snapshot.py / cdp_nav_snapshot.py` | `src/gig/verification/capture.py` |
+| `funnel.py / funnel_report.py / gig_funnel.py` | `src/gig/analytics/funnel.py` 1本 |
+| `passprep.py / scripts/coconala_* / delivery_*` | domainごとのconnector/action module |
+| root `GIG_PASS_RUNBOOK.md / strategy.default.json` | `references/` |
+| tracked `artifacts/` | `$GIG_STATE_DIR/artifacts/` |
+| `archive/` | required fixtureだけtestsへ移し、その後削除 |
+| `~/anicca/skills/earn/gig/` | zero-reference確認後tombstone削除 |
+
+§6 #0でCoconala behaviorをcharacterization fixtureへ固定し、#1でtree・SQLite・launchdを原子cutoverする。見た目だけcleanにしてlive behaviorを壊さない。
