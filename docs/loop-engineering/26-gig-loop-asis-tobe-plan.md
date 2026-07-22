@@ -153,18 +153,18 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / autonomous reply lane GREEN / production cutover RED verified`
+- 状態: `PLANNER_INTEGRATION / production cutover GREEN / eventual-send reconcile next`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
 - builder ownership: `scripts/reply_queue.py`、`scripts/reply_evidence.py`、`tests/test_reply_queue.py`、`tests/test_speedy_reply_evidence.py`
 - 非所有: `gig_pass.sh`、paid-work/delivery modulesと関連shell tests。builderはpure function/CLIとtestだけを作り、既存送信処理への配線はcode commit後にPlannerが行う。
 - 最新code: `profitable-claude eeadf89`（branch `fix/gig-speedy-reply`、remote push済み）。queue 7 tests、evidence 9 testsがPASS。`python3 -m pytest -q skills/gig-work/tests` は74 tests + 23 subtests PASS、`bash skills/gig-work/tests/test_gig_inquiry_evidence.sh`もPASS。変更は所有4ファイルだけで、`gig_pass.sh`とpaid-work/delivery filesは無変更。
-- integration gap 1: 現collectorのinquiry rowには`buyer_sent_at / message_id`または`stable_ordinal + message_sha256`が無い。Plannerは`coconala_queue_snapshot.py`を拡張し、欠落時は現実装どおり`collector_unhealthy`としてclaimしない。
-- integration gap 2: 現post-send captureには`outgoing_hashに一致するseller_message_hashes / seller_sent_at / talkroom_id付きfingerprint`が無い。Plannerはcaptureを拡張し、`reply_evidence.py verify`が`replied`を返した時だけ既存actionを完了する。`reconcile_pending`ではblind retryしない。
-- integration gap 3: `gig_pass.sh` line 443付近のinline `INQUIRIES_JSON`を`reply_queue.py build`へ置換し、line 510付近の`reply_inquiries()`でbefore/send/after/verifyを接続する。line 639のpaid queue前実行順は維持する。即時notification + 5分fallback detectorとcontrolled live E2Eは未実施なので、§6 #4全体はPASSにしない。
+- remaining integration gap 1: `reconcile_pending` actionを次passでauthoritative readし、送信済みならhash/time/threadで完了、未送信が確定した時だけ再queueするeventual-send supervisorを実装する。ACK不明でblind resendしない。
+- remaining integration gap 2: Coconala即時notificationをtriggerにし、取りこぼし用5分detectorを追加する。hourly full pass内の返信検知だけには戻さない。
+- remaining integration gap 3: Telegram durable outbox、即時event、毎時pulse、日次digestを実装し、business actionはTelegram障害から分離する。failure injectionとcontrolled live send/Telegram E2Eが未実施なので、§6 #4/#7全体はPASSにしない。
 - integration strategy: speedy branchは最新mainへmergeする。connector hardening branchは旧baseからpaid/delivery filesも変更するため丸ごとmergeせず、characterization testを先に置いてCoconala manifest・outbox・collector契約の必要差分だけ移植する。
-- Planner最新実測: integration commit `profitable-claude b5b0bec`をpushする。merge前baselineは59 tests + 23 subtests、merge後は75 tests + 23 subtestsがPASSし、既存`test_gig_inquiry_evidence.sh`もPASSする。
+- Planner最新実測: integration commit `profitable-claude ecad445`をpushする。production `gig_pass.sh`は旧direct-browser prompt/legacy verifierを通らず、typed queue/outboxからfenced autonomous `reply_lane.py` CLIを呼ぶ。gig+runner全147 tests + 61 subtests、shell 12 suitesがPASSする。
 - connector outbox RED: integration commit `4611813`をpushする。`test_connector_outbox.py`は38 testsすべてが必須`config/connectors/coconala.json`欠落でFAILし、manifest無しで動かないfail-closedを確認する。次はDais確認済みmanifestを移植して同38 testsをGREENにする。
 - connector outbox GREEN: integration commit `59d853c`をpushする。manifest追加後はoutbox 38 tests + 11 subtests PASS、全gig Python回帰113 tests + 34 subtests PASS。runtime senderへの配線は未実施。
 - collector RED: integration test commit `ec92fc7`をpushする。canonical collectorに`load_connector_manifest()`が無いため1 testが`AttributeError`でFAILし、現`MESSAGES_URL=/mypage/messages`もmanifestの`/message`契約と不一致である。次はpaid collector behaviorを保持してmanifest/page identityを移植する。
@@ -200,6 +200,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - autonomous reply lane RED: integration test commit `d2c782c`をpushする。2 threadを個別action IDでfenced claimし両方`replied`へ到達、同queue再実行はmodel/click 0、collector unhealthyはclaim 0を要求し、lane未実装のため対象2 testsが期待どおりFAILする。
 - autonomous reply lane GREEN: integration commit `b7af86e`をpushする。threadごとのpending action IDをread-only lookupし、個別fenced claimで全queueを処理する。同projection再実行は全skip、collector unhealthyはclaim/model/click 0。lane 2 tests、gig+runner全145 tests + 61 subtestsがPASSする。
 - production cutover RED: integration test commit `f9b0931`をpushする。queue-empty CLIがsummaryを作らず、`gig_pass.sh`に旧direct-browser agent prompt/legacy verifierが残るため対象2 testsが期待どおりFAILする。
+- production cutover GREEN: integration commit `ecad445`をpushする。queue-emptyはmodel/browser call 0で0600 summaryを原子的に書き、非空queueはproduction `gig_pass.sh`からfenced laneへ入る。旧prompt/legacy verifierをruntime pathから除外し、lane failureをfalse-successにせず記録する。対象4 tests、gig+runner全147 tests + 61 subtests、shell 12 suitesがPASSする。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
@@ -362,7 +363,7 @@ model=Luna high / cost=$<cost> / evidence=<ref>
 | **1** | **canonical tree cutover** | 現行behaviorのcharacterization testを先に固定し、§9へmodule移動。state/self-healをgig.sqlite3へ統合し、launchdを新binへ原子cutover。旧path/duplicate/archiveをzero-reference後に削除 | current fixtures全PASS、loaded plist全てcanonical bin、旧Anicca/self-fix/file-request参照0、二重process 0、rollback drill PASS |
 | **2** | **GPT-only provider contract** | 現Claude-first routeを廃止し、Terra medium default、Luna high judgment、Luna medium routine、Luna xhigh→Terra high incident、Sol最大2回/日のtask classesへ変更。共通AgentTask/Result schemaと`MODEL_FAMILY`を実装 | Claude executable/credential 0でdetector→reply→listing→proposal→delivery→verify→self-fix E2E PASS。scheduled Sol 0 |
 | **3** | **deterministic kernel / health** | page identity、queue、outbox、lease/fence、retry、cost ledger、real `.last-pass`/snapshot healthを実装。supervisor heartbeatだけのfalse-greenを廃止 | 空キューでmodel call 0、stale passを10分以内にFAIL検知・自動restart、次pass成功を確認 |
-| **4** | **B1 即応lane** | 正しい`/message`と`/mypage/received_orders/open`、即時通知+5分detector、thread coalesce、eventual-send reconcileを実装 | P1 DM、P0 no-message order、P0 race、crash/timeout、model refusalで全eventがsend+hash/time/thread verified。人間待ち/terminal failure 0 |
+| **4** | **B1 即応lane** | `/message` collector、thread coalesce、fenced send、hash/time/thread verify、production cutoverはGREEN。残りは`reconcile_pending` eventual-send supervisor、`/mypage/received_orders/open` P0統合、即時notification+5分detector、failure injection、controlled live E2E | P1 DM、P0 no-message order、P0 race、crash/timeout、model refusalで全eventがsend+hash/time/thread verified。人間待ち/terminal failure 0 |
 | **5** | **B0/B2/納品** | 下書き・typo・listing最適化、new-job scan、個別proposal、artifact作成、修正、formal delivery、検収を§3.2の共通action envelopeへ移す | 公開URL・応募履歴・talkroom・納品stateを実画面で確認。全actionのfailure-injection E2Eが最終verified、side effect 1件、draft/manual/terminal 0 |
 | **6** | **reality verifier** | 毎side effectの決定論verify、異常時fresh Luna high、日次sample review、funnel reconciliationを実装 | 実claim PASS / 偽claim FAIL / false-success 0。LLM verifierを空キュー・正常routineで呼ばない |
 | **7** | **Telegram observability** | verified event publisher、telegram outbox、即時event、毎時graduation pulse、09:07 digest、at-most-once deliveryを決定論で実装 | fixture文面一致、LLM call 0、ACK-loss時provider call 1・delivery_unknown、次digestにunknown表示、Telegram outage中もbusiness action継続 |
