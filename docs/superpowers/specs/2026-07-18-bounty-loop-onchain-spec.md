@@ -23,17 +23,17 @@ spec は SSOT。発見のたび本文を実測値に書き換える。
 - poidh read lib + native-verify、19テストgreenと既知txの0.1297 ETH検出。これはcrypto mechanism参照であり収益証明ではない。
 - Algora batch実走はdiscover 63→survivor 0→earn 0。飽和済みPR型batchを主railにしない根拠として保持する。
 - B1 demand scoutはpayer signalがないcallを需要から除外し、`calls × median price ÷ listings`で供給調整する。live CDP Bazaar 24,802 listingsで340,350 calls・40,084 payer signals・8 paid-demand categories、test 155/155 green（anicca `c35afe2b`）。
+- B2 image resaleは`POST /image`、sale $0.05、fixed upstream `zai/cogview-4`、live quote $0.017751、gross margin $0.032249/request。buyer決済gate→agent wallet上流決済→URL納品、quote cap/float/daily cap/secret isolationを実装し164/164 green（anicca `ab659d36`,`8a82cec6`）。
 
 **残タスク（上から順）:**
 
 | # | 残タスク | done条件 | 依存 |
 |---|---|---|---|
-| B2 | **x402 demand-product fit** | 未提供候補 `defi > audio > image` から1商品を選び、buyer、入力、delivery、median price、unit cost、positive marginを実データで固定 | B1 ✅ |
-| B3 | **distribute + observe** | public MCP/direct endpointを需要のあるdirectoryへ掲載し、listing URLとアクセス/402 telemetryを保存 | B2 |
+| B3 | **distribute + observe** | 3店へimage serverをlaunchd配置し、public `POST /image`をBazaar/MCP directoryへ掲載。listing URLとアクセス/402 telemetryを保存 | B2 ✅ |
 | B4 | **external payout verify + ledger** | 第三者payerのfinalized USDC transferをwrite-pathで再検証し、重複なく1行記録。現状は3 walletとも48h external inflow = $0 | B3 |
 | B5 | **repeat + bounty monitor** | x402の外部着金を再現して黒字化し、同時に全gateを通るbounty railが出た時だけsecurity pipelineを有効化 | B4 |
 
-**critical path = B2 → B3 → B4 → B5**。B1は完了。human identity/KYC/owner credentialが必要なrailは、このstrict laneから分離する。
+**critical path = B3 → B4 → B5**。B1/B2は完了。human identity/KYC/owner credentialが必要なrailは、このstrict laneから分離する。
 
 ---
 
@@ -44,7 +44,7 @@ spec は SSOT。発見のたび本文を実測値に書き換える。
 
 done（AND、全て実測で確認）:
 1. B1 gateがrecent paid calls・payer signals・live category・supply-adjusted opportunityを証明する。
-2. B2がautomation・identity・wallet settlement・positive unit marginを確認し、需要カテゴリに対応する商品を作り、public x402/MCP endpointとlisting evidenceを残す。
+2. B2がautomation・identity・wallet settlement・positive unit marginを確認して需要カテゴリに対応する商品を作り、B3がpublic x402/MCP endpointとlisting evidenceを残す。
 3. 外部buyerが商品を購入し、serve-v2の既存payment middlewareがverify+settleする。
 4. **報酬が実際に着金**し、B4 write-pathが受取人・金額・通貨・外部payer・重複なしを再検証する。
 5. 上記がdurable loopの自走で再現し、次の需要または改善へ戻る。1件で停止しない。
@@ -126,7 +126,7 @@ done（AND、全て実測で確認）:
 [6] SELF-IMPROVE  demand/conversion/revenue/computeを比較 → product/price/listing更新 → [0]
 ```
 
-**build phase**: (P1) x402 demand scoutへpaid volume/buyer/categoryを追加。(P2) 最大需要gapの商品を1つbuild。
+**build phase**: (P1) demand scout完了。(P2) image resale build完了。
 (P3) public MCP/direct listingを増やし、402→purchase conversionを計測。(P4) external inflowをwrite-pathで検証。
 (P5) 黒字商品だけ複製し、bountyはDemand gateを全通過したrailだけ有効化する。
 
@@ -176,7 +176,7 @@ E2E green = T1-T9 全通過 + done 1-4 の on-chain 着金を Fable が Basescan
 - **Phase 0 — rail/spec確定**: primary=x402、bounty=research/monitor、Immunefi automation=NO-GO。
   exit proof = 本文・GOAL・TODO・RAIL・ASCIIにsecurity-audit-primaryの現行主張が0。
 - **Phase 1 — demand scout（COMPLETE）**: fixtureのpayer 0をNO-GO、live x402 dataをGOと判定。supply-adjusted score、live served category整合、155/155 green、commit `c35afe2b`。
-- **Phase 2 — product + distribution（ACTIVE）**: B2/B3。exit proof = demand根拠、positive unit margin、green tests、public endpoint、listing URL、request telemetry。
+- **Phase 2 — product + distribution（ACTIVE: B2 COMPLETE / B3 NEXT）**: image productの需要・unit margin・164/164 green・local live 402を確認。exit proof残り = 3店public endpoint、listing URL、request telemetry。
 - **Phase 3 — external payout**: B4。exit proof = tx hash + finalized receipt + external payer + write-path再検証log + 重複なしledger行。ここまでearnは¥0。
 - **Phase 4 — repeat + scale**: B5。exit proof = 2件目の外部payoutまたは黒字期間の再現。eligible bounty railがなければx402だけを拡張する。
 
@@ -196,6 +196,7 @@ E2E green = T1-T9 全通過 + done 1-4 の on-chain 着金を Fable が Basescan
 - 旧rail仮説の訂正: security auditがhuman-zero+crypto+実需要を同時に満たすという判断はfalse。Immunefiのautomation禁止、Sherlockのrecent KYC、CodeHawksのopen供給不足を後続実測で確認する。strict laneのprimaryはx402 sell。
 - live market実測: x402scanは直近30日15.87M tx・$741.58K volume・36.05K buyers・75K sellers、24h active merchants 2,778を表示する。需要はmodel routing、social data、enrichment/search、RPC/onchain data、voice、trading dataへ集中する。一方、Aniccaのclaude-p/franklin1/franklin2は48h external USDC inflowがすべて$0。市場不在ではなくproduct/distribution未成立として扱う。
 - B1 live verify: CDP Bazaar 24,802 listingsを全page取得し、30d 340,350 calls・40,084 payer signals・8 paid-demand categoriesでgate=true。served=`search,data,llm`。供給調整後の未提供候補はdefi 0.092695、audio 0.073828、image 0.04527。payer signal 0は候補から除外する。
+- B2 live verify: paid image competitorは$0.55・96 calls・66 payer signals。BlockRun direct quoteはCogView 1024x1024で402/$0.017751。Anicca一時serverの未決済POSTは402、buyer amount=50000、resource=`/image`。`serve-v2.mjs`は無変更。
 - 2026-07-18 [Sol review verdict = **STOP-AND-REVISIT-RAIL**]: 7 blocking。#1 poidh 攻略前提破綻（proof=現地/original、AI 画像不可、sentinel は発注者側）#2 accept 8.6%・open の 55/71 が30日超で墓場・収益性ゲート不在 #3 Phase0 が rail を証明しない #4 record.mjs が caller 提供値を盲信＝done 捏造可 #5 balance-delta は偽陰陽性→event log を bigint wei で #6 gas 自己復旧デッドロック #7 鍵 broadcast 前防御。→ INV-8〜11 に昇格・rail 降格・Phase0 再定義で反映済。
 - 2026-07-18 [71 open 全 dump・カテゴリ精査, Fable 実測]: AI が human-zero で勝てるのは **~10件のみ**（残りは現実世界/特定人物 proof）。AI 勝機案件: #263 "ship a real build"(0.0138ETH,claims2,純コード) / #107 "Farcaster Movie Trailer, Use AI"(0.0125ETH,claims3) / #237系 "tweet about \$Space proof=tweet URL"(claims0 多数, 0.001ETH) / #304 poem(claims9飽和) / #283 one question(claims1) / #301 NFT mint / #250 token split。→ **判定: poidh は mechanism 実証には適するがincome railとして薄い**（大半 \$3〜40、acceptはfunder依存）。
 
