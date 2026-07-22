@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `GMAIL_METADATA_RUNTIME_RED / safe config implementation next`
+- 状態: `GMAIL_METADATA_GUARDS_WIP / reviewer blockers 5`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/Users/anicca/profitable-claude/.worktrees/gig-speedy-reply-integration`。一時worktree消失後もpush済みcommitから同branchを復旧する。
@@ -223,6 +223,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - canonical live code cutover GREEN: active `gig_pass`/runner/reply detector不在、pass lock不在、live/preserved worktree cleanを確認してから、canonical `/Users/anicca/profitable-claude`を`deploy/gig-speedy-reply-cutover bab7b51`へ切り替える。remote hash一致・worktree cleanを確認し、canonical path smokeはPython 20 tests + 5 subtestsとreply LaunchAgent/Telegram shell 3 suitesがPASSする。launchd deployやproduction sendはまだ実行しない。次はGmail Pub/Sub metadata triggerのexternal setupを行う。
 - Gmail metadata runtime RED: feature branch `fix/gig-gmail-metadata-trigger` commit `77b3840`をpushする。live実測ではGmail watch state、Pub/Sub topic/subscription、`GIG_REPLY_HOOK_TOKEN`、reply push/Gmail watch/reply detector/hourly LaunchAgentが未導入で、8788/8791は空いている。OpenClaw 2026.6.1のsetup/runtimeは`includeBody`未指定時にtrueを選び、`hooks.enabled=true`ではgateway自身もGmail watcherを起動するため、現wrapperの「flagを付けない」だけではmetadata-onlyもsingle-ownerも保証しない。metadata-only、gateway watcher無効、localhost callback/bind、専用config/tokenを要求するPython 5 testとwatch runner shell testが期待どおりREDである。次はfail-closed runtime validatorとsetup no-send gateを最小実装する。
 - Gmail setup no-send RED: fresh read-only reviewで、setup中にsubscriptionへ溜まったrelevant通知がwatcher起動後に再生され実送信し得ること、global OpenClaw hook token共有がgig専用secret境界を壊すこと、body付きpayloadをreceiverが拒否しないこと、ignored 204がnonzero Content-Lengthを返すことをblockingと判定する。commit `5fb469c`をpushし、専用`gig-gmail-openclaw.json`、未armed relevant=503/no spawn、armed metadata=202/exactly one spawn、body=422/no spawn、wrong token=401、ignored=204/zero bodyを要求する。Python 3 testsとshell 1 suiteが期待どおりREDであり、runtime setupや実送信はまだ行わない。
+- Gmail guards WIP: commit `d8cc179`をfeature branchへpushする。未armed 503、body 422、204 zero-body、metadata-only config validator、専用config pathの初期実装はPython 213 tests + 112 subtests、shell 17 suites、構文/plist検査でGREEN。ただしfresh adversarial reviewは、(1) env/config hook tokenのSSOT分裂、(2) global gateway watcherの`OPENCLAW_SKIP_GMAIL_WATCHER=1`未固定、(3)専用config pathのoverride/symlink bypass、(4)Tailscale target未制限、(5)token configのowner/mode未検証をblockingと判定する。commitは再開用WIPでありdeploy可を意味しない。runtimeはLaunchAgent未load、8788/8791 closed、watch state/topic/subscriptionなし、Coconala send/armなしのままである。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
