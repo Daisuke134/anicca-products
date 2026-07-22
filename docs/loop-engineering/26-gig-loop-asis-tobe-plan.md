@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / Gmail push trigger GREEN / Telegram outbox RED verified`
+- 状態: `PLANNER_INTEGRATION / Telegram outbox GREEN / report publisher next`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
@@ -164,7 +164,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - remaining integration gap 2: Telegram durable outbox、即時event、毎時pulse、日次digestを実装し、business actionはTelegram障害から分離する。
 - remaining integration gap 3: `/mypage/received_orders/open` P0統合、failure injection、controlled live send/Telegram E2Eを実施する。未実施なので§6 #4/#7全体はPASSにしない。
 - integration strategy: speedy branchは最新mainへmergeする。connector hardening branchは旧baseからpaid/delivery filesも変更するため丸ごとmergeせず、characterization testを先に置いてCoconala manifest・outbox・collector契約の必要差分だけ移植する。
-- Planner最新実測: integration commit `profitable-claude 759c026`をpushする。Gmail pushをmodel-free receiverで分類し、購入前DMは軽量detector、paid/revision/quoteはfull passへ即時routeする。gig+runner全157 tests + 68 subtests、shell 14 suitesがPASSし、local HTTPでBearer無し401・正規Bearer 202を確認する。
+- Planner最新実測: integration commit `profitable-claude f4f8767`をpushする。Gmail push routeに加え、Telegram reportをidempotent enqueue→fenced claim→send-started→ACK/unknownへ収束するat-most-once outboxを実装する。gig+runner全161 tests + 68 subtests、shell 14 suitesがPASSする。
 - connector outbox RED: integration commit `4611813`をpushする。`test_connector_outbox.py`は38 testsすべてが必須`config/connectors/coconala.json`欠落でFAILし、manifest無しで動かないfail-closedを確認する。次はDais確認済みmanifestを移植して同38 testsをGREENにする。
 - connector outbox GREEN: integration commit `59d853c`をpushする。manifest追加後はoutbox 38 tests + 11 subtests PASS、全gig Python回帰113 tests + 34 subtests PASS。runtime senderへの配線は未実施。
 - collector RED: integration test commit `ec92fc7`をpushする。canonical collectorに`load_connector_manifest()`が無いため1 testが`AttributeError`でFAILし、現`MESSAGES_URL=/mypage/messages`もmanifestの`/message`契約と不一致である。次はpaid collector behaviorを保持してmanifest/page identityを移植する。
@@ -208,6 +208,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - Gmail push trigger RED: integration test commit `58dc80f`をpushする。実測送信元`mail.coconala.com`をexact matchし、購入前DMはmodel-free detector、購入/差し戻し/購入後トークルーム/見積相談はfull passへpriority route、無関係/偽装mailは0起動、Bearer fail-closed、payload本文をcommandへ渡さない契約を追加する。receiver/watch未実装のためPython 4 testsとshell 1 suiteが期待どおりFAILする。
 - Gmail push trigger GREEN: integration commit `759c026`をpushする。localhost-only authenticated receiver、metadata-only exact-domain/subject routing、payload非転送、persistent receiver/Gmail watch LaunchAgentsを実装する。Python 4 tests + 7 subtests、gig+runner全157 tests + 68 subtests、shell 14 suitesがPASSし、local HTTP 401/202を実測する。Gmail Pub/Sub setupとLaunchAgent deployはcutover gateまで未実施。
 - Telegram outbox RED: integration test commit `cd93cb8`をpushする。idempotent enqueue、provider call 1回、message ID ACK、transport failure/ACK lossの`delivery_unknown`、`send_started` crashのunknown隔離とnon-retryを要求する。module未実装のため対象4 testsが期待どおりFAILする。
+- Telegram outbox GREEN: integration commit `f4f8767`をpushする。SQLite `BEGIN IMMEDIATE`、idempotent event key、lease/fence、provider call前`send_started`、ACK message ID、failure/expired executorの`delivery_unknown`隔離を実装する。同eventのprovider callは最大1回でunknownをblind retryしない。対象4 tests、gig+runner全161 tests + 68 subtests、shell 14 suitesがPASSする。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
