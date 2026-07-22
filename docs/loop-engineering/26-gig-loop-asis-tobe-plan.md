@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / ordered executor GREEN / live CDP browser port next`
+- 状態: `PLANNER_INTEGRATION / ordered executor GREEN / live CDP browser port RED verified`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
@@ -190,6 +190,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - fenced sender lifecycle GREEN: integration commit `3e16df3`をpushする。raw本文をDB/intentへ残さず、claim/fencing token、immutable hash intent、click CAS、matching hash/time reconcile、pre-click requeue、post-click delivery-unknown releaseを1 controllerへ統合する。lifecycle 3 tests、全124 tests + 40 subtestsがPASSする。
 - ordered executor RED: integration test commit `3dc0b0a`をpushする。model compose限定、`read -> fill -> authorize CAS -> click -> read`順序、compose failureのpre-click requeue、click例外のnon-blind reconcileを要求し、executor未実装のため対象3 testsが期待どおりFAILする。
 - ordered executor GREEN: integration commit `d40b041`をpushする。model callableはcompositionだけを返し、browser clickはimmutable intentとfencing CAS後にのみ呼ぶ。compose/read/fill failureはpre-click requeue、click/read-after例外はdelivery unknownとしてreconcileへ残す。executor 3 tests、全127 tests + 40 subtestsがPASSする。
+- live CDP browser port RED: integration test commit `3ed9f11`をpushする。実測selector、JST sender timeline、transient raw contextとhash-only bounded observationを要求し、browser port未実装のため対象3 testsが期待どおりFAILする。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
