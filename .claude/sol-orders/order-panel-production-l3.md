@@ -7,11 +7,13 @@ Promote the already reviewed PANEL-0 release from `dev` to `main`, require an ex
 ## Accepted input
 
 - Repository: `/Users/anicca/anicca-project`
-- Accepted `origin/dev`: `835e28a5b668802899b946d56963b4be3366d980`
+- Accepted `origin/dev`: `984a088e3ed59941dbb2c1015cef5017ba462d93`
 - Accepted `origin/main`: `d4efde694a0ad2fd323348a61aa16c005cccba21`
 - PR #332: MERGED to `dev`; merge SHA `835e28a5b668802899b946d56963b4be3366d980`
-- Staging deployment: `6fa417c6-3d0d-4ff0-93ca-48dca1788b0e`, SUCCESS at the exact accepted `dev` SHA
+- PR #333: MERGED normally to `dev`; corrective head `50f63a20c80ca84136febd27a0b463519e15386b`; merge SHA `984a088e3ed59941dbb2c1015cef5017ba462d93`
+- Staging deployment: `aa9ec3c2-c448-400d-91eb-1f3f2b1d978d`, SUCCESS at the exact accepted `dev` SHA
 - Staging/schema evidence: `/Users/anicca/.codex/evidence/panel-0-staging-release.md`, SHA-256 `962f43f375625c63c2757420f87219647a3d8d57c49e53c7c2882922be71038d`
+- Corrective staging evidence: `/Users/anicca/.codex/evidence/panel-0-composio-link-staging.md`, SHA-256 `34fafa2536a8a827172278228e5e608285b0c04e785f0b0f6749d1a0671a3f17`
 - Railway production: project `Anicca`, environment `production`, service `life-call`; it tracks `main` and uses root `apps/life-call`
 - Production URL: derive from Railway service metadata; never guess or print secret query parameters
 - Supabase project: `cycgdwndgfgdbnndithc`; shared schema is already applied
@@ -22,7 +24,7 @@ Before mutation, fetch and prove these accepted refs still match. Read the repos
 
 ## Release topology gate
 
-1. Prove `main..dev` contains no unfinished CORE 8d runtime and no open PR #330/#331/#322 head. The accepted audit found 54 PANEL paths plus one runtime-inert writer-loop document only. If new runtime code appeared, stop before merge and report the exact path delta.
+1. Prove `main..dev` contains no unfinished CORE 8d runtime and no open PR #330/#331/#322 head. The accepted audit found 54 PANEL paths plus one runtime-inert writer-loop document only; PR #333 changes two already-counted PANEL paths. Require `startCalendarOAuth` to use only `/connected_accounts/link` with the accepted flat body and unchanged provider redirect. If new runtime code appeared, stop before merge and report the exact path delta.
 2. Create a normal GitHub PR from `dev` to `main`, wait for required checks, and merge normally. Do not squash/rebase, delete `dev`, admin-bypass checks, or merge PR #330/#331/#322.
 3. Fetch and record the exact merge SHA now at `origin/main`.
 4. Poll Railway using both service status and deployment list. Require `life-call` production deployment `SUCCESS` with `meta.commitHash` exactly equal to the new `origin/main` SHA. A healthy old deployment is not acceptance.
