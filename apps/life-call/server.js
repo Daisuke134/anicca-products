@@ -214,8 +214,8 @@ const server = http.createServer((req, res) => {
     });
     return;
   }
-  if (path === "/panel") {
-    handlePanelRequest(req, res, { supaUrl: SUPA_URL, supaKey: SUPA_KEY, botUsername: process.env.LM_TELEGRAM_BOT_USERNAME }).catch((error) => {
+  if (path === "/panel" || path === "/panel/logout") {
+    handlePanelRequest(req, res, { supaUrl: SUPA_URL, supaKey: SUPA_KEY, panelOrigin: LM_PANEL_BASE, panelBaseUrl: LM_PANEL_BASE, botUsername: process.env.LM_TELEGRAM_BOT_USERNAME }).catch((error) => {
       console.error("[panel] request failed", error.message);
       if (!res.headersSent) res.writeHead(500, { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store" });
       res.end("panel unavailable");

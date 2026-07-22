@@ -113,9 +113,12 @@ async function executeUserCommand(scope, rawCommand, deps = {}) {
   }
   try {
     let state;
+    const rebound = store.assertCurrentScope ? null : await store.readUser(scope);
+    const current = store.assertCurrentScope ? await store.assertCurrentScope(scope) : Boolean(rebound && String(rebound.telegram_chat_id) === String(scope.chatId));
+    if (!current) throw new Error("scope_mismatch");
     if (command.type === "setting.set") {
-      if (BOOLEAN_SETTINGS.has(command.setting) || command.setting === "call_time_zone") state = await store.patchPreferences(scope, { [command.setting]: command.value });
-      else state = await store.patchUser(scope, { [command.setting]: command.value });
+      if (BOOLEAN_SETTINGS.has(command.setting) || command.setting === "call_time_zone") state = await (store.mutatePreferences || store.patchPreferences).call(store, scope, { [command.setting]: command.value });
+      else state = await (store.mutateUser || store.patchUser).call(store, scope, { [command.setting]: command.value });
     } else if (command.type === "connection.start") {
       const resumed = deps.startCalendarConnection ? await deps.startCalendarConnection(scope) : null;
       if (resumed) {

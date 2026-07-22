@@ -10,6 +10,7 @@
 const crypto = require("crypto");
 const { fetchUpcomingEvents } = require("./lib/events.js");
 const { schedulerCohortFilter } = require("./lib/user-selector.js");
+const { DEFAULTS: RUNTIME_DEFAULTS, readRuntimePreferences } = require("./lib/runtime-preferences.js");
 const { shouldWake, resolveDeparture, isHelperBlock } = require("./lib/wake-filter.js");
 const { placeCall } = require("./lib/dial.js");
 const { fillTravel, directionsMinutes } = require("./lib/travel.js");
@@ -63,9 +64,9 @@ async function supaUsers() {
   if (!Array.isArray(users) || users.length === 0) return [];
   const ids = users.map(u => u.uid).filter(Boolean).join(",");
   const prefsResponse = await fetch(`${url}/rest/v1/lm_panel_preferences?uid=in.(${encodeURIComponent(ids)})&select=uid,call_enabled,notifications_enabled,daily_automation_enabled`, { headers: hdr });
-  if (!prefsResponse.ok) return users.map(u => ({ ...u, call_enabled: true, notifications_enabled: true, daily_automation_enabled: true }));
+  if (!prefsResponse.ok) return users.map(u => ({ ...u, call_enabled: false, notifications_enabled: false, daily_automation_enabled: false }));
   const byUid = new Map((await prefsResponse.json().catch(() => [])).map(row => [row.uid, row]));
-  return users.map(u => ({ call_enabled: true, notifications_enabled: true, daily_automation_enabled: true, ...u, ...(byUid.get(u.uid) || {}) }));
+  return users.map(u => ({ ...RUNTIME_DEFAULTS, ...u, ...(byUid.get(u.uid) || {}) }));
 }
 
 // Returns true if this (uid,event_key) was NOT already called — and records it atomically.
@@ -427,7 +428,10 @@ async function getUserByUid(uid) {
   if (!r.ok) r = await fetch(`${base}&select=${cols}`, { headers: hdr });
   if (!r.ok) return null;
   const rows = await r.json().catch(() => []);
-  return Array.isArray(rows) && rows[0] ? rows[0] : null;
+  const user = Array.isArray(rows) && rows[0] ? rows[0] : null;
+  if (!user) return null;
+  const prefs = await readRuntimePreferences(uid, { supaUrl: url, supaKey: key, fetchImpl: fetch });
+  return prefs ? { ...user, ...prefs } : { ...user, call_enabled: false, notifications_enabled: false, daily_automation_enabled: false };
 }
 
 module.exports = {

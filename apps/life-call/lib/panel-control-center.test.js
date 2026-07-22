@@ -105,9 +105,9 @@ test("PANEL-0 Calendar disconnect provider failure preserves ACTIVE readback", a
 
 test("PANEL-0 Composio disconnect disables only the user account and requires inactive readback", async () => {
   const requests = [], responses = [
-    { ok: true, json: async () => ({ items: [{ id: "ca-user-a", user_id: "u-a", toolkit: { slug: "googlecalendar" }, status: "ACTIVE", is_disabled: false }] }) },
+    { ok: true, json: async () => ({ items: [{ id: "ca-user-a", user_id: "u-a", toolkit: { slug: "googlecalendar" }, status: "ACTIVE", is_disabled: false, enabled: true }] }) },
     { ok: true, json: async () => ({ id: "ca-user-a", is_disabled: true }) },
-    { ok: true, json: async () => ({ items: [{ id: "ca-user-a", user_id: "u-a", toolkit: { slug: "googlecalendar" }, status: "INACTIVE", is_disabled: true }] }) },
+    { ok: true, json: async () => ({ items: [{ id: "ca-user-a", user_id: "u-a", toolkit: { slug: "googlecalendar" }, status: "INACTIVE", is_disabled: true, enabled: false }] }) },
   ];
   const result = await composioCalendarDisconnect({ uid: "u-a", chatId: "101" }, { composioKey: "test-key", fetchImpl: async (url, init = {}) => { requests.push({ url: String(url), init }); return responses.shift(); } });
   assert.deepEqual(result, { provider: "calendar", state: "action_required" });
@@ -120,7 +120,7 @@ test("PANEL-0 Composio disconnect disables only the user account and requires in
 
 test("PANEL-0 Composio disconnect fails closed on ambiguous ownership or ACTIVE readback", async () => {
   const response = (items) => ({ ok: true, json: async () => ({ items }) });
-  const account = id => ({ id, user_id: "u-a", toolkit: { slug: "googlecalendar" }, status: "ACTIVE" });
+  const account = id => ({ id, user_id: "u-a", toolkit: { slug: "googlecalendar" }, status: "ACTIVE", is_disabled: false, enabled: true });
   await assert.rejects(composioCalendarDisconnect({ uid: "u-a", chatId: "101" }, { composioKey: "test-key", fetchImpl: async () => response([account("one"), account("two")]) }), /provider_ambiguous/);
   const sequence = [response([account("one")]), { ok: true, json: async () => ({}) }, response([account("one")]), { ok: true, json: async () => ({}) }, response([account("one")])];
   await assert.rejects(composioCalendarDisconnect({ uid: "u-a", chatId: "101" }, { composioKey: "test-key", fetchImpl: async () => sequence.shift() }), /provider_readback_failed/);
@@ -128,7 +128,7 @@ test("PANEL-0 Composio disconnect fails closed on ambiguous ownership or ACTIVE 
 
 test("PANEL-0 Composio reconnect enables the scoped inactive account and requires ACTIVE readback", async () => {
   const requests = [], response = (items) => ({ ok: true, json: async () => ({ items }) });
-  const sequence = [response([{ id: "ca-user-a", user_id: "u-a", toolkit: { slug: "googlecalendar" }, status: "INACTIVE", is_disabled: true }]), { ok: true, json: async () => ({}) }, response([{ id: "ca-user-a", user_id: "u-a", toolkit: { slug: "googlecalendar" }, status: "ACTIVE", is_disabled: false }])];
+  const sequence = [response([{ id: "ca-user-a", user_id: "u-a", toolkit: { slug: "googlecalendar" }, status: "INACTIVE", is_disabled: true, enabled: false }]), { ok: true, json: async () => ({}) }, response([{ id: "ca-user-a", user_id: "u-a", toolkit: { slug: "googlecalendar" }, status: "ACTIVE", is_disabled: false, enabled: true }])];
   const result = await composioCalendarStart({ uid: "u-a", chatId: "101" }, { composioKey: "test-key", fetchImpl: async (url, init = {}) => { requests.push({ url: String(url), init }); return sequence.shift(); } });
   assert.deepEqual(result, { provider: "calendar", state: "connected" });
   assert.match(requests[0].url, /user_ids=u-a/);

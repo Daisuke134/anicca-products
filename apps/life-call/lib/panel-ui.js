@@ -1,7 +1,7 @@
 // LM-33c: server-rendered, read-only mirror for the Life Manager panel.
 "use strict";
 
-function renderPanelPage() {
+function renderPanelPage(options = {}) {
   return `<!doctype html>
 <html lang="ja">
 <head>
@@ -471,6 +471,7 @@ function renderPanelPage() {
       <div>
         <p class="masthead-note">今日はここまで整っています。予定、電話、つながっている context を、ひと目で確認できます。</p>
         <div class="status-line"><span class="status-dot" aria-hidden="true"></span>PERSONAL CONTROL CENTER</div>
+        <form action="/panel/logout" method="post"><button class="control-action" type="submit">Logout</button></form>
       </div>
     </header>
 
@@ -697,6 +698,9 @@ function renderPanelPage() {
         switchButton("toggle-notifications", "Notifications", settings.notifications_enabled),
         switchButton("toggle-daily", "DAILY automation", settings.daily_automation_enabled),
         '<p class="control-unavailable" role="status">Delegation unavailable: no safe delegated-action runtime is available.</p>',
+        '<button class="setting-switch" type="button" data-setting="call_language" data-action="call_language">Call language</button>',
+        '<button class="setting-switch" type="button" data-setting="call_time_zone" data-action="call_time_zone">Call timezone</button>',
+        '<button class="setting-switch" type="button" data-setting="wake_policy" data-action="wake_policy">Wake policy</button>',
       ].join("");
       return '<p><strong>' + escapeHtml((data.identity || {}).name || "Life Manager user") + '</strong></p><div class="control-grid" id="connection-cards">' + cards + '</div><div class="settings-controls" id="settings-controls">' + switches + '</div><p class="action-status" id="action-status" aria-live="polite"></p>';
     }
@@ -721,6 +725,9 @@ function renderPanelPage() {
         case "toggle-notifications": return { type: "setting.set", setting: "notifications_enabled", value: button.getAttribute("aria-checked") !== "true" };
         case "toggle-daily": return { type: "setting.set", setting: "daily_automation_enabled", value: button.getAttribute("aria-checked") !== "true" };
         case "toggle-delegation": return { type: "setting.set", setting: "delegation_enabled", value: button.getAttribute("aria-checked") !== "true" };
+        case "call_language": return { type: "setting.set", setting: "call_language", value: button.dataset.value || "ja" };
+        case "call_time_zone": return { type: "setting.set", setting: "call_time_zone", value: button.dataset.value || "Asia/Tokyo" };
+        case "wake_policy": return { type: "setting.set", setting: "wake_policy", value: button.dataset.value || "all-events" };
         case "instructions-location": window.location.href = "https://t.me/LifeManagerBotbot?start=location"; return null;
         case "instructions-wallet": window.location.href = "https://t.me/LifeManagerBotbot?start=payout"; return null;
         case "instructions-call": window.location.href = "https://t.me/LifeManagerBotbot?start=call"; return null;
@@ -753,6 +760,8 @@ function renderPanelPage() {
       const button = event.target.closest("button[data-action]");
       if (button) runControlAction(button);
     });
+    const logout = document.querySelector('form[action="/panel/logout"]');
+    if (logout) logout.addEventListener("submit", function (event) { event.preventDefault(); fetch("/panel/logout", { method: "POST", credentials: "same-origin", headers: { "x-lm-csrf": controlCsrf || "${String(options.csrf || "")}" } }).then(function () { window.location.href = "/panel"; }); });
     document.addEventListener("change", function () {});
 
     Promise.allSettled(Object.keys(panelEndpoints).map(function (name) {

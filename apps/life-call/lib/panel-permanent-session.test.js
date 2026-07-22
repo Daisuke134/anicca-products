@@ -5,12 +5,15 @@ const assert = require("node:assert/strict");
 const crypto = require("node:crypto");
 const http = require("node:http");
 const { EventEmitter } = require("node:events");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const auth = require("./panel-auth.js");
 const panelApi = require("./panel-api.js");
 const { executeUserCommand } = require("./user-command.js");
 const { renderPanelPage } = require("./panel-ui.js");
 const discovery = require("./feature-discovery.js");
+const { readRuntimePreferences } = require("./runtime-preferences.js");
 
 const secret = (byte) => Buffer.alloc(32, byte).toString("base64url");
 const hash = (value) => crypto.createHash("sha256").update(value).digest("hex");
@@ -45,10 +48,17 @@ function sessionRpcMachine() {
     calls.push({ name, body });
     if (name === "resolve_lm_panel_session") {
       const row = current.get(body.p_session_hash);
-      if (!row || row.revoked) return jsonResponse([]);
+      if (!row) return jsonResponse([]);
+      if (row.revoked && row.pending) {
+        current.delete(row.pending);
+        const child = { ...row, hash: body.p_child_hash, revoked: false, pending: null };
+        current.set(body.p_child_hash, child); row.pending = body.p_child_hash;
+        return jsonResponse([{ uid: row.uid, chat_id: row.chatId, rotated: true }]);
+      }
+      if (row.revoked) return jsonResponse([]);
       if (body.p_child_hash) {
-        row.revoked = true;
-        const child = { ...row, hash: body.p_child_hash, revoked: false };
+        row.revoked = true; row.pending = body.p_child_hash;
+        const child = { ...row, hash: body.p_child_hash, revoked: false, pending: null };
         current.set(body.p_child_hash, child);
         families.get(row.family).add(body.p_child_hash);
         return jsonResponse([{ uid: row.uid, chat_id: row.chatId, rotated: true }]);
@@ -56,11 +66,11 @@ function sessionRpcMachine() {
       return jsonResponse([{ uid: row.uid, chat_id: row.chatId, rotated: false }]);
     }
     if (name === "revoke_lm_panel_session") {
-      const row = current.get(body.p_session_hash); if (row) row.revoked = true;
+      const row = current.get(body.p_session_hash); if (row) { row.revoked = true; row.pending = null; }
       return jsonResponse(true);
     }
     if (name === "revoke_lm_panel_sessions_for_tenant") {
-      for (const row of current.values()) if (row.uid === body.p_uid && row.chatId === String(body.p_chat_id)) row.revoked = true;
+      for (const row of current.values()) if (row.uid === body.p_uid && row.chatId === String(body.p_chat_id)) { row.revoked = true; row.pending = null; }
       return jsonResponse(true);
     }
     throw new Error(`unexpected rpc ${name}`);
@@ -100,7 +110,8 @@ test("B1 resolver sends hashes only and concurrent rotation leaves at most one r
   const machine = sessionRpcMachine(), old = secret(3), child = secret(4); machine.seed(old, "u1", "101");
   const opts = { supaUrl: "https://db.example", supaKey: "service", fetchImpl: machine.fetchImpl, randomBytes: () => Buffer.alloc(32, 4) };
   const settled = await Promise.allSettled([auth.resolvePanelSession(old, opts), auth.resolvePanelSession(old, opts)]);
-  assert.equal(settled.filter((item) => item.status === "fulfilled" && item.value).length, 1);
+  assert.equal(settled.filter((item) => item.status === "fulfilled" && item.value).length, 2);
+  assert.equal([...machine.current.values()].filter((row) => row.family === hash(old) && !row.revoked).length, 1);
   assert.deepEqual(machine.calls[0].body, { p_session_hash: hash(old), p_child_hash: hash(child) });
   assert.doesNotMatch(JSON.stringify(machine.calls), new RegExp(old));
 });
@@ -112,10 +123,13 @@ test("B1 resolver retry promotes dropped child, old token fails, and tenant revo
   machine.seed(old, "u1", "101"); machine.seed(peer, "u2", "202");
   const opts = { supaUrl: "https://db.example", supaKey: "service", fetchImpl: machine.fetchImpl, randomBytes: () => Buffer.alloc(32, 6) };
   await auth.resolvePanelSession(old, opts); // emulate a lost HTTP response after atomic rotation
-  assert.equal(await auth.resolvePanelSession(old, opts), null);
-  assert.equal((await auth.resolvePanelSession(child, { ...opts, randomBytes: () => Buffer.alloc(32, 8) })).uid, "u1");
-  await auth.revokePanelSessionsForTenant({ uid: "u1", chatId: "101" }, opts);
+  const retried = await auth.resolvePanelSession(old, { ...opts, randomBytes: () => Buffer.alloc(32, 8) });
+  const retryChild = secret(8);
+  assert.equal(retried.replacement, retryChild);
   assert.equal(await auth.resolvePanelSession(child, opts), null);
+  assert.equal((await auth.resolvePanelSession(retryChild, { ...opts, randomBytes: () => Buffer.alloc(32, 9) })).uid, "u1");
+  await auth.revokePanelSessionsForTenant({ uid: "u1", chatId: "101" }, opts);
+  assert.equal(await auth.resolvePanelSession(retryChild, opts), null);
   assert.equal((await auth.resolvePanelSession(peer, opts)).uid, "u2");
   assert.deepEqual(machine.calls.find((call) => call.name === "revoke_lm_panel_sessions_for_tenant").body, { p_uid: "u1", p_chat_id: "101" });
 });
@@ -178,6 +192,7 @@ test("B3 rebound session cannot render page or claim OAuth/provider state", asyn
   const raw = secret(11); let claims = 0, providers = 0;
   const fetchImpl = async (url) => {
     const value = String(url);
+    if (value.includes("resolve_lm_panel_session")) return jsonResponse([]);
     if (value.includes("lm_panel_sessions")) return jsonResponse([{ uid: "u1", chat_id: "old-chat" }]);
     if (value.includes("lm_users")) return jsonResponse([]);
     throw new Error(value);
@@ -240,10 +255,13 @@ test("B5 language timezone and wake controls dispatch through the real shared co
 });
 
 test("B6 oversize real request settles once, mutates zero times, and late socket error is handled", async () => {
-  const req = new EventEmitter(); let mutations = 0, settled = 0;
-  const pending = panelApi.readJson(req).then(() => settled++, () => settled++);
+  const req = new EventEmitter(); let mutations = 0, responses = 0, body = "";
+  Object.assign(req, { method: "POST", url: "/api/panel/commands", headers: { "content-type": "application/json", origin: "https://life.example", "x-lm-csrf": "csrf-value", "idempotency-key": "oversize-0001" } });
+  const res = { writeHead() { responses++; }, end(value) { body += value || ""; } };
+  const pending = panelApi.handlePanelApiRequest(req, res, { panelOrigin: "https://life.example", sessionScopeImpl: async () => ({ uid: "u1", chatId: "101", csrf: "csrf-value" }), commandStore: {}, executeCommandImpl: async () => { mutations++; } });
+  await new Promise((resolve) => setImmediate(resolve));
   req.emit("data", Buffer.alloc(32 * 1024 + 1)); req.emit("data", Buffer.alloc(4096)); req.emit("end"); await pending;
-  assert.equal(settled, 1); assert.equal(mutations, 0); assert.equal(req.listenerCount("data"), 0);
+  assert.equal(responses, 1); assert.match(body, /command_failed/); assert.equal(mutations, 0); assert.equal(req.listenerCount("data"), 0);
   assert.doesNotThrow(() => req.emit("error", new Error("late socket error")));
 });
 
@@ -256,4 +274,55 @@ test("B3/B5 rebind between command validation and write performs zero scoped mut
   };
   await assert.rejects(executeUserCommand({ uid: "u1", chatId: "101" }, { type: "setting.set", setting: "call_enabled", value: false }, { store, idempotencyKey: "rebind-0001" }), /scope_mismatch/);
   assert.equal(writes, 0);
+});
+
+test("B1/B3 additive session and mutation RPCs remain RLS service-role-only", () => {
+  const sql = fs.readFileSync(path.join(__dirname, "../migrations/2026-07-22-lm-panel-durable-sessions.sql"), "utf8");
+  for (const name of ["resolve_lm_panel_session", "revoke_lm_panel_session", "revoke_lm_panel_sessions_for_tenant", "mutate_lm_panel_preferences", "mutate_lm_panel_user"]) {
+    assert.match(sql, new RegExp(`REVOKE ALL ON FUNCTION public\\.${name}[\\s\\S]*FROM PUBLIC, anon, authenticated`, "i"));
+    assert.match(sql, new RegExp(`GRANT EXECUTE ON FUNCTION public\\.${name}[\\s\\S]*TO service_role`, "i"));
+  }
+  assert.match(sql, /ALTER TABLE public\.lm_panel_sessions ENABLE ROW LEVEL SECURITY/i);
+  assert.doesNotMatch(sql, /GRANT EXECUTE[^;]+TO (?:anon|authenticated)/i);
+});
+
+test("B1 sessionUid and runtime preference transport/json failures fail closed", async () => {
+  const raw = secret(20);
+  assert.equal(await auth.sessionUid(raw, { supaUrl: "https://db.example", supaKey: "k", randomBytes: () => Buffer.alloc(32, 21), fetchImpl: async () => jsonResponse([{ uid: "u20", chat_id: "20", rotated: false }]) }), "u20");
+  assert.equal(await readRuntimePreferences("u1", { supaUrl: "https://db.example", supaKey: "k", fetchImpl: async () => { throw new Error("offline"); } }), null);
+  assert.equal(await readRuntimePreferences("u1", { supaUrl: "https://db.example", supaKey: "k", fetchImpl: async () => ({ ok: true, json: async () => { throw new Error("bad json"); } }) }), null);
+});
+
+test("B2 discovery production selectors cover list/save success and transport failure without sending", async () => {
+  const opts = { supaUrl: "https://db.example", supaKey: "k", fetchImpl: async () => jsonResponse([{ uid: "u1", telegram_chat_id: "101" }]) };
+  assert.equal((await discovery.listDiscoveryUsers(opts)).length, 1);
+  assert.equal(await discovery.saveDiscovery("u1", 1, "location", { ...opts, fetchImpl: async () => jsonResponse({}) }), true);
+  assert.deepEqual(await discovery.listDiscoveryUsers({ ...opts, fetchImpl: async () => { throw new Error("offline"); } }), []);
+  assert.equal(await discovery.saveDiscovery("u1", 1, "location", { ...opts, fetchImpl: async () => { throw new Error("offline"); } }), false);
+});
+
+test("B3 command store keeps every read/write/OAuth operation scoped and uses atomic mutation RPCs", async () => {
+  const calls = [];
+  const fetchImpl = async (url, init = {}) => {
+    const value = String(url); calls.push({ value, init });
+    if (value.includes("lm_users?") && !init.method) return jsonResponse([{ uid: "u1", telegram_chat_id: "101" }]);
+    if (value.includes("lm_panel_preferences?") && !init.method) return jsonResponse([{ call_enabled: true }]);
+    if (value.includes("lm_user_locations?") && !init.method) return jsonResponse([{ observed_at: "2026-07-22T00:00:00Z" }]);
+    if (value.includes("lm_panel_command_receipts?") && !init.method) return jsonResponse([{ request_hash: "h", status: "succeeded", result: { ok: true } }]);
+    if (value.includes("claim_lm_panel_oauth_state")) return jsonResponse(true);
+    return jsonResponse([{ ok: true }], init.method === "POST" ? 201 : 200);
+  };
+  const store = panelApi.createSupabaseCommandStore({ supaUrl: "https://db.example", supaKey: "k", fetchImpl });
+  const scope = { uid: "u1", chatId: "101" };
+  assert.equal(await store.assertCurrentScope(scope), true);
+  await store.readUser(scope); await store.readPreferences(scope); await store.readLocation(scope); await store.readReceipt(scope, "receipt-01");
+  await store.claimReceipt(scope, "receipt-01", { requestHash: "h", commandType: "setting.set", status: "pending" });
+  await store.finishReceipt(scope, "receipt-01", { status: "succeeded", result: { ok: true } });
+  await store.patchPreferences(scope, { call_enabled: false }); await store.patchUser(scope, { wake_policy: "all-events" });
+  await store.mutatePreferences(scope, { call_enabled: false }); await store.mutateUser(scope, { call_language: "ja" });
+  await store.createOAuthState(scope, { stateHash: "h", provider: "calendar", expiresAt: "2099-01-01T00:00:00Z" });
+  assert.equal(await store.claimOAuthState(scope, "h"), true);
+  for (const call of calls.filter((item) => item.init.method && item.init.method !== "GET")) assert.doesNotMatch(call.init.body || "", /raw-secret/);
+  assert.ok(calls.some((call) => call.value.endsWith("/rpc/mutate_lm_panel_preferences")));
+  assert.ok(calls.some((call) => call.value.endsWith("/rpc/mutate_lm_panel_user")));
 });

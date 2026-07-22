@@ -19,7 +19,7 @@ const {
 const { tick, travelTick, askTickAll, discoveryTick } = require("../scheduler.js");
 
 function response(items) { return { ok: true, json: async () => ({ items }) }; }
-function owned(uid, extra = {}) { return { id: "ca-1", user_id: uid, toolkit: { slug: "googlecalendar" }, status: "ACTIVE", ...extra }; }
+function owned(uid, extra = {}) { return { id: "ca-1", user_id: uid, toolkit: { slug: "googlecalendar" }, status: "ACTIVE", is_disabled: false, enabled: true, ...extra }; }
 
 test("FIND-001 unsupported delegation is honest and has no success action", async () => {
   const store = {

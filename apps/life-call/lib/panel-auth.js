@@ -6,6 +6,10 @@ const { renderPanelPage } = require("./panel-ui.js");
 
 const PANEL_TOKEN_TTL_MS = 5 * 60 * 1000;
 const PANEL_SESSION_TTL_MS = 24 * 60 * 60 * 1000;
+const PANEL_SESSION_ROTATE_MS = 12 * 60 * 60 * 1000;
+const PANEL_SESSION_IDLE_MS = 30 * 24 * 60 * 60 * 1000;
+const PANEL_SESSION_ABSOLUTE_MS = 180 * 24 * 60 * 60 * 1000;
+const PANEL_COOKIE = "__Host-lm_panel_session";
 const OPAQUE_TOKEN_RE = /^[A-Za-z0-9_-]{43}$/;
 
 function sha256(value) {
@@ -79,11 +83,48 @@ async function createPanelSession({ uid, chatId }, opts = {}) {
       session_hash: sha256(session),
       uid,
       chat_id: String(chatId),
-      expires_at: new Date(now.getTime() + PANEL_SESSION_TTL_MS).toISOString(),
+      expires_at: new Date(now.getTime() + PANEL_SESSION_IDLE_MS).toISOString(),
+      idle_expires_at: new Date(now.getTime() + PANEL_SESSION_IDLE_MS).toISOString(),
+      absolute_expires_at: new Date(now.getTime() + PANEL_SESSION_ABSOLUTE_MS).toISOString(),
     }),
   });
   if (!response.ok) throw new Error(`panel session insert failed (${response.status})`);
   return session;
+}
+
+function panelSessionCookie(value, maxAge = PANEL_SESSION_IDLE_MS / 1000) {
+  return `${PANEL_COOKIE}=${value}; Max-Age=${maxAge}; Path=/; HttpOnly; Secure; SameSite=Lax`;
+}
+
+function clearPanelCookies() {
+  return [`${PANEL_COOKIE}=; Max-Age=0; Path=/; HttpOnly; Secure; SameSite=Lax`, "lm_panel_session=; Max-Age=0; Path=/; HttpOnly; Secure; SameSite=Lax"];
+}
+
+async function panelRpc(name, body, opts) {
+  const response = await (opts.fetchImpl || fetch)(`${String(opts.supaUrl).replace(/\/$/, "")}/rest/v1/rpc/${name}`, {
+    method: "POST", headers: supabaseHeaders(opts.supaKey), body: JSON.stringify(body),
+  });
+  if (!response.ok) throw new Error(`panel session rpc failed (${response.status})`);
+  return response.json().catch(() => null);
+}
+
+async function resolvePanelSession(session, opts = {}) {
+  if (!OPAQUE_TOKEN_RE.test(String(session || ""))) return null;
+  const randomBytes = opts.randomBytes || crypto.randomBytes;
+  const child = randomBytes(32).toString("base64url");
+  const rows = await panelRpc("resolve_lm_panel_session", { p_session_hash: sha256(session), p_child_hash: sha256(child) }, opts);
+  const row = Array.isArray(rows) ? rows[0] : rows;
+  if (!row || !row.uid || !row.chat_id) return null;
+  return { uid: String(row.uid), chatId: String(row.chat_id), replacement: row.rotated ? child : null, csrf: csrfToken(row.rotated ? child : session) };
+}
+
+async function revokePanelSession(session, opts = {}) {
+  if (!OPAQUE_TOKEN_RE.test(String(session || ""))) return false;
+  return Boolean(await panelRpc("revoke_lm_panel_session", { p_session_hash: sha256(session) }, opts));
+}
+
+async function revokePanelSessionsForTenant(scope, opts = {}) {
+  return Boolean(await panelRpc("revoke_lm_panel_sessions_for_tenant", { p_uid: String(scope.uid), p_chat_id: String(scope.chatId) }, opts));
 }
 
 function cookieValue(header, name) {
@@ -96,21 +137,7 @@ function cookieValue(header, name) {
 }
 
 async function sessionScope(session, opts = {}) {
-  if (!OPAQUE_TOKEN_RE.test(String(session || ""))) return null;
-  const now = opts.now ? opts.now() : new Date();
-  const query = new URLSearchParams({
-    session_hash: `eq.${sha256(session)}`,
-    expires_at: `gt.${now.toISOString()}`,
-    select: "uid,chat_id",
-    limit: "1",
-  });
-  const response = await (opts.fetchImpl || fetch)(`${opts.supaUrl}/rest/v1/lm_panel_sessions?${query}`, {
-    headers: supabaseHeaders(opts.supaKey),
-  });
-  if (!response.ok) throw new Error(`panel session lookup failed (${response.status})`);
-  const rows = await response.json().catch(() => []);
-  return Array.isArray(rows) && rows[0] && rows[0].uid && rows[0].chat_id
-    ? { uid: String(rows[0].uid), chatId: String(rows[0].chat_id) } : null;
+  return resolvePanelSession(session, opts);
 }
 
 async function sessionUid(session, opts = {}) {
@@ -128,6 +155,16 @@ function renderInvalidPanelLink(botUsername) {
 }
 
 async function handlePanelRequest(req, res, opts = {}) {
+  const pathname = new URL(req.url || "/panel", "http://panel.local").pathname;
+  if (pathname === "/panel/logout") {
+    const session = cookieValue(req.headers.cookie, PANEL_COOKIE) || cookieValue(req.headers.cookie, "lm_panel_session");
+    const expectedOrigin = String(opts.panelOrigin || opts.panelBaseUrl || "").replace(/\/$/, "");
+    const valid = req.method === "POST" && expectedOrigin && String(req.headers.origin || "") === expectedOrigin &&
+      timingEqual(req.headers["x-lm-csrf"], csrfToken(session));
+    if (!valid) { res.writeHead(req.method === "GET" ? 405 : 403, { Allow: "POST", "cache-control": "no-store" }); res.end(); return; }
+    await revokePanelSession(session, opts);
+    res.writeHead(303, { Location: "/panel", "Set-Cookie": clearPanelCookies(), "cache-control": "no-store" }); res.end(); return;
+  }
   if (req.method !== "GET") {
     res.writeHead(405, { Allow: "GET" });
     res.end("method not allowed");
@@ -136,19 +173,20 @@ async function handlePanelRequest(req, res, opts = {}) {
   const query = new URL(req.url || "/panel", "http://panel.local").searchParams;
   const token = query.get("t");
   if (!token) {
-    const session = cookieValue(req.headers.cookie, "lm_panel_session");
+    const session = cookieValue(req.headers.cookie, PANEL_COOKIE) || cookieValue(req.headers.cookie, "lm_panel_session");
     const scope = await sessionScope(session, opts);
     if (!scope) {
-      res.writeHead(401, { "content-type": "text/plain; charset=utf-8", "cache-control": "no-store" });
-      res.end("unauthorized");
+      res.writeHead(200, { "content-type": "text/html; charset=utf-8", "cache-control": "no-store", "referrer-policy": "no-referrer" });
+      res.end(renderInvalidPanelLink(opts.botUsername || process.env.LM_TELEGRAM_BOT_USERNAME));
       return;
     }
     res.writeHead(200, {
       "content-type": "text/html; charset=utf-8",
       "cache-control": "no-store",
       "x-content-type-options": "nosniff",
+      ...(scope.replacement ? { "Set-Cookie": panelSessionCookie(scope.replacement) } : {}),
     });
-    res.end(renderPanelPage());
+    res.end(renderPanelPage({ csrf: scope.csrf }));
     return;
   }
 
@@ -161,21 +199,34 @@ async function handlePanelRequest(req, res, opts = {}) {
   const session = await createPanelSession({ uid: claimed.uid, chatId: claimed.chat_id }, opts);
   res.writeHead(303, {
     Location: "/panel",
-    "Set-Cookie": `lm_panel_session=${session}; Max-Age=86400; Path=/; HttpOnly; Secure; SameSite=Lax`,
+    "Set-Cookie": panelSessionCookie(session),
     "Cache-Control": "no-store",
     "Referrer-Policy": "no-referrer",
   });
   res.end();
 }
 
+function timingEqual(left, right) {
+  const a = Buffer.from(String(left || "")), b = Buffer.from(String(right || ""));
+  return a.length > 0 && a.length === b.length && crypto.timingSafeEqual(a, b);
+}
+
 module.exports = {
   PANEL_TOKEN_TTL_MS,
   PANEL_SESSION_TTL_MS,
+  PANEL_SESSION_ROTATE_MS,
+  PANEL_SESSION_IDLE_MS,
+  PANEL_SESSION_ABSOLUTE_MS,
   sha256,
   createPanelToken,
   sendPanelLink,
   claimPanelToken,
   createPanelSession,
+  panelSessionCookie,
+  clearPanelCookies,
+  resolvePanelSession,
+  revokePanelSession,
+  revokePanelSessionsForTenant,
   cookieValue,
   csrfToken,
   sessionScope,

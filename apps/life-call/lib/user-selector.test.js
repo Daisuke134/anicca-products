@@ -60,7 +60,7 @@ test("scheduler batch and uid selectors execute the same shared cohort contract"
     if (oldUrl === undefined) delete process.env.SUPABASE_URL; else process.env.SUPABASE_URL = oldUrl;
     if (oldKey === undefined) delete process.env.SUPABASE_SERVICE_ROLE_KEY; else process.env.SUPABASE_SERVICE_ROLE_KEY = oldKey;
   }
-  assert.equal(urls.length, 3);
+  assert.equal(urls.length, 4);
   const cohortUrls = urls.filter(value => new URL(value).pathname.endsWith("/lm_users"));
   assert.equal(cohortUrls.length, 2);
   for (const value of cohortUrls) {
@@ -69,4 +69,5 @@ test("scheduler batch and uid selectors execute the same shared cohort contract"
     assert.equal(url.searchParams.get("paid"), "is.true");
     assert.equal(url.searchParams.get("calendar_provider"), "in.(composio_gcal,pipedream_gcal)");
   }
+  assert.equal(urls.filter(value => new URL(value).pathname.endsWith("/lm_panel_preferences")).length, 2);
 });

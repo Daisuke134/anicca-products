@@ -61,7 +61,7 @@ test("LM-33a: /panel token is 256-bit opaque, hash-only at rest, and expires in 
   assert.doesNotMatch(calls[0].init.body, new RegExp(token));
 });
 
-test("LM-33a: a valid one-time token is burned and exchanged for a separate 24-hour session", async () => {
+test("LM-33a: a valid one-time token is burned and exchanged for a separate rolling session", async () => {
   const rawToken = Buffer.alloc(32, 0x11).toString("base64url");
   const sessionBytes = Buffer.alloc(32, 0x22);
   const calls = [];
@@ -89,7 +89,7 @@ test("LM-33a: a valid one-time token is burned and exchanged for a separate 24-h
     assert.equal(response.headers.get("location"), "/panel");
     assert.equal(
       response.headers.get("set-cookie"),
-      `lm_panel_session=${sessionBytes.toString("base64url")}; Max-Age=86400; Path=/; HttpOnly; Secure; SameSite=Lax`,
+      `__Host-lm_panel_session=${sessionBytes.toString("base64url")}; Max-Age=2592000; Path=/; HttpOnly; Secure; SameSite=Lax`,
     );
     assert.equal(response.headers.get("cache-control"), "no-store");
     assert.equal(response.headers.get("referrer-policy"), "no-referrer");
@@ -101,7 +101,9 @@ test("LM-33a: a valid one-time token is burned and exchanged for a separate 24-h
     session_hash: crypto.createHash("sha256").update(sessionBytes.toString("base64url")).digest("hex"),
     uid: "lm_u1",
     chat_id: "123",
-    expires_at: "2026-07-22T00:00:00.000Z",
+    expires_at: "2026-08-20T00:00:00.000Z",
+    idle_expires_at: "2026-08-20T00:00:00.000Z",
+    absolute_expires_at: "2027-01-17T00:00:00.000Z",
   });
   assert.doesNotMatch(calls[1].init.body, new RegExp(sessionBytes.toString("base64url")));
 });
@@ -113,9 +115,11 @@ test("LM-33a/33c: /panel with a live session renders the authenticated mirror wi
     supaUrl: "https://db.example",
     supaKey: "service-key",
     now: () => new Date("2026-07-21T00:00:00.000Z"),
-    fetchImpl: async (url) => {
+    randomBytes: () => Buffer.alloc(32, 0x34),
+    fetchImpl: async (url, init) => {
       lookupUrl = url;
-      return { ok: true, status: 200, json: async () => [{ uid: "lm_u1", chat_id: "123" }] };
+      assert.equal(JSON.parse(init.body).p_session_hash, crypto.createHash("sha256").update(session).digest("hex"));
+      return { ok: true, status: 200, json: async () => [{ uid: "lm_u1", chat_id: "123", rotated: false }] };
     },
   }, async (base) => {
     const response = await fetch(`${base}/panel`, {
@@ -131,11 +135,7 @@ test("LM-33a/33c: /panel with a live session renders the authenticated mirror wi
     assert.doesNotMatch(html, /lm_u1/);
   });
   const lookup = new URL(lookupUrl);
-  assert.equal(lookup.pathname, "/rest/v1/lm_panel_sessions");
-  assert.equal(lookup.searchParams.get("session_hash"), `eq.${crypto.createHash("sha256").update(session).digest("hex")}`);
-  assert.equal(lookup.searchParams.get("expires_at"), "gt.2026-07-21T00:00:00.000Z");
-  assert.equal(lookup.searchParams.get("select"), "uid,chat_id");
-  assert.equal(lookup.searchParams.get("limit"), "1");
+  assert.equal(lookup.pathname, "/rest/v1/rpc/resolve_lm_panel_session");
 });
 
 test("LM-33a negative: reusing a burned token returns 403", async () => {
@@ -193,12 +193,13 @@ test("LM-33a negative: a tampered token returns 403", async () => {
   });
 });
 
-test("LM-33a negative: /panel without a session returns 401", async () => {
+test("LM-33a negative: /panel without a session returns human login HTML", async () => {
   await withPanelServer({
     fetchImpl: async () => { throw new Error("must not query for a missing cookie"); },
   }, async (base) => {
     const response = await fetch(`${base}/panel`);
-    assert.equal(response.status, 401);
+    assert.equal(response.status, 200);
+    assert.match(response.headers.get("content-type"), /text\/html/);
   });
 });
 
@@ -246,11 +247,12 @@ test("PANEL-0: used/expired/invalid token returns a human 403 with one new-link 
 test("PANEL-0: live session resolves immutable uid + telegram chat", async () => {
   const { sessionScope } = require("./panel-auth.js");
   const session = Buffer.alloc(32, 0x7a).toString("base64url");
-  const scope = await sessionScope(session, { supaUrl: "https://db.example", supaKey: "key", fetchImpl: async (url) => {
-    assert.equal(new URL(url).searchParams.get("select"), "uid,chat_id");
-    return { ok: true, json: async () => [{ uid: "u-a", chat_id: "101" }] };
+  const scope = await sessionScope(session, { supaUrl: "https://db.example", supaKey: "key", randomBytes: () => Buffer.alloc(32, 0x7b), fetchImpl: async (url, init) => {
+    assert.match(url, /rpc\/resolve_lm_panel_session$/);
+    assert.equal(JSON.parse(init.body).p_session_hash, crypto.createHash("sha256").update(session).digest("hex"));
+    return { ok: true, json: async () => [{ uid: "u-a", chat_id: "101", rotated: false }] };
   } });
-  assert.deepEqual(scope, { uid: "u-a", chatId: "101" });
+  assert.deepEqual(scope, { uid: "u-a", chatId: "101", replacement: null, csrf: require("./panel-auth.js").csrfToken(session) });
 });
 
 test("LM-33a: additive migration stores token/session hashes and atomically claims once before expiry", () => {
