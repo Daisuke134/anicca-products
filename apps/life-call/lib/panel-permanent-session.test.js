@@ -77,6 +77,7 @@ test("B1 real /panel keeps +25h cookie usable, rotates, renders login HTML when 
     fetchImpl: async (url, init = {}) => {
       calls.push({ url: String(url), init });
       if (String(url).includes("claim_lm_panel_token")) return jsonResponse([{ uid: "u1", chat_id: "101" }]);
+      if (String(url).endsWith("/rpc/resolve_lm_panel_session")) return jsonResponse([{ uid: "u1", chat_id: "101", rotated: true }]);
       if (String(url).endsWith("/lm_panel_sessions")) return jsonResponse({}, 201);
       return jsonResponse([]);
     },
