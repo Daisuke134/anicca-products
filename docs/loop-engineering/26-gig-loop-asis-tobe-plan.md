@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / latest-main merge GREEN / live dirty preservation next`
+- 状態: `PLANNER_INTEGRATION / preserved deploy branch GREEN / live branch cutover next`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/Users/anicca/profitable-claude/.worktrees/gig-speedy-reply-integration`。一時worktree消失後もpush済みcommitから同branchを復旧する。
@@ -219,6 +219,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - latest main merge GREEN: merge commit `56080b0`をpushする。conflict 4件は一方を選ばず、replyの`reply_queue.py`/`connector_outbox.py`/manifestとpaidの`reconcile_paid_delivery.py`/CDP lock wrapperを同じfixtureへ統合する。`gig_pass.sh`はpaid priorityとverified reply Telegram reportingを両方保持する。全180 tests + 70 subtests、shell 15 suites、fresh reviewがPASSする。
 - live cutover preflight RED: `origin/main a1601c3`が追加11 commitsでB1 deterministic inbox、B2 paid gate、paid progress transaction、runner fallback/runtime proofを更新するためintegration再mergeが必要である。live checkoutにはunique未commit変更があり直接pull/merge不可。loaded runtimeは旧gig passがexit 1を繰り返し、新reply detector/push/Gmail/hourly job、connector DB、Telegram DB、hook tokenが無い。次はclean integration worktreeで最新mainを再merge・全回帰し、live差分を別途保全してからcutoverする。
 - latest-main remerge GREEN: merge commit `c802c26`をpushする。runner stdin privacy/OpenClaw fallback、paid transaction/B1/B2とspeedy reply/Telegramを同時保持し、B1 query routeとpre-contract direct-message routeを別snapshot fieldへ分離する。fresh reviewのstale paid-state blockerは、非空reply後のlive再収集→queue再構築→`TOP_*`再読込→project selection順序と、旧`progress`がfresh`none`へ変わる同時fixtureで解消する。fresh verificationはPython 214 tests + 121 subtests、shell 17 suites、Node 23 tests、構文/JSON検査PASS、再review blocking 0である。次はlive未commit差分を保全・分類し、integrationを安全にliveへ着地させる。
+- live preservation/deploy merge GREEN: live checkoutのlocal 2 commitsとdirty 40 filesを内容変更せず`preserve/live-dirty-pre-cutover` commit `3a33703`へ保存してpushする。そのcommitから`deploy/gig-speedy-reply-cutover`を作り、integrationをmergeした`bab7b51`をpushする。11件のgig/runner conflictは`c802c26`とbyte一致、Life Managerだけはliveのdaily-video生成/検証/重複防止を保持し、shared runner用`RUN_AGENT_BIN` test seamを追加する。gig Python 214 tests + 121 subtests、shell 17 suites、Node 23 tests、Life Manager wiring 9/9、video tests、top-level runner tests、fresh review blocking 0である。次はactive gig process不在を再確認し、canonical live checkoutをこのdeploy branchへ切り替える。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
