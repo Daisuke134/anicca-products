@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / live selector mismatch measured / collector RED verified`
+- 状態: `PLANNER_INTEGRATION / live selector contract GREEN / fenced sender lifecycle next`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
@@ -185,6 +185,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - direct-message evidence GREEN: integration commit `a2b25c0`をpushする。購入前DMと購入後talkroomの両canonical pathをthread IDへbindし、matching seller hash/timeだけを`replied`とする。evidence 9 tests、全120 tests + 40 subtestsがPASSする。
 - live selector measurement: authenticated Coconala `/message`は`a.c-messageItemWrap` 30件とexpected container 1件を実測する。`/mypage/direct_message/9942584`では相手が`.headerUser`、自分が`.sidebar-profile`、各送信時刻が`.threadPostTime`の`YYYY-MM-DD HH:MM:SS` JSTである。現collectorは自分/相手を逆転し時刻を取得できない。
 - live selector RED: integration test commit `5f11fee`をpushする。実DOM契約のown sidebar identityとnaive JST→UTC変換が未実装のため対象1 testが期待どおりFAILする。
+- live selector GREEN: integration commit `91f767c`をpushする。own identityを`.sidebar-profile`、message authorを`.threadUser`、timestampを`.threadPostTime`から取り、JSTをUTCへ変換する。collector contract 7 tests + 6 subtests、全121 tests + 40 subtestsがPASSする。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
