@@ -1,6 +1,6 @@
 # CORE 8f: context / onboarding / discovery production journey
 
-You are the fresh `gpt-5.6-sol` builder/executor/verifier for the next atomic §10 row, **8f CORE-c only**. Do not start until the manager confirms row 8e is production-L3 done and gives the accepted `origin/main` SHA. Create an isolated worktree and branch from that exact SHA. Read the canonical spec §9.5, §9.6 feature discovery, §9.7, §9.11 DAILY/FEATURE DISCOVERY, §10 row 8f, and this order before acting.
+You are the fresh `gpt-5.6-sol` builder/executor/verifier for the next independent atomic §10 row, **8f CORE-c only**. The manager confirms row 8e remains pending after three production-L3 methods failed closed with their false hypotheses recorded; §10 Stop discipline now requires moving to 8f rather than waiting for new mailbox auth. Accepted `origin/main=85a68abaa22df0d9bd0d7fe2fcf7fee0ae796eaf`. Create an isolated worktree and branch from that exact SHA. Read the canonical spec §9.5, §9.6 feature discovery, §9.7, §9.11 DAILY/FEATURE DISCOVERY, §10 row 8f, and this order before acting.
 
 ## Outcome and hard behavior
 
