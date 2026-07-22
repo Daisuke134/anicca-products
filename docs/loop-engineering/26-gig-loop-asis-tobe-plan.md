@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `LIVE_CODE_CUTOVER_GREEN / Gmail Pub/Sub metadata trigger next`
+- 状態: `GMAIL_METADATA_RUNTIME_RED / safe config implementation next`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/Users/anicca/profitable-claude/.worktrees/gig-speedy-reply-integration`。一時worktree消失後もpush済みcommitから同branchを復旧する。
@@ -221,6 +221,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - latest-main remerge GREEN: merge commit `c802c26`をpushする。runner stdin privacy/OpenClaw fallback、paid transaction/B1/B2とspeedy reply/Telegramを同時保持し、B1 query routeとpre-contract direct-message routeを別snapshot fieldへ分離する。fresh reviewのstale paid-state blockerは、非空reply後のlive再収集→queue再構築→`TOP_*`再読込→project selection順序と、旧`progress`がfresh`none`へ変わる同時fixtureで解消する。fresh verificationはPython 214 tests + 121 subtests、shell 17 suites、Node 23 tests、構文/JSON検査PASS、再review blocking 0である。次はlive未commit差分を保全・分類し、integrationを安全にliveへ着地させる。
 - live preservation/deploy merge GREEN: live checkoutのlocal 2 commitsとdirty 40 filesを内容変更せず`preserve/live-dirty-pre-cutover` commit `3a33703`へ保存してpushする。そのcommitから`deploy/gig-speedy-reply-cutover`を作り、integrationをmergeした`bab7b51`をpushする。11件のgig/runner conflictは`c802c26`とbyte一致、Life Managerだけはliveのdaily-video生成/検証/重複防止を保持し、shared runner用`RUN_AGENT_BIN` test seamを追加する。gig Python 214 tests + 121 subtests、shell 17 suites、Node 23 tests、Life Manager wiring 9/9、video tests、top-level runner tests、fresh review blocking 0である。次はactive gig process不在を再確認し、canonical live checkoutをこのdeploy branchへ切り替える。
 - canonical live code cutover GREEN: active `gig_pass`/runner/reply detector不在、pass lock不在、live/preserved worktree cleanを確認してから、canonical `/Users/anicca/profitable-claude`を`deploy/gig-speedy-reply-cutover bab7b51`へ切り替える。remote hash一致・worktree cleanを確認し、canonical path smokeはPython 20 tests + 5 subtestsとreply LaunchAgent/Telegram shell 3 suitesがPASSする。launchd deployやproduction sendはまだ実行しない。次はGmail Pub/Sub metadata triggerのexternal setupを行う。
+- Gmail metadata runtime RED: feature branch `fix/gig-gmail-metadata-trigger` commit `77b3840`をpushする。live実測ではGmail watch state、Pub/Sub topic/subscription、`GIG_REPLY_HOOK_TOKEN`、reply push/Gmail watch/reply detector/hourly LaunchAgentが未導入で、8788/8791は空いている。OpenClaw 2026.6.1のsetup/runtimeは`includeBody`未指定時にtrueを選び、`hooks.enabled=true`ではgateway自身もGmail watcherを起動するため、現wrapperの「flagを付けない」だけではmetadata-onlyもsingle-ownerも保証しない。metadata-only、gateway watcher無効、localhost callback/bind、共有token fallbackを要求するPython 5 testとwatch runner shell testが期待どおりREDである。次はfail-closed runtime validatorとreceiver token共有を最小実装する。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
