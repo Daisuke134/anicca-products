@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / direct-message index GREEN / screenshot-free reader RED verified`
+- 状態: `PLANNER_INTEGRATION / bounded collector GREEN / reply outbox integration next`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
@@ -176,6 +176,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - message index RED: integration test commit `f0a7853`をpushする。現normalizerが`/mypage/direct_message/42`を0件として捨てるため1 testがFAILする。次はindex expression、direct-message normalizer、thread readを接続する。
 - message index GREEN: integration commit `5dea5cc`をpushする。`/message`の実DOM selector、health fields、`/mypage/direct_message/{id}`のcanonicalization、最後の送信者を未読badgeより優先する判定を実装し、対象5 tests + 6 subtestsがPASSする。
 - screenshot-free reader RED: integration test commit `96b00fc`をpushする。private-message専用readerが未実装のため対象1 testが期待どおりFAILする。次は一覧と各DM threadをscreen captureなしで読み、bounded identityだけを`inquiries.json`へ永続化する。
+- screenshot-free reader GREEN: integration commit `fba6b08`をpushする。`/message`一覧と各`/mypage/direct_message/{id}`を画像保存なしで読み、最後のbuyer messageについてplatform IDまたはstable fallback identityとUTC受信時刻だけを永続化する。`python3 -m pytest -q skills/gig-work/tests`は119 tests + 40 subtests PASS、inquiry evidence shellもPASSする。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
