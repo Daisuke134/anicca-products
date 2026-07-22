@@ -4,7 +4,7 @@ Status: product behavior locally GREEN; fresh independent reviews and changed-mo
 
 ## RED
 
-- Commit: `5f8db7f13944fc24a5ced49295e1ea48d697cc68`
+- Commit: `5f8db7f1353b163c267eb415c3c7e12456f6195d`
 - Command: `node --test lib/panel-corrective-red.test.js`
 - Result: exit 1 with deterministic assertions mapped to FIND-001 through FIND-010.
 
