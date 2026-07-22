@@ -183,9 +183,9 @@ separate decision: keep loop runtime local OR add cloud adapter
 
 ## 8. Research basis
 
-- Turborepo, “Structuring a repository”: https://turborepo.com/docs/crafting-your-repository/structuring-a-repository  
+- Turborepo, “Structuring a repository”: https://turborepo.com/docs/crafting-your-repository/structuring-a-repository
   核心の引用: “every directory with a `package.json` in the `apps` or `packages` directories will be considered a package” / “does not support nested packages like `apps/**` or `packages/**`”.
-- pnpm, “Workspace”: https://pnpm.io/workspaces  
+- pnpm, “Workspace”: https://pnpm.io/workspaces
   核心の引用: “You can create a workspace to unite multiple projects inside a single repository.”
-- GitHub Docs, “About Git subtree merges”: https://docs.github.com/en/get-started/using-git/about-git-subtree-merges  
+- GitHub Docs, “About Git subtree merges”: https://docs.github.com/en/get-started/using-git/about-git-subtree-merges
   核心の引用: “The ‘subrepository’ is stored in a folder of the main repository.”
