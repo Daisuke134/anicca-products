@@ -67,6 +67,9 @@ self-pay / colony 内循環は 0→1 ではない（INV-7）。判定は `~/anic
   endpointごとの最初のsuccessful settle後に作られるためで、自己購入bootstrapはexternal収益でなく
   wallet-send停止条件にも触れるため実行しない。外部buyerの初回settleで自動indexされる:
   https://agentic.market/services/aniccanomac-mini-1-tail7a0ba4-ts-net / https://agentic.market/services/franklin1-tail7a0ba4-ts-net / https://docs.cdp.coinbase.com/x402/bazaar
+- CDP semantic searchのbuyer視点でもFranklin1 `/research`は`research digest`の2/5位、
+  `/funding-rates`は`perpetual funding rates`の11/15位に出る。`web search`はtop20外であり、
+  routeごとの発見強度には差がある。
 - 上記probeでclaude-p `:8443`の2 routeが一時500。原因は旧loop生成label `ai.anicca.x402-seller-8412`がv1 `serve.mjs`を誤ったCAIP-2 networkで起動し、正本`ai.anicca.x402-claude-p`を`EADDRINUSE`にしていたこと。旧labelをbootout+disable（plistは削除せず復旧可能）し、正本をkickstart。`state=running`、local/publicとも402へ復旧。`serve-v2.mjs`は無変更。
 - Questflow本体は現行「AI finance agent」で、Pluginsを金融data/tool接続として扱う。旧QDPページはagent distribution/monetizationを掲げるが、builder `qdp.questflow.ai` はHTTP 530（origin DNS error）、A2A Hub `a2a.build` はHTTP 522で直接publish不能:
   https://questflow.ai / https://questflow.ai/qdp/

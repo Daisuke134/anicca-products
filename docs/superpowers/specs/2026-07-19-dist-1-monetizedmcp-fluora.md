@@ -101,6 +101,9 @@ franklin の4商品(web-search/funding-rates/funding-rate-arb/research)が Fluor
   EXTERNAL=0 / externalUsdc=0`。外部収益はまだ$0。外部掲載PR #838もFranklin1 v2 storeを追加してhead
   `72ebb673`へ更新。旧Anicca 31 route + Franklin1 4 routeの全35 URL=402、MERGEABLE/CLEANを実測:
   https://github.com/xpaysh/awesome-x402/pull/838
+- CDP公式semantic searchではFranklin1 `/research`が`research digest`の2/5位、`/funding-rates`が
+  `perpetual funding rates`の11/15位で返る。自然wakeの次回reviewは`attempts24h=108 / external=0`。
+  発見可能性と自律監視は動作するが、外部settlementはまだ無い。
 
 ## 残作業（DIST-1 内、順）
 1. ✅ 3店舗を有効Funnel portのpath mountで公開し、各URLを公式MCP clientのfresh 2 sessionで実測
