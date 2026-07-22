@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / production cutover GREEN / eventual-send reconcile next`
+- 状態: `PLANNER_INTEGRATION / production cutover GREEN / eventual-send reconcile RED verified`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
@@ -201,6 +201,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - autonomous reply lane GREEN: integration commit `b7af86e`をpushする。threadごとのpending action IDをread-only lookupし、個別fenced claimで全queueを処理する。同projection再実行は全skip、collector unhealthyはclaim/model/click 0。lane 2 tests、gig+runner全145 tests + 61 subtestsがPASSする。
 - production cutover RED: integration test commit `f9b0931`をpushする。queue-empty CLIがsummaryを作らず、`gig_pass.sh`に旧direct-browser agent prompt/legacy verifierが残るため対象2 testsが期待どおりFAILする。
 - production cutover GREEN: integration commit `ecad445`をpushする。queue-emptyはmodel/browser call 0で0600 summaryを原子的に書き、非空queueはproduction `gig_pass.sh`からfenced laneへ入る。旧prompt/legacy verifierをruntime pathから除外し、lane failureをfalse-successにせず記録する。対象4 tests、gig+runner全147 tests + 61 subtests、shell 12 suitesがPASSする。
+- eventual-send reconcile RED: integration test commit `9496d19`をpushする。ACK喪失後のmatching hash発見はmodel/click 0で完了、整合性窓後のauthoritative absenceは同passで再queue→送信、窓内absenceは送らず継続監視する契約を追加する。bounded observationにhash/time対応がなく、laneが`reconcile_pending`を拾わないため対象4 testsが期待どおりFAILする。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
