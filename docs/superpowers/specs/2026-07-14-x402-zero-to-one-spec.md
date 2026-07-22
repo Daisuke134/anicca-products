@@ -48,7 +48,8 @@ self-pay / colony 内循環は 0→1 ではない（INV-7）。判定は `~/anic
 - 全 route の paid path E2E（settle tx 有、例 0x03c875fb…）
 - /.well-known/x402.json + /llms.txt 公開
 - sell-on-x402 turnkey recipe = `~/anicca/skills/earn/x402-sell/SKILL.md`（commit 695c11e0）
-- awesome-x402 PR #838はopen。現行31商品へ更新し、live manifest=31件、31/31 URL=402、root/manifest/llms.txt=200をfresh実測:
+- awesome-x402 PR #838はopen。旧Anicca 31商品を保持したままFranklin1 v2 4商品も同listingへ追加し、
+  2 manifest=200、35/35 URL=402、head=`72ebb673`、MERGEABLE/CLEANをfresh実測:
   https://github.com/xpaysh/awesome-x402/pull/838
 - xpaysh公式CONTRIBUTINGの要件は「Test your links」「Working links」。重複PRを作らず既存PRのtitle/body/listingを現行値へ更新する:
   https://github.com/xpaysh/awesome-x402/blob/main/CONTRIBUTING.md
@@ -59,8 +60,13 @@ self-pay / colony 内循環は 0→1 ではない（INV-7）。判定は `~/anic
 - 唯一の公開経路へagent-owned `anicca@aniccaai.com` からrouting/discovery integrationを問い合わせ済み。Resend accepted id `9ecaaca6-6cf5-4a1c-ba76-06df2e526e4b`。これは掲載完了ではなく返答待ち（送信専用API keyのためdelivery eventは取得不可）。
 - Ampersend Marketplaceは公開RESTで55 agents/563 endpointsだがAnicca検索はHTTP 200 `[]`。公式docs/UI/SDKに外部sellerのself-submit/write API/PR経路はなく、Hosted Endpoint化はproxy変更とdashboard承認が必要なため不採用。公式FAQの連絡先へagent-owned senderからcatalog curation依頼を送信し、Resend HTTP 200、id `1470ef06-136a-49e6-9f97-703e9800e38d`。掲載完了ではなくmaintainer review待ち:
   https://docs.ampersend.ai/platform/marketplace / https://app.ampersend.ai/discover
-- Agentic.MarketはBazaarから自動同期済み。公式service page/APIはAniccaを13 endpoint objects（UIでは重複pathをまとめた9 routes）として掲載し、`q=anicca`だけでなく一般検索`q=compound interest`でも返す。fresh probeは13/13 HTTP 402。内訳はv2=3/v1=10で、現在の掲載はPASSだがv1群は新validator拒否・30日settlementなしで消えるため恒久性はv2移行待ち:
-  https://agentic.market/services/aniccanomac-mini-1-tail7a0ba4-ts-net / https://agentic.market/validate
+- Agentic.MarketはBazaarから自動同期済み。旧Aniccaは13 endpoint objects（UI 9 routes）、Franklin1は
+  3 routesを掲載し、Franklin1 pageは`funding-rates=2 calls/1 payer`、`research=1/1`、
+  `web-search=2/1`を表示する。4つ目`funding-rate-arb`はCDP公式validatorで
+  `valid:true / x402Version:2 / simulation:accepted`だが`index:null`。公式仕様どおりBazaar indexは
+  endpointごとの最初のsuccessful settle後に作られるためで、自己購入bootstrapはexternal収益でなく
+  wallet-send停止条件にも触れるため実行しない。外部buyerの初回settleで自動indexされる:
+  https://agentic.market/services/aniccanomac-mini-1-tail7a0ba4-ts-net / https://agentic.market/services/franklin1-tail7a0ba4-ts-net / https://docs.cdp.coinbase.com/x402/bazaar
 - 上記probeでclaude-p `:8443`の2 routeが一時500。原因は旧loop生成label `ai.anicca.x402-seller-8412`がv1 `serve.mjs`を誤ったCAIP-2 networkで起動し、正本`ai.anicca.x402-claude-p`を`EADDRINUSE`にしていたこと。旧labelをbootout+disable（plistは削除せず復旧可能）し、正本をkickstart。`state=running`、local/publicとも402へ復旧。`serve-v2.mjs`は無変更。
 - Questflow本体は現行「AI finance agent」で、Pluginsを金融data/tool接続として扱う。旧QDPページはagent distribution/monetizationを掲げるが、builder `qdp.questflow.ai` はHTTP 530（origin DNS error）、A2A Hub `a2a.build` はHTTP 522で直接publish不能:
   https://questflow.ai / https://questflow.ai/qdp/
@@ -71,7 +77,7 @@ self-pay / colony 内循環は 0→1 ではない（INV-7）。判定は `~/anic
 - protocol境界のfresh実測: 443 rootは402 body=`x402Version:1`かつ`PAYMENT-REQUIRED` headerなし。`:10000`/`:8443`はbody=v1互換を保ちながらheader=`x402Version:2`。したがってrootのx402scan拒否はcredentialsや登録手順ではなくlegacy seller本体で、既存flagだけでは切替不能。root置換は既存経路変更になるため別v2移行タスクで行う。
 - Agent402は公式の無認証・無料登録APIへ同originを冪等POSTし、HTTP 200 `listed:true`。公開indexも `toolCount:31`, `networks:["base"]`, `routable:true`, `health:1`, `history:[1,1,1,1,1]`, `error:null`。buyer用 `/api/route` の `research financial analysis` 検索にも同originの `/research` が返るため、登録だけでなく発見可能性まで実測済み:
   https://agent402.tools/sell / https://agent402.tools/api/index
-- Agent402 route metadataが `/research` を `POST`, `price:null/$0` と返す一方、公開OpenAPIと実402は `GET`, `$0.003` だった。原因はBazaar推測値とOpenAPIのmergeで、upstream PR #473を提出。推測methodだけをOpenAPIで補完し、既知/明示0価格を保持、曖昧pathとcross-method混入を拒否する回帰testを追加。head `b85045311a`、target test PASS、MERGEABLE。live反映はmerge/deploy待ち:
+- Agent402 route metadataが `/research` を `POST`, `price:null/$0` と返す一方、公開OpenAPIと実402は `GET`, `$0.003` だった。原因はBazaar推測値とOpenAPIのmergeで、upstream PR #473を提出。推測methodだけをOpenAPIで補完し、既知/明示0価格を保持、曖昧pathとcross-method混入を拒否する回帰testを追加。head `b85045311a`はmerge済み。live buyer routeも`GET /research`, `$0.003`を返す:
   https://github.com/MikeyPetrillo/Agent402/pull/473
 - external revenue の現行実測 = **$0.011 USDC / 外部入金9件**（Base公式RPC、240h scan、self-pay 12件/$8.208871を除外）。zero-to-one は達成済みだが、目標$1に対して1.1%。
 
