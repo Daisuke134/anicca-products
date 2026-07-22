@@ -510,7 +510,7 @@ junk が増える = 将来の dev(人/AI)が「どれが本物か」で迷い、
 
 以下を同時に成立させる。
 
-1. Claude subscription の残量に依存せず、全 revenue loop が共通 runner 経由で GPT / Claude / その他 provider を差し替えて動く。
+1. 全 revenue loop は **Codex GPT を既定 provider** として共通 runner 経由で動く。Claude / Kimi / DeepSeek はhealth・quotaがgreenの場合だけfallback候補に入り、Claude subscription の残量は起動条件にならない。
 2. gig-core は「tmux が生きている」ではなく、各 step の成功を証拠付きで判定し、失敗を成功扱いせず、paid contract を締切順に完成・正式納品する。
 3. 木村様の囲碁盤 OpenCV PoC を受入基準まで修正し、実ファイルを Coconala で正式納品する。
 4. marketing-engine は Capafy 専用ではなく clip / video / future products の共有 core とし、bot-like な synthetic engagement warmup を廃止する。
@@ -524,7 +524,8 @@ junk が増える = 将来の dev(人/AI)が「どれが本物か」で迷い、
 | Claude runtime | direct Sonnet はquota/cooldownで利用不能。gig-core実画面も `429 / All credentials for claude-sonnet-5 are cooling down` で停止する | direct probe、tmux `anicca-gig-core` pane |
 | Codex runtime | `codex exec --ephemeral -m gpt-5.6-luna` と `gpt-5.6-terra` は read-only probe がともに rc=0、期待文字列を返す | `/private/tmp/codex-loop-probe.txt`、`/private/tmp/codex-terra-probe.txt` |
 | OpenClaw | global primary は `deepseek/deepseek-v4-flash`、fallback は `openai/gpt-5.4-mini`。gpt-5.5-mini ではない | `/Users/anicca/.openclaw/openclaw.json` |
-| gig process | tmux `anicca-gig-core` は存在するが起動commandも各stepも `--model sonnet` 固定。coreは429後idle、`pass-report.jsonl` / `.last-pass` の最終更新は前日で、本日のproductive passはない | tmux pane/process argv、`~/gig/pass-report.jsonl`、`~/anicca/skills/earn/gig/gig_pass.sh:12-20` |
+| gig process | tmux `anicca-gig-core` はprovider-free heartbeat supervisorとして生存する。実作業はlaunchd `ai.anicca.hf-gig-pass`が毎時27分にbounded passを起動し、共通runnerへtask classだけを渡す。直近launchdはruns=3 / last exit=1で、Sunaiへのbuyer-visible進捗送信までは実行するがformal pendingでpass failure。tmux生存だけを収益loop成功とは扱わない | tmux pane/process argv、`launchctl print gui/$(id -u)/ai.anicca.hf-gig-pass`、`gig_core_supervisor.sh`、`gig_pass.sh` |
+| Gig provider order | production configはまだ各classでSonnetを先頭、Codexを2番手に置くため、quota中も毎回Sonnet失敗を先に踏む。実納品passはfallback後のCodex `gpt-5.6-terra`で動く。To-BeはCodex GPT-first、Claudeはhealth green時だけfallback | `skills/agent-runner/config.json`、直近Gig evidenceの`summary.json` / `attempts.jsonl` |
 | false success | `gig_pass.sh` の `step()` は sub-call stdout/stderr を `/dev/null` に捨て、非zero rcでも後続へ進める。最後に `.last-pass` / pass report を更新できる | `/Users/anicca/anicca/skills/earn/gig/gig_pass.sh:15-24,38-56` |
 | 木村様案件 | requestId `5138597`、契約額 **¥65,000**。2026-07-22にfeedback反映progress v1をbuyer-visible添付し、`正式な納品`も送信。現在の実talkroomは `納品確認待ち`、返信期限は2026-07-25 08:00 | `/Users/anicca/gig/evidence/fkimura-formal-20260722/`、`/private/tmp/fkimura-formal-delivery-20260722.png` |
 | 木村様成果物 | 案件専用quad warp/19x19 detectorを実行。01・03のみ一致、02・04・05・06・07は誤検出/見逃し。progress artifactにはFAIL reportと残課題を明記 | `/private/tmp/fkimura-goboard-progress-v1.zip`、SHA-256 `bb4a2d66649163ecda813711256cf316c44ba026773961526bfb66970406c9c9` |
@@ -591,7 +592,7 @@ junk が増える = 将来の dev(人/AI)が「どれが本物か」で迷い、
 | tool-agent | `gpt-5.6-terra`, medium | browserを含む通常のB0/B1/B2判断、account setup、daily marketing pass |
 | high-value-agent | `gpt-5.6-sol`, medium→high | paid deliverableの実装、OpenCV修正、複雑な障害解析、最終adversarial review |
 
-provider名・model名は runner config に閉じ込める。business script は task class のみを渡す。利用不能時は同じ class の別providerへ failoverし、全provider失敗時は明示 failure にする。
+provider名・model名は runner config に閉じ込める。business script は task class のみを渡す。**全classの候補順はCodex GPT-first** とし、ClaudeはCodexがtransientに利用不能かつClaude healthがgreenの場合だけfallbackする。validation/task failureではproviderを切り替えない。全provider失敗時は明示 failure にする。
 
 ### 17.6 Planner / Builder split
 
@@ -611,22 +612,26 @@ Planner は実装を持たず、Builder は完了判定を持たない。各 TOD
 
 ### 17.7 Remaining TODO — order SSOT
 
-Completed gate: **TODO #1 P0 disk containment review findings — PASS**。正本証拠は `/private/tmp/disk-containment-capacity-close.09kky5/`。
+Completed gate: **disk containment review findings — PASS**。正本証拠は `/private/tmp/disk-containment-capacity-close.09kky5/`。
 
-Completed gate: **TODO #2 provider-agnostic Gig runner + delivery-first — PASS**。corrective commit `61d97b4` は `origin/main` にあり、fresh independent review PASS。実際の正式納品は各契約のartifact/acceptanceが揃うTODO #3/#4で行う。
+Completed gate: **provider-agnostic Gig runner + delivery-first harness — PASS**。corrective commit `61d97b4` は `origin/main` にあり、fresh independent review PASS。各契約の成果物完成・再提出・formal deliveryは未完了。
+
+Completed gate: **cleanup control plane + artifact lifecycle — PASS**。active executorの単一化、fail-closed manifest、off-volume quarantine、append-only ledgerを実装・検証済み。
+
+Completed gate: **producer budgets + capacity observability — PASS**。reserve/backpressure、producer別quota、rotation、0-byte reclaim failureを実装・検証済み。
 
 Incident correction: 2026-07-22、ユーザーの明示指示によりFkimuraの未完成progress artifactをbuyer-visible提出し、`正式な納品`まで送信した。これはINV-R7（合意scope/acceptance完了前はformalを送らない）に反する例外であり、品質gateのgreenとは扱わない。今後の未完成案件はprogress提出のみ、formal checkboxは合意要件/acceptance準備後に限定する。
 
-   | 順 | TODO | Builder scope | Done / E2E gate |
-   |---:|---|---|---|
-   | 1 | **木村様案件を即時正式納品** | 案件専用CVを修正し、CloakBrowser daily-driverでbuyer-visible upload→`正式な納品`→納品確認待ちを実行。FAILでもfeedback反映版を明記して提出し、次versionへ改善する | **正式納品操作は完了、品質改善は継続。** 最新進捗版は01・03のみ判定一致、02・04・05・06・07に誤検出/見逃しが残る。`fkimura-goboard-progress-v1.zip`（SHA-256 `bb4a2d66649163ecda813711256cf316c44ba026773961526bfb66970406c9c9`）をCloakBrowserで添付し、正式な納品を送信。live DOMは`transaction_state=納品確認待ち`、`buyer_visible_artifact_observed=true`、`formal_delivery_observed=true`。証拠 `/private/tmp/fkimura-formal-delivery-20260722.png`、`/Users/anicca/gig/evidence/fkimura-formal-20260722/`。 |
-   | 2 | **残り2契約をbuyer-visible提出→承認後formal delivery** | sunai267・jibieaianをqueueから動的選択し、feedback/添付を収集、進捗artifact→acceptance delta→hash→CloakBrowser uploadを即時実行。acceptance/合意要件が揃った後のpassだけ`正式な納品`を付け、案件ごとにfeedback後vN+1を作成 | **進捗提出は完了、formalは未完了。** sunai request `5167108`のv1 hash `2578fb4998c84edcd0179787eef5c7c08b1c127ec119af336c0638e156e27c40`、jibieaian request `17943244`のv1 hash `3e4b96b51e8022e4d7fceb1e131e7f700edd915ab3054adf72e33696b0a001c4`をCloakBrowserでbuyer-visible送信。証拠 `/private/tmp/sunai-5167108-progress-sent.png`、`/private/tmp/jibieaian-17943244-progress-sent.png`。Coconalaの正式納品確認モーダルが合意要件充足を要求するため、両件ともformal checkboxは未送信。formal stateはFkimuraのみ1/3。 |
-   | 3 | **delivery-first loopの自己改善を実証** | 失敗理由をappend-only ledgerへ記録し、次passが同じ失敗を再発させない改善を自動生成・検証する。顧客名・案件IDのハードコードは禁止 | 3契約でfailure→修正→再実行→formal deliveryのE2E証拠、daily self-improve ledger、success marker整合 |
-   | 4 | **provider-agnostic runnerをCapafy/Fleetへ展開** | Provider Registry（Claude Sonnet/Codex Luna/Terra/Sol、capability・quota・transient-only fallback）を共通runnerへ接続 | commit `592a193`、registry tests 2 passed、py_compile PASS。3契約正式納品後にproduction E2E確認 |
-   | 5 | **cleanup control plane + artifact lifecycleを単一化** | cleanup entrypointを1つにし、重複LaunchAgent/OpenClaw cleanerを無効化。全artifactにowner/class/TTL/quota/lease/finalizerを宣言し、fail-closed manifest、off-volume quarantine、append-only delete ledgerを実装 | active cleanup executor=1。manifest欠損/破損/unknown/active/deliverable fixtureは削除0、expired ephemeralだけ削除。過去事故fixture（`.venv`、WIP clone、runtime `dist`、`reelclaw-assets`）全保持。delete ledgerとrestore E2E PASS |
-   | 6 | **producer budgets + capacity observability** | gig / marketing / clip / video / browser / worktree producerにrun quota、rotation、checkpoint圧縮、reserve-space backpressureを実装。容量trendとowner別growthを観測し、0-byte reclaim反復をfailure化 | free-space reserveを割るfixtureで新規runは開始せずactive run/checkpointは保持。producer別quota test、log rotation、recovery後resume E2E。cleanerが2回連続0-byte reclaimならalert/failureとなりsuccessを記録しない |
-   | 7 | **shared marketing-engineをno-synthetic-warmupへ移行** | `warming/day3 golden private session` を `setup/publisher_ready/posted/measuring/commercial` へ置換。automatic follow/like/comment/scrollを削除。official Meta publisher primary、product adapter分離。Capafy / clip / video consumer contractを更新 | testでsynthetic engagement call=0、day-count branch=0、全consumerが同じ lifecycle/publisherを参照。official publisher health probeとfailure state transitionをE2E。current terminal accountは再利用しない |
-   | 8 | **fresh Capafy accountからfull-cycleを実証しfleet rollout** | isolated account setup、professional/publish permission、first non-commercial Reel、public/reach measurement、commercial gate、Telegram/ledgers。全consumer regression後に14日自走 | account creation/setup evidence、publisher-ready evidence、public Reel URL、logged-out screenshot、publish status、IG/rotation ledger、Telegram message ID。複数snapshotでnonzero reach後のみ commercial marker。14日 `setup→post→measure→report` 継続、全gate green |
+| 順 | TODO | Builder scope | Done / E2E gate |
+|---:|---|---|---|
+| 1 | **全revenue loopをGPT-firstへ切り替える** | 共通runnerの候補順をLuna/Terra/Sol→Claude fallbackへ変更し、Gig / Capafy marketplace / Capafy marketing / shared consumersからprovider直呼びとSonnet固定を除去する | quota中のSonnetを一度も起動せず、repeatable/tool/high-value production probeがそれぞれLuna/Terra/Solを選択する。launchd Gig passのattempt 1がCodexで、provider/model/evidenceがledgerへ残る |
+| 2 | **木村様案件を7画像PASS版へ修正し再提出する** | 外部の既存Go盤検出実装とOpenCV一次docsをcopy+tweakし、案件専用CVで02・04・05・06・07の誤検出/見逃しを修正。7画像の期待石数・座標・出力schemaを検証し、versioned ZIP/hash/reportをCloakBrowser daily-driverでbuyer-visible再提出する | 7/7 acceptance PASS。新artifact/hashと画像別TP/FP/FN evidenceが存在し、実talkroomに更新版添付・変更点が表示される。現在の`納品確認待ち`を再確認し、UIが要求するrevision/formal状態を証拠化する |
+| 3 | **残り2契約を完成→buyer-visible提出→承認可能状態でformal delivery** | sunai267・jibieaianをqueueから動的選択し、feedback/添付を収集、完成artifact→acceptance→hash→CloakBrowser uploadを即時実行。acceptance/合意要件が揃ったpassだけ`正式な納品`を付け、feedback後はvN+1を作る | 両案件のacceptance PASS、versioned artifact/hash、buyer-visible screenshot/DOM、formal stateを案件別に確認。既存v1をledgerが認識し、テキスト進捗を重複送信しない |
+| 4 | **delivery-first loopの自己改善を実証** | 失敗理由をappend-only ledgerへ記録し、次passが同じ失敗を再発させない改善を自動生成・検証する。顧客名・案件IDのハードコードは禁止 | 3契約でfailure→修正→再実行→formal deliveryのE2E証拠、daily self-improve ledger、success marker整合 |
+| 5 | **Gigの全収益行動をGPT runnerで実証する** | paid queueがclearになったpassで、未契約問い合わせ返信→要提案quote→新規応募→新規出品/改善→reflectionを同じ汎用queue/ledgerで進める | Coconala実画面で返信・提案・応募・出品または改善のbuyer/public-visible evidence。各stepがLuna/Terra/Sol経由で動き、失敗時は次passの戦略へ反映する |
+| 6 | **provider-agnostic runnerをCapafy/Fleetへ展開する** | Capafy marketplace / marketing、clip、video、future consumersを共通runner contractへ接続し、provider/model直書きを除去する | 各production launchdのattempt 1がGPT既定で成功。Codex transient failure fixtureではhealth-greenなClaudeへfallbackし、全provider failureではsuccess markerを更新しない |
+| 7 | **shared marketing-engineをno-synthetic-warmupへ移行する** | `warming/day3 golden private session` を `setup/publisher_ready/posted/measuring/commercial` へ置換。automatic follow/like/comment/scrollを削除。official Meta publisher primary、product adapter分離。Capafy / clip / video consumer contractを更新 | testでsynthetic engagement call=0、day-count branch=0、全consumerが同じ lifecycle/publisherを参照。official publisher health probeとfailure state transitionをE2E。current terminal accountは再利用しない |
+| 8 | **fresh Capafy accountからfull-cycleを実証しfleet rolloutする** | isolated account setup、professional/publish permission、first non-commercial Reel、public/reach measurement、commercial gate、Telegram/ledgers。全consumer regression後に14日自走 | account creation/setup evidence、publisher-ready evidence、public Reel URL、logged-out screenshot、publish status、IG/rotation ledger、Telegram message ID。複数snapshotでnonzero reach後のみcommercial marker。14日 `setup→post→measure→report` 継続、全gate green |
 | 9 | **read-only cleanup analyzer + fleet self-improvement gate** | owner別growth/anomalyを分析しpolicy変更案とRED fixtureを生成するread-only analyzerを追加。policy変更はshadow/canaryと独立review後のみpromote | analyzer権限でdelete/policy write不可を実証。提案→RED→GREEN→shadow→canary→promote ledger E2E。14日間、protected artifact欠損0、disk reserve違反0、正常revenue worker誤kill 0 |
 
 ### 17.8 Acceptance scenarios
