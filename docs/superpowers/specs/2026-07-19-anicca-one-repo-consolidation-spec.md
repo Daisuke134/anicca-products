@@ -111,6 +111,7 @@ Workstream 2の `CAPITAL` はWorkstream 1の外部収益とsurvival reserveが�
 | MonetizedMCP配布 | `2026-07-19-dist-1-monetizedmcp-fluora.md` | 本specはWorkstream 1から参照 |
 | bounty/work loop | `2026-07-18-bounty-loop-onchain-spec.md` | 本specはWorkstream 2から参照 |
 | multi-tenant cloud移行 | `2026-07-21-life-manager-cloud-agent-platform-migration-spec.md` | 74 atomic TODOを本specへ複製しない |
+| one-repo収斂の実行順・live状態 | `2026-07-22-anicca-one-repo-migration-execution-spec.md` | 本specはarchitectureを定義し、atomic TODOを複製しない |
 | Life Manager product build | 本spec §9/§10 | cloud migration infra TODOと混ぜない |
 
 ## 1. 決定: 名前と器
@@ -119,35 +120,298 @@ Workstream 2の `CAPITAL` はWorkstream 1の外部収益とsurvival reserveが�
 |---|---|---|
 | repo/mission 名 | **anicca** | ブランド既在（domain/App Store）。mission の器は product 名より広い |
 | product 名 | **Anicca Life Manager**（web app が顔） | 人が買うのは manager。earn 系はその臓器 |
-| OSS 配布物名 | **profitable-claude**（read-only mirror） | 「Claude を黒字にする」は説明力最強の配布名。repo を分けず mirror として自動生成 |
+| OSS 配布物名 | **profitable-claude**（release bundle名） | 「Claude を黒字にする」は説明力が強い。別のworking repoは維持せず、canonicalからrelease bundleを生成 |
 
-## 2. 決定: 単一 public monorepo `anicca`（Turborepo 標準構造）
+## 2. 決定: 既存 `Daisuke134/anicca` を唯一の monorepo へ育てる
 
+新しい同名repoは作らない。GitHub正本は既存repo `https://github.com/Daisuke134/anicca`、通常clone先は
+`/Users/anicca/anicca`、cloud/VPSは各sandbox内の `~/anicca` とする。DaisがphoneのOrca/Codex/Claudeから依頼すると、cloud側は
+この1 cloneからtaskごとのbranch/worktreeを作る。task worktreeは同じGit history配下の一時作業dirであり、別project/別cloneではない。
+Mac Miniでのlocal development/runtimeは引き続き有効で、one-repo完了のためにloopを先にcloud化しない。
+
+canonical `anicca`はpublic-safe sourceだけを持つ。privateな`profitable-claude`の全履歴はimportせず、credential/state/history scanを通した
+current source snapshotだけをprovenance commit/digest付きで収斂する。既存private `profitable-claude` remoteはaudit archiveとしてprivateのまま残し、
+同じremoteをpublic mirrorへ転換しない。将来のOSS配布はcanonicalから生成するrelease bundleであり、別working repoではない。
+
+`apps/*` と `packages/*` の直下だけをworkspace packageにする。下記の深いdirectoryはsource moduleであり、内側に
+`package.json`を置かない。Life ManagerのHTTP APIを別appへ分離せず、`apps/life-manager`内に置く。loop本体は
+`packages/runtime`の同一interfaceからlocal driverでまず動かし、cloud driver/worker/containerの方式はone-repo収斂後の別specで決める。
+
+```text
+anicca/                                      # ONE repo / ONE canonical clone; task worktreeは一時child
+├── .github/
+│   └── workflows/
+│       ├── ci.yml                           # affected workspace test/build
+│       ├── deploy-life-manager.yml
+│       └── build-profitable-claude.yml      # filtered release bundle; remote mirrorなし
+│
+├── apps/                                    # deployable units; direct children only are workspaces
+│   └── life-manager/                        # THE paid product +唯一のHTTP control plane
+│   │   ├── src/
+│   │   │   ├── api/
+│   │   │   │   ├── routes/
+│   │   │   │   ├── webhooks/
+│   │   │   │   └── auth/
+│   │   │   ├── channels/
+│   │   │   │   ├── telegram/               # 主画面: action/report/closed question
+│   │   │   │   ├── email/
+│   │   │   │   ├── phone/                  # wake/support; consent gate必須
+│   │   │   │   └── web-panel/              # mobile-first/PWA: ledger, grants, pause
+│   │   │   ├── control-plane/
+│   │   │   │   ├── scheduler/               # durable workflow登録。無限processは持たない
+│   │   │   │   ├── event-router/
+│   │   │   │   ├── tenant-runtime/
+│   │   │   │   ├── action-policy/
+│   │   │   │   ├── budget-controller/
+│   │   │   │   └── report-after-action/
+│   │   │   ├── brain/
+│   │   │   │   ├── context-graph/
+│   │   │   │   ├── intent/
+│   │   │   │   ├── memory/
+│   │   │   │   ├── planning/
+│   │   │   │   ├── risk-decision/
+│   │   │   │   └── self-improvement/
+│   │   │   └── organs/
+│   │   │       ├── daily/
+│   │   │       │   ├── calendar/
+│   │   │       │   ├── travel/
+│   │   │       │   ├── wake/
+│   │   │       │   └── communications/
+│   │   │       ├── physical/
+│   │   │       │   ├── health-needs/
+│   │   │       │   ├── appointment/
+│   │   │       │   ├── food/
+│   │   │       │   └── shelter/
+│   │   │       ├── mental/
+│   │   │       │   ├── suffering-detection/
+│   │   │       │   ├── listening/
+│   │   │       │   ├── habits/
+│   │   │       │   └── social-connection/
+│   │   │       └── financial/
+│   │   │           ├── financial-health/
+│   │   │           ├── agent-native/        # human credentialゼロ
+│   │   │           ├── user-delegated/      # explicit mandate内だけ
+│   │   │           └── beneficiary/
+│   │   │               ├── human/
+│   │   │               ├── animal/
+│   │   │               └── ai/
+│   │   ├── migrations/                      # additive DB migrations
+│   │   ├── eval/                            # deterministic L2 cases
+│   │   ├── tests/                           # unit/integration/contract
+│   │   ├── package.json
+│   │   └── railway.json                     # current web product deployment only
+│
+├── packages/                                # reusable units; direct children only are workspaces
+│   ├── contracts/                           # tenant/job/action/evidence/ledger schemas
+│   │   ├── src/
+│   │   └── package.json
+│   ├── engine/                              # earning/economic domain; provider UIを知らない
+│   │   ├── src/
+│   │   │   ├── earn/
+│   │   │   │   ├── sell/
+│   │   │   │   │   ├── x402/
+│   │   │   │   │   ├── mcp/
+│   │   │   │   │   ├── digital-products/
+│   │   │   │   │   └── agent-services/
+│   │   │   │   ├── work/
+│   │   │   │   │   ├── bounty/
+│   │   │   │   │   ├── security-research/
+│   │   │   │   │   ├── gig/
+│   │   │   │   │   ├── clip/
+│   │   │   │   │   ├── capafy/
+│   │   │   │   │   ├── affiliate/
+│   │   │   │   │   └── content-business/
+│   │   │   │   └── marketing/
+│   │   │   │       ├── discover/
+│   │   │   │       ├── publish/
+│   │   │   │       ├── measure/
+│   │   │   │       └── self-improve/
+│   │   │   ├── capital/                     # policy承認までreal-money既定OFF
+│   │   │   │   ├── polymarket/
+│   │   │   │   ├── solana-trading/
+│   │   │   │   ├── crypto-trading/
+│   │   │   │   ├── yield/
+│   │   │   │   ├── brokerage/
+│   │   │   │   ├── broad-market-funds/
+│   │   │   │   └── portfolio-policy/
+│   │   │   ├── economic-runtime/
+│   │   │   │   ├── identity/
+│   │   │   │   ├── wallet/
+│   │   │   │   ├── ledger/
+│   │   │   │   ├── accounting/
+│   │   │   │   ├── budgets/
+│   │   │   │   ├── risk-caps/
+│   │   │   │   ├── compute/
+│   │   │   │   ├── shelter/
+│   │   │   │   └── survival-controller/
+│   │   │   ├── treasury/
+│   │   │   │   ├── reserve/
+│   │   │   │   ├── working-capital/
+│   │   │   │   ├── investment-capital/
+│   │   │   │   ├── beneficiary-distribution/
+│   │   │   │   ├── loans/
+│   │   │   │   ├── ubi/
+│   │   │   │   └── spawn/
+│   │   │   └── verification/
+│   │   │       ├── external-inflow/
+│   │   │       ├── self-pay-exclusion/
+│   │   │       ├── payout/
+│   │   │       ├── profit/
+│   │   │       └── action-evidence/
+│   │   └── package.json
+│   ├── skills/
+│   │   ├── src/
+│   │   │   ├── core/                        # wallet identityだけで動く
+│   │   │   │   ├── x402-sell/
+│   │   │   │   ├── crypto-bounty/
+│   │   │   │   ├── agent-marketing/
+│   │   │   │   ├── crypto-capital/
+│   │   │   │   ├── compute-buy/
+│   │   │   │   └── shelter-buy/
+│   │   │   └── gated/                       # explicit bootstrap/delegationが必要
+│   │   │       ├── bootstrap/
+│   │   │       │   ├── bank/
+│   │   │       │   ├── brokerage/
+│   │   │       │   ├── kyc-gig/
+│   │   │       │   ├── capafy/
+│   │   │       │   └── social-accounts/
+│   │   │       └── delegation/
+│   │   │           ├── gmail/
+│   │   │           └── calendar/
+│   │   └── package.json
+│   ├── connectors/
+│   │   ├── src/
+│   │   │   ├── crypto/
+│   │   │   ├── bank/
+│   │   │   ├── brokerage/
+│   │   │   ├── exchanges/
+│   │   │   ├── merchants/
+│   │   │   └── care-providers/
+│   │   └── package.json
+│   ├── policy/
+│   │   ├── src/
+│   │   │   ├── delegation/
+│   │   │   ├── spend-limits/
+│   │   │   ├── investment-mandate/
+│   │   │   ├── loss-limits/
+│   │   │   ├── withdrawal/
+│   │   │   ├── beneficiary-purpose/
+│   │   │   └── emergency-stop/
+│   │   └── package.json
+│   ├── evidence/
+│   │   ├── src/
+│   │   │   ├── receipts/
+│   │   │   ├── transactions/
+│   │   │   ├── outcome-ledger/
+│   │   │   └── audit-log/
+│   │   └── package.json
+│   ├── installer/
+│   │   ├── src/
+│   │   │   ├── local/
+│   │   │   ├── cloud/
+│   │   │   ├── wallet-bootstrap/
+│   │   │   ├── daemon/
+│   │   │   └── spawn/
+│   │   └── package.json
+│   ├── runtime/                             # one loop interface; execution locationは差し替え可能
+│   │   ├── src/
+│   │   │   ├── runner/
+│   │   │   ├── scheduler/
+│   │   │   ├── registry/
+│   │   │   ├── local/                      # Phase 1の実装対象
+│   │   │   └── cloud/                      # interface placeholder。方式は後で決める
+│   │   ├── tests/
+│   │   └── package.json
+│   ├── observability/                       # logs/metrics/traces redaction contract
+│   │   ├── src/
+│   │   └── package.json
+│   └── config/                              # shared eslint/typescript/test config
+│       ├── src/
+│       └── package.json
+│
+├── infra/
+│   ├── local/                               # launchd/cron/tmux/systemd adapters
+│   ├── railway/
+│   │   └── life-manager/                    # current web product only
+│   ├── supabase/
+│   │   ├── migrations/
+│   │   └── policies/
+│   ├── inngest/
+│   ├── cloud-runtime/                       # deferred ADR; provider/container未確定
+│   ├── observability/
+│   └── secrets/                             # schema/ref only。値・encrypted blobもcommit禁止
+│
+├── exports/
+│   └── profitable-claude/
+│       ├── export-manifest.yml              # canonical path allowlist
+│       ├── README.template.md
+│       └── verify-export.sh                 # release bundle secret/deny path fail-close
+│
+├── docs/
+│   ├── mission/
+│   ├── architecture/
+│   │   └── decisions/                       # ADR
+│   ├── specs/
+│   ├── financial/
+│   ├── safety/
+│   ├── runbooks/
+│   │   ├── mobile-only-development.md
+│   │   ├── local-runtime.md
+│   │   └── cloud-runtime.md
+│   └── STATUS.md
+│
+├── scripts/
+│   ├── migration/                           # one-time, digest-pinned import tools
+│   ├── dev/
+│   └── verify/
+├── tests/
+│   ├── contracts/
+│   ├── integration/
+│   └── e2e/
+├── package.json
+├── pnpm-workspace.yaml
+├── pnpm-lock.yaml
+├── turbo.json
+└── README.md
 ```
-anicca/                     ← 唯一の作業場所（phone/cloud の Claude Code は 1 session = 1 repo が公式制約）
-  apps/
-    life-manager/           ← THE product（現 anicca-products/apps/life-call + ~/Projects/life-manager を収斂。
-                               必要な API はこの app 内に持つ — 別 api app は作らない）
-  packages/
-    engine/                 ← marketing engine + earn loops（現 ~/anicca/skills/earn）= 稼ぐ臓器
-    skills/                 ← skill 群。core（wallet だけで動く）と gated/（user context 必須 = experimental）を dir で分離
-    installer/              ← one-command install + onboard + daemon 登録（§4）
-  docs/                     ← specs / STATUS（SSOT。現 anicca-project/docs を吸収）
-```
+
+### 2.1 4 repoの収斂規則
+
+| 現在のsource | 扱い | TO-BE destination |
+|---|---|---|
+| `Daisuke134/anicca` / `~/anicca` | **親repo。丸ごと他へ移さない** | root、`packages/runtime|engine|skills|connectors|installer`へ内部移動 |
+| `Daisuke134/anicca-products` / `~/anicca-project` | production Life Managerの実装・test・必要specだけを履歴付きで一度import。他のapp/iOS/mediaは除外 | `apps/life-manager`、`docs/specs`、必要なshared package |
+| `Daisuke134/life-manager` / `~/Projects/life-manager` | 35 tracked fileの旧実装。productionより優先しない。unique contract/testだけを差分reviewしてimport | `apps/life-manager`内へ選択的収斂後archive |
+| `Daisuke134/profitable-claude` / `~/profitable-claude` | private履歴は持ち込まず、frozen current treeのloop/validator/testだけをsanitized snapshot import | `packages/runtime|engine|skills|evidence`。旧remoteはprivate audit archive |
+
+同名fileの勝者はmtimeやrepo名で決めない。**現在のproduction behavior + test + deployment hash**を親とし、古いrepoはmissing behaviorを
+補う入力にだけ使う。submodule、永続subtree、双方向sync、同じsourceの`mirrors/`複製は禁止する。one-time import後の編集場所は
+`Daisuke134/anicca`だけである。
+
+### 2.2 repoへ入らないstate
+
+`~/.openclaw`、`~/.anicca`、Keychain、wallet key、OAuth token、browser profile、cookie、DB dump、logs、JSONL runtime ledger、rendered media、
+`node_modules`、build cache、worktree、backupは統合対象外である。local runtime stateは`~/.anicca`、multi-tenant stateはSupabase/object storage、
+secret値はprovider secret storeに置き、repoにはschema・opaque ref・migration・redacted evidenceだけを置く。
 
 **持ち込まないもの（2026-07-20 Dais 決定）**: aniccaios（使っていない旧 iOS app — 持ち込まず anicca-products ごと archive）、
 anicca-products の life-manager 以外の全 app。運ぶのは life-manager と engine/skills だけ。軽く始める。
 
 根拠（引用）:
-- monorepo.tools: polyrepo の対価は「チーム自治」— 1人開発では無価値。「Atomic commits across projects」が monorepo 筆頭利点。
-- Claude Code 公式: 「`--cloud` works with a single repository at a time.」→ phone 開発で repo が割れてると atomic 変更が物理不可。
-- 実例: n8n / Plausible = 単一 public monorepo で cloud 版も同 repo。product 単位では全員 monorepo（gh 実測）。
+- Turborepo, Structuring a repository: https://turborepo.com/docs/crafting-your-repository/structuring-a-repository —
+  “every directory with a `package.json` in the `apps` or `packages` directories will be considered a package” および
+  “does not support nested packages like `apps/**` or `packages/**`”。よってworkspaceは直下だけ、深いtreeはmoduleとする。
+- pnpm, Workspace: https://pnpm.io/workspaces — “You can create a workspace to unite multiple projects inside a single repository.”
+  rootの`pnpm-workspace.yaml`を必須にする。
+- GitHub Docs, About Git subtree merges: https://docs.github.com/en/get-started/using-git/about-git-subtree-merges —
+  “The ‘subrepository’ is stored in a folder of the main repository.” 履歴付きone-time importの根拠として使い、継続subrepo関係は残さない。
 
-OSS 境界は「repo を分ける」でなく **splitsh-lite / CI mirror で read-only public repo を自動生成**（Laravel/Symfony が10年運用。
-`illuminate/support` は「[READ ONLY] Subtree split of …」）。profitable-claude は `packages/engine + installer` の mirror になる。
+OSS 配布は`exports/profitable-claude/export-manifest.yml`のallowlistからCIがrelease bundleを生成する。別のsource copy/working repoは置かない。
+bundleはpackagingでありsecurity境界ではない。canonical/bundleの両方でsecret・private stateは0、core skill + installerを既定とし、
+deny pathまたはsecret findingが1件でもあればfail-closeする。
 
-旧 repo の終着: anicca-products → 吸収後 archive+README redirect ／ anicca(現OSS) → engine を monorepo へ、repo は mirror 先に転用可 ／
-life-manager(local) → 既存 spec 通り収斂 ／ **~/.openclaw = project ではなく私的 infra**（cron/秘匿 state。repo 統合の対象外、徐々に縮小）。
+旧 repo の終着: anicca-products → 吸収後archive+README redirect ／ profitable-claude → private read-only audit archive ／
+life-manager → archive+README redirect ／ **aniccaはarchiveしない。唯一のwrite正本になる**。
 
 ## 3. 決定: レーンは1つ（2026-07-20 Dais 是正 — 旧「2レーン表」は誤りだったので消して書き直し）
 
@@ -170,12 +434,12 @@ life-manager(local) → 既存 spec 通り収斂 ／ **~/.openclaw = project で
 
 | tier | 人間から要るもの | skill 実例 | 置き場所 |
 |---|---|---|---|
-| **CORE** | **何も要らない**（wallet が identity、human loop ゼロ、human credential ゼロ） | clip/IG marketing（account は agent 自作）、SOL/HL/PM trade、x402 稼ぎ | `packages/skills/core/` — anicca が磨いてきた本体。OSS の顔 |
-| **GATED (bootstrap)** | **起動時に human credential 1回**（以後 human loop 無し） | capafy（Dais の銀行口座で payout）、gig work（KYC）、Postiz 型 SaaS 全般 | `packages/skills/gated/` — experimental。credential を与えられた AI だけが使う |
-| **GATED (delegation)** | **user の生活 context の委任**（calendar/mail/telegram/口座） | Life Manager 系 skill、LIFE-AUTO | 同じく `gated/`。委任された AI だけが使う |
+| **CORE** | **何も要らない**（wallet が identity、human loop ゼロ、human credential ゼロ） | clip/IG marketing（account は agent 自作）、SOL/HL/PM trade、x402 稼ぎ | `packages/skills/src/core/` — anicca が磨いてきた本体。OSS の顔 |
+| **GATED (bootstrap)** | **起動時に human credential 1回**（以後 human loop 無し） | capafy（Dais の銀行口座で payout）、gig work（KYC）、Postiz 型 SaaS 全般 | `packages/skills/src/gated/bootstrap/` — credentialを与えられたAIだけが使う |
+| **GATED (delegation)** | **user の生活 context の委任**（calendar/mail/telegram/口座） | Life Manager 系 skill、LIFE-AUTO | `packages/skills/src/gated/delegation/` — user grantにbindする |
 
 - **profitable-claude の中身は実はほぼ GATED**（capafy=口座、gig=KYC）— OSS の看板にするのは CORE 群。
-  mirror（§4）の既定公開範囲 = core + installer。gated は「experimental」と明示して公開可否を P3 で個別判断。
+  release bundle（§4）の既定公開範囲 = core + installer。gated は「experimental」と明示して公開可否を P3 で個別判断。
 - 走行中の capafy loop は GATED の実験としてそのまま続行（14日 verify の価値は変わらない — engine 自体は CORE と共通）。
 
 ## 4. OSS one-command（P3 の設計。研究済み blueprint）
@@ -188,24 +452,24 @@ life-manager(local) → 既存 spec 通り収斂 ／ **~/.openclaw = project で
 5. 既定 = **dry-run + spend-cap**（wallet 残高がハードストップ）。live 化はフラグ1個。README は freqtrade 型 disclaimer（結果無保証・失っていい金だけ）
 
 **公開の順序（正直な条件）**: 公開ボタンは §12.6 full-verify（14日人手ゼロ実測）が通った loop だけ。
-証明前に配るのは信用の前借り。今すぐやれるのは mirror 骨組み + installer 実装まで（公開はしない）。
+証明前に配るのは信用の前借り。今すぐやれるのはrelease bundle骨組み + installer実装まで（公開はしない）。
 
 ## 5. 優先順位（brick by brick。1 session = 1 brick）
 
 | P | brick | 中身 | 着手 |
 |---|---|---|---|
 | P0 | **loop 検証**（走行中） | capafy/clip 14日 full-verify（capafy spec §12.6）。手を出さず loop に回させ、event 時のみ介入 | 今〜08-02 |
-| P1 | **Life Manager web app** | 次セッションから唯一の実装対象。新 monorepo `anicca` を作り life-manager をそこで開発（= 統合作業を別 project 化しない）。LIFE-AUTO（mail/telegram 仕分け）もこの中の機能 | 次セッション |
+| P1 | **Life Manager web app** | 既存 `Daisuke134/anicca` をmonorepo化し、life-managerをそこで開発する（= 統合作業を別project化しない）。LIFE-AUTO（mail/telegram仕分け）もこの中の機能 | `2026-07-22-anicca-one-repo-migration-execution-spec.md` |
 | P2 | **臓器接続** | engine/loops を packages/ へ移し Life Manager の financial organ として配線（§3 PRODUCT lane） | P1 の中盤 |
-| P3 | **OSS 公開** | installer + mirror 生成 → 14日 verify 通過後に profitable-claude 公開 | 08-02 以降 |
+| P3 | **OSS 公開** | installer + release bundle生成 → 14日verify通過後にprofitable-claude bundle公開 | 08-02 以降 |
 
 ## 6. 棄却案と最強の反論・自分が間違うなら
 
 - **現状維持（repo 分散）**: 最強論拠 = 移行コスト・稼働 loop を触る危険。棄却理由 = phone 開発の 1-repo 制約(一次ソース)と注意分散が致命。
-- **OSS を手動別 repo 維持（旧 #12 案）**: 棄却 = drift の温床（mirror 自動生成が実証済み標準）。
+- **OSS を手動別 repo 維持（旧 #12 案）**: 棄却 = drift の温床。canonicalからartifactを自動生成する。
 - **repo 名 = life-manager**: 棄却 = AI 経済自立（mission の半分）が product 名の下で居場所を失う。
-- **俺が間違うとしたら最有力**: 「full-public monorepo」。IG 自動化 recipe は公開すると platform 対策で腐る/ToS グレー。
-  mitigation: mirror の filter で公開粒度を制御（recipe 詳細 dir を mirror から除外する選択肢を P3 で判断）。
+- **public canonicalの代償**: private repoの過去履歴をそのままimportできない。mitigationはfrozen current treeだけをsanitized snapshotとして
+  provenance commit/digest付きでimportし、旧private repoをread-only audit archiveとして保持する。secret/stateはpublic/privateに関係なくrepoへ入れない。
 
 ## 7. best / base / worst
 
@@ -241,7 +505,7 @@ life-manager(local) → 既存 spec 通り収斂 ／ **~/.openclaw = project で
 - **決定: slideshow 廃止 → video 毎日1本**（slideshow は promote しない、と Dais 実感。video の方が伝わる。
   money-printer-turbo 型の video 生成 loop を流用）。
 - 配信: **IG = 既存 claude-p file/script 経路**（ig 専用のまま）／ **TikTok = まず Postiz、channel id `cmp9txjdp01c8oh0yb6dhlarr`**。TikTok の自前 script が実URL+2日連続で同等以上を証明した時だけ Postiz から自前scriptへ切替え、定常配信コストを $0 にする。
-- **全 marketing loop 共通の self-improve 契約を copy+adapt**: 毎 pass で ①外部 best practice/trend 検索 ②自分の views/watch-time/completion/click/signup を決定論的に取得 ③勝ち型/負け型を lessons + creative ledger に記帳 ④次videoの hook/scene/punchline を変更 ⑤fresh evaluator gate を通す。runtime library を別repoから共有せず、`profitable-claude` 内で self-contained にする。
+- **全 marketing loop 共通の self-improve 契約を copy+adapt**: 毎 pass で ①外部 best practice/trend 検索 ②自分の views/watch-time/completion/click/signup を決定論的に取得 ③勝ち型/負け型を lessons + creative ledger に記帳 ④次videoの hook/scene/punchline を変更 ⑤fresh evaluator gate を通す。runtime library はcanonical `packages/runtime`だけを使い、別repo copyを持たない。
 - runtime: launchd の1 passは fresh/ephemeral agent context。長寿命tmux会話を継続しない。primary model = `gpt-5.6-luna`、`gpt-5.6-sol` は実装・難しい自己修理時のfallback。model/timeout/exit code/token cost を ledger に記録し、内部失敗を `exit 0` に変換しない。
 - self-improve: 伸びた動画の型を学習して次の生成に反映。launchd 常設・毎日・人手ゼロ。生成・投稿・計測・改善のどれかが欠けた pass は streak に数えない。
 - done = 7日連続、毎日1本、人手ゼロで IG+TT に実投稿（投稿 URL で実測）。
@@ -444,7 +708,11 @@ aniccaios の affirmation の進化形。full schedule を知っているから�
 
 - 変更手順: この表を編集 → 実装は i18n string としてこの表から生成（コードに直書きしない）。EN 版は同構造で別表（P1中に作成）。
 
-## 10. 残 TODO 表（唯一の live 状態。上から順に実行）
+## 10. Life Manager product TODO表（product scopeの正本。one-repo cutoverまで新規実装はpause）
+
+現在のprogram実行順SSOTは`2026-07-22-anicca-one-repo-migration-execution-spec.md`である。本表は既存product workのstateと
+cutover後の再開順を保持するが、one-repo migration completionより先に進めない。production障害への最小修復だけを例外とし、その差分は
+one-repo TODO #49で必ず再importする。
 
 | 順 | ID | 内容 | done 条件 | 状態 |
 |---|---|---|---|---|
@@ -493,7 +761,7 @@ aniccaios の affirmation の進化形。full schedule を知っているから�
 
 - **実装方式 = flowb: Fable = vision整理・spec・発注書・read-only調査/裁定・final checkのみ。Sol(`codex exec -m gpt-5.6-sol`) = build・execute・verify・specの実測値更新・対象限定commit/push全部。Fable main contextで実装しない。**
 - search、artifact-only review、複数surfaceの独立調査はsubagentへ分離してよい。builderはfresh Sol instanceにし、Fableのcontextを実装ログで圧迫しない。
-- **実行phase = ①CORE 8d-h → ②MARKETING 9b-e → ③one-time X launch 9f → ④DEV 10a-f → ⑤BRAIN 10g-i → ⑥BODY 11a-d → ⑦MIND 12a-c → ⑧FINANCE 13a-d**。前phaseのL3が無い状態で次phaseをprodへmergeしない。
+- **one-repo cutover後のproduct再開順 = ①CORE 8d-h → ②MARKETING 9b-e → ③one-time X launch 9f → ④DEV 10a-f → ⑤BRAIN 10g-i → ⑥BODY 11a-d → ⑦MIND 12a-c → ⑧FINANCE 13a-d**。前phaseのL3が無い状態で次phaseをprodへmergeしない。
 - 初期buildのFable final checkが終わった後、marketing/dev/organ定常loopにFable/Daisを入れない。loop自身が日次実行・self-heal・self-improve・報告を行う。
 - **★NO-STALL 規約★**: 前回の停滞真因 = E2E が「Dais が call に出る」依存で、そこで全体を止めて Dais を呼び続けた。是正3行:
   1. **Dais 依存は1窓に束ねる**: Dais にやってもらうのは「①T-5 call に1回出る(約1分) ②その後10分放置 ③（必要なら）Gmail scope の OAuth 1クリック」だけ。事前に TG で時刻を1回通知し、その窓以外で Dais を呼ばない。
@@ -567,6 +835,6 @@ aniccaios の affirmation の進化形。full schedule を知っているから�
 
 ## 8. 次セッションへの引き継ぎ（実装はそこから）
 
-1. 新 monorepo `anicca` を GitHub に作成（Turborepo scaffold）→ life-manager 収斂 spec に従い web app を移す
-2. このファイルと capafy spec §12.6 を読み、P1 を開始。P0 の event（07-21 day3）は既存セッション/loop が処理
-3. TaskList: #12(OSS) は P3 に吸収、#41(LIFE-AUTO) は P1 内機能として再定義済
+1. `2026-07-22-anicca-one-repo-migration-execution-spec.md`のAtomic TODOを上から実行する
+2. destinationは既存`Daisuke134/anicca`。新repo、submodule、双方向sync、source複製を作らない
+3. cloud migrationの74 TODOは同migration specを正本とし、one-repo TODOへ複製しない
