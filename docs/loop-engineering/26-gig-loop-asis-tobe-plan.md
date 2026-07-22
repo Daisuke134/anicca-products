@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / Gmail push trigger GREEN / Telegram durable reporting next`
+- 状態: `PLANNER_INTEGRATION / Gmail push trigger GREEN / Telegram outbox RED verified`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
@@ -207,6 +207,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - 5-minute detector GREEN: integration commit `8c84e35`をpushする。bounded collector→typed queue/outbox→fenced laneだけを実行するdetector、`flock`同時発火抑止、0600結果、collector fail-closed、Homebrew Python固定の300秒LaunchAgentを実装する。Python 3 tests、gig+runner全153 tests + 61 subtests、shell 13 suitesとplist lintがPASSする。plist deploy/live fireはcutover gateまで未実施。
 - Gmail push trigger RED: integration test commit `58dc80f`をpushする。実測送信元`mail.coconala.com`をexact matchし、購入前DMはmodel-free detector、購入/差し戻し/購入後トークルーム/見積相談はfull passへpriority route、無関係/偽装mailは0起動、Bearer fail-closed、payload本文をcommandへ渡さない契約を追加する。receiver/watch未実装のためPython 4 testsとshell 1 suiteが期待どおりFAILする。
 - Gmail push trigger GREEN: integration commit `759c026`をpushする。localhost-only authenticated receiver、metadata-only exact-domain/subject routing、payload非転送、persistent receiver/Gmail watch LaunchAgentsを実装する。Python 4 tests + 7 subtests、gig+runner全157 tests + 68 subtests、shell 14 suitesがPASSし、local HTTP 401/202を実測する。Gmail Pub/Sub setupとLaunchAgent deployはcutover gateまで未実施。
+- Telegram outbox RED: integration test commit `cd93cb8`をpushする。idempotent enqueue、provider call 1回、message ID ACK、transport failure/ACK lossの`delivery_unknown`、`send_started` crashのunknown隔離とnon-retryを要求する。module未実装のため対象4 testsが期待どおりFAILする。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
