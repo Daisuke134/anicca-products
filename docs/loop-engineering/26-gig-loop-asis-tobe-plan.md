@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / connector outbox GREEN / collector contract RED pending`
+- 状態: `PLANNER_INTEGRATION / connector outbox GREEN / collector manifest RED verified`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
@@ -167,6 +167,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - Planner最新実測: integration commit `profitable-claude b5b0bec`をpushする。merge前baselineは59 tests + 23 subtests、merge後は75 tests + 23 subtestsがPASSし、既存`test_gig_inquiry_evidence.sh`もPASSする。
 - connector outbox RED: integration commit `4611813`をpushする。`test_connector_outbox.py`は38 testsすべてが必須`config/connectors/coconala.json`欠落でFAILし、manifest無しで動かないfail-closedを確認する。次はDais確認済みmanifestを移植して同38 testsをGREENにする。
 - connector outbox GREEN: integration commit `59d853c`をpushする。manifest追加後はoutbox 38 tests + 11 subtests PASS、全gig Python回帰113 tests + 34 subtests PASS。runtime senderへの配線は未実施。
+- collector RED: integration test commit `ec92fc7`をpushする。canonical collectorに`load_connector_manifest()`が無いため1 testが`AttributeError`でFAILし、現`MESSAGES_URL=/mypage/messages`もmanifestの`/message`契約と不一致である。次はpaid collector behaviorを保持してmanifest/page identityを移植する。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
