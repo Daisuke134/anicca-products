@@ -414,11 +414,13 @@ function renderPanelPage(options = {}) {
     .control-card h3, .control-card p { margin: 0; }
     .control-state { color: var(--ink-soft); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
     .control-reason { color: var(--ink-soft); font-size: .78rem; line-height: 1.6; }
-    .control-action, .setting-switch { min-height: 44px; border: 1px solid var(--ink); border-radius: 0; padding: 8px 12px; background: var(--ink); color: var(--paper-bright); font: inherit; font-weight: 700; cursor: pointer; }
-    .control-action:disabled, .setting-switch:disabled { cursor: wait; opacity: .55; }
-    .control-action:focus-visible, .setting-switch:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+    .control-action, .setting-switch, .setting-select select { min-height: 44px; border: 1px solid var(--ink); border-radius: 0; padding: 8px 12px; background: var(--ink); color: var(--paper-bright); font: inherit; font-weight: 700; cursor: pointer; }
+    .control-action:disabled, .setting-switch:disabled, .setting-select select:disabled { cursor: wait; opacity: .55; }
+    .control-action:focus-visible, .setting-switch:focus-visible, .setting-select select:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
     .settings-controls { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 18px; }
     .setting-switch[aria-checked="true"] { background: var(--success); }
+    .setting-select { display: grid; gap: 6px; color: var(--ink-soft); font-size: .68rem; font-weight: 800; letter-spacing: .08em; }
+    .setting-select select { width: 100%; min-width: 0; letter-spacing: 0; }
     .action-status { min-height: 1.5rem; margin: 14px 0 0; color: var(--ink-soft); font-size: .78rem; }
 
     @keyframes reveal {
@@ -684,6 +686,15 @@ function renderPanelPage(options = {}) {
       return '<button class="setting-switch" type="button" role="switch" aria-checked="' + String(Boolean(enabled)) + '" data-action="' + action + '">' + escapeHtml(label) + ': ' + (enabled ? "ON" : "OFF") + '</button>';
     }
 
+    function settingSelect(attributes, label, current, options) {
+      const hasCurrent = options.some(function (option) { return option.value === current; });
+      const placeholder = hasCurrent ? "" : '<option value="" selected disabled>Not configured</option>';
+      const choices = options.map(function (option) {
+        return '<option value="' + escapeHtml(option.value) + '"' + (option.value === current ? " selected" : "") + '>' + escapeHtml(option.label) + '</option>';
+      }).join("");
+      return '<label class="setting-select"><span>' + escapeHtml(label) + '</span><select ' + attributes + ' aria-label="' + escapeHtml(label) + '">' + placeholder + choices + '</select></label>';
+    }
+
     function renderControlCenter(data) {
       controlCsrf = data.csrf || "";
       const connections = data.connections || {};
@@ -698,9 +709,9 @@ function renderPanelPage(options = {}) {
         switchButton("toggle-notifications", "Notifications", settings.notifications_enabled),
         switchButton("toggle-daily", "DAILY automation", settings.daily_automation_enabled),
         '<p class="control-unavailable" role="status">Delegation unavailable: no safe delegated-action runtime is available.</p>',
-        '<button class="setting-switch" type="button" data-setting="call_language" data-action="call_language">Call language</button>',
-        '<button class="setting-switch" type="button" data-setting="call_time_zone" data-action="call_time_zone">Call timezone</button>',
-        '<button class="setting-switch" type="button" data-setting="wake_policy" data-action="wake_policy">Wake policy</button>',
+        settingSelect('data-setting="call_language" data-action="call_language"', "Call language", settings.call_language, [{ value: "en", label: "English" }, { value: "ja", label: "日本語" }]),
+        settingSelect('data-setting="call_time_zone" data-action="call_time_zone"', "Call timezone", settings.call_time_zone, [{ value: "Asia/Tokyo", label: "Asia/Tokyo" }, { value: "UTC", label: "UTC" }, { value: "Europe/London", label: "Europe/London" }, { value: "America/New_York", label: "America/New_York" }, { value: "America/Los_Angeles", label: "America/Los_Angeles" }]),
+        settingSelect('data-setting="wake_policy" data-action="wake_policy"', "Wake policy", settings.wake_policy, [{ value: "travel-only", label: "Travel events only" }, { value: "all-events", label: "All events" }]),
       ].join("");
       return '<p><strong>' + escapeHtml((data.identity || {}).name || "Life Manager user") + '</strong></p><div class="control-grid" id="connection-cards">' + cards + '</div><div class="settings-controls" id="settings-controls">' + switches + '</div><p class="action-status" id="action-status" aria-live="polite"></p>';
     }
@@ -725,9 +736,9 @@ function renderPanelPage(options = {}) {
         case "toggle-notifications": return { type: "setting.set", setting: "notifications_enabled", value: button.getAttribute("aria-checked") !== "true" };
         case "toggle-daily": return { type: "setting.set", setting: "daily_automation_enabled", value: button.getAttribute("aria-checked") !== "true" };
         case "toggle-delegation": return { type: "setting.set", setting: "delegation_enabled", value: button.getAttribute("aria-checked") !== "true" };
-        case "call_language": return { type: "setting.set", setting: "call_language", value: button.dataset.value || "ja" };
-        case "call_time_zone": return { type: "setting.set", setting: "call_time_zone", value: button.dataset.value || "Asia/Tokyo" };
-        case "wake_policy": return { type: "setting.set", setting: "wake_policy", value: button.dataset.value || "all-events" };
+        case "call_language": return { type: "setting.set", setting: "call_language", value: button.value };
+        case "call_time_zone": return { type: "setting.set", setting: "call_time_zone", value: button.value };
+        case "wake_policy": return { type: "setting.set", setting: "wake_policy", value: button.value };
         case "instructions-location": window.location.href = "https://t.me/LifeManagerBotbot?start=location"; return null;
         case "instructions-wallet": window.location.href = "https://t.me/LifeManagerBotbot?start=payout"; return null;
         case "instructions-call": window.location.href = "https://t.me/LifeManagerBotbot?start=call"; return null;
@@ -762,7 +773,10 @@ function renderPanelPage(options = {}) {
     });
     const logout = document.querySelector('form[action="/panel/logout"]');
     if (logout) logout.addEventListener("submit", function (event) { event.preventDefault(); fetch("/panel/logout", { method: "POST", credentials: "same-origin", headers: { "x-lm-csrf": controlCsrf || "${String(options.csrf || "")}" } }).then(function () { window.location.href = "/panel"; }); });
-    document.addEventListener("change", function () {});
+    document.addEventListener("change", function (event) {
+      const select = event.target.closest('select[data-action]');
+      if (select) runControlAction(select);
+    });
 
     Promise.allSettled(Object.keys(panelEndpoints).map(function (name) {
       return loadPanelSection(name).catch(function (error) {

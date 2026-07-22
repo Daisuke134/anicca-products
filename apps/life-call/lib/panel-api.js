@@ -1,7 +1,7 @@
 // LM-33b: authenticated, read-only JSON model for the Life Manager panel.
 "use strict";
 
-const { cookieValue, csrfToken, panelSessionCookie, sessionScope, sessionUid } = require("./panel-auth.js");
+const { cookieValue, csrfToken, panelScopeCookie, sessionScope, sessionUid } = require("./panel-auth.js");
 const { buildControlCenter, claimCalendarOAuthState, executeUserCommand, validateCommand } = require("./user-command.js");
 const { interpretCalendarEvent } = require("./calendar-interpreter.js");
 const { getCalendar } = require("./transport/index.js");
@@ -318,7 +318,8 @@ async function handlePanelOAuthCallback(req, res, opts = {}) {
   const session = cookieValue(req.headers.cookie, "__Host-lm_panel_session") || cookieValue(req.headers.cookie, "lm_panel_session");
   const scope = await (opts.sessionScopeImpl || sessionScope)(session, opts);
   if (!scope) { res.writeHead(401, { "content-type": "text/plain", "cache-control": "no-store" }); res.end("unauthorized"); return; }
-  if (scope.replacement && typeof res.setHeader === "function") res.setHeader("Set-Cookie", panelSessionCookie(scope.replacement));
+  const renewedCookie = panelScopeCookie(scope);
+  if (renewedCookie && typeof res.setHeader === "function") res.setHeader("Set-Cookie", renewedCookie);
   const state = new URL(req.url || "/", "http://panel.local").searchParams.get("state");
   const store = opts.commandStore || createSupabaseCommandStore(opts);
   if (store.assertCurrentScope && !await store.assertCurrentScope(scope)) { res.writeHead(401, { "content-type": "text/plain", "cache-control": "no-store" }); res.end("unauthorized"); return; }
@@ -429,7 +430,8 @@ async function handlePanelApiRequest(req, res, opts = {}) {
     sendJson(res, 401, { error: "unauthorized" });
     return;
   }
-  if (scope.replacement && typeof res.setHeader === "function") res.setHeader("Set-Cookie", panelSessionCookie(scope.replacement));
+  const renewedCookie = panelScopeCookie(scope);
+  if (renewedCookie && typeof res.setHeader === "function") res.setHeader("Set-Cookie", renewedCookie);
   const commandStore = opts.commandStore || createSupabaseCommandStore(opts);
   if (!opts.sessionScopeImpl && !await commandStore.assertCurrentScope(scope)) {
     sendJson(res, 401, { error: "unauthorized" });

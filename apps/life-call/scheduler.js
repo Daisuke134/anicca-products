@@ -65,7 +65,9 @@ async function supaUsers() {
   const ids = users.map(u => u.uid).filter(Boolean).join(",");
   const prefsResponse = await fetch(`${url}/rest/v1/lm_panel_preferences?uid=in.(${encodeURIComponent(ids)})&select=uid,call_enabled,notifications_enabled,daily_automation_enabled`, { headers: hdr });
   if (!prefsResponse.ok) return users.map(u => ({ ...u, call_enabled: false, notifications_enabled: false, daily_automation_enabled: false }));
-  const byUid = new Map((await prefsResponse.json().catch(() => [])).map(row => [row.uid, row]));
+  const preferenceRows = await prefsResponse.json().catch(() => null);
+  if (!Array.isArray(preferenceRows)) return users.map(u => ({ ...u, call_enabled: false, notifications_enabled: false, daily_automation_enabled: false }));
+  const byUid = new Map(preferenceRows.map(row => [row.uid, row]));
   return users.map(u => ({ ...RUNTIME_DEFAULTS, ...u, ...(byUid.get(u.uid) || {}) }));
 }
 

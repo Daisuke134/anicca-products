@@ -8,7 +8,6 @@ const PANEL_TOKEN_TTL_MS = 5 * 60 * 1000;
 const PANEL_SESSION_TTL_MS = 24 * 60 * 60 * 1000;
 const PANEL_SESSION_ROTATE_MS = 12 * 60 * 60 * 1000;
 const PANEL_SESSION_IDLE_MS = 30 * 24 * 60 * 60 * 1000;
-const PANEL_SESSION_ABSOLUTE_MS = 180 * 24 * 60 * 60 * 1000;
 const PANEL_COOKIE = "__Host-lm_panel_session";
 const OPAQUE_TOKEN_RE = /^[A-Za-z0-9_-]{43}$/;
 
@@ -85,7 +84,7 @@ async function createPanelSession({ uid, chatId }, opts = {}) {
       chat_id: String(chatId),
       expires_at: new Date(now.getTime() + PANEL_SESSION_IDLE_MS).toISOString(),
       idle_expires_at: new Date(now.getTime() + PANEL_SESSION_IDLE_MS).toISOString(),
-      absolute_expires_at: new Date(now.getTime() + PANEL_SESSION_ABSOLUTE_MS).toISOString(),
+      absolute_expires_at: null,
     }),
   });
   if (!response.ok) throw new Error(`panel session insert failed (${response.status})`);
@@ -111,11 +110,37 @@ async function panelRpc(name, body, opts) {
 async function resolvePanelSession(session, opts = {}) {
   if (!OPAQUE_TOKEN_RE.test(String(session || ""))) return null;
   const randomBytes = opts.randomBytes || crypto.randomBytes;
-  const child = randomBytes(32).toString("base64url");
-  const rows = await panelRpc("resolve_lm_panel_session", { p_session_hash: sha256(session), p_child_hash: sha256(child) }, opts);
+  const candidateSeed = sha256(randomBytes(32).toString("base64url"));
+  const rotationSecret = String(opts.sessionRotationSecret || process.env.LM_PANEL_SESSION_ROTATION_SECRET || opts.supaKey || "");
+  if (!rotationSecret) return null;
+  const deriveChild = (seed) => crypto.createHmac("sha256", rotationSecret).update(`lm-panel-session:v1:${session}:${seed}`).digest("base64url");
+  const child = deriveChild(candidateSeed);
+  const rows = await panelRpc("resolve_lm_panel_session", { p_session_hash: sha256(session), p_child_hash: sha256(child), p_child_seed: candidateSeed }, opts);
   const row = Array.isArray(rows) ? rows[0] : rows;
   if (!row || !row.uid || !row.chat_id) return null;
-  return { uid: String(row.uid), chatId: String(row.chat_id), replacement: row.rotated ? child : null, csrf: csrfToken(row.rotated ? child : session) };
+  let replacement = null;
+  if (row.rotated) {
+    if (row.accepted_child_seed) {
+      replacement = deriveChild(String(row.accepted_child_seed));
+      if (row.accepted_child_hash && sha256(replacement) !== row.accepted_child_hash) return null;
+    } else {
+      replacement = child;
+    }
+  }
+  const csrf = row.family_id ? sha256(`${row.family_id}:panel-family-csrf`) : csrfToken(replacement || session);
+  const scope = { uid: String(row.uid), chatId: String(row.chat_id), replacement, csrf };
+  const cookieMaxAge = Number(row.cookie_max_age);
+  if (Number.isInteger(cookieMaxAge) && cookieMaxAge > 0) {
+    scope.cookieValue = replacement || session;
+    scope.cookieMaxAge = cookieMaxAge;
+  }
+  return scope;
+}
+
+function panelScopeCookie(scope) {
+  if (!scope) return "";
+  if (scope.cookieValue && scope.cookieMaxAge) return panelSessionCookie(scope.cookieValue, scope.cookieMaxAge);
+  return scope.replacement ? panelSessionCookie(scope.replacement) : "";
 }
 
 async function revokePanelSession(session, opts = {}) {
@@ -184,7 +209,7 @@ async function handlePanelRequest(req, res, opts = {}) {
       "content-type": "text/html; charset=utf-8",
       "cache-control": "no-store",
       "x-content-type-options": "nosniff",
-      ...(scope.replacement ? { "Set-Cookie": panelSessionCookie(scope.replacement) } : {}),
+      ...(panelScopeCookie(scope) ? { "Set-Cookie": panelScopeCookie(scope) } : {}),
     });
     res.end(renderPanelPage({ csrf: scope.csrf }));
     return;
@@ -216,13 +241,13 @@ module.exports = {
   PANEL_SESSION_TTL_MS,
   PANEL_SESSION_ROTATE_MS,
   PANEL_SESSION_IDLE_MS,
-  PANEL_SESSION_ABSOLUTE_MS,
   sha256,
   createPanelToken,
   sendPanelLink,
   claimPanelToken,
   createPanelSession,
   panelSessionCookie,
+  panelScopeCookie,
   clearPanelCookies,
   resolvePanelSession,
   revokePanelSession,

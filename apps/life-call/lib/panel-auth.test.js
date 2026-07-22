@@ -103,7 +103,7 @@ test("LM-33a: a valid one-time token is burned and exchanged for a separate roll
     chat_id: "123",
     expires_at: "2026-08-20T00:00:00.000Z",
     idle_expires_at: "2026-08-20T00:00:00.000Z",
-    absolute_expires_at: "2027-01-17T00:00:00.000Z",
+    absolute_expires_at: null,
   });
   assert.doesNotMatch(calls[1].init.body, new RegExp(sessionBytes.toString("base64url")));
 });

@@ -50,23 +50,21 @@ function sessionRpcMachine() {
       const row = current.get(body.p_session_hash);
       if (!row) return jsonResponse([]);
       if (row.revoked && row.pending) {
-        current.delete(row.pending);
-        const child = { ...row, hash: body.p_child_hash, revoked: false, pending: null };
-        current.set(body.p_child_hash, child); row.pending = body.p_child_hash;
-        return jsonResponse([{ uid: row.uid, chat_id: row.chatId, rotated: true }]);
+        return jsonResponse([{ uid: row.uid, chat_id: row.chatId, family_id: row.family, rotated: true, accepted_child_hash: row.pending, accepted_child_seed: row.pendingSeed, cookie_max_age: 2592000 }]);
       }
       if (row.revoked) return jsonResponse([]);
       if (body.p_child_hash) {
-        row.revoked = true; row.pending = body.p_child_hash;
+        row.revoked = true; row.pending = body.p_child_hash; row.pendingSeed = body.p_child_seed;
         const child = { ...row, hash: body.p_child_hash, revoked: false, pending: null };
         current.set(body.p_child_hash, child);
         families.get(row.family).add(body.p_child_hash);
-        return jsonResponse([{ uid: row.uid, chat_id: row.chatId, rotated: true }]);
+        return jsonResponse([{ uid: row.uid, chat_id: row.chatId, family_id: row.family, rotated: true, accepted_child_hash: body.p_child_hash, accepted_child_seed: body.p_child_seed, cookie_max_age: 2592000 }]);
       }
-      return jsonResponse([{ uid: row.uid, chat_id: row.chatId, rotated: false }]);
+      return jsonResponse([{ uid: row.uid, chat_id: row.chatId, family_id: row.family, rotated: false, cookie_max_age: 2592000 }]);
     }
     if (name === "revoke_lm_panel_session") {
-      const row = current.get(body.p_session_hash); if (row) { row.revoked = true; row.pending = null; }
+      const row = current.get(body.p_session_hash);
+      if (row) for (const candidate of current.values()) if (candidate.family === row.family) { candidate.revoked = true; candidate.pending = null; candidate.pendingSeed = null; }
       return jsonResponse(true);
     }
     if (name === "revoke_lm_panel_sessions_for_tenant") {
@@ -79,7 +77,7 @@ function sessionRpcMachine() {
 }
 
 test("B1 real /panel keeps +25h cookie usable, rotates, renders login HTML when absent, and bootstrap remains query-free", async () => {
-  const old = secret(1), replacement = secret(2), now = Date.parse("2026-07-22T01:00:00Z");
+  const old = secret(1), now = Date.parse("2026-07-22T01:00:00Z");
   const calls = [];
   await withServer((req, res) => auth.handlePanelRequest(req, res, {
     supaUrl: "https://db.example", supaKey: "service", botUsername: "LifeManagerBotbot",
@@ -94,7 +92,10 @@ test("B1 real /panel keeps +25h cookie usable, rotates, renders login HTML when 
   }), async (base) => {
     const live = await fetch(`${base}/panel`, { headers: { cookie: `lm_panel_session=${old}` }, redirect: "manual" });
     assert.equal(live.status, 200);
-    assert.match(live.headers.get("set-cookie") || "", new RegExp(replacement));
+    const setCookie = live.headers.get("set-cookie") || "";
+    const rawReplacement = setCookie.match(/__Host-lm_panel_session=([^;]+)/)?.[1] || "";
+    const rotationCall = calls.find((call) => call.url.endsWith("/rpc/resolve_lm_panel_session"));
+    assert.equal(hash(rawReplacement), JSON.parse(rotationCall.init.body).p_child_hash);
     const missing = await fetch(`${base}/panel`);
     assert.equal(missing.status, 200);
     assert.match(missing.headers.get("content-type") || "", /text\/html/);
@@ -107,24 +108,26 @@ test("B1 real /panel keeps +25h cookie usable, rotates, renders login HTML when 
 
 test("B1 resolver sends hashes only and concurrent rotation leaves at most one replacement", async () => {
   assert.equal(typeof auth.resolvePanelSession, "function");
-  const machine = sessionRpcMachine(), old = secret(3), child = secret(4); machine.seed(old, "u1", "101");
+  const machine = sessionRpcMachine(), old = secret(3), seedBytes = secret(4); machine.seed(old, "u1", "101");
   const opts = { supaUrl: "https://db.example", supaKey: "service", fetchImpl: machine.fetchImpl, randomBytes: () => Buffer.alloc(32, 4) };
   const settled = await Promise.allSettled([auth.resolvePanelSession(old, opts), auth.resolvePanelSession(old, opts)]);
   assert.equal(settled.filter((item) => item.status === "fulfilled" && item.value).length, 2);
   assert.equal([...machine.current.values()].filter((row) => row.family === hash(old) && !row.revoked).length, 1);
-  assert.deepEqual(machine.calls[0].body, { p_session_hash: hash(old), p_child_hash: hash(child) });
+  assert.equal(machine.calls[0].body.p_session_hash, hash(old));
+  assert.equal(machine.calls[0].body.p_child_seed, hash(seedBytes));
+  assert.equal(hash(settled[0].value.replacement), machine.calls[0].body.p_child_hash);
   assert.doesNotMatch(JSON.stringify(machine.calls), new RegExp(old));
 });
 
-test("B1 resolver retry promotes dropped child, old token fails, and tenant revoke isolates peers", async () => {
+test("B1 resolver retry recovers the committed child, old candidate fails, and tenant revoke isolates peers", async () => {
   assert.equal(typeof auth.resolvePanelSession, "function");
   assert.equal(typeof auth.revokePanelSessionsForTenant, "function");
   const machine = sessionRpcMachine(), old = secret(5), child = secret(6), peer = secret(7);
   machine.seed(old, "u1", "101"); machine.seed(peer, "u2", "202");
   const opts = { supaUrl: "https://db.example", supaKey: "service", fetchImpl: machine.fetchImpl, randomBytes: () => Buffer.alloc(32, 6) };
-  await auth.resolvePanelSession(old, opts); // emulate a lost HTTP response after atomic rotation
+  const first = await auth.resolvePanelSession(old, opts); // emulate a lost HTTP response after atomic rotation
   const retried = await auth.resolvePanelSession(old, { ...opts, randomBytes: () => Buffer.alloc(32, 8) });
-  const retryChild = secret(8);
+  const retryChild = first.replacement;
   assert.equal(retried.replacement, retryChild);
   assert.equal(await auth.resolvePanelSession(child, opts), null);
   assert.equal((await auth.resolvePanelSession(retryChild, { ...opts, randomBytes: () => Buffer.alloc(32, 9) })).uid, "u1");
