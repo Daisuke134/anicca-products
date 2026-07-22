@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / gig_pass outbox wiring GREEN / fenced sender next`
+- 状態: `PLANNER_INTEGRATION / gig_pass outbox wiring GREEN / direct-message evidence RED verified`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
@@ -181,6 +181,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - typed reply outbox GREEN: integration commit `4bee5fa`をpushする。platform message/fallbackのtyped event key、direct-message canonical URL、全`covered_event_keys`のSQLite enqueue、loop再実行時のevent/action dedupeを実装する。reply queue 8 tests、全120 tests + 40 subtests、inquiry evidence shellがPASSする。
 - gig_pass outbox wiring RED: integration test commit `5680578`をpushする。同じfixtureを2 pass実行してもSQLite action/event各1件である契約に対し、現`gig_pass.sh`はoutbox table自体を作らないため期待どおりFAILする。
 - gig_pass outbox wiring GREEN: integration commit `b518525`をpushする。各passで`reply_queue build -> SQLite enqueue`をdelivery queue直後に必須実行し、重複loopは同じaction/eventへ収束する。全120 Python tests + 40 subtestsと全12 shell suitesがPASSする。次は旧inline reply workerをclaim/fence/write-ahead intent/ground-truth verify workerへ置換する。
+- direct-message evidence RED: integration test commit `c6c3052`をpushする。platform ID由来typed eventの`/mypage/direct_message/{id}`でmatching seller hash/timeを与えても、旧verifierが`/talkrooms/{id}`専用のため対象1 testが期待どおりFAILする。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
