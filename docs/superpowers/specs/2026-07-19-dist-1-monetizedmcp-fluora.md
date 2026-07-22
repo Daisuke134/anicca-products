@@ -80,12 +80,21 @@ franklin の4商品(web-search/funding-rates/funding-rate-arb/research)が Fluor
 - 掲載確認は未達。両review requestはopen・comment 0、MCPay `/servers`は`Something went wrong`、Fluora registry APIは
   DNS解決不能で、検索面そのものが利用不能。3 seller walletを`verify-inflow.mjs 72`で再走査した結果は全て
   `EXTERNAL=0 / externalUsdc=0`（¥0）。自己購入・自己送金でdoneにしない。
+- Franklin1のHTTP x402発見面は再実測済み。x402scan公開server pageは4商品・正しいpayToを表示し、Agent402の
+  metadata修正PR #473はmerge済み。live `/api/route?q=research%20financial%20analysis`も
+  `GET https://franklin1.tail7a0ba4.ts.net/research`、price=`0.003`を返す。
+- 自律loopでだけ発生したx402scan再登録失敗は、runtime copyに`@x402/extensions`が無い
+  `ERR_MODULE_NOT_FOUND`が原因。既存seller bootと同じmother-repo fallbackを登録scriptへ適用した
+  Anicca main `7dcf0127`をruntimeへ配布。x402-sell全test 116/116 PASS、runtime実行は
+  `reregistered:true`の後に冪等な`reregistered:false`を返す。168h on-chain再走査は
+  self-pay 7件/$0.043、`EXTERNAL=0 / externalUsdc=0`であり、外部購入のdone条件は未達。
 
 ## 残作業（DIST-1 内、順）
 1. ✅ 3店舗を有効Funnel portのpath mountで公開し、各URLを公式MCP clientのfresh 2 sessionで実測
 2. ✅ mcp-server の launchd 化 + franklin2/claude-p展開（非差別、3/3 running）
 3. ✅ Fluora/MCPay の実 submitフロー調査 → 公式GitHubへreview request提出（issue #3 / #49）
-4. ⏳ marketplace で検索可能 + 外部 buyer 実購入 on-chain（現在は運営API/review待ち、3店とも72h `EXTERNAL=0`）
+4. ⏳ Fluora/MCPayで検索可能 + 外部 buyer実購入 on-chain（review/API復旧待ち。HTTP x402側は
+   x402scan/Agent402で発見可能だが、Franklin1の168h `EXTERNAL=0`）
 
 ## リスク
 - registry運営のAPI復旧・review承認は外部状態。issueを監視し、掲載後にmarketplace検索を実測する。

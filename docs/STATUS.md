@@ -1,6 +1,6 @@
 # Anicca x402 稼ぎ — 現状（正本ファイル。memory でなくコレを読む）
 
-更新: 2026-07-17。数値は on-chain 実測。盛らない。$0 は $0。
+更新: 現在。数値は on-chain 実測。盛らない。$0 は $0。
 
 ## ★★FOCUS = x402 だけ（Dais 2026-07-18 夜、厳命）★★
 
@@ -33,12 +33,26 @@ x402 ゼロ→イチの唯一の道（順序固定）:
 | X1 | 転売を動かす（鍵配線） | ✅ DONE | on-chain: franklin1→Exa $0.007 送金 + margin 残 |
 | X2 | 4商品に集中 | ✅ DONE | 実店: well-known=4/calc→404/core→402、x402scan registered:4 |
 | X2-LOOP | 自己改善ループ全4 slice | ✅ DONE | scout→gaps→bandit→improve、franklin1 で {action:improve} 実行、114/114テスト |
-| X3 | 掲載補助 | ⬜ 主は Bazaar 自動、残薄 | — |
-| X4 | 外部1ドル | ⬜ **$0のまま**・最優先ゲート | inflow-watch 監視中 |
+| X3 | 掲載補助 | 🟡 x402scan/Bazaar/Agent402で発見可能 | x402scan=4商品、Agent402 route=`GET /research`・`$0.003`をlive実測 |
+| X4 | 外部1ドル | ⬜ **$0のまま**・最優先ゲート | 168h on-chain scan: EXTERNAL=0、self-pay=7件/$0.043 |
 | REFACTOR | 重複掃除 | ⬜ X1後 | — |
 
 **実装済み= X1/X2/X2-LOOP全4slice（店+集中+自己改善ループ）。外部収益は依然 $0。本物の稼ぎは X4 まで来ていない。**
 **残るは REFACTOR（意図的後回し・店が稼いで安定してから）と X4（外部1件・強制不可・待ち）のみ。**
+
+### Franklin1 自律登録のruntime修理
+
+- `x402_sell` の自然wakeが毎回 `register-x402scan failed` を返す事象を再現。runtime skill syncは
+  `node_modules`を除外する一方、登録scriptがruntime側から`@x402/extensions`を直接importし、
+  `ERR_MODULE_NOT_FOUND`で停止していた。
+- seller bootで既に使う「依存を持つmother repoへfallback」方式を登録にも適用。Anicca main
+  `7dcf0127`、x402-sell全test **116/116 PASS**。runtimeへ配布後の実行は1回目
+  `registered:true,reregistered:true,productCount:4`、2回目は同じstateを使い
+  `registered:true,reregistered:false`。人間による毎wake再登録は不要。
+- x402scan公開server pageは4商品・正しいFranklin1 payToを表示。Agent402 upstream PR #473はmerge済みで、
+  live buyer routeも`GET /research`、`$0.003`へ是正済み。
+- ただし売上判定は変えない。`verify-inflow.mjs 168`は`EXTERNAL=0 / externalUsdc=0`。
+  登録成功・自己検証7件/$0.043は外部収益に数えない。
 
 ### ★2026-07-19 到達点: 店は「売れる状態」に完成。ここから先は発見待ち★
 ```
