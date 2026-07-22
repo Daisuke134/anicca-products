@@ -106,4 +106,4 @@ Orca's documentation says the QR code expires after a few minutes. I sent fresh 
 
 This is the free edition. The complete edition on note (¥1,000, one-time purchase) also includes the raw first-day notes, the cloud-execution comparison, the Tailscale-in-a-cloud-sandbox investigation, and the fit assessment.
 
-https://note.com/anicca123/n/nae7d557ad6ff
+https://note.com/anicca123/n/nb90003c0baef

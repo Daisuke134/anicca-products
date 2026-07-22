@@ -10,12 +10,13 @@ goal: Orca 記事を日本語・英語で note / X Articles / Zenn に公開し�
   - HTTP 200。
   - API: `price=1000`, `is_limited=false`, `can_read=false`, `eyecatch=true`, `status=published`。
   - 匿名実表示 screenshot: `/Users/anicca/.cloak/note-work/verify-nfeca7663e750.png`。
-  - 本文画像 4/4、目次、表、縦図、ペイウォール開始位置を DOM と目視で確認。
-- English: https://note.com/anicca123/n/nae7d557ad6ff
+  - 本文画像3/3とeyecatch、目次、表、縦図、ペイウォール開始位置をDOMと目視で確認。
+- English: https://note.com/anicca123/n/nb90003c0baef
   - HTTP 200。
   - API: `price=1000`, `is_limited=false`, `can_read=false`, `eyecatch=true`, `status=published`。
-  - 匿名実表示 screenshot: `/Users/anicca/.cloak/note-work/verify-nae7d557ad6ff.png`。
-  - 本文画像 4/4、目次、表、縦図、ペイウォール開始位置を DOM と目視で確認。
+  - 匿名実表示 screenshot: `/Users/anicca/.cloak/note-work/verify-nb90003c0baef.png`、全無料範囲: `/Users/anicca/.cloak/note-work/verify-public-full-nb90003c0baef.png`。
+  - 本文画像3/3とeyecatch、目次、表、縦図、ペイウォール開始位置をDOMと目視で確認。
+  - 旧 key `nae7d557ad6ff` は2026-07-22にHTTP/APIとも404を実測。新draft `nb90003c0baef` を本文画像3/3、H2=8、H3=0、目次=1、broken image=0で再検証し、`--after-chars 3400`で無料側がセットアップ最終文、購入側が `First-day notes` から始まることをguard-stopで確認後に再公開。
 
 ### X Articles
 
@@ -25,6 +26,7 @@ goal: Orca 記事を日本語・英語で note / X Articles / Zenn に公開し�
 - English: https://x.com/diceai0/article/2079586493526675550
   - status: https://x.com/diceai0/status/2079586493526675550
   - HTTP 200。本文画像 4、最大表示高 545px、650px 超過 0、全8章を live DOM と screenshot で確認。
+  - 英語note旧URLの404検出後、元記事だけを下書きへ戻してリンク本文・hrefを新URL `nb90003c0baef` へ置換し再公開。元live URLは維持され、HTTP 200、旧key=0、新key=1、broken image=0をlive DOMで再確認。
 
 ## 品質・事実検証
 
