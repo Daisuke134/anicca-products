@@ -2,6 +2,8 @@
 
 You are the fresh `gpt-5.6-sol` builder/executor/verifier for the next independent atomic §10 row, **8f CORE-c only**. The manager confirms row 8e remains pending after three production-L3 methods failed closed with their false hypotheses recorded; §10 Stop discipline now requires moving to 8f rather than waiting for new mailbox auth. Accepted `origin/main=85a68abaa22df0d9bd0d7fe2fcf7fee0ae796eaf`. Create an isolated worktree and branch from that exact SHA. The accepted code SHA intentionally predates row 8f, so its checked-out spec is stale and is not the planning SSOT. Read the current canonical spec only from absolute path `/Users/anicca/anicca-project/.worktrees/lm-spec-sync-core8d/docs/superpowers/specs/2026-07-19-anicca-one-repo-consolidation-spec.md`; specifically §9.5, §9.6 feature discovery, §9.7, §9.11 DAILY/FEATURE DISCOVERY, §10 row 8f, plus this order, before acting. Never substitute the isolated implementation worktree's older spec for that file.
 
+An isolated worktree may already exist at `/Users/anicca/anicca-project/.worktrees/core-8f-context-onboarding-discovery` on the exact accepted SHA. A manager-stopped read-only discovery run created only untracked `.codegraph/` there; it made no source/provider mutation. Reuse that worktree if this is still the only dirt, never stage/delete `.codegraph/`, and keep all feature commits scoped to 8f files.
+
 ## Outcome and hard behavior
 
 Prove the production path for four states: first-time user, existing user, location locked, and location unlocked.
