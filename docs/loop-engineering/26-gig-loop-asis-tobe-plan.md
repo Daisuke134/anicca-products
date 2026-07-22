@@ -151,6 +151,15 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 ### §3.1 B1 即応SLA（返信速度の正本）
 
+#### speedy-reply implementation ledger
+
+- 状態: `IN_PROGRESS / worktree created / RED pending`
+- code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
+- base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
+- builder ownership: `scripts/reply_queue.py`、`scripts/reply_evidence.py`、`tests/test_reply_queue.py`、`tests/test_speedy_reply_evidence.py`
+- 非所有: `gig_pass.sh`、paid-work/delivery modulesと関連shell tests。builderはpure function/CLIとtestだけを作り、既存送信処理への配線はcode commit後にPlannerが行う。
+- このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
+
 #### 優先順位と時間契約
 
 | priority | queue | 検知目標 | 実質返信目標 | breach |
