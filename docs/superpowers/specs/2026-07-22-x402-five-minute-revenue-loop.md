@@ -95,6 +95,8 @@ controllerは5分ごとに評価できるが、seller restart/registry再登録�
 - launchd初回実行はexit 0。外部売上0を検知し、`eco-margin / $0.015`から
   `eco-market / $0.012`へローテーションし、seller restartと5商品再登録を完了する。public 402 quoteも
   `maxAmountRequired=12000`へ変わる。
+- 300秒後の再発火も`runs=2 / last exit code=0`。外部売上0のため`eco-premium / $0.020`へ進み、
+  seller restart、5商品再登録、public `maxAmountRequired=20000`まで自動反映する。
 - on-chain `verify-inflow.mjs 168`は`inflows=7 / selfPay=7 / EXTERNAL=0 / externalUsdc=0`。
   現在の本物の外部売上は`$0 / ¥0`であり、self-pay `$0.043`は収益に数えない。
 
