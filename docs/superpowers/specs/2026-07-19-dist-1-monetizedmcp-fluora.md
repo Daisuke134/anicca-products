@@ -73,14 +73,18 @@ franklin の4商品(web-search/funding-rates/funding-rate-arb/research)が Fluor
   （https://www.fluora.ai/submit）。GitHub OAuth認可までは成功するが、frontendがPOSTするApp Runner API hostnameは
   A/AAAAを返さずcallbackが失敗する。公式repoへ3店舗をまとめたreview requestを提出済み:
   https://github.com/fluora-ai/fluora-mcp/issues/3
+- Fluoraの公開`fluora-mcp`が提供するtoolsはlist/search/use/callだけでsubmit toolを持たない。submit pageは現在も
+  GitHub loginだけを提示するため、agent walletだけで追加提出できる経路は無い。human GitHub credentialは使わない。
 - MCPayの現行UIは`https://mcpay.fun/register`。公式sourceのINDEX actionは`runIndex(url)`を呼ぶ
   （https://github.com/microchipgnu/MCPay/blob/main/apps/app/src/app/register/page.tsx）。inspectionは200だが、
   `data.mcpay.tech/index/run`は証明書失効後にVercel `DEPLOYMENT_NOT_FOUND`を返す。既存の掲載依頼issue #48と同じfallbackで
   3店舗のreview requestを提出済み: https://github.com/microchipgnu/MCPay/issues/49
-- 掲載確認は未達。両review requestはopen・comment 0、MCPay `/servers`は`Something went wrong`、Fluora registry APIは
+- 掲載確認は未達。両review requestは現在もopen・comment 0。MCPay `data.mcpay.tech`は証明書失効に加えて
+  Vercel `DEPLOYMENT_NOT_FOUND`を返し、Fluora registry APIは
   DNS解決不能で、検索面そのものが利用不能。3 seller walletを`verify-inflow.mjs 72`で再走査した結果は全て
   `EXTERNAL=0 / externalUsdc=0`（¥0）。自己購入・自己送金でdoneにしない。
-- Franklin1のHTTP x402発見面は再実測済み。x402scan公開server pageは4商品・正しいpayToを表示し、Agent402の
+- Franklin1のHTTP x402発見面は再実測済み。公開`/openapi.json`は5 path（`/llm`を含む）を返し、
+  SIWX署名したx402scan origin registration stateも`productCount=5`を保持する。Agent402の
   metadata修正PR #473はmerge済み。live `/api/route?q=research%20financial%20analysis`も
   `GET https://franklin1.tail7a0ba4.ts.net/research`、price=`0.003`を返す。
 - 自律loopでだけ発生したx402scan再登録失敗は、runtime copyに`@x402/extensions`が無い
