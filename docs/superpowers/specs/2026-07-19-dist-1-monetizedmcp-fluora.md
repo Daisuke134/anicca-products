@@ -92,6 +92,10 @@ franklin の4商品(web-search/funding-rates/funding-rate-arb/research)が Fluor
   4 action（ensure/review/improve/update）へ修正（Anicca main `77db578b` / `6c213126`、focused 32/32 PASS）。
   live loopはPhase 1中`ANICCA_SLOT_ALLOWLIST=x402_sell`に集中し、自然wakeが
   `args={"action":"review"}`を選択。review実測はattempts24h=84、externalCount=0、externalUsd=0。
+- 次の自然wakeは`args={"action":"improve"}`を選び、fresh Bazaar 500件からDeFi gap
+  （11 listings、median $0.007）を返した。外部掲載PR #838もFranklin1 v2 storeを追加してhead
+  `72ebb673`へ更新。旧Anicca 31 route + Franklin1 4 routeの全35 URL=402、MERGEABLE/CLEANを実測:
+  https://github.com/xpaysh/awesome-x402/pull/838
 
 ## 残作業（DIST-1 内、順）
 1. ✅ 3店舗を有効Funnel portのpath mountで公開し、各URLを公式MCP clientのfresh 2 sessionで実測

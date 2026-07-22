@@ -61,6 +61,12 @@ x402 ゼロ→イチの唯一の道（順序固定）:
   `state=running`、log=`slot allowlist active: x402_sell`。再起動後の自然wakeでFranklin自身が
   `slot=x402_sell,args={"action":"review"}`を選び、`externalCount:0,externalUsd:0,attempts24h:84`、
   verdict=`no external sales yet — demand problem`をledgerへ記録した。手動`run.sh`実行はしていない。
+- 次の自然wakeは`args={"action":"improve"}`を選択。CDP Bazaar 500件のfresh scoutから
+  DeFi=`marketCount:11 / medianPriceUsd:$0.007`を最大の未提供gapとして返した。4商品はexternal売上0のため
+  drop候補だが、これは即削除命令ではなく次の商品仮説。既存DeFi seller 11件の内容を先に実測する。
+- awesome-x402 PR #838は旧31商品Anicca店を保持したまま、Franklin1の4商品v2 storeも同じlistingへ追加。
+  2 manifest=200、全35 route=402をfresh実測。head `72ebb673`、PRはopen / MERGEABLE / CLEAN:
+  https://github.com/xpaysh/awesome-x402/pull/838
 
 ### ★2026-07-19 到達点: 店は「売れる状態」に完成。ここから先は発見待ち★
 ```
