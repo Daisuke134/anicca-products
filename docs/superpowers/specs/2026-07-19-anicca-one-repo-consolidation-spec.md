@@ -238,6 +238,13 @@ agent-native経路だけでも人間の銀行口座がない状態から起動�
 | 8 | **ANICCA INTERNAL E2E** | 上記componentを現行Anicca内の1経済runtimeとして束ねる。Life Managerコードはまだ動かさない | 1 agentが外部earn→compute/shelter→reserve→capital→beneficiary/UBI→事後reportを無人で1本完走 |
 | 9 | **ONE-REPO + LIFE MANAGER MERGE** | `~/anicca`、`~/profitable-claude`、Life Manager web/localを単一`anicca` monorepoへ移し、Financial Organとして接続する | tenant分離したwallet/ledger/credential、Telegram事後報告、3 organ control plane、旧repo archiveまでfresh E2E PASS |
 
+**現在位置 = Phase 1**。Franklin1はfunded `auto` computeで`x402_sell`の
+`ensure/review/improve/update`を自律選択し、seller=HTTP 200、MCP no-session=HTTP 400を維持する。
+市場scoutはCDP Bazaar全24,991 priced listingsと直近30日paid callsへ修正され、DeFiを
+`1,014 listings / 9,398 calls / median $0.01`の実需市場として認識する。Franklin1の168h検証は
+`selfPay=7 ($0.043) / EXTERNAL=0`のためPhase 1は未完了。atomicな次手と証拠は
+`2026-07-19-dist-1-monetizedmcp-fluora.md`だけを正本とする。
+
 Phase 1–8ではLife Managerのfeature開発を経済component完成の代替にしない。Phase 9では逆に、単にfolderを移すだけでなく、
 Phase 8のreceipt chainをLife Managerのtenant・beneficiary・Telegram reportへ接続できた時だけ統合完了とする。
 
