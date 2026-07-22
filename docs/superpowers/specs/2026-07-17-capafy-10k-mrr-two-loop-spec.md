@@ -655,6 +655,8 @@ Completed gate: **producer budgets + capacity observability — PASS**。commit 
 
 Incident correction: 2026-07-22、ユーザーの明示指示によりFkimuraの未完成progress artifactをbuyer-visible提出し、`正式な納品`まで送信した。これはINV-R7（合意scope/acceptance完了前はformalを送らない）に反する例外であり、品質gateのgreenとは扱わない。今後の未完成案件はprogress提出のみ、formal checkboxは合意要件/acceptance準備後に限定する。
 
+TODO #2 current production update: **run 22 active**。idleかつgig/worker/finalize lock不在を確認後、`gig_pass.sh`をblob `d566ad0ac1f856023c8e7fcd9718bae27cb6bf08`、`gig_reflect_result.schema.json`をblob `3b194441b51bc7662c652a4169bdc6412c4c2485`、`gig_selfimprove_verify.sh`をblob `0e41c814ee8e23e9dea7a3118fa428c247a2d3c6`へexact deployし、bash-nとDraft 2020-12 schema validationを通した。launchd `ai.anicca.hf-gig-pass`からrun 22を起動し、証拠dirは`/Users/anicca/gig/evidence/gig-pass-1784721601-49854`。完了gateはstructured reflection、malformed ledger diagnostic、同一passのreflection/pass-report/JSON heartbeat一致、top-level exit 0。
+
 | 順 | TODO | Builder scope | Done / E2E gate |
 |---:|---|---|---|
 | 1 | **残り1契約をv3修正→購入者承認→公開/配信→計測→formal delivery** | stable project rootをSolへ渡し、v2とbuyer feedbackからブランドstory-firstのv3を生成・acceptance/hash化してbuyer-visible再提出する。再承認済み画像/文言だけをMetaへ設定し、LINEは招待受諾→test配信→有効化。公開URL・24h/7d指標をledger/PDFへ記録し、初月合意scope完了時だけ`正式な納品`を付ける | v3 acceptance/version/hash、buyer-visible ZIPとmessage/screenshot、buyer approval message ID、Meta/LINE権限、公開post URL/logged-out screenshot、LINE test/activation、実測KPI PDF、buyer-visible formal stateを確認。未承認公開・架空metric・text-only返信・重複進捗文は0 |
