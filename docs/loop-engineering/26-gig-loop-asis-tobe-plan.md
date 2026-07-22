@@ -4,7 +4,7 @@
 
 Dais 確定方針(2026-07-11):
 - **先に B0/B1/B2 の capability を loop に持たせる**（今は「やれと指示すらされていない」＝当然やらない。特に **B0 出品は harness に存在しない**）→ その上に検証/自己修復を載せる。
-- 移動/改名しない・その場で直す。一つずつ・各段階で私(claude-p)が **結果画面を browser で読んで**確認してから次へ。
+- 移動/改名しない・その場で直す。一つずつ・各段階で **builderと別contextのreality-verifierが結果画面をbrowserで読んで**確認してから次へ。通常運転は人間の承認・下書き送信待ちをterminal stateにしない。
 
 ---
 
@@ -45,33 +45,89 @@ Dais 確定方針(2026-07-11):
 ---
 
 ## §2 TO-BE（あるべき自走ループ）
+
+### §2.1 runtime / model routing（正本）
+
+```text
+┌──────────────────────────────────────────────────────────────────────┐
+│ SCHEDULER / OBSERVER（LLMなし）                                      │
+│ event通知=即時 / fallback detector=5分 / full pass=1時間              │
+│ URL・page identity・last_sender・order state・deadline・idempotency   │
+└───────────────────────────────┬──────────────────────────────────────┘
+                                │ actionable eventだけ
+                                v
+┌──────────────────────────────────────────────────────────────────────┐
+│ DURABLE QUEUE（LLMなし）                                             │
+│ P0 paid/new order > P1 pre-purchase DM > delivery > B0 > B2          │
+│ SQLite outbox / thread coordination / lease / fencing / retry clock  │
+└───────────────────────────────┬──────────────────────────────────────┘
+                                v
+┌──────────────────────────── MODEL ROUTER ─────────────────────────────┐
+│ default executor: Terra medium                                       │
+│ reply/strategy judgment: Luna high                                   │
+│ learn/reflection/summary: Luna medium                                 │
+│ unknown incident: Luna xhigh -> Terra high                           │
+│ Sol: scheduled 0、下位model 2回失敗か高額/重大incidentのみ、最大2回/日 │
+│ GPT-onlyを先にE2E必須。Claude-onlyは同一contractの別adapterとして検証 │
+└───────────────────────────────┬──────────────────────────────────────┘
+                                v
+┌──────────────────────────────────────────────────────────────────────┐
+│ ALLOWLISTED EXECUTOR                                                  │
+│ reply / listing / proposal / artifact / delivery / follow-up         │
+│ modelは直接stateを確定せず、executorだけがside effectを実行           │
+└───────────────────────────────┬──────────────────────────────────────┘
+                                v
+┌──────────────────────────────────────────────────────────────────────┐
+│ GROUND-TRUTH VERIFIER（まず決定論、必要時fresh Luna high）            │
+│ outgoing hash/time/thread / listing public URL / order / paid amount │
+└─────────────────┬────────────────────────────────┬───────────────────┘
+                  │ PASS                           │ FAIL / UNKNOWN
+                  v                                v
+       ledger確定・次eventへ             reconcile -> self-fix -> canary
+                                                    │
+                                           PASSまでqueueを消さない
 ```
-        ┌──────────────── gig core (毎 pass) ─────────────────┐
-[B0 出品] 自分の店を常時 手入れ・拡張: 下書き2件を完成公開/typo修正/
-          公開3件を最適化(タイトル・説明・価格・画像)/AIが勝てるcat追加。
-          → 受動 inbound 受注（100人と競合しない・応募2%床を回避）＝金脈
-[B1 返信] 購入前DM + 購入後トークルームを5分ごとに検知し、10分以内に返信。
-          仮払い後は納品・検収→評価。返信laneはhourly full passから分離する。
-[B2 応募] 応募を継続、量↑・範囲↑(category直URL+keyword)・質↑（改善が主眼）
-[納品]    成果物作成→納品→検収→高評価→リピート
-   各ステップ後 → cdp_snapshot.py で screenshot+action を trajectory に記録
-        └──────────────────────────────────────────────────────┘
-                              │
-     ┌──────────── verifier (report-skeptical, 別context) ──────────┐
-     │ ①core報告に依存しない ②結果画面を自分で読む＝ground-truth:      │
-     │   出品管理=公開中か / 取引管理=納品済か / 売上=¥立ったか(決め手) │
-     │ ③trajectory+screenshot と突合→ 二値 PASS/FAIL + failure_reason  │
-     └──────────────────────────────────────────────────────────────┘
-                              │ FAIL / ¥0 継続
-     ┌──────────── self-heal ────────────┐
-     │ 失敗→Reflexion で教訓化→次passに注入 / 成功→AWM で再利用skill化   │
-     │ 根が harness/コード → self-fix.sh が Opus で自分で修正→再検証     │
-     └──────────────────────────────────────────────────────────────┘
+
+**無人運転契約**:
+
+1. live connectorへ登録できるのは公式APIまたは書面許可済みUI automationだけ。さらに、platform idempotency key、またはmanifestで上限が保証されたconsistency window後に権威的なside-effect auditで未実行を証明できることを必須にする。規約未確認・曖昧送信を安全にreconcileできないconnectorを `draft_only` でごまかさず、そもそもliveにしない。manifestは `terms_url / effective_version / allowed_scope / prohibited_scope / permission_evidence_id / rate_limit / reconciliation_mode / max_consistency_window / revoked_at` を持ち、許可失効時はkill switchで新規claimを即時停止する。
+2. live connector上の合法・実行可能なeventは `sent_and_verified / delivered_and_verified / paid_and_verified` までactiveのまま保持する。`draft_only / rejected / manual_review / failed_terminal` をterminal stateにしない。
+3. model refusal・quota・timeoutは別GPT candidateへ自動routeする。Claudeが全停止しても `MODEL_FAMILY=gpt` だけで検知から入金確認まで完走する。
+4. platform outage・auth lossは `retry_wait` で継続し、指数backoff（上限60分）で自動復旧する。人間待ちを成功扱いせず、復旧までSLA breachを記録し続ける。
+5. 違法・scam・物理的に不可能な依頼はqueue投入前のdeterministic eligibility gateで除外する。これはmodelによる気分的拒否ではない。
+
+**provider contract**: `AgentTask{objective,verified_facts,allowed_actions,prohibited_actions,deadline,token_budget,result_schema}` と `AgentResult{decision,requested_actions,evidence_refs,uncertainty}` を全providerで共通化する。実行modeは `gpt-only / claude-only / auto / shadow`。family試験中は他familyへcross-fallbackしない。
+
+**料金根拠**: OpenAI公式Standard API短contextの100万token単価は Luna `$1 input / $6 output`、Terra `$2.50 / $15`、Sol `$5 / $30`。同一token量ならTerraはLunaの2.5倍、SolはLunaの5倍。10k input + 2k outputの例は Luna約`$0.022`、Terra約`$0.055`、Sol約`$0.11`。`high/xhigh` は別単価ではないがreasoning tokenとlatencyが増え得るため、代表fixtureで品質差が出た時だけ上げる。source: https://developers.openai.com/api/docs/pricing / https://developers.openai.com/api/docs/guides/latest-model
+
+### §2.2 revenue scale（MRRの正本）
+
+```text
+$0 ───────────── $10k net MRR
+ Coconala productized service / recurring retainers
+ 22% feeなら必要GMVは約$12,821/月
+              │
+              v
+$10k ───────── $100k MRR
+ 許可済みmarketplace adapters + own inbound
+ 共通delivery engine / vertical playbooks / partner capacity
+              │
+              v
+$100k ──────── $1M MRR
+ Productized Agency OS / direct CRM & checkout / enterprise / white-label
+ marketplaceはlead sourceの1つへ
+              │
+              v
+$1M ────────── $10M MRR
+ multi-tenant SaaS / API / partner ecosystem / transaction marketplace
+ 例: 20k SMB×$300=$6M + 200 enterprise×$10k=$2M + $40M GMV×5%=$2M
 ```
+
+Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell 。`$10M MRR` はgig sellerの線形拡大ではなく、serviceで得たworkflowをown software/platformへ製品化するstep-functionとしてのみ扱う。
 
 ---
 
-## §3 B0/B1/B2/納品 の capability 定義（= STARTUP prompt に「何をせよ」を明記する中身。今 B0 は存在しない）
+## §3 B0/B1/B2/納品 の capability 定義（= STARTUP prompt に「何をせよ」を明記する中身。薄いB0は存在するが管理・検証・拡張が未完成）
 - **B0 出品(SHUPPIN・新規追加)**: 毎pass、`/mypage/services_lists` を読む→(a)下書き2件を完成させ公開 (b)typo・弱いタイトル/説明/価格/カバー画像を改善 (c)公開数が目標(例5-7)未満なら AIが勝てるcat(AI活用支援/資料作成PPT/SNS運用/記事/翻訳/文字起こし/LP/自動化)で `/services/add` から新規出品。成果物サンプルは公式 `pptx`/portfolio skill で作る。
 - **B1 返信/納品**: `/message` の購入前DMと `/mypage/received_orders/open` の購入後トークルームを別キューとして sweep する。buyer が最終送信者なら即返信し、仮払い契約は成果物作成→納品、検収済は評価依頼へ進める。返信検知を hourly full pass に埋め込まない。
 - **B2 応募(改善)**: `max_apply_per_pass` を上げ(5→10〜15)、scan を category直URL+keyword に拡張、AI禁止/実績必須/物理必須を除外、掲載直後(応募一桁)を優先。**質と量の両方を上げる**。
@@ -94,11 +150,11 @@ Dais 確定方針(2026-07-11):
 1. 購入前DMは `https://coconala.com/message`、購入後取引は `https://coconala.com/mypage/received_orders/open` から取得する。pagination/infinite scrollを既知checkpointまで走査し、first viewportだけで終了しない。
 2. current URL、page title、受信箱container markerを検証する。404、login redirect、error page、container欠落は `collector_unhealthy`。正しいpage identityとcontainerを確認した上でmessage cardが0件なら `queue_empty` とする。
 3. 新規注文はbuyer発言の有無にかかわらず `order_created_at / order_id / thread_id / thread_url / seller_initial_contact_at / initial_contact_required` を取得する。`seller_initial_contact_at` が無い新規注文は `initial_contact_required=true` とし、buyer発言0件でもP0 workerを起動する。購入後buyer発言と購入前DMでは `buyer_sent_at / message_id / last_sender / reply_required` を取得する。共通で `event_type / origin_at / observed_at` を永続化する。`opened/unreadCount` は補助情報であり、既読を返信済みと扱わない。顧客の生メッセージ本文・メール・cookieは保存しない。
-4. event idempotency key は新規注文初回連絡なら `platform + order_id + initial_seller_contact`、message IDがあるbuyer発言なら `platform + thread_id + message_id`。message IDがないbuyer発言だけ `platform + thread_id + buyer_sent_at + thread内ordinal + normalized_hash` とする。normalizeはUnicode NFC、改行と連続空白の統一、前後空白除去だけを行い、同文の別送信を区別する。別event keyでも同一threadなら `platform + thread_id` をcoordination keyとし、DB unique constraintでactive outbox actionを最大1件にする。
-5. outbox actionは `covered_event_keys[]` を持ち、`pending -> claimed -> send_intent -> click_started -> verifying -> replied|failed|manual_review` を永続state machineにする。claimはSQLite transactionまたは原子的O_EXCL lockでthreadごとに1workerだけが所有し、単調増加する `fencing_token` を発行する。各immutable intent revisionは `active|superseded` を持ち、`send_intent` は `outgoing_hash / owner_id / fencing_token / content_revision` を送信clickより前にwrite-aheadでcommitする。
+4. event idempotency key は新規注文初回連絡なら `platform + order_id + initial_seller_contact`、message IDがあるbuyer発言なら `platform + thread_id + message_id`。message IDがないbuyer発言だけ `platform + thread_id + buyer_sent_at + stable_ordinal + sha256_v1(normalized_body)` とする。`sha256_v1` はUnicode NFC、CRLF→LF、連続horizontal whitespaceの1space化、前後空白除去後のUTF-8 SHA-256。`stable_ordinal` は同一platform timestamp内のfull-thread DOM順を初回観測時にcheckpointへ固定し、再走時に再採番しない。timestampまたは安定順序を取得できなければ `collector_unhealthy` としてclaimしない。別event keyでも同一threadなら `platform + thread_id` をcoordination keyとし、DB unique constraintでactive outbox actionを最大1件にする。
+5. outbox actionは `covered_event_keys[]` を持ち、`pending -> claimed -> send_intent -> click_started -> verifying -> replied` を主state machineにする。回復side stateは `retry_wait / reconcile_pending` のみで、いずれもterminalではなく主stateへ戻る。claimはSQLite transactionまたは原子的O_EXCL lockでthreadごとに1workerだけが所有し、単調増加する `fencing_token` を発行する。各immutable intent revisionは `active|superseded` を持ち、`send_intent` は `outgoing_hash / owner_id / fencing_token / content_revision` を送信clickより前にwrite-aheadでcommitする。
 6. 新規注文初回連絡actionが `click_started` 前にあり、同threadのbuyer messageを検知した場合、別actionを作らない。同一transactionでbuyer event keyを `covered_event_keys` に追加し、buyer messageへ答える1返信へcontentを再生成して `content_revision` とfencing tokenを更新し、旧intent revisionと旧ownerを `superseded` にしてactionを新revisionの `claimed` へ戻す。この1返信のground-truthが取れた時点で `initial_contact_required` と `reply_required` の両方を充足する。senderは送信直前にthreadをfresh-readし、未取込buyer eventがあれば同じcoalesce transactionへ戻る。`click_started` 後に到着したbuyer eventだけは別の後続actionとして扱い、先行actionのground-truth確認後までclaimしない。
-7. senderはclick直前のtransactionでthread coordination key・owner・lease・fencing token・content revision・`click_started_at IS NULL` を再検証して `click_started` をcommitする。claim期限切れだけでは別workerへ送信権を渡さない。期限切れ時はsupervisorが旧owner processと専用browser sessionの停止を確認してtokenを失効させる。`click_started` 前に停止確認できた場合だけ新tokenでpre-send処理を再開できる。`click_started` 後またはclick実行有無が曖昧な場合、新ownerはverify専用とし、自動再送せず `manual_review` + criticalにする。これによりplatform側にidempotency APIがなくてもactive actionごとの自動送信clickを最大1回へ制限する。
-8. lifecycleとして `detected_at / queued_at / started_at / send_intent_at / click_started_at / replied_at / covered_event_keys / content_revision / pre_send_attempt_count / send_click_count / last_error / owner_id / claim_expires_at / fencing_token` を永続化する。ACK/seen化は送信後ground-truthが取れた後だけ行う。
+7. senderはclick直前のtransactionでthread coordination key・owner・lease・fencing token・content revision・`click_started_at IS NULL` を再検証して `click_started` をcommitする。claim期限切れだけでは別workerへ送信権を渡さない。期限切れ時はsupervisorが旧owner processと専用browser sessionの停止を確認してtokenを失効させる。`click_started` 前に停止確認できた場合だけ新tokenでpre-send処理を再開する。`click_started` 後またはclick実行有無が曖昧な場合は `reconcile_pending` へ入り、fresh verifierとbounded consistency windowで自動解決する。人間review待ちへ遷移しない。
+8. lifecycleとして `detected_at / queued_at / started_at / send_intent_at / click_started_at / replied_at / covered_event_keys / content_revision / pre_send_attempt_count / send_click_count / reconcile_attempt_count / next_attempt_at / last_error / owner_id / claim_expires_at / fencing_token` を永続化する。ACK/seen化は送信後ground-truthが取れた後だけ行う。
 9. collector heartbeatまたはsnapshotが10分以上古い、detector exitが非0、pending ageが15分を超える場合、返信laneだけを1回restartしfresh workerを起動する。次の再起動は5分backoff、3連続失敗でcritical。30分超過もcriticalとする。supervisor heartbeatやhourly full passの成否だけで健康判定しない。
 
 #### 返信品質契約
@@ -116,8 +172,8 @@ Dais 確定方針(2026-07-11):
 #### 送信後ground-truth
 
 - 返信成功はagentの自己申告やclick完了では判定しない。同じthreadを再読し、対象 `origin_at` 以後に送信本文の正規化hashとseller送信時刻が存在し、thread URLが一致した時だけ先行actionを `replied` とする。seller送信後にbuyer messageが無ければseller-lastも確認する。seller送信後にbuyer messageがあれば、先行actionはhash/timeで完了させ、そのbuyer messageを別eventとして同じtransactionでpendingへ登録する。現在のlast senderを先行actionの成否と混同しない。
-- send action後にDOM再読が失敗する曖昧状態では再送しない。fresh verifierがthreadを再読し、対象 `origin_at` 以後に同じoutgoing hashが存在すれば `replied` とする。`click_started` 済みまたはclick実行有無が不明なら、hashが不在またはthread自体を確認できない場合も自動再試行せず `manual_review` + criticalにする。再試行できるのは、旧owner process/sessionの停止と `click_started_at IS NULL` の両方を確認できたpre-send失敗だけとする。
-- browser navigation・selector取得など、`click_started` 前と証明できる失敗だけをpre-send retry対象にする。試行は初回 `t+0`、第2回 `t+2分`、第3回 `t+5分` の最大3回。`t+5分` では期限判定より先に第3回を1回だけ実行し、その結果も失敗なら返却直後に `pre_send_attempt_count=3 / failed / critical` へ遷移する。それ以上は自動再試行しない。各retry前に現owner・lease・fencing tokenをtransactionで再検証する。`send_click_count` はactive actionごとに最大1とする。
+- send action後にDOM再読が失敗する曖昧状態ではblind retryしないが、actionも停止させない。platform idempotency key対応connectorは同じkeyのまま再要求し、platform側でside effectを1件に畳む。authoritative-audit型connectorはmanifestの `max_consistency_window` が終わるまで `t+0/+10秒/+30秒/+2分/...` で照会し、その後に権威的auditが同じkey/hashの不在を返した場合だけ新revisionを1回送る。単なるDOM不在や任意の待機時間は未送信証明にしない。いずれの方式も無いconnectorはlive eligibility FAILであり、自動送信を開始しない。以後も同じreconcile cycleを最大60分backoffで継続し、`replied` までqueueから消さない。
+- browser navigation・selector取得など、`click_started` 前と証明できる失敗は初回 `t+0`、第2回 `t+2分`、第3回 `t+5分` で試行する。3回失敗後はterminal failureにせず `retry_wait` へ移り、`5/10/20/40/60分` backoffで自動再実行する。各retry前に現owner・lease・fencing tokenをtransactionで再検証する。通常pathの `send_click_count` はactive revisionごとに最大1、reconcile再送は新revisionとして記録する。
 - 永続evidenceは `thread_url / seller_sent_at / outgoing_hash / last_sender` のみにする。screenshotが必要な場合は顧客本文・氏名・添付をmaskしowner-only `0600`、保持7日後に削除する。cookie・tokenは常に保存禁止。
 
 #### Acceptance matrix
@@ -140,13 +196,30 @@ Dais 確定方針(2026-07-11):
 | 同一thread coordination keyへ2worker同時起動 | claim成功1、active action 1、送信最大1 |
 | claim期限切れで旧ownerが生存 | 旧process/session停止とfence失効まで新ownerの送信0 |
 | `send_intent` commit直後にcrash | 停止確認後、新fenceでpre-send再開可能、送信最大1 |
-| `click_started` commit直後またはsend後にcrash/DOM timeout | blind retry 0、fresh verify。存在すれば`replied`、確認不能または不在なら`manual_review` + critical |
-| 送信前transient failure | `t+0/+2/+5分` の3回を実行、第3回失敗返却直後に`failed`、attempt=3、送信click 0 |
+| `click_started` commit直後またはsend後にcrash/DOM timeout | blind retry 0、`reconcile_pending`。同じplatform idempotency keyで再要求、またはmanifest上限後のauthoritative non-delivery証明時だけ新revision送信。最終`replied`、重複0、人間待ち0 |
+| 送信前transient failure | `t+0/+2/+5分` 後も`retry_wait`で5〜60分backoffを継続、復旧後`replied`、terminal failure 0 |
+| Luna/Terra refusal・quota・timeout | 同familyの次candidateへroute、draft保存で終了0、最終`replied` |
+| Claude全停止 + `MODEL_FAMILY=gpt` | Claude process 0でP0/P1 detect→reply→verifyが完走 |
 | pending 15分 / 30分 | fresh worker / critical |
 
-決定論testはP0/P1それぞれの全caseについてexpected state、`covered_event_keys`、`pre_send_attempt_count`、`send_click_count`、fencing token、content revision、時刻差をassertする。全crash window（claim後、intent commit後、click_started commit後、click後、verify前）で旧owner停止・takeoverを競合実行し、active actionごとのclickが最大1であることを固定clock/barrier testで検証する。さらにbuyer eventを初回連絡actionのclaim後・intent commit後・click_started後・send後verify前の各barrierで注入し、claim/intent後は両eventを1actionへcoalesceしてthread総click数1、click_started/send後はmatching outgoing hash/timeで先行actionを完了してbuyer eventを後続pendingにする。clockをfixtureで固定し、`origin_at -> detected_at <= 5分`、`detected_at -> replied_at <= 10分`、`origin_at -> replied_at <= 30分` を別々に検証する。live E2Eは専用controlled buyerからP1新規DMを1件送る。専用controlled order Aではbuyer発言0のままseller初回連絡を完了し、hash/time/threadと3 SLAを確認する。専用controlled order Bでは初回連絡actionが`send_intent`の間にbuyer messageを送ってcoalesceさせ、両eventを1返信・総click 1で充足させる。P0 no-message初回連絡・P0 coalesce race・P1 DMのいずれかが未実施ならB1 doneにしない。既にmanual返信済みの `earth0809` threadはP1 seller-last fixtureとして送信0・二重返信0を確認する。
+決定論testはP0/P1それぞれの全caseについてexpected state、`covered_event_keys`、`pre_send_attempt_count`、`send_click_count`、fencing token、content revision、時刻差をassertする。全crash window（claim後、intent commit後、click_started commit後、click後、verify前）で旧owner停止・takeoverを競合実行し、通常pathはactive revisionごとのclick最大1、曖昧pathは `reconcile_pending` から必ず `replied` へ到達し、最終DOMに同一hashの重複がないことを固定clock/barrier testで検証する。さらにbuyer eventを初回連絡actionのclaim後・intent commit後・click_started後・send後verify前の各barrierで注入し、claim/intent後は両eventを1actionへcoalesceしてthread総click数1、click_started/send後はmatching outgoing hash/timeで先行actionを完了してbuyer eventを後続pendingにする。clockをfixtureで固定し、`origin_at -> detected_at <= 5分`、`detected_at -> replied_at <= 10分`、`origin_at -> replied_at <= 30分` を別々に検証する。live E2Eは専用controlled buyerからP1新規DMを1件送る。専用controlled order Aではbuyer発言0のままseller初回連絡を完了し、hash/time/threadと3 SLAを確認する。専用controlled order Bでは初回連絡actionが`send_intent`の間にbuyer messageを送ってcoalesceさせ、両eventを1返信・総click 1で充足させる。P0 no-message初回連絡・P0 coalesce race・P1 DM・Claude process 0のGPT-only run・自動reconcile runのいずれかが未実施ならB1 doneにしない。既にmanual返信済みの `earth0809` threadはP1 seller-last fixtureとして送信0・二重返信0を確認する。
 
 根拠: ココナラ公式は「購入されたら後回しにせず、すぐに一言トークルームで連絡」「すぐ対応できない場合は一次返信」と案内する（https://mag.coconala.com/articles/knowhow-prevent-48hcancel）。48時間は自動キャンセル上限であり、営業SLAではない。
+
+### §3.2 全side effect共通のeventual-action契約
+
+返信以外にも同じdurable action envelopeを使う。`pending -> claimed -> intent_committed -> executing -> verifying -> verified` が主stateで、`retry_wait / reconcile_pending` だけを非terminal回復stateにする。executorはmodelの文章を直接実行せず、allowlist、policy manifest、expected current state、owner/lease/fencing token、immutable `action_revision` をtransaction内で再確認する。model refusal・quota・timeoutは同じtask familyの別candidateへrouteし、active actionをdraftやterminal failureへ落とさない。
+
+| action | idempotency / coordination key | authoritative ground truth |
+|---|---|---|
+| listing create/update | `platform + listing_id_or_client_key + desired_content_hash` | 公開listing ID、public URL、公開state、content hash/version |
+| proposal/application | `platform + job_id + seller_id + proposal_revision` | 応募履歴のapplication ID、job ID、本文hash、送信時刻 |
+| reply/follow-up | `platform + thread_id + covered_event_keys + content_revision` | thread上のseller message ID/hash/time |
+| artifact generation | `order_id + deliverable_slot + artifact_version` | atomic rename済みfile checksum、schema/preview test PASS |
+| formal delivery/revision | `platform + order_id + delivery_slot + artifact_checksum` | delivery ID/state、添付checksum、seller送信時刻 |
+| paid confirmation | `platform + order_id + payment_id`（read-only） | 売上/検収画面のpayment ID、amount、currency、paid state |
+
+platform side effectを伴うactionは、同じidempotency keyで再要求可能、またはmanifest上限後のauthoritative auditで実行/未実行を二値判定できるconnectorだけでlive実行する。各actionのfailure-injection E2Eは、`intent_committed`直後、request/click直後、verify timeout、provider refusal/quota、auth loss、stale lease、2 worker競合を注入し、最終`verified`、platform side effect 1件、draft/manual-review/terminal-failure 0をassertする。artifactだけはatomic filesystem operationで同checksumへ収束させる。paid confirmationは観測専用で、入金を生成したと偽らない。
 
 ---
 
@@ -160,25 +233,36 @@ Dais 確定方針(2026-07-11):
 ---
 
 ## §5 自己修復設計（BP=25準拠）
-- verdict=false / ¥0 が N日継続 → **Reflexion**: 「何が違ったか」をテキスト教訓化し次pass prompt / strategy memory に注入。
-- 成功 trajectory → **AWM**: 再利用可能 workflow/skill として memory 化（evaluator が correct と認めた物のみ）。
-- 根が harness/コード → **self-fix.sh** が Opus で該当スクリプト/STARTUP を修正 → 同じ judge 基準で再検証（fix→verify 反復、上限5=VCSDD既定）。
-- 連携ファイル: `~/.openclaw/state/.gig-core-selfheal-request.json`（STARTUP が pass 冒頭で読む既存フック）、`~/anicca/skills/self/self-fix.sh`。
+- 全side effectをground truth invariantと比較し、`failure_fingerprint = platform + action + page_identity + invariant + normalized_error` を作る。同fingerprintのfixerは1つだけ起動する。
+- 既知failureはLLMなしのdeterministic repair。未知failureは Luna xhighが診断し、Terra highが隔離worktreeでtest-first修正する。通常のself-fixにSol/Opusを使わない。
+- Solは下位modelによる独立fixが2回失敗した、または高額契約・データ損失・重複決済級のincidentだけ。scheduled 0、最大2回/日、起動理由と推定token costをledgerへ残す。
+- 修正は unit -> integration -> recorded replay -> controlled live -> fresh-context verifier -> 10%/50%/100% canary の順。どこかでFAILなら自動rollbackし、active eventは `retry_wait` のまま別revisionへ進む。
+- verdict=false / ¥0 継続 → **Reflexion**を次passへ注入。成功trajectoryは、再現fixture・修正前FAIL・修正後PASS・fresh verifier PASSが揃った場合だけ **AWM** workflow/skillへ昇格する。
+- auth wall、platform outage、quota、host OOM、規約未承認をcode bugと混同しない。provider circuit breakerとconnector healthで別routeへ切り替え、同じfixerを再spawnしない。
+- 自動code changeは最大3件/日、同fingerprint最大3attempt。人間が日常承認しなくてもrollback可能な変更だけ自動promoteする。
+- 連携ファイル: `~/.openclaw/state/.gig-core-selfheal-request.json`（STARTUP がpass冒頭で読む既存フック）、`~/anicca/skills/self/self-fix.sh`。
+
+**babysit卒業gate（30日連続）**: P0/P1 missed-SLA=0、duplicate send=0、false-success=0、policy violation=0、通常日の人間介入=0、GPT-only E2E PASSを満たす。self-repair成功率は `fresh verifierまでPASSしたincident / fix attemptを開始したdistinct failure fingerprint` とし、自然incidentが不足する場合もcontrolled injectionで最低10件・5failure classを作り、8/10以上を必須にする。classはcollector URL、selector drift、provider refusal/quota、intent後crash、stale heartbeatを含む。rollback成功率は `rollback後にlast-known-goodのcontrolled E2EがPASS / rollbackを強制したdrill`、最低5件で5/5を必須とする。分母0はPASSにしない。Claude復旧後はClaude-only E2EもPASSする。
 
 ---
 
-## §6 実行順序と done 条件（★Dais順: capability を先に、検証/自己修復を後に★）
+## §6 実行順序と done 条件（残TODOの正本）
 
-| # | 段 | やること | done（私が browser 実読で確認） |
-|---|---|---|---|
-| **1** | **B0 capability 追加** | STARTUP に B0 出品ステップ明記 + `cdp_shuppin.py`(出品作成/編集/公開) + 下書き2件完成・typo修正 | `/mypage/services_lists` に **公開中の出品が増え/整い**、下書き0、typo無し（実DOM） |
-| **2** | **B2 改善** | max_apply↑・scan拡張・質向上を STARTUP に反映 | 1pass で応募数が実際に増え、AI禁止/物理案件を除外している（trajectory+実応募履歴） |
-| **3** | **B1 即応lane** | 正しい `/message` と `/mypage/received_orders/open` collector + 5分detector + thread単位coalesce/write-ahead intent/fencing付きreply worker + verify-before-resend + healthcheck を実装 | controlled buyerのP1新規DM、controlled order Aのbuyer発言0初回連絡、order Bの初回連絡send_intent中にP0 buyer messageを入れるrace E2Eで、各originのdetect≤5分・reply≤検知後10分・total≤30分、hash/time/thread一致、P0 race総click 1。全crash windowでactive action click最大1。earth0809既返信threadはsend 0（実DOM） |
-| **4** | **検証土台** | `gig_judge`(judge.py copy) + auditor を report-skeptical 化(結果画面読返し) | verifier が出品公開数/納品/売上を独立に読み二値判定を audit.jsonl に出す |
-| **5** | **自己修復** | verdict=false/¥0継続 → Reflexion+self-fix.sh 配線 | 壊れた時 次passで自分で直り再検証が回る |
-| **6** | **入金** | 出品 inbound か jibieaian 検収で初の実¥ | **売上画面 or 入金 tx を私が実読**で ¥>0 確認（自己申告不可） |
+| # | 段 | 残TODO | done（builderと別contextのverifierが確認） |
+|---:|---|---|---|
+| **0** | **live connector gate** | Coconalaを含む各platformで公式APIまたはUI automation書面許可、禁止action、rate limit、idempotency/audit能力をadapter manifestへ固定。未承認または曖昧side effectを安全にreconcileできないconnectorはlive登録しない | live connectorすべてが`api_auto|ui_auto_approved`、規約source/permission evidence、`platform_idempotency|authoritative_audit`、失効kill switchあり |
+| **1** | **GPT-only provider contract** | 現Claude-first routeを廃止し、Terra medium default、Luna high judgment、Luna medium routine、Luna xhigh→Terra high incident、Sol最大2回/日のtask classesへ変更。共通AgentTask/Result schemaと`MODEL_FAMILY`を実装 | Claude executable/credential 0でdetector→reply→listing→proposal→delivery→verify→self-fix E2E PASS。scheduled Sol 0 |
+| **2** | **deterministic kernel / health** | page identity、queue、outbox、lease/fence、retry、cost ledger、real `.last-pass`/snapshot healthを実装。supervisor heartbeatだけのfalse-greenを廃止 | 空キューでmodel call 0、stale passを10分以内にFAIL検知・自動restart、次pass成功を確認 |
+| **3** | **B1 即応lane** | 正しい`/message`と`/mypage/received_orders/open`、即時通知+5分detector、thread coalesce、eventual-send reconcileを実装 | P1 DM、P0 no-message order、P0 race、crash/timeout、model refusalで全eventがsend+hash/time/thread verified。人間待ち/terminal failure 0 |
+| **4** | **B0/B2/納品** | 下書き・typo・listing最適化、new-job scan、個別proposal、artifact作成、修正、formal delivery、検収を§3.2の共通action envelopeへ移す | 公開URL・応募履歴・talkroom・納品stateを実画面で確認。全actionのfailure-injection E2Eが最終verified、side effect 1件、draft/manual/terminal 0 |
+| **5** | **reality verifier** | 毎side effectの決定論verify、異常時fresh Luna high、日次sample review、funnel reconciliationを実装 | 実claim PASS / 偽claim FAIL / false-success 0。LLM verifierを空キュー・正常routineで呼ばない |
+| **6** | **self-heal / graduation** | fingerprint、Luna xhigh診断、Terra high test-first fix、canary、rollback、memory昇格gateを実装 | 注入bugを自分で発見→修正→再検証→promote。30日gateを満たす |
+| **7** | **Claude-only parity** | Claude adapterが復旧した時に同一contractを`claude-only`で実行。GPTへのcross-fallbackなし | GPT-onlyとClaude-onlyが同じcontrolled E2E fixtureで同じbusiness outcome |
+| **8** | **Coconala $10k net MRR** | diagnostic→sprint→recurring retainerのoffer ladder、10前後の継続client、upsell/retentionを自動運用 | fee後net MRR >= $10kを売上画面で3か月連続確認。22% feeならGMV目安 >= $12,821/月 |
+| **9** | **multi-platform $100k MRR** | 許可済みmarketplace adapterとown inbound、共通CRM/delivery、vertical playbook、partner capacityを追加 | channel別CAC/close/retention/profitが可視化され、net MRR >= $100k |
+| **10** | **own product $10M MRR** | gig workflowをmulti-tenant SaaS/API/enterprise/transaction marketplaceへ製品化。marketplace依存をlead sourceへ縮小 | SaaS+enterprise+take-rateの実売上合計がMRR >= $10M。gig GMVをMRRと偽らない |
 
-**done 全体**: 出品が手入れされ inbound を受け、応募も増え、納品が完遂し、verifier が結果画面で真偽を出し、失敗が自己修復し、**実¥が結果画面で確認できた**とき。それまで「完了」と言わない。
+**done 全体**: live connector上の合法・実行可能eventが、人間のdraft承認なしで検知→実行→ground-truth確認→自己修復まで閉じ、実売上が結果画面で確認できた時だけdone。送信・納品・入金確認に到達していないactive eventを「完了」と言わない。
 
 ---
 
@@ -202,24 +286,21 @@ Dais 確定方針(2026-07-11):
 
 **全体 ~30-40% → 目標 100%。** 各項目 done = 私が結果画面 or loop出力で実装を実確認。
 
-## §8 増分2b 設計 — own-eyes 検証を loop に焼く（reality-verifier を自走化）★実装中★
-目的: 「私が main session で navigate→screenshot→判定」した手順を、**loop が毎時 自分で起動する fresh claude** に置換。auditor が core の jsonl を信じるのをやめ、実画面で report-skeptical 判定する。
+## §7 reality-verifier 詳細契約（§6 #5に従って実装）
+目的: main sessionの手動navigate→screenshot→判定を、**provider-independent runnerが必要時に起動するfresh verifier**へ置換する。GPT-onlyのdefaultは Luna high、Claude-onlyではClaude adapterを使う。auditorがcoreのjsonlを信じず、実画面でreport-skeptical判定する。正常routineは決定論gateだけで完了し、fresh LLM verifierは異常・高価値side effect・日次sampleに限定する。
 触るファイル(live `~/anicca/skills/earn/gig/`):
 1. **gig_judge.py**（新規・`scratchpad/judge_bu.py`=browser-use/benchmark judge.py 198L を copy+tweak）: `JudgementResult{reasoning,verdict:bool,failure_reason,impossible_task,reached_captcha}` + `build_verifier_prompt(claims, ground_truth)`。system prompt は judge.py L79-163 を踏襲（report-skeptical: L148「be initially doubtful of self reported success」/L101「報告完了でも画面が未完了なら false」/L76「ground_truth 不一致なら必ず false」）。ground_truth = /mypage/services_lists・/received_orders/open・売上 の実DOM。
-2. **gig_reality_verify.sh**（新規・runner）: 直近 N の shuppin.jsonl/applied.jsonl/earnings.jsonl の claim を読む → **fresh `claude -p`（sonnet, --add-dir $HOME, :9222 CDP 使用可）を spawn** し、gig_judge prompt で「結果ページに navigate → cdp_snapshot で screenshot → 実DOM 読む → claim が実画面に実在するか二値判定し JudgementResult JSON を出せ」と指示 → verdict を parse → `~/gig/audit-reality.jsonl` に追記 → verdict=false なら `~/.openclaw/state/.gig-core-selfheal-request.json{reason,failure_reason,ts}` を書く。
-3. **auditor.sh**: 既存の決定論 verdict の後に gig_reality_verify.sh を呼ぶ（launchd :45 毎時、新規 job 不要）。
+2. **gig_reality_verify.sh**（新規・runner）: 直近 N の shuppin.jsonl/applied.jsonl/earnings.jsonl の claim を読む → 共通agent-runnerを `MODEL_FAMILY=gpt / task_class=verifier`（Luna high default）でfresh spawnし、「結果ページにnavigate → cdp_snapshotでscreenshot → 実DOMを読む → claimが実画面に実在するか二値判定しJudgementResult JSONを出せ」と指示 → verdictをparse → `~/gig/audit-reality.jsonl` に追記 → verdict=falseなら `~/.openclaw/state/.gig-core-selfheal-request.json{reason,failure_reason,ts,failure_fingerprint}` を書く。Claude-only smokeでは同じprompt/schemaをClaude adapterで実行する。
+3. **auditor.sh**: launchd :45 毎時にまず決定論で「未検証side effect・異常・日次sample」の有無を判定し、対象がある時だけgig_reality_verify.shを呼ぶ。正常な空キューではmodel call 0、新規jobは作らない。
 4. **self-heal**: selfheal-request を次 core pass が冒頭で読む（既存フック）+ self-fix.sh がコード修正。
 検証(RED/GREEN): gig_judge.py が import/parse OK・gig_reality_verify.sh bash -n・**実 claim(現 live 3出品)→PASS / 偽 claim→FAIL** を実走で確認（=私の手動検証と同じ結論を loop が自力で出すこと）。
 ※判断=agent（画面を見て真偽）/決定論=起動・記帳・selfheal-request 書込のみ。regex 判定禁止。
 
-## §7 既に作った物 / 状態
+## §8 既に作った物 / 状態
 - ✅ `~/anicca/skills/earn/gig/scripts/cdp_snapshot.py` — trajectory capture。**実 :9222 で screenshot 実撮影・成功確認済**（1920×854 PNG + trajectory.jsonl 生成、URL/title 記録）。
 - ✅ `docs/loop-engineering/25-...bp.md` — 検証+自己改善BP（judge.py 実物裏取り）。
 - ✅ 段#1 B0 capability: STARTUP に B0 SHUPPIN + trajectory + cron idempotent + max_apply 5→12 追加、commit+push、restart 活性化。
 - ✅ **B0 実発火(2026-07-11 23:57)**: loop 自己申告で 下書き2件公開(業務AI活用診断¥8000/id4302213・SEO診断¥10000/id4244912) + 新規1件(見やすいパワポ¥8000/id4308502)。★未検証(reports lie)★ + typo「作りますます」残 + trajectory PNG 0枚(cdp_snapshot 未呼出=配線未効)。
 - ✅ **増分1(出品playbook格上げ) = 完了・merge・live・活性化(2026-07-12)**: adversary PASS(0 blocking, 6/6 REQ)、verify 11/11 VERIFIED実行。main へ fast-forward merge、live `~/gig/strategy.json` の占い削除(20→19)、bash -n OK、restart 済(ALIVE)、push 済、worktree掃除済。gig-cli.sh に LISTING PLAYBOOK/APPLY SPEED RULE/NEVER-REFUSE/FEASIBILITY GATE の4ブロック live。
-- ⬜ **RESUME(compact後ここから) — 増分1の検証 + 増分2**:
-  1. ★私が browser :9222 で own-eyes 確認(未実施)★: /mypage/services_lists で 増分1後の新パスが (a)3サービス公開中か (b)typo「作りますます」を直したか (c)松竹梅/モニター価格/ベネフィットtitle を反映したか / trajectory PNG(~/gig/trajectory/)が出るように なったか。self-report(shuppin.jsonl)でなく実画面で。
-  2. B0発火の既確認(23:57): 下書き2公開(4302213/4244912)+新規1(4308502)。※これも browser で live 実在を確認する。
-  3. 増分2以降(順に・各VCSDD-lean): funnel metrics(gig-funnel.jsonl+auditor集計) → 50/50 BP web検索自己改善(B4にfirecrawl/agent-reach) → verifier土台(gig_judge=judge.py copy+auditor report-skeptical化) → self-heal配線(Reflexion+self-fix.sh)。tracker=§6.5。
+- 現行の実行順は§6だけを正本とする。過去のB0発火claim（下書き2公開 4302213/4244912、新規1件 4308502）、typo修正、playbook反映、trajectory PNGは未検証debtとして§6 #4/#5で実画面確認する。
 - copy元 judge.py: scratchpad/judge_bu.py（raw main 198L, VERIFIED）。
