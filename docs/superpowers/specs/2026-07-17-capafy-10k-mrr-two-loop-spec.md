@@ -572,6 +572,7 @@ junk が増える = 将来の dev(人/AI)が「どれが本物か」で迷い、
 | INV-R10 | 合意scopeのacceptanceが未完了でも、feedback反映版・進捗artifact・具体的blockerを同じpassでbuyer-visibleに提出する。未完成版には `正式な納品` を付けず、formal deliveryはacceptance/承認可能状態になったpassだけで送信する |
 | INV-R11 | 取引中案件だけでなく、未契約の問い合わせ/提案talkroomも毎日queueへ取り込み、未返信を残さない。返信・提案・次アクションをledgerへ記録する |
 | INV-R12 | sellerのversioned artifactがbuyer-visibleで、より新しいbuyer返信がない間は同一進捗を再送しない。read-only pollをledgerへ残して下位収益行動へ進み、任意の新しいbuyer返信を観測したpassでpaid workflowを再開する |
+| INV-R13 | buyer待機中もqueue/返信/応募は定期実行するが、同じ公開出品・販売者プロフィールを改善名目で毎時再編集しない。B0/PROFILEのmutation-capable stepは成功後24時間cooldown、失敗時は即retry可とし、pass-reportは実行stepとcooldown skipを区別する |
 | INV-M1 | account warmup を目的とした自動 follow / like / comment / reel-scroll を行わない |
 | INV-M2 | account ageだけの day1/day2/day3 gate を使わない。publisher health と public verification が gate |
 | INV-M3 | first post は original / non-commercial / linkなし。commercial化は複数reach snapshot後のみ |
@@ -626,6 +627,8 @@ Completed gate: **sunai267 Bedrock addon v2 formal delivery — PASS**。buyer�
 Progress gate: **jibieaian buyer-review v2 — PASS / formal pending**。購入proposalの5項目をfixture化しRED 7/7からGREEN 7/7、送信sidecar追加後8/8へ反転した。公開一次情報からMakuake `ifu001` が終了済み（126,000円 / 126% / 3名）と判明したため、古い予告/カウントダウン案をblockし、post-campaign trust・製作進捗・鹿革/職人教育へ訂正。v2 ZIP `ddceb84d...41283` は8枚の1080×1350 sRGB、月5投稿、LINE本文5通、導線改善3件、UTM、素材指示、3ページKPI PDFを含み、fresh展開SHAが全件一致。12:27にformalなしでbuyer-visible提出し、fresh reloadで本文・6.0MB ZIP・hash・`取引中`を確認。commits `68661fd` / `43c45a3`、画面証拠 `/Users/anicca/gig/evidence/jibieaian-v2-review-20260722.png`。
 
 Progress gate: **jibieaian buyer-wait harness — PASS / approval pending**。12:27の自然passは`direct-offer:6198868`に`request_id`がなくledger例外、buyer-visible v2があるのに既存cadenceは同一progressを毎時再送する判定だった。stable identityを`request_id → talkroom_id → contract_id`へ統一し、seller artifact後の任意buyer返信を高優先feedbackとして再開、それ以前はmutationなしで下位収益stepへ進む。13:27の自然passで追加発見した一時navigation timeoutはexact errorだけ2回retryへ修正した。またorder cardのseller message previewにあるMakuake `126,000円`を契約額と誤読していたため、構造化price labelだけを採用し、非構造化/曖昧値はfail-closedにした。本番runs=10は3契約を`40,000 / 17,000 / 65,000円`と取得し、IFU durable stateを40,000円へ復元、`awaiting buyer; live state polled without mutation`、B1重複返信0、全step完走、exit 0。root focused test 16件+2 subtests、Builder related 42件+11 subtestsがgreen。buyerはv2を12:58に既読だが、最新buyer messageは11:46のまま、返信・承認はまだない。read-only access監査ではMetaはBusiness login page、LINEはLINEヤフーBusiness ID loginへredirectし、IFU asset/権限は未認証のため未確認。明示的permission deniedではなく、現在の外部gateは`buyer approval + Meta/LINE authentication/invite acceptance`。commits `6c74546` / `39a82b5` / `e981273` / `f182525`、証拠 `/private/tmp/{jibieaian-readonly-monitor.WUoylO,ifu-access-readiness.zh5peR}/`、`/Users/anicca/gig/evidence/gig-pass-1784694736-13927`。
+
+Active safety gate: **buyer-wait mutation cooldown**。runs=8とruns=10は約45分間隔で同じservice `4244910`と販売者profileを再編集した。buyer承認が数日続く間のhourly thrashを防ぐため、B0/PROFILEは成功後24時間cooldown、失敗時のみ即retry、LEARN/B1/B2とbuyer pollは毎pass継続し、pass-reportにexecuted/skipped理由を分離する。顧客名・service IDはgateへ埋め込まない。
 
 Completed gate: **cleanup control plane + artifact lifecycle — PASS**。commit `796a7f247`。active executorの単一化、fail-closed manifest、off-volume quarantine、append-only ledger、restoreを実装しpytest 15件とguard主要6本がgreen。off-volume不在時は`quarantine_unavailable`で削除せずfail-closed。
 
