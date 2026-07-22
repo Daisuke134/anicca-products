@@ -2,7 +2,7 @@
 
 Fresh `gpt-5.6-sol` builder. Work only in `/Users/anicca/anicca-project/.worktrees/lm-panel-control-center`. Exact branch HEAD/upstream/PR #331 head is `c3fbf22ebe3148a52d4768dd36d00d4230e3fa28`. The only allowed starting dirt is untracked `apps/life-call/lib/panel-permanent-session.test.js`, SHA-256 `8ca3f3e9b43159d9d0739d31df6d89a2b9763f38b1e7b22c68c722adb94d9553`. If any other path is dirty or any SHA differs, stop. Do not delegate.
 
-Read `.claude/sol-orders/order-panel-permanent-session.md` for the six product blockers, desired behavior, implementation constraints, and verification. This rescue overrides its RED instructions where necessary.
+Read `/Users/anicca/anicca-project/.worktrees/lm-spec-sync-core8d/.claude/sol-orders/order-panel-permanent-session.md` for the six product blockers, desired behavior, implementation constraints, and verification. This rescue overrides its RED instructions where necessary. Do not resolve this path relative to the feature worktree.
 
 Method 1 was rejected before commit: it produced 15 failures, but most were source-string/regex assertions. False hypothesis: `source shape assertion is equivalent to production-path behavior RED`. Preserve the file as input, then rewrite/split it into executable behavior tests. Do not commit the rejected version.
 
