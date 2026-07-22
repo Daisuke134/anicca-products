@@ -610,7 +610,7 @@ Builder (fresh SOL instance)
   対象pathだけcommit/push → Plannerへ証拠を返す
 ```
 
-Planner は実装を持たず、Builder は完了判定を持たない。各 TODO は前の gate が green になってから次へ進む。
+Planner は実装を持たず、Builder は完了判定を持たない。各 TODO は前の gate が green になってから次へ進む。ただし、前TODOで全ての即時実行可能actionがgreenとなり、残りが購入者返信・公開後24h/7d・契約月末のような外部時間gateだけの場合、そのTODOを未完了の監視laneに残したまま、非競合の次engineering TODOを開始できる。外部gateを完了・skip扱いにはせず、scheduled loopのpollと証拠更新を継続する。
 
 ### 17.7 Remaining TODO — order SSOT
 
