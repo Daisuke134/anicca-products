@@ -66,7 +66,10 @@ x402 ゼロ→イチの唯一の道（順序固定）:
   `quality.l30Days*`を使うよう修正（Anicca main `5121eb5a` / `b7b42e83`、x402-sell全test **119/119 PASS**、
   独立review PASS）。live実測はDeFi=`1,014 listings / 9,398 paid calls/30d / 1,925 payer signals /
   median $0.01`、次点LLM=`191 / 5,677 / 334 / $0.01`。DeFiは空白ではなく実需のある競争市場である。
-  旧cache schemaは自動stale化し、次の自律`improve`から全件の実需順位を使う。
+  旧cache schemaは自動stale化する。live自然wake `ts=1784690962`でFranklin自身が再び
+  `args={"action":"improve"}`を選び、DeFi=`1,014 / 9,398 / 1,925 / $0.01`、
+  LLM=`191 / 5,677 / 334 / $0.01`、Image=`147 / 653 / 347 / $0.01`をledgerへ記録した。
+  手動`run.sh`なしで修正後の全件実需順位を使うことまで実証済み。
 - Franklin1を明示した168h on-chain再検証は`inflows=7 / selfPay=7 ($0.043) / EXTERNAL=0 /
   externalUsdc=0`。`X402_PAYTO`未指定shellはfounder walletを解決するため、instance判定では必ずFranklin1
   payToを明示する。商品改善は進んだが、外部収益は依然 **$0**。

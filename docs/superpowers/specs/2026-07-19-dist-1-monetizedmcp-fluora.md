@@ -97,6 +97,8 @@ franklin の4商品(web-search/funding-rates/funding-rate-arb/research)が Fluor
   `quality.l30DaysTotalCalls/l30DaysUniquePayers`へ修正した（Anicca main `5121eb5a` / `b7b42e83`、
   x402-sell全test 119/119 PASS、独立review PASS）。live結果はDeFi=`1,014 listings / 9,398 calls/30d /
   1,925 payer signals / median $0.01`、LLM=`191 / 5,677 / 334 / $0.01`。旧cacheは自動stale化される。
+  さらにlive自然wake `ts=1784690962`でFranklin自身が`action:improve`を再選択し、上記DeFi値、
+  LLM値、Image=`147 / 653 / 347 / $0.01`をledgerへ記録した。手動`run.sh`なしでGREENを確認。
 - external判定はFranklin1 payToを明示して168h再検証し、`inflows=7 / selfPay=7 ($0.043) /
   EXTERNAL=0 / externalUsdc=0`。外部収益はまだ$0。外部掲載PR #838もFranklin1 v2 storeを追加してhead
   `72ebb673`へ更新。旧Anicca 31 route + Franklin1 4 routeの全35 URL=402、MERGEABLE/CLEANを実測:
