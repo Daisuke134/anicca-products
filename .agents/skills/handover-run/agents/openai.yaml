@@ -1,0 +1,4 @@
+interface:
+  display_name: "Handover Run"
+  short_description: "Capture live state and emit a restartable goal"
+  default_prompt: "Use $handover-run to preserve this run and give me a restartable /goal."
