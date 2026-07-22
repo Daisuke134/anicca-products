@@ -53,6 +53,14 @@ x402 ゼロ→イチの唯一の道（順序固定）:
   live buyer routeも`GET /research`、`$0.003`へ是正済み。
 - ただし売上判定は変えない。`verify-inflow.mjs 168`は`EXTERNAL=0 / externalUsdc=0`。
   登録成功・自己検証7件/$0.043は外部収益に数えない。
+- 続けて、実装済み`ensure/review/improve/update`に対しruntime promptだけがx402を空引数`{}`へ固定する
+  矛盾を修理。Anicca main `77db578b`はsystem/user/tool/Claude経路へ4 actionを公開し、`6c213126`は
+  user messageを実active slotだけに限定する。focused prompt test **32/32 PASS**。full runtime loop suiteの
+  always-act fixture既存failureは変更前のmainでも同数再現し、本差分の回帰ではない。
+- Phase 1集中のためlive plistを既存`ANICCA_SLOT_ALLOWLIST=x402_sell`へ設定し、Franklin1 loopを再起動。
+  `state=running`、log=`slot allowlist active: x402_sell`。再起動後の自然wakeでFranklin自身が
+  `slot=x402_sell,args={"action":"review"}`を選び、`externalCount:0,externalUsd:0,attempts24h:84`、
+  verdict=`no external sales yet — demand problem`をledgerへ記録した。手動`run.sh`実行はしていない。
 
 ### ★2026-07-19 到達点: 店は「売れる状態」に完成。ここから先は発見待ち★
 ```

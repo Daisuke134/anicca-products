@@ -88,6 +88,10 @@ franklin の4商品(web-search/funding-rates/funding-rate-arb/research)が Fluor
   Anicca main `7dcf0127`をruntimeへ配布。x402-sell全test 116/116 PASS、runtime実行は
   `reregistered:true`の後に冪等な`reregistered:false`を返す。168h on-chain再走査は
   self-pay 7件/$0.043、`EXTERNAL=0 / externalUsdc=0`であり、外部購入のdone条件は未達。
+- Franklin1のfunded `auto` computeがx402 lifecycleを選べるよう、空引数だけを強制していたruntime promptを
+  4 action（ensure/review/improve/update）へ修正（Anicca main `77db578b` / `6c213126`、focused 32/32 PASS）。
+  live loopはPhase 1中`ANICCA_SLOT_ALLOWLIST=x402_sell`に集中し、自然wakeが
+  `args={"action":"review"}`を選択。review実測はattempts24h=84、externalCount=0、externalUsd=0。
 
 ## 残作業（DIST-1 内、順）
 1. ✅ 3店舗を有効Funnel portのpath mountで公開し、各URLを公式MCP clientのfresh 2 sessionで実測
