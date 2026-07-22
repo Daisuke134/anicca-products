@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / live selector contract GREEN / fenced sender lifecycle RED verified`
+- 状態: `PLANNER_INTEGRATION / fenced sender lifecycle GREEN / deterministic browser executor next`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
@@ -187,6 +187,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - live selector RED: integration test commit `5f11fee`をpushする。実DOM契約のown sidebar identityとnaive JST→UTC変換が未実装のため対象1 testが期待どおりFAILする。
 - live selector GREEN: integration commit `91f767c`をpushする。own identityを`.sidebar-profile`、message authorを`.threadUser`、timestampを`.threadPostTime`から取り、JSTをUTCへ変換する。collector contract 7 tests + 6 subtests、全121 tests + 40 subtestsがPASSする。
 - fenced sender lifecycle RED: integration test commit `066b150`をpushする。`claim -> hash-only intent -> click CAS -> ground-truth reconcile`、proven pre-click requeue、post-click read failureのnon-blind reconcileを要求し、module未実装のため対象3 testsが期待どおりFAILする。
+- fenced sender lifecycle GREEN: integration commit `3e16df3`をpushする。raw本文をDB/intentへ残さず、claim/fencing token、immutable hash intent、click CAS、matching hash/time reconcile、pre-click requeue、post-click delivery-unknown releaseを1 controllerへ統合する。lifecycle 3 tests、全124 tests + 40 subtestsがPASSする。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
