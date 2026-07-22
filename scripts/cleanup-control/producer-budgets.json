@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "reserve_bytes": 11811160064,
+  "producers": {
+    "gig": {"max_active_runs": 1, "max_bytes_per_run": 2147483648, "keep_completed_runs": 7},
+    "marketing": {"max_active_runs": 2, "max_bytes_per_run": 1073741824, "keep_completed_runs": 7},
+    "clip": {"max_active_runs": 2, "max_bytes_per_run": 2147483648, "keep_completed_runs": 5},
+    "video": {"max_active_runs": 1, "max_bytes_per_run": 4294967296, "keep_completed_runs": 3},
+    "browser": {"max_active_runs": 4, "max_bytes_per_run": 1073741824, "keep_completed_runs": 5},
+    "worktree": {"max_active_runs": 4, "max_bytes_per_run": 2147483648, "keep_completed_runs": 5}
+  }
+}
