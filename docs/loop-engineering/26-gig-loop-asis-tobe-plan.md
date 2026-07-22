@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / page identity GREEN / direct-message identity RED pending`
+- 状態: `PLANNER_INTEGRATION / page identity GREEN / direct-message identity RED verified`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
@@ -171,6 +171,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - collector manifest GREEN: integration commit `b497dd2`でconfirmed manifest検証と`MESSAGES_URL=/message`を実装し、対象test 1件がPASSする。
 - page identity RED: integration test commit `9dc5d73`をpushする。404/login/error/wrong URL/wrong title/missing containerの6 subcaseが`CollectorUnhealthy`をraiseせずFAILする。次は正常0件だけを`queue_empty`にするfail-closed validationを実装する。
 - page identity GREEN: integration commit `8c2589b`でfail-closed validationを実装する。collector関連18 tests + 6 subtests、全gig Python回帰115 tests + 40 subtestsがPASSする。次はdirect-message threadからbuyer timestampとstable identityを抽出する。
+- direct-message identity RED: integration test commit `9cb439b`をpushする。`direct_message_event()`未実装の`AttributeError`で1 testがFAILする。期待値はbuyer-last、`buyer_sent_at`、platform `message_id`だけで、raw本文を返さない。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
