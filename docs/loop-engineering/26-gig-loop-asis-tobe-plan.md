@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / typed reply outbox GREEN / gig_pass wiring next`
+- 状態: `PLANNER_INTEGRATION / typed reply outbox GREEN / gig_pass wiring RED verified`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
@@ -179,6 +179,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - screenshot-free reader GREEN: integration commit `fba6b08`をpushする。`/message`一覧と各`/mypage/direct_message/{id}`を画像保存なしで読み、最後のbuyer messageについてplatform IDまたはstable fallback identityとUTC受信時刻だけを永続化する。`python3 -m pytest -q skills/gig-work/tests`は119 tests + 40 subtests PASS、inquiry evidence shellもPASSする。
 - typed reply outbox RED: integration test commit `2680ca6`をpushする。旧queueはdirect-message URLを拒否し、event keyがoutbox grammarと不一致で、durable enqueue CLIも無いため対象4 testsが期待どおりFAILする。次はcollector queueをSQLite outboxへ原子的にdedupe/coalesceする。
 - typed reply outbox GREEN: integration commit `4bee5fa`をpushする。platform message/fallbackのtyped event key、direct-message canonical URL、全`covered_event_keys`のSQLite enqueue、loop再実行時のevent/action dedupeを実装する。reply queue 8 tests、全120 tests + 40 subtests、inquiry evidence shellがPASSする。
+- gig_pass outbox wiring RED: integration test commit `5680578`をpushする。同じfixtureを2 pass実行してもSQLite action/event各1件である契約に対し、現`gig_pass.sh`はoutbox table自体を作らないため期待どおりFAILする。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
