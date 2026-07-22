@@ -153,7 +153,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / main merge preflight RED / test-conflict resolution next`
+- 状態: `PLANNER_INTEGRATION / latest main merge GREEN / live cutover preflight next`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
 - Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/Users/anicca/profitable-claude/.worktrees/gig-speedy-reply-integration`。一時worktree消失後もpush済みcommitから同branchを復旧する。
@@ -164,7 +164,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - remaining integration gap 2: Telegram durable outbox、即時event、毎時pulse、日次digestとruntime配線はGREEN。残りはlive Telegram message ID ACKとWeb表示のcontrolled E2Eである。
 - remaining integration gap 3: `/mypage/received_orders/open` P0統合、failure injection、controlled live send/Telegram E2Eを実施する。未実施なので§6 #4/#7全体はPASSにしない。
 - integration strategy: speedy branchは最新mainへmergeする。connector hardening branchは旧baseからpaid/delivery filesも変更するため丸ごとmergeせず、characterization testを先に置いてCoconala manifest・outbox・collector契約の必要差分だけ移植する。
-- Planner最新実測: integration `5bf1974`と最新`origin/main 52066bb`のmerge preflightを行う。mainはpaid revision/delivery laneを含む12 commits先、integrationは52 commits先である。`gig_pass.sh`は自動merge可能で、conflictは`test_gig_await_buyer.sh`、`test_gig_delivery_first.sh`、`test_gig_paid_work_gate.sh`、`test_gig_returned_delivery_first.sh`のshell test 4件だけである。merge-treeは期待どおりREDで、worktree/live runtimeは未変更である。
+- Planner最新実測: merge commit `profitable-claude 56080b0`をpushする。最新`origin/main 52066bb`のpaid revision/delivery 12 commitsを取り込み、shell fixture 4件はreply outbox/manifestとpaid reconcile/CDP wrapperの両依存を保持して解消する。全180 tests + 70 subtests、shell 15 suites、静的検証がPASSし、fresh-context reviewもblocking 0である。live runtime、Telegram、Coconala、launchdは未変更である。
 - connector outbox RED: integration commit `4611813`をpushする。`test_connector_outbox.py`は38 testsすべてが必須`config/connectors/coconala.json`欠落でFAILし、manifest無しで動かないfail-closedを確認する。次はDais確認済みmanifestを移植して同38 testsをGREENにする。
 - connector outbox GREEN: integration commit `59d853c`をpushする。manifest追加後はoutbox 38 tests + 11 subtests PASS、全gig Python回帰113 tests + 34 subtests PASS。runtime senderへの配線は未実施。
 - collector RED: integration test commit `ec92fc7`をpushする。canonical collectorに`load_connector_manifest()`が無いため1 testが`AttributeError`でFAILし、現`MESSAGES_URL=/mypage/messages`もmanifestの`/message`契約と不一致である。次はpaid collector behaviorを保持してmanifest/page identityを移植する。
@@ -216,6 +216,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - Telegram runtime wiring GREEN: integration commit `5bf1974`をpushする。通常送信とreconcile成功をbounded verified eventへ変換し、5分detectorとfull passからdurable publisherへbest-effort配信する。Telegram failure/ACK unknownはbusiness replyを失敗へ戻さず、毎時・日次も同outboxだけを使う。混在`rc=2`でもverified eventを先に永続化する。
 - concurrent origin migration GREEN: 同commitで元buyer `origin_at`をimmutable intentへ保存し、新しいbuyer messageで古いreconcileのSLAを上書きしない。DB別owner-only初期化lockがWAL切替を含めて直列化し、その内側の`BEGIN IMMEDIATE`でschema追加/backfillを原子的に行う。全168 tests + 68 subtests、shell 15 suites、thread/process stress、fresh reviewがPASSする。
 - main merge preflight RED: integration `5bf1974`対`origin/main 52066bb`をread-only `merge-tree`で測る。paid laneを含むmain側12 commitsを取り込む必要があり、runtime `gig_pass.sh`は自動mergeする一方、paid/reply双方のfixture setupが重なるshell test 4件だけがcontent conflictになる。次は両契約を保持してtest conflictを解消し、全回帰でGREENを確認する。
+- latest main merge GREEN: merge commit `56080b0`をpushする。conflict 4件は一方を選ばず、replyの`reply_queue.py`/`connector_outbox.py`/manifestとpaidの`reconcile_paid_delivery.py`/CDP lock wrapperを同じfixtureへ統合する。`gig_pass.sh`はpaid priorityとverified reply Telegram reportingを両方保持する。全180 tests + 70 subtests、shell 15 suites、fresh reviewがPASSする。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
