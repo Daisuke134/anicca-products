@@ -153,10 +153,10 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 
 #### speedy-reply implementation ledger
 
-- 状態: `PLANNER_INTEGRATION / Telegram runtime wiring RED / GREEN implementation next`
+- 状態: `PLANNER_INTEGRATION / concurrent origin migration RED / GREEN implementation next`
 - code branch/worktree: `fix/gig-speedy-reply` / `/private/tmp/gig-speedy-reply-builder`
 - base: `profitable-claude ff45bf6`（paid contract revision/delivery laneを含む）
-- Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/private/tmp/gig-speedy-reply-integration`。最新`origin/main b0d7963`をbaseにする。
+- Planner branch/worktree: `fix/gig-speedy-reply-integration` / `/Users/anicca/profitable-claude/.worktrees/gig-speedy-reply-integration`。一時worktree消失後もpush済みcommitから同branchを復旧する。
 - builder ownership: `scripts/reply_queue.py`、`scripts/reply_evidence.py`、`tests/test_reply_queue.py`、`tests/test_speedy_reply_evidence.py`
 - 非所有: `gig_pass.sh`、paid-work/delivery modulesと関連shell tests。builderはpure function/CLIとtestだけを作り、既存送信処理への配線はcode commit後にPlannerが行う。
 - 最新code: `profitable-claude eeadf89`（branch `fix/gig-speedy-reply`、remote push済み）。queue 7 tests、evidence 9 testsがPASS。`python3 -m pytest -q skills/gig-work/tests` は74 tests + 23 subtests PASS、`bash skills/gig-work/tests/test_gig_inquiry_evidence.sh`もPASS。変更は所有4ファイルだけで、`gig_pass.sh`とpaid-work/delivery filesは無変更。
@@ -164,7 +164,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - remaining integration gap 2: Telegram durable outbox、即時event、毎時pulse、日次digestを実装し、business actionはTelegram障害から分離する。
 - remaining integration gap 3: `/mypage/received_orders/open` P0統合、failure injection、controlled live send/Telegram E2Eを実施する。未実施なので§6 #4/#7全体はPASSにしない。
 - integration strategy: speedy branchは最新mainへmergeする。connector hardening branchは旧baseからpaid/delivery filesも変更するため丸ごとmergeせず、characterization testを先に置いてCoconala manifest・outbox・collector契約の必要差分だけ移植する。
-- Planner最新実測: integration test commit `profitable-claude 7127343`をpushする。返信成功event、detectorのbest-effort即時報告、full pass配線、durable publisher経由の日報、毎時SLA LaunchAgentを要求する。返信event・detector引数・runtime配線が未実装のためPython 7 testsとshell suiteが期待どおりFAILする。
+- Planner最新実測: integration test commit `profitable-claude 274b96d`をpushする。旧SQLite schemaから`origin_at`を16同時constructorで原子的に移行・backfillする契約を5 round要求し、現schemaに列/migrationが無いため対象testが期待どおりFAILする。
 - connector outbox RED: integration commit `4611813`をpushする。`test_connector_outbox.py`は38 testsすべてが必須`config/connectors/coconala.json`欠落でFAILし、manifest無しで動かないfail-closedを確認する。次はDais確認済みmanifestを移植して同38 testsをGREENにする。
 - connector outbox GREEN: integration commit `59d853c`をpushする。manifest追加後はoutbox 38 tests + 11 subtests PASS、全gig Python回帰113 tests + 34 subtests PASS。runtime senderへの配線は未実施。
 - collector RED: integration test commit `ec92fc7`をpushする。canonical collectorに`load_connector_manifest()`が無いため1 testが`AttributeError`でFAILし、現`MESSAGES_URL=/mypage/messages`もmanifestの`/message`契約と不一致である。次はpaid collector behaviorを保持してmanifest/page identityを移植する。
@@ -212,6 +212,7 @@ Coconala販売手数料22%の公式根拠: https://coconala.com/pages/guide_sell
 - Telegram report publisher RED: integration test commit `8610a43`をpushする。verified reply即時報告のthread/検知→送信/SLA/ground-truth/configured route、毎時action/unknown pulse、既存売上日報+SLA、OpenClaw JSON message ID ACKを要求する。publisher未実装のため対象4 testsが期待どおりFAILする。
 - Telegram report publisher GREEN: integration commit `7e458c1`をpushする。private body/hashを含めず、verified thread、検知→送信、P1 SLA、ground-truth、configured routeを即時表示する。毎時はverified/pending/reconcile/breach/Telegram unknown、09:07日報は既存応募・返信納品・出品・検収売上に同SLAを追加する。対象4 tests、outbox含む8 tests、gig+runner全165 tests + 68 subtests、shell 14 suitesがPASSする。
 - Telegram runtime wiring RED: integration test commit `7127343`をpushする。verified reply eventを本文/hashなしでlaneから返し、5分detectorとhourly full passから即時publisherをbest-effort起動し、既存日報と新規毎時pulseをdurable outboxだけへ接続する契約を追加する。現状はevent、detector引数、`gig_pass.sh`配線、日報委譲、毎時plistが無いためPython 7 testsとshell suiteが期待どおりFAILする。
+- concurrent origin migration RED: integration test commit `274b96d`をpushする。ACK不明後も元buyer時刻をimmutable intentへ結び、旧DB migrationを16同時起動でも1回だけ実行して既存intentをaction作成時刻でbackfillする契約を追加する。現schemaに`origin_at`が無いため対象testが期待どおりFAILする。
 - このledgerは各RED/GREEN/verification/commitの実測後に現在状態へ置換し、未実施をPASSと書かない。
 
 #### 優先順位と時間契約
