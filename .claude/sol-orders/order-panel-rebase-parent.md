@@ -1,0 +1,17 @@
+# PANEL-0 integration gate — resolve PR #331 against its parent
+
+Work only in `/Users/anicca/anicca-project/.worktrees/lm-panel-control-center` on `feature/lm-panel-control-center`. Start only from clean exact HEAD/upstream/remote/PR head `eb51a2a89f0f86d9f6b9a5268af914e7a5dd8991`. The PR base is `feature/lm33d-daily-preflight`; its observed remote HEAD is `c01057a0bfc0d5f1c0e1a308bd3c5de102d659fa`, but fetch and re-measure before acting. You are the fresh Sol builder/integrator. Do not edit the canonical consolidation spec.
+
+Purpose: PR #331 is `CONFLICTING` because the panel branch diverged from `f6129abb5eff30848ed9296abef1cb3d2fe7e977` while the parent branch advanced. Preserve both the parent's CORE 8d changes and the already verified PANEL-0 behavior. This order is only the integration gate; do not deploy, merge a PR, apply migrations, start OAuth, send Telegram/email/calls, or mutate production/staging.
+
+Execution contract:
+
+1. Fetch origin. Reconfirm the worktree is clean and local HEAD, upstream, remote branch, and PR #331 head all equal the exact starting SHA. Record the current parent SHA and PR #330/#331 states. If either branch moved, derive the same operation from the freshly measured SHAs rather than assuming the observed parent SHA.
+2. Create a local recovery ref for the exact starting head. Rebase the PANEL-only commit range after merge-base `f6129abb5eff30848ed9296abef1cb3d2fe7e977` onto the current `origin/feature/lm33d-daily-preflight`. Resolve conflicts semantically: keep all parent CORE 8d behavior/tests/evidence and all PANEL-0 runtime/tests/evidence. Do not delete assertions, weaken gates, compress lines to game coverage, or introduce unrelated refactors.
+3. Use `git range-diff` (old parent/range versus new parent/range), changed-assertion inspection, and targeted diffs to prove the replay changed only what conflict resolution required. A conflict-resolution bug must get a real RED before GREEN; a clean mechanical replay does not need invented tests.
+4. Verify the exact rebased head: corrective4 `1/1`, corrective3 `4/4`, permanent `17/17`, focused panel `63/63`, full `npm test` `378/378` or a strictly larger all-pass count caused by the parent, `npm run eval` `33/33`, API smoke `5/5`, UI smoke `6/6`, and `git diff --check`. Also run the parent CORE 8d focused suite named by its tracked evidence/order so the rebase cannot silently discard parent behavior. Report the exact command and count.
+5. Obtain one fresh-context, read-only, artifact-only substantive review of the rebased exact head. Ignore style/process/coverage nits. It must check only product regressions, lost parent behavior, test weakening, and the five closed panel blockers (the corrective3 four plus logout).
+6. Push the rewritten feature branch only with `--force-with-lease` after every gate passes. Re-query PR #331 and require head equality plus `MERGEABLE`/non-conflicting state. Keep the worktree clean.
+7. Write PANEL-0 integration evidence under `.vcsdd/features/life-manager-panel-control-center/evidence/`, commit/push it as part of the rebased branch, and report: old head, measured parent, new head, range-diff conclusion, every verification count, fresh review verdict, PR state, and side effects `0`. Do not claim production L3 or §10 done.
+
+If semantic conflict resolution produces the same substantive failure three independent ways, preserve evidence and report the exact blocker; do not hide it or expand scope.
