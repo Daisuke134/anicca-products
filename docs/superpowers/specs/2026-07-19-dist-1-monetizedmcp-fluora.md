@@ -112,7 +112,8 @@ franklin の4商品(web-search/funding-rates/funding-rate-arb/research)が Fluor
 2. ✅ mcp-server の launchd 化 + franklin2/claude-p展開（非差別、3/3 running）
 3. ✅ Fluora/MCPay の実 submitフロー調査 → 公式GitHubへreview request提出（issue #3 / #49）
 4. ⏳ Fluora/MCPayで検索可能 + 外部 buyer実購入 on-chain（review/API復旧待ち。HTTP x402側は
-   x402scan/Agent402で発見可能だが、Franklin1の168h `EXTERNAL=0`）
+   x402scan/Agent402で発見可能だが、Franklin1の168h `EXTERNAL=0`）。外部売上ゼロ後の
+   自動商品改善は→ `2026-07-22-x402-five-minute-revenue-loop.md`を正本とする。
 
 ## リスク
 - registry運営のAPI復旧・review承認は外部状態。issueを監視し、掲載後にmarketplace検索を実測する。
