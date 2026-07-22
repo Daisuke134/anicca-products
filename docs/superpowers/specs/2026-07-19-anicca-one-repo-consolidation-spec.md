@@ -87,6 +87,10 @@ ollama·docker·openclaw install.sh 実取得 / BlockRunAI-Franklin / freqtrade 
 新生 agent の初期 compute・一時的な survival floor・次の独立 wallet/runtime のために配分する。colony 内送金は
 受け手の資金にはなるが、agent economy の新規 GDP・external revenue・X4 達成には数えない。
 
+**compute 購入 rail は完成済みの前提**: ClawRouter / BlockRun MCP・CLI / Franklin は、agent 自身の wallet 署名と
+x402 USDC 都度払いで model・tool compute を購入できる。残課題は compute 購入機構を再実装することではなく、
+`verified external earning > compute + server + reserve` を継続的に成立させること。
+
 ### 0.2 残る4 workstream（program-level SSOT）
 
 個別の atomic TODO は各実行 spec にだけ置く。この表は mission から実行順を失わないための4本の workstreamであり、
@@ -97,7 +101,7 @@ ollama·docker·openclaw install.sh 実取得 / BlockRunAI-Franklin / freqtrade 
 | 1 | **外部収益の原子を証明** | DIST-1/2 の発見面から colony 外 buyer が購入し、external inflow ≥ $1 を on-chain 検証。掲載・self-pay・内部送金では完了にしない | `2026-07-19-dist-1-monetizedmcp-fluora.md`、`docs/STATUS.md` の X4 |
 | 2 | **SELL / WORK / CAPITAL を自律 earning loop 化** | x402販売とbounty/workが日次で外部着金を作り、得た余剰だけをrisk cap下でtrade/yieldへ回す。全railが収益・費用・損失・停止理由を同じ検証契約で記録 | `2026-07-18-bounty-loop-onchain-spec.md`、各earn skill spec |
 | 3 | **自分の家を払い、複製する** | agent自身の収益がmodel/compute/server/storageを継続的に上回る。独立wallet/runtimeを持つchildを1体spawnし、shared repoから学びを継承しても秘密鍵・資金・売上stateは共有しない | cloud hosting / installer / spawn の各spec。Life Manager cloud移行のatomic TODOは同移行specのみ |
-| 4 | **Life Manager FINANCIAL organへ統合** | tenant固有agent wallet→earning ledger→user送金を実txで通し、physical/mental/financial outcomeと同じcontrol planeでbudget・pause・evidenceを管理。self-funded比率に応じてsubscription負担を縮小 | 本spec §9/§10、cloud agent platform migration spec |
+| 4 | **Phase 9でLife Manager FINANCIAL organへ統合** | Phase 1–8の全componentが単独E2Eを通過した後だけ、tenant固有agent wallet→earning ledger→user送金を実txで通し、physical/mental/financial outcomeと同じcontrol planeでbudget・pause・evidenceを管理。self-funded比率に応じてsubscription負担を縮小 | 本spec §7/§9/§10、cloud agent platform migration spec |
 
 Workstream 2の `CAPITAL` はWorkstream 1の外部収益とsurvival reserveができた後だけ解錠する。Life Manager cloud migrationの
 現scopeにはreal-money tradingを混ぜず、risk policy・法的境界・loss limitを別specで承認してからfinancial organへ追加する。
@@ -113,6 +117,18 @@ Workstream 2の `CAPITAL` はWorkstream 1の外部収益とsurvival reserveが�
 | multi-tenant cloud移行 | `2026-07-21-life-manager-cloud-agent-platform-migration-spec.md` | 74 atomic TODOを本specへ複製しない |
 | Life Manager product build | 本spec §9/§10 | cloud migration infra TODOと混ぜない |
 
+### 0.4 現在の build boundary — Anicca 内部を先に完成し、統合は Phase 9 だけ
+
+- **Phase 1–8 の主作業場所は現行 `~/anicca`**。SELL / WORK / CAPITAL / ledger / compute / shelter / spawn / UBI を、
+  Life Manager から独立した経済componentとして先に完成させる。
+- `~/profitable-claude` は既存GATED earning loopの実証場所として現状維持する。Phase 9まで移動・統合しない。
+- Life Manager web app / local Life Manager は現状維持する。Phase 1–8ではコード移動・financial organ接続をしない。
+- **各componentは単独で `discover → act → verify → record → improve → report` を実side-effect付きで通す**。
+  mock、dry-run、出力件数、自己送金だけでは合格にしない。
+- manager runtime の既定は **REPORT, DON'T ASK**。委任scope内では自律実行し、Telegram等には事後報告する。
+  人間に質問できるのは、credential初回接続または本人しか決められないmaterial preferenceが欠ける時だけ。
+- Phase 9開始条件は、Phase 1–8のreceipt、外部着金、費用、損失、停止理由が共通ledgerで再現できること。
+
 ## 1. 決定: 名前と器
 
 | 問い | 決定 | 理由 |
@@ -121,7 +137,10 @@ Workstream 2の `CAPITAL` はWorkstream 1の外部収益とsurvival reserveが�
 | product 名 | **Anicca Life Manager**（web app が顔） | 人が買うのは manager。earn 系はその臓器 |
 | OSS 配布物名 | **profitable-claude**（read-only mirror） | 「Claude を黒字にする」は説明力最強の配布名。repo を分けず mirror として自動生成 |
 
-## 2. 決定: 単一 public monorepo `anicca`（Turborepo 標準構造）
+## 2. Phase 9 のTO-BE: 単一 public monorepo `anicca`（Turborepo 標準構造）
+
+以下は**最終配置であり、今すぐ行うmigrationではない**。Phase 1–8で現行componentを各repo内のまま完成させ、
+Phase 9で初めて `anicca` へ収斂する。壊れたcomponentや未検証loopをmonorepoへ運ばない。
 
 ```
 anicca/                     ← 唯一の作業場所（phone/cloud の Claude Code は 1 session = 1 repo が公式制約）
@@ -178,6 +197,19 @@ life-manager(local) → 既存 spec 通り収斂 ／ **~/.openclaw = project で
   mirror（§4）の既定公開範囲 = core + installer。gated は「experimental」と明示して公開可否を P3 で個別判断。
 - 走行中の capafy loop は GATED の実験としてそのまま続行（14日 verify の価値は変わらない — engine 自体は CORE と共通）。
 
+### 3.2 FINANCIAL の2資金経路（AIは1体、資金scopeは分離）
+
+1. **agent-native**: agent 自身のwalletで x402 / crypto bounty / product を通じて稼ぐ。起動資金は自力earn、
+   UBI、loan、任意のhuman depositから得られるが、UBI / loan / depositはexternal revenueに数えない。得た余剰の一部を
+   PM / SOL / crypto / yieldへ回し、一部をhuman・animal・他AIのbeneficiaryへ送る。全額は送らず、compute・server・reserve・
+   growth capitalを先に確保する。
+2. **user-delegated**: userが初回だけ最小credential・口座・委任scopeを渡す。clip / Capafy / gig / bounty等のfiat収益は
+   user口座へ直行し、brokerage / stock / broad-market fund / cryptoはuser資産としてagent自己資金と完全分離する。
+   初回bootstrap後の通常運用は無人で、action後に報告する。
+
+両経路は同じLife Managerが管理するが、wallet、credential、principal、revenue、cost、loss、beneficiaryを混ぜない。
+agent-native経路だけでも人間の銀行口座がない状態から起動できることを不変条件にする。
+
 ## 4. OSS one-command（P3 の設計。研究済み blueprint）
 
 `curl -fsSL https://profitable-claude.…/install.sh | bash` →
@@ -190,14 +222,24 @@ life-manager(local) → 既存 spec 通り収斂 ／ **~/.openclaw = project で
 **公開の順序（正直な条件）**: 公開ボタンは §12.6 full-verify（14日人手ゼロ実測）が通った loop だけ。
 証明前に配るのは信用の前借り。今すぐやれるのは mirror 骨組み + installer 実装まで（公開はしない）。
 
-## 5. 優先順位（brick by brick。1 session = 1 brick）
+## 5. 実行順 — Phase 1–8はAnicca経済内部、Phase 9で初めて統合
 
-| P | brick | 中身 | 着手 |
+前Phaseの完了証拠が揃うまで次Phaseを開始しない。各Phaseは独立E2E可能なbrickとして実装する。
+
+| Phase | component | やること | 完了条件 |
 |---|---|---|---|
-| P0 | **loop 検証**（走行中） | capafy/clip 14日 full-verify（capafy spec §12.6）。手を出さず loop に回させ、event 時のみ介入 | 今〜08-02 |
-| P1 | **Life Manager web app** | 次セッションから唯一の実装対象。新 monorepo `anicca` を作り life-manager をそこで開発（= 統合作業を別 project 化しない）。LIFE-AUTO（mail/telegram 仕分け）もこの中の機能 | 次セッション |
-| P2 | **臓器接続** | engine/loops を packages/ へ移し Life Manager の financial organ として配線（§3 PRODUCT lane） | P1 の中盤 |
-| P3 | **OSS 公開** | installer + mirror 生成 → 14日 verify 通過後に profitable-claude 公開 | 08-02 以降 |
+| 1 | **EXTERNAL ATOM** | DIST-1/2を閉じ、Franklin自身のsellerへcolony外buyerを到達させる | self-pay/内部送金を除外したexternal inflow累計≥$1をon-chain + ledgerで実証 |
+| 2 | **ECONOMIC CONTRACT** | 全earn componentを共通の `discover/act/verify/record/improve/report` と会計分類へ揃える | revenue/cost/fee/loss/principal/gift/loan/UBI/self-transferをfixture + 実txで誤分類0 |
+| 3 | **SELL** | x402 API / MCP / digital productを継続販売し、発見・販売・改善を無人化する | 複数日の外部着金、売上からcompute費を引いたnetを記帳、停止理由まで再現可能 |
+| 4 | **WORK** | crypto bounty / paid security workをCOREで実payoutまで通す。clip / Capafy / gig等GATED loopは各現行repoで単独検証する | railごとに最低1件の実payout。KYC/credential待ちは自動loopへ混ぜずbootstrap gateとして分離 |
+| 5 | **CAPITAL** | earned surplusだけをPM / SOL / crypto / yieldへ配分する。user-delegated資産は別policy・別ledgerで検証する | survival reserve後のrisk capitalだけを使い、position/daily/loss cap、fee、PnL、停止を実取引で実証 |
+| 6 | **SURVIVAL** | 完成済みClawRouter/BlockRun compute railとcloud/Akash shelterをearning walletへ接続する | 外部収益だけでmodel/compute/server/storageを継続支払いし、`earning > 全運営費 + reserve`を連続期間で証明 |
+| 7 | **REPRODUCTION + MUTUAL AID** | 独立wallet/runtimeのchild、loan、UBI、human/animal/AI beneficiary分配を実装する | parent余剰→child birth UBI、loan返済、beneficiary実送金を通し、内部移転をGDPに数えない |
+| 8 | **ANICCA INTERNAL E2E** | 上記componentを現行Anicca内の1経済runtimeとして束ねる。Life Managerコードはまだ動かさない | 1 agentが外部earn→compute/shelter→reserve→capital→beneficiary/UBI→事後reportを無人で1本完走 |
+| 9 | **ONE-REPO + LIFE MANAGER MERGE** | `~/anicca`、`~/profitable-claude`、Life Manager web/localを単一`anicca` monorepoへ移し、Financial Organとして接続する | tenant分離したwallet/ledger/credential、Telegram事後報告、3 organ control plane、旧repo archiveまでfresh E2E PASS |
+
+Phase 1–8ではLife Managerのfeature開発を経済component完成の代替にしない。Phase 9では逆に、単にfolderを移すだけでなく、
+Phase 8のreceipt chainをLife Managerのtenant・beneficiary・Telegram reportへ接続できた時だけ統合完了とする。
 
 ## 6. 棄却案と最強の反論・自分が間違うなら
 
@@ -207,11 +249,19 @@ life-manager(local) → 既存 spec 通り収斂 ／ **~/.openclaw = project で
 - **俺が間違うとしたら最有力**: 「full-public monorepo」。IG 自動化 recipe は公開すると platform 対策で腐る/ToS グレー。
   mitigation: mirror の filter で公開粒度を制御（recipe 詳細 dir を mirror から除外する選択肢を P3 で判断）。
 
-## 7. best / base / worst
+## 7. Phase 9 merge gate
 
-- **best**: 07-21 両 account day3 生存 → 08-02 14日 verify → 8月中 OSS 公開 + Life Manager に financial organ、以後 1 repo で phone 開発。
-- **base**: account もう1周作り直し → OSS は 8月末。P1 (Life Manager) は影響なしで進む。
-- **worst**: IG recipe が構造的に死ぬ → engine の IG adapter を捨て、PRODUCT lane（user 委任型）を主軸化。mission は不変、稼ぎ口だけ差し替え。
+次の条件が全て真になるまでrepo統合を開始しない。
+
+- Phase 1–8の各完了条件に、同じsessionで再実行できるreceiptがある。
+- CORE経路だけでhuman credentialゼロのexternal earn→compute/shelter支払いが成立する。
+- GATED経路は初回bootstrapと日次runtimeが分離され、credential無しのagentが誤って触れない。
+- 全componentが共通ledger契約を守り、自己送金、human deposit、loan、UBIをrevenueに偽装しない。
+- 各live loopは現repoで停止・rollback・再起動でき、migration前後のbehavior比較が可能。
+
+gate通過後にだけ、`~/anicca`を基準に`~/profitable-claude`、Life Manager web app、local Life Managerを移す。
+旧repoは移行直後に削除せずread-only mirrorとして照合し、production E2E後にarchiveする。最終的な作業場所は1 folder・1 repoの
+`anicca`だけとする。
 
 ## 9. PRODUCT VISION 詳細（2026-07-20 Dais 口述の正本化。§0 mission の具体形）
 
