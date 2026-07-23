@@ -44,7 +44,7 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 |---:|---|---|---:|
 | 1 | [x] Add a Gig feedback-hash and artifact idempotency gate. The same feedback plus a valid accepted artifact must not enter `PAID_WORK` again. | `6898b2710554fbdd0261f148f19a0f66b71ab1ef`; `test_delivery_project_integration.py` 9 passed; `test_gig_paid_work_gate.sh` passed and asserts unchanged accepted feedback never logs `gig-PAID_WORK`. | 1.5–3 h |
 | 2 | [x] Route a valid existing artifact to delivery reconciliation or await-buyer state instead of rebuilding it. | `6898b2710554fbdd0261f148f19a0f66b71ab1ef`; 4 focused state-transition tests passed and the paid-work recovery replay passed without rebuilding the existing artifact. | 1–2 h |
-| 3 | Make 30-minute launchd polling deterministic and invoke a model only on a material event. | No-change polls record zero model calls; a new event records one bounded call. | 2–4 h |
+| 3 | [x] Make 30-minute launchd polling deterministic and invoke a model only on a material event. | `afc9776b0e65ddf63ef530721e60e66f136955ce`; checked-in launchd minutes are `[0,30]`; poll-control replay records new feedback=`1` call and unchanged/await/empty=`0` calls. | 2–4 h |
 | 4 | Build bounded context packets instead of replaying full histories. | Fixtures prove stable field and byte/token ceilings. | 2–4 h |
 | 5 | Enforce model routing: Terra medium for bounded composition/tool work, Luna medium for normal agent decisions, high/Sol only for explicit escalation. | Every invocation records route and escalation reason. | 1–2 h |
 | 6 | Add per-pass and per-loop token budgets with a circuit breaker. | Over-budget fixtures stop further calls and emit a reason. | 2–3 h |
@@ -74,7 +74,19 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 - Artifact-present routes to `deliver_existing`; an already buyer-visible artifact routes to `await_buyer`; a different feedback hash routes to `act`.
 - `bash skills/gig-work/tests/test_gig_paid_work_gate.sh` passes its recovery replay: the browser retry reuses the stable artifact/hash/acceptance bundle, does not invoke `gig-PAID_WORK`, reconciles buyer visibility, and then waits for buyer feedback.
 
-**Next unfinished item:** TODO 3 — deterministic 30-minute polling and material-event-only model invocation.
+### TODO 3 — deterministic poll and material-event call gate
+
+- Implementation commit: `afc9776b0e65ddf63ef530721e60e66f136955ce` on `origin/deploy/gig-speedy-reply-cutover`.
+- The canonical Gig launchd source uses `StartCalendarInterval` at minutes `0` and `30`; the checked-in registry records the same schedule and `model_call_limit_per_pass=1`.
+- `poll-control.json` replay evidence records `material_event_handled` with `model_calls=1` and label `gig-PAID_WORK` for new feedback.
+- The next identical accepted-artifact poll records `no_change`, `model_calls=0`, and an empty label list. Await-buyer and empty-queue fixtures also complete without a runner invocation.
+- Reply processing accepts at most one composition per poll and defers additional pending threads.
+- All `skills/gig-work/tests/test_gig_*.sh` fixtures pass.
+- `python3 -m pytest -q skills/gig-work/tests` reports `239 passed, 116 subtests passed`.
+- Related launchd tests report `30 passed`; plist lint, JSON parse, shell syntax, and `git diff --check` succeed.
+- The live LaunchAgent remains unchanged until the single reversible final cutover after TODO 1–6 pass together.
+
+**Next unfinished item:** TODO 4 — bounded context packets with stable field and byte/token ceilings.
 
 ## Immediate execution boundary
 
