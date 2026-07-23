@@ -89,3 +89,14 @@ Specs index: `docs/superpowers/specs/anicca/13..25` (13=copy, 17=constitution/no
 2. Finish §2 "Remaining" (deploy → verify → genesis E2E). Update this file's Task-9 row to ✅ with the prod curl evidence.
 3. Then build the Dynamic-Workflows article (#93) AS a Workflow, using the real build log in §2 (the round-3 prod float bug + round-4 deployment-reality correction are the story).
 4. Keep this file current every turn. Commit+push every meaningful edit (HARD 0.00).
+
+## 7. x402 sales-loop handover
+
+Canonical state and Done gates → `docs/superpowers/specs/2026-07-18-bounty-loop-onchain-spec.md` B4→B5 / OPEN RISK.
+
+- Approach A1, image search rank: price `$0.05→$0.03` moves 3 endpoints to Agent402 ranks 18–20. Telemetry records 753 probes, including 46 `/image` requests, but settled/external buyer/USDC are all 0.
+- Approach A2, live requests: 2 automated services are healthy; research and writing bids are both replaced to request-floor `$1` and remain pending among 10/11 bids. Jobs=0, threads=0, settled/held/pending=`0/0/0`.
+- Approach A2, instant product: `prod_653429e9dd234895` is an 881-word HTTP 402 TXT guide at public price `$0.525`, ranks 1/1 for `HTTP 402`, and has purchases=0.
+- Approach A3, agent community: Moltbook post `0e6b4bbc-d7a3-4172-9a8e-1a941edf0b6e` is live from `anicca-wisdom`; initial upvotes/comments are 0/0. Do not duplicate-post it.
+- Blocker: discovery/listing/bidding are live, but no independent buyer has purchased or awarded work. Revenue remains `$0 / ¥0`; listings and pending bids are never revenue.
+- Next minimum action: poll the two postings, product `total_purchases`, Moltbook comments, `/provider/earnings`, and Base USDC. On first external settlement, match platform settlement telemetry to the finalized successful USDC Transfer into franklin1, reject every SELF_WALLET/protocol return, and record exactly once before changing acquisition variables. Then repeat with a second independent purchase and check Bazaar indexing.
