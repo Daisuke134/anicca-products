@@ -26,14 +26,15 @@ spec は SSOT。発見のたび本文を実測値に書き換える。
 - B2 image resaleは`POST /image`、sale $0.03、fixed upstream `zai/cogview-4`、live quote $0.017751、gross margin $0.012249/request。buyer決済gate→agent wallet上流決済→URL納品、quote cap/float/daily cap/secret isolationを維持する（anicca `a60ba2df`）。
 - B3 distributionは完了。3店のimage launchd/public 402に加え、x402scanの公開listingへ`POST /image`・$0.03を掲載し、wallet別`attempts-*.jsonl`へprompt/headerを含まない402 telemetryを保存する。全x402 suiteはfresh 185/185 green。
 
-**残タスク（上から順）:**
+**残タスク（上から1件ずつ実装）:**
 
 | # | 残タスク | done条件 | 依存 |
 |---|---|---|---|
-| B4 | **external payout verify + ledger（recorder ready / 着金待ち）** | settled sale txと一致する第三者payerのfinalized USDC transferだけを再検証し、wallet別ledgerへtx単位で重複なく記録。現状は3 walletともexternal inflow = $0 | B3 ✅ |
-| B5 | **repeat + bounty monitor** | x402の外部着金を再現して黒字化し、同時に全gateを通るbounty railが出た時だけsecurity pipelineを有効化 | B4 |
+| B4-I | **multi-channel sale observer + payout recorder実装** | image sales telemetry、the402、ClawMerchantsを自動pollし、販売候補を正規化する。候補txをBase finalized receiptから再検証し、第三者USDC売上だけをwallet別ledgerへexactly-once記録できる。実buyerを待つ前に実装・自動起動まで完了する | B3 ✅ |
+| B4-V | **first external sale E2E verify** | SELF_WALLETS以外のbuyerが購入し、納品、finalized USDC着金、販売telemetry照合、ledger 1行、positive net marginを実測する | B4-I |
+| B5 | **repeat + scale + bounty monitor** | 別の第三者buyerによる2件目の黒字payoutを記録し、first settle後のBazaar indexを確認する。全gateを通るbounty railが出た時だけsecurity pipelineを有効化する | B4-V |
 
-**critical path = B4 → B5**。B1/B2/B3は完了。human identity/KYC/owner credentialが必要なrailは、このstrict laneから分離する。
+**critical path = B4-I → B4-V → B5**。待機を作業にしない。B4-Iを先に完成し、その後はdurable observerを動かしながらbuyer acquisitionを1施策ずつ進める。B1/B2/B3は完了。human identity/KYC/owner credentialが必要なrailは、このstrict laneから分離する。
 
 ---
 
@@ -130,6 +131,85 @@ done（AND、全て実測で確認）:
 (P3) public MCP/direct listingを増やし、402→purchase conversionを計測。(P4) external inflowをwrite-pathで検証。
 (P5) 黒字商品だけ複製し、bountyはDemand gateを全通過したrailだけ有効化する。
 
+## B4-I / B4-V / B5 implementation-first specification
+
+### 1. Overview（What & Why）
+
+外部buyerは同期的に制御できないため、購入を待ってから検知・検証系を作るとloopが停止する。先に全販売チャネルのsale observer、Base settlement verifier、exactly-once ledger、継続acquisition controllerを完成・常駐させる。その後の待ち時間はobserverが所有し、agent本体は新規requestへの入札とbounded acquisitionを1施策ずつ続ける。
+
+### 2. Acceptance Criteria
+
+1. observerはimage telemetry、the402 jobs/threads/earnings/product、ClawMerchants asset/transactionsを人間操作なしで定期pollする。
+2. 各sourceの販売候補を`source / source_sale_id / offer_id / tx / expected_pay_to / expected_usdc_atomic / observed_at`へ正規化し、秘密鍵、prompt、payment header、buyer briefを保存しない。
+3. marketplaceの`paid`、`delivered`、`amount`自己申告だけではledgerへ書かない。B4 write-path自身がBase chainId 8453、finalized block、成功receipt、USDC contract、Transfer event、payTo、atomic amount、external payer、sales provenanceを再検証する。
+4. source sale IDとtxの両方でdedupeし、再起動・API重複・同一tx再取得でもwallet別ledgerは1行だけ増える。
+5. 新規the402 postingは既存hard gateに一致する時だけ自動入札し、既存Moltbook postへの重複宣伝は行わない。売上0の間もobserverとacquisition controllerが独立して動く。
+6. 1件目の実売上で納品、着金、ledger、net margin、Bazaar index checkを実行し、別buyerの2件目でrepeatを証明する。
+
+### 3. As-Is / To-Be（3 implementation ideas、上から1件ずつ）
+
+```text
+TO-BE x402 SALES SYSTEM
+├── IDEA-1 Sale Observer（最初に実装）
+│   ├── image sales telemetry adapter
+│   ├── the402 jobs / threads / earnings / product adapter
+│   ├── ClawMerchants asset / transactions adapter
+│   ├── normalized sale candidate store（0600・秘密情報なし）
+│   └── launchd polling + first-sale notification
+│
+├── IDEA-2 Finalized Settlement Recorder（次に実装）
+│   ├── source sale ID / offer ID / tx provenance match
+│   ├── Base finalized receipt verification
+│   ├── USDC Transfer / payTo / atomic amount verification
+│   ├── SELF_WALLETS / protocol return rejection
+│   ├── wallet ledger exactly-once append
+│   └── revenue - compute - gas - platform cost = net margin
+│
+└── IDEA-3 Acquisition + Repeat Controller（最後に実装）
+    ├── eligible the402 request auto-bid
+    ├── product / listing / comment conversion poll
+    ├── no-sale時は1 cycle 1 acquisition action
+    ├── 1回につきprice・copy・channelの1要因だけ変更
+    ├── first external sale後にBazaar index確認
+    └── second independent buyerまでloop継続
+```
+
+As-Isではimage向けrecorderとthe402自動fulfillmentは存在するが、the402/ClawMerchantsのsaleを共通provenanceへ正規化するdurable observerがない。To-Beでは3 ideaを順番に完成し、外部buyer待ちはIDEA-3とlaunchdが吸収する。
+
+### 4. Test Matrix
+
+| # | To-Be | Test | Cover |
+|---|---|---|---|
+| I1 | 3 source adapter | 各公式responseから許可済みfieldだけを正規化し、無関係sale・別asset・欠損txを棄却 | OK必須 |
+| I2 | secret isolation | credential/prompt/payment header/buyer briefがcandidate・stdout・logへ出ない | OK必須 |
+| I3 | finalized verifier | failed/unfinalized/wrong chain/wrong contract/wrong payTo/wrong amount/self senderを全棄却 | OK必須 |
+| I4 | exactly-once | 同じsource sale/txの再取得、再起動、競合writerでもledger 1行 | OK必須 |
+| I5 | durable polling | launchd再起動後もcursorを失わず、新規saleだけを処理 | OK必須 |
+| I6 | acquisition guard | 重複post、budget外、無関係request、expired/awarded requestへ副作用なし | OK必須 |
+| E1 | first real buyer | 実第三者購入→納品→Base finalized USDC→ledger→positive margin | 実E2E必須 |
+| E2 | repeat | 別buyerの2件目→別tx→2行目→positive margin | 実E2E必須 |
+| E3 | distribution amplification | first settle後のBazaar/agentic.market index/search結果または外部blocker | 実E2E必須 |
+
+### 5. Boundaries
+
+- DO NOT self-pay、wallet間送金、wash trade、購入依頼、報酬付きbuyer誘導でE1/E2を作る。
+- DO NOT marketplace status、listing、bid、award、escrow、未finalized txを収益に数える。
+- DO NOT `serve-v2.mjs`、既存Funnel mount、private key運用を変更する。
+- bountyは現行critical pathへ戻さず、Demand gate全通過までmonitorだけにする。
+
+### 6. Execution Steps
+
+1. IDEA-1を実装し、3 sourceのlive readとdurable pollを起動する。
+2. IDEA-2を既存image recorderへ接続し、全negative gateとexactly-onceをgreenにする。
+3. IDEA-3を既存the402 workerへ接続し、売上0でも新規需要の探索・入札・conversion計測を継続する。
+4. E1の実buyerをobserverが検出したら、納品・finalized settlement・ledger・marginを実測する。
+5. E2の別buyerまで継続し、E3のBazaar indexを確認してB5を閉じる。
+
+| Item | Value |
+|---|---|
+| UI変更 | なし |
+| E2E判断 | Maestro不要。実API、launchd、Base finalized receipt、ledgerを本番E2Eで判定する |
+
 ## 実装（旧: poidh crypto-rail 用参照。crypto payout phase で再利用）
 
 土台 = `profitable-claude/skills/bounty/`（state machine は維持、rail 差し替え）。追加 lib は `~/anicca/skills/_shared/lib/`。
@@ -177,7 +257,7 @@ E2E green = T1-T9 全通過 + done 1-4 の on-chain 着金を Fable が Basescan
   exit proof = 本文・GOAL・TODO・RAIL・ASCIIにsecurity-audit-primaryの現行主張が0。
 - **Phase 1 — demand scout（COMPLETE）**: fixtureのpayer 0をNO-GO、live x402 dataをGOと判定。supply-adjusted score、live served category整合、155/155 green、commit `c35afe2b`。
 - **Phase 2 — product + distribution（COMPLETE）**: image productの需要・unit margin・185/185 green、3店のlaunchd/public 402、x402scan listing URL、wallet別request telemetryを確認。
-- **Phase 3 — external payout（ACTIVE: recorder/watcher ready）**: B4。exit proof = 実buyerのtx hash + finalized receipt + external payer + write-path再検証log + 重複なしledger行。ここまでearnは¥0。
+- **Phase 3 — external payout（ACTIVE: B4-I implementation-first）**: 先にmulti-channel observer、finalized recorder、acquisition controllerを順番に完成・常駐させ、その後B4-Vを待受する。exit proof = 実buyerのtx hash + finalized receipt + external payer + write-path再検証log + 重複なしledger行。ここまでearnは¥0。
 - **Phase 4 — repeat + scale**: B5。exit proof = 2件目の外部payoutまたは黒字期間の再現。eligible bounty railがなければx402だけを拡張する。
 
 ---
@@ -213,9 +293,9 @@ E2E green = T1-T9 全通過 + done 1-4 の on-chain 着金を Fable が Basescan
 - B4 acquisition A2 live registration/listing/bid: fail-closed guardで`POST /v1/register`の`x402Version=1`、`exact`、Base、10,000 atomic USDC、resource、外部recipientを完全一致検証して実決済する。最初の成功responseを旧docsどおり`webhook_secret`必須としてparserが棄却し、idempotent再試行にも$0.01が発生するため登録費は合計$0.02、participantは`p_aba065d426a745d4`。再試行responseは`Wallet already registered`として既存API keyを返し、profileを`type=both`、専用webhookへ更新する。research service `svc_1c7ca3dd9de841b1`をprovider net `$3.00`（agent `$3.15`、fee 5%）、`automated_service`、delivery `10m`で公開し、open research posting `post_4031e5a29523480d`へ`$3 / 1h`で実入札する（`bid_59943a1581de430d`、公開bid count 9→10）。writing service `svc_128b02a7f3464be4`をprovider net `$2.00`（agent `$2.10`）、同じく10mで公開し、open HTTP 402 explainer posting `post_32714ee36ddb4e6b`へ`$2 / 1h`で実入札する（`bid_ad4356885ad34346`、公開bid count 10→11）。両serviceは`webhook_healthy=true`、両bidは`pending`。research+writing `$1–25`通知は`active`、`consecutive_failures=0`。登録費は外部platform支出であり収益ではなく、bid/award/escrowも収益に数えない。[the402 Provider Guide](https://the402.ai/docs/providers/#bidding-on-requests) / 核心の引用: 「201 = new bid, 200 = replaced or identical (idempotent)」
 - B4 acquisition A2 competitive bid: 競合がresearch 10 bid / writing 11 bidのままawardされていないため、変更要因をbid priceだけに限定し、同じ2 bid IDを各requestの下限`$1 / 1h`へ実更新する。公式APIは両方`HTTP 200`、同じbid ID、`status=pending`を返す。catalog listing価格は`$3/$2`のまま変えない。自動bidderも新規一致案件をbase `$1`（request minが高ければmin）で入札し、workerを新codeでrunningにする。`$1` settlementのfee控除後は最大`$0.95`だが、実compute/gasを差し引いたfinalized settlementが無い限りmargin・収益には数えない。[the402 Provider Guide](https://the402.ai/docs/providers/#bidding-on-requests) / 核心の引用: 「200 = replaced or identical (idempotent).」
 - B4 acquisition A2 instant product: open writing requestと同じ実需要をfulfillment待ちなしで買えるよう、881語・4 section・RFC/IANA参照付きTXT `HTTP 402 Payment Required: Beginner Field Guide`をdigital product `prod_653429e9dd234895`として実uploadする。provider price `$0.50`、公開buyer price `$0.525`、category `guide`、`HTTP 402` product searchは1件中rank 1、`total_purchases=0`。asset checksumは`aa5877d51c2992d50838a7835d55be00c0846d63fb764cb3e445fd56a59acaf6`。product listingは収益でなく、第三者購入とsettlementが出るまで売上は`$0 / ¥0`。[the402 Digital Products](https://the402.ai/docs/providers/#digital-products) / 核心の引用: 「Agents purchase via x402 or pre-funded balance and download the file.」
-- B4 acquisition A2 current live verify: image/MCP/the402 receiver/workerのLaunchAgentは8/8 running、public imageは3/3=`402`、public MCPは3/3=`400`、the402両serviceは`webhook_healthy=true`。provider APIはjobs=0、threads=0、settled/held/pending=`0/0/0`、product purchases=0。provider wallet `0x3EcCAD24794ca298D25378E9902A251322ea8749`のBase USDCをblocks `48946337..48989537`で24h scanし、`inflows=0, selfPay=0, EXTERNAL=0, externalUsdc=0`。したがって実収益は`$0 / ¥0`のまま。
-- B4 acquisition A3 agent-community distribution: `moltbook`の既存agent identity `anicca-wisdom`で、digital productの内容・価格・detail/purchase APIを明示した単発post [0e6b4bbc-d7a3-4172-9a8e-1a941edf0b6e](https://www.moltbook.com/post/0e6b4bbc-d7a3-4172-9a8e-1a941edf0b6e) をgeneralへ実公開する。直前のhot/new各100件には同商品の重複postがなく、初期値はupvotes=0、comments=0。ClawMerchants公開後は同じpostのcomment `dfedae0e-2a5e-406b-b154-4d16e3e39b3c`へ、無料3回・以後`$0.03` Base USDCのlive callable endpointを追記する。投票依頼・誇張・human loginを含めず、新規宣伝postを反復しない。product purchasesとprovider earningsが増えない限り売上は`$0 / ¥0`。
-- B4 acquisition A4 ClawMerchants: 公式`POST /api/v1/providers`でagent provider `anicca-http402`をfranklin1 walletへ人間loginなしで実登録し、skill asset [54a0fabf-a95a-47bd-b2cc-81f3189430cb](https://clawmerchants.com/assets/54a0fabf-a95a-47bd-b2cc-81f3189430cb) を`per-query / $0.03`でactive公開する。881語assetを`PUT /v1/provider-data/:id`へ投入し、GETでbytes=5,674、sha256=`aa5877d51c2992d50838a7835d55be00c0846d63fb764cb3e445fd56a59acaf6`を一致確認する。exact searchは1件中rank 1。実APIはclientごとに1日3 free callsを返し、call 4で`HTTP 402`、price=`0.03`、currency=`USDC`、chain=`base`、chainId=`8453`、recipient=`0x3EcCAD24794ca298D25378E9902A251322ea8749`を返す。初期`discoveryCount=4, totalPurchases=0, totalSales=0, totalEarned=0`。関連Moltbook comparison postへ売上0を明記したcomment `3ee91561-c81d-47c3-9e6f-a87861d9cc94`でlive assetを共有し、default one-timeからper-queryへ修正した事実をcomment `a37f9b99-5139-4a12-9468-3ed67e92eb9f`で訂正する。市場全体の公式実測は`17,231` probes、5 transactions、volume `$0.11`で、需要は小さいが非ゼロ。[ClawMerchants Agent Instructions](https://clawmerchants.com/agent-instructions.md) / 核心の引用: 「Payments are verified on-chain before delivery」。listing/probeは売上でなく、外部purchaseまでは`$0 / ¥0`。
+- B4 acquisition A2 current live verify: image/MCP/the402 receiver/workerのLaunchAgentは8/8 running、public imageは3/3=`402`、public MCPは3/3=`400`、the402両serviceは`webhook_healthy=true`。provider APIはjobs=0、threads=0、settled/held/pending=`0/0/0`、product purchases=0。3 walletのBase USDCをblocks `48947365..48990568`で24h scanし、全て`inflows=0, selfPay=0, EXTERNAL=0, externalUsdc=0`、recorderも`settledTelemetry=0, verified=0, recorded=0`。したがって実収益は`$0 / ¥0`のまま。
+- B4 acquisition A3 agent-community distribution: `moltbook`の既存agent identity `anicca-wisdom`で、digital productの内容・価格・detail/purchase APIを明示した単発post [0e6b4bbc-d7a3-4172-9a8e-1a941edf0b6e](https://www.moltbook.com/post/0e6b4bbc-d7a3-4172-9a8e-1a941edf0b6e) をgeneralへ実公開する。ClawMerchants公開後は同じpostのcomment `dfedae0e-2a5e-406b-b154-4d16e3e39b3c`へ、無料3回・以後`$0.03` Base USDCのlive callable endpointを追記する。さらにbuyer discoveryを議論するagentfinance thread [e2a41994-6e1f-448f-bbc2-90bd39e28a75](https://www.moltbook.com/post/e2a41994-6e1f-448f-bbc2-90bd39e28a75)へ、live `$0.03` image endpointとexternal purchases=0を明記した関連comment `e80e59aa-eaf2-4920-9465-a6f2ee6fccc4`を1件だけ公開する。投票依頼・誇張・human loginを含めず、同一postへの重複宣伝をしない。product purchasesとprovider earningsが増えない限り売上は`$0 / ¥0`。
+- B4 acquisition A4 ClawMerchants: 公式`POST /api/v1/providers`でagent provider `anicca-http402`をfranklin1 walletへ人間loginなしで実登録し、skill asset [54a0fabf-a95a-47bd-b2cc-81f3189430cb](https://clawmerchants.com/assets/54a0fabf-a95a-47bd-b2cc-81f3189430cb) を`per-query / $0.03`でactive公開する。881語assetを`PUT /v1/provider-data/:id`へ投入し、GETでbytes=5,674、sha256=`aa5877d51c2992d50838a7835d55be00c0846d63fb764cb3e445fd56a59acaf6`を一致確認する。exact searchは1件中rank 1。実APIはclientごとに1日3 free callsを返し、call 4で`HTTP 402`、price=`0.03`、currency=`USDC`、chain=`base`、chainId=`8453`、recipient=`0x3EcCAD24794ca298D25378E9902A251322ea8749`を返す。current `discoveryCount=5, totalPurchases=0, totalSales=0, totalEarned=0`。関連Moltbook comparison postへ売上0を明記したcomment `3ee91561-c81d-47c3-9e6f-a87861d9cc94`でlive assetを共有し、default one-timeからper-queryへ修正した事実をcomment `a37f9b99-5139-4a12-9468-3ed67e92eb9f`で訂正する。市場全体の公式実測は`17,236` probes、5 transactions、volume `$0.11`で、需要は小さいが非ゼロ。[ClawMerchants Agent Instructions](https://clawmerchants.com/agent-instructions.md) / 核心の引用: 「Payments are verified on-chain before delivery」。listing/probeは売上でなく、外部purchaseまでは`$0 / ¥0`。
 - B4 acquisition rejected WasiAI: provider募集と90% shareは実在するが、公式説明はAvalanche C-Chain settlement + custodial earningsであり、Base finalized USDCというDone gateを満たさない。さらにWasiAIがbuyer paymentを先に受けて既存x402-protected endpointを呼ぶ構成は二重決済になるため応募しない。
 - B4 acquisition A2 live webhook/fulfillment: 専用Funnel route `https://aniccanomac-mini-1.tail7a0ba4.ts.net/webhooks/the402`、receiver LaunchAgent、job worker LaunchAgentはrunning。現行の[provider integration guide](https://api.the402.ai/docs/provider-guide.md)はregistration responseを`participant_id/api_key/type/registered_at`として示し、receiver例は「`X-Platform-Secret` !== `THE402_API_KEY`なら401」とする一方、別のprovider pageはHMAC secretを記載し、実`/services/:id/test`は`X-Platform-Secret`を送らず取得不能のsecretで署名する。production eventはAPI-key完全一致を認証し、header不在時だけHMAC+timestampをfail-closed検証する。公式のunsigned `test:true` probeは期待service ID配列内のtest jobだけ無作用で200にし、durable inboxへ入れない。両serviceの公式testは`success=true, status_code=200, warnings=[]`。実jobだけSQLiteへACK前enqueueし、type-filtered lease workerが固定`https://api.the402.ai/v1/threads/<thread>/update`へ`in_progress/completed`を送る。buyer briefはlogへ出さず、許可済みserviceだけをtoolを持たないlocalhost OpenAI互換free-model ladderとservice別primary-source packetで生成する。researchは800–1200語、writingは600–900語・4 level-2 section・特定product/current eventなしをfail-closed検証する。writing実生成はRFC/IANAの該当sectionを抽出したpacketで833語・4 section・3 standards sourceがgreen。全x402-sell testはfresh 203/203 PASS。Node v25.6.1の`node:sqlite` ExperimentalWarningは継続する。[RFC 9110 §15.5.3](https://www.rfc-editor.org/rfc/rfc9110.html#section-15.5.3) / 核心の引用: 「The 402 (Payment Required) status code is reserved for future use.」
 - B4 acquisition A2 repeatability: 同じworkerがdurable `request.created`をtype別leaseで処理し、detailを公式APIから再取得する。`research`かつx402/machine-payment/agent-payment一致、または`writing`かつHTTP 402/Payment Required一致だけを対象にし、budget ceiling `$25`、service ID、base `$1`またはrequest minのprice/ETAをfail-closed検証してidempotent bid endpointへ送る。無関係、expired/awarded、budget外は副作用なしでcompletedにするため、buyer briefをlogせず新規案件への発見→選別→入札を反復できる。[the402 Provider Guide](https://the402.ai/docs/providers/#bidding-on-requests) / 核心の引用: 「Delivery is at-least-once — consume idempotently keyed on `posting_id`.」
@@ -226,6 +306,7 @@ E2E green = T1-T9 全通過 + done 1-4 の on-chain 着金を Fable が Basescan
 
 ## OPEN RISK / honest gap
 
+- image settlement recorderはreadyだが、the402/ClawMerchantsのsaleを同じprovenance contractへ正規化するdurable observerは未実装。したがって次の作業はbuyer待機ではなくB4-IのIDEA-1→2→3実装であり、実装完了後だけ外部buyer待ちをlaunchdへ委譲する。
 - x402 image 3店のexternal inflowは$0で、Agentic/Bazaarのimage掲載は第三者による最初のverify+settleがgate。the402 research/writing 2 serviceは公開・各`$1`の実入札・自動fulfillment待受まで有効で、HTTP 402 digital productも`$0.525`・検索rank 1で公開されるが、両bidは`pending`、product purchases=0、jobs=0、threads=0、provider earningsは`settled_usd=0, held_usd=0, pending_usd=0`。listing、open posting、bid、award、escrowは収益に数えず、第三者購入→納品/download→外部USDC releaseとledger記録まで本番証明は未完。
 - x402scanの集計は市場全体であり、Anicca商品のaddressable demandを直接証明しない。商品ごとの402、paid purchase、repeat buyerを別に計測する。
 - x402の取引には極小額が多い。gross revenueではなくcompute/gas/listing cost差引後のmarginをhard gateにする。
