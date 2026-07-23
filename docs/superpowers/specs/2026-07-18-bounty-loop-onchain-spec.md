@@ -26,15 +26,20 @@ spec は SSOT。発見のたび本文を実測値に書き換える。
 - B2 image resaleは`POST /image`、sale $0.03、fixed upstream `zai/cogview-4`、live quote $0.017751、gross margin $0.012249/request。buyer決済gate→agent wallet上流決済→URL納品、quote cap/float/daily cap/secret isolationを維持する（anicca `a60ba2df`）。
 - B3 distributionは完了。3店のimage launchd/public 402に加え、x402scanの公開listingへ`POST /image`・$0.03を掲載し、wallet別`attempts-*.jsonl`へprompt/headerを含まない402 telemetryを保存する。全x402 suiteはfresh 185/185 green。
 
-**残タスク（上から1件ずつ実装）:**
+**残タスク（実buyer待機の前に、上から1件ずつ実装）:**
 
 | # | 残タスク | done条件 | 依存 |
 |---|---|---|---|
-| B4-I | **multi-channel sale observer + payout recorder実装** | image sales telemetry、the402、ClawMerchantsを自動pollし、販売候補を正規化する。候補txをBase finalized receiptから再検証し、第三者USDC売上だけをwallet別ledgerへexactly-once記録できる。実buyerを待つ前に実装・自動起動まで完了する | B3 ✅ |
-| B4-V | **first external sale E2E verify** | SELF_WALLETS以外のbuyerが購入し、納品、finalized USDC着金、販売telemetry照合、ledger 1行、positive net marginを実測する | B4-I |
-| B5 | **repeat + scale + bounty monitor** | 別の第三者buyerによる2件目の黒字payoutを記録し、first settle後のBazaar indexを確認する。全gateを通るbounty railが出た時だけsecurity pipelineを有効化する | B4-V |
+| L0 | **External Income Loop本体** | `[0] Demand Scout → [1] Hard Gate → [2] Build → [3] Distribute → [4] Serve/Settle → [5] Verify → [6] Self-Improve → [0]`をdurable state machineとしてlaunchd常駐させ、各cycleが必ず次stateまたは明示的monitor stateへ進む | B1/B2/B3/B4-I部品 ✅ |
+| L1 | **periodic demand + rail scout** | paid calls、payer signals、供給数、live request、automation/KYC/settlement/marginを定期再実測し、gate通過候補だけをdurable opportunity queueへexactly-once投入する | L0 |
+| L2 | **bounded Product Factory** | gate通過opportunityからallowlisted templateをcopy+tweakし、price/input/output/cost cap/payToを持つ商品をbuild・起動する。任意コード生成や需要未確認buildはしない | L1 |
+| L3 | **Distribution Factory + dynamic adapter registry** | 新商品を適格directoryへidempotent登録し、discoverabilityを実測する。同時にoffer/route/price/payTo/source adapterをobserver/recorderへ自動登録する | L2 |
+| L4 | **conversion experiment + portfolio loop** | 商品別`402→purchase→repeat→net margin`を計測し、1 cycle 1要因だけ変更、観測窓後にkeep/revert/drop/scaleを決定してDemand Scoutへ戻る | L3 |
+| L5 | **resource recovery + bounty rail monitor** | service/RPC/webhook/upstream float/gas floorをself-healし、回復不能時は該当商品だけ停止する。bountyは全Demand gate通過時だけpipelineを起動する | L0 |
+| E1 | **first external sale loop proof** | loop自身が第三者購入を獲得し、納品、finalized USDC、telemetry照合、exactly-once ledger、positive net marginを完了して次cycleへ戻る | L0–L5 |
+| E2 | **repeat + index proof** | 別buyer・別txの2件目を黒字記録し、first settle後のBazaar/agentic.market index結果または外部blockerを記録してloopを継続する | E1 |
 
-**critical path = B4-I → B4-V → B5**。待機を作業にしない。B4-Iを先に完成し、その後はdurable observerを動かしながらbuyer acquisitionを1施策ずつ進める。B1/B2/B3は完了。human identity/KYC/owner credentialが必要なrailは、このstrict laneから分離する。
+**critical path = L0 → L1 → L2 → L3 → L4 → L5 → E1 → E2**。B4-Iのobserver / recorder / the402 acquisition controllerは再利用可能な部品であり、External Income Loop全体の完成証明ではない。人間・Codexがpending状態をpollし続けることを作業に数えない。human identity/KYC/owner credentialが必要なrailはstrict laneから分離する。
 
 ---
 
@@ -127,9 +132,9 @@ done（AND、全て実測で確認）:
 [6] SELF-IMPROVE  demand/conversion/revenue/computeを比較 → product/price/listing更新 → [0]
 ```
 
-**build phase**: (P1) demand scout完了。(P2) image resale build完了。
-(P3) public MCP/direct listingを増やし、402→purchase conversionを計測。(P4) external inflowをwrite-pathで検証。
-(P5) 黒字商品だけ複製し、bountyはDemand gateを全通過したrailだけ有効化する。
+**build phase**: (P1) demand scoring componentは完了、periodic scout→queue接続は未完。(P2) image/balance商品は個別build済み、Product Factoryは未完。
+(P3) 個別listingは完了、Distribution Factoryとdynamic adapter registryは未完。(P4) external inflow verifierは完了。
+(P5) conversion/portfolio/self-healを含むmaster loopを閉じ、黒字商品だけ複製する。bountyはDemand gateを全通過したrailだけ有効化する。
 
 ## B4-I / B4-V / B5 implementation-first specification
 
@@ -145,19 +150,35 @@ done（AND、全て実測で確認）:
 4. source sale IDとtxの両方でdedupeし、再起動・API重複・同一tx再取得でもwallet別ledgerは1行だけ増える。
 5. 新規the402 postingは既存hard gateに一致する時だけ自動入札し、既存Moltbook postへの重複宣伝は行わない。売上0の間もobserverとacquisition controllerが独立して動く。
 6. 1件目の実売上で納品、着金、ledger、net margin、Bazaar index checkを実行し、別buyerの2件目でrepeatを証明する。
+7. master loopは各cycleでstate、input evidence、action、result、next stateをdurable storeへ記録し、再起動後も同一actionを重複実行しない。
+8. demand/rail scoutは市場全体のlisting数だけでGOにせず、商品カテゴリのpaid calls/payer signalsまたはlive paid requestを必須にする。
+9. Product Factoryはallowlisted templateだけを利用し、opportunity gate、unit margin、spend capが欠ける商品を起動しない。
+10. Distribution Factoryは登録成功自己申告だけでなく、public 402、metadata、directory search/discoverを再取得して証明する。
+11. Self-Improveは1 cycle 1要因、bounded observation window、keep/revert/drop/scaleのいずれかを必ず記録し、無期限pendingを作らない。
+12. service/RPC/webhook/float/gas障害はself-healし、回復不能時は他商品を止めず該当商品だけfail-closed停止する。
 
 ### 3. As-Is / To-Be（3 implementation ideas、上から1件ずつ）
 
 ```text
-TO-BE x402 SALES SYSTEM
-├── IDEA-1 Sale Observer（COMPLETE）
+TO-BE EXTERNAL INCOME SYSTEM
+├── MASTER LOOP（INCOMPLETE）
+│   ├── [0] periodic Demand + Rail Scout → opportunity queue
+│   ├── [1] Hard Gate
+│   ├── [2] bounded Product Factory
+│   ├── [3] Distribution Factory + dynamic adapter registry
+│   ├── [4] Serve / Settle
+│   ├── [5] Verify
+│   ├── [6] Experiment / Portfolio / Self-Heal
+│   └── durable next-state → [0]
+│
+├── IDEA-1 Sale Observer（COMPLETE COMPONENT）
 │   ├── image sales telemetry adapter
 │   ├── the402 jobs / threads / earnings / product adapter
 │   ├── ClawMerchants asset / transactions adapter
 │   ├── normalized sale candidate store（0600・秘密情報なし）
 │   └── launchd polling + first-sale notification
 │
-├── IDEA-2 Finalized Settlement Recorder（COMPLETE）
+├── IDEA-2 Finalized Settlement Recorder（COMPLETE COMPONENT）
 │   ├── source sale ID / offer ID / tx provenance match
 │   ├── Base finalized receipt verification
 │   ├── USDC Transfer / payTo / atomic amount verification
@@ -165,7 +186,7 @@ TO-BE x402 SALES SYSTEM
 │   ├── wallet ledger exactly-once append
 │   └── revenue - compute - gas - platform cost = net margin
 │
-└── IDEA-3 Acquisition + Repeat Controller（COMPLETE）
+└── IDEA-3 the402 Acquisition Controller（COMPLETE COMPONENT）
     ├── eligible the402 request auto-bid
     ├── product / listing / comment conversion poll
     ├── no-sale時は1 cycle 1 acquisition action
@@ -198,7 +219,7 @@ skills/earn/x402-sell/
     └── __tests__/{acquisition-controller,acquisition-controller-wiring,the402-bidder,the402-inbox,the402-worker}.test.mjs
 ```
 
-IDEA-1〜3はCOMPLETE。3 sourceを5分間隔でpollし、許可済みfieldだけのcandidateを0600 storeへsource sale ID + txでdedupeする。独立recorderはcandidateをBase finalized receipt、成功status、USDC Transfer、own payTo、atomic amount、external senderと再照合し、wallet ledgerもsource sale ID + txでexactly-onceにする。acquisition controllerは新規eligible postingを1 cycle最大1件だけdurable inboxへ投入し、既存workerがidempotent bidを実行する。残作業はExecution Steps 4–5の実第三者E2Eだけ。
+IDEA-1〜3は個別componentとしてCOMPLETE。3 source observer、finalized recorder、the402 posting controllerは常駐する。一方、periodic demand/rail discovery、opportunity queue、bounded Product Factory、Distribution Factory、dynamic adapter registry、experiment/portfolio/self-healを一つのdurable state machineへ接続していない。したがって「残作業は実第三者E2Eだけ」という旧判定は撤回する。E1/E2はL0〜L5完成後のloop proofである。
 
 ### 4. Test Matrix
 
@@ -210,6 +231,12 @@ IDEA-1〜3はCOMPLETE。3 sourceを5分間隔でpollし、許可済みfieldだ�
 | I4 | exactly-once | 同じsource sale/txの再取得、再起動、競合writerでもledger 1行 | OK必須 |
 | I5 | durable polling | launchd再起動後もcursorを失わず、新規saleだけを処理 | OK必須 |
 | I6 | acquisition guard | 重複post、budget外、無関係request、expired/awarded requestへ副作用なし | OK必須 |
+| L0 | master state machine | crash/restart/duplicate wakeでも同じactionを二重実行せず、next stateへ進む | OK必須 |
+| L1 | demand + rail scout | payer signalなし、KYC必須、wallet非直結、赤字候補をqueueへ入れない | OK必須 |
+| L2 | Product Factory | gate済みtemplateだけbuildし、price/cost cap/payTo不一致を起動しない | OK必須 |
+| L3 | distribution + adapter | listing再実行がidempotentで、新offerがobserver/recorderへ自動登録される | OK必須 |
+| L4 | experiment + portfolio | 1要因だけ変更し、window終了後にkeep/revert/drop/scaleを決定する | OK必須 |
+| L5 | self-heal | component障害を局所停止し、他商品とmaster loopを継続する | OK必須 |
 | E1 | first real buyer | 実第三者購入→納品→Base finalized USDC→ledger→positive margin | 実E2E必須 |
 | E2 | repeat | 別buyerの2件目→別tx→2行目→positive margin | 実E2E必須 |
 | E3 | distribution amplification | first settle後のBazaar/agentic.market index/search結果または外部blocker | 実E2E必須 |
@@ -225,9 +252,14 @@ IDEA-1〜3はCOMPLETE。3 sourceを5分間隔でpollし、許可済みfieldだ�
 
 1. ✅ IDEA-1を実装し、3 sourceのlive readとdurable pollを起動する。
 2. ✅ IDEA-2を既存image recorderへ接続し、全negative gateとexactly-onceをgreenにする。
-3. ✅ IDEA-3を既存the402 workerへ接続し、売上0でも新規需要の探索・入札・conversion計測を継続する。
-4. E1の実buyerをobserverが検出したら、納品・finalized settlement・ledger・marginを実測する。
-5. E2の別buyerまで継続し、E3のBazaar indexを確認してB5を閉じる。
+3. ✅ IDEA-3を既存the402 workerへ接続し、新規eligible postingの発見・入札を継続する。
+4. L0 master state machineを実装し、既存3 componentをstate/action/result/next-state contractへ接続する。
+5. L1 periodic demand + rail scoutとdurable opportunity queueを実装する。
+6. L2 bounded Product Factoryを実装し、allowlisted templateから商品をbuild・起動する。
+7. L3 Distribution Factoryとdynamic adapter registryを実装する。
+8. L4 conversion experiment / portfolio loopとL5 resource recovery / bounty rail monitorを実装し、next-stateをDemand Scoutへ戻す。
+9. loop単独でE1の第三者購入、納品、finalized settlement、ledger、positive margin、次cycle復帰を実測する。
+10. loopを止めずE2の別buyerとE3のBazaar/agentic.market indexを実測する。
 
 | Item | Value |
 |---|---|
@@ -281,7 +313,8 @@ E2E green = T1-T9 全通過 + done 1-4 の on-chain 着金を Fable が Basescan
   exit proof = 本文・GOAL・TODO・RAIL・ASCIIにsecurity-audit-primaryの現行主張が0。
 - **Phase 1 — demand scout（COMPLETE）**: fixtureのpayer 0をNO-GO、live x402 dataをGOと判定。supply-adjusted score、live served category整合、155/155 green、commit `c35afe2b`。
 - **Phase 2 — product + distribution（COMPLETE）**: image productの需要・unit margin・185/185 green、3店のlaunchd/public 402、x402scan listing URL、wallet別request telemetryを確認。
-- **Phase 3 — external payout（ACTIVE: B4-V real-buyer verification）**: B4-Iのmulti-channel observer、finalized recorder、acquisition controllerは完成・常駐済み。durable loopでB4-Vを待受する。exit proof = 実buyerのtx hash + finalized receipt + external payer + write-path再検証log + 重複なしledger行。ここまでearnは¥0。
+- **Phase 3 — loop closure（ACTIVE: L0–L5）**: B4-Iのmulti-channel observer、finalized recorder、the402 acquisition controllerはcomponentとして完成・常駐済み。periodic scout→gate→factory→distribution→settlement→verification→self-improve→scoutのmaster loopを実装する。exit proof = 人間/Codex待機なしで1 cycleが全stateを通り、restart後も重複actionなしで次cycleへ進む。
+- **Phase 3.5 — external payout proof**: L0–L5完成後、実buyerのtx hash + finalized receipt + external payer + write-path再検証log + 重複なしledger行 + positive net margin + next-cycle復帰を実測する。ここまでearnは¥0。
 - **Phase 4 — repeat + scale**: B5。exit proof = 2件目の外部payoutまたは黒字期間の再現。eligible bounty railがなければx402だけを拡張する。
 
 ---
@@ -337,7 +370,7 @@ E2E green = T1-T9 全通過 + done 1-4 の on-chain 着金を Fable が Basescan
 
 ## OPEN RISK / honest gap
 
-- B4-IはIDEA-1〜3まで実装・本番常駐が完了し、observer / recorder / acquisition controllerが外部buyer待機と新規eligible demandを所有する。未完はExecution Steps 4–5だけであり、第三者buyerを人為的に作らず実購入を検出してB4-V/B5を閉じる。
+- B4-Iのobserver / recorder / the402 acquisition controllerはcomponentとして実装・本番常駐済みだが、External Income Loop全体は未完。periodic demand/rail scout、opportunity queue、bounded Product Factory、Distribution Factory、dynamic adapter registry、conversion/portfolio/self-healをdurable state machineへ接続するL0〜L5が現在のcritical pathである。第三者buyer待機を人間/Codexの作業に数えない。
 - SpawnXchangeは実Base USDC transaction履歴を持つが、異なる2 artifactが同じ非公開scanner reasonで即時rejectされactive listing=0。feedback後は再uploadせず外部blockerとして扱い、active listingと正しいpurchase→withdraw provenanceが得られるまでobserver/ledger sourceへ追加しない。
 - x402 image 3店のexternal inflowは$0で、Agentic/Bazaarのimage掲載は第三者による最初のverify+settleがgate。the402 research/writing 2 serviceは公開・各`$1`の実入札・自動fulfillment待受まで有効で、HTTP 402 digital productも`$0.525`・検索rank 1で公開されるが、両bidは`pending`、product purchases=0、jobs=0、threads=0、provider earningsは`settled_usd=0, held_usd=0, pending_usd=0`。listing、open posting、bid、award、escrowは収益に数えず、第三者購入→納品/download→外部USDC releaseとledger記録まで本番証明は未完。
 - franklin1の`GET /base-usdc-balance`はdefi需要に合わせて公開・x402scan登録済みだが、現時点では未決済402 probeだけで第三者settlementは0。購入が出れば既存observer→recorderで`3000` atomic USDCを検証する。
