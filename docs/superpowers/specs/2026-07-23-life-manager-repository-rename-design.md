@@ -12,23 +12,29 @@ This design covers only the collision-safe rename of two public GitHub repositor
 
 It does not rename, archive, delete, merge, deploy, or otherwise change `Daisuke134/anicca-products` (repository ID `1245528469`), Railway, product code, secrets, or any Life Manager §10 product/runtime work. The content/history import from `life-manager-v0` is a later migration and must finish with equivalence proof before that repository can be archived.
 
+## Measured documentation boundary
+
+The target `/Users/anicca/anicca` tree does not contain `docs/superpowers/specs/2026-07-19-anicca-one-repo-consolidation-spec.md`. Its currently tracked `docs/superpowers/specs/**` and `docs/superpowers/plans/**` files are pre-consolidation historical artifacts, so their truthful old-name statements are preserved rather than rewritten. The current canonical consolidation SSOT is this documentation worktree's `docs/superpowers/specs/2026-07-19-anicca-one-repo-consolidation-spec.md`, which already names final product/repository slug `Life Manager` / `life-manager`.
+
+The live-reference guard may exclude those two measured historical directories only while the target canonical path remains absent. Task 5 asserts that boundary before creating the guard and records the tracked-file inventory. If the canonical file or a post-consolidation live document appears in the target, execution stops and narrows the exclusion before continuing; it never silently treats future documents as historical.
+
 ## Approved repository identities
 
-Repository identity is tracked by immutable numeric ID during the operation; a slug is only the current name.
+Repository identity is tracked first by immutable numeric ID, then resolved through the numeric REST endpoint to the GraphQL repository node ID used for every rename mutation; a slug is only observed state and is never the mutation target.
 
-| Repository ID | Current name | Final name | Required state |
-|---:|---|---|---|
-| `1273052304` | `Daisuke134/life-manager` | `Daisuke134/life-manager-v0` | public, unarchived, undeleted until history/content import and equivalence verification finish |
-| `1248111245` | `Daisuke134/anicca` | `Daisuke134/life-manager` | public, unarchived, canonical product monorepo |
+| Repository ID | Measured GraphQL node ID | Current name | Final name | Required state |
+|---:|---|---|---|---|
+| `1273052304` | `R_kgDOS-E8kA` | `Daisuke134/life-manager` | `Daisuke134/life-manager-v0` | public, unarchived, undeleted until history/content import and equivalence verification finish |
+| `1248111245` | `R_kgDOSmSqjQ` | `Daisuke134/anicca` | `Daisuke134/life-manager` | public, unarchived, canonical product monorepo |
 
 The intermediate slug `Daisuke134/life-manager-v0` returns `404` before execution. The final slug is currently occupied by repository ID `1273052304`, so a direct rename cannot be collision-safe.
 
 ## Collision-safe sequence
 
 1. Capture ID-keyed metadata and complete branch/tag refs, issue identities, stargazer identities, Pages state, Action manifests, webhooks, rulesets, and local remotes for both repositories.
-2. Immediately re-read target ID `1273052304`, then rename `Daisuke134/life-manager` to `Daisuke134/life-manager-v0` with explicit `--repo` and `--yes` arguments.
+2. Immediately re-read numeric ID `1273052304`, record and verify its current `full_name`, GraphQL `node_id`, public visibility, and unarchived state, then call `updateRepository(input:{repositoryId:$repositoryId,name:$name})` with that verified node ID to rename it to `life-manager-v0`.
 3. Immediately update `/Users/anicca/Projects/life-manager` so `origin` is `https://github.com/Daisuke134/life-manager-v0.git`; fetch and verify the remote before continuing.
-4. Immediately re-read target ID `1248111245`, then rename `Daisuke134/anicca` to `Daisuke134/life-manager`.
+4. Immediately re-read numeric ID `1248111245`, record and verify the same identity tuple, then call the same GraphQL mutation with its verified node ID to rename it to `life-manager`.
 5. Immediately update the shared remote of `/Users/anicca/anicca` so `origin` is `https://github.com/Daisuke134/life-manager.git`; verify the base clone and every linked worktree resolve the same remote.
 6. Compare the ID-keyed before/after evidence, validate redirects and takeover behavior, update live URLs in a separate TDD-scoped commit, and redeploy/verify Pages at its new project URL.
 
@@ -67,7 +73,7 @@ This documentation worktree belongs to `Daisuke134/anicca-products`; its remote 
 
 ## Fail-closed and rollback rules
 
-- Immediately before each `gh repo rename`, both the slug lookup and numeric-ID lookup must agree on the exact target. Any mismatch, lost admin access, non-public/archive drift, unexpected new webhook/ruleset/Action manifest, or occupied intermediate slug stops before mutation.
+- Immediately before every rename or conditional rollback, fetch the target through `repositories/{numeric_id}`, record its identity tuple, and require the expected numeric ID, `full_name`, `node_id`, public visibility, and unarchived state. The mutation uses only that verified node ID. Any mismatch, lost admin access, unexpected webhook/ruleset/Action manifest, or occupied intermediate slug stops before mutation.
 - If the first rename fails, change nothing else.
 - If the first rename succeeds and the second fails before ID `1248111245` moves, stop. If the `life-manager` lookup still redirects to ID `1273052304` and no different repository owns that slug, the only permitted rollback is renaming ID `1273052304` back to `life-manager` and restoring its local remote. Otherwise preserve both repositories and escalate; never delete or overwrite a colliding repository.
 - Once ID `1248111245` successfully becomes `Daisuke134/life-manager`, do not recreate `anicca` and do not rename backward as an improvised rollback. Repair remotes, references, redirects, or Pages forward while preserving both IDs and all refs.
@@ -92,12 +98,13 @@ The rename is done only when one evidence bundle proves all of the following:
 Each material operational decision above is grounded in the following source or live GitHub response:
 
 - Final product name: [Life Manager README](https://github.com/Daisuke134/life-manager#readme) / direct quote: “Life Manager”.
-- Repository ID `1273052304`: [GitHub REST live repository response](https://api.github.com/repositories/1273052304) / direct quote: `"id": 1273052304` and `"full_name": "Daisuke134/life-manager"`.
-- Repository ID `1248111245`: [GitHub REST live repository response](https://api.github.com/repositories/1248111245) / direct quote: `"id": 1248111245` and `"full_name": "Daisuke134/anicca"`.
+- Repository ID `1273052304`: [GitHub REST live repository response](https://api.github.com/repositories/1273052304) / direct quote: `"id": 1273052304`, `"node_id": "R_kgDOS-E8kA"`, and `"full_name": "Daisuke134/life-manager"`.
+- Repository ID `1248111245`: [GitHub REST live repository response](https://api.github.com/repositories/1248111245) / direct quote: `"id": 1248111245`, `"node_id": "R_kgDOSmSqjQ"`, and `"full_name": "Daisuke134/anicca"`.
 - Redirect and Pages exception: [Renaming a repository — GitHub Docs](https://docs.github.com/en/repositories/creating-and-managing-repositories/renaming-a-repository) / direct quote: “with the exception of project site URLs, is automatically redirected”.
 - Never recreate old `anicca` and hosted-Action caveat: [リポジトリの名前を変更する — GitHub Docs](https://docs.github.com/ja/repositories/creating-and-managing-repositories/renaming-a-repository) / direct quote: 「元の名前を再利用しないでください」「アクションに呼び出しがリダイレクトされることはありません」。
 - Local remote update: [Managing remote repositories — GitHub Docs](https://docs.github.com/en/get-started/git-basics/managing-remote-repositories) / direct quote: `git remote set-url origin REMOTE-URL`.
-- Exact CLI mutation: [gh repo rename — GitHub CLI manual](https://cli.github.com/manual/gh_repo_rename) / direct quote: “the repository specified with --repo is renamed” and “Skip the confirmation prompt”.
+- Immutable mutation target: [GitHub GraphQL `UpdateRepositoryInput`](https://docs.github.com/en/graphql/reference/input-objects#updaterepositoryinput) / live schema descriptions: “The ID of the repository to update.” and “The new name of the repository.”
 - Pages state: [GitHub Pages live API response](https://api.github.com/repos/Daisuke134/anicca/pages) / direct quote: `"html_url":"https://daisuke134.github.io/anicca/"` and `"cname":null`.
 - Webhook absence: [GitHub repository hooks live API](https://api.github.com/repos/Daisuke134/anicca/hooks) / authenticated live response: `[]`.
 - Ruleset absence: [GitHub repository rulesets live API](https://api.github.com/repos/Daisuke134/anicca/rulesets) / authenticated live response: `[]`.
+- Documentation boundary: target-tree measurement reports `docs/superpowers/specs/2026-07-19-anicca-one-repo-consolidation-spec.md` absent; the canonical [Life Manager consolidation SSOT](2026-07-19-anicca-one-repo-consolidation-spec.md) directly states `canonical GitHub slug=life-manager`.

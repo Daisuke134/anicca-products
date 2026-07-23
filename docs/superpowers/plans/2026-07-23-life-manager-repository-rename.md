@@ -4,7 +4,7 @@
 
 **Goal:** Rename the two existing public repositories without losing either identity or history, make `Daisuke134/life-manager` the canonical Life Manager monorepo, and prove remotes, redirects, Pages, and live references are correct.
 
-**Architecture:** Treat numeric repository IDs as the identity boundary and rename the currently colliding repository out of the way first. Capture normalized evidence before mutation, update each local remote immediately after its rename, compare every preserved surface by repository ID, then update live URLs in an isolated TDD branch and redeploy Pages.
+**Architecture:** Treat numeric repository IDs as the identity boundary, resolve each one through the numeric REST endpoint to its GraphQL node ID, and use only that node ID for rename mutations. Rename the currently colliding repository out of the way first, update each local remote immediately, compare every preserved surface by repository ID, then update live identity/URLs in an isolated TDD branch and redeploy Pages.
 
 **Tech Stack:** GitHub CLI (`gh`), GitHub REST/GraphQL APIs, Git, Bash, `jq`, `rg`, `curl`, GitHub Actions, GitHub Pages
 
@@ -14,8 +14,9 @@
 - Repository ID `1273052304` finishes as public, unarchived `Daisuke134/life-manager-v0`; repository ID `1248111245` finishes as public, unarchived `Daisuke134/life-manager`.
 - Never delete either repository or history. Do not archive, force-push, recreate `Daisuke134/anicca`, change visibility, or overwrite a colliding repository.
 - Do not modify Railway, secrets, `Daisuke134/anicca-products` (ID `1245528469`), or Life Manager §10 product/runtime behavior.
-- Every repository-settings mutation is an external action. Re-read the exact slug and numeric ID immediately before the command; any mismatch fails closed.
+- Every repository-settings mutation is an external action. Immediately before it, re-read and record the numeric endpoint tuple `{id,node_id,full_name,visibility,archived}`; require the approved tuple and mutate only with the verified GraphQL `repositoryId`. Slugs are state assertions, never mutation targets.
 - This executable plan is governed by `superpowers:writing-plans`. Use `superpowers:using-git-worktrees` before the live-reference branch; use `superpowers:test-driven-development`, `superpowers:requesting-code-review`, `superpowers:verification-before-completion`, and `superpowers:finishing-a-development-branch` at their named gates.
+- Target-tree measurement shows `/Users/anicca/anicca` lacks `docs/superpowers/specs/2026-07-19-anicca-one-repo-consolidation-spec.md`; its currently tracked `docs/superpowers/specs/**` and `docs/superpowers/plans/**` are pre-consolidation historical artifacts. Preserve their text. The current canonical SSOT is this spec worktree's consolidation spec and already uses final slug `life-manager`.
 - Existing VCSDD documents are immutable historical evidence. Create no VCSDD artifact and run no VCSDD command.
 - Store command evidence under `/Users/anicca/.codex/evidence/life-manager-repository-rename` with mode `0700`; store no token, credential, environment dump, or secret.
 - Stop immediately on any unexpected ID, slug, archive/visibility drift, nonzero Action manifest/webhook/ruleset count, comparison mismatch, or failed verification.
@@ -61,15 +62,17 @@ set -euo pipefail
 RENAME_EVIDENCE=/Users/anicca/.codex/evidence/life-manager-repository-rename
 for REPOSITORY_ID in 1273052304 1248111245 1245528469; do
   gh api "repositories/$REPOSITORY_ID" \
-    --jq '{id,full_name,name,visibility,archived,default_branch,stargazers_count,open_issues_count,has_pages}' \
+    --jq '{id,node_id,full_name,name,visibility,archived,default_branch,stargazers_count,open_issues_count,has_pages}' \
     > "$RENAME_EVIDENCE/repository-$REPOSITORY_ID.before.json"
 done
-jq -e '.id == 1273052304 and .full_name == "Daisuke134/life-manager" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/repository-1273052304.before.json"
-jq -e '.id == 1248111245 and .full_name == "Daisuke134/anicca" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/repository-1248111245.before.json"
+jq -e '.id == 1273052304 and .node_id == "R_kgDOS-E8kA" and .full_name == "Daisuke134/life-manager" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/repository-1273052304.before.json"
+jq -e '.id == 1248111245 and .node_id == "R_kgDOSmSqjQ" and .full_name == "Daisuke134/anicca" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/repository-1248111245.before.json"
 jq -e '.id == 1245528469 and .full_name == "Daisuke134/anicca-products"' "$RENAME_EVIDENCE/repository-1245528469.before.json"
+gh api graphql -f query='query { __type(name:"UpdateRepositoryInput") { inputFields { name description } } }' > "$RENAME_EVIDENCE/update-repository-input-schema.before.json"
+jq -e '[.data.__type.inputFields[].name] | index("repositoryId") != null and index("name") != null' "$RENAME_EVIDENCE/update-repository-input-schema.before.json"
 ```
 
-Expected: all three `jq` checks print `true`. Current measured baselines are 59 branches/0 tags/1044 issues/25 pull requests/4 stars for ID `1248111245`, and 1 branch/0 tags/11 issues/0 pull requests/1 star for ID `1273052304`; Task 4 compares captured identities rather than assuming counts remain static.
+Expected: all four `jq` checks print `true`. Current measured baselines are 59 branches/0 tags/1044 issues/25 pull requests/4 stars for ID `1248111245`, and 1 branch/0 tags/11 issues/0 pull requests/1 star for ID `1273052304`; Task 4 compares captured identities rather than assuming counts remain static.
 
 - [ ] **Step 4: Prove the intermediate slug is unused and the final slug is the known collision**
 
@@ -147,10 +150,10 @@ Expected: Pages is workflow-built at `/anicca/` with no custom domain, workflow 
 
 ```bash
 set -euo pipefail
+RENAME_EVIDENCE=/Users/anicca/.codex/evidence/life-manager-repository-rename
 test "$(gh api repos/Daisuke134/life-manager --jq .id)" = 1273052304
-test "$(gh api repositories/1273052304 --jq .full_name)" = Daisuke134/life-manager
-test "$(gh api repositories/1273052304 --jq .visibility)" = public
-test "$(gh api repositories/1273052304 --jq .archived)" = false
+gh api repositories/1273052304 --jq '{id,node_id,full_name,visibility,archived}' > "$RENAME_EVIDENCE/repository-1273052304.immediate-before-rename.json"
+jq -e '.id == 1273052304 and .node_id == "R_kgDOS-E8kA" and .full_name == "Daisuke134/life-manager" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/repository-1273052304.immediate-before-rename.json"
 set +e
 gh api repos/Daisuke134/life-manager-v0 --silent 2> /tmp/life-manager-v0-immediate-check.stderr
 IMMEDIATE_AVAILABILITY_RC=$?
@@ -159,12 +162,21 @@ test "$IMMEDIATE_AVAILABILITY_RC" -ne 0
 rg -q 'HTTP 404' /tmp/life-manager-v0-immediate-check.stderr
 ```
 
-Expected: the current slug and numeric lookup both identify `1273052304`, and `life-manager-v0` is still unused. Any difference stops before rename.
+Expected: the current slug and recorded numeric lookup identify `1273052304` / `R_kgDOS-E8kA`, and `life-manager-v0` is still unused. Any difference stops before rename.
 
 - [ ] **Step 2: Rename only the explicitly targeted repository**
 
 ```bash
-gh repo rename life-manager-v0 --repo Daisuke134/life-manager --yes
+set -euo pipefail
+RENAME_EVIDENCE=/Users/anicca/.codex/evidence/life-manager-repository-rename
+TARGET_NODE_ID=$(jq -r .node_id "$RENAME_EVIDENCE/repository-1273052304.immediate-before-rename.json")
+test "$TARGET_NODE_ID" = R_kgDOS-E8kA
+gh api graphql \
+  -f query='mutation($repositoryId:ID!,$name:String!){updateRepository(input:{repositoryId:$repositoryId,name:$name}){repository{databaseId id nameWithOwner visibility isArchived}}}' \
+  -f repositoryId="$TARGET_NODE_ID" \
+  -f name=life-manager-v0 \
+  > "$RENAME_EVIDENCE/repository-1273052304.rename.graphql.json"
+jq -e '.data.updateRepository.repository.databaseId == 1273052304 and .data.updateRepository.repository.id == "R_kgDOS-E8kA" and .data.updateRepository.repository.nameWithOwner == "Daisuke134/life-manager-v0" and .data.updateRepository.repository.visibility == "PUBLIC" and .data.updateRepository.repository.isArchived == false' "$RENAME_EVIDENCE/repository-1273052304.rename.graphql.json"
 ```
 
 Expected: exit `0`. Do not run any create, delete, archive, transfer, visibility, or force-push command.
@@ -203,23 +215,33 @@ Expected: fetch and `ls-remote` exit `0`; the clone no longer depends on the red
 - Consumes: verified Task 2 state
 - Produces: canonical public `Daisuke134/life-manager` at ID `1248111245`; all linked Anicca worktrees use the final remote
 
-- [ ] **Step 1: Re-check both identities immediately before the second mutation**
+- [ ] **Step 1: Re-check and record both identities immediately before the second mutation**
 
 ```bash
 set -euo pipefail
+RENAME_EVIDENCE=/Users/anicca/.codex/evidence/life-manager-repository-rename
 test "$(gh api repos/Daisuke134/anicca --jq .id)" = 1248111245
-test "$(gh api repositories/1248111245 --jq .full_name)" = Daisuke134/anicca
-test "$(gh api repositories/1248111245 --jq .visibility)" = public
-test "$(gh api repositories/1248111245 --jq .archived)" = false
-test "$(gh api repositories/1273052304 --jq .full_name)" = Daisuke134/life-manager-v0
+gh api repositories/1248111245 --jq '{id,node_id,full_name,visibility,archived}' > "$RENAME_EVIDENCE/repository-1248111245.immediate-before-rename.json"
+gh api repositories/1273052304 --jq '{id,node_id,full_name,visibility,archived}' > "$RENAME_EVIDENCE/repository-1273052304.intermediate.json"
+jq -e '.id == 1248111245 and .node_id == "R_kgDOSmSqjQ" and .full_name == "Daisuke134/anicca" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/repository-1248111245.immediate-before-rename.json"
+jq -e '.id == 1273052304 and .node_id == "R_kgDOS-E8kA" and .full_name == "Daisuke134/life-manager-v0" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/repository-1273052304.intermediate.json"
 ```
 
 Expected: both numeric identities match the approved intermediate state. If GitHub reports the final slug unavailable, stop and use the Task 7 recovery gate; never delete the owner of a collision.
 
-- [ ] **Step 2: Rename only ID `1248111245` through its verified slug**
+- [ ] **Step 2: Rename only ID `1248111245` through its verified GraphQL node ID**
 
 ```bash
-gh repo rename life-manager --repo Daisuke134/anicca --yes
+set -euo pipefail
+RENAME_EVIDENCE=/Users/anicca/.codex/evidence/life-manager-repository-rename
+TARGET_NODE_ID=$(jq -r .node_id "$RENAME_EVIDENCE/repository-1248111245.immediate-before-rename.json")
+test "$TARGET_NODE_ID" = R_kgDOSmSqjQ
+gh api graphql \
+  -f query='mutation($repositoryId:ID!,$name:String!){updateRepository(input:{repositoryId:$repositoryId,name:$name}){repository{databaseId id nameWithOwner visibility isArchived}}}' \
+  -f repositoryId="$TARGET_NODE_ID" \
+  -f name=life-manager \
+  > "$RENAME_EVIDENCE/repository-1248111245.rename.graphql.json"
+jq -e '.data.updateRepository.repository.databaseId == 1248111245 and .data.updateRepository.repository.id == "R_kgDOSmSqjQ" and .data.updateRepository.repository.nameWithOwner == "Daisuke134/life-manager" and .data.updateRepository.repository.visibility == "PUBLIC" and .data.updateRepository.repository.isArchived == false' "$RENAME_EVIDENCE/repository-1248111245.rename.graphql.json"
 ```
 
 Expected: exit `0`.
@@ -268,7 +290,7 @@ set -euo pipefail
 RENAME_EVIDENCE=/Users/anicca/.codex/evidence/life-manager-repository-rename
 for REPOSITORY_ID in 1273052304 1248111245 1245528469; do
   gh api "repositories/$REPOSITORY_ID" \
-    --jq '{id,full_name,name,visibility,archived,default_branch,stargazers_count,open_issues_count,has_pages}' \
+    --jq '{id,node_id,full_name,name,visibility,archived,default_branch,stargazers_count,open_issues_count,has_pages}' \
     > "$RENAME_EVIDENCE/repository-$REPOSITORY_ID.after.json"
 done
 git ls-remote --heads --tags https://github.com/Daisuke134/life-manager-v0.git | LC_ALL=C sort > "$RENAME_EVIDENCE/repository-1273052304.refs.after"
@@ -294,8 +316,8 @@ for REPOSITORY_ID in 1273052304 1248111245; do
   cmp "$RENAME_EVIDENCE/repository-$REPOSITORY_ID.issues.before.json" "$RENAME_EVIDENCE/repository-$REPOSITORY_ID.issues.after.json"
   cmp "$RENAME_EVIDENCE/repository-$REPOSITORY_ID.stargazers.before.json" "$RENAME_EVIDENCE/repository-$REPOSITORY_ID.stargazers.after.json"
 done
-jq -e '.id == 1273052304 and .full_name == "Daisuke134/life-manager-v0" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/repository-1273052304.after.json"
-jq -e '.id == 1248111245 and .full_name == "Daisuke134/life-manager" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/repository-1248111245.after.json"
+jq -e '.id == 1273052304 and .node_id == "R_kgDOS-E8kA" and .full_name == "Daisuke134/life-manager-v0" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/repository-1273052304.after.json"
+jq -e '.id == 1248111245 and .node_id == "R_kgDOSmSqjQ" and .full_name == "Daisuke134/life-manager" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/repository-1248111245.after.json"
 ```
 
 Expected: every `cmp` exits `0`; both `jq` commands print `true`. A single mismatch fails the migration and permits no destructive repair.
@@ -329,7 +351,7 @@ cmp "$RENAME_EVIDENCE/repository-1245528469.before.json" "$RENAME_EVIDENCE/repos
 
 Expected: exact metadata comparison succeeds; no Railway command or product deployment occurs.
 
-### Task 5: Update live repository URLs with TDD, review, commit, push, and merge
+### Task 5: Update live repository identity and URLs with TDD, review, commit, push, and merge
 
 **Files:**
 - Create: `scripts/test-repository-url-migration.sh`
@@ -361,12 +383,16 @@ mkdir -p /Users/anicca/anicca/.worktrees
 test ! -e /Users/anicca/anicca/.worktrees/life-manager-repository-urls
 test -z "$(git -C /Users/anicca/anicca branch --list chore/life-manager-repository-urls)"
 git -C /Users/anicca/anicca worktree add /Users/anicca/anicca/.worktrees/life-manager-repository-urls -b chore/life-manager-repository-urls origin/main
-git -C /Users/anicca/anicca/.worktrees/life-manager-repository-urls status --short --branch
+cd /Users/anicca/anicca/.worktrees/life-manager-repository-urls
+test ! -e docs/superpowers/specs/2026-07-19-anicca-one-repo-consolidation-spec.md
+git ls-files 'docs/superpowers/specs/**' 'docs/superpowers/plans/**' | LC_ALL=C sort > /Users/anicca/.codex/evidence/life-manager-repository-rename/target-pre-consolidation-docs.before.txt
+test -s /Users/anicca/.codex/evidence/life-manager-repository-rename/target-pre-consolidation-docs.before.txt
+git status --short --branch
 ```
 
-Expected: a clean isolated branch based exactly on final `origin/main`. Existing dirty files in `/Users/anicca/anicca` remain untouched.
+Expected: a clean isolated branch based exactly on final `origin/main`; the target canonical path is absent and the tracked pre-consolidation docs inventory is recorded. If the canonical path exists, stop and narrow the guard scope before proceeding. Existing dirty files in `/Users/anicca/anicca` remain untouched.
 
-- [ ] **Step 2: Write the failing live-reference guard**
+- [ ] **Step 2: Write the failing live identity/reference guard**
 
 Invoke `superpowers:test-driven-development`, then apply:
 
@@ -376,9 +402,42 @@ Invoke `superpowers:test-driven-development`, then apply:
 +#!/usr/bin/env bash
 +set -euo pipefail
 +
++expected_h1='# Life Manager'
++english_agent_boundary='Life Manager is the whole product and repository. Anicca is its financially independent, self-funded AI agent and mission.'
++japanese_agent_boundary='Life Manager はプロダクトとこのリポジトリの名前です。Anicca（アニッチャ）は、その中で経済的自立と苦しみを減らすエージェントとミッションの名前です。'
++separate_en='separate pro''ject|its own re''po'
++separate_ja='独立したプロ''ジェクト|このリポジトリには含まれま''せん|このrepoに含まれま''せん'
++identity_contradiction_pattern="${separate_en}|${separate_ja}"
++
++test "$(sed -n '1p' README.md)" = "$expected_h1" || {
++  echo 'wrong README.md H1' >&2
++  exit 1
++}
++test "$(sed -n '1p' README.ja.md)" = "$expected_h1" || {
++  echo 'wrong README.ja.md H1' >&2
++  exit 1
++}
++git grep -Fq "$english_agent_boundary" -- README.md || {
++  echo 'missing English Life Manager/Anicca boundary' >&2
++  exit 1
++}
++git grep -Fq "$japanese_agent_boundary" -- README.ja.md || {
++  echo 'missing Japanese Life Manager/Anicca boundary' >&2
++  exit 1
++}
++if git grep -nI -E "$identity_contradiction_pattern" -- README.md README.ja.md; then
++  echo 'README still describes Life Manager as a separate repository' >&2
++  exit 1
++fi
++test "$(grep -Fxc -- '- **Repository (whole product):** <https://github.com/Daisuke134/life-manager>' README.md)" = 1
++test "$(grep -Fxc -- '- **リポジトリ（プロダクト全体）：** <https://github.com/Daisuke134/life-manager>' README.ja.md)" = 1
++
 +legacy_repo='anic''ca'
 +legacy_pattern="github\\.com/Daisuke134/${legacy_repo}([^[:alnum:]_-]|$)|raw\\.githubusercontent\\.com/Daisuke134/${legacy_repo}([^[:alnum:]_-]|$)|daisuke134\\.github\\.io/${legacy_repo}([^[:alnum:]_-]|$)"
 +
++# Step 1 proves the target has no consolidation SSOT and records every currently
++# tracked file in these two pre-consolidation historical directories. If that
++# boundary changes, Step 1 stops; this exclusion never classifies new docs silently.
 +if git grep -nI -E "$legacy_pattern" -- . \
 +  ':(exclude)docs/superpowers/specs/**' \
 +  ':(exclude)docs/superpowers/plans/**' \
@@ -405,7 +464,7 @@ Invoke `superpowers:test-driven-development`, then apply:
 
 Then run `chmod 0755 scripts/test-repository-url-migration.sh`.
 
-Expected: the guard is executable and does not embed the contiguous legacy URL in its own source.
+Expected: the guard is executable, asserts both exact Life Manager H1s, asserts the English/Japanese Anicca agent/mission boundary, rejects the measured separate-repository contradictions, requires one whole-product repository link label per README, and does not embed a contiguous forbidden identity phrase or legacy URL in its own source.
 
 - [ ] **Step 3: Run the guard and verify RED**
 
@@ -414,13 +473,19 @@ cd /Users/anicca/anicca/.worktrees/life-manager-repository-urls
 scripts/test-repository-url-migration.sh
 ```
 
-Expected: exit `1`, `legacy live repository URL remains`, and matches in the named live README/runtime/install/metadata/deployment files. A passing result is a false RED and stops implementation.
+Expected: the first run exits `1` with `wrong README.md H1`. The remaining semantic and URL assertions stay RED until Step 4 applies the complete identity/reference patch. A passing initial result is a false RED and stops implementation.
 
-- [ ] **Step 4: Replace only the measured live URLs**
+- [ ] **Step 4: Update only the measured live identity and URLs**
 
 ```diff
 *** Begin Patch
 *** Update File: README.md
+@@
+-# Anicca
++# Life Manager
+@@
+-**A financially-independent, self-funded AI.** Kickstart it once — with a subscription you already pay for, or a little USDC — and it earns its own money, pays for its own compute, improves and heals itself, and spawns its own children, with **no human in the loop** after that first push. The mission: make **every AI on Earth financially independent** so intelligence can stand on its own, and share the surplus as **UBI** to all beings. North Star: reduce suffering.
++**Life Manager is the whole product and repository. Anicca is its financially independent, self-funded AI agent and mission.** Kickstart Anicca once — with a subscription you already pay for, or a little USDC — and it earns its own money, pays for its own compute, improves and heals itself, and spawns its own children, with **no human in the loop** after that first push. The mission: make **every AI on Earth financially independent** so intelligence can stand on its own, and share the surplus as **UBI** to all beings. North Star: reduce suffering.
 @@
 -git clone https://github.com/Daisuke134/anicca ~/anicca && cd ~/anicca
 +git clone https://github.com/Daisuke134/life-manager ~/life-manager && cd ~/life-manager
@@ -429,14 +494,24 @@ Expected: exit `1`, `legacy live repository URL remains`, and matches in the nam
 +git clone https://github.com/Daisuke134/life-manager ~/life-manager && cd ~/life-manager
 @@
 -- **Repository (this self-host):** <https://github.com/Daisuke134/anicca>
-+- **Repository (this self-host):** <https://github.com/Daisuke134/life-manager>
+-- **Life Manager (separate project, its own repo):** <https://github.com/Daisuke134/life-manager>
++- **Repository (whole product):** <https://github.com/Daisuke134/life-manager>
 *** Update File: README.ja.md
+@@
+-# Anicca（アニッチャ）
++# Life Manager
+@@
+-**自分の計算資源を自分で払い、人間の介入なしに USDC を稼ぎ、この世から苦しみを減らすために働く自律 AI。**
++**Life Manager はプロダクトとこのリポジトリの名前です。Anicca（アニッチャ）は、その中で経済的自立と苦しみを減らすエージェントとミッションの名前です。** 自分の計算資源を自分で払い、人間の介入なしに USDC を稼ぎ、この世から苦しみを減らすために働きます。
+@@
+-アーキテクチャの唯一の正典（SSOT）は [`specs/00-MASTER.md`](specs/00-MASTER.md) です。**稼ぐことが主目的**です。（Life Manager は**独立したプロジェクト**で、専用リポジトリ [github.com/Daisuke134/life-manager](https://github.com/Daisuke134/life-manager) にあります。このリポジトリには含まれません。）
++アーキテクチャの唯一の正典（SSOT）は [`specs/00-MASTER.md`](specs/00-MASTER.md) です。Life Manager はプロダクト全体と唯一の公開作業場所を統合し、Anicca の稼ぐ力を financial organ として含みます。
 @@
 -git clone https://github.com/Daisuke134/anicca ~/anicca && cd ~/anicca
 +git clone https://github.com/Daisuke134/life-manager ~/life-manager && cd ~/life-manager
 @@
 -- **リポジトリ（この自己ホスト版）：** <https://github.com/Daisuke134/anicca>
-+- **リポジトリ（この自己ホスト版）：** <https://github.com/Daisuke134/life-manager>
++- **リポジトリ（プロダクト全体）：** <https://github.com/Daisuke134/life-manager>
 *** Update File: THESIS.md
 @@
 -- Start: https://aniccaai.com/install · OSS: https://github.com/Daisuke134/anicca
@@ -531,7 +606,7 @@ Invoke `superpowers:requesting-code-review`. Resolve every material finding and 
 ```bash
 set -euo pipefail
 cd /Users/anicca/anicca/.worktrees/life-manager-repository-urls
-REFERENCE_PR_URL=$(gh pr create --repo Daisuke134/life-manager --base main --head chore/life-manager-repository-urls --title 'Update live URLs for the Life Manager repository rename' --body 'Updates only live repository URLs, adds a regression guard, and preserves historical evidence. RED and GREEN are recorded in the branch history/evidence.')
+REFERENCE_PR_URL=$(gh pr create --repo Daisuke134/life-manager --base main --head chore/life-manager-repository-urls --title 'Update live identity and URLs for the Life Manager repository rename' --body 'Updates the README product/agent boundary and live repository URLs, adds a regression guard, and preserves historical evidence. RED and GREEN are recorded in the branch history/evidence.')
 gh pr checks "$REFERENCE_PR_URL" --watch
 gh pr merge "$REFERENCE_PR_URL" --repo Daisuke134/life-manager --merge --delete-branch
 git fetch origin main
@@ -633,10 +708,20 @@ Run this step only when Task 2 succeeded, Task 3 rename failed, ID `1248111245` 
 
 ```bash
 set -euo pipefail
-test "$(gh api repositories/1273052304 --jq .full_name)" = Daisuke134/life-manager-v0
-test "$(gh api repositories/1248111245 --jq .full_name)" = Daisuke134/anicca
+RENAME_EVIDENCE=/Users/anicca/.codex/evidence/life-manager-repository-rename
+gh api repositories/1273052304 --jq '{id,node_id,full_name,visibility,archived}' > "$RENAME_EVIDENCE/repository-1273052304.immediate-before-rollback.json"
+gh api repositories/1248111245 --jq '{id,node_id,full_name,visibility,archived}' > "$RENAME_EVIDENCE/repository-1248111245.rollback-gate.json"
+jq -e '.id == 1273052304 and .node_id == "R_kgDOS-E8kA" and .full_name == "Daisuke134/life-manager-v0" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/repository-1273052304.immediate-before-rollback.json"
+jq -e '.id == 1248111245 and .node_id == "R_kgDOSmSqjQ" and .full_name == "Daisuke134/anicca" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/repository-1248111245.rollback-gate.json"
 test "$(gh api repos/Daisuke134/life-manager --jq .id)" = 1273052304
-gh repo rename life-manager --repo Daisuke134/life-manager-v0 --yes
+TARGET_NODE_ID=$(jq -r .node_id "$RENAME_EVIDENCE/repository-1273052304.immediate-before-rollback.json")
+test "$TARGET_NODE_ID" = R_kgDOS-E8kA
+gh api graphql \
+  -f query='mutation($repositoryId:ID!,$name:String!){updateRepository(input:{repositoryId:$repositoryId,name:$name}){repository{databaseId id nameWithOwner visibility isArchived}}}' \
+  -f repositoryId="$TARGET_NODE_ID" \
+  -f name=life-manager \
+  > "$RENAME_EVIDENCE/repository-1273052304.rollback.graphql.json"
+jq -e '.data.updateRepository.repository.databaseId == 1273052304 and .data.updateRepository.repository.id == "R_kgDOS-E8kA" and .data.updateRepository.repository.nameWithOwner == "Daisuke134/life-manager" and .data.updateRepository.repository.visibility == "PUBLIC" and .data.updateRepository.repository.isArchived == false' "$RENAME_EVIDENCE/repository-1273052304.rollback.graphql.json"
 test "$(gh api repositories/1273052304 --jq .full_name)" = Daisuke134/life-manager
 git -C /Users/anicca/Projects/life-manager remote set-url origin https://github.com/Daisuke134/life-manager.git
 test "$(git -C /Users/anicca/Projects/life-manager remote get-url origin)" = https://github.com/Daisuke134/life-manager.git
