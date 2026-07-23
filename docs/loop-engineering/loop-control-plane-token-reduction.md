@@ -45,7 +45,7 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 | 1 | [x] Add a Gig feedback-hash and artifact idempotency gate. The same feedback plus a valid accepted artifact must not enter `PAID_WORK` again. | `6898b2710554fbdd0261f148f19a0f66b71ab1ef`; `test_delivery_project_integration.py` 9 passed; `test_gig_paid_work_gate.sh` passed and asserts unchanged accepted feedback never logs `gig-PAID_WORK`. | 1.5–3 h |
 | 2 | [x] Route a valid existing artifact to delivery reconciliation or await-buyer state instead of rebuilding it. | `6898b2710554fbdd0261f148f19a0f66b71ab1ef`; 4 focused state-transition tests passed and the paid-work recovery replay passed without rebuilding the existing artifact. | 1–2 h |
 | 3 | [x] Make 30-minute launchd polling deterministic and invoke a model only on a material event. | `afc9776b0e65ddf63ef530721e60e66f136955ce`; checked-in launchd minutes are `[0,30]`; poll-control replay records new feedback=`1` call and unchanged/await/empty=`0` calls. | 2–4 h |
-| 4 | Build bounded context packets instead of replaying full histories. | Fixtures prove stable field and byte/token ceilings. | 2–4 h |
+| 4 | [x] Build bounded context packets instead of replaying full histories. | `4afda9d16cc49aa0d23ca6abc15b49e9e38f975e`; PAID_WORK, formal delivery, and reply composition use allowlisted packets capped at 8,192 bytes with exact byte/token-ceiling metrics; huge-history fixtures pass. | 2–4 h |
 | 5 | Enforce model routing: Terra medium for bounded composition/tool work, Luna medium for normal agent decisions, high/Sol only for explicit escalation. | Every invocation records route and escalation reason. | 1–2 h |
 | 6 | Add per-pass and per-loop token budgets with a circuit breaker. | Over-budget fixtures stop further calls and emit a reason. | 2–3 h |
 | 7 | Register or retire the remaining unregistered launchd agents one by one. Never bulk-mutate live runtime state. | Registry coverage is complete and each runtime label has an owner/status. | 4–8 h |
@@ -86,7 +86,20 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 - Related launchd tests report `30 passed`; plist lint, JSON parse, shell syntax, and `git diff --check` succeed.
 - The live LaunchAgent remains unchanged until the single reversible final cutover after TODO 1–6 pass together.
 
-**Next unfinished item:** TODO 4 — bounded context packets with stable field and byte/token ceilings.
+### TODO 4 — bounded context packets
+
+- Implementation commit: `4afda9d16cc49aa0d23ca6abc15b49e9e38f975e` on `origin/deploy/gig-speedy-reply-cutover`.
+- A shared deterministic packet builder enforces at most 8,192 encoded bytes, 24 top-level fields, 512 bytes per string, 8 list items, 24 map items, and depth 4. Each serialized packet records its exact byte count and a provider-independent conservative token ceiling.
+- Thin Gig allowlists now cover all production model inputs: `gig_paid_work`, `gig_paid_delivery`, and `gig_reply_composition`. Buyer/title fields, raw message histories, and stable artifact paths do not enter paid-work or delivery packets.
+- Reply composition retains only the latest eight conversation rows and truncates each body through the shared packet contract; a 101-row oversized-history fixture proves the earliest rows never enter the prompt.
+- Focused RED initially reported 3 failures for the missing delivery/reply packet functions and full-history reply prompt; GREEN reports `8 passed, 2 subtests passed`.
+- All `skills/gig-work/tests/test_gig_*.sh` fixtures pass. The paid-work and formal-delivery wiring fixtures assert the packet kind and `max_bytes=8192` inside the actual runner prompt.
+- `python3 -m pytest -q skills/gig-work/tests` reports `244 passed, 116 subtests passed`.
+- `python3 -m py_compile`, `bash -n`, and `git diff --check` exit successfully.
+- Remote verification: implementation HEAD and `origin/deploy/gig-speedy-reply-cutover` both resolve to `4afda9d16cc49aa0d23ca6abc15b49e9e38f975e`.
+- The live LaunchAgent remains unchanged until TODO 1–6 pass together.
+
+**Next unfinished item:** TODO 5 — explicit model routing and escalation-reason evidence.
 
 ## Immediate execution boundary
 
