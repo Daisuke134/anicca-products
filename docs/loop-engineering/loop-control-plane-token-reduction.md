@@ -1,4 +1,8 @@
-# Loop control plane and token reduction
+# Loop control plane and token reduction — historical evidence
+
+> この文書はtoken-control作業の履歴・証拠であり、Gigのactive TODO/実行順序の正本ではない。
+> 現在状態と残TODOは `spec/coconala-reply-sla:docs/loop-engineering/26-gig-loop-asis-tobe-plan.md`
+> §0/§6だけを参照する。この文書から完了済みfoundationを再実装しない。
 
 ## Verified current state
 
@@ -38,7 +42,7 @@ state delta + idempotency gate
 
 launchd is the scheduling source of truth. A checked-in registry describes every managed agent, its owner, schedule, model route, budget, state path, and retirement status. Repository-specific adapters remain thin; state detection, idempotency, runner invocation, telemetry, and budget enforcement are shared components.
 
-## Remaining TODO (SSOT — active execution order)
+## Historical execution ledger（active TODOではない）
 
 Scope is the Coconala work loop until it runs reliably every day. Unrelated x402 work and broad
 launchd registry cleanup are paused. Current measured control-plane state: the main Gig pass
@@ -350,18 +354,14 @@ per-pass/per-day token circuit breakers are implemented and verified in the evid
 - Post-change inventory reports `registered=true`, `desired_state=enabled`, and `actual_state=loaded-idle`. Unregistered coverage moves from 80 total / 60 Anicca to 79 total / 59 Anicca.
 - Keeping the idempotent acquisition scheduler under one launchd label follows Apple's launchd management boundary. Source: [Apple Daemons and Services Programming Guide](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html).
 
-**Next unfinished item:** active order item 4, complete and prove the Coconala state machine from
-listing and application through reply, paid work, delivery/revision, acceptance, payout, and
-`banked`. Start with the live `reconcile_pending` reply whose post-click ground truth remains
-unconfirmed. x402 and the remaining 59-label registry backlog are paused.
+**Historical next item at handoff:** this ledger previously pointed to the Coconala state machine.
+It no longer defines the current next item. Use `26-gig-loop-asis-tobe-plan.md` §6 for the active
+ordered queue.
 
-## Current execution boundary
+## Historical execution boundary
 
-The only active implementation scope is the Coconala work loop in the ordered table above. Disk
-capacity, crash recovery, browser ownership isolation, and required scheduler-lane proof are
-complete; the end-to-end Coconala state machine is next. Do not resume x402, broad launchd registry
-cleanup, CEO allocation, or new adapters before the complete state machine, controlled transaction,
-and 24-hour proof are complete in that order.
+At this handoff, the implementation scope was the Coconala work loop. The current boundary and
+ordering are maintained only in `26-gig-loop-asis-tobe-plan.md` §0/§6.
 
 ## Definition of done
 
