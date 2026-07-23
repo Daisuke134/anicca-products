@@ -41,10 +41,10 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 ## Remaining TODO (SSOT — active execution order)
 
 Scope is the Coconala work loop until it runs reliably every day. Unrelated x402 work and broad
-launchd registry cleanup are paused. Current measured control-plane state: the main Gig pass is
-loaded at minutes `0` and `30` (48 opportunities/day) and still needs one natural run on the new
-Gig-only browser; the five-minute reply detector completes a natural run with exit `0`; the latest
-09:07 daily-report log records a successful Telegram send with `{"sent":1}`. Disk capacity is
+launchd registry cleanup are paused. Current measured control-plane state: the main Gig pass
+completes a natural `:30` run on the Gig-only browser with exit `0`; the five-minute reply detector
+completes natural runs with exit `0`; the latest 09:07 daily-report log records a successful
+Telegram send with `{"sent":1}`. Disk capacity is
 restored from 858 MiB
 free / 100% used to 18 GiB free / 92% used by deleting only regenerable caches and clean,
 remote-backed, inactive worktrees. The CloakBrowser/Chromium crash-recovery path and browser
@@ -58,7 +58,7 @@ scheduler-run evidence is the next blocker.
 | 0 | **COMPLETED** — Restore an operational disk buffer without deleting runtime state, browser profiles, credentials, dirty worktrees, or active feature work. | `/System/Volumes/Data` moves from 858 MiB free / 100% used to 18 GiB free / 92% used. Regenerable caches and 20 clean, remote-backed worktrees with no live process CWD are removed; the SSOT, capafy, Coconala, x402, dirty, locked, and active worktrees remain. |
 | 1 | **COMPLETED** — Stabilize the CloakBrowser/Chromium daily driver used by Coconala. The daily entrypoint delegates dead-browser recovery to the single launchd-owned persistent CloakBrowser context instead of launching a second unmanaged raw Chromium process. | Commit `08b878c9`; focused RED fails on the unmanaged path, GREEN reports 6/6 guard tests and 29/29 complete verifier tests. A real `SIGKILL` drill observes CDP DOWN → `RECOVERED`, owner running/never-exited, one Chromium root, one tab, authenticated `coconala.com/mypage/dashboard`, and the next entrypoint call returns `ALIVE`. |
 | 2 | **COMPLETED** — Isolate browser ownership before re-enabling concurrent lanes. Give each business loop one launchd-owned persistent browser/profile/port; keep Gig pass/reply/auditor on one Gig browser behind one universal Gig lock. Replace global tab deletion with owner-scoped cleanup, and keep interactive Codex automation off the production Gig port. | `ai.anicca.hf-gig-browser` owns one Chromium root on CDP `:9223` with profile `gig-daily-driver`; `:9222` remains a separate root/profile. Gig `:9223` has one `about:blank` page and no attached non-Gig controller. Read-only Coconala keepalive reports `logged_out=false`. A two-owner live fixture rejects A→B close, A cleanup closes only A, and B remains live until B closes it. |
-| 3 | **IN PROGRESS (2/3 lanes verified)** — Restore and verify all required work-loop lanes. Install/load `ai.anicca.hf-gig-reply-detector`, observe `ai.anicca.hf-gig-daily-report` complete naturally, and re-check the already-loaded `ai.anicca.hf-gig-pass`. | Reply detector natural run: `runs=2`, exit `0`, `completed`, zero pending/externally sent replies. Daily report: latest 09:07 log ends `{"sent":1}` with empty stderr. Remaining evidence is one natural `:00/:30` pass on Gig CDP `:9223`, with no lock overlap. |
+| 3 | **COMPLETED** — Restore and verify all required work-loop lanes. Install/load `ai.anicca.hf-gig-reply-detector`, observe `ai.anicca.hf-gig-daily-report` complete naturally, and re-check the already-loaded `ai.anicca.hf-gig-pass`. | Reply detector natural runs: exit `0`, 300-second interval, zero duplicate/external reply events. Daily report: latest 09:07 log ends `{"sent":1}` with empty stderr. Natural `:30` pass: `runs=1`, exit `0`, CDP `:9223`, one bounded model call, no verified reply event, lock released, owner ledger empty, one default page retained. |
 | 4 | Complete the Coconala state machine: listing → new work discovery/application → fast reply → paid work → delivery/revision → acceptance → payout → `banked`. | Deterministic fixtures cover every transition, crash recovery, and idempotent replay without a duplicate browser action. |
 | 5 | Add task-level attribution for tokens, estimated cost, browser actions, revenue, and outcomes. | The daily Gig report reconciles pass/reply/delivery ledgers to exact task labels and exposes missing evidence instead of guessing. |
 | 6 | Run one controlled real Coconala transaction end to end. | One real job reaches `banked` with buyer-visible evidence, payout evidence, cost/revenue totals, and a complete audit trail. |
@@ -141,8 +141,9 @@ per-pass/per-day token circuit breakers are implemented and verified in the evid
   successful Telegram message and ends with `{"sent":1,"delivery_unknown":0}`; stderr is empty.
   The current launchd `runs=0` counter reflects the later job reload, not absence of the logged
   natural run.
-- The remaining Step 3 proof is one natural main-pass run at minute `0` or `30` after the browser
-  cutover. It must use CDP `:9223`, exit successfully, and leave no overlapping Gig lock owner.
+- The natural main-pass run at `:30` completes on CDP `:9223` with `runs=1`, exit `0`,
+  `material_event_handled`, one bounded model call, paid work still `awaiting buyer`, and a
+  successful unit-economics sync.
 - A manual production-path smoke on the same launchd job exits `0`, releases the universal lock,
   leaves the target-owner ledger empty, and returns the Gig browser to one `about:blank` page.
   It records `material_event_handled`, one bounded model call, zero verified reply events, and no
@@ -151,6 +152,9 @@ per-pass/per-day token circuit breakers are implemented and verified in the evid
   quiescence, authoritative hash absence, and the consistency window. Post-click diagnostics now
   persist bounded composer/error-state codes without raw conversation text. The complete Gig
   Python suite reports `259 passed, 119 subtests passed`.
+- Post-run cleanup proves the universal lock is absent, the target-owner ledger is empty, and the
+  Gig browser returns to one `about:blank` page. The reply lane emits no verified/external event;
+  its unresolved thread remains fenced in `reconcile_pending` for the state-machine work next.
 
 ### TODO 1 — feedback/artifact idempotency
 
@@ -346,18 +350,18 @@ per-pass/per-day token circuit breakers are implemented and verified in the evid
 - Post-change inventory reports `registered=true`, `desired_state=enabled`, and `actual_state=loaded-idle`. Unregistered coverage moves from 80 total / 60 Anicca to 79 total / 59 Anicca.
 - Keeping the idempotent acquisition scheduler under one launchd label follows Apple's launchd management boundary. Source: [Apple Daemons and Services Programming Guide](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html).
 
-**Next unfinished item:** finish active order item 3 by observing one successful natural
-`:00/:30` Gig pass on CDP `:9223` while confirming the universal lock prevents overlap. The
-five-minute reply detector and 09:07 daily report already have successful natural-run evidence.
-x402 and the remaining 59-label registry backlog are paused.
+**Next unfinished item:** active order item 4, complete and prove the Coconala state machine from
+listing and application through reply, paid work, delivery/revision, acceptance, payout, and
+`banked`. Start with the live `reconcile_pending` reply whose post-click ground truth remains
+unconfirmed. x402 and the remaining 59-label registry backlog are paused.
 
 ## Current execution boundary
 
 The only active implementation scope is the Coconala work loop in the ordered table above. Disk
-capacity, crash recovery, and browser ownership isolation are complete; required scheduler-lane
-proof is next. Do not resume x402, broad launchd registry cleanup, CEO allocation, or new adapters
-before the required scheduler lanes, complete state machine, controlled transaction, and 24-hour
-proof are complete in that order.
+capacity, crash recovery, browser ownership isolation, and required scheduler-lane proof are
+complete; the end-to-end Coconala state machine is next. Do not resume x402, broad launchd registry
+cleanup, CEO allocation, or new adapters before the complete state machine, controlled transaction,
+and 24-hour proof are complete in that order.
 
 ## Definition of done
 
