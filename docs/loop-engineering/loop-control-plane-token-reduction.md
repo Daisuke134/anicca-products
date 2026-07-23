@@ -38,25 +38,34 @@ state delta + idempotency gate
 
 launchd is the scheduling source of truth. A checked-in registry describes every managed agent, its owner, schedule, model route, budget, state path, and retirement status. Repository-specific adapters remain thin; state detection, idempotency, runner invocation, telemetry, and budget enforcement are shared components.
 
-## Remaining TODO (SSOT)
+## Remaining TODO (SSOT — active execution order)
 
-| Order | Work | Done evidence | Engineering estimate |
-|---:|---|---|---:|
-| 1 | [x] Add a Gig feedback-hash and artifact idempotency gate. The same feedback plus a valid accepted artifact must not enter `PAID_WORK` again. | `6898b2710554fbdd0261f148f19a0f66b71ab1ef`; `test_delivery_project_integration.py` 9 passed; `test_gig_paid_work_gate.sh` passed and asserts unchanged accepted feedback never logs `gig-PAID_WORK`. | 1.5–3 h |
-| 2 | [x] Route a valid existing artifact to delivery reconciliation or await-buyer state instead of rebuilding it. | `6898b2710554fbdd0261f148f19a0f66b71ab1ef`; 4 focused state-transition tests passed and the paid-work recovery replay passed without rebuilding the existing artifact. | 1–2 h |
-| 3 | [x] Make 30-minute launchd polling deterministic and invoke a model only on a material event. | `afc9776b0e65ddf63ef530721e60e66f136955ce`; checked-in launchd minutes are `[0,30]`; poll-control replay records new feedback=`1` call and unchanged/await/empty=`0` calls. | 2–4 h |
-| 4 | [x] Build bounded context packets instead of replaying full histories. | `4afda9d16cc49aa0d23ca6abc15b49e9e38f975e`; PAID_WORK, formal delivery, and reply composition use allowlisted packets capped at 8,192 bytes with exact byte/token-ceiling metrics; huge-history fixtures pass. | 2–4 h |
-| 5 | [x] Enforce model routing: Terra medium for bounded composition/tool work, Luna medium for normal agent decisions, high/Sol only for explicit escalation. | `7ed12558dd97004832edf5fcad3247d4ccf35e5c`; every attempt, usage event, and summary records route/escalation fields; missing-reason escalation exits before provider invocation. | 1–2 h |
-| 6 | [x] Add per-pass and per-loop token budgets with a circuit breaker. | `4080a5c2046b1e9c1ced6db5970f57c013f4aa27`; reservation/settlement ledger fixtures stop the next provider call with exit 75 and distinguish pass from loop-daily exhaustion. | 2–3 h |
-| 7 | Register or retire the remaining unregistered launchd agents one by one. Never bulk-mutate live runtime state. | 11 agents complete; 59 unregistered Anicca labels remain. Each increment changes one exact runtime label and records its owner/status. | 4–8 h |
-| 8 | Add OpenTelemetry-compatible task attribution for tokens, estimated cost, revenue, and outcomes. | A daily report reconciles runner ledgers to task labels. | 3–5 h |
-| 9 | Canary the Claude fallback when availability returns. | One bounded fixture proves failover without duplicate customer action. | 0.5–1 h |
-| 10 | Complete the Coconala state machine from listing and fast reply through application, delivery, acceptance, payout, and banked revenue. | A sandbox or controlled real transaction reaches `banked` with an audit trail. | 1–2 engineering days plus external buyer time |
-| 11 | Revive the CEO allocator only after trustworthy cost/revenue telemetry exists. | At least seven days of observations drive bounded allocation decisions. | 3–5 h plus 7 days |
-| 12 | Add gig-site adapters and consolidate shared components into the canonical monorepo incrementally. | Each adapter passes the same contract suite; old code becomes a thin shim or is retired. | 1–3 days per adapter; 2–4 days consolidation |
-| 13 | Run zero-human soak tests. | Seven-day stabilization, then fourteen-day production observation, with no duplicate action or budget breach. | 21 calendar days |
+Scope is the Coconala work loop until it runs reliably every day. Unrelated x402 work and broad
+launchd registry cleanup are paused. Current measured control-plane state: the main Gig pass is
+loaded at minutes `0` and `30` (48 opportunities/day; 3 runs, last exit `0`), the five-minute
+reply detector plist is not installed or loaded, and the 09:07 daily report is loaded but has
+`0` runs / `never exited`. The reported CloakBrowser/Chromium crash blocks browser actions; this
+scope correction records the blocker but does not repair it.
 
-## Incremental completion evidence
+| Order | Remaining work | Done evidence |
+|---:|---|---|
+| 1 | Stabilize the CloakBrowser/Chromium daily driver used by Coconala. Bound tabs/memory, recover CDP `:9222`, preserve the logged-in session, and fail closed without hanging or duplicating a click. | A real crash/recovery drill returns CDP healthy, preserves the Coconala session, and the next bounded browser action completes once. |
+| 2 | Restore and verify all required work-loop lanes. Install/load `ai.anicca.hf-gig-reply-detector`, observe `ai.anicca.hf-gig-daily-report` complete naturally, and re-check the already-loaded `ai.anicca.hf-gig-pass`. | Fresh `launchctl` evidence shows pass=`:00/:30`, reply detector=`300s`, report=`09:07`; each records a successful natural run and the single-instance guard prevents overlap. |
+| 3 | Complete the Coconala state machine: listing → new work discovery/application → fast reply → paid work → delivery/revision → acceptance → payout → `banked`. | Deterministic fixtures cover every transition, crash recovery, and idempotent replay without a duplicate browser action. |
+| 4 | Add task-level attribution for tokens, estimated cost, browser actions, revenue, and outcomes. | The daily Gig report reconciles pass/reply/delivery ledgers to exact task labels and exposes missing evidence instead of guessing. |
+| 5 | Run one controlled real Coconala transaction end to end. | One real job reaches `banked` with buyer-visible evidence, payout evidence, cost/revenue totals, and a complete audit trail. |
+| 6 | Prove daily production operation for 24 hours before expanding scope. | All expected pass/reply/report lanes run on schedule for 24 hours with no missed heartbeat, overlap, browser hang, duplicate application/reply/delivery, or budget breach. |
+| 7 | Canary the Claude fallback when availability returns. | One bounded fixture proves failover without a duplicate customer action. |
+| 8 | Run zero-human soak tests. | Seven-day stabilization followed by fourteen-day production observation with no duplicate action, browser deadlock, or budget breach. |
+| 9 | Revive the CEO allocator only after trustworthy daily cost/revenue telemetry exists. | At least seven days of verified observations drive bounded allocation decisions. |
+| 10 | Add other gig-site adapters and consolidate shared components only after Coconala is stable. | Each adapter passes the same state-machine and browser-action contracts; old code becomes a thin shim or is retired. |
+| 11 | Resume unrelated launchd registry cleanup last. | Historical progress is 11 agents completed and 59 unregistered Anicca labels remaining; resume one exact label at a time only after the work loop is stable. |
+
+Completed foundation: Gig feedback/artifact idempotency, existing-artifact reconciliation,
+material-event-only model invocation, bounded context packets, explicit model routing, and
+per-pass/per-day token circuit breakers are implemented and verified in the evidence below.
+
+## Incremental completion evidence (historical IDs)
 
 ### TODO 1 — feedback/artifact idempotency
 
@@ -252,11 +261,17 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 - Post-change inventory reports `registered=true`, `desired_state=enabled`, and `actual_state=loaded-idle`. Unregistered coverage moves from 80 total / 60 Anicca to 79 total / 59 Anicca.
 - Keeping the idempotent acquisition scheduler under one launchd label follows Apple's launchd management boundary. Source: [Apple Daemons and Services Programming Guide](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html).
 
-**Next unfinished item:** TODO 7 continues with `ai.anicca.x402-experiment-franklin1`; 59 unregistered Anicca labels remain and runtime changes continue one label at a time.
+**Next unfinished item:** active order item 1, Coconala CloakBrowser/Chromium daily-driver
+stability. Then restore/verify the missing reply-detector and never-run daily-report lanes. x402
+and the remaining 59-label registry backlog are paused.
 
 ## Current execution boundary
 
-Items 1–6 and their live Gig cutover are complete. TODO 7 agents 1–11 are complete. The next work investigates `ai.anicca.x402-experiment-franklin1` and changes only that exact label after its register-or-retire decision is verified; it does not bulk-mutate runtime state or force a customer-visible action merely for validation.
+The only active implementation scope is the Coconala work loop in the ordered table above. The
+current browser crash is recorded as the first blocker; this documentation-only correction does
+not attempt a repair. Do not resume x402, other earn loops, broad launchd registry cleanup, CEO
+allocation, or new adapters before the Coconala browser, required launchd lanes, state machine,
+and 24-hour production proof are complete.
 
 ## Definition of done
 
@@ -265,5 +280,11 @@ Items 1–6 and their live Gig cutover are complete. TODO 7 agents 1–11 are co
 - Existing artifacts move through delivery reconciliation or await-buyer state without reconstruction.
 - Every call records task label, route, token usage, and budget decision.
 - Per-pass and daily budget breakers stop excess calls without duplicating external actions.
+- CloakBrowser/Chromium recovers from a real crash without losing the Coconala session, leaking
+  tabs, hanging a pass, or repeating a click.
+- The Gig pass, five-minute reply detector, and daily report are installed, loaded, and observed
+  completing on their natural schedules.
+- One controlled real Coconala transaction reaches `banked`, then the same production lanes run
+  for 24 hours without a missed heartbeat or duplicate external action.
 - Targeted behavioral tests, Gig integration tests, and launchd registry checks pass from a clean implementation commit.
 - This document is updated with exact evidence and the next unfinished item.
