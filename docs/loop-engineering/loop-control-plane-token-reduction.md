@@ -46,7 +46,7 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 | 2 | [x] Route a valid existing artifact to delivery reconciliation or await-buyer state instead of rebuilding it. | `6898b2710554fbdd0261f148f19a0f66b71ab1ef`; 4 focused state-transition tests passed and the paid-work recovery replay passed without rebuilding the existing artifact. | 1–2 h |
 | 3 | [x] Make 30-minute launchd polling deterministic and invoke a model only on a material event. | `afc9776b0e65ddf63ef530721e60e66f136955ce`; checked-in launchd minutes are `[0,30]`; poll-control replay records new feedback=`1` call and unchanged/await/empty=`0` calls. | 2–4 h |
 | 4 | [x] Build bounded context packets instead of replaying full histories. | `4afda9d16cc49aa0d23ca6abc15b49e9e38f975e`; PAID_WORK, formal delivery, and reply composition use allowlisted packets capped at 8,192 bytes with exact byte/token-ceiling metrics; huge-history fixtures pass. | 2–4 h |
-| 5 | Enforce model routing: Terra medium for bounded composition/tool work, Luna medium for normal agent decisions, high/Sol only for explicit escalation. | Every invocation records route and escalation reason. | 1–2 h |
+| 5 | [x] Enforce model routing: Terra medium for bounded composition/tool work, Luna medium for normal agent decisions, high/Sol only for explicit escalation. | `7ed12558dd97004832edf5fcad3247d4ccf35e5c`; every attempt, usage event, and summary records route/escalation fields; missing-reason escalation exits before provider invocation. | 1–2 h |
 | 6 | Add per-pass and per-loop token budgets with a circuit breaker. | Over-budget fixtures stop further calls and emit a reason. | 2–3 h |
 | 7 | Register or retire the remaining unregistered launchd agents one by one. Never bulk-mutate live runtime state. | Registry coverage is complete and each runtime label has an owner/status. | 4–8 h |
 | 8 | Add OpenTelemetry-compatible task attribution for tokens, estimated cost, revenue, and outcomes. | A daily report reconciles runner ledgers to task labels. | 3–5 h |
@@ -99,7 +99,21 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 - Remote verification: implementation HEAD and `origin/deploy/gig-speedy-reply-cutover` both resolve to `4afda9d16cc49aa0d23ca6abc15b49e9e38f975e`.
 - The live LaunchAgent remains unchanged until TODO 1–6 pass together.
 
-**Next unfinished item:** TODO 5 — explicit model routing and escalation-reason evidence.
+### TODO 5 — explicit model routing
+
+- Implementation commit: `7ed12558dd97004832edf5fcad3247d4ccf35e5c` on `origin/deploy/gig-speedy-reply-cutover`.
+- `composition-agent` and `tool-agent` resolve to `terra-medium-bounded`; `repeatable-agent`, `diagnostic-agent`, `marketing-agent`, and `high-value-agent` resolve to `luna-medium-decision`.
+- `gpt-5.6-sol` and every `effort=high` candidate exist only in `escalation-agent`. The runner rejects that route before provider invocation unless a nonempty `--escalation-reason` is present, and rejects escalation reasons on normal routes.
+- Every attempt row, usage-ledger event, and run summary records `route`, `escalated`, and `escalation_reason`. The escalation fixture proves the rejected run never invokes Codex and the accepted run persists the same reason in all three records.
+- `python3 -m pytest -q skills/gig-work/tests/test_agent_runner.py skills/gig-work/tests/test_telegram_reporting.py` reports `44 passed, 49 subtests passed`.
+- `python3 -m pytest -q skills/agent-runner/tests` reports `9 passed, 18 subtests passed`.
+- `python3 -m pytest -q skills/gig-work/tests` reports `245 passed, 119 subtests passed`.
+- `bash skills/gig-work/tests/test_gig_pass_launchagent.sh` passes and verifies the checked-in Gig registry route map and explicit-escalation contract.
+- JSON parse, Python compile, and `git diff --check` succeed.
+- Remote verification: implementation HEAD and `origin/deploy/gig-speedy-reply-cutover` both resolve to `7ed12558dd97004832edf5fcad3247d4ccf35e5c`.
+- The live LaunchAgent remains unchanged until TODO 1–6 pass together.
+
+**Next unfinished item:** TODO 6 — per-pass/per-loop token budgets with a circuit breaker.
 
 ## Immediate execution boundary
 
