@@ -42,7 +42,7 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 
 | Order | Work | Done evidence | Engineering estimate |
 |---:|---|---|---:|
-| 1 | Add a Gig feedback-hash and artifact idempotency gate. The same feedback plus a valid accepted artifact must not enter `PAID_WORK` again. | A replay fixture invokes the high-value runner zero times. | 1.5–3 h |
+| 1 | [x] Add a Gig feedback-hash and artifact idempotency gate. The same feedback plus a valid accepted artifact must not enter `PAID_WORK` again. | `6898b2710554fbdd0261f148f19a0f66b71ab1ef`; `test_delivery_project_integration.py` 9 passed; `test_gig_paid_work_gate.sh` passed and asserts unchanged accepted feedback never logs `gig-PAID_WORK`. | 1.5–3 h |
 | 2 | Route a valid existing artifact to delivery reconciliation or await-buyer state instead of rebuilding it. | State-transition tests cover artifact-present, delivered, and buyer-revision cases. | 1–2 h |
 | 3 | Make 30-minute launchd polling deterministic and invoke a model only on a material event. | No-change polls record zero model calls; a new event records one bounded call. | 2–4 h |
 | 4 | Build bounded context packets instead of replaying full histories. | Fixtures prove stable field and byte/token ceilings. | 2–4 h |
@@ -55,6 +55,19 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 | 11 | Revive the CEO allocator only after trustworthy cost/revenue telemetry exists. | At least seven days of observations drive bounded allocation decisions. | 3–5 h plus 7 days |
 | 12 | Add gig-site adapters and consolidate shared components into the canonical monorepo incrementally. | Each adapter passes the same contract suite; old code becomes a thin shim or is retired. | 1–3 days per adapter; 2–4 days consolidation |
 | 13 | Run zero-human soak tests. | Seven-day stabilization, then fourteen-day production observation, with no duplicate action or budget breach. | 21 calendar days |
+
+## Incremental completion evidence
+
+### TODO 1 — feedback/artifact idempotency
+
+- Implementation commit: `6898b2710554fbdd0261f148f19a0f66b71ab1ef` on `origin/deploy/gig-speedy-reply-cutover`.
+- RED: the replay initially failed because `resolve_workflow_action` did not exist and the unchanged accepted-artifact pass re-entered `PAID_WORK`.
+- GREEN: `python3 -m pytest -q skills/gig-work/tests/test_delivery_project_integration.py` reports `9 passed`.
+- GREEN: `bash skills/gig-work/tests/test_gig_paid_work_gate.sh` reports `PASS`; its unchanged-artifact replay asserts the runner log contains no `gig-PAID_WORK` entry.
+- Static verification: `python3 -m py_compile`, `bash -n`, and `git diff --check` exit successfully.
+- Remote verification: the implementation HEAD and `origin/deploy/gig-speedy-reply-cutover` both resolve to `6898b2710554fbdd0261f148f19a0f66b71ab1ef`.
+
+**Next unfinished item:** TODO 2 — route a valid existing artifact to delivery reconciliation or await-buyer state.
 
 ## Immediate execution boundary
 
