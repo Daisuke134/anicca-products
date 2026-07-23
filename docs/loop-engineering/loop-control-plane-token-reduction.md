@@ -47,7 +47,7 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 | 3 | [x] Make 30-minute launchd polling deterministic and invoke a model only on a material event. | `afc9776b0e65ddf63ef530721e60e66f136955ce`; checked-in launchd minutes are `[0,30]`; poll-control replay records new feedback=`1` call and unchanged/await/empty=`0` calls. | 2–4 h |
 | 4 | [x] Build bounded context packets instead of replaying full histories. | `4afda9d16cc49aa0d23ca6abc15b49e9e38f975e`; PAID_WORK, formal delivery, and reply composition use allowlisted packets capped at 8,192 bytes with exact byte/token-ceiling metrics; huge-history fixtures pass. | 2–4 h |
 | 5 | [x] Enforce model routing: Terra medium for bounded composition/tool work, Luna medium for normal agent decisions, high/Sol only for explicit escalation. | `7ed12558dd97004832edf5fcad3247d4ccf35e5c`; every attempt, usage event, and summary records route/escalation fields; missing-reason escalation exits before provider invocation. | 1–2 h |
-| 6 | Add per-pass and per-loop token budgets with a circuit breaker. | Over-budget fixtures stop further calls and emit a reason. | 2–3 h |
+| 6 | [x] Add per-pass and per-loop token budgets with a circuit breaker. | `4080a5c2046b1e9c1ced6db5970f57c013f4aa27`; reservation/settlement ledger fixtures stop the next provider call with exit 75 and distinguish pass from loop-daily exhaustion. | 2–3 h |
 | 7 | Register or retire the remaining unregistered launchd agents one by one. Never bulk-mutate live runtime state. | Registry coverage is complete and each runtime label has an owner/status. | 4–8 h |
 | 8 | Add OpenTelemetry-compatible task attribution for tokens, estimated cost, revenue, and outcomes. | A daily report reconciles runner ledgers to task labels. | 3–5 h |
 | 9 | Canary the Claude fallback when availability returns. | One bounded fixture proves failover without duplicate customer action. | 0.5–1 h |
@@ -113,7 +113,22 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 - Remote verification: implementation HEAD and `origin/deploy/gig-speedy-reply-cutover` both resolve to `7ed12558dd97004832edf5fcad3247d4ccf35e5c`.
 - The live LaunchAgent remains unchanged until TODO 1–6 pass together.
 
-**Next unfinished item:** TODO 6 — per-pass/per-loop token budgets with a circuit breaker.
+### TODO 6 — pass and loop token circuit breakers
+
+- Implementation commit: `4080a5c2046b1e9c1ced6db5970f57c013f4aa27` on `origin/deploy/gig-speedy-reply-cutover`.
+- The shared runner reserves a task-class token allowance under a file lock before each provider attempt, then replaces the reservation with provider-reported usage. Missing usage or a crash remains charged at the reservation amount, so failure cannot reopen budget.
+- Gig production policy is 65,536 tokens per pass and 262,144 tokens per UTC day. The six-hour reality auditor uses a 32,768-token pass cap and shares the same Gig daily ledger.
+- Task reservations are 16,384 for bounded composition, 24,576 for bounded tools, 32,768 for routine Luna decisions/diagnostics, 49,152 for marketing, and 65,536 for high-value or explicit escalation work.
+- A blocked reservation exits `75` before another provider process starts. Summary and reservation-ledger evidence distinguish `pass_token_budget_exceeded` from `loop_daily_token_budget_exceeded`; the reality auditor records `budget_blocked` without misclassifying the circuit break as a judge crash.
+- RED reported 3 focused failures before the budget module and runner breaker existed. GREEN reports `3 passed` for reservation/settlement, crash retention, same-pass blocking, and next-pass daily blocking; the provider-call fixture remains at exactly one invocation.
+- `python3 -m pytest -q skills/agent-runner/tests` reports `11 passed, 18 subtests passed`.
+- `python3 -m pytest -q skills/gig-work/tests` reports `246 passed, 119 subtests passed`.
+- All 17 `skills/gig-work/tests/test_gig_*.sh` fixtures pass; `node --test skills/gig-work/__tests__/gig-reality-verify.test.mjs` reports `22 passed`.
+- Both launchd plists lint; JSON parse, Python compile, shell syntax, and `git diff --check` succeed.
+- Remote verification: implementation HEAD and `origin/deploy/gig-speedy-reply-cutover` both resolve to `4080a5c2046b1e9c1ced6db5970f57c013f4aa27`.
+- The checked-in sources are ready for the single final live LaunchAgent cutover and post-cutover inspection.
+
+**Next unfinished item after the TODO 1–6 cutover audit:** TODO 7 — register or retire remaining launchd agents individually.
 
 ## Immediate execution boundary
 
