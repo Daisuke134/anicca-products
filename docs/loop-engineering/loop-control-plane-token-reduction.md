@@ -43,7 +43,7 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 | Order | Work | Done evidence | Engineering estimate |
 |---:|---|---|---:|
 | 1 | [x] Add a Gig feedback-hash and artifact idempotency gate. The same feedback plus a valid accepted artifact must not enter `PAID_WORK` again. | `6898b2710554fbdd0261f148f19a0f66b71ab1ef`; `test_delivery_project_integration.py` 9 passed; `test_gig_paid_work_gate.sh` passed and asserts unchanged accepted feedback never logs `gig-PAID_WORK`. | 1.5–3 h |
-| 2 | Route a valid existing artifact to delivery reconciliation or await-buyer state instead of rebuilding it. | State-transition tests cover artifact-present, delivered, and buyer-revision cases. | 1–2 h |
+| 2 | [x] Route a valid existing artifact to delivery reconciliation or await-buyer state instead of rebuilding it. | `6898b2710554fbdd0261f148f19a0f66b71ab1ef`; 4 focused state-transition tests passed and the paid-work recovery replay passed without rebuilding the existing artifact. | 1–2 h |
 | 3 | Make 30-minute launchd polling deterministic and invoke a model only on a material event. | No-change polls record zero model calls; a new event records one bounded call. | 2–4 h |
 | 4 | Build bounded context packets instead of replaying full histories. | Fixtures prove stable field and byte/token ceilings. | 2–4 h |
 | 5 | Enforce model routing: Terra medium for bounded composition/tool work, Luna medium for normal agent decisions, high/Sol only for explicit escalation. | Every invocation records route and escalation reason. | 1–2 h |
@@ -67,7 +67,14 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 - Static verification: `python3 -m py_compile`, `bash -n`, and `git diff --check` exit successfully.
 - Remote verification: the implementation HEAD and `origin/deploy/gig-speedy-reply-cutover` both resolve to `6898b2710554fbdd0261f148f19a0f66b71ab1ef`.
 
-**Next unfinished item:** TODO 2 — route a valid existing artifact to delivery reconciliation or await-buyer state.
+### TODO 2 — existing artifact reconciliation
+
+- Implementation commit: `6898b2710554fbdd0261f148f19a0f66b71ab1ef` on `origin/deploy/gig-speedy-reply-cutover`.
+- `python3 -m pytest -q skills/gig-work/tests/test_delivery_project_integration.py -k 'accepted_artifact_bootstraps_feedback_idempotency_without_rebuilding or delivered_artifact_with_unchanged_feedback_awaits_buyer or new_buyer_revision_reopens_accepted_artifact_project_once or valid_pending_browser_delivery_is_reused_without_rebuilding'` reports `4 passed`.
+- Artifact-present routes to `deliver_existing`; an already buyer-visible artifact routes to `await_buyer`; a different feedback hash routes to `act`.
+- `bash skills/gig-work/tests/test_gig_paid_work_gate.sh` passes its recovery replay: the browser retry reuses the stable artifact/hash/acceptance bundle, does not invoke `gig-PAID_WORK`, reconciles buyer visibility, and then waits for buyer feedback.
+
+**Next unfinished item:** TODO 3 — deterministic 30-minute polling and material-event-only model invocation.
 
 ## Immediate execution boundary
 
