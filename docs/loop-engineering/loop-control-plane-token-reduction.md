@@ -5,7 +5,7 @@
 - The dominant 24-hour token source is interactive Codex work, not launchd: Desktop/CLI main sessions account for 68.7% of raw tokens and parallel subagents account for 29.0%.
 - Instrumented launchd loops account for 11,821,975 tokens. Gig uses 10,858,220 of those tokens and is the first loop to optimize.
 - The latest Gig request has an accepted v7 artifact, while the same buyer feedback remains pending and formal delivery is not observed. The current workflow can rebuild work that already exists.
-- `ai.anicca.hf-gig-pass` is idle with last exit code 1. The Gig auditor and core healthcheck are idle with successful last exits.
+- `ai.anicca.hf-gig-pass` is loaded and idle on minutes `0` and `30`; its post-cutover state is not running with no forced run. The Gig auditor is loaded and idle on minute `45`.
 - OpenClaw has zero enabled SQLite cron jobs. The launchd strategy updater is loaded and idle.
 - Current Gig targeted tests pass: 19 pytest cases and 5 paid-work gate subtests.
 
@@ -126,13 +126,16 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 - All 17 `skills/gig-work/tests/test_gig_*.sh` fixtures pass; `node --test skills/gig-work/__tests__/gig-reality-verify.test.mjs` reports `22 passed`.
 - Both launchd plists lint; JSON parse, Python compile, shell syntax, and `git diff --check` succeed.
 - Remote verification: implementation HEAD and `origin/deploy/gig-speedy-reply-cutover` both resolve to `4080a5c2046b1e9c1ced6db5970f57c013f4aa27`.
-- The checked-in sources are ready for the single final live LaunchAgent cutover and post-cutover inspection.
+- The live implementation checkout is fast-forwarded to the same commit without touching the existing Writer queue deletion or in-progress untracked file.
+- The installed Gig pass and auditor plists are byte-identical to their checked-in sources. `launchctl print` reports pass triggers at minutes `0` and `30` with call limit `1`, legacy maintenance off, pass budget `65536`, and daily budget `262144`; the auditor remains at minute `45` with budget `32768` and the same daily cap.
+- Neither agent is force-started during cutover. Both are loaded, not running, and show zero runs since bootstrap, so validation causes no customer-visible action.
+- Fresh post-cutover verification from the live checkout reports `257 passed, 137 subtests passed` across Gig and shared runner tests; all 17 Gig shell fixtures and all 22 reality-verifier Node tests pass.
 
 **Next unfinished item after the TODO 1–6 cutover audit:** TODO 7 — register or retire remaining launchd agents individually.
 
-## Immediate execution boundary
+## Current execution boundary
 
-The next session completes items 1–6 for Gig before expanding to other loops. It does not force a customer-visible message or formal delivery merely to validate code. It preserves the current buyer state and uses replay fixtures for verification.
+Items 1–6 and their live Gig cutover are complete. The next work starts at TODO 7 and handles remaining LaunchAgents individually; it does not bulk-mutate runtime state or force a customer-visible action merely for validation.
 
 ## Definition of done
 
