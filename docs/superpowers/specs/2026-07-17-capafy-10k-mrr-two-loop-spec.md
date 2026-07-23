@@ -593,11 +593,11 @@ junk が増える = 将来の dev(人/AI)が「どれが本物か」で迷い、
 | Class | Default | 対象 |
 |---|---|---|
 | deterministic | modelなし | lock、state transition、deadline queue、metrics、ledger、publisher API、schema validation |
-| repeatable-agent | `gpt-5.6-luna`, low | extraction、定型copy、分類、短いreflection、bounded transform |
+| repeatable-agent | `gpt-5.6-terra`, medium | extraction、定型copy、分類、短いreflection、bounded transform。Claude Sonnet→Luna lowへfallback |
 | tool-agent | `gpt-5.6-terra`, medium | browserを含む通常のB0/B1/B2判断、account setup、daily marketing pass |
 | high-value-agent | `gpt-5.6-sol`, medium→high | paid deliverableの実装、OpenCV修正、複雑な障害解析、最終adversarial review |
 
-provider名・model名は runner config に閉じ込める。business script は task class のみを渡す。**全classの候補順はCodex GPT-first** とし、ClaudeはCodexがtransientに利用不能かつClaude healthがgreenの場合だけfallbackする。validation/task failureではproviderを切り替えない。全provider失敗時は明示 failure にする。
+provider名・model名は runner config に閉じ込める。business script は task class のみを渡す。**全classの候補順はCodex GPT-first** とし、ClaudeはCodexがtransientに利用不能な場合だけbounded fallbackとして試す。repeatable/toolにOpenClawを使わない。validation/task failureではproviderを切り替えず、全provider失敗時は明示failure、success marker不変、provider process tree残存0にする。
 
 ### 17.6 Planner / Builder split
 
@@ -733,6 +733,10 @@ TODO #2 run 41 production transaction: **failure rollback + real feedback succes
 
 TODO #2 run 41 durable proof: **`anicca-gig origin/main` PASS**。live dirty repoをrebaseせず、`origin/main`起点のclean worktreeでdelivery evidence commit `744064e`とv4 source/work/artifact/acceptance/state/transaction/agent summaries commit `a0f030d`を作りmainへfast-forwardする。project pytestは19/19、host domain/testと固定Docker domain/testは4/4 PASS。owner-only `live-buyer-reply.json`、agent stderr、promptはcommit対象外。production evidenceは`/Users/anicca/gig/evidence/gig-pass-1784772440-15156`と`/Users/anicca/gig/evidence/gig-pass-1784773346-62843`、durable sourceは`Daisuke134/anicca-gig@a0f030d`。
 
+TODO #3 provider outage containment: **PASS — timeout後の子孫停止と低価値OpenClaw廃止**。launchd pass `1784776220-3353`のLEARNはTerra medium、Claude Sonnet、Luna lowが各約90秒で無出力timeoutし、旧最終候補OpenClaw `blockrun/free`も39秒後に契約外応答を返してfail-closedする。OpenClawのlast-call usageはinput 52,528 / output 136 / total 52,664 tokensで、収益actionは0。旧runnerはtimeoutしたCodex vendor子2本とClaude keychain子1本を孤児化したため、providerを独立process groupで起動しtimeout時にTERM→KILLする回帰テストをRED→GREENにする。commit `dd19b0b`後はrunner 31/31、Gig unittest 207、script Python 14/14、shell 17/17がgreen。commit `7fbf1b0`はrepeatable/toolから`blockrun/free`を削除し、repeatableをTerra medium→Claude Sonnet→Luna low、toolをTerra medium→Claude Sonnetへ限定する。high-valueの専用sandbox最終候補は別fleet移行gateまで維持する。全候補失敗時はsuccess markerを更新せず、process treeとlockを残さない。
+
+TODO #3 B1 exact coverage: **PASS — model-free read-only sweep / external action 0**。専用CDP contextを1つだけ取得し、inboxと指定3 talkroom `17943244` / `17963099` / `18011694`を同一page websocketで直接観測する。4 URLは全てexact final URL、`observed=true`、`not_found=false`で、誤タブ遷移0、lease release成功。構造化current stateはIFU=`取引中`・latest artifact buyer-visible・artifact後返信なし、Fkimura=`納品確認待ち`・formal true、Sunai=`取引中`・v7 buyer-visible・v7後返信なし。Sunai画面の差し戻しbannerは既存formal v2に対する状態であり、最新v7の重複送信条件ではないため外部送信0が正しい。commit `3558782`はleased page websocketへの直接observe、`68250f7`はbrowser foundation path、`acde7d6`はinbox/3 screenshots、direct observation JSON、current-state JSON、lease releaseを`anicca-gig origin/main`へ永続化する。
+
 run 41判断根拠: [pip cache](https://pip.pypa.io/en/stable/cli/pip_cache/) — `pip cache purge`はwheelとHTTP cacheをclearする公式command。[Docker run](https://docs.docker.com/reference/cli/docker/container/run/) — `--read-only`はcontainer root filesystemのwriteを禁止する。[Git worktree](https://git-scm.com/docs/git-worktree) — linked worktreeは同じrepositoryを複数working treeで管理する。[ココナラ「正式な納品」](https://coconala-support.zendesk.com/hc/ja/articles/218721047) — 購入者確認後の正式納品を案内するため、buyer合意前のprogressではcheckboxをOFFに保つ。
 
 | 順 | TODO | Builder scope | Done / E2E gate |
@@ -745,14 +749,14 @@ run 41判断根拠: [pip cache](https://pip.pypa.io/en/stable/cli/pip_cache/) �
 | 6 | **fresh Capafy accountからfull-cycleを実証しfleet rolloutする** | isolated account setup、professional/publish permission、first non-commercial Reel、public/reach measurement、commercial gate、Telegram/ledgers。全consumer regression後に14日自走 | account creation/setup evidence、publisher-ready evidence、public Reel URL、logged-out screenshot、publish status、IG/rotation ledger、Telegram message ID。複数snapshotでnonzero reach後のみcommercial marker。14日 `setup→post→measure→report` 継続、全gate green |
 | 7 | **read-only cleanup analyzer + fleet self-improvement gate** | owner別growth/anomalyを分析しpolicy変更案とRED fixtureを生成するread-only analyzerを追加。policy変更はshadow/canaryと独立review後のみpromote | analyzer権限でdelete/policy write不可を実証。提案→RED→GREEN→shadow→canary→promote ledger E2E。14日間、protected artifact欠損0、disk reserve違反0、正常revenue worker誤kill 0 |
 
-Current execution: TODO 1のIFUはGPT-5.6 Sol mediumが最新buyer feedbackからv4をbuildし、固定read-only Docker contractを通してGPT-5.6 Terra mediumがbuyer-visible提出、GPT-5.6 Luna lowが同じpassをREFLECT/heartbeatまで閉じる。buyer承認後に商品実物写真/利用許諾と仕様、Meta/LINE access→公開/配信→24h/7d KPI→formalの順で進み、同じv4を再送しない。Sunaiはv7.mcaddonの実機確認と合意待ち、Fkimuraはformal後の外部確認待ち。returned-paid分類、transaction rollback/quarantine、contract Docker isolation、owner-only feedback input、pending artifactのdelivery-only recovery、未解決有償queue中のB2 skip、valid progress後のREFLECT/finalizeはproduction PASS。run41 codeは`profitable-claude` live/remote `53500c7`、durable business proofは`anicca-gig origin/main` `a0f030d`。TODO 2で残るのは3契約すべてのbuyer合意→formalまでの外部E2Eだけであり、待機中は§17.6に従いTODO 3のB1 exact coverage E2Eへ進む。3契約とも、未承認公開、未実測値の0埋め、完成artifactなしの追加テキスト、同一version/進捗文の重複送信は禁止する。
+Current execution: TODO 1のIFUはv4がbuyer-visibleで承認・実物商品写真/利用許諾・仕様・Meta/LINE access待ち、Sunaiはv7.mcaddonの購入者実機確認と合意待ち、Fkimuraはformal後の外部確認待ち。3契約とも同一version/進捗文を再送しない。returned-paid分類、transaction rollback/quarantine、read-only Docker contract、owner-only feedback input、pending artifact recovery、未解決有償queue中のB2 skipはproduction PASS。TODO 2の残りはbuyer合意→formalの外部gateとしてscheduled pollを継続する。TODO 3のB1 exact coverageはmodel-free sweepと`anicca-gig@acde7d6`でPASS。provider outageはfail-closedし、`profitable-claude` live/remote `dd19b0b`でtimeout子孫を完全停止、`7fbf1b0`でrepeatable/toolの無効OpenClaw fallbackを削除する。次の即時engineering gateはTODO 3の未契約問い合わせ返信→quote→新規応募→出品/改善→reflectionを、paid queueがclearなpassで同じqueue/ledgerへ通すこと。
 
 ### 17.8 Acceptance scenarios
 
 1. **Disk emergency** — Given free space is below the emergency threshold, when the guard runs, then gig-core and a healthy leased worker remain alive, a fixture-proven runaway worker alone stops, active evidence remains, and the decision is ledgered.
 2. **Unknown cleanup candidate** — Given a path lacks a valid artifact classification, when cleanup evaluates it, then it is not deleted and the manifest violation is reported.
-3. **Provider outage** — Given Claude is quota-blocked, when a repeatable/tool task runs, then Luna/Terra completes through the same runner; no business script changes provider-specific code.
-4. **All providers fail** — Given every provider returns nonzero, when a pass runs, then the pass is failed, the lock is released/reaped safely, and no success marker is written.
+3. **Provider outage** — Given the primary provider times out, when a repeatable/tool task runs, then the runner terminates its complete process tree and tries each configured bounded fallback once; no business script changes provider-specific code.
+4. **All providers fail** — Given every configured provider fails or times out, when a pass runs, then the pass is failed, every provider child and lock is released/reaped safely, no low-value OpenClaw attempt runs, and no success marker is written.
 5. **Paid deadline** — Given an active paid contract is due, when gig wakes, then delivery work runs before learn/listing/apply and continues until formally delivered or a concrete blocker is recorded.
 6. **OpenCV acceptance** — Given the seven buyer images and expected counts, when the package test runs, then every count and output schema passes before upload.
 7. **Immediate delivery** — Given acceptance is green before the registered deadline, when the gig pass runs, then it attaches the versioned artifact and sends `正式な納品` in that pass; it does not wait for the deadline.
