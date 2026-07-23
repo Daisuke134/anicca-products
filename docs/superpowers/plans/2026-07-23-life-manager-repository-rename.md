@@ -608,7 +608,7 @@ set -euo pipefail
 cd /Users/anicca/anicca/.worktrees/life-manager-repository-urls
 REFERENCE_PR_URL=$(gh pr create --repo Daisuke134/life-manager --base main --head chore/life-manager-repository-urls --title 'Update live identity and URLs for the Life Manager repository rename' --body 'Updates the README product/agent boundary and live repository URLs, adds a regression guard, and preserves historical evidence. RED and GREEN are recorded in the branch history/evidence.')
 gh pr checks "$REFERENCE_PR_URL" --watch
-gh pr merge "$REFERENCE_PR_URL" --repo Daisuke134/life-manager --merge --delete-branch
+gh pr merge "$REFERENCE_PR_URL" --repo Daisuke134/life-manager --merge
 git fetch origin main
 FINAL_MAIN_SHA=$(git rev-parse origin/main)
 REMOTE_MAIN_SHA=$(git ls-remote origin refs/heads/main | awk '{print $1}')
@@ -616,7 +616,7 @@ test "$FINAL_MAIN_SHA" = "$REMOTE_MAIN_SHA"
 git show --stat --oneline "$FINAL_MAIN_SHA"
 ```
 
-Expected: review has no unresolved material finding, checks pass, merge succeeds, and fetched/remote main SHAs match.
+Expected: review has no unresolved material finding, checks pass, merge succeeds, the remote review branch is retained, and fetched/remote main SHAs match.
 
 ### Task 6: Redeploy and verify GitHub Pages plus repository settings
 
