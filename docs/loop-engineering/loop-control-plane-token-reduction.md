@@ -44,12 +44,12 @@ Scope is the Coconala work loop until it runs reliably every day. Unrelated x402
 launchd registry cleanup are paused. Current measured control-plane state: the main Gig pass is
 loaded at minutes `0` and `30` (48 opportunities/day; 3 runs, last exit `0`), the five-minute
 reply detector plist is not installed or loaded, and the 09:07 daily report is loaded but has
-`0` runs / `never exited`. The reported CloakBrowser/Chromium crash blocks browser actions; this
-scope correction records the blocker but does not repair it.
+`0` runs / `never exited`. The CloakBrowser/Chromium recovery path is stabilized and verified by
+a real crash/recovery drill; the missing scheduler lanes are the next blocker.
 
 | Order | Remaining work | Done evidence |
 |---:|---|---|
-| 1 | Stabilize the CloakBrowser/Chromium daily driver used by Coconala. Bound tabs/memory, recover CDP `:9222`, preserve the logged-in session, and fail closed without hanging or duplicating a click. | A real crash/recovery drill returns CDP healthy, preserves the Coconala session, and the next bounded browser action completes once. |
+| 1 | **COMPLETED** — Stabilize the CloakBrowser/Chromium daily driver used by Coconala. The daily entrypoint delegates dead-browser recovery to the single launchd-owned persistent CloakBrowser context instead of launching a second unmanaged raw Chromium process. | Commit `08b878c9`; focused RED fails on the unmanaged path, GREEN reports 6/6 guard tests and 29/29 complete verifier tests. A real `SIGKILL` drill observes CDP DOWN → `RECOVERED`, owner running/never-exited, one Chromium root, one tab, authenticated `coconala.com/mypage/dashboard`, and the next entrypoint call returns `ALIVE`. |
 | 2 | Restore and verify all required work-loop lanes. Install/load `ai.anicca.hf-gig-reply-detector`, observe `ai.anicca.hf-gig-daily-report` complete naturally, and re-check the already-loaded `ai.anicca.hf-gig-pass`. | Fresh `launchctl` evidence shows pass=`:00/:30`, reply detector=`300s`, report=`09:07`; each records a successful natural run and the single-instance guard prevents overlap. |
 | 3 | Complete the Coconala state machine: listing → new work discovery/application → fast reply → paid work → delivery/revision → acceptance → payout → `banked`. | Deterministic fixtures cover every transition, crash recovery, and idempotent replay without a duplicate browser action. |
 | 4 | Add task-level attribution for tokens, estimated cost, browser actions, revenue, and outcomes. | The daily Gig report reconciles pass/reply/delivery ledgers to exact task labels and exposes missing evidence instead of guessing. |
@@ -66,6 +66,32 @@ material-event-only model invocation, bounded context packets, explicit model ro
 per-pass/per-day token circuit breakers are implemented and verified in the evidence below.
 
 ## Incremental completion evidence (historical IDs)
+
+### Active order item 1 — Coconala daily-driver recovery
+
+- Implementation commit: `08b878c9` on `origin/feature/dist1-mcp-launchd` and
+  `origin/codex/cdp-daily-driver-20260723`.
+- Root cause: `ensure_browser.sh`, which every work-loop pass calls, bypassed the existing
+  `cdp_daily_driver_guard.sh` and launched raw Chromium with `nohup`. Live evidence showed two raw
+  recoveries in one evening while the launchd persistent owner was absent.
+- RED: `node --test --test-name-pattern='daily browser entrypoint' skills/earn/gig/__tests__/gig-reality-verify.test.mjs`
+  fails because the daily entrypoint does not delegate to managed recovery.
+- GREEN: the focused browser/guard suite reports `6 passed`; the complete
+  `gig-reality-verify.test.mjs` suite reports `29 passed`; `bash -n` succeeds.
+- Live drill: the exact Chromium process owning TCP `:9222` is killed once. CDP becomes unreachable,
+  `ensure_browser.sh` returns `RECOVERED`, `ai.anicca.cdp-daily-driver-owner` becomes
+  `running` with `last exit code = (never exited)`, and a second call returns `ALIVE`.
+- Session/action proof: a fresh default-context navigation reaches
+  `coconala.com/mypage/dashboard` instead of `/login`, then the owned verification tab is closed.
+  Tab GC leaves one page, the daily-driver has one root Chromium process, and no buyer-visible
+  application, reply, delivery, or payment action is used for validation.
+- Chrome requires remote debugging to use a non-default `--user-data-dir`; the daily driver retains
+  its dedicated profile. Source: [Chrome for Developers — Changes to remote debugging switches](https://developer.chrome.com/blog/remote-debugging-port):
+  “These switches must now be accompanied by the `--user-data-dir` switch to point to a non-standard directory.”
+- Playwright defines a browser disconnect as including a closed or crashed browser application,
+  matching the CDP-down recovery boundary. Source:
+  [Playwright Browser events](https://playwright.dev/python/docs/api/class-browser#browser-event-disconnected):
+  “Browser application is closed or crashed.”
 
 ### TODO 1 — feedback/artifact idempotency
 
@@ -261,17 +287,17 @@ per-pass/per-day token circuit breakers are implemented and verified in the evid
 - Post-change inventory reports `registered=true`, `desired_state=enabled`, and `actual_state=loaded-idle`. Unregistered coverage moves from 80 total / 60 Anicca to 79 total / 59 Anicca.
 - Keeping the idempotent acquisition scheduler under one launchd label follows Apple's launchd management boundary. Source: [Apple Daemons and Services Programming Guide](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html).
 
-**Next unfinished item:** active order item 1, Coconala CloakBrowser/Chromium daily-driver
-stability. Then restore/verify the missing reply-detector and never-run daily-report lanes. x402
-and the remaining 59-label registry backlog are paused.
+**Next unfinished item:** active order item 2, restore and naturally verify the missing
+reply-detector and never-run daily-report lanes, then re-check the already-loaded Gig pass. x402 and
+the remaining 59-label registry backlog are paused.
 
 ## Current execution boundary
 
 The only active implementation scope is the Coconala work loop in the ordered table above. The
-current browser crash is recorded as the first blocker; this documentation-only correction does
-not attempt a repair. Do not resume x402, other earn loops, broad launchd registry cleanup, CEO
-allocation, or new adapters before the Coconala browser, required launchd lanes, state machine,
-and 24-hour production proof are complete.
+browser recovery item is complete; required scheduler lanes are next. Do not resume x402, other
+earn loops, broad launchd registry cleanup, CEO allocation, or new adapters before the required
+scheduler lanes, complete state machine, controlled transaction, and 24-hour proof are complete in
+that order.
 
 ## Definition of done
 
