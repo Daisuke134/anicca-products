@@ -104,10 +104,10 @@ per-pass/per-day token circuit breakers are implemented and verified in the evid
 ### Active order item 2 — Gig browser ownership isolation
 
 - Browser implementation commit:
-  `67e668f4d6ba3e4876f2b9ee5c7c1bc616ed66e1` on
+  `75c98d6d` on
   `origin/feature/dist1-mcp-launchd`.
 - Gig integration commit:
-  `465279916ce0d8d0f4f82ac11e9b9f7426391108` on
+  `b57547f` on
   `origin/deploy/gig-speedy-reply-cutover`.
 - RED first proves the missing target-owner registry, foreign-close guard, configurable CDP
   runtime, Gig ownership wiring, universal-lock inheritance/heartbeat, and launchd browser owner.
@@ -126,6 +126,9 @@ per-pass/per-day token circuit breakers are implemented and verified in the evid
 - Pass, reply detector, and auditor receive the same dedicated CDP/profile/state paths and
   universal `~/gig/.cdp-gig.lock`. Nested browser steps inherit the enclosing lock, and a
   heartbeat refreshes long-running leases so a healthy pass is not stolen after 25 minutes.
+- When the dedicated browser is unavailable, `ensure_browser.sh` kickstarts
+  `ai.anicca.hf-gig-browser` and waits for that exact owner instead of launching a competing raw
+  Chromium process. The healthy production entrypoint returns `ALIVE`.
 - No application, reply, delivery, listing mutation, or payment action is used for validation.
 
 ### Active order item 3 — required scheduler lanes
@@ -140,6 +143,14 @@ per-pass/per-day token circuit breakers are implemented and verified in the evid
   natural run.
 - The remaining Step 3 proof is one natural main-pass run at minute `0` or `30` after the browser
   cutover. It must use CDP `:9223`, exit successfully, and leave no overlapping Gig lock owner.
+- A manual production-path smoke on the same launchd job exits `0`, releases the universal lock,
+  leaves the target-owner ledger empty, and returns the Gig browser to one `about:blank` page.
+  It records `material_event_handled`, one bounded model call, zero verified reply events, and no
+  Telegram reply event.
+- Unconfirmed reply attempts retain `reconcile_pending`; a retry is allowed only after executor
+  quiescence, authoritative hash absence, and the consistency window. Post-click diagnostics now
+  persist bounded composer/error-state codes without raw conversation text. The complete Gig
+  Python suite reports `259 passed, 119 subtests passed`.
 
 ### TODO 1 — feedback/artifact idempotency
 
