@@ -2,6 +2,50 @@
 
 **これは gig ループを「自己検証・自己修復・自己改善する best-practice browser-use loop」に直すための唯一の durable 計画**。会話は compact で揮発する→ここに全部焼く。SSOT(00) の L1 はここを指す。検証BPの詳細は [25-browser-use-verify-selfimprove-bp.md](25-browser-use-verify-selfimprove-bp.md)。
 
+## §0 現行正本の読み方
+
+このファイルの **§0 と §6だけ**が現在状態・残TODO・実行順序の正本である。§1以降の日付付き
+AS-IS、実装ledger、移設記録、旧番号は根拠を残す履歴であり、現在状態として読み戻さない。
+`loop-control-plane-token-reduction.md`、`GIG_PASS_RUNBOOK.md`、移設inventory、self-improving
+multi-apply設計は詳細または履歴であり、残TODOを独自に持たない。
+
+仕様の6要素は次で固定する。
+
+| 要素 | 正本 |
+|---|---|
+| Overview / Why | §0、§2 |
+| Acceptance Criteria | §6 |
+| As-Is / To-Be | §0.1、§2 |
+| Test Matrix | §6.1 |
+| Boundaries | §0.2 |
+| Execution Steps | §6.2 |
+
+### §0.1 現在の実測状態
+
+| 分類 | 現在状態 |
+|---|---|
+| canonical code | `~/profitable-claude/skills/gig-work/`、branch `deploy/gig-speedy-reply-cutover`、実装HEAD `845b010` |
+| browser | launchd所有 `ai.anicca.hf-gig-browser`、Gig専用 CDP `:9223`、profile `gig-daily-driver`、KeepAlive。対話用`:9222`とは分離 |
+| scheduler | pass `:00/:30`、reply 300秒、auditor `:45`、core-health 300秒、selfimprove verify 3600秒、report `09:07`。合計673 scheduled invocation/日、browserは常駐 |
+| completed foundations | disk復旧、browser crash recovery、owner/target分離、共通Gig lock、required launchd lanes、SQLite outbox/intent/fencing/click CAS、artifact idempotency/reconciliation、material-event gate、bounded context、provider routing、token circuit breaker |
+| self-improvement | 実装済み。live `strategy.json` は `pass_count=529`、`improve_cycle=76`。`experiments[]` に `kept` と `reverted` の双方が存在し、`ai.anicca.hf-gig-selfimprove-verify` はロード済み |
+| model contract | provider-agnostic runner実装済み。Terra/Luna primary、Claude `sonnet` fallback。残るのはfallback canaryのみ |
+| tests | Python `267 passed, 119 subtests passed`、Node self-improvement suite PASS。`test_gig_paid_work_gate.sh` の browser-fail recoveryだけRED |
+| live reply blocker | thread `9967694`、revision `16`、`reconcile_pending`。`direct_message_post_not_observed`、verified hash/seller send timeなし |
+| live delivery blocker | accepted artifactは存在するが、buyer agreementとformal deliveryの実画面証拠が未成立。実売上は`banked`未到達 |
+| verifier integration debt | 正常な`no_change` pass後もselfimprove verifierが6項目すべてをmissing扱いする。self-improvement本体の再実装ではなく、no-change契約の修正対象 |
+
+### §0.2 実行境界
+
+- Codexはコード修正、配備、launchd kick、ログ/DB/実画面の監視を行う。応募・返信・納品を
+  interactive browserから代行しない。顧客向けside effectは本番loopだけが実行する。
+- 完了済みfoundationを削除・再作成しない。変更前に現行test、live state、呼出元を確認し、
+  現在の失敗を再現する最小fixtureだけを追加する。
+- x402、他marketplace adapter、全launchd registry整理、CEO allocator、$10k/$100k/$10Mの成長目標は
+  Coconala daily loop完成のactive scopeに含めない。
+- 外部side effectはat-most-onceで扱う。送信結果不明時はblind retryせず、authoritative rereadと
+  immutable intent/hash/fenceでreconcileする。
+
 Dais 確定方針:
 - B0出品・B1返信/納品・B2応募を一つのdurable loopへ統合し、売上に近いB1を最優先laneにする。その上に独立検証・自己修復・自己改善を載せる。
 - canonical codeは `~/profitable-claude/skills/gig-work/`、runtime stateは当機では `GIG_STATE_DIR=~/gig`。`~/anicca/skills/earn/gig/` はtombstoneであり編集しない。
@@ -10,7 +54,7 @@ Dais 確定方針:
 
 ---
 
-## §1 AS-IS（実DOM確定・2026-07-11 :9222 で実観測。★私の初期ファイル推論「出品ゼロ」は誤りだった、browserが真実★）
+## §1 履歴AS-IS（当時の実DOM観測。現在状態は§0.1を使う）
 
 アカウント: coconala、Google OAuth ログイン済（cookie `_coconala_session` ~2028、`CakeCookie[login_history]=Google`）。表示名 **「Kosuke AIエンジニア」**（= mtdc はハンドル/ID。Dais 確認済で正当）。KYC 済(Dais 確認)。
 
@@ -379,29 +423,57 @@ model=Luna high / cost=$<cost> / evidence=<ref>
 
 ---
 
-## §6 実行順序と done 条件（残TODOの正本）
+## §6 Active execution order と done 条件（残TODOの唯一正本）
 
-| # | 段 | 残TODO | done（builderと別contextのverifierが確認） |
+完了済みfoundationは§0.1に固定し、この表へ戻さない。各項目は上から1件ずつ実行し、顧客向け操作は
+修正後の本番loopをkickして行わせる。
+
+| # | 残TODO | 実行 | done evidence |
 |---:|---|---|---|
-| **0** | **Coconala connector hardening（PASS）** | **0A**: Dais確認済みenabled状態をmanifestへ固定し、規約・許可のruntime再検索を禁止。正しい`/message`/page identity、healthy-zero、buyer-last/seller-last、kill switch、message evidence最小化を実装（`profitable-claude` `d8d0db5`）。**0B**: SQLite `BEGIN IMMEDIATE`、typed event key、thread atomic claim、connector slot=1、immutable intent owner/fence/hash、click CAS、executor stop-proof、ACK不明時authoritative reconcileを実装（`8660ddc`）。両方ともbuilderと別contextのQAがPASS。runtime senderへの配線は#4で行う | policy web/model call 0、`user_confirmed` manifest、404 false-green 0。0A characterization 12/12 PASS、live read-onlyでinbox 30件・seller-last sample・open orders 3件。0B failure/concurrency/reconcile 38/38 PASS、12並列初期化×10 round PASS |
-| **1** | **canonical tree cutover** | 現行behaviorのcharacterization testを先に固定し、§9へmodule移動。state/self-healをgig.sqlite3へ統合し、launchdを新binへ原子cutover。旧path/duplicate/archiveをzero-reference後に削除 | current fixtures全PASS、loaded plist全てcanonical bin、旧Anicca/self-fix/file-request参照0、二重process 0、rollback drill PASS |
-| **2** | **GPT-only provider contract** | 現Claude-first routeを廃止し、Terra medium default、Luna high judgment、Luna medium routine、Luna xhigh→Terra high incident、Sol最大2回/日のtask classesへ変更。共通AgentTask/Result schemaと`MODEL_FAMILY`を実装 | Claude executable/credential 0でdetector→reply→listing→proposal→delivery→verify→self-fix E2E PASS。scheduled Sol 0 |
-| **3** | **deterministic kernel / health** | page identity、queue、outbox、lease/fence、retry、cost ledger、real `.last-pass`/snapshot healthを実装。supervisor heartbeatだけのfalse-greenを廃止 | 空キューでmodel call 0、stale passを10分以内にFAIL検知・自動restart、次pass成功を確認 |
-| **4** | **B1 即応lane** | `/message` collector、thread coalesce、fenced send、hash/time/thread verify、production cutoverはGREEN。残りは`reconcile_pending` eventual-send supervisor、`/mypage/received_orders/open` P0統合、即時notification+5分detector、failure injection、controlled live E2E | P1 DM、P0 no-message order、P0 race、crash/timeout、model refusalで全eventがsend+hash/time/thread verified。人間待ち/terminal failure 0 |
-| **5** | **B0/B2/納品** | 下書き・typo・listing最適化、new-job scan、個別proposal、artifact作成、修正、formal delivery、検収を§3.2の共通action envelopeへ移す | 公開URL・応募履歴・talkroom・納品stateを実画面で確認。全actionのfailure-injection E2Eが最終verified、side effect 1件、draft/manual/terminal 0 |
-| **6** | **reality verifier** | 毎side effectの決定論verify、異常時fresh Luna high、日次sample review、funnel reconciliationを実装 | 実claim PASS / 偽claim FAIL / false-success 0。LLM verifierを空キュー・正常routineで呼ばない |
-| **7** | **Telegram observability** | verified event publisher、telegram outbox、即時event、毎時graduation pulse、09:07 digest、at-most-once deliveryを決定論で実装 | fixture文面一致、LLM call 0、ACK-loss時provider call 1・delivery_unknown、次digestにunknown表示、Telegram outage中もbusiness action継続 |
-| **8** | **self-heal / graduation** | fingerprint、Luna xhigh診断、Terra high test-first fix、canary、rollback、memory昇格gateを実装 | 注入bugを自分で発見→修正→再検証→promote。30日gateを満たす |
-| **9** | **Claude-only parity** | Claude adapterが復旧した時に同一contractを`claude-only`で実行。GPTへのcross-fallbackなし | GPT-onlyとClaude-onlyが同じcontrolled E2E fixtureで同じbusiness outcome |
-| **10** | **Coconala $10k net MRR** | diagnostic→sprint→recurring retainerのoffer ladder、10前後の継続client、upsell/retentionを自動運用 | fee後net MRR >= $10kを売上画面で3か月連続確認。22% feeならGMV目安 >= $12,821/月 |
-| **11** | **multi-platform $100k MRR** | onboarding済みmarketplace adapterとown inbound、共通CRM/delivery、vertical playbook、partner capacityを追加 | channel別CAC/close/retention/profitが可視化され、net MRR >= $100k |
-| **12** | **own product $10M MRR** | gig workflowをmulti-tenant SaaS/API/enterprise/transaction marketplaceへ製品化。marketplace依存をlead sourceへ縮小 | SaaS+enterprise+take-rateの実売上合計がMRR >= $10M。gig GMVをMRRと偽らない |
+| **1** | **B1 native submitを閉じる** | thread `9967694` revision `16`をauthoritative rereadし、未送信を確認してからCoconala自身のvalidation/native submit経路をsenderで発火させる。interactive browserで手動返信しない | 本番reply loop自身がdirect-message POSTを1回発生させ、thread URL + outgoing hash + seller send timeを再読。outbox=`replied`、Telegram event 1、同一hash重複0 |
+| **2** | **paid-work recovery REDを閉じる** | `test_gig_paid_work_gate.sh`のbrowser-fail recoveryで欠けるpaid-progress再開を直す。accepted artifact/hash/acceptance bundleを再利用しbuilderを再起動しない | shell suite PASS。browser failure後も`deterministic-paid-progress`が実行され、`gig-PAID_WORK`再実行0、下位ledger無変更 |
+| **3** | **selfimprove verifierのno-change誤警報を閉じる** | mtimeだけでなく最新`poll-control.json`のpass ID/outcomeを読む。`no_change`は正常no-op、material/improve passだけ必要証拠を要求する | no-changeでmissing 0・model call 0。material/improve fixtureで証拠欠落だけを次pass TODOへ記録。既存keep/revert挙動不変 |
+| **4** | **state-machine failure injectionを完了する** | P1 DM、P0 no-message初回連絡、P0 coalesce race、応募、paid work、進捗、formal delivery、revision、acceptance、payoutを同じevent/action envelopeで検証する | crash/timeout/model refusal/ACK lossの全fixtureが最終verified。各side effect 1、blind retry 0、terminal manual state 0 |
+| **5** | **task-level attributionを日報へ接続する** | pass/reply/delivery/agent-runner/revenue ledgerをpass IDとtask labelでjoinする | 09:07 reportにtask label、provider/model、tokens、cost、browser action、verified outcome、revenueを表示。欠測は推測せず`missing evidence` |
+| **6** | **provider fallback canaryを通す** | side-effectなしfixtureでTerra/Lunaのtransient failureを注入し、同一schemaのClaude `sonnet` fallbackを通す。次にfence付きbounded canaryを行う | fallback前後でbusiness outcome同一、customer action最大1、schema/telemetry完全。`sonnet` aliasの実model mappingを証拠へ記録 |
+| **7** | **controlled real transactionをloopだけで`banked`まで通す** | controlled buyer eventを1件作り、検知→返信→受注→制作→進捗→納品→修正→承諾→入金をlaunchd loopに処理させる。Codexは監視のみ | buyer-visible evidence、payout evidence、cost/revenue、完全audit trail。最終state=`banked` |
+| **8** | **24時間の自然運転を証明する** | force-runではなく自然scheduleを観測する | 673 scheduled invocation、miss/overlap/browser hang/duplicate/budget breach 0。09:07 report成功、browser KeepAlive継続 |
+| **9** | **zero-human graduationを完了する** | 7日stabilization後、14日production observation。browser crash、stale lease、provider timeoutを注入する | 人間による応募/返信/納品代行0。duplicate action、deadlock、budget breach 0。self-heal復旧とself-improve keep/revertを実証 |
 
-**done 全体**: live connector上の合法・実行可能eventが、人間のdraft承認なしで検知→実行→ground-truth確認→自己修復まで閉じ、実売上が結果画面で確認できた時だけdone。送信・納品・入金確認に到達していないactive eventを「完了」と言わない。
+**done 全体**: live connector上の合法・実行可能eventが、人間のdraft承認なしで検知→実行→ground-truth確認→
+自己修復まで閉じ、controlled実取引が`banked`へ到達し、24時間と7+14日の自然運転を通過した時だけdone。
+
+### §6.1 Test matrix
+
+| # | To-Be | Test / evidence | Cover |
+|---:|---|---|---|
+| 1 | native reply + authoritative reconcile | `test_coconala_reply_browser.py`、reply outbox integration、controlled P1 DM | 必須 |
+| 2 | paid recovery | `test_gig_paid_work_gate.sh` browser-fail recovery | 必須 |
+| 3 | no-change verifier contract | `test_selfimprove_no_change_is_not_missing`、material/improve欠落fixture | 必須 |
+| 4 | full state machine | reply/delivery failure-injection suites + controlled P0/P1 transaction | 必須 |
+| 5 | exact attribution | `test_telegram_reporting.py` + natural 09:07 message | 必須 |
+| 6 | provider parity | runner transient-fallback fixture + fence assertion | 必須 |
+| 7 | banked | controlled transaction audit bundle | 必須 |
+| 8 | daily operation | 24-hour launchd ledger reconciliation | 必須 |
+| 9 | graduation | 7+14-day soak ledger | 必須 |
+
+| E2E item | Value |
+|---|---|
+| UI変更 | なし。既存Coconala UIをloopが操作 |
+| 結論 | Maestro不要。macOS CloakBrowser/CDP + launchd + controlled buyer E2Eが必要 |
+
+### §6.2 Execution steps
+
+1. clean implementation worktreeで対象failureを1本だけ再現する。
+2. 最小修正を実装し、focused testから全Gig suiteへ広げる。
+3. `origin/deploy/gig-speedy-reply-cutover`へpushし、本番pathを同じcommitへ合わせる。
+4. 対象launchd labelをkickし、loop自身のactionを監視する。
+5. DB、network、DOM、ledgerのauthoritative evidenceでdone判定する。
+6. 本§0.1と§6を更新し、次の未完了項目を1つだけ先頭に残す。
 
 ---
 
-## §6.5 gig 稼ぎ戦略 spec(2026-07-08) 完全実装チェックリスト（★Dais 原案・全部やる・忘れ厳禁★）
+## §6.5 履歴: gig 稼ぎ戦略 spec 実装監査（現在状態には使わない）
 正本 spec = `docs/superpowers/specs/2026-07-08-gig-feasibility-volume-listing-design.md`。live/canonical loopは `~/profitable-claude/skills/gig-work/`。旧 `~/anicca/skills/earn/gig/` はtombstoneで編集しない。現実装率(2026-07-11 監査):
 
 | spec MUST | 現% | 実装する内容 |
@@ -437,7 +509,8 @@ model=Luna high / cost=$<cost> / evidence=<ref>
 - ✅ 段#1 B0 capability: STARTUP に B0 SHUPPIN + trajectory + cron idempotent + max_apply 5→12 追加、commit+push、restart 活性化。
 - ✅ **B0 実発火(2026-07-11 23:57)**: loop 自己申告で 下書き2件公開(業務AI活用診断¥8000/id4302213・SEO診断¥10000/id4244912) + 新規1件(見やすいパワポ¥8000/id4308502)。★未検証(reports lie)★ + typo「作りますます」残 + trajectory PNG 0枚(cdp_snapshot 未呼出=配線未効)。
 - ✅ **増分1(出品playbook格上げ) = 完了・merge・live・活性化(2026-07-12)**: adversary PASS(0 blocking, 6/6 REQ)、verify 11/11 VERIFIED実行。main へ fast-forward merge、live `~/gig/strategy.json` の占い削除(20→19)、bash -n OK、restart 済(ALIVE)、push 済、worktree掃除済。gig-cli.sh に LISTING PLAYBOOK/APPLY SPEED RULE/NEVER-REFUSE/FEASIBILITY GATE の4ブロック live。
-- 現行の実行順は§6だけを正本とする。過去のB0発火claim（下書き2公開 4302213/4244912、新規1件 4308502）、typo修正、playbook反映、trajectory PNGは未検証debtとして§6 #4/#5で実画面確認する。
+- 現行の実行順は§6だけを正本とする。ここに残るB0発火claim、typo修正、playbook反映、
+  trajectory PNGは履歴であり、現在の§6番号へ読み替えない。
 - copy元 judge.py: scratchpad/judge_bu.py（raw main 198L, VERIFIED）。
 
 ## §9 refactored clean folder tree（TO-BE正本）

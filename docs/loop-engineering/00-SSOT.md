@@ -41,7 +41,7 @@ anicca 側(別 CC): founder / Franklin / pm / sol / clip / video / reddit / self
 ### anicca=crypto/SNS(別CC)+一部bank混線
 | loop | 何をする | 問題 |
 |---|---|---|
-| gig | Coconala出品/提案/返信/納品→銀行 | 24日本体復元済。提案(teian)・出品(shuppin)・納品が足りない ←今 |
+| gig | Coconala出品/提案/返信/納品→銀行 | 現在状態・残TODOは`26-gig-loop-asis-tobe-plan.md` §0/§6だけを正本とする。完了済みfoundationを再作成しない |
 | capafy | skill販売→銀行 | 審査中status=1・public未掲載・"PUBLISHED"嘘(accountはログイン済) |
 | ~~life-manager(loop)~~ | ~~(PC版と重複)~~ | ✅退役完了(2026-07-12): launchd `life-manager-loop-healthcheck` を bootout+disable+plist→.disabled、tmux worker(loop+selffix)kill、worker process 消滅=2x課金停止実証。復活escalation無し(LMHB=report専用)。PC core は生存継続 |
 | clip | IG動画→crypto視聴報酬 | ★2026-07-12 実測更新: blur は解決済み（〜07-10 は 202x360/~200kbps を投稿していた→verify_clip.sh に 1080x1920+2.5Mbps ゲート追加、07-11 に burn_captions.py を純ABR 4Mbps 化 pass19 で実測 3.7-3.9Mbps）。**現在の主障害は投稿停止**: 07-11 17:00 以降投稿0件（IG共有確認ステップで全試行ハング or 202後に消滅、`~/.cloak/clip-accounts.json` の2アカウント両方 status=investigating で run.sh が選択不能）。最終実投稿=instagram.com/aiclipsvault/reel/DanlbElPLGr/。Telegram送信実装ゼロ（mail経路のみ=Daisに未達）。browser=専用port 9223/9224 で:9222とは分離設計。収益¥0（clip-promote の回収も未検証） |
@@ -200,7 +200,7 @@ CEO = 薄い機械 gate（予算 hard-stop + registry のみ、loop 殺す/作�
 ## 7. 詳細は各ファイル（このSSOTがindex、詳細のみ委譲）
 | 知りたい | ファイル |
 |---|---|
-| ★gig ループ AS-IS/TO-BE/実行計画(compact-proof正本)★ | `26-gig-loop-asis-tobe-plan.md` |
+| ★gig ループの現在状態・残TODO・実行順序の唯一正本★ | `26-gig-loop-asis-tobe-plan.md` §0/§6 |
 | browser-use 検証+自己改善 BP(judge.py実物) | `25-browser-use-verify-selfimprove-bp.md` |
 | reality-verifier の設計/OSS調査 | `24-shared-ground-truth-verifier-design.md` |
 | 全loop真実監査(browser/on-chain実測) | `../superpowers/evidence/LOOPS-TRUTH-AUDIT.md` |

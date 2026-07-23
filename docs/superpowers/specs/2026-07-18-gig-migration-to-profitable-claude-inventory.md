@@ -1,6 +1,10 @@
 # gig loop 移設 参照網インベントリ（~/anicca → ~/profitable-claude）
 
-作成: 2026-07-18 / 種別: READ-ONLY 地図（実装・移動・編集は一切していない）
+**状態: 移設完了済みの履歴インベントリ。active TODOではない。Task #11はCLOSED。**
+現在状態と残TODOは `docs/loop-engineering/26-gig-loop-asis-tobe-plan.md` §0/§6のみを参照する。
+§0の移設前状態、§8の手順、§10の残TODO一覧を再実行しない。
+
+作成時の種別: READ-ONLY 地図
 目的: gig work loop を `~/anicca`(OSS public) から `~/profitable-claude`(private) へ無停止移設するため、
 「何を触れば何が壊れるか」を file:line 単位で全部洗い出す。前回この loop を不用意に動かして本番を壊し
 revert した事故の再発防止。**この文書は観測（実 tool_result）のみ。推測は「推測」と明記。**
@@ -428,12 +432,12 @@ path 解決の契約: 各 loop は `PC_HOME`（既定 `$HOME/.profitable-claude`
 配置は env 上書きで無改修吸収。plist は install.sh が env を焼き込んで生成（絶対パス手書き禁止）。
 `.gitignore` は deny-by-default（`*` + allowlist）で、state/vault/env の混入を構造的に不可能にする。
 
-## 10. TO-BE tree と残 TODO の最終形（§8 と整合、2026-07-18 時点）
+## 10. 履歴: 移設時点の TO-BE tree と当時の残 TODO
 
 TO-BE tree = `docs/reference/2026-07-18-multi-loop-repo-structure-research.md` の TL;DR に §9 を合成
 （skills/gig-work/ 自己完結 + config/loop-registry.json + 私密は ~/.profitable-claude/）。
 
-残 TODO（順序厳守。番号は §8 と対応、TaskList 登録済み）:
+当時の残 TODO（現在は全て完了。再実行しない。番号は §8 と対応）:
 0. ①→② rsync 同期 + gig-cli.sh に detached 起動と新パスを同時折込（§8bis）
 1. ②の browser/_shared 依存解決検証
 2. dry 検証（本番 tmux は kill しない）
