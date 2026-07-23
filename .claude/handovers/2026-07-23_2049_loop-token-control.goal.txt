@@ -1,0 +1,28 @@
+/goal Continue the loop token-control work from the durable SSOT and finish the urgent Gig phase without asking me to choose implementation details.
+
+OUTCOME
+Complete TODO items 1–6 in the SSOT: unchanged buyer feedback with a valid accepted artifact makes zero model calls; existing artifacts route to delivery reconciliation/await-buyer; a real new event makes at most one bounded call; 30-minute polling, bounded context, model routing, telemetry, and token circuit breakers are enforced. Do not expand to the multi-site/CEO/soak work in this goal.
+
+ROUTING AND SAFETY
+1. SPEC WRITE: /Users/anicca/anicca-project/.worktrees/loop-token-handover-20260723 on branch docs/loop-token-handover-20260723. SSOT: docs/loop-engineering/loop-control-plane-token-reduction.md. Update its remaining TODO and evidence.
+2. IMPLEMENTATION: /Users/anicca/profitable-claude on branch deploy/gig-speedy-reply-cutover, upstream origin/deploy/gig-speedy-reply-cutover, inspected commit 63f1e092f2bf7664a4c73bda937c1f1e8caf57b6. Before editing, git fetch and report current HEAD, upstream, and dirty paths.
+3. PRESERVE USER WIP: never stage/move/delete/overwrite the deleted queue file or untracked in-progress file under skills/article-writer/topics for genshijin-codex-token-cost-benchmark.md. Add only exact Gig paths.
+4. RUNTIME READ-ONLY: /Users/anicca/.openclaw, branch main-internal, inspected commit 116e5973f536a23cea5e319f6e558abfcd9d208f. It is heavily dirty. Do not stage it or mutate live runtime unless the spec requires one exact, reversible cutover after tests pass.
+5. DO NOT TOUCH the dirty root /Users/anicca/anicca-project or the unrelated capafy handover worktree. Use a dedicated profitable-claude worktree if the implementation repo is still dirty.
+
+EXECUTION
+- Read the SSOT Remaining TODO and handover .claude/handovers/2026-07-23_2049_loop-token-control.md first.
+- Measure the current Gig event path and ledger fields. Do not dump full logs or histories.
+- For customer/financial state behavior, write the failing replay test first. Prove RED for unchanged feedback + accepted artifact, then implement minimal GREEN. Use lint/smoke/diff for config/docs.
+- Share deterministic poll, idempotency, bounded-context, runner routing, telemetry, and budget components; keep repository-specific code thin.
+- Default to Terra medium for bounded composition/tool work and Luna medium for normal decisions. Require a recorded explicit escalation reason for Luna high/Sol.
+- Do not manually force a customer-visible message, application, delivery, or duplicate artifact for validation. Use fixtures; preserve the current live buyer state.
+- Work serially and do not spawn subagents. Stop after three distinct failed approaches to the same blocker and report exact evidence.
+
+DONE
+- Replay evidence proves runner-call count 0 for unchanged state and at most 1 for a new event.
+- Tests cover artifact-present, delivered, buyer-revision, budget-stop, and idempotent retry paths.
+- Telemetry records task label, model/effort, input/output/cached tokens, budget decision, and outcome without secrets.
+- Targeted Gig tests, paid-work gate tests, related launchd checks, and a clean diff pass.
+- Commit and push exact-path changes in each writable repo; verify remote commit objects and file contents.
+- Update the SSOT checkboxes/evidence and leave the next unfinished item explicit. Return concise results, token-impact evidence, commits, and any blocker.
