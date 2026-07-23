@@ -743,6 +743,10 @@ TODO #3 token/cost telemetry: **PASS — provider-reported per-attempt ledger + 
 
 TODO #3 CEO unit economics: **PASS — compact daily snapshot + observe-only allocation gate**。`profitable-claude` commit `fd7d82d`は前7 JST日のusage coverage、provider-reported tokens、`actual_billed` cost、evidence付きsettled USD revenue、有償義務をraw prompt/顧客/contract/path無しの固定snapshotへ集約する。Claude CLIの`total_cost_usd`はsubscription実請求と断定せず`api_equivalent_estimate`へ分類し、黒字判定を解放しない。production configは`mode=observe_only`で、legacy自己申告USDのhard breachもwarning-only、直接`--apply-decision`もmutation拒否、Gigのfresh paid queueはreduce/pauseをfail-closed保護する。旧週次direct Claude/tmux/raw-ledger全読込を削除し、7 complete days・usage coverage>=0.90・actual cost coverage=1.00・settled revenueが全て揃う時だけ共有`repeatable-agent` route（Terra medium first）を呼ぶ。条件不足時の週次はモデル0回でskip outcomeだけ記録し、週次launchdは未loadのまま。実dry snapshotは11 loop全てprofitability=`unknown`、Gig=`active_paid_obligation`、eligible=falseで正しい。telemetry 6、inventory 8、unit 9、wiring 3、weekly 3、legacy write gate 9、record pass 8、budget 6がgreen。
 
+TODO #3 Claude-p bounded recovery: **PASS — alive-but-hungをliveで検出し、quota復帰待ちをbounded化**。`life-manager` commit `70d8269c`は単一`claude -p` deadlineを12時間wake cadenceから分離し、既定180秒・絶対上限300秒、専用process groupへのTERM→KILL、親終了時のgroup cleanup、prompt/ledgerの実行model一致を実装する。production plistはさらに保守的な60秒capと失敗後1800秒backoffを宣言し、成功時12時間cadence=2回/日、連続失敗時も最大46回/日に制限する。live probeは旧子processが2時間超0% CPUで停止していた事実を確認し、再配備後は60秒で子孫0、ledger=`claude_p_timeout` / `model=claude-sonnet-5` / `sleep_s=1800`を記録する。CLIProxyAPI実logは`rate_limit_error`と`claude-sonnet-5 cooling down`を示すため、quota復帰後はhuman介入なしで次の30分retry内に再開する。孤立したwriter-engine Claude CLI 3本もPPID=1・0% CPU・同一writer run cwdを確認してprocess group単位で停止し、model CLI orphan 0を再確認する。
+
+TODO #3 compute route reduction: **PASS — Sol routine routeとOpenClaw fallbackをhigh-value共有経路から除去**。`profitable-claude` commit `bc2b501`は`high-value-agent`をSol medium→Sol high→Claude→OpenClaw（各20分、最大80分）からLuna high→Claude（各15分、最大30分）へ縮小する。GPT attemptは2→1、OpenClaw attemptは1→0、最悪wall-clock budgetは62.5%減る。token量/実請求の削減率は推測せず、最初の完全JST日以降のprovider-reported ledgerでbefore/afterを確定する。中央inventoryはwriter 5 jobsを含む19件へ拡張し、writer runtimeの実順序をfree BlockRun→Luna/Terra→Claudeとして記録、Claude-p internal cadenceも`2 normal / ≤46 failure`で表現する（`87262da`、`a6b12f6`）。
+
 run 41判断根拠: [pip cache](https://pip.pypa.io/en/stable/cli/pip_cache/) — `pip cache purge`はwheelとHTTP cacheをclearする公式command。[Docker run](https://docs.docker.com/reference/cli/docker/container/run/) — `--read-only`はcontainer root filesystemのwriteを禁止する。[Git worktree](https://git-scm.com/docs/git-worktree) — linked worktreeは同じrepositoryを複数working treeで管理する。[ココナラ「正式な納品」](https://coconala-support.zendesk.com/hc/ja/articles/218721047) — 購入者確認後の正式納品を案内するため、buyer合意前のprogressではcheckboxをOFFに保つ。
 
 | 順 | TODO | Builder scope | Done / E2E gate |
@@ -755,7 +759,7 @@ run 41判断根拠: [pip cache](https://pip.pypa.io/en/stable/cli/pip_cache/) �
 | 6 | **fresh Capafy accountからfull-cycleを実証しfleet rolloutする** | isolated account setup、professional/publish permission、first non-commercial Reel、public/reach measurement、commercial gate、Telegram/ledgers。全consumer regression後に14日自走 | account creation/setup evidence、publisher-ready evidence、public Reel URL、logged-out screenshot、publish status、IG/rotation ledger、Telegram message ID。複数snapshotでnonzero reach後のみcommercial marker。14日 `setup→post→measure→report` 継続、全gate green |
 | 7 | **read-only cleanup analyzer + fleet self-improvement gate** | owner別growth/anomalyを分析しpolicy変更案とRED fixtureを生成するread-only analyzerを追加。policy変更はshadow/canaryと独立review後のみpromote | analyzer権限でdelete/policy write不可を実証。提案→RED→GREEN→shadow→canary→promote ledger E2E。14日間、protected artifact欠損0、disk reserve違反0、正常revenue worker誤kill 0 |
 
-Current execution: TODO 1のIFUはv4がbuyer-visibleで承認・実物商品写真/利用許諾・仕様・Meta/LINE access待ち、Sunaiはv7.mcaddonの購入者実機確認と合意待ち、Fkimuraはformal後の外部確認待ち。3契約とも同一version/進捗文を再送しない。returned-paid分類、transaction rollback/quarantine、read-only Docker contract、owner-only feedback input、pending artifact recovery、未解決有償queue中のB2 skipはproduction PASS。TODO 2の残りはbuyer合意→formalの外部gateとしてscheduled pollを継続する。TODO 3のB1 exact coverageはmodel-free sweepと`anicca-gig@acde7d6`でPASS。provider outageはfail-closedし、`profitable-claude` live/remote `dd19b0b`でtimeout子孫を完全停止、`7fbf1b0`でrepeatable/toolの無効OpenClaw fallbackを削除する。中央launchd台帳は`923b12a`、per-loop telemetryは`4cc7de2` / `23154626`、observe-only CEO unit economicsは`fd7d82d`でPASSする。次の即時engineering gateはsettled revenue/actual invoice allocationの標準event producerを各loopへ配線し、同時にpaid queueがclearなGig passで未契約問い合わせ返信→quote→新規応募→出品/改善→reflectionを同じqueue/ledgerへ通すこと。
+Current execution: TODO 1のIFUはv4後のbuyer feedbackを検出し、有償PAID_WORK passが新version生成を継続する。完了するまで同一version/進捗文を再送せず、B2も実行しない。Sunaiはv7.mcaddonの購入者実機確認と合意待ち、Fkimuraはformal後の外部確認待ち。returned-paid分類、transaction rollback/quarantine、read-only Docker contract、owner-only feedback input、pending artifact recovery、未解決有償queue中のB2 skipはproduction PASS。TODO 2の残りは新feedback artifact→buyer-visible提出→buyer合意→formalのexternal gateとしてscheduled pollを継続する。TODO 3のB1 exact coverageはmodel-free sweepと`anicca-gig@acde7d6`でPASS。provider outageはfail-closedし、`dd19b0b`でtimeout子孫を完全停止、`7fbf1b0`でrepeatable/toolの無効OpenClaw fallbackを削除、`bc2b501`でhigh-value Sol/OpenClaw routeをLuna high→Claudeへ置換する。中央launchd台帳は`923b12a` / `87262da` / `a6b12f6`、per-loop telemetryは`4cc7de2` / `23154626`、observe-only CEO unit economicsは`fd7d82d`、Claude-p bounded recoveryは`70d8269c`でPASSする。次の即時gateは進行中paid passのtransaction結果とbuyer-visible evidenceを確認し、settled revenue/actual invoice allocationの標準event producerを各loopへ配線すること。
 
 ### 17.8 Acceptance scenarios
 
@@ -789,9 +793,9 @@ launchd / tmux / OpenClaw scheduler
                 ▼
        provider-agnostic agent-runner
        ├─ deterministic: shell/python
-       ├─ repeatable: GPT-5.6 Luna
+       ├─ repeatable: GPT-5.6 Terra medium
        ├─ tool work:  GPT-5.6 Terra
-       ├─ high value: GPT-5.6 Sol
+       ├─ high value: GPT-5.6 Luna high
        └─ future: Claude/Kimi/DeepSeek adapters
                 │
       rc + schema + artifact evidence
