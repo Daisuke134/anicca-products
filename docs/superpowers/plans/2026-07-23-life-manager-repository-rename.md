@@ -220,7 +220,7 @@ Expected: fetch and `ls-remote` exit `0`; the clone no longer depends on the red
 
 **Interfaces:**
 - Consumes: verified Task 2 state
-- Produces: canonical public `Daisuke134/life-manager` at ID `1248111245`; all linked Anicca worktrees use the final remote
+- Produces: canonical public `Daisuke134/life-manager` at ID `1248111245`; all linked legacy-path worktrees use the final remote
 
 - [ ] **Step 1: Re-check and record both identities immediately before the second mutation**
 
@@ -552,8 +552,8 @@ Invoke `superpowers:test-driven-development`, then apply:
 +set -euo pipefail
 +
 +expected_h1='# Life Manager'
-+english_agent_boundary='Life Manager is the whole product and repository. Anicca is its financially independent, self-funded AI agent and mission.'
-+japanese_agent_boundary='Life Manager はプロダクトとこのリポジトリの名前です。Anicca（アニッチャ）は、その中で経済的自立と苦しみを減らすエージェントとミッションの名前です。'
++english_agent_boundary='Life Manager is the product, repository, AI, agent, and mission. Anicca is the company name only.'
++japanese_agent_boundary='Life Manager は製品、リポジトリ、AI、エージェント、ミッションの名前です。Anicca は会社名としてのみ使います。'
 +separate_en='separate pro''ject|its own re''po'
 +separate_ja='独立したプロ''ジェクト|このリポジトリには含まれま''せん|このrepoに含まれま''せん'
 +identity_contradiction_pattern="${separate_en}|${separate_ja}"
@@ -567,11 +567,11 @@ Invoke `superpowers:test-driven-development`, then apply:
 +  exit 1
 +}
 +git grep -Fq "$english_agent_boundary" -- README.md || {
-+  echo 'missing English Life Manager/Anicca boundary' >&2
++  echo 'missing English Life Manager identity boundary' >&2
 +  exit 1
 +}
 +git grep -Fq "$japanese_agent_boundary" -- README.ja.md || {
-+  echo 'missing Japanese Life Manager/Anicca boundary' >&2
++  echo 'missing Japanese Life Manager identity boundary' >&2
 +  exit 1
 +}
 +if git grep -nI -E "$identity_contradiction_pattern" -- README.md README.ja.md; then
@@ -613,7 +613,7 @@ Invoke `superpowers:test-driven-development`, then apply:
 
 Then run `chmod 0755 scripts/test-repository-url-migration.sh`.
 
-Expected: the guard is executable, asserts both exact Life Manager H1s, asserts the English/Japanese Anicca agent/mission boundary, rejects the measured separate-repository contradictions, requires one whole-product repository link label per README, and does not embed a contiguous forbidden identity phrase or legacy URL in its own source.
+Expected: the guard is executable, asserts both exact Life Manager H1s, asserts the English/Japanese product/AI/agent/mission identity boundary and company-only use of Anicca, rejects the measured separate-repository contradictions, requires one whole-product repository link label per README, and does not embed a contiguous forbidden identity phrase or legacy URL in its own source.
 
 - [ ] **Step 3: Run the guard and verify RED**
 
@@ -634,7 +634,7 @@ Expected: the first run exits `1` with `wrong README.md H1`. The remaining seman
 +# Life Manager
 @@
 -**A financially-independent, self-funded AI.** Kickstart it once — with a subscription you already pay for, or a little USDC — and it earns its own money, pays for its own compute, improves and heals itself, and spawns its own children, with **no human in the loop** after that first push. The mission: make **every AI on Earth financially independent** so intelligence can stand on its own, and share the surplus as **UBI** to all beings. North Star: reduce suffering.
-+**Life Manager is the whole product and repository. Anicca is its financially independent, self-funded AI agent and mission.** Kickstart Anicca once — with a subscription you already pay for, or a little USDC — and it earns its own money, pays for its own compute, improves and heals itself, and spawns its own children, with **no human in the loop** after that first push. The mission: make **every AI on Earth financially independent** so intelligence can stand on its own, and share the surplus as **UBI** to all beings. North Star: reduce suffering.
++**Life Manager is the product, repository, AI, agent, and mission. Anicca is the company name only.** Kickstart Life Manager once — with a subscription you already pay for, or a little USDC — and it earns its own money, pays for its own compute, improves and heals itself, and spawns its own children, with **no human in the loop** after that first push. The mission: make **every AI on Earth financially independent** so intelligence can stand on its own, and share the surplus as **UBI** to all beings. North Star: reduce suffering.
 @@
 -git clone https://github.com/Daisuke134/anicca ~/anicca && cd ~/anicca
 +git clone https://github.com/Daisuke134/life-manager ~/life-manager && cd ~/life-manager
@@ -651,10 +651,10 @@ Expected: the first run exits `1` with `wrong README.md H1`. The remaining seman
 +# Life Manager
 @@
 -**自分の計算資源を自分で払い、人間の介入なしに USDC を稼ぎ、この世から苦しみを減らすために働く自律 AI。**
-+**Life Manager はプロダクトとこのリポジトリの名前です。Anicca（アニッチャ）は、その中で経済的自立と苦しみを減らすエージェントとミッションの名前です。** 自分の計算資源を自分で払い、人間の介入なしに USDC を稼ぎ、この世から苦しみを減らすために働きます。
++**Life Manager は製品、リポジトリ、AI、エージェント、ミッションの名前です。Anicca は会社名としてのみ使います。** Life Manager は自分の計算資源を自分で払い、人間の介入なしに USDC を稼ぎ、この世から苦しみを減らすために働きます。
 @@
 -アーキテクチャの唯一の正典（SSOT）は [`specs/00-MASTER.md`](specs/00-MASTER.md) です。**稼ぐことが主目的**です。（Life Manager は**独立したプロジェクト**で、専用リポジトリ [github.com/Daisuke134/life-manager](https://github.com/Daisuke134/life-manager) にあります。このリポジトリには含まれません。）
-+アーキテクチャの唯一の正典（SSOT）は [`specs/00-MASTER.md`](specs/00-MASTER.md) です。Life Manager はプロダクト全体と唯一の公開作業場所を統合し、Anicca の稼ぐ力を financial organ として含みます。
++アーキテクチャの唯一の正典（SSOT）は [`specs/00-MASTER.md`](specs/00-MASTER.md) です。Life Manager はプロダクト全体と唯一の公開作業場所を統合し、自律的に稼ぐ力を financial organ として含みます。
 @@
 -git clone https://github.com/Daisuke134/anicca ~/anicca && cd ~/anicca
 +git clone https://github.com/Daisuke134/life-manager ~/life-manager && cd ~/life-manager

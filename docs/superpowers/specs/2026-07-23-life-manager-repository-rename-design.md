@@ -2,7 +2,7 @@
 
 ## Status and authority
 
-The user approves this design in full. The final product and its single public monorepo are **Life Manager** at `Daisuke134/life-manager`. `Anicca` remains the agent and mission name where that meaning is intentional; it is not the final repository slug. This decision is closed and does not require another choice or review gate.
+The user approves this design in full. The product, AI, agent, mission, runtime, and single public monorepo are all **Life Manager** at `Daisuke134/life-manager`. `Anicca` is the company name only. This decision is closed and does not require another choice or review gate.
 
 Repository Tasks 1–4 are partially executed and recorded below. All continuation, including the redirect repair, follows `docs/superpowers/plans/2026-07-23-life-manager-repository-rename.md` in a separately reviewed scoped run.
 
