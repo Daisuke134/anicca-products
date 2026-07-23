@@ -9,12 +9,12 @@
 
 ## Current live state
 
-### §10 row 8c.R — pending, approved collision-safe repository rename
+### §10 row 8c.R — pending, IDs/remotes/history PASS; redirect repair next
 
 - Top pending row is now `8c.R`, before `8d`. Design SSOT=`docs/superpowers/specs/2026-07-23-life-manager-repository-rename-design.md`; executable plan=`docs/superpowers/plans/2026-07-23-life-manager-repository-rename.md`.
-- Approved mapping: repository ID `1273052304` moves `Daisuke134/life-manager→Daisuke134/life-manager-v0` and remains public/unarchived; then ID `1248111245` moves `Daisuke134/anicca→Daisuke134/life-manager` as the final whole-product/public-monorepo identity. Neither history is deleted.
-- Current measured preflight: `life-manager-v0` is unused; `anicca` Pages=`https://daisuke134.github.io/anicca/`, custom domain null, build type workflow; Action manifests/webhooks/rulesets=`0/0/0`. The old `anicca` name is never recreated because that would break GitHub redirects.
-- Rename execution must update `/Users/anicca/Projects/life-manager` to `life-manager-v0` and `/Users/anicca/anicca` plus its linked worktrees to final `life-manager`, then prove ID-keyed refs/issues/stars, redirects/takeover, new Pages, live URL TDD, scoped commit/push/remote SHA. `Daisuke134/anicca-products`, Railway, and §10 product runtime work remain untouched by the repo-settings rename.
+- Mapping is executed: repository ID `1273052304` / node `R_kgDOS-E8kA` is public/unarchived `Daisuke134/life-manager-v0`; ID `1248111245` / node `R_kgDOSmSqjQ` is public/unarchived final `Daisuke134/life-manager`. `/Users/anicca/Projects/life-manager` and `/Users/anicca/anicca` plus 22 linked worktrees use their exact final remotes.
+- Task 4 preservation PASS: refs/default HEAD/issues/stars are byte-identical by ID; `anicca-products` metadata is byte-identical; Railway/product side effect=0. Redirect FAIL only: old `Daisuke134/anicca` web/API are `404`, Git `ls-remote` is `128 repository not found`. False hypothesis=`GraphQL updateRepository creates GitHub's documented redirect`.
+- Next action is Task 4R only: after fresh review, exact-ID-gated official REST roundtrip `life-manager→anicca→life-manager`, then independent old web/API/Git redirect and preservation verification. Do not rerun Tasks 1–3. Do not start live URL TDD or Pages until Task 4R PASS. Evidence=`/Users/anicca/.codex/evidence/life-manager-repository-rename/task4-preservation-verification-report.md`, mode `0600`, SHA-256 `13eaf0c6b4b4205aef227d0b29dd6e5ff39166698b18c0ee3d782aa432238c81`.
 
 ### §10 row 8g PANEL-a — pending, external deployment blocker
 

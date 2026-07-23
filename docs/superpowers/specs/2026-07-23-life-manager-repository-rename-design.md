@@ -4,7 +4,7 @@
 
 The user approves this design in full. The final product and its single public monorepo are **Life Manager** at `Daisuke134/life-manager`. `Anicca` remains the agent and mission name where that meaning is intentional; it is not the final repository slug. This decision is closed and does not require another choice or review gate.
 
-The repository-settings operation is not part of this documentation change. Execution follows `docs/superpowers/plans/2026-07-23-life-manager-repository-rename.md` in a later scoped run.
+Repository Tasks 1–4 are partially executed and recorded below. All continuation, including the redirect repair, follows `docs/superpowers/plans/2026-07-23-life-manager-repository-rename.md` in a separately reviewed scoped run.
 
 ## Scope
 
@@ -20,14 +20,26 @@ The live-reference guard may exclude those two measured historical directories o
 
 ## Approved repository identities
 
-Repository identity is tracked first by immutable numeric ID, then resolved through the numeric REST endpoint to the GraphQL repository node ID used for every rename mutation; a slug is only observed state and is never the mutation target.
+Repository identity is tracked first by immutable numeric ID. The initial collision-safe move resolves each repository through the numeric REST endpoint and uses its GraphQL node ID. The redirect repair is the one explicit exception: GitHub's documented rename path and official CLI use a slug-addressed REST `PATCH`, so Task 4R permits two tightly bounded REST mutations only after the slug and numeric identity agree immediately before each call.
 
-| Repository ID | Measured GraphQL node ID | Current name | Final name | Required state |
+| Repository ID | Measured GraphQL node ID | Pre-execution name | Final/current name | Required state |
 |---:|---|---|---|---|
 | `1273052304` | `R_kgDOS-E8kA` | `Daisuke134/life-manager` | `Daisuke134/life-manager-v0` | public, unarchived, undeleted until history/content import and equivalence verification finish |
 | `1248111245` | `R_kgDOSmSqjQ` | `Daisuke134/anicca` | `Daisuke134/life-manager` | public, unarchived, canonical product monorepo |
 
 The intermediate slug `Daisuke134/life-manager-v0` returns `404` before execution. The final slug is currently occupied by repository ID `1273052304`, so a direct rename cannot be collision-safe.
+
+## Observed execution state and redirect repair
+
+Tasks 1–3 finish the collision-safe identity move:
+
+- ID `1273052304` / node `R_kgDOS-E8kA` is now public, unarchived `Daisuke134/life-manager-v0`; its local clone uses the explicit `life-manager-v0` remote.
+- ID `1248111245` / node `R_kgDOSmSqjQ` is now public, unarchived `Daisuke134/life-manager`; the shared clone and all 22 linked worktrees use the final remote.
+- Before/after refs, default HEADs, issue identities, and stargazer identities are byte-identical for both IDs. `Daisuke134/anicca-products` metadata is byte-identical and Railway/product side effects remain zero.
+
+Task 4 exposes one failure only: old `Daisuke134/anicca` returns web/API `404` and Git `ls-remote` fails. The false hypothesis is **GraphQL `updateRepository` establishes the same compatibility redirects as GitHub's documented repository rename path**. Name and identity preservation succeed, but redirect creation does not.
+
+Task 4R repairs only that missing compatibility surface. It performs an official REST rename roundtrip on ID `1248111245`, `life-manager → anicca → life-manager`, after exact numeric/node/slug/collision checks. The first REST leg makes the final URL the previous name and is observed before the mandatory second leg; the second REST leg recreates old `anicca` as the previous name of final `life-manager`. No local remote changes during the roundtrip. The roundtrip is not a general rollback and does not authorize creation of a new `anicca` repository.
 
 ## Collision-safe sequence
 
@@ -45,7 +57,7 @@ No step deletes a repository, force-pushes a ref, rewrites history, archives eit
 GitHub redirects repository web traffic and Git operations after a rename, but project-site URLs are an explicit exception. Therefore:
 
 - `https://github.com/Daisuke134/anicca` and `https://github.com/Daisuke134/anicca.git` must resolve to repository ID `1248111245` after the final rename.
-- The old `anicca` repository name must never be recreated. Reuse would disable the redirect GitHub establishes for existing links and clones.
+- A second or replacement repository must never be created at old `anicca`; that reuse would disable the redirect GitHub establishes for existing links and clones. Task 4R's temporary rename of the same ID is the only exception and ends immediately back at final `life-manager`.
 - The first rename temporarily makes old `Daisuke134/life-manager` links redirect to ID `1273052304`. The second rename deliberately takes over that slug with ID `1248111245`; afterward, `Daisuke134/life-manager` must identify the final monorepo and the former repository is reachable only as `Daisuke134/life-manager-v0`.
 - Redirects are compatibility behavior, not the desired local configuration. Both local remotes are updated immediately after their respective rename.
 
@@ -76,7 +88,8 @@ This documentation worktree belongs to `Daisuke134/anicca-products`; its remote 
 - Immediately before every rename or conditional rollback, fetch the target through `repositories/{numeric_id}`, record its identity tuple, and require the expected numeric ID, `full_name`, `node_id`, public visibility, and unarchived state. The mutation uses only that verified node ID. Any mismatch, lost admin access, unexpected webhook/ruleset/Action manifest, or occupied intermediate slug stops before mutation.
 - If the first rename fails, change nothing else.
 - If the first rename succeeds and the second fails before ID `1248111245` moves, stop. If the `life-manager` lookup still redirects to ID `1273052304` and no different repository owns that slug, the only permitted rollback is renaming ID `1273052304` back to `life-manager` and restoring its local remote. Otherwise preserve both repositories and escalate; never delete or overwrite a colliding repository.
-- Once ID `1248111245` successfully becomes `Daisuke134/life-manager`, do not recreate `anicca` and do not rename backward as an improvised rollback. Repair remotes, references, redirects, or Pages forward while preserving both IDs and all refs.
+- Once ID `1248111245` successfully becomes `Daisuke134/life-manager`, do not create a repository named `anicca` and do not rename backward as an improvised rollback. The only permitted temporary reuse is reviewed Task 4R's two-leg REST roundtrip on the same immutable ID, with the second leg attempted immediately even when the first-leg redirect observation fails.
+- If Task 4R's first REST mutation succeeds and the final REST mutation fails, re-read both numeric IDs and retry the same `anicca → life-manager` REST mutation once. Do not use GraphQL fallback, create/delete/archive, force-push, or move ID `1273052304`. A second failure stops with exact state evidence; the first REST leg is expected to keep the canonical `life-manager` URL compatible with the temporarily named same repository.
 - A failed comparison, Pages deployment, or live-reference test is a failed migration. It does not authorize deletion, archive, force-push, history replacement, repository creation, Railway changes, or changes to `anicca-products`.
 
 ## Exact done conditions
@@ -101,9 +114,11 @@ Each material operational decision above is grounded in the following source or 
 - Repository ID `1273052304`: [GitHub REST live repository response](https://api.github.com/repositories/1273052304) / direct quote: `"id": 1273052304`, `"node_id": "R_kgDOS-E8kA"`, and `"full_name": "Daisuke134/life-manager"`.
 - Repository ID `1248111245`: [GitHub REST live repository response](https://api.github.com/repositories/1248111245) / direct quote: `"id": 1248111245`, `"node_id": "R_kgDOSmSqjQ"`, and `"full_name": "Daisuke134/anicca"`.
 - Redirect and Pages exception: [Renaming a repository — GitHub Docs](https://docs.github.com/en/repositories/creating-and-managing-repositories/renaming-a-repository) / direct quote: “with the exception of project site URLs, is automatically redirected”.
-- Never recreate old `anicca` and hosted-Action caveat: [リポジトリの名前を変更する — GitHub Docs](https://docs.github.com/ja/repositories/creating-and-managing-repositories/renaming-a-repository) / direct quote: 「元の名前を再利用しないでください」「アクションに呼び出しがリダイレクトされることはありません」。
+- Never create a replacement at old `anicca`, and hosted-Action caveat: [リポジトリの名前を変更する — GitHub Docs](https://docs.github.com/ja/repositories/creating-and-managing-repositories/renaming-a-repository) / direct quote: 「元の名前を再利用しないでください」「アクションに呼び出しがリダイレクトされることはありません」。
 - Local remote update: [Managing remote repositories — GitHub Docs](https://docs.github.com/en/get-started/git-basics/managing-remote-repositories) / direct quote: `git remote set-url origin REMOTE-URL`.
 - Immutable mutation target: [GitHub GraphQL `UpdateRepositoryInput`](https://docs.github.com/en/graphql/reference/input-objects#updaterepositoryinput) / live schema descriptions: “The ID of the repository to update.” and “The new name of the repository.”
+- Official redirect-producing rename path: [GitHub CLI `RenameRepo`](https://github.com/cli/cli/blob/trunk/api/queries_repo.go) / source uses `client.REST(..., "PATCH", path, ...)` against `repos/{owner}/{repo}` with the new `name`.
+- Task 4 live failure: private evidence `/Users/anicca/.codex/evidence/life-manager-repository-rename/task4-preservation-verification-report.md`, SHA-256 `13eaf0c6b4b4205aef227d0b29dd6e5ff39166698b18c0ee3d782aa432238c81`; refs/HEAD/issues/stars pass while old web/API/Git redirect fails.
 - Pages state: [GitHub Pages live API response](https://api.github.com/repos/Daisuke134/anicca/pages) / direct quote: `"html_url":"https://daisuke134.github.io/anicca/"` and `"cname":null`.
 - Webhook absence: [GitHub repository hooks live API](https://api.github.com/repos/Daisuke134/anicca/hooks) / authenticated live response: `[]`.
 - Ruleset absence: [GitHub repository rulesets live API](https://api.github.com/repos/Daisuke134/anicca/rulesets) / authenticated live response: `[]`.

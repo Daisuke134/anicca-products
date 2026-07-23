@@ -12,14 +12,21 @@
 
 - Design SSOT: `docs/superpowers/specs/2026-07-23-life-manager-repository-rename-design.md`.
 - Repository ID `1273052304` finishes as public, unarchived `Daisuke134/life-manager-v0`; repository ID `1248111245` finishes as public, unarchived `Daisuke134/life-manager`.
-- Never delete either repository or history. Do not archive, force-push, recreate `Daisuke134/anicca`, change visibility, or overwrite a colliding repository.
+- Never delete either repository or history. Do not archive, force-push, create a replacement `Daisuke134/anicca`, change visibility, or overwrite a colliding repository. Task 4R may temporarily assign the existing ID `1248111245` that name only for its reviewed REST roundtrip.
 - Do not modify Railway, secrets, `Daisuke134/anicca-products` (ID `1245528469`), or Life Manager §10 product/runtime behavior.
-- Every repository-settings mutation is an external action. Immediately before it, re-read and record the numeric endpoint tuple `{id,node_id,full_name,visibility,archived}`; require the approved tuple and mutate only with the verified GraphQL `repositoryId`. Slugs are state assertions, never mutation targets.
+- Every repository-settings mutation is an external action. Immediately before it, re-read and record the numeric endpoint tuple `{id,node_id,full_name,visibility,archived}` and require the approved tuple. Tasks 2–3 mutate only with verified GraphQL `repositoryId`. Task 4R is the sole slug-addressed exception because GitHub's official redirect-producing rename path is REST `PATCH repos/{owner}/{repo}`; each of its two REST calls is immediately ID-gated and post-verified.
 - This executable plan is governed by `superpowers:writing-plans`. Use `superpowers:using-git-worktrees` before the live-reference branch; use `superpowers:test-driven-development`, `superpowers:requesting-code-review`, `superpowers:verification-before-completion`, and `superpowers:finishing-a-development-branch` at their named gates.
 - Target-tree measurement shows `/Users/anicca/anicca` lacks `docs/superpowers/specs/2026-07-19-anicca-one-repo-consolidation-spec.md`; its currently tracked `docs/superpowers/specs/**` and `docs/superpowers/plans/**` are pre-consolidation historical artifacts. Preserve their text. The current canonical SSOT is this spec worktree's consolidation spec and already uses final slug `life-manager`.
 - Existing VCSDD documents are immutable historical evidence. Create no VCSDD artifact and run no VCSDD command.
 - Store command evidence under `/Users/anicca/.codex/evidence/life-manager-repository-rename` with mode `0700`; store no token, credential, environment dump, or secret.
-- Stop immediately on any unexpected ID, slug, archive/visibility drift, nonzero Action manifest/webhook/ruleset count, comparison mismatch, or failed verification.
+- Stop immediately on any unexpected ID, slug, archive/visibility drift, nonzero Action manifest/webhook/ruleset count, comparison mismatch, or failed verification. Task 4R's first-leg redirect observation is the sole non-gating observation: record it and always attempt the final REST leg immediately.
+
+## Live execution state
+
+- Task 1 PASS: immutable metadata/schema/availability/refs/HEAD/issues/stars/Pages/settings/remotes are captured.
+- Tasks 2–3 PASS: ID `1273052304` is `life-manager-v0`; ID `1248111245` is final `life-manager`; both are public/unarchived and both shared remotes are correct.
+- Task 4 preservation checks PASS for refs/default HEAD/issues/stars and `anicca-products`, but redirect verification FAILS: old `Daisuke134/anicca` is web/API `404` and Git `ls-remote` fails. Evidence=`task4-preservation-verification-report.md`, SHA-256=`13eaf0c6b4b4205aef227d0b29dd6e5ff39166698b18c0ee3d782aa432238c81`.
+- False hypothesis: GraphQL `updateRepository` creates the documented compatibility redirects. Do not rerun Tasks 1–3. Execute Task 4R next, obtain fresh review evidence, then repeat Task 4 redirect assertions before Task 5.
 
 ---
 
@@ -350,6 +357,148 @@ cmp "$RENAME_EVIDENCE/repository-1245528469.before.json" "$RENAME_EVIDENCE/repos
 ```
 
 Expected: exact metadata comparison succeeds; no Railway command or product deployment occurs.
+
+### Task 4R: Repair the missing old-`anicca` redirect through the official REST rename path
+
+**Files:**
+- Append outside Git: `/Users/anicca/.codex/evidence/life-manager-repository-rename/`
+- Modify tracked files: none
+
+**Interfaces:**
+- Consumes: final IDs/remotes from Tasks 2–3 and the isolated Task 4 redirect failure
+- Produces: old `anicca` web/API/Git compatibility for the same ID `1248111245`, without changing refs, issues, stars, remotes, Pages, product, or Railway
+
+GitHub documents automatic web/Git redirects after a repository rename. The official `gh repo rename` implementation calls REST `PATCH repos/{owner}/{repo}` with the new `name`; Task 4R uses that exact REST surface. This is a bounded repair for the observed GraphQL redirect gap, not a general rollback.
+
+- [ ] **Step 1: Freeze the exact pre-repair state and dirty fingerprints**
+
+```bash
+set -euo pipefail
+RENAME_EVIDENCE=/Users/anicca/.codex/evidence/life-manager-repository-rename
+gh api repositories/1248111245 --jq '{id,node_id,full_name,visibility,archived}' > "$RENAME_EVIDENCE/redirect-repair-1248111245.before.json"
+gh api repositories/1273052304 --jq '{id,node_id,full_name,visibility,archived}' > "$RENAME_EVIDENCE/redirect-repair-1273052304.before.json"
+jq -e '.id == 1248111245 and .node_id == "R_kgDOSmSqjQ" and .full_name == "Daisuke134/life-manager" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/redirect-repair-1248111245.before.json"
+jq -e '.id == 1273052304 and .node_id == "R_kgDOS-E8kA" and .full_name == "Daisuke134/life-manager-v0" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/redirect-repair-1273052304.before.json"
+test "$(git -C /Users/anicca/anicca remote get-url origin)" = https://github.com/Daisuke134/life-manager.git
+test "$(git -C /Users/anicca/Projects/life-manager remote get-url origin)" = https://github.com/Daisuke134/life-manager-v0.git
+git -C /Users/anicca/anicca worktree list --porcelain | awk '/^worktree /{sub(/^worktree /, ""); print}' | while IFS= read -r LINKED_WORKTREE; do
+  printf '%s\t' "$LINKED_WORKTREE"
+  git -C "$LINKED_WORKTREE" status --porcelain=v2 --untracked-files=all | shasum -a 256 | awk '{print $1}'
+done > "$RENAME_EVIDENCE/redirect-repair-worktree-dirty.before"
+curl --silent --show-error --head https://github.com/Daisuke134/anicca > "$RENAME_EVIDENCE/anicca-redirect.before-repair.headers"
+rg -q '^HTTP/.* 404' "$RENAME_EVIDENCE/anicca-redirect.before-repair.headers"
+```
+
+Expected: both numeric identities and remotes are exact; current dirty state is recorded by hash only; old `anicca` still reproduces the known `404`.
+
+- [ ] **Step 2: REST-rename final `life-manager` temporarily to `anicca`**
+
+Immediately before mutation, re-read the slug and numeric endpoint. No other worker may mutate either repository during the two-leg sequence.
+
+```bash
+set -euo pipefail
+RENAME_EVIDENCE=/Users/anicca/.codex/evidence/life-manager-repository-rename
+test "$(gh api repos/Daisuke134/life-manager --jq .id)" = 1248111245
+gh api repositories/1248111245 --jq '{id,node_id,full_name,visibility,archived}' > "$RENAME_EVIDENCE/redirect-repair-first-leg.immediate.json"
+jq -e '.id == 1248111245 and .node_id == "R_kgDOSmSqjQ" and .full_name == "Daisuke134/life-manager" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/redirect-repair-first-leg.immediate.json"
+test "$(gh api repos/Daisuke134/life-manager-v0 --jq .id)" = 1273052304
+set +e
+gh api repos/Daisuke134/anicca --silent 2> "$RENAME_EVIDENCE/redirect-repair-anicca-availability.stderr"
+ANICCA_AVAILABILITY_RC=$?
+set -e
+test "$ANICCA_AVAILABILITY_RC" -ne 0
+rg -q 'HTTP 404' "$RENAME_EVIDENCE/redirect-repair-anicca-availability.stderr"
+gh api --method PATCH repos/Daisuke134/life-manager -f name=anicca \
+  --jq '{id,node_id,full_name,visibility,archived}' \
+  > "$RENAME_EVIDENCE/redirect-repair-first-leg.response.json"
+jq -e '.id == 1248111245 and .node_id == "R_kgDOSmSqjQ" and .full_name == "Daisuke134/anicca" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/redirect-repair-first-leg.response.json"
+```
+
+Expected: only ID `1248111245` changes name to `anicca`. Do not update local remotes.
+
+- [ ] **Step 3: Observe first-leg compatibility, but always attempt the final REST leg immediately**
+
+The observation is evidence, not a gate that may leave the repository at the temporary name.
+
+```bash
+set -u
+RENAME_EVIDENCE=/Users/anicca/.codex/evidence/life-manager-repository-rename
+set +e
+curl --silent --show-error --head https://github.com/Daisuke134/life-manager > "$RENAME_EVIDENCE/redirect-repair-first-leg-life-manager.headers"
+rg -qi '^location: https://github.com/Daisuke134/anicca/?' "$RENAME_EVIDENCE/redirect-repair-first-leg-life-manager.headers"
+FIRST_LEG_WEB_REDIRECT_RC=$?
+git ls-remote --heads --tags https://github.com/Daisuke134/life-manager.git > "$RENAME_EVIDENCE/redirect-repair-first-leg-life-manager.refs" 2> "$RENAME_EVIDENCE/redirect-repair-first-leg-life-manager.stderr"
+FIRST_LEG_GIT_REDIRECT_RC=$?
+set -e
+printf 'web_redirect_rc=%s\ngit_redirect_rc=%s\n' "$FIRST_LEG_WEB_REDIRECT_RC" "$FIRST_LEG_GIT_REDIRECT_RC" > "$RENAME_EVIDENCE/redirect-repair-first-leg-observation.txt"
+
+gh api repositories/1248111245 --jq '{id,node_id,full_name,visibility,archived}' > "$RENAME_EVIDENCE/redirect-repair-final-leg.immediate.json"
+jq -e '.id == 1248111245 and .node_id == "R_kgDOSmSqjQ" and .full_name == "Daisuke134/anicca" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/redirect-repair-final-leg.immediate.json"
+test "$(gh api repos/Daisuke134/anicca --jq .id)" = 1248111245
+test "$(gh api repos/Daisuke134/life-manager-v0 --jq .id)" = 1273052304
+
+set +e
+gh api --method PATCH repos/Daisuke134/anicca -f name=life-manager \
+  --jq '{id,node_id,full_name,visibility,archived}' \
+  > "$RENAME_EVIDENCE/redirect-repair-final-leg.attempt-1.json" \
+  2> "$RENAME_EVIDENCE/redirect-repair-final-leg.attempt-1.stderr"
+FINAL_LEG_RC=$?
+set -e
+FINAL_RESPONSE="$RENAME_EVIDENCE/redirect-repair-final-leg.attempt-1.json"
+if test "$FINAL_LEG_RC" -ne 0; then
+  gh api repositories/1248111245 --jq '{id,node_id,full_name,visibility,archived}' > "$RENAME_EVIDENCE/redirect-repair-final-leg.retry-gate.json"
+  jq -e '.id == 1248111245 and .node_id == "R_kgDOSmSqjQ" and .full_name == "Daisuke134/anicca" and .visibility == "public" and .archived == false' "$RENAME_EVIDENCE/redirect-repair-final-leg.retry-gate.json"
+  test "$(gh api repos/Daisuke134/life-manager-v0 --jq .id)" = 1273052304
+  gh api --method PATCH repos/Daisuke134/anicca -f name=life-manager \
+    --jq '{id,node_id,full_name,visibility,archived}' \
+    > "$RENAME_EVIDENCE/redirect-repair-final-leg.attempt-2.json"
+  FINAL_RESPONSE="$RENAME_EVIDENCE/redirect-repair-final-leg.attempt-2.json"
+fi
+jq -e '.id == 1248111245 and .node_id == "R_kgDOSmSqjQ" and .full_name == "Daisuke134/life-manager" and .visibility == "public" and .archived == false' "$FINAL_RESPONSE"
+```
+
+Expected: the canonical name is restored through REST. A second-leg failure gets one exact-ID-gated retry only; there is no GraphQL fallback, create/delete/archive, force-push, or mutation of ID `1273052304`.
+
+- [ ] **Step 4: Re-run full redirect and preservation proof**
+
+```bash
+set -euo pipefail
+RENAME_EVIDENCE=/Users/anicca/.codex/evidence/life-manager-repository-rename
+test "$(gh api repositories/1248111245 --jq .full_name)" = Daisuke134/life-manager
+test "$(gh api repos/Daisuke134/life-manager --jq .id)" = 1248111245
+test "$(gh api repos/Daisuke134/anicca --jq .id)" = 1248111245
+test "$(gh api repositories/1273052304 --jq .full_name)" = Daisuke134/life-manager-v0
+curl --silent --show-error --head https://github.com/Daisuke134/anicca > "$RENAME_EVIDENCE/anicca-web-redirect.after-repair.headers"
+rg -qi '^location: https://github.com/Daisuke134/life-manager/?' "$RENAME_EVIDENCE/anicca-web-redirect.after-repair.headers"
+curl --silent --show-error --head https://github.com/Daisuke134/life-manager > "$RENAME_EVIDENCE/life-manager-final.after-repair.headers"
+rg -q '^HTTP/.* 200' "$RENAME_EVIDENCE/life-manager-final.after-repair.headers"
+git ls-remote --heads --tags https://github.com/Daisuke134/anicca.git | LC_ALL=C sort > "$RENAME_EVIDENCE/anicca-old-git-url.refs.after-repair"
+cmp "$RENAME_EVIDENCE/repository-1248111245.refs.before" "$RENAME_EVIDENCE/anicca-old-git-url.refs.after-repair"
+
+git ls-remote --heads --tags https://github.com/Daisuke134/life-manager.git | LC_ALL=C sort > "$RENAME_EVIDENCE/repository-1248111245.refs.after-repair"
+git ls-remote https://github.com/Daisuke134/life-manager.git HEAD > "$RENAME_EVIDENCE/repository-1248111245.head.after-repair"
+gh api --paginate --slurp 'repos/Daisuke134/life-manager/issues?state=all&per_page=100' | jq '[.[][] | select(has("pull_request") | not) | {id,number,state}] | sort_by(.id)' > "$RENAME_EVIDENCE/repository-1248111245.issues.after-repair.json"
+gh api --paginate --slurp 'repos/Daisuke134/life-manager/stargazers?per_page=100' | jq '[.[][] | {id,login}] | sort_by(.id)' > "$RENAME_EVIDENCE/repository-1248111245.stargazers.after-repair.json"
+cmp "$RENAME_EVIDENCE/repository-1248111245.refs.before" "$RENAME_EVIDENCE/repository-1248111245.refs.after-repair"
+cmp "$RENAME_EVIDENCE/repository-1248111245.head.before" "$RENAME_EVIDENCE/repository-1248111245.head.after-repair"
+cmp "$RENAME_EVIDENCE/repository-1248111245.issues.before.json" "$RENAME_EVIDENCE/repository-1248111245.issues.after-repair.json"
+cmp "$RENAME_EVIDENCE/repository-1248111245.stargazers.before.json" "$RENAME_EVIDENCE/repository-1248111245.stargazers.after-repair.json"
+test "$(git -C /Users/anicca/anicca remote get-url origin)" = https://github.com/Daisuke134/life-manager.git
+test "$(git -C /Users/anicca/Projects/life-manager remote get-url origin)" = https://github.com/Daisuke134/life-manager-v0.git
+git -C /Users/anicca/anicca worktree list --porcelain | awk '/^worktree /{sub(/^worktree /, ""); print}' | while IFS= read -r LINKED_WORKTREE; do
+  printf '%s\t' "$LINKED_WORKTREE"
+  git -C "$LINKED_WORKTREE" status --porcelain=v2 --untracked-files=all | shasum -a 256 | awk '{print $1}'
+done > "$RENAME_EVIDENCE/redirect-repair-worktree-dirty.after"
+cmp "$RENAME_EVIDENCE/redirect-repair-worktree-dirty.before" "$RENAME_EVIDENCE/redirect-repair-worktree-dirty.after"
+gh api repositories/1245528469 --jq '{id,node_id,full_name,name,visibility,archived,default_branch,stargazers_count,open_issues_count,has_pages}' > "$RENAME_EVIDENCE/repository-1245528469.after-repair.json"
+cmp "$RENAME_EVIDENCE/repository-1245528469.before.json" "$RENAME_EVIDENCE/repository-1245528469.after-repair.json"
+```
+
+Expected: old `anicca` web/API/Git resolve to ID `1248111245`; canonical and v0 names/IDs are exact; refs/HEAD/issues/stars, dirty fingerprints, remotes, and `anicca-products` are unchanged. Pages remains a later Task 6 gate.
+
+- [ ] **Step 5: Independent review and private report**
+
+Invoke `superpowers:requesting-code-review` and `superpowers:verification-before-completion`. A fresh read-only worker repeats Step 4, records all command exit codes and the first-leg observation, and writes `task4r-redirect-repair-report.md` mode `0600` plus SHA-256. Task 5 is forbidden until that review is PASS with no material finding.
 
 ### Task 5: Update live repository identity and URLs with TDD, review, commit, push, and merge
 
@@ -738,7 +887,7 @@ test "$(gh api repositories/1273052304 --jq .full_name)" = Daisuke134/life-manag
 test "$(gh api repos/Daisuke134/anicca --jq .id)" = 1248111245
 ```
 
-Expected: all checks pass. After this point, do not run any rename-back, repository-create, delete, archive, visibility, or force-push command. Repair only the failed remote/reference/Pages verification forward.
+Expected: all checks pass. After this point, do not run any rename-back, repository-create, delete, archive, visibility, or force-push command except the already reviewed two-leg Task 4R REST redirect repair. All other repair remains forward-only.
 
 - [ ] **Step 3: Run the complete fresh verification gate**
 
@@ -753,6 +902,10 @@ test "$(gh api repositories/1273052304 --jq .archived)" = false
 test "$(gh api repositories/1248111245 --jq .archived)" = false
 test "$(git -C /Users/anicca/Projects/life-manager remote get-url origin)" = https://github.com/Daisuke134/life-manager-v0.git
 test "$(git -C /Users/anicca/anicca remote get-url origin)" = https://github.com/Daisuke134/life-manager.git
+test "$(gh api repos/Daisuke134/anicca --jq .id)" = 1248111245
+curl --silent --show-error --head https://github.com/Daisuke134/anicca | rg -qi '^location: https://github.com/Daisuke134/life-manager/?'
+git ls-remote --heads --tags https://github.com/Daisuke134/anicca.git | LC_ALL=C sort > "$RENAME_EVIDENCE/anicca-old-git-url.refs.final"
+cmp "$RENAME_EVIDENCE/repository-1248111245.refs.before" "$RENAME_EVIDENCE/anicca-old-git-url.refs.final"
 for REPOSITORY_ID in 1273052304 1248111245; do
   cmp "$RENAME_EVIDENCE/repository-$REPOSITORY_ID.refs.before" "$RENAME_EVIDENCE/repository-$REPOSITORY_ID.refs.after"
   cmp "$RENAME_EVIDENCE/repository-$REPOSITORY_ID.head.before" "$RENAME_EVIDENCE/repository-$REPOSITORY_ID.head.after"
