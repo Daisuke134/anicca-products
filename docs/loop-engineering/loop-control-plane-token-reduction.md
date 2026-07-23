@@ -48,7 +48,7 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 | 4 | [x] Build bounded context packets instead of replaying full histories. | `4afda9d16cc49aa0d23ca6abc15b49e9e38f975e`; PAID_WORK, formal delivery, and reply composition use allowlisted packets capped at 8,192 bytes with exact byte/token-ceiling metrics; huge-history fixtures pass. | 2–4 h |
 | 5 | [x] Enforce model routing: Terra medium for bounded composition/tool work, Luna medium for normal agent decisions, high/Sol only for explicit escalation. | `7ed12558dd97004832edf5fcad3247d4ccf35e5c`; every attempt, usage event, and summary records route/escalation fields; missing-reason escalation exits before provider invocation. | 1–2 h |
 | 6 | [x] Add per-pass and per-loop token budgets with a circuit breaker. | `4080a5c2046b1e9c1ced6db5970f57c013f4aa27`; reservation/settlement ledger fixtures stop the next provider call with exit 75 and distinguish pass from loop-daily exhaustion. | 2–3 h |
-| 7 | Register or retire the remaining unregistered launchd agents one by one. Never bulk-mutate live runtime state. | 3 agents complete; 67 unregistered Anicca labels remain. Registry coverage is complete and each runtime label has an owner/status. | 4–8 h |
+| 7 | Register or retire the remaining unregistered launchd agents one by one. Never bulk-mutate live runtime state. | 4 agents complete; 66 unregistered Anicca labels remain. Registry coverage is complete and each runtime label has an owner/status. | 4–8 h |
 | 8 | Add OpenTelemetry-compatible task attribution for tokens, estimated cost, revenue, and outcomes. | A daily report reconciles runner ledgers to task labels. | 3–5 h |
 | 9 | Canary the Claude fallback when availability returns. | One bounded fixture proves failover without duplicate customer action. | 0.5–1 h |
 | 10 | Complete the Coconala state machine from listing and fast reply through application, delivery, acceptance, payout, and banked revenue. | A sandbox or controlled real transaction reaches `banked` with an audit trail. | 1–2 engineering days plus external buyer time |
@@ -162,11 +162,22 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 - Post-change inventory reports `registered=true`, `desired_state=disabled`, and `actual_state=disabled`. Unregistered coverage moves from 88 total / 68 Anicca to 87 total / 67 Anicca.
 - The one-label retirement keeps scheduling ownership explicit under Apple's launchd management boundary. Source: [Apple Daemons and Services Programming Guide](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html).
 
-**Next unfinished item:** TODO 7 continues with `ai.anicca.dd-keepalive-healthcheck`; 67 unregistered Anicca labels remain and runtime changes continue one label at a time.
+### TODO 7 progress — agent 4: retired legacy daily-driver watchdog
+
+- Implementation commit: `71b2203ca94825a1cf7511dd604fe98a480c8fe0` on `origin/deploy/gig-speedy-reply-cutover`.
+- `ai.anicca.dd-keepalive-healthcheck` was a five-minute legacy supervisor that relaunched `dd-keepalive.py` whenever CDP port 9222 was unreachable.
+- Current Gig passes call the canonical `ensure_browser.sh` recovery path before browser work. That path launches Chromium with bounded caches, restores the session vault, and runs tab cleanup; the legacy path does none of those recovery steps.
+- Measured incident evidence on the same day: the legacy watchdog reported five consecutive relaunch successes from 20:06 through 20:26, but CDP was unreachable again at every next five-minute tick. The canonical recovery ran at 20:27 and the browser remained healthy afterward.
+- Focused RED failed on the missing retirement label. GREEN reports `1 passed`; the complete launchd inventory suite reports `15 passed`; JSON parse and `git diff --check` succeed.
+- Only the legacy watchdog label was booted out and disabled; its plist remains on disk. The active CDP listener stayed on PID `47417` before and after the stop, and `/json/version` continued to return the same browser WebSocket endpoint.
+- Post-change inventory reports `registered=true`, `desired_state=disabled`, and `actual_state=disabled`. Unregistered coverage moves from 87 total / 67 Anicca to 86 total / 66 Anicca.
+- One canonical recovery owner avoids competing relaunch strategies under Apple's launchd management boundary. Source: [Apple Daemons and Services Programming Guide](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html).
+
+**Next unfinished item:** TODO 7 continues with `ai.anicca.earning-health-allslots`; 66 unregistered Anicca labels remain and runtime changes continue one label at a time.
 
 ## Current execution boundary
 
-Items 1–6 and their live Gig cutover are complete. TODO 7 agents 1–3 are complete. The next work investigates `ai.anicca.dd-keepalive-healthcheck` and changes only that exact label after its register-or-retire decision is verified; it does not bulk-mutate runtime state or force a customer-visible action merely for validation.
+Items 1–6 and their live Gig cutover are complete. TODO 7 agents 1–4 are complete. The next work investigates `ai.anicca.earning-health-allslots` and changes only that exact label after its register-or-retire decision is verified; it does not bulk-mutate runtime state or force a customer-visible action merely for validation.
 
 ## Definition of done
 
