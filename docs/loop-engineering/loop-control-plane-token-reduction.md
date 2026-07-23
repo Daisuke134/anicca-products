@@ -43,19 +43,20 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 Scope is the Coconala work loop until it runs reliably every day. Unrelated x402 work and broad
 launchd registry cleanup are paused. Current measured control-plane state: the main Gig pass is
 loaded at minutes `0` and `30` (48 opportunities/day; 6 runs, last exit `0`), the five-minute
-reply detector plist is not installed or loaded, and the 09:07 daily report is loaded but has
-`0` runs / `never exited`. Disk capacity is restored from 858 MiB free / 100% used to 18 GiB free /
-92% used by deleting only regenerable caches and clean, remote-backed, inactive worktrees. The
-CloakBrowser/Chromium crash-recovery path is stabilized, but browser ownership is not isolated:
-six pages from multiple loops share one persistent default-context window on CDP `:9222`, there
-are zero active context leases, and the global tab GC can close an unowned Coconala target. Browser
-ownership isolation is the next blocker before the missing scheduler lanes are enabled.
+reply detector is installed and loaded but still needs a successful natural run, and the 09:07
+daily report is loaded but has `0` runs / `never exited`. Disk capacity is restored from 858 MiB
+free / 100% used to 18 GiB free / 92% used by deleting only regenerable caches and clean,
+remote-backed, inactive worktrees. The CloakBrowser/Chromium crash-recovery path and browser
+ownership are isolated: the interactive daily driver remains on CDP `:9222` with profile
+`daily-driver`, while launchd owns the Gig-only CDP `:9223` root with profile
+`gig-daily-driver`; owner-scoped cleanup cannot close a foreign or unregistered target. Natural
+scheduler-run evidence is the next blocker.
 
 | Order | Remaining work | Done evidence |
 |---:|---|---|
 | 0 | **COMPLETED** — Restore an operational disk buffer without deleting runtime state, browser profiles, credentials, dirty worktrees, or active feature work. | `/System/Volumes/Data` moves from 858 MiB free / 100% used to 18 GiB free / 92% used. Regenerable caches and 20 clean, remote-backed worktrees with no live process CWD are removed; the SSOT, capafy, Coconala, x402, dirty, locked, and active worktrees remain. |
 | 1 | **COMPLETED** — Stabilize the CloakBrowser/Chromium daily driver used by Coconala. The daily entrypoint delegates dead-browser recovery to the single launchd-owned persistent CloakBrowser context instead of launching a second unmanaged raw Chromium process. | Commit `08b878c9`; focused RED fails on the unmanaged path, GREEN reports 6/6 guard tests and 29/29 complete verifier tests. A real `SIGKILL` drill observes CDP DOWN → `RECOVERED`, owner running/never-exited, one Chromium root, one tab, authenticated `coconala.com/mypage/dashboard`, and the next entrypoint call returns `ALIVE`. |
-| 2 | Isolate browser ownership before re-enabling concurrent lanes. Give each business loop one launchd-owned persistent browser/profile/port; keep Gig pass/reply/auditor on one Gig browser behind one universal Gig lock. Replace global tab deletion with owner-scoped cleanup, and keep interactive Codex automation off the production Gig port. | A live inventory shows one dedicated Gig root/profile/port, no non-Gig page or controller attached, and every Gig target has an owner/lease. A concurrent fixture proves one loop cannot navigate or close another loop's target; owner cleanup removes only its own stale targets. |
+| 2 | **COMPLETED** — Isolate browser ownership before re-enabling concurrent lanes. Give each business loop one launchd-owned persistent browser/profile/port; keep Gig pass/reply/auditor on one Gig browser behind one universal Gig lock. Replace global tab deletion with owner-scoped cleanup, and keep interactive Codex automation off the production Gig port. | `ai.anicca.hf-gig-browser` owns one Chromium root on CDP `:9223` with profile `gig-daily-driver`; `:9222` remains a separate root/profile. Gig `:9223` has one `about:blank` page and no attached non-Gig controller. Read-only Coconala keepalive reports `logged_out=false`. A two-owner live fixture rejects A→B close, A cleanup closes only A, and B remains live until B closes it. |
 | 3 | Restore and verify all required work-loop lanes. Install/load `ai.anicca.hf-gig-reply-detector`, observe `ai.anicca.hf-gig-daily-report` complete naturally, and re-check the already-loaded `ai.anicca.hf-gig-pass`. | Fresh `launchctl` evidence shows pass=`:00/:30`, reply detector=`300s`, report=`09:07`; each records a successful natural run and the single-instance guard prevents overlap. |
 | 4 | Complete the Coconala state machine: listing → new work discovery/application → fast reply → paid work → delivery/revision → acceptance → payout → `banked`. | Deterministic fixtures cover every transition, crash recovery, and idempotent replay without a duplicate browser action. |
 | 5 | Add task-level attribution for tokens, estimated cost, browser actions, revenue, and outcomes. | The daily Gig report reconciles pass/reply/delivery ledgers to exact task labels and exposes missing evidence instead of guessing. |
@@ -98,6 +99,33 @@ per-pass/per-day token circuit breakers are implemented and verified in the evid
   matching the CDP-down recovery boundary. Source:
   [Playwright Browser events](https://playwright.dev/python/docs/api/class-browser#browser-event-disconnected):
   “Browser application is closed or crashed.”
+
+### Active order item 2 — Gig browser ownership isolation
+
+- Browser implementation commit:
+  `67e668f4d6ba3e4876f2b9ee5c7c1bc616ed66e1` on
+  `origin/feature/dist1-mcp-launchd`.
+- Gig integration commit:
+  `465279916ce0d8d0f4f82ac11e9b9f7426391108` on
+  `origin/deploy/gig-speedy-reply-cutover`.
+- RED first proves the missing target-owner registry, foreign-close guard, configurable CDP
+  runtime, Gig ownership wiring, universal-lock inheritance/heartbeat, and launchd browser owner.
+- GREEN reports `11 passed` for browser runtime/ownership/session tests, `46 passed` plus 3
+  subtests for the related Gig integration set, and `6 passed` for the final launchd browser-owner
+  fixture. Python/shell syntax, plist lint, and `git diff --check` pass.
+- Live process boundary: the interactive root listens on `127.0.0.1:9222` with profile
+  `daily-driver`; `ai.anicca.hf-gig-browser` owns a separate root listening on
+  `127.0.0.1:9223` with profile `gig-daily-driver`.
+- Live target inventory on `:9223` contains one `about:blank` page and no established external
+  controller. A read-only keepalive reaches `https://coconala.com/mypage/dashboard` without a
+  login redirect and reports `logged_out=false`.
+- Live isolation fixture: two `about:blank` targets are registered to `gig-fixture-a` and
+  `gig-fixture-b`. Closing B as A exits nonzero with `PermissionError`; owner-A GC closes A only;
+  B remains live and is then closed by B.
+- Pass, reply detector, and auditor receive the same dedicated CDP/profile/state paths and
+  universal `~/gig/.cdp-gig.lock`. Nested browser steps inherit the enclosing lock, and a
+  heartbeat refreshes long-running leases so a healthy pass is not stolen after 25 minutes.
+- No application, reply, delivery, listing mutation, or payment action is used for validation.
 
 ### TODO 1 — feedback/artifact idempotency
 
@@ -293,17 +321,17 @@ per-pass/per-day token circuit breakers are implemented and verified in the evid
 - Post-change inventory reports `registered=true`, `desired_state=enabled`, and `actual_state=loaded-idle`. Unregistered coverage moves from 80 total / 60 Anicca to 79 total / 59 Anicca.
 - Keeping the idempotent acquisition scheduler under one launchd label follows Apple's launchd management boundary. Source: [Apple Daemons and Services Programming Guide](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html).
 
-**Next unfinished item:** active order item 2, isolate browser ownership and replace global tab
-deletion before restoring the reply-detector and never-run daily-report lanes. x402 and the
-remaining 59-label registry backlog are paused.
+**Next unfinished item:** active order item 3, observe successful natural runs for the loaded
+five-minute reply detector, the `:00/:30` Gig pass, and the 09:07 daily report while confirming
+the universal lock prevents overlap. x402 and the remaining 59-label registry backlog are paused.
 
 ## Current execution boundary
 
-The only active implementation scope is the Coconala work loop in the ordered table above. The
-disk-capacity and crash-recovery items are complete; browser ownership isolation is next, followed
-by the required scheduler lanes. Do not resume x402, broad launchd registry cleanup, CEO allocation,
-or new adapters before browser isolation, the required scheduler lanes, complete state machine,
-controlled transaction, and 24-hour proof are complete in that order.
+The only active implementation scope is the Coconala work loop in the ordered table above. Disk
+capacity, crash recovery, and browser ownership isolation are complete; required scheduler-lane
+proof is next. Do not resume x402, broad launchd registry cleanup, CEO allocation, or new adapters
+before the required scheduler lanes, complete state machine, controlled transaction, and 24-hour
+proof are complete in that order.
 
 ## Definition of done
 
