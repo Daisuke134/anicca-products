@@ -4,10 +4,17 @@
 
 - Objective: canonical spec §10 の未完 atomic TODO を上から全件、実 side-effect evidence 付き `done` にし、対象変更を commit/push する。
 - Planner/orchestrator/main session: spec・発注書・裁定・監視・独立 final check。product 実装をしない。
-- Sol workers: isolated worktree で build・execute・verify・VCSDD・scoped commit/push。material gate は fresh artifact-only reviewer。
+- Fresh workers: `using-git-worktrees`で隔離し、`writing-plans`、`subagent-driven-development`、`test-driven-development`、`requesting-code-review`、`verification-before-completion`、`finishing-a-development-branch`でbuild・execute・verify・scoped commit/pushする。既存VCSDD artifactはimmutable historical evidenceとしてのみ読み、新規artifact/commandは作らない。
 - SSOT: `/Users/anicca/anicca-project/.worktrees/lm-spec-sync-core8d/docs/superpowers/specs/2026-07-19-anicca-one-repo-consolidation-spec.md` の §9/§9.5/§10/§10.0/§10.2。planning branch=`docs/lm-core8d-review-order`。
 
 ## Current live state
+
+### §10 row 8c.R — pending, approved collision-safe repository rename
+
+- Top pending row is now `8c.R`, before `8d`. Design SSOT=`docs/superpowers/specs/2026-07-23-life-manager-repository-rename-design.md`; executable plan=`docs/superpowers/plans/2026-07-23-life-manager-repository-rename.md`.
+- Approved mapping: repository ID `1273052304` moves `Daisuke134/life-manager→Daisuke134/life-manager-v0` and remains public/unarchived; then ID `1248111245` moves `Daisuke134/anicca→Daisuke134/life-manager` as the final whole-product/public-monorepo identity. Neither history is deleted.
+- Current measured preflight: `life-manager-v0` is unused; `anicca` Pages=`https://daisuke134.github.io/anicca/`, custom domain null, build type workflow; Action manifests/webhooks/rulesets=`0/0/0`. The old `anicca` name is never recreated because that would break GitHub redirects.
+- Rename execution must update `/Users/anicca/Projects/life-manager` to `life-manager-v0` and `/Users/anicca/anicca` plus its linked worktrees to final `life-manager`, then prove ID-keyed refs/issues/stars, redirects/takeover, new Pages, live URL TDD, scoped commit/push/remote SHA. `Daisuke134/anicca-products`, Railway, and §10 product runtime work remain untouched by the repo-settings rename.
 
 ### §10 row 8g PANEL-a — pending, external deployment blocker
 
@@ -31,19 +38,22 @@
 - Worktree=`/Users/anicca/anicca-project/.worktrees/sol-panel-8h-ux-privacy`; branch=`sol/panel-8h-ux-privacy`; base=`origin/main@5a61251e`.
 - Heartbeat=`/Users/anicca/anicca-project/.claude/sol-orders/logs/panel-8h-collab-progress.log`, mode `0600`.
 - Current measured state: VCSDD initialized; Phase 1 spec review iteration 1 FAIL with 2 material findings; iteration 2 also FAIL with 1 material finding (`FIND-003`: retained contract allowlist is referenced as existing but is not self-contained, so closed inventory/complete negative-case proof is missing). Product code is not yet changed; branch has only uncommitted VCSDD working files. Root executor is intentionally interrupted after receiving this verdict so a restart cannot create concurrent writes.
+- The preceding VCSDD state is preserved as truthful historical evidence. Future 8h continuation uses the Superpowers/TDD/review/verification workflow above and creates no new VCSDD artifact.
 - HARD release boundary: 8g production L3 PASSまで、8hはspec/eval/RED/build/GREEN/review/commit/pushのみ。PR/merge/deploy/provider/prod/TG/email/call/L3は禁止。
 
 ## Restart first checks
 
-1. Re-read §10 and this handover; do not trust conversation memory.
+1. Re-read §10, this handover, the 8c.R rename design, and its executable plan; do not trust conversation memory.
 2. Check active agents before spawning a duplicate writer. Then inspect both heartbeat deltas and exact worktree/upstream status.
-3. Read-only poll Railway `life-call`. If an exact-main deployment has image+instance and SUCCESS, finish 8g migration/postflight and controlled production L3 through a fresh Sol. Otherwise keep 8g pending and continue only the isolated 8h preparation allowed above.
+3. Complete top pending 8c.R first without touching `anicca-products` or Railway. Then read-only poll Railway `life-call`. If an exact-main deployment has image+instance and SUCCESS, finish 8g migration/postflight and controlled production L3 through a fresh worker. Otherwise keep 8g pending and continue only the isolated 8h preparation allowed above.
 4. Preserve all unrelated dirty work. Meaningful scoped changes must pass fresh checks, then fetch, explicit stage, commit, push, and remote-SHA verification.
 
 ## Restart `/goal`
 
 ```text
-/goal Life Manager を、正本 §10 の未完 atomic TODO がすべて実証済み `done` になるまで完遂する。最初に `/Users/anicca/anicca-project/.worktrees/lm-spec-sync-core8d/docs/superpowers/specs/2026-07-19-anicca-one-repo-consolidation-spec.md` の §9・§9.5・§10・§10.0・§10.2 と `/Users/anicca/anicca-project/.worktrees/lm-spec-sync-core8d/.claude/handovers/2026-07-23_0552_lm-8g-railway-8h-prep.md` を読み、active agent、worktree、heartbeat、remote、Railway をfresh実測してから再開する。§10だけをlive stateとし、main sessionはplanner/orchestrator/spec writer/final verifierに限定、product実装はせず、各build/execute/verify/VCSDD/commit/pushをfresh Solのspawn_agentへ委任し、material gateだけfresh artifact-only reviewerで独立検証する。同じworktreeへduplicate writerを置かない。
+/goal Life Manager を、正本 §10 の未完 atomic TODO がすべて実証済み `done` になるまで完遂する。最初に `/Users/anicca/anicca-project/.worktrees/lm-spec-sync-core8d/docs/superpowers/specs/2026-07-19-anicca-one-repo-consolidation-spec.md` の §9・§9.5・§10・§10.0・§10.2、8c.R rename design/plan、`/Users/anicca/anicca-project/.worktrees/lm-spec-sync-core8d/.claude/handovers/2026-07-23_0552_lm-8g-railway-8h-prep.md` を読み、active agent、worktree、heartbeat、remote、Railway をfresh実測してから再開する。§10だけをlive stateとし、main sessionはplanner/orchestrator/spec writer/final verifierに限定する。新規atomicは`using-git-worktrees`→`writing-plans`→`subagent-driven-development`→`test-driven-development`→`requesting-code-review`→`verification-before-completion`→`finishing-a-development-branch`で実行し、既存VCSDD参照/artifactはimmutable historical evidenceとしてのみ読み、新しいVCSDD artifact/commandを作らない。同じworktreeへduplicate writerを置かない。
+
+最上位pendingは8c.R。ID `1273052304`を`life-manager-v0`へrenameしてpublic/unarchivedで保持しlocal clone remoteを即更新、その後ID `1248111245`をfinal `life-manager`へrenameして`/Users/anicca/anicca` shared remoteを即更新する。両rename直前にexact IDを再確認し、refs/issues/stars、旧`anicca` web/git redirect、old `life-manager` takeover、新Pages URL/workflow、live URL TDD、scoped commit/push/remote SHAまで実証する。旧`anicca`名は再作成せず、両historyを削除しない。`anicca-products`/Railway/§10 product runtimeはこのrepo-settings renameでは触らない。
 
 現在8gはcode/review/PR mergeまでPASSしmain=`5a61251e35b0cc3eaaa79354e352fd371ba39b11`だが、Railway外部停止でexact-SHA production build/image/instance、migration、Dais本人永久`/panel` L3が未完。3手法以上のFAILとfalse hypothesesは§10 row 8gに記録済みなので、追加deployを無限反復せずread-onlyで回復を監視する。exact-main deploymentがimage+instance付きSUCCESSになればfresh Solでmigration postflight→health→Dais本人のpersonalized panel→UI/API/独立DBのscore一致→mobile/desktop→zero unintended side effectを実測して8gを裁定する。未回復中はNO-STALLとして8hのisolated branch `sol/panel-8h-ux-privacy` をspec/eval/RED/build/GREEN/review/commit/pushまで進めてよいが、8g L3 PASS前の8h PR/merge/deploy/provider/prod/TG/email/callは禁止する。その後も§10の上から順に同じbounded loop（observe→choose→act→verify→record）で進める。
 
