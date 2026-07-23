@@ -48,7 +48,7 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 | 4 | [x] Build bounded context packets instead of replaying full histories. | `4afda9d16cc49aa0d23ca6abc15b49e9e38f975e`; PAID_WORK, formal delivery, and reply composition use allowlisted packets capped at 8,192 bytes with exact byte/token-ceiling metrics; huge-history fixtures pass. | 2–4 h |
 | 5 | [x] Enforce model routing: Terra medium for bounded composition/tool work, Luna medium for normal agent decisions, high/Sol only for explicit escalation. | `7ed12558dd97004832edf5fcad3247d4ccf35e5c`; every attempt, usage event, and summary records route/escalation fields; missing-reason escalation exits before provider invocation. | 1–2 h |
 | 6 | [x] Add per-pass and per-loop token budgets with a circuit breaker. | `4080a5c2046b1e9c1ced6db5970f57c013f4aa27`; reservation/settlement ledger fixtures stop the next provider call with exit 75 and distinguish pass from loop-daily exhaustion. | 2–3 h |
-| 7 | Register or retire the remaining unregistered launchd agents one by one. Never bulk-mutate live runtime state. | 10 agents complete; 60 unregistered Anicca labels remain. Each increment changes one exact runtime label and records its owner/status. | 4–8 h |
+| 7 | Register or retire the remaining unregistered launchd agents one by one. Never bulk-mutate live runtime state. | 11 agents complete; 59 unregistered Anicca labels remain. Each increment changes one exact runtime label and records its owner/status. | 4–8 h |
 | 8 | Add OpenTelemetry-compatible task attribution for tokens, estimated cost, revenue, and outcomes. | A daily report reconciles runner ledgers to task labels. | 3–5 h |
 | 9 | Canary the Claude fallback when availability returns. | One bounded fixture proves failover without duplicate customer action. | 0.5–1 h |
 | 10 | Complete the Coconala state machine from listing and fast reply through application, delivery, acceptance, payout, and banked revenue. | A sandbox or controlled real transaction reaches `banked` with an audit trail. | 1–2 engineering days plus external buyer time |
@@ -240,11 +240,23 @@ launchd is the scheduling source of truth. A checked-in registry describes every
 - Post-change inventory reports `registered=true`, `desired_state=enabled`, and `actual_state=loaded-idle`. Unregistered coverage moves from 81 total / 61 Anicca to 80 total / 60 Anicca.
 - Keeping the outside watchdog under one launchd label follows Apple's launchd management boundary. Source: [Apple Daemons and Services Programming Guide](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html).
 
-**Next unfinished item:** TODO 7 continues with `ai.anicca.x402-acquisition-controller`; 60 unregistered Anicca labels remain and runtime changes continue one label at a time.
+### TODO 7 progress — agent 11: registered deterministic x402 acquisition controller
+
+- Implementation commit: `0fa501ecd0e423ce481a00023f1ecc7f13e911a4` on `origin/deploy/gig-speedy-reply-cutover`.
+- `ai.anicca.x402-acquisition-controller` is retained and registered as an enabled deterministic acquisition poller owned by `anicca`.
+- Every five minutes it fetches The402 postings, filters eligible open work, audits a durable SQLite inbox, and enqueues at most one unseen bid event. It does not invoke a model.
+- Measured live evidence shows two eligible postings were enqueued into the private action ledger and consumed by the running `ai.anicca.the402-worker`; subsequent polling recorded 144 audited no-op passes rather than duplicate bids.
+- The tracked and installed plists have the same SHA-256 digest. No runtime restart, forced acquisition pass, or external bid was triggered for validation.
+- Focused RED failed on the missing registry label. GREEN reports `1 passed`; the complete launchd inventory suite reports `22 passed`; both acquisition controller tests pass; shell/Node syntax, JSON parsing, and `git diff --check` succeed.
+- Measured runtime evidence after a natural pass: enabled, loaded-idle, 38 runs, last exit code `0`, and no direct model route.
+- Post-change inventory reports `registered=true`, `desired_state=enabled`, and `actual_state=loaded-idle`. Unregistered coverage moves from 80 total / 60 Anicca to 79 total / 59 Anicca.
+- Keeping the idempotent acquisition scheduler under one launchd label follows Apple's launchd management boundary. Source: [Apple Daemons and Services Programming Guide](https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html).
+
+**Next unfinished item:** TODO 7 continues with `ai.anicca.x402-experiment-franklin1`; 59 unregistered Anicca labels remain and runtime changes continue one label at a time.
 
 ## Current execution boundary
 
-Items 1–6 and their live Gig cutover are complete. TODO 7 agents 1–10 are complete. The next work investigates `ai.anicca.x402-acquisition-controller` and changes only that exact label after its register-or-retire decision is verified; it does not bulk-mutate runtime state or force a customer-visible action merely for validation.
+Items 1–6 and their live Gig cutover are complete. TODO 7 agents 1–11 are complete. The next work investigates `ai.anicca.x402-experiment-franklin1` and changes only that exact label after its register-or-retire decision is verified; it does not bulk-mutate runtime state or force a customer-visible action merely for validation.
 
 ## Definition of done
 
