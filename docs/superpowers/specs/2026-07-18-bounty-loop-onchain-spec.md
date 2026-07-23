@@ -150,14 +150,14 @@ done（AND、全て実測で確認）:
 
 ```text
 TO-BE x402 SALES SYSTEM
-├── IDEA-1 Sale Observer（最初に実装）
+├── IDEA-1 Sale Observer（COMPLETE）
 │   ├── image sales telemetry adapter
 │   ├── the402 jobs / threads / earnings / product adapter
 │   ├── ClawMerchants asset / transactions adapter
 │   ├── normalized sale candidate store（0600・秘密情報なし）
 │   └── launchd polling + first-sale notification
 │
-├── IDEA-2 Finalized Settlement Recorder（次に実装）
+├── IDEA-2 Finalized Settlement Recorder（COMPLETE）
 │   ├── source sale ID / offer ID / tx provenance match
 │   ├── Base finalized receipt verification
 │   ├── USDC Transfer / payTo / atomic amount verification
@@ -165,7 +165,7 @@ TO-BE x402 SALES SYSTEM
 │   ├── wallet ledger exactly-once append
 │   └── revenue - compute - gas - platform cost = net margin
 │
-└── IDEA-3 Acquisition + Repeat Controller（最後に実装）
+└── IDEA-3 Acquisition + Repeat Controller（COMPLETE）
     ├── eligible the402 request auto-bid
     ├── product / listing / comment conversion poll
     ├── no-sale時は1 cycle 1 acquisition action
@@ -174,7 +174,31 @@ TO-BE x402 SALES SYSTEM
     └── second independent buyerまでloop継続
 ```
 
-IDEA-1とIDEA-2はCOMPLETE。3 sourceを5分間隔でpollし、許可済みfieldだけのcandidateを0600 storeへsource sale ID + txでdedupeする。独立recorderはcandidateをBase finalized receipt、成功status、USDC Transfer、own payTo、atomic amount、external senderと再照合し、wallet ledgerもsource sale ID + txでexactly-onceにする。IDEA-3はACTIVE。
+実装フォルダーツリー:
+
+```text
+skills/earn/x402-sell/
+├── IDEA-1 Sale Observer
+│   ├── sale-observer.mjs
+│   ├── sale-observer-boot.sh
+│   ├── lib/sale-observer.mjs
+│   ├── launchd/ai.anicca.x402-sale-observer.plist
+│   └── __tests__/{sale-observer,sale-observer-wiring}.test.mjs
+├── IDEA-2 Finalized Settlement Recorder
+│   ├── settlement-recorder.mjs
+│   ├── settlement-recorder-boot.sh
+│   ├── lib/external-inflow-recorder.mjs
+│   ├── launchd/ai.anicca.x402-settlement-recorder.plist
+│   └── __tests__/{external-inflow-recorder,settlement-recorder-wiring}.test.mjs
+└── IDEA-3 Acquisition + Repeat Controller
+    ├── acquisition-controller.mjs
+    ├── acquisition-controller-boot.sh
+    ├── lib/{acquisition-controller,the402-bidder,the402-inbox,the402-worker}.mjs
+    ├── launchd/{ai.anicca.x402-acquisition-controller,ai.anicca.the402-worker}.plist
+    └── __tests__/{acquisition-controller,acquisition-controller-wiring,the402-bidder,the402-inbox,the402-worker}.test.mjs
+```
+
+IDEA-1〜3はCOMPLETE。3 sourceを5分間隔でpollし、許可済みfieldだけのcandidateを0600 storeへsource sale ID + txでdedupeする。独立recorderはcandidateをBase finalized receipt、成功status、USDC Transfer、own payTo、atomic amount、external senderと再照合し、wallet ledgerもsource sale ID + txでexactly-onceにする。acquisition controllerは新規eligible postingを1 cycle最大1件だけdurable inboxへ投入し、既存workerがidempotent bidを実行する。残作業はExecution Steps 4–5の実第三者E2Eだけ。
 
 ### 4. Test Matrix
 
@@ -201,7 +225,7 @@ IDEA-1とIDEA-2はCOMPLETE。3 sourceを5分間隔でpollし、許可済みfield
 
 1. ✅ IDEA-1を実装し、3 sourceのlive readとdurable pollを起動する。
 2. ✅ IDEA-2を既存image recorderへ接続し、全negative gateとexactly-onceをgreenにする。
-3. IDEA-3を既存the402 workerへ接続し、売上0でも新規需要の探索・入札・conversion計測を継続する。
+3. ✅ IDEA-3を既存the402 workerへ接続し、売上0でも新規需要の探索・入札・conversion計測を継続する。
 4. E1の実buyerをobserverが検出したら、納品・finalized settlement・ledger・marginを実測する。
 5. E2の別buyerまで継続し、E3のBazaar indexを確認してB5を閉じる。
 
@@ -257,7 +281,7 @@ E2E green = T1-T9 全通過 + done 1-4 の on-chain 着金を Fable が Basescan
   exit proof = 本文・GOAL・TODO・RAIL・ASCIIにsecurity-audit-primaryの現行主張が0。
 - **Phase 1 — demand scout（COMPLETE）**: fixtureのpayer 0をNO-GO、live x402 dataをGOと判定。supply-adjusted score、live served category整合、155/155 green、commit `c35afe2b`。
 - **Phase 2 — product + distribution（COMPLETE）**: image productの需要・unit margin・185/185 green、3店のlaunchd/public 402、x402scan listing URL、wallet別request telemetryを確認。
-- **Phase 3 — external payout（ACTIVE: B4-I implementation-first）**: 先にmulti-channel observer、finalized recorder、acquisition controllerを順番に完成・常駐させ、その後B4-Vを待受する。exit proof = 実buyerのtx hash + finalized receipt + external payer + write-path再検証log + 重複なしledger行。ここまでearnは¥0。
+- **Phase 3 — external payout（ACTIVE: B4-V real-buyer verification）**: B4-Iのmulti-channel observer、finalized recorder、acquisition controllerは完成・常駐済み。durable loopでB4-Vを待受する。exit proof = 実buyerのtx hash + finalized receipt + external payer + write-path再検証log + 重複なしledger行。ここまでearnは¥0。
 - **Phase 4 — repeat + scale**: B5。exit proof = 2件目の外部payoutまたは黒字期間の再現。eligible bounty railがなければx402だけを拡張する。
 
 ---
@@ -301,6 +325,7 @@ E2E green = T1-T9 全通過 + done 1-4 の on-chain 着金を Fable が Basescan
 - B4 acquisition A2 repeatability: 同じworkerがdurable `request.created`をtype別leaseで処理し、detailを公式APIから再取得する。`research`かつx402/machine-payment/agent-payment一致、または`writing`かつHTTP 402/Payment Required一致だけを対象にし、budget ceiling `$25`、service ID、base `$1`またはrequest minのprice/ETAをfail-closed検証してidempotent bid endpointへ送る。無関係、expired/awarded、budget外は副作用なしでcompletedにするため、buyer briefをlogせず新規案件への発見→選別→入札を反復できる。[the402 Provider Guide](https://the402.ai/docs/providers/#bidding-on-requests) / 核心の引用: 「Delivery is at-least-once — consume idempotently keyed on `posting_id`.」
 - B4-I IDEA-1 live implementation: `sale-observer.mjs`がimage 3 wallet、the402 jobs/threads/earnings/product、ClawMerchants asset/transactionsを1回のpollで読み、固定offer/payTo/price/status/txを満たす行だけを`source/source_sale_id/offer_id/tx/expected_pay_to/expected_usdc_atomic/observed_at`へ正規化する。candidate storeは`~/.anicca/state/x402-sale-candidates.jsonl`、0600、source sale IDとtxの両方でdedupeし、prompt/payment header/buyer brief/API keyを保存しない。LaunchAgent `ai.anicca.x402-sale-observer`はStartInterval=300、runs=2、last exit=0。live pollはimage candidates=0、the402 jobs/threads/settlements/product purchases=`0/0/0/0`、Claw purchases/transaction candidates=`0/0`、errors=0。commit `8f06f5e5`、fresh x402全suite fail=0。
 - B4-I IDEA-2 live implementation: `settlement-recorder.mjs`はcandidateのpayToを3 seller walletへpinし、Base chainId=8453、finalized head、receipt status=1、正しいUSDC contract、単一Transfer、exact atomic amount、外部transfer sender、外部tx initiatorをwrite-path自身で検証する。wallet ledgerはtxに加えてsource sale IDでもdedupeする。LaunchAgent `ai.anicca.x402-settlement-recorder`はStartInterval=300、runs=2、last exit=0。candidate=0のlive runはRPC・ledger writeを行わず`verified=0, recorded=0, verified_external_revenue=false`。commit `32dd8c6e`、fresh x402全suite fail=0。
+- B4-I IDEA-3 live implementation: `acquisition-controller.mjs`はthe402 open postingsを既存hard gateで選別し、durable SQLite inboxに未処理のeligible postingを1 cycle最大1件だけenqueueする。research/writingの2 cycleはworkerが各1 attemptで完了し、既存bid ID `bid_59943a1581de430d` / `bid_ad4356885ad34346`を保持するidempotent更新になった。3 cycle目は`action=none`、inboxは`total=2, completed=2, pending=0, dead=0`で重複なし。action logは0600。LaunchAgent `ai.anicca.x402-acquisition-controller`はStartInterval=300、runs=3、last exit=0。commit `db884536`、fresh x402全suite fail=0。
 - B4 acquisition rejected path: PayanAgent native offerはbuyer決済を先にsettleした後、seller endpointへ`Content-Type`とraw bodyだけを送るため、現在のx402保護済み`/image`を登録するとbuyerは支払後に二重402を受け、delivery失敗になる。公開aggregationにも現在の3 image offerは無く、古いcalculator entryだけなのでfirst sale bootstrapとして使わない。ソース: [PayanAgent universal buy route](https://github.com/derNif/payanagent/blob/b9caa0178dabe1dfa264b984b84af3a84afb9368/src/app/x402/%5BofferId%5D/route.ts#L289-L305) / 核心の引用: 「headers: { \"Content-Type\": \"application/json\" }」
 - DIST-2 verify: Coinbase/x402 ecosystem pageはmaintainerが廃止し、既存Anicca PR [#2532](https://github.com/x402-foundation/x402/pull/2532)をcloseしたため再PRしない。Pay.sh registryは有料endpointにSolana mainnet USDC/USDTを必須化しておりBase-only商品は対象外。AmpersendはBazaarを既定集約元にするため別submitは無い。Onchain.fiは`noindex,nofollow`かつ連絡先だけでmarketplace/submit面が無い。x402scan 3 listingは$0.03へ更新する一方、[awesome-x402 #838](https://github.com/xpaysh/awesome-x402/pull/838)の本文は旧$0.05のままreview待ちでありbuyer bootstrap面に数えない。[Questflow resource #11](https://github.com/questflowai/awesome-a2a-hub/pull/11)もbuyer bootstrap面に数えず、重複PRを作らない。
 - 2026-07-18 [Sol review verdict = **STOP-AND-REVISIT-RAIL**]: 7 blocking。#1 poidh 攻略前提破綻（proof=現地/original、AI 画像不可、sentinel は発注者側）#2 accept 8.6%・open の 55/71 が30日超で墓場・収益性ゲート不在 #3 Phase0 が rail を証明しない #4 record.mjs が caller 提供値を盲信＝done 捏造可 #5 balance-delta は偽陰陽性→event log を bigint wei で #6 gas 自己復旧デッドロック #7 鍵 broadcast 前防御。→ INV-8〜11 に昇格・rail 降格・Phase0 再定義で反映済。
@@ -308,7 +333,7 @@ E2E green = T1-T9 全通過 + done 1-4 の on-chain 着金を Fable が Basescan
 
 ## OPEN RISK / honest gap
 
-- IDEA-1 observerとIDEA-2 finalized recorderは本番稼働するが、売上0の間に新しいeligible demandを発見し1 cycle 1 acquisition actionを進めるIDEA-3は未実装。したがって次の作業はbuyer待機ではなくIDEA-3であり、完成後にだけ外部buyer待ちをdurable loopへ全面委譲する。
+- B4-IはIDEA-1〜3まで実装・本番常駐が完了し、observer / recorder / acquisition controllerが外部buyer待機と新規eligible demandを所有する。未完はExecution Steps 4–5だけであり、第三者buyerを人為的に作らず実購入を検出してB4-V/B5を閉じる。
 - x402 image 3店のexternal inflowは$0で、Agentic/Bazaarのimage掲載は第三者による最初のverify+settleがgate。the402 research/writing 2 serviceは公開・各`$1`の実入札・自動fulfillment待受まで有効で、HTTP 402 digital productも`$0.525`・検索rank 1で公開されるが、両bidは`pending`、product purchases=0、jobs=0、threads=0、provider earningsは`settled_usd=0, held_usd=0, pending_usd=0`。listing、open posting、bid、award、escrowは収益に数えず、第三者購入→納品/download→外部USDC releaseとledger記録まで本番証明は未完。
 - x402scanの集計は市場全体であり、Anicca商品のaddressable demandを直接証明しない。商品ごとの402、paid purchase、repeat buyerを別に計測する。
 - x402の取引には極小額が多い。gross revenueではなくcompute/gas/listing cost差引後のmarginをhard gateにする。
