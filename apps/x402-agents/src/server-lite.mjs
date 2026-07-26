@@ -11,6 +11,12 @@
  * Fail-closed: if x402 init fails, the route 503s.
  */
 
+import { webcrypto } from 'node:crypto';
+// The CDP facilitator SDK signs an Ed25519 JWT via the Web Crypto global. Some Node runtimes
+// (observed on Railway nixpacks) don't expose globalThis.crypto — inject it so facilitator init
+// doesn't die with "crypto is not defined".
+if (!globalThis.crypto) globalThis.crypto = webcrypto;
+
 import express from 'express';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
