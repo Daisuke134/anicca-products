@@ -52,3 +52,20 @@ test('unpaid POST returns a 402 carrying payTo + discovery extension (registry p
     server.close();
   }
 });
+
+test('GET /openapi.json returns a discovery doc listing the paid POST path', async () => {
+  const app = await createLiteApp();
+  const server = app.listen(0);
+  const port = server.address().port;
+  try {
+    const res = await fetch(`http://127.0.0.1:${port}/openapi.json`);
+    assert.equal(res.status, 200);
+    const doc = await res.json();
+    assert.equal(doc.openapi, '3.1.0');
+    const op = doc.paths['/prompt-sanitizer'].post;
+    assert.ok(op, 'POST /prompt-sanitizer present');
+    assert.equal(op['x-payment-info'].price.mode, 'fixed');
+    assert.equal(op['x-payment-info'].price.amount, '0.005');
+    assert.ok(op['x-payment-info'].protocols.some((p) => 'x402' in p));
+  } finally { server.close(); }
+});

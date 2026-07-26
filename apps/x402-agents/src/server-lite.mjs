@@ -57,6 +57,28 @@ export async function createLiteApp() {
 
   app.get('/health', (req, res) => res.json({ status: 'ok', service: 'x402-agents-lite', payTo: PAY_TO }));
 
+  // OpenAPI doc — x402scan/AgentCash discovery (@agentcash/discovery) registers a resource by
+  // GETting {origin}/openapi.json and reading x-payment-info; it never probes the resource itself
+  // (root cause of the earlier `no_discovery`). Must be JSON, list the exact path, and carry a
+  // STRUCTURED x-payment-info.price so authMode resolves to "paid".
+  app.get('/openapi.json', (req, res) =>
+    res.json({
+      openapi: '3.1.0',
+      info: { title: 'Anicca x402 — prompt sanitizer', version: '1.0.0' },
+      paths: {
+        '/prompt-sanitizer': {
+          post: {
+            summary: 'Deterministic PII sanitizer for AI agents (masks emails, phones, SSNs, cards, IPs).',
+            'x-payment-info': {
+              price: { mode: 'fixed', amount: '0.005', currency: 'USD' },
+              protocols: [{ x402: {} }],
+            },
+          },
+        },
+      },
+    }),
+  );
+
   const { paymentMiddleware } = await import('@x402/express');
   const { x402ResourceServer, HTTPFacilitatorClient } = await import('@x402/core/server');
   const { ExactEvmScheme } = await import('@x402/evm/exact/server');
