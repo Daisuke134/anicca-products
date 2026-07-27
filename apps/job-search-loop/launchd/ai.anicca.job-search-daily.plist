@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>Label</key><string>ai.anicca.job-search-daily</string>
+  <key>ProgramArguments</key><array>
+    <string>/Users/anicca/anicca-job-search-loop/apps/job-search-loop/scripts/run-daily.sh</string>
+  </array>
+  <key>RunAtLoad</key><true/>
+  <key>StartCalendarInterval</key><dict>
+    <key>Hour</key><integer>8</integer><key>Minute</key><integer>30</integer>
+  </dict>
+  <key>ProcessType</key><string>Background</string>
+  <key>StandardOutPath</key><string>/Users/anicca/.local/state/anicca/job-search/logs/daily.out.log</string>
+  <key>StandardErrorPath</key><string>/Users/anicca/.local/state/anicca/job-search/logs/daily.err.log</string>
+</dict></plist>
+

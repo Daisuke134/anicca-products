@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "required": ["status", "processed_threads", "calendar_events", "reports"],
+  "properties": {
+    "status": {"type": "string"},
+    "processed_threads": {"type": "integer"},
+    "calendar_events": {"type": "array"},
+    "reports": {"type": "array"}
+  }
+}
+

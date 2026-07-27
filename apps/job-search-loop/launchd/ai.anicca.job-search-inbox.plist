@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>Label</key><string>ai.anicca.job-search-inbox</string>
+  <key>ProgramArguments</key><array>
+    <string>/Users/anicca/anicca-job-search-loop/apps/job-search-loop/scripts/run-inbox.sh</string>
+  </array>
+  <key>RunAtLoad</key><true/>
+  <key>StartInterval</key><integer>900</integer>
+  <key>ProcessType</key><string>Background</string>
+  <key>StandardOutPath</key><string>/Users/anicca/.local/state/anicca/job-search/logs/inbox.out.log</string>
+  <key>StandardErrorPath</key><string>/Users/anicca/.local/state/anicca/job-search/logs/inbox.err.log</string>
+</dict></plist>
+

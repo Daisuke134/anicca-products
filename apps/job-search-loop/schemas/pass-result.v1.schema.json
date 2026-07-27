@@ -1,0 +1,12 @@
+{
+  "type": "object",
+  "required": ["status", "submitted", "submit_unknown", "blocked", "report_message_id"],
+  "properties": {
+    "status": {"type": "string"},
+    "submitted": {"type": "array"},
+    "submit_unknown": {"type": "array"},
+    "blocked": {"type": "array"},
+    "report_message_id": {"type": ["string", "null"]}
+  }
+}
+

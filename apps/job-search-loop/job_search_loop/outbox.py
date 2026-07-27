@@ -76,3 +76,20 @@ class Outbox:
         if changed != 1:
             raise DeliveryUncertain("outbox fence mismatch")
 
+    def payload(self, event_key: str) -> str:
+        row = self.connection.execute(
+            "SELECT payload FROM outbox WHERE event_key=?", (event_key,)
+        ).fetchone()
+        if row is None:
+            raise KeyError(event_key)
+        return str(row[0])
+
+    def status(self, event_key: str) -> dict[str, str | None]:
+        row = self.connection.execute(
+            "SELECT status,telegram_message_id FROM outbox WHERE event_key=?",
+            (event_key,),
+        ).fetchone()
+        if row is None:
+            raise KeyError(event_key)
+        return {"status": str(row[0]), "message_id": row[1]}
+
