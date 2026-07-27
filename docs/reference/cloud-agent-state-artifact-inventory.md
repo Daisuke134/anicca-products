@@ -4,9 +4,9 @@
 
 builder-owned
 [`cloud-agent-state-artifact-discovery-manifest.json`](./cloud-agent-state-artifact-discovery-manifest.json)は常に`review_required / pending_independent_architecture_review`を保持する。396-parent rebindでは別artifact
-[`cloud-agent-state-artifact-discovery-review.json`](./cloud-agent-state-artifact-discovery-review.json)は396-parent candidateとして`review_required / pending_independent_architecture_review / independent_fresh_reviewer_required`を保持する。review artifactはcanonical manifest digest、current ordered parent digest、exact source revision mapへbindし、builder manifest自体はself-approveしない。旧393・392・334 approval tupleはcurrent digestへコピーしても拒否する。fresh review後はseparate reviewだけを396専用approval tupleへ遷移する。
+[`cloud-agent-state-artifact-discovery-review.json`](./cloud-agent-state-artifact-discovery-review.json)だけがfresh review後の`approved / todo3_396_rebind_independent_review_approved_v1 / independent_fresh_state_artifact_reviewer`へ遷移済みである。review artifactはcanonical manifest digest、current ordered parent digest、exact source revision mapへbindし、builder manifest自体はself-approveしない。旧393・392・334 approval tupleはcurrent digestへコピーしても拒否する。
 
-current collector/generatorはexplicit `--candidate`でpending reviewを検証し、tracked observation、object JSON、全edgeは`candidate_review_required`を持つ。normal modeはfresh approval前にはnonzero・stdout 0・output非作成となる。builder二field自己承認、approved reviewのcandidate downgrade、stale parent review、missing/wrong status、stale manifest/parent/source bindingも拒否する。
+current collector/generatorはnormal modeでapproved reviewを検証し、tracked observation、object JSON、全edgeは`independent_review_approved`を持つ。synthetic pending reviewはexplicit `--candidate`だけで成功し、normal modeではnonzero・stdout 0・output非作成となる。builder二field自己承認、approved reviewのcandidate downgrade、stale parent review、missing/wrong status、stale manifest/parent/source bindingも拒否する。
 
 ## Inputs and content boundary
 
@@ -35,7 +35,7 @@ object sizeはobject inventory
 [`cloud-agent-state-artifact-objects.json`](./cloud-agent-state-artifact-objects.json)に1回だけ置き、edge
 [`cloud-agent-state-artifact-inventory.tsv`](./cloud-agent-state-artifact-inventory.tsv)へ複製しない。OpenClaw 222 loopのdefinitionは1 shared-container objectへ222 definition edgeを持つ。個別job fragment sizeは安全に測定していないため記録しない。稼働中append-only logは`lstat`でregular-file existenceだけを記録し、変動するsnapshot sizeは`unknown / lstat:mutable_regular_file`としてA/B determinismを維持する。retention/SSOTはclassificationとevidence kind/locatorの許可tupleを強制し、根拠がなければ`unknown/unverified`である。
 
-## Current candidate summary
+## Approved summary
 
 | Measure | Count |
 |---|---:|
@@ -46,16 +46,15 @@ object sizeはobject inventory
 | shared OpenClaw object / definition edge | 1 / 222 |
 | catalog-only unbound discovery object | 6 |
 
-TODO #3は396-parent fresh independent reviewとnormal final semantic gatesが揃うまで`in_progress`である。
+TODO #3は396-parent fresh independent review `ok:true / blocking:[]`とnormal final semantic gatesを根拠に`done`である。
 
-## Reproduce candidate outputs
+## Reproduce approved outputs
 
 ```bash
-python3 scripts/collect-cloud-agent-state-artifact-metadata.py --candidate --output /tmp/cloud-agent-state-artifact-a.json
-python3 scripts/collect-cloud-agent-state-artifact-metadata.py --candidate --output /tmp/cloud-agent-state-artifact-b.json
+python3 scripts/collect-cloud-agent-state-artifact-metadata.py --output /tmp/cloud-agent-state-artifact-a.json
+python3 scripts/collect-cloud-agent-state-artifact-metadata.py --output /tmp/cloud-agent-state-artifact-b.json
 cmp /tmp/cloud-agent-state-artifact-a.json /tmp/cloud-agent-state-artifact-b.json
 python3 scripts/generate-cloud-agent-state-artifact-inventory.py \
-  --candidate \
   --check \
   --observations /tmp/cloud-agent-state-artifact-a.json \
   --output /tmp/cloud-agent-state-artifact-inventory.tsv \
