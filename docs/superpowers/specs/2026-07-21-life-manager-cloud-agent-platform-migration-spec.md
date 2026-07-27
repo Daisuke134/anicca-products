@@ -609,6 +609,8 @@ Mac Miniのloopを停止せずlive scheduler metadataを再収集した結果、
 
 392 candidateの処理中にlive `launchd:ai.anicca.life-manager-x402-ledger`を1件追加検知した。Mac Miniのloopを停止せず再収集し、current parentは393 row（launchd 166 / OpenClaw cron 222 / Railway 1 / repository 4）、complete ID digestは`06971ae08c975de22556b45e6a1fb7c5b486f29bd020031643553d0a66b8e37f`、ordered parent metadata digestは`sha256:a212d39d:fb71962b:3e94e805:fdbcbaf3:8aae9020:8a44eaad:d3fc2adb:43218fb5`となる。392から追加1 / 削除0で、generator A=B=tracked、TODO #1+#4 22/22。392 approvalへbindしたTODO #2/#3は再び`in_progress`へ戻し、current completionへ流用しない。
 
+TODO #6 candidateの合同gate中にlive `launchd:ai.anicca.life-manager-financial-report`と`launchd:ai.anicca.life-manager-payout`を追加検知した。Mac Miniのloopを停止・再起動せず再収集し、current parentは395 row（launchd 168 / OpenClaw cron 222 / Railway 1 / repository 4）、complete ID digestは`e8c25d07d3d9e5a5004a4ff354091c6b094603c054a4fd0157e90348a187b18f`となる。393から追加2 / 削除0 / metadata change 0、generator A=B=tracked、focused 5/5。393 parentへbindしたTODO #2〜#6はcurrent completionへ流用せず、395 rebindとfresh gateまで`in_progress`へ戻す。
+
 ## 7. Research decisions
 
 | Decision | Source | 核心の引用 |
@@ -635,12 +637,12 @@ state values: `pending | in_progress | code_done | done | blocked`。
 
 | # | Task | Done condition | State |
 |---|---|---|---|
-| 1 | 現行loop inventoryを作る | 全launchd/cron/entrypoint/ownerが1行ずつ存在 | done — liveを停止せず393 rowへrefresh。launchd 166 / OpenClaw 222 / Railway 1 / repo 4。392からx402 ledger 1追加 / 0削除、current ID digest `06971ae08c975de22556b45e6a1fb7c5b486f29bd020031643553d0a66b8e37f`。generator A=B・tracked byte exact・focused 5/5 GREEN。process stop / bootout / plist delete 0 |
-| 2 | loopごとのcredential inventoryを作る | secret値なしでprovider/scope/refを記録 | done — 393 parent / 397 edge / 18 credential object / finding 1。新x402 ledgerはrevision-bound unverified、旧392 tupleはreject。fresh independent review blocking 0、normal tracked byte exact、170/170、6 artifact gitleaks clean |
-| 3 | loopごとのstate/artifact inventoryを作る | local path・size・retention・SSOTを記録 | done — 393 parent / 2,358 category / 393 definition / 2,751 edge / 186 object。新x402の6 categoryはunverified。fresh review blocking 0、旧392・334 tuple reject、normal A=B=tracked、31/31、gitleaks 6/6 |
-| 4 | loopごとのexternal side effect inventoryを作る | call/post/mail/render/walletを列挙 | done — 393 parent / 1,965 category + 6 binding = 1,971 edge / 12 object。call1/mail1/post3/render1/wallet0、Orca catalog-only、x402/HF全category unverified、wallet blocked。fresh review blocking 0、normal 17/17、gitleaks 6/6 |
-| 5 | macOS依存を分類する | Linux可/要置換/廃止を全loopに付与 | done — 393/393。Linux-ready 1 / replacement-required 392 / retire 0。Mac-hosted OpenClaw 222もgateway移設必須、payload unverified。fresh re-review blocking 0、5/5、gitleaks 2/2 |
-| 6 | workload classを確定する | 全loopが5 queueのどれかに所属 | in_progress — 393/393 candidate。life-events 2 / personal-ceo 386 / media-cpu 1 / browser-action 3 / financial-read 1。fresh review待ち |
+| 1 | 現行loop inventoryを作る | 全launchd/cron/entrypoint/ownerが1行ずつ存在 | done — liveを停止せず395 rowへrefresh。launchd 168 / OpenClaw 222 / Railway 1 / repo 4。393からfinancial-report+payout 2追加 / 0削除 / metadata change 0、current ID digest `e8c25d07d3d9e5a5004a4ff354091c6b094603c054a4fd0157e90348a187b18f`。generator A=B・tracked byte exact・focused 5/5 GREEN。process stop / bootout / plist delete 0 |
+| 2 | loopごとのcredential inventoryを作る | secret値なしでprovider/scope/refを記録 | in_progress — live parentが393→395へdriftしたため、旧approvalを流用せずrebindする |
+| 3 | loopごとのstate/artifact inventoryを作る | local path・size・retention・SSOTを記録 | in_progress — live parentが393→395へdriftしたため、旧approvalを流用せずrebindする |
+| 4 | loopごとのexternal side effect inventoryを作る | call/post/mail/render/walletを列挙 | in_progress — live parentが393→395へdriftしたため、旧approvalを流用せずrebindする |
+| 5 | macOS依存を分類する | Linux可/要置換/廃止を全loopに付与 | in_progress — 395 parentへのdeterministic再生成待ち |
+| 6 | workload classを確定する | 全loopが5 queueのどれかに所属 | in_progress — 393 candidateはlive driftでreject。395 parentへrebind中 |
 | 7 | DigitalOcean bridge Dropletを作る | key-only SSH + firewall + Tailscale実測 | pending |
 | 8 | bridgeへDocker runtimeを作る | pinned imageでhello health PASS | pending |
 | 9 | bridgeのoff-host logsを設定する | 再起動後も外部からlog閲覧可 | pending |
