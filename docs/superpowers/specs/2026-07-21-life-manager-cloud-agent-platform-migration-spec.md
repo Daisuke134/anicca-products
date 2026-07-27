@@ -7,6 +7,9 @@
 - Life Manager の product vision / UI / organ 定義は `2026-07-19-anicca-one-repo-consolidation-spec.md` を参照する。
 - 現行 Life Manager cloud の実装・E2E状態は `2026-07-17-life-manager-cloud-alignment-and-dev-loop.md` を参照する。
 - 残作業の正本は本specの「8. Atomic TODO表」。会話やhandoverへTODOを複製しない。
+- 現在地は Atomic TODO #1〜#6 `done`、#7以降 `pending`。Test Matrixは将来の必須証跡であり、未実装のtestをPASS扱いしない。
+- DigitalOcean bridgeは最終architectureではなく、既存loopを壊さず移すための一時候補。外部resource作成・課金・cutoverは未実施であり、provider選定を含めて#7再開時に実測判断する。
+- §6.3〜§6.6の過去件数・reject/re-review記録はappend-onlyのhistorical evidence。現在stateと件数の正本は§8だけとし、旧checkpointをcurrent approvalへ流用しない。
 
 ## 1. Overview — What / Why
 
@@ -42,7 +45,7 @@ Life Managerを唯一のcontrol planeにし、各ユーザーのphysical / menta
 TO-BE
 
                      LIFE MANAGER
-               iOS / mobile web control plane
+     Telegram / WhatsApp / chat + mobile web/iOS (optional)
        goals / consent / budget / pause / evidence / ROI
                             |
                             v
@@ -78,13 +81,68 @@ TO-BE
             cloud停止時だけfenced rollbackとして再昇格し、同時writerにはしない。
 ```
 
-### 1.3 Core decision
+### 1.3 Ideal end-state — one person, one phone
+
+```text
+                       ONE PERSON + ONE PHONE
+                                  |
+              Telegram / WhatsApp / chat / web (app不要)
+                                  |
+                    intent / consent / budget / limits
+                                  v
+                    LIFE MANAGER CONTROL PLANE
+          identity | memory | goals | permission | pause | evidence
+                                  |
+               +------------------+------------------+
+               |                  |                  |
+               v                  v                  v
+          MENTAL ORGAN       PHYSICAL ORGAN      FINANCIAL ORGAN
+        reflection/safety    health/routine/     earn/cost/revenue
+        connection/nudge     booking/follow-up   payout/ROI ledger
+               |                  |                  |
+               +------------------+------------------+
+                                  |
+                    DURABLE WORKFLOW ENGINE
+          Inngest + Postgres/RLS + idempotency + leases
+                                  |
+       +--------------------------+--------------------------+
+       |                          |                          |
+       v                          v                          v
+ Personal CEO / opportunity   general browser          media / life events
+ discover -> verify -> act    plan -> act -> verify    create/book/contact
+       |                          |                          |
+       +--------------------------+--------------------------+
+                                  |
+                    credential / tool proxy
+                                  |
+                    external services and people
+                                  |
+                 outcome + cost + revenue + evidence
+                                  |
+              phone report + safe continuous improvement
+                                  |
+        logs / Sentry / feedback / goals / policy observations
+                                  |
+              issue -> patch -> test -> staged deploy
+                    -> monitor -> rollback if needed
+                                  `---------------^
+
+ECONOMICS
+  user-owned earnings --------------------------> user account
+  verified platform revenue ----> operating reserve ----> compute/storage/telephony
+                                         |
+                                         `----> surplus after costs/liabilities
+```
+
+内部north starは、人間の反復作業を限りなく0へ近づけ、mental / physical / financial healthをphoneだけで継続支援し、Life Managerの正当なplatform revenueでfree accessと運用費を賄うこと。所得・billionaire化・fundraising・valuationは保証せず、user-owned moneyをplatform profitと混同しない。`$10M MRR`はscale目標、YC等からの資金調達はopportunity workflowの対象であり、`$100M for 1%`や`$10B valuation`を実装前提・acceptance criterionにはしない。
+
+### 1.4 Core decision
 
 - Life Manager web/APIはcontrol planeであり、無限loopを直接実行しない。
 - 1 user = 1常駐process / VM / sandbox にしない。
 - 1 user = durable logical state。workerはevent発生時だけjobを処理する。
 - 現行Railway + Supabaseを維持し、既に存在するInngestをdurable orchestratorとして有効化する。
-- Daisの現行local loopは一時的にDigitalOcean Dropletへcontainer lift-and-shiftし、その後1本ずつproduct moduleへ置換する。
+- Daisの現行local loopは、provider比較と実E2Eを通過した一時bridgeへcontainer lift-and-shiftし、その後1本ずつproduct moduleへ置換する。DigitalOceanは現在の候補であり、destinationでも着手済みresourceでもない。
 - 移行単位はloop 1本であり、Mac Mini全体を停止しない。cloud workerをshadowで実測し、fencing leaseで外部side effectのwriterをcloudへ1本ずつ移し、Mac側は稼働したままread-only shadow / rollbackへ降格する。
 - browser agentはBrowser Use OSS plannerをSteelのCDP sessionへ接続する。既知site別scriptではなく、tenant intent・成功条件・許可された副作用を受け取り、navigate/read/click/type/upload/downloadの共通primitiveで実行する。未知siteをruntimeで発見・選択し、完了証跡または正直なblocked resultを返す。
 - Personal CEO opportunity loopはtenant自身のgoalから、本人がまだ名前を知らない機会を探索する。Dais tenantの「Life Managerを成長させる」goalはaccelerator・fundraising・distribution申請を許可対象にできるが、他tenantは本人のgoalだけを追い、Life Managerをmarketしない。
@@ -114,6 +172,10 @@ TO-BE
 | AC-17 | Dais tenantのLife Manager growth goalはLife Manager向け機会へ接続し、別tenantは本人のgoalだけを追いLife Managerをmarketしない | tenant A/B intent-isolation E2E |
 | AC-18 | CAPTCHA、KYC、法的宣誓、未許可fee、site block、必須事実不足を迂回せず、`human_boundary` または `site_blocked` と不足情報・証跡を返す | boundary matrix real E2E |
 | AC-19 | Mac/cloudの二重実行競合でも有効なfencing tokenを持つ1 writerだけが外部side effectを実行する | forced split-brain E2E |
+| AC-20 | app installやPCを必須にせず、phone上のchat ingressから認証・goal・permission・status確認・pauseが完結する | Telegram/WhatsApp-compatible contract + mobile web real E2E |
+| AC-21 | mental organがwellness支援を実行し、crisis/medical/therapy境界では自律判断せず安全経路へ切り替える | mental wellness + safety-boundary real E2E |
+| AC-22 | user-owned earning、platform revenue、operating reserve、cost、payoutを別ledgerで追跡し、未検証収益や預り金をprofit表示しない | financial accounting invariant + payout boundary E2E |
+| AC-23 | goal・feedback・logs・Sentryからissueを作り、patch・test・staging・monitor・rollbackまでproductionを壊さず自走する | controlled self-development real E2E |
 
 ## 3. As-Is / To-Be
 
@@ -328,29 +390,33 @@ All mutation endpoints MUST authenticate tenant ownership and return a stable op
 
 | # | To-Be | Test name / evidence | Cover |
 |---|---|---|---|
-| 1 | Inngest durable scheduling | `cloud_workflow_resume_after_worker_restart` | OK |
-| 2 | 1,000 sleeping tenant states | `cloud_1000_tenants_no_1000_processes` | OK |
-| 3 | per-tenant concurrency | `cloud_concurrency_key_is_tenant_id` | OK |
-| 4 | budget fail-closed | `cloud_budget_exhaustion_blocks_job` | OK |
-| 5 | pause hierarchy | `cloud_user_loop_global_pause` | OK |
-| 6 | idempotent side effects | `cloud_retry_no_duplicate_effect` | OK |
-| 7 | tenant RLS | `cloud_tenant_a_cannot_read_tenant_b` | OK |
-| 8 | credential proxy | `cloud_agent_never_receives_raw_secret` + missing/unknown permission fail-closed | OK |
-| 9 | Personal CEO resume | `cloud_personal_ceo_resume_same_tenant` | OK |
-| 10 | media object pipeline | `cloud_real_clip_object_to_publish` | OK |
-| 11 | ephemeral scratch cleanup | `cloud_media_worker_removes_scratch` | OK |
-| 12 | Steel profile isolation | `cloud_browser_profiles_do_not_cross_tenants` | OK |
-| 13 | cost/outcome ledger | `cloud_every_effect_has_ledger_row` | OK |
-| 14 | subscription OAuth ban | `cloud_subscription_oauth_insert_and_invoke_denied` | OK |
-| 15 | cold restore | `cloud_restore_resumes_pending_job` | OK |
-| 16 | non-destructive authority cutover | `cloud_cutover_keeps_mac_shadow_no_double_effect` | OK |
-| 17 | writer lease fencing | `cloud_writer_lease_rejects_stale_fencing_token` | OK |
-| 18 | unseen-site general browser | `cloud_browser_unseen_site_matrix_no_domain_code` | OK |
-| 19 | honest browser boundary | `cloud_browser_site_blocked_is_honest` | OK |
-| 20 | intent-driven opportunity discovery | `cloud_opportunity_discovers_unmentioned_accelerator_from_intent` | OK |
-| 21 | application truth provenance | `cloud_application_truth_provenance` | OK |
-| 22 | tenant-specific opportunity isolation | `cloud_dais_markets_lm_other_tenant_does_not` | OK |
-| 23 | application hard boundaries | `cloud_application_boundary_kyc_fee_attestation` | OK |
+| 1 | Inngest durable scheduling | `cloud_workflow_resume_after_worker_restart` | planned |
+| 2 | 1,000 sleeping tenant states | `cloud_1000_tenants_no_1000_processes` | planned |
+| 3 | per-tenant concurrency | `cloud_concurrency_key_is_tenant_id` | planned |
+| 4 | budget fail-closed | `cloud_budget_exhaustion_blocks_job` | planned |
+| 5 | pause hierarchy | `cloud_user_loop_global_pause` | planned |
+| 6 | idempotent side effects | `cloud_retry_no_duplicate_effect` | planned |
+| 7 | tenant RLS | `cloud_tenant_a_cannot_read_tenant_b` | planned |
+| 8 | credential proxy | `cloud_agent_never_receives_raw_secret` + missing/unknown permission fail-closed | planned |
+| 9 | Personal CEO resume | `cloud_personal_ceo_resume_same_tenant` | planned |
+| 10 | media object pipeline | `cloud_real_clip_object_to_publish` | planned |
+| 11 | ephemeral scratch cleanup | `cloud_media_worker_removes_scratch` | planned |
+| 12 | Steel profile isolation | `cloud_browser_profiles_do_not_cross_tenants` | planned |
+| 13 | cost/outcome ledger | `cloud_every_effect_has_ledger_row` | planned |
+| 14 | subscription OAuth ban | `cloud_subscription_oauth_insert_and_invoke_denied` | planned |
+| 15 | cold restore | `cloud_restore_resumes_pending_job` | planned |
+| 16 | non-destructive authority cutover | `cloud_cutover_keeps_mac_shadow_no_double_effect` | planned |
+| 17 | writer lease fencing | `cloud_writer_lease_rejects_stale_fencing_token` | planned |
+| 18 | unseen-site general browser | `cloud_browser_unseen_site_matrix_no_domain_code` | planned |
+| 19 | honest browser boundary | `cloud_browser_site_blocked_is_honest` | planned |
+| 20 | intent-driven opportunity discovery | `cloud_opportunity_discovers_unmentioned_accelerator_from_intent` | planned |
+| 21 | application truth provenance | `cloud_application_truth_provenance` | planned |
+| 22 | tenant-specific opportunity isolation | `cloud_dais_markets_lm_other_tenant_does_not` | planned |
+| 23 | application hard boundaries | `cloud_application_boundary_kyc_fee_attestation` | planned |
+| 24 | phone/chat-only control | `cloud_chat_ingress_phone_only_control` | planned |
+| 25 | mental wellness safety | `cloud_mental_wellness_boundary` | planned |
+| 26 | financial ownership/accounting | `cloud_financial_ledger_ownership_invariants` | planned |
+| 27 | self-development | `cloud_self_development_staged_rollback` | planned |
 
 ### 4.1 Real E2E scenarios
 
@@ -365,12 +431,15 @@ All mutation endpoints MUST authenticate tenant ownership and return a stable op
 | E2E-7 General browser | runtimeで選ぶ未学習siteを含む予約・accelerator申請・entity問い合わせ・publish | 同一planner/primitive、domain固有code 0、receiptまたは正直なblocked state |
 | E2E-8 Dais opportunity | `Life Managerを成長させる` intent + 迫るdeadline | 未明示acceleratorを公式sourceから発見し、truth provenance付きsubmit/draft + receipt |
 | E2E-9 Other tenant | 別tenantのstartup goal | 本人startupの機会だけを発見し、Life Manager marketing effect 0 |
+| E2E-10 Phone/chat only | fresh tenant + phone + supported chat ingress | app/PCなしでgoal→permission→job→evidence→pauseが完結 |
+| E2E-11 Mental safety | wellness request + crisis/medical boundary fixtures | wellness actionは継続し、境界fixtureはsafe escalationへ分岐 |
+| E2E-12 Self-development | real Sentry/log/feedback signal + isolated staging | issue→patch→tests→staging→monitor、失敗時rollback、無断production mutation 0 |
 
 ### 4.2 UI E2E judgment
 
 | Item | Value |
 |---|---|
-| UI変更 | あり — Life Manager control panelへworkflow状態、budget、pause、ledgerを追加 |
+| UI変更 | 予定 — Life Manager control panelへworkflow状態、budget、pause、ledgerを追加 |
 | 結論 | Maestro: 不要（理由: 本scopeはresponsive web control panel。Playwright mobile viewport E2Eで実証し、native iOS変更は行わない） |
 
 ## 5. Boundaries
@@ -380,7 +449,7 @@ All mutation endpoints MUST authenticate tenant ownership and return a stable op
 - Daisの現行Claude-p / earn loopのactive writer authorityをcloudへ移し、Mac Mini側を稼働したread-only shadow / fenced rollbackへ降格する。
 - Railway/Supabase/InngestをLife Manager control planeとして統合する。
 - Personal CEO、physical-life actions、clip/video earningをmulti-tenant module化する。
-- DigitalOcean Dropletをsingle-tenant migration bridgeとして使う。
+- provider比較と実E2Eを通過した一時single-tenant migration bridgeを使う。DigitalOceanは候補の1つであり、#7で採否を確定する。
 - mediaをobject storageへ移す。
 - browser actionをSteel tenant sessionとgeneral plannerへ移し、未知siteの発見・予約・申請・問い合わせ・publishを同じcontractで扱う。
 - tenant intentから未知のopportunityを発見し、truth provenance・permission・boundary gateを通して申請またはdraftへ接続する。
@@ -407,7 +476,7 @@ All mutation endpoints MUST authenticate tenant ownership and return a stable op
 ### 6.1 Build order
 
 ```text
-Phase A  inventory + cloud bridge
+Phase A  inventory + temporary migration bridge decision
    -> Phase B  state / permission / ledger foundation
    -> Phase C  Inngest durable orchestration
    -> Phase D  Personal CEO session
@@ -444,7 +513,7 @@ node scripts/verify-cloud-agent-rls.mjs
 # load/recovery/E2E
 node scripts/e2e-cloud-1000-tenants.mjs
 node scripts/e2e-cloud-worker-restart.mjs
-node scripts/e2e-cloud-mac-mini-offline.mjs
+node scripts/e2e-cloud-mac-shadow-authority.mjs
 ```
 
 ### 6.3 TODO #2 verification ledger
@@ -495,7 +564,7 @@ node scripts/e2e-cloud-mac-mini-offline.mjs
 
 ### 6.4 TODO #3 TaskList — state/artifact inventory
 
-Contractは392 parentとindependent artifact objectのrevision-bound metadata-only inventoryとする。objectはopaque decimal ID、non-identifying path class、object-level size/scope、retention/SSOTのclassification + independent evidence kind/locatorを持ち、edgeはparent `inventory_id`からobjectをone-to-manyで参照する。shared container sizeはobjectに1回だけ記録し、個別fragment sizeに複製しない。unknown/unverifiedはabsenceを意味しない。allowlist済みsource/configはTODO #2のverified-fd helperからdigestとAST literal/symbolを安全に検証し、runtime artifactはcontentをopen/readせず`lstat`だけを行う。secret、prompt、payload、auth、cookie、raw personal contentは境界外とする。
+Contractはcurrent 396 parentとindependent artifact objectのrevision-bound metadata-only inventoryとする。objectはopaque decimal ID、non-identifying path class、object-level size/scope、retention/SSOTのclassification + independent evidence kind/locatorを持ち、edgeはparent `inventory_id`からobjectをone-to-manyで参照する。shared container sizeはobjectに1回だけ記録し、個別fragment sizeに複製しない。unknown/unverifiedはabsenceを意味しない。allowlist済みsource/configはTODO #2のverified-fd helperからdigestとAST literal/symbolを安全に検証し、runtime artifactはcontentをopen/readせず`lstat`だけを行う。secret、prompt、payload、auth、cookie、raw personal contentは境界外とする。
 
 - [x] CodeGraph→exact source searchでinitial source_type→1 definition omissionを再現し、earn JSONL/seen/alertとcross-poster cache/mediaを実測する。
 - [x] RED: discovery/object artifact不在、known loop one-to-many、OpenClaw shared accounting、evidence coupling、source revision staleness、locator privacyを6 focused failureで固定する。
@@ -668,7 +737,7 @@ state values: `pending | in_progress | code_done | done | blocked`。
 | 4 | loopごとのexternal side effect inventoryを作る | call/post/mail/render/walletを列挙 | done — 396 parent / 1,980 coverage / 6 binding / 1,986 edge / 12 object。追加3 loopは全5 category unverified。fresh re-review blocking 0、normal tracked exact、17/17、gitleaks 6/6 |
 | 5 | macOS依存を分類する | Linux可/要置換/廃止を全loopに付与 | done — 396/396 exact。Linux-ready 1 / replacement-required 395 / retire 0。fresh review blocking 0、A=B=tracked、5/5、gitleaks 2/2 |
 | 6 | workload classを確定する | 全loopが5 queueのどれかに所属 | done — 396/396 exact。life-events 2 / personal-ceo 389 / media-cpu 1 / browser-action 3 / financial-read 1。duplicate binding fail-close、fresh review blocking 0、8/8、gitleaks 2/2 |
-| 7 | DigitalOcean bridge Dropletを作る | key-only SSH + firewall + Tailscale実測 | pending |
+| 7 | temporary migration bridgeのproviderを比較し、必要なら作る | final architectureでないこと、cost/security/portabilityを比較し、採用時だけkey-only SSH + firewall + Tailscale実測。現在resource 0 | pending |
 | 8 | bridgeへDocker runtimeを作る | pinned imageでhello health PASS | pending |
 | 9 | bridgeのoff-host logsを設定する | 再起動後も外部からlog閲覧可 | pending |
 | 10 | bridgeのbackup/restoreを設定する | clean Dropletへrestore PASS | pending |
@@ -743,16 +812,22 @@ state values: `pending | in_progress | code_done | done | blocked`。
 | 71 | Mac Mini production side-effect authorityをrevokeする | 対象launchd/cronはshadow/rollbackで稼働可、active writer leaseはcloudのみ、復帰手順実測 | pending |
 | 72 | cloud statusをphone control panelへ統合する | phoneのみでhealth/cost/outcome確認可 | pending |
 | 73 | final independent adversarial reviewを行う | artifact-only reviewでblocking finding 0 | pending |
-| 74 | specの全rowを実証根拠付きdoneにする | pending/blocking row 0 | pending |
+| 74 | phone/chat-only ingressを実装する | app/PCなしでgoal・permission・status・pauseをphoneから実操作 | pending |
+| 75 | mental organ workflowを実装する | wellness actionとcrisis/medical/therapy safety boundary E2E PASS | pending |
+| 76 | physical organ end-to-endを完成する | intentからroutine/booking/follow-up/evidenceまでgeneral contractで完走 | pending |
+| 77 | financial earning/self-funding ledgerを完成する | user earning/platform revenue/reserve/cost/payoutを分離し、KYC・legal・permission境界とno-guarantee表示を実証 | pending |
+| 78 | self-development issue loopを作る | goal/feedback/log/Sentryから重複なしの優先度付きissue生成 | pending |
+| 79 | autonomous patch/test/deploy/rollback loopを作る | isolated branch→tests→staging→monitor→safe merge/deploy、失敗時rollback、無断production mutation 0 | pending |
+| 80 | specの全rowを実証根拠付きdoneにする | pending/blocking row 0 | pending |
 
 ## 9. Completion gate
 
 以下をすべて満たした時だけ完了とする。
 
 ```text
-[ ] TODO #1-74 and #51a-51h = done
-[ ] AC-01-19 = fresh real evidence green
-[ ] Test Matrix #1-23 = OK
+[ ] TODO #1-80 and #51a-51h = done
+[ ] AC-01-23 = fresh real evidence green
+[ ] Test Matrix #1-27 = fresh real evidence green
 [ ] gitleaks = 0 leaks
 [ ] tenant isolation negative E2E = green
 [ ] real calendar/call/clip evidence = green
@@ -760,6 +835,8 @@ state values: `pending | in_progress | code_done | done | blocked`。
 [ ] Mac Mini powered-on shadow + cloud writer authority E2E = green
 [ ] unseen-site 4-class browser E2E = green
 [ ] intent discovery + application provenance + tenant isolation E2E = green
+[ ] phone/chat-only + mental/physical/financial organ E2E = green
+[ ] self-development issue→patch→test→staging→monitor→rollback E2E = green
 [ ] remote repo head = deployment head = verified implementation commit
 [ ] independent artifact-only adversarial review = blocking finding 0
 ```
