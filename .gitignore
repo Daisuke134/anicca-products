@@ -170,6 +170,7 @@ docs/screenshots/processed/
 
 CLAUDE.local.md
 .claude/settings.local.json
+.job-search-private/
 .env.example
 .claude/skills/app-onboarding-questionnaire/
 .claude/skills/aso-skills/
