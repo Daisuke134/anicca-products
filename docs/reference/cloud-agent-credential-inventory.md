@@ -54,6 +54,8 @@ source revisionがunverifiedの31親はreview decisionと生成edgeを `unverifi
 
 fresh収集でsource revisionが変化したLaunchAgentは旧 `none` reviewを再利用せず `source_revision_changed_review_required` / `unverified` に戻す。
 
+Repository親のtop-level revisionは検査対象 `package.json` のexact Git blobへbindし、repo全体のHEAD/treeへはbindしない。credential reference inspectionが辿るJS/TS source closureは各sourceのblob付き `reference_evidence` で別途exact検証する。この分離により、credential入力と無関係なdocumentation/artifact commitがcandidate自身をstaleにせず、packageまたは検査sourceが変われば従来どおりfail closedする。
+
 Historical iteration 14 snapshotでは、実在しないliteral relative runtime importを持つ単一repository親をsilent skipせずreference inspection `unverified`へ戻し、330親 / 456 edge / 55 credential object / 1 findingを記録する。このhistorical countはcurrent candidate countではない。
 
 ## Reproduce and verify

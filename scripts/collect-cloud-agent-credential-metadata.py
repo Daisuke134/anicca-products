@@ -1138,14 +1138,12 @@ def source_revision_record(
         else:
             path = evidence
         try:
-            commit = runner(("git", "rev-parse", ref)).stdout.strip()
-            tree = runner(("git", "rev-parse", f"{ref}^{{tree}}")).stdout.strip()
             blob = runner(("git", "rev-parse", f"{ref}:{path}")).stdout.strip()
         except Exception:
             return {"digest": "unverified", "evidence_locator": "unverified"}
-        if not all(re.fullmatch(r"[0-9a-f]{40,64}", value) for value in (commit, tree, blob)):
+        if re.fullmatch(r"[0-9a-f]{40,64}", blob) is None:
             return {"digest": "unverified", "evidence_locator": "unverified"}
-        locator = f"git:{ref};commit:{commit};tree:{tree};blob:{blob};path:{path}"
+        locator = f"git:{ref};blob:{blob};path:{path}"
         return {"digest": format_sha256_digest(hashlib.sha256(locator.encode()).hexdigest()), "evidence_locator": locator}
     if source_type == "launchd":
         def launchd_unverified(reason: str) -> dict[str, str]:
@@ -1244,13 +1242,7 @@ def source_revision_digest(
         return record["digest"]
     source_type = parent.get("source_type")
     if source_type in {"repository_entrypoint", "railway_entrypoint"}:
-        ref = "origin/main^{tree}" if source_type == "railway_entrypoint" else "HEAD^{tree}"
-        try:
-            completed = runner(("git", "rev-parse", ref))
-        except Exception:
-            return "unverified"
-        revision = completed.stdout.strip()
-        return canonical_digest({"git_tree": revision}) if re.fullmatch(r"[0-9a-f]{40,64}", revision) else "unverified"
+        return "unverified"
     if source_type == "launchd":
         path = _safe_entrypoint_path(parent.get("entrypoint", ""))
         return _safe_path_revision(path, runner) if path else "unverified"

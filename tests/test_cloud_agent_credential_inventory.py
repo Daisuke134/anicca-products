@@ -1565,10 +1565,8 @@ class CredentialInventoryContractTests(unittest.TestCase):
         self.assertEqual("inactive", edge["dependency_status"])
         self.assertEqual("disabled", edge["loop_state"])
 
-    def test_repository_revision_record_preserves_portable_commit_tree_and_blob_oids(self) -> None:
+    def test_repository_revision_record_preserves_only_portable_package_blob_oid(self) -> None:
         values = {
-            ("git", "rev-parse", "HEAD"): "a" * 40,
-            ("git", "rev-parse", "HEAD^{tree}"): "b" * 40,
             ("git", "rev-parse", "HEAD:apps/api/package.json"): "c" * 40,
         }
 
@@ -1589,8 +1587,10 @@ class CredentialInventoryContractTests(unittest.TestCase):
             ),
             record["digest"],
         )
-        for oid in values.values():
-            self.assertIn(oid, record["evidence_locator"])
+        self.assertEqual(
+            "git:HEAD;blob:" + "c" * 40 + ";path:apps/api/package.json",
+            record["evidence_locator"],
+        )
         self.assertNotIn(str(REPO.parent), record["evidence_locator"])
 
     def test_repository_reference_evidence_follows_start_import_graph_with_path_blob_and_line(self) -> None:
@@ -4053,12 +4053,16 @@ class CredentialInventoryContractTests(unittest.TestCase):
         self.assertEqual(first, metadata_only)
         self.assertNotEqual(first, second)
 
-    def test_repository_revision_uses_git_tree_object(self) -> None:
+    def test_repository_revision_uses_exact_package_blob_not_unrelated_repo_tree(self) -> None:
         calls = []
 
         def fake_runner(argv):
             calls.append(argv)
-            return subprocess.CompletedProcess(argv, 0, stdout="a" * 40 + "\n", stderr="")
+            if argv[-1] == "HEAD:apps/api/package.json":
+                value = "a" * 40
+            else:
+                value = "b" * 40
+            return subprocess.CompletedProcess(argv, 0, stdout=value + "\n", stderr="")
 
         parent = {
             "inventory_id": "repo:fixture",
@@ -4067,14 +4071,17 @@ class CredentialInventoryContractTests(unittest.TestCase):
             "state": "present",
             "evidence": "apps/api/package.json",
         }
-        self.assertNotEqual("unverified", self.collector.source_revision_digest(parent, fake_runner))
-        self.assertNotEqual("unverified", self.collector.config_revision_digest(parent, fake_runner))
+        source = self.collector.source_revision_record(parent, fake_runner)
+        config = self.collector.config_revision_record(parent, fake_runner)
+        self.assertNotEqual("unverified", source["digest"])
+        self.assertEqual(source, config)
+        self.assertNotIn("commit:", source["evidence_locator"])
+        self.assertNotIn("tree:", source["evidence_locator"])
         expected = [
-            ("git", "rev-parse", "HEAD"),
-            ("git", "rev-parse", "HEAD^{tree}"),
+            ("git", "rev-parse", "HEAD:apps/api/package.json"),
             ("git", "rev-parse", "HEAD:apps/api/package.json"),
         ]
-        self.assertEqual(expected + expected, calls)
+        self.assertEqual(expected, calls)
 
     def test_unavailable_source_revision_fails_closed(self) -> None:
         observation = {
