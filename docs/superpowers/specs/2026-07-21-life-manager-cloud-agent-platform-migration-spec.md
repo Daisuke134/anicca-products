@@ -558,7 +558,7 @@ Final approved transition evidence: builder manifestは`review_required`を維�
 
 ### 6.5 TODO #4 TaskList — external side-effect inventory
 
-Contractは393 parent×required category exact coverageとindependent effect object / opaque loop→effect edgeとする。required categoryはexact `call | post | mail | render | wallet`、reviewedされた列挙済み効果に限りexplicit `other`を許可する。resolutionは`discovered | none | unverified`を区別し、unknownをabsenceにしない。definition/credentialとTODO #3のinternal state writeはevidence inputでありside effectとして計上しない。
+Current contractは396 parent×required category exact coverageとindependent effect object / opaque loop→effect edgeとする。required categoryはexact `call | post | mail | render | wallet`、reviewedされた列挙済み効果に限りexplicit `other`を許可する。resolutionは`discovered | none | unverified`を区別し、unknownをabsenceにしない。definition/credentialとTODO #3のinternal state writeはevidence inputでありside effectとして計上しない。
 
 - [x] TODO #1 parent、TODO #2 credential object/edge、TODO #3 secure FD / opaque loop ref / manifest-review / exact schema / privacy contractを実測して再利用する。
 - [x] CodeGraph→safe AST/exact source searchでreal call/post/mail/render参照とwallet-like behaviorをcontent非読取で列挙し、source/config digestにbindする。
