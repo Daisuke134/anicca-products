@@ -3,14 +3,14 @@
 ## Status and approval boundary
 
 builder-owned
-[`cloud-agent-state-artifact-discovery-manifest.json`](./cloud-agent-state-artifact-discovery-manifest.json)は常に`review_required / pending_independent_architecture_review`を保持する。393-parent rebindでは別artifact
-[`cloud-agent-state-artifact-discovery-review.json`](./cloud-agent-state-artifact-discovery-review.json)だけがfresh review後の`approved / todo3_393_rebind_independent_review_approved_v1 / independent_fresh_state_artifact_reviewer`へ遷移済みである。review artifactはcanonical manifest digest、current ordered parent digest、exact source revision mapへbindし、builder manifest自体はself-approveしない。旧392・334 approval tupleはcurrent digestへコピーしても拒否する。
+[`cloud-agent-state-artifact-discovery-manifest.json`](./cloud-agent-state-artifact-discovery-manifest.json)は常に`review_required / pending_independent_architecture_review`を保持する。396-parent rebindでは別artifact
+[`cloud-agent-state-artifact-discovery-review.json`](./cloud-agent-state-artifact-discovery-review.json)は396-parent candidateとして`review_required / pending_independent_architecture_review / independent_fresh_reviewer_required`を保持する。review artifactはcanonical manifest digest、current ordered parent digest、exact source revision mapへbindし、builder manifest自体はself-approveしない。旧393・392・334 approval tupleはcurrent digestへコピーしても拒否する。fresh review後はseparate reviewだけを396専用approval tupleへ遷移する。
 
-current collector/generatorはnormal modeでapproved reviewを検証し、tracked observation、object JSON、全edgeは`independent_review_approved`を持つ。synthetic pending reviewはexplicit `--candidate`だけで成功し、normal modeではnonzero・stdout 0・output非作成となる。builder二field自己承認、approved reviewのcandidate downgrade、stale 330/334-parent review、missing/wrong status、stale manifest/parent/source bindingも拒否する。
+current collector/generatorはexplicit `--candidate`でpending reviewを検証し、tracked observation、object JSON、全edgeは`candidate_review_required`を持つ。normal modeはfresh approval前にはnonzero・stdout 0・output非作成となる。builder二field自己承認、approved reviewのcandidate downgrade、stale parent review、missing/wrong status、stale manifest/parent/source bindingも拒否する。
 
 ## Inputs and content boundary
 
-親集合の唯一のraw identifier sourceは[`cloud-agent-loop-inventory.tsv`](./cloud-agent-loop-inventory.tsv)である。TODO #3 artifactにはraw `inventory_id`、job/account identifierを保存せず、parent metadataから再計算できるdeterministic opaque `loop_ref`だけを使う。joinと393-parent exact coverageはgenerator memory内で再計算する。
+親集合の唯一のraw identifier sourceは[`cloud-agent-loop-inventory.tsv`](./cloud-agent-loop-inventory.tsv)である。TODO #3 artifactにはraw `inventory_id`、job/account identifierを保存せず、parent metadataから再計算できるdeterministic opaque `loop_ref`だけを使う。joinと396-parent exact coverageはgenerator memory内で再計算する。
 
 collectorが読むのはparent TSV、manifest/review artifact、manifestでallowlistしたsource/configだけである。reviewed sourceはTODO #2の`O_NOFOLLOW`、held directory fd、regular-file `fstat` helperを再利用し、同じverified fdからSHA-256とAST literal/symbol evidenceを得る。repository sourceに加え、fixed `local-share:` classはkernel-bound trusted root配下だけを許可する。runtime artifactはopen/readせず、`lstat`によるexistence、regular-file type、sizeだけを観測する。artifact content、secret、prompt、payload、auth、cookie、raw personal contentは境界外である。
 
@@ -27,34 +27,35 @@ manifest、review、observations、objects、edgesの文字列fieldは再帰的�
 - `cache`
 - `output`
 
-393 loopの各categoryにexact 1 `category_coverage` edgeを持つため、coverage matrixは2,358 rowになる。resolutionは`discovered | none_observed | unverified`だけである。`none_observed`はoperational policyまたはsource schema evidenceなしには生成できない。現在はevidence-backed absence claimがないため、unknown cellをすべて`unverified`とし、absenceへ昇格しない。
+396 loopの各categoryにexact 1 `category_coverage` edgeを持つため、coverage matrixは2,376 rowになる。resolutionは`discovered | none_observed | unverified`だけである。`none_observed`はoperational policyまたはsource schema evidenceなしには生成できない。現在はevidence-backed absence claimがないため、unknown cellをすべて`unverified`とし、absenceへ昇格しない。
 
-definitionはcategory coverageと別の393 edgeであり、6-category matrixを満たさない。current parentへ直接bindするdiscoveryはcross-poster 2 loopの`cache`と`media`の4 cellだけである。392 refreshでOrca Zenn finalizer親が消えたため、旧parentへ推測で結合せず、その直接Python sourceから得た`state` / `log` / `output` 3 objectを`unbound_parent_unverified`へ戻す。残るcategory cellはcategory別shared unverified objectへbindする。hf-gig launcherはverified-fdで調査すると別の`gig_pass.sh`を起動し、earn watcher sourceへの直接provenanceがない。このためearn watcherのstate/output 3 objectもcatalog-only `unbound_parent_unverified`を維持する。新x402 ledgerはexact parent revisionとdefinitionだけを結合し、直接provenanceのない6 categoryをすべて`unverified`に保つ。current article Zenn retryはdirect entrypointがshell wrapperで、current AST-backed provenance contractでは下流Python declarationへ結合せず全categoryをunverifiedにする。
+definitionはcategory coverageと別の396 edgeであり、6-category matrixを満たさない。current parentへ直接bindするdiscoveryはcross-poster 2 loopの`cache`と`media`の4 cellだけである。392 refreshでOrca Zenn finalizer親が消えたため、旧parentへ推測で結合せず、その直接Python sourceから得た`state` / `log` / `output` 3 objectを`unbound_parent_unverified`へ戻す。残るcategory cellはcategory別shared unverified objectへbindする。hf-gig launcherはverified-fdで調査すると別の`gig_pass.sh`を起動し、earn watcher sourceへの直接provenanceがない。このためearn watcherのstate/output 3 objectもcatalog-only `unbound_parent_unverified`を維持する。x402 ledger、financial report、payout、hf-gig weekly reportはexact parent revisionとdefinitionだけを結合し、direct provenanceのない6 categoryをすべて`unverified`に保つ。current article Zenn retryはdirect entrypointがshell wrapperで、current AST-backed provenance contractでは下流Python declarationへ結合せず全categoryをunverifiedにする。
 
 object sizeはobject inventory
 [`cloud-agent-state-artifact-objects.json`](./cloud-agent-state-artifact-objects.json)に1回だけ置き、edge
 [`cloud-agent-state-artifact-inventory.tsv`](./cloud-agent-state-artifact-inventory.tsv)へ複製しない。OpenClaw 222 loopのdefinitionは1 shared-container objectへ222 definition edgeを持つ。個別job fragment sizeは安全に測定していないため記録しない。稼働中append-only logは`lstat`でregular-file existenceだけを記録し、変動するsnapshot sizeは`unknown / lstat:mutable_regular_file`としてA/B determinismを維持する。retention/SSOTはclassificationとevidence kind/locatorの許可tupleを強制し、根拠がなければ`unknown/unverified`である。
 
-## Approved summary
+## Current candidate summary
 
 | Measure | Count |
 |---|---:|
-| Parent / edge / object | 393 / 2,751 / 186 |
-| category coverage / definition edge | 2,358 / 393 |
-| discovered / unverified category cell | 4 / 2,354 |
-| observed / unverified object | 172 / 14 |
+| Parent / edge / object | 396 / 2,772 / 189 |
+| category coverage / definition edge | 2,376 / 396 |
+| discovered / unverified category cell | 4 / 2,372 |
+| observed / unverified object | 175 / 14 |
 | shared OpenClaw object / definition edge | 1 / 222 |
 | catalog-only unbound discovery object | 6 |
 
-TODO #3は393-parent fresh independent review `ok:true / blocking:[]`とfinal semantic gatesを根拠に`done`である。
+TODO #3は396-parent fresh independent reviewとnormal final semantic gatesが揃うまで`in_progress`である。
 
-## Reproduce approved outputs
+## Reproduce candidate outputs
 
 ```bash
-python3 scripts/collect-cloud-agent-state-artifact-metadata.py --output /tmp/cloud-agent-state-artifact-a.json
-python3 scripts/collect-cloud-agent-state-artifact-metadata.py --output /tmp/cloud-agent-state-artifact-b.json
+python3 scripts/collect-cloud-agent-state-artifact-metadata.py --candidate --output /tmp/cloud-agent-state-artifact-a.json
+python3 scripts/collect-cloud-agent-state-artifact-metadata.py --candidate --output /tmp/cloud-agent-state-artifact-b.json
 cmp /tmp/cloud-agent-state-artifact-a.json /tmp/cloud-agent-state-artifact-b.json
 python3 scripts/generate-cloud-agent-state-artifact-inventory.py \
+  --candidate \
   --check \
   --observations /tmp/cloud-agent-state-artifact-a.json \
   --output /tmp/cloud-agent-state-artifact-inventory.tsv \

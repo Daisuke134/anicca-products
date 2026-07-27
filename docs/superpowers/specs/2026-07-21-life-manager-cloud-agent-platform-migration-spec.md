@@ -552,6 +552,8 @@ Final approved transition evidence: builder manifestは`review_required`を維�
 
 393-parent final independent re-review evidence: `ok:true / blocking:[]`。builder manifestはpendingを維持し、separate reviewだけを`approved / todo3_393_rebind_independent_review_approved_v1 / independent_fresh_state_artifact_reviewer`へ遷移する。requested 393 tupleはnormal collector→generatorを通り、旧392・334 tupleはcurrent manifest/parent/source bindでもcollectorとgeneratorの双方がno-output fail-closeする。normal observation A=B=tracked、edge/object/summary A=B=tracked、31/31、Python compile、6 artifact exact gitleaks、diff checkをfresh再検証し、393 / 2,358 / 393 / 2,751 / 186、coverage discovered 4 / unverified 2,354、shared 1 / 222、unbound 6、新x402 6 category unverifiedを維持するためTODO #3を`done`とする。
 
+396-parent rebind candidate evidence: current ordered parent digest `sha256:61482ba7:96818eeb:89aecc35:ad3c4366:f81d3625:9258d8f8:4e65e542:11f86872`、manifest digest `sha256:12256a87:0dd27a61:971b08ef:b3b76d9c:caf8d661:feaf946b:1861c323:4465ab32`へrebindする。candidate GREENは31/31。candidateは396 parent / 2,376 category / 396 definition / 2,772 edge / 189 object、category discovered 4 / unverified 2,372、object observed 175 / unverified 14、shared OpenClaw object 1 / edge 222、unbound object 6。追加されたfinancial report、payout、hf-gig weekly reportはexact parent revisionとdefinitionだけを持ち、direct provenanceのない6 categoryをすべてunverifiedに保つ。builder/reviewは双方pending、tracked outputは`candidate_review_required`であり、fresh independent review前はTODO #3を`in_progress`に維持する。
+
 ### 6.5 TODO #4 TaskList — external side-effect inventory
 
 Contractは393 parent×required category exact coverageとindependent effect object / opaque loop→effect edgeとする。required categoryはexact `call | post | mail | render | wallet`、reviewedされた列挙済み効果に限りexplicit `other`を許可する。resolutionは`discovered | none | unverified`を区別し、unknownをabsenceにしない。definition/credentialとTODO #3のinternal state writeはevidence inputでありside effectとして計上しない。
@@ -650,7 +652,7 @@ state values: `pending | in_progress | code_done | done | blocked`。
 |---|---|---|---|
 | 1 | 現行loop inventoryを作る | 全launchd/cron/entrypoint/ownerが1行ずつ存在 | done — liveを停止せず396 rowへrefresh。launchd 169 / OpenClaw 222 / Railway 1 / repo 4。395からhf-gig-weekly-report 1追加 / 0削除。current ID digest `5cb597d26321089ed678fb8c48a85599734d0709c2d5d69166c37b5cb75967e0`。generator A=B・focused 5/5 GREEN。process stop / bootout / plist delete 0 |
 | 2 | loopごとのcredential inventoryを作る | secret値なしでprovider/scope/refを記録 | done — 396 parent / 400 edge / 18 credential object / finding 1。新weekly-reportはrevision-bound unverified、repository self-invalidation修正、fresh review blocking 0、normal tracked exact、170/170、gitleaks 6/6 |
-| 3 | loopごとのstate/artifact inventoryを作る | local path・size・retention・SSOTを記録 | in_progress — live parentが393→395へdriftしたため、旧approvalを流用せずrebindする |
+| 3 | loopごとのstate/artifact inventoryを作る | local path・size・retention・SSOTを記録 | in_progress — 396 parent / 2,376 category / 396 definition / 2,772 edge / 189 objectへcandidate rebind済み。追加3 loopは6 category unverified。31/31 GREEN、fresh independent review待ち |
 | 4 | loopごとのexternal side effect inventoryを作る | call/post/mail/render/walletを列挙 | in_progress — live parentが393→395へdriftしたため、旧approvalを流用せずrebindする |
 | 5 | macOS依存を分類する | Linux可/要置換/廃止を全loopに付与 | in_progress — 395 parentへのdeterministic再生成待ち |
 | 6 | workload classを確定する | 全loopが5 queueのどれかに所属 | in_progress — 393 candidateはlive driftでreject。395 parentへrebind中 |
