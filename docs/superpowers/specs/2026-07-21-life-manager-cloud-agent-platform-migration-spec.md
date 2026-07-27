@@ -586,6 +586,8 @@ Final independent approval evidence: 最初のfresh read-only reviewerは一時a
 
 396-parent rebind candidate evidence: ordered parent digest `sha256:61482ba7:96818eeb:89aecc35:ad3c4366:f81d3625:9258d8f8:4e65e542:11f86872`、manifest digest `sha256:2f33502d:b265b962:585a47ce:de792ece:3c56c4a5:ce29c534:adc40738:8e104c9b`へrebindする。candidateは396 parent / 1,980 category coverage / 6 binding / 1,986 edge / 12 object、coverage discovered 6 / unverified 1,974、bindingはcall 1 / mail 1 / post 3 / render 1 / wallet 0。HF weekly report、financial report、payoutは全5 category unverifiedで、既存HF/x402も推測bindingしない。builder/reviewは双方pending、17/17 GREENだがfresh independent review前はTODO #4を`in_progress`に維持する。
 
+396-parent final independent re-review evidence: first reviewはSSOT Contractの旧393表記1点をrejectし、current contractを396へ是正後のfresh re-reviewは`ok:true / blocking:[] / todo4_396_rebind_independent_review_approved_v1 / independent_fresh_external_effect_reviewer`。builder manifestはpendingを維持し、separate reviewだけをapprovedへ遷移する。normal observation/edge/object A=B=tracked、17/17、Python compile、6 artifact exact gitleaks、live parent exact、diff checkをfresh再検証し、396 / 1,980 / 6 / 1,986 / 12、coverage discovered 6 / unverified 1,974、call 1 / mail 1 / post 3 / render 1 / wallet 0、新3 loop全category unverified、wallet blockedを維持するためTODO #4を`done`とする。
+
 Completion claims MUST include fresh command output, remote commit hash, deployment commit hash, and real provider evidence IDs.
 
 ### 6.5.1 TODO #5 TaskList — macOS dependency classification
@@ -657,7 +659,7 @@ state values: `pending | in_progress | code_done | done | blocked`。
 | 1 | 現行loop inventoryを作る | 全launchd/cron/entrypoint/ownerが1行ずつ存在 | done — liveを停止せず396 rowへrefresh。launchd 169 / OpenClaw 222 / Railway 1 / repo 4。395からhf-gig-weekly-report 1追加 / 0削除。current ID digest `5cb597d26321089ed678fb8c48a85599734d0709c2d5d69166c37b5cb75967e0`。generator A=B・focused 5/5 GREEN。process stop / bootout / plist delete 0 |
 | 2 | loopごとのcredential inventoryを作る | secret値なしでprovider/scope/refを記録 | done — 396 parent / 400 edge / 18 credential object / finding 1。新weekly-reportはrevision-bound unverified、repository self-invalidation修正、fresh review blocking 0、normal tracked exact、170/170、gitleaks 6/6 |
 | 3 | loopごとのstate/artifact inventoryを作る | local path・size・retention・SSOTを記録 | done — 396 parent / 2,376 category / 396 definition / 2,772 edge / 189 object。追加3 loopは6 category unverified。fresh review blocking 0、normal tracked exact、31/31、gitleaks 6/6 |
-| 4 | loopごとのexternal side effect inventoryを作る | call/post/mail/render/walletを列挙 | in_progress — 396 parent / 1,980 coverage / 6 binding / 1,986 edge / 12 objectへcandidate rebind済み。追加3 loopは全5 category unverified。17/17 GREEN、fresh independent review待ち |
+| 4 | loopごとのexternal side effect inventoryを作る | call/post/mail/render/walletを列挙 | done — 396 parent / 1,980 coverage / 6 binding / 1,986 edge / 12 object。追加3 loopは全5 category unverified。fresh re-review blocking 0、normal tracked exact、17/17、gitleaks 6/6 |
 | 5 | macOS依存を分類する | Linux可/要置換/廃止を全loopに付与 | in_progress — 395 parentへのdeterministic再生成待ち |
 | 6 | workload classを確定する | 全loopが5 queueのどれかに所属 | in_progress — 393 candidateはlive driftでreject。395 parentへrebind中 |
 | 7 | DigitalOcean bridge Dropletを作る | key-only SSH + firewall + Tailscale実測 | pending |

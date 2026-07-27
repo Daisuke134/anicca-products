@@ -1,9 +1,10 @@
 {
   "manifest_digest": "sha256:2f33502d:b265b962:585a47ce:de792ece:3c56c4a5:ce29c534:adc40738:8e104c9b",
   "parent_inventory_digest": "sha256:61482ba7:96818eeb:89aecc35:ad3c4366:f81d3625:9258d8f8:4e65e542:11f86872",
-  "review_basis": "pending_independent_external_effect_review",
-  "review_status": "review_required",
-  "reviewer_role": "independent_fresh_reviewer_required",
+  "review_basis": "todo4_396_rebind_independent_review_approved_v1",
+  "review_status": "approved",
+  "approval_basis": "todo4_396_rebind_independent_review_approved_v1",
+  "reviewer_role": "independent_fresh_external_effect_reviewer",
   "schema_version": 1,
   "source_revisions": {
     "source-clip-renderer": "sha256:6d2a354b:e34ef0a6:e09aeb54:6c4e4179:f4ab1898:458c21eb:7ca137fd:da692344",

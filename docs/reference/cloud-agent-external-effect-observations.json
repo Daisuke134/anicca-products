@@ -629,7 +629,7 @@
     }
   },
   "parent_inventory_digest": "sha256:61482ba7:96818eeb:89aecc35:ad3c4366:f81d3625:9258d8f8:4e65e542:11f86872",
-  "review_mode": "candidate_pending_review",
+  "review_mode": "independent_review_approved",
   "schema_version": 1,
   "source_revisions": {
     "source-clip-renderer": "sha256:6d2a354b:e34ef0a6:e09aeb54:6c4e4179:f4ab1898:458c21eb:7ca137fd:da692344",
