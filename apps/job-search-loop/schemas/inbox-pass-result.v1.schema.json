@@ -1,11 +1,11 @@
 {
   "type": "object",
+  "additionalProperties": false,
   "required": ["status", "processed_threads", "calendar_events", "reports"],
   "properties": {
     "status": {"type": "string"},
     "processed_threads": {"type": "integer"},
-    "calendar_events": {"type": "array"},
-    "reports": {"type": "array"}
+    "calendar_events": {"type": "array", "items": {"type": "string"}},
+    "reports": {"type": "array", "items": {"type": "string"}}
   }
 }
-
