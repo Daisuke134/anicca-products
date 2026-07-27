@@ -1,6 +1,6 @@
 {
   "discovery_manifest_digest": "sha256:52e4bbc9:d3ea5257:3c9c68f7:45557782:2706cc96:c23ea902:b36f8d6e:4453b60e",
-  "independent_review_digest": "sha256:a796185c:7e9edcdb:e0107457:e2af916c:9e0902b3:a0cdf242:d847b380:a265161f",
+  "independent_review_digest": "sha256:b31d22d9:1a99c260:5f045008:50c470f6:f4e652f0:01d97e28:9c6f9c42:3fc51c88",
   "objects": [
     {
       "artifact_category": "definition",
@@ -3704,6 +3704,6 @@
     }
   ],
   "parent_inventory_digest": "sha256:0805a7c1:31924d7f:fce92042:ccfc9bb1:97bf4e63:af688b53:ff544a47:9928a775",
-  "review_mode": "candidate_review_required",
+  "review_mode": "independent_review_approved",
   "schema_version": 2
 }

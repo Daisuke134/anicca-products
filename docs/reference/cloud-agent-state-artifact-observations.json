@@ -4324,7 +4324,7 @@
     }
   },
   "parent_inventory_digest": "sha256:0805a7c1:31924d7f:fce92042:ccfc9bb1:97bf4e63:af688b53:ff544a47:9928a775",
-  "review_mode": "candidate_review_required",
+  "review_mode": "independent_review_approved",
   "schema_version": 2,
   "source_revisions": {
     "source-000000000000001": "sha256:f023dab3:6d2bbfd9:a3cd0ad6:7d9b3bd3:8d5824cd:5e3e634d:58a88550:03ff84d4",

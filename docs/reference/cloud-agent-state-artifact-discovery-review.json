@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "review_status": "review_required",
-  "review_basis": "pending_independent_architecture_review",
-  "reviewer_role": "independent_fresh_reviewer_required",
+  "review_status": "approved",
+  "approval_basis": "todo3_392_rebind_independent_review_approved_v1",
+  "reviewer_role": "independent_fresh_state_artifact_reviewer",
   "manifest_digest": "sha256:52e4bbc9:d3ea5257:3c9c68f7:45557782:2706cc96:c23ea902:b36f8d6e:4453b60e",
   "parent_inventory_digest": "sha256:0805a7c1:31924d7f:fce92042:ccfc9bb1:97bf4e63:af688b53:ff544a47:9928a775",
   "source_revisions": {
