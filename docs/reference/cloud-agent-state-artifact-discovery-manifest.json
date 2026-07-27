@@ -2,7 +2,7 @@
   "schema_version": 2,
   "review_status": "review_required",
   "review_basis": "pending_independent_architecture_review",
-  "parent_inventory_digest": "sha256:0805a7c1:31924d7f:fce92042:ccfc9bb1:97bf4e63:af688b53:ff544a47:9928a775",
+  "parent_inventory_digest": "sha256:a212d39d:fb71962b:3e94e805:fdbcbaf3:8aae9020:8a44eaad:d3fc2adb:43218fb5",
   "sources": [
     {
       "source_id": "source-000000000000001",

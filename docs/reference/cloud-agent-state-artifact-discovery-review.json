@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "review_status": "approved",
-  "approval_basis": "todo3_392_rebind_independent_review_approved_v1",
-  "reviewer_role": "independent_fresh_state_artifact_reviewer",
-  "manifest_digest": "sha256:52e4bbc9:d3ea5257:3c9c68f7:45557782:2706cc96:c23ea902:b36f8d6e:4453b60e",
-  "parent_inventory_digest": "sha256:0805a7c1:31924d7f:fce92042:ccfc9bb1:97bf4e63:af688b53:ff544a47:9928a775",
+  "review_status": "review_required",
+  "review_basis": "pending_independent_architecture_review",
+  "reviewer_role": "independent_fresh_reviewer_required",
+  "manifest_digest": "sha256:cf0422ab:46461483:0d872b75:518ec002:c1d1f37c:3507e75c:88633e30:87ed2f80",
+  "parent_inventory_digest": "sha256:a212d39d:fb71962b:3e94e805:fdbcbaf3:8aae9020:8a44eaad:d3fc2adb:43218fb5",
   "source_revisions": {
     "source-000000000000001": "sha256:f023dab3:6d2bbfd9:a3cd0ad6:7d9b3bd3:8d5824cd:5e3e634d:58a88550:03ff84d4",
     "source-000000000000002": "sha256:cf196549:5dac751d:e97b305e:85305eed:9f28f841:1a37276b:f7a15d0a:af6a467a",

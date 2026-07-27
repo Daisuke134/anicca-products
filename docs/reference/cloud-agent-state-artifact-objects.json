@@ -1,6 +1,6 @@
 {
-  "discovery_manifest_digest": "sha256:52e4bbc9:d3ea5257:3c9c68f7:45557782:2706cc96:c23ea902:b36f8d6e:4453b60e",
-  "independent_review_digest": "sha256:b31d22d9:1a99c260:5f045008:50c470f6:f4e652f0:01d97e28:9c6f9c42:3fc51c88",
+  "discovery_manifest_digest": "sha256:cf0422ab:46461483:0d872b75:518ec002:c1d1f37c:3507e75c:88633e30:87ed2f80",
+  "independent_review_digest": "sha256:a091af1a:9de9bcc3:ad58c7d2:5d9b4e00:e973dd9e:3aa06344:edfd658d:75c2ddca",
   "objects": [
     {
       "artifact_category": "definition",
@@ -3565,6 +3565,26 @@
     {
       "artifact_category": "definition",
       "artifact_kind": "definition",
+      "artifact_object_id": "artifact-object-270355144208814",
+      "artifact_status": "observed",
+      "discovery_evidence_kind": "parent_metadata",
+      "discovery_evidence_locator": "parent:definition_metadata",
+      "observation_digest": "sha256:c10a9a24:9b159c72:9cea88b8:0b36da9a:70c30f70:1ecdd900:205a865c:0fb7f4a3",
+      "path_class": "scheduler:launchd_definition",
+      "retention_classification": "unknown",
+      "retention_evidence_kind": "unverified",
+      "retention_evidence_locator": "unverified",
+      "size_bytes": "1190",
+      "size_evidence": "lstat:regular_file",
+      "size_scope": "object",
+      "source_revision_digest": "unverified",
+      "ssot_classification": "unverified",
+      "ssot_evidence_kind": "unverified",
+      "ssot_evidence_locator": "unverified"
+    },
+    {
+      "artifact_category": "definition",
+      "artifact_kind": "definition",
       "artifact_object_id": "artifact-object-270668096286810",
       "artifact_status": "observed",
       "discovery_evidence_kind": "parent_metadata",
@@ -3703,7 +3723,7 @@
       "ssot_evidence_locator": "unverified"
     }
   ],
-  "parent_inventory_digest": "sha256:0805a7c1:31924d7f:fce92042:ccfc9bb1:97bf4e63:af688b53:ff544a47:9928a775",
-  "review_mode": "independent_review_approved",
+  "parent_inventory_digest": "sha256:a212d39d:fb71962b:3e94e805:fdbcbaf3:8aae9020:8a44eaad:d3fc2adb:43218fb5",
+  "review_mode": "candidate_review_required",
   "schema_version": 2
 }

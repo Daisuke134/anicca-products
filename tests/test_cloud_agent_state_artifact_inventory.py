@@ -27,7 +27,7 @@ DISCOVERY_REVIEW = REPO / "docs/reference/cloud-agent-state-artifact-discovery-r
 OBJECTS = REPO / "docs/reference/cloud-agent-state-artifact-objects.json"
 TRACKED = REPO / "docs/reference/cloud-agent-state-artifact-inventory.tsv"
 DOCUMENTATION = REPO / "docs/reference/cloud-agent-state-artifact-inventory.md"
-CURRENT_PARENT_DIGEST = "sha256:0805a7c1:31924d7f:fce92042:ccfc9bb1:97bf4e63:af688b53:ff544a47:9928a775"
+CURRENT_PARENT_DIGEST = "sha256:a212d39d:fb71962b:3e94e805:fdbcbaf3:8aae9020:8a44eaad:d3fc2adb:43218fb5"
 STALE_334_PARENT_DIGEST = "sha256:90113e58:00a49511:9a84159b:1baf1728:c883a52b:0239dd87:113d1f8a:939d1e7c"
 STALE_330_PARENT_DIGEST = "sha256:a0fde66c:f8f11931:6772a27d:4bf27026:f1c14816:e3bdbd49:8edb1504:26de2be4"
 CURRENT_REBOUND_PARENT_REVISIONS = {
@@ -44,8 +44,8 @@ REMOVED_PARENT_IDS = {
     "launchd:ai.anicca.article-d7d8-finalizer",
     "launchd:ai.anicca.orca-zenn-finalizer",
 }
-APPROVED_392_BASIS = "todo3_392_rebind_independent_review_approved_v1"
-APPROVED_392_REVIEWER = "independent_fresh_state_artifact_reviewer"
+APPROVED_393_BASIS = "todo3_393_rebind_independent_review_approved_v1"
+APPROVED_393_REVIEWER = "independent_fresh_state_artifact_reviewer"
 LEGACY_334_BASIS = "todo3_independent_candidate_review_approved_v1"
 LEGACY_334_REVIEWER = "independent_fresh_sol_review"
 
@@ -73,12 +73,12 @@ def pending_review_fixture() -> dict[str, object]:
     return review
 
 
-def approved_392_review_fixture() -> dict[str, object]:
+def approved_393_review_fixture() -> dict[str, object]:
     review = pending_review_fixture()
     review["review_status"] = "approved"
     review.pop("review_basis", None)
-    review["approval_basis"] = APPROVED_392_BASIS
-    review["reviewer_role"] = APPROVED_392_REVIEWER
+    review["approval_basis"] = APPROVED_393_BASIS
+    review["reviewer_role"] = APPROVED_393_REVIEWER
     return review
 
 
@@ -90,7 +90,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         required = {"state", "log", "media", "transcript", "cache", "output"}
         self.assertEqual(required, set(generator.REQUIRED_ARTIFACT_CATEGORIES))
         coverage = [row for row in rows if row.get("artifact_role") == "category_coverage"]
-        self.assertEqual(392 * 6, len(coverage))
+        self.assertEqual(393 * 6, len(coverage))
         expected_loop_refs = {generator.loop_ref(parent) for parent in parents}
         self.assertEqual(expected_loop_refs, {row["loop_ref"] for row in coverage})
         pairs = [(row["loop_ref"], row["artifact_category"]) for row in coverage]
@@ -106,8 +106,8 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
             all(row["artifact_category"] != "definition" for row in coverage)
         )
 
-    def test_rebind_artifacts_match_current_392_parent_revision(self) -> None:
-        generator = load_module("state_artifact_generator_392_revision", GENERATOR)
+    def test_rebind_artifacts_match_current_393_parent_revision(self) -> None:
+        generator = load_module("state_artifact_generator_393_revision", GENERATOR)
         parents = read_tsv(PARENT)
         manifest = json.loads(DISCOVERY.read_text(encoding="utf-8"))
         review = json.loads(DISCOVERY_REVIEW.read_text(encoding="utf-8"))
@@ -115,7 +115,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         expected_digest = generator.canonical_digest(
             [generator.parent_metadata_digest(parent) for parent in parents]
         )
-        self.assertEqual(392, len(parents))
+        self.assertEqual(393, len(parents))
         self.assertEqual(CURRENT_PARENT_DIGEST, expected_digest)
         self.assertEqual(CURRENT_PARENT_DIGEST, manifest["parent_inventory_digest"])
         self.assertEqual(CURRENT_PARENT_DIGEST, review["parent_inventory_digest"])
@@ -183,37 +183,38 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         self.assertEqual("unknown", logs[0]["size_scope"])
         self.assertEqual("lstat:mutable_regular_file", logs[0]["size_evidence"])
 
-    def test_builder_stays_pending_while_separate_392_review_is_approved(self) -> None:
+    def test_builder_and_separate_393_review_stay_pending_before_fresh_review(self) -> None:
         generator = load_module("state_artifact_generator_independent_review", GENERATOR)
         manifest = json.loads(DISCOVERY.read_text(encoding="utf-8"))
         self.assertEqual("review_required", manifest["review_status"])
         self.assertTrue(DISCOVERY_REVIEW.is_file())
         review = json.loads(DISCOVERY_REVIEW.read_text(encoding="utf-8"))
-        self.assertEqual("approved", review["review_status"])
-        self.assertNotIn("review_basis", review)
-        self.assertEqual(APPROVED_392_BASIS, review["approval_basis"])
-        self.assertEqual(APPROVED_392_REVIEWER, review["reviewer_role"])
+        self.assertEqual("review_required", review["review_status"])
+        self.assertEqual("pending_independent_architecture_review", review["review_basis"])
+        self.assertNotIn("approval_basis", review)
+        self.assertEqual("independent_fresh_reviewer_required", review["reviewer_role"])
         objects, edges = generator.build_inventory(
             read_tsv(PARENT),
             manifest,
             json.loads(OBSERVATIONS.read_text(encoding="utf-8")),
             review=review,
+            candidate=True,
         )
         self.assertGreaterEqual(len(objects), 127)
-        self.assertEqual({"independent_review_approved"}, {row["review_mode"] for row in edges})
+        self.assertEqual({"candidate_review_required"}, {row["review_mode"] for row in edges})
 
-    def test_approved_normal_outputs_are_byte_exact(self) -> None:
+    def test_pending_candidate_outputs_are_byte_exact(self) -> None:
         manifest = json.loads(DISCOVERY.read_text(encoding="utf-8"))
         review = json.loads(DISCOVERY_REVIEW.read_text(encoding="utf-8"))
         self.assertEqual("review_required", manifest["review_status"])
-        self.assertEqual("approved", review["review_status"])
+        self.assertEqual("review_required", review["review_status"])
         with tempfile.TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
             observations = temp / "observations.json"
             edges = temp / "edges.tsv"
             objects = temp / "objects.json"
             collect = subprocess.run(
-                ["python3", str(COLLECTOR), "--output", str(observations)],
+                ["python3", str(COLLECTOR), "--candidate", "--output", str(observations)],
                 cwd=REPO,
                 capture_output=True,
                 text=True,
@@ -222,7 +223,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
             generate = subprocess.run(
                 [
                     "python3", str(GENERATOR), "--observations", str(observations),
-                    "--output", str(edges), "--objects-output", str(objects),
+                    "--output", str(edges), "--objects-output", str(objects), "--candidate",
                 ],
                 cwd=REPO,
                 capture_output=True,
@@ -233,26 +234,23 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
             self.assertEqual(TRACKED.read_bytes(), edges.read_bytes())
             self.assertEqual(OBJECTS.read_bytes(), objects.read_bytes())
         self.assertEqual(
-            "independent_review_approved",
+            "candidate_review_required",
             json.loads(OBSERVATIONS.read_text(encoding="utf-8"))["review_mode"],
         )
         self.assertEqual(
-            {"independent_review_approved"},
+            {"candidate_review_required"},
             {row["review_mode"] for row in read_tsv(TRACKED)},
         )
         self.assertEqual(
-            "independent_review_approved",
+            "candidate_review_required",
             json.loads(OBJECTS.read_text(encoding="utf-8"))["review_mode"],
         )
 
-    def test_392_approval_tuple_enables_normal_generation_and_rejects_legacy_334_tuple(self) -> None:
-        approved = approved_392_review_fixture()
-        legacy = json.loads(json.dumps(approved))
-        legacy["approval_basis"] = LEGACY_334_BASIS
-        legacy["reviewer_role"] = LEGACY_334_REVIEWER
+    def test_393_approval_tuple_enables_normal_generation_and_rejects_legacy_tuples(self) -> None:
+        approved = approved_393_review_fixture()
         with tempfile.TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
-            approved_path = temp / "approved-392.json"
+            approved_path = temp / "approved-393.json"
             approved_path.write_text(json.dumps(approved), encoding="utf-8")
             observations = temp / "observations.json"
             edges = temp / "edges.tsv"
@@ -278,37 +276,44 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
                 text=True,
             )
             self.assertEqual(0, generate.returncode, generate.stderr)
-            self.assertEqual(2744, len(read_tsv(edges)))
+            self.assertEqual(2751, len(read_tsv(edges)))
             self.assertEqual(
-                185, len(json.loads(objects.read_text(encoding="utf-8"))["objects"])
+                186, len(json.loads(objects.read_text(encoding="utf-8"))["objects"])
             )
-            legacy_path = temp / "legacy-334.json"
-            legacy_path.write_text(json.dumps(legacy), encoding="utf-8")
-            for tool, arguments, output in (
-                (COLLECTOR, [], temp / "legacy-observations.json"),
-                (
-                    GENERATOR,
-                    ["--observations", str(observations)],
-                    temp / "legacy-edges.tsv",
-                ),
+            for basis, reviewer in (
+                ("todo3_392_rebind_independent_review_approved_v1", APPROVED_393_REVIEWER),
+                (LEGACY_334_BASIS, LEGACY_334_REVIEWER),
             ):
-                completed = subprocess.run(
-                    [
-                        "python3", str(tool), "--review", str(legacy_path), *arguments,
-                        "--output", str(output),
-                    ],
-                    cwd=REPO,
-                    capture_output=True,
-                    text=True,
-                )
-                with self.subTest(tool=tool.name):
-                    self.assertNotEqual(0, completed.returncode)
-                    self.assertEqual("", completed.stdout)
-                    self.assertFalse(output.exists())
-                    self.assertIn("independent review approval required", completed.stderr)
+                legacy = json.loads(json.dumps(approved))
+                legacy["approval_basis"] = basis
+                legacy["reviewer_role"] = reviewer
+                legacy_path = temp / f"legacy-{basis}.json"
+                legacy_path.write_text(json.dumps(legacy), encoding="utf-8")
+                for tool, arguments, output in (
+                    (COLLECTOR, [], temp / f"{basis}-observations.json"),
+                    (
+                        GENERATOR,
+                        ["--observations", str(observations)],
+                        temp / f"{basis}-edges.tsv",
+                    ),
+                ):
+                    completed = subprocess.run(
+                        [
+                            "python3", str(tool), "--review", str(legacy_path), *arguments,
+                            "--output", str(output),
+                        ],
+                        cwd=REPO,
+                        capture_output=True,
+                        text=True,
+                    )
+                    with self.subTest(tool=tool.name, basis=basis):
+                        self.assertNotEqual(0, completed.returncode)
+                        self.assertEqual("", completed.stdout)
+                        self.assertFalse(output.exists())
+                        self.assertIn("independent review approval required", completed.stderr)
 
     def test_invalid_review_variants_fail_closed_without_output(self) -> None:
-        approved = approved_392_review_fixture()
+        approved = approved_393_review_fixture()
         zero_digest = "sha256:" + ":".join(["0" * 8] * 8)
         variants: dict[str, dict[str, object] | None] = {"missing": None}
         unapproved = json.loads(json.dumps(approved))
@@ -380,9 +385,9 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
                 "candidate_review_required",
                 json.loads(candidate_observations.read_text(encoding="utf-8"))["review_mode"],
             )
-            self.assertEqual(2744, len(read_tsv(candidate_edges)))
+            self.assertEqual(2751, len(read_tsv(candidate_edges)))
             self.assertEqual(
-                185,
+                186,
                 len(json.loads(candidate_objects.read_text(encoding="utf-8"))["objects"]),
             )
             for tool, arguments, output in (
@@ -405,7 +410,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
     def test_builder_manifest_two_field_self_approval_is_rejected(self) -> None:
         promoted = json.loads(DISCOVERY.read_text(encoding="utf-8"))
         promoted["review_status"] = "approved"
-        promoted["review_basis"] = APPROVED_392_BASIS
+        promoted["review_basis"] = APPROVED_393_BASIS
         with tempfile.TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
             discovery_path = temp / "promoted-builder.json"
@@ -429,8 +434,8 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         approved = json.loads(DISCOVERY_REVIEW.read_text(encoding="utf-8"))
         approved["review_status"] = "approved"
         approved.pop("review_basis", None)
-        approved["approval_basis"] = APPROVED_392_BASIS
-        approved["reviewer_role"] = APPROVED_392_REVIEWER
+        approved["approval_basis"] = APPROVED_393_BASIS
+        approved["reviewer_role"] = APPROVED_393_REVIEWER
         with tempfile.TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
             review_path = temp / "approved-review.json"
@@ -448,7 +453,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
                     self.assertFalse(output.exists())
                     self.assertIn("candidate review artifact must remain pending", completed.stderr)
         rows = read_tsv(TRACKED)
-        self.assertEqual({"independent_review_approved"}, {row["review_mode"] for row in rows})
+        self.assertEqual({"candidate_review_required"}, {row["review_mode"] for row in rows})
 
     def test_manifest_review_and_observation_fields_are_privacy_validated(self) -> None:
         collector = load_module("state_artifact_collector_all_field_privacy", COLLECTOR)
@@ -583,19 +588,19 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         tracked_objects = json.loads(OBJECTS.read_text(encoding="utf-8"))["objects"]
         rows = read_tsv(TRACKED)
         self.assertEqual(list(generator.EDGE_FIELDS), list(rows[0]))
-        self.assertEqual(392, len(parents))
+        self.assertEqual(393, len(parents))
         self.assertEqual(
             {generator.loop_ref(row) for row in parents},
             {row["loop_ref"] for row in rows},
         )
         self.assertGreater(len(rows), len(parents))
         objects, expected_rows = generator.build_inventory(
-            parents, manifest, observations, review
+            parents, manifest, observations, review, candidate=True
         )
         self.assertEqual(tracked_objects, objects)
         self.assertEqual(rows, expected_rows)
         generator.validate_inventory(
-            objects, rows, parents, manifest, observations, review, candidate=False
+            objects, rows, parents, manifest, observations, review, candidate=True
         )
 
     def test_live_inventory_distinguishes_all_required_statuses(self) -> None:
@@ -631,10 +636,10 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         review = json.loads(DISCOVERY_REVIEW.read_text(encoding="utf-8"))
         observations = json.loads(OBSERVATIONS.read_text(encoding="utf-8"))
         first = generator.build_inventory(
-            parents, manifest, observations, review
+            parents, manifest, observations, review, candidate=True
         )
         second = generator.build_inventory(
-            parents, manifest, observations, review
+            parents, manifest, observations, review, candidate=True
         )
         self.assertEqual(first, second)
         _, edges = first
@@ -652,22 +657,22 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         mutated["parent_inventory_digest"] = "sha256:" + ":".join(["0" * 8] * 8)
         with self.assertRaisesRegex(SystemExit, "parent inventory revision mismatch"):
             generator.build_inventory(
-                parents, manifest, mutated, review
+                parents, manifest, mutated, review, candidate=True
             )
         objects, edges = generator.build_inventory(
-            parents, manifest, observations, review
+            parents, manifest, observations, review, candidate=True
         )
         objects[0]["path_class"] = "/Users/private/state.json"
         with self.assertRaisesRegex(SystemExit, "unsafe artifact field"):
             generator.validate_inventory(
-                objects, edges, parents, manifest, observations, review, candidate=False
+                objects, edges, parents, manifest, observations, review, candidate=True
             )
         objects, edges = generator.build_inventory(
-            parents, manifest, observations, review
+            parents, manifest, observations, review, candidate=True
         )
         objects[0]["ssot_evidence_locator"] = "STATE_TOKEN=fixture-value"
         with self.assertRaises(SystemExit):
-            generator.validate_inventory(objects, edges, parents, manifest, observations, review, candidate=False)
+            generator.validate_inventory(objects, edges, parents, manifest, observations, review, candidate=True)
 
     def test_collector_reads_only_parent_tsv_and_uses_stat_metadata(self) -> None:
         source = COLLECTOR.read_text(encoding="utf-8")
@@ -796,7 +801,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         review = json.loads(DISCOVERY_REVIEW.read_text(encoding="utf-8"))
         observations = json.loads(OBSERVATIONS.read_text(encoding="utf-8"))
         objects, edges = generator.build_inventory(
-            parents, manifest, observations, review
+            parents, manifest, observations, review, candidate=True
         )
         changed = json.loads(json.dumps(objects))
         changed[0]["retention_classification"] = "version_controlled"
@@ -804,7 +809,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         changed[0]["retention_evidence_locator"] = "unverified"
         with self.assertRaisesRegex(SystemExit, "retention evidence coupling"):
             generator.validate_inventory(
-                changed, edges, parents, manifest, observations, review, candidate=False
+                changed, edges, parents, manifest, observations, review, candidate=True
             )
         changed = json.loads(json.dumps(objects))
         changed[0]["ssot_classification"] = "repository_primary"
@@ -812,7 +817,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         changed[0]["ssot_evidence_locator"] = "unverified"
         with self.assertRaisesRegex(SystemExit, "SSOT evidence coupling"):
             generator.validate_inventory(
-                changed, edges, parents, manifest, observations, review, candidate=False
+                changed, edges, parents, manifest, observations, review, candidate=True
             )
 
     def test_artifact_object_fields_reject_identifiers_paths_controls_and_entropy(self) -> None:
@@ -822,7 +827,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         review = json.loads(DISCOVERY_REVIEW.read_text(encoding="utf-8"))
         observations = json.loads(OBSERVATIONS.read_text(encoding="utf-8"))
         objects, edges = generator.build_inventory(
-            parents, manifest, observations, review
+            parents, manifest, observations, review, candidate=True
         )
         forbidden = (
             "Daisuke134",
@@ -849,7 +854,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
             with self.subTest(value=value):
                 with self.assertRaises(SystemExit):
                     generator.validate_inventory(
-                        changed, edges, parents, manifest, observations, review, candidate=False
+                        changed, edges, parents, manifest, observations, review, candidate=True
                     )
 
 
