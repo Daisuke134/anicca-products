@@ -12,15 +12,15 @@ Secret and personal-data boundary: the generator never exports plist `Environmen
 
 | Source | Rows | State summary |
 |---|---:|---|
-| `~/Library/LaunchAgents/*.plist` | 168 | loaded 150 (including one missing declared entrypoint); installed/not loaded 2; disabled by launchctl 14; parse error 2 |
+| `~/Library/LaunchAgents/*.plist` | 169 | loaded 151 (including one missing declared entrypoint); installed/not loaded 2; disabled by launchctl 14; parse error 2 |
 | `~/.openclaw/cron/jobs.json` | 222 | enabled 92; disabled 130 |
 | Railway production entrypoint | 1 | `apps/life-call/package.json#start -> node server.js` exists on `origin/main` |
 | Current-branch repository entrypoints | 4 | `apps/api`, `apps/landing`, `apps/x402-agents`, and `web-apps/daily-dhamma-app`; runtime not asserted here |
-| **Total** | **395 data rows** | 396 physical TSV lines including the header |
+| **Total** | **396 data rows** | 397 physical TSV lines including the header |
 
 Two installed plists are malformed and remain explicit `parse_error` rows instead of disappearing from the inventory: `ai.anicca.cfo-daily` and `ai.anicca.tsbridge`.
 
-The current refresh moves from the reviewed 334-row snapshot to 395 rows. The prior 393-row snapshot gains two live definitions, `ai.anicca.life-manager-financial-report` and `ai.anicca.life-manager-payout`; no ID is removed in this step. The complete current-ID digest is `e8c25d07d3d9e5a5004a4ff354091c6b094603c054a4fd0157e90348a187b18f`. The earlier removed definitions are `ai.anicca.article-d7d8-finalizer`, `ai.anicca.article-diary-digest`, `ai.anicca.disk-autoprune`, `ai.anicca.orca-zenn-finalizer`, and `com.anicca.disk-cleaner`; removal from this current inventory does not delete or stop any process.
+The current refresh moves from the reviewed 334-row snapshot to 396 rows. The prior 395-row snapshot gains `ai.anicca.hf-gig-weekly-report`; no ID is removed in this step. The complete current-ID digest is `5cb597d26321089ed678fb8c48a85599734d0709c2d5d69166c37b5cb75967e0`. The earlier removed definitions are `ai.anicca.article-d7d8-finalizer`, `ai.anicca.article-diary-digest`, `ai.anicca.disk-autoprune`, `ai.anicca.orca-zenn-finalizer`, and `com.anicca.disk-cleaner`; removal from this current inventory does not delete or stop any process.
 
 `ai.anicca.pipecat-meeting` declares `~/anicca-oss-pipecat/skills/anicca-meeting/run.sh`. The declaration is preserved for migration tracing, while its current absence is recorded as `loaded;declared_entrypoint_missing`; ownership is `Anicca meeting / Pipecat` based on that path.
 
@@ -52,13 +52,13 @@ import csv
 from pathlib import Path
 
 rows = list(csv.DictReader(Path('docs/reference/cloud-agent-loop-inventory.tsv').open(), delimiter='\t'))
-assert len(rows) == 395
+assert len(rows) == 396
 assert len({row['inventory_id'] for row in rows}) == len(rows)
 assert all(all(row.values()) for row in rows)
-assert sum(row['source_type'] == 'launchd' for row in rows) == 168
+assert sum(row['source_type'] == 'launchd' for row in rows) == 169
 assert sum(row['source_type'] == 'openclaw_cron' for row in rows) == 222
 assert sum(row['source_type'] == 'repository_entrypoint' for row in rows) == 4
-print('inventory completeness: PASS (395 unique, complete data rows)')
+print('inventory completeness: PASS (396 unique, complete data rows)')
 PY
 ```
 

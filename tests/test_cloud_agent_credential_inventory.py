@@ -34,7 +34,7 @@ OBJECTS = REPO / "docs" / "reference" / "cloud-agent-credential-objects.json"
 DOCUMENTATION = REPO / "docs" / "reference" / "cloud-agent-credential-inventory.md"
 TYPESCRIPT_VERSION = "5.5.4"
 TYPESCRIPT_INTEGRITY = "sha512-Mtq29sKDAEYP7aljRgtPOpTvOfbwRWlS6dPRzwjdE+C0R4brX/GUyhHSecbHMFLNBLcJIPt9nl9yG5TZ1weH+Q=="
-CURRENT_PARENT_DIGEST = "sha256:f56ddbe1:e3c71ae5:307f8f50:1a31bea5:1c11296b:242d3c60:38bd5b5e:3c9d8d1d"
+CURRENT_PARENT_DIGEST = "sha256:61482ba7:96818eeb:89aecc35:ad3c4366:f81d3625:9258d8f8:4e65e542:11f86872"
 def load_generator():
     spec = importlib.util.spec_from_file_location("credential_inventory", GENERATOR)
     if spec is None or spec.loader is None:
@@ -3324,8 +3324,8 @@ class CredentialInventoryContractTests(unittest.TestCase):
         self.assertEqual(self.generator.PENDING_REVIEW_BASIS, review["review_basis"])
         self.assertEqual(self.generator.canonical_digest(observations), review["approved_observation_digest"])
         self.assertEqual(CURRENT_PARENT_DIGEST, observations["parent_inventory_digest"])
-        self.assertEqual(395, len(observations["parents"]))
-        self.assertEqual(395, len(review["parents"]))
+        self.assertEqual(396, len(observations["parents"]))
+        self.assertEqual(396, len(review["parents"]))
 
     def test_separate_independent_review_is_pending_and_digest_bound(self) -> None:
         self.assertTrue(INDEPENDENT_REVIEW.is_file())
@@ -3335,7 +3335,7 @@ class CredentialInventoryContractTests(unittest.TestCase):
         objects = read_json(OBJECTS)
         edges = read_tsv(TRACKED)
         self.assertEqual(
-            "todo2_395_rebind_independent_review_approved_v1",
+            "todo2_396_rebind_independent_review_approved_v1",
             self.generator.APPROVED_INDEPENDENT_REVIEW_BASIS,
         )
         self.assertEqual("review_required", independent["review_status"])
@@ -3351,7 +3351,7 @@ class CredentialInventoryContractTests(unittest.TestCase):
         self.assertEqual(self.generator.canonical_digest(objects), independent["object_digest"])
         self.assertEqual(self.generator.canonical_digest(edges), independent["inventory_digest"])
 
-    def test_legacy_393_approval_tuple_is_rejected_on_current_artifacts(self) -> None:
+    def test_legacy_395_approval_tuple_is_rejected_on_current_artifacts(self) -> None:
         parents = read_tsv(PARENT)
         observations = read_json(OBSERVATIONS)
         review = read_json(REVIEW)
@@ -3360,8 +3360,8 @@ class CredentialInventoryContractTests(unittest.TestCase):
         legacy = pending_independent_review_fixture()
         legacy.update({
             "review_status": "approved",
-            "review_basis": "todo2_393_rebind_independent_review_approved_v1",
-            "approval_basis": "todo2_393_rebind_independent_review_approved_v1",
+            "review_basis": "todo2_395_rebind_independent_review_approved_v1",
+            "approval_basis": "todo2_395_rebind_independent_review_approved_v1",
             "reviewer_role": "independent_fresh_credential_reviewer",
         })
         with self.assertRaisesRegex(SystemExit, "independent credential rebind review required"):
@@ -3595,7 +3595,7 @@ class CredentialInventoryContractTests(unittest.TestCase):
                 self.generator.main()
         self.assertEqual(TRACKED.read_text(encoding="utf-8"), stdout.getvalue())
         summary = json.loads(stderr.getvalue())
-        self.assertEqual(395, summary["parents"])
+        self.assertEqual(396, summary["parents"])
         self.assertEqual(18, summary["credential_objects"])
 
     def test_tracked_artifacts_contain_no_synthesized_openclaw_bundle(self) -> None:
@@ -3782,23 +3782,23 @@ class CredentialInventoryContractTests(unittest.TestCase):
                 "by_status": {
                     "none_observed": 35,
                     "observed": 10,
-                    "unverified": 354,
+                    "unverified": 355,
                 },
                 "credential_objects": 18,
                 "finding_objects": 1,
-                "parents": 395,
-                "rows": 399,
+                "parents": 396,
+                "rows": 400,
             },
             json.loads(stderr.getvalue()),
         )
 
-    def test_all_395_parent_ids_are_covered_without_unknown_parents(self) -> None:
+    def test_all_396_parent_ids_are_covered_without_unknown_parents(self) -> None:
         parents = read_tsv(PARENT)
         credentials = read_tsv(TRACKED)
         parent_ids = {row["inventory_id"] for row in parents}
         covered_ids = {row["inventory_id"] for row in credentials}
-        self.assertEqual(395, len(parents))
-        self.assertEqual(395, len(parent_ids))
+        self.assertEqual(396, len(parents))
+        self.assertEqual(396, len(parent_ids))
         self.assertEqual(parent_ids, covered_ids)
 
     def test_required_columns_values_and_ids_are_complete(self) -> None:
