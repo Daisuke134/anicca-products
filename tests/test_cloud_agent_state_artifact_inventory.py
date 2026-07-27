@@ -44,6 +44,10 @@ REMOVED_PARENT_IDS = {
     "launchd:ai.anicca.article-d7d8-finalizer",
     "launchd:ai.anicca.orca-zenn-finalizer",
 }
+APPROVED_392_BASIS = "todo3_392_rebind_independent_review_approved_v1"
+APPROVED_392_REVIEWER = "independent_fresh_state_artifact_reviewer"
+LEGACY_334_BASIS = "todo3_independent_candidate_review_approved_v1"
+LEGACY_334_REVIEWER = "independent_fresh_sol_review"
 
 
 def load_module(name: str, path: Path):
@@ -66,6 +70,15 @@ def pending_review_fixture() -> dict[str, object]:
     review.pop("approval_basis", None)
     review["review_basis"] = "pending_independent_architecture_review"
     review["reviewer_role"] = "independent_fresh_reviewer_required"
+    return review
+
+
+def approved_392_review_fixture() -> dict[str, object]:
+    review = pending_review_fixture()
+    review["review_status"] = "approved"
+    review.pop("review_basis", None)
+    review["approval_basis"] = APPROVED_392_BASIS
+    review["reviewer_role"] = APPROVED_392_REVIEWER
     return review
 
 
@@ -248,12 +261,70 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
             json.loads(OBJECTS.read_text(encoding="utf-8"))["review_mode"],
         )
 
+    def test_392_approval_tuple_enables_normal_generation_and_rejects_legacy_334_tuple(self) -> None:
+        approved = approved_392_review_fixture()
+        legacy = json.loads(json.dumps(approved))
+        legacy["approval_basis"] = LEGACY_334_BASIS
+        legacy["reviewer_role"] = LEGACY_334_REVIEWER
+        with tempfile.TemporaryDirectory() as temp_dir:
+            temp = Path(temp_dir)
+            approved_path = temp / "approved-392.json"
+            approved_path.write_text(json.dumps(approved), encoding="utf-8")
+            observations = temp / "observations.json"
+            edges = temp / "edges.tsv"
+            objects = temp / "objects.json"
+            collect = subprocess.run(
+                [
+                    "python3", str(COLLECTOR), "--review", str(approved_path),
+                    "--output", str(observations),
+                ],
+                cwd=REPO,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(0, collect.returncode, collect.stderr)
+            generate = subprocess.run(
+                [
+                    "python3", str(GENERATOR), "--review", str(approved_path),
+                    "--observations", str(observations), "--output", str(edges),
+                    "--objects-output", str(objects),
+                ],
+                cwd=REPO,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(0, generate.returncode, generate.stderr)
+            self.assertEqual(2744, len(read_tsv(edges)))
+            self.assertEqual(
+                185, len(json.loads(objects.read_text(encoding="utf-8"))["objects"])
+            )
+            legacy_path = temp / "legacy-334.json"
+            legacy_path.write_text(json.dumps(legacy), encoding="utf-8")
+            for tool, arguments, output in (
+                (COLLECTOR, [], temp / "legacy-observations.json"),
+                (
+                    GENERATOR,
+                    ["--observations", str(observations)],
+                    temp / "legacy-edges.tsv",
+                ),
+            ):
+                completed = subprocess.run(
+                    [
+                        "python3", str(tool), "--review", str(legacy_path), *arguments,
+                        "--output", str(output),
+                    ],
+                    cwd=REPO,
+                    capture_output=True,
+                    text=True,
+                )
+                with self.subTest(tool=tool.name):
+                    self.assertNotEqual(0, completed.returncode)
+                    self.assertEqual("", completed.stdout)
+                    self.assertFalse(output.exists())
+                    self.assertIn("independent review approval required", completed.stderr)
+
     def test_invalid_review_variants_fail_closed_without_output(self) -> None:
-        approved = json.loads(DISCOVERY_REVIEW.read_text(encoding="utf-8"))
-        approved["review_status"] = "approved"
-        approved.pop("review_basis", None)
-        approved["approval_basis"] = "todo3_independent_candidate_review_approved_v1"
-        approved["reviewer_role"] = "independent_fresh_sol_review"
+        approved = approved_392_review_fixture()
         zero_digest = "sha256:" + ":".join(["0" * 8] * 8)
         variants: dict[str, dict[str, object] | None] = {"missing": None}
         unapproved = json.loads(json.dumps(approved))
@@ -350,7 +421,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
     def test_builder_manifest_two_field_self_approval_is_rejected(self) -> None:
         promoted = json.loads(DISCOVERY.read_text(encoding="utf-8"))
         promoted["review_status"] = "approved"
-        promoted["review_basis"] = "todo3_independent_candidate_review_approved_v1"
+        promoted["review_basis"] = APPROVED_392_BASIS
         with tempfile.TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
             discovery_path = temp / "promoted-builder.json"
@@ -374,8 +445,8 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         approved = json.loads(DISCOVERY_REVIEW.read_text(encoding="utf-8"))
         approved["review_status"] = "approved"
         approved.pop("review_basis", None)
-        approved["approval_basis"] = "todo3_independent_candidate_review_approved_v1"
-        approved["reviewer_role"] = "independent_fresh_sol_review"
+        approved["approval_basis"] = APPROVED_392_BASIS
+        approved["reviewer_role"] = APPROVED_392_REVIEWER
         with tempfile.TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
             review_path = temp / "approved-review.json"

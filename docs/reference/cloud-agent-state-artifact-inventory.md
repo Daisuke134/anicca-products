@@ -4,7 +4,7 @@
 
 builder-owned
 [`cloud-agent-state-artifact-discovery-manifest.json`](./cloud-agent-state-artifact-discovery-manifest.json)は常に`review_required / pending_independent_architecture_review`を保持する。392-parent rebind candidateでは別artifact
-[`cloud-agent-state-artifact-discovery-review.json`](./cloud-agent-state-artifact-discovery-review.json)も`review_required / pending_independent_architecture_review / independent_fresh_reviewer_required`である。review artifactはcanonical manifest digest、current ordered parent digest、exact source revision mapへbindし、builder manifest自体はself-approveしない。fresh independent review後にseparate reviewだけをapproved tupleへ遷移できる。
+[`cloud-agent-state-artifact-discovery-review.json`](./cloud-agent-state-artifact-discovery-review.json)も`review_required / pending_independent_architecture_review / independent_fresh_reviewer_required`である。review artifactはcanonical manifest digest、current ordered parent digest、exact source revision mapへbindし、builder manifest自体はself-approveしない。fresh independent review後にseparate reviewだけを`approved / todo3_392_rebind_independent_review_approved_v1 / independent_fresh_state_artifact_reviewer`へ遷移できる。旧334 approval tupleはcurrent digestへコピーしても拒否する。
 
 current collector/generatorはexplicit `--candidate`だけで成功し、tracked observation、object JSON、全edgeは`candidate_review_required`を持つ。normal modeではnonzero・stdout 0・output非作成となる。builder二field自己承認、approved reviewのcandidate downgrade、stale 330/334-parent review、missing/wrong status、stale manifest/parent/source bindingも拒否する。
 

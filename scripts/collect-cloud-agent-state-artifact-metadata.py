@@ -28,6 +28,8 @@ DEFAULT_PARENT = REPO / "docs/reference/cloud-agent-loop-inventory.tsv"
 DEFAULT_DISCOVERY = REPO / "docs/reference/cloud-agent-state-artifact-discovery-manifest.json"
 DEFAULT_REVIEW = REPO / "docs/reference/cloud-agent-state-artifact-discovery-review.json"
 DEFAULT_OUTPUT = REPO / "docs/reference/cloud-agent-state-artifact-observations.json"
+APPROVED_REVIEW_BASIS = "todo3_392_rebind_independent_review_approved_v1"
+APPROVED_REVIEWER_ROLE = "independent_fresh_state_artifact_reviewer"
 DIGEST_PATTERN = re.compile(r"^sha256:(?:[0-9a-f]{8}:){7}[0-9a-f]{8}$")
 SAFE_RELATIVE = re.compile(r"[A-Za-z0-9._@+-]+(?:/[A-Za-z0-9._@+:-]+)*")
 REQUIRED_ARTIFACT_CATEGORIES = ("state", "log", "media", "transcript", "cache", "output")
@@ -538,8 +540,8 @@ def validate_review(
         return "candidate_review_required"
     if (
         review.get("review_status") != "approved"
-        or review.get("approval_basis") != "todo3_independent_candidate_review_approved_v1"
-        or review.get("reviewer_role") != "independent_fresh_sol_review"
+        or review.get("approval_basis") != APPROVED_REVIEW_BASIS
+        or review.get("reviewer_role") != APPROVED_REVIEWER_ROLE
     ):
         raise SystemExit("independent review approval required")
     return "independent_review_approved"
