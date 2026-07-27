@@ -2,7 +2,7 @@
 
 ## Purpose and SSOT
 
-TODO #2 のloop dependency edge artifactは [`cloud-agent-credential-inventory.tsv`](./cloud-agent-credential-inventory.tsv)、unique credential/finding object artifactは [`cloud-agent-credential-objects.json`](./cloud-agent-credential-objects.json) である。親集合は [`cloud-agent-loop-inventory.tsv`](./cloud-agent-loop-inventory.tsv) の393 `inventory_id` とexact matchする。live非秘密metadataは [`cloud-agent-credential-observations.json`](./cloud-agent-credential-observations.json)、builder candidate manifestは [`cloud-agent-credential-review-manifest.json`](./cloud-agent-credential-review-manifest.json)、分離したindependent review artifactは [`cloud-agent-credential-rebind-review.json`](./cloud-agent-credential-rebind-review.json) である。builder manifestはpendingを維持し、separate artifactだけが `approved / todo2_393_rebind_independent_review_approved_v1 / independent_fresh_credential_reviewer` へ遷移済みである。independent artifactはbuilder manifest、ordered parent、observation、object、inventoryの5 digestへexact bindする。generator normal modeはこのexact approvalを検証して393-parent inventoryを生成し、旧392 approvalはcurrent artifactsでもfail closedする。
+TODO #2 のloop dependency edge artifactは [`cloud-agent-credential-inventory.tsv`](./cloud-agent-credential-inventory.tsv)、unique credential/finding object artifactは [`cloud-agent-credential-objects.json`](./cloud-agent-credential-objects.json) である。親集合は [`cloud-agent-loop-inventory.tsv`](./cloud-agent-loop-inventory.tsv) の395 `inventory_id` とexact matchする。live非秘密metadataは [`cloud-agent-credential-observations.json`](./cloud-agent-credential-observations.json)、builder candidate manifestは [`cloud-agent-credential-review-manifest.json`](./cloud-agent-credential-review-manifest.json)、分離したindependent review artifactは [`cloud-agent-credential-rebind-review.json`](./cloud-agent-credential-rebind-review.json) である。builder manifestとseparate artifactはfresh review前のpendingを維持する。independent artifactはbuilder manifest、ordered parent、observation、object、inventoryの5 digestへexact bindする。generator candidate modeだけが395-parent inventoryを生成し、旧393 approvalはcurrent artifactsでもfail closedする。
 
 TSV列は `loop_dependency_edge_id`, `inventory_id`, `loop_state`, `dependency_status`, `credential_object_id`, `consumer_locator`, 実操作分類の `permission_scope`, `dependency_basis`, `evidence_locator`, `parent_metadata_digest`, `source_revision_digest`, `config_revision_digest` である。provider/account/ref/policyはunique object側だけに置き、edgeはobject IDを参照する。
 
@@ -30,8 +30,8 @@ LaunchAgent sourceは全argvから安全に投影したwrapper/executable/config
 
 | Measure | Count |
 |---|---:|
-| Parent loops covered | 393 / 393 |
-| Loop dependency edges | 397 |
+| Parent loops covered | 395 / 395 |
+| Loop dependency edges | 399 |
 | Unique credential objects | 18 |
 | Loop-used credential objects | 10 |
 | Catalog-only credential objects | 8 |
@@ -39,14 +39,14 @@ LaunchAgent sourceは全argvから安全に投影したwrapper/executable/config
 | `observed` edges | 10 |
 | `none_observed` edges | 35 |
 | `inactive` edges | 0 |
-| `unverified` edges | 352 |
+| `unverified` edges | 354 |
 | `policy_violation` edges | 0 |
 | Source revision unverified parents | 31 |
 | OpenClaw audit plaintext findings | 39 |
 | OpenClaw audit unresolved refs | 0 |
 | OpenClaw audit legacy residue | 6 |
 
-OpenClaw親222件のうちlive cron metadataは217件、親inventoryにだけ残る5件はsafe retryでstderr class `unstructured_not_found` となる。これは明示的な構造化Gateway `NOT_FOUND` responseではないためabsence objectは0件で、5件は `cron_metadata_unavailable` / `unverified` のままである。過去のabsenceを保持・完了根拠にしない。392 approval済みdecisionはrevision一致する親だけ候補へcarryし、新規 `launchd:ai.anicca.life-manager-x402-ledger` はexact parent/source/config digestを持つ `unverified / independent_review_pending` へfail closedする。18 credential objectのうち10件はloop edgeから参照され、8件はcatalog-onlyである。unattributed plaintext findingは1つのconfig-level finding objectとして保持し、各loopへ複製しない。この393-parent値はfresh independent review待ちのcurrent candidateである。
+OpenClaw親222件のうちlive cron metadataは217件、親inventoryにだけ残る5件はsafe retryでstderr class `unstructured_not_found` となる。これは明示的な構造化Gateway `NOT_FOUND` responseではないためabsence objectは0件で、5件は `cron_metadata_unavailable` / `unverified` のままである。過去のabsenceを保持・完了根拠にしない。393 approval済みdecisionはrevision一致する親だけ候補へcarryし、新規 `launchd:ai.anicca.life-manager-financial-report` と `launchd:ai.anicca.life-manager-payout` はexact parent/source/config digestを持つ `unverified / independent_review_pending` へfail closedする。18 credential objectのうち10件はloop edgeから参照され、8件はcatalog-onlyである。unattributed plaintext findingは1つのconfig-level finding objectとして保持し、各loopへ複製しない。この395-parent値はfresh independent review待ちのcurrent candidateである。
 
 `openclaw_revision` はexact `version_digest/schema_digest` schemaを持ち、source locatorのversion identityとschema digestからgateway/source revisionを独立導出して全OpenClaw親とcron failure/absenceへexact bindingする。cron failure/absenceはtop-level map、親observation、review recordの6 field tupleとID集合をexact一致させる。`dynamic_openclaw` はverifiedなversion/schema/source/config、job-specific safe cron metadata、`inspection_status=verified` が揃う場合だけ許可し、observed/policy edgeはlive `enabled=true` / `payload_kind=agentTurn` とreview済みderived referenceのkind/object/locatorへexact bindingする。inactive edgeも同じrevision/inspection/review provenanceを要求する。いずれかが欠ける親はstateに関係なく `unverified` edgeだけを許可する。
 
@@ -64,7 +64,7 @@ python3 -m py_compile scripts/collect-cloud-agent-credential-metadata.py scripts
 python3 -m unittest tests.test_cloud_agent_credential_inventory -v
 python3 scripts/collect-cloud-agent-credential-metadata.py --parent docs/reference/cloud-agent-loop-inventory.tsv --output /tmp/cloud-agent-credential-observations.json
 diff -u <(jq 'walk(if type=="object" and has("observed_at") then .observed_at="<observed_at>" else . end)' docs/reference/cloud-agent-credential-observations.json) <(jq 'walk(if type=="object" and has("observed_at") then .observed_at="<observed_at>" else . end)' /tmp/cloud-agent-credential-observations.json)
-python3 scripts/generate-cloud-agent-credential-inventory.py --check > /tmp/cloud-agent-credential-inventory.tsv
+python3 scripts/generate-cloud-agent-credential-inventory.py --candidate --check > /tmp/cloud-agent-credential-inventory.tsv
 cmp /tmp/cloud-agent-credential-inventory.tsv docs/reference/cloud-agent-credential-inventory.tsv
 python3 -m trace --count --missing --summary --coverdir /tmp/cloud-agent-todo2-trace --module unittest tests.test_cloud_agent_credential_inventory
 for artifact in docs/reference/cloud-agent-credential-observations.json docs/reference/cloud-agent-credential-review-manifest.json docs/reference/cloud-agent-credential-rebind-review.json docs/reference/cloud-agent-credential-objects.json docs/reference/cloud-agent-credential-inventory.tsv docs/reference/cloud-agent-credential-inventory.md; do
