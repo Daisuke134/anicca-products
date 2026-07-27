@@ -1,5 +1,5 @@
 {
-  "discovery_manifest_digest": "sha256:35ee32b0:ef8e2b1a:6fae6025:6c0eb92b:4135bfe4:d5e13818:e22fe01f:9cdd6930",
+  "discovery_manifest_digest": "sha256:2f33502d:b265b962:585a47ce:de792ece:3c56c4a5:ce29c534:adc40738:8e104c9b",
   "objects": [
     {
       "action_class": "send_transactional_message",
@@ -242,7 +242,7 @@
       "target_class": "on_chain_contract"
     }
   ],
-  "parent_inventory_digest": "sha256:a212d39d:fb71962b:3e94e805:fdbcbaf3:8aae9020:8a44eaad:d3fc2adb:43218fb5",
-  "review_mode": "independent_review_approved",
+  "parent_inventory_digest": "sha256:61482ba7:96818eeb:89aecc35:ad3c4366:f81d3625:9258d8f8:4e65e542:11f86872",
+  "review_mode": "candidate_pending_review",
   "schema_version": 1
 }
