@@ -590,6 +590,17 @@ TODO #5 first fresh review evidence: reject（blocking 2）。初回候補はOpe
 
 TODO #5 final fresh re-review evidence: `ok:true / blocking:[] / todo5_393_macos_dependency_review_approved_v1 / independent_fresh_macos_dependency_reviewer`。393 / 393 exact opaque coverage、Linux-ready 1 / replacement-required 392 / retire 0、launchd 166 / Mac-hosted OpenClaw 222 / repository-only 4のreplacement target、Railway 1のmanaged-cloud evidence、payload portability unverified境界を独立確認する。A=B=tracked、5/5、Python compile、TSV+doc exact gitleaks、diff checkがPASSし、raw parent ID 0、duplicate parent no-output fail-closeを維持するためTODO #5を`done`とする。
 
+### 6.5.2 TODO #6 TaskList — workload queue classification
+
+- [x] 5 queueのisolation / concurrency keyを§3.4のexact contractへ固定する。
+- [x] current 393 parentとTODO #4 reviewed external-effect inventoryをopaque ref + parent digestで結合する。
+- [x] reviewed call/mail/render/post bindingとx402 ledgerだけをspecialized queueへ割り当てる。
+- [x] specialized evidenceのないloopを名前推測せずisolated `personal-ceo`へ倒す。
+- [x] unknown/stale/conflicting effect evidenceをoutput作成前にfail-closeする。
+- [ ] fresh independent reviewとfinal tracked reproduction gateを通す。
+
+TODO #6 candidate evidence: 393 / 393 exact opaque coverage。`life-events` 2 / `personal-ceo` 386 / `media-cpu` 1 / `browser-action` 3 / `financial-read` 1。call/mail/render/postの6 reviewed bindingとx402 revenue/cost ledger 1本だけをspecialized queueへ置き、残386本は`conservative_isolated_default`を明示する。external-effect inventoryは全393 parent × 5 category coverageのcurrent parent digestと`independent_review_approved`を検証し、unknown loop、stale digest、duplicate edge/category、unsupported role/category、複数specialized queue conflictではoutputを作らない。A=B=tracked、7/7、Python compile、raw parent ID 0をcandidateで確認するが、fresh review前は`in_progress`を維持する。
+
 ### 6.6 Current parent refresh ledger
 
 Mac Miniのloopを停止せずlive scheduler metadataを再収集した結果、TODO #1 parentは334 rowから392 rowへ変化した。差分は追加63・削除5、source別はlaunchd 165 / OpenClaw cron 222 / Railway 1 / repository entrypoint 4。current sorted ID digestは`9f5479da29cb9159925166129606e6fa422b949faa6028d7267b961fba1209bb`。REDはtracked 334 rowに対してcurrent 392 contractが2 failure / 1 error、GREENはgenerator A=B、tracked byte exact、focused 5/5。削除5はinventoryからのabsenceであり、migration操作としてprocess停止・launchd bootout・plist削除を実行していない。
@@ -629,7 +640,7 @@ state values: `pending | in_progress | code_done | done | blocked`。
 | 3 | loopごとのstate/artifact inventoryを作る | local path・size・retention・SSOTを記録 | done — 393 parent / 2,358 category / 393 definition / 2,751 edge / 186 object。新x402の6 categoryはunverified。fresh review blocking 0、旧392・334 tuple reject、normal A=B=tracked、31/31、gitleaks 6/6 |
 | 4 | loopごとのexternal side effect inventoryを作る | call/post/mail/render/walletを列挙 | done — 393 parent / 1,965 category + 6 binding = 1,971 edge / 12 object。call1/mail1/post3/render1/wallet0、Orca catalog-only、x402/HF全category unverified、wallet blocked。fresh review blocking 0、normal 17/17、gitleaks 6/6 |
 | 5 | macOS依存を分類する | Linux可/要置換/廃止を全loopに付与 | done — 393/393。Linux-ready 1 / replacement-required 392 / retire 0。Mac-hosted OpenClaw 222もgateway移設必須、payload unverified。fresh re-review blocking 0、5/5、gitleaks 2/2 |
-| 6 | workload classを確定する | 全loopが5 queueのどれかに所属 | pending |
+| 6 | workload classを確定する | 全loopが5 queueのどれかに所属 | in_progress — 393/393 candidate。life-events 2 / personal-ceo 386 / media-cpu 1 / browser-action 3 / financial-read 1。fresh review待ち |
 | 7 | DigitalOcean bridge Dropletを作る | key-only SSH + firewall + Tailscale実測 | pending |
 | 8 | bridgeへDocker runtimeを作る | pinned imageでhello health PASS | pending |
 | 9 | bridgeのoff-host logsを設定する | 再起動後も外部からlog閲覧可 | pending |
