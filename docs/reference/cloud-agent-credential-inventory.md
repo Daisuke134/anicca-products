@@ -64,12 +64,12 @@ python3 -m py_compile scripts/collect-cloud-agent-credential-metadata.py scripts
 python3 -m unittest tests.test_cloud_agent_credential_inventory -v
 python3 scripts/collect-cloud-agent-credential-metadata.py --parent docs/reference/cloud-agent-loop-inventory.tsv --output /tmp/cloud-agent-credential-observations.json
 diff -u <(jq 'walk(if type=="object" and has("observed_at") then .observed_at="<observed_at>" else . end)' docs/reference/cloud-agent-credential-observations.json) <(jq 'walk(if type=="object" and has("observed_at") then .observed_at="<observed_at>" else . end)' /tmp/cloud-agent-credential-observations.json)
-python3 scripts/generate-cloud-agent-credential-inventory.py --check > /tmp/cloud-agent-credential-inventory.tsv
+python3 scripts/generate-cloud-agent-credential-inventory.py --check --candidate > /tmp/cloud-agent-credential-inventory.tsv
 cmp /tmp/cloud-agent-credential-inventory.tsv docs/reference/cloud-agent-credential-inventory.tsv
 python3 -m trace --count --missing --summary --coverdir /tmp/cloud-agent-todo2-trace --module unittest tests.test_cloud_agent_credential_inventory
-artifact_gate=$(mktemp -d)
-cp docs/reference/cloud-agent-credential-observations.json docs/reference/cloud-agent-credential-review-manifest.json docs/reference/cloud-agent-credential-rebind-review.json docs/reference/cloud-agent-credential-objects.json docs/reference/cloud-agent-credential-inventory.tsv "$artifact_gate"/
-gitleaks dir "$artifact_gate" --config .gitleaks-cloud-agent.toml --redact --no-banner
+for artifact in docs/reference/cloud-agent-credential-observations.json docs/reference/cloud-agent-credential-review-manifest.json docs/reference/cloud-agent-credential-rebind-review.json docs/reference/cloud-agent-credential-objects.json docs/reference/cloud-agent-credential-inventory.tsv docs/reference/cloud-agent-credential-inventory.md; do
+  gitleaks detect --no-git --redact --config .gitleaks-cloud-agent.toml --source "$artifact"
+done
 ```
 
 OpenClaw公式は `models auth list` をsecretをdumpしないinspectionとして案内する: https://github.com/openclaw/openclaw/blob/main/docs/help/faq-models.md 。SecretRef migration gateは `openclaw secrets audit --check` のcleanを要求する: https://github.com/openclaw/openclaw/blob/main/docs/gateway/secrets.md 。finding enumの正本は `SecretsAuditCode` の4値である: https://github.com/openclaw/openclaw/blob/744a698fc5e03e1f63429b0632f097872d62e6cd/src/secrets/audit.ts 。Gatewayの個別job取得は `cron.get` handlerである: https://github.com/openclaw/openclaw/blob/37ac5d671fbcabc7529e2e7f9876c264e86e6c33/src/gateway/server-methods/cron.ts 。runtime auth resolverの正本は `api.runtime.modelAuth.getRuntimeAuthForModel` / `resolveApiKeyForProvider`: https://github.com/openclaw/openclaw/blob/main/docs/plugins/sdk-runtime.md 。
