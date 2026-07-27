@@ -581,10 +581,12 @@ Contractはcurrent parent 1件につきexact 1 opaque classification rowとす�
 
 - [x] Apple launchd、systemd timer、Kubernetes CronJobの一次資料とGitHub既存実装を検索し、scheduler replacementとpayload portabilityを分離する。
 - [x] RED: required generator/artifact/doc、393 exact coverage、opaque join、classification count、no implicit retire、determinism、duplicate fail-closeを5 test / 2 failure / 3 errorで固定する。
-- [x] GREEN: parent metadataだけからprivacy-safe rowを生成し、OpenClaw 222 + Railway 1を`linux_ready`、launchd 166 + repository 4を`replacement_required`、`retire` 0へ分類する。
+- [x] GREEN: parent metadataだけからprivacy-safe rowを生成し、Railway 1を`linux_ready`、launchd 166 + Mac-hosted OpenClaw 222 + repository 4を`replacement_required`、`retire` 0へ分類する。
 - [ ] deterministic tracked byte exact、privacy、secret scan、fresh review、pushを完了する。
 
-TODO #5 candidate evidence: 393 / 393 exact coverage、`linux_ready` 223、`replacement_required` 170、`retire` 0。launchdは`scheduler_dependency=macos_launchd / replacement_target=cloud_scheduler / payload_portability=unverified`、repository-onlyは`not_deployed / cloud_runtime / unverified`。OpenClaw cronとRailwayは既にmanaged Linux/cloud execution surfaceであるため`linux_ready`。raw parent IDをartifactへ複製せず、opaque loop refとexact parent metadata digestだけでjoinする。5/5 GREENだがfresh gates前は`in_progress`を維持する。
+TODO #5 candidate evidence: 393 / 393 exact coverage、`linux_ready` 1、`replacement_required` 392、`retire` 0。launchdは`scheduler_dependency=macos_launchd / replacement_target=cloud_scheduler / payload_portability=unverified`、Mac-hosted OpenClawは`mac_mini_openclaw_gateway / cloud_openclaw_gateway / unverified`、repository-onlyは`not_deployed / cloud_runtime / unverified`。Railwayだけがcurrent managed cloud execution evidenceを持つため`linux_ready`。raw parent IDをartifactへ複製せず、opaque loop refとexact parent metadata digestだけでjoinする。5/5 GREENだがfresh gates前は`in_progress`を維持する。
+
+TODO #5 first fresh review evidence: reject（blocking 2）。初回候補はOpenClaw 222件を`linux_ready / already_managed_by_cloud_cron / payload portable`としたが、parent SSOTのcurrent locationは`Mac Mini OpenClaw gateway`であり、payload source-level portability evidenceもない。修正contractをtargeted RED 1 failureで再現し、OpenClawを`replacement_required / mac_mini_openclaw_gateway / cloud_openclaw_gateway / unverified`へ戻す。current countはLinux-ready 1 / replacement-required 392 / retire 0。fresh re-review前は`in_progress`を維持する。
 
 ### 6.6 Current parent refresh ledger
 
@@ -624,7 +626,7 @@ state values: `pending | in_progress | code_done | done | blocked`。
 | 2 | loopごとのcredential inventoryを作る | secret値なしでprovider/scope/refを記録 | done — 393 parent / 397 edge / 18 credential object / finding 1。新x402 ledgerはrevision-bound unverified、旧392 tupleはreject。fresh independent review blocking 0、normal tracked byte exact、170/170、6 artifact gitleaks clean |
 | 3 | loopごとのstate/artifact inventoryを作る | local path・size・retention・SSOTを記録 | done — 393 parent / 2,358 category / 393 definition / 2,751 edge / 186 object。新x402の6 categoryはunverified。fresh review blocking 0、旧392・334 tuple reject、normal A=B=tracked、31/31、gitleaks 6/6 |
 | 4 | loopごとのexternal side effect inventoryを作る | call/post/mail/render/walletを列挙 | done — 393 parent / 1,965 category + 6 binding = 1,971 edge / 12 object。call1/mail1/post3/render1/wallet0、Orca catalog-only、x402/HF全category unverified、wallet blocked。fresh review blocking 0、normal 17/17、gitleaks 6/6 |
-| 5 | macOS依存を分類する | Linux可/要置換/廃止を全loopに付与 | in_progress — 393-parent candidateを新規実装。Linux-ready 223 / replacement-required 170 / retire 0。scheduler依存とpayload portabilityを分離。5/5 GREEN、fresh review/gates前 |
+| 5 | macOS依存を分類する | Linux可/要置換/廃止を全loopに付与 | in_progress — 393-parent candidate。Linux-ready 1 / replacement-required 392 / retire 0。Mac-hosted OpenClaw 222もgateway移設必須、payload unverified。初回fresh review rejectを修正し再review前 |
 | 6 | workload classを確定する | 全loopが5 queueのどれかに所属 | pending |
 | 7 | DigitalOcean bridge Dropletを作る | key-only SSH + firewall + Tailscale実測 | pending |
 | 8 | bridgeへDocker runtimeを作る | pinned imageでhello health PASS | pending |

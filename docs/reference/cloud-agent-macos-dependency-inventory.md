@@ -6,21 +6,22 @@ TODO #5 classifies every current loop without stopping or modifying it. The pare
 
 | Migration class | Meaning | Current rule |
 |---|---|---|
-| `linux_ready` | Scheduler/runtime is already a Linux or managed-cloud execution surface | OpenClaw cron and Railway entrypoints |
-| `replacement_required` | Current scheduler or missing runtime binding must be replaced before Mac removal | launchd and repository-only entrypoints |
+| `linux_ready` | Scheduler/runtime is already a Linux or managed-cloud execution surface | Railway entrypoint only |
+| `replacement_required` | Current scheduler/gateway or missing runtime binding must be replaced before Mac removal | launchd, Mac-hosted OpenClaw cron, and repository-only entrypoints |
 | `retire` | Explicit evidence proves the loop should be removed | No current loop; disabled, parse-error, or unknown never implies retirement |
 
-`migration_class` and `payload_portability` are separate. A launchd row is always `replacement_required` because launchd is the macOS scheduler boundary, while its payload remains `unverified` until a later source-level portability check. This prevents “replace launchd” from being misreported as “rewrite the payload,” and prevents an unverified payload from being silently retired.
+`migration_class` and `payload_portability` are separate. A launchd row is always `replacement_required` because launchd is the macOS scheduler boundary, while its payload remains `unverified` until a later source-level portability check. OpenClaw cron is also `replacement_required` because the parent SSOT places its gateway on the Mac Mini; its target is a cloud OpenClaw gateway and its payload remains `unverified`. This prevents “move the scheduler/gateway” from being misreported as “rewrite the payload,” and prevents an unverified payload from being silently retired.
 
 ## Measured inventory
 
 | Measure | Count |
 |---|---:|
 | Parent rows covered | 393 / 393 |
-| `linux_ready` | 223 |
-| `replacement_required` | 170 |
+| `linux_ready` | 1 |
+| `replacement_required` | 392 |
 | `retire` | 0 |
 | launchd scheduler replacements | 166 |
+| OpenClaw gateway migrations | 222 |
 | repository runtime bindings required | 4 |
 
 ## Evidence

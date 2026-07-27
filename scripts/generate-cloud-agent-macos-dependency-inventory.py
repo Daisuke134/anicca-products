@@ -82,11 +82,11 @@ def classify(parent: dict[str, str]) -> dict[str, str]:
         )
     elif source_type == "openclaw_cron":
         values = (
-            "linux_ready",
-            "openclaw_cron",
-            "unverified" if parse_error else "portable",
-            "none",
-            "already_managed_by_cloud_cron",
+            "replacement_required",
+            "mac_mini_openclaw_gateway",
+            "unverified",
+            "cloud_openclaw_gateway",
+            "openclaw_cron_is_still_hosted_by_mac_mini_gateway",
         )
     elif source_type == "railway_entrypoint":
         values = (

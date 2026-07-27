@@ -76,7 +76,7 @@ class MacOSDependencyInventoryContractTests(unittest.TestCase):
         row_by_ref = {row["loop_ref"]: row for row in rows}
         counts = Counter(row["migration_class"] for row in rows)
         self.assertEqual(
-            {"linux_ready": 223, "replacement_required": 170},
+            {"linux_ready": 1, "replacement_required": 392},
             dict(sorted(counts.items())),
         )
         for parent in parents:
@@ -86,9 +86,10 @@ class MacOSDependencyInventoryContractTests(unittest.TestCase):
                 self.assertEqual("macos_launchd", row["scheduler_dependency"])
                 self.assertEqual("cloud_scheduler", row["replacement_target"])
             elif parent["source_type"] == "openclaw_cron":
-                self.assertEqual("linux_ready", row["migration_class"])
-                self.assertEqual("openclaw_cron", row["scheduler_dependency"])
-                self.assertEqual("none", row["replacement_target"])
+                self.assertEqual("replacement_required", row["migration_class"])
+                self.assertEqual("mac_mini_openclaw_gateway", row["scheduler_dependency"])
+                self.assertEqual("unverified", row["payload_portability"])
+                self.assertEqual("cloud_openclaw_gateway", row["replacement_target"])
             elif parent["source_type"] == "railway_entrypoint":
                 self.assertEqual("linux_ready", row["migration_class"])
                 self.assertEqual("managed_cloud", row["scheduler_dependency"])
