@@ -22,7 +22,7 @@ The current Zenn retry worker is bound only to its reviewed, revision-pinned `gi
 
 ## Review boundary
 
-`cloud-agent-external-effect-discovery-manifest.json` is the builder-authored manifest and remains `review_required / pending_independent_external_effect_review`. `cloud-agent-external-effect-discovery-review.json` is also pending until fresh independent review. It binds manifest digest `sha256:9f017d41:47d8ecfe:a8d985a7:4492c3f2:9afcc815:d5fd83b8:34bcabb3:d308c7ff`, the current parent digest, and the exact seven source revisions. After review, only the separate artifact may transition to exact basis `todo4_393_rebind_independent_review_approved_v1` and reviewer role `independent_fresh_external_effect_reviewer`; the legacy 334 and 392 tuples are rejected. An approved review with a pending basis, placeholder reviewer role, stale parent, stale manifest, or stale source revision fails closed.
+`cloud-agent-external-effect-discovery-manifest.json` is the builder-authored manifest and remains `review_required / pending_independent_external_effect_review`. `cloud-agent-external-effect-discovery-review.json` is also pending until fresh independent review. It binds manifest digest `sha256:35ee32b0:ef8e2b1a:6fae6025:6c0eb92b:4135bfe4:d5e13818:e22fe01f:9cdd6930`, the current parent digest, and the exact seven source revisions. After review, only the separate artifact may transition to exact basis `todo4_393_rebind_independent_review_approved_v1` and reviewer role `independent_fresh_external_effect_reviewer`; the legacy 334 and 392 tuples are rejected. An approved review with a pending basis, placeholder reviewer role, stale parent, stale manifest, or stale source revision fails closed.
 
 Candidate regeneration:
 

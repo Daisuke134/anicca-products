@@ -1,5 +1,5 @@
 {
-  "discovery_manifest_digest": "sha256:9f017d41:47d8ecfe:a8d985a7:4492c3f2:9afcc815:d5fd83b8:34bcabb3:d308c7ff",
+  "discovery_manifest_digest": "sha256:35ee32b0:ef8e2b1a:6fae6025:6c0eb92b:4135bfe4:d5e13818:e22fe01f:9cdd6930",
   "loop_revisions": {
     "loop-002765504472696": "sha256:b7bf6e43:552688f9:6487740e:3885ae3b:942a6cf8:b5bc22c5:8cd8762f:6cb07836",
     "loop-002832447279784": "sha256:5108d6ae:78b164e8:6738646c:eadadbd2:ad30f4d8:2b3f275a:f4a9241f:2ffbc746",
@@ -450,7 +450,7 @@
       "mutability": "external_mutation",
       "provider_class": "source_control_remote",
       "provider_tool_ref": "tool-ref-101122320653075",
-      "source_revision_digest": "sha256:58ddde96:bcf15291:491ab836:19483ad5:d5991938:93dbd510:21550f16:5cb91f46",
+      "source_revision_digest": "sha256:7f3fdf6d:46150463:0b8c92f6:011e3895:cdf0d437:9be7d466:72e52e43:729ac722",
       "target_class": "public_article_repository"
     },
     "effect-object-107695997068401": {
@@ -635,6 +635,6 @@
     "source-orca-zenn-publisher": "sha256:85929c72:381db5d9:32484e85:a3047df8:457b3cf5:2f90b681:2d6850bf:43004e7d",
     "source-social-poster": "sha256:cdb54118:c9da0a57:5d662d1e:1fb16958:548e5505:f0ee8a42:c96381dc:9df9351c",
     "source-wallet-mutation-catalog": "sha256:340f2a9a:ce73c1bd:1bc8076f:c49ee015:b58ed16e:a7469190:abf72e9a:470d4bbf",
-    "source-zenn-retry-publisher": "sha256:58ddde96:bcf15291:491ab836:19483ad5:d5991938:93dbd510:21550f16:5cb91f46"
+    "source-zenn-retry-publisher": "sha256:7f3fdf6d:46150463:0b8c92f6:011e3895:cdf0d437:9be7d466:72e52e43:729ac722"
   }
 }

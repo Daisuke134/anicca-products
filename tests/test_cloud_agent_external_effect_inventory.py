@@ -139,7 +139,7 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
         expected_sources = {
             "profitable:skills/article-writer/scripts/zenn-deferred-worker.py": (
                 CURRENT_REBOUND_PARENT_REVISIONS["launchd:ai.anicca.article-zenn-retry"][0],
-                "sha256:58ddde96:bcf15291:491ab836:19483ad5:d5991938:93dbd510:21550f16:5cb91f46",
+                "sha256:7f3fdf6d:46150463:0b8c92f6:011e3895:cdf0d437:9be7d466:72e52e43:729ac722",
             ),
         }
         for locator, (reference, digest) in expected_sources.items():

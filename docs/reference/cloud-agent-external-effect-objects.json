@@ -1,5 +1,5 @@
 {
-  "discovery_manifest_digest": "sha256:9f017d41:47d8ecfe:a8d985a7:4492c3f2:9afcc815:d5fd83b8:34bcabb3:d308c7ff",
+  "discovery_manifest_digest": "sha256:35ee32b0:ef8e2b1a:6fae6025:6c0eb92b:4135bfe4:d5e13818:e22fe01f:9cdd6930",
   "objects": [
     {
       "action_class": "send_transactional_message",
@@ -55,10 +55,10 @@
       "financial_risk": "none",
       "idempotency": "commit_addressed",
       "mutability": "external_mutation",
-      "observation_digest": "sha256:a37207d5:6f8f7068:ca2ede6e:269e5dd0:d941a04e:1956122c:a8d6ea28:5b04ef4a",
+      "observation_digest": "sha256:4455cf3d:de3cbe18:b402091e:59c262ae:fa2e0550:681aa3dc:53487b49:8a5095ed",
       "provider_class": "source_control_remote",
       "provider_tool_ref": "tool-ref-101122320653075",
-      "source_revision_digest": "sha256:58ddde96:bcf15291:491ab836:19483ad5:d5991938:93dbd510:21550f16:5cb91f46",
+      "source_revision_digest": "sha256:7f3fdf6d:46150463:0b8c92f6:011e3895:cdf0d437:9be7d466:72e52e43:729ac722",
       "target_class": "public_article_repository"
     },
     {
