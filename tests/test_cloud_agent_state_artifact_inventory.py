@@ -27,25 +27,22 @@ DISCOVERY_REVIEW = REPO / "docs/reference/cloud-agent-state-artifact-discovery-r
 OBJECTS = REPO / "docs/reference/cloud-agent-state-artifact-objects.json"
 TRACKED = REPO / "docs/reference/cloud-agent-state-artifact-inventory.tsv"
 DOCUMENTATION = REPO / "docs/reference/cloud-agent-state-artifact-inventory.md"
-CURRENT_PARENT_DIGEST = "sha256:90113e58:00a49511:9a84159b:1baf1728:c883a52b:0239dd87:113d1f8a:939d1e7c"
+CURRENT_PARENT_DIGEST = "sha256:0805a7c1:31924d7f:fce92042:ccfc9bb1:97bf4e63:af688b53:ff544a47:9928a775"
+STALE_334_PARENT_DIGEST = "sha256:90113e58:00a49511:9a84159b:1baf1728:c883a52b:0239dd87:113d1f8a:939d1e7c"
 STALE_330_PARENT_DIGEST = "sha256:a0fde66c:f8f11931:6772a27d:4bf27026:f1c14816:e3bdbd49:8edb1504:26de2be4"
-NEW_PARENT_REVISIONS = {
-    "launchd:ai.anicca.article-d7d8-finalizer": (
-        "loop-278974739877248",
-        "sha256:56b61d02:c6a4d79e:6b1ef369:c3b7cfbb:83d3b663:d0142a42:4b58824b:48195fc8",
-    ),
+CURRENT_REBOUND_PARENT_REVISIONS = {
     "launchd:ai.anicca.article-zenn-retry": (
         "loop-145753367515202",
         "sha256:80ac4e1d:a3944b38:a0f459ef:046f60a2:ae8b5d45:65f77323:19565cd1:a5605130",
     ),
     "launchd:ai.anicca.hf-gig-pass": (
-        "loop-207168196247054",
-        "sha256:a3b25724:9177c916:c8df7e58:a4394c3b:53c75a81:aad00585:e607dd4a:9fa12f3d",
+        "loop-011491986311337",
+        "sha256:655fa594:a57e4922:f42431d7:0ac36432:f0c654e9:35c2036a:e155144a:219b4dc3",
     ),
-    "launchd:ai.anicca.orca-zenn-finalizer": (
-        "loop-173899012226255",
-        "sha256:2acb3770:2eaf6c2a:eda0327c:b2cfbd67:de6beb9b:17ca0a68:cd58b090:e5f082bc",
-    ),
+}
+REMOVED_PARENT_IDS = {
+    "launchd:ai.anicca.article-d7d8-finalizer",
+    "launchd:ai.anicca.orca-zenn-finalizer",
 }
 
 
@@ -80,7 +77,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         required = {"state", "log", "media", "transcript", "cache", "output"}
         self.assertEqual(required, set(generator.REQUIRED_ARTIFACT_CATEGORIES))
         coverage = [row for row in rows if row.get("artifact_role") == "category_coverage"]
-        self.assertEqual(334 * 6, len(coverage))
+        self.assertEqual(392 * 6, len(coverage))
         expected_loop_refs = {generator.loop_ref(parent) for parent in parents}
         self.assertEqual(expected_loop_refs, {row["loop_ref"] for row in coverage})
         pairs = [(row["loop_ref"], row["artifact_category"]) for row in coverage]
@@ -96,8 +93,8 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
             all(row["artifact_category"] != "definition" for row in coverage)
         )
 
-    def test_rebind_artifacts_match_current_ordered_parent_revision_and_new_four(self) -> None:
-        generator = load_module("state_artifact_generator_334_revision", GENERATOR)
+    def test_rebind_artifacts_match_current_392_parent_revision(self) -> None:
+        generator = load_module("state_artifact_generator_392_revision", GENERATOR)
         parents = read_tsv(PARENT)
         manifest = json.loads(DISCOVERY.read_text(encoding="utf-8"))
         review = json.loads(DISCOVERY_REVIEW.read_text(encoding="utf-8"))
@@ -105,7 +102,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         expected_digest = generator.canonical_digest(
             [generator.parent_metadata_digest(parent) for parent in parents]
         )
-        self.assertEqual(334, len(parents))
+        self.assertEqual(392, len(parents))
         self.assertEqual(CURRENT_PARENT_DIGEST, expected_digest)
         self.assertEqual(CURRENT_PARENT_DIGEST, manifest["parent_inventory_digest"])
         self.assertEqual(CURRENT_PARENT_DIGEST, review["parent_inventory_digest"])
@@ -114,37 +111,39 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         self.assertEqual(expected_refs, set(observations["loop_revisions"]))
         self.assertEqual(expected_refs, set(observations["definition_links"]))
         parent_by_id = {parent["inventory_id"]: parent for parent in parents}
-        for parent_id, (expected_ref, expected_revision) in NEW_PARENT_REVISIONS.items():
+        self.assertTrue(REMOVED_PARENT_IDS.isdisjoint(parent_by_id))
+        for parent_id, (expected_ref, expected_revision) in CURRENT_REBOUND_PARENT_REVISIONS.items():
             with self.subTest(parent_id=parent_id):
                 parent = parent_by_id[parent_id]
                 self.assertEqual(expected_ref, generator.loop_ref(parent))
                 self.assertEqual(expected_revision, generator.parent_metadata_digest(parent))
                 self.assertEqual(expected_revision, observations["loop_revisions"][expected_ref])
 
-    def test_stale_330_review_cannot_authorize_current_candidate(self) -> None:
-        collector = load_module("state_artifact_collector_stale_330_review", COLLECTOR)
+    def test_stale_330_or_334_review_cannot_authorize_current_candidate(self) -> None:
+        collector = load_module("state_artifact_collector_stale_review", COLLECTOR)
         manifest = json.loads(DISCOVERY.read_text(encoding="utf-8"))
         observations = json.loads(OBSERVATIONS.read_text(encoding="utf-8"))
-        stale = pending_review_fixture()
-        stale["parent_inventory_digest"] = STALE_330_PARENT_DIGEST
-        with self.assertRaisesRegex(SystemExit, "independent review binding mismatch"):
-            collector.validate_review(
-                stale, manifest, observations["source_revisions"], candidate=True
-            )
+        for stale_digest in (STALE_330_PARENT_DIGEST, STALE_334_PARENT_DIGEST):
+            stale = pending_review_fixture()
+            stale["parent_inventory_digest"] = stale_digest
+            with self.subTest(stale_digest=stale_digest):
+                with self.assertRaisesRegex(SystemExit, "independent review binding mismatch"):
+                    collector.validate_review(
+                        stale, manifest, observations["source_revisions"], candidate=True
+                    )
 
-    def test_new_parent_discovery_is_evidence_bound_without_earn_gig_inference(self) -> None:
+    def test_removed_parent_discovery_becomes_unbound_without_hf_gig_inference(self) -> None:
         manifest = json.loads(DISCOVERY.read_text(encoding="utf-8"))
         observations = json.loads(OBSERVATIONS.read_text(encoding="utf-8"))
         rows = read_tsv(TRACKED)
-        orca_ref = NEW_PARENT_REVISIONS[
-            "launchd:ai.anicca.orca-zenn-finalizer"
-        ][0]
-        hf_ref = NEW_PARENT_REVISIONS["launchd:ai.anicca.hf-gig-pass"][0]
+        hf_ref = CURRENT_REBOUND_PARENT_REVISIONS["launchd:ai.anicca.hf-gig-pass"][0]
         orca_sources = [
             source for source in manifest["sources"]
-            if source.get("loop_refs") == [orca_ref]
+            if source["source_id"] == "source-000000000000004"
         ]
         self.assertEqual(1, len(orca_sources))
+        self.assertEqual("unbound_parent_unverified", orca_sources[0]["parent_binding"])
+        self.assertNotIn("loop_refs", orca_sources[0])
         self.assertEqual(
             "sha256:85929c72:381db5d9:32484e85:a3047df8:457b3cf5:2f90b681:2d6850bf:43004e7d",
             orca_sources[0]["source_revision_digest"],
@@ -153,22 +152,13 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
             {"state", "log", "output"},
             {item["artifact_category"] for item in orca_sources[0]["declarations"]},
         )
-        self.assertEqual(3, len(observations["declaration_links"][orca_ref]))
         self.assertNotIn(hf_ref, observations["declaration_links"])
-        self.assertEqual(3, len(observations["unbound_discoveries"]))
-        orca_coverage = {
-            row["artifact_category"]: row["coverage_resolution"]
-            for row in rows
-            if row["loop_ref"] == orca_ref and row["artifact_role"] == "category_coverage"
-        }
+        self.assertEqual(6, len(observations["unbound_discoveries"]))
         hf_coverage = {
             row["artifact_category"]: row["coverage_resolution"]
             for row in rows
             if row["loop_ref"] == hf_ref and row["artifact_role"] == "category_coverage"
         }
-        self.assertEqual("discovered", orca_coverage["state"])
-        self.assertEqual("discovered", orca_coverage["log"])
-        self.assertEqual("discovered", orca_coverage["output"])
         self.assertEqual({"unverified"}, set(hf_coverage.values()))
 
     def test_append_only_log_uses_stable_lstat_existence_without_snapshot_size(self) -> None:
@@ -180,38 +170,38 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         self.assertEqual("unknown", logs[0]["size_scope"])
         self.assertEqual("lstat:mutable_regular_file", logs[0]["size_evidence"])
 
-    def test_builder_stays_pending_while_separate_review_approves_334_rebind(self) -> None:
+    def test_builder_and_separate_review_stay_pending_before_392_rebind_review(self) -> None:
         generator = load_module("state_artifact_generator_independent_review", GENERATOR)
         manifest = json.loads(DISCOVERY.read_text(encoding="utf-8"))
         self.assertEqual("review_required", manifest["review_status"])
         self.assertTrue(DISCOVERY_REVIEW.is_file())
         review = json.loads(DISCOVERY_REVIEW.read_text(encoding="utf-8"))
-        self.assertEqual("approved", review["review_status"])
-        self.assertEqual(
-            "todo3_independent_candidate_review_approved_v1", review["approval_basis"]
-        )
-        self.assertEqual("independent_fresh_sol_review", review["reviewer_role"])
+        self.assertEqual("review_required", review["review_status"])
+        self.assertEqual("pending_independent_architecture_review", review["review_basis"])
+        self.assertNotIn("approval_basis", review)
+        self.assertEqual("independent_fresh_reviewer_required", review["reviewer_role"])
         objects, edges = generator.build_inventory(
             read_tsv(PARENT),
             manifest,
             json.loads(OBSERVATIONS.read_text(encoding="utf-8")),
             review=review,
+            candidate=True,
         )
-        self.assertGreaterEqual(len(objects), 120)
-        self.assertEqual({"independent_review_approved"}, {row["review_mode"] for row in edges})
+        self.assertGreaterEqual(len(objects), 127)
+        self.assertEqual({"candidate_review_required"}, {row["review_mode"] for row in edges})
 
-    def test_independent_approval_enables_normal_byte_exact_outputs(self) -> None:
+    def test_candidate_outputs_are_byte_exact_and_normal_mode_fails_closed(self) -> None:
         manifest = json.loads(DISCOVERY.read_text(encoding="utf-8"))
         review = json.loads(DISCOVERY_REVIEW.read_text(encoding="utf-8"))
         self.assertEqual("review_required", manifest["review_status"])
-        self.assertEqual("approved", review["review_status"])
+        self.assertEqual("review_required", review["review_status"])
         with tempfile.TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
             observations = temp / "observations.json"
             edges = temp / "edges.tsv"
             objects = temp / "objects.json"
             collect = subprocess.run(
-                ["python3", str(COLLECTOR), "--output", str(observations)],
+                ["python3", str(COLLECTOR), "--candidate", "--output", str(observations)],
                 cwd=REPO,
                 capture_output=True,
                 text=True,
@@ -219,7 +209,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
             self.assertEqual(0, collect.returncode, collect.stderr)
             generate = subprocess.run(
                 [
-                    "python3", str(GENERATOR), "--observations", str(observations),
+                    "python3", str(GENERATOR), "--candidate", "--observations", str(observations),
                     "--output", str(edges), "--objects-output", str(objects),
                 ],
                 cwd=REPO,
@@ -230,21 +220,40 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
             self.assertEqual(OBSERVATIONS.read_bytes(), observations.read_bytes())
             self.assertEqual(TRACKED.read_bytes(), edges.read_bytes())
             self.assertEqual(OBJECTS.read_bytes(), objects.read_bytes())
+            for tool, output in (
+                (COLLECTOR, temp / "normal-observations.json"),
+                (GENERATOR, temp / "normal-edges.tsv"),
+            ):
+                completed = subprocess.run(
+                    ["python3", str(tool), "--output", str(output)],
+                    cwd=REPO,
+                    capture_output=True,
+                    text=True,
+                )
+                with self.subTest(tool=tool.name):
+                    self.assertNotEqual(0, completed.returncode)
+                    self.assertEqual("", completed.stdout)
+                    self.assertFalse(output.exists())
+                    self.assertIn("independent review approval required", completed.stderr)
         self.assertEqual(
-            "independent_review_approved",
+            "candidate_review_required",
             json.loads(OBSERVATIONS.read_text(encoding="utf-8"))["review_mode"],
         )
         self.assertEqual(
-            {"independent_review_approved"},
+            {"candidate_review_required"},
             {row["review_mode"] for row in read_tsv(TRACKED)},
         )
         self.assertEqual(
-            "independent_review_approved",
+            "candidate_review_required",
             json.loads(OBJECTS.read_text(encoding="utf-8"))["review_mode"],
         )
 
     def test_invalid_review_variants_fail_closed_without_output(self) -> None:
         approved = json.loads(DISCOVERY_REVIEW.read_text(encoding="utf-8"))
+        approved["review_status"] = "approved"
+        approved.pop("review_basis", None)
+        approved["approval_basis"] = "todo3_independent_candidate_review_approved_v1"
+        approved["reviewer_role"] = "independent_fresh_sol_review"
         zero_digest = "sha256:" + ":".join(["0" * 8] * 8)
         variants: dict[str, dict[str, object] | None] = {"missing": None}
         unapproved = json.loads(json.dumps(approved))
@@ -316,9 +325,9 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
                 "candidate_review_required",
                 json.loads(candidate_observations.read_text(encoding="utf-8"))["review_mode"],
             )
-            self.assertEqual(2338, len(read_tsv(candidate_edges)))
+            self.assertEqual(2744, len(read_tsv(candidate_edges)))
             self.assertEqual(
-                127,
+                185,
                 len(json.loads(candidate_objects.read_text(encoding="utf-8"))["objects"]),
             )
             for tool, arguments, output in (
@@ -384,7 +393,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
                     self.assertFalse(output.exists())
                     self.assertIn("candidate review artifact must remain pending", completed.stderr)
         rows = read_tsv(TRACKED)
-        self.assertEqual({"independent_review_approved"}, {row["review_mode"] for row in rows})
+        self.assertEqual({"candidate_review_required"}, {row["review_mode"] for row in rows})
 
     def test_manifest_review_and_observation_fields_are_privacy_validated(self) -> None:
         collector = load_module("state_artifact_collector_all_field_privacy", COLLECTOR)
@@ -401,14 +410,14 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         changed_review["reviewer_role"] = "account_id:personal-handle"
         with self.assertRaisesRegex(SystemExit, "unsafe field reviewer_role"):
             generator.build_inventory(
-                parents, manifest, observations, changed_review
+                parents, manifest, observations, changed_review, candidate=True
             )
         changed_observations = json.loads(json.dumps(observations))
         object_id = next(iter(changed_observations["objects"]))
         changed_observations["objects"][object_id]["discovery_evidence_locator"] = "line\nbreak"
         with self.assertRaisesRegex(SystemExit, "unsafe field discovery_evidence_locator"):
             generator.build_inventory(
-                parents, manifest, changed_observations, review
+                parents, manifest, changed_observations, review, candidate=True
             )
 
     def test_recursive_dict_keys_receive_the_same_privacy_policy(self) -> None:
@@ -519,19 +528,19 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         tracked_objects = json.loads(OBJECTS.read_text(encoding="utf-8"))["objects"]
         rows = read_tsv(TRACKED)
         self.assertEqual(list(generator.EDGE_FIELDS), list(rows[0]))
-        self.assertEqual(334, len(parents))
+        self.assertEqual(392, len(parents))
         self.assertEqual(
             {generator.loop_ref(row) for row in parents},
             {row["loop_ref"] for row in rows},
         )
         self.assertGreater(len(rows), len(parents))
         objects, expected_rows = generator.build_inventory(
-            parents, manifest, observations, review
+            parents, manifest, observations, review, candidate=True
         )
         self.assertEqual(tracked_objects, objects)
         self.assertEqual(rows, expected_rows)
         generator.validate_inventory(
-            objects, rows, parents, manifest, observations, review, candidate=False
+            objects, rows, parents, manifest, observations, review, candidate=True
         )
 
     def test_live_inventory_distinguishes_all_required_statuses(self) -> None:
@@ -566,8 +575,12 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         manifest = json.loads(DISCOVERY.read_text(encoding="utf-8"))
         review = json.loads(DISCOVERY_REVIEW.read_text(encoding="utf-8"))
         observations = json.loads(OBSERVATIONS.read_text(encoding="utf-8"))
-        first = generator.build_inventory(parents, manifest, observations, review)
-        second = generator.build_inventory(parents, manifest, observations, review)
+        first = generator.build_inventory(
+            parents, manifest, observations, review, candidate=True
+        )
+        second = generator.build_inventory(
+            parents, manifest, observations, review, candidate=True
+        )
         self.assertEqual(first, second)
         _, edges = first
         counts = Counter(row["loop_ref"] for row in edges)
@@ -583,15 +596,19 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         mutated = json.loads(json.dumps(observations))
         mutated["parent_inventory_digest"] = "sha256:" + ":".join(["0" * 8] * 8)
         with self.assertRaisesRegex(SystemExit, "parent inventory revision mismatch"):
-            generator.build_inventory(parents, manifest, mutated, review)
+            generator.build_inventory(
+                parents, manifest, mutated, review, candidate=True
+            )
         objects, edges = generator.build_inventory(
-            parents, manifest, observations, review
+            parents, manifest, observations, review, candidate=True
         )
         objects[0]["path_class"] = "/Users/private/state.json"
         with self.assertRaisesRegex(SystemExit, "unsafe artifact field"):
-            generator.validate_inventory(objects, edges, parents, manifest, observations, review, candidate=False)
+            generator.validate_inventory(
+                objects, edges, parents, manifest, observations, review, candidate=True
+            )
         objects, edges = generator.build_inventory(
-            parents, manifest, observations, review
+            parents, manifest, observations, review, candidate=True
         )
         objects[0]["ssot_evidence_locator"] = "STATE_TOKEN=fixture-value"
         with self.assertRaises(SystemExit):
@@ -689,7 +706,9 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         source_id = next(iter(mutated["source_revisions"]))
         mutated["source_revisions"][source_id] = "sha256:" + ":".join(["0" * 8] * 8)
         with self.assertRaisesRegex(SystemExit, "source revision mismatch"):
-            generator.build_inventory(parents, manifest, mutated, review)
+            generator.build_inventory(
+                parents, manifest, mutated, review, candidate=True
+            )
         stale_manifest = json.loads(json.dumps(manifest))
         stale_source = stale_manifest["sources"][0]
         stale_source["source_revision_digest"] = "sha256:" + ":".join(["0" * 8] * 8)
@@ -700,7 +719,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         ]
         with self.assertRaisesRegex(SystemExit, "source revision mismatch"):
             generator.build_inventory(
-                parents, stale_manifest, stale_observations, review
+                parents, stale_manifest, stale_observations, review, candidate=True
             )
 
     def test_static_source_declarations_require_literal_or_symbol_evidence(self) -> None:
@@ -722,7 +741,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         review = json.loads(DISCOVERY_REVIEW.read_text(encoding="utf-8"))
         observations = json.loads(OBSERVATIONS.read_text(encoding="utf-8"))
         objects, edges = generator.build_inventory(
-            parents, manifest, observations, review
+            parents, manifest, observations, review, candidate=True
         )
         changed = json.loads(json.dumps(objects))
         changed[0]["retention_classification"] = "version_controlled"
@@ -748,7 +767,7 @@ class StateArtifactInventoryContractTests(unittest.TestCase):
         review = json.loads(DISCOVERY_REVIEW.read_text(encoding="utf-8"))
         observations = json.loads(OBSERVATIONS.read_text(encoding="utf-8"))
         objects, edges = generator.build_inventory(
-            parents, manifest, observations, review
+            parents, manifest, observations, review, candidate=True
         )
         forbidden = (
             "Daisuke134",

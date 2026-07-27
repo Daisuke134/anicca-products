@@ -2,7 +2,7 @@
   "schema_version": 2,
   "review_status": "review_required",
   "review_basis": "pending_independent_architecture_review",
-  "parent_inventory_digest": "sha256:90113e58:00a49511:9a84159b:1baf1728:c883a52b:0239dd87:113d1f8a:939d1e7c",
+  "parent_inventory_digest": "sha256:0805a7c1:31924d7f:fce92042:ccfc9bb1:97bf4e63:af688b53:ff544a47:9928a775",
   "sources": [
     {
       "source_id": "source-000000000000001",
@@ -89,10 +89,7 @@
       "source_locator": "local-share:orca-zenn-finalizer/finalizer.py",
       "source_revision_digest": "sha256:85929c72:381db5d9:32484e85:a3047df8:457b3cf5:2f90b681:2d6850bf:43004e7d",
       "analysis_method": "reviewed_static_source_literals_and_symbols",
-      "parent_binding": "explicit_parent_list",
-      "loop_refs": [
-        "loop-173899012226255"
-      ],
+      "parent_binding": "unbound_parent_unverified",
       "declarations": [
         {
           "declaration_id": "declaration-000000000000006",
