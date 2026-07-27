@@ -3327,7 +3327,7 @@ class CredentialInventoryContractTests(unittest.TestCase):
         self.assertEqual(393, len(observations["parents"]))
         self.assertEqual(393, len(review["parents"]))
 
-    def test_separate_independent_review_is_pending_and_digest_bound(self) -> None:
+    def test_separate_independent_review_is_approved_and_digest_bound(self) -> None:
         self.assertTrue(INDEPENDENT_REVIEW.is_file())
         independent = read_json(INDEPENDENT_REVIEW)
         review = read_json(REVIEW)
@@ -3338,13 +3338,16 @@ class CredentialInventoryContractTests(unittest.TestCase):
             "todo2_393_rebind_independent_review_approved_v1",
             self.generator.APPROVED_INDEPENDENT_REVIEW_BASIS,
         )
-        self.assertEqual("review_required", independent["review_status"])
+        self.assertEqual("approved", independent["review_status"])
         self.assertEqual(
-            self.generator.PENDING_INDEPENDENT_REVIEW_BASIS,
+            self.generator.APPROVED_INDEPENDENT_REVIEW_BASIS,
             independent["review_basis"],
         )
-        self.assertNotIn("approval_basis", independent)
-        self.assertEqual("independent_fresh_reviewer_required", independent["reviewer_role"])
+        self.assertEqual(
+            self.generator.APPROVED_INDEPENDENT_REVIEW_BASIS,
+            independent["approval_basis"],
+        )
+        self.assertEqual("independent_fresh_credential_reviewer", independent["reviewer_role"])
         self.assertEqual(self.generator.canonical_digest(review), independent["candidate_manifest_digest"])
         self.assertEqual(CURRENT_PARENT_DIGEST, independent["parent_inventory_digest"])
         self.assertEqual(self.generator.canonical_digest(observations), independent["observation_digest"])
@@ -3767,13 +3770,13 @@ class CredentialInventoryContractTests(unittest.TestCase):
         self.assertRegex(digest, r"^sha256:(?:[0-9a-f]{8}:){7}[0-9a-f]{8}$")
         self.assertNotRegex(digest, r"[0-9a-f]{16}")
 
-    def test_in_process_pending_candidate_check_covers_full_generation_path(self) -> None:
+    def test_in_process_approved_check_covers_full_generation_path(self) -> None:
         stdout = io.StringIO()
         stderr = io.StringIO()
         with mock.patch.object(
             sys,
             "argv",
-            [str(GENERATOR), "--check", "--candidate", "--parent", str(PARENT)],
+            [str(GENERATOR), "--check", "--parent", str(PARENT)],
         ), contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
             self.generator.main()
         self.assertEqual(TRACKED.read_text(encoding="utf-8"), stdout.getvalue())
