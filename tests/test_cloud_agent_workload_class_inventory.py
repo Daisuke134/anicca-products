@@ -104,10 +104,10 @@ class WorkloadClassInventoryContractTests(unittest.TestCase):
         self.assertTrue(DOCUMENTATION.is_file())
         parents = read_tsv(PARENT)
         rows = read_tsv(TRACKED)
-        self.assertEqual(393, len(parents))
-        self.assertEqual(393, len(rows))
+        self.assertEqual(396, len(parents))
+        self.assertEqual(396, len(rows))
         self.assertEqual(FIELDS, list(rows[0]))
-        self.assertEqual(393, len({row["loop_ref"] for row in rows}))
+        self.assertEqual(396, len({row["loop_ref"] for row in rows}))
         self.assertEqual(
             {opaque_loop_ref(parent) for parent in parents},
             {row["loop_ref"] for row in rows},
@@ -153,7 +153,7 @@ class WorkloadClassInventoryContractTests(unittest.TestCase):
                 "financial-read": 1,
                 "life-events": 2,
                 "media-cpu": 1,
-                "personal-ceo": 386,
+                "personal-ceo": 389,
             },
             dict(sorted(counts.items())),
         )
@@ -204,6 +204,26 @@ class WorkloadClassInventoryContractTests(unittest.TestCase):
             self.assertEqual("", completed.stdout)
             self.assertFalse(output.exists())
             self.assertIn("conflicting specialized workload evidence", completed.stderr)
+
+    def test_duplicate_specialized_binding_fails_closed_without_output(self) -> None:
+        effects = read_tsv(EFFECTS)
+        call_binding = next(
+            row
+            for row in effects
+            if row["effect_role"] == "effect_binding"
+            and row["effect_category"] == "call"
+        )
+        duplicate = dict(call_binding)
+        duplicate["effect_edge_id"] = "effect-edge-999999999999997"
+        with tempfile.TemporaryDirectory() as temp_dir:
+            effects_path = Path(temp_dir) / "duplicate-binding.tsv"
+            output = Path(temp_dir) / "must-not-exist.tsv"
+            write_tsv(effects_path, [*effects, duplicate])
+            completed = self.run_generator(PARENT, effects_path, output)
+            self.assertNotEqual(0, completed.returncode)
+            self.assertEqual("", completed.stdout)
+            self.assertFalse(output.exists())
+            self.assertIn("duplicate specialized effect binding", completed.stderr)
 
     def test_unknown_effect_loop_fails_closed_without_output(self) -> None:
         effects = read_tsv(EFFECTS)

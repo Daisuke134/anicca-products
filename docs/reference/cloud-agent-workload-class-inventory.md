@@ -11,11 +11,11 @@ contracts in the migration spec. The parent SSOT is
 | Queue | Rows | Isolation | Concurrency key | Assignment evidence |
 |---|---:|---|---|---|
 | `life-events` | 2 | shared deterministic worker | `tenant_id` | reviewed call/mail bindings |
-| `personal-ceo` | 386 | isolated agent session | `tenant_id` | conservative default where specialized evidence is absent |
+| `personal-ceo` | 389 | isolated agent session | `tenant_id` | conservative default where specialized evidence is absent |
 | `media-cpu` | 1 | ephemeral container | `tenant_id` | reviewed render binding |
 | `browser-action` | 3 | Steel session and general planner | `tenant_id+account_id` | reviewed publish/post bindings |
 | `financial-read` | 1 | read-only worker | `tenant_id` | reviewed x402 revenue/cost ledger parent role |
-| **Total** | **393** |  |  | exactly one row per current parent |
+| **Total** | **396** |  |  | exactly one row per current parent |
 
 The default is intentionally conservative. An unverified loop is not inferred
 from its name, entrypoint text, owner, or schedule. It is assigned to the
@@ -51,8 +51,9 @@ one silently.
 The output contains opaque loop references and parent metadata digests. It does
 not copy raw launchd labels, OpenClaw job IDs, account identifiers, filesystem
 paths, or credentials. Unknown effect loop references, stale parent digests,
-duplicate effect edge IDs, unsupported specialized categories, and conflicting
-queue evidence all fail closed before the output file is written.
+duplicate effect edge IDs, duplicate specialized bindings for the same
+loop/category, unsupported specialized categories, and conflicting queue
+evidence all fail closed before the output file is written.
 
 ## Reproduction
 

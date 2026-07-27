@@ -612,13 +612,13 @@ TODO #5 final fresh re-review evidence: `ok:true / blocking:[] / todo5_393_macos
 ### 6.5.2 TODO #6 TaskList — workload queue classification
 
 - [x] 5 queueのisolation / concurrency keyを§3.4のexact contractへ固定する。
-- [x] current 393 parentとTODO #4 reviewed external-effect inventoryをopaque ref + parent digestで結合する。
+- [x] current 396 parentとTODO #4 reviewed external-effect inventoryをopaque ref + parent digestで結合する。
 - [x] reviewed call/mail/render/post bindingとx402 ledgerだけをspecialized queueへ割り当てる。
 - [x] specialized evidenceのないloopを名前推測せずisolated `personal-ceo`へ倒す。
-- [x] unknown/stale/conflicting effect evidenceをoutput作成前にfail-closeする。
+- [x] unknown/stale/conflicting effect evidenceと同一loop/categoryのduplicate specialized bindingをoutput作成前にfail-closeする。
 - [ ] fresh independent reviewとfinal tracked reproduction gateを通す。
 
-TODO #6 candidate evidence: 393 / 393 exact opaque coverage。`life-events` 2 / `personal-ceo` 386 / `media-cpu` 1 / `browser-action` 3 / `financial-read` 1。call/mail/render/postの6 reviewed bindingとx402 revenue/cost ledger 1本だけをspecialized queueへ置き、残386本は`conservative_isolated_default`を明示する。external-effect inventoryは全393 parent × 5 category coverageのcurrent parent digestと`independent_review_approved`を検証し、unknown loop、stale digest、duplicate edge/category、unsupported role/category、複数specialized queue conflictではoutputを作らない。A=B=tracked、7/7、Python compile、raw parent ID 0をcandidateで確認するが、fresh review前は`in_progress`を維持する。
+TODO #6 396-parent candidate evidence: 396 / 396 exact opaque coverage。`life-events` 2 / `personal-ceo` 389 / `media-cpu` 1 / `browser-action` 3 / `financial-read` 1。call/mail/render/postの6 reviewed bindingとx402 revenue/cost ledger 1本だけをspecialized queueへ置き、financial report、payout、HF weekly reportを含む残389本は名前推測せず`conservative_isolated_default`を明示する。external-effect inventoryは全396 parent × 5 category coverageのcurrent parent digestと`independent_review_approved`を検証し、unknown loop、stale digest、duplicate edge/category、同一loop/categoryのduplicate specialized binding、unsupported role/category、複数specialized queue conflictではoutputを作らない。duplicate specialized bindingはtargeted RED 1/1 failureからGREEN。A=B=tracked、8/8、Python compile、raw parent ID 0をcandidateで確認するが、fresh review前は`in_progress`を維持する。
 
 ### 6.6 Current parent refresh ledger
 
@@ -665,7 +665,7 @@ state values: `pending | in_progress | code_done | done | blocked`。
 | 3 | loopごとのstate/artifact inventoryを作る | local path・size・retention・SSOTを記録 | done — 396 parent / 2,376 category / 396 definition / 2,772 edge / 189 object。追加3 loopは6 category unverified。fresh review blocking 0、normal tracked exact、31/31、gitleaks 6/6 |
 | 4 | loopごとのexternal side effect inventoryを作る | call/post/mail/render/walletを列挙 | done — 396 parent / 1,980 coverage / 6 binding / 1,986 edge / 12 object。追加3 loopは全5 category unverified。fresh re-review blocking 0、normal tracked exact、17/17、gitleaks 6/6 |
 | 5 | macOS依存を分類する | Linux可/要置換/廃止を全loopに付与 | done — 396/396 exact。Linux-ready 1 / replacement-required 395 / retire 0。fresh review blocking 0、A=B=tracked、5/5、gitleaks 2/2 |
-| 6 | workload classを確定する | 全loopが5 queueのどれかに所属 | in_progress — 393 candidateはlive driftでreject。395 parentへrebind中 |
+| 6 | workload classを確定する | 全loopが5 queueのどれかに所属 | in_progress — duplicate specialized binding fail-closeをRED→GREENし、396 parentへrebind中 |
 | 7 | DigitalOcean bridge Dropletを作る | key-only SSH + firewall + Tailscale実測 | pending |
 | 8 | bridgeへDocker runtimeを作る | pinned imageでhello health PASS | pending |
 | 9 | bridgeのoff-host logsを設定する | 再起動後も外部からlog閲覧可 | pending |

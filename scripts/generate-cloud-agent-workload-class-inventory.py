@@ -123,6 +123,7 @@ def reviewed_effect_queues(
         raise SystemExit("duplicate or empty external-effect edge id")
     queues_by_ref: dict[str, set[tuple[str, str]]] = defaultdict(set)
     coverage_by_ref: dict[str, set[str]] = defaultdict(set)
+    bindings_by_ref: dict[str, set[str]] = defaultdict(set)
     for effect in effects:
         ref = effect["loop_ref"]
         parent = parent_by_ref.get(ref)
@@ -150,6 +151,9 @@ def reviewed_effect_queues(
         queue = EFFECT_QUEUE.get(category)
         if queue is None:
             raise SystemExit(f"unsupported specialized effect category: {category}")
+        if category in bindings_by_ref[ref]:
+            raise SystemExit("duplicate specialized effect binding")
+        bindings_by_ref[ref].add(category)
         queues_by_ref[ref].add((queue, category))
     resolved: dict[str, tuple[str, str]] = {}
     for ref, queue_categories in queues_by_ref.items():
