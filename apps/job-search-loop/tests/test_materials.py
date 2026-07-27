@@ -1,0 +1,49 @@
+import unittest
+
+from job_search_loop.materials import MaterialError, render_resume_html, validate_claims
+
+
+class MaterialTests(unittest.TestCase):
+    def setUp(self):
+        self.profile = {
+            "candidate": {"name": "Daisuke Narita"},
+            "facts": [
+                {"id": "mufg", "claim": "Contributed to MUFG deployment", "evidence": "public"},
+                {"id": "iclr", "claim": "Presented an ICLR 2026 report", "evidence": "video"},
+            ],
+        }
+
+    def test_unknown_fact_id_is_rejected(self):
+        with self.assertRaises(MaterialError):
+            validate_claims(self.profile, [{"text": "Invented", "fact_ids": ["missing"]}])
+
+    def test_mufg_sole_ownership_wording_is_rejected(self):
+        with self.assertRaisesRegex(MaterialError, "ownership"):
+            validate_claims(
+                self.profile,
+                [{"text": "Led the entire MUFG deployment", "fact_ids": ["mufg"]}],
+            )
+
+    def test_resume_is_single_column_and_keeps_public_link(self):
+        html = render_resume_html(
+            self.profile,
+            [
+                {
+                    "heading": "Experience",
+                    "items": [
+                        {
+                            "text": "Contributed to MUFG deployment",
+                            "fact_ids": ["mufg"],
+                        }
+                    ],
+                }
+            ],
+            links=[("ICLR 2026 report", "https://www.youtube.com/watch?v=biHAQ6aSQuc")],
+        )
+        self.assertIn("grid-template-columns: 1fr", html)
+        self.assertIn("https://www.youtube.com/watch?v=biHAQ6aSQuc", html)
+        self.assertIn("Daisuke Narita", html)
+
+
+if __name__ == "__main__":
+    unittest.main()
