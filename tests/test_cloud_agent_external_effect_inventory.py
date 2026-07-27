@@ -26,26 +26,25 @@ OBSERVATIONS = REPO / "docs/reference/cloud-agent-external-effect-observations.j
 OBJECTS = REPO / "docs/reference/cloud-agent-external-effect-objects.json"
 TRACKED = REPO / "docs/reference/cloud-agent-external-effect-inventory.tsv"
 DOCUMENTATION = REPO / "docs/reference/cloud-agent-external-effect-inventory.md"
-CURRENT_PARENT_DIGEST = "sha256:90113e58:00a49511:9a84159b:1baf1728:c883a52b:0239dd87:113d1f8a:939d1e7c"
+CURRENT_PARENT_DIGEST = "sha256:a212d39d:fb71962b:3e94e805:fdbcbaf3:8aae9020:8a44eaad:d3fc2adb:43218fb5"
+STALE_334_PARENT_DIGEST = "sha256:90113e58:00a49511:9a84159b:1baf1728:c883a52b:0239dd87:113d1f8a:939d1e7c"
 STALE_330_PARENT_DIGEST = "sha256:a0fde66c:f8f11931:6772a27d:4bf27026:f1c14816:e3bdbd49:8edb1504:26de2be4"
-APPROVAL_BASIS = "todo4_independent_candidate_review_approved_v1"
-APPROVED_REVIEWER_ROLE = "independent_fresh_sol_review"
-NEW_PARENT_REVISIONS = {
-    "launchd:ai.anicca.article-d7d8-finalizer": (
-        "loop-278974739877248",
-        "sha256:56b61d02:c6a4d79e:6b1ef369:c3b7cfbb:83d3b663:d0142a42:4b58824b:48195fc8",
-    ),
+APPROVAL_BASIS = "todo4_393_rebind_independent_review_approved_v1"
+APPROVED_REVIEWER_ROLE = "independent_fresh_external_effect_reviewer"
+LEGACY_334_APPROVAL_BASIS = "todo4_independent_candidate_review_approved_v1"
+LEGACY_334_REVIEWER_ROLE = "independent_fresh_sol_review"
+CURRENT_REBOUND_PARENT_REVISIONS = {
     "launchd:ai.anicca.article-zenn-retry": (
         "loop-145753367515202",
         "sha256:80ac4e1d:a3944b38:a0f459ef:046f60a2:ae8b5d45:65f77323:19565cd1:a5605130",
     ),
     "launchd:ai.anicca.hf-gig-pass": (
-        "loop-207168196247054",
-        "sha256:a3b25724:9177c916:c8df7e58:a4394c3b:53c75a81:aad00585:e607dd4a:9fa12f3d",
+        "loop-011491986311337",
+        "sha256:655fa594:a57e4922:f42431d7:0ac36432:f0c654e9:35c2036a:e155144a:219b4dc3",
     ),
-    "launchd:ai.anicca.orca-zenn-finalizer": (
-        "loop-173899012226255",
-        "sha256:2acb3770:2eaf6c2a:eda0327c:b2cfbd67:de6beb9b:17ca0a68:cd58b090:e5f082bc",
+    "launchd:ai.anicca.life-manager-x402-ledger": (
+        "loop-087414033367835",
+        "sha256:57f944f2:1e6b274c:77b02693:a9356c34:64e81e39:e3323595:6737fd3e:6169fd2f",
     ),
 }
 
@@ -65,7 +64,7 @@ def read_tsv(path: Path) -> list[dict[str, str]]:
 
 
 class ExternalEffectInventoryContractTests(unittest.TestCase):
-    def test_required_files_and_exact_334_by_5_coverage_exist(self) -> None:
+    def test_required_files_and_exact_393_by_5_coverage_exist(self) -> None:
         for path in (COLLECTOR, GENERATOR, MANIFEST, REVIEW, OBSERVATIONS, OBJECTS, TRACKED, DOCUMENTATION):
             self.assertTrue(path.is_file(), path.name)
         generator = load_module("external_effect_generator_matrix", GENERATOR)
@@ -76,8 +75,8 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
         parents = read_tsv(PARENT)
         rows = read_tsv(TRACKED)
         coverage = [row for row in rows if row["effect_role"] == "category_coverage"]
-        self.assertEqual(334, len(parents))
-        self.assertEqual(334 * 5, len(coverage))
+        self.assertEqual(393, len(parents))
+        self.assertEqual(393 * 5, len(coverage))
         expected_refs = {generator.loop_ref(parent) for parent in parents}
         pairs = {(row["loop_ref"], row["effect_category"]) for row in coverage}
         self.assertEqual(
@@ -87,8 +86,8 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
         self.assertEqual(len(coverage), len(pairs))
         self.assertTrue(all(row["coverage_resolution"] in {"discovered", "none", "unverified"} for row in coverage))
 
-    def test_rebind_artifacts_match_current_ordered_parent_revision_and_new_four(self) -> None:
-        generator = load_module("external_effect_generator_334_revision", GENERATOR)
+    def test_rebind_artifacts_match_current_ordered_393_parent_revision(self) -> None:
+        generator = load_module("external_effect_generator_393_revision", GENERATOR)
         parents = read_tsv(PARENT)
         manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
         review = json.loads(REVIEW.read_text(encoding="utf-8"))
@@ -105,42 +104,42 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
         rows = read_tsv(TRACKED)
         self.assertEqual(expected_refs, {row["loop_ref"] for row in rows})
         parent_by_id = {parent["inventory_id"]: parent for parent in parents}
-        for parent_id, (expected_ref, expected_revision) in NEW_PARENT_REVISIONS.items():
+        self.assertNotIn("launchd:ai.anicca.orca-zenn-finalizer", parent_by_id)
+        for parent_id, (expected_ref, expected_revision) in CURRENT_REBOUND_PARENT_REVISIONS.items():
             with self.subTest(parent_id=parent_id):
                 parent = parent_by_id[parent_id]
                 self.assertEqual(expected_ref, generator.loop_ref(parent))
                 self.assertEqual(expected_revision, generator.parent_metadata_digest(parent))
                 self.assertEqual(expected_revision, observations["loop_revisions"][expected_ref])
 
-    def test_stale_330_manifest_and_review_cannot_authorize_current_candidate(self) -> None:
+    def test_stale_330_or_334_manifest_and_review_cannot_authorize_current_candidate(self) -> None:
         collector = load_module("external_effect_collector_stale_330", COLLECTOR)
         parents = read_tsv(PARENT)
         manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
         review = json.loads(REVIEW.read_text(encoding="utf-8"))
         observations = json.loads(OBSERVATIONS.read_text(encoding="utf-8"))
         self.assertEqual(CURRENT_PARENT_DIGEST, manifest["parent_inventory_digest"])
-        stale_manifest = json.loads(json.dumps(manifest))
-        stale_manifest["parent_inventory_digest"] = STALE_330_PARENT_DIGEST
-        with self.assertRaisesRegex(SystemExit, "parent inventory revision mismatch"):
-            collector.validate_manifest(stale_manifest, parents)
-        stale_review = json.loads(json.dumps(review))
-        stale_review["parent_inventory_digest"] = STALE_330_PARENT_DIGEST
-        with self.assertRaisesRegex(SystemExit, "review parent revision mismatch"):
-            collector.validate_review(
-                stale_review, manifest, observations["source_revisions"], candidate=False
-            )
+        for stale_digest in (STALE_330_PARENT_DIGEST, STALE_334_PARENT_DIGEST):
+            stale_manifest = json.loads(json.dumps(manifest))
+            stale_manifest["parent_inventory_digest"] = stale_digest
+            with self.subTest(stale_manifest=stale_digest):
+                with self.assertRaisesRegex(SystemExit, "parent inventory revision mismatch"):
+                    collector.validate_manifest(stale_manifest, parents)
+            stale_review = json.loads(json.dumps(review))
+            stale_review["parent_inventory_digest"] = stale_digest
+            with self.subTest(stale_review=stale_digest):
+                with self.assertRaisesRegex(SystemExit, "review parent revision mismatch"):
+                    collector.validate_review(
+                        stale_review, manifest, observations["source_revisions"], candidate=True
+                    )
 
-    def test_new_parent_effects_bind_only_verified_external_mutations(self) -> None:
+    def test_removed_orca_effect_is_unbound_and_current_effects_remain_evidence_bound(self) -> None:
         manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
         rows = read_tsv(TRACKED)
         expected_sources = {
             "profitable:skills/article-writer/scripts/zenn-deferred-worker.py": (
-                NEW_PARENT_REVISIONS["launchd:ai.anicca.article-zenn-retry"][0],
-                "sha256:de467764:09d44c61:45aa76f9:43d4083e:69f6efb0:2e1c0c03:1b3730c6:0beb06f4",
-            ),
-            "local-share:orca-zenn-finalizer/finalizer.py": (
-                NEW_PARENT_REVISIONS["launchd:ai.anicca.orca-zenn-finalizer"][0],
-                "sha256:85929c72:381db5d9:32484e85:a3047df8:457b3cf5:2f90b681:2d6850bf:43004e7d",
+                CURRENT_REBOUND_PARENT_REVISIONS["launchd:ai.anicca.article-zenn-retry"][0],
+                "sha256:58ddde96:bcf15291:491ab836:19483ad5:d5991938:93dbd510:21550f16:5cb91f46",
             ),
         }
         for locator, (reference, digest) in expected_sources.items():
@@ -166,11 +165,17 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
             for declaration in source["declarations"]
             for reference in declaration["loop_refs"]
         }
+        orca = [
+            source for source in manifest["sources"]
+            if source["source_locator"] == "local-share:orca-zenn-finalizer/finalizer.py"
+        ]
+        self.assertEqual(1, len(orca))
+        self.assertEqual([], orca[0]["declarations"][0]["loop_refs"])
         for parent_id in (
-            "launchd:ai.anicca.article-d7d8-finalizer",
             "launchd:ai.anicca.hf-gig-pass",
+            "launchd:ai.anicca.life-manager-x402-ledger",
         ):
-            reference = NEW_PARENT_REVISIONS[parent_id][0]
+            reference = CURRENT_REBOUND_PARENT_REVISIONS[parent_id][0]
             self.assertNotIn(reference, bound_refs)
             coverage = [
                 row for row in rows
@@ -197,6 +202,18 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
                 approved, manifest, observations["source_revisions"], candidate=False
             ),
         )
+        legacy = json.loads(json.dumps(approved))
+        legacy.update({
+            "review_basis": LEGACY_334_APPROVAL_BASIS,
+            "approval_basis": LEGACY_334_APPROVAL_BASIS,
+            "reviewer_role": LEGACY_334_REVIEWER_ROLE,
+        })
+        with self.assertRaisesRegex(
+            SystemExit, "independent external-effect review required"
+        ):
+            collector.validate_review(
+                legacy, manifest, observations["source_revisions"], candidate=False
+            )
         for field, invalid in (
             ("review_basis", "pending_independent_external_effect_review"),
             ("approval_basis", "pending_independent_external_effect_review"),
@@ -228,17 +245,11 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
 
     def test_synthetic_pending_review_is_candidate_only_and_normal_fails_closed(self) -> None:
         review = json.loads(REVIEW.read_text(encoding="utf-8"))
-        self.assertEqual("approved", review["review_status"])
-        self.assertEqual(APPROVAL_BASIS, review["review_basis"])
-        self.assertEqual(APPROVAL_BASIS, review["approval_basis"])
-        self.assertEqual(APPROVED_REVIEWER_ROLE, review["reviewer_role"])
+        self.assertEqual("review_required", review["review_status"])
+        self.assertEqual("pending_independent_external_effect_review", review["review_basis"])
+        self.assertNotIn("approval_basis", review)
+        self.assertEqual("independent_fresh_reviewer_required", review["reviewer_role"])
         pending = json.loads(json.dumps(review))
-        pending.pop("approval_basis")
-        pending.update({
-            "review_status": "review_required",
-            "review_basis": "pending_independent_external_effect_review",
-            "reviewer_role": "independent_fresh_reviewer_required",
-        })
         with tempfile.TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
             pending_path = temp / "pending-review.json"
@@ -287,19 +298,19 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
             self.assertTrue(candidate_objects.is_file())
             self.assertTrue(candidate_edges.is_file())
 
-    def test_approved_normal_regeneration_is_byte_exact(self) -> None:
+    def test_candidate_regeneration_is_byte_exact_and_normal_fails_closed(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
             observations = temp / "observations.json"
             objects = temp / "objects.json"
             edges = temp / "edges.tsv"
             collect = subprocess.run(
-                ["python3", str(COLLECTOR), "--output", str(observations)],
+                ["python3", str(COLLECTOR), "--candidate", "--output", str(observations)],
                 cwd=REPO, capture_output=True, text=True,
             )
             self.assertEqual(0, collect.returncode, collect.stderr)
             generate = subprocess.run(
-                ["python3", str(GENERATOR), "--observations", str(observations),
+                ["python3", str(GENERATOR), "--candidate", "--observations", str(observations),
                  "--objects-output", str(objects), "--output", str(edges)],
                 cwd=REPO, capture_output=True, text=True,
             )
@@ -307,6 +318,27 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
             self.assertEqual(OBSERVATIONS.read_bytes(), observations.read_bytes())
             self.assertEqual(OBJECTS.read_bytes(), objects.read_bytes())
             self.assertEqual(TRACKED.read_bytes(), edges.read_bytes())
+            normal_observations = temp / "normal-observations.json"
+            normal_edges = temp / "normal-edges.tsv"
+            normal_objects = temp / "normal-objects.json"
+            normal_collect = subprocess.run(
+                ["python3", str(COLLECTOR), "--output", str(normal_observations)],
+                cwd=REPO, capture_output=True, text=True,
+            )
+            self.assertNotEqual(0, normal_collect.returncode)
+            self.assertEqual("", normal_collect.stdout)
+            self.assertFalse(normal_observations.exists())
+            normal_generate = subprocess.run(
+                [
+                    "python3", str(GENERATOR), "--observations", str(observations),
+                    "--objects-output", str(normal_objects), "--output", str(normal_edges),
+                ],
+                cwd=REPO, capture_output=True, text=True,
+            )
+            self.assertNotEqual(0, normal_generate.returncode)
+            self.assertEqual("", normal_generate.stdout)
+            self.assertFalse(normal_objects.exists())
+            self.assertFalse(normal_edges.exists())
 
     def test_known_effects_are_evidence_backed_and_wallet_is_not_allowed(self) -> None:
         objects = json.loads(OBJECTS.read_text(encoding="utf-8"))["objects"]
@@ -354,7 +386,7 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
         ):
             self.assertIn((expected[parent_id], category), bound_pairs)
         post_rows = [row for row in bindings if row["effect_category"] == "post"]
-        self.assertEqual(4, len(post_rows))
+        self.assertEqual(3, len(post_rows))
         legacy_post_rows = [
             row for row in post_rows
             if row["loop_ref"] in {
@@ -378,11 +410,11 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
         coverage = [row for row in rows if row["effect_role"] == "category_coverage"]
         self.assertEqual(list(generator.EDGE_FIELDS), list(rows[0]))
         self.assertEqual(12, len(objects))
-        self.assertEqual(1677, len(rows))
-        self.assertEqual(1670, len(coverage))
-        self.assertEqual(7, len(bindings))
+        self.assertEqual(1971, len(rows))
+        self.assertEqual(1965, len(coverage))
+        self.assertEqual(6, len(bindings))
         self.assertEqual(
-            {"call": 1, "mail": 1, "post": 4, "render": 1},
+            {"call": 1, "mail": 1, "post": 3, "render": 1},
             dict(sorted(Counter(row["effect_category"] for row in bindings).items())),
         )
         self.assertTrue(all(generator.OBJECT_ID_PATTERN.fullmatch(item["effect_object_id"]) for item in objects))
@@ -406,10 +438,10 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
         changed = json.loads(json.dumps(observations)); changed["unknown"] = "fixture"
         with self.assertRaisesRegex(SystemExit, "schema"):
             collector.validate_observations_schema(changed)
-        objects, rows = generator.build_inventory(parents, manifest, observations, review, candidate=False)
+        objects, rows = generator.build_inventory(parents, manifest, observations, review, candidate=True)
         objects[0]["unknown"] = "fixture"
         with self.assertRaisesRegex(SystemExit, "schema"):
-            generator.validate_inventory(objects, rows, parents, manifest, observations, review, candidate=False)
+            generator.validate_inventory(objects, rows, parents, manifest, observations, review, candidate=True)
 
     def test_revisions_fail_closed(self) -> None:
         generator = load_module("external_effect_generator_revision", GENERATOR)
@@ -420,10 +452,10 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
         zero = "sha256:" + ":".join(["0" * 8] * 8)
         changed = json.loads(json.dumps(observations)); changed["parent_inventory_digest"] = zero
         with self.assertRaisesRegex(SystemExit, "parent inventory revision mismatch"):
-            generator.build_inventory(parents, manifest, changed, review, candidate=False)
+            generator.build_inventory(parents, manifest, changed, review, candidate=True)
         changed = json.loads(json.dumps(observations)); changed["source_revisions"][next(iter(changed["source_revisions"]))] = zero
         with self.assertRaisesRegex(SystemExit, "source revision mismatch"):
-            generator.build_inventory(parents, manifest, changed, review, candidate=False)
+            generator.build_inventory(parents, manifest, changed, review, candidate=True)
 
     def test_private_fields_and_keys_reject_identifiers_paths_and_opaque_values(self) -> None:
         collector = load_module("external_effect_collector_privacy", COLLECTOR)

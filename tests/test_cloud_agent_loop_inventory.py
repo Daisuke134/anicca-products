@@ -16,12 +16,13 @@ REPO = Path(__file__).resolve().parents[1]
 GENERATOR = REPO / "scripts/generate-cloud-agent-loop-inventory.py"
 TRACKED = REPO / "docs/reference/cloud-agent-loop-inventory.tsv"
 DOCUMENTATION = REPO / "docs/reference/cloud-agent-loop-inventory.md"
-CURRENT_ID_COUNT = 392
-CURRENT_ID_DIGEST = "9f5479da29cb9159925166129606e6fa422b949faa6028d7267b961fba1209bb"
+CURRENT_ID_COUNT = 393
+CURRENT_ID_DIGEST = "06971ae08c975de22556b45e6a1fb7c5b486f29bd020031643553d0a66b8e37f"
 EXPECTED_STATE_TRANSITIONS = {
     "launchd:ai.anicca.capafy-goal-monitor": "loaded",
     "launchd:ai.anicca.capafy-ig-marketing-daily": "loaded",
     "launchd:ai.anicca.life-manager-selfbuild": "loaded",
+    "launchd:ai.anicca.life-manager-x402-ledger": "loaded",
     "launchd:ai.anicca.hf-gig-pass": "loaded",
     "launchd:com.anicca.disk-sentinel": "loaded",
 }
@@ -49,7 +50,7 @@ class LoopInventoryRefreshContractTests(unittest.TestCase):
         self.assertEqual(len(rows), len({row["inventory_id"] for row in rows}))
         self.assertTrue(all(all(row.values()) for row in rows))
         self.assertEqual(
-            Counter({"launchd": 165, "openclaw_cron": 222, "railway_entrypoint": 1, "repository_entrypoint": 4}),
+            Counter({"launchd": 166, "openclaw_cron": 222, "railway_entrypoint": 1, "repository_entrypoint": 4}),
             Counter(row["source_type"] for row in rows),
         )
 

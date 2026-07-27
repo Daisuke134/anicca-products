@@ -1,5 +1,5 @@
 {
-  "discovery_manifest_digest": "sha256:f4b4a382:b31cd39e:6a1a2b80:8512af15:56bcbf59:617ec6f5:3a470241:9631dbf7",
+  "discovery_manifest_digest": "sha256:9f017d41:47d8ecfe:a8d985a7:4492c3f2:9afcc815:d5fd83b8:34bcabb3:d308c7ff",
   "objects": [
     {
       "action_class": "send_transactional_message",
@@ -55,10 +55,10 @@
       "financial_risk": "none",
       "idempotency": "commit_addressed",
       "mutability": "external_mutation",
-      "observation_digest": "sha256:a8883353:a2c5ad2b:d8e80449:7f4ecf40:c78ef6da:a5700fc7:230c75b7:49fd039b",
+      "observation_digest": "sha256:a37207d5:6f8f7068:ca2ede6e:269e5dd0:d941a04e:1956122c:a8d6ea28:5b04ef4a",
       "provider_class": "source_control_remote",
       "provider_tool_ref": "tool-ref-101122320653075",
-      "source_revision_digest": "sha256:de467764:09d44c61:45aa76f9:43d4083e:69f6efb0:2e1c0c03:1b3730c6:0beb06f4",
+      "source_revision_digest": "sha256:58ddde96:bcf15291:491ab836:19483ad5:d5991938:93dbd510:21550f16:5cb91f46",
       "target_class": "public_article_repository"
     },
     {
@@ -242,7 +242,7 @@
       "target_class": "on_chain_contract"
     }
   ],
-  "parent_inventory_digest": "sha256:90113e58:00a49511:9a84159b:1baf1728:c883a52b:0239dd87:113d1f8a:939d1e7c",
-  "review_mode": "independent_review_approved",
+  "parent_inventory_digest": "sha256:a212d39d:fb71962b:3e94e805:fdbcbaf3:8aae9020:8a44eaad:d3fc2adb:43218fb5",
+  "review_mode": "candidate_pending_review",
   "schema_version": 1
 }

@@ -537,7 +537,7 @@ Final approved transition evidence: builder manifestは`review_required`を維�
 
 ### 6.5 TODO #4 TaskList — external side-effect inventory
 
-Contractは334 parent×required category exact coverageとindependent effect object / opaque loop→effect edgeとする。required categoryはexact `call | post | mail | render | wallet`、reviewedされた列挙済み効果に限りexplicit `other`を許可する。resolutionは`discovered | none | unverified`を区別し、unknownをabsenceにしない。definition/credentialとTODO #3のinternal state writeはevidence inputでありside effectとして計上しない。
+Contractは393 parent×required category exact coverageとindependent effect object / opaque loop→effect edgeとする。required categoryはexact `call | post | mail | render | wallet`、reviewedされた列挙済み効果に限りexplicit `other`を許可する。resolutionは`discovered | none | unverified`を区別し、unknownをabsenceにしない。definition/credentialとTODO #3のinternal state writeはevidence inputでありside effectとして計上しない。
 
 - [x] TODO #1 parent、TODO #2 credential object/edge、TODO #3 secure FD / opaque loop ref / manifest-review / exact schema / privacy contractを実測して再利用する。
 - [x] CodeGraph→safe AST/exact source searchでreal call/post/mail/render参照とwallet-like behaviorをcontent非読取で列挙し、source/config digestにbindする。
@@ -549,12 +549,17 @@ Contractは334 parent×required category exact coverageとindependent effect obj
 - [x] live A/B/tracked、334×5/object-edge accounting、raw TODO #1 ID 0、full suite、全artifact exact gitleaksをfresh検証する。
 - [x] independent approval前はTODO #4を`in_progress`に留める。
 - [x] fresh-contextのindependent reviewerがcandidate artifactsだけを根拠にapproveし、review artifactを更新する。
+- [x] 392-parent rebind RED: ordered parent、392×5 matrix、removed Orca binding、current HF revision、new approval tupleを8 failure / 2 errorで固定する。
+- [x] 392-parent candidate GREEN: 1,960 category + 6 binding = 1,966 edge / 12 objectへ再生成し、Orca postをcatalog-onlyへ戻し、Zenn changed source revisionをverified digestへbindする。
+- [ ] 392-parent candidateをfresh independent reviewし、separate reviewだけを392専用tupleへ遷移してnormal final gatesを再検証する。
 
 TODO #1 refreshでlive A=B=trackedは334 row（launchd 107 / OpenClaw cron 222 / Railway 1 / repository entrypoint 4）、旧revisionからexact 4追加 / 0削除となる。TODO #4 inventoryはcurrent ordered-parent digest `sha256:90113e58:00a49511:9a84159b:1baf1728:c883a52b:0239dd87:113d1f8a:939d1e7c`へbindし、334×5 = 1,670 category coverage + 7 evidence-backed binding = 1,677 edge / 12 objectを生成する。新4 parentのうちZenn retry workerとOrca finalizerのrevision-pinned `git push`だけをpostへ結合し、D7D8 finalizerとHF gig-passは全category unverifiedを維持する。builder manifestはpendingを維持し、separate reviewだけがapproved exact tupleへ遷移する。
 
 334-parent rebind candidate evidence: focused REDは旧1,650 coverage、stale parent/review、新2 source不在を再現し、minimal GREEN後はfocused 6/6、TODO #4 15/15、TODO #1+2+3+4 218/218がPASSする。candidate collector A=B=tracked、object/edge A=B=tracked、normal collector/generatorはrc 1・stdout 0・output非作成。accountingは334 parent / 1,670 category coverage / 7 binding / 1,677 edge / 12 object（observed 7 / unverified 5）、bindingはcall 1 / mail 1 / post 4 / render 1 / wallet 0、wallet catalog objectはblockedを維持する。raw parent ID 0、Python syntax、diff check、6 artifact exact gitleaksがPASSする。independent review未実施のためcandidate-only / `in_progress`を維持する。
 
 Final independent approval evidence: 最初のfresh read-only reviewerは一時artifactを書けないenvironment-only理由でapproveせず、repo editも行わない。writable tempで再実行したfresh reviewerはexact TODO #1+2+3+4 218/218を実測し、`ok:true / blockers:[] / todo4_independent_candidate_review_approved_v1`でapproveする。builder manifestは`review_required / pending_independent_external_effect_review`を維持し、separate reviewだけがschema 1 `approved`、同一`review_basis / approval_basis`、`independent_fresh_sol_review`へ遷移し、manifest `sha256:f4b4a382:b31cd39e:6a1a2b80:8512af15:56bcbf59:617ec6f5:3a470241:9631dbf7`、current parent、exact 7 source revisionへbindする。approved + pending basis、placeholder reviewer role、builder promotion/downgradeをrejectし、synthetic pendingはcandidate-only / normal fail-closeを維持する。transition REDは1 test / 2 failure、GREEN後はfocused 6/6、TODO #4 17/17、TODO #1+2+3+4 220/220がPASSする。normal observation/object/edge A=B=tracked、synthetic pending normal collector/generator rc 1・stdout 0・output非作成、candidate mode生成、334 / 1,670 / 7 / 1,677 / 12 accounting、raw parent ID 0、Python syntax、diff check、6 artifact exact gitleaksがPASSするためTODO #4を`done`とする。
+
+393-parent rebind candidate evidence: 旧334 approvalを流用せず、parent digest `sha256:a212d39d:fb71962b:3e94e805:fdbcbaf3:8aae9020:8a44eaad:d3fc2adb:43218fb5`、manifest digest `sha256:9f017d41:47d8ecfe:a8d985a7:4492c3f2:9afcc815:d5fd83b8:34bcabb3:d308c7ff`へrebindする。392 candidate作成中にlive `ai.anicca.life-manager-x402-ledger` 1件を追加検知したため、loopを止めず393 snapshotへ再baseする。current contract REDは8 failure / 2 error、minimal candidate GREENはTODO #1+#4 22/22。candidateは393 parent / 1,965 category / 6 binding / 1,971 edge / 12 object、bindingはcall 1 / mail 1 / post 3 / render 1 / wallet 0、coverage discovered 6 / unverified 1,959。消えたOrca親のpost objectはsource evidenceを保持したcatalog-onlyへ戻し、別parentへ推測移植しない。Zenn retry source revision変更をlive verified digestへ更新し、HFと新x402 ledgerは全5 category unverified、wallet catalog objectはblockedを維持する。builder/reviewは双方pending、legacy334 approval tupleはcurrent normal gateで拒否する。fresh independent review前はTODO #4を`in_progress`に維持する。
 
 Completion claims MUST include fresh command output, remote commit hash, deployment commit hash, and real provider evidence IDs.
 
@@ -563,6 +568,8 @@ Completion claims MUST include fresh command output, remote commit hash, deploym
 Mac Miniのloopを停止せずlive scheduler metadataを再収集した結果、TODO #1 parentは334 rowから392 rowへ変化した。差分は追加63・削除5、source別はlaunchd 165 / OpenClaw cron 222 / Railway 1 / repository entrypoint 4。current sorted ID digestは`9f5479da29cb9159925166129606e6fa422b949faa6028d7267b961fba1209bb`。REDはtracked 334 rowに対してcurrent 392 contractが2 failure / 1 error、GREENはgenerator A=B、tracked byte exact、focused 5/5。削除5はinventoryからのabsenceであり、migration操作としてprocess停止・launchd bootout・plist削除を実行していない。
 
 このrefreshで旧334-parent digestにbindしたTODO #2〜#5 artifactはcurrent completion evidenceではなくなる。各artifactは392-parentへ再収集し、revision/privacy/secret gateとrequired reviewをfresh通過するまで`in_progress`へ戻す。旧approved artifactは履歴として保持し、current approvalへ流用しない。
+
+392 candidateの処理中にlive `launchd:ai.anicca.life-manager-x402-ledger`を1件追加検知した。Mac Miniのloopを停止せず再収集し、current parentは393 row（launchd 166 / OpenClaw cron 222 / Railway 1 / repository 4）、complete ID digestは`06971ae08c975de22556b45e6a1fb7c5b486f29bd020031643553d0a66b8e37f`、ordered parent metadata digestは`sha256:a212d39d:fb71962b:3e94e805:fdbcbaf3:8aae9020:8a44eaad:d3fc2adb:43218fb5`となる。392から追加1 / 削除0で、generator A=B=tracked、TODO #1+#4 22/22。392 approvalへbindしたTODO #2/#3は再び`in_progress`へ戻し、current completionへ流用しない。
 
 ## 7. Research decisions
 
@@ -590,10 +597,10 @@ state values: `pending | in_progress | code_done | done | blocked`。
 
 | # | Task | Done condition | State |
 |---|---|---|---|
-| 1 | 現行loop inventoryを作る | 全launchd/cron/entrypoint/ownerが1行ずつ存在 | done — liveを停止せず392 rowへrefresh。launchd 165 / OpenClaw 222 / Railway 1 / repo 4、追加63 / 削除5、current ID digest `9f5479da29cb9159925166129606e6fa422b949faa6028d7267b961fba1209bb`。392 contract RED 2 failure / 1 error→generator A=B・tracked byte exact・focused 5/5 GREEN。process stop / bootout / plist delete 0 |
-| 2 | loopごとのcredential inventoryを作る | secret値なしでprovider/scope/refを記録 | done — 392 parent / 396 edge / 18 credential object / finding 1。builder manifest pending、separate reviewだけがexact approved tupleと5 digestへbind。fresh independent re-review `ok:true / blocking:[]`、169/169・skip 0、normal tracked byte exact、6 artifact gitleaks clean。351 unverifiedはunknownをabsenceへ昇格しないcurrent approved decision |
-| 3 | loopごとのstate/artifact inventoryを作る | local path・size・retention・SSOTを記録 | done — 392 parent、2,352 category + 392 definition = 2,744 edge / 185 object。消えたOrca親の3 objectはunboundへ戻し、unknownをabsenceへ昇格していない。fresh independent re-review `ok:true / blocking:[]`、31/31、normal A=B/tracked、6 gitleaks clean。separate reviewだけが392専用tupleでapproved |
-| 4 | loopごとのexternal side effect inventoryを作る | call/post/mail/render/walletを列挙 | in_progress — 旧approved artifactは334-parent bindかつZenn source revisionが更新済み。392×5再生成・revision/privacy gate・required review前はcurrent completionを主張しない |
+| 1 | 現行loop inventoryを作る | 全launchd/cron/entrypoint/ownerが1行ずつ存在 | done — liveを停止せず393 rowへrefresh。launchd 166 / OpenClaw 222 / Railway 1 / repo 4。392からx402 ledger 1追加 / 0削除、current ID digest `06971ae08c975de22556b45e6a1fb7c5b486f29bd020031643553d0a66b8e37f`。generator A=B・tracked byte exact・focused 5/5 GREEN。process stop / bootout / plist delete 0 |
+| 2 | loopごとのcredential inventoryを作る | secret値なしでprovider/scope/refを記録 | in_progress — 392 approvalは履歴として有効だがcurrent 393 parentと不一致。新x402 ledgerをfail-closed再収集し、393専用review/gates前はcurrent completionを主張しない |
+| 3 | loopごとのstate/artifact inventoryを作る | local path・size・retention・SSOTを記録 | in_progress — 392 approvalは履歴として有効だがcurrent 393 parentと不一致。393×6 coverage、新parent unverified、fresh review/gates前はcurrent completionを主張しない |
+| 4 | loopごとのexternal side effect inventoryを作る | call/post/mail/render/walletを列挙 | in_progress — 393-parent candidateへ再bind済み。1,965 category + 6 binding = 1,971 edge / 12 object。消えたOrca postはcatalog-only、Zenn changed sourceはcurrent verified digest、new x402 ledgerは全category unverified。17/17 GREEN。fresh independent reviewとfinal gates前はcurrent completionを主張しない |
 | 5 | macOS依存を分類する | Linux可/要置換/廃止を全loopに付与 | in_progress — 334-parent candidateはcurrent parentと不一致。392 opaque rowへ再bindし、focused/full/gitleaksをfresh GREENへ戻す |
 | 6 | workload classを確定する | 全loopが5 queueのどれかに所属 | pending |
 | 7 | DigitalOcean bridge Dropletを作る | key-only SSH + firewall + Tailscale実測 | pending |

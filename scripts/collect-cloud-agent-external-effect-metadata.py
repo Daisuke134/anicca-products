@@ -49,8 +49,8 @@ REVIEW_PENDING_FIELDS = frozenset({
 REVIEW_APPROVED_FIELDS = REVIEW_PENDING_FIELDS | {"approval_basis"}
 PENDING_REVIEW_BASIS = "pending_independent_external_effect_review"
 PENDING_REVIEWER_ROLE = "independent_fresh_reviewer_required"
-APPROVED_REVIEW_BASIS = "todo4_independent_candidate_review_approved_v1"
-APPROVED_REVIEWER_ROLE = "independent_fresh_sol_review"
+APPROVED_REVIEW_BASIS = "todo4_393_rebind_independent_review_approved_v1"
+APPROVED_REVIEWER_ROLE = "independent_fresh_external_effect_reviewer"
 OBSERVATION_FIELDS = frozenset({
     "schema_version", "parent_inventory_digest", "discovery_manifest_digest", "review_mode",
     "source_revisions", "loop_revisions", "objects",

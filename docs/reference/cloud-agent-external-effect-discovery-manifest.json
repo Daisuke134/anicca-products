@@ -1,5 +1,5 @@
 {
-  "parent_inventory_digest": "sha256:90113e58:00a49511:9a84159b:1baf1728:c883a52b:0239dd87:113d1f8a:939d1e7c",
+  "parent_inventory_digest": "sha256:a212d39d:fb71962b:3e94e805:fdbcbaf3:8aae9020:8a44eaad:d3fc2adb:43218fb5",
   "review_basis": "pending_independent_external_effect_review",
   "review_status": "review_required",
   "schema_version": 1,
@@ -176,7 +176,7 @@
       ],
       "source_id": "source-zenn-retry-publisher",
       "source_locator": "profitable:skills/article-writer/scripts/zenn-deferred-worker.py",
-      "source_revision_digest": "sha256:de467764:09d44c61:45aa76f9:43d4083e:69f6efb0:2e1c0c03:1b3730c6:0beb06f4"
+      "source_revision_digest": "sha256:58ddde96:bcf15291:491ab836:19483ad5:d5991938:93dbd510:21550f16:5cb91f46"
     },
     {
       "declarations": [
@@ -195,9 +195,7 @@
           "execution_policy": "allowed",
           "financial_risk": "none",
           "idempotency": "commit_addressed",
-          "loop_refs": [
-            "loop-173899012226255"
-          ],
+          "loop_refs": [],
           "provider_class": "source_control_remote",
           "provider_tool_ref": "tool-ref-186402345642538",
           "mutability": "external_mutation",
