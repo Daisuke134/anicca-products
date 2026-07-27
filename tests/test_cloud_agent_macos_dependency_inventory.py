@@ -57,10 +57,10 @@ class MacOSDependencyInventoryContractTests(unittest.TestCase):
         self.assertTrue(DOCUMENTATION.is_file())
         parents = read_tsv(PARENT)
         rows = read_tsv(TRACKED)
-        self.assertEqual(393, len(parents))
-        self.assertEqual(393, len(rows))
+        self.assertEqual(396, len(parents))
+        self.assertEqual(396, len(rows))
         self.assertEqual(FIELDS, list(rows[0]))
-        self.assertEqual(393, len({row["loop_ref"] for row in rows}))
+        self.assertEqual(396, len({row["loop_ref"] for row in rows}))
         expected_refs = {
             opaque_loop_ref(parent) for parent in parents
         }
@@ -76,7 +76,7 @@ class MacOSDependencyInventoryContractTests(unittest.TestCase):
         row_by_ref = {row["loop_ref"]: row for row in rows}
         counts = Counter(row["migration_class"] for row in rows)
         self.assertEqual(
-            {"linux_ready": 1, "replacement_required": 392},
+            {"linux_ready": 1, "replacement_required": 395},
             dict(sorted(counts.items())),
         )
         for parent in parents:

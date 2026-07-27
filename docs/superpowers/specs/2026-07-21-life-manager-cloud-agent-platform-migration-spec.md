@@ -605,6 +605,8 @@ TODO #5 first fresh review evidence: reject（blocking 2）。初回候補はOpe
 
 TODO #5 final fresh re-review evidence: `ok:true / blocking:[] / todo5_393_macos_dependency_review_approved_v1 / independent_fresh_macos_dependency_reviewer`。393 / 393 exact opaque coverage、Linux-ready 1 / replacement-required 392 / retire 0、launchd 166 / Mac-hosted OpenClaw 222 / repository-only 4のreplacement target、Railway 1のmanaged-cloud evidence、payload portability unverified境界を独立確認する。A=B=tracked、5/5、Python compile、TSV+doc exact gitleaks、diff checkがPASSし、raw parent ID 0、duplicate parent no-output fail-closeを維持するためTODO #5を`done`とする。
 
+396-parent candidate evidence: 396 / 396 exact opaque coverage、Linux-ready 1 / replacement-required 395 / retire 0。launchd 169 / Mac-hosted OpenClaw 222 / repository-only 4はreplacement required、Railway 1だけがlinux ready。追加されたfinancial report、payout、HF weekly reportはlaunchd scheduler replacementでpayload portabilityをunverifiedに保つ。A=B=tracked、5/5、Python compile、raw parent ID 0、duplicate parent no-output fail-closeを確認するが、fresh independent review前はTODO #5を`in_progress`に維持する。
+
 ### 6.5.2 TODO #6 TaskList — workload queue classification
 
 - [x] 5 queueのisolation / concurrency keyを§3.4のexact contractへ固定する。
@@ -660,7 +662,7 @@ state values: `pending | in_progress | code_done | done | blocked`。
 | 2 | loopごとのcredential inventoryを作る | secret値なしでprovider/scope/refを記録 | done — 396 parent / 400 edge / 18 credential object / finding 1。新weekly-reportはrevision-bound unverified、repository self-invalidation修正、fresh review blocking 0、normal tracked exact、170/170、gitleaks 6/6 |
 | 3 | loopごとのstate/artifact inventoryを作る | local path・size・retention・SSOTを記録 | done — 396 parent / 2,376 category / 396 definition / 2,772 edge / 189 object。追加3 loopは6 category unverified。fresh review blocking 0、normal tracked exact、31/31、gitleaks 6/6 |
 | 4 | loopごとのexternal side effect inventoryを作る | call/post/mail/render/walletを列挙 | done — 396 parent / 1,980 coverage / 6 binding / 1,986 edge / 12 object。追加3 loopは全5 category unverified。fresh re-review blocking 0、normal tracked exact、17/17、gitleaks 6/6 |
-| 5 | macOS依存を分類する | Linux可/要置換/廃止を全loopに付与 | in_progress — 395 parentへのdeterministic再生成待ち |
+| 5 | macOS依存を分類する | Linux可/要置換/廃止を全loopに付与 | in_progress — 396 parentへdeterministic candidate再生成中 |
 | 6 | workload classを確定する | 全loopが5 queueのどれかに所属 | in_progress — 393 candidateはlive driftでreject。395 parentへrebind中 |
 | 7 | DigitalOcean bridge Dropletを作る | key-only SSH + firewall + Tailscale実測 | pending |
 | 8 | bridgeへDocker runtimeを作る | pinned imageでhello health PASS | pending |

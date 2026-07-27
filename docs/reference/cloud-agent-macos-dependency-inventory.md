@@ -16,11 +16,11 @@ TODO #5 classifies every current loop without stopping or modifying it. The pare
 
 | Measure | Count |
 |---|---:|
-| Parent rows covered | 393 / 393 |
+| Parent rows covered | 396 / 396 |
 | `linux_ready` | 1 |
-| `replacement_required` | 392 |
+| `replacement_required` | 395 |
 | `retire` | 0 |
-| launchd scheduler replacements | 166 |
+| launchd scheduler replacements | 169 |
 | OpenClaw gateway migrations | 222 |
 | repository runtime bindings required | 4 |
 
