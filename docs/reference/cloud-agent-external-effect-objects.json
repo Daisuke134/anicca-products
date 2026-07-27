@@ -243,6 +243,6 @@
     }
   ],
   "parent_inventory_digest": "sha256:a212d39d:fb71962b:3e94e805:fdbcbaf3:8aae9020:8a44eaad:d3fc2adb:43218fb5",
-  "review_mode": "candidate_pending_review",
+  "review_mode": "independent_review_approved",
   "schema_version": 1
 }

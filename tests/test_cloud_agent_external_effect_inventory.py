@@ -202,18 +202,22 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
                 approved, manifest, observations["source_revisions"], candidate=False
             ),
         )
-        legacy = json.loads(json.dumps(approved))
-        legacy.update({
-            "review_basis": LEGACY_334_APPROVAL_BASIS,
-            "approval_basis": LEGACY_334_APPROVAL_BASIS,
-            "reviewer_role": LEGACY_334_REVIEWER_ROLE,
-        })
-        with self.assertRaisesRegex(
-            SystemExit, "independent external-effect review required"
+        for basis, reviewer in (
+            ("todo4_392_rebind_independent_review_approved_v1", APPROVED_REVIEWER_ROLE),
+            (LEGACY_334_APPROVAL_BASIS, LEGACY_334_REVIEWER_ROLE),
         ):
-            collector.validate_review(
-                legacy, manifest, observations["source_revisions"], candidate=False
-            )
+            legacy = json.loads(json.dumps(approved))
+            legacy.update({
+                "review_basis": basis,
+                "approval_basis": basis,
+                "reviewer_role": reviewer,
+            })
+            with self.subTest(basis=basis), self.assertRaisesRegex(
+                SystemExit, "independent external-effect review required"
+            ):
+                collector.validate_review(
+                    legacy, manifest, observations["source_revisions"], candidate=False
+                )
         for field, invalid in (
             ("review_basis", "pending_independent_external_effect_review"),
             ("approval_basis", "pending_independent_external_effect_review"),
@@ -245,11 +249,15 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
 
     def test_synthetic_pending_review_is_candidate_only_and_normal_fails_closed(self) -> None:
         review = json.loads(REVIEW.read_text(encoding="utf-8"))
-        self.assertEqual("review_required", review["review_status"])
-        self.assertEqual("pending_independent_external_effect_review", review["review_basis"])
-        self.assertNotIn("approval_basis", review)
-        self.assertEqual("independent_fresh_reviewer_required", review["reviewer_role"])
+        self.assertEqual("approved", review["review_status"])
+        self.assertEqual(APPROVAL_BASIS, review["review_basis"])
+        self.assertEqual(APPROVAL_BASIS, review["approval_basis"])
+        self.assertEqual(APPROVED_REVIEWER_ROLE, review["reviewer_role"])
         pending = json.loads(json.dumps(review))
+        pending["review_status"] = "review_required"
+        pending["review_basis"] = "pending_independent_external_effect_review"
+        pending.pop("approval_basis")
+        pending["reviewer_role"] = "independent_fresh_reviewer_required"
         with tempfile.TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
             pending_path = temp / "pending-review.json"
@@ -298,19 +306,19 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
             self.assertTrue(candidate_objects.is_file())
             self.assertTrue(candidate_edges.is_file())
 
-    def test_candidate_regeneration_is_byte_exact_and_normal_fails_closed(self) -> None:
+    def test_approved_normal_regeneration_is_byte_exact(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             temp = Path(temp_dir)
             observations = temp / "observations.json"
             objects = temp / "objects.json"
             edges = temp / "edges.tsv"
             collect = subprocess.run(
-                ["python3", str(COLLECTOR), "--candidate", "--output", str(observations)],
+                ["python3", str(COLLECTOR), "--output", str(observations)],
                 cwd=REPO, capture_output=True, text=True,
             )
             self.assertEqual(0, collect.returncode, collect.stderr)
             generate = subprocess.run(
-                ["python3", str(GENERATOR), "--candidate", "--observations", str(observations),
+                ["python3", str(GENERATOR), "--observations", str(observations),
                  "--objects-output", str(objects), "--output", str(edges)],
                 cwd=REPO, capture_output=True, text=True,
             )
@@ -318,28 +326,10 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
             self.assertEqual(OBSERVATIONS.read_bytes(), observations.read_bytes())
             self.assertEqual(OBJECTS.read_bytes(), objects.read_bytes())
             self.assertEqual(TRACKED.read_bytes(), edges.read_bytes())
-            normal_observations = temp / "normal-observations.json"
-            normal_edges = temp / "normal-edges.tsv"
-            normal_objects = temp / "normal-objects.json"
-            normal_collect = subprocess.run(
-                ["python3", str(COLLECTOR), "--output", str(normal_observations)],
-                cwd=REPO, capture_output=True, text=True,
+            self.assertEqual(
+                "independent_review_approved",
+                json.loads(observations.read_text(encoding="utf-8"))["review_mode"],
             )
-            self.assertNotEqual(0, normal_collect.returncode)
-            self.assertEqual("", normal_collect.stdout)
-            self.assertFalse(normal_observations.exists())
-            normal_generate = subprocess.run(
-                [
-                    "python3", str(GENERATOR), "--observations", str(observations),
-                    "--objects-output", str(normal_objects), "--output", str(normal_edges),
-                ],
-                cwd=REPO, capture_output=True, text=True,
-            )
-            self.assertNotEqual(0, normal_generate.returncode)
-            self.assertEqual("", normal_generate.stdout)
-            self.assertFalse(normal_objects.exists())
-            self.assertFalse(normal_edges.exists())
-
     def test_known_effects_are_evidence_backed_and_wallet_is_not_allowed(self) -> None:
         objects = json.loads(OBJECTS.read_text(encoding="utf-8"))["objects"]
         by_category = {category: [] for category in ("call", "post", "mail", "render", "wallet")}
@@ -438,10 +428,10 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
         changed = json.loads(json.dumps(observations)); changed["unknown"] = "fixture"
         with self.assertRaisesRegex(SystemExit, "schema"):
             collector.validate_observations_schema(changed)
-        objects, rows = generator.build_inventory(parents, manifest, observations, review, candidate=True)
+        objects, rows = generator.build_inventory(parents, manifest, observations, review, candidate=False)
         objects[0]["unknown"] = "fixture"
         with self.assertRaisesRegex(SystemExit, "schema"):
-            generator.validate_inventory(objects, rows, parents, manifest, observations, review, candidate=True)
+            generator.validate_inventory(objects, rows, parents, manifest, observations, review, candidate=False)
 
     def test_revisions_fail_closed(self) -> None:
         generator = load_module("external_effect_generator_revision", GENERATOR)
@@ -452,10 +442,10 @@ class ExternalEffectInventoryContractTests(unittest.TestCase):
         zero = "sha256:" + ":".join(["0" * 8] * 8)
         changed = json.loads(json.dumps(observations)); changed["parent_inventory_digest"] = zero
         with self.assertRaisesRegex(SystemExit, "parent inventory revision mismatch"):
-            generator.build_inventory(parents, manifest, changed, review, candidate=True)
+            generator.build_inventory(parents, manifest, changed, review, candidate=False)
         changed = json.loads(json.dumps(observations)); changed["source_revisions"][next(iter(changed["source_revisions"]))] = zero
         with self.assertRaisesRegex(SystemExit, "source revision mismatch"):
-            generator.build_inventory(parents, manifest, changed, review, candidate=True)
+            generator.build_inventory(parents, manifest, changed, review, candidate=False)
 
     def test_private_fields_and_keys_reject_identifiers_paths_and_opaque_values(self) -> None:
         collector = load_module("external_effect_collector_privacy", COLLECTOR)

@@ -2,7 +2,7 @@
 
 This TODO #4 inventory separates reusable effect objects from opaque loop-to-effect edges. It is revision-bound to the ordered 393-row parent loop inventory and covers exactly five required categories for every loop: `call`, `post`, `mail`, `render`, and `wallet`.
 
-The tracked candidate contains 1,965 category-coverage edges plus six evidence-backed bindings, for 1,971 edges and 12 reusable objects. Coverage resolution is one of `discovered`, `none`, or `unverified`; absence of evidence remains `unverified`. Targets are classes, never recipient identifiers, account handles, phone numbers, wallet addresses, provider payloads, prompt bodies, or message bodies.
+The tracked approved inventory contains 1,965 category-coverage edges plus six evidence-backed bindings, for 1,971 edges and 12 reusable objects. Coverage resolution is one of `discovered`, `none`, or `unverified`; absence of evidence remains `unverified`. Targets are classes, never recipient identifiers, account handles, phone numbers, wallet addresses, provider payloads, prompt bodies, or message bodies.
 
 ## Evidence-backed effects
 
@@ -22,13 +22,13 @@ The current Zenn retry worker is bound only to its reviewed, revision-pinned `gi
 
 ## Review boundary
 
-`cloud-agent-external-effect-discovery-manifest.json` is the builder-authored manifest and remains `review_required / pending_independent_external_effect_review`. `cloud-agent-external-effect-discovery-review.json` is also pending until fresh independent review. It binds manifest digest `sha256:35ee32b0:ef8e2b1a:6fae6025:6c0eb92b:4135bfe4:d5e13818:e22fe01f:9cdd6930`, the current parent digest, and the exact seven source revisions. After review, only the separate artifact may transition to exact basis `todo4_393_rebind_independent_review_approved_v1` and reviewer role `independent_fresh_external_effect_reviewer`; the legacy 334 and 392 tuples are rejected. An approved review with a pending basis, placeholder reviewer role, stale parent, stale manifest, or stale source revision fails closed.
+`cloud-agent-external-effect-discovery-manifest.json` is the builder-authored manifest and remains `review_required / pending_independent_external_effect_review`. Only the separate `cloud-agent-external-effect-discovery-review.json` transitions to exact `approved / todo4_393_rebind_independent_review_approved_v1 / independent_fresh_external_effect_reviewer`. It binds manifest digest `sha256:35ee32b0:ef8e2b1a:6fae6025:6c0eb92b:4135bfe4:d5e13818:e22fe01f:9cdd6930`, the current parent digest, and the exact seven source revisions. The legacy 334 and 392 tuples are rejected. An approved review with a pending basis, placeholder reviewer role, stale parent, stale manifest, or stale source revision fails closed.
 
-Candidate regeneration:
+Approved regeneration:
 
 ```sh
-python3 scripts/collect-cloud-agent-external-effect-metadata.py --candidate
-python3 scripts/generate-cloud-agent-external-effect-inventory.py --candidate
+python3 scripts/collect-cloud-agent-external-effect-metadata.py
+python3 scripts/generate-cloud-agent-external-effect-inventory.py
 ```
 
 Synthetic pending reviews remain candidate-only: normal mode exits nonzero without stdout or output, while explicit `--candidate` produces isolated `candidate_pending_review` artifacts. Approval validates this metadata inventory; it does not authorize execution of any listed effect.
