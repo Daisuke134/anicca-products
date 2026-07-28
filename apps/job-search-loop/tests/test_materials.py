@@ -1,6 +1,13 @@
+import tempfile
 import unittest
+from pathlib import Path
 
-from job_search_loop.materials import MaterialError, render_resume_html, validate_claims
+from job_search_loop.materials import (
+    MaterialError,
+    render_resume_html,
+    secure_material_paths,
+    validate_claims,
+)
 
 
 class MaterialTests(unittest.TestCase):
@@ -65,6 +72,16 @@ class MaterialTests(unittest.TestCase):
         self.assertIn("09000000000", html)
         self.assertIn("Tokyo, Japan", html)
         self.assertIn("Date of birth: 2002-01-30", html)
+
+    def test_generated_materials_are_private(self):
+        with tempfile.TemporaryDirectory() as directory:
+            first = Path(directory) / "resume.html"
+            second = Path(directory) / "resume.pdf"
+            first.write_text("html", encoding="utf-8")
+            second.write_text("pdf", encoding="utf-8")
+            secure_material_paths(first, second)
+            self.assertEqual(first.stat().st_mode & 0o777, 0o600)
+            self.assertEqual(second.stat().st_mode & 0o777, 0o600)
 
 
 if __name__ == "__main__":

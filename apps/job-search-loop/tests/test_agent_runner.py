@@ -10,7 +10,7 @@ from job_search_loop.agent_runner import AgentRunner, ContractError, TASK_CLASSE
 class AgentRunnerTests(unittest.TestCase):
     def test_task_routes_are_pinned(self):
         self.assertEqual(TASK_CLASSES["tailor"], "composition-agent")
-        self.assertEqual(TASK_CLASSES["inbox"], "repeatable-agent")
+        self.assertEqual(TASK_CLASSES["inbox"], "composition-agent")
         self.assertEqual(TASK_CLASSES["submit"], "browser-lane-agent")
         self.assertEqual(TASK_CLASSES["improve"], "high-value-agent")
 
@@ -60,4 +60,3 @@ class AgentRunnerTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

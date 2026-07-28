@@ -11,6 +11,11 @@ class MaterialError(ValueError):
     pass
 
 
+def secure_material_paths(*paths: Path) -> None:
+    for path in paths:
+        path.chmod(0o600)
+
+
 def validate_claims(profile: dict[str, Any], items: list[dict[str, Any]]) -> None:
     approved = {fact["id"] for fact in profile.get("facts", [])}
     for item in items:
@@ -117,6 +122,7 @@ def render_master(profile_path: Path, output_dir: Path) -> tuple[Path, Path]:
     pdf_path = output_dir / "Daisuke_Narita_AI_Resume.pdf"
     html_path.write_text(rendered, encoding="utf-8")
     subprocess.run(["weasyprint", str(html_path), str(pdf_path)], check=True)
+    secure_material_paths(html_path, pdf_path)
     extracted = subprocess.run(
         ["pdftotext", str(pdf_path), "-"],
         check=True,
@@ -126,4 +132,5 @@ def render_master(profile_path: Path, output_dir: Path) -> tuple[Path, Path]:
     for required in ("Daisuke Narita", "MUIT", "NAIST", "Applied AI"):
         if required not in extracted:
             raise MaterialError(f"PDF missing required ATS text: {required}")
+    secure_material_paths(html_path, pdf_path)
     return html_path, pdf_path

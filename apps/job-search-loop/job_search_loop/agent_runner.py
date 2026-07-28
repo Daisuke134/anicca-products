@@ -11,7 +11,7 @@ from typing import Any
 TASK_CLASSES = {
     "extract": "composition-agent",
     "tailor": "composition-agent",
-    "inbox": "repeatable-agent",
+    "inbox": "composition-agent",
     "submit": "browser-lane-agent",
     "improve": "high-value-agent",
 }
