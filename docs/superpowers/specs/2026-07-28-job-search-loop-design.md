@@ -34,6 +34,9 @@ The loop optimizes for interviews, not raw submission count:
 | Use Calendar FreeBusy before choosing an offered time | [Google Calendar FreeBusy query](https://developers.google.com/workspace/calendar/api/v3/reference/freebusy/query) | “List of time ranges during which this calendar should be regarded as busy.” |
 | Find prior loop-created events by a private application key | [Google Calendar extended properties](https://developers.google.com/workspace/calendar/api/guides/extended-properties) | “Extended properties make it easy to store application-specific data for an event” |
 | Calendar writes require explicit start/end and idempotency | [Google Calendar create events](https://developers.google.com/workspace/calendar/api/v3/reference/events/insert) | “Creates an event.” |
+| Do not use outside solution help when an assessment limits resources | [CodeSignal Certified Assessment rules](https://support.codesignal.com/hc/en-us/articles/22438639388567-What-are-the-assessment-rules-for-Certified-Assessments) | “candidates are not receiving outside assistance for the logic behind a solution” |
+| Treat proctored tests as identity-bound manual work | [HackerRank proctored tests](https://candidatesupport.hackerrank.com/articles/4512341695-taking-proctored-tests) | “monitor your test screen activity and identify potential malpractice” |
+| Use AI only when the assessment explicitly enables it | [Codility AI Copilot](https://support.codility.com/hc/en-us/articles/39925970318993-AI-Copilot-in-VSCode) | “They can enable or disable the feature at any time” |
 | Scope the MUFG claim to contribution, not sole ownership | [Salesforce Japan MUFG announcement](https://www.salesforce.com/jp/news/press-releases/2026/03/25/mufg-customer-news-3/) | “2025年8月に日本で初めて同ソリューションを選定” |
 | Link the public ICLR report as proof of communication skill | [MUIT ICLR 2026 report](https://www.youtube.com/watch?v=biHAQ6aSQuc) | “International Conference on Learning Representations 2026参加レポート 後編” |
 | Use the correct public product portfolio URL | [Dais’s products](https://aniccaai.com/dais) | “Dais’s products” |
@@ -191,7 +194,31 @@ Every pack includes role/company thesis, likely interviewer interests from publi
 evidence, five candidate stories grounded in `fact_id`s, technical/domain questions,
 questions to ask, and logistics.
 
-### 5.4 Telegram delivery
+### 5.4 Assessments and take-homes
+
+Every assessment manifest retains the Gmail IDs, HTTPS source, timezone-aware
+deadline, deadline source span, rules source span, assessment type, proctoring flag,
+and deterministic AI-policy classification. Only unproctored take-homes and business
+cases whose quoted rules explicitly allow AI enter autonomous execution. Proctored,
+live, explicitly prohibited, and unspecified-policy work remains behind a manual
+integrity gate.
+
+Allowed work runs in a private workspace through macOS `sandbox-exec`: network and
+home reads are denied, writes are limited to the workspace, the environment is
+sanitized, execution is time-bounded, and stdout/stderr are stored mode 0600 with
+SHA-256 hashes. The durable state machine is:
+
+```text
+detected → prepared → executing → verified
+                     ↘ execution_failed → executing
+verified → submit_claimed → submit_started → submitted
+                                         ↘ submit_unknown
+```
+
+`submit_started` and `submit_unknown` are terminal for automatic retry. Only an
+authoritative employer receipt can produce `submitted`.
+
+### 5.5 Telegram delivery
 
 Copy the proven gig-loop outbox contract: `pending → claimed → send_started → sent`,
 with unique event keys, lease fencing, payload hashes, and no blind retry from
@@ -315,7 +342,7 @@ row; its status changes in the same commit as implementation evidence.
 | 2 | Role-specific application messages for Product, GTM, Partnerships and Customer Success | `completed` | Four strict templates; real-profile generation; fact/source validation; 59 tests |
 | 3 | Recruiter question auto-reply | `completed` | 68 tests; approved-answer and fail-closed policy; at-most-once outbox; real two-message same-thread Gmail round trip with private evidence |
 | 4 | Interview slot selection and confirmation | `completed` | 79 tests; explicit timezone/source validation; real busy-slot skip, private Calendar event, same-thread Gmail reply and retry-idempotency E2E; all test artifacts cleaned |
-| 5 | Assessment and take-home workflow | `in_progress` | Detection, isolated execution, evidence and safe submission state machine |
+| 5 | Assessment and take-home workflow | `completed` | 89 tests; quoted rule/deadline manifest; real sandbox denial of network/home access; private hashed evidence; fenced unknown-submission retry block |
 | 6 | Real interview-email E2E and preparation pack | `waiting_external` | Real recruiter email, Calendar event, 3-day/1-day Telegram evidence |
 | 7 | ATS resilience for Ashby, Workday and other blocked forms | `pending` | Replay fixtures plus one real confirmed application per adapter |
 | 8 | Life Manager Career organ | `pending` | Career timeline, goal and pause/resume controls consuming `summary.v1.json` |

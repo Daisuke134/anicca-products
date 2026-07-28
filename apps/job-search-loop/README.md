@@ -18,6 +18,7 @@ and reports every material state change to Telegram.
 | Personal data | Verified private profile and generated materials are mode `0600` |
 | Inbox | Gmail metadata is prefiltered deterministically; a model runs only for a new recruiting thread |
 | Calendar | Only explicit timezone-aware recruiter candidates are considered; the earliest free candidate is confirmed once |
+| Assessments | Autonomous execution requires explicit AI permission and no proctoring; all code runs without network or home access |
 | Self-improvement | One-field experiments require 10 resolved samples per arm, zero replay violations, and non-overlapping Wilson 95% intervals |
 
 ## Runtime
@@ -45,6 +46,7 @@ semantics.
 | Technical-business message templates | `templates/application-messages.v1.json` |
 | Recruiter reply policy | `job_search_loop/recruiter_reply.py` |
 | Interview scheduling policy | `job_search_loop/interview_scheduling.py` |
+| Assessment integrity and execution policy | `job_search_loop/assessment_workflow.py` |
 | Daily driver | `scripts/run-daily.sh` |
 | Inbox driver | `scripts/run-inbox.sh` |
 
@@ -78,3 +80,12 @@ The earliest explicit free candidate is stored as one private event before the
 threaded confirmation is sent. Missing timezone/date/duration, a fully busy candidate
 set, or ambiguous text causes no reply and no Calendar write. The Gmail inbound
 message ID is the outbox key, so an uncertain send is never blindly retried.
+
+Assessment rules are evidence, not assumptions. An unproctored take-home or business
+case enters the autonomous path only when its quoted rules explicitly allow AI.
+Proctored/live assessments and prohibited or unspecified AI policies stay behind the
+manual integrity gate. Allowed work runs in a private `sandbox-exec` workspace with
+no network, no access to the user's home, a sanitized environment, bounded runtime,
+and hashed private logs. Submission follows
+`verified → submit_claimed → submit_started → submitted|submit_unknown`; neither
+`submit_started` nor `submit_unknown` is blindly retried.
