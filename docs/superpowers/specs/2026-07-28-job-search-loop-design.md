@@ -306,7 +306,7 @@ row; its status changes in the same commit as implementation evidence.
 | Order | Deliverable | Status | Completion evidence |
 |---:|---|---|---|
 | 1 | Technical-business resume bundle | `completed` | 53 tests; private A4 one-page PDF; ATS extraction and visual inspection; role-based resume routing |
-| 2 | Role-specific application messages for Product, GTM, Partnerships and Customer Success | `in_progress` | Schema-valid templates and grounded fixture tests |
+| 2 | Role-specific application messages for Product, GTM, Partnerships and Customer Success | `completed` | Four strict templates; real-profile generation; fact/source validation; 59 tests |
 | 3 | Recruiter question auto-reply | `pending` | Read/reply dedupe, approved-answer policy and real Gmail round trip |
 | 4 | Interview slot selection and confirmation | `pending` | Calendar availability check, bounded reply and idempotent event |
 | 5 | Assessment and take-home workflow | `pending` | Detection, isolated execution, evidence and safe submission state machine |

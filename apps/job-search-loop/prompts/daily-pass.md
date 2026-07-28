@@ -31,6 +31,10 @@ Playwright/CloakBrowser context with user-facing locators. Route materials by ro
   `/Users/anicca/.local/share/anicca/job-search/materials/business/Daisuke_Narita_AI_Business_Resume.pdf`
 
 Use exactly one matching resume per application and include its hash in the intent.
+For Product, GTM, Partnerships, and Customer Success roles, generate the application
+message through `job_search_loop.application_messages.build_application_message`.
+The role reason must have a quoted job-page source span, and the resulting message
+must pass `validate_application_message` before it is included in the intent hash.
 
 Never bypass CAPTCHA. Never invent phone, address, work authorization, degree,
 experience years, demographic answers, or links. Optional demographics are declined

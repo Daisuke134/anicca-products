@@ -42,6 +42,7 @@ semantics.
 | Materials | `~/.local/share/anicca/job-search/materials/` |
 | Engineering resume | `~/.local/share/anicca/job-search/materials/master/Daisuke_Narita_AI_Resume.pdf` |
 | Technical-business resume | `~/.local/share/anicca/job-search/materials/business/Daisuke_Narita_AI_Business_Resume.pdf` |
+| Technical-business message templates | `templates/application-messages.v1.json` |
 | Daily driver | `scripts/run-daily.sh` |
 | Inbox driver | `scripts/run-inbox.sh` |
 
