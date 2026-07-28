@@ -60,6 +60,18 @@ class LedgerTests(unittest.TestCase):
         self.assertIsNone(
             self.ledger.claim_submission(third_id, "2026-07-28", "hash-3")
         )
+        self.assertEqual(self.ledger.daily_slot_count("2026-07-28"), 2)
+
+    def test_not_submitted_releases_observable_daily_slot(self):
+        self._ready()
+        intent = self.ledger.claim_submission(
+            self.application_id, "2026-07-28", "hash"
+        )
+        self.assertEqual(self.ledger.daily_slot_count("2026-07-28"), 1)
+        self.ledger.complete_submission(
+            intent.intent_id, intent.fence, "not_submitted"
+        )
+        self.assertEqual(self.ledger.daily_slot_count("2026-07-28"), 0)
 
     def test_stale_fence_cannot_complete(self):
         self._ready()

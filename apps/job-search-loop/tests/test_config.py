@@ -81,6 +81,22 @@ class ConfigTests(unittest.TestCase):
         for forbidden in ("email", "phone", "address", "token", "cookie"):
             self.assertNotIn(forbidden, text)
 
+    def test_committed_strategy_includes_technical_business_roles(self):
+        strategy_path = (
+            Path(__file__).parents[1] / "config" / "strategy.default.json"
+        )
+        value = json.loads(strategy_path.read_text(encoding="utf-8"))
+        expected = {
+            "ai_product_management",
+            "technical_program_management",
+            "ai_business_development",
+            "ai_partnerships",
+            "technical_account_management",
+            "ai_customer_success",
+            "ai_sales_engineering",
+        }
+        self.assertTrue(expected <= set(value["role_families"]))
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -18,7 +18,7 @@ The loop optimizes for interviews, not raw submission count:
 | Daily application target | 2 unique, eligible, high-fit applications per Japan day |
 | Location | Tokyo on-site/hybrid, Japan-remote, or global remote that accepts Japan-based workers |
 | Compensation | Prefer JPY 7M–10M+; reject known compensation below JPY 7M unless an exceptional strategic fit is explicitly recorded |
-| Role families | Applied AI, AI/agent engineer, GenAI engineer, AI product engineer, solutions engineer/architect, AI consultant, agentic fintech/crypto/consumer AI |
+| Role families | Applied AI/agent/GenAI engineering; AI product and technical program management; solutions/consulting; AI business development and partnerships; technical account management, customer success and sales engineering; agentic fintech/crypto/consumer AI |
 | Hard exclusions | Citizenship or clearance requirements the candidate cannot meet; relocation-only roles outside Japan; already-applied roles; material skill fabrication |
 | Truthful zero | If fewer than two eligible jobs exist, submit the eligible count and report the shortfall; do not lower hard filters or claim success |
 

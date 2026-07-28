@@ -22,6 +22,13 @@ class LaunchdTests(unittest.TestCase):
         self.assertIn('if [[ "$NEW_COUNT" == "0" ]]', script)
         self.assertIn("job_search_loop.inbox mark", script)
 
+    def test_daily_shell_skips_model_when_submission_quota_is_full(self):
+        root = Path(__file__).parents[1]
+        script = (root / "scripts" / "run-daily.sh").read_text(encoding="utf-8")
+        self.assertIn("daily_slot_count", script)
+        self.assertIn('if [[ "$SLOT_COUNT" -ge "2" ]]', script)
+        self.assertIn("daily_quota_reached", script)
+
     def test_healthcheck_covers_scheduler_ledger_and_private_state(self):
         root = Path(__file__).parents[1]
         script = (root / "scripts" / "healthcheck.sh").read_text(encoding="utf-8")

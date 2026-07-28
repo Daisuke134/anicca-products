@@ -154,6 +154,13 @@ class Ledger:
             raise KeyError(application_id)
         return str(row["current_state"])
 
+    def daily_slot_count(self, japan_day: str) -> int:
+        row = self.connection.execute(
+            "SELECT COUNT(*) AS count FROM daily_slots WHERE japan_day = ?",
+            (japan_day,),
+        ).fetchone()
+        return int(row["count"])
+
     def _transition_in_transaction(
         self,
         application_id: str,

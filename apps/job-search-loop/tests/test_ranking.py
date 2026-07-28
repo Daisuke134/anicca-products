@@ -75,6 +75,40 @@ class RankingTests(unittest.TestCase):
         self.assertFalse(result.eligible)
         self.assertLess(result.score, 75)
 
+    def test_ai_literate_business_role_is_eligible(self):
+        job = Job(
+            company="Enterprise AI",
+            title="Strategic Partnerships Manager",
+            url="https://jobs.example.com/partnerships",
+            location="Tokyo",
+            japan_eligible=True,
+            compensation_min_jpy=7_000_000,
+            clearance_required=False,
+            skills=["llm", "agentforce", "product"],
+            domains=["enterprise_ai"],
+        )
+        result = evaluate(job)
+        self.assertTrue(result.eligible)
+        self.assertEqual(result.components["ai_skill"], 30)
+        self.assertGreaterEqual(result.score, 75)
+
+    def test_generic_business_role_without_ai_evidence_is_rejected(self):
+        job = Job(
+            company="Generic",
+            title="Business Development Manager",
+            url="https://jobs.example.com/business",
+            location="Tokyo",
+            japan_eligible=True,
+            compensation_min_jpy=9_000_000,
+            clearance_required=False,
+            skills=["sales", "partnerships"],
+            domains=[],
+        )
+        result = evaluate(job)
+        self.assertFalse(result.eligible)
+        self.assertEqual(result.components["ai_skill"], 0)
+        self.assertIn("score_below_threshold", result.reasons)
+
     def test_source_spans_are_required_for_model_extracted_fields(self):
         payload = {
             "company": "X",

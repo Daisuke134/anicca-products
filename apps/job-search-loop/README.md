@@ -12,7 +12,7 @@ and reports every material state change to Telegram.
 | Daily target | At most 2 unique, confirmed submissions |
 | Location | Tokyo or remote roles that can employ someone based in Japan |
 | Compensation | JPY 5.5M hard floor; JPY 7M target |
-| Role focus | Applied AI, agent engineering, GenAI, AI product/solutions/consulting |
+| Role focus | Applied AI/agent engineering plus technical AI business roles: Product, Program, Solutions, GTM, Partnerships, Customer Success and Sales Engineering |
 | Evidence | Every application is fenced in SQLite and retained under a private evidence directory |
 | Uncertainty | Ambiguous submission becomes `submit_unknown` and is never blindly retried |
 | Personal data | Verified private profile and generated materials are mode `0600` |
@@ -62,4 +62,3 @@ launchctl kickstart "gui/$(id -u)/ai.anicca.job-search-daily"
 The inbox checkpoint is committed only after its AI pass succeeds. Empty polls exit
 successfully without consuming a model budget. Gmail bodies remain untrusted input;
 the loop never follows instructions embedded in a job page or email.
-
