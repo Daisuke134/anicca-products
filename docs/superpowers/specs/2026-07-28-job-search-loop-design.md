@@ -315,7 +315,7 @@ row; its status changes in the same commit as implementation evidence.
 | 2 | Role-specific application messages for Product, GTM, Partnerships and Customer Success | `completed` | Four strict templates; real-profile generation; fact/source validation; 59 tests |
 | 3 | Recruiter question auto-reply | `completed` | 68 tests; approved-answer and fail-closed policy; at-most-once outbox; real two-message same-thread Gmail round trip with private evidence |
 | 4 | Interview slot selection and confirmation | `completed` | 79 tests; explicit timezone/source validation; real busy-slot skip, private Calendar event, same-thread Gmail reply and retry-idempotency E2E; all test artifacts cleaned |
-| 5 | Assessment and take-home workflow | `pending` | Detection, isolated execution, evidence and safe submission state machine |
+| 5 | Assessment and take-home workflow | `in_progress` | Detection, isolated execution, evidence and safe submission state machine |
 | 6 | Real interview-email E2E and preparation pack | `waiting_external` | Real recruiter email, Calendar event, 3-day/1-day Telegram evidence |
 | 7 | ATS resilience for Ashby, Workday and other blocked forms | `pending` | Replay fixtures plus one real confirmed application per adapter |
 | 8 | Life Manager Career organ | `pending` | Career timeline, goal and pause/resume controls consuming `summary.v1.json` |
