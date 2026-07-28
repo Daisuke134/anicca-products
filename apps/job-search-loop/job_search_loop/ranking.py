@@ -5,7 +5,8 @@ from dataclasses import dataclass
 from .jobs import Job
 
 
-COMPENSATION_FLOOR_JPY = 7_000_000
+COMPENSATION_FLOOR_JPY = 5_500_000
+COMPENSATION_TARGET_JPY = 7_000_000
 AUTO_APPLY_THRESHOLD = 75
 AI_TERMS = (
     "ai",
@@ -59,6 +60,8 @@ def evaluate(job: Job) -> Evaluation:
             5
             if job.compensation_min_jpy is None
             else 10
+            if job.compensation_min_jpy >= COMPENSATION_TARGET_JPY
+            else 7
             if job.compensation_min_jpy >= COMPENSATION_FLOOR_JPY
             else 0
         ),

@@ -54,10 +54,9 @@
     "url": "https://jobs.example.com/5",
     "location": "Tokyo",
     "japan_eligible": true,
-    "compensation_min_jpy": 6000000,
+    "compensation_min_jpy": 5000000,
     "clearance_required": false,
     "skills": ["agents"],
     "domains": ["enterprise_ai"]
   }
 ]
-

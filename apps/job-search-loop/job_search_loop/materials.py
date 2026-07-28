@@ -29,6 +29,7 @@ def render_resume_html(
     sections: list[dict[str, Any]],
     *,
     links: list[tuple[str, str]],
+    include_date_of_birth: bool = False,
 ) -> str:
     all_items = [item for section in sections for item in section.get("items", [])]
     validate_claims(profile, all_items)
@@ -43,6 +44,17 @@ def render_resume_html(
         f'<a href="{html.escape(url, quote=True)}">{html.escape(label)}</a>'
         for label, url in links
     )
+    candidate = profile["candidate"]
+    contact_values = [
+        candidate.get("application_email"),
+        candidate.get("phone"),
+        candidate.get("base"),
+    ]
+    if include_date_of_birth and candidate.get("date_of_birth"):
+        contact_values.append(f"Date of birth: {candidate['date_of_birth']}")
+    contact_html = " · ".join(
+        html.escape(str(value)) for value in contact_values if value
+    )
     return f"""<!doctype html>
 <html><head><meta charset="utf-8"><style>
 @page {{ size: A4; margin: 12mm 14mm; }}
@@ -55,7 +67,8 @@ p, ul {{ margin: 2px 0; }} ul {{ padding-left: 17px; }} li {{ margin: 1.5px 0; }
 a {{ color: #1d4ed8; text-decoration: none; }}
 </style></head><body><main>
 <header><h1>{name}</h1><p><strong>Applied AI & Agent Engineer</strong> — regulated
-enterprise deployment, research, and consumer AI products</p><p>{link_html}</p></header>
+enterprise deployment, research, and consumer AI products</p>
+<p>{contact_html}</p><p>{link_html}</p></header>
 {''.join(body)}
 </main></body></html>"""
 
@@ -114,4 +127,3 @@ def render_master(profile_path: Path, output_dir: Path) -> tuple[Path, Path]:
         if required not in extracted:
             raise MaterialError(f"PDF missing required ATS text: {required}")
     return html_path, pdf_path
-

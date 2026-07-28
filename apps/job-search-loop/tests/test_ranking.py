@@ -43,6 +43,22 @@ class RankingTests(unittest.TestCase):
         self.assertFalse(result.eligible)
         self.assertIn("compensation_below_floor", result.reasons)
 
+    def test_pay_above_current_salary_but_below_target_remains_eligible(self):
+        job = Job(
+            company="Data AI",
+            title="Generative AI Engineer",
+            url="https://jobs.example.com/genai",
+            location="Tokyo",
+            japan_eligible=True,
+            compensation_min_jpy=5_500_000,
+            clearance_required=False,
+            skills=["agents", "databricks"],
+            domains=["enterprise_ai"],
+        )
+        result = evaluate(job)
+        self.assertTrue(result.eligible)
+        self.assertEqual(result.components["compensation"], 7)
+
     def test_generic_non_ai_role_does_not_auto_apply(self):
         job = Job(
             company="Generic",

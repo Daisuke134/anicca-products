@@ -44,6 +44,28 @@ class MaterialTests(unittest.TestCase):
         self.assertIn("https://www.youtube.com/watch?v=biHAQ6aSQuc", html)
         self.assertIn("Daisuke Narita", html)
 
+    def test_japan_targeted_resume_includes_verified_contact_and_birth_date(self):
+        profile = {
+            **self.profile,
+            "candidate": {
+                "name": "Daisuke Narita",
+                "application_email": "candidate@example.com",
+                "phone": "09000000000",
+                "base": "Tokyo, Japan",
+                "date_of_birth": "2002-01-30",
+            },
+        }
+        html = render_resume_html(
+            profile,
+            [],
+            links=[],
+            include_date_of_birth=True,
+        )
+        self.assertIn("candidate@example.com", html)
+        self.assertIn("09000000000", html)
+        self.assertIn("Tokyo, Japan", html)
+        self.assertIn("Date of birth: 2002-01-30", html)
+
 
 if __name__ == "__main__":
     unittest.main()
