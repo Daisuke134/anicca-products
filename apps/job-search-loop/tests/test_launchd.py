@@ -22,6 +22,15 @@ class LaunchdTests(unittest.TestCase):
         self.assertIn('if [[ "$NEW_COUNT" == "0" ]]', script)
         self.assertIn("job_search_loop.inbox mark", script)
 
+    def test_healthcheck_covers_scheduler_ledger_and_private_state(self):
+        root = Path(__file__).parents[1]
+        script = (root / "scripts" / "healthcheck.sh").read_text(encoding="utf-8")
+        self.assertIn("plutil -lint", script)
+        self.assertIn("PRAGMA integrity_check", script)
+        self.assertIn("ai.anicca.job-search-daily", script)
+        self.assertIn("ai.anicca.job-search-inbox", script)
+        self.assertNotIn("cat /Users/anicca/.openclaw/.env", script)
+
 
 if __name__ == "__main__":
     unittest.main()
