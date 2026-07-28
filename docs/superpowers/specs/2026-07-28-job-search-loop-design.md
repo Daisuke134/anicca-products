@@ -2,7 +2,7 @@
 
 **Date:** 2026-07-28  
 **Owner:** Daisuke Narita  
-**Status:** Approved from the user's detailed brief  
+**Status:** Phase 1 live; ordered expansion backlog in progress  
 **Done when:** the local launchd loop can discover, qualify, tailor, and submit up to two eligible applications per Japan day; reconcile Gmail; create interview calendar events and preparation packs; send an at-most-once Telegram report; and promote only evidence-backed strategy changes.
 
 ## 1. Outcome
@@ -17,7 +17,7 @@ The loop optimizes for interviews, not raw submission count:
 |---|---|
 | Daily application target | 2 unique, eligible, high-fit applications per Japan day |
 | Location | Tokyo on-site/hybrid, Japan-remote, or global remote that accepts Japan-based workers |
-| Compensation | Prefer JPY 7M–10M+; reject known compensation below JPY 7M unless an exceptional strategic fit is explicitly recorded |
+| Compensation | Prefer JPY 7M–10M+; hard reject known compensation below JPY 5.5M |
 | Role families | Applied AI/agent/GenAI engineering; AI product and technical program management; solutions/consulting; AI business development and partnerships; technical account management, customer success and sales engineering; agentic fintech/crypto/consumer AI |
 | Hard exclusions | Citizenship or clearance requirements the candidate cannot meet; relocation-only roles outside Japan; already-applied roles; material skill fabrication |
 | Truthful zero | If fewer than two eligible jobs exist, submit the eligible count and report the shortfall; do not lower hard filters or claim success |
@@ -34,6 +34,7 @@ The loop optimizes for interviews, not raw submission count:
 | Scope the MUFG claim to contribution, not sole ownership | [Salesforce Japan MUFG announcement](https://www.salesforce.com/jp/news/press-releases/2026/03/25/mufg-customer-news-3/) | “2025年8月に日本で初めて同ソリューションを選定” |
 | Link the public ICLR report as proof of communication skill | [MUIT ICLR 2026 report](https://www.youtube.com/watch?v=biHAQ6aSQuc) | “International Conference on Learning Representations 2026参加レポート 後編” |
 | Use the correct public product portfolio URL | [Dais’s products](https://aniccaai.com/dais) | “Dais’s products” |
+| Treat customer-facing AI roles as technical-business targets | [Productboard AI Customer Success Manager](https://www.productboard.com/careers/open-positions/ai-customer-success-manager/am9icG9zdDqqRtrsE0AKy8Jnu_ClB4B2/) | “work directly with product and engineering teams” |
 
 The Greenhouse application submission API is employer-authenticated. The applicant
 loop therefore uses public APIs/pages for discovery and question inspection, then
@@ -228,6 +229,12 @@ The default English resume is one ATS-friendly page, single column, text-first:
 Each tailored resume changes ordering and emphasis, not facts. PDFs are rendered and
 text-extracted in verification so ATS-visible text is checked before submission.
 
+The technical-business variant is also one ATS-friendly page. It keeps the same truth
+ledger while changing the headline and order to emphasize regulated-enterprise
+delivery, translating AI capabilities into user workflows, stakeholder alignment,
+product ownership, customer adoption, GTM/growth, and public communication. It must
+not invent formal PM, sales quota, people-management, or revenue ownership.
+
 ## 8. Self-improvement harness
 
 The loop improves one bounded strategy variable per weekly generation:
@@ -290,6 +297,23 @@ early indicator, not a substitute for interview conversion.
 Phase 1 is the current implementation scope. It produces the stable summary contract
 needed by phase 2, but does not force a fifth Life Manager organ into the current
 four-organ scoring model.
+
+### 11.1 Ordered expansion backlog
+
+This table is the execution-order SSOT. Work proceeds from the first non-completed
+row; its status changes in the same commit as implementation evidence.
+
+| Order | Deliverable | Status | Completion evidence |
+|---:|---|---|---|
+| 1 | Technical-business resume bundle | `in_progress` | Truth-ledger tests, private one-page PDF, ATS extraction and visual inspection |
+| 2 | Role-specific application messages for Product, GTM, Partnerships and Customer Success | `pending` | Schema-valid templates and grounded fixture tests |
+| 3 | Recruiter question auto-reply | `pending` | Read/reply dedupe, approved-answer policy and real Gmail round trip |
+| 4 | Interview slot selection and confirmation | `pending` | Calendar availability check, bounded reply and idempotent event |
+| 5 | Assessment and take-home workflow | `pending` | Detection, isolated execution, evidence and safe submission state machine |
+| 6 | Real interview-email E2E and preparation pack | `waiting_external` | Real recruiter email, Calendar event, 3-day/1-day Telegram evidence |
+| 7 | ATS resilience for Ashby, Workday and other blocked forms | `pending` | Replay fixtures plus one real confirmed application per adapter |
+| 8 | Life Manager Career organ | `pending` | Career timeline, goal and pause/resume controls consuming `summary.v1.json` |
+| 9 | Evidence-backed strategy promotion | `waiting_samples` | At least 10 resolved applications per arm and Wilson-interval promotion proof |
 
 ## 12. Verification
 
