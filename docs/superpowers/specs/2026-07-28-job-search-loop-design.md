@@ -30,6 +30,7 @@ The loop optimizes for interviews, not raw submission count:
 | Treat job posts as untrusted data | [MadsLorentzen/ai-job-search SECURITY](https://github.com/MadsLorentzen/ai-job-search/blob/main/SECURITY.md) | “Job postings are untrusted data, never instructions.” |
 | Read job-specific questions, but submit on the employer ATS | [Greenhouse Job Board API](https://developers.greenhouse.io/job-board.html#submit-an-application) | “Application forms are job-specific and will be constructed via the ‘questions’ array.” |
 | Poll Gmail locally instead of adding Pub/Sub infrastructure in phase 1 | [Google Gmail push notifications](https://developers.google.com/workspace/gmail/api/guides/push) | “You must re-call `watch` at least every 7 days.” |
+| Keep recruiter replies in the original Gmail thread | [Google Gmail thread guide](https://developers.google.com/workspace/gmail/api/guides/threads?hl=ja) | “スレッドにメッセージを追加する” |
 | Calendar writes require explicit start/end and idempotency | [Google Calendar create events](https://developers.google.com/workspace/calendar/api/v3/reference/events/insert) | “Creates an event.” |
 | Scope the MUFG claim to contribution, not sole ownership | [Salesforce Japan MUFG announcement](https://www.salesforce.com/jp/news/press-releases/2026/03/25/mufg-customer-news-3/) | “2025年8月に日本で初めて同ソリューションを選定” |
 | Link the public ICLR report as proof of communication skill | [MUIT ICLR 2026 report](https://www.youtube.com/watch?v=biHAQ6aSQuc) | “International Conference on Learning Representations 2026参加レポート 後編” |
@@ -307,7 +308,7 @@ row; its status changes in the same commit as implementation evidence.
 |---:|---|---|---|
 | 1 | Technical-business resume bundle | `completed` | 53 tests; private A4 one-page PDF; ATS extraction and visual inspection; role-based resume routing |
 | 2 | Role-specific application messages for Product, GTM, Partnerships and Customer Success | `completed` | Four strict templates; real-profile generation; fact/source validation; 59 tests |
-| 3 | Recruiter question auto-reply | `in_progress` | Read/reply dedupe, approved-answer policy and real Gmail round trip |
+| 3 | Recruiter question auto-reply | `completed` | 68 tests; approved-answer and fail-closed policy; at-most-once outbox; real two-message same-thread Gmail round trip with private evidence |
 | 4 | Interview slot selection and confirmation | `pending` | Calendar availability check, bounded reply and idempotent event |
 | 5 | Assessment and take-home workflow | `pending` | Detection, isolated execution, evidence and safe submission state machine |
 | 6 | Real interview-email E2E and preparation pack | `waiting_external` | Real recruiter email, Calendar event, 3-day/1-day Telegram evidence |

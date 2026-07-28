@@ -43,6 +43,7 @@ semantics.
 | Engineering resume | `~/.local/share/anicca/job-search/materials/master/Daisuke_Narita_AI_Resume.pdf` |
 | Technical-business resume | `~/.local/share/anicca/job-search/materials/business/Daisuke_Narita_AI_Business_Resume.pdf` |
 | Technical-business message templates | `templates/application-messages.v1.json` |
+| Recruiter reply policy | `job_search_loop/recruiter_reply.py` |
 | Daily driver | `scripts/run-daily.sh` |
 | Inbox driver | `scripts/run-inbox.sh` |
 
@@ -67,3 +68,9 @@ launchctl kickstart "gui/$(id -u)/ai.anicca.job-search-daily"
 The inbox checkpoint is committed only after its AI pass succeeds. Empty polls exit
 successfully without consuming a model budget. Gmail bodies remain untrusted input;
 the loop never follows instructions embedded in a job page or email.
+
+Direct recruiter questions about verified experience, location, desired compensation,
+or contact details may receive one threaded reply. Work authorization, visa, start
+date, current compensation, references, and legal questions fail closed. Scheduling
+questions are routed to the separate interview workflow. The Gmail inbound message
+ID is the outbox key, so an uncertain send is never blindly retried.

@@ -56,9 +56,13 @@ limits = {"daily-": 36 * 3600, "inbox-": 45 * 60}
 freshness = {}
 now = time.time()
 for prefix, maximum_age in limits.items():
-    candidates = sorted(evidence_root.glob(f"{prefix}*"))
+    candidates = [
+        candidate
+        for candidate in sorted(evidence_root.glob(f"{prefix}*"))
+        if (candidate / "summary.json").is_file()
+    ]
     if not candidates:
-        raise SystemExit(f"missing evidence for {prefix}")
+        raise SystemExit(f"missing completed evidence for {prefix}")
     summary = candidates[-1] / "summary.json"
     value = json.loads(summary.read_text(encoding="utf-8"))
     age = now - summary.stat().st_mtime

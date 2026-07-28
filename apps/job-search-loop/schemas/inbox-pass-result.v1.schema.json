@@ -1,11 +1,25 @@
 {
   "type": "object",
   "additionalProperties": false,
-  "required": ["status", "processed_threads", "calendar_events", "reports"],
+  "required": ["status", "processed_threads", "calendar_events", "replies", "reports"],
   "properties": {
     "status": {"type": "string"},
     "processed_threads": {"type": "integer"},
     "calendar_events": {"type": "array", "items": {"type": "string"}},
+    "replies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["message_id", "status"],
+        "properties": {
+          "message_id": {"type": "string"},
+          "status": {
+            "enum": ["sent", "blocked", "route_scheduling", "delivery_unknown"]
+          }
+        }
+      }
+    },
     "reports": {"type": "array", "items": {"type": "string"}}
   }
 }

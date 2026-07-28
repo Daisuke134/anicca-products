@@ -34,6 +34,7 @@ class LaunchdTests(unittest.TestCase):
         script = (root / "scripts" / "healthcheck.sh").read_text(encoding="utf-8")
         self.assertIn("plutil -lint", script)
         self.assertIn("PRAGMA integrity_check", script)
+        self.assertIn('if (candidate / "summary.json").is_file()', script)
         self.assertIn("ai.anicca.job-search-daily", script)
         self.assertIn("ai.anicca.job-search-inbox", script)
         self.assertNotIn("cat /Users/anicca/.openclaw/.env", script)
