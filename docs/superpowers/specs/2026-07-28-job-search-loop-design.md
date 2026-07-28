@@ -180,7 +180,14 @@ Calendar writes use that key plus a stable hashed thread key in private metadata
 are reread before retry. Only recruiter-provided candidates with explicit timezone,
 start, end, and source span are eligible. FreeBusy selects the earliest
 non-conflicting candidate. The event is created before the threaded confirmation is
-sent; a changed time updates the existing event rather than creating another.
+sent; a changed time updates the existing event rather than creating another. The
+same confirmation path registers a private preparation job before sending the email.
+
+The 15-minute inbox loop checks prep delivery before its no-work exit, so a due pack
+is delivered even when Gmail has no new message. A pending generation job forces the
+composition pass even without new mail. Generated packs are stored with their
+SHA-256, and Telegram delivery uses one stable outbox key per interview and delivery
+window.
 
 Prep behavior:
 
@@ -343,7 +350,7 @@ row; its status changes in the same commit as implementation evidence.
 | 3 | Recruiter question auto-reply | `completed` | 68 tests; approved-answer and fail-closed policy; at-most-once outbox; real two-message same-thread Gmail round trip with private evidence |
 | 4 | Interview slot selection and confirmation | `completed` | 79 tests; explicit timezone/source validation; real busy-slot skip, private Calendar event, same-thread Gmail reply and retry-idempotency E2E; all test artifacts cleaned |
 | 5 | Assessment and take-home workflow | `completed` | 89 tests; quoted rule/deadline manifest; real sandbox denial of network/home access; private hashed evidence; fenced unknown-submission retry block |
-| 6 | Recurring interview preparation and real interview-email E2E | `in_progress` | Implementing persistent prep registration, 3-day/1-day/immediate loop delivery and Telegram dedupe; final real-email E2E still waits for a recruiter interview message |
+| 6 | Recurring interview preparation and real interview-email E2E | `implemented_waiting_external_e2e` | 97 tests; persistent registration; 3-day/1-day/immediate windows; real Telegram immediate delivery plus second-tick dedupe; forced production launchd no-mail pass and private DB healthcheck; final real recruiter-email E2E waits for an interview message |
 | 7 | ATS resilience for Ashby, Workday and other blocked forms | `pending` | Replay fixtures plus one real confirmed application per adapter |
 | 8 | Life Manager Career organ | `pending` | Career timeline, goal and pause/resume controls consuming `summary.v1.json` |
 | 9 | Evidence-backed strategy promotion | `waiting_samples` | At least 10 resolved applications per arm and Wilson-interval promotion proof |
