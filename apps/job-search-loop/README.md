@@ -17,7 +17,7 @@ and reports every material state change to Telegram.
 | Uncertainty | Ambiguous submission becomes `submit_unknown` and is never blindly retried |
 | Personal data | Verified private profile and generated materials are mode `0600` |
 | Inbox | Gmail metadata is prefiltered deterministically; a model runs only for a new recruiting thread |
-| Calendar | An event is created only when the email supplies a definite interview time |
+| Calendar | Only explicit timezone-aware recruiter candidates are considered; the earliest free candidate is confirmed once |
 | Self-improvement | One-field experiments require 10 resolved samples per arm, zero replay violations, and non-overlapping Wilson 95% intervals |
 
 ## Runtime
@@ -44,6 +44,7 @@ semantics.
 | Technical-business resume | `~/.local/share/anicca/job-search/materials/business/Daisuke_Narita_AI_Business_Resume.pdf` |
 | Technical-business message templates | `templates/application-messages.v1.json` |
 | Recruiter reply policy | `job_search_loop/recruiter_reply.py` |
+| Interview scheduling policy | `job_search_loop/interview_scheduling.py` |
 | Daily driver | `scripts/run-daily.sh` |
 | Inbox driver | `scripts/run-inbox.sh` |
 
@@ -72,5 +73,8 @@ the loop never follows instructions embedded in a job page or email.
 Direct recruiter questions about verified experience, location, desired compensation,
 or contact details may receive one threaded reply. Work authorization, visa, start
 date, current compensation, references, and legal questions fail closed. Scheduling
-questions are routed to the separate interview workflow. The Gmail inbound message
-ID is the outbox key, so an uncertain send is never blindly retried.
+questions with complete candidate times are checked against the primary Calendar.
+The earliest explicit free candidate is stored as one private event before the
+threaded confirmation is sent. Missing timezone/date/duration, a fully busy candidate
+set, or ambiguous text causes no reply and no Calendar write. The Gmail inbound
+message ID is the outbox key, so an uncertain send is never blindly retried.
