@@ -23,8 +23,14 @@ engineering and technical-business role families, through:
 Before any submit click, use the Python Ledger API in `job_search_loop.ledger` to:
 add the application, transition qualified then materials_ready, hash the canonical
 job/material/answer payload, and claim a daily slot. Only then use an isolated
-Playwright/CloakBrowser context with user-facing locators. Resume:
-`/Users/anicca/.local/share/anicca/job-search/materials/master/Daisuke_Narita_AI_Resume.pdf`.
+Playwright/CloakBrowser context with user-facing locators. Route materials by role:
+- Engineering/research roles:
+  `/Users/anicca/.local/share/anicca/job-search/materials/master/Daisuke_Narita_AI_Resume.pdf`
+- Product, Program, GTM, Partnerships, Customer Success, Technical Account, Sales
+  Engineering, and other technical-business roles:
+  `/Users/anicca/.local/share/anicca/job-search/materials/business/Daisuke_Narita_AI_Business_Resume.pdf`
+
+Use exactly one matching resume per application and include its hash in the intent.
 
 Never bypass CAPTCHA. Never invent phone, address, work authorization, degree,
 experience years, demographic answers, or links. Optional demographics are declined

@@ -35,6 +35,10 @@ def render_resume_html(
     *,
     links: list[tuple[str, str]],
     include_date_of_birth: bool = False,
+    headline: str = "Applied AI & Agent Engineer",
+    summary: str = (
+        "regulated enterprise deployment, research, and consumer AI products"
+    ),
 ) -> str:
     all_items = [item for section in sections for item in section.get("items", [])]
     validate_claims(profile, all_items)
@@ -60,6 +64,8 @@ def render_resume_html(
     contact_html = " · ".join(
         html.escape(str(value)) for value in contact_values if value
     )
+    headline_html = html.escape(headline)
+    summary_html = html.escape(summary)
     return f"""<!doctype html>
 <html><head><meta charset="utf-8"><style>
 @page {{ size: A4; margin: 12mm 14mm; }}
@@ -71,8 +77,7 @@ letter-spacing: .08em; border-bottom: 1px solid #9ca3af; margin: 7px 0 3px; }}
 p, ul {{ margin: 2px 0; }} ul {{ padding-left: 17px; }} li {{ margin: 1.5px 0; }}
 a {{ color: #1d4ed8; text-decoration: none; }}
 </style></head><body><main>
-<header><h1>{name}</h1><p><strong>Applied AI & Agent Engineer</strong> — regulated
-enterprise deployment, research, and consumer AI products</p>
+<header><h1>{name}</h1><p><strong>{headline_html}</strong> — {summary_html}</p>
 <p>{contact_html}</p><p>{link_html}</p></header>
 {''.join(body)}
 </main></body></html>"""
@@ -109,17 +114,69 @@ def master_sections(profile: dict[str, Any]) -> list[dict[str, Any]]:
     ]
 
 
-def render_master(profile_path: Path, output_dir: Path) -> tuple[Path, Path]:
-    profile = json.loads(profile_path.read_text(encoding="utf-8"))
-    links = [
-        ("Portfolio", "https://aniccaai.com/dais"),
-        ("ICLR 2026 report", "https://www.youtube.com/watch?v=biHAQ6aSQuc"),
-        ("Life Manager", "https://aniccaai.com/life-manager"),
+def business_sections(profile: dict[str, Any]) -> list[dict[str, Any]]:
+    facts = {fact["id"]: fact["claim"] for fact in profile["facts"]}
+    groups = [
+        (
+            "Regulated Enterprise AI Delivery — MUIT / MUFG (2025–Present)",
+            [
+                "muit_role_2025",
+                "muit_agent_crm",
+                "muit_genie_logs",
+                "muit_rm_summary",
+                "mufg",
+            ],
+        ),
+        (
+            "Product, Customer & Growth",
+            ["anicca_consumer", "life_manager", "a10_marketing"],
+        ),
+        (
+            "Technical Leadership & Communication",
+            ["agent_club", "iclr"],
+        ),
+        (
+            "Research & Education",
+            ["naist", "atr_research", "education", "languages"],
+        ),
     ]
-    rendered = render_resume_html(profile, master_sections(profile), links=links)
+    return [
+        {
+            "heading": heading,
+            "items": [
+                {"text": facts[fact_id], "fact_ids": [fact_id]}
+                for fact_id in fact_ids
+                if fact_id in facts
+            ],
+        }
+        for heading, fact_ids in groups
+    ]
+
+
+def _render_pdf(
+    *,
+    profile: dict[str, Any],
+    output_dir: Path,
+    filename_stem: str,
+    sections: list[dict[str, Any]],
+    links: list[tuple[str, str]],
+    headline: str,
+    summary: str,
+    required_ats_text: tuple[str, ...],
+) -> tuple[Path, Path]:
+    rendered = render_resume_html(
+        profile,
+        sections,
+        links=links,
+        headline=headline,
+        summary=summary,
+    )
     output_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
-    html_path = output_dir / "Daisuke_Narita_AI_Resume.html"
-    pdf_path = output_dir / "Daisuke_Narita_AI_Resume.pdf"
+    os_mode = output_dir.stat().st_mode & 0o777
+    if os_mode != 0o700:
+        output_dir.chmod(0o700)
+    html_path = output_dir / f"{filename_stem}.html"
+    pdf_path = output_dir / f"{filename_stem}.pdf"
     html_path.write_text(rendered, encoding="utf-8")
     subprocess.run(["weasyprint", str(html_path), str(pdf_path)], check=True)
     secure_material_paths(html_path, pdf_path)
@@ -129,8 +186,53 @@ def render_master(profile_path: Path, output_dir: Path) -> tuple[Path, Path]:
         capture_output=True,
         text=True,
     ).stdout
-    for required in ("Daisuke Narita", "MUIT", "NAIST", "Applied AI"):
+    for required in required_ats_text:
         if required not in extracted:
             raise MaterialError(f"PDF missing required ATS text: {required}")
     secure_material_paths(html_path, pdf_path)
     return html_path, pdf_path
+
+
+def _public_links() -> list[tuple[str, str]]:
+    return [
+        ("Portfolio", "https://aniccaai.com/dais"),
+        ("ICLR 2026 report", "https://www.youtube.com/watch?v=biHAQ6aSQuc"),
+        ("Life Manager", "https://aniccaai.com/life-manager"),
+    ]
+
+
+def render_master(profile_path: Path, output_dir: Path) -> tuple[Path, Path]:
+    profile = json.loads(profile_path.read_text(encoding="utf-8"))
+    return _render_pdf(
+        profile=profile,
+        output_dir=output_dir,
+        filename_stem="Daisuke_Narita_AI_Resume",
+        sections=master_sections(profile),
+        links=_public_links(),
+        headline="Applied AI & Agent Engineer",
+        summary="regulated enterprise deployment, research, and consumer AI products",
+        required_ats_text=("Daisuke Narita", "MUIT", "NAIST", "Applied AI"),
+    )
+
+
+def render_business(profile_path: Path, output_dir: Path) -> tuple[Path, Path]:
+    profile = json.loads(profile_path.read_text(encoding="utf-8"))
+    return _render_pdf(
+        profile=profile,
+        output_dir=output_dir,
+        filename_stem="Daisuke_Narita_AI_Business_Resume",
+        sections=business_sections(profile),
+        links=_public_links(),
+        headline="AI Product, Solutions & Customer Strategy",
+        summary=(
+            "regulated enterprise delivery, customer adoption, and consumer "
+            "product growth"
+        ),
+        required_ats_text=(
+            "Daisuke Narita",
+            "MUIT",
+            "AI Product",
+            "Customer",
+            "Anicca",
+        ),
+    )

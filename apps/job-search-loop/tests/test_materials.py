@@ -4,6 +4,8 @@ from pathlib import Path
 
 from job_search_loop.materials import (
     MaterialError,
+    business_sections,
+    render_business,
     render_resume_html,
     secure_material_paths,
     validate_claims,
@@ -82,6 +84,114 @@ class MaterialTests(unittest.TestCase):
             secure_material_paths(first, second)
             self.assertEqual(first.stat().st_mode & 0o777, 0o600)
             self.assertEqual(second.stat().st_mode & 0o777, 0o600)
+
+    def test_business_resume_prioritizes_enterprise_product_and_customer_impact(self):
+        profile = {
+            "candidate": {"name": "Daisuke Narita"},
+            "facts": [
+                {"id": "muit_agent_crm", "claim": "Deployed agents into a bank CRM."},
+                {"id": "muit_rm_summary", "claim": "Built RM-facing summaries."},
+                {"id": "mufg", "claim": "Contributed to MUFG production deployment."},
+                {"id": "anicca_consumer", "claim": "Built and grew Anicca."},
+                {"id": "life_manager", "claim": "Builds Life Manager."},
+                {"id": "a10_marketing", "claim": "Managed growth campaigns."},
+                {"id": "agent_club", "claim": "Founded a weekly AI agent community."},
+                {"id": "iclr", "claim": "Shared ICLR research learnings."},
+            ],
+        }
+        sections = business_sections(profile)
+        self.assertEqual(
+            sections[0]["heading"],
+            "Regulated Enterprise AI Delivery — MUIT / MUFG (2025–Present)",
+        )
+        first_ids = [item["fact_ids"][0] for item in sections[0]["items"]]
+        self.assertEqual(first_ids, ["muit_agent_crm", "muit_rm_summary", "mufg"])
+        product_ids = {
+            item["fact_ids"][0] for item in sections[1]["items"]
+        }
+        self.assertEqual(
+            product_ids,
+            {"anicca_consumer", "life_manager", "a10_marketing"},
+        )
+
+    def test_resume_supports_business_specific_headline_without_invented_ownership(self):
+        html = render_resume_html(
+            self.profile,
+            [
+                {
+                    "heading": "Enterprise",
+                    "items": [
+                        {
+                            "text": "Contributed to MUFG deployment",
+                            "fact_ids": ["mufg"],
+                        }
+                    ],
+                }
+            ],
+            links=[],
+            headline="AI Product, Solutions & Customer Strategy",
+            summary="Regulated enterprise delivery and customer adoption",
+        )
+        self.assertIn("AI Product, Solutions &amp; Customer Strategy", html)
+        self.assertIn("customer adoption", html)
+        self.assertNotIn("sales quota", html.casefold())
+        self.assertNotIn("people management", html.casefold())
+
+    def test_business_resume_renders_one_private_ats_page(self):
+        facts = [
+            ("muit_agent_crm", "MUIT deployed AI agents into a bank CRM."),
+            ("muit_genie_logs", "Analyzed agent logs with Databricks Genie Code."),
+            ("muit_rm_summary", "Built relationship-manager company summaries."),
+            ("mufg", "Contributed to MUFG production Agentforce deployment."),
+            ("anicca_consumer", "Built and grew Anicca consumer AI products."),
+            ("life_manager", "Builds the Life Manager consumer AI agent."),
+            ("a10_marketing", "Managed growth campaigns and improved acquisition."),
+            ("agent_club", "Founded a weekly AI agent practice community."),
+            ("iclr", "Presented ICLR 2026 research learnings."),
+            ("naist", "NAIST research used EEG and machine learning."),
+            ("atr_research", "Conducted and presented research at ATR."),
+            ("education", "M.S. studies at NAIST and B.A. from Keio."),
+            ("languages", "Japanese native; professional English."),
+        ]
+        profile = {
+            "candidate": {"name": "Daisuke Narita", "base": "Tokyo, Japan"},
+            "facts": [
+                {"id": fact_id, "claim": claim, "evidence": "fixture"}
+                for fact_id, claim in facts
+            ],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            profile_path = root / "profile.json"
+            profile_path.write_text(
+                __import__("json").dumps(profile), encoding="utf-8"
+            )
+            html_path, pdf_path = render_business(profile_path, root / "output")
+            self.assertEqual(html_path.stat().st_mode & 0o777, 0o600)
+            self.assertEqual(pdf_path.stat().st_mode & 0o777, 0o600)
+            info = __import__("subprocess").run(
+                ["pdfinfo", str(pdf_path)],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout
+            extracted = __import__("subprocess").run(
+                ["pdftotext", str(pdf_path), "-"],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout
+            self.assertIn("Pages:           1", info)
+            self.assertIn("AI Product, Solutions & Customer Strategy", extracted)
+            self.assertIn("MUIT", extracted)
+            self.assertIn("Anicca", extracted)
+
+    def test_daily_prompt_routes_business_roles_to_business_resume(self):
+        prompt = (
+            Path(__file__).parents[1] / "prompts" / "daily-pass.md"
+        ).read_text(encoding="utf-8")
+        self.assertIn("Daisuke_Narita_AI_Business_Resume.pdf", prompt)
+        self.assertIn("technical-business", prompt)
 
 
 if __name__ == "__main__":

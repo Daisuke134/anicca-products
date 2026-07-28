@@ -40,6 +40,8 @@ semantics.
 | Ledger | `~/.local/state/anicca/job-search/ledger.sqlite3` |
 | Evidence | `~/.local/state/anicca/job-search/evidence/` |
 | Materials | `~/.local/share/anicca/job-search/materials/` |
+| Engineering resume | `~/.local/share/anicca/job-search/materials/master/Daisuke_Narita_AI_Resume.pdf` |
+| Technical-business resume | `~/.local/share/anicca/job-search/materials/business/Daisuke_Narita_AI_Business_Resume.pdf` |
 | Daily driver | `scripts/run-daily.sh` |
 | Inbox driver | `scripts/run-inbox.sh` |
 
@@ -48,6 +50,8 @@ semantics.
 ```bash
 cd /Users/anicca/anicca-job-search-loop/apps/job-search-loop
 python3 -m unittest discover -s tests -v
+zsh scripts/render-resume.sh
+zsh scripts/render-business-resume.sh
 zsh scripts/install-launchd.sh
 zsh scripts/healthcheck.sh
 ```
