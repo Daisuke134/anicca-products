@@ -1,7 +1,7 @@
 {
   "type": "object",
   "additionalProperties": false,
-  "required": ["status", "processed_threads", "calendar_events", "replies", "assessments", "reports"],
+  "required": ["status", "processed_threads", "calendar_events", "replies", "assessments", "prep_packs", "reports"],
   "properties": {
     "status": {"type": "string"},
     "processed_threads": {"type": "integer"},
@@ -44,6 +44,20 @@
               "submitted",
               "submit_unknown"
             ]
+          }
+        }
+      }
+    },
+    "prep_packs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["interview_key", "status"],
+        "properties": {
+          "interview_key": {"type": "string"},
+          "status": {
+            "enum": ["pending_generation", "generated", "sent", "delivery_unknown"]
           }
         }
       }

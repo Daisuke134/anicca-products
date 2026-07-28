@@ -9,14 +9,23 @@ For an interview email that explicitly offers one or more candidate times, extra
 at most 20 candidates as timezone-aware RFC3339 `start`/`end` values. Preserve a
 verbatim `source_span` for every candidate; do not infer a timezone, duration, or
 date. Call `job_search_loop.interview_scheduling.confirm_interview_slot` with those
-candidates, the Gmail message/thread IDs, and grounded company/role names. The
-workflow checks the primary Calendar, selects the earliest explicit non-conflicting
-candidate, rereads by a stable private thread key, creates or updates one private
-event with 3-day/1-day reminders, and only then sends one threaded confirmation.
+candidates, the Gmail message/thread IDs, grounded company/role names, and
+`prep_database=Path("~/.local/state/anicca/job-search/interview-prep.sqlite3").expanduser()`.
+The workflow checks the primary Calendar, selects the earliest explicit
+non-conflicting candidate, rereads by a stable private thread key, creates or updates
+one private event with 3-day/1-day reminders, durably registers its preparation job,
+and only then sends one threaded confirmation.
 When no candidate is available or any time detail is ambiguous, do not reply or
-create an event. Generate grounded prep from candidate fact IDs and public
-company/role evidence. Send each new event once through
-`job_search_loop.telegram.send_once`.
+create an event.
+
+For each pending preparation job, research official public company/role sources.
+Call `job_search_loop.interview_prep.build_prep_pack` with exactly five approved
+candidate fact IDs, a cited company thesis, cited likely interviewer interests,
+technical/domain questions, questions to ask, and logistics. Persist it with
+`PrepStore.save_pack`; do not merely print it. The deterministic inbox loop calls
+`deliver_due_preps` before its no-work exit and again after this pass, so generated
+packs are delivered at the 3-day, 1-day, or immediate window through the Telegram
+outbox even when there is no new Gmail message.
 
 For a direct recruiter question, read and validate its headers with
 `job_search_loop.recruiter_reply.is_safe_recruiter_message`, then call

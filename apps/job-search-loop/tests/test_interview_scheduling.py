@@ -15,6 +15,7 @@ from job_search_loop.interview_scheduling import (
     query_busy_intervals,
     select_available_slot,
 )
+from job_search_loop.interview_prep import PrepStore
 
 
 class InterviewSchedulingTests(unittest.TestCase):
@@ -253,9 +254,11 @@ class InterviewSchedulingTests(unittest.TestCase):
             or {"status": "sent", "message_id": "reply-1"}
         )
         with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
             result = confirm_interview_slot(
-                database=Path(directory) / "outbox.sqlite3",
-                evidence_dir=Path(directory) / "evidence",
+                database=root / "outbox.sqlite3",
+                prep_database=root / "prep.sqlite3",
+                evidence_dir=root / "evidence",
                 account="candidate@example.com",
                 inbound_message_id="message-1",
                 inbound_subject="Interview availability",
@@ -265,11 +268,16 @@ class InterviewSchedulingTests(unittest.TestCase):
                 raw_slots=self.raw_slots,
                 now=self.now,
             )
-        self.assertEqual(result["status"], "confirmed")
-        self.assertEqual(result["calendar_event_id"], "event-1")
-        self.assertEqual(ensure.call_count, 1)
-        self.assertEqual(send.call_count, 1)
-        self.assertEqual(order, ["calendar", "reply"])
+            self.assertEqual(result["status"], "confirmed")
+            self.assertEqual(result["calendar_event_id"], "event-1")
+            self.assertEqual(ensure.call_count, 1)
+            self.assertEqual(send.call_count, 1)
+            self.assertEqual(order, ["calendar", "reply"])
+            prep = PrepStore(root / "prep.sqlite3")
+            pending = prep.pending_generation()
+            self.assertEqual(len(pending), 1)
+            self.assertEqual(pending[0]["company"], "Example AI")
+            prep.close()
 
     @patch("job_search_loop.interview_scheduling.send_reply_once")
     @patch("job_search_loop.interview_scheduling.ensure_interview_event")
@@ -286,9 +294,11 @@ class InterviewSchedulingTests(unittest.TestCase):
         slots = normalize_candidate_slots(self.raw_slots, now=self.now)
         busy.return_value = [(slot.start, slot.end) for slot in slots]
         with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
             result = confirm_interview_slot(
-                database=Path(directory) / "outbox.sqlite3",
-                evidence_dir=Path(directory) / "evidence",
+                database=root / "outbox.sqlite3",
+                prep_database=root / "prep.sqlite3",
+                evidence_dir=root / "evidence",
                 account="candidate@example.com",
                 inbound_message_id="message-1",
                 inbound_subject="Interview availability",
@@ -326,9 +336,11 @@ class InterviewSchedulingTests(unittest.TestCase):
         }
         send.return_value = {"status": "sent", "message_id": "reply-1"}
         with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
             result = confirm_interview_slot(
-                database=Path(directory) / "outbox.sqlite3",
-                evidence_dir=Path(directory) / "evidence",
+                database=root / "outbox.sqlite3",
+                prep_database=root / "prep.sqlite3",
+                evidence_dir=root / "evidence",
                 account="candidate@example.com",
                 inbound_message_id="message-1",
                 inbound_subject="Interview availability",

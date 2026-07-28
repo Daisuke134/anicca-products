@@ -9,6 +9,10 @@ EVIDENCE="$STATE_ROOT/evidence/$RUN_ID"
 SEEN_STATE="$STATE_ROOT/inbox-seen.json"
 CANDIDATES="$EVIDENCE/candidates.json"
 PROMPT="$EVIDENCE/prompt.md"
+PREP_DATABASE="$STATE_ROOT/interview-prep.sqlite3"
+OUTBOX_DATABASE="$STATE_ROOT/ledger.sqlite3"
+PROFILE="/Users/anicca/.config/anicca/job-search/profile.json"
+PREP_STATUS="$EVIDENCE/prep-status.json"
 
 mkdir -p "$EVIDENCE" "$STATE_ROOT/logs"
 chmod 700 "$STATE_ROOT" "$STATE_ROOT/evidence" "$EVIDENCE" "$STATE_ROOT/logs"
@@ -16,6 +20,10 @@ set -a
 source /Users/anicca/.openclaw/.env
 set +a
 export PYTHONPATH="$APP_ROOT"
+/opt/homebrew/bin/python3 -m job_search_loop.interview_prep deliver \
+  --database "$PREP_DATABASE" \
+  --outbox "$OUTBOX_DATABASE" \
+  --output "$EVIDENCE/prep-deliver-before.json"
 /opt/homebrew/bin/python3 -m job_search_loop.inbox scan \
   --account keiodaisuke@gmail.com \
   --state "$SEEN_STATE" \
@@ -23,8 +31,16 @@ export PYTHONPATH="$APP_ROOT"
   --prompt-base "$APP_ROOT/prompts/inbox-pass.md" \
   --prompt-output "$PROMPT" \
   --summary "$EVIDENCE/summary.json"
+/opt/homebrew/bin/python3 -m job_search_loop.interview_prep pending \
+  --database "$PREP_DATABASE" \
+  --output "$PREP_STATUS"
+/opt/homebrew/bin/python3 -m job_search_loop.interview_prep append-prompt \
+  --database "$PREP_DATABASE" \
+  --prompt "$PROMPT" \
+  --profile "$PROFILE"
 NEW_COUNT=$(/usr/bin/jq -r '.new_count' "$CANDIDATES")
-if [[ "$NEW_COUNT" == "0" ]]; then
+PENDING_PREP_COUNT=$(/usr/bin/jq -r '.pending_count' "$PREP_STATUS")
+if [[ "$NEW_COUNT" == "0" && "$PENDING_PREP_COUNT" == "0" ]]; then
   exit 0
 fi
 export ANICCA_BUDGET_REQUIRED=1
@@ -44,3 +60,7 @@ export ANICCA_BUDGET_DAY_TZ="Asia/Tokyo"
 /opt/homebrew/bin/python3 -m job_search_loop.inbox mark \
   --state "$SEEN_STATE" \
   --input "$CANDIDATES"
+/opt/homebrew/bin/python3 -m job_search_loop.interview_prep deliver \
+  --database "$PREP_DATABASE" \
+  --outbox "$OUTBOX_DATABASE" \
+  --output "$EVIDENCE/prep-deliver-after.json"

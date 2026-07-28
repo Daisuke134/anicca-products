@@ -40,8 +40,26 @@ with sqlite3.connect(database) as connection:
         ).fetchall()
     )
 
+prep_database = root / "interview-prep.sqlite3"
+with sqlite3.connect(prep_database) as connection:
+    prep_integrity = connection.execute("PRAGMA integrity_check").fetchone()[0]
+    if prep_integrity != "ok":
+        raise SystemExit(f"interview prep integrity failed: {prep_integrity}")
+    prep_counts = {
+        "registered": connection.execute(
+            "SELECT COUNT(*) FROM interview_preps"
+        ).fetchone()[0],
+        "pending_generation": connection.execute(
+            "SELECT COUNT(*) FROM interview_preps WHERE pack_json IS NULL"
+        ).fetchone()[0],
+        "deliveries": connection.execute(
+            "SELECT COUNT(*) FROM prep_deliveries"
+        ).fetchone()[0],
+    }
+
 private_paths = [
     root / "inbox-seen.json",
+    prep_database,
     Path("/Users/anicca/.config/anicca/job-search/profile.json"),
 ]
 for path in private_paths:
@@ -75,7 +93,9 @@ for prefix, maximum_age in limits.items():
 
 print(json.dumps({
     "ledger_integrity": integrity,
+    "interview_prep_integrity": prep_integrity,
     "application_counts": counts,
+    "interview_prep_counts": prep_counts,
     "freshness": freshness,
 }, ensure_ascii=False, sort_keys=True))
 PY

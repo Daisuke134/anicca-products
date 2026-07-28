@@ -11,6 +11,7 @@ from typing import Any, Iterable
 from zoneinfo import ZoneInfo
 
 from .calendar_sync import event_key
+from .interview_prep import PrepStore
 from .recruiter_reply import send_reply_once
 
 
@@ -391,6 +392,7 @@ def build_confirmation_reply(slot: CandidateSlot) -> dict[str, Any]:
 def confirm_interview_slot(
     *,
     database: Path,
+    prep_database: Path,
     evidence_dir: Path,
     account: str,
     inbound_message_id: str,
@@ -445,6 +447,19 @@ def confirm_interview_slot(
         now=now,
         existing_event=existing,
     )
+    prep_store = PrepStore(prep_database)
+    try:
+        prep_interview_key = prep_store.register_interview(
+            thread_id=thread_id,
+            event_key=calendar["event_key"],
+            company=company,
+            role=role,
+            start=selected.start,
+            end=selected.end,
+            registered_at=now,
+        )
+    finally:
+        prep_store.close()
     reply = send_reply_once(
         database=database,
         evidence_dir=evidence_dir,
@@ -462,6 +477,8 @@ def confirm_interview_slot(
         "calendar_action": calendar["action"],
         "calendar_event_id": calendar["event_id"],
         "calendar_event_key": calendar["event_key"],
+        "prep_interview_key": prep_interview_key,
+        "prep_status": "pending_generation",
         "reply_status": reply["status"],
         "reply_message_id": reply["message_id"],
     }
