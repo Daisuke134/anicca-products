@@ -185,6 +185,11 @@ function classifyReadOnlyDomSnapshot(snapshot = {}) {
     ? source.textFlags
     : {};
   const passwordVisible = inputs.some((input) => input && input.type === "password");
+  const emailVisible = inputs.some((input) =>
+    input &&
+    (input.type === "email" ||
+      input.autocomplete === "email" ||
+      input.autocomplete === "username"));
   const oneTimeCodeVisible = inputs.some((input) =>
     input && input.autocomplete === "one-time-code");
   const singleDigitInputs = inputs.filter((input) =>
@@ -199,7 +204,11 @@ function classifyReadOnlyDomSnapshot(snapshot = {}) {
   return {
     passwordVisible,
     otpVisible,
-    authVisible: passwordVisible || otpVisible || flags.auth === true,
+    // Account/security settings commonly contain explanatory "sign in"
+    // copy alongside ordinary profile controls. Text alone is not an active
+    // authentication form; an auth-relevant control or login URL is.
+    authVisible: passwordVisible || otpVisible ||
+      (flags.auth === true && emailVisible),
     challengeVisible: captchaVisible || flags.challenge === true,
     captchaVisible,
     kycVisible: flags.kyc === true,
@@ -504,8 +513,20 @@ function makeStagehandSteelDriver(options = {}) {
                 : signals.passwordVisible || signals.authVisible || loginPath
                   ? "login"
                   : null;
-        const readOnlyReason = handoffReason || independentReason ||
-          (!originMatches || !marker || !signals.markerPresent || extracted.confirmed !== true
+        const passiveLoginCopy =
+          handoffReason === "login" &&
+          activeAuthenticationForm !== true &&
+          independentReason === null &&
+          originMatches &&
+          Boolean(marker) &&
+          signals.markerPresent &&
+          !negated &&
+          !blockingVerification;
+        const modelHandoffReason = passiveLoginCopy ? null : handoffReason;
+        const modelConfirmed =
+          extracted.confirmed === true || passiveLoginCopy;
+        const readOnlyReason = modelHandoffReason || independentReason ||
+          (!originMatches || !marker || !signals.markerPresent || !modelConfirmed
             ? "login"
             : null);
         const confirmed = readOnlyReason === null;
