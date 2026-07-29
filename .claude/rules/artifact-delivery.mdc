@@ -1,0 +1,34 @@
+---
+description: Completion gate for user-facing articles, presentations, reports, and other deliverable artifacts
+globs:
+  - "docs/articles/**"
+  - "docs/presentations/**"
+  - "docs/slides/**"
+alwaysApply: false
+---
+
+# Artifact Delivery Gate
+
+| Field | Rule |
+|---|---|
+| Symptom | Artifactを生成・commit・pushしたが、指定されたTelegram等の受取channelへ届いていない |
+| Wrong instinct | repositoryにfileがあることをuser deliveryとみなし、final responseだけで完了する |
+| Correct action | 指定済み／運用上確立済みのchannelへsummaryとartifactを実送信し、provider receiptを保存してからdoneにする |
+| General law | **Artifact existence is not artifact delivery.** `generated -> validated -> committed -> pushed -> delivered -> receipt_verified`を別stateとして扱う |
+| Example | Telegramなら許可済みmedia rootへstageし、summary、article、deckを送信する。CLI timeout時はgateway logで`sendDocument` receiptを確認してからretryし、重複送信を防ぐ |
+
+## Completion contract
+
+```text
+done =
+  artifact validates
+  AND git state is pushed
+  AND requested delivery channel received every required artifact
+  AND provider message/file IDs are recorded
+```
+
+Local file path rejectionはartifact failureではなくdelivery staging failureである。
+OpenClawの許可済みroot（`~/.openclaw/media/`等）へcopyしてから再送する。
+
+ソース: [OpenClaw CLI](https://docs.openclaw.ai/cli) /
+核心の引用: `--media <path-or-url>  Attach media (image/audio/video/document). Accepts local paths or URLs.`
