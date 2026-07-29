@@ -350,10 +350,12 @@ row; its status changes in the same commit as implementation evidence.
 | 3 | Recruiter question auto-reply | `completed` | 68 tests; approved-answer and fail-closed policy; at-most-once outbox; real two-message same-thread Gmail round trip with private evidence |
 | 4 | Interview slot selection and confirmation | `completed` | 79 tests; explicit timezone/source validation; real busy-slot skip, private Calendar event, same-thread Gmail reply and retry-idempotency E2E; all test artifacts cleaned |
 | 5 | Assessment and take-home workflow | `completed` | 89 tests; quoted rule/deadline manifest; real sandbox denial of network/home access; private hashed evidence; fenced unknown-submission retry block |
-| 6 | Recurring interview preparation and real interview-email E2E | `implemented_waiting_external_e2e` | 97 tests; persistent registration; 3-day/1-day/immediate windows; real Telegram immediate delivery plus second-tick dedupe; forced production launchd no-mail pass and private DB healthcheck; final real recruiter-email E2E waits for an interview message |
-| 7 | ATS resilience for Ashby, Workday and other blocked forms | `pending` | Replay fixtures plus one real confirmed application per adapter |
-| 8 | Life Manager Career organ | `pending` | Career timeline, goal and pause/resume controls consuming `summary.v1.json` |
-| 9 | Evidence-backed strategy promotion | `waiting_samples` | At least 10 resolved applications per arm and Wilson-interval promotion proof |
+| 6 | No-give-up runtime reliability | `in_progress` | Require a multi-provider discovery fallback after Firecrawl failure, attach the exact resume used to every submitted-application Telegram report, repair the Inbox runner contract, then verify all three through the installed loops |
+| 7 | Recurring interview preparation and real interview-email E2E | `implemented_waiting_external_e2e` | 97 tests; persistent registration; 3-day/1-day/immediate windows; real Telegram immediate delivery plus second-tick dedupe; forced production launchd no-mail pass and private DB healthcheck; final real recruiter-email E2E waits for an interview message |
+| 8 | ATS resilience for Ashby, Workday and other blocked forms | `pending` | Replay fixtures plus one real confirmed application per adapter |
+| 9 | Dream Job objective and evidence-backed strategy promotion | `waiting_samples` | Deliver one verified best-fit lead per day; persist role/source/message experiment assignment and outcomes; promote one-field changes only after at least 10 resolved applications per arm and Wilson-interval proof |
+| 10 | Portable local OSS distribution | `pending` | Remove Dais-specific absolute paths; add BYO provider authentication, profile setup, macOS/Linux scheduling, private-state defaults, and an end-to-end install test |
+| 11 | Life Manager Career organ | `pending` | Career timeline, dream-job goal, learning evidence and pause/resume controls consuming `summary.v1.json` |
 
 ## 12. Verification
 
