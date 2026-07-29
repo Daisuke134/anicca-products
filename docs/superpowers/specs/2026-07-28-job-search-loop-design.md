@@ -87,8 +87,12 @@ launchd
   │    ├─ discover: company ATS + public search
   │    ├─ normalize/dedupe
   │    ├─ qualify and rank
+  │    ├─ detect official posting language
+  │    │    ├─ Japanese → Japanese AI resume
+  │    │    └─ English → engineering/business English resume
   │    ├─ tailor from truth ledger
   │    ├─ browser claim/fence/submit
+  │    ├─ Telegram exact submitted-resume PDF
   │    └─ Telegram daily report
   └─ inbox-pass (every 15 minutes)
        ├─ Gmail reconcile
@@ -275,6 +279,14 @@ delivery, translating AI capabilities into user workflows, stakeholder alignment
 product ownership, customer adoption, GTM/growth, and public communication. It must
 not invent formal PM, sales quota, people-management, or revenue ownership.
 
+The Japanese variant is a one-page Japanese 職務経歴書 with fourteen grounded points
+covering MUIT/MUFG, Databricks, Agentforce, Anicca/Life Manager, NAIST/ATR,
+agent-community leadership, ICLR communication, growth, education, and languages.
+The complete official posting text, not a person's name or presumed nationality,
+determines language: primarily Japanese postings use the Japanese PDF; English
+postings use the engineering or technical-business English PDF. The router returns
+the only permitted path and SHA-256 for the submission intent and Telegram receipt.
+
 ## 8. Self-improvement harness
 
 The loop improves one bounded strategy variable per weekly generation:
@@ -354,11 +366,13 @@ row; its status changes in the same commit as implementation evidence.
 | 4 | Interview slot selection and confirmation | `completed` | 79 tests; explicit timezone/source validation; real busy-slot skip, private Calendar event, same-thread Gmail reply and retry-idempotency E2E; all test artifacts cleaned |
 | 5 | Assessment and take-home workflow | `completed` | 89 tests; quoted rule/deadline manifest; real sandbox denial of network/home access; private hashed evidence; fenced unknown-submission retry block |
 | 6 | No-give-up runtime reliability | `completed` | 104 tests; real Firecrawl-credit failure recovered through Freehire + LinkedIn Tokyo/Remote with 30 usable candidates; real daily owner connected to Chrome CDP and inspected official ATS pages; Node Playwright failure fell through to installed Python Playwright; Inbox prompt transport exits successfully; exact submitted-resume path/hash delivery is enforced; historical material aliases recovered the exact LayerX and Ex-ture PDFs and real Telegram document ACKs 4378/4379; same-day corrected report ACK 4377 |
-| 7 | Recurring interview preparation and real interview-email E2E | `implemented_waiting_external_e2e` | 97 tests; persistent registration; 3-day/1-day/immediate windows; real Telegram immediate delivery plus second-tick dedupe; forced production launchd no-mail pass and private DB healthcheck; final real recruiter-email E2E waits for an interview message |
-| 8 | ATS resilience for Ashby, Workday and other blocked forms | `pending` | Replay fixtures plus one real confirmed application per adapter |
-| 9 | Dream Job objective and evidence-backed strategy promotion | `waiting_samples` | Deliver one verified best-fit lead per day; persist role/source/message experiment assignment and outcomes; promote one-field changes only after at least 10 resolved applications per arm and Wilson-interval proof |
-| 10 | Portable local OSS distribution | `pending` | Remove Dais-specific absolute paths; add BYO provider authentication, profile setup, macOS/Linux scheduling, private-state defaults, and an end-to-end install test |
-| 11 | Life Manager Career organ | `pending` | Career timeline, dream-job goal, learning evidence and pause/resume controls consuming `summary.v1.json` |
+| 7 | Bilingual resume and official-posting language routing | `completed` | 107 tests; fourteen grounded Japanese points; A4 one-page Japanese PDF; extracted-text and visual inspection; real CLI selected the Japanese PDF for Japanese text and technical-business English PDF for English text; routed path/hash remains the Telegram receipt source |
+| 8 | Verified nationality and Japan work-visa answers | `waiting_private_input` | Add the two legal facts to the private profile, then rerun the current BJAK AI Finance Agent application without inference |
+| 9 | Recurring interview preparation and real interview-email E2E | `implemented_waiting_external_e2e` | Persistent registration; 3-day/1-day/immediate windows; real Telegram immediate delivery plus second-tick dedupe; forced production launchd no-mail pass and private DB healthcheck; final real recruiter-email E2E waits for an interview message |
+| 10 | ATS resilience for Ashby, Workday and other blocked forms | `pending` | Replay fixtures plus one real confirmed application per adapter |
+| 11 | Dream Job objective and evidence-backed strategy promotion | `waiting_samples` | Deliver one verified best-fit lead per day; persist role/source/message experiment assignment and outcomes; promote one-field changes only after at least 10 resolved applications per arm and Wilson-interval proof |
+| 12 | Portable local OSS distribution | `pending` | Remove Dais-specific absolute paths; add BYO provider authentication, profile setup, macOS/Linux scheduling, private-state defaults, and an end-to-end install test |
+| 13 | Life Manager Career organ | `pending` | Career timeline, dream-job goal, learning evidence and pause/resume controls consuming `summary.v1.json` |
 
 ## 12. Verification
 

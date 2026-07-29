@@ -35,6 +35,10 @@ def render_resume_html(
     *,
     links: list[tuple[str, str]],
     include_date_of_birth: bool = False,
+    date_of_birth_label: str = "Date of birth",
+    document_language: str = "en",
+    display_name: str | None = None,
+    base_display: str | None = None,
     headline: str = "Applied AI & Agent Engineer",
     summary: str = (
         "regulated enterprise deployment, research, and consumer AI products"
@@ -42,7 +46,7 @@ def render_resume_html(
 ) -> str:
     all_items = [item for section in sections for item in section.get("items", [])]
     validate_claims(profile, all_items)
-    name = html.escape(profile["candidate"]["name"])
+    name = html.escape(display_name or profile["candidate"]["name"])
     body: list[str] = []
     for section in sections:
         body.append(f"<section><h2>{html.escape(section['heading'])}</h2><ul>")
@@ -57,25 +61,32 @@ def render_resume_html(
     contact_values = [
         candidate.get("application_email"),
         candidate.get("phone"),
-        candidate.get("base"),
+        base_display or candidate.get("base"),
     ]
     if include_date_of_birth and candidate.get("date_of_birth"):
-        contact_values.append(f"Date of birth: {candidate['date_of_birth']}")
+        contact_values.append(
+            f"{date_of_birth_label}：{candidate['date_of_birth']}"
+            if document_language == "ja"
+            else f"{date_of_birth_label}: {candidate['date_of_birth']}"
+        )
     contact_html = " · ".join(
         html.escape(str(value)) for value in contact_values if value
     )
     headline_html = html.escape(headline)
     summary_html = html.escape(summary)
     return f"""<!doctype html>
-<html><head><meta charset="utf-8"><style>
+<html lang="{html.escape(document_language, quote=True)}"><head><meta charset="utf-8"><style>
 @page {{ size: A4; margin: 12mm 14mm; }}
-body {{ font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+body {{ font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic",
+       "Noto Sans CJK JP", "Helvetica Neue", Arial, sans-serif;
        color: #111827; font-size: 9.2pt; line-height: 1.28; }}
 main {{ display: grid; grid-template-columns: 1fr; gap: 3px; }}
 h1 {{ font-size: 22pt; margin: 0; }} h2 {{ font-size: 11pt; text-transform: uppercase;
 letter-spacing: .08em; border-bottom: 1px solid #9ca3af; margin: 7px 0 3px; }}
 p, ul {{ margin: 2px 0; }} ul {{ padding-left: 17px; }} li {{ margin: 1.5px 0; }}
 a {{ color: #1d4ed8; text-decoration: none; }}
+html[lang="ja"] body {{ font-size: 8.7pt; line-height: 1.25; }}
+html[lang="ja"] h2 {{ text-transform: none; letter-spacing: .04em; }}
 </style></head><body><main>
 <header><h1>{name}</h1><p><strong>{headline_html}</strong> — {summary_html}</p>
 <p>{contact_html}</p><p>{link_html}</p></header>
@@ -153,6 +164,95 @@ def business_sections(profile: dict[str, Any]) -> list[dict[str, Any]]:
     ]
 
 
+JAPANESE_FACT_TEXT = {
+    "muit_role_2025": (
+        "三菱UFJインフォメーションテクノロジー（MUIT）で、2025年4月から"
+        "応用AI・AIエージェント領域に従事。"
+    ),
+    "muit_agent_crm": "銀行のCRM環境へのAIエージェント導入に従事。",
+    "muit_genie_logs": (
+        "Databricks Genie Codeを用い、エージェント出力ログの詳細分析を自動化。"
+    ),
+    "muit_rm_summary": (
+        "リレーションシップマネージャー向け企業情報要約エージェントの"
+        "プロンプト調整を担当。"
+    ),
+    "mufg": (
+        "金融機関として日本初となるAgentforce for Financial Servicesの"
+        "MUFG本番導入に貢献し、厳格な銀行環境へエージェント業務を展開。"
+    ),
+    "anicca_consumer": (
+        "Swift/iOSのコンシューマー向けプロダクトとグロース施策を構築し、"
+        "Aniccaを月間経常収益100米ドルまで成長。"
+    ),
+    "life_manager": (
+        "金融・身体・メンタルヘルスのワークフローを統合する"
+        "コンシューマーAIエージェント「Life Manager」を開発。"
+    ),
+    "naist": (
+        "奈良先端科学技術大学院大学の修士研究（2024年4月〜2026年4月）で、"
+        "EEGと機械学習を用いたマインドワンダリング検出に従事。"
+    ),
+    "atr_research": "ATRでマインドワンダリング研究を実施し、研究成果を発表。",
+    "agent_club": (
+        "Claude Code、Codex、Cursor、AIエージェントの研究・業務活用を扱う"
+        "週次勉強会とコミュニティを研究室・大学院内で設立。"
+    ),
+    "iclr": (
+        "リオデジャネイロでICLR 2026に参加し、社内発表およびMUIT公式"
+        "YouTubeレポートで最新論文の学びを共有。"
+    ),
+    "a10_marketing": (
+        "A10 Labで2,000万円の広告予算を運用し、CPAを10%削減、"
+        "有料獲得数の過去最高を達成。"
+    ),
+    "education": (
+        "奈良先端科学技術大学院大学 修士課程、慶應義塾大学 法学部政治学科卒。"
+    ),
+    "languages": (
+        "日本語ネイティブ。英語：TOEFL iBT 96、Duolingo English Test 140。"
+        "スペイン語：DELE B1。"
+    ),
+}
+
+
+def japanese_sections(profile: dict[str, Any]) -> list[dict[str, Any]]:
+    approved = {fact["id"] for fact in profile["facts"]}
+    groups = [
+        (
+            "職務経歴 — MUIT / MUFG（2025年4月〜現在）",
+            [
+                "muit_role_2025",
+                "muit_agent_crm",
+                "muit_genie_logs",
+                "muit_rm_summary",
+                "mufg",
+            ],
+        ),
+        (
+            "個人開発・コンシューマーAI",
+            ["anicca_consumer", "life_manager"],
+        ),
+        (
+            "研究・コミュニティ活動 — NAIST / ATR",
+            ["naist", "atr_research", "agent_club", "iclr"],
+        ),
+        ("マーケティング経験", ["a10_marketing"]),
+        ("学歴・語学", ["education", "languages"]),
+    ]
+    return [
+        {
+            "heading": heading,
+            "items": [
+                {"text": JAPANESE_FACT_TEXT[fact_id], "fact_ids": [fact_id]}
+                for fact_id in fact_ids
+                if fact_id in approved
+            ],
+        }
+        for heading, fact_ids in groups
+    ]
+
+
 def _render_pdf(
     *,
     profile: dict[str, Any],
@@ -163,11 +263,21 @@ def _render_pdf(
     headline: str,
     summary: str,
     required_ats_text: tuple[str, ...],
+    include_date_of_birth: bool = False,
+    date_of_birth_label: str = "Date of birth",
+    document_language: str = "en",
+    display_name: str | None = None,
+    base_display: str | None = None,
 ) -> tuple[Path, Path]:
     rendered = render_resume_html(
         profile,
         sections,
         links=links,
+        include_date_of_birth=include_date_of_birth,
+        date_of_birth_label=date_of_birth_label,
+        document_language=document_language,
+        display_name=display_name,
+        base_display=base_display,
         headline=headline,
         summary=summary,
     )
@@ -235,4 +345,48 @@ def render_business(profile_path: Path, output_dir: Path) -> tuple[Path, Path]:
             "Customer",
             "Anicca",
         ),
+    )
+
+
+def render_japanese(profile_path: Path, output_dir: Path) -> tuple[Path, Path]:
+    profile = json.loads(profile_path.read_text(encoding="utf-8"))
+    candidate = profile["candidate"]
+    name_ja = candidate.get("name_ja")
+    display_name = (
+        f"{name_ja} / {candidate['name']}" if name_ja else candidate["name"]
+    )
+    base_display = (
+        "東京都、日本"
+        if candidate.get("base") == "Tokyo, Japan"
+        else candidate.get("base")
+    )
+    return _render_pdf(
+        profile=profile,
+        output_dir=output_dir,
+        filename_stem="Daisuke_Narita_Japan_AI_Resume",
+        sections=japanese_sections(profile),
+        links=[
+            ("ポートフォリオ", "https://aniccaai.com/dais"),
+            (
+                "ICLR 2026参加レポート",
+                "https://www.youtube.com/watch?v=biHAQ6aSQuc",
+            ),
+            ("Life Manager", "https://aniccaai.com/life-manager"),
+        ],
+        headline="職務経歴書",
+        summary=(
+            "金融機関向けエンタープライズAIとコンシューマーAIプロダクトの実装経験"
+        ),
+        required_ats_text=(
+            display_name,
+            "職務経歴書",
+            "MUIT",
+            "AIエージェント",
+            "NAIST",
+        ),
+        include_date_of_birth=True,
+        date_of_birth_label="生年月日",
+        document_language="ja",
+        display_name=display_name,
+        base_display=base_display,
     )

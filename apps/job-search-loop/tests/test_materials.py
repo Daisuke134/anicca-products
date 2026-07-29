@@ -1,5 +1,6 @@
 import tempfile
 import unittest
+import importlib
 from pathlib import Path
 
 from job_search_loop.materials import (
@@ -186,12 +187,115 @@ class MaterialTests(unittest.TestCase):
             self.assertIn("MUIT", extracted)
             self.assertIn("Anicca", extracted)
 
-    def test_daily_prompt_routes_business_roles_to_business_resume(self):
-        prompt = (
-            Path(__file__).parents[1] / "prompts" / "daily-pass.md"
-        ).read_text(encoding="utf-8")
-        self.assertIn("Daisuke_Narita_AI_Business_Resume.pdf", prompt)
-        self.assertIn("technical-business", prompt)
+    def test_japanese_sections_ground_at_least_ten_translated_points(self):
+        materials = importlib.import_module("job_search_loop.materials")
+        japanese_sections = getattr(materials, "japanese_sections", None)
+        self.assertIsNotNone(japanese_sections)
+        fact_ids = [
+            "muit_role_2025",
+            "muit_agent_crm",
+            "muit_genie_logs",
+            "muit_rm_summary",
+            "mufg",
+            "anicca_consumer",
+            "life_manager",
+            "naist",
+            "atr_research",
+            "agent_club",
+            "iclr",
+            "a10_marketing",
+            "education",
+            "languages",
+        ]
+        profile = {
+            "candidate": {"name": "Daisuke Narita", "name_ja": "成田大輔"},
+            "facts": [
+                {"id": fact_id, "claim": f"Approved claim for {fact_id}"}
+                for fact_id in fact_ids
+            ],
+        }
+
+        sections = japanese_sections(profile)
+        items = [item for section in sections for item in section["items"]]
+
+        self.assertEqual(len(items), 14)
+        self.assertEqual(
+            [item["fact_ids"][0] for item in items[:5]],
+            [
+                "muit_role_2025",
+                "muit_agent_crm",
+                "muit_genie_logs",
+                "muit_rm_summary",
+                "mufg",
+            ],
+        )
+        self.assertTrue(all(any("\u3040" <= c <= "\u9fff" for c in item["text"]) for item in items))
+        self.assertIn("日本初", items[4]["text"])
+        self.assertNotIn("主導", items[4]["text"])
+
+    def test_japanese_resume_renders_one_private_ats_page(self):
+        materials = importlib.import_module("job_search_loop.materials")
+        render_japanese = getattr(materials, "render_japanese", None)
+        self.assertIsNotNone(render_japanese)
+        fact_ids = [
+            "muit_role_2025",
+            "muit_agent_crm",
+            "muit_genie_logs",
+            "muit_rm_summary",
+            "mufg",
+            "anicca_consumer",
+            "life_manager",
+            "naist",
+            "atr_research",
+            "agent_club",
+            "iclr",
+            "a10_marketing",
+            "education",
+            "languages",
+        ]
+        profile = {
+            "candidate": {
+                "name": "Daisuke Narita",
+                "name_ja": "成田大輔",
+                "application_email": "candidate@example.com",
+                "phone": "09000000000",
+                "base": "Tokyo, Japan",
+                "date_of_birth": "2002-01-30",
+            },
+            "facts": [
+                {"id": fact_id, "claim": f"Approved claim for {fact_id}"}
+                for fact_id in fact_ids
+            ],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            profile_path = root / "profile.json"
+            profile_path.write_text(
+                __import__("json").dumps(profile, ensure_ascii=False),
+                encoding="utf-8",
+            )
+
+            html_path, pdf_path = render_japanese(profile_path, root / "output")
+
+            info = __import__("subprocess").run(
+                ["pdfinfo", str(pdf_path)],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout
+            extracted = __import__("subprocess").run(
+                ["pdftotext", str(pdf_path), "-"],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout
+            self.assertIn("Pages:           1", info)
+            self.assertIn("成田大輔", extracted)
+            self.assertIn("職務経歴書", extracted)
+            self.assertIn("AIエージェント", extracted)
+            self.assertIn("生年月日：2002-01-30", extracted)
+            self.assertEqual(html_path.stat().st_mode & 0o777, 0o600)
+            self.assertEqual(pdf_path.stat().st_mode & 0o777, 0o600)
 
 
 if __name__ == "__main__":

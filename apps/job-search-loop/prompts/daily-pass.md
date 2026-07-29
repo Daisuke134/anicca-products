@@ -37,19 +37,32 @@ career pages and ATS listings directly. A provider outage is not an application
 blocker. Only after both the multi-source command and browser fallback return no
 verified eligible posting may the pass report `no_eligible_job_found`.
 
-Before any submit click, use the Python Ledger API in `job_search_loop.ledger` to:
+Before any submit click, save the complete normalized official posting text in a
+private mode-0600 file beside `$JOB_SEARCH_BROWSER_OWNER_EVIDENCE`, determine the
+role family, and run:
+
+```bash
+PYTHONPATH=/Users/anicca/anicca-job-search-loop/apps/job-search-loop \
+/opt/homebrew/bin/python3 -m job_search_loop.resume_routing \
+  --role-family "<role_family>" \
+  --materials-root /Users/anicca/.local/share/anicca/job-search/materials \
+  --posting-text-file "<private_posting_text_file>"
+```
+
+The helper output is authoritative. A primarily Japanese official posting or
+application form uses the Japanese resume, regardless of engineering/business role.
+An English posting uses the engineering or technical-business English variant.
+Match optional application prose to the same language. Do not infer language from a
+recruiter's name, nationality, or company country, and do not manually substitute a
+different resume after routing.
+
+Then use the Python Ledger API in `job_search_loop.ledger` to:
 add the application, transition qualified then materials_ready, hash the canonical
 job/material/answer payload, and claim a daily slot. Pass the exact selected resume
-as `resume_path` and its verified SHA-256 as `resume_sha256` to `claim_submission`;
-a claim without both is invalid. Only then use an isolated
-Playwright/CloakBrowser context with user-facing locators. Route materials by role:
-- Engineering/research roles:
-  `/Users/anicca/.local/share/anicca/job-search/materials/master/Daisuke_Narita_AI_Resume.pdf`
-- Product, Program, GTM, Partnerships, Customer Success, Technical Account, Sales
-  Engineering, and other technical-business roles:
-  `/Users/anicca/.local/share/anicca/job-search/materials/business/Daisuke_Narita_AI_Business_Resume.pdf`
-
-Use exactly one matching resume per application and include its hash in the intent.
+from the helper's `resume_path` and its verified `resume_sha256` to
+`claim_submission`; a claim without both is invalid. Only then use an isolated
+Playwright/CloakBrowser context with user-facing locators. Use exactly one matching
+resume per application and include its hash in the intent.
 For Product, GTM, Partnerships, and Customer Success roles, generate the application
 message through `job_search_loop.application_messages.build_application_message`.
 The role reason must have a quoted job-page source span, and the resulting message

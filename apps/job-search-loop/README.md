@@ -54,6 +54,8 @@ unlimited loop.
 | Materials | `~/.local/share/anicca/job-search/materials/` |
 | Engineering resume | `~/.local/share/anicca/job-search/materials/master/Daisuke_Narita_AI_Resume.pdf` |
 | Technical-business resume | `~/.local/share/anicca/job-search/materials/business/Daisuke_Narita_AI_Business_Resume.pdf` |
+| Japanese resume | `~/.local/share/anicca/job-search/materials/japan/Daisuke_Narita_Japan_AI_Resume.pdf` |
+| Resume language router | `job_search_loop/resume_routing.py` |
 | Technical-business message templates | `templates/application-messages.v1.json` |
 | Recruiter reply policy | `job_search_loop/recruiter_reply.py` |
 | Interview scheduling policy | `job_search_loop/interview_scheduling.py` |
@@ -69,6 +71,7 @@ cd /Users/anicca/anicca-job-search-loop/apps/job-search-loop
 python3 -m unittest discover -s tests -v
 zsh scripts/render-resume.sh
 zsh scripts/render-business-resume.sh
+zsh scripts/render-japanese-resume.sh
 zsh scripts/install-launchd.sh
 zsh scripts/healthcheck.sh
 ```
@@ -94,6 +97,13 @@ Historical rows created before this contract have no resume hash and are not gue
 The text daily report is independently deduplicated; a materially newer same-day
 result produces a single content-addressed correction instead of leaving an obsolete
 failure report as the apparent final state.
+
+Before the claim, the deterministic resume router detects the primary language from
+the complete official posting text. Japanese postings use the Japanese one-page AI
+resume for every role family. English postings use the engineering or
+technical-business English variant according to role family. The same routed path
+and SHA-256 are stored in the intent and later drive the Telegram document receipt;
+the agent may not manually replace the routed file.
 
 The inbox checkpoint is committed only after its AI pass succeeds. Every poll first
 delivers any due preparation pack, even when Gmail has no new message. Empty polls
