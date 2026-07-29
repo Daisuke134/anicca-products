@@ -12,6 +12,10 @@ TELEGRAM_MEDIA="/Users/anicca/.openclaw/media/job-search-outbound"
 mkdir -p "$EVIDENCE" "$STATE_ROOT/logs"
 chmod 700 "$STATE_ROOT" "$STATE_ROOT/evidence" "$EVIDENCE" "$STATE_ROOT/logs"
 export PYTHONPATH="$APP_ROOT"
+export JOB_SEARCH_BROWSER_OWNER_EVIDENCE="$EVIDENCE/browser-owner.json"
+/opt/homebrew/bin/python3 -m job_search_loop.browser_owner \
+  --endpoint "http://127.0.0.1:9222" \
+  --output "$JOB_SEARCH_BROWSER_OWNER_EVIDENCE"
 /opt/homebrew/bin/python3 -m job_search_loop.application_reporting deliver \
   --ledger "$STATE_ROOT/ledger.sqlite3" \
   --outbox "$TELEGRAM_OUTBOX" \
