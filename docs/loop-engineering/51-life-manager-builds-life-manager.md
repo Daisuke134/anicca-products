@@ -212,6 +212,16 @@ any active state -> RETRY_WAIT
 same failure x3 -> CIRCUIT_OPEN
 ```
 
+Failure stateからの出口（2026-07-30 amendment: 出口の無いfailure stateは§16の
+「bounded retry then circuit open」と矛盾するため明示する）:
+
+| From | To | 条件 |
+|---|---|---|
+| RETRY_WAIT | 直前のactive state | retry timerの満了。`return_state`をRETRY_WAIT進入時のreceiptに記録し、それ以外へは戻れない |
+| CIRCUIT_OPEN | QUARANTINED | 自動。人間可視のqueueへ落とすのみ（自動再開はしない） |
+| QUARANTINED | TRIAGED | 明示的なmanual reset receiptがある時のみ |
+| DUPLICATE / NOT_REPRODUCIBLE / REJECTED / REGRESSION / ROLLED_BACK / MEASURED後 | terminal | 出口なし。再発は新signalとして入り直す |
+
 ### Transition contract
 
 ```yaml
@@ -263,19 +273,30 @@ Prisma connection pool上のsession advisory lockは使用しない。
   "trace_id": "tr_...",
   "run_id": "run_...",
   "tenant_ref": "sha256:...",
-  "signal_type": "tool_failure",
+  "node": "place_call",
+  "tool": "telnyx",
+  "status": "error",
   "failure_class": "provider_low_balance",
-  "severity": 0.8,
-  "payload_ref": "artifact://redacted/...",
-  "effect_ref": "receipt://...",
+  "latency_ms": 840,
+  "effect_id": "receipt://...",
   "code_version": "...",
   "graph_version": "...",
+  "severity": 0.8,
+  "payload_ref": "artifact://redacted/...",
   "privacy": {
     "raw_retained": false,
     "redaction_version": "v1"
   }
 }
 ```
+
+2026-07-30 amendment（実装 `apps/life-call/lib/telemetry/envelope.js` との意図的な統一）:
+旧`signal_type`は`node`+`tool`+`status`の3 fieldへ分解、旧`effect_ref`は`effect_id`へ改名。
+required core = signal_id, source, trace_id, run_id, tenant_ref, node, tool, status,
+failure_class, latency_ms, effect_id, code_version, graph_version。
+optional extension = severity, payload_ref, privacy。
+`code_version`はcluster signature（§5.4のrelease次元）に必須 — これが無いとclusterが
+自分の修正を跨いで生き残り、outcome measurementが計算できない。
 
 Raw Telegram、email、calendar、health、location、promptをIssue本文へコピーしない。
 Issueにはhash、aggregate、redacted exemplar、artifact referenceだけを載せる。
@@ -320,6 +341,11 @@ system evidenceを取り、full contentは必要なtraceだけに限定する。
 ## 6. Data model
 
 Self-Builder専用schemaとDB roleを用意する。
+
+2026-07-30 amendment: 実装は`sb_`接頭辞を正式名とする（`sb_signals` = `improvement_signals`、
+`sb_clusters` = `failure_clusters`、`sb_issues` = `improvement_issues`、
+`sb_leases` = `worker_leases`、`sb_audit` = `audit_events`）。M1で実装済みはこの5表。
+残り（`reproduction_evals`以下）はM3以降で`sb_`接頭辞で追加する。
 
 | Table | Purpose |
 |---|---|
