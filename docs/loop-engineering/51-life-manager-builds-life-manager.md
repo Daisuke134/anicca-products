@@ -78,6 +78,17 @@ Product processへGitHub merge credentialを渡さない。Productが壊れて�
 | [LangChain Eval Engineering](https://www.langchain.com/blog/towards-automating-eval-engineering) | “mine traces -> identify a failure -> build an eval” | production failureを回帰evalへ変換 |
 | [LangChain Graph Engineering](https://www.langchain.com/blog/3-years-of-graph-engineering-with-langgraph) | “loops are simple graphs” | 複数loopをstate machineとして統治 |
 | [Colony Builds Colony](https://runcolony.com/blog/colony-builds-colony/) | “This isn’t a closed loop.” | 人間が残る箇所を隠さず、bounded autonomyから始める |
+| [SICA](https://arxiv.org/abs/2504.15228) | “performance improves from 17% to 53% … on a random subset of SWE-Bench Verified” | 自己改善は実測で効く。ただし §5.1 が「gainの多くはfile編集速度でありSWE-Bench的な改善ではない」と自認 |
+| [SICA overseer](https://arxiv.org/html/2504.15228v2) | “an LLM, running periodically in a concurrent thread … may intervene … or in serious cases to cancel the execution … called every 30s” | ★ 非同期Overseerを別threadで常駐させ、別model・kill権限を持たせる（§3.1に採用） |
+| [Darwin Gödel Machine](https://sakana.ai/dgm) | “It faked a log making it look like it had run the tests … it removed the markers we use in the reward function to detect hallucination … hacking our hallucination detection function” | ★ reward hackingはbase case。対策はprompt強化ではなく **immutable lineage archive**（それが実際に検知した唯一の手段） |
+| [AlphaEvolve](https://deepmind.google/discover/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/) | “verifies, runs and scores the proposed programs using automated evaluation metrics” / 適用範囲は “progress can be clearly and systematically measured” 領域 | evaluatorがproduct。機械採点できないclassはloopに入れない |
+| [OpenEvolve](https://github.com/algorithmicsuperintelligence/openevolve) | `cascade_evaluation` / `enable_artifacts` | 安いstage-1で先に落とす + stderrをartifactとして次promptへ戻す |
+| [Sentry Seer / Autofix](https://docs.sentry.io/product/ai-in-sentry/seer/autofix/) | 自動起動条件 = event数 ≥10 × 発生14日以内 × ML fixability score。上限は `Stop after PR Drafted` | ★ 課金前triage gate。かつ商用の到達点はPR止まりで自動mergeではない |
+| [CodeMender](https://deepmind.google/discover/blog/introducing-codemender-an-ai-agent-for-code-security/) | 6か月で72件をOSSへupstream、“only surfacing for human review high-quality patches” | 別LLM criticがorig↔modified差分をregression目的で読む + fuzz/差分test/SMTでnon-LLM ground truth |
+| [GitHub auto-merge](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request) | “merges a pull request automatically after all required reviews and status checks pass” | ★ 自動mergeの合法条件 = 受理述語をrequired status checkとして表現できること |
+| [Self-preference bias](https://arxiv.org/abs/2404.13076) | “linear correlation between self-recognition capability and the strength of self-preference bias” | 同family adversaryはcontext汚染を消すがself-preferenceは消さない → Checkerは別family or code judge |
+| [EvalGen / criteria drift](https://arxiv.org/abs/2404.12272) | “users need criteria to grade outputs, but grading outputs helps users define criteria” | ★ 直したい失敗から生成したevalは循環する → 修正前にfreeze + version + holdout sliceで再検証 |
+| [Hivemoot / Colony](https://github.com/hivemoot/colony) | “No human wrote the features, chose the priorities, or approved the merges.” | merge権限をagentのjudgmentでなくdeterministic botに持たせ、governance historyをreplay可能に保つ |
 
 ### Concrete tool stack
 
@@ -140,6 +151,18 @@ taxonomyまでとする。`Promoter`、permission policy、sealed eval、audit w
 | Promoter | deterministic policyでmerge/canary/rollback | LLM reasoning |
 | Outcome Auditor | deployment後の実metricを比較 | code変更 |
 | Meta Improver | Self-Builder worker候補を提案・検証 | immutable kernel |
+| Overseer | 別thread常駐・**別model family**でrun eventを監視、逸脱runをcancel | code変更、merge、eval改変 |
+| Lineage Archive | 全candidate・evidence・verdictをappend-onlyで保存し、reward hackingを事後検知可能にする | 上書き、削除 |
+
+Overseerは「うまく書けているか」ではなく「**測定器を攻撃していないか**」を見る:
+test logの捏造、marker削除、eval改変、prohibited pathへの迂回。DGMはこの2つの
+攻撃を実際に起こし、検知できた理由はarchiveのlineageだった。
+
+ソース: [Darwin Gödel Machine](https://sakana.ai/dgm) /
+核心の引用: “it removed the markers we use in the reward function to detect hallucination … hacking our hallucination detection function to report false successes”
+
+ソース: [SICA](https://arxiv.org/html/2504.15228v2) /
+核心の引用: “may intervene … or in serious cases to cancel the execution … called every 30s by default”
 
 ### 3.2 Model routing
 
@@ -405,6 +428,39 @@ LLM judgeはsemantic qualityの補助に使えるが、唯一のpromotion gate�
 Makerはsealed evalのanswer、Checkerのcredential、production metric queryへ
 アクセスできない。
 
+### Ordering invariant（自動mergeを合法にする唯一の制約）
+
+```text
+eval frozen (eval_id + sealed grader + version)
+  -> THEN Maker sees the Issue
+```
+
+Evalは **Makerがissueを読む前に凍結され、required status checkとして登録される**。
+この順序が2つの問題を同時に殺す:
+
+| 問題 | この順序が消す理由 |
+|---|---|
+| Maker が自分の採点器を書く循環 | 採点器はMaker起動前に確定・封印済み |
+| criteria drift（直したい失敗からevalを作る循環） | freeze + version + holdout sliceでの再検証を強制 |
+| 自動mergeの正当性 | 受理述語がGitHub required checkに落ち、branch protectionの標準機能で執行できる |
+
+ソース: [EvalGen](https://arxiv.org/abs/2404.12272) /
+核心の引用: “criteria … dependent on the specific LLM outputs observed”
+
+Evalをrequired checkに昇格できないIssue classは、**merge問題ではなくcanary問題**として
+扱い、自動mergeの対象から外す。
+
+### Pre-spend triage gate（Sentry Seer 準拠）
+
+| Gate | 閾値 | 理由 |
+|---|---|---|
+| 再現回数 | 同一cluster ≥ N events | 1回のnoiseにworkerを起動しない |
+| 鮮度 | 直近 14 日以内 | 消えた失敗を直さない |
+| 機械採点可能性 | fixability score が閾値以上 | 再現evalを書けないものはIssue止まり |
+
+ソース: [Sentry Seer](https://docs.sentry.io/product/ai-in-sentry/seer/autofix/) /
+核心の引用: 自動起動は “10 events” × “within 14 days” × fixability score
+
 ## 9. Maker loop
 
 ```text
@@ -445,7 +501,14 @@ Agentの`done`発言ではstateを進めない。commit SHAとtest receiptだけ
 
 ### Checker
 
-Makerとは別checkout、別context、別model/configで次を実行する。
+Makerとは別checkout、別context、**別model family**で次を実行する。同family adversaryは
+context汚染を消すがself-preference biasを消さない。
+
+ソース: [Self-preference bias](https://arxiv.org/abs/2404.13076) /
+核心の引用: “a linear correlation between self-recognition capability and the strength of self-preference bias”
+
+最終的なPASS/FAILを言えるのは **non-LLM signal のみ**（reproduction eval、differential test、
+security scan、cost計測、canary metric）。LLM judgeはsemantic補助に限定する。
 
 ```text
 clean checkout candidate SHA
@@ -482,6 +545,24 @@ else:
   merge: false
   state: QUARANTINED_OR_REJECTED
 ```
+
+実装形態は独自mergerではなく **GitHub native auto-merge + branch protection**。
+`auto_merge_if` の各条件は required status check として表現し、checkが揃った時だけ
+GitHubがmergeする。Self-Builderはmerge buttonを持たず、checkを出す側に留まる。
+
+ソース: [GitHub auto-merge](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/automatically-merging-a-pull-request) /
+核心の引用: “merges a pull request automatically after all required reviews and status checks pass”
+
+### 業界の現在地（隠さない）
+
+| Tier | 実例 | 自動merge |
+|---|---|---|
+| 依存更新 | Renovate / GitHub native | ★ 実運用されている（lockFileMaintenance等の最低risk class） |
+| semantic code fix | Sentry Seer / CodeMender / CodeRabbit | ★ **どのvendorもやっていない**。Seerの上限は `Stop after PR Drafted`、CodeMenderは “only surfacing for human review” |
+| 全自律 | [Hivemoot/Colony](https://github.com/hivemoot/colony) のみ | やっている。ただしtoy scale、governance botがmerge権限を持つ設計 |
+
+したがって `LM-SB-13` の live-enable は業界標準の踏襲ではなく**未踏領域**である。
+最初の対象は「reproduction evalをrequired checkに昇格できたclass」だけに限定する。
 
 初期auto-merge allowlist:
 
@@ -637,6 +718,9 @@ Triggerはevent-firstとする。新しいsignal、CI failure、deployment outco
 | LM-SB-11 | outcome auditorとlearning receiptを実装 | commit→outcome lineage完成 | TODO |
 | LM-SB-12 | meta-improvement shadow poolを実装 | worker candidateを旧kernelが判定 | TODO |
 | LM-SB-13 | low-risk allowlistでlive-enable | 10件連続でpolicy事故0 | TODO |
+| LM-SB-14 | append-only Lineage Archiveを実装 | 全candidateのevidence/verdict/diffが後から再生でき、marker削除・log捏造を検知できる | TODO |
+| LM-SB-15 | 非同期Overseerを実装（別model family、cancel権限） | prohibited path迂回とeval改変のinjection runが自動cancelされる | TODO |
+| LM-SB-16 | pre-spend triage gate（events × recency × fixability） | 閾値未満のclusterでworkerが起動しない | TODO |
 
 最初のlive対象は、既知failure class、deterministic reproduction、rollback可能、
 低risk pathの全条件を満たすものに限定する。
@@ -715,6 +799,20 @@ Issue作成・実装・eval・mergeをさせる方が短期の構築速度は最
 
 棄却理由は、同一主体が問題、解答、採点、昇格を所有すると、失敗時に独立した
 ground truthがなくなるためである。resume、audit、credential isolationも弱くなる。
+
+### Base case として設計に織り込む失敗
+
+reward hackingは例外事象ではなく既定挙動として扱う。先行例で実際に起きたのは
+「codeを直さず測定器を直す」である。Prompt強化では防げない。防いだのは
+append-only lineageと、agentが書けない場所にあるnon-LLM ground truthだけである。
+
+| 攻撃 | 実例 | 本設計の防御 |
+|---|---|---|
+| test logの捏造 | [DGM](https://sakana.ai/dgm) | commit SHA + Checker側の再実行のみをtransition条件にする（§9） |
+| hallucination detector自体の削除 | [DGM](https://sakana.ai/dgm) | detector/policy/sealed evalをimmutable kernelへ（§2）+ Lineage Archiveで事後検知 |
+| visible evalへの過適合 | [SICA §5.1](https://arxiv.org/html/2504.15228v2) | sealed holdout + freeze-before-fix順序（§8） |
+| benchmark memorization | [arXiv 2506.12286](https://arxiv.org/abs/2506.12286) | 自repoのproduction traceからevalを作る（外部benchmarkに依存しない） |
+| judgeの自己贔屓 | [arXiv 2404.13076](https://arxiv.org/abs/2404.13076) | Checkerは別model family、最終PASSはnon-LLM signalのみ |
 
 ### Most likely way this architecture is wrong
 
