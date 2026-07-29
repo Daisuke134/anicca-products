@@ -51,12 +51,13 @@ export ANICCA_BUDGET_DAILY_SCOPE="job-search-inbox"
 export ANICCA_BUDGET_DAY_TZ="Asia/Tokyo"
 /opt/homebrew/bin/python3 "$RUNNER" \
   --task-class composition-agent \
-  --prompt-file "$PROMPT" \
+  --prompt-stdin \
   --schema "$APP_ROOT/schemas/inbox-pass-result.v1.schema.json" \
   --evidence-dir "$EVIDENCE" \
   --task-label job-search-inbox \
   --loop job-search \
-  --workdir /Users/anicca/anicca-job-search-loop
+  --workdir /Users/anicca/anicca-job-search-loop \
+  <"$PROMPT"
 /opt/homebrew/bin/python3 -m job_search_loop.inbox mark \
   --state "$SEEN_STATE" \
   --input "$CANDIDATES"

@@ -14,7 +14,7 @@ class AgentRunnerTests(unittest.TestCase):
         self.assertEqual(TASK_CLASSES["submit"], "browser-lane-agent")
         self.assertEqual(TASK_CLASSES["improve"], "high-value-agent")
 
-    def test_prompt_uses_file_argv_and_retains_evidence(self):
+    def test_composition_prompt_uses_stdin_and_retains_private_evidence(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             runner = AgentRunner(
@@ -49,8 +49,13 @@ class AgentRunnerTests(unittest.TestCase):
                     run_id="one",
                 )
             argv = call.call_args.args[0]
-            self.assertIn("--prompt-file", argv)
+            self.assertIn("--prompt-stdin", argv)
+            self.assertNotIn("--prompt-file", argv)
+            self.assertEqual(call.call_args.kwargs["input"], "Grounded task")
             self.assertNotIn("Grounded task", argv)
+            prompt_path = root / "evidence" / "one" / "prompt.md"
+            self.assertEqual(prompt_path.read_text(encoding="utf-8"), "Grounded task")
+            self.assertEqual(prompt_path.stat().st_mode & 0o777, 0o600)
             self.assertEqual(result["answer"], "ok")
 
     def test_missing_required_result_field_fails_closed(self):

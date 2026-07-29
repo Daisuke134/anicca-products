@@ -68,8 +68,14 @@ class AgentRunner:
             str(self.runner_path),
             "--task-class",
             task_class,
-            "--prompt-file",
-            str(prompt_path),
+        ]
+        prompt_input = None
+        if task_class in {"composition-agent", "diagnostic-agent"}:
+            argv.append("--prompt-stdin")
+            prompt_input = prompt
+        else:
+            argv.extend(["--prompt-file", str(prompt_path)])
+        argv.extend([
             "--schema",
             str(schema_path),
             "--evidence-dir",
@@ -80,11 +86,12 @@ class AgentRunner:
             "job-search",
             "--task-label",
             task,
-        ]
+        ])
         completed = subprocess.run(
             argv,
             check=False,
             capture_output=True,
+            input=prompt_input,
             text=True,
             timeout=1_000,
         )
