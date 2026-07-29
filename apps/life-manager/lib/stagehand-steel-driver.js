@@ -160,8 +160,46 @@ function collectReadOnlyDomSnapshot(input = {}, environment) {
         ? Math.max(-1, Math.min(element.maxLength, 100))
         : -1,
     }));
+  const authActionVisible = Array.from(documentRef.querySelectorAll(
+    'button, a[href], [role="button"], input[type="submit"], input[type="button"], form[action]',
+  ))
+    .slice(0, 100)
+    .filter(visible)
+    .some((element) => {
+      const attribute = (name) => {
+        try {
+          return String(element.getAttribute?.(name) || "");
+        } catch {
+          return "";
+        }
+      };
+      const label = [
+        element.innerText,
+        attribute("aria-label"),
+        attribute("title"),
+        ["submit", "button"].includes(String(element.type || "").toLowerCase())
+          ? element.value
+          : "",
+      ].filter(Boolean).join(" ").trim();
+      const destination = [
+        attribute("href"),
+        attribute("action"),
+        element.href,
+        element.action,
+      ].filter(Boolean).join(" ");
+      const loginDestination =
+        /(?:^|\/)(?:login|log-in|signin|sign-in)(?:[/?#]|$)/i.test(destination);
+      const passiveSecurityCopy =
+        /\b(?:security|settings)\b/i.test(label);
+      const exactAuthAction = !passiveSecurityCopy &&
+        /^(?:(?:sign\s*in|log\s*in|login)(?:\s+with\s+(?:google|apple|microsoft|github|facebook|sso|email))?|continue\s+with\s+(?:google|apple|microsoft|github|facebook|sso|email)|email\s+me\s+(?:a\s+)?(?:link|magic\s+link)|magic\s+link|send\s+(?:me\s+)?(?:a\s+)?(?:code|magic\s+link|sign[- ]?in\s+link))$/i.test(
+          label,
+        );
+      return loginDestination || exactAuthAction;
+    });
   return {
     inputs,
+    authActionVisible,
     textFlags: {
       auth: /\b(?:log\s*in|sign\s*in|authenticate|authentication required)\b/i.test(visibleText),
       otp: /\b(?:verification code|security code|one[- ]time code|otp|enter (?:the )?(?:(?:six|6)[- ]digit )?code|(?:six|6)[- ]digit code)\b/i.test(visibleText),
@@ -208,6 +246,7 @@ function classifyReadOnlyDomSnapshot(snapshot = {}) {
     // copy alongside ordinary profile controls. Text alone is not an active
     // authentication form; an auth-relevant control or login URL is.
     authVisible: passwordVisible || otpVisible ||
+      source.authActionVisible === true ||
       (flags.auth === true && emailVisible),
     challengeVisible: captchaVisible || flags.challenge === true,
     captchaVisible,
@@ -462,7 +501,9 @@ function makeStagehandSteelDriver(options = {}) {
       const pendingWithoutCompletion = /\bpending\b/i.test(handoffText) && !strongCompletion;
       const negated = hardFailure || pendingWithoutCompletion;
       const blockingVerification = !strongCompletion &&
-        /\b(?:verify|check email)\b|確認してください/i.test(handoffText);
+        /\b(?:verify|check(?:\s+your)?\s+email|email\s+verification(?:\s+required)?|confirm\s+your\s+email)\b|確認してください/i.test(
+          handoffText,
+        );
       const handoffReason = activeAuthenticationForm
         ? /\b(?:2fa|two-factor|one-time password|otp|verification code)\b/i.test(handoffText)
           ? "2fa"
