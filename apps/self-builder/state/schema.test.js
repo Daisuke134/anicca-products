@@ -10,7 +10,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const path = require("node:path");
 
-const { STATES, FAILURE_STATES } = require("./transitions.js");
+const { STATES, FAILURE_STATES, TRANSITIONS, ACTIVE_STATES } = require("./transitions.js");
 
 const MIGRATIONS = path.join(__dirname, "..", "migrations");
 const MIGRATION_FILE = path.join(MIGRATIONS, "2026-07-30-self-builder-core.sql");
@@ -25,6 +25,7 @@ const TABLES = Object.freeze([
   "sb_issues",
   "sb_leases",
   "sb_audit",
+  "sb_transitions",
 ]);
 
 test("spec §6: every Self-Builder core table is created idempotently", () => {
@@ -51,7 +52,7 @@ test("§16: one cluster one Issue is enforced by UNIQUE constraints, not by conv
   assert.match(sql, /signal_id text PRIMARY KEY/, "a replayed signal_id must collide on the primary key");
 });
 
-test("spec §2/§6: sb_signals and sb_audit are append-only for the worker role", () => {
+test("spec §2/§6: the migration DECLARES append-only grants for sb_signals and sb_audit (behavior proven in the integration script)", () => {
   for (const table of ["sb_signals", "sb_audit"]) {
     assert.ok(
       new RegExp(`REVOKE UPDATE, DELETE ON public\\.${table}`).test(sql),
@@ -64,7 +65,7 @@ test("spec §2/§6: sb_signals and sb_audit are append-only for the worker role"
   }
 });
 
-test("spec §4: the transition claim is an UPDATE ... WHERE state = expected RETURNING", () => {
+test("spec §4: the migration DECLARES the transition claim as UPDATE ... WHERE state = expected (behavior proven in the integration script)", () => {
   assert.match(sql, /CREATE OR REPLACE FUNCTION public\.claim_sb_issue_transition\(/);
   assert.match(sql, /WHERE issue_id = p_issue_id\s*\n\s*AND state = p_from_state/,
     "the claim must be conditional on the expected state");
@@ -80,7 +81,7 @@ test("spec §6: worker leases carry expiry and heartbeat and are claimed atomica
   assert.match(sql, /expires_at <= now\(\)|expires_at < now\(\)/, "an expired lease must be reclaimable");
 });
 
-test("row level security is enabled on every table and functions are role-locked", () => {
+test("the migration DECLARES RLS on every table and role-locked functions (behavior proven in the integration script)", () => {
   for (const table of TABLES) {
     assert.ok(
       new RegExp(`ALTER TABLE public\\.${table} ENABLE ROW LEVEL SECURITY`).test(sql),
@@ -99,6 +100,77 @@ test("no raw tenant or payload column exists (spec §5.4 default export禁止)",
   // fleet signal and rejects any non-pseudonymous value.
   assert.match(sql, /CHECK \(tenant_ref ~ '\^sha256:\[0-9a-f\]\{64\}\$'\)/,
     "tenant_ref must be constrained to a sha256 pseudonym at the database level");
+});
+
+// ---------------------------------------------------------------------------
+// review C1: the SQL transition guard must carry the same legal-hop data as transitions.js
+// ---------------------------------------------------------------------------
+
+test("C1: sb_transitions seed rows are identical to the transitions.js graph", () => {
+  const seedBlock = /INSERT INTO public\.sb_transitions[^;]+;/.exec(sql);
+  assert.ok(seedBlock, "the migration must seed public.sb_transitions");
+  const rows = [...seedBlock[0].matchAll(/\('([^']*)',\s*'([^']*)',\s*'\{([^}]*)\}',\s*(true|false)\)/g)]
+    .map((m) => ({
+      from: m[1],
+      to: m[2],
+      required_receipts: m[3] === "" ? [] : m[3].split(",").map((r) => r.trim().replace(/^"|"$/g, "")),
+      claim_required: m[4] === "true",
+    }));
+  const expected = TRANSITIONS.map((rule) => ({
+    from: rule.from,
+    to: rule.to,
+    required_receipts: [...rule.required_receipts],
+    claim_required: rule.claim_required,
+  }));
+  assert.deepEqual(rows, expected, "SQL seed and JS graph must be the SAME data, row for row");
+});
+
+test("C1: the claim function refuses undeclared hops and missing receipts by exception", () => {
+  assert.match(sql, /FROM public\.sb_transitions/, "the function must consult the seed table");
+  assert.match(sql, /RAISE EXCEPTION 'illegal transition/, "an undeclared hop must raise");
+  assert.match(sql, /RAISE EXCEPTION 'missing receipt/, "a missing required receipt must raise");
+  const activeArray = /ARRAY\[([^\]]+)\]::text\[\]/.exec(sql);
+  assert.ok(activeArray, "the wildcard-from expansion must pin the active states as an array");
+  const declaredActive = activeArray[1].split(",").map((item) => item.trim().replace(/^'|'$/g, ""));
+  assert.deepEqual(declaredActive, [...ACTIVE_STATES], "SQL active states must equal transitions.js ACTIVE_STATES");
+});
+
+// ---------------------------------------------------------------------------
+// review C2 / I2 / I3 / M1 declarations (behavior in the integration script)
+// ---------------------------------------------------------------------------
+
+test("C2: every table declares an explicit service_role policy (RLS without policies is deny-all)", () => {
+  for (const table of TABLES) {
+    assert.ok(
+      new RegExp(`CREATE POLICY ${table}_service_rw ON public\\.${table}`).test(sql),
+      `${table} must declare a service_role policy`,
+    );
+  }
+  for (const table of ["sb_clusters", "sb_issues", "sb_leases"]) {
+    assert.ok(
+      new RegExp(`GRANT [^;]*ON public\\.${table} TO service_role`).test(sql),
+      `${table} must grant service_role access (it had none)`,
+    );
+  }
+});
+
+test("I2: sb_signals and sb_audit declare BEFORE UPDATE OR DELETE append-only triggers (ERRCODE 55000)", () => {
+  assert.match(sql, /RAISE EXCEPTION 'sb_signals is append-only' USING ERRCODE = '55000'/);
+  assert.match(sql, /RAISE EXCEPTION 'sb_audit is append-only' USING ERRCODE = '55000'/);
+  for (const table of ["sb_signals", "sb_audit"]) {
+    assert.ok(
+      new RegExp(`CREATE TRIGGER ${table}_append_only\\s*\\nBEFORE UPDATE OR DELETE ON public\\.${table}`).test(sql),
+      `${table} must have the append-only trigger`,
+    );
+  }
+});
+
+test("I3: sb_signals declares a code_version column (release axis of the spec §5.4 signature)", () => {
+  assert.match(sql, /code_version text/, "sb_signals must carry code_version");
+});
+
+test("M1: claim_sb_lease clamps its TTL (reject <= 0 and > 3600 seconds)", () => {
+  assert.match(sql, /RAISE EXCEPTION 'lease ttl out of range/, "an out-of-range TTL must raise");
 });
 
 test("the rollback drops exactly what the migration created and nothing else", () => {

@@ -13,6 +13,7 @@ const assert = require("node:assert/strict");
 
 const {
   LEASE_TTL_MS,
+  SIGNATURE_FIELDS,
   activeLease,
   isLeaseLive,
   claimLease,
@@ -187,7 +188,10 @@ test("a different failure class opens its own cluster and Issue", () => {
   assert.equal(store.snapshot().issues.length, 2);
 });
 
-test("spec §5.4: the cluster signature is release x graph_version x tool x failure_class", () => {
+// I3: the test name now claims exactly what it asserts. The spec §5.4 aggregation unit is
+// release × graph_version × model × tool × failure_class; code_version is the release axis
+// (the model axis arrives when a signal ever carries one — none does in M1).
+test("spec §5.4: the cluster signature is code_version(release) x graph_version x node x tool x failure_class x source", () => {
   const a = signalSignature(signal());
   assert.equal(a, signalSignature(signal({ signal_id: "other", observed_at: "2026-01-01T00:00:00.000Z" })),
     "signature must ignore per-delivery fields");
@@ -195,9 +199,26 @@ test("spec §5.4: the cluster signature is release x graph_version x tool x fail
   assert.notEqual(a, signalSignature(signal({ tool: "gcal.patch_event" })));
   assert.notEqual(a, signalSignature(signal({ graph_version: "lm.v2" })));
   assert.notEqual(a, signalSignature(signal({ node: "travel_fill" })));
+  assert.notEqual(a, signalSignature(signal({ source: "life_manager.travel" })));
+  // I3: a new RELEASE of the code is a different failure population — it must re-cluster.
+  assert.notEqual(a, signalSignature(signal({ code_version: "1.4.1" })),
+    "code_version (release) must be part of the cluster signature");
+  assert.equal(a, signalSignature(signal({ code_version: undefined })));
   assert.match(a, /^sha256:[0-9a-f]{64}$/);
   // no tenant identity may leak into a cluster key
   assert.equal(a, signalSignature({ ...signal(), tenant_ref: `sha256:${"b".repeat(64)}` }));
+  assert.deepEqual([...SIGNATURE_FIELDS],
+    ["source", "graph_version", "code_version", "node", "tool", "failure_class"]);
+});
+
+test("I3: two releases of the same failure open separate clusters and Issues", () => {
+  const store = createMemoryStore();
+  const v1 = ingestSignal(store, signal({ signal_id: "sig_1", code_version: "1.4.0" }), NOW);
+  const v2 = ingestSignal(store, signal({ signal_id: "sig_2", code_version: "1.4.1" }), NOW);
+  assert.notEqual(v1.cluster_id, v2.cluster_id);
+  assert.notEqual(v1.issue_id, v2.issue_id);
+  assert.equal(store.snapshot().signals[0].code_version, "1.4.0",
+    "the store must persist code_version so the release axis survives");
 });
 
 test("a signal with no failure class is not clusterable and never opens an Issue", () => {
@@ -257,6 +278,23 @@ test("the memory store enforces the same append-only and atomic-claim rules as t
     { issue_id: issueId, from_state: "OBSERVED", to_state: "CLUSTERED" },
   );
   assert.equal(Object.isFrozen(audit[0]), true, "an audit row is immutable once written");
+});
+
+test("M3: the memory store mirrors UNIQUE(issue_id, idempotency_key) ON CONFLICT DO NOTHING for audit", () => {
+  const store = createMemoryStore();
+  ingestSignal(store, signal(), NOW);
+  const issueId = store.snapshot().issues[0].issue_id;
+
+  const first = store.claimTransition({ issue_id: issueId, from: "OBSERVED", to: "CLUSTERED", idempotency_key: "k1" });
+  const replay = store.claimTransition({ issue_id: issueId, from: "CLUSTERED", to: "TRIAGED", idempotency_key: "k1" });
+  assert.equal(first.claimed, true);
+  assert.equal(replay.claimed, true, "the state claim itself still wins");
+  assert.equal(store.snapshot().audit.length, 1,
+    "a replayed idempotency key must not double-write audit history");
+
+  const fresh = store.claimTransition({ issue_id: issueId, from: "TRIAGED", to: "REPRODUCED", idempotency_key: "k2" });
+  assert.equal(fresh.claimed, true);
+  assert.equal(store.snapshot().audit.length, 2);
 });
 
 test("the memory store snapshot is a copy, so a caller cannot rewrite history", () => {

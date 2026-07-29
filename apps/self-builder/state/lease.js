@@ -23,10 +23,15 @@ const crypto = require("node:crypto");
 /** 15 minutes: long enough for a Maker step, short enough that a crash resumes quickly. */
 const LEASE_TTL_MS = 15 * 60 * 1000;
 
-/** spec §5.4 aggregation unit: release × graph_version × model × tool × failure_class. */
+/**
+ * spec §5.4 aggregation unit: release × graph_version × model × tool × failure_class.
+ * code_version is the release axis (review I3). The model axis joins when a signal ever
+ * carries one — no M1 signal does, and adding a dead field would only fake coverage.
+ */
 const SIGNATURE_FIELDS = Object.freeze([
   "source",
   "graph_version",
+  "code_version",
   "node",
   "tool",
   "failure_class",
@@ -218,6 +223,7 @@ function ingestSignal(store, signal, nowMs) {
     signal_id: signal.signal_id,
     signature_hash: signature,
     source: signal.source,
+    code_version: signal.code_version || null,
     failure_class: signal.failure_class,
     tenant_ref: signal.tenant_ref || null,
     observed_at_ms: observedAtMs,

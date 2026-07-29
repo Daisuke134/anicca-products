@@ -125,8 +125,11 @@ ISSUE_ID="$("${PSQL[@]}" -Atqc "SELECT issue_id FROM public.sb_issues LIMIT 1;")
 # ---------------------------------------------------------------------------
 # (a) done without SHA / out of order -> transition denied
 # ---------------------------------------------------------------------------
+# Full receipts so this exercises the STATE condition, not the receipt gate: the issue is
+# in OBSERVED, so a fully-evidenced IMPLEMENTED -> VERIFIED claim still returns false.
+FULL_RECEIPTS='{"build_result":"artifact://b","unit_result":"artifact://u","integration_result":"artifact://i","sealed_eval_result":"artifact://s","policy_scan_result":"artifact://p"}'
 DENIED="$("${PSQL[@]}" -Atqc \
-  "SELECT public.claim_sb_issue_transition('$ISSUE_ID', 'IMPLEMENTED', 'VERIFIED', 'k1', 'worker-1');")"
+  "SELECT public.claim_sb_issue_transition('$ISSUE_ID', 'IMPLEMENTED', 'VERIFIED', 'k1', 'worker-1', '$FULL_RECEIPTS'::jsonb);")"
 expect "(a) claiming from the wrong state is denied" "f" "$DENIED"
 
 SHA_PRESENT="$("${PSQL[@]}" -Atqc \
@@ -150,6 +153,30 @@ expect "(a) a racing second claim on the same expected state loses" "f" "$RACE_L
 
 AUDIT_ROWS="$("${PSQL[@]}" -Atqc "SELECT count(*) FROM public.sb_audit WHERE issue_id = '$ISSUE_ID';")"
 expect "(a) exactly one audit row was appended for the winning claim" "1" "$AUDIT_ROWS"
+
+# --- review C1: the state-jump attack must now raise, not merge -----------------------
+set +e
+ILLEGAL_OUT="$("${PSQL[@]}" -Atqc "SELECT public.claim_sb_issue_transition('$ISSUE_ID', 'OBSERVED', 'PROMOTED', 'kevil', 'evil-worker');" 2>&1)"
+ILLEGAL_RC=$?
+set -e
+if [[ $ILLEGAL_RC -eq 0 || "$ILLEGAL_OUT" != *"illegal transition"* ]]; then
+  fail "C1: OBSERVED -> PROMOTED must raise (rc=$ILLEGAL_RC out=$ILLEGAL_OUT)"
+fi
+printf 'ok C1 undeclared hop OBSERVED -> PROMOTED raises\n'
+STATE_AFTER="$("${PSQL[@]}" -Atqc "SELECT state FROM public.sb_issues WHERE issue_id = '$ISSUE_ID';")"
+expect "C1 the illegal attempt did not move the state" "CLUSTERED" "$STATE_AFTER"
+
+set +e
+NORECEIPT_OUT="$("${PSQL[@]}" -Atqc "SELECT public.claim_sb_issue_transition('$ISSUE_ID', 'CLUSTERED', 'TRIAGED', 'k3', 'worker-1');" 2>&1)"
+NORECEIPT_RC=$?
+set -e
+if [[ $NORECEIPT_RC -eq 0 || "$NORECEIPT_OUT" != *"missing receipt"* ]]; then
+  fail "C1: CLUSTERED -> TRIAGED without evidence_packet_result must raise (rc=$NORECEIPT_RC out=$NORECEIPT_OUT)"
+fi
+printf 'ok C1 a declared hop without its required receipt raises\n'
+
+WITH_RECEIPT="$("${PSQL[@]}" -Atqc "SELECT public.claim_sb_issue_transition('$ISSUE_ID', 'CLUSTERED', 'TRIAGED', 'k3', 'worker-1', '{\"evidence_packet_result\": \"artifact://evidence/1\"}'::jsonb);")"
+expect "C1 the same hop WITH its receipt succeeds" "t" "$WITH_RECEIPT"
 
 # ---------------------------------------------------------------------------
 # (c) worker dies after claim -> resume after lease expiry
@@ -182,6 +209,51 @@ PRIVS="$("${PSQL[@]}" -Atqc "SELECT
   has_table_privilege('service_role','public.sb_audit','DELETE')::text || ':' ||
   has_table_privilege('service_role','public.sb_signals','INSERT')::text;")"
 expect "append-only: service_role may insert but never update or delete history" "false:false:false:false:true" "$PRIVS"
+
+# --- review C2: RLS must not be deny-all for the worker role (behavioral) -------------
+ROLE_INSERT="$("${PSQL[@]}" -Atqc "SET ROLE service_role; INSERT INTO public.sb_signals (signal_id, signature_hash, source, code_version, failure_class, observed_at) VALUES ('sig_role', '$SIG_HASH', 'life_manager.scheduler', '1.4.0', 'provider_low_balance', now()) ON CONFLICT (signal_id) DO NOTHING; SELECT count(*) FROM public.sb_signals WHERE signal_id = 'sig_role';")"
+expect "C2 service_role can actually INSERT a signal and read it back" "1" "$ROLE_INSERT"
+
+ROLE_SELECT="$("${PSQL[@]}" -Atqc "SET ROLE service_role; SELECT count(*) >= 1 FROM public.sb_issues;")"
+expect "C2 service_role can actually SELECT issues" "t" "$ROLE_SELECT"
+
+set +e
+ROLE_UPDATE_OUT="$("${PSQL[@]}" -Atqc "SET ROLE service_role; UPDATE public.sb_audit SET to_state = 'FORGED';" 2>&1)"
+ROLE_UPDATE_RC=$?
+set -e
+if [[ $ROLE_UPDATE_RC -eq 0 ]]; then fail "C2: service_role UPDATE on sb_audit must fail ($ROLE_UPDATE_OUT)"; fi
+printf 'ok C2 service_role cannot UPDATE sb_audit\n'
+
+# --- review I2: even the table OWNER cannot rewrite history (trigger, ERRCODE 55000) ---
+set +e
+OWNER_UPDATE_OUT="$("${PSQL[@]}" -Atqc "UPDATE public.sb_audit SET to_state = 'FORGED';" 2>&1)"
+OWNER_UPDATE_RC=$?
+set -e
+if [[ $OWNER_UPDATE_RC -eq 0 || "$OWNER_UPDATE_OUT" != *"append-only"* ]]; then
+  fail "I2: owner UPDATE on sb_audit must hit the append-only trigger (rc=$OWNER_UPDATE_RC out=$OWNER_UPDATE_OUT)"
+fi
+printf 'ok I2 owner UPDATE on sb_audit raises append-only (trigger)\n'
+
+set +e
+OWNER_DELETE_OUT="$("${PSQL[@]}" -Atqc "DELETE FROM public.sb_signals WHERE signal_id = 'sig_role';" 2>&1)"
+OWNER_DELETE_RC=$?
+set -e
+if [[ $OWNER_DELETE_RC -eq 0 || "$OWNER_DELETE_OUT" != *"append-only"* ]]; then
+  fail "I2: owner DELETE on sb_signals must hit the append-only trigger (rc=$OWNER_DELETE_RC out=$OWNER_DELETE_OUT)"
+fi
+printf 'ok I2 owner DELETE on sb_signals raises append-only (trigger)\n'
+
+# --- review M1: lease TTL clamp --------------------------------------------------------
+for BAD_TTL in 0 -5 999999; do
+  set +e
+  TTL_OUT="$("${PSQL[@]}" -Atqc "SELECT public.claim_sb_lease('$ISSUE_ID', 'worker-9', $BAD_TTL);" 2>&1)"
+  TTL_RC=$?
+  set -e
+  if [[ $TTL_RC -eq 0 || "$TTL_OUT" != *"ttl out of range"* ]]; then
+    fail "M1: ttl $BAD_TTL must raise (rc=$TTL_RC out=$TTL_OUT)"
+  fi
+done
+printf 'ok M1 lease ttl 0 / -5 / 999999 all raise\n'
 
 ANON_PRIVS="$("${PSQL[@]}" -Atqc "SELECT
   has_function_privilege('anon','public.claim_sb_issue_transition(uuid,text,text,text,text,jsonb)','EXECUTE')::text || ':' ||

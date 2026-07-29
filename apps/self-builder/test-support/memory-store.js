@@ -83,14 +83,21 @@ function createMemoryStore() {
     const index = issues.findIndex((issue) => issue.issue_id === issueId && issue.state === from);
     if (index === -1) return Object.freeze({ claimed: false, state: null });
     issues[index] = { ...issues[index], state: to };
-    audit.push(Object.freeze({
-      audit_id: nextId("aud"),
-      issue_id: issueId,
-      from_state: from,
-      to_state: to,
-      idempotency_key: idempotencyKey,
-      worker_id: workerId,
-    }));
+    // M3: mirrors UNIQUE (issue_id, idempotency_key) ... ON CONFLICT DO NOTHING — a
+    // replayed key must not double-write history even when the state claim wins.
+    const duplicate = idempotencyKey !== null && audit.some(
+      (row) => row.issue_id === issueId && row.idempotency_key === idempotencyKey,
+    );
+    if (!duplicate) {
+      audit.push(Object.freeze({
+        audit_id: nextId("aud"),
+        issue_id: issueId,
+        from_state: from,
+        to_state: to,
+        idempotency_key: idempotencyKey,
+        worker_id: workerId,
+      }));
+    }
     return Object.freeze({ claimed: true, state: to });
   }
 
