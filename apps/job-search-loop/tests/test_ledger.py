@@ -1,3 +1,5 @@
+import hashlib
+import inspect
 import tempfile
 import threading
 import unittest
@@ -11,6 +13,9 @@ class LedgerTests(unittest.TestCase):
         self.tempdir = tempfile.TemporaryDirectory()
         self.db = Path(self.tempdir.name) / "ledger.sqlite3"
         self.ledger = Ledger(self.db)
+        self.resume = Path(self.tempdir.name) / "resume.pdf"
+        self.resume.write_bytes(b"%PDF-1.4\nverified resume\n")
+        self.resume_sha256 = hashlib.sha256(self.resume.read_bytes()).hexdigest()
         self.application_id = self.ledger.add_application(
             "Example", "AI Engineer", "https://jobs.example.com/42"
         )
@@ -23,6 +28,15 @@ class LedgerTests(unittest.TestCase):
         target = application_id or self.application_id
         self.ledger.transition(target, "qualified")
         self.ledger.transition(target, "materials_ready")
+
+    def _claim(self, ledger, application_id, japan_day, payload_hash):
+        return ledger.claim_submission(
+            application_id,
+            japan_day,
+            payload_hash,
+            resume_path=self.resume,
+            resume_sha256=self.resume_sha256,
+        )
 
     def test_duplicate_job_returns_same_application(self):
         duplicate = self.ledger.add_application(
@@ -43,29 +57,29 @@ class LedgerTests(unittest.TestCase):
 
     def test_daily_quota_counts_submitted_and_unknown(self):
         self._ready()
-        first = self.ledger.claim_submission(
-            self.application_id, "2026-07-28", "hash-1"
+        first = self._claim(
+            self.ledger, self.application_id, "2026-07-28", "hash-1"
         )
         self.ledger.complete_submission(first.intent_id, first.fence, "submitted")
         second_id = self.ledger.add_application(
             "Other", "GenAI Engineer", "https://jobs.example.com/43"
         )
         self._ready(second_id)
-        second = self.ledger.claim_submission(second_id, "2026-07-28", "hash-2")
+        second = self._claim(self.ledger, second_id, "2026-07-28", "hash-2")
         self.ledger.complete_submission(second.intent_id, second.fence, "submit_unknown")
         third_id = self.ledger.add_application(
             "Third", "AI Product Engineer", "https://jobs.example.com/44"
         )
         self._ready(third_id)
         self.assertIsNone(
-            self.ledger.claim_submission(third_id, "2026-07-28", "hash-3")
+            self._claim(self.ledger, third_id, "2026-07-28", "hash-3")
         )
         self.assertEqual(self.ledger.daily_slot_count("2026-07-28"), 2)
 
     def test_not_submitted_releases_observable_daily_slot(self):
         self._ready()
-        intent = self.ledger.claim_submission(
-            self.application_id, "2026-07-28", "hash"
+        intent = self._claim(
+            self.ledger, self.application_id, "2026-07-28", "hash"
         )
         self.assertEqual(self.ledger.daily_slot_count("2026-07-28"), 1)
         self.ledger.complete_submission(
@@ -75,8 +89,8 @@ class LedgerTests(unittest.TestCase):
 
     def test_stale_fence_cannot_complete(self):
         self._ready()
-        intent = self.ledger.claim_submission(
-            self.application_id, "2026-07-28", "hash"
+        intent = self._claim(
+            self.ledger, self.application_id, "2026-07-28", "hash"
         )
         with self.assertRaises(FenceError):
             self.ledger.complete_submission(
@@ -85,15 +99,15 @@ class LedgerTests(unittest.TestCase):
 
     def test_unknown_is_not_retried(self):
         self._ready()
-        intent = self.ledger.claim_submission(
-            self.application_id, "2026-07-28", "hash"
+        intent = self._claim(
+            self.ledger, self.application_id, "2026-07-28", "hash"
         )
         self.ledger.complete_submission(
             intent.intent_id, intent.fence, "submit_unknown"
         )
         self.assertIsNone(
-            self.ledger.claim_submission(
-                self.application_id, "2026-07-29", "new-hash"
+            self._claim(
+                self.ledger, self.application_id, "2026-07-29", "new-hash"
             )
         )
 
@@ -116,8 +130,11 @@ class LedgerTests(unittest.TestCase):
         def claim(application_id):
             local = Ledger(self.db)
             try:
-                result = local.claim_submission(
-                    application_id, "2026-07-28", f"hash-{application_id}"
+                result = self._claim(
+                    local,
+                    application_id,
+                    "2026-07-28",
+                    f"hash-{application_id}",
                 )
                 with lock:
                     results.append(result)
@@ -131,6 +148,40 @@ class LedgerTests(unittest.TestCase):
             thread.join()
         self.ledger = Ledger(self.db)
         self.assertEqual(sum(value is not None for value in results), 2)
+
+    def test_submitted_application_retains_exact_resume_for_reporting(self):
+        parameters = inspect.signature(self.ledger.claim_submission).parameters
+        self.assertIn("resume_path", parameters)
+        self.assertIn("resume_sha256", parameters)
+        reports = getattr(self.ledger, "submitted_resume_reports", None)
+        self.assertIsNotNone(reports)
+
+        resume = Path(self.tempdir.name) / "Daisuke_AI_Resume.pdf"
+        resume.write_bytes(b"%PDF-1.4\nverified resume\n")
+        resume_sha256 = hashlib.sha256(resume.read_bytes()).hexdigest()
+        self._ready()
+        intent = self.ledger.claim_submission(
+            self.application_id,
+            "2026-07-29",
+            "payload-hash",
+            resume_path=resume,
+            resume_sha256=resume_sha256,
+        )
+        self.ledger.complete_submission(intent.intent_id, intent.fence, "submitted")
+
+        self.assertEqual(
+            reports(),
+            [
+                {
+                    "application_id": self.application_id,
+                    "company": "Example",
+                    "title": "AI Engineer",
+                    "canonical_url": "https://jobs.example.com/42",
+                    "resume_path": str(resume.resolve()),
+                    "resume_sha256": resume_sha256,
+                }
+            ],
+        )
 
 
 if __name__ == "__main__":

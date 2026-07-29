@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import sqlite3
@@ -23,6 +24,8 @@ class SubmitIntent:
     application_id: str
     fence: int
     payload_hash: str
+    resume_path: str
+    resume_sha256: str
     japan_day: str
     slot: int
 
@@ -65,6 +68,8 @@ class Ledger:
                 application_id TEXT NOT NULL UNIQUE REFERENCES applications(id),
                 fence INTEGER NOT NULL,
                 payload_hash TEXT NOT NULL,
+                resume_path TEXT,
+                resume_sha256 TEXT,
                 japan_day TEXT NOT NULL,
                 slot INTEGER NOT NULL,
                 status TEXT NOT NULL,
@@ -80,6 +85,18 @@ class Ledger:
             );
             """
         )
+        intent_columns = {
+            str(row["name"])
+            for row in self.connection.execute("PRAGMA table_info(submit_intents)")
+        }
+        if "resume_path" not in intent_columns:
+            self.connection.execute(
+                "ALTER TABLE submit_intents ADD COLUMN resume_path TEXT"
+            )
+        if "resume_sha256" not in intent_columns:
+            self.connection.execute(
+                "ALTER TABLE submit_intents ADD COLUMN resume_sha256 TEXT"
+            )
         if self.path.exists():
             os.chmod(self.path, 0o600)
 
@@ -208,7 +225,16 @@ class Ledger:
         application_id: str,
         japan_day: str,
         payload_hash: str,
+        *,
+        resume_path: Path,
+        resume_sha256: str,
     ) -> SubmitIntent | None:
+        resolved_resume = Path(resume_path).expanduser().resolve()
+        if not resolved_resume.is_file():
+            raise ValueError(f"resume is not a file: {resolved_resume}")
+        actual_resume_sha256 = hashlib.sha256(resolved_resume.read_bytes()).hexdigest()
+        if actual_resume_sha256 != resume_sha256:
+            raise ValueError("resume SHA-256 does not match the selected file")
         with self._transaction():
             existing = self.connection.execute(
                 "SELECT intent_id FROM submit_intents WHERE application_id = ?",
@@ -233,6 +259,8 @@ class Ledger:
                 application_id=application_id,
                 fence=1,
                 payload_hash=payload_hash,
+                resume_path=str(resolved_resume),
+                resume_sha256=resume_sha256,
                 japan_day=japan_day,
                 slot=slot,
             )
@@ -246,15 +274,17 @@ class Ledger:
             self.connection.execute(
                 """
                 INSERT INTO submit_intents
-                  (intent_id, application_id, fence, payload_hash, japan_day, slot,
-                   status, created_at)
-                VALUES (?, ?, ?, ?, ?, ?, 'submit_claimed', ?)
+                  (intent_id, application_id, fence, payload_hash, resume_path,
+                   resume_sha256, japan_day, slot, status, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'submit_claimed', ?)
                 """,
                 (
                     intent.intent_id,
                     intent.application_id,
                     intent.fence,
                     intent.payload_hash,
+                    intent.resume_path,
+                    intent.resume_sha256,
                     intent.japan_day,
                     intent.slot,
                     _now(),
@@ -267,6 +297,7 @@ class Ledger:
                     "intent_id": intent.intent_id,
                     "fence": intent.fence,
                     "payload_hash": payload_hash,
+                    "resume_sha256": resume_sha256,
                 },
             )
             return intent
@@ -311,3 +342,33 @@ class Ledger:
                     """,
                     (row["japan_day"], row["slot"], row["application_id"]),
                 )
+
+    def submitted_resume_reports(self) -> list[dict[str, str]]:
+        rows = self.connection.execute(
+            """
+            SELECT
+              applications.id AS application_id,
+              applications.company,
+              applications.title,
+              applications.canonical_url,
+              submit_intents.resume_path,
+              submit_intents.resume_sha256
+            FROM submit_intents
+            JOIN applications ON applications.id = submit_intents.application_id
+            WHERE submit_intents.status = 'submitted'
+              AND submit_intents.resume_path IS NOT NULL
+              AND submit_intents.resume_sha256 IS NOT NULL
+            ORDER BY submit_intents.completed_at, submit_intents.rowid
+            """
+        ).fetchall()
+        return [
+            {
+                "application_id": str(row["application_id"]),
+                "company": str(row["company"]),
+                "title": str(row["title"]),
+                "canonical_url": str(row["canonical_url"]),
+                "resume_path": str(row["resume_path"]),
+                "resume_sha256": str(row["resume_sha256"]),
+            }
+            for row in rows
+        ]

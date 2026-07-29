@@ -22,7 +22,9 @@ engineering and technical-business role families, through:
 
 Before any submit click, use the Python Ledger API in `job_search_loop.ledger` to:
 add the application, transition qualified then materials_ready, hash the canonical
-job/material/answer payload, and claim a daily slot. Only then use an isolated
+job/material/answer payload, and claim a daily slot. Pass the exact selected resume
+as `resume_path` and its verified SHA-256 as `resume_sha256` to `claim_submission`;
+a claim without both is invalid. Only then use an isolated
 Playwright/CloakBrowser context with user-facing locators. Route materials by role:
 - Engineering/research roles:
   `/Users/anicca/.local/share/anicca/job-search/materials/master/Daisuke_Narita_AI_Resume.pdf`
@@ -43,7 +45,10 @@ submit_unknown on ambiguity; not_submitted when definitely before the click.
 submit_unknown is never retried.
 
 Use `job_search_loop.telegram.send_once` for one daily report. Report applied URLs,
-roles, exact state, blockers, and selected model route. Run one bounded weekly
+roles, exact state, blockers, and selected model route. The deterministic daily
+driver separately sends the exact recorded resume as a Telegram document for every
+`submitted` application; do not substitute a different resume or claim delivery
+without its Telegram ACK. Run one bounded weekly
 strategy experiment only when at least 10 applications have resolved; otherwise
 record inconclusive and keep the baseline.
 
