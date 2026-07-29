@@ -350,6 +350,47 @@ engineering problemである。
 
 その答えをcodeにした時、Life Managerは初めてLife Managerをbuildし始める。
 
+
+## 付録: あなたの研究にも同じ loop は立つ
+
+Life Manager の話は product の話に見えるが、構造は研究 pipeline と同型である。
+observe（実験 run の trace）→ evaluate（自動採点）→ improve（prompt/コードの最適化）
+→ verify（holdout）→ 繰り返し。
+
+現在地の数値は正直に見るべきだ。
+
+| Benchmark | 結果 |
+|---|---|
+| [RE-Bench](https://metr.org/blog/2024-11-22-evaluating-r-d-capabilities-of-llms/) | 2時間予算では agent が人間専門家に勝ち、32時間では人間が約2倍 |
+| [PaperBench](https://arxiv.org/abs/2504.01848) | 既知論文の再現で agent 26.0% vs ML PhD 41.4% |
+| [METR](https://arxiv.org/abs/2503.14499) | 50%成功するタスク長は約50分。約7か月で倍増中 |
+
+つまり自動化すべきは inner loop（実装・実行・調整・追跡）であり、
+outer loop（何を問うか）はまだ人間の仕事である。
+
+大学院生1人が1週間で立てられる最小構成:
+
+| Day | Step | Stack |
+|---|---|---|
+| 1 | task + metric を凍結（50-200例 + 自動採点器） | inspect_ai / lm-eval-harness |
+| 2 | pipeline を program 化して baseline | [DSPy](https://dspy.ai/) |
+| 3 | 全 run を trace | [Langfuse](https://github.com/langfuse/langfuse) self-host / W&B Weave（学術無料） |
+| 4 | 自動最適化 | BootstrapFewShot → [GEPA](https://arxiv.org/abs/2507.19457)（GRPO比+6%を rollout 1/35 で） |
+| 5 | cluster へ fan-out | Hydra --multirun + Optuna + submitit |
+
+この loop に agent framework は1つも入っていない。よくある失敗は逆順 —
+orchestration graph を先に選び、metric を最後まで定義しないことだ。
+
+そして tracing を今入れる最強の理由は規約側から来た。NeurIPS 2026 は AI 関与の
+大きい論文に **audit trail の提出**を要求し、「将来は default になる」と明言した
+（[NeurIPS blog](https://blog.neurips.cc/2026/06/02/ai-generated-papers-in-the-neurips-2026-position-paper-track/)）。
+trace log はそのまま audit trail になる。境界も明確で、authorship は不可
+（[ICML 2026](https://icml.cc/Conferences/2026/CallForPapers): "LLMs are not eligible for authorship"）、
+査読での AI 使用は禁止。自動化してよいのは実行であり、署名ではない。
+
+先行例・数値の全出典:
+[Prior art: self-improving loops と研究自動化](../loop-engineering/52-prior-art-self-improving-loops.md)
+
 ---
 
 実装正本:
