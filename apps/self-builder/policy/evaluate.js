@@ -26,6 +26,8 @@ const {
   sensitivePathsTouched,
   kernelPathsTouched,
   migrationPathsTouched,
+  canonicalizePath,
+  isAllowlistedPath,
 } = require("./sensitive-paths.js");
 
 const SATISFIED = "auto_merge_contract_satisfied";
@@ -69,6 +71,19 @@ function evaluatePaths(candidate, reasons) {
   if (paths.some((path) => typeof path !== "string" || path.trim() === "")) {
     reasons.push("paths_touched_invalid");
     return;
+  }
+
+  // I1: strict canonical form or deny. A `./`, `..`, `//` or backslash shape is an evasion
+  // attempt against the pattern matchers below, never a formatting quirk to forgive.
+  if (paths.some((path) => canonicalizePath(path) === null)) {
+    reasons.push("path_not_canonical");
+    return;
+  }
+
+  // C3: positive allowlist (spec §2 "Product codeのallowlisted paths"). Every touched path
+  // must be inside the mutable surface; anything else is un-mergeable however benign.
+  if (paths.some((path) => !isAllowlistedPath(path))) {
+    reasons.push("path_not_allowlisted");
   }
 
   // Derived, never self-reported (spec §16 "Maker changes auth path -> policy reject").

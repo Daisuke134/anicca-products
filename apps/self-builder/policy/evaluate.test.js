@@ -21,7 +21,17 @@ const {
   kernelPathsTouched,
   migrationPathsTouched,
   matchesGlob,
+  canonicalizePath,
+  MUTABLE_PATH_PATTERNS,
+  SENSITIVE_PATH_PATTERNS,
+  ANNOTATED_SENSITIVE_EXCEPTIONS,
+  isAllowlistedPath,
 } = require("./sensitive-paths.js");
+const { execFileSync } = require("node:child_process");
+const fs = require("node:fs");
+const path = require("node:path");
+
+const REPO_ROOT = path.join(__dirname, "..", "..", "..");
 
 // ---------------------------------------------------------------------------
 // fixture builders (every field required by AUTO_MERGE_CONTRACT is explicit)
@@ -371,6 +381,14 @@ test("glob matcher handles globstar, single star and literal paths without a dep
 });
 
 test("sensitive, kernel and migration path detection use real repository paths", () => {
+  // M5: a literal (non-glob) sensitive pattern that names a file which no longer exists is
+  // dead armor — verify each literal against the working tree.
+  const literals = SENSITIVE_PATH_PATTERNS.filter((pattern) => !/[*?]/.test(pattern));
+  assert.ok(literals.length > 0, "the sensitive list must pin concrete files");
+  for (const literal of literals) {
+    assert.ok(fs.existsSync(path.join(REPO_ROOT, literal)), `sensitive literal does not exist on disk: ${literal}`);
+  }
+
   assert.deepEqual(sensitivePathsTouched(["apps/life-call/lib/billing.js"]), ["apps/life-call/lib/billing.js"]);
   assert.deepEqual(sensitivePathsTouched(["apps/life-call/lib/travel.js"]), []);
   assert.deepEqual(sensitivePathsTouched(["apps/life-call/lib/money-path.js"]), ["apps/life-call/lib/money-path.js"]);
@@ -394,4 +412,109 @@ test("path detectors are pure and tolerate junk entries", () => {
   assert.deepEqual(input, snapshot);
   assert.deepEqual(sensitivePathsTouched([null, undefined, 42, ""]), []);
   assert.deepEqual(sensitivePathsTouched(undefined), []);
+});
+
+// ---------------------------------------------------------------------------
+// C3: positive allowlist — spec §2 "Product codeのallowlisted paths"
+// A path is mergeable only if it is INSIDE the mutable surface, not merely
+// outside the denylist. Review-proven bypasses below must all deny.
+// ---------------------------------------------------------------------------
+
+test("C3: paths outside the mutable allowlist are denied even with a benign issue_class", () => {
+  const bypasses = [
+    "apps/api/src/routes/auth/apple.js",
+    "apps/api/src/middleware/requireAuth.js",
+    "apps/api/src/api/billing/revenuecatSync.js",
+    "aniccaios/aniccaios/Services/KeychainService.swift",
+    "apps/api/src/index.js",
+    "scripts/deploy.sh",
+    "package.json",
+  ];
+  for (const bypass of bypasses) {
+    const result = evaluate(candidate({ paths_touched: [bypass] }));
+    assert.equal(result.merge, false, `must deny out-of-surface path: ${bypass}`);
+    assert.ok(
+      result.reason.includes("path_not_allowlisted") || result.reason.includes("sensitive_paths_touched"),
+      `${bypass}: expected path_not_allowlisted or sensitive_paths_touched, got ${result.reason}`,
+    );
+  }
+});
+
+test("C3: one out-of-surface path poisons an otherwise allowlisted diff", () => {
+  const result = evaluate(candidate({
+    paths_touched: ["apps/life-call/lib/travel.js", "apps/api/src/index.js"],
+    diff_stats: { files_changed: 2, insertions: 4, deletions: 1 },
+  }));
+  assert.equal(result.merge, false);
+  assert.ok(result.reason.includes("path_not_allowlisted"));
+});
+
+test("C3: the allowlist is frozen, non-empty and every allow fixture path is inside it", () => {
+  assert.equal(Object.isFrozen(MUTABLE_PATH_PATTERNS), true);
+  assert.ok(MUTABLE_PATH_PATTERNS.length > 0);
+  for (const p of [
+    "apps/life-call/lib/travel.js",
+    "apps/life-call/lib/dial.js",
+    "apps/life-call/lib/telemetry/emitter.js",
+    "apps/life-call/skill-life-manager/SKILL.md",
+    "apps/life-call/lib/travel.test.js",
+  ]) {
+    assert.equal(isAllowlistedPath(p), true, `${p} must be inside the mutable surface`);
+  }
+  for (const p of ["apps/api/src/index.js", "apps/self-builder/policy/policy.js", ".github/workflows/x.yml"]) {
+    assert.equal(isAllowlistedPath(p), false, `${p} must be outside the mutable surface`);
+  }
+});
+
+// ---------------------------------------------------------------------------
+// I1: canonicalization — review-proven bypasses via ./ .. and duplicate separators
+// ---------------------------------------------------------------------------
+
+test("I1: non-canonical path forms are rejected outright", () => {
+  for (const bad of [
+    "apps/life-call/./lib/billing.js",
+    "lib/../lib/billing.js",
+    "apps//life-call/lib/billing.js",
+    "./apps/life-call/lib/billing.js",
+    "apps/life-call/lib/billing.js/",
+    "/apps/life-call/lib/billing.js",
+    "..",
+    "apps\\life-call\\lib\\billing.js",
+  ]) {
+    assert.equal(canonicalizePath(bad), null, `must reject non-canonical: ${bad}`);
+    const result = evaluate(candidate({ paths_touched: [bad] }));
+    assert.equal(result.merge, false, `evaluate must deny non-canonical: ${bad}`);
+    assert.ok(result.reason.includes("path_not_canonical"), `${bad}: got ${result.reason}`);
+  }
+  assert.equal(canonicalizePath("apps/life-call/lib/billing.js"), "apps/life-call/lib/billing.js");
+});
+
+test("I1: the review-proven traversal payloads cannot reach a sensitive file undetected", () => {
+  for (const payload of [
+    "apps/life-call/./lib/billing.js",
+    "lib/../lib/billing.js",
+    "apps//life-call/lib/billing.js",
+  ]) {
+    const result = evaluate(candidate({ paths_touched: [payload] }));
+    assert.equal(result.merge, false, `traversal payload must deny: ${payload}`);
+  }
+});
+
+// ---------------------------------------------------------------------------
+// C3 walk: every tracked file whose PATH smells sensitive must be denied
+// ---------------------------------------------------------------------------
+
+test("C3: git ls-files walk — every auth/billing/wallet/secret/keychain path is denied or annotated", () => {
+  const tracked = execFileSync("git", ["ls-files"], { cwd: REPO_ROOT, encoding: "utf8", maxBuffer: 32 * 1024 * 1024 })
+    .trim().split("\n");
+  const suspicious = tracked.filter((file) => /auth|billing|wallet|secret|keychain/i.test(file));
+  assert.ok(suspicious.length >= 10, `walk found only ${suspicious.length} suspicious files — glob likely broken`);
+
+  const escaped = [];
+  for (const file of suspicious) {
+    if (ANNOTATED_SENSITIVE_EXCEPTIONS.includes(file)) continue;
+    const result = evaluate(candidate({ paths_touched: [file] }));
+    if (result.merge !== false) escaped.push(file);
+  }
+  assert.deepEqual(escaped, [], `these sensitive-named tracked files would auto-merge: ${escaped.join(", ")}`);
 });
