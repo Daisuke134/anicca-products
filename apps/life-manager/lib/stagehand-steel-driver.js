@@ -173,14 +173,15 @@ function collectReadOnlyDomSnapshot(input = {}, environment) {
           return "";
         }
       };
-      const label = [
+      const labelCandidates = Array.from(new Set([
         element.innerText,
         attribute("aria-label"),
         attribute("title"),
         ["submit", "button"].includes(String(element.type || "").toLowerCase())
           ? element.value
           : "",
-      ].filter(Boolean).join(" ").trim();
+      ].map((value) => String(value || "").replace(/\s+/g, " ").trim())
+        .filter(Boolean)));
       const destination = [
         attribute("href"),
         attribute("action"),
@@ -189,12 +190,11 @@ function collectReadOnlyDomSnapshot(input = {}, environment) {
       ].filter(Boolean).join(" ");
       const loginDestination =
         /(?:^|\/)(?:login|log-in|signin|sign-in)(?:[/?#]|$)/i.test(destination);
-      const passiveSecurityCopy =
-        /\b(?:security|settings)\b/i.test(label);
-      const exactAuthAction = !passiveSecurityCopy &&
+      const exactAuthAction = labelCandidates.some((candidate) =>
+        !/\b(?:security|settings)\b/i.test(candidate) &&
         /^(?:(?:sign\s*in|log\s*in|login)(?:\s+with\s+(?:google|apple|microsoft|github|facebook|sso|email))?|continue\s+with\s+(?:google|apple|microsoft|github|facebook|sso|email)|email\s+me\s+(?:a\s+)?(?:link|magic\s+link)|magic\s+link|send\s+(?:me\s+)?(?:a\s+)?(?:code|magic\s+link|sign[- ]?in\s+link))$/i.test(
-          label,
-        );
+          candidate,
+        ));
       return loginDestination || exactAuthAction;
     });
   return {

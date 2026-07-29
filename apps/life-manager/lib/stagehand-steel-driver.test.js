@@ -678,6 +678,36 @@ test("visible passwordless sign-in actions are active authentication without an 
   }
 });
 
+test("duplicate accessible auth labels are classified from individual candidates", () => {
+  for (const action of [
+    visibleElement({
+      tagName: "BUTTON",
+      getAttribute(name) {
+        return name === "aria-label" ? "Sign in" : null;
+      },
+    }, "Sign in"),
+    visibleElement({
+      tagName: "INPUT",
+      type: "submit",
+      value: "Sign in",
+      getAttribute(name) {
+        return name === "title" ? "Sign in" : null;
+      },
+    }),
+  ]) {
+    const snapshot = collectReadOnlyDomSnapshot(
+      { marker: "Account" },
+      domEnvironment({
+        bodyText: "Account",
+        authActions: [action],
+      }),
+    );
+
+    assert.equal(snapshot.authActionVisible, true);
+    assert.equal(classifyReadOnlyDomSnapshot(snapshot).authVisible, true);
+  }
+});
+
 test("Sign in and security settings links are passive account copy", () => {
   const snapshot = collectReadOnlyDomSnapshot(
     { marker: "Account Settings" },
