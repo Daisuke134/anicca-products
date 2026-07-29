@@ -68,7 +68,7 @@ allow/deny を deterministic に再現するテストが green。
 | Task | Status |
 |---|---|
 | 1 LM-SB-01 policy | DONE — `cd apps/self-builder && node --test` → tests 26 / pass 26 / fail 0 |
-| 2 LM-SB-02 envelope | TODO |
+| 2 LM-SB-02 envelope | DONE — `node --test lib/telemetry/*.test.js` → tests 39 / pass 39 / fail 0。life-call full `npm test` = 633/633 pass, EXIT 0（baseline と同一）|
 | 3 LM-SB-03 schema | TODO |
 | Adversary review | TODO |
 | Merge + spec 更新 | TODO |

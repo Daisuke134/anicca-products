@@ -9,6 +9,10 @@ const { getCalendar } = require("./transport/index.js");
 const { chooseRouter, parseTransitPlan } = require("./transit.js");
 const { makeRouteCache, timeBucket } = require("./route-cache.js");
 const { interpretCalendarEvent } = require("./calendar-interpreter.js");
+// LM-SB-02: one common-envelope signal per travel-fill pass. Fail-open and inert unless
+// LM_TELEMETRY_JSONL is configured, so it can never block a [Travel] block insert.
+const { emitSignal } = require("./telemetry/emitter.js");
+const { correlationRef, safeTenantRef, GRAPH_VERSION } = require("./telemetry/envelope.js");
 
 // C3 (FIND-002): a process-lifetime route-result cache so the 60s scheduler tick does NOT recompute a
 // route it already has (~30 paid provider calls/event → 1). Keyed on (from_geo, to_geo, time_bucket).
@@ -258,6 +262,7 @@ async function unclaimTravel(uid, eventKey, leg, supaUrl, supaKey) {
 
 async function fillTravel(uid, { apiKey, mapsKey, geminiKey, home, nowMs = Date.now(), bufferMin = 5, calendar, supaUrl, supaKey, _directionsMinutes, gmailAccountId } = {}) {
   const directionsFn = _directionsMinutes || directionsMinutes;
+  const startedMs = Date.now();
   const cal = calendar || getCalendar({ apiKey, gmailAccountId });
   const events = await listEvents7d(uid, apiKey, nowMs, cal, gmailAccountId);
   let inserted = 0, checked = 0, skipped = 0;
@@ -388,6 +393,21 @@ async function fillTravel(uid, { apiKey, mapsKey, geminiKey, home, nowMs = Date.
     }
     void outboundInserted; // suppress unused warning — used for semantic clarity only
   }
+  // LM-SB-02 signal: run-level outcome only. Per-event counts are L0 aggregate data with no
+  // field in the closed §5.2 envelope, so they stay in the returned report.
+  emitSignal({
+    source: "life_manager.travel",
+    trace_id: correlationRef("tr", uid, nowMs),
+    run_id: correlationRef("run", uid, startedMs),
+    tenant_ref: safeTenantRef(uid),
+    graph_version: GRAPH_VERSION,
+    node: "travel_fill",
+    tool: "gcal.travel_block",
+    status: "ok",
+    failure_class: null,
+    latency_ms: Math.max(0, Date.now() - startedMs),
+    effect_id: null,
+  });
   return { inserted, checked, skipped, outboundReports };
 }
 

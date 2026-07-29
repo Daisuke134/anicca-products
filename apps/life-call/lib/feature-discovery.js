@@ -7,6 +7,10 @@ async function settle(promise, fallback) { try { return await promise; } catch {
 const { DISCOVERY_STRINGS } = require("./i18n.js");
 const { sendMessage } = require("./telegram.js");
 const { getLiveLocation } = require("./late-notice.js");
+// LM-SB-02: one common-envelope signal per discovery nudge (spec §5.1 "Telegram: command
+// failure" / Mixpanel "ignored nudge"). Fail-open and inert unless LM_TELEMETRY_JSONL is set.
+const { emitSignal } = require("./telemetry/emitter.js");
+const { correlationRef, safeTenantRef, GRAPH_VERSION } = require("./telemetry/envelope.js");
 
 const DISCOVERY_WEEK_MS = 7 * 24 * 60 * 60 * 1000;
 const GATE_ORDER = Object.freeze(["location", "payout"]);
@@ -114,6 +118,26 @@ async function saveDiscovery(uid, nowMs, gate, opts = {}) {
   return Boolean(response && response.ok);
 }
 
+// LM-SB-02: the single emit point for discovery delivery outcomes. Returns its argument so
+// the call sites stay one-liners and observable behaviour is unchanged.
+function discoverySignal(outcome, { startedMs, uid, gate, failureClass } = {}) {
+  const ok = Boolean(outcome && outcome.sent);
+  emitSignal({
+    source: "life_manager.feature_discovery",
+    trace_id: correlationRef("tr", uid, gate),
+    run_id: correlationRef("run", uid, startedMs),
+    tenant_ref: safeTenantRef(uid),
+    graph_version: GRAPH_VERSION,
+    node: "feature_discovery",
+    tool: "telegram.send_message",
+    status: ok ? "ok" : "failure",
+    failure_class: ok ? null : (failureClass || "discovery_failed"),
+    latency_ms: Math.max(0, Date.now() - startedMs),
+    effect_id: null,
+  });
+  return outcome;
+}
+
 async function runDiscoveryForUser(user, nowMs = Date.now(), deps = {}) {
   if (!user || !user.uid || !user.telegram_chat_id) return { sent: false, reason: "unreachable" };
   if (user.notifications_enabled === false) return { sent: false, reason: user.runtime_preferences_failed ? "preferences_unavailable" : "notifications_disabled" };
@@ -133,18 +157,23 @@ async function runDiscoveryForUser(user, nowMs = Date.now(), deps = {}) {
   if (!gate) return { sent: false, reason: "all_unlocked" };
 
   const message = discoveryMessage(gate);
+  const startedMs = Date.now();
   const result = await (deps.sendMessage || sendMessage)(
     deps.token,
     user.telegram_chat_id,
     message.text,
     message.extra,
   );
-  if (!result || !result.ok) return { sent: false, reason: "telegram_failed", gate };
+  const signalContext = { startedMs, uid: user.uid, gate };
+  if (!result || !result.ok) {
+    return discoverySignal({ sent: false, reason: "telegram_failed", gate },
+      { ...signalContext, failureClass: "telegram_send_failed" });
+  }
 
   const persisted = await (deps.saveDiscovery || ((uid, at, sentGate) =>
     saveDiscovery(uid, at, sentGate, dbOpts)))(user.uid, nowMs, gate);
   if (!persisted) throw new Error(`discovery state save failed uid=${String(user.uid).slice(0, 12)}`);
-  return { sent: true, gate };
+  return discoverySignal({ sent: true, gate }, signalContext);
 }
 
 async function runDiscoveryForUid(uid, nowMs = Date.now(), deps = {}) {
