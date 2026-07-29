@@ -13,9 +13,12 @@ and reports every material state change to Telegram.
 | Location | Tokyo or remote roles that can employ someone based in Japan |
 | Compensation | JPY 5.5M hard floor; JPY 7M target |
 | Role focus | Applied AI/agent engineering plus technical AI business roles: Product, Program, Solutions, GTM, Partnerships, Customer Success and Sales Engineering |
+| Discovery | Firecrawl, public Freehire, public low-volume LinkedIn Tokyo/Remote, then official ATS pages in the existing browser; one provider failure never ends a pass |
 | Evidence | Every application is fenced in SQLite and retained under a private evidence directory |
 | Uncertainty | Ambiguous submission becomes `submit_unknown` and is never blindly retried |
 | Personal data | Verified private profile and generated materials are mode `0600` |
+| Application receipt | Every confirmed submission records the exact resume path and SHA-256, then sends that same PDF to Telegram once with company, role and URL |
+| Daily report repair | A materially changed same-day catch-up sends one content-addressed correction; identical retries remain at-most-once |
 | Inbox | Gmail metadata is prefiltered deterministically; a model runs only for a new recruiting thread or a pending prep-pack generation job |
 | Calendar | Only explicit timezone-aware recruiter candidates are considered; the earliest free candidate is confirmed once |
 | Interview prep | Every confirmed interview is registered before the email reply; Telegram refreshes are delivered at the 3-day and 1-day windows, or immediately inside 1 day |
@@ -32,6 +35,12 @@ and reports every material state change to Telegram.
 The current local deployment uses launchd and is designed so the same drivers and
 SQLite contracts can later be invoked by Life Manager without changing application
 semantics.
+
+The daily owner connects Playwright to the already-running authenticated Chrome CDP
+endpoint. It does not launch a duplicate browser. The driver reserves a bounded
+normal pass plus bounded same-day recovery capacity, so a transient provider or
+browser-tool failure can fall through to another implementation without becoming an
+unlimited loop.
 
 ## Key paths
 
@@ -71,6 +80,21 @@ LaunchAgent and inspect the generated evidence:
 launchctl kickstart "gui/$(id -u)/ai.anicca.job-search-daily"
 ```
 
+The daily pass searches three English/Japanese query families across engineering,
+technical-business, crypto and consumer-agent work. Firecrawl is only one provider.
+The bundled public Freehire and LinkedIn guest search adapters require no applicant
+API key; if all automated providers fail or return no usable posting, the same owner
+continues through official company career and ATS pages in the authenticated browser.
+An actual legal/profile fact, CAPTCHA or authoritative submission ambiguity may stop
+one application, but a scraper outage may not.
+
+After each confirmed submission, the deterministic driver reads the resume path and
+SHA-256 from the fenced ledger and sends that exact PDF as a Telegram document.
+Historical rows created before this contract have no resume hash and are not guessed.
+The text daily report is independently deduplicated; a materially newer same-day
+result produces a single content-addressed correction instead of leaving an obsolete
+failure report as the apparent final state.
+
 The inbox checkpoint is committed only after its AI pass succeeds. Every poll first
 delivers any due preparation pack, even when Gmail has no new message. Empty polls
 with no pending prep generation exit successfully without consuming a model budget.
@@ -102,3 +126,14 @@ no network, no access to the user's home, a sanitized environment, bounded runti
 and hashed private logs. Submission follows
 `verified → submit_claimed → submit_started → submitted|submit_unknown`; neither
 `submit_started` nor `submit_unknown` is blindly retried.
+
+## Learning loop
+
+| Layer | Current behavior |
+|---|---|
+| Daily dream-job search | Ranking rewards AI/agents, regulated finance, consumer AI, crypto/fintech mission, Japan feasibility and compensation |
+| Outcome memory | Application, recruiter response, interview and rejection transitions persist in SQLite with source/material hashes |
+| Safe experiments | One source, role-family, resume-emphasis, message or threshold variable changes at a time; replay must preserve truth and hard filters |
+| Promotion gate | Baseline stays active until both arms have at least 10 resolved applications and the Wilson 95% intervals support improvement |
+| Self-healing | launchd restarts, browser ownership evidence, multi-provider discovery, fenced side effects, bounded recovery and content-addressed report correction |
+| Not yet complete | Persistent experiment assignment/outcome promotion, adapter-specific Ashby/Workday fixtures, portable installer and Life Manager Career UI |

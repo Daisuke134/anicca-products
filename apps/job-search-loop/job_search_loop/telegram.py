@@ -10,6 +10,40 @@ from pathlib import Path
 from .outbox import Outbox
 
 
+def send_daily_report(
+    *,
+    database: Path,
+    japan_day: str,
+    message: str,
+    target: str = "8547730585",
+    executable: str = "/opt/homebrew/bin/openclaw",
+) -> dict[str, str | None]:
+    base_key = f"job-search-daily:{japan_day}"
+    outbox = Outbox(database)
+    try:
+        existing = outbox.connection.execute(
+            "SELECT payload FROM outbox WHERE event_key=?",
+            (base_key,),
+        ).fetchone()
+    finally:
+        outbox.close()
+
+    if existing is None or str(existing[0]) == message:
+        event_key = base_key
+    else:
+        digest = hashlib.sha256(message.encode("utf-8")).hexdigest()[:16]
+        event_key = f"{base_key}:correction:{digest}"
+
+    result = send_once(
+        database=database,
+        event_key=event_key,
+        message=message,
+        target=target,
+        executable=executable,
+    )
+    return {**result, "event_key": event_key}
+
+
 def send_once(
     *,
     database: Path,

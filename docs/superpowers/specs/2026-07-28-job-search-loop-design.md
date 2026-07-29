@@ -313,6 +313,9 @@ early indicator, not a substitute for interview conversion.
 | Invalid model JSON | Fail closed and retain raw evidence |
 | Missing profile fact | Skip the job or field; never infer |
 | Telegram uncertainty | Keep `delivery_unknown`; never blind-send duplicate |
+| Firecrawl/provider outage | Continue through every configured public provider, then official company/ATS pages in the existing browser |
+| Browser library unavailable | Use another installed Playwright transport against the same CDP owner; never launch a second browser |
+| Same-day recovery changes the result | Send one content-addressed daily correction; identical results remain at-most-once |
 | No qualifying jobs | Honest zero report with rejected reasons and next discovery expansion |
 
 ## 10. Security and privacy
@@ -350,7 +353,7 @@ row; its status changes in the same commit as implementation evidence.
 | 3 | Recruiter question auto-reply | `completed` | 68 tests; approved-answer and fail-closed policy; at-most-once outbox; real two-message same-thread Gmail round trip with private evidence |
 | 4 | Interview slot selection and confirmation | `completed` | 79 tests; explicit timezone/source validation; real busy-slot skip, private Calendar event, same-thread Gmail reply and retry-idempotency E2E; all test artifacts cleaned |
 | 5 | Assessment and take-home workflow | `completed` | 89 tests; quoted rule/deadline manifest; real sandbox denial of network/home access; private hashed evidence; fenced unknown-submission retry block |
-| 6 | No-give-up runtime reliability | `in_progress` | Require a multi-provider discovery fallback after Firecrawl failure, attach the exact resume used to every submitted-application Telegram report, repair the Inbox runner contract, then verify all three through the installed loops |
+| 6 | No-give-up runtime reliability | `implemented_waiting_private_fact_e2e` | 104 tests; real Firecrawl-credit failure recovered through Freehire + LinkedIn Tokyo/Remote with 30 usable candidates; real daily owner connected to Chrome CDP and inspected official ATS pages; Node Playwright failure fell through to installed Python Playwright; Inbox prompt transport exits successfully; exact submitted-resume path/hash delivery is enforced and tested; real attachment E2E waits for the next eligible submission because BJAK requires unrecorded nationality/work-visa facts |
 | 7 | Recurring interview preparation and real interview-email E2E | `implemented_waiting_external_e2e` | 97 tests; persistent registration; 3-day/1-day/immediate windows; real Telegram immediate delivery plus second-tick dedupe; forced production launchd no-mail pass and private DB healthcheck; final real recruiter-email E2E waits for an interview message |
 | 8 | ATS resilience for Ashby, Workday and other blocked forms | `pending` | Replay fixtures plus one real confirmed application per adapter |
 | 9 | Dream Job objective and evidence-backed strategy promotion | `waiting_samples` | Deliver one verified best-fit lead per day; persist role/source/message experiment assignment and outcomes; promote one-field changes only after at least 10 resolved applications per arm and Wilson-interval proof |
