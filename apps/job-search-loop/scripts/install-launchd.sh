@@ -6,6 +6,7 @@ AGENTS="/Users/anicca/Library/LaunchAgents"
 UID_VALUE="$(id -u)"
 mkdir -p "$AGENTS" /Users/anicca/.local/state/anicca/job-search/logs
 chmod 700 /Users/anicca/.local/state/anicca/job-search
+"$APP_ROOT/scripts/bootstrap-framework.sh"
 
 for name in ai.anicca.job-search-daily ai.anicca.job-search-inbox; do
   launchctl bootout "gui/$UID_VALUE/$name" 2>/dev/null || true

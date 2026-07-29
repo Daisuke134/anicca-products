@@ -17,8 +17,15 @@ quoted AI/LLM requirements is not eligible. Hard reject citizenship/clearance,
 non-Japan remote, known sub-floor pay, and unmet explicit minimum years.
 
 Discovery must use at least three independent English/Japanese queries, covering
-engineering and technical-business role families, through:
-`apps/job-search-loop/scripts/firecrawl-search.sh "<query>"`.
+engineering, technical-business, crypto, and consumer-agent role families, through:
+`apps/job-search-loop/scripts/multi-source-search.sh "<query>"`. This command always
+attempts Firecrawl, unauthenticated Freehire, and low-volume personal-use LinkedIn
+Tokyo/remote searches. Never stop because one provider has no credits, is blocked,
+or returns no results. If its JSON says `requires_browser_fallback=true`, continue
+in the existing isolated CloakBrowser/Playwright context and search official company
+career pages and ATS listings directly. A provider outage is not an application
+blocker. Only after both the multi-source command and browser fallback return no
+verified eligible posting may the pass report `no_eligible_job_found`.
 
 Before any submit click, use the Python Ledger API in `job_search_loop.ledger` to:
 add the application, transition qualified then materials_ready, hash the canonical
