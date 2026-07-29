@@ -67,7 +67,7 @@ allow/deny を deterministic に再現するテストが green。
 
 | Task | Status |
 |---|---|
-| 1 LM-SB-01 policy | TODO |
+| 1 LM-SB-01 policy | DONE — `cd apps/self-builder && node --test` → tests 26 / pass 26 / fail 0 |
 | 2 LM-SB-02 envelope | TODO |
 | 3 LM-SB-03 schema | TODO |
 | Adversary review | TODO |
