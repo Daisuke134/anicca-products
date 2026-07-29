@@ -98,6 +98,79 @@ test("browser auth contexts are strictly scoped to the exact public HTTPS origin
   }, "https://luma.com"), /browser auth context invalid/i);
 });
 
+test("browser auth canonicalizes Steel hostname storage keys to the exact HTTPS origin", () => {
+  const scoped = scopeSessionContextToOrigin({
+    localStorage: {
+      "app.luma.com": { marker: "keep-local" },
+      "evil.luma.com": { marker: "drop-local" },
+      "https://evil.luma.com": { marker: "drop-scheme-foreign-local" },
+      "http://app.luma.com": { marker: "drop-http-local" },
+    },
+    sessionStorage: {
+      "app.luma.com": { marker: "keep-session" },
+      "luma.com": { marker: "drop-session" },
+    },
+    indexedDB: {
+      "app.luma.com": [{ id: 0, name: "keep-db", data: [] }],
+      "other.example": [{ id: 0, name: "drop-db", data: [] }],
+    },
+  }, "https://app.luma.com/account");
+
+  assert.deepEqual(scoped, {
+    localStorage: {
+      "https://app.luma.com": { marker: "keep-local" },
+    },
+    sessionStorage: {
+      "https://app.luma.com": { marker: "keep-session" },
+    },
+    indexedDB: {
+      "https://app.luma.com": [{ id: 0, name: "keep-db", data: [] }],
+    },
+  });
+  assert.doesNotMatch(JSON.stringify(scoped), /drop-/);
+});
+
+test("browser auth prefers an exact origin storage key and never merges a hostname candidate", () => {
+  const scoped = scopeSessionContextToOrigin({
+    localStorage: {
+      "https://app.luma.com": {
+        exact: "keep-exact",
+        collision: "exact-wins",
+      },
+      "app.luma.com": {
+        hostnameOnly: "drop-hostname",
+        collision: "drop-hostname-collision",
+      },
+    },
+  }, "https://app.luma.com/account");
+
+  assert.deepEqual(scoped, {
+    localStorage: {
+      "https://app.luma.com": {
+        exact: "keep-exact",
+        collision: "exact-wins",
+      },
+    },
+  });
+  assert.doesNotMatch(JSON.stringify(scoped), /drop-/);
+});
+
+test("browser auth rejects hostname-only Steel storage for non-default HTTPS ports", () => {
+  assert.throws(() => scopeSessionContextToOrigin({
+    localStorage: {
+      "app.luma.com": { marker: "ambiguous-port-storage" },
+    },
+  }, "https://app.luma.com:8443/account"), /browser auth context invalid/i);
+});
+
+test("browser auth rejects a Unicode U-label hostname storage candidate", () => {
+  assert.throws(() => scopeSessionContextToOrigin({
+    localStorage: {
+      "bücher.de": { marker: "ambiguous-unicode-storage" },
+    },
+  }, "https://xn--bcher-kva.de/account"), /browser auth context invalid/i);
+});
+
 test("browser auth removes only finite expired cookies before sealing and comparing contexts", () => {
   const scoped = scopeSessionContextToOrigin({
     cookies: [

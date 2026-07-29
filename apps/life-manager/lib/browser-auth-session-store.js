@@ -147,9 +147,14 @@ function scopeStorage(storage, origin) {
     || Object.getPrototypeOf(storage) !== Object.prototype && Object.getPrototypeOf(storage) !== null) {
     invalid();
   }
-  return Object.prototype.hasOwnProperty.call(storage, origin)
-    ? { [origin]: storage[origin] }
-    : {};
+  if (Object.prototype.hasOwnProperty.call(storage, origin)) {
+    return { [origin]: storage[origin] };
+  }
+  const parsed = new URL(origin);
+  if (parsed.port || !Object.prototype.hasOwnProperty.call(storage, parsed.hostname)) {
+    return {};
+  }
+  return { [origin]: storage[parsed.hostname] };
 }
 
 function scopeSessionContextToOrigin(value, originValue) {
