@@ -154,9 +154,21 @@ function nonBlankString(value) {
 }
 
 /**
+ * I5: the same contract the migration enforces with
+ * `CHECK (candidate_commit_sha ~ '^[0-9a-f]{7,40}$')`. "done" is not a SHA.
+ */
+const COMMIT_SHA_PATTERN = /^[0-9a-f]{7,40}$/;
+
+/** Per-input VALUE validators beyond mere presence (I5). Fail-closed on violation. */
+const INPUT_VALIDATORS = Object.freeze({
+  candidate_commit_sha: (value) => typeof value === "string" && COMMIT_SHA_PATTERN.test(value),
+});
+
+/**
  * spec §4 `idempotency_key`. Data-driven: the IMPLEMENTED->VERIFIED hop uses the exact
- * `issue_id:candidate_sha:checker_version` shape the spec writes down; every other hop uses
- * a from->to key, which cannot collide with it.
+ * `issue_id:candidate_sha:checker_version` shape the spec writes down. Every OTHER hop that
+ * carries a candidate binds the SHA into its key too (review I7: two candidates on the same
+ * hop must never collide); only candidate-free hops use the bare from->to key.
  * Returns null when the key material is incomplete.
  */
 function idempotencyKey(request) {
@@ -167,9 +179,17 @@ function idempotencyKey(request) {
 
   const matched = findRule(from, to);
   const parts = matched && matched.idempotency_parts;
-  if (!parts) return `${issueId}:${from}->${to}:${checkerVersion}`;
-
   const inputs = isPlainObject(request.inputs) ? request.inputs : {};
+
+  if (!parts) {
+    // I7: when the hop requires a candidate SHA, the key must distinguish candidates.
+    const requiresSha = Boolean(matched && matched.required_inputs.includes("candidate_commit_sha"));
+    if (!requiresSha) return `${issueId}:${from}->${to}:${checkerVersion}`;
+    const sha = inputs.candidate_commit_sha;
+    if (!INPUT_VALIDATORS.candidate_commit_sha(sha)) return null;
+    return `${issueId}:${from}->${to}:${sha}:${checkerVersion}`;
+  }
+
   const resolved = parts.map((part) => {
     if (part === "issue_id") return issueId;
     if (part === "checker_version") return checkerVersion;
@@ -213,7 +233,13 @@ function transition(request) {
   if (receipts === null) reasons.push("receipts_missing");
 
   for (const field of matched.required_inputs) {
-    if (!isProvided((inputs || {})[field])) reasons.push(`missing_input:${field}`);
+    const value = (inputs || {})[field];
+    if (!isProvided(value)) {
+      reasons.push(`missing_input:${field}`);
+    } else if (INPUT_VALIDATORS[field] && !INPUT_VALIDATORS[field](value)) {
+      // I5: presence is not validity — "done" as a commit SHA denies.
+      reasons.push(`invalid_input:${field}`);
+    }
   }
   for (const field of matched.required_receipts) {
     if (!isProvided((receipts || {})[field])) reasons.push(`missing_receipt:${field}`);
@@ -221,7 +247,8 @@ function transition(request) {
 
   if (matched.min_consecutive_failures !== null) {
     const failures = (inputs || {}).consecutive_failures;
-    if (Number.isFinite(failures) && failures < matched.min_consecutive_failures) {
+    // I4: fail CLOSED — a non-numeric count can never open the circuit.
+    if (!Number.isFinite(failures) || failures < matched.min_consecutive_failures) {
       reasons.push("circuit_threshold_not_reached");
     }
   }

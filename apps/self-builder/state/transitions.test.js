@@ -275,6 +275,65 @@ test("fail-closed: malformed requests are denied with a reason and never throw",
   }
 });
 
+// ---------------------------------------------------------------------------
+// review I4 / I5 / I7 — proven fail-open defects
+// ---------------------------------------------------------------------------
+
+test("I4: a non-numeric consecutive_failures fails CLOSED, never opens the circuit", () => {
+  for (const junk of ["1", "3", { a: 1 }, [3], true, null, undefined, Number.NaN]) {
+    const result = transition({
+      issue_id: "iss_1", from: "CLAIMED", to: "CIRCUIT_OPEN",
+      inputs: { consecutive_failures: junk }, receipts: {}, checker_version: "v1", now_ms: NOW,
+    });
+    assert.equal(result.allowed, false, `junk failures must deny: ${JSON.stringify(junk)}`);
+    assert.ok(
+      result.reason.includes("circuit_threshold_not_reached") || result.reason.includes("missing_input:consecutive_failures"),
+      `${JSON.stringify(junk)}: got ${result.reason}`,
+    );
+  }
+});
+
+test("I5: candidate_commit_sha must be a real git SHA, not any non-empty string", () => {
+  for (const fake of ["done", "no sha yet lol", "g".repeat(40), "abc", "A".repeat(40), 1234567, { junk: 1 }]) {
+    const result = transition(verifyRequest({
+      inputs: { candidate_commit_sha: fake, reproduction_eval_id: "eval_1" },
+    }));
+    assert.equal(result.allowed, false, `fake SHA must deny: ${JSON.stringify(fake)}`);
+    assert.ok(
+      result.reason.includes("invalid_input:candidate_commit_sha") || result.reason.includes("missing_input:candidate_commit_sha"),
+      `${JSON.stringify(fake)}: got ${result.reason}`,
+    );
+  }
+  // 7..40 lowercase hex is the schema's contract — both bounds pass
+  assert.equal(transition(verifyRequest({
+    inputs: { candidate_commit_sha: "abc1234", reproduction_eval_id: "eval_1" },
+  })).allowed, true);
+  assert.equal(transition(verifyRequest()).allowed, true);
+});
+
+test("I7: two candidates on the same hop never share an idempotency key", () => {
+  const shaA = "a".repeat(40);
+  const shaB = "b".repeat(40);
+  const implemented = (sha) => ({
+    issue_id: "iss_1", from: "CLAIMED", to: "IMPLEMENTED",
+    claim: claim(),
+    inputs: { candidate_commit_sha: sha },
+    receipts: { implementation_result: "artifact://impl/1" },
+    checker_version: "v1", now_ms: NOW,
+  });
+  const keyA = transition(implemented(shaA)).idempotency_key;
+  const keyB = transition(implemented(shaB)).idempotency_key;
+  assert.ok(keyA && keyB, "both transitions must be allowed");
+  assert.notEqual(keyA, keyB, "different candidates must never collide on the same hop");
+  assert.ok(keyA.includes(shaA), "the key must bind the candidate SHA");
+
+  // hops that genuinely have no candidate keep the from->to key
+  assert.equal(
+    idempotencyKey({ issue_id: "iss_1", from: "OBSERVED", to: "CLUSTERED", inputs: { cluster_id: "cl_1" }, checker_version: "v1" }),
+    "iss_1:OBSERVED->CLUSTERED:v1",
+  );
+});
+
 test("transition is pure: no mutation, deterministic, sorted frozen reasons", () => {
   const request = verifyRequest({ inputs: {}, receipts: {}, claim: claim({ lease_expires_at: NOW - 1 }) });
   const snapshot = JSON.stringify(request);
