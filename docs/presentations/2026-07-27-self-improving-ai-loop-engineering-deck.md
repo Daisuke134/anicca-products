@@ -476,8 +476,78 @@ Learn from outcomes.
 
 | Audience | 追加する論点 | 削る論点 |
 |---|---|---|
-| NAIST研究室 | holdout、false positive、causal outcome、再現性、threats to validity | tool導入手順 |
+| NAIST研究室 | holdout、false positive、causal outcome、再現性、threats to validity + Appendix A/B/C | tool導入手順 |
 | 社内 | risk allowlist、SLA、cost per promoted fix、rollback、privacy | benchmark史 |
+
+---
+
+# Appendix（研究室向け: あなたの研究を自動化する）
+
+Evidence 正本: [52-prior-art-self-improving-loops.md](../loop-engineering/52-prior-art-self-improving-loops.md)
+
+## Appendix A — 現在地の数値（agent はどこまで研究できるか）
+
+### 画面
+
+| Benchmark | 結果 |
+|---|---|
+| [RE-Bench](https://metr.org/blog/2024-11-22-evaluating-r-d-capabilities-of-llms/) | 2h予算: agentが人間専門家に勝つ。32h: 人間が約2倍 |
+| [PaperBench](https://arxiv.org/abs/2504.01848) | 論文再現 agent 26.0% vs ML PhD 41.4% |
+| [METR](https://arxiv.org/abs/2503.14499) | 50%成功タスク長 ≈ 50分、約7か月で倍増 |
+| [MLE-bench](https://github.com/openai/mle-bench) | メダル率 17% → 64%（16か月） |
+
+**Automate the inner loop, not the outer loop.**
+
+### Speaker note
+
+短距離は強く長距離は弱い。実装・実行・調整・追跡は自動化できる。
+「何を問うか」はまだ人間の仕事。AI Scientist が越えたのは採択率60-70%の
+workshop であり、20-30%の main conference ではない（Sakana 自身が明言）。
+
+## Appendix B — 大学院生1人・1週間の最小 loop
+
+### 画面
+
+| Day | Step | Stack |
+|---|---|---|
+| 1 | **task + metric を凍結**（50-200例 + 自動採点器） | inspect_ai / lm-eval-harness |
+| 2 | pipeline を program 化し baseline | [DSPy](https://dspy.ai/) |
+| 3 | 全 run を trace | [Langfuse](https://github.com/langfuse/langfuse) self-host / [Weave](https://weave-docs.wandb.ai/)（学術無料） |
+| 4 | 自動最適化 | BootstrapFewShot → [GEPA](https://arxiv.org/abs/2507.19457) |
+| 5 | cluster へ fan-out | Hydra `--multirun` + Optuna + submitit |
+
+**この loop に agent framework は1つも入っていない。**
+
+### Speaker note
+
+Day 1 が全て。metric が無ければ loop は無い。よくある失敗は逆順 —
+orchestration graph を先に選び、metric を最後まで定義しないこと。
+GEPA は GRPO 比 +6%（最大+20%）を rollout 1/35 で出す — RL compute の無い
+研究室の本命。LangGraph は multi-agent state が要る時だけ、
+OpenEvolve は進化対象が prompt でなく code の時だけ。
+
+## Appendix C — 今 tracing を入れる最強の理由
+
+### 画面
+
+> “Authors whose submissions show significant AI involvement must provide
+> an **audit trail** … we expect that in future years this kind of audit
+> trail will become a **default**”
+> — [NeurIPS 2026](https://blog.neurips.cc/2026/06/02/ai-generated-papers-in-the-neurips-2026-position-paper-track/)
+
+**Your trace log becomes your audit trail.**
+
+| 人間が必須で残る場所 | 根拠 |
+|---|---|
+| Authorship | “LLMs are not eligible for authorship” — [ICML 2026](https://icml.cc/Conferences/2026/CallForPapers) |
+| 論文執筆 | NeurIPS 2026 が AI 生成論文 178本(18.4%)を desk reject |
+| 査読 | reviewer の AI 使用は禁止誓約、prompt injection = desk rejection |
+| 査読への投稿 | 会議の同意 + IRB（Sakana は取った、Intology は取らず炎上） |
+
+### Speaker note
+
+「研究自動化 = ルール違反」ではない。inner loop の自動化 + trace の保存は
+むしろ将来の提出要件を先取りする。境界は authorship と novelty 主張。
 
 # Demo runbook
 
