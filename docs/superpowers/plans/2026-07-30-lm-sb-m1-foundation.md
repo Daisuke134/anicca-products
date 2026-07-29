@@ -69,6 +69,19 @@ allow/deny を deterministic に再現するテストが green。
 |---|---|
 | 1 LM-SB-01 policy | DONE — `cd apps/self-builder && node --test` → tests 26 / pass 26 / fail 0 |
 | 2 LM-SB-02 envelope | DONE — `node --test lib/telemetry/*.test.js` → tests 39 / pass 39 / fail 0。life-call full `npm test` = 633/633 pass, EXIT 0（baseline と同一）|
-| 3 LM-SB-03 schema | TODO |
-| Adversary review | TODO |
-| Merge + spec 更新 | TODO |
+| 3 LM-SB-03 schema | DONE — `cd apps/self-builder && npm test` → tests 62 / pass 62 / fail 0。`npm run test:postgres` → 実 Postgres 16 (docker) で §16 の 3 行 + append-only + rollback まで PASS |
+| Adversary review | TODO（親が fresh Opus 5 one-shot で実施）|
+| Merge + spec 更新 | TODO（親）|
+
+### M1 検証コマンド（再現手順）
+
+| 対象 | コマンド | 実測結果 |
+|---|---|---|
+| self-builder 全体 | `cd apps/self-builder && npm test` | tests 62 / pass 62 / fail 0 |
+| telemetry | `cd apps/life-call && node --test lib/telemetry/*.test.js` | tests 39 / pass 39 / fail 0 |
+| life-call regression | `cd apps/life-call && npm test` | tests 633 / pass 633 / fail 0, exit 0（baseline と完全同一）|
+| Postgres 実機 | `cd apps/self-builder && npm run test:postgres` | PASS (mode=docker, postgres:16-alpine) |
+
+**未配線（親の判断が必要）**: `apps/life-call/package.json` の `test` script は境界外のため未編集。
+`lib/telemetry/*.test.js` を CI に載せるには `&& node --test lib/telemetry/envelope.test.js lib/telemetry/wiring.test.js`
+を `test` script 末尾に足す 1 行が必要。
