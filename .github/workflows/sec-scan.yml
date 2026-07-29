@@ -1,0 +1,109 @@
+name: Security Scan
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gitleaks:
+    name: gitleaks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install gitleaks
+        run: |
+          set -e
+          VERSION=8.30.1
+          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${VERSION}/gitleaks_${VERSION}_linux_x64.tar.gz" \
+            | tar -xz -C /tmp gitleaks
+          sudo mv /tmp/gitleaks /usr/local/bin/gitleaks
+          gitleaks version
+
+      - name: gitleaks dir (= current merge result)
+        run: gitleaks dir . --config .gitleaks.toml --no-banner --redact -v
+
+      - name: gitleaks git (= full history with adjudicated fingerprint baseline)
+        run: gitleaks git . --config .gitleaks.toml --no-banner --redact -v --log-opts=--all
+
+  trufflehog:
+    name: TruffleHog (filesystem + git history)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: TruffleHog filesystem
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          extra_args: --only-verified
+
+      - name: TruffleHog git history
+        uses: trufflesecurity/trufflehog@main
+        with:
+          path: ./
+          base: ${{ github.event.pull_request.base.sha || github.event.before }}
+          head: HEAD
+          extra_args: --only-verified
+
+  shape-grep:
+    name: PII shapes (redacted exact-fingerprint gate)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Block accidental PII patterns
+        run: python3 scripts/security/pii_shape_scan.py --allowlist .pii-shape-allowlist .
+
+  python-lint:
+    name: Python syntax + unittest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: ast.parse every .py
+        run: |
+          set -e
+          find . -name '*.py' -not -path './.git/*' \
+            -exec python3 -c "import ast,sys; ast.parse(open(sys.argv[1]).read())" {} \;
+          echo "✅ syntax clean"
+
+      - name: run declared pure-stdlib security tests
+        run: |
+          set -euo pipefail
+          while IFS= read -r t; do
+            [[ -z "$t" || "$t" == \#* ]] && continue
+            test -f "$t"
+            echo "→ $t"
+            python3 "$t"
+          done < .github/python-security-tests.txt
+          echo "✅ declared security tests passed"
+
+  shell-lint:
+    name: Shell syntax check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: bash -n every .sh
+        run: |
+          set -e
+          find . -name '*.sh' -not -path './.git/*' -exec bash -n {} \;
+          echo "✅ all .sh files parse"
