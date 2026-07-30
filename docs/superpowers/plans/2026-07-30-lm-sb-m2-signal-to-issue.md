@@ -11,7 +11,7 @@ UX/配置: `docs/loop-engineering/53-self-builder-tree-and-ux.md`
 | Worktree | `.worktrees/lm-sb-m2/` |
 | Branch | `feature/lm-sb-m2-signal-to-issue` |
 | Base | `feature/x-deep-research-20260727` HEAD (`31a745a3f`) |
-| Executor | Opus 5 subagent |
+| Executor | Opus 5 subagent（implementation-time worker。production runtimeのmodel routingはSSOT §3.2） |
 | 触るファイル境界 | `apps/self-builder/**` のみ（`collect/`, `cluster/`, `issue/`, `state/`, `migrations/`, `test/`）。★ `apps/life-call/**` は触らない（M1 で emit 済み、読むだけ） |
 
 ## Task 0 — I6 recovery: failure state の出口
@@ -95,9 +95,26 @@ worker を起動しないことがテストで示される。
 
 | Task | Status |
 |---|---|
-| 0 I6 failure exits | TODO |
-| 1 LM-SB-04 adapters | TODO |
-| 2 LM-SB-05 cluster + LM-SB-16 gate | TODO |
-| 3 LM-SB-06 Issue projector | TODO |
-| Code review (fresh reviewer) | TODO |
-| Merge + spec 更新 | TODO |
+| 0 I6 failure exits | CANDIDATE。`retry_return_state` columnと`RETRY_WAIT → '*'` wildcardはreviewer承認 |
+| 1 LM-SB-04 adapters | WITH FIXES。I2/I3/I4/I7を修正して再検証 |
+| 2 LM-SB-05 cluster + LM-SB-16 gate | WITH FIXES。I1 canonical DB再計算がblocker |
+| 3 LM-SB-06 Issue projector | WITH FIXES。C1/I5/I6がblocker |
+| Code review (fresh reviewer) | **WITH FIXES** |
+| Merge + spec 更新 | BLOCKED。全finding修正→fresh PASS→merge後のみ完了 |
+
+### Fresh review verdict: WITH FIXES
+
+202/202 tests、Postgres 47 ok、`apps/life-call` diff空はbaseline evidenceであり、
+acceptanceではない。修正対象の正本はSSOT §15.1とする。
+
+| Finding | Measured failure |
+|---|---|
+| C1 | `github_issue_number`のwrite pathがなく、production projectionが毎回createへ入り得る |
+| I1 | callerの`{gate:true, fixability:1.0}`申告だけで実`gh` callへ到達できる |
+| I2/I3 | never-throw違反があり、PII security rejectと通常skipが同じchannel |
+| I4 | `effect_id`にcharset、scheme、長さ、secret/identity lockがない |
+| I5/I6 | Issue bodyに自由文字列が入り、exemplarをIssue化直前に再検証しない |
+| I7 | numeric chat id、romaji住所、URL path等が`findPii`を通過する |
+
+維持する実装は`retry_return_state` column、`RETRY_WAIT → '*'` wildcard、
+M1 moduleのobject-identity再利用である。

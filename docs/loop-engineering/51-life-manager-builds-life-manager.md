@@ -1,22 +1,51 @@
 # Life Manager Builds Life Manager
 
-Status: target architecture; Self-Builder runtime is not implemented
+Status: M1 merged、M2 review verdict = WITH FIXES、M3 planned。Self-Builder runtimeは未稼働
 Scope: Life Managerが自分の実行データから問題と改善機会を発見し、Issue、eval、
 code change、PR、canary、merge、outcome測定まで進める自己開発システム
 Theory SSOT:
 [Loop / Graph / Eval / Observability Engineering](../research/2026-07-28-loop-graph-eval-observability.md)
 
+### SSOT contract
+
+このファイルだけを、Life Manager Self-Builderのarchitecture、現在地、model routing、
+実装順序、cutover条件の正本とする。
+
+| Document | Authority |
+|---|---|
+| `51-life-manager-builds-life-manager.md`（本ファイル） | ★ 唯一のarchitecture / status / ordered TODO SSOT |
+| `52-prior-art-self-improving-loops.md` | research evidence。実装状態を宣言しない |
+| `53-self-builder-tree-and-ux.md` | 本ファイルから派生するtree / UX view。矛盾時は51が勝つ |
+| `docs/superpowers/plans/2026-07-30-lm-sb-*.md` | milestone実行記録。全体状態と順序は宣言しない |
+| article / deck | 説明用成果物。runtimeの正本ではない |
+
 ### Status truth
 
-この文書のstate machine、tool stack、auto-merge contractは**実装目標**であり、
-現在のproduction動作を表すものではない。現在確認できるのは、Life Managerの
-Inngest durable functions、既存eval/test、tenant isolation、provider receipt、
-product/error signalである。`LM-SB-01`〜`LM-SB-13`はすべて未実装であり、
-「Life Managerがすでに自分をbuildしている」とは表現しない。
+| System / milestone | Current truth |
+|---|---|
+| Life Manager product plane | cloudで通常稼働。今回のSelf-Builder開発と独立 |
+| 旧 `life-manager-dev` / `life-manager-selfbuild` prototype | Mac miniの2 LaunchAgentはunloaded。source、installer、historical ledgerは残存し、cutover時の削除は`LM-SB-17` |
+| M1 (`LM-SB-01/02/03`) | ★ DONE。review、fix、verify後に`3c6b3f16d`へmerge済み |
+| M2 (`LM-SB-04/05/06/16`) | candidate codeは`49094929f`まで存在するが、fresh review = **WITH FIXES**。未merge・runtime未接続 |
+| M3 (`LM-SB-07/08/09`) | plan `f4db07bb2`のみ。未実装 |
+| Canary / outcome / meta-improvement | 未実装 |
+| Human-free production improvement | 未有効。Life Managerがすでに自分をbuildしているとは表現しない |
 
-本資料でいうNo-Human-Loopは、immutable policyで許可された低risk classにおける
-**human-free execution**を指す。目的、禁止事項、secret、sealed holdout、
-promotion policy、audit historyまで人間不要という意味ではない。
+### One-system invariant
+
+Life Managerには、競合する二つのdev loopを置かない。完成形は一つの
+`Self-Builder Control Plane`だけである。Maker、Checker、Overseerは別loopではなく、
+同じcontrol planeが一つのIssueについて短時間だけ起動するbounded roleである。
+
+旧Luna prototypeは再起動しない。新Self-Builderがshadow E2Eを通過した後、
+`LM-SB-17`で旧LaunchAgent、installer、producer、consumer、専用guardを削除してから
+live-enableする。Opus 5 subagentは現在このシステムを**実装している開発executor**であり、
+完成後のruntime componentではない。
+
+本資料でいうNo-Human-Loopは、immutable policyで許可された低risk classについて、
+signal発見からoutcome確認まで**human-free execution**できることを指す。人間は任意で
+Issueやfeedbackを追加できるが必須ではない。permission、billing、auth、secret、
+SAFE-T、破壊的migration等は自動scope外へquarantineし、通常loop全体を止めない。
 
 ## 0. Goal
 
@@ -39,6 +68,15 @@ Life Managerの実データから作られたevidence付きIssueが、
 
 Life Managerの内側に`Observer`を置き、Life Managerとは別credential・別process・
 別worktreeで動く`Self-Builder Control Plane`が変更と昇格を担当する。
+
+M1、M2、M3は別システムではない。同じSelf-Builderを順番に完成させるmilestoneである。
+
+| Milestone | One-system layer |
+|---|---|
+| M1 | kernel: policy、telemetry envelope、Postgres state/lease |
+| M2 | eyes: redact、signal adapters、cluster、triage、Issue projection |
+| M3 | hands + examiner: frozen eval、Maker、independent Checker |
+| M4+ | deployment + learning: archive、overseer、canary、outcome、meta-improvement、cutover |
 
 ```text
 ┌──────────────── Life Manager / Product Plane ────────────────┐
@@ -97,15 +135,15 @@ durable control graphとし、LLM workerはそのnodeとして呼ぶ。
 
 | Layer | Selected tool | Current status | Responsibility |
 |---|---|---|---|
-| Instrumentation standard | OpenTelemetry SDK + Collector | target。transitive packageはあるが共通instrumentation未確認 | trace/span/metric/logの共通schemaとexport |
+| Instrumentation standard | OpenTelemetry SDK + Collector | M1でcommon envelope実装済み。Collector/export本番配線は`LM-SB-18` | trace/span/metric/logの共通schemaとexport |
 | Agent trace/eval UI | Langfuse | target。未導入 | LLM/tool trace、session、score、dataset、experiment |
 | Durable graph | Inngest | existing。6 durable functionsとtestあり | event、step state、retry、concurrency、resume |
 | Product outcome | Mixpanel + Postgres | existing signal、Self-Builder接続はtarget | funnel、retention、task success、effect receipt |
 | Error plane | Sentry | target。repo内導入未確認 | exception、release regression、alert |
-| Improvement authority | Postgres | target schema未実装 | signal、cluster、issue state、lease、audit |
-| Visible work state | GitHub Issues / PRs | target projection未実装 | evidence packet、diff、lineage |
+| Improvement authority | Postgres | M1 core schema/state/lease実装済み。M2 projectionはWITH FIXES | signal、cluster、issue state、lease、audit |
+| Visible work state | GitHub Issues / PRs | M2 candidateあり、C1 idempotency欠陥により未accept | evidence packet、diff、lineage |
 | Deterministic gates | GitHub Actions + existing test runners | test runners existing、promotion gateはtarget | build、unit、integration、E2E、policy |
-| Coding workers | Codex Terra / Sol | available、dispatcher未実装 | triage、reproduction、implementation |
+| Coding workers | Codex Sol + independent non-GPT Checker | available、dispatcher未実装 | implementation、independent verification |
 | Portable agent eval | existing Node evals first; Harbor later | Node evals existing、Harborは非導入 | containerized cross-agent taskが必要な時だけ導入 |
 
 ソース: [Inngest](https://github.com/inngest/inngest) /
@@ -143,8 +181,9 @@ taxonomyまでとする。`Promoter`、permission policy、sealed eval、audit w
 | Node | Authority | May not do |
 |---|---|---|
 | Signal Collector | read providers、append signals | Issue、code、merge |
-| Clusterer | group/dedupe/redact | code変更 |
-| Triage Agent | evidence packet、priority、Issue projection | implementation |
+| Clusterer | deterministic group/dedupe | code変更、LLM judgment |
+| Triage Gate | canonical DB clusterからevents × recency × fixabilityを再計算 | caller申告、implementation、LLM judgment |
+| Issue Projector |合格済みclusterをevidence packet付きIssueへ投影 | triage tokenの自己申告、code変更 |
 | Eval Builder | reproduction、task、grader、fixture | candidate code、promotion |
 | Maker | isolated worktreeで実装 | sealed answers、merge token |
 | Checker | tests/evals/security/costを実行 | candidateの書換え |
@@ -170,12 +209,17 @@ Model名はstate machineの意味に含めず、node configurationとして交�
 
 | Work | Default worker | Reason |
 |---|---|---|
-| clustering、dedupe、routine triage | `gpt-5.6-terra` | 大量・低risk処理 |
-| reproduction、implementation、complex diagnosis | `gpt-5.6-sol` | code reasoning中心 |
+| collect、redact、cluster、dedupe、triage、state claim | deterministic code | privacy、idempotency、spend判断をmodel申告に委ねない |
+| Issue要約、failure taxonomy補助 | `gpt-5.6-terra`（optional、advisory only） | 大量処理の補助。gate結果を変更できない |
+| reproduction diagnosis、implementation | `gpt-5.6-sol` | Maker。code reasoning中心 |
+| semantic Checker | Claude Opus family | Makerと別model familyにしてcorrelated errorとself-preferenceを減らす |
+| asynchronous Overseer | Claude Opus familyの別context/thread | Sol runのeval改変・禁止path迂回を監視しcancel |
 | deterministic gates | code / GitHub Actions | LLM判定を使わない |
-| semantic grader | Makerと別model/config | correlated errorを減らす |
 
-SolまたはTerraを無限loopさせるのではない。各runは一つのstate transitionだけを
+`Opus 5 subagent`というM2/M3 planの記述は、現在Self-Builderを作るimplementation-time
+executorを指す。production runtimeの二本目のdev loopではない。
+
+Sol、Terra、Opusを無限loopさせるのではない。各runは一つのstate transitionだけを
 claimし、証拠を保存して終了する。次runは外部stateから再開する。
 
 ## 4. State machine
@@ -685,17 +729,17 @@ shadow control planeでreplayし、旧Promoterが昇格判定する。
 | transitive OTel packages | direct dependency・bootstrapではない。標準化のstarting pointだけ |
 | Writer receipts/holdout/revert | promotion pattern |
 
-### Measured gaps
+### Measured remaining gaps
 
-| Gap | First implementation |
+| Gap | Current implementation boundary |
 |---|---|
-| Runtimeに共通trace fieldがない | `apps/life-call/lib/telemetry/` |
-| OTelはdirect dependency・bootstrap・共通attributeがない | SDK/Collector bootstrap + semantic attributes |
-| Feedbackが各routeに分散 | signal adapter |
-| Failure cluster storeがない | self-builder schema |
-| GitHub Issue/PR/merge runtime pathがない | issue projector + worker dispatcher |
-| Automated eval生成がない | reproduction fixture builder |
-| Outcome lineageがない | signal→issue→SHA→deploy→metric IDs |
+| 共通trace/effect envelopeはM1で入ったが、本番export/readbackがない | `LM-SB-18`: OTel SDK/Collector bootstrap + semantic attributes |
+| Feedback、error、outcomeが各providerに分散 | `LM-SB-18`: tenant-safe source connectors |
+| Failure cluster store/state/leaseはM1で入ったが、M2のingestion/cluster/Issue pathは未accept | `M2-REVIEW-FIX` → `LM-SB-04/05/16/06` |
+| eventからstateを進めるSelf-Builder runtime graphがない | `LM-SB-19`: Inngest orchestrator + reconciler |
+| GitHub PR/merge runtime pathがない | `LM-SB-08/09/10`: Maker + Checker + deterministic Promoter |
+| Automated eval生成がない | `LM-SB-07`: reproduction fixture builder + sealed eval |
+| Outcome lineageがない | `LM-SB-14/11`: archive + signal→Issue→SHA→deploy→metric IDs |
 
 ## 14. Runtime topology
 
@@ -708,7 +752,10 @@ VPS / OpenClaw
 
 Self-Builder runner
   ├─ Orchestrator: state claims and dispatch
-  ├─ Codex workers: Terra/Sol
+  ├─ Maker: Codex Sol
+  ├─ Advisory summarizer: Codex Terra（optional）
+  ├─ Checker / Overseer: Claude Opus family
+  ├─ Final authority: deterministic policy / tests
   ├─ isolated git worktrees
   └─ no production secret access
 
@@ -727,29 +774,59 @@ Triggerはevent-firstとする。新しいsignal、CI failure、deployment outco
 
 ## 15. Implementation TODO
 
-順序の正本はこの表である。Phaseを飛ばさない。
+### 15.1 M2 acceptance blockers
 
-| ID | Task | Done | Status |
+M2の202/202 tests、Postgres 47 ok、`apps/life-call` diff空はbaseline evidenceであり、
+acceptanceではない。fresh reviewerが実測した次の穴を全部閉じるまで
+`LM-SB-04/05/06/16`をDONEにしない。
+
+| Finding | Required correction | Acceptance proof | Status |
 |---|---|---|---|
-| LM-SB-01 | immutable policyとauto-merge allowlistをmachine-readable化 | policy fixtureがallow/denyを再現 | ★DONE 2026-07-30。`apps/self-builder/policy/`。allowlist+denylist両建て、32/32 tests。merge `3c6b3f16d` |
-| LM-SB-02 | common trace/effect envelopeを実装 | 5既存loopから同一schemaが出る | ★DONE 2026-07-30。`apps/life-call/lib/telemetry/`。5 loop配線、41/41 tests、full 674/674、実JSONL emit検証済 |
-| LM-SB-03 | self-builder Postgres schemaとRLS/roleを実装 | transition/lease/idempotency tests pass | ★DONE 2026-07-30。`apps/self-builder/{migrations,state}/`。79/79 + 実Postgres16でC1 illegal-hop拒否/RLS実動/append-only trigger PASS |
-| LM-SB-04 | feedback/log/metric signal adaptersを実装 | 6 sourceがredacted signalへ変換 | TODO |
-| LM-SB-05 | cluster/dedupeとpriorityを実装 | replay datasetでprecision測定 | TODO |
-| LM-SB-06 | Issue projectorを実装 | DB stateとGitHub labelがreconcile | TODO |
-| LM-SB-07 | reproduction eval builderを実装 | baseline failureを固定できる | TODO |
-| LM-SB-08 | Maker dispatcherとisolated worktreeを実装 | 一Issue一PRをE2E実証 | TODO |
-| LM-SB-09 | independent Checkerを実装 | sealed/policy/cost gates pass | TODO |
-| LM-SB-10 | canary/promote/rollbackを実装 | deliberate bad candidateが自動rollback | TODO |
-| LM-SB-11 | outcome auditorとlearning receiptを実装 | commit→outcome lineage完成 | TODO |
-| LM-SB-12 | meta-improvement shadow poolを実装 | worker candidateを旧kernelが判定 | TODO |
-| LM-SB-13 | low-risk allowlistでlive-enable | 10件連続でpolicy事故0 | TODO |
-| LM-SB-14 | append-only Lineage Archiveを実装 | 全candidateのevidence/verdict/diffが後から再生でき、marker削除・log捏造を検知できる | TODO |
-| LM-SB-15 | 非同期Overseerを実装（別model family、cancel権限） | prohibited path迂回とeval改変のinjection runが自動cancelされる | TODO |
-| LM-SB-16 | pre-spend triage gate（events × recency × fixability） | 閾値未満のclusterでworkerが起動しない | TODO |
+| C1 | Issue create成功後に`sb_issues.github_issue_number`をDBへ永続化し、projection/reconcileの唯一のauthorityにする | 同じproduction clusterを複数回処理してGitHub Issue exact1。#379/#380/#381型の重複を再現testが防ぐ | TODO |
+| I1 | projectorがcanonical DB clusterから`events × recency × fixability`を再計算する | callerが`{gate:true, fixability:1.0}`を偽装してもworker/`gh` call 0 | TODO |
+| I2 | adapter/projectorのnever-throw契約を全terminal pathで守る | malformed/provider failureがthrowせずclosed `errors` resultになる | TODO |
+| I3 | PII security rejectを通常skipと別channelにする | `rejected_security`がalert/auditされ、skip metricに埋もれない | TODO |
+| I4 | `effect_id`へcharset、scheme、最大長、secret/identity denyを入れる | raw chat id、username、JWT、URL、5000字を全拒否 | TODO |
+| I5 | Issue bodyの自由文字列を廃止する | versioned schemaのhash、aggregate、validated exemplar、artifact ref以外はrender不能 | TODO |
+| I6 | exemplarをIssue化直前に同じredaction gateで再検証する | stored exemplarがtamperされてもIssue/`gh` call 0 | TODO |
+| I7 | `findPii`の実測穴を塞ぐ | `chat_id 123456789`、romaji住所、URL path、identifier fixtureを全拒否 | TODO |
+
+reviewerが肯定した`retry_return_state` column、`RETRY_WAIT -> '*'` wildcard、
+M1 moduleのobject-identity再利用は維持する。fix後はfresh reviewerの`PASS`、
+full test、Postgres、実GitHub exact1、branch mergeを一つのacceptance unitとする。
+
+### 15.2 Ordered end-to-end plan
+
+**順序の正本はこの表だけ**である。ID番号ではなく`Order`列の順に実行し、
+Phaseを飛ばさない。特に`LM-SB-13` live-enableは最後である。
+
+| Order | ID | Milestone | Task | Done condition | Status |
+|---:|---|---|---|---|---|
+| 1 | LM-SB-01 | M1 kernel | immutable policyとauto-merge allowlist | policy fixtureがallow/denyを再現 | ★ DONE。`3c6b3f16d` |
+| 2 | LM-SB-02 | M1 kernel | common trace/effect envelope | 5既存loopが同一schemaをemit | ★ DONE。41/41、full 674/674 |
+| 3 | LM-SB-03 | M1 kernel | Postgres state、RLS、lease、idempotency | 実Postgres transition/lease/RLS tests pass | ★ DONE。79/79 + integration PASS |
+| 4 | M2-REVIEW-FIX | M2 acceptance | §15.1 C1/I1/I2-I7をTDD修正 | fresh reviewer PASS + full/Postgres/E2E exact1 | TODO。現在のblocker |
+| 5 | LM-SB-04 | M2 eyes | 6 source adapter + single redaction gateをaccept/merge | 6 sourceがPII無し`sb_signals`へ変換 | WITH FIXES candidate `68938bdc8` |
+| 6 | LM-SB-05 | M2 eyes | cluster/dedupe/priorityをaccept/merge | replay datasetでprecision/recall実測 | WITH FIXES candidate `af1e230d8` |
+| 7 | LM-SB-16 | M2 eyes | pre-spend triage gateをaccept/merge | 閾値未満と偽caller tokenでworker/`gh` call 0 | WITH FIXES candidate `af1e230d8` |
+| 8 | LM-SB-06 | M2 eyes | DB-authoritative Issue projectorをaccept/merge | 同一cluster→Issue exact1、label reconcile、PII 0 | WITH FIXES candidate `49094929f` |
+| 9 | LM-SB-18 | Production observability | OpenTelemetry Collector、Langfuse、Sentry、feedback/metric connectorsを本番配線 | wake/ask/travel/CI/Sentry/Telegram/X/App Store/Mixpanelからtenant-safe signalとtrace readback | TODO |
+| 10 | LM-SB-19 | Durable graph | Inngest event-driven control graphとstuck-state reconcilerを配線 | eventがstateを一段だけ進め、crash後resume、二重claim 0 | TODO |
+| 11 | LM-SB-07 | M3 eval | reproduction Eval Factory | baselineが同じ理由でFAIL、sealed evalをMaker前にfreeze | TODO。plan `f4db07bb2` |
+| 12 | LM-SB-08 | M3 Maker | Sol dispatcher + isolated worktree | 一Issue→一worktree→一commit→一draft PRを実E2E | TODO |
+| 13 | LM-SB-09 | M3 Checker | Opus-family independent Checker | 別checkout/context/family、sealed/policy/cost gates pass | TODO |
+| 14 | LM-SB-14 | Safety | append-only Lineage Archive | evidence/verdict/diffをreplayでき、marker削除・log捏造を検知 | TODO |
+| 15 | LM-SB-15 | Safety | Opus-family asynchronous Overseer | prohibited path/eval改変runを別threadから自動cancel | TODO |
+| 16 | LM-SB-10 | Deployment | deterministic canary/promote/rollback | deliberate bad candidateが自動rollback、LLMはmerge判断不能 | TODO |
+| 17 | LM-SB-11 | Outcome | outcome auditor + learning receipt | signal→Issue→SHA→deploy→product outcome lineage完成 | TODO |
+| 18 | LM-SB-12 | Meta | Self-Builder worker shadow pool | worker prompt/tool/routing candidateを旧kernelがheld-out判定 | TODO |
+| 19 | LM-SB-20 | Shadow proof | production read-only shadow soak | 10 consecutive eligible clustersでduplicate/PII/policy incident 0、cost cap内 | TODO |
+| 20 | LM-SB-17 | Cutover | 旧Luna prototypeを削除 | 旧2 LaunchAgent、installer、producer、consumer、専用guard 0。historical ledgerだけread-only保存 | TODO。今は削除しない |
+| 21 | LM-SB-13 | Live | low-risk allowlistだけhuman-free live-enable | 10 consecutive promoted fixes、rollback有効、policy/PII incident 0 | TODO。最終工程 |
 
 最初のlive対象は、既知failure class、deterministic reproduction、rollback可能、
-低risk pathの全条件を満たすものに限定する。
+低risk pathの全条件を満たすものに限定する。人間がIssueを作らなくてもobservability
+signalから始まるが、人間が追加したIssue/feedbackも同じgateを通して入力できる。
 
 ## 16. Verification matrix
 
@@ -764,8 +841,12 @@ Triggerはevent-firstとする。新しいsignal、CI failure、deployment outco
 | GitHub label edited manually | DB authorityからreconcile |
 | Provider times out | bounded retry then circuit open |
 | Raw PII enters signal | redaction gate reject |
+| Caller claims `gate:true` without canonical triage | gateを再計算してdeny、worker/`gh` call 0 |
+| `effect_id` contains chat id/JWT/URL/oversized text | security reject + audit |
+| Maker and Checker use the same model family | Checker launch denied |
 | Promoter unavailable | no merge、safe retry |
 | Self-Builder candidate edits kernel | shadow-only、direct promotion denied |
+| Legacy dev/self-build LaunchAgent or installer remains at cutover | `LM-SB-17` fail、live-enable denied |
 
 ## 17. Operating metrics
 
@@ -805,7 +886,7 @@ engineeringをそのfailureを直す器官として導入する。
 | Public claim | Allowed wording |
 |---|---|
 | 現在 | Life Managerにはdurable product loopsと検証資産がある |
-| 今回の設計 | Self-Builderのtarget architectureと実装順を確定した |
+| 今回の設計 | Self-Builderのtarget architectureと実装順を確定し、M1をmerge、M2をreviewで差し戻した |
 | まだ言わない | Life Managerがproductionで自分のcodeを自動mergeしている |
 | 最初のdemo | synthetic provider timeoutをIssue→candidate→Checkerまで通す |
 | 最初のlive enable | `LM-SB-13`のdone条件を満たした低risk allowlistだけ |

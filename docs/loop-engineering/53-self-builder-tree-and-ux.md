@@ -1,14 +1,16 @@
 # Self-Builder: 理想 folder tree と 無人 UX
 
-設計正本: `51-life-manager-builds-life-manager.md`（決定）
+設計・status・順序の唯一の正本: `51-life-manager-builds-life-manager.md`
 Evidence: `52-prior-art-self-improving-loops.md`
-この文書: **どこに何を置くか** と **人間が寝ている間に何が起きるか** の絵。
+この文書: **どこに何を置くか** と **人間が寝ている間に何が起きるか** の派生図。
+矛盾時は必ず51が勝つ。この文書単独でDONEやlive-enableを宣言しない。
 
 ---
 
 ## 1. 理想 folder tree
 
-現状 M1 まで実装済みのものに ★、M2 以降で追加するものに ☐ を付ける。
+記号: `★` = reviewed + merged、`◆` = candidate codeありだがreview未accept、
+`☐` = 未実装。現在はM1が★、M2がWITH FIXESの◆、M3以降が☐である。
 
 ```text
 anicca-project/
@@ -43,32 +45,37 @@ anicca-project/
 │       │   ├── transitions.js              ★ 合法遷移をdataで持つ（SQL seedとparity test）
 │       │   ├── lease.js                    ★ claim/expiry/resume + cluster signature
 │       │   └── schema.test.js              ★ 「DECLARES」系（挙動はintegrationで）
-│       ├── collect/                        ☐ LM-SB-04
-│       │   ├── adapters/                   ☐ 1 source = 1 adapter（後述§2の表）
-│       │   │   ├── telemetry-jsonl.js      ☐
-│       │   │   ├── lm-wake-log.js          ☐
-│       │   │   ├── lm-ask-log.js           ☐
-│       │   │   ├── sentry.js               ☐
-│       │   │   ├── telegram-feedback.js    ☐
-│       │   │   ├── mixpanel-outcome.js     ☐
-│       │   │   ├── app-store-reviews.js    ☐
-│       │   │   └── github-actions.js       ☐
-│       │   └── redact.js                   ☐ 全adapterが通る唯一のgate
-│       ├── cluster/                        ☐ LM-SB-05
-│       │   ├── signature.js                ☐ release × graph_version × model × tool × failure_class
-│       │   ├── priority.js                 ☐ 影響 × 頻度 × 確実性
-│       │   └── triage-gate.js              ☐ LM-SB-16 events≥N × 14日 × fixability
-│       ├── issue/                          ☐ LM-SB-06
-│       │   ├── projector.js                ☐ DB authority → GitHub Issue/label
-│       │   └── reconcile.js                ☐ 手編集labelをDBから復元
+│       ├── collect/                        ◆ LM-SB-04（M2 WITH FIXES）
+│       │   ├── adapters/                   ◆ accepted前。1 source = 1 adapter
+│       │   │   ├── telemetry-jsonl.js      ◆
+│       │   │   ├── lm-wake-log.js          ◆
+│       │   │   ├── lm-ask-log.js           ◆
+│       │   │   ├── lm-travel-log.js        ◆
+│       │   │   ├── sentry.js               ◆ payload adapter。production wiringはLM-SB-18
+│       │   │   ├── github-actions.js       ◆
+│       │   │   ├── telegram-feedback.js    ☐ LM-SB-18
+│       │   │   ├── x-feedback.js           ☐ LM-SB-18
+│       │   │   ├── mixpanel-outcome.js     ☐ LM-SB-18
+│       │   │   └── app-store-reviews.js    ☐ LM-SB-18
+│       │   └── redact.js                   ◆ C1/I1/I2-I7 fix後にaccept
+│       ├── cluster/                        ◆ LM-SB-05（M2 WITH FIXES）
+│       │   ├── signature.js                ◆ release × graph_version × model × tool × failure_class
+│       │   ├── priority.js                 ◆ 影響 × 頻度 × 確実性
+│       │   └── triage-gate.js              ◆ LM-SB-16。caller tokenを信じずDBから再計算
+│       ├── issue/                          ◆ LM-SB-06（M2 WITH FIXES）
+│       │   ├── projector.js                ◆ github_issue_number永続化pathが未修正
+│       │   └── reconcile.js                ◆ DB authority → GitHub label
+│       ├── orchestrator/                   ☐ LM-SB-19
+│       │   ├── inngest.js                  ☐ eventでstateを一段だけ進める
+│       │   └── reconciler.js               ☐ stuck lease / missed event / timeoutだけ修復
 │       ├── eval-factory/                   ☐ LM-SB-07
 │       │   ├── fixture-builder.js          ☐ trace → 再現fixture
 │       │   ├── seal.js                     ☐ ★ Makerが読む前に凍結 + version
 │       │   └── register-check.js           ☐ ★ eval_id → GitHub required status check
-│       ├── maker/                          ☐ LM-SB-08
+│       ├── maker/                          ☐ LM-SB-08（default Maker = gpt-5.6-sol）
 │       │   ├── dispatcher.js               ☐ 1 issue = 1 worktree = 1 PR
 │       │   └── worktree.js                 ☐ .worktrees/lm-auto-<issue-id>/
-│       ├── checker/                        ☐ LM-SB-09（別model family）
+│       ├── checker/                        ☐ LM-SB-09（default = Opus family）
 │       │   ├── run-gates.js                ☐ build/unit/integration/sealed/security/cost
 │       │   └── verdict.js                  ☐ 最終PASSはnon-LLM signalのみ
 │       ├── promoter/                       ☐ LM-SB-10
@@ -182,7 +189,7 @@ receipt であって agent の自己申告ではない。
                     Lineage Archive に append-only で保存（後から再生可能）
 ```
 
-人間が朝見るのは**この receipt 1枚**だけ。承認は求められない。
+receiptは人間が任意で確認できるが、確認も承認もloopの前提にしない。
 
 失敗経路も無人で閉じる。
 
@@ -278,6 +285,7 @@ cron は trigger でしかなく、graph ではない。
 | 層 | 状態 |
 |---|---|
 | ★ 実装済 | policy engine / trace envelope（5 loop配線）/ sb_* schema + 合法遷移SQL + lease + append-only trigger + RLS |
-| ☐ 未実装 | adapters / cluster / Issue projector / eval factory / Maker / Checker / canary / outcome / Overseer / Lineage Archive |
-| 公開して良い主張 | 「Self-Builderのtarget architectureと基盤が動いている」 |
+| ◆ candidate / 未accept | adapters / cluster / triage gate / Issue projector。fresh reviewはWITH FIXES（C1/I1/I2-I7） |
+| ☐ 未実装 | production observability connectors / runtime graph / eval factory / Maker / Checker / canary / outcome / Overseer / Lineage Archive |
+| 公開して良い主張 | 「Self-Builderのtarget architectureと順序を確定し、M1をmerge、M2をreviewで差し戻した」 |
 | まだ言わない | 「Life Managerがproductionで自分のcodeを自動mergeしている」 |

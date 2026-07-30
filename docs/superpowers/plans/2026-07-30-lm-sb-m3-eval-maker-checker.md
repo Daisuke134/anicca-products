@@ -12,7 +12,7 @@ Evidence: `52-prior-art-self-improving-loops.md`（§3 reward hacking、§4 auto
 | Worktree | `.worktrees/lm-sb-m3/` |
 | Branch | `feature/lm-sb-m3-eval-maker-checker` |
 | Base | M2 merge 後の `feature/x-deep-research-20260727` HEAD |
-| Executor | Opus 5 subagent |
+| Executor | Opus 5 subagent（implementation-time worker。runtime Maker/Checker assignmentはSSOT §3.2） |
 | 触るファイル境界 | `apps/self-builder/**` のみ。`apps/life-call/**` は read only |
 
 ## この milestone の一点の勝負所
