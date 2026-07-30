@@ -78,7 +78,7 @@ test("wired loop 1/5 — daily preflight emits a valid envelope for pass and for
   });
 });
 
-test("wired loop 2/5 — travel fill emits a valid envelope", async () => {
+test("wired loop 2/5 — travel fill emits ok when nothing failed", async () => {
   const signals = await captureSignals(() => fillTravel("uid_travel_test", {
     home: "Home",
     nowMs: Date.now(),
@@ -91,6 +91,62 @@ test("wired loop 2/5 — travel fill emits a valid envelope", async () => {
     status: "ok",
     failure_class: null,
   });
+});
+
+test("I9: travel fill DERIVES failure from an unroutable event, not a hardcoded ok", async () => {
+  const now = Date.now();
+  const iso = (ms) => new Date(ms).toISOString();
+  const rawEvent = {
+    id: "ev-route-fail",
+    summary: "Client meeting",
+    location: "1-1-1 Marunouchi, Chiyoda City, Tokyo",
+    start: { dateTime: iso(now + 3 * 3600000) },
+    end: { dateTime: iso(now + 4 * 3600000) },
+  };
+  const signals = await captureSignals(() => fillTravel("uid_travel_test", {
+    home: "2-2-2 Umeda, Kita Ward, Osaka",
+    nowMs: now,
+    calendar: { listEventsRaw: async () => [rawEvent] },
+    // the route provider is down: every directions call fails
+    _directionsMinutes: async () => null,
+    // no supa creds -> claimTravel returns false anyway, but the route dies first
+  }));
+  assertValidSignals(signals, {
+    source: "life_manager.travel",
+    node: "travel_fill",
+    tool: "gcal.travel_block",
+    status: "failure",
+    failure_class: "route_unresolved",
+  });
+});
+
+test("I9: travel fill reports a failed block create with its own class", async () => {
+  const now = Date.now();
+  const iso = (ms) => new Date(ms).toISOString();
+  const rawEvent = {
+    id: "ev-create-fail",
+    summary: "Client meeting",
+    location: "1-1-1 Marunouchi, Chiyoda City, Tokyo",
+    start: { dateTime: iso(now + 3 * 3600000) },
+    end: { dateTime: iso(now + 4 * 3600000) },
+  };
+  const calendar = {
+    listEventsRaw: async () => [rawEvent],
+    // createTravelBlock path: the write API reports failure (claimTravel with no supa
+    // creds returns true, so the create IS attempted and fails)
+    createEvent: async () => ({ successful: false }),
+  };
+  const signals = await captureSignals(() => fillTravel("uid_travel_test", {
+    home: "2-2-2 Umeda, Kita Ward, Osaka",
+    nowMs: now,
+    calendar,
+    _directionsMinutes: async () => 25,
+  }));
+  assert.ok(signals.length > 0, "a signal must be emitted");
+  const last = signals[signals.length - 1];
+  assert.equal(last.status, "failure", `expected failure, got ${last.status} (${last.failure_class})`);
+  assert.ok(["travel_block_create_failed", "travel_block_not_inserted"].includes(last.failure_class),
+    `got ${last.failure_class}`);
 });
 
 test("wired loop 3/5 — ask inbound reply emits valid envelopes for success and failure", async () => {

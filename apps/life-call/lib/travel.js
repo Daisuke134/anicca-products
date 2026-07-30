@@ -266,6 +266,10 @@ async function fillTravel(uid, { apiKey, mapsKey, geminiKey, home, nowMs = Date.
   const cal = calendar || getCalendar({ apiKey, gmailAccountId });
   const events = await listEvents7d(uid, apiKey, nowMs, cal, gmailAccountId);
   let inserted = 0, checked = 0, skipped = 0;
+  // I9: real outcome counters for telemetry — a route we NEEDED but could not resolve, and
+  // a block we claimed but could not create. Claim-lost races and policy skips are not
+  // failures (dedup working is success).
+  let routeFailures = 0, createFailures = 0;
   const outboundReports = [];
   for (let i = 0; i < events.length; i++) {
     const ev = events[i];
@@ -314,6 +318,7 @@ async function fillTravel(uid, { apiKey, mapsKey, geminiKey, home, nowMs = Date.
         }
         if (mins == null) {
           skipped++;
+          routeFailures++; // I9: a must-travel event we could not route
           // Cannot route outbound — still evaluate return leg in case it is independently resolvable
         } else {
           const arriveMs = ev.startMs;
@@ -339,6 +344,7 @@ async function fillTravel(uid, { apiKey, mapsKey, geminiKey, home, nowMs = Date.
                 });
               } else {
                 skipped++;
+                createFailures++; // I9: claimed the GO leg but the calendar write failed
                 await unclaimTravel(uid, evKey, "go", supaUrl, supaKey); // create failed → release for retry
               }
             } else {
@@ -381,20 +387,22 @@ async function fillTravel(uid, { apiKey, mapsKey, geminiKey, home, nowMs = Date.
     const venue = resolvedDest;
     if (!home) { skipped++; continue; }
     const retMins = await directionsFn(venue, home, mapsKey, ev.endMs, nowMs, /* departureMode= */ true);
-    if (retMins == null) { skipped++; continue; }
+    if (retMins == null) { skipped++; routeFailures++; continue; } // I9: unroutable return leg
     const retLeaveMs = ev.endMs;                           // depart immediately after event ends
     const retArriveMs = retLeaveMs + retMins * 60000;
     // C-H1: atomically CLAIM the RETURN leg before creating.
     if (await claimTravel(uid, evKey, "return", supaUrl, supaKey)) {
       if (await createTravelBlock(uid, apiKey, retLeaveMs, retArriveMs, venue, home, home, cal, gmailAccountId)) inserted++;
-      else { skipped++; await unclaimTravel(uid, evKey, "return", supaUrl, supaKey); } // create failed → release
+      else { skipped++; createFailures++; await unclaimTravel(uid, evKey, "return", supaUrl, supaKey); } // create failed → release
     } else {
       skipped++; // another writer already claimed the RETURN block (race-safe)
     }
     void outboundInserted; // suppress unused warning — used for semantic clarity only
   }
-  // LM-SB-02 signal: run-level outcome only. Per-event counts are L0 aggregate data with no
-  // field in the closed §5.2 envelope, so they stay in the returned report.
+  // LM-SB-02 signal, status DERIVED from what actually happened this run (review I9):
+  // a failed calendar write outranks an unresolved route because it means we consumed the
+  // atomic claim without producing the block the user needed.
+  const failed = createFailures > 0 || routeFailures > 0;
   emitSignal({
     source: "life_manager.travel",
     trace_id: correlationRef("tr", uid, nowMs),
@@ -403,8 +411,10 @@ async function fillTravel(uid, { apiKey, mapsKey, geminiKey, home, nowMs = Date.
     graph_version: GRAPH_VERSION,
     node: "travel_fill",
     tool: "gcal.travel_block",
-    status: "ok",
-    failure_class: null,
+    status: failed ? "failure" : "ok",
+    failure_class: failed
+      ? (createFailures > 0 ? "travel_block_create_failed" : "route_unresolved")
+      : null,
     latency_ms: Math.max(0, Date.now() - startedMs),
     effect_id: null,
   });
