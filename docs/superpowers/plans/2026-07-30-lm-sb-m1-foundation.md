@@ -71,7 +71,7 @@ allow/deny を deterministic に再現するテストが green。
 | 2 LM-SB-02 envelope | DONE — `node --test lib/telemetry/*.test.js` → tests 39 / pass 39 / fail 0。life-call full `npm test` = 633/633 pass, EXIT 0（baseline と同一）|
 | 3 LM-SB-03 schema | DONE — `cd apps/self-builder && npm test` → tests 62 / pass 62 / fail 0。`npm run test:postgres` → 実 Postgres 16 (docker) で §16 の 3 行 + append-only + rollback まで PASS |
 | Adversary review | ROUND 1 完了 — C1/C2/C3 + I1-I5,I7-I10 + M1/M3/M5 を全修正（commits 5358fcf8e, c7564be7f, eac4f6f98, 229420c3d, f2368b140）。I6 は spec 修正待ちで対象外（coordinator 指示）|
-| Merge + spec 更新 | TODO（親）|
+| Merge + spec 更新 | DONE — merge 3c6b3f16d、spec TODO表 LM-SB-01/02/03 DONE化 |
 
 ### M1 検証コマンド（再現手順）
 

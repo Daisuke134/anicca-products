@@ -731,9 +731,9 @@ Triggerはevent-firstとする。新しいsignal、CI failure、deployment outco
 
 | ID | Task | Done | Status |
 |---|---|---|---|
-| LM-SB-01 | immutable policyとauto-merge allowlistをmachine-readable化 | policy fixtureがallow/denyを再現 | TODO |
-| LM-SB-02 | common trace/effect envelopeを実装 | 5既存loopから同一schemaが出る | TODO |
-| LM-SB-03 | self-builder Postgres schemaとRLS/roleを実装 | transition/lease/idempotency tests pass | TODO |
+| LM-SB-01 | immutable policyとauto-merge allowlistをmachine-readable化 | policy fixtureがallow/denyを再現 | ★DONE 2026-07-30。`apps/self-builder/policy/`。allowlist+denylist両建て、32/32 tests。merge `3c6b3f16d` |
+| LM-SB-02 | common trace/effect envelopeを実装 | 5既存loopから同一schemaが出る | ★DONE 2026-07-30。`apps/life-call/lib/telemetry/`。5 loop配線、41/41 tests、full 674/674、実JSONL emit検証済 |
+| LM-SB-03 | self-builder Postgres schemaとRLS/roleを実装 | transition/lease/idempotency tests pass | ★DONE 2026-07-30。`apps/self-builder/{migrations,state}/`。79/79 + 実Postgres16でC1 illegal-hop拒否/RLS実動/append-only trigger PASS |
 | LM-SB-04 | feedback/log/metric signal adaptersを実装 | 6 sourceがredacted signalへ変換 | TODO |
 | LM-SB-05 | cluster/dedupeとpriorityを実装 | replay datasetでprecision測定 | TODO |
 | LM-SB-06 | Issue projectorを実装 | DB stateとGitHub labelがreconcile | TODO |
