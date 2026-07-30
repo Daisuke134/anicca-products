@@ -22,6 +22,13 @@ const { newReplyToken } = require("./reply-token.js");
 const { sendAsk } = require("./mail-resend.js");
 const { mailAvailable } = require("./mail-availability.js");
 const { interpretCalendarEvent, PLACE_QUESTION } = require("./calendar-interpreter.js");
+// LM-SB-02: one common-envelope signal per inbound reply (spec §5.1 "Telegram: explicit
+// feedback, confusion, command failure"). Fail-open and inert unless LM_TELEMETRY_JSONL is
+// configured. The reply TEXT is never emitted — only the outcome class.
+const { emitSignal } = require("./telemetry/emitter.js");
+const {
+  correlationRef, safeTenantRef, GRAPH_VERSION, SERVICE_TENANT_REF,
+} = require("./telemetry/envelope.js");
 
 // Raw Gemini generateContent. Key goes in the x-goog-api-key HEADER, never the URL (so it can't leak
 // into logs/referrers). Returns the parsed response, or {} on failure.
@@ -579,8 +586,33 @@ async function handleAskCallback(data, opts = {}) {
 // reply to win the answered_at flip resolves (uid,event); a replay/duplicate gets null and no-ops. We also
 // skip if the event already has a location (a later autofill fixed it) — no overwrite (vcsdd FIND-004).
 // Deps (consume/listEvents/match/patch/remember) are injectable for tests; default to the real impls.
+// LM-SB-02: the single emit point for every inbound-reply outcome. It RETURNS its argument
+// so each call site stays a one-line `return signal(...)` and observable behaviour is
+// unchanged. The reply token and uid are hashed, never emitted raw.
+function askReplySignal(outcome, { startedMs, uid, token, failureClass } = {}) {
+  const ok = Boolean(outcome && outcome.ok);
+  emitSignal({
+    source: "life_manager.ask",
+    trace_id: correlationRef("tr", uid, token),
+    run_id: correlationRef("run", token, startedMs),
+    // An unknown or already-spent token has NO tenant — that is a legitimate state, not a bug,
+    // so it is attributed to the service rather than dropped. Losing it would hide the single
+    // most interesting reply failure class from the loop that is supposed to learn from it.
+    tenant_ref: safeTenantRef(uid) || SERVICE_TENANT_REF,
+    graph_version: GRAPH_VERSION,
+    node: "ask_inbound_reply",
+    tool: "gcal.patch_event",
+    status: ok ? "ok" : "failure",
+    failure_class: ok ? null : (failureClass || "reply_failed"),
+    latency_ms: Math.max(0, Date.now() - startedMs),
+    effect_id: ok && outcome.location ? `receipt://gcal/${outcome.eventId}` : null,
+  });
+  return outcome;
+}
+
 async function handleInboundReply(token, replyText, opts = {}) {
   const { composioKey, geminiKey, supaUrl, supaKey } = opts;
+  const startedMs = Date.now();
   if (!token || !supaUrl || !supaKey) return { ok: false, reason: "missing token/supa" };
   const consume = opts.consume || ((t) => consumeAskToken(t, supaUrl, supaKey, opts.fetchImpl));
   const listEv = opts.listEvents || ((uid) => listEvents48h(uid, composioKey, opts.nowMs || Date.now(), opts.gmailAccountId));
@@ -591,17 +623,28 @@ async function handleInboundReply(token, replyText, opts = {}) {
 
   // ATOMIC CONSUME first → unknown OR already-answered token = idempotent no-op.
   const hit = await consume(token);
-  if (!hit) return { ok: false, reason: "unknown or already-answered token" };
+  if (!hit) {
+    return askReplySignal({ ok: false, reason: "unknown or already-answered token" },
+      { startedMs, token, failureClass: "reply_token_unknown_or_spent" });
+  }
   const { uid, event_id: eventId } = hit;
+  const signalContext = { startedMs, uid, token };
   const events = await listEv(uid).catch(() => []);
   const ev = (events || []).find((e) => e.id === eventId);
-  if (!ev) return { ok: false, reason: "event not found", uid, eventId };
-  if (!needs(ev)) return { ok: true, uid, eventId, alreadySet: true }; // location already set → don't overwrite
+  if (!ev) {
+    return askReplySignal({ ok: false, reason: "event not found", uid, eventId },
+      { ...signalContext, failureClass: "ask_event_not_found" });
+  }
+  // location already set → don't overwrite
+  if (!needs(ev)) return askReplySignal({ ok: true, uid, eventId, alreadySet: true }, signalContext);
   const m = await match(replyText, ev);
-  if (!m || !m.location) return { ok: false, reason: "no location in reply", uid, eventId };
+  if (!m || !m.location) {
+    return askReplySignal({ ok: false, reason: "no location in reply", uid, eventId },
+      { ...signalContext, failureClass: "reply_location_unresolved" });
+  }
   await patch(uid, eventId, m.location);
   await remember(uid, placeKey(ev.summary, ev.recurringEventId), m.location);
-  return { ok: true, uid, eventId, location: m.location };
+  return askReplySignal({ ok: true, uid, eventId, location: m.location }, signalContext);
 }
 
 module.exports = {

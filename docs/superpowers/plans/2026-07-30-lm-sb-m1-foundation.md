@@ -67,8 +67,18 @@ allow/deny を deterministic に再現するテストが green。
 
 | Task | Status |
 |---|---|
-| 1 LM-SB-01 policy | TODO |
-| 2 LM-SB-02 envelope | TODO |
-| 3 LM-SB-03 schema | TODO |
-| Adversary review | TODO |
-| Merge + spec 更新 | TODO |
+| 1 LM-SB-01 policy | DONE — `cd apps/self-builder && node --test` → tests 26 / pass 26 / fail 0 |
+| 2 LM-SB-02 envelope | DONE — `node --test lib/telemetry/*.test.js` → tests 39 / pass 39 / fail 0。life-call full `npm test` = 633/633 pass, EXIT 0（baseline と同一）|
+| 3 LM-SB-03 schema | DONE — `cd apps/self-builder && npm test` → tests 62 / pass 62 / fail 0。`npm run test:postgres` → 実 Postgres 16 (docker) で §16 の 3 行 + append-only + rollback まで PASS |
+| Adversary review | ROUND 1 完了 — C1/C2/C3 + I1-I5,I7-I10 + M1/M3/M5 を全修正（commits 5358fcf8e, c7564be7f, eac4f6f98, 229420c3d, f2368b140）。I6 は spec 修正待ちで対象外（coordinator 指示）|
+| Merge + spec 更新 | TODO（親）|
+
+### M1 検証コマンド（再現手順）
+
+| 対象 | コマンド | 実測結果（review round 1 修正後）|
+|---|---|---|
+| self-builder 全体 | `cd apps/self-builder && npm test` | tests 79 / pass 79 / fail 0 |
+| telemetry | `cd apps/life-call && node --test lib/telemetry/*.test.js` | tests 41 / pass 41 / fail 0 |
+| life-call full（telemetry 込み）| `cd apps/life-call && npm test` | tests 674 / pass 674 / fail 0, exit 0（baseline 633 + telemetry 41）|
+| Postgres 実機 | `cd apps/self-builder && npm run test:postgres` | PASS (mode=docker) / PASS (mode=url, CI と同経路) |
+| CI | `.github/workflows/self-builder.yml` | paths: apps/self-builder/** で npm test + test:postgres (postgres:16 service) |

@@ -1,0 +1,13 @@
+{
+  "name": "anicca-self-builder",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Life Manager Self-Builder: deterministic promotion policy, state machine and worker leases (spec docs/loop-engineering/51-life-manager-builds-life-manager.md)",
+  "scripts": {
+    "test": "node --test",
+    "test:postgres": "test/postgres/self-builder-core-postgres.integration.sh"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

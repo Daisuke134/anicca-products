@@ -8,6 +8,11 @@ const { GATE_ORDER, discoveryMessage } = require("./feature-discovery.js");
 const { schedulerCohortFilter } = require("./user-selector.js");
 const { acceptRouteResults, minutesFromSeconds, parseDurationSeconds } = require("./travel.js");
 const { collectProductionControlledL3 } = require("./daily-preflight-collectors.js");
+// LM-SB-02: one common-envelope signal per preflight run (spec §5.1 "daily preflight:
+// dependency failure taxonomy"). No injection surface is added: the emitter is fail-open
+// and inert unless LM_TELEMETRY_JSONL is configured.
+const { emitSignal } = require("./telemetry/emitter.js");
+const { correlationRef, GRAPH_VERSION, SERVICE_TENANT_REF } = require("./telemetry/envelope.js");
 
 const DEPENDENCY_NAMES = Object.freeze([
   "health",
@@ -728,11 +733,29 @@ async function runOne(check, timeoutMs, now, runContext) {
 
 async function runPreflight({ checks, timeoutMs = 15000, now = Date.now, runContext } = {}) {
   if (!Array.isArray(checks) || checks.length === 0) throw new Error("preflight checks required");
+  const startedAtMs = now();
   const dependencies = await Promise.all(checks.map((check) => runOne(check, timeoutMs, now, runContext)));
   const passed = dependencies.filter((item) => item.status === "pass").length;
   const failed = dependencies.filter((item) => item.status === "fail").length;
   const timedOut = dependencies.filter((item) => item.status === "timeout").length;
   const exitCode = passed === dependencies.length ? 0 : 1;
+  // LM-SB-02 signal: the run-level dependency verdict only. Per-dependency evidence stays
+  // in the report; nothing from a provider body is copied into telemetry.
+  emitSignal({
+    source: "life_manager.daily_preflight",
+    trace_id: correlationRef("tr", "daily_preflight", startedAtMs),
+    run_id: correlationRef("run", "daily_preflight", startedAtMs, dependencies.length),
+    tenant_ref: SERVICE_TENANT_REF,
+    graph_version: GRAPH_VERSION,
+    node: "daily_preflight",
+    tool: "dependency_checks",
+    status: exitCode === 0 ? "ok" : (timedOut > 0 && failed === 0 ? "timeout" : "failure"),
+    failure_class: exitCode === 0
+      ? null
+      : (timedOut > 0 && failed === 0 ? "dependency_timeout" : "dependency_failed"),
+    latency_ms: Math.max(0, now() - startedAtMs),
+    effect_id: null,
+  });
   return {
     schemaVersion: 1,
     kind: "life-call-daily-preflight",

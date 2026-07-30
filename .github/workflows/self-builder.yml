@@ -1,0 +1,45 @@
+# LM-SB M1 (review I8): the Self-Builder policy/state/schema suites as a required check.
+# Runs the pure node:test suites AND the real-Postgres integration script (DATABASE_URL
+# against a postgres:16 service container — never a mock, per HARD RULE 0.24).
+name: self-builder
+
+on:
+  push:
+    paths:
+      - "apps/self-builder/**"
+      - ".github/workflows/self-builder.yml"
+  pull_request:
+    paths:
+      - "apps/self-builder/**"
+      - ".github/workflows/self-builder.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: self-builder-ci
+          POSTGRES_DB: self_builder_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Unit and contract tests (no DB)
+        working-directory: apps/self-builder
+        run: npm test
+      - name: Postgres integration (real DB, spec §16 verification rows)
+        working-directory: apps/self-builder
+        env:
+          DATABASE_URL: postgres://postgres:self-builder-ci@localhost:5432/self_builder_test
+        run: npm run test:postgres

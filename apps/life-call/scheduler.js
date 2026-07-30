@@ -28,6 +28,11 @@ const {
 const {
   DISCOVERY_WEEK_MS, listDiscoveryUsers, runDiscoveryForUser,
 } = require("./lib/feature-discovery.js");
+// LM-SB-02: one common-envelope signal per dial attempt (spec §5.1 "scheduler: timeout,
+// dial failure, retry, claim release"). Fail-open and inert unless LM_TELEMETRY_JSONL is
+// configured, so telemetry can never affect a wake call.
+const { emitSignal } = require("./lib/telemetry/emitter.js");
+const { correlationRef, safeTenantRef, GRAPH_VERSION } = require("./lib/telemetry/envelope.js");
 
 // HMAC over the per-call context so the persistent /ws bridge can prove a connection was minted by
 // THIS scheduler (not a stranger draining the Gemini budget) AND that the prompt context wasn't
@@ -225,11 +230,27 @@ async function wakeUserOnce(u, nowMs, deps = {}) {
       if (!fresh) continue; // already called for this (event, level)
       const streamUrl = buildStreamUrl({ ...ev, wakeUid: u.uid, wakeEventKey: eventKey }, lvl.urgency, langForUser(u), u.name);
       let res;
+      const dialStartedMs = Date.now();
       try {
         res = await (deps.placeCall || placeCall)({ to: u.phone, streamUrl });
       } catch (e) {
         res = { ok: false, error: String((e && e.message) || e) };
       }
+      // LM-SB-02 signal: only the failure CLASS is recorded, never the raw provider message
+      // (it can contain a phone number, which the redaction gate would reject anyway).
+      emitSignal({
+        source: "life_manager.scheduler",
+        trace_id: correlationRef("tr", u.uid, ev.startIso),
+        run_id: correlationRef("run", eventKey),
+        tenant_ref: safeTenantRef(u.uid),
+        graph_version: GRAPH_VERSION,
+        node: "wake_scheduler",
+        tool: "telnyx.place_call",
+        status: res.ok ? "ok" : "failure",
+        failure_class: res.ok ? null : (isLowBalanceError(res.error) ? "provider_low_balance" : "dial_failed"),
+        latency_ms: Math.max(0, Date.now() - dialStartedMs),
+        effect_id: res.ok && res.ccid ? `receipt://telnyx/${res.ccid}` : null,
+      });
       if (res.ok) {
         console.log(`[scheduler] WAKE T-${lvl.min} uid=${u.uid.slice(0, 12)} "${ev.summary}" ccid=${res.ccid}`);
       } else {
