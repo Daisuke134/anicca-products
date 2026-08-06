@@ -1718,7 +1718,22 @@ market research until item C13 permits it.
   its Application and legacy Opportunity stayed `SUBMITTED`, commercial
   transition count stayed zero, and received money stayed null. The same run
   preserved TECHi's separate current `UNAVAILABLE` and last-known `pending`.
-- A10 TECHI ADAPTER: make authenticated ID polling a thin adapter.
+- A10 DONE TECHI ADAPTER: runtime feature `6edee54b`, live `bfe287db`.
+  TECHi-specific authenticated CDP polling, exact program/API URL checks,
+  provider-ID validation, status normalization, and common Application payload
+  creation now live in a thin adapter. Approval/decline advances the durable
+  Application through the A8 transition service while the legacy Opportunity
+  remains a compatibility record. Pending, current provider availability, and
+  last-known provider status stay separate. A provider-ID mismatch on an
+  existing Application fails closed and cannot fall back to a legacy advance;
+  the fallback JOIN is TECHi-only, so AppSignal keeps its exact-ID contract.
+  Replay excludes a terminal Application. Focused regression passes `15/15`,
+  full Writer regression passes `831/831`, Python compilation and diff checks
+  pass, and fresh adversarial review is `ship`. Real response-worker run `356`
+  exited `0`: TECHi reported current `UNAVAILABLE` with last-known `pending`
+  for provider ID `4`, AppSignal reported `NO_RESPONSE`, both Applications and
+  legacy Opportunities remained `SUBMITTED`, and commercial transitions stayed
+  zero. No response, acceptance, publication, payment, or revenue was invented.
 - A11 MIGRATE APPSIGNAL: replay-import the recovered receipt without changing its
   state or duplicating effects.
 - A12 MIGRATE TECHI: replay-import ID `4`, preserving durable `SUBMITTED`,
