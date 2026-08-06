@@ -2559,6 +2559,25 @@ Primary implementation references:
   note repair tests pass. The preceding content-addressed asset upload is
   explicitly a preparation/resource-leak class: a crash may orphan an asset,
   but cannot duplicate or replace the public article identity.
+  H11c.1 Zenn mutation audit is complete on the feature branch. The inventory
+  separates five boundaries: deterministic `published:false` draft Git push;
+  content-addressed `images/<run_id>` media push; normal Python/managed-shell
+  `published:true` push; deferred same-slug retrigger push; and Zenn API plus
+  SSR public readback. Draft/media writes are preparation/resource effects:
+  they are PII-gated, hash/path bounded, never count as a live article, and
+  exact replay sends the same Git commit identity. Normal public pushes retain
+  `STARTED -> push -> UNKNOWN`. The audit found the deferred worker could push
+  a new empty retry commit after an earlier push reached origin but returned an
+  error. The real-Git RED produced two push calls on the second scan. The worker
+  now fsyncs `EFFECT_STARTED` with `zenn-retry-commit:<sha>` before push, reuses
+  that exact commit after a crash, fetches origin to reconcile ambiguous
+  success, advances to `EFFECT_UNKNOWN` when returned/remote-confirmed, and
+  consumes the scan's one-effect budget during reconciliation. GREEN proves
+  one remote commit and one push call across replay. Fresh verification passes
+  `9` Zenn Python tests, all `9` deferred shell fixtures, Python compile, shell
+  syntax, and diff checks. Only Zenn API plus SSR and the canonical publication
+  ledger may establish `VERIFIED_PUBLISHED`; Git submission alone cannot.
+  Next: H11c.2 Dev.to draft/update/publish/repair HTTP mutation audit.
 
   **Daily publication liveness invariant (binding):** every active daily
   article work-item MUST eventually reach `VERIFIED_PUBLISHED`, backed by a
