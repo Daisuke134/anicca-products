@@ -2258,7 +2258,7 @@ publisher incidents:**
   search official primary documentation, bind pre-existing effects, and advance
   the claimed queue lease to a receipt-backed characterization action without
   falsely resolving the incident.
-- H9 PARTIAL: Generate a minimal failing characterization test in an isolated
+- H9 DONE: Generate a minimal failing characterization test in an isolated
   worktree; no repair candidate exists until the test is RED against the
   captured failure. H9a feature `a9e54931` / live `05f0a963` prepares a real
   linked worktree at an exact base commit, assigns a fingerprint-scoped branch,
@@ -2279,15 +2279,23 @@ publisher incidents:**
   writes are disabled for that verification subprocess. The positive real-Git
   path and both rejection paths pass; the available Writer pytest suite passes
   `72` tests plus `30` subtests; Python compile, diff, and PII gates pass.
-  Production plan generation is still pending: immediately after deployment,
-  another runtime owner changed tracked `config/loop-registry.json` observation
-  timestamps at 19:10:25 JST, leaving the live checkout dirty. The deployment
-  did not modify or overwrite that file. The clean-live routing invariant stops
-  runtime mutation here. Smallest restart action: after the existing owner
-  commits or otherwise legitimately clears its registry update, verify live
-  HEAD/upstream/dirty state, run H9a against the claimed Zenn investigation,
-  deploy H9b, invoke the characterization sub-agent, and retain H9 as PARTIAL
-  unless the independent controller produces a real `RED_VERIFIED` receipt.
+  The external registry owner cleared its tracked update without Writer
+  overwrite. H9b was then deployed through live commits `25178a26`, `129246ca`,
+  and `073a50bf`; queue-registration feature `194c63e7` was deployed as
+  `0b7b8f65`. The production Terra sub-agent ran only in exact-base worktree
+  `repair/writer-e717150d6a6a-characterization` and generated
+  `test_preexisting_draft_reconciliation_characterization.py`. The independent
+  controller reran that exact test and observed exit `1` with signature
+  `captured-preexisting-draft-not-reconciled`; characterization receipt SHA-256
+  is `4f2174160c314ea46f7c13dad5923e0ad93367124a88b9b6b1a4c5b58d61eee8`
+  and test SHA-256 is
+  `c4b07b25ff44f314e5acd2402eba3854f507a74c8311350708720f8dfbde8724`.
+  The durable queue remains honestly `CLAIMED` on attempt `2`, binds that
+  `RED_VERIFIED` receipt, and advances only to `GENERATE_CANDIDATE_FIX`; queue
+  SHA-256 is
+  `2644d3a8ff477a7c318b97c7b7f387846093016bc215eba9c9515d844960fd3f`.
+  No repair, publication, credential use, or false resolution occurred. H10 is
+  now the first open item.
 - H10 Generate the smallest candidate fix, pass focused tests, the full Writer
   suite, static secret/PII checks, and an isolated browser/API replay.
 - H11 Verify sensitive repairs with Superpowers in a clean isolated fixture:
