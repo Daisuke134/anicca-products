@@ -2030,10 +2030,24 @@ market research until item C13 permits it.
   `d09eadfe009237087d5683b937ea6152376c3ace`, then records the final quality
   `block_freeze`; both source receipt hashes are unchanged. Focused tests pass
   `3/3`; the full Writer regression passes `934` tests plus `30` subtests.
-- O0.2 Emit one local OpenTelemetry trace per `run_id` and one span for each
-  existing research, generation, gate, publication, readback, metric, money,
-  learning, and reporting transition. A missing expected receipt by its SLO is
-  an explicit failed span rather than invisible absence.
+- O0.2a DONE: Emit the first real local OpenTelemetry trace per `run_id` across
+  generation, final quality, and publication. Runtime `e847e199` binds every
+  observed span to its O0.1 source event. `ready_to_freeze` without a publication
+  receipt is `error:expected_receipt_missing`; `block_freeze` without one is
+  deliberately `not_expected:quality_block_freeze`, so a correct safety stop is
+  never reported as a broken publisher. Publication keeps every pair's durable
+  `live`/`intent` outcome rather than inventing one aggregate claim. TDD passes
+  `6/6` focused tests and the Python Writer regression passes `872/872`. The
+  existing shell suite separately returns `11/13`: two external-judge cases
+  return no JSON verdict and do not exercise this trace path. Read-only replay
+  classifies live blocked run `20260805-162010` as `blocked_by_quality`, and
+  historical success `20260731-213927` as `observed` with all eight publication
+  pair states; before/after trees remain byte-identical.
+- O0.2b Extend that same trace, without a second tracing system, across existing
+  research, individual gates, destination readback, metric, money, learning,
+  and reporting transitions. A missing expected receipt by its phase SLO is an
+  explicit failed span rather than invisible absence; a transition made
+  ineligible by an authoritative prior gate is `not_expected`, not failure.
 - O0.3 Generate a redacted evidence index for each failed span that points to
   the exact receipt, safe log excerpt, browser screenshot/DOM/network evidence
   when applicable, source release, and last successful sibling span. Secrets,
