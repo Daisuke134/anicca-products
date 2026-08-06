@@ -1904,8 +1904,22 @@ market research until item C13 permits it.
   Related quality tests pass `33/33`, full Writer regression passes `859/859`,
   and shell syntax/diff checks pass. No live branch or publication state changes
   in B3.
-- B4 IN PROGRESS LIVE: deploy, kickstart `ai.anicca.article-resume`, and capture current-hash
-  editorial and reader decisions.
+- B4 IN PROGRESS LIVE: runtime commits `d3340e1f` and `62b24343` deploy the
+  hash-scoped Editorial implementation and its expanded boundaries. Launchd
+  kickstart run `1073` exited `2` before reaching the current run: both quality
+  recovery controllers refused current `evaluate_reroute`, so the generic
+  planner selected legacy `daily-2026-07-24` and its dormant-now X Post repair.
+  The resulting `X Post slot is missing or ambiguous` is an entry-selection
+  failure, not a current article verdict. A RED then proved the controller
+  refused the exact current blocker. The bounded fix recognizes only an
+  unpublished version-2 reroute whose `editorial-reroute-blocker` hashes equal
+  both current drafts and whose installed Editorial source contains the atomic
+  hash claim. Controller tests pass `11/11`, controller-plus-wrapper tests pass
+  `14/14`, bash syntax passes, and read-only planning against the live state now
+  returns `READY / tracked-editorial-hash-scope-source-defect` for
+  `daily-2026-08-06`. Remaining in B4: commit/deploy this entry repair,
+  kickstart the installed loop, and capture current-hash Editorial and Reader
+  decisions.
 - B5 SHIP: dispatch/read back active six or record each isolated owned SLO
   breach; run money sync.
 - B6 DURABILITY: close each of three consecutive quality-eligible daily
@@ -2231,11 +2245,15 @@ language and current article hash. No publication state, public URL, payment,
 or revenue exists; Telegram state delta is message ID `7398`, and received
 revenue/MRR are `$0`.
 
-The next exact task is to key editorial exhaustion by
-`(language,current_article_sha256)`, allow one bounded evaluation for a newly
-authorized reroute hash, and keep the same hash exhausted. Then deploy and
-`launchctl kickstart` `ai.anicca.article-resume`; enforce current-hash
-editorial+reader gates, active-six publication/readback, and money sync.
+Hash-scoped Editorial exhaustion is deployed and its expanded regression suite
+passes. Launchd run `1073` exposed the next exact failure: the current reroute
+had no controller-owned resume path, so the generic planner fell through to
+legacy `daily-2026-07-24` X Post work and exited `2`. The bounded entry repair
+now recognizes only the exact unpublished current-draft blocker and plans
+`daily-2026-08-06` as `tracked-editorial-hash-scope-source-defect`. Next:
+commit/deploy that repair, `launchctl kickstart ai.anicca.article-resume`, then
+capture current-hash Editorial+Reader decisions before active-six publication,
+readback, and money sync.
 
 Current-contract note: historical Task rows describe receipts under the former
 eight-target matrix. Wherever a historical sentence says X destinations remain
