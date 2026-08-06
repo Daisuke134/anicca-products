@@ -2174,6 +2174,42 @@ has produced live artifact IDs:**
 **H — build the Agent-owned repair loop before manually fixing the current
 publisher incidents:**
 
+The repair architecture reuses proven OSS boundaries instead of inventing one
+monolithic autonomous agent. HolmesGPT's read-only investigation/toolset split
+and parsed command allow/deny gate define evidence authority; mini-SWE-agent's
+step, cost, wall-time, process, and trajectory limits define the candidate
+worker; SWE-agent's separate trajectory and evaluation artifacts define the
+candidate/verifier boundary; Robusta's fingerprint-to-bounded-action playbooks
+define promoted known repairs; and Argo Rollouts' `Successful`, `Failed`,
+`Inconclusive`, and `Error` analysis states define canary promotion, pause, and
+rollback. OpenHands' isolated branch/draft-PR exit reinforces that a repair
+agent produces a candidate, never a production deployment. Writer retains its
+own incident queue and receipt schemas because article identity, public
+readback, duplicate external effects, and received-money truth are domain
+invariants those projects do not provide. Tests alone never authorize a
+promotion: captured RED, generated regression cases, historical browser/API
+replay, a one-work-item canary, and real effect readback are all required to
+reduce automated-repair patch overfitting.
+
+Primary implementation references:
+
+- mini-SWE-agent runner (`step_limit`, `cost_limit`, wall time, trajectory):
+  https://github.com/SWE-agent/mini-swe-agent/blob/main/src/minisweagent/agents/default.py
+- HolmesGPT parsed command authority and read-only investigation toolsets:
+  https://github.com/HolmesGPT/holmesgpt/blob/master/holmes/plugins/toolsets/bash/validation.py
+- SWE-agent trajectory/evaluation separation (evaluation is a separate step):
+  https://github.com/SWE-agent/SWE-agent/blob/main/docs/usage/trajectories.md
+- Robusta bounded remediation playbook with a maximum resource cap:
+  https://github.com/robusta-dev/robusta/blob/master/playbooks/robusta_playbooks/job_restart_on_oomkilled_community.py
+- Argo Rollouts analysis semantics: completed analysis is Successful, Failed,
+  or Inconclusive and controls continue, abort, or pause:
+  https://argo-rollouts.readthedocs.io/en/stable/features/analysis/
+- OpenHands issue resolver candidate boundary (branch or draft PR):
+  https://github.com/All-Hands-AI/OpenHands/blob/main/openhands/resolver/README.md
+- Automated repair overfitting evidence: incomplete tests can admit plausible
+  but incorrect patches:
+  https://doi.org/10.1109/ICST49551.2021.00033
+
 - H0 DONE: Runtime `e32c4e21` ingests O0.5 SLO work into an atomic,
   lock-protected incident queue. Stable phase/reason/source fingerprints
   deduplicate replay while retaining every trace/span occurrence. Queue states
@@ -2319,11 +2355,41 @@ publisher incidents:**
   `VERIFY_SENSITIVE_REPAIR_IN_ISOLATED_FIXTURE`, and has SHA-256
   `a7224763a11e79255a6ac72293f3d478d4c3e0d1ac7de6eb51679ee4a6cfb786`.
   H11 is now the first open item.
-- H11 Verify sensitive repairs with Superpowers in a clean isolated fixture:
-  reproduce RED, pass focused and full tests, run secret/PII checks, replay the
-  captured browser/API failure, then require canary and rollback receipts. Do
-  not add a separate adversary/reviewer dependency; completion is based on
-  executable evidence and the primary agent's direct readback.
+- H11a DONE: audit whether a canary can isolate every publisher external side
+  effect to one durable work item. Writer already freezes immutable run/topic/
+  artifact bytes, registers one stable destination target per pair, rejects a
+  conflicting target, requires authenticated remote readback before a live
+  receipt, and deduplicates verified run/pair ledger rows. This is necessary
+  but insufficient. In a clean existing publication fixture, two consecutive
+  `guard()` preflights for the same `substack/ja` run/pair/target both returned
+  `action=publish`, while persisted status remained `intent`. The local file
+  lock ends before the provider write and no durable in-flight effect owner is
+  claimed. Therefore two workers can both cross the live boundary before either
+  records readback. Provider APIs are addressed by stable note key, Zenn slug,
+  Dev.to article ID, Substack draft ID, or X draft URL, but no uniform
+  provider-native idempotency key is sent. The highest-risk hypothesis is
+  verified: current publication intent/receipt storage does not yet prove
+  work-item-exclusive external effects.
+- H11b Implement the missing effect-attempt boundary before any repair canary.
+  Derive one immutable `effect_key` from run ID, pair, stable target, artifact
+  SHA-256, and candidate release; atomically claim it before returning a live
+  action; persist owner/lease, attempt, deadline, provider request identity,
+  pre-write readback, and state `CLAIMED`. Exact repeats by the same lease reuse
+  the claim; another live lease receives no write authority. After a write,
+  persist `EFFECT_UNKNOWN` before reconciliation, then only authenticated
+  public readback may advance it to `VERIFIED`; timeout/crash must reconcile the
+  stable target and can never blindly issue another create/publish. Use a
+  provider-native idempotency header when the provider supports one; otherwise
+  the stable target plus the Writer effect ledger is the idempotency boundary.
+  Add crash-between-write-and-receipt, concurrent-worker, stale-lease,
+  conflicting-release, and exact-retry tests for every active-six adapter.
+- H11c Verify the sensitive repair with Superpowers in a clean isolated
+  fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
+  replay the captured browser/API failure, prove the H11b concurrent preflight
+  now grants exactly one write authority, then require content-addressed canary
+  and rollback receipts. Do not add a separate adversary/reviewer dependency;
+  completion is based on executable evidence and the primary agent's direct
+  readback.
 - H12 Deploy a budget-capped canary bound to one release and one work item;
   verify real public/readback receipts before promotion.
 - H13 Automatically roll back to the last known-good release on regression,
