@@ -1592,6 +1592,48 @@ The atomic end-to-end order is frozen here. Each item closes only with its
 listed receipt; implementation does not introduce a new publisher or reopen
 market research until item C13 permits it.
 
+**Infrastructure-first override (current binding order):** Do not repair the
+current publisher incidents by hand before the repair Agent exists. The
+development job is to build and verify the repair system; the Writer Agent's
+first production acceptance job is to diagnose and repair the captured live
+incident corpus itself. The binding order is:
+
+1. Finish O0.3-O0.5: redacted evidence index, equal Web/Telegram incident
+   timeline, missing-receipt SLO detection, and immutable historical replay.
+2. Build H3-H13 as one bounded repair runtime: durable incident queue,
+   fingerprint/classification, known runbooks, unknown-incident investigation,
+   isolated RED characterization, minimal candidate patch, focused/full/security
+   verification, budget-capped canary, promotion, and automatic rollback.
+3. Add H14-H15 recurrence memory and `RECOVERED` reporting. The Agent must
+   resume the same durable run/destination after repair and verify the external
+   effect; source changes without a public readback are not recovery.
+4. Hand live run `20260806-084924` to that repair runtime as its first real
+   acceptance corpus. It must repair, without a human-authored production fix:
+   note body-image S3 `403`, Substack JA/EN and Dev.to stale-quality rejection,
+   X Article JA editor/anchor DOM failure, and Zenn dispatch timeout. It must
+   preserve Identity/Safety/PII/secret/duplicate/payload boundaries.
+5. Require the Writer Agent itself to publish the active destinations, capture
+   authenticated and public readback URLs, and resume every independently
+   failed pair until live or an owner-only external boundary is proved.
+6. Complete M1-M8 only after live artifact IDs exist, then feed engagement,
+   funnel, verified money, refunds, churn, and compute cost into the existing
+   matched learning contract.
+7. Complete H16 and B6 with three consecutive unattended shipments followed by
+   the 30-day publication/measurement/money/learning/repair proof. Only this
+   removes Dais and the development Agent from routine operation.
+
+Current acceptance truth: runtime `01d6afda`/`56410db1` made prose-quality
+findings advisory under continuous publication while retaining current-hash
+Identity PASS and Safety ALLOW as blocking boundaries. Agent-owned launchd run
+`20260806-084924` then selected the topic, produced JA/EN drafts and media,
+recorded Editorial/Reader advisory receipts, created publication state, and
+attempted all destinations without a human draft edit. It produced zero public
+live receipts: note failed on image S3 `403`; Substack JA/EN and Dev.to rejected
+an advisory receipt as stale; X Article JA could not find the editor after its
+anchor; and Zenn timed out after draft staging. These receipts are the repair
+Agent's acceptance fixtures, not permission for the development Agent to keep
+patching each incident manually.
+
 **A — refactor the company-paid contract seam first:**
 
 - A1 DONE APPSIGNAL: runtime feature `e6b566b0`, live `f3856d59`. Existing
@@ -2064,15 +2106,17 @@ market research until item C13 permits it.
 - O0.4 Render the same current-run timeline, failed phase, cause class, owner,
   next automatic action, publication truth, and verified-money truth in the
   Writer report and its natural-language Telegram milestone.
-- O0.5 Prove the bridge against the recorded `1078`, `1083`, and `1084` failures
-  and one successful historical publication without changing any historical
-  receipt. Then require it on the next live run before resuming Editorial repair.
+- O0.5 Prove the bridge against recorded `1078`, `1083`, `1084`, live publisher
+  incident run `20260806-084924`, and one successful historical publication
+  without changing any historical receipt. Then make it the required input to
+  the H repair runtime; do not resume manual Editorial/publisher repair.
 - O0.6 O0 observes and detects only. It does not gain code-edit, deployment, or
   production-write authority and does not count as completed self-healing.
   Full evidence-driven repair, canary, rollback, recurrence learning, and
   unattended proof remain H and B6.
 
-**M — complete per-platform engagement measurement after B and before H:**
+**M — complete per-platform engagement measurement after the H repair runtime
+has produced live artifact IDs:**
 
 - M1 Define one versioned metric-name/authority/unit contract for every active
   destination; a missing platform capability is `unknown:unsupported`, not `0`.
@@ -2096,7 +2140,8 @@ market research until item C13 permits it.
   quality and complaint metrics into matched experiments as separate dimensions;
   no weighted vanity score may override verified net-revenue or safety regressions.
 
-**H — make repair itself an Agent-owned loop immediately after M:**
+**H — build the Agent-owned repair loop before manually fixing the current
+publisher incidents:**
 
 - H1 Instrument one OpenTelemetry trace per `run_id`, with spans for research,
   generation, every quality gate, every destination, readback, measurement,
@@ -2267,15 +2312,15 @@ push receipts are recorded as `DONE` in their rows. Task 8's report generator
 is complete, but its public Web route is absent and is therefore reopened.
 
 The company-contract refactor and TECHi terminal response are complete. The
-immediate foreground slice is O0: bind the receipts already produced by the
-real loop into one run timeline and missing-receipt detector. Then close the
-remaining Editorial/content failure and execute the next new run through
-active-six readback. The active six explicitly include the daily Japanese X
-Article. M1-M8 then complete artifact-bound engagement measurement; H1-H16
-upgrade observation into Agent-owned repair, verification, canary, rollback,
-and recurrence handling. Only after B5, M, and H close does B6 prove three-day
-and 30-day unattended operation. This ordering does not permit passive waiting:
-the existing daily
+immediate foreground slice is infrastructure-first: finish O0, build the H
+repair runtime through canary and rollback, and give it the immutable
+`20260806-084924` publisher-failure corpus. The development Agent does not
+manually close those individual incidents first. The Writer repair Agent must
+produce the fix and then execute the same-run active-destination readbacks; the
+active destinations explicitly include the daily Japanese X Article. M1-M8
+follow once public artifact IDs exist. Only after repair, live publication, M,
+and H16 close does B6 prove three-day and 30-day unattended operation. This
+ordering does not permit passive waiting: the existing daily
 loop and read-only opportunity watchers remain running. Task 4's demand supply
 receipt is now live (claim run 309, paid-demand topic), but its acceptance still
 requires the bilingual article and active-six readbacks.
@@ -2326,16 +2371,18 @@ foreground order is binding:
 Read as one end-to-end completion route, the remaining work is:
 
 ```text
-O0   now: wrap existing receipts in one run trace, failed/missing-span detector,
-     evidence index, and equal Web/Telegram natural-language timeline; replay
-     1078/1083/1084 plus one historical success without mutating evidence
-  -> 3  close the independently evidenced Editorial/content failure, then pass
-     current-hash gates and active-six publication/readback on the next new run
-1/3  continuously collect next-day and three-run active-six evidence; finish
-     deterministic Sol triggers and cost receipts
+O0   now: finish redacted evidence index, missing-span/SLO detector, and equal
+     Web/Telegram timeline; replay 1078/1083/1084/20260806-084924 plus success
+  -> H  build incident queue -> classify -> runbook/investigate -> isolated RED
+     -> minimal fix -> verify -> canary -> promote/rollback -> recurrence memory
+  -> H acceptance: Writer itself repairs note S3, stale quality, X DOM, and Zenn
+     timeout incidents, resumes the same durable work, and proves public URLs
+  -> 1/3  collect three consecutive unattended active-destination shipments
+     and finish cost receipts
   + 4  paid-demand claim/topic receipt is live; finish bilingual article,
      source-diversity, active-six readback, and money-sync acceptance
-  -> both acceptance receipts
+  -> M  collect artifact-bound engagement/funnel/money/cost observations
+  -> H16/B6  complete injected-fault, rollback, and 30-day unattended proof
   -> 8  expose the receipt-backed Money Control publicly
   -> 9/10  advance publisher opportunities to real payment or honest rejection
   -> 11  first attributed note purchase
