@@ -1734,8 +1734,15 @@ market research until item C13 permits it.
   for provider ID `4`, AppSignal reported `NO_RESPONSE`, both Applications and
   legacy Opportunities remained `SUBMITTED`, and commercial transitions stayed
   zero. No response, acceptance, publication, payment, or revenue was invented.
-- A11 MIGRATE APPSIGNAL: replay-import the recovered receipt without changing its
-  state or duplicating effects.
+- A11 DONE MIGRATE APPSIGNAL: the recovered AppSignal confirmation was replayed
+  through the live durable recovery API on runtime `bfe287db`. The API returned
+  `replayed=true` and the original transition `tr_0b7897f6abbf23021ed74eca`,
+  evidence `ev_6150e3272dfc77648f74e592`, and pitch
+  `pitch_72d107d0fe7763fd72f2f536`. Post-replay readback proves exactly one
+  Application, one submission transition, and one submission evidence row;
+  the Opportunity and Application remain `SUBMITTED`, commercial transitions
+  remain zero, and no external send, acceptance, publication, payment, or
+  revenue effect was created.
 - A12 MIGRATE TECHI: replay-import ID `4`, preserving durable `SUBMITTED`,
   last-known `pending`, and current availability separately.
 - A13 MONEY: join payment to the exact contract trigger, assignment, artifact,
