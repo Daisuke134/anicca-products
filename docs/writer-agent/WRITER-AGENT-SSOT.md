@@ -1822,8 +1822,16 @@ market research until item C13 permits it.
   Migration correctly suppressed a duplicate immediate Telegram delivery;
   durable Telegram transport retains real provider message-ID receipts and the
   next daily or semantic-change delivery uses this canonical format.
-- A18 LIVE APPSIGNAL: accept only a correlated official result or honest
-  `NO_RESPONSE`.
+- A18 DONE LIVE APPSIGNAL: real `ai.anicca.writer-opportunity-response` run
+  `360` exited `0` and recorded AppSignal `NO_RESPONSE`, not a fabricated
+  acceptance or rejection. The adapter queried the submission's unique
+  response recipient and accepts a message only when its parsed To-address
+  contains that exact recipient. The canonical AppSignal Opportunity and
+  Application remain `SUBMITTED`; provider submission
+  `google-form-response:045f099d8e797414ee75ae0a` and submission evidence
+  `ev_6150e3272dfc77648f74e592` remain bound; advanced is `0`; no AppSignal
+  commercial transition or inbound-message evidence was inserted. A future
+  correlated official result can advance the same Application idempotently.
 - A19 LIVE TECHI: repair the read-only `UNAVAILABLE` adapter without
   resubmission and record the exact provider result.
 
