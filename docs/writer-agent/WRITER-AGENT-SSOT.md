@@ -1874,8 +1874,17 @@ market research until item C13 permits it.
 
 **B — restore the current daily article immediately after the seam is safe:**
 
-- B1 RED: reproduce old-hash editorial exhaustion leaking into the new reroute.
-- B2 GREEN: key exhaustion by `(language,current_article_sha256)`; allow one
+- B1 DONE RED: runtime worktree `fix/writer-editorial-hash-scope-b1` adds a
+  real-script regression proving that a version-2 `evaluate_reroute` receipt
+  binds the newly authorized JA hash while the previous Editorial receipt is a
+  different-hash Terra-high FAIL. The expected behavior is one high evaluation
+  for the authorized current hash followed by same-hash exit `76`; unchanged
+  runtime instead invokes the model zero times and exits `77`
+  `high-escalation-exhausted`. The existing unapproved third-revision boundary
+  remains the negative control and must still exit `77`. Baseline before the
+  test is Editorial/repair `25/25` and full Writer `851/851`; the isolated RED
+  fails exactly on `expected 1, got 77`.
+- B2 IN PROGRESS GREEN: key exhaustion by `(language,current_article_sha256)`; allow one
   bounded evaluation for a new authorized hash and keep the same hash exhausted.
 - B3 VERIFY: pass JA/EN, same-hash, new-hash, restart, and bounded-retry tests.
 - B4 LIVE: deploy, kickstart `ai.anicca.article-resume`, and capture current-hash
