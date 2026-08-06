@@ -2099,10 +2099,22 @@ patching each incident manually.
   historical publication `20260731-213927` has 63 spans and correctly exposes
   absent metrics, money, learning, and reporting receipts instead of silently
   calling the end-to-end run complete.
-- O0.3 Generate a redacted evidence index for each failed span that points to
-  the exact receipt, safe log excerpt, browser screenshot/DOM/network evidence
-  when applicable, source release, and last successful sibling span. Secrets,
-  cookies, tokens, paywalled article bodies, and PII are excluded.
+- O0.3 DONE: Runtime `6dce56f2` generates
+  `writer.observability.evidence-index` version 1 for every failed span. It binds
+  valid and malformed source receipts by relative path and SHA-256, includes the
+  source release and last observed sibling span, extracts only the matching
+  destination dispatch record, redacts labelled secrets, and omits an excerpt
+  entirely when the shared PII scanner finds personal data. Browser screenshot,
+  DOM, network, accessibility, and trace files are indexed by safe relative path
+  and hash when they exist; their bodies are never copied. Missing receipts and
+  missing evidence remain visible rather than fabricated. Focused verification
+  passes `12/12`; the complete Writer regression passes `880/880`. Read-only
+  replay over `20260806-084924` leaves historical evidence unchanged and emits
+  12 incidents, including six destination incidents each bound to
+  `gates/publication-state.json` and its matching dispatch evidence. The durable
+  live index is `observability/evidence-index.json`; secret scan passes. Browser
+  evidence count is honestly zero for all six because the failed run captured
+  none, which is an input gap H2 must close rather than evidence to invent.
 - O0.4 Render the same current-run timeline, failed phase, cause class, owner,
   next automatic action, publication truth, and verified-money truth in the
   Writer report and its natural-language Telegram milestone.
