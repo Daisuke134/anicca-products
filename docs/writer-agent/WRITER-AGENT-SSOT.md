@@ -1684,7 +1684,24 @@ market research until item C13 permits it.
   zero publications, deliveries, assignments, and contracts because no live
   external receipt establishes those events. Two applications, two `SUBMITTED`
   opportunities, and zero received-money rows remain unchanged.
-- A8 STATE: add the common transition service and required evidence/term guards.
+- A8 DONE STATE: runtime feature `6edb90c5`, live `5fea2f65`.
+  One `transition_commercial` service now owns legal status movement and one
+  immutable transition ledger across Application, Contract, Assignment,
+  Delivery, and Publication. Application acceptance/rejection binds the exact
+  application and provider submission receipt. Contract completion binds all
+  eight commercial terms to the acceptance payload and permits only a fixed
+  field whitelist. Assignment delivery requires the exact persisted Delivery;
+  Delivery acceptance/rejection binds delivery ID, artifact, and provider ID;
+  Publication removal binds the exact closure receipt. Evidence-free movement
+  accepts no evidence ID, and all evidence-bearing movement verifies kind and
+  opportunity ownership. Illegal skips, unrelated receipts, incomplete or
+  altered terms, arbitrary fields, duplicate transitions, and partial writes
+  fail in one transaction. Focused regression passes `36/36`; full Writer
+  regression passes `828/828`; fresh review is `ship`. Real response-worker run
+  `353` exited `0`; the live database has the nine-column commercial transition
+  ledger with zero rows. Both live applications remain `SUBMITTED`; contracts,
+  assignments, deliveries, publications, and received-money rows remain zero,
+  and both legacy opportunities remain `SUBMITTED`.
 - A9 APPSIGNAL ADAPTER: make email/form correlation a thin adapter.
 - A10 TECHI ADAPTER: make authenticated ID polling a thin adapter.
 - A11 MIGRATE APPSIGNAL: replay-import the recovered receipt without changing its
