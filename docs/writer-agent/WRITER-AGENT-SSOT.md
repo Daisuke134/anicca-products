@@ -2520,6 +2520,19 @@ Primary implementation references:
   publish boundaries now have write-ahead and post-return markers on the
   feature branch. H11b remains non-deployable until the four crash-window
   matrix, concurrent authority replay, and complete external-call audit pass.
+  H11c crash-window matrix is now verified without duplicating the shared
+  state-machine test for every adapter. Five fresh Store fixtures prove: an
+  expired pre-start `CLAIMED` lease permits one bounded takeover; an expired
+  `EFFECT_STARTED` lease never regains publish authority; a returned call
+  advances STARTED to UNKNOWN; UNKNOWN remains reconciliation-only before a
+  receipt; and two concurrent leases receive exactly one write authority.
+  Ten fresh adapter-boundary cases then prove note, Zenn Python and real shell,
+  Dev.to normal/repair, Substack JA/EN normal/repair, and X browser publication
+  all bracket the real provider boundary as `STARTED -> effect -> UNKNOWN`.
+  Results: shared crash/concurrency `5 passed`; adapter boundaries `10 passed`.
+  Next: enumerate every external mutation call in the active runtime and prove
+  each public create/publish effect is either bracketed or explicitly excluded
+  as a stable-target preparation/resource-leak class.
 - H11c Verify the sensitive repair with Superpowers in a clean isolated
   fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
   replay the captured browser/API failure, prove the H11b concurrent preflight
