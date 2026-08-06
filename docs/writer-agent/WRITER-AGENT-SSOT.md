@@ -2446,6 +2446,19 @@ Primary implementation references:
   crash-before-start, crash-after-start-before-call, crash-after-provider-
   effect-before-return, and crash-after-return-before-receipt fixtures for all
   active adapter families before canary.
+  Core slice `a46e4ed9` implements the first write-ahead boundary. A claimed
+  owner can durably transition its exact effect key and stable provider request
+  identity to `EFFECT_STARTED`; from that state both the owning lease and any
+  later lease receive reconciliation authority only, including after the
+  original deadline. Only an expired pre-start `CLAIMED` row remains eligible
+  for bounded takeover. A returned provider call may advance the same identity
+  from `EFFECT_STARTED` to `EFFECT_UNKNOWN`; changing identity is refused.
+  Focused RED/GREEN covers the previously duplicating post-effect/pre-return
+  crash window, while the full publication boundary suite passes (`122` tests)
+  with compile and diff checks. This is feature-only. Next: expose the start
+  transition through the guard CLI, then wire it immediately before each
+  active-six provider write/click; no adapter has write-ahead protection until
+  that wiring is complete.
 - H11c Verify the sensitive repair with Superpowers in a clean isolated
   fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
   replay the captured browser/API failure, prove the H11b concurrent preflight
