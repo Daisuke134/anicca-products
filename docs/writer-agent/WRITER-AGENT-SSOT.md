@@ -2422,8 +2422,16 @@ Primary implementation references:
   using the stable draft ID as provider request identity. Real shell behavior
   tests and Python repair behavior tests prove the ordering for both languages.
   The combined active adapter and publication boundary suite passes (`158`
-  tests); shell/Python syntax, compile, and diff checks pass. The X adapter
-  write marker remains open.
+  tests); shell/Python syntax, compile, and diff checks pass. X Article active
+  adapter slice `e58cc8d1` records `EFFECT_UNKNOWN` immediately after the
+  browser publish returns and before browser-evidence validation, local journal
+  advancement, or reconciliation, using the exact saved draft URL as provider
+  request identity. Focused RED/GREEN and the combined active-adapter plus
+  publication-boundary suite pass (`182` tests); compile and diff checks pass.
+  All active-six adapter write markers are now implemented on the feature
+  branch. H11b remains feature-only until H11c proves crash-between-effect-and-
+  receipt behavior, audits every remaining publish call, runs the full Writer
+  suite and secret/PII checks, and completes isolated browser/API replay.
 - H11c Verify the sensitive repair with Superpowers in a clean isolated
   fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
   replay the captured browser/API failure, prove the H11b concurrent preflight
