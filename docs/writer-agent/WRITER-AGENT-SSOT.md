@@ -1702,7 +1702,22 @@ market research until item C13 permits it.
   ledger with zero rows. Both live applications remain `SUBMITTED`; contracts,
   assignments, deliveries, publications, and received-money rows remain zero,
   and both legacy opportunities remain `SUBMITTED`.
-- A9 APPSIGNAL ADAPTER: make email/form correlation a thin adapter.
+- A9 DONE APPSIGNAL ADAPTER: runtime feature `d789526d`, live `ab783253`.
+  AppSignal-specific behavior is isolated in a pure adapter that recognizes
+  only the explicit AppSignal program, builds the unique-recipient Gmail query,
+  correlates the exact recipient, and emits the shared Application transition
+  payload (`application_id`, provider submission ID, Gmail message/thread IDs).
+  The response worker joins the durable Application and routes only
+  opportunity `SUBMITTED` acceptance/decline through the A8 common service;
+  accepted Applications leave the watch set, so replay cannot duplicate the
+  transition. `ARTICLE_SUBMITTED` decisions remain article-level legacy
+  transitions and cannot corrupt Application state. Generic email and TECHi
+  provider paths retain their existing behavior. Focused regression passes
+  `37/37`; full Writer regression passes `829/829`; fresh review is `ship`.
+  Real response-worker run `354` exited `0`: AppSignal returned `NO_RESPONSE`,
+  its Application and legacy Opportunity stayed `SUBMITTED`, commercial
+  transition count stayed zero, and received money stayed null. The same run
+  preserved TECHi's separate current `UNAVAILABLE` and last-known `pending`.
 - A10 TECHI ADAPTER: make authenticated ID polling a thin adapter.
 - A11 MIGRATE APPSIGNAL: replay-import the recovered receipt without changing its
   state or duplicating effects.
