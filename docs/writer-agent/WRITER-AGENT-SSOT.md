@@ -1895,9 +1895,16 @@ market research until item C13 permits it.
   existing unapproved revision boundary remains green; related quality tests
   pass `29/29`; full Writer regression passes `855/855`; shell syntax and diff
   checks pass. No live branch or publication state changes in B2.
-- B3 IN PROGRESS VERIFY: pass JA/EN, same-hash, new-hash, restart,
-  wrong-language, wrong-hash, malformed-authorization, and bounded-retry tests.
-- B4 LIVE: deploy, kickstart `ai.anicca.article-resume`, and capture current-hash
+- B3 DONE VERIFY: runtime test commit `64e22790` adds exact wrong-language,
+  wrong-hash, malformed-authorization, and JA/EN independence boundaries.
+  Invalid receipts all exit `77` with zero Editorial model calls; authorized JA
+  and EN each receive one high call and independently repeat as `76`. The
+  no-JSON separate-process test proves the durable claim survives restart; the
+  original revision boundary proves an unapproved new hash remains exhausted.
+  Related quality tests pass `33/33`, full Writer regression passes `859/859`,
+  and shell syntax/diff checks pass. No live branch or publication state changes
+  in B3.
+- B4 IN PROGRESS LIVE: deploy, kickstart `ai.anicca.article-resume`, and capture current-hash
   editorial and reader decisions.
 - B5 SHIP: dispatch/read back active six or record each isolated owned SLO
   breach; run money sync.
