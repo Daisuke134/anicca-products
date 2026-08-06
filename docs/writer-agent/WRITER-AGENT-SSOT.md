@@ -2459,6 +2459,14 @@ Primary implementation references:
   transition through the guard CLI, then wire it immediately before each
   active-six provider write/click; no adapter has write-ahead protection until
   that wiring is complete.
+  CLI slice `bb64143f` exposes the exact Store transition as
+  `publication-guard.py mark-effect-started`, requiring the current
+  `ARTICLE_EFFECT_LEASE_ID`, effect key, pair, and stable provider request
+  identity. A real CLI behavior test proves the durable row becomes
+  `EFFECT_STARTED`; the full publication boundary suite passes (`123` tests)
+  with compile and diff checks. Next: wire note immediately before its
+  protected provider write, prove both crash sides, then continue Zenn,
+  Dev.to, Substack, and X in that order.
 - H11c Verify the sensitive repair with Superpowers in a clean isolated
   fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
   replay the captured browser/API failure, prove the H11b concurrent preflight
