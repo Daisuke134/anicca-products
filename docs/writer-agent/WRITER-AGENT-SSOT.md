@@ -1804,8 +1804,24 @@ market research until item C13 permits it.
   Writer suite passes `839/839`. Live run `358` independently confirms the same
   per-publisher receipt boundary with TECHi current `UNAVAILABLE`/last-known
   `pending` and AppSignal `NO_RESPONSE` in one successful worker run.
-- A17 REPORT: render the same commercial states, unknown terms, evidence IDs,
-  money, and next action in Web snapshot and natural-language Telegram.
+- A17 DONE REPORT: runtime feature `71ef1335` + `ac1f1556`, live
+  `55b83ce4` + `e5887c17`. One canonical `commercial` snapshot now feeds both
+  Web and natural-language Telegram with the exact Opportunity, Application,
+  Contract, Assignment, Delivery, and Publication states; blocking unknown
+  terms; submission/terms/assignment/delivery/publication/payment evidence
+  IDs; receipt-backed gross/fees/net/MRR; and next action. Parent IDs preserve
+  one coherent commercial chain, delivery revisions and equal timestamps have
+  deterministic ordering, `RECEIVED` stays visible, one recurring contract is
+  counted once, ONE_TIME stays outside MRR, and missing contract/payment/MRR is
+  explicitly unknown rather than zero. Focused report regression passes
+  `22/22`; full Writer regression passes `847/847`; fresh review is `ship`.
+  Real `ai.anicca.writer-report` run `1086` exited `0`, migrated semantic schema
+  `3`, and generated verified JSON/HTML with exactly two active commercial
+  rows: TECHi and AppSignal, both `SUBMITTED`, exact submission evidence IDs,
+  contract/payment/MRR unknown, and their next response-monitoring action.
+  Migration correctly suppressed a duplicate immediate Telegram delivery;
+  durable Telegram transport retains real provider message-ID receipts and the
+  next daily or semantic-change delivery uses this canonical format.
 - A18 LIVE APPSIGNAL: accept only a correlated official result or honest
   `NO_RESPONSE`.
 - A19 LIVE TECHI: repair the read-only `UNAVAILABLE` adapter without
