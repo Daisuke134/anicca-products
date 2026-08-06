@@ -2484,6 +2484,15 @@ Primary implementation references:
   orphaned media-resource leakage is tracked separately from duplicate public
   article creation and remains part of H11c's full external-call audit. Next:
   wire Zenn's Git push boundary before the push begins.
+  Zenn write-ahead slice `43038b08` covers both the Python publisher and the
+  managed daily shell. Each persists `EFFECT_STARTED` with the immutable Zenn
+  slug immediately before `git push`, advances the same identity to
+  `EFFECT_UNKNOWN` immediately after push returns, and only then performs
+  public verification/reconciliation. Both behavior tests failed against the
+  prior ordering and now pass, including a test that executes the real shell.
+  Zenn, note, and shared publication-boundary regression passes (`134` tests),
+  with shell/Python syntax, compile, and diff checks. Next: wire Dev.to's normal
+  publish and same-ID repair PUT boundaries.
 - H11c Verify the sensitive repair with Superpowers in a clean isolated
   fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
   replay the captured browser/API failure, prove the H11b concurrent preflight
