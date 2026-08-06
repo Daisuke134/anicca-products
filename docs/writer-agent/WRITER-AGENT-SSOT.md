@@ -2115,9 +2115,18 @@ patching each incident manually.
   live index is `observability/evidence-index.json`; secret scan passes. Browser
   evidence count is honestly zero for all six because the failed run captured
   none, which is an input gap H2 must close rather than evidence to invent.
-- O0.4 Render the same current-run timeline, failed phase, cause class, owner,
-  next automatic action, publication truth, and verified-money truth in the
-  Writer report and its natural-language Telegram milestone.
+- O0.4 DONE: Runtime `fe8e2df3` projects the newest durable O0.3 evidence index
+  into the single snapshot consumed by both Writer Money Control Web and the
+  natural-language Telegram reporter. Every incident exposes failed phase,
+  observed reason, deterministic cause class, `writer-self-heal` owner,
+  `classify_and_enqueue_repair` as the next automatic action, and the honest
+  `not_implemented` status until H exists. Incident changes participate in the
+  Telegram semantic hash. Direct production-state rendering for
+  `20260806-084924` exposes 12 incidents, six destination failures, zero public
+  URLs, zero externally receipted gross revenue, and MRR as unknown rather than
+  zero because no external contract receipt exists. The generated Web and
+  Telegram text contain the same run ID, X Article DOM failure, publication
+  count, revenue truth, owner, and next-action status.
 - O0.5 Prove the bridge against recorded `1078`, `1083`, `1084`, live publisher
   incident run `20260806-084924`, and one successful historical publication
   without changing any historical receipt. Then make it the required input to
@@ -2383,8 +2392,8 @@ foreground order is binding:
 Read as one end-to-end completion route, the remaining work is:
 
 ```text
-O0   now: finish redacted evidence index, missing-span/SLO detector, and equal
-     Web/Telegram timeline; replay 1078/1083/1084/20260806-084924 plus success
+O0   now: finish O0.5 historical replay and missing-span/SLO bridge across
+     1078/1083/1084/20260806-084924 plus one successful publication
   -> H  build incident queue -> classify -> runbook/investigate -> isolated RED
      -> minimal fix -> verify -> canary -> promote/rollback -> recurrence memory
   -> H acceptance: Writer itself repairs note S3, stale quality, X DOM, and Zenn
