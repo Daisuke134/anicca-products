@@ -1667,8 +1667,23 @@ market research until item C13 permits it.
   triggers. It has zero deliveries, assignments, and contracts because no live
   acceptance/terms/delivery receipt exists. Two applications, two `SUBMITTED`
   opportunities, and zero received-money rows remain unchanged.
-- A7 SCHEMA PUBLICATION: version Publication; one schema test. Reuse the
-  canonical money ledger instead of adding a second Payment store.
+- A7 DONE SCHEMA PUBLICATION: runtime feature `49c248aa`, live `811abc53`.
+  `Publication` binds the same opportunity's Delivery and exact artifact hash
+  to a hostname-bearing HTTPS public URL, public readback SHA-256, timezone-
+  explicit publication time, and immutable `publication` evidence. Insert and
+  update triggers require both canonical evidence URL/readback digest and the
+  payload's delivery, artifact, URL, readback, and timestamp to match exactly.
+  Invalid authority/DNS label boundaries, ASCII whitespace, timezone-less or
+  malformed timestamps, non-text hashes, cross-opportunity records, evidence
+  mismatch, duplicate Delivery, public URL, or evidence fail closed. No Payment
+  columns or second Payment store were added; the canonical money ledger remains
+  the only money store. Focused regression passes `35/35`; full Writer
+  regression passes `827/827`; fresh review is `ship`. Real response-worker run
+  `352` exited `0`; the live database has the 12-column Publication schema,
+  both composite foreign keys, and both exact public-readback triggers. It has
+  zero publications, deliveries, assignments, and contracts because no live
+  external receipt establishes those events. Two applications, two `SUBMITTED`
+  opportunities, and zero received-money rows remain unchanged.
 - A8 STATE: add the common transition service and required evidence/term guards.
 - A9 APPSIGNAL ADAPTER: make email/form correlation a thin adapter.
 - A10 TECHI ADAPTER: make authenticated ID polling a thin adapter.
