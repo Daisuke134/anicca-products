@@ -2191,11 +2191,19 @@ publisher incidents:**
   effect remained absent. The Agent correctly did not mark it RESOLVED, stored
   receipt SHA-256 `255a3356bfc316de96edb034e1647b198af8e30506c2d3efab93300ef09c28ee`,
   returned it to RETRY, and removed the ineffective mapping in runtime
-  `668c8271` so it now routes UNKNOWN. The live queue is 18 OPEN plus one RETRY.
-  Unknown evidence collector `8f6bc2da` is pushed on the feature branch but is
-  not yet cherry-picked to live; that is the first safe resume action. The
-  installed `article-resume` is currently not running after run 1108 exit 2;
-  do not infer its cause without reading the run receipt/log.
+  `668c8271` so it now routes UNKNOWN. Unknown evidence collector `8f6bc2da`
+  was cherry-picked and pushed to live as `d3b008f6`. The Zenn fingerprint was
+  claimed for its second attempt and proved `route:UNKNOWN`; its investigation
+  receipt binds first-bad release `01d6afda`, the failed dispatch log, last-good
+  run `daily-2026-07-28` and public URL, while leaving cause `UNDETERMINED`.
+  Its explicit gaps are missing browser evidence and required official-primary-
+  documentation research, so it remains `CLAIMED`, not falsely `RESOLVED`.
+  The installed `article-resume` launchd log and the run receipt both end at
+  2026-08-06 16:42 JST: run `20260805-162010` exhausted two bounded attempts and
+  returned `terminal-blocked` / exit `2` after current-hash Editorial, Identity,
+  and Reader failures; it created no publication state or platform dispatch.
+  Launchd now displays run count `1109`, but the log has no later distinct
+  execution receipt, so no separate cause is assigned to that counter value.
 
 - H1 Instrument one OpenTelemetry trace per `run_id`, with spans for research,
   generation, every quality gate, every destination, readback, measurement,
