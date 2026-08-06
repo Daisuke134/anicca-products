@@ -2258,8 +2258,22 @@ publisher incidents:**
   search official primary documentation, bind pre-existing effects, and advance
   the claimed queue lease to a receipt-backed characterization action without
   falsely resolving the incident.
-- H9 Generate a minimal failing characterization test in an isolated worktree;
-  no repair candidate exists until the test is RED against the captured failure.
+- H9 PARTIAL: Generate a minimal failing characterization test in an isolated
+  worktree; no repair candidate exists until the test is RED against the
+  captured failure. H9a feature `a9e54931` / live `05f0a963` prepares a real
+  linked worktree at an exact base commit, assigns a fingerprint-scoped branch,
+  emits a content-addressed sub-agent prompt and plan, and restricts the agent
+  to `skills/writer-agent/tests/` with no production edits, deploy, publish, or
+  credential use. Its real-Git focused test passes; the available Writer pytest
+  suite passes `69` tests plus `30` subtests; Python compile and PII gate pass.
+  Production plan generation is still pending: immediately after deployment,
+  another runtime owner changed tracked `config/loop-registry.json` observation
+  timestamps at 19:10:25 JST, leaving the live checkout dirty. The deployment
+  did not modify or overwrite that file. The clean-live routing invariant stops
+  runtime mutation here. Smallest restart action: after the existing owner
+  commits or otherwise legitimately clears its registry update, verify live
+  HEAD/upstream/dirty state, run H9a against the claimed Zenn investigation,
+  then implement H9b sub-agent execution and executable RED validation.
 - H10 Generate the smallest candidate fix, pass focused tests, the full Writer
   suite, static secret/PII checks, and an isolated browser/API replay.
 - H11 Verify sensitive repairs with Superpowers in a clean isolated fixture:
