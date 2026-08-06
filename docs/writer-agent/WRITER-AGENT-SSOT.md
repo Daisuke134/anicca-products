@@ -2184,7 +2184,18 @@ publisher incidents:**
   state-corruption, publication-readback, measurement, and money-invariant.
   Its durable path is `state/observability/incident-queue.json`, SHA-256
   `e2b8ec2b93a35197455f85525ff211acb2b66508232baec4cfb50d6f40ed2d00`.
-  No item is claimed before the bounded known/unknown handler exists.
+  Runtime `69db38ae` adds the versioned known/unknown router and runtime
+  `8c71f009` adds bounded execution receipts plus CLAIMED-to-RETRY handling.
+  The first real Zenn timeout claim executed `zenn-timeout-plan-v1`; the command
+  exited zero but returned `resumable:false / all-complete` while the public
+  effect remained absent. The Agent correctly did not mark it RESOLVED, stored
+  receipt SHA-256 `255a3356bfc316de96edb034e1647b198af8e30506c2d3efab93300ef09c28ee`,
+  returned it to RETRY, and removed the ineffective mapping in runtime
+  `668c8271` so it now routes UNKNOWN. The live queue is 18 OPEN plus one RETRY.
+  Unknown evidence collector `8f6bc2da` is pushed on the feature branch but is
+  not yet cherry-picked to live; that is the first safe resume action. The
+  installed `article-resume` is currently not running after run 1108 exit 2;
+  do not infer its cause without reading the run receipt/log.
 
 - H1 Instrument one OpenTelemetry trace per `run_id`, with spans for research,
   generation, every quality gate, every destination, readback, measurement,
