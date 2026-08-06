@@ -1769,7 +1769,22 @@ market research until item C13 permits it.
   exited `0`, created the binding schema, and truthfully retained zero
   commercial bindings, verified money events, active subscriptions, paid
   payouts, gross, net, and MRR because no external payment receipt exists.
-- A14 RECOVERY: prove each commercial transition resumes idempotently.
+- A14 DONE RECOVERY: runtime feature `aaa93477`, live `96098653`. After a
+  commercial transaction commits but the caller loses its receipt, retrying
+  the same entity, target state, and exact evidence returns the original
+  transition ID with `replayed=true` and inserts no second transition.
+  Application, Contract, Assignment drafting/delivery, Delivery acceptance,
+  Publication removal, and A13 payment replay are covered. Evidence-free
+  drafting resumes only from its existing evidence-free transition; different
+  evidence is rejected. Contract replay additionally revalidates the original
+  acceptance evidence ownership/kind, contract/application IDs, all eight
+  commercial terms, terms evidence ID, empty blockers, supplied fields, and
+  current row, so post-completion mutation cannot be blessed by an old receipt.
+  Focused regression passes `46/46`; full Writer regression passes `838/838`;
+  compile and diff checks pass; fresh review is `ship`. Real response-worker
+  run `358` exited `0` with AppSignal `NO_RESPONSE`, TECHi current
+  `UNAVAILABLE`/last-known `pending`, zero advances, both Applications and
+  Opportunities still `SUBMITTED`, and zero commercial transitions.
 - A15 ISOLATION: prove one publisher outage leaves daily publication runnable.
 - A16 ISOLATION: prove one publisher outage leaves other polling runnable.
 - A17 REPORT: render the same commercial states, unknown terms, evidence IDs,
