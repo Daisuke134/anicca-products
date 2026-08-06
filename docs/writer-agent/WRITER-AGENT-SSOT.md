@@ -2397,6 +2397,13 @@ Primary implementation references:
   and is not live: active-six adapters must still mark the successful provider
   write immediately, their behavior tests must pass, and the full Writer suite
   plus an isolated crash replay are required before H11b is DONE.
+  Note adapter slice `812ea9e8` extends that same claim boundary to
+  `repair-live`, then records `EFFECT_UNKNOWN` immediately after the protected
+  note key is republished and before its local journal or remote receipt is
+  advanced. A missing marker therefore cannot silently authorize another
+  publish. Focused RED/GREEN and the combined note plus publication boundary
+  suite pass (`124` tests); compile and diff checks pass. Zenn, Dev.to,
+  Substack, and X adapter write markers remain open in that order.
 - H11c Verify the sensitive repair with Superpowers in a clean isolated
   fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
   replay the captured browser/API failure, prove the H11b concurrent preflight
