@@ -2467,6 +2467,23 @@ Primary implementation references:
   with compile and diff checks. Next: wire note immediately before its
   protected provider write, prove both crash sides, then continue Zenn,
   Dev.to, Substack, and X in that order.
+  Note write-ahead slice `f0175a21` now persists `EFFECT_STARTED` with the
+  stable `note-key` immediately before the protected republish call, then
+  advances the same identity to `EFFECT_UNKNOWN` only after the provider call
+  returns and before local completion or reconciliation. The ordering behavior
+  test failed against the old implementation and now passes; note plus shared
+  publication-boundary regression passes (`128` tests), with Python compile and
+  diff checks. The design follows AWS's recommendation that the same
+  caller-provided request identifier denote duplicate intent
+  (https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/),
+  Stripe's contract that retries reuse one idempotency key
+  (https://docs.stripe.com/api/idempotent_requests), and Microsoft's guidance
+  to persist outbox state before delivery
+  (https://learn.microsoft.com/en-us/azure/architecture/databases/guide/transactional-outbox-cosmos).
+  Note's body/media preparation remains bound to the same protected note key;
+  orphaned media-resource leakage is tracked separately from duplicate public
+  article creation and remains part of H11c's full external-call audit. Next:
+  wire Zenn's Git push boundary before the push begins.
 - H11c Verify the sensitive repair with Superpowers in a clean isolated
   fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
   replay the captured browser/API failure, prove the H11b concurrent preflight
