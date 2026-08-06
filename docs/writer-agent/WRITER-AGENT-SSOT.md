@@ -1997,9 +1997,21 @@ market research until item C13 permits it.
   and EN article hashes both PASS the real Identity judge after the fix.
   Projection/quality tests pass `31/31`, live projection tests pass `8/8`, and
   the full Writer regression passes `929` tests plus `30` subtests. Remaining:
-  address the next independently evidenced quality failure, then have the next
-  new daily run obtain current-hash PASS, complete active-six remote readback,
-  and run receipt-backed money sync.
+  the Reader slice compares the runtime to Anthropic's primary doc-coauthoring
+  Reader Testing workflow, which requires refinement after a fresh reader
+  exposes a gap. Run `1084` instead bought three identical evaluations for each
+  unchanged JA/EN hash and exhausted the budget without revising either draft.
+  A controller RED reproduces the repeat spend; an end-to-end shell RED proves
+  the wrapper did not understand `skip-revision-required`. Runtime `bc9b8db7`
+  persists the first hash-bound Reader FAIL as `revision-required`, returns its
+  exact questions without another model call on the same bytes, and opens a new
+  attempt only after the article hash changes. The questions cache remains
+  stable across revisions, so the next fresh reader tests the same gaps rather
+  than moving the target. Focused tests pass `39/39`; the full Writer regression
+  passes `931` tests plus `30` subtests. Remaining: address the independently
+  evidenced Editorial/content failure, then have the next new daily run obtain
+  current-hash PASS, complete active-six remote readback, and run receipt-backed
+  money sync.
 
 **M — complete per-platform engagement measurement after B and before H:**
 
