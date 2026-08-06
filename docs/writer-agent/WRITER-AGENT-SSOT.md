@@ -2383,6 +2383,20 @@ Primary implementation references:
   the stable target plus the Writer effect ledger is the idempotency boundary.
   Add crash-between-write-and-receipt, concurrent-worker, stale-lease,
   conflicting-release, and exact-retry tests for every active-six adapter.
+  IN PROGRESS: feature `96b28677` adds a content-addressed atomic claim inside
+  the publication store. Its effect key binds run, pair, stable target,
+  immutable artifact SHA-256, and full release commit; a second live lease
+  receives `effect-claimed` instead of write authority. Feature `c2514886`
+  threads an explicitly paired `ARTICLE_EFFECT_LEASE_ID` and
+  `ARTICLE_RELEASE_COMMIT` through the shared preflight CLI, adds a fifteen-
+  minute pre-write deadline and attempt-preserving stale-claim takeover, and
+  persists `EFFECT_UNKNOWN` with provider request identity. Once unknown, even
+  the owning lease receives `reconcile-effect`, never another publish action.
+  Focused RED/GREEN tests and the complete publication boundary suite pass
+  (`119` tests); Python compile and diff checks pass. This remains feature-only
+  and is not live: active-six adapters must still mark the successful provider
+  write immediately, their behavior tests must pass, and the full Writer suite
+  plus an isolated crash replay are required before H11b is DONE.
 - H11c Verify the sensitive repair with Superpowers in a clean isolated
   fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
   replay the captured browser/API failure, prove the H11b concurrent preflight
