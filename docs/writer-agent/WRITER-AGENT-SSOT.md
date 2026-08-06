@@ -2204,26 +2204,31 @@ publisher incidents:**
   and Reader failures; it created no publication state or platform dispatch.
   Launchd now displays run count `1109`, but the log has no later distinct
   execution receipt, so no separate cause is assigned to that counter value.
-  Read-only CDP evidence now records the failed Zenn target returning HTTP
-  `403` with the rendered denial page, while the canonical Zenn GitHub branch
-  contains commit `098b55e` with the same slug and `published:false`. Zenn's
-  official CLI guide states that public deployment requires `published:true`
-  followed by a push to the connected branch and that deploy errors are read
-  from the Zenn dashboard. This narrows the first-bad boundary to an effect-
-  uncertain stage: the original caller timed out without a dispatch result,
-  but the child completed a durable draft push afterward; neither event is a
-  public publication. Feature `7adda91b` and live `f65be934` add an optional,
-  validated primary-research receipt to the UNKNOWN collector so official URL,
-  direct quote, finding, and receipt hash can close the documentation gap
-  without changing cause from `UNDETERMINED`. Focused verification passes one
-  test; the available Writer pytest suite passes `66` tests plus `30` subtests;
-  Python compile and PII gate pass. Before the research receipt could be
-  written through the new live boundary, unrelated live-branch commit
-  `b4ce8ef8` appeared between fetches. Further production mutation is paused at
-  the shared-resource authorization boundary; the smallest restart action is
-  to verify no other session owns `fix/writer-note-resume-circuit`, then write
-  the research receipt, rebuild the evidence index, and refresh the claimed
-  Zenn investigation without resolving it.
+  Read-only CDP evidence records the failed Zenn target returning HTTP `403`
+  with the rendered denial page, while the canonical Zenn GitHub branch
+  contains commit `098b55e` with the same slug and `published:false`. The
+  authoritative timeline is now ordered: durable draft commit at 18:05:11 JST,
+  initial Zenn dispatch `status:ok` at 18:05:13, a later empty Zenn-only result,
+  then the `unavailable` classification at 18:07:14. The evidence-backed cause
+  hypothesis is therefore not a late child effect; it is that a pre-existing
+  draft effect was not reconciled before the later timeout classification.
+  Neither the draft nor HTTP `403` is a public publication.
+
+  Feature `7adda91b` / live `f65be934` binds official primary research to the
+  investigation. Feature `c8752456` / live `4e67da78` binds the pre-existing
+  non-public effect and advances cause from `UNDETERMINED` to
+  `EVIDENCE_BACKED_HYPOTHESIS`. Feature `3e53d063` / live `bed3fc8b` registers
+  that investigation against the claimed lease. The refreshed investigation
+  has zero evidence gaps, three official Zenn sources, screenshot/DOM/network/
+  accessibility evidence, receipt SHA-256
+  `72cb787fc0a7d05f9b6dbb9567b22c272d0876ffdfce502e737d4012f34d518d`,
+  and queue next action
+  `CHARACTERIZE_PREEXISTING_EFFECT_RECONCILIATION`. The incident remains
+  `CLAIMED`, not `RESOLVED`; queue SHA-256 is
+  `066ce67d6cfe00dd50a8c217fe387fdb293e7d0892dd677215bfbc9cb5e62cad`.
+  The available Writer pytest suite passes `68` tests plus `30` subtests;
+  focused tests, Python compile, and PII gates pass. H9 is now the first open
+  item.
 
 - H1 Instrument one OpenTelemetry trace per `run_id`, with spans for research,
   generation, every quality gate, every destination, readback, measurement,
@@ -2248,9 +2253,11 @@ publisher incidents:**
   state-corruption, publication-readback, measurement, or money-invariant.
 - H7 Execute a bounded, versioned runbook for known incident fingerprints;
   verify the real recovered effect and resume the same durable work item.
-- H8 For an unknown fingerprint, collect the evidence bundle, compare the last
-  good and first bad trace/release/DOM/API contract, and search official primary
-  documentation before proposing a cause.
+- H8 DONE for the first production UNKNOWN acceptance incident: collect the
+  evidence bundle, compare last-good and first-bad trace/release/DOM/API state,
+  search official primary documentation, bind pre-existing effects, and advance
+  the claimed queue lease to a receipt-backed characterization action without
+  falsely resolving the incident.
 - H9 Generate a minimal failing characterization test in an isolated worktree;
   no repair candidate exists until the test is RED against the captured failure.
 - H10 Generate the smallest candidate fix, pass focused tests, the full Writer
