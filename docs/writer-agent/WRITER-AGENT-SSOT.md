@@ -2415,8 +2415,15 @@ Primary implementation references:
   success assumptions, or reconciliation, using the stable numeric article ID
   as provider request identity. Focused RED/GREEN tests and the combined Dev.to,
   Zenn, note, and publication boundary suite pass (`150` tests); compile and
-  diff checks pass. Substack and X adapter write markers remain open in that
-  order.
+  diff checks pass. Substack adapter slice `b369a459` covers JA and EN in both
+  the managed shell's normal publish POST and the Python protected same-ID
+  repair republish POST. Each records `EFFECT_UNKNOWN` before response-based
+  slug/ID success assumptions, public self-verification, or reconciliation,
+  using the stable draft ID as provider request identity. Real shell behavior
+  tests and Python repair behavior tests prove the ordering for both languages.
+  The combined active adapter and publication boundary suite passes (`158`
+  tests); shell/Python syntax, compile, and diff checks pass. The X adapter
+  write marker remains open.
 - H11c Verify the sensitive repair with Superpowers in a clean isolated
   fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
   replay the captured browser/API failure, prove the H11b concurrent preflight
