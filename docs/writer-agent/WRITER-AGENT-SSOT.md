@@ -1884,16 +1884,19 @@ market research until item C13 permits it.
   remains the negative control and must still exit `77`. Baseline before the
   test is Editorial/repair `25/25` and full Writer `851/851`; the isolated RED
   fails exactly on `expected 1, got 77`.
-- B2 IN PROGRESS GREEN: key exhaustion by `(language,current_article_sha256)`
-  and atomically consume the authorized Terra-high evaluation before invoking
-  the model. Three additional real-script REDs prove the incomplete predicate-
-  only implementation is unsafe: no-JSON retry exits `3 -> 3` and calls the
-  model twice; a PASS permits an unapproved third hash with exit `0`; two
-  concurrent processes both exit `1` and call the model twice. The repaired
-  boundary must persist one per-language/current-hash claim before the call,
-  treat it as consumed regardless of output/verdict, replay a current-hash PASS
-  without another model call, and keep an unapproved third hash exhausted.
-- B3 VERIFY: pass JA/EN, same-hash, new-hash, restart, and bounded-retry tests.
+- B2 DONE GREEN: runtime feature `4a81b0bd` keys Terra-high exhaustion by
+  `(language,current_article_sha256)` and atomically creates the durable claim
+  directory before invoking the model. The claim remains consumed across
+  PASS, FAIL, no-JSON, process restart, and concurrent callers. A current-hash
+  FAIL repeats as exit `76`; a current-hash PASS replays its receipt without a
+  second Editorial model call; an unapproved third hash and a competing caller
+  exit `77`. The original authorized-reroute regression plus no-JSON, PASS/
+  third-hash, and deterministic concurrent real-script tests pass `4/4`; the
+  existing unapproved revision boundary remains green; related quality tests
+  pass `29/29`; full Writer regression passes `855/855`; shell syntax and diff
+  checks pass. No live branch or publication state changes in B2.
+- B3 IN PROGRESS VERIFY: pass JA/EN, same-hash, new-hash, restart,
+  wrong-language, wrong-hash, malformed-authorization, and bounded-retry tests.
 - B4 LIVE: deploy, kickstart `ai.anicca.article-resume`, and capture current-hash
   editorial and reader decisions.
 - B5 SHIP: dispatch/read back active six or record each isolated owned SLO
