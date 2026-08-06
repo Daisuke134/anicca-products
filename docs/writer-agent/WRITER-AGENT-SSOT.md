@@ -1636,7 +1636,21 @@ market research until item C13 permits it.
   contracts because no acceptance/terms receipt exists yet, while two
   applications, one intake migration receipt, two `SUBMITTED` opportunities,
   and zero received-money rows remain unchanged.
-- A5 SCHEMA ASSIGNMENT: version Assignment; one schema test.
+- A5 DONE SCHEMA ASSIGNMENT: runtime feature `6cfdec61`, live `8640953b`.
+  `Assignment` requires a `TERMS_COMPLETE` Contract, the same opportunity's
+  accepted pitch, and the same opportunity's `acceptance` evidence through
+  three composite foreign keys. Topic, nonempty text-only approved outline,
+  format, and language are required; assignment ID is explicitly non-null.
+  One accepted pitch or acceptance receipt cannot authorize two assignments.
+  Pending contracts, cross-opportunity records, wrong evidence kind, empty or
+  malformed outline items, and duplicate assignments fail closed on insert;
+  outline validation also applies on update. Focused regression passes `33/33`;
+  full Writer regression passes `825/825`; fresh review is `ship`. Real
+  response-worker run `350` exited `0`; the live database has the 15-column
+  Assignment schema, all three composite foreign keys, and both outline
+  triggers. It has zero assignments and zero contracts because neither live
+  application has acceptance/complete-term evidence. Two applications, two
+  `SUBMITTED` opportunities, and zero received-money rows remain unchanged.
 - A6 SCHEMA DELIVERY: version Delivery; one schema test.
 - A7 SCHEMA PUBLICATION: version Publication; one schema test. Reuse the
   canonical money ledger instead of adding a second Payment store.
