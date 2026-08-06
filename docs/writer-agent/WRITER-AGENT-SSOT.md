@@ -2493,6 +2493,14 @@ Primary implementation references:
   Zenn, note, and shared publication-boundary regression passes (`134` tests),
   with shell/Python syntax, compile, and diff checks. Next: wire Dev.to's normal
   publish and same-ID repair PUT boundaries.
+  Dev.to write-ahead slice `63810dd9` covers both the normal publish PUT and
+  protected same-ID repair PUT. Each writes `EFFECT_STARTED` with the stable
+  numeric article ID before the provider request, then writes
+  `EFFECT_UNKNOWN` after return and before public polling, response-derived
+  success, or reconciliation. Both old-order behavior tests failed first and
+  now pass. Dev.to, Zenn, note, and shared publication-boundary regression
+  passes (`154` tests), with compile and diff checks. Next: wire Substack JA/EN
+  normal publish and protected republish POST boundaries.
 - H11c Verify the sensitive repair with Superpowers in a clean isolated
   fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
   replay the captured browser/API failure, prove the H11b concurrent preflight
