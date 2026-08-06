@@ -1941,8 +1941,17 @@ market research until item C13 permits it.
   itself changed the topic but retained forbidden `how-to`; the quality
   controller correctly returned attempt-2 `block_freeze` with reason
   `editorial_form_not_changed`. No publication state or public effect exists,
-  so the article is not publishable yet. Remaining: repair the loop's reroute
-  contract, obtain current-hash PASS, then active-six readback and money sync.
+  so the article is not publishable yet. Root cause: the attempt-2 CLI read the
+  original replacement constraints but ignored the same-run attempt-1 reroute
+  receipt, allowing normal topic selection to overwrite the route. RED
+  reproduced a different topic plus the forbidden form being accepted with
+  exit `0`. The router fix now binds reroute to the existing topic ID, requires
+  a different editorial form, validates the exact required changes, and leaves
+  the existing route untouched on refusal. Router tests pass `10/10`, related
+  routing/quality/start tests pass `65/65`, and the full Writer suite passes
+  `925` tests plus `30` subtests. Remaining: deploy the prevention fix, add one
+  bounded source-defect recovery for the already-blocked unpublished run,
+  obtain current-hash PASS, then active-six readback and money sync.
 
 **M — complete per-platform engagement measurement after B and before H:**
 
