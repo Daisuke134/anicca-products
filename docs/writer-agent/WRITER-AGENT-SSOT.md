@@ -2043,11 +2043,20 @@ market research until item C13 permits it.
   classifies live blocked run `20260805-162010` as `blocked_by_quality`, and
   historical success `20260731-213927` as `observed` with all eight publication
   pair states; before/after trees remain byte-identical.
-- O0.2b Extend that same trace, without a second tracing system, across existing
-  research, individual gates, destination readback, metric, money, learning,
-  and reporting transitions. A missing expected receipt by its phase SLO is an
-  explicit failed span rather than invisible absence; a transition made
-  ineligible by an authoritative prior gate is `not_expected`, not failure.
+- O0.2b DONE: Runtime `a3baa63b` extends that same trace, without a second
+  tracing system, across research, every discovered top-level gate,
+  destination readback, metrics, money, learning, and reporting. Every valid
+  observed span retains its O0.1 source event ID. Missing required receipts are
+  `error:expected_receipt_missing`; malformed optional receipts are isolated as
+  `error:invalid_receipt` without stopping the rest of the trace; downstream
+  transitions made ineligible by `block_freeze` are `not_expected`, not false
+  publisher failures. TDD passes `9/9`; the final Python Writer regression
+  passes `875/875`. Read-only replay leaves both trees byte-identical and finds:
+  current run `daily-2026-08-06` has 39 spans, missing research receipt, invalid
+  EN/JA language-purity receipts, and six quality-blocked downstream spans;
+  historical publication `20260731-213927` has 63 spans and correctly exposes
+  absent metrics, money, learning, and reporting receipts instead of silently
+  calling the end-to-end run complete.
 - O0.3 Generate a redacted evidence index for each failed span that points to
   the exact receipt, safe log excerpt, browser screenshot/DOM/network evidence
   when applicable, source release, and last successful sibling span. Secrets,
