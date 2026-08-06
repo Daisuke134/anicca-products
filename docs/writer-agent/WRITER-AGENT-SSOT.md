@@ -2174,6 +2174,18 @@ has produced live artifact IDs:**
 **H — build the Agent-owned repair loop before manually fixing the current
 publisher incidents:**
 
+- H0 DONE: Runtime `e32c4e21` ingests O0.5 SLO work into an atomic,
+  lock-protected incident queue. Stable phase/reason/source fingerprints
+  deduplicate replay while retaining every trace/span occurrence. Queue states
+  are `OPEN`, `CLAIMED`, `RETRY`, and `RESOLVED`; claim requires a lease, and
+  resolve requires a real effect receipt and its SHA-256. A repeated resolved
+  fingerprint reopens as a regression. The live queue contains 40 occurrences
+  grouped into 19 OPEN fingerprints across process, credential, DOM/selector,
+  state-corruption, publication-readback, measurement, and money-invariant.
+  Its durable path is `state/observability/incident-queue.json`, SHA-256
+  `e2b8ec2b93a35197455f85525ff211acb2b66508232baec4cfb50d6f40ed2d00`.
+  No item is claimed before the bounded known/unknown handler exists.
+
 - H1 Instrument one OpenTelemetry trace per `run_id`, with spans for research,
   generation, every quality gate, every destination, readback, measurement,
   money sync, learning, and reporting; correlate structured logs and metrics by
