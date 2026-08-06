@@ -1795,7 +1795,15 @@ market research until item C13 permits it.
   publisher watcher or provider status. No publication state, staging, or
   public side effect was created. This proves fault isolation and honest
   quality blocking; B1-B6 still own repairing the daily article to publication.
-- A16 ISOLATION: prove one publisher outage leaves other polling runnable.
+- A16 DONE ISOLATION: runtime test feature `ae703d1b`, live `fa79381b`.
+  A real-component response-loop characterization places the unavailable TECHi
+  provider first and a second publisher after it. The run records TECHi
+  `UNAVAILABLE`, continues rather than aborting, invokes the later publisher's
+  fetch, and records its independent `NO_RESPONSE`; totals remain watched `2`,
+  advanced `0`, unavailable `1`. The response suite passes `16/16` and the full
+  Writer suite passes `839/839`. Live run `358` independently confirms the same
+  per-publisher receipt boundary with TECHi current `UNAVAILABLE`/last-known
+  `pending` and AppSignal `NO_RESPONSE` in one successful worker run.
 - A17 REPORT: render the same commercial states, unknown terms, evidence IDs,
   money, and next action in Web snapshot and natural-language Telegram.
 - A18 LIVE APPSIGNAL: accept only a correlated official result or honest
