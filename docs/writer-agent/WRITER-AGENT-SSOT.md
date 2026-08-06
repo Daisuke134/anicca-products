@@ -2204,6 +2204,26 @@ publisher incidents:**
   and Reader failures; it created no publication state or platform dispatch.
   Launchd now displays run count `1109`, but the log has no later distinct
   execution receipt, so no separate cause is assigned to that counter value.
+  Read-only CDP evidence now records the failed Zenn target returning HTTP
+  `403` with the rendered denial page, while the canonical Zenn GitHub branch
+  contains commit `098b55e` with the same slug and `published:false`. Zenn's
+  official CLI guide states that public deployment requires `published:true`
+  followed by a push to the connected branch and that deploy errors are read
+  from the Zenn dashboard. This narrows the first-bad boundary to an effect-
+  uncertain stage: the original caller timed out without a dispatch result,
+  but the child completed a durable draft push afterward; neither event is a
+  public publication. Feature `7adda91b` and live `f65be934` add an optional,
+  validated primary-research receipt to the UNKNOWN collector so official URL,
+  direct quote, finding, and receipt hash can close the documentation gap
+  without changing cause from `UNDETERMINED`. Focused verification passes one
+  test; the available Writer pytest suite passes `66` tests plus `30` subtests;
+  Python compile and PII gate pass. Before the research receipt could be
+  written through the new live boundary, unrelated live-branch commit
+  `b4ce8ef8` appeared between fetches. Further production mutation is paused at
+  the shared-resource authorization boundary; the smallest restart action is
+  to verify no other session owns `fix/writer-note-resume-circuit`, then write
+  the research receipt, rebuild the evidence index, and refresh the claimed
+  Zenn investigation without resolving it.
 
 - H1 Instrument one OpenTelemetry trace per `run_id`, with spans for research,
   generation, every quality gate, every destination, readback, measurement,
