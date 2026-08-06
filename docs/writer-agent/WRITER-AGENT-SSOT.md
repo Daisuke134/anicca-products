@@ -190,6 +190,11 @@ intents. Translation does not create a second topic or daily run.
 | Zenn article | JA | Free discovery | Public title/body/media readback |
 | X Article | JA | Long-form acquisition | Public Article URL and rendered-body readback |
 
+`X Article JA` is a mandatory daily destination, not a dormant experiment.
+The existing authenticated browser adapter is reused and repaired when needed;
+successful historical runs are evidence to preserve the path, not a reason to
+replace it. Only `X Article EN` and `X Post JA` are dormant below.
+
 The following adapters, code, historical receipts, and state are retained but
 must not create a daily publication intent while marked `DORMANT_EXPERIMENT`:
 
@@ -1868,6 +1873,67 @@ market research until item C13 permits it.
 - B6 DURABILITY: close each of three consecutive quality-eligible daily
   shipments without duplicate publication or human repair.
 
+**H — make repair itself an Agent-owned loop immediately after B:**
+
+- H1 Instrument one OpenTelemetry trace per `run_id`, with spans for research,
+  generation, every quality gate, every destination, readback, measurement,
+  money sync, learning, and reporting; correlate structured logs and metrics by
+  `run_id`, `artifact_id`, language, destination, article hash, strategy hash,
+  release commit, retry, latency, token use, and cost.
+- H2 Persist a redacted browser evidence bundle on every destination failure:
+  before/after screenshot, DOM snapshot, accessibility tree, URL, title,
+  selector result, console, network request/response metadata, HTTP status, and
+  trace archive. Never persist cookies, tokens, article-paywall secrets, or PII.
+- H3 Send unhandled exceptions, failed invariants, stale heartbeats, SLO misses,
+  and regressions to Sentry with release/commit, breadcrumbs, trace ID, exact
+  failed receipt, and safe evidence attachments; Sentry observes and groups but
+  does not receive autonomous production-write authority.
+- H4 Define machine-checkable SLOs: daily run started, current-hash quality
+  terminal, each active-six public readback, metrics freshness, money-sync
+  freshness, learning decision freshness, and Telegram delivery receipt.
+- H5 Detect absence as an error: a missing expected span/receipt by its deadline
+  is a failure even when no exception was thrown.
+- H6 Classify each incident into process, dependency, credential, provider,
+  rate-limit, API-contract, DOM/selector, model-output, content-quality,
+  state-corruption, publication-readback, measurement, or money-invariant.
+- H7 Execute a bounded, versioned runbook for known incident fingerprints;
+  verify the real recovered effect and resume the same durable work item.
+- H8 For an unknown fingerprint, collect the evidence bundle, compare the last
+  good and first bad trace/release/DOM/API contract, and search official primary
+  documentation before proposing a cause.
+- H9 Generate a minimal failing characterization test in an isolated worktree;
+  no repair candidate exists until the test is RED against the captured failure.
+- H10 Generate the smallest candidate fix, pass focused tests, the full Writer
+  suite, static secret/PII checks, and an isolated browser/API replay.
+- H11 Require a fresh read-only adversarial review for external publication,
+  money, credential, or uncertain repairs; the repairer cannot approve itself.
+- H12 Deploy a budget-capped canary bound to one release and one work item;
+  verify real public/readback receipts before promotion.
+- H13 Automatically roll back to the last known-good release on regression,
+  preserve the failed evidence, and continue diagnosis without duplicate side
+  effects.
+- H14 Promote a successful incident fingerprint, test, fix, verification, and
+  rollback recipe into the versioned runbook; prove the next recurrence is
+  repaired without source-editing or a person.
+- H15 Report `RECOVERED` with cause/fix/evidence/downtime and continue the loop;
+  never emit a terminal unexplained `ERROR/PENDING`. Escalate only owner-only
+  KYC, CAPTCHA, legal consent, credential reauthorization, personal-fund spend,
+  or a repeatedly failed bounded repair budget.
+- H16 Exit routine operation only after 30 consecutive days with daily active-
+  six receipts, at least one injected known fault auto-repaired, one captured
+  unknown fault repaired through RED/GREEN/canary, one automatic rollback, no
+  duplicate external effect, and no human topic/run/repair action.
+
+The observability backbone is OpenTelemetry rather than a proprietary Agent
+memory. Browser evidence follows Playwright trace semantics (action timeline,
+DOM snapshots, network, console, source) while the existing authenticated CDP
+browser remains the live executor. Sentry is the issue grouping/alert and
+release-correlation surface. Durable Writer receipts remain the business truth;
+telemetry never proves publication or money by itself. Primary sources:
+https://opentelemetry.io/docs/concepts/observability-primer/,
+https://playwright.dev/docs/trace-viewer,
+https://docs.sentry.io/product/issues/issue-details/.
+
 **C — convert explicit company demand into money:**
 
 - C1 On an external acceptance, capture agreement, exact rate/currency,
@@ -1960,14 +2026,14 @@ work. Tasks 5, 6, and 7 are not skipped: their runtime, live verification, and
 push receipts are recorded as `DONE` in their rows. Task 8's report generator
 is complete, but its public Web route is absent and is therefore reopened.
 
-The immediate foreground slice is §8.2's bounded company-contract refactor,
-because it freezes the commercial boundary before more publisher-specific code
-is added. It is followed immediately by the current `daily-2026-08-06`
-hash-scoping repair and `article-resume` kickstart. This short ordering does not
-permit passive waiting: the existing daily loop and read-only opportunity
-watchers remain running during the refactor. Task 1's time-dependent proof then
-closes three consecutive quality-eligible active-six shipments with no duplicate
-or human repair. Task 4's demand supply
+The company-contract refactor and TECHi terminal response are complete. The
+immediate foreground slice is the current `daily-2026-08-06` hash-scoping repair
+and `article-resume` kickstart, followed by active-six readback and three
+consecutive quality-eligible shipments. The active six explicitly include the
+daily Japanese X Article. H1-H16 then make observation, repair, verification,
+rollback, and recurrence handling Agent-owned before commercial/revenue scale
+work expands. This ordering does not permit passive waiting: the existing daily
+loop and read-only opportunity watchers remain running. Task 4's demand supply
 receipt is now live (claim run 309, paid-demand topic), but its acceptance still
 requires the bilingual article and active-six readbacks.
 
