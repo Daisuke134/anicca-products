@@ -1620,7 +1620,22 @@ market research until item C13 permits it.
   with `source_rows=2` and `migrated_rows=2`, producing exactly the AppSignal
   and TECHi applications; replay left two applications and one receipt. Both
   opportunities stayed `SUBMITTED`, and received amount/currency stayed null.
-- A4 SCHEMA CONTRACT: version Contract and its blocking terms; one schema test.
+- A4 DONE SCHEMA CONTRACT: runtime feature `f44ba384`, live `b0609c2c`.
+  `Contract` is a one-to-one record for an `Application` and is bound by
+  composite foreign keys to the same opportunity's application and terms
+  evidence. `PUBLISHER_PENDING` requires a valid, unique blocker array that
+  exactly matches every unknown required term. `TERMS_COMPLETE` requires a
+  positive numeric rate, uppercase three-letter currency, rights/exclusivity,
+  AI disclosure policy, delivery channel, payout rail, payment trigger, exact
+  terms evidence, and an empty blocker array. Insert and update both fail closed
+  on null/type gaps, malformed/duplicate/unknown/mismatched blockers, or
+  cross-opportunity evidence. Focused regression passes `32/32`; full Writer
+  regression passes `824/824`; fresh review is `ship`. Real response-worker run
+  `349` exited `0`; the live database has the 16-column Contract schema, both
+  composite foreign keys, and all four validation triggers. It has zero
+  contracts because no acceptance/terms receipt exists yet, while two
+  applications, one intake migration receipt, two `SUBMITTED` opportunities,
+  and zero received-money rows remain unchanged.
 - A5 SCHEMA ASSIGNMENT: version Assignment; one schema test.
 - A6 SCHEMA DELIVERY: version Delivery; one schema test.
 - A7 SCHEMA PUBLICATION: version Publication; one schema test. Reuse the
