@@ -2432,6 +2432,20 @@ Primary implementation references:
   branch. H11b remains feature-only until H11c proves crash-between-effect-and-
   receipt behavior, audits every remaining publish call, runs the full Writer
   suite and secret/PII checks, and completes isolated browser/API replay.
+  H11c's first crash-window audit proves the post-return marker is necessary
+  but not sufficient: a provider may commit the effect and the worker may die
+  before the call returns or before `mark-effect-unknown` runs. The durable row
+  then remains indistinguishable from a pre-write `CLAIMED` crash, and the
+  current fifteen-minute stale takeover can grant a second publish authority.
+  Therefore H11b is reopened at the boundary: add a durable write-ahead
+  `EFFECT_STARTED` transition immediately before every provider write/click;
+  once started, expiry may only grant reconciliation authority, never another
+  write. A pre-start expired `CLAIMED` lease may still be reclaimed. Keep the
+  post-return `EFFECT_UNKNOWN` marker as confirmation that the call returned,
+  and use provider-native idempotency keys wherever available. Add executable
+  crash-before-start, crash-after-start-before-call, crash-after-provider-
+  effect-before-return, and crash-after-return-before-receipt fixtures for all
+  active adapter families before canary.
 - H11c Verify the sensitive repair with Superpowers in a clean isolated
   fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
   replay the captured browser/API failure, prove the H11b concurrent preflight
