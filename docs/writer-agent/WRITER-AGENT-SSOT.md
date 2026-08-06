@@ -2015,10 +2015,21 @@ market research until item C13 permits it.
 
 **O0 — install the minimum observability backbone before the next live publish attempt:**
 
-- O0.1 Define one versioned event envelope over the receipts that already exist:
+- O0.1 DONE: Define one versioned event envelope over the receipts that already exist:
   `run_id`, phase, artifact/language/destination, article hash, strategy and
   release commit, attempt, start/end/latency, outcome, reason, cost, and the
   authoritative receipt path. Do not replace or reinterpret the source receipt.
+  Runtime `1eec6c96` ships `writer.observability.event` version 1. It accepts
+  only regular JSON receipts inside the matching run directory, rejects
+  cross-run identity and external paths, preserves unknown values as null,
+  binds every event to the source relative path and SHA-256, reads the final
+  generation attempt without flattening the source, and reads the harness
+  release from its existing receipt. TDD covers quality, generation, and
+  cross-run/path refusal. A read-only replay over live run `20260805-162010`
+  records generation attempt 2 as `provider-returned`, 412,695 ms, release
+  `d09eadfe009237087d5683b937ea6152376c3ace`, then records the final quality
+  `block_freeze`; both source receipt hashes are unchanged. Focused tests pass
+  `3/3`; the full Writer regression passes `934` tests plus `30` subtests.
 - O0.2 Emit one local OpenTelemetry trace per `run_id` and one span for each
   existing research, generation, gate, publication, readback, metric, money,
   learning, and reporting transition. A missing expected receipt by its SLO is
