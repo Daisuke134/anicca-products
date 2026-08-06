@@ -2533,6 +2533,15 @@ Primary implementation references:
   Next: enumerate every external mutation call in the active runtime and prove
   each public create/publish effect is either bracketed or explicitly excluded
   as a stable-target preparation/resource-leak class.
+  The first complete-mutation audit found that X protected repair changed the
+  public article to an unpublished draft before persisting `EFFECT_STARTED`.
+  A strengthened behavior test failed with the measured old order
+  `unpublish -> STARTED`. The repair saga now persists STARTED before its first
+  public-state mutation, producing `STARTED -> unpublish -> same-ID publish ->
+  UNKNOWN -> reconcile`; all `24` X in-place repair tests pass. This closes the
+  discovered unpublish crash window but does not complete the audit: note,
+  Zenn, Dev.to, Substack, X, and self-owned preparation/update/delete calls
+  still require an explicit mutation inventory and classification.
 - H11c Verify the sensitive repair with Superpowers in a clean isolated
   fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
   replay the captured browser/API failure, prove the H11b concurrent preflight
