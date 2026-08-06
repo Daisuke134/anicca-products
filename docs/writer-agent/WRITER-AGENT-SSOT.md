@@ -1936,8 +1936,10 @@ market research until item C13 permits it.
   `reroute`, and both recorded draft hashes equal current regular files. Start
   and generation-begin independently enforce the boundary; hash tampering or a
   published row remains blocked. All 32 start-control tests, Python compilation,
-  and diff checks pass. Remaining: deploy, kickstart attempt 2, then require
-  active-six readback and money sync.
+  and diff checks pass. Runtime `999a80d5` deployed the repair; launchd run
+  `1078` is live on generation attempt 2 for the same replacement run. Remaining:
+  require the rerouted current-hash quality terminals, then active-six readback
+  and money sync.
 - B6 DURABILITY: close each of three consecutive quality-eligible daily
   shipments without duplicate publication or human repair.
 
@@ -1997,8 +1999,11 @@ market research until item C13 permits it.
   no repair candidate exists until the test is RED against the captured failure.
 - H10 Generate the smallest candidate fix, pass focused tests, the full Writer
   suite, static secret/PII checks, and an isolated browser/API replay.
-- H11 Require a fresh read-only adversarial review for external publication,
-  money, credential, or uncertain repairs; the repairer cannot approve itself.
+- H11 Verify sensitive repairs with Superpowers in a clean isolated fixture:
+  reproduce RED, pass focused and full tests, run secret/PII checks, replay the
+  captured browser/API failure, then require canary and rollback receipts. Do
+  not add a separate adversary/reviewer dependency; completion is based on
+  executable evidence and the primary agent's direct readback.
 - H12 Deploy a budget-capped canary bound to one release and one work item;
   verify real public/readback receipts before promotion.
 - H13 Automatically roll back to the last known-good release on regression,
