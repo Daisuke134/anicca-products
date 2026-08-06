@@ -2510,6 +2510,16 @@ Primary implementation references:
   adapter and shared publication-boundary regression passes (`162` tests),
   with shell/Python syntax, compile, and diff checks. Next: wire X Article's
   browser publish click boundary.
+  X Article write-ahead slice `fc7feead` persists `EFFECT_STARTED` with the
+  exact saved draft URL immediately before the browser publish operation,
+  advances the same identity to `EFFECT_UNKNOWN` after the browser call
+  returns, and only then validates browser evidence, advances the local
+  journal, or reconciles. The old-order behavior test failed first and now
+  passes. The complete active-adapter plus shared publication-boundary suite
+  passes (`186` tests), with compile and diff checks. All active-six public
+  publish boundaries now have write-ahead and post-return markers on the
+  feature branch. H11b remains non-deployable until the four crash-window
+  matrix, concurrent authority replay, and complete external-call audit pass.
 - H11c Verify the sensitive repair with Superpowers in a clean isolated
   fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
   replay the captured browser/API failure, prove the H11b concurrent preflight
