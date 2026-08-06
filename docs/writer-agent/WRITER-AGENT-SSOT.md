@@ -2127,10 +2127,20 @@ patching each incident manually.
   zero because no external contract receipt exists. The generated Web and
   Telegram text contain the same run ID, X Article DOM failure, publication
   count, revenue truth, owner, and next-action status.
-- O0.5 Prove the bridge against recorded `1078`, `1083`, `1084`, live publisher
-  incident run `20260806-084924`, and one successful historical publication
-  without changing any historical receipt. Then make it the required input to
-  the H repair runtime; do not resume manual Editorial/publisher repair.
+- O0.5 DONE: Runtime `b4969a56` ships an immutable replay bridge with five
+  checkpoint-bound cases: recorded launchd `1078`, `1083`, and `1084`, live
+  publisher incident `20260806-084924`, and successful publication
+  `20260731-213927`. It fingerprints each complete source run tree before and
+  after replay and fails if any receipt changes. Each failed or missing span is
+  converted into durable `open` SLO work with trace/span IDs, observed reason,
+  cause class, `writer-self-heal` owner, source receipt, and
+  `enqueue_repair` next action. Live replay leaves all source trees unchanged,
+  processes five cases, and emits 40 SLO work items: 8 each for the three
+  checkpointed executions, 12 for the current publisher incident, and 4
+  missing post-publication receipts for the historical successful publication.
+  The required H input is
+  `state/observability/slo-replay-latest.json`, SHA-256 `8d1238a67df3c2c911d663f111d198fe07984c032917b6d38a3c4418aabc3c1d`.
+  No Editorial or publisher incident was manually repaired.
 - O0.6 O0 observes and detects only. It does not gain code-edit, deployment, or
   production-write authority and does not count as completed self-healing.
   Full evidence-driven repair, canary, rollback, recurrence learning, and
@@ -2392,9 +2402,8 @@ foreground order is binding:
 Read as one end-to-end completion route, the remaining work is:
 
 ```text
-O0   now: finish O0.5 historical replay and missing-span/SLO bridge across
-     1078/1083/1084/20260806-084924 plus one successful publication
-  -> H  build incident queue -> classify -> runbook/investigate -> isolated RED
+O0   DONE: event, evidence, equal reporting, and immutable SLO replay are live
+  -> H  now: build incident queue -> classify -> runbook/investigate -> repair
      -> minimal fix -> verify -> canary -> promote/rollback -> recurrence memory
   -> H acceptance: Writer itself repairs note S3, stale quality, X DOM, and Zenn
      timeout incidents, resumes the same durable work, and proves public URLs
