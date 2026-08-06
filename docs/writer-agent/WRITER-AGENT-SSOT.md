@@ -1987,8 +1987,19 @@ market research until item C13 permits it.
   now returns `skip-quality-miss / same-jst-day-quality-replacement-limit` for
   the exhausted JST day and `new` for the next day; real `article-daily` run 9
   exits `0` on that classification. No low-quality article was forced public.
-  Remaining: the next new daily run must obtain current-hash PASS, then complete
-  active-six remote readback and receipt-backed money sync.
+  The first next-run prevention slice isolates a deterministic Identity gate
+  contradiction from run `1084`: both articles were marked FAIL only because
+  the judge saw the required standalone `canonical-media` and `mermaid-source`
+  transport comments and classified them as internal context. A RED proves
+  those exact markers reached the judge. Runtime `2828ebc2` removes only the
+  three allowlisted transport marker lines from the judge projection; arbitrary
+  comments and reader-visible prose remain visible. The unchanged rejected JA
+  and EN article hashes both PASS the real Identity judge after the fix.
+  Projection/quality tests pass `31/31`, live projection tests pass `8/8`, and
+  the full Writer regression passes `929` tests plus `30` subtests. Remaining:
+  address the next independently evidenced quality failure, then have the next
+  new daily run obtain current-hash PASS, complete active-six remote readback,
+  and run receipt-backed money sync.
 
 **M — complete per-platform engagement measurement after B and before H:**
 
