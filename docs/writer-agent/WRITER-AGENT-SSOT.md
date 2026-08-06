@@ -1743,8 +1743,15 @@ market research until item C13 permits it.
   the Opportunity and Application remain `SUBMITTED`, commercial transitions
   remain zero, and no external send, acceptance, publication, payment, or
   revenue effect was created.
-- A12 MIGRATE TECHI: replay-import ID `4`, preserving durable `SUBMITTED`,
-  last-known `pending`, and current availability separately.
+- A12 DONE MIGRATE TECHI: live schema initialization was replayed twice with
+  provider ID `4`. Migration receipt hash `df8a2b07acc986567e21ef6c6fb3e9fe0386658449421a4b5de4faa96d00a334`
+  stayed unchanged and still names exactly the two migrated Applications.
+  TECHi readback remains exactly one Application, one `SUBMITTED` transition,
+  one submission evidence row, and zero commercial transitions. Its durable
+  Opportunity and Application remain `SUBMITTED`; the immutable submission
+  evidence retains last-known provider status `pending`; live run `356`
+  reports current availability `UNAVAILABLE` separately. Replay created no
+  submission, acceptance, publication, payment, or revenue effect.
 - A13 MONEY: join payment to the exact contract trigger, assignment, artifact,
   currency, gross, fee, payout, and net; require publication only when the
   contract trigger requires it and exclude one-time fees from MRR.
