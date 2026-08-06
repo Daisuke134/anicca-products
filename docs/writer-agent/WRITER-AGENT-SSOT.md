@@ -1785,7 +1785,16 @@ market research until item C13 permits it.
   run `358` exited `0` with AppSignal `NO_RESPONSE`, TECHi current
   `UNAVAILABLE`/last-known `pending`, zero advances, both Applications and
   Opportunities still `SUBMITTED`, and zero commercial transitions.
-- A15 ISOLATION: prove one publisher outage leaves daily publication runnable.
+- A15 DONE ISOLATION: a real TECHi provider outage does not own or block the
+  reader-owned daily publication loop. Response-worker run `358` recorded
+  TECHi current `UNAVAILABLE` while preserving last-known `pending`; the
+  independently kickstarted `ai.anicca.article-resume` then ran as launchd run
+  `1050` and reached its own current JA/EN reader, identity, editorial, and
+  self-heal gates. It exited `2` for the already recorded EN-reader unanswered
+  item and current-hash `high-escalation-exhausted` quality state, not for any
+  publisher watcher or provider status. No publication state, staging, or
+  public side effect was created. This proves fault isolation and honest
+  quality blocking; B1-B6 still own repairing the daily article to publication.
 - A16 ISOLATION: prove one publisher outage leaves other polling runnable.
 - A17 REPORT: render the same commercial states, unknown terms, evidence IDs,
   money, and next action in Web snapshot and natural-language Telegram.
