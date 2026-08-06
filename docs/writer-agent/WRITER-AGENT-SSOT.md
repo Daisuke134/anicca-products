@@ -1966,10 +1966,29 @@ market research until item C13 permits it.
   publication before current-hash PASS remain forbidden. Focused tests pass
   `16/16`; full Writer regression passes `927` tests, `30` subtests, and only
   seven pre-existing Python 3.14 fork warnings. Runtime `f33c2cc4` deploys the
-  recovery. Launchd run `1083` is the real bounded recovery and is currently
-  invoking attempt 1 with restored action `reroute`; no publication or revenue
-  is claimed while it runs. Remaining: obtain current-hash PASS from this loop,
-  then active-six remote readback and receipt-backed money sync.
+  recovery. Launchd run `1083` executed the real bounded recovery: the Agent
+  preserved the topic ID, changed `how-to` to `report`, rewrote both drafts,
+  ran current-hash gates, discovered a replacement-vs-reroute constraint in
+  `topic_router.py`, added its own regression test, committed and pushed
+  runtime `33b4956e`, and reported the block. This is direct self-healing
+  evidence, not a manual edit. Attempt 1 remained `evaluate_reroute`; its
+  changed route hash then exposed a resume invariant that treated the required
+  route transition as tampering. Runtime `3aa2fe96` permits the second attempt
+  only when the current topic matches both strict non-public audit rows and the
+  new form differs from the archived forbidden form. Launchd run `1084`
+  consumed attempt 2 and ended `terminal-blocked`: JA/EN Editorial, Identity,
+  and Reader are current-hash FAIL, publication-state is absent, public effects
+  are zero, and verified revenue remains zero. The daily start controller then
+  misclassified these current audit rows and the terminal model return code as
+  an incomplete run. Runtime `f532ad96` recognizes only the strict two-row
+  non-public audit shape plus a bounded terminal repair receipt. Start-control
+  tests pass `32/32`, the focused recovery set passes `48/48`, and the full
+  Writer regression again passes `927` tests plus `30` subtests. Live planning
+  now returns `skip-quality-miss / same-jst-day-quality-replacement-limit` for
+  the exhausted JST day and `new` for the next day; real `article-daily` run 9
+  exits `0` on that classification. No low-quality article was forced public.
+  Remaining: the next new daily run must obtain current-hash PASS, then complete
+  active-six remote readback and receipt-backed money sync.
 
 **M — complete per-platform engagement measurement after B and before H:**
 
