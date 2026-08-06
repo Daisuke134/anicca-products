@@ -2402,8 +2402,14 @@ Primary implementation references:
   note key is republished and before its local journal or remote receipt is
   advanced. A missing marker therefore cannot silently authorize another
   publish. Focused RED/GREEN and the combined note plus publication boundary
-  suite pass (`124` tests); compile and diff checks pass. Zenn, Dev.to,
-  Substack, and X adapter write markers remain open in that order.
+  suite pass (`124` tests); compile and diff checks pass. Zenn adapter slice
+  `60135530` records `EFFECT_UNKNOWN` immediately after a successful Git push
+  and before remote verification/reconciliation in both the Python publisher
+  and the managed daily shell path. Behavior tests execute the real shell and
+  prove `push -> marker -> reconcile` ordering with the stable Zenn slug as the
+  provider request identity. The combined Zenn, note, and publication boundary
+  suite passes (`130` tests); shell/Python syntax, compile, and diff checks pass.
+  Dev.to, Substack, and X adapter write markers remain open in that order.
 - H11c Verify the sensitive repair with Superpowers in a clean isolated
   fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
   replay the captured browser/API failure, prove the H11b concurrent preflight
