@@ -1605,7 +1605,21 @@ market research until item C13 permits it.
   `current_availability=UNAVAILABLE`, `last_known_provider_status=pending`, and
   `submission_id=4`; durable state stayed `SUBMITTED` and received amount/
   currency stayed null before and after.
-- A3 SCHEMA INTAKE: version Opportunity and Application; one migration receipt.
+- A3 DONE SCHEMA INTAKE: runtime feature `c430be46`, live `5e27fe6b`.
+  `Opportunity` remains backward-compatible while `Application` is now a
+  separately versioned durable record bound to the exact provider submission
+  ID, submission evidence, transition-time pitch, recipient, and submitted
+  time. Migration v1 is transactional and replay-safe: invalid evidence,
+  mismatched/empty IDs, cross-opportunity pitch binding, or an existing-row
+  collision aborts without writing a success receipt. Normal submission,
+  historical recovery, and recovery replay dual-write idempotently. Focused
+  opportunity/response regression passes `31/31`; full Writer regression passes
+  `823/823`; fresh review is `ship`. Real response-worker runs `347` and `348`
+  exited `0`. The live migration recorded exactly one receipt
+  `df8a2b07acc986567e21ef6c6fb3e9fe0386658449421a4b5de4faa96d00a334`
+  with `source_rows=2` and `migrated_rows=2`, producing exactly the AppSignal
+  and TECHi applications; replay left two applications and one receipt. Both
+  opportunities stayed `SUBMITTED`, and received amount/currency stayed null.
 - A4 SCHEMA CONTRACT: version Contract and its blocking terms; one schema test.
 - A5 SCHEMA ASSIGNMENT: version Assignment; one schema test.
 - A6 SCHEMA DELIVERY: version Delivery; one schema test.
