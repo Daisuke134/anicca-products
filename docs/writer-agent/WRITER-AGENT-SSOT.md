@@ -2501,6 +2501,15 @@ Primary implementation references:
   now pass. Dev.to, Zenn, note, and shared publication-boundary regression
   passes (`154` tests), with compile and diff checks. Next: wire Substack JA/EN
   normal publish and protected republish POST boundaries.
+  Substack write-ahead slice `2c43d844` covers JA/EN in both the managed
+  shell's normal publish POST and Python's protected same-ID republish POST.
+  Each persists `EFFECT_STARTED` with the stable draft ID before the request,
+  writes `EFFECT_UNKNOWN` after return, and only then evaluates slug/ID,
+  public self-verification, or reconciliation. All four old-order cases failed
+  first and now pass, including the real-shell fixture. The combined active
+  adapter and shared publication-boundary regression passes (`162` tests),
+  with shell/Python syntax, compile, and diff checks. Next: wire X Article's
+  browser publish click boundary.
 - H11c Verify the sensitive repair with Superpowers in a clean isolated
   fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
   replay the captured browser/API failure, prove the H11b concurrent preflight
