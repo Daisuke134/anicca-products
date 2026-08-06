@@ -1024,6 +1024,16 @@ experiments additionally bind `prompt_id` and immutable prompt hash. Platform
 account totals may be retained as observations but cannot be attributed to an
 article without an exact join.
 
+Every active destination records its available engagement observations, not
+only destinations that can pay. At minimum this means the platform's
+view/read/impression measure and its like/reaction measure when that platform
+exposes one, plus comments/replies, reposts/shares, saves/bookmarks, qualified
+link clicks, and follower/subscriber delta when available. An unavailable or
+unsupported metric is stored as `unknown` with authority and reason, never as
+zero. These observations are learning inputs; none is revenue, profit, or a
+payment proxy. Revenue, fees, refunds, payout, and net are recorded separately
+only from external transaction receipts and joined to the same artifact.
+
 | Stage | Required measures | Authority |
 |---|---|---|
 | Demand | observation count, source-family diversity, JA/EN market, problem, transformation, visible price/paywall, trajectory, evidence class | Full rendered source pages through approved crawler/CDP paths; official publisher pages; community/search source URLs |
@@ -1033,8 +1043,10 @@ article without an exact join.
 | Draft/quality | reader-job completion, citation support, editorial usefulness, identity/PII/safety, quality debt | Current-draft-hash gate receipts |
 | Publication | URL, platform ID, content hash, account identity, language, price/paywall, title/body/media render | Authenticated platform response plus public browser readback |
 | X acquisition | Article impressions/opens, Post impressions/engagement, qualified link click | X authenticated analytics/CDP observation joined to exact public IDs |
-| note funnel | views, paid-boundary visits, purchases, refunds, fees, payout | note authenticated creator/API observation plus external transaction/payout receipt |
-| Substack funnel | free/paid subscriber, conversion, active/canceled/past-due contract, renewal, churn, fee, payout | Substack authenticated observation plus Stripe contract/charge/payout receipts |
+| note funnel | views/reads, likes/reactions, comments, saves when exposed, paid-boundary visits, purchases, refunds, fees, payout | note authenticated creator/API observation plus external transaction/payout receipt |
+| Substack funnel | views/opens, likes/reactions, comments, shares when exposed, free/paid subscriber, conversion, active/canceled/past-due contract, renewal, churn, fee, payout | Substack authenticated observation plus Stripe contract/charge/payout receipts |
+| Dev.to discovery | views/reads, reactions, comments, saves and follower delta when exposed | Authenticated Dev.to dashboard/API observation joined to exact public article ID |
+| Zenn discovery | views/reads, likes/reactions, comments, saves and follower delta when exposed | Authenticated Zenn dashboard/browser observation joined to exact public article ID |
 | Self-owned funnel | visit, read, checkout, paid event, unlock, renewal, churn, fee, payout | First-party event ledger plus payment webhook and payout receipt |
 | Publisher | opportunity, pitch, acceptance, contracted rate, article submission, publication, payment, payout | Official provider endpoint/form/email correlated to submission ID plus payment receipt |
 | Economics | gross, refund, platform fee, compute, net, time-to-payment, margin | Canonical money/cost ledger; currencies remain separate unless an explicit receipted conversion exists |
@@ -1873,7 +1885,31 @@ market research until item C13 permits it.
 - B6 DURABILITY: close each of three consecutive quality-eligible daily
   shipments without duplicate publication or human repair.
 
-**H — make repair itself an Agent-owned loop immediately after B:**
+**M — complete per-platform engagement measurement after B and before H:**
+
+- M1 Define one versioned metric-name/authority/unit contract for every active
+  destination; a missing platform capability is `unknown:unsupported`, not `0`.
+- M2 Collect X Article JA impressions/opens and every exposed reaction, reply,
+  repost/share, bookmark/save, qualified click, and follower delta for the exact
+  public Article ID.
+- M3 Collect note JA views/reads, likes/reactions, comments, saves and paid-
+  boundary visits for the exact article; keep purchase/refund/fee/payout in the
+  separate receipt-backed money ledger.
+- M4 Collect Substack JA/EN views/opens, likes/reactions, comments, shares and
+  subscriber deltas for each exact post; keep contract/charge/churn/fee/payout
+  in the separate receipt-backed money ledger.
+- M5 Collect Dev.to EN views/reads, reactions, comments, saves and follower
+  delta when exposed for the exact article.
+- M6 Collect Zenn JA views/reads, likes/reactions, comments, saves and follower
+  delta when exposed for the exact article.
+- M7 Snapshot metrics at comparable article ages, retain the platform's own
+  observation time, deduplicate replay, show raw/cumulative/delta values, and
+  prove Web/Telegram equality without treating an account total as article data.
+- M8 Feed engagement, funnel, verified money, refund, churn, compute cost,
+  quality and complaint metrics into matched experiments as separate dimensions;
+  no weighted vanity score may override verified net-revenue or safety regressions.
+
+**H — make repair itself an Agent-owned loop immediately after M:**
 
 - H1 Instrument one OpenTelemetry trace per `run_id`, with spans for research,
   generation, every quality gate, every destination, readback, measurement,
@@ -2030,7 +2066,8 @@ The company-contract refactor and TECHi terminal response are complete. The
 immediate foreground slice is the current `daily-2026-08-06` hash-scoping repair
 and `article-resume` kickstart, followed by active-six readback and three
 consecutive quality-eligible shipments. The active six explicitly include the
-daily Japanese X Article. H1-H16 then make observation, repair, verification,
+daily Japanese X Article. M1-M8 then complete artifact-bound engagement
+measurement across all active destinations; H1-H16 make observation, repair, verification,
 rollback, and recurrence handling Agent-owned before commercial/revenue scale
 work expands. This ordering does not permit passive waiting: the existing daily
 loop and read-only opportunity watchers remain running. Task 4's demand supply
