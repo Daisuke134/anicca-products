@@ -2264,8 +2264,15 @@ publisher incidents:**
   linked worktree at an exact base commit, assigns a fingerprint-scoped branch,
   emits a content-addressed sub-agent prompt and plan, and restricts the agent
   to `skills/writer-agent/tests/` with no production edits, deploy, publish, or
-  credential use. Its real-Git focused test passes; the available Writer pytest
-  suite passes `69` tests plus `30` subtests; Python compile and PII gate pass.
+  credential use. H9b feature `dd75e02e` plus formatting follow-up `43122a3f`
+  executes the scoped sub-agent, then independently distrusts and re-runs its
+  exact test command. It accepts only a non-zero failure containing the claimed
+  captured signature, rejects collection/import/syntax/infrastructure errors,
+  re-checks that every changed file remains under the test-only scope, hashes
+  the resulting test artifacts, and emits `RED_VERIFIED` with next action
+  `GENERATE_CANDIDATE_FIX`. It does not commit, repair, deploy, publish, or use
+  credentials. Its real-Git focused test passes; the available Writer pytest
+  suite passes `70` tests plus `30` subtests; Python compile and PII gate pass.
   Production plan generation is still pending: immediately after deployment,
   another runtime owner changed tracked `config/loop-registry.json` observation
   timestamps at 19:10:25 JST, leaving the live checkout dirty. The deployment
@@ -2273,7 +2280,8 @@ publisher incidents:**
   runtime mutation here. Smallest restart action: after the existing owner
   commits or otherwise legitimately clears its registry update, verify live
   HEAD/upstream/dirty state, run H9a against the claimed Zenn investigation,
-  then implement H9b sub-agent execution and executable RED validation.
+  deploy H9b, invoke the characterization sub-agent, and retain H9 as PARTIAL
+  unless the independent controller produces a real `RED_VERIFIED` receipt.
 - H10 Generate the smallest candidate fix, pass focused tests, the full Writer
   suite, static secret/PII checks, and an isolated browser/API replay.
 - H11 Verify sensitive repairs with Superpowers in a clean isolated fixture:
