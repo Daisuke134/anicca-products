@@ -2271,8 +2271,14 @@ publisher incidents:**
   re-checks that every changed file remains under the test-only scope, hashes
   the resulting test artifacts, and emits `RED_VERIFIED` with next action
   `GENERATE_CANDIDATE_FIX`. It does not commit, repair, deploy, publish, or use
-  credentials. Its real-Git focused test passes; the available Writer pytest
-  suite passes `70` tests plus `30` subtests; Python compile and PII gate pass.
+  credentials. Security follow-up feature `b34c2738` closes two pre-production
+  authority gaps: an agent receipt can invoke only the exact direct
+  `python3 -m pytest -q <generated-test>` argv, and the controller re-checks the
+  complete Git change set after pytest so a failing test cannot mutate a
+  production path or create a second test artifact. Pytest bytecode/cache
+  writes are disabled for that verification subprocess. The positive real-Git
+  path and both rejection paths pass; the available Writer pytest suite passes
+  `72` tests plus `30` subtests; Python compile, diff, and PII gates pass.
   Production plan generation is still pending: immediately after deployment,
   another runtime owner changed tracked `config/loop-registry.json` observation
   timestamps at 19:10:25 JST, leaving the live checkout dirty. The deployment
