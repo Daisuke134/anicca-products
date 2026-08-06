@@ -2294,10 +2294,31 @@ publisher incidents:**
   `RED_VERIFIED` receipt, and advances only to `GENERATE_CANDIDATE_FIX`; queue
   SHA-256 is
   `2644d3a8ff477a7c318b97c7b7f387846093016bc215eba9c9515d844960fd3f`.
-  No repair, publication, credential use, or false resolution occurred. H10 is
-  now the first open item.
-- H10 Generate the smallest candidate fix, pass focused tests, the full Writer
-  suite, static secret/PII checks, and an isolated browser/API replay.
+  No repair, publication, credential use, or false resolution occurred.
+- H10 DONE: Generate the smallest candidate fix, pass focused tests, the full
+  Writer suite, static secret/PII checks, and an isolated browser/API replay.
+  The captured primary Zenn dispatch had already exited `0` with explicit
+  durable output `zenn drafted (not published)`; a later empty narrow result
+  incorrectly allowed the controller to record `zenn-stage-timeout-no-dispatch-result`.
+  The production Terra repair sub-agent generated the candidate only in the
+  fingerprint-scoped repair worktree. The primary agent retained its frozen
+  RED characterization, transferred only the minimal production change into
+  the mandatory feature worktree, and rejected a hard-coded account identity
+  by adding a non-default-identity fixture. Feature `ee04ede7` now reconciles
+  the exact target-matched primary dispatch and reports
+  `state=error`, `reason=zenn-draft-staged-not-public`; a draft remains
+  non-public and the incident remains unresolved. Focused tests, the complete
+  available suite (`75` tests plus `30` subtests after queue registration),
+  Python compile, diff, secret/PII gates, isolated replay, and the captured
+  historical-run replay pass. Candidate-registration feature `7de8c2dc` was
+  deployed independently as live `150f2297`, without deploying the candidate.
+  Candidate verification receipt SHA-256 is
+  `6f92fa8cff1ec0f25089a349ea667bf9d70cec9735135014a3930cb9609ae13b`;
+  the durable queue remains `CLAIMED` on attempt `2`, binds candidate commit
+  `ee04ede73d1c364cf37a9fd5cb0c9fac9e2989e0`, advances only to
+  `VERIFY_SENSITIVE_REPAIR_IN_ISOLATED_FIXTURE`, and has SHA-256
+  `a7224763a11e79255a6ac72293f3d478d4c3e0d1ac7de6eb51679ee4a6cfb786`.
+  H11 is now the first open item.
 - H11 Verify sensitive repairs with Superpowers in a clean isolated fixture:
   reproduce RED, pass focused and full tests, run secret/PII checks, replay the
   captured browser/API failure, then require canary and rollback receipts. Do
