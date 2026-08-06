@@ -2013,6 +2013,31 @@ market research until item C13 permits it.
   current-hash PASS, complete active-six remote readback, and run receipt-backed
   money sync.
 
+**O0 — install the minimum observability backbone before the next live publish attempt:**
+
+- O0.1 Define one versioned event envelope over the receipts that already exist:
+  `run_id`, phase, artifact/language/destination, article hash, strategy and
+  release commit, attempt, start/end/latency, outcome, reason, cost, and the
+  authoritative receipt path. Do not replace or reinterpret the source receipt.
+- O0.2 Emit one local OpenTelemetry trace per `run_id` and one span for each
+  existing research, generation, gate, publication, readback, metric, money,
+  learning, and reporting transition. A missing expected receipt by its SLO is
+  an explicit failed span rather than invisible absence.
+- O0.3 Generate a redacted evidence index for each failed span that points to
+  the exact receipt, safe log excerpt, browser screenshot/DOM/network evidence
+  when applicable, source release, and last successful sibling span. Secrets,
+  cookies, tokens, paywalled article bodies, and PII are excluded.
+- O0.4 Render the same current-run timeline, failed phase, cause class, owner,
+  next automatic action, publication truth, and verified-money truth in the
+  Writer report and its natural-language Telegram milestone.
+- O0.5 Prove the bridge against the recorded `1078`, `1083`, and `1084` failures
+  and one successful historical publication without changing any historical
+  receipt. Then require it on the next live run before resuming Editorial repair.
+- O0.6 O0 observes and detects only. It does not gain code-edit, deployment, or
+  production-write authority and does not count as completed self-healing.
+  Full evidence-driven repair, canary, rollback, recurrence learning, and
+  unattended proof remain H and B6.
+
 **M — complete per-platform engagement measurement after B and before H:**
 
 - M1 Define one versioned metric-name/authority/unit contract for every active
@@ -2208,13 +2233,15 @@ push receipts are recorded as `DONE` in their rows. Task 8's report generator
 is complete, but its public Web route is absent and is therefore reopened.
 
 The company-contract refactor and TECHi terminal response are complete. The
-immediate foreground slice is the current replacement reroute repair and
-`article-resume` kickstart, followed by active-six readback. The active six
-explicitly include the daily Japanese X Article. M1-M8 then complete artifact-
-bound engagement measurement; H1-H16 make observation, repair, verification,
-rollback, and recurrence handling Agent-owned. Only after B5, M, and H close
-does B6 prove three-day and 30-day unattended operation. This ordering does not
-permit passive waiting: the existing daily
+immediate foreground slice is O0: bind the receipts already produced by the
+real loop into one run timeline and missing-receipt detector. Then close the
+remaining Editorial/content failure and execute the next new run through
+active-six readback. The active six explicitly include the daily Japanese X
+Article. M1-M8 then complete artifact-bound engagement measurement; H1-H16
+upgrade observation into Agent-owned repair, verification, canary, rollback,
+and recurrence handling. Only after B5, M, and H close does B6 prove three-day
+and 30-day unattended operation. This ordering does not permit passive waiting:
+the existing daily
 loop and read-only opportunity watchers remain running. Task 4's demand supply
 receipt is now live (claim run 309, paid-demand topic), but its acceptance still
 requires the bilingual article and active-six readbacks.
@@ -2265,10 +2292,11 @@ foreground order is binding:
 Read as one end-to-end completion route, the remaining work is:
 
 ```text
-3    now: key editorial exhaustion by language+current article hash; run one
-     bounded evaluation for a new authorized reroute hash, keep same-hash
-     exhaustion, deploy/kickstart article-resume, then pass current-hash
-     editorial+reader gates and active-six publication/readback
+O0   now: wrap existing receipts in one run trace, failed/missing-span detector,
+     evidence index, and equal Web/Telegram natural-language timeline; replay
+     1078/1083/1084 plus one historical success without mutating evidence
+  -> 3  close the independently evidenced Editorial/content failure, then pass
+     current-hash gates and active-six publication/readback on the next new run
 1/3  continuously collect next-day and three-run active-six evidence; finish
      deterministic Sol triggers and cost receipts
   + 4  paid-demand claim/topic receipt is live; finish bilingual article,
