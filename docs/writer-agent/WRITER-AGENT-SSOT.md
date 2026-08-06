@@ -2542,6 +2542,13 @@ Primary implementation references:
   discovered unpublish crash window but does not complete the audit: note,
   Zenn, Dev.to, Substack, X, and self-owned preparation/update/delete calls
   still require an explicit mutation inventory and classification.
+  The note audit then proved `update_raw` mutates the already-published stable
+  note key before the former publish-only STARTED marker. Its strengthened
+  order test failed first. STARTED now follows the journaled body-asset upload
+  but precedes `update_raw`, eyecatch mutation, and same-key publish; all `5`
+  note repair tests pass. The preceding content-addressed asset upload is
+  explicitly a preparation/resource-leak class: a crash may orphan an asset,
+  but cannot duplicate or replace the public article identity.
 - H11c Verify the sensitive repair with Superpowers in a clean isolated
   fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
   replay the captured browser/API failure, prove the H11b concurrent preflight
