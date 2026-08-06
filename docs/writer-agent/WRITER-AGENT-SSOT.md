@@ -1884,8 +1884,15 @@ market research until item C13 permits it.
   remains the negative control and must still exit `77`. Baseline before the
   test is Editorial/repair `25/25` and full Writer `851/851`; the isolated RED
   fails exactly on `expected 1, got 77`.
-- B2 IN PROGRESS GREEN: key exhaustion by `(language,current_article_sha256)`; allow one
-  bounded evaluation for a new authorized hash and keep the same hash exhausted.
+- B2 IN PROGRESS GREEN: key exhaustion by `(language,current_article_sha256)`
+  and atomically consume the authorized Terra-high evaluation before invoking
+  the model. Three additional real-script REDs prove the incomplete predicate-
+  only implementation is unsafe: no-JSON retry exits `3 -> 3` and calls the
+  model twice; a PASS permits an unapproved third hash with exit `0`; two
+  concurrent processes both exit `1` and call the model twice. The repaired
+  boundary must persist one per-language/current-hash claim before the call,
+  treat it as consumed regardless of output/verdict, replay a current-hash PASS
+  without another model call, and keep an unapproved third hash exhausted.
 - B3 VERIFY: pass JA/EN, same-hash, new-hash, restart, and bounded-retry tests.
 - B4 LIVE: deploy, kickstart `ai.anicca.article-resume`, and capture current-hash
   editorial and reader decisions.
