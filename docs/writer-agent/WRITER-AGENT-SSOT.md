@@ -1926,7 +1926,18 @@ market research until item C13 permits it.
   forward. This closes B4 without weakening the quality gate.
 - B5 IN PROGRESS SHIP: trigger the controller-owned same-JST-day quality
   replacement, then dispatch/read back active six or record each isolated owned
-  SLO breach; run money sync.
+  SLO breach; run money sync. Launchd run `1076` created replacement
+  `20260805-162010`, selected a new paid-demand topic and `how-to` form, produced
+  JA/EN drafts and immutable media, then correctly returned attempt-1 `reroute`
+  after current Editorial/Reader FAIL. Run `1077` exposed a second entry gap:
+  a provider-returned attempt-1 reroute was unclassified and fell through to
+  legacy X Post. The TDD repair permits attempt 2 only when there is no
+  publication state or published ledger row, quality is version-2 attempt-1
+  `reroute`, and both recorded draft hashes equal current regular files. Start
+  and generation-begin independently enforce the boundary; hash tampering or a
+  published row remains blocked. All 32 start-control tests, Python compilation,
+  and diff checks pass. Remaining: deploy, kickstart attempt 2, then require
+  active-six readback and money sync.
 - B6 DURABILITY: close each of three consecutive quality-eligible daily
   shipments without duplicate publication or human repair.
 
