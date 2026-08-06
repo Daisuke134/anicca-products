@@ -119,11 +119,12 @@ valid terminal state for unfinished work.
 
 Failure resumes the same `run_id`, `artifact_id`, content hash, destination, and
 publication intent. A new article must not hide a failed article. The Writer
-does not create a shorter or lower-quality fallback article to satisfy a daily
-cadence. It may perform at most one evidence-backed topic reroute inside the
-same daily obligation; if that artifact also exhausts its bounded quality
-budget, the day closes as an honest quality miss and the next JST day starts a
-new independent run.
+MUST NOT abandon the daily obligation after bounded editorial attempts. It may
+perform at most one evidence-backed topic reroute; after exhaustion it creates
+a sourced, claim-stripped, safely sanitized fallback under the same durable
+obligation and continues repair/publication until readback succeeds. A new JST
+run may start independently, but it never releases or hides the unfinished
+prior work-item.
 
 ### 2.3 Honest evidence
 
@@ -145,20 +146,20 @@ per-destination recovery; claim, opportunity, money, report, and learning
 workers continue on their own intervals.
 
 The Writer improves the **same article** from reader/editorial feedback. It may
-revise at most twice and may use at most one evidence-backed topic reroute. A
-quality-eligible artifact initializes every active destination and enters the
-publication rig. An artifact with unresolved factual, citation-integrity,
-identity, platform-policy, or harm defects writes a current-hash
-`terminal_quality_blocked` receipt, creates no publication intent, spends no
-more model budget, and cannot suppress the next JST day's run. Editorial taste
-is improvement input; unresolved integrity or safety is a publication veto.
+revise at most twice and may use at most one evidence-backed topic reroute
+before entering the sourced, claim-stripped, safely sanitized fallback path.
+An artifact with unresolved factual, citation-integrity, identity,
+platform-policy, PII/secret, or harm defects MUST NOT cross the provider write
+boundary unchanged; the defect creates a durable repair transition, not a
+terminal no-publication receipt. Editorial taste is improvement input and
+never cancels the daily publication obligation.
 
-The service-level objective is **daily autonomous operation**, not fabricated
-daily shipment. A day may truthfully end with zero public URLs only after the
-bounded revision/reroute contract is exhausted and its terminal receipt proves
-why. There is no special fallback-article pipeline.
+The service-level objective is **real daily autonomous shipment**, never a
+fabricated success. A day cannot complete with zero public URLs: bounded model
+attempt exhaustion changes the repair/fallback strategy, while the work-item
+remains owned until authenticated public readback succeeds.
 
-Every quality-eligible daily run has one observable publication service-level
+Every active daily work-item has one observable publication service-level
 objective: each active destination receives a verified public URL. A
 destination-specific platform
 failure starts immediate, bounded recovery for that destination while all other
@@ -171,9 +172,11 @@ counts as earned.
 Live runtime commits `a30bfd66` and `60a7f223` close the prior poison path. Live
 run `20260804-214206` produced a current-hash terminal rejection with no
 publication state, no delivery ledger row, no extra provider call, and a
-next-day-eligible start-control state. Task 1 still owns proof of three
-consecutive quality-eligible active-six shipments; it does not own forced
-publication of an ineligible artifact.
+next-day-eligible start-control state. That receipt is historical evidence, not
+the current terminal contract. Task 1 owns proof of three consecutive verified
+active-six shipments. Unsafe bytes are repaired or sanitized before
+publication; they are never published unchanged and never release the
+obligation unfinished.
 
 ### 2.5 Active-six distribution and dormant-adapter contract
 
@@ -647,7 +650,7 @@ and capacity are measured.
 
 | Stage | Target | Gate |
 |---|---|---|
-| S-1 | Publishing alive | Three consecutive quality-eligible daily runs publish all active, non-window-blocked destinations; duplicate zero; a terminal miss is honest but does not satisfy the gate |
+| S-1 | Publishing alive | Three consecutive daily obligations publish all active destinations with authenticated readback; duplicate zero; errors and quality exhaustion remain owned until repaired/fallback publication succeeds |
 | S0 | First money | One verified non-test payment joined to an article or publisher submission |
 | S1 | $400 monthly | $400 verified monthly writing revenue from any receipted mix; one publisher article may satisfy it, but it is not recurring |
 | S2 | $1,000 monthly | Three consecutive revenue-positive weeks with zero manual execution |
@@ -719,10 +722,11 @@ WRITE
     |
 VERIFY
   Citation, editorial, reader, identity, PII, policy, and destination checks.
-  Finite revisions either produce a current-hash quality-eligible draft or a
-  terminal no-publication receipt that releases the next day.
+  Finite model revisions produce a current-hash eligible draft or enter a
+  sourced, claim-stripped, safely sanitized fallback; no failure releases the
+  publication obligation.
     |
-PUBLISH / SUBMIT (only after current-hash quality eligibility)
+PUBLISH / SUBMIT (only after current-hash safety/integrity eligibility)
   Publish available destinations immediately. Submit publisher-paid original
   work only to the selected publisher. Platform-specific waits stay isolated.
     |
@@ -746,11 +750,11 @@ Deterministic code owns arithmetic, receipts, idempotency, deduplication,
 scheduling, and bookkeeping. The Agent owns topic, reader, article form,
 revenue-stream selection, experiment choice, and interpretation.
 
-The loop is continuously awake, but it does not continuously publish. One JST
-daily obligation receives bounded research, review, recovery, measurement, and
-learning work. A quality-eligible artifact owns the active-six publication SLO;
-a terminally rejected artifact owns a no-publication receipt and releases the
-next day's obligation.
+The loop is continuously awake. Each JST daily obligation receives bounded
+research/model review followed by durable ownership through repair, fallback,
+publication, readback, measurement, and learning. The next day's run may begin
+without deleting the prior obligation, but neither run completes without its
+verified active-six receipts.
 
 ```mermaid
 flowchart LR
@@ -765,8 +769,8 @@ flowchart LR
   F -- no --> H{Reroute unused and evidence-backed?}
   H -- yes --> R[One new topic inside bounded obligation]
   R --> C
-  H -- no --> T[Terminal quality miss: no publication]
-  T --> A
+  H -- no --> T[Sourced and sanitized fallback]
+  T --> F
   G --> I[5-minute recovery]
   I --> J[24h and 7d measurement]
   J --> K[Weekly KEEP or REVERT]
@@ -794,8 +798,9 @@ twice. Review is reduced to four decision dimensions: factual/citation
 integrity, completion of the declared reader job, original value beyond source
 rewriting, and fit between article value and the paid or contractual offer.
 Deterministic identity, PII, platform-policy, and harm checks remain hard
-blockers. A blocked artifact may use its one evidence-backed reroute; after
-that it closes without publication. The Agent never reviews its own strategy
+write-boundary blockers. A blocked artifact may use its one evidence-backed
+reroute; after that it enters deterministic sanitization and sourced fallback
+until eligible publication bytes exist. The Agent never reviews its own strategy
 promotion in the context that proposed it.
 
 ### 5.1 Model, effort, and cost contract
@@ -965,8 +970,11 @@ adversarial review rejected publishing with quality debt because the failures
 include unsupported quantitative and Unicode claims. Its single recommendation
 is a hash-bound `terminal_quality_blocked` rejection: stop model spend, never
 publish this artifact, permit only the existing bounded replacement policy,
-and ensure tomorrow is not poisoned by today's terminal miss. Implementation
-evidence is pending.
+and ensure tomorrow is not poisoned by today's terminal miss. That is a
+historical decision receipt. The current binding liveness contract supersedes
+abandonment after it: unsupported claims remain blocked from the write
+boundary, but the work-item proceeds through sanitizing repair/fallback until
+verified publication.
 
 Implementation evidence is now complete. Runtime commits `a30bfd66` and
 `60a7f223` add a hash-bound terminal rejection plus a provider-free
@@ -1614,7 +1622,9 @@ incident corpus itself. The binding order is:
    preserve Identity/Safety/PII/secret/duplicate/payload boundaries.
 5. Require the Writer Agent itself to publish the active destinations, capture
    authenticated and public readback URLs, and resume every independently
-   failed pair until live or an owner-only external boundary is proved.
+   failed pair until live. An owner-only external boundary may be reported and
+   escalated, but the work-item remains durably pending and does not satisfy
+   daily completion until publication resumes and readback succeeds.
 6. Complete M1-M8 only after live artifact IDs exist, then feed engagement,
    funnel, verified money, refunds, churn, and compute cost into the existing
    matched learning contract.
@@ -2574,12 +2584,46 @@ Primary implementation references:
   required because validation is provider API/browser readback plus durable
   publication receipts.
 
-  The four remaining external-mutation audit items, in binding order, are:
+  The four remaining H11c external-mutation audit subitems—not the whole Writer
+  TODO list—in binding order are:
   (1) Zenn git staging/commit/push and deferred-worker mutations; (2) Dev.to
   draft/update/publish/repair HTTP mutations; (3) Substack media/draft/update/
   publish repair mutations; (4) self-owned git publish, deploy readback, and
   fallback ownership. Each closes only after RED/GREEN boundary tests, full
   focused regression, SSOT update, commit, and push.
+
+  After those four H11c subitems, the current atomic queue continues without
+  renumbering or omission:
+
+  1. H11c full verification: complete the mutation inventory; run focused and
+     full Writer suites, static secret/PII checks, concurrent-authority replay,
+     and isolated captured browser/API crash replay.
+  2. H11d daily-liveness implementation, in this exact order: replace terminal
+     quality/error/timeout exits with durable repair states; generate one
+     source-bound, claim-stripped, PII/secret-clean fallback artifact per
+     language; preserve every active destination obligation; schedule bounded
+     adapter repair/retry without losing ownership; publish the self-owned
+     fallback when third-party publication is unavailable while leaving each
+     failed third-party destination pending; and pass the complete failure
+     matrix with exactly one public artifact per identity and no duplicate.
+  3. H12: deploy one content-addressed, budget-capped canary and require real
+     provider/public readback before promotion.
+  4. H13: prove automatic rollback to the last-known-good release without a
+     duplicate external effect, preserving the failed evidence.
+  5. H14-H15: promote the fingerprint/test/fix/verification/rollback recipe,
+     prove recurrence repair without source editing, report `RECOVERED`, and
+     resume the same durable work-item to verified publication.
+  6. Live repair acceptance: the repair Agent—not a human-authored production
+     patch—repairs the captured note S3, stale-quality, X DOM, and Zenn timeout
+     incidents and produces active-six public readbacks.
+  7. M1-M8: bind per-platform engagement, funnel, verified money, refunds,
+     churn, cost, quality, and complaint observations to those exact artifacts.
+  8. H16 and B6: prove three consecutive unattended active-six shipments,
+     then the 30-day publication/measurement/money/learning/repair window with
+     known-fault repair, unknown-fault RED/GREEN/canary, and automatic rollback.
+  9. Only then continue the already-atomic commercial path: public Money
+     Control (Task 8), C1-C13 company-paid work, D1-D17 reader money/learning,
+     E1-E10 revenue gates, and F1-F12 OSS/cloud/external-user/scale gates.
 - H11c Verify the sensitive repair with Superpowers in a clean isolated
   fixture: reproduce RED, pass focused and full tests, run secret/PII checks,
   replay the captured browser/API failure, prove the H11b concurrent preflight
@@ -2587,6 +2631,35 @@ Primary implementation references:
   and rollback receipts. Do not add a separate adversary/reviewer dependency;
   completion is based on executable evidence and the primary agent's direct
   readback.
+- H11d Implement the daily-publication liveness contract before canary. Every
+  active work-item must retain a durable owner through quality exhaustion,
+  malformed model output, credential/provider failure, and elapsed-day
+  rollover. The fallback must be derived only from the work-item's verified
+  source bundle, remove unsupported claims and unsafe/private material, retain
+  immutable language/artifact identity, and enter the same effect ledger as a
+  normal artifact. Self-owned publication guarantees a real public copy while
+  unavailable third-party destinations remain pending for later same-identity
+  repair. Done requires executable fixtures for every failure class listed in
+  the liveness acceptance matrix, authenticated readback, duplicate zero, and
+  no terminal `SKIPPED`, `QUALITY_BLOCKED`, unexplained `ERROR`, or false
+  success.
+
+  | H11d | To-Be | Required test | Cover |
+  |---:|---|---|---|
+  | 1 | Quality/model exhaustion remains durably owned | `test_quality_exhaustion_enters_repair_not_terminal` | MUST pass |
+  | 2 | Fallback uses only verified sources and removes unsupported/private bytes | `test_sanitized_fallback_is_source_bound_and_secret_free` | MUST pass |
+  | 3 | JST rollover never deletes an unfinished obligation | `test_next_day_preserves_prior_unpublished_work_item` | MUST pass |
+  | 4 | Third-party outage produces self-owned readback and keeps that destination pending | `test_provider_outage_publishes_self_owned_and_retains_destination` | MUST pass |
+  | 5 | Concurrent/crashed workers produce one effect authority and no duplicate | `test_liveness_replay_keeps_single_public_effect` | MUST pass |
+  | 6 | Recovery closes only on real authenticated/public readback | `test_liveness_cannot_fabricate_verified_publication` | MUST pass |
+
+  Boundaries: H11d does not lower secret, PII, factual-integrity, policy, harm,
+  idempotency, receipt, or money-truth requirements. It changes those failures
+  from terminal abandonment into owned repair transitions. Verification runs
+  the six named fixtures, the complete Writer suite, static secret/PII scans,
+  isolated provider/browser replay, then one real canary readback. UI change:
+  none. Maestro: not required; the E2E boundary is provider/browser readback
+  plus the durable effect and publication ledgers.
 - H12 Deploy a budget-capped canary bound to one release and one work item;
   verify real public/readback receipts before promotion.
 - H13 Automatically roll back to the last known-good release on regression,
@@ -2606,7 +2679,8 @@ Primary implementation references:
 
 **B6 — prove humans are out of the loop only after B5, M, and H are complete:**
 
-- B6.1 Close three consecutive quality-eligible active-six shipments without a
+- B6.1 Close three consecutive verified active-six shipments, including any
+  safely sanitized fallback required by the liveness invariant, without a
   human topic choice, draft edit, manual retry, or duplicate public effect.
 - B6.2 Complete the H16 30-day window with daily publication, measurement,
   money sync, learning, and Telegram receipts.
@@ -2712,8 +2786,10 @@ https://docs.sentry.io/product/issues/issue-details/.
 
 The current evidence-based correction contract is
 `docs/writer-agent/plans/2026-08-05-evidence-based-writer-loop.md`. It
-supersedes any interpretation that daily operation requires forced publication
-or a lower-quality fallback article.
+supersedes any interpretation that permits unsafe, secret-bearing, PII-bearing,
+unsupported, or fabricated publication. It does not supersede the binding
+daily liveness invariant: quality exhaustion requires repair or a sourced,
+claim-stripped, safely sanitized fallback and can never become abandonment.
 
 The table number is a stable task identity, not a command to repeat completed
 work. Tasks 5, 6, and 7 are not skipped: their runtime, live verification, and
