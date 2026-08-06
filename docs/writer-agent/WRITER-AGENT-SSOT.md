@@ -1752,9 +1752,23 @@ market research until item C13 permits it.
   evidence retains last-known provider status `pending`; live run `356`
   reports current availability `UNAVAILABLE` separately. Replay created no
   submission, acceptance, publication, payment, or revenue effect.
-- A13 MONEY: join payment to the exact contract trigger, assignment, artifact,
-  currency, gross, fee, payout, and net; require publication only when the
-  contract trigger requires it and exclude one-time fees from MRR.
+- A13 DONE MONEY: runtime feature `01c93cbf`, live `847c8073`. The canonical
+  MoneyLedger now atomically binds an external settled publisher receipt to the
+  exact Opportunity, completed Contract, Assignment, Delivery artifact hash,
+  contract trigger evidence, and Publication only when the trigger is
+  `PUBLICATION`. `APPROVAL` and `DELIVERY` do not invent a publication gate.
+  The same transaction records gross revenue, a distinct verified fee receipt,
+  a distinct paid payout receipt, net (`gross - fee`), and guarded payout
+  allocation. Test, internal, self, estimated, unknown, zero, mismatched
+  currency/rate/counterparty, cross-type receipt reuse, and over-allocation all
+  fail closed. `ONE_TIME` editorial fees never enter MRR; a
+  `RECURRING_RETAINER` must match an active external `editorial_retainer`
+  contract by ID, amount, and currency. Focused money regression passes
+  `37/37`; full Writer regression passes `838/838`; compile, JSON, and diff
+  checks pass; fresh adversarial review is `ship`. Real money-sync run `1077`
+  exited `0`, created the binding schema, and truthfully retained zero
+  commercial bindings, verified money events, active subscriptions, paid
+  payouts, gross, net, and MRR because no external payment receipt exists.
 - A14 RECOVERY: prove each commercial transition resumes idempotently.
 - A15 ISOLATION: prove one publisher outage leaves daily publication runnable.
 - A16 ISOLATION: prove one publisher outage leaves other polling runnable.
