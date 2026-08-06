@@ -1937,11 +1937,12 @@ market research until item C13 permits it.
   and generation-begin independently enforce the boundary; hash tampering or a
   published row remains blocked. All 32 start-control tests, Python compilation,
   and diff checks pass. Runtime `999a80d5` deployed the repair; launchd run
-  `1078` is live on generation attempt 2 for the same replacement run. Remaining:
-  require the rerouted current-hash quality terminals, then active-six readback
-  and money sync.
-- B6 DURABILITY: close each of three consecutive quality-eligible daily
-  shipments without duplicate publication or human repair.
+  `1078` executed generation attempt 2 for the same replacement run. The loop
+  itself changed the topic but retained forbidden `how-to`; the quality
+  controller correctly returned attempt-2 `block_freeze` with reason
+  `editorial_form_not_changed`. No publication state or public effect exists,
+  so the article is not publishable yet. Remaining: repair the loop's reroute
+  contract, obtain current-hash PASS, then active-six readback and money sync.
 
 **M — complete per-platform engagement measurement after B and before H:**
 
@@ -2021,6 +2022,19 @@ market research until item C13 permits it.
   unknown fault repaired through RED/GREEN/canary, one automatic rollback, no
   duplicate external effect, and no human topic/run/repair action.
 
+**B6 — prove humans are out of the loop only after B5, M, and H are complete:**
+
+- B6.1 Close three consecutive quality-eligible active-six shipments without a
+  human topic choice, draft edit, manual retry, or duplicate public effect.
+- B6.2 Complete the H16 30-day window with daily publication, measurement,
+  money sync, learning, and Telegram receipts.
+- B6.3 Prove one known injected fault auto-repairs, one previously unknown fault
+  completes evidence → RED → fix → canary, and one regression automatically
+  rolls back.
+- B6.4 Declare Dais and the development agent out of routine operation only
+  after those executable receipts exist. Until then, unattended operation is a
+  target under test, not a completed capability.
+
 The observability backbone is OpenTelemetry rather than a proprietary Agent
 memory. Browser evidence follows Playwright trace semantics (action timeline,
 DOM snapshots, network, console, source) while the existing authenticated CDP
@@ -2040,7 +2054,8 @@ https://docs.sentry.io/product/issues/issue-details/.
 - C3 Research primary sources and produce the contracted draft under that
   publisher's stated format and language; do not force the daily JA/EN template
   onto a client deliverable.
-- C4 Run factual/editorial/adversarial review and record exact draft hash.
+- C4 Run factual/editorial Superpowers verification and record the exact draft
+  hash; do not introduce a separate adversary/reviewer dependency.
 - C5 Deliver through the official channel and store provider delivery receipt.
 - C6 Process bounded revisions as new hashes under the same Assignment.
 - C7 Capture publisher acceptance and its exact trigger evidence.
@@ -2124,13 +2139,13 @@ push receipts are recorded as `DONE` in their rows. Task 8's report generator
 is complete, but its public Web route is absent and is therefore reopened.
 
 The company-contract refactor and TECHi terminal response are complete. The
-immediate foreground slice is the current `daily-2026-08-06` hash-scoping repair
-and `article-resume` kickstart, followed by active-six readback and three
-consecutive quality-eligible shipments. The active six explicitly include the
-daily Japanese X Article. M1-M8 then complete artifact-bound engagement
-measurement across all active destinations; H1-H16 make observation, repair, verification,
-rollback, and recurrence handling Agent-owned before commercial/revenue scale
-work expands. This ordering does not permit passive waiting: the existing daily
+immediate foreground slice is the current replacement reroute repair and
+`article-resume` kickstart, followed by active-six readback. The active six
+explicitly include the daily Japanese X Article. M1-M8 then complete artifact-
+bound engagement measurement; H1-H16 make observation, repair, verification,
+rollback, and recurrence handling Agent-owned. Only after B5, M, and H close
+does B6 prove three-day and 30-day unattended operation. This ordering does not
+permit passive waiting: the existing daily
 loop and read-only opportunity watchers remain running. Task 4's demand supply
 receipt is now live (claim run 309, paid-demand topic), but its acceptance still
 requires the bilingual article and active-six readbacks.
