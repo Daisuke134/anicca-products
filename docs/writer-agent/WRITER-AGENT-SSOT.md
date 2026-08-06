@@ -1949,9 +1949,27 @@ market research until item C13 permits it.
   a different editorial form, validates the exact required changes, and leaves
   the existing route untouched on refusal. Router tests pass `10/10`, related
   routing/quality/start tests pass `65/65`, and the full Writer suite passes
-  `925` tests plus `30` subtests. Remaining: deploy the prevention fix, add one
-  bounded source-defect recovery for the already-blocked unpublished run,
-  obtain current-hash PASS, then active-six readback and money sync.
+  `925` tests plus `30` subtests. Runtime `82e62842` deploys that prevention.
+  The already-blocked unpublished run then exposed the expected historical
+  source-defect boundary: its two real per-language `quality-blocked` audit
+  rows were non-public evidence, but the repair controller recognized only the
+  older aggregate audit shape. A RED first returned `ledger-row-exists`; the
+  strict fix accepts only JA/EN rows with null platform/URLs, false publication
+  and login verification, exact `quality-blocked:block_freeze`, paid-demand
+  topic identity, and a nonempty editorial form. The dedicated recovery then
+  requires the installed same-run router fix, exact attempt-1 reroute contract,
+  exact attempt-2 `editorial_form_not_changed`, two successful provider
+  attempts, unchanged current hashes, no publication state, and no delivery
+  ledger row. It archives attempt-2 evidence, restores attempt-1 reroute, and
+  instructs the real loop to preserve the current topic ID while selecting a
+  different form through `topic_router.py`; direct route editing and any
+  publication before current-hash PASS remain forbidden. Focused tests pass
+  `16/16`; full Writer regression passes `927` tests, `30` subtests, and only
+  seven pre-existing Python 3.14 fork warnings. Runtime `f33c2cc4` deploys the
+  recovery. Launchd run `1083` is the real bounded recovery and is currently
+  invoking attempt 1 with restored action `reroute`; no publication or revenue
+  is claimed while it runs. Remaining: obtain current-hash PASS from this loop,
+  then active-six remote readback and receipt-backed money sync.
 
 **M — complete per-platform engagement measurement after B and before H:**
 
