@@ -1651,7 +1651,22 @@ market research until item C13 permits it.
   triggers. It has zero assignments and zero contracts because neither live
   application has acceptance/complete-term evidence. Two applications, two
   `SUBMITTED` opportunities, and zero received-money rows remain unchanged.
-- A6 SCHEMA DELIVERY: version Delivery; one schema test.
+- A6 DONE SCHEMA DELIVERY: runtime feature `f1cafa65`, live `707e6f54`.
+  `Delivery` binds a positive integer revision, exact artifact URI and lowercase
+  text SHA-256, delivery channel, provider delivery ID, and immutable
+  `article_submission` evidence to the same opportunity's Assignment. Insert
+  and update triggers require the evidence payload's revision, artifact hash,
+  and provider delivery ID to match the Delivery row exactly. Assignment/
+  revision, Assignment/artifact, opportunity/provider ID, and delivery evidence
+  are each non-reusable, so retries cannot create duplicate effects. Null IDs,
+  non-text or malformed hashes, cross-opportunity receipts, wrong evidence
+  kinds, and receipt payload mismatches fail closed. Focused regression passes
+  `34/34`; full Writer regression passes `826/826`; fresh review is `ship`.
+  Real response-worker run `351` exited `0`; the live database has the
+  14-column Delivery schema, both composite foreign keys, and both exact-receipt
+  triggers. It has zero deliveries, assignments, and contracts because no live
+  acceptance/terms/delivery receipt exists. Two applications, two `SUBMITTED`
+  opportunities, and zero received-money rows remain unchanged.
 - A7 SCHEMA PUBLICATION: version Publication; one schema test. Reuse the
   canonical money ledger instead of adding a second Payment store.
 - A8 STATE: add the common transition service and required evidence/term guards.
