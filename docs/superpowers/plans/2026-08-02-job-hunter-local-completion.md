@@ -4343,6 +4343,22 @@ submit success plus no alert is authoritative regardless of employer copy; the C
 itself completes `submitted`, or `submit_unknown` after any request-started result
 that lacks authoritative success.
 
+The development-session vertical slice is closed with real evidence. ElevenLabs
+`Account Manager - Japan` application `b512ff8a8352344624a8414362f8b7433ca867c191c6e09eb233c1680145bb12`
+used intent `3e1c012f22d34973a53885478a1c82a7`, fence 1, exact resume SHA-256
+`2e3ed9c27c7c4abc6dc6ff478c5718821d3d4ad4a5034c99f808841f41a1cd88`,
+and one official Ashby Submit. Gmail message/thread `19fdb630faed4c2b`, authenticated
+from the ElevenLabs Hiring Team at `no-reply@ashbyhq.com`, states that ElevenLabs
+received the application for the exact role. Reconciliation evidence SHA-256 is
+`e2f87da4177398b6fc7ed3046adba9250444da9843e3b2b191c7db796686e374`;
+Ledger application and intent are both `submitted`. Submit-result SHA-256 is
+`105a9c0702c85028733b524a1e9f80554d94bf478f4772e8ea08fcd8e86ac42c` and
+pre-submit screenshot SHA-256 is
+`53f0d436c3775793fe712e4f71a1dfb3b54339102d4c2d17e57fcc4ba97969ff`.
+The only active slice is installed-resident parity: activate this exact CLI release
+and have Job Hunter select a different unsubmitted Ashby role and complete it without
+Terra.
+
 Run 102 (`daily-20260807-170443`) targeted Sierra `Sales Engineer - Tokyo` on
 immutable release `9a4880d8448d8376b90b362e14cecc4131ae3f97`. Its request already
 contained the official URL, ready grounded answers, exact resume, application ID,
