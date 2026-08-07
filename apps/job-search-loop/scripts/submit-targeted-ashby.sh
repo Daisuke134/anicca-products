@@ -15,20 +15,45 @@ ENDPOINT=$("$JOB_SEARCH_JQ" -er '.endpoint' "$JOB_SEARCH_BROWSER_OWNER_EVIDENCE"
 OVERFLOW=$("$JOB_SEARCH_JQ" -r '.user_authorized_overflow // false' "$REQUEST")
 OVERFLOW_REASON=$("$JOB_SEARCH_JQ" -r '.overflow_reason // empty' "$REQUEST")
 EVIDENCE="$JOB_SEARCH_EVIDENCE_DIR"
+REUSE_ARGS=()
 
 if [[ -z "$ANSWERS" ]]; then
   ANSWERS="$EVIDENCE/ashby-answers.json"
+  set +e
   "$JOB_SEARCH_PYTHON" -m job_search_loop.ashby_apply prepare \
     --endpoint "$ENDPOINT" --url "$URL" --resume "$RESUME" \
     --profile "$JOB_SEARCH_PROFILE" --answers-output "$ANSWERS" \
     --output "$JOB_SEARCH_ASHBY_APPLY_RESULT" \
     >"$EVIDENCE/ashby-fill-transaction.log"
+  FILL_RC=$?
+  set -e
 else
+  set +e
   "$JOB_SEARCH_PYTHON" -m job_search_loop.ashby_apply fill \
     --endpoint "$ENDPOINT" --url "$URL" --answers "$ANSWERS" \
     --resume "$RESUME" --profile "$JOB_SEARCH_PROFILE" \
     --output "$JOB_SEARCH_ASHBY_APPLY_RESULT" \
     >"$EVIDENCE/ashby-fill-transaction.log"
+  FILL_RC=$?
+  set -e
+fi
+if [[ -f "$JOB_SEARCH_ASHBY_APPLY_RESULT" ]] \
+  && [[ "$("$JOB_SEARCH_JQ" -r '.status // empty' "$JOB_SEARCH_ASHBY_APPLY_RESULT")" != "ready" ]]; then
+  FILL_RC=2
+fi
+if [[ "$FILL_RC" -ne 0 ]]; then
+  [[ -f "$ANSWERS" ]]
+  "$JOB_SEARCH_PYTHON" -m job_search_loop.ashby_browser_repair \
+    --url "$URL" --answers "$ANSWERS" --resume "$RESUME" \
+    --output "$EVIDENCE/browser-harness-repair.json" \
+    >"$EVIDENCE/browser-harness-repair.log"
+  "$JOB_SEARCH_PYTHON" -m job_search_loop.ashby_apply fill \
+    --endpoint "$ENDPOINT" --url "$URL" --answers "$ANSWERS" \
+    --resume "$RESUME" --profile "$JOB_SEARCH_PROFILE" \
+    --reuse-existing-page --keep-page \
+    --output "$JOB_SEARCH_ASHBY_APPLY_RESULT" \
+    >"$EVIDENCE/ashby-fill-repaired-transaction.log"
+  REUSE_ARGS=(--reuse-existing-page)
 fi
 "$JOB_SEARCH_PYTHON" -m job_search_loop.ashby_apply verify \
   --output "$JOB_SEARCH_ASHBY_APPLY_RESULT" --profile "$JOB_SEARCH_PROFILE" \
@@ -70,6 +95,7 @@ fi
   --resume "$RESUME" --profile "$JOB_SEARCH_PROFILE" \
   --ledger "$JOB_SEARCH_STATE_ROOT/ledger.sqlite3" \
   --intent-id "$INTENT" --fence "$FENCE" \
+  "${REUSE_ARGS[@]}" \
   --output "$EVIDENCE/ashby-submit-result.json" >"$EVIDENCE/ashby-submit-transaction.log"
 
 "$JOB_SEARCH_JQ" '{status, submit_observation}' "$EVIDENCE/ashby-submit-result.json"

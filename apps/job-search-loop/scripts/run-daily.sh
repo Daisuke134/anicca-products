@@ -225,6 +225,30 @@ chmod 600 "$JOB_SEARCH_PREFILTER_QUEUE"
   --input "$JOB_SEARCH_PREFILTER_RESULT" \
   --output "$EVIDENCE/prefilter-candidate-receipt.json"
 chmod 600 "$EVIDENCE/prefilter-candidate-receipt.json"
+if [[ "$TARGET_REQUEST_ACTIVE" == "0" ]]; then
+  set +e
+  "$JOB_SEARCH_PYTHON" -m job_search_loop.ashby_campaign \
+    --cache "$JOB_SEARCH_STATE_ROOT/official-ats-board-cache.v1.json" \
+    --ledger "$JOB_SEARCH_STATE_ROOT/ledger.sqlite3" \
+    --output "$FILL_CANARY_REQUEST" \
+    --limit 100 \
+    --authorization-reason \
+      "Dais explicitly authorized Job Hunter to continue across eligible roles until one authoritative submission" \
+    >"$EVIDENCE/ashby-campaign-builder.json"
+  CAMPAIGN_BUILD_RC=$?
+  set -e
+  if [[ "$CAMPAIGN_BUILD_RC" -eq 0 ]]; then
+    TARGET_REQUEST_ACTIVE=1
+    export JOB_SEARCH_FILL_CANARY_REQUEST="$FILL_CANARY_REQUEST"
+  else
+    "$JOB_SEARCH_JQ" -n \
+      '{version:1,mode:"submit",status:"exhausted",candidates:[]}' \
+      >"$FILL_CANARY_REQUEST"
+    chmod 600 "$FILL_CANARY_REQUEST"
+    TARGET_REQUEST_ACTIVE=1
+    export JOB_SEARCH_FILL_CANARY_REQUEST="$FILL_CANARY_REQUEST"
+  fi
+fi
 mkdir -p "$EVIDENCE/ats-liveness"
 chmod 700 "$EVIDENCE/ats-liveness"
 "$JOB_SEARCH_JQ" -n '{status:"deferred_until_candidate_selection",checked_count:0}' \
@@ -232,7 +256,7 @@ chmod 700 "$EVIDENCE/ats-liveness"
 chmod 600 "$EVIDENCE/ats-liveness-sweep.json"
 ATS_CHECKED_COUNT=0
 report_progress "candidates-checked" \
-  "Job Hunter ${RUN_ID}: 候補取得を完了しました。全件事前検査を待たず、単一Terra Job Hunterが最高候補からCloakBrowserで応募します。"
+  "Job Hunter ${RUN_ID}: 候補取得を完了しました。未応募Ashby候補を順番に処理し、権威ある提出成功まで継続します。"
 TERRA_PLAN_EVIDENCE="$EVIDENCE/terra-plan"
 TERRA_HIGH_EVIDENCE="$EVIDENCE/terra-high"
 mkdir -p "$TERRA_PLAN_EVIDENCE" "$TERRA_HIGH_EVIDENCE"
@@ -296,6 +320,8 @@ if [[ "$TARGET_REQUEST_ACTIVE" == "1" ]] \
     --request "$FILL_CANARY_REQUEST" \
     --evidence-root "$EVIDENCE/campaign" \
     --transaction-script "$JOB_SEARCH_APP_ROOT/scripts/submit-targeted-ashby.sh" \
+    --checkpoint "$JOB_SEARCH_STATE_ROOT/ashby-campaign-checkpoint.json" \
+    --telegram-outbox "$TELEGRAM_OUTBOX" \
     --output "$EVIDENCE/job-hunt-result.json" \
     >"$EVIDENCE/job-hunt-controller.log"
   TRANSACTION_RC=$?

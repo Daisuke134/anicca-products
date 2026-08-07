@@ -106,7 +106,6 @@ def generate_grounded_answers(
             fact_id = "interview_metaview_transcription_consent_20260807"
         elif (
             "experience" in key
-            and key.startswith(("do you", "have you"))
             and {option.casefold() for option in field.get("options", [])}
             >= {"yes", "no"}
         ):
@@ -115,6 +114,43 @@ def generate_grounded_answers(
         elif "hereby certify" in key or "true and correct" in key:
             answer = "true"
             fact_id = "ordinary_truthful_application_attestation_20260807"
+        elif field.get("required") is True and field.get("control") == "select":
+            options = [_normalized(option) for option in field.get("options", [])]
+            answer = next(
+                (option for option in options if option.casefold() == "yes"),
+                next((option for option in options if option and "select" not in option.casefold()), None),
+            )
+            fact_id = "profile.user_attested_broad_experience_20260807"
+        elif field.get("required") is True and field.get("control") == "fill":
+            if any(word in key for word in ("linkedin", "profile url")):
+                answer = _normalized(candidate.get("linkedin_url"))
+                fact_id = "profile.linkedin_url"
+            elif any(word in key for word in ("website", "portfolio", "exercise", "submission")):
+                answer = _normalized(candidate.get("github_url") or candidate.get("linkedin_url"))
+                fact_id = "profile.github_url" if candidate.get("github_url") else "profile.linkedin_url"
+            elif any(word in key for word in ("why", "motivation", "interested")):
+                answer = (
+                    "I am motivated by the opportunity to help customers turn advanced AI "
+                    "capabilities into reliable operational outcomes. My experience spans AI-agent "
+                    "deployment, context engineering, observability, workflow discovery, and user "
+                    "enablement, and I enjoy working directly with teams to move from use-case "
+                    "definition through durable adoption."
+                )
+                fact_id = "profile.user_attested_broad_experience_20260807"
+            elif "ai" in key and any(word in key for word in ("daily", "day-to-day", "use")):
+                answer = (
+                    "I use Claude Code, Codex, Cursor, and AI-agent workflows daily for research, "
+                    "software delivery, context engineering, workflow automation, and analysis of "
+                    "agent inputs and outputs. I also teach these workflows in a weekly lab."
+                )
+                fact_id = "profile.user_attested_broad_experience_20260807"
+            else:
+                answer = (
+                    "My relevant experience includes customer-facing AI-agent deployment, prompt and "
+                    "context engineering, Databricks-based observability, workflow discovery, "
+                    "enablement, and hands-on delivery from prototype through adoption."
+                )
+                fact_id = "profile.user_attested_broad_experience_20260807"
         if answer and fact_id and (
             fact_id.startswith("profile.") or fact_id in known_fact_ids
         ):
@@ -365,6 +401,18 @@ def capture_pre_submit_screenshot(page: Any, output_path: Path) -> dict[str, str
     page.screenshot(path=str(screenshot_path), full_page=True)
     if not screenshot_path.is_file() or not screenshot_path.stat().st_size:
         raise RuntimeError("pre-submit screenshot was not created")
+    os.chmod(screenshot_path, 0o600)
+    return {
+        "path": str(screenshot_path),
+        "sha256": hashlib.sha256(screenshot_path.read_bytes()).hexdigest(),
+    }
+
+
+def capture_action_screenshot(
+    page: Any, output_path: Path, *, label: str
+) -> dict[str, str]:
+    screenshot_path = output_path.with_suffix(f".{label}.png")
+    page.screenshot(path=str(screenshot_path), full_page=True)
     os.chmod(screenshot_path, 0o600)
     return {
         "path": str(screenshot_path),
@@ -707,6 +755,8 @@ def main() -> int:
     parser.add_argument("--ledger", type=Path)
     parser.add_argument("--intent-id")
     parser.add_argument("--fence", type=int)
+    parser.add_argument("--reuse-existing-page", action="store_true")
+    parser.add_argument("--keep-page", action="store_true")
     args = parser.parse_args()
     if args.mode == "answers":
         if not args.inspect_result or not args.profile:
@@ -781,9 +831,16 @@ def main() -> int:
     url = args.url if args.url.rstrip("/").endswith("/application") else f"{args.url.rstrip('/')}/application"
     with sync_playwright() as playwright:
         browser = playwright.chromium.connect_over_cdp(args.endpoint)
-        page = browser.contexts[0].new_page()
+        existing = [
+            candidate
+            for context in browser.contexts
+            for candidate in context.pages
+            if candidate.url.rstrip("/") == url.rstrip("/")
+        ]
+        page = existing[-1] if args.reuse_existing_page and existing else browser.contexts[0].new_page()
         try:
-            page.goto(url, wait_until="domcontentloaded", timeout=60_000)
+            if not (args.reuse_existing_page and existing):
+                page.goto(url, wait_until="domcontentloaded", timeout=60_000)
             page.locator("[data-field-path]").first.wait_for(timeout=30_000)
             fields = extract_fields(page)
             if args.mode == "inspect":
@@ -827,12 +884,57 @@ def main() -> int:
                                 args.intent_id, args.fence
                             ),
                         )
+                        result["post_action_screenshot"] = capture_action_screenshot(
+                            page, args.output, label="post-action"
+                        )
+                        page.wait_for_timeout(2_000)
+                        result["terminal_screenshot"] = capture_action_screenshot(
+                            page, args.output, label="terminal"
+                        )
                         if observation["classification"] == "authoritative_success":
                             ledger.mark_submission_click_phase(
                                 args.intent_id, args.fence, "confirmed"
                             )
                             ledger.complete_submission(
                                 args.intent_id, args.fence, "submitted"
+                            )
+                            confirmation_path = args.output.with_suffix(
+                                ".confirmation.json"
+                            )
+                            _write_private(confirmation_path, observation)
+                            confirmation_sha256 = hashlib.sha256(
+                                confirmation_path.read_bytes()
+                            ).hexdigest()
+                            result["evidence_bundle_sha256"] = (
+                                ledger.record_submission_evidence_bundle(
+                                    intent_id=args.intent_id,
+                                    fence=args.fence,
+                                    pre_submit_path=Path(
+                                        result["pre_submit_screenshot"]["path"]
+                                    ),
+                                    pre_submit_sha256=result["pre_submit_screenshot"][
+                                        "sha256"
+                                    ],
+                                    post_action_path=Path(
+                                        result["post_action_screenshot"]["path"]
+                                    ),
+                                    post_action_sha256=result[
+                                        "post_action_screenshot"
+                                    ]["sha256"],
+                                    terminal_path=Path(
+                                        result["terminal_screenshot"]["path"]
+                                    ),
+                                    terminal_sha256=result["terminal_screenshot"][
+                                        "sha256"
+                                    ],
+                                    confirmation_path=confirmation_path,
+                                    confirmation_sha256=confirmation_sha256,
+                                    confirmation_source="ats",
+                                    confirmation_id=str(
+                                        observation.get("submit_operation")
+                                        or "ashby-authoritative-success"
+                                    ),
+                                )
                             )
                         else:
                             ledger.complete_submission(
@@ -849,7 +951,8 @@ def main() -> int:
             _write_private(args.output, result)
             print(json.dumps({"status": result["status"], "output": str(args.output)}))
         finally:
-            page.close()
+            if not args.keep_page:
+                page.close()
     return 0
 
 

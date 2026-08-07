@@ -4930,11 +4930,33 @@ item before starting the next.
   are candidate-terminal but campaign-nonterminal; only `applied_ats` returns
   campaign `submitted`. The daily driver now invokes this controller, preserves the
   real transaction exit, reports the real attempt count, and cannot emit summary
-  `success` for exhaustion. RED failed because the controller and daily-driver route
-  did not exist. GREEN passes the four controller cases plus the focused Ashby and
-  candidate-queue suite, 30/30. Remaining gate: commit/push, immutable release
-  activation, then one installed Job Hunter campaign whose first non-success does
-  not stop the run and whose final state is receipt-backed `submitted`.
+  `success` for exhaustion. The production path now builds its own campaign from the
+  refreshed official ATS cache, excludes every Ledger-owned company-role identity,
+  selects all relevant Japan/Tokyo Ashby deployment, solutions, customer, account,
+  and partnership roles, and uses the latest verified submitted resume. It can
+  process up to 100 roles in one pass. Required experience, motivation, daily-AI-use,
+  additional-information, and required URL questions receive private-profile-backed
+  defaults instead of ending the run. A failed deterministic fill invokes
+  `ashby_browser_repair.py` with `BH_DOMAIN_SKILLS=1`; Browser Harness performs
+  semantic fill and resume upload but has no Submit authority. The fenced Ashby CLI
+  reuses that exact tab, verifies it, and alone performs Submit. Every candidate
+  writes a durable checkpoint and Telegram report containing company, role, URL,
+  exact resume, outcome, reason, and all generated question/answer pairs. An
+  authoritative ATS success now binds pre-submit, post-action, terminal, and
+  confirmation artifacts to the Ledger evidence bundle, enabling existing Telegram
+  resume/bundle delivery. Dais explicitly prohibited further unit/TDD/full-suite
+  work for this incident; only syntax/wiring inspection and the final installed live
+  E2E are permitted. Application-email generation no longer concatenates factual
+  claims into a robotic block: it keeps every approved claim verbatim for audit while
+  adding a natural opening, motivation bridge, and readable paragraph structure.
+  Recruiting email applications and outreach are separately labelled on Telegram;
+  both include the full sent body, provider receipt, and attached resume. The
+  controller also reports each candidate before opening the ATS and emits a terminal
+  campaign summary after submission or exhaustion. Production Python bytecode,
+  shell syntax, and diff whitespace checks pass; no unit or full suite was run.
+  Remaining gate: commit/push, immutable release activation, then
+  one installed Job Hunter campaign whose first non-success does not stop the run and
+  whose final state is receipt-backed `submitted`.
 - [ ] **L-50** — Deliver the Ashby owner application package to Telegram and prove
   provider ACKs for the natural-language summary, exact submitted resume, cover letter
   when present, complete mobile-readable question/answer dossier, pre-submit,

@@ -160,8 +160,13 @@ def _read_outreach_reports(ledger_path: Path) -> list[dict[str, str]]:
               routes.resume_sha256
             FROM application_routes AS routes
             JOIN applications ON applications.id = routes.application_id
-            WHERE routes.route_kind = 'recruiting_outreach'
-              AND routes.recipient_acceptance = 'outreach_only'
+            WHERE (
+                (routes.route_kind = 'recruiting_outreach'
+                 AND routes.recipient_acceptance = 'outreach_only')
+                OR
+                (routes.route_kind = 'recruiting_email'
+                 AND routes.recipient_acceptance = 'accepts_applications')
+              )
               AND routes.delivery_state = 'delivered'
             ORDER BY routes.updated_at, routes.route_id
             """
@@ -215,8 +220,14 @@ def deliver_outreach_dossiers(
     )
     deliveries = []
     for report in reports:
+        is_application = report["route_kind"] == "recruiting_email"
         message = (
-            "⚠️ Recruiting outreach — not an application\n"
+            (
+                "✅ Full application email sent\n"
+                if is_application
+                else "⚠️ Recruiting outreach — not an application\n"
+            )
+            +
             f"{report['company']} — {report['title']}\n"
             f"{report['canonical_url']}\n"
             f"Recipient: {report['recipient']}\n"
@@ -232,7 +243,7 @@ def deliver_outreach_dossiers(
             delivery = sender(
                 database=outbox_path,
                 event_key=(
-                    f"outreach-dossier:{report['application_id']}:"
+                    f"email-dossier:{report['route_kind']}:{report['application_id']}:"
                     f"{report['provider_id']}:{report['message_sha256']}:"
                     f"{report['resume_sha256']}"
                 ),

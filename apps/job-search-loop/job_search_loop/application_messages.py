@@ -85,12 +85,15 @@ def build_application_message(
         raise MessageError(f"missing approved fact IDs: {', '.join(missing)}")
     claims = [facts[fact_id] for fact_id in fact_ids]
     if word_limit is None:
+        experience = "\n\n".join(claims[:2])
+        additional = " ".join(claims[2:])
         body = "\n\n".join(
             (
                 f"Dear {company} Hiring Team,",
-                f"I am applying for {role} because {reason}.",
-                " ".join(claims[:2]),
-                f"{template['bridge']} {' '.join(claims[2:])}",
+                f"I'm excited to apply for the {role} role. {reason.rstrip('.')}.",
+                experience,
+                f"What draws me to this opportunity is the chance to bring that experience into a customer-facing role where the work has a visible operational impact. {template['bridge']}",
+                additional,
                 str(template["closing"]),
             )
         )
