@@ -5617,3 +5617,75 @@ in whichever order produces an acknowledged application soonest — Ashby alone 
 reach the volume the funnel requires before its fraud detection stops the identity.
 `L-75` follows once the loop reliably lands applications for Dais, because packaging a
 loop that does not yet work would only make the failure portable.
+
+## 20. `L-77` — Verified implementation contract for the fill engine
+
+Every row below was resolved through the Context7 CLI against current upstream docs
+(`npx -y ctx7@latest library` then `docs`), then compared against the code actually in
+this repository. This section exists so the Phase 2 adapters are not written from
+memory.
+
+### 20.1 Audit of the current engine against upstream guidance
+
+| Practice | Upstream guidance | This repository | Verdict |
+|---|---|---|---|
+| Attach to the running browser | `chromium.connect_over_cdp(endpoint)`; `noDefaults: true` is "useful when attaching to a user's daily-driver browser where these overrides would interfere with existing browser state" (`/microsoft/playwright`) | `ashby_apply.py:846`, `ats_page_observer.py:45`, `ats_surface_canary.py:88` all use `connect_over_cdp` | **Correct.** Evaluate `noDefaults` for the daily-driver profile. |
+| Locator strategy | "Avoid using long, chained CSS or XPath selectors that are tightly coupled to the DOM structure... prefer using locators based on user-facing attributes" (`/microsoft/playwright`, `best-practices`) | `ashby_apply.py:201,319` key every field on `[data-field-path]`, an **Ashby-proprietary attribute**. It appears in only two files and exists on no other ATS. | **Blocking for Phase 2.** See 20.2. |
+| Waiting | "Never wait for timeout in production. Tests that wait for time are inherently flaky. Use Locator actions and web assertions that wait automatically." (`/microsoft/playwright`) | `ashby_apply.py:903` calls `page.wait_for_timeout(2_000)`; `ats_surface_canary.py:107` calls `wait_for_timeout(3_000)` | **Defect.** Replace with a web assertion on the terminal state. |
+| File upload | `Locator.setInputFiles`; "If the locator points to a label, it will target the associated control" — works for visually hidden file inputs (`/microsoft/playwright`) | `ashby_apply.py:357` and `playwright_ats.py:240` use `set_input_files` | **Correct.** |
+| Iframes | `page.frame_locator(...)` is the recommended API; `Locator.content_frame()` converts an iframe locator | **No `frame_locator` anywhere in the repository.** `playwright_ats.py` addresses frames positionally by `frame_index` | **Defect.** Positional frame indexing breaks whenever a page adds or reorders an iframe, and both reCAPTCHA and parts of Workday render inside iframes. |
+| Structured model output | Force one named tool: `tool_choice: {type: 'tool', name: '...'}`, or `output_config` with a JSON schema; both may be combined with `tools` in one call (`/anthropics/anthropic-sdk-typescript`) | The apply path calls no model at all (section 17) | **Missing.** This is the mechanism `L-74D` must use. |
+| Selector cache with model fallback | Stagehand caches a resolved action and reports `actResult.cacheStatus` of `HIT`/`MISS`; on failure, clear `cacheDir` and let `selfHeal` re-resolve through the model (`/browserbase/stagehand`) | No cache, no self-heal | **Missing.** This is the shape `L-74I`/`L-74J` self-healing should take: deterministic replay first, model only on miss. |
+| Constraining a browser agent from submitting | browser-use's loop detector "never blocks actions... This is a soft detection system"; the only hard mechanism is `Tools(exclude_actions=[...])` or a custom minimal registry (`/browser-use/browser-use`) | Submit authority is already held outside the browser agent, in the Ledger-fenced CLI | **Correct, and better than upstream's default.** Keep it. A prompt instruction is not a guardrail. |
+| Email with attachment | `gog gmail send --to --subject --body --attach <path> --account`; `--attach` is repeatable; `--dry-run` previews (`github.com/openclaw/gogcli`, `docs/commands/gog-gmail-send.md`) | `gog_application_transport.py:39,50` uses `send` with `--attach` | **Correct.** |
+
+### 20.2 The finding that changes the Phase 2 estimate
+
+The fill engine is keyed on `[data-field-path]`, which is Ashby's own attribute.
+Greenhouse, Lever, and Workday do not emit it. **The existing engine therefore cannot
+be pointed at another ATS by configuration; `L-74E`, `L-74F`, and `L-74G` are not
+adapter configs, they require a portable field-resolution layer.**
+
+The portable layer is the one upstream already recommends for exactly this reason:
+resolve each control by its user-facing label and role rather than by a
+vendor attribute.
+
+```python
+# portable across Ashby, Greenhouse, Lever, and Workday
+control = page.get_by_label(question, exact=False)
+# or, when the control is not label-associated
+control = page.get_by_role("textbox", name=question)
+```
+
+Contract for the portable layer:
+
+1. Enumerate every visible control on the form and read its accessible name, role,
+   required flag, and options. This is the model's input.
+2. The model returns a strict `{question -> answer}` map through one forced tool call,
+   grounded in the private profile facts.
+3. Resolve each answer's control by accessible name and role. Cache the resolved
+   locator per posting; on a miss or a failed assertion, re-resolve through the model
+   instead of failing the run.
+4. Address iframes with `frame_locator`, never by index.
+5. Never `wait_for_timeout`. Assert on the state that is supposed to appear.
+6. Submit authority stays outside the browser agent, in the Ledger-fenced CLI.
+
+### 20.3 Tasks
+
+- [ ] **`L-77A`** — Build the portable field-resolution layer per 20.2 and prove it
+  against the existing no-submit canary on one Ashby posting, resolving fields by
+  accessible name rather than `data-field-path`, with zero Submit controls actioned
+  and every baseline page preserved. Done when the same code path enumerates and fills
+  an Ashby form without reading `data-field-path`.
+
+- [ ] **`L-77B`** — Remove `wait_for_timeout` from `ashby_apply.py:903` and
+  `ats_surface_canary.py:107`, replacing each with an assertion on the state being
+  waited for. Done when both files contain no timeout wait and a real run still
+  classifies its terminal page correctly.
+
+- [ ] **`L-77C`** — Replace positional frame handling in `playwright_ats.py` with
+  `frame_locator`. Done when a form whose control sits inside an iframe is filled
+  without referencing a frame index.
+
+`L-77A` is a prerequisite of `L-74E`, `L-74F`, and `L-74G`. Attempting a second ATS
+before it lands would produce a third copy of an Ashby-shaped engine.
