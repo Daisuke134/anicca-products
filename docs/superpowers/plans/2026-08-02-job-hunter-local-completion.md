@@ -4314,6 +4314,16 @@ resident worker resumes the original durable workflow. A request whose Submit is
 pre-click/pre-request may resume its existing fence; a clicked or request-started
 unknown can only reconcile receipts and move to another role, never click again.
 
+The current atomic proof is Ashby-only. `submit-targeted-ashby.sh` is the executable
+Ashby transaction CLI and MUST accept a new official URL without pre-created answers
+or a pre-existing application row. It deterministically runs prepare/grounded-answer
+generation, fill verification, claim materialization, application/route creation when
+absent, intent/fence preparation, CAPTCHA preflight, one Submit, and confirmation.
+The live proof target is the unsubmitted OpenAI `AI Deployment Engineer, Startups`
+Ashby posting. Only after this CLI produces authoritative end-to-end evidence may the
+resident Job Hunter invoke the same transaction without Terra; other ATS adapters are
+deferred until this single-site vertical slice is closed.
+
 Run 102 (`daily-20260807-170443`) targeted Sierra `Sales Engineer - Tokyo` on
 immutable release `9a4880d8448d8376b90b362e14cecc4131ae3f97`. Its request already
 contained the official URL, ready grounded answers, exact resume, application ID,
