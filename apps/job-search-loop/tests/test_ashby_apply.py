@@ -418,6 +418,40 @@ class AshbyApplyTests(unittest.TestCase):
             "select",
         )
 
+    def test_sierra_answers_use_known_facts_and_surface_only_unknown_required_facts(self):
+        from job_search_loop.ashby_apply import generate_grounded_answers
+
+        profile = {
+            "candidate": {"name": "Candidate", "phone": "verified"},
+            "facts": [
+                {"id": "legal_japan_work_authorization_20260730"},
+                {"id": "legal_no_japan_sponsorship_required_20260806"},
+                {"id": "user_tokyo_onsite_preference_20260805"},
+                {"id": "application_source_job_board_20260807"},
+            ],
+        }
+        fields = [
+            {"question": "Phone", "control": "fill", "required": True},
+            {"question": "LinkedIn", "control": "fill", "required": True},
+            {"question": "Are you legally authorized to work in Japan?", "control": "select", "required": True},
+            {"question": "Will you now or in the future require visa sponsorship to work in Japan?", "control": "select", "required": True},
+            {"question": "Are you able to work from Tokyo?", "control": "select", "required": True},
+            {"question": "How did you hear about this opportunity?", "control": "select", "required": True},
+            {"question": "Can Metaview transcribe all your interviews?", "control": "select", "required": True},
+        ]
+
+        result = generate_grounded_answers(fields, profile)
+
+        self.assertEqual(result["status"], "needs_fact")
+        self.assertEqual(
+            result["missing_required"],
+            ["LinkedIn", "Can Metaview transcribe all your interviews?"],
+        )
+        self.assertEqual(
+            result["answers"]["How did you hear about this opportunity?"]["answer"],
+            "Company website",
+        )
+
     def test_ashby_active_class_confirms_selected_yes_no_button(self):
         from job_search_loop.ashby_apply import (
             combobox_selection_is_committed,

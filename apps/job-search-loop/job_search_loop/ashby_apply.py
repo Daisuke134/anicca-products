@@ -27,6 +27,8 @@ STANDARD_PROFILE_ANSWERS = {
     "email": ("application_email", "profile.application_email"),
     "email address": ("application_email", "profile.application_email"),
     "phone number": ("phone", "profile.phone"),
+    "phone": ("phone", "profile.phone"),
+    "linkedin": ("linkedin_url", "profile.linkedin_url"),
     "preferred name (if applicable)": ("preferred_name", "profile.preferred_name"),
     "when can you start a new role?": ("start_date", "profile.start_date"),
 }
@@ -73,12 +75,18 @@ def generate_grounded_answers(
         elif "authorized to work" in key:
             answer = "Yes"
             fact_id = "legal_japan_work_authorization_20260730"
-        elif "require sponsorship" in key:
+        elif "sponsorship" in key and ("require" in key or "visa" in key):
             answer = "No"
             fact_id = "legal_no_japan_sponsorship_required_20260806"
         elif "tokyo office" in key and "days per week" in key:
             answer = "Yes"
             fact_id = "availability_tokyo_office_three_days_20260806"
+        elif "work from tokyo" in key:
+            answer = "Yes, and I currently live in Tokyo."
+            fact_id = "user_tokyo_onsite_preference_20260805"
+        elif "how did you hear" in key:
+            answer = "Company website"
+            fact_id = "application_source_job_board_20260807"
         elif "hereby certify" in key or "true and correct" in key:
             answer = "true"
             fact_id = "ordinary_truthful_application_attestation_20260807"
@@ -659,7 +667,7 @@ def _write_private(path: Path, value: Any) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Deterministic Ashby inspect/fill/apply CLI")
-    parser.add_argument("mode", choices=("inspect", "answers", "fill", "claim", "apply", "verify"))
+    parser.add_argument("mode", choices=("inspect", "answers", "prepare", "fill", "claim", "apply", "verify"))
     parser.add_argument("--endpoint")
     parser.add_argument("--url")
     parser.add_argument("--output", type=Path, required=True)
@@ -726,7 +734,11 @@ def main() -> int:
         print(json.dumps({"status": claim["status"], "output": str(args.output)}))
         return 0
     if not args.endpoint or not args.url:
-        parser.error("inspect/fill/apply require --endpoint and --url")
+        parser.error("inspect/prepare/fill/apply require --endpoint and --url")
+    if args.mode == "prepare" and (
+        not args.resume or not args.profile or not args.answers_output
+    ):
+        parser.error("prepare requires --resume, --profile, and --answers-output")
     if args.mode == "apply" and (
         not args.answers
         or not args.resume
@@ -752,9 +764,17 @@ def main() -> int:
             if args.mode == "inspect":
                 result = {"version": 1, "status": "inspected", "url": page.url, "fields": fields}
             else:
-                if not args.answers or not args.resume or not args.profile:
+                if args.mode == "prepare":
+                    profile = json.loads(args.profile.read_text(encoding="utf-8"))
+                    generated = generate_grounded_answers(fields, profile)
+                    _write_private(args.answers_output, generated)
+                    answer_map = generated
+                else:
+                    if not args.answers:
+                        parser.error("fill/apply require --answers")
+                    answer_map = json.loads(args.answers.read_text(encoding="utf-8"))
+                if not args.resume or not args.profile:
                     parser.error("fill requires --answers, --resume, and --profile")
-                answer_map = json.loads(args.answers.read_text(encoding="utf-8"))
                 profile = json.loads(args.profile.read_text(encoding="utf-8"))
                 resume_sha256 = hashlib.sha256(args.resume.read_bytes()).hexdigest()
                 plan = build_actions(fields, answer_map=answer_map, resume_path=str(args.resume.resolve()), resume_sha256=resume_sha256)

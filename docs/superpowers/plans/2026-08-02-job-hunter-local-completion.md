@@ -4462,6 +4462,17 @@ item before starting the next.
      bounded `inspect` artifact, generates profile-grounded answers, stops on exact
      missing questions, and fills only when answer generation is ready. This removes
      the prior OpenAI-specific answer-file dependency without granting Submit.
+   - Sierra canary 2: run `daily-20260807-163318` inspected the live Sierra form and
+     extracted 18 controls, but the resident-built multi-command transaction called
+     an observer after the leased page was released and exited before producing the
+     answers artifact. No fill or Submit occurred. The repair moves the complete
+     inspect → grounded-answer → fill operation into one deterministic Ashby
+     `prepare` command, removing shell recomposition and the redundant observer.
+     Current form evidence proves two required private facts remain unknown:
+     LinkedIn URL and consent for Metaview to transcribe all interviews. Work
+     authorization, no sponsorship requirement, Tokyo presence, and company-website
+     source resolve from existing private facts. The focused Sierra-answer contract
+     passes and returns only those two unknown questions.
 4. [x] **L-49K5E1 — Reconcile the OpenAI unknown.** Search Gmail and authoritative
    Ashby evidence for the already-clicked Solutions Engineer intent. Record either a
    receipt-backed `submitted` or the continuing `submit_unknown`; MUST NOT reopen or
