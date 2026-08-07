@@ -292,29 +292,26 @@ fi
 RUNTIME_RELEASE_SHA=$("$JOB_SEARCH_JQ" -er '.commit' "$JOB_SEARCH_REPO_ROOT/RELEASE.json")
 if [[ "$TARGET_REQUEST_ACTIVE" == "1" ]] \
   && [[ "$("$JOB_SEARCH_JQ" -r '.mode' "$FILL_CANARY_REQUEST")" == "submit" ]]; then
-  "$JOB_SEARCH_APP_ROOT/scripts/submit-targeted-ashby.sh" \
-    "$FILL_CANARY_REQUEST" >"$EVIDENCE/targeted-ashby-transaction.json"
+  "$JOB_SEARCH_PYTHON" -m job_search_loop.job_hunt_controller \
+    --request "$FILL_CANARY_REQUEST" \
+    --evidence-root "$EVIDENCE/campaign" \
+    --transaction-script "$JOB_SEARCH_APP_ROOT/scripts/submit-targeted-ashby.sh" \
+    --output "$EVIDENCE/job-hunt-result.json" \
+    >"$EVIDENCE/job-hunt-controller.log"
   TRANSACTION_RC=$?
-  APPLICATION_ID=$("$JOB_SEARCH_JQ" -r '.application_id // empty' "$FILL_CANARY_REQUEST")
-  if [[ -z "$APPLICATION_ID" && -f "$EVIDENCE/submission-prepare.json" ]]; then
-    APPLICATION_ID=$("$JOB_SEARCH_JQ" -r '.application_id // empty' \
-      "$EVIDENCE/submission-prepare.json")
-  fi
-  RESULT_STATUS="blocked"
-  SUBMITTED='[]'
-  SUBMIT_UNKNOWN='[]'
-  BLOCKED='["deterministic Ashby transaction stopped before a terminal receipt"]'
-  if [[ -f "$EVIDENCE/ashby-submit-result.json" ]]; then
-    ASHBY_STATUS=$("$JOB_SEARCH_JQ" -r '.status' "$EVIDENCE/ashby-submit-result.json")
-    if [[ "$ASHBY_STATUS" == "applied_ats" ]]; then
-      RESULT_STATUS="completed"
-      SUBMITTED=$("$JOB_SEARCH_JQ" -cn --arg id "$APPLICATION_ID" '[$id]')
-      BLOCKED='[]'
-    elif [[ "$ASHBY_STATUS" == "ats_unconfirmed" ]]; then
-      RESULT_STATUS="completed"
-      SUBMIT_UNKNOWN=$("$JOB_SEARCH_JQ" -cn --arg id "$APPLICATION_ID" '[$id]')
-      BLOCKED='["ATS request started without authoritative confirmation; no retry"]'
-    fi
+  CAMPAIGN_STATUS=$("$JOB_SEARCH_JQ" -r '.status' "$EVIDENCE/job-hunt-result.json")
+  SUBMITTED=$("$JOB_SEARCH_JQ" -c '.submitted' "$EVIDENCE/job-hunt-result.json")
+  SUBMIT_UNKNOWN=$("$JOB_SEARCH_JQ" -c '.submit_unknown' "$EVIDENCE/job-hunt-result.json")
+  ATTEMPT_COUNT=$("$JOB_SEARCH_JQ" -r '.attempt_count' "$EVIDENCE/job-hunt-result.json")
+  if [[ "$CAMPAIGN_STATUS" == "submitted" ]]; then
+    RESULT_STATUS="completed"
+    BLOCKED='[]'
+  else
+    RESULT_STATUS="exhausted_without_submission"
+    BLOCKED=$("$JOB_SEARCH_JQ" -c \
+      '[.attempts[] | select(.status != "submitted") |
+        (.company + " — " + .title + ": " + .status)]' \
+      "$EVIDENCE/job-hunt-result.json")
   fi
   COUNTS_JSON=$("$JOB_SEARCH_PYTHON" -m job_search_loop.candidate_queue summary \
     --database "$JOB_SEARCH_CANDIDATE_QUEUE")
@@ -331,12 +328,13 @@ if [[ "$TARGET_REQUEST_ACTIVE" == "1" ]] \
       verified_link_count:$verified,remaining_unverified_count:$remaining}' \
     >"$EVIDENCE/attempt-01.result.json"
   "$JOB_SEARCH_JQ" -n --arg result "$EVIDENCE/attempt-01.result.json" \
-    --arg release "$RUNTIME_RELEASE_SHA" --argjson rc "$TRANSACTION_RC" \
-    '{version:1,status:"success",selected_provider:"deterministic-ashby-cli",
-      selected_model:null,attempt_count:1,result_path:$result,
+    --arg release "$RUNTIME_RELEASE_SHA" --arg status "$CAMPAIGN_STATUS" \
+    --argjson attempts "$ATTEMPT_COUNT" --argjson rc "$TRANSACTION_RC" \
+    '{version:1,status:$status,selected_provider:"deterministic-ashby-cli",
+      selected_model:null,attempt_count:$attempts,result_path:$result,
       runtime_release_sha:$release,transaction_exit_code:$rc}' \
     >"$EVIDENCE/summary.json"
-  RUNNER_RC=0
+  RUNNER_RC=$TRANSACTION_RC
 else
   "$JOB_SEARCH_PYTHON" -m job_search_loop.persistent_application_runner \
     --work-id "$APPLICATION_WORK_ID" \

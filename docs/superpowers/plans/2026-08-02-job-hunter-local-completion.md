@@ -4919,6 +4919,22 @@ item before starting the next.
   reCAPTCHA execution. Immediate Cohere/Ashby Gmail search returned zero messages.
   The ledger therefore records `submit_unknown`, forbids retrying Cohere, preserves
   slot 9, has integrity `ok`, and has zero active claims. Cohere must not be retried.
+- [ ] **L-49K-CAMPAIGN — Keep Job Hunter running across Ashby candidates until one
+  authoritative submission.** Root-cause measurement found that the targeted path
+  invoked `submit-targeted-ashby.sh` exactly once, hard-coded `attempt_count=1`,
+  converted every transaction exit into `RUNNER_RC=0`, and labelled
+  `submit_unknown` as a completed run. Browser Harness recovery was unreachable
+  because it existed only in the model prompt while this path bypassed the model.
+  The active source correction introduces `job_hunt_controller.py`: each candidate
+  receives an isolated evidence directory; pre-click failure and `submit_unknown`
+  are candidate-terminal but campaign-nonterminal; only `applied_ats` returns
+  campaign `submitted`. The daily driver now invokes this controller, preserves the
+  real transaction exit, reports the real attempt count, and cannot emit summary
+  `success` for exhaustion. RED failed because the controller and daily-driver route
+  did not exist. GREEN passes the four controller cases plus the focused Ashby and
+  candidate-queue suite, 30/30. Remaining gate: commit/push, immutable release
+  activation, then one installed Job Hunter campaign whose first non-success does
+  not stop the run and whose final state is receipt-backed `submitted`.
 - [ ] **L-50** — Deliver the Ashby owner application package to Telegram and prove
   provider ACKs for the natural-language summary, exact submitted resume, cover letter
   when present, complete mobile-readable question/answer dossier, pre-submit,
