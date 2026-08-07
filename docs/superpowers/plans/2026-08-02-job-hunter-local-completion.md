@@ -4324,6 +4324,14 @@ Ashby posting. Only after this CLI produces authoritative end-to-end evidence ma
 resident Job Hunter invoke the same transaction without Terra; other ATS adapters are
 deferred until this single-site vertical slice is closed.
 
+The first CLI proof correctly rejected OpenAI `AI Deployment Engineer, Startups`
+before intent/Submit because canonical identity was already owned by `dais_manual`,
+despite no exact-URL application row. The replacement proof target is ElevenLabs
+`Account Manager - Japan`. Its first prepare stopped pre-click with three adapter
+gaps: generic `Location`, `Link to your LinkedIn profile`, and a source selector whose
+available truthful option is `Job board`. These are stable Ashby mappings and are
+compiled into the adapter; they are not delegated to Terra or Browser Harness.
+
 Run 102 (`daily-20260807-170443`) targeted Sierra `Sales Engineer - Tokyo` on
 immutable release `9a4880d8448d8376b90b362e14cecc4131ae3f97`. Its request already
 contained the official URL, ready grounded answers, exact resume, application ID,

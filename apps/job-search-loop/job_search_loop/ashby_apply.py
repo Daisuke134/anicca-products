@@ -29,6 +29,7 @@ STANDARD_PROFILE_ANSWERS = {
     "phone number": ("phone", "profile.phone"),
     "phone": ("phone", "profile.phone"),
     "linkedin": ("linkedin_url", "profile.linkedin_url"),
+    "link to your linkedin profile": ("linkedin_url", "profile.linkedin_url"),
     "preferred name (if applicable)": ("preferred_name", "profile.preferred_name"),
     "when can you start a new role?": ("start_date", "profile.start_date"),
 }
@@ -69,7 +70,7 @@ def generate_grounded_answers(
         if standard is not None:
             profile_key, fact_id = standard
             answer = _normalized(candidate.get(profile_key))
-        elif "currently located" in key:
+        elif key == "location" or "currently located" in key:
             answer = _normalized(candidate.get("base"))
             fact_id = "profile.current_location_20260807"
         elif "authorized to work" in key:
@@ -85,7 +86,20 @@ def generate_grounded_answers(
             answer = "Yes, and I currently live in Tokyo."
             fact_id = "user_tokyo_onsite_preference_20260805"
         elif "how did you hear" in key:
-            answer = "Company website"
+            options = [_normalized(option) for option in field.get("options", [])]
+            answer = next(
+                (
+                    option
+                    for preferred in ("Job board", "Company website", "Other")
+                    for option in options
+                    if option.casefold() == preferred.casefold()
+                    or (
+                        preferred == "Other"
+                        and option.casefold().startswith("other")
+                    )
+                ),
+                "Company website",
+            )
             fact_id = "application_source_job_board_20260807"
         elif "metaview" in key and ("transcribe" in key or "record" in key):
             answer = "Yes"
