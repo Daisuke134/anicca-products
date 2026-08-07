@@ -7,9 +7,10 @@
 **Configured upstream:** `canonical/docs/job-hunter-spec-20260805`
 **Scope:** Job Hunter only. Connector, Fundraising, CFO, Crypto, and Gig Work are excluded.  
 **Last updated:** 2026-08-07 JST
-**Active atomic task:** `PERSIST-05e` — build an immutable release from the proved
-persistent application lane, activate it without kicking the resident, then run only
-the installed Submit-disabled Ashby canary to `pre_submit_ready`. `PERSIST-05d`
+**Active atomic task:** `PERSIST-06` — prove restart-safe continuation of the same
+application/thread between non-side-effect form steps, with no repeated question,
+command rediscovery, page-owner collision, or duplicate Submit. `PERSIST-05e` passed
+the installed Submit-disabled Ashby canary at `pre_submit_ready`. `PERSIST-05d`
 replaced the resident application lane's disposable `codex exec --ephemeral`
 invocation with the application-bound app-server thread start/resume path while
 leaving Ledger, browser ownership, Submit authority, Gmail, Telegram, and release
@@ -59,7 +60,7 @@ owner-authorized OpenAI Ashby success is `dais_manual`, not resident proof. Ther
 zero verified interviews and zero offers. `L-49K2C1` is complete:
 its isolated CloakBrowser E2E verified changed field layouts across fill, select,
 check, and upload with zero Submit controls/actions and preserved all baseline pages.
-The active immutable release is `bf7828902834cd389c2db9205df1963c4949ccda`.
+The active immutable release is `867cf10cc50a3f949d35c83b9d2b5902cafa45db`.
 The complete Job Hunter suite passes 549/549. Run 85 proves truthful outreach
 reporting and clean provider logs but does not prove a new resident ATS submission.
 

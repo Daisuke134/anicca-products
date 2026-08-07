@@ -221,7 +221,7 @@ Only the first unchecked item is active.
      completed 58 events, reported the sentinel environment variable `ABSENT`, and
      contained no sentinel value in the event stream. No real secret value was read,
      printed, moved, or rewritten.
-5. [ ] **PERSIST-05 — Job Hunter canary**, closed in this fixed internal order:
+5. [x] **PERSIST-05 — Job Hunter canary**, closed in this fixed internal order:
    0. [x] give the resident thread Job Hunter capability parity with the primary Codex
       session: load the same applicable skill roots and expose browser, official ATS
       CLI, Ledger, profile, Gmail, Telegram, Calendar, shell, filesystem, and network
@@ -289,10 +289,24 @@ Only the first unchecked item is active.
         `1e9a94ed4a81646dc26e3ad98b8e237bb0ca156e503f51c06283d4d3e5a7af1b`
         and `4e1dccd49083c11b2b737165cbae88733cd35f0cd7b09f009cc1b84bb8ad8051`.
         Neither turn used a tool, opened a form, filled a field, or clicked Submit; and
-   5. run the installed canary with Submit disabled. It MUST reach
+   5. [x] run the installed canary with Submit disabled. It MUST reach
       `pre_submit_ready`, verify every required field, show zero unresolved blockers,
       record zero Submit clicks, and emit joined application/material/intent/fence/
       thread receipts. No resident kickstart is permitted before this proof.
+      - Receipt: installed run 95 on immutable release
+        `867cf10cc50a3f949d35c83b9d2b5902cafa45db` resumed application thread
+        `019fdad8-6597-7f12-946e-f5ba73372fbe` generation 1 and exited 0. The
+        deterministic fill receipt reports `status=ready`, `missing=[]`, `repair=[]`,
+        eleven receipts all `verified=true`, and pre-submit screenshot SHA-256
+        `4e32dad54f079bab2807ad12303cb1e255245e4af291a9dc250bcf7fbe39b983`.
+        Independent verification reports `pre_submit_ready` with verified count 11;
+        the agent result has `blocked=[]`, `submitted=[]`, and `submit_unknown=[]`.
+        The production Ledger remains `materials_ready` with zero submission attempts.
+        Fill receipt SHA-256 is
+        `b461cb49a4eb56179c9244c8726b833b0bcf246a198ff8a1f384ce27cd795935`;
+        thread receipt SHA-256 is
+        `82f8f7e0abcb1609748fbd5ef11065e979be2410cafbbfb22ca60a1f79912831`.
+        Telegram delivery succeeded with provider message ID `8426`.
 6. [ ] **PERSIST-06 — Job Hunter restart proof.** Exit between two non-side-effect
    form steps, resume the same thread/application, and prove no repeated question,
    command rediscovery, page-owner collision, or duplicate Submit.
