@@ -489,6 +489,72 @@ def validate_fill_result(
     }
 
 
+def materialize_claim_ready(
+    *, fill_result: dict[str, Any], owner_receipt: dict[str, Any],
+    resume_path: Path, snapshot_output: Path, claim_output: Path,
+    answers_output: Path,
+) -> dict[str, Any]:
+    validate_fill_result(fill_result)
+    lease_id = owner_receipt.get("lease_id")
+    fence = owner_receipt.get("fence")
+    holder_pid = owner_receipt.get("holder_pid")
+    if not isinstance(lease_id, str) or not lease_id:
+        raise ValueError("browser owner lease is missing")
+    if isinstance(fence, bool) or not isinstance(fence, int) or fence <= 0:
+        raise ValueError("browser owner fence is missing")
+    if isinstance(holder_pid, bool) or not isinstance(holder_pid, int) or holder_pid <= 0:
+        raise ValueError("browser owner holder PID is missing")
+    resume_path = Path(resume_path).expanduser().resolve()
+    if not resume_path.is_file():
+        raise ValueError("resume is not a file")
+    fields = fill_result.get("fields")
+    if not isinstance(fields, list) or not fields:
+        raise ValueError("fill result has no fields")
+    controls: list[dict[str, Any]] = []
+    for field in fields:
+        if not isinstance(field, dict):
+            raise ValueError("fill field is invalid")
+        control = str(field.get("control") or "fill")
+        field_path = str(field.get("field_path") or "")
+        input_type = (
+            "file" if control == "upload" else
+            "email" if field_path == "_systemfield_email" else
+            "checkbox" if control == "check" else "text"
+        )
+        controls.append({
+            "tag": "input", "type": input_type, "role": None,
+            "label": str(field.get("question") or ""), "name": field_path,
+            "text": "",
+        })
+    controls.append({
+        "tag": "button", "type": "submit", "role": "button",
+        "label": None, "name": None, "text": "Submit Application",
+    })
+    page_url = str(fill_result.get("url") or "")
+    url = page_url.removesuffix("/application")
+    snapshot = {
+        "version": 1, "url": url, "navigation_committed": True,
+        "frames": [{"url": url, "controls": controls}],
+    }
+    _write_private(snapshot_output, snapshot)
+    snapshot_sha256 = hashlib.sha256(snapshot_output.read_bytes()).hexdigest()
+    resume_sha256 = hashlib.sha256(resume_path.read_bytes()).hexdigest()
+    answers = [
+        {"question": receipt.get("question"), "answer": receipt.get("answer"),
+         "fact_ids": receipt.get("fact_ids", [])}
+        for receipt in fill_result["receipts"] if receipt.get("kind") != "upload"
+    ]
+    _write_private(answers_output, answers)
+    claim = {
+        "version": 1, "status": "claim_ready", "job_url": url,
+        "snapshot_sha256": snapshot_sha256, "resume_sha256": resume_sha256,
+        "owner_lease_id": lease_id, "owner_fence": fence,
+        "owner_holder_pid": holder_pid, "blockers": [], "submit_clicked": False,
+    }
+    _write_private(claim_output, claim)
+    return claim
+
+
 def _write_private(path: Path, value: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
     path.write_text(json.dumps(value, ensure_ascii=False, sort_keys=True) + "\n")
@@ -497,7 +563,7 @@ def _write_private(path: Path, value: Any) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Deterministic Ashby inspect/fill/apply CLI")
-    parser.add_argument("mode", choices=("inspect", "answers", "fill", "apply", "verify"))
+    parser.add_argument("mode", choices=("inspect", "answers", "fill", "claim", "apply", "verify"))
     parser.add_argument("--endpoint")
     parser.add_argument("--url")
     parser.add_argument("--output", type=Path, required=True)
@@ -505,6 +571,10 @@ def main() -> int:
     parser.add_argument("--inspect-result", type=Path)
     parser.add_argument("--resume", type=Path)
     parser.add_argument("--profile", type=Path)
+    parser.add_argument("--fill-result", type=Path)
+    parser.add_argument("--owner-receipt", type=Path)
+    parser.add_argument("--snapshot-output", type=Path)
+    parser.add_argument("--answers-output", type=Path)
     parser.add_argument("--ledger", type=Path)
     parser.add_argument("--intent-id")
     parser.add_argument("--fence", type=int)
@@ -540,6 +610,24 @@ def main() -> int:
             print(json.dumps(receipt, sort_keys=True))
             return 2
         print(json.dumps(receipt, sort_keys=True))
+        return 0
+    if args.mode == "claim":
+        if not all((args.fill_result, args.owner_receipt, args.snapshot_output, args.answers_output, args.resume)):
+            parser.error(
+                "claim requires --fill-result, --owner-receipt, --snapshot-output, "
+                "--answers-output, and --resume"
+            )
+        try:
+            claim = materialize_claim_ready(
+                fill_result=json.loads(args.fill_result.read_text(encoding="utf-8")),
+                owner_receipt=json.loads(args.owner_receipt.read_text(encoding="utf-8")),
+                resume_path=args.resume, snapshot_output=args.snapshot_output,
+                claim_output=args.output, answers_output=args.answers_output,
+            )
+        except (OSError, json.JSONDecodeError, ValueError) as error:
+            print(f"ashby claim: {error}", file=sys.stderr)
+            return 2
+        print(json.dumps({"status": claim["status"], "output": str(args.output)}))
         return 0
     if not args.endpoint or not args.url:
         parser.error("inspect/fill/apply require --endpoint and --url")

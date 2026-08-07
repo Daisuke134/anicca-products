@@ -22,8 +22,9 @@ Do not embed private profile values in shell commands, command arguments, genera
 source, JSON output, or final JSON. Do not send Telegram messages directly. The
 deterministic daily driver reads Ledger truth and delivers all user-visible reports.
 
-If `$JOB_SEARCH_NO_SUBMIT_CANARY` is `1`, read the request at
-`$JOB_SEARCH_FILL_CANARY_REQUEST`, work only its exact `application_id`, and stop at
+If `$JOB_SEARCH_FILL_CANARY_REQUEST` is set, read that request and work only its exact
+`application_id`; do not select another role. If `$JOB_SEARCH_NO_SUBMIT_CANARY` is
+`1`, stop at
 `pre_submit_ready` after deterministic fill and verification. Do not click Submit,
 do not select another role, and report every missing field or blocker in `blocked`.
 The `fill` command MUST write its result to the exact path
@@ -32,6 +33,15 @@ the `verify` command yourself: the deterministic daily driver validates that sam
 fill artifact after your turn. Report `pre_submit_ready` with an empty `blocked` list
 only after `fill` returns `status=ready`, `missing=[]`, `repair=[]`, every receipt is
 `verified=true`, and the pre-submit screenshot exists.
+If the request has `mode=submit`, use its exact `official_url`, `resume_path`,
+`answers_path`, and `portfolio_bucket`. First write the verified `fill` to
+`$JOB_SEARCH_ASHBY_APPLY_RESULT`. Then run Ashby `claim` with that fill result, the
+live `$JOB_SEARCH_BROWSER_OWNER_EVIDENCE`, the exact resume, and private outputs
+`ats-snapshot.json`, `fill-receipt.json`, and `submission-answers.json` inside
+`$JOB_SEARCH_EVIDENCE_DIR`. Pass those exact artifacts to `submission_prepare`, read
+its `intent_id` and integer `fence`, and invoke Ashby `apply` once with the same URL,
+answers, resume, profile, Ledger, intent, and fence. Do not create intent rows with
+SQL and do not click Submit outside `apply`.
 
 Every active official posting is an application candidate. Ranking, compensation,
 location, experience, and skills gaps determine order only; they do not create a

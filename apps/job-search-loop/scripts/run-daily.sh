@@ -11,13 +11,17 @@ TELEGRAM_OUTBOX="$JOB_SEARCH_STATE_ROOT/telegram-outbox.sqlite3"
 RESULT_PATH="$EVIDENCE/browser-worker-result.json"
 FILL_CANARY_REQUEST="$JOB_SEARCH_STATE_ROOT/ashby-fill-canary-request.json"
 FILL_CANARY_ACTIVE=0
+TARGET_REQUEST_ACTIVE=0
 export JOB_SEARCH_SUBMIT_ENABLED=1
 export JOB_SEARCH_ASHBY_APPLY_MODULE="job_search_loop.ashby_apply"
 export JOB_SEARCH_ASHBY_APPLY_RESULT="$EVIDENCE/ashby-apply-result.json"
 if [[ -f "$FILL_CANARY_REQUEST" ]]; then
-  FILL_CANARY_ACTIVE=1
-  export JOB_SEARCH_NO_SUBMIT_CANARY=1
+  TARGET_REQUEST_ACTIVE=1
   export JOB_SEARCH_FILL_CANARY_REQUEST="$FILL_CANARY_REQUEST"
+  if [[ "$("$JOB_SEARCH_JQ" -r '.mode' "$FILL_CANARY_REQUEST")" == "no_submit" ]]; then
+    FILL_CANARY_ACTIVE=1
+    export JOB_SEARCH_NO_SUBMIT_CANARY=1
+  fi
 fi
 
 mkdir -p "$EVIDENCE" "$JOB_SEARCH_STATE_ROOT/logs"
@@ -273,7 +277,7 @@ set +e
 report_progress "terra-started" \
   "Job Hunter ${RUN_ID}: GPT-5.6 Terra Job Hunterが起動しました。候補評価、フォーム適応、履歴書提出、Submit確認、証拠保存を一体で実行します。"
 APPLICATION_WORK_ID="resident-application-lane"
-if [[ "$FILL_CANARY_ACTIVE" == "1" ]]; then
+if [[ "$TARGET_REQUEST_ACTIVE" == "1" ]]; then
   APPLICATION_WORK_ID=$("$JOB_SEARCH_JQ" -er '.application_id' "$FILL_CANARY_REQUEST")
 fi
 RUNTIME_RELEASE_SHA=$("$JOB_SEARCH_JQ" -er '.commit' "$JOB_SEARCH_REPO_ROOT/RELEASE.json")
@@ -305,6 +309,8 @@ if [[ "$FILL_CANARY_ACTIVE" == "1" ]]; then
       RUNNER_RC=76
     fi
   fi
+fi
+if [[ "$TARGET_REQUEST_ACTIVE" == "1" ]]; then
   mv "$FILL_CANARY_REQUEST" "$EVIDENCE/ashby-fill-canary-request.json"
   chmod 600 "$EVIDENCE/ashby-fill-canary-request.json"
 fi

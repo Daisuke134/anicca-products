@@ -630,6 +630,45 @@ class AshbyApplyTests(unittest.TestCase):
         self.assertEqual(receipt["http_status"], 200)
         self.assertNotIn("data", receipt)
 
+    def test_verified_fill_materializes_ledger_claim_receipt(self):
+        from job_search_loop.ashby_apply import materialize_claim_ready
+        from job_search_loop.ats import evaluate_snapshot
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            resume = root / "resume.pdf"
+            resume.write_bytes(b"%PDF-1.4 verified")
+            screenshot = root / "pre-submit.png"
+            screenshot.write_bytes(b"form")
+            fill = {
+                "status": "ready",
+                "url": "https://jobs.ashbyhq.com/example/role/application",
+                "fields": [
+                    {"control": "fill", "field_path": "_systemfield_email", "question": "Email"},
+                    {"control": "upload", "field_path": "_systemfield_resume", "question": "Resume"},
+                ],
+                "receipts": [
+                    {"kind": "fill", "question": "Email", "answer": "user@example.com", "fact_ids": ["profile.email"], "verified": True},
+                    {"kind": "upload", "question": "Resume", "answer": "resume.pdf", "fact_ids": [], "verified": True},
+                ],
+                "pre_submit_screenshot": {"path": str(screenshot), "sha256": hashlib.sha256(screenshot.read_bytes()).hexdigest()},
+            }
+            claim = materialize_claim_ready(
+                fill_result=fill,
+                owner_receipt={"lease_id": "lease-1", "fence": 7, "holder_pid": 123},
+                resume_path=resume,
+                snapshot_output=root / "snapshot.json",
+                claim_output=root / "claim.json",
+                answers_output=root / "answers.json",
+            )
+
+            self.assertEqual(claim["status"], "claim_ready")
+            self.assertFalse(claim["submit_clicked"])
+            self.assertEqual(claim["owner_fence"], 7)
+            self.assertEqual(len(json.loads((root / "answers.json").read_text())), 1)
+            snapshot = json.loads((root / "snapshot.json").read_text())
+            self.assertTrue(evaluate_snapshot(snapshot)["claim_ready"])
+
     def test_semantic_submit_timeout_returns_post_click_evidence_before_page_closes(self):
         from job_search_loop.ashby_apply import execute_semantic_submit
 
