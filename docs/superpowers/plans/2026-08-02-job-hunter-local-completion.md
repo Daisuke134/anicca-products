@@ -5965,7 +5965,169 @@ not achievement** — a capability list is only interesting once it has produced
 acknowledged applications, which currently stands at one. The claim may be published
 when the weekly acknowledged count is non-trivial, not before.
 
-### 22.6 Concurrency warning
+### 22.6 Message contract — what the person actually receives
+
+The person does two things ever: answer questions about themselves once, and approve
+their resume once. Everything after that arrives as a message. So the messages *are*
+the product.
+
+**What is shipping today is not that.** The live format is machine-facing:
+
+```
+⚠️ Recruiting outreach — not an application
+Example — AI Engineer
+Recipient: talent@example.test
+Route: recruiting_outreach / outreach_only
+Receipt: gmail:outreach-timeout
+```
+
+`Route: recruiting_outreach / outreach_only` is an internal state pair. `Receipt:
+gmail:...` is a provider key. Neither tells a person anything. Four rules fix this:
+
+1. **Never show internal vocabulary.** No `submit_unknown`, `outreach_only`,
+   `route_id`, `fence`, `sha256`, or application IDs. A person never needs them; if a
+   support case does, it goes in a log, not a chat.
+2. **Answer "what happened for me", not "what the system did".** "Applied to Stripe"
+   is the event. "Route executed, delivery_state=delivered" is not.
+3. **Bad news arrives plainly and on time.** A rejection, a blocked ATS, or a week
+   with zero replies is reported in the same voice as a win. Hiding it is what made
+   eleven applications look like progress when one was real.
+4. **One message per real-world event.** Not one per internal transition.
+
+#### The nine messages
+
+**1 — Onboarding (conversational, in the person's language)**
+
+> こんにちは。仕事探しを引き受けます。まず、あなたのことを教えてください。
+> 履歴書か LinkedIn のリンクがあれば送ってください。無ければ質問で埋めます。
+>
+> *(PDF を受け取って)*
+> 読みました。要点はこう理解しています。
+> ・三菱UFJインフォメーションテクノロジー で AI エージェントの実装と運用
+> ・Databricks を使った観測性、社内展開の推進
+> ・NAIST 修士、ICLR 発表
+>
+> あと3つだけ。
+> ① 希望年収の下限はいくらですか
+> ② 東京のオフィス出社は週何日まで可能ですか
+> ③ 絶対に避けたい業界や職種はありますか
+
+**2 — Resume ready, the one approval gate**
+
+> 履歴書ができました。あなたが実際に言ったことだけで書いています。盛っていません。
+>
+> 📎 Daisuke_Narita_Resume_EN.pdf
+> 📎 Daisuke_Narita_履歴書.pdf
+>
+> 狙う職種: エンタープライズAI の導入・ソリューション系（東京 / リモート可）
+> 想定年収帯: 1,200万円〜
+>
+> これで応募を始めていいですか。直したい所があれば普通の言葉で言ってください。
+> 「もっと技術寄りに」「金融の経験を前に」でも通じます。
+>
+> [ はい、始めて ]   [ 直したい ]
+
+**3 — Campaign started (sent once, then silence until something real happens)**
+
+> 始めました。これ以降、あなたに確認は求めません。
+> 応募・返信・面接・オファーが起きた時だけ連絡します。
+> 週に一度、まとめも送ります。
+
+**4 — Applied (the employer's own site)**
+
+> ✅ 応募しました
+> **Stripe** — Solutions Architect, Japan
+> 年収 1,400万〜1,900万円 / 東京・ハイブリッド
+>
+> 選んだ理由: エンタープライズ導入とAIエージェントの実務が、この求人の
+> 「顧客と直接組んで本番運用まで持っていく」要件にそのまま重なります。
+>
+> 聞かれた質問と、私が出した答え:
+> ・なぜ Stripe に興味がありますか
+>   → 決済基盤の上に AI を載せる仕事は、精度より運用の信頼性が効く領域だと
+>     考えていて、そこは自分が最も長くやってきた部分です。
+> ・日本で就労資格はありますか → はい
+>
+> 📎 送った履歴書
+>
+> 次: 返信が来たら知らせます。
+
+**5 — Applied by email (the site route was unavailable)**
+
+> ✅ 応募しました（メール）
+> **Anthropic** — Applied AI Architect
+> 応募フォームが開けなかったので、採用担当のアドレスに直接送りました。
+> 求人URLと役職を明記し、履歴書を添付しています。
+>
+> 送った本文:
+> > Anthropic 採用ご担当者さま
+> > Applied AI Architect（東京）に応募いたします。…
+>
+> ⏳ まだ先方が受け取ったという確認はありません。返事が来たら知らせます。
+
+**6 — Employer replied**
+
+> 📬 **Stripe** から返信が来ました
+> 「一次面接を設定したい」という内容です。
+> 候補日を3つ提示されています。
+>
+> あなたのカレンダーの空きと突き合わせて、火曜10時で返信しておきました。
+> 変更したければ言ってください。
+
+**7 — Interview scheduled + prep**
+
+> 📅 面接が入りました
+> **Stripe** — Solutions Architect, Japan
+> 8月14日（木）10:00–10:45 / Google Meet
+> カレンダーに入れました。
+>
+> 準備をまとめました。前日にもう一度送ります。
+> ・面接官は Enterprise Solutions のマネージャー。過去の登壇から、
+>   「導入後に定着させる話」を重視する人です。
+> ・想定質問5つと、あなたの経験のどれで答えるか
+> ・あなたから聞くと良い質問3つ
+> 📎 面接準備メモ
+
+**8 — Weekly digest (always sent, even when the news is bad)**
+
+> 📊 今週のまとめ（8/4〜8/10）
+>
+> 応募 12件 / 先方が受け取ったのが確認できたもの 9件
+> 返信 2件 / 面接 1件 / 見送り 1件
+>
+> うまくいっている: Greenhouse 経由の応募は9件中9件が確認されました。
+> うまくいっていない: Ashby が応募制限をかけてきたので、3日間止めています。
+>
+> 気づいたこと: 「導入して終わりでなく定着まで」と書いた応募の返信率が高いです。
+> 来週はその書き方を全部に反映します。
+>
+> 今週の見送り: Perplexity（書類）。理由の記載はありませんでした。
+
+**9 — Offer**
+
+> 🎉 **オファーが出ました**
+> **Stripe** — Solutions Architect, Japan
+> 年収 1,650万円（基本 1,320万 + 賞与 330万）+ RSU
+> 回答期限: 8月28日
+>
+> 他社との比較と、交渉できそうな点をまとめました。
+> 📎 比較メモ
+>
+> ここから先はあなたの判断です。受けますか。
+
+#### Tone rules
+
+Japanese, plain, no corporate stiffness, no exclamation-mark cheerfulness. State the
+fact, then what happens next. When something fails, say what failed and what is being
+done, and never inflate a sent email into a received application.
+
+- [ ] **`L-80`** — Rewrite every outbound Telegram message to this contract and delete
+  internal vocabulary from all person-facing text. Done when a full campaign run
+  produces only messages that match the nine shapes above, verified by reading the
+  actual sent text, and when `grep -E "route_id|outreach_only|submit_unknown|sha256"`
+  over the message-building code returns nothing reachable by a person.
+
+### 22.7 Concurrency warning
 
 Two sessions have been editing this worktree at once; `L-74A` was completed by one
 while another was preparing the same change. Before picking up a task, check
