@@ -4473,6 +4473,17 @@ item before starting the next.
      authorization, no sponsorship requirement, Tokyo presence, and company-website
      source resolve from existing private facts. The focused Sierra-answer contract
      passes and returns only those two unknown questions.
+   - Sierra canary 3: installed run `daily-20260807-163827` on immutable release
+     `ad1362b2e17aba2ab39a8132fde5f2ba19b6e038` successfully invoked the single
+     deterministic `prepare` command. Its private `ashby-answers.json` and
+     `ashby-apply-result.json` independently agree on exactly two missing required
+     facts: LinkedIn URL and Metaview all-interview transcription consent. All other
+     required known questions resolved from the private profile. No field was filled
+     and Submit was not clicked because the answer set was incomplete. The automatic
+     run report is Telegram `8465`; a dedicated contextual question with the exact
+     two requested answers is Telegram `8466`. On receipt, persist both answers in the
+     private profile, rerun this same no-submit canary, and only after complete
+     verification promote the same application to CAPTCHA-preflight submit mode.
 4. [x] **L-49K5E1 — Reconcile the OpenAI unknown.** Search Gmail and authoritative
    Ashby evidence for the already-clicked Solutions Engineer intent. Record either a
    receipt-backed `submitted` or the continuing `submit_unknown`; MUST NOT reopen or
