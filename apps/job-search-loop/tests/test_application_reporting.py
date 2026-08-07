@@ -31,18 +31,25 @@ class ApplicationReportingTests(unittest.TestCase):
             "resume_path": "/private/resume.pdf",
         }
 
+        text_calls = []
         result = reporting.deliver_outreach_dossiers(
             ledger_path=Path("unused.sqlite3"),
             outbox_path=Path("outbox.sqlite3"),
             media_root=Path("media"),
             report_reader=lambda _: [report],
+            # Both transports must be stubbed. Leaving either one to a
+            # production default is what sent fixture content to a real
+            # recipient on 2026-08-08; see tests/test_external_send_guard.py.
+            message_sender=lambda **kwargs: text_calls.append(kwargs)
+            or {"status": "sent", "message_id": "903"},
             sender=lambda **kwargs: calls.append(kwargs)
             or {"status": "sent", "message_id": "904"},
         )
 
         self.assertEqual(result[0]["message_id"], "904")
         self.assertEqual(len(calls), 1)
-        message = calls[0]["message"]
+        self.assertEqual(len(text_calls), 1)
+        message = text_calls[0]["message"]
         self.assertIn("Recruiting outreach — not an application", message)
         self.assertIn("Recipient: talent@example.test", message)
         self.assertIn("Subject: Application — AI Engineer", message)
@@ -75,6 +82,9 @@ class ApplicationReportingTests(unittest.TestCase):
             outbox_path=Path("outbox.sqlite3"),
             media_root=Path("media"),
             report_reader=lambda _: [report],
+            message_sender=lambda **_: (_ for _ in ()).throw(
+                subprocess.TimeoutExpired("openclaw", 60)
+            ),
             sender=lambda **_: (_ for _ in ()).throw(
                 subprocess.TimeoutExpired("openclaw", 60)
             ),

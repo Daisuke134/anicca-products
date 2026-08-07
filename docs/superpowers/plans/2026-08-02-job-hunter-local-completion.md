@@ -5724,3 +5724,69 @@ Contract for the portable layer:
 
 `L-77A` is a prerequisite of `L-74E`, `L-74F`, and `L-74G`. Attempting a second ATS
 before it lands would produce a third copy of an Ashby-shaped engine.
+
+## 21. `L-78` — Test runs reached the owner's real Telegram
+
+### 21.1 What happened
+
+On 2026-08-08 the owner received Telegram messages containing pure fixture content:
+company `Example`, url `https://jobs.example/1`, recipient `talent@example.test`,
+receipt `gmail:outreach-timeout`, body `Complete sent message.` Those strings exist
+only in `tests/test_application_reporting.py`.
+
+`deliver_outreach_dossiers` injected two transports: `sender` for the resume document
+and `message_sender` for the text dossier. Both tests stubbed `sender` only.
+`message_sender` therefore fell back to its production default `telegram.send_once`,
+and because the text dossier is sent **before** the document, every run of that test
+module posted fixture content to the real Telegram API. `_telegram_config_value` reads
+the token from `~/.config/anicca/job-search/telegram.env` when the environment variable
+is absent, so this worked from any working directory with no configuration.
+
+While reproducing this, the RED test in this session sent one more such message,
+recorded as `telegram_message_id 8757` with `status sent` in a stray
+`outbox.sqlite3`. That file was removed. The reproduction should have been run behind
+a blocked transport; it was not.
+
+### 21.2 The general defect
+
+**A production transport reachable through a default argument.** A test that stubs one
+of several injected side-effect transports silently exercises the real one. Six
+functions in this package carry such defaults
+(`application_reporting.py:108,213,300`, `daily_reporting.py:179`,
+`interview_prep.py:275`, `telegram.py:143`). Ninety-seven test modules inject their own
+`requester`, which is why the defect stayed invisible: the convention was almost always
+followed, so the one place it was not looked like every other passing test.
+
+### 21.3 The fix, as landed
+
+Two layers, because either alone is insufficient.
+
+1. **Boundary guard.** `telegram._telegram_request` — the function that actually
+   performs the HTTP call — now raises `ExternalSendBlocked` when a test framework is
+   loaded in the process, or when the payload matches a reserved-for-documentation host
+   (`example.test`, `jobs.example`, `@example.`, RFC 2606 / RFC 6761 names). The guard
+   sits in the real network function rather than in `send_once`, so the ninety-seven
+   modules that inject a requester keep working and only the path that would reach
+   `api.telegram.org` is closed. `JOB_SEARCH_ALLOW_EXTERNAL_SENDS=1` is the deliberate
+   escape hatch. The fixture-host check applies unconditionally, including in
+   production, because fixture content must never reach a real recipient by any route.
+2. **Remove the default.** `deliver_outreach_dossiers` no longer defaults
+   `message_sender`; callers must supply it. The production entrypoint passes
+   `send_once` explicitly.
+
+Verification actually observed: `tests.test_external_send_guard` 4/4 after being proven
+RED first; `tests.test_application_reporting` `tests.test_telegram`
+`tests.test_external_send_guard` 15/15; the fourteen test modules that touch telegram,
+send, or outbox 96/96; and no `outbox.sqlite3` created by any of those runs, which is
+the direct evidence that no send was attempted.
+
+### 21.4 Remaining work
+
+- [ ] **`L-78A`** — Audit the five other defaulted side-effect transports listed in
+  21.2 and remove each default, or document why that call site cannot reach a real
+  recipient. The boundary guard already neutralises them for Telegram; `gog` email
+  sending has no equivalent guard yet.
+- [ ] **`L-78B`** — Extend the same boundary guard to the `gog` email transport in
+  `gog_application_transport.py`, so a test can never send mail to a real employer.
+  This matters more than the Telegram case: a fixture email to a real recruiting
+  address is not recoverable.

@@ -210,8 +210,8 @@ def deliver_outreach_dossiers(
     ledger_path: Path,
     outbox_path: Path,
     media_root: Path,
+    message_sender: Callable[..., dict[str, str | None]],
     sender: Callable[..., dict[str, str | None]] = send_document_once,
-    message_sender: Callable[..., dict[str, str | None]] = send_once,
     report_reader: Callable[[Path], list[dict[str, str]]] | None = None,
 ) -> list[dict[str, str | None]]:
     reports = (
@@ -369,6 +369,7 @@ def main() -> None:
         ledger_path=args.ledger,
         outbox_path=args.outbox,
         media_root=args.media_root,
+        message_sender=send_once,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
     args.output.write_text(

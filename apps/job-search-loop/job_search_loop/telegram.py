@@ -3,7 +3,9 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import shlex
+import sys
 import uuid
 from pathlib import Path
 from typing import Any, Callable
@@ -13,6 +15,45 @@ from .outbox import Outbox
 
 
 TelegramRequester = Callable[..., dict[str, Any]]
+
+
+class ExternalSendBlocked(RuntimeError):
+    """A real outbound send was attempted from a context that must not send."""
+
+
+# Reserved-for-documentation names (RFC 2606 / RFC 6761) plus the placeholder
+# hosts this repository's fixtures use. Real employers never live here, so any
+# payload carrying one is fixture content that escaped a test.
+_FIXTURE_PATTERN = re.compile(
+    r"(?:^|[\s@/.])(?:example|invalid|localhost|test)\.(?:com|net|org|test|invalid)\b"
+    r"|(?:^|[\s@/])jobs\.example\b"
+    r"|@example\.",
+    re.IGNORECASE,
+)
+
+
+def _under_test_runner() -> bool:
+    """True when a test framework is loaded in this process.
+
+    Production entrypoints are `python3 -m job_search_loop.<module>` and never
+    import `unittest` or `pytest`, so their presence is an unambiguous signal
+    that this process is a test run.
+    """
+    return "unittest" in sys.modules or "pytest" in sys.modules
+
+
+def _assert_external_send_allowed(payload: str) -> None:
+    if _FIXTURE_PATTERN.search(payload):
+        raise ExternalSendBlocked(
+            "refusing to send a fixture-shaped payload to a real recipient"
+        )
+    if _under_test_runner() and os.environ.get(
+        "JOB_SEARCH_ALLOW_EXTERNAL_SENDS"
+    ) != "1":
+        raise ExternalSendBlocked(
+            "refusing a real outbound send from a test process; inject a "
+            "requester, or set JOB_SEARCH_ALLOW_EXTERNAL_SENDS=1 deliberately"
+        )
 
 
 def _telegram_config_value(config_name: str, supplied: str | None) -> str:
@@ -53,6 +94,9 @@ def _telegram_request(
     fields: dict[str, str],
     document: Path | None = None,
 ) -> dict[str, Any]:
+    _assert_external_send_allowed(
+        "\n".join(str(value) for value in fields.values())
+    )
     base_url = os.environ.get(
         "TELEGRAM_BOT_API_BASE_URL", "https://api.telegram.org/bot"
     ).rstrip("/")
