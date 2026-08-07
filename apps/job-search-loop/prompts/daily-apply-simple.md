@@ -42,6 +42,10 @@ live `$JOB_SEARCH_BROWSER_OWNER_EVIDENCE`, the exact resume, and private outputs
 its `intent_id` and integer `fence`, and invoke Ashby `apply` once with the same URL,
 answers, resume, profile, Ledger, intent, and fence. Do not create intent rows with
 SQL and do not click Submit outside `apply`.
+When the targeted request contains `user_authorized_overflow=true`, pass both
+`--user-authorized-overflow` and its exact `--overflow-reason` to
+`submission_prepare`. This authority applies only to that request/application and
+does not relax deduplication, terminal-route, intent, or one-click fences.
 
 Every active official posting is an application candidate. Ranking, compensation,
 location, experience, and skills gaps determine order only; they do not create a

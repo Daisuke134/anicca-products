@@ -46,6 +46,13 @@ submission attempts. It still exited 76 because the agent wrote the valid fill r
 to an invented filename while the deterministic driver correctly required
 `$JOB_SEARCH_ASHBY_APPLY_RESULT`. The active fix pins that one output path and leaves
 Submit disabled for the rerun.
+Run 96 on release `e5027567938b2198d8ac0187cefdc33f8650f5c8` resumed the
+same thread, repeated the exact verified fill, and generated a valid claim-ready ATS
+snapshot and browser owner receipt. Submit remained at zero because all ten ordinary
+daily slots were already occupied and `submission_prepare` did not expose Ledger's
+existing user-authorized overflow parameters. Dais explicitly authorized this exact
+OpenAI application in chat. The active fix exposes only that existing fenced overflow
+path through the CLI; dedupe, terminal-route, intent, and one-click gates remain intact.
 **Status:** The immutable four-lane runtime, grounded materials, ownership fences,
 Gmail ingestion, Telegram outbox, quota accounting, Ashby surface classifier, and
 loopback OpenTelemetry Collector/private trace index are implemented. The application

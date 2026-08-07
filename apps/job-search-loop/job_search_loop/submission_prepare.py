@@ -28,6 +28,8 @@ def prepare_submission(
     snapshot_path: Path,
     fill_receipt_path: Path,
     answers_path: Path,
+    user_authorized_overflow: bool = False,
+    overflow_reason: str | None = None,
 ) -> dict[str, Any]:
     resume_path = Path(resume_path).expanduser().resolve()
     snapshot_path = Path(snapshot_path).expanduser().resolve()
@@ -98,6 +100,8 @@ def prepare_submission(
             fill_receipt_path=fill_receipt_path,
             fill_receipt_sha256=_sha256(fill_receipt_path),
             portfolio_bucket=portfolio_bucket,
+            user_authorized_overflow=user_authorized_overflow,
+            overflow_reason=overflow_reason,
         )
         if intent is None:
             raise RuntimeError("application is not eligible for a new submit intent")
@@ -136,6 +140,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--snapshot", required=True, type=Path)
     parser.add_argument("--fill-receipt", required=True, type=Path)
     parser.add_argument("--answers", required=True, type=Path)
+    parser.add_argument("--user-authorized-overflow", action="store_true")
+    parser.add_argument("--overflow-reason")
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args(argv)
     try:
@@ -151,6 +157,8 @@ def main(argv: list[str] | None = None) -> int:
             snapshot_path=args.snapshot,
             fill_receipt_path=args.fill_receipt,
             answers_path=args.answers,
+            user_authorized_overflow=args.user_authorized_overflow,
+            overflow_reason=args.overflow_reason,
         )
     except (OSError, ValueError, RuntimeError, KeyError) as error:
         print(f"submission prepare: {error}", file=sys.stderr)
