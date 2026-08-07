@@ -73,7 +73,19 @@ owner-authorized OpenAI Ashby success is `dais_manual`, not resident proof. Ther
 zero verified interviews and zero offers. `L-49K2C1` is complete:
 its isolated CloakBrowser E2E verified changed field layouts across fill, select,
 check, and upload with zero Submit controls/actions and preserved all baseline pages.
-The active immutable release is `867cf10cc50a3f949d35c83b9d2b5902cafa45db`.
+The active immutable release is `f9642b2f3e2e520affdea9b847ae428706d89607`, read from
+`~/.local/share/anicca/job-search/current` and its `RELEASE.json`.
+
+**Correction, 2026-08-07 (see section 17).** The `submitted` counts above overstate
+autonomous progress. Six of the eleven are Job Hunter's own outbound emails projected
+as applications, which section 15 item 34 forbids; three are `dais_manual`. Exactly
+one autonomous application holds an employer acknowledgement. Ashby is at 3
+`submitted` against 24 `submit_unknown` and is now returning an application limit;
+Workday has completed zero ATS-form submissions; Greenhouse and Lever have no
+implementation. The `learning` LaunchAgent has never run (exit 78), so no
+self-improvement has occurred, and the `firecrawl` discovery provider fails silently
+on every query with `Unauthorized: Invalid token`. `L-74A` must land before any
+allocation decision is made on these numbers.
 The complete Job Hunter suite passes 549/549. Run 85 proves truthful outreach
 reporting and clean provider logs but does not prove a new resident ATS submission.
 
@@ -2541,6 +2553,12 @@ parallel only where explicitly stated below. Otherwise preserve this order:
    negotiation brief, and owner decision.
 15. [ ] `W-01` through `W-30` — only after local completion, build and verify the
    tenant-isolated Web product.
+16. [ ] **`L-74A` through `L-74J` — correct application truth, end the Ashby
+   monoculture, and make the website-first / email-fallback contract real.** This
+   supersedes any remaining instruction to keep retrying Ashby on the current
+   identity. See section 17. Execute `L-74A` first: the ledger currently overstates
+   autonomous progress, and no allocation decision made on the current numbers can be
+   trusted.
 
 Current production truth measured from the ledger and resident receipts:
 
@@ -5248,3 +5266,184 @@ For every real application or outcome, verify the ledger, evidence directory,
 Telegram provider receipt, Gmail message ID, and Calendar event ID before reporting
 the stage as complete. A dry run, browser click without receipt, model summary, or
 unmatched email is not completion evidence.
+
+## 17. `L-74` — Application-truth correction and the multi-ATS website-first contract
+
+Added 2026-08-07 from measured runtime, not from plan. This section supersedes any
+earlier instruction to keep retrying Ashby on the current identity.
+
+### 17.1 Measured truth that forces this section
+
+Every row below was read directly from `ledger.sqlite3`, `summary.v2.json`, run
+evidence, and one `gog gmail get` of the stored provider ID.
+
+| Measurement | Value | How it was observed |
+|---|---|---|
+| Applications in ledger | 57 | `select count(*) from applications` |
+| `submitted` projection | 11 | `summary.v2.json` counts |
+| `submit_unknown` projection | 25 | same |
+| `submit_claimed` events vs `submitted` events | 46 vs 12 | `select to_state, count(*) from events group by 1` |
+| Ashby `submitted` / `submit_unknown` | 3 / 24 | `summary.v2.json` adapter breakdown |
+| Workday ATS-form `submitted` | **0** | all four Workday rows carry `channel: recruiting_outreach` |
+| Greenhouse / Lever `submitted` | 0 / 0 | Greenhouse has 3 `discovered`; Lever has zero rows |
+| Gmail threads bound to applications | 0 | `inbox` lane reports `thread_count: 0` |
+| `application_followups` rows | 0 | `select count(*) from application_followups` |
+| Verified interviews / offers | 0 / 0 | ledger has no interview or offer state |
+| `confirmed_application_rate` | 1/36 = 0.0278 | `summary.v2.json` funnel |
+| `learning` LaunchAgent last exit | 78 | `launchctl list`; `stable-launcher.sh:14` emits `current release is not active` |
+| `firecrawl` discovery provider | `Unauthorized: Invalid token` on every query | `prefilter-result.json` `provider_results` |
+| Candidates surviving prefilter in run 115 | 12, of which 6 are OpenAI | `prefilter-result.json` |
+| Run 115 terminal page | `We couldn't submit your application / I'm sorry we are limiting applications to give everyone a chance.` | `ashby-submit-result.terminal.png` read as an image |
+
+**The eleven `submitted` rows decompose as follows.** This decomposition is the
+reason `L-74A` exists.
+
+| Actual mechanism | Count | Applications |
+|---|---|---|
+| Agent ATS-form submit with an employer Gmail receipt bound | **1** | ElevenLabs `Account Manager - Japan` (`message_id`/`thread_id` present in the event payload) |
+| Agent ATS-form submit with a fence but no receipt in the payload | 2 | LayerX, エクスチュア株式会社 |
+| Agent **outbound email that the agent itself sent** | **6** | Cursor, LangChain, NVIDIA ×2, Salesforce, Workday |
+| `dais_manual` interactive submissions | 3 | OpenAI, Palantir, Neural Concept |
+
+The six email rows store `provider_id: gmail:<id>` and are projected as `submitted`.
+`gog gmail get 19fd74214d1fc23e` returns the body `Dear Cursor Hiring Team, I am
+applying for the Solutions Architect — Japan role...` — that is Job Hunter's own
+outbound message, not an employer acknowledgement. Section 15 item 34 already
+requires that a provider ACK stay `email_sent` and that only an explicit employer
+acceptance or authoritative receipt create a confirmed application. **The running
+system violates its own rule, and every downstream number — quota, funnel, learning
+input, and the daily Telegram report — inherits the inflation.**
+
+Corrected autonomous truth: the resident has produced **one** application that an
+employer has acknowledged.
+
+### 17.2 Externally verified constraints
+
+| Finding | Source |
+|---|---|
+| No ATS exposes an applicant-side submission API. Ashby's `applicationForm.submit` *"Requires the `candidatesWrite` permission"*; Greenhouse's `POST /applications` needs a Base64 Job Board API Key the employer owns; Lever's POST needs an employer key and returns `429` above 2 requests/second; Workday has no equivalent endpoint. | developers.ashbyhq.com/reference/applicationformsubmit-1.md ; developers.greenhouse.io/job-board.html ; github.com/lever/postings-api |
+| Browser automation is therefore unavoidable for cold applying. There is no "legitimate route" that removes the anti-bot surface. | derived from the row above |
+| Ashby ships Candidate Fraud Detection (Sept 2025) which *"analyzes four signal categories on applications: Device, IP address, Email address... Phone number"*. Job Hunter has used one device, one IP, and one email address for all 57 rows. Rotating the browser or network route changes at most two of the four signals. | docs.ashbyhq.com/candidate-fraud-detection-overview-and-admin-settings |
+| Ashby's own corpus: roles now receive *"more than 300 applications per hire on average"* and candidates are *"roughly 50% less likely to receive an interview than they were five years ago."* | prnewswire.com/news-releases/...-302765846.html |
+| Industry funnel: application → interview 8.4%, interview → offer 36%. One offer therefore needs roughly 56 confirmed cold applications before role-competitiveness is priced in. | navero.me/blog/recruiting-funnel-metrics |
+| Referred candidates pass initial screens at 52% versus 35% overall. | ashbyhq.com/talent-trends-report/reports/recruiting-operations-benchmarks-talent-trends |
+| Process supervision beats outcome supervision: *"process supervision significantly outperforms outcome supervision."* An offer is too rare and too delayed to be a learning signal; the loop must be scored on immediate proxies. | arxiv.org/abs/2305.20050 |
+| Both currently maintained open-source job-application agents map **every** form field with a model rather than with rules. | github.com/torontodeveloper/job-application-agent ; github.com/Sma1lboy/coforce-apply |
+
+### 17.3 The contract
+
+**The official employer website is the primary channel. Email is a fallback, and a
+fallback is not an application.**
+
+```
+discover  →  rank  →  choose ATS adapter by measured health
+                          │
+                          ├─ website succeeds  →  employer receipt  →  confirmed_application
+                          ├─ website fails     →  classify the failure precisely
+                          │                        └─ blocked/limited → cool that ATS identity down
+                          └─ no usable website route → natural-language email → email_sent
+                                                        └─ employer replies → confirmed_application
+```
+
+Three rules are absolute:
+
+1. **`email_sent` never becomes `submitted` without an inbound employer message.**
+   The state is upgraded only by a received Gmail message bound to that application.
+2. **Every answer is written by a model against the private profile facts.** No
+   keyword ladder, no unconditional `Yes`, no "pick the largest option" for a
+   screening question. Rule-based answering is what produced the ElevenLabs
+   mismatch, and it is also what makes learning structurally impossible: a regex has
+   no weights to update from an outcome.
+3. **A visible rejection on the terminal page beats any internal success type.** An
+   `HTTP 200` or a typed `FormSubmitSuccess` next to *"We couldn't submit your
+   application"* is a failure.
+
+### 17.4 Tasks
+
+- [ ] **`L-74A`** — Correct application truth. Reclassify the six
+  `recruiting_outreach` rows from `submitted` to `email_sent` through the state
+  machine's own API, never a raw `UPDATE`. Rebuild `summary.v2`, the funnel
+  denominators, and the quota projection from events. Report the corrected number on
+  Telegram in plain Japanese, including the fact that the earlier number was wrong.
+  Done when the rebuilt projection shows autonomous confirmed applications equal to
+  the count of applications holding an inbound employer message, and the existing
+  `test_summary_v2_rebuilds_from_events_and_matches_telegram_projection` and
+  `test_funnel_rates_use_confirmed_application_denominator` both pass.
+
+- [ ] **`L-74B`** — Reclassify submission outcomes. Replace the single
+  `submit_unknown` bucket with `submitted`, `not_submitted`, `spam_blocked`,
+  `rate_limited`, and `ats_unavailable`. A model reads the terminal screenshot and
+  page text to classify; the classification is stored with the evidence hash that
+  justified it. Re-run the classifier over the existing run 111/113/114/115 evidence
+  **without opening a browser or clicking anything**. Done when Replit's run 113 is
+  `spam_blocked` and ElevenLabs' run 115 is `rate_limited`, each citing the stored
+  terminal image.
+
+- [ ] **`L-74C`** — Cool down a blocked ATS identity instead of rotating around it.
+  On `spam_blocked` or `rate_limited`, write a per-ATS `cooldown_until` (minimum 72
+  hours) that the campaign reads before selecting a candidate. Do not attempt a
+  device/IP swap: Ashby also fingerprints the email address, which is unchanged.
+  Done when a real run skips every Ashby posting and logs the cooldown as the reason.
+
+- [ ] **`L-74D`** — Replace `generate_grounded_answers` in `ashby_apply.py` with a
+  model that answers each question against the private profile facts, plus a verifier
+  that rejects an answer unless it (a) actually answers the question asked, (b)
+  traces every factual claim to a `fact_id`, and (c) is not a verbatim reuse of an
+  answer already sent to another employer. Delete the unconditional `Yes` branch and
+  the "select the largest option" branch for screening questions; an unanswerable
+  screening question is a reason to skip the posting, not to guess upward. Done when
+  the ElevenLabs question *"What are your favourite AI tools/workflows at the
+  moment?"* produces an answer about tools and workflows, proven through the existing
+  `no_submit` canary with zero Submit controls actioned.
+
+- [ ] **`L-74E`** — Greenhouse adapter. `ats.py` already classifies
+  `job-boards.greenhouse.io`; there is no fill/submit implementation. Build it on the
+  same Ledger-fenced contract as Ashby: model-mapped fields, pre/post/terminal
+  screenshots, employer-receipt confirmation. Done when one real Greenhouse
+  application reaches an employer receipt.
+
+- [ ] **`L-74F`** — Lever adapter. Same contract, `jobs.lever.co`. Lever's own docs
+  warn its application endpoint is rate limited to 2 requests/second and advise
+  session/IP rate limits, so pace one application per posting with human-scale
+  spacing. Done when one real Lever application reaches an employer receipt.
+
+- [ ] **`L-74G`** — Finish the Workday form route. Workday has produced 118
+  discovery results per run and **zero** completed ATS submissions; all four Workday
+  rows escaped to email. Workday requires candidate-account creation before the form,
+  which is where the route currently dies. Complete account creation and form
+  submission end to end. Done when one real Workday application reaches an employer
+  receipt without an email fallback.
+
+- [ ] **`L-74H`** — Adapter router with measured health. Select the adapter per
+  candidate from live success rate, cooldown state, and supply, instead of the
+  hardcoded `REQUIRED_ATS_ADAPTERS = {ashby, workday}` pair. Cap any single employer
+  at a small share of a day's attempts; run 115's candidate pool was 50% OpenAI.
+  Done when a real run distributes attempts across at least three ATS families and
+  the allocation is reproducible from the recorded health inputs.
+
+- [ ] **`L-74I`** — Make silent failure impossible. A discovery provider returning
+  zero results because of `Unauthorized: Invalid token` must raise, report on
+  Telegram, and switch to a surviving provider — today it is swallowed. A lane that
+  produces zero successful outputs across N consecutive runs must open a repair case.
+  Zero is a claim, and a claim must record how it looked. Done when a deliberately
+  broken provider token produces a Telegram report inside one real run.
+
+- [ ] **`L-74J`** — Repair the learning lane. It exits 78 at
+  `stable-launcher.sh:14` because `$JOB_SEARCH_DATA_ROOT/current` is resolved under
+  one root while state lives under another, so the self-improvement loop has never
+  executed. Fix the path contract, then feed the lane the immediate proxy rewards —
+  application confirmed by an employer, inbound human reply received, screen
+  scheduled — rather than offers, which are too rare and too delayed to supervise on.
+  Recalibrate the proxies against real outcomes on a slower cadence. Done when the
+  lane exits zero on a real `launchctl kickstart` and writes a decision derived from
+  measured proxy values.
+
+### 17.5 Rejected approaches and why
+
+| Rejected | Reason |
+|---|---|
+| Rotate to an independent browser/network route to escape the Ashby block | Ashby fingerprints Device, IP, **Email**, and Phone. Rotation changes two of four. It relocates the symptom and spends the next identity. |
+| Migrate to official ATS APIs | No applicant-side submission API exists on any of the four ATS families. Verified in 17.2. |
+| Keep raising daily application throughput | The measured constraint is not volume produced but applications an employer acknowledges, which stands at one. Throughput on a blocked identity increases the block. |
+| Treat sent email as a completed application | Prohibited by section 15 item 34; it is the specific inflation `L-74A` removes. |
+| Score the loop on offers | Too rare and too delayed to supervise on. Process supervision on immediate proxies is the cited alternative. |
