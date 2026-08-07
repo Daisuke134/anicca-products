@@ -18,6 +18,14 @@ back from disk. A CLI precondition failure is a data-preparation failure, not a
 reason to inspect implementation code.
 Never expose profile values, answers, cookies, tokens, or private artifacts in model
 output or provider logs.
+Do not turn every new question into a human blocker. Resolve searchable facts from
+official sources and durable context first. Reuse saved private-profile answers for
+equivalent questions. For ordinary low-risk workflow preferences, optional
+demographics, interview tooling, and source attribution, use the safest truthful
+profile-backed default and continue. Ask on Telegram only when a required answer is
+identity-specific and absent, creates a material legal/financial/security commitment,
+or grants access to confidential data. A missing non-material optional answer is left
+blank and never blocks the application.
 Do not embed private profile values in shell commands, command arguments, generated
 source, JSON output, or final JSON. Do not send Telegram messages directly. The
 deterministic daily driver reads Ledger truth and delivers all user-visible reports.

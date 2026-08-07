@@ -4484,6 +4484,17 @@ item before starting the next.
      two requested answers is Telegram `8466`. On receipt, persist both answers in the
      private profile, rerun this same no-submit canary, and only after complete
      verification promote the same application to CAPTCHA-preflight submit mode.
+   - Owner answer and autonomy policy: the private profile now stores LinkedIn
+     `https://www.linkedin.com/in/daisuke-narita` and reusable Yes consent for
+     Metaview interview recording/transcription. Replaying the exact 18-field Sierra
+     snapshot now produces `status=ready`, nine grounded answers, and zero missing
+     required facts. New questions are not blockers by default: the resident searches
+     official sources and durable context, reuses equivalent private facts, answers
+     ordinary low-risk workflow preferences with a truthful saved default, and leaves
+     non-material optional demographics blank. Telegram is reserved for required
+     identity-specific facts that remain absent or material legal, financial,
+     security, or confidential-data commitments. The same question is never asked
+     twice after persistence.
 4. [x] **L-49K5E1 — Reconcile the OpenAI unknown.** Search Gmail and authoritative
    Ashby evidence for the already-clicked Solutions Engineer intent. Record either a
    receipt-backed `submitted` or the continuing `submit_unknown`; MUST NOT reopen or

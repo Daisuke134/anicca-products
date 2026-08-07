@@ -87,6 +87,9 @@ def generate_grounded_answers(
         elif "how did you hear" in key:
             answer = "Company website"
             fact_id = "application_source_job_board_20260807"
+        elif "metaview" in key and ("transcribe" in key or "record" in key):
+            answer = "Yes"
+            fact_id = "interview_metaview_transcription_consent_20260807"
         elif "hereby certify" in key or "true and correct" in key:
             answer = "true"
             fact_id = "ordinary_truthful_application_attestation_20260807"
