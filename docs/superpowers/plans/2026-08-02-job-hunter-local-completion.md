@@ -4314,6 +4314,20 @@ stopped pre-click/pre-request because the persistent runner environment allowlis
 omitted `CAPSOLVER_API_KEY`. The repair passes that named variable without logging its
 value and lets a targeted request resume the same pre-click intent/fence instead of
 claiming a duplicate.
+Run 104 (`daily-20260807-172021`) resumed that exact intent/fence on immutable release
+`fce028728f7e81c87a74f304eeb3b5a5e6006ff0`. CapSolver returned a ready
+`ReCaptchaV3TaskProxyLess` token for action `job_apply`; the script performed exactly
+one fenced Submit. Ashby returned HTTP 200 and operation
+`ApiSubmitMultipleFormsAction`, but also a visible alert and no
+`FormSubmitSuccess`, so the authoritative classifier returned `unconfirmed`.
+Ledger truth is click `clicked`, transport `request_started`, application
+`submit_claimed`; the resident correctly emitted `submit_unknown` and did not retry.
+The pre-submit screenshot SHA-256 is
+`afcb928f0cae2635f6a73abbc1b38c188869a30832349b1e1cc9322d62e3226a`.
+Telegram terminal message ID is `8485`. A Gmail search for Sierra or the exact role
+over the last day returned zero threads, so no receipt upgrades this outcome to
+submitted. Sierra is terminal observe-only; the next live role MUST be a different
+eligible employer.
 
 ### Ordered remaining execution — Big Two first, then general browser coverage
 
