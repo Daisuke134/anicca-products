@@ -104,6 +104,14 @@ def generate_grounded_answers(
         elif "metaview" in key and ("transcribe" in key or "record" in key):
             answer = "Yes"
             fact_id = "interview_metaview_transcription_consent_20260807"
+        elif (
+            "experience" in key
+            and key.startswith(("do you", "have you"))
+            and {option.casefold() for option in field.get("options", [])}
+            >= {"yes", "no"}
+        ):
+            answer = "No"
+            fact_id = "application_policy_ungrounded_experience_no_20260807"
         elif "hereby certify" in key or "true and correct" in key:
             answer = "true"
             fact_id = "ordinary_truthful_application_attestation_20260807"
