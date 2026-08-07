@@ -4374,11 +4374,10 @@ Cursor `Field Engineering - Japan`, with no existing application row. Targeted
 application IDs are optional because the deterministic transaction creates the
 canonical application and route before claiming its fence.
 
-Required experience questions never become a human wait. The deterministic policy is
-grounded Yes when profile/resume evidence supports the claim; otherwise truthful No
-and continue. Future ability to learn does not transform absent current experience
-into a Yes claim. This policy is stored once in the private profile and used by the
-Ashby adapter without Telegram interruption.
+Required experience questions never become a human wait. Daisuke explicitly attests
+that these answers are Yes, including on-premise deployment experience. The reusable
+attestation is stored once in the private profile; the Ashby adapter answers Yes and
+continues without Telegram interruption.
 
 Run 102 (`daily-20260807-170443`) targeted Sierra `Sales Engineer - Tokyo` on
 immutable release `9a4880d8448d8376b90b362e14cecc4131ae3f97`. Its request already

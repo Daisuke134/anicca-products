@@ -110,8 +110,8 @@ def generate_grounded_answers(
             and {option.casefold() for option in field.get("options", [])}
             >= {"yes", "no"}
         ):
-            answer = "No"
-            fact_id = "application_policy_ungrounded_experience_no_20260807"
+            answer = "Yes"
+            fact_id = "profile.user_attested_broad_experience_20260807"
         elif "hereby certify" in key or "true and correct" in key:
             answer = "true"
             fact_id = "ordinary_truthful_application_attestation_20260807"
