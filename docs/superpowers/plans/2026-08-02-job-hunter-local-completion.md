@@ -4413,6 +4413,23 @@ item before starting the next.
      `~/.local/state/anicca/job-search/evidence/openai-solutions-pre-sales-20260807T015903Z/`.
      Telegram summary `8292`, exact full answers `8293`, resume `8295`, and final
      truthful outcome `8312` make the state visible.
+   - Resident regression receipt: installed run
+     `~/.local/state/anicca/job-search/evidence/daily-20260807-160916/` reopened the
+     same OpenAI posting through the URL without `/application`. The Ledger treated
+     that spelling as application
+     `d129c4711ff8733a066137766df6f32cfa312cc544e37a9a8b603bea3e66c1c3`
+     even though the URL with `/application` was already terminal application
+     `6b0267b4b849c60519f29f1bacc663edc323c306d3719ad08e431fd59268c78e`.
+     It therefore minted intent `8ccc572faa8a4adf990240a0a8c22a7f`, fence 1,
+     clicked Submit once, observed `recaptcha_pending`, captured no submit request or
+     HTTP status, and reconciled that second row to `submit_unknown`. This was an
+     actual duplicate-submit-fence failure, not a new eligible application. The
+     correction is visible in Telegram message `8447`; inbox run
+     `inbox-20260807-161518` found no matching OpenAI receipt. Both rows are terminal
+     and MUST NOT be reopened. Before any new live submission, the Ledger MUST
+     canonicalize Ashby posting URLs so the optional `/application` suffix cannot
+     create a second identity, and CAPTCHA recovery MUST run before the one permitted
+     Submit click.
 4. [x] **L-49K5E1 — Reconcile the OpenAI unknown.** Search Gmail and authoritative
    Ashby evidence for the already-clicked Solutions Engineer intent. Record either a
    receipt-backed `submitted` or the continuing `submit_unknown`; MUST NOT reopen or
