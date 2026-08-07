@@ -274,9 +274,21 @@ Only the first unchecked item is active.
         `answers_draft`) with matching SHA-256 values, and zero submission attempts.
         The private receipt is mode 0600. Focused test passed 1/1. No form fill,
         submit intent, or Submit occurred.
-   4. replace only the Job Hunter application lane's `codex exec --ephemeral` with
+   4. [x] replace only the Job Hunter application lane's `codex exec --ephemeral` with
       app-server resume while preserving Ledger, browser fence, exact Submit authority,
-      Gmail, Telegram, and immutable release contracts; and
+      Gmail, Telegram, and immutable release contracts;
+      - Receipt: `run-daily.sh` now invokes the thin
+        `persistent_application_runner`, which joins the existing app-server client
+        and private SQLite thread registry and preserves the existing summary/result
+        contract. Focused tests passed 40/40. Two real subscription-authenticated Luna
+        turns ran in separate client processes for application
+        `d129c4711ff8733a066137766df6f32cfa312cc544e37a9a8b603bea3e66c1c3`.
+        Both used thread `019fdad8-6597-7f12-946e-f5ba73372fbe`, generation 1; the
+        second binding updated `last_run_id` to `persist-05d-probe-two`. The private
+        registry and both result artifacts are mode 0600. Result SHA-256 values are
+        `1e9a94ed4a81646dc26e3ad98b8e237bb0ca156e503f51c06283d4d3e5a7af1b`
+        and `4e1dccd49083c11b2b737165cbae88733cd35f0cd7b09f009cc1b84bb8ad8051`.
+        Neither turn used a tool, opened a form, filled a field, or clicked Submit; and
    5. run the installed canary with Submit disabled. It MUST reach
       `pre_submit_ready`, verify every required field, show zero unresolved blockers,
       record zero Submit clicks, and emit joined application/material/intent/fence/

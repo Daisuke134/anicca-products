@@ -7,9 +7,13 @@
 **Configured upstream:** `canonical/docs/job-hunter-spec-20260805`
 **Scope:** Job Hunter only. Connector, Fundraising, CFO, Crypto, and Gig Work are excluded.  
 **Last updated:** 2026-08-07 JST
-**Active atomic task:** `PERSIST-05d` — replace only the resident application lane's
-disposable `codex exec --ephemeral` invocation with the proved application-bound
-app-server thread start/resume path. `PERSIST-05c` materialized the selected
+**Active atomic task:** `PERSIST-05e` — build an immutable release from the proved
+persistent application lane, activate it without kicking the resident, then run only
+the installed Submit-disabled Ashby canary to `pre_submit_ready`. `PERSIST-05d`
+replaced the resident application lane's disposable `codex exec --ephemeral`
+invocation with the application-bound app-server thread start/resume path while
+leaving Ledger, browser ownership, Submit authority, Gmail, Telegram, and release
+boundaries unchanged. `PERSIST-05c` materialized the selected
 application, canonical route, grounded resume, posting, answers, and exact hashes
 before browser fill without prematurely creating a submit intent. `PERSIST-05b`
 live-inspected one genuinely new official
@@ -36,7 +40,7 @@ no-submit Ashby `pre_submit_ready` canary pass.
 **Status:** The immutable four-lane runtime, grounded materials, ownership fences,
 Gmail ingestion, Telegram outbox, quota accounting, Ashby surface classifier, and
 loopback OpenTelemetry Collector/private trace index are implemented. The application
-LaunchAgent is loaded on a 3,600-second schedule and is idle after resident run 85;
+LaunchAgent is loaded on a 3,600-second schedule and is idle after resident run 92;
 CloakBrowser CDP and the observability Collector are running. The
 authoritative projection contains ten historical `submitted`, sixteen
 `submit_unknown`, six `rejected`, two `materials_ready`, and five `discovered`.
