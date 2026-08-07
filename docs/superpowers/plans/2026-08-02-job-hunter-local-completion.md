@@ -4332,6 +4332,17 @@ gaps: generic `Location`, `Link to your LinkedIn profile`, and a source selector
 available truthful option is `Job board`. These are stable Ashby mappings and are
 compiled into the adapter; they are not delegated to Terra or Browser Harness.
 
+The second ElevenLabs CLI pass performed exactly one fenced Submit and received HTTP
+200, `ApiSubmitSingleApplicationFormAction`, typed `FormSubmitSuccess`, no alert, and
+Gmail receipt `19fdb630faed4c2b` with subject `ElevenLabs | Application Received`.
+The receipt body names `Account Manager - Japan` and states that ElevenLabs received
+the application. The old classifier still returned `ats_unconfirmed` because it
+required one OpenAI/Neural-specific visible sentence, and the CLI left the Ledger
+intent nonterminal. The generic contract is corrected: the official typed Ashby
+submit success plus no alert is authoritative regardless of employer copy; the CLI
+itself completes `submitted`, or `submit_unknown` after any request-started result
+that lacks authoritative success.
+
 Run 102 (`daily-20260807-170443`) targeted Sierra `Sales Engineer - Tokyo` on
 immutable release `9a4880d8448d8376b90b362e14cecc4131ae3f97`. Its request already
 contained the official URL, ready grounded answers, exact resume, application ID,

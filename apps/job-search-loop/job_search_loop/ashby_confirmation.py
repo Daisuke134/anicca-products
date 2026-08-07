@@ -151,7 +151,10 @@ def classify_confirmation(
         "expected_success_sha256": _sha256(expected_success_text),
         "status_text_sha256": _sha256(status_text),
         "alert_text_sha256": _sha256(alert_text),
-        "authoritative_success": bool(
-            graphql_success and status_matches and not alert_present
+        "confirmation_basis": (
+            "ashby_typed_submit_success"
+            if graphql_success and not alert_present
+            else None
         ),
+        "authoritative_success": bool(graphql_success and not alert_present),
     }

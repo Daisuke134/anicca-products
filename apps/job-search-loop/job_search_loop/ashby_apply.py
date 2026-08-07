@@ -823,6 +823,13 @@ def main() -> int:
                             ledger.mark_submission_click_phase(
                                 args.intent_id, args.fence, "confirmed"
                             )
+                            ledger.complete_submission(
+                                args.intent_id, args.fence, "submitted"
+                            )
+                        else:
+                            ledger.complete_submission(
+                                args.intent_id, args.fence, "submit_unknown"
+                            )
                         result["submit_observation"] = observation
                         result["status"] = (
                             "applied_ats"
