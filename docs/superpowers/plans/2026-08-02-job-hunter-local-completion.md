@@ -5447,3 +5447,173 @@ Three rules are absolute:
 | Keep raising daily application throughput | The measured constraint is not volume produced but applications an employer acknowledges, which stands at one. Throughput on a blocked identity increases the block. |
 | Treat sent email as a completed application | Prohibited by section 15 item 34; it is the specific inflation `L-74A` removes. |
 | Score the loop on offers | Too rare and too delayed to supervise on. Process supervision on immediate proxies is the cited alternative. |
+
+## 18. `L-75` — The product: one command that lands a six-figure job
+
+### 18.1 What Job Hunter is, stated plainly
+
+Job Hunter is an income loop. A six-figure salary is roughly USD 10,000 per month of
+steady revenue that keeps arriving without being re-earned each cycle, which is what
+makes it different from gig work. The product must land that for Dais first, then for
+any person, with the human touching it approximately twice: once to answer questions
+about themselves, once to approve the resume. After that the loop applies without
+asking.
+
+The deliverable is a single command anyone can run, not a set of eighty-five module
+entrypoints. Today every module is separately invokable as
+`python3 -m job_search_loop.<module>` and there is no unified surface; `pyproject.toml`
+declares no `console_scripts`. That is acceptable for Dais's Mac and unusable as a
+product.
+
+### 18.2 The full flow
+
+```
+jobhunter onboard
+  ├─ ask the person about themselves, in their language, conversationally
+  ├─ ingest whatever documents they already have (old resume, LinkedIn export, GitHub)
+  ├─ every extracted claim becomes a fact with an ID; nothing enters without a source
+  └─ write the private profile
+
+jobhunter resume
+  ├─ render resume variants from facts only (English master, business, 日本語, 履歴書)
+  ├─ send the PDF to the person on Telegram with a plain-language summary
+  └─ WAIT — this is the one approval gate in the entire product
+
+person replies "ok" on Telegram
+  └─ campaign becomes active; no further approval is ever requested
+
+jobhunter run          (this is what launchd calls every hour, forever)
+  ├─ discover across every provider; a provider returning zero is a failure, not a result
+  ├─ rank by fit and compensation against the person's stated target
+  ├─ for each candidate, in order:
+  │    ├─ WEBSITE FIRST — the employer's own ATS form is the primary channel
+  │    │     ├─ a model reads the actual form and writes every answer from the facts
+  │    │     ├─ submit once, fenced by the ledger
+  │    │     └─ read the terminal page with your own eyes; a visible rejection is a failure
+  │    ├─ if the website route is unavailable, broken, blocked, or rate limited
+  │    │     └─ EMAIL FALLBACK — a natural-language application to the employer's
+  │    │        published recruiting address, resume attached, naming the exact role
+  │    │        and job URL. Written by a model, in the language of the posting.
+  │    │        Not a template. Not a form letter. It reads like the person wrote it.
+  │    └─ record which channel was used and what the employer did about it
+  ├─ poll Gmail; an inbound employer message is what upgrades a row to confirmed
+  ├─ turn interview emails into calendar events
+  └─ report everything on Telegram in natural language
+```
+
+### 18.3 The one approval gate, and why it is the only one
+
+The person approves the resume once, because the resume is their voice and their
+claims, and section 3 of the operating rules reserves approval for the owner's own
+words. Everything after that is execution: which employer, which role, which channel,
+what to write in a form field, when to send. Those are the loop's decisions. Asking
+about them is the failure mode that has already been diagnosed, not caution.
+
+The email fallback is explicitly authorized by this gate. Applying by email is a
+normal thing a job seeker does when a form is broken; it is not an escalation and it
+does not need its own approval. What it does need is honesty about what it is: a sent
+email is `email_sent`, and only the employer's reply makes it a confirmed application.
+
+### 18.4 Telegram approval requires a bot that can receive
+
+Telegram can be read, but both existing tokens have owners: `TELEGRAM_BOT_TOKEN` is
+held by the gateway's long poll and `LM_TELEGRAM_BOT_TOKEN` is held by Life Manager's
+webhook. A `getUpdates` consumer is exclusive per token, so taking either one kills a
+production receiver. Job Hunter therefore needs its own bot token from BotFather for
+the approval gate. This is a prerequisite of `L-75B`, not an afterthought.
+
+### 18.5 Tasks
+
+- [ ] **`L-75A`** — One CLI. Add `console_scripts` exposing `jobhunter` with the
+  subcommands `onboard`, `resume`, `run`, `status`, and `install`. The existing module
+  entrypoints stay as internals. Done when a person who has never seen this repository
+  can go from `pip install` to an active campaign using only `jobhunter --help`.
+
+- [ ] **`L-75B`** — Conversational onboarding. Replace fixed-question
+  `collect_interactive` with a model-led interview that adapts to the answers, accepts
+  an existing resume or LinkedIn export as input, and emits facts with IDs and source
+  spans. It must work for a person with no job-search knowledge and must run in the
+  person's own language. Provision a dedicated Job Hunter Telegram bot token so
+  onboarding and approval can happen in the chat rather than in a terminal. Done when
+  a full profile is produced from a real conversation with no hand-editing of JSON.
+
+- [ ] **`L-75C`** — Resume approval gate. Render the variants, send the PDF plus a
+  plain-language summary on Telegram, block until the person replies, and record the
+  approval as an event. Done when a real Telegram reply flips the campaign to active
+  and the message ID is stored.
+
+- [ ] **`L-75D`** — Make the email fallback a first-class channel rather than an
+  escape hatch. It already sends through `gog send --attach` with the resume attached,
+  and six such emails exist. Required changes: a model writes the body against the
+  posting and the facts so no two employers receive the same text; the body names the
+  exact role and job URL; the language follows the posting; the row is stored as
+  `email_sent`; and an inbound reply is what upgrades it. Done when two emails to
+  different employers share no sentence and both are correctly classified.
+
+- [ ] **`L-75E`** — Weekly outcome report in natural language on Telegram: how many
+  applications an employer acknowledged, which channels produced them, which ATS is
+  cooled down, what the loop changed about its own strategy, and what it will try
+  next. Done when a real weekly run sends a report whose numbers reconcile with a
+  fresh rebuild from events.
+
+## 19. `L-76` — Why this has failed three times, and the discipline that changes it
+
+### 19.1 The measurement
+
+| Measurement | Value |
+|---|---|
+| Source lines under `apps/job-search-loop` | 22,630 |
+| Test lines | 17,900 |
+| `ledger.py` alone | 4,099 |
+| Modules | 85 |
+| Infrastructure modules (release, route, provenance, telemetry, trace index, guardian, temporal fixtures, browser ownership, privacy, experiments) | 3,088 lines |
+| Spec lines | 5,449 |
+| Distinct task IDs in the spec | 168 |
+| Test-matrix rows in section 15 | 35 |
+| Rows in that matrix whose pass condition is a real application | 2 |
+| Applications an employer has acknowledged | 1 |
+
+Forty thousand lines of code and a five-thousand-line spec have produced one
+acknowledged application. Three agents have worked on this. None of them was lazy;
+each of them built exactly what the spec rewarded.
+
+### 19.2 The mechanism
+
+The done-conditions are infrastructure conditions. Thirty-three of thirty-five
+test-matrix rows are satisfied by building machinery — fences, provenance,
+tenant isolation, durable workflows, trace joins, immutable releases — and only two
+require that a real employer received a real application. An agent optimizing against
+this spec correctly concludes that the next right move is another subsystem. The
+`learning` lane, which is the only component whose job is to make the loop better, has
+never executed once; its absence blocked nothing, because nothing in the matrix
+depended on it.
+
+Anthropic's own guidance is the counterweight: *"we recommend finding the simplest
+solution possible, and only increasing complexity when needed. This might mean not
+building agentic systems at all... Agentic systems often trade latency and cost for
+better task performance, and you should consider when this tradeoff makes sense."*
+(anthropic.com/engineering/building-effective-agents)
+
+### 19.3 The rule that replaces the old done-condition
+
+**The only number that counts is applications an employer acknowledged this week.**
+
+- Every task must state which acknowledged-application it unblocks. A task that
+  cannot answer that is deferred, regardless of how correct it is.
+- No new subsystem may be introduced while the weekly count is below five. Temporal
+  migration, tenant isolation, the Web product, and further observability are frozen
+  until then. They are not wrong; they are premature.
+- Deleting code counts as progress. `ledger.py` at 4,099 lines for a table of job
+  applications is a defect, not an asset.
+- The weekly count is reported on Telegram whether it is good or zero, and a zero
+  states how it was measured.
+
+### 19.4 Ordering
+
+`L-74A` and `L-74B` first, because every allocation decision made on the current
+numbers is made on inflated data. Then `L-74C` and `L-74D`, because the loop is
+currently blocked and its answers are rule-generated. Then `L-74E`, `L-74F`, `L-74G`
+in whichever order produces an acknowledged application soonest — Ashby alone cannot
+reach the volume the funnel requires before its fraud detection stops the identity.
+`L-75` follows once the loop reliably lands applications for Dais, because packaging a
+loop that does not yet work would only make the failure portable.
