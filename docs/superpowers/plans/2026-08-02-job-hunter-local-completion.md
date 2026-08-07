@@ -86,7 +86,8 @@ implementation. The `learning` LaunchAgent has never run (exit 78), so no
 self-improvement has occurred, and the `firecrawl` discovery provider fails silently
 on every query with `Unauthorized: Invalid token`. `L-74A` must land before any
 allocation decision is made on these numbers.
-The complete Job Hunter suite passes 549/549. Run 85 proves truthful outreach
+The suite is 584 tests with **5 failing** as of 2026-08-08; see section 23. Run 85
+proves truthful outreach
 reporting and clean provider logs but does not prove a new resident ATS submission.
 
 ## 1. Acceptance criteria — done condition
@@ -2561,6 +2562,15 @@ parallel only where explicitly stated below. Otherwise preserve this order:
    trusted.
 
 Current production truth measured from the ledger and resident receipts:
+
+> **Superseded 2026-08-08 by `L-74A` (section 17) — read section 22 for live counts.**
+> The three "authoritative applications" named immediately below are Cursor and the
+> two NVIDIA roles. All three are Job Hunter's **own outbound emails**, not employer
+> acknowledgements, and the ledger now records them as `email_sent`. They are not
+> confirmed applications and do not count toward any quota or funnel numerator. The
+> narrative below is retained because the route history is still accurate; only its
+> truth claim was wrong. Autonomous applications holding an employer receipt: **one**
+> (ElevenLabs `Account Manager - Japan`).
 
 - the installed resident Job Hunter has three authoritative applications, zero
   verified interviews, and zero offers. All three are website-first attempts that
@@ -5876,7 +5886,86 @@ flowchart TB
 | `L-67`–`L-73` | Campaign through 50 confirmed applications to a written offer | open |
 | Temporal, tenant isolation, Web product, more observability | — | **frozen until the weekly acknowledged count reaches five** |
 
-### 22.4 Concurrency warning
+### 22.4 Red baseline — the suite is not green
+
+Measured 2026-08-08: `python3 -m unittest discover -s tests` → **584 tests, 4 failures
+and 1 error**. The spec previously claimed 549/549; that claim is retired. None of the
+five was caused by the `L-78` guard — those commits touched only `telegram.py`,
+`application_reporting.py`, two test modules, and this document.
+
+| Failing test | What it proves is broken |
+|---|---|
+| `test_ashby_confirmation.test_graphql_success_without_matching_ui_remains_unconfirmed` | `authoritative_success` returns `True` when the GraphQL call succeeded but the visible UI does not confirm. **This is the exact ElevenLabs failure**: HTTP 200 and a typed `FormSubmitSuccess` next to "We couldn't submit your application". The test asserts the rule in 17.3; the code violates it. |
+| `test_canonical_runtime.test_daily_success_refreshes_durable_summary_projection` | `run-daily.sh` exits non-zero |
+| `test_canonical_runtime.test_daily_two_slots_consumed_still_runs_toward_ten` | same |
+| `test_canonical_runtime.test_daily_application_agent_budget_block_preserves_browser_fence` | same |
+| `test_canonical_runtime.test_daily_fill_canary_preserves_primary_rc_and_private_failure_receipts` | same |
+
+The four runtime failures share one cause: `run-daily.sh` guards
+`$FILL_CANARY_REQUEST` with `[[ -f ... ]]` at line 20 but then reads it with `jq`
+**unguarded** at line 305, so any run without a canary request file emits
+`Could not open file ... ashby-fill-canary-request.json` and fails. It passes in
+production only because the live state root happens to contain that file.
+
+- [ ] **`L-79A`** — Make `authoritative_success` false whenever the visible terminal
+  state does not confirm, regardless of transport-level or typed success. A visible
+  rejection outranks any internal success signal. This is the single highest-value
+  failing test: while it is red, the loop can record a submission that the employer
+  never received. Done when the failing test passes and run 115's stored ElevenLabs
+  evidence classifies as `rate_limited`, not success.
+- [ ] **`L-79B`** — Guard every `$FILL_CANARY_REQUEST` read in `run-daily.sh`, not just
+  the first. Done when the four `test_canonical_runtime` tests pass and a real run
+  without a canary file exits zero.
+
+`L-79A` is a prerequisite of `L-74B`: classification cannot be trusted while the
+confirmation predicate itself reports false success.
+
+### 22.5 Landscape — what to copy, and what is genuinely unbuilt
+
+Surveyed 2026-08-08 with `gh search repos`, `gh search code`, and `gh api` for star
+counts and push dates. Star and date figures are from the API, not memory.
+
+**Copy these instead of writing them:**
+
+| Source | Take |
+|---|---|
+| [`saiwrd/connie`](https://github.com/saiwrd/connie) | The free, unauthenticated ATS board JSON endpoints for Ashby / Greenhouse / Lever / Workable, and its trick of harvesting board slugs from the Wayback Machine. This is discovery breadth for free. |
+| [`speedyapply/JobSpy`](https://github.com/speedyapply/JobSpy) (4,038★, MIT) | Battle-tested scraping of LinkedIn / Indeed / Glassdoor / Google / ZipRecruiter. Already wired here as `jobspy_adapter.py`; keep it as the supplement to official boards. |
+| [`Sma1lboy/coforce-apply`](https://github.com/Sma1lboy/coforce-apply) | The closest architectural relative: skill decomposition, resume grounded in real commit history, and driving the person's own logged-in Chrome rather than a stealth headless browser. That last choice matches the CloakBrowser daily-driver decision here and independently validates it. |
+| [`CatalinBalut/deep-candidate-agent`](https://github.com/CatalinBalut/deep-candidate-agent) | Its "source-grounded evidence, never invents experience" framing for answering application questions is exactly the contract `L-74D` needs. |
+| [`Exdenta/OinkAIJobSearch`](https://github.com/Exdenta/OinkAIJobSearch) | Telegram-as-the-interface plus LLM scoring rather than keyword filtering. |
+
+**Do not build on** [`feder-cr/Jobs_Applier_AI_Agent_AIHawk`](https://github.com/feder-cr/Jobs_Applier_AI_Agent_AIHawk) (30,119★) despite it being the flagship: its README states the third-party provider plugins were removed for copyright reasons, so the applying logic is gone from the public repo. Its value here is risk posture — LinkedIn-scale auto-apply attracted press and takedown pressure — not code. `Nwokike/project-commuter` is archived.
+
+**What no open-source project was found to do.** Discovery-side work is solved and copyable: multi-ATS scraping, scheduled residency, posting-level dedup all exist. The back half of this pipeline did not surface in any repo across roughly fifteen targeted searches in English, Chinese, and Japanese:
+
+| Capability | OSS prior art found |
+|---|---|
+| Email fallback application when the form route fails | none |
+| Append-only ledger fencing duplicate **submissions** (not duplicate postings) | none — `connie` fences postings seen, not applications sent |
+| Binding employer email replies back to the application | none verified |
+| Interview scheduling into a calendar | none |
+| Interview preparation per company and role | none verified |
+| Self-improvement from measured outcomes | none |
+| Multi-ATS form **submission** with per-ATS adapters | thin; discovery is common, submission is not |
+| Unattended scheduled resident | solved — `coforce-apply`, `OinkAIJobSearch` |
+
+**The claim this supports, stated so it can be checked.** Not "world's first" as a
+boast, but: *no open-source project was found that combines multi-ATS submission,
+email fallback, a submission-idempotency ledger, employer-reply binding, calendar
+scheduling, interview preparation, and outcome-driven self-improvement in one
+unattended, self-hosted resident.* Each piece exists in isolation or not at all.
+The commercial bundlers — Simplify (200M+ applications submitted, Chrome extension
+autofill), LazyApply ($99–119/yr) — are closed source and do not publicly claim the
+reply-binding, calendar, or self-improvement pieces.
+
+Two honest qualifications. Absence in `gh search` is not proof of absence: private
+repos and poorly-described projects would not surface. And **the claim is about design,
+not achievement** — a capability list is only interesting once it has produced
+acknowledged applications, which currently stands at one. The claim may be published
+when the weekly acknowledged count is non-trivial, not before.
+
+### 22.6 Concurrency warning
 
 Two sessions have been editing this worktree at once; `L-74A` was completed by one
 while another was preparing the same change. Before picking up a task, check
