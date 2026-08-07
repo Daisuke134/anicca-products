@@ -5790,3 +5790,94 @@ the direct evidence that no send was attempted.
   `gog_application_transport.py`, so a test can never send mail to a real employer.
   This matters more than the Telegram case: a fixture email to a real recruiting
   address is not recoverable.
+
+## 22. Board — where the campaign actually stands
+
+Rebuilt from the live ledger and `git log` on 2026-08-08. Update this section whenever
+a task closes; it is the one place to look before picking up work.
+
+### 22.1 Ledger truth right now
+
+```
+applications 57
+├─ submitted        agent 3   ← only 1 (ElevenLabs) holds an employer receipt
+│                   manual 3
+├─ email_sent       agent 5   ← was mis-stated as `submitted` until L-74A
+├─ submit_unknown   agent 22 + manual 3
+├─ materials_ready  agent 8
+├─ discovered       agent 6
+├─ rejected         agent 6
+└─ submit_claimed   agent 1
+
+employer-acknowledged autonomous applications ....  1
+verified interviews .............................  0
+offers ..........................................  0
+needed for one offer (8.4% -> 36% funnel) .......  ~56
+```
+
+### 22.2 Dependency order
+
+```mermaid
+flowchart TB
+    A["L-74A ✅<br/>真実の訂正<br/>6件を email_sent へ"]:::done
+    G["L-78 ✅<br/>テストが本番Telegramへ<br/>送るのを遮断"]:::done
+
+    A --> B["L-74B<br/>失敗を5状態に分類<br/>spam_blocked / rate_limited"]:::now
+    B --> C["L-74C<br/>Ashby 72h 冷却"]:::next
+    B --> D["L-74D<br/>回答をモデル化<br/>regex梯子を撤去"]:::next
+
+    D --> P["★L-77A★<br/>移植可能な<br/>フィールド解決層<br/>accessible name + role"]:::key
+    G --> G2["L-78A / L-78B<br/>他5箇所の既定transport<br/>gog メールにも同ガード"]:::next
+
+    P --> E["L-74E Greenhouse"]:::breadth
+    P --> F["L-74F Lever"]:::breadth
+    P --> W["L-74G Workday<br/>候補アカウント作成が詰まり"]:::breadth
+    P --> R2["L-77B 待機撤去<br/>L-77C frame_locator"]:::next
+
+    E & F & W --> H["L-74H ルータ<br/>実測健全性で配分"]:::breadth
+    H --> VOL{{"ここで初めて<br/>量が出る"}}:::gate
+
+    VOL --> I["L-74I 沈黙死の撲滅"]:::heal
+    VOL --> J["L-74J 学習レーン修復<br/>即時プロキシ報酬"]:::heal
+
+    I & J --> PROD["L-75A〜E 製品化<br/>jobhunter CLI / 会話型オンボーディング<br/>承認ゲート / メール一級化 / 週次報告"]:::prod
+    PROD --> WIN["L-67〜L-73<br/>確定応募50件 → 面接<br/>→ $100k+ 書面オファー"]:::win
+
+    FREEZE["凍結中: Temporal / テナント分離<br/>Web製品 / 追加の観測性<br/>週次5件まで着手禁止"]:::frozen
+
+    classDef done fill:#2d6a4f,color:#fff
+    classDef now fill:#e85d04,color:#fff
+    classDef next fill:#457b9d,color:#fff
+    classDef key fill:#9d0208,color:#fff
+    classDef breadth fill:#1d3557,color:#fff
+    classDef gate fill:#5a189a,color:#fff
+    classDef heal fill:#6a4c93,color:#fff
+    classDef prod fill:#3a5a40,color:#fff
+    classDef win fill:#2d6a4f,color:#fff
+    classDef frozen fill:#6c757d,color:#fff
+```
+
+### 22.3 Status table
+
+| ID | Task | State |
+|---|---|---|
+| `L-74A` | Application-truth correction | **done** — 5 rows now `email_sent`; landed by a parallel session as `dc5da51f0` |
+| `L-78` | Test runs reached the real Telegram | **done** — boundary guard + default removed; 96/96 on the telegram-touching modules |
+| `L-74B` | Classify submission outcomes into five states | **next** |
+| `L-74C` | Cool a blocked ATS for 72h instead of rotating identity | open |
+| `L-74D` | Model-written answers with a verifier; delete the keyword ladder | open |
+| `L-77A` | **Portable field resolution by accessible name and role** | open — **blocks E/F/G** |
+| `L-77B` / `L-77C` | Remove `wait_for_timeout`; use `frame_locator` | open |
+| `L-74E` / `L-74F` / `L-74G` | Greenhouse / Lever / Workday adapters | open — where volume comes from |
+| `L-74H` | Adapter router driven by measured health | open |
+| `L-74I` / `L-74J` | Surface silent failures; repair the learning lane | open |
+| `L-78A` / `L-78B` | Remaining defaulted transports; guard `gog` email | open |
+| `L-75A`–`L-75E` | Product: CLI, onboarding, approval gate, email as a first-class channel, weekly report | open |
+| `L-67`–`L-73` | Campaign through 50 confirmed applications to a written offer | open |
+| Temporal, tenant isolation, Web product, more observability | — | **frozen until the weekly acknowledged count reaches five** |
+
+### 22.4 Concurrency warning
+
+Two sessions have been editing this worktree at once; `L-74A` was completed by one
+while another was preparing the same change. Before picking up a task, check
+`git log --oneline -5` and this board. One resource, one owner.
