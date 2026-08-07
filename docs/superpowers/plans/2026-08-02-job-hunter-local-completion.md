@@ -4366,6 +4366,14 @@ in model orchestration. This is rejected as fake progress. For targeted `mode=su
 terminal result, and never starts Codex/Terra/Luna. Models remain only outside the
 known Ashby execution path.
 
+Run 106 reached the old model-owned transaction just before termination and performed
+one OpenAI Partner Director Submit. Ashby returned HTTP 200 but a visible alert and no
+typed success; intent `e57b78feb6914ae097293407aceaf188` is `submit_unknown` and
+MUST never retry. The direct resident proof therefore moves to a different company,
+Cursor `Field Engineering - Japan`, with no existing application row. Targeted
+application IDs are optional because the deterministic transaction creates the
+canonical application and route before claiming its fence.
+
 Run 102 (`daily-20260807-170443`) targeted Sierra `Sales Engineer - Tokyo` on
 immutable release `9a4880d8448d8376b90b362e14cecc4131ae3f97`. Its request already
 contained the official URL, ready grounded answers, exact resume, application ID,

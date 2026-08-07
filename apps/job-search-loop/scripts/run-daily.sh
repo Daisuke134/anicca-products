@@ -286,7 +286,8 @@ else
 fi
 APPLICATION_WORK_ID="resident-application-lane"
 if [[ "$TARGET_REQUEST_ACTIVE" == "1" ]]; then
-  APPLICATION_WORK_ID=$("$JOB_SEARCH_JQ" -er '.application_id' "$FILL_CANARY_REQUEST")
+  APPLICATION_WORK_ID=$("$JOB_SEARCH_JQ" -r \
+    '.application_id // "targeted-ashby-transaction"' "$FILL_CANARY_REQUEST")
 fi
 RUNTIME_RELEASE_SHA=$("$JOB_SEARCH_JQ" -er '.commit' "$JOB_SEARCH_REPO_ROOT/RELEASE.json")
 if [[ "$TARGET_REQUEST_ACTIVE" == "1" ]] \
