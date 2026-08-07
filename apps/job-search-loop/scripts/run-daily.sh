@@ -276,24 +276,79 @@ TRAPEXIT() {
   fi
 }
 set +e
-report_progress "terra-started" \
-  "Job Hunter ${RUN_ID}: GPT-5.6 Terra Job Hunterが起動しました。候補評価、フォーム適応、履歴書提出、Submit確認、証拠保存を一体で実行します。"
+if [[ "$TARGET_REQUEST_ACTIVE" == "1" ]] \
+  && [[ "$("$JOB_SEARCH_JQ" -r '.mode' "$FILL_CANARY_REQUEST")" == "submit" ]]; then
+  report_progress "ashby-cli-started" \
+    "Job Hunter ${RUN_ID}: deterministic Ashby CLIが応募、Submit確認、証拠保存を実行します。"
+else
+  report_progress "terra-started" \
+    "Job Hunter ${RUN_ID}: GPT-5.6 Terra Job Hunterが起動しました。候補評価、フォーム適応、履歴書提出、Submit確認、証拠保存を一体で実行します。"
+fi
 APPLICATION_WORK_ID="resident-application-lane"
 if [[ "$TARGET_REQUEST_ACTIVE" == "1" ]]; then
   APPLICATION_WORK_ID=$("$JOB_SEARCH_JQ" -er '.application_id' "$FILL_CANARY_REQUEST")
 fi
 RUNTIME_RELEASE_SHA=$("$JOB_SEARCH_JQ" -er '.commit' "$JOB_SEARCH_REPO_ROOT/RELEASE.json")
-"$JOB_SEARCH_PYTHON" -m job_search_loop.persistent_application_runner \
-  --work-id "$APPLICATION_WORK_ID" \
-  --prompt-file "$JOB_SEARCH_APP_ROOT/prompts/daily-apply-simple.md" \
-  --schema "$JOB_SEARCH_APP_ROOT/schemas/pass-result.v1.schema.json" \
-  --evidence-dir "$EVIDENCE" \
-  --workdir "$JOB_SEARCH_REPO_ROOT" \
-  --registry "$JOB_SEARCH_STATE_ROOT/thread-registry.sqlite3" \
-  --runtime-release-sha "$RUNTIME_RELEASE_SHA" \
-  --run-id "$RUN_ID" \
-  >"$EVIDENCE/summary.json"
-RUNNER_RC=$?
+if [[ "$TARGET_REQUEST_ACTIVE" == "1" ]] \
+  && [[ "$("$JOB_SEARCH_JQ" -r '.mode' "$FILL_CANARY_REQUEST")" == "submit" ]]; then
+  "$JOB_SEARCH_APP_ROOT/scripts/submit-targeted-ashby.sh" \
+    "$FILL_CANARY_REQUEST" >"$EVIDENCE/targeted-ashby-transaction.json"
+  TRANSACTION_RC=$?
+  APPLICATION_ID=$("$JOB_SEARCH_JQ" -r '.application_id // empty' "$FILL_CANARY_REQUEST")
+  if [[ -z "$APPLICATION_ID" && -f "$EVIDENCE/submission-prepare.json" ]]; then
+    APPLICATION_ID=$("$JOB_SEARCH_JQ" -r '.application_id // empty' \
+      "$EVIDENCE/submission-prepare.json")
+  fi
+  RESULT_STATUS="blocked"
+  SUBMITTED='[]'
+  SUBMIT_UNKNOWN='[]'
+  BLOCKED='["deterministic Ashby transaction stopped before a terminal receipt"]'
+  if [[ -f "$EVIDENCE/ashby-submit-result.json" ]]; then
+    ASHBY_STATUS=$("$JOB_SEARCH_JQ" -r '.status' "$EVIDENCE/ashby-submit-result.json")
+    if [[ "$ASHBY_STATUS" == "applied_ats" ]]; then
+      RESULT_STATUS="completed"
+      SUBMITTED=$("$JOB_SEARCH_JQ" -cn --arg id "$APPLICATION_ID" '[$id]')
+      BLOCKED='[]'
+    elif [[ "$ASHBY_STATUS" == "ats_unconfirmed" ]]; then
+      RESULT_STATUS="completed"
+      SUBMIT_UNKNOWN=$("$JOB_SEARCH_JQ" -cn --arg id "$APPLICATION_ID" '[$id]')
+      BLOCKED='["ATS request started without authoritative confirmation; no retry"]'
+    fi
+  fi
+  COUNTS_JSON=$("$JOB_SEARCH_PYTHON" -m job_search_loop.candidate_queue summary \
+    --database "$JOB_SEARCH_CANDIDATE_QUEUE")
+  "$JOB_SEARCH_JQ" -n \
+    --arg status "$RESULT_STATUS" \
+    --argjson submitted "$SUBMITTED" \
+    --argjson submit_unknown "$SUBMIT_UNKNOWN" \
+    --argjson blocked "$BLOCKED" \
+    --argjson discovered "$(print -r -- "$COUNTS_JSON" | "$JOB_SEARCH_JQ" -r '.discovered_count')" \
+    --argjson verified "$(print -r -- "$COUNTS_JSON" | "$JOB_SEARCH_JQ" -r '.verified_count')" \
+    --argjson remaining "$(print -r -- "$COUNTS_JSON" | "$JOB_SEARCH_JQ" -r '.remaining_unverified_count')" \
+    '{status:$status,submitted:$submitted,submit_unknown:$submit_unknown,
+      blocked:$blocked,report_message_id:null,discovered_link_count:$discovered,
+      verified_link_count:$verified,remaining_unverified_count:$remaining}' \
+    >"$EVIDENCE/attempt-01.result.json"
+  "$JOB_SEARCH_JQ" -n --arg result "$EVIDENCE/attempt-01.result.json" \
+    --arg release "$RUNTIME_RELEASE_SHA" --argjson rc "$TRANSACTION_RC" \
+    '{version:1,status:"success",selected_provider:"deterministic-ashby-cli",
+      selected_model:null,attempt_count:1,result_path:$result,
+      runtime_release_sha:$release,transaction_exit_code:$rc}' \
+    >"$EVIDENCE/summary.json"
+  RUNNER_RC=0
+else
+  "$JOB_SEARCH_PYTHON" -m job_search_loop.persistent_application_runner \
+    --work-id "$APPLICATION_WORK_ID" \
+    --prompt-file "$JOB_SEARCH_APP_ROOT/prompts/daily-apply-simple.md" \
+    --schema "$JOB_SEARCH_APP_ROOT/schemas/pass-result.v1.schema.json" \
+    --evidence-dir "$EVIDENCE" \
+    --workdir "$JOB_SEARCH_REPO_ROOT" \
+    --registry "$JOB_SEARCH_STATE_ROOT/thread-registry.sqlite3" \
+    --runtime-release-sha "$RUNTIME_RELEASE_SHA" \
+    --run-id "$RUN_ID" \
+    >"$EVIDENCE/summary.json"
+  RUNNER_RC=$?
+fi
 set -e
 if [[ "$FILL_CANARY_ACTIVE" == "1" ]]; then
   if [[ ! -f "$JOB_SEARCH_ASHBY_APPLY_RESULT" ]]; then

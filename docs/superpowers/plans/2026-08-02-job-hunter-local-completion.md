@@ -4359,6 +4359,13 @@ The only active slice is installed-resident parity: activate this exact CLI rele
 and have Job Hunter select a different unsubmitted Ashby role and complete it without
 Terra.
 
+Installed run 106 was stopped before any CLI artifact or Submit because it still
+routed a targeted Ashby request through the persistent model and spent the live pass
+in model orchestration. This is rejected as fake progress. For targeted `mode=submit`,
+`run-daily.sh` now invokes the deterministic Ashby transaction directly, records its
+terminal result, and never starts Codex/Terra/Luna. Models remain only outside the
+known Ashby execution path.
+
 Run 102 (`daily-20260807-170443`) targeted Sierra `Sales Engineer - Tokyo` on
 immutable release `9a4880d8448d8376b90b362e14cecc4131ae3f97`. Its request already
 contained the official URL, ready grounded answers, exact resume, application ID,
