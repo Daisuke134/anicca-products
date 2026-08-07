@@ -15,6 +15,25 @@ class PersistentApplicationError(RuntimeError):
     pass
 
 
+RUNTIME_ENVIRONMENT_NAMES = frozenset({
+    "PYTHONPATH",
+    "JOB_SEARCH_APP_ROOT", "JOB_SEARCH_REPO_ROOT", "JOB_SEARCH_STATE_ROOT",
+    "JOB_SEARCH_PROFILE", "JOB_SEARCH_PYTHON", "JOB_SEARCH_JQ",
+    "JOB_SEARCH_EVIDENCE_DIR", "JOB_SEARCH_BROWSER_OWNER_EVIDENCE",
+    "JOB_SEARCH_CANDIDATE_QUEUE", "JOB_SEARCH_PREFILTER_RESULT",
+    "JOB_SEARCH_SUBMIT_ENABLED", "JOB_SEARCH_NO_SUBMIT_CANARY",
+    "JOB_SEARCH_FILL_CANARY_REQUEST",
+    "JOB_SEARCH_ASHBY_APPLY_MODULE", "JOB_SEARCH_ASHBY_APPLY_RESULT",
+})
+
+
+def runtime_environment() -> dict[str, str]:
+    return {
+        name: value for name, value in os.environ.items()
+        if name in RUNTIME_ENVIRONMENT_NAMES
+    }
+
+
 def _atomic_json(path: Path, value: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
     descriptor, temporary = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
@@ -64,18 +83,23 @@ def run_application_turn(
     run_id: str,
 ) -> dict[str, Any]:
     client.initialize(name="job-hunter", version="1")
+    environment = runtime_environment()
     try:
         binding = registry.active("job_application", work_id)
     except KeyError:
         started = client.thread_start(
-            cwd=str(cwd), model=model, capability_profile="job-hunter"
+            cwd=str(cwd), model=model, capability_profile="job-hunter",
+            runtime_environment=environment,
         )
         thread_id = started.get("thread", {}).get("id")
         if not isinstance(thread_id, str) or not thread_id:
             raise PersistentApplicationError("thread/start returned no thread id")
     else:
         thread_id = str(binding["thread_id"])
-        client.thread_resume(thread_id)
+        client.thread_resume(
+            thread_id, cwd=str(cwd), model=model, capability_profile="job-hunter",
+            runtime_environment=environment,
+        )
     binding = registry.bind(
         work_type="job_application",
         work_id=work_id,

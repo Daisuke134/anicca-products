@@ -118,6 +118,7 @@ class CodexAppServerTests(unittest.TestCase):
                 "inherit": "core",
                 "ignore_default_excludes": False,
                 "exclude": ["*PASSWORD*", "*COOKIE*"],
+                "set": {},
             },
         )
 
@@ -139,6 +140,26 @@ class CodexAppServerTests(unittest.TestCase):
         self.assertNotIn("permissions", params)
         self.assertEqual(
             params["config"]["shell_environment_policy"]["inherit"], "core"
+        )
+
+    def test_resume_reapplies_installed_cwd_capabilities_and_nonsecret_runtime_paths(self):
+        transport = FakeTransport(
+            [{"id": 1, "result": {"thread": {"id": "thread-1"}}}]
+        )
+        client = CodexAppServer(transport)
+
+        client.thread_resume(
+            "thread-1", cwd="/installed/release", model="gpt-5.6-terra",
+            capability_profile="job-hunter",
+            runtime_environment={"JOB_SEARCH_STATE_ROOT": "/private/state"},
+        )
+
+        params = transport.sent[0]["params"]
+        self.assertEqual(params["cwd"], "/installed/release")
+        self.assertEqual(params["sandbox"], "danger-full-access")
+        self.assertEqual(
+            params["config"]["shell_environment_policy"]["set"],
+            {"JOB_SEARCH_STATE_ROOT": "/private/state"},
         )
 
 

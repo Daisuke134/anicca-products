@@ -19,8 +19,8 @@ class FakeClient:
         self.calls.append(("thread_start", kwargs))
         return {"thread": {"id": self.thread_id}}
 
-    def thread_resume(self, thread_id):
-        self.calls.append(("thread_resume", thread_id))
+    def thread_resume(self, thread_id, **kwargs):
+        self.calls.append(("thread_resume", thread_id, kwargs))
         return {"thread": {"id": thread_id}}
 
     def turn_start(self, thread_id, text, *, output_schema=None):
@@ -81,7 +81,10 @@ class PersistentApplicationRunnerTests(unittest.TestCase):
                 cwd=root, model="gpt-5.6-terra", runtime_release_sha="release-1", run_id="run-1",
             )
 
-            self.assertIn(("thread_resume", "thread-old"), client.calls)
+            resume = next(call for call in client.calls if call[0] == "thread_resume")
+            self.assertEqual(resume[1], "thread-old")
+            self.assertEqual(resume[2]["cwd"], str(root))
+            self.assertEqual(resume[2]["capability_profile"], "job-hunter")
             self.assertNotIn("thread_start", [call[0] for call in client.calls])
             self.assertEqual(registry.active("job_application", "application-1")["last_run_id"], "run-1")
             registry.close()

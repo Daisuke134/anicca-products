@@ -22,6 +22,11 @@ Do not embed private profile values in shell commands, command arguments, genera
 source, JSON output, or final JSON. Do not send Telegram messages directly. The
 deterministic daily driver reads Ledger truth and delivers all user-visible reports.
 
+If `$JOB_SEARCH_NO_SUBMIT_CANARY` is `1`, read the request at
+`$JOB_SEARCH_FILL_CANARY_REQUEST`, work only its exact `application_id`, and stop at
+`pre_submit_ready` after deterministic fill and verification. Do not click Submit,
+do not select another role, and report every missing field or blocker in `blocked`.
+
 Every active official posting is an application candidate. Ranking, compensation,
 location, experience, and skills gaps determine order only; they do not create a
 no-application outcome. Prefer Tokyo, Japan-remote, USD 100,000-class compensation,

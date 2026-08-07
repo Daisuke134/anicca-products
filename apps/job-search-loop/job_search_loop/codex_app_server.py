@@ -119,6 +119,7 @@ class CodexAppServer:
         cwd: str,
         model: str,
         capability_profile: str = "read-only",
+        runtime_environment: dict[str, str] | None = None,
     ) -> dict[str, Any]:
         sandboxes = {
             "read-only": "read-only",
@@ -140,13 +141,42 @@ class CodexAppServer:
                         "inherit": "core",
                         "ignore_default_excludes": False,
                         "exclude": ["*PASSWORD*", "*COOKIE*"],
+                        "set": runtime_environment or {},
                     }
                 },
             },
         )
 
-    def thread_resume(self, thread_id: str) -> dict[str, Any]:
-        return self._request("thread/resume", {"threadId": thread_id})
+    def thread_resume(
+        self,
+        thread_id: str,
+        *,
+        cwd: str | None = None,
+        model: str | None = None,
+        capability_profile: str = "read-only",
+        runtime_environment: dict[str, str] | None = None,
+    ) -> dict[str, Any]:
+        sandboxes = {"read-only": "read-only", "job-hunter": "danger-full-access"}
+        if capability_profile not in sandboxes:
+            raise ValueError(f"unknown capability profile: {capability_profile}")
+        params: dict[str, Any] = {
+            "threadId": thread_id,
+            "approvalPolicy": "never",
+            "sandbox": sandboxes[capability_profile],
+            "config": {
+                "shell_environment_policy": {
+                    "inherit": "core",
+                    "ignore_default_excludes": False,
+                    "exclude": ["*PASSWORD*", "*COOKIE*"],
+                    "set": runtime_environment or {},
+                }
+            },
+        }
+        if cwd is not None:
+            params["cwd"] = cwd
+        if model is not None:
+            params["model"] = model
+        return self._request("thread/resume", params)
 
     def thread_read(self, thread_id: str) -> dict[str, Any]:
         return self._request(
