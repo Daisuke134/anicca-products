@@ -37,6 +37,14 @@ subscription-authenticated Codex app-server thread can start, survive client exi
 and resume. No Job Hunter resident
 release is activated or kicked until `PERSIST-01` through `PERSIST-05` and the
 no-submit Ashby `pre_submit_ready` canary pass.
+Run 94 on release `a46ba36928f22dc250df5af7ffc500967a507311` proved the
+persistent thread can resume in the installed cwd with its non-secret runtime context,
+inspect the exact OpenAI form, and produce a no-submit fill with `missing=[]`,
+`repair=[]`, eleven verified receipts, a private pre-submit screenshot, and zero
+submission attempts. It still exited 76 because the agent wrote the valid fill receipt
+to an invented filename while the deterministic driver correctly required
+`$JOB_SEARCH_ASHBY_APPLY_RESULT`. The active fix pins that one output path and leaves
+Submit disabled for the rerun.
 **Status:** The immutable four-lane runtime, grounded materials, ownership fences,
 Gmail ingestion, Telegram outbox, quota accounting, Ashby surface classifier, and
 loopback OpenTelemetry Collector/private trace index are implemented. The application

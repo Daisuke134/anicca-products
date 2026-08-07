@@ -86,6 +86,7 @@ class BrowserWorkerTests(unittest.TestCase):
         fixture_end = script.index('fi\n"$JOB_SEARCH_PYTHON" -m job_search_loop.application_reporting deliver')
         live_path = script[fixture_end:]
         self.assertIn("job_search_loop.persistent_application_runner", live_path)
+        self.assertIn("$JOB_SEARCH_ASHBY_APPLY_RESULT", live_path)
         self.assertIn('prompts/daily-apply-simple.md', live_path)
         self.assertNotIn("job_search_loop.browser_worker run", live_path)
         self.assertNotIn("--task-class composition-agent", live_path)

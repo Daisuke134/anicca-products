@@ -26,6 +26,12 @@ If `$JOB_SEARCH_NO_SUBMIT_CANARY` is `1`, read the request at
 `$JOB_SEARCH_FILL_CANARY_REQUEST`, work only its exact `application_id`, and stop at
 `pre_submit_ready` after deterministic fill and verification. Do not click Submit,
 do not select another role, and report every missing field or blocker in `blocked`.
+The `fill` command MUST write its result to the exact path
+`$JOB_SEARCH_ASHBY_APPLY_RESULT`; do not invent another output filename. Do not run
+the `verify` command yourself: the deterministic daily driver validates that same
+fill artifact after your turn. Report `pre_submit_ready` with an empty `blocked` list
+only after `fill` returns `status=ready`, `missing=[]`, `repair=[]`, every receipt is
+`verified=true`, and the pre-submit screenshot exists.
 
 Every active official posting is an application candidate. Ranking, compensation,
 location, experience, and skills gaps determine order only; they do not create a
