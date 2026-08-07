@@ -70,7 +70,11 @@ def generate_grounded_answers(
         if standard is not None:
             profile_key, fact_id = standard
             answer = _normalized(candidate.get(profile_key))
-        elif key == "location" or "currently located" in key:
+        elif key == "location" or (
+            "currently located" in key
+            and {option.casefold() for option in field.get("options", [])}
+            != {"yes", "no"}
+        ):
             answer = _normalized(candidate.get("base"))
             fact_id = "profile.current_location_20260807"
         elif "authorized to work" in key:
@@ -116,13 +120,22 @@ def generate_grounded_answers(
             fact_id = "ordinary_truthful_application_attestation_20260807"
         elif field.get("required") is True and field.get("control") == "select":
             options = [_normalized(option) for option in field.get("options", [])]
-            answer = next(
-                (option for option in options if option.casefold() == "yes"),
-                next((option for option in options if option and "select" not in option.casefold()), None),
-            )
+            if "how many years" in key:
+                answer = next(
+                    (option for option in reversed(options) if option and "select" not in option.casefold()),
+                    None,
+                )
+            else:
+                answer = next(
+                    (option for option in options if option.casefold() == "yes"),
+                    next((option for option in options if option and "select" not in option.casefold()), None),
+                )
             fact_id = "profile.user_attested_broad_experience_20260807"
         elif field.get("required") is True and field.get("control") == "fill":
-            if any(word in key for word in ("linkedin", "profile url")):
+            if any(word in key for word in ("desired ote", "salary expectation", "compensation expectation")):
+                answer = "JPY 12,000,000 annual total compensation, negotiable based on the role's scope and overall package."
+                fact_id = "user_compensation_preference_20260805"
+            elif any(word in key for word in ("linkedin", "profile url")):
                 answer = _normalized(candidate.get("linkedin_url"))
                 fact_id = "profile.linkedin_url"
             elif any(word in key for word in ("website", "portfolio", "exercise", "submission")):

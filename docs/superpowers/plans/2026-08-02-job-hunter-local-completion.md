@@ -4960,6 +4960,17 @@ item before starting the next.
   The correction sends the full email as a normal message and its resume as a
   separate short-caption document, while reporting delivery errors are preserved in
   the run evidence but cannot stop the application campaign.
+  Installed run 111 proved campaign continuation across thirteen candidates. OpenAI
+  Manager FDE, Perplexity Customer Success APAC, and Sierra Partnerships Sales each
+  consumed exactly one fenced Submit and became non-retriable `submit_unknown`; the
+  controller continued after each. Dais then directed the campaign away from OpenAI.
+  The next measured pre-click defect was Replit Account Executive Japan: the answer
+  generator returned `Tokyo, Japan` for a Yes/No current-location select and used a
+  generic experience paragraph for desired OTE. The correction lets Yes/No selects
+  choose Yes, chooses the highest offered experience band under the user's broad
+  experience attestation, and supplies a natural JPY 12M negotiable OTE grounded in
+  the saved JPY 8M–30M preference. No Submit occurred for this Replit role, so it is
+  safe for the next non-OpenAI campaign.
   Remaining gate: commit/push, immutable release activation, then
   one installed Job Hunter campaign whose first non-success does not stop the run and
   whose final state is receipt-backed `submitted`.
