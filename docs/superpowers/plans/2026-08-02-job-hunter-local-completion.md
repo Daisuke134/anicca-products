@@ -4297,6 +4297,23 @@ status that Telegram cannot explain. “Never fail again” therefore means ever
 failure is classified, visible, resumable where safe, and converted into a regression
 test/domain skill before release—not that a third-party website can never change.
 
+Self-improvement and self-healing are required, not prohibited. Every stable operation
+MUST live in a typed CLI or deterministic script: discovery, ranking inputs, profile
+lookup, answer generation, fill, verification, CAPTCHA preparation, intent/fence,
+Submit, confirmation, Gmail reconciliation, Telegram reporting, and resume. Luna may
+select and invoke these bounded commands because correctness does not depend on model
+prose. Browser Harness owns only live semantic adaptation for a changed DOM, unfamiliar
+field, modal, or navigation; after a successful repair it emits a replayable domain
+recipe which is promoted into the CLI/script path. Terra is escalation for genuinely
+new semantics, not the routine executor.
+
+The isolated repair worker is forbidden only from performing external side effects in
+its development worktree. That separation is not a ban on autonomous repair: it fixes,
+verifies, builds, and promotes an immutable release automatically, then the registered
+resident worker resumes the original durable workflow. A request whose Submit is still
+pre-click/pre-request may resume its existing fence; a clicked or request-started
+unknown can only reconcile receipts and move to another role, never click again.
+
 Run 102 (`daily-20260807-170443`) targeted Sierra `Sales Engineer - Tokyo` on
 immutable release `9a4880d8448d8376b90b362e14cecc4131ae3f97`. Its request already
 contained the official URL, ready grounded answers, exact resume, application ID,
