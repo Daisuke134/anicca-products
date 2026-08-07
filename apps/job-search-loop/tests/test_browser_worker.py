@@ -75,7 +75,7 @@ class BrowserWorkerTests(unittest.TestCase):
         self.assertIn("route-fixture-request.json", script)
         self.assertIn("--route-fixture", script)
         fixture_branch = script.index('if [[ -f "$ROUTE_FIXTURE_REQUEST" ]]')
-        model_call = script.index("application-lane-agent")
+        model_call = script.index("persistent_application_runner")
         self.assertLess(fixture_branch, model_call)
         self.assertIn('mv "$ROUTE_FIXTURE_REQUEST" "$EVIDENCE/route-fixture-request.json"', script)
 
@@ -85,12 +85,12 @@ class BrowserWorkerTests(unittest.TestCase):
         ).read_text(encoding="utf-8")
         fixture_end = script.index('fi\n"$JOB_SEARCH_PYTHON" -m job_search_loop.application_reporting deliver')
         live_path = script[fixture_end:]
-        self.assertIn("--task-class application-lane-agent", live_path)
+        self.assertIn("job_search_loop.persistent_application_runner", live_path)
         self.assertIn('prompts/daily-apply-simple.md', live_path)
         self.assertNotIn("job_search_loop.browser_worker run", live_path)
         self.assertNotIn("--task-class composition-agent", live_path)
         self.assertNotIn("--task-class job-search-terra-high", live_path)
-        self.assertEqual(live_path.count('"$JOB_SEARCH_PYTHON" "$JOB_SEARCH_RUNNER"'), 1)
+        self.assertEqual(live_path.count("job_search_loop.persistent_application_runner"), 1)
 
     def test_run_worker_executes_route_fixture_with_resident_actor_provenance(self):
         with tempfile.TemporaryDirectory() as directory:

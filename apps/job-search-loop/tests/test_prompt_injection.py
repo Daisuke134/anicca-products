@@ -46,7 +46,7 @@ class PromptInjectionTests(unittest.TestCase):
         self.assertNotIn("prompts/prefilter-pass.md", script)
         self.assertLess(
             script.index("job_search_loop.prefilter"),
-            script.index("--task-class application-lane-agent"),
+            script.index("job_search_loop.persistent_application_runner"),
         )
         self.assertIn("JOB_SEARCH_PREFILTER_RESULT", script)
         self.assertIn("JOB_SEARCH_PREFILTER_RESULT", prompt)
@@ -78,7 +78,7 @@ class PromptInjectionTests(unittest.TestCase):
         self.assertIn('status:"deferred_until_candidate_selection"', script)
         self.assertLess(
             script.index('status:"deferred_until_candidate_selection"'),
-            script.index("--task-class application-lane-agent"),
+            script.index("job_search_loop.persistent_application_runner"),
         )
 
     def test_daily_driver_refreshes_official_ats_cache_before_prefilter(self):
@@ -98,7 +98,7 @@ class PromptInjectionTests(unittest.TestCase):
         self.assertIn("candidate_queue discover-prefilter", script)
         self.assertLess(
             script.index("candidate_queue discover-prefilter"),
-            script.index("--task-class application-lane-agent"),
+            script.index("job_search_loop.persistent_application_runner"),
         )
 
     def test_daily_routes_selection_and_answers_through_single_application_agent(self):
@@ -113,7 +113,7 @@ class PromptInjectionTests(unittest.TestCase):
             self.assertIn(phrase, contract)
         self.assertLess(
             script.index("job_search_loop.prefilter"),
-            script.index("--task-class application-lane-agent"),
+            script.index("job_search_loop.persistent_application_runner"),
         )
         self.assertNotIn("--task-class composition-agent", script)
 

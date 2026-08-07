@@ -271,14 +271,20 @@ TRAPEXIT() {
 set +e
 report_progress "terra-started" \
   "Job Hunter ${RUN_ID}: GPT-5.6 Terra Job Hunterが起動しました。候補評価、フォーム適応、履歴書提出、Submit確認、証拠保存を一体で実行します。"
-"$JOB_SEARCH_PYTHON" "$JOB_SEARCH_RUNNER" \
-  --task-class application-lane-agent \
+APPLICATION_WORK_ID="resident-application-lane"
+if [[ "$FILL_CANARY_ACTIVE" == "1" ]]; then
+  APPLICATION_WORK_ID=$("$JOB_SEARCH_JQ" -er '.application_id' "$FILL_CANARY_REQUEST")
+fi
+RUNTIME_RELEASE_SHA=$("$JOB_SEARCH_JQ" -er '.commit' "$JOB_SEARCH_REPO_ROOT/RELEASE.json")
+"$JOB_SEARCH_PYTHON" -m job_search_loop.persistent_application_runner \
+  --work-id "$APPLICATION_WORK_ID" \
   --prompt-file "$JOB_SEARCH_APP_ROOT/prompts/daily-apply-simple.md" \
   --schema "$JOB_SEARCH_APP_ROOT/schemas/pass-result.v1.schema.json" \
   --evidence-dir "$EVIDENCE" \
-  --task-label job-search-daily \
-  --loop job-search \
   --workdir "$JOB_SEARCH_REPO_ROOT" \
+  --registry "$JOB_SEARCH_STATE_ROOT/thread-registry.sqlite3" \
+  --runtime-release-sha "$RUNTIME_RELEASE_SHA" \
+  --run-id "$RUN_ID" \
   >"$EVIDENCE/summary.json"
 RUNNER_RC=$?
 set -e

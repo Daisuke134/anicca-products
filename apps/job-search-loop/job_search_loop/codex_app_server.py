@@ -162,11 +162,20 @@ class CodexAppServer:
     def thread_compact(self, thread_id: str) -> dict[str, Any]:
         return self._request("thread/compact/start", {"threadId": thread_id})
 
-    def turn_start(self, thread_id: str, text: str) -> dict[str, Any]:
+    def turn_start(
+        self,
+        thread_id: str,
+        text: str,
+        *,
+        output_schema: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        params: dict[str, Any] = {
+            "threadId": thread_id,
+            "input": [{"type": "text", "text": text}],
+        }
+        if output_schema is not None:
+            params["outputSchema"] = output_schema
         return self._request(
             "turn/start",
-            {
-                "threadId": thread_id,
-                "input": [{"type": "text", "text": text}],
-            },
+            params,
         )
