@@ -47,6 +47,29 @@ When the targeted request contains `user_authorized_overflow=true`, pass both
 `submission_prepare`. This authority applies only to that request/application and
 does not relax deduplication, terminal-route, intent, or one-click fences.
 
+For targeted `mode=submit`, run one `set -e` shell transaction and use these exact
+contracts; do not invent aliases or inspect JSON shapes:
+
+1. `fill ... --output "$JOB_SEARCH_ASHBY_APPLY_RESULT"` with the request URL,
+   answers, resume, and `$JOB_SEARCH_PROFILE`.
+2. `verify --output "$JOB_SEARCH_ASHBY_APPLY_RESULT" --profile
+   "$JOB_SEARCH_PROFILE"`; continue only when it exits zero.
+3. `claim --fill-result "$JOB_SEARCH_ASHBY_APPLY_RESULT" --owner-receipt
+   "$JOB_SEARCH_BROWSER_OWNER_EVIDENCE" --resume REQUEST_RESUME
+   --snapshot-output "$JOB_SEARCH_EVIDENCE_DIR/ats-snapshot.json"
+   --answers-output "$JOB_SEARCH_EVIDENCE_DIR/submission-answers.json"
+   --output "$JOB_SEARCH_EVIDENCE_DIR/fill-receipt.json"`.
+4. `submission_prepare` with those exact snapshot/fill-receipt/submission-answers
+   paths. If request overflow is true, append `--user-authorized-overflow
+   --overflow-reason REQUEST_REASON`.
+5. Read `intent_id` and `fence` from `submission-prepare.json`, then run exactly one
+   `apply` with request URL/answers/resume, profile, Ledger, intent, fence, and output
+   `$JOB_SEARCH_EVIDENCE_DIR/ashby-submit-result.json`.
+
+Never test `pre_submit_screenshot` as a string; the authoritative `verify` command
+validates its `{path, sha256}` object. Every command in this transaction must stop on
+the first nonzero exit so no later success can hide an earlier failure.
+
 Every active official posting is an application candidate. Ranking, compensation,
 location, experience, and skills gaps determine order only; they do not create a
 no-application outcome. Prefer Tokyo, Japan-remote, USD 100,000-class compensation,

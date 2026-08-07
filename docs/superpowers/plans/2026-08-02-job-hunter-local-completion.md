@@ -53,6 +53,12 @@ daily slots were already occupied and `submission_prepare` did not expose Ledger
 existing user-authorized overflow parameters. Dais explicitly authorized this exact
 OpenAI application in chat. The active fix exposes only that existing fenced overflow
 path through the CLI; dedupe, terminal-route, intent, and one-click gates remain intact.
+Run 97 on release `a9d805602ac9d265049a7e0b1e68d2c75ad6e63b` proved the
+explicit overflow reaches the installed agent, but stopped before claim because the
+agent incorrectly treated `pre_submit_screenshot` as a string instead of the verified
+`{path, sha256}` object. Submit and intent counts remained zero. The active recipe now
+delegates shape validation to the deterministic `ashby_apply verify` command and pins
+every subsequent CLI flag under one fail-fast transaction.
 **Status:** The immutable four-lane runtime, grounded materials, ownership fences,
 Gmail ingestion, Telegram outbox, quota accounting, Ashby surface classifier, and
 loopback OpenTelemetry Collector/private trace index are implemented. The application
