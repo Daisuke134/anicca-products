@@ -54,10 +54,16 @@ APPLICATION_ARTIFACT_KINDS = frozenset(
     }
 )
 APPLICATION_OWNERS = frozenset({"agent", "dais_manual", "recruiter"})
+# Retained so the already-written run-74 correction history stays addressable.
+# The correction itself is no longer restricted to this row.
 RUN_74_APPLICATION_ID = (
     "fcd5aea271106d3cac08e1dfe42645d29275a4fc5415429bead7dbf485968081"
 )
 OUTREACH_TRUTH_CORRECTION_REASON = "outreach_only_delivery_correction"
+# `submit_unknown` is the legacy target written by the original single-row
+# correction; `email_sent` is the truthful target for every correction from now on.
+OUTREACH_TRUTH_CORRECTION_STATES = frozenset({"submit_unknown", "email_sent"})
+OUTREACH_TRUTH_CORRECTION_TARGET_STATE = "email_sent"
 ASHBY_GRAPHQL_VISIBLE_SUCCESS_SOURCE = "ashby_graphql_plus_visible_success"
 ASHBY_GRAPHQL_VISIBLE_SUCCESS_TERMINAL_SHA256 = (
     "e73a212752d3ca020b16bae36ca19578ba437dcf434b054daff414e467cb430b"
@@ -113,14 +119,20 @@ def _has_immutable_outreach_delivery(
     return False
 
 
-def is_run_74_outreach_truth_correction(
+def is_outreach_truth_correction(
     connection: sqlite3.Connection,
     application_id: str,
     correction_event: Mapping[str, Any],
 ) -> bool:
-    """Return whether one immutable event is the sole run-74 truth correction."""
-    if application_id != RUN_74_APPLICATION_ID:
-        return False
+    """Return whether one immutable event is a valid outreach truth correction.
+
+    A correction is valid only when the event immediately before it is the
+    projection that marked the application `submitted` off an outreach-only
+    delivery: it must carry the same route, the same provider, the
+    `recruiting_outreach` channel, and it must NOT carry a complete inbound
+    employer message (all four of message_id, thread_id, evidence_sha256,
+    received_at). The delivery itself must exist as an immutable route event.
+    """
     try:
         correction_rowid = int(correction_event["event_rowid"])
     except (KeyError, TypeError, ValueError):
@@ -136,7 +148,7 @@ def is_run_74_outreach_truth_correction(
     if (
         correction is None
         or str(correction["from_state"]) != "submitted"
-        or str(correction["to_state"]) != "submit_unknown"
+        or str(correction["to_state"]) not in OUTREACH_TRUTH_CORRECTION_STATES
     ):
         return False
     try:
@@ -166,11 +178,10 @@ def is_run_74_outreach_truth_correction(
         """,
         (application_id, correction_rowid),
     ).fetchone()
-    if (
-        previous is None
-        or str(previous["from_state"]) != "submit_unknown"
-        or str(previous["to_state"]) != "submitted"
-    ):
+    # The projection being corrected may have arrived from `submit_unknown` (the
+    # late-confirmation path) or straight from the pre-submit ladder
+    # (`submit_claimed`), which is how the delivered-route projection wrote it.
+    if previous is None or str(previous["to_state"]) != "submitted":
         return False
     try:
         previous_payload = json.loads(str(previous["payload_json"]))
@@ -195,6 +206,10 @@ def is_run_74_outreach_truth_correction(
         provider_id=provider_id,
         evidence_sha256=evidence_sha256,
     )
+
+
+# Legacy name kept for callers written against the single-row run-74 correction.
+is_run_74_outreach_truth_correction = is_outreach_truth_correction
 
 
 def is_authoritative_ashby_browser_confirmation(
@@ -2594,7 +2609,19 @@ class Ledger:
                 to_state = str(event["to_state"])
                 if str(event["from_state"]) != previous:
                     raise FenceError("application event chain is discontinuous")
-                paired_correction = False
+                # A `submitted` projection that the very next immutable event
+                # corrects never counts as a submission, whichever state it came
+                # from. The delivered-route projection wrote these from
+                # `submit_claimed`, the late-confirmation path from `submit_unknown`.
+                paired_correction = (
+                    to_state == "submitted"
+                    and index + 1 < len(rows)
+                    and is_outreach_truth_correction(
+                        self.connection,
+                        str(application["id"]),
+                        rows[index + 1],
+                    )
+                )
                 if previous == "submit_unknown" and to_state == "submitted":
                     payload = json.loads(str(event["payload_json"]))
                     if not isinstance(payload, dict):
@@ -2609,20 +2636,17 @@ class Ledger:
                             event,
                         )
                     )
-                    if index + 1 < len(rows):
-                        paired_correction = is_run_74_outreach_truth_correction(
-                            self.connection,
-                            str(application["id"]),
-                            rows[index + 1],
-                        )
                     if (
                         not has_gmail_confirmation
                         and not has_authoritative_ashby_confirmation
                         and not paired_correction
                     ):
                         raise FenceError("late confirmation event lacks evidence")
-                elif previous == "submitted" and to_state == "submit_unknown":
-                    if not is_run_74_outreach_truth_correction(
+                elif (
+                    previous == "submitted"
+                    and to_state in OUTREACH_TRUTH_CORRECTION_STATES
+                ):
+                    if not is_outreach_truth_correction(
                         self.connection,
                         str(application["id"]),
                         event,
@@ -2635,7 +2659,7 @@ class Ledger:
                     to_state == "submitted" and not paired_correction
                 )
                 submission_attempted = submission_attempted or to_state in {
-                    "submitted", "submit_unknown"
+                    "submitted", "submit_unknown", "email_sent"
                 }
             positive_stages = {
                 str(row["funnel_stage"])
@@ -3815,34 +3839,54 @@ class Ledger:
                     provider_id=str(row["provider_id"]),
                     evidence_sha256=str(row["delivery_evidence_sha256"]),
                 )
-            corrected = self._reconcile_run_74_outreach_truth_in_transaction()
+            corrected = self._reconcile_outreach_truth_in_transaction()
         return {
             "delivered_route_count": len(rows),
-            "outreach_correction_count": int(corrected),
+            "outreach_correction_count": corrected,
         }
 
-    def _reconcile_run_74_outreach_truth_in_transaction(self) -> bool:
-        route = self.connection.execute(
+    def _reconcile_outreach_truth_in_transaction(self) -> int:
+        """Restate every `submitted` row that only ever produced an outbound email.
+
+        Delivery of our own message is not an application. Each affected row is
+        moved to `email_sent` through `_append_event` plus the in-transaction
+        update, never a bare UPDATE, so the fencing triggers stay satisfied and
+        no immutable event or receipt is rewritten.
+        """
+        candidates = self.connection.execute(
             """
-            SELECT *
-            FROM application_routes
-            WHERE application_id = ?
-              AND route_kind = 'recruiting_outreach'
-              AND delivery_state = 'delivered'
-              AND recipient_acceptance = 'outreach_only'
-            ORDER BY updated_at, route_id
-            LIMIT 1
-            """,
-            (RUN_74_APPLICATION_ID,),
-        ).fetchone()
-        if route is None or self.current_state(RUN_74_APPLICATION_ID) != "submitted":
-            return False
+            SELECT routes.*
+            FROM application_routes AS routes
+            JOIN applications ON applications.id = routes.application_id
+            WHERE applications.current_state = 'submitted'
+              AND routes.route_kind = 'recruiting_outreach'
+              AND routes.delivery_state = 'delivered'
+              AND routes.recipient_acceptance = 'outreach_only'
+            ORDER BY routes.application_id, routes.updated_at, routes.route_id
+            """
+        ).fetchall()
+        corrected = 0
+        seen: set[str] = set()
+        for route in candidates:
+            application_id = str(route["application_id"])
+            if application_id in seen:
+                continue
+            seen.add(application_id)
+            if self._correct_outreach_truth_in_transaction(application_id, route):
+                corrected += 1
+        if corrected:
+            self._rebuild_strategy_outcome_projection_in_transaction()
+        return corrected
+
+    def _correct_outreach_truth_in_transaction(
+        self, application_id: str, route: Mapping[str, Any]
+    ) -> bool:
         route_id = str(route["route_id"])
         provider_id = str(route["provider_id"])
         evidence_sha256 = str(route["delivery_evidence_sha256"])
         if not _has_immutable_outreach_delivery(
             self.connection,
-            application_id=RUN_74_APPLICATION_ID,
+            application_id=application_id,
             route_id=route_id,
             provider_id=provider_id,
             evidence_sha256=evidence_sha256,
@@ -3856,16 +3900,21 @@ class Ledger:
             ORDER BY rowid DESC
             LIMIT 1
             """,
-            (RUN_74_APPLICATION_ID,),
+            (application_id,),
         ).fetchone()
         if event is None:
             return False
-        payload = json.loads(str(event["payload_json"]))
+        try:
+            payload = json.loads(str(event["payload_json"]))
+        except (json.JSONDecodeError, TypeError):
+            return False
         if not isinstance(payload, dict):
             return False
+        # The latest event must be the outreach projection itself, and it must
+        # carry no inbound employer message. All four fields together are the
+        # existing "an employer wrote to us" test; preserve it exactly.
         if (
-            str(event["from_state"]) != "submit_unknown"
-            or str(event["to_state"]) != "submitted"
+            str(event["to_state"]) != "submitted"
             or payload.get("route_id") != route_id
             or payload.get("provider_id") != provider_id
             or payload.get("channel") != "recruiting_outreach"
@@ -3882,24 +3931,24 @@ class Ledger:
             "reason": OUTREACH_TRUTH_CORRECTION_REASON,
         }
         self._append_event(
-            RUN_74_APPLICATION_ID,
+            application_id,
             "submitted",
-            "submit_unknown",
+            OUTREACH_TRUTH_CORRECTION_TARGET_STATE,
             correction,
         )
         self.connection.execute(
-            "UPDATE applications SET current_state = 'submit_unknown' WHERE id = ?",
-            (RUN_74_APPLICATION_ID,),
+            "UPDATE applications SET current_state = ? WHERE id = ?",
+            (OUTREACH_TRUTH_CORRECTION_TARGET_STATE, application_id),
         )
+        # An email never consumes a confirmed-application slot.
         self.connection.execute(
             """
             UPDATE daily_slots
-            SET status = 'submit_unknown'
+            SET status = ?
             WHERE application_id = ? AND status = 'submitted'
             """,
-            (RUN_74_APPLICATION_ID,),
+            (OUTREACH_TRUTH_CORRECTION_TARGET_STATE, application_id),
         )
-        self._rebuild_strategy_outcome_projection_in_transaction()
         return True
 
     def record_application_route_reply(

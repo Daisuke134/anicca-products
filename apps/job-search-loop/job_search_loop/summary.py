@@ -100,11 +100,24 @@ def build_summary_v2(*, day: str, applications: list[dict[str, Any]]) -> dict[st
             "denominator": denominator,
             "rate": round(numerator / denominator, 4) if denominator else None,
         }
+    # A confirmed application is one an employer acknowledged. `email_sent` is the
+    # delivery receipt for a message we sent, so it is never counted here.
+    confirmed_by_owner = Counter(
+        str(row["owner"])
+        for row in applications
+        if "confirmed_application" in row["positive_funnel_stages"]
+    )
+    confirmed_applications = {
+        owner: confirmed_by_owner.get(owner, 0)
+        for owner in ("agent", "dais_manual", "recruiter")
+    }
+    confirmed_applications["total"] = sum(confirmed_by_owner.values())
     value: dict[str, Any] = {
         "version": 2,
         "day": day,
         "counts": dict(sorted(counts.items())),
         "owners": dict(sorted(owners.items())),
+        "confirmed_applications": confirmed_applications,
         "funnel": funnel,
         "ats_progress": {
             "required_adapters": list(REQUIRED_ATS_ADAPTERS),

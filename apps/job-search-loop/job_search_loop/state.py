@@ -13,8 +13,24 @@ TRANSITIONS = {
     "discovered": frozenset({"qualified", "rejected"}),
     "qualified": frozenset({"materials_ready", "rejected"}),
     "materials_ready": frozenset({"submit_claimed", "rejected"}),
+    # `email_sent` records that the resident sent an outbound application email
+    # and a provider acknowledged delivery. Delivery of our own message is not an
+    # application. Spec section 17.3 rule 1: it is upgraded to `submitted` only by
+    # an inbound employer message bound to the application, and no code path may
+    # perform that upgrade automatically.
     "submit_claimed": frozenset(
-        {"submitted", "submit_unknown", "not_submitted"}
+        {"submitted", "submit_unknown", "not_submitted", "email_sent"}
+    ),
+    "email_sent": frozenset(
+        {
+            "submitted",
+            "recruiter_contact",
+            "screening",
+            "interview",
+            "rejected",
+            "withdrawn",
+            "not_submitted",
+        }
     ),
     "not_submitted": frozenset({"submit_claimed", "rejected"}),
     "submitted": frozenset(

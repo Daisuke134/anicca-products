@@ -202,7 +202,8 @@ class RouteExecutorTests(unittest.TestCase):
         route = self.ledger.application_routes(self.application_id)[0]
         self.assertEqual(first["outreach_correction_count"], 1)
         self.assertEqual(second["outreach_correction_count"], 0)
-        self.assertEqual(self.ledger.current_state(self.application_id), "submit_unknown")
+        # L-74A: the correction now restates outreach deliveries as `email_sent`.
+        self.assertEqual(self.ledger.current_state(self.application_id), "email_sent")
         self.assertEqual(self.ledger.confirmed_daily_count(japan_day), 0)
         self.assertEqual(route["provider_id"], "gmail:run-74-outreach")
         self.assertEqual(route["delivery_evidence_sha256"], evidence_sha256)
@@ -210,7 +211,7 @@ class RouteExecutorTests(unittest.TestCase):
             [event["to_state"] for event in self.ledger.application_route_events(route_id)],
             ["eligible", "action_started", "delivered"],
         )
-        self.assertEqual(summary["current_state"], "submit_unknown")
+        self.assertEqual(summary["current_state"], "email_sent")
         self.assertFalse(summary["ever_submitted"])
         self.assertTrue(summary["submission_attempted"])
         self.assertNotIn("confirmed_application", summary["positive_funnel_stages"])

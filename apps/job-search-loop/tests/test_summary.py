@@ -1,13 +1,191 @@
+import hashlib
 import json
 import sqlite3
 import subprocess
 import sys
 import tempfile
 import unittest
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
+from job_search_loop.daily_reporting import render_pipeline
 from job_search_loop.ledger import Ledger
 from job_search_loop.summary import build_summary_v2
+
+
+class ConfirmedApplicationProjectionTests(unittest.TestCase):
+    """Spec section 15 requirement rows 14 and 15.
+
+    A confirmed application is one an employer acknowledged. An outbound email
+    the resident sent is `email_sent` and must never enter the confirmed cohort.
+    """
+
+    def setUp(self):
+        self.tempdir = tempfile.TemporaryDirectory()
+        self.root = Path(self.tempdir.name)
+        self.ledger = Ledger(self.root / "ledger.sqlite3")
+        self.message = self.root / "message.txt"
+        self.message.write_text("Dear Hiring Team", encoding="utf-8")
+        self.resume = self.root / "resume.pdf"
+        self.resume.write_bytes(b"%PDF resume")
+        self.source_sha = hashlib.sha256(b"official source").hexdigest()
+        self.day = datetime.now(timezone(timedelta(hours=9))).date().isoformat()
+
+    def tearDown(self):
+        self.ledger.close()
+        self.tempdir.cleanup()
+
+    def _outreach_email(self, company, ordinal):
+        """An outbound email the resident sent, historically mis-projected."""
+        application_id = self.ledger.add_application(
+            company,
+            "AI Solutions Architect",
+            f"https://jobs.ashbyhq.com/{company.lower()}/role-{ordinal}/application",
+        )
+        route_id = self.ledger.register_application_route(
+            application_id,
+            route_kind="recruiting_outreach",
+            endpoint=f"talent+{ordinal}@example.test",
+            ordinal=ordinal,
+            source_url="https://careers.example.test/jobs",
+            source_sha256=self.source_sha,
+            recipient_acceptance="outreach_only",
+        )
+        evidence_sha256 = hashlib.sha256(f"receipt-{ordinal}".encode()).hexdigest()
+        self.ledger.claim_application_route(
+            route_id,
+            actor="resident_worker",
+            fence=ordinal,
+            message_path=str(self.message),
+            message_sha256=hashlib.sha256(self.message.read_bytes()).hexdigest(),
+            resume_path=str(self.resume),
+            resume_sha256=hashlib.sha256(self.resume.read_bytes()).hexdigest(),
+        )
+        self.ledger.complete_application_route(
+            route_id,
+            fence=ordinal,
+            state="delivered",
+            provider_id=f"gmail:outreach-{ordinal}",
+            evidence_sha256=evidence_sha256,
+        )
+        route = next(
+            row
+            for row in self.ledger.application_routes(application_id)
+            if str(row["route_id"]) == route_id
+        )
+        with self.ledger._transaction():
+            self.ledger._project_delivered_application_route_in_transaction(
+                row={**dict(route), "recipient_acceptance": "accepts_applications"},
+                provider_id=str(route["provider_id"]),
+                evidence_sha256=evidence_sha256,
+            )
+        return application_id
+
+    def _employer_acknowledged(self, company, ordinal):
+        """An inbound employer message bound to the application."""
+        application_id = self.ledger.add_application(
+            company,
+            "Account Manager",
+            f"https://jobs.ashbyhq.com/{company.lower()}/ack-{ordinal}/application",
+        )
+        for state in ("qualified", "materials_ready", "submit_claimed", "submit_unknown"):
+            self.ledger.transition(application_id, state)
+        evidence_sha256 = hashlib.sha256(f"employer-ack-{ordinal}".encode()).hexdigest()
+        received_at = "2026-08-07T00:00:00+00:00"
+        with self.ledger._transaction():
+            self.ledger._append_event(
+                application_id,
+                "submit_unknown",
+                "submitted",
+                {
+                    "message_id": f"gmail:inbound-{ordinal}",
+                    "thread_id": f"thread-{ordinal}",
+                    "evidence_sha256": evidence_sha256,
+                    "received_at": received_at,
+                },
+            )
+            self.ledger.connection.execute(
+                "UPDATE applications SET current_state = 'submitted' WHERE id = ?",
+                (application_id,),
+            )
+        self.ledger.record_funnel_outcome(
+            application_id=application_id,
+            funnel_stage="confirmed_application",
+            disposition="positive",
+            evidence_source="gmail",
+            evidence_sha256=evidence_sha256,
+            occurred_at=received_at,
+            observed_at=received_at,
+        )
+        return application_id
+
+    def test_summary_v2_rebuilds_from_events_and_matches_telegram_projection(self):
+        acknowledged = self._employer_acknowledged("ElevenLabs", 1)
+        emailed = [self._outreach_email(company, ordinal) for ordinal, company
+                   in enumerate(("Cursor", "NVIDIA"), start=4)]
+        manual = self.ledger.add_application(
+            "OpenAI",
+            "AI Success Engineer",
+            "https://jobs.ashbyhq.com/openai/success/application",
+            owner="dais_manual",
+        )
+        for state in ("qualified", "materials_ready", "submit_claimed", "submitted"):
+            self.ledger.transition(manual, state)
+
+        self.ledger.reconcile_delivered_application_routes()
+        value = build_summary_v2(
+            day=self.day, applications=self.ledger.event_summary_rows()
+        )
+
+        # Rebuilt purely from events.
+        self.assertEqual(
+            value["counts"], {"email_sent": 2, "submitted": 2}
+        )
+        for application_id in emailed:
+            self.assertEqual(self.ledger.current_state(application_id), "email_sent")
+        self.assertEqual(self.ledger.current_state(acknowledged), "submitted")
+
+        # Autonomous confirmed applications == applications holding an inbound
+        # employer message. The dais_manual row is counted separately.
+        self.assertEqual(
+            value["confirmed_applications"],
+            {"agent": 1, "dais_manual": 0, "recruiter": 0, "total": 1},
+        )
+        self.assertEqual(value["owners"], {"agent": 3, "dais_manual": 1})
+
+        # The Telegram projection reports the same numbers, from the same object.
+        rendered = render_pipeline(value)
+        confirmed = value["funnel"]["confirmed_application_rate"]
+        self.assertIn(
+            f"応募確認: {confirmed['numerator']}/{confirmed['denominator']}", rendered
+        )
+        self.assertIn("Agent 3", rendered)
+        self.assertIn("Dais手動 1", rendered)
+
+    def test_funnel_rates_use_confirmed_application_denominator(self):
+        self._employer_acknowledged("ElevenLabs", 1)
+        self._outreach_email("Cursor", 4)
+        self._outreach_email("NVIDIA", 5)
+        self.ledger.reconcile_delivered_application_routes()
+
+        value = build_summary_v2(
+            day=self.day, applications=self.ledger.event_summary_rows()
+        )
+        funnel = value["funnel"]
+
+        # Emails are attempts, never confirmations.
+        self.assertEqual(
+            funnel["confirmed_application_rate"],
+            {"numerator": 1, "denominator": 3, "rate": 0.3333},
+        )
+        confirmed = funnel["confirmed_application_rate"]["numerator"]
+        for metric in ("recruiter_reply_rate", "interview_rate", "offer_rate"):
+            self.assertEqual(
+                funnel[metric]["denominator"],
+                confirmed,
+                f"{metric} must be measured against confirmed applications",
+            )
+        self.assertEqual(value["confirmed_applications"]["agent"], confirmed)
 
 
 class SummaryProjectionTests(unittest.TestCase):

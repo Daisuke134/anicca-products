@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 from typing import Any, Callable
 
-from .telegram import send_daily_report
+from .telegram import send_daily_report, send_once
 
 
 LABELS = (
@@ -134,21 +134,105 @@ def deliver_pipeline_report(
     return sender(**sender_arguments)
 
 
+def render_truth_correction(
+    *, day: str, corrected_count: int, previous_confirmed: int, value: dict[str, Any]
+) -> str:
+    """Report the application-truth correction in plain Japanese.
+
+    Spec section 17.4 `L-74A`: the earlier number was wrong and the report must
+    say so, not quietly publish a smaller number.
+    """
+    _validate(value)
+    confirmed = value["confirmed_applications"]
+    submitted = value["counts"].get("submitted", 0)
+    email_sent = value["counts"].get("email_sent", 0)
+    return "\n".join(
+        (
+            f"⚠️ Job Hunter 応募数の訂正 — {day}",
+            "",
+            f"これまで「応募済み {previous_confirmed} 件」と報告していましたが、"
+            "この数字は誤りでした。",
+            f"うち {corrected_count} 件は、こちらから送った応募メールが配信された"
+            "という記録にすぎず、企業からの受領確認ではありませんでした。"
+            "自分が送ったメールを応募成立として数えていたことになります。",
+            "",
+            f"訂正後の応募済み: {submitted} 件"
+            f"（{previous_confirmed} 件 − {corrected_count} 件）",
+            f"そのうち企業からの受領確認が取れている応募: {confirmed['total']} 件"
+            f"（Agent自律 {confirmed['agent']} 件 / "
+            f"Dais手動 {confirmed['dais_manual']} 件）",
+            f"メール送信のみで企業の返信待ち: {email_sent} 件",
+            "",
+            "今後、確認済みの応募として数えるのは、企業から届いた返信が"
+            "その応募に紐づいている場合だけです。送信しただけのメールは"
+            "応募枠を消費しません。",
+        )
+    )
+
+
+def deliver_truth_correction(
+    *,
+    summary_path: Path,
+    outbox_path: Path,
+    corrected_count: int,
+    previous_confirmed: int,
+    sender: Callable[..., dict[str, str | None]] = send_once,
+) -> dict[str, str | None]:
+    """Queue the correction notice exactly once through the existing outbox."""
+    try:
+        value = json.loads(Path(summary_path).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError("private summary.v2 is unavailable") from error
+    if not isinstance(value, dict):
+        raise ValueError("summary.v2 must be an object")
+    day = str(value["day"])
+    message = render_truth_correction(
+        day=day,
+        corrected_count=corrected_count,
+        previous_confirmed=previous_confirmed,
+        value=value,
+    )
+    event_key = (
+        "job-search-truth-correction:"
+        + hashlib.sha256(
+            f"{value['projection_sha256']}:{corrected_count}".encode("utf-8")
+        ).hexdigest()[:16]
+    )
+    receipt = sender(
+        database=Path(outbox_path), event_key=event_key, message=message
+    )
+    return {**receipt, "event_key": event_key}
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=("deliver",))
+    parser.add_argument("command", choices=("deliver", "deliver-correction"))
     parser.add_argument("--summary", type=Path, required=True)
     parser.add_argument("--outbox", type=Path, required=True)
     parser.add_argument("--release-manifest", type=Path)
     parser.add_argument("--browser-result", type=Path)
+    parser.add_argument("--corrected-count", type=int)
+    parser.add_argument("--previous-confirmed", type=int)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
-    receipt = deliver_pipeline_report(
-        summary_path=args.summary,
-        outbox_path=args.outbox,
-        release_manifest_path=args.release_manifest,
-        browser_result_path=args.browser_result,
-    )
+    if args.command == "deliver-correction":
+        if args.corrected_count is None or args.previous_confirmed is None:
+            parser.error(
+                "--corrected-count and --previous-confirmed are required"
+            )
+        receipt = deliver_truth_correction(
+            summary_path=args.summary,
+            outbox_path=args.outbox,
+            corrected_count=args.corrected_count,
+            previous_confirmed=args.previous_confirmed,
+        )
+    else:
+        receipt = deliver_pipeline_report(
+            summary_path=args.summary,
+            outbox_path=args.outbox,
+            release_manifest_path=args.release_manifest,
+            browser_result_path=args.browser_result,
+        )
     args.output.write_text(json.dumps(receipt, sort_keys=True) + "\n", encoding="utf-8")
     os.chmod(args.output, 0o600)
     print(json.dumps(receipt, sort_keys=True))

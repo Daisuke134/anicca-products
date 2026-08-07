@@ -5360,7 +5360,7 @@ Three rules are absolute:
 
 ### 17.4 Tasks
 
-- [ ] **`L-74A`** — Correct application truth. Reclassify the six
+- [x] **`L-74A`** — Correct application truth. Reclassify the six
   `recruiting_outreach` rows from `submitted` to `email_sent` through the state
   machine's own API, never a raw `UPDATE`. Rebuild `summary.v2`, the funnel
   denominators, and the quota projection from events. Report the corrected number on
@@ -5369,6 +5369,41 @@ Three rules are absolute:
   the count of applications holding an inbound employer message, and the existing
   `test_summary_v2_rebuilds_from_events_and_matches_telegram_projection` and
   `test_funnel_rates_use_confirmed_application_denominator` both pass.
+
+  **Measured result, applied to the live ledger 2026-08-07T15:44Z.** Backup:
+  `~/.local/state/anicca/job-search/backups/ledger-pre-l74a-20260807T153342Z.sqlite3`.
+
+  | Measurement | Before | After |
+  |---|---|---|
+  | `applications.current_state = 'submitted'` | 11 | 6 |
+  | `applications.current_state = 'email_sent'` | state did not exist | 5 |
+  | Rows matching the outreach-only `submitted` query | 5 | 0 |
+  | `daily_slots.status = 'submitted'` | 11 | 6 |
+  | `confirmed_applications.agent` (`summary.v2`) | not projected | 1 |
+  | `ats_progress.confirmed_adapters` | `[ashby, workday]` | `[ashby]` |
+  | `ats_progress.complete` | `true` | `false` |
+  | Workday adapter `ever_submitted` | 4 | 0 (4 `email_sent`) |
+  | `confirmed_application_rate` | 1/36 | 1/36 (unchanged; already excluded outreach) |
+
+  Corrected rows: Cursor, NVIDIA ×2, Workday, Salesforce. LangChain was corrected by
+  the earlier single-row mechanism and remains at `submit_unknown`; `submit_unknown`
+  has no outbound transition in `TRANSITIONS`, so it was **not** moved to
+  `email_sent` — its immutable history is left intact rather than forced.
+  The one autonomous confirmed application is ElevenLabs `Account Manager - Japan`,
+  the only row whose event payload carries `message_id`, `thread_id`,
+  `evidence_sha256` and `received_at`. The 3 `dais_manual` `submitted` rows
+  (OpenAI, Palantir, Neural Concept) are untouched.
+
+  The single-row `RUN_74_APPLICATION_ID` reconciliation was generalized to
+  `_reconcile_outreach_truth_in_transaction`, and `is_run_74_outreach_truth_correction`
+  renamed to `is_outreach_truth_correction` (old name kept as an alias). The
+  correction target changed from `submit_unknown` to `email_sent`. The predicate now
+  also accepts a projection that arrived from `submit_claimed`, which is how the
+  delivered-route projection actually wrote these five rows — the original predicate
+  only accepted `submit_unknown -> submitted` and would have rejected all of them.
+  Telegram: queued in `telegram-outbox.sqlite3` as
+  `job-search-truth-correction:309183e825650475` (status `pending`; not transmitted,
+  no network side effect taken in this task).
 
 - [ ] **`L-74B`** — Reclassify submission outcomes. Replace the single
   `submit_unknown` bucket with `submitted`, `not_submitted`, `spam_blocked`,
