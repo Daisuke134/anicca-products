@@ -4971,6 +4971,12 @@ item before starting the next.
   experience attestation, and supplies a natural JPY 12M negotiable OTE grounded in
   the saved JPY 8M–30M preference. No Submit occurred for this Replit role, so it is
   safe for the next non-OpenAI campaign.
+  Run 112 proved the Replit form itself `ready` with zero missing fields and zero
+  repairs, then exposed a separate Ledger gate: user-authorized overflow bypassed
+  the ten/day total but not the per-bucket limit, so `claim_submission()` returned
+  no intent despite zero prior Submit for this role. The correction applies the same
+  explicit overflow authorization to the bucket cap while preserving the existing
+  application identity and one-click fences.
   Remaining gate: commit/push, immutable release activation, then
   one installed Job Hunter campaign whose first non-success does not stop the run and
   whose final state is receipt-backed `submitted`.

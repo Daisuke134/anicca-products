@@ -2852,7 +2852,10 @@ class Ledger:
                     "WHERE japan_day = ? AND portfolio_bucket = ?",
                     (japan_day, portfolio_bucket),
                 ).fetchone()
-                if int(bucket_count["count"]) >= PORTFOLIO_LIMITS[portfolio_bucket]:
+                if (
+                    int(bucket_count["count"]) >= PORTFOLIO_LIMITS[portfolio_bucket]
+                    and not user_authorized_overflow
+                ):
                     return None
             used = {
                 int(row["slot"])
