@@ -123,7 +123,8 @@ fi
   --ledger "$JOB_SEARCH_STATE_ROOT/ledger.sqlite3" \
   --outbox "$TELEGRAM_OUTBOX" \
   --media-root "$JOB_SEARCH_TELEGRAM_MEDIA" \
-  --output "$EVIDENCE/resume-deliver-before.json"
+  --output "$EVIDENCE/resume-deliver-before.json" \
+  2>"$EVIDENCE/resume-deliver-before.error.log" || true
 JAPAN_DAY=$(TZ=Asia/Tokyo /bin/date +%F)
 report_progress() {
   local stage="$1"
@@ -444,5 +445,6 @@ fi
   --ledger "$JOB_SEARCH_STATE_ROOT/ledger.sqlite3" \
   --outbox "$TELEGRAM_OUTBOX" \
   --media-root "$JOB_SEARCH_TELEGRAM_MEDIA" \
-  --output "$EVIDENCE/resume-deliver-after.json"
+  --output "$EVIDENCE/resume-deliver-after.json" \
+  2>"$EVIDENCE/resume-deliver-after.error.log" || true
 refresh_summary

@@ -11,7 +11,7 @@ from typing import Callable
 
 from .ledger import Ledger
 from .outbox import DeliveryUncertain
-from .telegram import send_document_once
+from .telegram import send_document_once, send_once
 
 
 def validated_correlation(value: dict[str, object]) -> dict[str, str | None]:
@@ -211,6 +211,7 @@ def deliver_outreach_dossiers(
     outbox_path: Path,
     media_root: Path,
     sender: Callable[..., dict[str, str | None]] = send_document_once,
+    message_sender: Callable[..., dict[str, str | None]] = send_once,
     report_reader: Callable[[Path], list[dict[str, str]]] | None = None,
 ) -> list[dict[str, str | None]]:
     reports = (
@@ -239,15 +240,24 @@ def deliver_outreach_dossiers(
         )
         if len(message) > 4096:
             raise ValueError("outreach Telegram dossier exceeds message limit")
+        base_event_key = (
+            f"email-dossier:{report['route_kind']}:{report['application_id']}:"
+            f"{report['provider_id']}:{report['message_sha256']}:"
+            f"{report['resume_sha256']}"
+        )
         try:
+            text_delivery = message_sender(
+                database=outbox_path,
+                event_key=f"{base_event_key}:full-message",
+                message=message,
+            )
             delivery = sender(
                 database=outbox_path,
-                event_key=(
-                    f"email-dossier:{report['route_kind']}:{report['application_id']}:"
-                    f"{report['provider_id']}:{report['message_sha256']}:"
-                    f"{report['resume_sha256']}"
+                event_key=f"{base_event_key}:resume",
+                message=(
+                    f"📎 Resume sent to {report['company']} for "
+                    f"{report['title']}\nReceipt: {report['provider_id']}"
                 ),
-                message=message,
                 document=Path(report["resume_path"]),
                 media_root=media_root,
             )
@@ -261,7 +271,7 @@ def deliver_outreach_dossiers(
                 }
             )
             continue
-        except (subprocess.TimeoutExpired, RuntimeError, json.JSONDecodeError) as error:
+        except (OSError, subprocess.TimeoutExpired, RuntimeError, json.JSONDecodeError) as error:
             deliveries.append(
                 {
                     "application_id": report["application_id"],
@@ -276,6 +286,7 @@ def deliver_outreach_dossiers(
                 "application_id": report["application_id"],
                 "status": delivery["status"],
                 "message_id": delivery["message_id"],
+                "text_message_id": text_delivery["message_id"],
             }
         )
     return deliveries

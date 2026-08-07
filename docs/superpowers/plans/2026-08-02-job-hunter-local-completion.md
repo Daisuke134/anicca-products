@@ -4954,6 +4954,12 @@ item before starting the next.
   controller also reports each candidate before opening the ATS and emits a terminal
   campaign summary after submission or exhaustion. Production Python bytecode,
   shell syntax, and diff whitespace checks pass; no unit or full suite was run.
+  Installed run 110 then exposed a pre-campaign bootstrap defect: a full historical
+  email dossier was incorrectly sent as a PDF caption, Telegram returned HTTP 400,
+  and shell `set -e` exited before candidate selection. No ATS attempt occurred.
+  The correction sends the full email as a normal message and its resume as a
+  separate short-caption document, while reporting delivery errors are preserved in
+  the run evidence but cannot stop the application campaign.
   Remaining gate: commit/push, immutable release activation, then
   one installed Job Hunter campaign whose first non-success does not stop the run and
   whose final state is receipt-backed `submitted`.
