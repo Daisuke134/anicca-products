@@ -4308,6 +4308,12 @@ The repair adds `scripts/submit-targeted-ashby.sh`: the resident passes only the
 request path; the script reads every argument and owns fill → verify → claim → prepare
 → one fenced apply. Browser Harness handles only unsupported fields or UI shapes
 returned by that transaction and cannot invent or bypass submission state.
+Run 103 (`daily-20260807-171245`) proved that transaction through fill, verify,
+claim, and prepared intent `b7dd8dcfdc8e4188869e91625d196645`, fence 1, then
+stopped pre-click/pre-request because the persistent runner environment allowlist
+omitted `CAPSOLVER_API_KEY`. The repair passes that named variable without logging its
+value and lets a targeted request resume the same pre-click intent/fence instead of
+claiming a duplicate.
 
 ### Ordered remaining execution — Big Two first, then general browser coverage
 

@@ -21,29 +21,32 @@ EVIDENCE="$JOB_SEARCH_EVIDENCE_DIR"
 "$JOB_SEARCH_PYTHON" -m job_search_loop.ashby_apply verify \
   --output "$JOB_SEARCH_ASHBY_APPLY_RESULT" --profile "$JOB_SEARCH_PROFILE" \
   >"$EVIDENCE/ashby-fill-verification.json"
-"$JOB_SEARCH_PYTHON" -m job_search_loop.ashby_apply claim \
-  --fill-result "$JOB_SEARCH_ASHBY_APPLY_RESULT" \
-  --owner-receipt "$JOB_SEARCH_BROWSER_OWNER_EVIDENCE" --resume "$RESUME" \
-  --snapshot-output "$EVIDENCE/ats-snapshot.json" \
-  --answers-output "$EVIDENCE/submission-answers.json" \
-  --output "$EVIDENCE/fill-receipt.json" >"$EVIDENCE/ashby-claim-transaction.log"
+INTENT=$("$JOB_SEARCH_JQ" -r '.intent_id // empty' "$REQUEST")
+FENCE=$("$JOB_SEARCH_JQ" -r '.fence // empty' "$REQUEST")
+if [[ -z "$INTENT" || -z "$FENCE" ]]; then
+  "$JOB_SEARCH_PYTHON" -m job_search_loop.ashby_apply claim \
+    --fill-result "$JOB_SEARCH_ASHBY_APPLY_RESULT" \
+    --owner-receipt "$JOB_SEARCH_BROWSER_OWNER_EVIDENCE" --resume "$RESUME" \
+    --snapshot-output "$EVIDENCE/ats-snapshot.json" \
+    --answers-output "$EVIDENCE/submission-answers.json" \
+    --output "$EVIDENCE/fill-receipt.json" >"$EVIDENCE/ashby-claim-transaction.log"
 
-PREPARE=("$JOB_SEARCH_PYTHON" -m job_search_loop.submission_prepare
-  --ledger "$JOB_SEARCH_STATE_ROOT/ledger.sqlite3"
-  --application-id "$APPLICATION_ID" --japan-day "$(TZ=Asia/Tokyo date +%F)"
-  --portfolio-bucket "$BUCKET" --resume "$RESUME"
-  --snapshot "$EVIDENCE/ats-snapshot.json"
-  --fill-receipt "$EVIDENCE/fill-receipt.json"
-  --answers "$EVIDENCE/submission-answers.json"
-  --output "$EVIDENCE/submission-prepare.json")
-if [[ "$OVERFLOW" == "true" ]]; then
-  [[ -n "$OVERFLOW_REASON" ]]
-  PREPARE+=(--user-authorized-overflow --overflow-reason "$OVERFLOW_REASON")
+  PREPARE=("$JOB_SEARCH_PYTHON" -m job_search_loop.submission_prepare
+    --ledger "$JOB_SEARCH_STATE_ROOT/ledger.sqlite3"
+    --application-id "$APPLICATION_ID" --japan-day "$(TZ=Asia/Tokyo date +%F)"
+    --portfolio-bucket "$BUCKET" --resume "$RESUME"
+    --snapshot "$EVIDENCE/ats-snapshot.json"
+    --fill-receipt "$EVIDENCE/fill-receipt.json"
+    --answers "$EVIDENCE/submission-answers.json"
+    --output "$EVIDENCE/submission-prepare.json")
+  if [[ "$OVERFLOW" == "true" ]]; then
+    [[ -n "$OVERFLOW_REASON" ]]
+    PREPARE+=(--user-authorized-overflow --overflow-reason "$OVERFLOW_REASON")
+  fi
+  "${PREPARE[@]}" >"$EVIDENCE/submission-prepare-transaction.log"
+  INTENT=$("$JOB_SEARCH_JQ" -er '.intent_id' "$EVIDENCE/submission-prepare.json")
+  FENCE=$("$JOB_SEARCH_JQ" -er '.fence' "$EVIDENCE/submission-prepare.json")
 fi
-"${PREPARE[@]}" >"$EVIDENCE/submission-prepare-transaction.log"
-
-INTENT=$("$JOB_SEARCH_JQ" -er '.intent_id' "$EVIDENCE/submission-prepare.json")
-FENCE=$("$JOB_SEARCH_JQ" -er '.fence' "$EVIDENCE/submission-prepare.json")
 "$JOB_SEARCH_PYTHON" -m job_search_loop.ashby_apply apply \
   --endpoint "$ENDPOINT" --url "$URL" --answers "$ANSWERS" \
   --resume "$RESUME" --profile "$JOB_SEARCH_PROFILE" \
