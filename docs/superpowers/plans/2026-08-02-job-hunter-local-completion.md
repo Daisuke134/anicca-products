@@ -4977,6 +4977,21 @@ item before starting the next.
   no intent despite zero prior Submit for this role. The correction applies the same
   explicit overflow authorization to the bucket cap while preserving the existing
   application identity and one-click fences.
+  Run 113 then performed one fenced Replit Account Executive Japan Submit with every
+  answer verified, HTTP 200, and the expected Ashby operation. The terminal page
+  explicitly said the application was flagged as possible spam and was not submitted;
+  the role is non-retriable on the same route. Run 114 selected Sierra Sales Engineer
+  but the Ledger mapped it to the previously `submit_claimed` Sales Engineer Tokyo
+  posting and correctly blocked Submit before click. Run 115 selected the distinct,
+  previously unclicked ElevenLabs Account Executive North Asia role and performed one
+  fenced Submit. Although Ashby returned HTTP 200 and typed `FormSubmitSuccess`, the
+  terminal page explicitly said it could not submit because applications were being
+  limited. It remains `submit_unknown`/not confirmed and MUST NOT be clicked again.
+  These screenshots prove the remaining blocker is Ashby anti-spam/rate-limit
+  reputation on the current browser/network route, not missing form controls or lack
+  of Submit authority. Before any further Ashby click, add a distinct approved browser
+  fingerprint/network route and classify the two explicit rejection messages as
+  `not_submitted` without weakening the one-click fence.
   Remaining gate: commit/push, immutable release activation, then
   one installed Job Hunter campaign whose first non-success does not stop the run and
   whose final state is receipt-backed `submitted`.
