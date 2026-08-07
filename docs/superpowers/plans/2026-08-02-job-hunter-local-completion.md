@@ -4452,6 +4452,16 @@ item before starting the next.
      callback function, which is why generic textarea injection is not reused
      (`https://docs.capsolver.com/en/guide/captcha/ReCaptchaV2/`). The focused
      preflight and existing one-click semantic-submit contracts pass.
+   - Sierra canary 1: installed run `daily-20260807-162754` used release
+     `0b542b0d07a8864d29d17214a080401ebd8ffeba` and the new canonical Sierra Sales
+     Engineer application ID
+     `fb9bf7a9c19b7f523542a326e208f7fdb8aca4f751ee58ccf5c344f734abb009`.
+     It exited 76 before browser fill or Submit because the new-role request had no
+     pre-existing `answers_path`; `attempt-01.result.json` reports that exact
+     data-preparation blocker. The no-submit resident recipe now creates its own
+     bounded `inspect` artifact, generates profile-grounded answers, stops on exact
+     missing questions, and fills only when answer generation is ready. This removes
+     the prior OpenAI-specific answer-file dependency without granting Submit.
 4. [x] **L-49K5E1 — Reconcile the OpenAI unknown.** Search Gmail and authoritative
    Ashby evidence for the already-clicked Solutions Engineer intent. Record either a
    receipt-backed `submitted` or the continuing `submit_unknown`; MUST NOT reopen or

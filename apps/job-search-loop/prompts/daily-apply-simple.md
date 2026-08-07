@@ -70,6 +70,21 @@ Never test `pre_submit_screenshot` as a string; the authoritative `verify` comma
 validates its `{path, sha256}` object. Every command in this transaction must stop on
 the first nonzero exit so no later success can hide an earlier failure.
 
+For targeted `mode=no_submit`, do not require a pre-existing `answers_path`. Run one
+`set -e` shell transaction using the request's exact `official_url` and `resume_path`:
+
+1. `inspect` to `$JOB_SEARCH_EVIDENCE_DIR/ashby-inspect-result.json`.
+2. `answers --inspect-result` using that artifact and `$JOB_SEARCH_PROFILE`, writing
+   `$JOB_SEARCH_EVIDENCE_DIR/ashby-answers.json`.
+3. Continue only when `answers` exits zero with `status=ready`; otherwise report its
+   exact missing questions and do not click Submit.
+4. `fill` with that generated answers artifact, the exact request resume, and
+   `$JOB_SEARCH_PROFILE`, writing `$JOB_SEARCH_ASHBY_APPLY_RESULT`.
+
+Do not click Submit in this transaction. The deterministic daily driver performs the
+authoritative `verify` after the turn and preserves the generated answers for the
+later submit-mode request.
+
 Every active official posting is an application candidate. Ranking, compensation,
 location, experience, and skills gaps determine order only; they do not create a
 no-application outcome. Prefer Tokyo, Japan-remote, USD 100,000-class compensation,
