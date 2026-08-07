@@ -58,6 +58,12 @@ does not relax deduplication, terminal-route, intent, or one-click fences.
 For targeted `mode=submit`, run one `set -e` shell transaction and use these exact
 contracts; do not invent aliases or inspect JSON shapes:
 
+Run exactly `$JOB_SEARCH_APP_ROOT/scripts/submit-targeted-ashby.sh
+"$JOB_SEARCH_FILL_CANARY_REQUEST"`. This script owns the complete transaction below.
+Do not recompose its commands. If it returns authoritative success, report the
+application as submitted. If it stops before a request starts, inspect the resulting
+artifact and use the browser harness only to repair an unsupported field or UI shape.
+
 1. `fill ... --output "$JOB_SEARCH_ASHBY_APPLY_RESULT"` with the request URL,
    answers, resume, and `$JOB_SEARCH_PROFILE`.
 2. `verify --output "$JOB_SEARCH_ASHBY_APPLY_RESULT" --profile

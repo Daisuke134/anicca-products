@@ -4297,6 +4297,18 @@ status that Telegram cannot explain. “Never fail again” therefore means ever
 failure is classified, visible, resumable where safe, and converted into a regression
 test/domain skill before release—not that a third-party website can never change.
 
+Run 102 (`daily-20260807-170443`) targeted Sierra `Sales Engineer - Tokyo` on
+immutable release `9a4880d8448d8376b90b362e14cecc4131ae3f97`. Its request already
+contained the official URL, ready grounded answers, exact resume, application ID,
+portfolio bucket, owner-authorized overflow, and exact reason. The resident still
+recomposed the transaction and invoked `ashby_apply.py` without `--endpoint` and
+`--url`; argument validation stopped before Submit, created no intent, and returned
+`blocked`. This is deterministic orchestration failure, not CAPTCHA or UI failure.
+The repair adds `scripts/submit-targeted-ashby.sh`: the resident passes only the
+request path; the script reads every argument and owns fill → verify → claim → prepare
+→ one fenced apply. Browser Harness handles only unsupported fields or UI shapes
+returned by that transaction and cannot invent or bypass submission state.
+
 ### Ordered remaining execution — Big Two first, then general browser coverage
 
 This order is authoritative. Complete, verify, update this SSOT, commit, and push one
