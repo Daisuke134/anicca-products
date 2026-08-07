@@ -4430,6 +4430,12 @@ item before starting the next.
      canonicalize Ashby posting URLs so the optional `/application` suffix cannot
      create a second identity, and CAPTCHA recovery MUST run before the one permitted
      Submit click.
+   - Duplicate fence repair: shared URL identity now removes only the terminal
+     `/application` route segment on `jobs.ashbyhq.com`, so posting discovery,
+     filled-form snapshots, and Ledger claims resolve to one posting identity. Query
+     parameters and non-Ashby paths retain their previous identity behavior. The two
+     historical terminal rows remain immutable audit evidence; no cleanup or state
+     rewrite was performed. The focused Ashby canonical-identity regression passes.
 4. [x] **L-49K5E1 — Reconcile the OpenAI unknown.** Search Gmail and authoritative
    Ashby evidence for the already-clicked Solutions Engineer intent. Record either a
    receipt-backed `submitted` or the continuing `submit_unknown`; MUST NOT reopen or

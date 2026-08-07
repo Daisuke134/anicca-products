@@ -1,9 +1,18 @@
 import unittest
 
-from job_search_loop.state import InvalidTransition, canonical_job_id, validate_transition
+from job_search_loop.state import (
+    InvalidTransition,
+    canonical_job_id,
+    canonical_url,
+    validate_transition,
+)
 
 
 class StateTests(unittest.TestCase):
+    def test_ashby_application_route_is_the_same_posting_identity(self):
+        posting = "https://jobs.ashbyhq.com/openai/57cfe1d3-27b6-4761-909c-fec7829e9227"
+        self.assertEqual(canonical_url(f"{posting}/application"), posting)
+
     def test_canonical_identity_ignores_tracking_and_case(self):
         first = canonical_job_id(
             " Example, Inc. ",

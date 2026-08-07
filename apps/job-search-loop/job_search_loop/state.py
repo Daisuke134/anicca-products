@@ -68,6 +68,11 @@ def _normalize_text(value: str) -> str:
 def canonical_url(value: str) -> str:
     parsed = urlsplit(value.strip())
     path = parsed.path.rstrip("/") or "/"
+    if (
+        parsed.netloc.casefold() == "jobs.ashbyhq.com"
+        and path.casefold().endswith("/application")
+    ):
+        path = path[: -len("/application")] or "/"
     identity_query = urlencode(
         sorted(
             (key, item)
