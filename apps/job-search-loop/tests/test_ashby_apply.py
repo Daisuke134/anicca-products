@@ -630,6 +630,44 @@ class AshbyApplyTests(unittest.TestCase):
         self.assertEqual(receipt["http_status"], 200)
         self.assertNotIn("data", receipt)
 
+    def test_recaptcha_preflight_installs_job_apply_token_before_submit(self):
+        from job_search_loop.ashby_apply import prepare_ashby_recaptcha
+
+        page = MagicMock()
+        page.url = "https://jobs.ashbyhq.com/example/role/application"
+        page.evaluate.side_effect = [
+            {"siteKey": "public-site-key", "enterprise": False},
+            True,
+        ]
+        payloads = iter(
+            [
+                {"errorId": 0, "taskId": "task-1"},
+                {"errorId": 0, "status": "processing"},
+                {
+                    "errorId": 0,
+                    "status": "ready",
+                    "solution": {"gRecaptchaResponse": "solver-token"},
+                },
+            ]
+        )
+
+        def opener(request, timeout):
+            response = MagicMock()
+            response.__enter__.return_value.read.return_value = json.dumps(
+                next(payloads)
+            ).encode()
+            response.__exit__.return_value = False
+            return response
+
+        receipt = prepare_ashby_recaptcha(
+            page, api_key="private-key", opener=opener, sleeper=lambda _: None
+        )
+
+        self.assertEqual(receipt["status"], "ready")
+        self.assertEqual(receipt["page_action"], "job_apply")
+        self.assertNotIn("token", receipt)
+        self.assertEqual(page.evaluate.call_args_list[-1].args[1], {"token": "solver-token"})
+
     def test_verified_fill_materializes_ledger_claim_receipt(self):
         from job_search_loop.ashby_apply import materialize_claim_ready
         from job_search_loop.ats import evaluate_snapshot

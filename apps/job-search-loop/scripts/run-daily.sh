@@ -3,6 +3,8 @@ set -euo pipefail
 
 SCRIPT_DIR="${0:A:h}"
 source "$SCRIPT_DIR/runtime-paths.sh"
+source "$SCRIPT_DIR/private-env.sh"
+job_search_load_private_env CAPSOLVER_API_KEY || true
 
 RUN_ID="daily-$(date +%Y%m%d-%H%M%S)"
 EVIDENCE="$JOB_SEARCH_STATE_ROOT/evidence/$RUN_ID"

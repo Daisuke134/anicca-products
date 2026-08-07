@@ -4436,6 +4436,22 @@ item before starting the next.
      parameters and non-Ashby paths retain their previous identity behavior. The two
      historical terminal rows remain immutable audit evidence; no cleanup or state
      rewrite was performed. The focused Ashby canonical-identity regression passes.
+   - CAPTCHA preflight repair: the current Ashby bundle exposes a public site key in
+     `window.__appData`, calls `grecaptcha.execute(siteKey, {action: "job_apply"})`,
+     and passes the resolved token as the official
+     `ApiSubmitSingleApplicationFormAction.recaptchaToken`. The resident now loads the
+     existing CapSolver credential only from the private env, requests a
+     `ReCaptchaV3TaskProxyLess` token for `job_apply`, and connects that token to the
+     Ashby promise before the fenced UI click. A missing key, unsupported enterprise
+     mode, solver rejection, timeout, or unavailable execution hook fails before
+     `commit_click`; no token or key is written to evidence. CapSolver's official v3
+     guide states that `pageAction` is found by searching `grecaptcha.execute` and
+     returns `gRecaptchaResponse`
+     (`https://docs.capsolver.com/en/guide/captcha/ReCaptchaV3/`). Its official v2
+     guide separately warns that Playwright/Puppeteer integration may require the
+     callback function, which is why generic textarea injection is not reused
+     (`https://docs.capsolver.com/en/guide/captcha/ReCaptchaV2/`). The focused
+     preflight and existing one-click semantic-submit contracts pass.
 4. [x] **L-49K5E1 — Reconcile the OpenAI unknown.** Search Gmail and authoritative
    Ashby evidence for the already-clicked Solutions Engineer intent. Record either a
    receipt-backed `submitted` or the continuing `submit_unknown`; MUST NOT reopen or

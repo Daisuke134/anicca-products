@@ -5,6 +5,8 @@ import hashlib
 import json
 import os
 import re
+import time
+import urllib.request
 from pathlib import Path
 from typing import Any, Callable
 
@@ -32,6 +34,8 @@ ASHBY_SUCCESS_TEXT = (
     "Your application was successfully submitted. "
     "We'll contact you if there are next steps."
 )
+CAPSOLVER_CREATE_TASK = "https://api.capsolver.com/createTask"
+CAPSOLVER_GET_TASK_RESULT = "https://api.capsolver.com/getTaskResult"
 
 
 def _normalized(value: Any) -> str:
@@ -332,6 +336,98 @@ def capture_pre_submit_screenshot(page: Any, output_path: Path) -> dict[str, str
     return {
         "path": str(screenshot_path),
         "sha256": hashlib.sha256(screenshot_path.read_bytes()).hexdigest(),
+    }
+
+
+def prepare_ashby_recaptcha(
+    page: Any,
+    *,
+    api_key: str,
+    opener: Callable[..., Any] = urllib.request.urlopen,
+    sleeper: Callable[[float], Any] = time.sleep,
+) -> dict[str, Any]:
+    config = page.evaluate(
+        """() => ({
+          siteKey: window.__appData?.recaptchaPublicSiteKey || null,
+          enterprise: (window.__appData?.organization?.activeFeatureFlags || [])
+            .includes('MigrateGoogleRecaptchaToEnterprise')
+        })"""
+    )
+    site_key = config.get("siteKey") if isinstance(config, dict) else None
+    if not isinstance(site_key, str) or not site_key:
+        raise RuntimeError("Ashby reCAPTCHA site key is unavailable")
+    if config.get("enterprise") is True:
+        raise RuntimeError("Ashby enterprise reCAPTCHA is not yet supported")
+    if not api_key:
+        raise RuntimeError("CAPSOLVER_API_KEY is unavailable")
+
+    def post(url: str, payload: dict[str, Any]) -> dict[str, Any]:
+        request = urllib.request.Request(
+            url,
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        with opener(request, timeout=60) as response:
+            result = json.loads(response.read().decode("utf-8"))
+        if result.get("errorId"):
+            raise RuntimeError(
+                f"CapSolver rejected task: {result.get('errorCode', 'unknown')}"
+            )
+        return result
+
+    created = post(
+        CAPSOLVER_CREATE_TASK,
+        {
+            "clientKey": api_key,
+            "task": {
+                "type": "ReCaptchaV3TaskProxyLess",
+                "websiteURL": page.url,
+                "websiteKey": site_key,
+                "pageAction": "job_apply",
+            },
+        },
+    )
+    task_id = created.get("taskId")
+    if not isinstance(task_id, str) or not task_id:
+        raise RuntimeError("CapSolver returned no task ID")
+    token = None
+    for _ in range(30):
+        sleeper(2)
+        polled = post(
+            CAPSOLVER_GET_TASK_RESULT,
+            {"clientKey": api_key, "taskId": task_id},
+        )
+        if polled.get("status") == "ready":
+            token = (polled.get("solution") or {}).get("gRecaptchaResponse")
+            break
+        if polled.get("status") != "processing":
+            raise RuntimeError("CapSolver task entered an invalid state")
+    if not isinstance(token, str) or not token:
+        raise RuntimeError("CapSolver task did not produce a token")
+    installed = page.evaluate(
+        """({token}) => {
+          const recaptcha = window.grecaptcha;
+          if (!recaptcha || typeof recaptcha.execute !== 'function') return false;
+          const original = recaptcha.execute.bind(recaptcha);
+          recaptcha.execute = (siteKey, options) =>
+            options?.action === 'job_apply'
+              ? Promise.resolve(token)
+              : original(siteKey, options);
+          return true;
+        }""",
+        {"token": token},
+    )
+    if installed is not True:
+        raise RuntimeError("Ashby reCAPTCHA execution hook is unavailable")
+    return {
+        "version": 1,
+        "status": "ready",
+        "provider": "capsolver",
+        "task_type": "ReCaptchaV3TaskProxyLess",
+        "page_action": "job_apply",
+        "site_key_sha256": hashlib.sha256(site_key.encode("utf-8")).hexdigest(),
+        "task_id": task_id,
     }
 
 
@@ -673,6 +769,10 @@ def main() -> int:
                 if args.mode == "apply" and plan["status"] == "ready":
                     ledger = Ledger(args.ledger)
                     try:
+                        result["recaptcha_preflight"] = prepare_ashby_recaptcha(
+                            page,
+                            api_key=os.environ.get("CAPSOLVER_API_KEY", ""),
+                        )
                         observation = execute_semantic_submit(
                             page,
                             commit_click=lambda: ledger.mark_submission_click_phase(
