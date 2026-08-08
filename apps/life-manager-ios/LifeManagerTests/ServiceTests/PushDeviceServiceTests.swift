@@ -6,7 +6,7 @@ final class PushDeviceServiceTests: XCTestCase {
     func testAPNsTokenConversionRequires32BytesAndUsesLowercaseHex() async throws {
         let token = Data((0..<32).map(UInt8.init))
         let api = PushAPI()
-        let service = DeviceService(api: api)
+        let service = DeviceService(api: api, tokenStore: TestDeviceTokenStore())
 
         try await service.register(
             token: token,
@@ -45,7 +45,7 @@ final class PushDeviceServiceTests: XCTestCase {
 
     func testDeviceRegistrationUsesAuthenticatedPutAndLogoutUsesDelete() async throws {
         let api = PushAPI()
-        let service = DeviceService(api: api)
+        let service = DeviceService(api: api, tokenStore: TestDeviceTokenStore())
         let key = UUID(uuidString: "00000000-0000-0000-0000-000000000002")!
 
         try await service.register(
@@ -78,7 +78,7 @@ final class PushDeviceServiceTests: XCTestCase {
             sessionStore: DeviceSessionStore(),
             refresh: { _ in throw APIError.refreshRejected }
         )
-        let service = DeviceService(api: client)
+        let service = DeviceService(api: client, tokenStore: TestDeviceTokenStore())
         let token = Data((0..<32).map(UInt8.init))
         let key = UUID(uuidString: "00000000-0000-0000-0000-000000000003")!
 
@@ -90,6 +90,94 @@ final class PushDeviceServiceTests: XCTestCase {
         XCTAssertEqual(request.httpBody, Data(#"{"token":"000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"}"#.utf8))
         XCTAssertEqual(request.value(forHTTPHeaderField: "Content-Type"), "application/json")
         XCTAssertEqual(request.value(forHTTPHeaderField: "Idempotency-Key"), key.uuidString)
+    }
+
+    func testFailedRegistrationDoesNotPersistTokenBeforeAPIConfirmation() async throws {
+        let tokenStore = TestDeviceTokenStore()
+        let service = DeviceService(api: PushAPI(failures: 1), tokenStore: tokenStore)
+
+        do {
+            try await service.register(
+                token: Data(repeating: 0xAB, count: 32),
+                environment: .production,
+                locale: .en,
+                timezone: "UTC",
+                idempotencyKey: UUID()
+            )
+            XCTFail("expected registration failure")
+        } catch {
+            XCTAssertEqual(error as? APIError, .transport("offline"))
+        }
+
+        let storedToken = try await tokenStore.load()
+        XCTAssertNil(storedToken)
+    }
+
+    func testUnregisterAfterDeviceServiceRestartLoadsPersistedToken() async throws {
+        let token = Data((0..<32).map(UInt8.init))
+        let tokenStore = TestDeviceTokenStore()
+        let registrationAPI = PushAPI()
+        let firstService = DeviceService(api: registrationAPI, tokenStore: tokenStore)
+        let key = UUID(uuidString: "00000000-0000-0000-0000-000000000004")!
+
+        try await firstService.register(
+            token: token,
+            environment: .production,
+            locale: .en,
+            timezone: "UTC",
+            idempotencyKey: key
+        )
+
+        let deletionAPI = PushAPI()
+        let restartedService = DeviceService(api: deletionAPI, tokenStore: tokenStore)
+        try await restartedService.unregister(idempotencyKey: key)
+
+        let requests = await deletionAPI.requests()
+        let request = try XCTUnwrap(requests.first)
+        let body = try XCTUnwrap(request.endpoint.body)
+        XCTAssertEqual(
+            body,
+            Data(#"{"token":"000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"}"#.utf8)
+        )
+        XCTAssertEqual(request.idempotencyKey, key)
+        let storedToken = try await tokenStore.load()
+        XCTAssertNil(storedToken)
+    }
+
+    func testUnregisterWithoutPersistedTokenIsIdempotentNoOp() async throws {
+        let api = PushAPI()
+        let service = DeviceService(api: api, tokenStore: TestDeviceTokenStore())
+
+        try await service.unregister(idempotencyKey: UUID())
+
+        let requests = await api.requests()
+        XCTAssertTrue(requests.isEmpty)
+    }
+
+    func testDeleteFailureRetainsTokenForRetryWithSameIdempotencyKey() async throws {
+        let token = Data(repeating: 0xCD, count: 32)
+        let tokenStore = TestDeviceTokenStore(initialToken: token)
+        let api = PushAPI(failures: 1)
+        let service = DeviceService(api: api, tokenStore: tokenStore)
+        let key = UUID(uuidString: "00000000-0000-0000-0000-000000000005")!
+
+        do {
+            try await service.unregister(idempotencyKey: key)
+            XCTFail("expected delete failure")
+        } catch {
+            XCTAssertEqual(error as? APIError, .transport("offline"))
+        }
+
+        let retainedToken = try await tokenStore.load()
+        XCTAssertEqual(retainedToken, token)
+
+        try await service.unregister(idempotencyKey: key)
+
+        let requests = await api.requests()
+        XCTAssertEqual(requests.map(\.idempotencyKey), [key, key])
+        XCTAssertEqual(requests.compactMap(\.endpoint.body).count, 2)
+        let clearedToken = try await tokenStore.load()
+        XCTAssertNil(clearedToken)
     }
 
     func testNotificationDestinationAcceptsOnlyStableChatPointer() throws {
@@ -134,6 +222,11 @@ private struct RecordedPushRequest: Sendable {
 
 private actor PushAPI: APIRequesting {
     private var recorded: [RecordedPushRequest] = []
+    private var remainingFailures: Int
+
+    init(failures: Int = 0) {
+        remainingFailures = failures
+    }
 
     func send<Response: Decodable & Sendable>(
         _ endpoint: APIEndpoint,
@@ -145,9 +238,30 @@ private actor PushAPI: APIRequesting {
 
     func sendVoid(_ endpoint: APIEndpoint, idempotencyKey: UUID?) async throws {
         recorded.append(RecordedPushRequest(endpoint: endpoint, idempotencyKey: idempotencyKey))
+        guard remainingFailures > 0 else { return }
+        remainingFailures -= 1
+        throw APIError.transport("offline")
     }
 
     func requests() -> [RecordedPushRequest] { recorded }
+}
+
+actor TestDeviceTokenStore: DeviceTokenStoring {
+    private var token: Data?
+
+    init(initialToken: Data? = nil) {
+        token = initialToken
+    }
+
+    func load() async throws -> Data? { token }
+
+    func save(_ token: Data) async throws {
+        self.token = token
+    }
+
+    func clear() async throws {
+        token = nil
+    }
 }
 
 private actor DeviceTransport: HTTPTransport {
