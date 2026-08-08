@@ -51,6 +51,46 @@ actor KeychainSessionStore: SessionStoring {
     }
 }
 
+actor KeychainDeviceTokenStore: DeviceTokenStoring {
+    private let adapter: KeychainSecurityAdapter
+    private let query: KeychainQuery
+
+    init(
+        adapter: KeychainSecurityAdapter = SystemKeychainSecurityAdapter(),
+        service: String = "ai.anicca.life-manager",
+        account: String = "apns-device-token"
+    ) {
+        self.adapter = adapter
+        query = KeychainQuery(service: service, account: account)
+    }
+
+    func load() async throws -> Data? {
+        try adapter.read(query)
+    }
+
+    func save(_ token: Data) async throws {
+        guard token.count == 32 else { throw DeviceTokenStoreError.invalidToken }
+
+        if try adapter.read(query) == nil {
+            try adapter.add(
+                token,
+                query: query,
+                accessibility: .afterFirstUnlockThisDeviceOnly
+            )
+        } else {
+            try adapter.update(
+                token,
+                query: query,
+                accessibility: .afterFirstUnlockThisDeviceOnly
+            )
+        }
+    }
+
+    func clear() async throws {
+        try adapter.delete(query)
+    }
+}
+
 final class SystemKeychainSecurityAdapter: KeychainSecurityAdapter, @unchecked Sendable {
     func read(_ query: KeychainQuery) throws -> Data? {
         var attributes = baseQuery(query)

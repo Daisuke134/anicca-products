@@ -6,6 +6,16 @@ protocol SessionStoring: Sendable {
     func clear() async throws
 }
 
+protocol DeviceTokenStoring: Sendable {
+    func load() async throws -> Data?
+    func save(_ token: Data) async throws
+    func clear() async throws
+}
+
+enum DeviceTokenStoreError: Error, Equatable, Sendable {
+    case invalidToken
+}
+
 protocol SessionPropagating: Sendable {
     func setSession(_ session: Session?) async
 }

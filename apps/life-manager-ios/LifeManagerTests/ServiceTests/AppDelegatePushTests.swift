@@ -21,6 +21,36 @@ final class AppDelegatePushTests: XCTestCase {
         XCTAssertEqual(registrar.registerCount, 0)
     }
 
+    func testDeniedPermissionStillUnregistersPersistedTokenAfterServiceRestart() async throws {
+        let api = AppDelegateDeviceAPI()
+        let deviceService = DeviceService(
+            api: api,
+            tokenStore: TestDeviceTokenStore(initialToken: Data(repeating: 0xAB, count: 32))
+        )
+        let appDelegate = LifeManagerAppDelegate(
+            permissionService: PushPermissionStub(status: .denied, requestResult: true),
+            registrar: RemoteNotificationRegistrarStub(),
+            pushRouter: PushNotificationRouter(),
+            environment: .production,
+            retryStore: TestOperationRetryStore()
+        )
+        appDelegate.configure(
+            deviceService: deviceService,
+            locale: .en,
+            timezone: "UTC"
+        )
+
+        let granted = try await appDelegate.requestAuthorizationAndRegisterIfNeeded()
+        XCTAssertFalse(granted)
+
+        try await appDelegate.unregisterDevice()
+
+        let requests = await api.requests()
+        XCTAssertEqual(requests.count, 1)
+        XCTAssertEqual(requests[0].endpoint.method, .delete)
+        XCTAssertNotNil(requests[0].endpoint.body)
+    }
+
     func testNotDeterminedPermissionRegistersOnlyAfterAuthorization() async throws {
         let permission = PushPermissionStub(status: .notDetermined, requestResult: true)
         let registrar = RemoteNotificationRegistrarStub()
@@ -214,6 +244,29 @@ final class AppDelegatePushTests: XCTestCase {
 
         XCTAssertEqual(received, destination)
     }
+}
+
+private actor AppDelegateDeviceAPI: APIRequesting {
+    struct RecordedRequest: Sendable {
+        let endpoint: APIEndpoint
+        let idempotencyKey: UUID?
+    }
+
+    private var recorded: [RecordedRequest] = []
+
+    func send<Response: Decodable & Sendable>(
+        _ endpoint: APIEndpoint,
+        as responseType: Response.Type,
+        idempotencyKey: UUID?
+    ) async throws -> Response {
+        throw APIError.invalidResponse
+    }
+
+    func sendVoid(_ endpoint: APIEndpoint, idempotencyKey: UUID?) async throws {
+        recorded.append(RecordedRequest(endpoint: endpoint, idempotencyKey: idempotencyKey))
+    }
+
+    func requests() -> [RecordedRequest] { recorded }
 }
 
 @MainActor

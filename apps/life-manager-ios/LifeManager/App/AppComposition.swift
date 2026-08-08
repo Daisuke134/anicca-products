@@ -10,7 +10,8 @@ final class AppComposition {
         callbackScheme: String,
         transport: HTTPTransport? = nil,
         sessionStore: SessionStoring? = nil,
-        callbackAuthorizer: OAuthCallbackAuthorizing? = nil
+        callbackAuthorizer: OAuthCallbackAuthorizing? = nil,
+        deviceTokenStore: DeviceTokenStoring? = nil
     ) {
         let sessionStore = sessionStore ?? KeychainSessionStore()
         let transport = transport ?? URLSessionTransport()
@@ -38,7 +39,10 @@ final class AppComposition {
         let profileService = ProfileService(api: authenticatedAPI)
         let callService = CallService(api: authenticatedAPI)
         let accountService = AccountService(api: authenticatedAPI)
-        deviceService = DeviceService(api: authenticatedAPI)
+        deviceService = DeviceService(
+            api: authenticatedAPI,
+            tokenStore: deviceTokenStore ?? KeychainDeviceTokenStore()
+        )
         let paywallViewModel = SoftPaywallViewModel(purchasing: nil)
         let appViewModel = AppViewModel(
             auth: auth,

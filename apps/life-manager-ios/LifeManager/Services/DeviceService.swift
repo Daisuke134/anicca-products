@@ -39,10 +39,14 @@ extension DeviceServicing {
 
 actor DeviceService: DeviceServicing {
     private let api: APIRequesting
-    private var registeredToken: String?
+    private let tokenStore: DeviceTokenStoring
 
-    init(api: APIRequesting) {
+    init(
+        api: APIRequesting,
+        tokenStore: DeviceTokenStoring = KeychainDeviceTokenStore()
+    ) {
         self.api = api
+        self.tokenStore = tokenStore
     }
 
     func register(
@@ -52,11 +56,10 @@ actor DeviceService: DeviceServicing {
         timezone: String,
         idempotencyKey: UUID
     ) async throws {
-        let token = try Self.hexToken(from: token)
-        registeredToken = token
+        let tokenHex = try Self.hexToken(from: token)
         let body = try JSONEncoder.lifeManager.encode(
             DeviceRegistrationRequest(
-                token: token,
+                token: tokenHex,
                 environment: environment,
                 locale: locale,
                 timezone: timezone
@@ -66,26 +69,29 @@ actor DeviceService: DeviceServicing {
             .mutation(path: "/devices/apns", method: .put, body: body),
             idempotencyKey: idempotencyKey
         )
+        try await tokenStore.save(token)
     }
 
     func unregister(idempotencyKey: UUID) async throws {
-        guard let registeredToken else { throw APIError.invalidAPNsToken }
-        try await unregister(token: registeredToken, idempotencyKey: idempotencyKey)
+        guard let token = try await tokenStore.load() else { return }
+        try await deleteToken(token, idempotencyKey: idempotencyKey)
     }
 
     func unregister(token: Data, idempotencyKey: UUID) async throws {
-        let token = try Self.hexToken(from: token)
-        registeredToken = token
-        try await unregister(token: token, idempotencyKey: idempotencyKey)
+        try await deleteToken(token, idempotencyKey: idempotencyKey)
     }
 
-    private func unregister(token: String, idempotencyKey: UUID) async throws {
-        let body = try JSONEncoder.lifeManager.encode(DeviceUnregistrationRequest(token: token))
+    private func deleteToken(_ token: Data, idempotencyKey: UUID) async throws {
+        let tokenHex = try Self.hexToken(from: token)
+        let body = try JSONEncoder.lifeManager.encode(DeviceUnregistrationRequest(token: tokenHex))
         try await api.sendVoid(
             .mutation(path: "/devices/apns", method: .delete, body: body),
             idempotencyKey: idempotencyKey
         )
-        registeredToken = nil
+
+        if let storedToken = try await tokenStore.load(), storedToken == token {
+            try await tokenStore.clear()
+        }
     }
 
     private static func hexToken(from token: Data) throws -> String {

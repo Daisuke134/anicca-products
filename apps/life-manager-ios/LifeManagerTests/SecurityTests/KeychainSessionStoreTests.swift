@@ -39,6 +39,48 @@ final class KeychainSessionStoreTests: XCTestCase {
         XCTAssertNil(loaded)
         XCTAssertEqual(adapter.deleteCount, 2)
     }
+
+    func testDeviceTokenStoreUsesDedicatedAccountAndRoundTripsToken() async throws {
+        let adapter = InMemoryKeychainAdapter()
+        let store = KeychainDeviceTokenStore(
+            adapter: adapter,
+            service: "ai.anicca.life-manager.tests",
+            account: "apns-device-token"
+        )
+        let token = Data(repeating: 0xAB, count: 32)
+
+        try await store.save(token)
+
+        let loaded = try await store.load()
+        XCTAssertEqual(loaded, token)
+        XCTAssertEqual(adapter.lastQuery?.account, "apns-device-token")
+        XCTAssertNotEqual(adapter.lastQuery?.account, "mobile-session")
+        XCTAssertEqual(adapter.lastWriteAccessibility, .afterFirstUnlockThisDeviceOnly)
+    }
+
+    func testDeviceTokenStoreClearIsIdempotentAndRejectsInvalidLength() async throws {
+        let adapter = InMemoryKeychainAdapter()
+        let store = KeychainDeviceTokenStore(
+            adapter: adapter,
+            service: "ai.anicca.life-manager.tests",
+            account: "apns-device-token"
+        )
+
+        do {
+            try await store.save(Data(repeating: 0xAB, count: 31))
+            XCTFail("expected invalid APNs token length")
+        } catch {
+            XCTAssertEqual(error as? DeviceTokenStoreError, .invalidToken)
+        }
+
+        try await store.save(Data(repeating: 0xAB, count: 32))
+        try await store.clear()
+        try await store.clear()
+
+        let loaded = try await store.load()
+        XCTAssertNil(loaded)
+        XCTAssertEqual(adapter.deleteCount, 2)
+    }
 }
 
 private enum TestSessionFactory {
@@ -62,25 +104,30 @@ private final class InMemoryKeychainAdapter: KeychainSecurityAdapter, @unchecked
     private var storage: Data?
     private(set) var writeOperations: [Operation] = []
     private(set) var lastWriteAccessibility: KeychainAccessibility?
+    private(set) var lastQuery: KeychainQuery?
     private(set) var deleteCount = 0
 
     func read(_ query: KeychainQuery) throws -> Data? {
-        storage
+        lastQuery = query
+        return storage
     }
 
     func add(_ data: Data, query: KeychainQuery, accessibility: KeychainAccessibility) throws {
+        lastQuery = query
         storage = data
         writeOperations.append(.add)
         lastWriteAccessibility = accessibility
     }
 
     func update(_ data: Data, query: KeychainQuery, accessibility: KeychainAccessibility) throws {
+        lastQuery = query
         storage = data
         writeOperations.append(.update)
         lastWriteAccessibility = accessibility
     }
 
     func delete(_ query: KeychainQuery) throws {
+        lastQuery = query
         storage = nil
         deleteCount += 1
     }
