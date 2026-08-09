@@ -108,9 +108,32 @@ for flow in english-onboarding-route.yaml japanese-onboarding-route.yaml; do
 done
 
 require_active_text push-deep-link.yaml 'PUSH_MESSAGE_ID'
+require_active_text push-deep-link.yaml 'PUSH_CURSOR'
+require_active_text push-deep-link.yaml 'PUSH_MESSAGE_ACCESSIBILITY_ID'
 # shellcheck disable=SC2016 # the literal is the Maestro runtime interpolation
-require_active_text push-deep-link.yaml 'chat.message.${PUSH_MESSAGE_ID}'
+require_active_text push-deep-link.yaml 'id: "${PUSH_MESSAGE_ACCESSIBILITY_ID}"'
 require_active_id push-deep-link.yaml 'chat.refresh'
+
+# A local simctl receipt is still required to use the same APNs contract as
+# the server. When a payload file is supplied, validate it without printing
+# message IDs/cursors. The file is intentionally optional for static CI.
+if [[ -n "${PUSH_PAYLOAD_FILE:-}" ]]; then
+  command -v jq >/dev/null 2>&1 || fail "PUSH_PAYLOAD_FILE requires jq"
+  [[ -f "$PUSH_PAYLOAD_FILE" ]] || fail "PUSH_PAYLOAD_FILE does not exist"
+  jq -e '
+    (type == "object") and
+    (.aps | type == "object") and
+    (.type == "chat_message") and
+    (.messageId | type == "string" and length > 0) and
+    (.cursor | type == "string" and length > 0) and
+    ((keys - ["aps", "type", "messageId", "cursor"]) | length == 0)
+  ' "$PUSH_PAYLOAD_FILE" >/dev/null || fail "push payload must contain only aps/type/messageId/cursor with non-empty stable values"
+  if [[ -n "${PUSH_MESSAGE_ID:-}" && -n "${PUSH_CURSOR:-}" ]]; then
+    jq -e --arg message_id "$PUSH_MESSAGE_ID" --arg cursor "$PUSH_CURSOR" \
+      '.messageId == $message_id and .cursor == $cursor' "$PUSH_PAYLOAD_FILE" >/dev/null \
+      || fail "push payload stable pointer does not match PUSH_MESSAGE_ID/PUSH_CURSOR"
+  fi
+fi
 
 require_text staging-seed-and-cleanup.sh 'life-call-staging-staging.up.railway.app'
 require_text staging-seed-and-cleanup.sh 'ulhsqqkyejzvqgoyjwte'
