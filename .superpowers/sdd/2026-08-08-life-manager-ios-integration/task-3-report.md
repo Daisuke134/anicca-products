@@ -202,9 +202,16 @@ The final Maestro debug bundle is at:
 
 ## Commit and push
 
-Pending at report creation; the parent integration session must preserve the
-concurrent SDD plan/spec/progress edits when committing. This report is ready
-to be included with the four owned flow/test/harness files.
+Tracked flow/test/harness, report, and concurrent SDD plan/spec/progress edits
+were committed and pushed:
+
+```text
+0442e2bfe990dbff416dbccd95e889c0f4d5d087
+test(life-manager-ios): preserve staging locale session flows
+origin/feat/lm-ios-integration-final: eace31095..0442e2bfe
+```
+
+The untracked `apps/life-manager/supabase/` directory was not staged.
 
 ## Blocker and next safe action
 
