@@ -1,5 +1,6 @@
-# Real staging journey. The operator supplies a one-use callback URL from the
-# staging session tool; this flow never embeds a token or creates fake data.
+# Real staging journey. The operator pre-authorizes the isolated staging tenant
+# outside Maestro; this flow preserves that Keychain session and never embeds a
+# token, manufactures an OAuth callback, or creates fake data.
 appId: ai.anicca.life-manager
 name: English real-staging onboarding to route and free chat
 tags:
@@ -7,22 +8,12 @@ tags:
   - staging
   - english
 env:
-  STAGING_CALLBACK_URL: ${STAGING_CALLBACK_URL}
   PROFILE_NAME: ${PROFILE_NAME}
   PROFILE_HOME: ${PROFILE_HOME}
 ---
 - launchApp:
-    clearState: true
-    clearKeychain: true
     permissions:
       notifications: allow
-- extendedWaitUntil:
-    visible:
-      id: "welcome.connectCalendar"
-    timeout: 30000
-- tapOn:
-    id: "welcome.connectCalendar"
-- openLink: ${STAGING_CALLBACK_URL}
 - extendedWaitUntil:
     visible:
       id: "profile.name"
@@ -52,6 +43,10 @@ env:
     timeout: 30000
 - extendedWaitUntil:
     visible:
+      id: "chat.list"
+    timeout: 60000
+- extendedWaitUntil:
+    visible:
       id: "route.showDetails"
     timeout: 60000
 - takeScreenshot: "english-route-card"
@@ -63,6 +58,10 @@ env:
     timeout: 10000
 - assertVisible:
     id: "route.detail.close"
+- assertVisible: "Route details"
+- assertVisible: "Close"
+- assertNotVisible: "ルート詳細"
+- assertNotVisible: "閉じる"
 - takeScreenshot: "english-route-detail"
 - tapOn:
     id: "route.detail.close"
@@ -75,16 +74,30 @@ env:
 - assertNotVisible:
     text: "設定"
 - assertNotVisible:
-    text: "経路全体を表示"
+    text: "ルート全体を表示"
 - tapOn:
     id: "paywall.continueFree"
 - extendedWaitUntil:
     visible:
-      id: "chat.settings"
+      id: "chat.list"
     timeout: 10000
+- assertVisible:
+    id: "chat.list"
+- assertVisible: "Refresh"
+- assertVisible: "Settings"
+- assertVisible: "Upgrade"
+- assertNotVisible: "更新"
+- assertNotVisible: "設定"
+- assertNotVisible: "アップグレード"
 - tapOn:
     id: "chat.settings"
 - extendedWaitUntil:
     visible: "Settings"
     timeout: 10000
+- assertVisible: "Settings"
+- assertVisible: "Calendar"
+- assertVisible: "Profile"
+- assertVisible: "Product language"
+- assertNotVisible: "設定"
+- assertNotVisible: "カレンダー"
 - takeScreenshot: "english-settings"

@@ -486,7 +486,7 @@ Every To-be requirement has an OK path.
 | Japanese E2E | Every generated visible string and accessibility label is Japanese; provider station and line names are Japanese |
 | Manual TestFlight E2E | Real Google OAuth → controlled real Calendar event → real provider route → foreground refresh → production APNs → confirmed call when configured |
 
-Google consent/account chooser is not asserted by Maestro because it is an external system-browser surface. The manual TestFlight gate verifies real OAuth. Staging Maestro MUST use the real staging API and a pre-authorized tenant; production code contains no fake success path.
+Google consent/account chooser is not asserted by Maestro because it is an external system-browser surface. The manual TestFlight gate verifies real OAuth. Staging Maestro MUST use the real staging API and a pre-authorized tenant; its locale flows preserve the pre-authorized Keychain session and MUST NOT clear it or manufacture a fixed OAuth callback for a newly generated state. Production code contains no fake success path.
 
 ## 7. Boundaries
 

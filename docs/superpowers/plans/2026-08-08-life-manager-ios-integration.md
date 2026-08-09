@@ -29,7 +29,7 @@
 | `apps/life-manager/lib/apns-client.js` | JWT/HTTP2 sender with production/sandbox host |
 | `apps/life-manager/lib/mobile-push.js` | Outbox-message notification orchestration |
 | `apps/life-manager/test/mobile-apns-contract.test.js` | Device auth, payload, invalid-token cleanup |
-| `apps/life-manager/scripts/create-staging-mobile-session.js` | Operator-only one-use callback code for Maestro |
+| `apps/life-manager-ios/maestro/staging-seed-and-cleanup.sh` | Fail-closed preflight/read-back for the pre-authorized isolated staging tenant |
 | `apps/life-manager-ios/maestro/config.yaml` | Fail-fast flow configuration |
 | `apps/life-manager-ios/maestro/english-onboarding-route.yaml` | Required English real-staging journey |
 | `apps/life-manager-ios/maestro/japanese-onboarding-route.yaml` | Required Japanese real-staging journey |
@@ -66,9 +66,9 @@ enum SyncReason { case launch, foreground, manual, push }
 
 - [ ] Add `config.yaml` with fail-fast flows and exact file names from the approved spec.
 - [ ] Add stable leaf accessibility IDs to every assertion target; use `extendedWaitUntil` for real API phases and optional handling only for OS-owned dialogs.
-- [ ] Implement an operator CLI that uses staging service credentials to create a one-use callback code for a pre-authorized staging tenant. It prints no bearer/refresh token and has no HTTP route in production.
-- [ ] English flow: clear state/Keychain → one-use callback → name/home → skip phone → analysis → route card → detail → soft paywall → continue free → settings; capture milestone screenshots.
-- [ ] Japanese flow: repeat with `product_locale=ja`; assert the Japanese landmarks and absence of English product labels.
+- [ ] Preflight the already authorized isolated staging tenant through real bootstrap/profile/chat read-back without printing bearer/refresh tokens. Locale Maestro flows preserve its Keychain session; they do not manufacture an OAuth callback or expose a production test-login path.
+- [ ] English flow: preserved pre-authorized session → name/home → skip phone → analysis → route card → detail → soft paywall → continue free → settings; capture milestone screenshots. Real Google consent/account chooser remains the manual TestFlight gate.
+- [ ] Japanese flow: repeat from the same pre-authorized boundary with `product_locale=ja`; assert the Japanese landmarks and absence of English product labels. Real Google consent/account chooser remains the manual TestFlight gate.
 - [ ] Push flow: seed a real semantic outbox message, deliver a local/sandbox notification payload, open the stable message, then refresh and assert one copy.
 - [ ] Run the flows with Maestro's interactive integration locally and CLI in CI; store videos/screenshots as CI artifacts outside Git.
 - [ ] Commit/push flow definitions and accessibility-only fixes.

@@ -1,5 +1,7 @@
-# Real staging journey on a Japanese-configured simulator. The callback URL
-# and profile values come from the operator; no bearer token is placed in YAML.
+# Real staging journey on a Japanese-configured simulator. The operator
+# pre-authorizes the isolated staging tenant outside Maestro; this flow keeps
+# the Keychain session and never manufactures an OAuth callback or stores a
+# bearer token.
 appId: ai.anicca.life-manager
 name: Japanese real-staging onboarding to route and free chat
 tags:
@@ -7,22 +9,12 @@ tags:
   - staging
   - japanese
 env:
-  STAGING_CALLBACK_URL: ${STAGING_CALLBACK_URL}
   PROFILE_NAME: ${PROFILE_NAME}
   PROFILE_HOME: ${PROFILE_HOME}
 ---
 - launchApp:
-    clearState: true
-    clearKeychain: true
     permissions:
       notifications: allow
-- extendedWaitUntil:
-    visible:
-      id: "welcome.connectCalendar"
-    timeout: 30000
-- tapOn:
-    id: "welcome.connectCalendar"
-- openLink: ${STAGING_CALLBACK_URL}
 - extendedWaitUntil:
     visible:
       id: "profile.name"
@@ -52,9 +44,24 @@ env:
     timeout: 30000
 - extendedWaitUntil:
     visible:
+      id: "chat.list"
+    timeout: 60000
+- extendedWaitUntil:
+    visible:
       id: "route.showDetails"
     timeout: 60000
 - takeScreenshot: "japanese-route-card"
+- assertVisible: "出発"
+- assertVisible: "到着"
+- assertVisible: "分"
+- assertVisible: "ルート全体を表示"
+- assertVisible: "情報源"
+- assertVisible: "更新"
+- assertNotVisible: "Leave by"
+- assertNotVisible: "Arrive"
+- assertNotVisible: "Show full route"
+- assertNotVisible: "Source"
+- assertNotVisible: "Updated"
 - tapOn:
     id: "route.showDetails"
 - extendedWaitUntil:
@@ -63,6 +70,18 @@ env:
     timeout: 10000
 - assertVisible:
     id: "route.detail.close"
+- assertVisible: "ルート詳細"
+- assertVisible: "閉じる"
+- assertVisible: "出発"
+- assertVisible: "到着"
+- assertVisible: "情報源"
+- assertVisible: "更新"
+- assertNotVisible: "Route details"
+- assertNotVisible: "Close"
+- assertNotVisible: "Leave by"
+- assertNotVisible: "Arrive"
+- assertNotVisible: "Source"
+- assertNotVisible: "Updated"
 - takeScreenshot: "japanese-route-detail"
 - tapOn:
     id: "route.detail.close"
@@ -72,19 +91,43 @@ env:
     visible:
       id: "paywall.continueFree"
     timeout: 10000
+- assertVisible: "必要なときに、もっとサポート"
+- assertVisible: "無料で続ける"
+- assertVisible: "アップグレード"
 - assertNotVisible:
     text: "Settings"
 - assertNotVisible:
-    text: "Show full route"
+    text: "Continue free"
+- assertNotVisible:
+    text: "Upgrade"
 - tapOn:
     id: "paywall.continueFree"
 - extendedWaitUntil:
     visible:
-      id: "chat.settings"
+      id: "chat.list"
     timeout: 10000
+- assertVisible: "更新"
+- assertVisible: "設定"
+- assertVisible: "アップグレード"
+- assertNotVisible: "Refresh"
+- assertNotVisible: "Settings"
+- assertNotVisible: "Upgrade"
 - tapOn:
     id: "chat.settings"
 - extendedWaitUntil:
     visible: "設定"
     timeout: 10000
+- assertVisible: "設定"
+- assertVisible: "カレンダー"
+- assertVisible: "接続済み"
+- assertVisible: "プロフィール"
+- assertVisible: "アプリの言語"
+- assertVisible: "日本語"
+- assertVisible: "プロフィールを保存"
+- assertNotVisible: "Settings"
+- assertNotVisible: "Calendar"
+- assertNotVisible: "Profile"
+- assertNotVisible: "Product language"
+- assertNotVisible: "Japanese"
+- assertNotVisible: "Save profile"
 - takeScreenshot: "japanese-settings"

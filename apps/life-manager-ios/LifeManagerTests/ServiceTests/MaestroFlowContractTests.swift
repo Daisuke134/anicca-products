@@ -10,8 +10,10 @@ final class MaestroFlowContractTests: XCTestCase {
         let push = try Self.flow(named: "push-deep-link.yaml")
         let cleanup = try Self.resource(named: "staging-seed-and-cleanup.sh", in: "maestro")
 
-        XCTAssertTrue(english.contains("STAGING_CALLBACK_URL"))
-        XCTAssertTrue(japanese.contains("STAGING_CALLBACK_URL"))
+        XCTAssertFalse(english.contains("STAGING_CALLBACK_URL"))
+        XCTAssertFalse(japanese.contains("STAGING_CALLBACK_URL"))
+        XCTAssertFalse(english.contains("clearKeychain:"))
+        XCTAssertFalse(japanese.contains("clearKeychain:"))
         XCTAssertTrue(preauthorized.contains("TRAVEL_RECEIPT_MESSAGE_ID"))
         XCTAssertTrue(preauthorized.contains("calendar.travelBlock.confirmed.${TRAVEL_RECEIPT_MESSAGE_ID}"))
         XCTAssertTrue(failure.contains("TRAVEL_FAILURE_MESSAGE_ID"))
@@ -48,18 +50,20 @@ final class MaestroFlowContractTests: XCTestCase {
         XCTAssertTrue(harness.contains("PUSH_PAYLOAD_FILE"))
     }
 
-    func testOnboardingFlowsCoverRealJourneyLeafIDsAndCleanState() throws {
+    func testLocaleFlowsReusePreauthorizedSessionAndCoverRealJourneyLeafIDs() throws {
         let english = try Self.flow(named: "english-onboarding-route.yaml")
         let japanese = try Self.flow(named: "japanese-onboarding-route.yaml")
         let requiredOnboardingIDs = [
-            "welcome.connectCalendar", "profile.name", "profile.home", "profile.continue",
+            "profile.name", "profile.home", "profile.continue",
             "phone.skip", "analysis.phase", "route.showDetails", "route.detail.close",
-            "chat.upgrade", "paywall.continueFree", "chat.settings"
+            "chat.list", "chat.upgrade", "paywall.continueFree", "chat.settings"
         ]
 
         for (name, flow) in [("english", english), ("japanese", japanese)] {
-            XCTAssertTrue(flow.contains("clearState: true"), name)
-            XCTAssertTrue(flow.contains("clearKeychain: true"), name)
+            XCTAssertTrue(flow.contains("- launchApp"), name)
+            XCTAssertFalse(flow.contains("STAGING_CALLBACK_URL"), name)
+            XCTAssertFalse(flow.contains("clearState:"), name)
+            XCTAssertFalse(flow.contains("clearKeychain:"), name)
             for identifier in requiredOnboardingIDs {
                 XCTAssertTrue(flow.contains("id: \"\(identifier)\""), "\(name): \(identifier)")
             }

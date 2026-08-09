@@ -120,3 +120,17 @@ not available locally, so migration evidence remains the exact SQL contract and 
 - Live isolated staging migration/readback and HTTP route/provider evidence.
 - iOS build/route/UI integration, Maestro evidence/video, signed TestFlight archive and real-device
   user validation. App Store submission remains blocked until TestFlight validation is complete.
+
+## Task 2 completion — Simulator local push deep-link
+
+- A repo-external entitled Debug build imported the isolated staging session into the normal
+  Keychain service; no handoff code or token entered product source or Git.
+- A contract-validated `simctl push` used the real `chat.route_ready` stable message ID and matching
+  cursor from staging read-back. The notification banner was visibly delivered and tapped.
+- `push-deep-link.yaml` passed the stable-message and post-refresh assertions. The visible route
+  title occurred once after refresh.
+- Fresh verification: Fastlane 141/141 GREEN; Maestro harness PASS; H.264 evidence SHA-256
+  `ef30e40d52101d217d2ddfeb790795d66f30ea1f9770bf026dd8323f68581dda`.
+- Receipt commit `eace31095` is pushed; Telegram video delivery message ID is `9772`.
+
+Task 2: complete (verification receipt commit `eace31095`; production APNs remains Task 5)

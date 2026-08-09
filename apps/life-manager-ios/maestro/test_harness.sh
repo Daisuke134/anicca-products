@@ -95,13 +95,14 @@ require_active_text preauthorized-travel-failure.yaml 'TRAVEL_FAILURE_MESSAGE_ID
 require_active_id preauthorized-travel-failure.yaml 'calendar.travelBlock.notAdded.${TRAVEL_FAILURE_MESSAGE_ID}'
 
 for flow in english-onboarding-route.yaml japanese-onboarding-route.yaml; do
-  require_active_text "$flow" 'STAGING_CALLBACK_URL'
   require_active_text "$flow" 'PROFILE_NAME'
   require_active_text "$flow" 'PROFILE_HOME'
-  require_active_text "$flow" 'clearState: true'
-  require_active_text "$flow" 'clearKeychain: true'
-  require_active_text "$flow" 'openLink: ${STAGING_CALLBACK_URL}'
-  for id in welcome.connectCalendar profile.name profile.home profile.continue phone.skip analysis.phase route.showDetails route.detail.close chat.upgrade paywall.continueFree chat.settings; do
+  require_active_text "$flow" '- launchApp'
+  require_absent_active_text "$flow" 'STAGING_CALLBACK_URL'
+  require_absent_active_text "$flow" 'clearState:'
+  require_absent_active_text "$flow" 'clearKeychain:'
+  require_absent_active_text "$flow" 'openLink:'
+  for id in profile.name profile.home profile.continue phone.skip analysis.phase route.showDetails route.detail.close chat.list chat.upgrade paywall.continueFree chat.settings; do
     require_active_id "$flow" "$id"
   done
   require_active_text "$flow" 'assertNotVisible:'
