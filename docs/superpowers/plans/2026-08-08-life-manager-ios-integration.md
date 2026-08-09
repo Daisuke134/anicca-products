@@ -73,6 +73,13 @@ enum SyncReason { case launch, foreground, manual, push }
 - [ ] Run the flows with Maestro's interactive integration locally and CLI in CI; store videos/screenshots as CI artifacts outside Git.
 - [ ] Commit/push flow definitions and accessibility-only fixes.
 
+#### Task 3.1: Prove the chat question/reply loop with a real Calendar event
+
+- [ ] RED: add a flow contract requiring a visible open question, composer submission, durable user reply, refreshed Life Manager response, and the confirmed `[Travel]` Calendar receipt.
+- [ ] GREEN: use a disposable isolated-staging Calendar event with an empty location so analysis asks for the destination; reply from the native composer; assert the same chat contains the route card and exact provider-backed receipt after re-sync.
+- [ ] Verify the backend question row is answered once, the route is anchored to that event, and the provider event is read back before recording the video.
+- [ ] Preserve user-authored Calendar title/location as `user_content`; do not add a general-purpose AI chat surface.
+
 ### Task 4: Produce a Signed TestFlight Build
 
 - [ ] Add app-local Fastlane `build_for_testflight` and `upload_testflight` lanes with App Store Connect API-key authentication, explicit project/scheme/bundle, export method, build-number increment, and processing timeout handling.

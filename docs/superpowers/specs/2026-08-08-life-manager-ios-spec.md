@@ -474,6 +474,7 @@ Every To-be requirement has an OK path.
 | 23 | Complete cost event | `provider-cost-contract.test.js` | Every provider operation records quantity, price source, estimate, and actual/unknown |
 | 24 | Budget degradation | `provider-budget-gate.test.js` | Warning/degrade/stop thresholds preserve cached truth and block nonessential spend |
 | 25 | No late surface | `mobile-v1-surface-contract.test.js` | Mobile router exports no location, late, recipient, approval, or attendee-send endpoint |
+| 26 | Interactive chat reply | `test_chat_question_reply_real_staging` | A real missing-destination question accepts one composer reply, re-syncs the same chat, and emits the provider-read-back Calendar receipt |
 
 ### 6.1 iOS UI / E2E judgment
 
@@ -481,7 +482,7 @@ Every To-be requirement has an OK path.
 |---|---|
 | UI change | Yes |
 | Conclusion | Maestro required. Native onboarding, locale consistency, chat rendering, route detail, paywall, settings, and deletion require end-to-end UI verification. |
-| Automated staging E2E | Pre-authorized staging tenant → name/home → skip phone → analysis → route card → detail → soft paywall → continue free → settings |
+| Automated staging E2E | Pre-authorized staging tenant → name/home → skip phone → analysis → route card → detail → soft paywall → continue free → settings; a disposable event with no location additionally proves question → composer reply → route and Calendar receipt in the same chat |
 | English E2E | Every generated visible string and accessibility label is English; provider station and line names are English |
 | Japanese E2E | Every generated visible string and accessibility label is Japanese; provider station and line names are Japanese |
 | Manual TestFlight E2E | Real Google OAuth → controlled real Calendar event → real provider route → foreground refresh → production APNs → confirmed call when configured |
