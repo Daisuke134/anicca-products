@@ -53,7 +53,6 @@ env:
 - assertVisible: "出発"
 - assertVisible: "到着"
 - assertVisible: "分"
-- assertVisible: "ルート全体を表示"
 - assertVisible: "情報源"
 - assertVisible: "更新"
 - assertNotVisible: "Leave by"

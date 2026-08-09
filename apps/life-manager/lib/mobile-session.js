@@ -349,7 +349,7 @@ async function authenticateMobileRequest(req, deps = {}) {
   const sessionId = field(row, "sessionId", "session_id");
   if (!uid || !sessionId) throw new MobileError("unauthorized", "The mobile session is incomplete.", 401);
   const user = typeof store.readUser === "function" ? await store.readUser({ uid, sessionId }) : null;
-  const productLocale = normalizeLocale(field(row, "productLocale", "product_locale") || (user && (user.product_locale || user.productLocale)) || "en");
+  const productLocale = normalizeLocale((user && (user.product_locale || user.productLocale)) || field(row, "productLocale", "product_locale") || "en");
   const timezone = safeTimeZone((user && (user.time_zone || user.timezone || user.call_time_zone)) || "UTC");
   const scope = { uid, sessionId, productLocale, timezone };
   // Mobile provider cleanup must use the provider-owned provisional user and exact

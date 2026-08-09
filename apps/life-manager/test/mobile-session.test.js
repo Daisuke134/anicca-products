@@ -106,6 +106,22 @@ test("bearer authentication derives tenant scope from stored session, never requ
   await assert.rejects(() => authenticateMobileRequest({ headers: {} }, deps), (error) => error.code === "unauthorized");
 });
 
+test("bearer authentication uses the current profile locale after an in-session locale change", async () => {
+  const deps = memorySessionDeps({
+    store: {
+      async readUser(scope) {
+        return { uid: scope.uid, product_locale: "ja", time_zone: "Asia/Tokyo" };
+      },
+    },
+  });
+  const started = await startCalendarSession({}, deps);
+  const session = await exchangeMobileSession({ state: started.state, status: "success", connectedAccountId: "ca_google_test" }, deps);
+
+  const scope = await authenticateMobileRequest({ headers: { authorization: `Bearer ${session.accessToken}` } }, deps);
+
+  assert.equal(scope.productLocale, "ja");
+});
+
 test("bearer authentication carries only stored provider routing facts for mobile cleanup", async () => {
   const deps = memorySessionDeps({
     store: {
