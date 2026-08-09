@@ -88,12 +88,41 @@ maestro test \
 
 ## Push deep-linkの境界
 
-APNs payloadの生成・送信はMaestroが代行しません。stagingの実outbox message ID、実device token、staging APNs environmentが揃った後、管理された外部手順で一度だけpayloadをdeliveryし、通知をtapしてからflowを起動します。flowはそのmessage IDがchatへ一度だけ現れ、refresh後も同じIDが残ることを確認します。payloadをYAMLへ埋めたり、client側へmessageをinsertしたりしません。
+APNs payloadの生成・送信はMaestroが代行しません。stagingの実outbox message ID、cursor、実device token、staging APNs environmentが揃った後、管理された外部手順で一度だけSimulator local pushをdeliveryし、通知をtapしてからflowを起動します。flowはそのmessage IDがchatへ一度だけ現れ、refresh後も同じIDが残ることを確認します。payloadをYAMLへ埋めたり、client側へmessageをinsertしたりしません。これはSimulator local push receiptであり、production APNsの証跡ではありません。
+
+### Simulator local push payload contract
+
+外部手順で作るJSONは、APNs必須の `"aps"` と、Life Managerが読むカスタムキー `"type"`、`"messageId"`、`"cursor"` だけを持ちます。`type`は必ず `chat_message`、`messageId`と`cursor`は同じ実chat readbackの非空値です。`uid`、token、route本文、Calendar内容、access tokenはpayloadへ入れません。`test_harness.sh`へ `PUSH_PAYLOAD_FILE`を渡すと、値を表示せずこの形とflow引数の一致を検証します。
+
+```bash
+export SIMULATOR_UDID='(booted iPhone 17 Simulator UDID)'
+export PUSH_MESSAGE_ID='(exact stable route or receipt message ID from staging chat readback)'
+export PUSH_CURSOR='(exact cursor from that same message readback)'
+export PUSH_MESSAGE_ACCESSIBILITY_ID="route.card.${PUSH_MESSAGE_ID}"
+
+push_payload_file="$(mktemp -t life-manager-push.XXXXXX.json)"
+trap 'rm -f "$push_payload_file"' EXIT
+jq -n \
+  --arg message_id "$PUSH_MESSAGE_ID" \
+  --arg cursor "$PUSH_CURSOR" \
+  '{"aps":{"alert":{"title":"Life Manager","body":"New chat message"}},"type":"chat_message","messageId":$message_id,"cursor":$cursor}' \
+  > "$push_payload_file"
+
+PUSH_PAYLOAD_FILE="$push_payload_file" \
+PUSH_MESSAGE_ID="$PUSH_MESSAGE_ID" \
+PUSH_CURSOR="$PUSH_CURSOR" \
+bash apps/life-manager-ios/maestro/test_harness.sh
+xcrun simctl push "$SIMULATOR_UDID" ai.anicca.life-manager "$push_payload_file"
+```
+
+通知をSimulator上でtapしてから、同じstable IDをflowへ渡します。route cardでは `route.card.<message-id>`、通常のchat messageでは `chat.message.<message-id>`、confirmed receiptでは `calendar.travelBlock.confirmed.<message-id>`を指定します。
 
 ```bash
 maestro test \
   -e STAGING_SESSION_ID='(opaque staging session id)' \
   -e PUSH_MESSAGE_ID='(real delivered message id)' \
+  -e PUSH_CURSOR='(cursor from the same real message readback)' \
+  -e PUSH_MESSAGE_ACCESSIBILITY_ID='route.card.(real delivered message id)' \
   apps/life-manager-ios/maestro/push-deep-link.yaml
 ```
 

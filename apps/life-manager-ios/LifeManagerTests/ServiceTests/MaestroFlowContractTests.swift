@@ -17,6 +17,9 @@ final class MaestroFlowContractTests: XCTestCase {
         XCTAssertTrue(failure.contains("TRAVEL_FAILURE_MESSAGE_ID"))
         XCTAssertTrue(failure.contains("calendar.travelBlock.notAdded.${TRAVEL_FAILURE_MESSAGE_ID}"))
         XCTAssertTrue(push.contains("PUSH_MESSAGE_ID"))
+        XCTAssertTrue(push.contains("PUSH_CURSOR"))
+        XCTAssertTrue(push.contains("PUSH_MESSAGE_ACCESSIBILITY_ID"))
+        XCTAssertTrue(push.contains("id: \"${PUSH_MESSAGE_ACCESSIBILITY_ID}\""))
         for (name, flow) in [("english", english), ("japanese", japanese), ("preauthorized", preauthorized), ("failure", failure), ("push", push)] {
             XCTAssertTrue(flow.contains("appId: ai.anicca.life-manager"), name)
             XCTAssertFalse(flow.range(of: "\\n- wait:", options: .regularExpression) != nil, name)
@@ -28,6 +31,21 @@ final class MaestroFlowContractTests: XCTestCase {
         XCTAssertTrue(cleanup.contains("provider_proxy_request DELETE"))
         XCTAssertTrue(cleanup.contains(".status == 404"))
         XCTAssertFalse(cleanup.contains("/account"))
+    }
+
+    func testPushHarnessDocumentsExactLocalPayloadContract() throws {
+        let readme = try Self.resource(named: "README.md", in: "maestro")
+        let harness = try Self.resource(named: "test_harness.sh", in: "maestro")
+
+        for field in ["type", "messageId", "cursor"] {
+            XCTAssertTrue(readme.contains("\"\(field)\""), "payload must document \(field)")
+            XCTAssertTrue(harness.contains(field), "harness must validate \(field)")
+        }
+        XCTAssertTrue(readme.contains("chat_message"))
+        XCTAssertTrue(readme.contains("route.card.${PUSH_MESSAGE_ID}"))
+        XCTAssertTrue(readme.contains("xcrun simctl push"))
+        XCTAssertTrue(readme.contains("Simulator local push"))
+        XCTAssertTrue(harness.contains("PUSH_PAYLOAD_FILE"))
     }
 
     func testOnboardingFlowsCoverRealJourneyLeafIDsAndCleanState() throws {

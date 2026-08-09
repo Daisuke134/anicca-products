@@ -3,6 +3,8 @@
 # operator taps that notification before starting this flow (Maestro cannot
 # manufacture an APNs delivery). This flow only observes the durable outbox;
 # it never inserts a message or pretends that a push was delivered.
+# The local payload is validated by test_harness.sh before simctl delivery. Its
+# custom keys are exactly type=chat_message, messageId, and cursor.
 appId: ai.anicca.life-manager
 name: Push deep-link opens one durable chat message and refresh deduplicates
 tags:
@@ -13,24 +15,29 @@ tags:
 env:
   STAGING_SESSION_ID: ${STAGING_SESSION_ID}
   PUSH_MESSAGE_ID: ${PUSH_MESSAGE_ID}
+  PUSH_CURSOR: ${PUSH_CURSOR}
+  PUSH_MESSAGE_ACCESSIBILITY_ID: ${PUSH_MESSAGE_ACCESSIBILITY_ID}
 ---
 - launchApp
+- swipe:
+    direction: DOWN
+    duration: 100
 - extendedWaitUntil:
     visible:
       id: "chat.list"
     timeout: 30000
 - extendedWaitUntil:
     visible:
-      id: "chat.message.${PUSH_MESSAGE_ID}"
+      id: "${PUSH_MESSAGE_ACCESSIBILITY_ID}"
     timeout: 60000
 - assertVisible:
-    id: "chat.message.${PUSH_MESSAGE_ID}"
+    id: "${PUSH_MESSAGE_ACCESSIBILITY_ID}"
 - tapOn:
     id: "chat.refresh"
 - extendedWaitUntil:
     visible:
-      id: "chat.message.${PUSH_MESSAGE_ID}"
+      id: "${PUSH_MESSAGE_ACCESSIBILITY_ID}"
     timeout: 30000
 - assertVisible:
-    id: "chat.message.${PUSH_MESSAGE_ID}"
+    id: "${PUSH_MESSAGE_ACCESSIBILITY_ID}"
 - takeScreenshot: "push-deep-link-stable-message"
