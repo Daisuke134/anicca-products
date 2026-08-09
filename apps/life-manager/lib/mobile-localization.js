@@ -271,6 +271,13 @@ function projectSemanticMessage(row, locale = "en") {
   let question = projectQuestion(questionSource, active);
   let actions;
   switch (row.key) {
+    case "chat.user_reply":
+      // This is user-authored content. It is intentionally not passed through
+      // system-locale validation: a person may answer in either language.
+      type = "user";
+      text = typeof args.answer === "string" ? args.answer : "";
+      actions = [];
+      break;
     case "chat.route_ready":
       type = "route";
       if (!route || !route.timezone) throw new MobileError("route_timezone_required", "The Calendar event timezone is required for route messaging.");
@@ -339,7 +346,7 @@ function projectSemanticMessage(row, locale = "en") {
       actions = [action("refresh", active)];
       break;
   }
-  assertLocalizedText(active, text);
+  if (row.key !== "chat.user_reply") assertLocalizedText(active, text);
   if (route && route.providerAttribution) assertLocalizedText(active, route.providerAttribution, ["Google", "Transit", "API"]);
   const kind = type === "route_unavailable" ? "error" : type;
   const projected = {
@@ -356,7 +363,7 @@ function projectSemanticMessage(row, locale = "en") {
   };
   // The native client uses semantic IDs only for the new travel receipts. Keep
   // the existing message shape unchanged for the frozen Gate 3 fixtures.
-  if (row.key === "chat.travel_block_confirmed" || row.key === "chat.travel_block_not_added") projected.semanticKey = row.key;
+  if (row.key === "chat.travel_block_confirmed" || row.key === "chat.travel_block_not_added" || row.key === "chat.user_reply") projected.semanticKey = row.key;
   return projected;
 }
 

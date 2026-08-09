@@ -1,0 +1,53 @@
+# Real isolated-staging chat loop. The operator creates one disposable Calendar
+# event with an empty location and supplies only its stable semantic IDs here.
+# The flow never contains a bearer token or a fake answer endpoint.
+appId: ai.anicca.life-manager
+name: Interactive chat question and route receipt
+tags:
+  - staging
+  - chat
+  - interactive
+env:
+  QUESTION_MESSAGE_ID: ${QUESTION_MESSAGE_ID}
+  REPLY_MESSAGE_ID: ${REPLY_MESSAGE_ID}
+  DESTINATION_REPLY: ${DESTINATION_REPLY}
+  ROUTE_MESSAGE_ID: ${ROUTE_MESSAGE_ID}
+  TRAVEL_RECEIPT_MESSAGE_ID: ${TRAVEL_RECEIPT_MESSAGE_ID}
+---
+- startRecording: "interactive-chat-question-reply"
+- launchApp
+- extendedWaitUntil:
+    visible:
+      id: "chat.list"
+    timeout: 30000
+- extendedWaitUntil:
+    visible:
+      id: "chat.message.${QUESTION_MESSAGE_ID}"
+    timeout: 60000
+- assertVisible: "Where will this event take place?"
+- assertVisible:
+    id: "chat.composer"
+- tapOn:
+    id: "chat.composer"
+- inputText: ${DESTINATION_REPLY}
+- takeScreenshot: "interactive-chat-question-with-answer"
+- tapOn:
+    id: "chat.send"
+- extendedWaitUntil:
+    visible:
+      id: "chat.reply.${REPLY_MESSAGE_ID}"
+    timeout: 30000
+- assertVisible: ${DESTINATION_REPLY}
+- extendedWaitUntil:
+    visible:
+      id: "route.card.${ROUTE_MESSAGE_ID}"
+    timeout: 90000
+- assertVisible:
+    id: "calendar.travelBlock.confirmed.${TRAVEL_RECEIPT_MESSAGE_ID}"
+- assertVisible: "Tokyo Tower"
+- assertVisible: "Roppongi"
+- assertNotVisible: "Where will this event take place?"
+- assertNotVisible:
+    id: "chat.composer"
+- takeScreenshot: "interactive-chat-route-and-calendar-receipt"
+- stopRecording

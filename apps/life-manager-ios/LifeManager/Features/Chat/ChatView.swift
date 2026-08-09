@@ -3,6 +3,8 @@ import SwiftUI
 enum ChatMessageAccessibility {
     static func identifier(for message: ChatMessage) -> String {
         switch message.semanticKey {
+        case "chat.user_reply":
+            return "chat.reply.\(message.id)"
         case "chat.travel_block_confirmed":
             return "calendar.travelBlock.confirmed.\(message.id)"
         case "chat.travel_block_not_added":
@@ -161,7 +163,19 @@ struct ChatView: View {
 
     @ViewBuilder
     private func messageRow(_ message: ChatMessage) -> some View {
-        if message.type == .route, RoutePresentation.card(for: message) != nil {
+        if message.type == .user {
+            HStack {
+                Spacer(minLength: 32)
+                Text(message.text)
+                    .font(.body)
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 10)
+                    .background(Color.accentColor, in: RoundedRectangle(cornerRadius: 16))
+            }
+            .frame(maxWidth: .infinity, alignment: .trailing)
+            .accessibilityIdentifier(ChatMessageAccessibility.identifier(for: message))
+        } else if message.type == .route, RoutePresentation.card(for: message) != nil {
             RouteCardView(message: message) {
                 selectedRouteMessage = message
             }

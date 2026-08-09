@@ -37,6 +37,20 @@ final class ChatReceiptPresentationTests: XCTestCase {
         )
     }
 
+    func testUserReplyUsesStableRightAlignedChatReplyID() {
+        let reply = ChatReceiptFixtures.message(
+            id: "message:v1:reply-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            semanticKey: "chat.user_reply",
+            type: .user,
+            text: "Tokyo Tower"
+        )
+
+        XCTAssertEqual(
+            ChatMessageAccessibility.identifier(for: reply),
+            "chat.reply.message:v1:reply-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        )
+    }
+
     func testReceiptPresentationDoesNotReplaceServerLocalizedCopy() {
         let english = ChatReceiptFixtures.message(
             id: "message:v1:confirmed-en",
@@ -62,6 +76,7 @@ private enum ChatReceiptFixtures {
     static func message(
         id: String,
         semanticKey: String?,
+        type: ChatMessageType = .system,
         locale: ProductLocale = .en,
         text: String = "Server-projected chat message"
     ) -> ChatMessage {
@@ -70,7 +85,7 @@ private enum ChatReceiptFixtures {
             cursor: "cursor:\(id)",
             createdAt: Date.iso8601("2026-08-10T08:31:00.000Z"),
             locale: locale,
-            type: .system,
+            type: type,
             text: text,
             userContent: CalendarUserContent(eventTitle: nil, eventLocation: nil),
             question: nil,

@@ -200,6 +200,7 @@ test("missing APNs credentials leaves the durable job pending and exposes owner 
 
 test("durable APNs migration defines the atomic outbox/job transaction and lease RPCs", () => {
   const sql = fs.readFileSync(path.join(__dirname, "../migrations/2026-08-09-lm-mobile-apns-delivery.sql"), "utf8");
+  const replyPolicy = fs.readFileSync(path.join(__dirname, "../migrations/2026-08-09-lm-mobile-user-reply-push-policy.sql"), "utf8");
   assert.match(sql, /CREATE TABLE IF NOT EXISTS public\.lm_mobile_push_jobs\b/u);
   assert.match(sql, /FOREIGN KEY \(uid, message_id\)[\s\S]*REFERENCES public\.lm_mobile_outbox\(uid, id\)/u);
   assert.match(sql, /CREATE OR REPLACE FUNCTION public\.append_lm_mobile_outbox_with_push_job\b/u);
@@ -207,6 +208,9 @@ test("durable APNs migration defines the atomic outbox/job transaction and lease
   assert.match(sql, /CREATE OR REPLACE FUNCTION public\.complete_lm_mobile_push_job\b/u);
   assert.match(sql, /CREATE OR REPLACE FUNCTION public\.retry_lm_mobile_push_job\b/u);
   assert.match(sql, /ON CONFLICT \(uid, id\) DO NOTHING[\s\S]*INSERT INTO public\.lm_mobile_push_jobs/u);
+  assert.match(sql, /IF COALESCE\(p_type, ''\) <> 'user'[\s\S]*INSERT INTO public\.lm_mobile_push_jobs/u);
+  assert.match(replyPolicy, /CREATE OR REPLACE FUNCTION public\.append_lm_mobile_outbox_with_push_job/u);
+  assert.match(replyPolicy, /IF COALESCE\(p_type, ''\) <> 'user'[\s\S]*INSERT INTO public\.lm_mobile_push_jobs/u);
   assert.doesNotMatch(sql, /token text/u);
 });
 

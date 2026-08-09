@@ -5,7 +5,7 @@ const { projectSemanticMessage } = require("./mobile-localization.js");
 
 const SEMANTIC_KEYS = new Set([
   "chat.welcome", "chat.route_ready", "chat.needs_information", "chat.no_upcoming_event",
-  "chat.route_unavailable", "chat.failed", "chat.travel_block_confirmed", "chat.travel_block_not_added",
+  "chat.route_unavailable", "chat.failed", "chat.travel_block_confirmed", "chat.travel_block_not_added", "chat.user_reply",
 ]);
 
 function encodeCursor(sequence) {
@@ -56,6 +56,9 @@ async function appendMobileMessage(scope, input = {}, deps = {}) {
     userContent: input.userContent || { eventTitle: null, eventLocation: null }, question: input.question || null, route: input.route || null,
     createdAt: input.createdAt || nowIso(deps), mutationKey: input.mutationKey || null,
   };
+  if (input.key === "chat.user_reply" && (!row.args || typeof row.args.answer !== "string" || !row.args.answer.trim())) {
+    throw new MobileError("user_reply_invalid", "A user reply message requires non-empty answer text.");
+  }
   // Validate provider names and locale before persisting a route row. A projection failure must not
   // leave an unrenderable route in the durable outbox that a later retry would replay forever.
   projectSemanticMessage({ ...row, sequence: Number.isSafeInteger(row.sequence) ? row.sequence : 0 }, scope.productLocale || input.locale || "en");
@@ -67,7 +70,9 @@ async function appendMobileMessage(scope, input = {}, deps = {}) {
   if (!Number.isSafeInteger(stored.sequence) || stored.sequence <= 0) throw new MobileError("outbox_sequence_missing", "Chat storage returned no monotonic sequence.", 503, true);
   const encode = typeof deps.encodeCursor === "function" ? deps.encodeCursor : encodeCursor;
   stored.cursor = stored.cursor || encode(stored.sequence);
-  if (inserted && typeof deps.notifyMobilePush === "function") {
+  // A user's own sent bubble is already visible locally after sync; sending an
+  // APNs notification back to that same device is both noisy and a duplicate.
+  if (inserted && stored.type !== "user" && typeof deps.notifyMobilePush === "function") {
     try {
       await deps.notifyMobilePush(scope, stored, deps);
     } catch (error) {

@@ -81,6 +81,23 @@ final class MaestroFlowContractTests: XCTestCase {
         XCTAssertLessThan(picker.lowerBound, japaneseChoice.lowerBound)
     }
 
+    func testInteractiveChatQuestionReplyFlowUsesDurableChatAndCalendarReceipt() throws {
+        let flow = try Self.flow(named: "interactive-chat-question-reply.yaml")
+
+        XCTAssertTrue(flow.contains("appId: ai.anicca.life-manager"))
+        XCTAssertTrue(flow.contains("id: \"chat.message.${QUESTION_MESSAGE_ID}\""))
+        XCTAssertTrue(flow.contains("id: \"chat.composer\""))
+        XCTAssertTrue(flow.contains("id: \"chat.send\""))
+        XCTAssertTrue(flow.contains("inputText: ${DESTINATION_REPLY}"))
+        XCTAssertTrue(flow.contains("id: \"chat.reply.${REPLY_MESSAGE_ID}\""))
+        XCTAssertTrue(flow.contains("id: \"route.card.${ROUTE_MESSAGE_ID}\""))
+        XCTAssertTrue(flow.contains("id: \"calendar.travelBlock.confirmed.${TRAVEL_RECEIPT_MESSAGE_ID}\""))
+        XCTAssertFalse(flow.contains("clearKeychain:"))
+        XCTAssertFalse(flow.localizedCaseInsensitiveContains("accessToken"))
+        XCTAssertFalse(flow.localizedCaseInsensitiveContains("refreshToken"))
+        XCTAssertFalse(flow.range(of: "\\n- wait:", options: .regularExpression) != nil)
+    }
+
     func testWelcomeDeletionReceiptUsesLocalizedEvidenceAndStableAccessibilityID() throws {
         let root = try Self.resource(named: "RootView.swift", in: "LifeManager/App")
 

@@ -941,11 +941,13 @@ function createMemoryMobileStore(options = {}) {
       outbox.get(uid).push(item);
       // In-memory storage mirrors the production transaction: the semantic
       // row and its pending dispatch job become visible together.
-      mobilePushJobs.set(mobilePushKey(uid, item.id), {
-        uid, messageId: item.id, status: "pending", attempts: 0,
-        nextAttemptAt: memoryNow(), leaseExpiresAt: null, lastError: null,
-        createdAt: item.createdAt, updatedAt: item.createdAt, completedAt: null,
-      });
+      if (item.type !== "user") {
+        mobilePushJobs.set(mobilePushKey(uid, item.id), {
+          uid, messageId: item.id, status: "pending", attempts: 0,
+          nextAttemptAt: memoryNow(), leaseExpiresAt: null, lastError: null,
+          createdAt: item.createdAt, updatedAt: item.createdAt, completedAt: null,
+        });
+      }
       return { ...item, __inserted: true };
     },
     async listOutbox(scope, after = 0, limit = 50) { return (outbox.get(scoped(scope)) || []).filter((row) => row.sequence > after).slice(0, limit).map((row) => ({ ...row })); },

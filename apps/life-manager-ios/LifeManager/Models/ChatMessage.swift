@@ -2,6 +2,7 @@ import Foundation
 
 enum ChatMessageType: String, Codable, Equatable, Sendable {
     case system
+    case user
     case analysis
     case route
     case question

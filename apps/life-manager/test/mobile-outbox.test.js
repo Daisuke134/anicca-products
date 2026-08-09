@@ -39,6 +39,43 @@ test("semantic outbox rejects an unknown generated message key", async () => {
   await assert.rejects(() => appendMobileMessage({ uid: "user-a" }, { key: "chat.arbitrary_prose" }, { store }), (error) => error.code === "message_key_invalid");
 });
 
+test("user reply outbox rows project as user messages without system localization", async () => {
+  const store = createMemoryMobileStore({ users: [{ uid: "user-a" }] });
+  const message = await appendMobileMessage({ uid: "user-a", productLocale: "en" }, {
+    id: "message:v1:reply-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    type: "user",
+    key: "chat.user_reply",
+    args: { answer: "東京タワー" },
+  }, { store });
+
+  assert.equal(message.type, "user");
+  assert.equal(message.text, "東京タワー");
+  assert.equal(message.semanticKey, "chat.user_reply");
+});
+
+test("user reply append skips APNs while a system append still notifies", async () => {
+  const store = createMemoryMobileStore({ users: [{ uid: "user-a" }] });
+  const sent = [];
+  const deps = { store, notifyMobilePush: async (_scope, row) => sent.push(row.id) };
+
+  await appendMobileMessage({ uid: "user-a", productLocale: "en" }, {
+    id: "message:v1:reply-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    type: "user",
+    key: "chat.user_reply",
+    args: { answer: "Tokyo Tower" },
+  }, deps);
+  await appendMobileMessage({ uid: "user-a", productLocale: "en" }, {
+    id: "message:v1:system-cccccccccccccccccccccccccccccccccccccccc",
+    type: "system",
+    key: "chat.welcome",
+    args: {},
+  }, deps);
+
+  assert.deepEqual(sent, ["message:v1:system-cccccccccccccccccccccccccccccccccccccccc"]);
+  assert.equal(await store.readMobilePushJob({ uid: "user-a" }, "message:v1:reply-bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"), null);
+  assert.ok(await store.readMobilePushJob({ uid: "user-a" }, "message:v1:system-cccccccccccccccccccccccccccccccccccccccc"));
+});
+
 test("travel receipt keys are deduplicated by stable message id and expose only semanticKey", async () => {
   const store = createMemoryMobileStore({ users: [{ uid: "user-a" }] });
   const input = {

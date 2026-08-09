@@ -76,7 +76,7 @@ enum SyncReason { case launch, foreground, manual, push }
 #### Task 3.1: Prove the chat question/reply loop with a real Calendar event
 
 - [ ] RED: add a flow contract requiring a visible open question, composer submission, durable user reply, refreshed Life Manager response, and the confirmed `[Travel]` Calendar receipt.
-- [ ] GREEN: use a disposable isolated-staging Calendar event with an empty location so analysis asks for the destination; reply from the native composer; assert the same chat contains the route card and exact provider-backed receipt after re-sync.
+- [ ] GREEN: use a disposable isolated-staging Calendar event with an empty location so analysis asks for the destination; reply from the native composer; assert the same chat contains a durable right-aligned user bubble (`chat.reply.<messageId>`), then the route card and exact provider-backed receipt after re-sync.
 - [ ] Verify the backend question row is answered once, the route is anchored to that event, and the provider event is read back before recording the video.
 - [ ] Preserve user-authored Calendar title/location as `user_content`; do not add a general-purpose AI chat surface.
 

@@ -58,9 +58,13 @@ BEGIN
      WHERE uid = p_uid AND id = p_id;
   END IF;
 
-  INSERT INTO public.lm_mobile_push_jobs(uid, message_id)
-  VALUES (p_uid, p_id)
-  ON CONFLICT (uid, message_id) DO NOTHING;
+  -- User-authored reply bubbles are fetched by the same foreground chat sync
+  -- that follows the POST; never notify the sender's device about its own text.
+  IF COALESCE(p_type, '') <> 'user' THEN
+    INSERT INTO public.lm_mobile_push_jobs(uid, message_id)
+    VALUES (p_uid, p_id)
+    ON CONFLICT (uid, message_id) DO NOTHING;
+  END IF;
 
   RETURN jsonb_build_object('inserted', inserted, 'row', to_jsonb(outbox_row));
 END;

@@ -4,6 +4,7 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const { replyMobileQuestion } = require("../lib/mobile-question.js");
 const { createMemoryMobileStore } = require("../lib/mobile-store.js");
+const { appendMobileMessage } = require("../lib/mobile-outbox.js");
 const { makeComposioCalendar } = require("../lib/transport/calendar-composio.js");
 
 test("reply consumes only the authenticated user's open question once", async () => {
@@ -17,6 +18,22 @@ test("reply consumes only the authenticated user's open question once", async ()
   await assert.rejects(() => replyMobileQuestion({ uid: "user-a", productLocale: "en" }, "question:v1:one", "Shibuya", deps), (error) => error.code === "question_stale");
   await assert.rejects(() => replyMobileQuestion({ uid: "user-b", productLocale: "en" }, "question:v1:one", "Shibuya", deps), (error) => error.code === "question_stale");
   assert.equal(applied, 1);
+});
+
+test("reply appends one durable user bubble with a stable message ID", async () => {
+  const store = createMemoryMobileStore({ users: [{ uid: "user-a", product_locale: "en" }] });
+  await store.createQuestion({ uid: "user-a" }, { id: "question:v1:destination", type: "destination", eventId: "event-1", prompt: "Where?" });
+  const deps = { store, applyAnswer: async () => {} };
+
+  const first = await replyMobileQuestion({ uid: "user-a", productLocale: "en" }, "question:v1:destination", "Tokyo Tower", deps);
+  assert.equal(first.status, "answered");
+
+  const rows = store._outbox.get("user-a") || [];
+  assert.equal(rows.length, 1);
+  assert.equal(rows[0].key, "chat.user_reply");
+  assert.equal(rows[0].type, "user");
+  assert.match(rows[0].id, /^message:v1:reply-[0-9a-f]{40}$/u);
+  assert.equal(rows[0].args.answer, "Tokyo Tower");
 });
 
 test("reply validates text and never acts as a general chat endpoint", async () => {
@@ -71,6 +88,10 @@ test("question claim survives downstream failure and resumes apply/outbox before
       if (status === "claimed" && question.answer !== answer) throw new Error("answer conflict");
       status = "claimed"; question.answer = answer; return { ...question, status };
     },
+    async appendOutbox(_scope, row) {
+      calls.push("outbox");
+      return { ...row, sequence: 1, createdAt: "2026-08-09T00:00:00.000Z" };
+    },
     async completeQuestionReply() { status = "answered"; calls.push("complete"); return { ...question, status }; },
   };
   const deps = {
@@ -83,5 +104,53 @@ test("question claim survives downstream failure and resumes apply/outbox before
   const result = await replyMobileQuestion({ uid: "user-a" }, { questionId: question.id, answer: "Shibuya" }, deps);
   assert.equal(result.status, "answered");
   assert.equal(status, "answered");
-  assert.deepEqual(calls, ["apply", "apply", "question-reply:question-resume", "complete"]);
+  assert.deepEqual(calls, ["apply", "apply", "outbox", "question-reply:question-resume", "complete"]);
+});
+
+test("analysis retry keeps one reply bubble and later appends the Life Manager response", async () => {
+  const store = createMemoryMobileStore({ users: [{ uid: "user-a", product_locale: "en" }] });
+  await store.createQuestion({ uid: "user-a" }, { id: "question:v1:resume", type: "origin", prompt: "Where?" });
+  let analysisAttempts = 0;
+  const deps = {
+    store,
+    applyAnswer: async () => {},
+    analyzeNextEvent: async () => {
+      analysisAttempts += 1;
+      if (analysisAttempts === 1) throw new (require("../lib/mobile-utils.js").MobileError)("analysis_failed", "temporary", 503, true);
+      await appendMobileMessage({ uid: "user-a", productLocale: "en" }, {
+        id: "message:v1:route-response",
+        type: "route",
+        key: "chat.route_ready",
+        args: {},
+        userContent: { eventTitle: "Demo event", eventLocation: "Tokyo Tower" },
+        route: {
+          timezone: "Asia/Tokyo",
+          origin: "Roppongi",
+          destination: "Tokyo Tower",
+          leaveAt: "2026-08-09T01:00:00.000Z",
+          arriveAt: "2026-08-09T01:30:00.000Z",
+          bufferSeconds: 300,
+          durationSeconds: 1800,
+          provider: "transit",
+          providerAttribution: "Transit",
+        },
+      }, { store });
+      return { status: "route_ready" };
+    },
+  };
+
+  await assert.rejects(
+    () => replyMobileQuestion({ uid: "user-a", productLocale: "en" }, "question:v1:resume", "Roppongi", deps),
+    (error) => error.code === "analysis_failed"
+  );
+  const afterFailure = store._outbox.get("user-a") || [];
+  assert.equal(afterFailure.length, 1);
+  assert.equal(afterFailure[0].key, "chat.user_reply");
+
+  const result = await replyMobileQuestion({ uid: "user-a", productLocale: "en" }, "question:v1:resume", "Roppongi", deps);
+  assert.equal(result.status, "answered");
+  const afterRetry = store._outbox.get("user-a") || [];
+  assert.equal(afterRetry.length, 2, "retry must keep one bubble and append the later Life Manager response");
+  assert.equal(afterRetry[0].id, afterFailure[0].id);
+  assert.equal(afterRetry[1].key, "chat.route_ready");
 });

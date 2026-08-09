@@ -1,6 +1,7 @@
 "use strict";
 
-const { MobileError } = require("./mobile-utils.js");
+const { MobileError, sha256 } = require("./mobile-utils.js");
+const { appendMobileMessage } = require("./mobile-outbox.js");
 const { getCalendar } = require("./transport/index.js");
 
 async function applyDefaultAnswer(scope, question, answer, deps) {
@@ -39,6 +40,10 @@ function normalize(input, answer, deps) {
   return { body: { questionId: input, answer }, deps: deps || {} };
 }
 
+function replyMessageId(uid, questionId) {
+  return `message:v1:reply-${sha256(`${uid}\u0000${questionId}`).slice(0, 40)}`;
+}
+
 async function replyMobileQuestion(scope, questionIdOrInput, answerOrDeps, deps) {
   const normalized = normalize(questionIdOrInput, answerOrDeps, deps);
   const input = normalized.body || {};
@@ -58,6 +63,16 @@ async function replyMobileQuestion(scope, questionIdOrInput, answerOrDeps, deps)
   if (!question) throw new MobileError("question_stale", "That question is no longer open.", 409);
   if (typeof activeDeps.applyAnswer === "function") await activeDeps.applyAnswer(scope, question, answer);
   else await applyDefaultAnswer(scope, question, answer, activeDeps);
+  // The user's answer is a durable chat message, not an optimistic-only UI echo.
+  // Its deterministic ID makes a retry after a provider failure converge on one
+  // right-aligned bubble in the same chronological thread.
+  await appendMobileMessage({ ...scope, productLocale: scope.productLocale || "en" }, {
+    id: replyMessageId(scope.uid, questionId),
+    type: "user",
+    key: "chat.user_reply",
+    args: { answer },
+    userContent: { eventTitle: null, eventLocation: null },
+  }, activeDeps);
   let analysis = null;
   if (typeof activeDeps.analyzeNextEvent === "function") {
     analysis = await activeDeps.analyzeNextEvent(scope, { trigger: "question_reply", questionId, analysisId: `question-reply:${questionId}` }, activeDeps);
