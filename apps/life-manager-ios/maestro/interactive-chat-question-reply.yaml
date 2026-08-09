@@ -13,6 +13,7 @@ env:
   DESTINATION_REPLY: ${DESTINATION_REPLY}
   ROUTE_MESSAGE_ID: ${ROUTE_MESSAGE_ID}
   TRAVEL_RECEIPT_MESSAGE_ID: ${TRAVEL_RECEIPT_MESSAGE_ID}
+  ROUTE_STEP_SUMMARY: ${ROUTE_STEP_SUMMARY}
 ---
 - startRecording: "interactive-chat-question-reply"
 - launchApp
@@ -42,10 +43,23 @@ env:
     visible:
       id: "route.card.${ROUTE_MESSAGE_ID}"
     timeout: 90000
-- assertVisible:
-    id: "calendar.travelBlock.confirmed.${TRAVEL_RECEIPT_MESSAGE_ID}"
 - assertVisible: "Tokyo Tower"
-- assertVisible: "Roppongi"
+- assertVisible: "Roppongi → Tokyo Tower"
+- tapOn:
+    id: "route.showDetails"
+- extendedWaitUntil:
+    visible: "Route details"
+    timeout: 10000
+- assertVisible: "Roppongi → Tokyo Tower"
+- assertVisible: ${ROUTE_STEP_SUMMARY}
+- takeScreenshot: "interactive-chat-route-details"
+- tapOn:
+    id: "route.detail.close"
+- extendedWaitUntil:
+    visible:
+      id: "calendar.travelBlock.confirmed.${TRAVEL_RECEIPT_MESSAGE_ID}"
+    timeout: 10000
+- assertVisible: "Travel time was added to your Calendar and verified."
 - assertNotVisible:
     id: "chat.composer"
 - takeScreenshot: "interactive-chat-route-and-calendar-receipt"
