@@ -64,6 +64,7 @@ final class MaestroFlowContractTests: XCTestCase {
             XCTAssertFalse(flow.contains("STAGING_CALLBACK_URL"), name)
             XCTAssertFalse(flow.contains("clearState:"), name)
             XCTAssertFalse(flow.contains("clearKeychain:"), name)
+            XCTAssertFalse(flow.contains("hideKeyboard"), "\(name): iOS 26 can reject Maestro's keyboard dismiss action; tap the locale picker instead")
             for identifier in requiredOnboardingIDs {
                 XCTAssertTrue(flow.contains("id: \"\(identifier)\""), "\(name): \(identifier)")
             }

@@ -36,6 +36,8 @@ final class ServiceProtocolTests: XCTestCase {
         XCTAssertEqual(result, TestFixtures.analysis)
         let analysisKeys = await api.idempotencyKeys()
         XCTAssertEqual(analysisKeys, [key])
+        let endpoints = await api.endpoints()
+        XCTAssertEqual(endpoints.first?.body, Data("{}".utf8))
     }
 
     func testChatServiceEncodesCursorAndQuestionReply() async throws {

@@ -270,7 +270,7 @@ struct AnalysisService: AnalysisServicing {
 
     func analyzeNextCommitment(idempotencyKey: UUID) async throws -> AnalysisResult {
         try await api.send(
-            .mutation(path: "/analysis", method: .post),
+            .mutation(path: "/analysis", method: .post, body: Data("{}".utf8)),
             as: AnalysisResult.self,
             idempotencyKey: idempotencyKey
         )
