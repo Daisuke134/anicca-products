@@ -1,6 +1,6 @@
 # CFO-2a2.4d1 Gemini Live Bridge Review-Fix Plan
 
-**Status:** READY — revised by Ponytail; fresh Sol review required before Luna fixes.
+**Status:** COMPLETE — Luna implementation, fresh Sol review, and independent Sol verification passed.
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development task by task.
 
@@ -22,7 +22,7 @@ Replace the current three added tests with small named contracts rather than sta
 
 ## Task 1: Close the reviewed gaps
 
-- [ ] **Step 1 — replace/extend tests into independent contracts**
+- [x] **Step 1 — replace/extend tests into independent contracts**
 
 Keep ordered once-only capture, zero/incomplete, failure continuation, synchronous end, and fallback-matrix coverage.
 Use compact helpers, then add five separately named contracts:
@@ -41,7 +41,7 @@ Use compact helpers, then add five separately named contracts:
 Trap `console.log`, `console.error`, and `console.warn` around content sentinels. Prove real serialization by emitting two
 usage messages, advancing one microtask, and asserting only the first capture started before resolving it.
 
-- [ ] **Step 2 — run honest RED**
+- [x] **Step 2 — run honest RED**
 
 ```bash
 node --test lib/call-bridge.test.js
@@ -54,7 +54,7 @@ the UID contract fails because `wakeUid` is absent; duration fails because fallb
 ignored. The reconnect-isolation contract passes because per-socket state is already separate. Historical behavior stays
 green. Record the exact totals; do not call a different failure RED.
 
-- [ ] **Step 3 — make the minimum production fixes**
+- [x] **Step 3 — make the minimum production fixes**
 
 In `attachGeminiUsageTracking`, start the message handler with `if (closed) return`. Route fallback through one local
 function that calls `onFallback(result)` inside `try`, assimilates its return with `Promise.resolve(...).catch(() => {})`,
@@ -64,7 +64,7 @@ In `/test-call`, pass `{ ...ev, wakeUid: body.uid }` to the existing `buildStrea
 `geminiDurationSeconds = null`; `onEnd` snapshots `Math.max(0, (Date.now() - geminiStartedAtMs) / 1000)` once before the
 existing synchronous `onGeminiEnd("closed")`; `onFallback` uses only that snapshot, defaulting to zero if absent.
 
-- [ ] **Step 4 — run GREEN and gates**
+- [x] **Step 4 — run GREEN and gates**
 
 ```bash
 node --test lib/call-bridge.test.js

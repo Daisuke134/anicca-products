@@ -1,6 +1,6 @@
 # CFO-2a2.4d2 Real Gemini Live Usage E2E Implementation Plan
 
-**Status:** BLOCKED — do not implement until CFO-2a2.4d1 review fixes are verified and committed.
+**Status:** DRAFT — CFO-2a2.4d1 dependency is satisfied; Sol must apply the recorded pre-review fixes before Luna work.
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development task by task.
 

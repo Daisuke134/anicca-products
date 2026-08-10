@@ -186,6 +186,7 @@ function attachGeminiUsageTracking({ socket, capture, context, options, onEnd, o
   let seen = 0, stored = 0, failed = 0, nextSequence = 0, tail = Promise.resolve(), closed = false;
   const settle = () => tail.then(() => Object.freeze({ seen, stored, failed, complete: seen > 0 && stored === seen && failed === 0 }));
   socket.on("message", data => {
+    if (closed) return;
     let message; try { message = JSON.parse(data.toString()); } catch { return; }
     if (!message || !message.usageMetadata) return;
     const sequence = nextSequence++; seen++;
@@ -194,7 +195,8 @@ function attachGeminiUsageTracking({ socket, capture, context, options, onEnd, o
   socket.on("close", () => {
     if (closed) return; closed = true;
     try { if (onEnd) onEnd(); } catch {}
-    settle().then(result => { if (!result.complete && onFallback) { try { onFallback(result); } catch {} } }, () => { try { if (onFallback) onFallback(); } catch {} });
+    const fallback = (result) => { if (!onFallback) return; try { Promise.resolve(onFallback(result)).catch(() => {}); } catch {} };
+    settle().then(result => { if (!result.complete) fallback(result); }, () => fallback());
   });
   return { settle };
 }
