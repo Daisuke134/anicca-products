@@ -14,6 +14,19 @@
       }
     },
     {
+      "id": "gig-evidence-lifecycle",
+      "path": "$HOME/gig/evidence",
+      "owner": "gig-revenue-loop",
+      "class": "managed_regenerable",
+      "ttl_seconds": null,
+      "quota_bytes": 0,
+      "lease": null,
+      "finalizer": {
+        "kind": "managed_reclaimer",
+        "reclaimer": "gig_evidence_gc"
+      }
+    },
+    {
       "id": "anicca-source",
       "path": "$HOME/anicca",
       "owner": "anicca-runtime",

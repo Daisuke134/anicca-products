@@ -33,7 +33,14 @@ GIG_WORKER_MAX_SECONDS="${GIG_WORKER_MAX_SECONDS:-7200}"
 GIG_HEARTBEAT_MAX_SECONDS="${GIG_HEARTBEAT_MAX_SECONDS:-180}"
 CANONICAL_GIG_ARGV="${GIG_WORKER_CANONICAL_ARGV:-/bin/bash $HOME_DIR/profitable-claude/skills/gig-work/gig_pass.sh}"
 THRESHOLD_GB="${EMERGENCY_GUARD_THRESHOLD_GB:-11}"
+# Enter containment below the emergency threshold, but only keep the writer
+# brake asserted until the same clear floor used by disk-sentinel/gig-gates is
+# reached.  The gap is intentional hysteresis: a 5-6GB host must not flap a
+# live paid lane merely because the emergency reserve is 11GB.
+RECOVERY_GB="${EMERGENCY_GUARD_RECOVERY_GB:-6}"
 ULTRA_GB="${EMERGENCY_GUARD_ULTRA_GB:-3}"
+GIG_EVIDENCE_GC_SCRIPT="${GIG_EVIDENCE_GC_SCRIPT:-$HOME_DIR/profitable-claude/skills/gig-work/scripts/evidence_gc.py}"
+export GIG_EVIDENCE_GC_SCRIPT
 TEST_MODE=0
 [ -n "${EMERGENCY_GUARD_TEST_PROCESS_FIXTURE:-}" ] && TEST_MODE=1
 DRY_RUN="${EMERGENCY_GUARD_DRY_RUN:-0}"
@@ -49,6 +56,11 @@ OPS_HEADER=$'timestamp\tresult\treason\tfree_before_gb\tfree_after_gb\teligible_
 
 mkdir -p "$LOG_DIR" "$STATE_DIR" 2>/dev/null || exit 1
 log() { printf '%s %s\n' "$(date '+%F %T')" "$*" >> "$LOG"; }
+
+case "$THRESHOLD_GB:$RECOVERY_GB:$ULTRA_GB" in
+  *[!0-9:]*|*:*:*:*|"") exit 1 ;;
+esac
+[ "$RECOVERY_GB" -lt "$THRESHOLD_GB" ] || exit 1
 
 if ! mkdir "$LOCK" 2>/dev/null; then
   OLD=$(cat "$LOCK/pid" 2>/dev/null || echo "")
@@ -549,8 +561,10 @@ cleanup_orphan_heartbeats
 
 FREE=$(free_gb)
 [ -n "$FREE" ] || exit 1
-if [ "$FREE" -ge "$THRESHOLD_GB" ]; then
+if [ "$FREE" -ge "$RECOVERY_GB" ]; then
   rm -f "$BACKPRESSURE" "$ALERT"
+  "$HOME_DIR/anicca-project/scripts/disk-recovery-redispatch.sh" >>"$LOG" 2>&1 || \
+    log "disk recovery redispatch unavailable or failed"
   exit 0
 fi
 
@@ -690,7 +704,7 @@ if [ "$FREE" -lt "$ULTRA_GB" ]; then
 fi
 
 NEW=$(free_gb)
-if [ "$RECLAIM_ELIGIBLE" -eq 0 ] || [ "$RECLAIMED_TOTAL" -eq 0 ] || [ "$NEW" -lt "$THRESHOLD_GB" ]; then
+if [ "$RECLAIM_ELIGIBLE" -eq 0 ] || [ "$RECLAIMED_TOTAL" -eq 0 ] || [ "$NEW" -lt "$RECOVERY_GB" ]; then
   if [ "$RECLAIM_ELIGIBLE" -eq 0 ]; then
     FAILURE_REASON=no-eligible-reclaim
   elif [ "$RECLAIMED_TOTAL" -eq 0 ]; then
@@ -702,9 +716,11 @@ if [ "$RECLAIM_ELIGIBLE" -eq 0 ] || [ "$RECLAIMED_TOTAL" -eq 0 ] || [ "$NEW" -lt
   append_ops failure "$FAILURE_REASON" "$FREE" "$NEW"
   printf 'result=failure reason=%s free_before_gb=%s free_after_gb=%s eligible_paths=%s reclaimed_bytes=%s policy=%s\n' \
     "$FAILURE_REASON" "$FREE" "$NEW" "$RECLAIM_ELIGIBLE" "$RECLAIMED_TOTAL" "$POLICY_VERSION" > "$ALERT"
-  log "FAILURE: ${FAILURE_REASON}; ${FREE}GB -> ${NEW}GB; backpressure remains"
+  log "FAILURE: ${FAILURE_REASON}; ${FREE}GB -> ${NEW}GB; recovery_floor=${RECOVERY_GB}GB; backpressure remains"
   exit 3
 fi
 rm -f "$BACKPRESSURE" "$ALERT"
 append_ops success reclaimed-bytes "$FREE" "$NEW"
-log "safe containment done: ${FREE}GB -> ${NEW}GB free; reclaimed=${RECLAIMED_TOTAL} bytes"
+"$HOME_DIR/anicca-project/scripts/disk-recovery-redispatch.sh" >>"$LOG" 2>&1 || \
+  log "disk recovery redispatch unavailable or failed"
+log "safe containment done: ${FREE}GB -> ${NEW}GB free; recovery_floor=${RECOVERY_GB}GB; reclaimed=${RECLAIMED_TOTAL} bytes"

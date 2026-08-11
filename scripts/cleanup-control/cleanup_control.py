@@ -47,14 +47,17 @@ PROTECTED_CLASSES = {
 }
 WORKTREE_COLLECTION_CLASS = "git_worktree_collection"
 REGENERABLE_OUTPUT_CLASS = "regenerable_output"
+MANAGED_REGENERABLE_CLASS = "managed_regenerable"
 GIT_CLONE_COLLECTION_CLASS = "git_clone_collection"
 WORKTREE_RECLAIM_GRACE_SECONDS = 24 * 60 * 60
 ALLOWED_CLASSES = PROTECTED_CLASSES | {
     "ephemeral",
     WORKTREE_COLLECTION_CLASS,
     REGENERABLE_OUTPUT_CLASS,
+    MANAGED_REGENERABLE_CLASS,
     GIT_CLONE_COLLECTION_CLASS,
 }
+MANAGED_RECLAIMERS = {"gig_evidence_gc"}
 TX_RE = re.compile(r"^[0-9a-f]{32}$")
 DISCOVERABLE_OUTPUT_PROOFS = {
     "node_modules": (
@@ -145,6 +148,15 @@ def _validate_entry(raw: Any) -> dict[str, Any]:
         if set(finalizer) != {"kind", "proof_path"}:
             raise ManifestError(f"artifact {raw['id']} finalizer schema is invalid")
         expected_finalizer = "verified_regenerable_remove"
+    elif artifact_class == MANAGED_REGENERABLE_CLASS:
+        if set(finalizer) != {"kind", "reclaimer"}:
+            raise ManifestError(f"artifact {raw['id']} finalizer schema is invalid")
+        reclaimer = finalizer["reclaimer"]
+        if reclaimer not in MANAGED_RECLAIMERS:
+            raise ManifestError(
+                f"artifact {raw['id']} has unknown managed reclaimer {reclaimer!r}"
+            )
+        expected_finalizer = "managed_reclaimer"
     elif artifact_class == GIT_CLONE_COLLECTION_CLASS:
         if set(finalizer) != {"kind", "child_name_prefix"}:
             raise ManifestError(f"artifact {raw['id']} finalizer schema is invalid")
@@ -164,6 +176,8 @@ def _validate_entry(raw: Any) -> dict[str, Any]:
         )
     if artifact_class == REGENERABLE_OUTPUT_CLASS:
         normalized_finalizer["proof_path"] = str(_normalized_path(finalizer["proof_path"]))
+    if artifact_class == MANAGED_REGENERABLE_CLASS:
+        normalized_finalizer["reclaimer"] = finalizer["reclaimer"]
     if artifact_class == GIT_CLONE_COLLECTION_CLASS:
         prefix = finalizer["child_name_prefix"]
         if not isinstance(prefix, str) or not prefix.strip():
@@ -325,6 +339,60 @@ def _lease_is_active(entry: dict[str, Any], now: int) -> bool:
     except FileNotFoundError:
         return False
     return age <= lease["max_age_seconds"]
+
+
+def _managed_reclaimer_command(
+    entry: dict[str, Any], target: Path
+) -> tuple[list[str] | None, str | None]:
+    """Resolve a named lifecycle reclaimer from device configuration.
+
+    The manifest owns the lifecycle decision; this resolver only maps the
+    allow-listed protocol name to its configured implementation.  A missing
+    or unsafe implementation fails closed and never falls back to a shell
+    command or a path guessed from artifact contents.
+    """
+    reclaimer = entry["finalizer"]["reclaimer"]
+    if reclaimer != "gig_evidence_gc":
+        return None, "managed_reclaimer_unknown"
+    configured = os.environ.get("GIG_EVIDENCE_GC_SCRIPT", "").strip()
+    if not configured:
+        return None, "managed_reclaimer_not_configured"
+    script = Path(os.path.expanduser(configured))
+    if not script.is_absolute() or not script.is_file() or script.is_symlink():
+        return None, "managed_reclaimer_missing"
+    return [
+        sys.executable,
+        str(script),
+        "--state-dir",
+        str(target.parent),
+        "--evidence-root",
+        str(target),
+        "--quiet",
+    ], None
+
+
+def _run_managed_reclaimer(
+    *, entry: dict[str, Any], target: Path
+) -> tuple[bool, int, str]:
+    command, error = _managed_reclaimer_command(entry, target)
+    if error:
+        return False, 0, error
+    assert command is not None
+    try:
+        before = _du_bytes(target)
+    except (OSError, ValueError):
+        return False, 0, "managed_reclaimer_size_unreadable"
+    result = _command(*command, cwd=target.parent)
+    if result.returncode != 0:
+        return False, 0, f"managed_reclaimer_rc_{result.returncode}"
+    try:
+        after = _du_bytes(target)
+    except (OSError, ValueError):
+        return False, 0, "managed_reclaimer_size_unreadable_after"
+    reclaimed = max(0, before - after)
+    if reclaimed <= 0:
+        return False, 0, "managed_reclaimer_zero_reclaim"
+    return True, reclaimed, "managed_reclaimer"
 
 
 def worktree_reclaim_decision(
@@ -1278,6 +1346,48 @@ def sweep(
                 now=now,
             )
             append_ledger(ledger_path, event)
+            result["preserved"] += 1
+            continue
+        if entry["class"] == MANAGED_REGENERABLE_CLASS:
+            removed, reclaimed, reason = _run_managed_reclaimer(
+                entry=entry,
+                target=target,
+            )
+            if removed:
+                event = _event_base(
+                    event="removed",
+                    reason=reason,
+                    path=target,
+                    entry=entry,
+                    policy_version=policy_version,
+                    manifest_sha256=manifest_sha256,
+                    now=now,
+                )
+                event.update(
+                    {
+                        "result": "success",
+                        "bytes": reclaimed,
+                        "reclaimer": entry["finalizer"]["reclaimer"],
+                    }
+                )
+                append_ledger(ledger_path, event)
+                result["quarantined"] += 1
+                result["bytes_quarantined"] += reclaimed
+                continue
+            event = _event_base(
+                event="preserved",
+                reason=reason,
+                path=target,
+                entry=entry,
+                policy_version=policy_version,
+                manifest_sha256=manifest_sha256,
+                now=now,
+            )
+            event.update({"reclaimer": entry["finalizer"]["reclaimer"]})
+            event["result"] = "error" if reason.endswith("unreadable") or reason.endswith("missing") else "preserved"
+            append_ledger(ledger_path, event)
+            if event["result"] == "error":
+                result["errors"] += 1
             result["preserved"] += 1
             continue
         if entry["class"] == WORKTREE_COLLECTION_CLASS:
