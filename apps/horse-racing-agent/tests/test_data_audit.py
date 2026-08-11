@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from horse_racing_agent.data_audit import AuditRejected, AuditReport, audit_records
+from horse_racing_agent.nar_outcome import WinOutcome, WinPayout
 
 
 FIXTURES = json.loads(
@@ -17,6 +18,7 @@ JRA = FIXTURES["jra_official"]
 JRA_URL = NAR_URL = None
 JRA_URL = JRA["source_url"]
 NAR_URL = NAR["source_url"]
+OUTCOME_SHA = "d" * 64
 
 
 def _copy(record: dict[str, object], **changes: object) -> dict[str, object]:
@@ -46,6 +48,36 @@ def _secondary(record: dict[str, object], **changes: object) -> dict[str, object
     )
     value.update(changes)
     return value
+
+
+def _ready_nar(record: dict[str, object], **changes: object) -> dict[str, object]:
+    return _official(
+        record,
+        runners=[
+            {"runner_id": "runner-ready-01", "horse_number": 1, "odds": 2.0, "body_weight_kg": 480.0},
+            {"runner_id": "runner-ready-02", "horse_number": 2, "odds": 4.0, "body_weight_kg": 470.0},
+        ],
+        **changes,
+    )
+
+
+def _outcome(record: dict[str, object], *, payouts: tuple[int, ...] = (100,), **changes: object) -> WinOutcome:
+    values = {
+        "_race_id": record["race_id"],
+        "_market": "win",
+        "_status": "settled",
+        "_source_url": NAR_URL,
+        "_source_authority": "official",
+        "_jurisdiction": "NAR",
+        "_evidence_class": "REAL_PUBLIC_WEB_RECORD",
+        "_captured_at": "2026-08-11T14:11:02+09:00",
+        "_source_sha256": OUTCOME_SHA,
+        "_payouts": tuple(
+            WinPayout(f"runner-{index}", payout) for index, payout in enumerate(payouts, start=1)
+        ),
+    }
+    values.update(changes)
+    return WinOutcome(**values)
 
 
 def _manifest(
@@ -130,6 +162,97 @@ def test_empty_records_are_a_valid_redacted_not_ready_audit():
     }
     assert not hasattr(report, "runners")
     assert "runner" not in repr(report).casefold()
+
+
+def test_audit_records_accepts_typed_outcomes_keyword():
+    report = audit_records([], _official_manifests(), outcomes=())
+
+    assert report.settled_payback_rows == 0
+    assert report.model_ready is False
+
+
+def test_typed_official_outcomes_unlock_only_verified_nar_settlement():
+    first = _ready_nar(NAR)
+    second = _ready_nar(
+        NAR,
+        record_id="record-nar-ready-002",
+        event_id="event-nar-ready-002",
+        race_id="race-nar-ready-002",
+        race_at="2026-08-09T12:00:00+09:00",
+        snapshot_at="2026-08-09T11:54:00+09:00",
+        cutoff_at="2026-08-09T11:55:00+09:00",
+    )
+    manifests = {
+        NAR_URL: _manifest(NAR, parsed_row_count=25008, content_sha256="c" * 64),
+    }
+    report = audit_records(
+        [first, second],
+        manifests,
+        outcomes=(_outcome(first), _outcome(second, payouts=(200, 300))),
+    )
+
+    assert report.record_count == 2
+    assert report.race_count == 2
+    assert report.settled_payback_rows == 3
+    assert report.content_hashes == ("c" * 64, OUTCOME_SHA)
+    assert "NO_SETTLED_PAYBACK" not in report.blockers
+    assert "NO_MATCHING_SETTLED_PAYBACK" not in report.blockers
+    assert report.blockers == ()
+    assert report.model_ready is True
+    assert report.cash_authorized is False
+    assert "race-nar-ready-002" not in repr(report)
+    assert "runner-1" not in repr(report)
+    assert "300" not in repr(report)
+
+
+def test_manifest_settlement_remains_rejected_with_typed_outcomes():
+    record = _ready_nar(NAR)
+    with pytest.raises(AuditRejected, match="settlement evidence is unverified"):
+        audit_records(
+            [record],
+            {NAR_URL: _manifest(NAR, settled_payback_rows=1, settled_race_ids=[NAR["race_id"]])},
+            outcomes=(_outcome(record),),
+        )
+
+
+def test_typed_outcomes_require_exact_latest_nar_race_coverage():
+    first = _ready_nar(NAR)
+    second = _ready_nar(
+        NAR,
+        record_id="record-nar-ready-002",
+        event_id="event-nar-ready-002",
+        race_id="race-nar-ready-002",
+        race_at="2026-08-09T12:00:00+09:00",
+        snapshot_at="2026-08-09T11:54:00+09:00",
+        cutoff_at="2026-08-09T11:55:00+09:00",
+    )
+    manifests = {NAR_URL: _manifest(NAR, content_sha256="c" * 64)}
+    with pytest.raises(AuditRejected, match="coverage"):
+        audit_records([first, second], manifests, outcomes=(_outcome(first),))
+    with pytest.raises(AuditRejected, match="coverage"):
+        audit_records(
+            [first, second],
+            manifests,
+            outcomes=(_outcome(first), _outcome(second, _race_id="race-unrelated")),
+        )
+
+
+def test_typed_outcomes_reject_duplicate_race_and_mutated_metadata():
+    first = _ready_nar(NAR)
+    manifests = {NAR_URL: _manifest(NAR, content_sha256="c" * 64)}
+    with pytest.raises(AuditRejected, match="outcome"):
+        audit_records([first], manifests, outcomes=[_outcome(first), _outcome(first)])
+
+    mutated = _outcome(first)
+    object.__setattr__(mutated, "_jurisdiction", "JRA")
+    with pytest.raises(AuditRejected, match="outcome"):
+        audit_records([first], manifests, outcomes=(mutated,))
+
+
+@pytest.mark.parametrize("value", [object(), {"_race_id": NAR["race_id"]}])
+def test_typed_outcomes_reject_wrong_item_types(value: object):
+    with pytest.raises(AuditRejected, match="outcome"):
+        audit_records([], _official_manifests(), outcomes=(value,))
 
 
 def test_current_actual_audit_accepts_two_official_manifests_without_records():

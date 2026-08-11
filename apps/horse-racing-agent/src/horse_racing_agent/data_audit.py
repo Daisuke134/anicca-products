@@ -7,6 +7,7 @@ from types import MappingProxyType
 from typing import Mapping as TypingMapping
 
 from horse_racing_agent.ingest import _source_scope
+from horse_racing_agent.nar_outcome import WinOutcome, WinPayout
 from horse_racing_agent.store import (
     StoreRecordRejected,
     canonical_content_hash,
@@ -31,6 +32,7 @@ _EVIDENCE_CLASSES = {
     "PUBLIC_WEB_SECONDARY",
 }
 _SHA256 = re.compile(r"[0-9a-fA-F]{64}\Z")
+_NAR_OUTCOME_METADATA = ("win", "settled", "official", "NAR", "REAL_PUBLIC_WEB_RECORD")
 
 
 class AuditRejected(ValueError):
@@ -173,15 +175,59 @@ def _validate_manifests(
     return normalized
 
 
+def _validate_outcomes(
+    outcomes: list[WinOutcome] | tuple[WinOutcome, ...],
+) -> tuple[WinOutcome, ...]:
+    if not isinstance(outcomes, (list, tuple)):
+        _reject("outcomes must be a sequence")
+    seen_race_ids: set[str] = set()
+    for outcome in outcomes:
+        if not isinstance(outcome, WinOutcome):
+            _reject("outcome type is invalid")
+        if (
+            (outcome._market, outcome._status, outcome._source_authority,
+             outcome._jurisdiction, outcome._evidence_class)
+            != _NAR_OUTCOME_METADATA
+        ):
+            _reject("outcome metadata is invalid")
+        if (
+            not all(
+                isinstance(value, str) and value.strip()
+                for value in (outcome._race_id, outcome._captured_at)
+            )
+            or outcome._race_id in seen_race_ids
+        ):
+            _reject("outcome identity or metadata is invalid")
+        try:
+            scope = _source_scope(outcome._source_url, "official", "NAR")
+        except (TypeError, ValueError):
+            _reject("outcome source scope is invalid")
+        if (
+            scope != "private_shadow"
+            or not isinstance(outcome._source_sha256, str)
+            or _SHA256.fullmatch(outcome._source_sha256) is None
+            or outcome._source_sha256.casefold() != outcome._source_sha256
+            or not isinstance(outcome._payouts, tuple)
+            or not outcome._payouts
+            or any(not isinstance(payout, WinPayout) or not isinstance(payout._winner_runner_id, str) or not payout._winner_runner_id.strip() or type(payout._payout_yen_per_100) is not int or payout._payout_yen_per_100 <= 0 for payout in outcome._payouts)
+        ):
+            _reject("outcome hash or payouts are invalid")
+        seen_race_ids.add(outcome._race_id)
+    return tuple(outcomes)
+
+
 def audit_records(
     records: list[dict[str, object]] | tuple[dict[str, object], ...],
     manifests: TypingMapping[str, object],
+    *,
+    outcomes: list[WinOutcome] | tuple[WinOutcome, ...] = (),
 ) -> AuditReport:
     """Audit accepted normalized records against exact source manifests."""
 
     if not isinstance(records, (list, tuple)):
         _reject("records must be a sequence")
     manifest_map = _validate_manifests(manifests)
+    accepted_outcomes = _validate_outcomes(outcomes)
 
     normalized_records: list[dict[str, object]] = []
     record_entries: list[tuple[dict[str, object], dict[str, object], datetime]] = []
@@ -254,6 +300,8 @@ def audit_records(
         if current is None or entry[2] > current[2]:
             latest_official[key] = entry
 
+    if accepted_outcomes and {outcome._race_id for outcome in accepted_outcomes} != {race_id for jurisdiction, race_id in latest_official if jurisdiction == "NAR"}:
+        _reject("outcome race coverage is invalid")
     official_odds_observed = False
     missing_official_odds = False
     official_stale = False
@@ -266,7 +314,7 @@ def audit_records(
             official_stale = True
         if manifest["parsed_row_count"] <= 0:
             official_zero_rows = True
-        if record["race_id"] not in manifest["settled_race_ids"]:
+        if not accepted_outcomes and record["race_id"] not in manifest["settled_race_ids"]:
             unmatched_settlement = True
         record_has_odds = any(runner["odds"] is not None for runner in record["runners"])
         if record_has_odds:
@@ -275,12 +323,7 @@ def audit_records(
         else:
             missing_official_odds = True
 
-    settled_payback_rows = sum(
-        int(manifest["settled_payback_rows"])
-        for manifest in manifest_map.values()
-        if manifest["evidence_class"] == "REAL_PUBLIC_WEB_RECORD"
-        and manifest["source_authority"] == "official"
-    )
+    settled_payback_rows = sum(len(outcome._payouts) for outcome in accepted_outcomes)
     blockers: list[str] = []
     if not normalized_records:
         blockers.append("NO_NORMALIZED_ACTUAL_RECORDS")
@@ -321,7 +364,7 @@ def audit_records(
         cutoff_violations=0,
         max_odds_snapshot_age_seconds=max(odds_ages) if odds_ages else None,
         settled_payback_rows=settled_payback_rows,
-        content_hashes=tuple(sorted({manifest["content_sha256"] for manifest in manifest_map.values()})),
+        content_hashes=tuple(sorted({manifest["content_sha256"] for manifest in manifest_map.values()} | {outcome._source_sha256 for outcome in accepted_outcomes})),
         evidence_classes=tuple(sorted({manifest["evidence_class"] for manifest in manifest_map.values()})),
         allowed_scopes=tuple(sorted({manifest["allowed_scope"] for manifest in manifest_map.values()})),
         cash_authorized=False,
