@@ -1,6 +1,6 @@
 # Writer Agent — Revenue, UX, Runtime, and Roadmap SSOT
 
-Last updated: 2026-08-06 JST
+Last updated: 2026-08-13 JST
 
 This file is the only current source of truth for the Writer Agent's objective,
 user experience, revenue model, execution order, and remaining work. Historical
@@ -1583,7 +1583,48 @@ Only one foreground implementation item is active at a time. Always-running
 production workers may publish, retry, measure, report, and monitor publisher
 responses concurrently. External waiting never blocks the foreground queue.
 
-#### Atomic remaining queue
+#### Current atomic remaining queue
+
+This table is the only executable order. The historical queue below preserves
+incident evidence but does not select the next task.
+
+| Order | Atomic work item | Completion receipt |
+|---:|---|---|
+| 1 | Restore the daily exact-eight contract. New runs must not convert `x-article/en` or `x-post/ja` into `dormant-destination` skips, and `publication_resume.py init --x-post-ja` must persist the frozen X-post path and hash. Add an atomic, idempotent migration for the existing 2026-08-12/13 active-six states: preserve every artifact hash and stable target, replace both dormant skips with real pending/intended work, and write a migration receipt. Replace the daily prompt's `bash publication-guard.py` instruction with the executable Python entry point. | Focused RED/GREEN tests, two replay-safe state-migration receipts, and initialized state containing eight real pending/intended pairs plus the X-post artifact hash |
+| 2 | Resume `daily-2026-08-13` through the installed loop, not a foreground manual publisher, and obtain publisher-native public readback for all eight destinations. A missing URL is an SLO breach, not success. | Eight public URLs with owner/content readback, duplicate zero, `article-resume` exit `0` |
+| 3 | Reconcile `daily-2026-08-12`: preserve its existing stable draft IDs, never recreate an ambiguous target, and either publish each pair or record an owned destination incident that keeps retrying. | Per-pair live receipt or durable incident/retry owner; no duplicate external effect |
+| 4 | Make every future 06:00 run reach publication dispatch after bounded editorial/reader iteration. Quality feedback remains improvement input; it cannot cancel shipment. | Forced production run with eight dispatches and a daily exact-eight completion receipt |
+| 5 | Repair per-destination recovery so one platform failure never cancels the other seven and every resume tick terminates honestly. | Failure fixture, live recovery receipt, and healthy launchd exits |
+| 6 | Complete paid-demand topic selection and publish the first article whose buyer, problem, transformation, deliverable, price hypothesis, distribution path, and source bodies are receipted. | Production topic card joined to the published exact-eight run |
+| 7 | Deploy Writer Money Control at a public Writer URL with exact-eight status, every public link, verified revenue by stream, and Web/Telegram semantic parity. | Public HTML/JSON readback and equal semantic hash |
+| 8 | Obtain and reconcile the first external writing payment, then run the one-variable self-improvement canary. | Positive processor/publisher receipt joined to one article; later KEEP/REVERT/INCONCLUSIVE receipt |
+| 9 | Pass the first-dollar, $400/month, $1,000/month, scorable unit-economics, $10,000/month, and $10,000 active-MRR gates without counting one-time revenue as MRR. | External money, fee, refund, payout, renewal, and churn receipts |
+| 10 | Only after Dais's unit is positive-net and autonomous, package OSS/cloud parity, reproduce external-user revenue, add only positive-net units, and advance $100K, $1M, and $10M MRR gates. | Independent install-to-revenue receipt and bounded-spend scale-controller receipts |
+
+Current production evidence:
+
+- `ai.anicca.article-daily` is loaded with `ARTICLE_AUTOPUBLISH=1`, runs at
+  06:00, and reports last exit `0`. `ai.anicca.article-resume` remains loaded
+  every 300 seconds but currently reports last exit `2`.
+- `daily-2026-08-12` published Note JA at
+  `https://note.com/anicca123/n/nc660f8bd5f2d`; anonymous public readback shows
+  the matching title, 2026-08-12 06:20 JST, and ¥500 paywall. Its durable state
+  still calls that target `ambiguous` with `canonical-content-readback-failed`,
+  so external reality and internal reconciliation disagree. The other five
+  stable draft/intended targets are not verified live, and X Article EN/X Post
+  JA are explicit dormant skips.
+- `daily-2026-08-13` has no platform dispatch result or public URL. Its state
+  contains only the two dormant X skips. The frozen `x-post-ja.txt` exists, but
+  the active-six initializer persists `x_post.path` and `sha256` as null.
+- The generated daily prompt invokes the Python file `publication-guard.py`
+  through `bash`; the production log records `from: command not found` and a
+  shell syntax error. This prevents target registration and dispatch.
+- The latest public publications by platform are not daily: Note 2026-08-12,
+  Dev.to and Substack 2026-08-10, X Article 2026-08-09 JST, Zenn 2026-08-06,
+  and X Post 2026-08-02. The report ledger is stale for several of those public
+  pages. Verified received writing revenue remains zero.
+
+#### Superseded queue history (not executable)
 
 | Order | Atomic work item | Owner | Completion receipt |
 |---:|---|---|---|
