@@ -1646,43 +1646,97 @@ responses concurrently. External waiting never blocks the foreground queue.
 This table is the only executable order. The historical queue below preserves
 incident evidence but does not select the next task.
 
+The owner changed the daily contract during execution. The current contract is
+**active-four**, exactly: Note JA, Substack JA, Substack EN, and X Article JA.
+Zenn JA and Dev.to EN joined X Article EN and X Post JA as dormant destinations
+because they do not directly monetize. Historical active-six state and public
+receipts remain immutable evidence, but they do not make those destinations
+required or eligible for new dispatch/recovery.
+
 | Order | Atomic work item | Completion receipt |
 |---:|---|---|
-| 1 | Keep the existing installed loop scheduled and restore active-six dispatch. Replace the generated prompt's `bash publication-guard.py` instruction with the executable Python entry point; make both creator and recovery resolve code through an explicit runtime root while preserving one explicit live state root; do not change the two dormant adapters. Deploy only after GREEN/review through one bounded idle bootout/bootstrap with zero simultaneous owners and an exact rollback. | Focused RED/GREEN root/state and guard tests; installed labels resolve one tested immutable code root plus the existing state root; one creator and one recovery owner; an installed-loop run reaches six active intents; X Article EN and X Post JA remain explicit dormant skips |
-| 2 | Reconcile `daily-2026-08-12` through the installed loop. Accept the already-public Note JA as external truth after matching owner/content, preserve every existing stable target, and publish or keep retrying the other five active destinations without duplicate effects. | Six publisher-native public URLs with owner/content readback, internal Note reconciliation, duplicate zero |
-| 3 | Resume `daily-2026-08-13` through the installed loop, not a foreground manual publisher, and obtain publisher-native public readback for all six active destinations. | Six public URLs with owner/content readback, duplicate zero, `article-resume` exit `0` |
-| 4 | Make every future 06:00 run reach active-six publication after bounded editorial/reader iteration. Quality feedback remains improvement input and cannot cancel shipment. | Next scheduled or safely kickstarted production run completes active-six without manual publication |
-| 5 | Repair per-destination recovery so one platform failure never cancels the other five and every resume tick terminates honestly. | Failure fixture, live same-target recovery receipt, and healthy launchd exits |
 | 6 | After Orders 1–5 pass, move the canonical Writer Skill, tests, installers, SSOT, and Money Control into the Life Manager monorepo while the old runtime continues serving. Separate portable source from per-install secrets/state/receipts. | Life Manager canonical tree, portable-state contract, and parity suite; no production cutover yet |
-| 7 | Perform one measured cutover from the old runtime tree to the Life Manager Writer Skill. Prevent two daily creators and preserve stable IDs, ledger, receipts, and resume ownership. | Pre/post active-six parity, one creator/one recovery owner, post-cutover live active-six receipt, rollback receipt |
-| 8 | Complete paid-demand topic selection and publish the first article whose buyer, problem, transformation, deliverable, price hypothesis, distribution path, and source bodies are receipted. | Production topic card joined to the published active-six run |
-| 9 | Deploy Writer Money Control at a public Writer URL with active-six status, every public link, verified revenue by stream, and Web/Telegram semantic parity. | Public HTML/JSON readback and equal semantic hash |
+| 7 | Perform one measured cutover from the old runtime tree to the Life Manager Writer Skill. Prevent two daily creators and preserve stable IDs, ledger, receipts, and resume ownership. | Pre/post active-four parity, one creator/one recovery owner, post-cutover live active-four receipt, rollback receipt |
+| 8 | Complete paid-demand topic selection and publish the first article whose buyer, problem, transformation, deliverable, price hypothesis, distribution path, and source bodies are receipted. | Production topic card joined to the published active-four run |
+| 9 | Deploy Writer Money Control at a public Writer URL with active-four status, every public link, verified revenue by stream, and Web/Telegram semantic parity. | Public HTML/JSON readback and equal semantic hash |
 | 10 | Obtain and reconcile the first external writing payment, then run the one-variable self-improvement canary. | Positive processor/publisher receipt joined to one article; later KEEP/REVERT/INCONCLUSIVE receipt |
 | 11 | Pass the first-dollar, $400/month, $1,000/month, scorable unit-economics, $10,000/month, and $10,000 active-MRR gates without counting one-time revenue as MRR. | External money, fee, refund, payout, renewal, and churn receipts |
 | 12 | Package the same Writer Skill for macOS, Linux, Windows, and cloud, reproduce one external user's real writing revenue, add only positive-net units, and advance $100K, $1M, and $10M MRR gates. | Independent install-to-revenue receipt, cross-platform parity, and bounded-spend scale-controller receipts |
 
 Current production evidence:
 
-- `ai.anicca.article-daily` is loaded with `ARTICLE_AUTOPUBLISH=1`, runs at
-  06:00, and reports last exit `0`. `ai.anicca.article-resume` remains loaded
-  every 300 seconds but currently reports last exit `2`.
-- `daily-2026-08-12` published Note JA at
-  `https://note.com/anicca123/n/nc660f8bd5f2d`; anonymous public readback shows
-  the matching title, 2026-08-12 06:20 JST, and ¥500 paywall. Its durable state
-  still calls that target `ambiguous` with `canonical-content-readback-failed`,
-  so external reality and internal reconciliation disagree. The other five
-  stable draft/intended targets are not verified live, and X Article EN/X Post
-  JA are explicit dormant skips.
-- `daily-2026-08-13` has no platform dispatch result or public URL. Its state
-  contains the two expected dormant X skips. A null `x_post.path`/`sha256` is
-  correct because X Post JA is not an active-six intent.
-- The generated daily prompt invokes the Python file `publication-guard.py`
-  through `bash`; the production log records `from: command not found` and a
-  shell syntax error. This prevents target registration and dispatch.
-- The latest public publications by platform are not daily: Note 2026-08-12,
-  Dev.to and Substack 2026-08-10, X Article 2026-08-09 JST, Zenn 2026-08-06,
-  and X Post 2026-08-02. The report ledger is stale for several of those public
-  pages. Verified received writing revenue remains zero.
+- Orders 1–5 are closed on runtime commit `e9ab21ea303c70b0f201c5b8bb8ec13c4303a47b`
+  plus its pushed active-four predecessor commits. `publication-guard.py` is
+  executed as Python; creator and recovery use the tested explicit
+  `ARTICLE_ROOT` and the existing explicit `ARTICLE_STATE_DIR`.
+- `ai.anicca.article-daily` is loaded once, idle with last exit `0`, scheduled
+  at 06:00. `ai.anicca.article-resume` is loaded once, idle, scheduled every
+  300 seconds. Its latest natural tick exited `1` honestly after selecting only
+  the persisted `daily-2026-08-10` Substack JA/EN intents and making no progress
+  or external effect; it did not select dormant Dev.to or Zenn. Both
+  ProgramArguments and `ARTICLE_ROOT` resolve
+  to the tested runtime worktree; both share the existing live state root.
+  `ai.anicca.article-zenn-retry` is unloaded. The original entry points remain
+  the exact rollback. One earlier recovery edit created an excessive measured
+  zero-owner interval of about 895 seconds; the later active-four cutover window
+  was 0.025 seconds, with no simultaneous old/new owners.
+- `daily-2026-08-12` validates complete under active-four with duplicate zero:
+  Note JA `https://note.com/anicca123/n/nc660f8bd5f2d`, Substack JA
+  `https://aniccabuddha.substack.com/p/4`, Substack EN
+  `https://aniccabuddha.substack.com/p/a-finished-draft-isnt-a-pitch-four`,
+  and X Article JA `https://x.com/diceai0/article/2087756946699116723`.
+  Its historical Dev.to live receipt and Zenn intent are preserved but ignored
+  by the current resolver.
+- `daily-2026-08-13` validates complete under active-four with owner, content,
+  media, and identity readback: Note JA
+  `https://note.com/anicca123/n/nf5203a03d94a`, Substack JA
+  `https://aniccabuddha.substack.com/p/apifycivo`, Substack EN
+  `https://aniccabuddha.substack.com/p/stop-choosing-where-to-publish-by`,
+  and X Article JA `https://x.com/diceai0/article/2087792473695535295`.
+  The other four pairs are durable `skipped` receipts with SLO
+  `not-applicable`. Each active stable target occurs exactly once in the ledger.
+- The 2026-08-13 quality controller reached `ready_to_freeze`, wrote terminal
+  JA/EN receipts, and dispatched exactly four rows. X Article failed twice
+  after the other three destinations were already live, preserved the same edit
+  target, then recovered to public readback. Thus one destination failure did
+  not cancel healthy destinations, and the recovery exit reflected reality.
+- A safe same-day creator kickstart exited `0`, created no second run directory,
+  and added no duplicate ledger target. Foreground agents did not call publisher
+  adapters or manually publish; all live effects belonged to the installed loop.
+- Current completion notifications use `article-active-four:<run_id>` and list
+  exactly the four required pairs. An already-sent 2026-08-13 outbox retains its
+  historical `article-active-six:` key and message ID; the notifier canonicalizes
+  that alias for deduplication without resending or rewriting the receipt.
+- Verified received writing revenue remains zero. Orders 6–12 therefore remain
+  open; active-four publication reliability is necessary infrastructure, not a
+  claim of $10K monthly revenue.
+
+#### Revenue staff topology
+
+```mermaid
+flowchart TD
+  D[Demand scout<br/>paid buyer problem] --> W[Writer<br/>JA and EN assets]
+  W --> Q[Bounded quality<br/>freeze best safe version]
+  Q --> C[Daily creator<br/>06:00]
+  C --> N[Note JA<br/>paid article]
+  C --> SJ[Substack JA<br/>paid subscription]
+  C --> SE[Substack EN<br/>paid subscription]
+  C --> X[X Article JA<br/>discovery funnel]
+  C -. dormant .-> DZ[Zenn and Dev.to<br/>no daily work]
+  N --> R[Native readback<br/>owner content media]
+  SJ --> R
+  SE --> R
+  X --> R
+  R --> L[Stable-ID ledger<br/>dedupe receipts]
+  F[Recovery<br/>every 300 seconds] --> C
+  L --> M[Money Control<br/>gross fees refunds net]
+  M --> E[One-variable experiments<br/>keep or revert]
+  E --> D
+  M --> G1[First dollar]
+  G1 --> G2[$400 per month]
+  G2 --> G3[$1K per month]
+  G3 --> G4[$10K monthly revenue]
+```
 
 #### Superseded queue history (not executable)
 
