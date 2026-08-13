@@ -901,7 +901,7 @@ and capacity are measured.
 
 | Stage | Target | Gate |
 |---|---|---|
-| S-1 | Publishing alive | One forced installed-loop run publishes the complete §2.5 daily revenue set with publisher-native readback and duplicate zero; the armed daily monitor owns future regression detection |
+| S-1 | Publishing alive | One forced installed-loop run publishes all six §2.5 active destinations with publisher-native readback and duplicate zero; the armed daily monitor owns future regression detection |
 | S0 | First money | One verified non-test payment joined to an article or publisher submission |
 | S1 | $400 monthly | $400 verified monthly writing revenue from any receipted mix; one publisher article may satisfy it, but it is not recurring |
 | S2 | $1,000 monthly | Three consecutive revenue-positive weeks with zero manual execution |
@@ -1078,8 +1078,9 @@ worktree and live path—returned exactly `TERRAMEDIUM`, exit `0`, provider log
 `status=success`, and health `healthy`, without publication. The post-change
 suite is `337/369 passed`: the new Writer test passes and the same 32 unrelated
 files fail, so the failure set did not grow. Terra-high, Sol routing, cost
-receipts and `block_freeze` remain later slices; the revenue-set shipment is the
-binding publication gate and free-discovery adapters are non-blocking.
+receipts and `block_freeze` remain later slices. That historical three-destination
+gate is superseded by §2.5: all six active destinations are binding daily SLOs,
+while one destination failure never cancels dispatch or recovery for another.
 
 The second one-at-a-time slice is
 `docs/writer-agent/plans/2026-08-05-terra-high-editorial-escalation.md`.
