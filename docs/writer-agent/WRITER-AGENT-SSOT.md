@@ -1,25 +1,28 @@
-# Writer Agent — Revenue, UX, Runtime, and Roadmap SSOT
+# Writer Skill and Writer Loop — Revenue, UX, Runtime, and Roadmap SSOT
 
 Last updated: 2026-08-13 JST
 
-This file is the only current source of truth for the Writer Agent's objective,
-user experience, revenue model, execution order, and remaining work. Historical
+This file is the only current source of truth for the Writer Skill and Writer
+Loop's objective, user experience, revenue model, execution order, and remaining work. Historical
 investigation and incident evidence remains in
 `docs/loop-engineering/47-writer-loop-quality-and-self-improvement.md`, but that
 file no longer defines current priorities or completion.
 
 ## 0. Objective
 
-Build one Writer Agent that continuously discovers valuable subjects, writes,
-publishes, earns directly from its writing, measures verified payments, repairs
+Build one portable Writer Skill whose installed Writer Loop continuously
+discovers valuable subjects, writes, publishes, earns directly from its writing,
+measures verified payments, repairs
 its own interrupted runs, and reports money without ongoing human operation.
 
 ### 0.1 Canonical name and subject scope
 
-The product and agent name is **Writer Agent**. **Writer Loop** means its
-persistent execution loop. `AI Entity Article Writer`,
-`ai-entity-article-writer`, and similar names are legacy runtime identifiers,
-not the current product name.
+The portable product is **Writer Skill**. **Writer Loop** means one installed,
+persistent execution of that skill. "Writer Agent" is allowed only as an
+internal technical description of the LLM-plus-tools execution model; it is not
+the product, folder, UI, or public name. `AI Entity Article Writer`,
+`ai-entity-article-writer`, `writer-agent`, and similar names are compatibility
+identifiers during migration, not the final product name.
 
 The Writer has no AI-entity subject restriction. It may write about any lawful
 subject when the model finds evidence of reader value, editorial demand,
@@ -28,12 +31,66 @@ from current claims, audience evidence, opportunity terms, product state, and
 past economics; it is not a hard-coded subject allowlist or keyword router.
 
 Legacy names in historical incident reports or in Anicca's separate brand
-description are historical/brand facts and need not be rewritten. Active
-Writer skill metadata, aliases, prompts, scheduler descriptions, state paths,
-tests, and UI labels must migrate to `writer-agent` without creating a second
-pipeline or breaking existing durable runs. Temporary compatibility aliases
-must point to the one canonical Writer tree and be removed only after a live
-resume/publish parity receipt.
+description are historical/brand facts and need not be rewritten. Active skill
+metadata, prompts, scheduler descriptions, tests, and UI labels must migrate to
+`writer`. Temporary compatibility aliases may retain legacy names only when
+they point to the one canonical Writer Skill and preserve live resume/publish
+behavior.
+
+### 0.1.1 Repository and portability contract
+
+`/Users/anicca/anicca-project` (Life Manager) becomes the only source repository
+for the Writer Skill, its SSOT, tests, installers, and Writer Money Control.
+`/Users/anicca/profitable-claude` remains the live runtime owner only during a
+measured migration and is not a second long-term source of truth.
+
+The migration MUST NOT interrupt daily publication. First, the existing
+installed loop must complete active-six publication and recovery. Then the same
+skill is copied into `anicca-project/skills/writer`, tested in parallel without
+duplicate external effects, and cut over once after publication/state parity.
+The old runtime entry points become compatibility shims or are removed only
+after a live post-cutover active-six receipt.
+
+Portable code, prompts, tool contracts, evals, tests, and OS/cloud installers
+belong in the repository. Secrets, login sessions, immutable receipts, money
+ledger rows, and mutable run state belong in an external per-install data root,
+never Git. macOS launchd, Linux systemd, Windows Task Scheduler, and cloud
+workers are thin scheduler adapters over the same Writer Skill contract.
+
+The target source tree is:
+
+```text
+anicca-project/
+├── skills/writer/
+│   ├── SKILL.md
+│   ├── loop/
+│   ├── prompts/
+│   ├── tools/{research,publish,measure,report}/
+│   ├── evals/
+│   ├── config/
+│   ├── installers/{macos,linux,windows,cloud}/
+│   └── tests/
+├── apps/writer-money-control/
+└── docs/writer-agent/WRITER-AGENT-SSOT.md
+```
+
+The filename remains a compatibility path until the runtime and repository
+cutover is complete. Its canonical content and UI vocabulary are Writer Skill
+and Writer Loop.
+
+```mermaid
+flowchart TB
+    LM["Life Manager monorepo<br/>one source"] --> SK["Portable Writer Skill"]
+    SK --> MAC["macOS loop"]
+    SK --> LIN["Linux loop"]
+    SK --> WIN["Windows loop"]
+    SK --> CLD["Cloud loop"]
+    MAC --> DATA["Per-install state, secrets, receipts"]
+    LIN --> DATA
+    WIN --> DATA
+    CLD --> DATA
+    DATA --> UI["Web, Telegram, Life Manager UI"]
+```
 
 The order is:
 
@@ -424,36 +481,37 @@ Articles UI, and registered fixed edit target
 resume tick published that same ID and recorded a verified live receipt at
 `https://x.com/diceai0/article/2085395986491527441`, including owner, immutable
 article hash, cover, and body-media readback. Under the superseded active-six
-contract this was five of six. Under the current §2.5 contract the Zenn window
-is a non-blocking distribution outcome and cannot delay revenue shipment.
+contract this was five of six. That historical non-blocking classification is
+superseded: under current §2.5 Zenn is one of the six required daily outcomes,
+while a Zenn-specific window still cannot delay dispatch to the other five.
 
-### 2.5 Daily revenue set and non-blocking distribution contract
+### 2.5 Daily active-six publication contract
 
 One daily Writer run freezes one Japanese article and one independently
 localized English article. Translation does not create a second topic or daily
-run. The daily shipment is successful when the installed loop returns verified
-public readback for all three revenue-capable intents below. A single forced
-production run is sufficient to verify this machinery now; continued daily SLO
-monitoring detects later regressions but is not a three-day development gate.
+run. The daily shipment is successful only when the installed loop returns
+verified public readback for all six active destinations below. Revenue-capable
+and acquisition roles remain distinct in accounting, but all six are daily
+publication SLOs. A single forced production run is sufficient to verify the
+machinery now; continued daily monitoring detects later regressions.
 
 | Required daily destination | Language | Revenue role | Required receipt |
 |---|---|---|---|
 | note paid article | JA | One-time direct writing revenue | Authenticated price/paywall readback, public URL, later purchase/fee/payout receipt |
 | Substack article | JA | Recurring direct writing revenue | Authenticated paid-audience/paywall readback, public URL, later contract/charge/churn receipt |
 | Substack article | EN | Recurring direct writing revenue | Authenticated paid-audience/paywall readback, public URL, later contract/charge/churn receipt |
-
-The same run may derive the following free-discovery intents. They are useful
-acquisition surfaces, but they are not revenue-capable and cannot hold the
-daily revenue shipment open. Each has its own retry owner and SLO receipt.
-
-| Non-blocking distribution destination | Language | Role | Receipt |
-|---|---|---|---|
 | Dev.to article | EN | Free discovery | Public title/body/media readback |
 | Zenn article | JA | Free discovery | Public title/body/media readback |
 | X Article | JA | Long-form acquisition | Public Article URL and rendered-body readback |
 
+One destination failure never cancels or delays dispatch to another
+destination. It keeps the overall daily run incomplete and creates an owned,
+same-target retry until its public readback exists. A platform-specific publish
+window may leave only that destination pending; all other work continues.
+
 The following adapters, code, historical receipts, and state are retained but
-must not create a daily publication intent while marked `DORMANT_EXPERIMENT`:
+must not create a daily publication intent while marked `DORMANT_EXPERIMENT`.
+They are not part of active-six:
 
 | Dormant destination | State | Reactivation gate |
 |---|---|---|
@@ -1590,16 +1648,18 @@ incident evidence but does not select the next task.
 
 | Order | Atomic work item | Completion receipt |
 |---:|---|---|
-| 1 | Restore the daily exact-eight contract. New runs must not convert `x-article/en` or `x-post/ja` into `dormant-destination` skips, and `publication_resume.py init --x-post-ja` must persist the frozen X-post path and hash. Add an atomic, idempotent migration for the existing 2026-08-12/13 active-six states: preserve every artifact hash and stable target, replace both dormant skips with real pending/intended work, and write a migration receipt. Replace the daily prompt's `bash publication-guard.py` instruction with the executable Python entry point. | Focused RED/GREEN tests, two replay-safe state-migration receipts, and initialized state containing eight real pending/intended pairs plus the X-post artifact hash |
-| 2 | Resume `daily-2026-08-13` through the installed loop, not a foreground manual publisher, and obtain publisher-native public readback for all eight destinations. A missing URL is an SLO breach, not success. | Eight public URLs with owner/content readback, duplicate zero, `article-resume` exit `0` |
-| 3 | Reconcile `daily-2026-08-12`: preserve its existing stable draft IDs, never recreate an ambiguous target, and either publish each pair or record an owned destination incident that keeps retrying. | Per-pair live receipt or durable incident/retry owner; no duplicate external effect |
-| 4 | Make every future 06:00 run reach publication dispatch after bounded editorial/reader iteration. Quality feedback remains improvement input; it cannot cancel shipment. | Forced production run with eight dispatches and a daily exact-eight completion receipt |
-| 5 | Repair per-destination recovery so one platform failure never cancels the other seven and every resume tick terminates honestly. | Failure fixture, live recovery receipt, and healthy launchd exits |
-| 6 | Complete paid-demand topic selection and publish the first article whose buyer, problem, transformation, deliverable, price hypothesis, distribution path, and source bodies are receipted. | Production topic card joined to the published exact-eight run |
-| 7 | Deploy Writer Money Control at a public Writer URL with exact-eight status, every public link, verified revenue by stream, and Web/Telegram semantic parity. | Public HTML/JSON readback and equal semantic hash |
-| 8 | Obtain and reconcile the first external writing payment, then run the one-variable self-improvement canary. | Positive processor/publisher receipt joined to one article; later KEEP/REVERT/INCONCLUSIVE receipt |
-| 9 | Pass the first-dollar, $400/month, $1,000/month, scorable unit-economics, $10,000/month, and $10,000 active-MRR gates without counting one-time revenue as MRR. | External money, fee, refund, payout, renewal, and churn receipts |
-| 10 | Only after Dais's unit is positive-net and autonomous, package OSS/cloud parity, reproduce external-user revenue, add only positive-net units, and advance $100K, $1M, and $10M MRR gates. | Independent install-to-revenue receipt and bounded-spend scale-controller receipts |
+| 1 | Keep the existing installed loop live and restore active-six dispatch. Replace the generated prompt's `bash publication-guard.py` instruction with the executable Python entry point; do not change the two dormant adapters. | Focused RED/GREEN test plus an installed-loop run that reaches six active intents; X Article EN and X Post JA remain explicit dormant skips |
+| 2 | Reconcile `daily-2026-08-12` through the installed loop. Accept the already-public Note JA as external truth after matching owner/content, preserve every existing stable target, and publish or keep retrying the other five active destinations without duplicate effects. | Six publisher-native public URLs with owner/content readback, internal Note reconciliation, duplicate zero |
+| 3 | Resume `daily-2026-08-13` through the installed loop, not a foreground manual publisher, and obtain publisher-native public readback for all six active destinations. | Six public URLs with owner/content readback, duplicate zero, `article-resume` exit `0` |
+| 4 | Make every future 06:00 run reach active-six publication after bounded editorial/reader iteration. Quality feedback remains improvement input and cannot cancel shipment. | Next scheduled or safely kickstarted production run completes active-six without manual publication |
+| 5 | Repair per-destination recovery so one platform failure never cancels the other five and every resume tick terminates honestly. | Failure fixture, live same-target recovery receipt, and healthy launchd exits |
+| 6 | After Orders 1–5 pass, move the canonical Writer Skill, tests, installers, SSOT, and Money Control into the Life Manager monorepo while the old runtime continues serving. Separate portable source from per-install secrets/state/receipts. | Life Manager canonical tree, portable-state contract, and parity suite; no production cutover yet |
+| 7 | Perform one measured cutover from the old runtime tree to the Life Manager Writer Skill. Prevent two daily creators and preserve stable IDs, ledger, receipts, and resume ownership. | Pre/post active-six parity, one creator/one recovery owner, post-cutover live active-six receipt, rollback receipt |
+| 8 | Complete paid-demand topic selection and publish the first article whose buyer, problem, transformation, deliverable, price hypothesis, distribution path, and source bodies are receipted. | Production topic card joined to the published active-six run |
+| 9 | Deploy Writer Money Control at a public Writer URL with active-six status, every public link, verified revenue by stream, and Web/Telegram semantic parity. | Public HTML/JSON readback and equal semantic hash |
+| 10 | Obtain and reconcile the first external writing payment, then run the one-variable self-improvement canary. | Positive processor/publisher receipt joined to one article; later KEEP/REVERT/INCONCLUSIVE receipt |
+| 11 | Pass the first-dollar, $400/month, $1,000/month, scorable unit-economics, $10,000/month, and $10,000 active-MRR gates without counting one-time revenue as MRR. | External money, fee, refund, payout, renewal, and churn receipts |
+| 12 | Package the same Writer Skill for macOS, Linux, Windows, and cloud, reproduce one external user's real writing revenue, add only positive-net units, and advance $100K, $1M, and $10M MRR gates. | Independent install-to-revenue receipt, cross-platform parity, and bounded-spend scale-controller receipts |
 
 Current production evidence:
 
@@ -1614,8 +1674,8 @@ Current production evidence:
   stable draft/intended targets are not verified live, and X Article EN/X Post
   JA are explicit dormant skips.
 - `daily-2026-08-13` has no platform dispatch result or public URL. Its state
-  contains only the two dormant X skips. The frozen `x-post-ja.txt` exists, but
-  the active-six initializer persists `x_post.path` and `sha256` as null.
+  contains the two expected dormant X skips. A null `x_post.path`/`sha256` is
+  correct because X Post JA is not an active-six intent.
 - The generated daily prompt invokes the Python file `publication-guard.py`
   through `bash`; the production log records `from: command not found` and a
   shell syntax error. This prevents target registration and dispatch.
@@ -2435,9 +2495,9 @@ The Writer is complete only when:
   a source URL, body hash, evidence class, and observation receipt;
 - missed runs recover without being told;
 - platform-specific waits never stall the whole loop;
-- each daily article contract produces the three-destination revenue set in
-  §2.5, while Dev.to, X, Zenn, and dormant adapters remain independently owned
-  distribution outcomes whose failure cannot block revenue shipment;
+- each daily article contract produces all six active destinations in §2.5;
+  one destination failure never cancels another, but the day stays incomplete
+  until all six have publisher-native public readback;
 - articles remain useful to external readers rather than describing the loop;
 - every reported dollar has a verifiable origin and owner;
 - one-time revenue and MRR are never mixed;
@@ -2449,7 +2509,9 @@ The Writer is complete only when:
 - the Agent finds readers and payers without receiving a customer list;
 - the OSS default starts without Google/Gmail/note/Substack credentials;
 - optional fiat/platform connectors state their account and KYC requirements;
-- local and cloud use the same Agent judgment contract;
+- Life Manager is the one source repository, portable source is separated from
+  per-install secrets/state/receipts, and local/cloud use the same Writer Skill
+  judgment contract;
 - a fresh external local/cloud user receives real writing revenue without daily
   human topic choice, execution, repair, measurement, or reporting;
 - users see money, work in progress, failures, recovery, and next action;
