@@ -291,11 +291,11 @@ writer or publisher.
   verifies the same capability itself.
 
 Every remaining implementation TODO is therefore shorthand for **make the
-installed Writer loop own and prove this behavior**. “Publish the daily revenue
-set” means kickstart and observe the production loop until it returns the three
-publisher-native money-surface readbacks defined in §2.5; it never means the
-development session posts articles by hand. Free-discovery adapters continue
-independently and never block the revenue set.
+installed Writer loop own and prove this behavior**. “Publish the daily
+active-six” means kickstart and observe the production loop until it returns all
+six publisher-native readbacks defined in §2.5; it never means the development
+session posts articles by hand. The three money surfaces are an accounting
+subset, not a smaller publication-completion contract.
 
 #### Closed self-healing and self-improvement loop
 
@@ -994,8 +994,7 @@ revenue-stream selection, experiment choice, and interpretation.
 
 The loop is continuously awake, but it does not continuously publish. One JST
 daily artifact receives repeated research, review, recovery, measurement, and
-learning work until its daily revenue-set SLO and revenue observations are
-closed. Free-discovery intents continue under their own owners.
+learning work until its active-six SLO and revenue observations are closed.
 
 ```mermaid
 flowchart LR
@@ -1649,7 +1648,7 @@ incident evidence but does not select the next task.
 
 | Order | Atomic work item | Completion receipt |
 |---:|---|---|
-| 1 | Keep the existing installed loop live and restore active-six dispatch. Replace the generated prompt's `bash publication-guard.py` instruction with the executable Python entry point; do not change the two dormant adapters. | Focused RED/GREEN test plus an installed-loop run that reaches six active intents; X Article EN and X Post JA remain explicit dormant skips |
+| 1 | Keep the existing installed loop scheduled and restore active-six dispatch. Replace the generated prompt's `bash publication-guard.py` instruction with the executable Python entry point; make both creator and recovery resolve code through an explicit runtime root while preserving one explicit live state root; do not change the two dormant adapters. Deploy only after GREEN/review through one bounded idle bootout/bootstrap with zero simultaneous owners and an exact rollback. | Focused RED/GREEN root/state and guard tests; installed labels resolve one tested immutable code root plus the existing state root; one creator and one recovery owner; an installed-loop run reaches six active intents; X Article EN and X Post JA remain explicit dormant skips |
 | 2 | Reconcile `daily-2026-08-12` through the installed loop. Accept the already-public Note JA as external truth after matching owner/content, preserve every existing stable target, and publish or keep retrying the other five active destinations without duplicate effects. | Six publisher-native public URLs with owner/content readback, internal Note reconciliation, duplicate zero |
 | 3 | Resume `daily-2026-08-13` through the installed loop, not a foreground manual publisher, and obtain publisher-native public readback for all six active destinations. | Six public URLs with owner/content readback, duplicate zero, `article-resume` exit `0` |
 | 4 | Make every future 06:00 run reach active-six publication after bounded editorial/reader iteration. Quality feedback remains improvement input and cannot cancel shipment. | Next scheduled or safely kickstarted production run completes active-six without manual publication |
