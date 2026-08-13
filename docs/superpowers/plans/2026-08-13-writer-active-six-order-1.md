@@ -109,3 +109,35 @@ one fresh read-only Sol adversarial verifier on the exact pushed commit. After
 acceptance, the primary performs the bounded installed-plist cutover, verifies
 one creator/one recovery owner with unchanged schedules/environment, and only
 then kickstarts the installed recovery loop to close Orders 2–5.
+
+## Adversarial correction after commit 841ec16a
+
+The one permitted fresh Sol review found that the test symlinked
+`ARTICLE_ROOT/state` to the explicit state root. That hid real
+`skill_dir/state` assumptions in three helpers. This correction is part of
+Task 1 and must complete before deployment.
+
+**Additional owned files:**
+
+- Modify: `skills/writer-agent/scripts/topic_state.py`
+- Modify: `skills/writer-agent/scripts/demand_authority.py`
+- Modify: `skills/writer-agent/scripts/writer_learning_worker.py`
+- Modify: `tests/art/test_writer_learning_worker.py`
+
+- [ ] **Correction RED:** Remove the `ARTICLE_ROOT/state` symlink from the
+  explicit-root full-pass fixture, assert that path remains absent, and run the
+  explicit-runtime test. It must fail because a helper still selects runtime
+  state. Add one focused learning-worker test with code and state in separate
+  directories; it must fail because the worker reads `skill_dir/state`.
+- [ ] **Correction GREEN:** Make the three helpers resolve mutable state from
+  exported `ARTICLE_STATE_DIR`, retaining `skill_dir/state` only as the
+  compatibility fallback when the variable is absent. Do not move tracked
+  config, source topics, scripts, or model code out of `ARTICLE_ROOT`.
+- [ ] **Verify:** Run the original focused/full wrapper commands, the existing
+  topic-state and demand-authority files, the focused learning-worker test,
+  both shell parse checks, and `git diff --check` from base to new head.
+- [ ] **Push:** Commit the correction to the same `fix/writer-active-six`
+  branch and push. Append exact RED/GREEN evidence to the existing report.
+
+No second Sol review occurs. Primary independently inspects the correction,
+reruns all verification, and accepts or blocks deployment from that evidence.

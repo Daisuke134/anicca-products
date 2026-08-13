@@ -77,3 +77,24 @@ scale (12).
 The user-supplied Done clauses are binding verbatim. Fixtures, dry runs, editor
 URLs, inferred publication, dormant adapters, and partial six do not close an
 Order.
+
+## One-shot adversarial review correction
+
+Fresh Sol reviewed runtime commit `841ec16aa3bef1d768b7ff6bfee3d6ae4da1d571`
+once and returned `rethink`. The explicit-root test linked
+`ARTICLE_ROOT/state` to the explicit state directory, which masked three
+helpers that still resolved mutable paths as `skill_dir/state`. A real split
+deployment would therefore write into the immutable runtime tree and stop at
+the demand-authority gate.
+
+The accepted correction keeps the architecture and adds no framework:
+
+1. `topic_state.py`, `demand_authority.py`, and `writer_learning_worker.py`
+   resolve mutable state from the already-exported `ARTICLE_STATE_DIR`, with
+   their existing `skill_dir/state` behavior only as a compatibility fallback.
+2. The full-pass fixture removes the runtime `state` symlink and asserts that
+   no runtime-local state path exists.
+3. A focused learning-worker regression proves that its state lookup also
+   follows `ARTICLE_STATE_DIR` when code and state roots differ.
+4. The same Luna owns the correction. Primary reruns all checks. Per the user's
+   explicit one-review rule, Sol review is not repeated.
