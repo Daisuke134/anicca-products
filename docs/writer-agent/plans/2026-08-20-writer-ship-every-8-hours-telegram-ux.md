@@ -61,9 +61,11 @@ flowchart LR
 
 ### 1.5 現在の実行境界（実測）
 
-今回の `daily-2026-08-20` は、需要カード、JA/EN本文、不変メディア、品質証跡まで作成したが、公開は `0/4` のまま終了した。復旧ワーカーは同一runの初期化を行い、Noteの安定キー `ne6da5b602b4a`、Substack日英の下書きID `211988979` / `211988987`、X記事の編集URL `https://x.com/compose/articles/edit/2090392988765605888` を保存・再照合した。これは下書き/intentの証拠であり、公開URLではない。Noteの最初の依存復旧では `files.pythonhosted.org` のDNS解決に失敗している。
+今回の `daily-2026-08-20` は、需要カード、JA/EN本文、不変メディア、品質証跡まで作成した。20:44 JSTの実tickでNote JAが `ne6da5b602b4a` のまま公開され、`https://note.com/anicca123/n/ne6da5b602b4a` の公開後読み戻し（価格¥500、所有者、本文・画像）を記録した。active-fourは `1/4` で、Substack日英の下書きID `211988979` / `211988987` とX記事の編集URL `https://x.com/compose/articles/edit/2090392988765605888` はまだintentである。Noteの最初の依存復旧では `files.pythonhosted.org` のDNS解決に失敗し、20:36 JSTの公開回路保存も空き容量不足で失敗した。
 
-この結果は公開成功ではない。`publication-state.json` は4件のlive/reality receiptを持たず、`article-run-complete.py` は成功条件を満たさない。収益receiptも存在しないため、売上は0円と断定せず未確認として扱う。初期化報告はTelegram message ID `26065` で送信済みで、未完了状態を自然文で再送するdeterministic rendererも実装済みである。
+これはNoteだけの公開成功であり、run全体の成功ではない。`publication-state.json` は4件中1件のlive receiptで、`article-run-complete.py` は成功条件を満たさない。収益receiptも存在しないため、売上は0円と断定せず未確認として扱う。初期化報告はTelegram message ID `26065`、未完了報告は `26075` と `26087` で送信済みで、deterministic rendererは自然文だけを送る。現在は同じNoteの再試行を防ぐ pause file を置き、Substackの言語別identityとXの実行可否を確認するまで外部公開を止めている。
+
+pause gateはresume workerとdaily creatorの両方で直接実行し、ロック・planner・publisherより前に終了コード0となることを確認した。変更対象の構文確認と、固定一時領域でのスケジュール／完了通知テスト `37 passed` も確認済み。これは安全停止と回帰契約の確認であり、Substack/Xの新規公開を意味しない。
 
 launchdの実測は別の失敗である。`ai.anicca.article-daily` と `ai.anicca.article-resume` のplistは存在するが、`launchctl bootstrap`/`kickstart`/`print` はいずれも `141: Reentrancy avoided` で終了し、初期化tickが終わった後にWriterプロセスは残っていない。したがって現在のloopは「公開処理までON」とは言えず、定期的に公開しているとは言えない。
 
@@ -73,9 +75,9 @@ launchdの実測は別の失敗である。`ai.anicca.article-daily` と `ai.ani
 
 | 順序 | 一件の完了条件 | 今の状態 |
 |---:|---|---|
-| 1 | schedulerが実際に起動し、run/recoveryのPIDと終了receiptを返す | 未完了。rc=141。初期化tickの終了receiptのみ |
-| 2 | DNSまたは承認済みの代替transportを復旧し、Note/Substackを同じrunから公開する | 未完了。下書き/intentのみ |
-| 3 | X既存targetをsame-IDで修復し、active-four全件のpublisher-native readbackを記録する | 未完了。live receipt 0件 |
+| 1 | schedulerが実際に起動し、run/recoveryのPIDと終了receiptを返す | 一部完了。20:44 JSTのresume logは取得済みだが、launchctl readbackはrc=141 |
+| 2 | DNSまたは承認済みの代替transportを復旧し、Note/Substackを同じrunから公開する | 一部完了。Noteは公開・読み戻し済み、Substackはidentity待ち |
+| 3 | X既存targetをsame-IDで修復し、active-four全件のpublisher-native readbackを記録する | 未完了。live receipt 1/4件 |
 | 4 | payment/publisherの実受取receiptをartifactへjoinし、自然文Telegramへ送る | 未完了。revenue receipt 0件 |
 | 5 | Life Managerのmanifestへsource/release/state/全19 workerを移し、shared fenceで旧ownerをdrainしてから無効化する | 未着手。削除も未実施 |
 

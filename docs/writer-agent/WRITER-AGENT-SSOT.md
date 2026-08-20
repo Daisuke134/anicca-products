@@ -63,23 +63,34 @@ invariant revenue, safety, or platform-policy rules in this SSOT.
 
 ### 0.1.1a Current measured runtime boundary
 
-The current daily run has generated the JA/EN artifacts but has **zero live
-publisher readbacks** and **zero verified revenue receipts**. The active-four
-contract is `note/ja`, `substack/ja`, `substack/en`, and `x-article/ja`;
+The current daily run has generated the JA/EN artifacts and has **one of four
+active publisher readbacks**. Note JA is live at
+`https://note.com/anicca123/n/ne6da5b602b4a`; its publisher-native receipt
+verifies status `published`, price `¥500`, owner `anicca123`, immutable article
+hash, eyecatch, and body media. No payment receipt is present, so revenue is
+still unknown. The active-four contract is `note/ja`, `substack/ja`,
+`substack/en`, and `x-article/ja`;
 `zenn-article/ja`, `devto/en`, `x-article/en`, and `x-post/ja` retain durable
 skip receipts. The existing X edit URL is preserved as an intent and has not
 been published.
 
-The observed failure is external DNS resolution: Note dependency restoration
-failed once while restoring `fastmcp`, and the recovery then re-read Note draft
-key `ne6da5b602b4a`; Substack JA/EN draft IDs `211988979` and `211988987` were
-also re-read. These are draft/intent proofs, not live URLs. The saved X edit URL
-`https://x.com/compose/articles/edit/2090392988765605888` remains intent-only.
-No active-four live receipt exists. `launchctl bootstrap`, `launchctl kickstart`,
-and `launchctl print` return `141: Reentrancy avoided`; a plist is not an
-execution receipt. The latest initialization Telegram report is message ID
-`26065`; the new deterministic progress renderer is installed but has not yet
-sent a live-completion report.
+The first 20:36 JST publication tick reached Note but failed closed with
+`managed note publisher lacked paid API proof`; the circuit write also hit
+`Errno 28: No space left on device`. The next tick at 20:44 JST re-ran the same
+stable key, published it, and recorded the verified receipt. Telegram pending
+reports are now natural Japanese (message IDs `26075` and `26087`); the older
+initialization message `26065` remains historical. A durable pause file now
+blocks further external publication while Substack identity and X readiness are
+repaired. `launchctl bootstrap`, `launchctl kickstart`, and `launchctl print`
+still return `141: Reentrancy avoided`; the 20:44 log is the scheduler wake
+evidence, while a plist is not an execution receipt.
+
+The pause boundary was verified directly for both the five-minute resume worker
+and the daily creator: each exits `0` before lock, planner, model, or publisher
+work and writes a neutral pause log line. The release/source Python files pass
+AST compilation, the changed shell files pass `bash -n`, and the controlled
+regression run passes `37 tests`. This verifies the safety stop and regression
+contracts; it does not verify a new external publication.
 
 The active code is still split: release code is under
 `/Users/anicca/profitable-claude-releases/writer/e9ab21ea/writer-agent`, mutable
@@ -98,15 +109,15 @@ state hash and never counts a view, paywall, draft, or test action as revenue.
 
 ### 0.1.1b Atomic remaining work
 
-1. Restore a usable scheduler execution context and prove one real
-   `ai.anicca.article-resume` wake; do not treat a plist file as proof. A
-   repository-independent owner fence must prevent release and Life Manager
-   workers from running at the same time.
-2. Restore DNS or an approved network transport, then resume the same run and
-   publish Note and both Substack targets through their guarded deterministic
-   branches.
-3. Repair and publish the existing X Article target, then read back all four
-   public URLs from the publisher surfaces.
+1. Replace the current `launchctl` reentrancy failure with a repeatable
+   scheduler readback and keep the repository-independent owner fence. The
+   20:44 log proves one wake; it does not yet prove repeatable ownership.
+2. Configure and verify `SUBSTACK_PUBLICATION_JA` and a distinct
+   `SUBSTACK_PUBLICATION_EN`; resume the same run and publish both Substack
+   targets through guarded deterministic branches. The existing English draft
+   `211988987` stays blocked until its publication identity is proven.
+3. Repair and publish the existing X Article target, then read back Note plus
+   the two Substack URLs and X URL from publisher-native surfaces.
 4. Record a publisher/payment receipt for any actual sale; keep unconfirmed
    revenue as `unknown` and send the completed natural-language Telegram
    report with its message ID.
@@ -130,15 +141,13 @@ It does not put a harness name, `Codex:::`/`Claude:::` prefix, raw event ID,
 internal run ID, status enum, or stack trace in the main message. Internal
 receipt IDs remain in the ledger and an optional details link.
 
-The current active publisher maps both `substack/ja` and `substack/en` to one
-`SUBSTACK_PUBLICATION` fallback (`aniccabuddha.substack.com`). This is a known
-language-mixing defect. Existing mixed posts remain historical and are not
-deleted or moved; new English posts stop on that publication. The target is
-`substack/ja -> SUBSTACK_PUBLICATION_JA` and
-`substack/en -> SUBSTACK_PUBLICATION_EN`, with separate publication identity,
-reader cohort, subscription, payout scope, and revenue ledger. The detailed
-account, article-type, monthly-cap, and $10K target matrix is in the active
-planning spec linked above.
+The managed publisher now requires `SUBSTACK_PUBLICATION_JA` for Japanese and
+`SUBSTACK_PUBLICATION_EN` for English, refuses an implicit fallback, and refuses
+English when both identities are equal. The existing
+`aniccabuddha.substack.com` value is explicitly assigned to JA only; no EN
+identity is configured yet. Existing mixed posts remain historical and are not
+deleted or moved. The detailed account, article-type, monthly-cap, and $10K
+target matrix is in the active planning spec linked above.
 
 ### 0.2 Open-source positioning and public-claim gate
 
