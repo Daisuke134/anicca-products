@@ -618,17 +618,15 @@ if [ "$TEST_MODE" -eq 0 ]; then
     append_decision "$CLEANUP_CONTROL" failure cleanup-control-missing
   else
     CLEANUP_MANIFEST_FOR_SWEEP="$CLEANUP_MANIFEST"
+    # Worktree collections and source trees are already exact manifest
+    # entries. Walking them every minute made one guard pass exceed 3 min.
+    # Dynamic discovery is bounded to producer output roots only.
     RUNTIME_MANIFEST_SUMMARY=$(python3 "$CLEANUP_CONTROL" runtime-manifest \
       --manifest "$CLEANUP_MANIFEST" \
       --output "$CLEANUP_RUNTIME_MANIFEST" \
-      --root "$HOME_DIR/anicca-project/.worktrees" \
-      --root "$HOME_DIR/profitable-claude/.worktrees" \
-      --root "$HOME_DIR/.openclaw/.worktrees" \
       --root "$HOME_DIR/anicca-project/work" \
       --root "$HOME_DIR/.openclaw/external" \
-      --root "$HOME_DIR/anicca-project/apps" \
       --root "$HOME_DIR/gig" \
-      --root "$HOME_DIR/anicca" \
       --published-run-root "$HOME_DIR/.openclaw/workspace/runs" \
       --code-sign-clone-root "$USER_CODE_SIGN_ROOT" \
       --pnpm-store-root "$HOME_DIR/Library/pnpm/store" \
