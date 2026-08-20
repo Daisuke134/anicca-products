@@ -18,20 +18,17 @@ Writerは「書けない」のではなく、**供給・実行・計測・報告
 
 | 観測 | 実測値 | 含意 |
 |---|---|---|
-| 日次run | `daily-2026-08-18`〜`20` は各2ファイルのみ（`git-hash.txt` と `strategy-consumption.json`）、`article-ja.md`/`article-en.md`なし | 6:00の起動後、生成前に終了 |
-| 最新日次ログ | `demand topic queue is empty` → `pending claim-loop supply` | モデル呼び出し・公開は実行されていない |
+| 日次run | `daily-2026-08-20` はJA/EN本文、不変メディア、品質証跡を生成し、active-fourの1/4（Note JA）まで到達。18〜19日のpreflight-only runは別の履歴 | 生成自体は復旧したが、同一runの未完了公開と実読戻しが残る |
+| 最新日次ログ | 20:36 JSTはNoteのpaid API証拠不足で停止し、20:44 JSTは同じNote安定キーを再照合して公開・読み戻し。以後pause fileで公開を止めている | モデル／Note経路は動いたが、Substack/Xと売上receiptは未完了 |
 | claim loop | 初回は mutable path `/Users/anicca/profitable-claude/skills/writer-agent/scripts/claim_loop.py` が存在せずENOENT。loaded plistを release `e9ab21ea`へ切り替え、手動wakeは需要集約まで到達 | 実行入口の分裂は修正済み。ただし供給はモデルゲートで停止中 |
 | claim loop live rerun | `2026-08-20T18:25:00Z` の receipt は `demand_observations=301`、4 family（`owned_funnel`/`paid_market`/`publisher_opportunity`/`reader_demand`）、`supply=MODEL_UNAVAILABLE`、`queue_after=0` | 需要は見えるが、topic/cardを捏造せず出荷前で停止 |
 | Civo demand source | 公式本文の取得が外部DNS/ネットワーク障害で失敗。既存本文receipt（URL・SHA-256・evidence 5 units・2 windows、観測から7日以内）だけを期限付きで再利用 | 需要供給は継続できるが、7日を超えたcacheはhard stop |
 | publication lock | adversarial checkで、6時間超でもownerのPIDとprocess-startが生きているlockはquarantineせずretryへ変更 | 生きた記事公開とclaim loopの同時操作を防止 |
 | launchd proof | plistはrelease rootと同じだが、環境の`launchctl`操作は全てrc=141（`Reentrancy avoided`） | launchdからの実行receiptは未取得。手動bounded wakeの証拠と分離して扱う |
-| money sync | `scripts/money_sync.py` が存在せずENOENT | 収益台帳が更新されない |
-| report worker | `scripts/writer_report_worker.py` が存在せずENOENT | Telegramの新しい日次reportが生成されない |
-| healthcheck | `article-healthcheck.sh` が存在せずENOENT | 未出荷runを検出できない |
-| self-improve | `scripts/self-improve.sh` が存在せずENOENT | canary/KEEP/REVERTが進まない |
+| money sync / report / healthcheck / self-improve | active releaseとLife Manager同期treeには実体があるが、インストール済みplistの一部はsourceの旧絶対パスを指す | owner切替前のpath driftで、loaded実行の成否を証明できない |
 | branch/tree | mutable repo HEAD=`889473ce`（`docs/global-gig-market-expansion`）に`skills/writer-agent` treeがない。完全なWriter treeはrelease `e9ab21ea`にある | sourceと実行中release/stateが不一致 |
 | scheduler設定 | `.openclaw/cron/jobs.json`のWriter/article系9件は全て`enabled:false` | cron側は実行主体ではない |
-| plists | `article-daily`/`article-resume`だけrelease tree、他のworkerはmutable treeを参照。missing executableを含むplistが複数 | 一つのWriterではなく壊れた複数pipeline |
+| plists | `article-daily`/`article-resume`/Zennはrelease、他のworkerはmutable source、`.local/bin/writer`、または旧scriptを参照。Life Managerにはproduction treeと10 templateを同期済み | 一つのactive ownerではなく、19 labelの混在。owner fenceとpath censusが必要 |
 | 直近の報告 | 8/16の最後のWriter Telegram report出力は「受取`¥0/$0`」。8/17以降はreport workerがENOENTで、外部payment receiptの新しい観測はない | 現在の金額は`unknown/stale`で、0と断定不可 |
 
 ### 1.3 推論（Inference）
@@ -63,7 +60,7 @@ flowchart LR
 
 今回の `daily-2026-08-20` は、需要カード、JA/EN本文、不変メディア、品質証跡まで作成した。20:44 JSTの実tickでNote JAが `ne6da5b602b4a` のまま公開され、`https://note.com/anicca123/n/ne6da5b602b4a` の公開後読み戻し（価格¥500、所有者、本文・画像）を記録した。active-fourは `1/4` で、Substack日英の下書きID `211988979` / `211988987` とX記事の編集URL `https://x.com/compose/articles/edit/2090392988765605888` はまだintentである。Noteの最初の依存復旧では `files.pythonhosted.org` のDNS解決に失敗し、20:36 JSTの公開回路保存も空き容量不足で失敗した。
 
-これはNoteだけの公開成功であり、run全体の成功ではない。`publication-state.json` は4件中1件のlive receiptで、`article-run-complete.py` は成功条件を満たさない。収益receiptも存在しないため、売上は0円と断定せず未確認として扱う。初期化報告はTelegram message ID `26065`、未完了報告は `26075` と `26087` で送信済みで、deterministic rendererは自然文だけを送る。現在は同じNoteの再試行を防ぐ pause file を置き、Substackの言語別identityとXの実行可否を確認するまで外部公開を止めている。
+これはNoteだけの公開成功であり、run全体の成功ではない。`publication-state.json` は4件中1件のlive receiptで、`article-run-complete.py` は成功条件を満たさない。収益receiptも存在しないため、売上は0円と断定せず未確認として扱う。初期化報告はTelegram message ID `26065`、未完了報告は `26075`、`26087`、`26160`、`26166` で送信済みで、deterministic rendererは自然文だけを送る。現在は同じNoteの再試行を防ぐ pause file を置き、Substackの言語別identityとXの実行可否を確認するまで外部公開を止めている。
 
 pause gateはresume workerとdaily creatorの両方で直接実行し、ロック・planner・publisherより前に終了コード0となることを確認した。変更対象の構文確認と、固定一時領域でのスケジュール／完了通知テスト `37 passed` も確認済み。これは安全停止と回帰契約の確認であり、Substack/Xの新規公開を意味しない。
 
@@ -73,11 +70,11 @@ Substack managed publisherのsource／active release契約fixtureも、JAのpubl
 
 managed wrapperにもpair-specific identityとstate一致のゲートを追加し、remote receipt側は下書きidentityとredirect後の公開canonical hostを実読取してからliveを確定するようにした。期待hostからURLを組み立てただけの値はreceiptにしない。
 
-fresh adversarial reviewでは、空き容量が最新約382MiB（直前は約704MiB）で5GiBの公開下限を下回ることを確認した。resumeにも同じ下限のfail-closed判定を追加し、pause fileが無くても外部作用前に停止する。Substackの言語identity比較は正規化し、source circuitにもreleaseと同じ300秒timeoutを揃えた。EN/Xのidentity・media readbackが未確認のため、pauseは解除しない。
+fresh adversarial reviewで空き容量が5GiB未満になった履歴を受け、resumeにも同じ下限のfail-closed判定を追加した。現在の空き容量は約5.6GiBまで回復しているが、通常DNSのresolver設定が空で、1.1.1.1解決＋`curl --resolve`でのみNote／Substack／Xへ到達できる。Substackの言語identity比較は正規化し、source circuitにもreleaseと同じ300秒timeoutを揃えた。EN/Xのidentity・media readbackとLife Manager owner切替が未確認のため、pauseは解除しない。
 
 launchdの実測は別の失敗である。`ai.anicca.article-daily` と `ai.anicca.article-resume` のplistは存在するが、`launchctl bootstrap`/`kickstart`/`print` はいずれも `141: Reentrancy avoided` で終了し、初期化tickが終わった後にWriterプロセスは残っていない。したがって現在のloopは「公開処理までON」とは言えず、定期的に公開しているとは言えない。
 
-実行コードはまだLife Managerに統合されていない。releaseは `/Users/anicca/profitable-claude-releases/writer/e9ab21ea/writer-agent`、状態は `/Users/anicca/profitable-claude/skills/writer-agent/state`、Life Managerのcheckoutは `/Users/anicca/Projects/life-manager-main` で、後者にWriter runtime treeはない。旧rootと新rootを同時に動かすと現在のstate lockだけでは重複公開を防げないため、移行前にrepository非依存のshared owner fenceを置く。`/Users/anicca/.openclaw` と `/Users/anicca/profitable-claude` 全体は削除しない。後者はWriter以外の稼働loopも含むため、最後に可能なのはWriter専用releaseの復元試験付きアーカイブだけである。
+実行ownerはまだLife Managerへ切り替わっていない。releaseは `/Users/anicca/profitable-claude-releases/writer/e9ab21ea/writer-agent`、状態は `/Users/anicca/profitable-claude/skills/writer-agent/state`、Life Managerのcheckoutは `/Users/anicca/Projects/life-manager-main` で、後者には475ファイルのWriter runtime treeと10 templateがある。旧rootと新rootを同時に動かすと現在のstate lockだけでは重複公開を防げないため、移行前にrepository非依存のshared owner fenceを置く。`/Users/anicca/.openclaw` と `/Users/anicca/profitable-claude` 全体は削除しない。後者はWriter以外の稼働loopも含むため、最後に可能なのはWriter専用releaseの復元試験付きアーカイブだけである。
 
 ### 1.6 一件ずつ閉じる順序
 
@@ -87,7 +84,7 @@ launchdの実測は別の失敗である。`ai.anicca.article-daily` と `ai.ani
 | 2 | DNSまたは承認済みの代替transportを復旧し、Note/Substackを同じrunから公開する | 一部完了。Noteは公開・読み戻し済み、Substackはidentity待ち |
 | 3 | X既存targetをsame-IDで修復し、active-four全件のpublisher-native readbackを記録する | 未完了。live receipt 1/4件 |
 | 4 | payment/publisherの実受取receiptをartifactへjoinし、自然文Telegramへ送る | 未完了。revenue receipt 0件 |
-| 5 | Life Managerのmanifestへsource/release/state/全19 workerを移し、shared fenceで旧ownerをdrainしてから無効化する | 未着手。削除も未実施 |
+| 5 | Life Managerのmanifestへsource/release/state/全19 workerを移し、shared fenceで旧ownerをdrainしてから無効化する | manifestと19 label censusは作成済み、runtime tree/templateもpush済み。owner fence、state parity、旧owner drain、bounded wakeは未完了。削除も未実施 |
 
 ## 2. Acceptance Criteria（完了条件）
 

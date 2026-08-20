@@ -78,8 +78,9 @@ The first 20:36 JST publication tick reached Note but failed closed with
 `managed note publisher lacked paid API proof`; the circuit write also hit
 `Errno 28: No space left on device`. The next tick at 20:44 JST re-ran the same
 stable key, published it, and recorded the verified receipt. Telegram pending
-reports are now natural Japanese (message IDs `26075` and `26087`); the older
-initialization message `26065` remains historical. A durable pause file now
+reports are now natural Japanese (message IDs `26075`, `26087`, `26160`, and
+`26166`); the older initialization message `26065` remains historical. A
+durable pause file now
 blocks further external publication while Substack identity and X readiness are
 repaired. `launchctl bootstrap`, `launchctl kickstart`, and `launchctl print`
 still return `141: Reentrancy avoided`; the 20:44 log is the scheduler wake
@@ -108,24 +109,34 @@ an explicit authenticated draft publication identity and the final public
 canonical host after redirects. A URL assembled from an expected host alone is
 not a receipt.
 
-Life Manager now contains a hash-pinned copy of the production Writer tree,
-but the active LaunchAgents still invoke the external release. The copy is not
-the active owner until state parity, a shared owner fence, worker drain, and a
-bounded wake are all proven.
+Life Manager now contains a hash-pinned copy of the production Writer tree
+(475 files; tree hash `b7435c4a…`), and its LaunchAgent templates point at the
+Life Manager path. The installed LaunchAgents still invoke the external
+release, and the copy is not the active owner until state parity, a shared
+owner fence, worker drain, and a bounded wake are all proven. The runtime
+manifest inventories all 19 installed Writer/article labels; 11 still lack a
+Life Manager template, including five that invoke the separate
+`~/.local/lib/writer-engine` CLI.
 
-Fresh adversarial review keeps the pause in place: the latest host check reports
-about `382 MiB` free (an earlier check was `704 MiB`), below the 5 GiB publication floor, so resume now exits
-before acquiring the publication lock when the pause file is absent as well.
+Fresh adversarial review keeps the pause in place. The current host check
+reports about `5.6 GiB` free, above the 5 GiB publication floor; the old
+low-space incident remains in the run history. The machine's normal DNS
+resolver currently returns no configuration, while explicit 1.1.1.1 lookup
+plus `curl --resolve` reaches Note, Substack, and X. The Substack guards
+canonicalize both language identities, the source circuit now has the same
+300-second publisher timeout as the release, and the Substack circuit manifest
+includes its transitive guard/readback scripts.
 The Substack guards canonicalize both language identities, the source circuit
 now has the same 300-second publisher timeout as the release, and the Substack
 circuit manifest includes its transitive guard/readback scripts. EN and X still
 have no publisher-native identity/media readback and cannot be released.
 
-The active code is still split: release code is under
+The active execution is still split: release code is under
 `/Users/anicca/profitable-claude-releases/writer/e9ab21ea/writer-agent`, mutable
 Writer state is under `/Users/anicca/profitable-claude/skills/writer-agent/state`,
 and the Life Manager checkout is `/Users/anicca/Projects/life-manager-main`.
-The Life Manager checkout does not yet contain the Writer runtime. No
+The Life Manager checkout contains the synchronized Writer runtime, but it is
+not installed as the active owner. No
 `profitable-claude` or `.openclaw` directory is deleted; deletion is forbidden
 until credentials, state, receipts, and a live-readback parity check are
 complete.
