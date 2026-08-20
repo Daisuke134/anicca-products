@@ -25,6 +25,7 @@ CLEANUP_CONTROL="${CLEANUP_CONTROL_PATH:-$HOME_DIR/anicca-project/scripts/cleanu
 CLEANUP_MANIFEST="${CLEANUP_CONTROL_MANIFEST:-$HOME_DIR/anicca-project/scripts/cleanup-control/artifact-lifecycle.json}"
 CLEANUP_RUNTIME_MANIFEST="${CLEANUP_CONTROL_RUNTIME_MANIFEST:-$STATE_DIR/cleanup-runtime-manifest.json}"
 CLEANUP_QUARANTINE_ROOT="${CLEANUP_CONTROL_QUARANTINE_ROOT:-/Volumes/AniccaQuarantine/anicca-cleanup}"
+LIFE_MANAGER_DISK_GOVERNOR="${LIFE_MANAGER_DISK_GOVERNOR:-$HOME_DIR/Projects/life-manager-main/skills/self/disk-cleanup/disk_cleanup.py}"
 BACKPRESSURE="$STATE_DIR/disk-pressure.block"
 ALERT="$STATE_DIR/disk-pressure.alert"
 LOCK="$STATE_DIR/.emergency-disk-guard.lock"
@@ -33,7 +34,14 @@ GIG_WORKER_MAX_SECONDS="${GIG_WORKER_MAX_SECONDS:-7200}"
 GIG_HEARTBEAT_MAX_SECONDS="${GIG_HEARTBEAT_MAX_SECONDS:-180}"
 CANONICAL_GIG_ARGV="${GIG_WORKER_CANONICAL_ARGV:-/bin/bash $HOME_DIR/profitable-claude/skills/gig-work/gig_pass.sh}"
 THRESHOLD_GB="${EMERGENCY_GUARD_THRESHOLD_GB:-11}"
+# Enter containment below the emergency threshold, but only keep the writer
+# brake asserted until the same clear floor used by disk-sentinel/gig-gates is
+# reached.  The gap is intentional hysteresis: a 5-6GB host must not flap a
+# live paid lane merely because the emergency reserve is 11GB.
+RECOVERY_GB="${EMERGENCY_GUARD_RECOVERY_GB:-6}"
 ULTRA_GB="${EMERGENCY_GUARD_ULTRA_GB:-3}"
+GIG_EVIDENCE_GC_SCRIPT="${GIG_EVIDENCE_GC_SCRIPT:-$HOME_DIR/profitable-claude/skills/gig-work/scripts/evidence_gc.py}"
+export GIG_EVIDENCE_GC_SCRIPT
 TEST_MODE=0
 [ -n "${EMERGENCY_GUARD_TEST_PROCESS_FIXTURE:-}" ] && TEST_MODE=1
 DRY_RUN="${EMERGENCY_GUARD_DRY_RUN:-0}"
@@ -50,6 +58,11 @@ OPS_HEADER=$'timestamp\tresult\treason\tfree_before_gb\tfree_after_gb\teligible_
 mkdir -p "$LOG_DIR" "$STATE_DIR" 2>/dev/null || exit 1
 log() { printf '%s %s\n' "$(date '+%F %T')" "$*" >> "$LOG"; }
 
+case "$THRESHOLD_GB:$RECOVERY_GB:$ULTRA_GB" in
+  *[!0-9:]*|*:*:*:*|"") exit 1 ;;
+esac
+[ "$RECOVERY_GB" -lt "$THRESHOLD_GB" ] || exit 1
+
 if ! mkdir "$LOCK" 2>/dev/null; then
   OLD=$(cat "$LOCK/pid" 2>/dev/null || echo "")
   [ -n "$OLD" ] && kill -0 "$OLD" 2>/dev/null && exit 0
@@ -58,6 +71,14 @@ if ! mkdir "$LOCK" 2>/dev/null; then
 fi
 echo $$ > "$LOCK/pid"
 trap 'rm -rf "$LOCK"' EXIT
+
+# Life Manager is the host-wide cleanup owner. Keep the existing guard as the
+# launchd trigger while its domain is unhealthy; the governor has its own
+# atomic lock, so a slow census cannot create a second cleanup executor.
+if [ -f "$LIFE_MANAGER_DISK_GOVERNOR" ] && command -v python3 >/dev/null 2>&1; then
+  python3 "$LIFE_MANAGER_DISK_GOVERNOR" --home "$HOME_DIR" --state-dir "$STATE_DIR" \
+    >>"$LOG" 2>&1 || log "life-manager disk governor failed"
+fi
 
 free_gb() {
   if [ -n "${EMERGENCY_GUARD_TEST_FREE_GB:-}" ]; then
@@ -549,8 +570,10 @@ cleanup_orphan_heartbeats
 
 FREE=$(free_gb)
 [ -n "$FREE" ] || exit 1
-if [ "$FREE" -ge "$THRESHOLD_GB" ]; then
+if [ "$FREE" -ge "$RECOVERY_GB" ]; then
   rm -f "$BACKPRESSURE" "$ALERT"
+  "$HOME_DIR/anicca-project/scripts/disk-recovery-redispatch.sh" >>"$LOG" 2>&1 || \
+    log "disk recovery redispatch unavailable or failed"
   exit 0
 fi
 
@@ -690,7 +713,7 @@ if [ "$FREE" -lt "$ULTRA_GB" ]; then
 fi
 
 NEW=$(free_gb)
-if [ "$RECLAIM_ELIGIBLE" -eq 0 ] || [ "$RECLAIMED_TOTAL" -eq 0 ] || [ "$NEW" -lt "$THRESHOLD_GB" ]; then
+if [ "$RECLAIM_ELIGIBLE" -eq 0 ] || [ "$RECLAIMED_TOTAL" -eq 0 ] || [ "$NEW" -lt "$RECOVERY_GB" ]; then
   if [ "$RECLAIM_ELIGIBLE" -eq 0 ]; then
     FAILURE_REASON=no-eligible-reclaim
   elif [ "$RECLAIMED_TOTAL" -eq 0 ]; then
@@ -702,9 +725,11 @@ if [ "$RECLAIM_ELIGIBLE" -eq 0 ] || [ "$RECLAIMED_TOTAL" -eq 0 ] || [ "$NEW" -lt
   append_ops failure "$FAILURE_REASON" "$FREE" "$NEW"
   printf 'result=failure reason=%s free_before_gb=%s free_after_gb=%s eligible_paths=%s reclaimed_bytes=%s policy=%s\n' \
     "$FAILURE_REASON" "$FREE" "$NEW" "$RECLAIM_ELIGIBLE" "$RECLAIMED_TOTAL" "$POLICY_VERSION" > "$ALERT"
-  log "FAILURE: ${FAILURE_REASON}; ${FREE}GB -> ${NEW}GB; backpressure remains"
+  log "FAILURE: ${FAILURE_REASON}; ${FREE}GB -> ${NEW}GB; recovery_floor=${RECOVERY_GB}GB; backpressure remains"
   exit 3
 fi
 rm -f "$BACKPRESSURE" "$ALERT"
 append_ops success reclaimed-bytes "$FREE" "$NEW"
-log "safe containment done: ${FREE}GB -> ${NEW}GB free; reclaimed=${RECLAIMED_TOTAL} bytes"
+"$HOME_DIR/anicca-project/scripts/disk-recovery-redispatch.sh" >>"$LOG" 2>&1 || \
+  log "disk recovery redispatch unavailable or failed"
+log "safe containment done: ${FREE}GB -> ${NEW}GB free; recovery_floor=${RECOVERY_GB}GB; reclaimed=${RECLAIMED_TOTAL} bytes"

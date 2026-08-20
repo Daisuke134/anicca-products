@@ -19,6 +19,8 @@ def load_control():
 
 def test_production_guard_has_one_cleanup_authority() -> None:
     guard = (ROOT / "scripts" / "emergency-disk-guard.sh").read_text(encoding="utf-8")
+    assert "LIFE_MANAGER_DISK_GOVERNOR" in guard
+    assert 'python3 "$LIFE_MANAGER_DISK_GOVERNOR"' in guard
     assert 'if [ "$TEST_MODE" -eq 0 ]; then' in guard
     assert 'python3 "$CLEANUP_CONTROL" sweep' in guard
     assert '--pressure-override' in guard
@@ -33,6 +35,19 @@ def test_production_guard_has_one_cleanup_authority() -> None:
 def test_production_manifest_is_valid_and_protects_known_incident_roots() -> None:
     _, _, entries = load_control().load_manifest(MANIFEST)
     by_id = {entry["id"]: entry for entry in entries}
+    assert by_id["gig-evidence-lifecycle"] == {
+        "id": "gig-evidence-lifecycle",
+        "path": str(Path.home() / "gig/evidence"),
+        "owner": "gig-revenue-loop",
+        "class": "managed_regenerable",
+        "ttl_seconds": None,
+        "quota_bytes": 0,
+        "lease": None,
+        "finalizer": {
+            "kind": "managed_reclaimer",
+            "reclaimer": "gig_evidence_gc",
+        },
+    }
     assert by_id["work-clones"]["class"] == "source"
     assert by_id["reelclaw-assets"]["class"] == "deliverable"
     assert by_id["anicca-source"]["class"] == "source"

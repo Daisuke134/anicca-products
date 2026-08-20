@@ -284,6 +284,46 @@ def test_runtime_manifest_discovers_exact_chrome_code_sign_clone_children(
     assert str(symlinked) not in {artifact["path"] for artifact in artifacts}
 
 
+def test_runtime_manifest_discovers_chromium_code_sign_clone_children(
+    tmp_path: Path,
+) -> None:
+    scan_root = tmp_path / "X"
+    collection = scan_root / "org.chromium.Chromium.code_sign_clone"
+    stale = collection / "code_sign_clone.stale"
+    stale.mkdir(parents=True)
+    (stale / "payload").write_bytes(b"x" * 128)
+    proof = tmp_path / "Chromium"
+    proof.write_bytes(b"executable")
+    base = write_manifest(tmp_path / "base.json", [])
+    runtime = tmp_path / "runtime.json"
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(MODULE_PATH),
+            "runtime-manifest",
+            "--manifest",
+            str(base),
+            "--output",
+            str(runtime),
+            "--root",
+            str(tmp_path / "empty-root"),
+            "--code-sign-clone-root",
+            str(scan_root),
+            "--chrome-code-sign-proof",
+            str(proof),
+        ],
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    artifacts = json.loads(runtime.read_text(encoding="utf-8"))["artifacts"]
+    assert [artifact["path"] for artifact in artifacts] == [str(stale)]
+    assert artifacts[0]["owner"] == "macos-code-sign-clone"
+
+
 def test_runtime_manifest_discovers_exact_pnpm_store_versions(tmp_path: Path) -> None:
     scan_root = tmp_path / "empty-root"
     scan_root.mkdir()
