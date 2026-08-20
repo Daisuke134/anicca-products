@@ -631,12 +631,6 @@ if [ "$TEST_MODE" -eq 0 ]; then
       --code-sign-clone-root "$USER_CODE_SIGN_ROOT" \
       --pnpm-store-root "$HOME_DIR/Library/pnpm/store" \
       --pnpm-proof "$PNPM_PROOF" \
-      --cache-root "$HOME_DIR/Library/Caches" \
-      --cache-root "$HOME_DIR/.npm" \
-      --cache-root "$HOME_DIR/.cargo/registry" \
-      --cache-root "$HOME_DIR/.cargo/git" \
-      --cache-root "$HOME_DIR/.cache" \
-      --cache-root "$USER_TEMP_ROOT" \
       --min-cache-bytes 67108864 2>>"$LOG")
     RUNTIME_MANIFEST_RC=$?
     if [ "$RUNTIME_MANIFEST_RC" -eq 0 ] && [ -s "$CLEANUP_RUNTIME_MANIFEST" ]; then
