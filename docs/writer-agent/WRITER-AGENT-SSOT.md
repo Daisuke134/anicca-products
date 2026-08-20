@@ -92,8 +92,8 @@ AST compilation, the changed shell files pass `bash -n`, and the controlled
 regression run passes `37 tests`. This verifies the safety stop and regression
 contracts; it does not verify a new external publication.
 
-Fresh adversarial review keeps the pause in place: the host currently reports
-about `704 MiB` free, below the 5 GiB publication floor, so resume now exits
+Fresh adversarial review keeps the pause in place: the latest host check reports
+about `382 MiB` free (an earlier check was `704 MiB`), below the 5 GiB publication floor, so resume now exits
 before acquiring the publication lock when the pause file is absent as well.
 The Substack guards canonicalize both language identities, the source circuit
 now has the same 300-second publisher timeout as the release, and the Substack
