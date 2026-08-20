@@ -112,9 +112,9 @@ not a receipt.
 
 Life Manager now contains a hash-pinned copy of the production Writer tree
 (476 files; tree hash
-`cba44554e94e9722fcfc6b8f2d2995d28adc93cb4aa3d5079a236d92104091a4`), while
+`9a964e8ed442b2113797d4719f27faa6ec87025bfd0efdee9f2bd3f00d0f08b3`), while
 the active release is 475 files with hash
-`b10435498e1cd6cf0661be953f5602dc17c63513ff46f16850a96e992c6cb5d1`. The
+`b1fc5dd9f0f7e923e2cb8880b35424580af3ff1ff1ead9dcb4fe484b2cb7ef5c`. The
 manifest records the exact path-plus-content hash algorithm. The
 repository-independent `writer_owner_fence.py` is identical in source,
 active-release, and Life Manager trees, and daily/resume/Zenn have pause gates,
@@ -124,7 +124,9 @@ parity is proven, old workers are drained, and a bounded wake is read back. The
 runtime manifest inventories all 19 installed Writer/article labels; 11 still
 lack a Life Manager template, including five that invoke the separate
 `~/.local/lib/writer-engine` CLI. The pause proof does not extend to that
-legacy CLI.
+legacy CLI. The active-release resume path waits for the optional self-owned
+worker before releasing the shared fence, so that worker cannot outlive its
+owner.
 
 Fresh adversarial review keeps the pause in place. The current host check
 reports about `5.6 GiB` free, above the 5 GiB publication floor; the old

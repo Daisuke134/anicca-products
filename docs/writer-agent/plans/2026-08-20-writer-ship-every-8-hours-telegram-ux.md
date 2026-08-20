@@ -74,7 +74,7 @@ fresh adversarial reviewで空き容量が5GiB未満になった履歴を受け�
 
 launchdの実測は別の失敗である。`ai.anicca.article-daily` と `ai.anicca.article-resume` のplistは存在するが、`launchctl bootstrap`/`kickstart`/`print` はいずれも `141: Reentrancy avoided` で終了し、初期化tickが終わった後にWriterプロセスは残っていない。したがって現在のloopは「公開処理までON」とは言えず、定期的に公開しているとは言えない。
 
-実行ownerはまだLife Managerへ切り替わっていない。releaseは `/Users/anicca/profitable-claude-releases/writer/e9ab21ea/writer-agent`、状態は `/Users/anicca/profitable-claude/skills/writer-agent/state`、Life Managerのcheckoutは `/Users/anicca/Projects/life-manager-main` で、後者には476ファイルのWriter runtime treeと10 templateがある（tree hash `cba44554e94e9722fcfc6b8f2d2995d28adc93cb4aa3d5079a236d92104091a4`、active release hash `b10435498e1cd6cf0661be953f5602dc17c63513ff46f16850a96e992c6cb5d1`）。owner fenceはコードとして準備済みだが、インストール済みplistの切替、state parity、旧root drain、bounded wakeが未完了である。`/Users/anicca/.openclaw` と `/Users/anicca/profitable-claude` 全体は削除しない。後者はWriter以外の稼働loopも含むため、最後に可能なのはWriter専用releaseの復元試験付きアーカイブだけである。
+実行ownerはまだLife Managerへ切り替わっていない。releaseは `/Users/anicca/profitable-claude-releases/writer/e9ab21ea/writer-agent`、状態は `/Users/anicca/profitable-claude/skills/writer-agent/state`、Life Managerのcheckoutは `/Users/anicca/Projects/life-manager-main` で、後者には476ファイルのWriter runtime treeと10 templateがある（tree hash `9a964e8ed442b2113797d4719f27faa6ec87025bfd0efdee9f2bd3f00d0f08b3`、active release hash `b1fc5dd9f0f7e923e2cb8880b35424580af3ff1ff1ead9dcb4fe484b2cb7ef5c`）。owner fenceはコードとして準備済みだが、インストール済みplistの切替、state parity、旧root drain、bounded wakeが未完了である。self-owned workerはresumeのowner fence解放前に同期完了するよう修正した。`/Users/anicca/.openclaw` と `/Users/anicca/profitable-claude` 全体は削除しない。後者はWriter以外の稼働loopも含むため、最後に可能なのはWriter専用releaseの復元試験付きアーカイブだけである。
 
 ### 1.6 一件ずつ閉じる順序
 
