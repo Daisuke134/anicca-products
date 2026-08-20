@@ -112,9 +112,9 @@ not a receipt.
 
 Life Manager now contains a hash-pinned copy of the production Writer tree
 (476 files; tree hash
-`9a964e8ed442b2113797d4719f27faa6ec87025bfd0efdee9f2bd3f00d0f08b3`), while
+`ba85ec791257f9928b0edef5503ad06fda3e08352cacfbf1a87396419a458907`), while
 the active release is 475 files with hash
-`b1fc5dd9f0f7e923e2cb8880b35424580af3ff1ff1ead9dcb4fe484b2cb7ef5c`. The
+`3151d6b9ab49ecbe678c0402771b29801b972090f6fb029e8d531a696e267e01`. The
 manifest records the exact path-plus-content hash algorithm. The
 repository-independent `writer_owner_fence.py` is identical in source,
 active-release, and Life Manager trees, and daily/resume/Zenn have pause gates,
@@ -136,10 +136,13 @@ plus `curl --resolve` reaches Note, Substack, and X. The Substack guards
 canonicalize both language identities, the source circuit now has the same
 300-second publisher timeout as the release, and the Substack circuit manifest
 includes its transitive guard/readback scripts.
-The Substack guards canonicalize both language identities, the source circuit
-now has the same 300-second publisher timeout as the release, and the Substack
-circuit manifest includes its transitive guard/readback scripts. EN and X still
-have no publisher-native identity/media readback and cannot be released.
+The authenticated Substack draft API may expose only `publication_id`; the
+reader now resolves that ID through the authenticated `/api/v1/publication`
+profile and requires an exact ID match before accepting the publication host.
+The same fallback is used by the same-ID refresh guard. Live publication remains
+paused until EN identity, X readback, and active-owner cutover are verified.
+EN and X still have no publisher-native identity/media readback and cannot be
+released.
 
 The active execution is still split: release code is under
 `/Users/anicca/profitable-claude-releases/writer/e9ab21ea/writer-agent`, mutable
