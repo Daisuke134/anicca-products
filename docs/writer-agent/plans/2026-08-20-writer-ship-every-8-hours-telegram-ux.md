@@ -69,6 +69,8 @@ pause gateはresume workerとdaily creatorの両方で直接実行し、ロッ�
 
 Substack managed publisherのsource／active release契約fixtureも、JAのpublication identityをstateと環境へ明示したうえでPASSした。これはローカル呼び出し契約の確認であり、外部Substack公開receiptではない。
 
+さらに、下書きGETのpublication/subdomainと明示bylineを読み戻してから画像upload／PUTへ進むfail-closed判定をsource／releaseへ追加した。identity readbackが欠ける既存英語targetは、環境変数だけでは再利用しない。
+
 fresh adversarial reviewでは、空き容量が最新約382MiB（直前は約704MiB）で5GiBの公開下限を下回ることを確認した。resumeにも同じ下限のfail-closed判定を追加し、pause fileが無くても外部作用前に停止する。Substackの言語identity比較は正規化し、source circuitにもreleaseと同じ300秒timeoutを揃えた。EN/Xのidentity・media readbackが未確認のため、pauseは解除しない。
 
 launchdの実測は別の失敗である。`ai.anicca.article-daily` と `ai.anicca.article-resume` のplistは存在するが、`launchctl bootstrap`/`kickstart`/`print` はいずれも `141: Reentrancy avoided` で終了し、初期化tickが終わった後にWriterプロセスは残っていない。したがって現在のloopは「公開処理までON」とは言えず、定期的に公開しているとは言えない。

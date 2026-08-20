@@ -97,6 +97,11 @@ also pass after declaring a test publication identity in both the environment
 and persisted state. The fixture is only a local call-contract check; it is not
 a Substack publication receipt.
 
+Substack intent refresh now requires the draft GET response itself to contain a
+matching publication/subdomain and an explicit owned byline before any image
+upload or PUT. A missing or mismatched identity is a hard stop, so the current
+old English target cannot be reused merely by adding an environment variable.
+
 Fresh adversarial review keeps the pause in place: the latest host check reports
 about `382 MiB` free (an earlier check was `704 MiB`), below the 5 GiB publication floor, so resume now exits
 before acquiring the publication lock when the pause file is absent as well.
