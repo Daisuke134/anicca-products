@@ -1685,6 +1685,29 @@ Only one foreground implementation item is active at a time. Always-running
 production workers may publish, retry, measure, report, and monitor publisher
 responses concurrently. External waiting never blocks the foreground queue.
 
+#### Live one-by-one checkpoint
+
+The first repair slice now has a bounded live receipt. The claim-loop plist and
+the daily plist resolve to the same release tree (`e9ab21ea`), and the release
+state path shares the mutable state inode, so claim and daily workers no longer
+read two different queues. The old mutable-path `ENOENT` is gone.
+
+When the official Civo demand page is unavailable, the release accepts only a
+hash- and evidence-validated body receipt no older than seven days. The latest
+bounded wake assembled 301 observations across `owned_funnel`, `paid_market`,
+`publisher_opportunity`, and `reader_demand`. It then stopped honestly at the
+provider gate: Codex could not resolve its network host and Claude was not
+authenticated, so the receipt is `MODEL_UNAVAILABLE`, the queue remains empty,
+and no topic, article, or publication was fabricated.
+
+An adversarial lock check also found and closed a concurrency hazard. Locks now
+carry owner PID and process-start identity; a lock older than six hours is not
+quarantined while its owner is alive, and missing owner identity fails closed.
+Python compilation, shell syntax, and an isolated live-owner fixture pass. The
+remaining proof is a provider-backed ready card, one real daily run, and a
+launchd receipt; `launchctl` currently returns `Reentrancy avoided` (rc 141), so
+the manual bounded wake is not reported as a launchd success.
+
 #### Atomic remaining queue
 
 | Order | Atomic work item | Owner | Completion receipt |

@@ -20,7 +20,11 @@ Writerは「書けない」のではなく、**供給・実行・計測・報告
 |---|---|---|
 | 日次run | `daily-2026-08-18`〜`20` は各2ファイルのみ（`git-hash.txt` と `strategy-consumption.json`）、`article-ja.md`/`article-en.md`なし | 6:00の起動後、生成前に終了 |
 | 最新日次ログ | `demand topic queue is empty` → `pending claim-loop supply` | モデル呼び出し・公開は実行されていない |
-| claim loop | `/Users/anicca/profitable-claude/skills/writer-agent/scripts/claim_loop.py` が存在せず、同じENOENTを繰り返す | 需要カードが補充されない |
+| claim loop | 初回は mutable path `/Users/anicca/profitable-claude/skills/writer-agent/scripts/claim_loop.py` が存在せずENOENT。loaded plistを release `e9ab21ea`へ切り替え、手動wakeは需要集約まで到達 | 実行入口の分裂は修正済み。ただし供給はモデルゲートで停止中 |
+| claim loop live rerun | `2026-08-20T18:25:00Z` の receipt は `demand_observations=301`、4 family（`owned_funnel`/`paid_market`/`publisher_opportunity`/`reader_demand`）、`supply=MODEL_UNAVAILABLE`、`queue_after=0` | 需要は見えるが、topic/cardを捏造せず出荷前で停止 |
+| Civo demand source | 公式本文の取得が外部DNS/ネットワーク障害で失敗。既存本文receipt（URL・SHA-256・evidence 5 units・2 windows、観測から7日以内）だけを期限付きで再利用 | 需要供給は継続できるが、7日を超えたcacheはhard stop |
+| publication lock | adversarial checkで、6時間超でもownerのPIDとprocess-startが生きているlockはquarantineせずretryへ変更 | 生きた記事公開とclaim loopの同時操作を防止 |
+| launchd proof | plistはrelease rootと同じだが、環境の`launchctl`操作は全てrc=141（`Reentrancy avoided`） | launchdからの実行receiptは未取得。手動bounded wakeの証拠と分離して扱う |
 | money sync | `scripts/money_sync.py` が存在せずENOENT | 収益台帳が更新されない |
 | report worker | `scripts/writer_report_worker.py` が存在せずENOENT | Telegramの新しい日次reportが生成されない |
 | healthcheck | `article-healthcheck.sh` が存在せずENOENT | 未出荷runを検出できない |
@@ -131,7 +135,7 @@ flowchart LR
 |---|---|---|
 | source | current branchにWriter treeなし。releaseだけが完全tree | release manifestから全workerを同一versionで解決 |
 | schedule | article-dailyは6:00で起動するがdemand空でprovider前にexit。cron 9件はdisabled | 6:00 creator、5分 resume/health、15分 opportunity、1時間 money、22:00 learning/reportを一つのregistryで管理 |
-| demand | queue=0、claim loopはENOENT | 24h先までpaid-demand cardを供給し、欠損時はincident化 |
+| demand | claim loopのENOENTは解消。Civo cache fallbackで301 observations/4 familiesまで復旧したが、CodexはDNS失敗、Claudeは未ログインで`MODEL_UNAVAILABLE`、queue=0 | 24h先までpaid-demand cardを供給し、provider unavailableはincident化。topic/cardを空欄や推測で埋めない |
 | publication | note/Substack/X/Zenn等が混在し、draft/intent/readbackが長期滞留 | revenue-setとfree-distributionを分離し、同じrunをdestination単位で再開 |
 | healing | healthcheck、repair、self-improveの入口が欠損 | 失敗signatureを保存し、同一artifactを修復・検証・resume |
 | money | money sync欠損。最後のreportは8/16で受取¥0/$0 | receipt-only ledger。未計測はunknown。MRR/one-timeを分離 |
@@ -324,15 +328,27 @@ SUBSTACK_PUBLICATION_EN`を必須とする。platformが同じloginで複数publ
 - 旧SSOT履歴（`docs/loop-engineering/47-*`）を現行TODOとして復活させない。
 - account作成・KYC・CAPTCHA・電話確認・payout identityを自動で迂回しない。認証メールはownerが管理する専用mailboxまたは許可済みOAuth経路だけを読む。第三者のメールアドレスを収集して読者・登録・送信に流用しない。
 
+## 5.1 One-by-one execution ledger（2026-08-20実測）
+
+一度に一つの故障クラスだけを閉じる。今回のsliceはコードを直接直し、既存の実行入口をboundedにwakeし、receiptを読み戻した。記事生成・外部公開はprovider gateが戻るまで起動しない。
+
+| Slice | 状態 | 実測 | 残り |
+|---|---|---|---|
+| 実行rootとstate | 修正済み（live） | claim plistとdaily plistがrelease `e9ab21ea`を指し、release `state`とmutable stateが同じdevice/inode。manifestへの永続化は未完了 | source/release manifestと全workerのpath census |
+| 需要source outage | 修正済み（bounded） | Civoの7日以内・hash/evidence検証済み本文だけを再利用し、4つの需要familyを集約 | cache期限切れ時の新規公式取得 |
+| provider gate | 正しく停止 | CodexはDNS解決失敗、Claudeは認証不足。receiptは`MODEL_UNAVAILABLE`、queue=0、生成物なし | 承認済みproviderを1つ復旧して再wake |
+| publication lock | 修正済み（live） | owner PID + process-startを保存し、生存ownerの古いlockをquarantineしない。`py_compile`、`bash -n`、isolated fixtureを通過 | launchd上で同じ挙動をreadback |
+| launchd | 未検証（環境blocker） | `launchctl`はrc=141で再入を拒否 | launchdを再読込できる環境でkickstart receipt |
+
 ## 6. Execution Steps（残TODOの順序）
 
-### P0-1 Canonical runtimeを復旧
+### P0-1 Canonical runtimeを復旧（進行中）
 
-`/Users/anicca/profitable-claude`のWriter sourceを、release `e9ab21ea`の完全treeと同じ契約へ戻す。manifestを作り、全plistをmanifest経由にする。旧`writer-daily` engineとdisabled article cronは実行主体から外す。完了条件はA1〜A5。
+初回のclaim plistが指していたmissing mutable pathは、live plistをrelease `e9ab21ea`へ修正し、release codeとmutable stateを同一inodeへ接続した。まだ`writer-runtime-manifest.json`、全worker path census、launchdからの再起動receiptが無いため完了ではない。`/Users/anicca/profitable-claude`のWriter sourceをreleaseの完全treeと同じ契約へ戻し、manifestを作り、旧`writer-daily` engineとdisabled article cronを実行主体から外す。完了条件はA1〜A5。
 
-### P0-2 Demand supplyを復旧
+### P0-2 Demand supplyを復旧（provider gateで停止中）
 
-`claim_loop.py`、`claim_store.py`、`claim_supply.py`、`demand_authority.py`を同一releaseへ揃え、`state/topics/queue`へ24時間分のカードを作る。queue空を安全停止だけで終わらせず、incident + Telegramへ送る。完了条件はA6。
+`claim_loop.py`、`claim_store.py`、`claim_supply.py`、`demand_authority.py`は同一releaseから実行される。Civo公式本文が取得できない場合は、7日以内でSHA-256/evidence一致の既存receiptだけを再利用し、期限切れはhard stopする。`2026-08-20T18:25:00Z`のmanual wakeは301 observations/4 familyを集約したが、Codex DNS失敗とClaude未認証のため`MODEL_UNAVAILABLE`、queue=0で終了した。完了条件A6には、承認済みproviderを復旧し`ready` cardを最低1枚作るreceiptが残る。
 
 ### P0-3 1日1本のrevenue-set E2E
 
