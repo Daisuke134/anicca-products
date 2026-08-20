@@ -33,12 +33,12 @@ GIG_LOCK_PID="${EMERGENCY_GUARD_TEST_LOCK_OWNER:-}"
 GIG_WORKER_MAX_SECONDS="${GIG_WORKER_MAX_SECONDS:-7200}"
 GIG_HEARTBEAT_MAX_SECONDS="${GIG_HEARTBEAT_MAX_SECONDS:-180}"
 CANONICAL_GIG_ARGV="${GIG_WORKER_CANONICAL_ARGV:-/bin/bash $HOME_DIR/profitable-claude/skills/gig-work/gig_pass.sh}"
-THRESHOLD_GB="${EMERGENCY_GUARD_THRESHOLD_GB:-11}"
+THRESHOLD_GB="${EMERGENCY_GUARD_THRESHOLD_GB:-20}"
 # Enter containment below the emergency threshold, but only keep the writer
 # brake asserted until the same clear floor used by disk-sentinel/gig-gates is
 # reached.  The gap is intentional hysteresis: a 5-6GB host must not flap a
 # live paid lane merely because the emergency reserve is 11GB.
-RECOVERY_GB="${EMERGENCY_GUARD_RECOVERY_GB:-6}"
+RECOVERY_GB="${EMERGENCY_GUARD_RECOVERY_GB:-11}"
 ULTRA_GB="${EMERGENCY_GUARD_ULTRA_GB:-3}"
 GIG_EVIDENCE_GC_SCRIPT="${GIG_EVIDENCE_GC_SCRIPT:-$HOME_DIR/profitable-claude/skills/gig-work/scripts/evidence_gc.py}"
 export GIG_EVIDENCE_GC_SCRIPT
@@ -54,9 +54,28 @@ STOP_DECISION=""
 STOP_REASON=""
 RECLAIM_HEADER=$'timestamp\ttxid\tphase\tpath\towner\tclass\tbefore_bytes\tafter_bytes\treclaimed_bytes\treason\tpolicy_version\tdetail'
 OPS_HEADER=$'timestamp\tresult\treason\tfree_before_gb\tfree_after_gb\teligible_paths\treclaimed_bytes\tpolicy_version'
+LEDGER_MAX_BYTES=$((32 * 1024 * 1024))
 
 mkdir -p "$LOG_DIR" "$STATE_DIR" 2>/dev/null || exit 1
 log() { printf '%s %s\n' "$(date '+%F %T')" "$*" >> "$LOG"; }
+
+rotate_cleanup_ledger() {
+  [ -f "$CLEANUP_LEDGER" ] || return 0
+  local size stamp archive
+  size=$(stat -f%z "$CLEANUP_LEDGER" 2>/dev/null || echo 0)
+  case "$size" in ''|*[!0-9]*) return 0 ;; esac
+  [ "$size" -le "$LEDGER_MAX_BYTES" ] && return 0
+  stamp=$(date -u '+%Y%m%dT%H%M%SZ')
+  archive="$CLEANUP_LEDGER.$stamp.gz"
+  if gzip -c "$CLEANUP_LEDGER" > "$archive.tmp" 2>/dev/null; then
+    mv "$archive.tmp" "$archive"
+    : > "$CLEANUP_LEDGER"
+    log "rotated cleanup ledger: ${size} bytes -> $archive"
+  else
+    rm -f "$archive.tmp" 2>/dev/null || true
+    log "cleanup ledger rotation failed; preserving source"
+  fi
+}
 
 case "$THRESHOLD_GB:$RECOVERY_GB:$ULTRA_GB" in
   *[!0-9:]*|*:*:*:*|"") exit 1 ;;
@@ -71,6 +90,7 @@ if ! mkdir "$LOCK" 2>/dev/null; then
 fi
 echo $$ > "$LOCK/pid"
 trap 'rm -rf "$LOCK"' EXIT
+rotate_cleanup_ledger
 
 # Life Manager is the host-wide cleanup owner. Keep the existing guard as the
 # launchd trigger while its domain is unhealthy; the governor has its own

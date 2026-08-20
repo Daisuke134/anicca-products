@@ -21,6 +21,8 @@ def test_production_guard_has_one_cleanup_authority() -> None:
     guard = (ROOT / "scripts" / "emergency-disk-guard.sh").read_text(encoding="utf-8")
     assert "LIFE_MANAGER_DISK_GOVERNOR" in guard
     assert 'python3 "$LIFE_MANAGER_DISK_GOVERNOR"' in guard
+    assert "LEDGER_MAX_BYTES=$((32 * 1024 * 1024))" in guard
+    assert "rotate_cleanup_ledger" in guard
     assert 'if [ "$TEST_MODE" -eq 0 ]; then' in guard
     assert 'python3 "$CLEANUP_CONTROL" sweep' in guard
     assert '--pressure-override' in guard
