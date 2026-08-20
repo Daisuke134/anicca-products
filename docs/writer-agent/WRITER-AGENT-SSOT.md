@@ -102,6 +102,17 @@ matching publication/subdomain and an explicit owned byline before any image
 upload or PUT. A missing or mismatched identity is a hard stop, so the current
 old English target cannot be reused merely by adding an environment variable.
 
+The managed Substack wrapper now applies the same pair-specific identity check
+before any draft or live request, and the remote receipt reader requires both
+an explicit authenticated draft publication identity and the final public
+canonical host after redirects. A URL assembled from an expected host alone is
+not a receipt.
+
+Life Manager now contains a hash-pinned copy of the production Writer tree,
+but the active LaunchAgents still invoke the external release. The copy is not
+the active owner until state parity, a shared owner fence, worker drain, and a
+bounded wake are all proven.
+
 Fresh adversarial review keeps the pause in place: the latest host check reports
 about `382 MiB` free (an earlier check was `704 MiB`), below the 5 GiB publication floor, so resume now exits
 before acquiring the publication lock when the pause file is absent as well.
