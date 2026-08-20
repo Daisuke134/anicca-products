@@ -10,7 +10,7 @@ ROOT = Path(__file__).parents[3]
 GUARD = ROOT / "scripts" / "emergency-disk-guard.sh"
 
 
-def test_guard_clears_pressure_after_recovery_floor_not_emergency_threshold(
+def test_guard_clears_pressure_after_recovery_floor_not_preventive_threshold(
     tmp_path: Path,
 ) -> None:
     home = tmp_path / "home"
@@ -23,8 +23,9 @@ def test_guard_clears_pressure_after_recovery_floor_not_emergency_threshold(
     environment.update(
         {
             "EMERGENCY_GUARD_TEST_HOME": str(home),
-            "EMERGENCY_GUARD_TEST_FREE_GB": "7",
-            "EMERGENCY_GUARD_RECOVERY_GB": "6",
+            "EMERGENCY_GUARD_TEST_FREE_GB": "12",
+            "EMERGENCY_GUARD_THRESHOLD_GB": "20",
+            "EMERGENCY_GUARD_RECOVERY_GB": "11",
             "CLEANUP_CONTROL_PATH": str(tmp_path / "missing-cleanup-control.py"),
         }
     )
@@ -39,6 +40,34 @@ def test_guard_clears_pressure_after_recovery_floor_not_emergency_threshold(
     assert result.returncode == 0, result.stderr
     assert not (state / "disk-pressure.block").exists()
     assert not (state / "disk-pressure.alert").exists()
+
+
+def test_guard_keeps_pressure_below_recovery_floor(tmp_path: Path) -> None:
+    home = tmp_path / "home"
+    state = home / ".openclaw" / "state"
+    state.mkdir(parents=True)
+    (state / "disk-pressure.block").write_text("old\n", encoding="utf-8")
+
+    environment = os.environ.copy()
+    environment.update(
+        {
+            "EMERGENCY_GUARD_TEST_HOME": str(home),
+            "EMERGENCY_GUARD_TEST_FREE_GB": "7",
+            "EMERGENCY_GUARD_THRESHOLD_GB": "20",
+            "EMERGENCY_GUARD_RECOVERY_GB": "11",
+            "CLEANUP_CONTROL_PATH": str(tmp_path / "missing-cleanup-control.py"),
+        }
+    )
+    result = subprocess.run(
+        ["/bin/bash", str(GUARD)],
+        env=environment,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert result.returncode == 3
+    assert (state / "disk-pressure.block").exists()
 
 
 def test_disk_recovery_redispatches_only_machine_owned_disk_blocked_tasks(
