@@ -92,6 +92,14 @@ AST compilation, the changed shell files pass `bash -n`, and the controlled
 regression run passes `37 tests`. This verifies the safety stop and regression
 contracts; it does not verify a new external publication.
 
+Fresh adversarial review keeps the pause in place: the host currently reports
+about `704 MiB` free, below the 5 GiB publication floor, so resume now exits
+before acquiring the publication lock when the pause file is absent as well.
+The Substack guards canonicalize both language identities, the source circuit
+now has the same 300-second publisher timeout as the release, and the Substack
+circuit manifest includes its transitive guard/readback scripts. EN and X still
+have no publisher-native identity/media readback and cannot be released.
+
 The active code is still split: release code is under
 `/Users/anicca/profitable-claude-releases/writer/e9ab21ea/writer-agent`, mutable
 Writer state is under `/Users/anicca/profitable-claude/skills/writer-agent/state`,
