@@ -61,23 +61,23 @@ flowchart LR
 
 ### 1.5 現在の実行境界（実測）
 
-今回の `daily-2026-08-20` は、需要カード、JA/EN本文、不変メディア、品質証跡まで作成したが、公開は `0/4` のまま終了した。復旧ワーカーは同一runの初期化対象 `note/ja`、`substack/ja`、`substack/en` を元の draft-only 経路で各1回だけ試行した。Noteは `note-mcp` の依存取得で `files.pythonhosted.org` のDNS解決に失敗し、Substack日英は `headline-image.png` のアップロードでDNS解決に失敗した。いずれもtarget作成前であり、既存の `x-article/ja` 編集URL `https://x.com/compose/articles/edit/2090392988765605888` は変更していない。
+今回の `daily-2026-08-20` は、需要カード、JA/EN本文、不変メディア、品質証跡まで作成したが、公開は `0/4` のまま終了した。復旧ワーカーは同一runの初期化を行い、Noteの安定キー `ne6da5b602b4a`、Substack日英の下書きID `211988979` / `211988987`、X記事の編集URL `https://x.com/compose/articles/edit/2090392988765605888` を保存・再照合した。これは下書き/intentの証拠であり、公開URLではない。Noteの最初の依存復旧では `files.pythonhosted.org` のDNS解決に失敗している。
 
-この結果は公開成功ではない。`publication-state.json` は4件のlive/reality receiptを持たず、`article-run-complete.py` は成功条件を満たさない。収益receiptも存在しないため、売上は0円と断定せず未確認として扱う。失敗報告はTelegram message ID `26049` で送信済みである。
+この結果は公開成功ではない。`publication-state.json` は4件のlive/reality receiptを持たず、`article-run-complete.py` は成功条件を満たさない。収益receiptも存在しないため、売上は0円と断定せず未確認として扱う。初期化報告はTelegram message ID `26065` で送信済みで、未完了状態を自然文で再送するdeterministic rendererも実装済みである。
 
-launchdの実測は別の失敗である。`ai.anicca.article-daily` と `ai.anicca.article-resume` のplistは存在するが、`launchctl bootstrap`/`kickstart` はいずれも `141: Reentrancy avoided` で終了し、手動復旧を停止した後にWriterプロセスは残っていない。したがって現在のloopはONではなく、定期的に公開しているとは言えない。
+launchdの実測は別の失敗である。`ai.anicca.article-daily` と `ai.anicca.article-resume` のplistは存在するが、`launchctl bootstrap`/`kickstart`/`print` はいずれも `141: Reentrancy avoided` で終了し、初期化tickが終わった後にWriterプロセスは残っていない。したがって現在のloopは「公開処理までON」とは言えず、定期的に公開しているとは言えない。
 
-実行コードはまだLife Managerに統合されていない。releaseは `/Users/anicca/profitable-claude-releases/writer/e9ab21ea/writer-agent`、状態は `/Users/anicca/profitable-claude/skills/writer-agent/state`、Life Managerのcheckoutは `/Users/anicca/Projects/life-manager-main` で、後者にWriter runtime treeはない。`/Users/anicca/profitable-claude`、release root、`/Users/anicca/.openclaw` は認証・状態・ログを含むため、移行・ハッシュ照合・live parity・rollback archiveが終わるまで削除しない。
+実行コードはまだLife Managerに統合されていない。releaseは `/Users/anicca/profitable-claude-releases/writer/e9ab21ea/writer-agent`、状態は `/Users/anicca/profitable-claude/skills/writer-agent/state`、Life Managerのcheckoutは `/Users/anicca/Projects/life-manager-main` で、後者にWriter runtime treeはない。旧rootと新rootを同時に動かすと現在のstate lockだけでは重複公開を防げないため、移行前にrepository非依存のshared owner fenceを置く。`/Users/anicca/.openclaw` と `/Users/anicca/profitable-claude` 全体は削除しない。後者はWriter以外の稼働loopも含むため、最後に可能なのはWriter専用releaseの復元試験付きアーカイブだけである。
 
 ### 1.6 一件ずつ閉じる順序
 
 | 順序 | 一件の完了条件 | 今の状態 |
 |---:|---|---|
-| 1 | schedulerが実際に起動し、run/recoveryのPIDと終了receiptを返す | 未完了。rc=141 |
-| 2 | DNSまたは承認済みの代替transportを復旧し、Note/Substackのtargetを作成する | 未完了。target作成前で停止 |
+| 1 | schedulerが実際に起動し、run/recoveryのPIDと終了receiptを返す | 未完了。rc=141。初期化tickの終了receiptのみ |
+| 2 | DNSまたは承認済みの代替transportを復旧し、Note/Substackを同じrunから公開する | 未完了。下書き/intentのみ |
 | 3 | X既存targetをsame-IDで修復し、active-four全件のpublisher-native readbackを記録する | 未完了。live receipt 0件 |
 | 4 | payment/publisherの実受取receiptをartifactへjoinし、自然文Telegramへ送る | 未完了。revenue receipt 0件 |
-| 5 | Life Managerのmanifestへsource/release/state/workerを移し、旧creatorを無効化する | 未着手。削除も未実施 |
+| 5 | Life Managerのmanifestへsource/release/state/全19 workerを移し、shared fenceで旧ownerをdrainしてから無効化する | 未着手。削除も未実施 |
 
 ## 2. Acceptance Criteria（完了条件）
 
@@ -159,7 +159,7 @@ launchdの実測は別の失敗である。`ai.anicca.article-daily` と `ai.ani
 | publication | note/Substack/X/Zenn等が混在し、draft/intent/readbackが長期滞留 | revenue-setとfree-distributionを分離し、同じrunをdestination単位で再開 |
 | healing | healthcheck、repair、self-improveの入口が欠損 | 失敗signatureを保存し、同一artifactを修復・検証・resume |
 | money | money sync欠損。最後のreportは8/16で受取¥0/$0 | receipt-only ledger。未計測はunknown。MRR/one-timeを分離 |
-| Telegram | live pair通知は`✅ substack/ja live`、completionは`[event] exact8 COMPLETE`、weekly auditは`status=PASS runs=...`のような技術短文。report workerはENOENT | ownerの設定言語で、自然文・公開リンク・金額の真実・次の自動行動を説明し、内部enum/ harness名は主文から隠す |
+| Telegram | 旧live pair通知は`✅ substack/ja live`、completionは機械的なevent名で、未完了のdeterministic tickは報告を送らない経路があった | pending/live/completionを一つの自然文rendererに通し、公開後readbackのURLだけをリンクとして出す。未確認の公開・入金は完了や0円に変換しない |
 | account | `run.sh`の`substack-ja`と`substack-en`が同じ`SUBSTACK_PUBLICATION`を既定値にする | JA legacyとEN dedicated publicationをpair単位で分離し、言語別receiptを学習 |
 | cadence | “毎日”はtriggerの存在であり、shipの証拠ではない | ship = public readback + artifact hash + payment observation（未入金は正直にunknown） |
 

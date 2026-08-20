@@ -71,11 +71,15 @@ skip receipts. The existing X edit URL is preserved as an intent and has not
 been published.
 
 The observed failure is external DNS resolution: Note dependency restoration
-and both Substack image uploads fail before a target is created. `launchctl
-bootstrap` and `launchctl kickstart` for `ai.anicca.article-daily` both return
-`141: Reentrancy avoided`, and no Writer process is present after the bounded
-manual recovery is stopped. A Telegram status report was sent with message ID
-`26049`; it reports these facts in neutral natural language.
+failed once while restoring `fastmcp`, and the recovery then re-read Note draft
+key `ne6da5b602b4a`; Substack JA/EN draft IDs `211988979` and `211988987` were
+also re-read. These are draft/intent proofs, not live URLs. The saved X edit URL
+`https://x.com/compose/articles/edit/2090392988765605888` remains intent-only.
+No active-four live receipt exists. `launchctl bootstrap`, `launchctl kickstart`,
+and `launchctl print` return `141: Reentrancy avoided`; a plist is not an
+execution receipt. The latest initialization Telegram report is message ID
+`26065`; the new deterministic progress renderer is installed but has not yet
+sent a live-completion report.
 
 The active code is still split: release code is under
 `/Users/anicca/profitable-claude-releases/writer/e9ab21ea/writer-agent`, mutable
@@ -87,16 +91,20 @@ until credentials, state, receipts, and a live-readback parity check are
 complete.
 
 The release resume worker now propagates its release root to nested publisher
-scripts, refuses frozen `unavailable` pairs as `all-complete`, and asks agents
-to write neutral Telegram messages. Completion notifications use natural
-Japanese sentences and never count a view, paywall, or test action as revenue.
+scripts, refuses frozen `unavailable` pairs as `all-complete`, and owns the
+deterministic publisher branches. Completion and pending-progress notifications
+use natural Japanese sentences; a pending message is deduplicated by a semantic
+state hash and never counts a view, paywall, draft, or test action as revenue.
 
 ### 0.1.1b Atomic remaining work
 
 1. Restore a usable scheduler execution context and prove one real
-   `ai.anicca.article-daily` launchd wake; do not treat a plist file as proof.
+   `ai.anicca.article-resume` wake; do not treat a plist file as proof. A
+   repository-independent owner fence must prevent release and Life Manager
+   workers from running at the same time.
 2. Restore DNS or an approved network transport, then resume the same run and
-   create immutable targets for Note and both Substack publications.
+   publish Note and both Substack targets through their guarded deterministic
+   branches.
 3. Repair and publish the existing X Article target, then read back all four
    public URLs from the publisher surfaces.
 4. Record a publisher/payment receipt for any actual sale; keep unconfirmed
@@ -105,11 +113,13 @@ Japanese sentences and never count a view, paywall, or test action as revenue.
 5. Create one Life Manager runtime manifest that resolves source, release,
    state, scheduler, report, money, claim, and learning paths; migrate code and
    state with hashes and a same-run parity receipt.
-6. Disable duplicate Writer/article creators only after the new Life Manager
-   owner is loaded and observed; retain `.openclaw` only as a runtime dependency
-   until the migration receipt proves it is no longer needed.
-7. Delete the old Profitable Cloud/release paths only after the migration,
-   credential readback, receipt parity, and rollback archive are complete.
+6. Inventory all 19 Writer/article LaunchAgents (creator, resume, retry, money,
+   report, health, learning, and opportunity), load one Life Manager owner, and
+   disable old owners only after shared-fence and same-run parity receipts.
+7. Never delete `.openclaw` or `/Users/anicca/profitable-claude` as a whole;
+   they contain runtime/auth state and other loops. Only a Writer-only release
+   directory may be archived after credential readback, receipt parity, and a
+   verified rollback restore.
 
 ### 0.1.2 Owner-facing language and publication identity
 
