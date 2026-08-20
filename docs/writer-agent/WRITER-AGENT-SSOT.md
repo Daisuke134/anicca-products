@@ -61,6 +61,56 @@ canary. Global platform expansion is conditional on the spec's role matrix,
 language/payout gates, and receipt-backed $10K ledger; it does not replace the
 invariant revenue, safety, or platform-policy rules in this SSOT.
 
+### 0.1.1a Current measured runtime boundary
+
+The current daily run has generated the JA/EN artifacts but has **zero live
+publisher readbacks** and **zero verified revenue receipts**. The active-four
+contract is `note/ja`, `substack/ja`, `substack/en`, and `x-article/ja`;
+`zenn-article/ja`, `devto/en`, `x-article/en`, and `x-post/ja` retain durable
+skip receipts. The existing X edit URL is preserved as an intent and has not
+been published.
+
+The observed failure is external DNS resolution: Note dependency restoration
+and both Substack image uploads fail before a target is created. `launchctl
+bootstrap` and `launchctl kickstart` for `ai.anicca.article-daily` both return
+`141: Reentrancy avoided`, and no Writer process is present after the bounded
+manual recovery is stopped. A Telegram status report was sent with message ID
+`26049`; it reports these facts in neutral natural language.
+
+The active code is still split: release code is under
+`/Users/anicca/profitable-claude-releases/writer/e9ab21ea/writer-agent`, mutable
+Writer state is under `/Users/anicca/profitable-claude/skills/writer-agent/state`,
+and the Life Manager checkout is `/Users/anicca/Projects/life-manager-main`.
+The Life Manager checkout does not yet contain the Writer runtime. No
+`profitable-claude` or `.openclaw` directory is deleted; deletion is forbidden
+until credentials, state, receipts, and a live-readback parity check are
+complete.
+
+The release resume worker now propagates its release root to nested publisher
+scripts, refuses frozen `unavailable` pairs as `all-complete`, and asks agents
+to write neutral Telegram messages. Completion notifications use natural
+Japanese sentences and never count a view, paywall, or test action as revenue.
+
+### 0.1.1b Atomic remaining work
+
+1. Restore a usable scheduler execution context and prove one real
+   `ai.anicca.article-daily` launchd wake; do not treat a plist file as proof.
+2. Restore DNS or an approved network transport, then resume the same run and
+   create immutable targets for Note and both Substack publications.
+3. Repair and publish the existing X Article target, then read back all four
+   public URLs from the publisher surfaces.
+4. Record a publisher/payment receipt for any actual sale; keep unconfirmed
+   revenue as `unknown` and send the completed natural-language Telegram
+   report with its message ID.
+5. Create one Life Manager runtime manifest that resolves source, release,
+   state, scheduler, report, money, claim, and learning paths; migrate code and
+   state with hashes and a same-run parity receipt.
+6. Disable duplicate Writer/article creators only after the new Life Manager
+   owner is loaded and observed; retain `.openclaw` only as a runtime dependency
+   until the migration receipt proves it is no longer needed.
+7. Delete the old Profitable Cloud/release paths only after the migration,
+   credential readback, receipt parity, and rollback archive are complete.
+
 ### 0.1.2 Owner-facing language and publication identity
 
 Writer Loop Telegram reports are for ordinary users, OSS users, cloud users, and

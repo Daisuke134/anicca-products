@@ -59,6 +59,26 @@ flowchart LR
 
 収益面は現在のSSOT §2.5に従い、最初の必須setを`note/ja`、`substack/ja`、`substack/en`とする。`self-owned`とeditorial feeはreceipt collectorが実装された時点で同じ契約へ追加する。Dev.to、Zenn、X Article/Post、TikTokは発見・信頼・送客面であり、受取receiptが無い限り収益setをブロックしない。
 
+### 1.5 現在の実行境界（実測）
+
+今回の `daily-2026-08-20` は、需要カード、JA/EN本文、不変メディア、品質証跡まで作成したが、公開は `0/4` のまま終了した。復旧ワーカーは同一runの初期化対象 `note/ja`、`substack/ja`、`substack/en` を元の draft-only 経路で各1回だけ試行した。Noteは `note-mcp` の依存取得で `files.pythonhosted.org` のDNS解決に失敗し、Substack日英は `headline-image.png` のアップロードでDNS解決に失敗した。いずれもtarget作成前であり、既存の `x-article/ja` 編集URL `https://x.com/compose/articles/edit/2090392988765605888` は変更していない。
+
+この結果は公開成功ではない。`publication-state.json` は4件のlive/reality receiptを持たず、`article-run-complete.py` は成功条件を満たさない。収益receiptも存在しないため、売上は0円と断定せず未確認として扱う。失敗報告はTelegram message ID `26049` で送信済みである。
+
+launchdの実測は別の失敗である。`ai.anicca.article-daily` と `ai.anicca.article-resume` のplistは存在するが、`launchctl bootstrap`/`kickstart` はいずれも `141: Reentrancy avoided` で終了し、手動復旧を停止した後にWriterプロセスは残っていない。したがって現在のloopはONではなく、定期的に公開しているとは言えない。
+
+実行コードはまだLife Managerに統合されていない。releaseは `/Users/anicca/profitable-claude-releases/writer/e9ab21ea/writer-agent`、状態は `/Users/anicca/profitable-claude/skills/writer-agent/state`、Life Managerのcheckoutは `/Users/anicca/Projects/life-manager-main` で、後者にWriter runtime treeはない。`/Users/anicca/profitable-claude`、release root、`/Users/anicca/.openclaw` は認証・状態・ログを含むため、移行・ハッシュ照合・live parity・rollback archiveが終わるまで削除しない。
+
+### 1.6 一件ずつ閉じる順序
+
+| 順序 | 一件の完了条件 | 今の状態 |
+|---:|---|---|
+| 1 | schedulerが実際に起動し、run/recoveryのPIDと終了receiptを返す | 未完了。rc=141 |
+| 2 | DNSまたは承認済みの代替transportを復旧し、Note/Substackのtargetを作成する | 未完了。target作成前で停止 |
+| 3 | X既存targetをsame-IDで修復し、active-four全件のpublisher-native readbackを記録する | 未完了。live receipt 0件 |
+| 4 | payment/publisherの実受取receiptをartifactへjoinし、自然文Telegramへ送る | 未完了。revenue receipt 0件 |
+| 5 | Life Managerのmanifestへsource/release/state/workerを移し、旧creatorを無効化する | 未着手。削除も未実施 |
+
 ## 2. Acceptance Criteria（完了条件）
 
 ### 2.1 P0: canonical runtime
