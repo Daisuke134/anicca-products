@@ -92,6 +92,11 @@ AST compilation, the changed shell files pass `bash -n`, and the controlled
 regression run passes `37 tests`. This verifies the safety stop and regression
 contracts; it does not verify a new external publication.
 
+The source and active release `publish-substack-managed-contract.sh` fixtures
+also pass after declaring a test publication identity in both the environment
+and persisted state. The fixture is only a local call-contract check; it is not
+a Substack publication receipt.
+
 Fresh adversarial review keeps the pause in place: the latest host check reports
 about `382 MiB` free (an earlier check was `704 MiB`), below the 5 GiB publication floor, so resume now exits
 before acquiring the publication lock when the pause file is absent as well.
