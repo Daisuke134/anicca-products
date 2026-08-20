@@ -28,7 +28,7 @@ Writerは「書けない」のではなく、**供給・実行・計測・報告
 | money sync / report / healthcheck / self-improve | active releaseとLife Manager同期treeには実体があるが、インストール済みplistの一部はsourceの旧絶対パスを指す | owner切替前のpath driftで、loaded実行の成否を証明できない |
 | branch/tree | mutable repo HEAD=`889473ce`（`docs/global-gig-market-expansion`）に`skills/writer-agent` treeがない。完全なWriter treeはrelease `e9ab21ea`にある | sourceと実行中release/stateが不一致 |
 | scheduler設定 | `.openclaw/cron/jobs.json`のWriter/article系9件は全て`enabled:false` | cron側は実行主体ではない |
-| plists | `article-daily`/`article-resume`/Zennはrelease、他のworkerはmutable source、`.local/bin/writer`、または旧scriptを参照。Life Managerにはproduction treeと10 templateを同期済み | 一つのactive ownerではなく、19 labelの混在。owner fenceとpath censusが必要 |
+| plists | `article-daily`/`article-resume`/Zennはrelease、他のworkerはmutable source、`.local/bin/writer`、または旧scriptを参照。Life Managerにはproduction treeと10 templateを同期済み。daily/resume/Zennのpause gateとowner fenceは三つのtreeへ反映済み | 一つのactive ownerではなく、19 labelの混在。owner fenceのインストール、state parity、drainが必要 |
 | 直近の報告 | 8/16の最後のWriter Telegram report出力は「受取`¥0/$0`」。8/17以降はreport workerがENOENTで、外部payment receiptの新しい観測はない | 現在の金額は`unknown/stale`で、0と断定不可 |
 
 ### 1.3 推論（Inference）
@@ -62,7 +62,7 @@ flowchart LR
 
 これはNoteだけの公開成功であり、run全体の成功ではない。`publication-state.json` は4件中1件のlive receiptで、`article-run-complete.py` は成功条件を満たさない。収益receiptも存在しないため、売上は0円と断定せず未確認として扱う。初期化報告はTelegram message ID `26065`、未完了報告は `26075`、`26087`、`26160`、`26166` で送信済みで、deterministic rendererは自然文だけを送る。現在は同じNoteの再試行を防ぐ pause file を置き、Substackの言語別identityとXの実行可否を確認するまで外部公開を止めている。
 
-pause gateはresume workerとdaily creatorの両方で直接実行し、ロック・planner・publisherより前に終了コード0となることを確認した。変更対象の構文確認と、固定一時領域でのスケジュール／完了通知テスト `37 passed` も確認済み。これは安全停止と回帰契約の確認であり、Substack/Xの新規公開を意味しない。
+pause gateはresume worker、daily creator、Zenn deferred workerで直接実行し、ロック・planner・publisherより前に終了コード0となることを確認した。owner fenceはlive ownerの二重取得拒否とstale owner回収をPASSし、変更対象の構文確認と固定一時領域での公開契約テスト `76 passed` も確認済み。これは安全停止と回帰契約の確認であり、Substack/Xの新規公開を意味しない。
 
 Substack managed publisherのsource／active release契約fixtureも、JAのpublication identityをstateと環境へ明示したうえでPASSした。これはローカル呼び出し契約の確認であり、外部Substack公開receiptではない。
 
@@ -74,7 +74,7 @@ fresh adversarial reviewで空き容量が5GiB未満になった履歴を受け�
 
 launchdの実測は別の失敗である。`ai.anicca.article-daily` と `ai.anicca.article-resume` のplistは存在するが、`launchctl bootstrap`/`kickstart`/`print` はいずれも `141: Reentrancy avoided` で終了し、初期化tickが終わった後にWriterプロセスは残っていない。したがって現在のloopは「公開処理までON」とは言えず、定期的に公開しているとは言えない。
 
-実行ownerはまだLife Managerへ切り替わっていない。releaseは `/Users/anicca/profitable-claude-releases/writer/e9ab21ea/writer-agent`、状態は `/Users/anicca/profitable-claude/skills/writer-agent/state`、Life Managerのcheckoutは `/Users/anicca/Projects/life-manager-main` で、後者には475ファイルのWriter runtime treeと10 templateがある。旧rootと新rootを同時に動かすと現在のstate lockだけでは重複公開を防げないため、移行前にrepository非依存のshared owner fenceを置く。`/Users/anicca/.openclaw` と `/Users/anicca/profitable-claude` 全体は削除しない。後者はWriter以外の稼働loopも含むため、最後に可能なのはWriter専用releaseの復元試験付きアーカイブだけである。
+実行ownerはまだLife Managerへ切り替わっていない。releaseは `/Users/anicca/profitable-claude-releases/writer/e9ab21ea/writer-agent`、状態は `/Users/anicca/profitable-claude/skills/writer-agent/state`、Life Managerのcheckoutは `/Users/anicca/Projects/life-manager-main` で、後者には476ファイルのWriter runtime treeと10 templateがある（tree hash `cba44554e94e9722fcfc6b8f2d2995d28adc93cb4aa3d5079a236d92104091a4`、active release hash `b10435498e1cd6cf0661be953f5602dc17c63513ff46f16850a96e992c6cb5d1`）。owner fenceはコードとして準備済みだが、インストール済みplistの切替、state parity、旧root drain、bounded wakeが未完了である。`/Users/anicca/.openclaw` と `/Users/anicca/profitable-claude` 全体は削除しない。後者はWriter以外の稼働loopも含むため、最後に可能なのはWriter専用releaseの復元試験付きアーカイブだけである。
 
 ### 1.6 一件ずつ閉じる順序
 
@@ -84,7 +84,7 @@ launchdの実測は別の失敗である。`ai.anicca.article-daily` と `ai.ani
 | 2 | DNSまたは承認済みの代替transportを復旧し、Note/Substackを同じrunから公開する | 一部完了。Noteは公開・読み戻し済み、Substackはidentity待ち |
 | 3 | X既存targetをsame-IDで修復し、active-four全件のpublisher-native readbackを記録する | 未完了。live receipt 1/4件 |
 | 4 | payment/publisherの実受取receiptをartifactへjoinし、自然文Telegramへ送る | 未完了。revenue receipt 0件 |
-| 5 | Life Managerのmanifestへsource/release/state/全19 workerを移し、shared fenceで旧ownerをdrainしてから無効化する | manifestと19 label censusは作成済み、runtime tree/templateもpush済み。owner fence、state parity、旧owner drain、bounded wakeは未完了。削除も未実施 |
+| 5 | Life Managerのmanifestへsource/release/state/全19 workerを移し、shared fenceで旧ownerをdrainしてから無効化する | manifest、476-file tree hash、19 label census、owner fenceコードはpush済み。owner fenceのインストール、state parity、旧owner drain、bounded wakeは未完了。削除も未実施 |
 
 ## 2. Acceptance Criteria（完了条件）
 

@@ -86,12 +86,13 @@ repaired. `launchctl bootstrap`, `launchctl kickstart`, and `launchctl print`
 still return `141: Reentrancy avoided`; the 20:44 log is the scheduler wake
 evidence, while a plist is not an execution receipt.
 
-The pause boundary was verified directly for both the five-minute resume worker
-and the daily creator: each exits `0` before lock, planner, model, or publisher
-work and writes a neutral pause log line. The release/source Python files pass
-AST compilation, the changed shell files pass `bash -n`, and the controlled
-regression run passes `37 tests`. This verifies the safety stop and regression
-contracts; it does not verify a new external publication.
+The pause boundary was verified directly for the five-minute resume worker, the
+daily creator, and the Zenn deferred worker: each exits `0` before lock,
+planner, model, or publisher work and writes a neutral pause log line. The
+release/source Python files pass AST parsing, the changed shell files pass
+`bash -n`, the owner fence passes live-owner refusal and stale-owner recovery,
+and the controlled regression run passes `76 tests`. This verifies the safety
+stop and regression contracts; it does not verify a new external publication.
 
 The source and active release `publish-substack-managed-contract.sh` fixtures
 also pass after declaring a test publication identity in both the environment
@@ -110,13 +111,20 @@ canonical host after redirects. A URL assembled from an expected host alone is
 not a receipt.
 
 Life Manager now contains a hash-pinned copy of the production Writer tree
-(475 files; tree hash `b7435c4a…`), and its LaunchAgent templates point at the
-Life Manager path. The installed LaunchAgents still invoke the external
-release, and the copy is not the active owner until state parity, a shared
-owner fence, worker drain, and a bounded wake are all proven. The runtime
-manifest inventories all 19 installed Writer/article labels; 11 still lack a
-Life Manager template, including five that invoke the separate
-`~/.local/lib/writer-engine` CLI.
+(476 files; tree hash
+`cba44554e94e9722fcfc6b8f2d2995d28adc93cb4aa3d5079a236d92104091a4`), while
+the active release is 475 files with hash
+`b10435498e1cd6cf0661be953f5602dc17c63513ff46f16850a96e992c6cb5d1`. The
+manifest records the exact path-plus-content hash algorithm. The
+repository-independent `writer_owner_fence.py` is identical in source,
+active-release, and Life Manager trees, and daily/resume/Zenn have pause gates,
+but the installed LaunchAgents still invoke the external release and the
+Life Manager copy is not the active owner until the fence is installed, state
+parity is proven, old workers are drained, and a bounded wake is read back. The
+runtime manifest inventories all 19 installed Writer/article labels; 11 still
+lack a Life Manager template, including five that invoke the separate
+`~/.local/lib/writer-engine` CLI. The pause proof does not extend to that
+legacy CLI.
 
 Fresh adversarial review keeps the pause in place. The current host check
 reports about `5.6 GiB` free, above the 5 GiB publication floor; the old
@@ -150,7 +158,7 @@ state hash and never counts a view, paywall, draft, or test action as revenue.
 ### 0.1.1b Atomic remaining work
 
 1. Replace the current `launchctl` reentrancy failure with a repeatable
-   scheduler readback and keep the repository-independent owner fence. The
+   scheduler readback and install the repository-independent owner fence. The
    20:44 log proves one wake; it does not yet prove repeatable ownership.
 2. Configure and verify `SUBSTACK_PUBLICATION_JA` and a distinct
    `SUBSTACK_PUBLICATION_EN`; resume the same run and publish both Substack
@@ -163,10 +171,13 @@ state hash and never counts a view, paywall, draft, or test action as revenue.
    report with its message ID.
 5. Create one Life Manager runtime manifest that resolves source, release,
    state, scheduler, report, money, claim, and learning paths; migrate code and
-   state with hashes and a same-run parity receipt.
+   state with hashes and a same-run parity receipt. The code copy and manifest
+   hash are complete; state parity and active-owner cutover remain.
 6. Inventory all 19 Writer/article LaunchAgents (creator, resume, retry, money,
    report, health, learning, and opportunity), load one Life Manager owner, and
-   disable old owners only after shared-fence and same-run parity receipts.
+   disable old owners only after shared-fence and same-run parity receipts. Do
+   not delete `/Users/anicca/profitable-claude` or `.openclaw`; only a verified
+   Writer-only release archive may be considered after rollback testing.
 7. Never delete `.openclaw` or `/Users/anicca/profitable-claude` as a whole;
    they contain runtime/auth state and other loops. Only a Writer-only release
    directory may be archived after credential readback, receipt parity, and a
