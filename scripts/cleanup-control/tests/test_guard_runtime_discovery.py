@@ -217,7 +217,8 @@ else:
         {
             "CALLS": str(calls),
             "EMERGENCY_GUARD_TEST_HOME": str(home),
-            "EMERGENCY_GUARD_TEST_FREE_GB": "2",
+            "EMERGENCY_GUARD_TEST_FREE_GB": "4",
+            "EMERGENCY_GUARD_TEST_FREE_KB": str(2 * 1024 * 1024),
             "CLEANUP_CONTROL_PATH": str(fake_control),
             "CLEANUP_CONTROL_MANIFEST": str(base_manifest),
             "CLEANUP_CONTROL_LEDGER": str(tmp_path / "ledger.jsonl"),

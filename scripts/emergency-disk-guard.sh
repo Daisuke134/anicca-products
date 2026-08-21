@@ -141,6 +141,8 @@ fi
 free_kb() {
   if [ -n "${EMERGENCY_GUARD_TEST_FREE_KB:-}" ]; then
     printf '%s\n' "$EMERGENCY_GUARD_TEST_FREE_KB"
+  elif [ -n "${EMERGENCY_GUARD_TEST_FREE_GB:-}" ]; then
+    printf '%s\n' "$((EMERGENCY_GUARD_TEST_FREE_GB * 1048576))"
   else
     df -k / | awk 'NR==2{print $4}'
   fi
@@ -664,12 +666,16 @@ cleanup_orphan_heartbeats
 
 FREE=$(free_gb)
 [ -n "$FREE" ] || exit 1
+FREE_KB_NOW=$(free_kb)
+case "$FREE_KB_NOW" in
+  ''|*[!0-9]*) exit 1 ;;
+esac
 # A critical host cannot wait for the next hourly marker: the fast pass
 # deliberately defers remote worktree inspection, which is one of the only
 # reversible multi-gigabyte recovery families. Promote the current pass before
 # constructing the runtime manifest, while preserving all worktree safety
 # checks (fetch, clean, unlocked, closed, and remote-recoverable).
-if [ "$FREE" -lt "$ULTRA_GB" ] && [ "$FULL_PASS_ACTIVE" -eq 0 ]; then
+if [ "$FREE_KB_NOW" -lt "$((ULTRA_GB * 1048576))" ] && [ "$FULL_PASS_ACTIVE" -eq 0 ]; then
   FULL_PASS_ACTIVE=1
   SWEEP_MODE_ARG=""
   RUNTIME_ROOT_ARGS+=(--root "$HOME_DIR/gig")
