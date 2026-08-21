@@ -97,20 +97,12 @@ disk="${free_gb}GB"
 if [ -n "$free_gb" ] && [ "$free_gb" -lt 5 ]; then
   disk="${free_gb}GB LOW"
   problems=$((problems + 1))
-  # Reclaim only regenerable bytes; never touch state, profiles or repos.
-  rm -rf /Users/anicca/Library/Caches/* 2>/dev/null
-  rm -rf /Users/anicca/.cache/* 2>/dev/null
-  rm -rf /Users/anicca/Library/Logs/* 2>/dev/null
-  after_gb=$(df -g / 2>/dev/null | awk 'NR==2{print $4}')
-  disk="${free_gb}GB->${after_gb}GB LOW"
-  # Below 2GB the machine is close to unusable -- tell Dais, this needs a human decision.
-  if [ -n "$after_gb" ] && [ "$after_gb" -lt 2 ]; then
-    tg=$(grep -m1 '^export TELEGRAM_BOT_TOKEN=' /Users/anicca/.openclaw/.env 2>/dev/null | cut -d= -f2- | tr -d '"')
-    [ -n "$tg" ] && curl -s -X POST "https://api.telegram.org/bot${tg}/sendMessage" \
-      -d chat_id=8547730585 \
-      --data-urlencode "text=⚠️ Mac mini のディスク残量が ${after_gb}GB です。自動回収では足りません。" \
-      >/dev/null 2>&1
-  fi
+  # Disk mutation and capacity alerts have one owner: Life Manager's
+  # emergency-disk-guard. This recovery monitor must not race it with a
+  # broad cache rm -rf or emit a second low-disk alarm from a stale reading.
+  # Keep this lane observational; the guard's ledger/backpressure is the
+  # authoritative action and notification record.
+  say "disk low: Life Manager emergency-disk-guard owns reclaim and alerting"
 fi
 
 say "net=$net ts=$ts codex1=$c1 codex2=$c2 claude=$claude disk=$disk problems=$problems"

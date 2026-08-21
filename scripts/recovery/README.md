@@ -8,7 +8,7 @@ Design + TODO: [`docs/superpowers/specs/2026-08-01-blackout-autorecovery-design.
 
 | File here | Lives at | Role |
 |---|---|---|
-| `health-check.sh` | `~/recovery-setup/health-check.sh` | Every 60s: internet, Tailscale, both Codex daemons, Claude RC. Repairs only what is actually down |
+| `health-check.sh` | `~/recovery-setup/health-check.sh` | Every 60s: internet, Tailscale, both Codex daemons, Claude RC. Disk is observational; Life Manager's host guard owns reclaim and alerts |
 | `com.anicca.recovery-health.plist` | `~/Library/LaunchAgents/` | Runs the above at login + every 60s |
 | `codex-remote-keepalive.sh` | `~/.codex-remote-keepalive.sh` | Keeps both ChatGPT accounts' Codex remote-control connected |
 | `codex-remote-status.py` | `~/.codex-remote-status.py` | Parses `remote-control start --json` status |
