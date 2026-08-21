@@ -29,6 +29,7 @@ LIFE_MANAGER_DISK_GOVERNOR="${LIFE_MANAGER_DISK_GOVERNOR:-$HOME_DIR/Projects/lif
 BACKPRESSURE="$STATE_DIR/disk-pressure.block"
 ALERT="$STATE_DIR/disk-pressure.alert"
 LOCK="$STATE_DIR/.emergency-disk-guard.lock"
+FULL_PASS_MARKER="$STATE_DIR/cleanup-full-pass.at"
 GIG_LOCK_PID="${EMERGENCY_GUARD_TEST_LOCK_OWNER:-}"
 GIG_WORKER_MAX_SECONDS="${GIG_WORKER_MAX_SECONDS:-7200}"
 GIG_HEARTBEAT_MAX_SECONDS="${GIG_HEARTBEAT_MAX_SECONDS:-180}"
@@ -56,17 +57,27 @@ RECLAIM_HEADER=$'timestamp\ttxid\tphase\tpath\towner\tclass\tbefore_bytes\tafter
 OPS_HEADER=$'timestamp\tresult\treason\tfree_before_gb\tfree_after_gb\teligible_paths\treclaimed_bytes\tpolicy_version'
 LEDGER_MAX_BYTES=$((32 * 1024 * 1024))
 SWEEP_MODE_ARGS=()
-[ "${EMERGENCY_GUARD_FULL_PASS:-0}" = "1" ] || SWEEP_MODE_ARGS+=(--fast-pass)
+FULL_PASS_ACTIVE=0
+if [ "${EMERGENCY_GUARD_FULL_PASS:-0}" = "1" ]; then
+  FULL_PASS_ACTIVE=1
+elif [ "$TEST_MODE" -eq 0 ]; then
+  LAST_FULL_PASS=$(cat "$FULL_PASS_MARKER" 2>/dev/null || echo 0)
+  case "$LAST_FULL_PASS" in
+    ''|*[!0-9]*) FULL_PASS_ACTIVE=1 ;;
+    *) [ "$(( $(date +%s) - LAST_FULL_PASS ))" -ge 3600 ] && FULL_PASS_ACTIVE=1 ;;
+  esac
+fi
+[ "$FULL_PASS_ACTIVE" -eq 1 ] || SWEEP_MODE_ARGS+=(--fast-pass)
 RUNTIME_ROOT_ARGS=(
   --root "$HOME_DIR/anicca-project/work"
   --root "$HOME_DIR/.openclaw/external"
 )
 # The gig tree is a large, protected delivery tree. Walking it on every
 # minute-level pressure tick made the guard itself run for minutes and caused
-# overlapping launchd invocations. The hourly compatibility trigger opts into
-# the full census; the emergency fast pass stays bounded to the small dynamic
-# roots above.
-[ "${EMERGENCY_GUARD_FULL_PASS:-0}" = "1" ] && RUNTIME_ROOT_ARGS+=(--root "$HOME_DIR/gig")
+# overlapping launchd invocations. The hourly marker/compatibility trigger
+# opts into the bounded full pass; the emergency fast pass stays bounded to
+# the small dynamic roots above.
+[ "$FULL_PASS_ACTIVE" -eq 1 ] && RUNTIME_ROOT_ARGS+=(--root "$HOME_DIR/gig")
 
 mkdir -p "$LOG_DIR" "$STATE_DIR" 2>/dev/null || exit 1
 log() { printf '%s %s\n' "$(date '+%F %T')" "$*" >> "$LOG"; }
@@ -626,6 +637,7 @@ if ! ensure_tsv_header "$RECLAIM_LEDGER" "$RECLAIM_HEADER" || \
 fi
 
 if [ "$TEST_MODE" -eq 0 ]; then
+  FULL_PASS_COMPLETED=0
   if [ ! -f "$CLEANUP_CONTROL" ]; then
     append_decision "$CLEANUP_CONTROL" failure cleanup-control-missing
   else
@@ -655,7 +667,7 @@ if [ "$TEST_MODE" -eq 0 ]; then
       --quarantine-root "$CLEANUP_QUARANTINE_ROOT" \
       --ledger "$CLEANUP_LEDGER" \
       --pressure-override \
-      "${SWEEP_MODE_ARGS[@]}" \
+      "${SWEEP_MODE_ARGS[@]+${SWEEP_MODE_ARGS[@]}}" \
       --reclaim-target-bytes "$RECLAIM_TARGET_BYTES" 2>>"$LOG")
     CLEANUP_RC=$?
     if [ -n "$CLEANUP_SUMMARY" ]; then
@@ -670,6 +682,11 @@ if [ "$TEST_MODE" -eq 0 ]; then
     if [ "$CLEANUP_RC" -ne 0 ]; then
       append_decision cleanup-control failure "cleanup-control-rc-$CLEANUP_RC"
     fi
+    FULL_PASS_COMPLETED=1
+  fi
+  if [ "$FULL_PASS_ACTIVE" -eq 1 ] && [ "$FULL_PASS_COMPLETED" -eq 1 ]; then
+    FULL_PASS_TMP="$FULL_PASS_MARKER.$$"
+    printf '%s\n' "$(date +%s)" > "$FULL_PASS_TMP" && mv "$FULL_PASS_TMP" "$FULL_PASS_MARKER"
   fi
 fi
 

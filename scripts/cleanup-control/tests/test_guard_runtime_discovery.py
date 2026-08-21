@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import subprocess
+import time
 from pathlib import Path
 
 
@@ -14,6 +15,9 @@ def test_guard_builds_runtime_manifest_before_pressure_sweep(tmp_path: Path) -> 
     home = tmp_path / "home"
     state = home / ".openclaw" / "state"
     state.mkdir(parents=True)
+    # This test covers the minute-level path after the hourly full pass.  The
+    # expired/missing-marker path is exercised by the explicit full-pass test.
+    (state / "cleanup-full-pass.at").write_text(str(int(time.time())) + "\n", encoding="utf-8")
     base_manifest = tmp_path / "base.json"
     base_manifest.write_text(
         '{"policy_version":"cleanup-v1","artifacts":[]}\n',
