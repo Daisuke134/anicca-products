@@ -69,16 +69,6 @@ def test_production_manifest_is_valid_and_protects_known_incident_roots() -> Non
     assert by_id["anicca-project-source"]["class"] == "source"
     assert by_id["anicca-project-worktrees"]["class"] == "git_worktree_collection"
     assert by_id["anicca-project-worktrees"]["finalizer"]["kind"] == "remote_recoverable_remove"
-    assert by_id["anicca-project-claude-worktrees"] == {
-        "id": "anicca-project-claude-worktrees",
-        "path": str(Path.home() / "anicca-project/.claude/worktrees"),
-        "owner": "git-worktrees",
-        "class": "git_worktree_collection",
-        "ttl_seconds": None,
-        "quota_bytes": 0,
-        "lease": None,
-        "finalizer": {"kind": "remote_recoverable_remove"},
-    }
     for artifact_id, relative_path in {
         "projects-anicca-products-worktrees": "Projects/anicca-products/.worktrees",
         "ugig-nightcell7-worktrees": "Projects/ugig-nightcell7/.worktrees",

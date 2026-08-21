@@ -63,18 +63,6 @@
       }
     },
     {
-      "id": "anicca-project-claude-worktrees",
-      "path": "$HOME/anicca-project/.claude/worktrees",
-      "owner": "git-worktrees",
-      "class": "git_worktree_collection",
-      "ttl_seconds": null,
-      "quota_bytes": 0,
-      "lease": null,
-      "finalizer": {
-        "kind": "remote_recoverable_remove"
-      }
-    },
-    {
       "id": "projects-anicca-products-worktrees",
       "path": "$HOME/Projects/anicca-products/.worktrees",
       "owner": "git-worktrees",
@@ -303,21 +291,6 @@
       "quota_bytes": 0,
       "lease": {
         "path": "$HOME/.openclaw/state/codex-runtime.lease",
-        "max_age_seconds": 300
-      },
-      "finalizer": {
-        "kind": "off_volume_quarantine"
-      }
-    },
-    {
-      "id": "codex-plugin-staging",
-      "path": "$HOME/.codex/.tmp",
-      "owner": "codex-runtime",
-      "class": "ephemeral",
-      "ttl_seconds": 604800,
-      "quota_bytes": 0,
-      "lease": {
-        "path": "$HOME/.openclaw/state/codex-plugin-staging.lease",
         "max_age_seconds": 300
       },
       "finalizer": {

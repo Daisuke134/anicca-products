@@ -521,6 +521,20 @@ def test_manifest_failure_is_fail_closed(tmp_path: Path, mode: str) -> None:
     assert result["quarantined"] == 0
 
 
+def test_manifest_rejects_ephemeral_entry_under_permanently_protected_root(
+    tmp_path: Path,
+) -> None:
+    protected = tmp_path / ".codex" / ".tmp"
+    protected.mkdir(parents=True)
+    (protected / "payload").write_text("keep", encoding="utf-8")
+    manifest = write_manifest(tmp_path / "manifest.json", [entry(protected)])
+
+    with pytest.raises(cleanup_control.ManifestError, match="permanently protected"):
+        cleanup_control.load_manifest(manifest)
+
+    assert protected.exists()
+
+
 def test_unknown_candidate_is_reported_and_preserved(tmp_path: Path) -> None:
     known = tmp_path / "known"
     unknown = tmp_path / "unknown"

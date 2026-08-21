@@ -79,6 +79,7 @@ DISCOVERABLE_OUTPUT_PROOFS = {
     ),
 }
 PROTECTED_DISCOVERY_PARTS = {".claude", ".codex", ".git", "memory", "state"}
+PERMANENTLY_PROTECTED_PATH_PARTS = {".claude", ".codex", ".git", "memory"}
 BROWSER_CACHE_TOKENS = {"ms-playwright", "camoufox", "chromium", "chrome"}
 
 
@@ -116,6 +117,13 @@ def _validate_entry(raw: Any) -> dict[str, Any]:
     if artifact_class not in ALLOWED_CLASSES:
         raise ManifestError(f"artifact {raw['id']} has unknown class {artifact_class!r}")
     path = _normalized_path(raw["path"])
+    protected_path = any(
+        part in PERMANENTLY_PROTECTED_PATH_PARTS for part in path.parts
+    ) or (path.suffix == ".jsonl" and "state" in path.parts)
+    if artifact_class not in PROTECTED_CLASSES and protected_path:
+        raise ManifestError(
+            f"artifact {raw['id']} path is permanently protected: {path}"
+        )
     ttl = raw["ttl_seconds"]
     if artifact_class == "ephemeral":
         if not isinstance(ttl, int) or isinstance(ttl, bool) or ttl < 0:
