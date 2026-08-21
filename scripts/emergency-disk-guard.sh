@@ -59,7 +59,7 @@ STOP_REASON=""
 RECLAIM_HEADER=$'timestamp\ttxid\tphase\tpath\towner\tclass\tbefore_bytes\tafter_bytes\treclaimed_bytes\treason\tpolicy_version\tdetail'
 OPS_HEADER=$'timestamp\tresult\treason\tfree_before_gb\tfree_after_gb\teligible_paths\treclaimed_bytes\tpolicy_version'
 LEDGER_MAX_BYTES=$((32 * 1024 * 1024))
-SWEEP_MODE_ARGS=()
+SWEEP_MODE_ARG=""
 FULL_PASS_ACTIVE=0
 if [ "${EMERGENCY_GUARD_FULL_PASS:-0}" = "1" ]; then
   FULL_PASS_ACTIVE=1
@@ -70,7 +70,7 @@ elif [ "$TEST_MODE" -eq 0 ]; then
     *) [ "$(( $(date +%s) - LAST_FULL_PASS ))" -ge 3600 ] && FULL_PASS_ACTIVE=1 ;;
   esac
 fi
-[ "$FULL_PASS_ACTIVE" -eq 1 ] || SWEEP_MODE_ARGS+=(--fast-pass)
+[ "$FULL_PASS_ACTIVE" -eq 1 ] || SWEEP_MODE_ARG="--fast-pass"
 RUNTIME_ROOT_ARGS=(
   --root "$HOME_DIR/anicca-project/work"
   --root "$HOME_DIR/.openclaw/external"
@@ -684,7 +684,7 @@ if [ "$TEST_MODE" -eq 0 ]; then
       --quarantine-root "$CLEANUP_QUARANTINE_ROOT" \
       --ledger "$CLEANUP_LEDGER" \
       --pressure-override \
-      "${SWEEP_MODE_ARGS[@]+${SWEEP_MODE_ARGS[@]}}" \
+      ${SWEEP_MODE_ARG:+"$SWEEP_MODE_ARG"} \
       --reclaim-target-bytes "$RECLAIM_TARGET_BYTES" 2>>"$LOG")
     CLEANUP_RC=$?
     if [ -n "$CLEANUP_SUMMARY" ]; then
