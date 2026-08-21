@@ -30,6 +30,8 @@ BACKPRESSURE="$STATE_DIR/disk-pressure.block"
 ALERT="$STATE_DIR/disk-pressure.alert"
 LOCK="$STATE_DIR/.emergency-disk-guard.lock"
 FULL_PASS_MARKER="$STATE_DIR/cleanup-full-pass.at"
+CRITICAL_FULL_PASS_MARKER="$STATE_DIR/cleanup-critical-full-pass.at"
+CRITICAL_FULL_PASS_COOLDOWN_SECONDS="${EMERGENCY_GUARD_CRITICAL_FULL_PASS_COOLDOWN_SECONDS:-300}"
 CLEANUP_PASS_TIMEOUT_SECONDS="${CLEANUP_PASS_TIMEOUT_SECONDS:-120}"
 CLEANUP_PASS_KILL_AFTER_SECONDS="${CLEANUP_PASS_KILL_AFTER_SECONDS:-10}"
 CLEANUP_TIMEOUT_BIN="${CLEANUP_TIMEOUT_BIN:-$(command -v gtimeout 2>/dev/null || command -v timeout 2>/dev/null || true)}"
@@ -676,10 +678,27 @@ esac
 # constructing the runtime manifest, while preserving all worktree safety
 # checks (fetch, clean, unlocked, closed, and remote-recoverable).
 if [ "$FREE_KB_NOW" -lt "$((ULTRA_GB * 1048576))" ] && [ "$FULL_PASS_ACTIVE" -eq 0 ]; then
-  FULL_PASS_ACTIVE=1
-  SWEEP_MODE_ARG=""
-  RUNTIME_ROOT_ARGS+=(--root "$HOME_DIR/gig")
-  log "critical disk pressure: promoted current pass to full inventory"
+  CRITICAL_FULL_PASS_DUE=1
+  LAST_CRITICAL_FULL_PASS=$(cat "$CRITICAL_FULL_PASS_MARKER" 2>/dev/null || echo 0)
+  case "$LAST_CRITICAL_FULL_PASS" in
+    ''|*[!0-9]*) exit 1 ;;
+  esac
+  case "$CRITICAL_FULL_PASS_COOLDOWN_SECONDS" in
+    ''|*[!0-9]*) exit 1 ;;
+  esac
+  [ "$(( $(now_epoch) - LAST_CRITICAL_FULL_PASS ))" -lt "$CRITICAL_FULL_PASS_COOLDOWN_SECONDS" ] && \
+    CRITICAL_FULL_PASS_DUE=0
+  if [ "$CRITICAL_FULL_PASS_DUE" -eq 1 ]; then
+    FULL_PASS_ACTIVE=1
+    SWEEP_MODE_ARG=""
+    RUNTIME_ROOT_ARGS+=(--root "$HOME_DIR/gig")
+    CRITICAL_FULL_PASS_TMP="$CRITICAL_FULL_PASS_MARKER.$$"
+    printf '%s\n' "$(now_epoch)" > "$CRITICAL_FULL_PASS_TMP" && \
+      mv "$CRITICAL_FULL_PASS_TMP" "$CRITICAL_FULL_PASS_MARKER"
+    log "critical disk pressure: promoted current pass to full inventory"
+  else
+    log "critical disk pressure: full inventory cooldown active"
+  fi
 fi
 FREE_LABEL=$(free_space_label)
 SWAP_USAGE=$(swap_usage)

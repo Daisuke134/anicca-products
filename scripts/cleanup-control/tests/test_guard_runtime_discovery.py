@@ -177,6 +177,78 @@ else:
         str(home / ".openclaw/external"),
         str(home / "gig"),
     ]
+
+
+def test_guard_defers_repeated_critical_full_pass_during_cooldown(tmp_path: Path) -> None:
+    home = tmp_path / "home"
+    state = home / ".openclaw" / "state"
+    state.mkdir(parents=True)
+    (state / "cleanup-full-pass.at").write_text(str(int(time.time())) + "\n", encoding="utf-8")
+    (state / "cleanup-critical-full-pass.at").write_text(
+        str(int(time.time())) + "\n",
+        encoding="utf-8",
+    )
+    base_manifest = tmp_path / "base.json"
+    base_manifest.write_text(
+        '{"policy_version":"cleanup-v1","artifacts":[]}\n',
+        encoding="utf-8",
+    )
+    runtime_manifest = state / "cleanup-runtime-manifest.json"
+    calls = tmp_path / "calls.jsonl"
+    fake_control = tmp_path / "fake_cleanup_control.py"
+    fake_control.write_text(
+        """
+import json, os, shutil, sys
+args = sys.argv[1:]
+with open(os.environ["CALLS"], "a", encoding="utf-8") as handle:
+    handle.write(json.dumps(args) + "\\n")
+if args[0] == "runtime-manifest":
+    shutil.copyfile(args[args.index("--manifest") + 1], args[args.index("--output") + 1])
+    print(json.dumps({"status": "ok", "discovered": 0, "output": args[args.index("--output") + 1]}))
+elif args[0] == "sweep":
+    print(json.dumps({"status": "ok", "quarantined": 0, "bytes_quarantined": 0}))
+else:
+    raise SystemExit(2)
+""",
+        encoding="utf-8",
+    )
+    environment = os.environ.copy()
+    environment.update(
+        {
+            "CALLS": str(calls),
+            "EMERGENCY_GUARD_TEST_HOME": str(home),
+            "EMERGENCY_GUARD_TEST_FREE_GB": "4",
+            "EMERGENCY_GUARD_TEST_FREE_KB": str(2 * 1024 * 1024),
+            "EMERGENCY_GUARD_CRITICAL_FULL_PASS_COOLDOWN_SECONDS": "300",
+            "CLEANUP_CONTROL_PATH": str(fake_control),
+            "CLEANUP_CONTROL_MANIFEST": str(base_manifest),
+            "CLEANUP_CONTROL_LEDGER": str(tmp_path / "ledger.jsonl"),
+            "CLEANUP_CONTROL_RUNTIME_MANIFEST": str(runtime_manifest),
+            "CLEANUP_CONTROL_QUARANTINE_ROOT": str(tmp_path / "quarantine"),
+            "EMERGENCY_GUARD_TEST_TEMP_ROOT": str(home / "tmp"),
+        }
+    )
+    result = subprocess.run(
+        ["/bin/bash", str(GUARD)],
+        env=environment,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert result.returncode == 3
+    recorded = [json.loads(line) for line in calls.read_text(encoding="utf-8").splitlines()]
+    runtime_call, sweep_call = recorded
+    assert "--fast-pass" in sweep_call
+    roots = [
+        runtime_call[index + 1]
+        for index, value in enumerate(runtime_call)
+        if value == "--root"
+    ]
+    assert roots == [
+        str(home / "anicca-project/work"),
+        str(home / ".openclaw/external"),
+    ]
     marker = state / "cleanup-full-pass.at"
     assert int(marker.read_text(encoding="utf-8").strip()) >= int(time.time()) - 5
 
@@ -249,6 +321,8 @@ else:
         str(home / ".openclaw/external"),
         str(home / "gig"),
     ]
+    critical_marker = state / "cleanup-critical-full-pass.at"
+    assert int(critical_marker.read_text(encoding="utf-8").strip()) >= int(time.time()) - 5
 
 
 def test_guard_does_not_advance_full_marker_after_sweep_failure(tmp_path: Path) -> None:
