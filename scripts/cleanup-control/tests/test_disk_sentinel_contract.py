@@ -20,3 +20,13 @@ def test_sentinel_deduplicates_notifications_and_records_delivery_receipts() -> 
     assert "disk-sentinel-notify" in text
     assert "notify-deduped" in text
     assert "notify-receipt-write-failed" in text
+    assert "notify-suppressed-receipt-write-failed" in text
+    assert "pending %s" in text
+    assert '"tier:4"' in text
+    assert '"growth:$path"' in text
+    assert 'mkdir "$claim"' in text
+    assert "NOTIFY_CLAIM_STALE_SECONDS" in text
+    assert "NOTIFY_SEND_TIMEOUT_SECONDS" in text
+    assert "NOTIFY_TIMEOUT_BIN" in text
+    assert '"$claim/owner"' in text
+    assert "owner=\"$now.$$\"" in text
