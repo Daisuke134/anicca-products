@@ -30,7 +30,7 @@ BACKPRESSURE="$STATE_DIR/disk-pressure.block"
 ALERT="$STATE_DIR/disk-pressure.alert"
 LOCK="$STATE_DIR/.emergency-disk-guard.lock"
 FULL_PASS_MARKER="$STATE_DIR/cleanup-full-pass.at"
-CRITICAL_FULL_PASS_MARKER="$STATE_DIR/cleanup-critical-full-pass.at"
+CRITICAL_FULL_PASS_MARKER="${EMERGENCY_GUARD_CRITICAL_FULL_PASS_MARKER:-$STATE_DIR/cleanup-critical-full-pass.at}"
 CRITICAL_FULL_PASS_COOLDOWN_SECONDS="${EMERGENCY_GUARD_CRITICAL_FULL_PASS_COOLDOWN_SECONDS:-300}"
 CLEANUP_PASS_TIMEOUT_SECONDS="${CLEANUP_PASS_TIMEOUT_SECONDS:-120}"
 CLEANUP_PASS_KILL_AFTER_SECONDS="${CLEANUP_PASS_KILL_AFTER_SECONDS:-10}"
@@ -82,7 +82,6 @@ RUNTIME_ROOT_ARGS=(
 # overlapping launchd invocations. The hourly marker/compatibility trigger
 # opts into the bounded full pass; the emergency fast pass stays bounded to
 # the small dynamic roots above.
-[ "$FULL_PASS_ACTIVE" -eq 1 ] && RUNTIME_ROOT_ARGS+=(--root "$HOME_DIR/gig")
 
 mkdir -p "$LOG_DIR" "$STATE_DIR" 2>/dev/null || exit 1
 log() { printf '%s %s\n' "$(date '+%F %T')" "$*" >> "$LOG"; }
@@ -674,32 +673,68 @@ case "$FREE_KB_NOW" in
 esac
 # A critical host cannot wait for the next hourly marker: the fast pass
 # deliberately defers remote worktree inspection, which is one of the only
-# reversible multi-gigabyte recovery families. Promote the current pass before
-# constructing the runtime manifest, while preserving all worktree safety
-# checks (fetch, clean, unlocked, closed, and remote-recoverable).
-if [ "$FREE_KB_NOW" -lt "$((ULTRA_GB * 1048576))" ] && [ "$FULL_PASS_ACTIVE" -eq 0 ]; then
+# reversible multi-gigabyte recovery families. Promote at most one full pass
+# per cooldown window, regardless of whether the hourly marker or an operator
+# request already selected a full pass. This prevents a failed/slow full sweep
+# from repeating every minute while preserving all worktree safety checks.
+if [ "$FREE_KB_NOW" -lt "$((ULTRA_GB * 1048576))" ]; then
   CRITICAL_FULL_PASS_DUE=1
-  LAST_CRITICAL_FULL_PASS=$(cat "$CRITICAL_FULL_PASS_MARKER" 2>/dev/null || echo 0)
-  case "$LAST_CRITICAL_FULL_PASS" in
-    ''|*[!0-9]*) exit 1 ;;
-  esac
+  CRITICAL_FULL_PASS_COOLDOWN_VALID=1
   case "$CRITICAL_FULL_PASS_COOLDOWN_SECONDS" in
-    ''|*[!0-9]*) exit 1 ;;
+    ''|*[!0-9]*)
+      CRITICAL_FULL_PASS_COOLDOWN_VALID=0
+      log "critical disk pressure: invalid cooldown; treating receipt as due"
+      ;;
   esac
-  [ "$(( $(now_epoch) - LAST_CRITICAL_FULL_PASS ))" -lt "$CRITICAL_FULL_PASS_COOLDOWN_SECONDS" ] && \
-    CRITICAL_FULL_PASS_DUE=0
+  LAST_CRITICAL_FULL_PASS=$(cat "$CRITICAL_FULL_PASS_MARKER" 2>/dev/null || true)
+  CURRENT_EPOCH=$(now_epoch)
+  if [ "$CRITICAL_FULL_PASS_COOLDOWN_VALID" -eq 1 ]; then
+    case "$LAST_CRITICAL_FULL_PASS:$CURRENT_EPOCH" in
+      *[!0-9:]*|*:|:*)
+        # Missing, malformed, or unavailable timestamps are treated as due so a
+        # broken receipt cannot silently suppress the only emergency pass.
+        ;;
+      *)
+        if [ "$LAST_CRITICAL_FULL_PASS" -le "$CURRENT_EPOCH" ] && \
+           [ "$((CURRENT_EPOCH - LAST_CRITICAL_FULL_PASS))" -lt "$CRITICAL_FULL_PASS_COOLDOWN_SECONDS" ]; then
+          CRITICAL_FULL_PASS_DUE=0
+        fi
+        # A future timestamp is invalid for cooldown purposes; leave it due and
+        # overwrite it with a current receipt below.
+        ;;
+    esac
+  fi
   if [ "$CRITICAL_FULL_PASS_DUE" -eq 1 ]; then
-    FULL_PASS_ACTIVE=1
-    SWEEP_MODE_ARG=""
-    RUNTIME_ROOT_ARGS+=(--root "$HOME_DIR/gig")
     CRITICAL_FULL_PASS_TMP="$CRITICAL_FULL_PASS_MARKER.$$"
-    printf '%s\n' "$(now_epoch)" > "$CRITICAL_FULL_PASS_TMP" && \
-      mv "$CRITICAL_FULL_PASS_TMP" "$CRITICAL_FULL_PASS_MARKER"
-    log "critical disk pressure: promoted current pass to full inventory"
+    CRITICAL_FULL_PASS_WRITE_OK=0
+    if [ -e "$CRITICAL_FULL_PASS_MARKER" ] && [ ! -f "$CRITICAL_FULL_PASS_MARKER" ]; then
+      log "critical disk pressure: marker write failed; target is not a regular file"
+    elif printf '%s\n' "$CURRENT_EPOCH" > "$CRITICAL_FULL_PASS_TMP" && \
+         mv "$CRITICAL_FULL_PASS_TMP" "$CRITICAL_FULL_PASS_MARKER"; then
+      CRITICAL_FULL_PASS_WRITE_OK=1
+    else
+      rm -f "$CRITICAL_FULL_PASS_TMP" 2>/dev/null || true
+      log "critical disk pressure: marker write failed; using fast pass"
+    fi
+    if [ "$CRITICAL_FULL_PASS_WRITE_OK" -eq 1 ]; then
+      if [ "$FULL_PASS_ACTIVE" -eq 0 ]; then
+        FULL_PASS_ACTIVE=1
+        SWEEP_MODE_ARG=""
+        log "critical disk pressure: promoted current pass to full inventory"
+      else
+        log "critical disk pressure: full inventory pass permitted"
+      fi
+    else
+      FULL_PASS_ACTIVE=0
+      SWEEP_MODE_ARG="--fast-pass"
+    fi
   else
+    FULL_PASS_ACTIVE=0
+    SWEEP_MODE_ARG="--fast-pass"
     log "critical disk pressure: full inventory cooldown active"
   fi
 fi
+[ "$FULL_PASS_ACTIVE" -eq 1 ] && RUNTIME_ROOT_ARGS+=(--root "$HOME_DIR/gig")
 FREE_LABEL=$(free_space_label)
 SWAP_USAGE=$(swap_usage)
 [ -n "$SWAP_USAGE" ] || SWAP_USAGE=unknown

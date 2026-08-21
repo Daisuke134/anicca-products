@@ -6,6 +6,8 @@ import subprocess
 import time
 from pathlib import Path
 
+import pytest
+
 
 ROOT = Path(__file__).parents[3]
 GUARD = ROOT / "scripts" / "emergency-disk-guard.sh"
@@ -253,13 +255,24 @@ else:
     assert int(marker.read_text(encoding="utf-8").strip()) >= int(time.time()) - 5
 
 
+@pytest.mark.parametrize(
+    ("critical_marker_offset", "cooldown"),
+    [(3600, "300"), (0, "invalid")],
+    ids=["future-marker", "invalid-cooldown"],
+)
 def test_guard_promotes_critical_pressure_to_full_pass_even_with_fresh_marker(
     tmp_path: Path,
+    critical_marker_offset: int,
+    cooldown: str,
 ) -> None:
     home = tmp_path / "home"
     state = home / ".openclaw" / "state"
     state.mkdir(parents=True)
     (state / "cleanup-full-pass.at").write_text(str(int(time.time())) + "\n", encoding="utf-8")
+    (state / "cleanup-critical-full-pass.at").write_text(
+        str(int(time.time()) + critical_marker_offset) + "\n",
+        encoding="utf-8",
+    )
     base_manifest = tmp_path / "base.json"
     base_manifest.write_text(
         '{"policy_version":"cleanup-v1","artifacts":[]}\n',
@@ -291,6 +304,7 @@ else:
             "EMERGENCY_GUARD_TEST_HOME": str(home),
             "EMERGENCY_GUARD_TEST_FREE_GB": "4",
             "EMERGENCY_GUARD_TEST_FREE_KB": str(2 * 1024 * 1024),
+            "EMERGENCY_GUARD_CRITICAL_FULL_PASS_COOLDOWN_SECONDS": cooldown,
             "CLEANUP_CONTROL_PATH": str(fake_control),
             "CLEANUP_CONTROL_MANIFEST": str(base_manifest),
             "CLEANUP_CONTROL_LEDGER": str(tmp_path / "ledger.jsonl"),
@@ -338,7 +352,8 @@ def test_guard_does_not_advance_full_marker_after_sweep_failure(tmp_path: Path) 
 import os, shutil, sys
 args = sys.argv[1:]
 with open(os.environ["CALLS"], "a", encoding="utf-8") as handle:
-    handle.write(args[0] + "\\n")
+    import json
+    handle.write(json.dumps(args) + "\\n")
 if args[0] == "runtime-manifest":
     shutil.copyfile(args[args.index("--manifest") + 1], args[args.index("--output") + 1])
     print('{"status":"ok"}')
@@ -355,6 +370,7 @@ else:
             "CALLS": str(calls),
             "EMERGENCY_GUARD_TEST_HOME": str(home),
             "EMERGENCY_GUARD_TEST_FREE_GB": "4",
+            "EMERGENCY_GUARD_TEST_FREE_KB": str(2 * 1024 * 1024),
             "EMERGENCY_GUARD_FULL_PASS": "1",
             "CLEANUP_CONTROL_PATH": str(fake_control),
             "CLEANUP_CONTROL_MANIFEST": str(base_manifest),
@@ -372,8 +388,115 @@ else:
         check=False,
     )
     assert result.returncode == 3
-    assert calls.read_text(encoding="utf-8").splitlines() == ["runtime-manifest", "sweep"]
+    first_calls = [json.loads(line) for line in calls.read_text(encoding="utf-8").splitlines()]
+    assert [call[0] for call in first_calls] == ["runtime-manifest", "sweep"]
     assert not (state / "cleanup-full-pass.at").exists()
+
+    second = subprocess.run(
+        ["/bin/bash", str(GUARD)],
+        env=environment,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    assert second.returncode == 3
+    recorded = [json.loads(line) for line in calls.read_text(encoding="utf-8").splitlines()]
+    assert [call[0] for call in recorded] == [
+        "runtime-manifest",
+        "sweep",
+        "runtime-manifest",
+        "sweep",
+    ]
+    assert (state / "cleanup-critical-full-pass.at").exists()
+    first_runtime, _, second_runtime, second_sweep = recorded
+    assert "--fast-pass" in second_sweep
+    second_roots = [
+        second_runtime[index + 1]
+        for index, value in enumerate(second_runtime)
+        if value == "--root"
+    ]
+    assert second_roots == [
+        str(home / "anicca-project/work"),
+        str(home / ".openclaw/external"),
+    ]
+    first_roots = [
+        first_runtime[index + 1]
+        for index, value in enumerate(first_runtime)
+        if value == "--root"
+    ]
+    assert first_roots == [
+        str(home / "anicca-project/work"),
+        str(home / ".openclaw/external"),
+        str(home / "gig"),
+    ]
+
+
+def test_guard_fails_closed_when_critical_marker_cannot_be_written(tmp_path: Path) -> None:
+    home = tmp_path / "home"
+    state = home / ".openclaw" / "state"
+    state.mkdir(parents=True)
+    marker_parent = state / "marker-parent"
+    marker_parent.write_text("not-a-directory\n", encoding="utf-8")
+    base_manifest = tmp_path / "base.json"
+    base_manifest.write_text('{"policy_version":"cleanup-v1","artifacts":[]}\n', encoding="utf-8")
+    calls = tmp_path / "calls.jsonl"
+    fake_control = tmp_path / "fake_cleanup_control.py"
+    fake_control.write_text(
+        """\
+import json, os, shutil, sys
+args = sys.argv[1:]
+with open(os.environ["CALLS"], "a", encoding="utf-8") as handle:
+    handle.write(json.dumps(args) + "\\n")
+if args[0] == "runtime-manifest":
+    shutil.copyfile(args[args.index("--manifest") + 1], args[args.index("--output") + 1])
+    print('{"status":"ok"}')
+elif args[0] == "sweep":
+    print('{"status":"ok","quarantined":0,"bytes_quarantined":0}')
+else:
+    raise SystemExit(2)
+""",
+        encoding="utf-8",
+    )
+    environment = os.environ.copy()
+    environment.update(
+        {
+            "CALLS": str(calls),
+            "EMERGENCY_GUARD_TEST_HOME": str(home),
+            "EMERGENCY_GUARD_TEST_FREE_GB": "4",
+            "EMERGENCY_GUARD_TEST_FREE_KB": str(2 * 1024 * 1024),
+            "EMERGENCY_GUARD_CRITICAL_FULL_PASS_MARKER": str(marker_parent / "marker"),
+            "CLEANUP_CONTROL_PATH": str(fake_control),
+            "CLEANUP_CONTROL_MANIFEST": str(base_manifest),
+            "CLEANUP_CONTROL_LEDGER": str(tmp_path / "ledger.jsonl"),
+            "CLEANUP_CONTROL_RUNTIME_MANIFEST": str(state / "cleanup-runtime-manifest.json"),
+            "CLEANUP_CONTROL_QUARANTINE_ROOT": str(tmp_path / "quarantine"),
+            "EMERGENCY_GUARD_TEST_TEMP_ROOT": str(home / "tmp"),
+        }
+    )
+    result = subprocess.run(
+        ["/bin/bash", str(GUARD)],
+        env=environment,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert result.returncode == 3
+    recorded = [json.loads(line) for line in calls.read_text(encoding="utf-8").splitlines()]
+    runtime_call, sweep_call = recorded
+    assert "--fast-pass" in sweep_call
+    roots = [
+        runtime_call[index + 1]
+        for index, value in enumerate(runtime_call)
+        if value == "--root"
+    ]
+    assert roots == [
+        str(home / "anicca-project/work"),
+        str(home / ".openclaw/external"),
+    ]
+    assert "critical disk pressure: marker write failed" in result.stderr or "critical disk pressure: marker write failed" in (
+        home / ".openclaw" / "logs" / "emergency-disk-guard.log"
+    ).read_text(encoding="utf-8")
 
 
 def test_guard_bounds_full_pass_commands_and_preserves_marker_on_timeout(tmp_path: Path) -> None:
@@ -400,6 +523,7 @@ def test_guard_bounds_full_pass_commands_and_preserves_marker_on_timeout(tmp_pat
             "CLEANUP_PASS_KILL_AFTER_SECONDS": "1",
             "EMERGENCY_GUARD_TEST_HOME": str(home),
             "EMERGENCY_GUARD_TEST_FREE_GB": "4",
+            "EMERGENCY_GUARD_TEST_FREE_KB": str(2 * 1024 * 1024),
             "EMERGENCY_GUARD_FULL_PASS": "1",
             "EMERGENCY_GUARD_COLIMA_BIN": str(tmp_path / "missing-colima"),
             "EMERGENCY_GUARD_DOCKER_BIN": str(tmp_path / "missing-docker"),
@@ -423,3 +547,16 @@ def test_guard_bounds_full_pass_commands_and_preserves_marker_on_timeout(tmp_pat
     assert len(timeout_args) == 2
     assert all("--kill-after=1 1 python3" in line for line in timeout_args)
     assert not (state / "cleanup-full-pass.at").exists()
+
+    second = subprocess.run(
+        ["/bin/bash", str(GUARD)],
+        env=environment,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    assert second.returncode == 3
+    timeout_args = timeout_calls.read_text(encoding="utf-8").splitlines()
+    assert len(timeout_args) == 4
+    assert "--fast-pass" in timeout_args[-1]
+    assert (state / "cleanup-critical-full-pass.at").exists()
