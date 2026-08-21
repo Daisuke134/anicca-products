@@ -177,3 +177,5 @@ else:
         str(home / ".openclaw/external"),
         str(home / "gig"),
     ]
+    marker = state / "cleanup-full-pass.at"
+    assert int(marker.read_text(encoding="utf-8").strip()) >= int(time.time()) - 5
