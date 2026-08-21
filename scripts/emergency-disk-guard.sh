@@ -30,6 +30,9 @@ BACKPRESSURE="$STATE_DIR/disk-pressure.block"
 ALERT="$STATE_DIR/disk-pressure.alert"
 LOCK="$STATE_DIR/.emergency-disk-guard.lock"
 FULL_PASS_MARKER="$STATE_DIR/cleanup-full-pass.at"
+CLEANUP_PASS_TIMEOUT_SECONDS="${CLEANUP_PASS_TIMEOUT_SECONDS:-120}"
+CLEANUP_PASS_KILL_AFTER_SECONDS="${CLEANUP_PASS_KILL_AFTER_SECONDS:-10}"
+CLEANUP_TIMEOUT_BIN="${CLEANUP_TIMEOUT_BIN:-$(command -v gtimeout 2>/dev/null || command -v timeout 2>/dev/null || true)}"
 GIG_LOCK_PID="${EMERGENCY_GUARD_TEST_LOCK_OWNER:-}"
 GIG_WORKER_MAX_SECONDS="${GIG_WORKER_MAX_SECONDS:-7200}"
 GIG_HEARTBEAT_MAX_SECONDS="${GIG_HEARTBEAT_MAX_SECONDS:-180}"
@@ -82,6 +85,18 @@ RUNTIME_ROOT_ARGS=(
 mkdir -p "$LOG_DIR" "$STATE_DIR" 2>/dev/null || exit 1
 log() { printf '%s %s\n' "$(date '+%F %T')" "$*" >> "$LOG"; }
 
+run_bounded() {
+  if [ -z "$CLEANUP_TIMEOUT_BIN" ]; then
+    log "bounded command unavailable; preserving paths"
+    return 124
+  fi
+  "$CLEANUP_TIMEOUT_BIN" \
+    --signal=TERM \
+    --kill-after="$CLEANUP_PASS_KILL_AFTER_SECONDS" \
+    "$CLEANUP_PASS_TIMEOUT_SECONDS" \
+    "$@"
+}
+
 rotate_cleanup_ledger() {
   [ -f "$CLEANUP_LEDGER" ] || return 0
   local size stamp archive
@@ -119,7 +134,7 @@ rotate_cleanup_ledger
 # launchd trigger while its domain is unhealthy; the governor has its own
 # atomic lock, so a slow census cannot create a second cleanup executor.
 if [ -f "$LIFE_MANAGER_DISK_GOVERNOR" ] && command -v python3 >/dev/null 2>&1; then
-  python3 "$LIFE_MANAGER_DISK_GOVERNOR" --home "$HOME_DIR" --state-dir "$STATE_DIR" \
+  run_bounded python3 "$LIFE_MANAGER_DISK_GOVERNOR" --home "$HOME_DIR" --state-dir "$STATE_DIR" \
     >>"$LOG" 2>&1 || log "life-manager disk governor failed"
 fi
 
@@ -638,6 +653,7 @@ fi
 
 if [ "$TEST_MODE" -eq 0 ]; then
   FULL_PASS_COMPLETED=0
+  FULL_PASS_INPUT_READY=0
   if [ ! -f "$CLEANUP_CONTROL" ]; then
     append_decision "$CLEANUP_CONTROL" failure cleanup-control-missing
   else
@@ -645,7 +661,7 @@ if [ "$TEST_MODE" -eq 0 ]; then
     # Worktree collections and source trees are already exact manifest
     # entries. Walking them every minute made one guard pass exceed 3 min.
     # Dynamic discovery is bounded to producer output roots only.
-    RUNTIME_MANIFEST_SUMMARY=$(python3 "$CLEANUP_CONTROL" runtime-manifest \
+    RUNTIME_MANIFEST_SUMMARY=$(run_bounded python3 "$CLEANUP_CONTROL" runtime-manifest \
       --manifest "$CLEANUP_MANIFEST" \
       --output "$CLEANUP_RUNTIME_MANIFEST" \
       "${RUNTIME_ROOT_ARGS[@]}" \
@@ -657,12 +673,13 @@ if [ "$TEST_MODE" -eq 0 ]; then
     RUNTIME_MANIFEST_RC=$?
     if [ "$RUNTIME_MANIFEST_RC" -eq 0 ] && [ -s "$CLEANUP_RUNTIME_MANIFEST" ]; then
       CLEANUP_MANIFEST_FOR_SWEEP="$CLEANUP_RUNTIME_MANIFEST"
+      FULL_PASS_INPUT_READY=1
       log "runtime manifest ready: $RUNTIME_MANIFEST_SUMMARY"
     else
       append_decision cleanup-control failure "runtime-manifest-rc-$RUNTIME_MANIFEST_RC"
       log "runtime manifest failed rc=$RUNTIME_MANIFEST_RC; using base manifest"
     fi
-    CLEANUP_SUMMARY=$(python3 "$CLEANUP_CONTROL" sweep \
+    CLEANUP_SUMMARY=$(run_bounded python3 "$CLEANUP_CONTROL" sweep \
       --manifest "$CLEANUP_MANIFEST_FOR_SWEEP" \
       --quarantine-root "$CLEANUP_QUARANTINE_ROOT" \
       --ledger "$CLEANUP_LEDGER" \
@@ -685,7 +702,8 @@ if [ "$TEST_MODE" -eq 0 ]; then
       FULL_PASS_COMPLETED=1
     fi
   fi
-  if [ "$FULL_PASS_ACTIVE" -eq 1 ] && [ "$FULL_PASS_COMPLETED" -eq 1 ]; then
+  if [ "$FULL_PASS_ACTIVE" -eq 1 ] && [ "$FULL_PASS_INPUT_READY" -eq 1 ] && \
+     [ "$FULL_PASS_COMPLETED" -eq 1 ]; then
     FULL_PASS_TMP="$FULL_PASS_MARKER.$$"
     printf '%s\n' "$(date +%s)" > "$FULL_PASS_TMP" && mv "$FULL_PASS_TMP" "$FULL_PASS_MARKER"
   fi

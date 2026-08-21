@@ -230,3 +230,52 @@ else:
     assert result.returncode == 3
     assert calls.read_text(encoding="utf-8").splitlines() == ["runtime-manifest", "sweep"]
     assert not (state / "cleanup-full-pass.at").exists()
+
+
+def test_guard_bounds_full_pass_commands_and_preserves_marker_on_timeout(tmp_path: Path) -> None:
+    home = tmp_path / "home"
+    state = home / ".openclaw" / "state"
+    state.mkdir(parents=True)
+    base_manifest = tmp_path / "base.json"
+    base_manifest.write_text('{"policy_version":"cleanup-v1","artifacts":[]}\n', encoding="utf-8")
+    cleanup_control = tmp_path / "cleanup_control.py"
+    cleanup_control.write_text("# never reached: timeout wrapper exits first\n", encoding="utf-8")
+    timeout_bin = tmp_path / "timeout-wrapper"
+    timeout_calls = tmp_path / "timeout-calls.txt"
+    timeout_bin.write_text(
+        "#!/bin/bash\nprintf '%s\\n' \"$*\" >> \"$TIMEOUT_CALLS\"\nexit 124\n",
+        encoding="utf-8",
+    )
+    timeout_bin.chmod(0o755)
+    environment = os.environ.copy()
+    environment.update(
+        {
+            "TIMEOUT_CALLS": str(timeout_calls),
+            "CLEANUP_TIMEOUT_BIN": str(timeout_bin),
+            "CLEANUP_PASS_TIMEOUT_SECONDS": "1",
+            "CLEANUP_PASS_KILL_AFTER_SECONDS": "1",
+            "EMERGENCY_GUARD_TEST_HOME": str(home),
+            "EMERGENCY_GUARD_TEST_FREE_GB": "4",
+            "EMERGENCY_GUARD_FULL_PASS": "1",
+            "EMERGENCY_GUARD_COLIMA_BIN": str(tmp_path / "missing-colima"),
+            "EMERGENCY_GUARD_DOCKER_BIN": str(tmp_path / "missing-docker"),
+            "CLEANUP_CONTROL_PATH": str(cleanup_control),
+            "CLEANUP_CONTROL_MANIFEST": str(base_manifest),
+            "CLEANUP_CONTROL_LEDGER": str(tmp_path / "ledger.jsonl"),
+            "CLEANUP_CONTROL_RUNTIME_MANIFEST": str(state / "runtime-manifest.json"),
+            "CLEANUP_CONTROL_QUARANTINE_ROOT": str(tmp_path / "quarantine"),
+            "EMERGENCY_GUARD_TEST_TEMP_ROOT": str(home / "tmp"),
+        }
+    )
+    result = subprocess.run(
+        ["/bin/bash", str(GUARD)],
+        env=environment,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    assert result.returncode == 3
+    timeout_args = timeout_calls.read_text(encoding="utf-8").splitlines()
+    assert len(timeout_args) == 2
+    assert all("--kill-after=1 1 python3" in line for line in timeout_args)
+    assert not (state / "cleanup-full-pass.at").exists()
