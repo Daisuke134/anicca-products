@@ -30,3 +30,5 @@ def test_sentinel_deduplicates_notifications_and_records_delivery_receipts() -> 
     assert "NOTIFY_TIMEOUT_BIN" in text
     assert '"$claim/owner"' in text
     assert "owner=\"$now.$$\"" in text
+    assert 'if [ "$TIER" -ge 3 ]' in text
+    assert 'DISK_SENTINEL_CLEAR_GB:-11' in text
