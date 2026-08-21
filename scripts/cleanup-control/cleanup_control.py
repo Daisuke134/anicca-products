@@ -58,6 +58,7 @@ ALLOWED_CLASSES = PROTECTED_CLASSES | {
     GIT_CLONE_COLLECTION_CLASS,
 }
 MANAGED_RECLAIMERS = {"gig_evidence_gc"}
+COMMAND_TIMEOUT_SECONDS = 15
 TX_RE = re.compile(r"^[0-9a-f]{32}$")
 DISCOVERABLE_OUTPUT_PROOFS = {
     "node_modules": (
@@ -422,16 +423,25 @@ def worktree_reclaim_decision(
 
 
 def _command(
-    *args: str, cwd: Path
+    *args: str, cwd: Path, timeout: float = COMMAND_TIMEOUT_SECONDS
 ) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        list(args),
-        cwd=cwd,
-        text=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        check=False,
-    )
+    try:
+        return subprocess.run(
+            list(args),
+            cwd=cwd,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+            timeout=timeout,
+        )
+    except subprocess.TimeoutExpired as exc:
+        return subprocess.CompletedProcess(
+            list(args),
+            124,
+            stdout=exc.stdout or "",
+            stderr=f"command timeout after {timeout:g}s",
+        )
 
 
 def path_open_state(path: Path) -> str:

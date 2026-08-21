@@ -31,6 +31,18 @@ def test_path_open_state_treats_nonempty_lsof_output_as_open() -> None:
         assert cleanup_control.path_open_state(Path("/tmp/cache")) == "open"
 
 
+def test_command_timeout_returns_fail_closed_result(tmp_path: Path) -> None:
+    with mock.patch.object(
+        cleanup_control.subprocess,
+        "run",
+        side_effect=subprocess.TimeoutExpired(["git", "fetch"], 15),
+    ):
+        result = cleanup_control._command("git", "fetch", cwd=tmp_path)
+
+    assert result.returncode == 124
+    assert "timeout" in result.stderr
+
+
 def test_fast_pass_defers_worktree_remote_inspection(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
     worktrees = tmp_path / "worktrees"
     worktrees.mkdir()
