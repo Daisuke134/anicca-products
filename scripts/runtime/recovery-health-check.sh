@@ -105,27 +105,15 @@ else
 fi
 
 # 5. Free disk ------------------------------------------------------------
-# A full disk stops every loop just as dead as a blackout does, and it is the
-# more likely of the two: on 2026-08-01 this machine was found at 3GB free.
+# Disk mutation and capacity alerts have one owner: Life Manager's
+# emergency-disk-guard. This recovery monitor is observational only; it must
+# not delete broad cache/log trees or emit a second low-disk alarm.
 free_gb=$(df -g / 2>/dev/null | awk 'NR==2{print $4}')
 disk="${free_gb}GB"
 if [ -n "$free_gb" ] && [ "$free_gb" -lt 5 ]; then
   disk="${free_gb}GB LOW"
   problems=$((problems + 1))
-  # Reclaim only regenerable bytes; never touch state, profiles or repos.
-  rm -rf /Users/anicca/Library/Caches/* 2>/dev/null
-  rm -rf /Users/anicca/.cache/* 2>/dev/null
-  rm -rf /Users/anicca/Library/Logs/* 2>/dev/null
-  after_gb=$(df -g / 2>/dev/null | awk 'NR==2{print $4}')
-  disk="${free_gb}GB->${after_gb}GB LOW"
-  # Below 2GB the machine is close to unusable -- tell Dais, this needs a human decision.
-  if [ -n "$after_gb" ] && [ "$after_gb" -lt 2 ]; then
-    tg=$(grep -m1 '^export TELEGRAM_BOT_TOKEN=' /Users/anicca/.openclaw/.env 2>/dev/null | cut -d= -f2- | tr -d '"')
-    [ -n "$tg" ] && curl -s -X POST "https://api.telegram.org/bot${tg}/sendMessage" \
-      -d chat_id=8547730585 \
-      --data-urlencode "text=⚠️ Mac mini のディスク残量が ${after_gb}GB です。自動回収では足りません。" \
-      >/dev/null 2>&1
-  fi
+  say "disk low: Life Manager emergency-disk-guard owns reclaim and alerting"
 fi
 
 say "net=$net ts=$ts codex1=$c1 codex2=$c2 claude=$claude disk=$disk problems=$problems"

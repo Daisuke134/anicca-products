@@ -35,13 +35,16 @@ def test_production_guard_has_one_cleanup_authority() -> None:
 
 
 def test_recovery_health_is_observational_for_disk() -> None:
-    health = (ROOT / "scripts" / "recovery" / "health-check.sh").read_text(
-        encoding="utf-8"
-    )
-    assert "Life Manager emergency-disk-guard owns reclaim and alerting" in health
-    assert "rm -rf /Users/anicca/Library/Caches" not in health
-    assert "rm -rf /Users/anicca/.cache" not in health
-    assert "自動回収では足りません" not in health
+    health_sources = [
+        ROOT / "scripts" / "recovery" / "health-check.sh",
+        ROOT / "scripts" / "runtime" / "recovery-health-check.sh",
+    ]
+    for source in health_sources:
+        health = source.read_text(encoding="utf-8")
+        assert "Life Manager emergency-disk-guard owns reclaim and alerting" in health
+        assert "rm -rf /Users/anicca/Library/Caches" not in health
+        assert "rm -rf /Users/anicca/.cache" not in health
+        assert "自動回収では足りません" not in health
 
 
 def test_production_manifest_is_valid_and_protects_known_incident_roots() -> None:
