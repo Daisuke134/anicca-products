@@ -138,11 +138,47 @@ if [ -f "$LIFE_MANAGER_DISK_GOVERNOR" ] && command -v python3 >/dev/null 2>&1; t
     >>"$LOG" 2>&1 || log "life-manager disk governor failed"
 fi
 
+free_kb() {
+  if [ -n "${EMERGENCY_GUARD_TEST_FREE_KB:-}" ]; then
+    printf '%s\n' "$EMERGENCY_GUARD_TEST_FREE_KB"
+  else
+    df -k / | awk 'NR==2{print $4}'
+  fi
+}
+
 free_gb() {
   if [ -n "${EMERGENCY_GUARD_TEST_FREE_GB:-}" ]; then
     printf '%s\n' "$EMERGENCY_GUARD_TEST_FREE_GB"
   else
-    df -g / | awk 'NR==2{print $4}'
+    local kb
+    kb=$(free_kb)
+    [ -n "$kb" ] || return 1
+    printf '%s\n' "$((kb / 1048576))"
+  fi
+}
+
+free_space_label() {
+  local kb
+  kb=$(free_kb)
+  case "$kb" in
+    ''|*[!0-9]*) printf 'unknown' ;;
+    *)
+      if [ "$kb" -lt 1024 ]; then
+        printf '%sKiB' "$kb"
+      elif [ "$kb" -lt 1048576 ]; then
+        LC_ALL=C awk -v kb="$kb" 'BEGIN {printf "%.1fMiB", kb / 1024}'
+      else
+        LC_ALL=C awk -v kb="$kb" 'BEGIN {printf "%.2fGiB", kb / 1048576}'
+      fi
+      ;;
+  esac
+}
+
+swap_usage() {
+  if [ -n "${EMERGENCY_GUARD_TEST_SWAP_USAGE:-}" ]; then
+    printf '%s\n' "$EMERGENCY_GUARD_TEST_SWAP_USAGE"
+  else
+    sysctl -n vm.swapusage 2>/dev/null | tr '\n' ' '
   fi
 }
 
@@ -628,6 +664,9 @@ cleanup_orphan_heartbeats
 
 FREE=$(free_gb)
 [ -n "$FREE" ] || exit 1
+FREE_LABEL=$(free_space_label)
+SWAP_USAGE=$(swap_usage)
+[ -n "$SWAP_USAGE" ] || SWAP_USAGE=unknown
 if [ "$FREE" -ge "$RECOVERY_GB" ]; then
   rm -f "$BACKPRESSURE" "$ALERT"
   "$HOME_DIR/anicca-project/scripts/disk-recovery-redispatch.sh" >>"$LOG" 2>&1 || \
@@ -635,9 +674,9 @@ if [ "$FREE" -ge "$RECOVERY_GB" ]; then
   exit 0
 fi
 
-printf 'free_gb=%s threshold_gb=%s policy=%s observed_at=%s\n' \
-  "$FREE" "$THRESHOLD_GB" "$POLICY_VERSION" "$(date -u '+%FT%TZ')" > "$BACKPRESSURE"
-log "LOW DISK: ${FREE}GB free (< ${THRESHOLD_GB}GB) — safe containment start"
+printf 'free_gb=%s free_space=%s swap=%s threshold_gb=%s policy=%s observed_at=%s\n' \
+  "$FREE" "$FREE_LABEL" "$SWAP_USAGE" "$THRESHOLD_GB" "$POLICY_VERSION" "$(date -u '+%FT%TZ')" > "$BACKPRESSURE"
+log "LOW DISK: ${FREE}GB (${FREE_LABEL}) free (< ${THRESHOLD_GB}GB), swap=${SWAP_USAGE} — safe containment start"
 RECLAIM_TARGET_BYTES=$(( (THRESHOLD_GB - FREE) * 1073741824 ))
 quiesce_idle_colima
 
@@ -772,6 +811,7 @@ if [ "$FREE" -lt "$ULTRA_GB" ]; then
 fi
 
 NEW=$(free_gb)
+NEW_LABEL=$(free_space_label)
 if [ "$RECLAIM_ELIGIBLE" -eq 0 ] || [ "$RECLAIMED_TOTAL" -eq 0 ] || [ "$NEW" -lt "$RECOVERY_GB" ]; then
   if [ "$RECLAIM_ELIGIBLE" -eq 0 ]; then
     FAILURE_REASON=no-eligible-reclaim
@@ -782,13 +822,13 @@ if [ "$RECLAIM_ELIGIBLE" -eq 0 ] || [ "$RECLAIMED_TOTAL" -eq 0 ] || [ "$NEW" -lt
   fi
   append_decision disk-pressure failure "$FAILURE_REASON"
   append_ops failure "$FAILURE_REASON" "$FREE" "$NEW"
-  printf 'result=failure reason=%s free_before_gb=%s free_after_gb=%s eligible_paths=%s reclaimed_bytes=%s policy=%s\n' \
-    "$FAILURE_REASON" "$FREE" "$NEW" "$RECLAIM_ELIGIBLE" "$RECLAIMED_TOTAL" "$POLICY_VERSION" > "$ALERT"
-  log "FAILURE: ${FAILURE_REASON}; ${FREE}GB -> ${NEW}GB; recovery_floor=${RECOVERY_GB}GB; backpressure remains"
+  printf 'result=failure reason=%s free_before_gb=%s free_before_space=%s free_after_gb=%s free_after_space=%s swap=%s eligible_paths=%s reclaimed_bytes=%s policy=%s\n' \
+    "$FAILURE_REASON" "$FREE" "$FREE_LABEL" "$NEW" "$NEW_LABEL" "$SWAP_USAGE" "$RECLAIM_ELIGIBLE" "$RECLAIMED_TOTAL" "$POLICY_VERSION" > "$ALERT"
+  log "FAILURE: ${FAILURE_REASON}; ${FREE}GB (${FREE_LABEL}) -> ${NEW}GB (${NEW_LABEL}); swap=${SWAP_USAGE}; recovery_floor=${RECOVERY_GB}GB; backpressure remains"
   exit 3
 fi
 rm -f "$BACKPRESSURE" "$ALERT"
 append_ops success reclaimed-bytes "$FREE" "$NEW"
 "$HOME_DIR/anicca-project/scripts/disk-recovery-redispatch.sh" >>"$LOG" 2>&1 || \
   log "disk recovery redispatch unavailable or failed"
-log "safe containment done: ${FREE}GB -> ${NEW}GB free; recovery_floor=${RECOVERY_GB}GB; reclaimed=${RECLAIMED_TOTAL} bytes"
+log "safe containment done: ${FREE}GB (${FREE_LABEL}) -> ${NEW}GB (${NEW_LABEL}) free; swap=${SWAP_USAGE}; recovery_floor=${RECOVERY_GB}GB; reclaimed=${RECLAIMED_TOTAL} bytes"

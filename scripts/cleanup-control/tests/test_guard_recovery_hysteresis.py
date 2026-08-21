@@ -70,6 +70,42 @@ def test_guard_keeps_pressure_below_recovery_floor(tmp_path: Path) -> None:
     assert (state / "disk-pressure.block").exists()
 
 
+def test_guard_reports_sub_gib_free_space_instead_of_ambiguous_zero_gb(
+    tmp_path: Path,
+) -> None:
+    home = tmp_path / "home"
+    state = home / ".openclaw" / "state"
+    state.mkdir(parents=True)
+
+    environment = os.environ.copy()
+    environment.update(
+        {
+            "EMERGENCY_GUARD_TEST_HOME": str(home),
+            "EMERGENCY_GUARD_TEST_FREE_GB": "0",
+            "EMERGENCY_GUARD_TEST_FREE_KB": "552288",
+            "EMERGENCY_GUARD_TEST_SWAP_USAGE": "total=16896M used=15300M free=1596M",
+            "EMERGENCY_GUARD_THRESHOLD_GB": "20",
+            "EMERGENCY_GUARD_RECOVERY_GB": "11",
+            "CLEANUP_CONTROL_PATH": str(tmp_path / "missing-cleanup-control.py"),
+        }
+    )
+    result = subprocess.run(
+        ["/bin/bash", str(GUARD)],
+        env=environment,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert result.returncode == 3
+    log = (home / ".openclaw" / "logs" / "emergency-disk-guard.log").read_text()
+    alert = (state / "disk-pressure.alert").read_text()
+    assert "539.3MiB" in log
+    assert "539.3MiB" in alert
+    assert "swap=total=16896M used=15300M free=1596M" in log
+    assert "swap=total=16896M used=15300M free=1596M" in alert
+
+
 def test_disk_recovery_redispatches_only_machine_owned_disk_blocked_tasks(
     tmp_path: Path,
 ) -> None:
