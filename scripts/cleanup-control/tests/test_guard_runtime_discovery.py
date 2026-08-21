@@ -74,34 +74,23 @@ else:
     runtime_call, sweep_call = recorded
     assert runtime_call[runtime_call.index("--output") + 1] == str(runtime_manifest)
     assert sweep_call[sweep_call.index("--manifest") + 1] == str(runtime_manifest)
+    assert "--fast-pass" in sweep_call
     roots = [
         runtime_call[index + 1]
         for index, value in enumerate(runtime_call)
         if value == "--root"
     ]
     assert roots == [
-        str(home / "anicca-project/.worktrees"),
-        str(home / "profitable-claude/.worktrees"),
-        str(home / ".openclaw/.worktrees"),
         str(home / "anicca-project/work"),
         str(home / ".openclaw/external"),
-        str(home / "anicca-project/apps"),
         str(home / "gig"),
-        str(home / "anicca"),
     ]
     cache_roots = [
         runtime_call[index + 1]
         for index, value in enumerate(runtime_call)
         if value == "--cache-root"
     ]
-    assert cache_roots == [
-        str(home / "Library/Caches"),
-        str(home / ".npm"),
-        str(home / ".cargo/registry"),
-        str(home / ".cargo/git"),
-        str(home / ".cache"),
-        str(home / "tmp"),
-    ]
+    assert cache_roots == []
     published_run_roots = [
         runtime_call[index + 1]
         for index, value in enumerate(runtime_call)

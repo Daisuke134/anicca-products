@@ -55,6 +55,8 @@ STOP_REASON=""
 RECLAIM_HEADER=$'timestamp\ttxid\tphase\tpath\towner\tclass\tbefore_bytes\tafter_bytes\treclaimed_bytes\treason\tpolicy_version\tdetail'
 OPS_HEADER=$'timestamp\tresult\treason\tfree_before_gb\tfree_after_gb\teligible_paths\treclaimed_bytes\tpolicy_version'
 LEDGER_MAX_BYTES=$((32 * 1024 * 1024))
+SWEEP_MODE_ARGS=()
+[ "${EMERGENCY_GUARD_FULL_PASS:-0}" = "1" ] || SWEEP_MODE_ARGS+=(--fast-pass)
 
 mkdir -p "$LOG_DIR" "$STATE_DIR" 2>/dev/null || exit 1
 log() { printf '%s %s\n' "$(date '+%F %T')" "$*" >> "$LOG"; }
@@ -645,6 +647,7 @@ if [ "$TEST_MODE" -eq 0 ]; then
       --quarantine-root "$CLEANUP_QUARANTINE_ROOT" \
       --ledger "$CLEANUP_LEDGER" \
       --pressure-override \
+      "${SWEEP_MODE_ARGS[@]}" \
       --reclaim-target-bytes "$RECLAIM_TARGET_BYTES" 2>>"$LOG")
     CLEANUP_RC=$?
     if [ -n "$CLEANUP_SUMMARY" ]; then

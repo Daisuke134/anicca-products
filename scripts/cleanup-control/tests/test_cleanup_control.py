@@ -31,6 +31,43 @@ def test_path_open_state_treats_nonempty_lsof_output_as_open() -> None:
         assert cleanup_control.path_open_state(Path("/tmp/cache")) == "open"
 
 
+def test_fast_pass_defers_worktree_remote_inspection(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    worktrees = tmp_path / "worktrees"
+    worktrees.mkdir()
+    manifest = write_manifest(
+        tmp_path / "manifest.json",
+        [
+            {
+                "id": "worktrees",
+                "path": str(worktrees),
+                "owner": "git-worktrees",
+                "class": "git_worktree_collection",
+                "ttl_seconds": None,
+                "quota_bytes": 0,
+                "lease": None,
+                "finalizer": {"kind": "remote_recoverable_remove"},
+            }
+        ],
+    )
+
+    def fail_if_called(**_kwargs: object) -> dict[str, int]:
+        raise AssertionError("fast pass must not inspect remote worktrees")
+
+    monkeypatch.setattr(cleanup_control, "sweep_worktree_collection", fail_if_called)
+    result = cleanup_control.sweep(
+        manifest_path=manifest,
+        quarantine_root=tmp_path / "quarantine",
+        ledger_path=tmp_path / "ledger.jsonl",
+        now=1_000,
+        fast_pass=True,
+    )
+
+    assert result["status"] == "ok"
+    assert result["preserved"] == 1
+    event = json.loads((tmp_path / "ledger.jsonl").read_text().strip())
+    assert event["reason"] == "fast_pass_deferred"
+
+
 def entry(
     path: Path,
     *,

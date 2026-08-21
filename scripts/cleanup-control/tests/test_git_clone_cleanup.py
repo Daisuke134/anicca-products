@@ -70,6 +70,11 @@ def test_sweep_removes_only_clean_remote_recoverable_unused_clone(
     non_git = collection / "anicca-nongit"
     non_git.mkdir()
     (non_git / "file.txt").write_text("plain dir, no .git", encoding="utf-8")
+    non_git_file = collection / "anicca-log.txt"
+    non_git_file.write_text("plain file", encoding="utf-8")
+    linked_worktree = collection / "anicca-linked-worktree"
+    linked_worktree.mkdir()
+    (linked_worktree / ".git").write_text("gitdir: /outside/linked-worktree", encoding="utf-8")
 
     sibling = clone_repo(remote, collection, "other-sibling")
 
@@ -100,11 +105,17 @@ def test_sweep_removes_only_clean_remote_recoverable_unused_clone(
     assert reasons[str(dirty)] == "dirty_clone"
     assert reasons[str(untracked)] == "dirty_clone"
     assert reasons[str(unpushed)] == "head_not_on_remote"
-    assert reasons[str(non_git)] == "not_a_git_repository"
+    # Non-repository producer output is preserved and omitted from the clone
+    # ledger; otherwise /tmp/anicca-* sockets and logs create a receipt storm.
+    assert str(non_git) not in reasons
+    assert str(non_git_file) not in reasons
+    assert non_git_file.exists()
+    assert str(linked_worktree) not in reasons
+    assert linked_worktree.exists()
     # the non-prefix sibling is never inspected or touched: no ledger event at all
     assert str(sibling) not in reasons
-    # exactly one ledger event per matching child (clean, dirty, untracked, unpushed, non_git)
-    assert len(events) == 5
+    # exactly one ledger event per actual matching clone
+    assert len(events) == 4
 
 
 def test_sweep_preserves_and_errors_when_lsof_state_is_open_or_unreadable(

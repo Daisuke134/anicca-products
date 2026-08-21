@@ -954,7 +954,6 @@ def sweep_worktree_collection(
         manifest_sha256=manifest_sha256,
         now=now,
         owner="git-worktrees",
-        standalone_only=True,
     )
     for key in result:
         result[key] += standalone[key]
@@ -1005,7 +1004,6 @@ def sweep_git_clone_collection(
     manifest_sha256: str,
     now: int,
     owner: str = "agent-temp-clones",
-    standalone_only: bool = False,
 ) -> dict[str, int]:
     result = {"removed": 0, "preserved": 0, "errors": 0, "bytes_removed": 0}
     if not collection_root.is_dir():
@@ -1018,7 +1016,16 @@ def sweep_git_clone_collection(
             child
             for child in collection_root.iterdir()
             if child.name.startswith(child_name_prefix)
-            and (not standalone_only or (child / ".git").is_dir())
+            # A collection root can contain sockets, logs, temporary files,
+            # and other producer output sharing the same prefix.  They are
+            # unknown artifacts, not git clones, and must not generate one
+            # ledger receipt per cleanup pass. A .git directory identifies a
+            # standalone clone; a .git file identifies a linked worktree and
+            # belongs to the worktree inspector, which checks lock/current/
+            # dirty/remote state before removal.
+            and child.is_dir()
+            and not child.is_symlink()
+            and (child / ".git").is_dir()
         ),
         key=lambda item: item.name,
     )
@@ -1270,6 +1277,7 @@ def sweep(
     candidates: list[Path] | None = None,
     pressure_override: bool = False,
     reclaim_target_bytes: int = 0,
+    fast_pass: bool = False,
 ) -> dict[str, int | str]:
     now = int(time.time()) if now is None else int(now)
     reclaim_target_bytes = max(0, int(reclaim_target_bytes))
@@ -1326,6 +1334,19 @@ def sweep(
             event = _event_base(
                 event="preserved",
                 reason="path_missing",
+                path=target,
+                entry=entry,
+                policy_version=policy_version,
+                manifest_sha256=manifest_sha256,
+                now=now,
+            )
+            append_ledger(ledger_path, event)
+            result["preserved"] += 1
+            continue
+        if fast_pass and entry["class"] == WORKTREE_COLLECTION_CLASS:
+            event = _event_base(
+                event="preserved",
+                reason="fast_pass_deferred",
                 path=target,
                 entry=entry,
                 policy_version=policy_version,
@@ -1622,6 +1643,11 @@ def _parser() -> argparse.ArgumentParser:
     sweep_parser.add_argument("--candidate", action="append", type=Path)
     sweep_parser.add_argument("--pressure-override", action="store_true")
     sweep_parser.add_argument("--reclaim-target-bytes", type=int, default=0)
+    sweep_parser.add_argument(
+        "--fast-pass",
+        action="store_true",
+        help="defer remote worktree inspection to the bounded full pass",
+    )
     runtime_manifest_parser = subcommands.add_parser("runtime-manifest")
     runtime_manifest_parser.add_argument("--manifest", required=True, type=Path)
     runtime_manifest_parser.add_argument("--output", required=True, type=Path)
@@ -1678,6 +1704,7 @@ def main(argv: list[str] | None = None) -> int:
             candidates=args.candidate,
             pressure_override=args.pressure_override,
             reclaim_target_bytes=args.reclaim_target_bytes,
+            fast_pass=args.fast_pass,
         )
         print(json.dumps(result, sort_keys=True))
         return 0 if result["status"] == "ok" and result["errors"] == 0 else 3
