@@ -9,3 +9,4 @@ def test_sentinel_preserves_sub_gib_precision_and_reports_swap_pressure() -> Non
     assert "FREE_LABEL" in text
     assert "SWAP_USAGE" in text
     assert "free ${FREE_LABEL}" in text
+    assert "GB floor" not in text

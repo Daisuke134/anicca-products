@@ -676,7 +676,7 @@ fi
 
 printf 'free_gb=%s free_space=%s swap=%s threshold_gb=%s policy=%s observed_at=%s\n' \
   "$FREE" "$FREE_LABEL" "$SWAP_USAGE" "$THRESHOLD_GB" "$POLICY_VERSION" "$(date -u '+%FT%TZ')" > "$BACKPRESSURE"
-log "LOW DISK: ${FREE}GB (${FREE_LABEL}) free (< ${THRESHOLD_GB}GB), swap=${SWAP_USAGE} — safe containment start"
+log "LOW DISK: ${FREE_LABEL} (coarse_gib_bucket=${FREE}) below ${THRESHOLD_GB}GiB, swap=${SWAP_USAGE} — safe containment start"
 RECLAIM_TARGET_BYTES=$(( (THRESHOLD_GB - FREE) * 1073741824 ))
 quiesce_idle_colima
 
@@ -824,11 +824,11 @@ if [ "$RECLAIM_ELIGIBLE" -eq 0 ] || [ "$RECLAIMED_TOTAL" -eq 0 ] || [ "$NEW" -lt
   append_ops failure "$FAILURE_REASON" "$FREE" "$NEW"
   printf 'result=failure reason=%s free_before_gb=%s free_before_space=%s free_after_gb=%s free_after_space=%s swap=%s eligible_paths=%s reclaimed_bytes=%s policy=%s\n' \
     "$FAILURE_REASON" "$FREE" "$FREE_LABEL" "$NEW" "$NEW_LABEL" "$SWAP_USAGE" "$RECLAIM_ELIGIBLE" "$RECLAIMED_TOTAL" "$POLICY_VERSION" > "$ALERT"
-  log "FAILURE: ${FAILURE_REASON}; ${FREE}GB (${FREE_LABEL}) -> ${NEW}GB (${NEW_LABEL}); swap=${SWAP_USAGE}; recovery_floor=${RECOVERY_GB}GB; backpressure remains"
+  log "FAILURE: ${FAILURE_REASON}; ${FREE_LABEL} (coarse_gib_bucket=${FREE}) -> ${NEW_LABEL} (coarse_gib_bucket=${NEW}); swap=${SWAP_USAGE}; recovery_floor=${RECOVERY_GB}GiB; backpressure remains"
   exit 3
 fi
 rm -f "$BACKPRESSURE" "$ALERT"
 append_ops success reclaimed-bytes "$FREE" "$NEW"
 "$HOME_DIR/anicca-project/scripts/disk-recovery-redispatch.sh" >>"$LOG" 2>&1 || \
   log "disk recovery redispatch unavailable or failed"
-log "safe containment done: ${FREE}GB (${FREE_LABEL}) -> ${NEW}GB (${NEW_LABEL}) free; swap=${SWAP_USAGE}; recovery_floor=${RECOVERY_GB}GB; reclaimed=${RECLAIMED_TOTAL} bytes"
+log "safe containment done: ${FREE_LABEL} (coarse_gib_bucket=${FREE}) -> ${NEW_LABEL} (coarse_gib_bucket=${NEW}) free; swap=${SWAP_USAGE}; recovery_floor=${RECOVERY_GB}GiB; reclaimed=${RECLAIMED_TOTAL} bytes"

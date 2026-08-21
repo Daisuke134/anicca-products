@@ -102,6 +102,8 @@ def test_guard_reports_sub_gib_free_space_instead_of_ambiguous_zero_gb(
     alert = (state / "disk-pressure.alert").read_text()
     assert "539.3MiB" in log
     assert "539.3MiB" in alert
+    assert "0GB free" not in log
+    assert "0GB ->" not in log
     assert "swap=total=16896M used=15300M free=1596M" in log
     assert "swap=total=16896M used=15300M free=1596M" in alert
 
