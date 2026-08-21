@@ -181,7 +181,11 @@ else:
     ]
 
 
-def test_guard_defers_repeated_critical_full_pass_during_cooldown(tmp_path: Path) -> None:
+@pytest.mark.parametrize("cooldown", ["300", "invalid"], ids=["valid", "invalid"])
+def test_guard_defers_repeated_critical_full_pass_during_cooldown(
+    tmp_path: Path,
+    cooldown: str,
+) -> None:
     home = tmp_path / "home"
     state = home / ".openclaw" / "state"
     state.mkdir(parents=True)
@@ -221,7 +225,7 @@ else:
             "EMERGENCY_GUARD_TEST_HOME": str(home),
             "EMERGENCY_GUARD_TEST_FREE_GB": "4",
             "EMERGENCY_GUARD_TEST_FREE_KB": str(2 * 1024 * 1024),
-            "EMERGENCY_GUARD_CRITICAL_FULL_PASS_COOLDOWN_SECONDS": "300",
+            "EMERGENCY_GUARD_CRITICAL_FULL_PASS_COOLDOWN_SECONDS": cooldown,
             "CLEANUP_CONTROL_PATH": str(fake_control),
             "CLEANUP_CONTROL_MANIFEST": str(base_manifest),
             "CLEANUP_CONTROL_LEDGER": str(tmp_path / "ledger.jsonl"),
@@ -254,11 +258,26 @@ else:
     marker = state / "cleanup-full-pass.at"
     assert int(marker.read_text(encoding="utf-8").strip()) >= int(time.time()) - 5
 
+    if cooldown == "invalid":
+        second = subprocess.run(
+            ["/bin/bash", str(GUARD)],
+            env=environment,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+        assert second.returncode == 3
+        second_recorded = [
+            json.loads(line) for line in calls.read_text(encoding="utf-8").splitlines()
+        ]
+        assert len(second_recorded) == 4
+        assert "--fast-pass" in second_recorded[-1]
+
 
 @pytest.mark.parametrize(
     ("critical_marker_offset", "cooldown"),
-    [(3600, "300"), (0, "invalid")],
-    ids=["future-marker", "invalid-cooldown"],
+    [(3600, "300")],
+    ids=["future-marker"],
 )
 def test_guard_promotes_critical_pressure_to_full_pass_even_with_fresh_marker(
     tmp_path: Path,

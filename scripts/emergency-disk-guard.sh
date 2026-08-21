@@ -682,8 +682,11 @@ if [ "$FREE_KB_NOW" -lt "$((ULTRA_GB * 1048576))" ]; then
   CRITICAL_FULL_PASS_COOLDOWN_VALID=1
   case "$CRITICAL_FULL_PASS_COOLDOWN_SECONDS" in
     ''|*[!0-9]*)
+      # A malformed throttle cannot safely authorize a full pass; preserve the
+      # fast bounded path until an operator or installer repairs the setting.
       CRITICAL_FULL_PASS_COOLDOWN_VALID=0
-      log "critical disk pressure: invalid cooldown; treating receipt as due"
+      CRITICAL_FULL_PASS_DUE=0
+      log "critical disk pressure: invalid cooldown; using fast pass"
       ;;
   esac
   LAST_CRITICAL_FULL_PASS=$(cat "$CRITICAL_FULL_PASS_MARKER" 2>/dev/null || true)
