@@ -179,3 +179,54 @@ else:
     ]
     marker = state / "cleanup-full-pass.at"
     assert int(marker.read_text(encoding="utf-8").strip()) >= int(time.time()) - 5
+
+
+def test_guard_does_not_advance_full_marker_after_sweep_failure(tmp_path: Path) -> None:
+    home = tmp_path / "home"
+    state = home / ".openclaw" / "state"
+    state.mkdir(parents=True)
+    base_manifest = tmp_path / "base.json"
+    base_manifest.write_text('{"policy_version":"cleanup-v1","artifacts":[]}\n', encoding="utf-8")
+    calls = tmp_path / "calls.jsonl"
+    fake_control = tmp_path / "fake_cleanup_control.py"
+    fake_control.write_text(
+        """\
+import os, shutil, sys
+args = sys.argv[1:]
+with open(os.environ["CALLS"], "a", encoding="utf-8") as handle:
+    handle.write(args[0] + "\\n")
+if args[0] == "runtime-manifest":
+    shutil.copyfile(args[args.index("--manifest") + 1], args[args.index("--output") + 1])
+    print('{"status":"ok"}')
+elif args[0] == "sweep":
+    raise SystemExit(7)
+else:
+    raise SystemExit(2)
+""",
+        encoding="utf-8",
+    )
+    environment = os.environ.copy()
+    environment.update(
+        {
+            "CALLS": str(calls),
+            "EMERGENCY_GUARD_TEST_HOME": str(home),
+            "EMERGENCY_GUARD_TEST_FREE_GB": "4",
+            "EMERGENCY_GUARD_FULL_PASS": "1",
+            "CLEANUP_CONTROL_PATH": str(fake_control),
+            "CLEANUP_CONTROL_MANIFEST": str(base_manifest),
+            "CLEANUP_CONTROL_LEDGER": str(tmp_path / "ledger.jsonl"),
+            "CLEANUP_CONTROL_RUNTIME_MANIFEST": str(state / "cleanup-runtime-manifest.json"),
+            "CLEANUP_CONTROL_QUARANTINE_ROOT": str(tmp_path / "quarantine"),
+            "EMERGENCY_GUARD_TEST_TEMP_ROOT": str(home / "tmp"),
+        }
+    )
+    result = subprocess.run(
+        ["/bin/bash", str(GUARD)],
+        env=environment,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    assert result.returncode == 3
+    assert calls.read_text(encoding="utf-8").splitlines() == ["runtime-manifest", "sweep"]
+    assert not (state / "cleanup-full-pass.at").exists()

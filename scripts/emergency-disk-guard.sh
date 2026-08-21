@@ -681,8 +681,9 @@ if [ "$TEST_MODE" -eq 0 ]; then
     fi
     if [ "$CLEANUP_RC" -ne 0 ]; then
       append_decision cleanup-control failure "cleanup-control-rc-$CLEANUP_RC"
+    else
+      FULL_PASS_COMPLETED=1
     fi
-    FULL_PASS_COMPLETED=1
   fi
   if [ "$FULL_PASS_ACTIVE" -eq 1 ] && [ "$FULL_PASS_COMPLETED" -eq 1 ]; then
     FULL_PASS_TMP="$FULL_PASS_MARKER.$$"
