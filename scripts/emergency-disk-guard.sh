@@ -57,6 +57,16 @@ OPS_HEADER=$'timestamp\tresult\treason\tfree_before_gb\tfree_after_gb\teligible_
 LEDGER_MAX_BYTES=$((32 * 1024 * 1024))
 SWEEP_MODE_ARGS=()
 [ "${EMERGENCY_GUARD_FULL_PASS:-0}" = "1" ] || SWEEP_MODE_ARGS+=(--fast-pass)
+RUNTIME_ROOT_ARGS=(
+  --root "$HOME_DIR/anicca-project/work"
+  --root "$HOME_DIR/.openclaw/external"
+)
+# The gig tree is a large, protected delivery tree. Walking it on every
+# minute-level pressure tick made the guard itself run for minutes and caused
+# overlapping launchd invocations. The hourly compatibility trigger opts into
+# the full census; the emergency fast pass stays bounded to the small dynamic
+# roots above.
+[ "${EMERGENCY_GUARD_FULL_PASS:-0}" = "1" ] && RUNTIME_ROOT_ARGS+=(--root "$HOME_DIR/gig")
 
 mkdir -p "$LOG_DIR" "$STATE_DIR" 2>/dev/null || exit 1
 log() { printf '%s %s\n' "$(date '+%F %T')" "$*" >> "$LOG"; }
@@ -626,9 +636,7 @@ if [ "$TEST_MODE" -eq 0 ]; then
     RUNTIME_MANIFEST_SUMMARY=$(python3 "$CLEANUP_CONTROL" runtime-manifest \
       --manifest "$CLEANUP_MANIFEST" \
       --output "$CLEANUP_RUNTIME_MANIFEST" \
-      --root "$HOME_DIR/anicca-project/work" \
-      --root "$HOME_DIR/.openclaw/external" \
-      --root "$HOME_DIR/gig" \
+      "${RUNTIME_ROOT_ARGS[@]}" \
       --published-run-root "$HOME_DIR/.openclaw/workspace/runs" \
       --code-sign-clone-root "$USER_CODE_SIGN_ROOT" \
       --pnpm-store-root "$HOME_DIR/Library/pnpm/store" \

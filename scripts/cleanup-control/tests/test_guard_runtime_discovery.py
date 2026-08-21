@@ -83,7 +83,6 @@ else:
     assert roots == [
         str(home / "anicca-project/work"),
         str(home / ".openclaw/external"),
-        str(home / "gig"),
     ]
     cache_roots = [
         runtime_call[index + 1]
@@ -110,3 +109,67 @@ else:
     ]
     assert pnpm_store_roots == [str(home / "Library/pnpm/store")]
     assert runtime_call[runtime_call.index("--min-cache-bytes") + 1] == "67108864"
+
+
+def test_guard_full_pass_includes_large_gig_tree(tmp_path: Path) -> None:
+    home = tmp_path / "home"
+    state = home / ".openclaw" / "state"
+    state.mkdir(parents=True)
+    base_manifest = tmp_path / "base.json"
+    base_manifest.write_text(
+        '{"policy_version":"cleanup-v1","artifacts":[]}\n',
+        encoding="utf-8",
+    )
+    runtime_manifest = state / "cleanup-runtime-manifest.json"
+    calls = tmp_path / "calls.jsonl"
+    fake_control = tmp_path / "fake_cleanup_control.py"
+    fake_control.write_text(
+        """
+import json, os, shutil, sys
+args = sys.argv[1:]
+with open(os.environ["CALLS"], "a", encoding="utf-8") as handle:
+    handle.write(json.dumps(args) + "\\n")
+if args[0] == "runtime-manifest":
+    shutil.copyfile(args[args.index("--manifest") + 1], args[args.index("--output") + 1])
+    print(json.dumps({"status": "ok", "discovered": 0, "output": args[args.index("--output") + 1]}))
+elif args[0] == "sweep":
+    print(json.dumps({"status": "ok", "quarantined": 0, "bytes_quarantined": 0}))
+else:
+    raise SystemExit(2)
+""",
+        encoding="utf-8",
+    )
+    environment = os.environ.copy()
+    environment.update(
+        {
+            "CALLS": str(calls),
+            "EMERGENCY_GUARD_TEST_HOME": str(home),
+            "EMERGENCY_GUARD_TEST_FREE_GB": "4",
+            "EMERGENCY_GUARD_FULL_PASS": "1",
+            "CLEANUP_CONTROL_PATH": str(fake_control),
+            "CLEANUP_CONTROL_MANIFEST": str(base_manifest),
+            "CLEANUP_CONTROL_LEDGER": str(tmp_path / "ledger.jsonl"),
+            "CLEANUP_CONTROL_RUNTIME_MANIFEST": str(runtime_manifest),
+            "CLEANUP_CONTROL_QUARANTINE_ROOT": str(tmp_path / "quarantine"),
+            "EMERGENCY_GUARD_TEST_TEMP_ROOT": str(home / "tmp"),
+        }
+    )
+    result = subprocess.run(
+        ["/bin/bash", str(GUARD)],
+        env=environment,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    assert result.returncode == 3
+    runtime_call = json.loads(calls.read_text(encoding="utf-8").splitlines()[0])
+    roots = [
+        runtime_call[index + 1]
+        for index, value in enumerate(runtime_call)
+        if value == "--root"
+    ]
+    assert roots == [
+        str(home / "anicca-project/work"),
+        str(home / ".openclaw/external"),
+        str(home / "gig"),
+    ]
