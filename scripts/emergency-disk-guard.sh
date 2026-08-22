@@ -796,6 +796,7 @@ if [ "$TEST_MODE" -eq 0 ]; then
       "${CHROMIUM_CODE_SIGN_PROOF_ARGS[@]+${CHROMIUM_CODE_SIGN_PROOF_ARGS[@]}}" \
       --pnpm-store-root "$HOME_DIR/Library/pnpm/store" \
       --pnpm-proof "$PNPM_PROOF" \
+      --pnpm-lease "$STATE_DIR/pnpm-package.lease" \
       --min-cache-bytes 67108864 2>>"$LOG")
     RUNTIME_MANIFEST_RC=$?
     if [ "$RUNTIME_MANIFEST_RC" -eq 0 ] && [ -s "$CLEANUP_RUNTIME_MANIFEST" ]; then

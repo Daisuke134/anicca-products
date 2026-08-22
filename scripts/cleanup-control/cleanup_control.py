@@ -82,6 +82,7 @@ PROTECTED_DISCOVERY_PARTS = {".claude", ".codex", ".git", "memory", "state"}
 PERMANENTLY_PROTECTED_PATH_PARTS = {".claude", ".codex", ".git", "memory"}
 BROWSER_CACHE_TOKENS = {"ms-playwright", "camoufox", "chromium", "chrome"}
 PUBLISHED_MEDIA_PROOF_FIELDS = ("postId", "postedAt", "integration", "method")
+DEFAULT_PNPM_LEASE_PATH = Path.home() / ".openclaw/state/pnpm-package.lease"
 
 
 class ManifestError(ValueError):
@@ -683,14 +684,12 @@ def discover_chrome_code_sign_clones(
 def discover_pnpm_store_versions(
     roots: list[Path],
     *,
-    proof_path: Path,
+    proof_path: Path = Path("/opt/homebrew/lib/node_modules/pnpm/bin/pnpm.cjs"),
+    lease_path: Path = DEFAULT_PNPM_LEASE_PATH,
 ) -> list[dict[str, Any]]:
-    proof = Path(os.path.normpath(str(proof_path.expanduser())))
-    if (
-        not proof.is_absolute()
-        or not proof.is_file()
-        or proof.is_symlink()
-    ):
+    proof = _regular_nonsymlink_file(proof_path)
+    lease = Path(os.path.normpath(str(lease_path.expanduser())))
+    if proof is None or not lease.is_absolute():
         return []
 
     discovered: list[dict[str, Any]] = []
@@ -702,6 +701,7 @@ def discover_pnpm_store_versions(
         for candidate in sorted(root.glob("v[0-9]*"), key=str):
             if (
                 candidate in seen
+                or re.fullmatch(r"v[0-9]+", candidate.name) is None
                 or not candidate.is_dir()
                 or candidate.is_symlink()
             ):
@@ -712,15 +712,15 @@ def discover_pnpm_store_versions(
                 {
                     "id": f"pnpm-store-{digest}",
                     "path": str(candidate),
-                    "owner": "pnpm-store",
-                    "class": REGENERABLE_OUTPUT_CLASS,
+                    "owner": "pnpm-package-store",
+                    "class": "runtime",
                     "ttl_seconds": None,
                     "quota_bytes": 0,
-                    "lease": None,
-                    "finalizer": {
-                        "kind": "verified_regenerable_remove",
-                        "proof_path": str(proof),
+                    "lease": {
+                        "path": str(lease),
+                        "max_age_seconds": 300,
                     },
+                    "finalizer": {"kind": "preserve"},
                 }
             )
     return discovered
@@ -843,6 +843,7 @@ def build_runtime_manifest(
     chromium_code_sign_proof: Path | None = None,
     pnpm_store_roots: list[Path] | None = None,
     pnpm_proof: Path = Path("/opt/homebrew/lib/node_modules/pnpm/bin/pnpm.cjs"),
+    pnpm_lease: Path = DEFAULT_PNPM_LEASE_PATH,
 ) -> dict[str, int | str]:
     policy_version, _, base_entries = load_manifest(manifest_path)
     existing_paths = {entry["path"] for entry in base_entries}
@@ -859,6 +860,7 @@ def build_runtime_manifest(
             *discover_pnpm_store_versions(
                 pnpm_store_roots or [],
                 proof_path=pnpm_proof,
+                lease_path=pnpm_lease,
             ),
             *discover_ephemeral_caches(
                 cache_roots,
@@ -1739,6 +1741,11 @@ def _parser() -> argparse.ArgumentParser:
         default=Path("/opt/homebrew/lib/node_modules/pnpm/bin/pnpm.cjs"),
     )
     runtime_manifest_parser.add_argument(
+        "--pnpm-lease",
+        type=Path,
+        default=DEFAULT_PNPM_LEASE_PATH,
+    )
+    runtime_manifest_parser.add_argument(
         "--min-cache-bytes",
         type=int,
         default=1073741824,
@@ -1779,6 +1786,7 @@ def main(argv: list[str] | None = None) -> int:
                 chromium_code_sign_proof=args.chromium_code_sign_proof,
                 pnpm_store_roots=args.pnpm_store_root,
                 pnpm_proof=args.pnpm_proof,
+                pnpm_lease=args.pnpm_lease,
             )
         except ManifestError as exc:
             result = {

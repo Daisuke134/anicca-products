@@ -224,14 +224,46 @@
     {
       "id": "claude-vm-bundle",
       "path": "$HOME/Library/Application Support/Claude/vm_bundles/claudevm.bundle",
-      "owner": "claude-desktop",
-      "class": "regenerable_output",
+      "owner": "claude-desktop-vm",
+      "class": "runtime",
       "ttl_seconds": null,
       "quota_bytes": 0,
-      "lease": null,
+      "lease": {
+        "path": "$HOME/.openclaw/state/claude-vm.lease",
+        "max_age_seconds": 300
+      },
       "finalizer": {
-        "kind": "verified_regenerable_remove",
-        "proof_path": "/Applications/Claude.app/Contents/Resources/app.asar"
+        "kind": "preserve"
+      }
+    },
+    {
+      "id": "colima-runtime",
+      "path": "$HOME/.colima",
+      "owner": "colima-vm",
+      "class": "runtime",
+      "ttl_seconds": null,
+      "quota_bytes": 0,
+      "lease": {
+        "path": "$HOME/.openclaw/state/colima-vm.lease",
+        "max_age_seconds": 300
+      },
+      "finalizer": {
+        "kind": "preserve"
+      }
+    },
+    {
+      "id": "docker-desktop-runtime",
+      "path": "$HOME/Library/Containers/com.docker.docker",
+      "owner": "docker-desktop-vm",
+      "class": "runtime",
+      "ttl_seconds": null,
+      "quota_bytes": 0,
+      "lease": {
+        "path": "$HOME/.openclaw/state/docker-desktop-vm.lease",
+        "max_age_seconds": 300
+      },
+      "finalizer": {
+        "kind": "preserve"
       }
     },
     {
@@ -312,25 +344,46 @@
     {
       "id": "uv-cache",
       "path": "$HOME/.cache/uv",
-      "owner": "python-runtime",
-      "class": "ephemeral",
-      "ttl_seconds": 1209600,
+      "owner": "python-package-store",
+      "class": "runtime",
+      "ttl_seconds": null,
       "quota_bytes": 0,
-      "lease": null,
+      "lease": {
+        "path": "$HOME/.openclaw/state/python-package.lease",
+        "max_age_seconds": 300
+      },
       "finalizer": {
-        "kind": "off_volume_quarantine"
+        "kind": "preserve"
       }
     },
     {
       "id": "pip-cache",
       "path": "$HOME/Library/Caches/pip",
-      "owner": "python-runtime",
-      "class": "ephemeral",
-      "ttl_seconds": 1209600,
+      "owner": "python-package-store",
+      "class": "runtime",
+      "ttl_seconds": null,
       "quota_bytes": 0,
-      "lease": null,
+      "lease": {
+        "path": "$HOME/.openclaw/state/python-package.lease",
+        "max_age_seconds": 300
+      },
       "finalizer": {
-        "kind": "off_volume_quarantine"
+        "kind": "preserve"
+      }
+    },
+    {
+      "id": "npm-cache",
+      "path": "$HOME/.npm",
+      "owner": "npm-package-store",
+      "class": "runtime",
+      "ttl_seconds": null,
+      "quota_bytes": 0,
+      "lease": {
+        "path": "$HOME/.openclaw/state/npm-package.lease",
+        "max_age_seconds": 300
+      },
+      "finalizer": {
+        "kind": "preserve"
       }
     },
     {
@@ -419,14 +472,136 @@
     {
       "id": "kickama-cargo-target",
       "path": "$HOME/.openclaw/workspace/kickama-manifest-wizard/backend/target",
-      "owner": "cargo",
-      "class": "regenerable_output",
+      "owner": "cargo-build",
+      "class": "runtime",
       "ttl_seconds": null,
       "quota_bytes": 0,
-      "lease": null,
+      "lease": {
+        "path": "$HOME/.openclaw/state/cargo-build.lease",
+        "max_age_seconds": 300
+      },
       "finalizer": {
-        "kind": "verified_regenerable_remove",
-        "proof_path": "$HOME/.openclaw/workspace/kickama-manifest-wizard/backend/Cargo.lock"
+        "kind": "preserve"
+      }
+    },
+    {
+      "id": "cargo-registry",
+      "path": "$HOME/.cargo/registry",
+      "owner": "cargo-package-store",
+      "class": "runtime",
+      "ttl_seconds": null,
+      "quota_bytes": 0,
+      "lease": {
+        "path": "$HOME/.openclaw/state/cargo-package.lease",
+        "max_age_seconds": 300
+      },
+      "finalizer": {
+        "kind": "preserve"
+      }
+    },
+    {
+      "id": "go-module-cache",
+      "path": "$HOME/go/pkg/mod",
+      "owner": "go-package-store",
+      "class": "runtime",
+      "ttl_seconds": null,
+      "quota_bytes": 0,
+      "lease": {
+        "path": "$HOME/.openclaw/state/go-package.lease",
+        "max_age_seconds": 300
+      },
+      "finalizer": {
+        "kind": "preserve"
+      }
+    },
+    {
+      "id": "ruby-gem-home",
+      "path": "$HOME/.gem",
+      "owner": "ruby-package-store",
+      "class": "runtime",
+      "ttl_seconds": null,
+      "quota_bytes": 0,
+      "lease": {
+        "path": "$HOME/.openclaw/state/ruby-package.lease",
+        "max_age_seconds": 300
+      },
+      "finalizer": {
+        "kind": "preserve"
+      }
+    },
+    {
+      "id": "bun-package-cache",
+      "path": "$HOME/.bun/install/cache",
+      "owner": "bun-package-store",
+      "class": "runtime",
+      "ttl_seconds": null,
+      "quota_bytes": 0,
+      "lease": {
+        "path": "$HOME/.openclaw/state/bun-package.lease",
+        "max_age_seconds": 300
+      },
+      "finalizer": {
+        "kind": "preserve"
+      }
+    },
+    {
+      "id": "homebrew-cache",
+      "path": "$HOME/Library/Caches/Homebrew",
+      "owner": "homebrew-package-store",
+      "class": "runtime",
+      "ttl_seconds": null,
+      "quota_bytes": 0,
+      "lease": {
+        "path": "$HOME/.openclaw/state/homebrew-package.lease",
+        "max_age_seconds": 300
+      },
+      "finalizer": {
+        "kind": "preserve"
+      }
+    },
+    {
+      "id": "pipx-home",
+      "path": "$HOME/.local/pipx",
+      "owner": "python-pipx-runtime",
+      "class": "runtime",
+      "ttl_seconds": null,
+      "quota_bytes": 0,
+      "lease": {
+        "path": "$HOME/.openclaw/state/python-pipx.lease",
+        "max_age_seconds": 300
+      },
+      "finalizer": {
+        "kind": "preserve"
+      }
+    },
+    {
+      "id": "cocoapods-home",
+      "path": "$HOME/.cocoapods",
+      "owner": "cocoapods-package-store",
+      "class": "runtime",
+      "ttl_seconds": null,
+      "quota_bytes": 0,
+      "lease": {
+        "path": "$HOME/.openclaw/state/cocoapods-package.lease",
+        "max_age_seconds": 300
+      },
+      "finalizer": {
+        "kind": "preserve"
+      }
+    },
+    {
+      "id": "swiftpm-home",
+      "path": "$HOME/.swiftpm",
+      "owner": "swift-package-store",
+      "class": "runtime",
+      "ttl_seconds": null,
+      "quota_bytes": 0,
+      "lease": {
+        "path": "$HOME/.openclaw/state/swift-package.lease",
+        "max_age_seconds": 300
+      },
+      "finalizer": {
+        "kind": "preserve"
       }
     },
     {
@@ -456,13 +631,16 @@
     {
       "id": "colima-cache",
       "path": "$HOME/Library/Caches/colima",
-      "owner": "colima",
-      "class": "ephemeral",
-      "ttl_seconds": 604800,
+      "owner": "colima-vm",
+      "class": "runtime",
+      "ttl_seconds": null,
       "quota_bytes": 0,
-      "lease": null,
+      "lease": {
+        "path": "$HOME/.openclaw/state/colima-vm.lease",
+        "max_age_seconds": 300
+      },
       "finalizer": {
-        "kind": "off_volume_quarantine"
+        "kind": "preserve"
       }
     },
     {

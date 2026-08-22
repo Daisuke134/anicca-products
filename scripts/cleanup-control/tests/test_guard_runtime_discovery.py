@@ -187,6 +187,9 @@ else:
         if value == "--pnpm-store-root"
     ]
     assert pnpm_store_roots == [str(home / "Library/pnpm/store")]
+    assert runtime_call[runtime_call.index("--pnpm-lease") + 1] == str(
+        state / "pnpm-package.lease"
+    )
     assert runtime_call[runtime_call.index("--min-cache-bytes") + 1] == "67108864"
 
 

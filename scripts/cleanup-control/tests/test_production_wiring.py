@@ -127,8 +127,39 @@ def test_production_manifest_is_valid_and_protects_known_incident_roots() -> Non
             "lease": None,
             "finalizer": {"kind": "remote_recoverable_remove"},
         }
-    assert by_id["kickama-cargo-target"]["class"] == "regenerable_output"
-    assert by_id["kickama-cargo-target"]["finalizer"]["kind"] == "verified_regenerable_remove"
+    vm_package_contract = {
+        "claude-vm-bundle": ("Library/Application Support/Claude/vm_bundles/claudevm.bundle", "claude-desktop-vm", "claude-vm"),
+        "colima-runtime": (".colima", "colima-vm", "colima-vm"),
+        "docker-desktop-runtime": ("Library/Containers/com.docker.docker", "docker-desktop-vm", "docker-desktop-vm"),
+        "colima-cache": ("Library/Caches/colima", "colima-vm", "colima-vm"),
+        "uv-cache": (".cache/uv", "python-package-store", "python-package"),
+        "pip-cache": ("Library/Caches/pip", "python-package-store", "python-package"),
+        "npm-cache": (".npm", "npm-package-store", "npm-package"),
+        "cargo-registry": (".cargo/registry", "cargo-package-store", "cargo-package"),
+        "kickama-cargo-target": (".openclaw/workspace/kickama-manifest-wizard/backend/target", "cargo-build", "cargo-build"),
+        "go-module-cache": ("go/pkg/mod", "go-package-store", "go-package"),
+        "ruby-gem-home": (".gem", "ruby-package-store", "ruby-package"),
+        "bun-package-cache": (".bun/install/cache", "bun-package-store", "bun-package"),
+        "homebrew-cache": ("Library/Caches/Homebrew", "homebrew-package-store", "homebrew-package"),
+        "pipx-home": (".local/pipx", "python-pipx-runtime", "python-pipx"),
+        "cocoapods-home": (".cocoapods", "cocoapods-package-store", "cocoapods-package"),
+        "swiftpm-home": (".swiftpm", "swift-package-store", "swift-package"),
+    }
+    assert set(vm_package_contract) <= set(by_id)
+    for artifact_id, (relative_path, owner, lease_name) in vm_package_contract.items():
+        assert by_id[artifact_id] == {
+            "id": artifact_id,
+            "path": str(Path.home() / relative_path),
+            "owner": owner,
+            "class": "runtime",
+            "ttl_seconds": None,
+            "quota_bytes": 0,
+            "lease": {
+                "path": str(Path.home() / f".openclaw/state/{lease_name}.lease"),
+                "max_age_seconds": 300,
+            },
+            "finalizer": {"kind": "preserve"},
+        }
     assert by_id["playwright-browser-cache"]["class"] == "regenerable_output"
     assert (
         by_id["playwright-browser-cache"]["finalizer"]["proof_path"]
@@ -137,14 +168,6 @@ def test_production_manifest_is_valid_and_protects_known_incident_roots() -> Non
     assert by_id["playwright-browser-cache"]["lease"] == {
         "path": str(Path.home() / ".openclaw/state/playwright.lease"),
         "max_age_seconds": 300,
-    }
-    assert by_id["claude-vm-bundle"]["path"] == str(
-        Path.home() / "Library/Application Support/Claude/vm_bundles/claudevm.bundle"
-    )
-    assert by_id["claude-vm-bundle"]["class"] == "regenerable_output"
-    assert by_id["claude-vm-bundle"]["finalizer"] == {
-        "kind": "verified_regenerable_remove",
-        "proof_path": "/Applications/Claude.app/Contents/Resources/app.asar",
     }
     assert by_id["life-manager-main-worktrees"]["class"] == "git_worktree_collection"
     assert by_id["life-manager-main-worktrees"]["finalizer"] == {

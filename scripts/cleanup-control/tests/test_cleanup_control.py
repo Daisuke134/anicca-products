@@ -17,8 +17,6 @@ SPEC = importlib.util.spec_from_file_location("cleanup_control", MODULE_PATH)
 assert SPEC and SPEC.loader
 cleanup_control = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(cleanup_control)
-
-
 def test_path_open_state_treats_nonempty_lsof_output_as_open() -> None:
     result = subprocess.CompletedProcess(
         args=["lsof"],
@@ -484,11 +482,18 @@ def test_runtime_manifest_discovers_exact_pnpm_store_versions(tmp_path: Path) ->
     for candidate in (current, previous, unrelated):
         candidate.mkdir(parents=True)
         (candidate / "payload").write_bytes(b"x" * 128)
+    malformed = [store_root / "v10-corrupt", store_root / "v1anything"]
+    for candidate in malformed:
+        candidate.mkdir(parents=True)
+        (candidate / "payload").write_bytes(b"corrupt")
+    non_directory = store_root / "v12"
+    non_directory.write_bytes(b"not-a-store-directory")
     symlinked = store_root / "v11"
     symlinked.symlink_to(current, target_is_directory=True)
 
     pnpm_proof = tmp_path / "pnpm.cjs"
     pnpm_proof.write_bytes(b"executable")
+    pnpm_lease = tmp_path / ".openclaw" / "state" / "pnpm-package.lease"
     base = write_manifest(tmp_path / "base.json", [])
     runtime = tmp_path / "runtime.json"
     command = [
@@ -505,6 +510,8 @@ def test_runtime_manifest_discovers_exact_pnpm_store_versions(tmp_path: Path) ->
         str(store_root),
         "--pnpm-proof",
         str(pnpm_proof),
+        "--pnpm-lease",
+        str(pnpm_lease),
     ]
 
     result = subprocess.run(command, text=True, capture_output=True, check=False)
@@ -513,14 +520,35 @@ def test_runtime_manifest_discovers_exact_pnpm_store_versions(tmp_path: Path) ->
     assert json.loads(result.stdout)["discovered"] == 2
     artifacts = json.loads(runtime.read_text(encoding="utf-8"))["artifacts"]
     assert [artifact["path"] for artifact in artifacts] == [str(current), str(previous)]
-    assert {artifact["owner"] for artifact in artifacts} == {"pnpm-store"}
-    assert {artifact["class"] for artifact in artifacts} == {"regenerable_output"}
-    assert {
-        artifact["finalizer"]["proof_path"]
-        for artifact in artifacts
-    } == {str(pnpm_proof)}
+    assert {artifact["owner"] for artifact in artifacts} == {"pnpm-package-store"}
+    assert {artifact["class"] for artifact in artifacts} == {"runtime"}
+    assert {artifact["ttl_seconds"] for artifact in artifacts} == {None}
+    assert {artifact["quota_bytes"] for artifact in artifacts} == {0}
+    assert [artifact["lease"] for artifact in artifacts] == [
+        {"path": str(pnpm_lease), "max_age_seconds": 300}
+    ] * 2
+    assert [artifact["finalizer"] for artifact in artifacts] == [
+        {"kind": "preserve"}
+    ] * 2
     assert str(unrelated) not in {artifact["path"] for artifact in artifacts}
+    for candidate in malformed:
+        assert str(candidate) not in {artifact["path"] for artifact in artifacts}
+    assert str(non_directory) not in {artifact["path"] for artifact in artifacts}
     assert str(symlinked) not in {artifact["path"] for artifact in artifacts}
+
+    invalid_runtime = tmp_path / "invalid-runtime.json"
+    invalid_command = command.copy()
+    invalid_command[invalid_command.index("--output") + 1] = str(invalid_runtime)
+    invalid_command[invalid_command.index("--pnpm-lease") + 1] = "relative/pnpm-package.lease"
+    invalid = subprocess.run(
+        invalid_command,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    assert invalid.returncode == 0, invalid.stderr
+    assert json.loads(invalid.stdout)["discovered"] == 0
+    assert json.loads(invalid_runtime.read_text(encoding="utf-8"))["artifacts"] == []
 
 
 def test_runtime_manifest_discovers_only_verified_published_runs(tmp_path: Path) -> None:
