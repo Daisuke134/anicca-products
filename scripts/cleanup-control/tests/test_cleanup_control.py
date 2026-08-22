@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
 import json
 import os
 import subprocess
@@ -340,6 +341,150 @@ def test_runtime_manifest_discovers_only_ignored_proven_regenerable_outputs(
         indent=2,
         sort_keys=True,
     ) + "\n"
+
+
+def test_runtime_manifest_registers_gig_project_lifecycle_receipts(
+    tmp_path: Path,
+) -> None:
+    projects = tmp_path / "gig" / "projects"
+    projects.mkdir(parents=True)
+    active = projects / "101"
+    active.mkdir()
+    (active / "state.json").write_text(
+        json.dumps({"adapter": "adapter_a", "transaction_state": "completed"}),
+        encoding="utf-8",
+    )
+    terminal = projects / "202"
+    terminal.mkdir()
+    (terminal / "state.json").write_text(
+        json.dumps({"adapter": "adapter-b"}),
+        encoding="utf-8",
+    )
+    (terminal / "project-terminal.json").write_text(
+        json.dumps(
+            {
+                "schema_version": 1,
+                "project_id": terminal.name,
+                "terminal": True,
+                "outcome": "completed",
+                "finalized_at": "2026-08-22T00:00:00Z",
+            }
+        ),
+        encoding="utf-8",
+    )
+    unknown = projects / "303"
+    unknown.mkdir()
+    malformed = projects / "404"
+    malformed.mkdir()
+    (malformed / "state.json").write_text(
+        json.dumps({"adapter": "Not-ASCII"}),
+        encoding="utf-8",
+    )
+    (malformed / "project-terminal.json").write_text("{bad json", encoding="utf-8")
+    symlink_receipt = projects / "505"
+    symlink_receipt.mkdir()
+    (symlink_receipt / "state.json").write_text(
+        json.dumps({"adapter": "valid_adapter"}),
+        encoding="utf-8",
+    )
+    (symlink_receipt / "project-terminal.json").symlink_to(
+        terminal / "project-terminal.json"
+    )
+    (projects / "606").symlink_to(unknown, target_is_directory=True)
+    (projects / ".hidden").mkdir()
+    (projects / "not-numeric").mkdir()
+
+    base = write_manifest(tmp_path / "base.json", [])
+    runtime = tmp_path / "runtime.json"
+    scan_root = tmp_path / "scan-root"
+    scan_root.mkdir()
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(MODULE_PATH),
+            "runtime-manifest",
+            "--manifest",
+            str(base),
+            "--output",
+            str(runtime),
+            "--root",
+            str(scan_root),
+            "--gig-project-root",
+            str(projects),
+        ],
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr
+    assert json.loads(result.stdout)["discovered"] == 5
+
+    generated = json.loads(runtime.read_text(encoding="utf-8"))
+    project_paths = [active, terminal, unknown, malformed, symlink_receipt]
+    artifacts = generated["artifacts"]
+    assert [item["path"] for item in artifacts] == sorted(map(str, project_paths))
+    expected_owners = {
+        str(active): "gig-project:adapter_a",
+        str(terminal): "gig-project:adapter-b",
+        str(unknown): "gig-project:unknown",
+        str(malformed): "gig-project:unknown",
+        str(symlink_receipt): "gig-project:valid_adapter",
+    }
+    for artifact in artifacts:
+        path = Path(artifact["path"])
+        assert artifact == {
+            "id": f"gig-project-{hashlib.sha256(str(path).encode()).hexdigest()[:20]}",
+            "path": str(path),
+            "owner": expected_owners[str(path)],
+            "class": "deliverable",
+            "ttl_seconds": None,
+            "quota_bytes": 0,
+            "lease": {
+                "path": str(path / ".life-manager.lease"),
+                "max_age_seconds": 300,
+            },
+            "finalizer": {"kind": "preserve"},
+        }
+
+    receipts = generated["project_lifecycle_receipts"]
+    assert [receipt["path"] for receipt in receipts] == sorted(map(str, project_paths))
+    terminal_states = {
+        str(active): (False, "explicit_terminal_receipt_missing_or_invalid"),
+        str(terminal): (True, "explicit_terminal_receipt"),
+        str(unknown): (False, "explicit_terminal_receipt_missing_or_invalid"),
+        str(malformed): (False, "explicit_terminal_receipt_missing_or_invalid"),
+        str(symlink_receipt): (False, "explicit_terminal_receipt_missing_or_invalid"),
+    }
+    for receipt in receipts:
+        path = Path(receipt["path"])
+        assert set(receipt) == {
+            "project_id",
+            "path",
+            "owner",
+            "terminal",
+            "terminal_reason",
+            "terminal_receipt_path",
+            "lease",
+        }
+        assert receipt["project_id"] == path.name
+        assert receipt["owner"] == expected_owners[str(path)]
+        assert (receipt["terminal"], receipt["terminal_reason"]) == terminal_states[str(path)]
+        assert receipt["terminal_receipt_path"] == str(path / "project-terminal.json")
+        assert receipt["lease"] == {
+            "path": str(path / ".life-manager.lease"),
+            "max_age_seconds": 300,
+        }
+
+    sweep_result = cleanup_control.sweep(
+        manifest_path=runtime,
+        quarantine_root=tmp_path / "quarantine",
+        ledger_path=tmp_path / "ledger.jsonl",
+        now=1_000,
+    )
+    assert sweep_result["quarantined"] == 0
+    assert sweep_result["preserved"] == 5
+    assert sweep_result["errors"] == 0
+    assert all(path.is_dir() for path in project_paths)
 
 
 def test_runtime_manifest_discovers_exact_chrome_code_sign_clone_children(

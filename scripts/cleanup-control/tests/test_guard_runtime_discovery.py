@@ -154,6 +154,9 @@ else:
     assert runtime_call[runtime_call.index("--output") + 1] == str(runtime_manifest)
     assert sweep_call[sweep_call.index("--manifest") + 1] == str(runtime_manifest)
     assert "--fast-pass" in sweep_call
+    assert runtime_call[runtime_call.index("--gig-project-root") + 1] == str(
+        home / "gig/projects"
+    )
     roots = [
         runtime_call[index + 1]
         for index, value in enumerate(runtime_call)

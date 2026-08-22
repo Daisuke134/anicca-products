@@ -622,6 +622,81 @@ def _regular_nonsymlink_file(path: Path | None) -> Path | None:
     return proof if stat.S_ISREG(mode) else None
 
 
+def discover_gig_projects(roots: list[Path]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    artifacts: list[dict[str, Any]] = []
+    receipts: list[dict[str, Any]] = []
+    seen: set[Path] = set()
+    for raw_root in sorted(roots, key=str):
+        root = Path(os.path.normpath(str(raw_root.expanduser())))
+        if not root.is_absolute() or not root.is_dir() or root.is_symlink():
+            continue
+        try: children = sorted(root.iterdir(), key=lambda item: str(item))
+        except OSError: continue
+        for child in children:
+            if child in seen or re.fullmatch(r"[1-9][0-9]*", child.name) is None or not child.is_dir() or child.is_symlink():
+                continue
+            seen.add(child)
+            adapter = "unknown"
+            state_path = _regular_nonsymlink_file(child / "state.json")
+            if state_path is not None:
+                try:
+                    state = json.loads(state_path.read_text(encoding="utf-8"))
+                except (OSError, UnicodeError, json.JSONDecodeError):
+                    state = None
+                candidate = state.get("adapter") if isinstance(state, dict) else None
+                if isinstance(candidate, str) and re.fullmatch(r"[a-z0-9][a-z0-9_-]{0,63}", candidate):
+                    adapter = candidate
+            path = str(child)
+            owner = f"gig-project:{adapter}"
+            lease = {"path": str(child / ".life-manager.lease"), "max_age_seconds": 300}
+            terminal, reason = False, "explicit_terminal_receipt_missing_or_invalid"
+            terminal_path = child / "project-terminal.json"
+            terminal_file = _regular_nonsymlink_file(terminal_path)
+            if terminal_file is not None:
+                try:
+                    receipt = json.loads(terminal_file.read_text(encoding="utf-8"))
+                except (OSError, UnicodeError, json.JSONDecodeError):
+                    receipt = None
+                if (
+                    isinstance(receipt, dict)
+                    and set(receipt) == {"schema_version", "project_id", "terminal", "outcome", "finalized_at"}
+                    and type(receipt["schema_version"]) is int
+                    and receipt["schema_version"] == 1
+                    and receipt["project_id"] == child.name
+                    and receipt["terminal"] is True
+                    and isinstance(receipt["outcome"], str)
+                    and receipt["outcome"] in {"completed", "failed", "cancelled"}
+                    and isinstance(receipt["finalized_at"], str)
+                    and bool(receipt["finalized_at"].strip())
+                ):
+                    terminal = True
+                    reason = "explicit_terminal_receipt"
+            artifacts.append(
+                {
+                    "id": f"gig-project-{hashlib.sha256(path.encode('utf-8')).hexdigest()[:20]}",
+                    "path": path,
+                    "owner": owner,
+                    "class": "deliverable",
+                    "ttl_seconds": None,
+                    "quota_bytes": 0,
+                    "lease": lease,
+                    "finalizer": {"kind": "preserve"},
+                }
+            )
+            receipts.append(
+                {
+                    "project_id": child.name,
+                    "path": path,
+                    "owner": owner,
+                    "terminal": terminal,
+                    "terminal_reason": reason,
+                    "terminal_receipt_path": str(terminal_path),
+                    "lease": lease,
+                }
+            )
+    return sorted(artifacts, key=lambda item: item["path"]), sorted(receipts, key=lambda item: item["path"])
+
+
 def discover_chrome_code_sign_clones(
     roots: list[Path],
     *,
@@ -844,13 +919,18 @@ def build_runtime_manifest(
     pnpm_store_roots: list[Path] | None = None,
     pnpm_proof: Path = Path("/opt/homebrew/lib/node_modules/pnpm/bin/pnpm.cjs"),
     pnpm_lease: Path = DEFAULT_PNPM_LEASE_PATH,
+    gig_project_roots: list[Path] | None = None,
 ) -> dict[str, int | str]:
     policy_version, _, base_entries = load_manifest(manifest_path)
     existing_paths = {entry["path"] for entry in base_entries}
+    gig_artifacts, project_lifecycle_receipts = discover_gig_projects(
+        gig_project_roots or []
+    )
     discovered = [
         entry
         for entry in [
             *discover_regenerable_outputs(roots),
+            *gig_artifacts,
             *discover_published_runs(published_run_roots or []),
             *discover_chrome_code_sign_clones(
                 code_sign_clone_roots or [],
@@ -873,6 +953,7 @@ def build_runtime_manifest(
     payload = {
         "policy_version": policy_version,
         "artifacts": [*base_entries, *discovered],
+        "project_lifecycle_receipts": project_lifecycle_receipts,
     }
     output_path.parent.mkdir(parents=True, exist_ok=True)
     temporary = output_path.with_name(f".{output_path.name}.{os.getpid()}.tmp")
@@ -1706,6 +1787,9 @@ def _parser() -> argparse.ArgumentParser:
     runtime_manifest_parser.add_argument("--manifest", required=True, type=Path)
     runtime_manifest_parser.add_argument("--output", required=True, type=Path)
     runtime_manifest_parser.add_argument("--root", action="append", required=True, type=Path)
+    runtime_manifest_parser.add_argument(
+        "--gig-project-root", action="append", default=[], type=Path
+    )
     runtime_manifest_parser.add_argument("--cache-root", action="append", default=[], type=Path)
     runtime_manifest_parser.add_argument(
         "--published-run-root",
@@ -1787,6 +1871,7 @@ def main(argv: list[str] | None = None) -> int:
                 pnpm_store_roots=args.pnpm_store_root,
                 pnpm_proof=args.pnpm_proof,
                 pnpm_lease=args.pnpm_lease,
+                gig_project_roots=args.gig_project_root,
             )
         except ManifestError as exc:
             result = {

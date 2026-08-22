@@ -790,6 +790,7 @@ if [ "$TEST_MODE" -eq 0 ]; then
     RUNTIME_MANIFEST_SUMMARY=$(run_bounded python3 "$CLEANUP_CONTROL" runtime-manifest \
       --manifest "$CLEANUP_MANIFEST" \
       --output "$CLEANUP_RUNTIME_MANIFEST" \
+      --gig-project-root "$HOME_DIR/gig/projects" \
       "${RUNTIME_ROOT_ARGS[@]}" \
       --published-run-root "$HOME_DIR/.openclaw/workspace/runs" \
       --code-sign-clone-root "$USER_CODE_SIGN_ROOT" \
