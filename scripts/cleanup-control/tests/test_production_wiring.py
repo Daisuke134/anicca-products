@@ -27,6 +27,8 @@ def test_production_guard_has_one_cleanup_authority() -> None:
     assert 'python3 "$CLEANUP_CONTROL" sweep' in guard
     assert '--pressure-override' in guard
     assert '--reclaim-target-bytes "$RECLAIM_TARGET_BYTES"' in guard
+    assert '--chromium-code-sign-proof' in guard
+    assert '.cloakbrowser/chromium-*/Chromium.app/Contents/MacOS/Chromium' in guard
     assert (
         'if [ "$TEST_MODE" -eq 1 ] && [ "${EMERGENCY_GUARD_TEST_ENABLE_RECLAIM:-0}" = 1 ]; then'
         in guard
@@ -200,3 +202,44 @@ def test_production_manifest_is_valid_and_protects_known_incident_roots() -> Non
         },
     }
     assert all(set(entry) >= {"owner", "class", "ttl_seconds", "quota_bytes", "lease", "finalizer"} for entry in entries)
+
+
+def test_browser_producer_lifecycle_is_registered() -> None:
+    _, _, entries = load_control().load_manifest(MANIFEST)
+    browser = {entry["id"]: entry for entry in entries if entry["owner"] == "browser-fleet"}
+
+    assert set(browser) == {
+        "browser-identity",
+        "browser-runtime-dependency",
+        "playwright-browser-cache",
+        "camoufox-browser-cache",
+        "chrome-on-device-model-cache",
+        "google-updater-download-cache",
+    }
+    identity = browser.pop("browser-identity")
+    assert identity["path"] == str(Path.home() / ".cloak")
+    assert identity["class"] == "identity"
+    assert identity["finalizer"] == {"kind": "preserve"}
+    runtime = browser.pop("browser-runtime-dependency")
+    assert runtime == {
+        "id": "browser-runtime-dependency",
+        "path": str(Path.home() / ".cloakbrowser"),
+        "owner": "browser-fleet",
+        "class": "runtime",
+        "ttl_seconds": None,
+        "quota_bytes": 0,
+        "lease": None,
+        "finalizer": {"kind": "preserve"},
+    }
+    for artifact in browser.values():
+        assert artifact["class"] == "regenerable_output"
+        assert artifact["quota_bytes"] == 0
+        if artifact["id"] == "playwright-browser-cache":
+            assert artifact["lease"] == {
+                "path": str(Path.home() / ".openclaw/state/playwright.lease"),
+                "max_age_seconds": 300,
+            }
+        else:
+            assert artifact["lease"] is None
+        assert artifact["finalizer"]["kind"] == "verified_regenerable_remove"
+        assert Path(artifact["finalizer"]["proof_path"]).is_absolute()

@@ -382,7 +382,7 @@ def test_runtime_manifest_discovers_exact_chrome_code_sign_clone_children(
     assert str(symlinked) not in {artifact["path"] for artifact in artifacts}
 
 
-def test_runtime_manifest_discovers_chromium_code_sign_clone_children(
+def test_runtime_manifest_discovers_chromium_code_sign_clone_children_with_chromium_proof(
     tmp_path: Path,
 ) -> None:
     scan_root = tmp_path / "X"
@@ -408,7 +408,7 @@ def test_runtime_manifest_discovers_chromium_code_sign_clone_children(
             str(tmp_path / "empty-root"),
             "--code-sign-clone-root",
             str(scan_root),
-            "--chrome-code-sign-proof",
+            "--chromium-code-sign-proof",
             str(proof),
         ],
         text=True,
@@ -420,6 +420,44 @@ def test_runtime_manifest_discovers_chromium_code_sign_clone_children(
     artifacts = json.loads(runtime.read_text(encoding="utf-8"))["artifacts"]
     assert [artifact["path"] for artifact in artifacts] == [str(stale)]
     assert artifacts[0]["owner"] == "macos-code-sign-clone"
+    assert artifacts[0]["finalizer"]["proof_path"] == str(proof)
+
+
+def test_runtime_manifest_never_uses_chrome_proof_for_chromium_collection(
+    tmp_path: Path,
+) -> None:
+    scan_root = tmp_path / "X"
+    collection = scan_root / "org.chromium.Chromium.code_sign_clone"
+    stale = collection / "code_sign_clone.stale"
+    stale.mkdir(parents=True)
+    chrome_proof = tmp_path / "Google Chrome"
+    chrome_proof.write_bytes(b"executable")
+    base = write_manifest(tmp_path / "base.json", [])
+    runtime = tmp_path / "runtime.json"
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(MODULE_PATH),
+            "runtime-manifest",
+            "--manifest",
+            str(base),
+            "--output",
+            str(runtime),
+            "--root",
+            str(tmp_path / "empty-root"),
+            "--code-sign-clone-root",
+            str(scan_root),
+            "--chrome-code-sign-proof",
+            str(chrome_proof),
+        ],
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+
+    assert result.returncode == 0, result.stderr
+    assert json.loads(runtime.read_text(encoding="utf-8"))["artifacts"] == []
 
 
 def test_runtime_manifest_discovers_exact_pnpm_store_versions(tmp_path: Path) -> None:

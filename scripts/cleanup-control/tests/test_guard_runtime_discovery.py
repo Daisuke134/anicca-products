@@ -13,6 +13,79 @@ ROOT = Path(__file__).parents[3]
 GUARD = ROOT / "scripts" / "emergency-disk-guard.sh"
 
 
+@pytest.mark.parametrize("candidate_count", [0, 1, 2])
+def test_guard_passes_chromium_proof_only_for_one_regular_candidate(
+    tmp_path: Path,
+    candidate_count: int,
+) -> None:
+    home = tmp_path / "home"
+    state = home / ".openclaw" / "state"
+    state.mkdir(parents=True)
+    candidates = []
+    for index in range(candidate_count):
+        proof = (
+            home
+            / ".cloakbrowser"
+            / f"chromium-{index}"
+            / "Chromium.app/Contents/MacOS/Chromium"
+        )
+        proof.parent.mkdir(parents=True)
+        proof.write_bytes(b"chromium")
+        candidates.append(proof)
+    base_manifest = tmp_path / "base.json"
+    base_manifest.write_text(
+        '{"policy_version":"cleanup-v1","artifacts":[]}\n',
+        encoding="utf-8",
+    )
+    calls = tmp_path / "calls.jsonl"
+    fake_control = tmp_path / "fake_cleanup_control.py"
+    fake_control.write_text(
+        """
+import json, os, shutil, sys
+args = sys.argv[1:]
+with open(os.environ["CALLS"], "a", encoding="utf-8") as handle:
+    handle.write(json.dumps(args) + "\\n")
+if args[0] == "runtime-manifest":
+    shutil.copyfile(args[args.index("--manifest") + 1], args[args.index("--output") + 1])
+    print('{"status":"ok","discovered":0,"output":"runtime"}')
+elif args[0] == "sweep":
+    print('{"status":"ok","quarantined":0,"bytes_quarantined":0}')
+else:
+    raise SystemExit(2)
+""",
+        encoding="utf-8",
+    )
+    environment = os.environ.copy()
+    environment.update(
+        {
+            "CALLS": str(calls),
+            "EMERGENCY_GUARD_TEST_HOME": str(home),
+            "EMERGENCY_GUARD_TEST_FREE_GB": "4",
+            "CLEANUP_CONTROL_PATH": str(fake_control),
+            "CLEANUP_CONTROL_MANIFEST": str(base_manifest),
+            "CLEANUP_CONTROL_LEDGER": str(tmp_path / "ledger.jsonl"),
+            "CLEANUP_CONTROL_RUNTIME_MANIFEST": str(state / "runtime.json"),
+            "CLEANUP_CONTROL_QUARANTINE_ROOT": str(tmp_path / "quarantine"),
+            "EMERGENCY_GUARD_TEST_TEMP_ROOT": str(home / "tmp"),
+        }
+    )
+    result = subprocess.run(
+        ["/bin/bash", str(GUARD)],
+        env=environment,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    assert result.returncode == 3
+    runtime_call = json.loads(calls.read_text(encoding="utf-8").splitlines()[0])
+    proof_args = [
+        runtime_call[index + 1]
+        for index, value in enumerate(runtime_call)
+        if value == "--chromium-code-sign-proof"
+    ]
+    assert proof_args == ([str(candidates[0])] if candidate_count == 1 else [])
+
+
 def test_guard_builds_runtime_manifest_before_pressure_sweep(tmp_path: Path) -> None:
     home = tmp_path / "home"
     state = home / ".openclaw" / "state"

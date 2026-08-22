@@ -601,18 +601,32 @@ def discover_regenerable_outputs(roots: list[Path]) -> list[dict[str, Any]]:
     return sorted(discovered, key=lambda item: item["path"])
 
 
+def _regular_nonsymlink_file(path: Path | None) -> Path | None:
+    if path is None:
+        return None
+    proof = Path(os.path.normpath(str(path.expanduser())))
+    if not proof.is_absolute() or proof.is_symlink():
+        return None
+    try:
+        mode = proof.lstat().st_mode
+    except OSError:
+        return None
+    return proof if stat.S_ISREG(mode) else None
+
+
 def discover_chrome_code_sign_clones(
     roots: list[Path],
     *,
-    proof_path: Path,
+    chrome_code_sign_proof: Path | None = None,
+    chromium_code_sign_proof: Path | None = None,
+    proof_path: Path | None = None,
 ) -> list[dict[str, Any]]:
-    proof = Path(os.path.normpath(str(proof_path.expanduser())))
-    if (
-        not proof.is_absolute()
-        or not proof.is_file()
-        or proof.is_symlink()
-    ):
-        return []
+    # ``proof_path`` remains a Chrome-only compatibility alias. It must never
+    # authorize the separate Chromium producer.
+    chrome_proof = _regular_nonsymlink_file(
+        chrome_code_sign_proof if chrome_code_sign_proof is not None else proof_path
+    )
+    chromium_proof = _regular_nonsymlink_file(chromium_code_sign_proof)
 
     discovered: list[dict[str, Any]] = []
     seen: set[Path] = set()
@@ -623,10 +637,12 @@ def discover_chrome_code_sign_clones(
         # Chrome and Chromium use different collection names but the same
         # regenerable code-sign clone contract. Keep the collection names
         # explicit: arbitrary /private/var discovery would be unsafe.
-        for collection_name in (
-            "com.google.Chrome.code_sign_clone",
-            "org.chromium.Chromium.code_sign_clone",
+        for collection_name, proof in (
+            ("com.google.Chrome.code_sign_clone", chrome_proof),
+            ("org.chromium.Chromium.code_sign_clone", chromium_proof),
         ):
+            if proof is None:
+                continue
             collection = root / collection_name
             if not collection.is_dir() or collection.is_symlink():
                 continue
@@ -812,6 +828,7 @@ def build_runtime_manifest(
     chrome_code_sign_proof: Path = Path(
         "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
     ),
+    chromium_code_sign_proof: Path | None = None,
     pnpm_store_roots: list[Path] | None = None,
     pnpm_proof: Path = Path("/opt/homebrew/lib/node_modules/pnpm/bin/pnpm.cjs"),
 ) -> dict[str, int | str]:
@@ -824,7 +841,8 @@ def build_runtime_manifest(
             *discover_published_runs(published_run_roots or []),
             *discover_chrome_code_sign_clones(
                 code_sign_clone_roots or [],
-                proof_path=chrome_code_sign_proof,
+                chrome_code_sign_proof=chrome_code_sign_proof,
+                chromium_code_sign_proof=chromium_code_sign_proof,
             ),
             *discover_pnpm_store_versions(
                 pnpm_store_roots or [],
@@ -1689,6 +1707,11 @@ def _parser() -> argparse.ArgumentParser:
         default=Path("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"),
     )
     runtime_manifest_parser.add_argument(
+        "--chromium-code-sign-proof",
+        type=Path,
+        default=None,
+    )
+    runtime_manifest_parser.add_argument(
         "--pnpm-store-root",
         action="append",
         default=[],
@@ -1737,6 +1760,7 @@ def main(argv: list[str] | None = None) -> int:
                 published_run_roots=args.published_run_root,
                 code_sign_clone_roots=args.code_sign_clone_root,
                 chrome_code_sign_proof=args.chrome_code_sign_proof,
+                chromium_code_sign_proof=args.chromium_code_sign_proof,
                 pnpm_store_roots=args.pnpm_store_root,
                 pnpm_proof=args.pnpm_proof,
             )

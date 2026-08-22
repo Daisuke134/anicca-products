@@ -186,6 +186,18 @@
       }
     },
     {
+      "id": "browser-runtime-dependency",
+      "path": "$HOME/.cloakbrowser",
+      "owner": "browser-fleet",
+      "class": "runtime",
+      "ttl_seconds": null,
+      "quota_bytes": 0,
+      "lease": null,
+      "finalizer": {
+        "kind": "preserve"
+      }
+    },
+    {
       "id": "openclaw-runtime-state",
       "path": "$HOME/.openclaw/state",
       "owner": "openclaw",
