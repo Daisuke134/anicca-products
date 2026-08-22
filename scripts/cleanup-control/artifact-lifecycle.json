@@ -235,6 +235,45 @@
       }
     },
     {
+      "id": "xcode-derived-data",
+      "path": "$HOME/Library/Developer/Xcode/DerivedData",
+      "owner": "xcode-build",
+      "class": "runtime",
+      "ttl_seconds": null,
+      "quota_bytes": 0,
+      "lease": {
+        "path": "$HOME/.openclaw/state/xcode-build.lease",
+        "max_age_seconds": 300
+      },
+      "finalizer": {
+        "kind": "preserve"
+      }
+    },
+    {
+      "id": "xcode-archives",
+      "path": "$HOME/Library/Developer/Xcode/Archives",
+      "owner": "xcode-build",
+      "class": "deliverable",
+      "ttl_seconds": null,
+      "quota_bytes": 0,
+      "lease": null,
+      "finalizer": {
+        "kind": "preserve"
+      }
+    },
+    {
+      "id": "reelclaw-run-root",
+      "path": "$HOME/.openclaw/workspace/runs",
+      "owner": "reelclaw-media",
+      "class": "deliverable",
+      "ttl_seconds": null,
+      "quota_bytes": 0,
+      "lease": null,
+      "finalizer": {
+        "kind": "preserve"
+      }
+    },
+    {
       "id": "reelclaw-assets",
       "path": "$HOME/.openclaw/workspace/reelclaw-assets",
       "owner": "reelclaw",

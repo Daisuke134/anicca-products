@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 from pathlib import Path
 
 
@@ -67,6 +68,45 @@ def test_production_manifest_is_valid_and_protects_known_incident_roots() -> Non
     }
     assert by_id["work-clones"]["class"] == "source"
     assert by_id["reelclaw-assets"]["class"] == "deliverable"
+    assert by_id["xcode-derived-data"] == {
+        "id": "xcode-derived-data",
+        "path": str(Path.home() / "Library/Developer/Xcode/DerivedData"),
+        "owner": "xcode-build",
+        "class": "runtime",
+        "ttl_seconds": None,
+        "quota_bytes": 0,
+        "lease": {
+            "path": str(Path.home() / ".openclaw/state/xcode-build.lease"),
+            "max_age_seconds": 300,
+        },
+        "finalizer": {"kind": "preserve"},
+    }
+    assert by_id["xcode-archives"] == {
+        "id": "xcode-archives",
+        "path": str(Path.home() / "Library/Developer/Xcode/Archives"),
+        "owner": "xcode-build",
+        "class": "deliverable",
+        "ttl_seconds": None,
+        "quota_bytes": 0,
+        "lease": None,
+        "finalizer": {"kind": "preserve"},
+    }
+    assert by_id["reelclaw-run-root"] == {
+        "id": "reelclaw-run-root",
+        "path": str(Path.home() / ".openclaw/workspace/runs"),
+        "owner": "reelclaw-media",
+        "class": "deliverable",
+        "ttl_seconds": None,
+        "quota_bytes": 0,
+        "lease": None,
+        "finalizer": {"kind": "preserve"},
+    }
+    assert by_id["reelclaw-assets"]["finalizer"] == {"kind": "preserve"}
+    assert {
+        entry["id"]
+        for entry in entries
+        if entry["owner"] in {"xcode-build", "reelclaw-media"}
+    } == {"xcode-derived-data", "xcode-archives", "reelclaw-run-root"}
     assert by_id["anicca-source"]["class"] == "source"
     assert by_id["anicca-project-source"]["class"] == "source"
     assert by_id["anicca-project-worktrees"]["class"] == "git_worktree_collection"
@@ -243,3 +283,56 @@ def test_browser_producer_lifecycle_is_registered() -> None:
             assert artifact["lease"] is None
         assert artifact["finalizer"]["kind"] == "verified_regenerable_remove"
         assert Path(artifact["finalizer"]["proof_path"]).is_absolute()
+
+
+def test_production_parent_child_manifest_preserves_all_media_targets(tmp_path: Path) -> None:
+    control = load_control()
+    replacements = {
+        "xcode-derived-data": tmp_path / "DerivedData",
+        "xcode-archives": tmp_path / "Archives",
+        "reelclaw-run-root": tmp_path / "runs",
+        "reelclaw-assets": tmp_path / "reelclaw-assets",
+    }
+    raw = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    raw["artifacts"] = [
+        {**artifact, "path": str(replacements[artifact["id"]])}
+        for artifact in raw["artifacts"]
+        if artifact["id"] in replacements
+    ]
+    for path in replacements.values():
+        path.mkdir(parents=True)
+    run_dir = replacements["reelclaw-run-root"] / "published"
+    run_dir.mkdir()
+    (run_dir / "reel-final.mp4").write_bytes(b"video")
+    (run_dir / "reel-meta.json").write_text(json.dumps({"postId": "p", "postedAt": "t", "integration": "i", "method": "m"}), encoding="utf-8")
+    (run_dir / "source.mov").write_bytes(b"source")
+    manifest = tmp_path / "manifest.json"
+    manifest.write_text(json.dumps(raw), encoding="utf-8")
+    runtime = tmp_path / "runtime.json"
+    control.build_runtime_manifest(
+        manifest_path=manifest,
+        output_path=runtime,
+        roots=[],
+        cache_roots=[],
+        minimum_cache_bytes=1,
+        published_run_roots=[replacements["reelclaw-run-root"]],
+    )
+    artifacts = json.loads(runtime.read_text(encoding="utf-8"))["artifacts"]
+    target_ids = set(replacements)
+    targets = [
+        Path(artifact["path"])
+        for artifact in artifacts
+        if artifact["id"] in target_ids or artifact["owner"] == "reelclaw-media"
+    ]
+    result = control.sweep(
+        manifest_path=runtime,
+        quarantine_root=tmp_path / "quarantine",
+        ledger_path=tmp_path / "ledger.jsonl",
+        candidates=targets,
+    )
+
+    assert result["quarantined"] == 0
+    assert result["preserved"] == len(targets)
+    assert (run_dir / "reel-final.mp4").is_file()
+    assert (run_dir / "reel-meta.json").is_file()
+    assert (run_dir / "source.mov").is_file()

@@ -153,6 +153,20 @@ def entry(
     }
 
 
+def regenerable_entry(
+    target: Path, proof: Path, lease: dict[str, object] | None = None
+) -> dict[str, object]:
+    result = entry(
+        target,
+        artifact_class="regenerable_output",
+        ttl_seconds=None,
+        lease=lease,
+        finalizer="verified_regenerable_remove",
+    )
+    result["finalizer"]["proof_path"] = str(proof)
+    return result
+
+
 def write_manifest(path: Path, entries: list[dict[str, object]]) -> Path:
     path.write_text(
         json.dumps({"policy_version": "cleanup-v1", "artifacts": entries}),
@@ -280,19 +294,19 @@ def test_runtime_manifest_discovers_only_ignored_proven_regenerable_outputs(
     build_outputs = [
         item
         for item in generated["artifacts"]
-        if item["owner"] == "cleanup-discovery"
-        and item["class"] == "regenerable_output"
+        if item["owner"] == "repository-build"
+        and item["class"] == "runtime"
     ]
     assert build_outputs == [
         {
-            "class": "regenerable_output",
-            "finalizer": {
-                "kind": "verified_regenerable_remove",
-                "proof_path": str(repository / "package-lock.json"),
-            },
+            "class": "runtime",
+            "finalizer": {"kind": "preserve"},
             "id": build_outputs[0]["id"],
-            "lease": None,
-            "owner": "cleanup-discovery",
+            "lease": {
+                "path": str(repository / ".node_modules.life-manager.lease"),
+                "max_age_seconds": 300,
+            },
+            "owner": "repository-build",
             "path": str(eligible),
             "quota_bytes": 0,
             "ttl_seconds": None,
@@ -530,6 +544,7 @@ def test_runtime_manifest_discovers_only_verified_published_runs(tmp_path: Path)
         encoding="utf-8",
     )
     (published / "reel-final.mp4").write_bytes(b"published-video")
+    (published / "source.mov").write_bytes(b"source")
 
     malformed = runs / "malformed"
     malformed.mkdir()
@@ -573,19 +588,32 @@ def test_runtime_manifest_discovers_only_verified_published_runs(tmp_path: Path)
     generated = json.loads(runtime.read_text(encoding="utf-8"))
     assert generated["artifacts"] == [
         {
-            "class": "regenerable_output",
-            "finalizer": {
-                "kind": "verified_regenerable_remove",
-                "proof_path": str(proof),
-            },
+            "class": "deliverable",
+            "finalizer": {"kind": "preserve"},
             "id": generated["artifacts"][0]["id"],
-            "lease": None,
-            "owner": "reelclaw",
-            "path": str(published),
+            "lease": {
+                "path": str(runs / ".published.life-manager.lease"),
+                "max_age_seconds": 300,
+            },
+            "owner": "reelclaw-media",
+            "path": str(published / "reel-final.mp4"),
             "quota_bytes": 0,
             "ttl_seconds": None,
         }
     ]
+
+
+def test_published_discovery_rejects_symlinked_run_child(tmp_path: Path) -> None:
+    runs = tmp_path / "runs"
+    runs.mkdir()
+    external = tmp_path / "external"
+    external.mkdir()
+    (external / "reel-final.mp4").write_bytes(b"external-video")
+    (external / "reel-meta.json").write_text(json.dumps({"postId": "p", "postedAt": "t", "integration": "i", "method": "m"}), encoding="utf-8")
+    (runs / "link").symlink_to(external, target_is_directory=True)
+
+    assert cleanup_control.discover_published_runs([runs]) == []
+    assert (external / "reel-final.mp4").is_file()
 
 
 @pytest.mark.parametrize("mode", ["missing", "corrupt", "missing-field"])
@@ -934,6 +962,63 @@ def test_regenerable_output_requires_lockfile_proof_and_closed_path(
     )
     assert open_result["quarantined"] == 0
     assert open_target.exists()
+
+
+def test_regenerable_revalidation_failure_preserves_target(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    target = tmp_path / "target"
+    target.mkdir()
+    (target / "object.o").write_bytes(b"payload")
+    proof = tmp_path / "Cargo.lock"
+    proof.write_text("[[package]]\n", encoding="utf-8")
+    manifest = write_manifest(
+        tmp_path / "manifest.json", [regenerable_entry(target, proof)]
+    )
+    states = iter(["confirmed-closed", "open"])
+    monkeypatch.setattr(cleanup_control, "path_open_state", lambda _: next(states))
+
+    result = run(manifest, tmp_path / "quarantine", tmp_path / "ledger.jsonl", now=1_000)
+
+    assert result["quarantined"] == 0
+    assert result["preserved"] == 1
+    assert result["bytes_quarantined"] == 0
+    assert target.exists()
+    assert '"reason":"revalidation_failed"' in (tmp_path / "ledger.jsonl").read_text()
+
+
+def test_lease_stat_error_is_active_and_preserves_regenerable(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    target = tmp_path / "target"
+    target.mkdir()
+    (target / "object.o").write_bytes(b"payload")
+    proof = tmp_path / "Cargo.lock"
+    proof.write_text("[[package]]\n", encoding="utf-8")
+    lease = tmp_path / "build.lease"
+    artifact = regenerable_entry(
+        target, proof, {"path": str(lease), "max_age_seconds": 300}
+    )
+    original_stat = Path.stat
+
+    def deny_lease_stat(path: Path, *args: object, **kwargs: object):
+        if path == lease:
+            raise PermissionError("lease unreadable")
+        return original_stat(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "stat", deny_lease_stat)
+    result = run(
+        write_manifest(tmp_path / "manifest.json", [artifact]),
+        tmp_path / "quarantine",
+        tmp_path / "ledger.jsonl",
+        now=1_000,
+    )
+
+    assert result["quarantined"] == 0
+    assert result["preserved"] == 1
+    assert result["bytes_quarantined"] == 0
+    assert target.exists()
+    assert '"reason":"active_lease"' in (tmp_path / "ledger.jsonl").read_text()
 
 
 def test_expired_ephemeral_is_removed_when_quarantine_volume_is_absent(

@@ -81,6 +81,7 @@ DISCOVERABLE_OUTPUT_PROOFS = {
 PROTECTED_DISCOVERY_PARTS = {".claude", ".codex", ".git", "memory", "state"}
 PERMANENTLY_PROTECTED_PATH_PARTS = {".claude", ".codex", ".git", "memory"}
 BROWSER_CACHE_TOKENS = {"ms-playwright", "camoufox", "chromium", "chrome"}
+PUBLISHED_MEDIA_PROOF_FIELDS = ("postId", "postedAt", "integration", "method")
 
 
 class ManifestError(ValueError):
@@ -347,6 +348,8 @@ def _lease_is_active(entry: dict[str, Any], now: int) -> bool:
         age = now - path.stat().st_mtime
     except FileNotFoundError:
         return False
+    except OSError:
+        return True
     return age <= lease["max_age_seconds"]
 
 
@@ -587,15 +590,19 @@ def discover_regenerable_outputs(roots: list[Path]) -> list[dict[str, Any]]:
                     {
                         "id": f"discovered-build-output-{digest}",
                         "path": str(candidate),
-                        "owner": "cleanup-discovery",
-                        "class": REGENERABLE_OUTPUT_CLASS,
+                        "owner": "repository-build",
+                        "class": "runtime",
                         "ttl_seconds": None,
                         "quota_bytes": 0,
-                        "lease": None,
-                        "finalizer": {
-                            "kind": "verified_regenerable_remove",
-                            "proof_path": str(proof),
+                        "lease": {
+                            "path": str(
+                                candidate.with_name(
+                                    f".{candidate.name}.life-manager.lease"
+                                )
+                            ),
+                            "max_age_seconds": 300,
                         },
+                        "finalizer": {"kind": "preserve"},
                     }
                 )
     return sorted(discovered, key=lambda item: item["path"])
@@ -719,9 +726,21 @@ def discover_pnpm_store_versions(
     return discovered
 
 
+def _published_media_proof_is_valid(proof: Path) -> bool:
+    if not proof.is_file() or proof.is_symlink():
+        return False
+    try:
+        metadata = json.loads(proof.read_text(encoding="utf-8"))
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        return False
+    return isinstance(metadata, dict) and all(
+        isinstance(metadata.get(field), str) and metadata[field].strip()
+        for field in PUBLISHED_MEDIA_PROOF_FIELDS
+    )
+
+
 def discover_published_runs(roots: list[Path]) -> list[dict[str, Any]]:
     discovered: list[dict[str, Any]] = []
-    required_proof_fields = ("postId", "postedAt", "integration", "method")
     for raw_root in sorted(roots, key=str):
         root = Path(os.path.normpath(str(raw_root.expanduser())))
         if not root.is_absolute() or not root.is_dir() or root.is_symlink():
@@ -731,42 +750,35 @@ def discover_published_runs(roots: list[Path]) -> list[dict[str, Any]]:
                 continue
             proof = candidate / "reel-meta.json"
             output = candidate / "reel-final.mp4"
+            lease = root / f".{candidate.name}.life-manager.lease"
             if (
-                not proof.is_file()
-                or proof.is_symlink()
-                or not output.is_file()
-                or output.is_symlink()
+                candidate.parent != root
+                or candidate.is_symlink()
+                or _regular_nonsymlink_file(proof) is None
+                or _regular_nonsymlink_file(output) is None
+                or not _published_media_proof_is_valid(proof)
             ):
                 continue
             try:
-                metadata = json.loads(proof.read_text(encoding="utf-8"))
                 output_bytes = output.stat().st_size
-            except (OSError, json.JSONDecodeError):
+            except OSError:
                 continue
-            if (
-                not isinstance(metadata, dict)
-                or output_bytes <= 0
-                or any(
-                    not isinstance(metadata.get(field), str)
-                    or not metadata[field].strip()
-                    for field in required_proof_fields
-                )
-            ):
+            if output_bytes <= 0:
                 continue
             digest = hashlib.sha256(str(candidate).encode("utf-8")).hexdigest()[:20]
             discovered.append(
                 {
                     "id": f"published-run-{digest}",
-                    "path": str(candidate),
-                    "owner": "reelclaw",
-                    "class": REGENERABLE_OUTPUT_CLASS,
+                    "path": str(output),
+                    "owner": "reelclaw-media",
+                    "class": "deliverable",
                     "ttl_seconds": None,
                     "quota_bytes": 0,
-                    "lease": None,
-                    "finalizer": {
-                        "kind": "verified_regenerable_remove",
-                        "proof_path": str(proof),
+                    "lease": {
+                        "path": str(lease),
+                        "max_age_seconds": 300,
                     },
+                    "finalizer": {"kind": "preserve"},
                 }
             )
     return discovered
@@ -1495,6 +1507,8 @@ def sweep(
                     reason = "lsof_error"
                     result["errors"] += 1
                 else:
+                    reason = ""
+                    removed = False
                     try:
                         size = _du_bytes(target)
                         if (
@@ -1508,30 +1522,32 @@ def sweep(
                             _remove_source(target)
                             if target.exists() or target.is_symlink():
                                 raise OSError("regenerable output still exists")
+                            removed = True
                     except OSError as exc:
                         reason = f"remove_failed:{type(exc).__name__}"
                         result["errors"] += 1
                     else:
-                        event = _event_base(
-                            event="removed",
-                            reason="verified_regenerable_output",
-                            path=target,
-                            entry=entry,
-                            policy_version=policy_version,
-                            manifest_sha256=manifest_sha256,
-                            now=now,
-                        )
-                        event.update(
-                            {
-                                "result": "success",
-                                "bytes": size,
-                                "regeneration_proof": str(proof),
-                            }
-                        )
-                        append_ledger(ledger_path, event)
-                        result["quarantined"] += 1
-                        result["bytes_quarantined"] += size
-                        continue
+                        if removed:
+                            event = _event_base(
+                                event="removed",
+                                reason="verified_regenerable_output",
+                                path=target,
+                                entry=entry,
+                                policy_version=policy_version,
+                                manifest_sha256=manifest_sha256,
+                                now=now,
+                            )
+                            event.update(
+                                {
+                                    "result": "success",
+                                    "bytes": size,
+                                    "regeneration_proof": str(proof),
+                                }
+                            )
+                            append_ledger(ledger_path, event)
+                            result["quarantined"] += 1
+                            result["bytes_quarantined"] += size
+                            continue
         if entry["class"] == REGENERABLE_OUTPUT_CLASS:
             pass
         elif entry["class"] != "ephemeral":
