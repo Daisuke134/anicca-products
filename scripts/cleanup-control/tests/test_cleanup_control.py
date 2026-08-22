@@ -80,6 +80,55 @@ def test_fast_pass_defers_worktree_remote_inspection(tmp_path: Path, monkeypatch
     assert event["reason"] == "fast_pass_deferred"
 
 
+def assert_incomplete_worktree_is_preserved(tmp_path: Path, monkeypatch: pytest.MonkeyPatch, kind: str) -> None:
+    remote = tmp_path / "remote.git"
+    repository = tmp_path / "repository"
+    collection = tmp_path / "worktrees"
+    worktree = collection / kind
+    subprocess.run(["git", "init", "--bare", "-q", str(remote)], check=True)
+    subprocess.run(["git", "init", "-q", str(repository)], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.email", "fixture@example.invalid"], check=True)
+    subprocess.run(["git", "-C", str(repository), "config", "user.name", "Fixture"], check=True)
+    (repository / "tracked.txt").write_text("base\n", encoding="utf-8")
+    subprocess.run(["git", "-C", str(repository), "add", "tracked.txt"], check=True)
+    subprocess.run(["git", "-C", str(repository), "commit", "-qm", "base"], check=True)
+    subprocess.run(["git", "-C", str(repository), "branch", "-M", "main"], check=True)
+    subprocess.run(["git", "-C", str(repository), "remote", "add", "origin", str(remote)], check=True)
+    subprocess.run(["git", "-C", str(repository), "push", "-qu", "origin", "main"], check=True)
+    collection.mkdir()
+    subprocess.run(
+        ["git", "-C", str(repository), "worktree", "add", "-qb", kind, str(worktree), "origin/main"],
+        check=True,
+    )
+    (worktree / "tracked.txt").write_text(f"{kind}\n", encoding="utf-8")
+    if kind == "unpushed":
+        subprocess.run(["git", "-C", str(worktree), "commit", "-qam", "local only"], check=True)
+    ledger = tmp_path / "ledger.jsonl"
+    monkeypatch.setattr(cleanup_control, "path_open_state", lambda _path: "confirmed-closed")
+
+    result = cleanup_control.sweep_worktree_collection(
+        collection_root=collection,
+        repository_root=repository,
+        ledger_path=ledger,
+        policy_version="test-v1",
+        manifest_sha256="fixture",
+        now=int(time.time()),
+    )
+
+    assert worktree.exists()
+    assert result["removed"] == 0
+    event = next(row for row in map(json.loads, ledger.read_text().splitlines()) if row["path"] == str(worktree))
+    assert event["reason"] == ("dirty_worktree" if kind == "dirty" else "head_not_on_remote")
+
+
+def test_dirty_worktree_is_preserved(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    assert_incomplete_worktree_is_preserved(tmp_path, monkeypatch, "dirty")
+
+
+def test_unpushed_worktree_is_preserved(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    assert_incomplete_worktree_is_preserved(tmp_path, monkeypatch, "unpushed")
+
+
 def entry(
     path: Path,
     *,
