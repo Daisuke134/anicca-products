@@ -13,6 +13,10 @@ export const metadata = {
   title: 'Life Manager — Proactive general agent for your life',
   description:
     'Life Manager manages your body, mind, and money, follows through on real-world actions, and runs locally as open source or as an always-on paid cloud service.',
+  other: {
+    'life-manager-context-version': '2026-08-27.2',
+    'life-manager-context-digest': '9fbe6198c6d61da47d68767eec90a1d95d2e07058f024448d86372b5f3035338',
+  },
 };
 
 export default function Page() {
