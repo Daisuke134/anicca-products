@@ -28,6 +28,30 @@ export const launchStrings = {
       soonBody:
         'Life Manager launches on Telegram first. Tap below to start on Telegram — name, calendar, phone, done. The web version is coming soon.',
       soonCta: 'Start on Telegram',
+      publicEyebrow: 'One manager · your whole life',
+      publicTitle: 'A proactive general agent for your body, mind, and money.',
+      publicBody:
+        'Life Manager does not stop at advice. It coordinates specialist capabilities, acts within delegated boundaries, verifies the result with receipts, and reports the outcome in plain language.',
+      localSurface: 'Free · open source · self-hosted',
+      cloudSurface: 'Paid monthly · always on · phone-first',
+      surfacesLabel: 'one core / two surfaces',
+      organsTitle: 'One manager. Three organs. Real follow-through.',
+      organs: [
+        { index: '01', title: 'Daily', body: 'Schedules, applications, priorities, meetings, and the next action that moves your life forward.' },
+        { index: '02', title: 'Physical / Mental', body: 'Routines, care, mindfulness, and continuity across the parts of health that are easy to postpone.' },
+        { index: '03', title: 'Financial', body: 'Cash flow, income opportunities, business, crypto, investing, and compute paid only from banked revenue.' },
+      ],
+      wedgeEyebrow: 'Working wedge',
+      wedgeTitle: 'It already follows through on your calendar.',
+      wedgeBody:
+        'Connect Calendar and phone through Telegram. Life Manager adds travel time, calls before you must leave, asks when a location is missing, and prepares late notices. This is the first working slice of a much broader manager.',
+      evidenceTitle: 'Evidence, not agent self-report.',
+      proofLabel: 'proof boundary',
+      evidenceBody:
+        'The founder attests that Life Manager has generated approximately $1,000 in revenue. That is not MRR or ARR.',
+      evidenceBoundary:
+        'Applications, clicks, contracts, and pending balances are not income. Commerce closes only with official receipts through banked and, eventually, compute_paid.',
+      sourceCta: 'View the open-source core',
       heroTitle: 'Never be late again.',
       heroBody:
         'Sign in, connect your Google Calendar, add your phone. Life Manager then handles travel time, calls you before you leave, asks on Telegram when a location is unclear, and drafts your late-notices. 24/7.',
@@ -215,6 +239,30 @@ export const launchStrings = {
       soonBody:
         'Life Manager はまず Telegram で公開。下をタップして Telegram で開始 — 名前・カレンダー・電話で完了。ウェブ版は近日公開。',
       soonCta: 'Telegram で始める',
+      publicEyebrow: 'ひとつのmanager · 人生まるごと',
+      publicTitle: '身体・心・お金を管理するproactive general agent。',
+      publicBody:
+        'Life Managerは助言で止まりません。専門capabilityをまとめ、委任範囲で現実の行動を実行し、receiptで結果を検証して、人間が読める言葉で報告します。',
+      localSurface: '無料 · open source · self-hosted',
+      cloudSurface: '月額 · 常時稼働 · phone-first',
+      surfacesLabel: 'ひとつのcore / 2つの実行面',
+      organsTitle: 'ひとつのmanager。3つのorgan。現実のfollow-through。',
+      organs: [
+        { index: '01', title: 'Daily', body: '予定、応募、優先順位、meeting、そして人生を前へ進める次の一手。' },
+        { index: '02', title: 'Physical / Mental', body: '生活習慣、care、mindfulness、先延ばしにしやすい健康課題の継続。' },
+        { index: '03', title: 'Financial', body: '収支、収入機会、business、crypto、investing、banked revenueだけから支払うcompute。' },
+      ],
+      wedgeEyebrow: '動いている最初のwedge',
+      wedgeTitle: 'Calendarでは、すでに最後まで動く。',
+      wedgeBody:
+        'TelegramからCalendarと電話を接続すると、移動時間を入れ、出発前に電話し、場所がなければ質問し、遅刻連絡を用意します。これは、もっと広いmanagerの最初に動くsliceです。',
+      evidenceTitle: 'agentの自己申告ではなく、evidence。',
+      proofLabel: '証明の境界',
+      evidenceBody:
+        'founder証言ではLife Managerはapproximately $1,000の収益を生み出しています。これはMRRでもARRでもありません。',
+      evidenceBoundary:
+        '応募、click、契約、pending balanceは収益ではありません。commerceは公式receiptでbanked、最終的にcompute_paidへ到達した時だけ閉じます。',
+      sourceCta: 'open-source coreを見る',
       heroTitle: 'もう、遅刻しない。',
       heroBody:
         'ログインして、Google カレンダーをつなぎ、電話番号を登録するだけ。移動時間の確保も、出発前の電話も、場所の確認も、遅刻連絡も、ライフマネージャーが引き受ける。24/7。',
