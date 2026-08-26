@@ -1,46 +1,51 @@
 import { translations, type Locale } from '@/lib/i18n';
 import { SplitHero, CTA } from '@/components/site/taste';
-import { LedgerWidget } from '@/components/site/v2/LedgerWidget';
 
 interface HeroProps {
   locale: Locale;
 }
 
-// §v2.5: headline verbatim from translations.hero.headline (no added period).
-// §4.3 ANTI-CENTER (VARIANCE 7 > 4) via SplitHero. §4.7 ≤4 hero text elements
-// (headline + subtext + 2 CTAs). Asset = LedgerWidget, real visual per §4.8.
-// TODO(§11.F-followup): migrate hardcoded subtext/CTA labels into
-// translations[locale].hero (subtext, ctaPrimary, ctaSecondary).
 export default function Hero({ locale }: HeroProps) {
   const t = translations[locale].hero;
   const subtext =
     locale === 'ja'
-      ? '自分でコンピュート代を稼いで動く AI。自分の分を払って、残ったぶんを人に送る。'
-      : 'An AI that earns its own compute. After it covers itself, it sends what is left to people.';
-  // spec32: most people benefit via UBI, not by running one → "Receive basic income"
-  // is the PRIMARY/top CTA; running an anicca yourself is the secondary path.
-  const primaryLabel = locale === 'ja' ? 'ベーシックインカムを受け取る' : 'Receive basic income';
-  const secondaryLabel = locale === 'ja' ? '自分で動かす（GitHub）' : 'Run one yourself (GitHub)';
+      ? 'AniccaはLife Managerをつくる。身体・心・お金を管理し、助言で止まらず現実の行動まで完遂するproactive general agent。'
+      : 'Anicca builds Life Manager, a proactive general agent that manages your body, mind, and money and follows through in the real world.';
+  const primaryLabel = locale === 'ja' ? 'Life Managerを見る' : 'Meet Life Manager';
+  const secondaryLabel = locale === 'ja' ? 'open-source coreを見る' : 'View the open-source core';
+  const organs = locale === 'ja' ? ['身体', '心', 'お金'] : ['Body', 'Mind', 'Money'];
 
   return (
     <SplitHero
       headline={t.headline}
       subtext={subtext}
       primary={
-        <CTA href="/income" variant="primary">
+        <CTA href="/lm" variant="primary">
           {primaryLabel}
         </CTA>
       }
       secondary={
-        <CTA href="https://github.com/Daisuke134/anicca" variant="link">
+        <CTA href="https://github.com/Daisuke134/life-manager" variant="link">
           {secondaryLabel}
         </CTA>
       }
       asset={
-        <a href="/dashboard" className="group block transition-opacity hover:opacity-90" aria-label="Live dashboard">
-          <LedgerWidget locale={locale} />
-          <span className="mt-3 inline-flex items-center gap-1 text-[13px] text-[hsl(var(--gold))] underline underline-offset-4">
-            {locale === 'ja' ? 'ライブの数字を見る → aniccaai.com/dashboard' : 'See the live numbers → aniccaai.com/dashboard'}
+        <a href="/lm" className="group block border-y border-[hsl(var(--border))] py-6" aria-label="Life Manager">
+          <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-[hsl(var(--gold))]">
+            {locale === 'ja' ? '使命からプロダクトへ' : 'Mission into product'}
+          </p>
+          <p className="mt-4 font-display text-3xl font-semibold tracking-tight text-[hsl(var(--text-primary))]">
+            Life Manager
+          </p>
+          <div className="mt-6 grid grid-cols-3 border-y border-[hsl(var(--border))]">
+            {organs.map((organ) => (
+              <span key={organ} className="border-r border-[hsl(var(--border))] py-4 text-center text-sm last:border-r-0">
+                {organ}
+              </span>
+            ))}
+          </div>
+          <span className="mt-5 inline-flex text-[13px] text-[hsl(var(--gold))] underline underline-offset-4">
+            {locale === 'ja' ? '仕組みと証拠を見る →' : 'See how it works and what is proven →'}
           </span>
         </a>
       }
