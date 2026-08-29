@@ -42,8 +42,13 @@ function assertMoneyPath(bundle, registry) {
 // The current /lm route starts in Telegram; payment continues in the Railway Mini App/server.
 function assertTelegramHandoff(bundle) {
   const chunk = String(bundle && bundle.chunk || "");
-  if (!(chunk.match(TELEGRAM_LINK_RE) || []).includes(TELEGRAM_HANDOFF_URL)) {
+  const telegramLinks = chunk.match(TELEGRAM_LINK_RE) || [];
+  if (!telegramLinks.includes(TELEGRAM_HANDOFF_URL)) {
     return { ok: false, reason: "telegram handoff link missing in /lm chunk" };
+  }
+  const unexpected = telegramLinks.filter((link) => link !== TELEGRAM_HANDOFF_URL);
+  if (unexpected.length > 0) {
+    return { ok: false, reason: `unexpected telegram link in /lm chunk: ${unexpected.join(",")}` };
   }
   if (/buy\.stripe\.com/i.test(chunk)) {
     return { ok: false, reason: "stripe link found in /lm chunk" };

@@ -46,6 +46,22 @@ test("assertTelegramHandoff: FAIL when the canonical deep link is absent", () =>
   );
 });
 
+test("assertTelegramHandoff: FAIL when canonical and an extra Telegram URL coexist", () => {
+  const extra = "https://t.me/LifeManagerBotbot?start=lp-extra";
+  assert.deepEqual(
+    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} ${extra}` }),
+    { ok: false, reason: `unexpected telegram link in /lm chunk: ${extra}` },
+  );
+});
+
+test("assertTelegramHandoff: FAIL when canonical and a different bot URL coexist", () => {
+  const otherBot = "https://t.me/OtherLifeManagerBot?start=lp";
+  assert.deepEqual(
+    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} ${otherBot}` }),
+    { ok: false, reason: `unexpected telegram link in /lm chunk: ${otherBot}` },
+  );
+});
+
 test("assertTelegramHandoff: FAIL when any Stripe link is present", () => {
   assert.deepEqual(
     assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} https://buy.stripe.com/rogue` }),
