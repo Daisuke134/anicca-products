@@ -12,6 +12,7 @@
 "use strict";
 
 const STRIPE_RE = /https:\/\/buy\.stripe\.com\/[A-Za-z0-9_]+/g;
+const STRIPE_OFFICIAL_LINK_RE = /https:\/\/(?:[A-Za-z0-9-]+\.)*stripe\.com(?=$|[\/?#:\"'\s>),;])/i;
 const TELEGRAM_HANDOFF_URL = "https://t.me/LifeManagerBotbot?start=lp";
 const TELEGRAM_LINK_RE = /https:\/\/t\.me\/[^"'\s]+/gi;
 
@@ -41,12 +42,7 @@ function assertMoneyPath(bundle, registry) {
 // assertTelegramHandoff({ chunk }) → { ok, reason }
 // The current /lm route starts in Telegram; payment continues in the Railway Mini App/server.
 function normalizeTelegramUrl(raw) {
-  try {
-    const url = new URL(raw);
-    return `${url.protocol}//${url.hostname}${url.pathname}${url.search}${url.hash}`;
-  } catch {
-    return String(raw);
-  }
+  return String(raw).replace(/^https:\/\/t\.me(?=\/)/i, "https://t.me");
 }
 
 function assertTelegramHandoff(bundle) {
@@ -59,7 +55,7 @@ function assertTelegramHandoff(bundle) {
   if (unexpected.length > 0) {
     return { ok: false, reason: `unexpected telegram link in /lm chunk: ${unexpected.join(",")}` };
   }
-  if (/buy\.stripe\.com/i.test(chunk)) {
+  if (STRIPE_OFFICIAL_LINK_RE.test(chunk)) {
     return { ok: false, reason: "stripe link found in /lm chunk" };
   }
   return { ok: true, reason: "ok" };

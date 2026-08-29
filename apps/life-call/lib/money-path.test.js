@@ -77,10 +77,35 @@ test("assertTelegramHandoff: FAIL when canonical and uppercase-host other bot co
   );
 });
 
+test("assertTelegramHandoff: FAIL when a path traversal URL targets the canonical route", () => {
+  const traversal = "https://t.me/other/../LifeManagerBotbot?start=lp";
+  assert.deepEqual(
+    assertTelegramHandoff({ chunk: traversal }),
+    { ok: false, reason: "telegram handoff link missing in /lm chunk" },
+  );
+  assert.deepEqual(
+    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} ${traversal}` }),
+    { ok: false, reason: `unexpected telegram link in /lm chunk: ${traversal}` },
+  );
+});
+
 test("assertTelegramHandoff: FAIL when any Stripe link is present", () => {
   assert.deepEqual(
     assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} https://buy.stripe.com/rogue` }),
     { ok: false, reason: "stripe link found in /lm chunk" },
+  );
+});
+
+test("assertTelegramHandoff: FAIL for HTTPS Stripe root and subdomain links", () => {
+  for (const stripeUrl of ["https://checkout.stripe.com/c/pay", "https://stripe.com/pricing"]) {
+    assert.deepEqual(
+      assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} ${stripeUrl}` }),
+      { ok: false, reason: "stripe link found in /lm chunk" },
+    );
+  }
+  assert.deepEqual(
+    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} https://notstripe.com/pricing` }),
+    { ok: true, reason: "ok" },
   );
 });
 
