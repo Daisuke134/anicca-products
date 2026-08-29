@@ -13,7 +13,7 @@
 
 const STRIPE_RE = /https:\/\/buy\.stripe\.com\/[A-Za-z0-9_]+/g;
 const TELEGRAM_HANDOFF_URL = "https://t.me/LifeManagerBotbot?start=lp";
-const HTTPS_URL_RE = /https:\/\/[^"'\s]+/gi;
+const HTTPS_URL_RE = /https:\/\/(?:(?!https:\/\/)[^"'\s])+/gi;
 
 // All DISTINCT buy.stripe.com links in a chunk (order-preserving). The monitor must not trust the FIRST
 // match — a rogue second link (exactly the ¥700k class) must be caught.

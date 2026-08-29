@@ -139,6 +139,21 @@ test("assertTelegramHandoff: FAIL when Stripe domain has a trailing dot and port
   );
 });
 
+test("assertTelegramHandoff: FAIL when comma-concatenated Telegram URL follows another HTTPS URL", () => {
+  const otherBot = "https://t.me/OtherBot?start=lp";
+  assert.deepEqual(
+    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} https://example.com,${otherBot}` }),
+    { ok: false, reason: `unexpected telegram link in /lm chunk: ${otherBot}` },
+  );
+});
+
+test("assertTelegramHandoff: FAIL when comma-concatenated Stripe URL follows another HTTPS URL", () => {
+  assert.deepEqual(
+    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} https://example.com,https://stripe.com/pay` }),
+    { ok: false, reason: "stripe link found in /lm chunk" },
+  );
+});
+
 test("RollbackController: debounce — needs >=2 consecutive FAIL before rollback", () => {
   const rc = new RollbackController();
   assert.equal(rc.onResult(false).rollback, false); // 1st fail: wait
