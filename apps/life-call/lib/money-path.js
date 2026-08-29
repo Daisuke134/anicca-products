@@ -12,9 +12,8 @@
 "use strict";
 
 const STRIPE_RE = /https:\/\/buy\.stripe\.com\/[A-Za-z0-9_]+/g;
-const STRIPE_OFFICIAL_LINK_RE = /https:\/\/(?:[A-Za-z0-9-]+\.)*stripe\.com(?=$|[\/?#:\"'\s>),;])/i;
 const TELEGRAM_HANDOFF_URL = "https://t.me/LifeManagerBotbot?start=lp";
-const TELEGRAM_LINK_RE = /https:\/\/t\.me\/[^"'\s]+/gi;
+const HTTPS_URL_RE = /https:\/\/[^"'\s]+/gi;
 
 // All DISTINCT buy.stripe.com links in a chunk (order-preserving). The monitor must not trust the FIRST
 // match — a rogue second link (exactly the ¥700k class) must be caught.
@@ -47,16 +46,28 @@ function normalizeTelegramUrl(raw) {
 
 function assertTelegramHandoff(bundle) {
   const chunk = String(bundle && bundle.chunk || "");
-  const telegramLinks = (chunk.match(TELEGRAM_LINK_RE) || []).map(normalizeTelegramUrl);
+  const telegramLinks = [];
+  let stripeLinkFound = false;
+  for (const raw of chunk.match(HTTPS_URL_RE) || []) {
+    let parsed;
+    try {
+      parsed = new URL(raw);
+    } catch {
+      continue;
+    }
+    const hostname = parsed.hostname.toLowerCase();
+    if (hostname === "t.me") telegramLinks.push(normalizeTelegramUrl(raw));
+    if (hostname === "stripe.com" || hostname.endsWith(".stripe.com")) stripeLinkFound = true;
+  }
+  if (stripeLinkFound) {
+    return { ok: false, reason: "stripe link found in /lm chunk" };
+  }
   if (!telegramLinks.includes(TELEGRAM_HANDOFF_URL)) {
     return { ok: false, reason: "telegram handoff link missing in /lm chunk" };
   }
   const unexpected = telegramLinks.filter((link) => link !== TELEGRAM_HANDOFF_URL);
   if (unexpected.length > 0) {
     return { ok: false, reason: `unexpected telegram link in /lm chunk: ${unexpected.join(",")}` };
-  }
-  if (STRIPE_OFFICIAL_LINK_RE.test(chunk)) {
-    return { ok: false, reason: "stripe link found in /lm chunk" };
   }
   return { ok: true, reason: "ok" };
 }

@@ -77,6 +77,14 @@ test("assertTelegramHandoff: FAIL when canonical and uppercase-host other bot co
   );
 });
 
+test("assertTelegramHandoff: FAIL when canonical and a t.me port URL coexist", () => {
+  const otherBot = "https://t.me:443/OtherBot?start=lp";
+  assert.deepEqual(
+    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} ${otherBot}` }),
+    { ok: false, reason: `unexpected telegram link in /lm chunk: ${otherBot}` },
+  );
+});
+
 test("assertTelegramHandoff: FAIL when a path traversal URL targets the canonical route", () => {
   const traversal = "https://t.me/other/../LifeManagerBotbot?start=lp";
   assert.deepEqual(
@@ -106,6 +114,13 @@ test("assertTelegramHandoff: FAIL for HTTPS Stripe root and subdomain links", ()
   assert.deepEqual(
     assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} https://notstripe.com/pricing` }),
     { ok: true, reason: "ok" },
+  );
+});
+
+test("assertTelegramHandoff: FAIL when a Stripe URL includes userinfo", () => {
+  assert.deepEqual(
+    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} https://user@stripe.com/pay` }),
+    { ok: false, reason: "stripe link found in /lm chunk" },
   );
 });
 
