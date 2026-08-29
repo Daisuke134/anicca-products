@@ -1,7 +1,9 @@
 // lib/money-path.js — C5/C6 (VCSDD life-manager-cost-connect-reliability). Continuous money-path check
 // so the ¥700k-wrong-link / site-down class (2026-07-03) can never silently survive again.
-// SRE: black-box + CONTENT assertion (200 is not enough — assert the actual Stripe link VALUE). The
-// known-good value is the single registry SSOT (also the GHA build source). Rollback is gated:
+// SRE: black-box + CONTENT assertion (200 is not enough — assert the exact Telegram handoff and
+// reject direct Stripe links). The registry Stripe URL remains the server-side payment SSOT for
+// reachability checks. The legacy Stripe-value assertion stays available for historical callers.
+// Rollback is gated:
 //   - debounce: >=2 consecutive FAIL (no single-transient rollback)
 //   - flap guard: never roll back into a last-good that itself fails → escalate instead
 //   - dedup: ONE Telegram per incident, re-armed after a recovery
@@ -10,6 +12,8 @@
 "use strict";
 
 const STRIPE_RE = /https:\/\/buy\.stripe\.com\/[A-Za-z0-9_]+/g;
+const TELEGRAM_HANDOFF_URL = "https://t.me/LifeManagerBotbot?start=lp";
+const TELEGRAM_LINK_RE = /https:\/\/t\.me\/[^"'\s]+/g;
 
 // All DISTINCT buy.stripe.com links in a chunk (order-preserving). The monitor must not trust the FIRST
 // match — a rogue second link (exactly the ¥700k class) must be caught.
@@ -31,6 +35,19 @@ function assertMoneyPath(bundle, registry) {
   const rogue = links.filter((l) => l !== registry.stripe_lm_url);
   if (rogue.length > 0)
     return { ok: false, reason: `stripe link mismatch/ambiguous: unexpected=${rogue.join(",")} expected=${registry.stripe_lm_url}` };
+  return { ok: true, reason: "ok" };
+}
+
+// assertTelegramHandoff({ chunk }) → { ok, reason }
+// The current /lm route starts in Telegram; payment continues in the Railway Mini App/server.
+function assertTelegramHandoff(bundle) {
+  const chunk = String(bundle && bundle.chunk || "");
+  if (!(chunk.match(TELEGRAM_LINK_RE) || []).includes(TELEGRAM_HANDOFF_URL)) {
+    return { ok: false, reason: "telegram handoff link missing in /lm chunk" };
+  }
+  if (/buy\.stripe\.com/i.test(chunk)) {
+    return { ok: false, reason: "stripe link found in /lm chunk" };
+  }
   return { ok: true, reason: "ok" };
 }
 
@@ -66,4 +83,10 @@ class RollbackController {
   }
 }
 
-module.exports = { extractStripeLink, assertMoneyPath, RollbackController, STRIPE_RE };
+module.exports = {
+  extractStripeLink,
+  assertMoneyPath,
+  assertTelegramHandoff,
+  RollbackController,
+  STRIPE_RE,
+};
