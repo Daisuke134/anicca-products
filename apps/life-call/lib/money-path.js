@@ -55,7 +55,7 @@ function assertTelegramHandoff(bundle) {
     } catch {
       continue;
     }
-    const hostname = parsed.hostname.toLowerCase();
+    const hostname = parsed.hostname.toLowerCase().replace(/\.+$/, "");
     if (hostname === "t.me") telegramLinks.push(normalizeTelegramUrl(raw));
     if (hostname === "stripe.com" || hostname.endsWith(".stripe.com")) stripeLinkFound = true;
   }
