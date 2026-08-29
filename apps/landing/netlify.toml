@@ -21,6 +21,32 @@
 #   schedule = "0 21 * * *"   # ← disabled; do not re-enable (use the cloud loop)
 
 [[redirects]]
+  from = "/money-printer"
+  to = "https://life-call-production.up.railway.app/money-printer"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/panel/money-printer"
+  to = "https://life-call-production.up.railway.app/api/panel/money-printer"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/panel/money-printer/*"
+  to = "https://life-call-production.up.railway.app/api/panel/money-printer/:splat"
+  status = 200
+  force = true
+
+[[headers]]
+  for = "/money-printer"
+  [headers.values]
+    Origin-Agent-Cluster = "?1"
+    Permissions-Policy = "tools=(self)"
+    Cache-Control = "no-store"
+    X-Robots-Tag = "noindex"
+
+[[redirects]]
   from = "/go/*"
   to = "/.netlify/functions/marketing-go/:splat"
   status = 200
