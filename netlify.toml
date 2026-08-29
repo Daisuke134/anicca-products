@@ -43,6 +43,24 @@
   status = 200
 
 [[redirects]]
+  from = "/money-printer"
+  to = "https://life-call-production.up.railway.app/money-printer"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/panel/money-printer"
+  to = "https://life-call-production.up.railway.app/api/panel/money-printer"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/panel/money-printer/*"
+  to = "https://life-call-production.up.railway.app/api/panel/money-printer/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/api/*"
   to = "https://anicca-proxy-production.up.railway.app/api/:splat"
   status = 200
@@ -140,3 +158,11 @@
   from = "/tomb/*"
   to = "/cemetery/:splat"
   status = 301
+
+[[headers]]
+  for = "/money-printer"
+  [headers.values]
+    Origin-Agent-Cluster = "?1"
+    Permissions-Policy = "tools=(self)"
+    Cache-Control = "no-store"
+    X-Robots-Tag = "noindex"
