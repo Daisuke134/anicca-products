@@ -39,6 +39,13 @@ test("assertTelegramHandoff: PASS for the exact canonical deep link", () => {
   );
 });
 
+test("assertTelegramHandoff: PASS for canonical scheme and host casing", () => {
+  assert.deepEqual(
+    assertTelegramHandoff({ chunk: 'href="HTTPS://T.ME/LifeManagerBotbot?start=lp"' }),
+    { ok: true, reason: "ok" },
+  );
+});
+
 test("assertTelegramHandoff: FAIL when the canonical deep link is absent", () => {
   assert.deepEqual(
     assertTelegramHandoff({ chunk: 'href="https://t.me/LifeManagerBotbot?start=lp-extra"' }),
@@ -59,6 +66,14 @@ test("assertTelegramHandoff: FAIL when canonical and a different bot URL coexist
   assert.deepEqual(
     assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} ${otherBot}` }),
     { ok: false, reason: `unexpected telegram link in /lm chunk: ${otherBot}` },
+  );
+});
+
+test("assertTelegramHandoff: FAIL when canonical and uppercase-host other bot coexist", () => {
+  const otherBot = "https://T.ME/OtherLifeManagerBot?start=lp";
+  assert.deepEqual(
+    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} ${otherBot}` }),
+    { ok: false, reason: `unexpected telegram link in /lm chunk: https://t.me/OtherLifeManagerBot?start=lp` },
   );
 });
 

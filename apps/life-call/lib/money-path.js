@@ -13,7 +13,7 @@
 
 const STRIPE_RE = /https:\/\/buy\.stripe\.com\/[A-Za-z0-9_]+/g;
 const TELEGRAM_HANDOFF_URL = "https://t.me/LifeManagerBotbot?start=lp";
-const TELEGRAM_LINK_RE = /https:\/\/t\.me\/[^"'\s]+/g;
+const TELEGRAM_LINK_RE = /https:\/\/t\.me\/[^"'\s]+/gi;
 
 // All DISTINCT buy.stripe.com links in a chunk (order-preserving). The monitor must not trust the FIRST
 // match — a rogue second link (exactly the ¥700k class) must be caught.
@@ -40,9 +40,18 @@ function assertMoneyPath(bundle, registry) {
 
 // assertTelegramHandoff({ chunk }) → { ok, reason }
 // The current /lm route starts in Telegram; payment continues in the Railway Mini App/server.
+function normalizeTelegramUrl(raw) {
+  try {
+    const url = new URL(raw);
+    return `${url.protocol}//${url.hostname}${url.pathname}${url.search}${url.hash}`;
+  } catch {
+    return String(raw);
+  }
+}
+
 function assertTelegramHandoff(bundle) {
   const chunk = String(bundle && bundle.chunk || "");
-  const telegramLinks = chunk.match(TELEGRAM_LINK_RE) || [];
+  const telegramLinks = (chunk.match(TELEGRAM_LINK_RE) || []).map(normalizeTelegramUrl);
   if (!telegramLinks.includes(TELEGRAM_HANDOFF_URL)) {
     return { ok: false, reason: "telegram handoff link missing in /lm chunk" };
   }
