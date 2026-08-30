@@ -1,6 +1,6 @@
 # Writer Agent — Revenue, UX, Runtime, and Roadmap SSOT
 
-Last updated: 2026-08-20 JST
+Last updated: current measured production state
 
 This file is the only current source of truth for the Writer Agent's objective,
 user experience, revenue model, execution order, and remaining work. Historical
@@ -50,7 +50,46 @@ The machine cannot guarantee demand or revenue. It must guarantee continuous
 measurable attempts, honest receipts, bounded improvement, and automatic
 recovery.
 
-### 0.1.1 Active planning slice: daily shipping, control beats, and Telegram UX
+### 0.1.0 Current binding execution slice
+
+Section 9.0 is the only binding implementation and business-execution queue.
+The immediate work item is not a new article and not another model attempt. It
+is the deterministic adoption of the already-generated, never-published run
+`20260829-165022` into the bounded quality-repair path.
+
+The measured boundary is:
+
+- the run contains Japanese and English drafts, verified media, CTA evidence,
+  identity evidence, and no `publication-state.json`;
+- its third generation attempt exited `1` after creating artifacts and the
+  generation state is `provider-failed-ambiguous` with its attempt budget
+  exhausted;
+- both reader-testing terminal receipts are absent and
+  `quality-self-heal.json` contains an exception instead of a valid terminal
+  decision;
+- four ledger rows exist for note, Substack JA, Substack EN, and X Article JA,
+  but all say `published=false` with no draft or live URL, so they are not
+  external-effect receipts;
+- the resume worker is installed and wakes successfully, but start control
+  classifies the run as `same-jst-day-unclassified-run`, so liveness produces
+  no progress;
+- the loaded resume worker executes immutable release
+  `/Users/anicca/loops/releases/20260830T220903-5302a48e`, while the canonical
+  repository target is `origin/main`; implementation begins by binding the
+  source commit, release commit, and loaded `ProgramArguments` rather than
+  editing an old checkout;
+- current disk headroom is above the publication floor. The earlier low-space
+  event remains historical evidence, not the current blocker.
+
+No status is manually rewritten, no run or ledger row is deleted, no quality
+gate is removed, and no attempt limit is raised. The repair must prove from
+current hashes and absence of public effects that the same work item is safe to
+adopt.
+
+### 0.1.1 Historical planning slice: daily shipping, control beats, and Telegram UX
+
+This subsection and 0.1.1a-0.1.1b retain investigation history only. They are
+not an execution queue and cannot override section 9.0.
 
 The current diagnosis and execution order for the broken Writer runtime is
 `docs/writer-agent/plans/2026-08-20-writer-ship-every-8-hours-telegram-ux.md`.
@@ -61,7 +100,7 @@ canary. Global platform expansion is conditional on the spec's role matrix,
 language/payout gates, and receipt-backed $10K ledger; it does not replace the
 invariant revenue, safety, or platform-policy rules in this SSOT.
 
-### 0.1.1a Current measured runtime boundary
+### 0.1.1a Historical measured runtime boundary
 
 The current daily run has generated the JA/EN artifacts and has **one of four
 active publisher readbacks**. Note JA is live at
@@ -160,7 +199,7 @@ deterministic publisher branches. Completion and pending-progress notifications
 use natural Japanese sentences; a pending message is deduplicated by a semantic
 state hash and never counts a view, paywall, draft, or test action as revenue.
 
-### 0.1.1b Atomic remaining work
+### 0.1.1b Historical remaining work
 
 1. Replace the current `launchctl` reentrancy failure with a repeatable
    scheduler readback and install the repository-independent owner fence. The
@@ -1799,12 +1838,177 @@ may require the owner. These are exception gates, not routine babysitting.
 The order is binding. Work that can be performed now must not wait for natural
 schedules or future data.
 
-### 9.0 Active execution order
+### 9.0 Current binding atomic execution order
 
-This section is the binding queue. The installed production loop already owns
-daily execution; foreground development does not manually write or publish in
-its place. A task closes only with its named external receipt. Historical detail
-remains in the stable task rows below, but it cannot change this order.
+#### 1. Overview — what and why
+
+The Writer currently loses progress at the boundary between model generation
+and deterministic quality recovery. A nonzero model exit can leave complete,
+safe, unpublished artifacts, but generation calls the state ambiguous while
+quality repair accepts only `provider-returned`. Two recovery modules also
+mistake any matching ledger row for delivery even when the row explicitly says
+`published=false` and contains no URL. The resume worker therefore wakes but
+cannot own the run.
+
+The first phase closes that exact state-machine gap and proves the existing run
+all the way through publisher-native readback and replay-zero. Later phases
+earn and reconcile Dais's first dollar, $400 month, $1,000 month, $10,000
+monthly revenue, and $10,000 active MRR before packaging the same contract for
+local OSS users. Revenue is an observed business outcome, not a software
+guarantee. The software guarantees autonomous attempts, truthful accounting,
+bounded recovery, and a separate receipt-backed milestone state for every
+owner.
+
+#### 2. Acceptance criteria
+
+1. Run `20260829-165022` leaves `same-jst-day-unclassified-run` without file
+   deletion, ledger deletion, attempt inflation, manual status editing, or a
+   second run identity.
+2. Adoption is permitted only when there is no publication state, no public
+   effect row, immutable prompt/run identity matches, current drafts are
+   regular files, and every required existing receipt is hash-bound. A real
+   live URL, `published=true`, `state=live`, or `reality_gate=PASS` refuses it.
+3. The recovery worker creates current JA/EN editorial, identity, CTA, reader,
+   media, and quality terminal receipts before publication initialization.
+4. Every active destination closes independently with a publisher-native live
+   receipt or a durable platform-specific pending/terminal receipt. One
+   platform cannot block another.
+5. A second natural resume wake produces zero duplicate external effects.
+6. Every revenue milestone uses non-test external transaction, fee, refund,
+   payout, renewal, and attribution receipts. Unknown stays unknown; one-time
+   revenue never enters MRR.
+7. Dais's unit passes $10,000 monthly revenue and $10,000 active MRR as separate
+   three-consecutive-month, net-positive gates.
+8. The OSS package installs on a fresh local machine without Google, Gmail,
+   note, Substack, or X credentials, creates an owner-controlled publication
+   and payment identity, and runs the same recovery and money contracts.
+9. At least one independent external owner passes the same per-owner $10,000
+   monthly and $10,000 MRR gates locally without daily human topic selection,
+   publication, repair, measurement, or reporting.
+10. The product never claims that every installation is guaranteed to earn
+    $10,000. Every owner receives the same target loop, while only that owner's
+    verified receipts can close that owner's revenue gates.
+
+#### 3. As-Is / To-Be
+
+| Boundary | As-Is | To-Be |
+|---|---|---|
+| Source ownership | Checkout, `origin/main`, immutable release, and loaded launchd path can differ | One recorded source SHA produces one immutable release and every loaded Writer label reads back that release |
+| Prepublication exit | `rc=1` plus staged artifacts becomes ambiguous until attempts are exhausted | A deterministic, hash-bound adoption transition hands safe unpublished artifacts to quality repair without lying about provider success |
+| Ledger truth | Two quality modules treat any run row as delivery | One public-effect predicate recognizes only publisher-native/live effects |
+| Recovery routing | Resume wakes, quality plans refuse, start control returns unclassified | Resume adopts, repairs missing current-hash gates, initializes publication, and continues the same run |
+| Platform progress | A global blocker can stall all destinations | Each destination owns independent `live`, `pending`, `blocked`, or `terminal` evidence |
+| Money | Publication and paywall can be mistaken for earnings | Only received external money enters revenue; active recurring contracts alone enter MRR |
+| Growth | Content volume is treated as progress | Experiments promote only positive-net reader/publisher units with attribution |
+| OSS | Local runtime assumes owner platform accounts | Default local mode owns its publication surface, identity, keys, and payment rail; third-party connectors remain optional |
+| “everyone earns $10K” | Unverifiable universal promise | Every tenant runs an isolated S0-S4 state machine; the public claim reports only owners who actually pass it |
+
+#### 4. Atomic queue and patch contracts
+
+The order below cannot be changed by implementation convenience. Only the
+first incomplete atom is active. `origin/main:<path>:<line>` is the current
+source anchor; the named symbol remains authoritative when later commits move
+the line.
+
+##### Phase A — restore the existing run and prove publication
+
+| ID | Atomic TODO | File and current anchor | Diff-level patch contract | Completion evidence |
+|---:|---|---|---|---|
+| A0 | Bind the exact code being repaired | `config/writer/runtime-manifest.json`; installed Writer plists; immutable release manifest | Record `origin/main` SHA, release SHA/tree hash, state root, and loaded `ProgramArguments` for every active Writer label. Refuse implementation against a checkout that is not the chosen SHA. Do not switch or clean a dirty shared checkout; create the implementation worktree from the recorded SHA. | Source/release/loaded-path receipt with one SHA lineage and rollback target |
+| A1 | Make “external effect exists” one truth | `article_generation_state.py:191` `_ledger_has_public_row`; `quality_repair_control.py:109` `_ledger_has_delivery_row`; `quality_feedback_recovery.py:257` `_ledger_has_delivery_row` | Rename/export the existing public predicate as one reusable helper. Replace both broad delivery predicates. It returns true only for `published is true`, nonempty `live_url`, `state == live`, or `reality_gate == PASS`; malformed and pending rows do not count. | Focused fixtures: four current pending rows return false; each real-effect shape returns true |
+| A2 | Add safe prepublication adoption | `article_generation_state.py:320` `begin`, `:660` `resume_decision`, `:710` CLI | Add `adopt-prepublication` and state `quality-repair-ready`. Under the existing state lock, require `provider-failed-ambiguous`, exhausted or non-resumable attempt state, no publication state/public effect, exact run/prompt hashes, regular current JA/EN drafts, and a manifest of present gate/media artifacts. Persist an append-only transition receipt with old/new status and hashes. Never rewrite an attempt to `provider-returned`. | Exact broken fixture adopts once; replay is idempotent; symlink/hash drift/live row/publication state all refuse |
+| A3 | Invoke adoption before quality planning | `article-resume-pending.sh:374-386` before `QUALITY_FEEDBACK_PLAN` | Call `adopt-prepublication` for the selected same-day run before either quality planner. Treat `not-candidate` as neutral; treat invalid evidence as fail-closed; log only reason/status, never article or credential data. Continue into the existing quality-repair branch in the same wake. | Shell fixture shows adoption precedes both quality plans and does not create a new run |
+| A4 | Let bounded quality repair own adopted artifacts | `quality_repair_control.py:466` `plan`, `:531-542` generation guard | Accept exactly `provider-returned` or `quality-repair-ready`; for the latter require the adoption receipt and its current draft/prompt hashes. Recognize a missing/invalid reader terminal or exception-shaped quality receipt as a tracked source defect, then use the existing prompt that runs editorial, identity, reader, media, CTA, and `quality_self_heal` checks. | Plan returns `READY` for the exact broken fixture and refuses a hand-edited status without adoption receipt |
+| A5 | Remove the unclassified terminal for this known state | `article_daily_start_control.py:1093-1105`, `:1119-1182` | Add explicit `owned-by-quality-repair` classification for `quality-repair-ready` plus valid adoption receipt. Return `skip-pending-worker`/named owner while the resume worker owns it. Retain `block-incomplete` for unknown states. | Start-control fixture never returns `same-jst-day-unclassified-run` for the adopted shape |
+| A6 | Freeze the regression with minimum tests | `skills/writer-agent/tests/test_article_daily_start_control.py`; add `test_quality_repair_control.py` only if no existing Python test owns that module | Add one end-to-end state fixture matching the production run: three attempts, `rc=1`, current drafts/media, missing reader terminals, exception quality file, four unpublished ledger rows. Add one refusal fixture containing a live effect. Avoid a matrix beyond these money/duplicate-risk paths. | Focused pytest and existing Writer resume shell contract pass |
+| A7 | Publish one immutable repaired release | Life Manager release builder and `config/writer/runtime-manifest.json`; Writer plist templates under `skills/writer-agent/scripts/` | Build from the merged main SHA, record tree hash, install only Writer labels against the immutable release and existing state, then read back loaded arguments. Preserve previous release and rollback receipt. | Loaded daily/resume paths equal repaired release; source/release tree hash matches |
+| A8 | Resume the same run through quality | Runtime state only; owner is `ai.anicca.article-resume` | Kickstart the existing owner once and watch it. It must create current-hash JA/EN reader/editorial/identity/CTA/media terminals and a valid `quality-self-heal.json`. Codex does not write the article or invoke a substitute publisher. | Same run ID reaches valid quality terminal and publication initialization |
+| A9 | Publish active destinations independently | Existing adapters under `scripts/note-publish/`, `scripts/publish-substack-managed-contract.sh`, and `scripts/x-publish/`; `publication_resume.py` | Do not broaden adapters. Resume each current intent with its stable key; preserve per-platform identity/paywall/media guards. Failure writes a pair-specific circuit/pending receipt and does not stop other pairs. | Publisher-native live/readback receipt for note JA, Substack JA/EN, X Article JA, or an honest independent terminal receipt per pair |
+| A10 | Prove replay-zero | `publication_resume.py` effect lookup and existing effect ledger | Kickstart the natural owner again with unchanged state. Verify the adapters read existing effects and perform no create/publish mutation. | Same public URLs and effect IDs; zero additional remote effects |
+| A11 | Correct owner reporting | `writer_report.py:1011` and `writer_report_worker.py`; current ledger append rules | Supersede stale pending diagnoses with a later reconciliation record; never delete history. Report publication, remaining platform failures, money `unknown`/zero truth, and recovery in natural language with semantic dedupe. | Web/Telegram snapshot equals ledger and provider receipts; Telegram message ID recorded |
+
+##### Phase B — turn publishing into Dais's verified $10K unit
+
+| ID | Atomic TODO | File and current anchor | Diff-level patch contract | Completion evidence |
+|---:|---|---|---|---|
+| B0 | Keep money accounting canonical | `money_ledger.py:111-260`; `money_sync.py:762`; `writer_stripe_sync.py` | Reuse the typed tables. Reject test/internal/estimated money, prevent duplicate receipt allocation, keep currencies separate, subtract refunds/fees, and count only active external recurring contracts as MRR. Add fields only when a real provider receipt cannot be represented. | Provider transaction, fee, refund, payout, and attribution fixtures reconcile idempotently |
+| B1 | Supply paid demand continuously | `opportunity_discovery.py:423`; `opportunity_watch.py`; `demand_observations.py`; `config/opportunity-*.json` | Require full rendered offer/publisher body, current availability, compensation terms, AI policy, deliverable, deadline, payout rail, and source hash. Search snippets cannot create an eligible opportunity. Keep reader subscription demand and editorial-fee demand as separate candidate types. | Daily queue contains current evidence-backed candidates or a truthful zero-candidate receipt |
+| B2 | Bind every article to a payer hypothesis | `demand_card.py`; `demand_authority.py`; `article-daily.sh` topic input | Extend the existing demand card contract—not the free-form prompt—with payer, reader job, promised transformation, paid deliverable, price/fee hypothesis, distribution path, and falsification metric. Refuse generic traffic topics before generation. | Published artifact joins to one immutable demand card and experiment ID |
+| B3 | Close editorial submissions and responses | `opportunity_pitch.py`; `opportunity_response.py:655`; opportunity workers/installers | Generate platform-specific pitches from the finished artifact, submit only to verified-open opportunities, capture official submission/readback, poll responses, and classify accepted/rejected/paid/expired. Human voice, attendance, KYC, or contract-signature requirements remain explicit exception gates. | Official submission receipt, later response receipt, and no duplicate submission for one opportunity/artifact key |
+| B4 | Close reader subscription conversion | `self_owned_article.py:312,540`; `writer_stripe_sync.py`; Substack adapter; `config/revenue-surfaces.json` | Give each article one attributable paid CTA and product/price ID. Verify paywall visibility, checkout result, subscription lifecycle, fee, refund, and payout through provider receipts. Self-owned and Substack contracts remain distinct. | First real subscriber contract and charge joined to acquisition article; cancel/past-due fixture removes MRR |
+| B5 | Run one-variable economic experiments | `self_improve_control.py`; `writer_learning_worker.py`; `article_body_learning.py`; money ledger attribution | Candidate changes exactly one of topic, headline, offer, price, preview, or channel. Compare matched-age outcomes, compute net contribution after model/platform cost, then KEEP/REVERT/INCONCLUSIVE. A later run must consume KEEP; REVERT restores prior value. | One production experiment has baseline/candidate receipts and a consumed verdict |
+| B6 | Gate S0: first received dollar | No new mechanism; opportunity/subscription collectors plus `money_sync.py` | Operate B1-B5 until a non-test external payment is received. Join it to artifact, payer, provider receipt, fee/payout status, and acquisition source. Do not close on acceptance, invoice, view, or pending balance. | Positive `verified_received` event joined to one writing artifact |
+| B7 | Gate S1: $400 monthly | `writer_report.py` milestone projection from `money_ledger.py` | Add per-owner milestone status computed from received events in one calendar/accounting period, with gross, fee, refund, net, currency, and attribution coverage. Continue the winning unit; stop negative units. | One month reaches at least $400 equivalent using an explicit FX receipt if conversion is displayed |
+| B8 | Gate S2: $1,000 monthly | Same milestone projector and experiment ledger | Require three positive-net weeks, no manual daily execution, complete cost/attribution coverage, and replay-safe operation. | Monthly total ≥$1,000 plus three positive weekly receipts |
+| B9 | Make unit economics scorable | `money_ledger.py`; `writer_report.py`; model usage/cost receipts | Compute conversion, churn, gross margin, net margin, CAC where paid acquisition exists, model cost per published artifact, and revenue per demand unit. Unknown inputs produce `insufficient_evidence`, never zero. | One profitable writing unit has complete revenue, cost, churn, and attribution receipts |
+| B10 | Gate S3: Dais reaches $10,000 monthly | No new feature after B9; autonomous scale controller consumes profitable-unit receipts | Expand only the verified unit across more demand of the same class; use bounded canaries for new niches/languages. Automatically pause negative-net units. | Three consecutive months each ≥$10,000 gross, net positive, fully attributed |
+| B11 | Gate S4: Dais reaches $10,000 active MRR | Subscription contracts in `money_ledger.py`; `writer_stripe_sync.py`; report milestone projector | Count only active external reader subscriptions and recurring writing retainers. Exclude editorial fees and one-time paid articles. Require renewal, churn, fee, refund, payout, and net receipts. | Three consecutive months with ≥$10,000 active MRR and positive net margin |
+
+##### Phase C — make the same local system reproducible for other owners
+
+| ID | Atomic TODO | File and current anchor | Diff-level patch contract | Completion evidence |
+|---:|---|---|---|---|
+| C0 | Freeze the proven runtime contract | `skills/writer-agent/SKILL.md`; `config/writer/runtime-manifest.json`; this SSOT | Export the exact Dais-proven source SHA, schemas, required capabilities, default budgets, platform-neutral interfaces, and migration version. Remove machine-specific absolute paths from the public contract while retaining local resolved paths in private runtime receipts. | Versioned OSS manifest reproduces the Dais release tree and schema set |
+| C1 | Make self-owned mode the credential-free default | `self_owned_article.py`; new adapter files only where the existing module has no serve/pay implementation; `config/revenue-surfaces.json` | Generate an owner keypair/payment identity locally, publish to an owner-controlled surface, expose canonical/feed/paywall/readback endpoints, and retain encrypted private state locally. note/Substack/X remain opt-in connectors. Regulated fiat payout/KYC remains disclosed rather than bypassed. | Fresh owner publishes and receives a non-test payment without supplying third-party publishing credentials |
+| C2 | Add one idempotent local installer | Root `install.sh`; `config/writer/runtime-manifest.json`; Writer plist templates | Install dependencies, state directory modes, generated identity, immutable release, scheduler, report UI, and rollback record. Re-run changes nothing except version migration. Never read or overwrite another loop's state. | Clean-machine install, second-install idempotency, uninstall/rollback preservation receipts |
+| C3 | Isolate every owner | Money/publication schemas and runtime path resolver; new migration only if current schemas lack `owner_id` | Bind work, effects, credentials, money, costs, reports, and milestone states to one owner/tenant. Cross-owner receipt reuse, dedupe collision, and internal self-payment are hard failures. | Two-owner fixture proves zero state/effect/money leakage |
+| C4 | Prove local install-to-money E2E | Existing installer tests plus one real isolated machine/profile E2E | Install, discover demand, write, publish, receive a real minimal external payment, reconcile it, report it, restart, and prove replay-zero. Mocks validate contracts but cannot close this atom. | Public URL, external payment/payout receipt, local report, restart receipt |
+| C5 | Release truthful OSS documentation | `README.md`, `skills/writer-agent/SKILL.md`, public evidence page | Document setup, owner boundaries, costs, KYC/platform requirements, rollback, verified Dais economics, and the fact that revenue is not guaranteed. Do not claim self-healing/money/full autonomy before their public evidence gates pass. | Tagged release and clean-room documentation replay |
+| C6 | Gate U0: independent owner earns first dollar | Same installed loop; no forked implementation | An owner outside Dais's runtime installs locally and operates through the same receipt contracts. Product developers do not choose daily topics, publish, or repair for that owner. | Independent non-test received payment joined to that owner's artifact |
+| C7 | Gate U1-U2: independent owner reaches $400 then $1,000 | Per-owner milestone state in `money_ledger.py`/`writer_report.py` | Run the identical B7-B9 gates under that owner's isolated state. Aggregate network revenue cannot satisfy an individual gate. | Owner-specific monthly and weekly positive-net receipts |
+| C8 | Gate U3-U4: independent owner reaches $10,000 monthly and $10,000 MRR | Per-owner autonomous scale controller and subscription ledger | Run the identical B10-B11 gates. No internal purchase, subsidy disguised as revenue, or Dais-owned payment counts. | Independent owner passes both separate three-month gates |
+| C9 | Make “anyone can run it” the product completion gate | Installer, tenant contracts, public evidence index | Every new local installation starts its own S0-S4 queue automatically. The software exposes current milestone, evidence gaps, next experiment, cost cap, and stop reason. It never marks an owner successful from another owner's results and never promises the economic outcome. | Dais plus at least one independent owner have complete $10K receipts; every fresh install starts the same isolated target loop |
+
+#### 5. Test matrix
+
+| Contract | Focused test/evidence | Required result |
+|---|---|---|
+| Pending ledger rows are not delivery | Exact four-row production-shaped fixture | A1 false; one real live row true |
+| Safe adoption | Exhausted ambiguous run with current artifacts | One `quality-repair-ready` receipt, idempotent replay |
+| Unsafe adoption refusal | Live URL, publication state, hash drift, symlink, mismatched prompt | Every case refuses before mutation |
+| Resume routing | Resume shell fixture plus start-control fixture | Adopt -> quality repair; never new run/unclassified |
+| Quality completion | Missing reader terminals and exception quality file | Current gates regenerated; valid quality decision |
+| Publication replay | Real active-destination canary | First wake publishes; second wake produces zero effects |
+| Money truth | Received/test/pending/refund/fee/payout/subscription fixtures | Only verified external receipts affect revenue/MRR |
+| Per-owner isolation | Two-owner fixture | No cross-owner state, receipt, effect, or milestone use |
+| Local OSS E2E | Fresh machine/profile real run | Install -> public article -> payment -> report -> restart |
+
+| Item | Value |
+|---|---|
+| UI change | Money/report UI changes in B7-B11 and per-owner status in C3-C9 |
+| E2E judgment | Maestro is not applicable. This is a local scheduler, browser/API publication, payment, and Web-report system; real provider readback and clean-machine E2E are mandatory. |
+
+#### 6. Boundaries and execution rules
+
+- DO NOT reorder the queue without Dais explicitly saying to change its order.
+- DO NOT create a new Writer pipeline, executor, money ledger, or publication
+  state tree. Extend the existing implementation.
+- DO NOT manually publish in place of the installed loop. Development repairs
+  code; the natural owner performs external effects.
+- DO NOT delete or broadly edit historical run evidence, credentials,
+  `.openclaw`, `/Users/anicca/profitable-claude`, or another loop's state.
+- DO NOT raise attempt/token budgets to hide a routing defect.
+- DO NOT add platforms, languages, derived products, paid acquisition, or cloud
+  multi-tenancy before the preceding revenue gate makes them the smallest
+  necessary next step.
+- A platform wait blocks only that platform. The foreground continues with
+  other destinations, measurement, demand, and reporting.
+- Revenue milestones are achieved by operation and evidence, not by merging
+  code. No implementation task can promise that market demand pays a fixed
+  amount.
+
+Execution for each code atom is: create a clean worktree from the A0-recorded
+`origin/main` SHA; modify only the named production/test files; run the focused
+test named above; inspect the diff; merge to main; build one immutable release;
+read back loaded arguments; kickstart the existing owner; verify the named
+local, provider, money, and replay receipts; then mark only that atom complete
+in this section. A later atom never closes an earlier missing receipt.
+
+### 9.A Historical execution evidence
+
+The material below preserves earlier investigation and receipts. It is not a
+TODO queue, cannot change the order in section 9.0, and cannot reopen completed
+or rejected work without a new current observation registered in section 9.0.
 
 Only one foreground implementation item is active at a time. Always-running
 production workers may publish, retry, measure, report, and monitor publisher
@@ -1833,7 +2037,7 @@ remaining proof is a provider-backed ready card, one real daily run, and a
 launchd receipt; `launchctl` currently returns `Reentrancy avoided` (rc 141), so
 the manual bounded wake is not reported as a launchd success.
 
-#### Atomic remaining queue
+#### Historical atomic queue
 
 | Order | Atomic work item | Owner | Completion receipt |
 |---:|---|---|---|
