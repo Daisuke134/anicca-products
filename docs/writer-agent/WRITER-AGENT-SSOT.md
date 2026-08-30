@@ -1903,6 +1903,13 @@ owner.
 | OSS | Local runtime assumes owner platform accounts | Default local mode owns its publication surface, identity, keys, and payment rail; third-party connectors remain optional |
 | “everyone earns $10K” | Unverifiable universal promise | Every tenant runs an isolated S0-S4 state machine; the public claim reports only owners who actually pass it |
 
+#### 3.1 Current execution status
+
+| Atom | Status | Current evidence | Next required evidence |
+|---:|---|---|---|
+| A0 | COMPLETE | PR `Daisuke134/life-manager#3335` is merged as `c96b853c2f44a8a20b05131ce9694e798df9922e`. All 14 active Writer labels read back `LIFE_MANAGER_RELEASE_SHA=f592bc31b2d6730143f46ba9d1e7e82c69fcd324`, program `/Users/anicca/loops/releases/20260830T235248-f592bc31/bin/lm-loop-run`, and state `/Users/anicca/.local/state/life-manager/writer`. The rollback release and install receipts remain recorded in `config/writer/runtime-manifest.json`. | None; keep the recorded release available as the rollback target. |
+| A1 | IN_PROGRESS | Branch head `662a0b06bc0a1e50b1c3efdad29bb332826a61c5` and PR `Daisuke134/life-manager#3336` export one `ledger_has_public_effect` helper and remove both broad quality delivery predicates. The production-shaped four pending rows fail before the fix and pass after it; malformed rows remain false and each of the four public-effect shapes is true. Local OSS boundary, focused quality tests, loop registry tests, and `lm-loop doctor` pass. | Merge the green PR to `main`, cut a main-derived immutable release, load the Writer labels from it, and prove the natural owner no longer rejects the pending rows as delivery. A1 remains the only active atom until those receipts exist. |
+
 #### 4. Atomic queue and patch contracts
 
 The order below cannot be changed by implementation convenience. Only the
