@@ -1917,6 +1917,32 @@ owner.
 | A7 | COMPLETE | Main `be5347f59df2cbf7a893e65481a81ace623dfc7c` was exported as immutable release `/Users/anicca/loops/releases/20260831T025240-be5347f5`. Source and release Writer trees both contain 515 files and hash to `ade3abe4a9f7b9d05cf364bc73734b24d2d9ff122171352f34f93544e2a67109`; the source Git tree is `41c234fc66769e00610cb5435c7d10b3392f3512`. Targeted apply produced 14 persisted install-event IDs, and all 14 installed plist plus loaded launchd `ProgramArguments` read back the same release path and SHA. The daily bootstrap exited `0`, created no new run, and left target run `20260829-165022` byte-identical at tree hash `526993a63c103b4247d176447b859ce07295853a729a07cf5307c7a066ba326d`, three attempts, and `quality-repair-ready`; it honestly blocked the separate newer `20260830-151951` run as unclassified. A3 rollback `/Users/anicca/loops/releases/20260831T011522-b73c27ca` and install event `de74d004410e4ae2ce8a4f10` remain present and are pinned in `protected-releases.json`. | None. Preserve the pinned rollback and move only the natural `article-resume` owner into A8. |
 | A8 | ACTIVE | The original retry/orphan defects and the next four runtime defects are merged: PR `#3380` → `3160964a10c05ef00e8fac091e405f2837da32be`; prepared-repair resume PR `#3392` → `8c7126e5e422653ae48fc5b882aacc9cd9bcee0f`; active editorial-owner authorization PR `#3400` → `b60803f1b310d43e8fcb4a559135e35831b2a7a7`; exact same-attempt source-recovery receipt PR `#3407` → `0178178c290f0f4e837c767536e2411b6bcce550`; repeated identical orphan occurrence archive PR `#3410` → `986c15d53568d3cc77b9ef5f654d6274c021d545`. All required PR checks and fresh reviews passed. Production run `20260829-165022` advanced from the stuck first EN reader terminal to a bounded second repair while keeping `attempts=2`; it wrote append-only `quality-repair-source-recovery.json`, current-hash JA reader/identity PASS, current-hash EN identity PASS, reader attempts, CTA/media PASS, and no external effect. It then ended honestly at `quality-repair-state.status=terminal-incomplete`, `return_code=1`: the repair agent overwrote the already-bound owner environment with `$PPID`, so the reviewed editorial provenance guard correctly refused, and repeated identical orphan content exposed the collision fixed by `#3410`. Current durable state remains attempts `2`, first recovery receipt present, `quality-repair-owner-recovery.json` absent, `quality-self-heal.json` absent, publication state absent, and all four ledger rows pending. The owner-prompt recovery patch was developed and passed 15 unittest, 17 pytest, persistent shell, syntax/compile/diff checks, and fresh review `ship`, but its uncommitted worktree was externally removed by capacity cleanup before commit; therefore that patch is **not present in Git and must be reapplied**. The host later applied other full-fleet releases: current observed `article-resume` argv is `/Users/anicca/loops/releases/20260831T070607-6466fea3/bin/lm-loop-run`, runs `111`, last exit `1`; this does not supersede the missing owner-prompt patch. | Reapply only the reviewed owner-prompt recovery contract in a new locked worktree, commit immediately before any cleanup, merge all CI, create an APFS-clone release, target-apply only `article-resume`, and let the real owner resume the same attempt `2`. A8 closes only when current-hash JA/EN reader/editorial/identity plus CTA/media and valid `quality-self-heal.json` exist, publication state initializes, and no duplicate effect occurs. |
 
+##### Binding current A8 cursor
+
+This cursor supersedes the stale operational details in the A8 row and punch
+list below. Editorial, reader, bookmark, SEO, style, and similar quality
+non-PASS results are evidence and quality debt, never a publication veto. One
+quality assessment is retained; a current-hash identity-PASS draft immediately
+returns `force_publish_advisory` when editorial or reader quality is non-PASS.
+Only missing article bytes, identity/conscience/PII or secret safety, duplicate
+effect, price or payment integrity, destination identity, and publisher-native
+readback may block shipment.
+
+- PR `#3476` merged as `f2fa36ba77e5eb704a1e0de1e00b835e334f4957` and drains the model process tree before an interruption archive.
+- PR `#3496` merged as `439dc71da7a0c5adb1fd479e3dad5c38d5b5cb68` and releases a hash-verified exhausted control-only archive without accepting malformed or partial-content manifests.
+- PR `#3508` merged as `756c7d5a6b7a67183bbf696a7befe7886b0c13ba` and makes the first quality assessment advisory, with initial PASS and initial advisory both going directly to publication handoff after interruption.
+- PR `#3513` merged as `3d069f7fbadf4f413d62a5f8bf6fdafdae4385f7` and drains the sibling judge broker before result classification or archive, preventing post-archive gate writes.
+- Verified immutable release `/Users/anicca/loops/releases/20260831T214040-3d069f7f` matches all `6,501` tracked blobs and modes; its runtime dependency aggregate matches the verified base at `98,660` files, `536,764,282` bytes, SHA-256 `83979c17698a03d53e0309477d05ec5fb3a4bd215eb7ef602ffb1b87608cd54c`.
+- `article-daily` and `article-resume` are loaded from that release. Connector remains on its separately owned release.
+- Active run `20260831-114833` has preserved JA/EN drafts, X text, headline media, CTA, identity, and conscience evidence from attempt `2`. The existing `article-daily` owner is now executing attempt `3`; `quality-self-heal.json` and `publication-state.json` are not yet present, so no publication is claimed.
+
+The only active TODO is to let that already-running attempt `3` finish and
+read back its result. If article bytes plus identity and safety are valid, the
+same owner must initialize publication and dispatch all four active
+destinations even when editorial or reader quality is non-PASS. Do not create a
+new run, do not add another quality retry, and do not kickstart a concurrent
+owner. Completion requires publisher-native live URLs and replay-zero.
+
 #### 3.2 A8 exact punch list
 
 | Sub-atom | Status | File-level patch | Exact completion proof |
