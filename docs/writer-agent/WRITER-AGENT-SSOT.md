@@ -52,39 +52,69 @@ recovery.
 
 ### 0.1.0 Current binding execution slice
 
-Section 9.0 is the only binding implementation and business-execution queue.
-The immediate work item is not a new article and not another model attempt. It
-is the deterministic adoption of the already-generated, never-published run
-`20260829-165022` into the bounded quality-repair path.
+This section overrides every conflicting workflow, A8 cursor, punch list, and
+historical gate contract below. Writer is an agent, not a scripted article
+workflow. Its runtime is one model with tools in a recurring loop.
 
-The measured boundary is:
+The goal prompt is:
 
-- the run contains Japanese and English drafts, verified media, CTA evidence,
-  identity evidence, and no `publication-state.json`;
-- its third generation attempt exited `1` after creating artifacts and the
-  generation state is `provider-failed-ambiguous` with its attempt budget
-  exhausted;
-- both reader-testing terminal receipts are absent and
-  `quality-self-heal.json` contains an exception instead of a valid terminal
-  decision;
-- four ledger rows exist for note, Substack JA, Substack EN, and X Article JA,
-  but all say `published=false` with no draft or live URL, so they are not
-  external-effect receipts;
-- the resume worker is installed and wakes successfully, but start control
-  classifies the run as `same-jst-day-unclassified-run`, so liveness produces
-  no progress;
-- the loaded resume worker executes immutable release
-  `/Users/anicca/loops/releases/20260830T220903-5302a48e`, while the canonical
-  repository target is `origin/main`; implementation begins by binding the
-  source commit, release commit, and loaded `ProgramArguments` rather than
-  editing an old checkout;
-- current disk headroom is above the publication floor. The earlier low-space
-  event remains historical evidence, not the current blocker.
+> Make money by publishing useful articles every day. Inspect current state and
+> prior results, find a valuable topic, research it, write strong Japanese and
+> English articles, publish the active Japanese and English destinations, read
+> back the real public URLs, measure attributed money, and learn from results.
+> If an earlier article is unfinished, finish and publish it before starting a
+> replacement. Keep working from tool feedback until the public result exists.
 
-No status is manually rewritten, no run or ledger row is deleted, no quality
-gate is removed, and no attempt limit is raised. The repair must prove from
-current hashes and absence of public effects that the same work item is safe to
-adopt.
+The model decides topic, research, outline, wording, revision, recovery, tool
+sequence, and which failed step to retry. Editorial, reader, bookmark, SEO,
+style, and media-quality opinions are feedback to the model and never code
+permission to publish. The prompt uses a few canonical examples rather than a
+fixed step list or edge-case catalogue.
+
+Deterministic code is limited to:
+
+- launchd wake, one owner lease, timeout, spend cap, and credential boundary;
+- simple run state and append-only publication/payment receipts;
+- publisher tools, idempotency keys, duplicate-effect prevention, and
+  publisher-native readback;
+- objective safety boundaries for secrets/PII, wrong account, payment/price,
+  and an already-published remote effect.
+
+Code must not classify semantic lifecycle states such as quality repair,
+editorial reroute, reader readiness, prompt recovery, replacement eligibility,
+or which archived draft is best. The agent reads those artifacts and decides.
+There is no generation-attempt gate for an existing usable article, no
+`block_freeze`, and no deterministic restore state machine.
+
+The only completion check is external: each active destination has the intended
+publisher-native public URL bound to the article/run, and a second wake creates
+no duplicate remote effect. Revenue is counted only from payment receipts.
+
+The binding implementation queue is:
+
+1. Replace the long step-by-step prompt in `skills/writer-agent/article-daily.sh`
+   with the goal prompt plus tool descriptions and three canonical examples.
+   Retain only wake ownership, budget, model invocation, and receipt reporting.
+2. Replace branching in `scripts/article-resume-pending.sh` with the same agent
+   prompt plus the newest unfinished run, its artifacts, prior tool errors, and
+   missing public destinations. It asks the agent to continue; it does not
+   select a quality/recovery controller.
+3. Remove `quality_repair_control.py`, `quality_feedback_recovery.py`,
+   `quality_self_heal.py`, and semantic `article_daily_start_control.py`
+   decisions from the active daily/resume call graph. Keep historical files
+   temporarily only when rollback requires them; do not add compatibility
+   branches.
+4. Keep existing publisher adapters and one idempotent publication ledger. Give
+   their concise tool contracts to the agent. A tool returns actionable provider
+   context, not a new workflow state.
+5. Kickstart the existing daily owner once. The agent must finish the newest
+   unpublished article, publish note JA, Substack JA, Substack EN, and X Article
+   JA, and return all four native URLs. Then wake once more and prove duplicate
+   effect zero.
+
+Current production remains incomplete until those URLs exist. Local drafts,
+gate receipts, model exit codes, Telegram, and an installed plist are not
+shipment.
 
 ### 0.1.1 Historical planning slice: daily shipping, control beats, and Telegram UX
 
