@@ -1934,14 +1934,16 @@ readback may block shipment.
 - PR `#3513` merged as `3d069f7fbadf4f413d62a5f8bf6fdafdae4385f7` and drains the sibling judge broker before result classification or archive, preventing post-archive gate writes.
 - Verified immutable release `/Users/anicca/loops/releases/20260831T214040-3d069f7f` matches all `6,501` tracked blobs and modes; its runtime dependency aggregate matches the verified base at `98,660` files, `536,764,282` bytes, SHA-256 `83979c17698a03d53e0309477d05ec5fb3a4bd215eb7ef602ffb1b87608cd54c`.
 - `article-daily` and `article-resume` are loaded from that release. Connector remains on its separately owned release.
-- Active run `20260831-114833` has preserved JA/EN drafts, X text, headline media, CTA, identity, and conscience evidence from attempt `2`. The existing `article-daily` owner is now executing attempt `3`; `quality-self-heal.json` and `publication-state.json` are not yet present, so no publication is claimed.
+- Active run `20260831-114833` exhausted all three generation attempts with timeout `124`. Attempt `2` is the newest complete archive containing JA/EN drafts, X text, headline and body media, CTA, identity, conscience, and gate evidence. Attempt `3` is incomplete. `quality-self-heal.json` and `publication-state.json` are absent, so no publication is claimed.
 
-The only active TODO is to let that already-running attempt `3` finish and
-read back its result. If article bytes plus identity and safety are valid, the
-same owner must initialize publication and dispatch all four active
-destinations even when editorial or reader quality is non-PASS. Do not create a
-new run, do not add another quality retry, and do not kickstart a concurrent
-owner. Completion requires publisher-native live URLs and replay-zero.
+The only active TODO is deterministic exhausted-run restoration. Restore the
+newest complete hash-verified archive into the same run without changing the
+three attempt records or deleting archive evidence; persist a restore receipt,
+transition generation state to the existing prepublication-adoption boundary,
+and let `article-resume` reuse the existing adoption, one-shot quality
+assessment, publication initialization, and four-destination dispatch. Do not
+create a new run and do not invoke another writing model. Completion requires
+publisher-native live URLs and replay-zero.
 
 #### 3.2 A8 exact punch list
 
