@@ -20,6 +20,7 @@ if (!globalThis.crypto) globalThis.crypto = webcrypto;
 import express from 'express';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
+import { validateRentalRequest, rentBox } from './rent-a-box.mjs';
 
 const PAY_TO = process.env.X402_WALLET_ADDRESS;
 if (!PAY_TO) {
@@ -66,6 +67,15 @@ export async function createLiteApp() {
       openapi: '3.1.0',
       info: { title: 'Anicca x402 — prompt sanitizer', version: '1.0.0' },
       paths: {
+        '/rent-a-box': {
+          post: {
+            summary: 'Rent a GPU container with a public URL. Pay in USDC, get a running box.',
+            'x-payment-info': {
+              price: { mode: 'fixed', amount: '0.10', currency: 'USD' },
+              protocols: [{ x402: {} }],
+            },
+          },
+        },
         '/prompt-sanitizer': {
           post: {
             summary: 'Deterministic PII sanitizer for AI agents (masks emails, phones, SSNs, cards, IPs).',
@@ -97,6 +107,12 @@ export async function createLiteApp() {
   app.use(
     paymentMiddleware(
       {
+        'POST /rent-a-box': {
+          accepts: { scheme: 'exact', price: '$0.10', network, payTo: PAY_TO },
+          description: 'Rent a GPU container for up to 60 minutes and get a public URL. You supply the image; we pay the market. No signup, no Solana wallet, no NOS token — pay USDC on Base and get a URL back in one call.',
+          mimeType: 'application/json',
+          extensions: { ...declareDiscoveryExtension({ output: { example: {}, schema: { properties: {} } } }) },
+        },
         'POST /prompt-sanitizer': {
           accepts: { scheme: 'exact', price: '$0.005', network, payTo: PAY_TO },
           description: 'Deterministic PII sanitizer for AI agents — masks emails, phones, SSNs, cards, IPs.',
@@ -112,6 +128,18 @@ export async function createLiteApp() {
   );
 
   // Runs ONLY after payment is verified by the middleware above.
+  app.post('/rent-a-box', async (req, res) => {
+    const v = validateRentalRequest(req.body || {});
+    if (!v.ok) return res.status(400).json({ error: v.reason });
+    try {
+      const out = await rentBox(v);
+      res.json(out);
+    } catch (e) {
+      // Never surface key material; the module's errors are written to be safe to print.
+      res.status(502).json({ error: String(e.message || e) });
+    }
+  });
+
   app.post('/prompt-sanitizer', (req, res) => {
     try {
       res.json(sanitize(req.body && req.body.text));
