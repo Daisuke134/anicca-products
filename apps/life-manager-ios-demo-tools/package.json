@@ -1,0 +1,10 @@
+{
+  "name": "life-manager-ios-demo-tools",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "create": "node bin/life-manager-demo-calendar.js create",
+    "cleanup": "node bin/life-manager-demo-calendar.js cleanup"
+  }
+}
