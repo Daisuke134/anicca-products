@@ -566,7 +566,7 @@ apps/landing/
       <span>|</span>
       <a href="/tokushoho">特定商取引法</a>
       <span>|</span>
-      <a href="mailto:keiodaisuke@gmail.com">Contact</a>
+      <a href="mailto:user@example.com">Contact</a>
     </div>
 
     <p className="mt-4 text-sm text-muted-foreground">
@@ -1116,10 +1116,10 @@ ls apps/landing/app/terms
 
 ### Contact Email
 
-**Footer に表示**: `keiodaisuke@gmail.com`
+**Footer に表示**: `user@example.com`
 
 ```tsx
-<a href="mailto:keiodaisuke@gmail.com">Contact</a>
+<a href="mailto:user@example.com">Contact</a>
 ```
 
 ---

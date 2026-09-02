@@ -622,7 +622,7 @@ git push origin main
 DaisがScreen Sharing経由で設定完了。
 1. マウスをMac Miniに接続
 2. Xcode起動 → Settings → Accounts
-3. 「+」→ Apple ID → keiodaisuke@gmail.com / Chatgpt12345!
+3. 「+」→ Apple ID → user@example.com / Chatgpt12345!
 4. 証明書が自動DLされる
 5. 3アプリ（Anicca + 2つのfactory app）が全て署名・アーカイブ・提出可能になる
 

@@ -8,7 +8,7 @@
 
 **Architecture:** 純プロンプトskill（外部有料API無し=base LLMのみ=BP F2準拠）。HARD RULE #17/0.18に従い、第三者MIT作(SuguruKun_ai/humanizer-ja)の逐語流用はせず、勝ちパターン（Capafy "Humanizer: Smart Rewriting" $5.99/wk・"AI Paper Humanizer" $19.99/mo の命名/構造）をcloneして文言fresh生成。出力は「書き換え文＋変更点diff」=手に取れる成果物（BP F3）。
 
-**Tech Stack:** Claude (Sonnet 4.6) base LLM / capafy-publisher skill (`packager.py`) / camofox or agent-browser（Capafy web checkpoint駆動・Google login keiodaisuke@gmail.com）
+**Tech Stack:** Claude (Sonnet 4.6) base LLM / capafy-publisher skill (`packager.py`) / camofox or agent-browser（Capafy web checkpoint駆動・Google login user@example.com）
 
 **配置先:** `~/.openclaw/skills/jp-humanizer-pro/`（runtime store = HARD RULE #0 worktree例外・main直編集可。我々も運用しつつ公開する）
 
@@ -205,7 +205,7 @@ Expected: JSON に candidate(jp-humanizer-pro) + `review_url`（checkpoint 1）
 
 - [ ] **Step 3: Web Checkpoint 1 を自分で駆動（no-human-loop）**
 
-`review_url` を camofox/agent-browser で開く（Capafy = Google login keiodaisuke@gmail.com）。
+`review_url` を camofox/agent-browser で開く（Capafy = Google login user@example.com）。
 - ファイル内容を確認（SKILL.md/README/LICENSE。test/ は除外でよい）
 - **mode = Subscription（Run Online）を選択**
 - 戻る

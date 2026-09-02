@@ -20,7 +20,7 @@ export const handler = async (event) => {
       headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         from: 'Anicca Feedback <onboarding@resend.dev>',
-        to: 'keiodaisuke@gmail.com',
+        to: process.env.FEEDBACK_TO_EMAIL || 'support@aniccaai.com',
         subject: `[Anicca Feedback] ${locale} ${new Date().toISOString()}`,
         text: `App version: ${appVersion}\nLocale: ${locale}\n\n---\n\n${text}`,
       }),

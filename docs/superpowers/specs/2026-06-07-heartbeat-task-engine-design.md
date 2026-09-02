@@ -94,7 +94,7 @@
        │       P1 T16e README AGI mission                       │
        │     Errors needing Dais attention:                      │
        │       (= anicca-dais issues labeled needs-dais-input)   │
-       │   Recipient: keiodaisuke@gmail.com via `gog gmail send` │
+       │   Recipient: user@example.com via `gog gmail send` │
        └──────────────────────────────────────────────────────┘
 ```
 
@@ -142,7 +142,7 @@ Items needing your input:
 ## Verification (= HARD RULE 0.24 fire-and-observe — reviewer I4 fix)
 
 - T17a: After extension, manually invoke `bash ~/.openclaw/skills/ops-heartbeat/scripts/run.sh --once-now` (or the entry point in the skill's actual run cmd; check SKILL.md). Observe stdout merged queue contains the 4 anicca-dais issues with correct priority sort. `cat ~/.openclaw/workspace/ops/steps.json | jq '.steps | length'` returns > 0.
-- T17b: After T17a verified, invoke `bash ~/.openclaw/skills/anicca-morning-gmail/scripts/run.sh --send-now`. Observe Gmail arrival within 60 seconds at keiodaisuke@gmail.com via `gog gmail search 'subject:Anicca morning report' --max 1 --since today`. Subject contains today's `YYYY-MM-DD`. Body contains "Yesterday" + "Today's queue" sections with at least 1 task each. Cron registration verified by `openclaw cron list --all | grep anicca-morning-gmail` returning the expression `0 7 * * * Asia/Tokyo`.
+- T17b: After T17a verified, invoke `bash ~/.openclaw/skills/anicca-morning-gmail/scripts/run.sh --send-now`. Observe Gmail arrival within 60 seconds at user@example.com via `gog gmail search 'subject:Anicca morning report' --max 1 --since today`. Subject contains today's `YYYY-MM-DD`. Body contains "Yesterday" + "Today's queue" sections with at least 1 task each. Cron registration verified by `openclaw cron list --all | grep anicca-morning-gmail` returning the expression `0 7 * * * Asia/Tokyo`.
 - T17c: BEFORE deletion, capture the exact set: `openclaw cron list --all --json | jq -r '.jobs[].name' | grep -E "^(anicca-article-daily-(audit|blog|devto|note|substack-en|substack-ja|whitelist-learn|zenn)|anicca-article-self-improve|zenn-backlog-deploy)$"` returns exactly 10 names. AFTER deletion, same command returns 0 lines.
 - T17d: `cat ~/.openclaw/workspace/ops/dispatch.json | jq 'keys | length'` returns ≥ 5. `jq '. | to_entries[] | select(.value | type != "string")'` returns empty (= every mapping value is a string skill name).
 - T17e: `gh issue list -R Daisuke134/anicca-dais --state open --json number | jq 'length'` returns ≥ 20. Each migrated issue body grep returns `spec:2026-06-07-` matching one of the 3 spec filenames.

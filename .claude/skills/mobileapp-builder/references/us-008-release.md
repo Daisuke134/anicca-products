@@ -600,7 +600,7 @@ asc age-rating set --app "$APP_ID" --version-id "$VERSION_ID" \
 # Review Details
 # Verified 2026-03-08: Apple AUTO-CREATES review details when version is created.
 # details-create is NEVER needed. Always use details-for-version → details-update.
-# Phone format: "+81 80 1234 5678" (space-separated, NOT +819000000000)
+# Phone format: "+81 80 1234 5678" (space-separated, NOT +81XXXXXXXXXX)
 
 DETAIL_ID=$(asc review details-for-version --version-id "$VERSION_ID" --output json \
   | python3 -c "import json,sys; print(json.load(sys.stdin)['data']['id'])")
@@ -610,7 +610,7 @@ asc review details-update \
   --contact-first-name "Daisuke" \
   --contact-last-name "Kobayashi" \
   --contact-phone "+81 80 1234 5678" \
-  --contact-email "keiodaisuke@gmail.com" \
+  --contact-email "user@example.com" \
   --notes "No login required. Open app and use immediately." \
   --output json
 ```
@@ -724,7 +724,7 @@ DETAIL_ID=$(asc review details-for-version --version-id "$VERSION_ID" --output j
   | python3 -c "import json,sys; print(json.load(sys.stdin)['data']['id'])")
 asc review details-update --id "$DETAIL_ID" \
   --contact-first-name "Daisuke" --contact-last-name "Kobayashi" \
-  --contact-phone "+81 80 1234 5678" --contact-email "keiodaisuke@gmail.com" \
+  --contact-phone "+81 80 1234 5678" --contact-email "user@example.com" \
   --notes "No login required. Open app and use immediately."
 
 # 4. Category（PRD の appStoreCategory から取得。CC が書き換えること）

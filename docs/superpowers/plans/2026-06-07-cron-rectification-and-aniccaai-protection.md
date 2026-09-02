@@ -429,7 +429,7 @@ git add apps/landing/DAIS_TEST
 ORIG_NAME=$(git config user.name)
 ORIG_EMAIL=$(git config user.email)
 git config user.name "Daisuke Sato"
-git config user.email "keiodaisuke@gmail.com"
+git config user.email "user@example.com"
 git commit -m "test: Dais path" 2>&1 | tail -5
 git config user.name "$ORIG_NAME"
 git config user.email "$ORIG_EMAIL"

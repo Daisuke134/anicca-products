@@ -105,7 +105,7 @@ Dais 2026-06-08 verbatim を時系列で:
 
 | file | change | commit |
 |----|----|----|
-| `~/anicca-products/apps/landing/netlify/functions/feedback.js` | new — mirror lead-magnet.js、 POST `{text, locale, appVersion}` → Resend email to keiodaisuke@gmail.com | `222e7c87` |
+| `~/anicca-products/apps/landing/netlify/functions/feedback.js` | new — mirror lead-magnet.js、 POST `{text, locale, appVersion}` → Resend email to user@example.com | `222e7c87` |
 | `~/anicca-products/.github/workflows/netlify-deploy.yml` | `functions-dir: './apps/landing/netlify/functions'` 追加 + `workflow_dispatch:` trigger + self-path trigger | `a320bc7f`, `41ef9255` |
 
 ---
@@ -290,7 +290,7 @@ A1 完走 後:
 1. Dais iPhone で App Store 1.9.3 を update or 既 install build を 開く
 2. Settings → Newsletter (= lead-magnet.js endpoint) フォームに email 入力 → Send → 200
 3. Settings → Improvement Feedback (= feedback.js endpoint) フォームにテキスト入力 → Send → 200
-4. Dais の keiodaisuke@gmail.com に Resend email 2 通 着信確認
+4. Dais の user@example.com に Resend email 2 通 着信確認
 
 ---
 

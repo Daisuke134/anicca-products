@@ -188,7 +188,7 @@ asc builds add-groups --build $BUILD_ID --group $GROUP_ID
 asc testflight builds get-link --app $APP_ID --build $BUILD_ID
 
 # テスター追加
-asc testflight beta-testers invite --app $APP_ID --email daisuke134@gmail.com
+asc testflight beta-testers invite --app $APP_ID --email user@example.com
 ```
 
 ### ベータテスト計画

@@ -664,10 +664,10 @@ X-4. 7 日連続成功 → ReelFarm キャンセル (22日 まで)
 ## Part H — 4 new accounts (mail)
 
 AgentMail free tier is at inbox limit → use **Gmail aliases** (Dais authorized "alias, whatever"). 2FA auto-read via Gmail MCP. Ready immediately, no provisioning:
-- iam EN → `keiodaisuke+iamen@gmail.com`
-- iam JA → `keiodaisuke+iamja@gmail.com`
-- larry EN → `keiodaisuke+larryen@gmail.com`
-- larry JA → `keiodaisuke+larryja@gmail.com`
+- iam EN → `user@example.com`
+- iam JA → `user@example.com`
+- larry EN → `user@example.com`
+- larry JA → `user@example.com`
 Dais signs up TikTok with these; Anicca reads the 2FA code each time and relays it. Scale toward ~10 accounts after.
 
 ---

@@ -2,7 +2,7 @@
 
 **Effective Date:** March 4, 2026
 **Developer:** Anicca / Daisuke Takeuchi
-**Contact:** keiodaisuke@gmail.com
+**Contact:** user@example.com
 **App:** BreathStory — Guided Breathing Stories (com.anicca.breathstory)
 
 ---
@@ -87,7 +87,7 @@ We may update this policy. Changes will be posted at this URL. Continued use of 
 
 ## Contact
 
-Questions about this privacy policy? Email us at: **keiodaisuke@gmail.com**
+Questions about this privacy policy? Email us at: **user@example.com**
 
 ---
 

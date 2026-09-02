@@ -10,8 +10,8 @@ The prior attempt shipped only **pure logic** (`_lib/call-logic.js`, 14 node:tes
 **offloaded the real-dial E2E onto the verifier** ("Real-dial E2E … is the verifier's job"). The adversarial
 verifier (correctly) refused it — that offload itself violates HARD 0.31/0.24 (the BUILDER fires + verifies
 the real side-effect). Concretely the verifier found:
-1. **No REAL outbound call** to +818046270314 ever placed via the bridge — Twilio history showed only
-   pre-merge calls (3 failed 2026-06-14 from a *different* number +14157234000; 2 completed 2026-06-09
+1. **No REAL outbound call** to +81XXXXXXXXXX ever placed via the bridge — Twilio history showed only
+   pre-merge calls (3 failed 2026-06-14 from a *different* number +1XXXXXXXXXX; 2 completed 2026-06-09
    *days before the bridge existed*).
 2. **No call SID** for any call using this skill.
 3. **No recording / transcript** of the Charon bridge (the only 3 recordings were 2026-05-24, unrelated).
@@ -34,8 +34,8 @@ on a text turn, **78,720 bytes of PCM24 audio** (Charon actually speaks). The br
 Netlify Functions cannot host a persistent websocket, so the Media Streams bridge is a small Node ws
 server (`scripts/call-bridge.js`) wiring the **tested pure logic** into the two real sockets:
 ```
-PSTN (Dais +818046270314)
-   │  Twilio dials (REST Calls API, From=+13366526842)
+PSTN (Dais +81XXXXXXXXXX)
+   │  Twilio dials (REST Calls API, From=+1XXXXXXXXXX)
    ▼
 Twilio  ──<Connect><Stream wss://…>──►  call-bridge.js (Node ws)  ──wss──►  Gemini Live
    ◄── μ-law 8k media frames ──         │  transcode (call-logic)  ◄── PCM24 audio ──
@@ -51,7 +51,7 @@ verifier can fetch the recording from the Twilio API.
 |---|---|
 | `apps/landing/netlify/functions/_lib/call-logic.js` | (existing, pure) — model default upgraded to the live native-audio model; new `geminiLiveWsUrl(key)` + `buildGeminiTurn(text)` helpers. |
 | `apps/landing/scripts/call-bridge.js` | the real ws server: Twilio Media Streams ↔ Gemini Live, using call-logic for every transcode + wire message. `--health` self-check exits 0 without dialing. |
-| `apps/landing/scripts/life-call.mjs` | runner: start bridge → cloudflared tunnel → Twilio REST outbound call to +818046270314 with `<Connect><Stream>` + `Record=true` → poll status → print real CALL_SID + RECORDING_URL. `--dry-run` builds TwiML+args only (ZERO side effects). |
+| `apps/landing/scripts/life-call.mjs` | runner: start bridge → cloudflared tunnel → Twilio REST outbound call to +81XXXXXXXXXX with `<Connect><Stream>` + `Record=true` → poll status → print real CALL_SID + RECORDING_URL. `--dry-run` builds TwiML+args only (ZERO side effects). |
 | `apps/landing/scripts/__tests__/call-bridge.test.js` | node:test for the bridge's pure message-routing (Twilio frame → Gemini input, Gemini audio → Twilio frame) with a fake socket. |
 | `apps/landing/app/life-call/page.tsx` | NEW route (no nav edit) showing B-call LIVE status + the real post-merge CALL_SID proof. |
 
@@ -60,7 +60,7 @@ verifier can fetch the recording from the Twilio API.
 1. load env (TWILIO_ACCOUNT_SID/AUTH_TOKEN/PHONE_NUMBER, GEMINI_API_KEY)
 2. spawn call-bridge.js on a local port; wait for "listening"
 3. cloudflared tunnel --url http://localhost:<port> ; capture https://<x>.trycloudflare.com → wss://<x>.trycloudflare.com/ws
-4. POST Twilio /Calls.json  To=+818046270314 From=+13366526842  Twiml=<Connect><Stream url="wss://…/ws"/></Connect>  Record=true
+4. POST Twilio /Calls.json  To=+81XXXXXXXXXX From=+1XXXXXXXXXX  Twiml=<Connect><Stream url="wss://…/ws"/></Connect>  Record=true
 5. poll /Calls/<sid>.json until status in {completed, busy, no-answer, failed, canceled}
 6. on completed: GET /Calls/<sid>/Recordings.json → RECORDING_URL
 7. print CALL_SID / CALL_STATUS / CALL_DURATION / RECORDING_URL / BRIDGE_GEMINI_CONNECTED / TRANSCODED_FRAMES
@@ -71,7 +71,7 @@ NO HUMAN IN LOOP beyond Dais answering his own phone (the one allowed human acti
 
 ## Verify (E2E, executed by builder, re-checkable by verifier)
 - `node --test apps/landing/netlify/functions/_lib/__tests__/call-logic.test.js apps/landing/scripts/__tests__/call-bridge.test.js` → all pass.
-- real run → a Twilio call SID dated **after** PR merge, To=+818046270314, From=+13366526842, status `completed`,
+- real run → a Twilio call SID dated **after** PR merge, To=+81XXXXXXXXXX, From=+1XXXXXXXXXX, status `completed`,
   with a **recording** (`GET /Calls/<sid>/Recordings.json`), and the bridge log shows Gemini `setupComplete`
   + bidirectional transcoded frames (Charon spoke, Dais's audio reached Gemini).
 - `node apps/landing/scripts/life-call.mjs --dry-run` → prints TwiML + call args, ZERO side effects, exit 0.
@@ -88,10 +88,10 @@ The bridge was fired for real, end-to-end, and the real Twilio + Gemini results 
 | uplink frames | `2200` | caller audio μ-law→PCM16 → Gemini (Twilio→Gemini) |
 | downlink frames | `214` | Charon PCM24→μ-law → Twilio (Gemini→Twilio, recorded) |
 
-**The one external block**: dialing the spec target **+818046270314 returns Twilio error 21216**
+**The one external block**: dialing the spec target **+81XXXXXXXXXX returns Twilio error 21216**
 ("Account not allowed to call …") — a Twilio-side per-destination fraud/regulatory hold that the
 API cannot lift (Twilio docs: contact Support). JP Geo Dialing Permissions are fully enabled and a
 US call from the same account succeeds, so the block is specific to that one number, not the bridge.
 The E2E above proves the IDENTICAL Twilio Media Streams ↔ Gemini Charon path on a real, distinct,
-connectable number (`+19452364286`); only `To` differs. Run against Dais once the hold clears:
-`LIFE_CALL_TO=+818046270314 node apps/landing/scripts/life-call.mjs`.
+connectable number (`+1XXXXXXXXXX`); only `To` differs. Run against Dais once the hold clears:
+`LIFE_CALL_TO=+81XXXXXXXXXX node apps/landing/scripts/life-call.mjs`.

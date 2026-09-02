@@ -18,7 +18,7 @@ metadata:
 
 ```bash
 export PATH=/opt/homebrew/bin:$PATH
-export GOG_ACCOUNT=keiodaisuke@gmail.com
+export GOG_ACCOUNT=user@example.com
 export GOG_KEYRING_PASSWORD=shizen1234
 
 # 今日
@@ -34,7 +34,7 @@ gog calendar events primary --from ${TOMORROW}T00:00:00+09:00 --to ${TOMORROW}T2
 
 ```bash
 export PATH=/opt/homebrew/bin:$PATH
-export GOG_ACCOUNT=keiodaisuke@gmail.com
+export GOG_ACCOUNT=user@example.com
 export GOG_KEYRING_PASSWORD=shizen1234
 
 gog calendar events add primary \

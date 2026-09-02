@@ -519,10 +519,10 @@
 - TestFlight: GROUP_ID=b46584b2-783c-487b-9507-ccadbbe84846 (External Testers created)
 - Beta app localization (en-US) created: description + feedbackEmail + privacyPolicyUrl + marketingUrl
 - Beta build localization: test notes added ("Please test: timer, history, streak, paywall")
-- Beta App Review Details: contact=Daisuke Kobayashi, email=keiodaisuke@gmail.com, demoAccountRequired=false
+- Beta App Review Details: contact=Daisuke Kobayashi, email=user@example.com, demoAccountRequired=false
 - Beta review submitted: betaReviewState=WAITING_FOR_REVIEW ✅
 - Public TestFlight link: https://testflight.apple.com/join/3kVhjVfs (publicLinkEnabled=true)
-- Tester keiodaisuke@gmail.com added to External Testers group
+- Tester user@example.com added to External Testers group
 - Slack #metrics notified ✅
 - **Learnings for future iterations:**
   - betaAppReviewDetails is separate from appStoreReviewDetails — must be set separately via PATCH /v1/betaAppReviewDetails/$APP_ID

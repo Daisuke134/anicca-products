@@ -433,7 +433,7 @@ index 00000000..1c90f2ca
 +  const savePhone = useCallback(async () => {
 +    setErr('');
 +    if (!PHONE_RE.test(phone.trim()))
-+      return setErr('Enter a valid phone number in E.164 form, e.g. +818012345678.');
++      return setErr('Enter a valid phone number in E.164 form, e.g. +81XXXXXXXXXX.');
 +    try {
 +      await fetch(SAVE_URL, {
 +        method: 'POST',
@@ -525,7 +525,7 @@ index 00000000..1c90f2ca
 +            value={phone}
 +            onChange={(e) => setPhone(e.target.value)}
 +            inputMode="tel"
-+            placeholder="+818012345678"
++            placeholder="+81XXXXXXXXXX"
 +            className="mt-5 w-full rounded-input border border-[hsl(var(--border))] bg-[hsl(var(--background))] px-4 py-3 text-sm text-[hsl(var(--text-primary))] outline-none focus:border-[hsl(var(--gold))]"
 +          />
 +          <button

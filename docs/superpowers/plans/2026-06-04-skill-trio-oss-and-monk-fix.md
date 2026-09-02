@@ -657,7 +657,7 @@ POSTIZ_IG_INTEGRATION_ID=""   # Instagram
 POSTIZ_YT_INTEGRATION_ID=""   # YouTube (optional)
 
 # === Google (for HeyGen 2FA + TikTok 2FA mail read) ===
-GOOGLE_LOGIN_EMAIL="your-gmail@gmail.com"
+GOOGLE_LOGIN_EMAIL="user@example.com"
 GOG_KEYRING_PASSWORD=""        # optional, only if using gog gmail polling
 
 # === Slack reporting ===
@@ -1151,7 +1151,7 @@ cd ~/.cache/anicca-oss-scaffold/anicca-monk-factory
 git init
 git add -A
 git status --short | head -30
-git -c user.name="Daisuke Narita" -c user.email="keiodaisuke@gmail.com" commit -m "feat: initial OSS publish — anicca-monk-factory skill (P1-P5 applied)"
+git -c user.name="Daisuke Narita" -c user.email="user@example.com" commit -m "feat: initial OSS publish — anicca-monk-factory skill (P1-P5 applied)"
 gh repo create Daisuke134/anicca-monk-factory --public --source=. --remote=origin --push --description "Yang-Mun-style AI monk video factory — daily talking-head shorts on TikTok + IG, end-to-end automated"
 gh repo view Daisuke134/anicca-monk-factory --json url -q .url
 ```
@@ -1164,7 +1164,7 @@ Run:
 cd ~/.cache/anicca-oss-scaffold/mau-clipping
 git init
 git add -A
-git -c user.name="Daisuke Narita" -c user.email="keiodaisuke@gmail.com" commit -m "feat: initial OSS publish — mau-clipping skill (D8 POST_PLATFORMS env)"
+git -c user.name="Daisuke Narita" -c user.email="user@example.com" commit -m "feat: initial OSS publish — mau-clipping skill (D8 POST_PLATFORMS env)"
 gh repo create Daisuke134/mau-clipping --public --source=. --remote=origin --push --description "Viral YouTube Shorts hook + CTA stitching for TikTok + IG + YT (inspired by @maboroshi_app)"
 gh repo view Daisuke134/mau-clipping --json url -q .url
 ```

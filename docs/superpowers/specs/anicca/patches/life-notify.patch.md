@@ -24,8 +24,8 @@ Evidence is RAW from the live tree (`~/anicca/skills/life/notify/notify.js`,
 | # | Gap | RAW evidence | Severity |
 |---|-----|--------------|----------|
 | G1 | **Reply→send loop is NOT wired.** `webhook` mode runs only when a human passes `--draftId` + `--reply` by hand. Nothing polls the inbox, finds Dais's "OK" reply, and correlates it to the held draft, so the round-trip never closes autonomously. | `notify.js:16` `node notify.js webhook --draftId <id> --reply <text>`; `notify.js:352-362` parses `--draftId`/`--reply` from argv and throws if absent. No inbox poll/webhook subscription in the skill. | **BLOCKING** |
-| G2 | **Mandated transport mismatch.** Spec context requires `gog gmail send --account keiodaisuke@gmail.com`. The skill uses AgentMail REST for BOTH the approval email and the stakeholder send. | `notify.js` `AGENTMAIL_BASE = "https://api.agentmail.to/v0"`; `sendAgentMailEmail` POSTs `/messages/send`; `saveAgentMailDraft` POSTs `/drafts`. No `gog gmail send` call in the skill. | **BLOCKING** |
-| G3 | **LIVE un-gated duplicate path.** `anicca-morning-leave-check` already sends late notices via `gog gmail send` with **NO approval gate** — exactly what this gate prevents. Registering a gated scan/poll without disabling it leaves a duplicate un-gated path that defeats the gate. | `jobs.json` job `id: ffe3152e-8a56-47bc-9ab9-d5cd59a85326`, `name: anicca-morning-leave-check`, `enabled: true`, `schedule:{kind:cron, expr:"50 7 * * *", tz:"Asia/Tokyo"}`, `payload.kind:"agentTurn"`, message: `… attendees present -> email them via: gog gmail send -a keiodaisuke@gmail.com --to <email> …` (no approval step). | **BLOCKING** |
+| G2 | **Mandated transport mismatch.** Spec context requires `gog gmail send --account user@example.com`. The skill uses AgentMail REST for BOTH the approval email and the stakeholder send. | `notify.js` `AGENTMAIL_BASE = "https://api.agentmail.to/v0"`; `sendAgentMailEmail` POSTs `/messages/send`; `saveAgentMailDraft` POSTs `/drafts`. No `gog gmail send` call in the skill. | **BLOCKING** |
+| G3 | **LIVE un-gated duplicate path.** `anicca-morning-leave-check` already sends late notices via `gog gmail send` with **NO approval gate** — exactly what this gate prevents. Registering a gated scan/poll without disabling it leaves a duplicate un-gated path that defeats the gate. | `jobs.json` job `id: ffe3152e-8a56-47bc-9ab9-d5cd59a85326`, `name: anicca-morning-leave-check`, `enabled: true`, `schedule:{kind:cron, expr:"50 7 * * *", tz:"Asia/Tokyo"}`, `payload.kind:"agentTurn"`, message: `… attendees present -> email them via: gog gmail send -a user@example.com --to <email> …` (no approval step). | **BLOCKING** |
 | G4 | **`OWNER_EMAIL` undefined in env.** Code falls back to `GOG_ACCOUNT` then a hardcoded string; documented required var missing. | `grep -c '^OWNER_EMAIL=' ~/.openclaw/.env` → `0`. Present: `GOG_ACCOUNT`, `GOOGLE_LOGIN_EMAIL`, `AGENTMAIL_*`. | HIGH |
 | G5 | **No test-stakeholder safety override.** Stakeholder address comes straight from GCal `event.attendees`; any test would email a real third party. | `notify.js` `attendeeEmails = attendees.map((a) => a.email)`; `draftTo = … : OWNER_EMAIL`. No dry-run / test-recipient env. | MEDIUM |
 | G6 | **No durable draft↔event store for the gog path.** AgentMail Drafts hold the pending send for the AgentMail path; the gog path has nowhere to persist `{token → stakeholderTo, subject, body}` for the later reply to resolve. | AgentMail-only retrieval: `getAgentMailDraft(draftId)`. | HIGH |
@@ -265,7 +265,7 @@ Export the new helpers for unit tests:
 Also add to `~/.openclaw/.env` (G4):
 
 ```
-OWNER_EMAIL=keiodaisuke@gmail.com
+OWNER_EMAIL=user@example.com
 ```
 
 ### New tests (G-test) — append to `skills/life/notify/__tests__/notify-logic.test.js`
@@ -392,20 +392,20 @@ real recipients are Dais's own inbox (approval) and the test alias (stakeholder)
 
 ```bash
 set -a; . ~/.openclaw/.env; set +a
-export OWNER_EMAIL=keiodaisuke@gmail.com
+export OWNER_EMAIL=user@example.com
 export NOTIFY_TRANSPORT=gog
-export NOTIFY_TEST_STAKEHOLDER='keiodaisuke+notifytest@gmail.com'
+export NOTIFY_TEST_STAKEHOLDER='user@example.com'
 
 # 0. Unit tests for new pure helpers (no email).
 node --test ~/anicca/skills/life/notify/__tests__/notify-logic.test.js
 
 # 1. Seed a late-risk in GCal: a "[Travel] LunchTest" block starting 10 min ago + a
 #    "LunchTest" event with attendee = the test alias, so detection fires.
-gog calendar events create -a keiodaisuke@gmail.com --summary "[Travel] LunchTest" \
+gog calendar events create -a user@example.com --summary "[Travel] LunchTest" \
   --start "$(date -v-10M +%FT%T)" --end "$(date +%FT%T)"
-gog calendar events create -a keiodaisuke@gmail.com --summary "LunchTest" \
+gog calendar events create -a user@example.com --summary "LunchTest" \
   --start "$(date -v+30M +%FT%T)" --end "$(date -v+90M +%FT%T)" \
-  --attendee "keiodaisuke+notifytest@gmail.com"
+  --attendee "user@example.com"
 
 # 2. SCAN: detects late risk, writes pending JSONL, emails the APPROVAL to OWNER via gog.
 node ~/anicca/skills/life/notify/notify.js scan
@@ -415,20 +415,20 @@ cat ~/.openclaw/state/life-notify-pending.jsonl   # token row, sent:false
 # 3. Dais replies "OK" — simulate by sending to OWN inbox with the SAME subject
 #    (Re: ... [AN-XXXX]) so the poller's gog gmail search matches it. (Token from step 2.)
 TOKEN=AN-XXXXXXXX
-gog gmail send -a keiodaisuke@gmail.com --to keiodaisuke@gmail.com \
+gog gmail send -a user@example.com --to user@example.com \
   --subject "Re: [Anicca] Late alert for \"LunchTest\" — reply OK to notify [$TOKEN]" \
   --body "OK"
 
 # 4. Confirm the search+get path sees it the way runPoll does (sanity-check CLI shapes):
-gog gmail search 'from:keiodaisuke@gmail.com subject:"[Anicca] Late alert" newer_than:1d' -j \
-  -a keiodaisuke@gmail.com | python3 -c "import json,sys; print([t['subject'] for t in json.load(sys.stdin)['threads']])"
+gog gmail search 'from:user@example.com subject:"[Anicca] Late alert" newer_than:1d' -j \
+  -a user@example.com | python3 -c "import json,sys; print([t['subject'] for t in json.load(sys.stdin)['threads']])"
 
 # 5. POLL: finds the OK reply (search -> get body -> extractApproval), sends to TEST alias via gog.
 node ~/anicca/skills/life/notify/notify.js poll
-#   expect: {"ok":true,"mode":"poll","sent":[{"token":"AN-XXXXXXXX","to":"keiodaisuke+notifytest@gmail.com"}]}
+#   expect: {"ok":true,"mode":"poll","sent":[{"token":"AN-XXXXXXXX","to":"user@example.com"}]}
 
 # 6. Confirm the stakeholder mail actually landed (in the +notifytest alias view).
-gog gmail search 'subject:"Update re \"LunchTest\"" newer_than:1h' -j -a keiodaisuke@gmail.com
+gog gmail search 'subject:"Update re \"LunchTest\"" newer_than:1h' -j -a user@example.com
 
 # 7. Idempotency: re-run poll -> sent:[] (pending row now sent:true).
 node ~/anicca/skills/life/notify/notify.js poll
@@ -442,7 +442,7 @@ node ~/anicca/skills/life/notify/notify.js poll
 
 | # | Criterion | Verify |
 |---|-----------|--------|
-| A1 | Approval email reaches Dais (Gmail, via `gog gmail send`). | Step 2 `alerted[].token` + approval mail in `keiodaisuke@gmail.com` with `[AN-XXXX]` in subject. |
+| A1 | Approval email reaches Dais (Gmail, via `gog gmail send`). | Step 2 `alerted[].token` + approval mail in `user@example.com` with `[AN-XXXX]` in subject. |
 | A2 | Dais's "OK" reply is received and matched to its pending draft via real `gog gmail search` + `gog gmail get`. | Step 4 lists the Re: subject; Step 5 `sent[].token` == token from step 2; non-"OK" body leaves `sent:[]`. |
 | A3 | Stakeholder email is actually sent (to the **test** alias, not a real third party). | Step 6 lists `Update re "LunchTest"`. |
 | A4 | Fully email; loop closes via inbox poll — no Telegram, no manual `--draftId`. | scan→poll runnable headless by the two `agentTurn` cron jobs; no Telegram in diff. |

@@ -21,7 +21,7 @@
 ## Decision 4: カレンダー連携
 
 - **Decision**: `gog calendar events add primary` CLI（naist-calendarスキル実装済み）
-- **Rationale**: Mac Miniに既存のnaist-calendarスキルがgog CLIを使用していることを確認。環境変数: `GOG_ACCOUNT=keiodaisuke@gmail.com`, `GOG_KEYRING_PASSWORD=shizen1234`
+- **Rationale**: Mac Miniに既存のnaist-calendarスキルがgog CLIを使用していることを確認。環境変数: `GOG_ACCOUNT=user@example.com`, `GOG_KEYRING_PASSWORD=shizen1234`
 - **Integration**: `add-to-calendar.js` がgog CLIをexecSyncで呼び出す
 
 ## Decision 5: Slack投稿

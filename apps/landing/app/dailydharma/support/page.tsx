@@ -20,10 +20,10 @@ export default function DailyDharmaSupportEN() {
         </p>
         <p className="mt-4">
           <a
-            href="mailto:keiodaisuke@gmail.com"
+            href="mailto:support@aniccaai.com"
             className="text-primary hover:underline font-medium"
           >
-            keiodaisuke@gmail.com
+            support@aniccaai.com
           </a>
         </p>
         <p className="mt-2 text-sm text-muted-foreground">

@@ -18,7 +18,7 @@ Consider subscribing to [this free newsletter](https://zerolu.substack.com/p/hel
 
 
 
-This repo gets up to **20,000 visitors per day**, [mail me](mailto:iamzerolu@gmail.com) if you want a limited sponsor slot!
+This repo gets up to **20,000 visitors per day**, [mail me](mailto:user@example.com) if you want a limited sponsor slot!
 
 ## 📖 Table of Contents
 

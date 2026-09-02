@@ -37,17 +37,17 @@ pre-commit:
           *) is_dais=0 ;;
         esac
         case "$author_email" in
-          keiodaisuke@gmail.com|*@daisuke*.io|dais@*) : ;;
+          *@aniccaai.com|*@daisuke*.io|dais@*) : ;;
           *) is_dais=0 ;;
         esac
         if [ "$is_dais" = "0" ]; then
           echo "❌ HARD RULE: apps/landing/ touch requires Dais identity"
           echo "  current name=$author_name email=$author_email"
-          echo "  expected name='Daisuke Sato' email=keiodaisuke@gmail.com"
+          echo "  expected name='Daisuke Sato' with a project-controlled email"
           git diff --cached --name-only | grep "^apps/landing/" | head -10 | sed 's/^/   /'
           exit 1
         fi
-      fail_text: "apps/landing/ touch requires Dais identity (= Daisuke Sato + keiodaisuke@gmail.com)"
+      fail_text: "apps/landing/ touch requires Dais identity (= Daisuke Sato + project-controlled email)"
 
 commit-msg:
   commands:

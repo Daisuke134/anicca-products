@@ -74,7 +74,7 @@ WF を author して回す(setup を手でやらない)。earn の実行は Anic
 ║  └────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘   ║
 ║       │食(compute)                          │住(server)                         │報告                                  ║
 ║       ▼                                      ▼                                   ▼                                      ║
-║   ClawRouter localhost:8402                 DO droplet(Dais cloud, 当面)         AgentMail→keiodaisuke@gmail.com         ║
+║   ClawRouter localhost:8402                 DO droplet(Dais cloud, 当面)         AgentMail→user@example.com         ║
 ║   x402 from wallet 0xa3CDd4                  → 将来 Akash主権1分/Conway で無人化  (wake毎1通)                            ║
 ║   (NO API key, NO human)                                                                                                ║
 ║       │                                                                                                                  ║

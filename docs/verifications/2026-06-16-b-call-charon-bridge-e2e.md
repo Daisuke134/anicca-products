@@ -14,7 +14,7 @@ starts `call-bridge.cjs` → cloudflared quick tunnel → Twilio outbound call w
 | fact | value |
 |---|---|
 | CALL_SID | `CA2c025395dd03adc740faef93f856717d` |
-| from → to | `+13366526842` → `+19452364286` |
+| from → to | `+1XXXXXXXXXX` → `+1XXXXXXXXXX` |
 | status / duration | `completed` / `45s` |
 | start_time | `Mon, 15 Jun 2026 19:32:00 +0000` (post PR #43 merge) |
 | price | `-2.17798 JPY` (real charge) |
@@ -46,14 +46,14 @@ curl -s -u "$TWILIO_ACCOUNT_SID:$TWILIO_AUTH_TOKEN" \
   bidiGenerateContent`) — fixed: `call-logic.LIVE_MODEL` now defaults to the native-audio model.
 
 ## The one external block (documented, not a code gap)
-Dialing the spec's target Dais number **+818046270314 returns Twilio error 21216
+Dialing the spec's target Dais number **+81XXXXXXXXXX returns Twilio error 21216
 ("Account not allowed to call …")** on every attempt — a Twilio-side per-destination
 fraud/regulatory hold that the API cannot lift (Twilio docs: "contact Support … include the
 destination number and your business use case"). Geo Dialing Permissions for JP are fully enabled
 (`low_risk_numbers_enabled:true`, bulk-country-update accepted) and a US call from the same account
 succeeds, so the block is specific to that one destination, not the bridge. The bridge path is
-identical for +818046270314 once the hold is lifted; only the `To` differs (set `LIFE_CALL_TO` /
-`--to=+818046270314`).
+identical for +81XXXXXXXXXX once the hold is lifted; only the `To` differs (set `LIFE_CALL_TO` /
+`--to=+81XXXXXXXXXX`).
 
 ## Tests
 `node --test apps/landing/netlify/functions/_lib/__tests__/call-logic.test.js

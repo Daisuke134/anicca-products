@@ -59,7 +59,7 @@ export default function DailyDharmaPrivacy() {
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">8. Contact</h2>
       <p className="mt-3 text-muted-foreground">
-        If you have any questions about this Privacy Policy, please contact us at: <a href="mailto:keiodaisuke@gmail.com" className="underline">keiodaisuke@gmail.com</a>
+        If you have any questions about this Privacy Policy, please contact us at: <a href="mailto:support@aniccaai.com" className="underline">support@aniccaai.com</a>
       </p>
 
       <p className="mt-12 text-right text-sm text-muted-foreground">Last Updated: January 13, 2026</p>

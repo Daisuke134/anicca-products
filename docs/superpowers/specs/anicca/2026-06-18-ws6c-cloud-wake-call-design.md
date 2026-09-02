@@ -67,7 +67,7 @@ public wss, set after first deploy), `BRIDGE_PORT`=`$PORT`.
 - test ✓ scheduler dedup + due-window + helper-skip unit-tested
 - impl ✓ service deployed to Railway, `/ws` reachable as wss, scheduler loop logging
 - **verification ✓**: a REAL event placed at now+15 min on Dais's gcal → the cloud scheduler dials
-  → **Dais's phone (+818046270314) rings with the Charon voice** naming the event → recording exists.
+  → **Dais's phone (+81XXXXXXXXXX) rings with the Charon voice** naming the event → recording exists.
   "service deployed / compiles" ≠ done; the phone must ring from the cloud.
 
 ## Reuse (no rewrites)
@@ -84,7 +84,7 @@ Real cloud wake, end to end, no Mac-mini:
 1. `apps/life-call` deployed to Railway (service `life-call`, public `wss://life-call-production.up.railway.app`).
    `/health` → `{"ok":true,"service":"life-call","ws":"/ws"}` (live).
 2. lm_users + lm_wake_log tables created (Supabase Management API; PostgREST 200).
-3. Dais row upserted (uid lm_784ad279…, phone +818046270314, paid, composio_gcal).
+3. Dais row upserted (uid lm_784ad279…, phone +81XXXXXXXXXX, paid, composio_gcal).
 4. Real gcal event "Anicca Cloud Wake Test" created at now+15min via Composio.
 5. The cloud scheduler tick fired:
    `[scheduler] WAKE uid=lm_784ad279- "Anicca Cloud Wake Test" in 14m ccid=v3:cfcy4FozNaO8…`
@@ -116,7 +116,7 @@ whole "manage all messaging" vision in one API. €5/connected-account/mo, 7-day
 2. Hosted-auth link (`POST /api/v1/hosted/accounts/link` {type:create, providers:[GOOGLE], name:<uid>}).
 3. Opened in camofox → Google consent showed **"UNIPILE が…アクセスを求めています"** with Gmail
    read/compose/send scopes — **NO "App is blocked"** (vs Composio managed which hard-blocks).
-4. Completed consent → Unipile account ACTIVE: GOOGLE_OAUTH / keiodaisuke@gmail.com / id ZAIoCfJjQYi6cpNwVnTAMw.
+4. Completed consent → Unipile account ACTIVE: GOOGLE_OAUTH / user@example.com / id ZAIoCfJjQYi6cpNwVnTAMw.
 5. **Read Dais's REAL inbox via `GET /api/v1/emails`** → 3 actual recent emails (Google security notice,
    connpass, GitHub). = Anicca can read+reply the user's Gmail. Submission avoided.
 

@@ -59,7 +59,7 @@ curl -sw "lead-magnet HTTP=%{http_code}\n" -X POST https://aniccaai.com/.netlify
   -H "Content-Type: application/json" -d '{"email":"e2e-2026-06-08@aniccaai.com","lang":"en"}'
 curl -sw "feedback HTTP=%{http_code}\n" -X POST https://aniccaai.com/.netlify/functions/feedback \
   -H "Content-Type: application/json" -d '{"text":"e2e-2026-06-08","locale":"en","appVersion":"1.9.3-e2e"}'
-# Both expect HTTP 200 + Resend mail keiodaisuke@gmail.com
+# Both expect HTTP 200 + Resend mail user@example.com
 ```
 
 ### #172 A2 — iOS E2E (= Dais 物理)
@@ -68,7 +68,7 @@ curl -sw "feedback HTTP=%{http_code}\n" -X POST https://aniccaai.com/.netlify/fu
 Dais iPhone App Store 1.9.3:
 1. Settings → Newsletter → email "verify@example.com" → Submit → "Registered" ✓
 2. Settings → Improvement → "verify test" → Send → "Thanks!" ✓
-3. keiodaisuke@gmail.com 2 通 着信確認
+3. user@example.com 2 通 着信確認
 ```
 
 ---

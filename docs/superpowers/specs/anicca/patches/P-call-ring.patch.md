@@ -1,7 +1,7 @@
 # P-call-ring — make Dais's phone actually ring with Charon (Telnyx bidirectional, docs-verified)
 
 > Spec: `28-product-redesign-merge-2026-06-16.md` §2a. Target repo: `Daisuke134/anicca-products`, path `apps/landing`.
-> Task #2. **Goal:** a real outbound Telnyx call to `+818046270314` where Dais's phone rings, Gemini-Live
+> Task #2. **Goal:** a real outbound Telnyx call to `+81XXXXXXXXXX` where Dais's phone rings, Gemini-Live
 > **Charon** speaks the next-event briefing two-way, and the recording is non-silent. Run live BY ME (not a
 > sub-agent), per Dais 2026-06-16 ("call me for the life manager as well").
 > **Zero-uncertainty rule honoured:** every Telnyx param below is confirmed via context7 `/websites/developers_telnyx`
@@ -146,7 +146,7 @@ node --test 'netlify/functions/_lib/__tests__/call-logic.test.js'
 # 2. env (no hardcoded secrets)
 set -a; . ~/.openclaw/.env; set +a   # TELNYX_API_KEY, TELNYX_CONNECTION_ID, GEMINI_API_KEY
 # 3. REAL call to Dais — phone rings, Charon speaks, recording saved
-node scripts/life-call-telnyx.mjs --to=+818046270314
+node scripts/life-call-telnyx.mjs --to=+81XXXXXXXXXX
 ```
 
 ## §5 E2E acceptance (HARD 0.24/0.31 — no fake)

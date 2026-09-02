@@ -19,7 +19,7 @@
   24 kHz out, voice Charon), narrating "next event, leave-by time, directions" and
   answering follow-ups.
 - **Launch gate for B-call (spec27 §2 / spec26 §0)**: a real outbound call to
-  `+818046270314` connects, Charon speaks the event briefing, Dais can reply, the
+  `+81XXXXXXXXXX` connects, Charon speaks the event briefing, Dais can reply, the
   verifier (separate context) confirms by recording. **fake/mock = FAIL** (HARD 0.24/0.31).
   The verifier owns the real-dial E2E; this builder ships the deterministic core + skill so
   the dial is a single `node call.js --to <num> --event <json>` away.
@@ -69,7 +69,7 @@ The websocket bridge + Twilio REST dial are thin I/O wrappers in the skill entry
 | `GEMINI_API_KEY` | Gemini Live auth | (required) |
 | `TWILIO_ACCOUNT_SID` / `TWILIO_AUTH_TOKEN` | Twilio REST | (required) |
 | `TWILIO_PHONE_NUMBER` / `TWILIO_FROM` | caller id | (required) |
-| `CALL_TO` | default callee | `+818046270314` (Dais) |
+| `CALL_TO` | default callee | `+81XXXXXXXXXX` (Dais) |
 | `GEMINI_LIVE_MODEL` | model id | `gemini-2.0-flash-live-001` |
 | `GEMINI_VOICE` | prebuilt voice | `Charon` |
 | `CALL_PUBLIC_WS_URL` | public wss the `<Stream>` connects to | (required at serve time) |
@@ -91,7 +91,7 @@ The websocket bridge + Twilio REST dial are thin I/O wrappers in the skill entry
 | 12 | `buildConnectStreamTwiml` | valid TwiML with `<Connect><Stream url="wss://…">`; XML-escapes the url |
 
 **E2E (verifier, separate context, real dial — not this builder's unit run)**:
-`node call.js --to +818046270314 --event '{...}'` → phone rings → Charon speaks briefing →
+`node call.js --to +81XXXXXXXXXX --event '{...}'` → phone rings → Charon speaks briefing →
 Dais replies → recording confirms. fake = FAIL.
 
 ## §5 Landing page

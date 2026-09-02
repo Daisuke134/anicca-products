@@ -8,7 +8,7 @@ actually proven so far is ONLY: "anicca can broadcast a real USDC transfer on Ba
 | TestID | what was ACTUALLY done | what is NOT proven (the gap) | honest status |
 |---|---|---|---|
 | UBI-E1 wallet | Real on-chain USDC transfer from anicca wallet (0xa3CDd4) to a **throwaway address I control** (0xF4776B, $0.20, tx 0x3d6be651, status 0x1). | A real END USER receiving to THEIR own wallet + using it. Sending to my own test address is NOT a user receiving. | on-chain SEND proven only |
-| UBI-E2 email (Crossmint) | Created a Crossmint email-owned smart wallet (0x9557…, owner keiodaisuke@gmail.com) + transferred $0.50 USDC on-chain (tx 0x421f0307). | **The email owner (Dais) CANNOT yet log in and see/withdraw it** — there is NO consumer UI for it, and I did NOT verify any hosted Crossmint login works for an API-created wallet. I earlier told Dais "sign in at crossmint.com" — that was UNVERIFIED / likely wrong. = NOT a usable receive. OVERCLAIM, corrected. | money is in a wallet Dais can't yet touch |
+| UBI-E2 email (Crossmint) | Created a Crossmint email-owned smart wallet (0x9557…, owner user@example.com) + transferred $0.50 USDC on-chain (tx 0x421f0307). | **The email owner (Dais) CANNOT yet log in and see/withdraw it** — there is NO consumer UI for it, and I did NOT verify any hosted Crossmint login works for an API-created wallet. I earlier told Dais "sign in at crossmint.com" — that was UNVERIFIED / likely wrong. = NOT a usable receive. OVERCLAIM, corrected. | money is in a wallet Dais can't yet touch |
 | UBI-E3 bank/PayPay (JP) | nothing | The entire USDC(Base) → JPY → bank/PayPay path. UNVERIFIED which exchange even accepts USDC on Base + allows JPY bank withdrawal. | NOT started / UNVERIFIED |
 | UBI-E3 bank (US) | nothing | USDC → USD bank. | NOT started |
 
@@ -22,13 +22,13 @@ REMAINING for wallet: a real human submitting THEIR own address + seeing it in t
 
 ## UBI-E2-PAGE — email access/withdraw page — built+live, OTP BLOCKED on Crossmint config (2026-06-18)
 - Built `/income/wallet` (Crossmint SDK v4.2.11: CrossmintProvider + Auth + Wallet, email-OTP login → balance → wallet.send withdraw → ExportPrivateKeyButton). Local build green (96 pages). Deployed to prod (PR #89). client key wired via NEXT_PUBLIC_CROSSMINT_CLIENT_KEY (GHA secret + .env.local, NOT committed).
-- VERIFIED live: page renders (not config-fallback); camofox opened it, clicked sign-in, the Crossmint modal rendered INLINE (no iframe), accepted keiodaisuke@gmail.com, Submit fired.
+- VERIFIED live: page renders (not config-fallback); camofox opened it, clicked sign-in, the Crossmint modal rendered INLINE (no iframe), accepted user@example.com, Submit fired.
 - **BLOCKER (honest):** OTP send returns "Failed to send email. Please try again or contact support." Repeated. A patched window.fetch captured ZERO crossmint calls → the auth request is rejected at origin/config before sending, OR uses non-fetch transport. Most likely cause: the **client key (ck_production…) is not authorized for origin aniccaai.com and/or Email login method is not enabled** in the Crossmint console (server-key wallet creation worked because server keys are not origin-scoped).
 - **FIX needed (Crossmint console, ~2 min):** crossmint.com/console → project → the client key → add allowed origin `https://aniccaai.com` (+ localhost for dev) → enable **Email** login method. Then re-run this E2E (login as keiodaisuke → OTP via Gmail → see the $0.50 in wallet 0x9557…).
 - So email PATH = page done, but NOT usable until the Crossmint client-key origin/email config is set. NOT claiming email done.
 
 ### UPDATE (2026-06-18, after Dais added aniccaai.com origin + rights to the client key)
-- ✅ **Login now WORKS**: camofox → /income/wallet → sign in → email keiodaisuke@gmail.com → "Check your email" → OTP **293740** read from Gmail (gog) → entered → authenticated, the post-login "Your wallet" panel renders. The origin/email-method fix unblocked OTP. Auth half PROVEN.
+- ✅ **Login now WORKS**: camofox → /income/wallet → sign in → email user@example.com → "Check your email" → OTP **293740** read from Gmail (gog) → entered → authenticated, the post-login "Your wallet" panel renders. The origin/email-method fix unblocked OTP. Auth half PROVEN.
 - ❌ **Wallet provisioning errors**: `useWallet()` returns `status: "error"` (no `error.message` surfaced). The wallet address + balance do NOT load, so the $0.50 (server-created wallet 0x9557…) can't be shown/withdrawn yet.
 - Likely cause: the client SDK `createOnLogin={{chain:"base",signer:{type:"email"}}}` conflicts with the wallet already created via the SERVER API (2022-06-09, owner email + adminSigner email) → get-or-create mismatch. Next: align the SDK wallet config with the server-created one (or provision via the SDK's own flow), surface the real error, retest until balance shows + a withdraw tx fires.
 - Honest: email path = auth proven, wallet-view/withdraw NOT yet. One narrow SDK-config bug remains.

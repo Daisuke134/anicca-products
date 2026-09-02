@@ -4400,7 +4400,7 @@ ${DIGEST}
 echo "$BODY" | /usr/bin/python3 -c "
 import sys, subprocess
 body = sys.stdin.read()
-subprocess.run(['gog', 'gmail', 'send', '--to', 'keiodaisuke@gmail.com',
+subprocess.run(['gog', 'gmail', 'send', '--to', 'user@example.com',
                 '--subject', '💓 Anicca daily ${SLOT} ${TODAY}',
                 '--body', body], check=False)
 "
@@ -5242,7 +5242,7 @@ V7-3   ~/.openclaw/workspace/tasks.json schema 拡張
 
 V7-4   anicca-daily-mail skill 新規 (= 07:00 + 22:00 で gmail send)
          • input: ~/.openclaw/workspace/daily-mail.md
-         • output: gmail to keiodaisuke@gmail.com
+         • output: gmail to user@example.com
          • subject template: "💓 Anicca daily YYYY-MM-DD · lifeline=<X>"
 
 V7-5   heartbeat cron schedule edit

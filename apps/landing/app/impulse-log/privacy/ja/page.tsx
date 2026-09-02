@@ -11,7 +11,7 @@ export default function ImpulseLogPrivacyJA() {
       </p>
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">1. 事業者情報</h2>
-      <p className="mt-3 text-muted-foreground">成田大介（個人事業主）/ keiodaisuke@gmail.com</p>
+      <p className="mt-3 text-muted-foreground">成田大介（個人事業主）/ support@aniccaai.com</p>
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">2. 収集する情報</h2>
       <ul className="mt-3 list-disc pl-6 text-muted-foreground space-y-2">
@@ -43,7 +43,7 @@ export default function ImpulseLogPrivacyJA() {
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">6. お問い合わせ</h2>
       <p className="mt-3 text-muted-foreground">
-        メール: keiodaisuke@gmail.com
+        メール: support@aniccaai.com
       </p>
     </main>
   );

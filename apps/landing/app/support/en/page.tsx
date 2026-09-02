@@ -17,11 +17,11 @@ export default function SupportEN() {
           For support inquiries, feature requests, or general questions, please contact us:
         </p>
         <p className="mt-4">
-          <a 
-            href="mailto:keiodaisuke@gmail.com" 
+          <a
+            href="mailto:support@aniccaai.com"
             className="text-primary hover:underline font-medium"
           >
-            keiodaisuke@gmail.com
+            support@aniccaai.com
           </a>
         </p>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -52,8 +52,8 @@ export default function SupportEN() {
           <div>
             <h3 className="font-semibold text-foreground">Is my data private?</h3>
             <p className="mt-2 text-muted-foreground">
-              Yes. Anicca follows a privacy-first approach. Voice data is processed in real-time and not permanently stored. 
-              Your profile data is stored securely and only used to provide personalized guidance. 
+              Yes. Anicca follows a privacy-first approach. Voice data is processed in real-time and not permanently stored.
+              Your profile data is stored securely and only used to provide personalized guidance.
               See our <a href="/privacy/en" className="text-primary hover:underline">Privacy Policy</a> for details.
             </p>
           </div>
@@ -61,7 +61,7 @@ export default function SupportEN() {
           <div>
             <h3 className="font-semibold text-foreground">Can I use Anicca on multiple devices?</h3>
             <p className="mt-2 text-muted-foreground">
-              Yes. Your profile and preferences sync across devices via your account. 
+              Yes. Your profile and preferences sync across devices via your account.
               You can use Anicca on iOS devices with the same account.
             </p>
           </div>
@@ -90,7 +90,6 @@ export default function SupportEN() {
     </main>
   )
 }
-
 
 
 

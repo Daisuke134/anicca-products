@@ -5,8 +5,8 @@
 ## Result: SUCCESS — the phone rang, Dais answered, Charon spoke two-way
 
 The earlier D60 trial-gate (see git history of this file) is LIFTED (Dais funded + verified the Telnyx
-account this session). Two real calls were placed to Dais's number `+818046270314` via Telnyx Call
-Control app `2982013078364751402` (FROM `+14322234204`), Gemini Live voice = **Charon**.
+account this session). Two real calls were placed to Dais's number `+81XXXXXXXXXX` via Telnyx Call
+Control app `2982013078364751402` (FROM `+1XXXXXXXXXX`), Gemini Live voice = **Charon**.
 
 | field | call 1 (unanswered) | call 2 (ANSWERED) |
 |---|---|---|
@@ -62,6 +62,6 @@ DOWNLINK 323 (Charon), UPLINK 1600 (Dais). Task #2 quality-complete.
 ## Repro
 ```bash
 cd apps/landing && set -a; . ~/.openclaw/.env; set +a
-node scripts/life-call-telnyx.mjs --to=+818046270314   # Dais answers → Charon two-way
+node scripts/life-call-telnyx.mjs --to=+81XXXXXXXXXX   # Dais answers → Charon two-way
 ```
 Pure-logic unit tests: `node --test 'netlify/functions/_lib/__tests__/call-logic.test.js'` → **22/22 green** (this session).

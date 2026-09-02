@@ -14,7 +14,7 @@
 | `emotion-detector` ClawHub | ✅ **公開済み** | `emotion-detector@1.0.0`（ID: k974wsgbt2g4spmqm0dyd9ayvh81qfxy） |
 | `emotion-detector` awal 実支払いテスト（T012） | ❌ BLOCKED | Railway staging が mainnet（eip155:8453）設定 → testnet変更で解決予定 |
 | `to-agents-skill`（工場） | ✅ Mac Mini 稼働 | `/Users/anicca/.openclaw/skills/to-agents-skill/SKILL.md` |
-| Mac Mini awal 認証 | ✅ 完了 | `keiodaisuke@gmail.com` |
+| Mac Mini awal 認証 | ✅ 完了 | `user@example.com` |
 | Mac Mini awal USDC残高 | ❌ $0.00 | testnet変更後 Circle Faucet で解決予定 |
 | clawhub Mac Mini インストール | ✅ 完了 | token コピー済み（Daisuke134） |
 

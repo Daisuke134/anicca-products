@@ -63,7 +63,7 @@ guard let http = resp as? HTTPURLResponse, (200..<300).contains(http.statusCode)
 |---|---|---|
 | Newsletter 登録 | 404 → 失敗表示 | 200 → 登録成功 |
 | 毎日配信（08:30 JST / 23:30 UTC scheduler） | 未デプロイ → 0通 | 毎日1通 affirmation メール |
-| Feedback 送信 | 404 → 失敗表示 | 200 → keiodaisuke@gmail.com に届く |
+| Feedback 送信 | 404 → 失敗表示 | 200 → user@example.com に届く |
 
 **最小修正の核心**: backend を production にデプロイすれば、既に App Store にある iOS 1.9.1 アプリがそのまま動き出す。iOS のバイナリ再提出は不要。
 
@@ -127,10 +127,10 @@ guard let http = resp as? HTTPURLResponse, (200..<300).contains(http.statusCode)
 
 ### 6.2 E2E（Maestro + 実メール）
 1. iOS（シミュレータ/実機）起動 → Settings 画面へ
-2. newsletter section にメール（`keiodaisuke@gmail.com`）入力 → 送信
+2. newsletter section にメール（`user@example.com`）入力 → 送信
 3. UI が登録成功状態（`newsletter-status-text` = 登録済み表示）になる
 4. feedback section にテキスト入力 → 送信 → `✓ Sent`
-5. **実メール検証**: `keiodaisuke@gmail.com` に
+5. **実メール検証**: `user@example.com` に
    - feedback メール（`[Anicca Feedback] ...`）が届く
    - daily newsletter を手動 fire（`sendDailyNewsletter()` 実走）→ affirmation メール（`🌅 ...`）が届く
 6. Apple Sign-In で詰まる場合は自分で解決（テスト用フロー）
@@ -160,8 +160,8 @@ dev に移植 + TDD green
 
 - [ ] production `POST /api/mobile/newsletter/subscribers` → 200 `{ok:true}`
 - [ ] production `POST /api/mobile/feedback` → 200 `{ok:true}`
-- [ ] `keiodaisuke@gmail.com` に feedback メール実着信（件名・本文確認）
-- [ ] `keiodaisuke@gmail.com` に daily newsletter メール実着信
+- [ ] `user@example.com` に feedback メール実着信（件名・本文確認）
+- [ ] `user@example.com` に daily newsletter メール実着信
 - [ ] DB に `newsletter_subscribers` 行が作られている
 - [ ] iOS（App Store版 or Maestroビルド）から登録 → 成功表示
 - [ ] scheduler が毎日 08:30 JST に発火する設定であることをコード+テストで確認

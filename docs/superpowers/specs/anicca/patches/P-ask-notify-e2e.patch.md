@@ -21,7 +21,7 @@
 ### ask
 ```bash
 # 1. seed a GCal event with an UNKNOWN location (a place name that needs asking)
-# 2. fire the ask path against keiodaisuke@gmail.com (Dais's own inbox — not a third party)
+# 2. fire the ask path against user@example.com (Dais's own inbox — not a third party)
 node ~/anicca/skills/life/ask/ask.js --action question   # canonical entry (documented in ask.js) → gog gmail send
 # 3. reply to the question mail with the location
 # 4. fire the reply-ingest → assert the GCal event now has the location + a [Travel] block follows
@@ -31,7 +31,7 @@ Evidence: the sent mail id, the reply, the GCal event before/after (location fil
 ### notify
 ```bash
 # 1. create a started [Travel] block that implies lateness (start in the past, not yet at destination)
-# 2. fire notify scan → it produces an approval mail (target + draft) to keiodaisuke@gmail.com
+# 2. fire notify scan → it produces an approval mail (target + draft) to user@example.com
 # 3. approve → assert the stakeholder-notify mail is sent
 ```
 Evidence: approval mail id + the post-approval notify mail id (both to Dais's own inbox; no real third party).
@@ -51,5 +51,5 @@ Evidence: `/dashboard` (or dashboard-sync JSON) lists ≥2 instances with real n
 5. Any failure → a minimal fix patch is added here and the run repeats until green (no "coming", no mock).
 
 ## §4 Boundaries
-Verification-first: no new feature code unless a round-trip fails. Mail targets = `keiodaisuke@gmail.com` (Dais's own),
+Verification-first: no new feature code unless a round-trip fails. Mail targets = `user@example.com` (Dais's own),
 never an external third party (test-safety). `~/anicca/skills/life/*` + products `life-*`/telemetry functions only.

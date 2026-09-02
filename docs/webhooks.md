@@ -95,8 +95,8 @@ webhook-signature: v1,K5oZfzN95Z9UVu1EsfQmfVNQhnkZ2pj9o9NDN/H/pI4=
 "data": {
 "call_id": "some_unique_id",
 "sip_headers": [
-{ "name": "From", "value": "sip:+142555512112@sip.example.com" },
-{ "name": "To", "value": "sip:+18005551212@sip.example.com" },
+{ "name": "From", "value": "sip:+1XXXXXXXXXX2@sip.example.com" },
+{ "name": "To", "value": "sip:+1XXXXXXXXXX@sip.example.com" },
 { "name": "Call-ID", "value": "03782086-4ce9-44bf-8b0d-4e303d2cc590"}
 ],
 }

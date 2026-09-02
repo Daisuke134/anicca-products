@@ -11,7 +11,7 @@ Stand up **one serious YouTube channel** ("anicca") for the AI-Entities topic
 Lighthouse Anchor, Felix, Zero Human Company, Frank/Franklin, etc.) + Anicca's
 own demos. English primary + Japanese audio dub via YouTube's auto-dub.
 
-Existing `keiodaisuke@gmail.com` channel has Anicca iOS-app shorts on it
+Existing `user@example.com` channel has Anicca iOS-app shorts on it
 (brand-mixed) → must be a **separate Google account**.
 
 ## 2. Constraints
@@ -34,8 +34,8 @@ Existing `keiodaisuke@gmail.com` channel has Anicca iOS-app shorts on it
 | Password | `AniccaEntities2026!` (18 chars, mixed) |
 | DOB | 1998-06-15 |
 | Gender | Rather not say |
-| Recovery email (post-signup) | `keiodaisuke@gmail.com` |
-| Phone (binding) | `+818046270314` (Dais's iPhone, 1-time QR scan only) |
+| Recovery email (post-signup) | `user@example.com` |
+| Phone (binding) | `+81XXXXXXXXXX` (Dais's iPhone, 1-time QR scan only) |
 
 ## 4. Anti-bot reality (2025-2026)
 

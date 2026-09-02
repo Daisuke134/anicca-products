@@ -95,5 +95,5 @@ These Terms are governed by the laws of Japan. Any disputes shall be resolved in
 
 ## 11. Contact
 
-- **Email:** keiodaisuke@gmail.com
+- **Email:** user@example.com
 - **Developer:** Anicca Factory

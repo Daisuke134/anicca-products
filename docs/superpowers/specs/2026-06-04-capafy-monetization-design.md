@@ -180,7 +180,7 @@ for each skill (カテゴリ別バッチ):
 | 1 | ~~Sandbox Fee非公開~~ [解決: $0.07/日] → 残リスクはAnthropic等のAPI実コスト変動 | cap で実行回数を固定し price ≥ 2×(API+sandbox) を保つ。publish後dashboardで実コスト確認 |
 | 2 | Download = IP/prompt開示 | **BP §4 v2準拠**: high-costは まず message cap付き Run Online subscription で粗利防衛(ソース秘匿)。赤字 or 外部費用が制御不能な場合のみ Download/BYOK を最終手段。 |
 | 3 | 再submitで再reject | 7要件を**コードで強制**（SKILL.md記載だけでなくretry上限/confirmゲートを実装）。1本通してからbatch |
-| 4 | ~~`am_sk_...` の正体~~ **[解決 2026-06-04]** | **これはCapafy access tokenだった**（publisher `config.json` に `email:keiodaisuke@gmail.com / user_id:2060981302278778880 / developerVerified:true` で保存済）。`CAPAFY_ACCESS_TOKEN` env で OTP無しに全API認証可。マーケット検索で実証済（§4実データBPは別doc `2026-06-04-capafy-profit-playbook-BP.md`） |
+| 4 | ~~`am_sk_...` の正体~~ **[解決 2026-06-04]** | **これはCapafy access tokenだった**（publisher `config.json` に `email:user@example.com / user_id:2060981302278778880 / developerVerified:true` で保存済）。`CAPAFY_ACCESS_TOKEN` env で OTP無しに全API認証可。マーケット検索で実証済（§4実データBPは別doc `2026-06-04-capafy-profit-playbook-BP.md`） |
 | 5 | 300本×$0.99 + reject大量再発 | gate→batch。カテゴリ別に少数ずつ・audit通過確認しながら |
 
 ---

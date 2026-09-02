@@ -17,11 +17,11 @@ export default function SupportJA() {
           サポートに関するお問い合わせ、機能リクエスト、または一般的な質問については、以下までご連絡ください：
         </p>
         <p className="mt-4">
-          <a 
-            href="mailto:keiodaisuke@gmail.com" 
+          <a
+            href="mailto:support@aniccaai.com"
             className="text-primary hover:underline font-medium"
           >
-            keiodaisuke@gmail.com
+            support@aniccaai.com
           </a>
         </p>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -90,7 +90,6 @@ export default function SupportJA() {
     </main>
   )
 }
-
 
 
 

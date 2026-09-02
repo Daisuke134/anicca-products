@@ -45,7 +45,7 @@ verified by whisper. v2 transcript: "ダイス、聞こえてる? 8時7分、ま
             distinct. Fresh every day because the source is that day's real conversation. No rotation.
             FIRST DELIVERABLE (Dais's explicit ask): make ONE video NOW from today's/yesterday's real
             Dais×Anicca transcript using this skill, self-verify (frame+audio+captions), then EMAIL the
-            mp4 to keiodaisuke@gmail.com for his approval BEFORE the auto-post cron goes live.
+            mp4 to user@example.com for his approval BEFORE the auto-post cron goes live.
 ```
 
 ## ★ CAPTION STYLE = monk-factory real-time word-synced jimaku (Dais 2026-06-21) — NOT static SRT ★

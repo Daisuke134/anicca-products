@@ -12,7 +12,7 @@
 
 **HARD RULE #-3 compliance:** every design decision below cites a named BP. Self-eval BP-identical-rate at the end (= 100% target).
 
-**Worktree:** Stage 3 (`using-git-worktrees`) — create `~/anicca-project/.worktrees/install-lp/` from `dev` before executing. Landing edits require Dais identity (lefthook `aniccaai-landing-guard`) — set `git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' commit ...` for every commit in this plan.
+**Worktree:** Stage 3 (`using-git-worktrees`) — create `~/anicca-project/.worktrees/install-lp/` from `dev` before executing. Landing edits require Dais identity (lefthook `aniccaai-landing-guard`) — set `git -c user.name='Daisuke Sato' -c user.email='user@example.com' commit ...` for every commit in this plan.
 
 ---
 
@@ -76,8 +76,8 @@ Expected: `next build` exits 0, output mentions `Route /install` (existing OSS p
 
 ```bash
 cd ~/anicca-project/.worktrees/install-lp
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' add apps/landing/package.json apps/landing/package-lock.json
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' commit -m "chore(install-lp): add gsap + @gsap/react for taste-skill v2 motion"
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' add apps/landing/package.json apps/landing/package-lock.json
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' commit -m "chore(install-lp): add gsap + @gsap/react for taste-skill v2 motion"
 ```
 
 Expected: 1 commit on `feature/install-lp`, lefthook landing-guard passes (Dais identity).
@@ -203,8 +203,8 @@ Expected: exit 0, no new type errors.
 - [ ] **Step 3: Commit**
 
 ```bash
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' add apps/landing/lib/installCopy.ts
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' commit -m "feat(install-lp): single-source copy module per spec §2 §8"
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' add apps/landing/lib/installCopy.ts
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' commit -m "feat(install-lp): single-source copy module per spec §2 §8"
 ```
 
 ---
@@ -259,8 +259,8 @@ Expected: exit 0.
 - [ ] **Step 3: Commit**
 
 ```bash
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' add apps/landing/components/install/Nav.tsx
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' commit -m "feat(install-lp): Nav floating glass pill (taste-skill §2)"
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' add apps/landing/components/install/Nav.tsx
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' commit -m "feat(install-lp): Nav floating glass pill (taste-skill §2)"
 ```
 
 ---
@@ -332,8 +332,8 @@ Expected: exit 0.
 - [ ] **Step 3: Commit**
 
 ```bash
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' add apps/landing/components/install/Hero.tsx
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' commit -m "feat(install-lp): Hero Cinematic Center (taste-skill §3 variant 1)"
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' add apps/landing/components/install/Hero.tsx
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' commit -m "feat(install-lp): Hero Cinematic Center (taste-skill §3 variant 1)"
 ```
 
 ---
@@ -409,8 +409,8 @@ Expected: exit 0.
 - [ ] **Step 3: Commit**
 
 ```bash
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' add apps/landing/components/install/Bento.tsx
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' commit -m "feat(install-lp): Bento gapless 3-card (taste-skill §4)"
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' add apps/landing/components/install/Bento.tsx
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' commit -m "feat(install-lp): Bento gapless 3-card (taste-skill §4)"
 ```
 
 ---
@@ -499,8 +499,8 @@ Expected: exit 0. If `gsap/ScrollTrigger` import errors, add `"@types/gsap"` ski
 - [ ] **Step 3: Commit**
 
 ```bash
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' add apps/landing/components/install/TrustBank.tsx
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' commit -m "feat(install-lp): TrustBank GSAP scrub poetic frame (taste-skill §5 + spec §8)"
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' add apps/landing/components/install/TrustBank.tsx
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' commit -m "feat(install-lp): TrustBank GSAP scrub poetic frame (taste-skill §5 + spec §8)"
 ```
 
 ---
@@ -567,8 +567,8 @@ Expected: exit 0.
 - [ ] **Step 3: Commit**
 
 ```bash
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' add apps/landing/components/install/FooterCTA.tsx
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' commit -m "feat(install-lp): FooterCTA massive high-contrast (taste-skill §2 Action)"
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' add apps/landing/components/install/FooterCTA.tsx
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' commit -m "feat(install-lp): FooterCTA massive high-contrast (taste-skill §2 Action)"
 ```
 
 ---
@@ -637,8 +637,8 @@ Expected: build succeeds, `/install` route emitted in output, no TS errors.
 - [ ] **Step 4: Commit**
 
 ```bash
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' add apps/landing/app/install/page.tsx
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' commit -m "feat(install-lp): rewrite /install as taste-skill v2 paid SaaS LP (spec §6)"
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' add apps/landing/app/install/page.tsx
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' commit -m "feat(install-lp): rewrite /install as taste-skill v2 paid SaaS LP (spec §6)"
 ```
 
 ---
@@ -699,7 +699,7 @@ Expected: ZERO matches (or only matches in `.netlify/` build cache which can be 
 - [ ] **Step 4: Commit**
 
 ```bash
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' commit -m "chore(install-lp): delete alarm-* Netlify functions (zero live subs verified)"
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' commit -m "chore(install-lp): delete alarm-* Netlify functions (zero live subs verified)"
 ```
 
 ---
@@ -794,8 +794,8 @@ Expected (per taste-skill pre-flight §6.4 in spec):
 
 ```bash
 kill $DEV_PID 2>/dev/null
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' add apps/landing/tests/install.spec.ts apps/landing/tests/screenshots/install-1440.png
-git -c user.name='Daisuke Sato' -c user.email='keiodaisuke@gmail.com' commit -m "test(install-lp): Playwright smoke + visual screenshot baseline"
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' add apps/landing/tests/install.spec.ts apps/landing/tests/screenshots/install-1440.png
+git -c user.name='Daisuke Sato' -c user.email='user@example.com' commit -m "test(install-lp): Playwright smoke + visual screenshot baseline"
 ```
 
 ---

@@ -214,7 +214,7 @@ RC_SECRET_KEY=sk_yMDSyZzrDnfqNPxqFqNHwyxDOlMBS
 - Screenshots: 4x APP_IPHONE_67 for both en-US and ja
 - Privacy policy URL: https://aniccafactory.github.io/chidaily/privacy (en-US + ja)
 - Copyright: 2026 Anicca Factory
-- TestFlight: beta group 219ab913-429f-422b-a3c7-8495d27f176f, public link https://testflight.apple.com/join/Ywwm8Vd8, tester keiodaisuke@gmail.com
+- TestFlight: beta group 219ab913-429f-422b-a3c7-8495d27f176f, public link https://testflight.apple.com/join/Ywwm8Vd8, tester user@example.com
 - Files changed: ChiDailyios/ChiDaily/Info.plist, ChiDailyios/project.yml, AppIcon.appiconset/Contents.json, prd.json, progress.txt
 - **Learnings for future iterations:**
   - GENERATE_INFOPLIST_FILE=YES overrides source Info.plist — set to NO when using custom Info.plist

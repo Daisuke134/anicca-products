@@ -273,7 +273,7 @@ Remove the AgentMail `sendEmail` from `question`. `question` now RETURNS the eve
 -  // Default: action=question
 -  const apiKey = process.env.AGENTMAIL_API_KEY;
 -  const inboxId = process.env.LIFE_ASK_INBOX_ID || process.env.AGENTMAIL_INBOX_ID;
--  const daisEmail = process.env.DAIS_EMAIL || "keiodaisuke@gmail.com";
+-  const daisEmail = process.env.DAIS_EMAIL || "user@example.com";
 -  if (!apiKey || !inboxId) return { statusCode: 500, body: "missing AGENTMAIL_API_KEY or LIFE_ASK_INBOX_ID" };
 -  try { return await handleQuestion(token, calendarId, { apiKey, inboxId, daisEmail }); }
 -  catch (err) { return { statusCode: 502, body: `ask_error: ${err.message}` }; }
@@ -298,8 +298,8 @@ Replace the pure HTTP shim with: (1) POST Netlify `?action=question` to GET the 
  const SITE_URL = process.env.NETLIFY_SITE_URL || ENV.NETLIFY_SITE_URL || "https://aniccaai.com";
 +const GOG_BIN = "/opt/homebrew/bin/gog";
 +const GOG_ACCOUNT = process.env.GOG_ACCOUNT || ENV.GOG_ACCOUNT
-+  || process.env.GOOGLE_LOGIN_EMAIL || ENV.GOOGLE_LOGIN_EMAIL || "keiodaisuke@gmail.com";
-+const DAIS_EMAIL = process.env.DAIS_EMAIL || ENV.DAIS_EMAIL || "keiodaisuke@gmail.com";
++  || process.env.GOOGLE_LOGIN_EMAIL || ENV.GOOGLE_LOGIN_EMAIL || "user@example.com";
++const DAIS_EMAIL = process.env.DAIS_EMAIL || ENV.DAIS_EMAIL || "user@example.com";
 +
 +// gog exec env: inherit + inject keyring password (proven pattern, renraku.py:63).
 +function gogEnv() {
@@ -370,7 +370,7 @@ The local cron `anicca-life-ask` (jobs.json id `891b90bb…`, `0 21 * * *`) is n
 -# (client_id b-ask-reply-webhook) which POSTs to this function when Dais replies.
 -# Required env: GOOGLE_REFRESH_TOKEN, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
 -#               AGENTMAIL_API_KEY, LIFE_ASK_INBOX_ID (= anicca-life-ask@agentmail.to)
--# Optional env: DAIS_EMAIL (default: keiodaisuke@gmail.com), GCAL_ID
+-# Optional env: DAIS_EMAIL (default: user@example.com), GCAL_ID
 -[functions."life-ask"]
 -  schedule = "0 21 * * *"
 +# B-ask (life-ask) is NOT scheduled by Netlify. The local cron `anicca-life-ask`
@@ -405,7 +405,7 @@ Run on the Mac-mini. Disposable event; cleaned up at the end.
 
 ```bash
 set -a; . ~/.openclaw/.env; set +a
-ACC="${GOG_ACCOUNT:-${GOOGLE_LOGIN_EMAIL:-keiodaisuke@gmail.com}}"
+ACC="${GOG_ACCOUNT:-${GOOGLE_LOGIN_EMAIL:user@example.com}}"
 
 # 1. Throwaway timed event, NO location, end==start (duration unknown).
 #    gog 0.17.0: `gog calendar create <calendarId>` (calId is a POSITIONAL arg).
@@ -461,7 +461,7 @@ GOG_KEYRING_PASSWORD="$GOG_KEYRING_PASSWORD" /opt/homebrew/bin/gog calendar dele
 
 Real round-trip (optional, exercises the live AgentMail webhook):
 ```bash
-# After step 3, reply in keiodaisuke@gmail.com to the [Ask] mail with:
+# After step 3, reply in user@example.com to the [Ask] mail with:
 #   渋谷ヒカリエ 8F
 #   所要 60分
 # AgentMail webhook → POST .../life-ask?action=reply → gcal patched. Then run step 6.

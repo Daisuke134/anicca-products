@@ -744,7 +744,7 @@ REV=$(python3 -c "print(round($USDC - $(cat "$BASE"),4))")
 # --- email (AgentMail) ---
 curl -s --max-time 20 -X POST "https://api.agentmail.to/v0/inboxes/anicca-genesis@agentmail.to/messages/send" \
   -H "Authorization: Bearer $AGENTMAIL_API_KEY" -H "Content-Type: application/json" \
-  -d "$(python3 -c "import json;print(json.dumps({'to':['keiodaisuke@gmail.com','contact@aniccaai.com'],'subject':f'Anicca wake net \$$USDC','text':f'NET WORTH \$$USDC USDC (+$ETH ETH)\nREVENUE TODAY \$$REV\nDID $DID\nNEXT $NEXT'}))")" >/dev/null 2>&1
+  -d "$(python3 -c "import json;print(json.dumps({'to':['user@example.com','contact@aniccaai.com'],'subject':f'Anicca wake net \$$USDC','text':f'NET WORTH \$$USDC USDC (+$ETH ETH)\nREVENUE TODAY \$$REV\nDID $DID\nNEXT $NEXT'}))")" >/dev/null 2>&1
 # --- telemetry: sign the VERBATIM message string and POST it as {message,signature} ---
 TS=$(date -u +%s)
 MSG=$(python3 -c "import json;print(json.dumps({'id':'$(echo $W|tr A-F a-f)','ts':$TS,'host':'akash','geo':'US','model_live':'auto','model_tier':'free','net_worth_usd':$USDC,'revenue_mo_usd':$REV,'burn_day_usd':0,'runway_days':999,'status':'alive'},separators=(',',':')))")

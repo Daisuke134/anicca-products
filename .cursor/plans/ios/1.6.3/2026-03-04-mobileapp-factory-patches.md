@@ -16,7 +16,7 @@ Tell me the full path of the spec that was basically fixing this whole fucking r
 | `asc screenshots frame` | `asc screenshots frame --input ... --device iphone-air` | ❌ | **asc 0.36.3 バグ**: kou exit status 1 |
 | `kou generate` 直接 | `kou generate koubou.yaml` | ✅ | 1320x2868 PNG 出力成功（バックグラウンドエージェント確認） |
 | Beta Groups list | `asc testflight beta-groups list --app 6759994539` | ✅ | External Testers (ID: 219ab913) |
-| Beta Testers list | `asc testflight beta-testers list --app 6759994539` | ✅ | keiodaisuke@gmail.com: state=NOT_INVITED |
+| Beta Testers list | `asc testflight beta-testers list --app 6759994539` | ✅ | user@example.com: state=NOT_INVITED |
 | Build add-groups | `asc builds add-groups --build BUILD_ID --group GROUP_ID` | ✅ | Successfully added |
 | Beta-testers invite | `asc testflight beta-testers invite --app ... --email ...` | ⚠️ | invitationId 返却、しかし state=NOT_INVITED のまま |
 | Builds list | `asc builds list --app 6759994539 --sort -uploadedDate --limit 3` | ✅ | Build #2 = VALID |

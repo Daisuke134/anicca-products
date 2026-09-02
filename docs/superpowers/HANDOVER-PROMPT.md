@@ -25,7 +25,7 @@ An independent audit (curl of live pages + origin/main source) found **only ~10-
 | /me (earn ledger + withdraw) | live | 🔴 page-only: shows "GATE-0 未達 (swap≠external revenue)"; withdraw/pause/daily-report buttons `disabled "opens at launch"` |
 | dashboard | live colony | 🔴 served HTML is just `Loading…` — no numbers/leaderboard server-side |
 | self-spawn | live | 🔴 no user surface; gated behind the dead Stripe flow |
-| life-call / life-ask / life-notify | live | 🔴 page cards say **"coming"**; life-call tasks #108-111 marked "completed" but NO real call ever connected (Twilio err 13225 fraud-block on +818046270314; Telnyx coded but **no TELNYX_API_KEY**) |
+| life-call / life-ask / life-notify | live | 🔴 page cards say **"coming"**; life-call tasks #108-111 marked "completed" but NO real call ever connected (Twilio err 13225 fraud-block on +81XXXXXXXXXX; Telnyx coded but **no TELNYX_API_KEY**) |
 | earn GATE-0 | "MET" | 🔴 it's an ETH→USDC **swap** (asset liquidation, to=Uniswap), NOT external revenue → UNMET |
 | i18n EN/JA | done | 🔴 hardcoded `lang=en` over Japanese copy; `/en/install` & `/ja/install` = 404; no real locale routes |
 | internal-jargon leak | — | 🔴 live pages show `GATE-0`, `swap-eth-usdc`, `B-travel`, `B-call`, "spec27 §2", "HARD 0.24/0.31" to end users |
@@ -55,18 +55,18 @@ An independent audit (curl of live pages + origin/main source) found **only ~10-
 - Repo cruft removed (work//.ipa/.dSYM gitignored — was causing ENOSPC in worktrees).
 
 ## Genuine external blockers (small vs the fake-product problem)
-- **life-call**: needs working telephony — Twilio `+818046270314` is fraud-blocked (err 13225, needs a Support ticket) OR set up Telnyx (account + funding + `TELNYX_API_KEY`). Then place a REAL connected call (verify dur>0 + recording via the carrier API).
+- **life-call**: needs working telephony — Twilio `+81XXXXXXXXXX` is fraud-blocked (err 13225, needs a Support ticket) OR set up Telnyx (account + funding + `TELNYX_API_KEY`). Then place a REAL connected call (verify dur>0 + recording via the carrier API).
 - **earn**: a swap is NOT earning. Needs seed capital (≈$5-10) or an accepted no-capital external-revenue path. Never mark GATE-0 met on a swap.
 
 ## How we work
 - **SDD + adversarial review** (HARD #0): spec → plan → review-until-clean → TDD → deploy → **live E2E that USES the product**. The telemetry pipeline (6 review rounds) is the quality bar.
-- **Deployment reality**: `apps/landing` is static export → server runtime is **Netlify Functions** (`netlify/functions/*.js`, CJS, `/.netlify/functions/<name>`); Supabase via REST; ethers v6; node:test. Deploy = PR → `main` (its GHA has `--functions`). lefthook requires git author `Daisuke Sato <keiodaisuke@gmail.com>` + branch prefix `feature/|fix/|chore/|docs/|spec/`.
+- **Deployment reality**: `apps/landing` is static export → server runtime is **Netlify Functions** (`netlify/functions/*.js`, CJS, `/.netlify/functions/<name>`); Supabase via REST; ethers v6; node:test. Deploy = PR → `main` (its GHA has `--functions`). lefthook requires git author `Daisuke Sato <user@example.com>` + branch prefix `feature/|fix/|chore/|docs/|spec/`.
 - **Director/monitor discipline**: if you run + monitor a workflow, you MUST USE the product yourself each loop (click the buttons, look for "coming soon", curl every CTA) — verifier "pass" ≠ works. Don't report "live" you didn't personally exercise.
 - **Disk**: `df -h /` often; clean `~/.npm`, `simctl delete all`, prune worktrees when <2.5Gi.
 - **Push constantly**; STATUS.md (`docs/superpowers/STATUS.md`) is the living truth — keep it honest.
 
 ## Credentials (`~/.openclaw/.env`, never commit)
-SUPABASE_URL/SERVICE_ROLE_KEY/ANON/ACCESS_TOKEN(sbp_), NETLIFY_AUTH_TOKEN/SITE_ID(anicca2), STRIPE_SECRET_KEY + STRIPE_SPAWN_WEBHOOK_SECRET(prod), DIGITALOCEAN_TOKEN, BLOCKRUN_WALLET_KEY(=genesis 0xa3cdd4…), AGENTMAIL_API_KEY (daily-limited; use `gog gmail send --account keiodaisuke@gmail.com` for mail), TWILIO_* (fraud-blocked to JP), GEMINI_API_KEY. Genesis droplet: `root@147.182.225.255`.
+SUPABASE_URL/SERVICE_ROLE_KEY/ANON/ACCESS_TOKEN(sbp_), NETLIFY_AUTH_TOKEN/SITE_ID(anicca2), STRIPE_SECRET_KEY + STRIPE_SPAWN_WEBHOOK_SECRET(prod), DIGITALOCEAN_TOKEN, BLOCKRUN_WALLET_KEY(=genesis 0xa3cdd4…), AGENTMAIL_API_KEY (daily-limited; use `gog gmail send --account user@example.com` for mail), TWILIO_* (fraud-blocked to JP), GEMINI_API_KEY. Genesis droplet: `root@147.182.225.255`.
 
 ---
 

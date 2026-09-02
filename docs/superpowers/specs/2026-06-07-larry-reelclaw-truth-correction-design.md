@@ -190,7 +190,7 @@ session: isolated, agent: anicca, delivery: slack:C091G3PKHL2
 | cron status | `error` (last run) | `ok` |
 | script root cause | missing `~/.openclaw/skills/anicca-tt-warmup-newcomer/state/accounts.jsonl` etc | rewrite script to read from `~/.openclaw/state/postiz-integrations.json` directly (= single source of truth pattern; T1 already rebuilds this file as canonical, so script tracks the truth automatically — no parallel accounts.jsonl to drift out of sync) — reviewer I1 fix, option-presentation deleted |
 | daily Gmail body | not delivered | embed `zero-view-streaks.json` (≥3-day-streak ≥ 0-views accounts) with action items: "warm up @X" / "create new YT acct" / "create new IG acct" + Postiz signup URL |
-| recipient | `keiodaisuke@gmail.com` | same |
+| recipient | `user@example.com` | same |
 
 ### G. Slideshow-Video fire verify
 

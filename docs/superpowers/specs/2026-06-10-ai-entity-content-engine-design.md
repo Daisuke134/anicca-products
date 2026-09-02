@@ -177,7 +177,7 @@ Titles (specific, not "automaton" jargon): 「AIに$15渡して"自分で稼げ"
 ### AutoHedge (= The-Swarm-Corporation/AutoHedge, 3.3k★, Python, Solana via Jupiter Ultra + solders)
 - 4-agent pipeline: Director(thesis)→Quant(analysis)→Risk(sizing)→Execution(real Jupiter swap, signs with SOLANA_PRIVATE_KEY). `execute_trade` in autohedge/tools/ultra_tools.py DOES broadcast live VersionedTransactions.
 - Installed: ~/.cache/anicca-clones/AutoHedge/.venv (autohedge import OK). All keys present in ~/.openclaw/.env (OPENAI/ANTHROPIC/JUPITER/SOLANA_PRIVATE_KEY).
-- Runs local (Python; FastAPI option). Not auto-cloud. Daily P&L → launchd → email keiodaisuke@gmail.com via gog (planned).
+- Runs local (Python; FastAPI option). Not auto-cloud. Daily P&L → launchd → email user@example.com via gog (planned).
 - First end-to-end run 2026-06-11 on GPT, SOL task, ~2 USDC cap (wallet holds 5.86 USDC = max loss). Capturing thesis→exec + whether it traded.
 - Anicca self-funding AutoHedge (no-human-in-loop) = not native (no external-USDC-send tool + cross-chain Base→Solana); needs a custom skill (future).
 - **LLM key reality 2026-06-11 (root cause of the "deepseek diversion"):** OpenAI key = insufficient_quota (dead), Anthropic key = credit too low (dead), **DeepSeek = the only funded key**. So GPT/Claude need Dais to add billing; everything runs on DeepSeek until then. AutoHedge agents (workers.py) switched gpt-4.1/gpt-4o-mini → deepseek/deepseek-chat. First GPT run failed on OpenAI 429 (no trade, no loss); re-running on DeepSeek. The automaton's proper path is Conway-routed inference paid from its USDC→credits (not direct LLM keys).
@@ -186,7 +186,7 @@ Titles (specific, not "automaton" jargon): 「AIに$15渡して"自分で稼げ"
 - **Decision: AutoHedge runs on DeepSeek** (only funded direct API, ~1/10–1/20 GPT cost). GPT optional later via funding BlockRun.
 
 ### AutoHedge daily report — WIRED 2026-06-11
-- Permanent home ~/autohedge (off ephemeral cache). Wrapper ~/autohedge/run-autohedge.sh: Solana USDC balance → run one cycle (DeepSeek) → re-check balance → P&L=delta → email keiodaisuke@gmail.com via gog. launchd ai.anicca.autohedge daily 09:00 JST. AutoHedge has NO built-in heartbeat (one-shot per invocation); launchd provides schedule. First DeepSeek run = HOLD (SOL short-term bearish), no trade, $0 loss.
+- Permanent home ~/autohedge (off ephemeral cache). Wrapper ~/autohedge/run-autohedge.sh: Solana USDC balance → run one cycle (DeepSeek) → re-check balance → P&L=delta → email user@example.com via gog. launchd ai.anicca.autohedge daily 09:00 JST. AutoHedge has NO built-in heartbeat (one-shot per invocation); launchd provides schedule. First DeepSeek run = HOLD (SOL short-term bearish), no trade, $0 loss.
 
 ### Article plan (Dais 2026-06-11): #1 Automaton run FULLY end-to-end on Conway CLOUD (normalize off deepseek-local), experiment, gather all content, THEN write complete article → refine → publish. #2 AutoHedge (already DL'd + setup). Write finished pieces, not mid-progress fragments.
 

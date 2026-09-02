@@ -58,7 +58,7 @@
 | CFBundleIconName required | iOS 11+ で Info.plist に `CFBundleIconName=AppIcon` 必須。未設定だと IPA validation で "Missing required icon file" エラー |
 | ExportOptions destination upload | ExportOptions.plist に `destination: upload` を設定すると exportArchive 時に自動で ASC にアップロードされる |
 | Build appears in ASC API delay | アップロード成功後、ASC API にビルドが表示されるまで約60-90秒かかる |
-| betaAppReviewDetails phone format | ASC API contactPhone は `+81-90-1234-5678` のダッシュ付きフォーマットのみ受付。E.164(`+819012345678`) / 括弧付き / スペース区切りは全て INVALID_PHONE_NUMBER |
+| betaAppReviewDetails phone format | ASC API contactPhone は `+81-90-1234-5678` のダッシュ付きフォーマットのみ受付。E.164(`+81XXXXXXXXXX`) / 括弧付き / スペース区切りは全て INVALID_PHONE_NUMBER |
 | betaAppLocalization required | External TestFlight submit 前に `POST /v1/betaAppLocalizations` で en-US description を設定必須。未設定だと "Beta App Description is missing" エラー |
 | primaryCategory must be set | primaryCategory 未設定だと INVALID_BINARY で提出拒否。`PATCH /v1/appInfos/{id}` で relationships.primaryCategory を設定 |
 | Free app pricing required | Free app でも `asc pricing schedule create` で $0.00 price point を明示設定必須。未設定だと "App is not eligible for submission until pricing has been set" |
@@ -113,7 +113,7 @@
     - betaAppLocalization en-US created (description + feedbackEmail)
     - betaBuildLocalization en-US created (whatsNew)
     - Beta review submitted -> WAITING_FOR_BETA_REVIEW
-    - Tester keiodaisuke@gmail.com added to External Testers
+    - Tester user@example.com added to External Testers
     - internalBuildState=READY_FOR_BETA_TESTING
   - AC4: Slack #metrics notified with TestFlight status PASS
 - **Learnings for future iterations:**
@@ -130,7 +130,7 @@
 - **Status: COMPLETE — all AC verified with evidence**
 - **Evidence:**
   - AC1: Age Rating 22 items set via `asc age-rating set --app 6760196743`. healthOrWellnessTopics=true, all others NONE/false. appStoreAgeRating=FOUR_PLUS PASS
-  - AC2: Review Details demoAccountRequired=false via REST API PATCH. Contact: Daisuke Kobayashi, keiodaisuke@gmail.com PASS
+  - AC2: Review Details demoAccountRequired=false via REST API PATCH. Contact: Daisuke Kobayashi, user@example.com PASS
   - AC3: Availability 175/175 territories available via REST API v2 POST /v2/appAvailabilities. availableInNewTerritories=true PASS
   - AC4: Pricing: Free app (Tier 0, no manual prices). Subscriptions configured in US-005b (175 prices per sub) PASS
   - AC5: usesNonExemptEncryption=false (via build Info.plist). Encryption declaration created (containsThirdPartyCryptography=true for HTTPS/TLS) PASS

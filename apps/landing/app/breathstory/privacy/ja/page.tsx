@@ -9,7 +9,7 @@ export default function BreathStoryPrivacyJA() {
       </p>
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">1. 事業者情報</h2>
-      <p className="mt-3 text-muted-foreground">成田大介（個人事業主）/ keiodaisuke@gmail.com</p>
+      <p className="mt-3 text-muted-foreground">成田大介（個人事業主）/ support@aniccaai.com</p>
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">2. 適用範囲</h2>
       <p className="mt-3 text-muted-foreground">
@@ -77,7 +77,7 @@ export default function BreathStoryPrivacyJA() {
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">11. ユーザーの権利</h2>
       <p className="mt-3 text-muted-foreground">
-        すべてのデータを削除するには：端末からBreathStoryを削除してください。サポート関連データの削除については keiodaisuke@gmail.com までご連絡ください。
+        すべてのデータを削除するには：端末からBreathStoryを削除してください。サポート関連データの削除については support@aniccaai.com までご連絡ください。
       </p>
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">12. 未成年者</h2>
@@ -92,7 +92,7 @@ export default function BreathStoryPrivacyJA() {
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">14. お問い合わせ</h2>
       <p className="mt-3 text-muted-foreground">
-        本ポリシーに関するご質問：keiodaisuke@gmail.com
+        本ポリシーに関するご質問：support@aniccaai.com
       </p>
 
       <p className="mt-10 text-sm text-muted-foreground">最終更新：2026年3月</p>

@@ -84,7 +84,7 @@ Mac MiniにOpenClaw Gatewayを移行済み。初期セットアップの残タ�
 ### 17. System Settings > General > Sharing > Screen Sharing ON
 
 ### 18. Xcode > Settings > Accounts > Apple ID追加
-- keiodaisuke@gmail.com / Chatgpt12345
+- user@example.com / Chatgpt12345
 
 ### 19. macos-desktop-controlスキルインストール
 - `clawhub install macos-desktop-control --dir ~/.openclaw/skills`

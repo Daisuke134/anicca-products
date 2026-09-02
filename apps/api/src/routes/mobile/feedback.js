@@ -7,7 +7,7 @@ import { prisma } from '../../lib/prisma.js';
 const router = express.Router();
 
 const FROM = 'anicca-feedback@aniccaai.com';
-const TO = 'keiodaisuke@gmail.com';
+const TO = process.env.FEEDBACK_TO_EMAIL || 'support@aniccaai.com';
 
 const recentSubmits = new Map();
 function checkRateLimit(key) {

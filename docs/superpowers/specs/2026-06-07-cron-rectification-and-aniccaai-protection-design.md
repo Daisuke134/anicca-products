@@ -209,7 +209,7 @@ aniccaai-landing-guard:
 ★ Layer 4 (= server-side、 P2 future): GitHub Actions workflow `landing-guard.yml` で
   pull-request author check。 Anicca bot account 直接 push 阻止 (= local hook bypass 防止)。 ★
 
-- ★ Dais 本人 (name=Daisuke Sato OR email=keiodaisuke@gmail.com OR parent=zsh/cursor) → 素通り ★
+- ★ Dais 本人 (name=Daisuke Sato OR email=user@example.com OR parent=zsh/cursor) → 素通り ★
 - ★ taste skill = Dais の interactive shell 経由 invoke、 同様 素通り ★
 
 **3.2.3 保留 候補 (= keep but redirect):**

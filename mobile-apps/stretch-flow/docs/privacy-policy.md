@@ -3,7 +3,7 @@
 **DeskStretch**
 **Effective Date:** March 5, 2026
 **Developer:** Anicca Factory
-**Contact:** keiodaisuke@gmail.com
+**Contact:** user@example.com
 
 ---
 
@@ -76,10 +76,10 @@ We do not sell, rent, or share your personal data with any third parties for adv
 
 ### For European Union Users (GDPR)
 
-- **Data Controller:** Anicca Factory (keiodaisuke@gmail.com)
+- **Data Controller:** Anicca Factory (user@example.com)
 - **Lawful Basis:** Consent (app usage) and contract (subscription)
 - **Rights:** You have the right to access, rectify, erase, restrict processing, data portability, and object to processing of your personal data.
-- **Contact:** Email keiodaisuke@gmail.com for any data requests.
+- **Contact:** Email user@example.com for any data requests.
 - **Supervisory Authority:** You have the right to lodge a complaint with your local data protection authority.
 
 ### For California Users (CCPA)
@@ -94,7 +94,7 @@ We do not sell, rent, or share your personal data with any third parties for adv
 - **Data Fiduciary:** Anicca Factory
 - **Purpose:** App functionality (personalized stretches)
 - **Rights:** Access, correction, erasure, grievance redressal
-- **Contact:** keiodaisuke@gmail.com
+- **Contact:** user@example.com
 
 ---
 
@@ -114,7 +114,7 @@ We may update this Privacy Policy from time to time. We will notify users of mat
 
 If you have questions about this Privacy Policy:
 
-- **Email:** keiodaisuke@gmail.com
+- **Email:** user@example.com
 - **Developer:** Anicca Factory
 
 ---

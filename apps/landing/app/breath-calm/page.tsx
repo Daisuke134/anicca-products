@@ -73,7 +73,7 @@ export default function BreathCalmLanding() {
             {' · '}
             <a href="/breath-calm/terms" className="underline hover:text-[hsl(var(--text-primary))]">Terms of Use</a>
             {' · '}
-            <a href="mailto:keiodaisuke@gmail.com" className="underline hover:text-[hsl(var(--text-primary))]">Support</a>
+            <a href="mailto:support@aniccaai.com" className="underline hover:text-[hsl(var(--text-primary))]">Support</a>
           </p>
           <p>© 2026 Daisuke Narita. All rights reserved.</p>
         </div>

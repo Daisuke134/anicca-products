@@ -9,14 +9,14 @@ Dais reported on 2026-06-14: 「life-manager の電話が来ない、 直して�
 | Layer | Status before fix | Status after Phase 1 |
 |---|---|---|
 | anicca-phone outbound bridge (launchd `ai.anicca.pipecat-phone`) | DEAD — launchd plist referenced `~/anicca-oss-pipecat/skills/anicca-phone/outbound/run.sh` which was deleted in the 2026-06-09 cleanup (the `anicca-oss` → `anicca` rename removed the entire `anicca-oss-pipecat` worktree). KeepAlive crash-loop, port 7860 dead, `state/anicca_phone_url.txt` stale, every `calendar-event-call` cycle logged `pipecat-phone unhealthy at http://127.0.0.1:7860 ⚠️ call not placed` | ALIVE — skill restored to `~/.openclaw/skills/anicca-phone/`, run.sh REPO_DIR + plist ProgramArguments/WorkingDirectory updated, venv rebuilt (python 3.13, ~725MB, gitignored), launchd pid alive, port 7860 LISTEN, cloudflared tunnel = `https://conventional-birmingham-thermal-particle.trycloudflare.com`, `state/anicca_phone_url.txt` writes on every restart. Commit 45ea3238d on anicca-dais main-internal. |
-| Twilio outbound API (the actual call placement) | UNKNOWN at bridge restore time, then discovered: **all dialouts return error 21216 "Account not allowed to call"** for both JP target (+818046270314) and Twilio US magic test (+15005550006), proving an account-wide block (not a number-level block). Last successful call: 2026-06-09 21:43 — no attempts at all between 6/10–6/14 because the bridge was dead. | OPEN — see Phase 2 below |
+| Twilio outbound API (the actual call placement) | UNKNOWN at bridge restore time, then discovered: **all dialouts return error 21216 "Account not allowed to call"** for both JP target (+81XXXXXXXXXX) and Twilio US magic test (+1XXXXXXXXXX), proving an account-wide block (not a number-level block). Last successful call: 2026-06-09 21:43 — no attempts at all between 6/10–6/14 because the bridge was dead. | OPEN — see Phase 2 below |
 
 ## Root cause of the Twilio block (Phase 2 problem)
 
 Twilio docs https://www.twilio.com/docs/api/errors/21216 verbatim:
 > *"Your account was created outside the United States or Canada on or after October 8, 2025 and does not have an approved Business Primary Customer Profile. An Individual Primary Customer Profile created after October 8, 2025 does not satisfy this requirement for +1 calling. Support cannot manually remove this restriction."*
 
-Dais's Twilio account (SID stored in `~/.openclaw/.env::TWILIO_ACCOUNT_SID`, Master/Full/active, JPY ¥3,309 balance) was created on 2026-05-10 (= post-2025-10-08 cutoff). The existing Trust Hub draft (Profile SID `BU7d…redacted`, status=draft, created 2026-05-10) is an **Individual Primary Customer Profile** (`individual_customer_profile_information` EndUserType, attributes already populated with 成田大祐 / 2002-01-30 / +818046270314 / 新宿区南元町15-27 / `myn` identification). Per the docs, completing this Individual profile **will not** restore outbound — it does not satisfy the policy.
+Dais's Twilio account (SID stored in `~/.openclaw/.env::TWILIO_ACCOUNT_SID`, Master/Full/active, JPY ¥3,309 balance) was created on 2026-05-10 (= post-2025-10-08 cutoff). The existing Trust Hub draft (Profile SID `BU7d…redacted`, status=draft, created 2026-05-10) is an **Individual Primary Customer Profile** (`individual_customer_profile_information` EndUserType, attributes already populated with 成田大祐 / 2002-01-30 / +81XXXXXXXXXX / 新宿区南元町15-27 / `myn` identification). Per the docs, completing this Individual profile **will not** restore outbound — it does not satisfy the policy.
 
 We must build a **Business Primary Customer Profile** instead.
 
@@ -37,7 +37,7 @@ Outstanding research needed (open questions for Twilio docs):
 3. SupportingDocument types required: probably Address (already present as `RD044c1de566d9994ff9d722ffd26e5b63` draft) + Business Registration Authority + Authorized Representative Photo ID.
 4. Whether the existing draft Profile can be re-typed to Business or must be replaced with a new BU.
 
-★ Resolution method ★: camofox-driven Twilio Console login (https://console.twilio.com via Google OAuth keiodaisuke@gmail.com), navigate to **Account > Trust Hub > Customer Profile**, observe the actual Business Profile form fields + Business Type dropdown (does "Sole Proprietor" appear?), screenshot, then either fill via Console or replicate via REST API. Console reveals what API list doesn't.
+★ Resolution method ★: camofox-driven Twilio Console login (https://console.twilio.com via Google OAuth user@example.com), navigate to **Account > Trust Hub > Customer Profile**, observe the actual Business Profile form fields + Business Type dropdown (does "Sole Proprietor" appear?), screenshot, then either fill via Console or replicate via REST API. Console reveals what API list doesn't.
 
 ## Phase 3 — life-manager persona reform (was task #2)
 

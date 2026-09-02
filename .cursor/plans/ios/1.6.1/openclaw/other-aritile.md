@@ -102,7 +102,7 @@ Step 8: Get Your Gateway Token
 Run:
 docker inspect $(docker ps -q) | grep -i OPENCLAW_GATEWAY_TOKEN
 You'll see output like:
-"OPENCLAW_GATEWAY_TOKEN=abc123def456ghi789jkl",
+"OPENCLAW_GATEWAY_TOKEN=REDACTED_VALUE",
 Copy the token (everything after the = sign, without quotes or comma).
 This is your dashboard password.
 
@@ -110,7 +110,7 @@ Step 9: Access Your Secured Dashboard
 Your full dashboard URL format is:
 https://YOUR_TAILSCALE_URL?token=YOUR_TOKEN
 Example:
-https://srv1234567.tail8328fe.ts.net?token=abc123def456ghi789jkl
+https://srv1234567.tail8328fe.ts.net?token=REDACTED_VALUE
 You'll need this tokenized URL every time you access your dashboard.
 No token = no access. That's the point.
 

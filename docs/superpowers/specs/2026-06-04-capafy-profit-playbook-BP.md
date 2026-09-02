@@ -1,7 +1,7 @@
 # Capafy Profit Playbook — 実データBP（コピー元）
 
 - **Date**: 2026-06-04
-- **Source**: Capafy live marketplace API `POST /agent/agents/search` + `GET /agent/agent/agents/{id}`（capafy-user skill, token=keiodaisuke@gmail.com, developerVerified）
+- **Source**: Capafy live marketplace API `POST /agent/agents/search` + `GET /agent/agent/agents/{id}`（capafy-user skill, token=user@example.com, developerVerified）
 - **Method**: 36クエリ横断 → 重複排除 **232 unique agent** → `salesVolume × price` で収益proxyランキング
 - **用途**: Task 2「Capafy Profit Playbook」スキルの中核 + 全publish(Task 3)の値付け根拠。**BP = コピー元。オリジナル禁止。**
 

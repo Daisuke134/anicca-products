@@ -308,7 +308,7 @@ Source: https://developer.mixpanel.com/reference/service-accounts
 ```bash
 # cURL Basic Auth（推奨）
 curl https://mixpanel.com/api/app/me \
-  --user "serviceaccount_username:serviceaccount_secret"
+  --user EXAMPLE_USER:EXAMPLE_PASSWORD
 
 # cURL Header
 curl https://mixpanel.com/api/app/me \

@@ -204,7 +204,7 @@ npx skills add code-with-beto/skills@app-icon -g -y
 ```ruby
 # Fastfile の必須変数（各アプリの Fastfile に設定）
 API_KEY_ID     = "D637C7RGFN"
-API_ISSUER_ID  = "f53272d9-c12d-4d9d-811c-4eb658284e74"
+API_ISSUER_ID  = "REDACTED_VALUE"
 API_KEY_PATH   = "#{ENV['HOME']}/Downloads/AuthKey_D637C7RGFN.p8"
 ```
 

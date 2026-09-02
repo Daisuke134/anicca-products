@@ -120,7 +120,7 @@ const B = [
   { key: 'life-travel', model: 'sonnet', spec: 'spec27 B-travel',
     rubric: '~/anicca/skills/life/travel.js: creating a test gcal event causes a Maps-derived travel block to be auto-inserted before it in gcal (verified by reading gcal back). Applies to chained events.' },
   { key: 'life-call', model: 'opus', spec: 'spec27 B-call (Gemini Charon, bidirectional)',
-    rubric: '~/anicca/skills/life/call.js: a REAL outbound call to +818046270314 CONNECTS (carrier API shows duration>0), bridges Twilio/Telnyx Media Streams <-> Gemini Live (voice=Charon), speaks the next-event guidance bidirectionally, recording is non-silent. Provide the call SID + recording URL from the carrier API. (Twilio is fraud-blocked to JP -> use Telnyx + TELNYX_API_KEY.) A prior "proof" (CA2c02…) is DISPUTED by audit — re-prove a fresh connected call.' },
+    rubric: '~/anicca/skills/life/call.js: a REAL outbound call to +81XXXXXXXXXX CONNECTS (carrier API shows duration>0), bridges Twilio/Telnyx Media Streams <-> Gemini Live (voice=Charon), speaks the next-event guidance bidirectionally, recording is non-silent. Provide the call SID + recording URL from the carrier API. (Twilio is fraud-blocked to JP -> use Telnyx + TELNYX_API_KEY.) A prior "proof" (CA2c02…) is DISPUTED by audit — re-prove a fresh connected call.' },
   { key: 'life-ask', model: 'sonnet', spec: 'spec27 B-ask',
     rubric: '~/anicca/skills/life/ask.js: unknown location/duration -> a question email is sent to Dais Gmail; a reply fills the gcal where (AgentMail inbound webhook). Show the sent email + the gcal update after reply.' },
   { key: 'life-notify', model: 'sonnet', spec: 'spec27 B-notify (email-only approval)',
@@ -150,7 +150,7 @@ async function buildAndVerify(s, gaps) {
       `Close EXACTLY these audited gaps — each includes RAW evidence of the current broken state:\n${JSON.stringify(gaps, null, 1)}\n` +
       (feedback ? `The reviewer/verifier REJECTED the prior attempt — fix exactly: ${feedback}. ` : '') +
       `Read the LIVE code at each path, write a REAL applicable diff (NOT a sketch), follow SDD+TDD, run the tests. ` +
-      `Branch off main (name prefix feature/|fix/|chore/|docs/|spec/, git author "Daisuke Sato <keiodaisuke@gmail.com>"), commit, open a PR, and report the PR number — ★do NOT merge yet★ (a reviewer checks the diff before it lands). ` +
+      `Branch off main (name prefix feature/|fix/|chore/|docs/|spec/, git author "Daisuke Sato <user@example.com>"), commit, open a PR, and report the PR number — ★do NOT merge yet★ (a reviewer checks the diff before it lands). ` +
       `Collision rule: ADD your own new files; do NOT edit shared files (install.sh / landing nav / skills/registry.json) — if you think you must, stop and report it as a gap. ` +
       `Target rubric: ${s.rubric}`,
       { label: `build:${s.key}`, phase: 'Build', schema: BUILD, model: s.model, isolation: 'worktree' }
@@ -254,7 +254,7 @@ const e2e = await agent(
   `(a) a genesis wake posts signed telemetry -> dashboard-sync reflects real on-chain net worth (open /dashboard in camofox, see the number); ` +
   `(b) a Stripe test subscription spawns a real DO droplet then cancel destroys it; ` +
   `(c) at least ONE real EXTERNAL-revenue earn tx (basescan status=0x1, not a swap) landed; ` +
-  `(d) a REAL Charon (Gemini Live) bidirectional call to +818046270314 connected (duration>0), guided the next event, recording good. ` +
+  `(d) a REAL Charon (Gemini Live) bidirectional call to +81XXXXXXXXXX connected (duration>0), guided the next event, recording good. ` +
   `List the tx hashes, droplet id, dashboard numbers, call SID/recording.`,
   { label: 'e2e', phase: 'E2E', schema: VERDICT, model: 'opus' }
 )

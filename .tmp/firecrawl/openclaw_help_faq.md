@@ -1205,7 +1205,7 @@ See [/channels/telegram](https://docs.openclaw.ai/channels/telegram#access-contr
 
 ### [​](https://docs.openclaw.ai/help/faq\#can-multiple-people-use-one-whatsapp-number-with-different-openclaw-instances)  Can multiple people use one WhatsApp number with different OpenClaw instances
 
-Yes, via **multi-agent routing**. Bind each sender’s WhatsApp **DM** (peer `kind: "dm"`, sender E.164 like `+15551234567`) to a different `agentId`, so each person gets their own workspace and session store. Replies still come from the **same WhatsApp account**, and DM access control (`channels.whatsapp.dmPolicy` / `channels.whatsapp.allowFrom`) is global per WhatsApp account. See [Multi-Agent Routing](https://docs.openclaw.ai/concepts/multi-agent) and [WhatsApp](https://docs.openclaw.ai/channels/whatsapp).
+Yes, via **multi-agent routing**. Bind each sender’s WhatsApp **DM** (peer `kind: "dm"`, sender E.164 like `+1XXXXXXXXXX`) to a different `agentId`, so each person gets their own workspace and session store. Replies still come from the **same WhatsApp account**, and DM access control (`channels.whatsapp.dmPolicy` / `channels.whatsapp.allowFrom`) is global per WhatsApp account. See [Multi-Agent Routing](https://docs.openclaw.ai/concepts/multi-agent) and [WhatsApp](https://docs.openclaw.ai/channels/whatsapp).
 
 ### [​](https://docs.openclaw.ai/help/faq\#can-i-run-a-fast-chat-agent-and-an-opus-for-coding-agent)  Can I run a fast chat agent and an Opus for coding agent
 
@@ -1982,7 +1982,7 @@ Copy
 ```
 {
   agents: { defaults: { workspace: "~/.openclaw/workspace" } },
-  channels: { whatsapp: { allowFrom: ["+15555550123"] } },
+  channels: { whatsapp: { allowFrom: ["+1XXXXXXXXXX"] } },
 }
 ```
 
@@ -2338,7 +2338,7 @@ Copy
   channels: {
     whatsapp: {
       groupPolicy: "allowlist",
-      groupAllowFrom: ["+15551234567"],
+      groupAllowFrom: ["+1XXXXXXXXXX"],
     },
   },
 }
@@ -3148,7 +3148,7 @@ Outbound attachments from the agent must include a `MEDIA:<path-or-url>` line (o
 Copy
 
 ```
-openclaw message send --target +15555550123 --message "Here you go" --media /path/to/file.png
+openclaw message send --target +1XXXXXXXXXX --message "Here you go" --media /path/to/file.png
 ```
 
 Also check:

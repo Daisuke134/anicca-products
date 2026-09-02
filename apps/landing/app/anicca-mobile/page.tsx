@@ -275,8 +275,8 @@ export default function Page() {
             aniccaai.com
           </Link>{' '}
           · Contact:{' '}
-          <Link href="mailto:keiodaisuke@gmail.com" className="underline">
-            keiodaisuke@gmail.com
+          <Link href="mailto:support@aniccaai.com" className="underline">
+            support@aniccaai.com
           </Link>
         </p>
         <p className="mt-2">

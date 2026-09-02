@@ -326,7 +326,7 @@ function parseTelnyxStart(msg) {
  * that ALSO requests bidirectional RTP media streaming to our bridge ws.
  * @param {object} o
  * @param {string} o.connectionId - Telnyx call-control connection_id
- * @param {string} o.to - E.164 destination (e.g. +818046270314)
+ * @param {string} o.to - E.164 destination (e.g. +81XXXXXXXXXX)
  * @param {string} o.from - E.164 originator (our Telnyx number)
  * @param {string} o.streamUrl - public wss:// of the bridge (the /ws path)
  * @returns {object} request body

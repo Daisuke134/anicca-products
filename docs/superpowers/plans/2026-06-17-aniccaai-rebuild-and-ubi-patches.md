@@ -13,14 +13,14 @@ REPO REALITY (verified ~/anicca):
 - **Canonical dir = `skills/life/`** (has `ask/ask.js`, `call/call.js`, `locate/`, `notify/notify.js`, `travel/travel.js`). `skills/anicca-life-manager/` = only MAP.md/SKILL.md/scripts/test (doc wrapper) → NOT the code home.
 - `travel/travel.js` ALREADY: `listEvents()` → `detectMissingTravelBlocks()` → `getTravelDurationSec(origin,dest)` → `insertEvent()`. **Travel auto-register exists.** Has `--dry-run`.
 - `ask/ask.js` ALREADY: `main`, `gogSend({to,subject,body})`, `postNetlify(action,body)`. **Ask-when-unknown exists.** exports module.
-- `call/call.js` ALREADY: phones user ~15min before each calendar event (Telnyx+Gemini/Charon). BUT **phone is hardcoded `+818046270314`** + reads `process.argv`.
+- `call/call.js` ALREADY: phones user ~15min before each calendar event (Telnyx+Gemini/Charon). BUT **phone is hardcoded `+81XXXXXXXXXX`** + reads `process.argv`.
 - `notify/notify.js` ALREADY: stakeholder notify (has __tests__).
 - `gog` CLI = `/opt/homebrew/bin/gog` (real), used by ask.js for gcal/gmail.
 
 So STEP 1 = mostly **GLUE existing pieces into a scheduled loop + parameterize identity**, not greenfield.
 
 WHAT'S MISSING (the actual work):
-- **E1 onboarding state** — NEW `skills/life/profile.json` schema: `{name, phone, gcalAccount, gmailAccount, homeAddress?, telegramChatId?}`. `install.sh` runs `anicca life setup` (a NEW `skills/life/setup.js`) that: prompts name/phone, runs `gog` Google OAuth (gcal+gmail), writes profile.json. Replace call.js hardcoded `+818046270314` → read `profile.phone`.
+- **E1 onboarding state** — NEW `skills/life/profile.json` schema: `{name, phone, gcalAccount, gmailAccount, homeAddress?, telegramChatId?}`. `install.sh` runs `anicca life setup` (a NEW `skills/life/setup.js`) that: prompts name/phone, runs `gog` Google OAuth (gcal+gmail), writes profile.json. Replace call.js hardcoded `+81XXXXXXXXXX` → read `profile.phone`.
 - **E2 travel** — REUSE `travel/travel.js` as-is (already inserts leave-by blocks into gcal). Just call it on schedule.
 - **E3 ask** — REUSE `ask/ask.js` (location unknown → `gogSend` mail / Telegram → reply parsed via `postNetlify`).
 - **E4 scheduler (the core missing glue)** — NEW `skills/life/loop.js` + a cron entry. Loop = every 5 min: `travel.js` (refresh leave-by) → find next event (incl travel) starting in ≤15min → if found & not yet called → `call/call.js <profile.phone> <event>`. Cron in `~/.openclaw/cron/jobs.json`: `{"id":"life-loop","schedule":"*/5 * * * *","cmd":"node ~/anicca/skills/life/loop.js"}`.

@@ -4,7 +4,7 @@
 **Developer:** Daisuke Nakamura
 **App Name:** Chi Daily — TCM Wellness Coach
 **Bundle ID:** com.aniccafactory.chidaily
-**Contact:** keiodaisuke@gmail.com
+**Contact:** user@example.com
 **Privacy Policy URL:** https://anicca.app/chi-daily/privacy
 
 ---
@@ -64,7 +64,7 @@ Payments are processed by Apple. Chi Daily does not receive or store your paymen
 
 ## 6. Children's Privacy
 
-Chi Daily is not directed to children under 13. We do not knowingly collect data from children under 13. If you are a parent or guardian and believe your child has used the app, please contact us at keiodaisuke@gmail.com.
+Chi Daily is not directed to children under 13. We do not knowingly collect data from children under 13. If you are a parent or guardian and believe your child has used the app, please contact us at user@example.com.
 
 ---
 
@@ -100,11 +100,11 @@ We may update this Privacy Policy. The "Effective Date" at the top reflects the 
 
 ## 11. Contact
 
-**Privacy Contact:** keiodaisuke@gmail.com
+**Privacy Contact:** user@example.com
 **Developer:** Daisuke Nakamura
 **Address:** Japan
 
-For privacy-related inquiries, email us at keiodaisuke@gmail.com.
+For privacy-related inquiries, email us at user@example.com.
 
 ---
 

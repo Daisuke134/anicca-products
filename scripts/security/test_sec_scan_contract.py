@@ -6,9 +6,6 @@ import pii_shape_scan
 
 ROOT = Path(__file__).resolve().parents[2]
 WORKFLOW = ROOT / ".github" / "workflows" / "sec-scan.yml"
-YOUTUBE_CREATOR = (
-    ROOT / "skills" / "youtube-channel-creator" / "scripts" / "create_channel.py"
-)
 
 
 class SecurityScanWorkflowContractTests(unittest.TestCase):
@@ -47,12 +44,6 @@ class SecurityScanWorkflowContractTests(unittest.TestCase):
     def test_python_job_runs_an_explicit_security_manifest(self):
         self.assertIn(".github/python-security-tests.txt", self.workflow)
         self.assertNotIn("find . -name 'test_*.py'", self.workflow)
-
-    def test_youtube_phone_comes_only_from_runtime_configuration(self):
-        source = YOUTUBE_CREATOR.read_text(encoding="utf-8")
-        self.assertIn('default=os.environ.get("DAIS_PHONE")', source)
-        self.assertIn("PHONE_REQUIRED", source)
-
 
 if __name__ == "__main__":
     unittest.main()

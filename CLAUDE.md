@@ -391,7 +391,7 @@ curl -sS -X POST "http://localhost:9377/tabs/$TAB/evaluate" \
 
 ### Pattern 2 — Stripe 3DS / 銀行 OTP 自動承認
 
-★ MUFG-Visa debit / Stripe Link で $5 payment 完走 verify ★。 MUFG 3DS は eメール OTP (= keiodaisuke@gmail.com) 送信、 Gmail から `gog gmail` で auto-read → coord click + key press で iframe 入力 → 確認 click。
+★ MUFG-Visa debit / Stripe Link で $5 payment 完走 verify ★。 MUFG 3DS は eメール OTP (= user@example.com) 送信、 Gmail から `gog gmail` で auto-read → coord click + key press で iframe 入力 → 確認 click。
 
 ```bash
 # 1. 3DS 開始 (Stripe Pay button click)
@@ -402,8 +402,8 @@ sleep 8
 
 # 2. Gmail から OTP read (= gog gmail search + get、 認証コード regex)
 set -a; . ~/.openclaw/.env; set +a
-THREAD_ID=$(gog gmail search --account keiodaisuke@gmail.com --json --limit 1 "MUFG OR 認証 newer_than:5m" | jq -r '.threads[0].id')
-OTP=$(gog gmail get $THREAD_ID --account keiodaisuke@gmail.com --json | python3 -c "
+THREAD_ID=$(gog gmail search --account user@example.com --json --limit 1 "MUFG OR 認証 newer_than:5m" | jq -r '.threads[0].id')
+OTP=$(gog gmail get $THREAD_ID --account user@example.com --json | python3 -c "
 import json,sys,re
 d = json.load(sys.stdin)
 m = re.search(r'認証コード[：:]\s*(\d{6})', d['body'])
@@ -457,7 +457,7 @@ curl -sS -X POST "http://localhost:9377/tabs/$TAB/click" \
 | Cloudflare Turnstile 保護 SaaS signup / login | TikTok signup の DataDome + device fingerprint = 別系統、 CapSolver では不可 → 別 path 必要 (= TikTok Web Login は camofox 単体で十分、 challenge 出ないケース多い) |
 | hCaptcha 保護サイト (= `HCaptchaTaskProxyLess`) | 一部 site で `ERROR_INVALID_TASK_DATA` 返す → Turnstile 版 (= `AntiTurnstileTaskProxyLess`) に switch して通す (= SMSPool で実証、 同 site に複数 captcha 系統 共存ケース) |
 | reCAPTCHA v2 invisible | Anti-Captcha の `RecaptchaV2TaskProxyless` 等 fallback あり |
-| Stripe Link / Stripe Checkout (= iframe 内 card 選択 + Pay) | Stripe Link 自動 fill (= Dais の saved MUFG card 自動表示) は keiodaisuke@gmail.com Gmail login state に依存 |
+| Stripe Link / Stripe Checkout (= iframe 内 card 選択 + Pay) | Stripe Link 自動 fill (= Dais の saved MUFG card 自動表示) は user@example.com Gmail login state に依存 |
 
 ## 実行環境
 
@@ -722,7 +722,7 @@ HOME=/Users/anicca hermes config get model.default                  # Hermes →
 
 最終更新: 2026年6月7日 (Anicca Architecture 確立: 2 instances/0 API keys/dashboard read-only)
 
-| 0.31 | **★ END-TO-END TEST = MUST、 patch のみ で 満足 = 罪 (Dais 2026-06-08 verbatim) ★**: 全 fix は ★ apply → fire cron → live verify (Postiz URL + snaptik DL + frame + audio + caption all match) ★ まで が 1 task。 ★「patch 適用しました」「commit + push しました」 で 完了報告 する瞬間 = 罪 ★。 verification loop が無いと patch の意味ゼロ、 配信 distribution の virus、 humanity への nuisance。 ① 全 reelclaw / Larry / slideshow-video / Honne fire の verify protocol = 「Postiz state=PUBLISHED + releaseURL 取得 + MD5 source match + 動画 frame 1s+中盤+末 extract で hook/demo/caption 全 一致 + 音声 stream 存在 確認 (silent NG)」 ② iOS app の newsletter / improvement / paywall / onboarding 等 user-facing endpoint も同様 = 「curl 200 + Resend mail keiodaisuke@gmail.com 着信 確認 OR camofox で UI 操作 success 表示 確認」 まで が 1 task ③ 「patch だけ commit して 次 cron 任せ」 = ★ 大罪 ★、 自分 で fire + verify せよ ④ asset の存在 / file の MD5 / hook count audit 等 ★ before/after 両 verify ★ 必須 [[feedback_never_lie_about_completion]] |
+| 0.31 | **★ END-TO-END TEST = MUST、 patch のみ で 満足 = 罪 (Dais 2026-06-08 verbatim) ★**: 全 fix は ★ apply → fire cron → live verify (Postiz URL + snaptik DL + frame + audio + caption all match) ★ まで が 1 task。 ★「patch 適用しました」「commit + push しました」 で 完了報告 する瞬間 = 罪 ★。 verification loop が無いと patch の意味ゼロ、 配信 distribution の virus、 humanity への nuisance。 ① 全 reelclaw / Larry / slideshow-video / Honne fire の verify protocol = 「Postiz state=PUBLISHED + releaseURL 取得 + MD5 source match + 動画 frame 1s+中盤+末 extract で hook/demo/caption 全 一致 + 音声 stream 存在 確認 (silent NG)」 ② iOS app の newsletter / improvement / paywall / onboarding 等 user-facing endpoint も同様 = 「curl 200 + Resend mail user@example.com 着信 確認 OR camofox で UI 操作 success 表示 確認」 まで が 1 task ③ 「patch だけ commit して 次 cron 任せ」 = ★ 大罪 ★、 自分 で fire + verify せよ ④ asset の存在 / file の MD5 / hook count audit 等 ★ before/after 両 verify ★ 必須 [[feedback_never_lie_about_completion]] |
 
 | 0.32 | **★ SSOT 義務 — spec + tasklist 常時更新、 permission ゼロ、 罪 = handover 不能 (Dais 2026-06-08 verbatim) ★**: spec + tasklist = ★ 唯一の SSOT ★、 他は全部 derived/lossy。 ★ 義務 ★: ① 新 task 確定 した瞬間 = TaskCreate 即実行 (= permission 要求 禁止)、 ② task 状態変化 (start/done/blocked) の瞬間 = TaskUpdate 即実行、 ③ 仕様変更/新 spec section 必要 = `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` 即書き + commit + push、 ④ どの turn でも tasklist + spec が 「次 agent 即 handover 可」 状態 を 保つ義務、 ⑤ Dais が「tasklist 古い」「spec 書かれてない」と言った瞬間 = HARD RULE 0.32 違反 = 大罪。 違反 incident 2026-06-08: 29 tasks recreate を 数 turn 遅延 → Dais 「not in order」 指摘 → 即 delete + recreate ID asc。 ★ permission 求めない ★ — TaskCreate / TaskUpdate / spec 書き は 仕事 の core、 確認 不要。 [[feedback_spec_task_push_three_at_once]] [[feedback_sdd_by_default_always_spec_and_tasklist]] |
 

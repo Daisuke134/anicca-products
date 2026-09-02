@@ -26,7 +26,7 @@ async function supa(method, path, body, extra) {
 
 function normPhone(p) {
   let t = String(p || "").replace(/[\s\-()]/g, "");
-  // Japanese domestic ("08046270314") -> E.164 (+818046270314): drop the trunk 0.
+  // Japanese domestic ("0X0XXXXXXXX") -> E.164 (+81XXXXXXXXXX): drop the trunk 0.
   if (!t.startsWith("+") && t.startsWith("0")) t = "+81" + t.slice(1);
   t = t.replace(/[^\d+]/g, "");
   return /^\+[1-9]\d{6,14}$/.test(t.startsWith("+") ? t : `+${t}`)

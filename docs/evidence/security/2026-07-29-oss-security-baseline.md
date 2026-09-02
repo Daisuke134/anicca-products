@@ -4,13 +4,13 @@
 
 | Gate | Before | Current local evidence |
 |---|---:|---|
-| gitleaks current tree | 16 findings | 0 |
-| gitleaks full history | 852 findings / 851 unique fingerprints / 143 files | 0 after fingerprint adjudication baseline |
-| PII shape gate | 63 broad-grep hits | 0; exact rule/path/value fingerprints allow only synthetic fixtures |
-| TruffleHog filesystem | not independently measured | 4,441 chunks / 26,063,885 bytes / verified secrets 0 |
-| TruffleHog full history | 7 verified Postgres hits pointing to one endpoint | same full-history Postgres detector: verified secrets 0 after remediation |
-| Python security contract | missing packages and stale expectations | 12 tests pass with an explicit pure-stdlib security manifest |
-| Shell syntax | pass | pending final exact-five rerun |
+| gitleaks current tree | 36 findings on the force-updated tree | 0 across 93.34 MB |
+| gitleaks full history | 768 findings / 752 new unique fingerprints across 13,085 commits | full-history rerun in progress after exact-fingerprint adjudication |
+| PII shape gate | 309 findings / 152 unique shapes / 112 paths | 0; 17 exact rule/path/value fingerprints allow only third-party metadata or synthetic fixtures |
+| TruffleHog filesystem | prior lineage was clean | fresh pull-request gate pending |
+| TruffleHog full history | prior verified Postgres endpoint was rotated and removed | fresh pull-request gate pending |
+| Python security contract | stale manifest referenced deleted tests | 7/7 pass with an explicit pure-stdlib security manifest |
+| Shell syntax | not measured on the force-updated tree | every tracked `.sh` parses |
 
 No raw secret or matched personal-data value is stored in this evidence.
 
@@ -18,15 +18,17 @@ No raw secret or matched personal-data value is stored in this evidence.
 
 | Class | Count | Disposition |
 |---|---:|---|
-| generic-api-key | 830 | generated-code fragments, public identifiers, placeholders, and historical inactive provider values; current-tree fixtures were changed to explicit placeholders |
-| jwt | 10 | historical inactive fixture/token-shaped values |
-| stripe-access-token | 4 | synthetic test values; current fixtures use explicit placeholders |
-| gcp-api-key | 4 | historical credentials; provider verification returns invalid key |
-| curl-auth-user | 2 | historical credential-shaped command material; no verified active secret |
-| private-key | 1 | historical self-signed TLS key; paired certificate expired |
-| slack-bot-token | 1 | provider verification returns `invalid_auth` |
+| generic-api-key | 757 | 680 vendored/generated-code fragments, 60 source/config public or rejected provider values, 15 documentation values, and 2 synthetic test fixtures |
+| jwt | 7 | five Supabase `anon` client tokens and two expired documentation tokens; no `service_role` token |
+| gcp-api-key | 1 | historical Maps credential; provider returns `REQUEST_DENIED` |
+| curl-auth-user | 1 | historical credential-shaped research command; absent from the current tree |
+| private-key | 1 | historical localhost self-signed TLS key; paired certificate is expired |
+| sourcegraph-access-token | 1 | generated source-map false positive; no required `sgp_` token prefix |
 
-The 851 unique historical fingerprints are recorded in `.gitleaksignore`.
+The 752 newly observed historical fingerprints were merged with the prior
+baseline into 1,634 exact entries in `.gitleaksignore`. Historical Exa
+authentication returns `401`, Slack returns `invalid_auth`, and the historical
+OpenClaw gateway-token fingerprint does not match the current local runtime.
 The baseline is fingerprint-specific, so a value added at a new
 commit/path/line is not suppressed. A mutation check with a new synthetic AWS
 key was rejected by the configured detector.
@@ -77,8 +79,8 @@ internet.” The database no longer has a public TCP proxy.
 
 ## Evidence boundary
 
-The local implementation gates are green except for the final all-shell parse,
-which is run with the complete exact-five local verification immediately
-before push. Completion still requires the fresh pull request to report
+The local current-tree gates, Python contract, shell parse, and canonical
+`apps/life-call` test suite are green. Completion still requires the fresh
+pull request to report
 gitleaks, PII, TruffleHog, Python, and Shell all green. Until then,
 `OSS-SECURITY-BASELINE-1` is not marked done.

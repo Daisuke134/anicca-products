@@ -2,7 +2,7 @@
 
 **Effective Date:** March 4, 2026
 **Developer:** Daisuke Nakamura
-**Contact:** keiodaisuke@gmail.com
+**Contact:** user@example.com
 
 ---
 
@@ -67,4 +67,4 @@ These Terms are governed by the laws of Japan.
 
 ## 10. Contact
 
-keiodaisuke@gmail.com
+user@example.com

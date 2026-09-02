@@ -9,7 +9,7 @@ export default function TermsJA() {
       </p>
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">1. 事業者情報</h2>
-      <p className="mt-3 text-muted-foreground">成田 大祐（個人事業主） / keiodaisuke@gmail.com</p>
+      <p className="mt-3 text-muted-foreground">成田 大祐（個人事業主） / support@aniccaai.com</p>
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">2. サービス概要</h2>
       <p className="mt-3 text-muted-foreground">
@@ -61,7 +61,7 @@ export default function TermsJA() {
       </p>
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">10. 問い合わせ</h2>
-      <p className="mt-3 text-muted-foreground">keiodaisuke@gmail.com までご連絡ください。</p>
+      <p className="mt-3 text-muted-foreground">support@aniccaai.com までご連絡ください。</p>
 
       <p className="mt-12 text-right text-sm text-muted-foreground">最終更新日: 2026年1月26日</p>
     </main>

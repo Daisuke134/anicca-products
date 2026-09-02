@@ -96,7 +96,7 @@ module.exports = { makeTransport, gogTransport, composioTransport };
 @@ planner.js: after ENV/const block (lines 23-28) @@
  const ENV = loadEnv();
  const GOG_BIN = "/opt/homebrew/bin/gog";
- const GOG_ACCOUNT = process.env.GOG_ACCOUNT || ENV.GOG_ACCOUNT || "keiodaisuke@gmail.com";
+ const GOG_ACCOUNT = process.env.GOG_ACCOUNT || ENV.GOG_ACCOUNT || "user@example.com";
 +const { makeTransport } = require("./adapters/transport");
 +const CAL = makeTransport({
 +  bin: GOG_BIN,
@@ -132,8 +132,8 @@ Note: `execFileSync` is still imported+used by `existingJobNames()`/`registerAt(
 @@ ask-local.js lines 26-33: replace GOG consts + gogEnv with adapter @@
  const ENV = loadEnv();
 -const GOG_BIN = "/opt/homebrew/bin/gog";
- const GOG_ACCOUNT = process.env.GOG_ACCOUNT || ENV.GOG_ACCOUNT || "keiodaisuke@gmail.com";
- const DAIS_EMAIL = process.env.DAIS_EMAIL || ENV.DAIS_EMAIL || "keiodaisuke@gmail.com";
+ const GOG_ACCOUNT = process.env.GOG_ACCOUNT || ENV.GOG_ACCOUNT || "user@example.com";
+ const DAIS_EMAIL = process.env.DAIS_EMAIL || ENV.DAIS_EMAIL || "user@example.com";
  const QUEUE = process.env.LIFE_ASK_QUEUE || path.join(HOME, ".openclaw", "state", "life-ask-queue.jsonl");
  const TRAVEL_STATE = path.join(HOME, ".openclaw", "skills", "anicca-travel-fill", "state", "travel_filled.json");
 -function gogEnv() {

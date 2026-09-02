@@ -2,7 +2,7 @@
 
 **Effective Date:** March 4, 2026
 **Developer:** Anicca / Daisuke Takeuchi
-**Contact:** keiodaisuke@gmail.com
+**Contact:** user@example.com
 
 ---
 
@@ -64,4 +64,4 @@ These Terms are governed by the laws of Japan.
 
 ## 8. Contact
 
-keiodaisuke@gmail.com
+user@example.com

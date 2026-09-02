@@ -7,7 +7,7 @@
 - **既存資産**: `TWILIO_*`(発信番号あり)+ `GEMINI_API_KEY` + skills `elevenlabs-calls`/`calendar-event-call`/`anicca-phone`/`telnyx-autocall`。ただし現状の発話は **ElevenLabs(JP voice)** で Gemini Charon ではない。
 - **実装(new, WF-B B3)**: `~/anicca/skills/life/call.js` = **Twilio Media Streams ↔ Gemini Live(model `gemini-2.0-flash-live`, voice `Charon`)双方向ブリッジ**。Twilio が PSTN 発信 → `<Connect><Stream>` で音声を websocket に → Gemini Live が STT+LLM+TTS(Charon)を一気通貫 → 音声を Twilio に戻す。公開エンドポイント(Netlify function or 軽量 ws サーバ)が要る。
   - 代替: PatterAI/Patter(Gemini Live + carrier 抽象)。ただし Telnyx/Plivo の carrier 契約が新規に要るので、まず **既存 Twilio + Gemini Live** で最短実装。
-- **検証(E2E)**: `+818046270314`(Dais)に実発信 → 着信 → Charon で「次は伊藤歯科、9:45に出て」等を双方向で話す → Dais OK + 録音確認。**fake 不可**(HARD 0.24/0.31)。
+- **検証(E2E)**: `+81XXXXXXXXXX`(Dais)に実発信 → 着信 → Charon で「次は伊藤歯科、9:45に出て」等を双方向で話す → Dais OK + 録音確認。**fake 不可**(HARD 0.24/0.31)。
 
 ---
 

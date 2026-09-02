@@ -196,7 +196,7 @@ After every step: mark it here + commit + push.
   `main`). **VERIFIED LIVE 2026-06-22** via a real call to Dais: Telnyx recording transcript = 100% Japanese,
   "ライフマネージャーです", reads next event + departure time, two-way Q&A, never said "Anicca".
 - **#61-b partial** — fresh-Google web onboarding: login ✅, Composio gcal ✅, **Unipile Gmail ✅** (real Gmail
-  `daisukenarita53@gmail.com` connects, no 400 FAILED_PRECONDITION — agentmail.to failed only because it has no
+  `user@example.com` connects, no 400 FAILED_PRECONDITION — agentmail.to failed only because it has no
   Gmail mailbox).
 
 ### PHASE 1 — Per-user language selector (NEW, from 2026-06-22 decisions) → tasks #78–#82
@@ -235,7 +235,7 @@ After every step: mark it here + commit + push.
 
 ### PHASE 2 — Finish #61-b NEW-user web E2E
 6. ✅ **E1** — DONE+VERIFIED 2026-06-22 (Dais approved SANDBOX). Fresh user `daisukenarita53` (uid lm_bd71599c):
-   login ✅ → Composio gcal ✅ → Unipile Gmail ✅ → phone +818046270314 (Dais's, shareable, so wake call is
+   login ✅ → Composio gcal ✅ → Unipile Gmail ✅ → phone +81XXXXXXXXXX (Dais's, shareable, so wake call is
    answerable) + call_language=en ✅ → **Stripe TEST checkout with 4242** (`STRIPE_TEST_SECRET_KEY`, link
    `buy.stripe.com/test_5kQ14n4tU6tgc1qcEC28803?client_reference_id=<uid>`) = session `cs_test_a1dOx7…`
    status=complete, payment_status=paid, subscription `sub_1Tl79h…` (CHARGED NOBODY) → activated paid=true →

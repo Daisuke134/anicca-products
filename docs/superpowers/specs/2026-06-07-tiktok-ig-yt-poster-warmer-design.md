@@ -172,7 +172,7 @@ Lightest of the three. Actions: watch 2-5 videos in niche, like 1-3, subscribe 1
   "platform": "tiktok",
   "username": "@anicca.monk.daily",
   "auth": {
-    "email": "keiodaisuke+tt001@gmail.com",
+    "email": "user@example.com",
     "password_ref": "TIKTOK_TT001_PASSWORD",   // env var name, NOT the password itself
     "session_cookies_path": "~/.camofox/profiles/anicca/tiktok-anicca-monk-001/"
   },

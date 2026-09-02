@@ -1,7 +1,7 @@
 ## 2026-03-06 - US-008d: ASC compliance [RE-VERIFIED PASS]
 
 - Age Rating: 22 items confirmed (gambling=false, healthOrWellnessTopics=true, all categories NONE) → appStoreAgeRating=FOUR_PLUS ✅
-- Review Details: demoAccountRequired=False, contactFirstName=Daisuke, contactEmail=keiodaisuke@gmail.com ✅
+- Review Details: demoAccountRequired=False, contactFirstName=Daisuke, contactEmail=user@example.com ✅
 - Availability: territoryAvailabilities total=175 (availableInNewTerritories=true) ✅
 - Pricing: manual-prices 1 entry (USA base, price-point 10000 = free tier) ✅
 - Encryption: ITSAppUsesNonExemptEncryption=false in DeskStretchios/DeskStretch/Resources/Info.plist ✅

@@ -186,7 +186,7 @@
 |---|------|--------|
 | 25 | **`awal buy` は存在しない。** awal のコマンド一覧: `status`, `balance`, `address`, `show`, `x402`, `auth`, `send`, `trade`, `help`。買う手段は `awal trade eth usdc`（CDP Swap API）のみ | `npx awal@2.0.3 --help` 実行確認 |
 | 26 | **`awal trade` は CDP Swap API（Coinbase系）。** 日本のアカウントからは使えない可能性が高い | Coinbase 規約確認 |
-| 27 | **Mac Mini awal 認証フロー。** `npx awal auth login keiodaisuke@gmail.com` → Flow ID を記録 → Gmail の OTP を `npx awal auth verify <flow_id> <code>` で確認。`awal status` で `✓ Authenticated` が返れば完了 | Mac Mini SSH 作業 |
+| 27 | **Mac Mini awal 認証フロー。** `npx awal auth login user@example.com` → Flow ID を記録 → Gmail の OTP を `npx awal auth verify <flow_id> <code>` で確認。`awal status` で `✓ Authenticated` が返れば完了 | Mac Mini SSH 作業 |
 | 28 | **Mac Mini awal ウォレットアドレス: `0xCE8c58C73a7a5C5838d48DA66cb914aB150f04c9`** | `npx awal@2.0.3 address` |
 | 29 | **`awal balance` は mainnet 残高のみ。** testnet（Base Sepolia）の残高は表示されない（Learning #36 の再確認） | `npx awal@2.0.3 balance` 実行確認 |
 | 30 | **staging のデフォルト network は eip155:84532（Base Sepolia testnet）。** `X402_NETWORK` 環境変数で切替。testnet の awal x402 pay には testnet USDC が必要 | `apps/api/src/routes/x402/index.js` 確認 |

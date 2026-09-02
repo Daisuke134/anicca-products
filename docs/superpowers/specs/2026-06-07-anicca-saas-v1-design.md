@@ -662,7 +662,7 @@ sutando phone-conversation (= sonichi/sutando, OSS, TypeScript)
                                    → exec npx tsx conversation-server.ts
 
    Verified LIVE 2026-06-07 23:39 JST → sid CAed75334932e222a4e122d4d5588ec95a
-   rang +818046270314 with location-aware Gemini Live conversation.
+   rang +81XXXXXXXXXX with location-aware Gemini Live conversation.
 
 State files (= same shape in local mac mini and in Daytona sandbox):
    ~/.openclaw/state/location/<user_id>.json           live location (5s update)
@@ -700,7 +700,7 @@ BP cite:
 | `python3 transit_lookup.py --from-lat 35.679925 --from-lon 139.719605 --to '銀座駅' --arrive-by 2026-06-08T09:00+09:00` | 36 min, 1 transfer, JR Chuo-Sobu Local + Tokyo Metro Yurakucho Line |
 | `launchctl list ai.anicca.telegram-bot` | PID 67151 KeepAlive=true |
 | `launchctl list ai.anicca.realtime-guide` | PID 39679 KeepAlive=true |
-| `_twilio_call_direct(+818046270314, ...)` | sid CA04e0a5b4799a7b74562ebf3081612b36 = phone rang |
+| `_twilio_call_direct(+81XXXXXXXXXX, ...)` | sid CA04e0a5b4799a7b74562ebf3081612b36 = phone rang |
 | Telegram bot 受信 location | acc 5m, 5 sec age, 信濃町 verified by OSM Nominatim reverse |
 | Pre-existing duplicate bot conflict | resolved (ai.anicca.tg-loc-bot disabled + plist renamed `.disabled-2026-06-07-duplicate`) |
 

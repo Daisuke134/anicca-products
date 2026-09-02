@@ -44,7 +44,7 @@ We will update this policy if our practices change. The latest version is always
 
 ## Contact
 
-Questions: keiodaisuke@gmail.com
+Questions: user@example.com
 
 ---
 

@@ -245,7 +245,7 @@ export const launchStrings = {
       phone: {
         title: '電話番号',
         body: '出発の 10 分前と 5 分前に、ルートを案内する電話をかける。',
-        placeholder: '09012345678',
+        placeholder: '090-0000-0000',
         button: '続ける',
         error: '選択した国の有効な電話番号を入力してください。',
         saveError: '保存できませんでした。もう一度お試しください。',

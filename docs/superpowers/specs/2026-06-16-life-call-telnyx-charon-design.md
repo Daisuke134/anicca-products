@@ -1,9 +1,9 @@
-# B-call FIX — Telnyx provider for the Charon/Gemini bridge (real call to Dais +818046270314)
+# B-call FIX — Telnyx provider for the Charon/Gemini bridge (real call to Dais +81XXXXXXXXXX)
 
 2026-06-16. Patches spec27 §2 WF-B **B-call**. Closes the adversarial verifier REJECT whose
-central failure was: *no REAL call to Dais's number +818046270314 ever connected through the
+central failure was: *no REAL call to Dais's number +81XXXXXXXXXX ever connected through the
 Charon/Gemini bridge.* The prior attempt reached only a self-answer test number because every
-attempt to +818046270314 returned **Twilio error 21216** ("Account not allowed to call …").
+attempt to +81XXXXXXXXXX returned **Twilio error 21216** ("Account not allowed to call …").
 
 ## §1 Root cause (verified this session, not assumed)
 
@@ -14,8 +14,8 @@ The prior builder blamed a JP geo-permission hold. That diagnosis is **wrong** �
 | `GET voice.twilio.com/v1/DialingPermissions/Countries/JP` | `low_risk_numbers_enabled:true`, all high-risk flags `true` | JP dialing is fully enabled |
 | `JP/HighRiskSpecialPrefixes` | only `81990` | Dais's `+8180…` is NOT a high-risk prefix |
 | account type | `Full` / `active` | not a trial-verification gate |
-| `POST /Calls.json To=+818046270314` (today, ×2) | `{code:21216, status:400}` | account+destination fraud block, persists |
-| call history to +818046270314 | 1 completed (123s, **2026-06-09** from +13366526842) then 4 failed (dur 0, from +14157234000 on 06-14/15) | the block appeared AFTER a foreign from-number (+14157234000) hammered the destination |
+| `POST /Calls.json To=+81XXXXXXXXXX` (today, ×2) | `{code:21216, status:400}` | account+destination fraud block, persists |
+| call history to +81XXXXXXXXXX | 1 completed (123s, **2026-06-09** from +1XXXXXXXXXX) then 4 failed (dur 0, from +1XXXXXXXXXX on 06-14/15) | the block appeared AFTER a foreign from-number (+1XXXXXXXXXX) hammered the destination |
 
 Per Twilio docs (`/docs/api/errors/21216`) this destination-specific fraud block lifts **only** via a
 Support ticket — async, days, outside programmatic control. It is NOT a code gap and NOT a geo toggle.
@@ -28,11 +28,11 @@ fully provisioned in `~/.openclaw/.env` and is a Twilio-independent carrier with
 | Telnyx asset | value (verified live this session) |
 |---|---|
 | balance | $5.00 (auth OK, `GET /v2/balance` → 200) |
-| our number (FROM) | `+14322234204` (active) |
+| our number (FROM) | `+1XXXXXXXXXX` (active) |
 | call-control app / connection_id | `2982013078364751402` (anicca-cc) |
 | outbound voice profile | `anicca-out`, service_plan `global`, `enabled:true`, **whitelisted_destinations: ["US","CA","JP"]** |
 
-So Telnyx is legally + technically allowed to dial `+818046270314`. The bridge logic (μ-law↔PCM
+So Telnyx is legally + technically allowed to dial `+81XXXXXXXXXX`. The bridge logic (μ-law↔PCM
 transcode, Gemini Live Charon) is **provider-agnostic**: Telnyx Media Streaming sends the same
 `connected`→`start`→`media`(base64 PCMU)→`stop` frames as Twilio, and accepts `media` frames back
 for bidirectional playback (ctx7 `/websites/developers_telnyx` media-streaming). Only field names
@@ -55,15 +55,15 @@ differ (`stream_id` vs `streamSid`; `media_format.encoding=PCMU`).
 |---|---|
 | `apps/landing/netlify/functions/_lib/call-logic.js` | + Telnyx pure builders/parsers (`buildTelnyxMediaFrame`, `parseTelnyxStart`, `telnyxStartStreamForCall`) — ZERO I/O, node:test |
 | `apps/landing/scripts/call-bridge.cjs` | provider-agnostic routing (`routeTelnyxMessage`) — testable with fake socket |
-| `apps/landing/scripts/life-call.mjs` | `--provider=telnyx` (default when `--to` is +81): cloudflared tunnel → bridge → `POST /v2/calls` to +818046270314 with bidirectional stream + `record_start` → poll → fetch recording → print real CALL ids + frame counts |
+| `apps/landing/scripts/life-call.mjs` | `--provider=telnyx` (default when `--to` is +81): cloudflared tunnel → bridge → `POST /v2/calls` to +81XXXXXXXXXX with bidirectional stream + `record_start` → poll → fetch recording → print real CALL ids + frame counts |
 | `~/anicca/skills/life/call.js` | **rubric-named skill entrypoint** (OSS mother repo): `placeCall({event,to,provider})` that wires the pure logic into the bridge + the chosen provider. Re-exports the pure logic so the skill is the canonical body. |
 | `apps/landing/app/life-manager/page.tsx` | reserved placeholder route body (my collision-safe edit) — describe the two-way Charon call + the Telnyx-vs-Twilio routing |
-| `docs/verifications/2026-06-16-b-call-charon-dais-telnyx-e2e.md` | LIVE proof: real CALL_SID to +818046270314, status=completed, Dais answered, bidirectional frame counts, recording mp3 non-silent |
+| `docs/verifications/2026-06-16-b-call-charon-dais-telnyx-e2e.md` | LIVE proof: real CALL_SID to +81XXXXXXXXXX, status=completed, Dais answered, bidirectional frame counts, recording mp3 non-silent |
 
 ## §4 E2E acceptance (HARD 0.24/0.31 — no fake run)
 
 1. `node --test` for call-logic + bridge routing (Telnyx + Twilio) all green, run THIS session.
-2. `life-call.mjs --provider=telnyx --to=+818046270314` places a **real** Telnyx call; the result JSON
+2. `life-call.mjs --provider=telnyx --to=+81XXXXXXXXXX` places a **real** Telnyx call; the result JSON
    shows `CALL_STATUS=completed`, `DOWNLINK_FRAMES>0` (Charon spoke), `UPLINK_FRAMES>0` (Dais spoke).
 3. Dais answers his real phone (he is the callee; the only human in the loop is him picking up).
 4. Recording mp3 fetched, `ffmpeg volumedetect` shows non-silent audio (Charon's voice on the line).

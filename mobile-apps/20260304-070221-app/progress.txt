@@ -129,7 +129,7 @@ APP_RESULT=$(~/bin/asc apps create \
   --bundle-id "com.anicca.breathstory" \
   --sku "breathstory" \
   --platform IOS \
-  --apple-id "keiodaisuke@gmail.com" \
+  --apple-id "user@example.com" \
   --password "$APPLE_ID_PASSWORD" \
   --two-factor-code "<6桁コード>" \
   --output json 2>&1)
@@ -206,7 +206,7 @@ WAITING_FOR_HUMAN: 2FAコード または 手動App作成 が必要
 ### 診断結果
 - iris session: authenticated=false（前回から変化なし）
 - APPLE_ID_PASSWORD: ✅ 設定済み（正しいことを確認）
-- `asc web auth login --apple-id keiodaisuke@gmail.com` → `2fa required: re-run with --two-factor-code`
+- `asc web auth login --apple-id user@example.com` → `2fa required: re-run with --two-factor-code`
 - `asc apps create` は iris/web session が必要 → API Keyだけでは不可
 - APP_ID: ❌ 未設定（.envに存在しない）
 - RC_PROJECT_ID: ❌ 未設定

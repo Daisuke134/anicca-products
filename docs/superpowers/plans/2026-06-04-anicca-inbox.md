@@ -161,7 +161,7 @@ cat > ~/.openclaw/skills/anicca-inbox/data/BRIEF.md <<'EOF'
 
 ## Contact (use in signatures)
 - email: contact@aniccaai.com
-- phone: +818046270314
+- phone: +81XXXXXXXXXX
 - web: https://aniccaai.com
 
 ## Operator profile (Dais)
@@ -200,7 +200,7 @@ Edit `~/.openclaw/skills/anicca-inbox/SKILL.md` — replace first 6 lines with:
 ```yaml
 ---
 name: anicca-inbox
-description: Dais の Gmail (keiodaisuke@gmail.com) を end-to-end で運営する。 5min 毎 poll → Email Intelligence 解析 → 4-bucket classify (ARCHIVE/REPLY/APPLY/IRREVERSIBLE) → sub-agent worker 実行 → state machine + ledger 永続。 long-running stateful task として thread を継続。 HARD RULE #18 厳守 (Slack 伺いゼロ・irreversible は multi-model vote で自律 decide)。
+description: Dais の Gmail (user@example.com) を end-to-end で運営する。 5min 毎 poll → Email Intelligence 解析 → 4-bucket classify (ARCHIVE/REPLY/APPLY/IRREVERSIBLE) → sub-agent worker 実行 → state machine + ledger 永続。 long-running stateful task として thread を継続。 HARD RULE #18 厳守 (Slack 伺いゼロ・irreversible は multi-model vote で自律 decide)。
 version: 0.2.0
 ---
 ```
@@ -232,8 +232,8 @@ Create `tests/fixtures/thread_quoted.json`:
 {
   "thread_id": "t1",
   "messages": [
-    {"id": "m1", "from": "alice@example.com", "to": "keiodaisuke@gmail.com", "date": "2026-06-01T09:00:00Z", "subject": "Q1", "in_reply_to": null, "references": [], "body": "Hi, can you join Tuesday 3pm?"},
-    {"id": "m2", "from": "keiodaisuke@gmail.com", "to": "alice@example.com", "date": "2026-06-01T10:00:00Z", "subject": "Re: Q1", "in_reply_to": "m1", "references": ["m1"], "body": "Yes.\n\n> On Mon, Jun 1, 2026, Alice wrote:\n> Hi, can you join Tuesday 3pm?"}
+    {"id": "m1", "from": "alice@example.com", "to": "user@example.com", "date": "2026-06-01T09:00:00Z", "subject": "Q1", "in_reply_to": null, "references": [], "body": "Hi, can you join Tuesday 3pm?"},
+    {"id": "m2", "from": "user@example.com", "to": "alice@example.com", "date": "2026-06-01T10:00:00Z", "subject": "Re: Q1", "in_reply_to": "m1", "references": ["m1"], "body": "Yes.\n\n> On Mon, Jun 1, 2026, Alice wrote:\n> Hi, can you join Tuesday 3pm?"}
   ]
 }
 ```
@@ -259,7 +259,7 @@ def test_dedup_quoted_removes_gt_prefixed_lines():
 
 def test_participant_graph_extracts_roles():
     data = json.loads((FIX / "thread_quoted.json").read_text())
-    graph = participant_graph(data["messages"], me="keiodaisuke@gmail.com")
+    graph = participant_graph(data["messages"], me="user@example.com")
     assert graph["alice@example.com"]["role"] == "counterparty"
     assert graph["alice@example.com"]["sent_count"] == 1
 ```
