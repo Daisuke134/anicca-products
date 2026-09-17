@@ -22,16 +22,16 @@ export const launchStrings = {
     lm: {
       metaTitle: 'Life Manager: Get started',
       metaDesc:
-        'Connect your Google Calendar and get travel blocks and Telegram departure reminders. Calls are optional. Try it free for 3 days.',
-      eyebrow: 'Life Manager · 3-day free trial',
+        'Connect your Google Calendar and get travel blocks and Telegram departure reminders. Calls are optional. The always-on cloud plan is $29/mo.',
+      eyebrow: 'Life Manager · $29/mo cloud plan',
       soonTitle: 'Start on Telegram',
       soonBody:
-        'Open the Telegram bot, connect your own Google Calendar, set your home or base, and you are ready. Phone calls are optional.',
-      soonCta: 'Start on Telegram',
-      publicEyebrow: 'Calendar × Telegram',
+        'Open the Telegram bot, connect your own Google Calendar, set your home or base, and use the always-on cloud plan for $29/mo. Phone calls are optional.',
+      soonCta: 'Start on Telegram — $29/mo',
+      publicEyebrow: 'Calendar × Telegram · $29/mo',
       publicTitle: 'An AI manager that helps you leave on time.',
       publicBody:
-        'Connect Google Calendar. Life Manager reserves travel time for physical events and sends the route on Telegram before you need to leave.',
+        'Connect Google Calendar. Life Manager reserves travel time for physical events and sends the route on Telegram before you need to leave. The cloud plan is $29/mo.',
       localSurface: 'Your own Google Calendar',
       cloudSurface: 'Always-on cloud · no Mac required',
       surfacesLabel: 'simple setup',
@@ -50,7 +50,7 @@ export const launchStrings = {
       evidenceBody:
         'Calendar access is requested through Google consent. You can disconnect it, stop using the bot, or contact support whenever you need help.',
       evidenceBoundary:
-        'A one-time 3-day trial starts during onboarding. Calls require a phone number and explicit opt-in.',
+        'The cloud plan is $29/mo. Calls require a phone number and explicit opt-in.',
       sourceCta: 'View the source code',
       heroTitle: 'Leave on time.',
       heroBody:
@@ -90,9 +90,9 @@ export const launchStrings = {
       pay: {
         titlePrefix: 'You’re set, ',
         titleFallback: 'friend',
-        bodyPre: 'Your one-time free trial lasts ',
-        bodyStrong: '3 days.',
-        button: 'Continue to the current plan',
+        bodyPre: 'Activate the always-on cloud plan for ',
+        bodyStrong: '$29/mo.',
+        button: 'Subscribe for $29/mo',
         notReady:
           'Checkout is temporarily unavailable. You can return to your dashboard.',
         seeDashboard: 'See my dashboard',
@@ -123,11 +123,11 @@ export const launchStrings = {
     lifeManager: {
       metaTitle: 'Life Manager',
       metaDesc:
-        'Connect Google Calendar to reserve travel time and receive Telegram departure reminders. Calls are optional. Try Life Manager free for 3 days.',
+        'Connect Google Calendar to reserve travel time and receive Telegram departure reminders. Calls are optional. The always-on cloud plan is $29/mo.',
       heroHeadline: 'Life Manager',
       heroSubtext:
-        'Connect your Google Calendar and Life Manager reserves travel time for physical events, then sends the route on Telegram before you need to leave. Phone calls are optional. Your one-time trial is free for 3 days.',
-      heroPrimary: 'Start on Telegram',
+        'Connect your Google Calendar and Life Manager reserves travel time for physical events, then sends the route on Telegram before you need to leave. Phone calls are optional. The cloud plan is $29/mo.',
+      heroPrimary: 'Start on Telegram — $29/mo',
       heroSecondary: 'See how it works',
       asset: {
         wake: '09:35 · Telegram · route and departure time',
@@ -194,13 +194,13 @@ export const launchStrings = {
         { link: '', rest: 'Set your home or base. Skip phone, or add it and explicitly enable calls.' },
         {
           link: '',
-          restPre: 'You are ready with a one-time ',
-          restStrong: '3-day free trial',
+          restPre: 'Subscribe for ',
+          restStrong: '$29/mo',
           restPost: '. The service continues in the cloud without your Mac.',
         },
       ],
       cardGetStartedEyebrow: 'get started',
-      cardGetStartedTitle: 'Try Life Manager free for 3 days',
+      cardGetStartedTitle: 'Life Manager, $29/mo',
       cardGetStartedDesc: 'Start in Telegram, connect Calendar, set your base, and choose whether to enable calls.',
       cardColonyEyebrow: 'privacy and support',
       cardColonyTitle: 'Your connection stays under your control',
@@ -230,16 +230,16 @@ export const launchStrings = {
     lm: {
       metaTitle: 'ライフマネージャー：はじめる',
       metaDesc:
-        'Google カレンダーをつなぐと、移動時間を確保し、出発前に Telegram で経路をお知らせ。電話は任意。3日間無料で試せます。',
-      eyebrow: 'ライフマネージャー · 3日間無料',
+        'Google カレンダーをつなぐと、移動時間を確保し、出発前に Telegram で経路をお知らせ。電話は任意。常時稼働のcloud planは月 $29。',
+      eyebrow: 'ライフマネージャー · 月 $29のcloud plan',
       soonTitle: 'Telegram で始める',
       soonBody:
-        'Telegram でボットを開き、自分の Google カレンダーを接続して、自宅または拠点を設定すれば準備完了。電話は任意です。',
-      soonCta: 'Telegram で始める',
-      publicEyebrow: 'カレンダー × Telegram',
+        'Telegram でボットを開き、自分の Google カレンダーを接続して、自宅または拠点を設定。常時稼働のcloud planを月 $29で使えます。電話は任意です。',
+      soonCta: 'Telegramで始める — 月 $29',
+      publicEyebrow: 'カレンダー × Telegram · 月 $29',
       publicTitle: '次の予定に間に合うためのAIマネージャー。',
       publicBody:
-        'Google カレンダーをつなぐと、予定に合わせて移動時間を確保し、出発前に Telegram で経路を知らせます。',
+        'Google カレンダーをつなぐと、予定に合わせて移動時間を確保し、出発前に Telegram で経路を知らせます。cloud planは月 $29。',
       localSurface: '自分の Google カレンダー',
       cloudSurface: 'クラウドで常時稼働 · Mac不要',
       surfacesLabel: 'かんたん設定',
@@ -258,11 +258,11 @@ export const launchStrings = {
       evidenceBody:
         'カレンダーへのアクセスはGoogleの同意画面で許可します。接続解除、利用停止、サポートへの問い合わせはいつでもできます。',
       evidenceBoundary:
-        '初回だけ3日間無料で試せます。電話は、番号を登録して明示的に有効にした場合だけ使います。',
+        'cloud planは月 $29。電話は、番号を登録して明示的に有効にした場合だけ使います。',
       sourceCta: 'ソースコードを見る',
       heroTitle: '出発時刻に、間に合う。',
       heroBody:
-        'Telegram で始めて、Google カレンダーと拠点を設定。移動時間の確保と出発前の経路通知を任せられます。電話は任意です。',
+        'Telegram で始めて、Google カレンダーと拠点を設定。移動時間の確保と出発前の経路通知を任せられます。電話は任意。cloud planは月 $29です。',
       stepAria: (i: number, n: number) => `ステップ ${i} / ${n}`,
       login: {
         title: 'Telegram で始める',
@@ -298,9 +298,9 @@ export const launchStrings = {
       pay: {
         titlePrefix: '準備完了です、',
         titleFallback: 'あなた',
-        bodyPre: '初回の無料期間は',
-        bodyStrong: '3日間です。',
-        button: '現在のプランを確認する',
+        bodyPre: '常時稼働のcloud planを有効化。',
+        bodyStrong: '月 $29。',
+        button: 'サブスクに登録（月 $29）',
         notReady:
           '決済画面を開けませんでした。ダッシュボードへ戻れます。',
         seeDashboard: 'ダッシュボードを見る',
@@ -331,11 +331,11 @@ export const launchStrings = {
     lifeManager: {
       metaTitle: 'ライフマネージャー',
       metaDesc:
-        'Google カレンダーをつなぐと、移動時間を確保し、出発前に Telegram で経路をお知らせ。電話は任意。3日間無料で試せます。',
+        'Google カレンダーをつなぐと、移動時間を確保し、出発前に Telegram で経路をお知らせ。電話は任意。常時稼働のcloud planは月 $29。',
       heroHeadline: 'Life Manager',
       heroSubtext:
-        'Google カレンダーをつなぐと、対面予定に合わせて移動時間を確保し、出発前に Telegram で経路を知らせます。電話通知は任意。初回だけ3日間無料で試せます。',
-      heroPrimary: 'Telegram で始める',
+        'Google カレンダーをつなぐと、対面予定に合わせて移動時間を確保し、出発前に Telegram で経路を知らせます。電話通知は任意。cloud planは月 $29です。',
+      heroPrimary: 'Telegramで始める — 月 $29',
       heroSecondary: '仕組みを見る',
       asset: {
         wake: '09:35 · Telegram · 経路と出発時刻',
@@ -402,13 +402,13 @@ export const launchStrings = {
         { link: '', rest: '自宅または拠点を設定します。電話はスキップするか、番号を登録して明示的に有効にします。' },
         {
           link: '',
-          restPre: 'これで準備完了。初回だけ',
-          restStrong: '3日間無料',
+          restPre: 'これで準備完了。登録は',
+          restStrong: '月 $29',
           restPost: 'で、Macを起動していなくてもクラウドで動きます。',
         },
       ],
       cardGetStartedEyebrow: 'はじめる',
-      cardGetStartedTitle: '3日間無料で試す',
+      cardGetStartedTitle: 'ライフマネージャー（月 $29）',
       cardGetStartedDesc: 'Telegramで開始し、カレンダーと拠点を設定。電話を使うかは自分で選べます。',
       cardColonyEyebrow: 'プライバシーとサポート',
       cardColonyTitle: '接続は自分で管理できます',

@@ -1,4 +1,4 @@
 {
-  "stripe_lm_url": "https://buy.stripe.com/9B600j6C204S7LadIG2880V",
-  "note": "SSOT known-good Life Manager $20/mo Stripe link; the GHA build's NEXT_PUBLIC_STRIPE_LM_URL secret MUST equal this; money-path monitor asserts the live /lm chunk against it."
+  "stripe_lm_url": "https://buy.stripe.com/cNifZhgcC3h44yYeMK2880X",
+  "note": "SSOT known-good Life Manager $29/mo Stripe link; the server-side payment path's canonical Payment Link MUST equal this; money-path monitor asserts the registry URL remains reachable."
 }
