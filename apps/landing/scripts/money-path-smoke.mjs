@@ -23,13 +23,16 @@ for (const p of ["/", "/life-manager", "/lm"]) {
 }
 // 2. /lm chunk uses Telegram handoff and contains no direct Stripe link (shared tested guard)
 const html = await (await fetch(`${BASE}/lm?cb=${Date.now()}`)).text();
+if (!html.includes("$29") || /\$20\/mo|coming soon|近日公開/i.test(html)) {
+  fail("/lm pricing copy is stale or missing the live $29 plan");
+}
 const chunkPath = (html.match(/\/_next\/static\/chunks\/app\/lm\/page-[A-Za-z0-9]+\.js/) || [])[0];
 if (!chunkPath) fail("no /lm page chunk found in HTML");
 const chunk = await (await fetch(BASE + chunkPath)).text();
 const verdict = assertTelegramHandoff({ chunk });
 if (!verdict.ok) fail(verdict.reason);
 // 3. the known-good registry link remains reachable for the server-side/Railway Mini App payment path
-// (its $20/mo Life Manager identity is verified once at registry-set time via Stripe API; a per-deploy
+// (its $29/mo Life Manager identity is verified once at registry-set time via Stripe API; a per-deploy
 // raw fetch of Stripe's client-rendered page is unreliable)
 const pay = await fetch(registry.stripe_lm_url);
 if (pay.status !== 200) fail(`registry Stripe link not reachable (${pay.status})`);

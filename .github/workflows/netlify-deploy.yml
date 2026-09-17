@@ -69,7 +69,7 @@ jobs:
 
       # C5/C6 (VCSDD life-manager-cost-connect-reliability): post-deploy money-path smoke + auto-rollback.
       # On main, after publishing prod, assert the live site is up AND the /lm bundle's Stripe link still
-      # equals the known-good $20/mo registry link. On FAIL, restore the previous good deploy and fail the
+      # equals the known-good $29/mo registry link. On FAIL, restore the previous good deploy and fail the
       # job — this is the permanent guard against the 2026-07-03 ¥700k-wrong-link + site-404-outage class.
       - name: Post-deploy money-path smoke + rollback (prod only)
         if: github.ref == 'refs/heads/main'
