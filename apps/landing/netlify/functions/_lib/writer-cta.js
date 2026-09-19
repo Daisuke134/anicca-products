@@ -6,9 +6,26 @@ const RUN = /^\d{8}-\d{6}$/;
 const TELEGRAM = "https://t.me/LifeManagerBotbot?start=wr_";
 const REQUIRED = ["product_id", "run_id", "artifact_id", "variant_id", "click_id"];
 
+function normalizeQuery(source) {
+  if (!source || typeof source !== "object") return {};
+  return Object.fromEntries(Object.entries(source).map(([key, value]) => [
+    key,
+    Array.isArray(value) ? value[0] : value,
+  ]));
+}
+
 function readQuery(event) {
-  const query = event && event.queryStringParameters;
-  return query && typeof query === "object" ? query : {};
+  const query = normalizeQuery(event && event.queryStringParameters);
+  if (Object.keys(query).length) return query;
+  const multi = normalizeQuery(event && event.multiValueQueryStringParameters);
+  if (Object.keys(multi).length) return multi;
+  const raw = event && (event.rawQuery || event.rawQueryString);
+  if (typeof raw === "string" && raw) return Object.fromEntries(new URLSearchParams(raw).entries());
+  const rawUrl = event && event.rawUrl;
+  if (typeof rawUrl === "string" && rawUrl) {
+    try { return Object.fromEntries(new URL(rawUrl).searchParams.entries()); } catch {}
+  }
+  return {};
 }
 
 function validateQuery(query) {
