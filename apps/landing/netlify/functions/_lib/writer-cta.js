@@ -28,14 +28,6 @@ function readQuery(event) {
   return {};
 }
 
-function queryShapeHeaders(query) {
-  const shapes = Object.entries(query).map(([key, value]) => key + ":" + (Array.isArray(value) ? "array" : typeof value));
-  return {
-    "x-writer-query-keys": Object.keys(query).sort().join(",").slice(0, 200),
-    "x-writer-query-shapes": shapes.join(",").slice(0, 300),
-  };
-}
-
 function validateQuery(query) {
   if (query.product_id !== "anicca" || !RUN.test(String(query.run_id || ""))) return false;
   return REQUIRED.slice(2).every((key) => SAFE.test(String(query[key] || "")));
@@ -50,7 +42,7 @@ function makeWriterCtaHandler({ persist, now = () => new Date().toISOString(), r
   return async (event) => {
     if (!event || event.httpMethod !== "GET") return { statusCode: 405, headers: { allow: "GET" }, body: "" };
     const query = readQuery(event);
-    if (!validateQuery(query)) return { statusCode: 400, headers: { ...queryShapeHeaders(query) }, body: "" };
+    if (!validateQuery(query)) return { statusCode: 400, body: "" };
     const id = String(receiptId());
     if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id)) return { statusCode: 500, body: "" };
     const ref = attributionRef(query);
