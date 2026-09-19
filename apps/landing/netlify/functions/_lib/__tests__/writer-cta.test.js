@@ -21,5 +21,5 @@ test("writer CTA rejects malformed query, wrong method, and persistence failure"
 test("writer CTA URL helper keeps normal /lm visits on the fixed deep link", () => {
   assert.equal(writerCtaHref(""), TG_DEEPLINK);
   assert.equal(writerCtaHref("?product_id=anicca&run_id=bad&artifact_id=a&variant_id=v&click_id=c"), TG_DEEPLINK);
-  assert.match(writerCtaHref(new URLSearchParams(query).toString()), /^\\/.netlify\\/functions\\/writer-cta\\?/);
+  assert.match(writerCtaHref(new URLSearchParams(query).toString()), /^\/\.netlify\/functions\/writer-cta\?/);
 });
