@@ -51,6 +51,14 @@ test("writer CTA rejects malformed query and wrong method", async () => {
   assert.equal((await handler({ httpMethod: "GET", queryStringParameters: { ...query, run_id: "bad" } })).statusCode, 400);
 });
 
+test("writer CTA normalizes Netlify query shapes", async () => {
+  const handler = makeWriterCtaHandler({ persist: async () => {}, receiptId: () => id });
+  const arrays = Object.fromEntries(Object.entries(query).map(([key, value]) => [key, [value]]));
+  assert.equal((await handler({ httpMethod: "GET", queryStringParameters: arrays })).statusCode, 302);
+  assert.equal((await handler({ httpMethod: "GET", rawQuery: new URLSearchParams(query).toString() })).statusCode, 302);
+  assert.equal((await handler({ httpMethod: "GET", rawUrl: "https://aniccaai.com/.netlify/functions/writer-cta?" + new URLSearchParams(query) })).statusCode, 302);
+});
+
 test("writer CTA URL helper keeps normal /lm visits on the fixed deep link", () => {
   assert.equal(writerCtaHref(""), TG_DEEPLINK);
   assert.equal(writerCtaHref("?product_id=anicca&run_id=bad&artifact_id=a&variant_id=v&click_id=c"), TG_DEEPLINK);
