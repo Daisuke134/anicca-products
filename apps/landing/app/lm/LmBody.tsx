@@ -1,17 +1,23 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Reveal } from '@/components/site/taste';
 import { useLaunchLocale } from '@/lib/launchLocale';
+import { writerCtaHref } from '@/lib/writer-cta-url';
 import { launchStrings } from '@/lib/launchStrings';
 
 const TG_DEEPLINK = 'https://t.me/LifeManagerBotbot?start=lp';
 const REPOSITORY_URL = 'https://github.com/Daisuke134/life-manager';
 
-// The public landing page is a single Telegram handoff. Authenticated onboarding and payment
-// continue in the Railway Mini App, so this page never reads query identity or owns user state.
+// The public landing page is a Telegram handoff. Writer query identity is validated locally and
+// routed through the receipt redirect; this page never owns user state or entitlement.
 export default function LmBody() {
   const { locale } = useLaunchLocale();
   const t = launchStrings[locale].lm;
+  const [startHref, setStartHref] = useState(TG_DEEPLINK);
+  useEffect(() => {
+    setStartHref(writerCtaHref(window.location.search));
+  }, []);
   return (
     <main className="w-full overflow-hidden px-4 pb-24 pt-12 md:pt-20">
       <div className="mx-auto max-w-6xl">
@@ -31,7 +37,7 @@ export default function LmBody() {
                 </p>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <a
-                    href={TG_DEEPLINK}
+                    href={startHref}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center justify-center rounded-pill bg-[hsl(var(--gold))] px-7 py-3 text-sm font-semibold text-black transition-all hover:-translate-y-0.5 hover:brightness-95 active:translate-y-0"
