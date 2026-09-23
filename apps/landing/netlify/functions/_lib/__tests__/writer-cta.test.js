@@ -3,7 +3,6 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const { makeWriterCtaHandler, attributionRef } = require("../writer-cta");
-const { writerCtaHref, TG_DEEPLINK } = require("../../../lib/writer-cta-url");
 
 const query = {
   product_id: "anicca",
@@ -59,7 +58,8 @@ test("writer CTA normalizes Netlify query shapes", async () => {
   assert.equal((await handler({ httpMethod: "GET", rawUrl: "https://aniccaai.com/.netlify/functions/writer-cta?" + new URLSearchParams(query) })).statusCode, 302);
 });
 
-test("writer CTA URL helper keeps normal /lm visits on the fixed deep link", () => {
+test("writer CTA URL helper keeps normal /lm visits on the fixed deep link", async () => {
+  const { writerCtaHref, TG_DEEPLINK } = await import("../../../../lib/writer-cta-url.js");
   assert.equal(writerCtaHref(""), TG_DEEPLINK);
   assert.equal(writerCtaHref("?product_id=anicca&run_id=bad&artifact_id=a&variant_id=v&click_id=c"), TG_DEEPLINK);
   assert.match(writerCtaHref(new URLSearchParams(query).toString()), /^\/.netlify\/functions\/writer-cta\?/);
