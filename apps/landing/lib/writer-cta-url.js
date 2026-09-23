@@ -14,4 +14,4 @@ function writerCtaHref(search) {
   return "/.netlify/functions/writer-cta?" + forwarded.toString();
 }
 
-module.exports = { TG_DEEPLINK, WRITER_KEYS, writerCtaHref };
+export { TG_DEEPLINK, WRITER_KEYS, writerCtaHref };
