@@ -3,6 +3,8 @@
 const articles = Object.freeze({
   'a-green-check-is-not-learning-until-the-next-run-reads-it': require('../../../private/writer-articles/a-green-check-is-not-learning-until-the-next-run-reads-it.json'),
   'aipass5': require('../../../private/writer-articles/aipass5.json'),
+  'more-ai-posts-will-not-sell-your-guide': require('../../../private/writer-articles/more-ai-posts-will-not-sell-your-guide.json'),
+  'writer-ja-a6560f1db6c8': require('../../../private/writer-articles/writer-ja-a6560f1db6c8.json'),
 });
 
 function bundledWriterArticle(slug) {
