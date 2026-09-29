@@ -2,9 +2,11 @@
 // Netlify bundles paid contracts even when included_files is not mounted.
 const articles = Object.freeze({
   'a-green-check-is-not-learning-until-the-next-run-reads-it': require('../../../private/writer-articles/a-green-check-is-not-learning-until-the-next-run-reads-it.json'),
+  'a-viral-x-post-is-not-a-funnel-connect-substack-and-four-decisions': require('../../../private/writer-articles/a-viral-x-post-is-not-a-funnel-connect-substack-and-four-decisions.json'),
   'aipass5': require('../../../private/writer-articles/aipass5.json'),
   'more-ai-posts-will-not-sell-your-guide': require('../../../private/writer-articles/more-ai-posts-will-not-sell-your-guide.json'),
   'writer-ja-a6560f1db6c8': require('../../../private/writer-articles/writer-ja-a6560f1db6c8.json'),
+  'xcta4': require('../../../private/writer-articles/xcta4.json'),
 });
 
 function bundledWriterArticle(slug) {
