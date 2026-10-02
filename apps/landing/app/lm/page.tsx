@@ -14,8 +14,8 @@ export const metadata = {
   description:
     'Life Manager manages your body, mind, and money, follows through on real-world actions, and runs locally as open source or as an always-on paid cloud service.',
   other: {
-    'life-manager-context-version': '2026-09-01.1',
-    'life-manager-context-digest': 'f61cbb3cd2878abfb67756de2b23e816070aa3d991c71f748b2dfe1dbd3180d6',
+    'life-manager-context-version': '2026-10-02.1',
+    'life-manager-context-digest': '113ddbade3174274888d408be0874286dd6c4d9fa8cff41d447bca744e74ceed',
   },
 };
 
