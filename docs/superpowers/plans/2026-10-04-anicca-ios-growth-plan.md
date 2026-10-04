@@ -97,7 +97,7 @@ Task 4 preliminary ASO readback: screenshot visual auditは2026-10-04のUS listi
 - [x] Refreshed origin/main at 82d31995e68a5220b7a288318a893866a24c7ea6; verified active `PaywallFlowContainer` path and duplicate sender; dedicated worktree source-boundary check PASS.
 - [x] Offline source-call-graph check: origin/main emits two `paywall_plan_selection_viewed` paths (direct plus helper); branch emits one. This is source evidence, not a runtime event-count test.
 - [x] Removed only the redundant direct `.track(.paywallPlanSelectionViewed)` call; helper and `hasTracked` remain. Commit 3fee4d6cec74fdd469237a30b880106411c46f26.
-- [ ] Run focused Xcode test/build and eventual one-view/one-event runtime check before main integration. Xcode 26.6 has no iOS simulator runtime; build-for-testing failed at destination selection (exit70) and the focused test failed during dependency checkout (exit74, 531 MiB available at that attempt). Swift parse and diff-check pass; no runtime test or public event receipt is claimed.
+- [ ] Run focused Xcode test/build and eventual one-view/one-event runtime check before main integration. Correct repo-root project path is `apps/mobile/anicca-ios/aniccaios.xcodeproj`. Prior build-for-testing failed at destination selection (exit70), and the focused test failed during dependency checkout (exit74, 531 MiB at that attempt). Fresh 2026-10-05 04:07 JST check: Xcode 26.6 `xcrun simctl list runtimes` returned no runtimes; `xcodebuild -showdestinations -project apps/mobile/anicca-ios/aniccaios.xcodeproj -scheme aniccaios` entered SwiftPM package resolution and failed cloning `posthog-ios` with `No space left on device`. At 04:09 JST the volume showed 309 MiB available / 100% capacity; the failed clone directory was absent and no xcodebuild process remained. Swift parse and source diff-check pass; runtime event count/build/public receipt remain unverified.
 - [x] Commit/push readback confirms branch `fix/anicca-paywall-view-dedupe-20261005` HEAD 3fee4d6cec74fdd469237a30b880106411c46f26 equals origin; worktree clean. Fresh reviewer found no Critical/Important issue. `PlanSelectionStepView` has no active callsite; leave the unused view unchanged. Do not open a PR, merge main, publish a build, or change runtime/provider state before the full Growth outcome gate.
 
 ## Task 1: 公開版と現状値の証拠を再確認する
@@ -156,7 +156,7 @@ Task 4 preliminary ASO readback: screenshot visual auditは2026-10-04のUS listi
 - [ ] 既存IDを確認し、first-openコホート、app/onboarding version、step、experiment/variant、offering/productで不足する属性だけ追加する。悩みの自由記述は送らない。
 - [ ] RevenueCat→MixpanelのID/更新/返金を照合し、Sandboxとproductionを分ける。取得できない指標を0へ埋めない。
 - [ ] Existing mobile ownerから最新のmature D7 cohort source/refをread-onlyで受け取る。2026-09-26 Anicca n=3 cohortは2026-10-03 probe時点でunavailableだったため、mature後のfresh resultもprivate/experimental label付きで扱い、再取得を並走しない。
-- [ ] 変更に関係する既存テストと新しい最小回帰を実行する。Xcode schemeは`aniccaios`、projectは`aniccaios/aniccaios.xcodeproj`。利用可能なSimulator IDを実測して `xcodebuild test -project aniccaios/aniccaios.xcodeproj -scheme aniccaios -destination 'platform=iOS Simulator,id=<実測ID>' -only-testing:aniccaiosTests/<対象クラス>` を実行する。
+- [ ] 変更に関係する既存テストと新しい最小回帰を実行する。repo rootからXcode schemeは`aniccaios`、projectは`apps/mobile/anicca-ios/aniccaios.xcodeproj`。利用可能なSimulator IDを実測して `xcodebuild test -project apps/mobile/anicca-ios/aniccaios.xcodeproj -scheme aniccaios -destination 'platform=iOS Simulator,id=<実測ID>' -only-testing:aniccaiosTests/<対象クラス>` を実行する。
 - [ ] 成功判定: one-view/one-eventと取引の重複防止を確認し、同コホートのファネルが読める。反映が依頼された場合のみ公開版の受信まで確認する。
 
 ## Task 3: 既存配信を測って改善する
