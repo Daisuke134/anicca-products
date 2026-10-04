@@ -114,10 +114,14 @@ local metrics snapshotがあるため、投稿→platform reach/views sample pat
 ### mainの実コードで再確認した所見
 
 - `aniccaios/aniccaios/Onboarding/OnboardingFlowView.swift`は10段階の`OnboardingStep`を表示し、`PaywallFlowContainer`へ進む。コメントの11段階表記は実列挙と違う。
+- `ContentView.swift`は`isOnboardingComplete == false`なら`authStatus`を判定する前に`OnboardingFlowView`を表示する。したがって未ログインの初回ユーザーもsource上はonboarding/paywall経路へ入れる。これはcurrent mainのsource pathであり、公開1.9.4 binaryとの対応は未確認。
+- `OnboardingFlowView`はwelcome表示時に`onboarding_started`、step移動ごとに`onboarding_step_advanced`を送る。最後のNotifications stepではpaywallを表示する前に`onboarding_completed`を送るため、このeventは有料化を意味しない。close経路は`onboarding_paywall_dismissed_free`を送る。
 - `Onboarding/OnboardingBibleViews.swift`の`PaywallFlowContainer`はprimer→`PaywallVariantBView`を表示し、閉じるボタンを常時出す。
 - 別の`Onboarding/PlanSelectionStepView.swift`はPostHogの`hard_paywall`を読むが、この呼び出し経路で使われているとは言えない。公開1.9.4のbuildとソースの対応は未確定。
 - `Onboarding/PaywallVariantBView.swift`のonAppearは`.paywallPlanSelectionViewed`を直接送信し、同じイベントを送る`AnalyticsManager.trackPaywallViewed()`も呼ぶ。
+- 購入成功後はpaywall viewからclient event `onboarding_paywall_purchased`、RevenueCat customer-info delegateから`purchase_completed`が別々に送られる。delegateは`trackPurchaseCompleted`にcached packageの価格、またはfallback `$9.99`を渡す。これらはserver-confirmed transaction/settlementではないため、同じ購入を分析上二重に足さない。RevenueCatはその後`syncNow()`を呼ぶ。
 - `Services/SubscriptionManager.swift`の購読更新delegateには、取引IDによる新規購入の重複防止が見えない。実際の重複発生は未測定。
+- PostHogはapp launch時に`Purchases.shared.appUserID`でidentifyされる。Mixpanelの`identify(userId:)`は`AuthCoordinator` loginから呼ばれる`AppState.updateUserCredentials()`時だけ実行される。現行sourceにMixpanel aliasや明示的なcross-source user bridgeは見当たらない。Inference: 保存済みaggregateではlogin前の匿名Mixpanel eventをRC/App Store customer eventへ安全に結合できず、実SDK/backendのidentity mergeとlogin時期は未確認。
 - `Onboarding/PersonalizedInsightStepView.swift`は回答を参照せず、固定のlocalized文字列を表示する。
 - Mixpanel、PostHog、RevenueCatは既存導入済み。導入済みと受信・正しい集計を区別する。
 - `aniccaios/aniccaiosTests/OnboardingV2Tests.swift`には現enumにない旧case名への参照がある。既存テストがそのまま有効だとは仮定しない。実行時にtarget inclusionとbaselineを確認する。
