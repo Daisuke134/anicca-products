@@ -36,6 +36,9 @@
 
 ### レーン分担と最新readback（2026-10-05）
 
+- 2026-10-05に最新refを再確認した。Mobile Metrics worktree `/Users/anicca/Projects/life-manager-main/.worktrees/lm-mobile-metrics-20261003` はcleanで、HEADは `1f045eff3d27cfec3945cd8d2dff64f06928c834`（2026-10-04）。Life Manager `origin/main=82d31995e68a5220b7a288318a893866a24c7ea6` に対し、main-only 24 / candidate-only 34 commits、PRなし。Issue #6547はOPENで、Daisuke134の+1 reactionは `2026-10-04T01:11:20Z`。一方、candidate planのcursorは+1 pendingのままなので、担当者がapproval記載を整合する。clean worktreeは未commit差分がない証拠であり、agent seatが稼働中かどうかまでは示さない。
+- **担当判断: 並行継続とし、Mobile Metrics作業を止めず、引き継がない。** 相手はCFO/backend candidateとTask 8の受入れ・promotionを担当する。このGrowth laneは正本計画とread-only evidence接続を担当する。ファイル変更は重ならない。公式provider readとproduction/runtime操作はownerを一人に保ち、このlaneは取得済みrefsを読み、同じrequestを繰り返さない。
+
 - 2026-10-05 order ruling。旧順序: Task 1全体→Task 2/Task 3並行→Task 4→5→6。新順序: Task 2a canonical paywall event dedupe→Task 1残項目→Task 2残り/Task 3並行→Task 4→5→6。Task 1先頭のASC private metadataはApple 2FA待ちだが、active PaywallVariantBViewの同一event二重送信は確認済みで、source修正はASC/providerに依存せずonboarding conversion計測の信頼性を上げる。Task 2aのsource atomは完了し、現cursorはTask 1残項目。Xcode runtime event testはmain integration前のgateとして保持。
 - 別のMobile Metrics計画のTasks 1–3は、branch feat/lm-mobile-metrics-20261003 / HEAD 1f045eff3d27cfec3945cd8d2dff64f06928c834上でsource/test実装が完了している。内容はASC store rateの分母保護（install_to_paidはunavailable）、ASC proceedsとRevenueCat chart observationの分離、CFO summaryのfunnel/source status表示。これは候補branch上のsource完了であり、Growth Task 1、本番反映、同一ユーザーの課金帰属、settled net revenueの完了ではない。
 - 最新比較ではLife Manager origin/mainは82d31995e6。候補branchはmain固有24 commitsが未取り込みで、候補固有34 commitsがある。PRなし。apps/mobile/anicca-iosにはmainとの差分がない。変更はacquisition/Financial Manager/CFO backend側なので、Growth文書やnative source branchへコピー・mergeしない。
