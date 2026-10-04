@@ -87,7 +87,7 @@ Task 4 preliminary ASO readback: 2026-10-04のUS listingはiPhone 6.7-inch scree
 - [x] US App Store pageを2026-10-04T12:24Zに`crwl`で再readbackし、title/subtitle/version/category/languages/age/rating overview/IAP/legal subscription textを記録する。掲載IAPをRevenueCat live offeringとは扱わない。
 - [x] 2026-10-04 current public listingを再readbackし、ASC Downloads Standard rowとsource `project.pbxproj`のversionを照合する。公開1.9.4/download row 1.9.4とsource 1.9.5/build365のmapping gapを記録し、main sourceを公開済みbuildと見なさない。
 - [x] US/JP/DE App Store public pagesをread-only比較し、JPの47 ratingsとlocale別title/subtitleを記録する。localization readbackはASC keywords、promo text、PPO historyやlocalized screenshotsを代替しない。
-- [ ] 既存ASC owner refsからtarget locale別title/subtitle/keywords/category/promo text、metadata更新日、localized screenshot/PPO履歴を受け取り、public listingと差分を記録する。keyword fieldはpublic HTMLで推測しない。
+- [ ] Existing ASC owner refsでhidden keyword fields、promo text、metadata update time、localized screenshot/PPO historyを確定し、public US/JP/DE pagesとの差を記録する。keyword fieldはpublic HTMLで推測しない。
 - [ ] mobile ownerが`Page view` raw enumに合うcollector predicate/fixtureを修正してfocused regressionを実行し、既存ASC requestのfresh readback refs/hashを共有する。Growth laneは変更を取り込まず、結果だけを消費する。
 - [ ] そのowner readbackで10/01 first-time downloads 0の一致、page-view total5/unique0の差、segment/StoreKit含有を照合する。20 total impressions/5 unique impressionsは異なるmetric定義であり直接不一致としない。rateは対応する同一定義の値だけで計算する。
 - [ ] CFO `collectProduct` combined aggregate (09/30..10/02)とStandard raw report/Rork Analytics report-level `data_from/data_to`・event definitionsをowner refsでreconcileする。16 total vs Oct1 Standard row count20, page view total5 vs product total0を混ぜず、cohort conversionを作らない。
