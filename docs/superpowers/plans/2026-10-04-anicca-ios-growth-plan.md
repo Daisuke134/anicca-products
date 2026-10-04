@@ -34,13 +34,13 @@
 
 ## タスク一覧 — 残作業の正本
 
-現在cursorは **Task 1: 公開build/offerings/同一ユーザーファネルの不足証拠を照合**。既存owner資料/コード/local rowから6つの公式published target、10/01 acquisitionの0 installs/5 unique impressions/page views0でrate unavailable、10/02 RevenueCat MRR chart $20.34 USD、10/03 raw event countsを部分取得した。これは同じwindow/user cohortのファネルでもsettled CFO P&Lでもない。依頼者は全アプリ合計約3 installs/日と述べているが、app内訳・期間・公式sourceの一致が未確認なのでbaselineには採用しない。Task 3ではAnicca-tagged local publish journalに28日間567 provider_post_id記録（IG234/TikTok236/YouTube97）を特定。reach/view/click→acquisitionのjoinは未取得。Task 2にはpaywall view重複送信のsource-only修正branch/commitがあるが、実イベントcount、build、公開版への反映は未確認。既存owner cadenceは維持し、成果計測なしに追加volumeを増やさない。
+現在cursorは **Task 1: 公開build/offerings/同一ユーザーファネルの不足証拠を照合**。新しいlocal `business-outcomes.jsonl` row（business date 2026-10-03 / observed 2026-10-04T10:56:36.419433Z）は、ASC App Store Discovery reportで10/01のimpression counts20・page-view counts5、Downloads reportで10/01 restore1・10/02 App Store search由来first-time download1を記録する。一方、mobile ownerのRork ASC Analytics common-window readbackは10/01で0 first-time downloads / 5 unique impressions / 0 unique page views。source/metric定義差が未照合のためconversionを出さない。同rowのRevenueCat chartは2026-10-03 period MRR20.34/Actives5だがcurrency/revenue_definition欠落、App Store Salesは`provider_query_failed`、PostHogは`missing_project_read_credential`。これはsettled CFO P&Lでも同一user funnelでもない。依頼者は全アプリ合計約3 installs/日と述べているが、app内訳・期間・公式sourceの一致が未確認なのでbaselineには採用しない。Task 3ではAnicca-tagged local publish journalに28日間567 provider_post_id記録（IG234/TikTok236/YouTube97）を特定。reach/view/click→acquisitionのjoinは未取得。Task 2にはpaywall view重複送信のsource-only修正branch/commitがあるが、実イベントcount、build、公開版への反映は未確認。既存owner cadenceは維持し、成果計測なしに追加volumeを増やさない。
 
 順序はTask 1→Task 2とTask 3の並行→Task 4→Task 5→Task 6とする。まず現状と計測の信頼性を確かめつつ、Task 3では既存配信のreadbackを前進させる。distributionは最初の成長施策だが、reach→store→installの測定前に投稿本数や広告費だけを増やさない。Task 4ではスクリーンショット/PPOを先に検証し、その後に初回カード体験を別実験にする。Life Manager全体のTODO/orderはprimaryの統合SSOTであり、この表はANICCA growth lane内の作業順である。
 
 | Task | 成果 | 状態 | 依存 |
 |---|---|---|---|
-| 1 | 公開版/build/課金経路/現状値の証拠 | 進行中・基準表部分取得 | 公式build/source対応・live offering・同一ユーザーファネルのrefs不足 |
+| 1 | 公開版/build/課金経路/現状値の証拠 | 進行中・基準表部分取得。US listingと10:56Z local ASC reportsを再readback、Rork readbackとのmetric差が未解決 | 公式build/source対応・live offering・ASC source reconciliation・同一ユーザーファネルのrefs不足 |
 | 2 | 信頼できるコホートと課金ファネル | 部分進行・source-only重複event修正あり。実測/公開版反映/unique cohortは未確認 | Task 1のlive path/offering確認。既存metrics ownerのprovider作業と重複しない |
 | 3 | 配信別の獲得と改善記録 | 調査進行中・28日local posting count取得。reach/view/clickのofficial readback未取得、reader effect fenceあり | ownerがeffect/readbackをreconcileした後、同じpost IDをASC期間へ接続。既存cadenceは維持 |
 | 4 | ストア訴求と初回カード体験の改善 | 未着手 | Task 1〜3の基準と標本可能性。スクショ/PPO後にオンボを別実験 |
@@ -69,10 +69,13 @@
 
 - [x] 既存mobile設計のProvider observationsから24登録/6公開アプリ、旧未公開rosterとの違いを取り込み、根拠SHA/hashをspecへ記録する。私による公式API再取得とは扱わない。
 - [x] 最新anicca-products mainのUX/分析コードと、既存business-outcomesのproduct_analytics/PostHog statusを読んで部分基準表を記録する。raw件数を離脱率へ変換しない。
+- [x] 2026-10-04T10:56:36Z local business-outcomes rowからApp Store Discovery/Downloads reportのdate/aggregate fieldsとlatest RC summaryを再readbackする。raw user rowsを使わず、owner APIを重複取得しない。
 - [x] mobile取得ownerとprimaryへ重複しない所有範囲と必要なrefs/hashを共有する。primaryの分離了承は受信済み、mobile owner本人の返信は未確認。
+- [x] US App Store pageを2026-10-04T11:00:23Zに`crwl`で再readbackし、title/subtitle/version/rating overviewの有無/掲載IAPを記録する。掲載IAPをRevenueCat live offeringとは扱わない。
+- [ ] 10/01 ASC Discovery report countsとRork Analytics 0/5/0 readbackのreport name/unique semantics/filter/source refsを既存ownerと照合する。metric差が解けるまではpage-view/install rateを計算しない。
 - [ ] 既存ownerから最新apps/versions/buildのofficial refsを共有してもらい、公開版対応表を確定する。独自に同じASC取得を始めない。
-- [ ] 公開版のbuild metadataと実際の提供画面を照合する。ソースのcloseと別画面のPostHog設定だけでliveゲートを断定しない。
-- [ ] 取得済みASC subscriptionsとRC offering/productの対応を既存ownerのrefsから読む。project一覧の先頭をANICCAとして扱わない。live trial有無とソースのtrial無効を分ける。
+- [ ] 公開1.9.4 build metadata・actual checkout・current source pathを既存owner refsから照合する。ソースのcloseと別画面のPostHog設定だけでliveゲートを断定しない。
+- [ ] 取得済みASC subscriptionsとRevenueCat offering/productの対応を既存owner refsから読む。US page掲載の6 IAP recordをlive offeringと見なさず、live trial有無とsource上のtrial無効を分ける。
 - [ ] 前回Sales/Analytics期間を再取得し、type1/1F、app SKU/parent、通貨、期間を明示する。必要な秘密情報はcredential SSOTで安全に解決し、値を文書へ書かない。
 - [ ] Mixpanelのfirst-open/step別unique cohortと既存RC purchase/refund/updateを同期間で照合する。rawイベント、customer cohort、ASC install cohortを別分母として扱う。PostHog read権限不足はownerの既存経路で解決する。
 - [ ] specの古い外部値を置き換えるか観測時点を明示する。生レポートを公開Gitへ載せない。
