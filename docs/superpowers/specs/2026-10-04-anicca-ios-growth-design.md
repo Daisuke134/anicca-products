@@ -78,6 +78,14 @@ Mobile ownerの保存済みASC acquisition readback（2026-10-04 11:56:51–11:5
 - Apple 2FA待ちという最後のshared-tab観測は2026-10-04T17:59:33Zであり、現時点のログイン状態ではない。本readbackではshared browser・ASC APIを触っていない。private keyword/promo/update timestamp/localized screenshot/PPO refが見つかっていないため、Task 1は未完了である。
 - Task 2aのruntime gateも未解消。07:11 JSTにXcode 26.6、simulator runtimeなし、disk free 312 MiB、xcodebuild processなしをread-only確認した。容量/runtime条件が変わるまで再buildせず、以前のsource parse/review PASSと実機runtime PASSを区別する。
 
+### 2026-10-05 08:24 JST ASC / Xcode blocker readback
+
+- 08:18 JST direct CDP read-only tab inventory returned the ASC page at appstoreconnect.apple.com/login. No navigation, click, or ASC API request occurred; current private metadata and 2FA state are not verified.
+- Credential SSOT exists at /Users/anicca/.local/share/anicca/credentials.json with mode 0600. A key-name-only scan found zero Apple/ASC-named fields and emitted no values. The asc auth doctor help states that it checks Keychain availability; the diagnostic was interrupted after waiting without output, with no --fix. ASC authentication remains unknown; do not retry through a credential-store path.
+- AGMSG inbox had no reply by 08:24 JST. A follow-up was sent at 08:18 JST to codex-money-printer asking only for existing official refs/hashes or confirmation that the access gate is cleared, and explicitly forbidding a duplicate provider/browser request. The teammate has no addressable pane, so live activity is unknown.
+- Xcode 26.6 disk free recovered to 1.5 GiB at 08:18 JST, but xcrun simctl list runtimes returned none and no xcodebuild process was running. Task 2a remains unverified and must not be integrated as accepted runtime behavior yet.
+- Growth cursor remains Task 1, incomplete. The direct ASC login page contradicts any assumption that access is already ready. Resume the first open metadata item only from saved official owner refs or after authorized ASC login; preserve the no-duplicate-query boundary.
+
 ### 2026-10-05 FastlaneにあるASO metadata候補
 
 Life Manager `origin/main=82d31995e68a5220b7a288318a893866a24c7ea6`には6 localeの `apps/mobile/anicca-ios/fastlane/metadata/<locale>/keywords.txt` がある。全ファイルは `0e0758d7f7`（2026-09-17、iOS source co-location）で追加された。
