@@ -48,7 +48,7 @@
 
 rawイベント件数から離脱率を計算しない。primer4/started1のような値は再訪/再表示/取得windowを含みうるため、400%のconversionや3人の新規購入と解釈しない。具体的な離脱箇所は未確認のまま残す。
 
-配信journal上の567件はowner側の投稿記録であり、reach/閲覧・再生完了・プロフィール遷移・store click・installへの寄与を証明しない。mobile ownerの10/01 ASC acquisitionは0 first-time installs/5 unique impressions、page-view countは0でconversion unavailable。これは28日すべての投稿が無効である証明ではないが、現記録では大量の投稿からインストールへ届いた率が不明。投稿本数をさらに積む前に、最も新しく/十分に観測された既存投稿のofficial insightをASC期間に結び、1件でもpost→qualified reach→store acquisitionのsource traceが閉じるか確認する。campaign tokenやaccount change、新しいpublisherは追加しない。
+配信journal上の567件はowner側の投稿記録であり、reach/閲覧・再生完了・プロフィール遷移・store click・installへの寄与を証明しない。mobile ownerの10/01 ASC acquisitionは0 first-time installs/5 unique impressions、page-view countは0でconversion unavailable。これは28日すべての投稿が無効である証明ではなく、現記録では投稿からinstallへ届いた率が不明という意味。既存ownerの予定済み配信を止めず、最も新しく/十分に観測された既存投稿のofficial insightをASC期間へ結び、post→qualified reach→store acquisitionの経路を測る。campaign token/account/new publisherは追加しない。
 
 既存mobile設計の参照元は `/Users/anicca/Projects/life-manager-main/.worktrees/lm-mobile-metrics-20261003/docs/superpowers/specs/2026-10-03-mobile-app-metrics-funnel-design.md`、読取SHAは `1f045eff3d27cfec3945cd8d2dff64f06928c834`、文書SHA256は `1833426e22112a84b39c80dc3566c316353ced30f228980475cdebd6db87af26`。local sourceは `/Users/anicca/.local/state/life-manager/marketing-metrics-daily/state/business-outcomes.jsonl`、配信journalsは `/Users/anicca/.local/state/life-manager/marketing/{receipts,jobs}.jsonl`。原文payload、credential、個人IDはコピーしない。
 

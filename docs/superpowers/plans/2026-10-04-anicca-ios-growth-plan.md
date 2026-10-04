@@ -100,7 +100,7 @@
 - [x] Anicca `product_id`に絞り、28日間のlocal published/provider_post_id記録をplatform別に数えた（Instagram234/TikTok236/YouTube97）。これはfresh platform-readbackやreach/clickの証明ではない。
 - [ ] 既存ownerから直近28日のAnicca投稿ID/URLとplatform insights readbackを共有してもらい、reach/view/clickを同期間ASC refsへ1 sample pathで結ぶ。platform insightが欠ける場合は正確なowner取得境界/fieldの不足を記録する。
 - [ ] Sample判定: low reachならcreative/audience test、reachあるがclick低ならCTA/offer fit、store impressionあるがproduct page/install低ならscreenshots/product-page。測れない分岐はunavailableのまま。
-- [ ] 568本目以降のpostsはこのsample pathが閉じ、再生産対象が識別されるまで追加しない。
+- [ ] 既存ownerの予定済み配信 cadenceは維持する。計測が取れない状態で追加account/publisherや過剰なpost volumeを自作しない。sample pathが閉じたら、実測で勝ったcreativeを追加テストする。
 - [ ] 最新の国別DLと実績を見て、日本/日本語を第一案とする。夜の考えすぎ、自己批判、先延ばしの切り口を比較する。
 - [ ] 投稿別campaign linkを設計する。SNS reachとストアImpressionを混ぜず、個人単位の帰属ができるとは仮定しない。
 - [ ] 公開依頼後、週10本の独立クリエイティブ案を制作能力に合わせて調整する。実カード/通知を見せる。記事は勝った悩みを週1本掘り下げる。
