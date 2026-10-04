@@ -34,7 +34,7 @@
 
 ## タスク一覧 — 残作業の正本
 
-現在cursorは **Task 1: 公開build/offerings/同一ユーザーファネルの不足証拠を照合**。既存owner資料/コード/local rowから6つの公式published target、10/01 acquisitionの0 installs/5 unique impressions、10/02 RevenueCat MRR chart $20.34 USD、10/03 raw event countsを部分取得した。これは同じwindow/user cohortのファネルでもsettled CFO P&Lでもない。Task 3ではAnicca-tagged local publish journalに28日間567 provider_post_id記録（IG234/TikTok236/YouTube97）を特定。reach/click/acquisitionとのpost-level joinは未取得。文書の更新・push完了を製品タスクの完了に含めない。
+現在cursorは **Task 1: 公開build/offerings/同一ユーザーファネルの不足証拠を照合**。既存owner資料/コード/local rowから6つの公式published target、10/01 acquisitionの0 installs/5 unique impressions/page views0でrate unavailable、10/02 RevenueCat MRR chart $20.34 USD、10/03 raw event countsを部分取得した。これは同じwindow/user cohortのファネルでもsettled CFO P&Lでもない。Task 3ではAnicca-tagged local publish journalに28日間567 provider_post_id記録（IG234/TikTok236/YouTube97）を特定。post reach/click/readbackとのjoinは無し。volumeはあるが効率は不明なので、追加投稿より既存post attributionが先。文書の更新・push完了を製品タスクの完了に含めない。
 
 順序は元のTask 1→2→3→4→5→6を維持する。Task 3のread-only調査だけをTask 1/2と並行し、配信実行を前倒しする許可とは扱わない。Task 4内はスクリーンショット→初回カード体験の順に独立比較する。Life Manager全体のTODO/orderはprimaryの統合SSOTであり、この表はgrowth内の作業細分である。
 
@@ -42,7 +42,7 @@
 |---|---|---|---|
 | 1 | 公開版/build/課金経路/現状値の証拠 | 進行中・基準表部分取得 | build/source対応・offerings・user funnel不足 |
 | 2 | 信頼できるコホートと課金ファネル | 未着手 | Task 1、実装依頼 |
-| 3 | 配信別の獲得と改善記録 | 調査進行中・資料所在確認 | 投稿別refs/期間/reach/click照合。実行は未着手 |
+| 3 | 配信別の獲得と改善記録 | 調査進行中・28日local posting count取得済 | 同じpost IDのofficial reach/view/click→ASC window join。追加postingは保留 |
 | 4 | ストア訴求と初回カード体験の改善 | 未着手 | 1/2/3、実装/公開依頼 |
 | 5 | 訴求→hard/softの比較 | 未着手 | 1/2/4、標本見積り、変更依頼 |
 | 6 | 他の公開アプリへ再利用 | 未着手 | ANICCAでの学習結果 |
@@ -55,6 +55,7 @@
 - RevenueCat D35 cohort conversionを感度分析に使う。月100 new paidに約4,762 DL (2.1%), 2,000 DL (5%), 935 DL (10.7%)。2.1%/10.7%はRevenueCatで異なるmodel群のmedian、5%は仮定。live Anicca conversionとはしない。
 - $20.34 RevenueCat MRR chart (complete period 2026-10-02, USD) はmobile owner readback。CFO settlement/profitではなく、10/03 JSONLはcurrency/revenue_definition欠落。正式なstarting CFO MRRは未確定。
 - 先行指標は対象reach→ASC impression/page view/first-time download→unique onboarding cohort→value/paywall→paid→renewal/refund。利益判断は別途同期間のApple proceeds/fees, refunds, variable compute/infra, ad CACを必要とする。
+- 既存Aniccaはlocal journal上28日でIG/TikTok/YouTube published IDs567。直近ASC一日windowは0 installs/5 unique impressionsで、現段階でpost efficacyはunknown。次は既存ownerの投稿reach/clickを1つのsample pathで結び、reach自体が少ないかstore遷移で落ちるか見分ける。reachデータ無しにpost volumeを増やさない。
 - 反復順は課題/配信仮説→同一window獲得→初回価値/課金→成熟D35 paid→renewal/contribution→横展開。実測で1st gateが未達なら次app複製や大規模有料獲得はしない。
 
 ## Task 1: 公開版と現状値の証拠を再確認する
@@ -96,8 +97,10 @@
 **Interfaces:** 投稿ID/URL、切り口、言語、reach、クリック、campaign/CPP集計。出力は週次の獲得比較と次の切り口。
 
 - [x] 既存marketing receipt/jobs journalとmetrics runnerを発見する。specの「継続調査の基準表」に絶対パスを記録する。全product journal行数をAniccaの投稿数にしない。
-- [x] Anicca `product_id`に絞り、28日間のpublished/provider_post_id記録をplatform別に数えた（Instagram234/TikTok236/YouTube97）。これはローカルjournal集計で、fresh platform-readbackやreach/clickの証明ではない。
-- [ ] AGMSGで現担当と所有範囲を調整し、直近28日のAnicca実投稿ID/URL、reach、リンククリックと測定期間を同じ資料で照合する。
+- [x] Anicca `product_id`に絞り、28日間のlocal published/provider_post_id記録をplatform別に数えた（Instagram234/TikTok236/YouTube97）。これはfresh platform-readbackやreach/clickの証明ではない。
+- [ ] 既存ownerから直近28日のAnicca投稿ID/URLとplatform insights readbackを共有してもらい、reach/view/clickを同期間ASC refsへ1 sample pathで結ぶ。platform insightが欠ける場合は正確なowner取得境界/fieldの不足を記録する。
+- [ ] Sample判定: low reachならcreative/audience test、reachあるがclick低ならCTA/offer fit、store impressionあるがproduct page/install低ならscreenshots/product-page。測れない分岐はunavailableのまま。
+- [ ] 568本目以降のpostsはこのsample pathが閉じ、再生産対象が識別されるまで追加しない。
 - [ ] 最新の国別DLと実績を見て、日本/日本語を第一案とする。夜の考えすぎ、自己批判、先延ばしの切り口を比較する。
 - [ ] 投稿別campaign linkを設計する。SNS reachとストアImpressionを混ぜず、個人単位の帰属ができるとは仮定しない。
 - [ ] 公開依頼後、週10本の独立クリエイティブ案を制作能力に合わせて調整する。実カード/通知を見せる。記事は勝った悩みを週1本掘り下げる。
