@@ -36,6 +36,15 @@
 
 ### レーン分担と最新readback（2026-10-05）
 
+#### 最新の作業・blocker再readback（2026-10-05 07:19 JST）
+
+- Growth文書repoはDaisuke134/anicca-products、worktree /Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan、branch docs/anicca-ios-growth-plan-20261004。fresh fetch後、編集着手前のworktreeはcleanで、HEAD/upstreamは583a137d2e1c4356b6f39ecde2c9daaa77871434で一致。最新origin/mainは825802052a。前回確認点48e2cbd417c46623802aca863148c6716c41e5dcからの差分3ファイルはCapafy記事データのみで、Anicca対象コード差分はない。
+- Mobile Metrics候補worktree /Users/anicca/Projects/life-manager-main/.worktrees/lm-mobile-metrics-20261003 はclean。branch feat/lm-mobile-metrics-20261003 / HEAD 1f045eff3d27cfec3945cd8d2dff64f06928c834、origin/main 82d31995e68a5220b7a288318a893866a24c7ea6。candidate固有34/main固有24 commits、PRなし。Tasks 1–3は候補branch上のsource/test完了のまま、main統合・production readback・same-user paid cohortは未完。issue #6547もOPEN、comments 0、PR一覧は空。
+- AGMSG lm inboxは07:19 JST時点で新着なし。07:14 JSTにcodex-money-printerへ既存ASC read-only refs/hashと2FA/access gateの状態だけを尋ね、新規queryは重ねないよう依頼したが、返答は未着。team.shはmember一覧を返すが相手のaddressable paneなし。稼働中かは観測不能。Growthのdocs-only owner範囲とMobile Metricsのbackend/CFO source範囲は分離しており、現在も引き継ぎで統合せず並行継続が妥当。ASC/RevenueCatの同一provider操作は重ねない。
+- Task 1は未完了。最初の未完itemはASC hidden keywords/promo text/metadata update time/localized screenshots/PPO historyをlive refで確定する項目。2026-10-04T17:59:33ZのApple 2FA画面は歴史的観測であり、本readbackではshared browserもprovider APIも触れていない。owner inboxにも新しいofficial refがないため、現在アクセスできる・blocker解消済みとは扱わない。Task 1 checklistは11件未完で、完了済みのZ1/FINANCE_DETAIL mappingはその一部の証拠に限られる。
+- 07:11 JSTのXcode readbackでは26.6を選択中だがxcrun simctl list runtimesは空、空き容量312 MiB、実行中xcodebuildなし。Task 2aはsource修正・review完了だが、focused test/runtime one-view/one-eventは未検証。容量・runtime条件が変わるまでbuild/testを再試行しない。過去のbuild失敗はinstall/build acceptanceにしない。
+- したがって最初の再開操作は、同じASC queryを再発行せず、Mobile ownerからprivate metadataの既存read-only ref/hashと現在のアクセス可否だけを受け取ること。refがなく2FA待ちならその正確な状態と必要なprovider refを記録する。Task 2aのXcode gateはruntime/容量がそろった後に再開する。
+
 - 2026-10-05に最新refを再確認した。Mobile Metrics worktree `/Users/anicca/Projects/life-manager-main/.worktrees/lm-mobile-metrics-20261003` はcleanで、HEADは `1f045eff3d27cfec3945cd8d2dff64f06928c834`（2026-10-04）。Life Manager `origin/main=82d31995e68a5220b7a288318a893866a24c7ea6` に対し、main-only 24 / candidate-only 34 commits、PRなし。Issue #6547はOPENで、Daisuke134の+1 reactionは `2026-10-04T01:11:20Z`。一方、candidate planのcursorは+1 pendingのままなので、担当者がapproval記載を整合する。clean worktreeは未commit差分がない証拠であり、agent seatが稼働中かどうかまでは示さない。
 - **担当判断: 並行継続とし、Mobile Metrics作業を止めず、引き継がない。** 相手はCFO/backend candidateとTask 8の受入れ・promotionを担当する。このGrowth laneは正本計画とread-only evidence接続を担当する。ファイル変更は重ならない。公式provider readとproduction/runtime操作はownerを一人に保ち、このlaneは取得済みrefsを読み、同じrequestを繰り返さない。
 
