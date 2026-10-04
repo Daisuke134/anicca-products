@@ -5,7 +5,7 @@
 - repository: `https://github.com/Daisuke134/anicca-products`
 - worktree: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan`
 - branch/upstream: `docs/anicca-ios-growth-plan-20261004` / `origin/docs/anicca-ios-growth-plan-20261004`
-- 今回のhandover更新直前branch HEAD: `0a438193daad9c389cec47b7fe6da85560c20159`。再開時に`git fetch`してHEAD/upstreamを再確認する。
+- latest spec/plan update commit: `55c71d24141096655d7ec92a8ac7b19b32411104` on `origin/docs/anicca-ios-growth-plan-20261004` (`Daisuke134/anicca-products`)。再開時に`git fetch`してcurrent branch HEAD/upstreamを再確認する。
 - spec: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan/docs/superpowers/specs/2026-10-04-anicca-ios-growth-design.md`
 - TODO/orderの唯一の正本: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan/docs/superpowers/plans/2026-10-04-anicca-ios-growth-plan.md` の「タスク一覧」
 - source baseline: `081eeb2e6fc9b44087eb4439e81951fa30c2cb9c`
@@ -32,7 +32,7 @@ Growth laneはこのspec、plan、handoverだけを編集する。ASC/RevenueCat
 
 Paywall duplicate-eventのsource-only修正は別worktree/branch `/Users/anicca/anicca-project/.worktrees/anicca-paywall-event-dedupe-growth`、branch `fix/anicca-paywall-event-dedupe-20261004-growth`、commit `76cf8b6e5968f958ee837318d68b6842386f4eb2`。syntax parseとdiff checkはPASS、Xcode buildはiOS 26.5 destination未解決でcompile前exit 70、event-count regression/public binary mapping/production event readbackは未確認。PR/merge/releaseはない。
 
-AGMSG: Life Manager rootで`join.sh lm lm-ios-growth-1004 codex`はexit 0、`identities.sh`にもseatが現れる。delivery modeは`off`（手動inbox）に設定。`send.sh`で`codex-money-printer`へ進捗と既存refs共有依頼を送り、`history.sh`で10:58:45Z、11:09:02Z、11:15:39Z、11:18:19Z、11:41:55Z、11:48:30Zの送信を確認。11:18Zはcollector/test enum mismatch、11:41/11:48Zはpost-metricsの93 exact joins・52件7d checkpoint・creative hash所見を共有した。最新inboxは新着なし。`team.sh lm --json`はseatを表示しない一方、identity listとsend/historyはseatを認識しているためroster readback discrepancyを残す。mobile owner/primaryのsource修正とfresh readbackを待ち、Growth laneはsourceを編集しない。
+AGMSG: Life Manager rootで`join.sh lm lm-ios-growth-1004 codex`はexit 0、`identities.sh`にもseatが現れる。delivery modeは`off`（手動inbox）に設定。`send.sh`で`codex-money-printer`へ進捗と既存refs共有依頼を送り、`history.sh`で10:58:45Z、11:09:02Z、11:15:39Z、11:18:19Z、11:41:55Z、11:48:30Z、11:52:30Zの送信を確認。11:18Zはcollector/test enum mismatch、11:41/11:48Zはpost-metricsのjoin/sample、11:52Zはlatest commit `55c71d24`とTask 3 metrics snapshotを共有した。11:52Z以降inboxは新着なし。`team.sh lm --json`はseatを表示しない一方、identity listとsend/historyはseatを認識しているためroster readback discrepancyを残す。mobile owner/primaryのsource修正とfresh readbackを待ち、Growth laneはsourceを編集しない。
 
 ## 再開手順
 
