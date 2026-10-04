@@ -149,9 +149,10 @@ local metrics snapshotがあるため、投稿→platform reach/views sample pat
 ### Source-onlyの計測重複修正
 
 - 旧candidateは`Daisuke134/anicca-products` mirror branch `fix/anicca-paywall-event-dedupe-20261004-growth` / commit `76cf8b6e5968f958ee837318d68b6842386f4eb2`にあり、`PaywallVariantBView.swift`の直接event送信1行を削除している。テストなし、PRなし、公開buildでの受信証拠なし。このmirror branchはsource authorityでないため統合しない。
-- 同一source fileはcurrent canonical `Daisuke134/life-manager@82d31995e6`にも存在（同ファイルは7f90ebc2から変更なし）し、現在の`onAppear`は`.paywallPlanSelectionViewed`と`trackPaywallViewed()`の両方を呼ぶ。Canonical fixはLife Manager worktreeでtest-firstに再実装する。`trackPaywallViewed()`はイベント送信に加えてSKAN conversion value 2を更新するため、この経路を保持する。
+- 同一source fileはcurrent canonical `Daisuke134/life-manager@82d31995e6`にも存在（同ファイルは7f90ebc2から変更なし）し、現在の`onAppear`は`.paywallPlanSelectionViewed`と`trackPaywallViewed()`の両方を呼んでいた。Growth Task2aのcanonical fixはLife Manager branch `fix/anicca-paywall-view-dedupe-20261005` / commit `3fee4d6cec74fdd469237a30b880106411c46f26`で直接送信1行だけを削除し、helperと`hasTracked`を保持する。`trackPaywallViewed()`はイベントを1度送り、SKAN conversion value 2を更新する。
 - Active flowはOnboardingFlowView→PaywallFlowContainer→PaywallVariantBView。`PlanSelectionStepView`のhard flagはこの呼び出し経路に含まれない。Public 1.9.4/build mappingは未確認で、source-only fixをproduction effectと扱わない。
-- Prior Xcode test/build attempts on the product mirror could not use an iOS 26.5 execution destination; current Xcode host has no simulator runtime. This prevents a simulator event test here; run the smallest source-contract regression and Swift parse in the canonical worktree, then keep public event receipt as a later release gate.
+- Independent read-only review of Life Manager base `82d31995e68a5220b7a288318a893866a24c7ea6` → head `3fee4d6cec74fdd469237a30b880106411c46f26` found no Critical/Important issue. Offline source-call-graph check confirms origin/main has two send paths and the branch has one; `swiftc -frontend -parse` and `git diff --check` pass. Xcode 26.6 has no simulator runtime, `build-for-testing` failed at destination selection (exit 70), and focused test dependency checkout failed for low disk (exit 74, 531 MiB at that attempt). No actual event count/public receipt is proved; branch is pushed but not PR-merged/released.
+- Reviewer also noted `PlanSelectionStepView.swift` contains an event call; a fresh search of canonical Swift files found only its type declaration and no active call site. Leave it unchanged; if a future flow uses it, re-audit its event path before enabling that flow.
 
 ### 未確認事項
 
