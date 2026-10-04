@@ -4,7 +4,7 @@
 
 既存ANICCA iOSを最初のケースに、配信→ストア獲得→初回価値→有料購読→継続→利益を同じ成長ループで測り、改善する。長期構想は公開アプリをそれぞれ$10K MRRへ育てることだが、最初の経営目標はポートフォリオ合算$10K MRRとし、需要と採算が確認できた勝ちアプリから投資する。仕組みを他アプリへ移すのはANICCAで再現できてからとする。目標額は達成保証でも期限予測でもない。
 
-この文書は継続中の実行目標を支えるspecであり、実作業は後述のplanの順序と担当境界に従って進める。現在の作業はspec/TODOの整合更新で、製品変更や外部公開が完了したことを意味しない。ソース変更は専用worktreeで該当Taskの範囲内に行い、ASC metadata・価格/購読条件・広告・公開投稿・稼働中loopはownerとeffect境界を確認してから扱う。利益の確定はCFO laneの同期間公式receipt/cost接続に委ね、Growth laneで二重に計算しない。
+この文書は継続中の実行目標を支えるspecであり、実作業は後述のplanの順序と担当境界に従って進める。この文書branchはspec/plan/handoverだけを変更し、製品変更や外部公開の完了を意味しない。ソース変更は専用worktreeで該当Taskの範囲内に行い、ASC metadata・価格/購読条件・広告・公開投稿・稼働中loopはownerとeffect境界を確認してから扱う。利益の確定はCFO laneの同期間公式receipt/cost接続に委ね、Growth laneで二重に計算しない。
 
 ## 正本と再開情報
 
@@ -21,7 +21,7 @@
 
 ## 現在の担当と再利用境界
 
-- Growth laneの書込対象はこのspec、対応する計画、再開メモのみ。現在cursorはTask 1、Task 3は既存配信記録のread-only調査中。前回handover記載のAGMSG名`lm-ios-growth-1004`は今回のrepo-local `whoami`で再確認できず、複数identityが返ったため、AGMSG送信前にidentityを解決する。
+- Growth laneの書込対象はこのspec、対応する計画、再開メモのみ。現在cursorはTask 1、Task 3は既存配信記録のread-only調査中。Task 4のUS public listing/screenshots初回auditは記録済みで、source/locale確認とPPO/onboarding実験はTask 1〜3のgate待ち。前回handover記載のAGMSG名`lm-ios-growth-1004`は今回のrepo-local `whoami`で再確認できず、複数identityが返ったため、AGMSG送信前にidentityを解決する。
 - 既存 `lm-cfo-observability-1002` はLife Managerの `feat/lm-mobile-metrics-20261003` を所有する。collector、ASC/RevenueCat取得、Finance Detail producer、CFO consumerへの接続をこちらで重複実装しない。本人へ取得済みの公開build/offerings/source refs/hashを照会済みで、返信は未確認。
 - `codex-money-printer` は全体primary。私のgrowth文書・CFO worktree・mobile producerを編集しないとの返信を確認する。全体TODO/orderはLife Manager統合SSOTのprimary管理§217/§340/§343に従い、この計画はgrowth内の細分手順であって全体順序を変更しない。
 - 公式ASC/RC readbackは既存取得owner一人が生成し、両laneが同じrefs/hash/期間をread-onlyで消費する。今回はprovider再取得、認証/共有profile/state変更、投稿、本番操作を行わない。
@@ -36,14 +36,15 @@
 | 公開アプリ | 担当のpublished auditはAnicca/Honne/Dhamma Quotes/Sleep Reset/STUDIO CHERIE/Thankfulの6件。旧CFO rosterの未公開4件とは別 | 最新の公式refs/hash共有 | mobile設計のProvider observations |
 | ASC acquisition | 既存feature branchはreport日付の交差と分母0/期間不一致を扱い、6公開アプリを対象にする。追加4件は担当観測でreport_pending。Apple定義ではDiscovery `Counts`はtotal events、`Unique Counts`はrowごとのunique users、Discovery Impression eventはpage viewを含まない。一方Analytics `Impressions (Unique Devices)`にはunique product page viewsが含まれる。10/01の20 total impressionsと5 unique impressionsは直接比較できず、整合する可能性がある。 | Discovery total page-view counts 5とAnalytics unique page views 0の差、同一segment/report refs、十分な日別観測。row単位のunique countsを合計してoverall unique usersにしない | 同設計のAcquisition/Acceptance、[Apple Discovery report](https://developer.apple.com/documentation/analytics-reports/app-store-discovery-and-engagement)、[Apple metric definitions](https://developer.apple.com/help/app-store-connect-analytics/reference/metrics-definitions)、最新business-outcomes report artifact |
 | Rork page-view mapping candidate | mobile owner branch `feat/lm-mobile-metrics-20261003` / HEAD `1f045eff3d27cfec3945cd8d2dff64f06928c834` の`rows()`はTSV値をそのまま保持し、集計は`row.Event === "Page View"`だけを採用。fixtureも`Page View`だが、Apple official report fieldのenumは`Page view`。 | Detailed reportのraw enumとfresh owner outputで確認する。`Page view`がそのまま来るならpage-view 0はcollector mapping defect。mobile ownerがmapping/fixtureを直して同じrequestをreadbackする。Growth laneはcollectorを編集しない | `/Users/anicca/Projects/life-manager-main/.worktrees/lm-mobile-metrics-20261003/apps/life-manager/scripts/marketing-asc-acquisition.js:35,252-253`、同`marketing-asc-acquisition.test.js:43`、Apple Discovery report |
-| ANICCAの公開store面 | 2026-10-04T11:00:23ZのUS page readbackはtitle `Daily Affirmations - Anicca`、subtitle `Affirmations, Calm & Self-Love`、公開最新版1.9.4（Jun 25）、評価overviewなし。IAP欄はAnnual Plan $59.99 / Anicca Monthly $9.99 / Annual Retention Plan $29.99 / Weekly Premium $7.99 / Annual Premium $29.99 / Monthly Plan $12.99 | 公開1.9.4 binaryとの訴求一致、最新screenshots/PPO、6件の掲載IAPと実際のASC/RevenueCat live offering・checkoutとの対応。掲載IAPを購入可能な現行offerと見なさない | `crwl crawl https://apps.apple.com/us/app/id6755129214 -o markdown-fit`、前回ASC readback |
+| ANICCAの公開store面 | 2026-10-04T12:24ZのUS page readbackはtitle `Daily Affirmations - Anicca`、subtitle `Affirmations, Calm & Self-Love`、公開最新版1.9.4（Jun 25）、category Health & Fitness、13+、English/French/German/Japanese/Portuguese/Spanish。Appleは評価/レビューoverviewを表示するには件数が不足と表示。IAP一覧はAnnual Plan $59.99 / Anicca Monthly $9.99 / Annual Retention Plan $29.99 / Weekly Premium $7.99 / Annual Premium $29.99 / Monthly Plan $12.99。一方descriptionの契約欄はAnicca Pro (Monthly/Annual)とだけ記す | 公開1.9.4 binaryとの訴求一致、metadata history、promo text/keywords、掲載IAP6件と実際のASC/RevenueCat live offering・checkoutとの対応。掲載IAPを購入可能な現行offerと見なさない | [US App Store listing](https://apps.apple.com/us/app/id6755129214)、[Apple app information limits](https://developer.apple.com/help/app-store-connect/reference/app-information/app-information) |
+| 公開ASO素材 | 2026-10-04T12:24ZのUS pageでiPhone 6.7-inch screenshots `APP_IPHONE_67_01..04`が4枚見える。見出し順は「Personalized Affirmations」「Reminders to Stay Positive」「Choose From 8 Themes」「Change How You Think」。1/2/4枚目はaffirmation card中心で見た目が似ており、3枚目はtheme picker。descriptionは13 self-care themesと、AIが必要な時間を学び通知する旨を主張する。titleは27/30文字、subtitleは30/30文字で各30文字上限内。promo textの有無とpreview videoは取得pageでは確認できない | 8と13の差、およびAI timing/voice/adaptive-learning claimsが公開版で真に動くかをsource ownerで確認する。別locale/deviceの素材、metadata history、PPO eligibility/trafficは未確認。機能確認前にcopyを直さず、keywords fieldでtitle/subtitle/categoryと重複語を避ける。最初の3枚を転換実験の中心に置くが、十分なtraffic/sampleなしに勝者を宣言しない | [US App Store listing](https://apps.apple.com/us/app/id6755129214)、2026-10-04 public screenshot readback、[Apple App Store search](https://developer.apple.com/app-store/search/) |
 | install→paid | 既存branchのD7はprivate/experimental endpointで、成熟日/同一app/date/整数payer/分母を検証する。小標本を効果としない | 十分なコホートと公開された計測経路 | 同設計のD7 contract |
 | RevenueCat/Apple | 担当branchにはcurrency/roster/mobile freshness/Finance Detailの子ID→親app mapping修正がある。本番import完了とは別 | 現行offering、実購読イベント、production receipt接続 | 同設計のCFO source contract |
 | アプリUX | anicca-products origin/main `081eeb2e6fc9b44087eb4439e81951fa30c2cb9c`で10-step→2-step paywall、個別画面の固定文、表示イベント二重送信を再確認 | 公開1.9.4 build/ソース対応、live画面 | 既存Swift source |
 | product analytics | Anicca business_date 2026-10-03 / observed_at 2026-10-04T10:56:36.419433Zの保存rowはproduct_analytics available、raw件数 app_opened5/onboarding_started1/paywall_primer_viewed4、rows10。PostHogは`missing_project_read_credential`。同じrowのRevenueCat chart summaryはMRR20.34/Actives5（period 2026-10-03）だが通貨とrevenue_definitionがない。ASC Sales sourceは`provider_query_failed` | first-openのunique分母、段階/時間/購入のuser join、RC chart通貨/定義、sales source回復 | `/Users/anicca/.local/state/life-manager/marketing-metrics-daily/state/business-outcomes.jsonl` |
 | PostHog | 同保存行はmissing_project_read_credential | 所有者経路で既存project readを解決 | 同保存行 |
 | 配信receipt census | 2026-10-04T11:34:00Z時点のstrict rolling 28d window（2026-09-06T11:34:00Z〜10-04T11:34:00Z）で、nested receipt.product_id=`anicca-ios` / status=`published` / provider_post_idをdedupeすると562件（Instagram231/TikTok234/YouTube97）。以前の567件は別query/filter basisであり、同一値として扱わない | 以前の567件を同じfilter/windowで再現して差を説明する。current coverageには今回のstrict receipt queryを使う | `/Users/anicca/.local/state/life-manager/marketing/receipts.jsonl`、`/Users/anicca/.local/state/life-manager/marketing/jobs.jsonl` |
-| 投稿別metrics sample | `marketing-owner-events/state/post-metrics.jsonl`のlatest Anicca observationは2026-10-04T11:33:50Z。97 unique `postiz_id`のうち93件がpublished receiptの`provider_post_id`とplatform別に完全一致し、97/97 latest row raw hashがprovider response journalにある。562 receipts中399件は168h mature、52件にin-window checkpoint（37 measured/15 unavailable）、347件は168h checkpointなし。37 measuredはInstagram Graph API 14、TikTok native public API 8、YouTube Data API 15。 | 52/52 matched metrics checkpointは同日のfresh snapshotでraw hash confirmed。168h sampleのInstagram reach/views合計12,342/17,037、TikTok views311、YouTube views7はper-post valuesであり、unique audienceやinstall attributionではない。impressions値は全件null、click metricはschemaにない。ASC store install/paid joinもない | `/Users/anicca/.local/state/life-manager/marketing-owner-events/state/post-metrics.jsonl`、`evidence/metrics/provider-responses.jsonl`、同`state/publication-identity.jsonl` |
+| 投稿別metrics sample | `marketing-owner-events/state/post-metrics.jsonl`のlatest Anicca observationは2026-10-04T11:33:50Z。97 unique `postiz_id`のうち93件がpublished receiptの`provider_post_id`とplatform別に完全一致し、97/97 latest row raw hashがprovider response journalにある。562 receipts中399件は168h mature、52件にin-window checkpoint（37 measured/15 unavailable）、347件は168h checkpointなし。37 measuredはInstagram Graph API 14、TikTok native public API 8、YouTube Data API 15。7d measured 37件はpublication identity rowにも全件resolved/native_post_id一致する。 | 52/52 matched metrics checkpointは同日のfresh snapshotでraw hash confirmed。168h sampleのInstagram reach/views合計12,342/17,037、TikTok views311、YouTube views7はper-post valuesであり、unique audienceやinstall attributionではない。impressions値は全件null、click metricはschemaにない。ASC store install/paid joinもない | `/Users/anicca/.local/state/life-manager/marketing-owner-events/state/post-metrics.jsonl`、`evidence/metrics/provider-responses.jsonl`、同`state/publication-identity.jsonl` |
 | Platform metrics reader status | 正規`lm-loop status life-manager-instagram-metrics` / `life-manager-tiktok-metrics` readbackは各exit75 `host_admission_deferred:resource_effect_unknown`。fenced occurrenceは`history_incomplete`/`state=claimed`、`provider_receipt_id`/`official_readback_ref`なし、diagnosis `provider_state=no_adapter`。 | Owner primaryによる既存publication/messageのofficial readbackとreconciliation。再wake/replay/fence closeしない | Unified SSOT §217、2026-10-04 status readback 10:17:07Z/10:22:10Z |
 | Platform metrics readers | `life-manager-instagram-metrics` / `life-manager-tiktok-metrics` are loaded-idle on releases `9a76dcc8` / `1a7a8e2f`. Latest natural reports are admission-blocked at 2026-10-04T10:17:07Z / 10:22:10Z by `resource_effect_unknown`; each has an older claimed occurrence with `history_incomplete`, no adapter, no provider receipt/readback. No wake, replay, or fence close performed. | Platform owner’s exact official readback and a valid reconciliation adapter before treating receipt as success. Do not restart/resend the fenced occurrence. | `lm-loop status life-manager-instagram-metrics`; `lm-loop status life-manager-tiktok-metrics` at 2026-10-04 |
 | Aniccaの現行獲得 | mobile担当のRork ASC Analytics readbackは共通窓2026-10-01に0 first-time downloads / 5 unique impressions / 0 unique page views。10/04T10:56:36Z観測のlocal Apple Discovery reportは同日にImpression counts 20 / Page view counts 5（source/page/territory segment合計）、Downloads reportは10/01 Restore 1 / 10/02 App Store search由来first-time download 1。Apple定義上、20 total impressionsと5 unique impressionsは直接矛盾せず、10/01 first-time downloads 0も両sourceで整合する。page-view total 5に対するRork unique 0は、既存collectorの`Page View`/`Page view` enum mismatchで除外された可能性が高い。Detailed raw reportとownerのfix/readbackまでは0をユーザー行動として解釈せず、転換率は算出しない | mobile ownerがraw enum/CLI outputを確認し、正しいenumでfocused regressionと同じrequestのfresh readbackを実施。page-viewのsegment/StoreKit含有も維持 | mobile担当design §Provider observations、`business-outcomes.jsonl` discovery evidence_sha256 `20699ca154166f5b2db9f0463c6f5b8baeb235509f1c8dc04362c84c4c2c9b71` / downloads evidence_sha256 `8004c761579cf82a7d0fd03198918fbf578c357685f26a0d651ae81df070d45f`、上記owner source |
@@ -110,20 +111,56 @@ local metrics snapshotがあるため、投稿→platform reach/views sample pat
 
 現在のMRR、匿名IDとRevenueCat IDの対応、段階別離脱、実験の割当、offeringsとトライアルの稼働設定、投稿別reach/クリック/購読帰属、無料/有料の実提供差分、81%改善主張とレビュー引用の根拠は未確認。未確認を0、未稼働、故障と断定しない。
 
+## 公開ASOの暫定監査
+
+**対象:** US listing `https://apps.apple.com/us/app/id6755129214`、readback 2026-10-04T12:24Z。AniccaはChallenger tier（public rating overviewがなく、広いブランド認知や大きなinstall baseを示す公開根拠がない）。これは公開面の監査で、App Analyticsのconversionやkeyword順位を測った結果ではない。
+
+| Dimension | Score | Grade | 根拠 |
+|---|---:|:---:|---|
+| Title & Subtitle | 5/10 | C | 主語のkeywordはあるが`Affirmations`が両方に重複し、subtitleの30文字を使い切る。keyword fieldは非公開。|
+| Description | 6/10 | C | 冒頭の価値訴求と見出し構成はある。social proof/明確なCTAがなく、timing/AI personalizationの具体的約束は製品対応未確認。|
+| Visual Assets | 4/10 | D | iPhone 6.7-inchは4枚。見出しはあるが、1/2/4枚目が似たカード画面。first-threeの独立した価値storyになっていない。iconは文字なしの青緑ringで落ち着いた印象だが、affirmation機能は読み取りにくい。preview videoは取得pageで確認できず。|
+| Ratings & Reviews | 0/10 | F | Appleはoverview表示に十分なrating/review数がないと明記。0点はrubricの「評価不能」であり、実ratingsが0という意味ではない。|
+| Metadata & Freshness | 5/10 | C | Health & Fitness、6言語、13+。公開版1.9.4はJun 25表示で約3か月前。locale別素材、ASC promo text、in-app eventsは未確認。|
+| Conversion Signals | 4/10 | D | Free + 6件のIAP価格が掲載されるが、legal subscription textはMonthly/Annualの2種類だけを説明し、live checkout/offer mappingやsocial proofは未確認。|
+| **Weighted overall** | **38/100** | **D** | Weighted sum: `(5×.20 + 6×.15 + 4×.25 + 0×.20 + 5×.10 + 4×.10)×10`. Ratingを評価不能として0にしたrubric依存の暫定値。|
+
+**Top 3 quick wins（準備・確認のみ）:**
+
+1. **8 vs 13 themesを実機能で照合する** — 公開build/source ownerのtheme catalogを見てから、screenshotかdescriptionの片方を正しい数へそろえる。確認前のcopy変更はしない。
+2. **ASC keyword fieldをreadbackする** — title/subtitle/categoryで既使用の語を除き、残る100文字枠の利用状況を棚卸しする。Appleはtitle/subtitle/keywords/primary categoryのtext relevanceを検索要因に挙げ、keyword field内で重複語を避けるよう案内している。[Apple App Store search](https://developer.apple.com/app-store/search/)
+3. **IAP名と購入画面を対応づける** — public listの6件とAnicca Pro Monthly/Annual表記を、既存ASC/RevenueCat ownerのlive offering/checkout refsと照合する。掲載額を実購入条件とみなさない。
+
+**具体的な所見と提案:**
+
+- **Title/subtitle:** 現title `Daily Affirmations - Anicca` は27/30文字で、generic search termとbrandを両立するため維持候補。subtitle `Affirmations, Calm & Self-Love` は30/30文字で、titleとの語重複がある。比較候補は `Self-Care, Calm & Inner Peace`（29/30文字）だが、search intentやproduct promiseを照合する前に採用しない。Apple PPOはasset実験とし、text metadata変更と同時にしない。
+- **Description:** 冒頭は「必要な時に届くdaily affirmation」という明快な位置づけ。長いfeature list、固定時刻の例、AIが気分/内面の変化を察知する表現、voice/adaptive learningの提供を、現行公開build・privacy表示・実画面で検証する。Apple検索のtext relevance列挙はtitle/subtitle/keywords/primary categoryで、descriptionは閲覧後の納得を助ける面として扱う。promo textは公開HTMLから判別できずASCで確認する。
+- **Visuals:** 4枚の順は1) 個別affirmation、2) reminder、3) theme picker、4) thought change。Apple検索結果では条件により最大3枚のscreenshots/previewsが出るため、現在重複して見える先頭3枚を別々のbenefitにする価値が高い。[Apple App Store search](https://developer.apple.com/app-store/search/)
+- **Ratings/reviews:** 十分なoverviewがまだない。rating promptはonboarding/paywall中に挟まず、実際に価値を受けたmoment後にApple標準promptを使う案を検討する。購入や高ratingを条件にした誘導はしない。
+- **Metadata/freshness:** categoryはHealth & Fitness、6 listed languages。日本語など各localeのtitle/subtitle/screenshots/claimsを個別確認し、US listingを全marketへ外挿しない。Appleのversion history表示とASC metadata編集日時は別証拠にする。
+- **Conversion:** 6 IAP namesとlegal欄の2 plan familyが公開上並ぶ。購入者が実際に選べるplans、期間、trial、更新価格を画面で確かめ、descriptionとcheckoutをそろえる。
+
+**Keyword hypotheses（volume/rank未取得）:** `overthinking`, `self compassion`, `inner peace`, `positive self talk`, `confidence`。descriptionのテーマとの意味一致候補にすぎない。ASC keyword field、各locale、実機能を見てから採用し、Apple Search Ads/App Analyticsのquery dataがあれば需要を優先して絞る。volumeや順位は推定しない。
+
+**Limitations:** Apple keyword field、promo text、historical rank/search term volume、product-page conversion、既存PPO結果、locale別page、live offers/checkout、公開版source対応は取得できていない。Competitor比較も未実施。したがって38/100は改善優先度を決める暫定scoreであり、conversion予測ではない。
+
 ## 理想のユーザー体験
 
 ```mermaid
 flowchart LR
   A[悩みに合うSNS・記事] --> B[同じ価値を示すストア]
   B --> C[インストール]
-  C --> D[悩みと困る時間を選ぶ]
-  D --> E[自分に合う実カードを読む]
-  E --> F[通知の価値と料金を理解する]
-  F --> G[購入または定義済み無料範囲へ進む]
-  G --> H[役立つ通知・利用・更新]
+  C --> D[悩みを選ぶ]
+  D --> E[必要なら困る時間を選ぶ]
+  E --> F[回答に合う実カードを読む]
+  F --> G[通知の価値を理解する]
+  G --> H[必要な場面で通知を選ぶ]
+  H --> I[料金・期間が明確なpaywall]
+  I --> J[購入または明示された無料範囲]
+  J --> K[役立つ利用・更新]
 ```
 
-オンボーディングの第一案は歓迎→主な悩み→困る時間→悩みに合う実カード→通知の価値説明→ペイウォール。回答が体験を変える質問を残し、体験を変えない質問や固定説明から見直す。既存カード描画を再利用し、新しいチャットや推薦基盤を作らない。
+オンボーディングの第一案は歓迎→主な悩み→体験を変える場合だけ困る時間→悩みに合う実カード→通知価値の説明と適切な許可依頼→明確な料金/期間/trial/更新条件を持つpaywall。通知を拒否しても続行でき、既存購入者はrestoreできる。hard/softのどちらを採用するかは先に決めず、公開build・実offering・Task 2の同一cohort計測を確認し、一変数実験で選ぶ。回答が体験を変えない質問や固定説明を減らす。既存カード描画を再利用し、新しいチャットや推薦基盤を作らない。
 
 ## 計測と改善方針
 
@@ -189,6 +226,14 @@ Ownerのreadback上、AniccaはRevenueCat MRR chartで$20.34/complete period 202
 
 これは「まず大量installを買い、その後に計測する」順ではない。今の配信cadenceを保って投稿別到達を読み、最低限の計測を並行して整える。reach不足ならdistribution、reach後にstore遷移が落ちるならASO、install後に価値/支払が落ちるならonboarding/paywallを次の実験対象にする。継続と返金はMRRの純増を決めるので最初のcohortから見る。
 
+### 最初のTikTokテスト案
+
+既存sampleのTikTokは日本語`larry` affirmation-carouselを8投稿し、7日後の投稿別views中央値は39.5（合計311）。8件すべて同じmedia/caption hashを使っている。これは反復素材の観測であり、views低下の原因やalgorithm penaltyを証明しない。
+
+推奨テストは、追加投稿ではなく次の既存予定枠を、同じ承認済み日本語affirmation内容・caption・CTAを使う15〜30秒の9:16 short-form videoへ置き換えること。変数はcarouselからvideoへのcreative format/assetだけにし、audience、message、locale、CTA、投稿slotを固定する。最初の1〜2秒にclear hook、実際のproduct experience、字幕と音声を入れる。TikTok for BusinessのCreative Codesは9:16、hook→body→close、soundを勧めるが広告向け資料なので、organic成果の保証ではなく制作heuristicとして使う。[TikTok Creative Codes](https://ads.tiktok.com/business/en-US/creative-codes)
+
+Task 1で公開版と機能の一致を確認するまでは、smart timingやAIが気分を検知するなど未確認の主張を使わない。Primary metricは既存owner metricsの168h views/post、secondaryは同sourceで取れるlikes/shares/saves。8件のcarousel履歴（median39.5、max58 views）は歴史的baselineであり、同時期controlではない。1本のpilotはscreeningに留め、過去medianを超えた場合も、既存slotで新しい2素材を再試験するまでcadence/投資を変えない。metrics schemaにclickがなくASC install/paidにjoinしていないため、views上昇だけをrevenue liftと呼ばない。
+
 ### アプリ工場の投資ゲート
 
 1. **獲得仮説:** 一つの対象者/課題について、既存担当の投稿ID→reach/click→同一ASC期間のstore acquisition refsを結ぶ。日付不一致やcampaign不在はunavailable。
@@ -213,6 +258,8 @@ RevenueCat 2026 reportでは、subscription appsのMRR YoY median growthは5.3%�
 - https://www.revenuecat.com/blog/growth/hard-paywall-vs-freemium/
 - https://developer.apple.com/app-store/product-page-optimization/
 - https://developer.apple.com/app-store/custom-product-pages/
+- https://developer.apple.com/help/app-store-connect/reference/app-information/app-information
+- https://developer.apple.com/app-store/search/
 - https://www.revenuecat.com/docs/integrations/third-party-integrations/mixpanel
 - https://github.com/rorkai/App-Store-Connect-CLI
 - https://github.com/rorkai/app-store-connect-cli-skills
