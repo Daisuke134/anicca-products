@@ -1,6 +1,6 @@
 # ANICCA iOS 成長改善の実行計画
 
-> 実行担当者: 実装が明示依頼された段階で `superpowers:executing-plans` または必要な `superpowers:subagent-driven-development` を使う。現在は計画保存のみで、下記タスクの実装は未着手。
+> 実行担当者: 実装が明示依頼された段階で `superpowers:executing-plans` または必要な `superpowers:subagent-driven-development` を使う。現在はTask 1/3の読み取り調査と既存計画の更新を進め、製品実装は未着手。
 
 **Goal:** 公開済みANICCAで獲得・初回価値・課金・継続を測り、売上を改善する反復手順を作る。
 
@@ -22,6 +22,7 @@
 - 購入正本はサーバー取引。Sandbox、restore、pending、cancelを新規有料購入に数えない。
 - MRR、年額売上、買い切り、Developer Proceeds、入金、利益を分ける。
 - 低標本の結果を勝者扱いしない。未取得を0としない。
+- mobile collector/ASC・RC取得/Finance Detail/CFO接続は既存 `lm-cfo-observability-1002` の成果を再利用し、同じ実装・provider操作・shared state書込を重複させない。
 
 ## Review Focus
 
@@ -33,13 +34,15 @@
 
 ## タスク一覧 — 残作業の正本
 
-現在cursorは **Task 1: 公開版と基準値の再確認**。文書の保存・push完了を製品タスクの完了に含めない。Task 3の調査はTask 1/2と並行可能。並行する担当はAGMSGで所有範囲を分ける。
+現在cursorは **Task 1: 公開build/offerings/同一ユーザーファネルの不足証拠を照合**。Task 1の既存資料・ソース・local rawイベントの基準表は部分取得。Task 3は既存配信資料の所在確認まで進む。文書の更新・push完了を製品タスクの完了に含めない。
+
+順序は元のTask 1→2→3→4→5→6を維持する。Task 3のread-only調査だけをTask 1/2と並行し、配信実行を前倒しする許可とは扱わない。Task 4内はスクリーンショット→初回カード体験の順に独立比較する。Life Manager全体のTODO/orderはprimaryの統合SSOTであり、この表はgrowth内の作業細分である。
 
 | Task | 成果 | 状態 | 依存 |
 |---|---|---|---|
-| 1 | 公開版/build/課金経路/現状値の証拠 | 未着手 | 読取のみで開始可能 |
+| 1 | 公開版/build/課金経路/現状値の証拠 | 進行中・基準表部分取得 | build/source対応・offerings・user funnel不足 |
 | 2 | 信頼できるコホートと課金ファネル | 未着手 | Task 1、実装依頼 |
-| 3 | 配信別の獲得と改善記録 | 未着手 | 既存担当調整。調査は1/2と並行 |
+| 3 | 配信別の獲得と改善記録 | 調査進行中・資料所在確認 | 投稿別refs/期間/reach/click照合。実行は未着手 |
 | 4 | ストア訴求と初回カード体験の改善 | 未着手 | 1/2/3、実装/公開依頼 |
 | 5 | 訴求→hard/softの比較 | 未着手 | 1/2/4、標本見積り、変更依頼 |
 | 6 | 他の公開アプリへ再利用 | 未着手 | ANICCAでの学習結果 |
@@ -48,19 +51,22 @@
 
 **Files:** このspecの「現状の証拠」、この計画のタスク状態。製品コードは読取のみ。
 
-**Interfaces:** ASC app `6755129214` / bundle `ai.anicca.app.ios`、既存RevenueCat project/offerings、Mixpanel project、投稿担当の実績を読む。出力は取得時点/期間/取得元/分母/欠損付きの基準表と公開build対応表。
+**Interfaces:** ASC app `6755129214` / bundle `ai.anicca.app.ios`、既存取得ownerのASC/RevenueCat refs/hash、Mixpanel project、投稿担当の実績を読む。出力は取得時点/期間/取得元/分母/欠損付きの基準表と公開build対応表。公式APIの再取得は既存ownerと共有し、同じ取得を並走しない。
 
-- [ ] `asc --read-only apps list --paginate --output table` と `asc --read-only versions list --app 6755129214 --platform IOS --paginate --output table` で登録と公開候補を確認する。
+- [x] 既存mobile設計のProvider observationsから24登録/6公開アプリ、旧未公開rosterとの違いを取り込み、根拠SHA/hashをspecへ記録する。私による公式API再取得とは扱わない。
+- [x] 最新anicca-products mainのUX/分析コードと、既存business-outcomesのproduct_analytics/PostHog statusを読んで部分基準表を記録する。raw件数を離脱率へ変換しない。
+- [x] mobile取得ownerとprimaryへ重複しない所有範囲と必要なrefs/hashを共有する。primaryの分離了承は受信済み、mobile owner本人の返信は未確認。
+- [ ] 既存ownerから最新apps/versions/buildのofficial refsを共有してもらい、公開版対応表を確定する。独自に同じASC取得を始めない。
 - [ ] 公開版のbuild metadataと実際の提供画面を照合する。ソースのcloseと別画面のPostHog設定だけでliveゲートを断定しない。
-- [ ] `asc --read-only subscriptions groups list --app 6755129214 --include subscriptions` とRevenueCatの対応を読む。project一覧の先頭をANICCAとして扱わない。
+- [ ] 取得済みASC subscriptionsとRC offering/productの対応を既存ownerのrefsから読む。project一覧の先頭をANICCAとして扱わない。live trial有無とソースのtrial無効を分ける。
 - [ ] 前回Sales/Analytics期間を再取得し、type1/1F、app SKU/parent、通貨、期間を明示する。必要な秘密情報はcredential SSOTで安全に解決し、値を文書へ書かない。
-- [ ] Mixpanel/RevenueCatから現在のMRR、step別unique counts、実購入/返金/更新を取得する。アクセス未取得なら具体的な経路と不足権限を記録する。
+- [ ] Mixpanelのfirst-open/step別unique cohortと既存RC purchase/refund/updateを同期間で照合する。rawイベント、customer cohort、ASC install cohortを別分母として扱う。PostHog read権限不足はownerの既存経路で解決する。
 - [ ] specの古い外部値を置き換えるか観測時点を明示する。生レポートを公開Gitへ載せない。
 - [ ] 成功判定: liveゲートを証拠付きで記述でき、集計の欠損が見える。製品変更を必要としない。
 
 ## Task 2: 最小の計測整備
 
-**Files:** `aniccaios/aniccaios/Services/AnalyticsManager.swift`、`Services/SubscriptionManager.swift`、`AppDelegate.swift`、`Onboarding/PaywallVariantBView.swift`、`Onboarding/OnboardingFlowView.swift`、`scripts/daily-metrics/{asc_client,mixpanel_client,revenuecat_client}.py`。実際に欠損がある箇所だけ変更する。
+**Files:** 将来の実装対象は `aniccaios/aniccaios/Services/AnalyticsManager.swift`、`Services/SubscriptionManager.swift`、`AppDelegate.swift`、`Onboarding/PaywallVariantBView.swift`、`Onboarding/OnboardingFlowView.swift`。実際に欠損がある箇所だけ変更する。`scripts/daily-metrics/*`は旧経路の読取参照にとどめ、既存Life Manager producerに対抗する別取得/集計loopを作らない。CFO/ASC/RCの接続修正は既存ownerが所有する。
 
 **Interfaces:** 既存の `AnalyticsManager.track(_:properties:)`、`trackPaywallViewed()`、`trackPurchaseCompleted(productId:revenue:)`、RevenueCat user/transaction ID。出力は一ユーザーの段階表示/完了/購入を接続できるファネル。収益はRCの取引イベントへ寄せる。
 
@@ -79,7 +85,8 @@
 
 **Interfaces:** 投稿ID/URL、切り口、言語、reach、クリック、campaign/CPP集計。出力は週次の獲得比較と次の切り口。
 
-- [ ] AGMSGで現担当と所有範囲を調整し、直近28日の実投稿、reach、リンククリックと測定期間を回収する。
+- [x] 既存marketing receipt/jobs journalとmetrics runnerを発見する。specの「継続調査の基準表」に絶対パスを記録する。全product journal行数をAniccaの投稿数にしない。
+- [ ] AGMSGで現担当と所有範囲を調整し、直近28日のAnicca実投稿ID/URL、reach、リンククリックと測定期間を同じ資料で照合する。
 - [ ] 最新の国別DLと実績を見て、日本/日本語を第一案とする。夜の考えすぎ、自己批判、先延ばしの切り口を比較する。
 - [ ] 投稿別campaign linkを設計する。SNS reachとストアImpressionを混ぜず、個人単位の帰属ができるとは仮定しない。
 - [ ] 公開依頼後、週10本の独立クリエイティブ案を制作能力に合わせて調整する。実カード/通知を見せる。記事は勝った悩みを週1本掘り下げる。

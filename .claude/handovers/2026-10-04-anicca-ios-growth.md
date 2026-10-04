@@ -13,7 +13,7 @@
 
 ## 状態と境界
 
-計画文書の保存までが今回の成果。実装、ASC/RC/PostHog設定変更、投稿、広告、製品リリースは未実施。前回のraw外部レポートは一時保存で現存しないため、このspecの数値は過去観測として再取得する。
+Task 1の既存資料/ソース/local rawイベント読取とTask 3の資料所在確認まで進む。specの「継続調査の基準表」が部分結果を持ち、残作業は計画の「タスク一覧」に統一する。実装、ASC/RC/PostHog設定変更、投稿、広告、製品リリースは未実施。前回のraw外部レポートは一時保存で現存しない。今回は既存mobile ownerの公式refs/hashを再利用し、独自の二重provider取得を始めない。
 
 文書worktreeは文書だけのsparse checkout。作成時baselineはclean。アプリテストは今回実行していない。共有checkout `/Users/anicca/anicca-project` は `docs/affiliate-agent-architecture` に他者の変更が多数ある。切り替えや巻き戻しを禁止する。
 
@@ -22,7 +22,7 @@ AGMSGのこのセッションの名前は `lm/lm-ios-growth-1004`。別セッシ
 ## 最初の安全な一手
 
 1. このworktreeでbranch/HEAD/upstream/dirtyと文書3件を確認する。他端末ならoriginの同branchから別のworktreeへ復元する。
-2. specとplanを読み、Task 1のASC read-only照合から再開する。公開1.9.4のbuildとコード対応、実際のhard/softとofferings、計測の基準値を確認する。
+2. specとplanを読み、Task 1の不足証拠から再開する。取得ownerに照会済みの公開build/ソース対応、live hard/softとofferings、unique user funnelのrefs/hashを照合する。raw件数5/1/4を離脱率にしない。Task 3の既存投稿資料を並行して読める。
 3. AGMSGで重複担当を確認する。製品変更はまだ依頼されていないため、実装に進まない。
 4. 追加の実装依頼が届いた場合は、その時点の最新mainから別の専用worktree/branchを作る。計画/レビューはgpt-6.1-sol/medium、実装はgpt-6-luna/maxを使う。
 
