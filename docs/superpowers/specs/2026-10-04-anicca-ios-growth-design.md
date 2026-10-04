@@ -86,6 +86,13 @@ Mobile ownerの保存済みASC acquisition readback（2026-10-04 11:56:51–11:5
 - Xcode 26.6 disk free recovered to 1.5 GiB at 08:18 JST, but xcrun simctl list runtimes returned none and no xcodebuild process was running. Task 2a remains unverified and must not be integrated as accepted runtime behavior yet.
 - Growth cursor remains Task 1, incomplete. The direct ASC login page contradicts any assumption that access is already ready. Resume the first open metadata item only from saved official owner refs or after authorized ASC login; preserve the no-duplicate-query boundary.
 
+### 2026-10-05 08:28 JST blocker再readback
+
+- Direct CDP tab inventoryはappstoreconnect.apple.com/loginのまま。ページ遷移・click・API requestなし。Mobile ownerの08:18 JST read-only refs依頼への返答はinboxで未確認。
+- Xcode 26.6、disk free 456 MiB、Simulator runtimeなし、xcodebuild processなし。容量が08:18 JSTの1.5 GiBから減っているがruntimeは依然0件。Task 2a runtime verificationは未実施。
+- Credential SSOT scanではApple/ASC named fields 0件。認証状態が不明でもKeychain経由にfallbackしない。
+- Task 1 remains current cursor and incomplete. 07:19、08:24、08:28 JSTの3回のfresh readbackでASC login/access blockerは不変。再開条件は既存official metadata refs/hashか、authorized ASC sign-in/2FAの完了。API queryは重複させない。
+
 ### 2026-10-05 FastlaneにあるASO metadata候補
 
 Life Manager `origin/main=82d31995e68a5220b7a288318a893866a24c7ea6`には6 localeの `apps/mobile/anicca-ios/fastlane/metadata/<locale>/keywords.txt` がある。全ファイルは `0e0758d7f7`（2026-09-17、iOS source co-location）で追加された。
