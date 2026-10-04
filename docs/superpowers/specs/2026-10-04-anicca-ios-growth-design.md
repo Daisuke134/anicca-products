@@ -91,7 +91,8 @@ rawイベント件数から離脱率を計算しない。primer4/started1のよ�
 - repository `Daisuke134/anicca-products`、source branch `fix/anicca-paywall-event-dedupe-20261004-growth`、commit `76cf8b6e5968f958ee837318d68b6842386f4eb2`。`aniccaios/aniccaios/Onboarding/PaywallVariantBView.swift`の直接event送信1行を削除したsource-only change。
 - active flowはOnboardingFlowView→PaywallFlowContainer→PaywallVariantBView。PaywallVariantBView.onAppearの`hasTracked`内では`AnalyticsManager.trackPaywallViewed()`だけを呼び、同関数がpaywall eventを1回送りSKAN conversion value 2を更新する。
 - Fresh read-only source review: active flowの修正漏れなし、Critical/Important指摘なし。未使用のPlanSelectionStepViewのhard flagはlive flowの一部ではない。
-- `git diff --check`と`xcrun swiftc -frontend -parse aniccaios/aniccaios/Onboarding/PaywallVariantBView.swift`はPASS。`xcodebuild`はPackage Graphの後、iOS Simulator 26.5 runtime欠如でexit 70、コンパイル前に停止。Simulator一覧は空。source-only changeでproduction binaryへの適用、実イベント数1回、本番版とのcommit対応は未確認。PR/merge/releaseはなし。
+- `git diff --check`と`xcrun swiftc -frontend -parse aniccaios/aniccaios/Onboarding/PaywallVariantBView.swift`はPASS。Simulator buildとgeneric iOS device buildはどちらもPackage Graphの後、XcodeがiOS 26.5実行先を使用できずexit 70でコンパイル前に停止。`simctl list runtimes`は空。source-only changeでproduction binaryへの適用、実イベント数1回、本番版とのcommit対応は未確認。PR/merge/releaseはなし。
+- AnalyticsManagerはMixpanel singletonへ直結し送信数hookがないためイベントcount回帰テストは未追加。fresh reviewerはactive flowのsource修正にCritical/Important指摘なし。レビューとSwift syntax parseは補助確認でありruntime event receiptやbuildの証明ではない。
 
 ### 未確認事項
 

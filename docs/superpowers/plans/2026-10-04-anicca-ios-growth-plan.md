@@ -77,7 +77,7 @@
 
 ## Task 2: 最小の計測整備
 
-**進捗:** duplicate paywall view eventのsource-only prerequisiteはTask 1計測品質対応として個別branchへpush済み（spec「Source-onlyの計測重複修正」参照）。task本体のuser-level funnel追加は未着手。source修正でproduction eventが直ったとは扱わない。
+**進捗:** duplicate paywall view eventのsource-only prerequisiteはTask 1計測品質対応として個別branchへpush済み（spec「Source-onlyの計測重複修正」参照）。Task 2本体のuser-level funnel追加は未着手。source correctionはpublic binaryに入っていない。Simulator/generic iOS buildはXcodeがiOS 26.5 destinationを使用できずコンパイル前exit70、event-count regression testなし。source changeをproduction fixと扱わない。
 
 **Files:** 将来の実装対象は `aniccaios/aniccaios/Services/AnalyticsManager.swift`、`Services/SubscriptionManager.swift`、`AppDelegate.swift`、`Onboarding/PaywallVariantBView.swift`、`Onboarding/OnboardingFlowView.swift`。実際に欠損がある箇所だけ変更する。`scripts/daily-metrics/*`は旧経路の読取参照にとどめ、既存Life Manager producerに対抗する別取得/集計loopを作らない。CFO/ASC/RCの接続修正は既存ownerが所有する。
 
