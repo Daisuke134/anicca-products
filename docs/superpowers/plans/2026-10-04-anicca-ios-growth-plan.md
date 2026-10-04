@@ -101,7 +101,9 @@
 - [x] 既存marketing receipt/jobs journalとmetrics runnerを発見する。specの「継続調査の基準表」に絶対パスを記録する。全product journal行数をAniccaの投稿数にしない。
 - [x] Anicca `product_id`に絞り、28日間のlocal published/provider_post_id記録をplatform別に数えた（Instagram234/TikTok236/YouTube97）。これはfresh platform-readbackやreach/clickの証明ではない。
 - [ ] Owner-owned `life-manager-instagram-metrics` / `life-manager-tiktok-metrics` は現状`resource_effect_unknown` admission fence、旧occurenceのprovider readback adapterなし。既存ownerがofficial Telegram/platform historyでeffectを照合し、fence close可否を決めるまで私がrestart/resendしない。
-- [ ] 既存ownerから直近28日のAnicca投稿ID/URLとplatform insights readbackを共有してもらい、reach/view/clickを同期間ASC refsへ1 sample pathで結ぶ。platform insightが欠ける場合は正確なowner取得境界/fieldの不足を記録する。
+- [x] 正規`lm-loop status life-manager-instagram-metrics`/`life-manager-tiktok-metrics` readback: last occurrence 2026-10-04T10:17:07Z/10:22:10Z、exit75 `resource_effect_unknown`、old claimed/history_incomplete fence、provider receipt/refなし、diagnosis `no_adapter`。このstatusだけでreach/sampleを補わない。
+- [ ] 全体primary/既存ownerからfence owner/readback planを受け取り、official message/provider historyで効果を照合してから既存readerを回復する。自分のlaneからwake/replay/fence closeしない。
+- [ ] metrics loopがofficial sourceを再取得できた後、既存ownerから直近28日のAnicca投稿ID/URLとplatform insights readbackを受け取り、reach/view/clickを同期間ASC refsへ1 sample pathで結ぶ。platform insightが欠ける場合は正確なowner取得境界/fieldの不足を記録する。
 - [ ] Sample判定: low reachならcreative/audience test、reachあるがclick低ならCTA/offer fit、store impressionあるがproduct page/install低ならscreenshots/product-page。測れない分岐はunavailableのまま。
 - [ ] 既存ownerの予定済み配信 cadenceは維持する。計測が取れない状態で追加account/publisherや過剰なpost volumeを自作しない。sample pathが閉じたら、実測で勝ったcreativeを追加テストする。
 - [ ] 最新の国別DLと実績を見て、日本/日本語を第一案とする。夜の考えすぎ、自己批判、先延ばしの切り口を比較する。
