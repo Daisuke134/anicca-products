@@ -34,15 +34,17 @@
 
 ## タスク一覧 — 残作業の正本
 
-現在cursorは **Task 1: 公開build/offerings/同一ユーザーファネルの不足証拠を照合**。新しいlocal `business-outcomes.jsonl` row（business date 2026-10-03 / observed 2026-10-04T10:56:36.419433Z）は、ASC App Store Discovery reportで10/01のImpression counts20・Page view counts5、Downloads reportで10/01 restore1・10/02 App Store search由来first-time download1を記録する。Rork Analytics common-window readbackは10/01で0 first-time downloads / 5 unique impressions / 0 unique page views。Appleの定義ではDiscovery `Counts`はtotal events、`Unique Counts`はrow-level unique users、Discovery Impression eventはpage viewsを含まないため、20 total impressionsと5 unique impressionsは直接矛盾しない。Downloads reportも10/01 first-time downloads 0を示し、ここは一致する。未解決差分はDiscovery total page views 5に対するRork unique page views 0であり、定義/segmentをowner refsから照合するまでconversionを出さない。同rowのRevenueCat chartは2026-10-03 period MRR20.34/Actives5だがcurrency/revenue_definition欠落、App Store Salesは`provider_query_failed`、PostHogは`missing_project_read_credential`。これはsettled CFO P&Lでも同一user funnelでもない。依頼者は全アプリ合計約3 installs/日と述べているが、app内訳・期間・公式sourceの一致が未確認なのでbaselineには採用しない。Task 3ではAnicca-tagged local publish journalに28日間567 provider_post_id記録（IG234/TikTok236/YouTube97）を特定。reach/view/click→acquisitionのjoinは未取得。Task 2にはpaywall view重複送信のsource-only修正branch/commitがあるが、実イベントcount、build、公開版への反映は未確認。既存owner cadenceは維持し、成果計測なしに追加volumeを増やさない。
+現在cursorは **Task 1: 公開build/offerings/同一ユーザーファネルの不足証拠を照合**。新しいlocal `business-outcomes.jsonl` row（business date 2026-10-03 / observed 2026-10-04T10:56:36.419433Z）は、ASC App Store Discovery reportで10/01のImpression counts20・Page view counts5、Downloads reportで10/01 restore1・10/02 App Store search由来first-time download1を記録する。Rork Analytics common-window readbackは10/01で0 first-time downloads / 5 unique impressions / 0 unique page views。Appleの定義上、Discovery `Counts`はtotal events、`Unique Counts`はrow-level unique users、Discovery Impression eventはpage viewsを含まない。したがって20 total impressionsと5 unique impressionsは直接矛盾せず、10/01 first-time downloads 0も一致する。未解決はDiscovery page-view total5に対するRork unique page views0。owner branchのread-only auditで、TSV parserが値をそのまま保持する一方、collector predicateとfixtureが`Page View`を要求し、Apple enum/raw rowが`Page view`であるmismatchを発見した。0を実ユーザー行動と解釈せず、mobile ownerによる正しいenumの回帰と同じrequestのfresh readbackまでconversionを出さない。同rowのRevenueCat chartは2026-10-03 period MRR20.34/Actives5だがcurrency/revenue_definition欠落、App Store Salesは`provider_query_failed`、PostHogは`missing_project_read_credential`。これはsettled CFO P&Lでも同一user funnelでもない。依頼者は全アプリ合計約3 installs/日と述べているが、app内訳・期間・公式sourceの一致が未確認なのでbaselineには採用しない。Task 3 strict rolling 28d receipt filterは562 unique IDs（IG231/TikTok234/YouTube97）。前回567は異なるquery/window basis。Owner post-metricsは93 exact receipt joins。最新168h sampleは399 mature posts中52 checkpoint（37 measured/15 unavailable）、raw hash 52/52 match。7d measured metricsはIG14 (reach sum12,342/views17,037), TT8 (views311), YouTube15 (views7); click/ASC install/paid joinは未取得。Task 2にはpaywall view重複送信のsource-only修正branch/commitがあるが、実イベントcount、build、公開版への反映は未確認。既存owner cadenceは維持し、成果計測なしに追加volumeを増やさない。
+
+Task 3 latest readback（receipts 2026-10-04T11:34:00Z / metrics latest 11:33:50Z）: 562 Anicca published receiptsをstrict rolling 28dで数えた。93/562はowner metricsのPostiz IDとreceipt provider_post_idがexact match。168h mature posts399件中52件にin-window checkpointがあり、37 measured/15 unavailableで、52 raw evidence hashesがprovider-response journalと一致する。7d sampleはInstagram 14 measured postsのper-post reach合計12,342・views17,037、TikTok 8 postsのviews311、YouTube 15 postsのviews7。asset hashはIG4 group (6/4/3/1)、TikTok1 group (8)、YouTube5 groups (6/5/2/1/1)。これらはper-post/provider metricsで、unique audienceやASC store install/paid attributionではない。impression/click fieldはない。別ownerのmetrics loopは`resource_effect_unknown` fenceのまま。
 
 順序はTask 1→Task 2とTask 3の並行→Task 4→Task 5→Task 6とする。まず現状と計測の信頼性を確かめつつ、Task 3では既存配信のreadbackを前進させる。distributionは最初の成長施策だが、reach→store→installの測定前に投稿本数や広告費だけを増やさない。Task 4ではスクリーンショット/PPOを先に検証し、その後に初回カード体験を別実験にする。Life Manager全体のTODO/orderはprimaryの統合SSOTであり、この表はANICCA growth lane内の作業順である。
 
 | Task | 成果 | 状態 | 依存 |
 |---|---|---|---|
-| 1 | 公開版/build/課金経路/現状値の証拠 | 進行中。Impression差はApple定義上count/uniqueの違いで説明可能。Discovery total page-view 5とRork unique page-view 0の差が未解決 | 公式build/source対応・live offering・page-view source reconciliation・同一ユーザーファネルのrefs不足 |
+| 1 | 公開版/build/課金経路/現状値の証拠 | 進行中。Impression差はApple定義上count/uniqueの違いで説明可能。page-view 0はmobile owner source/testのenum mismatchが有力候補。owner fix/fresh readback待ち | 公式build/source対応・live offering・page-view mapping/ref・同一ユーザーファネルのrefs不足 |
 | 2 | 信頼できるコホートと課金ファネル | 部分進行・source-only重複event修正あり。実測/公開版反映/unique cohortは未確認 | Task 1のlive path/offering確認。既存metrics ownerのprovider作業と重複しない |
-| 3 | 配信別の獲得と改善記録 | 調査進行中・28日local posting count取得。reach/view/clickのofficial readback未取得、reader effect fenceあり | ownerがeffect/readbackをreconcileした後、同じpost IDをASC期間へ接続。既存cadenceは維持 |
+| 3 | 配信別の獲得と改善記録 | 部分進行・strict 28dで562 receipts、93件のpost-metrics join、168h mature checkpointは52件（37 measured/15 unavailable）。ASC install/paidとのjoinなし | post-level views/reach→ASC source/date/campaignへ接続。fenced readerはwake/replay/closeしない。既存cadenceは維持 |
 | 4 | ストア訴求と初回カード体験の改善 | 未着手 | Task 1〜3の基準と標本可能性。スクショ/PPO後にオンボを別実験 |
 | 5 | 訴求→hard/softの比較とD35 economics | 未着手 | live offering、計測可能なcohort、標本見積り。renewal/refundは最初の有料cohortから追跡 |
 | 6 | 他の公開アプリへ再利用 | 未着手 | ANICCAで獲得・課金・継続・CFO ownerのnet unit economicsを実測 |
@@ -58,7 +60,7 @@
 - 継続率は後工程まで放置しない。MRRは解約で減るため、first paid cohortからrenewal/refundを保護指標として追う。利益の最終判定はgrowth側で推定せずCFO ownerのofficial proceeds/cost refsへ委ねる。
 - $20.34 RevenueCat MRR chart (complete period 2026-10-02, USD) はmobile owner readback。CFO settlement/profitではなく、10/03 JSONLはcurrency/revenue_definition欠落。正式なstarting CFO MRRは未確定。
 - 先行指標は対象reach→ASC impression/page view/first-time download→unique onboarding cohort→value/paywall→paid→renewal/refund。利益判断は別途同期間のApple proceeds/fees, refunds, variable compute/infra, ad CACを必要とする。
-- 既存Aniccaはlocal journal上28日でIG/TikTok/YouTube published IDs567。直近ASC一日windowは0 installs/5 unique impressionsで、現段階でpost efficacyはunknown。次は既存ownerの投稿reach/clickを1つのsample pathで結び、reach自体が少ないかstore遷移で落ちるか見分ける。reachデータ無しにpost volumeを増やさない。
+- 最新owner snapshotではInstagram 14件のper-post reach/viewsが記録され、TikTok 8件、YouTube15件でもviewsが記録される。小標本ではInstagramに露出が見える一方、TikTok 8件は同じmedia/caption hash、IG14は4 asset group。platform/素材差もあるため勝ち筋の因果証拠ではない。次の一変数test候補はTikTokのfresh platform-native assetを既存owner cadence内の同slotで比較すること。click/ASC install/paidへの結合前に投稿数や広告費を増やさない。
 - 反復順は課題/配信仮説→同一window獲得→初回価値/課金→成熟D35 paid→renewal/contribution→横展開。実測で1st gateが未達なら次app複製や大規模有料獲得はしない。
 
 ## Task 1: 公開版と現状値の証拠を再確認する
@@ -70,9 +72,11 @@
 - [x] 既存mobile設計のProvider observationsから24登録/6公開アプリ、旧未公開rosterとの違いを取り込み、根拠SHA/hashをspecへ記録する。私による公式API再取得とは扱わない。
 - [x] 最新anicca-products mainのUX/分析コードと、既存business-outcomesのproduct_analytics/PostHog statusを読んで部分基準表を記録する。raw件数を離脱率へ変換しない。
 - [x] 2026-10-04T10:56:36Z local business-outcomes rowからApp Store Discovery/Downloads reportのdate/aggregate fieldsとlatest RC summaryを再readbackする。raw user rowsを使わず、owner APIを重複取得しない。
+- [x] mobile owner feature branchをread-only確認し、collectorの`Page View`比較/fixtureとApple raw enum `Page view`のmismatch候補を特定する。Growth laneのcollector sourceは変更しない。
 - [x] mobile取得ownerとprimaryへ重複しない所有範囲と必要なrefs/hashを共有する。primaryの分離了承は受信済み、mobile owner本人の返信は未確認。
 - [x] US App Store pageを2026-10-04T11:00:23Zに`crwl`で再readbackし、title/subtitle/version/rating overviewの有無/掲載IAPを記録する。掲載IAPをRevenueCat live offeringとは扱わない。
-- [ ] ASC Discovery report countsとRork Analytics readbackの既存owner refsを照合する。20 total impressions/5 unique impressionsは異なるmetric定義であり直接不一致とは扱わない。10/01 first-time downloads 0は両sourceで整合。残るpage-view total5/unique0の差とsegment/StoreKit含有を解き、rateは対応する同一定義の値だけで計算する。
+- [ ] mobile ownerが`Page view` raw enumに合うcollector predicate/fixtureを修正してfocused regressionを実行し、既存ASC requestのfresh readback refs/hashを共有する。Growth laneは変更を取り込まず、結果だけを消費する。
+- [ ] そのowner readbackで10/01 first-time downloads 0の一致、page-view total5/unique0の差、segment/StoreKit含有を照合する。20 total impressions/5 unique impressionsは異なるmetric定義であり直接不一致としない。rateは対応する同一定義の値だけで計算する。
 - [ ] 既存ownerから最新apps/versions/buildのofficial refsを共有してもらい、公開版対応表を確定する。独自に同じASC取得を始めない。
 - [ ] 公開1.9.4 build metadata・actual checkout・current source pathを既存owner refsから照合する。ソースのcloseと別画面のPostHog設定だけでliveゲートを断定しない。
 - [ ] 取得済みASC subscriptionsとRevenueCat offering/productの対応を既存owner refsから読む。US page掲載の6 IAP recordをlive offeringと見なさず、live trial有無とsource上のtrial無効を分ける。
@@ -105,12 +109,16 @@
 **Interfaces:** 投稿ID/URL、切り口、言語、reach、クリック、campaign/CPP集計。出力は週次の獲得比較と次の切り口。
 
 - [x] 既存marketing receipt/jobs journalとmetrics runnerを発見する。specの「継続調査の基準表」に絶対パスを記録する。全product journal行数をAniccaの投稿数にしない。
-- [x] Anicca `product_id`に絞り、28日間のlocal published/provider_post_id記録をplatform別に数えた（Instagram234/TikTok236/YouTube97）。これはfresh platform-readbackやreach/clickの証明ではない。
+- [x] Strict rolling 28d receipt window（2026-09-06T11:34:00Z–2026-10-04T11:34:00Z）でnested `receipt.product_id=anicca-ios` / status=`published` / unique provider_post_idを数えた: 562（Instagram231/TikTok234/YouTube97）。以前の567とはbasisが違い、current coverageには562を使う。
+- [x] Owner post-metrics 97 unique Postiz IDsのうち93をpublished receipt provider IDへplatform別にexact joinし、raw evidence hashをresponse journalと照合した。399件が168h mature、52件にin-window checkpoint（37 measured/15 unavailable）、52件すべてraw hashあり。
+- [x] 168h sampleのasset-hash群を比較した。Instagram 14 measured postsは4 media/caption hash groups (6/4/3/1)、TikTok 8 postsは1 group、YouTube 15 postsは5 groups (6/5/2/1/1)。これはcontent repetitionの観測で、勝者の因果判定ではない。
 - [ ] Owner-owned `life-manager-instagram-metrics` / `life-manager-tiktok-metrics` は現状`resource_effect_unknown` admission fence、旧occurenceのprovider readback adapterなし。既存ownerがofficial Telegram/platform historyでeffectを照合し、fence close可否を決めるまで私がrestart/resendしない。
 - [x] 正規`lm-loop status life-manager-instagram-metrics`/`life-manager-tiktok-metrics` readback: last occurrence 2026-10-04T10:17:07Z/10:22:10Z、exit75 `resource_effect_unknown`、old claimed/history_incomplete fence、provider receipt/refなし、diagnosis `no_adapter`。このstatusだけでreach/sampleを補わない。
 - [ ] 全体primary/既存ownerからfence owner/readback planを受け取り、official message/provider historyで効果を照合してから既存readerを回復する。自分のlaneからwake/replay/fence closeしない。
-- [ ] metrics loopがofficial sourceを再取得できた後、既存ownerから直近28日のAnicca投稿ID/URLとplatform insights readbackを受け取り、reach/view/clickを同期間ASC refsへ1 sample pathで結ぶ。platform insightが欠ける場合は正確なowner取得境界/fieldの不足を記録する。
-- [ ] Sample判定: low reachならcreative/audience test、reachあるがclick低ならCTA/offer fit、store impressionあるがproduct page/install低ならscreenshots/product-page。測れない分岐はunavailableのまま。
+- [x] Existing `marketing-owner-events` post-metrics sampleをread-onlyで取得。これは`life-manager-instagram-metrics`/`life-manager-tiktok-metrics` fenced readersのstatusを解消しない。post-metricsにはimpressions/click fieldがなく、store install/paidとも未接続。
+- [x] Existing 168h sampleのasset hash/platform valuesをread-onlyで比較した。IG 14 postsに4 group、TikTok 8 postsに同一media/caption hash、YouTube 15 postsに5 group。これは再利用状況の観測で因果効果ではない。
+- [ ] 次の一変数distribution testを配信ownerと選ぶ。候補はTikTok fresh platform-native assetを既存cadence内の同slotで比較する。post count/budgetは増やさず、7d metricと同期間ASC windowを照合する。
+- [ ] post-level reach/viewsを同期間ASC source/page-view/first-time-download dataへ接続する。click/campaign identityがない分岐はunavailableのまま記録し、metrics reader effect fenceを自laneからwake/replay/closeしない。
 - [ ] 既存ownerの予定済み配信 cadenceは維持する。計測が取れない状態で追加account/publisherや過剰なpost volumeを自作しない。sample pathが閉じたら、実測で勝ったcreativeを追加テストする。
 - [ ] 最新の国別DLと実績を見て、日本/日本語を第一案とする。夜の考えすぎ、自己批判、先延ばしの切り口を比較する。
 - [ ] 投稿別campaign linkを設計する。SNS reachとストアImpressionを混ぜず、個人単位の帰属ができるとは仮定しない。
