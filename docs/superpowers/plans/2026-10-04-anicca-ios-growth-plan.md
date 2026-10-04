@@ -38,13 +38,15 @@
 
 Task 3 latest readback（receipts 2026-10-04T11:34:00Z / metrics latest 11:33:50Z）: 562 Anicca published receiptsをstrict rolling 28dで数えた。93/562はowner metricsのPostiz IDとreceipt provider_post_idがexact match。7d measured sample37件もpublication-identity ledgerでresolved/native_post_id一致。168h mature posts399件中52件にin-window checkpointがあり、37 measured/15 unavailableで、52 raw evidence hashesがprovider-response journalと一致する。7d sampleはInstagram 14 measured postsのper-post reach合計12,342・views17,037、TikTok 8 postsのviews311、YouTube 15 postsのviews7。asset hashはIG4 group (6/4/3/1)、TikTok1 group (8)、YouTube5 groups (6/5/2/1/1)。これらはper-post/provider metricsで、unique audienceやASC store install/paid attributionではない。impressions値はsample内ですべてnull、click fieldはschemaにない。別ownerのmetrics loopは`resource_effect_unknown` fenceのまま。
 
+Task 1 persisted report check: existing official `App Store Discovery and Engagement Standard` artifact `/Users/anicca/.local/state/life-manager/marketing-metrics-daily/evidence/business/2026-10-03/anicca-ios/6755129214-discovery.json` (SHA256 `20699ca154166f5b2db9f0463c6f5b8baeb235509f1c8dc04362c84c4c2c9b71`) contains 2026-10-01 `Event="Page view"` in 3 rows with `Counts` 1/3/1 (sum 5); `Impression` appears in 12 rows with Counts sum20. This confirms the static enum mismatch against owner source `row.Event === "Page View"`; it is the Standard report, not a persisted same-request Detailed report response. Therefore the mobile owner's focused regression and Detailed request fresh readback remain open, and the Analytics unique page-view value 0 is not treated as user behavior.
+
 Task 4 preliminary ASO readback: 2026-10-04のUS listingはiPhone 6.7-inch screenshotが4枚。順に「Personalized Affirmations」「Reminders to Stay Positive」「Choose From 8 Themes」「Change How You Think」。1/2/4枚目は似たaffirmation-card構成で、3枚目の8 themesはlisting descriptionの13 self-care themesと不一致。title 27 characters / subtitle 30 charactersでAppleの各30文字上限内。これはpublic-page観測とvisual assessmentで、表示可能theme数・機能の誤りやPPO upliftの証明ではない。Task 1〜3のgate、実機能確認、PPO標本可能性を通るまで素材公開やonboarding変更をしない。
 
 順序はTask 1→Task 2とTask 3の並行→Task 4→Task 5→Task 6とする。まず現状と計測の信頼性を確かめつつ、Task 3では既存配信のreadbackを前進させる。distributionは最初の成長施策だが、reach→store→installの測定前に投稿本数や広告費だけを増やさない。Task 4ではスクリーンショット/PPOを先に検証し、その後に初回カード体験を別実験にする。Life Manager全体のTODO/orderはprimaryの統合SSOTであり、この表はANICCA growth lane内の作業順である。
 
 | Task | 成果 | 状態 | 依存 |
 |---|---|---|---|
-| 1 | 公開版/build/課金経路/現状値の証拠 | 進行中。Impression差はApple定義上count/uniqueの違いで説明可能。page-view 0はmobile owner source/testのenum mismatchが有力候補。owner fix/fresh readback待ち | 公式build/source対応・live offering・page-view mapping/ref・同一ユーザーファネルのrefs不足 |
+| 1 | 公開版/build/課金経路/現状値の証拠 | 進行中。保存済みStandard reportの`Page view`とmobile owner source/testの`Page View`不一致は確認済み。Rork 0がsame Detailed request上でこのfilterにより生じたかは未確認。owner regression/fresh readback待ち | 公式build/source対応・live offering・Detailed request/readback refs・同一ユーザーファネルのrefs不足 |
 | 2 | 信頼できるコホートと課金ファネル | 部分進行・source-only重複event修正あり。実測/公開版反映/unique cohortは未確認 | Task 1のlive path/offering確認。既存metrics ownerのprovider作業と重複しない |
 | 3 | 配信別の獲得と改善記録 | 部分進行・strict 28dで562 receipts、93件のpost-metrics join、168h mature checkpointは52件（37 measured/15 unavailable）。ASC install/paidとのjoinなし | post-level views/reach→ASC source/date/campaignへ接続。fenced readerはwake/replay/closeしない。既存cadenceは維持 |
 | 4 | ストア訴求と初回カード体験の改善 | 部分進行。US listingの4 screenshots/title/subtitleをread-only監査済み。素材の反復と8-vs-13 themes不一致を確認。実機能/locale/build照合・PPO/onboarding実験は未着手 | Task 1〜3の基準と十分な標本可能性。ASO/PPOの後にonboardingを別実験 |
@@ -74,7 +76,8 @@ Task 4 preliminary ASO readback: 2026-10-04のUS listingはiPhone 6.7-inch scree
 - [x] 既存mobile設計のProvider observationsから24登録/6公開アプリ、旧未公開rosterとの違いを取り込み、根拠SHA/hashをspecへ記録する。私による公式API再取得とは扱わない。
 - [x] 最新anicca-products mainのUX/分析コードと、既存business-outcomesのproduct_analytics/PostHog statusを読んで部分基準表を記録する。raw件数を離脱率へ変換しない。
 - [x] 2026-10-04T10:56:36Z local business-outcomes rowからApp Store Discovery/Downloads reportのdate/aggregate fieldsとlatest RC summaryを再readbackする。raw user rowsを使わず、owner APIを重複取得しない。
-- [x] mobile owner feature branchをread-only確認し、collectorの`Page View`比較/fixtureとApple raw enum `Page view`のmismatch候補を特定する。Growth laneのcollector sourceは変更しない。
+- [x] mobile owner feature branchをread-only確認し、collector predicate/fixtureの`Page View`を特定する。Growth laneのcollector sourceは変更しない。
+- [x] 保存済みofficial Standard Discovery raw report（SHA256 `20699ca154166f5b2db9f0463c6f5b8baeb235509f1c8dc04362c84c4c2c9b71`）を読み、10/01の`Page view` 3行・Counts合計5、Impression 12行・Counts合計20を確認する。row-level Unique Countsをoverall audienceに合算しない。
 - [x] mobile取得ownerとprimaryへ重複しない所有範囲と必要なrefs/hashを共有する。primaryの分離了承は受信済み、mobile owner本人の返信は未確認。
 - [x] US App Store pageを2026-10-04T12:24Zに`crwl`で再readbackし、title/subtitle/version/category/languages/age/rating overview/IAP/legal subscription textを記録する。掲載IAPをRevenueCat live offeringとは扱わない。
 - [ ] 既存ASC owner refsからtarget locale別title/subtitle/keywords/category/promo text、metadata更新日、localized screenshot/PPO履歴を受け取り、public listingと差分を記録する。keyword fieldはpublic HTMLで推測しない。
