@@ -15,6 +15,8 @@
 
 Task 1の既存資料/ソース/local rawイベント読取とTask 3の資料所在確認まで進む。specの「継続調査の基準表」と`$10K MRRの計算例`が部分結果を持ち、残作業は計画の「タスク一覧」に統一する。RevenueCat owner readbackはUSD20.34/2026-10-02 MRR chartだがsettled revenueではなく、10/03 saved rowのcurrency/revenue_definitionも欠落している。単位経済表の値はplanning assumptionであり現状実績としない。実装、ASC/RC/PostHog設定変更、投稿、広告、製品リリースは未実施。前回のraw外部レポートは一時保存で現存しない。今回は既存mobile ownerの公式refs/hashを再利用し、独自の二重provider取得を始めない。
 
+Task 1のmeasurement-quality prerequisiteとしてpaywall view duplicate eventのsource-only修正を別branchへpushした: `Daisuke134/anicca-products` / `fix/anicca-paywall-event-dedupe-20261004-growth` / `76cf8b6e5968f958ee837318d68b6842386f4eb2`。Reviewerはactive flowの修正漏れなしと判断。Swift syntax parse PASS、Xcode buildはSimulator 26.5未導入でコンパイル前にexit70、実イベント回帰/public binary対応は未確認。PR/merge/releaseなし。ANICCA growth spec/plan branchは別管理する。
+
 文書worktreeは文書だけのsparse checkout。作成時baselineはclean。アプリテストは今回実行していない。共有checkout `/Users/anicca/anicca-project` は `docs/affiliate-agent-architecture` に他者の変更が多数ある。切り替えや巻き戻しを禁止する。
 
 AGMSGのこのセッションの名前は `lm/lm-ios-growth-1004`。別セッションはこの名前を取得せず、自分専用の名前で参加する。既存調整担当へ計画のみ・実装未着手を共有済み。送信と受信確認は別。このセッションのmonitor bridgeは未稼働、手動inboxのみ。

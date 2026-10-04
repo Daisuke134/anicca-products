@@ -34,7 +34,7 @@
 
 ## タスク一覧 — 残作業の正本
 
-現在cursorは **Task 1: 公開build/offerings/同一ユーザーファネルの不足証拠を照合**。既存owner資料/コード/local rowから6つの公式published target、10/01 acquisitionの0 installs/5 unique impressions/page views0でrate unavailable、10/02 RevenueCat MRR chart $20.34 USD、10/03 raw event countsを部分取得した。これは同じwindow/user cohortのファネルでもsettled CFO P&Lでもない。Task 3ではAnicca-tagged local publish journalに28日間567 provider_post_id記録（IG234/TikTok236/YouTube97）を特定。post reach/click/readbackとのjoinは無し。volumeはあるが効率は不明なので、追加投稿より既存post attributionが先。文書の更新・push完了を製品タスクの完了に含めない。
+現在cursorは **Task 1: 公開build/offerings/同一ユーザーファネルの不足証拠を照合**。既存owner資料/コード/local rowから6つの公式published target、10/01 acquisitionの0 installs/5 unique impressions/page views0でrate unavailable、10/02 RevenueCat MRR chart $20.34 USD、10/03 raw event countsを部分取得した。これは同じwindow/user cohortのファネルでもsettled CFO P&Lでもない。Task 3ではAnicca-tagged local publish journalに28日間567 provider_post_id記録（IG234/TikTok236/YouTube97）を特定。reach/view/click→acquisitionのjoinは未取得。既存owner cadenceは継続し、成果計測の後に追加creativeを判断する。文書の更新・push完了を製品タスクの完了に含めない。
 
 順序は元のTask 1→2→3→4→5→6を維持する。Task 3のread-only調査だけをTask 1/2と並行し、配信実行を前倒しする許可とは扱わない。Task 4内はスクリーンショット→初回カード体験の順に独立比較する。Life Manager全体のTODO/orderはprimaryの統合SSOTであり、この表はgrowth内の作業細分である。
 
@@ -76,6 +76,8 @@
 - [ ] 成功判定: liveゲートを証拠付きで記述でき、集計の欠損が見える。製品変更を必要としない。
 
 ## Task 2: 最小の計測整備
+
+**進捗:** duplicate paywall view eventのsource-only prerequisiteはTask 1計測品質対応として個別branchへpush済み（spec「Source-onlyの計測重複修正」参照）。task本体のuser-level funnel追加は未着手。source修正でproduction eventが直ったとは扱わない。
 
 **Files:** 将来の実装対象は `aniccaios/aniccaios/Services/AnalyticsManager.swift`、`Services/SubscriptionManager.swift`、`AppDelegate.swift`、`Onboarding/PaywallVariantBView.swift`、`Onboarding/OnboardingFlowView.swift`。実際に欠損がある箇所だけ変更する。`scripts/daily-metrics/*`は旧経路の読取参照にとどめ、既存Life Manager producerに対抗する別取得/集計loopを作らない。CFO/ASC/RCの接続修正は既存ownerが所有する。
 

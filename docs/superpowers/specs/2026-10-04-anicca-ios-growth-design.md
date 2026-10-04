@@ -86,6 +86,13 @@ rawイベント件数から離脱率を計算しない。primer4/started1のよ�
 - Mixpanel、PostHog、RevenueCatは既存導入済み。導入済みと受信・正しい集計を区別する。
 - `aniccaios/aniccaiosTests/OnboardingV2Tests.swift`には現enumにない旧case名への参照がある。既存テストがそのまま有効だとは仮定しない。実行時にtarget inclusionとbaselineを確認する。
 
+### Source-onlyの計測重複修正
+
+- repository `Daisuke134/anicca-products`、source branch `fix/anicca-paywall-event-dedupe-20261004-growth`、commit `76cf8b6e5968f958ee837318d68b6842386f4eb2`。`aniccaios/aniccaios/Onboarding/PaywallVariantBView.swift`の直接event送信1行を削除したsource-only change。
+- active flowはOnboardingFlowView→PaywallFlowContainer→PaywallVariantBView。PaywallVariantBView.onAppearの`hasTracked`内では`AnalyticsManager.trackPaywallViewed()`だけを呼び、同関数がpaywall eventを1回送りSKAN conversion value 2を更新する。
+- Fresh read-only source review: active flowの修正漏れなし、Critical/Important指摘なし。未使用のPlanSelectionStepViewのhard flagはlive flowの一部ではない。
+- `git diff --check`と`xcrun swiftc -frontend -parse aniccaios/aniccaios/Onboarding/PaywallVariantBView.swift`はPASS。`xcodebuild`はPackage Graphの後、iOS Simulator 26.5 runtime欠如でexit 70、コンパイル前に停止。Simulator一覧は空。source-only changeでproduction binaryへの適用、実イベント数1回、本番版とのcommit対応は未確認。PR/merge/releaseはなし。
+
 ### 未確認事項
 
 現在のMRR、匿名IDとRevenueCat IDの対応、段階別離脱、実験の割当、offeringsとトライアルの稼働設定、投稿別reach/クリック/購読帰属、無料/有料の実提供差分、81%改善主張とレビュー引用の根拠は未確認。未確認を0、未稼働、故障と断定しない。
