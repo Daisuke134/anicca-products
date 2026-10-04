@@ -4,28 +4,38 @@
 
 - repository: `https://github.com/Daisuke134/anicca-products`
 - worktree: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan`
-- branch: `docs/anicca-ios-growth-plan-20261004`
-- upstream/push: `origin/docs/anicca-ios-growth-plan-20261004`
-- source baseline commit: `081eeb2e6fc9b44087eb4439e81951fa30c2cb9c`
-- 文書を保存するcommitはこのbranchのtip。開始時にfetchとHEAD/upstream比較で確認する。チャットにもpush後のSHAを報告する。
+- branch/upstream: `docs/anicca-ios-growth-plan-20261004` / `origin/docs/anicca-ios-growth-plan-20261004`
+- この更新前のbranch HEAD: `6a9ec01e0413a275d314d77e00b6cb43371dbbc0`。再開時に`git fetch`してHEAD/upstreamを再確認する。
 - spec: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan/docs/superpowers/specs/2026-10-04-anicca-ios-growth-design.md`
-- plan/TODO SSOT: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan/docs/superpowers/plans/2026-10-04-anicca-ios-growth-plan.md` の「タスク一覧」
+- TODO/orderの唯一の正本: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan/docs/superpowers/plans/2026-10-04-anicca-ios-growth-plan.md` の「タスク一覧」
+- source baseline: `081eeb2e6fc9b44087eb4439e81951fa30c2cb9c`
 
-## 状態と境界
+## 継続目標とcursor
 
-Task 1の既存資料/ソース/local rawイベント読取とTask 3の資料所在確認まで進む。specの「継続調査の基準表」と`$10K MRRの計算例`が部分結果を持ち、残作業は計画の「タスク一覧」に統一する。RevenueCat owner readbackはUSD20.34/2026-10-02 MRR chartだがsettled revenueではなく、10/03 saved rowのcurrency/revenue_definitionも欠落している。単位経済表の値はplanning assumptionであり現状実績としない。実装、ASC/RC/PostHog設定変更、投稿、広告、製品リリースは未実施。前回のraw外部レポートは一時保存で現存しない。今回は既存mobile ownerの公式refs/hashを再利用し、独自の二重provider取得を始めない。
+継続目標は、公開ANICCA iOSでdistribution→store conversion→初回価値/onboarding→paid→retention→CFO同期間net economicsを実測し、ポートフォリオ合算$10K MRRへ再現可能な方法を作ること。その後、実績のあるwinnerを需要のある公開アプリへ移す。目標到達を保証したり、未取得値を0/実績として扱ったりしない。
 
-Task 1のmeasurement-quality prerequisiteとしてpaywall view duplicate eventのsource-only修正を別branchへpushした: `Daisuke134/anicca-products` / `fix/anicca-paywall-event-dedupe-20261004-growth` / `76cf8b6e5968f958ee837318d68b6842386f4eb2`。Reviewerはactive flowの修正漏れなしと判断。Swift syntax parse PASS、Simulator/generic iOS buildはXcodeがiOS 26.5 destinationを使用できずコンパイル前にexit70、実イベント回帰/public binary対応は未確認。PR/merge/releaseなし。ANICCA growth spec/plan branchは別管理する。
+現在cursorは**Task 1**。Task 3のread-only配信記録調査はTask 1/2と並行。次の作業は既存mobile ownerの公式refs/hashを再利用して公開build/source対応・live offering・unique user funnelの不足を照合すること。provider取得を重複させない。Task 3では既存post ID→official reach/view/click→ASC期間のsample pathを進めるが、`life-manager-instagram-metrics` / `life-manager-tiktok-metrics` の`resource_effect_unknown` fenceをwake/replay/closeしない。現在のfence ownerがreceipt/readbackを確認する。
 
-文書worktreeは文書だけのsparse checkout。作成時baselineはclean。アプリテストは今回実行していない。共有checkout `/Users/anicca/anicca-project` は `docs/affiliate-agent-architecture` に他者の変更が多数ある。切り替えや巻き戻しを禁止する。
+計画に記録済みの状態:
 
-AGMSGのこのセッションの名前は `lm/lm-ios-growth-1004`。別セッションはこの名前を取得せず、自分専用の名前で参加する。既存調整担当へ計画のみ・実装未着手を共有済み。送信と受信確認は別。このセッションのmonitor bridgeは未稼働、手動inboxのみ。
+- 6つのpublished targetをowner資料から確認。Aniccaは10/01共通ASC窓で0 first-time downloads / 5 unique impressions / 0 page views。page-view conversionは分母不足。
+- RevenueCat owner chartはUSD $20.34 / complete period 2026-10-02。settled proceeds/profitではない。10/03保存rowはcurrency/revenue_definition欠落。
+- local analytics raw countsはapp_opened=5 / onboarding_started=1 / paywall_primer_viewed=4。unique cohortではなくconversion計算へ使わない。PostHog read credentialは未確認。
+- 28日local marketing journalにAnicca-tagged published post ID 567件（IG234/TikTok236/YouTube97）。reach/click/store installへのofficial joinはない。既存ownerの配信cadenceは維持し、計測前に本数を増やさない。
+- 依頼者は全アプリで約3 installs/日と申告。期間・app別sourceが未照合のため公式baselineではない。
 
-## 最初の安全な一手
+## 境界と既存成果
 
-1. このworktreeでbranch/HEAD/upstream/dirtyと文書3件を確認する。他端末ならoriginの同branchから別のworktreeへ復元する。
-2. specとplanを読み、Task 1の不足証拠から再開する。取得ownerに照会済みの公開build/ソース対応、live hard/softとofferings、unique user funnelのrefs/hashを照合する。raw件数5/1/4を離脱率にしない。Task 3の既存投稿資料を並行して読める。
-3. AGMSGで重複担当を確認する。製品変更はまだ依頼されていないため、実装に進まない。
-4. 追加の実装依頼が届いた場合は、その時点の最新mainから別の専用worktree/branchを作る。計画/レビューはgpt-6.1-sol/medium、実装はgpt-6-luna/maxを使う。
+Growth laneはこのspec、plan、handoverだけを編集する。ASC/RevenueCat/mobile analytics/CFO producerとfenced distribution readersはそれぞれ既存ownerが所有する。Life Manager全体のTODOはprimaryの統合SSOTを正本とし、このplanはANICCA growth内の順序だけを管理する。
 
-メール送信、goal起動、別エージェントへの実装委譲は依頼されていない。
+Paywall duplicate-eventのsource-only修正は別worktree/branch `/Users/anicca/anicca-project/.worktrees/anicca-paywall-event-dedupe-growth`、branch `fix/anicca-paywall-event-dedupe-20261004-growth`、commit `76cf8b6e5968f958ee837318d68b6842386f4eb2`。syntax parseとdiff checkはPASS、Xcode buildはiOS 26.5 destination未解決でcompile前exit 70、event-count regression/public binary mapping/production event readbackは未確認。PR/merge/releaseはない。
+
+AGMSG: 前回文書には`lm/lm-ios-growth-1004`と記録があるが、今回このrepoでの`whoami`は複数identityを返し、team rosterにも当該名を確認できず、manual inboxはpane未解決となった。今回のAGMSG通知は送っていない。再開時は使用identityを正しく解決してからsendし、以前のhandover名を現状として仮定しない。
+
+## 再開手順
+
+1. 上記worktreeで`git fetch origin`、branch/HEAD/upstream/cleanを確認する。
+2. specの「継続調査の基準表」とplanの「タスク一覧」を読む。現在cursorはTask 1、Task 3はread-only並行調査。
+3. 既存ownerから公式refs/hashを照合する。未取得なら不足するfile/ref・owner・期間をtaskに記録し、別のprovider取得を始めない。
+4. Task 2以降はplanの依存・acceptance順で進める。source変更は最新main由来の専用worktreeを用い、Taskの必要範囲だけ修正・検証する。
+5. spec/plan/handoverのmeaningful editごとにこの専用branchへcommit/pushし、remote objectを確認する。plan文書のPASSを製品/収益のPASSと混同しない。

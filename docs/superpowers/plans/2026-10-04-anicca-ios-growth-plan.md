@@ -1,6 +1,6 @@
 # ANICCA iOS 成長改善の実行計画
 
-> 実行担当者: 実装が明示依頼された段階で `superpowers:executing-plans` または必要な `superpowers:subagent-driven-development` を使う。現在はTask 1/3の読み取り調査と既存計画の更新を進め、製品実装は未着手。
+> 実行担当者: 継続目標はこの計画を順に進め、ANICCA iOSの獲得・収益改善ループを実測で成立させること。現在cursorはTask 1、Task 3は既存配信記録のread-only調査中。各Taskの変更範囲とowner境界を守り、計画文書の更新を製品成果や$10K達成と扱わない。
 
 **Goal:** 公開済みANICCAで獲得・初回価値・課金・継続を測り、売上を改善する反復手順を作る。
 
@@ -12,8 +12,8 @@
 
 ## Global Constraints
 
-- 現在の依頼は調査・設計・計画・引き継ぎ資料の保存まで。
-- 製品コード、ASC metadata、購読条件、広告出稿、配信loopの変更や実装開始は依頼されていない。
+- 継続目標は公開ANICCAの成長ループを一つずつ改善すること。現在の作業cursorはTask 1とTask 3のread-only調査で、task表の順序と受入条件に従う。
+- ソース変更は最新main由来の専用worktreeで行う。ASC metadata、購読条件、広告、公開投稿、稼働中の配信loopは、現owner/effect状態とTaskの範囲を確認せずに変更・再送しない。
 - リポジトリは `Daisuke134/anicca-products`。
 - 共有checkout `/Users/anicca/anicca-project` の他者変更を戻さない。
 - 将来の実装はその時点の最新main由来の専用worktree/branchに置く。この文書branchを製品リリースに使わない。
@@ -34,25 +34,28 @@
 
 ## タスク一覧 — 残作業の正本
 
-現在cursorは **Task 1: 公開build/offerings/同一ユーザーファネルの不足証拠を照合**。既存owner資料/コード/local rowから6つの公式published target、10/01 acquisitionの0 installs/5 unique impressions/page views0でrate unavailable、10/02 RevenueCat MRR chart $20.34 USD、10/03 raw event countsを部分取得した。これは同じwindow/user cohortのファネルでもsettled CFO P&Lでもない。Task 3ではAnicca-tagged local publish journalに28日間567 provider_post_id記録（IG234/TikTok236/YouTube97）を特定。reach/view/click→acquisitionのjoinは未取得。既存owner cadenceは継続し、成果計測の後に追加creativeを判断する。文書の更新・push完了を製品タスクの完了に含めない。
+現在cursorは **Task 1: 公開build/offerings/同一ユーザーファネルの不足証拠を照合**。既存owner資料/コード/local rowから6つの公式published target、10/01 acquisitionの0 installs/5 unique impressions/page views0でrate unavailable、10/02 RevenueCat MRR chart $20.34 USD、10/03 raw event countsを部分取得した。これは同じwindow/user cohortのファネルでもsettled CFO P&Lでもない。依頼者は全アプリ合計約3 installs/日と述べているが、app内訳・期間・公式sourceの一致が未確認なのでbaselineには採用しない。Task 3ではAnicca-tagged local publish journalに28日間567 provider_post_id記録（IG234/TikTok236/YouTube97）を特定。reach/view/click→acquisitionのjoinは未取得。Task 2にはpaywall view重複送信のsource-only修正branch/commitがあるが、実イベントcount、build、公開版への反映は未確認。既存owner cadenceは維持し、成果計測なしに追加volumeを増やさない。
 
-順序は元のTask 1→2→3→4→5→6を維持する。Task 3のread-only調査だけをTask 1/2と並行し、配信実行を前倒しする許可とは扱わない。Task 4内はスクリーンショット→初回カード体験の順に独立比較する。Life Manager全体のTODO/orderはprimaryの統合SSOTであり、この表はgrowth内の作業細分である。
+順序はTask 1→Task 2とTask 3の並行→Task 4→Task 5→Task 6とする。まず現状と計測の信頼性を確かめつつ、Task 3では既存配信のreadbackを前進させる。distributionは最初の成長施策だが、reach→store→installの測定前に投稿本数や広告費だけを増やさない。Task 4ではスクリーンショット/PPOを先に検証し、その後に初回カード体験を別実験にする。Life Manager全体のTODO/orderはprimaryの統合SSOTであり、この表はANICCA growth lane内の作業順である。
 
 | Task | 成果 | 状態 | 依存 |
 |---|---|---|---|
-| 1 | 公開版/build/課金経路/現状値の証拠 | 進行中・基準表部分取得 | build/source対応・offerings・user funnel不足 |
-| 2 | 信頼できるコホートと課金ファネル | 未着手 | Task 1、実装依頼 |
-| 3 | 配信別の獲得と改善記録 | 調査進行中・28日local posting count取得済 | 既存owner cadenceは維持。追加creative案の選択は同じpost IDのofficial reach/view/click→ASC window join後 |
-| 4 | ストア訴求と初回カード体験の改善 | 未着手 | 1/2/3、実装/公開依頼 |
-| 5 | 訴求→hard/softの比較 | 未着手 | 1/2/4、標本見積り、変更依頼 |
-| 6 | 他の公開アプリへ再利用 | 未着手 | ANICCAでの学習結果 |
+| 1 | 公開版/build/課金経路/現状値の証拠 | 進行中・基準表部分取得 | 公式build/source対応・live offering・同一ユーザーファネルのrefs不足 |
+| 2 | 信頼できるコホートと課金ファネル | 部分進行・source-only重複event修正あり。実測/公開版反映/unique cohortは未確認 | Task 1のlive path/offering確認。既存metrics ownerのprovider作業と重複しない |
+| 3 | 配信別の獲得と改善記録 | 調査進行中・28日local posting count取得。reach/view/clickのofficial readback未取得、reader effect fenceあり | ownerがeffect/readbackをreconcileした後、同じpost IDをASC期間へ接続。既存cadenceは維持 |
+| 4 | ストア訴求と初回カード体験の改善 | 未着手 | Task 1〜3の基準と標本可能性。スクショ/PPO後にオンボを別実験 |
+| 5 | 訴求→hard/softの比較とD35 economics | 未着手 | live offering、計測可能なcohort、標本見積り。renewal/refundは最初の有料cohortから追跡 |
+| 6 | 他の公開アプリへ再利用 | 未着手 | ANICCAで獲得・課金・継続・CFO ownerのnet unit economicsを実測 |
 
 ### $10Kの運用モデル
 
-- 経営目標はまずportfolio $10K MRR、次に再現性があるwinner apps各$10K。全published appへ等しい投資はしない。
+- 長期構想は公開アプリをそれぞれ$10K MRRへ育てること。最初はportfolio $10Kを目標にし、再現性があり需要と採算を確認できたwinnerへ投資する。全appへ均等投資せず、成功を先に仮定しない。
 - Portfolio $10Kは1 app×$10K、2 apps×$5K、5 apps×$2Kなどの構成で実現できる。均等分布は仮定しない。
 - 月換算$10 MRR/paid subscriberなら1 appあたり1,000 active paid subscribersが$10K目安。月次解約10%仮定で月100 new paid subscriberを補充する。
 - RevenueCat D35 cohort conversionを感度分析に使う。月100 new paidに約4,762 DL (2.1%), 2,000 DL (5%), 935 DL (10.7%)。2.1%/10.7%はRevenueCatで異なるmodel群のmedian、5%は仮定。live Anicca conversionとはしない。
+- 目標の途中段階は$100→$1K→$3K→$10K MRRとし、各段階で必要な有料会員・解約補充分・installを実測値で更新する。$10/人・月次解約10%・D35 conversion 5%の仮定では、$10K段階の維持だけで1,000 active paid、月100 replacement paid、月2,000 install（約67/日）が必要。成長分の純増installは別に足す。
+- 現状はこのunit-economics入力値が未確定。最初の業務成果は$10K到達を予測することではなく、投稿reach→ASC acquisition→unique onboarding cohort→server-confirmed paid→renewal/refund→CFO同期間net economicsの一本を読めるようにすること。
+- 継続率は後工程まで放置しない。MRRは解約で減るため、first paid cohortからrenewal/refundを保護指標として追う。利益の最終判定はgrowth側で推定せずCFO ownerのofficial proceeds/cost refsへ委ねる。
 - $20.34 RevenueCat MRR chart (complete period 2026-10-02, USD) はmobile owner readback。CFO settlement/profitではなく、10/03 JSONLはcurrency/revenue_definition欠落。正式なstarting CFO MRRは未確定。
 - 先行指標は対象reach→ASC impression/page view/first-time download→unique onboarding cohort→value/paywall→paid→renewal/refund。利益判断は別途同期間のApple proceeds/fees, refunds, variable compute/infra, ad CACを必要とする。
 - 既存Aniccaはlocal journal上28日でIG/TikTok/YouTube published IDs567。直近ASC一日windowは0 installs/5 unique impressionsで、現段階でpost efficacyはunknown。次は既存ownerの投稿reach/clickを1つのsample pathで結び、reach自体が少ないかstore遷移で落ちるか見分ける。reachデータ無しにpost volumeを増やさない。
@@ -77,13 +80,13 @@
 
 ## Task 2: 最小の計測整備
 
-**進捗:** duplicate paywall view eventのsource-only prerequisiteはTask 1計測品質対応として個別branchへpush済み（spec「Source-onlyの計測重複修正」参照）。Task 2本体のuser-level funnel追加は未着手。source correctionはpublic binaryに入っていない。Simulator/generic iOS buildはXcodeがiOS 26.5 destinationを使用できずコンパイル前exit70、event-count regression testなし。source changeをproduction fixと扱わない。
+**進捗:** duplicate paywall view eventのsource-only prerequisiteは個別branch `fix/anicca-paywall-event-dedupe-20261004-growth` / commit `76cf8b6e5968f958ee837318d68b6842386f4eb2` にpush済み（spec「Source-onlyの計測重複修正」参照）。Task 2本体のuser-level funnel追加は未着手。source correctionはpublic binaryに入っていない。Simulator/generic iOS buildはXcodeがiOS 26.5 destinationを使用できずコンパイル前exit70、event-count regression testなし。source changeをproduction fixと扱わない。
 
 **Files:** 将来の実装対象は `aniccaios/aniccaios/Services/AnalyticsManager.swift`、`Services/SubscriptionManager.swift`、`AppDelegate.swift`、`Onboarding/PaywallVariantBView.swift`、`Onboarding/OnboardingFlowView.swift`。実際に欠損がある箇所だけ変更する。`scripts/daily-metrics/*`は旧経路の読取参照にとどめ、既存Life Manager producerに対抗する別取得/集計loopを作らない。CFO/ASC/RCの接続修正は既存ownerが所有する。
 
 **Interfaces:** 既存の `AnalyticsManager.track(_:properties:)`、`trackPaywallViewed()`、`trackPurchaseCompleted(productId:revenue:)`、RevenueCat user/transaction ID。出力は一ユーザーの段階表示/完了/購入を接続できるファネル。収益はRCの取引イベントへ寄せる。
 
-- [ ] 実装依頼後、関連targetのbaselineを確認する。`OnboardingV2Tests.swift`は旧case参照があるため、対象への組込みと現enumとの整合性を調べる。既存suiteを無条件に実行可能と書かない。
+- [ ] Task 2着手時に関連targetのbaselineを確認する。`OnboardingV2Tests.swift`は旧case参照があるため、対象への組込みと現enumとの整合性を調べる。既存suiteを無条件に実行可能と書かない。
 - [ ] duplicate表示を一回のonAppearで再現する。検証assertionは `paywall_plan_selection_viewed` が一回。既存ログ/受信イベントで再現できなければ、同targetで最小capture回帰を追加する。
 - [ ] `PaywallVariantBView`の直接送信と`trackPaywallViewed()`の重複を解消する。SKAN更新が残る経路を使う。
 - [ ] 同一取引の再受信→新規購入1回、restore→新規購入0、pending/取消→新規購入0を検証する。delegateのentitlement更新を取引発生の代用にしない。
@@ -108,7 +111,7 @@
 - [ ] 既存ownerの予定済み配信 cadenceは維持する。計測が取れない状態で追加account/publisherや過剰なpost volumeを自作しない。sample pathが閉じたら、実測で勝ったcreativeを追加テストする。
 - [ ] 最新の国別DLと実績を見て、日本/日本語を第一案とする。夜の考えすぎ、自己批判、先延ばしの切り口を比較する。
 - [ ] 投稿別campaign linkを設計する。SNS reachとストアImpressionを混ぜず、個人単位の帰属ができるとは仮定しない。
-- [ ] 公開依頼後、週10本の独立クリエイティブ案を制作能力に合わせて調整する。実カード/通知を見せる。記事は勝った悩みを週1本掘り下げる。
+- [ ] 既存ownerのcadenceと制作能力を確認し、計測可能な勝ち切り口が見つかった後に追加クリエイティブ案を増やす。実カード/通知を見せ、記事は勝った悩みを掘り下げる。週10本/週1記事は能力確認前の必達本数にしない。
 - [ ] 毎週クリック→初回DL→購入→D35売上/インストールを比較し、取得不能な段は欠損として残す。
 - [ ] 成功判定: 実投稿と獲得が比較でき、次に増やす切り口に証拠がある。単なる投稿数を成功としない。
 - [ ] MRR/$10K目標はアプリ別とportfolio合計で分け、source windowと有料分母が揃うまで目標到達/転換率を宣言しない。
@@ -120,7 +123,7 @@
 **Interfaces:** 既存 `next: () -> Void` とuserProfileの悩み/時間、カード表示。出力はストア訴求一案の実験、次に実カード体験の独立実験。両者を同時に変更しない。
 
 - [ ] 公開スクショを再取得し、最初の3枚を悩み/結果→届く場面→個別の実体験の一案として設計する。
-- [ ] Apple PPOの必要標本/期間を確認し、現行対一案で比較する。公開依頼後に開始し、90%未満の信頼度の小差を勝者としない。
+- [ ] Apple PPOの対象version・必要標本・期間を確認し、現行対一案で比較する。sample不足なら現行を維持し、90%未満の信頼度の小差を勝者としない。
 - [ ] オンボは歓迎→主な悩み→困る時間→実カード→通知価値説明→paywallを第一案とする。実カードの既存view/dataを再利用する。
 - [ ] 「選んだ悩みが異なると表示カードも異なる」をfocused回帰で固定する。保存済み旧stepのmigrationと途中再開の必要なケースも検証する。
 - [ ] 81%改善主張と引用レビューの根拠を調べ、根拠がなければ使わない。虚偽の個別化/処理演出を追加しない。

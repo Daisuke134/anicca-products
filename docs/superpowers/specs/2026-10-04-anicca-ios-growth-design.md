@@ -2,9 +2,9 @@
 
 ## 目的と依頼の境界
 
-まず既に公開したANICCA iOSで、配信→ストア獲得→初回価値体験→有料購入→継続を改善する方法を確立する。その後、他の公開アプリへ展開する。$10K MRRは米ドルの目標であり、達成保証や期限の予測ではない。
+既存ANICCA iOSを最初のケースに、配信→ストア獲得→初回価値→有料購読→継続→利益を同じ成長ループで測り、改善する。長期構想は公開アプリをそれぞれ$10K MRRへ育てることだが、最初の経営目標はポートフォリオ合算$10K MRRとし、需要と採算が確認できた勝ちアプリから投資する。仕組みを他アプリへ移すのはANICCAで再現できてからとする。目標額は達成保証でも期限予測でもない。
 
-現在の依頼は調査・設計・計画・引き継ぎ資料の保存まで。製品コード、ASC metadata、購読条件、広告出稿、配信loopの変更や実装開始は依頼されていない。文書のcommit/pushは計画の保存であり、製品リリースや実装完了ではない。
+この文書は継続中の実行目標を支えるspecであり、実作業は後述のplanの順序と担当境界に従って進める。現在の作業はspec/TODOの整合更新で、製品変更や外部公開が完了したことを意味しない。ソース変更は専用worktreeで該当Taskの範囲内に行い、ASC metadata・価格/購読条件・広告・公開投稿・稼働中loopはownerとeffect境界を確認してから扱う。利益の確定はCFO laneの同期間公式receipt/cost接続に委ね、Growth laneで二重に計算しない。
 
 ## 正本と再開情報
 
@@ -21,7 +21,7 @@
 
 ## 現在の担当と再利用境界
 
-- 私のAGMSG名は `lm/lm-ios-growth-1004`。所有する書込対象はこのspec、対応する計画、再開メモのみ。現在はANICCAの成長基準表・配信実績・UXのread-only調査を進める。
+- Growth laneの書込対象はこのspec、対応する計画、再開メモのみ。現在cursorはTask 1、Task 3は既存配信記録のread-only調査中。前回handover記載のAGMSG名`lm-ios-growth-1004`は今回のrepo-local `whoami`で再確認できず、複数identityが返ったため、AGMSG送信前にidentityを解決する。
 - 既存 `lm-cfo-observability-1002` はLife Managerの `feat/lm-mobile-metrics-20261003` を所有する。collector、ASC/RevenueCat取得、Finance Detail producer、CFO consumerへの接続をこちらで重複実装しない。本人へ取得済みの公開build/offerings/source refs/hashを照会済みで、返信は未確認。
 - `codex-money-printer` は全体primary。私のgrowth文書・CFO worktree・mobile producerを編集しないとの返信を確認する。全体TODO/orderはLife Manager統合SSOTのprimary管理§217/§340/§343に従い、この計画はgrowth内の細分手順であって全体順序を変更しない。
 - 公式ASC/RC readbackは既存取得owner一人が生成し、両laneが同じrefs/hash/期間をread-onlyで消費する。今回はprovider再取得、認証/共有profile/state変更、投稿、本番操作を行わない。
@@ -45,6 +45,7 @@
 | Platform metrics reader status | 正規`lm-loop status life-manager-instagram-metrics` / `life-manager-tiktok-metrics` readbackは各exit75 `host_admission_deferred:resource_effect_unknown`。fenced occurrenceは`history_incomplete`/`state=claimed`、`provider_receipt_id`/`official_readback_ref`なし、diagnosis `provider_state=no_adapter`。 | Owner primaryによる既存publication/messageのofficial readbackとreconciliation。再wake/replay/fence closeしない | Unified SSOT §217、2026-10-04 status readback 10:17:07Z/10:22:10Z |
 | Platform metrics readers | `life-manager-instagram-metrics` / `life-manager-tiktok-metrics` are loaded-idle on releases `9a76dcc8` / `1a7a8e2f`. Latest natural reports are admission-blocked at 2026-10-04T10:17:07Z / 10:22:10Z by `resource_effect_unknown`; each has an older claimed occurrence with `history_incomplete`, no adapter, no provider receipt/readback. No wake, replay, or fence close performed. | Platform owner’s exact official readback and a valid reconciliation adapter before treating receipt as success. Do not restart/resend the fenced occurrence. | `lm-loop status life-manager-instagram-metrics`; `lm-loop status life-manager-tiktok-metrics` at 2026-10-04 |
 | Aniccaの現行獲得 | mobile担当の公式readbackでは共通ASC窓2026-10-01にfirst-time downloads 0、unique impressions 5、product page views 0。page-view→installは分母0、install→paid cohortはunavailable | 日次自然readbackと十分な標本 | mobile担当design §Provider observations |
+| 全アプリの獲得に関する依頼者の現状認識 | 依頼者は「全アプリ合計で1日約3 install」と報告 | app別内訳、期間、公式sourceの一致が未確認。ASC基準値として使わず、Task 1で照合する | 2026-10-04の依頼者発言 |
 | Aniccaの月額換算指標 | mobile担当のRevenueCat v2 chart readbackはcomplete period 2026-10-02、通貨USD、MRR chart $20.34。10/03保存JSONLではpointが20.34だがcurrencyとrevenue_definitionが欠落 | 異なるsource windowの差分、CFO同期間接続 | mobile担当design §Provider observations、local business-outcomes row |
 | 配信後analytics | 最新Anicca行はbusiness_date 2026-10-03、observed_at 2026-10-04T08:01:26.805590+00:00、app_opened=5/onboarding_started=1/paywall_primer_viewed=4、PostHog `missing_project_read_credential` | user-level funnel IDと同じ新規install cohortへの結合 | local business-outcomes.jsonl |
 
@@ -121,7 +122,7 @@ flowchart LR
 - 既存イベントを再利用し、不足する表示/完了/CTA/失敗/割当だけ追加する。課金正本はサーバー取引であり、クライアントの推定価格を売上へ集計しない。
 - 同じ匿名ユーザーのfirst-openコホート、app version、onboarding version、step、experiment/variant、offering/productを結べることを成果条件にする。
 - 心理的な悩みの自由記述を分析イベントへ送らない。不要な個人情報を収集しない。
-- 主要指標は実購入率とD35売上/インストール。初回価値到達、D1/D7利用、返金、解約、次回更新を保護指標にする。
+- 主要指標は実購入率と成熟D35 cohortの売上/インストール。初回価値到達、D1/D7利用、返金、解約、次回更新は最初の有料cohortから保護指標として追う。MRRは継続課金で積み上がるため、継続測定を「獲得後」に先送りしない。
 - 配信を最優先にし、計測整備と並行する。日本を最初の市場候補とするが、最新の地域データと既存担当者の実績を先に確認する。
 - SNS案は週10本の独立クリエイティブ、記事は勝った悩みの切り口を週1本。実行本数は既存担当の能力に合わせる。成功実績ではなく運用仮説である。
 - スクショ最初の3枚は悩み/結果→届く場面→個別の実体験を第一案にする。現行対一案でPPOを設計する。
@@ -155,6 +156,30 @@ MRRを**月額へ正規化した売上**とすると必要な有料会員数は�
 
 Ownerのreadback上、AniccaはRevenueCat MRR chartで$20.34/complete period 2026-10-02、CFOにはまだ精算収益としてjoinされていない。月換算$10/人の目標例に対して単純比では約492倍に相当するが、MRR定義・10/03保存値のcurrencyが欠け、基準periodも異なるため正式な成長倍率や現行net MRRとは呼ばない。
 
+### $10Kまでの収益ゲート
+
+下表は月換算$10/active paid subscriber・月次解約10%・D35 install-to-paid 5%を置いた運用例である。RevenueCat chartやCFO確定値から得たANICCAの予測ではない。月間install数は、そのMRR段階を維持するための補充量だけを示し、目標まで伸ばす純増分は含まない。
+
+| 月額MRRの段階 | 必要active paid subscriber | 月次補充paid数（解約10%仮定） | 維持に必要な新規install（D35 5%仮定） |
+|---:|---:|---:|---:|
+| $100 | 10 | 1 | 20 |
+| $1K | 100 | 10 | 200 |
+| $3K | 300 | 30 | 600 |
+| $10K | 1,000 | 100 | 2,000（約67/日） |
+
+各段階では補充分に純増paid目標を足して必要DLを計算する。実測cohort、実際の月額換算額、月次解約、返金が揃うまでは単価や転換率を計画シナリオとして分ける。短期の到達期限は置かない。
+
+| ゲート | 次へ進める証拠 |
+|---|---|
+| 0. 基準を読める | 同一app・期間・sourceでASC、初回起動以降のunique cohort、実購読を結び、欠損と分母が見える |
+| 1. 獲得を再現できる | 既存post IDの公式reach/view/clickをASCのstore acquisition期間へ結び、どの配信切り口が対象者へ届くか分かる |
+| 2. Store pageが転換する | 同一locale/windowでimpression→page view→first-time downloadを測り、PPOの必要標本を満たす一案を比較できる |
+| 3. 初回価値と購入がつながる | 同一新規cohortでonboarding完了→実カード価値→paywall→server-confirmed first purchaseを観測し、一度に一つの要素を改善できる |
+| 4. MRRを利益へ接続できる | 成熟cohortのrenewal/refundと同期間のApple proceeds、手数料、変動費、paid CACをCFO ownerの公式記録から比較できる |
+| 5. 勝ち筋を拡大できる | 反復で有効なchannel/product experienceと正のnet unit economicsを確認してから、既存アプリ内の投資を増やし、次の需要があるappへ移す |
+
+これは「まず大量installを買い、その後に計測する」順ではない。今の配信cadenceを保って投稿別到達を読み、最低限の計測を並行して整える。reach不足ならdistribution、reach後にstore遷移が落ちるならASO、install後に価値/支払が落ちるならonboarding/paywallを次の実験対象にする。継続と返金はMRRの純増を決めるので最初のcohortから見る。
+
 ### アプリ工場の投資ゲート
 
 1. **獲得仮説:** 一つの対象者/課題について、既存担当の投稿ID→reach/click→同一ASC期間のstore acquisition refsを結ぶ。日付不一致やcampaign不在はunavailable。
@@ -169,7 +194,7 @@ RevenueCat 2026 reportでは、subscription appsのMRR YoY median growthは5.3%�
 
 今回の文書完了: spec/計画/再開メモが専用branchにcommit/pushされ、remote objectで存在を確認できる。
 
-将来の製品タスク完了: 該当する実装許可を得た後、最小の関連検証と必要な外部反映を確認し、未確定の実験結果を完了扱いしない。$10Kの目標達成と、計測整備や実装完了を同一視しない。
+成長タスク完了: planのTaskごとのsource/計測/公開条件を満たし、観測した結果と外部反映を分けて報告する。$10Kの目標達成を計測整備、実装、少数購入、未精算MRR chartと同一視しない。
 
 ## 一次資料
 
