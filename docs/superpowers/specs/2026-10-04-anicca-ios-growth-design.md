@@ -58,6 +58,10 @@ Task 8の最後のwhole-branch reviewはfix-firstで、positive unassigned_row_c
 
 この確認ではbranch・issue・既存計画と保存済みlocal business-outcomes/report artifactsをread-onlyで読み、ASC/RevenueCat/provider APIを再取得していない。production/app_store_financialとCFO receiptに関する数値は引き続き直近保存readback（2026-10-04）の時点付き証拠であり、fresh 2026-10-05 measurementではない。Growth Task 1は未完。Task/順序の正本は下記planであり、この節はlane境界と再利用可能な候補証拠だけを記録する。
 
+### 2026-10-05 ASC private listing metadata access
+
+既存Mobile Metrics owner plan/evidenceと保存済みlocal report inventoryには、現在のhidden keyword field、promotional text、metadata更新日時、localized screenshot/PPO historyのreadback refがない。CloakBrowser `localhost:9222`の新規ASC tabはApple sign-inへ遷移し、既存credentialsで認証後にApple 2FA待ちとなった。通常のSMS認証を選択したが、コード欄は未入力で、private app metadataへのrequestは実行していない。ASCのmetadataは未確認のまま。安全な再開条件はDaisがopen tab上で2FAを完了するか、Mobile ownerが同じASC項目のread-only refsを共有すること。OTPはchat/spec/repositoryへ記録しない。`cua-driver` skillが現在の環境にないため、Messages等の個人通信UIからコードを取得しない。
+
 ## 継続調査の基準表
 
 以下は既存担当文書とlocal artifactの読取で更新する。担当の公式API観測と、私が独立に再取得した観測を混同しない。
