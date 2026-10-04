@@ -41,6 +41,9 @@
 | product analytics | Anicca business_date 2026-10-03 / observed_at 2026-10-04T03:22:53.188474+00:00の保存行はproduct_analytics available、raw件数 app_opened5/onboarding_started1/paywall_primer_viewed4、rows10 | first-openのunique分母、順序/段階/時間、購入までのuser join | 既存business-outcomes.jsonl |
 | PostHog | 同保存行はmissing_project_read_credential | 所有者経路で既存project readを解決 | 同保存行 |
 | 配信実績 | marketing receipts/jobsとmetrics sourceが既に存在する。全product journalの行数をAnicca投稿数と扱わない | Aniccaの投稿ID/期間→reach/クリック/campaignの同一資料照合 | marketing/receipts.jsonl、marketing/jobs.jsonl |
+| Aniccaの現行獲得 | mobile担当の公式readbackでは共通ASC窓2026-10-01にfirst-time downloads 0、unique impressions 5、product page views 0。page-view→installは分母0、install→paid cohortはunavailable | 日次自然readbackと十分な標本 | mobile担当design §Provider observations |
+| Aniccaの月額換算指標 | mobile担当のRevenueCat v2 chart readbackはcomplete period 2026-10-02、通貨USD、MRR chart $20.34。10/03保存JSONLではpointが20.34だがcurrencyとrevenue_definitionが欠落 | 異なるsource windowの差分、CFO同期間接続 | mobile担当design §Provider observations、local business-outcomes row |
+| 配信後analytics | 最新Anicca行はbusiness_date 2026-10-03、observed_at 2026-10-04T08:01:26.805590+00:00、app_opened=5/onboarding_started=1/paywall_primer_viewed=4、PostHog `missing_project_read_credential` | user-level funnel IDと同じ新規install cohortへの結合 | local business-outcomes.jsonl |
 
 rawイベント件数から離脱率を計算しない。primer4/started1のような値は再訪/再表示/取得windowを含みうるため、400%のconversionや3人の新規購入と解釈しない。具体的な離脱箇所は未確認のまま残す。
 
@@ -115,7 +118,39 @@ flowchart LR
 
 ## $10K MRRの計算例
 
-月換算ARPPU $6なら約1,667 active paid subscribersが必要。月次解約10%なら月約167人の補充、有料転換5%なら月約3,340 installs（約112/日）が維持の目安。いずれも仮定であり現状値ではない。到達には解約を上回る新規購読を積み上げる。利益ではApple手数料、広告/制作、AI/サーバー等の費用も差し引く。
+目標の解釈は二つある。第一段はポートフォリオ合算$10K MRR、長期の野心目標は選ばれた各winner appが$10K MRR。すべてのアプリが$10Kに届く保証は置かない。
+
+ポートフォリオ目標は、たとえば1本$10K、2本×$5K、5本×$2Kで作れる。これは配分シナリオで、アプリが均等に売れるという予測ではない。
+
+MRRを**月額へ正規化した売上**とすると必要な有料会員数は次の通り。ここで月換算額は仮定で、現行priceまたはCFOが確定したnet proceedsではない。
+
+| 月換算MRR/active paid subscriber | $10Kに必要なactive paid subscribers |
+|---:|---:|
+| $5 | 2,000 |
+| $10 | 1,000 |
+| $20 | 500 |
+
+月換算$10/人で1,000人を維持する例では、月次解約10%なら月100人の補充が必要。有料転換率別の必要新規DLは次の通り。
+
+| D35 download-to-paid仮定 | 月100人を新規有料化するDL/月 | 平均DL/日 |
+|---:|---:|---:|
+| 2.1% (RevenueCatのfreemium app群のmedian) | 4,762 | 159 |
+| 5% (planning scenario) | 2,000 | 67 |
+| 10.7% (hard-paywall app群のmedian) | 935 | 31 |
+
+算式は `active paid = monthly MRR goal / monthly-normalized revenue per payer`、`new paid needed = target active paid × monthly churn`、`install needed = new paid needed / mature-cohort D35 conversion`。RevenueCatの2.1%/10.7%はアプリ群の中央値であり、Aniccaに適用した結果ではない。installとRevenueCat customer cohortが同一userで結べない場合、この式の実測係数へ混ぜず、別シナリオとして扱う。継続率や単価を良く見せるための外挿をしない。
+
+Ownerのreadback上、AniccaはRevenueCat MRR chartで$20.34/complete period 2026-10-02、CFOにはまだ精算収益としてjoinされていない。月換算$10/人の目標例に対して単純比では約492倍に相当するが、MRR定義・10/03保存値のcurrencyが欠け、基準periodも異なるため正式な成長倍率や現行net MRRとは呼ばない。
+
+### アプリ工場の投資ゲート
+
+1. **獲得仮説:** 一つの対象者/課題について、既存担当の投稿ID→reach/click→同一ASC期間のstore acquisition refsを結ぶ。日付不一致やcampaign不在はunavailable。
+2. **ストア転換:** Impression→product page view→first-time downloadを同じwindowで測り、Apple PPOは取得可能標本/期間の見積りが実験可能な場合だけ行う。
+3. **初回価値と購入:** 同じ新規ユーザーのstep表示/完了→実カード価値→paywall→初回購入を測る。raw event totalsからconversionを作らず、hard/softと価格を同時に変更しない。
+4. **継続とunit economics:** renewal/refund、月換算MRR、Apple proceeds、AI/infra variable cost、paid CACを別sourceで同期間比較する。買い切り・年額gross・未精算をMRR/profitにしない。paid scalingは実測net LTVがCACを上回る根拠ができるまで拡大案としてのみ残す。
+5. **横展開/停止:** winnerの人員を増やし、同じ再現可能手順を顧客課題が重なる次アプリへ移す。計測が揃わない、価値体験が弱い、unit economicsが負の候補へアプリ数だけを増やさない。
+
+RevenueCat 2026 reportでは、subscription appsのMRR YoY median growthは5.3%、top decileは306%超、公開subscription revenueの69%は2020年より前に出たappsから生じる。アプリ作成本数ではなくwinnerのdistribution/retention/monetizationがportfolio目標を左右すべきだという参考証拠であり、Anicca達成の予測ではない。
 
 ## 完了の区別
 

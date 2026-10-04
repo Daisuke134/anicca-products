@@ -13,7 +13,7 @@
 
 ## 状態と境界
 
-Task 1の既存資料/ソース/local rawイベント読取とTask 3の資料所在確認まで進む。specの「継続調査の基準表」が部分結果を持ち、残作業は計画の「タスク一覧」に統一する。実装、ASC/RC/PostHog設定変更、投稿、広告、製品リリースは未実施。前回のraw外部レポートは一時保存で現存しない。今回は既存mobile ownerの公式refs/hashを再利用し、独自の二重provider取得を始めない。
+Task 1の既存資料/ソース/local rawイベント読取とTask 3の資料所在確認まで進む。specの「継続調査の基準表」と`$10K MRRの計算例`が部分結果を持ち、残作業は計画の「タスク一覧」に統一する。RevenueCat owner readbackはUSD20.34/2026-10-02 MRR chartだがsettled revenueではなく、10/03 saved rowのcurrency/revenue_definitionも欠落している。単位経済表の値はplanning assumptionであり現状実績としない。実装、ASC/RC/PostHog設定変更、投稿、広告、製品リリースは未実施。前回のraw外部レポートは一時保存で現存しない。今回は既存mobile ownerの公式refs/hashを再利用し、独自の二重provider取得を始めない。
 
 文書worktreeは文書だけのsparse checkout。作成時baselineはclean。アプリテストは今回実行していない。共有checkout `/Users/anicca/anicca-project` は `docs/affiliate-agent-architecture` に他者の変更が多数ある。切り替えや巻き戻しを禁止する。
 
