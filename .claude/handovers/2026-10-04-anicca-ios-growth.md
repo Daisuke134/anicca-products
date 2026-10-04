@@ -5,7 +5,7 @@
 - repository: `https://github.com/Daisuke134/anicca-products`
 - worktree: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan`
 - branch/upstream: `docs/anicca-ios-growth-plan-20261004` / `origin/docs/anicca-ios-growth-plan-20261004`
-- latest spec/plan update commit: `3c3f9f7d47c888f782522f4919859123b9e7e7fd` on `origin/docs/anicca-ios-growth-plan-20261004` (`Daisuke134/anicca-products`)。handover update may be a later commit; re-fetch and verify branch HEAD/upstream before resuming.
+- latest spec/plan update commit: `a693f4e078b5be283d1a2e258732c0a89231c4a8` on `origin/docs/anicca-ios-growth-plan-20261004` (`Daisuke134/anicca-products`)。handover update may be a later commit; re-fetch and verify branch HEAD/upstream before resuming.
 - spec: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan/docs/superpowers/specs/2026-10-04-anicca-ios-growth-design.md`
 - TODO/orderの唯一の正本: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan/docs/superpowers/plans/2026-10-04-anicca-ios-growth-plan.md` の「タスク一覧」
 - source audit baseline: `081eeb2e6fc9b44087eb4439e81951fa30c2cb9c`。latest `anicca-products origin/main` is `48e2cbd417c46623802aca863148c6716c41e5dc`, whose only delta from this baseline adds one unrelated Capafy article; targeted Anicca files are unchanged. Any new product-code worktree must start from 48e2cbd4.
@@ -43,7 +43,7 @@ Source state: ANICCA source audit baseline `081eeb2e6fc9b44087eb4439e81951fa30c2
 
 AGMSG: Life Manager rootで`join.sh lm lm-ios-growth-1004 codex`はexit 0、`identities.sh`にもseatが現れる。delivery modeは`off`（手動inbox）に設定。既存送信は`history.sh`で確認済み。12:36:20Zにprimaryへcommit `f2f838a2`とASO/Task4を共有。12:40:59Zにmobile ownerへTask1 statusと必要refsを照会。12:43:26ZにStandard report path/hash/countsとDetailed request未確認をownerへ送り、12:43:27Zに同じ根拠とowner境界をprimaryへ共有。13:29:50Zにprimaryとmobile ownerへcommit `3bddd5bf`のCFO evidence crosswalkとissue #6547 +1/current pending tasksを共有し、`history.sh`で確認。`team.sh lm --json`はseatを表示しない一方、identity listとsend/historyはseatを認識しているためroster readback discrepancyを残す。mobile owner/primaryのsource修正とfresh readbackを待ち、Growth laneはsourceを編集しない。
 
-13:38:17Zにprimaryへ`b8607c36`、13:38:27Zにmobile CFO ownerへCFO/Growth boundaryを共有。14:05:49Zにmobile ownerへ公開build/ASC mapping・locales/metadata/PPO refs・Detailed Page view fix/same-request readback・mature D7 latest refsを照会。`history.sh`でsendを確認、14:35Zのinboxに新着なし。14:34:30ZにprimaryへTask1未完owner refsとTask3 strict-window refreshを共有し、`history.sh`で確認。14:37:54ZにCodex:: summaryをDaisのTelegramへ送信し、message_id 105633をreadbackで確認。Task1 evidence commits `fee02c4d138f9aad657bc457e0f3916c74d7eb1a`, `085eb424c4b9b19e6defc36830bfb88783f55d5b`; Task3 current strict-window refresh is in spec/plan commit `3c3f9f7d47c888f782522f4919859123b9e7e7fd`.
+13:38:17Zにprimaryへ`b8607c36`、13:38:27Zにmobile CFO ownerへCFO/Growth boundaryを共有。14:05:49Zにmobile ownerへ公開build/ASC mapping・locales/metadata/PPO refs・Detailed Page view fix/same-request readback・mature D7 latest refsを照会。`history.sh`でsendを確認、14:41Zのinboxに新着なし。14:34:30ZにprimaryへTask1未完owner refsとTask3 strict-window refreshを共有し、`history.sh`で確認。14:37:54ZにCodex:: progressをDaisのTelegramへ送り、message_id 105633をreadbackで確認。Task1 evidence commits `fee02c4d138f9aad657bc457e0f3916c74d7eb1a`, `085eb424c4b9b19e6defc36830bfb88783f55d5b`; Task3 refresh is in spec/plan commit `3c3f9f7d47c888f782522f4919859123b9e7e7fd`; Task1 owner-only ref boundary clarified in plan commit `a693f4e078b5be283d1a2e258732c0a89231c4a8`.
 
 ## 再開手順
 
