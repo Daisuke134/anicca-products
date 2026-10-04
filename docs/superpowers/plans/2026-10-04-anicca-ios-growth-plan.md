@@ -34,7 +34,7 @@
 
 ## タスク一覧 — 残作業の正本
 
-現在cursorは **Task 1: 公開build/offerings/同一ユーザーファネルの不足証拠を照合**。既存owner資料/コード/local rowから6つの公式published target、10/01 acquisitionの0 installs/5 unique impressions、10/02 RevenueCat MRR chart $20.34 USD、10/03 raw event countsを部分取得した。これは同じwindow/user cohortのファネルでもsettled CFO P&Lでもない。Task 3はjournalの場所を確認した段階。文書の更新・push完了を製品タスクの完了に含めない。
+現在cursorは **Task 1: 公開build/offerings/同一ユーザーファネルの不足証拠を照合**。既存owner資料/コード/local rowから6つの公式published target、10/01 acquisitionの0 installs/5 unique impressions、10/02 RevenueCat MRR chart $20.34 USD、10/03 raw event countsを部分取得した。これは同じwindow/user cohortのファネルでもsettled CFO P&Lでもない。Task 3ではAnicca-tagged local publish journalに28日間567 provider_post_id記録（IG234/TikTok236/YouTube97）を特定。reach/click/acquisitionとのpost-level joinは未取得。文書の更新・push完了を製品タスクの完了に含めない。
 
 順序は元のTask 1→2→3→4→5→6を維持する。Task 3のread-only調査だけをTask 1/2と並行し、配信実行を前倒しする許可とは扱わない。Task 4内はスクリーンショット→初回カード体験の順に独立比較する。Life Manager全体のTODO/orderはprimaryの統合SSOTであり、この表はgrowth内の作業細分である。
 
@@ -96,6 +96,7 @@
 **Interfaces:** 投稿ID/URL、切り口、言語、reach、クリック、campaign/CPP集計。出力は週次の獲得比較と次の切り口。
 
 - [x] 既存marketing receipt/jobs journalとmetrics runnerを発見する。specの「継続調査の基準表」に絶対パスを記録する。全product journal行数をAniccaの投稿数にしない。
+- [x] Anicca `product_id`に絞り、28日間のpublished/provider_post_id記録をplatform別に数えた（Instagram234/TikTok236/YouTube97）。これはローカルjournal集計で、fresh platform-readbackやreach/clickの証明ではない。
 - [ ] AGMSGで現担当と所有範囲を調整し、直近28日のAnicca実投稿ID/URL、reach、リンククリックと測定期間を同じ資料で照合する。
 - [ ] 最新の国別DLと実績を見て、日本/日本語を第一案とする。夜の考えすぎ、自己批判、先延ばしの切り口を比較する。
 - [ ] 投稿別campaign linkを設計する。SNS reachとストアImpressionを混ぜず、個人単位の帰属ができるとは仮定しない。

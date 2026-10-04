@@ -38,14 +38,16 @@
 | install→paid | 既存branchのD7はprivate/experimental endpointで、成熟日/同一app/date/整数payer/分母を検証する。小標本を効果としない | 十分なコホートと公開された計測経路 | 同設計のD7 contract |
 | RevenueCat/Apple | 担当branchにはcurrency/roster/mobile freshness/Finance Detailの子ID→親app mapping修正がある。本番import完了とは別 | 現行offering、実購読イベント、production receipt接続 | 同設計のCFO source contract |
 | アプリUX | anicca-products origin/main `081eeb2e6fc9b44087eb4439e81951fa30c2cb9c`で10-step→2-step paywall、個別画面の固定文、表示イベント二重送信を再確認 | 公開1.9.4 build/ソース対応、live画面 | 既存Swift source |
-| product analytics | Anicca business_date 2026-10-03 / observed_at 2026-10-04T03:22:53.188474+00:00の保存行はproduct_analytics available、raw件数 app_opened5/onboarding_started1/paywall_primer_viewed4、rows10 | first-openのunique分母、順序/段階/時間、購入までのuser join | 既存business-outcomes.jsonl |
+| product analytics | Anicca business_date 2026-10-03 / observed_at 2026-10-04T08:52:40.896770+00:00の保存行はproduct_analytics available、raw件数 app_opened5/onboarding_started1/paywall_primer_viewed4、rows10、PostHogは`missing_project_read_credential` | first-openのunique分母、順序/段階/時間、購入までのuser join | 既存business-outcomes.jsonl |
 | PostHog | 同保存行はmissing_project_read_credential | 所有者経路で既存project readを解決 | 同保存行 |
-| 配信実績 | marketing receipts/jobsとmetrics sourceが既に存在する。全product journalの行数をAnicca投稿数と扱わない | Aniccaの投稿ID/期間→reach/クリック/campaignの同一資料照合 | marketing/receipts.jsonl、marketing/jobs.jsonl |
+| 配信実績 | 2026-09-06..2026-10-04の28日間に、local marketing receipt journalでAnicca-tagged published/provider_post_id記録567件（Instagram234、TikTok236、YouTube97）。receiptをplatformへ再照会していない。日次reach/click/投稿別獲得は同journalに記録なし | post ID→公開内容→reach/view/click→同じASC期間のacquisition refs。投稿量のみで配信成果と判定しない | `/Users/anicca/.local/state/life-manager/marketing/receipts.jsonl`、`/Users/anicca/.local/state/life-manager/marketing/jobs.jsonl` |
 | Aniccaの現行獲得 | mobile担当の公式readbackでは共通ASC窓2026-10-01にfirst-time downloads 0、unique impressions 5、product page views 0。page-view→installは分母0、install→paid cohortはunavailable | 日次自然readbackと十分な標本 | mobile担当design §Provider observations |
 | Aniccaの月額換算指標 | mobile担当のRevenueCat v2 chart readbackはcomplete period 2026-10-02、通貨USD、MRR chart $20.34。10/03保存JSONLではpointが20.34だがcurrencyとrevenue_definitionが欠落 | 異なるsource windowの差分、CFO同期間接続 | mobile担当design §Provider observations、local business-outcomes row |
 | 配信後analytics | 最新Anicca行はbusiness_date 2026-10-03、observed_at 2026-10-04T08:01:26.805590+00:00、app_opened=5/onboarding_started=1/paywall_primer_viewed=4、PostHog `missing_project_read_credential` | user-level funnel IDと同じ新規install cohortへの結合 | local business-outcomes.jsonl |
 
 rawイベント件数から離脱率を計算しない。primer4/started1のような値は再訪/再表示/取得windowを含みうるため、400%のconversionや3人の新規購入と解釈しない。具体的な離脱箇所は未確認のまま残す。
+
+配信journal上の567件はowner側の投稿記録であり、reach/閲覧・再生完了・プロフィール遷移・store click・installへの寄与を証明しない。現在、投稿別成果が取れていない状態で投稿量をさらに積んでも、どのcreativeを再生産すべきか学習できない。次の配信判断は既存投稿の少数サンプルをofficial platform insightとASC windowへ結ぶところから始める。新しい投稿や追加publisherは作らない。
 
 既存mobile設計の参照元は `/Users/anicca/Projects/life-manager-main/.worktrees/lm-mobile-metrics-20261003/docs/superpowers/specs/2026-10-03-mobile-app-metrics-funnel-design.md`、読取SHAは `1f045eff3d27cfec3945cd8d2dff64f06928c834`、文書SHA256は `1833426e22112a84b39c80dc3566c316353ced30f228980475cdebd6db87af26`。local sourceは `/Users/anicca/.local/state/life-manager/marketing-metrics-daily/state/business-outcomes.jsonl`、配信journalsは `/Users/anicca/.local/state/life-manager/marketing/{receipts,jobs}.jsonl`。原文payload、credential、個人IDはコピーしない。
 
