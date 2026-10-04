@@ -58,7 +58,7 @@ Task 3の保存journal診断（cutoff 2026-10-04T16:14:47Z、read-only）: statu
 
 15:47ZのInstagramと15:53ZのTikTok statusはloaded-idle / exit75 / resource_effect_unknownでprovider receiptなし。Instagramはreadback adapterなし、TikTokはdiagnostic fieldsが揃ったがreceiptなし。ownerの公式履歴/effect reconciliationが取れるまでreaderを再試行しない。
 
-Task 4 preliminary ASO readback: screenshot visual auditは2026-10-04のUS listingでiPhone 6.7-inch screenshot 4枚を確認。2026-10-05T15:39ZのUS/JP/DE metadata再readbackでも公開version1.9.4のまま、JP47 ratings、US/DEはrating overview表示なし。順に「Personalized Affirmations」「Reminders to Stay Positive」「Choose From 8 Themes」「Change How You Think」。1/2/4枚目は似たaffirmation-card構成で、3枚目の8 themesはlisting descriptionの13 self-care themesと不一致。title 27 characters / subtitle 30 charactersでAppleの各30文字上限内。これはpublic-page観測とvisual assessmentで、表示可能theme数・機能の誤りやPPO upliftの証明ではない。Task 1〜3のgate、実機能確認、PPO標本可能性を通るまで素材公開やonboarding変更をしない。
+Task 4 preliminary ASO readback: screenshot visual auditは2026-10-04のUS listingでiPhone 6.7-inch screenshot 4枚を確認。2026-10-04T18:30ZのUS/JP/DE metadata再readbackでも公開version1.9.4のまま、JP47 ratings、US/DEはrating overview表示なし。順に「Personalized Affirmations」「Reminders to Stay Positive」「Choose From 8 Themes」「Change How You Think」。1/2/4枚目は似たaffirmation-card構成で、3枚目の8 themesはlisting descriptionの13 self-care themesと不一致。title 27 characters / subtitle 30 charactersでAppleの各30文字上限内。これはpublic-page観測とvisual assessmentで、表示可能theme数・機能の誤りやPPO upliftの証明ではない。Task 1〜3のgate、実機能確認、PPO標本可能性を通るまで素材公開やonboarding変更をしない。
 
 順序はTask 2a→Task 1残項目→Task 2残りとTask 3並行→Task 4→Task 5→Task 6とする。まず現状と計測の信頼性を確かめつつ、Task 3では既存配信のreadbackを前進させる。distributionは最初の成長施策だが、reach→store→installの測定前に投稿本数や広告費だけを増やさない。Task 4ではスクリーンショット/PPOを先に検証し、その後に初回カード体験を別実験にする。Life Manager全体のTODO/orderはprimaryの統合SSOTであり、この表はANICCA growth lane内の作業順である。
 
@@ -121,7 +121,7 @@ Task 4 preliminary ASO readback: screenshot visual auditは2026-10-04のUS listi
 - [x] mobile owner feature branchをread-only確認し、collector predicate/fixtureの`Page View`を特定する。Growth laneのcollector sourceは変更しない。
 - [x] 保存済みofficial Standard Discovery reportを読み、10/01の`Page view` 3行・Counts合計5、Impression 12行・Counts合計20を確認する。canonical `evidence_sha256`とfile-byte SHA256は区別してspecへ記録し、row-level Unique Countsをoverall audienceに合算しない。
 - [x] mobile取得ownerとprimaryへ重複しない所有範囲と必要なrefs/hashを共有する。primaryの分離了承は受信済み、mobile owner本人の返信は未確認。
-- [x] US/JP/DE App Store pageを2026-10-05T15:39Zに`crwl`でmetadata再readbackし、title/subtitle/version/category/languages/age/rating overview/IAP/legal subscription textを記録する。screenshotのvisual auditは2026-10-04分を保持する。掲載IAPをRevenueCat live offeringとは扱わない。
+- [x] US/JP/DE App Store pageを2026-10-04T18:30Zに`crwl`でmetadata再readbackし、title/subtitle/version/category/languages/age/rating overview/IAP/legal subscription textを記録する。screenshotのvisual auditは2026-10-04分を保持する。掲載IAPをRevenueCat live offeringとは扱わない。
 - [x] 2026-10-05 current public listingを再readbackし、version1.9.4が継続していることとASC Downloads Standard row/source `project.pbxproj`のversion差を照合する。公開1.9.4/download row 1.9.4とsource 1.9.5/build365のmapping gapを記録し、main sourceを公開済みbuildと見なさない。
 - [x] 2026-10-05 US/JP/DE App Store public pagesをread-only比較し、JPの47 ratings、US/DE rating overview非表示、locale別title/subtitleと異なる掲載IAP価格を記録する。localization readbackはASC keywords、promo text、PPO historyやlocalized screenshotsを代替しない。
 - [x] 既存Mobile owner plan/evidenceと保存済みlocal report inventoryを調べ、hidden keyword/promo/metadata timestamp/PPO historyのreadback refが存在しないことを確認した。codex-money-printerへ既存refの有無をAGMSGで尋ねたが、現時点で返信なし。公開ページから値を推測しない。
