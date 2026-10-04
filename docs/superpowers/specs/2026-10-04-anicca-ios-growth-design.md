@@ -68,6 +68,23 @@ Mobile ownerの保存済みofficial `FINANCE_DETAIL/Z1` readbackはone-sale row�
 
 既存Mobile Metrics owner plan/evidenceと保存済みlocal report inventoryには、現在のhidden keyword field、promotional text、metadata更新日時、localized screenshot/PPO historyのreadback refがない。CloakBrowser `localhost:9222`の新規ASC tabはApple sign-inへ遷移し、既存credentialsで認証後にApple 2FA待ちとなった。通常のSMS認証を選択したが、コード欄は未入力で、private app metadataへのrequestは実行していない。最後に確認したのは`2026-10-04T17:59:33Z`で、今回のreadbackではshared browserを再確認していない。ASCのmetadataは未確認のまま。安全な再開条件はDaisがopen tab上で2FAを完了するか、Mobile ownerが同じASC項目のread-only refsを共有すること。OTPはchat/spec/repositoryへ記録しない。`cua-driver` skillが現在の環境にないため、Messages等の個人通信UIからコードを取得しない。
 
+### 2026-10-05 FastlaneにあるASO metadata候補
+
+Life Manager `origin/main=82d31995e68a5220b7a288318a893866a24c7ea6`には6 localeの `apps/mobile/anicca-ios/fastlane/metadata/<locale>/keywords.txt` がある。全ファイルは `0e0758d7f7`（2026-09-17、iOS source co-location）で追加された。
+
+| locale | tracked keyword candidate | 文字数 |
+|---|---|---:|
+| ja | `アファメーション,引き寄せ,自己肯定感,セルフケア,自己愛,マインドフルネス,不安,瞑想,癒し,眠り` | 50 |
+| en-US | `affirmation,manifestation,self love,self care,positive,mindfulness,anxiety,calm,gratitude,sleep` | 95 |
+| de-DE | `Affirmation,Manifestation,Selbstliebe,Selbstfürsorge,Achtsamkeit,Angst,Ruhe,Dankbarkeit,Schlaf` | 94 |
+| fr-FR | `affirmation,manifestation,amour de soi,soin de soi,positivité,pleine conscience,anxiété,calme` | 93 |
+| es-ES | `afirmaciones,manifestación,autocuidado,amor propio,positividad,mindfulness,ansiedad,calma,gratitud` | 98 |
+| pt-BR | `afirmação,manifestação,amor próprio,autocuidado,positividade,mindfulness,ansiedade,calma,gratidão` | 97 |
+
+文字数はファイルのUnicode code point数で、ここではApple field limitへの適合判定をしない。Fastlane docsは `<metadata_path>/<locale>/keywords.txt` をApp Storeのkeywords fieldへ対応付けている。[Fastlane Deliver](https://docs.fastlane.tools/actions/deliver/)
+
+同じ `Fastfile` の `ios upload` laneは `upload_to_app_store(skip_metadata: true)` を指定する。一方 `ios submit_review` は `deliver(skip_metadata: false, skip_screenshots: true)` を呼び、`full_release` はupload→wait→submit_reviewを連結する。したがって `ios upload` だけではmetadataは送られず、submission laneはcandidate値を送る可能性のある経路だが、実行receiptやASC readbackは見つかっていない。source/CI検索ではFastfile以外の実行callerは見つからず、READMEと古いplanのコマンド記載は実行証拠ではない。Tracked Fastlane treeに `promotional_text.txt` はなく、hidden keywords・promo text・update time・PPO historyの現行値は未確認。public App Store pageはversion 1.9.4 / June 25と表示し、metadata candidateは2026-09-17にrepoへ追加されたが、現live値とは推定しない。
+
 ## 継続調査の基準表
 
 以下は既存担当文書とlocal artifactの読取で更新する。担当の公式API観測と、私が独立に再取得した観測を混同しない。
