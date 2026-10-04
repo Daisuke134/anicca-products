@@ -42,7 +42,7 @@
 |---|---|---|---|
 | 1 | 公開版/build/課金経路/現状値の証拠 | 進行中・基準表部分取得 | build/source対応・offerings・user funnel不足 |
 | 2 | 信頼できるコホートと課金ファネル | 未着手 | Task 1、実装依頼 |
-| 3 | 配信別の獲得と改善記録 | 調査進行中・28日local posting count取得済 | 同じpost IDのofficial reach/view/click→ASC window join。追加postingは保留 |
+| 3 | 配信別の獲得と改善記録 | 調査進行中・28日local posting count取得済 | 既存owner cadenceは維持。追加creative案の選択は同じpost IDのofficial reach/view/click→ASC window join後 |
 | 4 | ストア訴求と初回カード体験の改善 | 未着手 | 1/2/3、実装/公開依頼 |
 | 5 | 訴求→hard/softの比較 | 未着手 | 1/2/4、標本見積り、変更依頼 |
 | 6 | 他の公開アプリへ再利用 | 未着手 | ANICCAでの学習結果 |
