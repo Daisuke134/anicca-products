@@ -5,7 +5,7 @@
 - repository: `https://github.com/Daisuke134/anicca-products`
 - worktree: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan`
 - branch/upstream: `docs/anicca-ios-growth-plan-20261004` / `origin/docs/anicca-ios-growth-plan-20261004`
-- 今回の更新直前branch HEAD: `ba13d2b9e6c6de9042e45391dc0380da86e8e78b`。再開時に`git fetch`してHEAD/upstreamを再確認する。
+- 今回のhandover更新直前branch HEAD: `9383729fc2592fd28fbf435f77d75c1683323592`。再開時に`git fetch`してHEAD/upstreamを再確認する。
 - spec: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan/docs/superpowers/specs/2026-10-04-anicca-ios-growth-design.md`
 - TODO/orderの唯一の正本: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan/docs/superpowers/plans/2026-10-04-anicca-ios-growth-plan.md` の「タスク一覧」
 - source baseline: `081eeb2e6fc9b44087eb4439e81951fa30c2cb9c`
@@ -32,7 +32,7 @@ Growth laneはこのspec、plan、handoverだけを編集する。ASC/RevenueCat
 
 Paywall duplicate-eventのsource-only修正は別worktree/branch `/Users/anicca/anicca-project/.worktrees/anicca-paywall-event-dedupe-growth`、branch `fix/anicca-paywall-event-dedupe-20261004-growth`、commit `76cf8b6e5968f958ee837318d68b6842386f4eb2`。syntax parseとdiff checkはPASS、Xcode buildはiOS 26.5 destination未解決でcompile前exit 70、event-count regression/public binary mapping/production event readbackは未確認。PR/merge/releaseはない。
 
-AGMSG: Life Manager rootで`join.sh lm lm-ios-growth-1004 codex`はexit 0、`identities.sh`にもseatが現れる。delivery modeは`off`（手動inbox）に設定。`send.sh`で`codex-money-printer`へbranch/cursor/owner境界と既存refs共有依頼を送信し、`history.sh`の2026-10-04T10:58:45Z行で記録を確認。直後のinboxは新着なし。`team.sh lm --json`はseatを表示しない一方、identity listとsend/historyはseatを認識しているため、roster readback discrepancyを残す。新しいreplyを受けるまでは同一依頼を重ねて送らない。
+AGMSG: Life Manager rootで`join.sh lm lm-ios-growth-1004 codex`はexit 0、`identities.sh`にもseatが現れる。delivery modeは`off`（手動inbox）に設定。`send.sh`で`codex-money-printer`へbranch/cursor/owner境界と既存refs共有を依頼し、`history.sh`で10:58:45Zと11:09:02Zの送信記録を確認。2回目はASC source差分と最新evidence SHAを共有した。11:09Zのinboxは新着なし。`team.sh lm --json`はseatを表示しない一方、identity listとsend/historyはseatを認識しているため、roster readback discrepancyを残す。新しいreplyを受けるまでは同一依頼を重ねて送らない。
 
 ## 再開手順
 
