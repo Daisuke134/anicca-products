@@ -40,6 +40,10 @@ async function checkoutHandler(event, dependencies = {}) {
     const lang = body.lang === 'jp' ? 'jp' : 'en';
     const mode = body.mode === 'subscription' ? 'subscription' : 'payment';
     const product = body.product === 'letter' ? 'letter' : 'ebook';
+    const { isAttributionTokenForLang } = await import('../../lib/checkout-attribution.js');
+    const attributionToken = isAttributionTokenForLang(body.attribution_token, lang)
+      ? body.attribution_token
+      : null;
     const price = product === 'letter'
       ? (lang === 'jp' ? env.STRIPE_LETTER_JP_PRICE : env.STRIPE_LETTER_EN_PRICE)
       : (lang === 'jp' ? env.STRIPE_JP_PRICE_ID : env.STRIPE_EN_PRICE_ID);
@@ -58,10 +62,14 @@ async function checkoutHandler(event, dependencies = {}) {
     params.append('cancel_url', `${origin}/${productSlug}?canceled=1`);
     params.append('metadata[lang]', lang);
     params.append('metadata[product]', product);
+    if (attributionToken) params.append('metadata[attribution_token]', attributionToken);
     params.append('customer_creation', 'always');
     if (mode === 'subscription') {
       params.append('subscription_data[metadata][lang]', lang);
       params.append('subscription_data[metadata][product]', product);
+      if (attributionToken) {
+        params.append('subscription_data[metadata][attribution_token]', attributionToken);
+      }
       params.append('subscription_data[trial_period_days]', '14');
     }
   }
