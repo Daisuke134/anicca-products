@@ -93,9 +93,39 @@ Mobile ownerの保存済みASC acquisition readback（2026-10-04 11:56:51–11:5
 - Credential SSOT scanではApple/ASC named fields 0件。認証状態が不明でもKeychain経由にfallbackしない。
 - Task 1 remains current cursor and incomplete. 07:19、08:24、08:28 JSTの3回のfresh readbackでASC login/access blockerは不変。再開条件は既存official metadata refs/hashか、authorized ASC sign-in/2FAの完了。API queryは重複させない。
 
+### 2026-10-05 10:20 JST Anicca ASC metadata snapshot
+
+ASC authentication correction: credentials.json contains an Apple service record in its 72-entry credentials array; the password value was not printed. The existing ~/.asc/config.json is mode 0600 and contains profiles Anicca (default) and AniccaFactory. Read-only API calls succeeded with profile Anicca and ASC_BYPASS_KEYCHAIN=1, without using Keychain. The previous key-name-only scan that concluded no ASC credential existed was incomplete. Response digests are recorded below; no raw credential values or hidden keyword text are committed.
+
+| locale | v1.9.4 live chars/bytes | matches six Fastlane candidates | v1.9.5 rejected-version chars/bytes | matches candidate |
+|---|---:|---:|---:|---:|
+| de-DE | 82 / 84 | no | 94 / 95 | yes |
+| en-US | 81 / 81 | no | 95 / 95 | yes |
+| es-ES | 88 / 92 | no | 98 / 99 | yes |
+| fr-FR | 91 / 93 | no | 93 / 96 | yes |
+| ja | 45 / 117 | no | 50 / 132 | yes |
+| pt-BR | 92 / 94 | no | 97 / 103 | yes |
+| pt-PT | 97 / 103, no source candidate | n/a | 97 / 103, same hash as pt-BR | no source candidate |
+
+Apple App Store Search guidance states a 100-character total keyword limit. All listed values are below 100 Unicode characters; ja and Portuguese exceed 100 UTF-8 bytes but remain within the character limit. Raw hidden keyword strings are preserved only in the private 0700 readback directories listed in the plan; this public spec stores counts, candidate equality, and evidence digests only. The v1.9.4 localization-list response SHA-256 is 33273c23a3f72c2b8de80d41b1bba60906289bd04bc484ff2e9e1e03da5b3ef4. Screenshot-list response SHA-256s are cba63ca145841b5bcafcbbc62082c90cf70c873c7b20af0353e57a6b8812af33 (v1.9.4) and f30dfef03116560603e469432b320ae42312ef8964c64f83b2f9e7121267f806; PPO history is 5f90a32b8423012cde4e494a74d51681143bb1643864c54cfed95c1b9f1af958; Review History is 261154b49e9e33bef1bdeac405154dcca21fdbc02d8c869d2d7c05f456c51f72; Review Doctor is ec715a6797b1c0f06ff132059b2fb699f182853c7fd62a77a422b33c72a1fd2c.
+
+Version state separates current public metadata from the candidate: 1.9.4 is READY_FOR_SALE / READY_FOR_DISTRIBUTION, created 2026-06-23. Version 1.9.5 is REJECTED / UNRESOLVED_ISSUES, created 2026-07-04 and last submitted 2026-07-04T12:34:16Z. Current 1.9.5 localization values match the six Fastlane candidate files, but those files were committed on 2026-09-17; no later 1.9.5 submission appears in Review History. Therefore the current rejected draft contains the candidates, while the exact candidate payload in the July 4 submission is unverified. It is not live on public 1.9.4.
+
+Both metadata pulls omit promotionalText for all seven locales and contain no per-localization updated/modified timestamp. The version createdDate and review submittedDate are separate events, not metadata edit times. Current ASC app-info name/subtitle matches the saved public snapshot in all six public locales.
+
+Screenshot reads for both 1.9.4 and 1.9.5 show one set with four screenshots in each of seven locales. The PPO v2 history contains seven experiments, all STOPPED; the earliest start is 2025-12-15 and the latest end is 2026-05-02, with no active experiment.
+
+ASC Review History shows 1.9.5 as rejected with UNRESOLVED_ISSUES. Current Review Doctor output reports four blocking checks, including missing age-rating checks, an expired build, and unresolved prior review, plus warnings for keywords repeating app-name/subtitle terms. These checks describe current readiness and do not prove the historical rejection cause.
+
+This closes the private-metadata state readback while preserving the historical payload and edit-time gaps. Task 1 remains in progress; its next ordered item is the Mobile Metrics owner's App Store event-enum normalization/focused regression. No ASC metadata was changed or submitted.
+
+### 2026-10-05 10:29 JST owner/main refresh
+
+Life Manager origin/main is c90b7ca6b9c8790214ccb2dde1d841102c89b75f. Mobile Metrics candidate remains clean at 1f045eff3d27cfec3945cd8d2dff64f06928c834, 32 main-only / 34 candidate-only commits; no PR and issue #6547 is OPEN. There is no diff under apps/mobile/anicca-ios. Both current main and candidate collector code still filters Event="Page View", while the saved Apple Standard report uses Event="Page view". This is the next Task 1 cursor and remains owned by Mobile Metrics; no source change is made in Growth.
+
 ### 2026-10-05 FastlaneにあるASO metadata候補
 
-Life Manager `origin/main=82d31995e68a5220b7a288318a893866a24c7ea6`には6 localeの `apps/mobile/anicca-ios/fastlane/metadata/<locale>/keywords.txt` がある。全ファイルは `0e0758d7f7`（2026-09-17、iOS source co-location）で追加された。
+Life Manager current `origin/main=c90b7ca6b9c8790214ccb2dde1d841102c89b75f`には6 localeの `apps/mobile/anicca-ios/fastlane/metadata/<locale>/keywords.txt` がある。Fresh diff from 82d31995e68a5220b7a288318a893866a24c7ea6 to this main has no apps/mobile/anicca-ios changes. 全ファイルは `0e0758d7f7`（2026-09-17、iOS source co-location）で追加された。
 
 | locale | tracked keyword candidate | 文字数 |
 |---|---|---:|
