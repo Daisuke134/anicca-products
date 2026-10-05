@@ -94,10 +94,10 @@ jobs:
           }
           const resendKey = process.env.RESEND_API_KEY;
           const sender = process.env.RESEND_FROM_EMAIL || '';
-          const senderAddress = sender.match(/<\s*[^@>\s]+@([^>\s]+)\s*>|^[^@\s]+@([^@\s]+)$/);
+          const senderAddress = /^(?:[^<>\r\n]*<)?[^<>\s@]+@([^<>\s@]+\.[^<>\s@]+)>?$/.exec(sender.trim());
           console.log(JSON.stringify({
-            resend_from_email_configured: Boolean(sender),
-            resend_sender_domain: senderAddress ? (senderAddress[1] || senderAddress[2]).toLowerCase() : null,
+            resend_from_email_configured: Boolean(senderAddress),
+            resend_sender_domain: senderAddress ? senderAddress[1].toLowerCase() : null,
           }));
           if (!resendKey) {
             console.log(JSON.stringify({ resend_domains: 'unavailable', reason: 'netlify_env_missing' }));
