@@ -166,33 +166,36 @@ async function webhookHandler(event, dependencies = {}) {
         return webhookFailure(payload, dependencies, 'preflight', 'stripe_readback_config_missing', 'none', true, 'restore_stripe_config');
       }
       try {
-        currentLetterSubscription = await retrieveStripeSubscription(subscriptionId, stripeKey, fetchImpl);
-        receipt.subscription_status = currentLetterSubscription.status;
+        const subscriptionReadback = await retrieveStripeSubscription(subscriptionId, stripeKey, fetchImpl);
+        const state = await applySubscriptionState({
+          subscriptionId,
+          status: subscriptionReadback.status,
+          readbackAt: readbackTimestamp(dependencies),
+          eventId: payload.id,
+          email,
+          lang,
+          customerId: stripeId(session.customer),
+          fetchImpl,
+          supabaseUrl: SUPABASE_URL,
+          serviceKey: SUPABASE_SERVICE_ROLE_KEY,
+        });
+        currentLetterSubscription = { ...subscriptionReadback, status: state.status };
+        receipt.subscription_status = state.status;
         await updateClaimedReceipt({
           claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
-          patch: { subscription_status: currentLetterSubscription.status, updated_at: new Date().toISOString() },
+          patch: { subscription_status: state.status, updated_at: new Date().toISOString() },
         });
       } catch {
         await bestEffortReceiptUpdate({
           claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
-          patch: { delivery_status: 'retryable_failure', error_class: 'stripe_readback_failed', next_action: 'stripe_retry' },
+          patch: { delivery_status: 'retryable_failure', error_class: 'subscription_state_readback_failed', next_action: 'stripe_retry' },
         });
-        return webhookFailure(payload, dependencies, 'stripe_subscription_read', 'stripe_readback_failed', 'none', true, 'stripe_retry');
+        return webhookFailure(payload, dependencies, 'subscription_state_update', 'subscription_state_readback_failed', 'none', true, 'stripe_retry');
       }
     }
 
     try {
-      if (isLetter) {
-        await supabaseMutation(fetchImpl, `${SUPABASE_URL}/rest/v1/subscribers`, SUPABASE_SERVICE_ROLE_KEY, 'POST', {
-          email,
-          lang,
-          tier: currentLetterSubscription.status === 'active' || currentLetterSubscription.status === 'trialing' ? 'paid' : 'expired',
-          stripe_customer_id: stripeId(session.customer),
-          stripe_subscription_id: stripeId(session.subscription),
-          ...(currentLetterSubscription.status === 'canceled' ? { unsubscribed_at: new Date().toISOString() } : {}),
-          signed_up_at: new Date().toISOString(),
-        }, 'resolution=merge-duplicates,return=representation');
-      } else {
+      if (isEbook) {
         await supabaseMutation(fetchImpl, `${SUPABASE_URL}/rest/v1/buyers`, SUPABASE_SERVICE_ROLE_KEY, 'POST', {
           email,
           lang,
@@ -327,6 +330,23 @@ async function webhookHandler(event, dependencies = {}) {
     } catch {
       return webhookFailure(payload, dependencies, 'stripe_subscription_read', 'stripe_readback_failed', 'none', true, 'stripe_retry');
     }
+    try {
+      const state = await applySubscriptionState({
+        subscriptionId,
+        status: currentSubscription.status,
+        readbackAt: readbackTimestamp(dependencies),
+        eventId: payload.id,
+        email: null,
+        lang,
+        customerId: stripeId(object.customer),
+        fetchImpl,
+        supabaseUrl: SUPABASE_URL,
+        serviceKey: SUPABASE_SERVICE_ROLE_KEY,
+      });
+      currentSubscription = { ...currentSubscription, status: state.status };
+    } catch {
+      return webhookFailure(payload, dependencies, 'subscription_state_update', 'subscription_state_update_failed', 'none', true, 'stripe_retry');
+    }
   }
   const receipt = {
     stripe_event_id: payload.id,
@@ -349,24 +369,6 @@ async function webhookHandler(event, dependencies = {}) {
     error_class: null,
     next_action: null,
   };
-  try {
-    if (payload.type === 'customer.subscription.deleted') {
-      await supabaseMutation(fetchImpl,
-        `${SUPABASE_URL}/rest/v1/subscribers?stripe_subscription_id=eq.${encodeURIComponent(subscriptionId)}`,
-        SUPABASE_SERVICE_ROLE_KEY, 'PATCH', {
-          tier: (currentSubscription.status === 'active' || currentSubscription.status === 'trialing') ? 'paid' : 'expired',
-          ...(currentSubscription.status === 'canceled' ? { unsubscribed_at: new Date().toISOString() } : {}),
-        }, 'return=representation');
-    } else if (payload.type === 'customer.subscription.updated') {
-      const tier = (currentSubscription.status === 'active' || currentSubscription.status === 'trialing') ? 'paid' : 'expired';
-      await supabaseMutation(fetchImpl,
-        `${SUPABASE_URL}/rest/v1/subscribers?stripe_subscription_id=eq.${encodeURIComponent(subscriptionId)}`,
-        SUPABASE_SERVICE_ROLE_KEY, 'PATCH', { tier }, 'return=representation');
-    }
-  } catch {
-    return webhookFailure(payload, dependencies, 'subscriber_update', 'subscriber_store_failed', 'none', true, 'stripe_retry');
-  }
-
   try {
     const result = await recordEventReceipt({
       receipt,
@@ -395,6 +397,15 @@ function subscriptionUrl(lang, token) {
 function stripeId(value) {
   return typeof value === 'string' ? value : value && typeof value.id === 'string' ? value.id : null;
 }
+
+function readbackTimestamp(dependencies) {
+  const value = dependencies.now ? dependencies.now() : Date.now();
+  if (dependencies.now) return new Date(value).toISOString();
+  lastReadbackMs = Math.max(Number(value), lastReadbackMs + 1);
+  return new Date(lastReadbackMs).toISOString();
+}
+
+let lastReadbackMs = 0;
 
 function dbHeaders(serviceKey, prefer) {
   return {
@@ -498,6 +509,40 @@ async function retrieveStripeSubscription(subscriptionId, stripeKey, fetchImpl) 
     throw new Error('stripe_subscription_readback_invalid');
   }
   return subscription;
+}
+
+async function applySubscriptionState({
+  subscriptionId,
+  status,
+  readbackAt,
+  eventId,
+  email,
+  lang,
+  customerId,
+  fetchImpl,
+  supabaseUrl,
+  serviceKey,
+}) {
+  const response = await fetchImpl(`${supabaseUrl}/rest/v1/rpc/apply_ebook_subscription_state`, {
+    method: 'POST',
+    headers: dbHeaders(serviceKey),
+    body: JSON.stringify({
+      p_stripe_subscription_id: subscriptionId,
+      p_subscription_status: status,
+      p_readback_at: readbackAt,
+      p_event_id: eventId,
+      p_email: email || null,
+      p_lang: email ? lang : null,
+      p_stripe_customer_id: customerId || null,
+    }),
+  });
+  if (!response.ok) throw new Error('subscription_state_rpc_failed');
+  const result = await response.json();
+  if (!result || !['applied', 'stale', 'duplicate', 'conflict'].includes(result.outcome)) {
+    throw new Error('subscription_state_rpc_invalid');
+  }
+  if (result.outcome === 'conflict') throw new Error('subscription_state_readback_conflict');
+  return result;
 }
 
 async function updateReceipt({ row, fetchImpl, supabaseUrl, serviceKey, expectedStatus, patch }) {

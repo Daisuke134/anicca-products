@@ -35,6 +35,22 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         run: |
           set -euo pipefail
+          npx --yes netlify-cli@latest env:list --context production --json --site "$NETLIFY_SITE_ID" 2>/dev/null \
+            | node -e '
+              let input="";
+              process.stdin.on("data", chunk => input += chunk).on("end", () => {
+                try {
+                  const data = JSON.parse(input);
+                  const entries = Array.isArray(data) ? data : (data.envs || data.variables || data.data || []);
+                  const names = entries.map(item => typeof item === "string" ? item : item.key || item.name)
+                    .filter(name => typeof name === "string" && /(RESEND|EMAIL|DATABASE|POSTGRES|SUPABASE|PG)/i.test(name))
+                    .sort();
+                  console.log(JSON.stringify({ production_env_names: names }));
+                } catch {
+                  console.log(JSON.stringify({ production_env_names: "unavailable" }));
+                }
+              });
+            '
           SUPABASE_URL="$(npx --yes netlify-cli@latest env:get SUPABASE_URL --context production --site "$NETLIFY_SITE_ID" 2>/dev/null | tail -n 1 || true)"
           SUPABASE_SERVICE_ROLE_KEY="$(npx --yes netlify-cli@latest env:get SUPABASE_SERVICE_ROLE_KEY --context production --site "$NETLIFY_SITE_ID" 2>/dev/null | tail -n 1 || true)"
           RESEND_API_KEY="$(npx --yes netlify-cli@latest env:get RESEND_API_KEY --context production --site "$NETLIFY_SITE_ID" 2>/dev/null | tail -n 1 || true)"
@@ -59,6 +75,8 @@ jobs:
                 console.log(JSON.stringify({
                   table,
                   exposed: Boolean(path),
+                  required: definition?.required || [],
+                  schema_hints: Object.keys(definition || {}).filter((key) => /key|constraint/i.test(key)),
                   columns: Object.keys(definition?.properties || {}).sort(),
                 }));
               }
@@ -72,7 +90,12 @@ jobs:
               headers: { Authorization: `Bearer ${resendKey}` },
             });
             if (!domainsResponse.ok) {
-              console.log(JSON.stringify({ resend_domains: 'unavailable', http_status: domainsResponse.status }));
+              const error = await domainsResponse.json().catch(() => ({}));
+              console.log(JSON.stringify({
+                resend_domains: 'unavailable',
+                http_status: domainsResponse.status,
+                error_name: error.name || null,
+              }));
             } else {
               const domains = await domainsResponse.json();
               console.log(JSON.stringify({
