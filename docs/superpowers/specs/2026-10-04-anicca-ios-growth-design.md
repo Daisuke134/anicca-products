@@ -12,9 +12,9 @@
 - 文書worktree: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan`
 - 文書branch: `docs/anicca-ios-growth-plan-20261004`
 - push先: `origin/docs/anicca-ios-growth-plan-20261004`
-- source audit baseline: `081eeb2e6fc9b44087eb4439e81951fa30c2cb9c`。2026-10-05 11:06 JSTにfresh fetchした`anicca-products origin/main=825802052acbcb543f22927579ae4ae5e620d7ac`。現行source authorityのLife Manager mainは`2a8d40e68f306105c59fa21631f6b9bf01ab5c90`。将来のsource実装worktreeは編集着手前にLife Manager最新mainから作る。両repositoryのsource/refを混同しない。
+- source audit baseline: `081eeb2e6fc9b44087eb4439e81951fa30c2cb9c`。2026-10-05 11:06 JSTにfresh fetchした`anicca-products origin/main=825802052acbcb543f22927579ae4ae5e620d7ac`。現行source authorityのLife Manager mainは`3f11ad0b8be553914215aa3263fe8d48cf0f763d`（12:11 JST）。将来のsource実装worktreeは編集着手前にLife Manager最新mainから作る。両repositoryのsource/refを混同しない。
 - 実行計画: `../plans/2026-10-04-anicca-ios-growth-plan.md`
-- 最新再開メモ: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan/.claude/handovers/2026-10-05_1200_anicca-ios-growth.md`
+- 最新再開メモ: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan/.claude/handovers/2026-10-05_1211_anicca-ios-growth.md`
 - 残作業とcursorの唯一の正本は実行計画の「タスク一覧」。このspecに第二のTODOを作らない。
 - `/Users/anicca/anicca-project`は他者の変更がある共有checkout。切り替え、cleanup、変更の巻き戻しをしない。
 - この文書worktreeはsparse checkoutで文書だけを展開する。製品ソースは`git show HEAD:<path>`で読める。将来の実装は新たに最新main由来の専用worktreeを作り、そこで対象ソースを展開する。
@@ -190,9 +190,15 @@ The current Task 2a verification environment is also clearer: the isolated paywa
 
 The nine SPM packages were resolved successfully into the external Xcode cache. The candidate worktree received only ignored, mode-0600 staging/production config copies from the checked-in examples, with `REPLACE_ME` values. No production credentials were used. The generic simulator build-for-testing and a later arm64-only attempt both reached framework compilation but were deliberately canceled when free space crossed 1 GiB; no test target completed, no app launched, and no Mixpanel/RevenueCat event was sent. The first Xcode clean tried to clone a second package cache into DerivedData and failed exit 74 with `No space left on device`; a corrected clean using the existing cache succeeded. At 12:00 JST Data has 1.3 GiB free, task DerivedData 718 MiB, package cache 1.7 GiB, simulator Shutdown, and no xcodebuild process. This is source/build preparation only and does not satisfy runtime event acceptance.
 
+### 2026-10-05 12:11 JST exact compile failure
+
+The arm64 compile attempt exited 65. Private log `/Users/anicca/.local/state/life-manager/xcode-task2a-build-20261005T030810Z.log` is mode 0600, SHA-256 `7c78200590b9e93318448f9a3472570009e405a0a006b54206eca38b49c6c7b6`. The compiler reports `SingularManager.swift:19:28 cannot find SingularConfig in scope` and `:30:9 cannot find Singular in scope`. Latest main is `3f11ad0b8be553914215aa3263fe8d48cf0f763d`; the candidate branch is 23 main-only / 1 candidate-only, with no difference in `SingularManager.swift`, the Xcode project, or the package pin. The latest main file imports Foundation/UIKit/OSLog but omits `import Singular`, while the target links the `Singular` package product. This compile blocker is present in main and is independent of the paywall dedupe diff.
+
+**Ruling:** add only `import Singular` to `Services/SingularManager.swift` as a compile prerequisite within Task 2a, after syncing its dedicated branch with current main. The import changes no runtime behavior. Cost if wrong: the next compile may expose another failure, while the one-event runtime gate remains open. At 12:11 JST Data free is 1.2 GiB, DerivedData 1.3 GiB, package cache 1.7 GiB, simulator Shutdown, and no active build. The app was not launched and no provider event was sent.
+
 ### 2026-10-05 FastlaneにあるASO metadata候補
 
-Life Manager current `origin/main=c90b7ca6b9c8790214ccb2dde1d841102c89b75f`には6 localeの `apps/mobile/anicca-ios/fastlane/metadata/<locale>/keywords.txt` がある。Fresh diff from 82d31995e68a5220b7a288318a893866a24c7ea6 to this main has no apps/mobile/anicca-ios changes. 全ファイルは `0e0758d7f7`（2026-09-17、iOS source co-location）で追加された。
+2026-10-05のASO候補readback時点ではLife Manager `origin/main=c90b7ca6b9c8790214ccb2dde1d841102c89b75f`に6 localeの `apps/mobile/anicca-ios/fastlane/metadata/<locale>/keywords.txt` があった。最新main `3f11ad0b8be553914215aa3263fe8d48cf0f763d`の現在値をこの履歴snapshotから推定しない。全ファイルは `0e0758d7f7`（2026-09-17、iOS source co-location）で追加された。
 
 | locale | tracked keyword candidate | 文字数 |
 |---|---|---:|
