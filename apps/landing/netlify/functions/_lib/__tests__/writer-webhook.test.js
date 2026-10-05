@@ -33,6 +33,7 @@ const deps = (overrides = {}) => ({
   nowSeconds: NOW,
   sendEmail: async () => { throw new Error('Writer must not send legacy fulfillment'); },
   fetchImpl: async () => { throw new Error('Writer must not write legacy stores'); },
+  logFailure: () => {},
   ...overrides,
 });
 
@@ -84,10 +85,11 @@ test('Writer subscription, invoice, refund, and payout events are safely acknowl
 
 test('legacy ebook checkout retains its email fulfillment behavior', async () => {
   let delivered = 0;
+  const receiptRows = new Map();
   const payload = {
     id: 'evt_ebook', type: 'checkout.session.completed',
     data: { object: {
-      id: 'cs_ebook', mode: 'payment', metadata: { product: 'ebook', lang: 'en' },
+      id: 'cs_ebook', mode: 'payment', payment_status: 'paid', metadata: { product: 'ebook', lang: 'en' },
       customer_details: { email: 'buyer@example.com' }, amount_total: 1099, currency: 'usd',
     } },
   };
@@ -96,6 +98,24 @@ test('legacy ebook checkout retains its email fulfillment behavior', async () =>
       STRIPE_WEBHOOK_SECRET: SECRET,
       STRIPE_SECRET_KEY: 'sk_live_redacted',
       RESEND_API_KEY: 're_redacted',
+      SUPABASE_URL: 'https://supabase.example.test',
+      SUPABASE_SERVICE_ROLE_KEY: 'service_role_redacted',
+    },
+    fetchImpl: async (url, options) => {
+      const body = options.body ? JSON.parse(options.body) : null;
+      if (url.includes('/ebook_webhook_receipts') && options.method === 'POST') {
+        receiptRows.set(body.stripe_event_id, body);
+        return { ok: true, status: 201, json: async () => [body] };
+      }
+      if (url.includes('/ebook_webhook_receipts') && options.method === 'PATCH') {
+        const eventId = decodeURIComponent(url.match(/stripe_event_id=eq\.([^&]+)/)[1]);
+        Object.assign(receiptRows.get(eventId), body);
+        return { ok: true, status: 200, json: async () => [receiptRows.get(eventId)] };
+      }
+      if (url.includes('/buyers')) {
+        return { ok: true, status: 201, json: async () => [body] };
+      }
+      throw new Error(`unexpected request ${url}`);
     },
     sendEmail: async () => { delivered += 1; },
   }));
