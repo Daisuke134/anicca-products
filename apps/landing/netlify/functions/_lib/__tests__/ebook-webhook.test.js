@@ -29,13 +29,22 @@ function response(status, value) {
   };
 }
 
-function fakeGateway({ receiptStatus = 201, buyerStatus = 201, resendStatus = 200 } = {}) {
+function fakeGateway({
+  receiptStatus = 201,
+  buyerStatus = 201,
+  resendStatus = 200,
+  resendErrorName = 'resend_unavailable',
+  resendResponses = [],
+  failEventReceiptWrites = 0,
+} = {}) {
   const receiptsBySession = new Map();
   const receiptsByEvent = new Map();
   const buyerRows = [];
   const subscriberRows = [];
   const subscribersById = new Map();
   const emailRequests = [];
+  let eventReceiptFailuresRemaining = failEventReceiptWrites;
+  let resendAttempts = 0;
 
   async function fetchImpl(url, options = {}) {
     const method = options.method || 'GET';
@@ -45,6 +54,10 @@ function fakeGateway({ receiptStatus = 201, buyerStatus = 201, resendStatus = 20
       if (method === 'POST') {
         if (receiptStatus >= 400) return response(receiptStatus, { message: 'receipt store unavailable' });
         const keyedBySession = url.includes('on_conflict=stripe_session_id');
+        if (!keyedBySession && eventReceiptFailuresRemaining > 0) {
+          eventReceiptFailuresRemaining -= 1;
+          return response(503, { message: 'event receipt store unavailable' });
+        }
         const key = keyedBySession ? body.stripe_session_id : body.stripe_event_id;
         const table = keyedBySession ? receiptsBySession : receiptsByEvent;
         if (table.has(key)) return response(201, []);
@@ -93,12 +106,16 @@ function fakeGateway({ receiptStatus = 201, buyerStatus = 201, resendStatus = 20
     }
     if (url === 'https://api.resend.com/emails') {
       emailRequests.push({ headers: options.headers, body });
-      return response(resendStatus, resendStatus < 300 ? { id: `email_${emailRequests.length}` } : { message: 'resend unavailable' });
+      const spec = resendResponses[resendAttempts++] || {
+        status: resendStatus,
+        body: resendStatus < 300 ? { id: `email_${emailRequests.length}` } : { name: resendErrorName },
+      };
+      return response(spec.status, spec.body);
     }
     throw new Error(`unexpected request: ${method} ${url}`);
   }
 
-  return { fetchImpl, receiptsBySession, receiptsByEvent, buyerRows, subscriberRows, emailRequests };
+  return { fetchImpl, receiptsBySession, receiptsByEvent, buyerRows, subscriberRows, subscribersById, emailRequests };
 }
 
 function dependencies(gateway, overrides = {}) {
@@ -236,6 +253,38 @@ test('Resend failure is surfaced and its ambiguous delivery receipt fences repla
   assert.equal(gateway.receiptsBySession.get('cs_ebook_en').delivery_status, 'effect_unknown');
 });
 
+test('Resend invalid_idempotent_request 409 fences delivery instead of retrying a different payload', async () => {
+  const gateway = fakeGateway({ resendStatus: 409, resendErrorName: 'invalid_idempotent_request' });
+  const deps = dependencies(gateway);
+  const event = signedEvent(ebookCheckout());
+
+  const first = await webhookHandler(event, deps);
+  const replay = await webhookHandler(event, deps);
+
+  assert.ok(first.statusCode >= 500);
+  assert.ok(replay.statusCode >= 500);
+  assert.equal(gateway.emailRequests.length, 1);
+  assert.equal(gateway.receiptsBySession.get('cs_ebook_en').delivery_status, 'effect_unknown');
+});
+
+test('Resend concurrent_idempotent_requests 409 retries the identical request safely', async () => {
+  const gateway = fakeGateway({ resendResponses: [
+    { status: 409, body: { name: 'concurrent_idempotent_requests' } },
+    { status: 200, body: { id: 'email_recovered' } },
+  ] });
+  const deps = dependencies(gateway);
+  const event = signedEvent(ebookCheckout());
+
+  const first = await webhookHandler(event, deps);
+  const replay = await webhookHandler(event, deps);
+
+  assert.ok(first.statusCode >= 500);
+  assert.equal(replay.statusCode, 200);
+  assert.equal(gateway.emailRequests.length, 2);
+  assert.equal(gateway.emailRequests[0].headers['Idempotency-Key'], gateway.emailRequests[1].headers['Idempotency-Key']);
+  assert.equal(gateway.receiptsBySession.get('cs_ebook_en').delivery_status, 'delivered');
+});
+
 test('Letter trial and paid invoice receipts preserve attribution without ebook delivery', async () => {
   const gateway = fakeGateway();
   const deps = dependencies(gateway);
@@ -283,4 +332,39 @@ test('Letter trial and paid invoice receipts preserve attribution without ebook 
   assert.equal(gateway.emailRequests.length, 1);
   assert.match(gateway.emailRequests[0].body.html, /first 14 days are free/);
   assert.doesNotMatch(gateway.emailRequests[0].body.html, /anicca-reset-en\.pdf/);
+});
+
+test('subscription state update replays safely if its event receipt insert fails', async () => {
+  const gateway = fakeGateway({ failEventReceiptWrites: 1 });
+  const deps = dependencies(gateway);
+  const trial = {
+    id: 'evt_letter_trial_for_retry',
+    type: 'checkout.session.completed',
+    data: { object: {
+      id: 'cs_letter_retry', mode: 'subscription', payment_status: 'no_payment_required',
+      customer: 'cus_letter', subscription: 'sub_letter',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+      customer_details: { email: 'reader@example.com' },
+    } },
+  };
+  const pastDue = {
+    id: 'evt_letter_past_due',
+    type: 'customer.subscription.updated',
+    data: { object: {
+      id: 'sub_letter', customer: 'cus_letter', status: 'past_due',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+    } },
+  };
+
+  await webhookHandler(signedEvent(trial), deps);
+  const first = await webhookHandler(signedEvent(pastDue), deps);
+  const replay = await webhookHandler(signedEvent(pastDue), deps);
+  const receipt = gateway.receiptsByEvent.get('evt_letter_past_due');
+  const subscriber = gateway.subscribersById.get('sub_letter');
+
+  assert.ok(first.statusCode >= 500);
+  assert.equal(replay.statusCode, 200);
+  assert.equal(receipt.delivery_status, 'not_required');
+  assert.equal(subscriber.tier, 'expired');
+  assert.equal(gateway.emailRequests.length, 1);
 });
