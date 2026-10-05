@@ -298,7 +298,10 @@ test('Resend concurrent_idempotent_requests 409 retries the identical request sa
 });
 
 test('Letter trial and paid invoice receipts preserve attribution without ebook delivery', async () => {
-  const gateway = fakeGateway();
+  const gateway = fakeGateway({ stripeSubscriptionResponses: [
+    { status: 200, body: { id: 'sub_letter', status: 'trialing' } },
+    { status: 200, body: { id: 'sub_letter', status: 'active' } },
+  ] });
   const deps = dependencies(gateway);
   const trial = {
     id: 'evt_letter_trial',
@@ -350,6 +353,7 @@ test('subscription state update replays safely if its event receipt insert fails
   const gateway = fakeGateway({
     failEventReceiptWrites: 1,
     stripeSubscriptionResponses: [
+      { status: 200, body: { id: 'sub_letter', status: 'trialing' } },
       { status: 200, body: { id: 'sub_letter', status: 'past_due' } },
       { status: 200, body: { id: 'sub_letter', status: 'past_due' } },
     ],
@@ -389,6 +393,7 @@ test('subscription state update replays safely if its event receipt insert fails
 
 test('replaying an old active event after cancellation does not restore paid access', async () => {
   const gateway = fakeGateway({ stripeSubscriptionResponses: [
+    { status: 200, body: { id: 'sub_letter', status: 'trialing' } },
     { status: 200, body: { id: 'sub_letter', status: 'active' } },
     { status: 200, body: { id: 'sub_letter', status: 'canceled' } },
   ] });
@@ -427,5 +432,46 @@ test('replaying an old active event after cancellation does not restore paid acc
 
   assert.equal(replay.statusCode, 200);
   assert.equal(gateway.subscribersById.get('sub_letter').tier, 'expired');
-  assert.equal(gateway.stripeSubscriptionReads, 2);
+  assert.equal(gateway.stripeSubscriptionReads, 3);
+});
+
+test('retrying a failed Letter welcome after cancellation does not restore paid access', async () => {
+  const gateway = fakeGateway({
+    stripeSubscriptionResponses: [
+      { status: 200, body: { id: 'sub_letter', status: 'trialing' } },
+      { status: 200, body: { id: 'sub_letter', status: 'canceled' } },
+      { status: 200, body: { id: 'sub_letter', status: 'canceled' } },
+    ],
+    resendResponses: [{ status: 400, body: { name: 'validation_error' } }],
+  });
+  const deps = dependencies(gateway);
+  const checkout = {
+    id: 'evt_letter_welcome_retry',
+    type: 'checkout.session.completed',
+    data: { object: {
+      id: 'cs_letter_welcome_retry', mode: 'subscription', payment_status: 'no_payment_required',
+      customer: 'cus_letter', subscription: 'sub_letter',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+      customer_details: { email: 'reader@example.com' },
+    } },
+  };
+  const canceled = {
+    id: 'evt_letter_welcome_canceled',
+    type: 'customer.subscription.deleted',
+    data: { object: {
+      id: 'sub_letter', customer: 'cus_letter', status: 'canceled',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+    } },
+  };
+
+  const firstCheckout = await webhookHandler(signedEvent(checkout), deps);
+  await webhookHandler(signedEvent(canceled), deps);
+  const retriedCheckout = await webhookHandler(signedEvent(checkout), deps);
+
+  assert.ok(firstCheckout.statusCode >= 500);
+  assert.equal(retriedCheckout.statusCode, 200);
+  assert.equal(gateway.subscribersById.get('sub_letter').tier, 'expired');
+  assert.equal(gateway.receiptsBySession.get('cs_letter_welcome_retry').delivery_status, 'not_required');
+  assert.equal(gateway.emailRequests.length, 1);
+  assert.equal(gateway.stripeSubscriptionReads, 3);
 });
