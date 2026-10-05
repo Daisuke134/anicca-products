@@ -70,7 +70,7 @@ jobs:
               console.log(JSON.stringify({ schema_readback: 'unavailable', http_status: response.status }));
             } else {
               const spec = await response.json();
-              for (const table of ['buyers', 'subscribers', 'ebook_webhook_receipts']) {
+              for (const table of ['buyers', 'subscribers', 'ebook_webhook_receipts', 'ebook_subscription_states']) {
                 const path = Object.keys(spec.paths || {}).find((item) => item === `/${table}` || item.endsWith(`/${table}`));
                 const definition = Object.entries(spec.definitions || {})
                   .find(([name]) => name.split('.').at(-1).toLowerCase() === table)?.[1];
@@ -101,6 +101,73 @@ jobs:
             console.log(JSON.stringify({
               ebook_receipts_table_http_status: receiptProbe.status,
               error_code: receiptError && (receiptError.code || receiptError.name) || null,
+            }));
+            const indexResponse = await fetch(`${root}/rest/v1/pg_indexes?select=indexname,indexdef&schemaname=eq.public&tablename=eq.subscribers`, {
+              headers: auth,
+            });
+            const indexBody = indexResponse.ok ? await indexResponse.json().catch(() => []) : await indexResponse.json().catch(() => ({}));
+            const uniqueIndexes = Array.isArray(indexBody)
+              ? indexBody.filter((row) => /\bUNIQUE\b/i.test(row.indexdef || ''))
+              : [];
+            console.log(JSON.stringify({
+              subscribers_index_catalog_http_status: indexResponse.status,
+              index_catalog_error_code: indexBody && (indexBody.code || indexBody.name) || null,
+              unique_index_names: uniqueIndexes.map((row) => row.indexname).sort(),
+              unique_email_index_names: uniqueIndexes.filter((row) => /email/i.test(row.indexdef || '')).map((row) => row.indexname).sort(),
+            }));
+            const pageSize = 500;
+            const emailCounts = new Map();
+            let offset = 0;
+            let totalRows = null;
+            let stableTotal = true;
+            let scanEnded = false;
+            let subscriberRowsScanned = 0;
+            let emptyNormalizedEmailRows = 0;
+            let scanError = null;
+            while (true) {
+              const pageUrl = `${root}/rest/v1/subscribers?select=email&order=id.asc&limit=${pageSize}&offset=${offset}`;
+              const pageResponse = await fetch(pageUrl, { headers: { ...auth, Prefer: 'count=exact' } });
+              if (!pageResponse.ok) {
+                const error = await pageResponse.json().catch(() => ({}));
+                scanError = { http_status: pageResponse.status, error_code: error.code || error.name || null };
+                break;
+              }
+              const range = pageResponse.headers.get('content-range') || '';
+              const rangeMatch = /\/(\d+)$/.exec(range);
+              const reportedTotal = rangeMatch ? Number(rangeMatch[1]) : null;
+              if (totalRows === null) totalRows = reportedTotal;
+              else if (reportedTotal !== null && reportedTotal !== totalRows) stableTotal = false;
+              const rows = await pageResponse.json().catch(() => null);
+              if (!Array.isArray(rows)) {
+                scanError = { http_status: pageResponse.status, error_code: 'invalid_json_shape' };
+                break;
+              }
+              subscriberRowsScanned += rows.length;
+              for (const row of rows) {
+                const email = typeof row.email === 'string' ? row.email.trim().toLowerCase() : '';
+                if (!email) {
+                  emptyNormalizedEmailRows += 1;
+                  continue;
+                }
+                emailCounts.set(email, (emailCounts.get(email) || 0) + 1);
+              }
+              offset += rows.length;
+              if (rows.length < pageSize || (totalRows !== null && offset >= totalRows)) {
+                scanEnded = true;
+                break;
+              }
+            }
+            const duplicateGroups = [...emailCounts.values()].filter((count) => count > 1);
+            const scanComplete = scanEnded && (totalRows === null || subscriberRowsScanned === totalRows);
+            console.log(JSON.stringify({
+              subscriber_email_scan: scanError ? 'incomplete' : !stableTotal ? 'unstable_total' : scanComplete ? 'complete' : 'incomplete',
+              subscriber_rows_scanned: subscriberRowsScanned,
+              subscriber_rows_reported: totalRows,
+              normalized_email_groups: emailCounts.size,
+              duplicate_normalized_email_groups: duplicateGroups.length,
+              duplicate_normalized_email_extra_rows: duplicateGroups.reduce((sum, count) => sum + count - 1, 0),
+              empty_normalized_email_rows: emptyNormalizedEmailRows,
+              scan_error: scanError,
             }));
           }
           const resendKey = process.env.RESEND_API_KEY;
