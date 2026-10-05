@@ -38,11 +38,13 @@ jobs:
               process.stdin.on("data", chunk => input += chunk).on("end", () => {
                 try {
                   const data = JSON.parse(input);
-                  const entries = Array.isArray(data) ? data : (data.envs || data.variables || data.data || []);
-                  const names = entries.map(item => typeof item === "string" ? item : item.key || item.name)
+                  const names = Array.isArray(data)
+                    ? data.map(item => typeof item === "string" ? item : item.key || item.name)
+                    : data && typeof data === "object" ? Object.keys(data) : [];
+                  const filteredNames = names
                     .filter(name => typeof name === "string" && /(RESEND|EMAIL|DATABASE|POSTGRES|SUPABASE|PG)/i.test(name))
                     .sort();
-                  console.log(JSON.stringify({ production_env_names: names }));
+                  console.log(JSON.stringify({ production_env_names: filteredNames }));
                 } catch {
                   console.log(JSON.stringify({ production_env_names: "unavailable" }));
                 }
@@ -51,7 +53,8 @@ jobs:
           SUPABASE_URL="$(npx --yes netlify-cli@latest env:get SUPABASE_URL --context production --site "$NETLIFY_SITE_ID" 2>/dev/null | tail -n 1 || true)"
           SUPABASE_SERVICE_ROLE_KEY="$(npx --yes netlify-cli@latest env:get SUPABASE_SERVICE_ROLE_KEY --context production --site "$NETLIFY_SITE_ID" 2>/dev/null | tail -n 1 || true)"
           RESEND_API_KEY="$(npx --yes netlify-cli@latest env:get RESEND_API_KEY --context production --site "$NETLIFY_SITE_ID" 2>/dev/null | tail -n 1 || true)"
-          export SUPABASE_URL SUPABASE_SERVICE_ROLE_KEY RESEND_API_KEY
+          RESEND_FROM_EMAIL="$(npx --yes netlify-cli@latest env:get RESEND_FROM_EMAIL --context production --site "$NETLIFY_SITE_ID" 2>/dev/null | tail -n 1 || true)"
+          export SUPABASE_URL SUPABASE_SERVICE_ROLE_KEY RESEND_API_KEY RESEND_FROM_EMAIL
           node --input-type=module <<'NODE'
           const base = process.env.SUPABASE_URL;
           const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -90,6 +93,12 @@ jobs:
             }));
           }
           const resendKey = process.env.RESEND_API_KEY;
+          const sender = process.env.RESEND_FROM_EMAIL || '';
+          const senderAddress = sender.match(/<\s*[^@>\s]+@([^>\s]+)\s*>|^[^@\s]+@([^@\s]+)$/);
+          console.log(JSON.stringify({
+            resend_from_email_configured: Boolean(sender),
+            resend_sender_domain: senderAddress ? (senderAddress[1] || senderAddress[2]).toLowerCase() : null,
+          }));
           if (!resendKey) {
             console.log(JSON.stringify({ resend_domains: 'unavailable', reason: 'netlify_env_missing' }));
           } else {
