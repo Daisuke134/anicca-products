@@ -96,6 +96,24 @@ test('tampered, expired, and wrong-secret bearer tokens fail closed', () => {
   assert.throws(() => verifyEntitlement({ token, secret: `${SECRET}x`, slug: EXPECTED.slug, nowSeconds: NOW }), /signature/);
 });
 
+test('non-canonical base64url signature padding bits fail closed', () => {
+  const grant = grantFromStripe({ session: paidSession(), expected: EXPECTED, liveMode: true });
+  const token = issueEntitlement({ secret: SECRET, grant, nowSeconds: NOW });
+  const [body, signature] = token.split('.');
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_';
+  const lastIndex = alphabet.indexOf(signature.at(-1));
+  const aliasIndex = (lastIndex & 0b111100) | ((lastIndex + 1) & 0b11);
+  const alternateSignature = `${signature.slice(0, -1)}${alphabet[aliasIndex]}`;
+  const alternate = `${body}.${alternateSignature}`;
+
+  assert.notEqual(alternate, token);
+  assert.deepEqual(Buffer.from(alternateSignature, 'base64url'), Buffer.from(signature, 'base64url'));
+  assert.throws(
+    () => verifyEntitlement({ token: alternate, secret: SECRET, slug: EXPECTED.slug, nowSeconds: NOW }),
+    /signature/,
+  );
+});
+
 test('unpaid/incomplete Checkout, bad lineage, and test/live mismatch never grant', () => {
   const invalid = [
     paidSession({ payment_status: 'unpaid' }),
