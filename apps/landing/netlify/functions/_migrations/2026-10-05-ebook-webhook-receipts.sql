@@ -118,12 +118,6 @@ BEGIN
   v_email := NULLIF(lower(trim(p_email)), '');
   IF v_email IS NOT NULL THEN
     PERFORM pg_advisory_xact_lock(hashtextextended(v_email, 0));
-    INSERT INTO public.subscribers (
-      email, lang, tier, stripe_customer_id, signed_up_at
-    ) VALUES (
-      v_email, p_lang, 'expired', p_stripe_customer_id, now()
-    ) ON CONFLICT DO NOTHING;
-
     SELECT id::text
       INTO v_subscriber_id
       FROM public.subscribers
@@ -131,6 +125,23 @@ BEGIN
      ORDER BY signed_up_at NULLS FIRST
      LIMIT 1
      FOR UPDATE;
+    IF v_subscriber_id IS NULL THEN
+      INSERT INTO public.subscribers (
+        email, lang, tier, stripe_customer_id, signed_up_at
+      ) VALUES (
+        v_email, p_lang, 'expired', p_stripe_customer_id, now()
+      ) ON CONFLICT DO NOTHING
+      RETURNING id::text INTO v_subscriber_id;
+      IF v_subscriber_id IS NULL THEN
+        SELECT id::text
+          INTO v_subscriber_id
+          FROM public.subscribers
+         WHERE lower(email) = v_email
+         ORDER BY signed_up_at NULLS FIRST
+         LIMIT 1
+         FOR UPDATE;
+      END IF;
+    END IF;
     IF v_subscriber_id IS NULL THEN
       RAISE EXCEPTION 'letter subscriber row missing after upsert';
     END IF;
