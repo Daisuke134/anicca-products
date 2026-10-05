@@ -337,7 +337,7 @@ RevenueCatの直接readbackは[2026-10-04 evidence](https://github.com/Daisuke13
 - PostHogはapp launch時に`Purchases.shared.appUserID`でidentifyされる。Mixpanelの`identify(userId:)`は`AuthCoordinator` loginから呼ばれる`AppState.updateUserCredentials()`時だけ実行される。現行sourceにMixpanel aliasや明示的なcross-source user bridgeは見当たらない。Inference: 保存済みaggregateではlogin前の匿名Mixpanel eventをRC/App Store customer eventへ安全に結合できず、実SDK/backendのidentity mergeとlogin時期は未確認。
 - `Onboarding/PersonalizedInsightStepView.swift`は回答を参照せず、固定のlocalized文字列を表示する。
 - Mixpanel、PostHog、RevenueCatは既存導入済み。導入済みと受信・正しい集計を区別する。
-- `aniccaios/aniccaiosTests/OnboardingV2Tests.swift`には現enumにない旧case名への参照がある。既存テストがそのまま有効だとは仮定しない。実行時にtarget inclusionとbaselineを確認する。
+- `aniccaios/aniccaiosTests/OnboardingV2Tests.swift`は、2026-10-05 13:14 JSTのmain-synced `build-for-testing`で`aniccaiosTests.xctest`までコンパイルできた。これはtest target inclusionとcompile proofで、XCTest実行やイベント発火を示さない。
 
 ### Source-onlyの計測重複修正
 
@@ -346,6 +346,10 @@ RevenueCatの直接readbackは[2026-10-04 evidence](https://github.com/Daisuke13
 - Active flowはOnboardingFlowView→PaywallFlowContainer→PaywallVariantBView。`PlanSelectionStepView`のhard flagはこの呼び出し経路に含まれない。Public 1.9.4/build mappingは未確認で、source-only fixをproduction effectと扱わない。
 - Independent read-only review of Life Manager base `82d31995e68a5220b7a288318a893866a24c7ea6` → head `3fee4d6cec74fdd469237a30b880106411c46f26` found no Critical/Important issue. Offline source-call-graph check confirms origin/main has two send paths and the branch has one; `swiftc -frontend -parse` and `git diff --check` pass. Xcode 26.6 has no simulator runtime. Fresh 2026-10-05 04:07 JST check with repo-root project `apps/mobile/anicca-ios/aniccaios.xcodeproj` showed `xcrun simctl list runtimes` empty; `xcodebuild -showdestinations` entered SwiftPM resolution then failed cloning PostHog due to `No space left on device`. At 04:09 JST, 309 MiB remained / volume was 100% full; no active xcodebuild process or failed PostHog clone directory remained. Earlier `build-for-testing` failed at destination selection (exit 70) and focused test dependency checkout failed for low disk (exit 74, 531 MiB at that attempt). No actual event count/public receipt is proved; branch is pushed but not PR-merged/released.
 - Reviewer also noted `PlanSelectionStepView.swift` contains an event call; a fresh search of canonical Swift files found only its type declaration and no active call site. Leave it unchanged; if a future flow uses it, re-audit its event path before enabling that flow.
+
+#### 2026-10-05 13:14 JST build readback
+
+Latest Life Manager `origin/main=32370e730c7c021917f80d35454bc5545e189b05`; dedicated branch `fix/anicca-paywall-view-dedupe-20261005` HEAD/upstream `8c2d9ec3a1fc17e08bb3c09c13c711c3c5e28e57`. The full staging `build-for-testing` exited 0 and built both app and test bundle. The only branch-specific source changes are the duplicate paywall event call removal and `import Singular`. Ignored Staging/Production xcconfigs came from checked-in examples with placeholder keys/`.invalid` endpoint and mode 0600. No app/test ran, no provider event was sent, and no PR/release/main integration occurred. The provider-isolated one-view/one-event check remains open because startup initializes analytics clients and the app has no test-only event sink.
 
 ### 未確認事項
 
@@ -473,6 +477,14 @@ CFO direct RevenueCat readbackは2026-10-03 Anicca MRR point JPY 3,196.91/USD 20
 推奨テストは、追加投稿ではなく次の既存予定枠を、同じ承認済み日本語affirmation内容・caption・CTAを使う15〜30秒の9:16 short-form videoへ置き換えること。変数はcarouselからvideoへのcreative format/assetだけにし、audience、message、locale、CTA、投稿slotを固定する。最初の1〜2秒にclear hook、実際のproduct experience、字幕と音声を入れる。TikTok for BusinessのCreative Codesは9:16、hook→body→close、soundを勧めるが広告向け資料なので、organic成果の保証ではなく制作heuristicとして使う。[TikTok Creative Codes](https://ads.tiktok.com/business/en-US/creative-codes)
 
 Task 1で公開版と機能の一致を確認するまでは、smart timingやAIが気分を検知するなど未確認の主張を使わない。Primary metricは既存owner metricsの168h views/post、secondaryは同sourceで取れるlikes/shares/saves。8件のcarousel履歴（median39.5、max58 views）は歴史的baselineであり、同時期controlではない。1本のpilotはscreeningに留め、過去medianを超えた場合も、既存slotで新しい2素材を再試験するまでcadence/投資を変えない。metrics schemaにclickがなくASC install/paidにjoinしていないため、views上昇だけをrevenue liftと呼ばない。
+
+### 外部事例からのdistribution仮説: Prayer Lock
+
+**一次資料:** [Ernesto SoftwareのX記事](https://x.com/ErnestoSOFTWARE/status/2106079377129685305?s=46)（公開HTMLを取得）。本文はPrayer Lockの月間売上を$0から$150kに伸ばしたという著者自身の説明で、記事にはスポンサー表示がある。著者は月$25k付近の停滞後、organic UGCが伸びたと述べ、月86M超のUGC views、1か月6,000超の動画投稿、200–300本/月という開始目安を挙げる。記事が示すICPの価値は「神とのより近い関係」。既存のviral formatの要素を組み合わせて独自formatを作り、organicで当たった動画をTikTok Spark Adsで拡大したという。
+
+**証拠の限界:** 金額・views・成長原因は著者の自己申告で、監査済み売上やMRRとは確認できない。cohort転換率、retention、CAC/LTV、refund、net profitも示されない。記事は60人超のcreator体制にも触れるため、200–300本/月を小規模チームへそのまま移す根拠にはならない。また、MVPを数日で出したという記述と、約1年の製品進化・UGC体制の記述は分けて読む。
+
+**Aniccaへの適用:** 使うのは本数ではなく、①ICP/具体的な悩みを一つに絞る、②既存の短尺formatを分解して一要素だけ変える、③投稿ID→到達/click→ASC store→first-time install→同一cohort課金を測る、④繰り返しorganicで勝ったformatだけを有料増幅候補にする、という仮説。Aniccaなら夜の考えすぎ・自己批判・先延ばし等から一つを選び、実際のaffirmation体験へつなぐ。現行ownerの投稿cadence内で小さく検証し、記事は勝った悩みを深掘りする。現状のASC 56 impressions / 5 page views（Anicca、10/01–10/03）はstore eventであり、UGC reachとは別指標。既存effect fenceとpost→store attributionを閉じ、実測net LTVがCACを上回るまでは200–300本/月やSpark Adsを目標にしない。
 
 ### アプリ工場の投資ゲート
 
