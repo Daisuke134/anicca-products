@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import JsonLd from '@/components/JsonLd';
 import { ManifestoHero, Section, Reveal } from '@/components/site/taste';
+import { buildCheckoutRequest } from '@/lib/checkout-attribution';
 
 const monkBookLd = {
   '@context': 'https://schema.org',
@@ -13,7 +14,7 @@ const monkBookLd = {
   inLanguage: 'en',
   publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
   description:
-    '49 short chapters, ~150 words each. Each chapter pairs one Pali term with one modern reframe and one practice. Theravada wisdom meets the neuroscience of emotion: the 90-second rule, memory reconsolidation, the witness practice. PDF, instant delivery, lifetime access.',
+    '49 short chapters. Each chapter pairs one Pali term with one modern reframe and one practice. Theravada wisdom meets the neuroscience of emotion: the 90-second rule, memory reconsolidation, the witness practice. PDF, instant delivery, lifetime access.',
   offers: {
     '@type': 'Offer',
     price: '10.99',
@@ -54,7 +55,9 @@ export default function MonkPage() {
       const r = await fetch('/.netlify/functions/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lang: 'en' }),
+        body: JSON.stringify(buildCheckoutRequest({
+          search: window.location.search, lang: 'en', product: 'ebook', mode: 'payment',
+        })),
         signal: ctrl.signal,
       });
       const { url } = await r.json();
@@ -87,7 +90,7 @@ export default function MonkPage() {
             Your heartbreak too.
           </>
         }
-        subtext="49 short chapters, ~150 words each. Theravada wisdom meets the neuroscience of emotion."
+        subtext="49 short chapters. Theravada wisdom meets the neuroscience of emotion."
         cta={
           <div className="flex flex-col items-start gap-3">
             <div className="w-44 h-60 bg-[hsl(var(--surface))] rounded-card shadow-md flex items-center justify-center text-[hsl(var(--text-primary))]">
@@ -116,7 +119,7 @@ export default function MonkPage() {
         </Reveal>
         <ul className="mx-auto max-w-xl space-y-4 text-base leading-relaxed text-[hsl(var(--text-primary))]">
           {[
-            '· 49 short chapters, ~150 words each - read one at breakfast.',
+            '· 49 short chapters - read one at breakfast.',
             '· Each chapter: one Pali term, one modern reframe, one practice you can do tonight.',
             '· Ancient Theravada wisdom meets neuroscience of emotion.',
             '· The 90-second rule. Memory reconsolidation. The witness practice.',

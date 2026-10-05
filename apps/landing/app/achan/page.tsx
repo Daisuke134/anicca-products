@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import JsonLd from '@/components/JsonLd';
 import { ManifestoHero, Section, Reveal } from '@/components/site/taste';
+import { buildCheckoutRequest } from '@/lib/checkout-attribution';
 
 const achanBookLd = {
   '@context': 'https://schema.org',
@@ -13,7 +14,7 @@ const achanBookLd = {
   inLanguage: 'ja',
   publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
   description:
-    '49の短章、各150字。各章は1つのパーリ語の概念、1つの現代的な言い換え、そして今夜できる1つの実践で構成。テーラワーダの智慧と感情の脳科学を融合。PDF・即時お届け・永久アクセス。',
+    '49の短章。各章は1つのパーリ語の概念、1つの現代的な言い換え、そして今夜できる1つの実践で構成。テーラワーダの智慧と感情の脳科学を融合。PDF・即時お届け・永久アクセス。',
   offers: {
     '@type': 'Offer',
     price: '1580',
@@ -54,7 +55,9 @@ export default function AchanPage() {
       const r = await fetch('/.netlify/functions/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lang: 'jp' }),
+        body: JSON.stringify(buildCheckoutRequest({
+          search: window.location.search, lang: 'jp', product: 'ebook', mode: 'payment',
+        })),
         signal: ctrl.signal,
       });
       const { url } = await r.json();
@@ -89,7 +92,7 @@ export default function AchanPage() {
             この苦しみも。
           </>
         }
-        subtext="49の短章、各150字。テーラワーダの智慧と感情の脳科学を、静かに読める本。"
+        subtext="49の短章。テーラワーダの智慧と感情の脳科学を、静かに読める本。"
         cta={
           <div className="flex flex-col items-start gap-3">
             <div className="flex items-baseline gap-2">
@@ -110,7 +113,7 @@ export default function AchanPage() {
         </Reveal>
         <ul className="mx-auto max-w-xl space-y-4 text-base leading-relaxed text-[hsl(var(--text-primary))]">
           {[
-            '・49の短章、各150字 - 朝の一杯と一緒に読める長さ。',
+            '・49の短章 - 朝の一杯と一緒に1章ずつ読めます。',
             '・各章: パーリ語1つ + 現代の言い換え + 今夜できる小さな実践。',
             '・テーラワーダ仏教の古い知恵 × 感情の脳科学。',
             '・90秒の法則、記憶の書き換え、観察するだけの実践。',

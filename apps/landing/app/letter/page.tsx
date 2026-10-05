@@ -6,6 +6,7 @@ import { ManifestoHero } from '@/components/site/taste/ManifestoHero';
 import { Section } from '@/components/site/taste/Section';
 import { Reveal } from '@/components/site/taste/Reveal';
 import { CTA } from '@/components/site/taste/CTA';
+import { buildCheckoutRequest } from '@/lib/checkout-attribution';
 
 // §11.F: JsonLd verbatim
 const letterLd = {
@@ -59,7 +60,9 @@ export default function LetterPage() {
       const r = await fetch('/.netlify/functions/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lang: 'en', mode: 'subscription', product: 'letter' }),
+        body: JSON.stringify(buildCheckoutRequest({
+          search: window.location.search, lang: 'en', product: 'letter', mode: 'subscription',
+        })),
         signal: ctrl.signal,
       });
       const { url } = await r.json();

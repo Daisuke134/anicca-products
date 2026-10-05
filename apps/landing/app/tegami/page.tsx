@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import JsonLd from '@/components/JsonLd';
 import { ManifestoHero, Section, Reveal } from '@/components/site/taste';
+import { buildCheckoutRequest } from '@/lib/checkout-attribution';
 
 const tegamiLd = {
   '@context': 'https://schema.org',
@@ -53,7 +54,9 @@ export default function TegamiPage() {
       const r = await fetch('/.netlify/functions/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lang: 'jp', mode: 'subscription', product: 'letter' }),
+        body: JSON.stringify(buildCheckoutRequest({
+          search: window.location.search, lang: 'jp', product: 'letter', mode: 'subscription',
+        })),
         signal: ctrl.signal,
       });
       const { url } = await r.json();
