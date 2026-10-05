@@ -207,7 +207,9 @@ async function webhookHandler(event, dependencies = {}) {
       emailReceipt = await sendEmail(RESEND_API_KEY, email, subject, html, idempotencyKey);
     } catch (error) {
       const effectUnknown = Boolean(error && error.effectUnknown);
-      const errorClass = effectUnknown ? 'resend_effect_unknown' : 'resend_rejected';
+      const errorClass = error && error.idempotencyPayloadMismatch
+        ? 'resend_idempotency_payload_mismatch'
+        : effectUnknown ? 'resend_effect_unknown' : 'resend_rejected';
       await bestEffortReceiptUpdate({
         claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
         patch: {
@@ -266,29 +268,10 @@ async function webhookHandler(event, dependencies = {}) {
     amount_total: null,
     amount_paid: payload.type === 'invoice.paid' && Number.isFinite(object.amount_paid) ? object.amount_paid : null,
     currency: object.currency || null,
-    delivery_status: 'processing',
+    delivery_status: 'not_required',
     error_class: null,
     next_action: null,
   };
-  let claim;
-  try {
-    claim = await claimReceipt({
-      receipt,
-      conflictColumn: 'stripe_event_id',
-      lookupColumn: 'stripe_event_id',
-      lookupValue: payload.id,
-      fetchImpl,
-      supabaseUrl: SUPABASE_URL,
-      serviceKey: SUPABASE_SERVICE_ROLE_KEY,
-    });
-  } catch {
-    return webhookFailure(payload, dependencies, 'subscription_receipt', 'receipt_store_failed', 'none', true, 'stripe_retry');
-  }
-  if (claim.completed) return { statusCode: 200, body: 'duplicate complete' };
-  if (!claim.claimed) {
-    return webhookFailure(payload, dependencies, 'subscription_receipt', 'event_already_in_flight', 'unknown', false, 'official_readback_required');
-  }
-
   try {
     if (payload.type === 'customer.subscription.deleted') {
       await supabaseMutation(fetchImpl,
@@ -301,20 +284,19 @@ async function webhookHandler(event, dependencies = {}) {
         SUPABASE_SERVICE_ROLE_KEY, 'PATCH', { tier }, 'return=representation');
     }
   } catch {
-    await bestEffortReceiptUpdate({
-      claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
-      patch: { delivery_status: 'retryable_failure', error_class: 'subscriber_store_failed', next_action: 'stripe_retry' },
-    });
     return webhookFailure(payload, dependencies, 'subscriber_update', 'subscriber_store_failed', 'none', true, 'stripe_retry');
   }
 
   try {
-    await updateClaimedReceipt({
-      claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
-      patch: { delivery_status: 'not_required', error_class: null, next_action: null },
+    const result = await recordEventReceipt({
+      receipt,
+      fetchImpl,
+      supabaseUrl: SUPABASE_URL,
+      serviceKey: SUPABASE_SERVICE_ROLE_KEY,
     });
+    if (result.completed) return { statusCode: 200, body: 'duplicate complete' };
   } catch {
-    return webhookFailure(payload, dependencies, 'subscription_finalize', 'receipt_finalize_failed', 'none', true, 'stripe_retry');
+    return webhookFailure(payload, dependencies, 'subscription_receipt', 'receipt_store_failed', 'none', true, 'stripe_retry');
   }
   return { statusCode: 200, body: 'ok subscription state' };
 }
@@ -395,6 +377,26 @@ async function claimReceipt({ receipt, conflictColumn, lookupColumn, lookupValue
     }
   }
   return { claimed: false, row: existing, lookupColumn, lookupValue };
+}
+
+async function recordEventReceipt({ receipt, fetchImpl, supabaseUrl, serviceKey }) {
+  const table = `${supabaseUrl}/rest/v1/ebook_webhook_receipts`;
+  const insert = await fetchImpl(`${table}?on_conflict=stripe_event_id`, {
+    method: 'POST',
+    headers: dbHeaders(serviceKey, 'resolution=ignore-duplicates,return=representation'),
+    body: JSON.stringify(receipt),
+  });
+  if (!insert.ok) throw new Error('event_receipt_insert_failed');
+  if ((await readRows(insert)).length > 0) return { recorded: true };
+
+  const existingResponse = await fetchImpl(
+    `${table}?stripe_event_id=eq.${encodeURIComponent(receipt.stripe_event_id)}&select=*`,
+    { headers: dbHeaders(serviceKey) },
+  );
+  if (!existingResponse.ok) throw new Error('event_receipt_read_failed');
+  const existing = (await readRows(existingResponse))[0];
+  if (existing && existing.delivery_status === 'not_required') return { completed: true };
+  throw new Error('event_receipt_unresolved');
 }
 
 async function updateReceipt({ row, fetchImpl, supabaseUrl, serviceKey, expectedStatus, patch }) {
@@ -487,8 +489,13 @@ async function sendResend(key, email, subject, html, fetchImpl = fetch, idempote
   let result = null;
   try { result = await response.json(); } catch { /* provider response body is optional */ }
   if (!response.ok) {
+    const errorName = result && (result.name || result.error);
+    const isConcurrentIdempotentRequest = response.status === 409 && errorName === 'concurrent_idempotent_requests';
+    const isIdempotencyPayloadMismatch = response.status === 409 && errorName === 'invalid_idempotent_request';
     const error = new Error(`resend_http_${response.status}`);
-    error.effectUnknown = response.status >= 500;
+    error.providerErrorName = typeof errorName === 'string' ? errorName : null;
+    error.idempotencyPayloadMismatch = isIdempotencyPayloadMismatch;
+    error.effectUnknown = response.status >= 500 || (response.status === 409 && !isConcurrentIdempotentRequest);
     throw error;
   }
   if (!result || typeof result.id !== 'string' || result.id.length === 0) {
