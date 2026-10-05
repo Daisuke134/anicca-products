@@ -94,6 +94,81 @@ CREATE INDEX IF NOT EXISTS ebook_subscription_states_subscriber_idx
 ALTER TABLE public.ebook_subscription_states ENABLE ROW LEVEL SECURITY;
 GRANT SELECT, INSERT, UPDATE ON TABLE public.ebook_subscription_states TO service_role;
 
+CREATE OR REPLACE FUNCTION public.upsert_ebook_subscriber(
+  p_email text,
+  p_lang text,
+  p_stripe_customer_id text,
+  p_touch_existing boolean
+)
+RETURNS jsonb
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, pg_temp
+AS $$
+DECLARE
+  v_email text;
+  v_subscriber_id text;
+  v_outcome text := 'existing';
+BEGIN
+  v_email := NULLIF(lower(trim(p_email)), '');
+  IF v_email IS NULL THEN
+    RAISE EXCEPTION 'missing subscriber email';
+  END IF;
+  IF p_lang IS NULL OR p_lang NOT IN ('en', 'jp') THEN
+    RAISE EXCEPTION 'invalid subscriber language';
+  END IF;
+  IF p_touch_existing IS NULL THEN
+    RAISE EXCEPTION 'missing subscriber update mode';
+  END IF;
+
+  PERFORM pg_advisory_xact_lock(hashtextextended(v_email, 0));
+  SELECT id::text
+    INTO v_subscriber_id
+    FROM public.subscribers
+   WHERE lower(trim(email)) = v_email
+   ORDER BY signed_up_at NULLS FIRST, id::text
+   LIMIT 1
+   FOR UPDATE;
+
+  IF v_subscriber_id IS NULL THEN
+    INSERT INTO public.subscribers (
+      email, lang, tier, stripe_customer_id, signed_up_at
+    ) VALUES (
+      v_email, p_lang, 'expired', p_stripe_customer_id, now()
+    ) ON CONFLICT DO NOTHING
+    RETURNING id::text INTO v_subscriber_id;
+    IF v_subscriber_id IS NOT NULL THEN
+      v_outcome := 'created';
+    ELSE
+      SELECT id::text
+        INTO v_subscriber_id
+        FROM public.subscribers
+       WHERE lower(trim(email)) = v_email
+       ORDER BY signed_up_at NULLS FIRST, id::text
+       LIMIT 1
+       FOR UPDATE;
+    END IF;
+  END IF;
+
+  IF v_subscriber_id IS NULL THEN
+    RAISE EXCEPTION 'subscriber row missing after upsert';
+  END IF;
+  IF v_outcome = 'existing' AND p_touch_existing THEN
+    UPDATE public.subscribers
+       SET lang = p_lang,
+           stripe_customer_id = COALESCE(p_stripe_customer_id, stripe_customer_id)
+     WHERE id::text = v_subscriber_id;
+    IF NOT FOUND THEN
+      RAISE EXCEPTION 'subscriber row missing during upsert';
+    END IF;
+  END IF;
+
+  RETURN jsonb_build_object(
+    'outcome', v_outcome, 'subscriber_id', v_subscriber_id
+  );
+END;
+$$;
+
 CREATE OR REPLACE FUNCTION public.reserve_ebook_subscription_readback(
   p_stripe_subscription_id text,
   p_email text,
@@ -108,6 +183,8 @@ AS $$
 DECLARE
   v_email text;
   v_subscriber_id text;
+  v_subscriber jsonb;
+  v_mapped_subscriber_id text;
   v_existing_subscriber_id text;
   v_generation bigint;
 BEGIN
@@ -117,30 +194,25 @@ BEGIN
 
   v_email := NULLIF(lower(trim(p_email)), '');
   IF v_email IS NOT NULL THEN
-    PERFORM pg_advisory_xact_lock(hashtextextended(v_email, 0));
-    SELECT id::text
-      INTO v_subscriber_id
-      FROM public.subscribers
-     WHERE lower(email) = v_email
-     ORDER BY signed_up_at NULLS FIRST
-     LIMIT 1
-     FOR UPDATE;
-    IF v_subscriber_id IS NULL THEN
-      INSERT INTO public.subscribers (
-        email, lang, tier, stripe_customer_id, signed_up_at
-      ) VALUES (
-        v_email, p_lang, 'expired', p_stripe_customer_id, now()
-      ) ON CONFLICT DO NOTHING
-      RETURNING id::text INTO v_subscriber_id;
+    SELECT subscriber_id
+      INTO v_mapped_subscriber_id
+      FROM public.ebook_subscription_states
+     WHERE stripe_subscription_id = p_stripe_subscription_id;
+    IF v_mapped_subscriber_id IS NOT NULL THEN
+      SELECT id::text
+        INTO v_subscriber_id
+        FROM public.subscribers
+       WHERE id::text = v_mapped_subscriber_id
+         AND lower(trim(email)) = v_email
+       FOR UPDATE;
       IF v_subscriber_id IS NULL THEN
-        SELECT id::text
-          INTO v_subscriber_id
-          FROM public.subscribers
-         WHERE lower(email) = v_email
-         ORDER BY signed_up_at NULLS FIRST
-         LIMIT 1
-         FOR UPDATE;
+        RAISE EXCEPTION 'letter subscription email mapping mismatch';
       END IF;
+    ELSE
+      v_subscriber := public.upsert_ebook_subscriber(
+        v_email, p_lang, p_stripe_customer_id, false
+      );
+      v_subscriber_id := v_subscriber->>'subscriber_id';
     END IF;
     IF v_subscriber_id IS NULL THEN
       RAISE EXCEPTION 'letter subscriber row missing after upsert';
@@ -336,6 +408,10 @@ BEGIN
 END;
 $$;
 
+REVOKE ALL ON FUNCTION public.upsert_ebook_subscriber(text, text, text, boolean)
+  FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.upsert_ebook_subscriber(text, text, text, boolean)
+  TO service_role;
 REVOKE ALL ON FUNCTION public.reserve_ebook_subscription_readback(text, text, text, text)
   FROM PUBLIC, anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.reserve_ebook_subscription_readback(text, text, text, text)
