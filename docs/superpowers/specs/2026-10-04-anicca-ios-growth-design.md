@@ -14,7 +14,7 @@
 - push先: `origin/docs/anicca-ios-growth-plan-20261004`
 - source audit baseline: `081eeb2e6fc9b44087eb4439e81951fa30c2cb9c`。2026-10-05 11:06 JSTにfresh fetchした`anicca-products origin/main=825802052acbcb543f22927579ae4ae5e620d7ac`。現行source authorityのLife Manager mainは`2a8d40e68f306105c59fa21631f6b9bf01ab5c90`。将来のsource実装worktreeは編集着手前にLife Manager最新mainから作る。両repositoryのsource/refを混同しない。
 - 実行計画: `../plans/2026-10-04-anicca-ios-growth-plan.md`
-- 最新再開メモ: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan/.claude/handovers/2026-10-05_1116_anicca-ios-growth.md`
+- 最新再開メモ: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan/.claude/handovers/2026-10-05_1133_anicca-ios-growth.md`
 - 残作業とcursorの唯一の正本は実行計画の「タスク一覧」。このspecに第二のTODOを作らない。
 - `/Users/anicca/anicca-project`は他者の変更がある共有checkout。切り替え、cleanup、変更の巻き戻しをしない。
 - この文書worktreeはsparse checkoutで文書だけを展開する。製品ソースは`git show HEAD:<path>`で読める。将来の実装は新たに最新main由来の専用worktreeを作り、そこで対象ソースを展開する。
@@ -179,6 +179,12 @@ The remaining TODO/order SSOT is still the plan's `タスク一覧`. Task 1 now 
 ### 2026-10-05 11:11 JST runtime resource refresh
 
 The fresh filesystem readback shows 1.7 GiB free on `/System/Volumes/Data` (reported at 100% capacity), up from 880 MiB at 11:04. The iOS 26.5 runtime is still installed, but `AniccaGrowthTask2a` is currently Shutdown and no xcodebuild process is running. Read-only sizing reports 132 MiB for `~/Library/Developer/Xcode` and 754 MiB for `~/Library/Developer/CoreSimulator`; the broader cache-size command encountered macOS permission-denied paths, and no cleanup was performed. Disk sufficiency for a focused build is unproven. Task 2a remains the first ordered open gate; its next safe check is local SwiftPM package availability and whether a runtime event test can avoid production Mixpanel traffic. Continue the Task 1 Page View evidence work in parallel only within its documented owner boundary; do not treat a stopped simulator or source-only diff as runtime acceptance.
+
+### 2026-10-05 11:33 JST newest persisted ANICCA measurement
+
+The latest saved `business-outcomes.jsonl` row for `anicca-ios` is business date 2026-10-04, observed `2026-10-04T22:25:29.147406Z`; the previously described 19:01Z row is historical. Its ASC Discovery report remains a 43-row window for 10-01..10-03 (SHA `98ce6116378dfd1b7fc3921491dfb0fc5ed443b0ac0a3eb671f8ce65f00a5084`), and the Downloads report is one row processed 10-04 (SHA `b49f392b5fa9c70de77d9b6c1716b8dcf0afaa6b56ef58d04490410b1bd81f73`). Purchases, Subscription Events, and Subscription State each have the prior saved report windows/hashes listed in the Growth plan. Product Analytics raw counts changed to app_opened 5, onboarding_started 2, onboarding_step_advanced 12, onboarding_completed 1, onboarding_insight_completed 1, onboarding_struggle_depth_completed 1, paywall_primer_viewed 3, paywall_plan_selection_viewed 2, and rating events 1 each. These counts are not unique users or a completed view→paid cohort. The row reports App Store Sales unavailable/provider_query_failed, PostHog unavailable/missing_project_read_credential, and RevenueCat available; no RevenueCat amount is treated as settled/net.
+
+The current Task 2a verification environment is also clearer: the isolated paywall worktree lacks both ignored `Staging.xcconfig` and `Production.xcconfig`; only placeholder examples exist. Its app scheme starts with `AppDelegate`, which configures Mixpanel from `MIXPANEL_TOKEN`; there is no discovered test-only analytics sink, and the existing unit test only asserts the event raw value. Nine SPM dependencies are pinned but no local Xcode `DerivedData` or `SourcePackages` checkout exists. Therefore an end-to-end event-count run cannot yet be isolated from provider traffic, and no build/test was attempted. Do not copy production keys into a worktree or send test events to production. A focused owner request was sent via AGMSG; inbox had no response at 11:33 JST.
 
 ### 2026-10-05 FastlaneにあるASO metadata候補
 
