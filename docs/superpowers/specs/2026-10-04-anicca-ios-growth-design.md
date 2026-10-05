@@ -176,6 +176,10 @@ The iOS 26.5 simulator runtime is installed and the `AniccaGrowthTask2a` device 
 
 The remaining TODO/order SSOT is still the plan's `タスク一覧`. Task 1 now has 9 open items after the requested read-only build-map check; its first open item remains the Mobile Metrics-owned Page View collector fix. The plan order is unchanged: Task 2a runtime gate, Task 1 remainder, Task 2/3, Task 4, Task 5, Task 6. Task 2a cannot safely proceed until disk headroom is restored.
 
+### 2026-10-05 11:11 JST runtime resource refresh
+
+The fresh filesystem readback shows 1.7 GiB free on `/System/Volumes/Data` (reported at 100% capacity), up from 880 MiB at 11:04. The iOS 26.5 runtime is still installed, but `AniccaGrowthTask2a` is currently Shutdown and no xcodebuild process is running. Read-only sizing reports 132 MiB for `~/Library/Developer/Xcode` and 754 MiB for `~/Library/Developer/CoreSimulator`; the broader cache-size command encountered macOS permission-denied paths, and no cleanup was performed. Disk sufficiency for a focused build is unproven. Task 2a remains the first ordered open gate; its next safe check is local SwiftPM package availability and whether a runtime event test can avoid production Mixpanel traffic. Continue the Task 1 Page View evidence work in parallel only within its documented owner boundary; do not treat a stopped simulator or source-only diff as runtime acceptance.
+
 ### 2026-10-05 FastlaneにあるASO metadata候補
 
 Life Manager current `origin/main=c90b7ca6b9c8790214ccb2dde1d841102c89b75f`には6 localeの `apps/mobile/anicca-ios/fastlane/metadata/<locale>/keywords.txt` がある。Fresh diff from 82d31995e68a5220b7a288318a893866a24c7ea6 to this main has no apps/mobile/anicca-ios changes. 全ファイルは `0e0758d7f7`（2026-09-17、iOS source co-location）で追加された。
