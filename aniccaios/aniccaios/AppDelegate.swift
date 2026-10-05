@@ -33,23 +33,26 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         // Mixpanelは常に初期化（ファーストパーティAnalytics、IDFAを使用しない）
         AnalyticsManager.shared.configure()
 
-        // PostHog: A/B テスト + Session Replay（RevenueCat configure の後）
-        let phConfig = PostHogConfig(
-            apiKey: "phc_Mw4K3aByYDRuAlfe55u5OYJrTwTcwhPextZjOw8z2nw",
-            host: "https://us.i.posthog.com"
-        )
-        phConfig.sessionReplay = true
-        phConfig.sessionReplayConfig.maskAllTextInputs = true
-        phConfig.sessionReplayConfig.maskAllImages = false
-        PostHogSDK.shared.setup(phConfig)
-        PostHogSDK.shared.identify(Purchases.shared.appUserID)
-        // identify() 後にフラグを明示リロード（ユーザーコンテキスト変更でpreload分が無効になるため）
-        // completion callback で featureFlagsReady を立てる → Paywall が nil を読まない
-        // Source: https://posthog.com/docs/libraries/ios/usage — "Ensuring flags are loaded before usage"
-        PostHogSDK.shared.reloadFeatureFlags {
-            Task { @MainActor in
-                AppState.shared.featureFlagsReady = true
+        // PostHog: A/B テスト + Session Replay（RevenueCat configure の後）。
+        // The project-specific key and host are supplied by ignored xcconfig files.
+        if let postHogKey = Bundle.main.object(forInfoDictionaryKey: "POSTHOG_API_KEY") as? String,
+           let postHogHost = Bundle.main.object(forInfoDictionaryKey: "POSTHOG_HOST") as? String,
+           !postHogKey.isEmpty, !postHogHost.isEmpty {
+            let phConfig = PostHogConfig(apiKey: postHogKey, host: postHogHost)
+            phConfig.sessionReplay = true
+            phConfig.sessionReplayConfig.maskAllTextInputs = true
+            phConfig.sessionReplayConfig.maskAllImages = false
+            PostHogSDK.shared.setup(phConfig)
+            PostHogSDK.shared.identify(Purchases.shared.appUserID)
+            // identify() 後にフラグを明示リロード（ユーザーコンテキスト変更でpreload分が無効になるため）
+            // completion callback で featureFlagsReady を立てる → Paywall が nil を読まない
+            PostHogSDK.shared.reloadFeatureFlags {
+                Task { @MainActor in
+                    AppState.shared.featureFlagsReady = true
+                }
             }
+        } else {
+            print("[PostHog] private build configuration is missing; skipping setup")
         }
 
         // Singular SDK: Install attribution + SKAN 管理（ATT なし、IDFV + SKAN 運用）

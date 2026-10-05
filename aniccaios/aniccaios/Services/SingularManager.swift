@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import OSLog
+import Singular
 
 @MainActor
 final class SingularManager {
@@ -13,11 +14,11 @@ final class SingularManager {
     func configure(launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) {
         guard !isConfigured else { return }
 
-        guard let config = SingularConfig(
-            apiKey: "aniccaai_e8e6f239",
-            andSecret: "6ce48fd492d16cf4e7905759762b96cd"
-        ) else {
-            logger.error("Singular config creation failed")
+        guard let apiKey = Bundle.main.object(forInfoDictionaryKey: "SINGULAR_API_KEY") as? String,
+              let secret = Bundle.main.object(forInfoDictionaryKey: "SINGULAR_SECRET") as? String,
+              !apiKey.isEmpty, !secret.isEmpty,
+              let config = SingularConfig(apiKey: apiKey, andSecret: secret) else {
+            logger.error("Singular private build configuration is missing")
             return
         }
 
