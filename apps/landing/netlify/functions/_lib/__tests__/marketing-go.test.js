@@ -49,7 +49,7 @@ test("routes ebook tokens only to their fixed product page", async () => {
     receiptId: () => "click-2",
     persist: async () => {},
   });
-  const token = "ej_abcdefghijklmnopqrst";
+  const token = "ej_cs6k5hu42kvx65x66imw"; // Life Manager creative.contract.1 golden vector
   const response = await handler(event(token));
   assert.equal(response.statusCode, 302);
   assert.equal(

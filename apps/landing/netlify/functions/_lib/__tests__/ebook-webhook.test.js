@@ -7,8 +7,9 @@ const { webhookHandler } = require('../../webhook.js');
 const SECRET = 'whsec_ebook_test';
 const NOW = 1785642000;
 const SUPABASE_URL = 'https://supabase.example.test';
-const TOKEN_EN = 'ee_abcdefghijklmnopqrst';
-const TOKEN_JP = 'ej_abcdefghijklmnopqrst';
+// Golden vectors from Life Manager attribution.py for creative.contract.1.
+const TOKEN_EN = 'ee_hcp4v5pifa2ovj47rsir';
+const TOKEN_JP = 'ej_cs6k5hu42kvx65x66imw';
 
 function signedEvent(payload, { signature, timestamp = NOW } = {}) {
   const body = JSON.stringify(payload);
