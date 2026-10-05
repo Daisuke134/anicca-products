@@ -43,6 +43,7 @@ function fakeGateway({
   const buyerRows = [];
   const subscriberRows = [];
   const subscribersById = new Map();
+  const subscriptionStates = new Map();
   const emailRequests = [];
   let eventReceiptFailuresRemaining = failEventReceiptWrites;
   let resendAttempts = 0;
@@ -88,6 +89,40 @@ function fakeGateway({
       }
     }
 
+    if (url.includes('/rest/v1/rpc/apply_ebook_subscription_state')) {
+      const subscriptionId = body.p_stripe_subscription_id;
+      const readbackAt = Date.parse(body.p_readback_at);
+      const existing = subscriptionStates.get(subscriptionId);
+      if (existing && readbackAt < existing.readbackAt) {
+        return response(200, { outcome: 'stale', status: existing.status, readback_at: new Date(existing.readbackAt).toISOString() });
+      }
+      if (existing && readbackAt === existing.readbackAt) {
+        return existing.status === body.p_subscription_status
+          ? response(200, { outcome: 'duplicate', status: existing.status, readback_at: new Date(existing.readbackAt).toISOString() })
+          : response(200, { outcome: 'conflict', status: existing.status, readback_at: new Date(existing.readbackAt).toISOString() });
+      }
+      const tier = ['active', 'trialing'].includes(body.p_subscription_status) ? 'paid' : 'expired';
+      let subscriber = subscribersById.get(subscriptionId);
+      if (body.p_email) {
+        subscriber = {
+          ...(subscriber || {}),
+          email: body.p_email,
+          lang: body.p_lang,
+          tier,
+          stripe_customer_id: body.p_stripe_customer_id,
+          stripe_subscription_id: subscriptionId,
+          unsubscribed_at: body.p_subscription_status === 'canceled' ? 'canceled_at' : null,
+        };
+        subscribersById.set(subscriptionId, subscriber);
+      } else {
+        if (!subscriber) return response(500, { message: 'subscriber row missing' });
+        subscriber.tier = tier;
+        subscriber.unsubscribed_at = body.p_subscription_status === 'canceled' ? 'canceled_at' : null;
+      }
+      subscriptionStates.set(subscriptionId, { readbackAt, status: body.p_subscription_status, eventId: body.p_event_id });
+      return response(200, { outcome: 'applied', status: body.p_subscription_status, readback_at: body.p_readback_at });
+    }
+
     if (url.includes('/rest/v1/buyers')) {
       if (buyerStatus >= 400) return response(buyerStatus, { message: 'buyer store unavailable' });
       buyerRows.push(body);
@@ -125,7 +160,7 @@ function fakeGateway({
   }
 
   return {
-    fetchImpl, receiptsBySession, receiptsByEvent, buyerRows, subscriberRows, subscribersById, emailRequests,
+    fetchImpl, receiptsBySession, receiptsByEvent, buyerRows, subscriberRows, subscribersById, subscriptionStates, emailRequests,
     get stripeSubscriptionReads() { return stripeSubscriptionReads; },
   };
 }
@@ -474,4 +509,46 @@ test('retrying a failed Letter welcome after cancellation does not restore paid 
   assert.equal(gateway.receiptsBySession.get('cs_letter_welcome_retry').delivery_status, 'not_required');
   assert.equal(gateway.emailRequests.length, 1);
   assert.equal(gateway.stripeSubscriptionReads, 3);
+});
+
+test('older concurrent subscription readback cannot overwrite a later cancellation', async () => {
+  const gateway = fakeGateway({ stripeSubscriptionResponses: [
+    { status: 200, body: { id: 'sub_letter', status: 'trialing' } },
+    { status: 200, body: { id: 'sub_letter', status: 'canceled' } },
+    { status: 200, body: { id: 'sub_letter', status: 'active' } },
+  ] });
+  const at = (value) => () => Date.parse(value);
+  const trial = {
+    id: 'evt_letter_trial_cas',
+    type: 'checkout.session.completed',
+    data: { object: {
+      id: 'cs_letter_cas', mode: 'subscription', payment_status: 'no_payment_required',
+      customer: 'cus_letter', subscription: 'sub_letter',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+      customer_details: { email: 'reader@example.com' },
+    } },
+  };
+  const canceled = {
+    id: 'evt_letter_canceled_cas',
+    type: 'customer.subscription.deleted',
+    data: { object: {
+      id: 'sub_letter', customer: 'cus_letter', status: 'canceled',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+    } },
+  };
+  const olderActive = {
+    id: 'evt_letter_active_cas',
+    type: 'customer.subscription.updated',
+    data: { object: {
+      id: 'sub_letter', customer: 'cus_letter', status: 'active',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+    } },
+  };
+
+  await webhookHandler(signedEvent(trial), dependencies(gateway, { now: at('2026-10-05T13:00:00.100Z') }));
+  await webhookHandler(signedEvent(canceled), dependencies(gateway, { now: at('2026-10-05T13:00:00.300Z') }));
+  await webhookHandler(signedEvent(olderActive), dependencies(gateway, { now: at('2026-10-05T13:00:00.200Z') }));
+
+  assert.equal(gateway.subscribersById.get('sub_letter').tier, 'expired');
+  assert.equal(gateway.receiptsByEvent.get('evt_letter_active_cas').subscription_status, 'canceled');
 });
