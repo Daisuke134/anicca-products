@@ -80,8 +80,19 @@ jobs:
                   required: definition?.required || [],
                   schema_hints: Object.keys(definition || {}).filter((key) => /key|constraint/i.test(key)),
                   columns: Object.keys(definition?.properties || {}).sort(),
+                  column_types: Object.fromEntries(Object.entries(definition?.properties || {}).map(([name, column]) => [name, {
+                    type: column.type || null,
+                    format: column.format || null,
+                    nullable: !(definition?.required || []).includes(name),
+                  }])),
                 }));
               }
+              console.log(JSON.stringify({
+                supabase_rpc_names: Object.keys(spec.paths || {})
+                  .filter((item) => item.startsWith('/rpc/'))
+                  .map((item) => item.slice('/rpc/'.length))
+                  .sort(),
+              }));
             }
             const receiptProbe = await fetch(`${root}/rest/v1/ebook_webhook_receipts?select=stripe_event_id&limit=0`, {
               headers: auth,
