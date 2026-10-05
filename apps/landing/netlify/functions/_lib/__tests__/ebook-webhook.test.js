@@ -36,6 +36,8 @@ function fakeGateway({
   resendErrorName = 'resend_unavailable',
   resendResponses = [],
   stripeSubscriptionResponses = [],
+  beforeStripeSubscriptionResponse = async () => {},
+  legacySubscribers = [],
   failEventReceiptWrites = 0,
 } = {}) {
   const receiptsBySession = new Map();
@@ -43,11 +45,43 @@ function fakeGateway({
   const buyerRows = [];
   const subscriberRows = [];
   const subscribersById = new Map();
+  const subscribersByEmail = new Map();
+  const subscriberIdsByEmail = new Map();
   const subscriptionStates = new Map();
+  const subscriptionReadbackReservations = [];
   const emailRequests = [];
   let eventReceiptFailuresRemaining = failEventReceiptWrites;
   let resendAttempts = 0;
   let stripeSubscriptionReads = 0;
+
+  for (const seed of legacySubscribers) {
+    const email = seed.email.trim().toLowerCase();
+    const subscriber = {
+      ...seed,
+      id: seed.id || `subscriber_${subscriberIdsByEmail.size + 1}`,
+      email,
+      stripe_subscription_created_at: seed.stripe_subscription_created_at || null,
+      stripe_legacy_paid_pending_readback: seed.stripe_legacy_paid_pending_readback
+        ?? (seed.tier === 'paid' && !seed.stripe_subscription_id),
+    };
+    const subscriberId = subscriber.id;
+    subscriberIdsByEmail.set(email, subscriberId);
+    subscribersByEmail.set(email, subscriber);
+    if (seed.stripe_subscription_id) {
+      subscriptionStates.set(seed.stripe_subscription_id, {
+        readbackAt: 0,
+        generation: 0,
+        status: seed.tier === 'paid' ? 'legacy_paid_pending_readback' : 'legacy_inactive_pending_readback',
+        eventId: 'migration_backfill',
+        email,
+        subscriberId,
+        createdAt: subscriber.stripe_subscription_created_at ? Date.parse(subscriber.stripe_subscription_created_at) : null,
+        customerId: seed.stripe_customer_id,
+        lang: seed.lang,
+      });
+      subscribersById.set(seed.stripe_subscription_id, subscriber);
+    }
+  }
 
   async function fetchImpl(url, options = {}) {
     const method = options.method || 'GET';
@@ -89,37 +123,124 @@ function fakeGateway({
       }
     }
 
+    if (url.includes('/rest/v1/rpc/reserve_ebook_subscription_readback')) {
+      const subscriptionId = body.p_stripe_subscription_id;
+      let state = subscriptionStates.get(subscriptionId);
+      const email = (body.p_email || state?.email || '').trim().toLowerCase();
+      let subscriber = email ? subscribersByEmail.get(email) : subscribersById.get(subscriptionId);
+      if (email && !subscriber) {
+        subscriber = {
+          id: `subscriber_${subscriberIdsByEmail.size + 1}`,
+          email,
+          tier: 'expired',
+          stripe_subscription_id: null,
+          stripe_subscription_created_at: null,
+          stripe_legacy_paid_pending_readback: false,
+        };
+        subscriberIdsByEmail.set(email, subscriber.id);
+        subscribersByEmail.set(email, subscriber);
+      }
+      if (!subscriber) return response(500, { message: 'subscriber mapping missing' });
+      if (state && state.subscriberId !== subscriber.id) return response(500, { message: 'subscriber mismatch' });
+      if (!state) {
+        state = {
+          readbackAt: 0,
+          generation: 0,
+          status: 'unknown',
+          eventId: '',
+          email: subscriber.email,
+          subscriberId: subscriber.id,
+          createdAt: null,
+        };
+        subscriptionStates.set(subscriptionId, state);
+      }
+      state.generation += 1;
+      state.email = subscriber.email;
+      state.subscriberId = subscriber.id;
+      if (body.p_stripe_customer_id) state.customerId = body.p_stripe_customer_id;
+      if (body.p_lang) state.lang = body.p_lang;
+      subscriptionReadbackReservations.push({ subscriptionId, generation: state.generation, subscriberId: subscriber.id });
+      return response(200, {
+        outcome: 'reserved',
+        generation: state.generation,
+        subscriber_id: subscriber.id,
+        pointer_subscription_id: subscriber.stripe_subscription_id,
+      });
+    }
+
     if (url.includes('/rest/v1/rpc/apply_ebook_subscription_state')) {
       const subscriptionId = body.p_stripe_subscription_id;
-      const readbackAt = Date.parse(body.p_readback_at);
+      const readbackAt = body.p_readback_at ? Date.parse(body.p_readback_at) : Date.now();
       const existing = subscriptionStates.get(subscriptionId);
-      if (existing && readbackAt < existing.readbackAt) {
+      const usesGeneration = body.p_readback_generation !== undefined;
+      if (usesGeneration && existing?.generation !== body.p_readback_generation) {
+        return response(200, { outcome: 'stale', status: existing?.status || 'unknown' });
+      }
+      if (!usesGeneration && existing && readbackAt < existing.readbackAt) {
         return response(200, { outcome: 'stale', status: existing.status, readback_at: new Date(existing.readbackAt).toISOString() });
       }
-      if (existing && readbackAt === existing.readbackAt) {
+      if (!usesGeneration && existing && readbackAt === existing.readbackAt) {
         return existing.status === body.p_subscription_status
           ? response(200, { outcome: 'duplicate', status: existing.status, readback_at: new Date(existing.readbackAt).toISOString() })
           : response(200, { outcome: 'conflict', status: existing.status, readback_at: new Date(existing.readbackAt).toISOString() });
       }
-      const tier = ['active', 'trialing'].includes(body.p_subscription_status) ? 'paid' : 'expired';
-      let subscriber = subscribersById.get(subscriptionId);
-      if (body.p_email) {
+      const email = (body.p_email || existing?.email || '').trim().toLowerCase();
+      if (!email) return response(500, { message: 'subscriber mapping missing' });
+      const subscriberId = body.p_subscriber_id || existing?.subscriberId || subscriberIdsByEmail.get(email) || `subscriber_${subscriberIdsByEmail.size + 1}`;
+      subscriberIdsByEmail.set(email, subscriberId);
+      let subscriber = subscribersByEmail.get(email);
+      if (!subscriber) {
         subscriber = {
-          ...(subscriber || {}),
-          email: body.p_email,
-          lang: body.p_lang,
-          tier,
-          stripe_customer_id: body.p_stripe_customer_id,
-          stripe_subscription_id: subscriptionId,
-          unsubscribed_at: body.p_subscription_status === 'canceled' ? 'canceled_at' : null,
+          id: subscriberId,
+          email,
+          tier: 'expired',
+          stripe_subscription_id: null,
+          stripe_subscription_created_at: null,
+          stripe_legacy_paid_pending_readback: false,
         };
-        subscribersById.set(subscriptionId, subscriber);
-      } else {
-        if (!subscriber) return response(500, { message: 'subscriber row missing' });
-        subscriber.tier = tier;
-        subscriber.unsubscribed_at = body.p_subscription_status === 'canceled' ? 'canceled_at' : null;
+        subscribersByEmail.set(email, subscriber);
       }
-      subscriptionStates.set(subscriptionId, { readbackAt, status: body.p_subscription_status, eventId: body.p_event_id });
+      subscriptionStates.set(subscriptionId, {
+        readbackAt,
+        generation: existing?.generation || 0,
+        status: body.p_subscription_status,
+        eventId: body.p_event_id,
+        email,
+        subscriberId,
+        createdAt: body.p_subscription_created_at ? Date.parse(body.p_subscription_created_at) : existing?.createdAt || null,
+        customerId: body.p_stripe_customer_id || existing?.customerId || null,
+        lang: body.p_lang || existing?.lang || null,
+      });
+      const hasAccess = [...subscriptionStates.values()].some((state) =>
+        state.subscriberId === subscriberId && ['active', 'trialing', 'legacy_paid_pending_readback'].includes(state.status))
+        || subscriber.stripe_legacy_paid_pending_readback;
+      subscriber.tier = hasAccess ? 'paid' : 'expired';
+      subscriber.unsubscribed_at = hasAccess ? null : body.p_subscription_status === 'canceled' ? 'canceled_at' : subscriber.unsubscribed_at;
+      const pointerCreatedAt = subscriber.stripe_subscription_created_at
+        ? Date.parse(subscriber.stripe_subscription_created_at)
+        : null;
+      const canReselectPointer = subscriber.stripe_subscription_id === null
+        || subscriber.stripe_subscription_id === subscriptionId
+        || pointerCreatedAt !== null;
+      if (canReselectPointer) {
+        const candidate = [...subscriptionStates.entries()]
+          .filter(([, state]) => state.subscriberId === subscriberId && state.createdAt !== null)
+          .sort(([idA, stateA], [idB, stateB]) => stateB.createdAt - stateA.createdAt || idB.localeCompare(idA))[0];
+        if (candidate) {
+          const [candidateId, candidateState] = candidate;
+          const movesPointer = subscriber.stripe_subscription_id === null
+            || subscriber.stripe_subscription_id === subscriptionId
+            || candidateState.createdAt > pointerCreatedAt
+            || (candidateState.createdAt === pointerCreatedAt && candidateId.localeCompare(subscriber.stripe_subscription_id) > 0);
+          if (movesPointer) {
+            subscriber.stripe_subscription_id = candidateId;
+            subscriber.stripe_subscription_created_at = new Date(candidateState.createdAt).toISOString();
+            subscriber.stripe_customer_id = candidateState.customerId || subscriber.stripe_customer_id;
+            subscriber.lang = candidateState.lang || subscriber.lang;
+          }
+        }
+      }
+      subscribersById.set(subscriptionId, subscriber);
       return response(200, { outcome: 'applied', status: body.p_subscription_status, readback_at: body.p_readback_at });
     }
 
@@ -150,17 +271,19 @@ function fakeGateway({
       return response(spec.status, spec.body);
     }
     if (url.startsWith('https://api.stripe.com/v1/subscriptions/')) {
-      const spec = stripeSubscriptionResponses[stripeSubscriptionReads++] || {
+      const readIndex = stripeSubscriptionReads++;
+      const spec = stripeSubscriptionResponses[readIndex] || {
         status: 200,
-        body: { id: decodeURIComponent(url.split('/').at(-1)), status: 'active' },
+        body: { id: decodeURIComponent(url.split('/').at(-1)), status: 'active', created: 1780600000 },
       };
-      return response(spec.status, spec.body);
+      await beforeStripeSubscriptionResponse(readIndex, spec);
+      return response(spec.status, { created: 1780600000, ...spec.body });
     }
     throw new Error(`unexpected request: ${method} ${url}`);
   }
 
   return {
-    fetchImpl, receiptsBySession, receiptsByEvent, buyerRows, subscriberRows, subscribersById, subscriptionStates, emailRequests,
+    fetchImpl, receiptsBySession, receiptsByEvent, buyerRows, subscriberRows, subscribersById, subscribersByEmail, subscriptionStates, subscriptionReadbackReservations, emailRequests,
     get stripeSubscriptionReads() { return stripeSubscriptionReads; },
   };
 }
@@ -171,6 +294,7 @@ function dependencies(gateway, overrides = {}) {
       STRIPE_WEBHOOK_SECRET: SECRET,
       STRIPE_SECRET_KEY: 'sk_test_redacted',
       RESEND_API_KEY: 're_test_redacted',
+      RESEND_FROM_EMAIL: 'Anicca <hello@example.test>',
       SUPABASE_URL,
       SUPABASE_SERVICE_ROLE_KEY: 'service_role_redacted',
     },
@@ -224,6 +348,7 @@ test('paid English ebook stores its campaign receipt and sends the matching PDF 
   assert.equal(receipt.resend_id, 'email_1');
   assert.equal(gateway.buyerRows[0].stripe_session_id, 'cs_ebook_en');
   assert.equal(email.headers['Idempotency-Key'], 'ebook-delivery-cs_ebook_en');
+  assert.equal(email.body.from, 'Anicca <hello@example.test>');
   assert.match(email.body.html, /anicca-reset-en\.pdf/);
   assert.match(email.body.html, new RegExp(`/letter\\?utm_campaign=${TOKEN_EN}`));
 });
@@ -284,6 +409,19 @@ test('missing checkout email is durably surfaced without sending or replaying de
   assert.equal(receipt.delivery_status, 'needs_email');
   assert.equal(receipt.next_action, 'buyer_email_reconciliation');
   assert.equal(gateway.emailRequests.length, 0);
+});
+
+test('missing verified sender configuration retries before calling Resend', async () => {
+  const gateway = fakeGateway();
+  const deps = dependencies(gateway);
+  delete deps.env.RESEND_FROM_EMAIL;
+
+  const result = await webhookHandler(signedEvent(ebookCheckout()), deps);
+
+  assert.ok(result.statusCode >= 500);
+  assert.equal(gateway.emailRequests.length, 0);
+  assert.equal(gateway.receiptsBySession.get('cs_ebook_en').delivery_status, 'retryable_failure');
+  assert.equal(gateway.receiptsBySession.get('cs_ebook_en').next_action, 'configure_verified_resend_sender');
 });
 
 test('Resend failure is surfaced and its ambiguous delivery receipt fences replay', async () => {
@@ -511,13 +649,12 @@ test('retrying a failed Letter welcome after cancellation does not restore paid 
   assert.equal(gateway.stripeSubscriptionReads, 3);
 });
 
-test('older concurrent subscription readback cannot overwrite a later cancellation', async () => {
+test('a replayed active event records the current Stripe cancellation state', async () => {
   const gateway = fakeGateway({ stripeSubscriptionResponses: [
     { status: 200, body: { id: 'sub_letter', status: 'trialing' } },
     { status: 200, body: { id: 'sub_letter', status: 'canceled' } },
-    { status: 200, body: { id: 'sub_letter', status: 'active' } },
+    { status: 200, body: { id: 'sub_letter', status: 'canceled' } },
   ] });
-  const at = (value) => () => Date.parse(value);
   const trial = {
     id: 'evt_letter_trial_cas',
     type: 'checkout.session.completed',
@@ -545,10 +682,329 @@ test('older concurrent subscription readback cannot overwrite a later cancellati
     } },
   };
 
-  await webhookHandler(signedEvent(trial), dependencies(gateway, { now: at('2026-10-05T13:00:00.100Z') }));
-  await webhookHandler(signedEvent(canceled), dependencies(gateway, { now: at('2026-10-05T13:00:00.300Z') }));
-  await webhookHandler(signedEvent(olderActive), dependencies(gateway, { now: at('2026-10-05T13:00:00.200Z') }));
+  const deps = dependencies(gateway);
+  await webhookHandler(signedEvent(trial), deps);
+  await webhookHandler(signedEvent(canceled), deps);
+  await webhookHandler(signedEvent(olderActive), deps);
 
   assert.equal(gateway.subscribersById.get('sub_letter').tier, 'expired');
   assert.equal(gateway.receiptsByEvent.get('evt_letter_active_cas').subscription_status, 'canceled');
+});
+
+test('a later DB reservation wins when its worker clock is behind a delayed older response', async () => {
+  let releaseOldReadback;
+  let markOldReadbackStarted;
+  const oldReadbackStarted = new Promise((resolve) => { markOldReadbackStarted = resolve; });
+  const holdOldReadback = new Promise((resolve) => { releaseOldReadback = resolve; });
+  const gateway = fakeGateway({
+    stripeSubscriptionResponses: [
+      { status: 200, body: { id: 'sub_letter', status: 'trialing' } },
+      { status: 200, body: { id: 'sub_letter', status: 'active' } },
+      { status: 200, body: { id: 'sub_letter', status: 'canceled' } },
+    ],
+    beforeStripeSubscriptionResponse: async (readIndex) => {
+      if (readIndex === 1) {
+        markOldReadbackStarted();
+        await holdOldReadback;
+      }
+    },
+  });
+  const clockValues = [
+    Date.parse('2026-10-05T13:00:00.100Z'),
+    Date.parse('2026-10-05T13:00:00.300Z'),
+    Date.parse('2026-10-05T13:00:00.200Z'),
+  ];
+  const deps = dependencies(gateway, { now: () => clockValues.shift() });
+  const trial = {
+    id: 'evt_letter_trial_delayed',
+    type: 'checkout.session.completed',
+    data: { object: {
+      id: 'cs_letter_delayed', mode: 'subscription', payment_status: 'no_payment_required',
+      customer: 'cus_letter', subscription: 'sub_letter',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+      customer_details: { email: 'reader@example.com' },
+    } },
+  };
+  const active = {
+    id: 'evt_letter_active_delayed',
+    type: 'customer.subscription.updated',
+    data: { object: {
+      id: 'sub_letter', customer: 'cus_letter', status: 'active',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+    } },
+  };
+  const canceled = {
+    id: 'evt_letter_canceled_delayed',
+    type: 'customer.subscription.deleted',
+    data: { object: {
+      id: 'sub_letter', customer: 'cus_letter', status: 'canceled',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+    } },
+  };
+
+  await webhookHandler(signedEvent(trial), deps);
+  const oldActive = webhookHandler(signedEvent(active), deps);
+  await oldReadbackStarted;
+  await webhookHandler(signedEvent(canceled), deps);
+  releaseOldReadback();
+  await oldActive;
+
+  assert.equal(gateway.subscribersById.get('sub_letter').tier, 'expired');
+  assert.equal(gateway.subscriptionStates.get('sub_letter').status, 'canceled');
+  assert.equal(clockValues.length, 3);
+});
+
+test('a delayed older Checkout for the same email cannot take the newer subscription pointer', async () => {
+  let releaseOldReadback;
+  let markOldReadbackStarted;
+  const oldReadbackStarted = new Promise((resolve) => { markOldReadbackStarted = resolve; });
+  const holdOldReadback = new Promise((resolve) => { releaseOldReadback = resolve; });
+  const gateway = fakeGateway({
+    stripeSubscriptionResponses: [
+      { status: 200, body: { id: 'sub_letter_old', status: 'canceled', created: 1780600100 } },
+      { status: 200, body: { id: 'sub_letter_new', status: 'active', created: 1780600200 } },
+    ],
+    beforeStripeSubscriptionResponse: async (readIndex) => {
+      if (readIndex === 0) {
+        markOldReadbackStarted();
+        await holdOldReadback;
+      }
+    },
+  });
+  let clock = Date.parse('2026-10-05T13:10:00.000Z');
+  const deps = dependencies(gateway, { now: () => (clock += 100) });
+  const checkout = ({ eventId, sessionId, customerId, subscriptionId }) => ({
+    id: eventId,
+    type: 'checkout.session.completed',
+    data: { object: {
+      id: sessionId, mode: 'subscription', payment_status: 'no_payment_required',
+      customer: customerId, subscription: subscriptionId,
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+      customer_details: { email: 'reader@example.com' },
+    } },
+  });
+
+  const oldCheckout = webhookHandler(signedEvent(checkout({
+    eventId: 'evt_letter_old_checkout', sessionId: 'cs_letter_old', customerId: 'cus_old', subscriptionId: 'sub_letter_old',
+  })), deps);
+  await oldReadbackStarted;
+  await webhookHandler(signedEvent(checkout({
+    eventId: 'evt_letter_new_checkout', sessionId: 'cs_letter_new', customerId: 'cus_new', subscriptionId: 'sub_letter_new',
+  })), deps);
+  releaseOldReadback();
+  await oldCheckout;
+
+  const subscriber = gateway.subscribersByEmail.get('reader@example.com');
+  assert.equal(subscriber.stripe_subscription_id, 'sub_letter_new');
+  assert.equal(subscriber.tier, 'paid');
+  assert.equal(gateway.subscriptionStates.get('sub_letter_old').status, 'canceled');
+  assert.equal(gateway.subscriptionStates.get('sub_letter_new').status, 'active');
+});
+
+test('a late-delivered old Checkout cannot replace a newer Stripe subscription pointer', async () => {
+  const gateway = fakeGateway({ stripeSubscriptionResponses: [
+    { status: 200, body: { id: 'sub_letter_new', status: 'active', created: 1780600200 } },
+    { status: 200, body: { id: 'sub_letter_old', status: 'canceled', created: 1780600100 } },
+  ] });
+  const deps = dependencies(gateway);
+  const checkout = ({ eventId, sessionId, customerId, subscriptionId }) => ({
+    id: eventId,
+    type: 'checkout.session.completed',
+    data: { object: {
+      id: sessionId, mode: 'subscription', payment_status: 'no_payment_required',
+      customer: customerId, subscription: subscriptionId,
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+      customer_details: { email: 'reader@example.com' },
+    } },
+  });
+
+  await webhookHandler(signedEvent(checkout({
+    eventId: 'evt_letter_new_first', sessionId: 'cs_letter_new_first', customerId: 'cus_new', subscriptionId: 'sub_letter_new',
+  })), deps);
+  await webhookHandler(signedEvent(checkout({
+    eventId: 'evt_letter_old_late', sessionId: 'cs_letter_old_late', customerId: 'cus_old', subscriptionId: 'sub_letter_old',
+  })), deps);
+
+  const subscriber = gateway.subscribersByEmail.get('reader@example.com');
+  assert.equal(subscriber.stripe_subscription_id, 'sub_letter_new');
+  assert.equal(subscriber.tier, 'paid');
+});
+
+test('a migrated existing subscription reserves its state mapping before Stripe readback', async () => {
+  const gateway = fakeGateway({
+    legacySubscribers: [{
+      id: 'subscriber_legacy',
+      email: 'legacy@example.com',
+      tier: 'paid',
+      stripe_customer_id: 'cus_legacy',
+      stripe_subscription_id: 'sub_legacy',
+      signed_up_at: '2026-01-01T00:00:00Z',
+      unsubscribed_at: null,
+    }],
+    stripeSubscriptionResponses: [{
+      status: 200,
+      body: { id: 'sub_legacy', status: 'active', created: 1767225600 },
+    }],
+  });
+  const event = {
+    id: 'evt_legacy_subscription_updated',
+    type: 'customer.subscription.updated',
+    data: { object: {
+      id: 'sub_legacy', customer: 'cus_legacy', status: 'active',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+    } },
+  };
+
+  const result = await webhookHandler(signedEvent(event), dependencies(gateway));
+
+  assert.equal(result.statusCode, 200);
+  assert.deepEqual(gateway.subscriptionReadbackReservations.map(({ subscriptionId }) => subscriptionId), ['sub_legacy']);
+  assert.equal(gateway.subscribersByEmail.get('legacy@example.com').tier, 'paid');
+});
+
+test('migration-carried paid access without a Stripe pointer survives unrelated canceled subscriptions', async () => {
+  const gateway = fakeGateway({
+    legacySubscribers: [{
+      id: 'subscriber_legacy_without_pointer',
+      email: 'legacy-no-pointer@example.com',
+      tier: 'paid',
+      stripe_customer_id: 'cus_legacy_without_pointer',
+      stripe_subscription_id: null,
+      signed_up_at: '2026-01-01T00:00:00Z',
+      unsubscribed_at: null,
+    }],
+    stripeSubscriptionResponses: [
+      { status: 200, body: { id: 'sub_unrelated_one', status: 'canceled', created: 1767225600 } },
+      { status: 200, body: { id: 'sub_unrelated_two', status: 'canceled', created: 1767312000 } },
+    ],
+  });
+  const deps = dependencies(gateway);
+  const checkout = ({ eventId, sessionId, subscriptionId }) => ({
+    id: eventId,
+    type: 'checkout.session.completed',
+    data: { object: {
+      id: sessionId, mode: 'subscription', payment_status: 'no_payment_required',
+      customer: `cus_${subscriptionId}`, subscription: subscriptionId,
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+      customer_details: { email: 'legacy-no-pointer@example.com' },
+    } },
+  });
+
+  await webhookHandler(signedEvent(checkout({
+    eventId: 'evt_unrelated_one', sessionId: 'cs_unrelated_one', subscriptionId: 'sub_unrelated_one',
+  })), deps);
+  await webhookHandler(signedEvent(checkout({
+    eventId: 'evt_unrelated_two', sessionId: 'cs_unrelated_two', subscriptionId: 'sub_unrelated_two',
+  })), deps);
+
+  assert.equal(gateway.subscribersByEmail.get('legacy-no-pointer@example.com').tier, 'paid');
+  assert.equal(gateway.subscribersByEmail.get('legacy-no-pointer@example.com').stripe_legacy_paid_pending_readback, true);
+});
+
+test('a superseded Checkout stays retryable until the winning subscription readback finishes', async () => {
+  let releaseCheckoutRead;
+  let releaseLifecycleRead;
+  let markCheckoutReadStarted;
+  let markLifecycleReadStarted;
+  const checkoutReadStarted = new Promise((resolve) => { markCheckoutReadStarted = resolve; });
+  const lifecycleReadStarted = new Promise((resolve) => { markLifecycleReadStarted = resolve; });
+  const holdCheckoutRead = new Promise((resolve) => { releaseCheckoutRead = resolve; });
+  const holdLifecycleRead = new Promise((resolve) => { releaseLifecycleRead = resolve; });
+  const gateway = fakeGateway({
+    stripeSubscriptionResponses: [
+      { status: 200, body: { id: 'sub_letter_race', status: 'active', created: 1780600200 } },
+      { status: 200, body: { id: 'sub_letter_race', status: 'active', created: 1780600200 } },
+    ],
+    beforeStripeSubscriptionResponse: async (readIndex) => {
+      if (readIndex === 0) {
+        markCheckoutReadStarted();
+        await holdCheckoutRead;
+      } else if (readIndex === 1) {
+        markLifecycleReadStarted();
+        await holdLifecycleRead;
+      }
+    },
+  });
+  const deps = dependencies(gateway);
+  const checkout = {
+    id: 'evt_letter_checkout_race',
+    type: 'checkout.session.completed',
+    data: { object: {
+      id: 'cs_letter_checkout_race', mode: 'subscription', payment_status: 'no_payment_required',
+      customer: 'cus_letter_race', subscription: 'sub_letter_race',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+      customer_details: { email: 'race@example.com' },
+    } },
+  };
+  const lifecycle = {
+    id: 'evt_letter_lifecycle_race',
+    type: 'customer.subscription.updated',
+    data: { object: {
+      id: 'sub_letter_race', customer: 'cus_letter_race', status: 'active',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+    } },
+  };
+
+  const firstCheckout = webhookHandler(signedEvent(checkout), deps);
+  await checkoutReadStarted;
+  const lifecycleRead = webhookHandler(signedEvent(lifecycle), deps);
+  await lifecycleReadStarted;
+  releaseCheckoutRead();
+  const superseded = await firstCheckout;
+  assert.ok(superseded.statusCode >= 500);
+  assert.equal(gateway.receiptsBySession.get('cs_letter_checkout_race').delivery_status, 'retryable_failure');
+  assert.equal(gateway.emailRequests.length, 0);
+
+  releaseLifecycleRead();
+  await lifecycleRead;
+  const retry = await webhookHandler(signedEvent(checkout), deps);
+
+  assert.equal(retry.statusCode, 200);
+  assert.equal(gateway.receiptsBySession.get('cs_letter_checkout_race').delivery_status, 'delivered');
+  assert.equal(gateway.emailRequests.length, 1);
+});
+
+test('legacy pointer reconciliation reselects the latest already-read subscription', async () => {
+  const gateway = fakeGateway({
+    legacySubscribers: [{
+      id: 'subscriber_legacy_pointer',
+      email: 'legacy-pointer@example.com',
+      tier: 'paid',
+      stripe_customer_id: 'cus_legacy_pointer',
+      stripe_subscription_id: 'sub_legacy_pointer',
+      signed_up_at: '2026-01-01T00:00:00Z',
+      unsubscribed_at: null,
+    }],
+    stripeSubscriptionResponses: [
+      { status: 200, body: { id: 'sub_newer', status: 'active', created: 1780600200 } },
+      { status: 200, body: { id: 'sub_legacy_pointer', status: 'canceled', created: 1780600100 } },
+    ],
+  });
+  const deps = dependencies(gateway);
+  const checkout = {
+    id: 'evt_newer_checkout_for_legacy',
+    type: 'checkout.session.completed',
+    data: { object: {
+      id: 'cs_newer_checkout_for_legacy', mode: 'subscription', payment_status: 'no_payment_required',
+      customer: 'cus_newer', subscription: 'sub_newer',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+      customer_details: { email: 'legacy-pointer@example.com' },
+    } },
+  };
+  const oldCanceled = {
+    id: 'evt_legacy_pointer_canceled',
+    type: 'customer.subscription.deleted',
+    data: { object: {
+      id: 'sub_legacy_pointer', customer: 'cus_legacy_pointer', status: 'canceled',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+    } },
+  };
+
+  await webhookHandler(signedEvent(checkout), deps);
+  await webhookHandler(signedEvent(oldCanceled), deps);
+
+  const subscriber = gateway.subscribersByEmail.get('legacy-pointer@example.com');
+  assert.equal(subscriber.stripe_subscription_id, 'sub_newer');
+  assert.equal(subscriber.stripe_subscription_created_at, new Date(1780600200 * 1000).toISOString());
+  assert.equal(subscriber.tier, 'paid');
 });

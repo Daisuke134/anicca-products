@@ -25,9 +25,6 @@ jobs:
           cache-dependency-path: apps/landing/package-lock.json
       - run: npm ci
       - run: npm run test:telemetry
-      - run: npm run build
-        env:
-          DASHBOARD_SNAPSHOT_URL: http://127.0.0.1:9
       - name: Read provider metadata (manual only)
         if: github.event_name == 'workflow_dispatch'
         env:
@@ -61,8 +58,10 @@ jobs:
           if (!base || !serviceKey) {
             console.log(JSON.stringify({ schema_readback: 'unavailable', reason: 'netlify_env_missing' }));
           } else {
-            const response = await fetch(`${base.replace(/\/$/, '')}/rest/v1/`, {
-              headers: { apikey: serviceKey, Authorization: `Bearer ${serviceKey}`, Accept: 'application/openapi+json' },
+            const root = base.replace(/\/$/, '');
+            const auth = { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` };
+            const response = await fetch(`${root}/rest/v1/`, {
+              headers: { ...auth, Accept: 'application/openapi+json' },
             });
             if (!response.ok) {
               console.log(JSON.stringify({ schema_readback: 'unavailable', http_status: response.status }));
@@ -81,6 +80,14 @@ jobs:
                 }));
               }
             }
+            const receiptProbe = await fetch(`${root}/rest/v1/ebook_webhook_receipts?select=stripe_event_id&limit=0`, {
+              headers: auth,
+            });
+            const receiptError = receiptProbe.ok ? null : await receiptProbe.json().catch(() => ({}));
+            console.log(JSON.stringify({
+              ebook_receipts_table_http_status: receiptProbe.status,
+              error_code: receiptError && (receiptError.code || receiptError.name) || null,
+            }));
           }
           const resendKey = process.env.RESEND_API_KEY;
           if (!resendKey) {
@@ -108,3 +115,6 @@ jobs:
             }
           }
           NODE
+      - run: npm run build
+        env:
+          DASHBOARD_SNAPSHOT_URL: http://127.0.0.1:9

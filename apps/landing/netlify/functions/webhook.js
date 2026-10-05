@@ -77,9 +77,12 @@ async function webhookHandler(event, dependencies = {}) {
   if (isWriterEvent(payload)) return { statusCode: 200, body: 'ok writer' };
 
   const RESEND_API_KEY = env.RESEND_API_KEY;
+  const RESEND_FROM_EMAIL = typeof env.RESEND_FROM_EMAIL === 'string' ? env.RESEND_FROM_EMAIL.trim() : '';
   const fetchImpl = dependencies.fetchImpl || fetch;
   const sendEmail = dependencies.sendEmail
-    || ((key, email, subject, html, idempotencyKey) => sendResend(key, email, subject, html, fetchImpl, idempotencyKey));
+    || ((key, email, subject, html, idempotencyKey) => sendResend(
+      key, email, subject, html, fetchImpl, idempotencyKey, RESEND_FROM_EMAIL,
+    ));
 
   const SUPABASE_URL = (env.SUPABASE_URL || '').replace(/\/$/, '');
   const SUPABASE_SERVICE_ROLE_KEY = env.SUPABASE_SERVICE_ROLE_KEY;
@@ -165,13 +168,10 @@ async function webhookHandler(event, dependencies = {}) {
         });
         return webhookFailure(payload, dependencies, 'preflight', 'stripe_readback_config_missing', 'none', true, 'restore_stripe_config');
       }
+      let reservation;
       try {
-        const subscriptionReadback = await retrieveStripeSubscription(subscriptionId, stripeKey, fetchImpl);
-        const state = await applySubscriptionState({
+        reservation = await reserveSubscriptionReadback({
           subscriptionId,
-          status: subscriptionReadback.status,
-          readbackAt: readbackTimestamp(dependencies),
-          eventId: payload.id,
           email,
           lang,
           customerId: stripeId(session.customer),
@@ -179,6 +179,41 @@ async function webhookHandler(event, dependencies = {}) {
           supabaseUrl: SUPABASE_URL,
           serviceKey: SUPABASE_SERVICE_ROLE_KEY,
         });
+      } catch {
+        await bestEffortReceiptUpdate({
+          claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
+          patch: { delivery_status: 'retryable_failure', error_class: 'subscription_state_reserve_failed', next_action: 'stripe_retry' },
+        });
+        return webhookFailure(payload, dependencies, 'subscription_state_reserve', 'subscription_state_reserve_failed', 'none', true, 'stripe_retry');
+      }
+      try {
+        const subscriptionReadback = await retrieveStripeSubscription(subscriptionId, stripeKey, fetchImpl);
+        const state = await applySubscriptionState({
+          subscriptionId,
+          subscriberId: reservation.subscriber_id,
+          generation: reservation.generation,
+          status: subscriptionReadback.status,
+          subscriptionCreatedAt: new Date(subscriptionReadback.created * 1000).toISOString(),
+          eventId: payload.id,
+          lang,
+          customerId: stripeId(session.customer),
+          fetchImpl,
+          supabaseUrl: SUPABASE_URL,
+          serviceKey: SUPABASE_SERVICE_ROLE_KEY,
+        });
+        if (state.outcome === 'stale') {
+          await updateClaimedReceipt({
+            claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
+            patch: {
+              delivery_status: 'retryable_failure',
+              subscription_status: state.status,
+              error_class: 'subscription_state_superseded',
+              next_action: 'stripe_retry',
+              updated_at: new Date().toISOString(),
+            },
+          });
+          return webhookFailure(payload, dependencies, 'subscription_state_apply', 'subscription_state_superseded', 'none', true, 'stripe_retry');
+        }
         currentLetterSubscription = { ...subscriptionReadback, status: state.status };
         receipt.subscription_status = state.status;
         await updateClaimedReceipt({
@@ -229,12 +264,15 @@ async function webhookHandler(event, dependencies = {}) {
       return { statusCode: 200, body: 'subscription inactive' };
     }
 
-    if (!RESEND_API_KEY) {
+    if (!RESEND_API_KEY || !RESEND_FROM_EMAIL) {
+      const senderMissing = Boolean(RESEND_API_KEY && !RESEND_FROM_EMAIL);
+      const errorClass = senderMissing ? 'resend_sender_config_missing' : 'resend_config_missing';
+      const nextAction = senderMissing ? 'configure_verified_resend_sender' : 'restore_resend_config';
       await bestEffortReceiptUpdate({
         claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
-        patch: { delivery_status: 'retryable_failure', error_class: 'resend_config_missing', next_action: 'restore_resend_config' },
+        patch: { delivery_status: 'retryable_failure', error_class: errorClass, next_action: nextAction },
       });
-      return webhookFailure(payload, dependencies, 'preflight', 'resend_config_missing', 'none', true, 'restore_resend_config');
+      return webhookFailure(payload, dependencies, 'preflight', errorClass, 'none', true, nextAction);
     }
 
     const pdfUrl = lang === 'jp'
@@ -325,6 +363,20 @@ async function webhookHandler(event, dependencies = {}) {
     if (previousReceipt) {
       return webhookFailure(payload, dependencies, 'subscription_receipt_read', 'event_receipt_unresolved', 'unknown', false, 'official_readback_required');
     }
+    let reservation;
+    try {
+      reservation = await reserveSubscriptionReadback({
+        subscriptionId,
+        email: null,
+        lang,
+        customerId: stripeId(object.customer),
+        fetchImpl,
+        supabaseUrl: SUPABASE_URL,
+        serviceKey: SUPABASE_SERVICE_ROLE_KEY,
+      });
+    } catch {
+      return webhookFailure(payload, dependencies, 'subscription_state_reserve', 'subscription_state_reserve_failed', 'none', true, 'stripe_retry');
+    }
     try {
       currentSubscription = await retrieveStripeSubscription(subscriptionId, stripeKey, fetchImpl);
     } catch {
@@ -333,10 +385,11 @@ async function webhookHandler(event, dependencies = {}) {
     try {
       const state = await applySubscriptionState({
         subscriptionId,
+        subscriberId: reservation.subscriber_id,
+        generation: reservation.generation,
         status: currentSubscription.status,
-        readbackAt: readbackTimestamp(dependencies),
+        subscriptionCreatedAt: new Date(currentSubscription.created * 1000).toISOString(),
         eventId: payload.id,
-        email: null,
         lang,
         customerId: stripeId(object.customer),
         fetchImpl,
@@ -397,15 +450,6 @@ function subscriptionUrl(lang, token) {
 function stripeId(value) {
   return typeof value === 'string' ? value : value && typeof value.id === 'string' ? value.id : null;
 }
-
-function readbackTimestamp(dependencies) {
-  const value = dependencies.now ? dependencies.now() : Date.now();
-  if (dependencies.now) return new Date(value).toISOString();
-  lastReadbackMs = Math.max(Number(value), lastReadbackMs + 1);
-  return new Date(lastReadbackMs).toISOString();
-}
-
-let lastReadbackMs = 0;
 
 function dbHeaders(serviceKey, prefer) {
   return {
@@ -505,18 +549,49 @@ async function retrieveStripeSubscription(subscriptionId, stripeKey, fetchImpl) 
   });
   if (!response.ok) throw new Error('stripe_subscription_read_failed');
   const subscription = await response.json();
-  if (!subscription || subscription.id !== subscriptionId || typeof subscription.status !== 'string') {
+  if (!subscription || subscription.id !== subscriptionId || typeof subscription.status !== 'string'
+      || !Number.isSafeInteger(subscription.created) || subscription.created <= 0) {
     throw new Error('stripe_subscription_readback_invalid');
   }
   return subscription;
 }
 
+async function reserveSubscriptionReadback({
+  subscriptionId,
+  email,
+  lang,
+  customerId,
+  fetchImpl,
+  supabaseUrl,
+  serviceKey,
+}) {
+  const response = await fetchImpl(`${supabaseUrl}/rest/v1/rpc/reserve_ebook_subscription_readback`, {
+    method: 'POST',
+    headers: dbHeaders(serviceKey),
+    body: JSON.stringify({
+      p_stripe_subscription_id: subscriptionId,
+      p_email: email || null,
+      p_lang: email ? lang : null,
+      p_stripe_customer_id: customerId || null,
+    }),
+  });
+  if (!response.ok) throw new Error('subscription_state_reservation_failed');
+  const result = await response.json();
+  if (!result || result.outcome !== 'reserved'
+      || !Number.isSafeInteger(result.generation) || result.generation < 1
+      || typeof result.subscriber_id !== 'string' || !result.subscriber_id) {
+    throw new Error('subscription_state_reservation_invalid');
+  }
+  return result;
+}
+
 async function applySubscriptionState({
   subscriptionId,
+  subscriberId,
+  generation,
   status,
-  readbackAt,
+  subscriptionCreatedAt,
   eventId,
-  email,
   lang,
   customerId,
   fetchImpl,
@@ -528,11 +603,12 @@ async function applySubscriptionState({
     headers: dbHeaders(serviceKey),
     body: JSON.stringify({
       p_stripe_subscription_id: subscriptionId,
+      p_subscriber_id: subscriberId,
+      p_readback_generation: generation,
       p_subscription_status: status,
-      p_readback_at: readbackAt,
+      p_subscription_created_at: subscriptionCreatedAt,
       p_event_id: eventId,
-      p_email: email || null,
-      p_lang: email ? lang : null,
+      p_lang: lang || null,
       p_stripe_customer_id: customerId || null,
     }),
   });
@@ -597,7 +673,7 @@ function webhookFailure(payload, dependencies, phase, errorClass, effect, retrya
     occurrence_id: eventId,
     release_sha: process.env.COMMIT_REF || process.env.GITHUB_SHA || null,
     loaded_argv: [],
-    loaded_env_names: ['STRIPE_WEBHOOK_SECRET', 'SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY', 'RESEND_API_KEY'],
+    loaded_env_names: ['STRIPE_WEBHOOK_SECRET', 'SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY', 'RESEND_API_KEY', 'RESEND_FROM_EMAIL'],
     phase,
     command: 'netlify-function:webhook',
     exit_code: 503,
@@ -615,7 +691,7 @@ function webhookFailure(payload, dependencies, phase, errorClass, effect, retrya
 exports.webhookHandler = webhookHandler;
 exports.handler = (event) => webhookHandler(event);
 
-async function sendResend(key, email, subject, html, fetchImpl = fetch, idempotencyKey) {
+async function sendResend(key, email, subject, html, fetchImpl = fetch, idempotencyKey, from) {
   let response;
   try {
     response = await fetchImpl('https://api.resend.com/emails', {
@@ -625,7 +701,7 @@ async function sendResend(key, email, subject, html, fetchImpl = fetch, idempote
         'Content-Type': 'application/json',
         'Idempotency-Key': idempotencyKey,
       },
-      body: JSON.stringify({ from: 'Anicca <onboarding@resend.dev>', to: email, subject, html }),
+      body: JSON.stringify({ from, to: email, subject, html }),
     });
   } catch {
     const error = new Error('resend_network_error');

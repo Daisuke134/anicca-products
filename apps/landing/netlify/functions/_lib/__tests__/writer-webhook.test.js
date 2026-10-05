@@ -98,6 +98,7 @@ test('legacy ebook checkout retains its email fulfillment behavior', async () =>
       STRIPE_WEBHOOK_SECRET: SECRET,
       STRIPE_SECRET_KEY: 'sk_live_redacted',
       RESEND_API_KEY: 're_redacted',
+      RESEND_FROM_EMAIL: 'Anicca <hello@example.test>',
       SUPABASE_URL: 'https://supabase.example.test',
       SUPABASE_SERVICE_ROLE_KEY: 'service_role_redacted',
     },
