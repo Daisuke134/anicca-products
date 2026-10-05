@@ -154,12 +154,31 @@ async function webhookHandler(event, dependencies = {}) {
       }
       return webhookFailure(payload, dependencies, 'buyer_email', 'checkout_email_missing', 'none', false, 'buyer_email_reconciliation');
     }
-    if (!RESEND_API_KEY) {
-      await bestEffortReceiptUpdate({
-        claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
-        patch: { delivery_status: 'retryable_failure', error_class: 'resend_config_missing', next_action: 'restore_resend_config' },
-      });
-      return webhookFailure(payload, dependencies, 'preflight', 'resend_config_missing', 'none', true, 'restore_resend_config');
+    let currentLetterSubscription = null;
+    if (isLetter) {
+      const stripeKey = env.STRIPE_SECRET_KEY;
+      const subscriptionId = stripeId(session.subscription);
+      if (!stripeKey || !subscriptionId) {
+        await bestEffortReceiptUpdate({
+          claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
+          patch: { delivery_status: 'retryable_failure', error_class: 'stripe_readback_config_missing', next_action: 'restore_stripe_config' },
+        });
+        return webhookFailure(payload, dependencies, 'preflight', 'stripe_readback_config_missing', 'none', true, 'restore_stripe_config');
+      }
+      try {
+        currentLetterSubscription = await retrieveStripeSubscription(subscriptionId, stripeKey, fetchImpl);
+        receipt.subscription_status = currentLetterSubscription.status;
+        await updateClaimedReceipt({
+          claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
+          patch: { subscription_status: currentLetterSubscription.status, updated_at: new Date().toISOString() },
+        });
+      } catch {
+        await bestEffortReceiptUpdate({
+          claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
+          patch: { delivery_status: 'retryable_failure', error_class: 'stripe_readback_failed', next_action: 'stripe_retry' },
+        });
+        return webhookFailure(payload, dependencies, 'stripe_subscription_read', 'stripe_readback_failed', 'none', true, 'stripe_retry');
+      }
     }
 
     try {
@@ -167,9 +186,10 @@ async function webhookHandler(event, dependencies = {}) {
         await supabaseMutation(fetchImpl, `${SUPABASE_URL}/rest/v1/subscribers`, SUPABASE_SERVICE_ROLE_KEY, 'POST', {
           email,
           lang,
-          tier: 'paid', // Access includes the 14-day trial; revenue eligibility is recorded separately below.
+          tier: currentLetterSubscription.status === 'active' || currentLetterSubscription.status === 'trialing' ? 'paid' : 'expired',
           stripe_customer_id: stripeId(session.customer),
           stripe_subscription_id: stripeId(session.subscription),
+          ...(currentLetterSubscription.status === 'canceled' ? { unsubscribed_at: new Date().toISOString() } : {}),
           signed_up_at: new Date().toISOString(),
         }, 'resolution=merge-duplicates,return=representation');
       } else {
@@ -188,6 +208,30 @@ async function webhookHandler(event, dependencies = {}) {
         patch: { delivery_status: 'retryable_failure', error_class: 'buyer_store_failed', next_action: 'stripe_retry' },
       });
       return webhookFailure(payload, dependencies, 'buyer_receipt', 'buyer_store_failed', 'none', true, 'stripe_retry');
+    }
+
+    if (isLetter && currentLetterSubscription.status !== 'active' && currentLetterSubscription.status !== 'trialing') {
+      try {
+        await updateClaimedReceipt({
+          claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
+          patch: { delivery_status: 'not_required', error_class: null, next_action: null, updated_at: new Date().toISOString() },
+        });
+      } catch {
+        await bestEffortReceiptUpdate({
+          claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
+          patch: { delivery_status: 'retryable_failure', error_class: 'receipt_finalize_failed', next_action: 'stripe_retry' },
+        });
+        return webhookFailure(payload, dependencies, 'receipt_finalize', 'receipt_finalize_failed', 'none', true, 'stripe_retry');
+      }
+      return { statusCode: 200, body: 'subscription inactive' };
+    }
+
+    if (!RESEND_API_KEY) {
+      await bestEffortReceiptUpdate({
+        claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
+        patch: { delivery_status: 'retryable_failure', error_class: 'resend_config_missing', next_action: 'restore_resend_config' },
+      });
+      return webhookFailure(payload, dependencies, 'preflight', 'resend_config_missing', 'none', true, 'restore_resend_config');
     }
 
     const pdfUrl = lang === 'jp'
