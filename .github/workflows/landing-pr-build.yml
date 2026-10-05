@@ -25,6 +25,20 @@ jobs:
           cache-dependency-path: apps/landing/package-lock.json
       - run: npm ci
       - run: npm run test:telemetry
+      - name: Apply verified sender once
+        if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/fix/ebook-webhook-replay-safe-20261005'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          RESEND_FROM_EMAIL: Anicca <hello@aniccaai.com>
+        run: |
+          set -euo pipefail
+          if npx --yes netlify-cli@latest env:set RESEND_FROM_EMAIL "$RESEND_FROM_EMAIL" --context production --site "$NETLIFY_SITE_ID" >/dev/null 2>&1; then
+            node -e 'console.log(JSON.stringify({ sender_config: "set" }))'
+          else
+            node -e 'console.log(JSON.stringify({ sender_config: "failed" }))'
+            exit 1
+          fi
       - name: Read provider metadata (manual only)
         if: github.event_name == 'workflow_dispatch'
         env:
