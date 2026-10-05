@@ -289,6 +289,22 @@ local metrics snapshotがあるため、投稿→platform reach/views sample pat
 
 ## 現状の証拠
 
+### 2026-10-04保存済みモバイル収益・獲得readback
+
+`business-outcomes.jsonl`の最新保存行はAnicca `business_date=2026-10-04`、Honne AIも同日分で、観測時刻はそれぞれ`2026-10-04T22:25:29Z` / `22:25:48Z`。財務値は独立read-only review済み。RevenueCatのMRRはsubscription run-rate、Appleのreport proceedsはreport値、銀行入金と事業純利益は別の証拠として扱う。
+
+| アプリ | 最新RevenueCat MRR | Apple/過去月の別指標 | 判定 |
+|---|---:|---|---|
+| Anicca iOS | 2026-10-03時点 JPY 3,196.91（USD 20.34） | RevenueCatの2026-09 proceeds JPY 3,363.77。Apple FINANCE_DETAIL/Z1はAnicca Annualのsettled partner share JPY 4,250（transaction/settlement 2026-09-12）を1件記録 | 小規模な有料run-rateは確認済み。proceeds指標・単一settled行は銀行入金・利益ではない |
+| Honne AI | 2026-10-03時点 JPY 0 | ASC Purchases reportは2026-09-21に1 purchase、Sales USD 38.03 / Proceeds USD 32.33（processing 2026-10-02） | 継続MRRは0。購入reportの1行はbank payoutでも、継続売上の証明でもない |
+| RevenueCat設定済みiOS 6アプリ合計 | JPY 3,196.91（USD 20.34） | 同じreadbackで他の4アプリはJPY 0 | 計測済みMRRは現状Aniccaに集中 |
+
+RevenueCatの直接readbackは[2026-10-04 evidence](https://github.com/Daisuke134/life-manager/blob/aeb7d3eead8edea0af4e133480e7cba76ce53e17/docs/evidence/mobile/2026-10-04-revenuecat-live-readback.md)にある。Aniccaの月次proceeds JPY 3,363.77は2026-09のRevenueCat metricで、Apple FINANCIAL reportやbank depositではない。Apple FINANCE_DETAIL/Z1の単一Anicca行はSHA-256 `cbe1dc9242aca2cf049b7ced284a08601bddcef7eafa0a0c4553ea5e53957070`。Aniccaの別ASC Purchases projectionには2026-09-07のSales USD 31.40 / Proceeds USD 26.69もあるが、Z1との共通transaction identityは未確認のため加算しない。HonneのASC Purchases行もSales/Proceedsのreport値として残し、RevenueCat MRRや入金へ加算しない。
+
+同じ10/04保存snapshotのASC App Store Discovery and Engagement Standard（期間2026-10-01〜10-03）では、Aniccaが56 impressions・5 page views・1 tap、Honneが92 impressions・3 page views・2 taps。Downloads reportには両アプリとも10/02のfirst-time downloadが1件ずつあり、AniccaはApp Store Search、HonneはApp Referrer。これらはreport行を集計した小さいevent countで、個人単位の同一user funnelや課金帰属ではない。Product AnalyticsはAniccaの`onboarding_started=2`、`onboarding_completed=1`などのraw event totalsまでで、Honneのreadable funnelはない。ASC App Store Salesの補助queryは失敗、PostHog read accessは未解決。
+
+現在保存済みreadbackで公式Apple FINANCE_DETAILからアプリへ帰属できるsettled proceedsの行は、Aniccaの上記JPY 4,250が1件。これを全期間売上の総額とは扱わない。Apple payout/bank receipt、Honneの精算・入金、両アプリの同期間refund/fee/actual cost join、company net MRR/profitは未確認。RevenueCat chart MRRをsettled revenueや現金と呼ばない。
+
 ### 前回の外部観測
 
 以下は前セッションのASC CLI観測。保存したrawレポートは一時ファイルであり、このブランチには存在しない。現在の状態として扱う前にTask 1で再取得する。時点が違う数字を同一コホートと扱わない。
@@ -333,7 +349,7 @@ local metrics snapshotがあるため、投稿→platform reach/views sample pat
 
 ### 未確認事項
 
-現在のMRR、匿名IDとRevenueCat IDの対応、段階別離脱、実験の割当、offeringsとトライアルの稼働設定、投稿別reach/クリック/購読帰属、無料/有料の実提供差分、81%改善主張とレビュー引用の根拠は未確認。未確認を0、未稼働、故障と断定しない。
+2026-10-03時点のRevenueCat MRRは上記の通り保存readbackで確認済みだが、bank-settled net MRR/profitは未確認。匿名IDとRevenueCat IDの対応、段階別離脱、実験の割当、offeringsとトライアルの稼働設定、投稿別reach/クリック/購読帰属、無料/有料の実提供差分、81%改善主張とレビュー引用の根拠も未確認。未確認を0、未稼働、故障と断定しない。
 
 ## 公開ASOの暫定監査
 
@@ -424,7 +440,7 @@ MRRを**月額へ正規化した売上**とすると必要な有料会員数は�
 
 算式は `active paid = monthly MRR goal / monthly-normalized revenue per payer`、`new paid needed = target active paid × monthly churn`、`install needed = new paid needed / mature-cohort D35 conversion`。RevenueCatの2.1%/10.7%はアプリ群の中央値であり、Aniccaに適用した結果ではない。installとRevenueCat customer cohortが同一userで結べない場合、この式の実測係数へ混ぜず、別シナリオとして扱う。継続率や単価を良く見せるための外挿をしない。
 
-CFO direct RevenueCat readbackは2026-10-03 Anicca MRR point JPY 3,196.91/USD 20.34とSeptember proceeds JPY 3,363.77を示す。ただし`business-outcomes` projectionへのcurrency/revenue_definition接続、Apple FINANCIAL rowのapp attribution、Apple payout/bank receipt、CFO settled netは未達。MRR target comparisonはprovider run-rateの参考値だけで行わず、同じsubscription definition/currencyとactual net economicsがそろうまで現行net MRRや倍率を断定しない。
+CFO direct RevenueCat readbackは2026-10-03 Anicca MRR point JPY 3,196.91/USD 20.34、設定済みiOS 6アプリの合計も同額、Honne AI JPY 0を示す。USD MRR pointと$10K MRR targetを同じprovider metric上で比べると現在は約0.2034%（差額USD 9,979.66、約492倍）が、これはrun-rate progressに限る。Apple payout/bank receipt、同期間のrefund/fee/actual cost、CFO settled netは未達なので、これをnet revenue・profit・cashと表現しない。
 
 ### $10Kまでの収益ゲート
 
