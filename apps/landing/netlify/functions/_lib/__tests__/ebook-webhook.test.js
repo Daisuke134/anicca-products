@@ -35,6 +35,7 @@ function fakeGateway({
   resendStatus = 200,
   resendErrorName = 'resend_unavailable',
   resendResponses = [],
+  stripeSubscriptionResponses = [],
   failEventReceiptWrites = 0,
 } = {}) {
   const receiptsBySession = new Map();
@@ -45,6 +46,7 @@ function fakeGateway({
   const emailRequests = [];
   let eventReceiptFailuresRemaining = failEventReceiptWrites;
   let resendAttempts = 0;
+  let stripeSubscriptionReads = 0;
 
   async function fetchImpl(url, options = {}) {
     const method = options.method || 'GET';
@@ -112,10 +114,20 @@ function fakeGateway({
       };
       return response(spec.status, spec.body);
     }
+    if (url.startsWith('https://api.stripe.com/v1/subscriptions/')) {
+      const spec = stripeSubscriptionResponses[stripeSubscriptionReads++] || {
+        status: 200,
+        body: { id: decodeURIComponent(url.split('/').at(-1)), status: 'active' },
+      };
+      return response(spec.status, spec.body);
+    }
     throw new Error(`unexpected request: ${method} ${url}`);
   }
 
-  return { fetchImpl, receiptsBySession, receiptsByEvent, buyerRows, subscriberRows, subscribersById, emailRequests };
+  return {
+    fetchImpl, receiptsBySession, receiptsByEvent, buyerRows, subscriberRows, subscribersById, emailRequests,
+    get stripeSubscriptionReads() { return stripeSubscriptionReads; },
+  };
 }
 
 function dependencies(gateway, overrides = {}) {
@@ -335,7 +347,13 @@ test('Letter trial and paid invoice receipts preserve attribution without ebook 
 });
 
 test('subscription state update replays safely if its event receipt insert fails', async () => {
-  const gateway = fakeGateway({ failEventReceiptWrites: 1 });
+  const gateway = fakeGateway({
+    failEventReceiptWrites: 1,
+    stripeSubscriptionResponses: [
+      { status: 200, body: { id: 'sub_letter', status: 'past_due' } },
+      { status: 200, body: { id: 'sub_letter', status: 'past_due' } },
+    ],
+  });
   const deps = dependencies(gateway);
   const trial = {
     id: 'evt_letter_trial_for_retry',
@@ -367,4 +385,47 @@ test('subscription state update replays safely if its event receipt insert fails
   assert.equal(receipt.delivery_status, 'not_required');
   assert.equal(subscriber.tier, 'expired');
   assert.equal(gateway.emailRequests.length, 1);
+});
+
+test('replaying an old active event after cancellation does not restore paid access', async () => {
+  const gateway = fakeGateway({ stripeSubscriptionResponses: [
+    { status: 200, body: { id: 'sub_letter', status: 'active' } },
+    { status: 200, body: { id: 'sub_letter', status: 'canceled' } },
+  ] });
+  const deps = dependencies(gateway);
+  const trial = {
+    id: 'evt_letter_trial_stale',
+    type: 'checkout.session.completed',
+    data: { object: {
+      id: 'cs_letter_stale', mode: 'subscription', payment_status: 'no_payment_required',
+      customer: 'cus_letter', subscription: 'sub_letter',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+      customer_details: { email: 'reader@example.com' },
+    } },
+  };
+  const active = {
+    id: 'evt_letter_active_old',
+    type: 'customer.subscription.updated',
+    data: { object: {
+      id: 'sub_letter', customer: 'cus_letter', status: 'active',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+    } },
+  };
+  const canceled = {
+    id: 'evt_letter_canceled_new',
+    type: 'customer.subscription.deleted',
+    data: { object: {
+      id: 'sub_letter', customer: 'cus_letter', status: 'canceled',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+    } },
+  };
+
+  await webhookHandler(signedEvent(trial), deps);
+  await webhookHandler(signedEvent(active), deps);
+  await webhookHandler(signedEvent(canceled), deps);
+  const replay = await webhookHandler(signedEvent(active), deps);
+
+  assert.equal(replay.statusCode, 200);
+  assert.equal(gateway.subscribersById.get('sub_letter').tier, 'expired');
+  assert.equal(gateway.stripeSubscriptionReads, 2);
 });
