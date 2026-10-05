@@ -12,49 +12,58 @@ exports.handler = async (event) => {
   const lang = body.lang === 'jp' ? 'jp' : 'en';
   if (!email || !email.includes('@')) return { statusCode: 400, body: 'invalid email' };
 
-  const SUPABASE_URL = process.env.SUPABASE_URL;
-  const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  const RESEND_API_KEY = process.env.RESEND_API_KEY;
-
-  // 1) Upsert into Supabase subscribers table
-  if (SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY) {
-    await fetch(`${SUPABASE_URL}/rest/v1/subscribers`, {
-      method: 'POST',
-      headers: {
-        apikey: SUPABASE_SERVICE_ROLE_KEY,
-        Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
-        'Content-Type': 'application/json',
-        Prefer: 'resolution=merge-duplicates,return=minimal',
-      },
-      body: JSON.stringify({ email, lang, signed_up_at: new Date().toISOString() }),
-    });
+  const supabaseUrl = String(process.env.SUPABASE_URL || '').replace(/\/+$/, '');
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const resendApiKey = process.env.RESEND_API_KEY;
+  const resendFromEmail = typeof process.env.RESEND_FROM_EMAIL === 'string'
+    ? process.env.RESEND_FROM_EMAIL.trim()
+    : '';
+  if (!supabaseUrl || !serviceKey || !resendApiKey || !resendFromEmail) {
+    return { statusCode: 503, body: 'service unavailable' };
   }
 
-  // 2) Send Day 0 letter via Resend
-  const subject = lang === 'jp'
-    ? '無常の手紙 #1 — 苦しみには寿命がある'
-    : 'Letter on impermanence #1 — your suffering has an expiration date';
-
-  const html = lang === 'jp' ? jpDay0Html() : enDay0Html();
-
-  if (RESEND_API_KEY) {
-    const r = await fetch('https://api.resend.com/emails', {
+  let subscriber;
+  try {
+    const response = await fetch(supabaseUrl + '/rest/v1/rpc/upsert_ebook_subscriber', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${RESEND_API_KEY}`,
+        apikey: serviceKey,
+        Authorization: 'Bearer ' + serviceKey,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Anicca <onboarding@resend.dev>',
-        to: email,
-        subject,
-        html,
+        p_email: email,
+        p_lang: lang,
+        p_stripe_customer_id: null,
+        p_touch_existing: true,
       }),
     });
-    if (!r.ok) {
-      const txt = await r.text();
-      return { statusCode: 500, body: `resend error: ${txt}` };
-    }
+    if (!response.ok) return { statusCode: 503, body: 'subscriber registration failed' };
+    subscriber = await response.json();
+  } catch {
+    return { statusCode: 503, body: 'subscriber registration failed' };
+  }
+  if (!subscriber || typeof subscriber.subscriber_id !== 'string' || !subscriber.subscriber_id
+      || !['created', 'existing'].includes(subscriber.outcome)) {
+    return { statusCode: 503, body: 'subscriber registration failed' };
+  }
+
+  const subject = lang === 'jp'
+    ? '無常の手紙 #1 — 苦しみには寿命がある'
+    : 'Letter on impermanence #1 — your suffering has an expiration date';
+  const html = lang === 'jp' ? jpDay0Html() : enDay0Html();
+  try {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + resendApiKey,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ from: resendFromEmail, to: email, subject, html }),
+    });
+    if (!response.ok) return { statusCode: 502, body: 'email delivery failed' };
+  } catch {
+    return { statusCode: 502, body: 'email delivery failed' };
   }
 
   return { statusCode: 200, body: JSON.stringify({ ok: true }) };
