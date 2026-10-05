@@ -14,7 +14,7 @@
 - push先: `origin/docs/anicca-ios-growth-plan-20261004`
 - source audit baseline: `081eeb2e6fc9b44087eb4439e81951fa30c2cb9c`。2026-10-05 11:06 JSTにfresh fetchした`anicca-products origin/main=825802052acbcb543f22927579ae4ae5e620d7ac`。現行source authorityのLife Manager mainは`2a8d40e68f306105c59fa21631f6b9bf01ab5c90`。将来のsource実装worktreeは編集着手前にLife Manager最新mainから作る。両repositoryのsource/refを混同しない。
 - 実行計画: `../plans/2026-10-04-anicca-ios-growth-plan.md`
-- 最新再開メモ: `../../../.claude/handovers/2026-10-05_1106_anicca-ios-growth.md`
+- 最新再開メモ: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan/.claude/handovers/2026-10-05_1116_anicca-ios-growth.md`
 - 残作業とcursorの唯一の正本は実行計画の「タスク一覧」。このspecに第二のTODOを作らない。
 - `/Users/anicca/anicca-project`は他者の変更がある共有checkout。切り替え、cleanup、変更の巻き戻しをしない。
 - この文書worktreeはsparse checkoutで文書だけを展開する。製品ソースは`git show HEAD:<path>`で読める。将来の実装は新たに最新main由来の専用worktreeを作り、そこで対象ソースを展開する。
