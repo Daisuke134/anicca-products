@@ -12,9 +12,9 @@
 - 文書worktree: `/Users/anicca/anicca-project/.worktrees/anicca-ios-growth-plan`
 - 文書branch: `docs/anicca-ios-growth-plan-20261004`
 - push先: `origin/docs/anicca-ios-growth-plan-20261004`
-- source audit baseline: `081eeb2e6fc9b44087eb4439e81951fa30c2cb9c`。fresh fetchのlatest `anicca-products origin/main`は`48e2cbd417c46623802aca863148c6716c41e5dc`で、差分はCapafy article追加1 fileだけ。Growth対象ANICCA sourceは変化なし。将来のsource実装worktreeはLife Manager origin/main `82d31995e6`由来で作る。
+- source audit baseline: `081eeb2e6fc9b44087eb4439e81951fa30c2cb9c`。2026-10-05 11:06 JSTにfresh fetchした`anicca-products origin/main=825802052acbcb543f22927579ae4ae5e620d7ac`。現行source authorityのLife Manager mainは`2a8d40e68f306105c59fa21631f6b9bf01ab5c90`。将来のsource実装worktreeは編集着手前にLife Manager最新mainから作る。両repositoryのsource/refを混同しない。
 - 実行計画: `../plans/2026-10-04-anicca-ios-growth-plan.md`
-- 再開メモ: `../../../.claude/handovers/2026-10-04-anicca-ios-growth.md`
+- 最新再開メモ: `../../../.claude/handovers/2026-10-05_1106_anicca-ios-growth.md`
 - 残作業とcursorの唯一の正本は実行計画の「タスク一覧」。このspecに第二のTODOを作らない。
 - `/Users/anicca/anicca-project`は他者の変更がある共有checkout。切り替え、cleanup、変更の巻き戻しをしない。
 - この文書worktreeはsparse checkoutで文書だけを展開する。製品ソースは`git show HEAD:<path>`で読める。将来の実装は新たに最新main由来の専用worktreeを作り、そこで対象ソースを展開する。
@@ -122,6 +122,59 @@ This closes the private-metadata state readback while preserving the historical 
 ### 2026-10-05 10:29 JST owner/main refresh
 
 Life Manager origin/main is c90b7ca6b9c8790214ccb2dde1d841102c89b75f. Mobile Metrics candidate remains clean at 1f045eff3d27cfec3945cd8d2dff64f06928c834, 32 main-only / 34 candidate-only commits; no PR and issue #6547 is OPEN. There is no diff under apps/mobile/anicca-ios. Both current main and candidate collector code still filters Event="Page View", while the saved Apple Standard report uses Event="Page view". This is the next Task 1 cursor and remains owned by Mobile Metrics; no source change is made in Growth.
+
+### 2026-10-05 11:06 JST ASC inventory, build mapping, and refreshed blockers
+
+The user confirmed ASC CLI credentials are available and asked for a fresh read. `asc` 5.9.2 read-only calls succeeded using the existing Anicca profile with `ASC_BYPASS_KEYCHAIN=1`; no Keychain route or ASC metadata mutation was used. The private-metadata results already recorded above remain the latest exact localization/PPO/screenshot evidence; the calls here refresh the portfolio roster and the Anicca App Store Version→Build relationship.
+
+ASC currently returns 24 app records. Six are returned by `apps list --version-state READY_FOR_DISTRIBUTION` and match the previously reviewed public portfolio. The other 18 appear in the ASC app inventory but were not individually classified beyond not matching that filter; names such as `TestDeleteMe` are not treated as shipped products without a separate status read.
+
+| READY_FOR_DISTRIBUTION | App ID | App Store Connect name | Bundle ID |
+|---|---:|---|---|
+| yes | 6755129214 | Daily Affirmations - Anicca | `ai.anicca.app.ios` |
+| yes | 6757726663 | Dhamma Quotes | `com.dailydhamma.app` |
+| yes | 6762143790 | For Better Sleep - Sleep Reset | `app.rork.vcinrjbl3ke00f07gtlzf` |
+| yes | 6759667221 | Honne | `app.rork.hon-ne-honyaku-ai` |
+| yes | 6766485903 | STUDIO CHERIE | `app.rork.xhozd938ie79zdqd5plem` |
+| yes | 6759514159 | Thankful - Gratitude Journal | `app.rork.thankful-gratitude-app` |
+
+**Other 18 ASC app records (release states not individually classified):**
+
+| App ID | App Store Connect name | Bundle ID |
+|---:|---|---|
+| 6759867998 | Affirm Well | `com.anicca.affirmflow` |
+| 6759955465 | AppName - appname | `com.anicca.appname` |
+| 6763930574 | Aura Looks | `app.rork.kqa4frj6oh2ehfin8a7tu` |
+| 6760253231 | BreathCalm Test | `com.aniccaai.breathcalm` |
+| 6759990633 | BreathStory | `com.anicca.breathstory` |
+| 6759994539 | Chi Daily: TCM Wellness Coach | `com.aniccafactory.chidaily` |
+| 6760225278 | Cold Plunge Timer - FrostDip | `com.aniccafactory.frostdip` |
+| 6760048397 | Desk Stretch Timer | `com.aniccafactory.deskstretch` |
+| 6760196743 | Eye Break - EyeBreakIsland | `com.aniccafactory.eyebreakisland` |
+| 6759819931 | HookTele（フックテレ） | `app.rork.hooktele` |
+| 6759877003 | Micro-Mood | `com.anicca.micromood` |
+| 6759916261 | SleepRitual | `com.anicca.sleepritual` |
+| 6759954834 | TestDeleteMe - testdeleteme | `com.anicca.testdeleteme` |
+| 6759954943 | TestDeleteMe2 | `com.anicca.testdeleteme2` |
+| 6759955027 | TestDeleteMe3 | `com.anicca.testdeleteme3` |
+| 6759990837 | TestFactory001 | `com.anicca.testfactory001` |
+| 6760264773 | VagusReset | `com.aniccafactory.vagusreset` |
+| 6760271560 | Zone2Daily | `com.aniccafactory.zone2daily` |
+
+Only the sanitized projections are retained outside Git, under `/Users/anicca/.local/state/life-manager/asc-readbacks/anicca-app-roster-20261005T020355Z/` (directory mode 0700, files mode 0600). `apps.json` SHA-256 is `bcdd098673fa997ee02fca7c429755b2c6ec8c43a34a069e07d265c4c0c2eb38`; `ready.json` SHA-256 is `5438ea81f8743974be811d942fac87c3e87423f82913647b7befa7232fe2c4a8`. The raw apps response is not committed.
+
+| ASC version | App Store state | Direct Build relationship | Build status | Upload / expiration |
+|---|---|---|---|---|
+| 1.9.4 | `READY_FOR_DISTRIBUTION` / `READY_FOR_SALE` | Build 390 (`9b014b1e-63c8-45c3-809e-20e4ef3d2b05`) | `VALID`, expired | Uploaded 2026-06-23; expired 2026-09-21 |
+| 1.9.5 | `REJECTED` / `REJECTED` | Build 365 (`f453cd6c-c1da-4592-83ef-fbdcfa606b22`) | `VALID`, expired | Uploaded 2026-07-04; expired 2026-10-02 |
+
+The direct version/build response is `/Users/anicca/.local/state/life-manager/asc-readbacks/anicca-build-relation-20261005T015748Z/versions.json`, SHA-256 `04f6fdeac0d8ad09efe771486a4887f04b376a302023b8942e344b1f4033b99f` (directory 0700 / file 0600). This closes the App Store Version→Build mapping item only. The actual in-app checkout, RevenueCat offering/trial eligibility, user-level paid cohort, and CFO same-period settlement/refund/fee/cost join remain open.
+
+Fresh source readback: Life Manager main is `2a8d40e68f306105c59fa21631f6b9bf01ab5c90`. The Mobile Metrics candidate remains clean at `1f045eff3d27cfec3945cd8d2dff64f06928c834`, 33 main-only / 34 candidate-only, no PR; issue #6547 remains OPEN with zero comments. Latest main still filters App Store rows with `Event === "Page View"`, while the saved official Apple report has `Event="Page view"`. The mobile owner owns this fix. The separate paywall source branch `3fee4d6cec74fdd469237a30b880106411c46f26` is also unmerged/unreleased; its source fix and review are complete, but Xcode runtime acceptance is still open.
+
+The iOS 26.5 simulator runtime is installed and the `AniccaGrowthTask2a` device is booted. At 2026-10-05 11:04 JST the disk had 880 MiB free, so no Xcode build/test was launched; there is no runtime event-count evidence. The old “no simulator runtime” blocker is resolved, but the current disk-headroom blocker is not. A read-only CFO evidence request was sent through AGMSG to both `codex-money-printer` and `lm-cfo-observability-1002`; the inbox had no reply at 11:06 JST, and their addressable-pane/live activity state is unknown.
+
+The remaining TODO/order SSOT is still the plan's `タスク一覧`. Task 1 now has 9 open items after the requested read-only build-map check; its first open item remains the Mobile Metrics-owned Page View collector fix. The plan order is unchanged: Task 2a runtime gate, Task 1 remainder, Task 2/3, Task 4, Task 5, Task 6. Task 2a cannot safely proceed until disk headroom is restored.
 
 ### 2026-10-05 FastlaneにあるASO metadata候補
 
