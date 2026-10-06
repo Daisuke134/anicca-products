@@ -2,8 +2,8 @@
 'use client';
 
 import Link from 'next/link';
-import { Anton, IBM_Plex_Sans, IBM_Plex_Mono, Noto_Serif_JP } from 'next/font/google';
 import JsonLd from '@/components/JsonLd';
+import { body, display, kanji, mono } from '../../local-fonts/comedy';
 
 const comedyJaLd = {
   '@context': 'https://schema.org',
@@ -16,27 +16,6 @@ const comedyJaLd = {
     'アニッチャによる東京・サンフランシスコでのお笑いライブとオープンマイク出演情報。大喜利・スキット・漫才・コント・ピンネタ・フリップ芸の各フォーマットで制作中。',
   author: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
 };
-
-const display = Anton({
-  subsets: ['latin'],
-  weight: ['400'],
-  variable: '--font-display',
-});
-const body = IBM_Plex_Sans({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  variable: '--font-body',
-});
-const mono = IBM_Plex_Mono({
-  subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  variable: '--font-mono',
-});
-const kanji = Noto_Serif_JP({
-  subsets: ['latin'],
-  weight: ['400', '700', '900'],
-  variable: '--font-kanji',
-});
 
 type Show = {
   date: string;

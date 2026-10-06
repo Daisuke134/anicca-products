@@ -3,9 +3,9 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Cormorant_Garamond, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google';
 import JsonLd from '@/components/JsonLd';
 import { ManifestoHero, Section, Reveal } from '@/components/site/taste';
+import { body, display, mono } from '../local-fonts/taste';
 
 const retreatLd = {
   '@context': 'https://schema.org',
@@ -29,23 +29,6 @@ const retreatFaqLd = {
     { '@type': 'Question', name: 'How do I apply?', acceptedAnswer: { '@type': 'Answer', text: 'Via aniccaai.com/retreat - register interest and Anicca follows up with the schedule.' } },
   ],
 };
-
-const display = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-  variable: '--font-display',
-});
-const body = IBM_Plex_Sans({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  variable: '--font-body',
-});
-const mono = IBM_Plex_Mono({
-  subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  variable: '--font-mono',
-});
 
 type Retreat = {
   id: string;
