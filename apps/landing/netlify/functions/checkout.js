@@ -3,6 +3,7 @@
 // Writer: POST { product, slug, artifact_id, run_id, lang, client_reference_id }
 // Returns { url } for Stripe-hosted Checkout. Raw payment data never enters us.
 const { buildWriterCheckout, loadWriterArticle } = require('./_lib/writer-checkout.js');
+const { isAttributionTokenForLang } = require('../../lib/checkout-attribution.cjs');
 
 const STRIPE_API_VERSION = '2026-04-22.dahlia';
 
@@ -40,7 +41,6 @@ async function checkoutHandler(event, dependencies = {}) {
     const lang = body.lang === 'jp' ? 'jp' : 'en';
     const mode = body.mode === 'subscription' ? 'subscription' : 'payment';
     const product = body.product === 'letter' ? 'letter' : 'ebook';
-    const { isAttributionTokenForLang } = await import('../../lib/checkout-attribution.js');
     const attributionToken = isAttributionTokenForLang(body.attribution_token, lang)
       ? body.attribution_token
       : null;
