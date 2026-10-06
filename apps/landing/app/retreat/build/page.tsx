@@ -3,8 +3,8 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Cormorant_Garamond, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google';
 import JsonLd from '@/components/JsonLd';
+import { body, display, mono } from '../../local-fonts/taste';
 
 const retreatBuildLd = {
   '@context': 'https://schema.org',
@@ -19,12 +19,6 @@ const retreatBuildLd = {
     url: 'https://aniccaai.com',
   },
 };
-
-const display = Cormorant_Garamond({
-  subsets: ['latin'], weight: ['400', '500', '600', '700'], style: ['normal', 'italic'], variable: '--font-display',
-});
-const body = IBM_Plex_Sans({ subsets: ['latin'], weight: ['300', '400', '500', '600'], variable: '--font-body' });
-const mono = IBM_Plex_Mono({ subsets: ['latin'], weight: ['300', '400', '500'], variable: '--font-mono' });
 
 const TARGET_JPY = 30_000_000;
 
