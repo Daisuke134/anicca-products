@@ -822,11 +822,11 @@ async function reconcileLegacyCustomerSubscriptions({
     const classification = classifyLetterSubscription(subscription, env);
     if (classification) letterSubscriptions.push({ ...subscription, letter_lang: classification.lang });
   }
-  const currentSubscription = letterSubscriptions.find((subscription) => subscription.id === currentSubscriptionId);
-  if (!currentSubscription) {
+  if (!letterSubscriptions.some((subscription) => subscription.id === currentSubscriptionId)) {
     throw legacyReadbackError('legacy_subscription_inventory_missing_trigger', 'stripe_retry');
   }
 
+  let currentSubscriptionReadback = null;
   for (const subscription of letterSubscriptions) {
     const subscriptionId = subscription.id;
     const stateReservation = subscriptionId === currentSubscriptionId
@@ -844,12 +844,24 @@ async function reconcileLegacyCustomerSubscriptions({
         || stateReservation.stripe_customer_id !== customerId) {
       throw legacyReadbackError('legacy_customer_mapping_mismatch', 'manual_legacy_customer_reconciliation');
     }
+    const subscriptionReadback = await retrieveStripeSubscription(subscriptionId, stripeKey, fetchImpl);
+    if (stripeId(subscriptionReadback.customer) !== customerId) {
+      throw legacyReadbackError('legacy_customer_mapping_mismatch', 'manual_legacy_customer_reconciliation');
+    }
+    if (!STRIPE_SUBSCRIPTION_STATUSES.has(subscriptionReadback.status)) {
+      throw legacyReadbackError('legacy_subscription_readback_invalid');
+    }
+    const freshClassification = classifyLetterSubscription(subscriptionReadback, env);
+    if (!freshClassification || freshClassification.lang !== subscription.letter_lang) {
+      throw legacyReadbackError('legacy_subscription_product_conflict', 'manual_legacy_subscription_reconciliation');
+    }
+    if (subscriptionId === currentSubscriptionId) currentSubscriptionReadback = subscriptionReadback;
     const applied = await applySubscriptionState({
       subscriptionId,
       subscriberId: stateReservation.subscriber_id,
       generation: stateReservation.generation,
-      status: subscription.status,
-      subscriptionCreatedAt: new Date(subscription.created * 1000).toISOString(),
+      status: subscriptionReadback.status,
+      subscriptionCreatedAt: new Date(subscriptionReadback.created * 1000).toISOString(),
       eventId: subscriptionId === currentSubscriptionId
         ? eventId
         : `legacy_customer_readback:${inventory.snapshotAt}:${subscriptionId}`,
@@ -864,6 +876,9 @@ async function reconcileLegacyCustomerSubscriptions({
     }
   }
 
+  if (!currentSubscriptionReadback) {
+    throw legacyReadbackError('legacy_subscription_inventory_missing_trigger', 'stripe_retry');
+  }
   await finalizeLegacySubscriptionReadback({
     subscriberId: reservation.subscriber_id,
     customerId,
@@ -873,7 +888,7 @@ async function reconcileLegacyCustomerSubscriptions({
     supabaseUrl,
     serviceKey,
   });
-  return currentSubscription;
+  return currentSubscriptionReadback;
 }
 
 async function updateReceipt({ row, fetchImpl, supabaseUrl, serviceKey, expectedStatus, patch }) {

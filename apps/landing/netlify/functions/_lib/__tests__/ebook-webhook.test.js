@@ -53,6 +53,14 @@ function fakeGateway({
   const subscriptionStates = new Map();
   const subscriptionReadbackReservations = [];
   const stripeCustomerSubscriptionListRequests = [];
+  const stripeCustomerSubscriptionById = new Map();
+  for (const page of stripeCustomerSubscriptionPages) {
+    for (const subscription of page.body?.data || []) {
+      if (subscription && typeof subscription.id === 'string') {
+        stripeCustomerSubscriptionById.set(subscription.id, subscription);
+      }
+    }
+  }
   const legacySubscriptionFinalizations = [];
   const reconciliationOperations = [];
   const emailRequests = [];
@@ -332,12 +340,15 @@ function fakeGateway({
     }
     if (url.startsWith('https://api.stripe.com/v1/subscriptions/')) {
       const readIndex = stripeSubscriptionReads++;
+      const subscriptionId = decodeURIComponent(url.split('/').at(-1));
+      const listed = stripeCustomerSubscriptionById.get(subscriptionId);
       const spec = stripeSubscriptionResponses[readIndex] || {
         status: 200,
-        body: { id: decodeURIComponent(url.split('/').at(-1)), status: 'active', created: 1780600000 },
+        body: listed || { id: subscriptionId, status: 'active', created: 1780600000 },
       };
       await beforeStripeSubscriptionResponse(readIndex, spec);
-      return response(spec.status, { created: 1780600000, ...spec.body });
+      reconciliationOperations.push({ type: 'stripe_read', subscriptionId });
+      return response(spec.status, { ...listed, created: 1780600000, ...spec.body });
     }
     throw new Error(`unexpected request: ${method} ${url}`);
   }
@@ -1034,10 +1045,6 @@ test('legacy paid hold clears and stays paid when Letter is active', async () =>
       signed_up_at: '2026-01-01T00:00:00Z',
       unsubscribed_at: null,
     }],
-    stripeSubscriptionResponses: [{
-      status: 200,
-      body: { id: 'sub_legacy_canceled', customer: 'cus_legacy_active', status: 'canceled', created: 1767225600 },
-    }],
     stripeCustomerSubscriptionPages: [{
       status: 200,
       body: { object: 'list', data: [
@@ -1056,9 +1063,13 @@ test('legacy paid hold clears and stays paid when Letter is active', async () =>
     } },
   };
 
-  const result = await webhookHandler(signedEvent(event), dependencies(gateway));
+  const failures = [];
+  const result = await webhookHandler(signedEvent(event), dependencies(gateway, {
+    logFailure: (record) => failures.push(record),
+  }));
 
   assert.equal(result.statusCode, 200);
+  assert.deepEqual(failures, []);
   const subscriber = gateway.subscribersByEmail.get('legacy-active@example.com');
   assert.equal(subscriber.tier, 'paid');
   assert.equal(subscriber.stripe_legacy_paid_pending_readback, false);
@@ -1066,6 +1077,58 @@ test('legacy paid hold clears and stays paid when Letter is active', async () =>
     'sub_legacy_active', 'sub_legacy_canceled',
   ]);
   assert.equal(gateway.subscriptionStates.has('sub_other_product'), false);
+});
+
+test('legacy customer inventory re-reads a canceled sibling after reserving it', async () => {
+  const gateway = fakeGateway({
+    legacySubscribers: [{
+      id: 'subscriber_legacy_race',
+      email: 'legacy-race@example.com',
+      tier: 'paid',
+      stripe_customer_id: 'cus_legacy_race',
+      stripe_subscription_id: null,
+      signed_up_at: '2026-01-01T00:00:00Z',
+      unsubscribed_at: null,
+    }],
+    stripeSubscriptionResponses: [
+      { status: 200, body: { id: 'sub_legacy_trigger', customer: 'cus_legacy_race', status: 'canceled', created: 1767225600, metadata: { product: 'letter', lang: 'en' } } },
+      { status: 200, body: { id: 'sub_legacy_sibling', customer: 'cus_legacy_race', status: 'canceled', created: 1767312000, metadata: { product: 'letter', lang: 'en' } } },
+    ],
+    stripeCustomerSubscriptionPages: [{
+      status: 200,
+      body: { object: 'list', data: [
+        { id: 'sub_legacy_trigger', customer: 'cus_legacy_race', status: 'canceled', created: 1767225600, metadata: { product: 'letter', lang: 'en' } },
+        { id: 'sub_legacy_sibling', customer: 'cus_legacy_race', status: 'active', created: 1767312000, metadata: { product: 'letter', lang: 'en' } },
+      ], has_more: false },
+    }],
+  });
+  const event = {
+    id: 'evt_legacy_customer_sibling_canceled',
+    type: 'customer.subscription.updated',
+    data: { object: {
+      id: 'sub_legacy_trigger', customer: 'cus_legacy_race', status: 'canceled',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+    } },
+  };
+
+  const failures = [];
+  const result = await webhookHandler(signedEvent(event), dependencies(gateway, {
+    logFailure: (record) => failures.push(record),
+  }));
+
+  assert.equal(result.statusCode, 200);
+  assert.deepEqual(failures, []);
+  const subscriber = gateway.subscribersByEmail.get('legacy-race@example.com');
+  assert.equal(subscriber.tier, 'expired');
+  assert.equal(subscriber.stripe_legacy_paid_pending_readback, false);
+  assert.equal(gateway.stripeSubscriptionReads, 2);
+  assert.equal(gateway.subscriptionStates.get('sub_legacy_sibling').status, 'canceled');
+  assert.deepEqual(
+    gateway.reconciliationOperations
+      .filter(({ subscriptionId }) => subscriptionId === 'sub_legacy_sibling')
+      .map(({ type }) => type),
+    ['reserve', 'stripe_read', 'apply'],
+  );
 });
 
 test('legacy paid hold is preserved when customer inventory is incomplete or unclassifiable', async () => {

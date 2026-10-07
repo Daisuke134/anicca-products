@@ -16,8 +16,10 @@
 - While the hold is pending, a subscription event with a different or missing stored customer ID must not attach a new subscription or move the subscriber pointer.
 - Letter subscriptions are recognized only by `metadata.product=letter` or the configured Letter price IDs; ambiguous records preserve the hold.
 - Stripe/API errors, malformed cursors, incomplete pages, state-write failures, and customer mismatches never become an empty subscription list.
+- A customer inventory row is discovery data, not the state to apply: after reserving each subscription generation, retrieve that exact subscription again and validate its customer and Letter classification before applying status. A failed or changed readback preserves the hold.
 - The finalizer is `SECURITY DEFINER` with fixed `search_path`, revoked from `PUBLIC`, `anon`, and `authenticated`, and granted only to `service_role`.
 - Do not apply production DDL until the manual Netlify readback confirms that `SUPABASE_URL` points to the intended project and a fresh read-only safety verification passes.
+- The manual workflow validates an HTTPS `*.supabase.co` origin before any authenticated fetch; invalid roots and transport failures emit sanitized reason/status fields only. It prints the normalized project ref and aggregate paid/no-subscription-pointer counts, never row data or secrets.
 
 ## Review Focus
 
@@ -25,7 +27,9 @@
 - A canceled Letter subscription plus another active/trialing Letter subscription keeps access paid.
 - A complete inventory with no active/trialing Letter subscriptions clears the hold and expires access.
 - A failed second page, repeated cursor, unknown Letter product/price, null customer ID, or stale generation keeps the hold.
+- If a sibling is active in the customer-wide list but canceled by a newer Stripe readback before its reservation, the fresh readback wins; the stale list status must not restore paid access.
 - A subscription with explicit non-Letter metadata does not grant Letter access.
+- A malformed production Supabase URL produces a sanitized no-probe result; no thrown URL or fetch error may reveal the URL or key.
 
 ---
 
@@ -58,6 +62,7 @@ Expected: the new legacy-readback assertions fail because no customer-wide list 
 - [x] **Step 5: Add the service-role-only finalizer.** Lock the subscriber, require exact customer match and same-snapshot rows for every Letter subscription, reconcile omitted old states only after complete inventory, clear the legacy flag, and recompute access from active/trialing Letter states. Preserve the hold on any mismatch or stale state.
 - [x] **Step 6: Wire checkout and lifecycle webhook paths** to invoke the full customer readback only for a matching pending legacy subscriber; reject a missing/mismatched customer mapping before state writes. Then run the focused tests and confirm RED→GREEN.
 - [x] **Step 7: Commit** the verified code and tests to PR #420.
+- [x] **Step 8: Close the inventory-to-apply race.** The regression changes a sibling from active in the customer-wide list to canceled before its per-subscription readback. The handler now reserves the generation, retrieves that exact subscription, validates customer/status/Letter classification, then applies the fresh state. Focused webhook suite passes 27/27; failed/mismatched reads preserve the hold.
 
 Expected focused command: `node --test netlify/functions/_lib/__tests__/ebook-webhook.test.js` from `apps/landing` → PASS.
 
@@ -66,12 +71,14 @@ Expected focused command: `node --test netlify/functions/_lib/__tests__/ebook-we
 **Files:**
 - Modify: `.github/workflows/landing-pr-build.yml`
 
-- [ ] In the existing `workflow_dispatch`-only metadata step, parse production `SUPABASE_URL` and print only the normalized Supabase host/project ref; never print the URL, service-role key, or other secret values.
-- [ ] Commit the workflow change to PR #420. After PR checks pass, run its manual read-only metadata workflow, confirm the exact project ref, and compare it with the migration target.
+- [x] In the existing `workflow_dispatch`-only metadata step, strictly validate production `SUPABASE_URL` before any fetch and print only a sanitized validation failure or the normalized project ref plus exact paid and paid-without-subscription-pointer counts; never print the URL, service-role key, email, or row identifiers. Local malformed-URL probe printed only `invalid_supabase_url`.
+- [x] Route all Supabase fetches through a failure-safe wrapper so thrown transport/URL errors never reach workflow logs. Inline Node syntax check passes.
+- [ ] Commit/push the updated workflow and run it manually after CI to capture the actual production ref/counts; the probe remains read-only.
 
 ### Task 3: Complete source acceptance for PR #420
 
-- [ ] Run `npm run test:telemetry` from `apps/landing`; record the exact result.
-- [ ] Run `git diff --check` and inspect the final diff.
-- [ ] Obtain a fresh read-only safety verification of the migration and access-state logic, push the changes to PR #420, and wait for required CI.
+- [ ] Run full-checkout `npm ci && npm run test:telemetry` via required CI. A local sparse-worktree run lacks installed `ethers` and is not a full-suite result.
+- [x] Run `git diff --check` and inspect the final diff.
+- [x] Obtain a fresh read-only safety verification of the changed access-state and workflow files: no Critical/Important findings. The reviewer did not re-audit the SQL migration.
+- [ ] Push the changes to PR #420 and wait for required full-checkout CI. Keep production DDL unapplied until the exact project ref is read back and a fresh read-only review of the SQL migration is complete.
 - [ ] Keep PR #420 open until the production target is confirmed, the corrected migration is applied once, and table/function/ACL/schema-cache readbacks pass. Do not call source merge or tests a paid checkout/PDF receipt.
