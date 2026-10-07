@@ -179,53 +179,59 @@ async function webhookHandler(event, dependencies = {}) {
           supabaseUrl: SUPABASE_URL,
           serviceKey: SUPABASE_SERVICE_ROLE_KEY,
         });
-      } catch {
+      } catch (error) {
+        const errorClass = error && error.code || 'subscription_state_reserve_failed';
+        const nextAction = error && error.nextAction || 'stripe_retry';
         await bestEffortReceiptUpdate({
           claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
-          patch: { delivery_status: 'retryable_failure', error_class: 'subscription_state_reserve_failed', next_action: 'stripe_retry' },
+          patch: { delivery_status: 'retryable_failure', error_class: errorClass, next_action: nextAction },
         });
-        return webhookFailure(payload, dependencies, 'subscription_state_reserve', 'subscription_state_reserve_failed', 'none', true, 'stripe_retry');
+        return webhookFailure(payload, dependencies, 'subscription_state_reserve', errorClass, 'none', true, nextAction);
       }
       try {
-        const subscriptionReadback = await retrieveStripeSubscription(subscriptionId, stripeKey, fetchImpl);
-        const state = await applySubscriptionState({
-          subscriptionId,
-          subscriberId: reservation.subscriber_id,
-          generation: reservation.generation,
-          status: subscriptionReadback.status,
-          subscriptionCreatedAt: new Date(subscriptionReadback.created * 1000).toISOString(),
-          eventId: payload.id,
-          lang,
-          customerId: stripeId(session.customer),
-          fetchImpl,
-          supabaseUrl: SUPABASE_URL,
-          serviceKey: SUPABASE_SERVICE_ROLE_KEY,
-        });
-        if (state.outcome === 'stale') {
-          await updateClaimedReceipt({
-            claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
-            patch: {
-              delivery_status: 'retryable_failure',
-              subscription_status: state.status,
-              error_class: 'subscription_state_superseded',
-              next_action: 'stripe_retry',
-              updated_at: new Date().toISOString(),
-            },
+        if (reservation.stripe_legacy_paid_pending_readback) {
+          currentLetterSubscription = await reconcileLegacyCustomerSubscriptions({
+            reservation,
+            currentSubscriptionId: subscriptionId,
+            eventId: payload.id,
+            customerId: stripeId(session.customer),
+            stripeKey,
+            env,
+            fetchImpl,
+            supabaseUrl: SUPABASE_URL,
+            serviceKey: SUPABASE_SERVICE_ROLE_KEY,
           });
-          return webhookFailure(payload, dependencies, 'subscription_state_apply', 'subscription_state_superseded', 'none', true, 'stripe_retry');
+        } else {
+          const subscriptionReadback = await retrieveStripeSubscription(subscriptionId, stripeKey, fetchImpl);
+          const state = await applySubscriptionState({
+            subscriptionId,
+            subscriberId: reservation.subscriber_id,
+            generation: reservation.generation,
+            status: subscriptionReadback.status,
+            subscriptionCreatedAt: new Date(subscriptionReadback.created * 1000).toISOString(),
+            eventId: payload.id,
+            lang,
+            customerId: stripeId(session.customer),
+            fetchImpl,
+            supabaseUrl: SUPABASE_URL,
+            serviceKey: SUPABASE_SERVICE_ROLE_KEY,
+          });
+          if (state.outcome === 'stale') throw legacyReadbackError('subscription_state_superseded');
+          currentLetterSubscription = { ...subscriptionReadback, status: state.status };
         }
-        currentLetterSubscription = { ...subscriptionReadback, status: state.status };
-        receipt.subscription_status = state.status;
+        receipt.subscription_status = currentLetterSubscription.status;
         await updateClaimedReceipt({
           claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
-          patch: { subscription_status: state.status, updated_at: new Date().toISOString() },
+          patch: { subscription_status: currentLetterSubscription.status, updated_at: new Date().toISOString() },
         });
-      } catch {
+      } catch (error) {
+        const errorClass = error && error.code || 'subscription_state_readback_failed';
+        const nextAction = error && error.nextAction || 'stripe_retry';
         await bestEffortReceiptUpdate({
           claim, fetchImpl, supabaseUrl: SUPABASE_URL, serviceKey: SUPABASE_SERVICE_ROLE_KEY,
-          patch: { delivery_status: 'retryable_failure', error_class: 'subscription_state_readback_failed', next_action: 'stripe_retry' },
+          patch: { delivery_status: 'retryable_failure', error_class: errorClass, next_action: nextAction },
         });
-        return webhookFailure(payload, dependencies, 'subscription_state_update', 'subscription_state_readback_failed', 'none', true, 'stripe_retry');
+        return webhookFailure(payload, dependencies, 'subscription_state_update', errorClass, 'none', true, nextAction);
       }
     }
 
@@ -374,31 +380,46 @@ async function webhookHandler(event, dependencies = {}) {
         supabaseUrl: SUPABASE_URL,
         serviceKey: SUPABASE_SERVICE_ROLE_KEY,
       });
-    } catch {
-      return webhookFailure(payload, dependencies, 'subscription_state_reserve', 'subscription_state_reserve_failed', 'none', true, 'stripe_retry');
+    } catch (error) {
+      const errorClass = error && error.code || 'subscription_state_reserve_failed';
+      const nextAction = error && error.nextAction || 'stripe_retry';
+      return webhookFailure(payload, dependencies, 'subscription_state_reserve', errorClass, 'none', true, nextAction);
     }
     try {
-      currentSubscription = await retrieveStripeSubscription(subscriptionId, stripeKey, fetchImpl);
-    } catch {
-      return webhookFailure(payload, dependencies, 'stripe_subscription_read', 'stripe_readback_failed', 'none', true, 'stripe_retry');
-    }
-    try {
-      const state = await applySubscriptionState({
-        subscriptionId,
-        subscriberId: reservation.subscriber_id,
-        generation: reservation.generation,
-        status: currentSubscription.status,
-        subscriptionCreatedAt: new Date(currentSubscription.created * 1000).toISOString(),
-        eventId: payload.id,
-        lang,
-        customerId: stripeId(object.customer),
-        fetchImpl,
-        supabaseUrl: SUPABASE_URL,
-        serviceKey: SUPABASE_SERVICE_ROLE_KEY,
-      });
-      currentSubscription = { ...currentSubscription, status: state.status };
-    } catch {
-      return webhookFailure(payload, dependencies, 'subscription_state_update', 'subscription_state_update_failed', 'none', true, 'stripe_retry');
+      if (reservation.stripe_legacy_paid_pending_readback) {
+        currentSubscription = await reconcileLegacyCustomerSubscriptions({
+          reservation,
+          currentSubscriptionId: subscriptionId,
+          eventId: payload.id,
+          customerId: stripeId(object.customer),
+          stripeKey,
+          env,
+          fetchImpl,
+          supabaseUrl: SUPABASE_URL,
+          serviceKey: SUPABASE_SERVICE_ROLE_KEY,
+        });
+      } else {
+        currentSubscription = await retrieveStripeSubscription(subscriptionId, stripeKey, fetchImpl);
+        const state = await applySubscriptionState({
+          subscriptionId,
+          subscriberId: reservation.subscriber_id,
+          generation: reservation.generation,
+          status: currentSubscription.status,
+          subscriptionCreatedAt: new Date(currentSubscription.created * 1000).toISOString(),
+          eventId: payload.id,
+          lang,
+          customerId: stripeId(object.customer),
+          fetchImpl,
+          supabaseUrl: SUPABASE_URL,
+          serviceKey: SUPABASE_SERVICE_ROLE_KEY,
+        });
+        if (state.outcome === 'stale') throw legacyReadbackError('subscription_state_superseded');
+        currentSubscription = { ...currentSubscription, status: state.status };
+      }
+    } catch (error) {
+      const errorClass = error && error.code || 'subscription_state_update_failed';
+      const nextAction = error && error.nextAction || 'stripe_retry';
+      return webhookFailure(payload, dependencies, 'subscription_state_update', errorClass, 'none', true, nextAction);
     }
   }
   const receipt = {
@@ -577,9 +598,17 @@ async function reserveSubscriptionReadback({
   });
   if (!response.ok) throw new Error('subscription_state_reservation_failed');
   const result = await response.json();
+  if (result && result.outcome === 'legacy_customer_mismatch') {
+    const error = new Error('legacy_customer_mapping_mismatch');
+    error.code = 'legacy_customer_mapping_mismatch';
+    error.nextAction = 'manual_legacy_customer_reconciliation';
+    throw error;
+  }
   if (!result || result.outcome !== 'reserved'
       || !Number.isSafeInteger(result.generation) || result.generation < 1
-      || typeof result.subscriber_id !== 'string' || !result.subscriber_id) {
+      || typeof result.subscriber_id !== 'string' || !result.subscriber_id
+      || typeof result.stripe_legacy_paid_pending_readback !== 'boolean'
+      || (result.stripe_customer_id !== null && typeof result.stripe_customer_id !== 'string')) {
     throw new Error('subscription_state_reservation_invalid');
   }
   return result;
@@ -614,11 +643,237 @@ async function applySubscriptionState({
   });
   if (!response.ok) throw new Error('subscription_state_rpc_failed');
   const result = await response.json();
+  if (result && result.outcome === 'legacy_customer_mismatch') {
+    const error = new Error('legacy_customer_mapping_mismatch');
+    error.code = 'legacy_customer_mapping_mismatch';
+    error.nextAction = 'manual_legacy_customer_reconciliation';
+    throw error;
+  }
   if (!result || !['applied', 'stale', 'duplicate', 'conflict'].includes(result.outcome)) {
     throw new Error('subscription_state_rpc_invalid');
   }
   if (result.outcome === 'conflict') throw new Error('subscription_state_readback_conflict');
   return result;
+}
+
+const STRIPE_SUBSCRIPTION_STATUSES = new Set([
+  'active', 'trialing', 'past_due', 'canceled', 'unpaid', 'incomplete', 'incomplete_expired', 'paused',
+]);
+
+function legacyReadbackError(code, nextAction = 'stripe_retry') {
+  const error = new Error(code);
+  error.code = code;
+  error.nextAction = nextAction;
+  return error;
+}
+
+async function listStripeCustomerSubscriptions(customerId, stripeKey, fetchImpl) {
+  if (!customerId || !stripeKey) {
+    throw legacyReadbackError('legacy_customer_mapping_mismatch', 'manual_legacy_customer_reconciliation');
+  }
+  const snapshotAt = new Date().toISOString();
+  const subscriptions = [];
+  const seen = new Set();
+  let startingAfter = null;
+  let pages = 0;
+  while (true) {
+    const query = new URLSearchParams({ customer: customerId, status: 'all', limit: '100' });
+    if (startingAfter) query.set('starting_after', startingAfter);
+    let response;
+    try {
+      response = await fetchImpl(`https://api.stripe.com/v1/subscriptions?${query.toString()}`, {
+        headers: { Authorization: `Bearer ${stripeKey}` },
+      });
+    } catch {
+      throw legacyReadbackError('stripe_customer_subscription_list_failed');
+    }
+    if (!response.ok) throw legacyReadbackError('stripe_customer_subscription_list_failed');
+    let page;
+    try { page = await response.json(); } catch {
+      throw legacyReadbackError('stripe_customer_subscription_list_invalid');
+    }
+    if (!page || (page.object && page.object !== 'list') || !Array.isArray(page.data)
+        || typeof page.has_more !== 'boolean') {
+      throw legacyReadbackError('stripe_customer_subscription_list_invalid');
+    }
+    if (page.has_more && page.data.length === 0) {
+      throw legacyReadbackError('stripe_customer_subscription_cursor_invalid');
+    }
+    for (const subscription of page.data) {
+      const id = stripeId(subscription && subscription.id);
+      const subscriptionCustomerId = stripeId(subscription && subscription.customer);
+      if (!id || seen.has(id) || subscriptionCustomerId !== customerId
+          || !STRIPE_SUBSCRIPTION_STATUSES.has(subscription.status)
+          || !Number.isSafeInteger(subscription.created) || subscription.created <= 0) {
+        throw legacyReadbackError('stripe_customer_subscription_list_invalid');
+      }
+      seen.add(id);
+      subscriptions.push(subscription);
+    }
+    if (!page.has_more) break;
+    const nextCursor = page.data[page.data.length - 1].id;
+    if (typeof nextCursor !== 'string' || !nextCursor || nextCursor === startingAfter) {
+      throw legacyReadbackError('stripe_customer_subscription_cursor_invalid');
+    }
+    startingAfter = nextCursor;
+    pages += 1;
+    if (pages > 100) throw legacyReadbackError('stripe_customer_subscription_page_limit');
+  }
+  return { snapshotAt, subscriptions };
+}
+
+function classifyLetterSubscription(subscription, env) {
+  const metadata = subscription && subscription.metadata && typeof subscription.metadata === 'object'
+    ? subscription.metadata
+    : {};
+  const metadataProduct = typeof metadata.product === 'string' ? metadata.product.trim() : '';
+  const priceLanguage = new Map();
+  if (env.STRIPE_LETTER_EN_PRICE) priceLanguage.set(env.STRIPE_LETTER_EN_PRICE, 'en');
+  if (env.STRIPE_LETTER_JP_PRICE) priceLanguage.set(env.STRIPE_LETTER_JP_PRICE, 'jp');
+  const items = subscription.items && Array.isArray(subscription.items.data) ? subscription.items.data : [];
+  const matchingLanguages = new Set(items.map((item) => {
+    const price = item && (item.price || item.plan);
+    const priceId = stripeId(price);
+    return priceId ? priceLanguage.get(priceId) : null;
+  }).filter(Boolean));
+
+  if (metadataProduct && metadataProduct !== 'letter') {
+    if (matchingLanguages.size > 0) {
+      throw legacyReadbackError('legacy_subscription_product_conflict', 'manual_legacy_subscription_reconciliation');
+    }
+    return null;
+  }
+  if (matchingLanguages.size > 1) {
+    throw legacyReadbackError('legacy_subscription_product_unclassifiable', 'manual_legacy_subscription_reconciliation');
+  }
+  const metadataLanguage = metadata.lang === 'en' || metadata.lang === 'jp' ? metadata.lang : null;
+  const priceLang = matchingLanguages.size === 1 ? [...matchingLanguages][0] : null;
+  if (metadataLanguage && priceLang && metadataLanguage !== priceLang) {
+    throw legacyReadbackError('legacy_subscription_product_conflict', 'manual_legacy_subscription_reconciliation');
+  }
+  const lang = metadataLanguage || priceLang;
+  if (metadataProduct !== 'letter' && !priceLang) {
+    throw legacyReadbackError('legacy_subscription_product_unclassifiable', 'manual_legacy_subscription_reconciliation');
+  }
+  if (!lang) {
+    throw legacyReadbackError('legacy_subscription_product_unclassifiable', 'manual_legacy_subscription_reconciliation');
+  }
+  return { lang };
+}
+
+async function finalizeLegacySubscriptionReadback({
+  subscriberId,
+  customerId,
+  snapshotAt,
+  subscriptionIds,
+  fetchImpl,
+  supabaseUrl,
+  serviceKey,
+}) {
+  const response = await fetchImpl(`${supabaseUrl}/rest/v1/rpc/finalize_ebook_legacy_subscription_readback`, {
+    method: 'POST',
+    headers: dbHeaders(serviceKey),
+    body: JSON.stringify({
+      p_subscriber_id: subscriberId,
+      p_stripe_customer_id: customerId,
+      p_snapshot_at: snapshotAt,
+      p_letter_subscription_ids: subscriptionIds,
+    }),
+  });
+  if (!response.ok) throw legacyReadbackError('legacy_subscription_finalization_failed');
+  let result;
+  try { result = await response.json(); } catch {
+    throw legacyReadbackError('legacy_subscription_finalization_invalid');
+  }
+  if (!result || !['reconciled', 'not_pending'].includes(result.outcome)) {
+    const outcome = result && result.outcome;
+    const code = outcome === 'stale'
+      ? 'legacy_subscription_readback_stale'
+      : outcome === 'customer_mismatch' || outcome === 'customer_state_ambiguous'
+        ? 'legacy_customer_mapping_mismatch'
+        : 'legacy_subscription_finalization_invalid';
+    throw legacyReadbackError(code, code === 'legacy_customer_mapping_mismatch'
+      ? 'manual_legacy_customer_reconciliation' : 'stripe_retry');
+  }
+  return result;
+}
+
+async function reconcileLegacyCustomerSubscriptions({
+  reservation,
+  currentSubscriptionId,
+  eventId,
+  customerId,
+  stripeKey,
+  env,
+  fetchImpl,
+  supabaseUrl,
+  serviceKey,
+}) {
+  if (!reservation || reservation.stripe_legacy_paid_pending_readback !== true) {
+    throw new Error('legacy subscription reconciliation was not requested');
+  }
+  if (!customerId || !reservation.stripe_customer_id || reservation.stripe_customer_id !== customerId) {
+    throw legacyReadbackError('legacy_customer_mapping_mismatch', 'manual_legacy_customer_reconciliation');
+  }
+
+  const inventory = await listStripeCustomerSubscriptions(customerId, stripeKey, fetchImpl);
+  const letterSubscriptions = [];
+  for (const subscription of inventory.subscriptions) {
+    const classification = classifyLetterSubscription(subscription, env);
+    if (classification) letterSubscriptions.push({ ...subscription, letter_lang: classification.lang });
+  }
+  const currentSubscription = letterSubscriptions.find((subscription) => subscription.id === currentSubscriptionId);
+  if (!currentSubscription) {
+    throw legacyReadbackError('legacy_subscription_inventory_missing_trigger', 'stripe_retry');
+  }
+
+  for (const subscription of letterSubscriptions) {
+    const subscriptionId = subscription.id;
+    const stateReservation = subscriptionId === currentSubscriptionId
+      ? reservation
+      : await reserveSubscriptionReadback({
+        subscriptionId,
+        email: null,
+        lang: subscription.letter_lang,
+        customerId,
+        fetchImpl,
+        supabaseUrl,
+        serviceKey,
+      });
+    if (stateReservation.subscriber_id !== reservation.subscriber_id
+        || stateReservation.stripe_customer_id !== customerId) {
+      throw legacyReadbackError('legacy_customer_mapping_mismatch', 'manual_legacy_customer_reconciliation');
+    }
+    const applied = await applySubscriptionState({
+      subscriptionId,
+      subscriberId: stateReservation.subscriber_id,
+      generation: stateReservation.generation,
+      status: subscription.status,
+      subscriptionCreatedAt: new Date(subscription.created * 1000).toISOString(),
+      eventId: subscriptionId === currentSubscriptionId
+        ? eventId
+        : `legacy_customer_readback:${inventory.snapshotAt}:${subscriptionId}`,
+      lang: subscription.letter_lang,
+      customerId,
+      fetchImpl,
+      supabaseUrl,
+      serviceKey,
+    });
+    if (!['applied', 'duplicate'].includes(applied.outcome)) {
+      throw legacyReadbackError('legacy_subscription_readback_stale');
+    }
+  }
+
+  await finalizeLegacySubscriptionReadback({
+    subscriberId: reservation.subscriber_id,
+    customerId,
+    snapshotAt: inventory.snapshotAt,
+    subscriptionIds: letterSubscriptions.map((subscription) => subscription.id),
+    fetchImpl,
+    supabaseUrl,
+    serviceKey,
+  });
+  return currentSubscription;
 }
 
 async function updateReceipt({ row, fetchImpl, supabaseUrl, serviceKey, expectedStatus, patch }) {
