@@ -37,6 +37,8 @@ function fakeGateway({
   resendErrorName = 'resend_unavailable',
   resendResponses = [],
   stripeSubscriptionResponses = [],
+  stripeCustomerSubscriptionPages = [],
+  staleSubscriptionStateIds = [],
   beforeStripeSubscriptionResponse = async () => {},
   legacySubscribers = [],
   failEventReceiptWrites = 0,
@@ -50,6 +52,9 @@ function fakeGateway({
   const subscriberIdsByEmail = new Map();
   const subscriptionStates = new Map();
   const subscriptionReadbackReservations = [];
+  const stripeCustomerSubscriptionListRequests = [];
+  const legacySubscriptionFinalizations = [];
+  const reconciliationOperations = [];
   const emailRequests = [];
   let eventReceiptFailuresRemaining = failEventReceiptWrites;
   let resendAttempts = 0;
@@ -129,6 +134,11 @@ function fakeGateway({
       let state = subscriptionStates.get(subscriptionId);
       const email = (body.p_email || state?.email || '').trim().toLowerCase();
       let subscriber = email ? subscribersByEmail.get(email) : subscribersById.get(subscriptionId);
+      if (!subscriber && !email && body.p_stripe_customer_id) {
+        subscriber = [...subscribersByEmail.values()].find(
+          (row) => row.stripe_customer_id === body.p_stripe_customer_id,
+        );
+      }
       if (email && !subscriber) {
         subscriber = {
           id: `subscriber_${subscriberIdsByEmail.size + 1}`,
@@ -143,6 +153,16 @@ function fakeGateway({
       }
       if (!subscriber) return response(500, { message: 'subscriber mapping missing' });
       if (state && state.subscriberId !== subscriber.id) return response(500, { message: 'subscriber mismatch' });
+      if (subscriber.stripe_legacy_paid_pending_readback === true
+          && (!body.p_stripe_customer_id
+            || subscriber.stripe_customer_id !== body.p_stripe_customer_id)) {
+        return response(200, {
+          outcome: 'legacy_customer_mismatch',
+          subscriber_id: subscriber.id,
+          stripe_customer_id: subscriber.stripe_customer_id || null,
+          stripe_legacy_paid_pending_readback: true,
+        });
+      }
       if (!state) {
         state = {
           readbackAt: 0,
@@ -161,18 +181,47 @@ function fakeGateway({
       if (body.p_stripe_customer_id) state.customerId = body.p_stripe_customer_id;
       if (body.p_lang) state.lang = body.p_lang;
       subscriptionReadbackReservations.push({ subscriptionId, generation: state.generation, subscriberId: subscriber.id });
+      reconciliationOperations.push({ type: 'reserve', subscriptionId });
       return response(200, {
         outcome: 'reserved',
         generation: state.generation,
         subscriber_id: subscriber.id,
         pointer_subscription_id: subscriber.stripe_subscription_id,
+        stripe_customer_id: subscriber.stripe_customer_id || null,
+        stripe_legacy_paid_pending_readback: subscriber.stripe_legacy_paid_pending_readback === true,
       });
+    }
+
+    if (url.includes('/rest/v1/rpc/finalize_ebook_legacy_subscription_readback')) {
+      legacySubscriptionFinalizations.push(body);
+      reconciliationOperations.push({ type: 'finalize', subscriberId: body.p_subscriber_id });
+      const subscriber = [...subscribersByEmail.values()].find((row) => row.id === body.p_subscriber_id);
+      if (!subscriber || subscriber.stripe_customer_id !== body.p_stripe_customer_id) {
+        return response(409, { outcome: 'conflict' });
+      }
+      const letterIds = new Set(body.p_letter_subscription_ids || []);
+      const relatedStates = [...subscriptionStates.values()].filter(
+        (state) => state.subscriberId === subscriber.id && state.customerId === body.p_stripe_customer_id,
+      );
+      for (const state of relatedStates) {
+        if (!letterIds.has([...subscriptionStates.entries()].find(([, value]) => value === state)?.[0])) {
+          state.status = 'canceled';
+        }
+      }
+      subscriber.stripe_legacy_paid_pending_readback = false;
+      subscriber.tier = [...subscriptionStates.values()].some((state) =>
+        state.subscriberId === subscriber.id && ['active', 'trialing'].includes(state.status))
+        ? 'paid'
+        : 'expired';
+      return response(200, { outcome: 'reconciled', status: subscriber.tier });
     }
 
     if (url.includes('/rest/v1/rpc/apply_ebook_subscription_state')) {
       const subscriptionId = body.p_stripe_subscription_id;
       const readbackAt = body.p_readback_at ? Date.parse(body.p_readback_at) : Date.now();
       const existing = subscriptionStates.get(subscriptionId);
+      reconciliationOperations.push({ type: 'apply', subscriptionId });
+      if (existing && staleSubscriptionStateIds.includes(subscriptionId)) existing.generation += 1;
       const usesGeneration = body.p_readback_generation !== undefined;
       if (usesGeneration && existing?.generation !== body.p_readback_generation) {
         return response(200, { outcome: 'stale', status: existing?.status || 'unknown' });
@@ -271,6 +320,16 @@ function fakeGateway({
       };
       return response(spec.status, spec.body);
     }
+    if (url.startsWith('https://api.stripe.com/v1/subscriptions?')) {
+      const readIndex = stripeCustomerSubscriptionListRequests.length;
+      stripeCustomerSubscriptionListRequests.push(url);
+      reconciliationOperations.push({ type: 'stripe_list', url });
+      const spec = stripeCustomerSubscriptionPages[readIndex] || {
+        status: 200,
+        body: { object: 'list', data: [], has_more: false },
+      };
+      return response(spec.status, spec.body);
+    }
     if (url.startsWith('https://api.stripe.com/v1/subscriptions/')) {
       const readIndex = stripeSubscriptionReads++;
       const spec = stripeSubscriptionResponses[readIndex] || {
@@ -284,7 +343,7 @@ function fakeGateway({
   }
 
   return {
-    fetchImpl, receiptsBySession, receiptsByEvent, buyerRows, subscriberRows, subscribersById, subscribersByEmail, subscriptionStates, subscriptionReadbackReservations, emailRequests,
+    fetchImpl, receiptsBySession, receiptsByEvent, buyerRows, subscriberRows, subscribersById, subscribersByEmail, subscriptionStates, subscriptionReadbackReservations, stripeCustomerSubscriptionListRequests, legacySubscriptionFinalizations, reconciliationOperations, emailRequests,
     get stripeSubscriptionReads() { return stripeSubscriptionReads; },
   };
 }
@@ -879,7 +938,8 @@ test('migration-carried paid access without a Stripe pointer survives unrelated 
       { status: 200, body: { id: 'sub_unrelated_two', status: 'canceled', created: 1767312000 } },
     ],
   });
-  const deps = dependencies(gateway);
+  const failures = [];
+  const deps = dependencies(gateway, { logFailure: (record) => failures.push(record) });
   const checkout = ({ eventId, sessionId, subscriptionId }) => ({
     id: eventId,
     type: 'checkout.session.completed',
@@ -891,15 +951,229 @@ test('migration-carried paid access without a Stripe pointer survives unrelated 
     } },
   });
 
-  await webhookHandler(signedEvent(checkout({
+  const firstResult = await webhookHandler(signedEvent(checkout({
     eventId: 'evt_unrelated_one', sessionId: 'cs_unrelated_one', subscriptionId: 'sub_unrelated_one',
   })), deps);
-  await webhookHandler(signedEvent(checkout({
+  const secondResult = await webhookHandler(signedEvent(checkout({
     eventId: 'evt_unrelated_two', sessionId: 'cs_unrelated_two', subscriptionId: 'sub_unrelated_two',
   })), deps);
 
+  assert.equal(firstResult.statusCode, 503);
+  assert.equal(secondResult.statusCode, 503);
   assert.equal(gateway.subscribersByEmail.get('legacy-no-pointer@example.com').tier, 'paid');
   assert.equal(gateway.subscribersByEmail.get('legacy-no-pointer@example.com').stripe_legacy_paid_pending_readback, true);
+  assert.equal(gateway.subscribersByEmail.get('legacy-no-pointer@example.com').stripe_customer_id, 'cus_legacy_without_pointer');
+  assert.equal(gateway.subscribersByEmail.get('legacy-no-pointer@example.com').stripe_subscription_id, null);
+  assert.equal(gateway.legacySubscriptionFinalizations.length, 0);
+  assert.equal(failures.length, 2);
+  assert.deepEqual(failures.map((failure) => failure.error_class), [
+    'legacy_customer_mapping_mismatch', 'legacy_customer_mapping_mismatch',
+  ]);
+  assert.deepEqual(failures.map((failure) => failure.next_action), [
+    'manual_legacy_customer_reconciliation', 'manual_legacy_customer_reconciliation',
+  ]);
+});
+
+test('legacy paid hold clears after complete same-customer multi-page readback with no active Letter subscription', async () => {
+  const gateway = fakeGateway({
+    legacySubscribers: [{
+      id: 'subscriber_legacy_without_pointer',
+      email: 'legacy@example.com',
+      tier: 'paid',
+      stripe_customer_id: 'cus_legacy',
+      stripe_subscription_id: null,
+      signed_up_at: '2026-01-01T00:00:00Z',
+      unsubscribed_at: null,
+    }],
+    stripeSubscriptionResponses: [{
+      status: 200,
+      body: { id: 'sub_legacy_cancelled_one', customer: 'cus_legacy', status: 'canceled', created: 1767225600 },
+    }],
+    stripeCustomerSubscriptionPages: [
+      { status: 200, body: { object: 'list', data: [
+        { id: 'sub_legacy_cancelled_one', customer: 'cus_legacy', status: 'canceled', created: 1767225600, metadata: { product: 'letter', lang: 'en' } },
+      ], has_more: true } },
+      { status: 200, body: { object: 'list', data: [
+        { id: 'sub_legacy_cancelled_two', customer: 'cus_legacy', status: 'canceled', created: 1767312000, metadata: { product: 'letter', lang: 'en' } },
+      ], has_more: false } },
+    ],
+  });
+  const event = {
+    id: 'evt_legacy_customer_reconcile',
+    type: 'customer.subscription.updated',
+    data: { object: {
+      id: 'sub_legacy_cancelled_one', customer: 'cus_legacy', status: 'canceled',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+    } },
+  };
+
+  const result = await webhookHandler(signedEvent(event), dependencies(gateway));
+
+  assert.equal(result.statusCode, 200);
+  const subscriber = gateway.subscribersByEmail.get('legacy@example.com');
+  assert.equal(subscriber.tier, 'expired');
+  assert.equal(subscriber.stripe_legacy_paid_pending_readback, false);
+  assert.equal(gateway.stripeCustomerSubscriptionListRequests.length, 2);
+  assert.equal(new URL(gateway.stripeCustomerSubscriptionListRequests[1]).searchParams.get('starting_after'), 'sub_legacy_cancelled_one');
+  assert.deepEqual(gateway.legacySubscriptionFinalizations[0].p_letter_subscription_ids, [
+    'sub_legacy_cancelled_one', 'sub_legacy_cancelled_two',
+  ]);
+  const finalizeIndex = gateway.reconciliationOperations.findIndex(({ type }) => type === 'finalize');
+  assert.ok(finalizeIndex > gateway.reconciliationOperations.findLastIndex(({ type }) => type === 'apply'));
+  assert.ok(finalizeIndex > gateway.reconciliationOperations.findLastIndex(({ type }) => type === 'stripe_list'));
+});
+
+test('legacy paid hold clears and stays paid when Letter is active', async () => {
+  const gateway = fakeGateway({
+    legacySubscribers: [{
+      id: 'subscriber_legacy_active',
+      email: 'legacy-active@example.com',
+      tier: 'paid',
+      stripe_customer_id: 'cus_legacy_active',
+      stripe_subscription_id: null,
+      signed_up_at: '2026-01-01T00:00:00Z',
+      unsubscribed_at: null,
+    }],
+    stripeSubscriptionResponses: [{
+      status: 200,
+      body: { id: 'sub_legacy_canceled', customer: 'cus_legacy_active', status: 'canceled', created: 1767225600 },
+    }],
+    stripeCustomerSubscriptionPages: [{
+      status: 200,
+      body: { object: 'list', data: [
+        { id: 'sub_legacy_active', customer: 'cus_legacy_active', status: 'active', created: 1767225601, metadata: { product: 'letter', lang: 'en' } },
+        { id: 'sub_other_product', customer: 'cus_legacy_active', status: 'active', created: 1767225602, metadata: { product: 'writer_archive', lang: 'en' } },
+        { id: 'sub_legacy_canceled', customer: 'cus_legacy_active', status: 'canceled', created: 1767225600, metadata: { product: 'letter', lang: 'en' } },
+      ], has_more: false },
+    }],
+  });
+  const event = {
+    id: 'evt_legacy_customer_active',
+    type: 'customer.subscription.updated',
+    data: { object: {
+      id: 'sub_legacy_canceled', customer: 'cus_legacy_active', status: 'canceled',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+    } },
+  };
+
+  const result = await webhookHandler(signedEvent(event), dependencies(gateway));
+
+  assert.equal(result.statusCode, 200);
+  const subscriber = gateway.subscribersByEmail.get('legacy-active@example.com');
+  assert.equal(subscriber.tier, 'paid');
+  assert.equal(subscriber.stripe_legacy_paid_pending_readback, false);
+  assert.deepEqual(gateway.legacySubscriptionFinalizations[0].p_letter_subscription_ids, [
+    'sub_legacy_active', 'sub_legacy_canceled',
+  ]);
+  assert.equal(gateway.subscriptionStates.has('sub_other_product'), false);
+});
+
+test('legacy paid hold is preserved when customer inventory is incomplete or unclassifiable', async () => {
+  const cases = [
+    {
+      customer: 'cus_legacy_incomplete',
+      subscriptionId: 'sub_legacy_one',
+      pages: [
+        { status: 200, body: { object: 'list', data: [{ id: 'sub_legacy_one', customer: 'cus_legacy_incomplete', status: 'active', created: 1767225600, metadata: { product: 'letter', lang: 'en' } }], has_more: true } },
+        { status: 503, body: { message: 'Stripe list unavailable' } },
+      ],
+    },
+    {
+      customer: 'cus_legacy_unclassified',
+      subscriptionId: 'sub_legacy_unknown',
+      pages: [
+        { status: 200, body: { object: 'list', data: [{ id: 'sub_legacy_unknown', customer: 'cus_legacy_unclassified', status: 'active', created: 1767225600, metadata: {} }], has_more: false } },
+      ],
+    },
+    {
+      customer: 'cus_legacy_repeated',
+      subscriptionId: 'sub_legacy_repeated',
+      pages: [
+        { status: 200, body: { object: 'list', data: [{ id: 'sub_legacy_repeated', customer: 'cus_legacy_repeated', status: 'active', created: 1767225600, metadata: { product: 'letter', lang: 'en' } }], has_more: true } },
+        { status: 200, body: { object: 'list', data: [{ id: 'sub_legacy_repeated', customer: 'cus_legacy_repeated', status: 'active', created: 1767225600, metadata: { product: 'letter', lang: 'en' } }], has_more: false } },
+      ],
+    },
+    {
+      customer: null,
+      subscriptionId: 'sub_legacy_no_customer',
+      pages: [],
+    },
+  ];
+
+  for (const [index, testCase] of cases.entries()) {
+    const email = `legacy-inventory-${index}@example.com`;
+    const subscriptionId = testCase.subscriptionId;
+    const gateway = fakeGateway({
+      legacySubscribers: [{
+        id: `subscriber_legacy_inventory_${index}`,
+        email,
+        tier: 'paid',
+        stripe_customer_id: testCase.customer,
+        stripe_subscription_id: null,
+        signed_up_at: '2026-01-01T00:00:00Z',
+        unsubscribed_at: null,
+      }],
+      stripeSubscriptionResponses: [{
+        status: 200,
+        body: { id: subscriptionId, customer: testCase.customer, status: 'active', created: 1767225600 },
+      }],
+      stripeCustomerSubscriptionPages: testCase.pages,
+    });
+    const event = {
+      id: `evt_legacy_inventory_${index}`,
+      type: 'customer.subscription.updated',
+      data: { object: {
+        id: subscriptionId, customer: testCase.customer, status: 'active',
+        metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+      } },
+    };
+
+    const result = await webhookHandler(signedEvent(event), dependencies(gateway));
+
+    assert.equal(result.statusCode, 503);
+    assert.equal(gateway.subscribersByEmail.get(email).stripe_legacy_paid_pending_readback, true);
+    assert.equal(gateway.legacySubscriptionFinalizations.length, 0);
+    assert.equal(gateway.stripeCustomerSubscriptionListRequests.length, testCase.pages.length);
+  }
+});
+
+test('legacy paid hold is not cleared when any subscription state apply is stale', async () => {
+  const gateway = fakeGateway({
+    legacySubscribers: [{
+      id: 'subscriber_legacy_stale',
+      email: 'legacy-stale@example.com',
+      tier: 'paid',
+      stripe_customer_id: 'cus_legacy_stale',
+      stripe_subscription_id: null,
+      signed_up_at: '2026-01-01T00:00:00Z',
+      unsubscribed_at: null,
+    }],
+    stripeSubscriptionResponses: [{
+      status: 200,
+      body: { id: 'sub_legacy_stale', customer: 'cus_legacy_stale', status: 'active', created: 1767225600 },
+    }],
+    stripeCustomerSubscriptionPages: [{
+      status: 200,
+      body: { object: 'list', data: [
+        { id: 'sub_legacy_stale', customer: 'cus_legacy_stale', status: 'active', created: 1767225600, metadata: { product: 'letter', lang: 'en' } },
+      ], has_more: false },
+    }],
+    staleSubscriptionStateIds: ['sub_legacy_stale'],
+  });
+  const event = {
+    id: 'evt_legacy_stale',
+    type: 'customer.subscription.updated',
+    data: { object: {
+      id: 'sub_legacy_stale', customer: 'cus_legacy_stale', status: 'active',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+    } },
+  };
+
+  const result = await webhookHandler(signedEvent(event), dependencies(gateway));
+
+  assert.equal(result.statusCode, 503);
+  assert.equal(gateway.subscribersByEmail.get('legacy-stale@example.com').stripe_legacy_paid_pending_readback, true);
+  assert.equal(gateway.legacySubscriptionFinalizations.length, 0);
 });
 
 test('a superseded Checkout stays retryable until the winning subscription readback finishes', async () => {

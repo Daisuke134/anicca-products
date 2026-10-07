@@ -187,6 +187,8 @@ DECLARE
   v_mapped_subscriber_id text;
   v_existing_subscriber_id text;
   v_generation bigint;
+  v_stripe_customer_id text;
+  v_legacy_paid_pending boolean;
 BEGIN
   IF p_stripe_subscription_id IS NULL THEN
     RAISE EXCEPTION 'missing subscription identity';
@@ -237,9 +239,23 @@ BEGIN
     END IF;
   END IF;
 
-  PERFORM 1 FROM public.subscribers WHERE id::text = v_subscriber_id FOR UPDATE;
+  SELECT stripe_customer_id, stripe_legacy_paid_pending_readback
+    INTO v_stripe_customer_id, v_legacy_paid_pending
+    FROM public.subscribers
+   WHERE id::text = v_subscriber_id
+   FOR UPDATE;
   IF NOT FOUND THEN
     RAISE EXCEPTION 'letter subscriber row missing';
+  END IF;
+  IF v_legacy_paid_pending IS TRUE
+     AND (v_stripe_customer_id IS NULL OR p_stripe_customer_id IS NULL
+          OR v_stripe_customer_id IS DISTINCT FROM p_stripe_customer_id) THEN
+    RETURN jsonb_build_object(
+      'outcome', 'legacy_customer_mismatch',
+      'subscriber_id', v_subscriber_id,
+      'stripe_customer_id', v_stripe_customer_id,
+      'stripe_legacy_paid_pending_readback', true
+    );
   END IF;
 
   INSERT INTO public.ebook_subscription_states (
@@ -273,7 +289,11 @@ BEGIN
   v_generation := v_generation + 1;
 
   RETURN jsonb_build_object(
-    'outcome', 'reserved', 'generation', v_generation, 'subscriber_id', v_subscriber_id
+    'outcome', 'reserved',
+    'generation', v_generation,
+    'subscriber_id', v_subscriber_id,
+    'stripe_customer_id', v_stripe_customer_id,
+    'stripe_legacy_paid_pending_readback', COALESCE(v_legacy_paid_pending, false)
   );
 END;
 $$;
@@ -299,6 +319,7 @@ DECLARE
   v_state_subscriber_id text;
   v_current_generation bigint;
   v_current_status text;
+  v_subscriber_customer_id text;
   v_legacy_paid_pending boolean;
   v_pointer_subscription_id text;
   v_pointer_created_at timestamptz;
@@ -316,8 +337,10 @@ BEGIN
     RAISE EXCEPTION 'missing subscription state identity';
   END IF;
 
-  SELECT stripe_subscription_id, stripe_subscription_created_at, stripe_legacy_paid_pending_readback
-    INTO v_pointer_subscription_id, v_pointer_created_at, v_legacy_paid_pending
+  SELECT stripe_subscription_id, stripe_subscription_created_at, stripe_customer_id,
+         stripe_legacy_paid_pending_readback
+    INTO v_pointer_subscription_id, v_pointer_created_at, v_subscriber_customer_id,
+         v_legacy_paid_pending
     FROM public.subscribers
    WHERE id::text = p_subscriber_id
    FOR UPDATE;
@@ -336,6 +359,12 @@ BEGIN
   IF v_current_generation <> p_readback_generation THEN
     RETURN jsonb_build_object(
       'outcome', 'stale', 'status', v_current_status, 'generation', v_current_generation
+    );
+  END IF;
+  IF v_legacy_paid_pending IS TRUE
+     AND (v_subscriber_customer_id IS NULL OR p_stripe_customer_id IS DISTINCT FROM v_subscriber_customer_id) THEN
+    RETURN jsonb_build_object(
+      'outcome', 'legacy_customer_mismatch', 'status', v_current_status
     );
   END IF;
 
@@ -408,6 +437,121 @@ BEGIN
 END;
 $$;
 
+CREATE OR REPLACE FUNCTION public.finalize_ebook_legacy_subscription_readback(
+  p_subscriber_id text,
+  p_stripe_customer_id text,
+  p_snapshot_at timestamptz,
+  p_letter_subscription_ids text[]
+)
+RETURNS jsonb
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, pg_temp
+AS $$
+DECLARE
+  v_customer_id text;
+  v_legacy_paid_pending boolean;
+  v_has_access boolean;
+BEGIN
+  IF p_subscriber_id IS NULL OR p_stripe_customer_id IS NULL
+     OR p_snapshot_at IS NULL OR p_letter_subscription_ids IS NULL THEN
+    RAISE EXCEPTION 'missing legacy subscription readback identity';
+  END IF;
+  IF cardinality(p_letter_subscription_ids) <> (
+    SELECT count(DISTINCT subscription_id)::integer
+      FROM unnest(p_letter_subscription_ids) AS ids(subscription_id)
+  ) THEN
+    RAISE EXCEPTION 'duplicate legacy subscription readback id';
+  END IF;
+
+  SELECT stripe_customer_id, stripe_legacy_paid_pending_readback
+    INTO v_customer_id, v_legacy_paid_pending
+    FROM public.subscribers
+   WHERE id::text = p_subscriber_id
+   FOR UPDATE;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'legacy subscriber row missing';
+  END IF;
+  IF v_customer_id IS DISTINCT FROM p_stripe_customer_id THEN
+    RETURN jsonb_build_object('outcome', 'customer_mismatch');
+  END IF;
+  IF v_legacy_paid_pending IS NOT TRUE THEN
+    RETURN jsonb_build_object('outcome', 'not_pending');
+  END IF;
+
+  IF EXISTS (
+    SELECT 1
+      FROM unnest(p_letter_subscription_ids) AS listed(subscription_id)
+      LEFT JOIN public.ebook_subscription_states AS state
+        ON state.stripe_subscription_id = listed.subscription_id
+     WHERE state.stripe_subscription_id IS NULL
+        OR state.subscriber_id IS DISTINCT FROM p_subscriber_id
+        OR state.stripe_customer_id IS DISTINCT FROM p_stripe_customer_id
+        OR state.readback_at < p_snapshot_at
+        OR state.subscription_status = 'unknown'
+  ) THEN
+    RAISE EXCEPTION 'legacy subscription inventory was not fully applied';
+  END IF;
+
+  IF EXISTS (
+    SELECT 1
+      FROM public.ebook_subscription_states AS state
+     WHERE state.subscriber_id = p_subscriber_id
+       AND state.stripe_customer_id = p_stripe_customer_id
+       AND NOT (state.stripe_subscription_id = ANY(p_letter_subscription_ids))
+       AND state.updated_at >= p_snapshot_at
+  ) THEN
+    RETURN jsonb_build_object('outcome', 'stale');
+  END IF;
+
+  IF EXISTS (
+    SELECT 1
+      FROM public.ebook_subscription_states AS state
+     WHERE state.subscriber_id = p_subscriber_id
+       AND state.stripe_customer_id IS DISTINCT FROM p_stripe_customer_id
+       AND state.subscription_status IN ('active', 'trialing', 'legacy_paid_pending_readback', 'unknown')
+  ) THEN
+    RETURN jsonb_build_object('outcome', 'customer_state_ambiguous');
+  END IF;
+
+  UPDATE public.ebook_subscription_states AS state
+     SET subscription_status = 'canceled',
+         readback_at = p_snapshot_at,
+         readback_generation = readback_generation + 1,
+         event_id = 'legacy_customer_readback:' || to_char(p_snapshot_at, 'YYYYMMDDHH24MISSUS'),
+         updated_at = now()
+   WHERE state.subscriber_id = p_subscriber_id
+     AND state.stripe_customer_id = p_stripe_customer_id
+     AND NOT (state.stripe_subscription_id = ANY(p_letter_subscription_ids))
+     AND state.subscription_status <> 'canceled';
+
+  SELECT EXISTS (
+    SELECT 1
+      FROM public.ebook_subscription_states AS state
+     WHERE state.subscriber_id = p_subscriber_id
+       AND state.stripe_customer_id = p_stripe_customer_id
+       AND state.subscription_status IN ('active', 'trialing')
+  ) INTO v_has_access;
+
+  UPDATE public.subscribers
+     SET stripe_legacy_paid_pending_readback = false,
+         tier = CASE WHEN v_has_access THEN 'paid' ELSE 'expired' END,
+         unsubscribed_at = CASE
+           WHEN v_has_access THEN NULL
+           ELSE COALESCE(unsubscribed_at, now())
+         END
+   WHERE id::text = p_subscriber_id;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'legacy subscriber row missing during finalization';
+  END IF;
+
+  RETURN jsonb_build_object(
+    'outcome', 'reconciled',
+    'status', CASE WHEN v_has_access THEN 'paid' ELSE 'expired' END
+  );
+END;
+$$;
+
 REVOKE ALL ON FUNCTION public.upsert_ebook_subscriber(text, text, text, boolean)
   FROM PUBLIC, anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.upsert_ebook_subscriber(text, text, text, boolean)
@@ -419,4 +563,8 @@ GRANT EXECUTE ON FUNCTION public.reserve_ebook_subscription_readback(text, text,
 REVOKE ALL ON FUNCTION public.apply_ebook_subscription_state(text, text, bigint, text, timestamptz, text, text, text)
   FROM PUBLIC, anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.apply_ebook_subscription_state(text, text, bigint, text, timestamptz, text, text, text)
+  TO service_role;
+REVOKE ALL ON FUNCTION public.finalize_ebook_legacy_subscription_readback(text, text, timestamptz, text[])
+  FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.finalize_ebook_legacy_subscription_readback(text, text, timestamptz, text[])
   TO service_role;
