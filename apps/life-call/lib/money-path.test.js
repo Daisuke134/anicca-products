@@ -1,5 +1,5 @@
 // lib/money-path.test.js — C5/C6. The money-path monitor keeps the legacy Stripe-link assertion
-// covered while the current /lm route hands off to Telegram and continues payment server-side. It
+// covered while the current /lm route hands off to the Web app and continues payment server-side. It
 // gates rollback with debounce (>=2 consecutive FAIL), a flap guard (never roll back into a target
 // that also fails), and Telegram dedup (one message per incident). Pure logic; network fetch lives in the caller.
 "use strict";
@@ -10,13 +10,13 @@ const assert = require("node:assert/strict");
 const {
   extractStripeLink,
   assertMoneyPath,
-  assertTelegramHandoff,
+  assertWebAppHandoff,
   RollbackController,
 } = require("./money-path.js");
 
 const GOOD = "https://buy.stripe.com/9B600j6C204S7LadIG2880V"; // LM $20/mo (registry known-good)
 const BAD = "https://buy.stripe.com/00w9ATf8yaJwghG6ge2880v"; // ¥700k AI供養 (the real 2026-07-03 bug)
-const TELEGRAM_HANDOFF = "https://t.me/LifeManagerBotbot?start=lp";
+const LIFE_MANAGER_WEB_APP = "https://life-call-production.up.railway.app/lm";
 
 test("extractStripeLink: pulls buy.stripe.com/<slug> out of a chunk string", () => {
   const chunk = `})}let m="/x",x="${GOOD}",p=/re/;`;
@@ -32,126 +32,33 @@ test("assertMoneyPath: PASS when bundle link == registry, FAIL on the ¥700k bug
   assert.match(bad.reason, /stripe/i);
 });
 
-test("assertTelegramHandoff: PASS for the exact canonical deep link", () => {
-  assert.deepEqual(
-    assertTelegramHandoff({ chunk: `href="${TELEGRAM_HANDOFF}"` }),
-    { ok: true, reason: "ok" },
-  );
+test("assertWebAppHandoff accepts the canonical Web app route", () => {
+  assert.equal(typeof assertWebAppHandoff, "function");
+  assert.deepEqual(assertWebAppHandoff({ chunk: `href=\"${LIFE_MANAGER_WEB_APP}\"` }), { ok: true, reason: "ok" });
 });
 
-test("assertTelegramHandoff: PASS for canonical scheme and host casing", () => {
-  assert.deepEqual(
-    assertTelegramHandoff({ chunk: 'href="HTTPS://T.ME/LifeManagerBotbot?start=lp"' }),
-    { ok: true, reason: "ok" },
-  );
+test("assertWebAppHandoff fails when the canonical Web app route is absent", () => {
+  assert.deepEqual(assertWebAppHandoff({ chunk: 'href="https://example.com/lm"' }), {
+    ok: false, reason: "web app handoff link missing in /lm chunk",
+  });
 });
 
-test("assertTelegramHandoff: FAIL when the canonical deep link is absent", () => {
-  assert.deepEqual(
-    assertTelegramHandoff({ chunk: 'href="https://t.me/LifeManagerBotbot?start=lp-extra"' }),
-    { ok: false, reason: "telegram handoff link missing in /lm chunk" },
-  );
+test("assertWebAppHandoff rejects Telegram and direct Stripe links", () => {
+  assert.deepEqual(assertWebAppHandoff({ chunk: `${LIFE_MANAGER_WEB_APP} https://t.me/LifeManagerBotbot?start=lp` }), {
+    ok: false, reason: "telegram link found in /lm chunk",
+  });
+  assert.deepEqual(assertWebAppHandoff({ chunk: `${LIFE_MANAGER_WEB_APP} https://checkout.stripe.com/c/pay` }), {
+    ok: false, reason: "stripe link found in /lm chunk",
+  });
 });
 
-test("assertTelegramHandoff: FAIL when canonical and an extra Telegram URL coexist", () => {
-  const extra = "https://t.me/LifeManagerBotbot?start=lp-extra";
-  assert.deepEqual(
-    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} ${extra}` }),
-    { ok: false, reason: `unexpected telegram link in /lm chunk: ${extra}` },
-  );
-});
-
-test("assertTelegramHandoff: FAIL when canonical and a different bot URL coexist", () => {
-  const otherBot = "https://t.me/OtherLifeManagerBot?start=lp";
-  assert.deepEqual(
-    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} ${otherBot}` }),
-    { ok: false, reason: `unexpected telegram link in /lm chunk: ${otherBot}` },
-  );
-});
-
-test("assertTelegramHandoff: FAIL when canonical and uppercase-host other bot coexist", () => {
-  const otherBot = "https://T.ME/OtherLifeManagerBot?start=lp";
-  assert.deepEqual(
-    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} ${otherBot}` }),
-    { ok: false, reason: `unexpected telegram link in /lm chunk: https://t.me/OtherLifeManagerBot?start=lp` },
-  );
-});
-
-test("assertTelegramHandoff: FAIL when canonical and a t.me port URL coexist", () => {
-  const otherBot = "https://t.me:443/OtherBot?start=lp";
-  assert.deepEqual(
-    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} ${otherBot}` }),
-    { ok: false, reason: `unexpected telegram link in /lm chunk: ${otherBot}` },
-  );
-});
-
-test("assertTelegramHandoff: FAIL when canonical and a trailing-dot t.me URL coexist", () => {
-  const otherBot = "https://t.me./OtherBot?start=lp";
-  assert.deepEqual(
-    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} ${otherBot}` }),
-    { ok: false, reason: `unexpected telegram link in /lm chunk: ${otherBot}` },
-  );
-});
-
-test("assertTelegramHandoff: FAIL when a path traversal URL targets the canonical route", () => {
-  const traversal = "https://t.me/other/../LifeManagerBotbot?start=lp";
-  assert.deepEqual(
-    assertTelegramHandoff({ chunk: traversal }),
-    { ok: false, reason: "telegram handoff link missing in /lm chunk" },
-  );
-  assert.deepEqual(
-    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} ${traversal}` }),
-    { ok: false, reason: `unexpected telegram link in /lm chunk: ${traversal}` },
-  );
-});
-
-test("assertTelegramHandoff: FAIL when any Stripe link is present", () => {
-  assert.deepEqual(
-    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} https://buy.stripe.com/rogue` }),
-    { ok: false, reason: "stripe link found in /lm chunk" },
-  );
-});
-
-test("assertTelegramHandoff: FAIL for HTTPS Stripe root and subdomain links", () => {
-  for (const stripeUrl of ["https://checkout.stripe.com/c/pay", "https://stripe.com/pricing"]) {
-    assert.deepEqual(
-      assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} ${stripeUrl}` }),
-      { ok: false, reason: "stripe link found in /lm chunk" },
-    );
-  }
-  assert.deepEqual(
-    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} https://notstripe.com/pricing` }),
-    { ok: true, reason: "ok" },
-  );
-});
-
-test("assertTelegramHandoff: FAIL when a Stripe URL includes userinfo", () => {
-  assert.deepEqual(
-    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} https://user@stripe.com/pay` }),
-    { ok: false, reason: "stripe link found in /lm chunk" },
-  );
-});
-
-test("assertTelegramHandoff: FAIL when Stripe domain has a trailing dot and port", () => {
-  assert.deepEqual(
-    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} https://stripe.com.:443/pay` }),
-    { ok: false, reason: "stripe link found in /lm chunk" },
-  );
-});
-
-test("assertTelegramHandoff: FAIL when comma-concatenated Telegram URL follows another HTTPS URL", () => {
-  const otherBot = "https://t.me/OtherBot?start=lp";
-  assert.deepEqual(
-    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} https://example.com,${otherBot}` }),
-    { ok: false, reason: `unexpected telegram link in /lm chunk: ${otherBot}` },
-  );
-});
-
-test("assertTelegramHandoff: FAIL when comma-concatenated Stripe URL follows another HTTPS URL", () => {
-  assert.deepEqual(
-    assertTelegramHandoff({ chunk: `${TELEGRAM_HANDOFF} https://example.com,https://stripe.com/pay` }),
-    { ok: false, reason: "stripe link found in /lm chunk" },
-  );
+test("assertWebAppHandoff rejects alternate Life Manager endpoints", () => {
+  assert.deepEqual(assertWebAppHandoff({ chunk: 'https://life-call-production.up.railway.app/auth/google' }), {
+    ok: false, reason: "unexpected web app link in /lm chunk: https://life-call-production.up.railway.app/auth/google",
+  });
+  assert.deepEqual(assertWebAppHandoff({ chunk: 'https://life-call-production.up.railway.app.evil/lm' }), {
+    ok: false, reason: "web app handoff link missing in /lm chunk",
+  });
 });
 
 test("RollbackController: debounce — needs >=2 consecutive FAIL before rollback", () => {
