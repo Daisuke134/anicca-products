@@ -1,22 +1,23 @@
-import { Outfit, JetBrains_Mono, Noto_Sans_JP } from 'next/font/google';
+import localFont from 'next/font/local';
 
-// §4.1 sans-display 既定 (Outfit)。§3.F: Geist は Next 14.2.5 の next/font/google 在庫に
-// 無いため、新規 npm 依存を増やさず承認済み Outfit + JetBrains Mono を採用。
-export const display = Outfit({
-  subsets: ['latin'],
+// The latin WOFF2 subsets and their OFL notices are checked in under ./local-fonts.
+export const display = localFont({
+  src: './local-fonts/assets/outfit-latin.woff2',
   display: 'swap',
   variable: '--font-display',
+  weight: '100 900',
 });
 
-export const mono = JetBrains_Mono({
-  subsets: ['latin'],
+export const mono = localFont({
+  src: './local-fonts/assets/jetbrains-mono-latin.woff2',
   display: 'swap',
   variable: '--font-mono',
+  weight: '100 800',
 });
 
-export const notoSansJP = Noto_Sans_JP({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+export const notoSansJP = localFont({
+  src: './local-fonts/assets/noto-sans-jp-latin.woff2',
   display: 'swap',
   variable: '--font-noto-sans-jp',
+  weight: '100 900',
 });

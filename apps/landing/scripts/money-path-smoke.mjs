@@ -36,6 +36,9 @@ if (!verdict.ok) fail(verdict.reason);
 // raw fetch of Stripe's client-rendered page is unreliable)
 const pay = await fetch(registry.stripe_lm_url);
 if (pay.status !== 200) fail(`registry Stripe link not reachable (${pay.status})`);
+// A GET must reach the checkout handler's method guard without creating a Stripe session.
+const checkout = await fetch(`${BASE}/.netlify/functions/checkout`);
+if (checkout.status !== 405) fail(`checkout function did not load cleanly (${checkout.status})`);
 
-console.log(`SMOKE PASS: ${BASE} up, /lm Telegram handoff verified, no direct Stripe link, registry Stripe URL reachable for server-side payment`);
+console.log(`SMOKE PASS: ${BASE} up, checkout handler loaded, /lm Telegram handoff verified, no direct Stripe link, registry Stripe URL reachable for server-side payment`);
 process.exit(0);

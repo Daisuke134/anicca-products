@@ -4,9 +4,9 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Cormorant_Garamond, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google';
 import JsonLd from '@/components/JsonLd';
 import { SplitHero, Section, Reveal, CTA } from '@/components/site/taste';
+import { body, display, mono } from '../local-fonts/taste';
 
 /* ─────────────────────────────────────────────
    §11.F: JsonLd blocks - verbatim (schema unchanged)
@@ -42,26 +42,6 @@ const cafeFaqLd = {
     { '@type': 'Question', name: 'Where and when?', acceptedAnswer: { '@type': 'Answer', text: 'Tokyo; pre-launch reservations and the exact location via aniccaai.com/cafe.' } },
   ],
 };
-
-/* ─────────────────────────────────────────────
-   Fonts (local variable setup, theme uses semantic tokens)
-───────────────────────────────────────────── */
-const display = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-  variable: '--font-display',
-});
-const body = IBM_Plex_Sans({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600'],
-  variable: '--font-body',
-});
-const mono = IBM_Plex_Mono({
-  subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  variable: '--font-mono',
-});
 
 /* ─────────────────────────────────────────────
    Constants - §11.F: URL verbatim
