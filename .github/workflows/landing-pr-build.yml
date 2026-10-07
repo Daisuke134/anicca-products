@@ -63,6 +63,13 @@ jobs:
           } else {
             const root = base.replace(/\/$/, '');
             const auth = { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` };
+            let supabaseProjectRef = null;
+            try {
+              const hostname = new URL(root).hostname.toLowerCase();
+              const match = /^([a-z0-9]+)\.supabase\.co$/.exec(hostname);
+              supabaseProjectRef = match ? match[1] : null;
+            } catch { /* The host is intentionally not logged when it is invalid. */ }
+            console.log(JSON.stringify({ supabase_project_ref: supabaseProjectRef }));
             const response = await fetch(`${root}/rest/v1/`, {
               headers: { ...auth, Accept: 'application/openapi+json' },
             });
