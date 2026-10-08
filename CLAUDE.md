@@ -646,7 +646,7 @@ Anicca instance の self-update は必ず body file (state/*.jsonl, ledger 等) 
 openclaw models status | head -5                                    # OpenClaw → openai-codex
 HOME=/Users/anicca hermes config get model.provider                 # Hermes → xai-oauth
 HOME=/Users/anicca hermes config get model.default                  # Hermes → grok-4.3
-# Claude Code: system prompt の「Powered by claude-opus-4-7」、 出ないなら /model
+# Claude Code: 現在のモデルはsessionのmodel picker/headerで確認し、特定versionを前提にしない
 ```
 
 ## ブランチ & デプロイ
