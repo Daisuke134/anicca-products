@@ -29,7 +29,7 @@ test('root metadata and rendered sections do not revive the retired self-funding
 test('the public Life Manager page exposes the canonical startup-context identity', () => {
   const page = read('app/lm/page.tsx');
   assert.match(page, /life-manager-context-version/);
-  assert.match(page, /2026-10-02\.1/);
+  assert.match(page, /2026-10-08\.1/);
   assert.match(page, /life-manager-context-digest/);
-  assert.match(page, /113ddbade3174274888d408be0874286dd6c4d9fa8cff41d447bca744e74ceed/);
+  assert.match(page, /5b8e34cf01a7cf7589fc6049c080b3eb8458ec28b98103abc2ade395e8d0f90c/);
 });
