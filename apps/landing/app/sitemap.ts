@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { loadAllBlogPosts } from "@/lib/blog-posts";
+import { LM_JA_GUIDES } from "@/lib/lm-ja-guides";
 
 const BASE_URL = "https://aniccaai.com";
 
@@ -8,6 +9,9 @@ const STATIC_PATHS = [
   "/affirmation-app-alternative/",
   "/ai-cafe-tokyo/",
   "/ai-grave/",
+  "/lm",
+  "/lm/ja",
+  "/lm/guide",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -20,5 +24,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: post.date || undefined,
   }));
 
-  return [...staticEntries, ...blogEntries];
+  // Hand-written Japanese Life Manager guides (separate from the Writer's /blog posts).
+  const lmGuideEntries: MetadataRoute.Sitemap = LM_JA_GUIDES.map((g) => ({
+    url: `${BASE_URL}/lm/guide/${g.slug}`,
+    lastModified: g.date,
+  }));
+
+  return [...staticEntries, ...lmGuideEntries, ...blogEntries];
 }
