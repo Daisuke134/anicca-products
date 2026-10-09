@@ -5,6 +5,17 @@
 [functions.checkout]
   included_files = ["private/writer-articles/**"]
 
+# Cookieless first-party site counters (pageviews + funnel events)
+[[redirects]]
+  from = "/api/hit"
+  to = "/.netlify/functions/hit"
+  status = 200
+
+[[redirects]]
+  from = "/api/stats"
+  to = "/.netlify/functions/stats"
+  status = 200
+
 # Private CFO behind basic auth (Dais only)
 # Visit /private with Authorization: Basic <base64 of "dais:<password>">
 # Password in Netlify env: PRIVATE_CFO_PASSWORD

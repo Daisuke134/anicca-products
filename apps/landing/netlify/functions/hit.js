@@ -1,6 +1,6 @@
 // POST|GET /.netlify/functions/hit — cookieless pageview / named-event counter.
 // Body or query: { t: 'pageview'|'event', path, event?, type?, utm_source?, utm_campaign?, ref?, ct? }
-const { getStore } = require('@netlify/blobs');
+const { connectLambda, getStore } = require('@netlify/blobs');
 const { recordHit } = require('./_lib/site-hit-store');
 
 const CORS = {
@@ -18,7 +18,6 @@ function parseBody(event) {
   try {
     return JSON.parse(raw);
   } catch {
-    // sendBeacon / form-urlencoded fallback: treat as querystring-ish
     try {
       return Object.fromEntries(new URLSearchParams(raw));
     } catch {
@@ -33,6 +32,16 @@ function parseInput(event) {
   return { ...q, ...body };
 }
 
+function openStore(event, getStoreImpl, connectImpl) {
+  // Classic Netlify Functions need connectLambda to hydrate Blobs credentials from event.blobs.
+  try {
+    connectImpl(event);
+  } catch {
+    // ignore — getStore will throw a clearer error if context is still missing
+  }
+  return getStoreImpl('site-stats');
+}
+
 async function hitHandler(event, dependencies = {}) {
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 204, headers: CORS, body: '' };
@@ -42,10 +51,11 @@ async function hitHandler(event, dependencies = {}) {
   }
 
   const getStoreImpl = dependencies.getStore || getStore;
+  const connectImpl = dependencies.connectLambda || connectLambda;
   let store;
   try {
-    store = getStoreImpl('site-stats');
-  } catch (err) {
+    store = openStore(event, getStoreImpl, connectImpl);
+  } catch {
     return {
       statusCode: 503,
       headers: { ...CORS, 'Content-Type': 'application/json' },
