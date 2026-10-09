@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 import { SplitHero, Section, Reveal, CTA } from '@/components/site/taste';
 
 export const metadata = {
@@ -16,6 +17,20 @@ export const metadata = {
 
 const APP_STORE_URL =
   'https://apps.apple.com/app/honne/id6759667221?pt=93486075&ct=site_honne&mt=8';
+const APP_STORE_DOWNLOAD = 'https://apps.apple.com/app/id6759667221';
+
+const honneSoftwareLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Honne',
+  operatingSystem: 'iOS',
+  applicationCategory: 'UtilitiesApplication',
+  url: 'https://aniccaai.com/honne',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  downloadUrl: APP_STORE_DOWNLOAD,
+  sameAs: [APP_STORE_DOWNLOAD],
+  publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
+};
 
 const FEATURES = [
   'Paste any LINE or chat message and get an instant read on what they may really mean',
@@ -35,6 +50,7 @@ const SCREENSHOTS = [
 export default function HonneLandingEn() {
   return (
     <main className="min-h-screen bg-[hsl(var(--background))]">
+      <JsonLd data={honneSoftwareLd} />
       <SplitHero
         eyebrow="iOS · Utilities · by Daisuke Narita"
         headline={

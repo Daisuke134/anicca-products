@@ -953,12 +953,45 @@ export default function AffirmationLanding({ locale }: { locale: Locale }) {
                 悩み別アファメーションを読む →
               </Link>
             ) : (
-              <Link
-                href="/affirmation-app/en/quiz"
-                className="mt-8 inline-block border-b border-cream/30 font-mono-ui text-[11px] tracking-[0.12em] text-cream/70 hover:border-gold hover:text-gold"
-              >
-                Take the free Mind Habits Quiz →
-              </Link>
+              <>
+                <section className="mx-auto mt-14 max-w-lg text-left">
+                  <h2 className="font-mono-ui text-[11px] uppercase tracking-[0.2em] text-cream/55">
+                    Read
+                  </h2>
+                  <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-cream/80">
+                    <li>
+                      <Link
+                        href="/affirmation-app/a/overthinking-at-night"
+                        className="border-b border-cream/25 hover:border-gold hover:text-gold"
+                      >
+                        Overthinking at night
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/affirmation-app/a/self-doubt"
+                        className="border-b border-cream/25 hover:border-gold hover:text-gold"
+                      >
+                        Affirmations for self-doubt
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/affirmation-app/a/comparing-yourself"
+                        className="border-b border-cream/25 hover:border-gold hover:text-gold"
+                      >
+                        Stop comparing yourself
+                      </Link>
+                    </li>
+                  </ul>
+                </section>
+                <Link
+                  href="/affirmation-app/en/quiz"
+                  className="mt-8 inline-block border-b border-cream/30 font-mono-ui text-[11px] tracking-[0.12em] text-cream/70 hover:border-gold hover:text-gold"
+                >
+                  Take the free Mind Habits Quiz →
+                </Link>
+              </>
             )}
             <Link
               href="/"

@@ -7,16 +7,20 @@ export const metadata = {
     "Anicca is an iOS app that delivers a single line of kindness at the exact moment your mind starts to spiral. AI-personalised, Buddhist-rooted (Anicca = impermanence), proactive, free to download.",
 };
 
+const APP_STORE_URL = 'https://apps.apple.com/app/id6755129214';
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'Anicca',
+  name: 'Daily Affirmations - Anicca',
   applicationCategory: 'HealthApplication',
   operatingSystem: 'iOS',
   url: 'https://aniccaai.com/affirmation-app',
   description:
-    'Anicca is an iOS affirmation app that delivers one personalised line of kindness at the moment your mind starts to spiral. AI-timed, Buddhist-rooted (anicca = impermanence), proactive.',
-  offers: { '@type': 'Offer', price: '9.99', priceCurrency: 'USD' },
+    'Anicca is an iOS affirmation app that delivers one personalised line of kindness at the moment your mind starts to spiral. Free to download with optional in-app subscription.',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  downloadUrl: APP_STORE_URL,
+  sameAs: [APP_STORE_URL],
   publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
 };
 
