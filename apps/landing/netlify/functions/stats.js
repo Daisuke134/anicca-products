@@ -1,6 +1,6 @@
 // GET /.netlify/functions/stats — aggregate site counters (no personal data).
 // If STATS_KEY env is set, require ?key=…; otherwise return public aggregates.
-const { getStore } = require('@netlify/blobs');
+const { connectLambda, getStore } = require('@netlify/blobs');
 const { loadCounters, publicStats } = require('./_lib/site-hit-store');
 
 const CORS = {
@@ -8,6 +8,15 @@ const CORS = {
   'Access-Control-Allow-Methods': 'GET, OPTIONS',
   'Cache-Control': 'no-store',
 };
+
+function openStore(event, getStoreImpl, connectImpl) {
+  try {
+    connectImpl(event);
+  } catch {
+    // ignore — getStore will throw if context is still missing
+  }
+  return getStoreImpl('site-stats');
+}
 
 async function statsHandler(event, dependencies = {}) {
   if (event.httpMethod === 'OPTIONS') {
@@ -31,9 +40,10 @@ async function statsHandler(event, dependencies = {}) {
   }
 
   const getStoreImpl = dependencies.getStore || getStore;
+  const connectImpl = dependencies.connectLambda || connectLambda;
   let store;
   try {
-    store = getStoreImpl('site-stats');
+    store = openStore(event, getStoreImpl, connectImpl);
   } catch {
     return {
       statusCode: 503,

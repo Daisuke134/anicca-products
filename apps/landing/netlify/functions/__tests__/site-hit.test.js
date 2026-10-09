@@ -22,6 +22,10 @@ function memoryStore(seed) {
 test('hit records pageview and stats returns aggregates', async () => {
   const store = memoryStore();
   const getStore = () => store;
+  let connected = false;
+  const connectLambda = () => {
+    connected = true;
+  };
 
   const hit = await hitHandler(
     {
@@ -32,21 +36,22 @@ test('hit records pageview and stats returns aggregates', async () => {
         utm_source: 'x',
       }),
     },
-    { getStore },
+    { getStore, connectLambda },
   );
   assert.equal(hit.statusCode, 204);
+  assert.equal(connected, true);
 
   await hitHandler(
     {
       httpMethod: 'GET',
       queryStringParameters: { t: 'event', event: 'quiz_start' },
     },
-    { getStore },
+    { getStore, connectLambda },
   );
 
   const stats = await statsHandler(
     { httpMethod: 'GET', queryStringParameters: {} },
-    { getStore, env: {} },
+    { getStore, connectLambda, env: {} },
   );
   assert.equal(stats.statusCode, 200);
   const body = JSON.parse(stats.body);
@@ -63,15 +68,16 @@ test('stats requires key when STATS_KEY is set', async () => {
     events: {},
     updated_at: '2026-01-01T00:00:00.000Z',
   });
+  const connectLambda = () => {};
   const denied = await statsHandler(
     { httpMethod: 'GET', queryStringParameters: {} },
-    { getStore: () => store, env: { STATS_KEY: 'secret' } },
+    { getStore: () => store, connectLambda, env: { STATS_KEY: 'secret' } },
   );
   assert.equal(denied.statusCode, 401);
 
   const ok = await statsHandler(
     { httpMethod: 'GET', queryStringParameters: { key: 'secret' } },
-    { getStore: () => store, env: { STATS_KEY: 'secret' } },
+    { getStore: () => store, connectLambda, env: { STATS_KEY: 'secret' } },
   );
   assert.equal(ok.statusCode, 200);
   assert.equal(JSON.parse(ok.body).total_pageviews, 3);
