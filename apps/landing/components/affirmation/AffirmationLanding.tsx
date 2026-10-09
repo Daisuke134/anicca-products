@@ -85,7 +85,7 @@ const COPY: Record<Locale, Copy> = {
       'Private by design',
     ],
     proofRow:
-      'Featured in soft-life TikTok · As gentle as a friend who has done the work',
+      'As gentle as a friend who has done the work',
 
     storyEyebrow: 'I. The premise',
     storyHeading: (
@@ -286,7 +286,7 @@ const COPY: Record<Locale, Copy> = {
     rating: '4.8',
     ratingMeta: 'App Store · ヘルスケア / フィットネス',
     badges: ['iOS 15+', 'ストリークなし', '記録なし', '罪悪感なし', 'プライバシー優先'],
-    proofRow: 'soft-life TikTok で話題 · 大人の友達みたいに、やさしい',
+    proofRow: '大人の友達みたいに、やさしい',
 
     storyEyebrow: 'I. 前提',
     storyHeading: (
