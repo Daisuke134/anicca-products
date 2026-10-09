@@ -6,6 +6,7 @@ const BASE_URL = "https://aniccaai.com";
 
 // Static top-level pages that were previously hand-maintained in public/sitemap.xml.
 const STATIC_PATHS = [
+  "/affirmation-app",
   "/affirmation-app-alternative/",
   "/ai-cafe-tokyo/",
   "/ai-grave/",
