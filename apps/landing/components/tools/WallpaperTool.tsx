@@ -121,6 +121,15 @@ export default function WallpaperTool() {
     const href = buildWallpaperAppStoreUrl();
     setStoreAfter(href);
     setStoreFooter(href);
+    const q = new URLSearchParams(window.location.search);
+    const textParam = q.get('text');
+    if (textParam && textParam.trim()) {
+      setCustom(textParam.trim().slice(0, MAX_CHARS));
+    }
+    const bgParam = q.get('bg');
+    if (bgParam && BG_PRESETS.some((b) => b.id === bgParam)) {
+      setBgId(bgParam);
+    }
   }, []);
 
   const bg = useMemo(() => BG_PRESETS.find((b) => b.id === bgId) ?? BG_PRESETS[0], [bgId]);

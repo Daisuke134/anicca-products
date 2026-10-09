@@ -4,9 +4,14 @@ import type { ReactNode } from 'react';
 export default function JaAffirmationSeoLayout({
   children,
   breadcrumbCurrent,
+  breadcrumbMiddle = {
+    href: '/affirmation-app/ja/a',
+    label: '悩み別アファメーション',
+  },
 }: {
   children: ReactNode;
   breadcrumbCurrent?: string;
+  breadcrumbMiddle?: { href: string; label: string };
 }) {
   return (
     <div lang="ja" className="font-serif-jp min-h-dvh bg-[#fdf7ee] text-[#393634]">
@@ -40,11 +45,11 @@ export default function JaAffirmationSeoLayout({
           <li aria-hidden="true">/</li>
           <li>
             {breadcrumbCurrent ? (
-              <Link href="/affirmation-app/ja/a" className="hover:text-[#393634]">
-                悩み別アファメーション
+              <Link href={breadcrumbMiddle.href} className="hover:text-[#393634]">
+                {breadcrumbMiddle.label}
               </Link>
             ) : (
-              <span className="text-[#393634]">悩み別アファメーション</span>
+              <span className="text-[#393634]">{breadcrumbMiddle.label}</span>
             )}
           </li>
           {breadcrumbCurrent ? (
