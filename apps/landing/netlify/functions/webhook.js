@@ -1,6 +1,7 @@
 // Stripe webhook: on payment_intent.succeeded / checkout.session.completed,
 // look up the lang via session metadata and email the buyer the PDF link via Resend.
 const crypto = require('crypto');
+const { ebookDownloadUrl } = require('./ebook-download.js');
 
 const WRITER_EVENT_TYPES = new Set([
   'checkout.session.completed',
@@ -167,9 +168,7 @@ async function webhookHandler(event, dependencies = {}) {
       }).catch(() => {});
     }
 
-    const PDF_URL = lang === 'jp'
-      ? `https://aniccaai.com/ebooks/anicca-reset-jp.pdf`
-      : `https://aniccaai.com/ebooks/anicca-reset-en.pdf`;
+    const PDF_URL = ebookDownloadUrl(session.id, { origin: 'https://aniccaai.com', format: 'pdf' });
     const subject = lang === 'jp' ? '『アニッチャ・リセット』お届けします' : 'Your copy of The Anicca Reset';
     const html = lang === 'jp' ? jpDeliverHtml(PDF_URL) : enDeliverHtml(PDF_URL);
     await sendEmail(RESEND_API_KEY, email, subject, html);

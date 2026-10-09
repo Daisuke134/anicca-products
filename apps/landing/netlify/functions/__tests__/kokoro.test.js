@@ -282,6 +282,7 @@ test('webhook acknowledges retreat-build-fund without ebook email', async () => 
 
 test('webhook still emails ebook PDF for product=ebook', async () => {
   let delivered = 0;
+  let html = '';
   const payload = {
     id: 'evt_ebook',
     type: 'checkout.session.completed',
@@ -303,8 +304,13 @@ test('webhook still emails ebook PDF for product=ebook', async () => {
       RESEND_API_KEY: 're_redacted',
     },
     nowSeconds: NOW,
-    sendEmail: async () => { delivered += 1; },
+    sendEmail: async (_key, _email, _subject, deliveredHtml) => {
+      delivered += 1;
+      html = deliveredHtml;
+    },
   });
   assert.equal(response.body, 'ok ebook');
   assert.equal(delivered, 1);
+  assert.match(html, /ebook-download\?session_id=cs_ebook/);
+  assert.equal(html.includes('/ebooks/anicca-reset-en.pdf'), false);
 });

@@ -96,7 +96,7 @@ export default function TegamiPage() {
               <span className="text-2xl font-medium text-[hsl(var(--text-primary))]">¥980</span>
               <span className="text-base text-[hsl(var(--text-secondary))]">/ 月</span>
             </div>
-            <p className="text-xs text-[hsl(var(--text-secondary))] -mt-1">最初の14日間は無料。カード登録不要。</p>
+            <p className="text-xs text-[hsl(var(--text-secondary))] -mt-1">最初の14日間は無料。開始にはお支払い方法の登録が必要です。トライアル終了まで課金されません。</p>
             <SubscribeButton label="手紙を受け取る →" />
             <p className="text-xs text-[hsl(var(--text-secondary))]">いつでも受信メールから解約可能 · 営業メールなし</p>
           </div>
