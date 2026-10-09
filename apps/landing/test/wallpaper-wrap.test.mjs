@@ -19,11 +19,11 @@ test('wrapAffirmationText avoids starting a line with 、。', () => {
   }
 });
 
-test('APP_STORE_PT stays empty and is omitted from CTA URL', () => {
-  assert.equal(APP_STORE_PT, '');
-  const url = buildWallpaperAppStoreUrl({ ct: 'lp_wallpaper_ja', utmContent: 'after_download' });
-  assert.ok(url.includes('apps.apple.com/jp/app/id6755129214'));
-  assert.ok(url.includes('ct=lp_wallpaper_ja'));
-  assert.ok(url.includes('utm_campaign=wallpaper_maker'));
-  assert.ok(!url.includes('pt='));
+test('APP_STORE_PT is set and CTA matches App Store campaign link', () => {
+  assert.equal(APP_STORE_PT, '93486075');
+  const url = buildWallpaperAppStoreUrl();
+  assert.equal(
+    url,
+    'https://apps.apple.com/jp/app/id6755129214?pt=93486075&ct=wallpaper_tool&mt=8',
+  );
 });

@@ -11,7 +11,7 @@ import {
   type BgPreset,
   type TextColor,
 } from '@/lib/tools/wallpaper-presets';
-import { buildWallpaperAppStoreUrl, inboundUtmSource } from '@/lib/tools/app-store';
+import { buildWallpaperAppStoreUrl } from '@/lib/tools/app-store';
 
 const CANVAS_W = 1179;
 const CANVAS_H = 2556;
@@ -118,9 +118,9 @@ export default function WallpaperTool() {
   const [storeFooter, setStoreFooter] = useState('');
 
   useEffect(() => {
-    const term = inboundUtmSource();
-    setStoreAfter(buildWallpaperAppStoreUrl({ ct: 'lp_wallpaper_ja', utmContent: 'after_download', utmTerm: term }));
-    setStoreFooter(buildWallpaperAppStoreUrl({ ct: 'lp_wallpaper_ja_footer', utmContent: 'footer', utmTerm: term }));
+    const href = buildWallpaperAppStoreUrl();
+    setStoreAfter(href);
+    setStoreFooter(href);
   }, []);
 
   const bg = useMemo(() => BG_PRESETS.find((b) => b.id === bgId) ?? BG_PRESETS[0], [bgId]);
