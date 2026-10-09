@@ -1,6 +1,6 @@
 "use strict";
 
-const LIFE_MANAGER_WEB_APP_URL = "https://life-call-production.up.railway.app/lm";
+const LIFE_MANAGER_WEB_APP_URL = "https://life-call-production.up.railway.app/lm?start_calendar=1";
 const WRITER_KEYS = Object.freeze(["product_id", "run_id", "artifact_id", "variant_id", "click_id"]);
 const UTM_LIMITS = Object.freeze({
   utm_source: 120,
