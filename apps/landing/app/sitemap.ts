@@ -23,6 +23,7 @@ const STATIC_PATHS = [
   "/honne/support",
   "/honne/privacy",
   "/honne/privacy/ja",
+  "/pdf-insight",
   "/dais",
   "/ai-cafe-tokyo/",
   "/ai-grave/",
