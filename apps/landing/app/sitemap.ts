@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { loadAllBlogPosts } from "@/lib/blog-posts";
+import { JA_AFFIRMATION_PROBLEMS } from "@/lib/ja-affirmation-problems";
 import { LM_JA_GUIDES } from "@/lib/lm-ja-guides";
 
 const BASE_URL = "https://aniccaai.com";
@@ -12,6 +13,9 @@ const STATIC_PATHS = [
   "/lm",
   "/lm/ja",
   "/lm/guide",
+  "/affirmation-app",
+  "/affirmation-app/ja",
+  "/affirmation-app/ja/a",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -30,5 +34,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: g.date,
   }));
 
-  return [...staticEntries, ...lmGuideEntries, ...blogEntries];
+  const jaAffirmationEntries: MetadataRoute.Sitemap =
+    JA_AFFIRMATION_PROBLEMS.map((problem) => ({
+      url: `${BASE_URL}/affirmation-app/ja/a/${problem.slug}`,
+    }));
+
+  return [
+    ...staticEntries,
+    ...jaAffirmationEntries,
+    ...lmGuideEntries,
+    ...blogEntries,
+  ];
 }
