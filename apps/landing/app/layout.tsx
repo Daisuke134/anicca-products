@@ -15,11 +15,15 @@ export const metadata = {
 import './globals.css';
 import React from 'react';
 import { display, mono, notoSansJP } from './fonts';
+import SiteHitTracker from '@/components/SiteHitTracker';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${mono.variable} ${notoSansJP.variable}`}>
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        <SiteHitTracker />
+        {children}
+      </body>
     </html>
   );
 }

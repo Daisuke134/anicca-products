@@ -10,6 +10,7 @@ import {
   type KokoroTypeId,
   rankedFromScoreString,
 } from '@/lib/kokoro-quiz';
+import { trackEvent } from '@/lib/site-hit';
 
 type Props = {
   typeId: KokoroTypeId;
@@ -21,6 +22,7 @@ export default function KokoroTypeResult({ typeId }: Props) {
   const [secondName, setSecondName] = useState<string | null>(null);
 
   useEffect(() => {
+    trackEvent('result_view', { type: typeId });
     const s = new URLSearchParams(window.location.search).get('s') || '';
     if (isValidScoreString(s)) {
       setScoreString(s);
