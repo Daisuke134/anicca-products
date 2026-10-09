@@ -55,9 +55,9 @@ const APPS = [
   },
   {
     name: 'Honne',
-    href: null,
-    tagline: 'Small tool that funds the mission',
-    price: 'Coming',
+    href: '/honne',
+    tagline: 'Chat intent revealed by AI — paste LINE/chat, get emotion + reply',
+    price: 'Free · IAP',
     bgClass: 'bg-[hsl(var(--surface))]',
     accentClass: 'bg-[hsl(var(--border)/0.4)]',
   },
@@ -137,11 +137,12 @@ export default function Page() {
                 {app.href ? (
                   <a
                     href={app.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    {...(app.href.startsWith('http')
+                      ? { target: '_blank', rel: 'noopener noreferrer' }
+                      : {})}
                     className="mt-auto text-sm font-medium text-[hsl(var(--gold))] underline-offset-4 hover:underline"
                   >
-                    Open app
+                    {app.href.startsWith('http') ? 'Open app' : 'View page'}
                   </a>
                 ) : (
                   <span className="mt-auto text-sm text-[hsl(var(--text-secondary))] opacity-60">

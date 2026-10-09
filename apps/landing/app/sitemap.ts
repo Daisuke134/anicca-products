@@ -20,6 +20,12 @@ const STATIC_PATHS = [
   "/affirmation-app",
   "/affirmation-app/ja",
   "/affirmation-app/ja/a",
+  "/honne",
+  "/honne/ja",
+  "/honne/support",
+  "/honne/privacy",
+  "/honne/privacy/ja",
+  "/dais",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

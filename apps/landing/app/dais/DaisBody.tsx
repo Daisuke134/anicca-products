@@ -62,7 +62,6 @@ function groups(en: boolean): Group[] {
           external: true,
         },
         { name: 'Lookmax', tagline: en ? 'coming soon' : '近日', coming: true },
-        { name: 'Honne', tagline: en ? 'coming soon' : '近日', coming: true },
       ],
       more: { label: en ? 'See the web-app factory →' : 'Web アプリ工場を見る →', href: '/factory' },
     },
@@ -71,6 +70,13 @@ function groups(en: boolean): Group[] {
       title: en ? 'Mobile factory apps' : 'モバイル工場アプリ',
       subtitle: en ? 'more ship every week' : '毎週増えていく',
       items: [
+        {
+          name: 'Honne',
+          tagline: en
+            ? 'chat intent revealed by AI · App Store'
+            : 'AIがチャットの本音を読み解く · App Store',
+          href: '/honne',
+        },
         {
           name: 'BreathCalm',
           tagline: en ? 'reset anxiety in 6 minutes' : '6 分で不安をリセット',
