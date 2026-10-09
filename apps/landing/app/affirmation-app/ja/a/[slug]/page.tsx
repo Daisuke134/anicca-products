@@ -103,6 +103,19 @@ export default function JaAffirmationProblemPage({ params }: PageProps) {
             ))}
           </ol>
 
+          <section className="mt-12 rounded-[24px] border border-[#c9b382]/40 bg-[rgba(201,179,130,0.08)] px-5 py-7 text-center">
+            <h2 className="text-[20px] font-semibold tracking-tight">まず心のクセを診断</h2>
+            <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-[#5c5956]">
+              12問・約2分の無料セルフチェック。あなたに近いタイプと、今夜使える一行がわかります。医療的な診断ではありません。
+            </p>
+            <Link
+              href="/affirmation-app/ja/shindan"
+              className="mt-5 inline-flex items-center justify-center rounded-full border border-[#393634]/20 bg-[#fdfcfc] px-7 py-3 text-[15px] font-medium text-[#393634] transition hover:border-[#393634]/40"
+            >
+              心のクセ診断をはじめる（無料）
+            </Link>
+          </section>
+
           <section className="mt-12 rounded-[24px] border border-[#393634]/10 bg-[#fdfcfc] px-5 py-8 text-center">
             <h2 className="text-[22px] font-semibold tracking-tight">
               渦の瞬間に、一行が届く

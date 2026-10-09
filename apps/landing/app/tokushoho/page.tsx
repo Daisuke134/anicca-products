@@ -92,7 +92,59 @@ export default function TokushohoPage() {
           <dd className="mt-1 text-muted-foreground">メールサポートのみ。原則2営業日以内に回答いたします。</dd>
         </div>
       </dl>
-      <p className="mt-12 text-right text-sm text-muted-foreground">最終更新日: 2026年2月2日</p>
+
+      <h2 className="mt-16 text-2xl font-bold text-foreground">デジタルコンテンツ（ウェブ販売）</h2>
+      <p className="mt-4 text-muted-foreground">
+        以下は、ウェブサイト上で提供する買い切りデジタルコンテンツに関する表記です。
+      </p>
+      <dl className="mt-8 space-y-6">
+        <div>
+          <dt className="font-semibold text-foreground">商品名</dt>
+          <dd className="mt-1 text-muted-foreground">心のクセ・取扱説明書</dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-foreground">販売URL</dt>
+          <dd className="mt-1 text-muted-foreground">
+            <a href="https://aniccaai.com/affirmation-app/ja/shindan" className="underline">
+              https://aniccaai.com/affirmation-app/ja/shindan
+            </a>
+          </dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-foreground">価格</dt>
+          <dd className="mt-1 text-muted-foreground">¥480（税込・買い切り）</dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-foreground">お支払い方法</dt>
+          <dd className="mt-1 text-muted-foreground">クレジットカード（Stripe）</dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-foreground">お支払い時期</dt>
+          <dd className="mt-1 text-muted-foreground">購入手続きの完了時</dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-foreground">引き渡しの時期</dt>
+          <dd className="mt-1 text-muted-foreground">決済の完了後すぐ画面に表示</dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-foreground">返品・返金</dt>
+          <dd className="mt-1 text-muted-foreground">
+            デジタル商品のため、お客様の都合による返品はできません。表示されないなどの不具合があれば全額返金します。
+          </dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-foreground">動作環境</dt>
+          <dd className="mt-1 text-muted-foreground">最新のブラウザ</dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-foreground">注意事項</dt>
+          <dd className="mt-1 text-muted-foreground">
+            本コンテンツは医療的な診断ではありません。自分を知るためのセルフチェックおよび読み物です。
+          </dd>
+        </div>
+      </dl>
+
+      <p className="mt-12 text-right text-sm text-muted-foreground">最終更新日: 2026年10月9日</p>
     </main>
   );
 }

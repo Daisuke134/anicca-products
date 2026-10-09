@@ -62,6 +62,19 @@ export default function JaAffirmationIndexPage() {
           このページは医療アドバイスではありません。
         </p>
 
+        <div className="mt-8 rounded-[20px] border border-[#c9b382]/40 bg-[rgba(201,179,130,0.08)] px-5 py-5">
+          <p className="text-[16px] font-semibold text-[#393634]">まず心のクセを診断（無料・12問）</p>
+          <p className="mt-2 text-[14px] leading-relaxed text-[#5c5956]">
+            約2分で8タイプのどれに近いかわかります。医療的な診断ではありません。
+          </p>
+          <Link
+            href="/affirmation-app/ja/shindan"
+            className="mt-3 inline-flex text-[14px] font-medium underline underline-offset-2 hover:text-[#393634]"
+          >
+            心のクセ診断をはじめる →
+          </Link>
+        </div>
+
         <ul className="mt-12 space-y-4">
           {JA_AFFIRMATION_PROBLEMS.map((problem) => (
             <li key={problem.slug}>

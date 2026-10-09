@@ -47,6 +47,25 @@ function isWriterEvent(payload) {
   return metadata && (metadata.product === 'writer_article' || metadata.product === 'writer_archive');
 }
 
+function sessionProduct(payload) {
+  const object = payload && payload.data && payload.data.object;
+  return object && object.metadata && object.metadata.product;
+}
+
+/** Paid report is fulfilled by kokoro-report.js (Checkout session gate), not ebook PDF mail. */
+function isKokoroEvent(payload) {
+  return payload
+    && payload.type === 'checkout.session.completed'
+    && sessionProduct(payload) === 'kokoro_report';
+}
+
+/** Retreat build has its own webhook; must not trigger ebook PDF delivery. */
+function isRetreatBuildEvent(payload) {
+  return payload
+    && payload.type === 'checkout.session.completed'
+    && sessionProduct(payload) === 'retreat-build-fund';
+}
+
 async function webhookHandler(event, dependencies = {}) {
   const env = dependencies.env || process.env;
   const WEBHOOK_SECRET = env.STRIPE_WEBHOOK_SECRET;
@@ -70,6 +89,8 @@ async function webhookHandler(event, dependencies = {}) {
   // ebook/Letter email or buyer-store side effects; the read-only collector
   // independently turns Stripe objects into accounting receipts.
   if (isWriterEvent(payload)) return { statusCode: 200, body: 'ok writer' };
+  if (isKokoroEvent(payload)) return { statusCode: 200, body: 'ok kokoro' };
+  if (isRetreatBuildEvent(payload)) return { statusCode: 200, body: 'ok retreat-build' };
 
   const STRIPE_KEY = env.STRIPE_SECRET_KEY;
   const RESEND_API_KEY = env.RESEND_API_KEY;
@@ -86,7 +107,9 @@ async function webhookHandler(event, dependencies = {}) {
     const session = payload.data.object;
     const email = session.customer_details?.email || session.customer_email;
     const lang = (session.metadata?.lang === 'jp') ? 'jp' : 'en';
-    const product = session.metadata?.product || 'ebook';
+    // Legacy checkouts may omit metadata.product; treat missing as ebook only.
+    const rawProduct = session.metadata?.product;
+    const product = rawProduct || 'ebook';
     const mode = session.mode || 'payment';
     if (!email) return { statusCode: 200, body: 'no email' };
 
@@ -115,6 +138,12 @@ async function webhookHandler(event, dependencies = {}) {
       const html = lang === 'jp' ? jpLetterWelcomeHtml(session.customer) : enLetterWelcomeHtml(session.customer);
       await sendEmail(RESEND_API_KEY, email, subject, html);
       return { statusCode: 200, body: 'ok subscription' };
+    }
+
+    // Ebook PDF mail ONLY for ebook (explicit or legacy missing product).
+    // Never send for kokoro_report / retreat-build-fund / other products.
+    if (product !== 'ebook') {
+      return { statusCode: 200, body: 'ok ignored-non-ebook' };
     }
 
     // Payment (ebook) — original flow
