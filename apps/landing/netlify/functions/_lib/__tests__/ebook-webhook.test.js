@@ -1506,4 +1506,4 @@ test("migration and reservation lock subscribers before subscription states", ()
   const stateCreate = ebookWebhookMigration.indexOf("CREATE TABLE IF NOT EXISTS public.ebook_subscription_states");
   assert.ok(migrationLock >= 0 && migrationLock < subscriberAlter && subscriberAlter < stateCreate);
 });
-\n
+
