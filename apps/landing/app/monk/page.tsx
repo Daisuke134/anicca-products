@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import JsonLd from '@/components/JsonLd';
 import { ManifestoHero, Section, Reveal } from '@/components/site/taste';
 import { buildCheckoutRequest } from '@/lib/checkout-attribution';
@@ -12,6 +12,7 @@ const monkBookLd = {
   url: 'https://aniccaai.com/monk',
   bookFormat: 'https://schema.org/EBook',
   inLanguage: 'en',
+  author: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
   publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
   description:
     '49 short chapters. Each chapter pairs one Pali term with one modern reframe and one practice. Theravada wisdom meets the neuroscience of emotion: the 90-second rule, memory reconsolidation, the witness practice. PDF, instant delivery, lifetime access.',
@@ -24,9 +25,24 @@ const monkBookLd = {
   },
 };
 
+function ebookDownloadHref(sessionId: string) {
+  return `/.netlify/functions/ebook-download?session_id=${encodeURIComponent(sessionId)}&format=pdf`;
+}
+
 export default function MonkPage() {
   const [email, setEmail] = useState('');
   const [optInState, setOptInState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [downloadSessionId, setDownloadSessionId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('success') !== '1') return;
+    const sessionId = params.get('session_id');
+    if (sessionId && /^cs_(?:live|test)_[A-Za-z0-9_]{4,200}$/.test(sessionId)) {
+      setDownloadSessionId(sessionId);
+    }
+  }, []);
 
   async function handleOptIn(e: React.FormEvent) {
     e.preventDefault();
@@ -90,6 +106,26 @@ export default function MonkPage() {
     <main className="min-h-screen bg-[hsl(var(--background))] font-serif">
       <JsonLd data={monkBookLd} />
 
+      {downloadSessionId && (
+        <Section>
+          <Reveal>
+            <div className="mx-auto max-w-xl text-center rounded-card border border-[hsl(var(--border))] bg-[hsl(var(--surface))] px-6 py-8">
+              <p className="text-xs uppercase tracking-[0.3em] text-[hsl(var(--text-secondary))] mb-3">Purchase confirmed</p>
+              <h2 className="text-xl font-light mb-3 text-[hsl(var(--text-primary))]">Your copy is ready</h2>
+              <p className="text-sm text-[hsl(var(--text-secondary))] mb-6">
+                Download the PDF below. The same link was also emailed to you.
+              </p>
+              <a
+                href={ebookDownloadHref(downloadSessionId)}
+                className="inline-flex items-center justify-center rounded-pill px-6 py-3 bg-[hsl(var(--gold))] text-[#18181b] font-medium hover:brightness-95"
+              >
+                Download the PDF →
+              </a>
+            </div>
+          </Reveal>
+        </Section>
+      )}
+
       <ManifestoHero
         headline={
           <>
@@ -109,6 +145,7 @@ export default function MonkPage() {
                 <p className="text-[10px] mt-3 italic">49 lessons in impermanence</p>
               </div>
             </div>
+            <p className="text-sm text-[hsl(var(--text-secondary))]">by Anicca</p>
             <p className="text-xs uppercase tracking-[0.3em] text-[hsl(var(--text-secondary))]">Limited-Time Offer</p>
             <div className="flex items-baseline gap-2">
               <span className="line-through text-sm text-[hsl(var(--text-secondary))]">$16.99</span>

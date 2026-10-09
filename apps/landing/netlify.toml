@@ -5,6 +5,52 @@
 [functions.checkout]
   included_files = ["private/writer-articles/**"]
 
+[functions.ebook-download]
+  included_files = ["private/ebooks/**"]
+
+# Former public paid-ebook paths — no longer serve file bytes
+[[redirects]]
+  from = "/ebooks/anicca-reset-en.pdf"
+  to = "/monk"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/ebooks/anicca-reset-jp.pdf"
+  to = "/monk"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/ebooks/anicca-reset-en.md"
+  to = "/monk"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/ebooks/anicca-reset-jp.md"
+  to = "/monk"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/ebooks/anicca-reset-en.html"
+  to = "/monk"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/ebooks/anicca-reset-jp.html"
+  to = "/monk"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/ebooks/book.css"
+  to = "/monk"
+  status = 302
+  force = true
+
 # Cookieless first-party site counters (pageviews + funnel events)
 [[redirects]]
   from = "/api/hit"
