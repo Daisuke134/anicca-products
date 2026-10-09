@@ -73,14 +73,16 @@ Expected focused command: `node --test netlify/functions/_lib/__tests__/ebook-we
 
 - [x] In the existing `workflow_dispatch`-only metadata step, strictly validate production `SUPABASE_URL` before any fetch and print only a sanitized validation failure or the normalized project ref plus exact paid and paid-without-subscription-pointer counts; never print the URL, service-role key, email, or row identifiers. Local malformed-URL probe printed only `invalid_supabase_url`.
 - [x] Route all Supabase fetches through a failure-safe wrapper so thrown transport/URL errors never reach workflow logs. Inline Node syntax check passes.
-- [ ] Commit/push the updated workflow and run it manually after CI to capture the actual production ref/counts; the probe remains read-only.
+- [x] Commit and run manual metadata workflow 37888016410 after CI; workflow completed successfully.
+- [x] Read-only production result: project ref cycgdwndgfgdbnndithc is ACTIVE_HEALTHY; receipt/state tables are not exposed, receipt probe is 404/PGRST205, and paid subscriber counts are 0.
+- [x] Read-only Management API ACL check: anon, authenticated, and service_role have no CREATE on public. The centrally stored secondary token metadata includes database_migrations_write; no token was logged.
 
 ### Task 3: Complete source acceptance for PR #420
 
-- [ ] Run full-checkout `npm ci && npm run test:telemetry` via required CI. A local sparse-worktree run lacks installed `ethers` and is not a full-suite result.
+- [x] Full-checkout npm ci, npm run test:telemetry, and npm run build passed in workflow 37888016410 on head 381edca7aec07d34caabe3f46017658db5605b21.
 - [x] Run `git diff --check` and inspect the final diff.
 - [x] Obtain a fresh read-only safety verification of the changed access-state and workflow files: no Critical/Important findings. The reviewer did not re-audit the SQL migration.
-- [ ] Push the changes to PR #420 and wait for required full-checkout CI. Keep production DDL unapplied until the exact project ref is read back and a fresh read-only review of the SQL migration is complete.
+- [x] Changes are pushed to PR #420, synced with main by GitHub, and required Landing CI passed on head 381edca7aec07d34caabe3f46017658db5605b21.
 - [ ] Keep PR #420 open until the production target is confirmed, the corrected migration is applied once, and table/function/ACL/schema-cache readbacks pass. Do not call source merge or tests a paid checkout/PDF receipt.
 
 ### Task 4: Prevent Stripe customer remapping for every Letter subscriber
@@ -98,5 +100,6 @@ Expected focused command: `node --test netlify/functions/_lib/__tests__/ebook-we
 - [x] Pin each `SECURITY DEFINER` function to `search_path = pg_catalog, public, pg_temp`.
 - [x] Make the webhook classify the new outcome as `stripe_customer_mapping_mismatch` with `manual_customer_reconciliation`; update the fake gateway to model the SQL contract.
 - [x] Run the focused webhook tests (30/30) and `git diff --check`.
-- [ ] Run required full landing acceptance in PR CI; local `node_modules` is absent and current host capacity is below the install/run requirement.
-- [ ] Rebase the PR onto latest `main`, push, and wait for required CI. Keep the migration unapplied until an independent read-only review approves the SQL and production target/readback are verified.
+- [x] Full landing acceptance passed in workflow 37888016410 on current main-synced PR head.
+- [x] Sync the PR branch with latest main through GitHub; resulting head 381edca7aec07d34caabe3f46017658db5605b21 passed required CI.
+- [ ] Obtain a fresh independent read-only migration safety audit before production DDL.
