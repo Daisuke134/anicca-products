@@ -18,7 +18,7 @@
 - 日本語UI、`<html lang="ja">`（ページ `lang="ja"`）、title / description / canonical / OGP 1200×630 / hreflang ja。
 - 構造化データ：`WebApplication`（price 0, inLanguage ja）＋ `FAQPage`（3問）。
 - Anicca壁紙ページのみ Safari スマートバナー `apple-itunes-app` app-id=6755129214。
-- App Store `pt=` は空（定数 `APP_STORE_PT = ''`）。
+- App Store `pt=` 定数 `APP_STORE_PT = '93486075'`。CTA: `?pt=93486075&ct=wallpaper_tool&mt=8`。
 - sitemap に2 URL 追加。`/blog` は触らない。
 - 出発計算機：計算関数＋ICS生成の単体テスト必須。
 
