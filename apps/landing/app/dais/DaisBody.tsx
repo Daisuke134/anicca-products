@@ -38,8 +38,8 @@ function groups(en: boolean): Group[] {
         {
           name: 'Life Manager',
           tagline: en
-            ? 'it calls you before every event so you’re never late · $20/mo'
-            : '全予定の前に電話して遅刻を防ぐ · 月 $20',
+            ? 'it calls you before every event so you’re never late · $29/mo · 7-day free trial'
+            : '全予定の前に電話して遅刻を防ぐ · 月 $29 · 7日間無料',
           href: '/life-manager',
         },
       ],
