@@ -952,7 +952,14 @@ export default function AffirmationLanding({ locale }: { locale: Locale }) {
               >
                 悩み別アファメーションを読む →
               </Link>
-            ) : null}
+            ) : (
+              <Link
+                href="/affirmation-app/en/quiz"
+                className="mt-8 inline-block border-b border-cream/30 font-mono-ui text-[11px] tracking-[0.12em] text-cream/70 hover:border-gold hover:text-gold"
+              >
+                Take the free Mind Habits Quiz →
+              </Link>
+            )}
             <Link
               href="/"
               className="mt-12 inline-block border-b border-cream/30 font-mono-ui text-[11px] uppercase tracking-[0.2em] text-cream/70 hover:border-gold hover:text-gold"

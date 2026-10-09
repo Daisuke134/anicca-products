@@ -144,6 +144,54 @@ export default function TokushohoPage() {
         </div>
       </dl>
 
+      <h3 className="mt-12 text-xl font-bold text-foreground">Mind Habits Field Guide（英語版）</h3>
+      <dl className="mt-6 space-y-6">
+        <div>
+          <dt className="font-semibold text-foreground">商品名</dt>
+          <dd className="mt-1 text-muted-foreground">Mind Habits Field Guide</dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-foreground">販売URL</dt>
+          <dd className="mt-1 text-muted-foreground">
+            <a href="https://aniccaai.com/affirmation-app/en/quiz" className="underline">
+              https://aniccaai.com/affirmation-app/en/quiz
+            </a>
+          </dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-foreground">価格</dt>
+          <dd className="mt-1 text-muted-foreground">$4.99 USD（買い切り）</dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-foreground">お支払い方法</dt>
+          <dd className="mt-1 text-muted-foreground">クレジットカード（Stripe）</dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-foreground">お支払い時期</dt>
+          <dd className="mt-1 text-muted-foreground">購入手続きの完了時</dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-foreground">引き渡しの時期</dt>
+          <dd className="mt-1 text-muted-foreground">決済の完了後すぐ画面に表示</dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-foreground">返品・返金</dt>
+          <dd className="mt-1 text-muted-foreground">
+            デジタル商品のため、お客様の都合による返品はできません。表示されないなどの不具合があれば全額返金します。
+          </dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-foreground">動作環境</dt>
+          <dd className="mt-1 text-muted-foreground">最新のブラウザ</dd>
+        </div>
+        <div>
+          <dt className="font-semibold text-foreground">注意事項</dt>
+          <dd className="mt-1 text-muted-foreground">
+            Not a medical diagnosis. A short self-check and reading material to notice your patterns.
+          </dd>
+        </div>
+      </dl>
+
       <p className="mt-12 text-right text-sm text-muted-foreground">最終更新日: 2026年10月9日</p>
     </main>
   );

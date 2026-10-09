@@ -2,7 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
 
-const { kokoroCheckoutHandler, PRICE_JPY } = require('../kokoro-checkout.js');
+const { kokoroCheckoutHandler, PRICE_JPY, PRICE_USD_CENTS } = require('../kokoro-checkout.js');
 const { kokoroReportHandler } = require('../kokoro-report.js');
 const { webhookHandler } = require('../webhook.js');
 const {
@@ -74,6 +74,35 @@ test('checkout sends inline JPY price_data and kokoro_report metadata', async ()
   assert.equal(stripeParams.get('metadata[lang]'), 'jp');
   assert.match(stripeParams.get('success_url'), /shindan\/report\?session_id=/);
   assert.match(stripeParams.get('cancel_url'), /shindan\/burnout\?s=19283746/);
+});
+
+test('EN checkout sends USD $4.99, locale en, quiz URLs, kokoro_report metadata', async () => {
+  let stripeParams;
+  const response = await kokoroCheckoutHandler({
+    httpMethod: 'POST',
+    body: JSON.stringify({ type: 'burnout', s: '19283746', lang: 'en' }),
+    headers: { host: 'aniccaai.com', 'x-forwarded-proto': 'https' },
+  }, {
+    env: { STRIPE_SECRET_KEY: 'sk_test_redacted' },
+    fetchImpl: async (_url, options) => {
+      stripeParams = new URLSearchParams(options.body);
+      return {
+        ok: true,
+        json: async () => ({ url: 'https://checkout.stripe.com/c/test_en', id: 'cs_test_en' }),
+      };
+    },
+  });
+  assert.equal(response.statusCode, 200);
+  assert.equal(JSON.parse(response.body).url, 'https://checkout.stripe.com/c/test_en');
+  assert.equal(stripeParams.get('locale'), 'en');
+  assert.equal(stripeParams.get('line_items[0][price_data][currency]'), 'usd');
+  assert.equal(stripeParams.get('line_items[0][price_data][unit_amount]'), String(PRICE_USD_CENTS));
+  assert.equal(PRICE_USD_CENTS, 499);
+  assert.match(stripeParams.get('line_items[0][price_data][product_data][name]'), /Mind Habits Field Guide/);
+  assert.equal(stripeParams.get('metadata[product]'), 'kokoro_report');
+  assert.equal(stripeParams.get('metadata[lang]'), 'en');
+  assert.match(stripeParams.get('success_url'), /en\/quiz\/report\?session_id=/);
+  assert.match(stripeParams.get('cancel_url'), /en\/quiz\/burnout\?s=19283746/);
 });
 
 test('report returns 403 for unpaid, wrong product, or missing session', async () => {
@@ -148,11 +177,49 @@ test('paid kokoro session returns 200 report body (server-side only)', async () 
   assert.equal(body.sections.affirmations30.items.some((t) => /うつ|HSP|愛着障害/.test(t)), false);
 });
 
+test('paid EN kokoro session returns English report body', async () => {
+  const response = await kokoroReportHandler({
+    httpMethod: 'GET',
+    queryStringParameters: { session_id: 'cs_live_paid_en' },
+  }, {
+    env: { STRIPE_SECRET_KEY: 'sk_live_x' },
+    liveMode: true,
+    retrieveSession: async () => ({
+      id: 'cs_live_paid_en',
+      status: 'complete',
+      payment_status: 'paid',
+      livemode: true,
+      metadata: {
+        product: 'kokoro_report',
+        type: 'night-anxiety',
+        s: '91234567',
+        lang: 'en',
+      },
+    }),
+  });
+  assert.equal(response.statusCode, 200);
+  const body = JSON.parse(response.body);
+  assert.equal(body.lang, 'en');
+  assert.equal(body.typeName, 'Midnight Spiral');
+  assert.equal(body.sections.affirmations30.items.length, 30);
+  assert.match(body.disclaimer, /Not a medical diagnosis/);
+  assert.match(body.sections.app.url, /ct=quiz_en/);
+  assert.equal(/depression|ADHD|bipolar|HSP|clinical diagnosis/i.test(JSON.stringify(body)), false);
+});
+
 test('buildKokoroReport never uses medical diagnosis labels', () => {
   const report = buildKokoroReport({ type: 'self-blame', s: '11223344' });
   const blob = JSON.stringify(report);
   assert.equal(/うつ|HSP|愛着障害|ADHD|発達障害|双極/.test(blob), false);
   assert.match(report.disclaimer, /医療的な診断ではありません/);
+});
+
+test('buildKokoroReport EN uses natural names and disclaimer', () => {
+  const report = buildKokoroReport({ type: 'self-blame', s: '11223344', lang: 'en' });
+  assert.equal(report.typeName, 'Inner Court');
+  assert.match(report.disclaimer, /Not a medical diagnosis/);
+  assert.equal(report.sections.affirmations30.items.length, 30);
+  assert.equal(/depression|ADHD|bipolar|clinical diagnosis/i.test(JSON.stringify(report)), false);
 });
 
 test('webhook acknowledges kokoro_report without ebook email', async () => {

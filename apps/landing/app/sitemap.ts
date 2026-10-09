@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { loadAllBlogPosts } from "@/lib/blog-posts";
 import { JA_AFFIRMATION_PROBLEMS } from "@/lib/ja-affirmation-problems";
 import { allKokoroTypeIds } from "@/lib/kokoro-quiz";
+import { allKokoroTypeIdsEn } from "@/lib/kokoro-quiz-en";
 import { LM_JA_GUIDES } from "@/lib/lm-ja-guides";
 
 const BASE_URL = "https://aniccaai.com";
@@ -11,6 +12,7 @@ const STATIC_PATHS = [
   "/affirmation-app-alternative/",
   "/affirmation-app/ja/wallpaper",
   "/affirmation-app/ja/shindan",
+  "/affirmation-app/en/quiz",
   "/ai-cafe-tokyo/",
   "/ai-grave/",
   "/lm",
@@ -53,10 +55,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${BASE_URL}/affirmation-app/ja/shindan/${type}`,
   }));
 
+  const mindHabitsTypeEntries: MetadataRoute.Sitemap = allKokoroTypeIdsEn().map((type) => ({
+    url: `${BASE_URL}/affirmation-app/en/quiz/${type}`,
+  }));
+
   return [
     ...staticEntries,
     ...jaAffirmationEntries,
     ...kokoroTypeEntries,
+    ...mindHabitsTypeEntries,
     ...lmGuideEntries,
     ...blogEntries,
   ];
