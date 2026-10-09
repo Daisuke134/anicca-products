@@ -103,7 +103,7 @@ CREATE OR REPLACE FUNCTION public.upsert_ebook_subscriber(
 RETURNS jsonb
 LANGUAGE plpgsql
 SECURITY DEFINER
-SET search_path = public, pg_temp
+SET search_path = pg_catalog, public, pg_temp
 AS $$
 DECLARE
   v_email text;
@@ -178,14 +178,16 @@ CREATE OR REPLACE FUNCTION public.reserve_ebook_subscription_readback(
 RETURNS jsonb
 LANGUAGE plpgsql
 SECURITY DEFINER
-SET search_path = public, pg_temp
+SET search_path = pg_catalog, public, pg_temp
 AS $$
 DECLARE
   v_email text;
   v_subscriber_id text;
   v_subscriber jsonb;
   v_mapped_subscriber_id text;
+  v_mapped_customer_id text;
   v_existing_subscriber_id text;
+  v_existing_customer_id text;
   v_generation bigint;
   v_stripe_customer_id text;
   v_legacy_paid_pending boolean;
@@ -196,8 +198,8 @@ BEGIN
 
   v_email := NULLIF(lower(trim(p_email)), '');
   IF v_email IS NOT NULL THEN
-    SELECT subscriber_id
-      INTO v_mapped_subscriber_id
+    SELECT subscriber_id, stripe_customer_id
+      INTO v_mapped_subscriber_id, v_mapped_customer_id
       FROM public.ebook_subscription_states
      WHERE stripe_subscription_id = p_stripe_subscription_id;
     IF v_mapped_subscriber_id IS NOT NULL THEN
@@ -222,8 +224,8 @@ BEGIN
   ELSE
     -- Resolve the mapping without a row lock, then lock subscriber before subscription state
     -- on both paths so concurrent Checkout and lifecycle events have one lock order.
-    SELECT subscriber_id
-      INTO v_subscriber_id
+    SELECT subscriber_id, stripe_customer_id
+      INTO v_subscriber_id, v_mapped_customer_id
       FROM public.ebook_subscription_states
      WHERE stripe_subscription_id = p_stripe_subscription_id;
     IF v_subscriber_id IS NULL AND p_stripe_customer_id IS NOT NULL THEN
@@ -249,12 +251,24 @@ BEGIN
   END IF;
   IF v_legacy_paid_pending IS TRUE
      AND (v_stripe_customer_id IS NULL OR p_stripe_customer_id IS NULL
-          OR v_stripe_customer_id IS DISTINCT FROM p_stripe_customer_id) THEN
+          OR v_stripe_customer_id IS DISTINCT FROM p_stripe_customer_id
+          OR (v_mapped_customer_id IS NOT NULL
+              AND v_mapped_customer_id IS DISTINCT FROM p_stripe_customer_id)) THEN
     RETURN jsonb_build_object(
       'outcome', 'legacy_customer_mismatch',
       'subscriber_id', v_subscriber_id,
       'stripe_customer_id', v_stripe_customer_id,
       'stripe_legacy_paid_pending_readback', true
+    );
+  END IF;
+
+  IF p_stripe_customer_id IS NOT NULL
+     AND v_mapped_customer_id IS NOT NULL
+     AND v_mapped_customer_id IS DISTINCT FROM p_stripe_customer_id THEN
+    RETURN jsonb_build_object(
+      'outcome', 'customer_mismatch',
+      'subscriber_id', v_subscriber_id,
+      'stripe_legacy_paid_pending_readback', COALESCE(v_legacy_paid_pending, false)
     );
   END IF;
 
@@ -265,11 +279,21 @@ BEGIN
     p_stripe_subscription_id, v_subscriber_id, p_stripe_customer_id, p_lang, 'unknown', now(), 0, ''
   ) ON CONFLICT (stripe_subscription_id) DO NOTHING;
 
-  SELECT subscriber_id, readback_generation
-    INTO v_existing_subscriber_id, v_generation
+  SELECT subscriber_id, readback_generation, stripe_customer_id
+    INTO v_existing_subscriber_id, v_generation, v_existing_customer_id
     FROM public.ebook_subscription_states
    WHERE stripe_subscription_id = p_stripe_subscription_id
    FOR UPDATE;
+  IF p_stripe_customer_id IS NOT NULL
+     AND v_existing_customer_id IS NOT NULL
+     AND v_existing_customer_id IS DISTINCT FROM p_stripe_customer_id THEN
+    RETURN jsonb_build_object(
+      'outcome', CASE WHEN v_legacy_paid_pending IS TRUE
+                      THEN 'legacy_customer_mismatch' ELSE 'customer_mismatch' END,
+      'subscriber_id', v_subscriber_id,
+      'stripe_legacy_paid_pending_readback', COALESCE(v_legacy_paid_pending, false)
+    );
+  END IF;
   IF v_existing_subscriber_id IS NULL THEN
     UPDATE public.ebook_subscription_states
        SET subscriber_id = v_subscriber_id
@@ -313,12 +337,13 @@ CREATE OR REPLACE FUNCTION public.apply_ebook_subscription_state(
 RETURNS jsonb
 LANGUAGE plpgsql
 SECURITY DEFINER
-SET search_path = public, pg_temp
+SET search_path = pg_catalog, public, pg_temp
 AS $$
 DECLARE
   v_state_subscriber_id text;
   v_current_generation bigint;
   v_current_status text;
+  v_state_customer_id text;
   v_subscriber_customer_id text;
   v_legacy_paid_pending boolean;
   v_pointer_subscription_id text;
@@ -348,8 +373,8 @@ BEGIN
     RAISE EXCEPTION 'letter subscriber row missing';
   END IF;
 
-  SELECT subscriber_id, readback_generation, subscription_status
-    INTO v_state_subscriber_id, v_current_generation, v_current_status
+  SELECT subscriber_id, readback_generation, subscription_status, stripe_customer_id
+    INTO v_state_subscriber_id, v_current_generation, v_current_status, v_state_customer_id
     FROM public.ebook_subscription_states
    WHERE stripe_subscription_id = p_stripe_subscription_id
    FOR UPDATE;
@@ -362,9 +387,19 @@ BEGIN
     );
   END IF;
   IF v_legacy_paid_pending IS TRUE
-     AND (v_subscriber_customer_id IS NULL OR p_stripe_customer_id IS DISTINCT FROM v_subscriber_customer_id) THEN
+     AND (v_subscriber_customer_id IS NULL OR p_stripe_customer_id IS DISTINCT FROM v_subscriber_customer_id
+          OR (v_state_customer_id IS NOT NULL
+              AND p_stripe_customer_id IS DISTINCT FROM v_state_customer_id)) THEN
     RETURN jsonb_build_object(
       'outcome', 'legacy_customer_mismatch', 'status', v_current_status
+    );
+  END IF;
+
+  IF p_stripe_customer_id IS NOT NULL
+     AND v_state_customer_id IS NOT NULL
+     AND p_stripe_customer_id IS DISTINCT FROM v_state_customer_id THEN
+    RETURN jsonb_build_object(
+      'outcome', 'customer_mismatch', 'status', v_current_status
     );
   END IF;
 
@@ -446,7 +481,7 @@ CREATE OR REPLACE FUNCTION public.finalize_ebook_legacy_subscription_readback(
 RETURNS jsonb
 LANGUAGE plpgsql
 SECURITY DEFINER
-SET search_path = public, pg_temp
+SET search_path = pg_catalog, public, pg_temp
 AS $$
 DECLARE
   v_customer_id text;

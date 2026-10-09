@@ -1,8 +1,24 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
+const fs = require('node:fs');
+const path = require('node:path');
 
 const { webhookHandler } = require('../../webhook.js');
+
+const ebookWebhookMigration = fs.readFileSync(path.join(
+  __dirname,
+  '../../_migrations/2026-10-05-ebook-webhook-receipts.sql',
+), 'utf8');
+
+function migrationFunction(name) {
+  const start = ebookWebhookMigration.indexOf(`CREATE OR REPLACE FUNCTION public.${name}(`);
+  assert.notEqual(start, -1, `missing migration function ${name}`);
+  const bodyStart = ebookWebhookMigration.indexOf('AS $$', start);
+  const end = ebookWebhookMigration.indexOf('$$;', bodyStart);
+  assert.ok(bodyStart > start && end > bodyStart, `invalid migration function ${name}`);
+  return ebookWebhookMigration.slice(start, end + 3);
+}
 
 const SECRET = 'whsec_ebook_test';
 const NOW = 1785642000;
@@ -171,6 +187,10 @@ function fakeGateway({
           stripe_legacy_paid_pending_readback: true,
         });
       }
+      const mappedCustomerMismatch = body.p_stripe_customer_id
+        && state?.customerId
+        && state.customerId !== body.p_stripe_customer_id;
+      if (mappedCustomerMismatch) return response(200, { outcome: 'customer_mismatch' });
       if (!state) {
         state = {
           readbackAt: 0,
@@ -233,6 +253,10 @@ function fakeGateway({
       const usesGeneration = body.p_readback_generation !== undefined;
       if (usesGeneration && existing?.generation !== body.p_readback_generation) {
         return response(200, { outcome: 'stale', status: existing?.status || 'unknown' });
+      }
+      if (existing && existing.customerId && body.p_stripe_customer_id
+          && existing.customerId !== body.p_stripe_customer_id) {
+        return response(200, { outcome: 'customer_mismatch', status: existing.status });
       }
       if (!usesGeneration && existing && readbackAt < existing.readbackAt) {
         return response(200, { outcome: 'stale', status: existing.status, readback_at: new Date(existing.readbackAt).toISOString() });
@@ -1345,4 +1369,119 @@ test('legacy pointer reconciliation reselects the latest already-read subscripti
   assert.equal(subscriber.stripe_subscription_id, 'sub_newer');
   assert.equal(subscriber.stripe_subscription_created_at, new Date(1780600200 * 1000).toISOString());
   assert.equal(subscriber.tier, 'paid');
+});
+
+test('Letter Checkout rejects a different Stripe customer for an existing subscription', async () => {
+  const gateway = fakeGateway({
+    legacySubscribers: [{
+      id: 'subscriber_normal_customer_mismatch',
+      email: 'normal-mismatch@example.com',
+      tier: 'expired',
+      stripe_customer_id: 'cus_original',
+      stripe_subscription_id: 'sub_wrong_customer',
+      stripe_subscription_created_at: '2026-01-01T00:00:00.000Z',
+      stripe_legacy_paid_pending_readback: false,
+    }],
+    stripeSubscriptionResponses: [{
+      status: 200,
+      body: { id: 'sub_wrong_customer', customer: 'cus_wrong', status: 'active', created: 1767225600 },
+    }],
+  });
+  const failures = [];
+  const event = {
+    id: 'evt_normal_customer_mismatch',
+    type: 'checkout.session.completed',
+    data: { object: {
+      id: 'cs_normal_customer_mismatch',
+      mode: 'subscription',
+      payment_status: 'no_payment_required',
+      customer: 'cus_wrong',
+      subscription: 'sub_wrong_customer',
+      metadata: { product: 'letter', lang: 'en', attribution_token: TOKEN_EN },
+      customer_details: { email: 'normal-mismatch@example.com' },
+    } },
+  };
+
+  const result = await webhookHandler(signedEvent(event), dependencies(gateway, {
+    logFailure: (record) => failures.push(record),
+  }));
+
+  assert.equal(result.statusCode, 503);
+  assert.equal(gateway.subscriptionReadbackReservations.length, 0);
+  const subscriber = gateway.subscribersByEmail.get('normal-mismatch@example.com');
+  const state = gateway.subscriptionStates.get('sub_wrong_customer');
+  assert.equal(subscriber.stripe_customer_id, 'cus_original');
+  assert.equal(state.customerId, 'cus_original');
+  assert.equal(state.generation, 0);
+  assert.equal(gateway.emailRequests.length, 0);
+  assert.equal(failures[0].error_class, 'stripe_customer_mapping_mismatch');
+  assert.equal(failures[0].next_action, 'manual_customer_reconciliation');
+});
+
+test('normal Letter apply rejects a customer mapping changed after reservation', async () => {
+  let gateway;
+  gateway = fakeGateway({
+    legacySubscribers: [{
+      id: 'subscriber_apply_customer_race',
+      email: 'apply-customer-race@example.com',
+      tier: 'paid',
+      stripe_customer_id: 'cus_stable',
+      stripe_subscription_id: 'sub_apply_customer_race',
+      stripe_subscription_created_at: '2026-01-01T00:00:00.000Z',
+      stripe_legacy_paid_pending_readback: false,
+    }],
+    stripeSubscriptionResponses: [{
+      status: 200,
+      body: { id: 'sub_apply_customer_race', customer: 'cus_stable', status: 'canceled', created: 1767225600 },
+    }],
+    beforeStripeSubscriptionResponse: async () => {
+      gateway.subscriptionStates.get('sub_apply_customer_race').customerId = 'cus_raced';
+    },
+  });
+  const failures = [];
+  const event = {
+    id: 'evt_apply_customer_race',
+    type: 'customer.subscription.updated',
+    data: { object: {
+      id: 'sub_apply_customer_race',
+      customer: 'cus_stable',
+      status: 'canceled',
+      metadata: { product: 'letter', lang: 'en' },
+    } },
+  };
+
+  const result = await webhookHandler(signedEvent(event), dependencies(gateway, {
+    logFailure: (record) => failures.push(record),
+  }));
+
+  assert.equal(result.statusCode, 503);
+  const subscriber = gateway.subscribersByEmail.get('apply-customer-race@example.com');
+  const state = gateway.subscriptionStates.get('sub_apply_customer_race');
+  assert.equal(subscriber.stripe_customer_id, 'cus_stable');
+  assert.equal(state.customerId, 'cus_raced');
+  assert.equal(state.status, 'legacy_paid_pending_readback');
+  assert.equal(failures[0].error_class, 'stripe_customer_mapping_mismatch');
+  assert.equal(failures[0].next_action, 'manual_customer_reconciliation');
+});
+
+test('subscription SQL rejects customer remapping before writes and pins definer search paths', () => {
+  const reserve = migrationFunction('reserve_ebook_subscription_readback');
+  const reserveGuard = reserve.indexOf("'customer_mismatch'");
+  const reserveWrite = reserve.indexOf('INSERT INTO public.ebook_subscription_states');
+  assert.ok(reserveGuard >= 0 && reserveGuard < reserveWrite);
+  assert.match(reserve, /v_mapped_customer_id IS DISTINCT FROM p_stripe_customer_id/);
+
+  const apply = migrationFunction('apply_ebook_subscription_state');
+  const applyGuard = apply.indexOf("'customer_mismatch'");
+  const applyWrite = apply.indexOf('UPDATE public.ebook_subscription_states');
+  assert.ok(applyGuard >= 0 && applyGuard < applyWrite);
+  assert.match(apply, /p_stripe_customer_id IS DISTINCT FROM v_state_customer_id/);
+
+  const functions = [...ebookWebhookMigration.matchAll(/CREATE OR REPLACE FUNCTION public\.[\s\S]*?\n\$\$;/g)]
+    .map(([definition]) => definition)
+    .filter((definition) => /\bSECURITY DEFINER\b/.test(definition));
+  assert.ok(functions.length > 0);
+  for (const definition of functions) {
+    assert.match(definition, /SECURITY DEFINER\s+SET search_path = pg_catalog, public, pg_temp/);
+  }
 });

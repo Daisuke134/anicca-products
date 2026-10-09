@@ -604,6 +604,9 @@ async function reserveSubscriptionReadback({
     error.nextAction = 'manual_legacy_customer_reconciliation';
     throw error;
   }
+  if (result && result.outcome === 'customer_mismatch') {
+    throw legacyReadbackError('stripe_customer_mapping_mismatch', 'manual_customer_reconciliation');
+  }
   if (!result || result.outcome !== 'reserved'
       || !Number.isSafeInteger(result.generation) || result.generation < 1
       || typeof result.subscriber_id !== 'string' || !result.subscriber_id
@@ -648,6 +651,9 @@ async function applySubscriptionState({
     error.code = 'legacy_customer_mapping_mismatch';
     error.nextAction = 'manual_legacy_customer_reconciliation';
     throw error;
+  }
+  if (result && result.outcome === 'customer_mismatch') {
+    throw legacyReadbackError('stripe_customer_mapping_mismatch', 'manual_customer_reconciliation');
   }
   if (!result || !['applied', 'stale', 'duplicate', 'conflict'].includes(result.outcome)) {
     throw new Error('subscription_state_rpc_invalid');

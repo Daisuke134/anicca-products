@@ -82,3 +82,21 @@ Expected focused command: `node --test netlify/functions/_lib/__tests__/ebook-we
 - [x] Obtain a fresh read-only safety verification of the changed access-state and workflow files: no Critical/Important findings. The reviewer did not re-audit the SQL migration.
 - [ ] Push the changes to PR #420 and wait for required full-checkout CI. Keep production DDL unapplied until the exact project ref is read back and a fresh read-only review of the SQL migration is complete.
 - [ ] Keep PR #420 open until the production target is confirmed, the corrected migration is applied once, and table/function/ACL/schema-cache readbacks pass. Do not call source merge or tests a paid checkout/PDF receipt.
+
+### Task 4: Prevent Stripe customer remapping for every Letter subscriber
+
+**Goal:** A non-null Stripe customer mapping remains bound to its subscription state. Legacy-held subscribers also require the stored subscriber customer ID to match. A mismatch returns before any state or pointer update; a separate new subscription may use a new Stripe customer.
+
+**Files:**
+- Modify: `apps/landing/netlify/functions/_migrations/2026-10-05-ebook-webhook-receipts.sql`
+- Modify: `apps/landing/netlify/functions/webhook.js`
+- Test: `apps/landing/netlify/functions/_lib/__tests__/ebook-webhook.test.js`
+
+- [x] Write failing tests for (a) an existing subscription receiving a different customer ID, (b) a customer mapping changed between reservation and apply, and (c) every `SECURITY DEFINER` function using `search_path = pg_catalog, public, pg_temp`. Preserve the existing test where a separate new subscription for the same email has a separate customer.
+- [x] Run those tests and confirm the customer-mismatch cases currently mutate state and the migration still uses the unsafe search path.
+- [x] Make `reserve_ebook_subscription_readback` and `apply_ebook_subscription_state` return `customer_mismatch` before writes when the incoming ID disagrees with that exact subscription state's stored customer ID. Keep the stored subscriber/customer check for legacy-held rows. Preserve the existing legacy-specific outcome and allow a new subscription to use its own Stripe customer.
+- [x] Pin each `SECURITY DEFINER` function to `search_path = pg_catalog, public, pg_temp`.
+- [x] Make the webhook classify the new outcome as `stripe_customer_mapping_mismatch` with `manual_customer_reconciliation`; update the fake gateway to model the SQL contract.
+- [x] Run the focused webhook tests (30/30) and `git diff --check`.
+- [ ] Run required full landing acceptance in PR CI; local `node_modules` is absent and current host capacity is below the install/run requirement.
+- [ ] Rebase the PR onto latest `main`, push, and wait for required CI. Keep the migration unapplied until an independent read-only review approves the SQL and production target/readback are verified.
