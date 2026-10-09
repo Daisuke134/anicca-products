@@ -102,4 +102,5 @@ Expected focused command: `node --test netlify/functions/_lib/__tests__/ebook-we
 - [x] Run the focused webhook tests (30/30) and `git diff --check`.
 - [x] Full landing acceptance passed in workflow 37888016410 on current main-synced PR head.
 - [x] Sync the PR branch with latest main through GitHub; resulting head 381edca7aec07d34caabe3f46017658db5605b21 passed required CI.
-- [ ] Obtain a fresh independent read-only migration safety audit before production DDL.
+- [x] Fresh read-only CodeRabbit audit on head f82c106 identified two P2 findings: duplicate subscription backfill is nondeterministic, and migration/RPC lock order can deadlock.
+\n- [ ] Add failing regressions for deterministic subscriber backfill and subscriber-before-state table lock order; confirm both fail in PR CI.\n- [ ] Make the legacy backfill deterministic and acquire subscriber locks before state reads/DDL; rerun full CI and request a new read-only SQL audit.\n- [ ] Apply the corrected migration once using the official Management API, read back tables/functions/ACL/schema cache, then merge and deploy.\n

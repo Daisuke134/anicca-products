@@ -1485,3 +1485,25 @@ test('subscription SQL rejects customer remapping before writes and pins definer
     assert.match(definition, /SECURITY DEFINER\s+SET search_path = pg_catalog, public, pg_temp/);
   }
 });
+
+test("legacy subscription backfill chooses one subscriber per Stripe subscription deterministically", () => {
+  const start = ebookWebhookMigration.indexOf("UPDATE public.ebook_subscription_states AS state");
+  const end = ebookWebhookMigration.indexOf(";", start);
+  assert.ok(start >= 0 && end > start);
+  const statement = ebookWebhookMigration.slice(start, end + 1);
+  assert.match(statement, /SELECT DISTINCT ON\\s*\\(stripe_subscription_id\\)/);
+  assert.match(statement, /ORDER BY stripe_subscription_id,\\s*signed_up_at NULLS FIRST,\\s*id::text/);
+});
+
+test("migration and reservation lock subscribers before subscription states", () => {
+  const reserve = migrationFunction("reserve_ebook_subscription_readback");
+  const subscriberReadLock = reserve.indexOf("LOCK TABLE public.subscribers IN ROW SHARE MODE");
+  const firstStateRead = reserve.indexOf("FROM public.ebook_subscription_states");
+  assert.ok(subscriberReadLock >= 0 && subscriberReadLock < firstStateRead);
+
+  const migrationLock = ebookWebhookMigration.indexOf("LOCK TABLE public.subscribers IN ACCESS EXCLUSIVE MODE");
+  const subscriberAlter = ebookWebhookMigration.indexOf("ALTER TABLE public.subscribers");
+  const stateCreate = ebookWebhookMigration.indexOf("CREATE TABLE IF NOT EXISTS public.ebook_subscription_states");
+  assert.ok(migrationLock >= 0 && migrationLock < subscriberAlter && subscriberAlter < stateCreate);
+});
+\n
