@@ -3,7 +3,7 @@
 const { createHash, randomUUID } = require("node:crypto");
 const SAFE = /^[A-Za-z0-9._-]{1,120}$/;
 const RUN = /^\d{8}-\d{6}$/;
-const LIFE_MANAGER_WEB_APP_URL = "https://life-call-production.up.railway.app/lm";
+const LIFE_MANAGER_WEB_APP_URL = "https://life-call-production.up.railway.app/lm?start_calendar=1";
 const REQUIRED = ["product_id", "run_id", "artifact_id", "variant_id", "click_id"];
 
 function normalizeQuery(source) {
