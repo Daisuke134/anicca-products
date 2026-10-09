@@ -3,7 +3,7 @@
 const { createHash, randomUUID } = require("node:crypto");
 const SAFE = /^[A-Za-z0-9._-]{1,120}$/;
 const RUN = /^\d{8}-\d{6}$/;
-const TELEGRAM = "https://t.me/LifeManagerBotbot?start=wr_";
+const LIFE_MANAGER_WEB_APP_URL = "https://life-call-production.up.railway.app/lm?start_calendar=1";
 const REQUIRED = ["product_id", "run_id", "artifact_id", "variant_id", "click_id"];
 
 function normalizeQuery(source) {
@@ -38,6 +38,14 @@ function attributionRef(query) {
   return createHash("sha256").update(canonical, "utf8").digest("hex").slice(0, 32);
 }
 
+function webAppUrl(ref) {
+  const target = new URL(LIFE_MANAGER_WEB_APP_URL);
+  target.searchParams.set("utm_source", "writer");
+  target.searchParams.set("utm_medium", "article");
+  target.searchParams.set("utm_campaign", `wr_${ref}`);
+  return target.toString();
+}
+
 function makeWriterCtaHandler({ persist, now = () => new Date().toISOString(), receiptId = randomUUID }) {
   return async (event) => {
     if (!event || event.httpMethod !== "GET") return { statusCode: 405, headers: { allow: "GET" }, body: "" };
@@ -52,8 +60,8 @@ function makeWriterCtaHandler({ persist, now = () => new Date().toISOString(), r
     } catch {
       // The redirect remains usable; a missing click receipt is reported separately.
     }
-    return { statusCode: 302, headers: { location: TELEGRAM + ref, "cache-control": "no-store" }, body: "" };
+    return { statusCode: 302, headers: { location: webAppUrl(ref), "cache-control": "no-store" }, body: "" };
   };
 }
 
-module.exports = { makeWriterCtaHandler, attributionRef, validateQuery };
+module.exports = { makeWriterCtaHandler, attributionRef, validateQuery, webAppUrl };

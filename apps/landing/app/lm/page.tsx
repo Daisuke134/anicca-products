@@ -1,27 +1,26 @@
 import LaunchFrame from '@/components/site/LaunchFrame';
 import LmBody from './LmBody';
 
-// /lm — the public Life Manager product surface. Local OSS and hosted cloud use the same core.
-// Static export shell (force-static) + a client island (LmBody → product story + LmClient) that
-// runs the Google→name→gcal(Composio)→phone→dashboard onboarding at runtime.
-// $29/mo, no trial. spec29 + Dais 2026-06-16: fully localized EN/JA via LaunchFrame.
-// COLLISION RULE: nav + footer come from LaunchFrame; the OAuth-survival flow is UNCHANGED.
+// /lm is the public Life Manager Cloud landing page. Its CTA enters the Railway Web app's
+// Google identity and Calendar-permission flow. The Google callback starts Calendar consent,
+// then the app scans events, writes travel blocks, and offers the seven-day trial.
+// LaunchFrame owns only the localized site shell; the Web app owns onboarding and billing.
 
 export const dynamic = 'force-static';
 
 export const metadata = {
-  title: 'Life Manager — Proactive general agent for your life',
+  title: 'Life Manager — Google Calendar travel time assistant',
   description:
-    'Life Manager manages your body, mind, and money, follows through on real-world actions, and runs locally as open source or as an always-on paid cloud service.',
+    'Connect Google Calendar to add travel time and departure reminders before eligible in-person events. Seven-day free trial, then $29/month.',
   other: {
-    'life-manager-context-version': '2026-10-02.1',
-    'life-manager-context-digest': '113ddbade3174274888d408be0874286dd6c4d9fa8cff41d447bca744e74ceed',
+    'life-manager-context-version': '2026-10-08.1',
+    'life-manager-context-digest': '5b8e34cf01a7cf7589fc6049c080b3eb8458ec28b98103abc2ade395e8d0f90c',
   },
 };
 
 export default function Page() {
   return (
-    <LaunchFrame active="/life-manager">
+    <LaunchFrame active="/lm">
       <LmBody />
     </LaunchFrame>
   );

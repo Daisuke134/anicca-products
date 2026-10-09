@@ -63,7 +63,7 @@ async function checkoutHandler(event, dependencies = {}) {
     params.append('metadata[lang]', lang);
     params.append('metadata[product]', product);
     if (attributionToken) params.append('metadata[attribution_token]', attributionToken);
-    params.append('customer_creation', 'always');
+    if (mode === 'payment') params.append('customer_creation', 'always');
     if (mode === 'subscription') {
       params.append('subscription_data[metadata][lang]', lang);
       params.append('subscription_data[metadata][product]', product);

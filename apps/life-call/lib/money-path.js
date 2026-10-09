@@ -1,7 +1,7 @@
 // lib/money-path.js — C5/C6 (VCSDD life-manager-cost-connect-reliability). Continuous money-path check
 // so the ¥700k-wrong-link / site-down class (2026-07-03) can never silently survive again.
-// SRE: black-box + CONTENT assertion (200 is not enough — assert the exact Telegram handoff and
-// reject direct Stripe links). The registry Stripe URL remains the server-side payment SSOT for
+// SRE: black-box + CONTENT assertion (200 is not enough — assert the exact Web app handoff and
+// reject Telegram/direct Stripe links). The registry Stripe URL remains the server-side payment SSOT for
 // reachability checks. The legacy Stripe-value assertion stays available for historical callers.
 // Rollback is gated:
 //   - debounce: >=2 consecutive FAIL (no single-transient rollback)
@@ -38,15 +38,13 @@ function assertMoneyPath(bundle, registry) {
   return { ok: true, reason: "ok" };
 }
 
-// assertTelegramHandoff({ chunk }) → { ok, reason }
-// The current /lm route starts in Telegram; payment continues in the Railway Mini App/server.
-function normalizeTelegramUrl(raw) {
-  return String(raw).replace(/^https:\/\/t\.me(?=\/)/i, "https://t.me");
-}
-
-function assertTelegramHandoff(bundle) {
+// assertWebAppHandoff({ chunk }) → { ok, reason }
+// Public /lm starts in the Life Manager web app; billing remains server-side after Calendar setup.
+function assertWebAppHandoff(bundle) {
   const chunk = String(bundle && bundle.chunk || "");
-  const telegramLinks = [];
+  const webLinks = [];
+  const unexpectedWebLinks = [];
+  let telegramLinkFound = false;
   let stripeLinkFound = false;
   for (const raw of chunk.match(HTTPS_URL_RE) || []) {
     let parsed;
@@ -56,19 +54,21 @@ function assertTelegramHandoff(bundle) {
       continue;
     }
     const hostname = parsed.hostname.toLowerCase().replace(/\.+$/, "");
-    if (hostname === "t.me") telegramLinks.push(normalizeTelegramUrl(raw));
+    if (hostname === "t.me" || hostname === "telegram.me") telegramLinkFound = true;
     if (hostname === "stripe.com" || hostname.endsWith(".stripe.com")) stripeLinkFound = true;
+    if (hostname === "life-call-production.up.railway.app") {
+      const canonical = parsed.protocol === "https:" && !parsed.username && !parsed.password
+        && parsed.pathname === "/lm";
+      if (canonical) webLinks.push(`${parsed.origin}${parsed.pathname}`);
+      else unexpectedWebLinks.push(raw);
+    }
   }
+  if (telegramLinkFound) return { ok: false, reason: "telegram link found in /lm chunk" };
   if (stripeLinkFound) {
     return { ok: false, reason: "stripe link found in /lm chunk" };
   }
-  if (!telegramLinks.includes(TELEGRAM_HANDOFF_URL)) {
-    return { ok: false, reason: "telegram handoff link missing in /lm chunk" };
-  }
-  const unexpected = telegramLinks.filter((link) => link !== TELEGRAM_HANDOFF_URL);
-  if (unexpected.length > 0) {
-    return { ok: false, reason: `unexpected telegram link in /lm chunk: ${unexpected.join(",")}` };
-  }
+  if (unexpectedWebLinks.length > 0) return { ok: false, reason: `unexpected web app link in /lm chunk: ${unexpectedWebLinks.join(",")}` };
+  if (!webLinks.includes("https://life-call-production.up.railway.app/lm")) return { ok: false, reason: "web app handoff link missing in /lm chunk" };
   return { ok: true, reason: "ok" };
 }
 
@@ -107,7 +107,7 @@ class RollbackController {
 module.exports = {
   extractStripeLink,
   assertMoneyPath,
-  assertTelegramHandoff,
+  assertWebAppHandoff,
   RollbackController,
   STRIPE_RE,
 };

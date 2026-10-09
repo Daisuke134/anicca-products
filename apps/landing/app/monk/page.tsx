@@ -49,14 +49,14 @@ export default function MonkPage() {
     }
   }
 
-  async function handleBuy() {
+  async function handleCheckout(product: 'ebook' | 'letter', mode: 'payment' | 'subscription') {
     const ctrl = new AbortController();
     try {
       const r = await fetch('/.netlify/functions/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(buildCheckoutRequest({
-          search: window.location.search, lang: 'en', product: 'ebook', mode: 'payment',
+          search: window.location.search, lang: 'en', product, mode,
         })),
         signal: ctrl.signal,
       });
@@ -64,14 +64,22 @@ export default function MonkPage() {
       if (url) window.location.href = url;
     } catch (err: unknown) {
       if (err instanceof Error && err.name !== 'AbortError') {
-        if (typeof window !== 'undefined') console.warn('[/monk:buy] checkout failed:', err.message);
+        if (typeof window !== 'undefined') console.warn('[/monk:checkout] checkout failed:', err.message);
       }
     }
   }
 
-  const BuyButton = ({ label }: { label: string }) => (
+  const BuyButton = ({
+    label,
+    product = 'ebook',
+    mode = 'payment',
+  }: {
+    label: string;
+    product?: 'ebook' | 'letter';
+    mode?: 'payment' | 'subscription';
+  }) => (
     <button
-      onClick={handleBuy}
+      onClick={() => handleCheckout(product, mode)}
       className="inline-flex items-center justify-center whitespace-nowrap font-medium transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-[0.98] active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[hsl(var(--gold))] rounded-pill px-6 py-3 bg-[hsl(var(--gold))] text-[#18181b] hover:brightness-95"
     >
       {label}
@@ -169,6 +177,19 @@ export default function MonkPage() {
               </form>
             )}
             {optInState === 'error' && <p className="text-xs text-red-700 mt-2">Something went wrong. Try again.</p>}
+          </div>
+        </Reveal>
+      </Section>
+
+      <Section>
+        <Reveal>
+          <div className="mx-auto max-w-xl text-center">
+            <p className="text-xs uppercase tracking-[0.3em] text-[hsl(var(--text-secondary))] mb-6">Want a daily practice?</p>
+            <h2 className="text-xl font-light mb-4 text-[hsl(var(--text-primary))]">Get the Daily Anicca Letter</h2>
+            <p className="text-sm text-[hsl(var(--text-secondary))] mb-6">
+              One short letter every morning. First 14 days free, then $9.99/month. A payment method is required to start; cancel any time.
+            </p>
+            <BuyButton label="Start the 14-day free trial" product="letter" mode="subscription" />
           </div>
         </Reveal>
       </Section>

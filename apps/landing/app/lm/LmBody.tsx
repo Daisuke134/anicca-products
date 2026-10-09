@@ -3,20 +3,19 @@
 import { useEffect, useState } from 'react';
 import { Reveal } from '@/components/site/taste';
 import { useLaunchLocale } from '@/lib/launchLocale';
-import { writerCtaHref } from '@/lib/writer-cta-url';
+import { LIFE_MANAGER_WEB_APP_URL, lifeManagerCtaHref } from '@/lib/writer-cta-url';
 import { launchStrings } from '@/lib/launchStrings';
 
-const TG_DEEPLINK = 'https://t.me/LifeManagerBotbot?start=lp';
 const REPOSITORY_URL = 'https://github.com/Daisuke134/life-manager';
 
-// The public landing page is a Telegram handoff. Writer query identity is validated locally and
-// routed through the receipt redirect; this page never owns user state or entitlement.
+// The public landing page enters the browser-based Calendar setup. Writer query identity is
+// validated locally and routed through its click-receipt redirect before continuing to the Web app.
 export default function LmBody() {
   const { locale } = useLaunchLocale();
   const t = launchStrings[locale].lm;
-  const [startHref, setStartHref] = useState(TG_DEEPLINK);
+  const [startHref, setStartHref] = useState(LIFE_MANAGER_WEB_APP_URL);
   useEffect(() => {
-    setStartHref(writerCtaHref(window.location.search));
+    setStartHref(lifeManagerCtaHref(window.location.search));
   }, []);
   return (
     <main className="w-full overflow-hidden px-4 pb-24 pt-12 md:pt-20">
@@ -38,11 +37,9 @@ export default function LmBody() {
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <a
                     href={startHref}
-                    target="_blank"
-                    rel="noreferrer"
                     className="inline-flex items-center justify-center rounded-pill bg-[hsl(var(--gold))] px-7 py-3 text-sm font-semibold text-black transition-all hover:-translate-y-0.5 hover:brightness-95 active:translate-y-0"
                   >
-                    {t.soonCta}
+                    {t.primaryCta}
                   </a>
                   <a
                     href={REPOSITORY_URL}
