@@ -151,7 +151,7 @@ export default function LetterPage() {
           </p>
           <p className="mb-8 text-sm text-[hsl(var(--text-secondary))]">
             {/* TODO(i18n): EN */}
-            First 14 days free. No card needed for trial.
+            First 14 days free. A payment method is required to start; no charge until the trial ends.
           </p>
           <button
             onClick={handleSubscribe}
