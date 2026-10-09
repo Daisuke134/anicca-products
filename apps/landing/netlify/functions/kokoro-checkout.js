@@ -1,12 +1,15 @@
-// 心のクセ・取扱説明書 — Stripe Checkout (inline JPY ¥480 price_data)
+// Mind Habits / 心のクセ report — Stripe Checkout (inline price_data)
+// JP: JPY ¥480 · EN: USD $4.99 — metadata.product always kokoro_report
 const {
   isValidType,
   isValidScoreString,
   REPORTS,
+  REPORTS_EN,
 } = require('./_lib/kokoro-report-content.js');
 const { isAttributionTokenForLang } = require('../../lib/checkout-attribution.cjs');
 
 const PRICE_JPY = 480;
+const PRICE_USD_CENTS = 499;
 const ORIGIN_DEFAULT = 'https://aniccaai.com';
 
 async function kokoroCheckoutHandler(event, dependencies = {}) {
@@ -21,6 +24,7 @@ async function kokoroCheckoutHandler(event, dependencies = {}) {
 
   const type = typeof body.type === 'string' ? body.type : '';
   const s = typeof body.s === 'string' ? body.s : '';
+  const lang = body.lang === 'en' ? 'en' : 'jp';
   if (!isValidType(type) || !isValidScoreString(s)) {
     return { statusCode: 400, body: 'invalid type or s' };
   }
@@ -37,35 +41,52 @@ async function kokoroCheckoutHandler(event, dependencies = {}) {
     || `${proto}://${host}`
     || ORIGIN_DEFAULT;
 
-  const typeName = REPORTS[type].name;
-  const attributionToken = isAttributionTokenForLang(body.attribution_token, 'jp')
+  const typeName = lang === 'en' ? REPORTS_EN[type].name : REPORTS[type].name;
+  const attributionToken = isAttributionTokenForLang(body.attribution_token, lang)
     ? body.attribution_token
     : null;
 
   const params = new URLSearchParams();
   params.append('mode', 'payment');
-  params.append('locale', 'ja');
+  params.append('locale', lang === 'en' ? 'en' : 'ja');
   params.append('payment_method_types[0]', 'card');
-  params.append('line_items[0][price_data][currency]', 'jpy');
-  params.append('line_items[0][price_data][unit_amount]', String(PRICE_JPY));
-  params.append(
-    'line_items[0][price_data][product_data][name]',
-    `心のクセ・取扱説明書（${typeName}）`,
-  );
+  if (lang === 'en') {
+    params.append('line_items[0][price_data][currency]', 'usd');
+    params.append('line_items[0][price_data][unit_amount]', String(PRICE_USD_CENTS));
+    params.append(
+      'line_items[0][price_data][product_data][name]',
+      `Mind Habits Field Guide (${typeName})`,
+    );
+    params.append(
+      'success_url',
+      `${origin}/affirmation-app/en/quiz/report?session_id={CHECKOUT_SESSION_ID}`,
+    );
+    params.append(
+      'cancel_url',
+      `${origin}/affirmation-app/en/quiz/${encodeURIComponent(type)}?s=${encodeURIComponent(s)}`,
+    );
+  } else {
+    params.append('line_items[0][price_data][currency]', 'jpy');
+    params.append('line_items[0][price_data][unit_amount]', String(PRICE_JPY));
+    params.append(
+      'line_items[0][price_data][product_data][name]',
+      `心のクセ・取扱説明書（${typeName}）`,
+    );
+    params.append(
+      'success_url',
+      `${origin}/affirmation-app/ja/shindan/report?session_id={CHECKOUT_SESSION_ID}`,
+    );
+    params.append(
+      'cancel_url',
+      `${origin}/affirmation-app/ja/shindan/${encodeURIComponent(type)}?s=${encodeURIComponent(s)}`,
+    );
+  }
   params.append('line_items[0][quantity]', '1');
   params.append('metadata[product]', 'kokoro_report');
   params.append('metadata[type]', type);
   params.append('metadata[s]', s);
-  params.append('metadata[lang]', 'jp');
+  params.append('metadata[lang]', lang);
   if (attributionToken) params.append('metadata[attribution_token]', attributionToken);
-  params.append(
-    'success_url',
-    `${origin}/affirmation-app/ja/shindan/report?session_id={CHECKOUT_SESSION_ID}`,
-  );
-  params.append(
-    'cancel_url',
-    `${origin}/affirmation-app/ja/shindan/${encodeURIComponent(type)}?s=${encodeURIComponent(s)}`,
-  );
   params.append('customer_creation', 'always');
 
   let session;
@@ -104,3 +125,4 @@ async function kokoroCheckoutHandler(event, dependencies = {}) {
 exports.kokoroCheckoutHandler = kokoroCheckoutHandler;
 exports.handler = (event) => kokoroCheckoutHandler(event);
 exports.PRICE_JPY = PRICE_JPY;
+exports.PRICE_USD_CENTS = PRICE_USD_CENTS;

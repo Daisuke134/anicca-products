@@ -472,31 +472,85 @@ function rankTypes(scores) {
   });
 }
 
-function wallpaperUrl(text, bg) {
+const { REPORTS_EN } = require('./kokoro-report-content-en.js');
+
+function wallpaperUrl(text, bg, lang) {
   const u = new URL('https://aniccaai.com/affirmation-app/ja/wallpaper');
   u.searchParams.set('text', text);
   if (bg) u.searchParams.set('bg', bg);
-  u.searchParams.set('from', 'kokoro_report');
+  u.searchParams.set('from', lang === 'en' ? 'kokoro_report_en' : 'kokoro_report');
   return u.toString();
 }
 
 /**
- * @param {{ type: string, s?: string }} input
+ * @param {{ type: string, s?: string, lang?: string }} input
  */
 function buildKokoroReport(input) {
   const type = input && input.type;
   assertType(type);
-  const base = REPORTS[type];
+  const lang = input && input.lang === 'en' ? 'en' : 'jp';
+  const catalog = lang === 'en' ? REPORTS_EN : REPORTS;
+  const base = catalog[type];
   const scores = parseScores(input.s || '') || Object.fromEntries(TYPE_ORDER.map((id) => [id, id === type ? 9 : 0]));
   const ranked = rankTypes(scores);
-  const primary = ranked[0] === type ? type : type;
+  const primary = type;
   const second = ranked.find((id) => id !== primary) || ranked[1];
   const third = ranked.find((id) => id !== primary && id !== second) || ranked[2];
-  const secondReport = REPORTS[second];
-  const thirdReport = REPORTS[third];
+  const secondReport = catalog[second];
+  const thirdReport = catalog[third];
+
+  if (lang === 'en') {
+    return {
+      product: 'kokoro_report',
+      lang: 'en',
+      disclaimer: 'Not a medical diagnosis. A short self-check to notice your patterns.',
+      type: primary,
+      typeName: base.name,
+      scores,
+      ranked,
+      sections: {
+        identity: {
+          title: 'What this habit actually is',
+          body: base.identity,
+          scenes: base.scenes,
+        },
+        secondary: {
+          title: 'Your second and third patterns',
+          second: { id: second, name: secondReport.name, summary: secondReport.identity.split('\n\n')[0] },
+          third: { id: third, name: thirdReport.name, summary: thirdReport.identity.split('\n\n')[0] },
+        },
+        calm: {
+          title: 'A 3-minute settle when it shows up',
+          steps: base.calmSteps,
+        },
+        affirmations30: {
+          title: '30 days of one-liners',
+          items: base.affirmations30,
+        },
+        wallpapers: {
+          title: 'Lock-screen wallpaper links',
+          items: base.wallpapers.map((w) => ({
+            text: w.text,
+            url: wallpaperUrl(w.text, w.bg, 'en'),
+          })),
+        },
+        chemistry: {
+          title: 'Types that mesh — and types that scrape',
+          compatible: base.compatible.map((id) => ({ id, name: catalog[id].name })),
+          clash: base.clash.map((id) => ({ id, name: catalog[id].name })),
+        },
+        app: {
+          title: 'Anicca',
+          body: 'One line, delivered when you start to tip.',
+          url: 'https://apps.apple.com/us/app/id6755129214?pt=93486075&ct=quiz_en&mt=8',
+        },
+      },
+    };
+  }
 
   return {
     product: 'kokoro_report',
+    lang: 'jp',
     disclaimer: '医療的な診断ではありません。自分を知るためのセルフチェックです。',
     type: primary,
     typeName: base.name,
@@ -525,13 +579,13 @@ function buildKokoroReport(input) {
         title: 'ロック画面用の壁紙',
         items: base.wallpapers.map((w) => ({
           text: w.text,
-          url: wallpaperUrl(w.text, w.bg),
+          url: wallpaperUrl(w.text, w.bg, 'jp'),
         })),
       },
       chemistry: {
         title: '相性の良いタイプ・すれ違いやすいタイプ',
-        compatible: base.compatible.map((id) => ({ id, name: REPORTS[id].name })),
-        clash: base.clash.map((id) => ({ id, name: REPORTS[id].name })),
+        compatible: base.compatible.map((id) => ({ id, name: catalog[id].name })),
+        clash: base.clash.map((id) => ({ id, name: catalog[id].name })),
       },
       app: {
         title: 'アニッチャへ',
@@ -546,6 +600,7 @@ module.exports = {
   TYPE_ORDER,
   TYPE_SET,
   REPORTS,
+  REPORTS_EN,
   buildKokoroReport,
   parseScores,
   isValidType: (t) => TYPE_SET.has(t),

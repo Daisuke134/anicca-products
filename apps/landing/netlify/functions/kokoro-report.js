@@ -78,7 +78,8 @@ async function kokoroReportHandler(event, dependencies = {}) {
   if (!ok) return json(403, { error: 'forbidden' });
 
   try {
-    const report = buildKokoroReport({ type: meta.type, s: meta.s });
+    const lang = meta.lang === 'en' ? 'en' : 'jp';
+    const report = buildKokoroReport({ type: meta.type, s: meta.s, lang });
     return json(200, report);
   } catch {
     return json(403, { error: 'forbidden' });
