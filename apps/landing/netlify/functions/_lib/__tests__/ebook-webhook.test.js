@@ -1491,8 +1491,8 @@ test("legacy subscription backfill chooses one subscriber per Stripe subscriptio
   const end = ebookWebhookMigration.indexOf(";", start);
   assert.ok(start >= 0 && end > start);
   const statement = ebookWebhookMigration.slice(start, end + 1);
-  assert.match(statement, /SELECT DISTINCT ON\\s*\\(stripe_subscription_id\\)/);
-  assert.match(statement, /ORDER BY stripe_subscription_id,\\s*signed_up_at NULLS FIRST,\\s*id::text/);
+  assert.match(statement, /SELECT DISTINCT ON\s*\(stripe_subscription_id\)/);
+  assert.match(statement, /ORDER BY stripe_subscription_id,\s*signed_up_at NULLS FIRST,\s*id::text/);
 });
 
 test("migration and reservation lock subscribers before subscription states", () => {
