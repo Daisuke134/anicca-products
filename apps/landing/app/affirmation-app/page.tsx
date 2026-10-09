@@ -32,7 +32,7 @@ const faqLd = {
     { '@type': 'Question', name: 'How is it different from Calm or Headspace?', acceptedAnswer: { '@type': 'Answer', text: 'Calm and Headspace are libraries you browse. Anicca is proactive and tiny: it finds you with one line instead of asking you to find a session.' } },
     { '@type': 'Question', name: 'Does it have streaks?', acceptedAnswer: { '@type': 'Answer', text: 'No. Streaks punish the day you miss, which is usually the day you needed it. Anicca has nothing to maintain.' } },
     { '@type': 'Question', name: 'What does Anicca mean?', acceptedAnswer: { '@type': 'Answer', text: 'Anicca is the Buddhist term for impermanence — the idea that every state passes. The app is built around that single observation.' } },
-    { '@type': 'Question', name: 'How much does it cost?', acceptedAnswer: { '@type': 'Answer', text: 'Free to download; $9.99/month or $49.99/year for the full proactive experience. iOS 15+.' } },
+    { '@type': 'Question', name: 'How much does it cost?', acceptedAnswer: { '@type': 'Answer', text: 'Free to download; $9.99/month or $49.99/year for the full proactive experience. iOS 16.6+.' } },
   ],
 };
 
