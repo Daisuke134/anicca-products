@@ -42,6 +42,17 @@
   to = "/.netlify/functions/income-list"
   status = 200
 
+# Cookieless first-party site counters (pageviews + funnel events)
+[[redirects]]
+  from = "/api/hit"
+  to = "/.netlify/functions/hit"
+  status = 200
+
+[[redirects]]
+  from = "/api/stats"
+  to = "/.netlify/functions/stats"
+  status = 200
+
 [[redirects]]
   from = "/money-printer"
   to = "https://life-call-production.up.railway.app/money-printer"

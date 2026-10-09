@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   DISCLAIMER_JA,
@@ -9,6 +9,7 @@ import {
   LIKERT_LABELS,
   scoreAnswers,
 } from '@/lib/kokoro-quiz';
+import { trackEvent } from '@/lib/site-hit';
 
 export default function KokoroQuiz() {
   const router = useRouter();
@@ -17,6 +18,7 @@ export default function KokoroQuiz() {
     () => Array(KOKORO_QUESTIONS.length).fill(null),
   );
   const [busy, setBusy] = useState(false);
+  const startedRef = useRef(false);
 
   const progress = useMemo(
     () => Math.round(((step + (answers[step] ? 1 : 0)) / KOKORO_QUESTIONS.length) * 100),
@@ -27,6 +29,10 @@ export default function KokoroQuiz() {
   const selected = answers[step];
 
   function choose(value: number) {
+    if (!startedRef.current) {
+      startedRef.current = true;
+      trackEvent('quiz_start');
+    }
     const next = [...answers];
     next[step] = value;
     setAnswers(next);
@@ -46,6 +52,7 @@ export default function KokoroQuiz() {
     try {
       const result = scoreAnswers(finalAnswers);
       const type = result.primary;
+      trackEvent('quiz_complete');
       router.push(
         `/affirmation-app/ja/shindan/${type}?s=${encodeURIComponent(result.scoreString)}`,
       );

@@ -8,6 +8,7 @@ import {
   KOKORO_TYPES,
   shareText,
 } from '@/lib/kokoro-quiz';
+import { trackEvent } from '@/lib/site-hit';
 
 type Props = {
   typeId: KokoroTypeId;
@@ -48,6 +49,7 @@ export default function KokoroResultActions({ typeId, scoreString }: Props) {
     }
     setCheckoutBusy(true);
     setCheckoutError('');
+    trackEvent('checkout_click', { type: typeId });
     try {
       const res = await fetch('/.netlify/functions/kokoro-checkout', {
         method: 'POST',

@@ -13,10 +13,12 @@
     "preflight:v2": "node scripts/preflight-v2.mjs",
     "test:telemetry": "node --test netlify/functions/_lib/__tests__/*.test.js",
     "test:tools": "node --experimental-strip-types --test test/departure-calculator.test.mjs test/wallpaper-wrap.test.mjs test/kokoro-quiz.test.mjs",
-    "test:kokoro": "node --test netlify/functions/__tests__/kokoro.test.js && npm run test:tools"
+    "test:kokoro": "node --test netlify/functions/__tests__/kokoro.test.js && npm run test:tools",
+    "test:site-hit": "node --test netlify/functions/_lib/__tests__/site-hit-store.test.js netlify/functions/__tests__/site-hit.test.js"
   },
   "dependencies": {
     "@crossmint/client-sdk-react-ui": "^4.2.11",
+    "@netlify/blobs": "^8.2.0",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-slot": "^1.0.2",
     "@supabase/supabase-js": "^2.45.0",

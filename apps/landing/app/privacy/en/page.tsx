@@ -85,7 +85,9 @@ export default function PrivacyEN() {
       </p>
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">12. Cookies</h2>
-      <p className="mt-3 text-muted-foreground">The landing page uses only the minimum necessary cookies. Cookies themselves do not contain personal information.</p>
+      <p className="mt-3 text-muted-foreground">
+        The landing page does not set analytics cookies. We use a first-party, cookieless pageview/event counter on aniccaai.com that stores only aggregate path and funnel counts (no IP addresses, no device identifiers, no personal profiles).
+      </p>
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">13. Use by Minors</h2>
       <p className="mt-3 text-muted-foreground">Users under 13 years of age cannot use this service without parental consent.</p>
@@ -99,7 +101,7 @@ export default function PrivacyEN() {
       <h2 className="mt-10 text-xl font-semibold text-foreground">16. Contact</h2>
       <p className="mt-3 text-muted-foreground">Please contact keiodaisuke@gmail.com.</p>
 
-      <p className="mt-12 text-right text-sm text-muted-foreground">Last Updated: January 26, 2026</p>
+      <p className="mt-12 text-right text-sm text-muted-foreground">Last Updated: October 9, 2026</p>
     </main>
   );
 }

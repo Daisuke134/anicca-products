@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { APP_STORE_SHINDAN_URL, DISCLAIMER_JA } from '@/lib/kokoro-quiz';
+import { trackEvent } from '@/lib/site-hit';
 
 type Report = {
   disclaimer: string;
@@ -55,6 +56,7 @@ export default function KokoroReportClient() {
         const data = (await res.json()) as Report;
         setReport(data);
         setStatus('ok');
+        trackEvent('checkout_success');
       } catch {
         if (!cancelled) setStatus('error');
       }
