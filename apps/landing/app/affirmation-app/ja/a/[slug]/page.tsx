@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import JsonLd from '@/components/JsonLd';
 import JaAffirmationSeoLayout from '@/components/affirmation/JaAffirmationSeoLayout';
+import { JA_TO_EN_SLUG } from '@/lib/en-affirmation-problems';
 import {
   JA_AFFIRMATION_PROBLEMS,
   allJaAffirmationSlugs,
@@ -24,10 +25,15 @@ export function generateMetadata({ params }: PageProps): Metadata {
     return { title: 'ページが見つかりません｜アニッチャ' };
   }
   const url = `https://aniccaai.com/affirmation-app/ja/a/${problem.slug}`;
+  const enSlug = JA_TO_EN_SLUG[problem.slug];
+  const languages: Record<string, string> = { ja: url };
+  if (enSlug) {
+    languages.en = `https://aniccaai.com/affirmation-app/a/${enSlug}`;
+  }
   return {
     title: `${problem.title}｜アニッチャ`,
     description: problem.metaDescription,
-    alternates: { canonical: url },
+    alternates: { canonical: url, languages },
     openGraph: {
       title: `${problem.title}｜アニッチャ`,
       description: problem.metaDescription,
@@ -67,18 +73,45 @@ export default function JaAffirmationProblemPage({ params }: PageProps) {
     },
     about: {
       '@type': 'SoftwareApplication',
-      name: 'Anicca',
+      name: 'Daily Affirmations - Anicca',
       operatingSystem: 'iOS',
       applicationCategory: 'HealthApplication',
       url: 'https://aniccaai.com/affirmation-app/ja',
     },
   };
 
+  const breadcrumbLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'アファメーションアプリ',
+        item: 'https://aniccaai.com/affirmation-app/ja',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: '悩み別アファメーション',
+        item: 'https://aniccaai.com/affirmation-app/ja/a',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: problem.shortTitle,
+        item: pageUrl,
+      },
+    ],
+  };
+
   const others = JA_AFFIRMATION_PROBLEMS.filter((p) => p.slug !== problem.slug);
+  const enSlug = JA_TO_EN_SLUG[problem.slug];
 
   return (
     <>
       <JsonLd data={articleLd} />
+      <JsonLd data={breadcrumbLd} />
       <JaAffirmationSeoLayout breadcrumbCurrent={problem.shortTitle}>
         <article>
           <h1 className="text-[30px] font-semibold leading-tight tracking-tight sm:text-[38px]">
@@ -151,6 +184,16 @@ export default function JaAffirmationProblemPage({ params }: PageProps) {
                 </li>
               ))}
             </ul>
+            {enSlug ? (
+              <p className="mt-6 text-[14px]">
+                <Link
+                  href={`/affirmation-app/a/${enSlug}`}
+                  className="underline underline-offset-2 hover:text-[#393634]"
+                >
+                  Read in English
+                </Link>
+              </p>
+            ) : null}
             <p className="mt-6 text-[14px]">
               <Link
                 href="/affirmation-app/ja/a"

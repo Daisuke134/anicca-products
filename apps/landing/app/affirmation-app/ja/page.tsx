@@ -7,16 +7,21 @@ export const metadata = {
     'アニッチャ は、心が崩れ始めた瞬間に、一行のやさしさを届ける iOS アプリ。AI でパーソナライズ、無常 (アニッチャ) を核にした、能動的に届くタイプ。ダウンロード無料。',
 };
 
+const APP_STORE_URL_JP = 'https://apps.apple.com/jp/app/id6755129214';
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'Anicca',
+  name: 'Daily Affirmations - Anicca',
   applicationCategory: 'HealthApplication',
   operatingSystem: 'iOS',
+  inLanguage: 'ja',
   url: 'https://aniccaai.com/affirmation-app/ja',
   description:
-    'アニッチャは、心が崩れ始めた瞬間に一行のやさしさを届ける iOS アファメーションアプリ。AIがタイミングを判断し、無常（アニッチャ）を核にした能動型。',
-  offers: { '@type': 'Offer', price: '9.99', priceCurrency: 'USD' },
+    'アニッチャは、心が崩れ始めた瞬間に一行のやさしさを届ける iOS アファメーションアプリ。ダウンロード無料（任意のアプリ内課金あり）。',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  downloadUrl: APP_STORE_URL_JP,
+  sameAs: [APP_STORE_URL_JP],
   publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
 };
 

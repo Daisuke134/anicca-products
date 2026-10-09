@@ -14,7 +14,8 @@
     "test:telemetry": "node --test netlify/functions/_lib/__tests__/*.test.js",
     "test:tools": "node --experimental-strip-types --test test/departure-calculator.test.mjs test/wallpaper-wrap.test.mjs test/kokoro-quiz.test.mjs",
     "test:kokoro": "node --test netlify/functions/__tests__/kokoro.test.js && npm run test:tools",
-    "test:site-hit": "node --test netlify/functions/_lib/__tests__/site-hit-store.test.js netlify/functions/__tests__/site-hit.test.js"
+    "test:site-hit": "node --test netlify/functions/_lib/__tests__/site-hit-store.test.js netlify/functions/__tests__/site-hit.test.js",
+    "indexnow": "node scripts/indexnow-ping.mjs"
   },
   "dependencies": {
     "@crossmint/client-sdk-react-ui": "^4.2.11",
