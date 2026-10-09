@@ -29,6 +29,13 @@ CREATE INDEX IF NOT EXISTS ebook_webhook_receipts_subscription_idx
 ALTER TABLE public.ebook_webhook_receipts ENABLE ROW LEVEL SECURITY;
 GRANT SELECT, INSERT, UPDATE ON TABLE public.ebook_webhook_receipts TO service_role;
 
+-- Preserve the live webhook lock order: receipts, subscribers, then subscription state.
+LOCK TABLE public.subscribers IN ACCESS EXCLUSIVE MODE;
+
+ALTER TABLE public.subscribers
+  ADD COLUMN IF NOT EXISTS stripe_subscription_created_at timestamptz,
+  ADD COLUMN IF NOT EXISTS stripe_legacy_paid_pending_readback boolean NOT NULL DEFAULT false;
+
 -- Keep a stable subscriber mapping and DB-issued readback generations per Stripe subscription.
 CREATE TABLE IF NOT EXISTS public.ebook_subscription_states (
   stripe_subscription_id text PRIMARY KEY,
@@ -54,13 +61,15 @@ UPDATE public.ebook_subscription_states AS state
    SET subscriber_id = subscriber.id::text,
        stripe_customer_id = COALESCE(state.stripe_customer_id, subscriber.stripe_customer_id),
        subscription_lang = COALESCE(state.subscription_lang, subscriber.lang)
-  FROM public.subscribers AS subscriber
+  FROM (
+    SELECT DISTINCT ON (stripe_subscription_id)
+           stripe_subscription_id, id, stripe_customer_id, lang
+      FROM public.subscribers
+     WHERE stripe_subscription_id IS NOT NULL
+     ORDER BY stripe_subscription_id, signed_up_at NULLS FIRST, id::text
+  ) AS subscriber
  WHERE state.subscriber_id IS NULL
    AND subscriber.stripe_subscription_id = state.stripe_subscription_id;
-
-ALTER TABLE public.subscribers
-  ADD COLUMN IF NOT EXISTS stripe_subscription_created_at timestamptz,
-  ADD COLUMN IF NOT EXISTS stripe_legacy_paid_pending_readback boolean NOT NULL DEFAULT false;
 
 UPDATE public.subscribers
    SET stripe_legacy_paid_pending_readback = true
@@ -195,6 +204,9 @@ BEGIN
   IF p_stripe_subscription_id IS NULL THEN
     RAISE EXCEPTION 'missing subscription identity';
   END IF;
+
+  -- Lock subscribers before any subscription-state read, matching apply and migration order.
+  LOCK TABLE public.subscribers IN ROW SHARE MODE;
 
   v_email := NULLIF(lower(trim(p_email)), '');
   IF v_email IS NOT NULL THEN
