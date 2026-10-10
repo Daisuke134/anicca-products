@@ -5,6 +5,7 @@ on:
     paths:
       - 'apps/landing/**'
       - '.github/workflows/landing-pr-build.yml'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -24,6 +25,250 @@ jobs:
           cache-dependency-path: apps/landing/package-lock.json
       - run: npm ci
       - run: npm run test:telemetry
+      - name: Read provider metadata (manual only)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          set -euo pipefail
+          npx --yes netlify-cli@latest env:list --context production --json --site "$NETLIFY_SITE_ID" 2>/dev/null \
+            | node -e '
+              let input="";
+              process.stdin.on("data", chunk => input += chunk).on("end", () => {
+                try {
+                  const data = JSON.parse(input);
+                  const names = Array.isArray(data)
+                    ? data.map(item => typeof item === "string" ? item : item.key || item.name)
+                    : data && typeof data === "object" ? Object.keys(data) : [];
+                  const filteredNames = names
+                    .filter(name => typeof name === "string" && /(RESEND|EMAIL|DATABASE|POSTGRES|SUPABASE|PG)/i.test(name))
+                    .sort();
+                  console.log(JSON.stringify({ production_env_names: filteredNames }));
+                } catch {
+                  console.log(JSON.stringify({ production_env_names: "unavailable" }));
+                }
+              });
+            '
+          SUPABASE_URL="$(npx --yes netlify-cli@latest env:get SUPABASE_URL --context production --site "$NETLIFY_SITE_ID" 2>/dev/null | tail -n 1 || true)"
+          SUPABASE_SERVICE_ROLE_KEY="$(npx --yes netlify-cli@latest env:get SUPABASE_SERVICE_ROLE_KEY --context production --site "$NETLIFY_SITE_ID" 2>/dev/null | tail -n 1 || true)"
+          RESEND_API_KEY="$(npx --yes netlify-cli@latest env:get RESEND_API_KEY --context production --site "$NETLIFY_SITE_ID" 2>/dev/null | tail -n 1 || true)"
+          RESEND_FROM_EMAIL="$(npx --yes netlify-cli@latest env:get RESEND_FROM_EMAIL --context production --site "$NETLIFY_SITE_ID" 2>/dev/null | tail -n 1 || true)"
+          export SUPABASE_URL SUPABASE_SERVICE_ROLE_KEY RESEND_API_KEY RESEND_FROM_EMAIL
+          node --input-type=module <<'NODE'
+          const base = process.env.SUPABASE_URL;
+          const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+          const safeFetch = async (url, options) => {
+            try { return await fetch(url, options); }
+            catch { return null; }
+          };
+          const safeJson = async (response) => {
+            try { return await response.json(); }
+            catch { return null; }
+          };
+          const safeErrorCode = async (response) => {
+            const body = await safeJson(response);
+            return body && (body.code || body.name) || null;
+          };
+          if (!base || !serviceKey) {
+            console.log(JSON.stringify({ schema_readback: 'unavailable', reason: 'netlify_env_missing' }));
+          } else {
+            let parsedUrl;
+            let projectMatch;
+            try {
+              parsedUrl = new URL(base.trim());
+              projectMatch = /^([a-z0-9]+)\.supabase\.co$/.exec(parsedUrl.hostname.toLowerCase());
+            } catch { /* Raw URL parse errors may contain the secret-bearing input. */ }
+            if (!parsedUrl || parsedUrl.protocol !== 'https:' || parsedUrl.port || !projectMatch
+                || !['', '/'].includes(parsedUrl.pathname) || parsedUrl.username || parsedUrl.password
+                || parsedUrl.search || parsedUrl.hash) {
+              console.log(JSON.stringify({ supabase_project_ref: null, schema_readback: 'unavailable', reason: 'invalid_supabase_url' }));
+              process.exit(0);
+            }
+            const root = parsedUrl.origin;
+            const auth = { apikey: serviceKey, Authorization: `Bearer ${serviceKey}` };
+            const supabaseProjectRef = projectMatch[1];
+            console.log(JSON.stringify({ supabase_project_ref: supabaseProjectRef }));
+            const response = await safeFetch(`${root}/rest/v1/`, {
+              headers: { ...auth, Accept: 'application/openapi+json' },
+            });
+            if (!response) {
+              console.log(JSON.stringify({ schema_readback: 'unavailable', reason: 'supabase_transport_failure' }));
+              process.exit(0);
+            } else if (!response.ok) {
+              console.log(JSON.stringify({ schema_readback: 'unavailable', http_status: response.status }));
+            } else {
+              const spec = await safeJson(response);
+              if (!spec || typeof spec !== 'object') {
+                console.log(JSON.stringify({ schema_readback: 'unavailable', reason: 'invalid_openapi_json' }));
+                process.exit(0);
+              }
+              for (const table of ['buyers', 'subscribers', 'ebook_webhook_receipts', 'ebook_subscription_states']) {
+                const path = Object.keys(spec.paths || {}).find((item) => item === `/${table}` || item.endsWith(`/${table}`));
+                const definition = Object.entries(spec.definitions || {})
+                  .find(([name]) => name.split('.').at(-1).toLowerCase() === table)?.[1];
+                console.log(JSON.stringify({
+                  table,
+                  exposed: Boolean(path),
+                  required: definition?.required || [],
+                  schema_hints: Object.keys(definition || {}).filter((key) => /key|constraint/i.test(key)),
+                  columns: Object.keys(definition?.properties || {}).sort(),
+                  column_types: Object.fromEntries(Object.entries(definition?.properties || {}).map(([name, column]) => [name, {
+                    type: column.type || null,
+                    format: column.format || null,
+                    nullable: !(definition?.required || []).includes(name),
+                  }])),
+                }));
+              }
+              console.log(JSON.stringify({
+                supabase_rpc_names: Object.keys(spec.paths || {})
+                  .filter((item) => item.startsWith('/rpc/'))
+                  .map((item) => item.slice('/rpc/'.length))
+                  .sort(),
+              }));
+            }
+            const receiptProbe = await safeFetch(`${root}/rest/v1/ebook_webhook_receipts?select=stripe_event_id&limit=0`, {
+              headers: auth,
+            });
+            const receiptError = !receiptProbe ? { code: 'transport_failure' }
+              : receiptProbe.ok ? null : await safeJson(receiptProbe);
+            console.log(JSON.stringify({
+              ebook_receipts_table_http_status: receiptProbe ? receiptProbe.status : null,
+              error_code: receiptError && (receiptError.code || receiptError.name) || null,
+            }));
+            const countSubscribers = async (filter) => {
+              const response = await safeFetch(`${root}/rest/v1/subscribers?select=id&${filter}&limit=0`, {
+                headers: { ...auth, Prefer: 'count=exact' },
+              });
+              if (!response) return { count: null, http_status: null, error_code: 'transport_failure' };
+              if (!response.ok) return { count: null, http_status: response.status, error_code: await safeErrorCode(response) };
+              const range = response.headers.get('content-range') || '';
+              const match = /\/(\d+)$/.exec(range);
+              return {
+                count: match ? Number(match[1]) : null,
+                http_status: response.status,
+                error_code: match ? null : 'count_header_missing',
+              };
+            };
+            const [paidCounts, paidWithoutSubscriptionCounts] = await Promise.all([
+              countSubscribers('tier=eq.paid'),
+              countSubscribers('tier=eq.paid&stripe_subscription_id=is.null'),
+            ]);
+            console.log(JSON.stringify({
+              paid_subscriber_count: paidCounts.count,
+              paid_without_subscription_pointer_count: paidWithoutSubscriptionCounts.count,
+              paid_count_http_status: paidCounts.http_status,
+              paid_without_pointer_count_http_status: paidWithoutSubscriptionCounts.http_status,
+              paid_count_error_code: paidCounts.error_code,
+              paid_without_pointer_count_error_code: paidWithoutSubscriptionCounts.error_code,
+            }));
+            const indexResponse = await safeFetch(`${root}/rest/v1/pg_indexes?select=indexname,indexdef&schemaname=eq.public&tablename=eq.subscribers`, {
+              headers: auth,
+            });
+            const indexBody = !indexResponse ? { code: 'transport_failure' }
+              : await safeJson(indexResponse) || {};
+            const uniqueIndexes = Array.isArray(indexBody)
+              ? indexBody.filter((row) => /\bUNIQUE\b/i.test(row.indexdef || ''))
+              : [];
+            console.log(JSON.stringify({
+              subscribers_index_catalog_http_status: indexResponse ? indexResponse.status : null,
+              index_catalog_error_code: indexBody && (indexBody.code || indexBody.name) || null,
+              unique_index_names: uniqueIndexes.map((row) => row.indexname).sort(),
+              unique_email_index_names: uniqueIndexes.filter((row) => /email/i.test(row.indexdef || '')).map((row) => row.indexname).sort(),
+            }));
+            const pageSize = 500;
+            const emailCounts = new Map();
+            let offset = 0;
+            let totalRows = null;
+            let stableTotal = true;
+            let scanEnded = false;
+            let subscriberRowsScanned = 0;
+            let emptyNormalizedEmailRows = 0;
+            let scanError = null;
+            while (true) {
+              const pageUrl = `${root}/rest/v1/subscribers?select=email&order=id.asc&limit=${pageSize}&offset=${offset}`;
+              const pageResponse = await safeFetch(pageUrl, { headers: { ...auth, Prefer: 'count=exact' } });
+              if (!pageResponse) {
+                scanError = { http_status: null, error_code: 'transport_failure' };
+                break;
+              }
+              if (!pageResponse.ok) {
+                const error = await safeJson(pageResponse);
+                scanError = { http_status: pageResponse.status, error_code: error && (error.code || error.name) || null };
+                break;
+              }
+              const range = pageResponse.headers.get('content-range') || '';
+              const rangeMatch = /\/(\d+)$/.exec(range);
+              const reportedTotal = rangeMatch ? Number(rangeMatch[1]) : null;
+              if (totalRows === null) totalRows = reportedTotal;
+              else if (reportedTotal !== null && reportedTotal !== totalRows) stableTotal = false;
+              const rows = await safeJson(pageResponse);
+              if (!Array.isArray(rows)) {
+                scanError = { http_status: pageResponse.status, error_code: 'invalid_json_shape' };
+                break;
+              }
+              subscriberRowsScanned += rows.length;
+              for (const row of rows) {
+                const email = typeof row.email === 'string' ? row.email.trim().toLowerCase() : '';
+                if (!email) {
+                  emptyNormalizedEmailRows += 1;
+                  continue;
+                }
+                emailCounts.set(email, (emailCounts.get(email) || 0) + 1);
+              }
+              offset += rows.length;
+              if (rows.length < pageSize || (totalRows !== null && offset >= totalRows)) {
+                scanEnded = true;
+                break;
+              }
+            }
+            const duplicateGroups = [...emailCounts.values()].filter((count) => count > 1);
+            const scanComplete = scanEnded && (totalRows === null || subscriberRowsScanned === totalRows);
+            console.log(JSON.stringify({
+              subscriber_email_scan: scanError ? 'incomplete' : !stableTotal ? 'unstable_total' : scanComplete ? 'complete' : 'incomplete',
+              subscriber_rows_scanned: subscriberRowsScanned,
+              subscriber_rows_reported: totalRows,
+              normalized_email_groups: emailCounts.size,
+              duplicate_normalized_email_groups: duplicateGroups.length,
+              duplicate_normalized_email_extra_rows: duplicateGroups.reduce((sum, count) => sum + count - 1, 0),
+              empty_normalized_email_rows: emptyNormalizedEmailRows,
+              scan_error: scanError,
+            }));
+          }
+          const resendKey = process.env.RESEND_API_KEY;
+          const sender = process.env.RESEND_FROM_EMAIL || '';
+          const senderAddress = /^(?:[^<>\r\n]*<)?[^<>\s@]+@([^<>\s@]+\.[^<>\s@]+)>?$/.exec(sender.trim());
+          console.log(JSON.stringify({
+            resend_from_email_configured: Boolean(senderAddress),
+            resend_sender_domain: senderAddress ? senderAddress[1].toLowerCase() : null,
+          }));
+          if (!resendKey) {
+            console.log(JSON.stringify({ resend_domains: 'unavailable', reason: 'netlify_env_missing' }));
+          } else {
+            const domainsResponse = await safeFetch('https://api.resend.com/domains', {
+              headers: { Authorization: `Bearer ${resendKey}` },
+            });
+            if (!domainsResponse) {
+              console.log(JSON.stringify({ resend_domains: 'unavailable', reason: 'provider_transport_failure' }));
+            } else if (!domainsResponse.ok) {
+              const error = await safeJson(domainsResponse);
+              console.log(JSON.stringify({
+                resend_domains: 'unavailable',
+                http_status: domainsResponse.status,
+                error_name: error && error.name || null,
+              }));
+            } else {
+              const domains = await safeJson(domainsResponse) || {};
+              console.log(JSON.stringify({
+                resend_domains: (domains.data || []).map((domain) => ({
+                  name: domain.name,
+                  status: domain.status,
+                  sending: domain.capabilities?.sending,
+                })),
+              }));
+            }
+          }
+          NODE
       - run: npm run build
         env:
           DASHBOARD_SNAPSHOT_URL: http://127.0.0.1:9
