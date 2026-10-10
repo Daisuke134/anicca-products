@@ -85,7 +85,9 @@ export default function PrivacyJA() {
       </p>
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">12. クッキー等</h2>
-      <p className="mt-3 text-muted-foreground">ランディングページでは必要最小限のCookieを使用します。Cookie自体に個人情報は含まれません。</p>
+      <p className="mt-3 text-muted-foreground">
+        ランディングページでは分析用Cookieは使用しません。aniccaai.com ではファーストパーティのクッキレス計測（ページパスとファネルイベントの集計のみ）を行い、IPアドレス・端末識別子・個人プロファイルは保存しません。
+      </p>
 
       <h2 className="mt-10 text-xl font-semibold text-foreground">13. 未成年者の利用</h2>
       <p className="mt-3 text-muted-foreground">13歳未満の方は保護者の同意がない限り本サービスを利用できません。</p>
@@ -99,7 +101,7 @@ export default function PrivacyJA() {
       <h2 className="mt-10 text-xl font-semibold text-foreground">16. 問い合わせ</h2>
       <p className="mt-3 text-muted-foreground">keiodaisuke@gmail.com までご連絡ください。</p>
 
-      <p className="mt-12 text-right text-sm text-muted-foreground">最終更新日: 2026年1月26日</p>
+      <p className="mt-12 text-right text-sm text-muted-foreground">最終更新日: 2026年10月9日</p>
     </main>
   );
 }

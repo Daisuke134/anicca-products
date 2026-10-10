@@ -5,6 +5,63 @@
 [functions.checkout]
   included_files = ["private/writer-articles/**"]
 
+[functions.ebook-download]
+  included_files = ["private/ebooks/**"]
+
+# Former public paid-ebook paths — no longer serve file bytes
+[[redirects]]
+  from = "/ebooks/anicca-reset-en.pdf"
+  to = "/monk"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/ebooks/anicca-reset-jp.pdf"
+  to = "/monk"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/ebooks/anicca-reset-en.md"
+  to = "/monk"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/ebooks/anicca-reset-jp.md"
+  to = "/monk"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/ebooks/anicca-reset-en.html"
+  to = "/monk"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/ebooks/anicca-reset-jp.html"
+  to = "/monk"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/ebooks/book.css"
+  to = "/monk"
+  status = 302
+  force = true
+
+# Cookieless first-party site counters (pageviews + funnel events)
+[[redirects]]
+  from = "/api/hit"
+  to = "/.netlify/functions/hit"
+  status = 200
+
+[[redirects]]
+  from = "/api/stats"
+  to = "/.netlify/functions/stats"
+  status = 200
+
 # Private CFO behind basic auth (Dais only)
 # Visit /private with Authorization: Basic <base64 of "dais:<password>">
 # Password in Netlify env: PRIVATE_CFO_PASSWORD

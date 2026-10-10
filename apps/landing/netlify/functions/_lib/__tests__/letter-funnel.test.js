@@ -48,3 +48,15 @@ test('Letter trial copy does not promise a card-free trial', () => {
   assert.ok(/payment method is required/i.test(source), 'Letter page must state that checkout collects a payment method');
   assert.ok(!/no card needed for trial/i.test(source), 'Letter page must not promise a card-free trial');
 });
+
+test('Tegami trial copy matches Stripe default card collection (not card-free)', () => {
+  const source = fs.readFileSync(path.join(landingRoot, 'app/tegami/page.tsx'), 'utf8');
+  assert.ok(
+    /お支払い方法の登録が必要/.test(source),
+    'Tegami must state that checkout collects a payment method',
+  );
+  assert.ok(
+    !/カード登録不要/.test(source),
+    'Tegami must not promise a card-free subscription trial',
+  );
+});

@@ -5,8 +5,9 @@ import PhoneFrame from './PhoneFrame';
 
 type Locale = 'en' | 'ja';
 
-const APP_STORE_URL =
+const APP_STORE_URL_US =
   'https://apps.apple.com/us/app/daily-affirmations-anicca/id6755129214';
+const APP_STORE_URL_JP = 'https://apps.apple.com/jp/app/id6755129214';
 
 type Copy = {
   navBack: string;
@@ -448,6 +449,7 @@ export default function AffirmationLanding({ locale }: { locale: Locale }) {
   const t = COPY[locale];
   const otherLocale = locale === 'en' ? 'ja' : 'en';
   const otherPath = otherLocale === 'en' ? '/affirmation-app' : '/affirmation-app/ja';
+  const appStoreUrl = locale === 'ja' ? APP_STORE_URL_JP : APP_STORE_URL_US;
   const badgeSrc = locale === 'en' ? '/app-store-badge-en.svg' : '/app-store-badge-ja.svg';
   const fontClass = locale === 'ja' ? 'font-serif-jp' : 'font-soft';
 
@@ -503,7 +505,7 @@ export default function AffirmationLanding({ locale }: { locale: Locale }) {
               </p>
 
               <div className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-4">
-                <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">
+                <a href={appStoreUrl} target="_blank" rel="noopener noreferrer">
                   <Image
                     src={badgeSrc}
                     alt={t.ctaPrimary}
@@ -852,7 +854,7 @@ export default function AffirmationLanding({ locale }: { locale: Locale }) {
                     ))}
                   </ul>
                   <a
-                    href={APP_STORE_URL}
+                    href={appStoreUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-7 inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3 font-mono-ui text-[11px] uppercase tracking-[0.2em] text-ink transition-opacity hover:opacity-90"
@@ -930,7 +932,7 @@ export default function AffirmationLanding({ locale }: { locale: Locale }) {
               {t.closeBody}
             </p>
             <div className="mt-12 flex flex-wrap items-center justify-center gap-6">
-              <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer">
+              <a href={appStoreUrl} target="_blank" rel="noopener noreferrer">
                 <Image
                   src={badgeSrc}
                   alt={t.closeCta}
@@ -943,6 +945,54 @@ export default function AffirmationLanding({ locale }: { locale: Locale }) {
                 {t.closeMeta}
               </p>
             </div>
+            {locale === 'ja' ? (
+              <Link
+                href="/affirmation-app/ja/a"
+                className="mt-8 inline-block border-b border-cream/30 font-mono-ui text-[11px] tracking-[0.12em] text-cream/70 hover:border-gold hover:text-gold"
+              >
+                悩み別アファメーションを読む →
+              </Link>
+            ) : (
+              <>
+                <section className="mx-auto mt-14 max-w-lg text-left">
+                  <h2 className="font-mono-ui text-[11px] uppercase tracking-[0.2em] text-cream/55">
+                    Read
+                  </h2>
+                  <ul className="mt-4 space-y-3 text-[15px] leading-relaxed text-cream/80">
+                    <li>
+                      <Link
+                        href="/affirmation-app/a/overthinking-at-night"
+                        className="border-b border-cream/25 hover:border-gold hover:text-gold"
+                      >
+                        Overthinking at night
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/affirmation-app/a/self-doubt"
+                        className="border-b border-cream/25 hover:border-gold hover:text-gold"
+                      >
+                        Affirmations for self-doubt
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        href="/affirmation-app/a/comparing-yourself"
+                        className="border-b border-cream/25 hover:border-gold hover:text-gold"
+                      >
+                        Stop comparing yourself
+                      </Link>
+                    </li>
+                  </ul>
+                </section>
+                <Link
+                  href="/affirmation-app/en/quiz"
+                  className="mt-8 inline-block border-b border-cream/30 font-mono-ui text-[11px] tracking-[0.12em] text-cream/70 hover:border-gold hover:text-gold"
+                >
+                  Take the free Mind Habits Quiz →
+                </Link>
+              </>
+            )}
             <Link
               href="/"
               className="mt-12 inline-block border-b border-cream/30 font-mono-ui text-[11px] uppercase tracking-[0.2em] text-cream/70 hover:border-gold hover:text-gold"

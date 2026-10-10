@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import JsonLd from '@/components/JsonLd';
 import { ManifestoHero, Section, Reveal } from '@/components/site/taste';
 import { buildCheckoutRequest } from '@/lib/checkout-attribution';
@@ -12,6 +12,7 @@ const achanBookLd = {
   url: 'https://aniccaai.com/achan',
   bookFormat: 'https://schema.org/EBook',
   inLanguage: 'ja',
+  author: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
   publisher: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
   description:
     '49の短章。各章は1つのパーリ語の概念、1つの現代的な言い換え、そして今夜できる1つの実践で構成。テーラワーダの智慧と感情の脳科学を融合。PDF・即時お届け・永久アクセス。',
@@ -24,9 +25,24 @@ const achanBookLd = {
   },
 };
 
+function ebookDownloadHref(sessionId: string) {
+  return `/.netlify/functions/ebook-download?session_id=${encodeURIComponent(sessionId)}&format=pdf`;
+}
+
 export default function AchanPage() {
   const [email, setEmail] = useState('');
   const [optInState, setOptInState] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [downloadSessionId, setDownloadSessionId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('success') !== '1') return;
+    const sessionId = params.get('session_id');
+    if (sessionId && /^cs_(?:live|test)_[A-Za-z0-9_]{4,200}$/.test(sessionId)) {
+      setDownloadSessionId(sessionId);
+    }
+  }, []);
 
   async function handleOptIn(e: React.FormEvent) {
     e.preventDefault();
@@ -83,6 +99,26 @@ export default function AchanPage() {
     <main className="min-h-screen bg-[hsl(var(--background))] font-serif">
       <JsonLd data={achanBookLd} />
 
+      {downloadSessionId && (
+        <Section>
+          <Reveal>
+            <div className="mx-auto max-w-xl text-center rounded-card border border-[hsl(var(--text-secondary))]/20 bg-[hsl(var(--surface))] px-6 py-8">
+              <p className="text-xs tracking-[0.3em] text-[hsl(var(--text-secondary))] mb-3">ご購入ありがとうございます</p>
+              <h2 className="text-xl font-light mb-3 text-[hsl(var(--text-primary))]">PDFの準備ができました</h2>
+              <p className="text-sm text-[hsl(var(--text-secondary))] mb-6">
+                下のボタンからダウンロードできます。同じリンクをメールでもお送りしています。
+              </p>
+              <a
+                href={ebookDownloadHref(downloadSessionId)}
+                className="inline-flex items-center justify-center rounded-pill px-6 py-3 bg-[hsl(var(--gold))] text-[#18181b] font-medium hover:brightness-95"
+              >
+                PDFをダウンロード →
+              </a>
+            </div>
+          </Reveal>
+        </Section>
+      )}
+
       {/* Hero: manifesto-style - book-sales message IS the design */}
       <ManifestoHero
         headline={
@@ -95,6 +131,7 @@ export default function AchanPage() {
         subtext="49の短章。テーラワーダの智慧と感情の脳科学を、静かに読める本。"
         cta={
           <div className="flex flex-col items-start gap-3">
+            <p className="text-sm text-[hsl(var(--text-secondary))]">著者: Anicca（アニッチャ）</p>
             <div className="flex items-baseline gap-2">
               <span className="line-through text-sm text-[hsl(var(--text-secondary))]">¥2,480</span>
               <span className="text-2xl font-medium text-[hsl(var(--text-primary))]">¥1,580</span>

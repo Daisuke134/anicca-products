@@ -91,11 +91,14 @@ export default function LetterPage() {
           'A two-minute meditation in your inbox. 365 letters, one per day. Cancel any time.'
         }
         cta={
-          // §11.F: CTA href /account preserved below; top CTA is subscribe
-          <CTA href="/account">
+          <button
+            type="button"
+            onClick={handleSubscribe}
+            className="inline-flex items-center justify-center whitespace-nowrap font-medium transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-[0.98] active:translate-y-px focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[hsl(var(--gold))] rounded-pill px-6 py-3 bg-[hsl(var(--gold))] text-[#18181b] hover:brightness-95"
+          >
             {/* TODO(i18n): EN */}
             Start the daily letters
-          </CTA>
+          </button>
         }
       />
 

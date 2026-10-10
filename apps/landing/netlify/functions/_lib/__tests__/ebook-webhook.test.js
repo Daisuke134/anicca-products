@@ -400,7 +400,7 @@ function dependencies(gateway, overrides = {}) {
   };
 }
 
-function ebookCheckout({ id = 'cs_ebook_en', eventId = 'evt_ebook_en', lang = 'en', token = TOKEN_EN } = {}) {
+function ebookCheckout({ id = 'cs_test_ebook_en', eventId = 'evt_ebook_en', lang = 'en', token = TOKEN_EN } = {}) {
   return {
     id: eventId,
     type: 'checkout.session.completed',
@@ -433,7 +433,7 @@ test('bad Stripe signature causes no database or email effects', async () => {
 test('paid English ebook stores its campaign receipt and sends the matching PDF plus Letter CTA', async () => {
   const gateway = fakeGateway();
   const result = await webhookHandler(signedEvent(ebookCheckout()), dependencies(gateway));
-  const receipt = gateway.receiptsBySession.get('cs_ebook_en');
+  const receipt = gateway.receiptsBySession.get('cs_test_ebook_en');
   const email = gateway.emailRequests[0];
 
   assert.equal(result.statusCode, 200);
@@ -441,26 +441,28 @@ test('paid English ebook stores its campaign receipt and sends the matching PDF 
   assert.equal(receipt.payment_status, 'paid');
   assert.equal(receipt.delivery_status, 'delivered');
   assert.equal(receipt.resend_id, 'email_1');
-  assert.equal(gateway.buyerRows[0].stripe_session_id, 'cs_ebook_en');
-  assert.equal(email.headers['Idempotency-Key'], 'ebook-delivery-cs_ebook_en');
+  assert.equal(gateway.buyerRows[0].stripe_session_id, 'cs_test_ebook_en');
+  assert.equal(email.headers['Idempotency-Key'], 'ebook-delivery-cs_test_ebook_en');
   assert.equal(email.body.from, 'Anicca <hello@example.test>');
-  assert.match(email.body.html, /anicca-reset-en\.pdf/);
+  assert.match(email.body.html, /ebook-download\?session_id=cs_test_ebook_en&format=pdf/);
+  assert.doesNotMatch(email.body.html, /\/ebooks\/anicca-reset-en\.pdf/);
   assert.match(email.body.html, new RegExp(`/letter\\?utm_campaign=${TOKEN_EN}`));
 });
 
 test('paid Japanese ebook keeps locale-specific receipt, PDF, and Tegami CTA', async () => {
   const gateway = fakeGateway();
   const result = await webhookHandler(
-    signedEvent(ebookCheckout({ id: 'cs_ebook_jp', eventId: 'evt_ebook_jp', lang: 'jp', token: TOKEN_JP })),
+    signedEvent(ebookCheckout({ id: 'cs_test_ebook_jp', eventId: 'evt_ebook_jp', lang: 'jp', token: TOKEN_JP })),
     dependencies(gateway),
   );
-  const receipt = gateway.receiptsBySession.get('cs_ebook_jp');
+  const receipt = gateway.receiptsBySession.get('cs_test_ebook_jp');
   const email = gateway.emailRequests[0];
 
   assert.equal(result.statusCode, 200);
   assert.equal(receipt.lang, 'jp');
   assert.equal(receipt.attribution_token, TOKEN_JP);
-  assert.match(email.body.html, /anicca-reset-jp\.pdf/);
+  assert.match(email.body.html, /ebook-download\?session_id=cs_test_ebook_jp&format=pdf/);
+  assert.doesNotMatch(email.body.html, /\/ebooks\/anicca-reset-jp\.pdf/);
   assert.match(email.body.html, new RegExp(`/tegami\\?utm_campaign=${TOKEN_JP}`));
 });
 
@@ -468,7 +470,7 @@ test('same Stripe event or Checkout session replay never sends a second ebook em
   const gateway = fakeGateway();
   const deps = dependencies(gateway);
   const first = ebookCheckout();
-  const differentEventSameSession = ebookCheckout({ id: 'cs_ebook_en', eventId: 'evt_second_delivery' });
+  const differentEventSameSession = ebookCheckout({ id: 'cs_test_ebook_en', eventId: 'evt_second_delivery' });
 
   await webhookHandler(signedEvent(first), deps);
   const replay = await webhookHandler(signedEvent(first), deps);
@@ -486,7 +488,7 @@ test('buyer receipt persistence failure returns retryable error before sending e
 
   assert.ok(result.statusCode >= 500);
   assert.equal(gateway.emailRequests.length, 0);
-  assert.equal(gateway.receiptsBySession.get('cs_ebook_en').delivery_status, 'retryable_failure');
+  assert.equal(gateway.receiptsBySession.get('cs_test_ebook_en').delivery_status, 'retryable_failure');
 });
 
 test('missing checkout email is durably surfaced without sending or replaying delivery', async () => {
@@ -497,7 +499,7 @@ test('missing checkout email is durably surfaced without sending or replaying de
 
   const first = await webhookHandler(signedEvent(payload), dependencies(gateway));
   const replay = await webhookHandler(signedEvent(payload), dependencies(gateway));
-  const receipt = gateway.receiptsBySession.get('cs_ebook_en');
+  const receipt = gateway.receiptsBySession.get('cs_test_ebook_en');
 
   assert.ok(first.statusCode >= 500);
   assert.equal(replay.statusCode, 200);
@@ -515,8 +517,8 @@ test('missing verified sender configuration retries before calling Resend', asyn
 
   assert.ok(result.statusCode >= 500);
   assert.equal(gateway.emailRequests.length, 0);
-  assert.equal(gateway.receiptsBySession.get('cs_ebook_en').delivery_status, 'retryable_failure');
-  assert.equal(gateway.receiptsBySession.get('cs_ebook_en').next_action, 'configure_verified_resend_sender');
+  assert.equal(gateway.receiptsBySession.get('cs_test_ebook_en').delivery_status, 'retryable_failure');
+  assert.equal(gateway.receiptsBySession.get('cs_test_ebook_en').next_action, 'configure_verified_resend_sender');
 });
 
 test('Resend failure is surfaced and its ambiguous delivery receipt fences replay', async () => {
@@ -530,7 +532,7 @@ test('Resend failure is surfaced and its ambiguous delivery receipt fences repla
   assert.ok(first.statusCode >= 500);
   assert.ok(replay.statusCode >= 500);
   assert.equal(gateway.emailRequests.length, 1);
-  assert.equal(gateway.receiptsBySession.get('cs_ebook_en').delivery_status, 'effect_unknown');
+  assert.equal(gateway.receiptsBySession.get('cs_test_ebook_en').delivery_status, 'effect_unknown');
 });
 
 test('Resend invalid_idempotent_request 409 fences delivery instead of retrying a different payload', async () => {
@@ -544,7 +546,7 @@ test('Resend invalid_idempotent_request 409 fences delivery instead of retrying 
   assert.ok(first.statusCode >= 500);
   assert.ok(replay.statusCode >= 500);
   assert.equal(gateway.emailRequests.length, 1);
-  assert.equal(gateway.receiptsBySession.get('cs_ebook_en').delivery_status, 'effect_unknown');
+  assert.equal(gateway.receiptsBySession.get('cs_test_ebook_en').delivery_status, 'effect_unknown');
 });
 
 test('Resend concurrent_idempotent_requests 409 retries the identical request safely', async () => {
@@ -562,7 +564,7 @@ test('Resend concurrent_idempotent_requests 409 retries the identical request sa
   assert.equal(replay.statusCode, 200);
   assert.equal(gateway.emailRequests.length, 2);
   assert.equal(gateway.emailRequests[0].headers['Idempotency-Key'], gateway.emailRequests[1].headers['Idempotency-Key']);
-  assert.equal(gateway.receiptsBySession.get('cs_ebook_en').delivery_status, 'delivered');
+  assert.equal(gateway.receiptsBySession.get('cs_test_ebook_en').delivery_status, 'delivered');
 });
 
 test('Letter trial and paid invoice receipts preserve attribution without ebook delivery', async () => {
@@ -1506,4 +1508,3 @@ test("migration and reservation lock subscribers before subscription states", ()
   const stateCreate = ebookWebhookMigration.indexOf("CREATE TABLE IF NOT EXISTS public.ebook_subscription_states");
   assert.ok(migrationLock >= 0 && migrationLock < subscriberAlter && subscriberAlter < stateCreate);
 });
-

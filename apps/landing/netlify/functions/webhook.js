@@ -1,5 +1,6 @@
 // Stripe webhook: persist signed eBook/Letter events before fulfillment and keep provider receipts.
 const crypto = require('crypto');
+const { ebookDownloadUrl } = require('./ebook-download.js');
 
 const WRITER_EVENT_TYPES = new Set([
   'checkout.session.completed',
@@ -51,6 +52,25 @@ function isWriterEvent(payload) {
   return metadata && (metadata.product === 'writer_article' || metadata.product === 'writer_archive');
 }
 
+function sessionProduct(payload) {
+  const object = payload && payload.data && payload.data.object;
+  return object && object.metadata && object.metadata.product;
+}
+
+/** Paid report is fulfilled by kokoro-report.js (Checkout session gate), not ebook PDF mail. */
+function isKokoroEvent(payload) {
+  return payload
+    && payload.type === 'checkout.session.completed'
+    && sessionProduct(payload) === 'kokoro_report';
+}
+
+/** Retreat build has its own webhook; must not trigger ebook PDF delivery. */
+function isRetreatBuildEvent(payload) {
+  return payload
+    && payload.type === 'checkout.session.completed'
+    && sessionProduct(payload) === 'retreat-build-fund';
+}
+
 async function webhookHandler(event, dependencies = {}) {
   const env = dependencies.env || process.env;
   const WEBHOOK_SECRET = env.STRIPE_WEBHOOK_SECRET;
@@ -75,6 +95,8 @@ async function webhookHandler(event, dependencies = {}) {
   // ebook/Letter email or buyer-store side effects; the read-only collector
   // independently turns Stripe objects into accounting receipts.
   if (isWriterEvent(payload)) return { statusCode: 200, body: 'ok writer' };
+  if (isKokoroEvent(payload)) return { statusCode: 200, body: 'ok kokoro' };
+  if (isRetreatBuildEvent(payload)) return { statusCode: 200, body: 'ok retreat-build' };
 
   const RESEND_API_KEY = env.RESEND_API_KEY;
   const RESEND_FROM_EMAIL = typeof env.RESEND_FROM_EMAIL === 'string' ? env.RESEND_FROM_EMAIL.trim() : '';
@@ -93,6 +115,7 @@ async function webhookHandler(event, dependencies = {}) {
     const session = payload.data.object;
     const metadata = session.metadata || {};
     const lang = (session.metadata?.lang === 'jp') ? 'jp' : 'en';
+    // Legacy checkouts may omit metadata.product; treat missing as ebook only.
     const product = metadata.product || 'ebook';
     const mode = session.mode || 'payment';
     const isLetter = mode === 'subscription' && product === 'letter';
@@ -281,9 +304,10 @@ async function webhookHandler(event, dependencies = {}) {
       return webhookFailure(payload, dependencies, 'preflight', errorClass, 'none', true, nextAction);
     }
 
-    const pdfUrl = lang === 'jp'
-      ? 'https://aniccaai.com/ebooks/anicca-reset-jp.pdf'
-      : 'https://aniccaai.com/ebooks/anicca-reset-en.pdf';
+    const pdfUrl = ebookDownloadUrl(session.id, {
+      origin: 'https://aniccaai.com',
+      format: 'pdf',
+    });
     const subject = isLetter
       ? (lang === 'jp' ? '無常の手紙へようこそ' : 'Welcome to the Daily Anicca Letter')
       : (lang === 'jp' ? '『アニッチャ・リセット』お届けします' : 'Your copy of The Anicca Reset');

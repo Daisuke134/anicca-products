@@ -19,10 +19,13 @@ test("Life Manager landing and checkout copy use the live $29 plan", () => {
     "app/life-manager/page.tsx",
     "lib/launchStrings.ts",
     "scripts/money-path-smoke.mjs",
+    "app/dais/DaisBody.tsx",
   ].map(read);
   for (const source of sources) {
     assert.doesNotMatch(source, /\$20\/mo|月 ?\$20|20\/month/);
   }
+  assert.match(sources[5], /\$29\/mo · 7-day free trial/);
+  assert.match(sources[5], /月 \$29 · 7日間無料/);
   const enStart = sources[3].indexOf("    lm: {", sources[3].indexOf("  en: {"));
   const enEnd = sources[3].indexOf("    lifeManager: {", enStart);
   const jaStart = sources[3].indexOf("    lm: {", sources[3].indexOf("  ja: {"));
