@@ -1,0 +1,77 @@
+name: Dashboard declaration isolated validation
+
+on:
+  push:
+    branches:
+      - validation/dashboard-core-types-20261011
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    if: github.ref == 'refs/heads/validation/dashboard-core-types-20261011'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      NODE_OPTIONS: --max-old-space-size=3072
+    defaults:
+      run:
+        shell: bash
+        working-directory: apps/landing
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: a79270d2b12aefd669783d8e11e337c49a9328d4
+          fetch-depth: 2
+          persist-credentials: false
+      - name: Verify exact head and declaration-only diff
+        run: |
+          test "$(git rev-parse HEAD)" = a79270d2b12aefd669783d8e11e337c49a9328d4
+          test "$(git rev-parse HEAD^)" = ec8109cca3683a8abf4e7acaece25392bf4d7803
+          test "$(git diff --name-only HEAD^ HEAD)" = apps/landing/lib/dashboard-core.d.mts
+          test "$(git hash-object lib/dashboard-core.mjs)" = 2b5377f8056c665ee1ba9df851a73bccd930279d
+          test "$(git hash-object lib/dashboard-core.test.mjs)" = 08754daca1e3ce26aafba7a4ce0b3007947f3dd9
+          git diff --check HEAD^ HEAD
+          git diff HEAD^ HEAD
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install existing lockfile dependencies
+        id: dependencies
+        timeout-minutes: 5
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Run unchanged dashboard tests
+        run: node --test lib/dashboard-core.test.mjs
+      - name: Baseline no-emit typecheck with declaration absent
+        id: baseline
+        timeout-minutes: 3
+        run: |
+          mv lib/dashboard-core.d.mts "$RUNNER_TEMP/dashboard-core.d.mts"
+          trap 'mv "$RUNNER_TEMP/dashboard-core.d.mts" lib/dashboard-core.d.mts' EXIT
+          ./node_modules/.bin/tsc --version
+          ./node_modules/.bin/tsc --noEmit --incremental false --pretty false 2>&1 | tee "$RUNNER_TEMP/dashboard-base-types.log"
+      - name: Head no-emit typecheck
+        id: head
+        if: ${{ always() && steps.dependencies.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          test -f lib/dashboard-core.d.mts
+          ./node_modules/.bin/tsc --noEmit --incremental false --pretty false 2>&1 | tee "$RUNNER_TEMP/dashboard-head-types.log"
+      - name: Require only dashboard TS7016 to disappear
+        if: ${{ always() && steps.dependencies.outcome == 'success' }}
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          import assert from 'node:assert/strict';
+          const base = fs.readFileSync(process.env.RUNNER_TEMP + '/dashboard-base-types.log', 'utf8');
+          const head = fs.readFileSync(process.env.RUNNER_TEMP + '/dashboard-head-types.log', 'utf8');
+          const lines = base.split('\n');
+          const removed = lines.filter(line => line.startsWith('app/dashboard/page.tsx(6,30): error TS7016:'));
+          assert.equal(removed.length, 1, 'Exactly one baseline dashboard TS7016 required');
+          assert.equal((base.match(/error TS\d+:/g) || []).length, 6, 'Expected six existing diagnostics');
+          assert.equal((head.match(/error TS\d+:/g) || []).length, 5, 'Expected five remaining diagnostics');
+          assert.equal(head, lines.filter(line => !removed.includes(line)).join('\n'), 'All remaining diagnostic text must be identical');
+          console.log('PASS: dashboard TS7016 removed; the other five diagnostics are byte-for-byte identical; no new diagnostics.');
+          console.log('Whole-project typecheck remains failing; this comparison does not suppress either compiler exit.');
+          JS
