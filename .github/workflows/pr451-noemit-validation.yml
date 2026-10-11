@@ -1,0 +1,66 @@
+name: PR451 isolated no-emit validation
+
+on:
+  push:
+    branches:
+      - validation/pr451-noemit-20261011
+
+permissions:
+  contents: read
+
+jobs:
+  typecheck:
+    if: github.ref == 'refs/heads/validation/pr451-noemit-20261011'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      NODE_OPTIONS: --max-old-space-size=3072
+    defaults:
+      run:
+        shell: bash
+        working-directory: apps/landing
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: d0393daaf352fd75fea54db39f288c1e9565248c
+          fetch-depth: 2
+          persist-credentials: false
+      - name: Verify exact source and unchanged lockfile
+        run: |
+          test "$(git rev-parse HEAD)" = d0393daaf352fd75fea54db39f288c1e9565248c
+          test "$(git rev-parse HEAD^)" = 7854c08eaf909cec895ae241408518012f53578c
+          test "$(git hash-object app/dais/DaisBody.tsx)" = c42d15fdb94f36b83cdc1b34ea0379ab37fdf8bb
+          git diff --exit-code HEAD^ HEAD -- package-lock.json tsconfig.json
+          git show --stat --oneline HEAD
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install existing locked dependencies without lifecycle scripts
+        id: dependencies
+        timeout-minutes: 5
+        run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Explicit no-emit typecheck of PR451
+        id: head_typecheck
+        timeout-minutes: 3
+        run: |
+          ./node_modules/.bin/tsc --version
+          ./node_modules/.bin/tsc --noEmit --incremental false --pretty false 2>&1 | tee "$RUNNER_TEMP/pr451-head-typecheck.log"
+      - name: Compare unchanged project baseline and preserve its failure
+        if: ${{ always() && steps.dependencies.outcome == 'success' }}
+        timeout-minutes: 3
+        run: |
+          git show 7854c08eaf909cec895ae241408518012f53578c:apps/landing/app/dais/DaisBody.tsx > app/dais/DaisBody.tsx
+          trap 'git restore --source=d0393daaf352fd75fea54db39f288c1e9565248c -- app/dais/DaisBody.tsx' EXIT
+          test "$(git hash-object app/dais/DaisBody.tsx)" = d30d060acb2b55186aa7ff0bd14db3177da8a581
+          set +e
+          ./node_modules/.bin/tsc --noEmit --incremental false --pretty false 2>&1 | tee "$RUNNER_TEMP/pr451-base-typecheck.log"
+          baseline_status=${PIPESTATUS[0]}
+          set -e
+          printf 'Baseline compiler exit: %s\n' "$baseline_status"
+          if cmp -s "$RUNNER_TEMP/pr451-head-typecheck.log" "$RUNNER_TEMP/pr451-base-typecheck.log"; then
+            echo 'Head and baseline compiler diagnostics are byte-for-byte identical.'
+          else
+            echo 'Head and baseline compiler diagnostics differ:'
+            diff -u "$RUNNER_TEMP/pr451-base-typecheck.log" "$RUNNER_TEMP/pr451-head-typecheck.log" || test "$?" = 1
+          fi
+          exit "$baseline_status"
