@@ -145,7 +145,7 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
 
         <p className="mt-12 font-mono-ui text-[11px] uppercase tracking-[0.22em] text-mist">
           {post.date} · {post.project} · {post.word_count.toLocaleString()} words
-          {post.n_papers_cited > 0 && ` · ${post.n_papers_cited} citations`}
+          {post.n_papers_cited > 0 && ` · ${post.n_papers_cited} ${post.n_papers_cited === 1 ? "citation" : "citations"}`}
         </p>
 
         <div
@@ -212,13 +212,13 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
           </p>
           <div className="mt-4 grid grid-cols-1 gap-px border border-ink/15 bg-ink/15 sm:grid-cols-3">
             <a
-              href="https://x.com/aniccaxxx"
+              href="https://x.com/selawmqt"
               target="_blank"
               rel="noopener noreferrer"
               className="flex flex-col bg-cream px-5 py-5 transition-colors hover:bg-bone/40"
             >
               <p className="font-mono-ui text-[10px] uppercase tracking-[0.22em] text-mist">X</p>
-              <p className="mt-2 font-display text-[19px] text-ink">@aniccaxxx ↗</p>
+              <p className="mt-2 font-display text-[19px] text-ink">@selawmqt ↗</p>
             </a>
             <a
               href="https://aniccaai.substack.com"
