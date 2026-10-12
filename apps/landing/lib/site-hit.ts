@@ -10,7 +10,8 @@ export type SiteHitEventName =
   | 'result_view'
   | 'checkout_click'
   | 'checkout_success'
-  | 'app_store_click';
+  | 'app_store_click'
+  | 'line_sticker_click';
 
 type HitPayload = {
   t: 'pageview' | 'event';
