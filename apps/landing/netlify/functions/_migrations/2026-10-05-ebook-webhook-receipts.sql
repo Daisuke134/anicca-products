@@ -1,4 +1,7 @@
 -- Durable Stripe event, delivery, and subscription state for ebook/Letter fulfillment.
+BEGIN;
+SET LOCAL lock_timeout = '5s';
+
 CREATE TABLE IF NOT EXISTS public.ebook_webhook_receipts (
   stripe_event_id text PRIMARY KEY,
   stripe_session_id text UNIQUE,
@@ -29,8 +32,30 @@ CREATE INDEX IF NOT EXISTS ebook_webhook_receipts_subscription_idx
 ALTER TABLE public.ebook_webhook_receipts ENABLE ROW LEVEL SECURITY;
 GRANT SELECT, INSERT, UPDATE ON TABLE public.ebook_webhook_receipts TO service_role;
 
--- Preserve the live webhook lock order: receipts, subscribers, then subscription state.
+-- Bound the migration-only subscriber lock before altering columns or backfilling state.
 LOCK TABLE public.subscribers IN ACCESS EXCLUSIVE MODE;
+
+-- Never choose one subscriber if duplicate Stripe subscription rows disagree on identity.
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1
+      FROM public.subscribers
+     WHERE stripe_subscription_id IS NOT NULL
+     GROUP BY stripe_subscription_id
+    HAVING COUNT(DISTINCT stripe_customer_id)
+             + CASE WHEN bool_or(stripe_customer_id IS NULL) THEN 1 ELSE 0 END > 1
+        OR COUNT(DISTINCT lower(trim(email)))
+             + CASE WHEN bool_or(email IS NULL) THEN 1 ELSE 0 END > 1
+        OR COUNT(DISTINCT lang)
+             + CASE WHEN bool_or(lang IS NULL) THEN 1 ELSE 0 END > 1
+        OR COUNT(DISTINCT lower(tier))
+             + CASE WHEN bool_or(tier IS NULL) THEN 1 ELSE 0 END > 1
+  ) THEN
+    RAISE EXCEPTION 'ambiguous legacy subscription mapping';
+  END IF;
+END;
+$$;
 
 ALTER TABLE public.subscribers
   ADD COLUMN IF NOT EXISTS stripe_subscription_created_at timestamptz,
@@ -615,3 +640,5 @@ REVOKE ALL ON FUNCTION public.finalize_ebook_legacy_subscription_readback(text, 
   FROM PUBLIC, anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.finalize_ebook_legacy_subscription_readback(text, text, timestamptz, text[])
   TO service_role;
+
+COMMIT;

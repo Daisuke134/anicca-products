@@ -1497,6 +1497,28 @@ test("legacy subscription backfill chooses one subscriber per Stripe subscriptio
   assert.match(statement, /ORDER BY stripe_subscription_id,\s*signed_up_at NULLS FIRST,\s*id::text/);
 });
 
+test("migration bounds its lock and rejects conflicting legacy mappings atomically", () => {
+  const begin = ebookWebhookMigration.indexOf("BEGIN;");
+  const firstCreate = ebookWebhookMigration.indexOf(
+    "CREATE TABLE IF NOT EXISTS public.ebook_webhook_receipts",
+  );
+  const lockTimeout = ebookWebhookMigration.indexOf("SET LOCAL lock_timeout = '5s';");
+  const subscriberLock = ebookWebhookMigration.indexOf(
+    "LOCK TABLE public.subscribers IN ACCESS EXCLUSIVE MODE",
+  );
+  const ambiguity = ebookWebhookMigration.indexOf("ambiguous legacy subscription mapping");
+  const subscriberAlter = ebookWebhookMigration.indexOf("ALTER TABLE public.subscribers");
+  const stateBackfill = ebookWebhookMigration.indexOf("UPDATE public.ebook_subscription_states AS state");
+
+  assert.ok(begin >= 0 && begin < lockTimeout && lockTimeout < firstCreate && firstCreate < subscriberLock);
+  assert.ok(subscriberLock < ambiguity && ambiguity < subscriberAlter && subscriberAlter < stateBackfill);
+  const guard = ebookWebhookMigration.slice(subscriberLock, subscriberAlter);
+  for (const column of ["stripe_customer_id", "email", "lang", "tier"]) {
+    assert.ok(guard.includes(column), `legacy mapping conflict guard is missing ${column}`);
+  }
+  assert.match(ebookWebhookMigration.trimEnd(), /COMMIT;$/);
+});
+
 test("migration and reservation lock subscribers before subscription states", () => {
   const reserve = migrationFunction("reserve_ebook_subscription_readback");
   const subscriberReadLock = reserve.indexOf("LOCK TABLE public.subscribers IN ROW SHARE MODE");
