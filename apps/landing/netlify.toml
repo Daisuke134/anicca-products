@@ -5,6 +5,12 @@
 [functions.checkout]
   included_files = ["private/writer-articles/**"]
 
+[[redirects]]
+  from = "/app"
+  to = "https://apps.apple.com/app/id6755129214"
+  status = 302
+  force = true
+
 [functions.ebook-download]
   included_files = ["private/ebooks/**"]
 
