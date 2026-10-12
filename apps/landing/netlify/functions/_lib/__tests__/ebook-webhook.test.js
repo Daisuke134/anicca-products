@@ -1488,6 +1488,29 @@ test('subscription SQL rejects customer remapping before writes and pins definer
   }
 });
 
+test('subscription SQL rejects ambiguous customer-ID fallback before reservation', () => {
+  const reserve = migrationFunction('reserve_ebook_subscription_readback');
+  const fallback = reserve.indexOf(
+    'IF v_subscriber_id IS NULL AND p_stripe_customer_id IS NOT NULL THEN',
+  );
+  const write = reserve.indexOf('INSERT INTO public.ebook_subscription_states', fallback);
+  const ambiguity = reserve.indexOf("RAISE EXCEPTION 'ambiguous Stripe customer mapping';", fallback);
+  const customerLock = /pg_advisory_xact_lock\(\s*hashtextextended\('stripe-customer:'\s*\|\|\s*p_stripe_customer_id,\s*0\)\s*\)/;
+  const upsert = migrationFunction('upsert_ebook_subscriber');
+  const emailLock = upsert.indexOf('pg_advisory_xact_lock(hashtextextended(v_email, 0))');
+  const apply = migrationFunction('apply_ebook_subscription_state');
+  const applySubscriberRead = apply.indexOf('FROM public.subscribers');
+  const upsertCustomerLock = upsert.search(customerLock);
+
+  assert.ok(fallback >= 0 && ambiguity > fallback && ambiguity < write);
+  assert.match(reserve.slice(fallback, ambiguity), /COUNT\(\*\)/);
+  assert.match(reserve.slice(fallback, ambiguity), /WHERE stripe_customer_id = p_stripe_customer_id/);
+  assert.match(reserve.slice(fallback, ambiguity), /v_customer_match_count > 1/);
+  assert.match(reserve.slice(fallback, ambiguity), customerLock);
+  assert.ok(emailLock >= 0 && upsertCustomerLock > emailLock);
+  assert.ok(apply.search(customerLock) >= 0 && apply.search(customerLock) < applySubscriberRead);
+});
+
 test("legacy subscription backfill chooses one subscriber per Stripe subscription deterministically", () => {
   const start = ebookWebhookMigration.indexOf("UPDATE public.ebook_subscription_states AS state");
   const end = ebookWebhookMigration.indexOf(";", start);

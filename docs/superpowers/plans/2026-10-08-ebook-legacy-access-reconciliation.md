@@ -87,7 +87,7 @@ Expected focused command: `node --test netlify/functions/_lib/__tests__/ebook-we
 
 ### Task 4: Prevent Stripe customer remapping for every Letter subscriber
 
-**Goal:** A non-null Stripe customer mapping remains bound to its subscription state. Legacy-held subscribers also require the stored subscriber customer ID to match. A mismatch returns before any state or pointer update; a separate new subscription may use a new Stripe customer.
+**Goal:** A non-null Stripe customer mapping remains bound to its subscription state. Legacy-held subscribers also require the stored subscriber customer ID to match. A mismatch returns before any state or pointer update; a separate new subscription may use a new Stripe customer. When a subscription event has no email, a customer-ID fallback maps only when exactly one subscriber matches; ambiguous matches fail before any subscription-state write.
 
 **Files:**
 - Modify: `apps/landing/netlify/functions/_migrations/2026-10-05-ebook-webhook-receipts.sql`

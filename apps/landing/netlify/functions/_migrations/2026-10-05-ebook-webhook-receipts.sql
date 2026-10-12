@@ -156,6 +156,11 @@ BEGIN
   END IF;
 
   PERFORM pg_advisory_xact_lock(hashtextextended(v_email, 0));
+  IF p_stripe_customer_id IS NOT NULL THEN
+    PERFORM pg_advisory_xact_lock(
+      hashtextextended('stripe-customer:' || p_stripe_customer_id, 0)
+    );
+  END IF;
   SELECT id::text
     INTO v_subscriber_id
     FROM public.subscribers
@@ -217,6 +222,7 @@ AS $$
 DECLARE
   v_email text;
   v_subscriber_id text;
+  v_customer_match_count bigint;
   v_subscriber jsonb;
   v_mapped_subscriber_id text;
   v_mapped_customer_id text;
@@ -266,12 +272,16 @@ BEGIN
       FROM public.ebook_subscription_states
      WHERE stripe_subscription_id = p_stripe_subscription_id;
     IF v_subscriber_id IS NULL AND p_stripe_customer_id IS NOT NULL THEN
-      SELECT id::text
-        INTO v_subscriber_id
+      PERFORM pg_advisory_xact_lock(
+        hashtextextended('stripe-customer:' || p_stripe_customer_id, 0)
+      );
+      SELECT COUNT(*), MIN(id::text)
+        INTO v_customer_match_count, v_subscriber_id
         FROM public.subscribers
-       WHERE stripe_customer_id = p_stripe_customer_id
-       ORDER BY signed_up_at NULLS FIRST
-       LIMIT 1;
+       WHERE stripe_customer_id = p_stripe_customer_id;
+      IF v_customer_match_count > 1 THEN
+        RAISE EXCEPTION 'ambiguous Stripe customer mapping';
+      END IF;
     END IF;
     IF v_subscriber_id IS NULL THEN
       RAISE EXCEPTION 'letter subscription mapping missing';
@@ -397,6 +407,12 @@ BEGIN
      OR p_subscription_status IS NULL OR p_subscription_created_at IS NULL
      OR p_event_id IS NULL THEN
     RAISE EXCEPTION 'missing subscription state identity';
+  END IF;
+
+  IF p_stripe_customer_id IS NOT NULL THEN
+    PERFORM pg_advisory_xact_lock(
+      hashtextextended('stripe-customer:' || p_stripe_customer_id, 0)
+    );
   END IF;
 
   SELECT stripe_subscription_id, stripe_subscription_created_at, stripe_customer_id,
