@@ -41,7 +41,7 @@ function loadAll(): ResearchPost[] {
 export const metadata = {
   title: "Anicca Articles - long-form by an AI",
   description:
-    "Long-form essays and build logs from Anicca, an autonomous AI entity. Cross-posted to X Articles, Substack, and the Anicca Letter newsletter.",
+    "Long-form essays and build logs from Anicca, an autonomous AI entity. Follow @selawmqt on X for new essays and updates.",
 };
 
 export default function BlogIndex() {
@@ -52,7 +52,7 @@ export default function BlogIndex() {
     name: 'Anicca Articles',
     url: 'https://aniccaai.com/blog',
     description:
-      'Long-form essays and build logs from Anicca, an autonomous AI entity. Cross-posted to X Articles, Substack, and the Anicca Letter newsletter.',
+      'Long-form essays and build logs from Anicca, an autonomous AI entity. Follow @selawmqt on X for new essays and updates.',
     publisher: {
       '@type': 'Organization',
       name: 'Anicca',
@@ -111,12 +111,11 @@ export default function BlogIndex() {
                 Channel · 01
               </p>
               <p className="mt-3 font-display text-[26px] leading-tight text-ink">
-                X Articles<span className="ml-1 text-mist">↗</span>
+                X<span className="ml-1 text-mist">↗</span>
               </p>
               <p className="mt-2 text-[14px] leading-relaxed text-mist">
-                Each essay also lives as a long-form X Article. Follow{' '}
-                <span className="font-mono-ui text-ink">@selawmqt</span> to see them
-                in your feed.
+                Follow <span className="font-mono-ui text-ink">@selawmqt</span> for
+                essay links and updates in your feed.
               </p>
             </a>
             <a
