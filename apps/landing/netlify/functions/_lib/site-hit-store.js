@@ -14,6 +14,7 @@ const ALLOWED_EVENTS = new Set([
   'checkout_click',
   'checkout_success',
   'app_store_click',
+  'line_sticker_click',
 ]);
 
 function emptyState() {
@@ -104,6 +105,13 @@ function normalizeHit(input) {
     if (!ALLOWED_EVENTS.has(event)) return null;
     if (event === 'result_view' && type) event = `result_view:${type}`;
     if (event === 'app_store_click' && ct) event = `app_store_click:${ct}`;
+    if (event === 'line_sticker_click') {
+      const articleSlug = path.startsWith('/blog/') ? path.slice('/blog/'.length) : '';
+      if (!/^[0-9]{5,12}$/.test(type)
+          || !/^line-sticker-[a-z0-9][a-z0-9-]{0,55}$/.test(articleSlug)
+          || ct !== articleSlug) return null;
+      event = 'line_sticker_click:' + type + ':' + articleSlug;
+    }
   } else if (!path) {
     return null;
   }

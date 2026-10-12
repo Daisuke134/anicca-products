@@ -55,6 +55,32 @@ test('normalizeHit namespaces result_view and app_store_click', () => {
   );
 });
 
+test('normalizes and aggregates sticker clicks by product and article', () => {
+  const hit = normalizeHit({
+    t: 'event',
+    event: 'line_sticker_click',
+    type: '37146107',
+    ct: 'line-sticker-set-005-2026-10-12-22',
+    path: '/blog/line-sticker-set-005-2026-10-12-22',
+  });
+  assert.ok(hit, 'official sticker CTA click should be accepted');
+  assert.equal(hit.event, 'line_sticker_click:37146107:line-sticker-set-005-2026-10-12-22');
+  const state = applyHit(emptyState(), hit);
+  assert.equal(state.events[hit.event], 1);
+  assert.equal(state.events.line_sticker_click, 1);
+});
+
+test('rejects malformed sticker click attribution', () => {
+  assert.equal(normalizeHit({
+    t: 'event', event: 'line_sticker_click', type: 'x',
+    ct: 'line-sticker-set-005-2026-10-12-22',
+  }), null);
+  assert.equal(normalizeHit({
+    t: 'event', event: 'line_sticker_click', type: '37146107',
+    ct: 'not-a-sticker-article',
+  }), null);
+});
+
 test('applyHit increments path and event aggregates', () => {
   let state = emptyState();
   state = applyHit(
