@@ -178,7 +178,7 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
                   rel="noopener noreferrer"
                   className="border border-ink/25 px-4 py-2 text-ink transition-colors hover:bg-ink hover:text-cream"
                 >
-                  X Article ↗
+                  X ↗
                 </a>
               )}
               {m.substack && (
