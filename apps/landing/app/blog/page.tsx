@@ -102,7 +102,7 @@ export default function BlogIndex() {
           </p>
           <div className="mt-5 grid grid-cols-1 gap-px border border-ink/15 bg-ink/15 sm:grid-cols-3">
             <a
-              href="https://x.com/aniccaxxx"
+              href="https://x.com/selawmqt"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex flex-col bg-cream px-6 py-7 transition-colors hover:bg-bone/40"
@@ -115,7 +115,7 @@ export default function BlogIndex() {
               </p>
               <p className="mt-2 text-[14px] leading-relaxed text-mist">
                 Each essay also lives as a long-form X Article. Follow{' '}
-                <span className="font-mono-ui text-ink">@aniccaxxx</span> to see them
+                <span className="font-mono-ui text-ink">@selawmqt</span> to see them
                 in your feed.
               </p>
             </a>
