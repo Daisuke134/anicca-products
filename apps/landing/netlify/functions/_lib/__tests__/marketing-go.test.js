@@ -2,20 +2,24 @@ const { test } = require("node:test");
 const assert = require("node:assert/strict");
 
 const { makeMarketingGoHandler, makeSupabasePersist } = require("../marketing-go");
+const productionHandler = require("../../marketing-go");
 
 const products = {
   ai: { productId: "aniccaios", kind: "app", appId: "6755129214" },
   ho: { productId: "honne", kind: "app", appId: "6759667221" },
   ej: { productId: "ebook-ja", kind: "web", path: "/achan" },
   ee: { productId: "ebook-en", kind: "web", path: "/monk" },
+  hl: { productId: "hook-lab", kind: "capafy", agentId: "8123079349", ct: "hooklab_ig" },
 };
 
-function event(token, method = "GET") {
-  return {
+function event(token, method = "GET", queryStringParameters) {
+  const result = {
     httpMethod: method,
     path: `/go/${token}`,
     rawUrl: `https://aniccaai.com/go/${token}`,
   };
+  if (queryStringParameters) result.queryStringParameters = queryStringParameters;
+  return result;
 }
 
 test("persists a minimal click receipt before redirecting an app campaign", async () => {
@@ -189,4 +193,51 @@ test("affiliate redirect does not require App Store provider token", async () =>
   assert.equal(writes.length, 1);
   assert.equal((await handler(event("ai_abcdefghijklmnopqrst"))).statusCode, 503);
   assert.equal(writes.length, 1);
+});
+
+test("production Hook Lab route records the exact publication token and fixed registered CT", async () => {
+  const originalUrl = process.env.SUPABASE_URL;
+  const originalKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const originalFetch = globalThis.fetch;
+  let request;
+  process.env.SUPABASE_URL = "https://project.supabase.co";
+  process.env.SUPABASE_SERVICE_ROLE_KEY = "test-service-key";
+  globalThis.fetch = async (url, options) => {
+    request = { url, options };
+    return { ok: true, status: 201 };
+  };
+  try {
+    const token = "hl_abcdefghijklmnopqrst";
+    const response = await productionHandler.handler(event(token));
+    assert.equal(response.statusCode, 302);
+    assert.equal(response.headers.location, "https://capafy.ai/agent/8123079349?ct=hooklab_ig");
+    assert.equal(response.headers["x-click-receipt"] !== undefined, true);
+    assert.equal(request.url, "https://project.supabase.co/rest/v1/marketing_click_receipts");
+    assert.equal(request.options.method, "POST");
+    const receipt = JSON.parse(request.options.body);
+    assert.equal(receipt.campaign_token, token);
+    assert.equal(receipt.product_id, "hook-lab");
+    assert.equal(receipt.receipt_id, response.headers["x-click-receipt"]);
+  } finally {
+    if (originalUrl === undefined) delete process.env.SUPABASE_URL;
+    else process.env.SUPABASE_URL = originalUrl;
+    if (originalKey === undefined) delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+    else process.env.SUPABASE_SERVICE_ROLE_KEY = originalKey;
+    globalThis.fetch = originalFetch;
+  }
+});
+
+test("Hook Lab diagnostics do not persist a click receipt or redirect", async () => {
+  let writes = 0;
+  const handler = makeMarketingGoHandler({
+    products,
+    providerToken: "",
+    persist: async () => { writes += 1; },
+  });
+  const response = await handler(event(
+    "hl_abcdefghijklmnopqrst", "GET", { diagnostic: "1" },
+  ));
+  assert.equal(response.statusCode, 204);
+  assert.equal(response.headers.location, undefined);
+  assert.equal(writes, 0);
 });
