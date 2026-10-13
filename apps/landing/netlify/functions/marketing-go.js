@@ -5,6 +5,7 @@ const PRODUCTS = {
   ho: { productId: "honne", kind: "app", appId: "6759667221" },
   ej: { productId: "ebook-ja", kind: "web", path: "/achan" },
   ee: { productId: "ebook-en", kind: "web", path: "/monk" },
+  hl: { productId: "hook-lab", kind: "capafy", agentId: "8123079349", ct: "hooklab_ig" },
 };
 
 exports.handler = async (event) => {

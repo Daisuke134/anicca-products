@@ -1,10 +1,12 @@
 const { randomUUID } = require("node:crypto");
 const { isAffiliatePlacement } = require("./affiliate-placement");
 
-const TOKEN = /^(?:(ai|ho|ej|ee)_[a-z2-7]{20}|af_(elevenlabs-discovered-[a-z0-9][a-z0-9-]*-en(?:-experiment-[a-f0-9]{12})?-1))$/; // AFFILIATE_CTA_V1
+const TOKEN = /^(?:(ai|ho|ej|ee|hl)_[a-z2-7]{20}|af_(elevenlabs-discovered-[a-z0-9][a-z0-9-]*-en(?:-experiment-[a-f0-9]{12})?-1))$/; // AFFILIATE_CTA_V1
 
 function destination(product, token, providerToken) {
   if (product.kind === "affiliate") return `https://try.elevenlabs.io/${product.placementId}`;
+  if (product.kind === "capafy")
+    return `https://capafy.ai/agent/${product.agentId}?ct=${encodeURIComponent(product.ct)}`;
   if (product.kind === "app") {
     const query = new URLSearchParams({ pt: providerToken, ct: token, mt: "8" });
     return `https://apps.apple.com/app/id${product.appId}?${query}`;
@@ -56,6 +58,8 @@ function makeMarketingGoHandler({
       return { statusCode: 404, headers: { "cache-control": "no-store" }, body: "Not Found" };
     if (product.kind === "app" && !providerToken)
       return { statusCode: 503, headers: { "cache-control": "no-store" }, body: "Attribution unavailable" };
+    if (event.queryStringParameters?.diagnostic === "1")
+      return { statusCode: 204, headers: { "cache-control": "no-store" }, body: "" };
     const id = receiptId();
     const receipt = {
       schema_version: 1,
