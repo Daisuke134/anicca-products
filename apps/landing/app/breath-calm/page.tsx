@@ -19,7 +19,7 @@ export default function BreathCalmLanding() {
         }
         subtext="9D binaural breathwork that actually works. 4-7-8, Box, Coherent breathing plus SOS emergency mode."
         primary={
-          <CTA href="https://aniccaai.com/app">
+          <CTA href="https://apps.apple.com/us/app/daily-affirmations-anicca/id6755129214">
             Download on the App Store
           </CTA>
         }
