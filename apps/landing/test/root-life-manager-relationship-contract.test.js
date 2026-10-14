@@ -33,3 +33,8 @@ test('the public Life Manager page exposes the canonical startup-context identit
   assert.match(page, /life-manager-context-digest/);
   assert.match(page, /5b8e34cf01a7cf7589fc6049c080b3eb8458ec28b98103abc2ade395e8d0f90c/);
 });
+
+test('the legacy Telegram-first Life Manager URL permanently redirects to Web onboarding', () => {
+  const redirects = readFileSync(new URL('../../../netlify.toml', import.meta.url), 'utf8');
+  assert.match(redirects, /from = "\/life-manager"[\s\S]*?to = "\/lm"[\s\S]*?status = 301[\s\S]*?force = true/);
+});

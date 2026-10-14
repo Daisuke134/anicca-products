@@ -10,6 +10,14 @@
 [functions]
   node_bundler = "esbuild"
 
+# The old Telegram-first landing is no longer the Cloud entry point. Keep old links
+# and their query/UTM parameters, but send every visitor to the canonical Web flow.
+[[redirects]]
+  from = "/life-manager"
+  to = "/lm"
+  status = 301
+  force = true
+
 # ===== Anicca SAO install endpoint (issue #48) =====
 # Lets visitors run `curl -fsSL https://aniccaai.com/install.sh | bash`
 # without anyone needing to remember the github raw URL.
