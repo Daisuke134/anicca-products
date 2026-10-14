@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { SplitHero, Section, Reveal, CTA } from '@/components/site/taste';
+import { SplitHero, Section, Reveal } from '@/components/site/taste';
 
 export const metadata = {
   title: 'BreathCalm - Reset Anxiety in 6 Minutes',
@@ -11,7 +11,7 @@ export default function BreathCalmLanding() {
   return (
     <main className="min-h-screen bg-[hsl(var(--background))]">
       <SplitHero
-        eyebrow="Available on iOS"
+        eyebrow="BreathCalm"
         headline={
           <>
             Reset Anxiety<br />in 6 Minutes
@@ -19,9 +19,9 @@ export default function BreathCalmLanding() {
         }
         subtext="9D binaural breathwork that actually works. 4-7-8, Box, Coherent breathing plus SOS emergency mode."
         primary={
-          <CTA href="https://aniccaai.com/app">
-            Download on the App Store
-          </CTA>
+          <p className="text-sm text-[hsl(var(--text-secondary))]">
+            A BreathCalm download link is not available on this page.
+          </p>
         }
         asset={
           <Image
@@ -61,7 +61,6 @@ export default function BreathCalmLanding() {
           <p className="text-lg text-[hsl(var(--text-secondary))] max-w-2xl">
             Anxiety doesn&apos;t have to win. A single 6-minute breathing session can lower
             your heart rate, calm your nervous system, and help you think clearly again.
-            Start free today.
           </p>
         </Reveal>
       </Section>
