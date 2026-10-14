@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import WriterUnlock from "../../../components/blog/WriterUnlock";
 import AffiliateEntryReceipt from "../../../components/blog/AffiliateEntryReceipt"; // AFFILIATE_ENTRY_V1
 import { affiliatePlacement, renderMarkdown } from "../../../lib/render-article-markdown";
+import { buildLineStickerShareMetadata } from "../../../lib/line-sticker-share-meta";
 
 type Mirrors = { x?: string; substack?: string; newsletter?: string };
 
@@ -89,11 +90,18 @@ function loadPost(slug: string): ResearchPost | null {
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const post = loadPost(params.slug);
   if (!post) return { title: "Not found" };
+  const description = post.markdown.slice(0, 200).replace(/[#*`]/g, "");
   return {
     title: `${post.title} | Anicca Articles`,
-    description: post.markdown.slice(0, 200).replace(/[#*`]/g, ""),
+    description,
     alternates: { canonical: `https://aniccaai.com/blog/${post.slug}` },
     robots: { index: true, follow: true },
+    ...buildLineStickerShareMetadata({
+      slug: post.slug,
+      title: post.title,
+      description,
+      markdown: post.markdown,
+    }),
   };
 }
 
