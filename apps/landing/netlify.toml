@@ -2,6 +2,14 @@
 [functions.writer-content]
   included_files = ["private/writer-articles/**"]
 
+# The GitHub deploy workflow runs from apps/landing, so keep the Web-first
+# redirect in this deploy-root config as well as the repository-root config.
+[[redirects]]
+  from = "/life-manager"
+  to = "/lm"
+  status = 301
+  force = true
+
 [functions.checkout]
   included_files = ["private/writer-articles/**"]
 
