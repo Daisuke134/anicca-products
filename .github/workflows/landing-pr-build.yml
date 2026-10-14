@@ -24,6 +24,7 @@ jobs:
           cache-dependency-path: apps/landing/package-lock.json
       - run: npm ci
       - run: npm run test:telemetry
+      - run: npm run test:anicca-app-store-routing
       - run: npm run build
         env:
           DASHBOARD_SNAPSHOT_URL: http://127.0.0.1:9
