@@ -15,6 +15,9 @@ const PRICE_ENV = {
   STRIPE_LETTER_EN_PRICE: 'price_letter_en',
   STRIPE_LETTER_JP_PRICE: 'price_letter_jp',
 };
+// Golden vectors from Life Manager attribution.py for creative.contract.1.
+const TOKEN_EN = 'ee_hcp4v5pifa2ovj47rsir';
+const TOKEN_JP = 'ej_cs6k5hu42kvx65x66imw';
 
 async function createCheckout(request) {
   let stripeParams;
@@ -45,21 +48,21 @@ test('landing checkout helper forwards only locale-matched owned ebook campaign 
   assert.equal(typeof buildRequest, 'function');
 
   assert.deepEqual(buildRequest({
-    search: '?utm_source=social&utm_campaign=ee_abcdefghijklmnopqrst',
+    search: `?utm_source=social&utm_campaign=${TOKEN_EN}`,
     lang: 'en', product: 'ebook', mode: 'payment',
   }), {
     lang: 'en', product: 'ebook', mode: 'payment',
-    attribution_token: 'ee_abcdefghijklmnopqrst',
+    attribution_token: TOKEN_EN,
   });
   assert.deepEqual(buildRequest({
-    search: '?utm_campaign=ej_abcdefghijklmnopqrst',
+    search: `?utm_campaign=${TOKEN_JP}`,
     lang: 'jp', product: 'letter', mode: 'subscription',
   }), {
     lang: 'jp', product: 'letter', mode: 'subscription',
-    attribution_token: 'ej_abcdefghijklmnopqrst',
+    attribution_token: TOKEN_JP,
   });
   assert.deepEqual(buildRequest({
-    search: '?utm_campaign=ee_abcdefghijklmnopqrst',
+    search: `?utm_campaign=${TOKEN_EN}`,
     lang: 'jp', product: 'ebook', mode: 'payment',
   }), { lang: 'jp', product: 'ebook', mode: 'payment' });
 });
@@ -72,7 +75,7 @@ test('monk, achan, letter, and tegami use the shared campaign-aware checkout req
 });
 
 test('English ebook keeps the one-time server price and carries its attribution token', async () => {
-  const token = 'ee_abcdefghijklmnopqrst';
+  const token = TOKEN_EN;
   const params = await createCheckout({ lang: 'en', product: 'ebook', attribution_token: token });
 
   assert.equal(params.get('mode'), 'payment');
@@ -84,7 +87,7 @@ test('English ebook keeps the one-time server price and carries its attribution 
 });
 
 test('Japanese ebook uses its locale price and carries its attribution token', async () => {
-  const token = 'ej_abcdefghijklmnopqrst';
+  const token = TOKEN_JP;
   const params = await createCheckout({ lang: 'jp', product: 'ebook', attribution_token: token });
 
   assert.equal(params.get('mode'), 'payment');
@@ -93,7 +96,7 @@ test('Japanese ebook uses its locale price and carries its attribution token', a
 });
 
 test('English Letter checkout carries attribution into subscription metadata', async () => {
-  const token = 'ee_abcdefghijklmnopqrst';
+  const token = TOKEN_EN;
   const params = await createCheckout({
     lang: 'en', product: 'letter', mode: 'subscription', attribution_token: token,
   });
@@ -106,7 +109,7 @@ test('English Letter checkout carries attribution into subscription metadata', a
 });
 
 test('Japanese Tegami checkout carries attribution into subscription metadata', async () => {
-  const token = 'ej_abcdefghijklmnopqrst';
+  const token = TOKEN_JP;
   const params = await createCheckout({
     lang: 'jp', product: 'letter', mode: 'subscription', attribution_token: token,
   });
