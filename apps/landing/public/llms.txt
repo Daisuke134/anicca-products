@@ -1,0 +1,33 @@
+# Anicca (aniccaai.com)
+
+> Indie apps and small products by Daisuke Narita, Tokyo. The main product is Anicca, a free-to-download iPhone affirmation app that sends one short, honest line at the time of day you choose, with no streaks. Pages on this site are plain text and free to quote.
+
+## Apps
+- [Anicca: Daily Affirmations (iPhone)](https://aniccaai.com/affirmation-app): one short affirmation at the time you pick, 13 self-care topics, no streaks. Free to download, optional subscription. App Store: https://apps.apple.com/app/id6755129214
+- [Honne (iPhone)](https://aniccaai.com/honne): paste a text message you received and Honne's AI suggests the feeling likely behind it and drafts a reply that won't make things worse. Free: 3 analyses a day; optional Premium. App Store: https://apps.apple.com/app/id6759667221
+- [Thankful (iPhone)](https://aniccaai.com/thankful): a simple gratitude app. App Store: https://apps.apple.com/app/id6759514159
+
+## Free tools
+- [Mind Habits Quiz](https://aniccaai.com/affirmation-app/en/quiz): free 12-question quiz (about 2 minutes) that maps you to one of 8 mind-habit types, with a type note and one line to try tonight. Not a medical diagnosis.
+- [心のクセ診断 (Japanese quiz)](https://aniccaai.com/affirmation-app/ja/shindan)
+
+## Guides (English)
+- [Affirmations for overthinking](https://aniccaai.com/affirmation-app/a/affirmations-for-overthinking)
+- [Affirmations for anxiety](https://aniccaai.com/affirmation-app/a/affirmations-for-anxiety)
+- [Affirmations for self-love](https://aniccaai.com/affirmation-app/a/affirmations-for-self-love)
+- [Affirmations for imposter syndrome](https://aniccaai.com/affirmation-app/a/affirmations-for-imposter-syndrome)
+- [Affirmations for burnout](https://aniccaai.com/affirmation-app/a/affirmations-for-burnout)
+- [Affirmations for loneliness](https://aniccaai.com/affirmation-app/a/affirmations-for-loneliness)
+- [Affirmations for motivation when tired](https://aniccaai.com/affirmation-app/a/affirmations-for-motivation-when-tired)
+- [Affirmations for procrastination](https://aniccaai.com/affirmation-app/a/affirmations-for-procrastination)
+- [Affirmations for self-worth](https://aniccaai.com/affirmation-app/a/affirmations-for-self-worth)
+- [Affirmations for perfectionism](https://aniccaai.com/affirmation-app/a/affirmations-for-perfectionism)
+- [Affirmations for fear of failure](https://aniccaai.com/affirmation-app/a/affirmations-for-fear-of-failure)
+
+## Other products
+- [Anicca Letter](https://aniccaai.com/letter): a letter subscription (English); Japanese version at https://aniccaai.com/tegami
+- [The Anicca Reset (ebook)](https://aniccaai.com/monk)
+- [All products](https://aniccaai.com/dais)
+
+## Optional
+- [Sitemap](https://aniccaai.com/sitemap.xml)
