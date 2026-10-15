@@ -52,8 +52,15 @@ export default function EnAffirmationProblemPage({ params }: PageProps) {
 
   const pageUrl = `https://aniccaai.com/affirmation-app/a/${problem.slug}`;
   const jaUrl = `https://aniccaai.com/affirmation-app/ja/a/${problem.jaSlug}`;
-  const storeUrl = enAffirmationAppStoreUrl(problem.slug);
-  const published = '2026-10-09';
+  const storeUrl = enAffirmationAppStoreUrl(
+    problem.slug,
+    problem.campaignPrefix ?? 'seo_en',
+  );
+  const published = problem.campaignPrefix === 'seo_geo' ? '2026-10-15' : '2026-10-09';
+  const heading = problem.h1 ?? problem.title;
+  const hasAffirmations = problem.affirmations.length > 0;
+  const hasFaq = Boolean(problem.faq && problem.faq.length > 0);
+  const comparison = problem.comparison;
 
   const articleLd = {
     '@context': 'https://schema.org',
@@ -102,17 +109,43 @@ export default function EnAffirmationProblemPage({ params }: PageProps) {
     ],
   };
 
+  const faqLd =
+    hasFaq && problem.faq
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: problem.faq.map((item) => ({
+            '@type': 'Question',
+            name: item.q,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: item.a,
+            },
+          })),
+        }
+      : null;
+
   const others = EN_AFFIRMATION_PROBLEMS.filter((p) => p.slug !== problem.slug);
 
   return (
     <>
       <JsonLd data={articleLd} />
       <JsonLd data={breadcrumbLd} />
+      {faqLd ? <JsonLd data={faqLd} /> : null}
       <EnAffirmationSeoLayout breadcrumbCurrent={problem.shortTitle}>
         <article>
           <h1 className="text-[30px] font-semibold leading-tight tracking-tight sm:text-[38px]">
-            {problem.title}
+            {heading}
           </h1>
+
+          {problem.directAnswer?.map((para) => (
+            <p
+              key={para.slice(0, 48)}
+              className="mt-5 text-[17px] leading-[1.8] text-[#5c5956]"
+            >
+              {para}
+            </p>
+          ))}
 
           {problem.whyItHappens.map((para) => (
             <p
@@ -123,27 +156,78 @@ export default function EnAffirmationProblemPage({ params }: PageProps) {
             </p>
           ))}
 
-          <p className="mt-4 rounded-[16px] border border-[#c9b382]/35 bg-[rgba(201,179,130,0.08)] px-4 py-3 text-[14px] leading-relaxed text-[#5c5956]">
-            Save this page for the moment the spiral starts. Bookmark it or add it to your Home
-            Screen so the words are one tap away.
-          </p>
+          {comparison ? (
+            <section className="mt-12 space-y-8">
+              <h2 className="text-[20px] font-semibold tracking-tight">
+                What each app focuses on
+              </h2>
+              <p className="text-[14px] leading-relaxed text-[#898783]">
+                Facts below are from public US App Store pages, read on{' '}
+                {comparison.sourcedAsOf}. No invented ratings, download counts, or
+                prices.
+              </p>
 
-          <h2 className="mt-12 text-[20px] font-semibold tracking-tight">
-            Affirmations to keep nearby
-          </h2>
-          <ol className="mt-6 space-y-3">
-            {problem.affirmations.map((line, index) => (
-              <li
-                key={`${problem.slug}-${index}`}
-                className="rounded-[18px] border border-[#393634]/8 bg-[#fdfcfc] px-4 py-3.5 text-[16px] leading-relaxed"
-              >
-                <span className="mr-3 font-mono text-[11px] text-[#b8b6b0]">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-                {line}
-              </li>
-            ))}
-          </ol>
+              <div className="rounded-[18px] border border-[#393634]/10 bg-[#fdfcfc] px-5 py-5">
+                <h3 className="text-[17px] font-semibold tracking-tight">
+                  {comparison.competitorName}
+                </h3>
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-[15px] leading-relaxed text-[#5c5956]">
+                  {comparison.competitorFocus.map((fact) => (
+                    <li key={fact.slice(0, 48)}>{fact}</li>
+                  ))}
+                </ul>
+                <p className="mt-4 text-[14px]">
+                  <a
+                    href={comparison.competitorStoreUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2 hover:text-[#393634]"
+                  >
+                    Open {comparison.competitorName} on the App Store
+                  </a>
+                </p>
+              </div>
+
+              <div className="rounded-[18px] border border-[#393634]/10 bg-[#fdfcfc] px-5 py-5">
+                <h3 className="text-[17px] font-semibold tracking-tight">
+                  Daily Affirmations - Anicca
+                </h3>
+                <ul className="mt-4 list-disc space-y-2 pl-5 text-[15px] leading-relaxed text-[#5c5956]">
+                  {comparison.aniccaFocus.map((fact) => (
+                    <li key={fact.slice(0, 48)}>{fact}</li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          ) : null}
+
+          {!comparison ? (
+            <p className="mt-4 rounded-[16px] border border-[#c9b382]/35 bg-[rgba(201,179,130,0.08)] px-4 py-3 text-[14px] leading-relaxed text-[#5c5956]">
+              Save this page for the moment the spiral starts. Bookmark it or add it to
+              your Home Screen so the words are one tap away.
+            </p>
+          ) : null}
+
+          {hasAffirmations ? (
+            <>
+              <h2 className="mt-12 text-[20px] font-semibold tracking-tight">
+                Affirmations to keep nearby
+              </h2>
+              <ol className="mt-6 space-y-3">
+                {problem.affirmations.map((line, index) => (
+                  <li
+                    key={`${problem.slug}-${index}`}
+                    className="rounded-[18px] border border-[#393634]/8 bg-[#fdfcfc] px-4 py-3.5 text-[16px] leading-relaxed"
+                  >
+                    <span className="mr-3 font-mono text-[11px] text-[#b8b6b0]">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    {line}
+                  </li>
+                ))}
+              </ol>
+            </>
+          ) : null}
 
           <section className="mt-12">
             <h2 className="text-[20px] font-semibold tracking-tight">
@@ -156,14 +240,30 @@ export default function EnAffirmationProblemPage({ params }: PageProps) {
             </ol>
           </section>
 
+          {hasFaq && problem.faq ? (
+            <section className="mt-12">
+              <h2 className="text-[20px] font-semibold tracking-tight">FAQ</h2>
+              <dl className="mt-6 space-y-5">
+                {problem.faq.map((item) => (
+                  <div key={item.q}>
+                    <dt className="text-[16px] font-semibold tracking-tight">{item.q}</dt>
+                    <dd className="mt-2 text-[15px] leading-relaxed text-[#5c5956]">
+                      {item.a}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          ) : null}
+
           <section className="mt-12 rounded-[24px] border border-[#393634]/10 bg-[#fdfcfc] px-5 py-8 text-center">
             <h2 className="text-[22px] font-semibold tracking-tight">
               One kind line, when the spiral starts
             </h2>
             <p className="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-[#5c5956]">
-              Anicca is an iPhone affirmation app that sends one kind line when your mind tends to
-              spiral. Thirteen self-care topics. No streaks. Free to download, with an optional
-              subscription for the full proactive experience.
+              Anicca is an iPhone affirmation app that sends one kind line when your mind
+              tends to spiral. Thirteen self-care topics. No streaks. Free to download,
+              with an optional subscription for the full proactive experience.
             </p>
             <a
               href={storeUrl}
@@ -174,7 +274,7 @@ export default function EnAffirmationProblemPage({ params }: PageProps) {
               Download on the App Store
             </a>
             <p className="mt-4 text-[12px] leading-relaxed text-[#898783]">
-              iOS 15+ · A self-care app, not medical advice
+              iOS · A self-care app, not medical advice
             </p>
           </section>
 
