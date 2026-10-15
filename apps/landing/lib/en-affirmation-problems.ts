@@ -249,6 +249,150 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     closing:
       'Related guides: affirmations for overthinking and affirmations for anxiety, linked below. If you are struggling with persistent low mood, self-harm thoughts, or feelings of hopelessness, please reach out to a mental health professional or a local crisis line. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
+  {
+    slug: 'affirmations-for-imposter-syndrome',
+    jaSlug: 'self-esteem',
+    title: 'Affirmations for imposter syndrome (2026): lines that do not ask you to fake confidence',
+    shortTitle: 'Affirmations for imposter syndrome',
+    metaDescription:
+      'Honest affirmations for imposter syndrome, plus a two-minute exercise for when you feel like a fraud at work. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Full disclosure: I make Anicca, an affirmation app, so I have a stake in this topic. Here is the short version first. Imposter syndrome is the persistent feeling that your results are luck or an error, and that people will soon notice. It is not an official diagnosis, and it shows up in people who are objectively doing the work. The practical question is not "how do I feel confident?" but "what can I say to myself that I can actually believe today?"',
+      'The feeling tends to grow when the bar keeps moving. You finish a project and immediately look at what you missed. You get praise and file it under "they are just being nice." Over time your mind collects every doubt as evidence and discards every success as an exception. Nothing about this means you are secretly unqualified. It means your attention has a filter, and the filter is set to look for flaws.',
+      'That is why "I am the best" style affirmations often backfire. Your mind argues, and the argument wins. Lines that work better are factual and modest: things you did, things you are learning, things that can be true at the same time as the doubt. You are allowed to feel like a beginner and to be competent at the same time.',
+      'Anicca is built around that kind of line. It sends one short affirmation at the time of day you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I was hired, chosen, or trusted for reasons. I do not have to re-prove them every day.',
+      'Feeling like a beginner and being capable can both be true.',
+      'I can ask a question without it cancelling my competence.',
+      'Praise is information. I can let one piece of it stay.',
+      'I do not need to know everything to do this well.',
+      'My doubt is loud, but it is not a record of my work.',
+      'Everyone around me is also figuring parts of this out.',
+      'I can name one thing I handled well this week.',
+      'Learning something in public is not the same as being exposed.',
+      'I am allowed to take up space in this room.',
+    ],
+    practice: {
+      heading: 'A two-minute evidence list',
+      steps: [
+        'Write three plain facts about work you did in the last month, such as "I shipped the report" or "I answered the customer\'s question." Stick to facts, not adjectives.',
+        'Next to each fact, write who or what it helped. If you cannot think of anyone, write "unknown" and move on; you do not have to force it.',
+        'Read one affirmation from the list twice, slowly, then read your list once. Keep the list somewhere you can add to it, because your mind will not do this on its own.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for self-love and affirmations for anxiety, linked below. If feelings of being a fraud are constant, affect your sleep or work for weeks, or come with hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
+  {
+    slug: 'affirmations-for-burnout',
+    jaSlug: 'night-anxiety',
+    title: 'Affirmations for burnout and exhaustion (2026): small lines for when you have nothing left',
+    shortTitle: 'Affirmations for burnout',
+    metaDescription:
+      'Gentle affirmations for burnout and exhaustion, plus a two-minute reset for the end of a draining day. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Full disclosure: I make Anicca, an affirmation app, so I am not neutral here. The short version: affirmations cannot fix burnout. If you are worn out because of workload, caring for others, or long stretches without rest, the real fixes are rest, support, and changes to the load. What a short line can do is make a hard evening a little less harsh, so you are not also fighting yourself.',
+      'Burnout is usually described as exhaustion that does not fully go away with a normal weekend, often with cynicism about work and a feeling that nothing you do is enough. It is not a character flaw, and it is not laziness. It tends to build quietly, and the common reaction is to push harder, which makes the tiredness worse.',
+      'When you are this tired, long self-help routines become one more task. So the useful lines are short and permission-giving: you can stop for today, you can do less, resting is not failing. They should sound like something a kind friend would say, not a motivational poster.',
+      'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks that punish you for missing a day, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I am tired because I have been carrying a lot, not because I am weak.',
+      'Resting is not a reward I have to earn.',
+      'I can do less today and still be a responsible person.',
+      'Done for today is a real place to stop.',
+      'I do not have to feel motivated to take one small next step.',
+      'My worth is not measured by my output this week.',
+      'I can say "not right now" without a long explanation.',
+      'Needing support is a normal part of being human.',
+      'One honest break is better than three guilty ones.',
+      'I can let tomorrow\'s problems wait until tomorrow.',
+    ],
+    practice: {
+      heading: 'A two-minute end-of-day reset',
+      steps: [
+        'Write down the one thing that must happen tomorrow, and only one. Everything else goes on a "later" list you do not look at tonight.',
+        'Name one small thing that would help your body, such as water, a shower, a stretch, or going to bed ten minutes earlier. Do it if you can.',
+        'Read one affirmation from the list twice, slowly. Then put your phone down for a few minutes, if you can.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for anxiety and affirmations for overthinking, linked below. If exhaustion lasts for weeks, affects your health, or comes with hopeless feelings, please talk with a doctor, therapist, or local helpline, and consider speaking with your employer about workload where that is possible. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
+  {
+    slug: 'affirmations-for-loneliness',
+    jaSlug: 'night-anxiety',
+    title: 'Affirmations for loneliness (2026): kind lines for evenings when you feel alone',
+    shortTitle: 'Affirmations for loneliness',
+    metaDescription:
+      'Kind affirmations for loneliness, plus a two-minute exercise for reaching out in a small way. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Full disclosure: I make Anicca, an affirmation app, so take my view with that in mind. The short version: an affirmation cannot replace people. What it can do is soften the voice that says "something is wrong with me" when you feel alone, so you have a little more energy to reach out.',
+      'Loneliness is the gap between the connection you want and the connection you have. It is not the same as being alone, and you can feel it in a crowd, in a relationship, or after moving to a new city. It is common, it is painful, and it often gets louder in the evening and on weekends when the structure of the day falls away.',
+      'A trap many people fall into is reading loneliness as proof that they are unlikable. That story makes reaching out feel riskier, which keeps the loneliness going. Lines that help are warm and slightly practical: you are allowed to want company, one small message counts, and connection grows slowly.',
+      'Anicca sends one short line at the time of day you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'Feeling lonely does not mean I am unlovable.',
+      'Wanting connection is a normal human need.',
+      'This feeling is real, and it can change.',
+      'I can reach out in a small way today.',
+      'A short message counts as a conversation starter.',
+      'I do not have to be at my best to deserve company.',
+      'Connection grows slowly, and slow is fine.',
+      'I can be kind to myself in the meantime.',
+      'Some people would be glad to hear from me.',
+      'I can spend this evening gently, even if I am by myself.',
+    ],
+    practice: {
+      heading: 'A two-minute small reach-out',
+      steps: [
+        'Pick one person you have lost touch with, or one you would like to know better. It does not need to be your closest friend.',
+        'Write one low-pressure message, such as "I saw this and thought of you" or "How have you been?" You do not have to send it right now, but try to send it today.',
+        'Read one affirmation from the list twice, slowly. If sending feels too hard, write the name down for tomorrow and let that be enough for tonight.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for self-love and affirmations for anxiety, linked below. If loneliness is constant, comes with hopeless feelings, or you feel unsafe, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
+  {
+    slug: 'affirmations-for-motivation-when-tired',
+    jaSlug: 'night-anxiety',
+    title: 'Affirmations for motivation when you are tired (2026): honest lines for low-energy days',
+    shortTitle: 'Affirmations for motivation when tired',
+    metaDescription:
+      'Honest affirmations for finding a little motivation when you are tired, plus a two-minute five-minute-start exercise. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Full disclosure: I make Anicca, an affirmation app, so I am not a neutral source. The short version: when you are genuinely tired, a pep talk will not give you energy. If the tiredness is from lack of sleep or overload, rest comes first. But on an ordinary low-energy day, the right small line can help you make a start, and starting is often the hardest part.',
+      'Many people wait for motivation before they begin, then feel worse when it does not show up. In practice, motivation often follows action rather than preceding it. A very small start, such as five minutes, lowers the cost of beginning, and once you are moving the task often feels less heavy. This is a common observation, not a guarantee.',
+      'That is why "you can do anything!" lines tend to fail when you are drained. Believable lines work better: they lower the bar, give you permission to do the small version, and separate "I am tired" from "I am failing."',
+      'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I do not need to feel ready. I only need to start small.',
+      'Five minutes counts as a real start.',
+      'Being tired is information, not a verdict on me.',
+      'I can do the smaller version of this today.',
+      'Progress does not have to look impressive to be progress.',
+      'I can begin badly and improve as I go.',
+      'I can rest after this one small step.',
+      'My energy changes through the day, and that is normal.',
+      'I can choose the easiest useful thing first.',
+      'Today I am doing what I can, and that is enough.',
+    ],
+    practice: {
+      heading: 'A two-minute five-minute start',
+      steps: [
+        'Choose one task and shrink it until it feels almost silly, for example "open the document and write one sentence" instead of "finish the report."',
+        'Set a timer for five minutes and tell yourself you are allowed to stop when it rings. Often you will keep going, but you do not have to.',
+        'Read one affirmation from the list twice, slowly, then start the timer. If you stop at five minutes, that was still a success.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for overthinking and affirmations for self-love, linked below. If you feel tired and unmotivated nearly all the time for weeks, or it comes with hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
 ];
 
 export function getEnAffirmationProblem(
