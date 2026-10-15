@@ -393,6 +393,150 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     closing:
       'Related guides: affirmations for overthinking and affirmations for self-love, linked below. If you feel tired and unmotivated nearly all the time for weeks, or it comes with hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
+  {
+    slug: 'affirmations-for-procrastination',
+    jaSlug: 'self-esteem',
+    title: 'Affirmations for procrastination (2026): lines that lower the cost of starting',
+    shortTitle: 'Affirmations for procrastination',
+    metaDescription:
+      'Honest affirmations for procrastination, plus a two-minute exercise for starting the task you keep avoiding. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Full disclosure: I make Anicca, an affirmation app, so I have a stake in this topic. The short version first: affirmations will not do the task for you. What they can do is soften the self-criticism that often sits on top of procrastination, so starting feels a little less heavy.',
+      'Procrastination is often less about time management and more about avoiding a feeling: boredom, fear of doing it badly, or the sense that the task is too big. Putting it off gives short relief, then guilt arrives, and the guilt makes the task feel even worse. That loop is common, and it is not a sign that you are lazy.',
+      'That is why "just do it" lines tend to bounce off. Lines that work better are small and permission-giving: you can start badly, you can do ten minutes, and you can feel resistance and begin anyway.',
+      'Anicca sends one short line at the time of day you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I can start before I feel ready.',
+      'Ten minutes of imperfect work is better than zero minutes of perfect planning.',
+      'Avoiding this task does not make me a bad person.',
+      'I can feel resistance and still take one small step.',
+      'The first version is allowed to be rough.',
+      'I can break this into a piece small enough to begin now.',
+      'Guilt is not a useful way to get started. Kindness is.',
+      'I can begin with the easiest part.',
+      'Starting is the hard part, and I only need to do that part right now.',
+      'I can pick this up again tomorrow without punishing myself.',
+    ],
+    practice: {
+      heading: 'A two-minute smallest-next-step exercise',
+      steps: [
+        'Name the task you are avoiding in one plain sentence, then write the very first physical action, such as "open the file" or "write the subject line."',
+        'Say out loud what feeling you are avoiding, for example "I am worried it will not be good." Naming it does not fix it, but it often loosens it a little.',
+        'Read one affirmation from the list twice, slowly, then do the first action for just five minutes. You are allowed to stop when the timer ends.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for motivation when tired and affirmations for overthinking, linked below. If you are unable to start things for weeks, or it comes with persistent low mood or hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
+  {
+    slug: 'affirmations-for-self-worth',
+    jaSlug: 'self-esteem',
+    title: 'Affirmations for self-worth (2026): lines that do not depend on what you achieved today',
+    shortTitle: 'Affirmations for self-worth',
+    metaDescription:
+      'Grounded affirmations for self-worth, plus a two-minute exercise for separating your value from your output. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Full disclosure: I make Anicca, an affirmation app, so I am not neutral. The short version: repeating "I am worthy" will not by itself change how you feel. It tends to help more when the line is believable and you pair it with small actions that match it.',
+      'Low self-worth often comes from conditional rules learned early: I am okay when I perform, when people approve, or when I do not make mistakes. When worth is tied to results, every bad day becomes a verdict, and every good day feels temporary.',
+      'Lines that help are steady rather than grand. They say that worth is not earned daily, that you can be imperfect and still deserve care, and that you can treat yourself the way you would treat a friend in the same spot.',
+      'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'My worth is not a score I have to keep up.',
+      'I can be imperfect and still deserve kindness.',
+      'I do not have to earn rest or respect every single day.',
+      'A mistake is something I did, not something I am.',
+      'I can speak to myself the way I would speak to a friend.',
+      'I am allowed to have needs.',
+      'Other people\'s opinions are information, not a ruling on my value.',
+      'I can take one small action today that is good for me.',
+      'I am more than my productivity.',
+      'I can keep practicing this, even if I only half believe it today.',
+    ],
+    practice: {
+      heading: 'A two-minute friend-voice exercise',
+      steps: [
+        'Write down the harshest thing you said to yourself today, word for word.',
+        'Imagine a friend said that same thing about themselves. Write what you would honestly tell them back, in one or two plain sentences.',
+        'Read one affirmation from the list twice, slowly, then reread your friend-voice reply once.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for self-love and affirmations for imposter syndrome, linked below. If feelings of worthlessness are constant, last for weeks, or come with hopeless feelings or thoughts of self-harm, please talk with a doctor, therapist, or local helpline right away. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
+  {
+    slug: 'affirmations-for-perfectionism',
+    jaSlug: 'self-esteem',
+    title: 'Affirmations for perfectionism (2026): lines for when "good enough" feels unsafe',
+    shortTitle: 'Affirmations for perfectionism',
+    metaDescription:
+      'Calm affirmations for perfectionism, plus a two-minute exercise for shipping something good enough. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Full disclosure: I make Anicca, an affirmation app, so I have a stake here. The short version: affirmations will not remove high standards, and you may not want them to. They can help with the harsh part, the voice that treats every flaw as a failure.',
+      'Perfectionism is often described as setting very high standards combined with harsh self-judgment when they are missed. It can look like rewriting things many times, avoiding starting, or never feeling finished. It can come from a wish to be safe from criticism, which is understandable.',
+      'The cost is that it eats time and energy and can feed procrastination. Lines that help are not "lower your standards"; they separate quality from fear. Good enough for now can be a real, deliberate choice.',
+      'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'Good enough for now is a real choice, not a failure.',
+      'I can do careful work without demanding flawlessness.',
+      'A flaw is not the same as a failure.',
+      'I can finish something and improve it later.',
+      'My standards can be high and my voice can still be kind.',
+      'Mistakes are part of how I learn this.',
+      'I can let one thing be imperfect today.',
+      'Done is a useful place to be.',
+      'People rarely notice what I am afraid they will notice.',
+      'I can be proud of effort, not only of outcomes.',
+    ],
+    practice: {
+      heading: 'A two-minute good-enough check',
+      steps: [
+        'Pick the thing you are polishing and write what "good enough for its purpose" would honestly look like in one sentence.',
+        'List the one or two changes that would matter to the person who will use it. Ignore the rest for now.',
+        'Read one affirmation from the list twice, slowly, then make those changes only and set a stopping time.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for procrastination and affirmations for self-worth, linked below. If perfectionism causes constant distress, affects your health or sleep, or comes with hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
+  {
+    slug: 'affirmations-for-fear-of-failure',
+    jaSlug: 'self-esteem',
+    title: 'Affirmations for fear of failure (2026): lines for trying when you might get it wrong',
+    shortTitle: 'Affirmations for fear of failure',
+    metaDescription:
+      'Steady affirmations for fear of failure, plus a two-minute exercise for taking one small risk. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Full disclosure: I make Anicca, an affirmation app, so take my view with that in mind. The short version: an affirmation will not guarantee success. It can make the cost of trying feel a little smaller, which is often what is needed to begin.',
+      'Fear of failure is the worry that getting something wrong will say something bad about you, or cost you respect. It is common and it often shows up as avoidance, over-preparing, or not trying at all. Avoiding the risk feels safe in the moment but can keep you from things you care about.',
+      'Believable lines separate the outcome from your worth. They admit that failing is uncomfortable, and that you can survive it, learn from it, and try again. They do not promise it will go well.',
+      'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I can try something and not know how it will turn out.',
+      'A failed attempt is information, not a verdict on me.',
+      'I have been uncomfortable before and I got through it.',
+      'I can take a small risk today.',
+      'Not trying is also a choice with a cost.',
+      'My worth does not ride on this result.',
+      'I can learn from this and try again.',
+      'It is okay to be nervous and begin anyway.',
+      'I can prepare enough and then let it go.',
+      'Even if this does not work, I will still be okay.',
+    ],
+    practice: {
+      heading: 'A two-minute worst-case, then next-step exercise',
+      steps: [
+        'Write the worst realistic outcome in one sentence, then write how you would cope with it, even roughly.',
+        'Write one small, low-stakes version of the attempt that you could do in the next day, such as sending a draft to one person.',
+        'Read one affirmation from the list twice, slowly, then schedule that small step in your calendar.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for perfectionism and affirmations for anxiety, linked below. If fear keeps you from daily life for weeks, or comes with panic or hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
 ];
 
 export function getEnAffirmationProblem(
