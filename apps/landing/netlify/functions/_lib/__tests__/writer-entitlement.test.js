@@ -90,7 +90,10 @@ test('active or trialing live archive Subscription grants archive scope', () => 
 test('tampered, expired, and wrong-secret bearer tokens fail closed', () => {
   const grant = grantFromStripe({ session: paidSession(), expected: EXPECTED, liveMode: true });
   const token = issueEntitlement({ secret: SECRET, grant, nowSeconds: NOW });
-  const tampered = `${token.slice(0, -1)}${token.endsWith('a') ? 'b' : 'a'}`;
+  // Flip the first signature char (not the last): base64url trailing chars can
+  // decode to the same bytes, so last-char flips are flaky (~8% miss rate).
+  const [body, sig] = token.split('.');
+  const tampered = `${body}.${sig.startsWith('A') ? 'B' : 'A'}${sig.slice(1)}`;
   assert.throws(() => verifyEntitlement({ token: tampered, secret: SECRET, slug: EXPECTED.slug, nowSeconds: NOW }), /signature/);
   assert.throws(() => verifyEntitlement({ token, secret: SECRET, slug: EXPECTED.slug, nowSeconds: NOW + 3600 }), /expired/);
   assert.throws(() => verifyEntitlement({ token, secret: `${SECRET}x`, slug: EXPECTED.slug, nowSeconds: NOW }), /signature/);
