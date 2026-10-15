@@ -1,3 +1,15 @@
+export type EnAffirmationFaq = { q: string; a: string };
+
+export type EnAffirmationComparison = {
+  competitorName: string;
+  competitorStoreUrl: string;
+  /** ISO date when competitor facts were read from the public App Store page. */
+  sourcedAsOf: string;
+  /** Verifiable focus points only (no invented ratings, counts, or prices). */
+  competitorFocus: string[];
+  aniccaFocus: string[];
+};
+
 export type EnAffirmationProblem = {
   slug: string;
   /** Closest Japanese SEO page under /affirmation-app/ja/a/* */
@@ -11,15 +23,30 @@ export type EnAffirmationProblem = {
   /** Steps for a ~2-minute practice. */
   practice: { heading: string; steps: string[] };
   closing: string;
+  /**
+   * Optional GEO fields. When set, the page uses the exact phrase as H1,
+   * shows a quotable direct answer, FAQ (+ FAQPage JSON-LD), and can use
+   * ct=seo_geo_<slug> on the App Store button.
+   */
+  h1?: string;
+  /** Usually three short sentences AI/search can quote. */
+  directAnswer?: string[];
+  faq?: EnAffirmationFaq[];
+  /** App Store ct param prefix. Default seo_en. */
+  campaignPrefix?: 'seo_en' | 'seo_geo';
+  comparison?: EnAffirmationComparison;
 };
 
 export const EN_AFFIRMATION_APP_STORE_BASE =
   'https://apps.apple.com/app/id6755129214';
 
-export function enAffirmationAppStoreUrl(slug: string): string {
+export function enAffirmationAppStoreUrl(
+  slug: string,
+  campaignPrefix: 'seo_en' | 'seo_geo' = 'seo_en',
+): string {
   const url = new URL(EN_AFFIRMATION_APP_STORE_BASE);
   url.searchParams.set('pt', '93486075');
-  url.searchParams.set('ct', `seo_en_${slug}`);
+  url.searchParams.set('ct', `${campaignPrefix}_${slug}`);
   url.searchParams.set('mt', '8');
   return url.toString();
 }
@@ -536,6 +563,296 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     },
     closing:
       'Related guides: affirmations for perfectionism and affirmations for anxiety, linked below. If fear keeps you from daily life for weeks, or comes with panic or hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
+  {
+    slug: 'affirmation-app-no-streaks',
+    jaSlug: 'night-anxiety',
+    title: 'Affirmation app with no streaks',
+    shortTitle: 'Affirmation app with no streaks',
+    metaDescription:
+      'Looking for an affirmation app with no streaks? Anicca is a free-to-download iPhone affirmation app that sends one kind line when you need it — no streak counters, no guilt for missing a day.',
+    h1: 'affirmation app with no streaks',
+    campaignPrefix: 'seo_geo',
+    directAnswer: [
+      'An affirmation app with no streaks is one that does not punish you for missing a day with a broken counter or a guilt notification.',
+      'Anicca is a free-to-download iPhone affirmation app that sends one short, kind line at the time you tend to spiral, across 13 self-care topics, with no streaks.',
+      'If you want kindness without a productivity scoresheet, download Anicca from the App Store and set one reminder time that matches your real day.',
+    ],
+    whyItHappens: [
+      'Many habit apps treat a missed day as a failure: the streak resets, the badge disappears, and the next open becomes a lecture. For affirmations, that design often backfires. The people who reach for a kind line are often already hard on themselves. Adding a scoreboard turns self-care into another chore they can “fail.”',
+      'A no-streak affirmation app keeps the practice optional. You can miss Tuesday and still open Wednesday without a broken chain. The point is a usable sentence when your mind spirals — not a perfect calendar.',
+      'Anicca’s public App Store listing (id6755129214, checked 2026-10-15) describes the product as free to download with an optional subscription, and states there are no streaks and no “you missed a day” guilt. Use the lines below when you want words without a counter.',
+    ],
+    affirmations: [
+      'Missing a day does not erase the kindness I already practiced.',
+      'I can open this app without earning a perfect week first.',
+      'A streak is optional. Softness is not.',
+      'I am allowed to return without apologizing to a counter.',
+      'One honest line today is enough.',
+      'I do not have to perform self-care to deserve it.',
+      'Quiet days still count as being human.',
+      'I can start again midweek with no backlog.',
+      'Guilt is not a useful coach for kindness.',
+      'I show up when I can, and that is still a practice.',
+    ],
+    practice: {
+      heading: 'A two-minute no-streak reset',
+      steps: [
+        'If you missed days, name it once without a speech: “I was away.” Then stop explaining.',
+        'Pick one affirmation from the list. Read it twice. Do not add a make-up session for the days you skipped.',
+        'Optional: set a single daily reminder in Anicca for a time you already tend to spiral — not five reminders that recreate pressure.',
+      ],
+    },
+    faq: [
+      {
+        q: 'What does “no streaks” mean in an affirmation app?',
+        a: 'It means the app does not track a unbroken daily chain that resets when you miss a day. You can skip and return without a guilt scoreboard.',
+      },
+      {
+        q: 'Does Anicca have streaks?',
+        a: 'No. Anicca’s App Store listing (id6755129214, checked 2026-10-15) states there are no streaks and no “you missed a day” guilt. It is free to download with an optional subscription.',
+      },
+      {
+        q: 'Is Anicca only for iPhone?',
+        a: 'Yes. Anicca is listed on the App Store for iPhone as “Daily Affirmations - Anicca.” This page is about that product, not a cross-platform claim.',
+      },
+    ],
+    closing:
+      'Related guides: affirmations for overthinking at night and affirmation reminders throughout the day, linked below. Anicca is a self-care app, not medical advice.',
+  },
+  {
+    slug: 'affirmations-for-overthinking-at-night',
+    jaSlug: 'night-anxiety',
+    title: 'Affirmations for overthinking at night',
+    shortTitle: 'Affirmations for overthinking at night',
+    metaDescription:
+      'Short affirmations for overthinking at night, plus a two-minute wind-down. Anicca is a free-to-download iPhone affirmation app with no streaks that can send one kind line late in the evening.',
+    h1: 'affirmations for overthinking at night',
+    campaignPrefix: 'seo_geo',
+    directAnswer: [
+      'Affirmations for overthinking at night are short, believable lines you can use when the unfinished day gets loud and sleep feels far away.',
+      'They will not delete every worry; they can interrupt the tenth lap of the same thought so your body has a smaller place to land.',
+      'Anicca is a free-to-download iPhone affirmation app with no streaks that can send one kind line at the hour you tend to spiral — including late night.',
+    ],
+    whyItHappens: [
+      'Night removes the daytime interruptions that kept worry on pause. Without meetings and errands, the mind often replays messages, deadlines, and “what if” scenes. That does not mean you failed the day. It means your nervous system still has energy with nowhere useful to spend it.',
+      'Overthinking at night is usually a search for certainty before sleep. Affirmations work best when they are modest: not “everything is fine,” but “I do not have to solve tonight to deserve rest.” Believeable beats dramatic.',
+      'Anicca covers 13 self-care topics and, per its App Store listing (id6755129214, checked 2026-10-15), is free to download with an optional subscription and has no streaks. Use the lines below as bookmarks for 11:47 p.m., with or without the app.',
+    ],
+    affirmations: [
+      'I do not have to solve tonight to deserve rest.',
+      'This worry is loud, not always true.',
+      'One slow breath is enough for this minute.',
+      'Lying down counts, even if sleep is late.',
+      'Thoughts can visit without moving in.',
+      'Morning-me will not punish night-me for needing quiet.',
+      'I can put the phone down and feel the weight of my body.',
+      'Scary imagination and this dark room are not the same place.',
+      'Peace does not require a finished checklist.',
+      'I can meet this thought once and leave it here.',
+    ],
+    practice: {
+      heading: 'A two-minute night wind-down',
+      steps: [
+        'Lie still. Name three things you can feel (sheet, pillow, air). No fixing — only noticing.',
+        'Pick one affirmation. Say it once out loud or in a whisper. If it feels fake, soften it until it is believable.',
+        'Exhale longer than you inhale, twice. Then stop. If the mind returns, use the same line once more and leave it there.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Do affirmations stop nighttime overthinking?',
+        a: 'Not always. They are a small interruption, not a cure. Many people find a short, honest line shortens the argument with worry long enough to rest.',
+      },
+      {
+        q: 'When should I read affirmations at night?',
+        a: 'When the loop starts — often after you put the phone down — not as a long extra routine. One or two lines is enough.',
+      },
+      {
+        q: 'Can Anicca send a line at night?',
+        a: 'Yes. Anicca is built to send one short affirmation at a time you choose or tend to spiral. Check the latest details on the App Store listing for Daily Affirmations - Anicca (id6755129214).',
+      },
+    ],
+    closing:
+      'If nights keep feeling unbearable, reach out to someone you trust or a local crisis line. This page is self-care copy for an affirmation app — not medical advice, diagnosis, or treatment.',
+  },
+  {
+    slug: 'affirmation-reminders-throughout-the-day',
+    jaSlug: 'morning',
+    title: 'Affirmation reminders throughout the day on iPhone',
+    shortTitle: 'Affirmation reminders throughout the day',
+    metaDescription:
+      'Want affirmation reminders throughout the day on iPhone? Anicca sends one short, kind line at the time you tend to spiral — free to download, no streaks, optional subscription.',
+    h1: 'affirmation reminders throughout the day iphone',
+    campaignPrefix: 'seo_geo',
+    directAnswer: [
+      'Affirmation reminders throughout the day on iPhone are scheduled notifications that bring a short line to you, so you do not have to remember to open an app.',
+      'Anicca is a free-to-download iPhone affirmation app that sends one kind line at the moment you tend to spiral, across 13 self-care topics, with no streaks.',
+      'If you want reminders that feel like a friend instead of a habit scoreboard, set one or a few times that match your real day and keep the wording believable.',
+    ],
+    whyItHappens: [
+      'The hardest part of affirmations is rarely finding a nice sentence. It is remembering them when your attention is already spent. A library you never open does little on a hard Tuesday afternoon.',
+      'Reminders work better when they match real friction points — after lunch, before a meeting, late evening — rather than flooding the lock screen every hour until you mute everything.',
+      'Anicca’s App Store listing (id6755129214, checked 2026-10-15) describes smart timing and daily affirmation cards, free download with an optional subscription, and no streaks. Other apps also offer reminders; pick the style that fits you. Links to honest comparison pages for I Am and ThinkUp are below.',
+    ],
+    affirmations: [
+      'This reminder is a pause, not a test.',
+      'I can take one kind sentence and return to my day.',
+      'I do not need a perfect routine to use a reminder.',
+      'One line at the right time is enough.',
+      'I can silence extras and keep the one that helps.',
+      'A notification can be soft, not urgent.',
+      'I am allowed to change the time until it fits.',
+      'Kindness on a schedule still counts as kindness.',
+      'I can read this once and put the phone down.',
+      'My day does not have to be optimized to include care.',
+    ],
+    practice: {
+      heading: 'A two-minute reminder setup',
+      steps: [
+        'Pick the one time of day your mind usually gets harsh (not five times). Write it down.',
+        'Choose one affirmation from the list — or write a cousin that sounds like you.',
+        'In Anicca (or your reminder app), set that single time. Live with it for three days before adding more.',
+      ],
+    },
+    faq: [
+      {
+        q: 'How many affirmation reminders per day is useful?',
+        a: 'Start with one. Many people mute apps that ping constantly. Add a second time only if the first one already helps.',
+      },
+      {
+        q: 'Does Anicca send reminders on iPhone?',
+        a: 'Yes. Anicca is an iPhone app listed on the App Store as “Daily Affirmations - Anicca” (id6755129214). It is built around delivering one short line when you need it.',
+      },
+      {
+        q: 'Do I need a subscription for reminders?',
+        a: 'Anicca is free to download with an optional subscription for the full proactive experience. Exact entitlements can change; check the current App Store purchase screen for what is included.',
+      },
+    ],
+    closing:
+      'Related guides: affirmation app with no streaks, I Am app alternative, and ThinkUp alternative, linked below. Anicca is a self-care app, not medical advice.',
+  },
+  {
+    slug: 'i-am-app-alternative',
+    jaSlug: 'self-esteem',
+    title: 'I Am app alternative: a neutral comparison with Anicca',
+    shortTitle: 'I Am app alternative',
+    metaDescription:
+      'Neutral comparison of I am - Daily Affirmations and Anicca, based on public App Store listing facts only (dated). Links to both apps. No invented ratings, counts, or prices.',
+    h1: 'I Am app alternative',
+    campaignPrefix: 'seo_geo',
+    directAnswer: [
+      'If you are searching for an I Am app alternative, you likely want daily affirmations on iPhone with a different reminder style, tone, or pressure level.',
+      'I am - Daily Affirmations (Monkey Taps) and Anicca (Daily Affirmations - Anicca) are both free-to-download Health & Fitness apps with optional in-app purchases; they emphasize different workflows.',
+      'Below is a neutral, dated summary of what each public App Store page says it focuses on, plus links to both listings so you can verify.',
+    ],
+    whyItHappens: [
+      '“I Am app” usually refers to I am - Daily Affirmations by Monkey Taps on the App Store (id874656917). People look for alternatives when they want fewer widgets, a quieter tone, no streak pressure, or a single well-timed line instead of many reminders.',
+      'This page is written by the maker of Anicca. That is a conflict of interest. To keep it honest, competitor details below are limited to what appears on the public US App Store page, and they are dated. We do not invent ratings, download counts, or prices.',
+      'Read both listings yourself before you decide. Preferences about widgets, voice recording, streaks, and notification volume are personal.',
+    ],
+    affirmations: [],
+    practice: {
+      heading: 'How to choose in two minutes',
+      steps: [
+        'Open both App Store links below. Skim the current description and screenshots only — ignore third-party “download count” sites.',
+        'Ask which workflow you want: widgets and many reminders (I am), or one timed line without streaks (Anicca’s stated focus).',
+        'Download the free tier of the one that matches. You can delete it later; you do not owe either app a long trial.',
+      ],
+    },
+    comparison: {
+      competitorName: 'I am - Daily Affirmations',
+      competitorStoreUrl:
+        'https://apps.apple.com/us/app/i-am-daily-affirmations/id874656917',
+      sourcedAsOf: '2026-10-15',
+      competitorFocus: [
+        'Developer listed as Monkey Taps; category Health & Fitness; listed as Free with In-App Purchases (US App Store page, 2026-10-15).',
+        'Listing copy emphasizes daily affirmations, positive widgets, Lock Screen affirmations, Home Screen widgets, daily intentions, and reminders delivered throughout the day.',
+        'Premium is described as lifetime, monthly, and yearly auto-renewable subscription options; this page does not repeat dollar amounts because store prices vary by region and time.',
+      ],
+      aniccaFocus: [
+        'Developer listed as Daisuke Narita; “Daily Affirmations - Anicca” (id6755129214); category Health & Fitness; Free with optional subscription (US App Store / iTunes lookup, 2026-10-15).',
+        'Listing copy emphasizes one kind line when the mind spirals, 13 self-care themes, smart timing, and explicitly “no streaks” / no “you missed a day” guilt.',
+        'Positioned as a self-care companion, not medical advice. Exact subscription prices are shown on the purchase screen and can vary by region.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Is Anicca a drop-in replacement for I am - Daily Affirmations?',
+        a: 'Not exactly. I am’s public listing emphasizes widgets and reminders throughout the day. Anicca’s listing emphasizes one timed line and no streaks. Try the free download of each if you are unsure.',
+      },
+      {
+        q: 'Where did these comparison facts come from?',
+        a: 'From the public US App Store pages / iTunes lookup for id874656917 (I am) and id6755129214 (Anicca), read on 2026-10-15. We omit ratings tallies and dollar prices here so this page does not go stale or invent numbers.',
+      },
+      {
+        q: 'Who wrote this page?',
+        a: 'The maker of Anicca. That is disclosed on purpose. Links to both App Store pages are included so you can verify independently.',
+      },
+    ],
+    closing:
+      'Links: I am - Daily Affirmations on the App Store, and Anicca below. This is not medical advice. Store details can change; re-check the live listings.',
+  },
+  {
+    slug: 'thinkup-alternative',
+    jaSlug: 'self-esteem',
+    title: 'ThinkUp alternative: a neutral comparison with Anicca',
+    shortTitle: 'ThinkUp alternative',
+    metaDescription:
+      'Neutral comparison of ThinkUp and Anicca, based on public App Store listing facts only (dated). Links to both apps. No invented ratings, counts, or prices.',
+    h1: 'ThinkUp alternative',
+    campaignPrefix: 'seo_geo',
+    directAnswer: [
+      'If you want a ThinkUp alternative, you may want daily affirmations without recording your own voice, or a quieter reminder style on iPhone.',
+      'ThinkUp-Daily Affirmations app (Precise Wellness LLC) and Anicca (Daily Affirmations - Anicca) are both free-to-download Health & Fitness apps with optional in-app purchases; they emphasize different workflows.',
+      'Below is a neutral, dated summary of what each public App Store page says it focuses on, plus links to both listings so you can verify.',
+    ],
+    whyItHappens: [
+      'ThinkUp on the App Store is listed as ThinkUp-Daily Affirmations app by Precise Wellness LLC (id906660772). People look for alternatives when they prefer not to record audio, do not want Health-app practice tracking, or want a single proactive line instead of a listen-and-repeat session.',
+      'This page is written by the maker of Anicca. That is a conflict of interest. Competitor details below are limited to the public US App Store page and are dated. We do not invent ratings, download counts, or prices.',
+      'Open both listings and decide from the current screenshots and description. Neither app replaces therapy or medical care.',
+    ],
+    affirmations: [],
+    practice: {
+      heading: 'How to choose in two minutes',
+      steps: [
+        'Open both App Store links. Skim what each app asks you to do daily (record-and-listen vs receive one line).',
+        'If you want your own voice plus music loops, ThinkUp’s listing matches that focus. If you want one timed line with no streaks, Anicca’s listing matches that focus.',
+        'Download one free tier first. Switch later if the daily friction is wrong for you.',
+      ],
+    },
+    comparison: {
+      competitorName: 'ThinkUp-Daily Affirmations app',
+      competitorStoreUrl:
+        'https://apps.apple.com/us/app/thinkup-daily-affirmations-app/id906660772',
+      sourcedAsOf: '2026-10-15',
+      competitorFocus: [
+        'Developer listed as Precise Wellness LLC; category Health & Fitness; listed as Free with In-App Purchases (US App Store page, 2026-10-15).',
+        'Listing copy emphasizes selecting or creating affirmations, recording them in your own voice, adding images and music, notifications, and listening daily; also mentions Apple Health Mindful Minutes tracking.',
+        'Free vs premium is described in the listing (e.g. limited recordings on free); this page does not repeat dollar amounts because store prices vary by region and time.',
+      ],
+      aniccaFocus: [
+        'Developer listed as Daisuke Narita; “Daily Affirmations - Anicca” (id6755129214); category Health & Fitness; Free with optional subscription (US App Store / iTunes lookup, 2026-10-15).',
+        'Listing copy emphasizes one kind line when the mind spirals, 13 self-care themes, smart timing, and explicitly “no streaks” / no “you missed a day” guilt.',
+        'Positioned as a self-care companion, not medical advice. Exact subscription prices are shown on the purchase screen and can vary by region.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Does Anicca let me record affirmations in my own voice?',
+        a: 'Anicca’s public listing focuses on delivered affirmation cards and timed lines, not on recording your own voice library. ThinkUp’s listing emphasizes voice recording. Choose based on which workflow you want.',
+      },
+      {
+        q: 'Where did these comparison facts come from?',
+        a: 'From the public US App Store pages / iTunes lookup for id906660772 (ThinkUp) and id6755129214 (Anicca), read on 2026-10-15. Ratings tallies and dollar prices are omitted here on purpose.',
+      },
+      {
+        q: 'Who wrote this page?',
+        a: 'The maker of Anicca. That is disclosed on purpose. Links to both App Store pages are included so you can verify independently.',
+      },
+    ],
+    closing:
+      'Links: ThinkUp on the App Store, and Anicca below. This is not medical advice. Store details can change; re-check the live listings.',
   },
 ];
 
