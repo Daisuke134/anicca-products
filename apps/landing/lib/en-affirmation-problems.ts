@@ -141,6 +141,114 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     closing:
       'If comparison is tangled with depression, disordered eating, or crisis feelings, please talk to a professional or a local helpline. This is self-care language for an affirmation app — not medical advice.',
   },
+  {
+    slug: 'affirmations-for-overthinking',
+    jaSlug: 'night-anxiety',
+    title: 'Affirmations for overthinking: short lines to interrupt the loop',
+    shortTitle: 'Affirmations for overthinking',
+    metaDescription:
+      'Short affirmations for overthinking, plus a two-minute practice for when your mind replays everything. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Overthinking is the habit of turning one thought over and over: replaying a conversation, rehearsing a message, or running every possible outcome of a decision that has not happened yet. It can feel like problem solving, because your mind is busy and the topic feels important. But the loop often has no new information in it. You finish the tenth lap knowing what you knew on the first, and you are more tired.',
+      'It helps to notice what overthinking is trying to do. Usually it is trying to buy certainty or protect you from a mistake. If you think about it enough, maybe you will not be surprised, embarrassed, or wrong. That is an understandable goal, and it is also one that thinking alone rarely delivers. Some things only get clearer when you act, ask a person, or let time pass.',
+      'An affirmation is not a magic phrase that switches thoughts off. Think of it as a small interruption. One calm sentence, read slowly, gives your attention somewhere else to stand for a moment. It works best when it is believable and a little boring: not "everything is perfect," but "I do not need to decide this right now." Pick lines that you could say to a friend without wincing.',
+      'Anicca is an iPhone affirmation app built around that idea. Instead of a library you have to remember to open, it sends one short line at the time you tend to spiral. It covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I can think about this later. Right now I only need the next small step.',
+      'A thought repeated ten times is still just one thought.',
+      'I do not need to solve the whole story today.',
+      'Not knowing yet is allowed.',
+      'I can act on what I know and let the rest stay open.',
+      'My mind is trying to help. I can thank it and set it down.',
+      'This feels urgent, but I can pause before I answer it.',
+      'I do not have to win the argument that only exists in my head.',
+      'Good enough is a real decision.',
+      'I can come back to my body: feet, hands, breath.',
+    ],
+    practice: {
+      heading: 'A two-minute loop breaker',
+      steps: [
+        'Write the looping thought as one plain sentence, for example: "I keep replaying what I said in the meeting." Seeing it on one line often makes it smaller.',
+        'Ask one question: is there an action I can take in the next ten minutes? If yes, write it down and do only that. If no, write "nothing to do right now" and let that be the answer for today.',
+        'Read one affirmation from the list twice, slowly. Then do something with your hands, such as washing a cup or stretching, so the thought has less room to restart.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for anxiety and affirmations for self-love, linked below. If overthinking is constant, keeps you from sleeping or working for weeks, or comes with hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
+  {
+    slug: 'affirmations-for-anxiety',
+    jaSlug: 'night-anxiety',
+    title: 'Affirmations for anxiety: gentle lines for tense moments',
+    shortTitle: 'Affirmations for anxiety',
+    metaDescription:
+      'Gentle affirmations for anxious moments, with a simple grounding practice you can do in two minutes. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Anxiety is a very ordinary human experience. The body gets ready for something difficult: the chest tightens, thoughts speed up, and your attention narrows to what could go wrong. Sometimes there is a clear reason, such as a deadline or a hard conversation. Sometimes it arrives with no obvious cause, which can be the most unsettling version.',
+      'When you are in the middle of it, arguing with the feeling rarely works. "Just calm down" is not a sentence anyone has ever found helpful. What tends to be more useful is something small and kind that does not demand you feel different right away. An affirmation for anxiety can be that: a short, steady sentence that acknowledges the feeling instead of fighting it.',
+      'The best lines are honest. "I am completely safe and nothing will go wrong" can feel false, and a false line makes the tension worse. A line like "This feeling is uncomfortable, and it will change" is easier to accept, because it is true. Choose the words that make your shoulders drop a little, even by a millimetre.',
+      'Anicca is an iPhone affirmation app that sends one short, kind line at the moments you tend to spiral. It has 13 self-care topics, no streaks, and is free to download with an optional subscription. It is a self-care tool, not treatment, and it is not a replacement for professional support. The lines below are yours to use however you like.',
+    ],
+    affirmations: [
+      'This feeling is uncomfortable, and it will change.',
+      'I can feel anxious and still take one small step.',
+      'My body is trying to protect me. I can help it slow down.',
+      'I do not have to believe every thought that arrives with a racing heart.',
+      'I have handled hard moments before, and I can meet this one gently.',
+      'I only need to get through this minute.',
+      'It is okay to ask for help or company.',
+      'I can let my breath be slow, even if my thoughts are fast.',
+      'Anxious does not mean broken.',
+      'I can be kind to myself while this passes.',
+    ],
+    practice: {
+      heading: 'A two-minute grounding practice',
+      steps: [
+        'Look around and name five things you can see, then four you can touch, then three you can hear. Say them quietly. The goal is simply to bring your attention to the room you are in.',
+        'Breathe in through your nose for a count of four, then out slowly for a count of six. Repeat four times. If counting makes you more tense, skip it and just make the exhale a little longer than the inhale.',
+        'Choose one affirmation from the list and read it once out loud. If it does not feel believable, soften it until it does, then stop. There is nothing more to achieve.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for overthinking and affirmations for self-love, linked below. If anxiety is intense, frequent, or getting in the way of daily life, or if you ever feel unsafe, please contact a healthcare professional or a local crisis line. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
+  {
+    slug: 'affirmations-for-self-love',
+    jaSlug: 'self-esteem',
+    title: 'Affirmations for self-love: believable lines, not forced positivity',
+    shortTitle: 'Affirmations for self-love',
+    metaDescription:
+      'Believable affirmations for self-love, plus a short practice for being kinder to yourself. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Self-love can sound like a big, vague goal, as if you are supposed to wake up one day adoring everything about yourself. In practice it is smaller and more practical: treating yourself with the basic respect and patience you would offer a friend. It is less about feeling amazing and more about not adding cruelty to a hard day.',
+      'Many of us have a strict inner voice that was trained over years. It points out mistakes quickly and rarely mentions what went well. It may have started as a way to keep you safe or keep you improving. But a voice that only criticises is tiring to live with, and it does not make most people more capable. Often it just makes them more afraid of trying.',
+      'Affirmations can help you practise a different tone, with one condition: they need to be believable. If you tell yourself "I love everything about me" while feeling the opposite, your mind will argue, and the exercise backfires. Start from where you actually are. "I am allowed to be a work in progress" is a sentence most people can accept, and acceptance is the part that matters.',
+      'Anicca is an iPhone affirmation app that sends one short line of kindness at the moments your mind tends to spiral, rather than asking you to remember a routine. It has 13 self-care topics, no streaks to keep alive, and is free to download with an optional subscription. Below are ten lines to borrow, along with a short practice you can repeat any time.',
+    ],
+    affirmations: [
+      'I am allowed to be a work in progress.',
+      'I can speak to myself the way I would speak to a friend.',
+      'My worth is not something I have to earn today.',
+      'I can make a mistake and still be someone worth caring for.',
+      'Rest is not a reward. It is part of being a person.',
+      'I do not have to be the best to be enough for this moment.',
+      'I can notice what I did well, even if it was small.',
+      'I am learning, and learning is untidy.',
+      'I can set a boundary and still be kind.',
+      'I am on my own side, even on the quiet days.',
+    ],
+    practice: {
+      heading: 'A two-minute kindness check-in',
+      steps: [
+        'Think of the harshest thing you said to yourself today. Write it down exactly as it came.',
+        'Imagine a close friend saying that sentence about themselves. Write what you would honestly say back to them. Keep it short and true, not fake-cheerful.',
+        'Read your reply to yourself once, slowly. Then pick one affirmation from the list to carry for the rest of the day, perhaps as a note on your phone.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for overthinking and affirmations for anxiety, linked below. If you are struggling with persistent low mood, self-harm thoughts, or feelings of hopelessness, please reach out to a mental health professional or a local crisis line. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
 ];
 
 export function getEnAffirmationProblem(
