@@ -4,25 +4,22 @@ import test from 'node:test';
 
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8');
 
-test('root presents Anicca as the mission and Life Manager as the product', () => {
-  const hero = read('components/site/Hero.tsx');
-  assert.match(hero, /Anicca builds Life Manager/);
-  assert.match(hero, /AniccaはLife Managerをつくる/);
-  assert.match(hero, /href="\/lm"/);
-  assert.match(hero, /github\.com\/Daisuke134\/life-manager/);
-  assert.match(hero, /Body|身体/);
-  assert.match(hero, /Mind|心/);
-  assert.match(hero, /Money|お金/);
+test('the main website presents Manager in both languages', () => {
+  const home = read('components/site/ManagerHome.tsx');
+  assert.match(home, /<h1>Manager\.<\/h1>/);
+  assert.match(home, /<h1>マネージャー。<\/h1>/);
+  assert.match(home, /all living beings/);
+  assert.match(home, /宇宙規模の構想/);
+  assert.doesNotMatch(home, /Life Manager|preview-label|Not deployed/);
 });
 
-test('root metadata and rendered sections do not revive the retired self-funding product story', () => {
-  for (const path of ['app/en/page.tsx', 'app/ja/page.tsx']) {
-    const page = read(path);
-    assert.match(page, /Life Manager/);
+test('localized homepages use Manager metadata and preserve canonical language links', () => {
+  for (const locale of ['en', 'ja']) {
+    const page = read(`app/${locale}/page.tsx`);
+    assert.match(page, /ManagerHome/);
     assert.match(page, /export const metadata/);
-    assert.match(page, /proactive general agent/);
-    assert.doesNotMatch(page, /<TheBet|<HowDiagram|<SelfFundingTriad|<InstallSplit|<BasicIncomeNote/);
-    assert.doesNotMatch(page, /faqLd|softwareApplicationLd/);
+    assert.match(page, new RegExp(`https://aniccaai.com/${locale}`));
+    assert.doesNotMatch(page, /Life Manager|proactive general agent|SelfImproveLoop|DemoVideo/);
   }
 });
 
