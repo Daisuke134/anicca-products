@@ -29,11 +29,12 @@ export function generateMetadata({ params }: PageProps): Metadata {
   }
   const url = `https://aniccaai.com/affirmation-app/a/${problem.slug}`;
   const triple = tripleForEnSlug(problem.slug);
+  // Only true TRIPLES get cross-locale hreflang. Closest-topic jaSlug must not
+  // drive alternates (batch 7+: pages without a counterpart emit en + x-default).
   const languages = triple
     ? alternatesFor(triple)
     : {
         en: url,
-        ja: `https://aniccaai.com/affirmation-app/ja/a/${problem.jaSlug}`,
         'x-default': url,
       };
   return {

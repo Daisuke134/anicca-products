@@ -928,6 +928,43 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     closing:
       'Related guides: affirmations for anxiety and affirmations for imposter syndrome, linked below. If anxiety keeps you from working or from daily life for weeks, or comes with panic or hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
+  {
+    slug: 'do-affirmations-help-anxiety',
+    jaSlug: 'self-esteem',
+    title: 'Do affirmations help anxiety? An honest answer (2026), plus lines to try',
+    shortTitle: 'Do affirmations help anxiety?',
+    metaDescription:
+      'Do affirmations help anxiety? An honest answer: what they can and cannot do, which kinds of lines tend to work better, and a two-minute exercise. From the maker of Anicca, a free-to-download iPhone app.',
+    whyItHappens: [
+      'Full disclosure: I make Anicca, an affirmation app, so I am not neutral. The honest short answer: affirmations are not a treatment for anxiety, and they will not make it disappear. For some people they are a small, calming habit that changes what you say to yourself in a tense moment.',
+      'What they seem to do best is interrupt a loop. Anxious thinking tends to repeat the same worst-case sentence. Replacing it with a steadier, believable sentence gives your mind something else to hold for a moment. It is a pause, not a cure.',
+      'Lines tend to work better when you can believe them. "I am completely calm" often rings false when you are not, and can make you feel worse. Modest lines such as "I can feel anxious and still take the next step" are easier to accept because they do not argue with how you feel.',
+      'They also work best alongside other basics: slow breathing, sleep, movement, talking with someone you trust. If anxiety is frequent or heavy, professional support such as therapy is the thing with real evidence behind it, and affirmations are at most a companion to it.',
+      'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I can feel anxious and still take the next step.',
+      'This feeling is uncomfortable, and it will pass.',
+      'I do not have to believe every worried thought.',
+      'I only need to handle this moment, not the whole day.',
+      'My body is trying to protect me, and I can slow it down with one breath.',
+      'I have gotten through anxious moments before.',
+      'I can ask for help when I need it.',
+      'I do not need to be calm to be okay.',
+      'A worry is not a fact.',
+      'I can be kind to myself right now.',
+    ],
+    practice: {
+      heading: 'A two-minute way to test it for yourself',
+      steps: [
+        'Name the worry in one plain sentence, then rate how strong the feeling is from 0 to 10.',
+        'Breathe out slowly for a count of six, three times. Then read one line from the list twice, slowly, choosing the one that feels most believable, not the most positive.',
+        'Rate the feeling again. If it did not move, that is fine and useful to know: try a different line, a walk, or talking to someone instead.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for anxiety and affirmations for overthinking, linked below. If anxiety is frequent, affects your sleep, work, or health for weeks, or comes with panic or hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
 ];
 
 export function getEnAffirmationProblem(
