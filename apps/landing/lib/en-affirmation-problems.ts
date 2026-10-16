@@ -56,6 +56,8 @@ export const EN_TO_JA_SLUG: Record<string, string> = {
   'overthinking-at-night': 'night-anxiety',
   'self-doubt': 'self-esteem',
   'comparing-yourself': 'comparison',
+  'affirmations-for-sunday-scaries': 'sunday-scaries',
+  'affirmations-for-social-anxiety-at-work': 'social-anxiety-at-work',
 };
 
 export const JA_TO_EN_SLUG: Record<string, string> = Object.fromEntries(
@@ -856,7 +858,7 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
   },
   {
     slug: 'affirmations-for-sunday-scaries',
-    jaSlug: 'self-esteem',
+    jaSlug: 'sunday-scaries',
     title: 'Affirmations for Sunday scaries (2026): lines for the dread before Monday',
     shortTitle: 'Affirmations for Sunday scaries',
     metaDescription:
@@ -892,7 +894,7 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
   },
   {
     slug: 'affirmations-for-social-anxiety-at-work',
-    jaSlug: 'self-esteem',
+    jaSlug: 'social-anxiety-at-work',
     title: 'Affirmations for social anxiety at work (2026): lines for meetings, chat, and small talk',
     shortTitle: 'Affirmations for social anxiety at work',
     metaDescription:

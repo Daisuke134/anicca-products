@@ -4,6 +4,10 @@ import { notFound } from 'next/navigation';
 import JsonLd from '@/components/JsonLd';
 import EnAffirmationSeoLayout from '@/components/affirmation/EnAffirmationSeoLayout';
 import {
+  alternatesFor,
+  tripleForEnSlug,
+} from '@/lib/affirmation-alternates';
+import {
   EN_AFFIRMATION_PROBLEMS,
   allEnAffirmationSlugs,
   enAffirmationAppStoreUrl,
@@ -24,17 +28,20 @@ export function generateMetadata({ params }: PageProps): Metadata {
     return { title: 'Page not found | Anicca' };
   }
   const url = `https://aniccaai.com/affirmation-app/a/${problem.slug}`;
-  const jaUrl = `https://aniccaai.com/affirmation-app/ja/a/${problem.jaSlug}`;
+  const triple = tripleForEnSlug(problem.slug);
+  const languages = triple
+    ? alternatesFor(triple)
+    : {
+        en: url,
+        ja: `https://aniccaai.com/affirmation-app/ja/a/${problem.jaSlug}`,
+        'x-default': url,
+      };
   return {
     title: `${problem.title} | Anicca`,
     description: problem.metaDescription,
     alternates: {
       canonical: url,
-      languages: {
-        en: url,
-        ja: jaUrl,
-        'x-default': url,
-      },
+      languages,
     },
     openGraph: {
       title: `${problem.title} | Anicca`,
@@ -52,6 +59,7 @@ export default function EnAffirmationProblemPage({ params }: PageProps) {
 
   const pageUrl = `https://aniccaai.com/affirmation-app/a/${problem.slug}`;
   const jaUrl = `https://aniccaai.com/affirmation-app/ja/a/${problem.jaSlug}`;
+  const esSlug = tripleForEnSlug(problem.slug)?.es;
   const storeUrl = enAffirmationAppStoreUrl(
     problem.slug,
     problem.campaignPrefix ?? 'seo_en',
@@ -280,13 +288,21 @@ export default function EnAffirmationProblemPage({ params }: PageProps) {
 
           <p className="mt-8 text-[14px] leading-relaxed text-[#898783]">{problem.closing}</p>
 
-          <p className="mt-6 text-[14px]">
+          <p className="mt-6 space-x-4 text-[14px]">
             <Link
               href={jaUrl.replace('https://aniccaai.com', '')}
               className="underline underline-offset-2 hover:text-[#393634]"
             >
               日本語版を読む
             </Link>
+            {esSlug ? (
+              <Link
+                href={`/affirmation-app/es/a/${esSlug}`}
+                className="underline underline-offset-2 hover:text-[#393634]"
+              >
+                Leer en español
+              </Link>
+            ) : null}
           </p>
 
           <section className="mt-14">

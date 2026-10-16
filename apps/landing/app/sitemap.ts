@@ -1,6 +1,11 @@
 import type { MetadataRoute } from "next";
+import {
+  AFFIRMATION_HREFLANG_TRIPLES,
+  alternatesFor,
+} from "@/lib/affirmation-alternates";
 import { loadAllBlogPosts } from "@/lib/blog-posts";
 import { allEnAffirmationSlugs } from "@/lib/en-affirmation-problems";
+import { allEsAffirmationSlugs } from "@/lib/es-affirmation-problems";
 import { JA_AFFIRMATION_PROBLEMS } from "@/lib/ja-affirmation-problems";
 import { allKokoroTypeIds } from "@/lib/kokoro-quiz";
 import { LM_JA_GUIDES } from "@/lib/lm-ja-guides";
@@ -15,6 +20,7 @@ const STATIC_PATHS = [
   "/affirmation-app/ja/a",
   "/affirmation-app/ja/wallpaper",
   "/affirmation-app/ja/shindan",
+  "/affirmation-app/es/a",
   "/letter",
   "/tegami",
   "/en",
@@ -33,6 +39,11 @@ const STATIC_PATHS = [
   "/lm/guide",
 ];
 
+function tripleLanguagesForEnSlug(enSlug: string) {
+  const triple = AFFIRMATION_HREFLANG_TRIPLES.find((t) => t.en === enSlug);
+  return triple ? alternatesFor(triple) : undefined;
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticEntries: MetadataRoute.Sitemap = STATIC_PATHS.map((p) => ({
     url: `${BASE_URL}${p}`,
@@ -50,14 +61,34 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   const jaAffirmationEntries: MetadataRoute.Sitemap =
-    JA_AFFIRMATION_PROBLEMS.map((problem) => ({
-      url: `${BASE_URL}/affirmation-app/ja/a/${problem.slug}`,
-    }));
+    JA_AFFIRMATION_PROBLEMS.map((problem) => {
+      const triple = AFFIRMATION_HREFLANG_TRIPLES.find((t) => t.ja === problem.slug);
+      const languages = triple ? alternatesFor(triple) : undefined;
+      return {
+        url: `${BASE_URL}/affirmation-app/ja/a/${problem.slug}`,
+        ...(languages ? { alternates: { languages } } : {}),
+      };
+    });
 
   const enAffirmationEntries: MetadataRoute.Sitemap = allEnAffirmationSlugs().map(
-    (slug) => ({
-      url: `${BASE_URL}/affirmation-app/a/${slug}`,
-    }),
+    (slug) => {
+      const languages = tripleLanguagesForEnSlug(slug);
+      return {
+        url: `${BASE_URL}/affirmation-app/a/${slug}`,
+        ...(languages ? { alternates: { languages } } : {}),
+      };
+    },
+  );
+
+  const esAffirmationEntries: MetadataRoute.Sitemap = allEsAffirmationSlugs().map(
+    (slug) => {
+      const triple = AFFIRMATION_HREFLANG_TRIPLES.find((t) => t.es === slug);
+      const languages = triple ? alternatesFor(triple) : undefined;
+      return {
+        url: `${BASE_URL}/affirmation-app/es/a/${slug}`,
+        ...(languages ? { alternates: { languages } } : {}),
+      };
+    },
   );
 
   const kokoroTypeEntries: MetadataRoute.Sitemap = allKokoroTypeIds().map((type) => ({
@@ -68,6 +99,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticEntries,
     ...jaAffirmationEntries,
     ...enAffirmationEntries,
+    ...esAffirmationEntries,
     ...kokoroTypeEntries,
     ...lmGuideEntries,
     ...blogEntries,
