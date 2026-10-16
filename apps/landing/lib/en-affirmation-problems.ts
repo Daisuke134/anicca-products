@@ -854,6 +854,78 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     closing:
       'Links: ThinkUp on the App Store, and Anicca below. This is not medical advice. Store details can change; re-check the live listings.',
   },
+  {
+    slug: 'affirmations-for-sunday-scaries',
+    jaSlug: 'self-esteem',
+    title: 'Affirmations for Sunday scaries (2026): lines for the dread before Monday',
+    shortTitle: 'Affirmations for Sunday scaries',
+    metaDescription:
+      'Calm affirmations for Sunday scaries, plus a two-minute exercise for easing Monday dread. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Full disclosure: I make Anicca, an affirmation app, so I have a stake in this topic. The short version first: affirmations will not change your job or your Monday. They can make the dread a little quieter so Sunday evening is less of a loss.',
+      'Sunday scaries are the anxious, heavy feeling many people get as the weekend ends. It often comes from anticipating the week: an unfinished task, a hard conversation, or a long to-do list your mind keeps rehearsing. Dreading the future steals the present, which makes the last hours of the weekend feel worse.',
+      'Lines that help are modest. They do not claim Monday will be great. They acknowledge the dread, remind you that the week arrives one task at a time, and give you permission to enjoy what is left of today.',
+      'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I do not have to solve the whole week tonight.',
+      'It is okay to feel dread and still enjoy this evening.',
+      'Monday will come one task at a time.',
+      'I have handled hard weeks before.',
+      'My worries are not a forecast.',
+      'I can write the worry down and let it wait until morning.',
+      'I can choose one small thing tonight that makes tomorrow easier.',
+      'Resting now is part of being ready later.',
+      'I do not need to have every answer before the week begins.',
+      'I can be gentle with myself as the weekend ends.',
+    ],
+    practice: {
+      heading: 'A two-minute Sunday-evening reset',
+      steps: [
+        'Write the one or two things about Monday that are worrying you most, in plain words. Next to each, write one small first action, or "nothing to do tonight."',
+        'Pick one thing from the week that you are looking forward to or can tolerate, even something small like a coffee.',
+        'Read one affirmation from the list twice, slowly, then close the list and do something you enjoy for the next ten minutes.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for overthinking at night and affirmations for anxiety, linked below. If dread about work is constant, affects your sleep or health for weeks, or comes with hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
+  {
+    slug: 'affirmations-for-social-anxiety-at-work',
+    jaSlug: 'self-esteem',
+    title: 'Affirmations for social anxiety at work (2026): lines for meetings, chat, and small talk',
+    shortTitle: 'Affirmations for social anxiety at work',
+    metaDescription:
+      'Steady affirmations for social anxiety at work, plus a two-minute exercise before a meeting or conversation. Anicca is a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Full disclosure: I make Anicca, an affirmation app, so I am not neutral. The short version: affirmations will not remove nerves or replace professional support. They can give you a calmer thing to say to yourself right before a meeting, a message, or a conversation.',
+      'Social anxiety at work often looks like rehearsing what to say, staying quiet in meetings, avoiding small talk, or replaying a conversation afterward. It is common, and it usually comes from a fear of being judged rather than from any lack of ability.',
+      'Lines that help are realistic. They do not say you will feel confident. They say you can be nervous and still speak, that a pause or an imperfect sentence is fine, and that people are mostly thinking about their own work.',
+      'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I can be nervous and still speak.',
+      'I belong in this meeting.',
+      'A short answer is a good answer.',
+      'People are mostly focused on their own work, not on mine.',
+      'A pause is fine. I can take a breath before I speak.',
+      'I do not have to say something perfect.',
+      'One awkward moment does not define how I am seen.',
+      'I can ask a question without apologizing for it.',
+      'I can let the conversation go once it is over.',
+      'Each small step at work counts, even the quiet ones.',
+    ],
+    practice: {
+      heading: 'A two-minute pre-meeting steadying exercise',
+      steps: [
+        'Breathe out slowly for a count of six, three times, with your feet flat on the floor.',
+        'Decide on one small contribution, such as one question or one sentence you will say, and write it down in plain words.',
+        'Read one affirmation from the list twice, slowly, then go in knowing that one sentence is enough.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for anxiety and affirmations for imposter syndrome, linked below. If anxiety keeps you from working or from daily life for weeks, or comes with panic or hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
 ];
 
 export function getEnAffirmationProblem(
