@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'apps/landing/**'
+      - 'netlify.toml'
       - '.github/workflows/landing-pr-build.yml'
 
 permissions:
