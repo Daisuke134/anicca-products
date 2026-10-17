@@ -8,10 +8,10 @@ function faqPairs(markdown) {
   const lines = markdown.split('\n');
   const pairs = [];
   for (let i = 0; i < lines.length; i += 1) {
-    const m = lines[i].match(/^\s*(?:\*\*(.+\?)\*\*|#{2,4}\s+(.+\?))\s*$/);
+    const m = lines[i].match(/^\s*(?:\*\*(.+[?？])\*\*|#{2,4}\s+(.+[?？]))\s*$/);
     if (!m) continue;
     const answer = [];
-    for (let j = i + 1; j < lines.length && !/^\s*(#|\*\*.+\?\*\*\s*$)/.test(lines[j]); j += 1) {
+    for (let j = i + 1; j < lines.length && !/^\s*(#|\*\*.+[?？]\*\*\s*$)/.test(lines[j]); j += 1) {
       if (lines[j].trim()) answer.push(lines[j].trim());
     }
     if (answer.length) pairs.push([clean(m[1] || m[2]), clean(answer.join(' ')).slice(0, 600)]);
