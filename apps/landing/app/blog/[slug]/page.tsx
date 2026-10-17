@@ -92,7 +92,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const post = loadPost(params.slug);
   if (!post) return { title: "Not found" };
   // Affiliate pages ship a merchant-free description (ElevenLabs affiliate terms: no Marks in meta tags).
-  const description = post.description ?? post.markdown.slice(0, 200).replace(/[#*`]/g, "");
+  const description = post.description || post.markdown.slice(0, 200).replace(/[#*`]/g, "");
   return {
     title: `${post.title} | Anicca Articles`,
     description,
