@@ -46,5 +46,7 @@
 - [The Anicca Reset (ebook)](https://aniccaai.com/monk)
 - [All products](https://aniccaai.com/dais)
 
+- [Free social jet lag & wake-time calculator](https://aniccaai.com/tools/social-jet-lag-calculator): no signup, runs in the browser (by Sleep Reset)
+
 ## Optional
 - [Sitemap](https://aniccaai.com/sitemap.xml)
