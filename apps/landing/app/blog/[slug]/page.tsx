@@ -6,6 +6,7 @@ import WriterUnlock from "../../../components/blog/WriterUnlock";
 import AffiliateEntryReceipt from "../../../components/blog/AffiliateEntryReceipt"; // AFFILIATE_ENTRY_V1
 import { affiliatePlacement, renderMarkdown } from "../../../lib/render-article-markdown";
 import { buildLineStickerShareMetadata } from "../../../lib/line-sticker-share-meta";
+import { buildArticleJsonLd } from "../../../lib/article-jsonld.mjs";
 
 type Mirrors = { x?: string; substack?: string; newsletter?: string };
 
@@ -137,6 +138,10 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
 
   return (
     <main className="bg-cream">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildArticleJsonLd(post)).replace(/</g, "\\u003c") }}
+      />
       {affiliatePlacementId && <AffiliateEntryReceipt placementId={affiliatePlacementId} />}
       {post.writer_manifest && (
         <script
