@@ -17,6 +17,7 @@ type ResearchPost = {
   n_papers_cited: number;
   word_count: number;
   markdown: string;
+  description?: string;
   mirrors?: Mirrors;
   access_model?: "one_time" | "archive" | "both";
   paid_sha256?: string;
@@ -90,7 +91,8 @@ function loadPost(slug: string): ResearchPost | null {
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const post = loadPost(params.slug);
   if (!post) return { title: "Not found" };
-  const description = post.markdown.slice(0, 200).replace(/[#*`]/g, "");
+  // Affiliate pages ship a merchant-free description (ElevenLabs affiliate terms: no Marks in meta tags).
+  const description = post.description ?? post.markdown.slice(0, 200).replace(/[#*`]/g, "");
   return {
     title: `${post.title} | Anicca Articles`,
     description,
