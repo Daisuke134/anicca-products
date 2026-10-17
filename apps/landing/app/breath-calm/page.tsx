@@ -3,6 +3,7 @@ import { SplitHero, Section, Reveal, CTA } from '@/components/site/taste';
 
 export const metadata = {
   title: 'BreathCalm - Reset Anxiety in 6 Minutes',
+  alternates: { canonical: 'https://aniccaai.com/breath-calm' },
   description:
     '9D binaural breathwork that actually works. 4-7-8, Box, Coherent breathing + SOS emergency mode. Reset anxiety in just 6 minutes.',
 };

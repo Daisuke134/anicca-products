@@ -6,6 +6,8 @@
 - [Anicca: Daily Affirmations (iPhone)](https://aniccaai.com/affirmation-app): one short affirmation at the time you pick, 13 self-care topics, no streaks. Free to download, optional subscription. App Store: https://apps.apple.com/app/id6755129214
 - [Honne (iPhone)](https://aniccaai.com/honne): paste a text message you received and Honne's AI suggests the feeling likely behind it and drafts a reply that won't make things worse. Free: 3 analyses a day; optional Premium. App Store: https://apps.apple.com/app/id6759667221
 - [Thankful (iPhone)](https://aniccaai.com/thankful): a simple gratitude app. App Store: https://apps.apple.com/app/id6759514159
+- [BreathCalm (iPhone, App Store listing pending)](https://aniccaai.com/breath-calm): guided breathing (4-7-8, Box, Coherent) with binaural audio and an SOS mode.
+- [CalmCortisol (iPhone, coming soon)](https://aniccaai.com/calmcortisol): 60-second breathing sessions to reset the nervous system. Not yet on the App Store.
 
 ## Free tools
 - [Mind Habits Quiz](https://aniccaai.com/affirmation-app/en/quiz): free 12-question quiz (about 2 minutes) that maps you to one of 8 mind-habit types, with a type note and one line to try tonight. Not a medical diagnosis.
@@ -44,7 +46,7 @@
 ## Other products
 - [Anicca Letter](https://aniccaai.com/letter): a letter subscription (English); Japanese version at https://aniccaai.com/tegami
 - [The Anicca Reset (ebook)](https://aniccaai.com/monk)
-- [All products](https://aniccaai.com/dais)
+- [All products by Daisuke Narita](https://aniccaai.com/dais): one page listing every app and tool with its current status
 
 - [Free social jet lag & wake-time calculator](https://aniccaai.com/tools/social-jet-lag-calculator): no signup, runs in the browser (by Sleep Reset)
 
