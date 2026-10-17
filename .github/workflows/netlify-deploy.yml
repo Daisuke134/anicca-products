@@ -11,6 +11,13 @@ on:
       - '.github/workflows/netlify-deploy.yml'
   workflow_dispatch:
 
+# One deploy per branch at a time; a newer push replaces any queued older one.
+# Without this, concurrent runs finished out of order and an older commit's
+# deploy overwrote a newer one (2026-10-17: 3d68714e published after b554257).
+concurrency:
+  group: netlify-deploy-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
