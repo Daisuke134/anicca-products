@@ -21,3 +21,11 @@ test('paid articles never expose body text as FAQ answers', () => {
   const out = buildArticleJsonLd({ ...post, access_model: 'preview_paid' });
   assert.equal(out.length, 1);
 });
+
+test('Japanese full-width question marks are recognised', () => {
+  const ja = { slug: 'x-ja', title: 'x', date: '2026-10-18',
+    markdown: '**Q1. フックは顔出しが必要ですか？**\n必要ありません。\n\n**Q2. 何本テストしますか？**\n週に3本です。\n' };
+  const [, faq] = buildArticleJsonLd(ja);
+  assert.equal(faq.mainEntity.length, 2);
+  assert.equal(faq.mainEntity[0].name, 'Q1. フックは顔出しが必要ですか？');
+});
