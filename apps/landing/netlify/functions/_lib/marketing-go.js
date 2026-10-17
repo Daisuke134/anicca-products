@@ -68,21 +68,25 @@ function makeMarketingGoHandler({
       product_id: product.productId,
       clicked_at: now(),
     };
+    let stored = true;
     try {
       await persist(`clicks/${id}`, receipt);
-    } catch {
-      return {
+    } catch (error) {
+      // Affiliate attribution is owned by PartnerStack; a lost receipt must not block the click.
+      if (product.kind !== "affiliate") return {
         statusCode: 503,
         headers: { "cache-control": "no-store", "retry-after": "60" },
         body: "Click receipt unavailable",
       };
+      stored = false;
+      console.error(`marketing-go affiliate receipt failed token=${token}: ${error.message}`);
     }
     return {
       statusCode: 302,
       headers: {
         location: destination(product, token, providerToken),
         "cache-control": "no-store",
-        "x-click-receipt": id,
+        ...(stored && { "x-click-receipt": id }),
       },
       body: "",
     };
