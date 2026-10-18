@@ -965,6 +965,46 @@ export const EN_AFFIRMATION_PROBLEMS: EnAffirmationProblem[] = [
     closing:
       'Related guides: affirmations for anxiety and affirmations for overthinking, linked below. If anxiety is frequent, affects your sleep, work, or health for weeks, or comes with panic or hopeless feelings, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
   },
+// Batch 8 EN entry for EN_AFFIRMATION_PROBLEMS (apps/landing/lib/en-affirmation-problems.ts). Append verbatim at end of array.
+// Target phrase: "affirmations to fall asleep to" (KEYWORDS-2026-10-16.md EN #8). Slug checked absent on origin/main c5bae77 (2026-10-17).
+// True ES counterpart: afirmaciones-para-dormir-con-calma (new-entries-es-batch8.ts) -> hreflang en+es+x-default. No JA counterpart.
+  {
+    slug: 'affirmations-to-fall-asleep-to',
+    jaSlug: 'night-anxiety',
+    title: 'Affirmations to fall asleep to (2026): calm lines for bedtime, plus a two-minute wind-down',
+    shortTitle: 'Affirmations to fall asleep to',
+    metaDescription:
+      'Calm affirmations to fall asleep to, how to use them at bedtime, and a two-minute wind-down. From the maker of Anicca, a free-to-download iPhone affirmation app with no streaks.',
+    whyItHappens: [
+      'Full disclosure: I make Anicca, an affirmation app, so I am not neutral. The honest short answer: affirmations will not put you to sleep on command, and they are not a treatment for sleep problems. For some people, a few quiet lines at bedtime are a gentle way to set the day down.',
+      'A common reason sleep stalls is a busy mind: replaying the day, rehearsing tomorrow, or arguing with a worry. A short, steady sentence gives your mind something simple to rest on instead of the loop. It is a pause, not a switch.',
+      'Lines tend to work better when they are soft and believable. "I will sleep perfectly tonight" can create pressure. Lines like "I do not have to solve tomorrow tonight" or "Resting is enough for now" do not demand a result, so there is nothing to fail at.',
+      'Keep it low-stimulation: dim light, phone on night mode or set down after reading a line, and a slow pace. Affirmations sit alongside the basics, such as a regular schedule, a dark and cool room, and winding down before bed.',
+      'Anicca sends one short line at the time you choose, covers 13 self-care topics, has no streaks, and is free to download with an optional subscription. The lines below are free to use with or without the app.',
+    ],
+    affirmations: [
+      'I do not have to solve tomorrow tonight.',
+      'Resting is enough for now.',
+      'I did what I could today, and that counts.',
+      'My thoughts can wait until morning.',
+      'I can let my shoulders drop and breathe out slowly.',
+      'I do not have to force sleep. I can simply lie here and rest.',
+      'The day is finished, and I am allowed to put it down.',
+      'Worries can be written down and left for tomorrow.',
+      'I am safe to slow down right now.',
+      'I can be kind to myself tonight.',
+    ],
+    practice: {
+      heading: 'A two-minute wind-down before sleep',
+      steps: [
+        'Write one unfinished thing on paper, with a first step for tomorrow if you like, so your mind does not have to hold it overnight.',
+        'Breathe out slowly for a count of six, three times, with your shoulders loose.',
+        'Read one line from the list, slowly, twice. Put the phone down and keep the lights low. If you are still awake, that is okay: rest quietly instead of trying to force sleep.',
+      ],
+    },
+    closing:
+      'Related guides: affirmations for overthinking at night and affirmations for anxiety, linked below. If trouble sleeping lasts for weeks, affects your daytime life or health, or comes with low mood or panic, please talk with a doctor, therapist, or local helpline. This page is self-care writing for an affirmation app, not medical advice, diagnosis, or treatment.',
+  },
 ];
 
 export function getEnAffirmationProblem(
