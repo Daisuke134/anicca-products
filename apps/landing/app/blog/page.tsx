@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
+import { BUSINESSES } from "../../lib/blog-business.mjs";
 
 type ResearchPost = {
   slug: string;
@@ -150,6 +151,21 @@ export default function BlogIndex() {
                 into the next morning&apos;s letter.
               </p>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Businesses */}
+      <section className="bg-cream px-5 pt-16">
+        <div className="mx-auto max-w-4xl">
+          <p className="font-mono-ui text-[10px] uppercase tracking-[0.28em] text-mist">Browse by business</p>
+          <div className="mt-5 grid grid-cols-1 gap-px border border-ink/15 bg-ink/15 sm:grid-cols-3">
+            {Object.entries(BUSINESSES).map(([key, hub]) => (
+              <Link key={key} href={`/blog/c/${key}`} className="flex flex-col bg-cream px-6 py-6 transition-colors hover:bg-bone/40">
+                <p className="font-display text-[22px] leading-tight text-ink">{hub.label}</p>
+                <p className="mt-2 text-[14px] leading-relaxed text-mist">{hub.intro}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
