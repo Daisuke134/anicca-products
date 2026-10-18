@@ -10,6 +10,10 @@ export const metadata = {
   other: {
     'impact-site-verification': '64d92097-aa50-42a8-bd89-a3f923217aa2',
   },
+  // Google Search Console ownership (keiodaisuke@gmail.com, property https://aniccaai.com/, 2026-10-18).
+  verification: {
+    google: 'rkFlZtt8T7LSddGmljAz_BX9KAP36mSdHMrEdNwimyE',
+  },
 };
 
 import './globals.css';

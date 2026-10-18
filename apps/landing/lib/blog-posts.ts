@@ -6,6 +6,7 @@ export type BlogPostMeta = {
   title: string;
   date: string; // YYYY-MM-DD
   preview: string;
+  project: string;
 };
 
 const RESEARCH_DIR = path.join(process.cwd(), "data", "research");
@@ -31,6 +32,7 @@ export function loadAllBlogPosts(): BlogPostMeta[] {
           title: raw.title,
           date: raw.date ?? "",
           preview: typeof raw.markdown === "string" ? raw.markdown.slice(0, 280) : "",
+          project: typeof raw.project === "string" ? raw.project : "",
         });
       } catch {
         // skip malformed
@@ -50,6 +52,7 @@ export function loadAllBlogPosts(): BlogPostMeta[] {
           title: raw.title,
           date: dateFromRunId(String(raw.run_id)),
           preview: typeof raw.preview_markdown === "string" ? raw.preview_markdown.slice(0, 280) : "",
+          project: typeof raw.project === "string" ? raw.project : "",
         });
       } catch {
         // skip malformed / unreadable
