@@ -28,8 +28,16 @@ if (!html.includes("$29") || !html.includes("7-day free trial") || /\$20\/mo|com
   fail("/lm pricing/trial copy is stale or missing the live $29 plan");
 }
 const chunkPath = (html.match(/\/_next\/static\/chunks\/app\/lm\/page-[A-Za-z0-9]+\.js/) || [])[0];
-if (!chunkPath) fail("no /lm page chunk found in HTML");
-const chunk = await (await fetch(BASE + chunkPath)).text();
+// Canonical marketing routes are static HTML; legacy pages still use a Next chunk.
+// Validate the actual handoff surface with the same tested invariant in either format.
+let chunk = html;
+if (chunkPath) {
+  const response = await fetch(BASE + chunkPath);
+  if (!response.ok) fail(`/lm page chunk returned ${response.status}`);
+  chunk += "\n" + await response.text();
+} else if (!html.includes('rel="canonical" href="https://aniccaai.com/lm"')) {
+  fail("no /lm page chunk or canonical static page found");
+}
 const verdict = assertWebAppHandoff({ chunk });
 if (!verdict.ok) fail(verdict.reason);
 const webHealth = await fetch(new URL("/health", LIFE_MANAGER_WEB_APP_URL));
