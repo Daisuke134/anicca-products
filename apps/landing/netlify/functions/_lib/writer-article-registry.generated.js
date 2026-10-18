@@ -4,6 +4,8 @@ const articles = Object.freeze({
   'a-green-check-is-not-learning-until-the-next-run-reads-it': require('../../../private/writer-articles/a-green-check-is-not-learning-until-the-next-run-reads-it.json'),
   'a-viral-x-post-is-not-a-funnel-connect-substack-and-four-decisions': require('../../../private/writer-articles/a-viral-x-post-is-not-a-funnel-connect-substack-and-four-decisions.json'),
   'aipass5': require('../../../private/writer-articles/aipass5.json'),
+  'apify-and-techi-why-a-non-coder-needs-a-finished-sample-first': require('../../../private/writer-articles/apify-and-techi-why-a-non-coder-needs-a-finished-sample-first.json'),
+  'apifytechi': require('../../../private/writer-articles/apifytechi.json'),
   'claude-code': require('../../../private/writer-articles/claude-code.json'),
   'claude-codesns': require('../../../private/writer-articles/claude-codesns.json'),
   'dont-sell-an-ai-written-article-before-you-choose-its-market': require('../../../private/writer-articles/dont-sell-an-ai-written-article-before-you-choose-its-market.json'),
