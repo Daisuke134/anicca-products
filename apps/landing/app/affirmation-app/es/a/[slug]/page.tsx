@@ -220,12 +220,14 @@ export default function EsAffirmationProblemPage({ params }: PageProps) {
             >
               Read in English
             </Link>
-            <Link
-              href={`/affirmation-app/ja/a/${problem.jaSlug}`}
-              className="underline underline-offset-2 hover:text-[#393634]"
-            >
-              日本語版を読む
-            </Link>
+            {problem.jaSlug ? (
+              <Link
+                href={`/affirmation-app/ja/a/${problem.jaSlug}`}
+                className="underline underline-offset-2 hover:text-[#393634]"
+              >
+                日本語版を読む
+              </Link>
+            ) : null}
           </p>
 
           {otherEs.length > 0 ? (

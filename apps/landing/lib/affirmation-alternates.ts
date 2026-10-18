@@ -11,7 +11,7 @@ export type AffirmationLocaleSlugs = {
 
 export const AFFIRMATION_HREFLANG_TRIPLES: ReadonlyArray<{
   en: string;
-  ja: string;
+  ja?: string;
   es: string;
 }> = [
   {
@@ -24,6 +24,11 @@ export const AFFIRMATION_HREFLANG_TRIPLES: ReadonlyArray<{
     ja: 'social-anxiety-at-work',
     es: 'afirmaciones-para-la-ansiedad-social-en-el-trabajo',
   },
+  // Sleep pair: true EN<->ES translation, no JA counterpart.
+  {
+    en: 'affirmations-to-fall-asleep-to',
+    es: 'afirmaciones-para-dormir-con-calma',
+  },
 ];
 
 const BASE = 'https://aniccaai.com';
@@ -34,19 +39,23 @@ function urlFor(locale: 'en' | 'ja' | 'es', slug: string): string {
   return `${BASE}/affirmation-app/es/a/${slug}`;
 }
 
+function tripleSlugs(t: { en: string; ja?: string; es: string }): AffirmationLocaleSlugs {
+  return t.ja ? { en: t.en, ja: t.ja, es: t.es } : { en: t.en, es: t.es };
+}
+
 export function tripleForEnSlug(enSlug: string): AffirmationLocaleSlugs | undefined {
   const t = AFFIRMATION_HREFLANG_TRIPLES.find((row) => row.en === enSlug);
-  return t ? { en: t.en, ja: t.ja, es: t.es } : undefined;
+  return t ? tripleSlugs(t) : undefined;
 }
 
 export function tripleForJaSlug(jaSlug: string): AffirmationLocaleSlugs | undefined {
   const t = AFFIRMATION_HREFLANG_TRIPLES.find((row) => row.ja === jaSlug);
-  return t ? { en: t.en, ja: t.ja, es: t.es } : undefined;
+  return t ? tripleSlugs(t) : undefined;
 }
 
 export function tripleForEsSlug(esSlug: string): AffirmationLocaleSlugs | undefined {
   const t = AFFIRMATION_HREFLANG_TRIPLES.find((row) => row.es === esSlug);
-  return t ? { en: t.en, ja: t.ja, es: t.es } : undefined;
+  return t ? tripleSlugs(t) : undefined;
 }
 
 /**
