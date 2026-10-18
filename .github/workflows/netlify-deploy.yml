@@ -52,6 +52,17 @@ jobs:
           NEXT_PUBLIC_WORLDCOIN_RP_ID: ${{ secrets.NEXT_PUBLIC_WORLDCOIN_RP_ID }}
           NEXT_PUBLIC_WORLDCOIN_ENV: ${{ secrets.NEXT_PUBLIC_WORLDCOIN_ENV }}
 
+      # Approved marketing source lives only in the canonical Life Manager repository.
+      - name: Apply canonical marketing overlay (immutable revision)
+        working-directory: apps/landing
+        env:
+          MANAGER_MARKETING_REVISION: 8c78f7cd965ecb2c37f9d66f1ad7b1e1a62ca3c1
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_MARKETING_REVISION/apps/landing/marketing/scripts/publish-overlay.mjs" -o /tmp/manager-publish-overlay.mjs
+          echo "ee86284eb5c8ef14ce27be1ee819e7ababa6505091d89707a9cb5e6da70d04f7  /tmp/manager-publish-overlay.mjs" | sha256sum --check
+          node /tmp/manager-publish-overlay.mjs
+
       # 2026-06-07 V14-2 fix: replaced nwtgck/actions-netlify@v3.0 (= 5 連続 ISE)
       # with direct netlify-cli call (= validated via manual deploy locally)
       # Spec: 2026-06-07-cron-role-clarification-design.md §12.4 → V14-2
