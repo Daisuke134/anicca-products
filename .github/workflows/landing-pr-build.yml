@@ -33,7 +33,7 @@ jobs:
       - name: Apply canonical marketing overlay (immutable revision)
         working-directory: apps/landing
         env:
-          MANAGER_MARKETING_REVISION: 1236275cd53270faacf90e1253dc08926fa51202
+          MANAGER_MARKETING_REVISION: 8bfd89100c6ba50e8fb93bd9df4e3b493daf0061
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_MARKETING_REVISION/apps/landing/marketing/scripts/publish-overlay.mjs" -o /tmp/manager-publish-overlay.mjs
