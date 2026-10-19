@@ -25,6 +25,16 @@ jobs:
       - run: npm ci
       - run: npm run test:telemetry
       - run: npm run test:anicca-app-store-routing
+      - name: Stage reviewed canonical Manager articles before build
+        working-directory: apps/landing
+        env:
+          MANAGER_BLOG_REVISION: 45b41beea3c87bb563b5c08e97066bcea66eaada
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_BLOG_REVISION/apps/landing/manager-blog/scripts/install.mjs" -o /tmp/manager-blog-install.mjs
+          echo "c0908ffa9f899138f3f342140063b595e3b7bcab72f6e516d704290d3207e141  /tmp/manager-blog-install.mjs" | sha256sum --check
+          node /tmp/manager-blog-install.mjs
+
       - run: npm run build
         env:
           DASHBOARD_SNAPSHOT_URL: http://127.0.0.1:9
