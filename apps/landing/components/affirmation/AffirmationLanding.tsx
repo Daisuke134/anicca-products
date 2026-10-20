@@ -6,8 +6,9 @@ import PhoneFrame from './PhoneFrame';
 type Locale = 'en' | 'ja';
 
 const APP_STORE_URL_US =
-  'https://apps.apple.com/us/app/daily-affirmations-anicca/id6755129214';
-const APP_STORE_URL_JP = 'https://apps.apple.com/jp/app/id6755129214';
+  'https://apps.apple.com/us/app/daily-affirmations-anicca/id6755129214?pt=93486075&ct=affirmation_landing_en&mt=8';
+const APP_STORE_URL_JP =
+  'https://apps.apple.com/jp/app/id6755129214?pt=93486075&ct=affirmation_landing_ja&mt=8';
 
 type Copy = {
   navBack: string;

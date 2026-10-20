@@ -2,12 +2,20 @@
 [functions.writer-content]
   included_files = ["private/writer-articles/**"]
 
+# The GitHub deploy workflow runs from apps/landing, so keep the Web-first
+# redirect in this deploy-root config as well as the repository-root config.
+[[redirects]]
+  from = "/life-manager"
+  to = "/lm"
+  status = 301
+  force = true
+
 [functions.checkout]
   included_files = ["private/writer-articles/**"]
 
 [[redirects]]
   from = "/app"
-  to = "https://apps.apple.com/app/id6755129214"
+  to = "https://apps.apple.com/us/app/daily-affirmations-anicca/id6755129214?ct=anicca-ios_ig_anicca-en_en"
   status = 302
   force = true
 

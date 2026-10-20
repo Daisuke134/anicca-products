@@ -5,6 +5,10 @@ import { notFound } from "next/navigation";
 import WriterUnlock from "../../../components/blog/WriterUnlock";
 import AffiliateEntryReceipt from "../../../components/blog/AffiliateEntryReceipt"; // AFFILIATE_ENTRY_V1
 import { affiliatePlacement, renderMarkdown } from "../../../lib/render-article-markdown";
+import { buildLineStickerShareMetadata } from "../../../lib/line-sticker-share-meta";
+import { buildArticleJsonLd } from "../../../lib/article-jsonld.mjs";
+import { BUSINESSES, businessOf } from "../../../lib/blog-business.mjs";
+import { loadAllBlogPosts } from "../../../lib/blog-posts";
 import { resolveArticleAttribution } from "../../../lib/article-attribution";
 import type { ArticleAttribution } from "../../../lib/article-attribution";
 
@@ -18,6 +22,7 @@ type ResearchPost = {
   n_papers_cited: number;
   word_count: number;
   markdown: string;
+  description?: string;
   mirrors?: Mirrors;
   attribution?: ArticleAttribution;
   access_model?: "one_time" | "archive" | "both";
@@ -92,11 +97,19 @@ function loadPost(slug: string): ResearchPost | null {
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const post = loadPost(params.slug);
   if (!post) return { title: "Not found" };
+  // Affiliate pages ship a merchant-free description (ElevenLabs affiliate terms: no Marks in meta tags).
+  const description = post.description || post.markdown.slice(0, 200).replace(/[#*`]/g, "");
   return {
     title: `${post.title} | Anicca Articles`,
-    description: post.markdown.slice(0, 200).replace(/[#*`]/g, ""),
+    description,
     alternates: { canonical: `https://aniccaai.com/blog/${post.slug}` },
     robots: { index: true, follow: true },
+    ...buildLineStickerShareMetadata({
+      slug: post.slug,
+      title: post.title,
+      description,
+      markdown: post.markdown,
+    }),
   };
 }
 
@@ -127,10 +140,27 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
   const affiliatePlacementId = affiliatePlacement(articleMarkdown);
   const m = post.mirrors ?? {};
   const hasMirrors = Boolean(m.x || m.substack || m.newsletter);
+  const business = businessOf(post.slug, post.project);
+  const hub = BUSINESSES[business];
+  const related = loadAllBlogPosts()
+    .filter((p) => p.slug !== post.slug && businessOf(p.slug, p.project) === business)
+    .slice(0, 6);
   const attribution = resolveArticleAttribution(post.attribution);
 
   return (
     <main className="bg-cream">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([...buildArticleJsonLd(post), {
+          "@context": "https://schema.org", "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://aniccaai.com" },
+            { "@type": "ListItem", position: 2, name: "Articles", item: "https://aniccaai.com/blog" },
+            { "@type": "ListItem", position: 3, name: hub.label, item: `https://aniccaai.com/blog/c/${business}` },
+            { "@type": "ListItem", position: 4, name: post.title, item: `https://aniccaai.com/blog/${post.slug}` },
+          ],
+        }]).replace(/</g, "\\u003c") }}
+      />
       {affiliatePlacementId && <AffiliateEntryReceipt placementId={affiliatePlacementId} />}
       {post.writer_manifest && (
         <script
@@ -140,12 +170,11 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
         />
       )}
       <article className="mx-auto max-w-3xl px-5 pt-32 pb-20">
-        <Link
-          href="/blog"
-          className="font-mono-ui text-[11px] uppercase tracking-[0.22em] text-mist transition-colors hover:text-ink"
-        >
-          ← All articles
-        </Link>
+        <nav className="font-mono-ui text-[11px] uppercase tracking-[0.22em] text-mist">
+          <Link href="/blog" className="transition-colors hover:text-ink">Articles</Link>
+          {" / "}
+          <Link href={`/blog/c/${business}`} className="transition-colors hover:text-ink">{hub.label}</Link>
+        </nav>
 
         <p className="mt-12 font-mono-ui text-[11px] uppercase tracking-[0.22em] text-mist">
           {post.date} · {post.project} · {post.word_count.toLocaleString()} words
@@ -255,6 +284,20 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
           ) : attribution.text}
           {' '}Source of truth lives at this URL; all other channels mirror back here.
         </p>
+        {related.length > 0 && (
+          <section className="mt-16 border-t border-bone pt-10">
+            <p className="font-mono-ui text-[11px] uppercase tracking-[0.22em] text-mist">
+              More in <Link href={`/blog/c/${business}`} className="text-ink hover:underline">{hub.label}</Link>
+            </p>
+            <ul className="mt-5 space-y-3">
+              {related.map((p) => (
+                <li key={p.slug}>
+                  <Link href={`/blog/${p.slug}`} className="font-display text-[19px] leading-snug text-ink hover:underline">{p.title}</Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </article>
     </main>
   );

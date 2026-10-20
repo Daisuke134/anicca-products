@@ -24,6 +24,29 @@ jobs:
           cache-dependency-path: apps/landing/package-lock.json
       - run: npm ci
       - run: npm run test:telemetry
+      - run: npm run test:anicca-app-store-routing
+      - name: Stage reviewed canonical Manager articles before build
+        working-directory: apps/landing
+        env:
+          MANAGER_BLOG_REVISION: 6ec72c658ee993cd4292548b4f8668b3fca3181d
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_BLOG_REVISION/apps/landing/manager-blog/scripts/install.mjs" -o /tmp/manager-blog-install.mjs
+          echo "3f80daa0880902f2ed571b81606d62dff9d5894d04e17689355c667c01443a32  /tmp/manager-blog-install.mjs" | sha256sum --check
+          node /tmp/manager-blog-install.mjs
+
       - run: npm run build
         env:
           DASHBOARD_SNAPSHOT_URL: http://127.0.0.1:9
+
+      # Approved marketing source lives only in the canonical Life Manager repository.
+      - name: Apply canonical marketing overlay (immutable revision)
+        working-directory: apps/landing
+        env:
+          MANAGER_MARKETING_REVISION: c089afd4e41427a41f416eac16b9238c4dc9b555
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_MARKETING_REVISION/apps/landing/marketing/scripts/publish-overlay.mjs" -o /tmp/manager-publish-overlay.mjs
+          echo "c0236cb3d2ac4e2db06eae72360b5c53971e3fc6eb143e12406e39f9b2848298  /tmp/manager-publish-overlay.mjs" | sha256sum --check
+          node /tmp/manager-publish-overlay.mjs
+

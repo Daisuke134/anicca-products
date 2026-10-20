@@ -1,6 +1,11 @@
 import { ManifestoHero, Section, Reveal } from '@/components/site/taste';
 
-export const metadata = { title: 'CalmCortisol - Stress Relief in 60 Seconds' };
+export const metadata = {
+  title: 'CalmCortisol - Stress Relief in 60 Seconds',
+  description:
+    'CalmCortisol: 60-second breathing sessions to reset your nervous system. iOS app by Daisuke Narita, coming soon to the App Store.',
+  alternates: { canonical: 'https://aniccaai.com/calmcortisol' },
+};
 
 export default function CalmCortisolLanding() {
   return (

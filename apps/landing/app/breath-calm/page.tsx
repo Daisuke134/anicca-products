@@ -3,6 +3,7 @@ import { SplitHero, Section, Reveal, CTA } from '@/components/site/taste';
 
 export const metadata = {
   title: 'BreathCalm - Reset Anxiety in 6 Minutes',
+  alternates: { canonical: 'https://aniccaai.com/breath-calm' },
   description:
     '9D binaural breathwork that actually works. 4-7-8, Box, Coherent breathing + SOS emergency mode. Reset anxiety in just 6 minutes.',
 };
@@ -19,7 +20,7 @@ export default function BreathCalmLanding() {
         }
         subtext="9D binaural breathwork that actually works. 4-7-8, Box, Coherent breathing plus SOS emergency mode."
         primary={
-          <CTA href="https://aniccaai.com/app">
+          <CTA href="https://apps.apple.com/us/app/daily-affirmations-anicca/id6755129214">
             Download on the App Store
           </CTA>
         }

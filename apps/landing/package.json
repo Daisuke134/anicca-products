@@ -15,6 +15,8 @@
     "test:tools": "node --experimental-strip-types --test test/departure-calculator.test.mjs test/wallpaper-wrap.test.mjs test/kokoro-quiz.test.mjs",
     "test:kokoro": "node --test netlify/functions/__tests__/kokoro.test.js && npm run test:tools",
     "test:site-hit": "node --test netlify/functions/_lib/__tests__/site-hit-store.test.js netlify/functions/__tests__/site-hit.test.js",
+    "test:line-sticker-share-meta": "node --experimental-strip-types --test test/line-sticker-share-meta.test.mjs",
+    "test:anicca-app-store-routing": "node --test test/anicca-app-store-routing.test.mjs test/affirmation-landing-campaign-links.test.mjs",
     "indexnow": "node scripts/indexnow-ping.mjs"
   },
   "dependencies": {
