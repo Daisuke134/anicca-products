@@ -1,8 +1,12 @@
 # Canonical Manager article source
 
-Source authority: Daisuke134/life-manager, immutable revision `45b41beea3c87bb563b5c08e97066bcea66eaada`.
-Reviewed package manifest SHA-256: `dd509054ac523d2483449da5ab5148fff5d2647f32ced3c4591b31d7a834ead1`.
+Source authority: Daisuke134/life-manager, immutable revision `6ec72c658ee993cd4292548b4f8668b3fca3181d`.
+Installer SHA-256: `3f80daa0880902f2ed571b81606d62dff9d5894d04e17689355c667c01443a32`.
 
-The existing PR and deployment workflows verify and run the canonical pre-build importer. It stages 54 reviewed articles (27 English, 27 Japanese), 29 hash-addressed images and the guarded Manager-only blog integration before Next generates the existing blog index, category pages and sitemap. `/blog/manager` is the canonical collection, `/blog/c/manager` the category alias, and article paths remain `/blog/manager-<topic>-ja/en`.
+The reviewed base package at `docs/research/manager/publication/2026-10-19/manifest.json` remains unchanged (54 articles and 29 media). The additive `supplement-2026-10-20.json` supplies two founder-authorized English educational articles. Its Markdown files are hash-checked before the packages are merged; duplicates and invalid paths are rejected. Nine focused Node tests cover this supplement path.
+
+The existing PR and deployment workflows run the canonical pre-build importer. `/blog/manager` is the canonical collection, `/blog/c/manager` the category alias, and article paths remain `/blog/manager-<topic>-ja/en`.
 
 This repository contains the publishing bridge only. Do not edit generated Manager copies here. Make content/code changes in the canonical repository, review and test them, then update both immutable workflow pins and installer digest. Existing post-build marketing overlay and payment smoke remain unchanged.
+
+Source publication does not assert a completed production deploy. Verify the deployment and live article body before reporting publication complete.
