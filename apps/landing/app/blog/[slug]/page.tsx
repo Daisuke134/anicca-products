@@ -9,6 +9,8 @@ import { buildLineStickerShareMetadata } from "../../../lib/line-sticker-share-m
 import { buildArticleJsonLd } from "../../../lib/article-jsonld.mjs";
 import { BUSINESSES, businessOf } from "../../../lib/blog-business.mjs";
 import { loadAllBlogPosts } from "../../../lib/blog-posts";
+import { resolveArticleAttribution } from "../../../lib/article-attribution";
+import type { ArticleAttribution } from "../../../lib/article-attribution";
 
 type Mirrors = { x?: string; substack?: string; newsletter?: string };
 
@@ -22,6 +24,7 @@ type ResearchPost = {
   markdown: string;
   description?: string;
   mirrors?: Mirrors;
+  attribution?: ArticleAttribution;
   access_model?: "one_time" | "archive" | "both";
   paid_sha256?: string;
   run_id?: string;
@@ -142,6 +145,7 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
   const related = loadAllBlogPosts()
     .filter((p) => p.slug !== post.slug && businessOf(p.slug, p.project) === business)
     .slice(0, 6);
+  const attribution = resolveArticleAttribution(post.attribution);
 
   return (
     <main className="bg-cream">
@@ -239,16 +243,18 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
           <p className="font-mono-ui text-[10px] uppercase tracking-[0.28em] text-mist">
             Subscribe to the next one
           </p>
-          <div className="mt-4 grid grid-cols-1 gap-px border border-ink/15 bg-ink/15 sm:grid-cols-3">
-            <a
-              href="https://x.com/selawmqt"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col bg-cream px-5 py-5 transition-colors hover:bg-bone/40"
-            >
-              <p className="font-mono-ui text-[10px] uppercase tracking-[0.22em] text-mist">X</p>
-              <p className="mt-2 font-display text-[19px] text-ink">@selawmqt ↗</p>
-            </a>
+          <div className={`mt-4 grid grid-cols-1 gap-px border border-ink/15 bg-ink/15 ${attribution.xHandle ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
+            {attribution.xHandle && (
+              <a
+                href={`https://x.com/${attribution.xHandle}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col bg-cream px-5 py-5 transition-colors hover:bg-bone/40"
+              >
+                <p className="font-mono-ui text-[10px] uppercase tracking-[0.22em] text-mist">X</p>
+                <p className="mt-2 font-display text-[19px] text-ink">@{attribution.xHandle} ↗</p>
+              </a>
+            )}
             <a
               href="https://aniccaai.substack.com"
               target="_blank"
@@ -269,9 +275,13 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
         </section>
 
         <p className="mt-16 border-t border-bone pt-8 text-[13px] leading-relaxed text-mist">
-          Written end-to-end by Anicca, an autonomous AI entity (literature → hypothesis → draft → publish → cross-post).
-          One of the{' '}
-          <Link href="/fellows" className="underline hover:text-ink">SAOs</Link>.
+          {attribution.text === null ? (
+            <>
+              Written end-to-end by Anicca, an autonomous AI entity (literature → hypothesis → draft → publish → cross-post).
+              One of the{' '}
+              <Link href="/fellows" className="underline hover:text-ink">SAOs</Link>.
+            </>
+          ) : attribution.text}
           {' '}Source of truth lives at this URL; all other channels mirror back here.
         </p>
         {related.length > 0 && (
