@@ -87,4 +87,14 @@
   }
 }
 
+lite-youtube.youtube-short {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  margin-inline: auto;
+}
+
+lite-youtube.youtube-short::after {
+  padding-bottom: 177.7778%;
+}
 

@@ -17,6 +17,7 @@ export const metadata = {
 };
 
 import './globals.css';
+import 'lite-youtube-embed/src/lite-yt-embed.css';
 import React from 'react';
 import { display, mono, notoSansJP } from './fonts';
 import SiteHitTracker from '@/components/SiteHitTracker';

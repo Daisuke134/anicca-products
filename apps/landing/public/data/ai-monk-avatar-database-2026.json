@@ -1,0 +1,403 @@
+{
+  "schema_version": "anicca.ai-monk-avatar-database.v1",
+  "updated_at": "2026-10-21",
+  "license": "CC BY 4.0 for Anicca-authored summaries; third-party content, marks, and profile data remain with their owners.",
+  "scope": "A curated starter set of public AI monk avatar profiles. This is not a complete census of social accounts.",
+  "methodology": [
+    "Include a synthetic monk persona only when a platform/creator disclosure or credible reporting supports that classification. Keep screenshot-only cases marked unverified.",
+    "Do not merge accounts on similar names alone. Unknown handles, creators, launch dates, and product URLs remain null with a reason.",
+    "Store platform, source URL, capture date, and metric beside each number. Instagram followers, YouTube subscribers, views, seller counters, creator statements, orders, and net profit are different measures.",
+    "Summarize video structure without storing full scripts, captions, or downloaded media. Video URLs point to the original platform.",
+    "User-provided screenshots are identified as such; their calendar capture date is unknown unless the screenshot itself shows it."
+  ],
+  "sources": [
+    {
+      "id": "heygen-yangmun-case",
+      "title": "Yang Mun customer story",
+      "url": "https://www.heygen.com/ja-jp/customer-stories/yangmun",
+      "source_type": "vendor-hosted customer story",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Identifies Yang Mun as an AI character created by Shalev Hani and reports creator statements about production time and posting frequency. These are customer-story claims, not an independent audit."
+    },
+    {
+      "id": "columbia-yangmun-report",
+      "title": "Millions found comfort in a Buddhist monk, but he was never real",
+      "url": "https://columbianewsservice.com/2026/03/24/millions-found-comfort-in-a-buddhist-monk-but-he-was-never-real/",
+      "source_type": "independent reporting",
+      "published_at": "2026-03-24",
+      "checked_at": "2026-10-21",
+      "notes": "Identifies Yang Mun as AI-generated and names Shalev Hani as creator. The revenue and acquisition-offer figures are attributed to Hani, not audited results."
+    },
+    {
+      "id": "virtual-humans-yangmun-profile",
+      "title": "Who is Yang Mun? The AI-Generated Wellness Guru With 2.6M Followers",
+      "url": "https://virtualhumans.org/article/who-is-yang-mun-the-ai-generated-wellness-guru-with-2-6m-followers",
+      "source_type": "industry profile reporting creator claims",
+      "published_at": "2026-01-28",
+      "checked_at": "2026-10-21",
+      "notes": "Reports creator claims about audience, views, tools, revenue, and profit. The article does not audit sales or profit."
+    },
+    {
+      "id": "yangmun-journey-store",
+      "title": "Yang Mun 30-Day Healing Journey",
+      "url": "https://www.yang-mun.com/pages/journey",
+      "source_type": "first-party seller page",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Displays a $49.99 journey, a $59.99 collection with three eBooks, and seller-displayed counters. These are not order-level records."
+    },
+    {
+      "id": "yangmun-home",
+      "title": "Yang Mun official website",
+      "url": "https://www.yang-mun.com/",
+      "source_type": "first-party seller page",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Displays '5 million with Yang Mun' and a 20,000+ reader counter without defining the platform mix or audit method."
+    },
+    {
+      "id": "yangmun-youtube-channel",
+      "title": "Yang Mun YouTube channel",
+      "url": "https://www.youtube.com/@Yangmunv2",
+      "source_type": "first-party platform profile",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Public page readback displayed approximately 159,000 subscribers and 172 videos."
+    },
+    {
+      "id": "yangmun-instagram",
+      "title": "Yang Mun Instagram profile",
+      "url": "https://www.instagram.com/yangmunus/",
+      "source_type": "first-party platform profile",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Profile handle is also linked in public third-party coverage; counts vary by source date."
+    },
+    {
+      "id": "yangmun-shalev-x",
+      "title": "Shalev Hani public X profile",
+      "url": "https://x.com/shalevhvs",
+      "source_type": "creator profile",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Creator account, not an account for the Yang Mun persona. The profile links to a creator-written AI monk earnings article."
+    },
+    {
+      "id": "yangmun-youtube-short-motivation",
+      "title": "Words of Motivation from Yang Mun",
+      "url": "https://www.youtube.com/shorts/Er2Ig4GM7z0",
+      "source_type": "first-party video; metadata collected with YT-DLP",
+      "published_at": "2025-11-29",
+      "checked_at": "2026-10-21",
+      "notes": "YT-DLP reported 521,549 views and 65 seconds at capture. This clip was downloaded temporarily and observed locally; no media or transcript is included here."
+    },
+    {
+      "id": "yangmun-youtube-short-health",
+      "title": "1minute of Yang Mun Wisdom",
+      "url": "https://www.youtube.com/shorts/Qdv6S7HonSM",
+      "source_type": "first-party video; metadata/captions collected with YT-DLP",
+      "published_at": "2025-11-25",
+      "checked_at": "2026-10-21",
+      "notes": "YT-DLP reported 1,102,388 views and 78 seconds at capture. The script includes unverified health claims; do not treat or republish those claims as medical advice. Media was downloaded temporarily and is not included."
+    },
+    {
+      "id": "yangmun-youtube-short-health-metadata",
+      "title": "You’re Drinking Water the WRONG Way",
+      "url": "https://www.youtube.com/shorts/j8WRhcQvzRM",
+      "source_type": "first-party video; YT-DLP metadata only",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "The public playlist metadata showed roughly 12M views. The video was not downloaded or fact-checked; this is a reach snapshot, not a sales result or endorsed health claim."
+    },
+    {
+      "id": "maldita-2026-07-10",
+      "title": "Ni Manuel, ni Paco del Campo, ni Sor Catalina son reales: la red de perfiles de IA que vende libros",
+      "url": "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/",
+      "source_type": "independent investigation",
+      "published_at": "2026-07-10",
+      "checked_at": "2026-10-21",
+      "notes": "Reports 16 AI-generated Facebook/Instagram profiles, 3.5M combined followers, and 70.5M views across the most viral videos. It describes Shaolin-style profiles Leo Chen and SifuChen California, including book/guide lead paths. It does not establish which avatar appeared first."
+    },
+    {
+      "id": "maldita-2026-07-27",
+      "title": "250 AI-generated Instagram profiles provide health advice in seven languages",
+      "url": "https://maldita.es/investigaciones/20260727/250-ai-health-instagram-accounts/",
+      "source_type": "independent investigation with stated methodology",
+      "published_at": "2026-07-27",
+      "checked_at": "2026-10-21",
+      "notes": "The investigation says its account data was collected July 20–21, 2026: 250 AI-generated health profiles, 45,600+ posts, 53.7M+ followers, and 224 visible product URLs. Its 82-account 'ancestral wisdom' group includes more than monk personas; it is not a census of AI monk avatars."
+    },
+    {
+      "id": "mingsan-instagram",
+      "title": "Ming San Instagram profile",
+      "url": "https://www.instagram.com/mingsanhealing/",
+      "source_type": "first-party platform profile",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Maldita identifies the profile as a monk-like AI health account. AvatarFactory says the AI origin is not established publicly, so provenance remains reported/conflicting."
+    },
+    {
+      "id": "avatarfactory-yangmun",
+      "title": "Yang Mun profile and funnel teardown",
+      "url": "https://avatarfactory.io/ai-influencers/yang-mun",
+      "source_type": "commercial directory and product marketing",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Useful for discovering public account/video references; audience, 400M views, revenue, and production figures are not independently audited. The page promotes AvatarFactory."
+    },
+    {
+      "id": "avatarfactory-ming-san",
+      "title": "Ming San profile",
+      "url": "https://avatarfactory.io/ai-influencers/ming-san",
+      "source_type": "commercial directory and product marketing",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "The profile says Ming San's AI origin is not established publicly and reports its own scanner snapshots. Its counts differ across the profile summary and scan table."
+    },
+    {
+      "id": "user-screenshot-yangmun-youtube",
+      "title": "User-supplied Yang Mun YouTube screenshot",
+      "url": null,
+      "source_type": "user-provided screenshot",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Shows the YouTube channel join date as 2025-11-04 and 18,147,274 channel views; the screenshot's calendar capture date is not visible."
+    },
+    {
+      "id": "user-screenshot-mingsan-instagram",
+      "title": "User-supplied Ming San Instagram screenshot",
+      "url": null,
+      "source_type": "user-provided screenshot",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Shows @mingsanhealing, approximately 1.37M followers, and a beetroot-product link. The screenshot date and affiliate relationship are unknown."
+    },
+    {
+      "id": "user-screenshot-monjechen-instagram",
+      "title": "User-supplied monjechen Instagram screenshot",
+      "url": null,
+      "source_type": "user-provided screenshot",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Shows an 'AI-generated profile' label, 'Yan Chen | Sabiduría sanadora', approximately 1.34M followers, 584 posts, and a cropped product URL. Calendar capture date and full product URL are not visible."
+    },
+    {
+      "id": "growwstacks-ai-avatar-workflow",
+      "title": "This AI Factory Creates AI Avatar Instagram Videos Daily",
+      "url": "https://growwstacks.com/blog/ai-factory-creates-ai-avatar-instagram-videos-daily-n8n-automation",
+      "source_type": "automation vendor marketing article",
+      "published_at": "2026-01-14",
+      "checked_at": "2026-10-21",
+      "notes": "Describes an Airtable → LLM script → HeyGen → captioning → scheduler workflow. Its time-savings, price, pageview, and break-even figures are publisher claims, not independently measured results."
+    },
+    {
+      "id": "reddit-aituber-promotion",
+      "title": "An AI Monk Made $350K — How to create AI Avatar Videos",
+      "url": "https://www.reddit.com/r/ReelFarmer/comments/1r2r6qc/an_ai_monk_made_350k_how_to_create_ai_avatar/",
+      "source_type": "tool-promotional Reddit post",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "The author promotes aituber.app and attributes the $350K claim to the account owner; commenters ask for evidence. It is not treated as proof of earnings."
+    }
+  ],
+  "accounts": [
+    {
+      "id": "yang-mun",
+      "display_name": "Yang Mun",
+      "persona_type": "AI-generated monk avatar",
+      "ai_status": "confirmed",
+      "ai_evidence": [
+        { "source_id": "heygen-yangmun-case", "summary": "HeyGen identifies Yang Mun as an AI character created by Shalev Hani." },
+        { "source_id": "columbia-yangmun-report", "summary": "Columbia News Service describes the character as AI-generated and names Shalev Hani as creator." }
+      ],
+      "creator": { "name": "Shalev Hani", "public_profile_url": "https://x.com/shalevhvs", "relationship": "Creator, not an avatar account" },
+      "source_urls": [
+        "https://www.heygen.com/ja-jp/customer-stories/yangmun",
+        "https://columbianewsservice.com/2026/03/24/millions-found-comfort-in-a-buddhist-monk-but-he-was-never-real/",
+        "https://virtualhumans.org/article/who-is-yang-mun-the-ai-generated-wellness-guru-with-2-6m-followers",
+        "https://www.yang-mun.com/pages/journey",
+        "https://www.yang-mun.com/",
+        "https://www.youtube.com/@Yangmunv2",
+        "https://www.instagram.com/yangmunus/",
+        "https://x.com/shalevhvs",
+        "https://www.youtube.com/shorts/Er2Ig4GM7z0",
+        "https://www.youtube.com/shorts/Qdv6S7HonSM",
+        "https://www.youtube.com/shorts/j8WRhcQvzRM"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "yangmunus",
+          "profile_url": "https://www.instagram.com/yangmunus/",
+          "snapshots": [
+            { "value": 2500000, "metric": "followers", "as_of": "2026-03-24", "source_id": "columbia-yangmun-report", "status": "reported_public_count" }
+          ]
+        },
+        {
+          "platform": "YouTube",
+          "handle": "Yangmunv2",
+          "profile_url": "https://www.youtube.com/@Yangmunv2",
+          "snapshots": [
+            { "value": 159000, "metric": "subscribers", "as_of": "2026-10-21", "source_id": "yangmun-youtube-channel", "status": "public_page_readback_rounded" },
+            { "value": 172, "metric": "videos", "as_of": "2026-10-21", "source_id": "yangmun-youtube-channel", "status": "public_page_readback" },
+            { "value": 18147274, "metric": "channel_views", "as_of": null, "source_id": "user-screenshot-yangmun-youtube", "status": "screenshot_snapshot_date_unknown" }
+          ]
+        },
+        {
+          "platform": "TikTok",
+          "handle": null,
+          "profile_url": null,
+          "snapshots": [],
+          "unknown_reason": "Virtual Humans reports multiple accounts with hundreds of thousands of followers combined but does not identify exact handles."
+        }
+      ],
+      "offers": [
+        { "type": "guided digital program", "name": "30-Day Healing Journey", "price": 49.99, "currency": "USD", "source_id": "yangmun-journey-store", "status": "displayed_price_not_order_data" },
+        { "type": "eBook bundle", "name": "Complete Collection with three eBooks", "price": 59.99, "currency": "USD", "source_id": "yangmun-journey-store", "status": "displayed_price_not_order_data" }
+      ],
+      "seller_counters": [
+        { "value": "30,000+", "metric": "readers/books-sold counter", "source_id": "yangmun-journey-store", "status": "seller_displayed_not_audited" },
+        { "value": "20,000+", "metric": "readers counter", "source_id": "yangmun-home", "status": "seller_displayed_definition_unclear" },
+        { "value": "5 million", "metric": "audience counter", "source_id": "yangmun-home", "status": "seller_displayed_platform_mix_unclear" }
+      ],
+      "creator_claims": [
+        { "claim": "More than $300,000 in revenue since launch and a $325,000 acquisition offer", "source_id": "columbia-yangmun-report", "status": "creator_statement_reported_by_independent_outlet_not_audited" },
+        { "claim": "More than $300,000 in profit within 90 days; the profile also cites a dashboard above $213,000 gross revenue over three months", "source_id": "virtual-humans-yangmun-profile", "status": "creator_statement_reported_by_industry_profile_not_audited" }
+      ],
+      "creative_samples": [
+        { "url": "https://www.youtube.com/shorts/Er2Ig4GM7z0", "title": "Words of Motivation from Yang Mun", "duration_seconds": 65, "uploaded_at": "2025-11-29", "views": 521549, "views_captured_at": "2026-10-21", "source_id": "yangmun-youtube-short-motivation", "structure_summary": "One continuous, front-facing temple shot; future-oriented reassurance, concrete life imagery, then a repeatable morning/night reflection invitation. No paid product CTA was visible in this sample.", "media_status": "temporary_analysis_only_official_embed_only" },
+        { "url": "https://www.youtube.com/shorts/Qdv6S7HonSM", "title": "1minute of Yang Mun Wisdom", "duration_seconds": 78, "uploaded_at": "2025-11-25", "views": 1102388, "views_captured_at": "2026-10-21", "source_id": "yangmun-youtube-short-health", "structure_summary": "A symptom-led hook moves into an unverified traditional-medicine explanation and emotional reframe. This is a health-claim risk example, not an endorsed claim.", "media_status": "temporary_analysis_only_official_embed_only" },
+        { "url": "https://www.youtube.com/shorts/j8WRhcQvzRM", "title": "You’re Drinking Water the WRONG Way", "duration_seconds": null, "uploaded_at": null, "views": 12000000, "views_captured_at": "2026-10-21", "source_id": "yangmun-youtube-short-health-metadata", "structure_summary": "Metadata-only high-reach health-claim example. Not downloaded or fact-checked; do not treat as medical guidance.", "media_status": "metadata_only_official_link_only" }
+      ],
+      "unknowns": [
+        "Exact TikTok handles and per-account audience counts.",
+        "Paid orders, product mix, refunds, fees, ad spend, creator net profit, and revenue by creative.",
+        "The self-reported revenue/profit claims do not reconcile to an audited statement."
+      ]
+    },
+    {
+      "id": "ming-san",
+      "display_name": "Ming San | Healing Guide",
+      "persona_type": "Monk-like wellness avatar",
+      "ai_status": "reported",
+      "ai_evidence": [
+        { "source_id": "maldita-2026-07-27", "summary": "Maldita includes mingsanhealing in its AI-generated health-account investigation and describes a monk-like persona." },
+        { "source_id": "avatarfactory-ming-san", "summary": "AvatarFactory says the account's AI origin is not established publicly; its directory conflicts with Maldita's classification." }
+      ],
+      "creator": { "name": null, "relationship": "Unknown" },
+      "source_urls": [
+        "https://www.instagram.com/mingsanhealing/",
+        "https://maldita.es/investigaciones/20260727/250-ai-health-instagram-accounts/",
+        "https://avatarfactory.io/ai-influencers/ming-san",
+        "https://beraviahealth.com/products/beetroot",
+        "https://mvau.lt/media/a5de6087-bd3b-424c-b3a3-e08d4805c2f3"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "mingsanhealing",
+          "profile_url": "https://www.instagram.com/mingsanhealing/",
+          "snapshots": [
+            { "value": 1200000, "metric": "followers", "as_of": "2026-07-20/21", "source_id": "maldita-2026-07-27", "status": "investigation_snapshot" },
+            { "value": 1370000, "metric": "followers", "as_of": null, "source_id": "user-screenshot-mingsan-instagram", "status": "screenshot_snapshot_date_unknown" }
+          ]
+        }
+      ],
+      "offers": [
+        { "type": "external wellness product link", "url": "https://beraviahealth.com/products/beetroot", "source_id": "user-screenshot-mingsan-instagram", "status": "link_visible_in_supplied_screenshot_commission_and_sales_unknown" }
+      ],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [
+        { "url": "https://mvau.lt/media/a5de6087-bd3b-424c-b3a3-e08d4805c2f3", "title": "Cabbage-in-socks health-remedy clip referenced by Maldita", "duration_seconds": null, "uploaded_at": null, "views": 2200000, "views_captured_at": "2026-07-20/21", "source_id": "maldita-2026-07-27", "structure_summary": "The investigation reports a remedy claim delivered through an elderly monk-like persona; the claim is not medical advice and the report identifies it as unsupported.", "media_status": "source_report_link_only_not_rehosted" }
+      ],
+      "unknowns": [
+        "The 1.2M, 1.3M, and screenshot 1.37M counts are different dated/source snapshots, not a reconciled current count.",
+        "Affiliate status, commission, paid units, and net revenue are unknown."
+      ]
+    },
+    {
+      "id": "sifuchen-california",
+      "display_name": "SifuChen California",
+      "persona_type": "Shaolin-style AI health avatar",
+      "ai_status": "reported",
+      "ai_evidence": [
+        { "source_id": "maldita-2026-07-10", "summary": "Maldita identifies the portrayed man as AI-created and includes the profile in its report on synthetic accounts." }
+      ],
+      "creator": { "name": null, "relationship": "Unknown" },
+      "source_urls": [
+        "https://archive.li/CZww4",
+        "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/"
+      ],
+      "platforms": [
+        { "platform": "Instagram", "handle": null, "profile_url": "https://archive.li/CZww4", "snapshots": [], "unknown_reason": "The investigation links an archived profile but does not establish the live handle or a per-account follower count." }
+      ],
+      "offers": [
+        { "type": "digital guide", "name": "130 Natural Remedies of the Shaolin Temple", "price": 16.45, "currency": "EUR", "source_id": "maldita-2026-07-10", "status": "reported_list_price_not_sales_data" }
+      ],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [
+        { "url": "https://archive.li/CZww4", "title": "Shaolin-style profile and guide path", "duration_seconds": null, "uploaded_at": null, "views": null, "views_captured_at": null, "source_id": "maldita-2026-07-10", "structure_summary": "The report describes a monk-like figure in an outdoor scene and a guide CTA placed in a profile highlight. It is an observed offer path, not verified sales.", "media_status": "archive_link_only" }
+      ],
+      "unknowns": ["Exact live Instagram handle, current followers, sales, refunds, and revenue."]
+    },
+    {
+      "id": "leo-chen",
+      "display_name": "Leo Chen",
+      "persona_type": "Reported Shaolin-style AI monk avatar",
+      "ai_status": "reported",
+      "ai_evidence": [
+        { "source_id": "maldita-2026-07-10", "summary": "Maldita describes AI-like visual artifacts in a video attributed to Leo Chen and includes the profile in its AI-account investigation; the exact handle is not linked in the article." }
+      ],
+      "creator": { "name": null, "relationship": "Unknown" },
+      "source_urls": [
+        "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/"
+      ],
+      "platforms": [
+        { "platform": "Instagram", "handle": null, "profile_url": null, "snapshots": [], "unknown_reason": "The investigative article gives a display name but no verified handle or profile URL." }
+      ],
+      "offers": [
+        { "type": "comment-to-DM book lead magnet", "name": "Chinese Natural Healing book/PDF", "price": null, "currency": null, "source_id": "maldita-2026-07-10", "status": "reported_offer_path_price_and_sales_unknown" }
+      ],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [
+        { "url": "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/", "title": "Leo Chen video and comment-to-book CTA described by Maldita", "duration_seconds": null, "uploaded_at": null, "views": 2200000, "views_captured_at": "2026-07-10", "source_id": "maldita-2026-07-10", "structure_summary": "The report describes a health-remedy hook, visual inconsistencies, and a comment-to-DM request for a book. It is not evidence of paid orders.", "media_status": "article_reference_only" }
+      ],
+      "unknowns": ["Exact handle, account owner, product price, and whether the comment lead converted to paid orders."]
+    },
+    {
+      "id": "yan-chen-monjechen",
+      "display_name": "Yan Chen | Sabiduría sanadora",
+      "persona_type": "AI-labelled monk-like healing avatar",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        { "source_id": "user-screenshot-monjechen-instagram", "summary": "The supplied screenshot displays an 'AI-generated profile' label. The profile label was not independently read back in this research run." }
+      ],
+      "creator": { "name": null, "relationship": "Unknown" },
+      "source_urls": [
+        "https://www.instagram.com/monjechen/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monjechen",
+          "profile_url": "https://www.instagram.com/monjechen/",
+          "snapshots": [
+            { "value": 1340000, "metric": "followers", "as_of": null, "source_id": "user-screenshot-monjechen-instagram", "status": "screenshot_snapshot_date_unknown" },
+            { "value": 584, "metric": "posts", "as_of": null, "source_id": "user-screenshot-monjechen-instagram", "status": "screenshot_snapshot_date_unknown" }
+          ]
+        }
+      ],
+      "offers": [
+        { "type": "external book/product link", "name": null, "url": null, "source_id": "user-screenshot-monjechen-instagram", "status": "link_visible_but_cropped_in_screenshot_full_target_unverified" }
+      ],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": ["Calendar capture date, full product URL, creator identity, and any match with the 'Monk Chen' name in Maldita's investigation headline."]
+    }
+  ]
+}

@@ -23,6 +23,25 @@ function affiliatePlacement(md) { // AFFILIATE_ENTRY_V1
   return match && isAffiliatePlacement(match[1]) ? match[1] : null;
 }
 
+function escapeHtmlAttribute(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function youtubeEmbedHtml(videoId, title, isShort) {
+  const safeTitle = escapeHtmlAttribute(title);
+  const profile = isShort ? "youtube-short" : "youtube-embed";
+  const videoUrl = isShort
+    ? `https://www.youtube.com/shorts/${videoId}`
+    : `https://www.youtube.com/watch?v=${videoId}`;
+  const playLabel = escapeHtmlAttribute(`Play: ${title}`);
+  return `<figure class="my-8 flex flex-col items-center"><lite-youtube class="${profile}" videoid="${videoId}" title="${safeTitle}" playlabel="${playLabel}" style="background-image:url('https://i.ytimg.com/vi/${videoId}/hqdefault.jpg')"><a class="lyt-playbtn" href="${videoUrl}" target="_blank" rel="noopener noreferrer" aria-label="${playLabel}"><span class="lyt-visually-hidden">${playLabel}</span></a></lite-youtube><figcaption class="mt-2 text-sm text-ink-soft">${safeTitle} · <a href="${videoUrl}" target="_blank" rel="noopener noreferrer" class="underline">Watch on YouTube</a></figcaption></figure>`;
+}
+
 function renderMarkdown(md) {
   // Minimal markdown → HTML (no extra deps; covers headings, paragraphs,
   // bold/italic, links, lists, code spans, images).
@@ -74,14 +93,14 @@ function renderMarkdown(md) {
       flushList();
       continue;
     }
-    const youtubeEmbed = line.match(/^\[youtube-embed:([A-Za-z0-9_-]{11})\]$/);
+    const youtubeEmbed = line.match(/^\[youtube-(embed|short):([A-Za-z0-9_-]{11})(?:\|([^\]]+))?\]$/);
     if (youtubeEmbed) {
       flushPara();
       flushList();
-      const videoId = youtubeEmbed[1];
-      out.push(
-        `<div class="my-8 aspect-video overflow-hidden rounded bg-ink/5"><iframe class="h-full w-full" src="https://www.youtube-nocookie.com/embed/${videoId}" title="YouTube video" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`
-      );
+      const isShort = youtubeEmbed[1] === "short";
+      const videoId = youtubeEmbed[2];
+      const title = youtubeEmbed[3]?.trim() || (isShort ? "YouTube Short" : "YouTube video");
+      out.push(youtubeEmbedHtml(videoId, title, isShort));
       continue;
     }
     const h = line.match(/^(#{1,6})\s+(.*)$/);

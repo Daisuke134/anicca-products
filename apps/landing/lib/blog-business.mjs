@@ -21,6 +21,10 @@ export const BUSINESSES = {
     label: 'eBook Publishing',
     intro: 'Evidence-backed field notes on building, pricing, and distributing useful books.',
   },
+  'ai-monk-avatars': {
+    label: 'AI Monk Avatars',
+    intro: 'Source-linked case studies and a living directory of AI monk avatars, their creative formats, and visible business models.',
+  },
   ebook: {
     label: 'The Anicca Reset (eBook)',
     intro: 'Short readings and practices from The Anicca Reset.',
@@ -46,6 +50,7 @@ export function businessOf(slug, project) {
   if (['ai-mindfulness-2026-05-15', 'ai-responsibility-2026-05-08', 'ai-responsibility-2026-05-08-v2-bemo', 'good-agent-evals-measure-outcomes'].includes(s)) return 'research';
   if (p === 'thankful') return 'thankful';
   if (s.startsWith('line-sticker') || p.includes('line') && p.includes('スタンプ')) return 'line-stickers';
+  if (s === 'ebook-publishing-ai-monk-economy-2026' || s.startsWith('ai-monk-avatar-')) return 'ai-monk-avatars';
   if (s.startsWith('ebook-publishing-')) return 'ebook-publishing';
   if (s.startsWith('ebook-')) return 'ebook';
   if (/^(elevenlabs|elevenagents)|ai-voice/.test(s) || /affiliate|ai voice|ai customer support/.test(p)) return 'ai-voice-tools';
