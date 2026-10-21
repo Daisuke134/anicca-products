@@ -80,11 +80,11 @@ Run: `node --test test/render-article-markdown-youtube.test.mjs`
 
 Expected: FAIL because the Shorts marker and lazy custom element do not exist.
 
-- [ ] **Step 3: Add the pinned dependency** `lite-youtube-embed@0.3.4` in `apps/landing` and update its lockfile.
-- [ ] **Step 4: Render fixed-host `lite-youtube` elements** from the two markers; preserve the old marker’s 16:9 layout.
-- [ ] **Step 5: Import the library CSS and client loader**; add the local declaration for the package's untyped side-effect import; gate the loader on article Markdown containing a YouTube marker.
-- [ ] **Step 6: Add portrait CSS** with `padding-bottom: 177.7778%` (9:16), `max-width: 360px`, and centered margins.
-- [ ] **Step 7: Run the focused renderer test**.
+- [x] **Step 3: Add the pinned dependency** `lite-youtube-embed@0.3.4` in `apps/landing` and update its lockfile.
+- [x] **Step 4: Render fixed-host `lite-youtube` elements** from the two markers; preserve the old marker’s 16:9 layout.
+- [x] **Step 5: Import the library CSS and client loader**; add the local declaration for the package's untyped side-effect import; gate the loader on article Markdown containing a YouTube marker.
+- [x] **Step 6: Add portrait CSS** with `padding-bottom: 177.7778%` (9:16), `max-width: 360px`, and centered margins.
+- [x] **Step 7: Run the focused renderer test**.
 
 Run: `node --test test/render-article-markdown-youtube.test.mjs`
 

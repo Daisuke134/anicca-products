@@ -59,4 +59,6 @@ Make Anicca a source-backed English/Japanese reference on AI monk avatars: one Y
 
 **AM-1 status:** Dataset source data is recorded in `apps/landing/public/data/ai-monk-avatar-database-2026.json`; five profile records and 21 source records pass JSON syntax and source-reference checks.
 
-**Current cursor:** AM-2 portrait, lazy YouTube Shorts embed.
+**AM-2 status:** Renderer tests cover portrait Shorts, legacy landscape embeds, escaped titles, invalid IDs, and no eager iframe. The pinned Apache-2.0 `lite-youtube-embed@0.3.4` dependency and client-only loader are in the worktree; focused renderer and CTA tests pass.
+
+**Current cursor:** AM-3 English/Japanese article family and category hub.

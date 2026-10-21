@@ -3,6 +3,7 @@ import path from "path";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import WriterUnlock from "../../../components/blog/WriterUnlock";
+import LiteYouTubeEmbedLoader from "../../../components/blog/LiteYouTubeEmbedLoader";
 import AffiliateEntryReceipt from "../../../components/blog/AffiliateEntryReceipt"; // AFFILIATE_ENTRY_V1
 import { affiliatePlacement, renderMarkdown } from "../../../lib/render-article-markdown";
 import { buildLineStickerShareMetadata } from "../../../lib/line-sticker-share-meta";
@@ -137,6 +138,7 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
   const articleMarkdown = post.slug.startsWith("remote-coding-")
     ? post.markdown.replace(voiceHeading, `${voiceHeading}\n\n${voiceImage}`)
     : post.markdown;
+  const hasYouTubeEmbed = /\[youtube-(?:embed|short):[A-Za-z0-9_-]{11}/.test(articleMarkdown);
   const html = renderMarkdown(articleMarkdown);
   const affiliatePlacementId = affiliatePlacement(articleMarkdown);
   const m = post.mirrors ?? {};
@@ -150,6 +152,7 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
 
   return (
     <main className="bg-cream">
+      {hasYouTubeEmbed && <LiteYouTubeEmbedLoader />}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([...buildArticleJsonLd(post), {
