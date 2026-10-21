@@ -24,7 +24,7 @@ import {readFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 test('Thankful preserves canonical identity, registry icon and real destinations',()=>{
  assert.equal(page.generateMetadata().alternates.canonical,'https://aniccaai.com/thankful');
- assert.equal(page.generateMetadata().openGraph.images[0].url, '/assets/manager-site/apps/6759514159.png');
+ assert.equal(page.generateMetadata().openGraph.images[0].url, 'https://aniccaai.com/assets/manager-site/apps/6759514159.png');
  assert.equal((html.match(/<h1\b/g)||[]).length,1);
  assert.equal((html.match(/<footer\b/g)||[]).length,1);
  const downloads=[...html.matchAll(/<a[^>]+href="(https:\/\/apps\.apple\.com[^\"]+)"/g)];

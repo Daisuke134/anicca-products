@@ -13,7 +13,7 @@ function thankfulApp() {
 }
 export function generateMetadata() {
   return { title: TITLE, description: DESCRIPTION, alternates: { canonical: CANONICAL },
-    openGraph: { title: TITLE, description: DESCRIPTION, url: CANONICAL, images: [{ url: thankfulApp().icon, alt: 'Thankful app icon' }] } };
+    openGraph: { title: TITLE, description: DESCRIPTION, url: CANONICAL, images: [{ url: new URL(thankfulApp().icon, CANONICAL).href, alt: 'Thankful app icon' }] } };
 }
 const EXAMPLES = [
   { title: 'A person', text: 'My friend checked in after a long day.' },
