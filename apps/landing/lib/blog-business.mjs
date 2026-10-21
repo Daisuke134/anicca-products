@@ -6,6 +6,7 @@ export const BUSINESSES = {
   research: { label: 'Research', intro: 'Papers, hypotheses and experiments on AI and behavior. Claims and measured results belong to their stated evidence.' },
   thankful: {
     label: 'Thankful',
+    product: { href: '/thankful', label: 'Explore Thankful' },
     intro: 'Practical gratitude-journaling guides and the Thankful app.',
   },
   'ai-creator-tools': {
@@ -34,6 +35,7 @@ export const BUSINESSES = {
   },
   anicca: {
     label: 'Anicca iOS',
+    product: { href: '/affirmation-app', label: 'Explore the Anicca app' },
     intro: 'The Anicca app, mindfulness and impermanence in everyday life.',
   },
   notes: {
