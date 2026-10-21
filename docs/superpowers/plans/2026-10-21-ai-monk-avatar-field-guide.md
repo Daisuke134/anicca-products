@@ -63,6 +63,7 @@ Expected: exit 0; every value is valid JSON.
 - Modify: `apps/landing/package.json`
 - Modify: `apps/landing/package-lock.json`
 - Create: `apps/landing/components/blog/LiteYouTubeEmbedLoader.tsx`
+- Create: `apps/landing/types/lite-youtube-embed.d.ts`
 - Create: `apps/landing/test/render-article-markdown-youtube.test.mjs`
 
 **Interfaces:**
@@ -72,8 +73,8 @@ Expected: exit 0; every value is valid JSON.
 - The generated element has a YouTube thumbnail, an accessible play label, and an official fallback link; it contains no iframe before a user activates it.
 - A client-only loader imports `lite-youtube-embed` only on blog pages whose Markdown contains either embed marker.
 
-- [ ] **Step 1: Write the failing renderer tests** for legacy 16:9, Shorts 9:16, title escaping, invalid IDs, and no initial iframe.
-- [ ] **Step 2: Run the renderer test**.
+- [x] **Step 1: Write the failing renderer tests** for legacy 16:9, Shorts 9:16, title escaping, invalid IDs, and no initial iframe.
+- [x] **Step 2: Run the renderer test**.
 
 Run: `node --test test/render-article-markdown-youtube.test.mjs`
 
@@ -81,7 +82,7 @@ Expected: FAIL because the Shorts marker and lazy custom element do not exist.
 
 - [ ] **Step 3: Add the pinned dependency** `lite-youtube-embed@0.3.4` in `apps/landing` and update its lockfile.
 - [ ] **Step 4: Render fixed-host `lite-youtube` elements** from the two markers; preserve the old marker’s 16:9 layout.
-- [ ] **Step 5: Import the library CSS and client loader**; gate the loader on article Markdown containing a YouTube marker.
+- [ ] **Step 5: Import the library CSS and client loader**; add the local declaration for the package's untyped side-effect import; gate the loader on article Markdown containing a YouTube marker.
 - [ ] **Step 6: Add portrait CSS** with `padding-bottom: calc(100% / (9 / 16))`, `max-width: 360px`, and centered margins.
 - [ ] **Step 7: Run the focused renderer test**.
 
