@@ -74,6 +74,16 @@ function renderMarkdown(md) {
       flushList();
       continue;
     }
+    const youtubeEmbed = line.match(/^\[youtube-embed:([A-Za-z0-9_-]{11})\]$/);
+    if (youtubeEmbed) {
+      flushPara();
+      flushList();
+      const videoId = youtubeEmbed[1];
+      out.push(
+        `<div class="my-8 aspect-video overflow-hidden rounded bg-ink/5"><iframe class="h-full w-full" src="https://www.youtube-nocookie.com/embed/${videoId}" title="YouTube video" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>`
+      );
+      continue;
+    }
     const h = line.match(/^(#{1,6})\s+(.*)$/);
     if (h) {
       flushPara();
