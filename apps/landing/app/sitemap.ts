@@ -3,7 +3,7 @@ import {
   AFFIRMATION_HREFLANG_TRIPLES,
   alternatesFor,
 } from "@/lib/affirmation-alternates";
-import { loadAllBlogPosts } from "@/lib/blog-posts";
+import { loadAllBlogPosts, BLOG_PAGE_SIZE } from "@/lib/blog-posts";
 import { BUSINESSES } from "@/lib/blog-business.mjs";
 import { allEnAffirmationSlugs } from "@/lib/en-affirmation-problems";
 import { allEsAffirmationSlugs } from "@/lib/es-affirmation-problems";
@@ -114,6 +114,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...kokoroTypeEntries,
     ...lmGuideEntries,
     ...blogEntries,
+    ...Array.from({length:Math.max(1,Math.ceil(loadAllBlogPosts().length/BLOG_PAGE_SIZE))},(_,i)=>({url:`${BASE_URL}/blog/archive/${i+1}`})),
     ...businessHubEntries,
   ];
 

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MediaNav, MediaFooter, ArticleList } from "../../../../components/blog/OwnedMedia";
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
 import { loadAllBlogPosts } from "../../../../lib/blog-posts";
@@ -27,11 +28,11 @@ export default function BusinessHub({ params }: { params: { business: string } }
   const posts = loadAllBlogPosts().filter((p) => businessOf(p.slug, p.project) === params.business);
   const url = `${SITE}/blog/c/${params.business}`;
   return (
-    <main className="bg-cream">
+    <main className="media-page">
       <JsonLd data={{
         "@context": "https://schema.org", "@type": "CollectionPage", name: hub.label, url, description: hub.intro,
         mainEntity: { "@type": "ItemList", numberOfItems: posts.length,
-          itemListElement: posts.slice(0, 100).map((p, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE}/blog/${p.slug}`, name: p.title })) },
+          itemListElement: posts.map((p, i) => ({ "@type": "ListItem", position: i + 1, url: `${SITE}/blog/${p.slug}`, name: p.title })) },
       }} />
       <JsonLd data={{
         "@context": "https://schema.org", "@type": "BreadcrumbList",
@@ -41,23 +42,7 @@ export default function BusinessHub({ params }: { params: { business: string } }
           { "@type": "ListItem", position: 3, name: hub.label, item: url },
         ],
       }} />
-      <section className="mx-auto max-w-4xl px-5 pt-32 pb-20">
-        <nav className="font-mono-ui text-[11px] uppercase tracking-[0.22em] text-mist">
-          <Link href="/blog" className="hover:text-ink">Articles</Link> / {hub.label}
-        </nav>
-        <h1 className="mt-6 font-display text-[44px] leading-[1.05] text-ink sm:text-[56px]">{hub.label}</h1>
-        <p className="mt-5 max-w-2xl text-[18px] leading-relaxed text-ink-soft">{hub.intro}</p>
-        <ul className="mt-12 divide-y divide-bone border-y border-bone">
-          {posts.map((p) => (
-            <li key={p.slug} className="py-5">
-              <Link href={`/blog/${p.slug}`} className="group block">
-                <p className="font-mono-ui text-[11px] uppercase tracking-[0.22em] text-mist">{p.date}</p>
-                <p className="mt-2 font-display text-[22px] leading-snug text-ink group-hover:underline">{p.title}</p>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <MediaNav/><div className="media-wrap"><header className="media-hero"><h1>{hub.label}</h1><p>{hub.intro}</p></header>{params.business === "research" && <p><Link href="/blog/manager">Manager research</Link> — papers, hypotheses, experiments and measured results from the existing research collection.</p>}<ArticleList posts={posts}/><MediaFooter/></div>
     </main>
   );
 }

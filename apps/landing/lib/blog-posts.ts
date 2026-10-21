@@ -9,8 +9,7 @@ export type BlogPostMeta = {
   project: string;
 };
 
-const RESEARCH_DIR = path.join(process.cwd(), "data", "research");
-const WRITER_DIR = path.join(process.cwd(), "private", "writer-articles");
+
 
 function dateFromRunId(runId: string): string {
   const day = runId.slice(0, 8);
@@ -18,7 +17,9 @@ function dateFromRunId(runId: string): string {
 }
 
 /** Every published /blog/<slug> post, deduped, for sitemap + feed generation. */
-export function loadAllBlogPosts(): BlogPostMeta[] {
+export function loadAllBlogPosts(root = process.cwd()): BlogPostMeta[] {
+  const RESEARCH_DIR = path.join(root, "data", "research");
+  const WRITER_DIR = path.join(root, "private", "writer-articles");
   const posts = new Map<string, BlogPostMeta>();
 
   if (fs.existsSync(RESEARCH_DIR)) {
@@ -46,13 +47,13 @@ export function loadAllBlogPosts(): BlogPostMeta[] {
       try {
         const raw = JSON.parse(fs.readFileSync(path.join(WRITER_DIR, f), "utf-8"));
         if (!raw.slug || !raw.title || !raw.run_id) continue;
-        if (posts.has(raw.slug)) continue;
+        // The article route gives the private writer contract precedence for duplicate slugs.
         posts.set(raw.slug, {
           slug: raw.slug,
           title: raw.title,
           date: dateFromRunId(String(raw.run_id)),
           preview: typeof raw.preview_markdown === "string" ? raw.preview_markdown.slice(0, 280) : "",
-          project: typeof raw.project === "string" ? raw.project : "",
+          project: typeof raw.project === "string" ? raw.project : "Writer Agent",
         });
       } catch {
         // skip malformed / unreadable
@@ -60,5 +61,14 @@ export function loadAllBlogPosts(): BlogPostMeta[] {
     }
   }
 
-  return [...posts.values()].sort((a, b) => (a.date < b.date ? 1 : -1));
+  return [...posts.values()].sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
+}
+
+export const BLOG_PAGE_SIZE = 24;
+export function paginateBlogPosts<T>(posts: T[], value: string) {
+  if (!/^[1-9][0-9]*$/.test(value)) return null;
+  const page = Number(value);
+  const totalPages = Math.max(1, Math.ceil(posts.length / BLOG_PAGE_SIZE));
+  if (!Number.isSafeInteger(page) || page > totalPages) return null;
+  return { page, totalPages, posts: posts.slice((page - 1) * BLOG_PAGE_SIZE, page * BLOG_PAGE_SIZE) };
 }

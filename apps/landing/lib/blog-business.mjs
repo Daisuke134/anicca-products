@@ -3,12 +3,13 @@
 // so the blog read as one undifferentiated stream (2026-10-18). Post URLs never move; the hubs,
 // breadcrumbs and same-business related links give each business its own topical cluster.
 export const BUSINESSES = {
+  research: { label: 'Research', intro: 'Papers, hypotheses and experiments on AI and behavior. Claims and measured results belong to their stated evidence.' },
   thankful: {
     label: 'Thankful',
     intro: 'Practical gratitude-journaling guides and the Thankful app.',
   },
   'ai-creator-tools': {
-    label: 'AI Creator Tools',
+    label: 'Capafy Agents',
     intro: 'Hooks, short-form scripts and video ideas from the Capafy agents we build: Hook Lab, TikTok Script Pro and YouTube Script Writer.',
   },
   'line-stickers': {
@@ -24,11 +25,11 @@ export const BUSINESSES = {
     intro: 'Short readings and practices from The Anicca Reset.',
   },
   'ai-voice-tools': {
-    label: 'AI Voice Tools',
-    intro: 'Hands-on guides to AI voice, dubbing and transcription tools for creators.',
+    label: 'Labs · Voice & Audio',
+    intro: 'Researched comparisons and documented experiments with voice and audio tools. Commercial disclosures remain with each article.',
   },
   anicca: {
-    label: 'Anicca App & Mindfulness',
+    label: 'Anicca app',
     intro: 'The Anicca app, mindfulness and impermanence in everyday life.',
   },
   notes: {
@@ -40,12 +41,22 @@ export const BUSINESSES = {
 export function businessOf(slug, project) {
   const s = String(slug || '');
   const p = String(project || '').toLowerCase();
+  if (['ai-mindfulness-2026-05-15', 'ai-responsibility-2026-05-08', 'ai-responsibility-2026-05-08-v2-bemo', 'good-agent-evals-measure-outcomes'].includes(s)) return 'research';
   if (p === 'thankful') return 'thankful';
   if (s.startsWith('line-sticker') || p.includes('line') && p.includes('スタンプ')) return 'line-stickers';
   if (s.startsWith('ebook-publishing-')) return 'ebook-publishing';
   if (s.startsWith('ebook-')) return 'ebook';
   if (/^(elevenlabs|elevenagents)|ai-voice/.test(s) || /affiliate|ai voice|ai customer support/.test(p)) return 'ai-voice-tools';
-  if (s.startsWith('anicca-') || p.startsWith('anicca') || /^ai-(mindfulness|responsibility)/.test(s)) return 'anicca';
+  if (p === 'anicca-ios' || ['anicca-ios-2026-05-19-en', 'anicca-ios-2026-05-19-ja'].includes(s)) return 'anicca';
   if (p === 'capafy-distribute' || s.startsWith('capafy-')) return 'ai-creator-tools';
   return 'notes';
+}
+
+// Editorial purpose is separate from a product identity; Manager keeps its existing overlay URL.
+export function editorialOf(slug, project) {
+  const business = businessOf(slug, project);
+  if (business === 'research' || String(project).toLowerCase() === 'manager') return 'Research';
+  if (business === 'ai-voice-tools') return 'Labs';
+  if (business === 'notes') return 'Build Notes';
+  return 'Product guides';
 }

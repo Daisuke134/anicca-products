@@ -221,3 +221,6 @@ anicca_youtube_qr.png
 aniccaios/*.png
 aniccaios/fastlane/report.xml
 aniccaios/fastlane/build/
+
+# Hash-verified canonical Life Manager build inputs (staged before Next build)
+apps/landing/public/assets/manager-site/
