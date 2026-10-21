@@ -20,7 +20,7 @@ Make Anicca a source-backed English/Japanese reference on AI monk avatars: one Y
 4. **Open starter dataset:** add `apps/landing/public/data/ai-monk-avatar-database-2026.json`. Each record includes profile URLs, platform, provenance status and evidence, visible offer type, dated audience/video snapshots, and unresolved fields. This is a curated starter set, not a claim to cover every account.
 5. **Book proposal:** add a shared English/Japanese title, hook, reader promise, and 10-chapter outline under `docs/books/`. This deliverable is an outline, not a completed book.
 6. **Natural Shorts embed:** add the open-source Apache-2.0 `lite-youtube-embed` component. Keep `[youtube-embed:VIDEO_ID]` as 16:9; add `[youtube-short:VIDEO_ID|TITLE]` as a centered 9:16 player card capped at 360px. Load the full `youtube-nocookie.com` iframe only after the reader presses play.
-7. **Own-channel distribution:** publish two X posts through the existing Postiz path, one per article family; each post links to both language editions with source attribution and campaign parameters.
+7. **Own-channel distribution:** publish four native-language X posts through the existing Postiz path, one per published article URL; each links directly to its language-matched Anicca article with source attribution and campaign parameters.
 
 ## Evidence contract
 
@@ -43,7 +43,7 @@ Make Anicca a source-backed English/Japanese reference on AI monk avatars: one Y
 - `lite-youtube-embed` renders Shorts in portrait and does not create a full iframe until click; legacy embeds remain landscape.
 - The two book proposals are in the repository and share one thesis and chapter structure adapted for each language.
 - The public JSON parses and its records link to their evidence.
-- Two X posts are confirmed by distinct `PUBLISHED` receipts, exact permalinks, and the two language URLs for each topic.
+- Four X posts are confirmed by distinct `PUBLISHED` receipts and exact permalinks; every EN/JA article URL receives a direct tracked link.
 - PR CI passes, the main merge is deployed, and production reads confirm the article pages, dataset, and Shorts embed markup.
 - Additional subscription/tool spend is $0.
 
@@ -56,7 +56,7 @@ Make Anicca a source-backed English/Japanese reference on AI monk avatars: one Y
 | AM-3 | Expand Yang Mun EN; add Yang Mun JA; rewrite the existing `ebook-publishing-ai-monk-economy-2026` page as the English field guide; create its JA counterpart; map both field slugs to `ai-monk-avatars`; link the dataset and related Anicca articles. | AM-1 and AM-2. | Four EN/JA pages are source-linked and free; the English field URL remains stable; the category hub lists both editions; video examples are AI monk avatars. |
 | AM-4 | Add EN/JA book proposals under `docs/books/`. | AM-1 and AM-3. | Both files contain title, hook, reader promise, and the same 10 connected chapters. |
 | AM-5 | Run focused checks, commit/push, open PR, pass exact-head CI, merge, and verify Netlify production readback. | AM-1–AM-4. | Main merge SHA, successful deploy, and exact article/data/embed reads. |
-| AM-6 | Publish two tracked X posts through the existing Postiz route. | AM-5. | Two distinct Postiz `PUBLISHED` receipts and exact X permalinks; no duplicate sends. |
+| AM-6 | Publish four tracked X posts through the existing Postiz route, one for each article URL in its native language. | AM-5. | Four distinct Postiz `PUBLISHED` receipts and exact X permalinks; all four URLs receive a direct link; no duplicate sends. |
 
 **AM-1 status:** Dataset source data is recorded in `apps/landing/public/data/ai-monk-avatar-database-2026.json`; five profile records and 21 source records pass JSON syntax and source-reference checks.
 

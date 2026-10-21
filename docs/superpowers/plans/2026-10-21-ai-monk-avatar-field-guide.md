@@ -161,15 +161,14 @@ Expected: successful Next.js build with the new article slugs and custom element
 - [ ] **Step 4: Open the PR, wait for exact-head checks, merge with the repo’s normal admin merge path, and verify Netlify production deployment.**
 - [ ] **Step 5: Read back all four article URLs, the category hub, the public JSON, and rendered HTML confirming `lite-youtube` plus 9:16 styling and no pre-click iframe.**
 
-### Task 6: Promote the published article pairs on X
+### Task 6: Promote each published article on X in its native language
 
 **Files:**
 - Create: `docs/evidence/ai-monk-avatar-x-distribution-20261021.json` (public post receipts only; no credentials).
 
-- [ ] **Step 1: Compose one concise English X post for the Yang Mun pair** with both language links and source-based hook.
-- [ ] **Step 2: Compose one concise English X post for the field-guide pair** with both language links and dataset link.
-- [ ] **Step 3: Publish through the existing Postiz `x_post.py` path** after confirming the exact production URLs.
-- [ ] **Step 4: Read back each provider receipt and exact X permalink; save only sanitized public receipt fields.**
+- [ ] **Step 1: Compose four concise posts**, one for each EN/JA article URL, with language-matched copy, a source-based hook, and the counterpart link where the character budget permits.
+- [ ] **Step 2: Publish each post exactly once through the existing Postiz `x_post.py` path** after confirming the exact production URLs.
+- [ ] **Step 3: Read back all four provider receipts and exact X permalinks; save only sanitized public receipt fields.**
 
 ## Self-review checklist
 
