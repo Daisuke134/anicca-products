@@ -160,7 +160,7 @@ Run: `cd apps/landing && npm run build`
 
 Expected: successful Next.js build with the new article slugs and custom element.
 
-- [ ] **Step 3: Run `git diff --check`, commit, and push** the dedicated branch.
+- [x] **Step 3: Run `git diff --check`, commit, and push** the dedicated branch.
 - [ ] **Step 4: Open the PR, wait for exact-head checks, merge with the repo’s normal admin merge path, and verify Netlify production deployment.**
 - [ ] **Step 5: Read back all four article URLs, the category hub, the public JSON, rendered HTML confirming `lite-youtube` plus 9:16 styling and no pre-click iframe, and both book-outline files through their GitHub `main` URLs.**
 
@@ -192,3 +192,7 @@ Expected: successful Next.js build with the new article slugs and custom element
 **AM-5 build status:** The landing build passes after running the two SHA-verified, immutable canonical marketing/blog asset staging scripts used by the repository workflow. The standalone build initially lacked the ignored public/assets/manager-site/published-apps.json; this is a required workflow input, not an article defect. The successful build generated all five AI-monk article/category routes. Its prebuild touched only the existing dashboard snapshot with an empty network fallback; that generated change was restored before review. Existing unrelated MetaMask, pino-pretty, and Tailwind warnings remain.
 
 **Independent content review:** No publish-blocking claim/source, confidence label, cross-language, or copying issue was found. The EN/JA guides link to the new book-outline files on GitHub main; those URLs currently return 404 until this branch merges, so production readback must confirm the links after merge and before X distribution.
+
+**AM-5 source status:** The latest origin/main commit is merged into the dedicated branch and pushed. Focused tests pass (12/12), the CI-staged landing build succeeds, the five AI-monk static routes are present, and the worktree is clean.
+
+**Current cursor:** AM-5 open PR, exact-head CI, merge, and production readback. Then AM-6 publish four language-matched X posts with direct article URLs and save receipts.
