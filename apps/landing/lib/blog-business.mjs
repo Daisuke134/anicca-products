@@ -42,6 +42,8 @@ export const BUSINESSES = {
 
 export function businessOf(slug, project) {
   const s = String(slug || '');
+  // Keep the editorial category consistent before the legacy Manager overlay fallback.
+  if (/^manager$/i.test(String(project || ''))) return 'research';
   const p = String(project || '').toLowerCase();
   if (['ai-mindfulness-2026-05-15', 'ai-responsibility-2026-05-08', 'ai-responsibility-2026-05-08-v2-bemo', 'good-agent-evals-measure-outcomes'].includes(s)) return 'research';
   if (p === 'thankful') return 'thankful';

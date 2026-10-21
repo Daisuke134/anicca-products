@@ -23,7 +23,10 @@ test('rendered mobile article hubs link directly to existing introductions witho
 test('article index leads with populated editorial categories and keeps app CTAs contextual',()=>{
  const html=renderToStaticMarkup(React.createElement(index.default));
  assert.doesNotMatch(html,/Product introductions|data-app-id=|apps.apple.com/);
+ assert.ok(html.indexOf('href="/blog/manager"') >= 0);
  assert.ok(html.indexOf('href="/blog/manager"') < html.indexOf('Latest articles'));
+ assert.ok(html.indexOf('href="/blog/c/anicca"') >= 0);
+ assert.ok(html.indexOf('Latest articles') >= 0);
  assert.ok(html.indexOf('href="/blog/c/anicca"') < html.indexOf('Latest articles'));
  const cards=[...html.matchAll(/<article[^>]*data-topic="([^"]+)"[^>]*>(.*?)<\/article>/gs)];assert.ok(cards.length>=5);
  for(const [,key,card] of cards){assert.match(card,/<p>/);assert.ok((card.match(/data-article-preview=/g)||[]).length>=1,key);assert.ok((card.match(/data-article-preview=/g)||[]).length<=2,key);}
@@ -42,6 +45,9 @@ test('Research is one index topic and includes Manager articles without moving t
   process.chdir(root);
   const research=renderToStaticMarkup(React.createElement(hub.default,{params:{business:'research'}}));
   assert.match(research,/href="\/blog\/manager-fixture"/);
+  assert.match(research,/<span class="article-topic">Research<\/span>/);
+  const notes=renderToStaticMarkup(React.createElement(hub.default,{params:{business:'notes'}}));
+  assert.doesNotMatch(notes,/href="\/blog\/manager-fixture"/);
   assert.match(research,/href="\/blog\/manager"/);
  }finally{process.chdir(previous);}
 });
