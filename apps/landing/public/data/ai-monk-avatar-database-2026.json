@@ -212,6 +212,12 @@
         { "source_id": "columbia-yangmun-report", "summary": "Columbia News Service describes the character as AI-generated and names Shalev Hani as creator." }
       ],
       "creator": { "name": "Shalev Hani", "public_profile_url": "https://x.com/shalevhvs", "relationship": "Creator, not an avatar account" },
+      "languages": [{ "label": "English", "source_ids": ["yangmun-youtube-short-motivation"] }],
+      "region_evidence": {
+        "label": "Israel (creator location)",
+        "basis": "Columbia News Service reports the creator is based in Israel; Yang Mun's avatar location is unknown.",
+        "source_id": "columbia-yangmun-report"
+      },
       "source_urls": [
         "https://www.heygen.com/ja-jp/customer-stories/yangmun",
         "https://columbianewsservice.com/2026/03/24/millions-found-comfort-in-a-buddhist-monk-but-he-was-never-real/",
@@ -272,6 +278,7 @@
       ],
       "unknowns": [
         "Exact TikTok handles and per-account audience counts.",
+        "The avatar's country or location; the reported Israel location belongs to the creator.",
         "Paid orders, product mix, refunds, fees, ad spend, creator net profit, and revenue by creative.",
         "The self-reported revenue/profit claims do not reconcile to an audited statement."
       ]
@@ -286,6 +293,8 @@
         { "source_id": "avatarfactory-ming-san", "summary": "AvatarFactory says the account's AI origin is not established publicly; its directory conflicts with Maldita's classification." }
       ],
       "creator": { "name": null, "relationship": "Unknown" },
+      "languages": [{ "label": "English", "source_ids": ["user-screenshot-mingsan-instagram"] }],
+      "region_evidence": null,
       "source_urls": [
         "https://www.instagram.com/mingsanhealing/",
         "https://maldita.es/investigaciones/20260727/250-ai-health-instagram-accounts/",
@@ -314,6 +323,7 @@
       ],
       "unknowns": [
         "The 1.2M, 1.3M, and screenshot 1.37M counts are different dated/source snapshots, not a reconciled current count.",
+        "Creator identity and account/operator location are not established by the reviewed sources.",
         "Affiliate status, commission, paid units, and net revenue are unknown."
       ]
     },
@@ -326,6 +336,12 @@
         { "source_id": "maldita-2026-07-10", "summary": "Maldita identifies the portrayed man as AI-created and includes the profile in its report on synthetic accounts." }
       ],
       "creator": { "name": null, "relationship": "Unknown" },
+      "languages": [{ "label": "Spanish", "source_ids": ["maldita-2026-07-10"] }],
+      "region_evidence": {
+        "label": "Spain (profile flag)",
+        "basis": "Maldita reports that the profile displayed a Spanish flag; this does not establish the operator's location.",
+        "source_id": "maldita-2026-07-10"
+      },
       "source_urls": [
         "https://archive.li/CZww4",
         "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/"
@@ -341,7 +357,7 @@
       "creative_samples": [
         { "url": "https://archive.li/CZww4", "title": "Shaolin-style profile and guide path", "duration_seconds": null, "uploaded_at": null, "views": null, "views_captured_at": null, "source_id": "maldita-2026-07-10", "structure_summary": "The report describes a monk-like figure in an outdoor scene and a guide CTA placed in a profile highlight. It is an observed offer path, not verified sales.", "media_status": "archive_link_only" }
       ],
-      "unknowns": ["Exact live Instagram handle, current followers, sales, refunds, and revenue."]
+      "unknowns": ["Exact live Instagram handle, current followers, operator location, sales, refunds, and revenue."]
     },
     {
       "id": "leo-chen",
@@ -352,6 +368,8 @@
         { "source_id": "maldita-2026-07-10", "summary": "Maldita describes AI-like visual artifacts in a video attributed to Leo Chen and includes the profile in its AI-account investigation; the exact handle is not linked in the article." }
       ],
       "creator": { "name": null, "relationship": "Unknown" },
+      "languages": [],
+      "region_evidence": null,
       "source_urls": [
         "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/"
       ],
@@ -366,7 +384,7 @@
       "creative_samples": [
         { "url": "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/", "title": "Leo Chen video and comment-to-book CTA described by Maldita", "duration_seconds": null, "uploaded_at": null, "views": 2200000, "views_captured_at": "2026-07-10", "source_id": "maldita-2026-07-10", "structure_summary": "The report describes a health-remedy hook, visual inconsistencies, and a comment-to-DM request for a book. It is not evidence of paid orders.", "media_status": "article_reference_only" }
       ],
-      "unknowns": ["Exact handle, account owner, product price, and whether the comment lead converted to paid orders."]
+      "unknowns": ["Exact handle, language, account owner/location, product price, and whether the comment lead converted to paid orders."]
     },
     {
       "id": "yan-chen-monjechen",
@@ -377,6 +395,8 @@
         { "source_id": "user-screenshot-monjechen-instagram", "summary": "The supplied screenshot displays an 'AI-generated profile' label. The profile label was not independently read back in this research run." }
       ],
       "creator": { "name": null, "relationship": "Unknown" },
+      "languages": [{ "label": "Spanish", "source_ids": ["user-screenshot-monjechen-instagram"] }],
+      "region_evidence": null,
       "source_urls": [
         "https://www.instagram.com/monjechen/"
       ],
@@ -397,7 +417,7 @@
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [],
-      "unknowns": ["Calendar capture date, full product URL, creator identity, and any match with the 'Monk Chen' name in Maldita's investigation headline."]
+      "unknowns": ["Calendar capture date, full product URL, creator identity/location, and any match with the 'Monk Chen' name in Maldita's investigation headline."]
     }
   ]
 }

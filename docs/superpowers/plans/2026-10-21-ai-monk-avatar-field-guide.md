@@ -43,12 +43,12 @@
 
 Each account gains `languages: [{ label, source_ids }]` and `region_evidence: { label, basis, source_id } | null`. Record English/Spanish only where the source supports the language. Label a profile flag as a profile signal, not an operator location; keep unknown country `null`.
 
-- [ ] **RED:** Add tests for case-insensitive name/handle/creator search, AND-combined status/language/platform/region, empty language/region, and no-match results.
-- [ ] Run `cd apps/landing && node --test lib/ai-monk-directory.test.mjs`; confirm it fails because the helper is not implemented.
-- [ ] Add only source-supported `languages` and `region_evidence` to the five account records.
-- [ ] Implement `filterAiMonkAccounts(accounts, filters)` in `lib/ai-monk-directory.mjs`.
-- [ ] Run the focused test again; confirm all cases pass.
-- [ ] Parse the JSON with `python3 -m json.tool public/data/ai-monk-avatar-database-2026.json`.
+- [x] **RED:** Add tests for case-insensitive name/handle/creator search, AND-combined status/language/platform/region, empty language/region, and no-match results.
+- [x] Run `cd apps/landing && node --test lib/ai-monk-directory.test.mjs`; it failed as expected with `ERR_MODULE_NOT_FOUND` before the helper existed.
+- [x] Add only source-supported `languages` and `region_evidence` to the five account records.
+- [x] Implement `filterAiMonkAccounts(accounts, filters)` in `lib/ai-monk-directory.mjs`.
+- [x] Run the focused test again; 4/4 cases pass.
+- [x] Parse the JSON with `python3 -m json.tool public/data/ai-monk-avatar-database-2026.json`; all language/region source IDs resolve.
 
 ### Task AM-8: Build the searchable directory at `/ai-monk-database`
 
@@ -118,4 +118,6 @@ The server page imports the public JSON and passes its `accounts` to `<AiMonkDat
 - The only new runtime logic is one pure filtering function and one client view. Existing JSON, article routing, Postiz, and Netlify deployment patterns remain the source-of-truth integrations.
 - The focused filter test covers null fields, AND composition, and no-match behavior; the build covers static route generation.
 
-**Current cursor:** AM-7 — write the failing search/filter tests.
+**AM-7 status:** Complete. The dataset still contains five profiles; verified language labels are English and Spanish. Region values distinguish the creator's reported location from a profile flag; unknown account/operator locations remain unknown.
+
+**Current cursor:** AM-8 — build the searchable directory route.
