@@ -3,7 +3,7 @@
 // so the blog read as one undifferentiated stream (2026-10-18). Post URLs never move; the hubs,
 // breadcrumbs and same-business related links give each business its own topical cluster.
 export const BUSINESSES = {
-  research: { label: 'Research', intro: 'Papers, hypotheses and experiments on AI and behavior. Claims and measured results belong to their stated evidence.' },
+  research: { label: 'Research', intro: 'Manager is our central research subject: population models, behavior and environments. Explore papers, hypotheses, experiments and measured results, each with its stated evidence.' },
   thankful: {
     label: 'Thankful',
     product: { href: '/thankful', label: 'Explore Thankful' },
@@ -46,6 +46,8 @@ export const BUSINESSES = {
 
 export function businessOf(slug, project) {
   const s = String(slug || '');
+  // Keep the editorial category consistent before the legacy Manager overlay fallback.
+  if (/^manager$/i.test(String(project || ''))) return 'research';
   const p = String(project || '').toLowerCase();
   if (['ai-mindfulness-2026-05-15', 'ai-responsibility-2026-05-08', 'ai-responsibility-2026-05-08-v2-bemo', 'good-agent-evals-measure-outcomes'].includes(s)) return 'research';
   if (p === 'thankful') return 'thankful';

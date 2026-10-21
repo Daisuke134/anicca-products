@@ -3,6 +3,7 @@ import { MediaNav, MediaFooter, ArticleList } from "../../../../components/blog/
 import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
 import { loadAllBlogPosts } from "../../../../lib/blog-posts";
+import { editorialOf } from "../../../../lib/blog-business.mjs";
 import { BUSINESSES, businessOf } from "../../../../lib/blog-business.mjs";
 
 const SITE = "https://aniccaai.com";
@@ -25,7 +26,7 @@ export function generateMetadata({ params }: { params: { business: string } }) {
 export default function BusinessHub({ params }: { params: { business: string } }) {
   const hub = BUSINESSES[params.business];
   if (!hub) notFound();
-  const posts = loadAllBlogPosts().filter((p) => businessOf(p.slug, p.project) === params.business);
+  const posts = loadAllBlogPosts().filter((p) => params.business === "research" ? editorialOf(p.slug, p.project) === "Research" : businessOf(p.slug, p.project) === params.business);
   const url = `${SITE}/blog/c/${params.business}`;
   return (
     <main className="media-page">
