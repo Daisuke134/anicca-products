@@ -11,6 +11,10 @@ export const BUSINESSES = {
     label: 'LINE Stickers',
     intro: 'Original LINE sticker sets, the story behind each set and where to get them.',
   },
+  'ebook-publishing': {
+    label: 'eBook Publishing',
+    intro: 'Evidence-backed field notes on building, pricing, and distributing useful books.',
+  },
   ebook: {
     label: 'The Anicca Reset (eBook)',
     intro: 'Short readings and practices from The Anicca Reset.',
@@ -33,6 +37,7 @@ export function businessOf(slug, project) {
   const s = String(slug || '');
   const p = String(project || '').toLowerCase();
   if (s.startsWith('line-sticker') || p.includes('line') && p.includes('スタンプ')) return 'line-stickers';
+  if (s.startsWith('ebook-publishing-')) return 'ebook-publishing';
   if (s.startsWith('ebook-')) return 'ebook';
   if (/^(elevenlabs|elevenagents)|ai-voice/.test(s) || /affiliate|ai voice|ai customer support/.test(p)) return 'ai-voice-tools';
   if (s.startsWith('anicca-') || p.startsWith('anicca') || /^ai-(mindfulness|responsibility)/.test(s)) return 'anicca';
