@@ -1,3 +1,5 @@
+import { createHash } from 'node:crypto';
+
 export type EnAffirmationFaq = { q: string; a: string };
 
 export type EnAffirmationComparison = {
@@ -44,9 +46,19 @@ export function enAffirmationAppStoreUrl(
   slug: string,
   campaignPrefix: 'seo_en' | 'seo_geo' = 'seo_en',
 ): string {
+  if (!/^[A-Za-z0-9][A-Za-z0-9_-]*$/.test(slug) ||
+      !['seo_en', 'seo_geo'].includes(campaignPrefix)) {
+    throw new Error('Invalid affirmation campaign input');
+  }
+  const identity = `${campaignPrefix}_${slug}`;
+  // Keep existing valid attribution identities; hash the entire longer identity
+  // so similar slugs and different campaign lanes retain distinct tokens.
+  const campaign = identity.length <= 30
+    ? identity
+    : `${identity.slice(0, 13)}-${createHash('sha256').update(identity, 'utf8').digest('hex').slice(0, 16)}`;
   const url = new URL(EN_AFFIRMATION_APP_STORE_BASE);
   url.searchParams.set('pt', '93486075');
-  url.searchParams.set('ct', `${campaignPrefix}_${slug}`);
+  url.searchParams.set('ct', campaign);
   url.searchParams.set('mt', '8');
   return url.toString();
 }
