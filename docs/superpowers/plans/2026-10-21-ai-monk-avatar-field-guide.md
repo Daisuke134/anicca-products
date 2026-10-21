@@ -98,7 +98,7 @@ Expected: PASS; no eager iframe or arbitrary host is present.
 - Modify: `apps/landing/app/blog/[slug]/page.tsx`
 - Modify: `apps/landing/data/research/ebook-publishing-yang-mun-video-to-product.json`
 - Modify: `apps/landing/data/research/ebook-publishing-ai-monk-economy-2026.json`
-- Create: `apps/landing/data/research/ai-monk-yang-mun-case-study-ja.json`
+- Create: `apps/landing/data/research/ebook-publishing-yang-mun-case-study-ja.json`
 - Create: `apps/landing/data/research/ai-monk-avatar-field-guide-ja-2026.json`
 
 **Interfaces:**
