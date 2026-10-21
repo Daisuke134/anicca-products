@@ -1,0 +1,99 @@
+{
+  "schema_version": "anicca.ai-monk-avatar-x-distribution.v1",
+  "captured_at": "2026-10-21T11:15:09Z",
+  "account_handle": "@selawmqt",
+  "production": {
+    "pr_url": "https://github.com/Daisuke134/anicca-products/pull/539",
+    "merge_commit": "628f5c8487ab72b2699427451fe97f704b7789be",
+    "netlify_workflow_run_id": 39589078090,
+    "netlify_deploy_and_post_deploy_smoke": "success",
+    "article_pages_http_status": 200,
+    "category_hub_http_status": 200,
+    "dataset_http_status": 200,
+    "dataset_accounts": 5,
+    "dataset_sources": 21,
+    "shorts_embed_readback": {
+      "field_guide_en": "lite-youtube youtube-short; no initial iframe",
+      "field_guide_ja": "lite-youtube youtube-short; no initial iframe"
+    }
+  },
+  "measurement": {
+    "utm_source": "x",
+    "utm_medium": "social",
+    "utm_campaigns": [
+      "ai_monk_yangmun_en",
+      "ai_monk_field_en",
+      "ai_monk_yangmun_ja",
+      "ai_monk_field_ja"
+    ],
+    "site_hit_fields_recorded": [
+      "utm_source",
+      "utm_campaign"
+    ],
+    "x_metric_snapshot_window_utc": {
+      "start": "2026-10-21T11:15:04Z",
+      "end": "2026-10-21T11:15:09Z"
+    },
+    "x_metric_name": "public views shown by X at first readback",
+    "x_metric_caveat": "Early public view counts change over time and are not clicks, orders, sales, or profit.",
+    "orders_or_revenue_receipt": null
+  },
+  "posts": [
+    {
+      "language": "en",
+      "article_slug": "ebook-publishing-yang-mun-video-to-product",
+      "article_url": "https://aniccaai.com/blog/ebook-publishing-yang-mun-video-to-product",
+      "utm_campaign": "ai_monk_yangmun_en",
+      "text": "Yang Mun is an AI character created by Shalev Hani. We studied two Shorts and the public $49.99 journey and $59.99 collection with three eBooks. The sales path is visible; audited net profit is not public. Read the free, sourced case study: https://aniccaai.com/blog/ebook-publishing-yang-mun-video-to-product?utm_source=x&utm_medium=social&utm_campaign=ai_monk_yangmun_en",
+      "postiz": {
+        "state": "PUBLISHED",
+        "submission_id": "cmvi0gw2p0b3woh0y869eej38",
+        "published_at": "2026-10-21T11:10:00Z"
+      },
+      "x_permalink": "https://x.com/selawmqt/status/2112864240424128560",
+      "x_views_first_snapshot": 5
+    },
+    {
+      "language": "en",
+      "article_slug": "ebook-publishing-ai-monk-economy-2026",
+      "article_url": "https://aniccaai.com/blog/ebook-publishing-ai-monk-economy-2026",
+      "utm_campaign": "ai_monk_field_en",
+      "text": "AI monk avatars are not one business model. Our five-profile starter directory separates confirmed, reported, and unverified profiles, maps visible offers, and marks what public sources cannot prove. Free field guide + open dataset: https://aniccaai.com/blog/ebook-publishing-ai-monk-economy-2026?utm_source=x&utm_medium=social&utm_campaign=ai_monk_field_en",
+      "postiz": {
+        "state": "PUBLISHED",
+        "submission_id": "cmvi0i45u0b3uta0y8hgllnb1",
+        "published_at": "2026-10-21T11:11:00Z"
+      },
+      "x_permalink": "https://x.com/selawmqt/status/2112864480283771023",
+      "x_views_first_snapshot": 4
+    },
+    {
+      "language": "ja",
+      "article_slug": "ebook-publishing-yang-mun-case-study-ja",
+      "article_url": "https://aniccaai.com/blog/ebook-publishing-yang-mun-case-study-ja",
+      "utm_campaign": "ai_monk_yangmun_ja",
+      "text": "Yang MunのAI僧侶ビジネスを、公開Shorts 2本・$49.99の30日プログラム・$59.99のeBookセットから検証。販売導線は見える一方、監査済みの利益は公開資料から確認できません。無料の日本語ケーススタディ: https://aniccaai.com/blog/ebook-publishing-yang-mun-case-study-ja?utm_source=x&utm_medium=social&utm_campaign=ai_monk_yangmun_ja",
+      "postiz": {
+        "state": "PUBLISHED",
+        "submission_id": "cmvi0j48w0b45ta0yryvslgob",
+        "published_at": "2026-10-21T11:12:00Z"
+      },
+      "x_permalink": "https://x.com/selawmqt/status/2112864675977421117",
+      "x_views_first_snapshot": 3
+    },
+    {
+      "language": "ja",
+      "article_slug": "ai-monk-avatar-field-guide-ja-2026",
+      "article_url": "https://aniccaai.com/blog/ai-monk-avatar-field-guide-ja-2026",
+      "utm_campaign": "ai_monk_field_ja",
+      "text": "AI僧侶アバター関連の初期5プロフィールを、AI生成の根拠・動画の型・商品導線・未確認点に分けて整理。Yang Munだけを市場全体と見なさず、Ming Sanらの確度も併記した無料ガイドです。公開JSON付き: https://aniccaai.com/blog/ai-monk-avatar-field-guide-ja-2026?utm_source=x&utm_medium=social&utm_campaign=ai_monk_field_ja",
+      "postiz": {
+        "state": "PUBLISHED",
+        "submission_id": "cmvi0k9dn0b4ota0yr5e17mub",
+        "published_at": "2026-10-21T11:13:00Z"
+      },
+      "x_permalink": "https://x.com/selawmqt/status/2112864903895842980",
+      "x_views_first_snapshot": 1
+    }
+  ]
+}

@@ -161,25 +161,25 @@ Run: `cd apps/landing && npm run build`
 Expected: successful Next.js build with the new article slugs and custom element.
 
 - [x] **Step 3: Run `git diff --check`, commit, and push** the dedicated branch.
-- [ ] **Step 4: Open the PR, wait for exact-head checks, merge with the repo’s normal admin merge path, and verify Netlify production deployment.**
-- [ ] **Step 5: Read back all four article URLs, the category hub, the public JSON, rendered HTML confirming `lite-youtube` plus 9:16 styling and no pre-click iframe, and both book-outline files through their GitHub `main` URLs.**
+- [x] **Step 4: Open the PR, wait for exact-head checks, merge with the repo’s normal admin merge path, and verify Netlify production deployment.**
+- [x] **Step 5: Read back all four article URLs, the category hub, the public JSON, rendered HTML confirming `lite-youtube` plus 9:16 styling and no pre-click iframe, and both book-outline files through their GitHub `main` URLs.**
 
 ### Task 6: Promote each published article on X in its native language
 
 **Files:**
 - Create: `docs/evidence/ai-monk-avatar-x-distribution-20261021.json` (public post receipts only; no credentials).
 
-- [ ] **Step 1: Compose four concise posts**, one for each EN/JA article URL, with language-matched copy, a source-based hook, and the counterpart link where the character budget permits.
-- [ ] **Step 2: Publish each post exactly once through the existing Postiz `x_post.py` path** after confirming the exact production URLs.
-- [ ] **Step 3: Read back all four provider receipts and exact X permalinks; save only sanitized public receipt fields.**
+- [x] **Step 1: Compose four concise posts**, one for each EN/JA article URL, with language-matched copy, a source-based hook, and the counterpart link where the character budget permits.
+- [x] **Step 2: Publish each post exactly once through the existing Postiz `x_post.py` path** after confirming the exact production URLs.
+- [x] **Step 3: Read back all four provider receipts and exact X permalinks; save only sanitized public receipt fields.**
 
 ## Self-review checklist
 
-- [ ] Every spec requirement maps to Tasks 1–6.
-- [ ] No task asks an implementer to invent a filename, function signature, metric definition, or account handle.
-- [ ] English/Japanese slugs, article filenames, and category mapping agree.
-- [ ] The source-level review-focus cases appear in the renderer tests and dataset acceptance.
-- [ ] No full third-party script, video, voice, image, or private account information is committed.
+- [x] Every spec requirement maps to Tasks 1–6.
+- [x] No task asks an implementer to invent a filename, function signature, metric definition, or account handle.
+- [x] English/Japanese slugs, article filenames, and category mapping agree.
+- [x] The source-level review-focus cases appear in the renderer tests and dataset acceptance.
+- [x] No full third-party script, video, voice, image, or private account information is committed.
 
 **AM-3 status:** Four source-linked articles are present (two English, two Japanese). The English field-guide slug is unchanged. Both Japanese JSON records set `lang: "ja"` and a character count; article rendering adds the matching HTML language and Japanese count label. All article JSON files parse; the 10 focused category/CTA/YouTube tests pass.
 
@@ -191,8 +191,12 @@ Expected: successful Next.js build with the new article slugs and custom element
 
 **AM-5 build status:** The landing build passes after running the two SHA-verified, immutable canonical marketing/blog asset staging scripts used by the repository workflow. The standalone build initially lacked the ignored public/assets/manager-site/published-apps.json; this is a required workflow input, not an article defect. The successful build generated all five AI-monk article/category routes. Its prebuild touched only the existing dashboard snapshot with an empty network fallback; that generated change was restored before review. Existing unrelated MetaMask, pino-pretty, and Tailwind warnings remain.
 
-**Independent content review:** No publish-blocking claim/source, confidence label, cross-language, or copying issue was found. The EN/JA guides link to the new book-outline files on GitHub main; those URLs currently return 404 until this branch merges, so production readback must confirm the links after merge and before X distribution.
+**Independent content review:** No publish-blocking claim/source, confidence label, cross-language, or copying issue was found. The reviewer flagged the GitHub main outline links before merge; after PR #539 merged, both outline paths returned successfully and the public articles were read back before X distribution.
 
 **AM-5 source status:** The latest origin/main commit is merged into the dedicated branch and pushed. Focused tests pass (12/12), the CI-staged landing build succeeds, the five AI-monk static routes are present, and the worktree is clean.
 
-**Current cursor:** AM-5 open PR, exact-head CI, merge, and production readback. Then AM-6 publish four language-matched X posts with direct article URLs and save receipts.
+**AM-5 production status:** PR #539 merged as 628f5c8487ab72b2699427451fe97f704b7789be. Netlify workflow 39589078090 and post-deploy smoke pass. Four article pages, category hub, and JSON return 200. Both book-outline files exist on GitHub main. The field-guide pages render one portrait `lite-youtube` card with no eager iframe; Japanese article roots carry `lang="ja"` and character counts.
+
+**AM-6 status:** Four language-matched X posts point directly to their matching article pages. Postiz returns `PUBLISHED` for all four; `x_post.py` read back the exact X permalinks. The first public-view snapshot and sanitized provider receipts are in `docs/evidence/ai-monk-avatar-x-distribution-20261021.json`. UTM campaigns are unique per article; the site’s existing cookieless tracker records source and campaign pageview totals. The 17:00 queued X post was left unchanged.
+
+**Current cursor:** Complete.
