@@ -42,7 +42,7 @@ export default function BusinessHub({ params }: { params: { business: string } }
           { "@type": "ListItem", position: 3, name: hub.label, item: url },
         ],
       }} />
-      <MediaNav/><div className="media-wrap"><header className="media-hero"><h1>{hub.label}</h1><p>{hub.intro}</p></header>{params.business === "research" && <p><Link href="/blog/manager">Manager research</Link> — papers, hypotheses, experiments and measured results from the existing research collection.</p>}<ArticleList posts={posts}/><MediaFooter/></div>
+      <MediaNav/><div className="media-wrap"><header className="media-hero"><h1>{hub.label}</h1><p>{hub.intro}</p>{hub.product && <Link className="media-button" href={hub.product.href}>{hub.product.label}</Link>}</header>{params.business === "research" && <p><Link href="/blog/manager">Manager research</Link> — papers, hypotheses, experiments and measured results from the existing research collection.</p>}<ArticleList posts={posts}/><MediaFooter/></div>
     </main>
   );
 }
