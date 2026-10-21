@@ -29,7 +29,7 @@ export const BUSINESSES = {
     intro: 'Researched comparisons and documented experiments with voice and audio tools. Commercial disclosures remain with each article.',
   },
   anicca: {
-    label: 'Anicca app',
+    label: 'Anicca iOS',
     intro: 'The Anicca app, mindfulness and impermanence in everyday life.',
   },
   notes: {
