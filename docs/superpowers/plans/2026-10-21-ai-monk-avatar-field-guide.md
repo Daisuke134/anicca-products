@@ -95,6 +95,7 @@ Expected: PASS; no eager iframe or arbitrary host is present.
 **Files:**
 - Modify: `apps/landing/lib/blog-business.mjs`
 - Modify: `apps/landing/lib/blog-business.test.mjs`
+- Modify: `apps/landing/app/blog/[slug]/page.tsx`
 - Modify: `apps/landing/data/research/ebook-publishing-yang-mun-video-to-product.json`
 - Modify: `apps/landing/data/research/ebook-publishing-ai-monk-economy-2026.json`
 - Create: `apps/landing/data/research/ai-monk-yang-mun-case-study-ja.json`
@@ -105,6 +106,7 @@ Expected: PASS; no eager iframe or arbitrary host is present.
 - `businessOf(slug, project)` returns `ai-monk-avatars` for `ebook-publishing-ai-monk-economy-2026` and the `ai-monk-avatar-` slug family.
 - Yang Mun EN keeps its current slug; its JA counterpart gets its own stable `ebook-publishing-yang-mun-case-study-ja` slug.
 - The English field guide keeps the `ebook-publishing-ai-monk-economy-2026` slug; the JA counterpart uses `ai-monk-avatar-field-guide-ja-2026`.
+- Japanese article JSON sets `lang: "ja"` and `character_count`; the page renders `lang="ja"` and labels the count in Japanese characters.
 - Every article links to the machine-readable JSON and to its same-topic counterpart.
 
 - [x] **Step 1: Add the failing category assertion** to `lib/blog-business.test.mjs`.
@@ -116,11 +118,12 @@ Expected: FAIL because `ai-monk-avatars` is not a recognized business.
 
 - [x] **Step 3: Add the category mapping** and rerun the focused category test.
 - [ ] **Step 4: Expand the English Yang Mun case** with creator attribution, the two observed Shorts, dated platform snapshots, offer mechanics, conflicting self-reported earnings, and a clear unknowns section.
-- [ ] **Step 5: Add the Japanese Yang Mun edition** with Japanese-first hook, headings, and examples; preserve all source links and caveats.
+- [ ] **Step 5: Add the Japanese Yang Mun edition** with Japanese-first hook, headings, examples, `lang: "ja"`, and a Japanese character count; preserve all source links and caveats.
 - [ ] **Step 6: Rewrite the existing eBook economy article in place** as the English field guide; preserve its slug and eBook-economics section, remove non-avatar animation and living-monk examples, and link to the database.
-- [ ] **Step 7: Write the Japanese field guide** with a concise taxonomy, cautious timeline, curated profile notes, shared creative patterns, visible offer routes, health-claim caveats, and database links.
-- [ ] **Step 8: Add the AI Monk Avatars hub mapping** for the legacy English slug and new Japanese field-guide slug; confirm both resolve to the hub category.
-- [ ] **Step 9: Parse all changed article JSON** and confirm each embedded marker refers to a source-backed YouTube video ID.
+- [ ] **Step 7: Write the Japanese field guide** with a concise taxonomy, cautious timeline, curated profile notes, shared creative patterns, visible offer routes, health-claim caveats, database links, `lang: "ja"`, and a Japanese character count.
+- [ ] **Step 8: Render article language and length labels** in `app/blog/[slug]/page.tsx`: `lang` on the article element, `文字` for Japanese `character_count`, and `words` for English `word_count`.
+- [ ] **Step 9: Confirm the category hub** resolves the legacy English field-guide slug and the new Japanese field-guide slug.
+- [ ] **Step 10: Parse all changed article JSON** and confirm each embedded marker refers to a source-backed YouTube video ID.
 
 Run: `python3 -m json.tool <each changed article JSON>`
 

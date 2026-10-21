@@ -15,7 +15,7 @@ Make Anicca a source-backed English/Japanese reference on AI monk avatars: one Y
 ## To-Be
 
 1. **Yang Mun case study:** expand the existing English page and add a naturally written Japanese counterpart. Cover creator Shalev Hani, dated social/account evidence, video format, production claims, the public offer ladder, competing revenue claims, and open questions.
-2. **AI monk avatar field guide:** reuse the existing English `ebook-publishing-ai-monk-economy-2026` URL as the English field guide and add a Japanese counterpart. Preserve the old URL because the existing X post points to it; retain the eBook-economics section inside the broader field guide. Add an `AI Monk Avatars` category hub at `/blog/c/ai-monk-avatars`.
+2. **AI monk avatar field guide:** reuse the existing English `ebook-publishing-ai-monk-economy-2026` URL as the English field guide and add a Japanese counterpart. Preserve the old URL because the existing X post points to it; retain the eBook-economics section inside the broader field guide. Add an `AI Monk Avatars` category hub at `/blog/c/ai-monk-avatars`. Japanese article JSON sets `lang: "ja"`; the rendered article uses `lang="ja"` and shows a Japanese character count.
 3. **Correct the field-guide evidence:** replace the old mixed six-video sample with AI monk avatar video examples only. The English legacy slug and the new Japanese slug link to the same open directory and each other.
 4. **Open starter dataset:** add `apps/landing/public/data/ai-monk-avatar-database-2026.json`. Each record includes profile URLs, platform, provenance status and evidence, visible offer type, dated audience/video snapshots, and unresolved fields. This is a curated starter set, not a claim to cover every account.
 5. **Book proposal:** add a shared English/Japanese title, hook, reader promise, and 10-chapter outline under `docs/books/`. This deliverable is an outline, not a completed book.
@@ -37,6 +37,7 @@ Make Anicca a source-backed English/Japanese reference on AI monk avatars: one Y
 
 - The existing Yang Mun EN page and new JA page are public and free.
 - The AI monk field-guide EN/JA pages are public and free; the English field guide retains its existing URL.
+- Japanese page bodies render with `lang="ja"` and display character counts instead of English word labels.
 - The field guide links to the JSON dataset and the Yang Mun case study.
 - The `/blog/c/ai-monk-avatars` hub lists both field-guide editions.
 - The existing English field-guide URL has no non-avatar videos in its sample and links to the dataset and Yang Mun case study.
