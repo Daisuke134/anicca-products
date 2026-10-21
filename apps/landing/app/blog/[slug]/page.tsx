@@ -22,6 +22,7 @@ type ResearchPost = {
   project: string;
   n_papers_cited: number;
   word_count: number;
+  character_count?: number;
   markdown: string;
   description?: string;
   mirrors?: Mirrors;
@@ -149,6 +150,9 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
     .filter((p) => p.slug !== post.slug && businessOf(p.slug, p.project) === business)
     .slice(0, 6);
   const attribution = resolveArticleAttribution(post.attribution);
+  const readingLength = post.lang === "ja"
+    ? `${(post.character_count ?? post.word_count).toLocaleString()} 文字`
+    : `${post.word_count.toLocaleString()} words`;
 
   return (
     <main className="bg-cream">
@@ -173,7 +177,7 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
           dangerouslySetInnerHTML={{ __html: post.writer_manifest }}
         />
       )}
-      <article className="mx-auto max-w-3xl px-5 pt-32 pb-20">
+      <article lang={post.lang === "ja" ? "ja" : "en"} className="mx-auto max-w-3xl px-5 pt-32 pb-20">
         <nav className="font-mono-ui text-[11px] uppercase tracking-[0.22em] text-mist">
           <Link href="/blog" className="transition-colors hover:text-ink">Articles</Link>
           {" / "}
@@ -181,7 +185,7 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
         </nav>
 
         <p className="mt-12 font-mono-ui text-[11px] uppercase tracking-[0.22em] text-mist">
-          {post.date} · {post.project} · {post.word_count.toLocaleString()} words
+          {post.date} · {post.project} · {readingLength}
           {post.n_papers_cited > 0 && ` · ${post.n_papers_cited} ${post.n_papers_cited === 1 ? "citation" : "citations"}`}
         </p>
 

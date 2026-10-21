@@ -117,13 +117,13 @@ Run: `node --test lib/blog-business.test.mjs`
 Expected: FAIL because `ai-monk-avatars` is not a recognized business.
 
 - [x] **Step 3: Add the category mapping** and rerun the focused category test.
-- [ ] **Step 4: Expand the English Yang Mun case** with creator attribution, the two observed Shorts, dated platform snapshots, offer mechanics, conflicting self-reported earnings, and a clear unknowns section.
-- [ ] **Step 5: Add the Japanese Yang Mun edition** with Japanese-first hook, headings, examples, `lang: "ja"`, and a Japanese character count; preserve all source links and caveats.
-- [ ] **Step 6: Rewrite the existing eBook economy article in place** as the English field guide; preserve its slug and eBook-economics section, remove non-avatar animation and living-monk examples, and link to the database.
-- [ ] **Step 7: Write the Japanese field guide** with a concise taxonomy, cautious timeline, curated profile notes, shared creative patterns, visible offer routes, health-claim caveats, database links, `lang: "ja"`, and a Japanese character count.
-- [ ] **Step 8: Render article language and length labels** in `app/blog/[slug]/page.tsx`: `lang` on the article element, `文字` for Japanese `character_count`, and `words` for English `word_count`.
-- [ ] **Step 9: Confirm the category hub** resolves the legacy English field-guide slug and the new Japanese field-guide slug.
-- [ ] **Step 10: Parse all changed article JSON** and confirm each embedded marker refers to a source-backed YouTube video ID.
+- [x] **Step 4: Expand the English Yang Mun case** with creator attribution, the two observed Shorts, dated platform snapshots, offer mechanics, conflicting self-reported earnings, and a clear unknowns section.
+- [x] **Step 5: Add the Japanese Yang Mun edition** with a Japanese-first hook, localized headings, `lang: "ja"`, and a Japanese character count; preserve source links and caveats.
+- [x] **Step 6: Rewrite the existing eBook economy article in place** as the English field guide; preserve its slug and eBook-economics section, use AI monk-avatar profiles only, and link to the database.
+- [x] **Step 7: Write the Japanese field guide** with a concise taxonomy, cautious timeline, five sourced profile notes, creative patterns, visible offer routes, health-claim caveats, database links, `lang: "ja"`, and a Japanese character count.
+- [x] **Step 8: Render article language and length labels** in `app/blog/[slug]/page.tsx`: `lang` on the article element, `文字` for Japanese `character_count`, and `words` for English `word_count`.
+- [x] **Step 9: Confirm the category hub** resolves the legacy English field-guide slug and the new Japanese field-guide slug.
+- [x] **Step 10: Parse all changed article JSON** and confirm each embedded marker refers to a source-backed YouTube video ID.
 
 Run: `python3 -m json.tool <each changed article JSON>`
 
@@ -139,22 +139,22 @@ Expected: all article files parse successfully.
 - Both files share the thesis, title concept, target reader, hook, evidence rules, and 10 chapter topics.
 - The Japanese proposal is localized, not a line-for-line translation.
 
-- [ ] **Step 1: Write the English proposal** with a provocative but accurate hook and ten source-backed chapter briefs.
-- [ ] **Step 2: Write the Japanese proposal** with the same argument and a natural Japanese hook.
-- [ ] **Step 3: Confirm each chapter connects to an evidence source or a stated research gap.**
+- [x] **Step 1: Write the English proposal** with a provocative but accurate hook and ten source-backed chapter briefs.
+- [x] **Step 2: Write the Japanese proposal** with the same argument and a natural Japanese hook.
+- [x] **Step 3: Confirm each chapter connects to an evidence source or a stated research gap.**
 
 ### Task 5: Build, merge, and verify production pages
 
 **Files:**
 - Review the complete branch diff; no additional files are expected.
 
-- [ ] **Step 1: Run the focused tests**.
+- [x] **Step 1: Run the focused tests**.
 
 Run: `cd apps/landing && node --test test/render-article-markdown-youtube.test.mjs lib/blog-business.test.mjs`
 
 Expected: all focused tests PASS.
 
-- [ ] **Step 2: Build the landing app**.
+- [x] **Step 2: Build the landing app**.
 
 Run: `cd apps/landing && npm run build`
 
@@ -162,7 +162,7 @@ Expected: successful Next.js build with the new article slugs and custom element
 
 - [ ] **Step 3: Run `git diff --check`, commit, and push** the dedicated branch.
 - [ ] **Step 4: Open the PR, wait for exact-head checks, merge with the repo’s normal admin merge path, and verify Netlify production deployment.**
-- [ ] **Step 5: Read back all four article URLs, the category hub, the public JSON, and rendered HTML confirming `lite-youtube` plus 9:16 styling and no pre-click iframe.**
+- [ ] **Step 5: Read back all four article URLs, the category hub, the public JSON, rendered HTML confirming `lite-youtube` plus 9:16 styling and no pre-click iframe, and both book-outline files through their GitHub `main` URLs.**
 
 ### Task 6: Promote each published article on X in its native language
 
@@ -180,3 +180,15 @@ Expected: successful Next.js build with the new article slugs and custom element
 - [ ] English/Japanese slugs, article filenames, and category mapping agree.
 - [ ] The source-level review-focus cases appear in the renderer tests and dataset acceptance.
 - [ ] No full third-party script, video, voice, image, or private account information is committed.
+
+**AM-3 status:** Four source-linked articles are present (two English, two Japanese). The English field-guide slug is unchanged. Both Japanese JSON records set `lang: "ja"` and a character count; article rendering adds the matching HTML language and Japanese count label. All article JSON files parse; the 10 focused category/CTA/YouTube tests pass.
+
+**AM-4 status:** English and Japanese book proposals share a ten-chapter argument and hook. Chapter 4 is explicitly the largest case chapter and centers Yang Mun, Shalev Hani, the video samples, offer, production claims, contradictory identity description, and earnings evidence.
+
+**Research rulings:** YT-DLP discovery returned multiple AI-monk tutorial videos; these are creator-education videos, not sourced avatar accounts, so they are not counted in the directory. The public directory remains a five-profile starter set, not an exhaustive census. Video analysis records structure and short summaries only; no transcript or downloaded media is committed. The Japanese field guide's `low_lexical_diversity_ttr` info finding remains because repeated account names and evidence labels preserve source precision. The book outline's `low_burstiness` warning remains because it is a structured chapter plan; the sample hook varies sentence length and the finding does not justify flattening the outline.
+
+**Distribution benchmark:** A user-supplied screenshot of a Tommi Pedruzzi X thread about AI eBook publishing displays 1.31M views, 1,545 likes, 151 reposts, and 2,515 bookmarks; the exact status URL is not present, so the numbers remain screenshot-attributed. The observable mechanism is a direct hook, a short explanation, numbered decision steps, concrete thresholds, and a closing CTA. X copy for this branch uses original wording, a verified article fact, and a direct Anicca article link; it tracks X pageviews by UTM and does not repeat the screenshot's unverified earnings claims.
+
+**AM-5 build status:** The landing build passes after running the two SHA-verified, immutable canonical marketing/blog asset staging scripts used by the repository workflow. The standalone build initially lacked the ignored public/assets/manager-site/published-apps.json; this is a required workflow input, not an article defect. The successful build generated all five AI-monk article/category routes. Its prebuild touched only the existing dashboard snapshot with an empty network fallback; that generated change was restored before review. Existing unrelated MetaMask, pino-pretty, and Tailwind warnings remain.
+
+**Independent content review:** No publish-blocking claim/source, confidence label, cross-language, or copying issue was found. The EN/JA guides link to the new book-outline files on GitHub main; those URLs currently return 404 until this branch merges, so production readback must confirm the links after merge and before X distribution.
