@@ -30,3 +30,27 @@ test('rendered article archive is primary and external routes come afterward',as
  assert.match(html,/<nav[^>]+aria-label="Articles navigation"[^>]*>.*href="\/blog".*href="\/dais".*href="\/en#story".*<\/nav>/);
  assert.match(html,/href="\/blog\/c\/thankful"/);
 });
+
+test('article archive declares its self-canonical',async()=>{
+ const page=compiled(new URL('../app/blog/page.tsx',import.meta.url),{
+  '@/components/JsonLd':compiled(new URL('../components/JsonLd.tsx',import.meta.url)),
+  'next/link':pathToFileURL(require.resolve('next/link')).href,
+  '../../lib/blog-business.mjs':new URL('../lib/blog-business.mjs',import.meta.url).href,
+ });
+ const {metadata}=await import(page);
+ assert.equal(metadata.alternates?.canonical,'https://aniccaai.com/blog');
+});
+
+test('sitemap includes the archive once and retains article destinations',async()=>{
+ process.chdir(fileURLToPath(new URL('../',import.meta.url)));
+ const imports={'@/lib/blog-business.mjs':new URL('../lib/blog-business.mjs',import.meta.url).href};
+ for(const name of ['affirmation-alternates','blog-posts','en-affirmation-problems','es-affirmation-problems','ja-affirmation-problems','kokoro-quiz','lm-ja-guides']) {
+  imports['@/lib/'+name]=compiled(new URL('../lib/'+name+'.ts',import.meta.url));
+ }
+ const {default:sitemap}=await import(compiled(new URL('../app/sitemap.ts',import.meta.url),imports));
+ const entries=sitemap();
+ assert.equal(entries.filter(entry=>entry.url==='https://aniccaai.com/blog').length,1);
+ assert.ok(entries.some(entry=>entry.url==='https://aniccaai.com/blog/gratitude-journal-repeating-yourself'));
+ assert.ok(entries.some(entry=>entry.url==='https://aniccaai.com/affirmation-app/a/affirmations-for-overthinking'));
+ assert.equal(new Set(entries.map(entry=>entry.url)).size,entries.length);
+});

@@ -16,6 +16,7 @@ const BASE_URL = "https://aniccaai.com";
 // Static top-level pages. Paths must exist (no 404s). No trailing-slash
 // duplicates of redirect-only aliases.
 const STATIC_PATHS = [
+  "/blog",
   "/affirmation-app",
   "/affirmation-app/ja",
   "/affirmation-app/ja/a",

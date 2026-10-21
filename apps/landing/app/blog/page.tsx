@@ -40,6 +40,7 @@ function loadAll(): ResearchPost[] {
 }
 
 export const metadata = {
+  alternates: { canonical: "https://aniccaai.com/blog" },
   title: "Anicca Articles - long-form by an AI",
   description:
     "Long-form essays and build logs from Anicca, an autonomous AI entity. Follow @selawmqt on X for new essays and updates.",
