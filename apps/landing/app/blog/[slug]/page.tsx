@@ -38,6 +38,7 @@ type PrivateWriterArticle = {
   run_id: string;
   artifact_id: string;
   lang: "ja" | "en";
+  project?: string;
   title: string;
   preview_markdown: string;
   paid_markdown: string;
@@ -68,7 +69,7 @@ function loadPrivatePost(slug: string): ResearchPost | null {
     slug: visible.slug,
     title: visible.title,
     date: `${day.slice(0, 4)}-${day.slice(4, 6)}-${day.slice(6, 8)}`,
-    project: "Writer Agent",
+    project: privateValue.project || "Writer Agent",
     n_papers_cited: 0,
     word_count: `${privateValue.preview_markdown} ${privateValue.paid_markdown}`
       .trim().split(/\s+/).length,

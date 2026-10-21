@@ -139,7 +139,8 @@ test('existing business classifier does not relabel Thankful or Honne as the Ani
   const { businessOf } = await import('../../../../lib/blog-business.mjs');
   assert.equal(businessOf('gratitude-journal-repeating-yourself', 'Thankful'), 'thankful');
   assert.equal(businessOf('how-to-reply-to-fine-in-a-text', 'Honne'), 'notes');
-  assert.equal(businessOf('anicca-reminders-versus-journaling', 'Anicca'), 'anicca');
+  assert.equal(businessOf('anicca-ios-2026-05-19-en', 'anicca-ios'), 'anicca');
+  assert.equal(businessOf('anicca-unreviewed-company-topic', 'Anicca'), 'notes');
 });
 
 test('existing structured data retains public FAQ and never emits paid body text', async () => {
