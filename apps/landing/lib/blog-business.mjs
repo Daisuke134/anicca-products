@@ -3,6 +3,10 @@
 // so the blog read as one undifferentiated stream (2026-10-18). Post URLs never move; the hubs,
 // breadcrumbs and same-business related links give each business its own topical cluster.
 export const BUSINESSES = {
+  thankful: {
+    label: 'Thankful',
+    intro: 'Practical gratitude-journaling guides and the Thankful app.',
+  },
   'ai-creator-tools': {
     label: 'AI Creator Tools',
     intro: 'Hooks, short-form scripts and video ideas from the Capafy agents we build: Hook Lab, TikTok Script Pro and YouTube Script Writer.',
@@ -36,6 +40,7 @@ export const BUSINESSES = {
 export function businessOf(slug, project) {
   const s = String(slug || '');
   const p = String(project || '').toLowerCase();
+  if (p === 'thankful') return 'thankful';
   if (s.startsWith('line-sticker') || p.includes('line') && p.includes('スタンプ')) return 'line-stickers';
   if (s.startsWith('ebook-publishing-')) return 'ebook-publishing';
   if (s.startsWith('ebook-')) return 'ebook';

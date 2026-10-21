@@ -17,3 +17,17 @@ test('every business has a hub label and intro', () => {
     assert.ok(BUSINESSES[key].label && BUSINESSES[key].intro);
   }
 });
+
+test('published Thankful guide belongs to its product and excludes unrelated build notes', async () => {
+  const { readFileSync, readdirSync } = await import('node:fs');
+  const root = new URL('../data/research/', import.meta.url);
+  const post = JSON.parse(readFileSync(new URL('gratitude-journal-repeating-yourself.json', root), 'utf8'));
+  assert.equal(businessOf(post.slug, post.project), 'thankful');
+  assert.equal(BUSINESSES.thankful.label, 'Thankful');
+  const related = readdirSync(root).filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(new URL(f, root), 'utf8')))
+    .filter(p => p.slug !== post.slug && businessOf(p.slug, p.project) === businessOf(post.slug, post.project));
+  assert.ok(related.every(p => String(p.project).toLowerCase() === 'thankful'));
+  assert.equal(post.date, '2026-10-21');
+  assert.match(post.markdown, /https:\/\/apps.apple.com\/us\/app\/thankful-gratitude-journal\/id6759514159/);
+  assert.equal(post.attribution.text, 'An Anicca practical guide, written with AI assistance. Examples are illustrative.');
+});
