@@ -26,3 +26,12 @@ test('article index leads with populated editorial categories and keeps app CTAs
  for(const [,key,card] of cards){assert.match(card,/<p>/);assert.ok((card.match(/data-article-preview=/g)||[]).length>=1,key);assert.ok((card.match(/data-article-preview=/g)||[]).length<=2,key);}
  assert.doesNotMatch(html,/[↗⬆↑]/u);
 });
+
+test('Research is one index topic and includes Manager articles without moving their URLs',()=>{
+ const html=renderToStaticMarkup(React.createElement(index.default));
+ assert.equal((html.match(/data-topic="research"/g)||[]).length,1);
+ assert.equal((html.match(/data-topic="manager"/g)||[]).length,0);
+ const research=renderToStaticMarkup(React.createElement(hub.default,{params:{business:'research'}}));
+ assert.match(research,/href="\/blog\/manager-benchmark-first-en"/);
+ assert.match(research,/href="\/blog\/manager"/);
+});

@@ -3,7 +3,7 @@
 // so the blog read as one undifferentiated stream (2026-10-18). Post URLs never move; the hubs,
 // breadcrumbs and same-business related links give each business its own topical cluster.
 export const BUSINESSES = {
-  research: { label: 'Research', intro: 'Papers, hypotheses and experiments on AI and behavior. Claims and measured results belong to their stated evidence.' },
+  research: { label: 'Research', intro: 'Manager is our central research subject: population models, behavior and environments. Explore papers, hypotheses, experiments and measured results, each with its stated evidence.' },
   thankful: {
     label: 'Thankful',
     product: { href: '/thankful', label: 'Explore Thankful' },
