@@ -137,7 +137,7 @@ test('private Writer validation, manifest and unlock gates remain unchanged', ()
 
 test('existing business classifier does not relabel Thankful or Honne as the Anicca app', async () => {
   const { businessOf } = await import('../../../../lib/blog-business.mjs');
-  assert.equal(businessOf('gratitude-journal-repeating-yourself', 'Thankful'), 'notes');
+  assert.equal(businessOf('gratitude-journal-repeating-yourself', 'Thankful'), 'thankful');
   assert.equal(businessOf('how-to-reply-to-fine-in-a-text', 'Honne'), 'notes');
   assert.equal(businessOf('anicca-reminders-versus-journaling', 'Anicca'), 'anicca');
 });

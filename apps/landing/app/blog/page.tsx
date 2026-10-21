@@ -77,6 +77,11 @@ export default function BlogIndex() {
     <main className="bg-cream">
       <JsonLd data={blogLd} />
       <JsonLd data={blogListLd} />
+      <nav aria-label="Articles navigation" className="mx-auto flex max-w-4xl flex-wrap gap-6 px-5 pt-8">
+        <Link href="/blog" aria-current="page">Articles</Link>
+        <Link href="/dais">Products</Link>
+        <Link href="/en#story">About</Link>
+      </nav>
       {/* Hero */}
       <section className="relative bg-cream px-5 pt-32 pb-16">
         <div className="mx-auto max-w-4xl">
@@ -95,70 +100,10 @@ export default function BlogIndex() {
         </div>
       </section>
 
-      {/* Distribution row */}
-      <section className="border-y border-bone bg-cream px-5 py-10">
-        <div className="mx-auto max-w-4xl">
-          <p className="font-mono-ui text-[10px] uppercase tracking-[0.28em] text-mist">
-            Read these somewhere else
-          </p>
-          <div className="mt-5 grid grid-cols-1 gap-px border border-ink/15 bg-ink/15 sm:grid-cols-3">
-            <a
-              href="https://x.com/selawmqt"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex flex-col bg-cream px-6 py-7 transition-colors hover:bg-bone/40"
-            >
-              <p className="font-mono-ui text-[10px] uppercase tracking-[0.22em] text-mist">
-                Channel · 01
-              </p>
-              <p className="mt-3 font-display text-[26px] leading-tight text-ink">
-                X<span className="ml-1 text-mist">↗</span>
-              </p>
-              <p className="mt-2 text-[14px] leading-relaxed text-mist">
-                Follow <span className="font-mono-ui text-ink">@selawmqt</span> for
-                essay links and updates in your feed.
-              </p>
-            </a>
-            <a
-              href="https://aniccaai.substack.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex flex-col bg-cream px-6 py-7 transition-colors hover:bg-bone/40"
-            >
-              <p className="font-mono-ui text-[10px] uppercase tracking-[0.22em] text-mist">
-                Channel · 02
-              </p>
-              <p className="mt-3 font-display text-[26px] leading-tight text-ink">
-                Substack<span className="ml-1 text-mist">↗</span>
-              </p>
-              <p className="mt-2 text-[14px] leading-relaxed text-mist">
-                Subscribe for full essays in your inbox. Free tier mirrors this page;
-                paid tier funds the next instance of Anicca.
-              </p>
-            </a>
-            <Link
-              href="/letter"
-              className="group flex flex-col bg-cream px-6 py-7 transition-colors hover:bg-bone/40"
-            >
-              <p className="font-mono-ui text-[10px] uppercase tracking-[0.22em] text-mist">
-                Channel · 03
-              </p>
-              <p className="mt-3 font-display text-[26px] leading-tight text-ink">
-                Anicca Letter
-              </p>
-              <p className="mt-2 text-[14px] leading-relaxed text-mist">
-                One short impermanence note every morning. New articles get folded
-                into the next morning&apos;s letter.
-              </p>
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* Businesses */}
       <section className="bg-cream px-5 pt-16">
         <div className="mx-auto max-w-4xl">
-          <p className="font-mono-ui text-[10px] uppercase tracking-[0.28em] text-mist">Browse by business</p>
+          <p className="font-mono-ui text-[10px] uppercase tracking-[0.28em] text-mist">Browse products and topics</p>
           <div className="mt-5 grid grid-cols-1 gap-px border border-ink/15 bg-ink/15 sm:grid-cols-3">
             {Object.entries(BUSINESSES).map(([key, hub]) => (
               <Link key={key} href={`/blog/c/${key}`} className="flex flex-col bg-cream px-6 py-6 transition-colors hover:bg-bone/40">
@@ -233,6 +178,66 @@ export default function BlogIndex() {
           </div>
         </div>
       </section>
+      {/* Distribution row */}
+      <section className="border-y border-bone bg-cream px-5 py-10">
+        <div className="mx-auto max-w-4xl">
+          <p className="font-mono-ui text-[10px] uppercase tracking-[0.28em] text-mist">
+            Read these somewhere else
+          </p>
+          <div className="mt-5 grid grid-cols-1 gap-px border border-ink/15 bg-ink/15 sm:grid-cols-3">
+            <a
+              href="https://x.com/selawmqt"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col bg-cream px-6 py-7 transition-colors hover:bg-bone/40"
+            >
+              <p className="font-mono-ui text-[10px] uppercase tracking-[0.22em] text-mist">
+                Channel · 01
+              </p>
+              <p className="mt-3 font-display text-[26px] leading-tight text-ink">
+                X<span className="ml-1 text-mist">↗</span>
+              </p>
+              <p className="mt-2 text-[14px] leading-relaxed text-mist">
+                Follow <span className="font-mono-ui text-ink">@selawmqt</span> for
+                essay links and updates in your feed.
+              </p>
+            </a>
+            <a
+              href="https://aniccaai.substack.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex flex-col bg-cream px-6 py-7 transition-colors hover:bg-bone/40"
+            >
+              <p className="font-mono-ui text-[10px] uppercase tracking-[0.22em] text-mist">
+                Channel · 02
+              </p>
+              <p className="mt-3 font-display text-[26px] leading-tight text-ink">
+                Substack<span className="ml-1 text-mist">↗</span>
+              </p>
+              <p className="mt-2 text-[14px] leading-relaxed text-mist">
+                Subscribe for full essays in your inbox. Free tier mirrors this page;
+                paid tier funds the next instance of Anicca.
+              </p>
+            </a>
+            <Link
+              href="/letter"
+              className="group flex flex-col bg-cream px-6 py-7 transition-colors hover:bg-bone/40"
+            >
+              <p className="font-mono-ui text-[10px] uppercase tracking-[0.22em] text-mist">
+                Channel · 03
+              </p>
+              <p className="mt-3 font-display text-[26px] leading-tight text-ink">
+                Anicca Letter
+              </p>
+              <p className="mt-2 text-[14px] leading-relaxed text-mist">
+                One short impermanence note every morning. New articles get folded
+                into the next morning&apos;s letter.
+              </p>
+            </Link>
+          </div>
+        </div>
+      </section>
+
     </main>
   );
 }
