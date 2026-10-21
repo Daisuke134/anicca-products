@@ -15,8 +15,8 @@ Make Anicca a source-backed English/Japanese reference on AI monk avatars: one Y
 ## To-Be
 
 1. **Yang Mun case study:** expand the existing English page and add a naturally written Japanese counterpart. Cover creator Shalev Hani, dated social/account evidence, video format, production claims, the public offer ladder, competing revenue claims, and open questions.
-2. **AI monk avatar field guide:** add English and Japanese pages with a bounded, source-linked directory, a documented timeline, creative patterns, distribution routes, monetization routes, and evidence limits. The database separates confirmed, reported, and unresolved AI provenance. Add an `AI Monk Avatars` category hub at `/blog/c/ai-monk-avatars`.
-3. **Correct the existing eBook economy page:** retain its eBook-economics purpose while using only observed Yang Mun AI monk avatar videos in its video sample. Link it to the field guide.
+2. **AI monk avatar field guide:** reuse the existing English `ebook-publishing-ai-monk-economy-2026` URL as the English field guide and add a Japanese counterpart. Preserve the old URL because the existing X post points to it; retain the eBook-economics section inside the broader field guide. Add an `AI Monk Avatars` category hub at `/blog/c/ai-monk-avatars`.
+3. **Correct the field-guide evidence:** replace the old mixed six-video sample with AI monk avatar video examples only. The English legacy slug and the new Japanese slug link to the same open directory and each other.
 4. **Open starter dataset:** add `apps/landing/public/data/ai-monk-avatar-database-2026.json`. Each record includes profile URLs, platform, provenance status and evidence, visible offer type, dated audience/video snapshots, and unresolved fields. This is a curated starter set, not a claim to cover every account.
 5. **Book proposal:** add a shared English/Japanese title, hook, reader promise, and 10-chapter outline under `docs/books/`. This deliverable is an outline, not a completed book.
 6. **Natural Shorts embed:** add the open-source Apache-2.0 `lite-youtube-embed` component. Keep `[youtube-embed:VIDEO_ID]` as 16:9; add `[youtube-short:VIDEO_ID|TITLE]` as a centered 9:16 player card capped at 360px. Load the full `youtube-nocookie.com` iframe only after the reader presses play.
@@ -36,9 +36,10 @@ Make Anicca a source-backed English/Japanese reference on AI monk avatars: one Y
 ## Completion evidence
 
 - The existing Yang Mun EN page and new JA page are public and free.
-- The new AI monk avatar EN/JA pages are public and free, and the field guide links to the JSON dataset.
+- The AI monk field-guide EN/JA pages are public and free; the English field guide retains its existing URL.
+- The field guide links to the JSON dataset and the Yang Mun case study.
 - The `/blog/c/ai-monk-avatars` hub lists both field-guide editions.
-- The existing eBook economy article has no non-avatar videos in its sample and links to the field guide.
+- The existing English field-guide URL has no non-avatar videos in its sample and links to the dataset and Yang Mun case study.
 - `lite-youtube-embed` renders Shorts in portrait and does not create a full iframe until click; legacy embeds remain landscape.
 - The two book proposals are in the repository and share one thesis and chapter structure adapted for each language.
 - The public JSON parses and its records link to their evidence.
@@ -52,7 +53,7 @@ Make Anicca a source-backed English/Japanese reference on AI monk avatars: one Y
 |---|---|---|---|
 | AM-1 | Create `apps/landing/public/data/ai-monk-avatar-database-2026.json` with sourced account, offer, provenance, creative, and dated metric fields. | Public source review; supplied screenshots. | JSON parses; each account has evidence status, source URLs, and explicit unknowns. |
 | AM-2 | Add the renderer contract for `[youtube-short:ID|TITLE]`, preserve `[youtube-embed:ID]`, and wire `lite-youtube-embed` for article pages. | Existing `render-article-markdown.js` and site App Router. | Focused test passes for portrait/landscape, escaped titles, invalid IDs, and no eager iframe. |
-| AM-3 | Expand Yang Mun EN; add Yang Mun JA; create AI monk field-guide EN/JA; correct the existing eBook economy sample; add `ai-monk-avatars` business mapping; link the dataset and related Anicca articles. | AM-1 and AM-2. | Four EN/JA pages are source-linked, free, the category hub lists both field-guide editions, and video examples are AI monk avatars. |
+| AM-3 | Expand Yang Mun EN; add Yang Mun JA; rewrite the existing `ebook-publishing-ai-monk-economy-2026` page as the English field guide; create its JA counterpart; map both field slugs to `ai-monk-avatars`; link the dataset and related Anicca articles. | AM-1 and AM-2. | Four EN/JA pages are source-linked and free; the English field URL remains stable; the category hub lists both editions; video examples are AI monk avatars. |
 | AM-4 | Add EN/JA book proposals under `docs/books/`. | AM-1 and AM-3. | Both files contain title, hook, reader promise, and the same 10 connected chapters. |
 | AM-5 | Run focused checks, commit/push, open PR, pass exact-head CI, merge, and verify Netlify production readback. | AM-1–AM-4. | Main merge SHA, successful deploy, and exact article/data/embed reads. |
 | AM-6 | Publish two tracked X posts through the existing Postiz route. | AM-5. | Two distinct Postiz `PUBLISHED` receipts and exact X permalinks; no duplicate sends. |

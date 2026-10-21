@@ -98,29 +98,28 @@ Expected: PASS; no eager iframe or arbitrary host is present.
 - Modify: `apps/landing/data/research/ebook-publishing-yang-mun-video-to-product.json`
 - Modify: `apps/landing/data/research/ebook-publishing-ai-monk-economy-2026.json`
 - Create: `apps/landing/data/research/ai-monk-yang-mun-case-study-ja.json`
-- Create: `apps/landing/data/research/ai-monk-avatar-field-guide-2026.json`
 - Create: `apps/landing/data/research/ai-monk-avatar-field-guide-ja-2026.json`
 
 **Interfaces:**
 - `BUSINESSES.ai-monk-avatars` provides the label `AI Monk Avatars` and a sourced-research introduction.
-- `businessOf(slug, project)` returns `ai-monk-avatars` for the `ai-monk-avatar-` slug family.
+- `businessOf(slug, project)` returns `ai-monk-avatars` for `ebook-publishing-ai-monk-economy-2026` and the `ai-monk-avatar-` slug family.
 - Yang Mun EN keeps its current slug; its JA counterpart gets its own stable `ebook-publishing-yang-mun-case-study-ja` slug.
-- The field guide EN/JA pair use the `ai-monk-avatar-field-guide-2026` and `ai-monk-avatar-field-guide-ja-2026` slugs.
+- The English field guide keeps the `ebook-publishing-ai-monk-economy-2026` slug; the JA counterpart uses `ai-monk-avatar-field-guide-ja-2026`.
 - Every article links to the machine-readable JSON and to its same-topic counterpart.
 
-- [ ] **Step 1: Add the failing category assertion** to `lib/blog-business.test.mjs`.
-- [ ] **Step 2: Run the category test**.
+- [x] **Step 1: Add the failing category assertion** to `lib/blog-business.test.mjs`.
+- [x] **Step 2: Run the category test**.
 
 Run: `node --test lib/blog-business.test.mjs`
 
 Expected: FAIL because `ai-monk-avatars` is not a recognized business.
 
-- [ ] **Step 3: Add the category mapping** and rerun the focused category test.
+- [x] **Step 3: Add the category mapping** and rerun the focused category test.
 - [ ] **Step 4: Expand the English Yang Mun case** with creator attribution, the two observed Shorts, dated platform snapshots, offer mechanics, conflicting self-reported earnings, and a clear unknowns section.
 - [ ] **Step 5: Add the Japanese Yang Mun edition** with Japanese-first hook, headings, and examples; preserve all source links and caveats.
-- [ ] **Step 6: Rewrite the old eBook economy article** to remove non-avatar animation and living-monk examples; keep only the two Yang Mun AI monk avatar Shorts in its sample and link to the new field guide.
-- [ ] **Step 7: Write the English and Japanese field guides** with a concise taxonomy, cautious timeline, curated profile notes, shared script/visual patterns, visible offer routes, health-claim caveats, and database links.
-- [ ] **Step 8: Add the AI Monk Avatars hub mapping** and confirm both field-guide slugs resolve to the hub category.
+- [ ] **Step 6: Rewrite the existing eBook economy article in place** as the English field guide; preserve its slug and eBook-economics section, remove non-avatar animation and living-monk examples, and link to the database.
+- [ ] **Step 7: Write the Japanese field guide** with a concise taxonomy, cautious timeline, curated profile notes, shared creative patterns, visible offer routes, health-claim caveats, and database links.
+- [ ] **Step 8: Add the AI Monk Avatars hub mapping** for the legacy English slug and new Japanese field-guide slug; confirm both resolve to the hub category.
 - [ ] **Step 9: Parse all changed article JSON** and confirm each embedded marker refers to a source-backed YouTube video ID.
 
 Run: `python3 -m json.tool <each changed article JSON>`

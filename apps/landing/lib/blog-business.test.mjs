@@ -13,8 +13,17 @@ test('posts are grouped by the business that published them', () => {
 });
 
 test('every business has a hub label and intro', () => {
-  for (const key of ['ai-creator-tools', 'line-stickers', 'ebook', 'ai-voice-tools', 'anicca', 'notes']) {
+  for (const key of ['ai-creator-tools', 'line-stickers', 'ebook', 'ebook-publishing', 'ai-monk-avatars', 'ai-voice-tools', 'anicca', 'notes']) {
     assert.ok(BUSINESSES[key].label && BUSINESSES[key].intro);
+  }
+});
+
+test('AI monk avatar guide slugs belong to the dedicated research hub', () => {
+  for (const slug of ['ebook-publishing-ai-monk-economy-2026', 'ai-monk-avatar-field-guide-ja-2026']) {
+    const business = businessOf(slug, 'AI Monk Avatars');
+    assert.equal(business, 'ai-monk-avatars');
+    assert.equal(BUSINESSES[business].label, 'AI Monk Avatars');
+    assert.ok(BUSINESSES[business].intro);
   }
 });
 
