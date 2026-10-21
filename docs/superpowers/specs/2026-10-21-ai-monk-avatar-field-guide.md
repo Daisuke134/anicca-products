@@ -57,4 +57,6 @@ Make Anicca a source-backed English/Japanese reference on AI monk avatars: one Y
 | AM-5 | Run focused checks, commit/push, open PR, pass exact-head CI, merge, and verify Netlify production readback. | AM-1–AM-4. | Main merge SHA, successful deploy, and exact article/data/embed reads. |
 | AM-6 | Publish two tracked X posts through the existing Postiz route. | AM-5. | Two distinct Postiz `PUBLISHED` receipts and exact X permalinks; no duplicate sends. |
 
-**Current cursor:** AM-1 data model and content corrections.
+**AM-1 status:** Dataset source data is recorded in `apps/landing/public/data/ai-monk-avatar-database-2026.json`; five profile records and 21 source records pass JSON syntax and source-reference checks.
+
+**Current cursor:** AM-2 portrait, lazy YouTube Shorts embed.

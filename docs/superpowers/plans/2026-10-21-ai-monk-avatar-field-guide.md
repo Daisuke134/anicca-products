@@ -43,15 +43,15 @@
 - `platforms[]` records `platform`, `handle`, `profile_url`, and `snapshot` (`value`, `metric`, `as_of`, `source_url`) or a reasoned `null`.
 - `creative_samples[]` stores public URL, title, capture date, view snapshot, and an original structural summary; it never stores a transcript or downloaded media.
 
-- [ ] **Step 1: Add source-backed records** for Yang Mun, Ming San, SifuChen California, Leo Chen with unresolved handle, and the user-supplied `monjechen` profile with `evidence_origin: user_screenshot`.
-- [ ] **Step 2: Check the JSON syntax**.
+- [x] **Step 1: Add source-backed records** for Yang Mun, Ming San, SifuChen California, Leo Chen with unresolved handle, and the user-supplied `monjechen` profile with `evidence_origin: user_screenshot`.
+- [x] **Step 2: Check the JSON syntax**.
 
 Run: `python3 -m json.tool apps/landing/public/data/ai-monk-avatar-database-2026.json`
 
 Expected: exit 0; every value is valid JSON.
 
-- [ ] **Step 3: Inspect every record** for a source URL, a dated metric or explicit unknown, and a non-overstated AI status.
-- [ ] **Step 4: Commit and push the dataset** with the spec and plan.
+- [x] **Step 3: Inspect every record** for a source URL, a dated metric or explicit unknown, and a non-overstated AI status.
+- [x] **Step 4: Commit and push the dataset** with the spec and plan.
 
 ### Task 2: Add portrait, lazy YouTube Shorts embeds
 
