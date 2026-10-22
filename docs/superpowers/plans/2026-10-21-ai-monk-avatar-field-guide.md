@@ -1,202 +1,165 @@
-# AI Monk Avatar Articles and Open Dataset Implementation Plan
+# AI Monk Avatar Directory and Articles Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use `superpowers:executing-plans` to implement this plan task by task. Steps use checkbox syntax for tracking.
+> **For agentic workers:** Execute inline in this session. Steps use checkbox syntax for tracking.
 
-**Goal:** Publish free English/Japanese Yang Mun and AI monk avatar articles, a cited public starter dataset, a bilingual book proposal, and natural vertical YouTube Shorts embeds, then link the articles from X.
+**Goal:** Ship a searchable public AI monk avatar directory and four engaging English/Japanese articles that send readers to the directory with source-backed profiles.
 
-**Architecture:** Keep article content in the existing `apps/landing/data/research/*.json` format. Publish one schema-versioned JSON dataset from `apps/landing/public/data/`. Extend the existing Markdown shortcode renderer with `lite-youtube-embed`, preserving the legacy 16:9 marker and adding an accessible 9:16 Shorts marker. Publish through the existing PR → Netlify path; post to X only after production URLs are readable.
+**Architecture:** Keep the current static JSON as the public data source. Add one pure filtering helper and one Next.js route with a client search/filter view; retain existing article URLs and update their content in place. Use the existing Postiz route only after the new pages are live.
 
-**Tech Stack:** Next.js 14.2.5, React 18, Node `node:test`, Markdown-in-JSON articles, `lite-youtube-embed@0.3.4` (Apache-2.0), YT-DLP/ffmpeg for temporary public-video analysis, Postiz existing X transport.
+**Tech Stack:** Next.js 14.2.5 App Router, React 18, TypeScript, Tailwind, JSON, Node `node:test`, Yomiyasu v2.1.1 for Japanese article editing, existing Postiz route.
 
 **Spec:** `docs/superpowers/specs/2026-10-21-ai-monk-avatar-field-guide.md`
 
 ## Global Constraints
 
-- Preserve existing article slugs and keep all Anicca articles free.
-- Store source URLs, collection date, metric, and confidence beside every numeric or AI-provenance claim.
-- Do not present followers, views, seller counters, creator claims, gross revenue, and net profit as interchangeable.
-- Use only real AI monk-avatar videos as core video examples; exclude real monks and animation with unknown AI provenance from the sample.
-- Publish high-level script/visual mechanics and short summaries only; do not reproduce full scripts, clone personas, or host downloaded video files.
-- Keep the dataset a documented starter set, not a claimed complete census; unknown handles remain unknown.
-- Use fixed YouTube video IDs and the `youtube-nocookie.com` host; the portrait embed loads its iframe only after click.
-- Add no paid account, scraping service, or subscription; incremental spend target is `$0`.
+- Preserve the four existing article slugs and keep all Anicca articles free.
+- Use the existing five source-backed profiles; unknown handles, languages, and locations stay unknown.
+- Do not claim a world-first or world-largest census without exhaustive, repeatable evidence.
+- Analyze creative structure; do not reproduce full scripts, video files, voices, images, faces, or designs.
+- Add no paid service, subscription, npm dependency, account, or actor run.
+- Do not automate Instagram profile collection. Instagram robots.txt prohibits automated collection without Instagram's express written permission and sets `Scrapy` to `Disallow: /`; this environment has no Apify connector or API credential. Manually transcribe fully visible screenshot handles as unverified leads only.
+- Do not infer millions of accounts from screenshots showing a partial following list with 100 or 102 following.
+- Do not resend the four existing X promotions; publish new posts only for the updated work, each with a direct URL.
+- Update the existing spec and plan before implementation; keep this work in the dedicated `feat/ai-monk-avatar-directory-20261021` worktree.
 
 ## Review Focus
 
-- A malformed video ID or title must not become an arbitrary iframe URL or unsafe HTML; renderer tests assert the 11-character ID allowlist, escaped title, and fixed player host.
-- A vertical Shorts marker must stay 9:16 while the legacy marker stays 16:9; renderer tests assert both class names and absence of eager `<iframe>` output.
-- A profile with mixed or screenshot-only AI evidence must retain that status in the database and article; JSON content and article copy label the provenance source.
-- A metric without a platform and capture date must not be presented as current; database records require source and snapshot fields or an explicit `null` reason.
-- An English/Japanese page must never receive a mismatched language slug or cross-link; verify each JSON `slug`, title, language, and related-page link.
+- Empty `languages`, `region_evidence`, or platform handles remain valid input and never render as false facts.
+- Multiple active filters intersect; a profile matching one filter but not another is excluded.
+- User text is treated as text, not HTML; source links use the original URLs from the dataset.
+- The existing `/monk` checkout page and four old article slugs remain unchanged.
+- The page remains usable on a narrow screen and with keyboard focus; no real creator portrait is copied into the directory.
 
 ---
 
-### Task 1: Publish the starter account and video dataset
+### Task AM-7: Add sourced language and region fields plus a tested search contract
 
 **Files:**
-- Create: `apps/landing/public/data/ai-monk-avatar-database-2026.json`
+- Modify: `apps/landing/public/data/ai-monk-avatar-database-2026.json`
+- Create: `apps/landing/lib/ai-monk-directory.mjs`
+- Create: `apps/landing/lib/ai-monk-directory.test.mjs`
 
-**Interfaces:**
-- Produces: JSON `schema_version`, `updated_at`, `scope`, `sources[]`, and `accounts[]`.
-- Each account record includes `id`, `display_name`, `ai_status`, `ai_evidence[]`, `platforms[]`, `offers[]`, `creative_samples[]`, `source_urls[]`, and `unknowns[]`.
-- `ai_status` values: `confirmed`, `reported`, `unverified`.
-- `platforms[]` records `platform`, `handle`, `profile_url`, and `snapshot` (`value`, `metric`, `as_of`, `source_url`) or a reasoned `null`.
-- `creative_samples[]` stores public URL, title, capture date, view snapshot, and an original structural summary; it never stores a transcript or downloaded media.
+**Interface:**
 
-- [x] **Step 1: Add source-backed records** for Yang Mun, Ming San, SifuChen California, Leo Chen with unresolved handle, and the user-supplied `monjechen` profile with `evidence_origin: user_screenshot`.
-- [x] **Step 2: Check the JSON syntax**.
+`filterAiMonkAccounts(accounts, filters)` receives the existing `accounts` array and `{ query, status, language, platform, region }`; each filter may be `"all"`. It returns the original account objects in input order. Text search is case-insensitive and checks display name, aliases, creator name/profile URL, language and region labels, platform names/handles, offer names/types, and creative sample titles. Non-`all` filters combine with AND. Null or absent fields do not throw and do not match a concrete value.
 
-Run: `python3 -m json.tool apps/landing/public/data/ai-monk-avatar-database-2026.json`
+Each account gains `languages: [{ label, source_ids }]` and `region_evidence: { label, basis, source_id } | null`. Record English/Spanish only where the source supports the language. Label a profile flag as a profile signal, not an operator location; keep unknown country `null`.
 
-Expected: exit 0; every value is valid JSON.
+- [x] **RED:** Add tests for case-insensitive name/handle/creator search, AND-combined status/language/platform/region, empty language/region, and no-match results.
+- [x] Run `cd apps/landing && node --test lib/ai-monk-directory.test.mjs`; it failed as expected with `ERR_MODULE_NOT_FOUND` before the helper existed.
+- [x] Add only source-supported `languages` and `region_evidence` to the five account records.
+- [x] Implement `filterAiMonkAccounts(accounts, filters)` in `lib/ai-monk-directory.mjs`.
+- [x] Run the focused test again; 4/4 cases pass.
+- [x] Parse the JSON with `python3 -m json.tool public/data/ai-monk-avatar-database-2026.json`; all language/region source IDs resolve.
 
-- [x] **Step 3: Inspect every record** for a source URL, a dated metric or explicit unknown, and a non-overstated AI status.
-- [x] **Step 4: Commit and push the dataset** with the spec and plan.
-
-### Task 2: Add portrait, lazy YouTube Shorts embeds
+### Task AM-7B: Add screenshot-seeded leads without claiming they are AI
 
 **Files:**
-- Modify: `apps/landing/lib/render-article-markdown.js`
-- Modify: `apps/landing/app/layout.tsx`
-- Modify: `apps/landing/app/globals.css`
-- Modify: `apps/landing/app/blog/[slug]/page.tsx`
-- Modify: `apps/landing/package.json`
-- Modify: `apps/landing/package-lock.json`
-- Create: `apps/landing/components/blog/LiteYouTubeEmbedLoader.tsx`
-- Create: `apps/landing/types/lite-youtube-embed.d.ts`
-- Create: `apps/landing/test/render-article-markdown-youtube.test.mjs`
+- Modify: `apps/landing/public/data/ai-monk-avatar-database-2026.json`
+- Modify: `apps/landing/components/AiMonkDatabase.tsx` only if existing status copy does not clearly distinguish leads.
 
-**Interfaces:**
-- Legacy marker: `[youtube-embed:VIDEO_ID]` → `lite-youtube` element at 16:9.
-- Shorts marker: `[youtube-short:VIDEO_ID|TITLE]` → `lite-youtube.youtube-short` element at 9:16, centered and max-width 360px.
-- `VIDEO_ID` matches exactly `[A-Za-z0-9_-]{11}`; `TITLE` is HTML-escaped before attribute/text insertion.
-- The generated element has a YouTube thumbnail, an accessible play label, and an official fallback link; it contains no iframe before a user activates it.
-- A client-only loader imports `lite-youtube-embed` only on blog pages whose Markdown contains either embed marker.
+**Interface:**
 
-- [x] **Step 1: Write the failing renderer tests** for legacy 16:9, Shorts 9:16, title escaping, invalid IDs, and no initial iframe.
-- [x] **Step 2: Run the renderer test**.
+Manually transcribe only handles that are fully legible in the supplied Instagram following-list screenshots. Add candidate records with `ai_status: "unverified"`, the visible handle, and a profile link constructed from that handle. Leave creator, language, region, offer, and metrics empty. Include an unknown explaining that AI origin and account details have not been independently checked. Keep the source account identity and the fact that these came from its following list out of the public UI.
 
-Run: `node --test test/render-article-markdown-youtube.test.mjs`
+- [x] Add a non-public-source evidence record for the supplied screenshots; do not copy or publish the images.
+- [x] Add 66 fully legible handles; skip cropped names and handles already in the researched records.
+- [x] Keep each lead unverified and searchable by visible handle; do not infer AI status, language, creator, location, or follower counts.
+- [x] Do not make automated Instagram profile requests after discovering Instagram's robots.txt restriction.
+- [x] Parse the JSON and confirm every candidate evidence reference resolves; 71 total records, 5 researched + 66 leads, 28 sources, no duplicate handles.
 
-Expected: FAIL because the Shorts marker and lazy custom element do not exist.
-
-- [x] **Step 3: Add the pinned dependency** `lite-youtube-embed@0.3.4` in `apps/landing` and update its lockfile.
-- [x] **Step 4: Render fixed-host `lite-youtube` elements** from the two markers; preserve the old marker’s 16:9 layout.
-- [x] **Step 5: Import the library CSS and client loader**; add the local declaration for the package's untyped side-effect import; gate the loader on article Markdown containing a YouTube marker.
-- [x] **Step 6: Add portrait CSS** with `padding-bottom: 177.7778%` (9:16), `max-width: 360px`, and centered margins.
-- [x] **Step 7: Run the focused renderer test**.
-
-Run: `node --test test/render-article-markdown-youtube.test.mjs`
-
-Expected: PASS; no eager iframe or arbitrary host is present.
-
-### Task 3: Add the AI monk category and write both article families
+### Task AM-8: Build the searchable directory at `/ai-monk-database`
 
 **Files:**
-- Modify: `apps/landing/lib/blog-business.mjs`
-- Modify: `apps/landing/lib/blog-business.test.mjs`
-- Modify: `apps/landing/app/blog/[slug]/page.tsx`
+- Create: `apps/landing/app/ai-monk-database/page.tsx`
+- Create: `apps/landing/components/AiMonkDatabase.tsx`
+- Create: `apps/landing/components/ai-monk-database.css` only if Tailwind cannot express a needed layout rule.
+- Create: `apps/landing/AI-MONK-INDEX-LICENSE.md` (scoped MIT license for the new index implementation)
+- Create: `apps/landing/public/data/ai-monk-avatar-database-license.md` (CC BY 4.0 scope for Anicca-authored dataset notes)
+
+**Interface:**
+
+The server page imports the public JSON and passes its `accounts` to `<AiMonkDatabase accounts={accounts} />`. The client component renders a prominent search field, status/language/platform/region controls, a live result count, and a responsive scrollable card grid. Cards expose display name, evidence status, known languages, sourced region signal, creator and creator-account links, avatar social links, visible offer summary, dated audience/video snapshots, source links, and unknowns. The page includes links to the four articles, the public JSON, and a GitHub contribution route. It uses CSS/Tailwind already installed; no component or database package is added.
+
+- [x] Build the page and client component with visible `aria-label`s for search and each filter, an accessible no-results state, and a clear-filters control.
+- [x] Show “Unknown” when a value is absent; never label the creator's location as the avatar's country.
+- [x] Distinguish 5 researched profiles from 66 unverified candidate leads in the count and card status; do not present the list as a census.
+- [x] Show the researched profiles and candidate leads without copying portraits or downloading creators' videos.
+- [x] Add `metadata` with canonical `https://aniccaai.com/ai-monk-database` and a concise directory description.
+- [x] Add a visible link from the four articles to `/ai-monk-database`.
+- [x] Publish separate scoped code and dataset license notes and link them from the directory.
+- [x] Run `cd apps/landing && npx tsc --noEmit`; it reports six existing errors in dashboard, wallet, and Life Manager CTA files, with no new AI Monk file errors. The static build below confirms the route.
+
+### Task AM-9: Rewrite the four article bodies as readable features
+
+**Files:**
 - Modify: `apps/landing/data/research/ebook-publishing-yang-mun-video-to-product.json`
+- Modify: `apps/landing/data/research/ebook-publishing-yang-mun-case-study-ja.json`
 - Modify: `apps/landing/data/research/ebook-publishing-ai-monk-economy-2026.json`
-- Create: `apps/landing/data/research/ebook-publishing-yang-mun-case-study-ja.json`
-- Create: `apps/landing/data/research/ai-monk-avatar-field-guide-ja-2026.json`
+- Modify: `apps/landing/data/research/ai-monk-avatar-field-guide-ja-2026.json`
 
-**Interfaces:**
-- `BUSINESSES.ai-monk-avatars` provides the label `AI Monk Avatars` and a sourced-research introduction.
-- `businessOf(slug, project)` returns `ai-monk-avatars` for `ebook-publishing-ai-monk-economy-2026` and the `ai-monk-avatar-` slug family.
-- Yang Mun EN keeps its current slug; its JA counterpart gets its own stable `ebook-publishing-yang-mun-case-study-ja` slug.
-- The English field guide keeps the `ebook-publishing-ai-monk-economy-2026` slug; the JA counterpart uses `ai-monk-avatar-field-guide-ja-2026`.
-- Japanese article JSON sets `lang: "ja"` and `character_count`; the page renders `lang="ja"` and labels the count in Japanese characters.
-- Every article links to the machine-readable JSON and to its same-topic counterpart.
+**Editorial contract:**
 
-- [x] **Step 1: Add the failing category assertion** to `lib/blog-business.test.mjs`.
-- [x] **Step 2: Run the category test**.
+- H1 titles: `The Yang Mun Shock: The Monk in Your Feed Has a Checkout Page`; `Yang Munの衝撃`; `The Art of AI Monks`; `AI僧侶列伝`.
+- Preserve each `slug`, `lang`, existing source URLs, inline YouTube shortcode IDs, and the existing open dataset URL. Add `https://aniccaai.com/ai-monk-database` prominently.
+- The Yang Mun feature opens with a concrete 65-second video scene and reveals the disagreement about the persona's identity early; then follows its format, Shalev Hani, the 30-day program and eBook bundle, conflicting revenue claims, and spiritual-trust question.
+- The field guide opens with a surprising feed-level contrast, distinguishes synthetic personas from a real Thai monk's 2D avatar, gives a sourced five-profile walk-through, explains language/platform/monetization patterns, and closes with what readers can verify in the directory.
+- Keep metrics dated and attributed. HeyGen/Columbia describe Yang Mun as AI-generated; the first-party page linked by Columbia says the teacher is real and only the voice is AI-translated. Report that conflict without resolving it. The Thai PBS Phra Maha AI example is a real monk with a 2D animated character, not part of the five-profile count.
+- Explain the public $49.99 30-day journey (daily 5–10 minute practice, weekly videos, community and Q&A), the $59.99 bundle with three eBooks, separate seller counters, and creator revenue statements without treating any of these as audited sales or profit.
+- Keep the 65-second/521,549-view and 78-second/1,102,388-view snapshots distinct from the 12-million-view metadata-only example. Views are not orders; health claims are not medical advice.
+- The Maldita 250-account investigation covers seven languages and a broad health-account sample, not 250 monk avatars. Its account totals and product-link percentages must retain that denominator.
+- Write fresh English and Japanese prose; copy only article mechanics such as scene-led openings, concrete details, specific subheads, and a useful close.
 
-Run: `node --test lib/blog-business.test.mjs`
+- [x] Rewrite each title, description, `markdown`, `word_count`, and Japanese `character_count` while preserving its slug and language.
+- [x] Run JSON parse checks on all four files and assert the old slugs plus matching database/article links remain.
+- [x] Run Yomiyasu v2.1.1 (`fbe02c93877d697cc53d9377b7a45dd8a1dd99b3`) for both Japanese articles as public feature articles for general readers. Reviewed the diff candidates, corrected the single revision, reran, and verified the exact final hashes. The final runs report zero lint errors and zero fact-gap candidates; remaining warnings are intentional register/repetition suggestions, not skipped numeric or identity conflicts.
+- [x] Include the seller-displayed `$49.99` Journey with 5–10 minute daily practice, weekly lessons, community/Q&A; `$59.99` with three eBooks; and the separate `$19.99` home-page bundle. Attribute counters and prices to seller pages.
+- [x] Read each English article from H1 to final paragraph; no unsupported first/largest claim, full transcript, or unlinked factual claim remains.
 
-Expected: FAIL because `ai-monk-avatars` is not a recognized business.
-
-- [x] **Step 3: Add the category mapping** and rerun the focused category test.
-- [x] **Step 4: Expand the English Yang Mun case** with creator attribution, the two observed Shorts, dated platform snapshots, offer mechanics, conflicting self-reported earnings, and a clear unknowns section.
-- [x] **Step 5: Add the Japanese Yang Mun edition** with a Japanese-first hook, localized headings, `lang: "ja"`, and a Japanese character count; preserve source links and caveats.
-- [x] **Step 6: Rewrite the existing eBook economy article in place** as the English field guide; preserve its slug and eBook-economics section, use AI monk-avatar profiles only, and link to the database.
-- [x] **Step 7: Write the Japanese field guide** with a concise taxonomy, cautious timeline, five sourced profile notes, creative patterns, visible offer routes, health-claim caveats, database links, `lang: "ja"`, and a Japanese character count.
-- [x] **Step 8: Render article language and length labels** in `app/blog/[slug]/page.tsx`: `lang` on the article element, `文字` for Japanese `character_count`, and `words` for English `word_count`.
-- [x] **Step 9: Confirm the category hub** resolves the legacy English field-guide slug and the new Japanese field-guide slug.
-- [x] **Step 10: Parse all changed article JSON** and confirm each embedded marker refers to a source-backed YouTube video ID.
-
-Run: `python3 -m json.tool <each changed article JSON>`
-
-Expected: all article files parse successfully.
-
-### Task 4: Add the bilingual book proposal
+### Task AM-10: Verify, merge, and read back production
 
 **Files:**
-- Create: `docs/books/the-monk-in-your-feed-outline-en.md`
-- Create: `docs/books/the-monk-in-your-feed-outline-ja.md`
+- Update: `docs/superpowers/specs/2026-10-21-ai-monk-avatar-field-guide.md`
+- Update: this plan with checked steps and actual evidence.
 
-**Interfaces:**
-- Both files share the thesis, title concept, target reader, hook, evidence rules, and 10 chapter topics.
-- The Japanese proposal is localized, not a line-for-line translation.
+- [x] Run the focused directory search test; 4/4 cases pass. Run related article JSON-LD, blog business, reading-order, YouTube embed, and CTA-link tests; 24/24 pass.
+- [x] Stage the canonical marketing and Manager blog inputs at their pinned revisions with matching SHA256, then run `cd apps/landing && npx next build`; all 662 static pages generate, including `/ai-monk-database` and all four article routes. The build shows existing Wallet dependency and Tailwind warnings.
+- [x] Run `git diff --check`, inspect only the dedicated branch diff, and verify no video/media download, secret, or Manager staging artifacts remain in the branch.
+- [ ] Commit and push the dedicated branch; open a PR; wait for exact-head CI; merge through the repo's normal `--admin` path.
+- [ ] Confirm the Netlify production deploy and read back `/ai-monk-database`, all four article URLs, and `/data/ai-monk-avatar-database-2026.json`.
 
-- [x] **Step 1: Write the English proposal** with a provocative but accurate hook and ten source-backed chapter briefs.
-- [x] **Step 2: Write the Japanese proposal** with the same argument and a natural Japanese hook.
-- [x] **Step 3: Confirm each chapter connects to an evidence source or a stated research gap.**
-
-### Task 5: Build, merge, and verify production pages
+### Task AM-11: Promote the live directory and revised features on X
 
 **Files:**
-- Review the complete branch diff; no additional files are expected.
+- Create: `docs/evidence/ai-monk-avatar-directory-x-distribution-20261021.json`
 
-- [x] **Step 1: Run the focused tests**.
+- [ ] Use one English post for the directory and one Japanese post for `Yang Munの衝撃`; each post contains its own direct production URL and a unique UTM campaign.
+- [ ] Publish through the existing `@selawmqt` Postiz identity only after live URL readback; do not edit or resend the previous four posts.
+- [ ] Read back each Postiz `PUBLISHED` receipt and X permalink; store sanitized public receipt fields and distinguish views/pageviews from clicks, orders, and revenue.
 
-Run: `cd apps/landing && node --test test/render-article-markdown-youtube.test.mjs lib/blog-business.test.mjs`
+## Plan self-review
 
-Expected: all focused tests PASS.
+- Every user request maps to AM-7–11. Searchable web UI precedes article distribution; no user re-approval or additional service setup is a task dependency.
+- The only new runtime logic is one pure filtering function and one client view. Existing JSON, article routing, Postiz, and Netlify deployment patterns remain the source-of-truth integrations.
+- The focused filter test covers null fields, AND composition, and no-match behavior; the build covers static route generation.
 
-- [x] **Step 2: Build the landing app**.
+**AM-7 status:** Complete. Five researched profiles carry sourced fields; 66 screenshot leads remain explicitly unverified. English/Spanish are the only verified languages; unknown account/operator locations remain unknown.
 
-Run: `cd apps/landing && npm run build`
+**AM-8 status:** Searchable route, 71-entry directory, source links, illustration, open data, contribution link, and scoped MIT/CC BY licenses are implemented and present in static output.
 
-Expected: successful Next.js build with the new article slugs and custom element.
+**AM-9 Yomiyasu record:** v2.1.1 at `fbe02c93877d697cc53d9377b7a45dd8a1dd99b3`. Yang Mun run `20261021T125254Z-8ea0305f`, final hash `72a6283fa8cc`; field guide run `20261021T125254Z-ded07132`, attempt 2, final hash `800fa9146d13`. Both `verify` calls matched the exact final file. Lint reported zero errors and zero fact-gap candidates; two repetition warnings remain in each article and were reviewed as acceptable polite-article register.
 
-- [x] **Step 3: Run `git diff --check`, commit, and push** the dedicated branch.
-- [x] **Step 4: Open the PR, wait for exact-head checks, merge with the repo’s normal admin merge path, and verify Netlify production deployment.**
-- [x] **Step 5: Read back all four article URLs, the category hub, the public JSON, rendered HTML confirming `lite-youtube` plus 9:16 styling and no pre-click iframe, and both book-outline files through their GitHub `main` URLs.**
+**Build ruling:** `npm run build` invokes `prebuild`, which fetches the live dashboard endpoint and overwrites the tracked `app/dashboard/_snapshot.json`. That dashboard refresh is outside this task. Use the installed `next build` binary directly to compile the static site against the checked-in snapshot.
 
-### Task 6: Promote each published article on X in its native language
+**Canonical staging ruling:** The full export also requires the Life Manager marketing overlay at revision `3c41b727b8e5c6ed64008afd814e9833e0047025` (SHA256 `bd3a31878a87c9770a6cefa7e8c8140a41625da2e102cbe9f2e8cb7f35a3eec9`) and Manager blog package at revision `6ec72c658ee993cd4292548b4f8668b3fca3181d` (installer SHA256 `3f80daa0880902f2ed571b81606d62dff9d5894d04e17689355c667c01443a32`). Both were staged for the local build, then generated Manager files and tracked integration patches were restored/removed before commit.
 
-**Files:**
-- Create: `docs/evidence/ai-monk-avatar-x-distribution-20261021.json` (public post receipts only; no credentials).
+**Current cursor:** AM-10 — inspect the final feature diff, push, open the PR, and complete production readback.
 
-- [x] **Step 1: Compose four concise posts**, one for each EN/JA article URL, with language-matched copy, a source-based hook, and the counterpart link where the character budget permits.
-- [x] **Step 2: Publish each post exactly once through the existing Postiz `x_post.py` path** after confirming the exact production URLs.
-- [x] **Step 3: Read back all four provider receipts and exact X permalinks; save only sanitized public receipt fields.**
+## 英語優先の公開継続
 
-## Self-review checklist
+- [ ] AM-12: vidIQの公開検索・profile readback、yt-dlp metadata、GitHub OSSの実測を保存し、英語の有力profileと公開metricsをデータへ反映する。
+- [ ] 新題 The Art of AI Monks を日英book outlineへ反映し、記事・directory・新刊・factoryを同じspecへ接続する。
+- [ ] 有力profileを公開platformのfollowers順で比較できる最小sortを追加し、既存検索/AND filterを保持する。
+- [ ] 最新main由来の専用branchへ未公開成果を継承し、AM-10/AM-11を閉じる。
 
-- [x] Every spec requirement maps to Tasks 1–6.
-- [x] No task asks an implementer to invent a filename, function signature, metric definition, or account handle.
-- [x] English/Japanese slugs, article filenames, and category mapping agree.
-- [x] The source-level review-focus cases appear in the renderer tests and dataset acceptance.
-- [x] No full third-party script, video, voice, image, or private account information is committed.
-
-**AM-3 status:** Four source-linked articles are present (two English, two Japanese). The English field-guide slug is unchanged. Both Japanese JSON records set `lang: "ja"` and a character count; article rendering adds the matching HTML language and Japanese count label. All article JSON files parse; the 10 focused category/CTA/YouTube tests pass.
-
-**AM-4 status:** English and Japanese book proposals share a ten-chapter argument and hook. Chapter 4 is explicitly the largest case chapter and centers Yang Mun, Shalev Hani, the video samples, offer, production claims, contradictory identity description, and earnings evidence.
-
-**Research rulings:** YT-DLP discovery returned multiple AI-monk tutorial videos; these are creator-education videos, not sourced avatar accounts, so they are not counted in the directory. The public directory remains a five-profile starter set, not an exhaustive census. Video analysis records structure and short summaries only; no transcript or downloaded media is committed. The Japanese field guide's `low_lexical_diversity_ttr` info finding remains because repeated account names and evidence labels preserve source precision. The book outline's `low_burstiness` warning remains because it is a structured chapter plan; the sample hook varies sentence length and the finding does not justify flattening the outline.
-
-**Distribution benchmark:** A user-supplied screenshot of a Tommi Pedruzzi X thread about AI eBook publishing displays 1.31M views, 1,545 likes, 151 reposts, and 2,515 bookmarks; the exact status URL is not present, so the numbers remain screenshot-attributed. The observable mechanism is a direct hook, a short explanation, numbered decision steps, concrete thresholds, and a closing CTA. X copy for this branch uses original wording, a verified article fact, and a direct Anicca article link; it tracks X pageviews by UTM and does not repeat the screenshot's unverified earnings claims.
-
-**AM-5 build status:** The landing build passes after running the two SHA-verified, immutable canonical marketing/blog asset staging scripts used by the repository workflow. The standalone build initially lacked the ignored public/assets/manager-site/published-apps.json; this is a required workflow input, not an article defect. The successful build generated all five AI-monk article/category routes. Its prebuild touched only the existing dashboard snapshot with an empty network fallback; that generated change was restored before review. Existing unrelated MetaMask, pino-pretty, and Tailwind warnings remain.
-
-**Independent content review:** No publish-blocking claim/source, confidence label, cross-language, or copying issue was found. The reviewer flagged the GitHub main outline links before merge; after PR #539 merged, both outline paths returned successfully and the public articles were read back before X distribution.
-
-**AM-5 source status:** The latest origin/main commit is merged into the dedicated branch and pushed. Focused tests pass (12/12), the CI-staged landing build succeeds, the five AI-monk static routes are present, and the worktree is clean.
-
-**AM-5 production status:** PR #539 merged as 628f5c8487ab72b2699427451fe97f704b7789be. Netlify workflow 39589078090 and post-deploy smoke pass. Four article pages, category hub, and JSON return 200. Both book-outline files exist on GitHub main. The field-guide pages render one portrait `lite-youtube` card with no eager iframe; Japanese article roots carry `lang="ja"` and character counts.
-
-**AM-6 status:** Four language-matched X posts point directly to their matching article pages. Postiz returns `PUBLISHED` for all four; `x_post.py` read back the exact X permalinks. The first public-view snapshot and sanitized provider receipts are in `docs/evidence/ai-monk-avatar-x-distribution-20261021.json`. UTM campaigns are unique per article; the site’s existing cookieless tracker records source and campaign pageview totals. The 17:00 queued X post was left unchanged.
-
-**Current cursor:** Complete.
+**現在cursor:** AM-12調査とAM-10公開準備。新worktreeは `/Users/anicca/Projects/anicca-products-worktrees/ai-monk-index-launch-20261022`、branchは `feat/ai-monk-index-launch-20261022`。
