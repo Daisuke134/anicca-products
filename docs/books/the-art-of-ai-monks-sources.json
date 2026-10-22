@@ -1,0 +1,1292 @@
+{
+  "schema_version": "anicca.the-art-of-ai-monks.sources.v1",
+  "book": {
+    "title": "The Art of AI Monks",
+    "subtitle": "Avatars, Attention, and the Business Behind the Robes",
+    "author": "Anicca",
+    "language": "en",
+    "edition": "first",
+    "research_snapshot_dates": [
+      "2026-10-21",
+      "2026-10-22"
+    ],
+    "status": "complete_first_edition_manuscript_not_a_publication_or_sales_receipt",
+    "original_text_and_worksheets_license": "CC BY 4.0",
+    "license_url": "https://creativecommons.org/licenses/by/4.0/",
+    "third_party_rights_note": "Third-party media, names, marks, profile content and linked material retain their own rights.",
+    "manuscript_sha256": "72022ebc97d97a0059e7e60959bdc3088895e67b07c2a26d3d8625c05906a441",
+    "word_count_method": "English lexical words including headings, reference prose and worksheets; contractions and hyphenated English words count once; URLs, reference labels, numeric-only tokens and placeholders excluded.",
+    "word_count_full": 10874,
+    "word_count_before_appendices": 9424,
+    "word_count_by_chapter": {
+      "1": 794,
+      "2": 834,
+      "3": 694,
+      "4": 1393,
+      "5": 868,
+      "6": 817,
+      "7": 776,
+      "8": 796,
+      "9": 763,
+      "10": 1052
+    },
+    "chapters": 10
+  },
+  "coverage": {
+    "account_records": 75,
+    "source_entries": 48,
+    "researched_profiles": 9,
+    "discovery_leads": 66,
+    "ai_status_counts": {
+      "reported": 4,
+      "unverified": 71
+    },
+    "confirmed_ai_records": 0,
+    "english_first": true,
+    "complete_census": false,
+    "independent_operators_established": false,
+    "new_moving_image_watches_in_oct22_expansion": 0,
+    "earlier_yang_mun_observation_note_samples": 2,
+    "private_order_or_profit_audit_obtained": false
+  },
+  "public_companion": {
+    "index_url": "https://aniccaai.com/ai-monk-database",
+    "machine_readable_json_url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+    "dataset_snapshot_updated_at": "2026-10-22",
+    "dataset_license": "CC BY 4.0 for Anicca-authored summaries, annotations, and the database compilation. Third-party content, names, marks, profile data, and linked media remain with their owners."
+  },
+  "methodology_notes": [
+    "Uses saved local research and its public-source register; no new external fact or live provider outcome is introduced during manuscript drafting.",
+    "First-party seller claims, provider marketing, attributed creator statements, independent reporting, public metadata, observation notes, interpretation and hypothetical exercises remain separate.",
+    "Older observed Shorts are not relabeled as new watches; caption/index-only comparisons do not establish scene sequence or pacing.",
+    "Screenshot-only records preserve capture-date and live-readback limits; underlying supplied images are not reproduced.",
+    "Hypothetical budgets, scripts, rates and arithmetic are teaching examples rather than observed business results.",
+    "Publication, delivery, orders, revenue and own-factory commercial operation require their own records and are not inferred from this manuscript."
+  ],
+  "references": [
+    {
+      "reference_id": "S01",
+      "url": "https://www.heygen.com/customer-stories/yangmun",
+      "dataset_source_ids": [
+        "heygen-yangmun-case-20261022",
+        "heygen-yangmun-case"
+      ],
+      "publisher_or_account": "HeyGen",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Shalev Hani as represented in a provider customer story",
+      "source_claims": "AI-created character; simple scripts, avatar/voice delivery, batching, roughly 20 minutes per video and increased cadence.",
+      "what_saved_research_establishes": "Saved checks record what the English and Japanese provider pages state.",
+      "not_established": "Independent production audit, verified labor time, causal growth, identity conflict resolution.",
+      "checked_at": [
+        "2026-10-21",
+        "2026-10-22"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        2,
+        4,
+        7,
+        9
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S02",
+      "url": "https://columbianewsservice.com/2026/03/24/millions-found-comfort-in-a-buddhist-monk-but-he-was-never-real/",
+      "dataset_source_ids": [
+        "columbia-yangmun-report"
+      ],
+      "publisher_or_account": "Columbia News Service",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Shalev Hani for the reported creator and financial statements",
+      "source_claims": "Generated character; named creator; reported revenue since launch above $300,000, $325,000 acquisition offer, and $799/hour service offer.",
+      "what_saved_research_establishes": "Independent article published 2026-03-24; saved research preserves its reporting and attributed statements.",
+      "not_established": "Audited revenue or profit, completed acquisition proceeds, sold service hours.",
+      "checked_at": [
+        "2026-10-21"
+      ],
+      "source_publication_dates": [
+        "2026-03-24"
+      ],
+      "cited_in_chapters": [
+        2,
+        3,
+        4,
+        9
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S03",
+      "url": "https://www.yangmuns.com/blog/the-truth-behind-%E2%80%9Ctime-to-heal%E2%80%9D-by-yang-mun",
+      "dataset_source_ids": [
+        "yangmun-real-person-claim"
+      ],
+      "publisher_or_account": "Yangmuns.com",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "First-party site statement",
+      "source_claims": "The teacher is real and only the voice is AI-translated.",
+      "what_saved_research_establishes": "Saved page statement conflicts with HeyGen and Columbia descriptions; exact domain retained.",
+      "not_established": "Independent proof of a real teacher or a resolution of the conflicting accounts.",
+      "checked_at": [
+        "2026-10-21"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        2,
+        4,
+        9
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S04",
+      "url": "https://virtualhumans.org/article/who-is-yang-mun-the-ai-generated-wellness-guru-with-2-6m-followers",
+      "dataset_source_ids": [
+        "virtual-humans-yangmun-profile"
+      ],
+      "publisher_or_account": "Virtual Humans",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Creator statements reported by the industry profile",
+      "source_claims": "More than $300,000 profit within 90 days; dashboard above $213,000 gross revenue over three months.",
+      "what_saved_research_establishes": "Article published 2026-01-28 and recorded as an industry profile, with unlike financial categories preserved.",
+      "not_established": "A reconciled ledger, audited sales or profit.",
+      "checked_at": [
+        "2026-10-21"
+      ],
+      "source_publication_dates": [
+        "2026-01-28"
+      ],
+      "cited_in_chapters": [
+        3,
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S05",
+      "url": "https://www.yang-mun.com/pages/journey",
+      "dataset_source_ids": [
+        "yangmun-journey-store"
+      ],
+      "publisher_or_account": "Yang-mun.com",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Seller",
+      "source_claims": "$49.99 Journey, $59.99 collection, described contents, 30,000-plus reader/book and 2,500 participant counters.",
+      "what_saved_research_establishes": "Saved seller page displays the offers and counters.",
+      "not_established": "Current price after the snapshot, actual orders, health effects, participant definitions, conversion or profit.",
+      "checked_at": [
+        "2026-10-21"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        1,
+        4,
+        6
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S06",
+      "url": "https://www.yang-mun.com/",
+      "dataset_source_ids": [
+        "yangmun-home"
+      ],
+      "publisher_or_account": "Yang-mun.com",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Seller",
+      "source_claims": "Separate $19.99 bundle, 20,000-plus readers and five-million audience statement.",
+      "what_saved_research_establishes": "Saved home page displays separate offers and counters.",
+      "not_established": "Reconciled audience, sales totals, consistent counter definitions.",
+      "checked_at": [
+        "2026-10-21"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S07",
+      "url": "https://www.instagram.com/yangmunus/",
+      "dataset_source_ids": [
+        "yangmun-ig-20261022"
+      ],
+      "publisher_or_account": "Yang Mun public Instagram account; metadata via vidIQ",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Public platform account",
+      "source_claims": "Public audience and post counters.",
+      "what_saved_research_establishes": "2026-10-22 connector returned rounded 2.5M followers and 433 posts.",
+      "not_established": "Unique audience across platforms, purchases, audited reach.",
+      "checked_at": [
+        "2026-10-22"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S08",
+      "url": "https://www.youtube.com/@Yangmunv2",
+      "dataset_source_ids": [
+        "yangmun-youtube-channel"
+      ],
+      "publisher_or_account": "Yang Mun public YouTube channel",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Public platform account",
+      "source_claims": "Channel subscriber and total-video counters.",
+      "what_saved_research_establishes": "2026-10-21 page readback displayed approximately 159,000 subscribers and 172 videos.",
+      "not_established": "A complete Shorts count or character launch date.",
+      "checked_at": [
+        "2026-10-21"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        3,
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S09",
+      "url": "https://www.youtube.com/shorts/Er2Ig4GM7z0",
+      "dataset_source_ids": [
+        "yangmun-youtube-short-motivation"
+      ],
+      "publisher_or_account": "Yang Mun public YouTube account",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Public video account",
+      "source_claims": "Motivational reflection in a short-form performance.",
+      "what_saved_research_establishes": "Earlier observation notes describe a steady front-facing shot and reflection action; metadata records 65 seconds, upload 2025-11-29, 521,549 views on 2026-10-21.",
+      "not_established": "Sales attribution, causal effect, new watch performed during manuscript writing.",
+      "checked_at": [
+        "2026-10-21"
+      ],
+      "source_publication_dates": [
+        "2025-11-29"
+      ],
+      "cited_in_chapters": [
+        1,
+        3,
+        4,
+        5,
+        8,
+        10
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S10",
+      "url": "https://www.youtube.com/shorts/Qdv6S7HonSM",
+      "dataset_source_ids": [
+        "yangmun-youtube-short-health"
+      ],
+      "publisher_or_account": "Yang Mun public YouTube account",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Public video account",
+      "source_claims": "Sleep-related traditional-medicine explanation, unsubstantiated here.",
+      "what_saved_research_establishes": "Earlier observation notes and metadata record 78 seconds, upload 2025-11-25, 1,102,388 views on 2026-10-21.",
+      "not_established": "Medical accuracy, efficacy, sales, new watch during manuscript writing.",
+      "checked_at": [
+        "2026-10-21"
+      ],
+      "source_publication_dates": [
+        "2025-11-25"
+      ],
+      "cited_in_chapters": [
+        3,
+        4,
+        9
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S11",
+      "url": "https://www.youtube.com/shorts/j8WRhcQvzRM",
+      "dataset_source_ids": [
+        "yangmun-youtube-short-health-metadata"
+      ],
+      "publisher_or_account": "Yang Mun public YouTube account",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Public video account",
+      "source_claims": "Water-themed health hook in the title.",
+      "what_saved_research_establishes": "Saved account creative metadata records upload 2025-11-10, 96 seconds, and 12,561,496 views on 2026-10-21.",
+      "not_established": "Moving-image contents or health fact-check; source was metadata only.",
+      "checked_at": [
+        "2026-10-21"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        3,
+        4,
+        8
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S12",
+      "url": "https://www.youtube.com/@Yangmunv2/shorts",
+      "dataset_source_ids": [
+        "yangmun-youtube-shorts-list",
+        "yangmun-youtube-shorts-feed",
+        "yangmun-yt-recent20-20261022"
+      ],
+      "publisher_or_account": "Yang Mun public YouTube Shorts listing",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Public platform listing",
+      "source_claims": "Publicly listed videos, titles and counters.",
+      "what_saved_research_establishes": "2026-10-21 flat listing returned 143 entries; 2026-10-22 first-20 sample had 15 comment-keyword titles and 12–2,300 view counts.",
+      "not_established": "Per-entry publication dates in first-20 sample, equal-age performance, decline, causal effects.",
+      "checked_at": [
+        "2026-10-21",
+        "2026-10-22"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        3,
+        4,
+        8
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S13",
+      "url": "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/",
+      "dataset_source_ids": [
+        "maldita-2026-07-10",
+        "maldita-shaolin-review-20261022"
+      ],
+      "publisher_or_account": "Maldita.es",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Investigative report",
+      "source_claims": "16 synthetic profiles, 3.5M combined followers, 70.5M-plus selected-video views; Leo Chen and SifuChen guide routes.",
+      "what_saved_research_establishes": "Saved report and recheck retain reported offer mechanisms and unresolved handles.",
+      "not_established": "Paid sales, net profit, originator of all AI monk accounts.",
+      "checked_at": [
+        "2026-10-21",
+        "2026-10-22"
+      ],
+      "source_publication_dates": [
+        "2026-07-10"
+      ],
+      "cited_in_chapters": [
+        3,
+        6
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S14",
+      "url": "https://maldita.es/investigaciones/20260727/250-ai-health-instagram-accounts/",
+      "dataset_source_ids": [
+        "maldita-2026-07-27"
+      ],
+      "publisher_or_account": "Maldita.es",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Investigative report",
+      "source_claims": "250 AI health profiles; 45,600-plus posts, 53.7M-plus followers, seven languages, 82 ancestral-wisdom accounts; methodology stated.",
+      "what_saved_research_establishes": "Report dates its data collection to 2026-07-20/21 and describes broader health-account scope.",
+      "not_established": "A census or totals for monk-only accounts, independent operator residence, our sample representativeness.",
+      "checked_at": [
+        "2026-10-21"
+      ],
+      "source_publication_dates": [
+        "2026-07-27"
+      ],
+      "cited_in_chapters": [
+        2,
+        3,
+        9
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S15",
+      "url": "https://www.thaipbsworld.com/around-thailand/thailands-first-virtual-monk-to-preach-buddhism-to-new-generation",
+      "dataset_source_ids": [
+        "thaipbs-phra-maha-ai"
+      ],
+      "publisher_or_account": "Thai PBS World",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Interview/profile of Phra Maha AI",
+      "source_claims": "Real Thai monk collaborated with programmers on a 2D animated character.",
+      "what_saved_research_establishes": "Saved report describes a virtual presentation of a human monk; publication date not established in register.",
+      "not_established": "A generated human identity or exact chronology from an unavailable article date.",
+      "checked_at": [
+        "2026-10-21"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        2,
+        3,
+        9
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S16",
+      "url": "https://www.instagram.com/mingsanhealing/",
+      "dataset_source_ids": [
+        "mingsan-ig-20261022"
+      ],
+      "publisher_or_account": "Ming San public Instagram account; metadata via vidIQ",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Public platform account",
+      "source_claims": "Audience and external product link.",
+      "what_saved_research_establishes": "2026-10-22 rounded 1.4M followers, 175 posts and beetroot destination.",
+      "not_established": "AI origin, product efficacy, affiliate relationship, commissions or sales.",
+      "checked_at": [
+        "2026-10-22"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        1,
+        6,
+        9
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S17",
+      "url": "https://avatarfactory.io/ai-influencers/ming-san",
+      "dataset_source_ids": [
+        "avatarfactory-ming-san"
+      ],
+      "publisher_or_account": "AvatarFactory",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Commercial directory",
+      "source_claims": "Public AI provenance for Ming San is not established.",
+      "what_saved_research_establishes": "Saved directory statement conflicts with Maldita classification.",
+      "not_established": "Independent identity verification or audited vendor performance.",
+      "checked_at": [
+        "2026-10-21"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        2
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S18",
+      "url": "https://www.instagram.com/thezenstoryteller/",
+      "dataset_source_ids": [
+        "kai-tsukimi-ig-20261022"
+      ],
+      "publisher_or_account": "Kai Tsukimi public Instagram account; metadata via vidIQ",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Public platform account",
+      "source_claims": "Storytelling identity, book promotion, audience counters.",
+      "what_saved_research_establishes": "2026-10-22 rounded 369.9K followers and 971 posts.",
+      "not_established": "AI provenance, operator identity, book sales.",
+      "checked_at": [
+        "2026-10-22"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        2
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S19",
+      "url": "https://thezenstoryteller.com/",
+      "dataset_source_ids": [
+        "kai-tsukimi-home-20261022"
+      ],
+      "publisher_or_account": "The Zen Storyteller",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Seller",
+      "source_claims": "21-story book; Kindle $9.99, paperback $14.99, hardcover $19.99; 100,000-plus sales and category rank claims.",
+      "what_saved_research_establishes": "Saved seller page displays the contents, prices and assertions.",
+      "not_established": "Verified order ledger, royalties, current independently read Amazon rank, AI provenance.",
+      "checked_at": [
+        "2026-10-22"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        1,
+        2,
+        5,
+        6,
+        10
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S20",
+      "url": "https://www.instagram.com/reel/DbOZz8SGw_K/",
+      "dataset_source_ids": [
+        "kai-tsukimi-reel-20261022"
+      ],
+      "publisher_or_account": "Kai Tsukimi public Instagram account; metadata via yt-dlp and vidIQ",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Public post account",
+      "source_claims": "Caption about the cost of helping the wrong person.",
+      "what_saved_research_establishes": "Metadata dates upload to 2026-07-25; 2026-10-22 read records 156,196 likes, 16,165 comments, rounded indexed 2.8M plays.",
+      "not_established": "Actual scene sequence, hook timing or pacing; no moving-image watch completed.",
+      "checked_at": [
+        "2026-10-22"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        5
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S21",
+      "url": "https://www.instagram.com/monkyangjun/",
+      "dataset_source_ids": [
+        "yangjun-ig-20261022"
+      ],
+      "publisher_or_account": "Yangjun public Instagram account; metadata via vidIQ",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Public platform account",
+      "source_claims": "English wellness positioning and linked site.",
+      "what_saved_research_establishes": "2026-10-22 rounded 95.6K followers and 323 posts.",
+      "not_established": "AI provenance, operator identity, paid conversion.",
+      "checked_at": [
+        "2026-10-22"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S22",
+      "url": "https://yangjunhealer.netlify.app",
+      "dataset_source_ids": [
+        "yangjun-store-20261022"
+      ],
+      "publisher_or_account": "Yangjun seller website",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Seller",
+      "source_claims": "$29.99 one-time eight-week menopause digital guide with health-related claims.",
+      "what_saved_research_establishes": "Saved English seller page displays the price and checkout destination.",
+      "not_established": "Health benefits, paid orders, refunds, conversion, profit.",
+      "checked_at": [
+        "2026-10-22"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        1,
+        5,
+        6,
+        9,
+        10
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S23",
+      "url": "https://collabstr.com/yangjun",
+      "dataset_source_ids": [
+        "yangjun-collabstr-20261022"
+      ],
+      "publisher_or_account": "Yangjun public Collabstr listing",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Seller self-description",
+      "source_claims": "Wellness-character UGC services and declared Pattaya, Thailand location.",
+      "what_saved_research_establishes": "Saved listing describes positioning and advertised services.",
+      "not_established": "Independent residence, actual brand contracts, AI provenance or orders.",
+      "checked_at": [
+        "2026-10-22"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        1,
+        6
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S24",
+      "url": "https://www.instagram.com/reel/Dew0nxIvTmp/",
+      "dataset_source_ids": [
+        "yangjun-reel-20261022"
+      ],
+      "publisher_or_account": "Yangjun public Instagram account; metadata via yt-dlp and vidIQ",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Public post account",
+      "source_claims": "Caption directs viewers to guide links in bio.",
+      "what_saved_research_establishes": "Upload 2026-10-21; metadata checked 2026-10-22 with 44 likes, 2 comments and rounded indexed 2.1K plays.",
+      "not_established": "Moving-image visual hook, delivery or pacing; no completed watch.",
+      "checked_at": [
+        "2026-10-22"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        5
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S25",
+      "url": "https://www.instagram.com/reel/DdaLlA_seuf/",
+      "dataset_source_ids": [
+        "buddhawouldsay-reel-20261022"
+      ],
+      "publisher_or_account": "Buddha Would Say public Instagram account; metadata via yt-dlp and vidIQ",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Public account plus discovery-provider classification",
+      "source_claims": "Inspirational caption; provider describes an AI animated monk.",
+      "what_saved_research_establishes": "Upload 2026-09-18; 2026-10-22 metadata/index include rounded 1.1M views and 9.4K followers.",
+      "not_established": "First-party AI disclosure, actual motion, creator identity or paid offer.",
+      "checked_at": [
+        "2026-10-22"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        2
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S26",
+      "url": "https://www.tiktok.com/@omaster.kaizen/video/7693476794522930464",
+      "dataset_source_ids": [
+        "omaster-kaizen-tiktok-20261022"
+      ],
+      "publisher_or_account": "Master Kaizen public TikTok account; metadata via yt-dlp and vidIQ",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Public account plus discovery-provider description",
+      "source_claims": "Manifestation-themed engagement prompt.",
+      "what_saved_research_establishes": "Upload 2026-10-06; 2026-10-22 source-specific views 648,200 fetched and 644,700 indexed; rounded followers 259,300.",
+      "not_established": "AI origin, spoken language, actual pacing, paid offers or financial benefits.",
+      "checked_at": [
+        "2026-10-22"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        2,
+        8
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S27",
+      "url": "https://growwstacks.com/blog/ai-factory-creates-ai-avatar-instagram-videos-daily-n8n-automation",
+      "dataset_source_ids": [
+        "growwstacks-ai-avatar-workflow"
+      ],
+      "publisher_or_account": "GrowwStacks",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Automation vendor",
+      "source_claims": "Table to LLM to HeyGen to captions and scheduling; advertised time savings.",
+      "what_saved_research_establishes": "Vendor article published 2026-01-14 describes its proposed workflow.",
+      "not_established": "Yang Mun internal implementation or independently measured savings.",
+      "checked_at": [
+        "2026-10-21"
+      ],
+      "source_publication_dates": [
+        "2026-01-14"
+      ],
+      "cited_in_chapters": [
+        7
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S28",
+      "url": "https://aniccaai.com/ai-monk-database",
+      "dataset_source_ids": [],
+      "publisher_or_account": "Anicca",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Original research compilation",
+      "source_claims": "Bounded English-first public index and machine-readable dataset.",
+      "what_saved_research_establishes": "75 records, 48 source entries, 9 researched profiles, 66 leads; reported4, unverified71, confirmed0.",
+      "not_established": "Complete census, market size, verified commercial results, proven factory service.",
+      "checked_at": [
+        "2026-10-22"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        1,
+        2,
+        8,
+        10
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S29",
+      "url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+      "dataset_source_ids": [
+        "user-screenshot-yangmun-youtube",
+        "user-screenshot-mingsan-instagram",
+        "user-screenshot-monjechen-instagram",
+        "user-screenshot-shalev-x-500k",
+        "user-supplied-instagram-following-screenshots"
+      ],
+      "publisher_or_account": "Supplied screenshots; descriptions compiled by Anicca",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Screenshot-visible account statements, not independently authenticated",
+      "source_claims": "Channel date, account labels/counts, partial product links, creator earnings headline and discovery handles.",
+      "what_saved_research_establishes": "Saved descriptions transcribe limited visible elements; underlying images are not publicly reproduced.",
+      "not_established": "Calendar capture dates, full underlying pages, complete product destinations or authenticated financial outcomes.",
+      "checked_at": [
+        "2026-10-21"
+      ],
+      "source_publication_dates": [
+        "2026-04-09"
+      ],
+      "cited_in_chapters": [
+        2,
+        3,
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S30",
+      "url": "https://www.instagram.com/robots.txt",
+      "dataset_source_ids": [
+        "instagram-robots-20261022"
+      ],
+      "publisher_or_account": "Instagram",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "First-party access notice",
+      "source_claims": "Restrictions on the collection route checked.",
+      "what_saved_research_establishes": "Saved 2026-10-22 notice caused direct exploratory collection to stop.",
+      "not_established": "Current universal permission, legal advice or authority for continuing collection.",
+      "checked_at": [
+        "2026-10-22"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S31",
+      "url": "https://x.com/shalevhvs/status/2042242260784537736",
+      "dataset_source_ids": [
+        "shalev-x-discovery-20261022"
+      ],
+      "publisher_or_account": "Shalev Hani public X post, search discovery only",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Creator-post discovery lead",
+      "source_claims": "Revenue-related search snippet; body not read back.",
+      "what_saved_research_establishes": "Search exposed an exact post URL on 2026-10-22.",
+      "not_established": "Authenticated post contents, financial accounting or audit.",
+      "checked_at": [
+        "2026-10-22"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    },
+    {
+      "reference_id": "S32",
+      "url": "https://x.com/shalevhvs",
+      "dataset_source_ids": [
+        "yangmun-shalev-x"
+      ],
+      "publisher_or_account": "Shalev Hani public X profile",
+      "named_article_byline": null,
+      "byline_note": "The saved source register does not consistently preserve named bylines; attribution uses the publisher or account rather than a guessed author.",
+      "original_claimant_or_claim_type": "Public creator account",
+      "source_claims": "Creator identity/profile and article link.",
+      "what_saved_research_establishes": "Saved profile reference keeps creator account distinct from persona accounts.",
+      "not_established": "Audited earnings or independent verification of every profile statement.",
+      "checked_at": [
+        "2026-10-21"
+      ],
+      "source_publication_dates": [],
+      "cited_in_chapters": [
+        4
+      ],
+      "evidence_is_live_readback_during_manuscript_writing": false
+    }
+  ],
+  "dataset_source_register_snapshot": [
+    {
+      "id": "heygen-yangmun-case",
+      "title": "Yang Mun customer story",
+      "url": "https://www.heygen.com/ja-jp/customer-stories/yangmun",
+      "source_type": "vendor-hosted customer story",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Identifies Yang Mun as an AI character created by Shalev Hani. The customer story attributes about 20 minutes per video and sevenfold posting frequency to Hani; these production claims are not an independent audit."
+    },
+    {
+      "id": "columbia-yangmun-report",
+      "title": "Millions found comfort in a Buddhist monk, but he was never real",
+      "url": "https://columbianewsservice.com/2026/03/24/millions-found-comfort-in-a-buddhist-monk-but-he-was-never-real/",
+      "source_type": "independent reporting",
+      "published_at": "2026-03-24",
+      "checked_at": "2026-10-21",
+      "notes": "Identifies Yang Mun as AI-generated and names Shalev Hani as creator. Reports Hani's claims of over $300,000 in revenue since launch, a $325,000 acquisition offer, and a $799/hour AI-character package; these are not audited results."
+    },
+    {
+      "id": "yangmun-real-person-claim",
+      "title": "The Truth Behind 'Time To Heal' Yang Mun",
+      "url": "https://www.yangmuns.com/blog/the-truth-behind-%E2%80%9Ctime-to-heal%E2%80%9D-by-yang-mun",
+      "source_type": "first-party site statement linked by Columbia News Service",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "The current page claims Yang Mun is a real teacher and says only the voice is AI-translated. This first-party statement conflicts with HeyGen and Columbia's descriptions of an AI-generated character; it is not independent verification."
+    },
+    {
+      "id": "virtual-humans-yangmun-profile",
+      "title": "Who is Yang Mun? The AI-Generated Wellness Guru With 2.6M Followers",
+      "url": "https://virtualhumans.org/article/who-is-yang-mun-the-ai-generated-wellness-guru-with-2-6m-followers",
+      "source_type": "industry profile reporting creator claims",
+      "published_at": "2026-01-28",
+      "checked_at": "2026-10-21",
+      "notes": "Reports creator claims about audience, views, tools, revenue, and profit. The article does not audit sales or profit."
+    },
+    {
+      "id": "yangmun-journey-store",
+      "title": "Yang Mun 30-Day Healing Journey",
+      "url": "https://www.yang-mun.com/pages/journey",
+      "source_type": "first-party seller page",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Displays a $49.99 one-time 30-day journey with daily 5–10 minute practice, weekly video teaching, a community and Q&A, plus a $59.99 offer with three eBooks. It also displays 30,000+ readers and 2,500 Journey participants. These are seller counters, not audited order records."
+    },
+    {
+      "id": "yangmun-home",
+      "title": "Yang Mun official website",
+      "url": "https://www.yang-mun.com/",
+      "source_type": "first-party seller page",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "The home page currently displays a $19.99 digital bundle, '5 million with Yang Mun', and 20,000+ readers without defining the audience platform mix or auditing the counters."
+    },
+    {
+      "id": "yangmun-youtube-channel",
+      "title": "Yang Mun YouTube channel",
+      "url": "https://www.youtube.com/@Yangmunv2",
+      "source_type": "first-party platform profile",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Public page readback displayed approximately 159,000 subscribers and 172 videos."
+    },
+    {
+      "id": "yangmun-youtube-shorts-list",
+      "title": "Yang Mun YouTube Shorts list",
+      "url": "https://www.youtube.com/@Yangmunv2/shorts",
+      "source_type": "public channel list; metadata collected with YT-DLP",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "YT-DLP returned 143 Shorts entries while the channel page displayed 172 total videos. These are different YouTube surfaces and do not establish deleted or missing videos."
+    },
+    {
+      "id": "yangmun-instagram",
+      "title": "Yang Mun Instagram profile",
+      "url": "https://www.instagram.com/yangmunus/",
+      "source_type": "first-party platform profile",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Profile handle is also linked in public third-party coverage; counts vary by source date."
+    },
+    {
+      "id": "yangmun-shalev-x",
+      "title": "Shalev Hani public X profile",
+      "url": "https://x.com/shalevhvs",
+      "source_type": "creator profile",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Creator account, not an account for the Yang Mun persona. The profile links to a creator-written AI monk earnings article."
+    },
+    {
+      "id": "yangmun-youtube-short-motivation",
+      "title": "Words of Motivation from Yang Mun",
+      "url": "https://www.youtube.com/shorts/Er2Ig4GM7z0",
+      "source_type": "first-party video; metadata collected with YT-DLP",
+      "published_at": "2025-11-29",
+      "checked_at": "2026-10-21",
+      "notes": "YT-DLP reported 521,549 views and 65 seconds at capture. This clip was downloaded temporarily and observed locally; no media or transcript is included here."
+    },
+    {
+      "id": "yangmun-youtube-short-health",
+      "title": "1minute of Yang Mun Wisdom",
+      "url": "https://www.youtube.com/shorts/Qdv6S7HonSM",
+      "source_type": "first-party video; metadata/captions collected with YT-DLP",
+      "published_at": "2025-11-25",
+      "checked_at": "2026-10-21",
+      "notes": "YT-DLP reported 1,102,388 views and 78 seconds at capture. The script includes unverified health claims; do not treat or republish those claims as medical advice. Media was downloaded temporarily and is not included."
+    },
+    {
+      "id": "yangmun-youtube-short-health-metadata",
+      "title": "You’re Drinking Water the WRONG Way",
+      "url": "https://www.youtube.com/shorts/j8WRhcQvzRM",
+      "source_type": "first-party video; YT-DLP metadata only",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "The public playlist metadata showed roughly 12M views. The video was not downloaded or fact-checked; this is a reach snapshot, not a sales result or endorsed health claim."
+    },
+    {
+      "id": "maldita-2026-07-10",
+      "title": "Ni Manuel, ni Paco del Campo, ni Sor Catalina son reales: la red de perfiles de IA que vende libros",
+      "url": "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/",
+      "source_type": "independent investigation",
+      "published_at": "2026-07-10",
+      "checked_at": "2026-10-21",
+      "notes": "Reports 16 AI-generated Facebook/Instagram profiles, 3.5M combined followers, and 70.5M views across their most viral videos. It describes Shaolin-style profiles Leo Chen and SifuChen California, including book/guide lead paths. It does not establish which avatar appeared first."
+    },
+    {
+      "id": "maldita-2026-07-27",
+      "title": "250 AI-generated Instagram profiles provide health advice in seven languages",
+      "url": "https://maldita.es/investigaciones/20260727/250-ai-health-instagram-accounts/",
+      "source_type": "independent investigation with stated methodology",
+      "published_at": "2026-07-27",
+      "checked_at": "2026-10-21",
+      "notes": "The investigation says its account data was collected July 20–21, 2026: 250 AI-generated health profiles, 45,600+ posts, and 53.7M+ followers. It reports seven languages, 61.2% English-language profiles, 52.8% based in the US by platform activity, 224 visible product URLs, and an 82-account 'ancestral wisdom' group that includes non-monks. This is not a census of AI monk avatars. Its method records profile IDs, bio, country signal, account history, counts, links, and AI labels/watermarks."
+    },
+    {
+      "id": "thaipbs-phra-maha-ai",
+      "title": "Thailand's first virtual monk to preach Buddhism to a new generation",
+      "url": "https://www.thaipbsworld.com/around-thailand/thailands-first-virtual-monk-to-preach-buddhism-to-new-generation",
+      "source_type": "public broadcaster interview",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Profiles Phra Maha AI as a real Thai monk who worked with programmers to create a 2D animated character. This is a virtual presentation of a human monk, not an AI-generated monk persona."
+    },
+    {
+      "id": "mingsan-instagram",
+      "title": "Ming San Instagram profile",
+      "url": "https://www.instagram.com/mingsanhealing/",
+      "source_type": "first-party platform profile",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Maldita identifies the profile as a monk-like AI health account. AvatarFactory says the AI origin is not established publicly, so provenance remains reported/conflicting."
+    },
+    {
+      "id": "avatarfactory-yangmun",
+      "title": "Yang Mun profile and funnel teardown",
+      "url": "https://avatarfactory.io/ai-influencers/yang-mun",
+      "source_type": "commercial directory and product marketing",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Useful for discovering public account/video references; audience, 400M views, revenue, and production figures are not independently audited. The page promotes AvatarFactory."
+    },
+    {
+      "id": "avatarfactory-ming-san",
+      "title": "Ming San profile",
+      "url": "https://avatarfactory.io/ai-influencers/ming-san",
+      "source_type": "commercial directory and product marketing",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "The profile says Ming San's AI origin is not established publicly and reports its own scanner snapshots. Its counts differ across the profile summary and scan table."
+    },
+    {
+      "id": "avatarfactory-directory",
+      "title": "AI Influencers Directory",
+      "url": "https://avatarfactory.io/ai-influencers",
+      "source_type": "commercial directory and product marketing",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "The vendor page advertises 179 analyzed profiles and 15 niches. These are vendor-stated directory counts, not an independent census or verified performance results."
+    },
+    {
+      "id": "user-screenshot-yangmun-youtube",
+      "title": "User-supplied Yang Mun YouTube screenshot",
+      "url": null,
+      "source_type": "user-provided screenshot",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Shows the YouTube channel join date as 2025-11-04 and 18,147,274 channel views; the screenshot's calendar capture date is not visible."
+    },
+    {
+      "id": "user-screenshot-mingsan-instagram",
+      "title": "User-supplied Ming San Instagram screenshot",
+      "url": null,
+      "source_type": "user-provided screenshot",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Shows @mingsanhealing, approximately 1.37M followers, and a beetroot-product link. The screenshot date and affiliate relationship are unknown."
+    },
+    {
+      "id": "user-screenshot-monjechen-instagram",
+      "title": "User-supplied monjechen Instagram screenshot",
+      "url": null,
+      "source_type": "user-provided screenshot",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Shows an 'AI-generated profile' label, 'Yan Chen | Sabiduría sanadora', approximately 1.34M followers, 584 posts, and a cropped product URL. Calendar capture date and full product URL are not visible."
+    },
+    {
+      "id": "user-screenshot-shalev-x-500k",
+      "title": "User-supplied Shalev Hani X screenshot",
+      "url": null,
+      "source_type": "user-provided screenshot",
+      "published_at": "2026-04-09",
+      "checked_at": "2026-10-21",
+      "notes": "The screenshot shows a Shalev Hani X post headline claiming $500,000 in six months from an AI monk. The exact status URL and underlying accounting are not present. Treat it as a creator claim from a screenshot, not audited revenue."
+    },
+    {
+      "id": "growwstacks-ai-avatar-workflow",
+      "title": "This AI Factory Creates AI Avatar Instagram Videos Daily",
+      "url": "https://growwstacks.com/blog/ai-factory-creates-ai-avatar-instagram-videos-daily-n8n-automation",
+      "source_type": "automation vendor marketing article",
+      "published_at": "2026-01-14",
+      "checked_at": "2026-10-21",
+      "notes": "Describes an Airtable → LLM script → HeyGen → captioning → scheduler workflow. Its time-savings, price, pageview, and break-even figures are publisher claims, not independently measured results."
+    },
+    {
+      "id": "reddit-aituber-promotion",
+      "title": "An AI Monk Made $350K — How to create AI Avatar Videos",
+      "url": "https://www.reddit.com/r/ReelFarmer/comments/1r2r6qc/an_ai_monk_made_350k_how_to_create_ai_avatar/",
+      "source_type": "tool-promotional Reddit post",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "The author promotes aituber.app and attributes the $350K claim to the account owner; commenters ask for evidence. It is not treated as proof of earnings."
+    },
+    {
+      "id": "yangmun-youtube-shorts-feed",
+      "title": "Yang Mun - Shorts public listing",
+      "url": "https://www.youtube.com/@Yangmunv2/shorts",
+      "source_type": "public YouTube listing metadata",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "yt-dlp --flat-playlist --dump-single-json returned 143 listing entries on 2026-10-21. This is a Shorts-list count, not the channel page total of 172 videos. No video file was downloaded."
+    },
+    {
+      "id": "user-supplied-instagram-following-screenshots",
+      "title": "User-supplied Instagram screenshot leads",
+      "url": null,
+      "source_type": "user-provided screenshot",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Partial screenshots display a following count of 100 or 102 and some profile handles. Capture date and full-list scope are unknown. Only fully legible handles were transcribed as candidate leads. The screenshots do not establish AI origin, creator, language, location, or audience size; the images are not included in the public dataset."
+    },
+    {
+      "id": "yangmun-ig-20261022",
+      "title": "Yang Mun Instagram profile, via vidIQ",
+      "url": "https://www.instagram.com/yangmunus/",
+      "source_type": "connector readback of a first-party public profile",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ returned 2.5M followers, 433 posts, English bio, and the yang-mun.com/journey link. Counts are a rounded provider snapshot, not sales or audited reach."
+    },
+    {
+      "id": "mingsan-ig-20261022",
+      "title": "Ming San Instagram profile, via vidIQ",
+      "url": "https://www.instagram.com/mingsanhealing/",
+      "source_type": "connector readback of a first-party public profile",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ returned 1.4M followers, 175 posts, and a beetroot product link. This does not verify product efficacy, commissions, sales, or AI origin."
+    },
+    {
+      "id": "kai-tsukimi-ig-20261022",
+      "title": "Kai Tsukimi Instagram profile, via vidIQ",
+      "url": "https://www.instagram.com/thezenstoryteller/",
+      "source_type": "connector readback of a first-party public profile",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ returned 369.9K followers and 971 posts. The bio advertises A Cup of Zen and claims 100,000+ copies sold and Amazon bestseller status; these are seller assertions."
+    },
+    {
+      "id": "yangjun-ig-20261022",
+      "title": "Yangjun Instagram profile, via vidIQ",
+      "url": "https://www.instagram.com/monkyangjun/",
+      "source_type": "connector readback of a first-party public profile",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ returned 95.6K followers, 323 posts, an English wellness bio, and yangjunhealer.netlify.app. No creator statement establishing AI origin was found."
+    },
+    {
+      "id": "kai-tsukimi-home-20261022",
+      "title": "The Zen Storyteller / A Cup of Zen",
+      "url": "https://thezenstoryteller.com/",
+      "source_type": "first-party seller website",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The English page offers a 21-story book: paperback $14.99, hardcover $19.99, Kindle $9.99 as displayed by the seller. It claims 100,000+ copies sold and a category bestseller rank. No order ledger or verified current Amazon rank was obtained."
+    },
+    {
+      "id": "yangjun-store-20261022",
+      "title": "The Yangjun Method sales page",
+      "url": "https://yangjunhealer.netlify.app",
+      "source_type": "first-party seller website",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The English sales page displays a $29.99 one-time eight-week menopause digital guide and links to whop.com/yangjun/yangjun-menopause-guide. Its symptom, hormone, and efficacy claims were not independently verified."
+    },
+    {
+      "id": "yangjun-collabstr-20261022",
+      "title": "Yangjun's public Collabstr seller listing",
+      "url": "https://collabstr.com/yangjun",
+      "source_type": "public creator marketplace self-description",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The seller describes the monk as a wellness character, lists US-facing content, digital products and UGC services, and declares Pattaya, Thailand. This establishes positioning, not AI provenance or actual brand deals. The page's 0.0K audience placeholder is not treated as a zero-follower observation."
+    },
+    {
+      "id": "kai-tsukimi-reel-20261022",
+      "title": "Kai Tsukimi's pinned Reel metadata",
+      "url": "https://www.instagram.com/reel/DbOZz8SGw_K/",
+      "source_type": "first-party post metadata via yt-dlp plus vidIQ discovery",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "Upload date 2026-07-25; yt-dlp returned 156196 likes and 16165 comments, with view_count unavailable. vidIQ account discovery returned rounded 2.8M plays. No moving-image watch was completed."
+    },
+    {
+      "id": "yangjun-reel-20261022",
+      "title": "Yangjun's guide-in-bio Reel metadata",
+      "url": "https://www.instagram.com/reel/Dew0nxIvTmp/",
+      "source_type": "first-party post metadata via yt-dlp plus vidIQ discovery",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "Upload date 2026-10-21; caption directs to guide links in bio. yt-dlp returned 44 likes and 2 comments, view_count unavailable. vidIQ discovery returned rounded 2.1K plays. No moving-image watch was completed."
+    },
+    {
+      "id": "buddhawouldsay-reel-20261022",
+      "title": "Buddha Would Say illustrated monk Reel",
+      "url": "https://www.instagram.com/reel/DdaLlA_seuf/",
+      "source_type": "vidIQ public outlier index and first-party post metadata",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ describes an AI-generated animated young monk with English inspirational text and reports 1.1M views and 9.4K account followers. yt-dlp returned upload date 2026-09-18, 32115 likes and 78 comments, with views and duration unavailable. AI provenance and visual details were not independently watched or creator-confirmed."
+    },
+    {
+      "id": "omaster-kaizen-tiktok-20261022",
+      "title": "Master Kaizen manifestation TikTok",
+      "url": "https://www.tiktok.com/@omaster.kaizen/video/7693476794522930464",
+      "source_type": "vidIQ public outlier index and first-party post metadata",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ describes a monk persona and English on-screen hook, with 259.3K followers and 644.7K video views. Later yt-dlp metadata returned 648200 views, 62000 likes, 14900 comments, 75 seconds, upload date 2026-10-06. Different capture snapshots are retained separately. AI origin, spoken language and operator are unverified."
+    },
+    {
+      "id": "yangmun-yt-recent20-20261022",
+      "title": "Yang Mun public Shorts listing, latest 20 entries",
+      "url": "https://www.youtube.com/@Yangmunv2/shorts",
+      "source_type": "first-party public listing metadata via yt-dlp",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The installed yt-dlp 2026.08.19 returned channel UCoMa3p67nJWkk2kk-8hD1jA, 159000 followers/subscribers and the first 20 Shorts entries without downloading media. This is a bounded feed sample; it does not establish all videos or current monthly performance."
+    },
+    {
+      "id": "heygen-yangmun-case-20261022",
+      "title": "HeyGen's Yang Mun customer case",
+      "url": "https://www.heygen.com/customer-stories/yangmun",
+      "source_type": "first-party production-provider interview",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "HeyGen identifies Yang Mun as an AI character made with its tools by Shalev Hani. It reports simple scripts, avatar/voice delivery, batching and daily publishing. Its 2.5M audience, production-time and cadence claims are case-study assertions, not independent outcome measurements."
+    },
+    {
+      "id": "masterlinghao-og-20261022",
+      "title": "Ling Hao public Instagram metadata",
+      "url": "https://www.instagram.com/masterlinghao/",
+      "source_type": "first-party HTML Open Graph metadata",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The exploratory public HTML request returned 1118 followers and 38 posts. Full profile content was behind a login surface. Further automated Instagram collection was stopped after robots.txt review."
+    },
+    {
+      "id": "oldmonktenzin-og-20261022",
+      "title": "Tenzin public Instagram metadata",
+      "url": "https://www.instagram.com/oldmonktenzin/",
+      "source_type": "first-party HTML Open Graph metadata",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The exploratory public HTML request returned 362 followers and 51 posts. Language, operator and AI origin remain unverified. Further automated Instagram collection was stopped after robots.txt review."
+    },
+    {
+      "id": "thekaizenhealing-og-20261022",
+      "title": "Kaizen Healing public Instagram metadata",
+      "url": "https://www.instagram.com/thekaizenhealing/",
+      "source_type": "first-party HTML Open Graph metadata",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The exploratory public HTML request returned 844 followers and 99 posts. Language, operator and AI origin remain unverified. Further automated Instagram collection was stopped after robots.txt review."
+    },
+    {
+      "id": "instagram-robots-20261022",
+      "title": "Instagram robots and collection notice",
+      "url": "https://www.instagram.com/robots.txt",
+      "source_type": "first-party access rules",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The live file disallows Scrapy and the wildcard user agent from all paths and states that automated collection requires express written permission. The exploratory direct crawler route is therefore not promoted as an authorized continuing collector."
+    },
+    {
+      "id": "shalev-x-discovery-20261022",
+      "title": "Shalev Hani X post discovered by search",
+      "url": "https://x.com/shalevhvs/status/2042242260784537736",
+      "source_type": "search-result discovery lead; post body not read back",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "DuckDuckGo HTML exposed the exact creator-post URL and a revenue-related snippet. The post body and accounting were not fetched. Do not replace unverified creator revenue claims with verified revenue."
+    },
+    {
+      "id": "maldita-shaolin-review-20261022",
+      "title": "Maldita's reported Shaolin persona examples",
+      "url": "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/",
+      "source_type": "independent investigation rechecked; historical snapshots",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "Rechecked the report's Leo Chen and SifuChen examples. It describes Spanish-targeted PDF funnels, comment-to-book and highlighted-story routes. It does not provide new English-language or live-handle evidence for these two records."
+    },
+    {
+      "id": "avatarfactory-discovery-20261022",
+      "title": "AvatarFactory commercial directory discovery",
+      "url": "https://avatarfactory.io/ai-influencers",
+      "source_type": "commercial directory, discovery only",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "Index contains further candidate pages including Monk Tao, Yun Shen and Shen Healings. They remain follow-up leads; commercial AI labels and counts were not promoted to first-party verification."
+    }
+  ]
+}
