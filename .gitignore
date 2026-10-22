@@ -78,6 +78,9 @@ server.cert
 out/
 app/dist/
 packages/
+!/packages/
+/packages/*
+!/packages/ai-monk-index/
 
 # Cache
 .npm

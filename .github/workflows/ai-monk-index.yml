@@ -1,0 +1,35 @@
+name: AI Monk Index CLI and MCP
+
+on:
+  pull_request:
+    paths:
+      - 'packages/ai-monk-index/**'
+      - 'apps/landing/public/data/ai-monk-avatar-database-2026.json'
+      - 'apps/landing/lib/ai-monk-directory.mjs'
+      - '.github/workflows/ai-monk-index.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'packages/ai-monk-index/**'
+      - 'apps/landing/public/data/ai-monk-avatar-database-2026.json'
+      - 'apps/landing/lib/ai-monk-directory.mjs'
+      - '.github/workflows/ai-monk-index.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/ai-monk-index
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: packages/ai-monk-index/package-lock.json
+      - run: npm ci --ignore-scripts
+      - run: npm test
