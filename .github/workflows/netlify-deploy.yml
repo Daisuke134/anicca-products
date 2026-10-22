@@ -48,8 +48,8 @@ jobs:
         working-directory: apps/landing
         env:
           MANAGER_BLOG_REVISION: 25eefdf84842b14059800b35667f3520b06ec4c9
-          # Preserve already-published content during this renderer-only release.
-          MANAGER_BLOG_CONTENT_REVISION: 32cb5b84d052de9f2be3b2a3c8e8c21a150c4da1
+          # Reviewed content pin; installer and module revision remain independently pinned.
+          MANAGER_BLOG_CONTENT_REVISION: a69a8a4a66e5b2f032c13efcc6bef18c446cf448
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_BLOG_REVISION/apps/landing/manager-blog/scripts/install.mjs" -o /tmp/manager-blog-install.mjs
