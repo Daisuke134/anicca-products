@@ -1,0 +1,50 @@
+{
+  "checked_at": "2026-10-22T15:03:32.866682+00:00",
+  "pr_url": "https://github.com/Daisuke134/anicca-products/pull/551",
+  "main_sha": "d4380515c995abd0611987bedead436fbe432dcb",
+  "netlify_workflow_run_id": 39800192156,
+  "netlify_workflow_conclusion": "success",
+  "pages": [
+    {
+      "url": "https://aniccaai.com/ai-monk-database",
+      "status": 200,
+      "h1": "Who&#x27;s behind the robe?",
+      "rounding_disclosure": true,
+      "index_link": true
+    },
+    {
+      "url": "https://aniccaai.com/blog/ebook-publishing-yang-mun-video-to-product",
+      "status": 200,
+      "h1": "The Yang Mun Shock: The Monk in Your Feed Has a Checkout Page",
+      "rounding_disclosure": false,
+      "index_link": true
+    },
+    {
+      "url": "https://aniccaai.com/blog/ebook-publishing-yang-mun-case-study-ja",
+      "status": 200,
+      "h1": "Yang Munの衝撃",
+      "rounding_disclosure": false,
+      "index_link": true
+    },
+    {
+      "url": "https://aniccaai.com/blog/ebook-publishing-ai-monk-economy-2026",
+      "status": 200,
+      "h1": "The Art of AI Monks",
+      "rounding_disclosure": false,
+      "index_link": true
+    },
+    {
+      "url": "https://aniccaai.com/blog/ai-monk-avatar-field-guide-ja-2026",
+      "status": 200,
+      "h1": "AI僧侶列伝",
+      "rounding_disclosure": false,
+      "index_link": true
+    }
+  ],
+  "dataset": {
+    "url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+    "records": 75,
+    "sources": 48,
+    "updated_at": "2026-10-22"
+  }
+}

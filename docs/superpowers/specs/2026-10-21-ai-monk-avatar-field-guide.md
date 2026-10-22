@@ -8,7 +8,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 - Yang Mun単独記事とAI僧侶フィールドガイドは英語・日本語の計4本が公開済み。公開URLは維持する。
 - 4本の記事は証拠を整理している一方、導入と見出しが調査報告書寄りで、読者を引き込む物語・ユーモア・読み進める理由が弱い。
-- `apps/landing/public/data/ai-monk-avatar-database-2026.json` の公開readbackは5プロフィールと21出典。作業版は75レコードと48出典に拡充し、検索・絞り込み・閲覧Web UIを実装済み。
+- `apps/landing/public/data/ai-monk-avatar-database-2026.json` の本番は75レコードと48出典。9件の調査対象プロフィールと66件の候補を検索・絞り込みできるWeb UIを公開済み。
 - Yang MunのAI生成状態は、HeyGenとColumbiaの説明に対し、Columbiaがリンクする本人側ページが「本人は実在し、声だけAI翻訳」と主張している。現時点では食い違いを解消できない。
 - 追加提供されたInstagram画面には100〜102件のフォロー中表示と複数の僧侶風アカウント名が写っている。リスト全体でもAI生成状態でもなく、個別確認用の候補発見材料。
 - `/monk` は既存eBook販売ページなので使用しない。
@@ -20,7 +20,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 1. **読者向け記事4本を改稿する。** 既存slugを維持し、本文・H1・descriptionを更新する。中心タイトルは `Yang Munの衝撃` / `The Yang Mun Shock` と `AI僧侶列伝` / `The Art of AI Monks`。副題は読者の好奇心を増す場合だけ付ける。
 2. **履歴・事実・分析を一つの読み物にする。** Yang Mun記事では65秒Shortから人物の正体をめぐる矛盾、動画の仕組み、30日プログラムとeBook、異なる収益主張、宗教的な信頼の問題へ進む。総覧記事ではAI生成の僧侶キャラクター、実在僧侶の仮想アバター、物語アニメーションを分け、文化の前史と現在のSNS型を描く。
 3. **検索可能な公開Webディレクトリ `/ai-monk-database` を作る。** 画面上部の検索、証拠状態・言語・プラットフォーム・地域の絞り込み、スクロール可能なプロフィールカードを備える。検索対象は表示名、別名、handle、creator、国・地域、言語、SNS、提供物。
-4. **プロフィールに根拠を残す。** 調査済み5件と、スクリーンショットから採った未確認候補66件を区別して表示する。確認状態、creator、プロフィールリンク、投稿言語、地域情報の根拠、見える商品導線、取得時点付き数値、出典、未確認事項を表示する。候補のAI生成状態・運営者・国・言語は推測で埋めない。
+4. **プロフィールに根拠を残す。** 調査対象プロフィール9件と、未確認候補66件を区別して表示する。確認状態、creator、プロフィールリンク、投稿言語、地域情報の根拠、見える商品導線、取得時点付き数値、出典、未確認事項を表示する。候補のAI生成状態・運営者・国・言語は推測で埋めない。
 5. **開いたデータへ読者を案内する。** 公開JSONとGitHubのデータファイルをリンクし、プロフィール追加を提案できる導線を置く。更新可能な初期ディレクトリとして公開し、「世界初」「世界最大」「全件網羅」は調査で立証できるまで主張しない。
    コードはAI Monk Indexの実装ファイルに限ってMIT、Anicca執筆のデータ要約・編成はCC BY 4.0で公開し、第三者素材の権利を含めない。
 6. **記事とXを新しいディレクトリへつなぐ。** 2言語の記事から検索UIへリンクし、公開後に既存Postiz経路で新規の告知投稿を行う。本文に直接URLを含め、post receiptとpermalinkを記録する。前回4投稿は重複送信しない。
@@ -99,7 +99,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 **順序変更:** 旧cursorは記事改稿だった。Daisが検索Webアプリを先に作るよう指示したため、旧順序（記事→UI）をデータ/検索契約→候補登録→UI→記事→配信へ変更。今回のInstagramフォロー画面は未確認候補の収集としてAM-7Bへ挿入し、自動スクレイピングなしで候補の出所を保持する。
 
-**現在cursor:** AM-12とAM-10 — vidIQ等による英語の有力プロフィール調査と、検索UI・記事の公開を並行して閉じる。
+**現在cursor:** AM-14 — AM-12の初期英語調査、AM-10本番公開、AM-11英日X告知は完了。既存factoryの生成結果照合と配信復旧を進める。
 
 ## The Art of AI Monks — 全体成果と実行順
 
@@ -116,11 +116,17 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 | AM-12 | ツール実測と英語プロフィール拡充 | vidIQ、yt-dlp、GitHub OSS、既存tregの利用可否・費用・限界を記録。公開根拠を持つprofile/metrics/offerをデータへ反映し、followers順と英語filterで閲覧できる。 |
 | AM-10 | 検索アプリと記事を公開 | 最新main由来worktreeで既存未公開成果を保持し、focused test/build、commit/push、PR CI、main merge、Netlify deployと公開URL/JSONを確認。 |
 | AM-11 | X告知と再投稿用copy | live URL付き投稿をPostizへ送信し、PUBLISHEDとX permalinkを保存。Dais用の完成tweetを提示。 |
-| AM-13 | 新刊 The Art of AI Monks | 既存outlineを正題へ更新し、出典付きの全章原稿、日英EPUB/PDF、販売ページ・SKU、公式出版/納品readbackを閉じる。 |
 | AM-14 | 自社AI monkで学習を実践 | 既存avatarとHeyGen、承認済み台本/素材を使い、既存ownerの日次TikTok/Instagram cadenceを診断・復旧。投稿日/URL、制作費、流入・注文を対応付ける。 |
+| AM-13 | 新刊 The Art of AI Monks | 既存outlineを正題へ更新し、出典付きの全章原稿、日英EPUB/PDF、販売ページ・SKU、公式出版/納品readbackを閉じる。 |
 | AM-15 | 再利用できるOSS factory | 自社で通った経路を既存実装から切り出し、秘密を含まないsetup・asset license・一連のCLI・dry runを公開。機械可読JSONの利用例を提供。 |
 | AM-16 | factoryの有料web app | 実測済みfactoryをsubscriptionへ接続し、顧客ごとのaccount・素材・予算・公開先を分離。契約、決済、生成・配信、解約の公式readbackを閉じる。 |
 
-**順序更新:** 旧順序はAM-10→AM-11。公開版が5件のまま、検索UIが404という実測と、英語・有力アカウント優先というDaisの指示に基づき、AM-12調査をAM-10公開準備と並行し、AM-10→AM-11→AM-13→AM-14→AM-15→AM-16へ進む。AM-14のread-only運用診断は研究・執筆と並行可。既存外部effectは中断・再送しない。
+**順序更新:** 旧順序はAM-10→AM-11。公開版が5件のまま、検索UIが404という実測と、英語・有力アカウント優先というDaisの指示に基づき、AM-12調査をAM-10公開準備と並行し、AM-10→AM-11→AM-14（既存配信の限定復旧）→AM-13→AM-15→AM-16へ進む。旧順序AM-13→AM-14を入れ替える理由は、公式Postizで10/21以降の新規eBook公開がなく、旧HeyGen生成要求と3件のeffect fenceが現在の収益導線を止めているため。新刊執筆より先に既存ownerの未完処理を閉じる。既存外部effectは中断・再送しない。
 
 **AM-12実測:** 接続vidIQで公開profile/discoveryを取得し、yt-dlpでYouTube最新20件と公開投稿metadataを確認。新4候補と既存5件更新を統合して75 records/48 sources。AI生成statusはreported4、unverified71。vidIQは既存credits不足のため停止、新規課金なし。Instagram直接取得はrobots notice確認後に停止し、継続経路は接続providerとcreator公式site/YouTube metadataとする。詳細は `docs/evidence/ai-monk-english-research-20261022.json`。
+
+**公開済みの証拠:** AM-10はPR [#551](https://github.com/Daisuke134/anicca-products/pull/551)、main SHA `d4380515c995abd0611987bedead436fbe432dcb`、exact-head Landing PR buildとNetlify run `39800192156`がsuccess。検索UI、英日4記事、75 records/48 sourcesのJSONをHTTP 200でreadback。詳細は `docs/evidence/ai-monk-index-production-20261022.json`。
+
+**X公開済み:** AM-11はPostiz公式GETで英語 `cmvjodr4i18bbot0y14apjr6z` / [X](https://x.com/selawmqt/status/2113286528508285146)、日本語 `cmvjofwki18joot0ye8ugzfyl` / [X](https://x.com/selawmqt/status/2113286777054360059) をPUBLISHED確認。接続は両方 `@selawmqt`。独立したX timeline readback、閲覧数、click、注文、売上は今回未測定で0とはしない。本文とreceiptは `docs/evidence/ai-monk-x-launch-{en,ja}-20261022.json`。Dais用再投稿copyは同じ完成本文として提示する。
+
+**factoryの現状と残TODO:** 現在の公式Postiz最新eBook公開は英語TikTok10/17、日本語TikTok10/19、日本語Instagram10/20。English IGは既存plan30/30で未接続。旧HeyGen requestのscript/video/cost照合、三ownerのexact effect readback、実Postizの自社宣伝disclosure、記事compose失敗の診断が必要。運用の正本はLife Manager `docs/superpowers/specs/2026-09-25-life-manager-unified-ssot.md` のS11。新刊は正題付き日英10章outlineと表紙までで、全章原稿・EPUB/PDF・SKU・出版は未完。factory OSS packageとsubscription web app、MCP/ChatGPT appは未実装。
