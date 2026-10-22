@@ -1,14 +1,16 @@
 {
   "schema_version": "anicca.ai-monk-avatar-database.v1",
-  "updated_at": "2026-10-21",
-  "license": "CC BY 4.0 for Anicca-authored summaries; third-party content, marks, and profile data remain with their owners.",
-  "scope": "A curated starter set of public AI monk avatar profiles. This is not a complete census of social accounts.",
+  "updated_at": "2026-10-22",
+  "license": "CC BY 4.0 for Anicca-authored summaries, annotations, and the database compilation. Third-party content, names, marks, profile data, and linked media remain with their owners.",
+  "scope": "An English-first open index with 9 researched profiles and 66 discovery leads. Includes adjacent monk-themed accounts with unverified AI provenance; this is not a complete census.",
   "methodology": [
     "Include a synthetic monk persona only when a platform/creator disclosure or credible reporting supports that classification. Keep screenshot-only cases marked unverified.",
     "Do not merge accounts on similar names alone. Unknown handles, creators, launch dates, and product URLs remain null with a reason.",
     "Store platform, source URL, capture date, and metric beside each number. Instagram followers, YouTube subscribers, views, seller counters, creator statements, orders, and net profit are different measures.",
     "Summarize video structure without storing full scripts, captions, or downloaded media. Video URLs point to the original platform.",
-    "User-provided screenshots are identified as such; their calendar capture date is unknown unless the screenshot itself shows it."
+    "User-provided screenshots are identified as such; their calendar capture date is unknown unless the screenshot itself shows it.",
+    "Screenshot-visible handles seed unverified leads. Public metadata is dated and source-linked when read through connected research providers. Direct Instagram probes stopped after its robots notice was reviewed; use authorized/connected data access for continuing collection. Unknown AI origin, creator, language and revenue are not inferred from appearance or audience size.",
+    "Audience ordering uses each platform's latest numeric followers/subscribers, never views or historical peaks. All-platform comparisons use the largest single observed audience; cross-platform audiences are not added and may overlap. Provider-rounded figures are labelled in each snapshot status."
   ],
   "sources": [
     {
@@ -18,7 +20,7 @@
       "source_type": "vendor-hosted customer story",
       "published_at": null,
       "checked_at": "2026-10-21",
-      "notes": "Identifies Yang Mun as an AI character created by Shalev Hani and reports creator statements about production time and posting frequency. These are customer-story claims, not an independent audit."
+      "notes": "Identifies Yang Mun as an AI character created by Shalev Hani. The customer story attributes about 20 minutes per video and sevenfold posting frequency to Hani; these production claims are not an independent audit."
     },
     {
       "id": "columbia-yangmun-report",
@@ -27,7 +29,16 @@
       "source_type": "independent reporting",
       "published_at": "2026-03-24",
       "checked_at": "2026-10-21",
-      "notes": "Identifies Yang Mun as AI-generated and names Shalev Hani as creator. The revenue and acquisition-offer figures are attributed to Hani, not audited results."
+      "notes": "Identifies Yang Mun as AI-generated and names Shalev Hani as creator. Reports Hani's claims of over $300,000 in revenue since launch, a $325,000 acquisition offer, and a $799/hour AI-character package; these are not audited results."
+    },
+    {
+      "id": "yangmun-real-person-claim",
+      "title": "The Truth Behind 'Time To Heal' Yang Mun",
+      "url": "https://www.yangmuns.com/blog/the-truth-behind-%E2%80%9Ctime-to-heal%E2%80%9D-by-yang-mun",
+      "source_type": "first-party site statement linked by Columbia News Service",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "The current page claims Yang Mun is a real teacher and says only the voice is AI-translated. This first-party statement conflicts with HeyGen and Columbia's descriptions of an AI-generated character; it is not independent verification."
     },
     {
       "id": "virtual-humans-yangmun-profile",
@@ -45,7 +56,7 @@
       "source_type": "first-party seller page",
       "published_at": null,
       "checked_at": "2026-10-21",
-      "notes": "Displays a $49.99 journey, a $59.99 collection with three eBooks, and seller-displayed counters. These are not order-level records."
+      "notes": "Displays a $49.99 one-time 30-day journey with daily 5–10 minute practice, weekly video teaching, a community and Q&A, plus a $59.99 offer with three eBooks. It also displays 30,000+ readers and 2,500 Journey participants. These are seller counters, not audited order records."
     },
     {
       "id": "yangmun-home",
@@ -54,7 +65,7 @@
       "source_type": "first-party seller page",
       "published_at": null,
       "checked_at": "2026-10-21",
-      "notes": "Displays '5 million with Yang Mun' and a 20,000+ reader counter without defining the platform mix or audit method."
+      "notes": "The home page currently displays a $19.99 digital bundle, '5 million with Yang Mun', and 20,000+ readers without defining the audience platform mix or auditing the counters."
     },
     {
       "id": "yangmun-youtube-channel",
@@ -64,6 +75,15 @@
       "published_at": null,
       "checked_at": "2026-10-21",
       "notes": "Public page readback displayed approximately 159,000 subscribers and 172 videos."
+    },
+    {
+      "id": "yangmun-youtube-shorts-list",
+      "title": "Yang Mun YouTube Shorts list",
+      "url": "https://www.youtube.com/@Yangmunv2/shorts",
+      "source_type": "public channel list; metadata collected with YT-DLP",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "YT-DLP returned 143 Shorts entries while the channel page displayed 172 total videos. These are different YouTube surfaces and do not establish deleted or missing videos."
     },
     {
       "id": "yangmun-instagram",
@@ -117,7 +137,7 @@
       "source_type": "independent investigation",
       "published_at": "2026-07-10",
       "checked_at": "2026-10-21",
-      "notes": "Reports 16 AI-generated Facebook/Instagram profiles, 3.5M combined followers, and 70.5M views across the most viral videos. It describes Shaolin-style profiles Leo Chen and SifuChen California, including book/guide lead paths. It does not establish which avatar appeared first."
+      "notes": "Reports 16 AI-generated Facebook/Instagram profiles, 3.5M combined followers, and 70.5M views across their most viral videos. It describes Shaolin-style profiles Leo Chen and SifuChen California, including book/guide lead paths. It does not establish which avatar appeared first."
     },
     {
       "id": "maldita-2026-07-27",
@@ -126,7 +146,16 @@
       "source_type": "independent investigation with stated methodology",
       "published_at": "2026-07-27",
       "checked_at": "2026-10-21",
-      "notes": "The investigation says its account data was collected July 20–21, 2026: 250 AI-generated health profiles, 45,600+ posts, 53.7M+ followers, and 224 visible product URLs. Its 82-account 'ancestral wisdom' group includes more than monk personas; it is not a census of AI monk avatars."
+      "notes": "The investigation says its account data was collected July 20–21, 2026: 250 AI-generated health profiles, 45,600+ posts, and 53.7M+ followers. It reports seven languages, 61.2% English-language profiles, 52.8% based in the US by platform activity, 224 visible product URLs, and an 82-account 'ancestral wisdom' group that includes non-monks. This is not a census of AI monk avatars. Its method records profile IDs, bio, country signal, account history, counts, links, and AI labels/watermarks."
+    },
+    {
+      "id": "thaipbs-phra-maha-ai",
+      "title": "Thailand's first virtual monk to preach Buddhism to a new generation",
+      "url": "https://www.thaipbsworld.com/around-thailand/thailands-first-virtual-monk-to-preach-buddhism-to-new-generation",
+      "source_type": "public broadcaster interview",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Profiles Phra Maha AI as a real Thai monk who worked with programmers to create a 2D animated character. This is a virtual presentation of a human monk, not an AI-generated monk persona."
     },
     {
       "id": "mingsan-instagram",
@@ -156,6 +185,15 @@
       "notes": "The profile says Ming San's AI origin is not established publicly and reports its own scanner snapshots. Its counts differ across the profile summary and scan table."
     },
     {
+      "id": "avatarfactory-directory",
+      "title": "AI Influencers Directory",
+      "url": "https://avatarfactory.io/ai-influencers",
+      "source_type": "commercial directory and product marketing",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "The vendor page advertises 179 analyzed profiles and 15 niches. These are vendor-stated directory counts, not an independent census or verified performance results."
+    },
+    {
       "id": "user-screenshot-yangmun-youtube",
       "title": "User-supplied Yang Mun YouTube screenshot",
       "url": null,
@@ -183,6 +221,15 @@
       "notes": "Shows an 'AI-generated profile' label, 'Yan Chen | Sabiduría sanadora', approximately 1.34M followers, 584 posts, and a cropped product URL. Calendar capture date and full product URL are not visible."
     },
     {
+      "id": "user-screenshot-shalev-x-500k",
+      "title": "User-supplied Shalev Hani X screenshot",
+      "url": null,
+      "source_type": "user-provided screenshot",
+      "published_at": "2026-04-09",
+      "checked_at": "2026-10-21",
+      "notes": "The screenshot shows a Shalev Hani X post headline claiming $500,000 in six months from an AI monk. The exact status URL and underlying accounting are not present. Treat it as a creator claim from a screenshot, not audited revenue."
+    },
+    {
       "id": "growwstacks-ai-avatar-workflow",
       "title": "This AI Factory Creates AI Avatar Instagram Videos Daily",
       "url": "https://growwstacks.com/blog/ai-factory-creates-ai-avatar-instagram-videos-daily-n8n-automation",
@@ -199,6 +246,224 @@
       "published_at": null,
       "checked_at": "2026-10-21",
       "notes": "The author promotes aituber.app and attributes the $350K claim to the account owner; commenters ask for evidence. It is not treated as proof of earnings."
+    },
+    {
+      "id": "yangmun-youtube-shorts-feed",
+      "title": "Yang Mun - Shorts public listing",
+      "url": "https://www.youtube.com/@Yangmunv2/shorts",
+      "source_type": "public YouTube listing metadata",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "yt-dlp --flat-playlist --dump-single-json returned 143 listing entries on 2026-10-21. This is a Shorts-list count, not the channel page total of 172 videos. No video file was downloaded."
+    },
+    {
+      "id": "user-supplied-instagram-following-screenshots",
+      "title": "User-supplied Instagram screenshot leads",
+      "url": null,
+      "source_type": "user-provided screenshot",
+      "published_at": null,
+      "checked_at": "2026-10-21",
+      "notes": "Partial screenshots display a following count of 100 or 102 and some profile handles. Capture date and full-list scope are unknown. Only fully legible handles were transcribed as candidate leads. The screenshots do not establish AI origin, creator, language, location, or audience size; the images are not included in the public dataset."
+    },
+    {
+      "id": "yangmun-ig-20261022",
+      "title": "Yang Mun Instagram profile, via vidIQ",
+      "url": "https://www.instagram.com/yangmunus/",
+      "source_type": "connector readback of a first-party public profile",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ returned 2.5M followers, 433 posts, English bio, and the yang-mun.com/journey link. Counts are a rounded provider snapshot, not sales or audited reach."
+    },
+    {
+      "id": "mingsan-ig-20261022",
+      "title": "Ming San Instagram profile, via vidIQ",
+      "url": "https://www.instagram.com/mingsanhealing/",
+      "source_type": "connector readback of a first-party public profile",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ returned 1.4M followers, 175 posts, and a beetroot product link. This does not verify product efficacy, commissions, sales, or AI origin."
+    },
+    {
+      "id": "kai-tsukimi-ig-20261022",
+      "title": "Kai Tsukimi Instagram profile, via vidIQ",
+      "url": "https://www.instagram.com/thezenstoryteller/",
+      "source_type": "connector readback of a first-party public profile",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ returned 369.9K followers and 971 posts. The bio advertises A Cup of Zen and claims 100,000+ copies sold and Amazon bestseller status; these are seller assertions."
+    },
+    {
+      "id": "yangjun-ig-20261022",
+      "title": "Yangjun Instagram profile, via vidIQ",
+      "url": "https://www.instagram.com/monkyangjun/",
+      "source_type": "connector readback of a first-party public profile",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ returned 95.6K followers, 323 posts, an English wellness bio, and yangjunhealer.netlify.app. No creator statement establishing AI origin was found."
+    },
+    {
+      "id": "kai-tsukimi-home-20261022",
+      "title": "The Zen Storyteller / A Cup of Zen",
+      "url": "https://thezenstoryteller.com/",
+      "source_type": "first-party seller website",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The English page offers a 21-story book: paperback $14.99, hardcover $19.99, Kindle $9.99 as displayed by the seller. It claims 100,000+ copies sold and a category bestseller rank. No order ledger or verified current Amazon rank was obtained."
+    },
+    {
+      "id": "yangjun-store-20261022",
+      "title": "The Yangjun Method sales page",
+      "url": "https://yangjunhealer.netlify.app",
+      "source_type": "first-party seller website",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The English sales page displays a $29.99 one-time eight-week menopause digital guide and links to whop.com/yangjun/yangjun-menopause-guide. Its symptom, hormone, and efficacy claims were not independently verified."
+    },
+    {
+      "id": "yangjun-collabstr-20261022",
+      "title": "Yangjun's public Collabstr seller listing",
+      "url": "https://collabstr.com/yangjun",
+      "source_type": "public creator marketplace self-description",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The seller describes the monk as a wellness character, lists US-facing content, digital products and UGC services, and declares Pattaya, Thailand. This establishes positioning, not AI provenance or actual brand deals. The page's 0.0K audience placeholder is not treated as a zero-follower observation."
+    },
+    {
+      "id": "kai-tsukimi-reel-20261022",
+      "title": "Kai Tsukimi's pinned Reel metadata",
+      "url": "https://www.instagram.com/reel/DbOZz8SGw_K/",
+      "source_type": "first-party post metadata via yt-dlp plus vidIQ discovery",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "Upload date 2026-07-25; yt-dlp returned 156196 likes and 16165 comments, with view_count unavailable. vidIQ account discovery returned rounded 2.8M plays. No moving-image watch was completed."
+    },
+    {
+      "id": "yangjun-reel-20261022",
+      "title": "Yangjun's guide-in-bio Reel metadata",
+      "url": "https://www.instagram.com/reel/Dew0nxIvTmp/",
+      "source_type": "first-party post metadata via yt-dlp plus vidIQ discovery",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "Upload date 2026-10-21; caption directs to guide links in bio. yt-dlp returned 44 likes and 2 comments, view_count unavailable. vidIQ discovery returned rounded 2.1K plays. No moving-image watch was completed."
+    },
+    {
+      "id": "buddhawouldsay-reel-20261022",
+      "title": "Buddha Would Say illustrated monk Reel",
+      "url": "https://www.instagram.com/reel/DdaLlA_seuf/",
+      "source_type": "vidIQ public outlier index and first-party post metadata",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ describes an AI-generated animated young monk with English inspirational text and reports 1.1M views and 9.4K account followers. yt-dlp returned upload date 2026-09-18, 32115 likes and 78 comments, with views and duration unavailable. AI provenance and visual details were not independently watched or creator-confirmed."
+    },
+    {
+      "id": "omaster-kaizen-tiktok-20261022",
+      "title": "Master Kaizen manifestation TikTok",
+      "url": "https://www.tiktok.com/@omaster.kaizen/video/7693476794522930464",
+      "source_type": "vidIQ public outlier index and first-party post metadata",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ describes a monk persona and English on-screen hook, with 259.3K followers and 644.7K video views. Later yt-dlp metadata returned 648200 views, 62000 likes, 14900 comments, 75 seconds, upload date 2026-10-06. Different capture snapshots are retained separately. AI origin, spoken language and operator are unverified."
+    },
+    {
+      "id": "yangmun-yt-recent20-20261022",
+      "title": "Yang Mun public Shorts listing, latest 20 entries",
+      "url": "https://www.youtube.com/@Yangmunv2/shorts",
+      "source_type": "first-party public listing metadata via yt-dlp",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The installed yt-dlp 2026.08.19 returned channel UCoMa3p67nJWkk2kk-8hD1jA, 159000 followers/subscribers and the first 20 Shorts entries without downloading media. This is a bounded feed sample; it does not establish all videos or current monthly performance."
+    },
+    {
+      "id": "heygen-yangmun-case-20261022",
+      "title": "HeyGen's Yang Mun customer case",
+      "url": "https://www.heygen.com/customer-stories/yangmun",
+      "source_type": "first-party production-provider interview",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "HeyGen identifies Yang Mun as an AI character made with its tools by Shalev Hani. It reports simple scripts, avatar/voice delivery, batching and daily publishing. Its 2.5M audience, production-time and cadence claims are case-study assertions, not independent outcome measurements."
+    },
+    {
+      "id": "masterlinghao-og-20261022",
+      "title": "Ling Hao public Instagram metadata",
+      "url": "https://www.instagram.com/masterlinghao/",
+      "source_type": "first-party HTML Open Graph metadata",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The exploratory public HTML request returned 1118 followers and 38 posts. Full profile content was behind a login surface. Further automated Instagram collection was stopped after robots.txt review."
+    },
+    {
+      "id": "oldmonktenzin-og-20261022",
+      "title": "Tenzin public Instagram metadata",
+      "url": "https://www.instagram.com/oldmonktenzin/",
+      "source_type": "first-party HTML Open Graph metadata",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The exploratory public HTML request returned 362 followers and 51 posts. Language, operator and AI origin remain unverified. Further automated Instagram collection was stopped after robots.txt review."
+    },
+    {
+      "id": "thekaizenhealing-og-20261022",
+      "title": "Kaizen Healing public Instagram metadata",
+      "url": "https://www.instagram.com/thekaizenhealing/",
+      "source_type": "first-party HTML Open Graph metadata",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The exploratory public HTML request returned 844 followers and 99 posts. Language, operator and AI origin remain unverified. Further automated Instagram collection was stopped after robots.txt review."
+    },
+    {
+      "id": "instagram-robots-20261022",
+      "title": "Instagram robots and collection notice",
+      "url": "https://www.instagram.com/robots.txt",
+      "source_type": "first-party access rules",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The live file disallows Scrapy and the wildcard user agent from all paths and states that automated collection requires express written permission. The exploratory direct crawler route is therefore not promoted as an authorized continuing collector."
+    },
+    {
+      "id": "shalev-x-discovery-20261022",
+      "title": "Shalev Hani X post discovered by search",
+      "url": "https://x.com/shalevhvs/status/2042242260784537736",
+      "source_type": "search-result discovery lead; post body not read back",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "DuckDuckGo HTML exposed the exact creator-post URL and a revenue-related snippet. The post body and accounting were not fetched. Do not replace unverified creator revenue claims with verified revenue."
+    },
+    {
+      "id": "maldita-shaolin-review-20261022",
+      "title": "Maldita's reported Shaolin persona examples",
+      "url": "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/",
+      "source_type": "independent investigation rechecked; historical snapshots",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "Rechecked the report's Leo Chen and SifuChen examples. It describes Spanish-targeted PDF funnels, comment-to-book and highlighted-story routes. It does not provide new English-language or live-handle evidence for these two records."
+    },
+    {
+      "id": "avatarfactory-discovery-20261022",
+      "title": "AvatarFactory commercial directory discovery",
+      "url": "https://avatarfactory.io/ai-influencers",
+      "source_type": "commercial directory, discovery only",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "Index contains further candidate pages including Monk Tao, Yun Shen and Shen Healings. They remain follow-up leads; commercial AI labels and counts were not promoted to first-party verification."
     }
   ],
   "accounts": [
@@ -206,15 +471,61 @@
       "id": "yang-mun",
       "display_name": "Yang Mun",
       "persona_type": "AI-generated monk avatar",
-      "ai_status": "confirmed",
+      "ai_status": "reported",
       "ai_evidence": [
-        { "source_id": "heygen-yangmun-case", "summary": "HeyGen identifies Yang Mun as an AI character created by Shalev Hani." },
-        { "source_id": "columbia-yangmun-report", "summary": "Columbia News Service describes the character as AI-generated and names Shalev Hani as creator." }
+        {
+          "source_id": "heygen-yangmun-case",
+          "summary": "HeyGen identifies Yang Mun as an AI character created by Shalev Hani."
+        },
+        {
+          "source_id": "columbia-yangmun-report",
+          "summary": "Columbia News Service describes the character as AI-generated and names Shalev Hani as creator."
+        },
+        {
+          "source_id": "heygen-yangmun-case",
+          "summary": "HeyGen identifies Yang Mun as an AI character created by Shalev Hani."
+        },
+        {
+          "source_id": "columbia-yangmun-report",
+          "summary": "Columbia News Service describes Yang Mun as AI-generated and names Shalev Hani as creator."
+        },
+        {
+          "source_id": "yangmun-real-person-claim",
+          "summary": "The first-party page linked by Columbia says Yang Mun is a real teacher and only the voice is AI-translated; the identity claim conflicts with HeyGen and Columbia."
+        },
+        {
+          "source_id": "heygen-yangmun-case-20261022",
+          "summary": "The production provider identifies the persona as AI-created by Shalev Hani; earlier conflicting first-party identity statements remain a separate documented conflict."
+        }
       ],
-      "creator": { "name": "Shalev Hani", "public_profile_url": "https://x.com/shalevhvs", "relationship": "Creator, not an avatar account" },
+      "identity_conflicts": [
+        {
+          "source_id": "yangmun-real-person-claim",
+          "summary": "A site linked by Columbia says Yang Mun is a real teacher and only the voice is AI-translated, contradicting HeyGen and Columbia’s AI-generated-character descriptions."
+        }
+      ],
+      "creator": {
+        "name": "Shalev Hani",
+        "public_profile_url": "https://x.com/shalevhvs",
+        "relationship": "Creator, not an avatar account"
+      },
+      "languages": [
+        {
+          "label": "English",
+          "source_ids": [
+            "yangmun-youtube-short-motivation"
+          ]
+        }
+      ],
+      "region_evidence": {
+        "label": "Israel (creator location)",
+        "basis": "Columbia News Service reports the creator is based in Israel; Yang Mun's avatar location is unknown.",
+        "source_id": "columbia-yangmun-report"
+      },
       "source_urls": [
         "https://www.heygen.com/ja-jp/customer-stories/yangmun",
         "https://columbianewsservice.com/2026/03/24/millions-found-comfort-in-a-buddhist-monk-but-he-was-never-real/",
+        "https://www.yangmuns.com/blog/the-truth-behind-%E2%80%9Ctime-to-heal%E2%80%9D-by-yang-mun",
         "https://virtualhumans.org/article/who-is-yang-mun-the-ai-generated-wellness-guru-with-2-6m-followers",
         "https://www.yang-mun.com/pages/journey",
         "https://www.yang-mun.com/",
@@ -223,7 +534,9 @@
         "https://x.com/shalevhvs",
         "https://www.youtube.com/shorts/Er2Ig4GM7z0",
         "https://www.youtube.com/shorts/Qdv6S7HonSM",
-        "https://www.youtube.com/shorts/j8WRhcQvzRM"
+        "https://www.youtube.com/shorts/j8WRhcQvzRM",
+        "https://www.heygen.com/customer-stories/yangmun",
+        "https://www.youtube.com/@Yangmunv2/shorts"
       ],
       "platforms": [
         {
@@ -231,7 +544,27 @@
           "handle": "yangmunus",
           "profile_url": "https://www.instagram.com/yangmunus/",
           "snapshots": [
-            { "value": 2500000, "metric": "followers", "as_of": "2026-03-24", "source_id": "columbia-yangmun-report", "status": "reported_public_count" }
+            {
+              "value": 2500000,
+              "metric": "followers",
+              "as_of": "2026-03-24",
+              "source_id": "columbia-yangmun-report",
+              "status": "reported_public_count"
+            },
+            {
+              "value": 2500000,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "yangmun-ig-20261022",
+              "status": "public_connector_snapshot_rounded"
+            },
+            {
+              "value": 433,
+              "metric": "posts",
+              "as_of": "2026-10-22",
+              "source_id": "yangmun-ig-20261022",
+              "status": "public_connector_snapshot"
+            }
           ]
         },
         {
@@ -239,9 +572,34 @@
           "handle": "Yangmunv2",
           "profile_url": "https://www.youtube.com/@Yangmunv2",
           "snapshots": [
-            { "value": 159000, "metric": "subscribers", "as_of": "2026-10-21", "source_id": "yangmun-youtube-channel", "status": "public_page_readback_rounded" },
-            { "value": 172, "metric": "videos", "as_of": "2026-10-21", "source_id": "yangmun-youtube-channel", "status": "public_page_readback" },
-            { "value": 18147274, "metric": "channel_views", "as_of": null, "source_id": "user-screenshot-yangmun-youtube", "status": "screenshot_snapshot_date_unknown" }
+            {
+              "value": 159000,
+              "metric": "subscribers",
+              "as_of": "2026-10-21",
+              "source_id": "yangmun-youtube-channel",
+              "status": "public_page_readback_rounded"
+            },
+            {
+              "value": 172,
+              "metric": "videos",
+              "as_of": "2026-10-21",
+              "source_id": "yangmun-youtube-channel",
+              "status": "public_page_readback"
+            },
+            {
+              "value": 18147274,
+              "metric": "channel_views",
+              "as_of": null,
+              "source_id": "user-screenshot-yangmun-youtube",
+              "status": "screenshot_snapshot_date_unknown"
+            },
+            {
+              "value": 159000,
+              "metric": "subscribers",
+              "as_of": "2026-10-22",
+              "source_id": "yangmun-yt-recent20-20261022",
+              "status": "public_listing_metadata_snapshot"
+            }
           ]
         },
         {
@@ -253,27 +611,108 @@
         }
       ],
       "offers": [
-        { "type": "guided digital program", "name": "30-Day Healing Journey", "price": 49.99, "currency": "USD", "source_id": "yangmun-journey-store", "status": "displayed_price_not_order_data" },
-        { "type": "eBook bundle", "name": "Complete Collection with three eBooks", "price": 59.99, "currency": "USD", "source_id": "yangmun-journey-store", "status": "displayed_price_not_order_data" }
+        {
+          "type": "guided digital program",
+          "name": "30-Day Healing Journey",
+          "price": 49.99,
+          "currency": "USD",
+          "source_id": "yangmun-journey-store",
+          "status": "displayed_price_not_order_data"
+        },
+        {
+          "type": "eBook bundle",
+          "name": "Complete Collection with three eBooks",
+          "price": 59.99,
+          "currency": "USD",
+          "source_id": "yangmun-journey-store",
+          "status": "displayed_price_not_order_data"
+        }
       ],
       "seller_counters": [
-        { "value": "30,000+", "metric": "readers/books-sold counter", "source_id": "yangmun-journey-store", "status": "seller_displayed_not_audited" },
-        { "value": "20,000+", "metric": "readers counter", "source_id": "yangmun-home", "status": "seller_displayed_definition_unclear" },
-        { "value": "5 million", "metric": "audience counter", "source_id": "yangmun-home", "status": "seller_displayed_platform_mix_unclear" }
+        {
+          "value": "30,000+",
+          "metric": "readers/books-sold counter",
+          "source_id": "yangmun-journey-store",
+          "status": "seller_displayed_not_audited"
+        },
+        {
+          "value": "2,500",
+          "metric": "Journey participants counter",
+          "source_id": "yangmun-journey-store",
+          "status": "seller_displayed_not_audited"
+        },
+        {
+          "value": "20,000+",
+          "metric": "readers counter",
+          "source_id": "yangmun-home",
+          "status": "seller_displayed_definition_unclear"
+        },
+        {
+          "value": "5 million",
+          "metric": "audience counter",
+          "source_id": "yangmun-home",
+          "status": "seller_displayed_platform_mix_unclear"
+        }
       ],
       "creator_claims": [
-        { "claim": "More than $300,000 in revenue since launch and a $325,000 acquisition offer", "source_id": "columbia-yangmun-report", "status": "creator_statement_reported_by_independent_outlet_not_audited" },
-        { "claim": "More than $300,000 in profit within 90 days; the profile also cites a dashboard above $213,000 gross revenue over three months", "source_id": "virtual-humans-yangmun-profile", "status": "creator_statement_reported_by_industry_profile_not_audited" }
+        {
+          "claim": "More than $300,000 in revenue since launch and a $325,000 acquisition offer",
+          "source_id": "columbia-yangmun-report",
+          "status": "creator_statement_reported_by_independent_outlet_not_audited"
+        },
+        {
+          "claim": "More than $300,000 in profit within 90 days; the profile also cites a dashboard above $213,000 gross revenue over three months",
+          "source_id": "virtual-humans-yangmun-profile",
+          "status": "creator_statement_reported_by_industry_profile_not_audited"
+        },
+        {
+          "claim": "A user-provided screenshot shows a headline claiming $500,000 in six months",
+          "source_id": "user-screenshot-shalev-x-500k",
+          "status": "screenshot_attributed_creator_claim_not_audited"
+        }
       ],
       "creative_samples": [
-        { "url": "https://www.youtube.com/shorts/Er2Ig4GM7z0", "title": "Words of Motivation from Yang Mun", "duration_seconds": 65, "uploaded_at": "2025-11-29", "views": 521549, "views_captured_at": "2026-10-21", "source_id": "yangmun-youtube-short-motivation", "structure_summary": "One continuous, front-facing temple shot; future-oriented reassurance, concrete life imagery, then a repeatable morning/night reflection invitation. No paid product CTA was visible in this sample.", "media_status": "temporary_analysis_only_official_embed_only" },
-        { "url": "https://www.youtube.com/shorts/Qdv6S7HonSM", "title": "1minute of Yang Mun Wisdom", "duration_seconds": 78, "uploaded_at": "2025-11-25", "views": 1102388, "views_captured_at": "2026-10-21", "source_id": "yangmun-youtube-short-health", "structure_summary": "A symptom-led hook moves into an unverified traditional-medicine explanation and emotional reframe. This is a health-claim risk example, not an endorsed claim.", "media_status": "temporary_analysis_only_official_embed_only" },
-        { "url": "https://www.youtube.com/shorts/j8WRhcQvzRM", "title": "You’re Drinking Water the WRONG Way", "duration_seconds": null, "uploaded_at": null, "views": 12000000, "views_captured_at": "2026-10-21", "source_id": "yangmun-youtube-short-health-metadata", "structure_summary": "Metadata-only high-reach health-claim example. Not downloaded or fact-checked; do not treat as medical guidance.", "media_status": "metadata_only_official_link_only" }
+        {
+          "url": "https://www.youtube.com/shorts/Er2Ig4GM7z0",
+          "title": "Words of Motivation from Yang Mun",
+          "duration_seconds": 65,
+          "uploaded_at": "2025-11-29",
+          "views": 521549,
+          "views_captured_at": "2026-10-21",
+          "source_id": "yangmun-youtube-short-motivation",
+          "structure_summary": "One continuous, front-facing temple shot; future-oriented reassurance, concrete life imagery, then a repeatable morning/night reflection invitation. No paid product CTA was visible in this sample.",
+          "media_status": "temporary_analysis_only_official_embed_only"
+        },
+        {
+          "url": "https://www.youtube.com/shorts/Qdv6S7HonSM",
+          "title": "1minute of Yang Mun Wisdom",
+          "duration_seconds": 78,
+          "uploaded_at": "2025-11-25",
+          "views": 1102388,
+          "views_captured_at": "2026-10-21",
+          "source_id": "yangmun-youtube-short-health",
+          "structure_summary": "A symptom-led hook moves into an unverified traditional-medicine explanation and emotional reframe. This is a health-claim risk example, not an endorsed claim.",
+          "media_status": "temporary_analysis_only_official_embed_only"
+        },
+        {
+          "url": "https://www.youtube.com/shorts/j8WRhcQvzRM",
+          "title": "You’re Drinking Water the WRONG Way",
+          "duration_seconds": 96,
+          "uploaded_at": "2025-11-10",
+          "views": 12561496,
+          "views_captured_at": "2026-10-21",
+          "source_id": "yangmun-youtube-short-health-metadata",
+          "structure_summary": "Metadata-only high-reach health-claim example: 96 seconds and 12,561,496 views at the 2026-10-21 read. The video was not downloaded or fact-checked; do not treat it as medical guidance.",
+          "media_status": "metadata_only_official_link_only"
+        }
       ],
       "unknowns": [
         "Exact TikTok handles and per-account audience counts.",
+        "The avatar's country or location; the reported Israel location belongs to the creator.",
         "Paid orders, product mix, refunds, fees, ad spend, creator net profit, and revenue by creative.",
-        "The self-reported revenue/profit claims do not reconcile to an audited statement."
+        "The self-reported revenue/profit claims do not reconcile to an audited statement.",
+        "Current Instagram count is connector rounded readback; historical snapshots are retained.",
+        "Current monthly revenue, order counts and ROI remain unverified."
       ]
     },
     {
@@ -282,10 +721,28 @@
       "persona_type": "Monk-like wellness avatar",
       "ai_status": "reported",
       "ai_evidence": [
-        { "source_id": "maldita-2026-07-27", "summary": "Maldita includes mingsanhealing in its AI-generated health-account investigation and describes a monk-like persona." },
-        { "source_id": "avatarfactory-ming-san", "summary": "AvatarFactory says the account's AI origin is not established publicly; its directory conflicts with Maldita's classification." }
+        {
+          "source_id": "maldita-2026-07-27",
+          "summary": "Maldita includes mingsanhealing in its AI-generated health-account investigation and describes a monk-like persona."
+        },
+        {
+          "source_id": "avatarfactory-ming-san",
+          "summary": "AvatarFactory says the account's AI origin is not established publicly; its directory conflicts with Maldita's classification."
+        }
       ],
-      "creator": { "name": null, "relationship": "Unknown" },
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [
+        {
+          "label": "English",
+          "source_ids": [
+            "user-screenshot-mingsan-instagram"
+          ]
+        }
+      ],
+      "region_evidence": null,
       "source_urls": [
         "https://www.instagram.com/mingsanhealing/",
         "https://maldita.es/investigaciones/20260727/250-ai-health-instagram-accounts/",
@@ -299,22 +756,76 @@
           "handle": "mingsanhealing",
           "profile_url": "https://www.instagram.com/mingsanhealing/",
           "snapshots": [
-            { "value": 1200000, "metric": "followers", "as_of": "2026-07-20/21", "source_id": "maldita-2026-07-27", "status": "investigation_snapshot" },
-            { "value": 1370000, "metric": "followers", "as_of": null, "source_id": "user-screenshot-mingsan-instagram", "status": "screenshot_snapshot_date_unknown" }
+            {
+              "value": 1200000,
+              "metric": "followers",
+              "as_of": "2026-07-20/21",
+              "source_id": "maldita-2026-07-27",
+              "status": "investigation_snapshot"
+            },
+            {
+              "value": 1370000,
+              "metric": "followers",
+              "as_of": null,
+              "source_id": "user-screenshot-mingsan-instagram",
+              "status": "screenshot_snapshot_date_unknown"
+            },
+            {
+              "value": 1400000,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "mingsan-ig-20261022",
+              "status": "public_connector_snapshot_rounded"
+            },
+            {
+              "value": 175,
+              "metric": "posts",
+              "as_of": "2026-10-22",
+              "source_id": "mingsan-ig-20261022",
+              "status": "public_connector_snapshot"
+            }
           ]
         }
       ],
       "offers": [
-        { "type": "external wellness product link", "url": "https://beraviahealth.com/products/beetroot", "source_id": "user-screenshot-mingsan-instagram", "status": "link_visible_in_supplied_screenshot_commission_and_sales_unknown" }
+        {
+          "type": "external wellness product link",
+          "url": "https://beraviahealth.com/products/beetroot",
+          "source_id": "user-screenshot-mingsan-instagram",
+          "status": "link_visible_in_supplied_screenshot_commission_and_sales_unknown"
+        },
+        {
+          "type": "external wellness product link",
+          "url": "https://beraviahealth.com/products/beetroot",
+          "source_id": "mingsan-ig-20261022",
+          "status": "public_bio_link_commission_sales_and_efficacy_unknown"
+        }
       ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [
-        { "url": "https://mvau.lt/media/a5de6087-bd3b-424c-b3a3-e08d4805c2f3", "title": "Cabbage-in-socks health-remedy clip referenced by Maldita", "duration_seconds": null, "uploaded_at": null, "views": 2200000, "views_captured_at": "2026-07-20/21", "source_id": "maldita-2026-07-27", "structure_summary": "The investigation reports a remedy claim delivered through an elderly monk-like persona; the claim is not medical advice and the report identifies it as unsupported.", "media_status": "source_report_link_only_not_rehosted" }
+        {
+          "url": "https://mvau.lt/media/a5de6087-bd3b-424c-b3a3-e08d4805c2f3",
+          "title": "Cabbage-in-socks health-remedy clip referenced by Maldita",
+          "duration_seconds": null,
+          "uploaded_at": null,
+          "views": 2200000,
+          "views_captured_at": "2026-07-20/21",
+          "source_id": "maldita-2026-07-27",
+          "structure_summary": "The investigation reports a remedy claim delivered through an elderly monk-like persona; the claim is not medical advice and the report identifies it as unsupported.",
+          "media_status": "source_report_link_only_not_rehosted"
+        }
       ],
       "unknowns": [
         "The 1.2M, 1.3M, and screenshot 1.37M counts are different dated/source snapshots, not a reconciled current count.",
+        "Creator identity and account/operator location are not established by the reviewed sources.",
         "Affiliate status, commission, paid units, and net revenue are unknown."
+      ],
+      "identity_conflicts": [
+        {
+          "source_id": "avatarfactory-ming-san",
+          "summary": "Maldita classifies the profile as AI-generated in its investigation; AvatarFactory says the public evidence does not establish whether the persona is AI."
+        }
       ]
     },
     {
@@ -323,25 +834,63 @@
       "persona_type": "Shaolin-style AI health avatar",
       "ai_status": "reported",
       "ai_evidence": [
-        { "source_id": "maldita-2026-07-10", "summary": "Maldita identifies the portrayed man as AI-created and includes the profile in its report on synthetic accounts." }
+        {
+          "source_id": "maldita-2026-07-10",
+          "summary": "Maldita identifies the portrayed man as AI-created and includes the profile in its report on synthetic accounts."
+        }
       ],
-      "creator": { "name": null, "relationship": "Unknown" },
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": {
+        "label": "Spain (profile flag)",
+        "basis": "Maldita reports that the profile displayed a Spanish flag; this does not establish the operator's location.",
+        "source_id": "maldita-2026-07-10"
+      },
       "source_urls": [
         "https://archive.li/CZww4",
         "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/"
       ],
       "platforms": [
-        { "platform": "Instagram", "handle": null, "profile_url": "https://archive.li/CZww4", "snapshots": [], "unknown_reason": "The investigation links an archived profile but does not establish the live handle or a per-account follower count." }
+        {
+          "platform": "Instagram",
+          "handle": null,
+          "profile_url": "https://archive.li/CZww4",
+          "snapshots": [],
+          "unknown_reason": "The investigation links an archived profile but does not establish the live handle or a per-account follower count."
+        }
       ],
       "offers": [
-        { "type": "digital guide", "name": "130 Natural Remedies of the Shaolin Temple", "price": 16.45, "currency": "EUR", "source_id": "maldita-2026-07-10", "status": "reported_list_price_not_sales_data" }
+        {
+          "type": "digital guide",
+          "name": "130 Natural Remedies of the Shaolin Temple",
+          "price": 16.45,
+          "currency": "EUR",
+          "source_id": "maldita-2026-07-10",
+          "status": "reported_list_price_not_sales_data"
+        }
       ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [
-        { "url": "https://archive.li/CZww4", "title": "Shaolin-style profile and guide path", "duration_seconds": null, "uploaded_at": null, "views": null, "views_captured_at": null, "source_id": "maldita-2026-07-10", "structure_summary": "The report describes a monk-like figure in an outdoor scene and a guide CTA placed in a profile highlight. It is an observed offer path, not verified sales.", "media_status": "archive_link_only" }
+        {
+          "url": "https://archive.li/CZww4",
+          "title": "Shaolin-style profile and guide path",
+          "duration_seconds": null,
+          "uploaded_at": null,
+          "views": null,
+          "views_captured_at": null,
+          "source_id": "maldita-2026-07-10",
+          "structure_summary": "The report describes a monk-like figure in an outdoor scene and a guide CTA placed in a profile highlight. It is an observed offer path, not verified sales.",
+          "media_status": "archive_link_only"
+        }
       ],
-      "unknowns": ["Exact live Instagram handle, current followers, sales, refunds, and revenue."]
+      "unknowns": [
+        "Exact live Instagram handle, current followers, operator location, sales, refunds, and revenue.",
+        "The Spanish-flag/Spain market signal does not establish the language of the account’s own posts."
+      ]
     },
     {
       "id": "leo-chen",
@@ -349,24 +898,57 @@
       "persona_type": "Reported Shaolin-style AI monk avatar",
       "ai_status": "reported",
       "ai_evidence": [
-        { "source_id": "maldita-2026-07-10", "summary": "Maldita describes AI-like visual artifacts in a video attributed to Leo Chen and includes the profile in its AI-account investigation; the exact handle is not linked in the article." }
+        {
+          "source_id": "maldita-2026-07-10",
+          "summary": "Maldita describes AI-like visual artifacts in a video attributed to Leo Chen and includes the profile in its AI-account investigation; the exact handle is not linked in the article."
+        }
       ],
-      "creator": { "name": null, "relationship": "Unknown" },
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
       "source_urls": [
         "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/"
       ],
       "platforms": [
-        { "platform": "Instagram", "handle": null, "profile_url": null, "snapshots": [], "unknown_reason": "The investigative article gives a display name but no verified handle or profile URL." }
+        {
+          "platform": "Instagram",
+          "handle": null,
+          "profile_url": null,
+          "snapshots": [],
+          "unknown_reason": "The investigative article gives a display name but no verified handle or profile URL."
+        }
       ],
       "offers": [
-        { "type": "comment-to-DM book lead magnet", "name": "Chinese Natural Healing book/PDF", "price": null, "currency": null, "source_id": "maldita-2026-07-10", "status": "reported_offer_path_price_and_sales_unknown" }
+        {
+          "type": "comment-to-DM book lead magnet",
+          "name": "Chinese Natural Healing book/PDF",
+          "price": null,
+          "currency": null,
+          "source_id": "maldita-2026-07-10",
+          "status": "reported_offer_path_price_and_sales_unknown"
+        }
       ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [
-        { "url": "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/", "title": "Leo Chen video and comment-to-book CTA described by Maldita", "duration_seconds": null, "uploaded_at": null, "views": 2200000, "views_captured_at": "2026-07-10", "source_id": "maldita-2026-07-10", "structure_summary": "The report describes a health-remedy hook, visual inconsistencies, and a comment-to-DM request for a book. It is not evidence of paid orders.", "media_status": "article_reference_only" }
+        {
+          "url": "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/",
+          "title": "Leo Chen video and comment-to-book CTA described by Maldita",
+          "duration_seconds": null,
+          "uploaded_at": null,
+          "views": 2200000,
+          "views_captured_at": "2026-07-10",
+          "source_id": "maldita-2026-07-10",
+          "structure_summary": "The report describes a health-remedy hook, visual inconsistencies, and a comment-to-DM request for a book. It is not evidence of paid orders.",
+          "media_status": "article_reference_only"
+        }
       ],
-      "unknowns": ["Exact handle, account owner, product price, and whether the comment lead converted to paid orders."]
+      "unknowns": [
+        "Exact handle, language, account owner/location, product price, and whether the comment lead converted to paid orders."
+      ]
     },
     {
       "id": "yan-chen-monjechen",
@@ -374,9 +956,24 @@
       "persona_type": "AI-labelled monk-like healing avatar",
       "ai_status": "unverified",
       "ai_evidence": [
-        { "source_id": "user-screenshot-monjechen-instagram", "summary": "The supplied screenshot displays an 'AI-generated profile' label. The profile label was not independently read back in this research run." }
+        {
+          "source_id": "user-screenshot-monjechen-instagram",
+          "summary": "The supplied screenshot displays an 'AI-generated profile' label. The profile label was not independently read back in this research run."
+        }
       ],
-      "creator": { "name": null, "relationship": "Unknown" },
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [
+        {
+          "label": "Spanish",
+          "source_ids": [
+            "user-screenshot-monjechen-instagram"
+          ]
+        }
+      ],
+      "region_evidence": null,
       "source_urls": [
         "https://www.instagram.com/monjechen/"
       ],
@@ -386,18 +983,3181 @@
           "handle": "monjechen",
           "profile_url": "https://www.instagram.com/monjechen/",
           "snapshots": [
-            { "value": 1340000, "metric": "followers", "as_of": null, "source_id": "user-screenshot-monjechen-instagram", "status": "screenshot_snapshot_date_unknown" },
-            { "value": 584, "metric": "posts", "as_of": null, "source_id": "user-screenshot-monjechen-instagram", "status": "screenshot_snapshot_date_unknown" }
+            {
+              "value": 1340000,
+              "metric": "followers",
+              "as_of": null,
+              "source_id": "user-screenshot-monjechen-instagram",
+              "status": "screenshot_snapshot_date_unknown"
+            },
+            {
+              "value": 584,
+              "metric": "posts",
+              "as_of": null,
+              "source_id": "user-screenshot-monjechen-instagram",
+              "status": "screenshot_snapshot_date_unknown"
+            }
           ]
         }
       ],
       "offers": [
-        { "type": "external book/product link", "name": null, "url": null, "source_id": "user-screenshot-monjechen-instagram", "status": "link_visible_but_cropped_in_screenshot_full_target_unverified" }
+        {
+          "type": "external book/product link",
+          "name": null,
+          "url": null,
+          "source_id": "user-screenshot-monjechen-instagram",
+          "status": "link_visible_but_cropped_in_screenshot_full_target_unverified"
+        }
       ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [],
-      "unknowns": ["Calendar capture date, full product URL, creator identity, and any match with the 'Monk Chen' name in Maldita's investigation headline."]
+      "unknowns": [
+        "Calendar capture date, full product URL, creator identity/location, and any match with the 'Monk Chen' name in Maldita's investigation headline."
+      ]
+    },
+    {
+      "id": "lead-instagram-tempiovita",
+      "display_name": "Maestro Ananta",
+      "aliases": [
+        "tempiovita"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/tempiovita/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "tempiovita",
+          "profile_url": "https://www.instagram.com/tempiovita/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-monjeshentao",
+      "display_name": "Shen Tao",
+      "aliases": [
+        "monjeshentao"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/monjeshentao/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monjeshentao",
+          "profile_url": "https://www.instagram.com/monjeshentao/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-monacochenn",
+      "display_name": "Monaco Chen",
+      "aliases": [
+        "monacochenn"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/monacochenn/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monacochenn",
+          "profile_url": "https://www.instagram.com/monacochenn/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-linchenhealing",
+      "display_name": "Lin Chen",
+      "aliases": [
+        "linchenhealing"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/linchenhealing/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "linchenhealing",
+          "profile_url": "https://www.instagram.com/linchenhealing/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-jin-miaoo",
+      "display_name": "jin.miaoo",
+      "aliases": [],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/jin.miaoo/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "jin.miaoo",
+          "profile_url": "https://www.instagram.com/jin.miaoo/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-masteryunsage",
+      "display_name": "Master Yun",
+      "aliases": [
+        "masteryunsage"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/masteryunsage/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "masteryunsage",
+          "profile_url": "https://www.instagram.com/masteryunsage/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-monchmiao",
+      "display_name": "monchmiao",
+      "aliases": [],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/monchmiao/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monchmiao",
+          "profile_url": "https://www.instagram.com/monchmiao/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-maitre-ping-lin",
+      "display_name": "Maitre Lin",
+      "aliases": [
+        "maitre_ping.lin"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/maitre_ping.lin/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "maitre_ping.lin",
+          "profile_url": "https://www.instagram.com/maitre_ping.lin/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-lotusfamily1",
+      "display_name": "The Lotus Family",
+      "aliases": [
+        "lotusfamily1"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/lotusfamily1/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "lotusfamily1",
+          "profile_url": "https://www.instagram.com/lotusfamily1/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-master-kaion",
+      "display_name": "Master Kaion",
+      "aliases": [
+        "master_kaion"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/master_kaion/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "master_kaion",
+          "profile_url": "https://www.instagram.com/master_kaion/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-maestroyunkai",
+      "display_name": "Yun Kai",
+      "aliases": [
+        "maestroyunkai"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/maestroyunkai/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "maestroyunkai",
+          "profile_url": "https://www.instagram.com/maestroyunkai/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-ming-tao32",
+      "display_name": "Ming Tao",
+      "aliases": [
+        "ming_tao32"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/ming_tao32/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "ming_tao32",
+          "profile_url": "https://www.instagram.com/ming_tao32/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-shen-dao1",
+      "display_name": "Dao Shen",
+      "aliases": [
+        "shen.dao1"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/shen.dao1/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "shen.dao1",
+          "profile_url": "https://www.instagram.com/shen.dao1/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-shin-hyun-official",
+      "display_name": "Shin Hyun",
+      "aliases": [
+        "shin_hyun_official"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/shin_hyun_official/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "shin_hyun_official",
+          "profile_url": "https://www.instagram.com/shin_hyun_official/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-tenzinremedios",
+      "display_name": "Tenzin Remedios",
+      "aliases": [
+        "tenzinremedios"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/tenzinremedios/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "tenzinremedios",
+          "profile_url": "https://www.instagram.com/tenzinremedios/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-mestreshentao",
+      "display_name": "Mestre Shen Tao",
+      "aliases": [
+        "mestreshentao"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/mestreshentao/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "mestreshentao",
+          "profile_url": "https://www.instagram.com/mestreshentao/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-mongedapaz",
+      "display_name": "Monge Shanti",
+      "aliases": [
+        "mongedapaz"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/mongedapaz/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "mongedapaz",
+          "profile_url": "https://www.instagram.com/mongedapaz/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-masterlinghao",
+      "display_name": "Ling Hao",
+      "aliases": [
+        "masterlinghao"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. At seed collection, AI disclosure and public profile content had not been checked. Public profile metadata was read on 2026-10-22; AI origin remains unverified."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/masterlinghao/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "masterlinghao",
+          "profile_url": "https://www.instagram.com/masterlinghao/",
+          "snapshots": [
+            {
+              "value": 1118,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "masterlinghao-og-20261022",
+              "status": "public_html_metadata_snapshot"
+            },
+            {
+              "value": 38,
+              "metric": "posts",
+              "as_of": "2026-10-22",
+              "source_id": "masterlinghao-og-20261022",
+              "status": "public_html_metadata_snapshot"
+            }
+          ]
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
+        "Public counts were observed; AI origin, creator, language and products remain unverified."
+      ]
+    },
+    {
+      "id": "lead-instagram-mestre-jin",
+      "display_name": "Mestre Jin",
+      "aliases": [
+        "mestre.jin"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/mestre.jin/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "mestre.jin",
+          "profile_url": "https://www.instagram.com/mestre.jin/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-haku-shinn",
+      "display_name": "Haku Shin",
+      "aliases": [
+        "haku.shinn"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/haku.shinn/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "haku.shinn",
+          "profile_url": "https://www.instagram.com/haku.shinn/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-monktashirok",
+      "display_name": "Monk Tashirok",
+      "aliases": [
+        "monktashirok"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/monktashirok/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monktashirok",
+          "profile_url": "https://www.instagram.com/monktashirok/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-monacogendun",
+      "display_name": "Monaco Gendun",
+      "aliases": [
+        "monacogendun"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/monacogendun/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monacogendun",
+          "profile_url": "https://www.instagram.com/monacogendun/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-master-li-shen",
+      "display_name": "Li Shen",
+      "aliases": [
+        "master.li.shen"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/master.li.shen/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "master.li.shen",
+          "profile_url": "https://www.instagram.com/master.li.shen/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-innerequelle",
+      "display_name": "Li Ming",
+      "aliases": [
+        "innerequelle"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/innerequelle/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "innerequelle",
+          "profile_url": "https://www.instagram.com/innerequelle/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-ken-lu-monk",
+      "display_name": "Ken Lu",
+      "aliases": [
+        "ken.lu.monk"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/ken.lu.monk/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "ken.lu.monk",
+          "profile_url": "https://www.instagram.com/ken.lu.monk/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-yonchenhealing",
+      "display_name": "Yon Chen",
+      "aliases": [
+        "yonchenhealing"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/yonchenhealing/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "yonchenhealing",
+          "profile_url": "https://www.instagram.com/yonchenhealing/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-babatenzin",
+      "display_name": "Baba Tenzin",
+      "aliases": [
+        "babatenzin_"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/babatenzin_/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "babatenzin_",
+          "profile_url": "https://www.instagram.com/babatenzin_/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-mongejinmiao",
+      "display_name": "Jin Miao",
+      "aliases": [
+        "mongejinmiao"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/mongejinmiao/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "mongejinmiao",
+          "profile_url": "https://www.instagram.com/mongejinmiao/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-its-yang-chen",
+      "display_name": "Maitre Chen",
+      "aliases": [
+        "its.yang.chen"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/its.yang.chen/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "its.yang.chen",
+          "profile_url": "https://www.instagram.com/its.yang.chen/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-masteryunshen",
+      "display_name": "Master Yun Shen",
+      "aliases": [
+        "masteryunshen"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/masteryunshen/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "masteryunshen",
+          "profile_url": "https://www.instagram.com/masteryunshen/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-maitre-chen",
+      "display_name": "Maitre Chen",
+      "aliases": [
+        "maitre.chen"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/maitre.chen/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "maitre.chen",
+          "profile_url": "https://www.instagram.com/maitre.chen/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-monkcheen",
+      "display_name": "Shen Yu",
+      "aliases": [
+        "monkcheen"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/monkcheen/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monkcheen",
+          "profile_url": "https://www.instagram.com/monkcheen/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-deor-ie",
+      "display_name": "deor.ie",
+      "aliases": [],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/deor.ie/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "deor.ie",
+          "profile_url": "https://www.instagram.com/deor.ie/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-monjaalma",
+      "display_name": "Monja Alma",
+      "aliases": [
+        "monjaalma"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/monjaalma/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monjaalma",
+          "profile_url": "https://www.instagram.com/monjaalma/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-yunlobsang",
+      "display_name": "Maestro Yun",
+      "aliases": [
+        "yunlobsang"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/yunlobsang/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "yunlobsang",
+          "profile_url": "https://www.instagram.com/yunlobsang/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-mestremushen",
+      "display_name": "Mestre Mu Shen",
+      "aliases": [
+        "mestremushen"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/mestremushen/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "mestremushen",
+          "profile_url": "https://www.instagram.com/mestremushen/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-thezhenwu",
+      "display_name": "Zhen Wu",
+      "aliases": [
+        "thezhenwu"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/thezhenwu/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "thezhenwu",
+          "profile_url": "https://www.instagram.com/thezhenwu/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-maitrelidao",
+      "display_name": "Maitre Li Dao",
+      "aliases": [
+        "maitrelidao"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/maitrelidao/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "maitrelidao",
+          "profile_url": "https://www.instagram.com/maitrelidao/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-maestroananta",
+      "display_name": "Maestro Ananta",
+      "aliases": [
+        "maestroananta"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/maestroananta/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "maestroananta",
+          "profile_url": "https://www.instagram.com/maestroananta/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-oravishen",
+      "display_name": "Ravi Shen",
+      "aliases": [
+        "oravishen"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/oravishen/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "oravishen",
+          "profile_url": "https://www.instagram.com/oravishen/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-monjewu",
+      "display_name": "Monje Wu",
+      "aliases": [
+        "monjewu"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/monjewu/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monjewu",
+          "profile_url": "https://www.instagram.com/monjewu/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-monge-bento",
+      "display_name": "Monge Bento",
+      "aliases": [
+        "monge.bento"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/monge.bento/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monge.bento",
+          "profile_url": "https://www.instagram.com/monge.bento/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-liangmaster4u",
+      "display_name": "Master Liang",
+      "aliases": [
+        "liangmaster4u"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/liangmaster4u/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "liangmaster4u",
+          "profile_url": "https://www.instagram.com/liangmaster4u/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-aristhestill",
+      "display_name": "Aris The Still",
+      "aliases": [
+        "aristheStill"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/aristheStill/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "aristheStill",
+          "profile_url": "https://www.instagram.com/aristheStill/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-oldmonktenzin",
+      "display_name": "Tenzin | Old Monk's Wisdom",
+      "aliases": [
+        "oldmonktenzin"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. At seed collection, AI disclosure and public profile content had not been checked. Public profile metadata was read on 2026-10-22; AI origin remains unverified."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/oldmonktenzin/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "oldmonktenzin",
+          "profile_url": "https://www.instagram.com/oldmonktenzin/",
+          "snapshots": [
+            {
+              "value": 362,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "oldmonktenzin-og-20261022",
+              "status": "public_html_metadata_snapshot"
+            },
+            {
+              "value": 51,
+              "metric": "posts",
+              "as_of": "2026-10-22",
+              "source_id": "oldmonktenzin-og-20261022",
+              "status": "public_html_metadata_snapshot"
+            }
+          ]
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
+        "Public counts were observed; AI origin, creator, language and products remain unverified."
+      ]
+    },
+    {
+      "id": "lead-instagram-thekaizenhealing",
+      "display_name": "Kaizen Healing",
+      "aliases": [
+        "thekaizenhealing"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. At seed collection, AI disclosure and public profile content had not been checked. Public profile metadata was read on 2026-10-22; AI origin remains unverified."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/thekaizenhealing/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "thekaizenhealing",
+          "profile_url": "https://www.instagram.com/thekaizenhealing/",
+          "snapshots": [
+            {
+              "value": 844,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "thekaizenhealing-og-20261022",
+              "status": "public_html_metadata_snapshot"
+            },
+            {
+              "value": 99,
+              "metric": "posts",
+              "as_of": "2026-10-22",
+              "source_id": "thekaizenhealing-og-20261022",
+              "status": "public_html_metadata_snapshot"
+            }
+          ]
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
+        "Public counts were observed; relationship to TikTok omaster.kaizen, AI origin, creator, language and products remain unverified."
+      ]
+    },
+    {
+      "id": "lead-instagram-shentaoes",
+      "display_name": "Maestro Shen Tao",
+      "aliases": [
+        "shentaoes"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/shentaoes/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "shentaoes",
+          "profile_url": "https://www.instagram.com/shentaoes/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-noalingpo-conseils",
+      "display_name": "Maitre Noaling Po",
+      "aliases": [
+        "noalingpo.conseils"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/noalingpo.conseils/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "noalingpo.conseils",
+          "profile_url": "https://www.instagram.com/noalingpo.conseils/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-itsyangmuns",
+      "display_name": "Yang Mun",
+      "aliases": [
+        "itsyangmuns"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/itsyangmuns/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "itsyangmuns",
+          "profile_url": "https://www.instagram.com/itsyangmuns/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-masterjiao",
+      "display_name": "Master Jiao",
+      "aliases": [
+        "masterjiao"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/masterjiao/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "masterjiao",
+          "profile_url": "https://www.instagram.com/masterjiao/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-elmonjekai",
+      "display_name": "Monje Kai",
+      "aliases": [
+        "elmonjekai"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/elmonjekai/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "elmonjekai",
+          "profile_url": "https://www.instagram.com/elmonjekai/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-zenmuun",
+      "display_name": "Zen Muun",
+      "aliases": [
+        "zenmuun"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/zenmuun/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "zenmuun",
+          "profile_url": "https://www.instagram.com/zenmuun/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-kael-wisdom",
+      "display_name": "Master Kael",
+      "aliases": [
+        "kael.wisdom"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/kael.wisdom/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "kael.wisdom",
+          "profile_url": "https://www.instagram.com/kael.wisdom/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-monjechang",
+      "display_name": "Monje Chang",
+      "aliases": [
+        "monjechang"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/monjechang/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monjechang",
+          "profile_url": "https://www.instagram.com/monjechang/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-maitrenoalingpo",
+      "display_name": "Maitre Noalingpo",
+      "aliases": [
+        "maitrenoalingpo"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/maitrenoalingpo/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "maitrenoalingpo",
+          "profile_url": "https://www.instagram.com/maitrenoalingpo/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-shenmuhealer",
+      "display_name": "Shen Mu",
+      "aliases": [
+        "shenmuhealer"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/shenmuhealer/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "shenmuhealer",
+          "profile_url": "https://www.instagram.com/shenmuhealer/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-monge-zhen",
+      "display_name": "Monge Zhen",
+      "aliases": [
+        "monge.zhen"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/monge.zhen/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monge.zhen",
+          "profile_url": "https://www.instagram.com/monge.zhen/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-alte-weisheit",
+      "display_name": "Meister Lin",
+      "aliases": [
+        "alte.weisheit"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/alte.weisheit/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "alte.weisheit",
+          "profile_url": "https://www.instagram.com/alte.weisheit/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-masteryunming",
+      "display_name": "Master Yun",
+      "aliases": [
+        "masteryunming"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/masteryunming/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "masteryunming",
+          "profile_url": "https://www.instagram.com/masteryunming/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-maitreyun",
+      "display_name": "Maitre Yun",
+      "aliases": [
+        "maitreyun_"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/maitreyun_/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "maitreyun_",
+          "profile_url": "https://www.instagram.com/maitreyun_/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-chenweihealing",
+      "display_name": "Chen Wei Healing",
+      "aliases": [
+        "chenweihealing"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/chenweihealing/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "chenweihealing",
+          "profile_url": "https://www.instagram.com/chenweihealing/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-masterlianancient",
+      "display_name": "Master Lian",
+      "aliases": [
+        "masterlianancient"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/masterlianancient/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "masterlianancient",
+          "profile_url": "https://www.instagram.com/masterlianancient/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-monjeananda",
+      "display_name": "Ananda Vijaya",
+      "aliases": [
+        "monjeananda"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/monjeananda/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monjeananda",
+          "profile_url": "https://www.instagram.com/monjeananda/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-monkshen",
+      "display_name": "Shen Yu",
+      "aliases": [
+        "monkshen"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/monkshen/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monkshen",
+          "profile_url": "https://www.instagram.com/monkshen/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-elmaestrolin",
+      "display_name": "Monje Lin",
+      "aliases": [
+        "elmaestrolin"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/elmaestrolin/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "elmaestrolin",
+          "profile_url": "https://www.instagram.com/elmaestrolin/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "lead-instagram-samuelreedcards",
+      "display_name": "Samuel Reed",
+      "aliases": [
+        "samuelreedcards"
+      ],
+      "persona_type": "Monk-themed Instagram account lead",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "user-supplied-instagram-following-screenshots",
+          "summary": "The handle and display name were legible in a user-supplied screenshot. No AI disclosure or public profile content has been independently checked."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown"
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/samuelreedcards/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "samuelreedcards",
+          "profile_url": "https://www.instagram.com/samuelreedcards/",
+          "snapshots": [],
+          "unknown_reason": "Only the handle was visible in the supplied screenshot; the profile and account details were not checked."
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [],
+      "unknowns": [
+        "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
+        "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
+      ]
+    },
+    {
+      "id": "kai-tsukimi",
+      "display_name": "Kai Tsukimi | The Zen Storyteller",
+      "persona_type": "Monk-themed Zen storyteller; AI provenance unverified",
+      "ai_status": "unverified",
+      "ai_evidence": [],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown; the public-facing persona is not proof of the operator's identity."
+      },
+      "languages": [
+        {
+          "label": "English",
+          "source_ids": [
+            "kai-tsukimi-home-20261022",
+            "kai-tsukimi-reel-20261022"
+          ]
+        }
+      ],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/thezenstoryteller/",
+        "https://thezenstoryteller.com/",
+        "https://www.instagram.com/reel/DbOZz8SGw_K/",
+        "https://urlgeni.us/amazon/cupofzen"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "thezenstoryteller",
+          "profile_url": "https://www.instagram.com/thezenstoryteller/",
+          "snapshots": [
+            {
+              "value": 369900,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "kai-tsukimi-ig-20261022",
+              "status": "public_connector_snapshot_rounded"
+            },
+            {
+              "value": 971,
+              "metric": "posts",
+              "as_of": "2026-10-22",
+              "source_id": "kai-tsukimi-ig-20261022",
+              "status": "public_connector_snapshot"
+            }
+          ]
+        }
+      ],
+      "offers": [
+        {
+          "type": "Kindle eBook",
+          "name": "A Cup of Zen",
+          "price": 9.99,
+          "currency": "USD",
+          "url": "https://urlgeni.us/amazon/cupofzen",
+          "source_id": "kai-tsukimi-home-20261022",
+          "status": "seller_displayed_price_not_order_data"
+        },
+        {
+          "type": "paperback book",
+          "name": "A Cup of Zen",
+          "price": 14.99,
+          "currency": "USD",
+          "url": "https://thezenstoryteller.com/checkout",
+          "source_id": "kai-tsukimi-home-20261022",
+          "status": "seller_displayed_price_not_order_data"
+        },
+        {
+          "type": "hardcover book",
+          "name": "A Cup of Zen",
+          "price": 19.99,
+          "currency": "USD",
+          "source_id": "kai-tsukimi-home-20261022",
+          "status": "seller_displayed_price_not_order_data"
+        }
+      ],
+      "seller_counters": [
+        {
+          "value": "100,000+",
+          "metric": "copies sold",
+          "source_id": "kai-tsukimi-home-20261022",
+          "status": "seller_displayed_not_audited"
+        },
+        {
+          "value": "#1",
+          "metric": "Zen Philosophy bestseller",
+          "source_id": "kai-tsukimi-home-20261022",
+          "status": "seller_claim_current_amazon_rank_not_verified"
+        }
+      ],
+      "creator_claims": [],
+      "creative_samples": [
+        {
+          "url": "https://www.instagram.com/reel/DbOZz8SGw_K/",
+          "title": "Pinned Zen/wisdom Reel",
+          "duration_seconds": null,
+          "uploaded_at": "2026-07-25",
+          "views": 2800000,
+          "views_captured_at": "2026-10-22",
+          "source_id": "kai-tsukimi-reel-20261022",
+          "structure_summary": "Caption frames the cost of helping the wrong person; the profile and official site link the Zen storytelling brand to its book. Hook timing, scene sequence and delivery were not watched.",
+          "media_status": "metadata_only_official_link_only",
+          "metrics": [
+            {
+              "value": 156196,
+              "metric": "likes",
+              "as_of": "2026-10-22",
+              "source_id": "kai-tsukimi-reel-20261022",
+              "status": "public_metadata_snapshot"
+            },
+            {
+              "value": 16165,
+              "metric": "comments",
+              "as_of": "2026-10-22",
+              "source_id": "kai-tsukimi-reel-20261022",
+              "status": "public_metadata_snapshot"
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "AI origin, operator identity and whether the author persona depicts a real person are unverified.",
+        "Distinct public account; independence from other researched operators is not established.",
+        "Book sales, royalties, refunds, ad spend and profit were not verified. The site's claimed sales and rank are not audited.",
+        "No actual moving-image watch completed; the account may be adjacent to the AI monk category rather than a confirmed AI monk."
+      ]
+    },
+    {
+      "id": "yangjun",
+      "display_name": "Yangjun | Magician | Healer",
+      "persona_type": "Monk-character wellness creator; AI provenance unverified",
+      "ai_status": "unverified",
+      "ai_evidence": [],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown; the public-facing persona is not proof of the operator's identity."
+      },
+      "languages": [
+        {
+          "label": "English",
+          "source_ids": [
+            "yangjun-store-20261022",
+            "yangjun-reel-20261022"
+          ]
+        }
+      ],
+      "region_evidence": {
+        "label": "Pattaya, Thailand (seller-declared)",
+        "basis": "The public Collabstr listing declares this creator location; it is not independent residence verification.",
+        "source_id": "yangjun-collabstr-20261022"
+      },
+      "source_urls": [
+        "https://www.instagram.com/monkyangjun/",
+        "https://yangjunhealer.netlify.app",
+        "https://whop.com/yangjun/yangjun-menopause-guide",
+        "https://collabstr.com/yangjun",
+        "https://www.instagram.com/reel/Dew0nxIvTmp/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monkyangjun",
+          "profile_url": "https://www.instagram.com/monkyangjun/",
+          "snapshots": [
+            {
+              "value": 95600,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "yangjun-ig-20261022",
+              "status": "public_connector_snapshot_rounded"
+            },
+            {
+              "value": 323,
+              "metric": "posts",
+              "as_of": "2026-10-22",
+              "source_id": "yangjun-ig-20261022",
+              "status": "public_connector_snapshot"
+            }
+          ]
+        }
+      ],
+      "offers": [
+        {
+          "type": "digital guide",
+          "name": "The Yangjun Method: eight-week menopause guide",
+          "price": 29.99,
+          "currency": "USD",
+          "url": "https://whop.com/yangjun/yangjun-menopause-guide",
+          "source_id": "yangjun-store-20261022",
+          "status": "seller_displayed_price_not_order_data"
+        },
+        {
+          "type": "creator UGC services",
+          "name": "Wellness monk-character UGC",
+          "url": "https://collabstr.com/yangjun",
+          "source_id": "yangjun-collabstr-20261022",
+          "status": "seller_listed_services_no_verified_orders"
+        }
+      ],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [
+        {
+          "url": "https://www.instagram.com/reel/Dew0nxIvTmp/",
+          "title": "Guide links in bio",
+          "duration_seconds": null,
+          "uploaded_at": "2026-10-21",
+          "views": 2100,
+          "views_captured_at": "2026-10-22",
+          "source_id": "yangjun-reel-20261022",
+          "structure_summary": "The English caption directs viewers to guide links in the bio. The linked seller page presents a single paid digital guide. The actual visual hook, delivery and pacing were not watched.",
+          "media_status": "metadata_only_official_link_only",
+          "metrics": [
+            {
+              "value": 44,
+              "metric": "likes",
+              "as_of": "2026-10-22",
+              "source_id": "yangjun-reel-20261022",
+              "status": "public_metadata_snapshot"
+            },
+            {
+              "value": 2,
+              "metric": "comments",
+              "as_of": "2026-10-22",
+              "source_id": "yangjun-reel-20261022",
+              "status": "public_metadata_snapshot"
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "Public materials describe a monk character but do not establish how it was produced or who operates it.",
+        "Health and symptom-related claims on the product page are unverified; they must not be adopted as substantiated medical claims.",
+        "Sales, conversion, partnerships, commissions and profit were not verified.",
+        "No moving-image watch completed; follower total does not establish current reach or sales."
+      ]
+    },
+    {
+      "id": "buddha-would-say",
+      "display_name": "Buddha Would Say",
+      "persona_type": "Illustrated monk inspiration channel; AI attribution unverified",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "buddhawouldsay-reel-20261022",
+          "summary": "vidIQ's discovery analysis describes an AI-generated animated monk. This is a third-party index classification without first-party production disclosure or completed independent watch."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown; the public-facing persona is not proof of the operator's identity."
+      },
+      "languages": [
+        {
+          "label": "English",
+          "source_ids": [
+            "buddhawouldsay-reel-20261022"
+          ]
+        }
+      ],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/buddhawouldsay/",
+        "https://www.instagram.com/reel/DdaLlA_seuf/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "buddhawouldsay",
+          "profile_url": "https://www.instagram.com/buddhawouldsay/",
+          "snapshots": [
+            {
+              "value": 9400,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "buddhawouldsay-reel-20261022",
+              "status": "indexed_discovery_snapshot_rounded"
+            }
+          ]
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [
+        {
+          "url": "https://www.instagram.com/reel/DdaLlA_seuf/",
+          "title": "Life and mindfulness inspiration",
+          "duration_seconds": null,
+          "uploaded_at": "2026-09-18",
+          "views": 1100000,
+          "views_captured_at": "2026-10-22",
+          "source_id": "buddhawouldsay-reel-20261022",
+          "structure_summary": "English caption expresses a short reflection on life's passing pleasures. vidIQ describes an animated monk scene; actual motion and pacing were not independently watched.",
+          "media_status": "metadata_only_official_link_only",
+          "metrics": [
+            {
+              "value": 32115,
+              "metric": "likes",
+              "as_of": "2026-10-22",
+              "source_id": "buddhawouldsay-reel-20261022",
+              "status": "public_metadata_snapshot"
+            },
+            {
+              "value": 78,
+              "metric": "comments",
+              "as_of": "2026-10-22",
+              "source_id": "buddhawouldsay-reel-20261022",
+              "status": "public_metadata_snapshot"
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "Operator, AI provenance, full profile and any paid offer are unverified.",
+        "The 1.1M view count and 9.4K followers are rounded indexed snapshots, not current exact platform counters.",
+        "Illustrated monk content is a different format from photorealistic talking avatars; do not conflate them."
+      ]
+    },
+    {
+      "id": "master-kaizen-tiktok",
+      "display_name": "Master Kaizen | omaster.kaizen",
+      "persona_type": "Monk persona / manifestation content; AI provenance unverified",
+      "ai_status": "unverified",
+      "ai_evidence": [],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown; the public-facing persona is not proof of the operator's identity."
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.tiktok.com/@omaster.kaizen",
+        "https://www.tiktok.com/@omaster.kaizen/video/7693476794522930464"
+      ],
+      "platforms": [
+        {
+          "platform": "TikTok",
+          "handle": "omaster.kaizen",
+          "profile_url": "https://www.tiktok.com/@omaster.kaizen",
+          "snapshots": [
+            {
+              "value": 259300,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "omaster-kaizen-tiktok-20261022",
+              "status": "indexed_discovery_snapshot_rounded"
+            }
+          ]
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [
+        {
+          "url": "https://www.tiktok.com/@omaster.kaizen/video/7693476794522930464",
+          "title": "Manifestation-themed monk-persona post",
+          "duration_seconds": 75,
+          "uploaded_at": "2026-10-06",
+          "views": 648200,
+          "views_captured_at": "2026-10-22",
+          "source_id": "omaster-kaizen-tiktok-20261022",
+          "structure_summary": "vidIQ describes a spiritual engagement prompt. The metadata caption is only a manifestation hashtag; spoken language, actual scenes and AI provenance were not independently watched.",
+          "media_status": "metadata_only_official_link_only",
+          "metrics": [
+            {
+              "value": 62000,
+              "metric": "likes",
+              "as_of": "2026-10-22",
+              "source_id": "omaster-kaizen-tiktok-20261022",
+              "status": "public_metadata_snapshot"
+            },
+            {
+              "value": 14900,
+              "metric": "comments",
+              "as_of": "2026-10-22",
+              "source_id": "omaster-kaizen-tiktok-20261022",
+              "status": "public_metadata_snapshot"
+            },
+            {
+              "value": 644700,
+              "metric": "views",
+              "as_of": "2026-10-22",
+              "source_id": "omaster-kaizen-tiktok-20261022",
+              "status": "indexed_discovery_snapshot_rounded"
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "AI origin, creator and any relationship to other Kaizen-branded accounts are unverified.",
+        "English on-screen text is described by vidIQ, but spoken English and profile language are not confirmed; language remains unclassified.",
+        "Offer, paid orders and revenue are unknown. Financial-abundance promises are not verified outcomes."
+      ]
     }
-  ]
+  ],
+  "license_url": "https://creativecommons.org/licenses/by/4.0/"
 }

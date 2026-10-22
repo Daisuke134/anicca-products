@@ -1,4 +1,4 @@
-# The Monk in Your Feed
+# The Art of AI Monks
 
 ## Working subtitle
 
@@ -6,7 +6,7 @@ AI Avatars, Synthetic Wisdom, and the Attention Economy
 
 ## Hook
 
-A monk appears in your feed: a calm voice, an ancient-looking room, and a paid 30-day journey one tap away. The face is synthetic; the audience response is real. We traced the creator, the videos, and the product page—and found that public evidence shows the funnel far more clearly than it shows profit.
+A monk appears in your feed: a calm voice, an ancient-looking room, and a paid 30-day journey one tap away. Public sources disagree about the face; the audience response is real. We traced the creator, the videos, and the product page—and found that public evidence shows the funnel far more clearly than it shows profit.
 
 ## Reader promise
 
@@ -18,7 +18,7 @@ An AI monk is a character format, not a single business model. Its reach comes f
 
 ## Proposed chapters
 
-1. **The Monk in the Feed** — Open with the gap between a familiar religious image and an entirely synthetic speaker. Define the business and cultural question.
+1. **The Monk in the Feed** — Open with the gap between a familiar religious image and a speaker whose origins may be synthetic. Define the business and cultural question.
 2. **What Counts as an AI Monk?** — Separate AI-generated personas, creator-disclosed avatars, real clergy using virtual characters, animation with unknown provenance, and ordinary human creators in robes.
 3. **A History Without a “First”** — Build a dated record from earliest confirmed posts and investigations. Explain why a channel creation date or a later news article cannot prove who originated the format.
 4. **Yang Mun and Shalev Hani — the central case** — This is the book’s largest case chapter: the character’s public timeline; the creator and platform footprint; close readings of contrasting Shorts; the visible $49.99 and $59.99 offer; the reported production workflow; the conflict around how Yang Mun was described; and the incompatible revenue, profit, and acquisition claims. End with the records that would be needed to calculate net profit.
@@ -39,7 +39,7 @@ An AI monk is a character format, not a single business model. Its reach comes f
 
 ## Sample opening paragraph
 
-The monk appears in a temple, centered in a vertical frame, with a book and candles between him and the viewer. He speaks gently about a life getting better. The video feels personal; the person is synthetic. Somewhere below it, a link leads to a paid program. To understand this new character, we have to keep three questions separate: what the viewer feels, what the creator sells, and what the receipts can prove.
+The monk appears in a temple, centered in a vertical frame, with a book and candles between him and the viewer. He speaks gently about a life getting better. The video feels personal; public accounts of the person disagree. Somewhere below it, a link leads to a paid program. To understand this new character, we have to keep three questions separate: what the viewer feels, what the creator sells, and what the receipts can prove.
 
 ## Current scope
 

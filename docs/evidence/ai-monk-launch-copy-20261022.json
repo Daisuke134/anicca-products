@@ -1,0 +1,22 @@
+{
+  "posts": [
+    {
+      "language": "en",
+      "target": "@selawmqt",
+      "content": "The Art of AI Monks.\n\nWho makes the monks in your feed—and what do they sell?\n\nAn open index of avatars, creators, dated audiences & products.\n\nRespect to @shalevhvs / Yang Mun.\n\nExplore the free database: https://aniccaai.com/ai-monk-database?utm_source=x&utm_medium=social&utm_campaign=ai_monk_index_launch_en",
+      "weighted_length_estimate": 230,
+      "publication_state": "prepared_not_sent"
+    },
+    {
+      "language": "ja",
+      "target": "@selawmqt",
+      "content": "AI僧侶にも、研究者がいていい。\n\n「The Art of AI Monks」公開。誰が作り、何を語り、何を売るのか。出典・公開フォロワー数・未確認事項を検索できる無料データベースです。Yang Munから調査を広げます。\n\nhttps://aniccaai.com/ai-monk-database?utm_source=x&utm_medium=social&utm_campaign=ai_monk_index_launch_ja",
+      "weighted_length_estimate": 216,
+      "publication_state": "prepared_not_sent"
+    }
+  ],
+  "requires_live_url_readback": true,
+  "provider": "Postiz",
+  "creator_mention_source": "https://www.heygen.com/ja-jp/customer-stories/yangmun",
+  "prepared_at": "2026-10-22T14:42:55.566769+00:00"
+}

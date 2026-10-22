@@ -1,0 +1,37 @@
+{
+  "id": "treg.instagram.user.profile",
+  "name": "instagram.user.profile — routed: best of 12 providers, own keys first",
+  "summary": "Get an Instagram user's public profile — treg picks the provider (own keys first, then cheapest) and names the one that served",
+  "method": "POST",
+  "cost": {
+    "type": "per_success",
+    "value": 0.0009,
+    "currency": "USD",
+    "per": 1,
+    "unit": "call",
+    "source": "inferred",
+    "confidence": "documented",
+    "checked": null,
+    "varies": true,
+    "note": "NOT free: misses are billed too. the children's range $0.0009–$0.015 per hit, 0% markup; you pay the child that served AND every child tried before it that bills a miss (3 of 12 do), up to X-Treg-Route-Max-Cost (default $1 a call). X-Treg-Route-Exclude them, or X-Treg-Route-Waterfall: 0, to pay for one provider only",
+    "usd": 0.0009
+  },
+  "input": {
+    "bodyType": "json",
+    "body": {
+      "username": {
+        "type": "str",
+        "required": false,
+        "note": "identity key (part of username)"
+      },
+      "user_id": {
+        "type": "str",
+        "required": false,
+        "note": "identity key (part of user_id)"
+      }
+    },
+    "note": "Send everything you know about the subject — treg derives the rest (full_name ⇄ first+last), matches each provider on the variants it accepts ({username} | {user_id}) and sends each provider only the fields it wants. On a miss treg keeps trying providers, cheapest first, within X-Treg-Route-Max-Cost (default $1 per call; misses on per-success providers are free). Options ride as headers, never in the body: X-Treg-Route-Waterfall: 0 (stop at the first miss), X-Treg-Route-Max-Cost: <usd>, X-Treg-Route-Prefer / X-Treg-Route-Exclude: <provider>. The response is {output, raw, _treg: {served_by, tried}}; X-Treg-Served-By names the child."
+  },
+  "call_template": "treg call treg.instagram.user.profile --method POST --data '{\"username\":\"…\"}'",
+  "executed_paid_endpoint": false
+}

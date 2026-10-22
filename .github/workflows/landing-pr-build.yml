@@ -33,6 +33,9 @@ jobs:
           echo "ea2a20b9326138052409b18ef303d90f33575537f86807b8553f9c365e794a42  /tmp/manager-publish-overlay.mjs" | sha256sum --check
           node /tmp/manager-publish-overlay.mjs --stage
 
+      - name: AI monk directory contracts
+        run: node --test lib/ai-monk-directory.test.mjs test/ai-monk-evidence-rendering.test.mjs
+
       - run: npm run test:telemetry
       - run: npm run test:anicca-app-store-routing
       - name: Stage reviewed canonical Manager articles before build
