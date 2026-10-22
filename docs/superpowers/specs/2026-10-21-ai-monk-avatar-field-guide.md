@@ -8,7 +8,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 - Yang Mun単独記事とAI僧侶フィールドガイドは英語・日本語の計4本が公開済み。公開URLは維持する。
 - 4本の記事は証拠を整理している一方、導入と見出しが調査報告書寄りで、読者を引き込む物語・ユーモア・読み進める理由が弱い。
-- `apps/landing/public/data/ai-monk-avatar-database-2026.json` には5プロフィールと26出典がある。検索・絞り込み・閲覧のためのWeb UIは作成中。
+- `apps/landing/public/data/ai-monk-avatar-database-2026.json` の公開readbackは5プロフィールと21出典。作業版は75レコードと48出典に拡充し、検索・絞り込み・閲覧Web UIを実装済み。
 - Yang MunのAI生成状態は、HeyGenとColumbiaの説明に対し、Columbiaがリンクする本人側ページが「本人は実在し、声だけAI翻訳」と主張している。現時点では食い違いを解消できない。
 - 追加提供されたInstagram画面には100〜102件のフォロー中表示と複数の僧侶風アカウント名が写っている。リスト全体でもAI生成状態でもなく、個別確認用の候補発見材料。
 - `/monk` は既存eBook販売ページなので使用しない。
@@ -37,7 +37,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 ## データとUI契約
 
-- 正本データ: `apps/landing/public/data/ai-monk-avatar-database-2026.json`。5件の調査済みプロフィールと66件の未確認候補を分けて保存し、確認できた `languages` と `region_evidence` だけを追記する。
+- 正本データ: `apps/landing/public/data/ai-monk-avatar-database-2026.json`。9件の調査対象プロフィールと66件の未確認候補を分けて保存し、確認できた `languages` と `region_evidence` だけを追記する。
 - `languages` は、プロフィールまたは投稿サンプルで言語を確認できた場合だけ値を持つ。初版では英語・スペイン語を表示し、SifuChenの投稿言語など未確認は空欄のまま「言語未確認」とする。
 - `region_evidence` は地域名と根拠の種類を持つ。創作者の居住地、プロフィールに表示された国旗、対象市場を同じ「所在地」として扱わない。
 - UIは既存のNext.js 14、React、Tailwind、静的JSONを使う。ユーザー登録、投稿フォーム、外部DB、決済、APIスクレイピング、追加npm依存は含めない。追加提案はGitHubへのリンクで受ける。
@@ -58,14 +58,14 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 ## 収集ツールと費用
 
 - [Apify Instagram Scraper](https://apify.com/apify/instagram-scraper) の公開ページは、使用量課金を1,000結果あたり `$1.50` からと表示し、Free planは最大1,851結果・月額 `$0` と掲載している。選択プランで単価・compute条件が異なる。
-- Apify実行ツールが接続されず、Instagramのrobots.txtも明示的な書面許可なしの自動収集を禁止するため、actorやScrapyでInstagramプロフィールを取得しない。初版は5件の調査済みプロフィールと66件のスクリーンショット由来の未確認候補で構成する。
+- Apify実行ツールが接続されず、Instagramのrobots.txtも明示的な書面許可なしの自動収集を禁止するため、新しい課金actorは実行しない。既存接続vidIQと、ログイン不要で公開されるプロフィール/投稿のメタデータを使い、取得経路と制限を保存する。初期5件と66候補から、根拠を確認できたレコードを継続して拡充する。
 - 新規サービス費用は `$0`。既存接続のvidIQ公開調査と既存CLIを使い、課金actor・新規契約・有料top-upは追加しない。HeyGen等の既存契約は今回追加しない。
 
 ## 公開SNSプロフィールの取得境界
 
-- Instagramの [robots.txt](https://www.instagram.com/robots.txt) は、Instagramの書面許可がない自動データ収集を禁止し、`Scrapy` を `Disallow: /` としている。Apify接続もこの実行環境にはない。書面許可と正規接続がない間はInstagramプロフィールを自動取得しない。
+- 旧仕様のInstagram自動取得一律禁止は、公開プロフィールを既存toolで収集するDaisの明示指示に合わせて更新する。取得は公開情報と既存provider接続に限定し、ログイン壁、CAPTCHA、非公開範囲、rate limitを迂回しない。robots.txtやproviderの取得制限・エラーは記録し、同じ拒否を盲目的に再試行しない。
 - 100〜102件の表示は候補発見の入力にだけ使い、画面に完全表示されたハンドルを手作業で転記する。省略表示・切れたハンドルは追加しない。
-- スクリーンショット由来の記録は `unverified` とし、AI生成・運営者・言語・所在地・フォロワー数を主張しない。公開プロフィール本文の自動取得や大量再取得はしない。
+- スクリーンショット由来の記録は `unverified` とし、AI生成・運営者・言語・所在地・フォロワー数を主張しない。公開メタデータを取得できた場合はsourceと日時を追加し、未確認欄だけを根拠付きで更新する。
 - 「数百万件」はこの画面から裏付けられない。データベース件数は確認した記録だけを数え、全世界の総数として表現しない。
 
 ## 外部事実の出典
@@ -80,7 +80,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 ## 受け入れ条件
 
 - 既存4 article URLを保ち、日英の4記事が指定タイトルを使い、物語として読める導入・固有の見出し・原資料リンクを備える。
-- `/ai-monk-database` に5件の調査済みプロフィールと66件の未確認候補が表示され、名前・handle・creator・language・region・platform・offer・evidence statusを検索または絞り込める。
+- `/ai-monk-database` に9件の調査対象プロフィールと66件の未確認候補が表示され、名前・handle・creator・language・region・platform・offer・evidence statusを検索または絞り込める。
 - 検索語とstatus/language/platform/country filtersがANDで機能し、未知・未確認値は誤って確定値に見えない。
 - 各profileの根拠ソースへ直接移動でき、データJSONとcontribution linkがある。
 - 既存の4 X記事投稿を再送せず、新規告知投稿には公開済みの直接URLが含まれ、Postiz `PUBLISHED` とX permalinkを記録する。
@@ -123,3 +123,4 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 **順序更新:** 旧順序はAM-10→AM-11。公開版が5件のまま、検索UIが404という実測と、英語・有力アカウント優先というDaisの指示に基づき、AM-12調査をAM-10公開準備と並行し、AM-10→AM-11→AM-13→AM-14→AM-15→AM-16へ進む。AM-14のread-only運用診断は研究・執筆と並行可。既存外部effectは中断・再送しない。
 
+**AM-12実測:** 接続vidIQで公開profile/discoveryを取得し、yt-dlpでYouTube最新20件と公開投稿metadataを確認。新4候補と既存5件更新を統合して75 records/48 sources。AI生成statusはreported4、unverified71。vidIQは既存credits不足のため停止、新規課金なし。Instagram直接取得はrobots notice確認後に停止し、継続経路は接続providerとcreator公式site/YouTube metadataとする。詳細は `docs/evidence/ai-monk-english-research-20261022.json`。

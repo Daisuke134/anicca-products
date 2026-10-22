@@ -145,7 +145,7 @@ The server page imports the public JSON and passes its `accounts` to `<AiMonkDat
 
 **AM-7 status:** Complete. Five researched profiles carry sourced fields; 66 screenshot leads remain explicitly unverified. English/Spanish are the only verified languages; unknown account/operator locations remain unknown.
 
-**AM-8 status:** Searchable route, 71-entry directory, source links, illustration, open data, contribution link, and scoped MIT/CC BY licenses are implemented and present in static output.
+**AM-8 status:** Searchable route, 75-entry directory, source links, illustration, open data, contribution link, and scoped MIT/CC BY licenses are implemented and present in static output.
 
 **AM-9 Yomiyasu record:** v2.1.1 at `fbe02c93877d697cc53d9377b7a45dd8a1dd99b3`. Yang Mun run `20261021T125254Z-8ea0305f`, final hash `72a6283fa8cc`; field guide run `20261021T125254Z-ded07132`, attempt 2, final hash `800fa9146d13`. Both `verify` calls matched the exact final file. Lint reported zero errors and zero fact-gap candidates; two repetition warnings remain in each article and were reviewed as acceptable polite-article register.
 
@@ -163,3 +163,7 @@ The server page imports the public JSON and passes its `accounts` to `<AiMonkDat
 - [ ] 最新main由来の専用branchへ未公開成果を継承し、AM-10/AM-11を閉じる。
 
 **現在cursor:** AM-12調査とAM-10公開準備。新worktreeは `/Users/anicca/Projects/anicca-products-worktrees/ai-monk-index-launch-20261022`、branchは `feat/ai-monk-index-launch-20261022`。
+
+**公開継続の検証:** 追加sortは失敗テスト（export未実装）を先に確認し、実装後5/5 PASS。関連記事/読み順/CTA/YouTubeを含むfocused25件PASS。最新mainのcanonical marketing `ddae10f6f511d374229062e0a15a3c9c3e41e33d` とManager renderer `25eefdf84842b14059800b35667f3520b06ec4c9` / content `32cb5b84d052de9f2be3b2a3c8e8c21a150c4da1` をworkflow通りstageし、681静的pageのbuild成功。buildは依存Wallet/Tailwind既存warnings、TS/lint skipを出す。canonical stagingのsource差分と106生成fileはtask branchから除外。最終75件dataはJSON参照/重複検証をPASSし、exact-head CIで再buildする。
+
+**型検査の限界:** `tsc --noEmit --incremental false` は既存6件（dashboard-core declaration、wallet ExportPrivateKeyButtonProps、LmBody/LmJaCtaのwriter CTA exports）でexit2。AI Monk追加fileのerrorは0。full buildは既存設定通りtype validationをskipするため、この型債務を解消したとは報告しない。

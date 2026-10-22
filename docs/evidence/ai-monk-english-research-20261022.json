@@ -1,0 +1,1336 @@
+{
+  "schema_version": "1.0",
+  "scope": "English-first AI monk public discovery; snapshot research, not exhaustive census",
+  "captured_at": "2026-10-22T14:32:41.733Z",
+  "sources": [
+    {
+      "id": "yangmun-ig-20261022",
+      "title": "Yang Mun Instagram profile, via vidIQ",
+      "url": "https://www.instagram.com/yangmunus/",
+      "source_type": "connector readback of a first-party public profile",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ returned 2.5M followers, 433 posts, English bio, and the yang-mun.com/journey link. Counts are a rounded provider snapshot, not sales or audited reach."
+    },
+    {
+      "id": "mingsan-ig-20261022",
+      "title": "Ming San Instagram profile, via vidIQ",
+      "url": "https://www.instagram.com/mingsanhealing/",
+      "source_type": "connector readback of a first-party public profile",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ returned 1.4M followers, 175 posts, and a beetroot product link. This does not verify product efficacy, commissions, sales, or AI origin."
+    },
+    {
+      "id": "kai-tsukimi-ig-20261022",
+      "title": "Kai Tsukimi Instagram profile, via vidIQ",
+      "url": "https://www.instagram.com/thezenstoryteller/",
+      "source_type": "connector readback of a first-party public profile",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ returned 369.9K followers and 971 posts. The bio advertises A Cup of Zen and claims 100,000+ copies sold and Amazon bestseller status; these are seller assertions."
+    },
+    {
+      "id": "yangjun-ig-20261022",
+      "title": "Yangjun Instagram profile, via vidIQ",
+      "url": "https://www.instagram.com/monkyangjun/",
+      "source_type": "connector readback of a first-party public profile",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ returned 95.6K followers, 323 posts, an English wellness bio, and yangjunhealer.netlify.app. No creator statement establishing AI origin was found."
+    },
+    {
+      "id": "kai-tsukimi-home-20261022",
+      "title": "The Zen Storyteller / A Cup of Zen",
+      "url": "https://thezenstoryteller.com/",
+      "source_type": "first-party seller website",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The English page offers a 21-story book: paperback $14.99, hardcover $19.99, Kindle $9.99 as displayed by the seller. It claims 100,000+ copies sold and a category bestseller rank. No order ledger or verified current Amazon rank was obtained."
+    },
+    {
+      "id": "yangjun-store-20261022",
+      "title": "The Yangjun Method sales page",
+      "url": "https://yangjunhealer.netlify.app",
+      "source_type": "first-party seller website",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The English sales page displays a $29.99 one-time eight-week menopause digital guide and links to whop.com/yangjun/yangjun-menopause-guide. Its symptom, hormone, and efficacy claims were not independently verified."
+    },
+    {
+      "id": "yangjun-collabstr-20261022",
+      "title": "Yangjun's public Collabstr seller listing",
+      "url": "https://collabstr.com/yangjun",
+      "source_type": "public creator marketplace self-description",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The seller describes the monk as a wellness character, lists US-facing content, digital products and UGC services, and declares Pattaya, Thailand. This establishes positioning, not AI provenance or actual brand deals. The page's 0.0K audience placeholder is not treated as a zero-follower observation."
+    },
+    {
+      "id": "kai-tsukimi-reel-20261022",
+      "title": "Kai Tsukimi's pinned Reel metadata",
+      "url": "https://www.instagram.com/reel/DbOZz8SGw_K/",
+      "source_type": "first-party post metadata via yt-dlp plus vidIQ discovery",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "Upload date 2026-07-25; yt-dlp returned 156196 likes and 16165 comments, with view_count unavailable. vidIQ account discovery returned rounded 2.8M plays. No moving-image watch was completed."
+    },
+    {
+      "id": "yangjun-reel-20261022",
+      "title": "Yangjun's guide-in-bio Reel metadata",
+      "url": "https://www.instagram.com/reel/Dew0nxIvTmp/",
+      "source_type": "first-party post metadata via yt-dlp plus vidIQ discovery",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "Upload date 2026-10-21; caption directs to guide links in bio. yt-dlp returned 44 likes and 2 comments, view_count unavailable. vidIQ discovery returned rounded 2.1K plays. No moving-image watch was completed."
+    },
+    {
+      "id": "buddhawouldsay-reel-20261022",
+      "title": "Buddha Would Say illustrated monk Reel",
+      "url": "https://www.instagram.com/reel/DdaLlA_seuf/",
+      "source_type": "vidIQ public outlier index and first-party post metadata",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ describes an AI-generated animated young monk with English inspirational text and reports 1.1M views and 9.4K account followers. yt-dlp returned upload date 2026-09-18, 32115 likes and 78 comments, with views and duration unavailable. AI provenance and visual details were not independently watched or creator-confirmed."
+    },
+    {
+      "id": "omaster-kaizen-tiktok-20261022",
+      "title": "Master Kaizen manifestation TikTok",
+      "url": "https://www.tiktok.com/@omaster.kaizen/video/7693476794522930464",
+      "source_type": "vidIQ public outlier index and first-party post metadata",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "vidIQ describes a monk persona and English on-screen hook, with 259.3K followers and 644.7K video views. Later yt-dlp metadata returned 648200 views, 62000 likes, 14900 comments, 75 seconds, upload date 2026-10-06. Different capture snapshots are retained separately. AI origin, spoken language and operator are unverified."
+    },
+    {
+      "id": "yangmun-yt-recent20-20261022",
+      "title": "Yang Mun public Shorts listing, latest 20 entries",
+      "url": "https://www.youtube.com/@Yangmunv2/shorts",
+      "source_type": "first-party public listing metadata via yt-dlp",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The installed yt-dlp 2026.08.19 returned channel UCoMa3p67nJWkk2kk-8hD1jA, 159000 followers/subscribers and the first 20 Shorts entries without downloading media. This is a bounded feed sample; it does not establish all videos or current monthly performance."
+    },
+    {
+      "id": "heygen-yangmun-case-20261022",
+      "title": "HeyGen's Yang Mun customer case",
+      "url": "https://www.heygen.com/customer-stories/yangmun",
+      "source_type": "first-party production-provider interview",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "HeyGen identifies Yang Mun as an AI character made with its tools by Shalev Hani. It reports simple scripts, avatar/voice delivery, batching and daily publishing. Its 2.5M audience, production-time and cadence claims are case-study assertions, not independent outcome measurements."
+    },
+    {
+      "id": "masterlinghao-og-20261022",
+      "title": "Ling Hao public Instagram metadata",
+      "url": "https://www.instagram.com/masterlinghao/",
+      "source_type": "first-party HTML Open Graph metadata",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The exploratory public HTML request returned 1118 followers and 38 posts. Full profile content was behind a login surface. Further automated Instagram collection was stopped after robots.txt review."
+    },
+    {
+      "id": "oldmonktenzin-og-20261022",
+      "title": "Tenzin public Instagram metadata",
+      "url": "https://www.instagram.com/oldmonktenzin/",
+      "source_type": "first-party HTML Open Graph metadata",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The exploratory public HTML request returned 362 followers and 51 posts. Language, operator and AI origin remain unverified. Further automated Instagram collection was stopped after robots.txt review."
+    },
+    {
+      "id": "thekaizenhealing-og-20261022",
+      "title": "Kaizen Healing public Instagram metadata",
+      "url": "https://www.instagram.com/thekaizenhealing/",
+      "source_type": "first-party HTML Open Graph metadata",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The exploratory public HTML request returned 844 followers and 99 posts. Language, operator and AI origin remain unverified. Further automated Instagram collection was stopped after robots.txt review."
+    },
+    {
+      "id": "instagram-robots-20261022",
+      "title": "Instagram robots and collection notice",
+      "url": "https://www.instagram.com/robots.txt",
+      "source_type": "first-party access rules",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "The live file disallows Scrapy and the wildcard user agent from all paths and states that automated collection requires express written permission. The exploratory direct crawler route is therefore not promoted as an authorized continuing collector."
+    },
+    {
+      "id": "shalev-x-discovery-20261022",
+      "title": "Shalev Hani X post discovered by search",
+      "url": "https://x.com/shalevhvs/status/2042242260784537736",
+      "source_type": "search-result discovery lead; post body not read back",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "DuckDuckGo HTML exposed the exact creator-post URL and a revenue-related snippet. The post body and accounting were not fetched. Do not replace unverified creator revenue claims with verified revenue."
+    },
+    {
+      "id": "maldita-shaolin-review-20261022",
+      "title": "Maldita's reported Shaolin persona examples",
+      "url": "https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/",
+      "source_type": "independent investigation rechecked; historical snapshots",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "Rechecked the report's Leo Chen and SifuChen examples. It describes Spanish-targeted PDF funnels, comment-to-book and highlighted-story routes. It does not provide new English-language or live-handle evidence for these two records."
+    },
+    {
+      "id": "avatarfactory-discovery-20261022",
+      "title": "AvatarFactory commercial directory discovery",
+      "url": "https://avatarfactory.io/ai-influencers",
+      "source_type": "commercial directory, discovery only",
+      "published_at": null,
+      "checked_at": "2026-10-22",
+      "captured_at": "2026-10-22T14:42:03.637Z",
+      "notes": "Index contains further candidate pages including Monk Tao, Yun Shen and Shen Healings. They remain follow-up leads; commercial AI labels and counts were not promoted to first-party verification."
+    }
+  ],
+  "profile_enrichments": [
+    {
+      "id": "yang-mun",
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "yangmunus",
+          "profile_url": "https://www.instagram.com/yangmunus/",
+          "snapshots": [
+            {
+              "value": 2500000,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "yangmun-ig-20261022",
+              "status": "public_connector_snapshot_rounded"
+            },
+            {
+              "value": 433,
+              "metric": "posts",
+              "as_of": "2026-10-22",
+              "source_id": "yangmun-ig-20261022",
+              "status": "public_connector_snapshot"
+            }
+          ]
+        },
+        {
+          "platform": "YouTube",
+          "handle": "Yangmunv2",
+          "profile_url": "https://www.youtube.com/@Yangmunv2",
+          "snapshots": [
+            {
+              "value": 159000,
+              "metric": "subscribers",
+              "as_of": "2026-10-22",
+              "source_id": "yangmun-yt-recent20-20261022",
+              "status": "public_listing_metadata_snapshot"
+            }
+          ]
+        }
+      ],
+      "source_urls": [
+        "https://www.heygen.com/customer-stories/yangmun",
+        "https://www.youtube.com/@Yangmunv2/shorts"
+      ],
+      "ai_evidence": [
+        {
+          "source_id": "heygen-yangmun-case-20261022",
+          "summary": "The production provider identifies the persona as AI-created by Shalev Hani; earlier conflicting first-party identity statements remain a separate documented conflict."
+        }
+      ],
+      "unknowns": [
+        "Current Instagram count is connector rounded readback; historical snapshots are retained.",
+        "Current monthly revenue, order counts and ROI remain unverified."
+      ]
+    },
+    {
+      "id": "ming-san",
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "mingsanhealing",
+          "profile_url": "https://www.instagram.com/mingsanhealing/",
+          "snapshots": [
+            {
+              "value": 1400000,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "mingsan-ig-20261022",
+              "status": "public_connector_snapshot_rounded"
+            },
+            {
+              "value": 175,
+              "metric": "posts",
+              "as_of": "2026-10-22",
+              "source_id": "mingsan-ig-20261022",
+              "status": "public_connector_snapshot"
+            }
+          ]
+        }
+      ],
+      "offers": [
+        {
+          "type": "external wellness product link",
+          "url": "https://beraviahealth.com/products/beetroot",
+          "source_id": "mingsan-ig-20261022",
+          "status": "public_bio_link_commission_sales_and_efficacy_unknown"
+        }
+      ],
+      "source_urls": [
+        "https://www.instagram.com/mingsanhealing/"
+      ]
+    },
+    {
+      "id": "lead-instagram-masterlinghao",
+      "display_name": "Ling Hao",
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "masterlinghao",
+          "profile_url": "https://www.instagram.com/masterlinghao/",
+          "snapshots": [
+            {
+              "value": 1118,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "masterlinghao-og-20261022",
+              "status": "public_html_metadata_snapshot"
+            },
+            {
+              "value": 38,
+              "metric": "posts",
+              "as_of": "2026-10-22",
+              "source_id": "masterlinghao-og-20261022",
+              "status": "public_html_metadata_snapshot"
+            }
+          ]
+        }
+      ],
+      "remove_platform_unknown_reason": true,
+      "unknowns": [
+        "Public counts were observed; AI origin, creator, language and products remain unverified."
+      ]
+    },
+    {
+      "id": "lead-instagram-oldmonktenzin",
+      "display_name": "Tenzin | Old Monk's Wisdom",
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "oldmonktenzin",
+          "profile_url": "https://www.instagram.com/oldmonktenzin/",
+          "snapshots": [
+            {
+              "value": 362,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "oldmonktenzin-og-20261022",
+              "status": "public_html_metadata_snapshot"
+            },
+            {
+              "value": 51,
+              "metric": "posts",
+              "as_of": "2026-10-22",
+              "source_id": "oldmonktenzin-og-20261022",
+              "status": "public_html_metadata_snapshot"
+            }
+          ]
+        }
+      ],
+      "remove_platform_unknown_reason": true,
+      "unknowns": [
+        "Public counts were observed; AI origin, creator, language and products remain unverified."
+      ]
+    },
+    {
+      "id": "lead-instagram-thekaizenhealing",
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "thekaizenhealing",
+          "profile_url": "https://www.instagram.com/thekaizenhealing/",
+          "snapshots": [
+            {
+              "value": 844,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "thekaizenhealing-og-20261022",
+              "status": "public_html_metadata_snapshot"
+            },
+            {
+              "value": 99,
+              "metric": "posts",
+              "as_of": "2026-10-22",
+              "source_id": "thekaizenhealing-og-20261022",
+              "status": "public_html_metadata_snapshot"
+            }
+          ]
+        }
+      ],
+      "remove_platform_unknown_reason": true,
+      "unknowns": [
+        "Public counts were observed; relationship to TikTok omaster.kaizen, AI origin, creator, language and products remain unverified."
+      ]
+    }
+  ],
+  "new_profiles": [
+    {
+      "id": "kai-tsukimi",
+      "display_name": "Kai Tsukimi | The Zen Storyteller",
+      "persona_type": "Monk-themed Zen storyteller; AI provenance unverified",
+      "ai_status": "unverified",
+      "ai_evidence": [],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown; the public-facing persona is not proof of the operator's identity."
+      },
+      "languages": [
+        {
+          "label": "English",
+          "source_ids": [
+            "kai-tsukimi-home-20261022",
+            "kai-tsukimi-reel-20261022"
+          ]
+        }
+      ],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/thezenstoryteller/",
+        "https://thezenstoryteller.com/",
+        "https://www.instagram.com/reel/DbOZz8SGw_K/",
+        "https://urlgeni.us/amazon/cupofzen"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "thezenstoryteller",
+          "profile_url": "https://www.instagram.com/thezenstoryteller/",
+          "snapshots": [
+            {
+              "value": 369900,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "kai-tsukimi-ig-20261022",
+              "status": "public_connector_snapshot_rounded"
+            },
+            {
+              "value": 971,
+              "metric": "posts",
+              "as_of": "2026-10-22",
+              "source_id": "kai-tsukimi-ig-20261022",
+              "status": "public_connector_snapshot"
+            }
+          ]
+        }
+      ],
+      "offers": [
+        {
+          "type": "Kindle eBook",
+          "name": "A Cup of Zen",
+          "price": 9.99,
+          "currency": "USD",
+          "url": "https://urlgeni.us/amazon/cupofzen",
+          "source_id": "kai-tsukimi-home-20261022",
+          "status": "seller_displayed_price_not_order_data"
+        },
+        {
+          "type": "paperback book",
+          "name": "A Cup of Zen",
+          "price": 14.99,
+          "currency": "USD",
+          "url": "https://thezenstoryteller.com/checkout",
+          "source_id": "kai-tsukimi-home-20261022",
+          "status": "seller_displayed_price_not_order_data"
+        },
+        {
+          "type": "hardcover book",
+          "name": "A Cup of Zen",
+          "price": 19.99,
+          "currency": "USD",
+          "source_id": "kai-tsukimi-home-20261022",
+          "status": "seller_displayed_price_not_order_data"
+        }
+      ],
+      "seller_counters": [
+        {
+          "value": "100,000+",
+          "metric": "copies sold",
+          "source_id": "kai-tsukimi-home-20261022",
+          "status": "seller_displayed_not_audited"
+        },
+        {
+          "value": "#1",
+          "metric": "Zen Philosophy bestseller",
+          "source_id": "kai-tsukimi-home-20261022",
+          "status": "seller_claim_current_amazon_rank_not_verified"
+        }
+      ],
+      "creator_claims": [],
+      "creative_samples": [
+        {
+          "url": "https://www.instagram.com/reel/DbOZz8SGw_K/",
+          "title": "Pinned Zen/wisdom Reel",
+          "duration_seconds": null,
+          "uploaded_at": "2026-07-25",
+          "views": 2800000,
+          "views_captured_at": "2026-10-22",
+          "source_id": "kai-tsukimi-reel-20261022",
+          "structure_summary": "Caption frames the cost of helping the wrong person; the profile and official site link the Zen storytelling brand to its book. Hook timing, scene sequence and delivery were not watched.",
+          "media_status": "metadata_only_official_link_only",
+          "metrics": [
+            {
+              "value": 156196,
+              "metric": "likes",
+              "as_of": "2026-10-22",
+              "source_id": "kai-tsukimi-reel-20261022",
+              "status": "public_metadata_snapshot"
+            },
+            {
+              "value": 16165,
+              "metric": "comments",
+              "as_of": "2026-10-22",
+              "source_id": "kai-tsukimi-reel-20261022",
+              "status": "public_metadata_snapshot"
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "AI origin, operator identity and whether the author persona depicts a real person are unverified.",
+        "Distinct public account; independence from other researched operators is not established.",
+        "Book sales, royalties, refunds, ad spend and profit were not verified. The site's claimed sales and rank are not audited.",
+        "No actual moving-image watch completed; the account may be adjacent to the AI monk category rather than a confirmed AI monk."
+      ]
+    },
+    {
+      "id": "yangjun",
+      "display_name": "Yangjun | Magician | Healer",
+      "persona_type": "Monk-character wellness creator; AI provenance unverified",
+      "ai_status": "unverified",
+      "ai_evidence": [],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown; the public-facing persona is not proof of the operator's identity."
+      },
+      "languages": [
+        {
+          "label": "English",
+          "source_ids": [
+            "yangjun-store-20261022",
+            "yangjun-reel-20261022"
+          ]
+        }
+      ],
+      "region_evidence": {
+        "label": "Pattaya, Thailand (seller-declared)",
+        "basis": "The public Collabstr listing declares this creator location; it is not independent residence verification.",
+        "source_id": "yangjun-collabstr-20261022"
+      },
+      "source_urls": [
+        "https://www.instagram.com/monkyangjun/",
+        "https://yangjunhealer.netlify.app",
+        "https://whop.com/yangjun/yangjun-menopause-guide",
+        "https://collabstr.com/yangjun",
+        "https://www.instagram.com/reel/Dew0nxIvTmp/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "monkyangjun",
+          "profile_url": "https://www.instagram.com/monkyangjun/",
+          "snapshots": [
+            {
+              "value": 95600,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "yangjun-ig-20261022",
+              "status": "public_connector_snapshot_rounded"
+            },
+            {
+              "value": 323,
+              "metric": "posts",
+              "as_of": "2026-10-22",
+              "source_id": "yangjun-ig-20261022",
+              "status": "public_connector_snapshot"
+            }
+          ]
+        }
+      ],
+      "offers": [
+        {
+          "type": "digital guide",
+          "name": "The Yangjun Method: eight-week menopause guide",
+          "price": 29.99,
+          "currency": "USD",
+          "url": "https://whop.com/yangjun/yangjun-menopause-guide",
+          "source_id": "yangjun-store-20261022",
+          "status": "seller_displayed_price_not_order_data"
+        },
+        {
+          "type": "creator UGC services",
+          "name": "Wellness monk-character UGC",
+          "url": "https://collabstr.com/yangjun",
+          "source_id": "yangjun-collabstr-20261022",
+          "status": "seller_listed_services_no_verified_orders"
+        }
+      ],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [
+        {
+          "url": "https://www.instagram.com/reel/Dew0nxIvTmp/",
+          "title": "Guide links in bio",
+          "duration_seconds": null,
+          "uploaded_at": "2026-10-21",
+          "views": 2100,
+          "views_captured_at": "2026-10-22",
+          "source_id": "yangjun-reel-20261022",
+          "structure_summary": "The English caption directs viewers to guide links in the bio. The linked seller page presents a single paid digital guide. The actual visual hook, delivery and pacing were not watched.",
+          "media_status": "metadata_only_official_link_only",
+          "metrics": [
+            {
+              "value": 44,
+              "metric": "likes",
+              "as_of": "2026-10-22",
+              "source_id": "yangjun-reel-20261022",
+              "status": "public_metadata_snapshot"
+            },
+            {
+              "value": 2,
+              "metric": "comments",
+              "as_of": "2026-10-22",
+              "source_id": "yangjun-reel-20261022",
+              "status": "public_metadata_snapshot"
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "Public materials describe a monk character but do not establish how it was produced or who operates it.",
+        "Health and symptom-related claims on the product page are unverified; they must not be adopted as substantiated medical claims.",
+        "Sales, conversion, partnerships, commissions and profit were not verified.",
+        "No moving-image watch completed; follower total does not establish current reach or sales."
+      ]
+    },
+    {
+      "id": "buddha-would-say",
+      "display_name": "Buddha Would Say",
+      "persona_type": "Illustrated monk inspiration channel; AI attribution unverified",
+      "ai_status": "unverified",
+      "ai_evidence": [
+        {
+          "source_id": "buddhawouldsay-reel-20261022",
+          "summary": "vidIQ's discovery analysis describes an AI-generated animated monk. This is a third-party index classification without first-party production disclosure or completed independent watch."
+        }
+      ],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown; the public-facing persona is not proof of the operator's identity."
+      },
+      "languages": [
+        {
+          "label": "English",
+          "source_ids": [
+            "buddhawouldsay-reel-20261022"
+          ]
+        }
+      ],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.instagram.com/buddhawouldsay/",
+        "https://www.instagram.com/reel/DdaLlA_seuf/"
+      ],
+      "platforms": [
+        {
+          "platform": "Instagram",
+          "handle": "buddhawouldsay",
+          "profile_url": "https://www.instagram.com/buddhawouldsay/",
+          "snapshots": [
+            {
+              "value": 9400,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "buddhawouldsay-reel-20261022",
+              "status": "indexed_discovery_snapshot_rounded"
+            }
+          ]
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [
+        {
+          "url": "https://www.instagram.com/reel/DdaLlA_seuf/",
+          "title": "Life and mindfulness inspiration",
+          "duration_seconds": null,
+          "uploaded_at": "2026-09-18",
+          "views": 1100000,
+          "views_captured_at": "2026-10-22",
+          "source_id": "buddhawouldsay-reel-20261022",
+          "structure_summary": "English caption expresses a short reflection on life's passing pleasures. vidIQ describes an animated monk scene; actual motion and pacing were not independently watched.",
+          "media_status": "metadata_only_official_link_only",
+          "metrics": [
+            {
+              "value": 32115,
+              "metric": "likes",
+              "as_of": "2026-10-22",
+              "source_id": "buddhawouldsay-reel-20261022",
+              "status": "public_metadata_snapshot"
+            },
+            {
+              "value": 78,
+              "metric": "comments",
+              "as_of": "2026-10-22",
+              "source_id": "buddhawouldsay-reel-20261022",
+              "status": "public_metadata_snapshot"
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "Operator, AI provenance, full profile and any paid offer are unverified.",
+        "The 1.1M view count and 9.4K followers are rounded indexed snapshots, not current exact platform counters.",
+        "Illustrated monk content is a different format from photorealistic talking avatars; do not conflate them."
+      ]
+    },
+    {
+      "id": "master-kaizen-tiktok",
+      "display_name": "Master Kaizen | omaster.kaizen",
+      "persona_type": "Monk persona / manifestation content; AI provenance unverified",
+      "ai_status": "unverified",
+      "ai_evidence": [],
+      "creator": {
+        "name": null,
+        "relationship": "Unknown; the public-facing persona is not proof of the operator's identity."
+      },
+      "languages": [],
+      "region_evidence": null,
+      "source_urls": [
+        "https://www.tiktok.com/@omaster.kaizen",
+        "https://www.tiktok.com/@omaster.kaizen/video/7693476794522930464"
+      ],
+      "platforms": [
+        {
+          "platform": "TikTok",
+          "handle": "omaster.kaizen",
+          "profile_url": "https://www.tiktok.com/@omaster.kaizen",
+          "snapshots": [
+            {
+              "value": 259300,
+              "metric": "followers",
+              "as_of": "2026-10-22",
+              "source_id": "omaster-kaizen-tiktok-20261022",
+              "status": "indexed_discovery_snapshot_rounded"
+            }
+          ]
+        }
+      ],
+      "offers": [],
+      "seller_counters": [],
+      "creator_claims": [],
+      "creative_samples": [
+        {
+          "url": "https://www.tiktok.com/@omaster.kaizen/video/7693476794522930464",
+          "title": "Manifestation-themed monk-persona post",
+          "duration_seconds": 75,
+          "uploaded_at": "2026-10-06",
+          "views": 648200,
+          "views_captured_at": "2026-10-22",
+          "source_id": "omaster-kaizen-tiktok-20261022",
+          "structure_summary": "vidIQ describes a spiritual engagement prompt. The metadata caption is only a manifestation hashtag; spoken language, actual scenes and AI provenance were not independently watched.",
+          "media_status": "metadata_only_official_link_only",
+          "metrics": [
+            {
+              "value": 62000,
+              "metric": "likes",
+              "as_of": "2026-10-22",
+              "source_id": "omaster-kaizen-tiktok-20261022",
+              "status": "public_metadata_snapshot"
+            },
+            {
+              "value": 14900,
+              "metric": "comments",
+              "as_of": "2026-10-22",
+              "source_id": "omaster-kaizen-tiktok-20261022",
+              "status": "public_metadata_snapshot"
+            },
+            {
+              "value": 644700,
+              "metric": "views",
+              "as_of": "2026-10-22",
+              "source_id": "omaster-kaizen-tiktok-20261022",
+              "status": "indexed_discovery_snapshot_rounded"
+            }
+          ]
+        }
+      ],
+      "unknowns": [
+        "AI origin, creator and any relationship to other Kaizen-branded accounts are unverified.",
+        "English on-screen text is described by vidIQ, but spoken English and profile language are not confirmed; language remains unclassified.",
+        "Offer, paid orders and revenue are unknown. Financial-abundance promises are not verified outcomes."
+      ]
+    }
+  ],
+  "strategy_examples": [
+    {
+      "account_id": "yang-mun",
+      "source_ids": [
+        "heygen-yangmun-case-20261022",
+        "yangmun-yt-recent20-20261022"
+      ],
+      "watch_status": "no_new_moving_image_watch",
+      "observed_mechanism": "Provider interview reports simple single-idea scripts and batch production for daily publishing. Public Shorts titles repeatedly use comment keywords to offer recipes.",
+      "evidence_level": "creator/provider case study plus public listing text",
+      "metrics": "First 20 listing entries: 12 to 2300 views at capture, compared with older documented high-reach Shorts. Recency windows and uploads were not fetched for this listing sample.",
+      "adaptation_hypothesis": "Use one original, non-medical reflection per video and an honest, product-relevant CTA; measure click-through and paid orders separately from views.",
+      "not_established": [
+        "Causal effect of posting frequency",
+        "Current revenue per view",
+        "New visual/pacing analysis"
+      ]
+    },
+    {
+      "account_id": "kai-tsukimi",
+      "source_ids": [
+        "kai-tsukimi-ig-20261022",
+        "kai-tsukimi-reel-20261022",
+        "kai-tsukimi-home-20261022"
+      ],
+      "watch_status": "metadata_only",
+      "observed_mechanism": "A Zen story / life-dilemma caption connects a recurring storytelling identity to one named book and a direct checkout/Amazon link.",
+      "evidence_level": "caption, profile bio and first-party seller page",
+      "metrics": "369.9K account followers; selected pinned Reel 2.8M indexed plays, 156196 likes and 16165 comments. Website sales counters are seller assertions.",
+      "adaptation_hypothesis": "Align original short parables, a free excerpt, and a tightly related book promise; compare post-to-product click and order conversion.",
+      "not_established": [
+        "AI provenance",
+        "Actual hook timing and motion",
+        "Seller-claimed 100000+ sales",
+        "Operator independence"
+      ]
+    },
+    {
+      "account_id": "yangjun",
+      "source_ids": [
+        "yangjun-ig-20261022",
+        "yangjun-reel-20261022",
+        "yangjun-store-20261022",
+        "yangjun-collabstr-20261022"
+      ],
+      "watch_status": "metadata_only",
+      "observed_mechanism": "The selected caption points to guide links in bio; one English seller page packages a narrowly positioned digital guide, while a separate public listing offers monk-character UGC services.",
+      "evidence_level": "caption, profile bio and seller pages",
+      "metrics": "95.6K followers; selected recent Reel 2.1K indexed plays, 44 likes and 2 comments; guide displayed at $29.99. No order or conversion data.",
+      "adaptation_hypothesis": "Test one clearly defined audience problem and one relevant digital product; copy the funnel mechanism using substantiated product facts rather than the source's unverified health claims.",
+      "not_established": [
+        "AI provenance",
+        "Actual scene/pacing pattern",
+        "Claimed medical effects",
+        "Paid order economics",
+        "Operator independence"
+      ]
+    }
+  ],
+  "tool_inventory": [
+    {
+      "name": "vidIQ public research connector",
+      "tested": true,
+      "installed": true,
+      "result": "Public IG/TikTok discovery and four known-handle profile readbacks succeeded. Further credit-bearing calls were stopped when the connected plan returned insufficientCredits.",
+      "tools_tested": [
+        "vidiq_instagram_tiktok_outlier_search",
+        "vidiq_ig_accounts_from_outliers",
+        "vidiq_ig_profile"
+      ],
+      "credits_used": null,
+      "credit_note": "Actual _credits.used was not returned for successful calls; exact charges are unknown. Error responses explicitly say no credits charged.",
+      "limits": [
+        "Indexed counts may be rounded or stale.",
+        "First-page recent/pinned reel samples are not complete histories.",
+        "Semantic discovery returned off-topic spirituality, real monks and non-monk avatars; explicit relevance filtering was necessary.",
+        "Profile presence is not AI-production disclosure or a revenue audit."
+      ]
+    },
+    {
+      "name": "yt-dlp",
+      "url": "https://github.com/yt-dlp/yt-dlp",
+      "license": "Unlicense",
+      "installed": true,
+      "installed_version": "2026.08.19",
+      "latest_release": "2026.10.21",
+      "release_published_at": "2026-10-21T21:54:37Z",
+      "release_url": "https://github.com/yt-dlp/yt-dlp/releases/tag/2026.10.21",
+      "tested": true,
+      "result": "Metadata-only extraction succeeded for one YouTube Shorts feed (20 entries), three Instagram Reels and one TikTok video. No video media downloaded.",
+      "recommended_role": "Public YouTube listing/video metadata, within platform access rules. Direct Instagram collection is not enabled after its robots notice review.",
+      "limits": [
+        "Some Instagram fields such as duration/views returned null.",
+        "No video watch, transcript, sales or creator ownership proof.",
+        "Latest release differs from installed version; current installed version already satisfied the tested extraction."
+      ]
+    },
+    {
+      "name": "Instaloader",
+      "url": "https://github.com/instaloader/instaloader",
+      "readme_url": "https://github.com/instaloader/instaloader/blob/master/README.rst",
+      "license": "MIT",
+      "installed": false,
+      "latest_release": "v4.15.4",
+      "release_published_at": "2026-10-12T20:46:50Z",
+      "release_url": "https://github.com/instaloader/instaloader/releases/tag/v4.15.4",
+      "tested": false,
+      "role": "Official project documentation describes Instagram profile/post/caption collection and incremental updates.",
+      "limits": [
+        "Unofficial Instagram project.",
+        "Not installed or executed in this task.",
+        "The existence of an OSS extractor is not platform permission; not selected as an always-on collector."
+      ]
+    },
+    {
+      "name": "TikTok-Api",
+      "url": "https://github.com/davidteather/TikTok-Api",
+      "readme_url": "https://github.com/davidteather/TikTok-Api/blob/main/README.md",
+      "license": "MIT",
+      "installed": false,
+      "latest_release": "v7.3.3",
+      "release_published_at": "2026-04-01T23:18:22Z",
+      "release_url": "https://github.com/davidteather/TikTok-Api/releases/tag/v7.3.3",
+      "tested": false,
+      "role": "Official project README documents an unofficial public data retrieval wrapper.",
+      "limits": [
+        "Not installed or executed.",
+        "README requires Python 3.9+ and Playwright, describes site-change/bot-blocking failures, and excludes authenticated routes.",
+        "Retrieval only; it cannot publish content.",
+        "No proxy or access-control bypass was used."
+      ]
+    },
+    {
+      "name": "crwl / Crawl4AI",
+      "installed": true,
+      "tested": true,
+      "result": "Extracted current HeyGen case, creator sales pages, marketplace listing and external investigations. Instagram profile returned only a limited logged-out surface.",
+      "role": "Public creator-product and production-provider page evidence with a URL and capture date.",
+      "limits": [
+        "A successful page fetch is not a paid order or identity verification.",
+        "Follow site access rules; direct Instagram crawling stopped after robots review."
+      ]
+    },
+    {
+      "name": "Scrapy + DuckDuckGo HTML",
+      "installed": true,
+      "tested": true,
+      "result": "Search results discovered creator product and X URLs. Exploratory Instagram Open Graph snapshots returned three known seed counts before the site rules review.",
+      "limits": [
+        "A later broad search returned a challenge and was not bypassed.",
+        "Instagram explicitly disallows Scrapy; no subsequent direct collector was run.",
+        "Search snippets are discovery leads and were not elevated to verified post-body or accounting evidence."
+      ]
+    },
+    {
+      "name": "gh / GitHub API",
+      "installed": true,
+      "tested": true,
+      "result": "Read official repository metadata, READMEs and latest releases for yt-dlp, Instaloader and TikTok-Api.",
+      "limits": [
+        "Repository availability and release freshness do not prove a crawler works on a target platform today."
+      ]
+    }
+  ],
+  "tool_runs": [
+    {
+      "id": "vidiq-outliers-1",
+      "tool": "vidiq_instagram_tiktok_outlier_search",
+      "args": {
+        "audienceQuery": "Culture/Region: English-speaking global; Global: true; Demographics: adults interested in meditation, spiritual entertainment and AI creator businesses;",
+        "embeddingType": "concept",
+        "query": "AI-generated monk avatars teaching healing, Buddhist wisdom and self-improvement",
+        "datePostedAfter": "2025-01-01T00:00:00Z",
+        "datePostedBefore": "2026-10-23T00:00:00Z",
+        "descriptionLanguage": [
+          "en"
+        ],
+        "resultsPerPlatform": 10,
+        "viewsMin": 10000,
+        "userGoal": "Build a documented English-language directory of AI monk creators and learn from public distribution examples."
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "## Instagram\n\n**@deep_psy999** — \"The world will try to tempt you, anger you, and distract you. Master your inner state, and nothing o...\"\n   304.9K views (36.5x their median of 8.3K) · 21.5K followers\n   reel:DcD4Gb3PgfC\n   **reel_concept**: An AI-animated illustration depicting a monk's transformation from a crowded, dark meditative state to one of radiant enlightenment.\n   **niche**: Spirituality\n   **hook_0_3s**:\n     visual: A still, artistic illustration of a monk meditating surrounded by ghostly figures.\n     audio: Ethereal, atmospheric ambient music begins.\n   **format**:\n     style: AI-animated illustration\n     intended_value: Aspiration\n     is_looped: true\n     template: ai-animated transformation loop\n   **effort**:\n     time: within an hour\n     barrier: Requires access to and proficiency with AI image generation and motion tools.\n   **execution**:\n     pacing: Slow\n     visual_changes: Moderate\n   **audio**:\n     audio_mix: Music only\n     sfx_present: true\n   **audience**:\n     culture_region: Global\n     audience_is_global: true\n     demographics: Adults 25-45 interested in meditation and personal growth.\n\n**@krystle.channel** — \"ACTIVATE KRYSTLINE A.I. ⚡️\n\n1️⃣ Upgrade to the Inner Field:\nhttps://krystlechannel.substack.com/subs...\"\n   346.3K views (62.0x their median of 5.6K) · 279K followers\n   reel:DcFgMvxsFo1\n   **reel_concept**: A creator speaks directly to the camera while in bed to introduce her new AI app focused on spirituality.\n   **niche**: Technology\n   **hook_0_3s**:\n     visual: Static shot of a woman in bed, speaking directly into the lens.\n     text: The SIMULATION is SO INTELLIGENT that you think it's 'REAL' 😅\n     audio: Immediate speaking with calm, conversational tone.\n   **format**:\n     style: single-shot talking head\n     intended_value: Education\n     template: talking head with text overlay\n   **effort**:\n     time: within an hour\n   **execution**:\n     pacing: Moderate\n     text_overlays: Guiding text\n     visual_changes: Low (static camera)\n   **audio**:\n     audio_mix: Voice only\n   **audience**:\n     culture_region: English-speaking, likely US/Western audience interested in niche spirituality and tech.\n     audience_is_global: true\n     demographics: Likely adults aged 25-45 interested in alternative philosophies and AI trends.\n\n**@niquencystudio** — \"Drop the labels. Step beyond the ritual. Remember who you truly are. ✨\n.\n.\n.\n\nIn my artwork “Intuiti...\"\n   778.8K views (69.2x their median of 11.3K) · 9.2K followers\n   reel:Ddmc_MfNu19\n   **reel_concept**: A series of AI-generated ethereal, spiritual images are shown alongside a voiceover discussing a spiritual interpretation of Jesus' teachings.\n   **niche**: Spirituality\n   **hook_0_3s**:\n     visual: A cinematic, glowing, AI-generated image of Jesus holding a glowing globe appears immediately.\n     text: Jesus\n     audio: A soothing, deep male voiceover begins immediately with 'Jesus, you see, did not come...'\n   **format**:\n     style: Footage compilation with voiceover\n     intended_value: Education\n     is_looped: true\n     template: A calm, intellectual voiceover plays over a slideshow of thematically related, high-quality AI-generated imagery. The sequence concludes with a final thematic visual and an on-screen call to action for the creator's external website.\n   **effort**:\n     time: within a day\n     barrier: Requires access to AI image generation tools like Midjourney or similar to create high-quality, consistent thematic visuals.\n   **execution**:\n     pacing: Moderate\n     text_overlays: Guiding text\n     visual_changes: Moderate\n   **audio**:\n     audio_mix: Voice + Background Music\n   **audience**:\n     culture_region: Western/Global English-speaking audience interested in spirituality and self-improvement.\n     audience_is_global: true\n     demographics: Adults aged 25-50, gender-neutral, likely interested in meditation, philosophy, and non-traditional religion.\n\n**@godluck_signs** — \"Comment YES and check the top comment✨\"\n   118.7K views (22.9x their median of 5.2K) · 92.5K followers\n   reel:DbJAdxzvfT1\n   **reel_concept**: An AI-generated spiritual video that uses a fear-of-missing-out narrative to drive engagement.\n   **niche**: Spirituality\n   **hook_0_3s**:\n     visual: AI-generated image of a woman standing next to a glowing, white-and-gold lion.\n     text: If you skip this white lion guardian\n     audio: Ethereal synth music starts immediately with an AI voiceover.\n   **format**:\n     style: Faceless AI-generated animation\n     intended_value: Aspiration\n     is_looped: true\n     template: ai animation with engagement prompt\n   **effort**:\n     time: within an hour\n     barrier: requires access to and proficiency with generative AI tools\n   **execution**:\n     pacing: Moderate\n     text_overlays: Dynamic captions\n     visual_changes: Low\n   **audio**:\n     audio_mix: Voice + Background Music\n     sfx_present: true\n   **audience**:\n     culture_region: Global English-speaking audience interested in spirituality.\n     audience_is_global: true\n     demographics: Women aged 25-45 interested in New Age spirituality.\n\n**@surgalxy** — \"the procession 2\n\n#surreal #scifi #fantasy #mythic #aiart\"\n   82.5K views (26.7x their median of 3.1K) · 15.6K followers\n   reel:Dcjd8RvMlG6\n   **reel_concept**: A series of AI-generated, surreal, and futuristic visuals featuring monks in a sci-fi setting, accompanied by atmospheric chanting.\n   **niche**: Art & Design\n   **hook_0_3s**:\n     visual: A procession of monks walking on a high-tech platform above a glowing city with a celestial background.\n     audio: Ethereal, ambient chanting with deep sub-bass and sci-fi sound effects.\n   **format**:\n     style: Footage compilation\n     intended_value: Entertainment\n     is_looped: true\n     template: ai-generated surreal cinematic motion loop\n   **effort**:\n     time: within a day\n     barrier: Requires proficiency in AI video generation tools (like Midjourney/Runway/Luma) and video editing software.\n   **execution**:\n     pacing: Moderate\n     visual_changes: Moderate\n   **audio**:\n     audio_mix: Voice + Background Music\n     sfx_present: true\n   **audience**:\n     culture_region: Global audience interested in sci-fi, spiritualism, and generative art.\n     audience_is_global: true\n     demographics: Millennials and Gen Z, generally gender-neutral.\n\n**@sebastiansiegel1** — \"Do you know why you were born? \n\nWhat this with someone you care for and ask the same. \n\n#consciousn...\"\n   45.3K views (12.9x their median of 3.5K) · 116.6K followers\n   reel:DbJJW5uSjfa\n   **reel_concept**: A speaker discusses spiritual philosophy about non-duality and the nature of human existence, interspersed with AI-generated visual illustrations.\n   **niche**: Spirituality\n   **hook_0_3s**:\n     visual: A man sitting in a chair, speaking directly to the camera with a casual, reflective demeanor.\n     text: With non-duality, I think really like\n     audio: Immediate speaking with calm, contemplative tone.\n   **format**:\n     style: Split screen (creator + b-roll)\n     intended_value: Education\n     template: talking head with ai visual overlay\n   **effort**:\n     time: within a day\n     barrier: Requires access to AI image generation tools and skill in prompt engineering to create consistent, high-quality visual sequences that match the spoken content.\n   **execution**:\n     pacing: Moderate\n     text_overlays: Dynamic captions\n     visual_changes: High (many cuts/zooms)\n   **audio**:\n     audio_mix: Voice only\n   **audience**:\n     culture_region: North American/Global English-speaking spirituality community.\n     audience_is_global: true\n     demographics: Adults 25-50 interested in mindfulness, philosophy, and personal growth.\n\n**@freedomfromcode** — \"Comment BREATHE and I ll send you a free breathwork to try this powerful activation. \n\nHere’s the me...\"\n   205.4K views (37.7x their median of 5.4K) · 53.4K followers\n   reel:Dbvvsn7u8lx\n   **reel_concept**: A creator points to anatomical diagrams in a book while an AI voiceover explains a manifestation technique.\n   **niche**: Spirituality\n   **hook_0_3s**:\n     visual: A hand points a pen at a diagram on an open book page, accompanied by text overlay.\n     text: Dr Joe Dispenza explains the secret weapon to manifest Watch this\n     audio: Immediate narration starts, synchronized with the text overlay.\n   **format**:\n     style: Point-of-view (POV) hand-held filming on a book page.\n     intended_value: Education\n     is_looped: true\n     template: hand pointing at informative text\n   **effort**:\n     time: within an hour\n   **execution**:\n     pacing: Moderate\n     text_overlays: Guiding text\n     visual_changes: Low (static camera)\n   **audio**:\n     audio_mix: Voice only\n   **audience**:\n     culture_region: Global English-speaking community\n     audience_is_global: true\n     demographics: Likely adults interested in self-help and spirituality.\n\n**@lisetealcalde** — \"Maybe the storm grew you.\n\nFirst you suffer. Then something inside you starts to wake up.\n\nNot becau...\"\n   910.9K views (80.3x their median of 11.3K) · 111K followers\n   reel:DcZLhHZtEPF\n   **reel_concept**: An AI-generated, psychedelic animation features a philosophical voiceover about using suffering and pain as a catalyst for spiritual awakening and personal growth.\n   **niche**: Spirituality\n   **hook_0_3s**:\n     visual: A striking, symmetrical, neon-glowing figure with translucent organs and mushroom-like growths atop its head, set against a dark blue background with an animated lightning bolt strike.\n     text: First, you suffer\n     audio: Deep, resonant, slightly mysterious synthesized voiceover begins immediately.\n   **format**:\n     style: AI-generated art video with text-on-screen.\n     intended_value: Aspiration\n     is_looped: true\n     template: ai generated art loop with text\n   **effort**:\n     time: within a day\n     barrier: requires proficiency with AI image/animation generation tools\n   **execution**:\n     pacing: Moderate\n     text_overlays: Guiding text\n     visual_changes: Moderate\n   **audio**:\n     audio_mix: Voice + Background Music\n     sfx_present: true\n   **audience**:\n     culture_region: Global/English-speaking Western audience interested in New Age spirituality.\n     audience_is_global: true\n     demographics: Millennials and Gen Z, gender-neutral, interested in wellness and self-improvement.\n\n**@buddhawouldsay** — \"Life moves quickly. Enjoy the sweetness while it’s here. 🍦🌿\n \n \n#mindfulness #simplejoys #buddhawoul...\"\n   1.1M views (97.3x their median of 11.4K) · 9.4K followers\n   reel:DdaLlA_seuf\n   **reel_concept**: An AI-generated, loopable animation of a young monk walking through a serene landscape while an inspirational quote about enjoying life unfolds on screen.\n   **niche**: Inspirational Content\n   **hook_0_3s**:\n     visual: A cartoon-style young monk walking peacefully in a scenic landscape, gently swaying.\n     text: Life is like an ice cream...\n     audio: Soft, relaxing, ambient acoustic music starts immediately.\n   **format**:\n     style: Faceless text-on-screen with AI animation\n     intended_value: Inspiration\n     is_looped: true\n     template: Present an animated scene featuring a static-moving character. Overlay inspirational text sequentially to encourage viewer retention, ensuring the video ends smoothly to encourage seamless re-watching.\n   **effort**:\n     time: within an hour\n   **execution**:\n     pacing: Slow\n     text_overlays: Static text\n     visual_changes: Low (static camera)\n   **audio**:\n     audio_mix: Music only\n   **audience**:\n     culture_region: Global/General English-speaking audience interested in spiritual, philosophical, or motivational quotes.\n     audience_is_global: true\n     demographics: Broad audience, typically adults aged 25-50 who enjoy daily affirmations and peaceful content.\n\n**@awaken.soul.art** — \"𝐃𝐨 𝐲𝐨𝐮 𝐫𝐞𝐦𝐞𝐦𝐛𝐞𝐫 𝐰𝐡𝐨 𝐲𝐨𝐮 𝐚𝐫𝐞?\n\nYour frequency is a signal expanding beyond measurable limits, interac...\"\n   1.6M views (30.0x their median of 54.3K) · 166.6K followers\n   reel:DcEtnkbPELn\n   **reel_concept**: A sequence of AI-generated ethereal and cosmic figures accompanied by a contemplative, spiritual voiceover.\n   **niche**: Digital Art & Spirituality\n   **hook_0_3s**:\n     visual: A striking, glowing, ethereal figure appears on screen.\n     text: Do you remember who you are?\n     audio: Ambient, atmospheric synth music begins immediately.\n   **format**:\n     style: AI-generated video loop\n     intended_value: Inspiration\n     is_looped: true\n     template: looped visual sequence with text\n   **effort**:\n     time: within a day\n     barrier: requires proficiency in AI image and video generation tools\n   **execution**:\n     pacing: Slow\n     text_overlays: Static text\n     visual_changes: Moderate\n   **audio**:\n     audio_mix: Voice + Background Music\n     sfx_present: true\n   **audience**:\n     culture_region: Global English-speaking community\n     audience_is_global: true\n     demographics: Young adults (18-35) interested in spirituality, wellness, and aesthetic digital content.\n\n## TikTok\n\n**@godneverletsyouwalkalone** — \"God has mercy and saves 2 monkeys #jesus #LIVEIncentiveProgram #GoLIVEGrowFast #PaidPartnership\"\n   708.4K views (29.2x their median of 24.3K) · 235.2K followers · 67s\n   https://www.tiktok.com/@godneverletsyouwalkalone/video/7687821421539577109\n   **tiktok_concept**: A series of AI-generated clips depicts a figure resembling Jesus performing miracles for distressed animals and people in a desert setting.\n   **niche**: AI Art\n   **hook_0_3s**:\n     visual: A monkey attempting to turn a water tap in a dry, cracked desert landscape.\n     audio: Upbeat, dramatic cinematic music begins immediately.\n   **format**:\n     style: Footage compilation\n     intended_value: Entertainment\n     is_looped: false\n     template: ai generated narrative montage\n   **effort**:\n     time: within a day\n     barrier: requires proficiency with generative AI video and image tools\n   **execution**:\n     pacing: Moderate\n     visual_changes: High (many cuts/zooms)\n   **audio**:\n     audio_mix: Music only\n     sfx_present: false\n   **audience**:\n     culture_region: Global\n     audience_is_global: true\n     demographics: Broad, likely skewing toward younger audiences interested in AI trends and spiritual/fantastical content.\n\n**@mulliganbrother** — \"👣 Step by step, TRUST in the process #trusttheprocess #shihengyi #shaolin #smallstepsbigresults #anc...\"\n   84.6K views (27.9x their median of 3K) · 813.9K followers · 71s\n   https://www.tiktok.com/@mulliganbrother/video/7660109715367546134\n   **tiktok_concept**: A monk provides philosophical advice on personal growth, emphasizing the importance of taking small, consistent, and intentional steps.\n   **niche**: Lifestyle\n   **hook_0_3s**:\n     visual: A monk is centered in the frame, looking directly into the lens.\n     text: INSTEAD OF STAYING IN\n     audio: Human voice immediately begins speaking directly to the viewer.\n   **format**:\n     style: Talking head\n     intended_value: Education\n     is_looped: false\n     template: on-camera philosophical monologue\n   **effort**:\n     time: within an hour\n   **execution**:\n     pacing: Moderate\n     text_overlays: Dynamic captions\n     visual_changes: Moderate\n   **audio**:\n     audio_mix: Voice only\n     sfx_present: false\n   **audience**:\n     culture_region: Global (English-speaking audience interested in spirituality)\n     audience_is_global: true\n     demographics: 18-40, gender-neutral\n\n**@mkpurunchi1** — \"Don't envy anyone.  #wordsofadvice #wordsofwisdom #lifelessons #grandpasadvice #wisewords #family\"\n   1.6M views (59.0x their median of 27.1K) · 140.5K followers · 64s\n   https://www.tiktok.com/@mkpurunchi1/video/7670148320941051158\n   **tiktok_concept**: An AI-generated elderly African man shares life wisdom and moral aphorisms directly to the camera.\n   **niche**: Inspirational\n   **hook_0_3s**:\n     visual: A static shot of an AI-animated elderly man sitting in a village setting, directly addressing the camera.\n     text: There are people who wake up every morning expecting to hear bad news about you.\n     audio: A mature male voice starts speaking immediately with a calm, didactic tone.\n   **format**:\n     style: AI-generated avatar / Talking head\n     intended_value: Inspiration\n     is_looped: false\n     template: animated avatar delivering spoken wisdom\n   **effort**:\n     time: within a day\n     barrier: requires generative AI tools for video and audio production\n   **execution**:\n     pacing: Moderate\n     text_overlays: Dynamic captions\n     visual_changes: Low (static camera)\n   **audio**:\n     audio_mix: Voice only\n     sfx_present: false\n   **audience**:\n     culture_region: Global English-speaking audience interested in inspirational/spiritual content.\n     audience_is_global: true\n     demographics: Broad, likely 25-55 age range, gender neutral.\n\n**@bwood.society** — \"Shaolin Master Explains Why Holding On Is The Root of Most Suffering - Shi Heng Yi by Mulliganbrothe... #shihengyi #fyp #foryourpagetiktok #on #done\"\n   782.2K views (7.9x their median of 98.6K) · 41.8K followers · 18s\n   https://www.tiktok.com/@bwood.society/video/7668892350378151200\n   **tiktok_concept**: A man dressed in traditional monk robes offers philosophical advice about overcoming personal limitations.\n   **niche**: Self-Improvement\n   **hook_0_3s**:\n     visual: A medium shot of a man in traditional robes sitting on a bench in an outdoor, wooded setting.\n     text: Once you went over a certain limitation,\n     audio: A calm, measured voice speaking directly to the camera with soft ambient background music.\n   **format**:\n     style: talking head\n     intended_value: Education\n     is_looped: false\n     template: on-camera philosophical monologue\n   **effort**:\n     time: within a day\n     barrier: requires maintaining a specific persona and securing a distinct aesthetic location\n   **execution**:\n     pacing: Slow\n     text_overlays: Dynamic captions\n     visual_changes: Low (static camera)\n   **audio**:\n     audio_mix: Voice + Background Music\n     sfx_present: false\n   **audience**:\n     culture_region: Global audience interested in spiritual and self-improvement content\n     audience_is_global: true\n     demographics: 25-45 years old, primarily interested in mindfulness, psychology, and personal growth\n\n**@soulblooming25** — \"mindfulness #peace #inspiration #grateful ##buddhistway\"\n   125.9K views (51.8x their median of 2.4K) · 10.9K followers · 83s\n   https://www.tiktok.com/@soulblooming25/video/7666488876634098974\n   **tiktok_concept**: A guided listicle on Buddhist philosophy for managing anxiety, overlaid on peaceful nature footage.\n   **niche**: Self-improvement\n   **hook_0_3s**:\n     visual: A serene, static long shot of birds nesting in a green tree by a lake, suggesting calm.\n     text: The Buddhist way to handle the spiraling thoughts\n     audio: A calming, slightly low-register spoken voiceover begins immediately.\n   **format**:\n     style: B-roll over voiceover\n     intended_value: Education\n     is_looped: true\n     template: voiceover with nature scenery\n   **effort**:\n     time: within an hour\n   **execution**:\n     pacing: Moderate\n     text_overlays: Guiding text\n     visual_changes: Low (static camera)\n   **audio**:\n     audio_mix: Voice only\n     sfx_present: false\n   **audience**:\n     culture_region: Western/Global English-speaking audience interested in spiritualism and mental health.\n     audience_is_global: true\n     demographics: Millennial and Gen Z adults, skewing slightly female, interested in wellness and self-care.\n\n**@omaster.kaizen** — \"#manifestation\"\n   644.7K views (101.2x their median of 6.4K) · 259.3K followers · 75s\n   https://www.tiktok.com/@omaster.kaizen/video/7693476794522930464\n   **tiktok_concept**: A spiritual-themed video using a monk persona to promise financial abundance in exchange for specific engagement actions like liking, saving, and sharing.\n   **niche**: Spirituality & Wellness\n   **hook_0_3s**:\n     visual: A close-up shot of salt being sprinkled over burning coals in a bowl, creating smoke.\n     text: It works so fast it’s scary...\n     audio: A mysterious, ambient synth track starts immediately.\n   **format**:\n     style: Staged persona with B-roll overlay\n     intended_value: Entertainment\n     is_looped: false\n     template: scripted persona delivering spiritual bait\n   **effort**:\n     time: within an hour\n   **execution**:\n     pacing: Moderate\n     text_overlays: Dynamic captions\n     visual_changes: Low (static camera)\n   **audio**:\n     audio_mix: Voice + Background Music\n     sfx_present: false\n   **audience**:\n     culture_region: Global/English-speaking audience interested in manifestation culture.\n     audience_is_global: true\n     demographics: Broad audience, likely skewed towards individuals interested in esoteric spirituality and self-improvement, ages 18-45.\n\n**@alex.dc806** — \"Don’t force love, attention, or appreciation. The people meant to be in your life will value you for... #knowyourworth #wisdom #lifelessons #family #Inspiration\"\n   759K views (64.5x their median of 11.8K) · 216.1K followers · 62s\n   https://www.tiktok.com/@alex.dc806/video/7674568947978571030\n   **tiktok_concept**: An AI-generated elderly man delivers motivational life advice and wisdom on relationships and self-worth.\n   **niche**: Self-Improvement\n   **hook_0_3s**:\n     visual: A stationary elderly man standing in the center of an open-air hut, leaning on a cane.\n     text: DON'T FORCE LOVE.\n     audio: A deep, authoritative AI male voice begins the monologue immediately.\n   **format**:\n     style: AI-generated spokesperson monologue with text overlays\n     intended_value: Education\n     is_looped: true\n     template: ai-generated spokesperson monologue with captions\n   **effort**:\n     time: within a day\n     barrier: Requires AI video generation and lip-syncing software tools.\n   **execution**:\n     pacing: Moderate\n     text_overlays: Dynamic captions\n     visual_changes: Low (static camera)\n   **audio**:\n     audio_mix: Voice + Background Music\n     sfx_present: false\n   **audience**:\n     culture_region: Global (English-speaking audience)\n     audience_is_global: true\n     demographics: Adults (25-45) interested in personal growth and philosophical content.\n\n**@successifyplus** — \"🧘 If your mornings feel chaotic, take back the first the peace. LINK IN BIO 🔗 The way you begin your... #morningroutine #Mindfulness #DailyRoutine\"\n   237.1K views (77.0x their median of 3.1K) · 237.2K followers · 87s\n   https://www.tiktok.com/@successifyplus/video/7667533357407915295\n   **tiktok_concept**: A monk gives advice about mindfulness, specifically encouraging viewers to avoid checking their phones immediately upon waking up.\n   **niche**: Self-improvement\n   **hook_0_3s**:\n     visual: A split screen showing a monk speaking at a podium and a blurred crowd, then cutting to the monk speaking directly.\n     text: please remember don't touch your phone\n     audio: Immediate speaking voice from the monk, slightly grainy, with calming background instrumental music.\n   **format**:\n     style: split screen (creator + b-roll), b-roll over voiceover\n     intended_value: Education\n     is_looped: false\n     template: inspirational speech with text overlay\n   **effort**:\n     time: within a day\n     barrier: Needs video footage of a speaker to sync audio with\n   **execution**:\n     pacing: Moderate\n     text_overlays: Dynamic captions\n     visual_changes: Moderate\n   **audio**:\n     audio_mix: Voice + Background Music\n     sfx_present: false\n   **audience**:\n     culture_region: Global/English-speaking audience interested in spirituality and productivity.\n     audience_is_global: true\n     demographics: Adults, predominantly 20-45, interested in self-development.\n\n**@mindshift.movement** — \"You are the only person that thinks in your mind. - Louise Hay #manifesting #affirmations #lawofattr... #lawofattraction\"\n   921.9K views (10.1x their median of 91.6K) · 99.4K followers · 60s\n   https://www.tiktok.com/@mindshift.movement/video/7684467437617696022\n   **tiktok_concept**: A motivational speaker gives advice on mindfulness and positive thinking overlaid on spiritual and space-themed visuals.\n   **niche**: Self-Improvement\n   **hook_0_3s**:\n     visual: Sudden cuts between a woman speaking on camera and a glowing, abstract space-themed particle effect.\n     text: You are the only person\n     audio: Immediate speaking voice with soft ambient background music.\n   **format**:\n     style: split screen (creator + b-roll)\n     intended_value: Aspiration\n     is_looped: true\n     template: motivational speaker with abstract b-roll\n   **effort**:\n     time: within a day\n     barrier: requires archive footage sourcing and editing\n   **execution**:\n     pacing: Moderate\n     text_overlays: Guiding text\n     visual_changes: High (many cuts/zooms)\n   **audio**:\n     audio_mix: Voice + Background Music\n     sfx_present: false\n   **audience**:\n     culture_region: Western/Global English-speaking\n     audience_is_global: true\n     demographics: Adults interested in self-care, meditation, and mental health.\n\n**@zachscannapieco** — \"We keep treating life like it’s somewhere else. In the future. After things settle down. When we fin...\"\n   122.1K views (9.1x their median of 13.4K) · 24.1K followers · 48s\n   https://www.tiktok.com/@zachscannapieco/video/7672201817987550477\n   **tiktok_concept**: A split-screen video featuring a reaction to a monk speaking about mindfulness and living in the present.\n   **niche**: Self-improvement\n   **hook_0_3s**:\n     visual: Creator points upward to the main video clip while looking directly at the camera.\n     text: listen to this\n     audio: Creator speaks 'listen to this' followed immediately by the monk's audio.\n   **format**:\n     style: split screen (creator + source footage)\n     intended_value: Inspiration\n     is_looped: true\n     template: split screen reaction video\n   **effort**:\n     time: within an hour\n   **execution**:\n     pacing: Moderate\n     text_overlays: Dynamic captions\n     visual_changes: Low (static camera)\n   **audio**:\n     audio_mix: Voice + Background Music\n     sfx_present: false\n   **audience**:\n     culture_region: Global English-speaking\n     audience_is_global: true\n     demographics: Young adults and adults interested in personal growth and spirituality"
+          }
+        ],
+        "isError": false
+      },
+      "captured_at": "2026-10-22T14:32:41.745Z"
+    },
+    {
+      "id": "vidiq-accounts-1",
+      "tool": "vidiq_ig_accounts_from_outliers",
+      "args": {
+        "audienceQuery": "Culture/Region: English-speaking global; Global: true; Demographics: adults interested in meditation, spiritual entertainment and AI creator businesses;",
+        "niche": "English-language photorealistic AI monk avatar personas such as Yang Mun or Ming San delivering healing advice and selling ebooks",
+        "followersMin": 10000
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "\n1. **[Yangjun  | Magician | Healer](https://www.instagram.com/monkyangjun/)** (@monkyangjun)\n   95.6K followers | 1.2K avg views\n   Recent reels:\n   - Dew0nxIvTmp (2.1K plays | 44 likes | 2 comments | 2026-10-21)\n   - DevJ0zBomxf (827 plays | 7 likes | 3 comments | 2026-10-21)\n   - DesFY-HPZyk (2.1K plays | 39 likes | 4 comments | 2026-10-19)\n   - DepSnklv302 (1.3K plays | 20 likes | 0 comments | 2026-10-18)\n   - DemjvHWvtEJ (773 plays | 5 likes | 0 comments | 2026-10-17)\n   - DeiSwBqo4v1 (852 plays | 2 likes | 0 comments | 2026-10-16)\n\n2. **[Kai Tsukimi](https://www.instagram.com/thezenstoryteller/)** (@thezenstoryteller)\n   369.9K followers | 767.5K avg views\n   Recent reels:\n   - DbOZz8SGw_K (2.8M plays | 156.2K likes | 16.2K comments | pinned | 2026-07-25)\n   - DW_Z-_ok_vv (897.8K plays | 51.1K likes | 243 comments | pinned | 2026-04-11)\n   - DW1GwjTDN1r (3.1M plays | 130.4K likes | 635 comments | pinned | 2026-04-07)\n   - Dew_hBekTEY (20.2K plays | 1K likes | 24 comments | 2026-10-21)\n   - Dew4txdEQXh (8.1K plays | 200 likes | 2 comments | 2026-10-21)\n   - Dew4x2nD-nP (7.5K plays | 268 likes | 7 comments | 2026-10-21)\n\n3. **[Shivansh](https://www.instagram.com/littlesticious_/)** (@littlesticious_)\n   32.4K followers | 94.9K avg views\n   Recent reels:\n   - DahUTgZTbBb (308.5K plays | 14.9K likes | 208 comments | pinned | 2026-07-08)\n   - DaAkQryTzly (530.2K plays | 8.6K likes | 684 comments | pinned | 2026-06-25)\n   - DeQ5AbcTU9K (10K plays | 313 likes | 7 comments | 2026-10-09)\n   - DeObTSsTMH3 (482 plays | 8 likes | 0 comments | 2026-10-08)\n   - Dd-rOj2Tvjd (736 plays | 8 likes | 0 comments | 2026-10-02)\n   - Dd-U4yZzOBE (1.2K plays | 27 likes | 0 comments | 2026-10-02)"
+          }
+        ],
+        "isError": false
+      },
+      "captured_at": "2026-10-22T14:33:05.916Z"
+    },
+    {
+      "id": "vidiq-profile-yangmunus",
+      "tool": "vidiq_ig_profile",
+      "args": {
+        "handle": "yangmunus"
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "## @yangmunus — Yang Mun\n2.5M followers | 5 following | 433 posts\nhttps://www.instagram.com/yangmunus/\n> \"Yang Mun | Healing Wisdom\nAncient wisdom for modern life\n⬇️Access the teachings⬇️\"\nExternal link: http://www.yang-mun.com/journey"
+          },
+          {
+            "type": "text",
+            "text": "@yangmunus profile picture"
+          },
+          {
+            "type": "image",
+            "mimeType": "image/jpeg",
+            "data_omitted": true
+          }
+        ],
+        "isError": false
+      },
+      "captured_at": "2026-10-22T14:33:28.707Z"
+    },
+    {
+      "id": "vidiq-profile-mingsanhealing",
+      "tool": "vidiq_ig_profile",
+      "args": {
+        "handle": "mingsanhealing"
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "## @mingsanhealing — Ming San\n1.4M followers | 3 following | 175 posts\nhttps://www.instagram.com/mingsanhealing/\n> \"Ming San | Healing Guide\nAncient wisdom for the mind & body\n⬇️ The pure beetroot I trust ⬇️\"\nExternal link: https://beraviahealth.com/products/beetroot"
+          },
+          {
+            "type": "text",
+            "text": "@mingsanhealing profile picture"
+          },
+          {
+            "type": "image",
+            "mimeType": "image/jpeg",
+            "data_omitted": true
+          }
+        ],
+        "isError": false
+      },
+      "captured_at": "2026-10-22T14:33:41.421Z"
+    },
+    {
+      "id": "vidiq-profile-thezenstoryteller",
+      "tool": "vidiq_ig_profile",
+      "args": {
+        "handle": "thezenstoryteller"
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "## @thezenstoryteller ✓ — Kai Tsukimi\n369.9K followers | 28 following | 971 posts\nhttps://www.instagram.com/thezenstoryteller/\n> \"📚 Author of “A Cup of Zen”\n🔘 100,000+ copies sold & Amazon Best Seller\n👇 Grab your copy here👇\"\nExternal link: https://urlgeni.us/amazon/cupofzen"
+          },
+          {
+            "type": "text",
+            "text": "@thezenstoryteller profile picture"
+          },
+          {
+            "type": "image",
+            "mimeType": "image/jpeg",
+            "data_omitted": true
+          }
+        ],
+        "isError": false
+      },
+      "captured_at": "2026-10-22T14:33:51.342Z"
+    },
+    {
+      "id": "vidiq-profile-monkyangjun",
+      "tool": "vidiq_ig_profile",
+      "args": {
+        "handle": "monkyangjun"
+      },
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "## @monkyangjun — Yangjun  | Magician | Healer\n95.6K followers | 55 following | 323 posts\nhttps://www.instagram.com/monkyangjun/\n> \"Physical, Mental & Sexual Health of Men & Women 🍀 \nClick the link to get guides and products 👇🏻\"\nExternal link: https://yangjunhealer.netlify.app"
+          },
+          {
+            "type": "text",
+            "text": "@monkyangjun profile picture"
+          },
+          {
+            "type": "image",
+            "mimeType": "image/jpeg",
+            "data_omitted": true
+          }
+        ],
+        "isError": false
+      },
+      "captured_at": "2026-10-22T14:33:51.931Z"
+    },
+    {
+      "id": "vidiq-profile-masterlinghao",
+      "tool": "vidiq_ig_profile",
+      "args": {
+        "handle": "masterlinghao"
+      },
+      "result": {
+        "isError": true,
+        "content": [
+          {
+            "type": "text",
+            "text": "insufficientCredits; no credits charged. Further credit-bearing research stopped."
+          }
+        ],
+        "error_class": "insufficientCredits"
+      },
+      "captured_at": "2026-10-22T14:33:52.551Z"
+    },
+    {
+      "id": "vidiq-profile-oldmonktenzin",
+      "tool": "vidiq_ig_profile",
+      "args": {
+        "handle": "oldmonktenzin"
+      },
+      "result": {
+        "isError": true,
+        "content": [
+          {
+            "type": "text",
+            "text": "insufficientCredits; no credits charged. Further credit-bearing research stopped."
+          }
+        ],
+        "error_class": "insufficientCredits"
+      },
+      "captured_at": "2026-10-22T14:33:53.318Z"
+    },
+    {
+      "id": "vidiq-profile-thekaizenhealing",
+      "tool": "vidiq_ig_profile",
+      "args": {
+        "handle": "thekaizenhealing"
+      },
+      "result": {
+        "isError": true,
+        "content": [
+          {
+            "type": "text",
+            "text": "insufficientCredits; no credits charged. Further credit-bearing research stopped."
+          }
+        ],
+        "error_class": "insufficientCredits"
+      },
+      "captured_at": "2026-10-22T14:33:54.025Z"
+    },
+    {
+      "id": "yt-dlp-yangmun-recent20",
+      "tool": "yt-dlp",
+      "result": {
+        "chunk_id": "60a91e",
+        "wall_time_seconds": 0.706081292,
+        "exit_code": 0,
+        "original_token_count": 1252,
+        "output": "{\"exit_code\": 0, \"data\": {\"id\": \"UCoMa3p67nJWkk2kk-8hD1jA\", \"title\": \"Yang Mun - Shorts\", \"channel\": \"Yang Mun\", \"channel_id\": \"UCoMa3p67nJWkk2kk-8hD1jA\", \"channel_url\": \"https://www.youtube.com/channel/UCoMa3p67nJWkk2kk-8hD1jA\", \"channel_follower_count\": 159000, \"playlist_count\": null, \"webpage_url\": \"https://www.youtube.com/@Yangmunv2/shorts\", \"entries\": [{\"id\": \"y7EE-jQGgtA\", \"title\": \"How to make a natural magnesium powder recipe. Comment “Cook” and I’ll send you the recipe.\", \"url\": \"https://www.youtube.com/shorts/y7EE-jQGgtA\", \"duration\": null, \"view_count\": 12, \"channel\": null, \"channel_id\": null}, {\"id\": \"GIw2LkFdoPQ\", \"title\": \"Natural Remedies for Cough and Lung Health Comment “Cook” and I’ll send you the recipe.\", \"url\": \"https://www.youtube.com/shorts/GIw2LkFdoPQ\", \"duration\": null, \"view_count\": 394, \"channel\": null, \"channel_id\": null}, {\"id\": \"AnsEPi0qliw\", \"title\": \"Comment “COOK” and I’ll send you the recipe.\", \"url\": \"https://www.youtube.com/shorts/AnsEPi0qliw\", \"duration\": null, \"view_count\": 192, \"channel\": null, \"channel_id\": null}, {\"id\": \"dPTSUsHEeQo\", \"title\": \"Your partner cheated. Should you forgive or move on?\", \"url\": \"https://www.youtube.com/shorts/dPTSUsHEeQo\", \"duration\": null, \"view_count\": 218, \"channel\": null, \"channel_id\": null}, {\"id\": \"D83_Mnt1CNk\", \"title\": \"We never supposed to eat 3 meals a day\", \"url\": \"https://www.youtube.com/shorts/D83_Mnt1CNk\", \"duration\": null, \"view_count\": 326, \"channel\": null, \"channel_id\": null}, {\"id\": \"grvohwdJstA\", \"title\": \"Comment \\\"Heal\\\" and and I’ll send you the recipe.\", \"url\": \"https://www.youtube.com/shorts/grvohwdJstA\", \"duration\": null, \"view_count\": 299, \"channel\": null, \"channel_id\": null}, {\"id\": \"t0OCBi7a9Go\", \"title\": \"Comment \\\"Heal\\\" and and I’ll send you the recipe.\", \"url\": \"https://www.youtube.com/shorts/t0OCBi7a9Go\", \"duration\": null, \"view_count\": 331, \"channel\": null, \"channel_id\": null}, {\"id\": \"SzHjzyApoBw\", \"title\": \"Comment “MOVE” and I’ll send you the recipe.\", \"url\": \"https://www.youtube.com/shorts/SzHjzyApoBw\", \"duration\": null, \"view_count\": 605, \"channel\": null, \"channel_id\": null}, {\"id\": \"haPjHT9i9oY\", \"title\": \"Comment \\\"Heal\\\" and and I’ll send you the recipe.\", \"url\": \"https://www.youtube.com/shorts/haPjHT9i9oY\", \"duration\": null, \"view_count\": 279, \"channel\": null, \"channel_id\": null}, {\"id\": \"4g_mqYTv9rY\", \"title\": \"Comment \\\"Heal\\\" and and I’ll send you the recipe.\", \"url\": \"https://www.youtube.com/shorts/4g_mqYTv9rY\", \"duration\": null, \"view_count\": 694, \"channel\": null, \"channel_id\": null}, {\"id\": \"T9H05AmLPYc\", \"title\": \"What Honey Does To A Cucumber? Comment \\\"Cook\\\" and and I’ll send you the recipe.\", \"url\": \"https://www.youtube.com/shorts/T9H05AmLPYc\", \"duration\": null, \"view_count\": 366, \"channel\": null, \"channel_id\": null}, {\"id\": \"3ONEXyNvEWo\", \"title\": \"3 Herbs That Help Rebuild Your Organs Naturally Comment “HEAL” and I’ll send you the recipe.\", \"url\": \"https://www.youtube.com/shorts/3ONEXyNvEWo\", \"duration\": null, \"view_count\": 352, \"channel\": null, \"channel_id\": null}, {\"id\": \"XBmZVv6EegI\", \"title\": \"The Best Fruit for Every Nutrient Comment “HEAL” and I’ll send you the recipe.\", \"url\": \"https://www.youtube.com/shorts/XBmZVv6EegI\", \"duration\": null, \"view_count\": 2000, \"channel\": null, \"channel_id\": null}, {\"id\": \"hLSrLG-c5cg\", \"title\": \"Comment “COOK” and I’ll send you the recipe.\", \"url\": \"https://www.youtube.com/shorts/hLSrLG-c5cg\", \"duration\": null, \"view_count\": 394, \"channel\": null, \"channel_id\": null}, {\"id\": \"XoL-ncGHJy8\", \"title\": \"Foods by Color and Their Health Benefits Comment “Balance” and I’ll send you the recipe.\", \"url\": \"https://www.youtube.com/shorts/XoL-ncGHJy8\", \"duration\": null, \"view_count\": 561, \"channel\": null, \"channel_id\": null}, {\"id\": \"5XOkkDSPR0M\", \"title\": \"Comment “HEAL” and I’ll send you the recipe.\", \"url\": \"https://www.youtube.com/shorts/5XOkkDSPR0M\", \"duration\": null, \"view_count\": 1800, \"channel\": null, \"channel_id\": null}, {\"id\": \"KCF-deqgzik\", \"title\": \"What I will NEVER do as a Feng Shui expertComment “HEAL”and I’ll send you the recipe.#naturalhealing\", \"url\": \"https://www.youtube.com/shorts/KCF-deqgzik\", \"duration\": null, \"view_count\": 709, \"channel\": null, \"channel_id\": null}, {\"id\": \"N30F6J7BX20\", \"title\": \"How to make a healthy, no-sugar, pectin-free blueberry chia seed.\", \"url\": \"https://www.youtube.com/shorts/N30F6J7BX20\", \"duration\": null, \"view_count\": 1900, \"channel\": null, \"channel_id\": null}, {\"id\": \"TqDwrBCZi1w\", \"title\": \"Healthy natural juice recipe for body energy, blood cleansing, and anemia prevention.\", \"url\": \"https://www.youtube.com/shorts/TqDwrBCZi1w\", \"duration\": null, \"view_count\": 2300, \"channel\": null, \"channel_id\": null}, {\"id\": \"CTABgZWy3g0\", \"title\": \"My favorite morning recipe for staying fuller longer + cutting.\", \"url\": \"https://www.youtube.com/shorts/CTABgZWy3g0\", \"duration\": null, \"view_count\": 988, \"channel\": null, \"channel_id\": null}]}, \"stderr\": \"\"}\n"
+      },
+      "captured_at": "2026-10-22T14:35:06.501Z"
+    },
+    {
+      "id": "crwl-masterlinghao",
+      "tool": "crwl",
+      "url": "https://www.instagram.com/masterlinghao/",
+      "result": {
+        "chunk_id": "c796d0",
+        "wall_time_seconds": 1.7458e-05,
+        "exit_code": 0,
+        "original_token_count": 9,
+        "output": "Show more posts from masterlinghao\n\n"
+      },
+      "captured_at": "2026-10-22T14:35:06.501Z"
+    },
+    {
+      "id": "yt-dlp-cross-platform-three",
+      "tool": "yt-dlp",
+      "result": {
+        "chunk_id": "18f723",
+        "wall_time_seconds": 1.8958e-05,
+        "exit_code": 0,
+        "original_token_count": 457,
+        "output": "{\"url\": \"https://www.instagram.com/reel/DbOZz8SGw_K/\", \"exit_code\": 0, \"metadata\": {\"id\": \"DbOZz8SGw_K\", \"title\": \"Video by thezenstoryteller\", \"description\": \"Why helping the wrong person quietly costs you everything. #zen #wisdom #mentalhealth #philosophy #usa\", \"duration\": null, \"timestamp\": 1785002306, \"upload_date\": \"20260725\", \"uploader\": \"Kai Tsukimi\", \"uploader_id\": \"74701602307\", \"uploader_url\": null, \"channel_follower_count\": null, \"view_count\": null, \"like_count\": 156196, \"comment_count\": 16165, \"webpage_url\": \"https://www.instagram.com/reel/DbOZz8SGw_K/\", \"availability\": null, \"age_limit\": null}, \"stderr\": \"\"}\n{\"url\": \"https://www.instagram.com/reel/Dew0nxIvTmp/\", \"exit_code\": 0, \"metadata\": {\"id\": \"Dew0nxIvTmp\", \"title\": \"Video by monkyangjun\", \"description\": \"All guide links are in my bio. 🇺🇸\", \"duration\": null, \"timestamp\": 1792599650, \"upload_date\": \"20261021\", \"uploader\": \"Yangjun  | Magician | Healer\", \"uploader_id\": \"80345057265\", \"uploader_url\": null, \"channel_follower_count\": null, \"view_count\": null, \"like_count\": 44, \"comment_count\": 2, \"webpage_url\": \"https://www.instagram.com/reel/Dew0nxIvTmp/\", \"availability\": null, \"age_limit\": null}, \"stderr\": \"\"}\n{\"url\": \"https://www.tiktok.com/@omaster.kaizen/video/7693476794522930464\", \"exit_code\": 0, \"metadata\": {\"id\": \"7693476794522930464\", \"title\": \"#manifestation \", \"description\": \"#manifestation \", \"duration\": 75, \"timestamp\": 1791278423, \"upload_date\": \"20261006\", \"uploader\": \"omaster.kaizen\", \"uploader_id\": \"7410716049350231073\", \"uploader_url\": \"https://www.tiktok.com/@omaster.kaizen\", \"channel_follower_count\": null, \"view_count\": 648200, \"like_count\": 62000, \"comment_count\": 14900, \"webpage_url\": \"https://www.tiktok.com/@omaster.kaizen/video/7693476794522930464\", \"availability\": null, \"age_limit\": null}, \"stderr\": \"\"}\n"
+      },
+      "captured_at": "2026-10-22T14:36:53.516Z"
+    },
+    {
+      "id": "scrapy-existing-profiles-three",
+      "tool": "scrapy public HTML og metadata",
+      "result": {
+        "chunk_id": "d1d299",
+        "wall_time_seconds": 9.583e-06,
+        "exit_code": 0,
+        "original_token_count": 289,
+        "output": "{\"url\": \"https://www.instagram.com/masterlinghao/\", \"exit_code\": 0, \"meta\": {\"og:title\": \"Ling Hao (@masterlinghao) • Instagram photos and videos\", \"og:url\": \"https://www.instagram.com/masterlinghao/\", \"og:description\": \"1,118 Followers, 7 Following, 38 Posts - See Instagram photos and videos from Ling Hao (@masterlinghao)\"}, \"login_wall\": true, \"stderr\": \"\"}\n{\"url\": \"https://www.instagram.com/oldmonktenzin/\", \"exit_code\": 0, \"meta\": {\"og:title\": \"Tenzin | Old Monk’s Wisdom (@oldmonktenzin) • Instagram photos and videos\", \"og:url\": \"https://www.instagram.com/oldmonktenzin/\", \"og:description\": \"362 Followers, 25 Following, 51 Posts - See Instagram photos and videos from Tenzin | Old Monk’s Wisdom (@oldmonktenzin)\"}, \"login_wall\": true, \"stderr\": \"\"}\n{\"url\": \"https://www.instagram.com/thekaizenhealing/\", \"exit_code\": 0, \"meta\": {\"og:title\": \"Kaizen Healing (@thekaizenhealing) • Instagram photos and videos\", \"og:url\": \"https://www.instagram.com/thekaizenhealing/\", \"og:description\": \"844 Followers, 9 Following, 99 Posts - See Instagram photos and videos from Kaizen Healing (@thekaizenhealing)\"}, \"login_wall\": true, \"stderr\": \"\"}\n"
+      },
+      "captured_at": "2026-10-22T14:37:47.342Z"
+    },
+    {
+      "id": "yt-dlp-buddhawouldsay",
+      "tool": "yt-dlp",
+      "result": {
+        "url": "https://www.instagram.com/reel/DdaLlA_seuf/",
+        "exit_code": 0,
+        "metadata": {
+          "id": "DdaLlA_seuf",
+          "title": "Video by buddhawouldsay",
+          "description": "Life moves quickly. Enjoy the sweetness while it’s here. 🍦🌿\n \n \n#mindfulness #simplejoys #buddhawouldsay",
+          "duration": null,
+          "timestamp": 1789692454,
+          "upload_date": "20260918",
+          "uploader": "Buddha Would Say",
+          "uploader_id": "15736736496",
+          "view_count": null,
+          "like_count": 32115,
+          "comment_count": 78,
+          "webpage_url": "https://www.instagram.com/reel/DdaLlA_seuf/"
+        },
+        "stderr": ""
+      },
+      "captured_at": "2026-10-22T14:42:03.637Z"
+    }
+  ],
+  "errors": [
+    {
+      "tool": "vidIQ",
+      "error_class": "insufficientCredits",
+      "retryable": false,
+      "effect": "read-only failure; provider states no charge",
+      "readback": "Connected research plan has no available credits for the requested profile call.",
+      "next_action": "Continue permitted free public sources and retain connector as the preferred public research route when credits are available; do not repeatedly submit paid requests.",
+      "failed_call_count": 3,
+      "execution_note": "The same sequential exploratory batch attempted two additional, different profile handles after the first insufficient-credit result. All three returned no charge; paid research stopped when the batch returned. Future collectors must terminate the batch at the first insufficient-credit response."
+    },
+    {
+      "tool": "Scrapy / Instagram direct crawl",
+      "error_class": "robots_disallow",
+      "retryable": false,
+      "effect": "Additional direct collection stopped after the site notice was read.",
+      "readback_url": "https://www.instagram.com/robots.txt",
+      "next_action": "Use authorized data access or connected provider research; do not change user agents to evade the restriction."
+    },
+    {
+      "tool": "DuckDuckGo HTML",
+      "error_class": "search_challenge",
+      "retryable": false,
+      "effect": "No challenge bypass attempted.",
+      "next_action": "Use already discovered first-party URLs and public provider results."
+    }
+  ],
+  "next_actions": [
+    "Merge new candidates and dated enrichments additively, preserving unverified status and prior conflicts.",
+    "Prioritize the largest English-facing profiles with documented offers: Yang Mun, Ming San, Kai Tsukimi and Yangjun.",
+    "Verify creator/AI production disclosures through public first-party evidence before reclassifying candidates.",
+    "Use authorized provider access for deeper Instagram research, permitted YouTube metadata for longitudinal samples, and creator/product sites for funnel facts.",
+    "Complete short-form watch evidence and operator independence checks before promoting an alleged recurring video pattern.",
+    "Read back the exact Shalev X post before quoting its revenue claim, and keep the claim separate from verified accounting.",
+    "Review Monk Tao, Yun Shen and Shen Healings discovery leads only after the current launch scope, without treating commercial directory labels as proof."
+  ],
+  "limits": [
+    "English-first bounded sample, not an exhaustive AI monk census. Existing 71 seeds are not all AI-verified.",
+    "Four new public account candidates and five existing record enrichments are proposed. All four new candidates remain unverified for AI production; TikTok candidate language is unclassified.",
+    "Three distinct public accounts support a caption/bio/funnel comparison, but operator independence and moving-image details are not established; no recurring visual strategy or causal performance claim is made.",
+    "No new completed short-form watch analysis because connector credits became unavailable. Existing old watch evidence is not relabeled as new.",
+    "Seller book-sales counters, category bestseller badges, health promises and revenue statements are claims. Verified orders, net profit, refunds, ad spend and per-creative revenue are unavailable.",
+    "Direct Instagram metadata probes occurred before review of its explicit robots notice. The route was stopped and is not proposed as a continuing collector.",
+    "Follower counts from different dates/providers are kept separate. Missing duration, views, language or AI evidence remain null/unknown rather than zero.",
+    "Do not publish profile photos, downloaded media, signed CDN URLs, credentials, account-plan details or private job IDs in the directory."
+  ],
+  "merge_strategy": "Append sources by unique id; add new_profiles by id and platform handle; merge profile_enrichments additively by existing account id and platform+handle. Retain prior dated counts, conflicts and unknowns. Do not merge similarly named Kaizen/Yang accounts without ownership evidence.",
+  "discovery_leads": [
+    {
+      "display_name": "Monk Tao",
+      "url": "https://avatarfactory.io/ai-influencers/monk-tao",
+      "source_id": "avatarfactory-discovery-20261022",
+      "status": "commercial_directory_lead_not_profile_verified"
+    },
+    {
+      "display_name": "Yun Shen",
+      "url": "https://avatarfactory.io/ai-influencers/yun-shen",
+      "source_id": "avatarfactory-discovery-20261022",
+      "status": "commercial_directory_lead_not_profile_verified"
+    },
+    {
+      "display_name": "Shen Healings",
+      "url": "https://avatarfactory.io/ai-influencers/shen-healings",
+      "source_id": "avatarfactory-discovery-20261022",
+      "status": "commercial_directory_lead_not_profile_verified"
+    }
+  ],
+  "coverage": {
+    "existing_seed_accounts": 71,
+    "new_candidate_accounts": 4,
+    "existing_accounts_enriched": 5,
+    "proposed_combined_accounts": 75,
+    "scope": "English-first discovery; TikTok English language unconfirmed",
+    "complete_census": false,
+    "new_ai_verified_accounts": 0,
+    "moving_image_watches_completed": 0,
+    "media_downloads": 0,
+    "pattern_status": "insufficient_first_party_operator_and_watch_evidence"
+  },
+  "completed_at": "2026-10-22T14:42:03.637Z",
+  "youtube_recent_sample_summary": {
+    "account_id": "yang-mun",
+    "source_id": "yangmun-yt-recent20-20261022",
+    "entries": 20,
+    "comment_keyword_titles": 15,
+    "min_views": 12,
+    "max_views": 2300,
+    "sample_note": "Feed order first 20; per-entry publication dates were not fetched."
+  },
+  "validation": {
+    "json_parse": true,
+    "source_ids_unique": true,
+    "source_references_resolve": true,
+    "existing_ids_resolve": true,
+    "no_new_id_collisions": true,
+    "new_profile_schema_complete": true,
+    "snapshot_dates_and_sources_present": true,
+    "secret_and_signed_media_scan_passed": true,
+    "new_profiles": 4,
+    "existing_enrichments": 5,
+    "sources": 20
+  }
+}
