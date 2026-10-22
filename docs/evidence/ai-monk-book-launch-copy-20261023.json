@@ -1,0 +1,28 @@
+{
+  "campaign": "art_of_ai_monks_book_launch_en",
+  "language": "en",
+  "target": "@selawmqt",
+  "integration_id": "cmt4l2jld031tqp0y8qtyo983",
+  "destination": "https://aniccaai.com/the-art-of-ai-monks?utm_source=x&utm_medium=social&utm_campaign=art_of_ai_monks_book_launch_en",
+  "content": "The Art of AI Monks is out.\n\nA 59-page field guide to the avatars, scripts and storefronts behind the robes.\n\nThe full manuscript is free. The $9.99 PDF + EPUB supports the research.\n\nRespect to @shalevhvs / Yang Mun.\n\nhttps://aniccaai.com/the-art-of-ai-monks?utm_source=x&utm_medium=social&utm_campaign=art_of_ai_monks_book_launch_en",
+  "state": "published",
+  "verification": "Published book page and source manifest; no retweet or revenue promise",
+  "reference": "https://www.yang-mun.com/pages/journey",
+  "reference_scope": "The creator's public storefront is a product-funnel reference; it does not prove X book-launch performance.",
+  "evidence_gap": "No verified same-target X book-launch performance example was found in the collected research. This is one small first-party launch test.",
+  "mechanism": "Concrete curiosity about avatars and storefronts; explicit free manuscript; optional paid formats; one destination and creator attribution",
+  "measurement": {
+    "page_source": "utm_source=x&utm_medium=social&utm_campaign=art_of_ai_monks_book_launch_en",
+    "post_state": "Official Postiz exact id/integration/content/PUBLISHED/releaseURL readback",
+    "views": null,
+    "campaign_clicks": null,
+    "campaign_paid_orders": null,
+    "sku_paid_orders_before_post": 0,
+    "paid_order_observed_at": "2026-10-22T16:17:56.463457+00:00",
+    "sku_order_scope": "Official paginated Stripe Checkout Sessions since SKU creation; includes no paid orders and one expired unpaid canary",
+    "profit": null
+  },
+  "post_id": "cmvjqztrg1hrgot0ymefyzjqt",
+  "release_url": "https://x.com/selawmqt/status/2113304729166213433",
+  "official_readback": "Official Postiz readback; independent X timeline not asserted"
+}
