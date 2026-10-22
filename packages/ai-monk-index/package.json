@@ -1,0 +1,19 @@
+{
+  "name": "@anicca/ai-monk-index",
+  "version": "0.1.0",
+  "description": "Source-linked AI monk research index: offline JSON CLI and read-only MCP server",
+  "type": "module",
+  "license": "MIT AND CC-BY-4.0",
+  "engines": { "node": ">=20" },
+  "bin": { "ai-monk-index": "dist/cli.mjs", "ai-monk-mcp": "dist/stdio.mjs" },
+  "exports": { ".": "./dist/index.mjs", "./mcp": "./dist/mcp.mjs" },
+  "files": ["dist", "README.md", "LICENSE", "DATA-LICENSE.md"],
+  "repository": { "type": "git", "url": "https://github.com/Daisuke134/anicca-products.git", "directory": "packages/ai-monk-index" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "prepack": "npm run build"
+  },
+  "dependencies": { "@modelcontextprotocol/server": "2.3.1", "zod": "4.3.6" },
+  "devDependencies": { "@modelcontextprotocol/client": "2.3.1" }
+}

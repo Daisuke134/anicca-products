@@ -388,6 +388,7 @@ export default function AiMonkDatabase({
             <div className="mt-5 flex flex-wrap gap-3">
               <a href="/data/ai-monk-avatar-database-2026.json" className="inline-flex items-center gap-2 rounded-full bg-[#282a24] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#42443b]">Open the dataset <ArrowUpRight size={15} aria-hidden="true" /></a>
               <a href="https://github.com/Daisuke134/anicca-products/blob/main/apps/landing/public/data/ai-monk-avatar-database-2026.json" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-[#bcb5a7] px-4 py-2.5 text-sm font-semibold text-[#38382f] hover:bg-white">View on GitHub <ArrowUpRight size={15} aria-hidden="true" /></a>
+              <a href="https://github.com/Daisuke134/anicca-products/tree/main/packages/ai-monk-index" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-[#bcb5a7] px-4 py-2.5 text-sm font-semibold text-[#38382f] hover:bg-white">Use the CLI &amp; MCP <ArrowUpRight size={15} aria-hidden="true" /></a>
               <a href="https://github.com/Daisuke134/anicca-products/issues/new?title=AI%20monk%20profile%20suggestion" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-[#bcb5a7] px-4 py-2.5 text-sm font-semibold text-[#38382f] hover:bg-white">Suggest a profile <ArrowUpRight size={15} aria-hidden="true" /></a>
             </div>
           </div>

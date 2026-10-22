@@ -36,4 +36,4 @@
 
 ## 現在cursor
 
-仕様保存後、CLIとMCPの失敗テストから実装する。
+CLI/MCP未実装時の失敗を確認し、同じWeb helper/正本JSONをbuildで取り込むpackageを実装する。検索・個別取得・統計・不正入力・実際のstdio MCP client・別directoryへのtarballインストールと実行の7テストはPASS。Web helper既存5テストもPASS。ローカルのReact renderingテストはlanding依存未導入で起動不可のため、空き容量不足下で全依存を追加せず既存landing CIで確認する。packテストの初回はnpm metadata cache不足でoffline installが失敗したため、インストールには通常のregistryアクセスを使う。導入後のCLI/MCPはネットワークを使わない。次はfresh review、Node20 CI、main統合と公式Release公開。

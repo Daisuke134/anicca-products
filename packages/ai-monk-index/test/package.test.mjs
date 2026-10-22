@@ -1,0 +1,31 @@
+import assert from 'node:assert/strict';
+import { execFileSync } from 'node:child_process';
+import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import test from 'node:test';
+import { Client } from '@modelcontextprotocol/client';
+import { StdioClientTransport } from '@modelcontextprotocol/client/stdio';
+
+test('released tarball installs and runs both CLI and MCP outside the source checkout', async t => {
+  const scratch = await mkdtemp(join(tmpdir(), 'ai-monk-index-pack-'));
+  t.after(() => rm(scratch, { recursive: true, force: true }));
+  const root = fileURLToPath(new URL('../', import.meta.url));
+  const packed = JSON.parse(execFileSync('npm', ['pack', '--ignore-scripts', '--json', '--pack-destination', scratch], { cwd: root, encoding: 'utf8' }))[0];
+  assert.ok(packed.files.some(file => file.path === 'dist/database.json'));
+  assert.ok(packed.files.some(file => file.path === 'LICENSE'));
+  assert.ok(packed.files.some(file => file.path === 'DATA-LICENSE.md'));
+  assert.ok(packed.files.every(file => /^(dist\/|package\.json$|README\.md$|LICENSE$|DATA-LICENSE\.md$)/.test(file.path)));
+  execFileSync('npm', ['install', '--prefix', scratch, '--ignore-scripts', '--omit=dev', '--no-audit', '--no-fund', join(scratch, packed.filename)], { stdio: 'pipe' });
+  const installed = join(scratch, 'node_modules/@anicca/ai-monk-index');
+  const stats = JSON.parse(execFileSync(process.execPath, [join(installed, 'dist/cli.mjs'), 'stats'], { cwd: scratch, encoding: 'utf8' }));
+  const canonical = await readFile(new URL('../../../apps/landing/public/data/ai-monk-avatar-database-2026.json', import.meta.url));
+  assert.equal(stats.records, JSON.parse(canonical).accounts.length);
+  assert.deepEqual(await readFile(join(installed, 'dist/database.json')), canonical);
+  const client = new Client({ name: 'packed-package-acceptance', version: '1.0.0' });
+  t.after(() => client.close());
+  await client.connect(new StdioClientTransport({ command: process.execPath, args: [join(installed, 'dist/stdio.mjs')], cwd: scratch, stderr: 'pipe' }));
+  const result = await client.callTool({ name: 'ai_monk_index_stats', arguments: {} });
+  assert.deepEqual(result.structuredContent, stats);
+});
