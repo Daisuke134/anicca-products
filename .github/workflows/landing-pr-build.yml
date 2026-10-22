@@ -38,7 +38,7 @@ jobs:
       - name: Stage reviewed canonical Manager articles before build
         working-directory: apps/landing
         env:
-          MANAGER_BLOG_REVISION: 20828fc55f66d2ed8681d6bac4a9d2461ebec91a
+          MANAGER_BLOG_REVISION: 32cb5b84d052de9f2be3b2a3c8e8c21a150c4da1
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_BLOG_REVISION/apps/landing/manager-blog/scripts/install.mjs" -o /tmp/manager-blog-install.mjs
