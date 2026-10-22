@@ -14,5 +14,21 @@
   "formats": {
     "pdf": "the-art-of-ai-monks-en.pdf",
     "epub": "the-art-of-ai-monks-en.epub"
-  }
+  },
+  "word_count": 10874,
+  "chapters": [
+    "The Monk in the Feed",
+    "What Counts as an AI Monk?",
+    "A History Without a “First”",
+    "Yang Mun and Shalev Hani",
+    "The Creative Grammar of a Monk Short",
+    "From Scroll to Store",
+    "The Content Factory",
+    "Distribution and Measurement",
+    "Faith, Disclosure, and Health Claims",
+    "Build a Different Character"
+  ],
+  "pages": 59,
+  "manuscript_sha256": "4858b58ea835500ce3be38d55d91469d8207461cfe73e6d9042b1787afdb5d79",
+  "research_snapshot": "2026-10-21/2026-10-22"
 }

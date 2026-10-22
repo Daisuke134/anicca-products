@@ -69,7 +69,7 @@ Consider a hypothetical viewer who watches one 60-second reflection on each of 3
 
 ### A format with several jobs
 
-The researched profiles do not all lead to the same destination. Yang Mun has a program and bundles. The Zen Storyteller presents a named book in several formats. Yangjun displays a narrowly positioned guide and a separate creator-services listing. Ming San's bio links to an external wellness product. Other records have no verified offer. [S05][S19][S22][S23][S16][S28]
+The researched profiles do not all lead to the same destination. Yang Mun has a program and bundles. The Zen Storyteller presents a named book in several formats. Yangjun displays a narrowly positioned guide and a separate creator-services listing. Ming San's bio links to an external wellness product. Other records have no verified offer. [S05], [S19], [S22], [S23], [S16], [S28]
 
 Calling this a single “AI monk business model” conceals the differences. A book's production and support burden differ from a community's. An external product link may or may not earn commission. A creator-services listing has a business customer rather than the same reader buying a reflection. A useful analysis follows the actual route.
 
@@ -97,7 +97,7 @@ A **synthetic persona** is a character presented through generated visual or voc
 
 These are analytical possibilities, not labels automatically assigned to everyone in the index. Thai PBS's account of Phra Maha AI is useful precisely because it describes a real Thai monk working with programmers on a 2D character. A digital presentation does not turn the human teacher into a fictional person. [S15]
 
-The reverse error is equally tempting. If a seller calls a speaker a teacher, that assertion does not settle a dispute about how the character was made. Yang Mun's sources conflict: HeyGen and Columbia describe an AI character associated with Shalev Hani; a first-party statement says the teacher is real and the voice is AI-translated. The index retains `reported`, rather than deciding the case from visual confidence. [S01][S02][S03]
+The reverse error is equally tempting. If a seller calls a speaker a teacher, that assertion does not settle a dispute about how the character was made. Yang Mun's sources conflict: HeyGen and Columbia describe an AI character associated with Shalev Hani; a first-party statement says the teacher is real and the voice is AI-translated. The index retains `reported`, rather than deciding the case from visual confidence. [S01], [S02], [S03]
 
 ### Status describes evidence, not moral worth
 
@@ -107,9 +107,9 @@ The arithmetic is deliberately unexciting: 4 reported + 71 unverified = 75 recor
 
 Yan Chen illustrates the caution. A supplied screenshot showed @monjechen and an AI-generated-profile label. The label was not independently read back in the research. The screenshot's calendar capture date was unknown. Keeping this record `unverified` preserves both the useful lead and the limit of the evidence. Similar names do not justify merging it with Leo Chen or SifuChen. [S29]
 
-Ming San illustrates a source conflict rather than a missing label. Maldita includes the profile in its AI health-account investigation; AvatarFactory's commercial directory says public AI provenance is unresolved. The archive preserves that disagreement under `reported`. Its product link and audience count do not decide the identity question. [S14][S17]
+Ming San illustrates a source conflict rather than a missing label. Maldita includes the profile in its AI health-account investigation; AvatarFactory's commercial directory says public AI provenance is unresolved. The archive preserves that disagreement under `reported`. Its product link and audience count do not decide the identity question. [S14], [S17]
 
-Kai Tsukimi has a named book, a public site, and dated audience metadata. Those observations establish a storytelling brand and a visible offer. They do not establish an AI-generated identity. Buddha Would Say has an illustrated monk format described by a discovery provider, but no first-party production disclosure was established. Master Kaizen has public TikTok metadata, while spoken language and AI provenance remain unresolved. [S18][S19][S25][S26]
+Kai Tsukimi has a named book, a public site, and dated audience metadata. Those observations establish a storytelling brand and a visible offer. They do not establish an AI-generated identity. Buddha Would Say has an illustrated monk format described by a discovery provider, but no first-party production disclosure was established. Master Kaizen has public TikTok metadata, while spoken language and AI provenance remain unresolved. [S18], [S19], [S25], [S26]
 
 ### Build a useful record
 
@@ -135,11 +135,11 @@ This archive cannot resolve a worldwide first. It can build a dated sequence and
 
 Thai PBS describes Phra Maha AI's collaboration with programmers on a 2D character. Our saved source entry does not establish the article's publication date. It is a relevant virtual-monk precedent, but it should not be forced into a precise chronological slot the record cannot support. [S15]
 
-A supplied screenshot shows Yang Mun's YouTube channel joining on **4 November 2025**. This dates a channel registration, not the first creation of the persona or its first post anywhere. Public metadata dates the water-themed Short to **10 November 2025**, the health-themed sample to **25 November**, and the motivation sample to **29 November**. These are upload dates for specific items in the saved record. [S29][S11][S10][S09]
+A supplied screenshot shows Yang Mun's YouTube channel joining on **4 November 2025**. This dates a channel registration, not the first creation of the persona or its first post anywhere. Public metadata dates the water-themed Short to **10 November 2025**, the health-themed sample to **25 November**, and the motivation sample to **29 November**. These are upload dates for specific items in the saved record. [S29], [S11], [S10], [S09]
 
-Virtual Humans published its Yang Mun profile on **28 January 2026**. Columbia News Service published its investigation on **24 March 2026**. The first is an industry profile reporting creator claims; the second is independent reporting that includes creator statements. Neither date means the character began on that day. [S04][S02]
+Virtual Humans published its Yang Mun profile on **28 January 2026**. Columbia News Service published its investigation on **24 March 2026**. The first is an industry profile reporting creator claims; the second is independent reporting that includes creator statements. Neither date means the character began on that day. [S04], [S02]
 
-Maldita's **10 July 2026** investigation examined 16 synthetic social profiles. Its **27 July** investigation described a broader set of 250 AI health accounts, with data collected on **20–21 July**. These reports document an ecosystem at specified observation periods. They do not identify a universal starting point for monk avatars. [S13][S14]
+Maldita's **10 July 2026** investigation examined 16 synthetic social profiles. Its **27 July** investigation described a broader set of 250 AI health accounts, with data collected on **20–21 July**. These reports document an ecosystem at specified observation periods. They do not identify a universal starting point for monk avatars. [S13], [S14]
 
 Our **21–22 October 2026** snapshot combines public pages, metadata, prior observation notes, and discovery leads. It expands what can be compared, while still leaving most AI classifications unresolved. A chronology with gaps is more useful than a complete-looking story assembled from guesses.
 
@@ -149,7 +149,7 @@ Imagine a hypothetical character created in February, posted on one platform in 
 
 That is why a timeline needs at least two date fields: **event date** and **observation date**. Add **date type**: channel join, upload, article publication, page retrieval, or unknown. A screenshot captured in October can display an older upload date; both facts belong in the record.
 
-Counts also have clocks. Yang Mun's channel page displayed 172 videos on 21 October while the Shorts listing returned 143 entries. These are different surfaces, not proof that 29 videos vanished. The difference is 172 − 143 = 29, but arithmetic does not explain the reason for the difference. [S08][S12] This is a useful habit: calculate accurately, then stop before the calculation becomes an invented narrative.
+Counts also have clocks. Yang Mun's channel page displayed 172 videos on 21 October while the Shorts listing returned 143 entries. These are different surfaces, not proof that 29 videos vanished. The difference is 172 − 143 = 29, but arithmetic does not explain the reason for the difference. [S08], [S12] This is a useful habit: calculate accurately, then stop before the calculation becomes an invented narrative.
 
 ### A bounded search that can be repeated
 
@@ -165,11 +165,11 @@ History becomes interesting here without a championship belt. The virtual teache
 
 Yang Mun is the central case because the public trail crosses several useful boundaries: a recognizable character, named production technology, a named creator, multiple social surfaces, a direct product offer, large audience claims, and conflicting explanations of identity.
 
-Shalev Hani is the creator named by both HeyGen and Columbia News Service. His public X profile is a creator account, separate from the persona's Instagram @yangmunus and YouTube @Yangmunv2. Columbia reports him as based in Israel. That location belongs to the reported creator biography; it does not locate the character in a real monastery. Exact TikTok handles were not established in this archive. [S01][S02][S32][S07][S08]
+Shalev Hani is the creator named by both HeyGen and Columbia News Service. His public X profile is a creator account, separate from the persona's Instagram @yangmunus and YouTube @Yangmunv2. Columbia reports him as based in Israel. That location belongs to the reported creator biography; it does not locate the character in a real monastery. Exact TikTok handles were not established in this archive. [S01], [S02], [S32], [S07], [S08]
 
 ### The identity conflict belongs in the case
 
-HeyGen's customer story describes an AI character produced with its tools. Columbia's investigation likewise describes a generated character. A first-party statement linked by Columbia says Yang Mun is a real teacher and only the voice is translated using AI. [S01][S02][S03]
+HeyGen's customer story describes an AI character produced with its tools. Columbia's investigation likewise describes a generated character. A first-party statement linked by Columbia says Yang Mun is a real teacher and only the voice is translated using AI. [S01], [S02], [S03]
 
 Those statements cannot be compressed into one clean biography without choosing a conclusion the record does not independently settle. The sites also use different domains: the Journey seller page is on yang-mun.com, while the conflicting identity statement is on yangmuns.com. The similarity of names is not a reason to erase the distinction. Our source register preserves the exact URLs and the relationship reported in the research.
 
@@ -177,9 +177,9 @@ An interview with a production provider is valuable evidence of what that provid
 
 ### An audience with several clocks
 
-The 22 October connector snapshot returned approximately 2.5 million Instagram followers and 433 posts. The YouTube channel page on 21 October displayed about 159,000 subscribers and 172 videos. These figures refer to different platforms and metrics. They should not be added into a count of unique people, because an individual can follow on both platforms. [S07][S08]
+The 22 October connector snapshot returned approximately 2.5 million Instagram followers and 433 posts. The YouTube channel page on 21 October displayed about 159,000 subscribers and 172 videos. These figures refer to different platforms and metrics. They should not be added into a count of unique people, because an individual can follow on both platforms. [S07], [S08]
 
-Older successful-looking posts are easier to discover than ordinary ones. The motivation Short in the earlier observation notes showed 521,549 views at capture; the health-themed sample showed 1,102,388; the water-themed metadata entry showed 12,561,496. The last of these was not watched or fact-checked in this research. [S09][S10][S11]
+Older successful-looking posts are easier to discover than ordinary ones. The motivation Short in the earlier observation notes showed 521,549 views at capture; the health-themed sample showed 1,102,388; the water-themed metadata entry showed 12,561,496. The last of these was not watched or fact-checked in this research. [S09], [S10], [S11]
 
 A later bounded listing adds an important complication. On 22 October the first 20 Shorts entries returned view counts ranging from 12 to 2,300, and 15 titles contained comment-keyword invitations. Publication dates for those entries were not fetched. [S12] We cannot calculate equal-age performance, infer a decline, or identify causes. Comparing a recently listed item with an older breakout without its age would be a poor experiment. The useful finding is narrower: the archive contains both older high-reach examples and a different bounded listing with much smaller snapshot counts.
 
@@ -195,19 +195,19 @@ This is where imitation should stop being literal. The transferable question is 
 
 ### The offer is concrete even when the economics are not
 
-At the saved check, the Journey page displayed a one-time $49.99 price. Its described contents included daily five-to-ten-minute practices, weekly video teaching, a community, and Q&A. A $59.99 Complete Collection added three eBooks, titled *Time To Heal*, *Stillness*, and *Modern Soul*. A separate home-page bundle displayed $19.99. These are seller-listed offers, not independently tested benefits. [S05][S06]
+At the saved check, the Journey page displayed a one-time $49.99 price. Its described contents included daily five-to-ten-minute practices, weekly video teaching, a community, and Q&A. A $59.99 Complete Collection added three eBooks, titled *Time To Heal*, *Stillness*, and *Modern Soul*. A separate home-page bundle displayed $19.99. These are seller-listed offers, not independently tested benefits. [S05], [S06]
 
 The $10 difference between $49.99 and $59.99 is a visible offer-design decision. A customer already considering the program sees a relatively small additional price for the books. That is a plausible reason for the structure; the archive does not establish the seller's intention or the bundle's take rate.
 
 Suppose, purely hypothetically, 100 buyers chose between those two prices and 30 selected the higher option. Compared with all 100 buying the $49.99 option, gross receipts would increase by 30 × $10 = $300. This says nothing about actual sales, refunds, costs, or whether the bundle changes how many visitors buy at all. A pricing example becomes useful when its missing variables remain visible.
 
-The seller counters require the same care. The Journey page displayed 30,000-plus readers/books and 2,500 participants; the home page used 20,000-plus readers and a five-million audience statement. Their definitions, periods, platform overlap, and audit trail were unavailable. [S05][S06] Multiplying a participant counter by today's listed price would not reconstruct revenue. Participants might have paid different prices, received access another way, or been counted on a different basis. The record does not tell us.
+The seller counters require the same care. The Journey page displayed 30,000-plus readers/books and 2,500 participants; the home page used 20,000-plus readers and a five-million audience statement. Their definitions, periods, platform overlap, and audit trail were unavailable. [S05], [S06] Multiplying a participant counter by today's listed price would not reconstruct revenue. Participants might have paid different prices, received access another way, or been counted on a different basis. The record does not tell us.
 
 ### Large numbers that do not reconcile themselves
 
 Columbia reports Hani's statement of more than $300,000 in revenue since launch and a rejected $325,000 acquisition offer. It also reports an AI-character service offered at $799 per hour. [S02] Virtual Humans reports a claim of more than $300,000 in profit within 90 days and references a dashboard above $213,000 in gross revenue over three months. [S04]
 
-A supplied screenshot contains a headline claiming $500,000 in six months. Its exact post URL is not present in the screenshot record. Later search discovery found a creator-post URL, but the body was not read back, so that discovery does not authenticate or reconcile the accounting behind the screenshot. [S29][S31]
+A supplied screenshot contains a headline claiming $500,000 in six months. Its exact post URL is not present in the screenshot record. Later search discovery found a creator-post URL, but the body was not read back, so that discovery does not authenticate or reconcile the accounting behind the screenshot. [S29], [S31]
 
 These figures use different periods, categories, and evidence. Revenue is money from sales before relevant deductions. Profit requires a defined treatment of costs. A price for a service is an offer, not evidence of billable hours sold. A proposed acquisition is a possible transaction, not proceeds received. The public record does not supply one reconciled ledger joining these claims.
 
@@ -237,7 +237,7 @@ The examples in the archive suggest five useful script jobs: recognition, tensio
 
 **Recognition** tells the viewer what situation the video concerns. **Tension** gives the situation movement. **The turn** offers a different way to see or handle it. **The action** is something small enough to attempt. **The destination** says where to go if more help with that exact task is wanted.
 
-Yang Mun's motivation sample supplies an observed movement from worry to a repeatable reflection. The Zen Storyteller supplies caption and offer evidence connecting a life dilemma to a named book. Yangjun's selected caption supplies a direct guide-in-bio invitation. We have not watched the latter two clips' motion or measured their pacing; they support a message-and-offer comparison, not a shared editing formula. [S09][S20][S19][S24][S22]
+Yang Mun's motivation sample supplies an observed movement from worry to a repeatable reflection. The Zen Storyteller supplies caption and offer evidence connecting a life dilemma to a named book. Yangjun's selected caption supplies a direct guide-in-bio invitation. We have not watched the latter two clips' motion or measured their pacing; they support a message-and-offer comparison, not a shared editing formula. [S09], [S20], [S19], [S24], [S22]
 
 ### Make the visual world do one job
 
@@ -290,7 +290,7 @@ The researched routes show several different offers:
 | SifuChen California | Highlighted-story route described by Maldita | Reported €16.45 guide; exact live handle unresolved. [S13] |
 | Leo Chen | Comment invitation for a book/PDF | Reported lead path; price and paid conversion unknown. [S13] |
 | Ming San | Bio to an external beetroot product | Visible destination; commission, sales, and efficacy unknown. [S16] |
-| Yangjun | Guide in bio and a separate services listing | Displayed $29.99 guide and advertised creator services. [S22][S23] |
+| Yangjun | Guide in bio and a separate services listing | Displayed $29.99 guide and advertised creator services. [S22], [S23] |
 
 The table describes routes, not a league table of successful businesses. In particular, The Zen Storyteller's 100,000-plus copies and category-bestseller statement are seller claims; no order ledger or current independently verified Amazon rank was obtained. [S19] The account's AI origin also remains unresolved. A strong-looking commercial page can be useful to study without resolving either question.
 
@@ -324,7 +324,7 @@ Automation is most useful when the work is already understandable. It can repeat
 
 ### A reported workflow and a proposed one
 
-HeyGen's Yang Mun story reports simple scripts, avatar and voice delivery, batching, about 20 minutes per video, and increased cadence. GrowwStacks describes an automation route through a content table, an LLM script, HeyGen, captions, and a scheduler. The latter is an automation vendor's walkthrough, not evidence of Yang Mun's internal system. Its time-savings claims are not independently measured here. [S01][S27]
+HeyGen's Yang Mun story reports simple scripts, avatar and voice delivery, batching, about 20 minutes per video, and increased cadence. GrowwStacks describes an automation route through a content table, an LLM script, HeyGen, captions, and a scheduler. The latter is an automation vendor's walkthrough, not evidence of Yang Mun's internal system. Its time-savings claims are not independently measured here. [S01], [S27]
 
 For your own pilot, the proposed route can be shorter: a researched idea, an original script, authorized visual and voice assets, a generated or edited performance, readable captions, a reviewed final file, a public post, and a measured destination. Start with one character, one platform, and one offer. Add machinery only where repetition has become a real problem.
 
@@ -400,7 +400,7 @@ In a small pilot, keep the character, audience topic, destination, and product p
 
 Do not manufacture certainty from tiny numbers. If one hypothetical version gets two orders from 40 visits and another gets one from 30, both results are sparse. A sensible next action may be to try the clearer message again with another original story. There is no need to crown a permanent winner.
 
-The October research offers a warning about windows. Yang Mun's older high-view clips and the first 20 later listing entries do not have comparable ages in the available record. Master Kaizen's indexed and fetched view figures also differ within the saved snapshot. Preserve source-specific counts rather than averaging them into an invented exact value. [S09][S11][S12][S26]
+The October research offers a warning about windows. Yang Mun's older high-view clips and the first 20 later listing entries do not have comparable ages in the available record. Master Kaizen's indexed and fetched view figures also differ within the saved snapshot. Preserve source-specific counts rather than averaging them into an invented exact value. [S09], [S11], [S12], [S26]
 
 At the end of each pilot, write four sentences: what was published; what was observed; what remains unmeasured; what one change follows. If no orders are established, write that. If there are orders but no delivery confirmation, name that boundary. The most useful report points to a next action without pretending it has already happened.
 
@@ -418,7 +418,7 @@ For a wholly fictional production, a plain description might be: “An original 
 
 Put the information where viewers can reasonably encounter it, including the video or its immediate description and the profile. Platform labels can supplement that explanation. This book does not document every platform's current policy or every jurisdiction's requirements. Check the current official rules for the actual service and location before publishing; do not turn a sentence here into a claim of legal compliance.
 
-The identity dispute around Yang Mun demonstrates why the words matter. “Real teacher with AI translation” and “AI-generated character” tell the viewer different things about the speaker. The point of preserving the conflict is to make interpretation possible, not to turn an unresolved identity into entertainment at a person's expense. [S01][S02][S03]
+The identity dispute around Yang Mun demonstrates why the words matter. “Real teacher with AI translation” and “AI-generated character” tell the viewer different things about the speaker. The point of preserving the conflict is to make interpretation possible, not to turn an unresolved identity into entertainment at a person's expense. [S01], [S02], [S03]
 
 ### Treat traditions as sources, not props
 
@@ -432,7 +432,7 @@ An original character can have texture without claiming a culture's authority. G
 
 ### Health changes the stakes
 
-A viewer may enjoy a harmless story and also be vulnerable to an authoritative-sounding remedy. A health claim requires its own qualified evidence; popularity cannot provide that evidence. The researched examples include unsupported or unverified claims, and this book studies their presentation rather than endorsing them. [S10][S14][S16][S22]
+A viewer may enjoy a harmless story and also be vulnerable to an authoritative-sounding remedy. A health claim requires its own qualified evidence; popularity cannot provide that evidence. The researched examples include unsupported or unverified claims, and this book studies their presentation rather than endorsing them. [S10], [S14], [S16], [S22]
 
 For a creator without the necessary expertise and substantiation, the practical choice is to stay with a different topic. A story about preparing a question for an appointment differs from advising a viewer how to diagnose or treat a condition. An evidence-free “ancient remedy” is not improved by adding a soothing soundtrack or a disclaimer beneath it.
 
@@ -456,7 +456,7 @@ No part requires a false monastery, an unlicensed human likeness, or a miraculou
 
 Write one sentence: “This character helps [specific audience] with [ordinary task] through [kind of story].” Then write the limit: “It does not claim [authority or outcome].” For our example, the audience is people facing small unfinished work; the story is a gentle comic comparison; the limit excludes religious and medical authority.
 
-Study three relevant public examples before deciding how to present the idea. The archive's comparison of Yang Mun, Kai Tsukimi, and Yangjun separates a recorded one-point reflection, a story-to-book route, and a narrow guide offer. These examples have different evidence quality and unresolved operators; they are not three independently proven profitable factories. [S09][S19][S22]
+Study three relevant public examples before deciding how to present the idea. The archive's comparison of Yang Mun, Kai Tsukimi, and Yangjun separates a recorded one-point reflection, a story-to-book route, and a narrow guide offer. These examples have different evidence quality and unresolved operators; they are not three independently proven profitable factories. [S09], [S19], [S22]
 
 Write down what you will adapt: a clear opening situation, one point, a stable original setting, or continuity from story to product. Write down what stays with the original creator: words, face, voice, biographical identity, and protected media. This is a design brief you can actually use.
 

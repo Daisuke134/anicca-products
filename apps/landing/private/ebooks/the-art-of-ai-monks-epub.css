@@ -1,0 +1,1 @@
+body { font-family: serif; line-height: 1.5; margin: 5%; } h1,h2,h3 { line-height: 1.2; } h2 { break-before: page; } p { margin: .7em 0; } a,code { overflow-wrap: anywhere; } pre { white-space: pre-wrap; } table { width: 100%; border-collapse: collapse; font-size: .85em; } td,th { padding: .3em; border-bottom: 1px solid #aaa; }

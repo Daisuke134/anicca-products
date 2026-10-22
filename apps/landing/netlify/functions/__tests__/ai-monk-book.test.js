@@ -60,7 +60,7 @@ test('other book entitlement cannot select the new book through request paramete
   assert.equal(path.basename(file), 'anicca-reset-en.pdf');
 });
 
-test('new book rejects unpaid, test-mode, other-edition, and unavailable-language sessions', async () => {
+test('production download rejects unpaid, test-mode, other-edition, and unavailable-language sessions', async () => {
   for (const session of [paid({ payment_status: 'unpaid' }), paid({ livemode: false }),
     paid({ metadata: { product: book.product, book_sku: 'other-edition', lang: 'en' } }),
     paid({ metadata: { product: book.product, book_sku: book.sku, lang: 'jp' } })]) {
@@ -80,19 +80,12 @@ async function delivery(session, sendEmail) {
   });
 }
 
-test('signed paid new-book event emails the correct PDF and EPUB without Reset delivery', async () => {
-  let mail;
-  const response = await delivery(paid(), async (_key, _email, subject, html) => { mail = { subject, html }; });
-  assert.equal(response.statusCode, 200);
-  assert.equal(mail.subject, 'Your copy of The Art of AI Monks');
-  assert.match(mail.html, /format=pdf/);
-  assert.match(mail.html, /format=epub/);
-  assert.doesNotMatch(mail.html, /Anicca Reset/);
-});
-
-test('signed unpaid new-book event sends no delivery email', async () => {
-  let sent = 0;
-  const response = await delivery(paid({ payment_status: 'unpaid' }), async () => { sent += 1; });
-  assert.equal(response.statusCode, 200);
-  assert.equal(sent, 0);
+test('new-book events do not trigger Reset or Letter delivery mail', async () => {
+  for (const session of [paid(), paid({ payment_status: 'unpaid' })]) {
+    let sent = 0;
+    const response = await delivery(session, async () => { sent += 1; });
+    assert.equal(response.statusCode, 200);
+    assert.equal(response.body, 'ok ai-monk-book');
+    assert.equal(sent, 0);
+  }
 });

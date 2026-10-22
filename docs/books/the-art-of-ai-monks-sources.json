@@ -14,7 +14,7 @@
     "original_text_and_worksheets_license": "CC BY 4.0",
     "license_url": "https://creativecommons.org/licenses/by/4.0/",
     "third_party_rights_note": "Third-party media, names, marks, profile content and linked material retain their own rights.",
-    "manuscript_sha256": "72022ebc97d97a0059e7e60959bdc3088895e67b07c2a26d3d8625c05906a441",
+    "manuscript_sha256": "4858b58ea835500ce3be38d55d91469d8207461cfe73e6d9042b1787afdb5d79",
     "word_count_method": "English lexical words including headings, reference prose and worksheets; contractions and hyphenated English words count once; URLs, reference labels, numeric-only tokens and placeholders excluded.",
     "word_count_full": 10874,
     "word_count_before_appendices": 9424,

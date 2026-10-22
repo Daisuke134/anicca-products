@@ -134,3 +134,11 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 **X公開済み:** AM-11はPostiz公式GETで英語 `cmvjodr4i18bbot0y14apjr6z` / [X](https://x.com/selawmqt/status/2113286528508285146)、日本語 `cmvjofwki18joot0ye8ugzfyl` / [X](https://x.com/selawmqt/status/2113286777054360059) をPUBLISHED確認。接続は両方 `@selawmqt`。独立したX timeline readback、閲覧数、click、注文、売上は今回未測定で0とはしない。本文とreceiptは `docs/evidence/ai-monk-x-launch-{en,ja}-20261022.json`。Dais用再投稿copyは同じ完成本文として提示する。
 
 **factoryの現状と残TODO:** 現在の公式Postiz最新eBook公開は英語TikTok10/17、日本語TikTok10/19、日本語Instagram10/20。English IGは既存plan30/30で未接続。旧HeyGen requestのscript/video/cost照合、三ownerのexact effect readback、実Postizの自社宣伝disclosure、記事compose失敗の診断が必要。運用の正本はLife Manager `docs/superpowers/specs/2026-09-25-life-manager-unified-ssot.md` のS11。新刊の英語初版10章本文・出典manifestは完成し、日英outlineと表紙を継承する。日本語本文・EPUB/PDF・SKU・出版/注文/売上のreadbackは未完。factory OSS packageとsubscription web app、MCP/ChatGPT appは未実装。
+
+**AM-13英語初版の実装・検証:** 原稿とsource manifestはcommit `930233f17`でpush済み。citationの隣接記法が参照先を取り違える問題を直し、原稿SHAは `4858b58ea835500ce3be38d55d91469d8207461cfe73e6d9042b1787afdb5d79`。`apps/landing/scripts/build-ai-monk-book.py` が既存pandoc/WeasyPrintで59頁PDFとEPUBを生成し、HTML95引用リンクとEPUBの引用先・mimetype/container/spineを照合する。表紙は全体を収め、サンプル紙面を目視確認。正式assetは `apps/landing/private/ebooks/the-art-of-ai-monks-en.{pdf,epub}`。
+
+購入は既存Checkoutで固定SKU `art_of_ai_monks_en_v1`、英語・one-timeのみ。決済完了画面から両形式を取得し、serverがcomplete/paid/本番mode/正確なproduct・SKU・言語を照合する。既存Writerと同じCheckout entitlementによる納品で、新書籍のメール送信は追加しない。Resend既存helperの失敗握り潰しとtest-domain senderが独立検証で見つかったため、新書籍のメール分岐を除き、既存Reset/Letterへ混ざらない契約testを残す。関連20件PASS。full manuscript/sourceは無料GitHubで読め、$9.99は整形済み版で研究を支援する購入だと販売ページに明示する。
+
+**運用の反映:** factory修正はLife Manager PR #8544、main `1dbf2b502d9f0733e91b6f53a6ecd2ab86675da1`、全13checks PASSで統合。正式release `20261023T003543-1dbf2b50`をEN TikTokとebook-articlesのidle ownerへ限定採用し、loaded SHA/argvをreadback。旧HeyGen動画は公式scenesとの完全一致でIDを回復し、cost_reconciliation_required / cost=null / guard維持。日次公開の復旧・注文・売上は未達。
+
+**現在cursor:** AM-13英語初版のfresh review→exact-head CI→main/Netlify→公開ページとlive CheckoutのSKU/金額/保護downloadを確認。AM-14は過去の個別HeyGen費用と残る3件のprovider effect照合、次の自然slotの診断を並行継続する。新刊日本語、factory OSS、subscription、MCP/appは未完として保持する。

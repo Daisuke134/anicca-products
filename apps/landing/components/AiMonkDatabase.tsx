@@ -11,6 +11,7 @@ import {
 } from '@/lib/ai-monk-directory.mjs';
 
 const ARTICLE_LINKS = [
+  { href: '/the-art-of-ai-monks', label: 'The book · PDF + EPUB · $9.99' },
   { href: '/blog/ebook-publishing-yang-mun-video-to-product', label: 'The Yang Mun Shock · EN' },
   { href: '/blog/ebook-publishing-yang-mun-case-study-ja', label: 'Yang Munの衝撃 · JA' },
   { href: '/blog/ebook-publishing-ai-monk-economy-2026', label: 'The Art of AI Monks · EN' },

@@ -1,0 +1,27 @@
+{
+  "manuscript_sha256": "4858b58ea835500ce3be38d55d91469d8207461cfe73e6d9042b1787afdb5d79",
+  "word_count": 10874,
+  "chapters": 10,
+  "pdf_pages": 59,
+  "epub_spine_items": 17,
+  "citation_link_pairs_checked": 95,
+  "files": [
+    {
+      "path": "apps/landing/private/ebooks/the-art-of-ai-monks-en.pdf",
+      "bytes": 2752798,
+      "sha256": "99d5cb2977cadffbfe5135679bbedc757749ebf2fb7aba1549e39f62b5309d1b"
+    },
+    {
+      "path": "apps/landing/private/ebooks/the-art-of-ai-monks-en.epub",
+      "bytes": 2659253,
+      "sha256": "03296f581ba588c52a17dd90f0f4bc749995d180b154eb8afc89e7eca16d490c"
+    }
+  ],
+  "validation": "PDF metadata and sampled visual review; EPUB mimetype/container/manifest/spine; 95 HTML citation links and all EPUB citation targets matched source definitions",
+  "pdf_visual_review_pages": [
+    1,
+    17,
+    59
+  ],
+  "visual_review": "Cover title and author fully visible; sampled body and reference pages readable; no cropping."
+}

@@ -36,6 +36,9 @@ jobs:
       - name: AI monk directory contracts
         run: node --test lib/ai-monk-directory.test.mjs test/ai-monk-evidence-rendering.test.mjs
 
+      - name: Book checkout and delivery contracts
+        run: node --test netlify/functions/__tests__/ai-monk-book.test.js netlify/functions/__tests__/ebook-download.test.js netlify/functions/_lib/__tests__/ebook-checkout.test.js
+
       - run: npm run test:telemetry
       - run: npm run test:anicca-app-store-routing
       - name: Stage reviewed canonical Manager articles before build
