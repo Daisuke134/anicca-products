@@ -83,7 +83,7 @@ The server page imports the public JSON and passes its `accounts` to `<AiMonkDat
 
 - [x] Build the page and client component with visible `aria-label`s for search and each filter, an accessible no-results state, and a clear-filters control.
 - [x] Show “Unknown” when a value is absent; never label the creator's location as the avatar's country.
-- [x] Distinguish 5 researched profiles from 66 unverified candidate leads in the count and card status; do not present the list as a census.
+- [x] Distinguish 9 researched profiles from 66 unverified candidate leads in the count and card status; do not present the list as a census.
 - [x] Show the researched profiles and candidate leads without copying portraits or downloading creators' videos.
 - [x] Add `metadata` with canonical `https://aniccaai.com/ai-monk-database` and a concise directory description.
 - [x] Add a visible link from the four articles to `/ai-monk-database`.
@@ -125,17 +125,17 @@ The server page imports the public JSON and passes its `accounts` to `<AiMonkDat
 - [x] Run the focused directory search test; 4/4 cases pass. Run related article JSON-LD, blog business, reading-order, YouTube embed, and CTA-link tests; 24/24 pass.
 - [x] Stage the canonical marketing and Manager blog inputs at their pinned revisions with matching SHA256, then run `cd apps/landing && npx next build`; all 662 static pages generate, including `/ai-monk-database` and all four article routes. The build shows existing Wallet dependency and Tailwind warnings.
 - [x] Run `git diff --check`, inspect only the dedicated branch diff, and verify no video/media download, secret, or Manager staging artifacts remain in the branch.
-- [ ] Commit and push the dedicated branch; open a PR; wait for exact-head CI; merge through the repo's normal `--admin` path.
-- [ ] Confirm the Netlify production deploy and read back `/ai-monk-database`, all four article URLs, and `/data/ai-monk-avatar-database-2026.json`.
+- [x] Commit and push the dedicated branch; open a PR; wait for exact-head CI; merge through the repo's normal `--admin` path.
+- [x] Confirm the Netlify production deploy and read back `/ai-monk-database`, all four article URLs, and `/data/ai-monk-avatar-database-2026.json`.
 
 ### Task AM-11: Promote the live directory and revised features on X
 
 **Files:**
 - Create: `docs/evidence/ai-monk-avatar-directory-x-distribution-20261021.json`
 
-- [ ] Use one English post for the directory and one Japanese post for `Yang Munの衝撃`; each post contains its own direct production URL and a unique UTM campaign.
-- [ ] Publish through the existing `@selawmqt` Postiz identity only after live URL readback; do not edit or resend the previous four posts.
-- [ ] Read back each Postiz `PUBLISHED` receipt and X permalink; store sanitized public receipt fields and distinguish views/pageviews from clicks, orders, and revenue.
+- [x] Use one English and one Japanese post for the directory and linked revised features; each post contains its own direct production URL and a unique UTM campaign.
+- [x] Publish through the existing `@selawmqt` Postiz identity only after live URL readback; do not edit or resend the previous four posts.
+- [x] Read back each Postiz `PUBLISHED` receipt and X permalink; store sanitized public receipt fields and distinguish views/pageviews from clicks, orders, and revenue.
 
 ## Plan self-review
 
@@ -153,19 +153,23 @@ The server page imports the public JSON and passes its `accounts` to `<AiMonkDat
 
 **Canonical staging ruling:** The full export also requires the Life Manager marketing overlay at revision `3c41b727b8e5c6ed64008afd814e9833e0047025` (SHA256 `bd3a31878a87c9770a6cefa7e8c8140a41625da2e102cbe9f2e8cb7f35a3eec9`) and Manager blog package at revision `6ec72c658ee993cd4292548b4f8668b3fca3181d` (installer SHA256 `3f80daa0880902f2ed571b81606d62dff9d5894d04e17689355c667c01443a32`). Both were staged for the local build, then generated Manager files and tracked integration patches were restored/removed before commit.
 
-**Current cursor:** AM-10 — inspect the final feature diff, push, open the PR, and complete production readback.
+**Current cursor:** AM-14 — existing factory recovery; AM-10 and AM-11 are complete with production/provider evidence below.
 
 ## 英語優先の公開継続
 
-- [ ] AM-12: vidIQの公開検索・profile readback、yt-dlp metadata、GitHub OSSの実測を保存し、英語の有力profileと公開metricsをデータへ反映する。
-- [ ] 新題 The Art of AI Monks を日英book outlineへ反映し、記事・directory・新刊・factoryを同じspecへ接続する。
-- [ ] 有力profileを公開platformのfollowers順で比較できる最小sortを追加し、既存検索/AND filterを保持する。
-- [ ] 最新main由来の専用branchへ未公開成果を継承し、AM-10/AM-11を閉じる。
+- [x] AM-12: vidIQの公開検索・profile readback、yt-dlp metadata、GitHub OSSの実測を保存し、英語の有力profileと公開metricsをデータへ反映する。
+- [x] 新題 The Art of AI Monks を日英book outlineへ反映し、記事・directory・新刊・factoryを同じspecへ接続する。
+- [x] 有力profileを公開platformのfollowers順で比較できる最小sortを追加し、既存検索/AND filterを保持する。
+- [x] 最新main由来の専用branchへ未公開成果を継承し、AM-10/AM-11を閉じる。
 
-**現在cursor:** AM-12調査とAM-10公開準備。新worktreeは `/Users/anicca/Projects/anicca-products-worktrees/ai-monk-index-launch-20261022`、branchは `feat/ai-monk-index-launch-20261022`。
+**現在cursor:** AM-14の既存配信復旧。AM-12/10/11は完了。公開worktreeは `/Users/anicca/Projects/anicca-products-worktrees/ai-monk-index-launch-20261022`、branchは `feat/ai-monk-index-launch-20261022`。
 
 **公開継続の検証:** 追加sortは失敗テスト（export未実装）を先に確認し、実装後5/5 PASS。関連記事/読み順/CTA/YouTubeを含むfocused25件PASS。最新mainのcanonical marketing `ddae10f6f511d374229062e0a15a3c9c3e41e33d` とManager renderer `25eefdf84842b14059800b35667f3520b06ec4c9` / content `32cb5b84d052de9f2be3b2a3c8e8c21a150c4da1` をworkflow通りstageし、681静的pageのbuild成功。buildは依存Wallet/Tailwind既存warnings、TS/lint skipを出す。canonical stagingのsource差分と106生成fileはtask branchから除外。最終75件dataはJSON参照/重複検証をPASSし、exact-head CIで再buildする。
 
 **型検査の限界:** `tsc --noEmit --incremental false` は既存6件（dashboard-core declaration、wallet ExportPrivateKeyButtonProps、LmBody/LmJaCtaのwriter CTA exports）でexit2。AI Monk追加fileのerrorは0。full buildは既存設定通りtype validationをskipするため、この型債務を解消したとは報告しない。
 
 **公開前の限定検証修正:** fresh read-only検証で指摘された3候補の古いunknown、provider丸め値/出典の表示不足、4記事の旧5/64件表記を修正。丸め値とsourceリンクのrender失敗testを先に確認し、修正後6/6 PASS。Yomiyasu v2.1.1で日本語最終稿2本のlint/diff/materialsとhash verifyを実行。lint error0、fact gap0、各warn2（既存の敬体反復）。数値差分候補3件は実データに基づく5→9の意図した更新として確認。receiptは `docs/evidence/ai-monk-editorial-20261022/summary.json`。
+
+**本番・告知の完了:** PR #551 merged SHA `d4380515c995abd0611987bedead436fbe432dcb`。exact-head CI PASS、Netlify run `39800192156` success。UI・4記事・JSONを本番readbackし、75 records/48 sources。英語X `2113286528508285146`、日本語X `2113286777054360059` はPostiz PUBLISHEDと正確なintegration/content/permalinkを照合。analytics未測定はnullで保持。証拠は `docs/evidence/ai-monk-index-production-20261022.json` と `docs/evidence/ai-monk-x-launch-{en,ja}-20261022.json`。
+
+**実行順の更新:** 旧AM-13→AM-14、新AM-14限定復旧→AM-13。既存配信の停止を公式Postizで確認したため、既存収益導線を先に回復する。Life Manager S11が運用TODOの正本。現在はHeyGen既存生成結果の照合とdisclosure修正。新刊本文/EPUB/PDF/販売、OSS factory、subscriptionは未完。
