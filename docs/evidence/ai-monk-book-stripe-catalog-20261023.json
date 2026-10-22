@@ -12,7 +12,8 @@
   "active": true,
   "livemode": true,
   "verification": "official product and price GET",
-  "checkout_deployed": false,
+  "checkout_deployed": true,
   "paid_orders": null,
-  "revenue": null
+  "revenue": null,
+  "checkout_production_evidence": "docs/evidence/ai-monk-book-checkout-production-20261023.json"
 }

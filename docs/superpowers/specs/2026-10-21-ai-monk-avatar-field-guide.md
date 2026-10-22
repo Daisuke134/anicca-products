@@ -99,7 +99,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 **順序変更:** 旧cursorは記事改稿だった。Daisが検索Webアプリを先に作るよう指示したため、旧順序（記事→UI）をデータ/検索契約→候補登録→UI→記事→配信へ変更。今回のInstagramフォロー画面は未確認候補の収集としてAM-7Bへ挿入し、自動スクレイピングなしで候補の出所を保持する。
 
-**現在cursor:** AM-14 — AM-12の初期英語調査、AM-10本番公開、AM-11英日X告知は完了。既存factoryの生成結果照合と配信復旧を進める。
+現在cursor → 末尾の「現在cursor」を参照。
 
 ## The Art of AI Monks — 全体成果と実行順
 
@@ -133,7 +133,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 **X公開済み:** AM-11はPostiz公式GETで英語 `cmvjodr4i18bbot0y14apjr6z` / [X](https://x.com/selawmqt/status/2113286528508285146)、日本語 `cmvjofwki18joot0ye8ugzfyl` / [X](https://x.com/selawmqt/status/2113286777054360059) をPUBLISHED確認。接続は両方 `@selawmqt`。独立したX timeline readback、閲覧数、click、注文、売上は今回未測定で0とはしない。本文とreceiptは `docs/evidence/ai-monk-x-launch-{en,ja}-20261022.json`。Dais用再投稿copyは同じ完成本文として提示する。
 
-**factoryの現状と残TODO:** 現在の公式Postiz最新eBook公開は英語TikTok10/17、日本語TikTok10/19、日本語Instagram10/20。English IGは既存plan30/30で未接続。旧HeyGen requestのscript/video/cost照合、三ownerのexact effect readback、実Postizの自社宣伝disclosure、記事compose失敗の診断が必要。運用の正本はLife Manager `docs/superpowers/specs/2026-09-25-life-manager-unified-ssot.md` のS11。新刊の英語初版10章本文・出典manifestは完成し、日英outlineと表紙を継承する。日本語本文・EPUB/PDF・SKU・出版/注文/売上のreadbackは未完。factory OSS packageとsubscription web app、MCP/ChatGPT appは未実装。
+**factoryの現状と残TODO:** 既存ownerの運用正本はLife Manager `docs/superpowers/specs/2026-09-25-life-manager-unified-ssot.md` のS11を参照。EN TikTokとarticlesへmain由来releaseを採用済み。旧HeyGenのvideo IDは回復するが個別費用は未照合、三provider fenceも保持し、日次公開の復旧は未達。English IGは既存plan30/30で未接続。日本語書籍の全文・EPUB/PDF、factory OSS package、subscription web app、MCP/ChatGPT appは未完。
 
 **AM-13英語初版の実装・検証:** 原稿とsource manifestはcommit `930233f17`でpush済み。citationの隣接記法が参照先を取り違える問題を直し、原稿SHAは `4858b58ea835500ce3be38d55d91469d8207461cfe73e6d9042b1787afdb5d79`。`apps/landing/scripts/build-ai-monk-book.py` が既存pandoc/WeasyPrintで59頁PDFとEPUBを生成し、HTML95引用リンクとEPUBの引用先・mimetype/container/spineを照合する。表紙は全体を収め、サンプル紙面を目視確認。正式assetは `apps/landing/private/ebooks/the-art-of-ai-monks-en.{pdf,epub}`。
 
@@ -141,4 +141,6 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 **運用の反映:** factory修正はLife Manager PR #8544、main `1dbf2b502d9f0733e91b6f53a6ecd2ab86675da1`、全13checks PASSで統合。正式release `20261023T003543-1dbf2b50`をEN TikTokとebook-articlesのidle ownerへ限定採用し、loaded SHA/argvをreadback。旧HeyGen動画は公式scenesとの完全一致でIDを回復し、cost_reconciliation_required / cost=null / guard維持。日次公開の復旧・注文・売上は未達。
 
-**現在cursor:** AM-13英語初版のfresh review→exact-head CI→main/Netlify→公開ページとlive CheckoutのSKU/金額/保護downloadを確認。AM-14は過去の個別HeyGen費用と残る3件のprovider effect照合、次の自然slotの診断を並行継続する。新刊日本語、factory OSS、subscription、MCP/appは未完として保持する。
+**AM-13英語版の公開:** PR [#553](https://github.com/Daisuke134/anicca-products/pull/553)、main `6c21d91c08eb37ce3c47e2290606f58ccf361781`、exact-head landing CIとNetlify run `39809692295`がsuccess。販売ページ `https://aniccaai.com/the-art-of-ai-monks` はHTTP200、canonical・59ページ・10,874語・PDF/EPUB・$9.99・無料全文への案内を確認。fresh independent reviewは残存指摘0、関連35テストPASS。live Checkoutは公式Stripe GETでSKU/999 USD cents/one-time/本番mode/成功URLを確認し、未払いPDF/EPUBは共に403。検証sessionは未払いのまま失効を公式GET確認。原稿・出典・英語format・販売ページ・SKU・未払い保護までは公開済み。実購入・支払済み本番納品・注文・売上は未確認。根拠は `docs/evidence/ai-monk-book-{production,checkout-production,stripe-catalog}-20261023.json`。
+
+**現在cursor:** AM-14の過去の個別HeyGen費用、三provider effectのexact proof、次の自然slotの診断を継続する。AM-13英語版の公開は完了し、実購入/納品と収益を別に計測する。日本語全本文とformat、AM-15 OSS、AM-16 subscription、MCP/app、多言語coverageは未完。全文が無料公開されていることを隠さず、整形済み版の購入で研究を支援できる導線とする。
