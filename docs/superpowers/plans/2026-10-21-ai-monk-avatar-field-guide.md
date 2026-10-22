@@ -167,3 +167,5 @@ The server page imports the public JSON and passes its `accounts` to `<AiMonkDat
 **公開継続の検証:** 追加sortは失敗テスト（export未実装）を先に確認し、実装後5/5 PASS。関連記事/読み順/CTA/YouTubeを含むfocused25件PASS。最新mainのcanonical marketing `ddae10f6f511d374229062e0a15a3c9c3e41e33d` とManager renderer `25eefdf84842b14059800b35667f3520b06ec4c9` / content `32cb5b84d052de9f2be3b2a3c8e8c21a150c4da1` をworkflow通りstageし、681静的pageのbuild成功。buildは依存Wallet/Tailwind既存warnings、TS/lint skipを出す。canonical stagingのsource差分と106生成fileはtask branchから除外。最終75件dataはJSON参照/重複検証をPASSし、exact-head CIで再buildする。
 
 **型検査の限界:** `tsc --noEmit --incremental false` は既存6件（dashboard-core declaration、wallet ExportPrivateKeyButtonProps、LmBody/LmJaCtaのwriter CTA exports）でexit2。AI Monk追加fileのerrorは0。full buildは既存設定通りtype validationをskipするため、この型債務を解消したとは報告しない。
+
+**公開前の限定検証修正:** fresh read-only検証で指摘された3候補の古いunknown、provider丸め値/出典の表示不足、4記事の旧5/64件表記を修正。丸め値とsourceリンクのrender失敗testを先に確認し、修正後6/6 PASS。Yomiyasu v2.1.1で日本語最終稿2本のlint/diff/materialsとhash verifyを実行。lint error0、fact gap0、各warn2（既存の敬体反復）。数値差分候補3件は実データに基づく5→9の意図した更新として確認。receiptは `docs/evidence/ai-monk-editorial-20261022/summary.json`。

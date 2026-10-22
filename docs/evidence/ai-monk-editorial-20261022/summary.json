@@ -1,0 +1,38 @@
+{
+  "tool": "Yomiyasu",
+  "version": "2.1.1",
+  "revision": "fbe02c93877d697cc53d9377b7a45dd8a1dd99b3",
+  "records": [
+    {
+      "slug": "ebook-publishing-yang-mun-case-study-ja",
+      "run_id": "20261022T145022Z-505974d2",
+      "status": "executed",
+      "verify_status": "executed",
+      "final_sha256": "7f8f97b74fd3c4d8cdfb76be9bce1b0c990a0f3f860c2cb3d0988a052598076b",
+      "lint_counts": {
+        "error": 0,
+        "warn": 2,
+        "info": 4
+      },
+      "fact_gap_count": 0,
+      "meaning_risk_count": 1,
+      "accepted_risks": "Intended five-to-nine count corrections; no unsupported claim added."
+    },
+    {
+      "slug": "ai-monk-avatar-field-guide-ja-2026",
+      "run_id": "20261022T145022Z-dd44fe76",
+      "status": "executed",
+      "verify_status": "executed",
+      "final_sha256": "2c72f5148cac480363cb1f55d0c007a7e3320dd9238850c79de2d48b990b309d",
+      "lint_counts": {
+        "error": 0,
+        "warn": 2,
+        "info": 9
+      },
+      "fact_gap_count": 0,
+      "meaning_risk_count": 2,
+      "accepted_risks": "Intended five-to-nine count corrections; no unsupported claim added."
+    }
+  ],
+  "manual_review": "All three numeric-change candidates are intentional corrections from five researched profiles to nine, supported by the 75-record dataset. Original first-five case analysis remains historical. Repeated polite endings were reviewed; no fact change is required."
+}

@@ -30,6 +30,7 @@ const STATUS_STYLES = {
 } as const;
 
 type FilterField = keyof AiMonkDirectoryFilters;
+type EvidenceSource = { id: string; title: string; url?: string | null };
 
 function unique(values: string[]) {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b));
@@ -51,7 +52,7 @@ function sourceLabel(url: string) {
   }
 }
 
-function ProfileCard({ account }: { account: AiMonkAccount }) {
+function ProfileCard({ account, sourceById }: { account: AiMonkAccount; sourceById: Record<string, EvidenceSource> }) {
   const languages = account.languages?.map(({ label }) => label) ?? [];
   const snapshots = (account.platforms ?? []).flatMap((platform) =>
     (platform.snapshots ?? []).map((snapshot) => ({ ...snapshot, platform: platform.platform }))
@@ -117,8 +118,10 @@ function ProfileCard({ account }: { account: AiMonkAccount }) {
           <div className="mt-2 flex flex-wrap gap-2">
             {snapshots.map((snapshot, index) => (
               <span key={`${snapshot.metric}-${snapshot.as_of ?? 'undated'}-${index}`} className="rounded-xl bg-[#f7f5f0] px-3 py-2 text-xs text-[#49483f]">
-                <strong className="text-sm text-[#24251f]">{metricValue(snapshot.value)}</strong> {snapshot.metric.replaceAll('_', ' ')}
+                <strong className="text-sm text-[#24251f]">{snapshot.status?.includes('rounded') ? '≈' : ''}{metricValue(snapshot.value)}</strong> {snapshot.metric.replaceAll('_', ' ')}
                 <span className="block text-[0.68rem] text-[#827b6d]">{snapshot.as_of ?? 'date not supplied'} · {snapshot.platform}</span>
+                <span className="block text-[0.68rem] text-[#827b6d]">{snapshot.status?.includes('rounded') ? 'Rounded provider snapshot' : snapshot.status?.includes('html_metadata') ? 'Public profile metadata' : 'Source snapshot'}</span>
+                {sourceById[snapshot.source_id ?? '']?.url && <a className="mt-1 block max-w-[28ch] underline underline-offset-2" href={sourceById[snapshot.source_id ?? ''].url!} target="_blank" rel="noopener noreferrer">Source: {sourceById[snapshot.source_id ?? ''].title}</a>}
               </span>
             ))}
           </div>
@@ -218,10 +221,12 @@ function ProfileCard({ account }: { account: AiMonkAccount }) {
 
 export default function AiMonkDatabase({
   accounts,
+  sources = [],
   sourceCount,
   updatedAt,
 }: {
   accounts: AiMonkAccount[];
+  sources?: EvidenceSource[];
   sourceCount: number;
   updatedAt: string;
 }) {
@@ -230,6 +235,7 @@ export default function AiMonkDatabase({
   });
 
   const [sortBy, setSortBy] = useState('audience');
+  const sourceById = useMemo(() => Object.fromEntries(sources.map((source) => [source.id, source])), [sources]);
 
   const languages = useMemo(() => unique(accounts.flatMap((account) => account.languages?.map(({ label }) => label) ?? [])), [accounts]);
   const platforms = useMemo(() => unique(accounts.flatMap((account) => account.platforms?.map(({ platform }) => platform) ?? [])), [accounts]);
@@ -356,7 +362,7 @@ export default function AiMonkDatabase({
           <p className="sr-only" aria-live="polite">{results.length} profiles match the current search.</p>
           {results.length ? (
             <div className="grid items-stretch gap-5 lg:grid-cols-2">
-              {results.map((account) => <ProfileCard key={account.id} account={account} />)}
+              {results.map((account) => <ProfileCard key={account.id} account={account} sourceById={sourceById} />)}
             </div>
           ) : (
             <div className="rounded-[1.5rem] border border-dashed border-[#cfc8b8] bg-white/70 px-6 py-14 text-center">

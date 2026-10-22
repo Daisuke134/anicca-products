@@ -18,6 +18,7 @@ export default function AiMonkDatabasePage() {
       <MediaNav />
       <AiMonkDatabase
         accounts={database.accounts as AiMonkAccount[]}
+        sources={database.sources}
         sourceCount={database.sources.length}
         updatedAt={database.updated_at}
       />
