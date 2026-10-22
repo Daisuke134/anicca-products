@@ -1,0 +1,18 @@
+{
+  "product": "ai_monk_book",
+  "sku": "art_of_ai_monks_en_v1",
+  "title": "The Art of AI Monks",
+  "subtitle": "Avatars, Attention, and the Business Behind the Robes",
+  "author": "Anicca",
+  "language": "en",
+  "edition": "English First Edition",
+  "slug": "the-art-of-ai-monks",
+  "currency": "usd",
+  "unit_amount": 999,
+  "stripe_product_id": "prod_VUMeHBJUIOWBsK",
+  "stripe_price_id": "price_1UTNvEEeDsUAcaLS7mNPgXUn",
+  "formats": {
+    "pdf": "the-art-of-ai-monks-en.pdf",
+    "epub": "the-art-of-ai-monks-en.epub"
+  }
+}

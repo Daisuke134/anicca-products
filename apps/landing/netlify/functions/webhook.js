@@ -1,7 +1,8 @@
 // Stripe webhook: on payment_intent.succeeded / checkout.session.completed,
 // look up the lang via session metadata and email the buyer the PDF link via Resend.
 const crypto = require('crypto');
-const { ebookDownloadUrl } = require('./ebook-download.js');
+const { ebookDownloadUrl, isPaidEbookSession } = require('./ebook-download.js');
+const AI_MONK_BOOK = require('../../data/books/the-art-of-ai-monks-en.json');
 
 const WRITER_EVENT_TYPES = new Set([
   'checkout.session.completed',
@@ -139,6 +140,17 @@ async function webhookHandler(event, dependencies = {}) {
       const html = lang === 'jp' ? jpLetterWelcomeHtml(session.customer) : enLetterWelcomeHtml(session.customer);
       await sendEmail(RESEND_API_KEY, email, subject, html);
       return { statusCode: 200, body: 'ok subscription' };
+    }
+
+    if (product === AI_MONK_BOOK.product) {
+      if (!isPaidEbookSession(session, STRIPE_KEY.startsWith('sk_live_'))) {
+        return { statusCode: 200, body: 'ok book-payment-pending' };
+      }
+      const pdf = ebookDownloadUrl(session.id, { format: 'pdf' });
+      const epub = ebookDownloadUrl(session.id, { format: 'epub' });
+      const html = `<h1>${AI_MONK_BOOK.title}</h1><p>Thank you for supporting the research. Your English first edition is ready.</p><p><a href="${pdf}">Download PDF</a> · <a href="${epub}">Download EPUB</a></p><p><a href="https://aniccaai.com/ai-monk-database">Explore the free AI Monk Index</a></p>`;
+      await sendEmail(RESEND_API_KEY, email, `Your copy of ${AI_MONK_BOOK.title}`, html);
+      return { statusCode: 200, body: 'ok ai-monk-book' };
     }
 
     // Ebook PDF mail ONLY for ebook (explicit or legacy missing product).

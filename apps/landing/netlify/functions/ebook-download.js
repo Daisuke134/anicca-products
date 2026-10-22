@@ -4,11 +4,14 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
+const AI_MONK_BOOK = require('../../data/books/the-art-of-ai-monks-en.json');
+
 const SESSION_ID = /^cs_(?:live|test)_[A-Za-z0-9_]{4,200}$/;
-const FORMATS = new Set(['pdf', 'md', 'html', 'css']);
+const FORMATS = new Set(['pdf', 'epub', 'md', 'html', 'css']);
 
 const CONTENT_TYPES = {
   pdf: 'application/pdf',
+  epub: 'application/epub+zip',
   md: 'text/markdown; charset=utf-8',
   html: 'text/html; charset=utf-8',
   css: 'text/css; charset=utf-8',
@@ -30,7 +33,13 @@ function badRequest(message) {
   };
 }
 
-function resolveFile({ lang, format }) {
+function resolveFile({ lang, format, product }) {
+  if (product === AI_MONK_BOOK.product) {
+    const fileName = AI_MONK_BOOK.formats[format];
+    if (!fileName) return null;
+    return { fileName, downloadName: fileName, absolutePath: path.join(__dirname, '../../private/ebooks', fileName) };
+  }
+  if (format === 'epub') return null;
   if (format === 'css') {
     return {
       fileName: 'book.css',
@@ -52,6 +61,9 @@ function isPaidEbookSession(session, liveMode) {
   if (session.livemode !== liveMode) return false;
   const meta = session.metadata || {};
   const product = meta.product;
+  if (product === AI_MONK_BOOK.product) {
+    return session.mode === 'payment' && meta.lang === AI_MONK_BOOK.language && meta.book_sku === AI_MONK_BOOK.sku;
+  }
   if (product === 'ebook') return true;
   // Legacy checkouts omitted metadata.product; webhook treats those as ebook.
   if (!product && session.mode === 'payment') return true;
@@ -127,7 +139,9 @@ async function ebookDownloadHandler(event, dependencies = {}) {
   if (!isPaidEbookSession(session, liveMode)) return forbidden();
 
   const lang = sessionLang(session);
-  const { absolutePath, downloadName } = resolveFile({ lang, format });
+  const resolved = resolveFile({ lang, format, product: session.metadata?.product });
+  if (!resolved) return badRequest('format unavailable for this edition');
+  const { absolutePath, downloadName } = resolved;
   const readFile = dependencies.readFile || ((p) => fs.readFileSync(p));
 
   let bytes;

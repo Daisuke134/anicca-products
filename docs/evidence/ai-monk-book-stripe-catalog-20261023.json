@@ -1,0 +1,18 @@
+{
+  "observed_at": "2026-10-22T15:28:53.200214+00:00",
+  "provider": "Stripe",
+  "account_id": "acct_1RT5QgEeDsUAcaLS",
+  "product_id": "prod_VUMeHBJUIOWBsK",
+  "price_id": "price_1UTNvEEeDsUAcaLS7mNPgXUn",
+  "sku": "art_of_ai_monks_en_v1",
+  "name": "The Art of AI Monks",
+  "currency": "usd",
+  "unit_amount": 999,
+  "type": "one_time",
+  "active": true,
+  "livemode": true,
+  "verification": "official product and price GET",
+  "checkout_deployed": false,
+  "paid_orders": null,
+  "revenue": null
+}
