@@ -1,0 +1,21 @@
+@page { size: A5; margin: 19mm 16mm 20mm; @bottom-center { content: counter(page); font: 8pt Georgia, serif; color: #78715e; } }
+@page cover { margin: 0; @bottom-center { content: none; } }
+body { font-family: Georgia, "Hiragino Mincho ProN", serif; font-size: 10.2pt; line-height: 1.48; color: #28352b; }
+.cover { page: cover; height: 210mm; width: 148mm; break-after: page; }
+.cover img { display: block; width: 148mm; height: 210mm; object-fit: contain; }
+h1 { font-size: 28pt; line-height: 1.12; font-weight: 400; color: #203b2e; margin: 18mm 0 6mm; }
+h2 { font-size: 19pt; line-height: 1.25; font-weight: 400; color: #203b2e; }
+h2[id^="chapter-"], h2[id^="appendix-"], h3#contents { break-before: page; }
+h3 { font-size: 13pt; line-height: 1.3; margin-top: 7mm; color: #5e644d; }
+h1, h2, h3, h4 { break-after: avoid; }
+p { margin: .7em 0; text-align: justify; hyphens: auto; orphans: 3; widows: 3; }
+a { color: #6c612f; text-decoration: none; overflow-wrap: anywhere; }
+li { margin: .25em 0; }
+blockquote { margin: 5mm 0; padding: 1mm 4mm; border-left: 2px solid #9c9d77; color: #5f6754; }
+hr { border: 0; border-top: .5pt solid #d3d2bc; margin: 6mm 0; }
+table { width: 100%; border-collapse: collapse; font-size: 8.3pt; margin: 5mm 0; }
+th, td { padding: 2mm; border-bottom: .5pt solid #d3d2bc; vertical-align: top; overflow-wrap: anywhere; }
+th { background: #edf0e5; text-align: left; }
+tr { break-inside: avoid; }
+pre { font-size: 7.5pt; white-space: pre-wrap; overflow-wrap: anywhere; background: #f3f3ea; padding: 3mm; }
+code { font-size: .85em; overflow-wrap: anywhere; }

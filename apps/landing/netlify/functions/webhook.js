@@ -2,6 +2,7 @@
 // look up the lang via session metadata and email the buyer the PDF link via Resend.
 const crypto = require('crypto');
 const { ebookDownloadUrl } = require('./ebook-download.js');
+const AI_MONK_BOOK = require('../../data/books/the-art-of-ai-monks-en.json');
 
 const WRITER_EVENT_TYPES = new Set([
   'checkout.session.completed',
@@ -90,6 +91,10 @@ async function webhookHandler(event, dependencies = {}) {
   // ebook/Letter email or buyer-store side effects; the read-only collector
   // independently turns Stripe objects into accounting receipts.
   if (isWriterEvent(payload)) return { statusCode: 200, body: 'ok writer' };
+  // The book uses paid Checkout entitlement and downloads on the return page.
+  if (payload.type === 'checkout.session.completed' && sessionProduct(payload) === AI_MONK_BOOK.product) {
+    return { statusCode: 200, body: 'ok ai-monk-book' };
+  }
   if (isKokoroEvent(payload)) return { statusCode: 200, body: 'ok kokoro' };
   if (isRetreatBuildEvent(payload)) return { statusCode: 200, body: 'ok retreat-build' };
 
