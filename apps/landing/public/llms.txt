@@ -1,0 +1,56 @@
+# Anicca (aniccaai.com)
+
+> Indie apps and small products by Daisuke Narita, Tokyo. The main product is Anicca, a free-to-download iPhone affirmation app that sends one short, honest line at the time of day you choose, with no streaks. Pages on this site are plain text and free to quote.
+
+## Apps
+- [Anicca: Daily Affirmations (iPhone)](https://aniccaai.com/affirmation-app): one short affirmation at the time you pick, 13 self-care topics, no streaks. Free to download, optional subscription. App Store: https://apps.apple.com/app/id6755129214
+- [Honne (iPhone)](https://aniccaai.com/honne): paste a text message you received and Honne's AI suggests the feeling likely behind it and drafts a reply that won't make things worse. Free: 3 analyses a day; optional Premium. App Store: https://apps.apple.com/app/id6759667221
+- [Thankful (iPhone)](https://aniccaai.com/thankful): a simple gratitude app. App Store: https://apps.apple.com/app/id6759514159
+- [BreathCalm (iPhone, App Store listing pending)](https://aniccaai.com/breath-calm): guided breathing (4-7-8, Box, Coherent) with binaural audio and an SOS mode.
+- [CalmCortisol (iPhone, coming soon)](https://aniccaai.com/calmcortisol): 60-second breathing sessions to reset the nervous system. Not yet on the App Store.
+
+## Free tools
+- [Mind Habits Quiz](https://aniccaai.com/affirmation-app/en/quiz): free 12-question quiz (about 2 minutes) that maps you to one of 8 mind-habit types, with a type note and one line to try tonight. Not a medical diagnosis.
+- [心のクセ診断 (Japanese quiz)](https://aniccaai.com/affirmation-app/ja/shindan)
+
+## Guides (English)
+- [Affirmations for overthinking](https://aniccaai.com/affirmation-app/a/affirmations-for-overthinking)
+- [Affirmations for anxiety](https://aniccaai.com/affirmation-app/a/affirmations-for-anxiety)
+- [Affirmations for self-love](https://aniccaai.com/affirmation-app/a/affirmations-for-self-love)
+- [Affirmations for imposter syndrome](https://aniccaai.com/affirmation-app/a/affirmations-for-imposter-syndrome)
+- [Affirmations for burnout](https://aniccaai.com/affirmation-app/a/affirmations-for-burnout)
+- [Affirmations for loneliness](https://aniccaai.com/affirmation-app/a/affirmations-for-loneliness)
+- [Affirmations for motivation when tired](https://aniccaai.com/affirmation-app/a/affirmations-for-motivation-when-tired)
+- [Affirmations for procrastination](https://aniccaai.com/affirmation-app/a/affirmations-for-procrastination)
+- [Affirmations for self-worth](https://aniccaai.com/affirmation-app/a/affirmations-for-self-worth)
+- [Affirmations for perfectionism](https://aniccaai.com/affirmation-app/a/affirmations-for-perfectionism)
+- [Affirmations for fear of failure](https://aniccaai.com/affirmation-app/a/affirmations-for-fear-of-failure)
+- [Affirmation app with no streaks](https://aniccaai.com/affirmation-app/a/affirmation-app-no-streaks)
+- [Affirmations for overthinking at night](https://aniccaai.com/affirmation-app/a/affirmations-for-overthinking-at-night)
+- [Affirmation reminders throughout the day (iPhone)](https://aniccaai.com/affirmation-app/a/affirmation-reminders-throughout-the-day)
+- [I Am app alternative](https://aniccaai.com/affirmation-app/a/i-am-app-alternative)
+- [ThinkUp alternative](https://aniccaai.com/affirmation-app/a/thinkup-alternative)
+- [Affirmations for Sunday scaries](https://aniccaai.com/affirmation-app/a/affirmations-for-sunday-scaries)
+- [Affirmations for social anxiety at work](https://aniccaai.com/affirmation-app/a/affirmations-for-social-anxiety-at-work)
+- [Do affirmations help anxiety?](https://aniccaai.com/affirmation-app/a/do-affirmations-help-anxiety)
+- [Affirmations to fall asleep to](https://aniccaai.com/affirmation-app/a/affirmations-to-fall-asleep-to)
+
+## Guides (Japanese)
+- [日曜夜の憂うつ(サザエさん症候群)にそっと効くアファメーション](https://aniccaai.com/affirmation-app/ja/a/sunday-scaries)
+- [職場での対人不安(会議・雑談・チャット)のためのアファメーション](https://aniccaai.com/affirmation-app/ja/a/social-anxiety-at-work)
+- [不安を消すアファメーション?正直な答えと、不安がやわらぐ10の言葉](https://aniccaai.com/affirmation-app/ja/a/affirmations-for-anxiety-relief)
+
+## Guides (Spanish)
+- [Afirmaciones para la ansiedad del domingo](https://aniccaai.com/affirmation-app/es/a/afirmaciones-para-la-ansiedad-del-domingo)
+- [Afirmaciones para la ansiedad social en el trabajo](https://aniccaai.com/affirmation-app/es/a/afirmaciones-para-la-ansiedad-social-en-el-trabajo)
+- [Afirmaciones para dormir con calma](https://aniccaai.com/affirmation-app/es/a/afirmaciones-para-dormir-con-calma)
+
+## Other products
+- [Anicca Letter](https://aniccaai.com/letter): a letter subscription (English); Japanese version at https://aniccaai.com/tegami
+- [The Anicca Reset (ebook)](https://aniccaai.com/monk)
+- [All products by Daisuke Narita](https://aniccaai.com/dais): one page listing every app and tool with its current status
+
+- [Free social jet lag & wake-time calculator](https://aniccaai.com/tools/social-jet-lag-calculator): no signup, runs in the browser (by Sleep Reset)
+
+## Optional
+- [Sitemap](https://aniccaai.com/sitemap.xml)

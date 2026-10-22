@@ -3,8 +3,15 @@ import path from "path";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import WriterUnlock from "../../../components/blog/WriterUnlock";
+import LiteYouTubeEmbedLoader from "../../../components/blog/LiteYouTubeEmbedLoader";
 import AffiliateEntryReceipt from "../../../components/blog/AffiliateEntryReceipt"; // AFFILIATE_ENTRY_V1
 import { affiliatePlacement, renderMarkdown } from "../../../lib/render-article-markdown";
+import { buildLineStickerShareMetadata } from "../../../lib/line-sticker-share-meta";
+import { buildArticleJsonLd } from "../../../lib/article-jsonld.mjs";
+import { BUSINESSES, businessOf } from "../../../lib/blog-business.mjs";
+import { loadAllBlogPosts } from "../../../lib/blog-posts";
+import { resolveArticleAttribution } from "../../../lib/article-attribution";
+import type { ArticleAttribution } from "../../../lib/article-attribution";
 
 type Mirrors = { x?: string; substack?: string; newsletter?: string };
 
@@ -15,8 +22,11 @@ type ResearchPost = {
   project: string;
   n_papers_cited: number;
   word_count: number;
+  character_count?: number;
   markdown: string;
+  description?: string;
   mirrors?: Mirrors;
+  attribution?: ArticleAttribution;
   access_model?: "one_time" | "archive" | "both";
   paid_sha256?: string;
   run_id?: string;
@@ -30,6 +40,7 @@ type PrivateWriterArticle = {
   run_id: string;
   artifact_id: string;
   lang: "ja" | "en";
+  project?: string;
   title: string;
   preview_markdown: string;
   paid_markdown: string;
@@ -60,7 +71,7 @@ function loadPrivatePost(slug: string): ResearchPost | null {
     slug: visible.slug,
     title: visible.title,
     date: `${day.slice(0, 4)}-${day.slice(4, 6)}-${day.slice(6, 8)}`,
-    project: "Writer Agent",
+    project: privateValue.project || "Writer Agent",
     n_papers_cited: 0,
     word_count: `${privateValue.preview_markdown} ${privateValue.paid_markdown}`
       .trim().split(/\s+/).length,
@@ -89,11 +100,19 @@ function loadPost(slug: string): ResearchPost | null {
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const post = loadPost(params.slug);
   if (!post) return { title: "Not found" };
+  // Affiliate pages ship a merchant-free description (ElevenLabs affiliate terms: no Marks in meta tags).
+  const description = post.description || post.markdown.slice(0, 200).replace(/[#*`]/g, "");
   return {
     title: `${post.title} | Anicca Articles`,
-    description: post.markdown.slice(0, 200).replace(/[#*`]/g, ""),
+    description,
     alternates: { canonical: `https://aniccaai.com/blog/${post.slug}` },
     robots: { index: true, follow: true },
+    ...buildLineStickerShareMetadata({
+      slug: post.slug,
+      title: post.title,
+      description,
+      markdown: post.markdown,
+    }),
   };
 }
 
@@ -120,13 +139,36 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
   const articleMarkdown = post.slug.startsWith("remote-coding-")
     ? post.markdown.replace(voiceHeading, `${voiceHeading}\n\n${voiceImage}`)
     : post.markdown;
+  const hasYouTubeEmbed = /\[youtube-(?:embed|short):[A-Za-z0-9_-]{11}/.test(articleMarkdown);
   const html = renderMarkdown(articleMarkdown);
   const affiliatePlacementId = affiliatePlacement(articleMarkdown);
   const m = post.mirrors ?? {};
   const hasMirrors = Boolean(m.x || m.substack || m.newsletter);
+  const business = businessOf(post.slug, post.project);
+  const hub = BUSINESSES[business];
+  const related = loadAllBlogPosts()
+    .filter((p) => p.slug !== post.slug && businessOf(p.slug, p.project) === business)
+    .slice(0, 6);
+  const attribution = resolveArticleAttribution(post.attribution);
+  const readingLength = post.lang === "ja"
+    ? `${(post.character_count ?? post.word_count).toLocaleString()} 文字`
+    : `${post.word_count.toLocaleString()} words`;
 
   return (
     <main className="bg-cream">
+      {hasYouTubeEmbed && <LiteYouTubeEmbedLoader />}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([...buildArticleJsonLd(post), {
+          "@context": "https://schema.org", "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: "https://aniccaai.com" },
+            { "@type": "ListItem", position: 2, name: "Articles", item: "https://aniccaai.com/blog" },
+            { "@type": "ListItem", position: 3, name: hub.label, item: `https://aniccaai.com/blog/c/${business}` },
+            { "@type": "ListItem", position: 4, name: post.title, item: `https://aniccaai.com/blog/${post.slug}` },
+          ],
+        }]).replace(/</g, "\\u003c") }}
+      />
       {affiliatePlacementId && <AffiliateEntryReceipt placementId={affiliatePlacementId} />}
       {post.writer_manifest && (
         <script
@@ -135,16 +177,15 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
           dangerouslySetInnerHTML={{ __html: post.writer_manifest }}
         />
       )}
-      <article className="mx-auto max-w-3xl px-5 pt-32 pb-20">
-        <Link
-          href="/blog"
-          className="font-mono-ui text-[11px] uppercase tracking-[0.22em] text-mist transition-colors hover:text-ink"
-        >
-          ← All articles
-        </Link>
+      <article lang={post.lang === "ja" ? "ja" : "en"} className="mx-auto max-w-3xl px-5 pt-32 pb-20">
+        <nav className="font-mono-ui text-[11px] uppercase tracking-[0.22em] text-mist">
+          <Link href="/blog" className="transition-colors hover:text-ink">Articles</Link>
+          {" / "}
+          <Link href={`/blog/c/${business}`} className="transition-colors hover:text-ink">{hub.label}</Link>
+        </nav>
 
         <p className="mt-12 font-mono-ui text-[11px] uppercase tracking-[0.22em] text-mist">
-          {post.date} · {post.project} · {post.word_count.toLocaleString()} words
+          {post.date} · {post.project} · {readingLength}
           {post.n_papers_cited > 0 && ` · ${post.n_papers_cited} ${post.n_papers_cited === 1 ? "citation" : "citations"}`}
         </p>
 
@@ -210,16 +251,18 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
           <p className="font-mono-ui text-[10px] uppercase tracking-[0.28em] text-mist">
             Subscribe to the next one
           </p>
-          <div className="mt-4 grid grid-cols-1 gap-px border border-ink/15 bg-ink/15 sm:grid-cols-3">
-            <a
-              href="https://x.com/selawmqt"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col bg-cream px-5 py-5 transition-colors hover:bg-bone/40"
-            >
-              <p className="font-mono-ui text-[10px] uppercase tracking-[0.22em] text-mist">X</p>
-              <p className="mt-2 font-display text-[19px] text-ink">@selawmqt ↗</p>
-            </a>
+          <div className={`mt-4 grid grid-cols-1 gap-px border border-ink/15 bg-ink/15 ${attribution.xHandle ? "sm:grid-cols-3" : "sm:grid-cols-2"}`}>
+            {attribution.xHandle && (
+              <a
+                href={`https://x.com/${attribution.xHandle}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col bg-cream px-5 py-5 transition-colors hover:bg-bone/40"
+              >
+                <p className="font-mono-ui text-[10px] uppercase tracking-[0.22em] text-mist">X</p>
+                <p className="mt-2 font-display text-[19px] text-ink">@{attribution.xHandle} ↗</p>
+              </a>
+            )}
             <a
               href="https://aniccaai.substack.com"
               target="_blank"
@@ -240,11 +283,29 @@ export default function ResearchPostPage({ params }: { params: { slug: string } 
         </section>
 
         <p className="mt-16 border-t border-bone pt-8 text-[13px] leading-relaxed text-mist">
-          Written end-to-end by Anicca, an autonomous AI entity (literature → hypothesis → draft → publish → cross-post).
-          One of the{' '}
-          <Link href="/fellows" className="underline hover:text-ink">SAOs</Link>.
+          {attribution.text === null ? (
+            <>
+              Written end-to-end by Anicca, an autonomous AI entity (literature → hypothesis → draft → publish → cross-post).
+              One of the{' '}
+              <Link href="/fellows" className="underline hover:text-ink">SAOs</Link>.
+            </>
+          ) : attribution.text}
           {' '}Source of truth lives at this URL; all other channels mirror back here.
         </p>
+        {related.length > 0 && (
+          <section className="mt-16 border-t border-bone pt-10">
+            <p className="font-mono-ui text-[11px] uppercase tracking-[0.22em] text-mist">
+              More in <Link href={`/blog/c/${business}`} className="text-ink hover:underline">{hub.label}</Link>
+            </p>
+            <ul className="mt-5 space-y-3">
+              {related.map((p) => (
+                <li key={p.slug}>
+                  <Link href={`/blog/${p.slug}`} className="font-display text-[19px] leading-snug text-ink hover:underline">{p.title}</Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </article>
     </main>
   );

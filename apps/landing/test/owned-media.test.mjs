@@ -1,0 +1,23 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync,mkdtempSync,mkdirSync,writeFileSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import ts from 'typescript';
+import {businessOf,BUSINESSES} from '../lib/blog-business.mjs';
+const {outputText}=ts.transpileModule(readFileSync(new URL('../lib/blog-posts.ts',import.meta.url),'utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}});
+const loader=await import('data:text/javascript;base64,'+Buffer.from(outputText).toString('base64'));
+const history=['cron-7-fail-recovery-2026-05-30','anicca-earn-or-die-2026-05-30','anicca-cafe-2026-05-24-ja','anicca-cafe-2026-05-24-en','anicca-cafe-tokyo-2026-05-09','anicca-cemetery-ja','anicca-tomb-tokyo-day0'];
+const research=['ai-mindfulness-2026-05-15','ai-responsibility-2026-05-08','ai-responsibility-2026-05-08-v2-bemo'];
+test('company history is not classified as the mobile app',()=>{for(const slug of history){const p=JSON.parse(readFileSync(new URL('../data/research/'+slug+'.json',import.meta.url)));assert.equal(businessOf(p.slug,p.project),'notes',slug);}assert.equal(businessOf('anicca-future-company-project','Anicca something'),'notes');});
+test('research has a named home and app guides retain identity',()=>{for(const slug of research){const p=JSON.parse(readFileSync(new URL('../data/research/'+slug+'.json',import.meta.url)));assert.equal(businessOf(p.slug,p.project),'research',slug);}for(const lang of ['en','ja'])assert.equal(businessOf('anicca-ios-2026-05-19-'+lang,'anicca-ios'),'anicca');assert.equal(BUSINESSES['ai-creator-tools'].label,'Capafy Agents');assert.equal(BUSINESSES.anicca.label,'Anicca iOS');assert.equal(BUSINESSES['ai-voice-tools'].label,'Labs · Voice & Audio');});
+test('corpus includes writer-only articles and matches private route precedence without paid text',()=>{
+ const root=mkdtempSync(join(tmpdir(),'blog-corpus-'));for(const dir of ['data/research','private/writer-articles'])mkdirSync(join(root,dir),{recursive:true});
+ const save=(dir,name,obj)=>writeFileSync(join(root,dir,name+'.json'),JSON.stringify(obj));
+ save('data/research','same',{slug:'same',title:'Old',date:'2020-01-01',markdown:'public'});
+ save('private/writer-articles','same',{slug:'same',title:'Writer',run_id:'20261021-test',preview_markdown:'preview',paid_markdown:'SECRET',project:'Writer Agent'});
+ save('private/writer-articles','only',{slug:'only',title:'Only writer',run_id:'20261020-test',preview_markdown:'visible'});
+ const posts=loader.loadAllBlogPosts(root);assert.equal(posts.length,2);assert.equal(posts[0].title,'Writer');assert.equal(posts[0].date,'2026-10-21');assert.doesNotMatch(JSON.stringify(posts),/SECRET/);
+});
+test('archive pages cover corpus once with boundary and invalid-page behavior',()=>{assert.equal(typeof loader.paginateBlogPosts,'function');const posts=Array.from({length:49},(_,i)=>({slug:String(i)}));const pages=[1,2,3].map(p=>loader.paginateBlogPosts(posts,String(p)));assert.deepEqual(pages.map(p=>p.posts.length),[24,24,1]);assert.deepEqual(pages.flatMap(p=>p.posts),posts);for(const n of ['0','-1','1.5','01','abc','4'])assert.equal(loader.paginateBlogPosts(posts,n),null,n);assert.equal(loader.paginateBlogPosts([],'1').posts.length,0);});
+test('Thankful uses the shared icon and contains no invented traction',()=>{const s=readFileSync(new URL('../app/thankful/page.tsx',import.meta.url),'utf8');assert.doesNotMatch(s,/anicca-app-icon|Thousands of people|rewire your mindset|watch your life transform/);assert.match(s,/published-apps/);});

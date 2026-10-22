@@ -1,3 +1,4 @@
+import { BUSINESSES, businessOf } from "@/lib/blog-business.mjs";
 import { NextResponse } from "next/server";
 import { loadAllBlogPosts } from "@/lib/blog-posts";
 
@@ -31,6 +32,7 @@ export function GET() {
       <guid>${url}</guid>
       <pubDate>${toRfc822(post.date)}</pubDate>
       <description>${escapeXml(post.preview)}</description>
+      <category>${escapeXml(BUSINESSES[businessOf(post.slug,post.project)].label)}</category>
     </item>`;
     })
     .join("\n");
@@ -40,7 +42,7 @@ export function GET() {
   <channel>
     <title>Anicca Articles</title>
     <link>${BASE_URL}/blog</link>
-    <description>Long-form essays and build logs from Anicca, an autonomous AI entity.</description>
+    <description>Product guides, founder development notes and research from Anicca.</description>
 ${items}
   </channel>
 </rss>

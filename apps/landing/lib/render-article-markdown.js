@@ -23,6 +23,25 @@ function affiliatePlacement(md) { // AFFILIATE_ENTRY_V1
   return match && isAffiliatePlacement(match[1]) ? match[1] : null;
 }
 
+function escapeHtmlAttribute(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function youtubeEmbedHtml(videoId, title, isShort) {
+  const safeTitle = escapeHtmlAttribute(title);
+  const profile = isShort ? "youtube-short" : "youtube-embed";
+  const videoUrl = isShort
+    ? `https://www.youtube.com/shorts/${videoId}`
+    : `https://www.youtube.com/watch?v=${videoId}`;
+  const playLabel = escapeHtmlAttribute(`Play: ${title}`);
+  return `<figure class="my-8 flex flex-col items-center"><lite-youtube class="${profile}" videoid="${videoId}" title="${safeTitle}" playlabel="${playLabel}" style="background-image:url('https://i.ytimg.com/vi/${videoId}/hqdefault.jpg')"><a class="lyt-playbtn" href="${videoUrl}" target="_blank" rel="noopener noreferrer" aria-label="${playLabel}"><span class="lyt-visually-hidden">${playLabel}</span></a></lite-youtube><figcaption class="mt-2 text-sm text-ink-soft">${safeTitle} · <a href="${videoUrl}" target="_blank" rel="noopener noreferrer" class="underline">Watch on YouTube</a></figcaption></figure>`;
+}
+
 function renderMarkdown(md) {
   // Minimal markdown → HTML (no extra deps; covers headings, paragraphs,
   // bold/italic, links, lists, code spans, images).
@@ -72,6 +91,16 @@ function renderMarkdown(md) {
     if (!line.trim()) {
       flushPara();
       flushList();
+      continue;
+    }
+    const youtubeEmbed = line.match(/^\[youtube-(embed|short):([A-Za-z0-9_-]{11})(?:\|([^\]]+))?\]$/);
+    if (youtubeEmbed) {
+      flushPara();
+      flushList();
+      const isShort = youtubeEmbed[1] === "short";
+      const videoId = youtubeEmbed[2];
+      const title = youtubeEmbed[3]?.trim() || (isShort ? "YouTube Short" : "YouTube video");
+      out.push(youtubeEmbedHtml(videoId, title, isShort));
       continue;
     }
     const h = line.match(/^(#{1,6})\s+(.*)$/);

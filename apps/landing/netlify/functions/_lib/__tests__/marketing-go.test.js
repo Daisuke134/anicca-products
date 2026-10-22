@@ -241,3 +241,30 @@ test("Hook Lab diagnostics do not persist a click receipt or redirect", async ()
   assert.equal(response.headers.location, undefined);
   assert.equal(writes, 0);
 });
+
+test("affiliate storage failure still redirects to the fixed affiliate host and logs", async () => {
+  const placement = "elevenlabs-discovered-voice-changer-en-1";
+  const logged = [];
+  const originalError = console.error;
+  console.error = (...args) => logged.push(args.join(" "));
+  try {
+    const handler = makeMarketingGoHandler({
+      products,
+      receiptId: () => "click-af",
+      persist: async () => { throw new Error("click receipt storage failed: HTTP 400"); },
+    });
+    const response = await handler(event(`af_${placement}`));
+    assert.equal(response.statusCode, 302);
+    assert.equal(response.headers.location, `https://try.elevenlabs.io/${placement}`);
+    assert.equal(response.headers["x-click-receipt"], undefined);
+    assert.equal(logged.length, 1);
+    assert.match(logged[0], /HTTP 400/);
+  } finally {
+    console.error = originalError;
+  }
+  const web = makeMarketingGoHandler({
+    products,
+    persist: async () => { throw new Error("down"); },
+  });
+  assert.equal((await web(event("ej_abcdefghijklmnopqrst"))).statusCode, 503);
+});

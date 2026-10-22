@@ -3,6 +3,10 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import JsonLd from '@/components/JsonLd';
 import JaAffirmationSeoLayout from '@/components/affirmation/JaAffirmationSeoLayout';
+import {
+  alternatesFor,
+  tripleForJaSlug,
+} from '@/lib/affirmation-alternates';
 import { JA_TO_EN_SLUG } from '@/lib/en-affirmation-problems';
 import {
   JA_AFFIRMATION_PROBLEMS,
@@ -25,10 +29,17 @@ export function generateMetadata({ params }: PageProps): Metadata {
     return { title: 'ページが見つかりません｜アニッチャ' };
   }
   const url = `https://aniccaai.com/affirmation-app/ja/a/${problem.slug}`;
-  const enSlug = JA_TO_EN_SLUG[problem.slug];
-  const languages: Record<string, string> = { ja: url };
-  if (enSlug) {
-    languages.en = `https://aniccaai.com/affirmation-app/a/${enSlug}`;
+  const triple = tripleForJaSlug(problem.slug);
+  let languages: Record<string, string>;
+  if (triple) {
+    languages = alternatesFor(triple);
+  } else {
+    const enSlug = problem.enSlug ?? JA_TO_EN_SLUG[problem.slug];
+    languages = alternatesFor({
+      ja: problem.slug,
+      ...(enSlug ? { en: enSlug } : {}),
+      ...(problem.esSlug ? { es: problem.esSlug } : {}),
+    });
   }
   return {
     title: `${problem.title}｜アニッチャ`,
@@ -51,6 +62,10 @@ export default function JaAffirmationProblemPage({ params }: PageProps) {
   const pageUrl = `https://aniccaai.com/affirmation-app/ja/a/${problem.slug}`;
   const storeUrl = jaAffirmationAppStoreUrl(problem.slug);
   const published = '2026-10-09';
+  const hasExtended =
+    Boolean(problem.whyItHappens?.length) ||
+    Boolean(problem.practice) ||
+    Boolean(problem.closing);
 
   const articleLd = {
     '@context': 'https://schema.org',
@@ -106,7 +121,7 @@ export default function JaAffirmationProblemPage({ params }: PageProps) {
   };
 
   const others = JA_AFFIRMATION_PROBLEMS.filter((p) => p.slug !== problem.slug);
-  const enSlug = JA_TO_EN_SLUG[problem.slug];
+  const enSlug = problem.enSlug ?? JA_TO_EN_SLUG[problem.slug];
 
   return (
     <>
@@ -118,11 +133,26 @@ export default function JaAffirmationProblemPage({ params }: PageProps) {
             {problem.title}
           </h1>
           <p className="mt-5 text-[17px] leading-[1.8] text-[#5c5956]">{problem.intro}</p>
+
+          {problem.whyItHappens?.map((para) => (
+            <p
+              key={para.slice(0, 48)}
+              className="mt-5 text-[17px] leading-[1.8] text-[#5c5956]"
+            >
+              {para}
+            </p>
+          ))}
+
           <p className="mt-4 rounded-[16px] border border-[#c9b382]/35 bg-[rgba(201,179,130,0.08)] px-4 py-3 text-[14px] leading-relaxed text-[#5c5956]">
             このページを保存しておくと、同じ気持ちが戻ってきたときにすぐ開けます。ブックマークやホーム画面追加もおすすめです。
           </p>
 
-          <ol className="mt-10 space-y-3">
+          {hasExtended ? (
+            <h2 className="mt-12 text-[20px] font-semibold tracking-tight">
+              アファメーション
+            </h2>
+          ) : null}
+          <ol className={hasExtended ? 'mt-6 space-y-3' : 'mt-10 space-y-3'}>
             {problem.affirmations.map((line, index) => (
               <li
                 key={`${problem.slug}-${index}`}
@@ -135,6 +165,19 @@ export default function JaAffirmationProblemPage({ params }: PageProps) {
               </li>
             ))}
           </ol>
+
+          {problem.practice ? (
+            <section className="mt-12">
+              <h2 className="text-[20px] font-semibold tracking-tight">
+                {problem.practice.heading}
+              </h2>
+              <ol className="mt-5 list-decimal space-y-3 pl-5 text-[16px] leading-[1.75] text-[#5c5956]">
+                {problem.practice.steps.map((step) => (
+                  <li key={step.slice(0, 40)}>{step}</li>
+                ))}
+              </ol>
+            </section>
+          ) : null}
 
           <section className="mt-12 rounded-[24px] border border-[#c9b382]/40 bg-[rgba(201,179,130,0.08)] px-5 py-7 text-center">
             <h2 className="text-[20px] font-semibold tracking-tight">まず心のクセを診断</h2>
@@ -170,6 +213,12 @@ export default function JaAffirmationProblemPage({ params }: PageProps) {
             </p>
           </section>
 
+          {problem.closing ? (
+            <p className="mt-8 text-[14px] leading-relaxed text-[#898783]">
+              {problem.closing}
+            </p>
+          ) : null}
+
           <section className="mt-14">
             <h2 className="text-[18px] font-semibold">ほかの悩み別ページ</h2>
             <ul className="mt-4 flex flex-wrap gap-2">
@@ -191,6 +240,16 @@ export default function JaAffirmationProblemPage({ params }: PageProps) {
                   className="underline underline-offset-2 hover:text-[#393634]"
                 >
                   Read in English
+                </Link>
+              </p>
+            ) : null}
+            {problem.esSlug ? (
+              <p className="mt-3 text-[14px]">
+                <Link
+                  href={`/affirmation-app/es/a/${problem.esSlug}`}
+                  className="underline underline-offset-2 hover:text-[#393634]"
+                >
+                  Leer en español
                 </Link>
               </p>
             ) : null}

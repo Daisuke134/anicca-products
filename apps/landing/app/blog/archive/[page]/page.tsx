@@ -1,0 +1,9 @@
+import Link from 'next/link';
+import {notFound} from 'next/navigation';
+import JsonLd from '@/components/JsonLd';
+import {loadAllBlogPosts,paginateBlogPosts,BLOG_PAGE_SIZE} from '../../../../lib/blog-posts';
+import {MediaNav,MediaFooter,ArticleList} from '../../../../components/blog/OwnedMedia';
+export const dynamicParams=false;
+export function generateStaticParams(){return Array.from({length:Math.max(1,Math.ceil(loadAllBlogPosts().length/BLOG_PAGE_SIZE))},(_,i)=>({page:String(i+1)}));}
+export function generateMetadata({params}:{params:{page:string}}){const p=paginateBlogPosts(loadAllBlogPosts(),params.page);if(!p)return {title:'Not found'};return {title:`All articles — page ${p.page} | Anicca`,alternates:{canonical:`https://aniccaai.com/blog/archive/${p.page}`}};}
+export default function Archive({params}:{params:{page:string}}){const result=paginateBlogPosts(loadAllBlogPosts(),params.page);if(!result)notFound();const {page,totalPages,posts}=result;return <main className="media-page"><MediaNav/><div className="media-wrap"><header className="media-hero"><h1>All articles</h1><p>Page {page} of {totalPages}. Product guides, development notes and research.</p></header><JsonLd data={{'@context':'https://schema.org','@type':'CollectionPage',name:`All articles — page ${page}`,url:`https://aniccaai.com/blog/archive/${page}`,mainEntity:{'@type':'ItemList',numberOfItems:posts.length,itemListElement:posts.map((p,i)=>({'@type':'ListItem',position:i+1,url:`https://aniccaai.com/blog/${p.slug}`,name:p.title}))}}}/><ArticleList posts={posts}/><nav className="media-pagination" aria-label="Article pages">{page>1&&<Link rel="prev" href={`/blog/archive/${page-1}`}>Previous</Link>}{Array.from({length:totalPages},(_,i)=><Link key={i} href={`/blog/archive/${i+1}`} aria-current={page===i+1?'page':undefined}>{i+1}</Link>)}{page<totalPages&&<Link rel="next" href={`/blog/archive/${page+1}`}>Next</Link>}</nav><MediaFooter/></div></main>}

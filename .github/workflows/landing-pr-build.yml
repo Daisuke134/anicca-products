@@ -24,8 +24,42 @@ jobs:
           cache: npm
           cache-dependency-path: apps/landing/package-lock.json
       - run: npm ci
+      - name: Stage canonical app registry and icons before build
+        working-directory: apps/landing
+        env:
+          MANAGER_MARKETING_REVISION: ddae10f6f511d374229062e0a15a3c9c3e41e33d
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_MARKETING_REVISION/apps/landing/marketing/scripts/publish-overlay.mjs" -o /tmp/manager-publish-overlay.mjs
+          echo "ea2a20b9326138052409b18ef303d90f33575537f86807b8553f9c365e794a42  /tmp/manager-publish-overlay.mjs" | sha256sum --check
+          node /tmp/manager-publish-overlay.mjs --stage
+
       - run: npm run test:telemetry
       - run: npm run test:anicca-app-store-routing
+      - name: Stage reviewed canonical Manager articles before build
+        working-directory: apps/landing
+        env:
+          MANAGER_BLOG_REVISION: 25eefdf84842b14059800b35667f3520b06ec4c9
+          # Preserve already-published content during this renderer-only release.
+          MANAGER_BLOG_CONTENT_REVISION: 32cb5b84d052de9f2be3b2a3c8e8c21a150c4da1
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_BLOG_REVISION/apps/landing/manager-blog/scripts/install.mjs" -o /tmp/manager-blog-install.mjs
+          echo "9a00fa62a6048d249b332958c1ee14a2eeeae57f2f33277b538b915bed51dbf0  /tmp/manager-blog-install.mjs" | sha256sum --check
+          node /tmp/manager-blog-install.mjs
+
       - run: npm run build
         env:
           DASHBOARD_SNAPSHOT_URL: http://127.0.0.1:9
+
+      # Approved marketing source lives only in the canonical Life Manager repository.
+      - name: Apply canonical marketing overlay (immutable revision)
+        working-directory: apps/landing
+        env:
+          MANAGER_MARKETING_REVISION: ddae10f6f511d374229062e0a15a3c9c3e41e33d
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_MARKETING_REVISION/apps/landing/marketing/scripts/publish-overlay.mjs" -o /tmp/manager-publish-overlay.mjs
+          echo "ea2a20b9326138052409b18ef303d90f33575537f86807b8553f9c365e794a42  /tmp/manager-publish-overlay.mjs" | sha256sum --check
+          node /tmp/manager-publish-overlay.mjs
+
