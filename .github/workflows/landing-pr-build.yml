@@ -38,7 +38,7 @@ jobs:
       - name: Stage reviewed canonical Manager articles before build
         working-directory: apps/landing
         env:
-          MANAGER_BLOG_REVISION: b0635ad37c93c6a98f53e6cea01675126111f3b3
+          MANAGER_BLOG_REVISION: 25eefdf84842b14059800b35667f3520b06ec4c9
           # Preserve already-published content during this renderer-only release.
           MANAGER_BLOG_CONTENT_REVISION: 32cb5b84d052de9f2be3b2a3c8e8c21a150c4da1
         run: |
