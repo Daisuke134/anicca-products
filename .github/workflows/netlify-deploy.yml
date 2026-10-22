@@ -37,11 +37,11 @@ jobs:
       - name: Stage canonical app registry and icons before build
         working-directory: apps/landing
         env:
-          MANAGER_MARKETING_REVISION: 45f12b02c153eb5d50b1df3e5a1f8b4984b5180e
+          MANAGER_MARKETING_REVISION: c4c10dff7a74571b7ffd743b7d794951ba571276
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_MARKETING_REVISION/apps/landing/marketing/scripts/publish-overlay.mjs" -o /tmp/manager-publish-overlay.mjs
-          echo "bd3a31878a87c9770a6cefa7e8c8140a41625da2e102cbe9f2e8cb7f35a3eec9  /tmp/manager-publish-overlay.mjs" | sha256sum --check
+          echo "ea2a20b9326138052409b18ef303d90f33575537f86807b8553f9c365e794a42  /tmp/manager-publish-overlay.mjs" | sha256sum --check
           node /tmp/manager-publish-overlay.mjs --stage
 
       - name: Stage reviewed canonical Manager articles before build
@@ -78,11 +78,11 @@ jobs:
       - name: Apply canonical marketing overlay (immutable revision)
         working-directory: apps/landing
         env:
-          MANAGER_MARKETING_REVISION: 45f12b02c153eb5d50b1df3e5a1f8b4984b5180e
+          MANAGER_MARKETING_REVISION: c4c10dff7a74571b7ffd743b7d794951ba571276
         run: |
           set -euo pipefail
           curl --fail --silent --show-error --location "https://raw.githubusercontent.com/Daisuke134/life-manager/$MANAGER_MARKETING_REVISION/apps/landing/marketing/scripts/publish-overlay.mjs" -o /tmp/manager-publish-overlay.mjs
-          echo "bd3a31878a87c9770a6cefa7e8c8140a41625da2e102cbe9f2e8cb7f35a3eec9  /tmp/manager-publish-overlay.mjs" | sha256sum --check
+          echo "ea2a20b9326138052409b18ef303d90f33575537f86807b8553f9c365e794a42  /tmp/manager-publish-overlay.mjs" | sha256sum --check
           node /tmp/manager-publish-overlay.mjs
 
       # 2026-06-07 V14-2 fix: replaced nwtgck/actions-netlify@v3.0 (= 5 連続 ISE)
