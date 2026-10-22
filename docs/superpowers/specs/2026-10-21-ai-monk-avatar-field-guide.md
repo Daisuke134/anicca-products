@@ -147,3 +147,5 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 
 **書籍の発売告知:** 公開済み英語版の告知を既存Postiz @selawmqtで1件行う。既存database告知は再送せず、別campaign `art_of_ai_monks_book_launch_en`、直接販売ページURL、無料全文と有料整形済み版の明示、creatorへの敬意を含める。copy・参照・検証済み成功事例がない穴・計測指標は `docs/evidence/ai-monk-book-launch-copy-20261023.json`。同じ対象/媒体/目的の実績が未取得のため、小さい1件の検証とし、retweet・売上・利益を約束しない。SKU全体のStripe公式全page読戻しでは16:17 UTC時点で支払済み注文0件。campaign帰属の注文やclickは未確認として分ける。
+
+書籍のX告知はPostiz `cmvjqztrg1hrgot0ymefyzjqt` がPUBLISHED、[公開投稿](https://x.com/selawmqt/status/2113304729166213433)を公式readback。既存database告知と別campaign、重複送信0。independent X timeline・閲覧数・campaign click/注文/利益は未確認。本文・receiptは `docs/evidence/ai-monk-book-{launch-copy,x-launch-en}-20261023.json`。
