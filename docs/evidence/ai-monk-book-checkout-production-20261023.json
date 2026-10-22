@@ -1,0 +1,27 @@
+{
+  "observed_at": "2026-10-22T16:03:26.741158+00:00",
+  "origin": "https://aniccaai.com",
+  "checkout_http": 200,
+  "provider": "Stripe",
+  "live_mode": true,
+  "currency": "usd",
+  "unit_amount": 999,
+  "price_id": "price_1UTNvEEeDsUAcaLS7mNPgXUn",
+  "sku": "art_of_ai_monks_en_v1",
+  "protected_formats": {
+    "pdf": {
+      "unpaid_http": 403,
+      "denied": true
+    },
+    "epub": {
+      "unpaid_http": 403,
+      "denied": true
+    }
+  },
+  "actual_purchase_tested": false,
+  "paid_delivery_verified": false,
+  "paid_orders": null,
+  "revenue": null,
+  "official_checkout_verified": true,
+  "canary_expired_verified": true
+}

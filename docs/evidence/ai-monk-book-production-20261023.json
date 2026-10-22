@@ -1,0 +1,22 @@
+{
+  "status": 200,
+  "url": "https://aniccaai.com/the-art-of-ai-monks",
+  "title": "The Art of AI Monks — English First Edition | Anicca",
+  "canonical": "https://aniccaai.com/the-art-of-ai-monks",
+  "h1": "The Art of AI Monks",
+  "source_pr": "https://github.com/Daisuke134/anicca-products/pull/553",
+  "main_sha": "6c21d91c08eb37ce3c47e2290606f58ccf361781",
+  "deploy_run": "https://github.com/Daisuke134/anicca-products/actions/runs/39809692295",
+  "deploy_conclusion": "success",
+  "page_checks": {
+    "price_999_usd": true,
+    "pages_59": true,
+    "words_10874": true,
+    "free_source_link": true,
+    "formats_pdf_epub": true
+  },
+  "actual_paid_purchase_verified": false,
+  "paid_delivery_verified": false,
+  "paid_orders": null,
+  "revenue": null
+}
