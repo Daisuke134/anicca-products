@@ -106,7 +106,7 @@ const COPY: Record<Locale, Copy> = {
       </>
     ),
     notesBody:
-      'Example wording for everyday moments. These illustrations show the tone of a short card; they are not a delivery history or user reviews.',
+      'A few examples of gentle words for difficult days.',
     notes: [
       {
         time: 'Example 01',
@@ -155,7 +155,7 @@ const COPY: Record<Locale, Copy> = {
       </>
     ),
     voicesBody:
-      'Example affirmation copy for a kinder inner voice. These are illustrations, not user reviews or a record of cards sent.',
+      'Example affirmations for a kinder inner voice.',
     voices: [
       {
         line: 'You are allowed to disappoint people who never asked how you were.',
@@ -288,7 +288,7 @@ const COPY: Record<Locale, Copy> = {
       </>
     ),
     notesBody:
-      '日常の場面に向けた文面例です。短いカードの雰囲気を示すもので、実際の配信履歴や利用者のレビューではありません。',
+      '難しい日に読む、やさしい言葉の例です。',
     notes: [
       { time: '文面例 01', text: 'まだ途中の自分にも、やさしい言葉をかけていい。' },
       { time: '文面例 02', text: '今日、すべての考えに答えを出さなくていい。今はひと呼吸で十分。' },
@@ -327,7 +327,7 @@ const COPY: Record<Locale, Copy> = {
         <em className="text-mist">短い言葉の文面例。</em>
       </>
     ),
-    voicesBody: '自分にやさしい言葉をかけるための文面例です。実際の配信履歴や利用者のレビューではありません。',
+    voicesBody: '自分にやさしい言葉をかけるための文面例です。',
     voices: [
       { line: 'あなたの体調を一度も訊かなかった人を、がっかりさせていい。', tag: '文面例 · 自分へのやさしさ' },
       { line: '一年前のあなたは、今もここにいるあなたを誇りに思っている。', tag: '文面例 · 自信のない日' },
