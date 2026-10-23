@@ -22,7 +22,7 @@ Factory専用の画像・台本・avatar・音声・縦動画・本人Instagram�
 
 ## 原価とruntimeの限界
 
-OpenAI画像の公表出力は1024×1536/highでUSD0.052、text入力はUSD2/1M token。入力画像は使わず、固定ASCII promptは1024byte以内に制限する。画像の保守予約はUSD0.06とする。画像の実token使用量・公式request receiptを返すが、税・実tariff・請求額の証明は別である。台本はgpt-4o-miniの公表input USD0.15/1M token、output USD0.60/1M token。DB資料を含む入力を12000byte以内、outputを1200token以内に限定し、保守予約USD0.005とする。rootのperiod予算はこれらをcall前に予約する。
+OpenAI画像の公表出力は1024×1536/highでUSD0.052、text入力はUSD2/1M token。入力画像は使わず、固定ASCII promptは1024byte以内に制限する。現promptの実測は596byte。byte単位token化を保守的に置くと1024tokenで入力USD0.002048、出力との合計USD0.054048となる推算であり、画像の保守予約はUSD0.06とする。この予約は保証されたinvoice ceilingではない。画像の実token使用量・公式request receiptを返すが、税・実tariff・請求額の証明は別である。台本はgpt-4o-miniの公表input USD0.15/1M token、output USD0.60/1M token。DB資料を含む入力を12000byte以内、outputを1200token以内に限定し、保守予約USD0.005とする。rootのperiod予算はこれらをcall前に予約する。
 
 HeyGenのPhotoAvatar USD1.32、Avatar IV Photo USD2.31/分、別Starfish USD0.12/分、Upload-Post Professional USD50/月25profileの原価正本は全体specに従う。既存Grok key/wallet/Postiz/profileへのfallbackは0。
 
@@ -52,7 +52,7 @@ Images APIは同期で、生成IDを使う公式poll endpointはない。`x-requ
 - `connectInstagram(userId)` → `{profile,accessUrl}`。hosted URLだけをConnectの直前に返し、JWT単体やoperator keyは返さない。URLは短命のprofile credentialなので保存/log共有しない。Business/Creator条件と接続移動の説明はroot UIが所有する。
 - `socialState(userId)` → `{profile,connected,accountId,handle,reauthRequired}`。公式`social_accounts.instagram.username`は名前に反してIG自身の不変opaque user IDであり、この値を`accountId`へ正規化する。公開可変`handle`とは分離し、推測した別idフィールドを使用しない。
 - `publishInstagram({userId,accountId,videoUrl,caption,requestId})` → `{id,status}`。直前readbackが一致しない時はPOST0。
-- `postStatus(id)` → `{id,status,postId,postUrl}`。`completed`だけでは公開扱いせず、Instagram自身の成功・未skip・公式post ID/URLを要求する。
+- `postStatus(id)` → `{id,status,postId,postUrl,profile?}`。`completed`だけでは公開扱いせず、Instagram自身の成功・未skip・公式post ID/URLを要求する。status結果がcontainer IDとURLだけを返す場合、公式`GET /api/uploadposts/post-analytics/{request_id}`でnative `platform_post_id`を取得し、request IDとFactory profileを照合して`profile`も返す。container IDやURLからnative IDを推測しない。
 - `metrics({userId,postId})` → `{postId,profile,source,metrics}`。報告される数値だけを返す。
 
 全POSTは1回。公式idempotency契約のあるHeyGen avatar/videoとUpload-Post uploadだけheaderを使う。OpenAIとspeech、profile作成、JWT発行へ推測でheaderを足さない。通信・5xx・409・不正成功応答はsubmitのeffect不明、4xxの明示拒否はeffectなしとして返し、provider本文やsecretはerrorへ含めない。GET失敗はreadback失敗として再診断できる形で返す。
@@ -61,4 +61,4 @@ Images APIは同期で、生成IDを使う公式poll endpointはない。`x-requ
 
 設定不足と独立課金元未確認でPOST0、日次keyへのfallback0、画像/PhotoAvatar/LLMの公式payload、Starfish duration欠落/上限超過で動画POST0、timeoutでsubmit1回、secret/raw診断非露出、公式profile/opaque account照合、hosted URLのorigin制限、公開postの成功条件、metrics欠落非0をfocused testで確認する。実APIアクセス・実課金・全suiteはこのsource受入に追加しない。
 
-現在cursor: specを先に記録し、focused RED→最小adapter→GREENへ進む。live provider設定・独立課金元・モデル/white-label権限・関数runtime・本人接続は未確認。
+現在cursor: specの先行pushとfocused REDを確認し、adapterの20件がGREEN。生成APIのlive呼出は0。live provider設定・独立課金元・モデル/white-label権限・関数runtime・本人接続は未確認。
