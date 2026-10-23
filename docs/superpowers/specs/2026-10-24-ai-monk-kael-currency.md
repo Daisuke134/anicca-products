@@ -20,10 +20,10 @@ base main f5ca0e1880a7c026f3323bfde6f86e495ad46c03、branch feat/ai-monk-kael-pr
 
 - [x] SPEC: 本specとmasterのDB-1 cursorを先にcommit/pushし、remote objectを確認する。spec-first commit d22a5b77ba58d91979840bf72c0909c0c3d6af62を使用する。
 - [x] SOURCE: private source acceptanceのRED→GREEN、限定data更新・v0.4.7版整合・既存関連検証を完了し、このbranchのcommit/pushでremote objectを確認する。
-- [ ] REVIEW: 実装と独立したread-only一次資料/sourceレビューを行い、必要CI/PR/mainへ統合する。
-- [ ] PUBLIC: 固定main入力の新v0.4.7配布物・Registryと公開Web/JSON/MCP/URL導入/実stdioを確認し、正本へ記録する。
+- [x] REVIEW: 実装と独立したread-only一次資料/sourceレビューを行い、必要CI/PR/mainへ統合する。
+- [x] PUBLIC: 固定main入力の新v0.4.7配布物・Registryと公開Web/JSON/MCP/URL導入/実stdioを確認し、正本へ記録する。
 
-現在cursor: REVIEW / PUBLIC（primary所有）。全体順序は変更せず、DB-1の追加観測をPlugin native routingと独立して反映する。Factoryの支払方法不足を成功へ置換しない。
+現在cursor: 本specの限定公開unitは完了。全体のDB-1/PL-1/SaaS-1は未完のまま、primaryが次のcursorを追跡する。全体順序は変更せず、DB-1の追加観測をPlugin native routingと独立して反映する。Factoryの支払方法不足を成功へ置換しない。
 
 
 ## source受入結果
@@ -33,3 +33,7 @@ Kaelの既存有料observation remaining-kael-thirty-nightsは27 USD・one_time�
 private source受入は反映前exit1から反映後exit0へ進み、同plan・USD切替1・安定後readbackと限定header hashを照合する。既存package15件（実SDK/HTTP/隔離tarball導入を含む）、helper9件・Web表示4件、追加の実stdio6toolとCLIのKael offer完全一致は全てPASSする。canonical/dist/Netlify JSONのbytesは一致し、package/lock/serverは0.4.7。永久mirror test・依存追加・全650ページのlocal buildは0で、全体buildはPR CIで扱う。
 
 根拠と再現経路は `docs/evidence/ai-monk-kael-currency-source-20261024.json`、private受入は `/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-kael-currency-source-20261024/` に置く。公開するUI根拠はURL・取得時刻・限定header hash・短い要旨に限定する。merchant会計通貨、無料previewのISO通貨、実ファイル/精細format、注文/売上/効能/creator権利は未知を保持する。v0.4.6の配布物と既存receipt、master/Plugin plan、Factory/Plugin source、browser/credential/shared state、外部publishは変更しない。
+
+## 公開受入
+
+PR635をmain2e174887b0c53901c9bcf72df4f88a292f0dc95fへ統合し、固定mainからv0.4.7を公開する。Release422331779/asset670482172は58370bytes、SHA256 73ad71396384929adde9c346941ac55580a3b0855e8f1320360f03bc3a15bb8d。独立した公開URL導入/CLI/実stdio6toolと、primaryによる本番Web73card/180sources・公開JSON・HTTPS6toolはsnapshot75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026cで一致する。Netlify40028075861とRegistry40028849993はSUCCESS、公式Registry exact GETはactive/isLatest=true。GitHub immutable=falseを保持し、旧Release変更/再送/追加secret/投稿/生成/購入は0。証拠 → ../../evidence/ai-monk-cli-mcp-v047-release-20261024.json。価格観測を注文・売上へ換算しない。
