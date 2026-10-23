@@ -20,7 +20,7 @@
   },
   "translation": {
     "path": "docs/books/the-art-of-ai-monks-ja.md",
-    "sha256": "d54cbe02c0ea669266b19220460912f3269097489f224de67d76962bf62bcaf5",
+    "sha256": "7c127015dc3e9ee2f8c4230010909b6beadc1940da5d46e0eade019e3ea3a5e7",
     "title": "The Art of AI Monks",
     "subtitle": "アバター、注目、そして法衣の裏のビジネス",
     "author": "Anicca",
@@ -28,10 +28,10 @@
     "edition": "日本語版・初版",
     "original_text_and_worksheets_license": "CC BY 4.0",
     "third_party_rights_excluded": true,
-    "characters_unicode_full": 37076,
+    "characters_unicode_full": 37083,
     "character_count_definition": "UTF-8を復号した全文のUnicodeコードポイント数。Markdown、空白、参考文献、URLを含む。",
-    "characters_excluding_whitespace": 35718,
-    "characters_before_appendices": 28069,
+    "characters_excluding_whitespace": 35725,
+    "characters_before_appendices": 28076,
     "lines": 697,
     "chapters": 10,
     "appendices": 3,
@@ -269,5 +269,15 @@
     "日本語EPUB/PDFの生成と紙面確認",
     "日本語版の販売ページ・SKU・公開・納品readback",
     "実購入・注文・収益の検証"
-  ]
+  ],
+  "independent_editorial_review": {
+    "reviewed_commit": "b4123c983435d074b692d1719a0b8d0555945ccb",
+    "scope": "全10章・付録A-Cの原著比較",
+    "major_findings": 0,
+    "medium_findings": 0,
+    "minor_findings": 1,
+    "correction": "120語/分の仮定が原著の英語台本に対するものだと明示する。数字・引用・段落は維持。",
+    "external_sources_refetched": false,
+    "format_visual_review": false
+  }
 }
