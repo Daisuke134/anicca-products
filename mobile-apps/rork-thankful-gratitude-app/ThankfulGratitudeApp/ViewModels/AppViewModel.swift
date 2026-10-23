@@ -19,6 +19,7 @@ class AppViewModel {
     var showPaywall: Bool = false
 
     var currentAffirmation: Affirmation = AffirmationData.forDay()
+    private var currentDay = Date()
 
     static let freeHistoryDays = 7
     static let streakPaywallShownKey = "streak3_paywall_shown"
@@ -26,7 +27,11 @@ class AppViewModel {
 
     // Free: always today's affirmation, even across midnight. Pro: the one they last picked.
     var displayedAffirmation: Affirmation {
-        isPro ? currentAffirmation : AffirmationData.forDay()
+        isPro ? currentAffirmation : AffirmationData.forDay(currentDay)
+    }
+
+    func refreshDay(_ date: Date = Date()) {
+        currentDay = date
     }
 
     init(defaults: UserDefaults = .standard) {

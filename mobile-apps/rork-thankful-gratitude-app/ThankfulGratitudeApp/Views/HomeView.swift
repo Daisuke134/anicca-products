@@ -202,8 +202,10 @@ struct HomeView: View {
     }
 
     private func saveEntry() {
+        let now = Date()
+        viewModel.refreshDay(now)
         let entry = GratitudeEntry(
-            date: Date(),
+            date: now,
             gratitude1: gratitude1.trimmingCharacters(in: .whitespaces),
             gratitude2: gratitude2.trimmingCharacters(in: .whitespaces),
             gratitude3: gratitude3.trimmingCharacters(in: .whitespaces),
