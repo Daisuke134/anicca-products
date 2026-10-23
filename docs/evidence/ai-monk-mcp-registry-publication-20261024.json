@@ -1,0 +1,49 @@
+{
+  "run_id": "ai-monk-registry-20261024",
+  "owner_id": "root",
+  "release_sha": "d5ba46143e81e506caab40f66c5da774c9efffbd",
+  "workflow": {
+    "conclusion": "success",
+    "headSha": "d5ba46143e81e506caab40f66c5da774c9efffbd",
+    "status": "completed",
+    "url": "https://github.com/Daisuke134/anicca-products/actions/runs/39988330815"
+  },
+  "workflow_dispatches": 1,
+  "retry_dispatches": 0,
+  "publisher": "v1.8.2",
+  "publisher_accepted": true,
+  "official_GET": {
+    "url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.Daisuke134%2Fai-monk-index/versions/0.4.4",
+    "status": 200,
+    "name": "io.github.Daisuke134/ai-monk-index",
+    "version": "0.4.4",
+    "remotes": [
+      {
+        "type": "streamable-http",
+        "url": "https://aniccaai.com/.netlify/functions/ai-monk-mcp"
+      }
+    ],
+    "official_metadata": {
+      "status": "active",
+      "statusChangedAt": "2026-10-23T16:38:13.944831Z",
+      "publishedAt": "2026-10-23T16:38:13.944831Z",
+      "updatedAt": "2026-10-23T16:38:13.944831Z",
+      "isLatest": true
+    },
+    "body_sha256": "ff1ce357652e7906b841b1750fcac919769780c8744acbb7635af2deafa5e2e5"
+  },
+  "fresh_read_only_verification": {
+    "blocking": 0,
+    "registry_workflow_and_metadata": true,
+    "x_draft_sha256": "2b8390d3e34adce9aa2a06f40f93817c8fbb468731375871b485b5f91e392d81",
+    "x_weighted_length": 253
+  },
+  "execution_order_correction": {
+    "pre_dispatch_fence": false,
+    "prepublish_GET": "30s timeout while dispatch began; no retry",
+    "post_dispatch_fence": "actual phase and exact workflow receipt recorded; never rewritten as pre-dispatch"
+  },
+  "at": "2026-10-23T16:40:56.326421+00:00",
+  "chatgpt_or_muse_review_listing": false,
+  "sale_or_revenue_proof": false
+}
