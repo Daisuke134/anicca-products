@@ -227,4 +227,6 @@ FactoryはDatabaseと一体のcloud Web appとし、利用者の設定を最小�
 
 各商品の公開後はXでDais所有accountから本人として告知し、Grokにも配布協力を依頼する。具体copy/対象/URLを根拠付きで作り、同目的/媒体の成功例を先に調べる。適切な実績指標が取れない部分は穴を記録し小さい1投稿で計測する。既存の告知を再送せず、新campaignの永続fenceと公式receipt/公開permalinkを確認する。日次IG/TikTok運用は引き続きGrok Bot所有。
 
-Database根拠拡充は67IG候補の公開UIから64followersとbio言語を追加し、公式15site中13siteから20商品（18価格/2unknown）を記録する。source139、73public/75archiveと既存収益観測1件を保持し、本人AI開示でreported6/unverified67となる。package15tests/shared helper9testsはPASS。現在はsource受入であり、main/公開JSON/Web/MCPとCLI v0.4.4の反映・公開URL導入は後続の実receiptで閉じる。証拠 → docs/evidence/ai-monk-research-integration-20261024.json。
+Database根拠拡充は67IG候補の公開UIから64followersとbio言語を追加し、公式15site中13siteから20商品（18価格/2unknown）を記録する。source139、73public/75archiveと既存収益観測1件を保持し、本人AI開示でreported6/unverified67となる。package15tests/shared helper9testsはPASS。PR614/main fbc141f759c01d0d14269f22e4f75525fcf252c0、最終head package/Landing CI成功、fresh最終blocking0を受入する。CLI v0.4.4の公式asset669669941/digest/公開GET200/公開URL導入/実stdio6toolは完了し、Netlify39985074291はSUCCESS、公開JSONはmain bytesと完全一致し、Web73件/139出典とremote MCP6tools/73件/139出典/reported6/unverified67/snapshot SHA一致を受入する。公開証拠 → docs/evidence/ai-monk-database-v044-production-20261024.json。証拠 → docs/evidence/ai-monk-research-integration-20261024.json。
+
+MCP Registryは既存remote-only metadataをGitHub OIDCで登録する。公開契約と現在cursor → docs/superpowers/plans/2026-10-24-ai-monk-mcp-registry.md。ChatGPT/Muse公式審査掲載、販売/注文、Factory SaaSの達成とは区別する。

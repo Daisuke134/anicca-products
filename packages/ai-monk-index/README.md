@@ -77,6 +77,8 @@ The endpoint exposes the same six read-only tools and source-linked snapshot. Au
 
 Read the [endpoint privacy notice](https://aniccaai.com/ai-monk-database/privacy) before sending a query. A working remote endpoint is separate from a published plugin directory listing. No ChatGPT/Codex directory listing is claimed by this package.
 
+[Registry metadata](server.json) names this remote-only server `io.github.Daisuke134/ai-monk-index`. The manual [publication workflow](../../.github/workflows/ai-monk-mcp-registry.yml) accepts only `main`, verifies the official publisher download, and uses GitHub OIDC without a stored registry secret. Registry publication is separate from ChatGPT or Muse review.
+
 ## Build from source
 
 ```sh

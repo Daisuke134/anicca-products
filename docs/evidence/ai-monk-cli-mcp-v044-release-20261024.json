@@ -1,0 +1,132 @@
+{
+  "schema_version": "anicca.ai-monk-cli-release.v1",
+  "run_id": "ai-monk-cli-v044-release-20261024",
+  "owner_id": "root",
+  "occurrence_id": "public-release-download-install-stdio",
+  "release_sha": "fbc141f759c01d0d14269f22e4f75525fcf252c0",
+  "observed_at": "2026-10-23T16:15:17.701332+00:00",
+  "phase": "public_release_acceptance",
+  "command": "official GitHub release, public GET, npm install URL, CLI stats, real SDK stdio6tools",
+  "loaded_argv": [
+    "npm",
+    "install",
+    "--prefix",
+    "isolated-private-directory",
+    "--ignore-scripts",
+    "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.4/anicca-ai-monk-index-0.4.4.tgz"
+  ],
+  "loaded_env": {
+    "model_provider_flags": 0,
+    "shared_config_changes": 0
+  },
+  "exit_code": 0,
+  "effect": {
+    "release_published": true,
+    "posts": 0,
+    "payments": 0,
+    "video_generation": 0
+  },
+  "readback": {
+    "release_url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.4.4",
+    "asset_api_url": "https://api.github.com/repos/Daisuke134/anicca-products/releases/assets/669669941",
+    "asset_bytes": 42415,
+    "asset_sha256": "e4d066094194c3c51c252bee2b3ef023c4a42ee41e47f2eb876ee78a0d662ca0",
+    "official_digest_matches": true,
+    "public_get_status": 200,
+    "npm_install_exit": 0,
+    "cli_records": 73,
+    "cli_sources": 139,
+    "stdio": {
+      "observed_at": "2026-10-23T16:15:17.691Z",
+      "package_version": "0.4.4",
+      "transport": "real_sdk_stdio",
+      "server": {
+        "name": "ai-monk-index",
+        "version": "0.4.4"
+      },
+      "completed_calls": 6,
+      "tools": [
+        {
+          "name": "search_ai_monks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "get_ai_monk",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "ai_monk_index_stats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "top_formats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "how_they_monetize",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "winning_playbooks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      ],
+      "records": 73,
+      "sources": 139,
+      "research_archive_records": 75,
+      "ai_status": {
+        "confirmed": 0,
+        "reported": 6,
+        "unverified": 67
+      },
+      "directory_scope_counts": {
+        "included": 4,
+        "pending": 69,
+        "excluded": 2
+      },
+      "snapshot_sha256": "de15964fe31fd2ea87d7e38adb2f53a5da914fc63e50db50da3657d6ab82897e",
+      "canonical_installed_bytes_equal": true,
+      "all_structured_text_and_pure_outputs_equal": true,
+      "external_provider_calls": 0,
+      "stderr": ""
+    }
+  },
+  "provider_receipt_id": "https://api.github.com/repos/Daisuke134/anicca-products/releases/assets/669669941",
+  "evidence_refs": [
+    "official-release.json",
+    "build-readback.json",
+    "public-install/stdio-readback.json"
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Netlify public JSON/Web/remote MCP acceptance",
+  "source_acceptance": {
+    "pr": 614,
+    "head_sha": "bcb49436b23c6d9ebf15fba5d5898e563e012ab7",
+    "package_ci": 39984604124,
+    "landing_ci": 39984603913,
+    "conclusion": "success",
+    "fresh_read_only_review_blocking": 0,
+    "package_tests_passed": 15,
+    "helper_tests_passed": 9,
+    "language_correction_probe": "pass"
+  }
+}
