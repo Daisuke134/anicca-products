@@ -1,0 +1,30 @@
+{
+  "schema_version": "anicca.ai-monk-cli-mcp-public-release.v1",
+  "recorded_at": "2026-10-23T11:10:35.262093+00:00",
+  "release_sha": "c66e4fa4fab2052328e26a454c2bb598d64ca7b4",
+  "release_tag": "ai-monk-index-v0.4.1",
+  "release_url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.4.1",
+  "asset_url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.1/anicca-ai-monk-index-0.4.1.tgz",
+  "status": "passed",
+  "public_download_bytes": 29667,
+  "public_download_sha256": "157e5917f489c57577fe884e2c45074cf59772a34ff8fec2cf620b1097d1e096",
+  "official_github_asset_digest": "sha256:157e5917f489c57577fe884e2c45074cf59772a34ff8fec2cf620b1097d1e096",
+  "npm_public_url_install": true,
+  "version": "0.4.1",
+  "records": 4,
+  "sources": 57,
+  "archive_records": 75,
+  "snapshot_sha256": "8711cf04c6c310a3ea07bf4a72e4387be18207e45b20a001457ed0f59edd0ff4",
+  "installed_database_matches_main": true,
+  "limits": [
+    "GitHub release package; not an npm registry or ChatGPT app listing",
+    "Read-only research interface; no Factory publication or revenue proof"
+  ],
+  "source_files_match_main": true,
+  "source_files_compared": 11,
+  "official_tag_readback": {
+    "ref": "refs/tags/ai-monk-index-v0.4.1",
+    "type": "commit",
+    "sha": "c66e4fa4fab2052328e26a454c2bb598d64ca7b4"
+  }
+}
