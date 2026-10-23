@@ -1744,6 +1744,54 @@
       "evidence_sha256": "1f1eb754d03581f42e610e69f0d175fd8e185c62af80d0ba27ea3f679eb6a056",
       "evidence_kind": "private_public_response_body",
       "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-price-followup-beravia-beetroot-20261024",
+      "title": "Beetroot Capsules official variant price JSON",
+      "url": "https://beraviahealth.com/products/beetroot.json",
+      "source_type": "first-party seller public product JSON and matching product metadata",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T20:34:35.473241+00:00",
+      "capture_method": "anonymous public HTTP GET via scrapy fetch; no shopper data or form submission",
+      "evidence_sha256": "a97097fa1c3d9ec7d2f72fd972c1a7bdf52dae267c8c540afff8a0b6d410b688",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Product 10489854951697 / variant 51739327430929 / Default Title / SKU VOX4BEET: price 29.99 and price_currency USD; compare_at_price 44.99 USD is a seller reference price. Matching product-page JSON-LD lists 29.99 USD and Shopify.country US / active USD. Product.js separately exposes an optional 26.99 monthly Subscribe & Save plan. Default storefront USD is observed; merchant accounting/base currency, purchases, commissions and efficacy are not established.",
+      "supporting_public_responses": [
+        {
+          "url": "https://beraviahealth.com/products/beetroot",
+          "captured_at": "2026-10-23T20:34:35.576422+00:00",
+          "evidence_sha256": "2ddd57ac9f70e9d2cb03e38aff9e421d7df0301140f8c8b74f317dcb7a77240a"
+        },
+        {
+          "url": "https://beraviahealth.com/products/beetroot.js",
+          "captured_at": "2026-10-23T20:34:35.477872+00:00",
+          "evidence_sha256": "205dca56d1e3c2915771591db1978f1b3e813e2590429f9a7a6960247885cb97"
+        }
+      ]
+    },
+    {
+      "id": "product-price-followup-ananta-remedios-20261024",
+      "title": "Remedios Olvidados official base and JP checkout price",
+      "url": "https://pay.hotmart.com/K104790777T",
+      "source_type": "first-party public anonymous checkout metadata",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T20:35:20.653635+00:00",
+      "capture_method": "anonymous public HTTP GET via scrapy fetch; no shopper data or form submission",
+      "evidence_sha256": "baca0346db975db79efe752eee5f6f102861d4b0c5b8dfe403b54595e3aec648",
+      "evidence_kind": "private_public_response_body",
+      "notes": "The public landing-page CTA points to this exact checkout. Decoded __NUXT_DATA__ products[0].exchange[0] has baseValue 9.99 / baseCurrency USD; offer key z279p2c3. In the JP / ja_JP response, paymentMethods[].amount is 1654 JPY; that localized checkout amount is separate from the USD base offer. The landing page explicitly says pago único. No form, order, payment or product efficacy is verified."
+    },
+    {
+      "id": "product-price-followup-ravi-duo-20261024",
+      "title": "Monge Ravi two-ebook bundle official base and JP checkout price",
+      "url": "https://pay.hotmart.com/P105464053B?off=w7hjj3yf",
+      "source_type": "first-party public anonymous checkout metadata",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T20:35:21.188460+00:00",
+      "capture_method": "anonymous public HTTP GET via scrapy fetch; no shopper data or form submission",
+      "evidence_sha256": "4eb0f7e354330b8673538b37c0e8e3044f6f8ebe4e75abaf021ff97e06d929e0",
+      "evidence_kind": "private_public_response_body",
+      "notes": "The storefront two-ebook bundle points to product P105464053B / offer w7hjj3yf. Decoded __NUXT_DATA__ products[0].exchange[0] has baseValue 60 / baseCurrency BRL. The JP / ja_JP paymentMethods[].amount is 1992 JPY and is separate from the BRL base offer. Price is not calculated from individual ebook prices or the seller discount claim. Billing recurrence, completed purchases, revenue and efficacy remain unverified."
     }
   ],
   "accounts": [
@@ -2131,7 +2179,9 @@
         "https://maldita.es/investigaciones/20260727/250-ai-health-instagram-accounts/",
         "https://avatarfactory.io/ai-influencers/ming-san",
         "https://beraviahealth.com/products/beetroot",
-        "https://mvau.lt/media/a5de6087-bd3b-424c-b3a3-e08d4805c2f3"
+        "https://mvau.lt/media/a5de6087-bd3b-424c-b3a3-e08d4805c2f3",
+        "https://beraviahealth.com/products/beetroot.json",
+        "https://beraviahealth.com/products/beetroot.js"
       ],
       "platforms": [
         {
@@ -2196,12 +2246,41 @@
           "type": "external wellness product link",
           "name": "Beetroot Capsules",
           "url": "https://beraviahealth.com/products/beetroot",
-          "price": null,
-          "currency": null,
+          "price": 29.99,
+          "currency": "USD",
           "as_of": "2026-10-23",
-          "source_id": "beravia-beetroot-product-20261023",
-          "status": "public_bio_link_and_seller_product_page_price_commission_and_sales_unknown",
-          "notes": "Official product name verified; own price unavailable. No affiliate commission, paid units, revenue or health efficacy established."
+          "source_id": "product-price-followup-beravia-beetroot-20261024",
+          "status": "displayed_price_not_order_data",
+          "notes": "Official default variant one-time offer: 29.99 USD in the anonymous US/default storefront; optional monthly delivery is 26.99 USD and the seller comparison price is 44.99 USD. The 24.99 Moringa upsell is a separate product. Storefront currency is observed; merchant accounting/base currency, affiliate commission, paid units, revenue and health efficacy remain unverified.",
+          "price_kind": "listed_one_time_offer",
+          "billing_kind": "one_time",
+          "source_ids": [
+            "beravia-beetroot-product-20261023",
+            "product-price-followup-beravia-beetroot-20261024"
+          ],
+          "captured_at": "2026-10-23T20:34:35.473241+00:00",
+          "observation_id": "price-followup-beravia-beetroot-20261024",
+          "variant": {
+            "id": 51739327430929,
+            "title": "Default Title",
+            "sku": "VOX4BEET"
+          },
+          "reference_price": {
+            "amount": 44.99,
+            "currency": "USD",
+            "kind": "seller_reference_price_not_verified_transaction"
+          },
+          "variant_prices": [
+            {
+              "kind": "subscription_offer",
+              "amount": 26.99,
+              "currency": "USD",
+              "billing_period": "month",
+              "name": "Deliver every month, 10% off",
+              "selling_plan_id": 12669944081,
+              "source_id": "product-price-followup-beravia-beetroot-20261024"
+            }
+          ]
         }
       ],
       "seller_counters": [],
@@ -2520,7 +2599,8 @@
       "region_evidence": null,
       "source_urls": [
         "https://www.instagram.com/tempiovita/",
-        "https://anantamst.github.io/remedios-olvidados/"
+        "https://anantamst.github.io/remedios-olvidados/",
+        "https://pay.hotmart.com/K104790777T"
       ],
       "platforms": [
         {
@@ -2545,17 +2625,18 @@
           "type": "digital_book",
           "name": "Remedios Olvidados — Maestro Ananta",
           "price": 9.99,
-          "currency": null,
-          "source_id": "product-remaining-source-d3c6a856f315",
+          "currency": "USD",
+          "source_id": "product-price-followup-ananta-remedios-20261024",
           "source_ids": [
             "product-remaining-source-d3c6a856f315",
             "lead-instagram-tempiovita-ig-header-20261024",
-            "product-remaining-source-fd964c190615"
+            "product-remaining-source-fd964c190615",
+            "product-price-followup-ananta-remedios-20261024"
           ],
           "status": "displayed_price_not_order_data",
           "url": "https://anantamst.github.io/remedios-olvidados/",
           "as_of": "2026-10-23",
-          "captured_at": "2026-10-23T16:24:22.679860+00:00",
+          "captured_at": "2026-10-23T20:35:20.653635+00:00",
           "formats": [
             "digital recipe book; exact file type unverified"
           ],
@@ -2568,12 +2649,22 @@
           "discovery_urls": [
             "https://go.hotmart.com/K104790777T"
           ],
-          "notes": "Immediate access; more than 1,000 recipes; $9.99. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue. Only a dollar symbol was exposed. ISO currency is unverified and is not assumed to be USD.",
+          "notes": "Base offer 9.99 USD, one-time payment; immediate access and more than 1,000 recipes are seller descriptions. The anonymous JP checkout separately displayed 1654 JPY. Base USD currency is explicit in official checkout metadata; no currency is inferred from the dollar symbol. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
           "paid_orders": null,
           "revenue": null,
           "revenue_status": "unknown_no_payment_or_revenue_receipt",
-          "price_kind": "listed_offer",
-          "price_symbol": "$"
+          "price_kind": "base_offer_price",
+          "price_symbol": "$",
+          "billing_kind": "one_time",
+          "presentment_price": {
+            "amount": 1654,
+            "currency": "JPY",
+            "country": "JP",
+            "locale": "ja_JP",
+            "kind": "localized_anonymous_checkout_amount",
+            "captured_at": "2026-10-23T20:35:20.653635+00:00",
+            "source_id": "product-price-followup-ananta-remedios-20261024"
+          }
         }
       ],
       "seller_counters": [
@@ -2592,8 +2683,7 @@
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
-        "Remedios Olvidados — Maestro Ananta: displayed price $9.99; ISO currency remains unverified."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
       ],
       "directory_scope": {
         "status": "pending",
@@ -6200,7 +6290,8 @@
       "region_evidence": null,
       "source_urls": [
         "https://www.instagram.com/maestroananta/",
-        "https://anantamst.github.io/remedios-olvidados/"
+        "https://anantamst.github.io/remedios-olvidados/",
+        "https://pay.hotmart.com/K104790777T"
       ],
       "platforms": [
         {
@@ -6225,17 +6316,18 @@
           "type": "digital_book",
           "name": "Remedios Olvidados — Maestro Ananta",
           "price": 9.99,
-          "currency": null,
-          "source_id": "product-remaining-source-d3c6a856f315",
+          "currency": "USD",
+          "source_id": "product-price-followup-ananta-remedios-20261024",
           "source_ids": [
             "product-remaining-source-d3c6a856f315",
             "lead-instagram-maestroananta-ig-header-20261024",
-            "product-remaining-source-fd964c190615"
+            "product-remaining-source-fd964c190615",
+            "product-price-followup-ananta-remedios-20261024"
           ],
           "status": "displayed_price_not_order_data",
           "url": "https://anantamst.github.io/remedios-olvidados/",
           "as_of": "2026-10-23",
-          "captured_at": "2026-10-23T16:24:22.679860+00:00",
+          "captured_at": "2026-10-23T20:35:20.653635+00:00",
           "formats": [
             "digital recipe book; exact file type unverified"
           ],
@@ -6248,12 +6340,22 @@
           "discovery_urls": [
             "https://go.hotmart.com/K104790777T"
           ],
-          "notes": "Immediate access; more than 1,000 recipes; $9.99. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue. Only a dollar symbol was exposed. ISO currency is unverified and is not assumed to be USD.",
+          "notes": "Base offer 9.99 USD, one-time payment; immediate access and more than 1,000 recipes are seller descriptions. The anonymous JP checkout separately displayed 1654 JPY. Base USD currency is explicit in official checkout metadata; no currency is inferred from the dollar symbol. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
           "paid_orders": null,
           "revenue": null,
           "revenue_status": "unknown_no_payment_or_revenue_receipt",
-          "price_kind": "listed_offer",
-          "price_symbol": "$"
+          "price_kind": "base_offer_price",
+          "price_symbol": "$",
+          "billing_kind": "one_time",
+          "presentment_price": {
+            "amount": 1654,
+            "currency": "JPY",
+            "country": "JP",
+            "locale": "ja_JP",
+            "kind": "localized_anonymous_checkout_amount",
+            "captured_at": "2026-10-23T20:35:20.653635+00:00",
+            "source_id": "product-price-followup-ananta-remedios-20261024"
+          }
         }
       ],
       "seller_counters": [
@@ -6272,8 +6374,7 @@
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
-        "Remedios Olvidados — Maestro Ananta: displayed price $9.99; ISO currency remains unverified."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
       ],
       "directory_scope": {
         "status": "pending",
@@ -6314,7 +6415,8 @@
       "region_evidence": null,
       "source_urls": [
         "https://www.instagram.com/oravishen/",
-        "https://mongeravi.com/"
+        "https://mongeravi.com/",
+        "https://pay.hotmart.com/P105464053B?off=w7hjj3yf"
       ],
       "platforms": [
         {
@@ -6396,17 +6498,18 @@
         {
           "type": "digital_bundle",
           "name": "Monge Ravi two-ebook bundle",
-          "price": null,
-          "currency": null,
-          "source_id": "product-site-mongeravi-20261024",
+          "price": 60,
+          "currency": "BRL",
+          "source_id": "product-price-followup-ravi-duo-20261024",
           "source_ids": [
             "product-site-mongeravi-20261024",
-            "lead-instagram-oravishen-ig-header-20261024"
+            "lead-instagram-oravishen-ig-header-20261024",
+            "product-price-followup-ravi-duo-20261024"
           ],
-          "status": "public_offer_price_unknown",
+          "status": "displayed_price_not_order_data",
           "url": "https://mongeravi.com/",
           "as_of": "2026-10-23",
-          "captured_at": "2026-10-23T15:52:04.279926+00:00",
+          "captured_at": "2026-10-23T20:35:21.188460+00:00",
           "formats": [
             "ebook; exact bundle files unverified"
           ],
@@ -6419,10 +6522,21 @@
           "discovery_urls": [
             "https://mongeravi.com/"
           ],
-          "notes": "Both ebooks together; seller claims save 30%. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "notes": "Both ebooks together; official checkout base offer 60 BRL. The anonymous JP checkout separately displayed 1992 JPY. Seller claims save 30%; this price is not calculated from that claim. Recurring-versus-one-time billing terms remain unverified. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
           "paid_orders": null,
           "revenue": null,
-          "revenue_status": "unknown_no_payment_or_revenue_receipt"
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "base_offer_price",
+          "billing_kind": null,
+          "presentment_price": {
+            "amount": 1992,
+            "currency": "JPY",
+            "country": "JP",
+            "locale": "ja_JP",
+            "kind": "localized_anonymous_checkout_amount",
+            "captured_at": "2026-10-23T20:35:21.188460+00:00",
+            "source_id": "product-price-followup-ravi-duo-20261024"
+          }
         },
         {
           "type": "digital_guide",
@@ -6469,7 +6583,7 @@
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
         "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
-        "Monge Ravi two-ebook bundle: current price remains unverified; public availability is not a completed purchase."
+        "Monge Ravi two-ebook bundle: recurring-versus-one-time billing terms remain unverified; public checkout availability is not a completed purchase."
       ],
       "directory_scope": {
         "status": "pending",

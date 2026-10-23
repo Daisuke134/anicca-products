@@ -121,7 +121,7 @@ function ProfileCard({ account, sourceById, imageSrc, selectedPlatform }: { acco
         <p className="text-xs text-stone-500">Products</p>
         {products.length ? <ul className="mt-2 space-y-1.5 text-sm text-stone-800">{products.slice(0, 2).map((offer, index) => <li key={index}>
           {offer.url ? <a href={offer.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{offer.name ?? offer.type}</a> : offer.name ?? offer.type}
-          {typeof offer.price === 'number' && <span className="text-stone-500"> · {offer.currency === 'USD' ? '$' : ''}{offer.price.toFixed(2)}{offer.currency && offer.currency !== 'USD' ? ` ${offer.currency}` : ''}</span>}
+          {typeof offer.price === 'number' && <span className="text-stone-500"> · {offer.price_kind === 'base_offer_price' ? 'Base price · ' : ''}{offer.currency === 'USD' ? '$' : ''}{offer.price.toFixed(2)}{offer.currency && offer.currency !== 'USD' ? ` ${offer.currency}` : ''}</span>}
           <span className="mt-1 block text-xs text-stone-500">{offer.as_of ? 'Observed' : 'Source'} {offer.as_of ?? sourceById[offer.source_id ?? '']?.published_at ?? sourceById[offer.source_id ?? '']?.checked_at ?? 'date unknown'}</span>
         </li>)}</ul> : <p className="mt-2 text-sm text-stone-500">No product recorded</p>}
       </div>
@@ -157,7 +157,7 @@ function ProfileCard({ account, sourceById, imageSrc, selectedPlatform }: { acco
           <ul className="mt-2 space-y-2 text-sm">
             {(account.offers ?? []).map((offer, index) => <li key={index}>
               {offer.url ? <a href={offer.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{offer.name ?? offer.type} ↗</a> : offer.name ?? offer.type}
-              <span className="mt-1 block text-xs text-stone-600">{typeof offer.price === 'number' ? `${offer.currency === 'USD' ? '$' : ''}${offer.price.toFixed(2)}${offer.currency && offer.currency !== 'USD' ? ` ${offer.currency}` : ''}` : 'Price unknown'}</span>
+              <span className="mt-1 block text-xs text-stone-600">{typeof offer.price === 'number' ? `${offer.price_kind === 'base_offer_price' ? 'Base price · ' : ''}${offer.currency === 'USD' ? '$' : ''}${offer.price.toFixed(2)}${offer.currency && offer.currency !== 'USD' ? ` ${offer.currency}` : ''}` : 'Price unknown'}</span>
             </li>)}
           </ul>
         </section>}

@@ -46,7 +46,7 @@ export function createServer() {
   }, async args => result(getTopFormats(args)));
   server.registerTool('how_they_monetize', {
     title: 'How AI monk accounts monetize',
-    description: 'Offers (type, name, displayed price, URL), seller counters, creator revenue claims and revenue observations for AI monk accounts, plus counts by offer type. Optional account_id. Prices are not orders; claims are unaudited.',
+    description: 'Offers (type, name, listed or base price, currency, URL), separate localized presentment observations, seller counters, creator revenue claims and revenue observations for AI monk accounts, plus counts by offer type. Optional account_id. Prices are not orders; claims are unaudited.',
     inputSchema: monetizeSchema,
     outputSchema,
     annotations,

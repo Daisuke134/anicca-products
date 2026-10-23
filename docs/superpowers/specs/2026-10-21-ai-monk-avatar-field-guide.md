@@ -240,3 +240,7 @@ Databaseの今回範囲は、保存済み公開一次資料の28 discovery入口
 このsource統合はRED→最小データ統合→GREEN・既存package15/helper9検証を通し、v0.4.5として公開する。当該データ差分はRegistry workflow、plugin payload、Factory、認証、投稿、checkout、有料APIと既存日次loopを変更しない。実行計画 → docs/superpowers/plans/2026-10-24-ai-monk-products-remaining.md。現在の全体cursorは上記の正本を参照する。
 
 source受入では49候補から39 sourceを引用し、既存2 sourceを変更せず再利用、新規37 sourceを追加して176出典とする。33 distinct商品を35 account関連行へ統合し、seller counterは7関連行を追加する。未取得・失敗・非商品などの残10 source候補はreceiptへ状態とhashを残す。元139 source・75archive・73public・scope/AI状態・既存収益観測1件は不変。source acceptanceは未統合33件のREDからGREEN、参照628件のmissing0、既存package15/helper9とbuild済みAPIの33商品検索・出典返却・unknown保持を確認する。PR619/main bbd81158d27d0c8b84fe5fc656062f54df7f50d5へ統合し、v0.4.5の公開JSON/Web/CLI/stdio/remote MCPを同じsnapshotで受入する。source証拠 → docs/evidence/ai-monk-products-remaining-integration-20261024.json。公開証拠 → docs/evidence/ai-monk-cli-mcp-v045-release-20261024.json。
+
+## 未確認商品価格・通貨の追加観測
+
+v0.4.6で確定3系統のbase/定期/比較/presentment価格を分け、Kaelと他の未知値を維持する契約 → `2026-10-24-ai-monk-product-price-currencies.md`。

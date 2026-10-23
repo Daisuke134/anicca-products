@@ -55,6 +55,7 @@ export type AiMonkAccount = {
     name?: string | null;
     price?: number | null;
     currency?: string | null;
+    price_kind?: string;
     url?: string | null;
     status?: string;
     source_id?: string;
