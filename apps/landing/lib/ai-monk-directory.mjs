@@ -31,7 +31,7 @@ function matchesKnownOrUnknown(values, filter) {
 }
 
 export function getAiMonkAvatarAccounts(accounts) {
-  return accounts.filter(account => account.directory_scope?.status !== 'excluded');
+  return accounts.filter(account => account.directory_scope?.status === 'included');
 }
 
 export function filterAiMonkAccounts(accounts, filters = {}) {

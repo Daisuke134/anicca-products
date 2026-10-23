@@ -36,16 +36,16 @@ test('filters and audience order match the published Web helper; pages cover the
 });
 
 test('get keeps the complete canonical record, unknown language, and provenance', () => {
-  const output = getAccount('master-kaizen-tiktok');
-  assert.deepEqual(output.account, canonical.accounts.find(a => a.id === 'master-kaizen-tiktok'));
+  const output = getAccount('leo-chen');
+  assert.deepEqual(output.account, canonical.accounts.find(a => a.id === 'leo-chen'));
   assert.deepEqual(output.account.languages, []);
-  assert.ok(output.sources.some(s => s.id === 'omaster-kaizen-tiktok-20261022'));
+  assert.ok(output.sources.some(s => s.id === 'maldita-2026-07-10'));
   assert.throws(() => getAccount('missing-monk'), /Unknown account/);
 });
 
 test('stats counts records and statuses without converting leads into confirmed avatars', () => {
   const stats = getStats();
-  assert.equal(stats.records, canonical.accounts.filter(a => a.directory_scope?.status !== 'excluded').length);
+  assert.equal(stats.records, canonical.accounts.filter(a => a.directory_scope?.status === 'included').length);
   assert.equal(stats.sources, canonical.sources.length);
   assert.equal(stats.ai_status.confirmed ?? 0, 0);
   assert.equal(Object.values(stats.ai_status).reduce((sum, n) => sum + n, 0), stats.records);
@@ -64,13 +64,13 @@ test('invalid CLI input fails without returning plausible research results', () 
   }
 });
 
-test('CLI and MCP data omit illustrated channels while retaining the research archive', () => {
+test('CLI and MCP data omit pending leads and illustrations while retaining the research archive', () => {
   const first = searchAccounts({ limit: 50 });
   const second = searchAccounts({ offset: 50, limit: 50 });
   assert.equal(canonical.accounts.length, 75);
-  assert.equal(first.total, 73);
-  assert.equal(first.accounts.length + second.accounts.length, 73);
-  for (const id of ['kai-tsukimi', 'buddha-would-say']) {
+  assert.equal(first.total, 4);
+  assert.equal(first.accounts.length + second.accounts.length, 4);
+  for (const id of ['kai-tsukimi', 'buddha-would-say', 'master-kaizen-tiktok', 'sifuchen-california', 'lead-instagram-lotusfamily1']) {
     assert.ok(canonical.accounts.some(a => a.id === id));
     assert.equal(searchAccounts({ query: id }).total, 0);
     assert.throws(() => getAccount(id), /Unknown account/);
@@ -78,9 +78,9 @@ test('CLI and MCP data omit illustrated channels while retaining the research ar
     assert.equal(cliResult.status, 0, cliResult.stderr);
     assert.equal(JSON.parse(cliResult.stdout).total, 0);
   }
-  assert.equal(getStats().records, 73);
+  assert.equal(getStats().records, 4);
   assert.equal(getStats().metadata.research_archive_records, 75);
-  assert.equal(getStats().metadata.excluded_from_directory, 2);
+  assert.equal(getStats().metadata.excluded_from_directory, 71);
 });
 
 

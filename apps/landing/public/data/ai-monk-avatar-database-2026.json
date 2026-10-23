@@ -2,9 +2,9 @@
   "schema_version": "anicca.ai-monk-avatar-database.v1",
   "updated_at": "2026-10-23",
   "license": "CC BY 4.0 for Anicca-authored summaries, annotations, and the database compilation. Third-party content, names, marks, profile data, and linked media remain with their owners.",
-  "scope": "English-first research on realistic AI monk video avatars such as Yang Mun. The directory has 7 researched profiles and 66 unverified discovery candidates; known illustrated/watercolor storytelling channels are excluded. The full 75-record research archive is retained, not a complete census.",
+  "scope": "English-first research on realistic AI monk video avatars such as Yang Mun. The public directory contains 4 evidence-reviewed video personas. The 75-record research archive retains 69 pending candidates and 2 excluded illustrated/watercolor channels. This is not a complete census.",
   "methodology": [
-    "Include a synthetic monk persona only when a platform/creator disclosure or credible reporting supports that classification. Keep screenshot-only cases marked unverified.",
+    "Publish a synthetic monk video persona only after an explicit included scope review supported by creator/provider disclosure or credible reporting with account-attributed video evidence. Keep missing-scope and pending records in the research archive; an image or discovery lead alone is insufficient.",
     "Do not merge accounts on similar names alone. Unknown handles, creators, launch dates, and product URLs remain null with a reason.",
     "Store platform, source URL, capture date, and metric beside each number. Instagram followers, YouTube subscribers, views, seller counters, creator statements, orders, and net profit are different measures.",
     "Summarize video structure without storing full scripts, captions, or downloaded media. Video URLs point to the original platform.",
@@ -541,6 +541,15 @@
       "checked_at": "2026-10-23",
       "captured_at": "2026-10-23T02:53:26.975599+00:00",
       "notes": "The current public monjechen bio links to this official product page. It presents a 103-page digital guide and seller-displayed €9,95. The page also includes Agotado and add-to-cart text, so availability is unresolved. Seller health claims, urgency and reviews are not adopted as facts or sales evidence."
+    },
+    {
+      "id": "maldita-monjechen-video-card-20261023",
+      "title": "Maldita AI health-account investigation: Yan Chen / @monjechen video card",
+      "url": "https://flo.uri.sh/visualisation/29805445/embed",
+      "source_type": "public data embed attached to independent investigation",
+      "published_at": null,
+      "checked_at": "2026-10-23",
+      "notes": "Public embed titled (English) Perfiles IA Instagram salud attributes a realistic monk Instagram Reel still to title Yan Chen and subtitle @monjechen. Linked investigation is Maldita 2026-07-27. This supports reported classification and account attribution, not a complete watch, a production-provider disclosure or audited financial data."
     }
   ],
   "accounts": [
@@ -877,7 +886,16 @@
           "source_id": "virtual-humans-yangmun-profile",
           "status": "creator_reported_dashboard_claim_not_audited"
         }
-      ]
+      ],
+      "directory_scope": {
+        "status": "included",
+        "reason": "Creator/provider and independent reporting identify the realistic talking monk video persona; sampled YouTube videos are source-linked.",
+        "source_ids": [
+          "heygen-yangmun-case",
+          "columbia-yangmun-report",
+          "yangmun-youtube-short-motivation"
+        ]
+      }
     },
     {
       "id": "ming-san",
@@ -1010,7 +1028,14 @@
           "source_id": "avatarfactory-ming-san",
           "summary": "Maldita classifies the profile as AI-generated in its investigation; AvatarFactory says the public evidence does not establish whether the persona is AI."
         }
-      ]
+      ],
+      "directory_scope": {
+        "status": "included",
+        "reason": "Independent investigation attributes a monk-like synthetic health-video persona and a video example to @mingsanhealing; a conflicting directory claim remains preserved.",
+        "source_ids": [
+          "maldita-2026-07-27"
+        ]
+      }
     },
     {
       "id": "sifuchen-california",
@@ -1074,7 +1099,14 @@
       "unknowns": [
         "Exact live Instagram handle, current followers, operator location, sales, refunds, and revenue.",
         "The Spanish-flag/Spain market signal does not establish the language of the account’s own posts."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "The report establishes a realistic AI-created still and guide highlight, but an account-attributed video example has not been verified.",
+        "source_ids": [
+          "maldita-2026-07-10"
+        ]
+      }
     },
     {
       "id": "leo-chen",
@@ -1132,17 +1164,28 @@
       ],
       "unknowns": [
         "Exact handle, language, account owner/location, product price, and whether the comment lead converted to paid orders."
-      ]
+      ],
+      "directory_scope": {
+        "status": "included",
+        "reason": "Independent investigation names Leo Chen in a synthetic monk video and describes video artifacts. The exact native handle remains unknown.",
+        "source_ids": [
+          "maldita-2026-07-10"
+        ]
+      }
     },
     {
       "id": "yan-chen-monjechen",
       "display_name": "Yan Chen | Sabiduría sanadora",
       "persona_type": "AI-labelled monk-like healing avatar",
-      "ai_status": "unverified",
+      "ai_status": "reported",
       "ai_evidence": [
         {
           "source_id": "user-screenshot-monjechen-instagram",
           "summary": "The supplied screenshot displays an 'AI-generated profile' label. The profile label was not independently read back in this research run."
+        },
+        {
+          "source_id": "maldita-monjechen-video-card-20261023",
+          "summary": "Maldita’s public AI health-account investigation embed identifies Yan Chen / @monjechen and an Instagram Reel still of a realistic monk persona. Reported AI attribution, not first-party production confirmation."
         }
       ],
       "creator": {
@@ -1160,7 +1203,8 @@
       "region_evidence": null,
       "source_urls": [
         "https://www.instagram.com/monjechen/",
-        "https://elmonjeechen.com/products/el-camino-de-vuelta-a-la-calma"
+        "https://elmonjeechen.com/products/el-camino-de-vuelta-a-la-calma",
+        "https://flo.uri.sh/visualisation/29805445/embed"
       ],
       "platforms": [
         {
@@ -1219,11 +1263,31 @@
       ],
       "seller_counters": [],
       "creator_claims": [],
-      "creative_samples": [],
+      "creative_samples": [
+        {
+          "url": "https://flo.uri.sh/visualisation/29805445/embed",
+          "title": "Yan Chen / @monjechen Instagram Reel still in Maldita investigation",
+          "duration_seconds": null,
+          "uploaded_at": null,
+          "views": null,
+          "views_captured_at": null,
+          "source_id": "maldita-monjechen-video-card-20261023",
+          "structure_summary": "A realistic monk persona in a temple appears in an Instagram Reel still attributed to the exact handle. The full clip, spoken language, pacing and CTA were not independently watched.",
+          "media_status": "third_party_report_video_still_only"
+        }
+      ],
       "unknowns": [
         "The supplied screenshot's calendar capture date, creator identity/location, and any match with the 'Monk Chen' name in Maldita's investigation headline.",
         "Current product availability, paid units, affiliate commission and sales remain unverified."
-      ]
+      ],
+      "directory_scope": {
+        "status": "included",
+        "reason": "The AI-account investigation attributes an Instagram Reel still of a realistic monk persona to Yan Chen / @monjechen. The full clip has not been independently watched.",
+        "source_ids": [
+          "maldita-2026-07-27",
+          "maldita-monjechen-video-card-20261023"
+        ]
+      }
     },
     {
       "id": "lead-instagram-tempiovita",
@@ -1264,7 +1328,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-monjeshentao",
@@ -1305,7 +1376,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-monacochenn",
@@ -1346,7 +1424,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-linchenhealing",
@@ -1387,7 +1472,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-jin-miaoo",
@@ -1426,7 +1518,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-masteryunsage",
@@ -1467,7 +1566,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-monchmiao",
@@ -1506,7 +1612,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-maitre-ping-lin",
@@ -1547,7 +1660,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-lotusfamily1",
@@ -1588,7 +1708,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-master-kaion",
@@ -1629,7 +1756,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-maestroyunkai",
@@ -1670,7 +1804,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-ming-tao32",
@@ -1711,7 +1852,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-shen-dao1",
@@ -1752,7 +1900,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-shin-hyun-official",
@@ -1793,7 +1948,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-tenzinremedios",
@@ -1834,7 +1996,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-mestreshentao",
@@ -1875,7 +2044,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-mongedapaz",
@@ -1916,7 +2092,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-masterlinghao",
@@ -1972,7 +2155,14 @@
         "AI generation status, creator/operator, content language, location and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
         "Public counts were observed; AI origin, creator, language and products remain unverified."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-mestre-jin",
@@ -2013,7 +2203,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-haku-shinn",
@@ -2054,7 +2251,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-monktashirok",
@@ -2095,7 +2299,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-monacogendun",
@@ -2136,7 +2347,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-master-li-shen",
@@ -2177,7 +2395,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-innerequelle",
@@ -2218,7 +2443,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-ken-lu-monk",
@@ -2259,7 +2491,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-yonchenhealing",
@@ -2300,7 +2539,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-babatenzin",
@@ -2341,7 +2587,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-mongejinmiao",
@@ -2382,7 +2635,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-its-yang-chen",
@@ -2423,7 +2683,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-masteryunshen",
@@ -2464,7 +2731,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-maitre-chen",
@@ -2505,7 +2779,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-monkcheen",
@@ -2546,7 +2827,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-deor-ie",
@@ -2585,7 +2873,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-monjaalma",
@@ -2626,7 +2921,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-yunlobsang",
@@ -2667,7 +2969,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-mestremushen",
@@ -2708,7 +3017,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-thezhenwu",
@@ -2749,7 +3065,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-maitrelidao",
@@ -2790,7 +3113,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-maestroananta",
@@ -2831,7 +3161,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-oravishen",
@@ -2872,7 +3209,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-monjewu",
@@ -2913,7 +3257,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-monge-bento",
@@ -2954,7 +3305,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-liangmaster4u",
@@ -2995,7 +3353,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-aristhestill",
@@ -3036,7 +3401,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-oldmonktenzin",
@@ -3092,7 +3464,14 @@
         "AI generation status, creator/operator, content language, location and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
         "Public counts were observed; AI origin, creator, language and products remain unverified."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-thekaizenhealing",
@@ -3148,7 +3527,14 @@
         "AI generation status, creator/operator, content language, location and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
         "Public counts were observed; relationship to TikTok omaster.kaizen, AI origin, creator, language and products remain unverified."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-shentaoes",
@@ -3189,7 +3575,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-noalingpo-conseils",
@@ -3230,7 +3623,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-itsyangmuns",
@@ -3271,7 +3671,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-masterjiao",
@@ -3312,7 +3719,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-elmonjekai",
@@ -3353,7 +3767,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-zenmuun",
@@ -3394,7 +3815,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-kael-wisdom",
@@ -3435,7 +3863,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-monjechang",
@@ -3476,7 +3911,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-maitrenoalingpo",
@@ -3517,7 +3959,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-shenmuhealer",
@@ -3558,7 +4007,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-monge-zhen",
@@ -3599,7 +4055,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-alte-weisheit",
@@ -3640,7 +4103,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-masteryunming",
@@ -3681,7 +4151,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-maitreyun",
@@ -3722,7 +4199,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-chenweihealing",
@@ -3763,7 +4247,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-masterlianancient",
@@ -3804,7 +4295,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-monjeananda",
@@ -3845,7 +4343,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-monkshen",
@@ -3886,7 +4391,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-elmaestrolin",
@@ -3927,7 +4439,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "lead-instagram-samuelreedcards",
@@ -3968,7 +4487,14 @@
       "unknowns": [
         "AI generation status, creator/operator, content language, location, current audience metrics, and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": [
+          "user-supplied-instagram-following-screenshots"
+        ]
+      }
     },
     {
       "id": "kai-tsukimi",
@@ -4222,7 +4748,12 @@
         "Health and symptom-related claims on the product page are unverified; they must not be adopted as substantiated medical claims.",
         "Sales, conversion, partnerships, commissions and profit were not verified.",
         "No moving-image watch completed; follower total does not establish current reach or sales."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": []
+      }
     },
     {
       "id": "buddha-would-say",
@@ -4388,7 +4919,12 @@
         "AI origin, creator and any relationship to other Kaizen-branded accounts are unverified.",
         "English on-screen text is described by vidIQ, but spoken English and profile language are not confirmed; language remains unclassified.",
         "Offer, paid orders and revenue are unknown. Financial-abundance promises are not verified outcomes."
-      ]
+      ],
+      "directory_scope": {
+        "status": "pending",
+        "reason": "Discovery/profile evidence does not yet establish a realistic synthetic monk video persona. Retained for research, outside the public avatar directory.",
+        "source_ids": []
+      }
     }
   ],
   "license_url": "https://creativecommons.org/licenses/by/4.0/"
