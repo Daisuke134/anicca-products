@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "ai-monk-index": {
+      "type": "streamable-http",
+      "url": "https://aniccaai.com/.netlify/functions/ai-monk-mcp"
+    }
+  }
+}
