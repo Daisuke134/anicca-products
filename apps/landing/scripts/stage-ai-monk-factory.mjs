@@ -41,6 +41,6 @@ export async function stageFactoryAssets({ manifest, target, fetchSource = fetch
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const root = new URL('../', import.meta.url);
   const manifest = JSON.parse(await readFile(new URL('ai-monk-factory-source.json', root), 'utf8'));
-  const result = await stageFactoryAssets({ manifest, target: fileURLToPath(new URL('public/ai-monk-factory/', root)) });
+  const result = await stageFactoryAssets({ manifest, target: fileURLToPath(new URL('public/ai-monk-factory-download/', root)) });
   process.stdout.write(`Monk Factory: ${result.files.length} files verified from ${result.revision}\n`);
 }

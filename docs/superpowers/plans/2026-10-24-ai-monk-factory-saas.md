@@ -41,4 +41,6 @@ Files: apps/landing/app/ai-monk-factory/page.tsxとclient、scripts/stage-ai-mon
 - [ ] Factory専用provider/Stripe3日trial/本人IG接続/実avatar-video/公式postとmetricsを区別して確認し、利用可能な事実だけをXへ告知する。
 
 ## 現在cursor
+Task3の画面は既存Authと固定APIへ接続し、実進捗/残枠/preview/Instagram接続/明示ON・停止/請求・解約を表示する。client transportは5件、旧asset stageは3件がGREEN。旧local4fileはdownload pathへ分離し、利用者へAPI設定を要求しない。Factory terms/privacyは実装のデータ・trial・請求・試行枠に合わせる。Factory対象TypeScriptの確認と実buildを進める。全体tscは既存dashboard/income/lmの6診断があり、今回のFactoryへ診断は出ていない。Task2のjob/APIとの最終結合・source review・CI・本番受入は未完。
+
 Task1のAPI/署名/課金/認証18件、既存商品分離12件、実DB8件がGREEN。verified UIDで読取/停止/課金を結び、API応答から内部customer/nonceを除外する。Checkoutは保存済みpayloadとidempotency keyを再利用し、24時間後は公式全page検索の完了前に新nonceを発行しない。署名eventは識別子だけを一意queueへ保存し、権限を直接付与しない。Task2でqueue消費、provider adapter、job/effect fence、同期画像用backgroundの重複0とIG接続/投稿を結ぶ。HeyGen Imageの既存画像必須を確認しOpenAI text-to-imageへ改めるが、avatar予約USD1.60/trial4.25は保守枠として維持する。本番DB反映・SaaS公開・料金公開・実生成・売上は未完。
