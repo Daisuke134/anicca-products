@@ -12,6 +12,7 @@ struct PaywallView: View {
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
     @State private var showClose: Bool = false
+    @State private var isLoading: Bool = true
     @State private var loadFailed: Bool = false
     @State private var trialEligibleProducts: Set<String> = []
 
@@ -128,7 +129,7 @@ struct PaywallView: View {
                             )
                             .clipShape(.rect(cornerRadius: 16))
                         }
-                        .disabled(isPurchasing || selectedPackage == nil)
+                        .disabled(isPurchasing || isLoading || loadFailed || annualPackage == nil || monthlyPackage == nil)
                         .accessibilityIdentifier("paywall_cta")
 
                         Text(finePrint)
@@ -276,11 +277,15 @@ struct PaywallView: View {
     }
 
     private func fetchOfferings() async {
+        isLoading = true
+        loadFailed = false
+        offerings = nil
+        trialEligibleProducts = []
+        defer { isLoading = false }
         guard Purchases.isConfigured else {
             loadFailed = true
             return
         }
-        loadFailed = false
         do {
             offerings = try await Purchases.shared.offerings()
         } catch {
@@ -288,7 +293,7 @@ struct PaywallView: View {
             return
         }
         let packages = [annualPackage, monthlyPackage].compactMap { $0 }
-        if packages.isEmpty {
+        if packages.count != 2 {
             loadFailed = true
             return
         }

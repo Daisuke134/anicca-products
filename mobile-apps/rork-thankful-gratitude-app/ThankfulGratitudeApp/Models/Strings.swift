@@ -122,8 +122,8 @@ nonisolated enum L10n: Sendable {
 
     static func paywallBullet2(_ language: AppLanguage) -> String {
         switch language {
-        case .english: return "200+ affirmations"
-        case .japanese: return "200以上のアファメーション"
+        case .english: return "50 affirmations"
+        case .japanese: return "50種類のアファメーション"
         }
     }
 
@@ -190,7 +190,7 @@ nonisolated enum L10n: Sendable {
     }
 
     static func unlockAffirmations(_ language: AppLanguage) -> String {
-        language == .english ? "Unlock 200+ affirmations" : "200以上のアファメーションを解放"
+        language == .english ? "Unlock 50 affirmations" : "50種類のアファメーションを解放"
     }
 
     static func unlockHistory(_ language: AppLanguage) -> String {
