@@ -64,6 +64,8 @@ HeyGenの追加料金調査 → ../../evidence/ai-monk-factory-heygen-prompt-rat
 
 目的は専用OpenAIの非retryable無効化と独立に、元のFactory生成要件と既存予算を満たせる経路を確かめること。Database→Plugin→Factoryの順と未完成果は維持し、現在のSaaS-1内cursorを画像・台本providerの限定read-only preflightへ進める。Full Video Agentは既存cap超過のため再採用しない。単なる支払元不足を理由に高額な別方式へ切り替える判断は維持して棄却する。
 
-既存の画像→台本→TTS→Avatar IV→本人IGの呼出経路・予算/尺/attempt制御をコードで確認し、候補はGemini Developer APIの台本生成とHeyGenの画像生成APIだけに絞る。公式料金・無料枠/課金条件・構造化出力・入力データ条件・専用project/keyの可否を調べ、旧GPT原価を無料へ置換しない。共有Grok/既存顧客のkeyやwalletへのfallback、OpenAIの別account作成、日次loopの変更はしない。
+既存の画像→台本→TTS→Avatar IV→本人IGの呼出経路・予算/尺/attempt制御をコードで確認する。最初の候補はGemini台本＋HeyGen画像であるが、公式HeyGen Image契約はidentity/reference画像を必須とし、入力ゼロの最初のavatarを作れない。この根拠により候補をGemini Developer APIの台本＋画像へ絞る。公式料金・無料枠/課金条件・構造化出力・入力データ条件・専用project/keyの可否を調べ、旧GPT原価を無料へ置換しない。共有Grok/既存顧客のkeyやwalletへのfallback、OpenAIの別account作成、日次loopの変更はしない。
 
 このunitは新規project/key作成・支払い・生成・本番設定変更を含めず、完了条件は実コードと公式一次資料から、採用可能な最小経路または不足条件を具体化して正本へ反映すること。成立した経路の実装・専用認証・実費/生成受入は同じSaaS-1の次の作業として続ける。無料枠の存在だけで本番生成・採算・正式Plugin掲載の達成としない。専用OpenAIの正式復旧条件はPL-1に残す。
+
+並行するsource修正は、code探索で判明した完了済みCheckout再開の1件に限定する。APIのcheckout応答がcomplete=trueなら外部redirectをせず同じ認証sessionの状態を再取得し、未完Checkout・portal・IG接続のURLは既存のprovider別HTTPS検証を維持する。既存client helperと直接UI呼出元・型・最小回帰だけを更新し、新しい抽象やテスト基盤、後方互換層を作らない。実assertion RED→GREEN、必要な既存検証/CI、main由来Web反映まで受入し、実決済済みとは呼ばない。生成providerの採用・budget・enable flag・実effectを変更しない。
