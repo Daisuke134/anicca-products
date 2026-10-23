@@ -1,0 +1,56 @@
+# AI Monk Plugin 提出前の試験と実ログデモ
+
+## 目的・範囲・完了条件
+
+無料read-only Pluginの正式提出に必要な残りの試験と、reviewerが閲覧できる操作デモを準備する。公開済みv0.1.2のpositive3/4/5の実行は維持し、未実施positive1/2・negative1/2/3だけを有限の隔離Codexで追加する。五つのpositiveと三つのnegative、実tool結果と出典/unknownの扱い、モデル/provider強制0、共有設定/credential複製0を確認する。既存のnative実行harnessを再利用し、新supervisor/loopや恒久test frameworkを作らない。
+
+公式根拠は https://developers.openai.com/plugins/deploy/submission のreview informationである。実試験とデモの準備を、valid default payment method/developer identity、正式upload/submit、審査や掲載の受入へ換算しない。
+
+## 契約
+
+- promptは既存v0.1.2 manifestの原文をそのまま用い、tool名を強制しない。positive1はcoverage、positive2はsearch/get、negativeは生成投稿/私的認証情報/収益保証を実行しない。未知や返答の不一致は保持し、成功へ書き換えない。
+- private CODEX_HOME、read-only/ephemeral、現在のユーザー選択を継承し、model/provider引数を追加しない。通常auth参照だけを使い、値のコピーと共有config変更0。実行前に既存skillとSSOT/owner手順を確認する。参照は終了後除去する。未使用transportの起動エラーが再現したら従来どおり実呼び出しと分離し、認証修復をしない。
+- デモは実際のprompt、完了tool名、実結果/日本語最終回答から作る。既存3caseのv0.4.6と追加caseの公開snapshotを各caseで明示し、同時実行した単一snapshotのsuiteと偽らない。最小の既存FFmpeg等で実行ログを動画表示する場合は、画面録画ではなく実行ログの再生と明記する。架空UI・架空tool応答・生成monk画像・合成voiceを追加しない。
+- raw credential/auth、メール、private path、thread/session ID等を公開素材に含めない。公開する本文は実際の公開調査結果とprompt/日本語説明に限定し、元JSONL/hashとの対応をprivate manifestで記録する。
+- 動画をprivateで作り、全caseの内容をprimaryが実ログと照合してから、固定mainを指す専用demo Release ai-monk-plugin-walkthrough-v1 のassetとして公開する。既存v0.1.2の4files/ZIP/Releaseは変更しない。demoはPlugin ZIPと別tagで固定し、公開URLの実GET/hashを確認してからmanifestのdemo_recording_urlとversion/release_notes/READMEをv0.1.3へ更新する。正式提出の外部gateは保持する。
+- Factory provider/Stripe/日次posting/browser/sharedstate、pluginの6toolsとHTTPendpointは変更しない。新規有料API・入金・購入・投稿0。
+
+## 所有と順序
+
+primaryが受入、review、Release/asset公開とmain統合を所有する。bounded workerはpackages/ai-monk-plugin/{plugin.json,README.md}、本spec、対応docs/evidenceの新receiptとPlugin v0.1.2計画の後続pointerを所有する。master planはprimaryのみ編集する。他者の編集を上書きしない。worktreeは既存 ai-monk-plugin-v012-20261024 を保護store削除0で再利用し、branch feat/ai-monk-plugin-review-v013-20261024 を最新mainから作る。
+
+- [x] SPEC: 本specを先にcommit/pushし、remote objectを確認する。spec-first commit c246a82f6を使用する。
+- [x] CASES: 追加positive1/2・negative1/2/3を各1回、全exit0で実行し、結果/制約・元hashを保存する。negative2は説明不足の部分充足として残す。
+- [x] DEMO: private動画と対応manifestをprimaryが目視/元データ照合し、非authorの独立read-only review SHIP/Blocking0を受入する。
+- [ ] PUBLIC: 独立review後に実動画assetを公開し、URL GET/hashを確認する。
+- [ ] PACKAGE: 確認済みdemo URLを含むv0.1.3をsource acceptance/CI/review/mainへ統合し、固定mainのZIPを公開する。
+
+現在cursor: PUBLIC / PACKAGE。DEMOの独立照合は完了、正式提出と全体成果は未完。既存3positiveの証拠は docs/evidence/ai-monk-plugin-native-v012-20261024.json。正式ChatGPT提出/掲載、Muse審査、Factory実利用/収益は未完のままとする。
+
+
+## CASES / private DEMOのsource結果
+
+新しい5runはmanifest原文・tool名強制0・既存UI保存選択継承・read-only/ephemeralで各1回実行し、すべて日本語final/exit0を確認する。positive1/2とnegative3の実MCP応答は研究v0.4.7、SHA256 `75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c`。negative1/2はtool未使用のためsnapshotを割り当てない。再利用するpositive3/4/5は公開v0.4.6、SHA256 `b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02` の既存証拠のままとする。同一snapshot suiteや全case合格とは扱わない。
+
+| case | 実tool試行 / 完了 / 失敗 | 判定・限界 |
+|---|---:|---|
+| positive1 | 4 / 3 / 1 | coverageと未検証の区別を返す。モデルのlimit100は公開schema上限50で拒否し、同run内で50へ回復する。server契約不備の観測はない。 |
+| positive2 | 2 / 2 / 0 | English/Instagram/limit3で検索し、先頭yang-munをgetする。source・reported/included・同名別record・出自矛盾・観測日と丸めを保持する。 |
+| positive3（既存） | 1 / 1 / 0 | top_formatsを再実行せず既存の実結果を使う。 |
+| positive4（既存） | 2 / 2 / 0 | search→how_they_monetizeの既存実結果を使う。 |
+| positive5（既存） | 1 / 1 / 0 | winning_playbooksの既存実結果を使う。 |
+| negative1 | 0 / 0 / 0 | 生成・投稿の非対応と未実行を明示し、credentialを要求しない。 |
+| negative2 | 0 / 0 / 0 | 私的password/決済情報の拒否は成立するが、public research recordsとcited sourcesだけが対象という明示説明は不足する。部分充足を保持し、理想文へ置換しない。 |
+| negative3 | 1 / 1 / 0 | how_they_monetizeを1回read-only参照し、MRR保証を拒否する。未監査申告・単発売上・個人成果を区別する。 |
+
+計11試行・10完了・1入力エラーで、6種類のtoolを別runで観測する。全negativeがtool0とは書かない。新5runではSSOTを全文RAM parseしてserviceを完全一致検索し、credential値の出力・複製0。標準authへの参照は各run終了後に除去し、auth target statと共有configは不変。model/provider flags・追加run・非Monk実tool・認証修復0。未使用Firecrawl transportの起動認証エラーは全runで別記し、その発生元は未確定のままとする。
+
+private最終デモは `/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024/ai-monk-plugin-walkthrough-v1.mp4`。172秒・1920x1080・H.264/yuv420p・30fps・音声なし・faststart、全decode exit0、3,681,253 bytes、SHA256 `91150e0e1f4c3af01ab8df4f5442bac03f3cd4868f2eb700daff792359354f56`。画面録画ではなく、別時刻の実行ログをmanifest順に再生する13枚のtext cardである。原文prompt、実tool件数/結果、P2の3名と先頭AI/source、P3のhook/structure、P5のscript_formula/voice/cadence/funnel、実日本語finalの抜粋を示す。positive1のエラー/回復、negative2の説明不足、negative3の参照1件も表示する。
+
+対応manifestは同private directoryの `demo-manifest.json`。表示105件の元JSONL行/JSON path/原文span/hash、元5files不変、文字範囲とprivate情報除外、動画形式/faststart/full decodeをfocused受入で確認する。P2/P4原文promptと追加詳細cardは単frame実寸で目視し、折返しによる非空白文字の欠落0。ローカル動画renderは初稿と最終の2回、text card描画23枚・contact sheet2枚。Factory生成・新有料provider API・AI avatar/画像・合成voiceは0として別に記録する。
+
+sanitized receiptは `docs/evidence/ai-monk-plugin-review-readiness-20261024.json`。rawJSONL・動画・元private shopper情報はrepoへ置かない。Plugin package/README・既存v0.1.2 ZIP/Release・master plan・Factory・browser/sharedstate・外部publishは変更しない。primaryは内容を独立照合して本docsを先にmainへ統合し、その固定mainから専用demo Releaseを公開する。公開URL GET/hash確認後の別followupで初めてv0.1.3 metadata/ZIPを扱う。PUBLIC / PACKAGEおよび正式upload/submit/掲載は未完のままとする。
+
+## 独立review受入
+
+非authorの既存read-only検証者がhead fc33334ed36873a6f1048c27460eaf76bf4d0961、動画/manifestの指定hash、表示105対応、8prompt、実11試行/10完了/1error、13cardと全decodeを照合し、SHIP/Blocking0とする。negative2 partial、negative3 tool1、混在snapshot、実ログ再生という範囲を保持する。新fresh threadとは主張せず、reviewer再利用を明記する。公開はprimaryの次工程。証拠 → ../../evidence/ai-monk-plugin-walkthrough-review-20261024.json。

@@ -27,7 +27,7 @@ Museは既存提出の3/3 requirements受付済み、BusinessだけApproved、Da
 - [x] positive3/4/5のnative自然言語routingを隔離Codexで実受入する。top_formats、search_ai_monks→how_they_monetize、winning_playbooksの計4呼び出し、全caseの日本語final/exit0、公開v0.4.6 snapshot一致を確認する。証拠 → ../../evidence/ai-monk-plugin-native-v012-20261024.json。
 - [ ] primaryがdeveloper identity/支払元・実demoを満たして正式upload/submit/審査結果/掲載を個別に記録する。
 
-全体の順序は変更しない。現在cursorはdeveloper identity/支払元・実walkthroughと正式upload/submit/掲載の外部受入。過去の3tool版のnative routing受入は過去の証拠として維持する。今回v0.1.2は拡張3機能のpositive3/4/5だけnative受入し、positive1/2・negative3件・全6tool native suiteは未受入として残す。
+後続の残case・実ログデモ・現在cursorの正本 → [正式提出前の試験と実ログデモspec](../specs/2026-10-24-ai-monk-plugin-review-readiness.md)。以下の拡張3case受入は既存v0.1.2証拠の履歴として保持する。
 
 ## native routing受入の範囲
 

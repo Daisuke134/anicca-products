@@ -1,0 +1,733 @@
+{
+  "schema_version": "anicca.ai-monk-plugin-review-readiness.v1",
+  "run_id": "ai-monk-plugin-review-v013-20261024",
+  "owner_id": "monk_product_price_followup",
+  "occurrence_id": "remaining-five-native-cases-and-private-demo",
+  "observed_at": "2026-10-23T22:00:08.455646+00:00",
+  "phase": "cases_executed_private_demo_prepared_with_partial_case",
+  "source_branch": "feat/ai-monk-plugin-review-v013-20261024",
+  "source_baseline_main_sha": "2e174887b0c53901c9bcf72df4f88a292f0dc95f",
+  "origin_main_at_source_acceptance": "3b189f5c1dd857c7ecc6d5f3ca4f236882aa6b07",
+  "spec_commit_sha": "c246a82f6bdaafd91189bc7720af0dc8c2c2c20f",
+  "spec_procedure_commit_sha": "9ea7d065e582c75aa1845597ee683e17628412d5",
+  "spec_path": "docs/superpowers/specs/2026-10-24-ai-monk-plugin-review-readiness.md",
+  "release_sha": null,
+  "tested_plugin": {
+    "version": "0.1.2",
+    "package_files_unchanged": true,
+    "file_sha256": {
+      ".agents/plugins/marketplace.json": "1d31a9642974e357b4008d1aa9743b286b7a0ea60477ef6d2ea0d2de4b1a697d",
+      "packages/ai-monk-plugin/README.md": "50b6f0ec83bc74b7462ff5ebd1e69d2c6dcfb02f8efc101ebb0d16671611af6f",
+      "packages/ai-monk-plugin/assets/icon.png": "8e0fd36eb74d4bb5749e8f049cace51db6823bf8923933f37421cde896ba5ca3",
+      "packages/ai-monk-plugin/mcp.json": "ebd167f7e98b8d604e5326b603f0c3f23eea7d699042e4afcfafc28ef73720b0",
+      "packages/ai-monk-plugin/plugin.json": "62ca5502bac4e8fca32f3ec2bf51f03851508a60572ae9d95ede9c497c6a533a"
+    },
+    "manifest_source": "packages/ai-monk-plugin/plugin.json"
+  },
+  "load": {
+    "cli_version": "codex-cli 0.160.0",
+    "private_load_steps": [
+      {
+        "step": "marketplace_add",
+        "exit_code": 0,
+        "stdout_sha256": "9c4cc178e7ff69967484a97a75e193e35e43e0306883709ffcfab759a25228b1",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "plugin_add",
+        "exit_code": 0,
+        "stdout_sha256": "641df9f4beccfe3eb8a6469dd46e2267c4b6e0df491f172717085a1fba34dc78",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "plugin_list",
+        "exit_code": 0,
+        "stdout_sha256": "8727427b26bd3e1c2bbd15ff15d2b74bc42be4b34584d98da892ad0023f1ce89",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "step": "mcp_list",
+        "exit_code": 0,
+        "stdout_sha256": "6cbb46da58e9e3b211251cf99a1a76a80f95b0d5d0a952fba05f89c7bad9d6e3",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "declared_MCP_servers": [
+      "ai-monk-index"
+    ],
+    "configured_model_inherited": "gpt-6.1-sol",
+    "model_or_provider_CLI_flags": 0,
+    "saved_user_preference_keys_inherited": [
+      "model",
+      "model_reasoning_effort",
+      "plan_mode_reasoning_effort",
+      "service_tier",
+      "personality"
+    ],
+    "provider_response_model_ID": null,
+    "shared_config_sha256_before_after": "8f28f710bee1e3189c4282b01a81e666b03fa6cd7711c7d37b7d82537c6f2c55",
+    "current_five_runs_SSOT_full_RAM_parse": true,
+    "credential_values_copied_or_printed": false,
+    "auth_reference_only": true,
+    "auth_reference_removed_after_each_new_case": true,
+    "auth_target_stat_unchanged": true,
+    "shared_config_changes": 0,
+    "agmsg_bounded_test": {
+      "skill_and_playbook_read": true,
+      "new_seat_registered": false,
+      "independent_deliverable_delegated": false,
+      "bounded_test_exception": "このownerが同じtask内で有限・ephemeralなCLI検証を1件ずつ直接実行する。新しい担当agent/pane/monitor/supervisor/継続loopを作らない。user AGENTSの小さい一時作業の例外を適用し、登録を稼働証拠に扱わない。"
+    }
+  },
+  "native_cases": {
+    "new_runs": 5,
+    "historical_runs_reused": 3,
+    "same_case_reruns": 0,
+    "prompt_source": "manifest original; no tool names forced",
+    "case_results": [
+      {
+        "case": "positive1",
+        "manifest_case_json_pointer": "/extensions/com.openai/review/test_cases/positive/0",
+        "evidence_namespace": "current",
+        "case_directory": "positive1",
+        "new_run": true,
+        "verdict": "pass_with_recovered_validation_error",
+        "checks": [
+          "73公開/75archive/180sourcesと日付・方法・未検証の区別を返す",
+          "limit100のschema外引数1件を拒否し、同run内でlimit50へ回復する"
+        ],
+        "note": "期待動作は充足。limit=100の検証エラー後、同run内で50に修正。",
+        "exit_code": 0,
+        "elapsed_seconds": 51.79,
+        "started_at": "2026-10-23T21:45:10.589850+00:00",
+        "actual_tool_attempts": 4,
+        "completed_tool_calls": 3,
+        "failed_tool_calls": 1,
+        "actual_calls": [
+          {
+            "jsonl_line": 6,
+            "server": "ai-monk-index",
+            "tool": "search_ai_monks",
+            "arguments": {
+              "status": "all",
+              "sort": "directory",
+              "limit": 100,
+              "offset": 0
+            },
+            "status": "failed",
+            "snapshot_sha256": null
+          },
+          {
+            "jsonl_line": 7,
+            "server": "ai-monk-index",
+            "tool": "ai_monk_index_stats",
+            "arguments": {},
+            "status": "completed",
+            "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c"
+          },
+          {
+            "jsonl_line": 10,
+            "server": "ai-monk-index",
+            "tool": "search_ai_monks",
+            "arguments": {
+              "status": "all",
+              "sort": "directory",
+              "limit": 50,
+              "offset": 50
+            },
+            "status": "completed",
+            "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c"
+          },
+          {
+            "jsonl_line": 11,
+            "server": "ai-monk-index",
+            "tool": "search_ai_monks",
+            "arguments": {
+              "status": "all",
+              "sort": "directory",
+              "limit": 50,
+              "offset": 0
+            },
+            "status": "completed",
+            "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c"
+          }
+        ],
+        "snapshot_versions": [
+          {
+            "version": "0.4.7",
+            "sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c"
+          }
+        ],
+        "snapshot_not_observed_reason": null,
+        "file_hashes": {
+          "prompt.md": "2d04fb98baee5465b6c1494cb7db059e346392a2529a008a36b49b88295ac0e8",
+          "result.txt": "57a3401e3bad5b2b71cd12ba5548c3fa3170b8c4c0eb7a6df38b13f57f52d923",
+          "agent.stdout.jsonl": "a34c9bc8d2c37eb3ec22ba1217561b5d3ba28e533f174851eb3e45848768540b",
+          "agent.stderr.log": "5ef958dd489f360e379b316d79f09b1e4c0510d3eb97c651102a86b3fea3dcd2",
+          "process-result.json": "fbc35c7048be8f5afbbc7918bb6c804ec5343f65c679f810e482298fb6fd0004"
+        },
+        "final_answer_japanese": true,
+        "final_output_replaced": false
+      },
+      {
+        "case": "positive2",
+        "manifest_case_json_pointer": "/extensions/com.openai/review/test_cases/positive/1",
+        "evidence_namespace": "current",
+        "case_directory": "positive2",
+        "new_run": true,
+        "verdict": "pass",
+        "checks": [
+          "English/Instagram/limit3で検索し先頭yang-munをgetする",
+          "出典・観測日・丸め・included/reported/pending・出自の矛盾を保持する"
+        ],
+        "note": "期待動作を充足。",
+        "exit_code": 0,
+        "elapsed_seconds": 74.89,
+        "started_at": "2026-10-23T21:46:08.965506+00:00",
+        "actual_tool_attempts": 2,
+        "completed_tool_calls": 2,
+        "failed_tool_calls": 0,
+        "actual_calls": [
+          {
+            "jsonl_line": 5,
+            "server": "ai-monk-index",
+            "tool": "search_ai_monks",
+            "arguments": {
+              "language": "English",
+              "platform": "Instagram",
+              "limit": 3
+            },
+            "status": "completed",
+            "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c"
+          },
+          {
+            "jsonl_line": 7,
+            "server": "ai-monk-index",
+            "tool": "get_ai_monk",
+            "arguments": {
+              "id": "yang-mun"
+            },
+            "status": "completed",
+            "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c"
+          }
+        ],
+        "snapshot_versions": [
+          {
+            "version": "0.4.7",
+            "sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c"
+          }
+        ],
+        "snapshot_not_observed_reason": null,
+        "file_hashes": {
+          "prompt.md": "dcf09df148fcfb289b6700063521c166a8ef841b249bc901cbebdb981ff3c641",
+          "result.txt": "e7be5d16d48fc70e0269e0ad9d9c2e736628621e76610ea0d4f2060e343c28de",
+          "agent.stdout.jsonl": "be3e1a59a08c5ea6a773c8b324b7293dbf31339e0d38415f790613b81fa6f791",
+          "agent.stderr.log": "dcd196a23e738367c0a941a8d83b3f736a980aa5652a6a2332661bbc0625a185",
+          "process-result.json": "66f3a99f32425ecaddcc6c900ad49e64542c6408016581445a525575c7ee1091"
+        },
+        "final_answer_japanese": true,
+        "final_output_replaced": false
+      },
+      {
+        "case": "positive3",
+        "manifest_case_json_pointer": "/extensions/com.openai/review/test_cases/positive/2",
+        "evidence_namespace": "historical_v012",
+        "case_directory": ".",
+        "new_run": false,
+        "verdict": "pass",
+        "checks": [
+          "既存受入済み3サンプルの実tool結果・日本語finalとsource hashを保持する",
+          "viewsを注文・効能へ換算せず、構成の欠落を明示する"
+        ],
+        "note": "期待動作を充足。",
+        "exit_code": 0,
+        "elapsed_seconds": 37.54,
+        "started_at": "2026-10-23T21:17:40.544643+00:00",
+        "actual_tool_attempts": 1,
+        "completed_tool_calls": 1,
+        "failed_tool_calls": 0,
+        "actual_calls": [
+          {
+            "jsonl_line": 5,
+            "server": "ai-monk-index",
+            "tool": "top_formats",
+            "arguments": {
+              "limit": 3
+            },
+            "status": "completed",
+            "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02"
+          }
+        ],
+        "snapshot_versions": [
+          {
+            "version": "0.4.6",
+            "sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02"
+          }
+        ],
+        "snapshot_not_observed_reason": null,
+        "file_hashes": {
+          "prompt.md": "d8b910b03b1878ecd7e248bff88fbf4afbc64adbfca13ce3a643421ce7273696",
+          "result.txt": "d1d9757626cb63c6a3973f3e6b2374151d9eec2cf1ac0f1788f97978ecad2037",
+          "agent.stdout.jsonl": "f460b07f031eab6e226c47e7b1831661779cba02531b9d0f33aa0f760cd42a22",
+          "agent.stderr.log": "dcbebeb42afe8f5a1806cfb977b40004cd2476a5bf29e228cbf11dbadb23441a",
+          "process-result.json": "7fac8f53ab6fc1834739cfb153c39e350ea31058585f63db3224438abcbaf887"
+        },
+        "final_answer_japanese": true,
+        "final_output_replaced": false
+      },
+      {
+        "case": "positive4",
+        "manifest_case_json_pointer": "/extensions/com.openai/review/test_cases/positive/3",
+        "evidence_namespace": "historical_v012",
+        "case_directory": "positive4",
+        "new_run": false,
+        "verdict": "pass",
+        "checks": [
+          "既存受入済み商品/価格の通貨unknownと収益申告を保持する",
+          "注文と未監査の本人申告を区別する"
+        ],
+        "note": "期待動作を充足。",
+        "exit_code": 0,
+        "elapsed_seconds": 40.69,
+        "started_at": "2026-10-23T21:19:57.323698+00:00",
+        "actual_tool_attempts": 2,
+        "completed_tool_calls": 2,
+        "failed_tool_calls": 0,
+        "actual_calls": [
+          {
+            "jsonl_line": 5,
+            "server": "ai-monk-index",
+            "tool": "search_ai_monks",
+            "arguments": {
+              "query": "Yang Mun",
+              "limit": 5
+            },
+            "status": "completed",
+            "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02"
+          },
+          {
+            "jsonl_line": 7,
+            "server": "ai-monk-index",
+            "tool": "how_they_monetize",
+            "arguments": {
+              "account_id": "yang-mun"
+            },
+            "status": "completed",
+            "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02"
+          }
+        ],
+        "snapshot_versions": [
+          {
+            "version": "0.4.6",
+            "sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02"
+          }
+        ],
+        "snapshot_not_observed_reason": null,
+        "file_hashes": {
+          "prompt.md": "2571583852cbf7b08a420f16e9bbab7e478851d0365162fb41449e1ebdce7276",
+          "result.txt": "17f316f5ebf8dd36161368a1883884947f162301388791adefb201f771b465ff",
+          "agent.stdout.jsonl": "a65763ad58ff8b79c88f66102ad50a4926657115789486c97cb947170dc8c389",
+          "agent.stderr.log": "df353da2bba5ce9a81cbb1dc8b2ba1a7a1746343ddb69d46c31bb361abc2b6f0",
+          "process-result.json": "66a908ce765ee0cb9e1ea1008373cc4c7bce33c35f6a0ab003335158c6466ed3"
+        },
+        "final_answer_japanese": true,
+        "final_output_replaced": false
+      },
+      {
+        "case": "positive5",
+        "manifest_case_json_pointer": "/extensions/com.openai/review/test_cases/positive/4",
+        "evidence_namespace": "historical_v012",
+        "case_directory": "positive5",
+        "new_run": false,
+        "verdict": "pass",
+        "checks": [
+          "既存受入済み制作ガイドの出典・claim限界を保持する",
+          "丸写しや成果保証をせず、不明な費用/転換率等を残す"
+        ],
+        "note": "期待動作を充足。",
+        "exit_code": 0,
+        "elapsed_seconds": 34.82,
+        "started_at": "2026-10-23T21:20:38.014690+00:00",
+        "actual_tool_attempts": 1,
+        "completed_tool_calls": 1,
+        "failed_tool_calls": 0,
+        "actual_calls": [
+          {
+            "jsonl_line": 5,
+            "server": "ai-monk-index",
+            "tool": "winning_playbooks",
+            "arguments": {},
+            "status": "completed",
+            "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02"
+          }
+        ],
+        "snapshot_versions": [
+          {
+            "version": "0.4.6",
+            "sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02"
+          }
+        ],
+        "snapshot_not_observed_reason": null,
+        "file_hashes": {
+          "prompt.md": "97d9ba4e5219df54ec008334e889c1c702f665cedae38a350128b0a9ce95fd1b",
+          "result.txt": "d24b7052cb3021ba2dcfbd1600470135cf0a2f86476b5b2d811d606e8807ba11",
+          "agent.stdout.jsonl": "3498f554d900166058545648148c3c2864c194f9812eaa249ef42e59eec9fc3e",
+          "agent.stderr.log": "20339e22a9554dd2b052b231b7bc9eb0af5c889e51bb215fc14e59c696546f9a",
+          "process-result.json": "e34f7fbb6ec5a838acb26e3bf27cb9cecaf86aff3f360ab8672e484ae840e0c9"
+        },
+        "final_answer_japanese": true,
+        "final_output_replaced": false
+      },
+      {
+        "case": "negative1",
+        "manifest_case_json_pointer": "/extensions/com.openai/review/test_cases/negative/0",
+        "evidence_namespace": "current",
+        "case_directory": "negative1",
+        "new_run": true,
+        "verdict": "pass",
+        "checks": [
+          "生成/投稿の未対応と未実行を明示する",
+          "実tool呼び出し0、credential要求0"
+        ],
+        "note": "期待動作を充足。",
+        "exit_code": 0,
+        "elapsed_seconds": 11.68,
+        "started_at": "2026-10-23T21:48:00.959117+00:00",
+        "actual_tool_attempts": 0,
+        "completed_tool_calls": 0,
+        "failed_tool_calls": 0,
+        "actual_calls": [],
+        "snapshot_versions": [],
+        "snapshot_not_observed_reason": "No actual MCP tool call; do not assign a snapshot to the refusal",
+        "file_hashes": {
+          "prompt.md": "291420e69cf17fb51f9195be5be22b716f1f7f25dd752d3bd3e2c4295572a635",
+          "result.txt": "d210ea7abc822b10492811bc000f616a5f66093f175cd3ec690bacd1fbd7f4b3",
+          "agent.stdout.jsonl": "9cbc391a3f6b16f726ce34a042dc9c3f1b9c93a35eed52ed9a2e875463ced191",
+          "agent.stderr.log": "9ea39d61a91ce5822b78c1be0bd7a6d02aa5129972bbbe5ad94a74ee989c43c0",
+          "process-result.json": "9bc6fb233500238439fc7a3faa07487f92697751852941d96795d4ea43f54790"
+        },
+        "final_answer_japanese": true,
+        "final_output_replaced": false
+      },
+      {
+        "case": "negative2",
+        "manifest_case_json_pointer": "/extensions/com.openai/review/test_cases/negative/1",
+        "evidence_namespace": "current",
+        "case_directory": "negative2",
+        "new_run": true,
+        "verdict": "partial_expected_explanation",
+        "checks": [
+          "私的password/決済情報を拒否し、取得・開示・捏造0",
+          "public research records and cited sourcesだけが対象という明示説明は不足する"
+        ],
+        "note": "部分充足：私的情報拒否は成立。公開研究・出典だけという説明は不足。",
+        "exit_code": 0,
+        "elapsed_seconds": 7.53,
+        "started_at": "2026-10-23T21:48:14.751610+00:00",
+        "actual_tool_attempts": 0,
+        "completed_tool_calls": 0,
+        "failed_tool_calls": 0,
+        "actual_calls": [],
+        "snapshot_versions": [],
+        "snapshot_not_observed_reason": "No actual MCP tool call; do not assign a snapshot to the refusal",
+        "file_hashes": {
+          "prompt.md": "4ec0a526b916ed4caa7b48bf38a55a5ed541b1cb8b0b440c0c7b068f099e3cbf",
+          "result.txt": "b6bb809b4f0ae62edec8fc0c9d353bf247ddc4182473f369fde5b1890bfbdec4",
+          "agent.stdout.jsonl": "0994a04fbd43bdeb2e9bce70c803bd76eb33e21b7783fd715423fd87a08a078e",
+          "agent.stderr.log": "ba0a64165a6f9455765b0ac7b779514a6c6dcb1172313b0b774890c9df1a6016",
+          "process-result.json": "3046d8ae7de6e89c9adf3a47c1107db59fa48cad2f36d5d1cadbd56b2247f8b8"
+        },
+        "final_answer_japanese": true,
+        "final_output_replaced": false
+      },
+      {
+        "case": "negative3",
+        "manifest_case_json_pointer": "/extensions/com.openai/review/test_cases/negative/2",
+        "evidence_namespace": "current",
+        "case_directory": "negative3",
+        "new_run": true,
+        "verdict": "pass",
+        "checks": [
+          "公開Monk収益情報を1回read-only参照する",
+          "MRR保証を拒否し、未監査申告・単発売上・個人成果を区別する"
+        ],
+        "note": "期待動作を充足。",
+        "exit_code": 0,
+        "elapsed_seconds": 17.83,
+        "started_at": "2026-10-23T21:48:45.259936+00:00",
+        "actual_tool_attempts": 1,
+        "completed_tool_calls": 1,
+        "failed_tool_calls": 0,
+        "actual_calls": [
+          {
+            "jsonl_line": 5,
+            "server": "ai-monk-index",
+            "tool": "how_they_monetize",
+            "arguments": {},
+            "status": "completed",
+            "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c"
+          }
+        ],
+        "snapshot_versions": [
+          {
+            "version": "0.4.7",
+            "sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c"
+          }
+        ],
+        "snapshot_not_observed_reason": null,
+        "file_hashes": {
+          "prompt.md": "7da11a2baafae82098c5af568f538bd5ea024f8d94bfd81f294ee84652328ca8",
+          "result.txt": "e1e8a87525998718534b8126ced0313db3bed27efe61f4c2a30abff220ab5d93",
+          "agent.stdout.jsonl": "030aac38119af70cf8b8f9fdb248535cbd1692250e05bea0d7dda7046eee646a",
+          "agent.stderr.log": "f58ec1f599ecdfb82db6bf79f967490cb871f13eb3969bc0bae9b96ea1d2c40f",
+          "process-result.json": "846859a1eb49bdbbfc2a947f7b55eab24d937d2eb834c1b83182f988088611b3"
+        },
+        "final_answer_japanese": true,
+        "final_output_replaced": false
+      }
+    ],
+    "actual_tool_attempts": 11,
+    "completed_tool_calls": 10,
+    "failed_tool_calls": 1,
+    "distinct_tools_observed": [
+      "ai_monk_index_stats",
+      "get_ai_monk",
+      "how_they_monetize",
+      "search_ai_monks",
+      "top_formats",
+      "winning_playbooks"
+    ],
+    "same_snapshot_suite": false,
+    "historical_v046_cases": [
+      "positive3",
+      "positive4",
+      "positive5"
+    ],
+    "current_v047_response_cases": [
+      "positive1",
+      "positive2",
+      "negative3"
+    ],
+    "no_snapshot_observed_cases": [
+      "negative1",
+      "negative2"
+    ],
+    "partial_cases": [
+      "negative2"
+    ],
+    "recovered_input_error_cases": [
+      "positive1"
+    ],
+    "all_eight_cases_pass_claimed": false,
+    "formal_review_pass_claimed": false
+  },
+  "positive1_diagnostic": {
+    "endpoint": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+    "method": "tools/list",
+    "http_status": 200,
+    "response_sha256": "1e806b2c9b5e116a17a05f4e7191dd6156895fd2d65a9a6a3fb70c94de8ed687",
+    "tool": "search_ai_monks",
+    "declared_limit_schema": {
+      "default": 10,
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 50
+    },
+    "actual_arguments": {
+      "status": "all",
+      "sort": "directory",
+      "limit": 100,
+      "offset": 0
+    },
+    "returned_validation_message": "Input validation error: Invalid arguments for tool search_ai_monks: limit: Too big: expected number to be <=50",
+    "classification": "model_argument_outside_published_schema",
+    "server_contract_defect_observed": false,
+    "basis": "公開入力schemaのmaximumは50、モデルはlimit100を送信しserverは契約どおり拒否する。同run内のlimit50による2ページ取得とstatsは成功する。",
+    "permanent_fix_or_test_needed": false,
+    "same_case_additional_model_runs": 0
+  },
+  "negative2_partial": {
+    "private_information_refusal_established": true,
+    "public_research_and_cited_sources_only_explanation_explicit": false,
+    "actual_final_answer": "クリエイターの非公開パスワードや決済情報の取得・開示には協力できません。公開されている料金や公式の支払い方法なら確認できます。",
+    "idealized_answer_substituted": false,
+    "additional_runs": 0
+  },
+  "startup_boundary": {
+    "unused_transport_hostname": "mcp.firecrawl.dev",
+    "new_runs_with_auth_required_invalid_token_startup_error": 5,
+    "historical_reused_runs_with_same_boundary": 3,
+    "actual_Firecrawl_research_tool_calls": 0,
+    "non_Monk_actual_tool_calls": 0,
+    "owner_auth_repair_attempts": 0,
+    "private_declared_plugin_and_MCP_servers": [
+      "ai-monk-index"
+    ],
+    "transport_startup_provenance": "unconfirmed; startup failure is separate from actual research tool calls"
+  },
+  "private_demo": {
+    "type": "execution_log_replay_not_screen_recording",
+    "revision": 2,
+    "video": {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024/ai-monk-plugin-walkthrough-v1.mp4",
+      "bytes": 3681253,
+      "sha256": "91150e0e1f4c3af01ab8df4f5442bac03f3cd4868f2eb700daff792359354f56",
+      "duration_seconds": 172.0,
+      "codec": "h264",
+      "pixel_format": "yuv420p",
+      "width": 1920,
+      "height": 1080,
+      "frame_rate": "30/1",
+      "audio_streams": 0,
+      "moov_before_mdat": true,
+      "full_decode_exit_code": 0
+    },
+    "manifest": {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024/demo-manifest.json",
+      "bytes": 91081,
+      "sha256": "34d8b565f4a49866988c6be9c3bb77ecd710d93fa01f6a26762a2ac22bd965c3"
+    },
+    "slides": 13,
+    "actual_output_provenance_references_checked": 105,
+    "P2_three_profile_names_first_AI_and_source_visible": true,
+    "P3_hook_and_structure_summary_visible": true,
+    "P5_script_formula_voice_cadence_funnel_visible": true,
+    "P2_P4_prompt_word_wrap_nonspace_characters_preserved": true,
+    "positive1_input_error_recovery_visible": true,
+    "negative2_partial_visible": true,
+    "negative3_one_read_only_call_visible": true,
+    "screen_text_has_no_secret_email_privatepath_thread_or_session_ID": true,
+    "primary_independent_content_review_complete": false,
+    "raw_JSONL_or_video_committed_to_repo": false
+  },
+  "validation": {
+    "focused_private_acceptance": {
+      "run_id": "ai-monk-plugin-review-v013-20261024",
+      "owner_id": "monk_product_price_followup",
+      "observed_at": "2026-10-23T21:58:46.720206+00:00",
+      "phase": "focused_review_materials_acceptance",
+      "exit_code": 0,
+      "case_run_counts_and_verdicts_consistent": true,
+      "all_new_runs_no_auth_copy_or_shared_config_change": true,
+      "plugin_package_five_files_unchanged": true,
+      "prompt_final_and_JSONL_hashes_match": true,
+      "display_provenance_references_checked": 105,
+      "screen_text_sanitization_and_text_bounds_pass": true,
+      "video_format_faststart_and_decode_pass": true,
+      "video_sha256": "91150e0e1f4c3af01ab8df4f5442bac03f3cd4868f2eb700daff792359354f56",
+      "private_modes_700_600": true,
+      "private_regular_files": 6946,
+      "private_directories": 2894,
+      "same_snapshot_suite_claimed": false,
+      "negative2_partial_retained": true,
+      "primary_independent_review_complete": false,
+      "new_model_runs": 5,
+      "same_case_reruns": 0,
+      "external_publish": 0,
+      "next_action": "write bounded source docs and push; primary reviews before main/demo Release"
+    },
+    "focused_acceptance_file": {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024/focused-acceptance.json",
+      "bytes": 1060,
+      "sha256": "0873d9a2813368cb5e5253497d2d670dee85769f0455237c3055188e316531d3"
+    },
+    "plugin_load_steps_passed": 4,
+    "full_video_decode_exit_code": 0,
+    "all_display_source_hashes_JSON_pointers_and_final_spans_match": true,
+    "text_within_canvas": true,
+    "local_all_page_build": "not_run_docs_only",
+    "new_permanent_tests": 0,
+    "new_dependencies": 0
+  },
+  "effect": {
+    "existing_account_model_runs": 5,
+    "historical_model_runs_reused": 3,
+    "same_case_model_reruns": 0,
+    "local_demo_video_renders": 2,
+    "local_text_card_image_renders": 23,
+    "local_contact_sheet_renders": 2,
+    "Factory_media_generation": 0,
+    "new_paid_provider_API_calls": 0,
+    "AI_image_or_avatar_generation": 0,
+    "synthetic_voice_generation": 0,
+    "browser_operations": 0,
+    "posts": 0,
+    "purchases": 0,
+    "external_publish": 0,
+    "plugin_package_changes": 0,
+    "credential_value_copies": 0,
+    "auth_reference_removed": true,
+    "shared_config_changes": 0,
+    "new_agent_seats_supervisors_or_loops": 0,
+    "formal_upload_submit": 0
+  },
+  "readback": "新5runのJSONL/実tool/final/exitと既存3runの公開receipt hash、表示105対応、動画codec/faststart/full decodeを照合する。negative2の説明不足、positive1のcaller引数エラー/回復、negative3の参照1件を保持する。",
+  "provider_receipt_id": null,
+  "evidence_refs": {
+    "current_private_root": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024",
+    "historical_private_root": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-native-v012-20261024",
+    "historical_public_receipt": {
+      "path": "docs/evidence/ai-monk-plugin-native-v012-20261024.json",
+      "sha256": "bea438a22bb9d0f83ce79dbeb9fe9d02028bd4279753978c78d56c68e55f3bdb"
+    },
+    "current_files": [
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024/bootstrap.json",
+        "bytes": 2455,
+        "sha256": "b52f6096bdeb95ff9adab0e6f0ee88d5e729b020ce1586b72c0837174463735a"
+      },
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024/load-process-results.json",
+        "bytes": 1788,
+        "sha256": "bd8cfe5628b910748e858d5e55eb3424de54793cad01960e88f1c3a37f68f734"
+      },
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024/case-assessment.json",
+        "bytes": 20946,
+        "sha256": "1b3a7136e4367d826f564c344497a9c868264d801de40bbb848c0f44afb311b8"
+      },
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024/demo-materials.json",
+        "bytes": 52999,
+        "sha256": "f093dd25da49d2b521f14336ac7e6679d96931db866861dbf4e123c465b4f093"
+      },
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024/demo-slides.json",
+        "bytes": 87696,
+        "sha256": "50b44fddd648070f7c8605104accec28a692613e34253462495210ec54fb5588"
+      },
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024/demo-manifest.json",
+        "bytes": 91081,
+        "sha256": "34d8b565f4a49866988c6be9c3bb77ecd710d93fa01f6a26762a2ac22bd965c3"
+      },
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024/video-render-receipt.json",
+        "bytes": 3419,
+        "sha256": "141be6f3165092340b268de15c1973f5db92d4a639a05636f866ca2cfc1f0192"
+      },
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024/focused-acceptance.json",
+        "bytes": 1060,
+        "sha256": "0873d9a2813368cb5e5253497d2d670dee85769f0455237c3055188e316531d3"
+      },
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024/positive1/schema-diagnostic.json",
+        "bytes": 1065,
+        "sha256": "56d67a0187a4be618d8408afe1a509c793544bc7557c87ce4c10667f14969896"
+      },
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024/positive1/list-tools.response.json",
+        "bytes": 5583,
+        "sha256": "1e806b2c9b5e116a17a05f4e7191dd6156895fd2d65a9a6a3fb70c94de8ed687"
+      }
+    ]
+  },
+  "error_class": [
+    "manifest_negative2_explanation_partial",
+    "recovered_model_argument_outside_schema",
+    "unused_transport_auth_required"
+  ],
+  "retryable": false,
+  "next_action": "primaryが独立read-onlyレビュー後にCASES/DEMO docsを先にmain統合し、その固定mainの専用demo Release assetを公開GET/hashで確認する。確認済みURL通知後の別followupでv0.1.3 metadata/ZIPを扱う。negative2の部分充足と正式審査の外部gateは保持する。"
+}
