@@ -29,7 +29,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 - 想定読者は、短尺動画の文化、AIキャラクター、SNS上の商売に興味がある英語・日本語の一般読者。読み終えた後に、少なくとも一つのプロフィールを検索し、主張と根拠を自分で確かめられる状態を目指す。
 - 各記事の冒頭は具体的な場面・奇妙な事実・問いのいずれかで始め、記事の中心発見を早めに見せる。見出しには情報ラベルでなく、続きを読みたくなる主張を置く。
-- Malditaの調査記事の「場面から始め、具体例を重ね、調査範囲と限界を明かす」構成、および既存Anicca記事の一人称の場面描写・手触りのある数字・会話調の節運びから、構成上の仕組みを学ぶ。文章、台本、動画、画像、顔、声、デザインの複製はしない。
+- Malditaの調査記事の「場面から始め、具体例を重ね、調査範囲と限界を明かす」構成、および既存Anicca記事の一人称の場面描写・手触りのある数字・会話調の節運びから、構成上の仕組みを学ぶ。自社の原稿・台本・動画・新キャラクターを既存作品の丸写しにしない。プロフィールの識別用画像は「データとUI契約」に従う。
 - 読者が使える情報として、確認済みSNS、創作者、公開商品、価格、動画の構図と話の運び、未確認事項、更新日を具体的に示す。
 - 視聴者数、再生数、商品価格、seller counter、creator claim、売上、利益、注文を区別する。自己申告・販売ページ・広告主の顧客事例は、その情報源の主張として示す。Yang MunのAI生成状態に関する一次発信と報道の矛盾も併記する。
 - AI僧侶の台詞は全文転載せず、hook・感情の展開・映像・CTAの仕組みを要約する。健康上の主張は医療助言として紹介しない。
@@ -42,8 +42,8 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 - `region_evidence` は地域名と根拠の種類を持つ。創作者の居住地、プロフィールに表示された国旗、対象市場を同じ「所在地」として扱わない。
 - UIは既存のNext.js 14、React、Tailwind、静的JSONを使う。ユーザー登録、投稿フォーム、外部DB、決済、APIスクレイピング、追加npm依存は含めない。追加提案はGitHubへのリンクで受ける。
 - 検索は入力ごとに表示名・別名・creator名とプロフィールURL・地域・言語・プラットフォーム・handle・商品名・creative sampleタイトルを対象に大文字小文字を無視して絞る。各選択フィルターはANDで組み合わせ、該当件数と0件時の状態を表示する。
-- カードには実在人物の肖像画像を転載しない。表示名、個別色の記号、状態ラベル、提供元へのリンクで見分けられるようにする。
-- Mobbinの実画面から、Mailchimpのディレクトリ検索hero、Semrushの一覧＋絞り込み、Workableの検索＋状態chipを参考にする。画面のコピーはしない。
+- カードには全件アイコンを置く。Daisの公開画面への指示に合わせ、本人の公開プロフィールとの対応を確認できる画像を優先し、取得元・取得日・hashを記録する。画像未取得・読み込み失敗は名前のイニシャルで示し、実写真やAI生成状態を偽らない。第三者画像をデータのCC BY対象に含めない。
+- ページのH1とmetadataは `AI Monk Database`。コピーは直接的な名詞・短い説明・操作名に統一し、比喩と問いかけを除く。検索を上部に置き、顔・名前・handle・主要数値をコンパクトなカードで比較できるようにする。Mobbinと類似directoryの観測状況・採用する構造・未確認事項は今回のUI計画と参照記録を正本にする。→ `docs/superpowers/plans/2026-10-23-ai-monk-database-ui.md`
 
 ## 成功事例・設計参照
 
@@ -143,7 +143,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 **AM-13英語版の公開:** PR [#553](https://github.com/Daisuke134/anicca-products/pull/553)、main `6c21d91c08eb37ce3c47e2290606f58ccf361781`、exact-head landing CIとNetlify run `39809692295`がsuccess。販売ページ `https://aniccaai.com/the-art-of-ai-monks` はHTTP200、canonical・59ページ・10,874語・PDF/EPUB・$9.99・無料全文への案内を確認。fresh independent reviewは残存指摘0、関連35テストPASS。live Checkoutは公式Stripe GETでSKU/999 USD cents/one-time/本番mode/成功URLを確認し、未払いPDF/EPUBは共に403。検証sessionは未払いのまま失効を公式GET確認。原稿・出典・英語format・販売ページ・SKU・未払い保護までは公開済み。実購入・支払済み本番納品・注文・売上は未確認。根拠は `docs/evidence/ai-monk-book-{production,checkout-production,stripe-catalog}-20261023.json`。
 
-**現在cursor:** AM-14の過去の個別HeyGen費用、残るprovider effectのexact proof、次の自然slotの診断を継続する。EN TikTok/articlesの後続二fenceは既存resolverで個別にno-effect照合し、SQLiteで両方 `released/effect_unknown=0` を確認する。旧三fenceと空き容量不足による日次処理の保留は残る。旧順序はAM-14のみを先行する順だったが、旧effectの証明を待つ間に独立した公開JSONの利用口を完成できるため、AM-15のCLI/MCP小段階を並行して公開まで完了する。計画は `docs/superpowers/plans/2026-10-23-ai-monk-cli-mcp.md`。factory全体のOSS化とAM-16を前倒し完了扱いにはしない。AM-13英語版の公開は完了し、実購入/納品と収益を別に計測する。次は日本語全本文を専用sparse worktreeで制作し、原著と出典の対応を保持する。日本語format/販売公開、AM-15 OSS factory、AM-16 subscription、remote MCP/ChatGPT app、多言語coverageは未完。全文が無料公開されていることを隠さず、整形済み版の購入で研究を支援できる導線とする。
+**現在cursor:** Daisの公開UIへの指摘を優先し、H1/metadataを `AI Monk Database`、直接的なコピー、検索と3/2/1列のコンパクトな一覧、全75件の識別アイコンへ更新する。PR #560/main `08975c043e6fff1d2435cbc927ca2c4ca872c7cb`、exact-head CIとNetlify run `39879488202`はsuccess。公開ブラウザで検索・媒体別handle/数値・AI状態filter・clear・0件・詳細・画像失敗fallback、1440/390/320pxの横はみ出しなしを確認する。画像7件はHTTP200/hash一致、未取得68件はイニシャルで、実画像の全件取得は未完。参照と残TODOの正本 → `docs/superpowers/plans/2026-10-23-ai-monk-database-ui.md`。追加画像調査を続けながら、AM-15 remote MCP/ChatGPT plugin、AM-13日本語format/販売公開、AM-14の旧HeyGen個別費用・残三fence・容量不足による日次配信保留を進める。既存英語書籍・CLI公開を再送/再作成せず、実購入/納品・factory復旧・OSS factory・subscription・多言語coverageを完了扱いにしない。
 
 **AM-15データ利用口の公開:** `packages/ai-monk-index` は唯一の正本JSONとWeb検索helperをbuildで取り込み、`search/get/stats` CLIと3つのread-only stdio MCP toolsを提供する。PR [#558](https://github.com/Daisuke134/anicca-products/pull/558)、main `838e6bb7101a2ef647560eeb5a5ef0bbc19d950a`、Node20 package CIとlanding CI成功、fresh review指摘0。v0.1.0は[GitHub Release](https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.1.0)として公開する。23,806 bytesのtarballは公式asset digest・再取得hashが一致し、公開URLを使うnpm installから75 records/48 sourcesのCLI readbackを確認する。通常利用のネットワーク・API key・accountは不要。npm registry掲載、remote MCP/ChatGPT app、動画生成/投稿factoryのOSS化、subscriptionはこのreleaseの完了範囲に含めない。根拠 → `docs/evidence/ai-monk-cli-mcp-release-20261023.json`。
 
