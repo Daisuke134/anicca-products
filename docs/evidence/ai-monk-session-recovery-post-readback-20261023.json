@@ -1,0 +1,20 @@
+{
+  "observed_at": "2026-10-23T11:20:00.560979+00:00",
+  "post_id": "cmvkswmg6314hlh0yw1p4b6fh",
+  "method": "GET",
+  "endpoint": "https://api.postiz.com/public/posts/cmvkswmg6314hlh0yw1p4b6fh",
+  "http_status": 200,
+  "state": "PUBLISHED",
+  "publish_date": "2026-10-23T10:02:00.000Z",
+  "release_url": "https://www.tiktok.com/@monk_anicca",
+  "release_id": "v_pub_file~v2-1.7699801439001937940",
+  "integration": {
+    "id": "cmo5rwq2p00twn10yrsdglng3",
+    "identifier": null,
+    "profile": "monk_anicca",
+    "name": "Monk Anicca"
+  },
+  "content_sha256": "87fd9f9348491e29c43a760b0130a49e9539fca150ee8c9dc12c32e4cde766f4",
+  "attribution": "Provider state only. Producer and original video hash remain unverified; do not reattribute or resend.",
+  "provider_writes": 0
+}
