@@ -1,0 +1,343 @@
+{
+  "schema_version": "1.0",
+  "checked_at": "2026-10-23T00:27:22.018928+00:00",
+  "scope": "UI references and attributable profile image collection only. UI, canonical account data and AI-origin status are not modified.",
+  "reference_sources": [
+    {
+      "id": "mobbin-public-search",
+      "url": "https://mobbin.com/explore/web/screens/search",
+      "checked_at": "2026-10-23T00:27:22.018928+00:00",
+      "method": "crwl crawl -o markdown-fit; discovered via DuckDuckGo HTML",
+      "status": "public_listing_read",
+      "observed_ui": {
+        "portrait": "Avatar is a separately browsable UI element in the profile listing.",
+        "grid": "Search listing labels Card and Grid List.",
+        "search": "Search Results Page, Filtered Search Results and No Results examples are listed.",
+        "filter": "Filtering & Sorting is a linked flow category.",
+        "density": "Repeated concise screen labels with app names and category links; precise pixel spacing is not observed.",
+        "detail": "Each screen label links to a /explore/screens/<id> detail."
+      },
+      "copy_mechanism": [
+        "Keep the search field and platform/AI-status filters directly above a compact result list.",
+        "Give the account name and icon a consistent location; group secondary metadata and detail links."
+      ],
+      "limits": [
+        "The public listing and semantic labels are read; individual screen pixels are not visually verified.",
+        "Direct scrapy on browse/web/apps and the search URL returned 403 while crwl read the public explore listing.",
+        "No paid plan, login, signup or MCP connection is established.",
+        "No conversion or usability outcome is measured."
+      ]
+    },
+    {
+      "id": "mobbin-public-profile",
+      "url": "https://mobbin.com/explore/web/screens/user-group-profile",
+      "checked_at": "2026-10-23T00:27:22.018928+00:00",
+      "method": "crwl crawl -o markdown-fit",
+      "status": "public_listing_read",
+      "observed_ui": {
+        "portrait": "Seller Profile Page and User Profile Page carry Avatar, Card and Tile labels.",
+        "grid": "Grid List appears on collection and user-image examples.",
+        "search": "Profile examples are grouped under one explicit category.",
+        "filter": "Filtering & Sorting appears on a customer-view example.",
+        "density": "Examples include Side Navigation and Multi-Column Layout labels; exact dimensions are not verified.",
+        "detail": "Creator Profile, Designer Profile View and Full Contact Profile link to individual screens."
+      },
+      "copy_mechanism": [
+        "Separate account identity, audience metadata and source evidence.",
+        "Use explicit profile/details links with a visible avatar for every row."
+      ],
+      "limits": [
+        "Listing metadata is observed; visual composition and interactions are not verified."
+      ]
+    },
+    {
+      "id": "virtualhumans-directory",
+      "url": "https://virtualhumans.org/#influencers",
+      "checked_at": "2026-10-23T00:27:22.018928+00:00",
+      "method": "crwl crawl homepage -o markdown-fit plus scrapy HTML",
+      "status": "public_directory_read",
+      "observed_ui": {
+        "portrait": "Named portrait images use profile-img-tall; some other images use avatar circle.",
+        "grid": "Repeated profile image/name/handle links in collection-list searchable-list.",
+        "search": "HTML input placeholder Search Virtual Human; search form placeholder Type anything....",
+        "filter": "Musicians, Branded and First labels and filter-item elements.",
+        "density": "Many profiles can be scanned using the same concise name and @handle pattern.",
+        "detail": "Profiles link to /human/<slug> pages."
+      },
+      "copy_mechanism": [
+        "Make the face/name/handle the repeated identity block.",
+        "Provide direct search and compact filters before longer research evidence."
+      ],
+      "limits": [
+        "The legacy /virtual-influencers URL returned a 404 page; the directory is on the homepage.",
+        "Actual search/filter interaction and visual layout dimensions are not exercised.",
+        "Audience, revenue or performance claims are not independently validated."
+      ]
+    },
+    {
+      "id": "futurepedia-categories",
+      "url": "https://www.futurepedia.io/ai-tools",
+      "checked_at": "2026-10-23T00:27:22.018928+00:00",
+      "method": "crwl crawl -o markdown-fit",
+      "status": "public_category_directory_read",
+      "observed_ui": {
+        "portrait": "Category hub uses category labels; it does not establish persona portraits.",
+        "grid": "Named category groups link to scoped lists.",
+        "search": "No search interaction is verified in this extraction.",
+        "filter": "Category names include counts and Show all links.",
+        "density": "Grouped categories expose useful labels before long descriptions.",
+        "detail": "Each category leads to a focused directory."
+      },
+      "copy_mechanism": [
+        "Expose platform and status as clear labels with visible result counts.",
+        "Keep explanatory copy short and move account evidence to detail sections."
+      ],
+      "limits": [
+        "The homepage currently emphasizes personalized onboarding. The /ai-tools path holds the directory.",
+        "Counts are publisher-displayed snapshots, not independent measurements."
+      ]
+    },
+    {
+      "id": "futurepedia-avatar-list",
+      "url": "https://www.futurepedia.io/ai-tools/avatar-generator",
+      "checked_at": "2026-10-23T00:27:22.018928+00:00",
+      "method": "crwl crawl -o markdown-fit",
+      "status": "public_scoped_list_read",
+      "observed_ui": {
+        "portrait": "Extraction does not verify image appearance.",
+        "grid": "Repeated ranked tool entries are present.",
+        "search": "A category-scoped result list is visible in extracted content.",
+        "filter": "Verified filter link is present.",
+        "density": "Rank, name, pricing class, short description, saves and View tool are consistently repeated.",
+        "detail": "View tool links to /tool/<slug>."
+      },
+      "copy_mechanism": [
+        "Use one concise factual summary per item and a stable metadata order.",
+        "Label verification status directly and link out to its source."
+      ],
+      "limits": [
+        "The page says ranking uses editor reviews, ratings and saves; their quality or outcomes are not independently measured.",
+        "No exact visual density or interaction behavior is confirmed."
+      ]
+    },
+    {
+      "id": "avatarfactory-directory",
+      "url": "https://avatarfactory.io/ai-influencers",
+      "checked_at": "2026-10-23T00:27:22.018928+00:00",
+      "method": "crwl crawl -o markdown-fit plus scrapy profile HTML",
+      "status": "public_directory_read",
+      "observed_ui": {
+        "portrait": "The directory states it displays public profile images; the Ming San detail image alt says Ming San profile portrait. Yang Mun detail portrait is explicitly illustrative and is excluded from assets.",
+        "grid": "HTML uses ih-grid with repeated mkt-card is-link ih-card anchor cards; the Ming San card contains its named portrait.",
+        "search": "No search or input field is present in the fetched directory HTML; only a dismiss button is found.",
+        "filter": "Niches are presented as metadata; active niche filtering is not verified.",
+        "density": "Name, @handle, niche, followers, a short description and View profile repeat per account.",
+        "detail": "/ai-influencers/<slug> pages include profile portrait and account-specific information."
+      },
+      "copy_mechanism": [
+        "Use identity-first cards with a clear audience number, platform and details action.",
+        "Avoid its unverified revenue promises and automatic AI classification."
+      ],
+      "limits": [
+        "The vendor advertises directory size and revenue/production claims; these are not independently measured success evidence.",
+        "Its illustrative portrait or unconfirmed original images are not substituted for first-party account images."
+      ]
+    }
+  ],
+  "legacy_mobbin_rechecks": [
+    {
+      "url": "https://mobbin.com/sites/sections/937b2c14-8890-4a1e-bc55-c32be0481863",
+      "status": "title_only",
+      "observed_title": "Mailchimp section | Mobbin",
+      "visual_verified": false
+    },
+    {
+      "url": "https://mobbin.com/screens/9d9d1461-4626-4863-9248-0ceedf542a13",
+      "status": "title_only",
+      "observed_title": "Semrush Web Screen",
+      "visual_verified": false
+    },
+    {
+      "url": "https://mobbin.com/screens/74f4187c-e8cc-45d2-be00-f1060f3989c8",
+      "status": "title_only",
+      "observed_title": "Workable Web Screen",
+      "visual_verified": false
+    }
+  ],
+  "research_limits": [
+    "No independently measured conversion/usability results are obtained for these reference directories. Use these as observed UI patterns, not proof of business success.",
+    "Mobbin public category listings are available even though tool/plugin discovery returned no installed Mobbin connector.",
+    "No new billing, topup, signup, auth change, message or publication is performed."
+  ],
+  "profile_image_manifest": "apps/landing/public/assets/ai-monk-profiles/profiles.json",
+  "profile_image_coverage": {
+    "total": 75,
+    "acquired": 3,
+    "platform_profile_avatars": 1,
+    "first_party_named_images": 2,
+    "unknown": 72
+  },
+  "acquired_profiles": [
+    {
+      "account_id": "yang-mun",
+      "status": "acquired",
+      "local_asset": "/assets/ai-monk-profiles/yang-mun-youtube.jpg",
+      "checked_at": "2026-10-23T00:27:22.018928+00:00",
+      "platform": "YouTube",
+      "platform_account_id": "UCoMa3p67nJWkk2kk-8hD1jA",
+      "profile_url": "https://www.youtube.com/@Yangmunv2",
+      "metadata_source_url": "https://www.youtube.com/@Yangmunv2/shorts",
+      "image_source_url": "https://yt3.googleusercontent.com/5Acd_hXF9rK8YVPPAx1lPq52RY2AZ4a7_pJ6Pv-DC0f3D2Aq38upe3MArh5_4B80iqj1e0wn=s900-c-k-c0x00ffffff-no-rj",
+      "image_role": "platform_profile_avatar",
+      "image_locator": "yt-dlp channel metadata thumbnails[id=0], 900x900",
+      "transformations": "none; original HTTP response bytes",
+      "limits": "YouTube profile avatar. Instagram-avatar equivalence and usage license are not independently verified.",
+      "sha256": "c7becc3356df7673bc40293d72c84d3bdab4b570f884023e769b2f1b914276e6",
+      "bytes": 183684,
+      "content_type": "image/jpeg",
+      "unknown_reason": null
+    },
+    {
+      "account_id": "kai-tsukimi",
+      "status": "acquired",
+      "local_asset": "/assets/ai-monk-profiles/kai-tsukimi-official-author.jpg",
+      "checked_at": "2026-10-23T00:27:22.018928+00:00",
+      "platform": "Official website",
+      "platform_account_id": null,
+      "profile_url": "https://www.instagram.com/thezenstoryteller/",
+      "metadata_source_url": "https://thezenstoryteller.com/",
+      "image_source_url": "https://thezenstoryteller.com/assets/img/author.jpg?v=2",
+      "image_role": "first_party_named_author_illustration",
+      "image_locator": "img with alt naming Kai Tsukimi, within THE ZEN STORYTELLER / KAI TSUKIMI author section",
+      "transformations": "none; original HTTP response bytes",
+      "limits": "The first-party site identifies this author illustration. Equivalence with the Instagram profile image, AI origin and usage license are not independently verified.",
+      "sha256": "b9560cf426a775339ec0995dfbd0ecc9b7973f57189f7abd493d9b17fe183a2c",
+      "bytes": 712428,
+      "content_type": "image/jpeg",
+      "unknown_reason": null
+    },
+    {
+      "account_id": "yangjun",
+      "status": "acquired",
+      "local_asset": "/assets/ai-monk-profiles/yangjun-official-portrait.jpg",
+      "checked_at": "2026-10-23T00:27:22.018928+00:00",
+      "platform": "Official website",
+      "platform_account_id": null,
+      "profile_url": "https://www.instagram.com/monkyangjun/",
+      "metadata_source_url": "https://yangjunhealer.netlify.app",
+      "image_source_url": "https://yangjunhealer.netlify.app",
+      "image_role": "first_party_named_portrait",
+      "image_locator": "img[alt=\"Yangjun portrait\"] embedded data:image/jpeg;base64 in the public document",
+      "transformations": "none; original embedded JPEG bytes decoded without image modification",
+      "limits": "The first-party sales page labels this Yangjun portrait. Equivalence with the Instagram profile image, AI origin and usage license are not independently verified.",
+      "sha256": "9c83fdf1c01ba83b27840331382dcf14e80bb74d0200be5d2392913d978a5aee",
+      "bytes": 251141,
+      "content_type": "image/jpeg",
+      "unknown_reason": null
+    }
+  ],
+  "tool_inventory": {
+    "instagram_profile_picture_tool": "mcp__codex_apps__vidiq_vidiq_ig_profile",
+    "instagram_profile_picture_tool_cost_credits": 5,
+    "reported_available_vidiq_credits": 0,
+    "paid_profile_tool_called": false,
+    "other_free_instagram_or_tiktok_profile_tools_found": false,
+    "free_sources_used": [
+      "yt-dlp public YouTube channel metadata",
+      "scrapy public first-party website HTML",
+      "original image bytes from public image source or public embedded image"
+    ]
+  },
+  "excluded_images": [
+    {
+      "account_id": "yang-mun",
+      "source_url": "https://avatarfactory.io/ai-influencers/yang-mun",
+      "reason": "The portrait alt explicitly says illustrative; official YouTube avatar is used instead."
+    },
+    {
+      "account_id": "ming-san",
+      "source_url": "https://avatarfactory.io/ai-influencers/ming-san",
+      "reason": "Third-party portrait is named, but first-party image provenance is not established; no portrait is substituted."
+    }
+  ],
+  "unknown_profile_ids": [
+    "ming-san",
+    "sifuchen-california",
+    "leo-chen",
+    "yan-chen-monjechen",
+    "lead-instagram-tempiovita",
+    "lead-instagram-monjeshentao",
+    "lead-instagram-monacochenn",
+    "lead-instagram-linchenhealing",
+    "lead-instagram-jin-miaoo",
+    "lead-instagram-masteryunsage",
+    "lead-instagram-monchmiao",
+    "lead-instagram-maitre-ping-lin",
+    "lead-instagram-lotusfamily1",
+    "lead-instagram-master-kaion",
+    "lead-instagram-maestroyunkai",
+    "lead-instagram-ming-tao32",
+    "lead-instagram-shen-dao1",
+    "lead-instagram-shin-hyun-official",
+    "lead-instagram-tenzinremedios",
+    "lead-instagram-mestreshentao",
+    "lead-instagram-mongedapaz",
+    "lead-instagram-masterlinghao",
+    "lead-instagram-mestre-jin",
+    "lead-instagram-haku-shinn",
+    "lead-instagram-monktashirok",
+    "lead-instagram-monacogendun",
+    "lead-instagram-master-li-shen",
+    "lead-instagram-innerequelle",
+    "lead-instagram-ken-lu-monk",
+    "lead-instagram-yonchenhealing",
+    "lead-instagram-babatenzin",
+    "lead-instagram-mongejinmiao",
+    "lead-instagram-its-yang-chen",
+    "lead-instagram-masteryunshen",
+    "lead-instagram-maitre-chen",
+    "lead-instagram-monkcheen",
+    "lead-instagram-deor-ie",
+    "lead-instagram-monjaalma",
+    "lead-instagram-yunlobsang",
+    "lead-instagram-mestremushen",
+    "lead-instagram-thezhenwu",
+    "lead-instagram-maitrelidao",
+    "lead-instagram-maestroananta",
+    "lead-instagram-oravishen",
+    "lead-instagram-monjewu",
+    "lead-instagram-monge-bento",
+    "lead-instagram-liangmaster4u",
+    "lead-instagram-aristhestill",
+    "lead-instagram-oldmonktenzin",
+    "lead-instagram-thekaizenhealing",
+    "lead-instagram-shentaoes",
+    "lead-instagram-noalingpo-conseils",
+    "lead-instagram-itsyangmuns",
+    "lead-instagram-masterjiao",
+    "lead-instagram-elmonjekai",
+    "lead-instagram-zenmuun",
+    "lead-instagram-kael-wisdom",
+    "lead-instagram-monjechang",
+    "lead-instagram-maitrenoalingpo",
+    "lead-instagram-shenmuhealer",
+    "lead-instagram-monge-zhen",
+    "lead-instagram-alte-weisheit",
+    "lead-instagram-masteryunming",
+    "lead-instagram-maitreyun",
+    "lead-instagram-chenweihealing",
+    "lead-instagram-masterlianancient",
+    "lead-instagram-monjeananda",
+    "lead-instagram-monkshen",
+    "lead-instagram-elmaestrolin",
+    "lead-instagram-samuelreedcards",
+    "buddha-would-say",
+    "master-kaizen-tiktok"
+  ],
+  "validation": {
+    "all_canonical_accounts_have_manifest_entry": true,
+    "canonical_account_ids_unchanged": true,
+    "images_modified": false,
+    "image_hashes_verified": true
+  }
+}
