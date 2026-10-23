@@ -22,3 +22,5 @@
 **送信前の独立受入:** fresh context検証者の最終findings0/Blocking0。3copy SHA・元UTM・親fragment・本人・公開商品/無料原稿の事実、保守文字数73/59/57、最終operator SHA3c41ed77a5b05f2cc4055a6dced7bd9a50e0eab8285630ae7c9e72b5cf8db4b8が独立一致する。live lease PID34833/同UID/start/port/UUIDも実測する。本人UIと投稿結果は実行時に照合する。新しいnative fenceは3件ともまだ存在せず送信0。
 
 **送信前timeoutの原因境界と限定修復:** book-enの2実行はno_submit/TimeoutError/receipt nullで、専用fence未作成・CreateTweet0。送信無しの観測を追加し、exact parentの直表示では本人@selawmqt/親article1/返信欄1を確認する。実operatorだけが先にX homeへ遷移するため、余分なhomeを除きexact parentで同じ本人確認→親照合を行う。cold hydrationの待機を45秒にし、失敗時のui_phaseを返す。本文/3target/元UTM/送信前fence/既存fence再送禁止/native receipt/permalinkは保持する。新operator SHA256 5625ddcc860e574e34825a49ea95d5bdbf5abc0c38cdf31db7b1da25288219e0、syntax PASS。旧reviewの本文受入を保持し、navigation差分の独立再照合が済むまで送信しない。
+
+**navigation差分の受入:** fresh検証者は新operator5625ddcc860e574e34825a49ea95d5bdbf5abc0c38cdf31db7b1da25288219e0の変更を逆適用し旧受入SHA3c41ed77へ完全一致することを確認する。findings0/Blocking0、3copy SHA/元UTM/親・送信前fence/1click/receipt/permalinkは不変。本人handle/親/返信欄を得たread-only probe4とも整合する。
