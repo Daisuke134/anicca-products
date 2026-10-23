@@ -59,7 +59,7 @@ test('business cards show views, products and reported revenue without an AI-sta
       creative_samples: [{ url: 'https://www.youtube.com/shorts/a', title: 'Sample', structure_summary: 'Original', views: 1234567, views_captured_at: '2026-10-22' }],
       offers: [{ type: 'unknown product', as_of: '2025-01-01' }, { type: 'old product', as_of: '2025-02-01' }, { type: 'eBook', name: 'Original guide', price: 49.99, currency: 'USD', as_of: '2026-10-23', url: 'https://example.test/product' }],
       revenue_observations: [{ metric: 'gross_revenue', amount: 213000, currency: 'USD', period_months: 3, as_of: '2026-01-28', comparison: 'greater_than', source_id: 'report', status: 'creator_reported' }],
-    }, { id: 'unknown', display_name: 'Unknown Monk', persona_type: 'Monk avatar', ai_status: 'unverified' }],
+    }, { id: 'unknown', display_name: 'Unknown Monk', persona_type: 'Monk avatar', ai_status: 'unverified', directory_scope: { status: 'included', source_ids: ['fixture-evidence'] } }],
     sourceCount: 1, updatedAt: '2026-10-22', sources: [{ id: 'report', title: 'Reported dashboard claim', url: 'https://example.test/revenue-report' }],
   }));
   assert.doesNotMatch(html, /AI: |AI status|Filter by evidence status|Why this status|AI production evidence|AI origin unknown|Profile type/);

@@ -91,3 +91,5 @@ best=対象の明確な小さい一覧を起点に同じ根拠基準で拡大す
 **source検証:** 共通helper9件、package CLI/stdio/HTTP/公開tarball契約13件がPASS。75recordのID/順序と元55source、Yanの追記以外の既存fieldを比較して不変を確認する。local SSRは前回の依存回収後react-dom/typescript/lucide-reactが無いため起動できない。既存Landing exact-head CIはnpm ci後に同じSSR契約を実行するため、その結果を受入に使い余分なlocal全依存再生成はしない。source evidence → docs/evidence/ai-monk-reviewed-avatar-scope-source-20261023.json。fresh factual/source review、CI/main、本番/配布物は次の受入である。
 
 **独立確認の補正:** fresh read-only検証者はMCP stats toolの説明だけに「未確認候補も件数へ含む」という旧文を見つける。実結果の候補漏れはなく、stats/getの説明をincluded限定の実契約へ揃える。分類・metric計算・UIは変更しない。
+
+**SSRの限定復旧と指摘修復:** 未知売上fixtureだけscope fieldが欠落する独立指摘を受け、元のRevenue not available assertを保持してincluded/source_idsを追加する。依存不足は以前回収したtask-local packageへのdangling symlink3件と確定する。own worktreeのその3linkだけをexact lockfile version/SHA512一致のreact-dom18.3.1・typescript5.5.4・lucide-react0.454.0へ戻し、source manifest不変で実SSR4件PASSを確認する。fresh検証はhelper9/CLI・stdio・HTTP12PASS、全71非掲載ID拒否と4sortの同一4件、Yan exact embed/動画stillの根拠も独立照合する。旧MCP説明/fixtureの2指摘以外に新規指摘はない。

@@ -66,8 +66,14 @@
     "cli_stats_scope_red": 2,
     "shared_helper_tests_passed": 9,
     "package_cli_stdio_http_tarball_tests_passed": 13,
-    "local_ssr": "Cannot resolve react-dom/typescript/lucide-react after prior dependency cleanup; the existing exact-head Landing CI installs dependencies and runs these contracts",
-    "ci_main_live": "pending"
+    "local_ssr": "4 PASS after restoring only the three exact lockfile versions with SHA512-verified artifact bytes; source manifests unchanged",
+    "ci_main_live": "pending",
+    "local_ssr_initial": "Missing dependencies after previous cleanup; three dangling symlinks referenced removed task-local packages",
+    "fresh_readonly": "Helper9 and CLI/stdio/HTTP12 independently PASS; all71 non-included IDs rejected, four sorts cover only four included records; exact Yan embed and Reel still checked",
+    "review_fixes": [
+      "MCP stats/get description aligned with included-only scope",
+      "Unknown-revenue UI fixture explicitly included; original Revenue not available assertion retained"
+    ]
   },
   "provider_mutations": 0,
   "new_generation": 0,
