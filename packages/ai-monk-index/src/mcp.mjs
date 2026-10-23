@@ -1,6 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/server';
 import * as z from 'zod/v4';
-import { searchAccounts, getAccount, getStats, searchSchema } from './index.mjs';
+import { searchAccounts, getAccount, getStats, searchSchema, getTopFormats, topFormatsSchema, getMonetization, monetizeSchema } from './index.mjs';
 import { packageVersion } from './snapshot.mjs';
 
 const annotations = { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false };
@@ -37,5 +37,19 @@ export function createServer() {
     outputSchema,
     annotations,
   }, async () => result(getStats()));
+  server.registerTool('top_formats', {
+    title: 'Top AI monk video formats and hooks',
+    description: 'Observed AI monk video samples ranked by latest dated public views, with title, duration, upload date and structure_summary (format, hook and script pattern). Optional account_id. Views are sampled-video observations, not channel totals.',
+    inputSchema: topFormatsSchema,
+    outputSchema,
+    annotations,
+  }, async args => result(getTopFormats(args)));
+  server.registerTool('how_they_monetize', {
+    title: 'How AI monk accounts monetize',
+    description: 'Offers (type, name, displayed price, URL), seller counters, creator revenue claims and revenue observations for AI monk accounts, plus counts by offer type. Optional account_id. Prices are not orders; claims are unaudited.',
+    inputSchema: monetizeSchema,
+    outputSchema,
+    annotations,
+  }, async args => result(getMonetization(args)));
   return server;
 }
