@@ -1,0 +1,31 @@
+{
+  "scope": "Production browser Google login and authenticated Factory readback; no Checkout or generation",
+  "checked_at": "2026-10-23T19:44:16.500543+00:00",
+  "url": "https://aniccaai.com/ai-monk-factory",
+  "api": "https://aniccaai.com/.netlify/functions/monk-factory",
+  "identity_matches_private_ssot": true,
+  "authenticated_api_status": 200,
+  "effective_ready": false,
+  "factory_account_present": false,
+  "factory_job_count": 0,
+  "ui": {
+    "signed_in": true,
+    "preparing_notice": true,
+    "checkout_disabled": true,
+    "avatar_generation_disabled": true,
+    "video_generation_disabled": true,
+    "instagram_connect_disabled": true
+  },
+  "effects": {
+    "Google_signin_starts": 1,
+    "verified_existing_Google_account_selections": 1,
+    "Factory_customer_Checkout": 0,
+    "Factory_subscription": 0,
+    "provider_generation": 0,
+    "Instagram_connect": 0,
+    "Instagram_post": 0
+  },
+  "credentials_saved_only_to_private_ssot": true,
+  "private_readback_sha256": "af9a3e0972c3ccee61eaf4f715e8057050585d637adc4ffbb9537b786a271beb",
+  "saas_complete": false
+}
