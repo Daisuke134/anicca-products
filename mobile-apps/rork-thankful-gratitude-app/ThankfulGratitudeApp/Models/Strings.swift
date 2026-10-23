@@ -122,8 +122,8 @@ nonisolated enum L10n: Sendable {
 
     static func paywallBullet2(_ language: AppLanguage) -> String {
         switch language {
-        case .english: return "200+ affirmations"
-        case .japanese: return "200以上のアファメーション"
+        case .english: return "All \(AffirmationData.all.count) affirmations"
+        case .japanese: return "\(AffirmationData.all.count)個すべてのアファメーション"
         }
     }
 
@@ -149,26 +149,41 @@ nonisolated enum L10n: Sendable {
         language == .english ? "\(price)/month" : "\(price)/月"
     }
 
-    static func freeTrialDays(_ days: Int, _ language: AppLanguage) -> String {
-        language == .english ? "\(days)-day free trial" : "\(days)日間無料トライアル"
+    // "7-day" / "1-month" (EN), "7日間" / "1か月間" (JA): the store's own unit, never converted.
+    static func trialPeriod(value: Int, unit: TrialUnit, _ language: AppLanguage) -> String {
+        switch language {
+        case .english:
+            return "\(value)-\(unit.rawValue)"
+        case .japanese:
+            switch unit {
+            case .day: return "\(value)日間"
+            case .week: return "\(value)週間"
+            case .month: return "\(value)か月間"
+            case .year: return "\(value)年間"
+            }
+        }
+    }
+
+    static func freeTrial(_ period: String, _ language: AppLanguage) -> String {
+        language == .english ? "\(period) free trial" : "\(period)無料トライアル"
     }
 
     static func saveBadge(_ percent: Int, _ language: AppLanguage) -> String {
         language == .english ? "SAVE \(percent)%" : "\(percent)%お得"
     }
 
-    static func startTrialDays(_ days: Int, _ language: AppLanguage) -> String {
-        language == .english ? "Start \(days)-Day Free Trial" : "\(days)日間無料で始める"
+    static func startTrial(_ period: String, _ language: AppLanguage) -> String {
+        language == .english ? "Start \(period) Free Trial" : "\(period)無料で始める"
     }
 
     static func subscribeNow(_ language: AppLanguage) -> String {
         language == .english ? "Subscribe Now" : "今すぐ登録"
     }
 
-    static func finePrintTrial(days: Int, renewal: String, _ language: AppLanguage) -> String {
+    static func finePrintTrial(period: String, renewal: String, _ language: AppLanguage) -> String {
         language == .english
-            ? "Free for \(days) days, then \(renewal). Cancel anytime in Settings before the trial ends to avoid being charged."
-            : "\(days)日間無料、その後 \(renewal)。トライアル終了前に設定からキャンセルすれば請求されません。"
+            ? "\(period) free trial, then \(renewal). Cancel anytime in Settings before the trial ends to avoid being charged."
+            : "\(period)無料、その後 \(renewal)。トライアル終了前に設定からキャンセルすれば請求されません。"
     }
 
     static func finePrintRenewal(_ renewal: String, _ language: AppLanguage) -> String {
@@ -190,7 +205,7 @@ nonisolated enum L10n: Sendable {
     }
 
     static func unlockAffirmations(_ language: AppLanguage) -> String {
-        language == .english ? "Unlock 200+ affirmations" : "200以上のアファメーションを解放"
+        language == .english ? "Unlock all \(AffirmationData.all.count) affirmations" : "\(AffirmationData.all.count)個すべてのアファメーションを解放"
     }
 
     static func unlockHistory(_ language: AppLanguage) -> String {
@@ -322,4 +337,8 @@ nonisolated enum L10n: Sendable {
         case .japanese: return "利用規約"
         }
     }
+}
+
+enum TrialUnit: String {
+    case day, week, month, year
 }
