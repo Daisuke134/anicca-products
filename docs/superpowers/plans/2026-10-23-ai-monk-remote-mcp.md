@@ -50,3 +50,14 @@ PR566はmain f8dde2b78ac9fa81c388f0495ed779e7321379d2へ統合する。Netlify39
 - `docs/evidence/ai-monk-cli-mcp-v02-release-20261023.json`
 - [v0.2.0](https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.2.0) tagはmain f8dde2b78ac9fa81c388f0495ed779e7321379d2を指す。v0.1.0は再作成しない。
 - plugin portalのread-only新規tabは`/login`へ遷移する。未認証画面だけで権限不足や本人確認未完を断定せず、既存のGoogle通常loginを次に調べる。ログイン・draft・提出・審査・公開は未実行。根拠 → `docs/evidence/ai-monk-plugin-portal-preflight-20261023.json`。
+
+## Plugin掲載の実行範囲・順序
+
+目的は既存のpublic MCPをChatGPT/Codexのplugin directoryへ提出し、承認された場合は公開readbackまで進めること。MCPの同じ3 tools・同じ75/48 snapshotを使い、生成/投稿/決済の機能を加えない。通常loginは既存browser sessionとcredential SSOTのGoogle exact serviceを照合し、Keychainは使わない。本人/組織の法的情報や審査結果を推測・捏造しない。新しい有料plan/API使用はしない。
+
+- [ ] 既存profileで通常loginし、実account/組織・role・publisher verification・提出権限をreadbackする。
+- [ ] Name `AI Monk Database`、直接的description、既存自社logo、company/privacy/MCP URLs、3 toolsのtest prompts/responsesを具体化する。
+- [ ] draft/tools scan、必須metadataと対応localeを確認し、提出可能ならreviewへ送る。
+- [ ] 公式portalの提出/審査statusをreadbackする。承認後はPublishし、directoryのexact nameまたはURLで公開を確認する。
+
+完了は本番MCP接続とは別に、portalの公式提出・公開状態で判定する。ユーザー本人の必須手続きが必要な画面では不足物と次の操作を記録し、残画像・既存factory等の独立作業を続ける。現cursorは既存Google sessionでの通常login確認。rootはこの掲載計画とportal evidenceを所有し、画像batch4のassets/manifest/UI planには触らない。
