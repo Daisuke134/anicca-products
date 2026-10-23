@@ -9,9 +9,9 @@ Databaseの根拠を台本へ戻し、利用者がGenerate→独自monk avatar�
 旧local CLIをcloud経由で利用者へ公開する案はtenant認証と永続jobを持たず、Macの日次所有系を巻き込むため採らない。Postiz通常APIの接続先は自社organizationであり、tenant帰属の正式契約が不足する。Postiz Enterpriseは公開ページで新規申請停止のため採らない。Upload-Postは別provider account不要のprofile-scoped connectと公式GETを文書化する。実接続/契約受入はまだ行っていない。
 
 ## 価格と原価
-primaryの価格案はUSD199/月、月30本、1本45秒以内。paidは成功最大30本・課金試行最大36回とし、追加6回を含む予算で管理する。provider/台本のperiod予算をUSD70へ制限し、trialはUSD4.25とする。未完/費用不明も成功候補枠と予算を保持する。trialは3日・成功最大3本・課金試行最大3回・1本20秒以内で、再生成枠はない。初期avatarは1体、trialは利用者ごとに生涯1回。これは実Stripe価格公開前の設計判断であり、ユーザーの売上・利益を保証しない。
+primaryの価格案はUSD199/月、月30本、1本45秒以内。paidは成功最大30本・課金試行最大36回とし、追加6回を含む予算で管理する。provider/台本のperiod予算をUSD70へ制限し、trialはUSD4.25とする。未完/費用不明も成功候補枠と予算を保持する。trialは3日・成功最大3本・課金試行最大3回・1本20秒以内で、再生成枠はない。初期avatarは1体、trialは利用者ごとに生涯1回。これは採用する初期価格であり、ユーザーの売上・利益を保証しない。
 
-Avatar IV Photoは公表USD2.31/分。30本×45秒はUSD51.975、20%追加生成込みUSD62.37。別Starfish TTSを使う最悪予算はUSD3.24/月。HeyGen ImageのUSD0.28はidentity/reference画像を要求する再構成用で、文章から独自画像を作る経路ではない。画像はOpenAI Images APIのgpt-image-1-mini、1024x1536/high/n1と固定ASCII promptを使う。公表出力概算USD0.052＋text入力USD2/M tokenに対し画像期待費の保守枠をUSD0.06とするが、従来の画像USD0.28＋Photo Avatar作成USD1.32というavatar予約USD1.60を維持する。差額は保守枠であり毎月の再生成費や実請求額とは呼ばない。画像の実usage/個別料金と独立課金元を確認するまで生成/料金公開を有効化しない。prompt直接avatarの価格をPhoto Avatar料金だと推定しない。
+Avatar IV Photoは公表USD2.31/分。30本×45秒はUSD51.975、20%追加生成込みUSD62.37。別Starfish TTSを使う最悪予算はUSD3.24/月。HeyGen ImageのUSD0.28はidentity/reference画像を要求する再構成用で、文章から独自画像を作る経路ではない。画像はOpenAI Images APIのgpt-image-1-mini、1024x1536/high/n1と固定ASCII promptを使う。公表出力概算USD0.052＋text入力USD2/M tokenに対し画像期待費の保守枠をUSD0.06とするが、従来の画像USD0.28＋Photo Avatar作成USD1.32というavatar予約USD1.60を維持する。差額は保守枠であり毎月の再生成費や実請求額とは呼ばない。画像の実usage/個別料金と独立課金元を確認するまで課金CTA/生成を有効化しない。prompt直接avatarの価格をPhoto Avatar料金だと推定しない。
 
 Upload-Post ProfessionalはUSD50/月・25profilesでwhite-labelを含む。25人満員なら平均USD2/人だが、1人でも固定費USD50が発生する。25枠はpaid人数ではなくtrial/停止後保持分も含む全profileの同時容量である。25paidの試算行には新trial用空きがない。無料planはwhite-labelを含まず、TikTok投稿も不可。年USD400を月払いUSD33と扱わず、初期は月契約を選ぶ。
 
@@ -50,4 +50,4 @@ dashboardは実provider状態、投稿URL、取得日時付きのviews/likes等�
 4. 実利用できる状態をXで告知する。売上・MRR・他者利益・正式directory掲載は、対応する外部結果が無い限り未達とする。
 
 ## 現在cursor
-Database/Plugin配布状態 → ../plans/2026-10-24-ai-monk-research-distribution.md。Factoryの実装・検証・未完事項 → ../plans/2026-10-24-ai-monk-factory-saas.md。料金公開・provider新規契約・API生成・売上は未実施。
+Database/Plugin配布状態 → ../plans/2026-10-24-ai-monk-research-distribution.md。Factoryの実装・検証・未完事項 → ../plans/2026-10-24-ai-monk-factory-saas.md。mainのWeb/API/DBと月199USDの専用Stripe商品・解約portalは反映済み。課金CTAは無効で、provider有料契約・専用生成予算・実API生成・顧客trial・Instagram接続/投稿・売上は未完。

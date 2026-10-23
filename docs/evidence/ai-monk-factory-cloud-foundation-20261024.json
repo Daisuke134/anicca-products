@@ -127,7 +127,8 @@
         "due_today_usd": 50,
         "paid": false
       },
-      "saved_payment_method_verified": false
+      "saved_payment_method_verified": true,
+      "payment_source_note": "Existing Link email identity matched private SSOT; email verification completed and saved payment method displayed. Professional purchase remains deferred until generation billing setup."
     },
     "generation_billing_sources_verified": false
   }

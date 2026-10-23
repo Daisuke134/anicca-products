@@ -34,5 +34,17 @@
   "factory_enabled": false,
   "webhook_prepared": false,
   "runtime_reflected": false,
-  "saas_complete": false
+  "saas_complete": false,
+  "independent_plan_review": {
+    "catalog_preparation": "ship",
+    "activation": "hold",
+    "source_changes_required": false,
+    "conditions": [
+      "No customer Checkout/subscription/invoice created by catalog preparation",
+      "Keep effective MONK_FACTORY_ENABLED=false",
+      "Verify dedicated provider billing and Upload-Post white-label before activation",
+      "Disabled flag does not stop renewal of an existing Stripe subscription"
+    ],
+    "reviewer_browser_or_mutation": 0
+  }
 }
