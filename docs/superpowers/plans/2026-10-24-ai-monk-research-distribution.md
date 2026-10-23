@@ -4,13 +4,13 @@
 既存のDatabase/6tool CLI・pluginを土台に、商品/収益の根拠拡充と配布を先に完了し、原価が成立するcloud Factoryへ進む。要件の正本はfield-guide末尾「Database・Plugin・Factoryの追加契約」。通常判断はprimaryが実行し、承認待ちや固定stageを追加しない。brainstormingの承認質問はDaisの明示No-human-loopと詳細指定へ置き換える。Stripe実装時は既存Checkout/Billingを再利用し、既存runtimeの日次effect/ownerは触らない。
 
 ## 順序と現在cursor
-旧順/新順/理由はfield-guideを参照する。Database v0.4.7は73公開/75archive/180出典へ反映し、公開JSON/Web/MCP・新CLI Release/URL導入/実stdio6toolの同一snapshotを受入する。商品関連はarchive69行/公開66行。公式Registry v0.4.7は40028849993 SUCCESS/exact GET active/isLatestで完了する。Codex直接配布・本人X告知・Grokへの正式BOARD依頼は完了し、Grok受領/追加投稿は未確認。Museは正式受付と3/3 requirements完了を確認する。BusinessはApproved、Data processingとIntegration credentialsはIn reviewであり、コネクタ全体の承認・掲載は未確認とする。審査結果待ちと独立して原価/方式を定めたFactory実装へ進む。最新配布証拠 → docs/evidence/ai-monk-distribution-status-20261024.json。Factory公開基盤 → docs/evidence/ai-monk-factory-cloud-foundation-20261024.json、Stripe資源 → docs/evidence/ai-monk-factory-stripe-activation-20261024.json。
+旧順/新順/理由はfield-guideを参照する。Database v0.4.8は73公開/75archive/181出典へ反映し、公開JSON/Web/MCP・新CLI Release/URL導入/実stdio6toolの同一snapshotを受入する。商品関連はarchive69行/公開66行。公式Registry v0.4.8は40038988033 SUCCESS/exact GET active/isLatestで完了する。Codex直接配布・本人X告知・Grokへの正式BOARD依頼は完了し、Grok受領/追加投稿は未確認。Museは正式受付と3/3 requirements完了を確認する。BusinessはApproved、Data processingとIntegration credentialsはIn reviewであり、コネクタ全体の承認・掲載は未確認とする。審査結果待ちと独立して原価/方式を定めたFactory実装へ進む。最新配布証拠 → docs/evidence/ai-monk-distribution-status-20261024.json。Factory公開基盤 → docs/evidence/ai-monk-factory-cloud-foundation-20261024.json、Stripe資源 → docs/evidence/ai-monk-factory-stripe-activation-20261024.json。
 
 ## 実行順の更新
 旧順は既知profileの調査完了→plugin正式掲載→Factory。新順は取得済みsnapshotの公開受入→plugin配布/Registry公開/Muse提出→Factory実装とし、新規一次資料・審査結果は到着時に反映する。理由は73公開件/176出典のWeb・CLI・MCP、配布と申告の受入が揃い、残る取得不可入口や外部審査の待機だけでは次の成果が進まないため。収益へ必要なFactory制作/課金契約を独立して実装する。既存の日次effectを中断・重複しない。現在cursorはSaaS-1の専用OpenAI正規アクセス復旧・専用provider課金元・実生成・接続受入。通常メールコード認証後の公式UIはaccount削除または無効化を示し、既存専用keyのGET /v1/modelsは401/account_deactivatedを返す。原因と削除の有無、現在のbilling値は未確認で、別account新設や共有Grok予算への切替は行わない。現在状態 → ../../evidence/ai-monk-factory-openai-account-state-20261024.json。本人確認・quota・Stripe配線はsource review/CIを通してmainへ統合し、main由来Web/API/DBを公開する。専用199USD Product/Priceと解約portalは作成・公式GET確認済みで、利用者Checkout/請求は0。課金CTAは無効のまま専用生成予算を準備する。DB-1/PL-1は未確認を保持し、外部待ちを成功へ置換しない。
 
 ## TODO
-- [x] DB-2（180source snapshotの公開JSON/Web/MCP/CLI/Registry受入済み）: 既存関連検証でsource参照/scope/価格と売上区別を確認し、main/公開JSON/Web/MCPと必要なCLI版へ反映する。
+- [x] DB-2（181source snapshotの公開JSON/Web/MCP/CLI/Registry受入済み）: 既存関連検証でsource参照/scope/価格と売上区別を確認し、main/公開JSON/Web/MCPと必要なCLI版へ反映する。
 - [x] DIST-1（本人X1本・正式Grok BOARD依頼をreadback、受領/追加投稿は別）: Database/Pluginの新launch copyを根拠付きで作り、自分のX投稿とGrok協力依頼を1回ずつ送る。公式receipt/permalinkと重複0を記録する。
 - [x] COST-1（API/Stripe/接続費の一次資料と仮定別原価表を取得、実請求/転換率はSaaSで追跡）: ReelFarm公開価格/無料枠/導線、HeyGen実API単価、45/60秒・1日1本/2本・3日trial・再生成・Stripe手数料から原価と利益を計算する。取得不足はunknownとし課金top-upしない。
 - [ ] SaaS-1: 原価からprice/生成上限を決め、最小auth・Stripe3日trial・Generate avatar/video・IG接続・自動投稿・metricsを既存Web/APIから実装して公開する。TikTokは後続。実API生成/Stripe subscription/利用者所有接続/公式投稿とmetricsを成果条件として追跡する。
@@ -44,10 +44,18 @@ Netlify AI Gatewayは現accountの公式GETで利用不可を確認する。team
 
 - [x] 2profileの既存canonical/discovery/auditを比較し、native handle/画像/公開商品を追加できる一次根拠を限定取得する。同名の別personaとの同一性、AI制作、売上を推測しない。未取得なら実際に確認した出所と不足を残す。古いbatch対象外という理由を、現在のprofile項目が必ず欠落しているという意味へ流用しない。
 - [x] OpenAI公式docsを実取得し、GitHub repo marketplaceでの直接配布とChatGPT/Codex共通の正式Plugin directory/提出フローを区別する。Museの既存submissionとGrokの既存依頼はread-onlyで確認し、受付/審査/承認/配布receiptを分ける。新しいlogin、submit、依頼、X投稿はこのunitに含めない。
-- [ ] 公開sourceによって確定できるdata差分があればcanonicalと呼び出し先を揃え、既存の関連検証、必要なreview/CI/main由来公開まで進める。sourceが増えた場合だけ次のCLI/Registry snapshotを作り、v0.4.7のReleaseを上書きしない。data差分がない場合は現在のv0.4.7/180sourceを維持し、限定調査と現在状態のreceiptを正本へ反映する。
+- [x] 公開sourceによって確定できるdata差分があればcanonicalと呼び出し先を揃え、既存の関連検証、必要なreview/CI/main由来公開まで進める。sourceが増えた場合だけ次のCLI/Registry snapshotを作り、v0.4.7のReleaseを上書きしない。data差分がない場合は現在のv0.4.7/180sourceを維持し、限定調査と現在状態のreceiptを正本へ反映する。
 
 所有はprimaryがmaster/source/公開受入、read-only workerが2profileのprivate調査証拠とする。repo/worktreeの他者編集を上書きせず、保護storeを削除・移動しない。限定unitの完了を全世界の全件把握、正式カタログ承認、Factory稼働、売上達成へ換算しない。
 
 SifuChenの取得結果ではnative URL/canonical/@handleが一致し、本人bioのAI自己表示、丸め表示834K followers、プロフィール画像を確認する。ai_status=reported/directory_scope=pendingを維持し、動画形式・creator・商品現況・監査済み売上へ拡張しない。bioのSpanishと投稿音声言語を区別する。この1profileと画像出典を更新し、他74recordsと旧180sourcesは保持した181source snapshotをv0.4.8のWeb/CLI/MCP/Registryへ反映する。Kaizen oEmbedは汎用応答のためcanonical sourceを増やさない。画像は既存Maldita screenshotからnative avatarの元bytesへ切替え、公開画像件数は増加させない。root/master/README/manifestの現在版だけを揃え、旧Release/証拠は保持する。
 
 独立source reviewでbio限定言語の根拠がWeb表示から落ちることを確認する。bioを根拠とする言語はカード上に「profile bio; spoken language not audited」を表示し、言語filterのlabelは維持する。focused render回帰で実assertionのRED→GREENを確認し、修正headのCIを受入する。
+
+最終docs unitはmain c4bd859c48cfc879b37f056d9e97aa2fb887952d由来の専用branch docs/ai-monk-v048-publication-20261024で、v0.4.8公開receipt、限定HeyGen料金調査receipt、本planとfield-guideの現在pointerだけを更新する。公開URL導入・stdioは非author検証、Web/JSON/画像/HTTPS MCP/Netlify/Registryはprimaryの実readbackで区別する。既存の公開artifact・旧receipt・source・認証・課金・日次effectを変更しない。参照hash/JSON/diffと既存PR checksを確認し、commit/push/remote一致・main統合まで完了する。
+
+公開受入はPR642/main c4bd859c48cfc879b37f056d9e97aa2fb887952d、CLI v0.4.8 Release422387165/asset670678777、Web73件/画像71件/181出典、公開JSON元bytes、実stdio/HTTPS MCP各6toolの同一snapshotで完了する。Registry40038988033 SUCCESSとexact GET active/isLatestを確認する。独立source reviewのbio言語表示指摘は1回のfocused RED→GREENと最終head CIで修正し、公開artifact/URL導入/CLI/stdioは非author検証PASS/Blocking0とする。sourceの初回reviewと修正後の検証は区別し、追加source再reviewは主張しない。証拠 → ../../evidence/ai-monk-cli-mcp-v048-release-20261024.json。旧v0.4.7とPlugin v0.1.3/既存demoの証拠は保持する。
+
+HeyGenの追加料金調査 → ../../evidence/ai-monk-factory-heygen-prompt-rate-followup-20261024.json。Photo Avatar作成1.32USD/call、Avatar IV Photo2.31USD/min、TTS0.12USD/minを公式料金表で再確認する。type=promptの総料金対応と独立台本生成・hard durationは未確認で、仮にavatar1.32USDならtrialの動画/TTS/avatarは3.75USD、36attempt月は66.93USDとなるが台本費前の条件付き算術である。既存4.25USD/70USD上限は変えず、このendpointをFactory全体の代替として採用しない。
+
+この限定followupは完了し、現在cursorはPL-1の専用OpenAIの正規アクセス復旧/正式提出・Muse審査と、SaaS-1の独立provider予算・実生成・本人接続の受入とする。外部状態の未完を無料配布や公開データ更新で閉じず、同じ非retryable認証失敗・提出・投稿を再送しない。日次IG/TikTok/Postiz/Grok所有effectは変更0。
