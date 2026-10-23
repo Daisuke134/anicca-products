@@ -10,7 +10,7 @@ const page=await import(compiled(new URL('../app/blog/page.tsx',import.meta.url)
 test('reader hub has bounded topic previews, latest list and crawlable all-articles link',()=>{
  const html=renderToStaticMarkup(React.createElement(page.default));
  const links=[...html.matchAll(/href="\/blog\/([^"/]+)"/g)];assert.ok(links.filter(m=>m[1]!=='manager').length<=26,'two previews per topic plus six latest articles must be bounded');
- assert.match(html,/href="\/blog\/archive\/1"/);assert.equal((html.match(/data-app-id=/g)||[]).length,0);assert.match(html,/Research/);assert.doesNotMatch(html,/Free tier mirrors|paid tier funds|xiv\. Articles/);
+ assert.match(html,/href="\/blog\/archive\/1"/);assert.equal((html.match(/data-app-id=/g)||[]).length,6);assert.match(html,/Research/);assert.doesNotMatch(html,/Free tier mirrors|paid tier funds|xiv\. Articles/);
  for(const m of html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)){const d=JSON.parse(m[1]);if(d.mainEntity?.['@type']==='ItemList')assert.equal(d.mainEntity.numberOfItems,d.mainEntity.itemListElement.length);}
 });
 test('article archive declares its self-canonical',()=>assert.equal(page.metadata.alternates.canonical,'https://aniccaai.com/blog'));

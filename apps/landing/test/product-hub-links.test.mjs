@@ -22,7 +22,7 @@ test('rendered mobile article hubs link directly to existing introductions witho
 });
 test('article index leads with populated editorial categories and keeps app CTAs contextual',()=>{
  const html=renderToStaticMarkup(React.createElement(index.default));
- assert.doesNotMatch(html,/Product introductions|data-app-id=|apps.apple.com/);
+ assert.doesNotMatch(html,/Product introductions/);assert.equal((html.match(/data-app-id=/g)||[]).length,6);assert.ok(html.indexOf('data-app-id=')>html.indexOf('Latest articles'));
  assert.ok(html.indexOf('href="/blog/manager"') >= 0);
  assert.ok(html.indexOf('href="/blog/manager"') < html.indexOf('Latest articles'));
  assert.ok(html.indexOf('href="/blog/c/anicca"') >= 0);
