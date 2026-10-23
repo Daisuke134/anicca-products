@@ -1,0 +1,125 @@
+{
+  "schema_version": "anicca.ai-monk-checkout-resume-production.v1",
+  "observed_at": "2026-10-23T23:48:13.836668+00:00",
+  "run_id": "ai-monk-factory-provider-preflight-20261024",
+  "owner_id": "root",
+  "occurrence_id": "checkout-resume-main-public-bundle",
+  "release_sha": "9437dd32055a6bb8965f2b8e94b791c40674be9f",
+  "phase": "public_source_readback",
+  "source": {
+    "pr_url": "https://github.com/Daisuke134/anicca-products/pull/645",
+    "head_sha": "119b718cc3ad6aa13bc62e10308d94f70b6eb801",
+    "main_sha": "9437dd32055a6bb8965f2b8e94b791c40674be9f",
+    "merged_at": "2026-10-23T23:37:35Z"
+  },
+  "verification": {
+    "source_review": {
+      "verdict": "SHIP",
+      "blocking_count": 0
+    },
+    "focused_client_tests": {
+      "passed": 7,
+      "failed": 0,
+      "red_observed": true
+    },
+    "optional_whole_project_noemit": {
+      "exit_code": 2,
+      "diagnostics": 6,
+      "baseline_comparison": "unresolved; not reported as passing"
+    },
+    "landing_ci": {
+      "run_id": 40040305050,
+      "conclusion": "success"
+    },
+    "main_deploy": {
+      "conclusion": "success",
+      "databaseId": 40040724468,
+      "headSha": "9437dd32055a6bb8965f2b8e94b791c40674be9f",
+      "status": "completed",
+      "updatedAt": "2026-10-23T23:42:50Z",
+      "url": "https://github.com/Daisuke134/anicca-products/actions/runs/40040724468"
+    },
+    "published_deploy": {
+      "id": "6adbf0b3dd3542817d78d614",
+      "state": "ready",
+      "title": "Deploy from GHA prod - 9437dd32055a6bb8965f2b8e94b791c40674be9f",
+      "branch": "main",
+      "commit_ref": null,
+      "created_at": "2026-10-23T23:41:39.054Z",
+      "published_at": "2026-10-23T23:42:24.334Z",
+      "deploy_ssl_url": "https://6adbf0b3dd3542817d78d614--anicca2.netlify.app"
+    },
+    "public_acceptance": {
+      "observed_at": "2026-10-23T23:44:44.941024+00:00",
+      "status": "PASS",
+      "source_main": "9437dd32055a6bb8965f2b8e94b791c40674be9f",
+      "source_pr": 645,
+      "source_head": "119b718cc3ad6aa13bc62e10308d94f70b6eb801",
+      "public_strict_boolean_complete_null_branch": true,
+      "public_redirect_only_when_destination_exists": true,
+      "public_provider_host_validation_retained": true,
+      "public_bundle_sha256": "96a82f76073cb6f026bf5014a91c35033a097e93f1d98e32a0115d492d9ff1af",
+      "successful_main_workflow": 40040724468,
+      "published_deploy_id": "6adbf0b3dd3542817d78d614",
+      "real_authenticated_checkout_exercised": false,
+      "real_payment_generation": 0
+    }
+  },
+  "evidence_refs": [
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/checkout-source-receipt.json",
+      "bytes": 3480,
+      "sha256": "1a9351f9a8d7a89e96ab712fa313a90dbf1dbcc6993ca53f299e73ac14a40fbe"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/independent-source-review.json",
+      "bytes": 24045,
+      "sha256": "a15c6c3a3e977130d04863dc4578bd6e014de65988ea0e884b1b167132a52953"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/source-pr-readback.json",
+      "bytes": 677,
+      "sha256": "057756eb4f1da65b1114cc46f95cfafab588eb94e96b4af1888f7ae8a7b87c42"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/netlify-workflow-readback.json",
+      "bytes": 238,
+      "sha256": "105cdb444d6aab01896f8d67aa4a461e00bf41e3243e5cbfa758a782ad785cf3"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/netlify-deploy-readback.json",
+      "bytes": 2164,
+      "sha256": "5c114006c15ba9ddbf2d5c0658c309fc0df6f9efc26a2f3943dd948b83e9ec27"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/public-factory-bundle-readback.json",
+      "bytes": 1648,
+      "sha256": "34a532ed78b643547c3ca91149360e9ce89bff25f7a44ac9965f0e341d5ce550"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/public-checkout-contract-acceptance.json",
+      "bytes": 652,
+      "sha256": "19f28b22b5f29ebb569447124872886da7a1c8b75ee349019ae2a4322a4cebff"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/gcp-readonly-guard-rejection.json",
+      "bytes": 1639,
+      "sha256": "5a35a2f9d093eb55ee28c5bf10697932686521b750d01314b51108245c9fc5c5"
+    }
+  ],
+  "limitations": {
+    "authenticated_checkout_exercised": false,
+    "payments_generation": 0,
+    "gemini_runtime_adoption": false,
+    "factory_enabled": false,
+    "formal_marketplace_listing": "unverified",
+    "MRR_goal": "unmet",
+    "gcp_ui_probe": "pre-execution shared CDP guard rejection even after confirmed owned lease; no provider-side effect; lease released"
+  },
+  "effect": "completed checkout UI resumes state refresh; strict-boolean path is present in served bundle",
+  "readback": "main workflow success, official Netlify ready deploy, public HTTP200 HTML/JS and bundle contract PASS",
+  "provider_receipt_id": "6adbf0b3dd3542817d78d614",
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Implement Gemini image/script adapter with existing price/quota and no live enabling; prepare dedicated paid project and verify actual usage, generation and owned IG flow separately."
+}
