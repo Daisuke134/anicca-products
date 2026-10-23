@@ -60,4 +60,4 @@ PR566はmain f8dde2b78ac9fa81c388f0495ed779e7321379d2へ統合する。Netlify39
 - [ ] draft/tools scan、必須metadataと対応localeを確認し、提出可能ならreviewへ送る。
 - [ ] 公式portalの提出/審査statusをreadbackする。承認後はPublishし、directoryのexact nameまたはURLで公開を確認する。
 
-完了は本番MCP接続とは別に、portalの公式提出・公開状態で判定する。ユーザー本人の必須手続きが必要な画面では不足物と次の操作を記録し、残画像・既存factory等の独立作業を続ける。現cursorは既存Google sessionでの通常login確認。rootはこの掲載計画とportal evidenceを所有し、画像batch4のassets/manifest/UI planには触らない。
+完了は本番MCP接続とは別に、portalの公式提出・公開状態で判定する。ユーザー本人の必須手続きが必要な画面では不足物と次の操作を記録し、残画像・既存factory等の独立作業を続ける。現cursorはOpenAI側の既存passkey MFA。Googleの既存アカウント選択から`auth.openai.com`の「ID を検証する」「パスキーを使用して本人確認を行います。」へ進む。通常の「他の方法を試す」を1回選択しても同じ画面が残り、portal identity/role/verification・draft・提出は未確認。Apple credential storeやセキュリティ設定の変更は行わず、既存authenticator/通常代替経路の追加観測を次に行い、画像調査を継続する。証拠 → `docs/evidence/ai-monk-plugin-auth-boundary-20261023.json`。rootはこの掲載計画とportal evidenceを所有し、画像batch4のassets/manifest/UI planには触らない。

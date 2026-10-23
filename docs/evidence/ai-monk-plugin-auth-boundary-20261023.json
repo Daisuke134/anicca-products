@@ -1,0 +1,95 @@
+{
+  "run_id": "d828d63d-f763-4853-90fe-839519397cd3",
+  "owner_id": "root",
+  "occurrence_id": "ai-monk-plugin-normal-login-mfa-20261023",
+  "release_sha": "37becb9ff3ca0c4f9283184c85091766d8b987e6",
+  "loaded_argv": "registered CloakBrowser CDP; exact Google credential SSOT match; values omitted",
+  "loaded_env": {
+    "identity": "interactive:dais",
+    "credential_values_logged": false
+  },
+  "phase": "normal_google_sso_to_openai_mfa",
+  "command": "normal login with existing remembered account; alternative MFA link once",
+  "exit_code": 0,
+  "effect": "Google account choice proceeds to OpenAI passkey challenge; plugin creation/submission not reached",
+  "readback": {
+    "origin": "https://auth.openai.com",
+    "path_kind": "mfa-challenge",
+    "heading": "ID を検証する",
+    "instruction": "パスキーを使用して本人確認を行います。",
+    "alternate_link": "他の方法を試す",
+    "after_one_alternate_click": "same passkey challenge remains visible",
+    "visible_code_or_password_inputs": false,
+    "authenticated_portal_identity_verified": false
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    "private normal-login state sequence",
+    "private target-ID matched MFA inspection",
+    "docs/evidence/ai-monk-plugin-portal-preflight-20261023.json"
+  ],
+  "error_class": "provider_mfa_passkey_required",
+  "retryable": "no duplicate SSO/alternate click before additional authenticator evidence",
+  "next_action": "Inspect permitted existing authenticator/native prompt or supported normal alternative; continue independent portrait research. Do not use Apple credential stores or invent verification.",
+  "security_settings_changed": false,
+  "new_plugin_or_submission_created": false,
+  "new_credential_created": false,
+  "apple_credential_store_accessed": false,
+  "state_sequence": [
+    {
+      "at": "2026-10-23T01:57:17.403Z",
+      "origin": "https://platform.openai.com",
+      "known_labels": [
+        "Continue",
+        "Continue with Google",
+        "Privacy Policy"
+      ],
+      "visible_input_types": [],
+      "recovery_or_wait": false,
+      "human_check": false,
+      "path_kind": "/login"
+    },
+    {
+      "at": "2026-10-23T01:57:31.399Z",
+      "origin": "https://accounts.google.com",
+      "known_labels": [],
+      "visible_input_types": [],
+      "recovery_or_wait": false,
+      "human_check": false,
+      "path_kind": "/v3/signin/accountchooser"
+    },
+    {
+      "at": "2026-10-23T01:57:45.350Z",
+      "origin": "https://accounts.google.com",
+      "known_labels": [],
+      "visible_input_types": [],
+      "recovery_or_wait": false,
+      "human_check": false,
+      "path_kind": "/v3/signin/accountchooser"
+    },
+    {
+      "at": "2026-10-23T01:57:58.280Z",
+      "origin": "https://auth.openai.com",
+      "known_labels": [],
+      "visible_input_types": [],
+      "recovery_or_wait": false,
+      "human_check": false,
+      "path_kind": "mfa-challenge"
+    },
+    {
+      "at": "2026-10-23T01:59:14.906Z",
+      "origin": "https://auth.openai.com",
+      "known_labels": [],
+      "visible_input_types": [],
+      "recovery_or_wait": false,
+      "human_check": false,
+      "path_kind": "mfa-challenge"
+    }
+  ],
+  "local_io_diagnosis": {
+    "first_runner_error": "interactive child stdin pointed to shell heredoc; input did not reach the child",
+    "new_probe": "FD0 lsof confirmed heredoc file",
+    "repair": "saved Python holder with PTY stdin; target IDs recorded before navigation; own-page cleanup on SIGTERM",
+    "corrected_runner": "Google SSO and account choice reached OpenAI MFA; close command exited normally"
+  }
+}
