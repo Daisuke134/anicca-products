@@ -78,7 +78,7 @@ function ProfileCard({ account, sourceById, imageSrc, selectedPlatform }: { acco
   const audience = audiences[0];
   const topVideo = getAiMonkTopVideo(account, selectedPlatform);
   const revenue = getAiMonkRevenue(account);
-  const products = account.offers ?? [];
+  const products = [...(account.offers ?? [])].sort((a, b) => (Date.parse(b.as_of ?? '') || 0) - (Date.parse(a.as_of ?? '') || 0));
   const sources = [...new Set(account.source_urls ?? [])];
   const primaryPlatform = (account.platforms ?? []).find((platform) => platform.handle && (selectedPlatform === 'all' || platform.platform === selectedPlatform));
 

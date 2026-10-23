@@ -54,3 +54,9 @@ PR572の最終head `bb7c9913fea918432117fe19e01869dd1e2efe5f`はpackage CI398908
 - [ ] 初回定期runで日付付き更新または具体的未取得理由と公開状態を確認。
 
 商品cardも観測日、またはsourceの公開/確認日を表示し、過去の価格を現在の在庫・価格と混同しない。表示のRED1件→関連12テストPASS。既存決済や売上計算のcontractは変更しない。
+
+## 最新指標と商品preview
+
+PR576/main `8af42e44d395a4dd4ee7d3fc8941f52c812b6001`で研究source55へ更新する。旧48sourceは不変、IG4件の丸めfollowersとYouTube3本のviews、商品2件をsource/日付付きで追加し、旧観察を保持する。UIの商品previewは観測日の新しいものを先に出し、新たに分かった具体的商品が過去のplaceholderの後ろに隠れないようにする。全商品は既存detailsへ保持する。RED1→関連12tests PASSを確認する。
+
+現在cursorは最新snapshotのNetlify反映、商品previewの最小修正、公開CLI v0.3.0の配布とWeb/MCPの最終readback。定期taskの初回runや全creator売上は未完のまま。
