@@ -23,28 +23,43 @@ test('book downloads fit the non-streaming function response including base64 en
   }
 });
 
-test('new book checkout pins server SKU, one-time price, language, and return origin', async () => {
+for (const edition of [book, japaneseBook]) test(`${edition.language} book checkout pins server SKU, one-time price, language, and return origin`, async () => {
   let params;
   const response = await checkoutHandler({ httpMethod: 'POST', headers: { origin: 'https://untrusted.example' },
-    body: JSON.stringify({ product: book.product, lang: 'en', mode: 'payment', price: 'price_client_override' }) }, {
+    body: JSON.stringify({ product: book.product, lang: edition.language, mode: 'payment', price: 'price_client_override', book_sku: 'client_override' }) }, {
     env: { STRIPE_SECRET_KEY: 'sk_test_fixture' },
     fetchImpl: async (_url, options) => { params = new URLSearchParams(options.body); return { ok: true, json: async () => ({ url: 'https://checkout.stripe.com/c/fixture' }) }; },
   });
   assert.equal(response.statusCode, 200);
-  assert.equal(params.get('line_items[0][price]'), book.stripe_price_id);
+  assert.equal(params.get('line_items[0][price]'), edition.stripe_price_id);
   assert.equal(params.get('mode'), 'payment');
   assert.equal(params.get('metadata[product]'), book.product);
-  assert.equal(params.get('metadata[book_sku]'), book.sku);
-  assert.match(params.get('success_url'), /^https:\/\/aniccaai.com\/the-art-of-ai-monks\?/);
+  assert.equal(params.get('metadata[book_sku]'), edition.sku);
+  assert.equal(params.get('metadata[lang]'), edition.language);
+  assert.equal(params.get('success_url'), `https://aniccaai.com/${edition.slug}?success=1&session_id={CHECKOUT_SESSION_ID}`);
+  assert.equal(params.get('cancel_url'), `https://aniccaai.com/${edition.slug}?canceled=1`);
 });
 
 test('unavailable language and recurring mode never create a checkout for the new book', async () => {
-  for (const request of [{ lang: 'jp' }, { lang: 'en', mode: 'subscription' }]) {
+  for (const request of [{ lang: 'jp' }, { lang: '__proto__' }, { lang: 'unknown' }, { lang: 'en', mode: 'subscription' }, { lang: 'ja', mode: 'subscription' }]) {
     const response = await checkoutHandler({ httpMethod: 'POST', headers: {}, body: JSON.stringify({ product: book.product, ...request }) }, {
       env: { STRIPE_SECRET_KEY: 'sk_test_fixture' }, fetchImpl: async () => { throw new Error('must not dispatch'); },
     });
     assert.equal(response.statusCode, 400);
   }
+});
+
+for (const edition of [book, japaneseBook]) for (const format of ['pdf', 'epub']) test(`${edition.language} paid session returns only its own ${format} bytes`, async () => {
+  const response = await ebookDownloadHandler({ httpMethod: 'GET', queryStringParameters: {
+    session_id: 'cs_live_monkbook_paid', format, lang: edition.language === 'en' ? 'ja' : 'en', book_sku: 'client_override',
+  } }, {
+    env: { STRIPE_SECRET_KEY: 'sk_live_fixture' },
+    retrieveSession: async () => paid({ metadata: { product: edition.product, book_sku: edition.sku, lang: edition.language } }),
+  });
+  assert.equal(response.statusCode, 200);
+  assert.equal(response.isBase64Encoded, true);
+  assert.equal(response.headers['Content-Disposition'], `attachment; filename="${edition.formats[format]}"`);
+  assert.deepEqual(Buffer.from(response.body, 'base64'), fs.readFileSync(path.join(__dirname, '../../../private/ebooks', edition.formats[format])));
 });
 
 for (const format of ['pdf', 'epub']) test(`paid book session receives its own private ${format}`, async () => {
@@ -73,7 +88,10 @@ test('other book entitlement cannot select the new book through request paramete
 test('production download rejects unpaid, test-mode, other-edition, and unavailable-language sessions', async () => {
   for (const session of [paid({ payment_status: 'unpaid' }), paid({ livemode: false }),
     paid({ metadata: { product: book.product, book_sku: 'other-edition', lang: 'en' } }),
-    paid({ metadata: { product: book.product, book_sku: book.sku, lang: 'jp' } })]) {
+    paid({ metadata: { product: book.product, book_sku: book.sku, lang: 'jp' } }),
+    paid({ metadata: { product: book.product, book_sku: book.sku, lang: 'ja' } }),
+    paid({ metadata: { product: book.product, book_sku: japaneseBook.sku, lang: 'en' } }),
+    paid({ metadata: { product: book.product, book_sku: japaneseBook.sku, lang: '__proto__' } })]) {
     const response = await ebookDownloadHandler({ httpMethod: 'GET', queryStringParameters: { session_id: 'cs_live_monkbook_paid' } }, {
       env: { STRIPE_SECRET_KEY: 'sk_live_fixture' }, retrieveSession: async () => session,
       readFile: () => { throw new Error('must not read protected bytes'); },
@@ -91,7 +109,7 @@ async function delivery(session, sendEmail) {
 }
 
 test('new-book events do not trigger Reset or Letter delivery mail', async () => {
-  for (const session of [paid(), paid({ payment_status: 'unpaid' })]) {
+  for (const session of [paid(), paid({ payment_status: 'unpaid' }), paid({ metadata: { product: japaneseBook.product, book_sku: japaneseBook.sku, lang: 'ja' } })]) {
     let sent = 0;
     const response = await delivery(session, async () => { sent += 1; });
     assert.equal(response.statusCode, 200);

@@ -1,10 +1,9 @@
-// GET ?session_id=cs_…&format=pdf|md|html|css
-// Streams paid Anicca Reset ebook files only when Stripe Checkout session is
-// complete + paid + product=ebook (legacy: missing product + payment mode).
+// GET ?session_id=cs_…&format=pdf|epub|md|html|css
+// Returns files only for the complete + paid session's product and edition.
 const fs = require('node:fs');
 const path = require('node:path');
 
-const AI_MONK_BOOK = require('../../data/books/the-art-of-ai-monks-en.json');
+const { AI_MONK_BOOK_PRODUCT, getAiMonkBook } = require('./_lib/ai-monk-books.js');
 
 const SESSION_ID = /^cs_(?:live|test)_[A-Za-z0-9_]{4,200}$/;
 const FORMATS = new Set(['pdf', 'epub', 'md', 'html', 'css']);
@@ -34,8 +33,8 @@ function badRequest(message) {
 }
 
 function resolveFile({ lang, format, product }) {
-  if (product === AI_MONK_BOOK.product) {
-    const fileName = AI_MONK_BOOK.formats[format];
+  if (product === AI_MONK_BOOK_PRODUCT) {
+    const fileName = getAiMonkBook(lang)?.formats[format];
     if (!fileName) return null;
     return { fileName, downloadName: fileName, absolutePath: path.join(__dirname, '../../private/ebooks', fileName) };
   }
@@ -61,8 +60,9 @@ function isPaidEbookSession(session, liveMode) {
   if (session.livemode !== liveMode) return false;
   const meta = session.metadata || {};
   const product = meta.product;
-  if (product === AI_MONK_BOOK.product) {
-    return session.mode === 'payment' && meta.lang === AI_MONK_BOOK.language && meta.book_sku === AI_MONK_BOOK.sku;
+  if (product === AI_MONK_BOOK_PRODUCT) {
+    const book = getAiMonkBook(meta.lang);
+    return Boolean(book && session.mode === 'payment' && meta.book_sku === book.sku);
   }
   if (product === 'ebook') return true;
   // Legacy checkouts omitted metadata.product; webhook treats those as ebook.
@@ -71,6 +71,7 @@ function isPaidEbookSession(session, liveMode) {
 }
 
 function sessionLang(session) {
+  if (session?.metadata?.product === AI_MONK_BOOK_PRODUCT) return session.metadata.lang;
   return session && session.metadata && session.metadata.lang === 'jp' ? 'jp' : 'en';
 }
 

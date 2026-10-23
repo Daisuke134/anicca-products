@@ -28,3 +28,7 @@
 - [ ] 公開日本語ページと未払いCheckout/保護を公式readbackし、実注文/支払済み納品の未達を記録する。
 
 現在cursor: 日本語版の商品・one-time価格を登録し公式GETで照合済み。次に言語別Checkout/納品を失敗テストから実装する。原稿は無料、整形版は9.99 USD。注文・売上はこの登録で証明しない。
+
+### Checkout/納品のsource検証
+
+日本語Checkoutと実PDF/EPUB bytesのテストが未対応を理由に3件失敗することを確認し、固定catalogを英語・日本語へ拡張した。13件のbook契約と既存Reset/Letterの関連契約を含む26件がPASSする。paid/live/payment・商品・言語・SKUを照合し、queryの版指定を無視する。現在cursorは日本語販売ページと購入copyの接続。
