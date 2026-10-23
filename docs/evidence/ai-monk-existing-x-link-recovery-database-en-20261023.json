@@ -15,8 +15,8 @@
   "conservative_x_weighted_length": 59,
   "max_weighted_length": 270,
   "reply_prefix": "Explore the free AI Monk Database:",
-  "state": "prepared",
-  "provider_writes": 0,
+  "state": "published",
+  "provider_writes": 1,
   "resends": 0,
   "original_destination_verified_missing": true,
   "missing_link_source": "Read-only public X body crawl; original host integration-settings strips links",
@@ -37,5 +37,16 @@
     "Unknown native effect requires readback only, never resend",
     "Clicks/orders/revenue/profit/retweet not measured"
   ],
-  "operator_sha256": "5625ddcc860e574e34825a49ea95d5bdbf5abc0c38cdf31db7b1da25288219e0"
+  "operator_sha256": "5625ddcc860e574e34825a49ea95d5bdbf5abc0c38cdf31db7b1da25288219e0",
+  "reply_url": "https://x.com/selawmqt/status/2113583291374952934",
+  "native_receipt": {
+    "reply_id": "2113583291374952934",
+    "parent_id": "2113286528508285146",
+    "full_text": "@shalevhvs Explore the free AI Monk Database:\n\nhttps://t.co/FoJZPTRPkV",
+    "expanded_urls": [
+      "https://aniccaai.com/ai-monk-database?utm_source=x&utm_medium=social&utm_campaign=ai_monk_index_launch_en"
+    ]
+  },
+  "observed_at": "2026-10-23T10:48:26.135887+00:00",
+  "verification": "own reply id/parent/full text/expanded destination and permalink"
 }
