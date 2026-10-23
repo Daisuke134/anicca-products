@@ -43,3 +43,12 @@ PR572の最終head `bb7c9913fea918432117fe19e01869dd1e2efe5f`はpackage CI398908
 書籍PR573はCI39891424243 PASS、main `3085d15b5ab7aaf661acc6cec4a322337040f2ec`へ統合。JAの指定題名・新表紙と日英の制作対象を揃え、価格/SKU/購入backendを維持。独自book planの本番確認を続ける。
 
 現在cursor: Netlify反映と公開readback。並行して、取得できた4つのpublic Instagram headerと3つのYouTube metadataを、旧観察を保持するdated snapshotとして追加する。現時点で毎日の自然更新や売上追跡の完全性を完了扱いにしない。
+
+## 定期更新
+
+既存のCreator/ebook記事loopは記事制作を所有し、日々のdatabase指標更新を所有するDesktop automationは見つからない。指標更新は現在threadのheartbeatを毎朝9時Asia/Tokyoで1つ作成し、既存記事/動画producerやPostiz effectを重複起動しない。新しい常駐supervisor、agent framework、model固定、paid APIは追加しない。
+
+対象は同じAI monk avatarのpublic followers/subscribers・sampled video views・商品/価格/導線・根拠のある売上申告。人気と商品導線のある対象から進め、source identity・観測日・期間・丸めを保持する。unknownを0にせず、異なる期間/通貨/利益を売上へ変換しない。取得不能なら未取得理由を記録して独立したsourceへ進む。既存のrepo source acceptance/CI/mainと公開readbackを使う。所有者とleaseが競合するeffectを重ねない。自然な初回の定期実行は未来のため、設定作成・今回の手動収集と区別する。
+
+- [ ] 毎朝9時のthread heartbeatを作成しprovider設定をreadback。
+- [ ] 初回定期runで日付付き更新または具体的未取得理由と公開状態を確認。
