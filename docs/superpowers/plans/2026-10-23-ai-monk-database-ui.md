@@ -90,3 +90,26 @@ Sifuの横長profile stripとLeoのcollageは標準center cropで顔が見えに
 source受入結果: 75ID一致、全17assetのbytes/hash、新規6原bytes一致、対象外69行とcanonical SHA不変、secret/private path/署名付きURLなし、既存helper5＋UI2 tests、diff checkがPASS。実componentのSSRと実Tailwind CSSを使う独立CDPの72px previewでSifu/Leoの顔可視、Yang Mun/fallback維持、client error0を確認する。browser ownタブを閉じ、leaseを解放する。PNGはrepo外に保持し、evidenceにはhashと観測結果を記録する。
 
 既存ShenMuのHTTP MIME記録image/jpegとraw magic WebPの差はevidenceのlimitsへ記録し、既存row/URL/bytesは変更しない。全17件のMIME一致とは扱わない。新規6件はMIME/signatureが一致する。現在cursorはsource/visual検証PASSから限定commit/push・remote一致・PR attach。17画像/58未取得は本番反映前のsource予定値で、CI監視・merge・本番readbackはrootへ引き継ぐ。
+
+## 追加画像batch4: 未調査・未取得10件の出所確認
+
+最新main `f8dde2b78ac9fa81c388f0495ed779e7321379d2` から `feat/ai-monk-images-batch4-20261023` を作り、clean/remote/baseを確認する。既存batch3 worktreeを再利用し、rootのMCP/本番証拠/他specは編集しない。baselineはsource 17画像・58未取得、75ID。既存20handle調査とbatch3の10handleを除外し、まだ個別sourceを調べていない以下の10件を対象にする。
+
+| handle | account ID | 表示名 |
+|---|---|---|
+| `yonchenhealing` | `lead-instagram-yonchenhealing` | Yon Chen |
+| `innerequelle` | `lead-instagram-innerequelle` | Li Ming |
+| `maestroyunkai` | `lead-instagram-maestroyunkai` | Yun Kai |
+| `monjeshentao` | `lead-instagram-monjeshentao` | Shen Tao |
+| `monacochenn` | `lead-instagram-monacochenn` | Monaco Chen |
+| `jin.miaoo` | `lead-instagram-jin-miaoo` | jin.miaoo |
+| `maitre_ping.lin` | `lead-instagram-maitre-ping-lin` | Maitre Lin |
+| `tenzinremedios` | `lead-instagram-tenzinremedios` | Tenzin Remedios |
+| `monacogendun` | `lead-instagram-monacogendun` | Monaco Gendun |
+| `masterjiao` | `lead-instagram-masterjiao` | Master Jiao |
+
+調査evidenceの正本は `docs/evidence/ai-monk-profile-discovery-batch4-20261023.json`。このscope/targets/完了条件を先にcommit/pushし、remote object一致を確認してから公開検索を始める。DDG HTML＋scrapy、公式site/公開YouTube/crosslink、必要時の登録済みbrowser own新規tabを使う。browserはSSOT全体を値なしで確認し、registry/owner/既存leaseを尊重し、使用後は自分のtabだけを閉じleaseを解放する。
+
+exact canonical handleへの公式crosslinkまたは公表資料の明確なprofile対応がある原画像のみ採用する。IG直接scraping・vidIQ credit・有料API・新認証・新しいAI顔/他profile画像への代用は行わない。原bytes、HTTP MIMEと実形式、SHA、出所、source roleを保持する。canonical75/48・AI status/language/metrics・既存画像・UI codeは変更しない。未確認は選択10件の具体的な境界と次の出所として記録し、残り全件を調査済みにしない。
+
+検証は75ID/全asset bytes・SHA/新規原byte一致/対象外manifest行とcanonical SHA不変/secret・private path・署名URLなし/既存helper5tests/diff check。意味ある成果を限定stageでcommit/pushしremote一致、PR作成/attachまで進める。自動merge・production反映/readbackはrootへ残す。現在cursorはこのscopeのcommit/pushから10件の公開source確認。

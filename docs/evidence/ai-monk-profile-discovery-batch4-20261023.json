@@ -1,0 +1,200 @@
+{
+  "schema_version": "1.0",
+  "created_at": "2026-10-23T01:46:21.225701+00:00",
+  "checked_at": "2026-10-23T01:46:21.225701+00:00",
+  "run_id": "ai-monk-images-batch4-20261023",
+  "owner_id": "/root/ai_monk_ui_references",
+  "base_sha": "f8dde2b78ac9fa81c388f0495ed779e7321379d2",
+  "source_branch": "feat/ai-monk-images-batch4-20261023",
+  "source_plan": "docs/superpowers/plans/2026-10-23-ai-monk-database-ui.md",
+  "purpose": "未調査かつ画像未取得の10件で公開sourceと本人対応を確認し、確認済み原画像のみ追加する。",
+  "scope": {
+    "targets": [
+      "yonchenhealing",
+      "innerequelle",
+      "maestroyunkai",
+      "monjeshentao",
+      "monacochenn",
+      "jin.miaoo",
+      "maitre_ping.lin",
+      "tenzinremedios",
+      "monacogendun",
+      "masterjiao"
+    ],
+    "baseline": {
+      "total": 75,
+      "acquired": 17,
+      "unknown": 58
+    },
+    "selection": "既存20handle調査とbatch3の10handleを除外し、現在unknownの固有handleを持つ10recordを選択。",
+    "prior_individual_research_account_ids": [
+      "buddha-would-say",
+      "lead-instagram-aristhestill",
+      "lead-instagram-chenweihealing",
+      "lead-instagram-haku-shinn",
+      "lead-instagram-kael-wisdom",
+      "lead-instagram-ken-lu-monk",
+      "lead-instagram-liangmaster4u",
+      "lead-instagram-linchenhealing",
+      "lead-instagram-lotusfamily1",
+      "lead-instagram-maestroananta",
+      "lead-instagram-master-kaion",
+      "lead-instagram-master-li-shen",
+      "lead-instagram-masterlianancient",
+      "lead-instagram-masterlinghao",
+      "lead-instagram-masteryunming",
+      "lead-instagram-masteryunsage",
+      "lead-instagram-mestre-jin",
+      "lead-instagram-monjaalma",
+      "lead-instagram-monkshen",
+      "lead-instagram-monktashirok",
+      "lead-instagram-oldmonktenzin",
+      "lead-instagram-oravishen",
+      "lead-instagram-samuelreedcards",
+      "lead-instagram-shenmuhealer",
+      "lead-instagram-shin-hyun-official",
+      "lead-instagram-tempiovita",
+      "lead-instagram-thekaizenhealing",
+      "lead-instagram-thezhenwu",
+      "lead-instagram-yunlobsang",
+      "lead-instagram-zenmuun"
+    ],
+    "allowed_changes": [
+      "この新規evidence",
+      "対象recordの確認済み原画像とprofiles.jsonの対応行/coverage",
+      "既存UI planのbatch4部分のみ"
+    ],
+    "excluded": [
+      "canonical75件/48件",
+      "AI status/language/metrics",
+      "既存画像/既存manifestの対象外行",
+      "UI code",
+      "rootのMCP作業",
+      "他spec/既存evidence"
+    ]
+  },
+  "acceptance": [
+    "調査前にplan/evidenceをcommit/pushしremote一致を確認",
+    "10件の公開検索・source・失敗境界を個別記録",
+    "公式crosslinkまたは明確な公開profile対応がある画像のみ採用",
+    "原bytes/MIME/SHA256/attribution/source roleを保持",
+    "75ID・全asset hashes/bytes・新規原byte一致・対象外行/canonical SHA不変",
+    "secret/private path/署名付きURLなし・既存helper5tests・diff check",
+    "限定commit/push・remote object一致・PR作成/attachまで。自動mergeせずrootへ引き継ぐ。"
+  ],
+  "research_limits": [
+    "Instagram直接自動取得を行わない。vidIQ残高0、有料API/新認証/購入/外部投稿を使わない。",
+    "同名・同handleだけでは別platform画像を割り当てない。新しいAI顔を生成せず、別profile画像を代用しない。",
+    "公開sourceのnamed imageはAI分類や再利用licenseの確認ではない。",
+    "既存ShenMuのHTTP MIME記録とraw signatureの差は既存観測として保持し、本batchで変更しない。",
+    "このbounded10件の未取得を、残り58件全ての調査完了とは扱わない。"
+  ],
+  "canonical_sha256_before": "37a724d413233dacae215f68cd2e5021443a9aefb271fd3c129d8e338fce94b9",
+  "cursor": "scopeをcommit/pushしてから公開検索を開始する。",
+  "profiles": [
+    {
+      "account_id": "lead-instagram-yonchenhealing",
+      "display_name": "Yon Chen",
+      "canonical_handle": "yonchenhealing",
+      "canonical_profile_url": "https://www.instagram.com/yonchenhealing/",
+      "status": "pending",
+      "attempts": [],
+      "verified_image": null,
+      "unverified_reason": null
+    },
+    {
+      "account_id": "lead-instagram-innerequelle",
+      "display_name": "Li Ming",
+      "canonical_handle": "innerequelle",
+      "canonical_profile_url": "https://www.instagram.com/innerequelle/",
+      "status": "pending",
+      "attempts": [],
+      "verified_image": null,
+      "unverified_reason": null
+    },
+    {
+      "account_id": "lead-instagram-maestroyunkai",
+      "display_name": "Yun Kai",
+      "canonical_handle": "maestroyunkai",
+      "canonical_profile_url": "https://www.instagram.com/maestroyunkai/",
+      "status": "pending",
+      "attempts": [],
+      "verified_image": null,
+      "unverified_reason": null
+    },
+    {
+      "account_id": "lead-instagram-monjeshentao",
+      "display_name": "Shen Tao",
+      "canonical_handle": "monjeshentao",
+      "canonical_profile_url": "https://www.instagram.com/monjeshentao/",
+      "status": "pending",
+      "attempts": [],
+      "verified_image": null,
+      "unverified_reason": null
+    },
+    {
+      "account_id": "lead-instagram-monacochenn",
+      "display_name": "Monaco Chen",
+      "canonical_handle": "monacochenn",
+      "canonical_profile_url": "https://www.instagram.com/monacochenn/",
+      "status": "pending",
+      "attempts": [],
+      "verified_image": null,
+      "unverified_reason": null
+    },
+    {
+      "account_id": "lead-instagram-jin-miaoo",
+      "display_name": "jin.miaoo",
+      "canonical_handle": "jin.miaoo",
+      "canonical_profile_url": "https://www.instagram.com/jin.miaoo/",
+      "status": "pending",
+      "attempts": [],
+      "verified_image": null,
+      "unverified_reason": null
+    },
+    {
+      "account_id": "lead-instagram-maitre-ping-lin",
+      "display_name": "Maitre Lin",
+      "canonical_handle": "maitre_ping.lin",
+      "canonical_profile_url": "https://www.instagram.com/maitre_ping.lin/",
+      "status": "pending",
+      "attempts": [],
+      "verified_image": null,
+      "unverified_reason": null
+    },
+    {
+      "account_id": "lead-instagram-tenzinremedios",
+      "display_name": "Tenzin Remedios",
+      "canonical_handle": "tenzinremedios",
+      "canonical_profile_url": "https://www.instagram.com/tenzinremedios/",
+      "status": "pending",
+      "attempts": [],
+      "verified_image": null,
+      "unverified_reason": null
+    },
+    {
+      "account_id": "lead-instagram-monacogendun",
+      "display_name": "Monaco Gendun",
+      "canonical_handle": "monacogendun",
+      "canonical_profile_url": "https://www.instagram.com/monacogendun/",
+      "status": "pending",
+      "attempts": [],
+      "verified_image": null,
+      "unverified_reason": null
+    },
+    {
+      "account_id": "lead-instagram-masterjiao",
+      "display_name": "Master Jiao",
+      "canonical_handle": "masterjiao",
+      "canonical_profile_url": "https://www.instagram.com/masterjiao/",
+      "status": "pending",
+      "attempts": [],
+      "verified_image": null,
+      "unverified_reason": null
+    }
+  ],
+  "validation": {
+    "status": "pending"
+  },
+  "production_state_changed": false
+}
