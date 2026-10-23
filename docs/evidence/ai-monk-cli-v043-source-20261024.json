@@ -1,0 +1,130 @@
+{
+  "schema_version": "anicca.ai-monk-cli-source.v1",
+  "observed_at": "2026-10-23T15:24:47.414Z",
+  "base_main_sha": "0675d5e0a7c3d6a0e5a9caf19f7363256525e894",
+  "plan_commit": "93cd3f71343e2e793da254595a9ed1b5eeecfe73",
+  "package_version": "0.4.3",
+  "source_scope": "package metadata, README, plans and compact evidence only",
+  "implementation_and_canonical_data_unchanged": true,
+  "primary_existing_suite": {
+    "observer": "primary_official_tool_result",
+    "command": "rtk proxy env CI=true npm test",
+    "cwd": "packages/ai-monk-index",
+    "node_version": "25.6.1",
+    "npm_version": "11.9",
+    "exit_code": 0,
+    "passed": 15,
+    "failed": 0,
+    "skipped": 0,
+    "duration_ms": 1655,
+    "coverage": [
+      "SDK HTTP",
+      "SDK stdio",
+      "npm pack and isolated install",
+      "CLI search/get/stats and scope/sorts",
+      "format and monetization helpers"
+    ],
+    "separate_raw_log_saved": false,
+    "suite_repeated_by_worker": false
+  },
+  "worker_real_stdio": {
+    "private_evidence": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v043-source-20261024/stdio-o9RnAt/readback.json",
+    "raw_responses": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v043-source-20261024/stdio-o9RnAt/responses.json",
+    "transport": "real_sdk_stdio",
+    "sdk_version": "2.3.1",
+    "node_version": "v25.6.1",
+    "server_info": {
+      "name": "ai-monk-index",
+      "version": "0.4.3"
+    },
+    "tools": [
+      {
+        "name": "search_ai_monks",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "get_ai_monk",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "ai_monk_index_stats",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "top_formats",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "how_they_monetize",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      },
+      {
+        "name": "winning_playbooks",
+        "readOnlyHint": true,
+        "destructiveHint": false
+      }
+    ],
+    "completed_calls": 6,
+    "all_structured_and_text_results_equal": true,
+    "all_snapshot_hashes_match_canonical": true,
+    "canonical_and_dist_bytes_equal": true,
+    "snapshot_sha256": "309334e08a1a48f560b38e2ccb5a6b9518a2440b819b0c6467fd07b0575a6286",
+    "records": 73,
+    "research_archive_records": 75,
+    "sources": 57,
+    "directory_scope_counts": {
+      "included": 4,
+      "pending": 69,
+      "excluded": 2
+    },
+    "ai_status": {
+      "confirmed": 0,
+      "reported": 5,
+      "unverified": 68
+    },
+    "added_tool_readback": {
+      "top_formats": {
+        "account_id": "yang-mun",
+        "returned_samples": 3,
+        "total_samples": 3,
+        "sources": 18
+      },
+      "how_they_monetize": {
+        "account_id": "yang-mun",
+        "accounts": 1,
+        "offers": 2,
+        "creator_claims": 4,
+        "revenue_observations": 1,
+        "sources": 18
+      },
+      "winning_playbooks": {
+        "playbooks": 1,
+        "canonical_content_equal": true
+      }
+    },
+    "stderr_empty": true,
+    "external_provider_calls": 0
+  },
+  "old_releases": {
+    "v0.4.2_changed": false,
+    "plugin_v0.1.1_zip_changed": false
+  },
+  "pending": [
+    "exact_head_CI_and_main_merge",
+    "main_derived_v0.4.3_GitHub_Release",
+    "official_asset_digest_and_public_download",
+    "public_URL_npm_install_and_installed_stdio"
+  ],
+  "not_claimed": [
+    "npm_registry_publication",
+    "official_plugin_directory_listing",
+    "sales_or_revenue",
+    "Factory_SaaS_completion"
+  ],
+  "next_action": "primary accepts PR/CI, merges to main, then publishes the immutable v0.4.3 tarball and verifies public install"
+}

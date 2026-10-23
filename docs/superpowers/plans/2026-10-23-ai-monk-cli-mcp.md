@@ -13,9 +13,9 @@
 ## 契約
 
 - `apps/landing/public/data/ai-monk-avatar-database-2026.json` が唯一のデータ正本。`apps/landing/lib/ai-monk-directory.mjs` が検索/順位付けの正本。package buildで両方をコピーし、生成物はGit管理しない。
-- Node.js 20以上、ES modules。CLIは`search`、`get <id>`、`stats`をJSONで返す。searchはquery/status/language/platform/region、audience/directory順、offset/limitに対応し、limitは1–50。未知の引数や不正値は非0終了。通常実行はネットワーク不要。
+- Node.js 20.19以上、ES modules。CLIは`search`、`get <id>`、`stats`をJSONで返す。searchはquery/status/language/platform/region、audience/views/revenue/directory順、offset/limitに対応し、limitは1–50。未知の引数や不正値は非0終了。通常実行はネットワーク不要。
 - search/getは対象recordが参照するsourceを添える。metadataにはschema/update/scope/licenseと順位付けの注意を含める。AI由来・言語・費用・売上が未確認なら補完しない。audienceは最大の単一platformの最新followers/subscribersであり、合算やviewsではない。
-- MCPは公式SDK v2のstdio transport、3つのread-only toolsを使う。stdoutはprotocolだけ、起動失敗はstderrに出す。SDKが入力schemaを検証し、structuredContentとtextに同じJSONを返す。
+- MCPは公式SDK v2のstdio transport、search_ai_monks/get_ai_monk/ai_monk_index_stats/top_formats/how_they_monetize/winning_playbooksの6つのread-only toolsを使う。stdoutはprotocolだけ、起動失敗はstderrに出す。SDKが入力schemaを検証し、structuredContentとtextに同じJSONを返す。
 - MITはpackageコードと共有検索helperのみ。Aniccaが執筆したデータ編成・要約はCC BY 4.0、第三者のプロフィール・名称・リンク先素材の権利は含めない。
 
 ## 実行順
@@ -34,6 +34,9 @@
 - [SDK testing](https://github.com/modelcontextprotocol/typescript-sdk/blob/main/docs/testing.md): SDK clientとtransportでprotocolを検証。
 - npm公式registryで`@modelcontextprotocol/server`と`client`のstable 2.3.1、Node>=20、依存関係を照合。Context7のv1指定結果はmain/v2の例を返すため、公式repoとregistryを確認し、現行stable v2に揃える。
 
-## 現在cursor
+## 初版の受入記録
 
 この小段階は公開まで完了する。CLI/MCP未実装時RED、検索・個別取得・統計・不正入力・実際のstdio MCP client・別directoryへのtarball導入の7テスト、Web helper既存5テスト、fresh review指摘0、Node20 package CIとlanding CIを確認。main `838e6bb7101a2ef647560eeb5a5ef0bbc19d950a`由来でbuildしたv0.1.0をGitHub Releaseへ公開し、公式asset digestと再ダウンロードのSHA-256一致、READMEにある公開URLからのnpm installとCLI statsの実行を確認する。根拠は `docs/evidence/ai-monk-cli-mcp-release-20261023.json`。ローカルReact依存は未導入のためrendering/buildは既存landing CIで確認する。packテスト初回のnpm metadata cache不足は、導入に通常registryアクセスを使うことで解消する。導入後のCLI/MCPはネットワークを使わない。remote MCP、ChatGPT app、動画factory OSS、subscriptionは後続の未完項目として残る。
+
+## 現在cursor
+Database→CLI→plugin配布・販売条件を先行する。v0.4.3はversion/lock/README整合、既存15tests/pack導入と実SDK stdio6toolのsource受入を完了し、正本SHA/73件/57出典/archive75を保持する。次はsource PR/CI/main統合→main由来GitHub Release→公開URLからのnpm install/stdio readback。source受入と旧v0.4.2の73件復元を公開v0.4.3や有料提供の完了へ換算しない。現行のsource/公開受入と残TODO正本 → docs/superpowers/plans/2026-10-24-ai-monk-cli-v043.md。Factory接続型SaaSの追加実装は後回し、日次投稿はGrok Botが所有する。
