@@ -25,6 +25,9 @@
 [functions.ai-monk-mcp]
   node_bundler = "esbuild"
 
+[functions.monk-teachings-mcp]
+  node_bundler = "esbuild"
+
 # Former public paid-ebook paths — no longer serve file bytes
 [[redirects]]
   from = "/ebooks/anicca-reset-en.pdf"
