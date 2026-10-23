@@ -9,15 +9,15 @@ Databaseの根拠を台本へ戻し、利用者がGenerate→独自monk avatar�
 旧local CLIをcloud経由で利用者へ公開する案はtenant認証と永続jobを持たず、Macの日次所有系を巻き込むため採らない。Postiz通常APIの接続先は自社organizationであり、tenant帰属の正式契約が不足する。Postiz Enterpriseは公開ページで新規申請停止のため採らない。Upload-Postは別provider account不要のprofile-scoped connectと公式GETを文書化する。実接続/契約受入はまだ行っていない。
 
 ## 価格と原価
-primaryの価格案はUSD199/月、月30本、1本45秒以内。内部の追加課金再生成は最大6本を含む予算で管理する。trialは3日・最大3本・1本20秒以内、初期avatarは1体、利用者ごとに生涯1回。これは実Stripe価格公開前の設計判断であり、ユーザーの売上・利益を保証しない。
+primaryの価格案はUSD199/月、月30本、1本45秒以内。paidは成功最大30本・課金試行最大36回とし、追加6回を含む予算で管理する。trialは3日・成功最大3本・課金試行最大3回・1本20秒以内で、再生成枠はない。初期avatarは1体、trialは利用者ごとに生涯1回。これは実Stripe価格公開前の設計判断であり、ユーザーの売上・利益を保証しない。
 
 Avatar IV Photoは公表USD2.31/分。30本×45秒はUSD51.975、20%追加生成込みUSD62.37。別Starfish TTSを使う最悪予算はUSD3.24/月。初期画像USD0.28＋Photo Avatar作成USD1.32を別に計上する。prompt直接作成の価格をPhoto Avatar料金だと推定しない。
 
-Upload-Post ProfessionalはUSD50/月・25profilesでwhite-labelを含む。25人満員なら平均USD2/人だが、1人でも固定費USD50が発生する。無料planはwhite-labelを含まず、TikTok投稿も不可。年USD400を月払いUSD33と扱わず、初期は月契約を選ぶ。
+Upload-Post ProfessionalはUSD50/月・25profilesでwhite-labelを含む。25人満員なら平均USD2/人だが、1人でも固定費USD50が発生する。25枠はpaid人数ではなくtrial/停止後保持分も含む全profileの同時容量である。25paidの試算行には新trial用空きがない。無料planはwhite-labelを含まず、TikTok投稿も不可。年USD400を月払いUSD33と扱わず、初期は月契約を選ぶ。
 
 Stripe JPの標準公表card3.6%＋Billing0.7%、FXが必要な場合の追加2%を保守的な6.3%として試算する。既存merchant個別契約の請求率と断定しない。台本推論・保存・hosting等へ別途USD10/有料利用者/月を原価予算として置くが、実測請求額とは区別する。
 
-trialのHeyGen小計は最大USD4.03、その他を含むprovider/台本のhard budgetはUSD4.25。trial→paid10%という仮定では獲得trial費USD42.50/有料利用者となる。初月利益試算は有料1人でUSD16.753、5人でUSD56.753、25人でUSD64.753。転換率5%・有料1人ではUSD-25.747で赤字。売上・継続率・税・実手数料の未確定部分を隠さず、実請求と実転換率から更新する。
+trialのHeyGen小計は最大USD4.03、その他を含むprovider/台本のhard budgetはUSD4.25。trial→paid10%という仮定では獲得trial費USD42.50/有料利用者となる。初月利益試算は有料1人でUSD16.753、5人でUSD56.753、25人でUSD64.753。paid側のUSD1.60はavatarを再利用する通常経路では実費0となる保守予備費で、毎月再生成する仕様ではない。転換率5%・有料1人ではUSD-25.747で赤字。売上・継続率・税・実手数料の未確定部分を隠さず、実請求と実転換率から更新する。
 
 ReelFarmのUSD49/95/195はslide生成の容量であり、avatar動画へ同じ価格を適用しない。USD149は低稼働時とtrial獲得費の余裕が薄いため初期案から外す。価格だけ高くして利益と呼ばず、回数・秒数・原価予約を実装で制御する。
 
@@ -30,13 +30,14 @@ dashboardは実provider状態、投稿URL、取得日時付きのviews/likes等�
 
 ## 実装の境界
 - 現在の公開draft入口を同じURLの実Web appへ置き換える。localhost向け4file配布はdownload用pathへ移し、public staticとNext routeを衝突させない。既存利用者や永続draft移行の要件は確認されていないので互換レイヤーを増やさない。
+- trialのquota期間はStripeのtrial_start/end、初回paidと以後の更新期間は公式subscription/invoiceで確定する有料periodとする。trial3回とpaid36試行は別枠で繰越0、subscription IDとperiod startで重複resetを防ぐ。費用不明の試行は消費/予約を保持し、公式に非課金と確認できたものだけ解放する。
 - Netlify APIはSupabase server getUserでbearerを検証する。client入力user_id/customer_id/profileを信用しない。RLSは自分のrowの読取だけ、課金/生成/接続の更新はserver限定とする。
 - account/job/provider-eventを永続化する。unique occurrence/lease、atomic count/seconds/USD予約で連打・並列・scheduled再実行の二重効果を防ぐ。timeout後のeffect不明は予約を保持し、公式GETで照合する。
 - 先にspeechを生成し公式durationを読んでからAvatar IVへ渡す。単語数から秒数を保証しない。上限超過の短文化は残予算内だけで行い、音声が上限を満たさなければ動画生成しない。
 - Stripe Checkoutは固定server Price、mode subscription/trial3日/カード収集、server user IDをmetadataへ保存する。webhookはraw署名・event一意性・公式subscription再取得で利用権を更新し、success URLだけから有料化しない。portalは認証済み本人のcustomerだけを使う。
-- Upload-Post profileはstable user IDからserver生成する。OAuth redirectのstatusだけを信用せず、公式GETのprofile/accountと自社userを照合する。既存Grok接続を移動しない。署名webhookは補助とし、再配信なしのため公式GETで回復する。
-- 非同期生成と投稿は永続jobを短いscheduled tickで進める。新schedulerやMac常駐processを作らず、API request中に長時間待たない。各効果はprovider ID/official readback/費用/次の操作を持つ。
-- shared Grok walletやAPI残高を利用者quotaの代わりにしない。walletのauto-reload設定は変更せず、既存threshold guardと利用者/全体予算を守る。Factory用の支払元・使用可能予算が足りなければ生成前に具体的な不足を表示し、成功へ置換しない。
+- Upload-Post profileはstable user IDからserver生成し、全profile slotをCheckout開始前に予約する。trial/停止後保持も数え、25枠満杯なら新trialを開始しない。Checkout未成立の枠は公式expiry/readbackで解放する。OAuth redirectのstatusだけを信用せず、公式GETのprofile/accountと自社userを照合する。Grok所有の既存accountを接続試験やSaaS投稿先に選ばない。Upload-Post内の既存他owner/profileへ結び付いたsocial accountはOAuth成功で移動し得るため、Connect操作前に接続先切替の可能性を明示し、専用未接続accountでlive受入する。これはPostizの既存接続を移すAPIとは区別し、no-transfer保証があると表示しない。署名webhookは補助とし、再配信なしのため公式GETで回復する。
+- 非同期生成と投稿は永続jobを短いscheduled tickで進める。新schedulerやMac常駐processを作らず、API request中に長時間待たない。submit→provider ID保存→next_run_at付きpollへ分け、1tickの件数/時間を上限で止める。既存CLIの--waitやbackground functionの自動retryをそのまま移植しない。各効果はprovider ID/official readback/費用/次の操作を持つ。
+- Factory専用の独立billing sourceを使い、Grok key/walletへのfallbackは0とする。shared Grok walletやAPI残高を利用者quotaの代わりにしない。walletのauto-reload設定は変更せず、既存threshold guardと利用者/全体予算を守る。Factory用の支払元・使用可能予算が足りなければ生成前に具体的な不足を表示し、成功へ置換しない。
 - API key・OAuth JWT・webhook secretはprivate SSOTとdeployment secretsだけで扱い、client/repo/logへ出さない。
 
 ## 完了条件と実行順
@@ -46,4 +47,4 @@ dashboardは実provider状態、投稿URL、取得日時付きのviews/likes等�
 4. 実利用できる状態をXで告知する。売上・MRR・他者利益・正式directory掲載は、対応する外部結果が無い限り未達とする。
 
 ## 現在cursor
-Database v0.4.5の73公開件/176出典と新CLI Release/6toolsを受入する。公式Registry v0.4.5はactiveをreadbackする。Museは提出前のfresh照合中。Factoryはこの原価/方式契約までで、SaaSコード・provider新規契約・料金公開・API生成は未実施。実原価とprovider利用条件を検証し、sourceから順に実装する。
+Database v0.4.5の73公開件/176出典と新CLI Release/6toolsを受入する。公式Registry v0.4.5はactiveをreadbackする。Museは正式受付ID31824081-7a00-4287-a572-bdee976562c5とCredentials submittedを確認し、事業メール/データ処理申告が未完。Factoryはこの原価/方式契約までで、SaaSコード・provider新規契約・料金公開・API生成は未実施。実原価とprovider利用条件を検証し、sourceから順に実装する。

@@ -50,7 +50,12 @@
     "trial_per_user_lifetime": 1,
     "currency": "usd",
     "unlimited_generation": false,
-    "paid_plan_or_checkout_published": false
+    "paid_plan_or_checkout_published": false,
+    "paid_success_limit": 30,
+    "paid_billable_attempt_limit": 36,
+    "trial_success_limit": 3,
+    "trial_billable_attempt_limit": 3,
+    "trial_regeneration_attempts": 0
   },
   "model": {
     "fixed_price_net_at_6_3pct_fee_usd": "186.463",
@@ -136,7 +141,8 @@
         "first_month_contribution_model_usd": "86.00300",
         "contribution_margin": "0.4321758793969849246231155779"
       }
-    ]
+    ],
+    "paid_avatar_line_is_conservative_contingency_not_repeat_charge": true
   },
   "unknowns": [
     "Merchant-specific Stripe fee/taxes/settlement FX",
@@ -152,7 +158,12 @@
     "Reuse initial avatar; no unlimited regeneration and no automatic retry when provider effect/cost is unknown.",
     "Shared Grok HeyGen wallet and daily Postiz integrations are not a new SaaS funding or customer-connection pool.",
     "Browser OAuth redirect query is advisory; verify profile/account ID through authenticated official GET before enabling posting.",
-    "Trial cost, provider fixed bill and actual Stripe fees are tracked separately; negative modeled scenarios are not profit."
+    "Trial cost, provider fixed bill and actual Stripe fees are tracked separately; negative modeled scenarios are not profit.",
+    "Trial period and first/renewed paid subscription period use distinct official Stripe anchors; no carryover or duplicate reset.",
+    "All provider profiles including trial/stopped retained profiles reserve one of 25 slots before Checkout; full capacity prevents a new trial.",
+    "Independent Factory billing source only; fallback to Grok API key/wallet is forbidden.",
+    "Upload-Post may transfer an existing linked social account between its owners/profiles; disclose this before an explicit Connect action. Do not use Grok-owned accounts for acceptance. This is distinct from changing a Postiz integration.",
+    "Paid avatar USD1.60 is a conservative contingency; normal trial-avatar reuse has no duplicate initial creation charge."
   ],
   "effects": {
     "provider_mutations": 0,
