@@ -1,0 +1,43 @@
+{
+  "schema_version": "anicca.ai-monk-cli-mcp-public-release.v1",
+  "release_sha": "e6fdf0b334ed6bb5448403a5b3fd8ad61f1e3dcc",
+  "release_tag": "ai-monk-index-v0.4.0",
+  "release_url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.4.0",
+  "asset_url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.0/anicca-ai-monk-index-0.4.0.tgz",
+  "status": "passed",
+  "pack_receipt": {
+    "source_main_commit": "e6fdf0b334ed6bb5448403a5b3fd8ad61f1e3dcc",
+    "version": "0.4.0",
+    "bytes": 29108,
+    "sha256": "b9b4a0e75e90db499673ac9147992febdb6432089da14e1024dcd430d9d32f35",
+    "snapshot_sha256": "05413b1eef8e8e845374ec52cef419117d1c67d5fdf813a73329d6f3b2bc940f",
+    "archive_records": 75,
+    "directory_records": 4,
+    "sources": 56,
+    "source_files_match_main": true
+  },
+  "checks": {
+    "public_download_bytes": 29108,
+    "public_download_sha256": "b9b4a0e75e90db499673ac9147992febdb6432089da14e1024dcd430d9d32f35",
+    "npm_public_url_install": true,
+    "cli_records": 4,
+    "cli_sources": 56,
+    "research_archive_records": 75,
+    "excluded_from_directory": 71,
+    "snapshot_sha256": "05413b1eef8e8e845374ec52cef419117d1c67d5fdf813a73329d6f3b2bc940f",
+    "stdio_matches_cli": true,
+    "views_sort_first": "yang-mun",
+    "revenue_sort_first": "yang-mun"
+  },
+  "official_github_asset_digest": "sha256:b9b4a0e75e90db499673ac9147992febdb6432089da14e1024dcd430d9d32f35",
+  "limits": [
+    "GitHub release tgz, not npm registry or ChatGPT app listing",
+    "No video generation/publication, paid order or revenue proof"
+  ],
+  "recorded_at": "2026-10-23T10:27:08.985540+00:00",
+  "official_tag_readback": {
+    "ref": "refs/tags/ai-monk-index-v0.4.0",
+    "type": "commit",
+    "sha": "e6fdf0b334ed6bb5448403a5b3fd8ad61f1e3dcc"
+  }
+}
