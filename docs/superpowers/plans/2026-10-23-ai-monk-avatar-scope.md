@@ -19,3 +19,17 @@ H1は`AI Monk Database`を保ち、説明文はAI monk video avatarsを直接示
 - [ ] 更新CLI配布とspec/evidenceへ反映。
 
 順序変更: 旧cursorは73画像の公開だった。Daisが水彩/イラストを除きAI monk video avatarsへ絞るよう指定したため、scope修正→画像sourceの統合→本番確認へ変更する。既存Postiz/HeyGen effectは中断・再送しない。現在cursorはscope PRのCI確認とmain統合。source証拠 → `docs/evidence/ai-monk-avatar-scope-source-20261023.json`。
+
+## 追加範囲: ビジネス指標を主役にする
+
+Daisの追加指示に従い、WebのAI status badge/filter/説明枠を削除し、フォロワー・動画再生・商品・売上をcard上で比較する。AI生成根拠は原研究dataに保持し、全候補を新たに認定したとは扱わない。名称はDatabase=`AI Monk Database`、Agent=`AI Monk Factory`、英語書名=`The Art of AI Monks`、日本語書名=`ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線`。書籍の最小修正は別担当が所有する。
+
+Web/CLI/MCPのsortへviews/revenueを追加する。followersは現在の最新source snapshotの単一platform値、viewsは調査した単一動画の最大観察値、revenueはUSDの3か月gross revenueとして記録された値に限定する。月次売上・利益・買収提示・商品価格・seller counterを売上へ混ぜない。一次出所を再読するとColumbiaの30万USD超は「made」という収益申告で、gross/netの区別がない。比較欄にはVirtual Humansが報じるYang Munの3か月gross revenue 213,000USD超のみを、期間・下限・本人申告・非監査・出所付きで構造化する。30万USDの既存claimは詳細へ保持する。不明は0へ変換せず末尾へ。表示金額はsourceの当時の申告であり、現在の月商や利益を推定しない。
+
+Sensor Towerの指定app URLは取得がtitleのみ。公開公式siteのApp Performance Insightsと、MobbinのSquareの期間/金額/ソート列を参考に、期間と根拠を見える位置へ置く。推定売上の独自modelや新規有料providerを導入しない。追跡はsource/date付きのsnapshotを蓄積する既存research経路を継続し、定期更新の自然実行は未完として残す。
+
+- [ ] UIのAI status非表示、再生/売上の型・比較基準を失敗testで確認。
+- [ ] 既存sourceから売上観察を構造化し、共通sortとcard表示を最小実装。
+- [ ] 関連テスト/CI/main/公開readbackとv0.3.0配布物に新sortを反映。
+
+現在cursorはビジネス指標の追加。PR572のscope修正にこの指示を反映し、source CIを更新してからmain統合する。画像PR571は続けて統合する。
