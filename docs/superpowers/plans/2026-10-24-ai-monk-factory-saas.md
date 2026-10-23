@@ -50,10 +50,10 @@ Factory専用のStripe product/固定199USD Price/解約portalを作成し、そ
 
 /factoryの公式Web apps一覧はPR628/main75335e9d402e5faeb24fef180f4a0a4f3c9ff4dc由来Deploy40015273214のSUCCESSと公開readbackを確認し、登録完了とする。/daisは別canonical overlay経路なので未使用sourceを編集しない。
 
-専用HeyGen無料account/API keyの公式GET200・Factory本人一致・独立wallet USD0・wallet自動補充OFFを確認する。入金/生成0。最小入金USD5は公式UIの入力契約として確認し、購入受入とは区別する。専用OpenAIの通常認証・project/key/利用予算を次に準備し、独立予算が揃ってからUpload-Post Professionalの購入を進める。
+専用HeyGen無料account/API keyの公式GET200・Factory本人一致・独立wallet USD0・wallet自動補充OFFを確認する。入金/生成0。最小入金USD5は公式UIの入力契約として確認し、購入受入とは区別する。専用OpenAIは本人所有メール別名で新規account・独立organization/project・API keyを1件作成し、公式models GET200を確認する。残高USD0、画像modelの一覧表示は実生成権限/課金受入を意味しない。公式支払UIはカード番号/期限/CVCを要求しLink選択はなく、SSOTに全カード情報が無いため購入0。verified developer identityの開始にも既定支払方法が必要で、Plugin ZIP upload/提出0。独立予算が揃ってからUpload-Post Professionalの購入を進める。現準備の証拠 → ../../evidence/ai-monk-factory-provider-preflight-20261024.json。
 
 課金開始前の容量修正を現在cursorへ追加する。理由: 独立read-only検証で25人のtrial解約後、実profile0/送信0でも予約25が残り26人目が拒否される。旧順序はprovider準備→runtime有効化、新順序はprovider準備と並行で未使用枠解放を修正→runtime有効化。新cleanup loopは作らず、公式terminal同期とCheckout expiryの既存経路を使う。trial履歴・実profile・unknown送信を保持し、social lease/旧nonce/再Checkout競合を最小の実DB回帰で検証する。
 - [x] 公式terminal/expiredに対する未使用profile予約解放を、現在世代CAS・未送信lease失効・再予約まで実装する。元2migrationを変えずCLI生成の20261023201136_monk_factory_capacity.sqlを追加する。25人解約後の再入場、生涯trial/費用保持、実profile/unknown/active保持、GET中の世代切替と期限切れ再Checkout、顧客帰属を隔離Postgres25件・関連core48件で確認する。
-- [ ] 容量修正のsource review/CI/main統合と追加migration・runtimeの本番反映を行う。今回のsource検証から本番受入を推定しない。
+- [x] 容量修正はfresh read-only review SHIP・CI40018027230 SUCCESSを通してPR629/main710f0347a2981e19b0aa11d73df953a9bd1e9588へ統合する。追加migrationの公式適用1回/remote20261023202156と関数・権限・RLS、main由来Deploy40018476870 SUCCESS/published ready、認証付き実API200/ready=false/accountなし/jobs0を確認する。実顧客や投稿を作らず検証境界を保持する。証拠 → ../../evidence/ai-monk-factory-capacity-release-20261024.json。
 
 SaaSの提供開始、独立provider課金元、Stripe3日trial、本人IG接続、実avatar/video、公式投稿とmetrics、FactoryのX告知・売上は未完。実利用可能な状態から次の配布へ進む。
