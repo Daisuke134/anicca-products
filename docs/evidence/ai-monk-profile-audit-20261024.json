@@ -519,7 +519,7 @@
       "source_id": "lead-instagram-monjechang-ig-header-20261024",
       "state": "profile_visible",
       "follower_snapshot_added": true,
-      "bio_language": "Spanish",
+      "bio_language": null,
       "ai_status": "unverified"
     },
     {
@@ -639,5 +639,6 @@
       "bio_language": "English",
       "ai_status": "unverified"
     }
-  ]
+  ],
+  "review_correction": "Monje Chang language remains unknown: a display name and Spanish Amazon URL alone do not establish bio or spoken-video language."
 }

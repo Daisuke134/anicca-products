@@ -6284,15 +6284,7 @@
         "name": null,
         "relationship": "Unknown"
       },
-      "languages": [
-        {
-          "label": "Spanish",
-          "source_ids": [
-            "lead-instagram-monjechang-ig-header-20261024"
-          ],
-          "basis": "visible profile bio; spoken-video language not audited"
-        }
-      ],
+      "languages": [],
       "region_evidence": null,
       "source_urls": [
         "https://www.instagram.com/monjechang/"
@@ -6321,7 +6313,8 @@
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
+        "The public header exposes only a display name and Spanish Amazon route; profile-bio and spoken-video language remain unknown."
       ],
       "directory_scope": {
         "status": "pending",

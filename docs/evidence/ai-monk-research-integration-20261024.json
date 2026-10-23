@@ -12,7 +12,7 @@
     "excluded": 2
   },
   "revenue_observations_unchanged": true,
-  "snapshot_sha256": "a4e9b7848a4568b3984a3841b2f1118a832df5e619dd3c40b37438f2615bdce2",
+  "snapshot_sha256": "de15964fe31fd2ea87d7e38adb2f53a5da914fc63e50db50da3657d6ab82897e",
   "source_acceptance": {
     "observer": "primary live tool results",
     "package_tests": {
@@ -42,5 +42,6 @@
     "source_commit_PR_CI_main",
     "Netlify_public_JSON_Web_MCP",
     "immutable_v0.4.4_Release_public_install"
-  ]
+  ],
+  "fresh_review_correction": "Removed unsupported Spanish bio-language classification for Monje Chang; name/link alone are insufficient."
 }
