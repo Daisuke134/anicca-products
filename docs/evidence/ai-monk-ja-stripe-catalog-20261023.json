@@ -1,0 +1,34 @@
+{
+  "checked_at": "2026-10-23T01:04:02.108004+00:00",
+  "account_verified": true,
+  "charges_enabled": true,
+  "product": {
+    "id": "prod_VUVvsa1587Elri",
+    "name": "The Art of AI Monks — 日本語版",
+    "active": true,
+    "livemode": true,
+    "url": "https://aniccaai.com/the-art-of-ai-monks/ja",
+    "metadata": {
+      "book_sku": "art_of_ai_monks_ja_v1",
+      "lang": "ja",
+      "product": "ai_monk_book"
+    }
+  },
+  "price": {
+    "id": "price_1UTWtpEeDsUAcaLSV3fRzwl9",
+    "product": "prod_VUVvsa1587Elri",
+    "active": true,
+    "livemode": true,
+    "currency": "usd",
+    "unit_amount": 999,
+    "type": "one_time",
+    "lookup_key": "art_of_ai_monks_ja_v1_usd_999",
+    "metadata": {
+      "book_sku": "art_of_ai_monks_ja_v1",
+      "lang": "ja",
+      "product": "ai_monk_book"
+    }
+  },
+  "source": "Stripe REST API official GET after idempotent create",
+  "self_purchase": false
+}

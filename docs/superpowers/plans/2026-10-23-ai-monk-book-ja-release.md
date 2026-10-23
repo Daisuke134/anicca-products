@@ -7,7 +7,7 @@
 ## 方式
 
 - 既存の原稿・source manifest・英語版を維持する。日本語原稿SHAは `7c127015dc3e9ee2f8c4230010909b6beadc1940da5d46e0eade019e3ea3a5e7`。
-- 現在の日本語EPUBは9,351,338 bytes。既存の非streaming納品に適した大きさへ収めるため、導入済みFontToolsで本文に必要な日本語フォントglyphを残し、ASCIIとlicense metadataも保持する。日本語文字・EPUB構造・引用先を再照合する。
+- 日本語EPUBは当初9,351,338 bytes。既存の非streaming納品に適した大きさへ収めるため、導入済みFontToolsで本文に必要な日本語フォントglyphを残し、ASCIIとlicense metadataも保持する。日本語文字・EPUB構造・引用先を再照合する。
 - 現行の英語版と同じ `ai_monk_book` product分類を使い、言語 `ja`、SKU `art_of_ai_monks_ja_v1`、独立したStripe product/priceを固定catalogへ追加する。`jp`は既存Reset用の別契約なので本書へ流用しない。clientがprice・SKU・納品先を選べない仕様を守る。
 - Checkoutは言語に対応する固定catalogのみで作成する。downloadはStripe公式sessionのcomplete/paid/live/payment、product・language・SKUを照合し、その版のPDF/EPUBのみを返す。requestの言語・SKUで権限を上書きしない。
 - 日本語URLは `/the-art-of-ai-monks/ja`。既存英語ページと購入componentを最小限共有し、言語切替、無料全文、書籍の内容・頁数・10章・4worksheet、購入後のdownload案内を明確にする。比喩・問いかけの販売コピーは使わない。
@@ -22,9 +22,9 @@
 ## TODOと現在cursor
 
 - [x] EPUBを必要glyphのフォントで生成し、納品可能なsize・全文字・引用・構造を確認する。3,048,258 bytes、base64 4,064,344 bytes。両fontに全原稿文字とASCIIが残り、全XHTML・PDF・HTMLは変更前と一致する。
-- [ ] Stripe既存catalogを公式GETで照合し、日本語版のproduct/priceを重複なく登録する。
+- [x] Stripe既存catalogを公式GETで照合し、日本語版のproduct/priceを重複なく登録する。`prod_VUVvsa1587Elri` / `price_1UTWtpEeDsUAcaLSV3fRzwl9`。公式GETでlive/active/USD999/one_time/SKU/lang一致を確認。
 - [ ] 言語固定Checkout/納品と日本語ページを実装し、最小の失敗テストから確認する。
 - [ ] 英語版/既存Reset・Letterを含む関連契約、CI、main、Netlifyを確認する。
 - [ ] 公開日本語ページと未払いCheckout/保護を公式readbackし、実注文/支払済み納品の未達を記録する。
 
-現在cursor: 既存Stripe accountの公式GETで74商品の全pageを確認し、英語版のみ存在する。次に日本語版の商品・one-time価格を重複なく登録し、言語別Checkout/納品を実装する。原稿は無料、整形版は9.99 USD。
+現在cursor: 日本語版の商品・one-time価格を登録し公式GETで照合済み。次に言語別Checkout/納品を失敗テストから実装する。原稿は無料、整形版は9.99 USD。注文・売上はこの登録で証明しない。

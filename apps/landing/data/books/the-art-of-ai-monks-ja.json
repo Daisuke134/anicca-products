@@ -6,8 +6,7 @@
   "author": "Anicca",
   "language": "ja",
   "edition": "日本語版・初版",
-  "slug": "the-art-of-ai-monks",
-  "publication_status": "artifacts_only",
+  "slug": "the-art-of-ai-monks/ja",
   "formats": {
     "pdf": "the-art-of-ai-monks-ja.pdf",
     "epub": "the-art-of-ai-monks-ja.epub"
@@ -31,5 +30,9 @@
     "信仰、開示、健康に関する主張",
     "別のキャラクターを作る"
   ],
-  "pages": 60
+  "pages": 60,
+  "currency": "usd",
+  "unit_amount": 999,
+  "stripe_product_id": "prod_VUVvsa1587Elri",
+  "stripe_price_id": "price_1UTWtpEeDsUAcaLSV3fRzwl9"
 }

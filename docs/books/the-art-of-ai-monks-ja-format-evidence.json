@@ -66,10 +66,10 @@
   ],
   "metadata": {
     "path": "apps/landing/data/books/the-art-of-ai-monks-ja.json",
-    "sha256": "6dd06ca37af870c3a67b5c208637d2076d5532a88e573cc6ec150b74469bc4e1",
+    "sha256": "9d49629ce15a9afc836f468b9d950386dcb1941901e487bb1be851cdb3eec44e",
     "language": "ja",
     "edition": "日本語版・初版",
-    "sku_note": "art_of_ai_monks_ja_v1はEPUB edition識別子。provider側に登録した証拠ではない。"
+    "sku_note": "Stripe本番GETで日本語版の商品・one-time価格を照合済み。購入・売上の証拠は別。docs/evidence/ai-monk-ja-stripe-catalog-20261023.json を参照。"
   },
   "tools": {
     "pandoc": "3.9.0.2",
