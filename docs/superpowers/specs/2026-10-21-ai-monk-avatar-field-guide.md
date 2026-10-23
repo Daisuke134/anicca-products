@@ -8,7 +8,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 - Yang Mun単独記事とAI僧侶フィールドガイドは英語・日本語の計4本が公開済み。公開URLは維持する。
 - 4本の記事は証拠を整理している一方、導入と見出しが調査報告書寄りで、読者を引き込む物語・ユーモア・読み進める理由が弱い。
-- `apps/landing/public/data/ai-monk-avatar-database-2026.json` の正本archiveは75レコードと176出典。公開受入済みのv0.4.4 snapshotは139出典で、Web/CLI/stdio/remote MCPはincluded4件とpending69件の計73件、公開画像は71件。今回のv0.4.5 sourceは公開反映をprimaryへ引き渡す。excluded2件とscope欠落は掲載しない。
+- 正本archiveは75レコードと176出典。公開受入済みv0.4.5のWeb/CLI/stdio/remote MCPはincluded4件とpending69件の計73件、公開画像は71件。excluded2件とscope欠落は掲載しない。公開受入の正本 → docs/evidence/ai-monk-cli-mcp-v045-release-20261024.json。
 - Yang MunのAI生成状態は、HeyGenとColumbiaの説明に対し、Columbiaがリンクする本人側ページが「本人は実在し、声だけAI翻訳」と主張している。現時点では食い違いを解消できない。
 - 追加提供されたInstagram画面には100〜102件のフォロー中表示と複数の僧侶風アカウント名が写っている。リスト全体でもAI生成状態でもなく、個別確認用の候補発見材料。
 - `/monk` は既存eBook販売ページなので使用しない。
@@ -203,17 +203,15 @@ Life Manager PR8721/main `eb78a805c4f79cd807852c27f52f9e4207a1ba61` とproducts 
 
 ## 現在scopeと優先順
 
-Daisの明示するFactoryの完成形は、利用者が自分のTikTokを接続し、動画制作・投稿を自動で実行するサービスである。現在の公開draft保存とlocalhost plan受入は部分成果であり、この利用者向けSaaSの完成ではない。TikTok接続と自動制作・投稿の実装は後続TODOに残す。
+Factoryの完成形は、利用者が自分のInstagramを先に接続し、独自avatar・台本・縦動画の制作と投稿を自動実行するcloudサービスである。TikTokは後続とする。現在の公開draft保存とlocalhost plan受入は部分成果であり、SaaSの完成ではない。詳細契約 → 末尾「Database・Plugin・Factoryの追加契約」。
 
 旧順序はDatabase復元→Factory Web→plugin配布・認証診断。新順序はDatabase→CLI→pluginの配布・販売を先行→Factory完成形の実装。Daisが配布・販売を先に進めると指定し、既存の研究データとCLI/pluginを先に利用可能な経路へ届けられるため、この順に変更する。販売はユーザー意図であり、無料配布・install・tool受入を販売済みや売上へ換算しない。確認したプラットフォーム内販売条件と未確認の販売経路 → `docs/superpowers/specs/2026-10-23-ai-monk-plugin-marketplace.md`「販売条件」。日次投稿と既存Factory運用はGrok Bot担当のままとし、進行中のeffectを中断・重複させない。
 
 ## 現在cursor
 
-PR609はmain `0675d5e0a7c3d6a0e5a9caf19f7363256525e894`へ統合し、Landing CI39975581104はSUCCESS。既存portable v0.1.1のnative自然言語routingは、2 finite runsの実7MCP callsで5positive/3negativeを受入する。初回のrevenue検索は最終文章だけを根拠にせず、別のfresh runの`sort=revenue`実呼出で補完する。証拠 → `docs/evidence/ai-monk-plugin-native-routing-20261024.json`。公開Gitの初回sparse取得はcatalog欠落/exit1、2path指定へ直した同main固定の再導入は5段階すべてexit0/payload3hash一致でGREENとなる。PR611はmain 0e1778d2d64b6f345526aa3b74476773e7aea2eeへ統合し、Landing CI39976934630/Netlify39977780297はSUCCESS。同SHAの空home公開install5段階・clone HEAD・payload3hash一致と公開supportの2pathコマンド、Database73件をreadbackする。最終証拠 → `docs/evidence/ai-monk-plugin-public-final-20261024.json`。現在cursorは既知73件のDatabaseの商品/収益根拠を精査・拡充→Plugin掲載とX配布→原価を確定したFactory SaaS。無料配布とplugin外の既存有料書籍経路は確認済みとし、本体課金・実注文と区別する。現在の実行順と受入 → docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md。v0.4.3はPR613/main 65004993114e32933f11f7194d3220ff7d97eef8から公開する。source15tests、package CI39978560061/Landing CI39978560073、fresh公開前review blocking0、official tag/asset669562735のdigestと公開GET、公開URLからのnpm install・CLI73件/57出典・実stdio6toolのsnapshot一致を受入する。公開証拠 → `docs/evidence/ai-monk-cli-mcp-v043-release-20261024.json`。残TODO正本 → `docs/superpowers/plans/2026-10-23-ai-monk-plugin-marketplace.md`。
+実行順・残TODO・最新公開/提出状態 → docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md。Database v0.4.5/CLI/Registry公開、Codex直接配布、本人X告知とGrokへの依頼、Muse全3申告の受付を確認する。証拠 → docs/evidence/ai-monk-distribution-status-20261024.json。
 
-公式directoryのportalは、live persistent contextでGoogle SSO通過後のOpenAI MFA passkeyが最後の観測であり、native plugin受入と分ける。identity/権限/実walkthrough/審査提出・公式directory掲載は未達を保持する。後続の一次資料で https://platform.muse.ai を正式Connector Platformと同定し、提出/掲載の受入とは区別する。
-
-日次投稿・生成/費用照合/既存loop復旧はGrok Bot担当。利用者向けFactory SaaSの実HeyGen生成・自動投稿・TikTok上の確認、paid本番納品・売上・USD10K MRR・他者無人収益は未確認のまま保持し、Web公開やSDK接続から完了を導かない。
+日次IG/TikTokと既存HeyGen/Postiz/loopはGrok Bot所有。Factory SaaS・実生成/本人接続/自動投稿/metrics・有料注文・USD10K MRR・他者無人収益は未完を保持する。ChatGPTのOpenAI MFAとMuseの審査待ちを、無料plugin受入や正式掲載と混同しない。
 
 ## Database・Plugin・Factoryの追加契約
 
@@ -239,6 +237,6 @@ Databaseの今回範囲は、保存済み公開一次資料の28 discovery入口
 
 重複する2入口は同一`observation_id`の商品へ帰属させ、accountごとの関連行とdistinct商品数を区別する。先行crawl再利用2入口は取得時刻と既存sourceを保持し、先行20商品へ追加していない商品だけを採用する。既存商品と同一の可能性があるYon Chenの30-Day Healing Journeyは新商品数へ算入しない。同名だけで同一SKUや所有者を断定しない。取得不可4入口と非商品1入口をreceiptへ残し、全件の内容確認や売上監査が完了したとは呼ばない。
 
-今回cursorはsource acceptanceのRED→最小データ統合→GREEN・既存package15/helper9検証→専用branchへのpushまでとする。CLI snapshotはv0.4.5へ更新する。PR/main統合・公開Release・公開readbackはprimaryが所有する。Registry metadata/workflow、plugin payload、Factory、認証、投稿、checkout、有料APIと既存日次loopは変更しない。実行計画 → `docs/superpowers/plans/2026-10-24-ai-monk-products-remaining.md`。
+このsource統合はRED→最小データ統合→GREEN・既存package15/helper9検証を通し、v0.4.5として公開する。当該データ差分はRegistry workflow、plugin payload、Factory、認証、投稿、checkout、有料APIと既存日次loopを変更しない。実行計画 → docs/superpowers/plans/2026-10-24-ai-monk-products-remaining.md。現在の全体cursorは上記の正本を参照する。
 
-source受入では49候補から39 sourceを引用し、既存2 sourceを変更せず再利用、新規37 sourceを追加して176出典とする。33 distinct商品を35 account関連行へ統合し、seller counterは7関連行を追加する。未取得・失敗・非商品などの残10 source候補はreceiptへ状態とhashを残す。元139 source・75archive・73public・scope/AI状態・既存収益観測1件は不変。source acceptanceは未統合33件のREDからGREEN、参照628件のmissing0、既存package15/helper9とbuild済みAPIの33商品検索・出典返却・unknown保持を確認する。公開反映は未実施。証拠 → `docs/evidence/ai-monk-products-remaining-integration-20261024.json`。
+source受入では49候補から39 sourceを引用し、既存2 sourceを変更せず再利用、新規37 sourceを追加して176出典とする。33 distinct商品を35 account関連行へ統合し、seller counterは7関連行を追加する。未取得・失敗・非商品などの残10 source候補はreceiptへ状態とhashを残す。元139 source・75archive・73public・scope/AI状態・既存収益観測1件は不変。source acceptanceは未統合33件のREDからGREEN、参照628件のmissing0、既存package15/helper9とbuild済みAPIの33商品検索・出典返却・unknown保持を確認する。PR619/main bbd81158d27d0c8b84fe5fc656062f54df7f50d5へ統合し、v0.4.5の公開JSON/Web/CLI/stdio/remote MCPを同じsnapshotで受入する。source証拠 → docs/evidence/ai-monk-products-remaining-integration-20261024.json。公開証拠 → docs/evidence/ai-monk-cli-mcp-v045-release-20261024.json。

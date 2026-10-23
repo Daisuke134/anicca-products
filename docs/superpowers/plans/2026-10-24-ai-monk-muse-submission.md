@@ -16,9 +16,14 @@
 ## TODO
 - [x] 公開一次資料と正式portalを確認する。
 - [x] 通常ログイン後、正式提出フォームが表示されることを確認する。
-- [ ] Overview/Technical specs/Reviewへ実情報を入力して確認する。
-- [ ] 審査提出を1回実行し、公式受付番号/状態をreadbackする。
+- [x] Overview/Technical specs/Reviewへ実情報を入力し、fresh read-onlyレビューblocking0を確認する。
+- [x] 審査提出1回、公式受付ID31824081-7a00-4287-a572-bdee976562c5をreadbackする。
+- [x] Integration credentialsをUnauthenticatedで提出し、Credentials submittedを確認する。
+- [x] Business verificationのwork emailを1回認証し、Confirmedと提出後の詳細画面を確認する。
+- [x] Data processing questionnaireの最終draftをfresh照合blocking0で受入し、Save後の再読込で全値一致を確認して1回提出する。公式詳細のUnder reviewとOverviewの3/3 completedを確認する。
 - [ ] 審査結果と正式掲載URLを確認する。審査待ちは掲載済みと扱わない。
 
 ## 現在cursor
-既存Meta account認証後、submissionのOverviewを表示する。まだdraft入力・提出・掲載は行っていない。Databaseの176出典更新とCLI v0.4.5公開readbackは別担当が進め、日次IG/TikTok運用は変更しない。
+正式受付ID31824081-7a00-4287-a572-bdee976562c5のOverviewは3/3 completed。Business verificationはApproved、Data processing questionnaireとIntegration credentialsはIn review。Data processingは正本との全値一致、Save1回後の再読込一致、重複防止fence作成を確認して1回だけ提出し、公式詳細のQuestionnaire submitted for reviewを確認する。再提出は行わず、審査結果と正式掲載URLを追跡する。BusinessのApprovedをコネクタ全体の承認や掲載と扱わない。
+
+申告の全countriesは世界中からの潜在公開accessであり、物理的全世界保存や全地域到達を保証しない。exact function region・provider全access国・plan別全保持上限はunknownを保持する。証拠 → docs/evidence/ai-monk-distribution-status-20261024.json。審査待ちと独立してFactory実装を進める。
