@@ -24,10 +24,10 @@
 - [x] EPUBを必要glyphのフォントで生成し、納品可能なsize・全文字・引用・構造を確認する。3,048,258 bytes、base64 4,064,344 bytes。両fontに全原稿文字とASCIIが残り、全XHTML・PDF・HTMLは変更前と一致する。
 - [x] Stripe既存catalogを公式GETで照合し、日本語版のproduct/priceを重複なく登録する。`prod_VUVvsa1587Elri` / `price_1UTWtpEeDsUAcaLSV3fRzwl9`。公式GETでlive/active/USD999/one_time/SKU/lang一致を確認。
 - [x] 言語固定Checkout/納品と日本語ページを実装し、最小の失敗テストから確認する。購入copyはJAなのにEnglish表示する失敗を確認して修正。
-- [ ] 英語版/既存Reset・Letterを含む関連契約、CI、main、Netlifyを確認する。
-- [ ] 公開日本語ページと未払いCheckout/保護を公式readbackし、実注文/支払済み納品の未達を記録する。
+- [x] 英語版/既存Reset・Letterを含む関連契約、CI、main、Netlifyを確認する。source CI39882333826、main f2ab81fd、Netlify39882793550が成功。
+- [x] 公開日本語ページと未払いCheckout/保護を公式readbackし、実注文/支払済み納品の未達を記録する。JAのlive固定価格999 USD cents、PDF/EPUB未払い403、private直URL404、canary expired/unpaidを確認。
 
-現在cursor: PR563のCIとmain統合を確認済み。本番Netlify39882793550の反映後、日本語ページ・未払いCheckout・保護を公式readbackする。実購入・売上・paid本番納品は別途未確認を保持する。
+現在cursor: 日本語版の販売公開と未払い保護の確認は完了。実購入・売上・paid本番納品は未達として保持する。次は既存remote MCP/ChatGPT pluginのsourceと公開経路を進め、画像調査はUI planの並行cursorを継続する。
 
 ### Checkout/納品のsource検証
 
@@ -40,3 +40,7 @@
 ### 統合と独立検証
 
 PR563のsource `418298e8825e7a3c711a16649af09084af8a0afc` はLanding CI39882333826が成功し、main `f2ab81fd273509cbb82580c94e0cbfefa53baad3` へ統合する。fresh-context read-only検証は指摘0、book/Reset/Letter/page30件とWriter20件PASS、不正session68件の拒否、query版上書き4件を反証する。報告は `docs/evidence/ai-monk-ja-payment-source-review-20261023.json`。GitHubの日本語全文は認証なしGET200・原稿SHA一致を確認する。本番Checkout/納品の証明はdeploy後の別receiptとし、localの結果で置き換えない。
+
+### 本番readback
+
+日本語ページ・価格・無料全文・10章・60頁表示・canonical/言語alternate・EN/JA切替・1440/390/320px・client error0を登録browserで確認する。原稿全文は認証なしGitHub GET200・SHA一致。未払い確認用Checkout1件を公開functionから作り、Stripe公式GETでlang/SKU/price/payment/live/999 USD centsを照合し、PDF/EPUBの未払い403と直URL404を確認してexpired/unpaidにする。実決済は行わない。公式全pageの最新snapshotは有料注文EN0/JA0。証拠 → `docs/evidence/ai-monk-book-ja-production-20261023.json`。
