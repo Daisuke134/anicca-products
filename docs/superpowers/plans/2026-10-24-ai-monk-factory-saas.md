@@ -30,17 +30,19 @@ Interfaces: authenticateFactoryRequest(event,{env,fetchImpl})→verified {id,ema
 Files: _lib/monk-factory-providers.js、_lib/monk-factory-jobs.js、monk-factory-tick.js、monk-factory-image-background.js、Task1 API/store/SQL、必要最小の関連test。
 Interfaces: jobはuser_id/occurrence/stage/provider_id/next_run_at/lease/cost/evidenceを持つ。provider submitはIDを返し、pollで公式状態へ進める。
 - [ ] 独立billing sourceと必要設定の事前確認、clientへのsecret非露出、同じoccurrence/effect不明の再送0を最小REDで確認する。
-- [ ] avatar画像→PhotoAvatar、Database由来の独自script→speech duration確認→縦動画、本人profile Connect→official GET、IG投稿→公式post URL/metricsを実装する。
+- [x] avatar画像→PhotoAvatar、Database由来の独自script→speech duration確認→縦動画、本人profile Connect→official GET、IG投稿→公式post URL/metricsを実装する。
 - [ ] tickの時間/件数とserver予算、stop/cancel、opaque account帰属/容量、provider failed/unknownを検証しcommit/pushする。
 
 ## Task 3: 同じURLの実Webと公開
 Files: apps/landing/app/ai-monk-factory/page.tsxとclient、scripts/stage-ai-monk-factory.mjs/関連test、Database/support links、functions config/関連CI、Factory privacy/terms。
-- [ ] Supabase login/Generate/進捗/preview/IGConnect/自動投稿ON・停止/metrics/3日trial後199ドルの請求/解約を最小UIで結ぶ。
-- [ ] 旧4fileはdownload pathへ移しpublic static/Next route衝突を解消する。利用者向けAPIkey/CLI設定を増やさない。
+- [x] Supabase login/Generate/進捗/preview/IGConnect/自動投稿ON・停止/metrics/3日trial後199ドルの請求/解約を最小UIで結ぶ。
+- [x] 旧4fileはdownload pathへ移しpublic static/Next route衝突を解消する。利用者向けAPIkey/CLI設定を増やさない。
 - [ ] 関連source acceptance・fresh money/security review・CIを通してmainへ統合し、main由来の公開をreadbackする。
 - [ ] Factory専用provider/Stripe3日trial/本人IG接続/実avatar-video/公式postとmetricsを区別して確認し、利用可能な事実だけをXへ告知する。
 
 ## 現在cursor
-Task3の画面は既存Authと固定APIへ接続し、実進捗/残枠/preview/Instagram接続/明示ON・停止/請求・解約を表示する。client transportは5件、旧asset stageは3件がGREEN。旧local4fileはdownload pathへ分離し、利用者へAPI設定を要求しない。Factory terms/privacyは実装のデータ・trial・請求・試行枠に合わせる。Factory対象TypeScriptは診断0、既存CIと同じ固定版共通asset配置後の実buildは651ページでPASS。全体tscは既存dashboard/income/lmの6診断があり、今回のFactoryへ診断は出ていない。Netlify公式のscheduled30秒上限/background15分と自動retryを確認し、毎分tickを両deploy rootへ設定する。既存日次処理と退役scheduleは変更しない。Task2のjob/APIとの最終結合・source review・CI・本番受入は未完。
+Task2のjob/APIとTask3画面を統合する。primaryのcore47件＋client5件がGREEN、独立Unix socket Postgres20件がGREEN。unknown保持/並列lease/POST前fence/保存応答消失/重複背景/OFF・取消競合/実adapterを使う制作→投稿→帰属metricsを隔離fixtureで確認する。Factory対象TypeScriptは診断0、既存CIと同じ固定版共通asset配置後の実buildは651ページでPASS。desktop1440/mobile390のローカル表示は横溢れ0、実media未生成の空状態を確認する。全体tscには既存dashboard/income/lmの6診断がある。
 
-Task1のAPI/署名/課金/認証18件、既存商品分離12件、実DB8件がGREEN。verified UIDで読取/停止/課金を結び、API応答から内部customer/nonceを除外する。Checkoutは保存済みpayloadとidempotency keyを再利用し、24時間後は公式全page検索の完了前に新nonceを発行しない。署名eventは識別子だけを一意queueへ保存し、権限を直接付与しない。Task2でqueue消費、provider adapter、job/effect fence、同期画像用backgroundの重複0とIG接続/投稿を結ぶ。HeyGen Imageの既存画像必須を確認しOpenAI text-to-imageへ改めるが、avatar予約USD1.60/trial4.25は保守枠として維持する。本番DB反映・SaaS公開・料金公開・実生成・売上は未完。
+fresh read-only reviewは6b9e0b55でhold。Stripe SDKだけが25秒signal外で34.8秒まで延びる反証と、解約portal欠落でもready=trueとなる反証を受け入れる。最小REDを先に確認し、既存Stripe SDKのfetch transportをtickの共通25秒signalへ結び、Price/portal/webhook/live-mode不足はAPIとscheduledの両方で新規実行0にする。状態取得障害時も停止ボタンを表示する。修正後のfocused検証52件はPASS、差分の独立再確認とCI/main統合が次のcursor。
+
+Factory専用provider/支払元の実確認を進める。既存Grok用wallet/key/Postiz・日次loopを使わない。本番DB migration・SaaS公開受入・Stripe価格公開・実生成・投稿・売上は未完。設定未完の間はcheckoutと新規生成を無効のまま保持する。独立課金元と本人IGが揃ってから実providerの結果を区別して確認する。

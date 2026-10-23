@@ -184,7 +184,7 @@ export default function Factory() {
     <div className="mf-announcements" aria-live="polite">{error && <p className="mf-error" role="alert">{error}</p>}{notice && <p className="mf-notice">{notice}</p>}</div>
 
     {session && <section className="mf-studio" aria-label="Your studio">
-      <div className="mf-section-heading"><div><p className="mf-eyebrow">Your studio</p><h2>A little more presence.</h2></div><button className="mf-text-button" disabled={loading || !!busy} onClick={() => { setError(''); setLoading(true); void load(session.access_token).catch(e => setError(errorMessage(e))).finally(() => setLoading(false)); }}>{loading ? 'Checking…' : 'Refresh status ↻'}</button></div>
+      <div className="mf-section-heading"><div><p className="mf-eyebrow">Your studio</p><h2>A little more presence.</h2></div><div className="mf-studio-actions">{(!snapshot || account?.auto_post) && <button className="mf-text-button" disabled={!!busy} onClick={() => void act('stop')}>Stop daily posting</button>}<button className="mf-text-button" disabled={loading || !!busy} onClick={() => { setError(''); setLoading(true); void load(session.access_token).catch(e => setError(errorMessage(e))).finally(() => setLoading(false)); }}>{loading ? 'Checking…' : 'Refresh status ↻'}</button></div></div>
       {snapshot && !ready && <p className="mf-notice">The studio is preparing to open. Checkout and new generation are unavailable for now. Your existing content and stop control remain here.</p>}
       {!snapshot ? <p className="mf-loading">{loading ? 'Opening your studio…' : 'Refresh to load your studio.'}</p> : <>
         <div className="mf-workspace">

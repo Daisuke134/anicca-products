@@ -4,7 +4,9 @@ const { factoryHandler } = require('../../monk-factory.js');
 
 const user = { id: 'eaa06ae6-53ec-4a6b-baa4-e6731b129ca8', email: 'fixture@example.com', email_confirmed_at: '2026-01-01' };
 const key = '11111111-1111-4111-8111-111111111111';
-const env = { SUPABASE_URL: 'https://fixture.supabase.co', SUPABASE_ANON_KEY: 'fixture', MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long' };
+const env = { SUPABASE_URL: 'https://fixture.supabase.co', SUPABASE_ANON_KEY: 'fixture', MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long',
+  STRIPE_SECRET_KEY: 'sk_test_fixture', MONK_FACTORY_STRIPE_LIVE: 'false', MONK_FACTORY_STRIPE_PRICE_ID: 'price_fixture',
+  MONK_FACTORY_STRIPE_PORTAL_CONFIGURATION_ID: 'bpc_fixture', MONK_FACTORY_STRIPE_WEBHOOK_SECRET: 'whsec_fixture' };
 const auth = async () => new Response(JSON.stringify(user));
 
 test('image ticket authenticates its exact job and rejects expiry or tampering before persistence', async () => {
@@ -68,6 +70,14 @@ test('a disabled scheduled function returns before constructing Stripe, persiste
   const { factoryTickHandler } = require('../../monk-factory-tick.js');
   const result = await factoryTickHandler({}, { env: {} });
   assert.equal(result.statusCode, 200);
+  assert.deepEqual(JSON.parse(result.body), { processed: 0, disabled: true });
+});
+
+test('scheduled creation stays disabled when cancellation configuration is missing', async () => {
+  const { factoryTickHandler } = require('../../monk-factory-tick.js');
+  const missing = { ...env }; delete missing.MONK_FACTORY_STRIPE_PORTAL_CONFIGURATION_ID;
+  const result = await factoryTickHandler({}, { env: missing, stripe: {}, providers: { readiness: () => ({ ready: true }) },
+    store: { pendingEvents: () => assert.fail('incomplete billing configuration reached work queue') } });
   assert.deepEqual(JSON.parse(result.body), { processed: 0, disabled: true });
 });
 

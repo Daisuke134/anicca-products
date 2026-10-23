@@ -49,11 +49,19 @@ function factoryLiveMode(env) {
   return env.MONK_FACTORY_STRIPE_LIVE === 'true';
 }
 
-function factoryStripeClient(env) {
+function factoryBillingReady(env) {
+  return !!env.STRIPE_SECRET_KEY && ['true', 'false'].includes(env.MONK_FACTORY_STRIPE_LIVE)
+    && /^price_[A-Za-z0-9_]+$/.test(env.MONK_FACTORY_STRIPE_PRICE_ID || '')
+    && /^bpc_[A-Za-z0-9_]+$/.test(env.MONK_FACTORY_STRIPE_PORTAL_CONFIGURATION_ID || '')
+    && !!env.MONK_FACTORY_STRIPE_WEBHOOK_SECRET;
+}
+
+function factoryStripeClient(env, { fetchImpl } = {}) {
   factoryLiveMode(env);
   if (!env.STRIPE_SECRET_KEY) throw factoryError('billing_unavailable', 503);
   const Stripe = require('stripe');
-  return new Stripe(env.STRIPE_SECRET_KEY, { apiVersion: '2026-04-22.dahlia', timeout: 10000, maxNetworkRetries: 0 });
+  return new Stripe(env.STRIPE_SECRET_KEY, { apiVersion: '2026-04-22.dahlia', timeout: 10000, maxNetworkRetries: 0,
+    ...(fetchImpl ? { httpClient: Stripe.createFetchHttpClient(fetchImpl) } : {}) });
 }
 
 function stripeHostedUrl(value, hostname = 'checkout.stripe.com') {
@@ -151,4 +159,4 @@ async function beginFactoryCheckout({ user, store, stripe, env, now = Date.now, 
   return { complete: true };
 }
 
-module.exports = { subscriptionPatch, factoryLiveMode, factoryStripeClient, stripeHostedUrl, syncFactoryBilling, beginFactoryCheckout };
+module.exports = { subscriptionPatch, factoryLiveMode, factoryBillingReady, factoryStripeClient, stripeHostedUrl, syncFactoryBilling, beginFactoryCheckout };

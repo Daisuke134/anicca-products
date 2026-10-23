@@ -1,6 +1,6 @@
 const { authenticateFactoryRequest, factoryError, UUID } = require('./_lib/monk-factory.js');
 const { createFactoryStore } = require('./_lib/monk-factory-store.js');
-const { factoryStripeClient, beginFactoryCheckout, syncFactoryBilling, stripeHostedUrl } = require('./_lib/monk-factory-billing.js');
+const { factoryStripeClient, beginFactoryCheckout, syncFactoryBilling, stripeHostedUrl, factoryBillingReady } = require('./_lib/monk-factory-billing.js');
 const { jobRuntimeReady, entitled, ensureFactorySocial } = require('./_lib/monk-factory-jobs.js');
 
 const publicFields = ['subscription_status', 'trial_end', 'period_end', 'period_paid', 'cancel_at_period_end', 'billing_paused', 'auto_post', 'instagram_username', 'connected_at', 'avatar_image_url', 'next_post_at'];
@@ -11,7 +11,7 @@ function publicAccount(account) {
 }
 const reply = (statusCode, value) => ({ statusCode, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify(value) });
 async function ready(env, providers) {
-  if (env.MONK_FACTORY_ENABLED !== 'true' || !jobRuntimeReady(env)) return false;
+  if (env.MONK_FACTORY_ENABLED !== 'true' || !jobRuntimeReady(env) || !factoryBillingReady(env)) return false;
   try {
     const api = providers || require('./_lib/monk-factory-providers.js').createFactoryProviders({ env });
     return (await api.readiness()).ready === true;
