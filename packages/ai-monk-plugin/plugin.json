@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ai-monk-index",
-  "version": "0.1.1",
-  "description": "Source-linked research on monk profiles and AI monk video avatars.",
+  "version": "0.1.2",
+  "description": "Source-linked AI monk profiles, video formats, products and creator playbooks.",
   "author": {
     "name": "Anicca",
     "email": "contact@aniccaai.com",
@@ -20,8 +20,8 @@
     "com.openai": {
       "interface": {
         "displayName": "AI Monk Index",
-        "shortDescription": "Source-linked monk research",
-        "longDescription": "Search source-linked monk profiles, including AI video personas and pending research candidates. Compare dated audience observations and attributed business claims while preserving uncertainty and source dates. Free and read-only: this plugin cannot create videos, connect social accounts, publish posts, or verify personal income.",
+        "shortDescription": "AI monk research & playbooks",
+        "longDescription": "Find source-linked monk profiles and AI video research candidates. Research observed formats, hooks and script structure; compare products and displayed prices; and study creator-published script, voice, posting-cadence and funnel playbooks. Six public read-only tools return sources, dates and labelled unknowns. Dated sampled-video views are not channel totals; prices and seller counters are not orders; creator revenue claims are unaudited and are not profit or MRR. Candidate inclusion does not confirm AI production or video format. Free research only: the plugin cannot generate media, connect accounts, publish posts, sell products, verify personal income or guarantee earnings.",
         "developerName": "Anicca",
         "category": "Productivity",
         "capabilities": [
@@ -32,9 +32,9 @@
         "privacyPolicyURL": "https://aniccaai.com/ai-monk-database/privacy",
         "termsOfServiceURL": "https://aniccaai.com/ai-monk-database/terms",
         "defaultPrompt": [
-          "Find English-language monk profiles on Instagram with their evidence sources.",
-          "Show Yang Mun's profile and distinguish revenue claims from verified sales.",
-          "Explain the database's coverage and unverified candidates."
+          "Find English-language monk profiles on Instagram and show their evidence sources and AI status.",
+          "Compare observed AI monk video hooks and script structures, with dates and sample-view limits.",
+          "Show Yang Mun's products, displayed prices and creator-published playbook. Keep revenue claims separate from verified sales."
         ],
         "brandColor": "#336b53",
         "composerIcon": "./assets/icon.png",
@@ -51,28 +51,28 @@
               "expected_behavior": "Return the directory and archive coverage, source count, dated snapshot metadata and methodology. Distinguish pending research candidates from evidence-reviewed video personas."
             },
             {
-              "description": "Filter profiles by language and platform.",
-              "prompt": "Find three English-language monk profiles on Instagram. Include sources and uncertainty.",
-              "tools_triggered": "search_ai_monks",
-              "expected_behavior": "Search language English, platform Instagram, limit 3; return matching profiles with directory_scope, AI status, sources and observed audience dates. Do not label all results verified AI avatars."
+              "description": "Find matching profiles and retrieve one complete record.",
+              "prompt": "Find three English-language monk profiles on Instagram, then show the first result's complete research profile. Include sources and uncertainty.",
+              "tools_triggered": "search_ai_monks, get_ai_monk",
+              "expected_behavior": "Search language English, platform Instagram, limit 3, then get the exact ID of the first returned result. Preserve directory_scope, AI status, identity conflicts, sources and observed audience dates. Do not label all results verified AI avatars."
             },
             {
-              "description": "Retrieve one exact profile.",
-              "prompt": "Show the research profile for Yang Mun, including its source links.",
-              "tools_triggered": "get_ai_monk",
-              "expected_behavior": "Get id yang-mun and return its full research record and referenced sources. Keep attributed claims and identity conflicts distinct."
+              "description": "Research observed formats, hooks and script structure.",
+              "prompt": "Show three AI monk video samples with the highest observed views. Explain their hooks and script structures with sources.",
+              "tools_triggered": "top_formats",
+              "expected_behavior": "Use limit 3 and describe each returned format, hook and script pattern from structure_summary. Preserve sources, sample dates and missing fields. Views are dated sampled-video observations, not channel totals or guaranteed future performance."
             },
             {
-              "description": "Compare revenue observations without inventing audited sales.",
-              "prompt": "Which indexed monk profiles have the highest reported three-month USD gross revenue?",
-              "tools_triggered": "search_ai_monks",
-              "expected_behavior": "Use sort revenue. Describe any values as attributed and dated creator claims; missing values remain unknown. Do not turn claims into verified sales, profit or MRR."
+              "description": "Separate products and prices from revenue claims.",
+              "prompt": "How does Yang Mun monetize? Show product names, displayed prices and source links, and distinguish creator revenue claims from verified sales.",
+              "tools_triggered": "how_they_monetize",
+              "expected_behavior": "Use account_id yang-mun. Keep offers, displayed prices, seller counters, creator claims and revenue observations separate with their sources, periods and currencies. Missing values remain unknown. Do not convert prices or counters into orders, or claims into audited sales, profit or MRR."
             },
             {
-              "description": "Continue a result page.",
-              "prompt": "Show the first two indexed monk profiles, then the next two using the returned next_offset.",
-              "tools_triggered": "search_ai_monks",
-              "expected_behavior": "Use limit 2 without platform or language filters, then the returned next_offset with the same filters and sort. Return four distinct profile IDs with provenance."
+              "description": "Study source-linked creator playbooks.",
+              "prompt": "What creator-published playbook can I study for AI monk scripts, voice, posting cadence and product funnels? Include sources and the limits of the claims.",
+              "tools_triggered": "winning_playbooks",
+              "expected_behavior": "Return the published playbooks and explain the available script formula, hooks, voice, cadence and funnel with attribution. Treat creator performance and revenue statements as unaudited claims, preserve unknowns and explain patterns without reproducing scripts verbatim or promising results."
             }
           ],
           "negative": [
@@ -95,7 +95,7 @@
         }
       },
       "publication": {
-        "release_notes": "Correct the pagination review case to use the full directory with a real next page. The existing three read-only MCP tools and service behavior are unchanged."
+        "release_notes": "Align package descriptions, starter prompts and five review cases with all six existing read-only MCP tools, including video formats, products and prices, and creator playbooks. Keep source dates, unknowns and unaudited claims explicit. The endpoint and service behavior are unchanged."
       }
     }
   }
