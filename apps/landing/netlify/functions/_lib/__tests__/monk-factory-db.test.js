@@ -275,8 +275,8 @@ test('a social profile POST fence survives lease expiry and official readback ca
 });
 
 const providerEnv = { MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long',
-  MONK_FACTORY_OPENAI_API_KEY: 'synthetic-openai', MONK_FACTORY_HEYGEN_API_KEY: 'synthetic-heygen', MONK_FACTORY_HEYGEN_VOICE_ID: 'synthetic-voice', MONK_FACTORY_UPLOAD_POST_API_KEY: 'synthetic-upload',
-  MONK_FACTORY_OPENAI_BILLING_VERIFIED: 'true', MONK_FACTORY_OPENAI_BILLING_EVIDENCE_REF: 'fixture', MONK_FACTORY_HEYGEN_BILLING_VERIFIED: 'true', MONK_FACTORY_HEYGEN_BILLING_EVIDENCE_REF: 'fixture',
+  MONK_FACTORY_GEMINI_API_KEY: 'synthetic-gemini', MONK_FACTORY_HEYGEN_API_KEY: 'synthetic-heygen', MONK_FACTORY_HEYGEN_VOICE_ID: 'synthetic-voice', MONK_FACTORY_UPLOAD_POST_API_KEY: 'synthetic-upload',
+  MONK_FACTORY_GEMINI_BILLING_VERIFIED: 'true', MONK_FACTORY_GEMINI_BILLING_EVIDENCE_REF: 'fixture', MONK_FACTORY_HEYGEN_BILLING_VERIFIED: 'true', MONK_FACTORY_HEYGEN_BILLING_EVIDENCE_REF: 'fixture',
   MONK_FACTORY_UPLOAD_POST_BILLING_VERIFIED: 'true', MONK_FACTORY_UPLOAD_POST_BILLING_EVIDENCE_REF: 'fixture', MONK_FACTORY_UPLOAD_POST_WHITELABEL_VERIFIED: 'true' };
 function nextClaim(id) {
   sql('UPDATE monk_factory_jobs SET next_run_at=now() WHERE id=' + quoted(id));
@@ -294,10 +294,10 @@ test('real adapter plus database completes DB-script speech render publish and a
   const providers = createFactoryProviders({ env: providerEnv, fetchImpl: async (address, request = {}) => {
     const url = new URL(address); const method = request.method || 'GET'; paths.push(method + ' ' + url.pathname);
     let data;
-    if (url.pathname === '/v1/chat/completions') {
+    if (url.pathname === '/v1beta/interactions') {
       const payload = JSON.parse(request.body);
-      assert.ok(payload.messages[1].content.includes('shalev-yang-mun-playbook'));
-      data = { id: 'chat11', choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ script: 'Pause and take one easy breath.', caption: 'One small pause.', source_ids: ['shalev-yang-mun-playbook'] }) } }] };
+      assert.ok(payload.input.includes('shalev-yang-mun-playbook'));
+      data = { id: 'script11', model: 'gemini-3.1-flash-lite', status: 'completed', steps: [{ type: 'model_output', content: [{ type: 'text', text: JSON.stringify({ script: 'Pause and take one easy breath.', caption: 'One small pause.', source_ids: ['shalev-yang-mun-playbook'] }) }] }] };
     } else if (url.pathname === '/v3/voices/speech') data = { data: { request_id: 'speech11', audio_url: 'https://fixture.example/audio.mp3', duration: 19, engine: 'starfish' } };
     else if (url.pathname === '/v3/videos' && method === 'POST') data = { data: { video_id: 'video11', status: 'pending' } };
     else if (url.pathname === '/v3/videos/video11') data = { data: { id: 'video11', status: 'completed', video_url: 'https://fixture.example/video.mp4', duration: 19 } };
@@ -322,7 +322,7 @@ test('real adapter plus database completes DB-script speech render publish and a
   assert.deepEqual(result.metrics, { views: 17 });
   assert.ok(result.metrics_at);
   assert.equal(result.metrics.likes, undefined);
-  assert.deepEqual(paths.filter(x => x.startsWith('POST')), ['POST /v1/chat/completions','POST /v3/voices/speech','POST /v3/videos','POST /api/upload']);
+  assert.deepEqual(paths.filter(x => x.startsWith('POST')), ['POST /v1beta/interactions','POST /v3/voices/speech','POST /v3/videos','POST /api/upload']);
   assert.equal(nextClaim(job.id), null);
 });
 
@@ -337,7 +337,7 @@ test('signed duplicate background invocations create one private image and one v
     const path = new URL(address).pathname;
     if (request.method === 'POST') posts.push(path);
     let value;
-    if (path === '/v1/images/generations') value = { data: [{ b64_json: Buffer.from([0xff,0xd8,0xff,0xd9]).toString('base64') }] };
+    if (path === '/v1beta/interactions') value = { id: 'image12', model: 'gemini-3.1-flash-lite-image', status: 'completed', steps: [{ type: 'model_output', content: [{ type: 'image', mime_type: 'image/jpeg', data: Buffer.from([0xff,0xd8,0xff,0xd9]).toString('base64') }] }] };
     else if (path === '/v3/avatars') value = { data: { avatar_item: { id: 'avatar12', status: 'pending' } } };
     else if (path === '/v3/avatars/looks/avatar12') value = { data: { id: 'avatar12', avatar_type: 'photo_avatar', status: 'completed', preview_image_url: 'https://fixture.example/avatar.jpg', supported_api_engines: ['avatar_iv'] } };
     else assert.fail('unexpected synthetic image transport');
@@ -353,7 +353,7 @@ test('signed duplicate background invocations create one private image and one v
   await advanceFactoryJob({ ...options, job: nextClaim(reserved.id) });
   await runFactoryImage({ ...options, ticket });
   assert.equal((await store.account(uid(12))).avatar_id, 'avatar12');
-  assert.deepEqual(posts, ['/v1/images/generations','/v3/avatars']);
+  assert.deepEqual(posts, ['/v1beta/interactions','/v3/avatars']);
   assert.equal((await store.job(reserved.id)).evidence.image_readback.provider_receipt_id, 'image12');
   assert.equal(JSON.stringify((await store.job(reserved.id)).evidence).includes('/9j/2Q=='), false);
 });

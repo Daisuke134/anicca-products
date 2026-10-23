@@ -85,3 +85,5 @@ PR645/head `119b718cc3ad6aa13bc62e10308d94f70b6eb801`はfresh source review SHIP
 ## Gemini画像・台本adapterのsource実装
 
 目的はFactoryの画像/台本2箇所を予算内候補のGeminiへ置換し、既存HeyGen/Upload-Post/認証/period予約と再送0を維持すること。所有と受入の正本 → ../specs/2026-10-24-ai-monk-factory-provider-contract.md。新SDK・provider二重実装・quota/価格/SQL変更は0。usageは数値だけを既存evidenceへ残して実費検証の入力にし、出力tokenとthoughtを混同しない。privacyの生成providerと18歳以上向け案内を揃える。専用有料project/key・本番設定・課金/実生成・Factory enableはこのsource unitに含めず未完とする。最小RED→実装→GREEN、fresh money source review、既存CI/main由来公開まで進める。
+
+Gemini adapterの最小RED→GREENはprovider/jobs33件、隔離Postgres25件で確認する。不完全応答でも既知の数値usageとreceiptをeffect_unknown evidenceへ保存し、unknown/欠落を無料へ変換しない。source receipt → ../../evidence/ai-monk-factory-gemini-adapter-source-20261024.json。次のcursorはfresh money source review・最終head CI・main由来公開。専用有料project/key・実課金/生成は引き続き未完。

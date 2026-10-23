@@ -32,7 +32,7 @@ HeyGenのPhotoAvatar USD1.32、Avatar IV Photo USD2.31/分、別Starfish USD0.12
 
 Interactionsは同期の`background:false/store:false`で1回送る。公式interaction IDをreceiptとして保存するが、storeしない応答を後からGETで回収できるとは保証しない。画像だけは既存background functionで240秒timeoutと任意の呼出元signal、他methodは10秒を使う。通信timeout・応答消失・incomplete・不正成功は`provider_effect_unknown`として予約とfenceを保持し、自動再送しない。JPEG1枚・正しいMIME・base64と既存5MiB上限を検証し、server内だけで保持する。
 
-`status:completed`と公式IDを必須にし、`steps`内の`model_output.content`だけからimage/textを読む。thoughtやproviderの余分な本文をclient/logへ返さない。台本は1つのJSON textだけを採用し、script/captionの既存長さとsupplied source IDをアプリ側でも検証する。GeminiのJSON schemaで無視されるstring長制約へ依存しない。usageはinput/output/thought/totalを別に正規化し、既存job evidence/private image blobへ数値だけを保存する。token値欠落を0へ変えず、実請求USDへ換算しない。
+`status:completed`と公式IDを必須にし、`steps`内の`model_output.content`だけからimage/textを読む。thoughtやproviderの余分な本文をclient/logへ返さない。台本は1つのJSON textだけを採用し、script/captionの既存長さとsupplied source IDをアプリ側でも検証する。GeminiのJSON schemaで無視されるstring長制約へ依存しない。usageはinput/output/thought/totalを別に正規化し、既存job evidence/private image blobへ数値だけを保存する。token値欠落を0へ変えず、実請求USDへ換算しない。不完全/不正な成功応答にもusageとinteraction receiptが返る場合は、選別した数値とreceiptをerror経由で既存のeffect_unknown evidenceへ残す。HTTP拒否や通信消失で返らないtoken数はunknownのままとし再送しない。
 
 ## 設定とreadiness
 
@@ -68,3 +68,5 @@ Interactionsは同期の`background:false/store:false`で1回送る。公式inte
 設定不足と独立課金元未確認でPOST0、日次keyへのfallback0、画像/PhotoAvatar/LLMの公式payload、Starfish duration欠落/上限超過で動画POST0、timeoutでsubmit1回、secret/raw診断非露出、公式profile/opaque account照合、hosted URLのorigin制限、公開postの成功条件、metrics欠落非0をfocused testで確認する。実APIアクセス・実課金・全suiteはこのsource受入に追加しない。
 
 現在cursor: main `8e59eda6c0cb241b8f2fe195a06e6a9df5d25772`由来の専用branch `feat/ai-monk-factory-gemini-adapter-20261024`で本契約を先行pushし、最小RED→Gemini adapter置換→GREEN・CI/main公開へ進む。専用credential・本番設定・入金・実生成・顧客課金・本人IG接続/投稿はこのsource unitで実行せず、ready=false/enable=falseを維持する。
+
+source受入: provider/jobs33件（画像・台本の新APIと不完全応答usage保存のRED→GREEN）、隔離Postgres25件PASS。DB検証は最後のerror-only usage転送前であり、最終headの既存CIが同DB契約を再確認する。実API/課金は0。source receipt → ../../evidence/ai-monk-factory-gemini-adapter-source-20261024.json。fresh source review・CI・main反映を次に受入する。

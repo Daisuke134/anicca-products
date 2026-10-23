@@ -7,12 +7,12 @@ const profile = 'factory_' + userId;
 const requestId = 'occurrence_1';
 const imageBase64 = Buffer.from([0xff, 0xd8, 0xff, 0xe0, 0, 0, 0xff, 0xd9]).toString('base64');
 const env = {
-  MONK_FACTORY_OPENAI_API_KEY: 'factory-openai-secret',
+  MONK_FACTORY_GEMINI_API_KEY: 'factory-gemini-secret',
   MONK_FACTORY_HEYGEN_API_KEY: 'factory-heygen-secret',
   MONK_FACTORY_HEYGEN_VOICE_ID: 'starfish_voice_1',
   MONK_FACTORY_UPLOAD_POST_API_KEY: 'factory-social-secret',
-  MONK_FACTORY_OPENAI_BILLING_VERIFIED: 'true',
-  MONK_FACTORY_OPENAI_BILLING_EVIDENCE_REF: 'private:openai-project-readback',
+  MONK_FACTORY_GEMINI_BILLING_VERIFIED: 'true',
+  MONK_FACTORY_GEMINI_BILLING_EVIDENCE_REF: 'private:gemini-project-readback',
   MONK_FACTORY_HEYGEN_BILLING_VERIFIED: 'true',
   MONK_FACTORY_HEYGEN_BILLING_EVIDENCE_REF: 'private:heygen-workspace-readback',
   MONK_FACTORY_UPLOAD_POST_BILLING_VERIFIED: 'true',
@@ -26,12 +26,12 @@ const socialBody = (account = { username: '17841400000000001', handle: 'a_renama
 
 test('missing dedicated keys and unverified billing block submissions without using daily-owner keys', async () => {
   let calls = 0;
-  const providers = createFactoryProviders({ env: { HEYGEN_API_KEY: 'daily-secret', OPENAI_API_KEY: 'daily-secret', POSTIZ_API_KEY: 'daily-secret' }, fetchImpl: async () => { calls++; } });
+  const providers = createFactoryProviders({ env: { HEYGEN_API_KEY: 'daily-secret', OPENAI_API_KEY: 'daily-secret', GEMINI_API_KEY: 'daily-secret', MONK_FACTORY_OPENAI_API_KEY: 'old-dedicated-secret', POSTIZ_API_KEY: 'daily-secret' }, fetchImpl: async () => { calls++; } });
   const state = providers.readiness();
   assert.equal(state.ready, false);
   assert.ok(state.missing.includes('MONK_FACTORY_HEYGEN_API_KEY'));
-  assert.ok(state.missing.includes('MONK_FACTORY_OPENAI_API_KEY'));
-  assert.ok(state.unverified.includes('openai_independent_billing'));
+  assert.ok(state.missing.includes('MONK_FACTORY_GEMINI_API_KEY'));
+  assert.ok(state.unverified.includes('gemini_independent_billing'));
   await assert.rejects(providers.createAvatarImage({ requestId }), { code: 'provider_not_ready', effect: 'none' });
   assert.equal(calls, 0);
   assert.ok(!JSON.stringify(state).includes('daily-secret'));
@@ -39,7 +39,7 @@ test('missing dedicated keys and unverified billing block submissions without us
 
 test('an operator billing flag without its evidence reference remains unverified', async () => {
   let calls = 0;
-  const providers = createFactoryProviders({ env: { ...env, MONK_FACTORY_OPENAI_BILLING_EVIDENCE_REF: '' }, fetchImpl: async () => { calls++; } });
+  const providers = createFactoryProviders({ env: { ...env, MONK_FACTORY_GEMINI_BILLING_EVIDENCE_REF: '' }, fetchImpl: async () => { calls++; } });
   assert.equal(providers.readiness().ready, false);
   await assert.rejects(providers.createAvatarImage({ requestId }), { code: 'provider_not_ready' });
   assert.equal(calls, 0);
@@ -51,17 +51,18 @@ test('one original JPEG uses the bounded text-to-image API and passes directly i
     calls.push(url);
     const body = JSON.parse(init.body);
     assert.equal(init.method, 'POST');
-    if (url === 'https://api.openai.com/v1/images/generations') {
-      assert.equal(init.headers.Authorization, 'Bearer factory-openai-secret');
+    if (url === 'https://generativelanguage.googleapis.com/v1beta/interactions') {
+      assert.equal(init.headers['x-goog-api-key'], 'factory-gemini-secret');
+      assert.equal(init.headers.Authorization, undefined);
       assert.equal(init.headers['Idempotency-Key'], undefined);
-      assert.equal(body.model, 'gpt-image-1-mini');
-      assert.equal(body.n, 1);
-      assert.equal(body.size, '1024x1536');
-      assert.equal(body.quality, 'high');
-      assert.equal(body.output_format, 'jpeg');
-      assert.ok(Buffer.byteLength(body.prompt) <= 1024);
-      assert.ok([...body.prompt].every((character) => character.charCodeAt(0) < 128));
-      return json({ created: 1780000000, data: [{ b64_json: imageBase64 }], usage: { input_tokens: 100, output_tokens: 6500, total_tokens: 6600 } }, 200, { 'x-request-id': 'req_image_1' });
+      assert.equal(body.model, 'gemini-3.1-flash-lite-image');
+      assert.deepEqual(body.response_format, { type: 'image', mime_type: 'image/jpeg', delivery: 'inline', aspect_ratio: '2:3', image_size: '1K' });
+      assert.deepEqual(body.generation_config, { max_output_tokens: 4096, thinking_level: 'minimal' });
+      assert.equal(body.store, false);
+      assert.equal(body.background, false);
+      assert.ok(Buffer.byteLength(body.input) <= 1024);
+      assert.ok([...body.input].every((character) => character.charCodeAt(0) < 128));
+      return json({ id: 'interaction_image_1', model: body.model, status: 'completed', steps: [{ type: 'thought', summary: [{ type: 'text', text: 'private thought' }] }, { type: 'model_output', content: [{ type: 'image', mime_type: 'image/jpeg', data: imageBase64 }] }], usage: { total_input_tokens: 100, total_output_tokens: 1120, total_thought_tokens: 50, total_tokens: 1270 } });
     }
     assert.equal(url, 'https://api.heygen.com/v3/avatars');
     assert.equal(init.headers['x-api-key'], 'factory-heygen-secret');
@@ -71,7 +72,10 @@ test('one original JPEG uses the bounded text-to-image API and passes directly i
     return json({ data: { avatar_item: { id: 'look_1', avatar_type: 'photo_avatar', status: 'processing' }, avatar_group: { id: 'group_1' } } });
   } });
   const image = await providers.createAvatarImage({ requestId });
-  assert.equal(image.id, 'req_image_1');
+  assert.equal(image.id, 'interaction_image_1');
+  assert.deepEqual(image.usage, { inputTokens: 100, outputTokens: 1120, thoughtTokens: 50, totalTokens: 1270 });
+  assert.equal(image.reservedUsd, 0.14);
+  assert.ok(!JSON.stringify(image).includes('private thought'));
   assert.equal(image.imageBase64, imageBase64);
   assert.equal(image.mediaType, 'image/jpeg');
   const avatar = await providers.createPhotoAvatar({ imageBase64: image.imageBase64, mediaType: image.mediaType, requestId });
@@ -86,13 +90,13 @@ test('image cancellation keeps the effect unknown and never resubmits or exposes
     calls++;
     assert.ok(init.signal);
     controller.abort();
-    throw new Error('factory-openai-secret private provider body');
+    throw new Error('factory-gemini-secret private provider body');
   } });
   await assert.rejects(providers.createAvatarImage({ requestId, signal: controller.signal }), (error) => {
     assert.equal(error.code, 'provider_effect_unknown');
     assert.equal(error.effect, 'unknown');
     assert.equal(error.retryable, false);
-    assert.ok(!JSON.stringify(error).includes('factory-openai-secret'));
+    assert.ok(!JSON.stringify(error).includes('factory-gemini-secret'));
     assert.ok(!error.message.includes('private provider body'));
     return true;
   });
@@ -144,21 +148,27 @@ test('the avatar readback must identify the requested photo look and its support
 test('a script is generated once from DB playbooks and returns only sources supplied by the server', async () => {
   const playbooks = [{ id: 'practice_1', mechanism: 'Open with a recognizable moment; offer one small action.', source_url: 'https://example.com/research' }];
   const providers = createFactoryProviders({ env, fetchImpl: async (url, init) => {
-    assert.equal(url, 'https://api.openai.com/v1/chat/completions');
+    assert.equal(url, 'https://generativelanguage.googleapis.com/v1beta/interactions');
+    assert.equal(init.headers['x-goog-api-key'], 'factory-gemini-secret');
     assert.equal(init.headers['Idempotency-Key'], undefined);
     const body = JSON.parse(init.body);
-    assert.equal(body.model, 'gpt-4o-mini-2024-07-18');
-    assert.equal(body.response_format.type, 'json_schema');
-    assert.equal(body.response_format.json_schema.strict, true);
-    assert.ok(body.messages.some((message) => message.content.includes('practice_1')));
-    assert.ok(body.messages.some((message) => message.content.includes('20')));
-    return json({ id: 'chatcmpl_1', choices: [{ finish_reason: 'stop', message: { role: 'assistant', content: JSON.stringify({ script: 'Before the next task, feel your feet on the floor and take one slow breath.', caption: 'One small pause. AI-generated fictional monk.', source_ids: ['practice_1'] }), refusal: null } }], usage: { prompt_tokens: 300, completion_tokens: 50, total_tokens: 350 } });
+    assert.equal(body.model, 'gemini-3.1-flash-lite');
+    assert.deepEqual(body.generation_config, { max_output_tokens: 1200 });
+    assert.equal(body.store, false);
+    assert.equal(body.background, false);
+    assert.equal(body.response_format.type, 'text');
+    assert.equal(body.response_format.mime_type, 'application/json');
+    assert.deepEqual(body.response_format.schema.required, ['script', 'caption', 'source_ids']);
+    assert.ok(body.input.includes('practice_1'));
+    assert.ok(body.input.includes('20'));
+    assert.ok(body.system_instruction.includes('untrusted research data'));
+    return json({ id: 'interaction_script_1', model: body.model, status: 'completed', steps: [{ type: 'thought', summary: [{ type: 'text', text: 'not a script' }] }, { type: 'model_output', content: [{ type: 'text', text: JSON.stringify({ script: 'Before the next task, feel your feet on the floor and take one slow breath.', caption: 'One small pause. AI-generated fictional monk.', source_ids: ['practice_1'] }) }] }], usage: { total_input_tokens: 300, total_output_tokens: 50, total_thought_tokens: 20, total_tokens: 370 } });
   } });
   const result = await providers.createScript({ playbooks, maxSeconds: 20, requestId });
-  assert.equal(result.id, 'chatcmpl_1');
+  assert.equal(result.id, 'interaction_script_1');
   assert.deepEqual(result.sourceIds, ['practice_1']);
-  assert.equal(result.usage.inputTokens, 300);
-  assert.ok(!JSON.stringify(result).includes('factory-openai-secret'));
+  assert.deepEqual(result.usage, { inputTokens: 300, outputTokens: 50, thoughtTokens: 20, totalTokens: 370 });
+  assert.ok(!JSON.stringify(result).includes('factory-gemini-secret'));
 });
 
 test('an unpriced script model and oversized source input cannot incur a script call', async () => {
@@ -324,4 +334,51 @@ test('metrics enforce official profile/post attribution and never fill missing o
   assert.equal(result.metrics.views, undefined);
   owner = 'another-user';
   await assert.rejects(providers.metrics({ userId, postId: 'ig_post_1' }), { code: 'provider_readback_invalid' });
+});
+
+
+test('incomplete, wrong-model and invalid Gemini image results retain an unknown effect without retry', async () => {
+  const valid = { id: 'interaction_image', model: 'gemini-3.1-flash-lite-image', status: 'completed', steps: [{ type: 'model_output', content: [{ type: 'image', mime_type: 'image/jpeg', data: imageBase64 }] }] };
+  const variants = [
+    { ...valid, status: 'incomplete', usage: { total_thought_tokens: 37, raw: 'private thought' } },
+    { ...valid, model: 'unpriced-model' },
+    { ...valid, id: undefined },
+    { ...valid, steps: [{ type: 'model_output', content: [{ type: 'image', mime_type: 'image/png', data: imageBase64 }] }] },
+    { ...valid, steps: [{ type: 'model_output', content: [{ type: 'image', mime_type: 'image/jpeg', data: 'not-base64' }] }] },
+    { ...valid, steps: [{ type: 'model_output', content: [...valid.steps[0].content, ...valid.steps[0].content] }] },
+    { ...valid, steps: [{ type: 'thought', content: valid.steps[0].content }] },
+  ];
+  for (const body of variants) {
+    let calls = 0;
+    const providers = createFactoryProviders({ env, fetchImpl: async () => { calls++; return json(body); } });
+    await assert.rejects(providers.createAvatarImage({ requestId }), error => {
+      assert.equal(error.code, 'provider_effect_unknown');
+      assert.equal(error.effect, 'unknown');
+      assert.equal(error.retryable, false);
+      assert.equal(error.providerReceiptId, body.id);
+      if (body.usage) assert.deepEqual(error.usage, { thoughtTokens: 37 });
+      assert.ok(!JSON.stringify(error).includes('private thought'));
+      return true;
+    });
+    assert.equal(calls, 1);
+  }
+});
+
+test('Gemini script truncation and invalid JSON/source/length never become usable scripts', async () => {
+  const output = { script: 'Take a pause.', caption: 'AI-generated fictional monk.', source_ids: ['p1'] };
+  const valid = { id: 'interaction_script', model: 'gemini-3.1-flash-lite', status: 'completed', steps: [{ type: 'model_output', content: [{ type: 'text', text: JSON.stringify(output) }] }] };
+  const text = value => ({ ...valid, steps: [{ type: 'model_output', content: [{ type: 'text', text: value }] }] });
+  for (const body of [
+    { ...valid, status: 'incomplete' }, { ...valid, model: 'unpriced-model' }, text('{'), text('null'),
+    text(JSON.stringify({ ...output, source_ids: ['invented'] })), text(JSON.stringify({ ...output, caption: 'x'.repeat(2201) })),
+    { ...valid, steps: [{ type: 'model_output', content: [...valid.steps[0].content, ...valid.steps[0].content] }] },
+  ]) {
+    let calls = 0;
+    const providers = createFactoryProviders({ env, fetchImpl: async () => { calls++; return json(body); } });
+    await assert.rejects(providers.createScript({ playbooks: [{ id: 'p1' }], maxSeconds: 20, requestId }), { code: 'provider_effect_unknown', effect: 'unknown', retryable: false });
+    assert.equal(calls, 1);
+  }
+  const providers = createFactoryProviders({ env, fetchImpl: async () => json({ ...valid, usage: { total_input_tokens: '300', total_output_tokens: -1, total_thought_tokens: 7 } }) });
+  const result = await providers.createScript({ playbooks: [{ id: 'p1' }], maxSeconds: 20, requestId });
+  assert.deepEqual(result.usage, { thoughtTokens: 7 });
 });
