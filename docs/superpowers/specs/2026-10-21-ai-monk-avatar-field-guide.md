@@ -86,6 +86,10 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 - 既存の4 X記事投稿を再送せず、新規告知投稿には公開済みの直接URLが含まれ、Postiz `PUBLISHED` とX permalinkを記録する。
 - 関連テスト、landing build、PR CI、main merge、Netlify production readbackが通る。
 
+## AI monk avatarの対象範囲
+
+Yang Mun型の写真に近いAI僧侶動画avatarへ集中する。水彩・絵画・イラスト中心の僧侶コンテンツは対象外。既存資料のKai TsukimiとBuddha Would Sayを公開検索から外し、研究archiveへ残す。未確認候補はAI生成や動画形式を認定せず、同じ基準で個別確認する。Web/CLI/MCPの掲載範囲をcanonical scopeで揃える。正本実行計画 → `docs/superpowers/plans/2026-10-23-ai-monk-avatar-scope.md`。
+
 ## Atomic TODO / 現在cursor
 
 | ID | 変更対象 | 依存 | DONE |
@@ -143,7 +147,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 **AM-13英語版の公開:** PR [#553](https://github.com/Daisuke134/anicca-products/pull/553)、main `6c21d91c08eb37ce3c47e2290606f58ccf361781`、exact-head landing CIとNetlify run `39809692295`がsuccess。販売ページ `https://aniccaai.com/the-art-of-ai-monks` はHTTP200、canonical・59ページ・10,874語・PDF/EPUB・$9.99・無料全文への案内を確認。fresh independent reviewは残存指摘0、関連35テストPASS。live Checkoutは公式Stripe GETでSKU/999 USD cents/one-time/本番mode/成功URLを確認し、未払いPDF/EPUBは共に403。検証sessionは未払いのまま失効を公式GET確認。原稿・出典・英語format・販売ページ・SKU・未払い保護までは公開済み。実購入・支払済み本番納品・注文・売上は未確認。根拠は `docs/evidence/ai-monk-book-{production,checkout-production,stripe-catalog}-20261023.json`。
 
-**現在cursor:** 公開UIはH1/metadata `AI Monk Database`、直接的コピー、検索と3/2/1列、75識別アイコンを備える。17原画像はPR567/main `043580c39809c5538dfc8226841aa5d8d1a57f8d`、CI39884893979・Netlify39885322268 success、本番HTTP200/hash/追加6decodeを確認。未取得58件は頭文字で、全顔画像の取得は未完。証拠 → `docs/evidence/ai-monk-profile-images-batch3-production-20261023.json`。Mobbin接続のQuo/Meetup/Square実画面も確認する。画像調査の並行正本 → `docs/superpowers/plans/2026-10-23-ai-monk-database-ui.md`。日本語書籍とremote MCP/v0.2.0の公開を確認する。現在は残58画像の出所確認を継続し、並行してChatGPT plugin portalのOpenAI passkey MFAを診断する。Googleの既存アカウント選択から本人確認画面へ進むが、identity/permission・提出/掲載は未確認。AM-14の旧HeyGen個別費用・残三fence・容量不足による日次配信保留も保持する。既存X告知・SKU・CLIを重複再作成せず、実購入/納品・factory復旧・OSS factory・subscription・多言語coverageを完了扱いにしない。
+**現在cursor:** Daisの明示指定により、現在はAI monk video avatarへのscope修正を優先する。水彩/イラストの既知2件をWeb/CLI/MCPから除き、画像PR571は候補archiveの画像証拠として保持する。計画 → `docs/superpowers/plans/2026-10-23-ai-monk-avatar-scope.md`。既存公開UIはH1/metadata `AI Monk Database`、直接的コピー、検索と3/2/1列、75識別アイコンを備える。17原画像はPR567/main `043580c39809c5538dfc8226841aa5d8d1a57f8d`、CI39884893979・Netlify39885322268 success、本番HTTP200/hash/追加6decodeを確認。未取得58件は頭文字で、全顔画像の取得は未完。証拠 → `docs/evidence/ai-monk-profile-images-batch3-production-20261023.json`。Mobbin接続のQuo/Meetup/Square実画面も確認する。画像調査の並行正本 → `docs/superpowers/plans/2026-10-23-ai-monk-database-ui.md`。日本語書籍とremote MCP/v0.2.0の公開を確認する。現在は残58画像の出所確認を継続し、並行してChatGPT plugin portalのOpenAI passkey MFAを診断する。Googleの既存アカウント選択から本人確認画面へ進むが、identity/permission・提出/掲載は未確認。AM-14の旧HeyGen個別費用・残三fence・容量不足による日次配信保留も保持する。既存X告知・SKU・CLIを重複再作成せず、実購入/納品・factory復旧・OSS factory・subscription・多言語coverageを完了扱いにしない。
 
 **AM-15データ利用口の公開:** `packages/ai-monk-index` は唯一の正本JSONとWeb検索helperをbuildで取り込み、`search/get/stats` CLIと3つのread-only stdio MCP toolsを提供する。PR [#558](https://github.com/Daisuke134/anicca-products/pull/558)、main `838e6bb7101a2ef647560eeb5a5ef0bbc19d950a`、Node20 package CIとlanding CI成功、fresh review指摘0。v0.1.0は[GitHub Release](https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.1.0)として公開する。23,806 bytesのtarballは公式asset digest・再取得hashが一致し、公開URLを使うnpm installから75 records/48 sourcesのCLI readbackを確認する。通常利用のネットワーク・API key・accountは不要。npm registry掲載、remote MCP/ChatGPT app、動画生成/投稿factoryのOSS化、subscriptionはこのreleaseの完了範囲に含めない。根拠 → `docs/evidence/ai-monk-cli-mcp-release-20261023.json`。
 
