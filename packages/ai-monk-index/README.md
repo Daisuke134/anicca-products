@@ -1,6 +1,6 @@
 # AI Monk Index — CLI and MCP
 
-Search the source-linked [AI Monk Index](https://aniccaai.com/ai-monk-database) from a terminal or an MCP client. Free and read-only. The local CLI and stdio server work offline after installation; the hosted HTTP endpoint requires an internet connection. No account or API key is required.
+Search the source-linked [AI Monk Database](https://aniccaai.com/ai-monk-database) from a terminal or an MCP client. Free and read-only. The local CLI and stdio server work offline after installation; the hosted HTTP endpoint requires an internet connection. No account or API key is required.
 
 This release contains the 2026-10-22 snapshot: **75 records, 48 sources, 9 researched profiles and 66 unverified discovery leads**. Four records have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
 

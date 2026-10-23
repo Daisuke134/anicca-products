@@ -41,3 +41,7 @@ HTTP未実装のREDを確認し、CLI/stdio/別directoryへのtarball導入とHT
 ## 再開cursor
 
 日本語版の本番readbackを終え、専用worktree `/Users/anicca/Projects/anicca-products-worktrees/ai-monk-remote-mcp-20261023` へ保存済みbranchを展開し、最新mainをmergeする。現在cursorは既存11 protocol/CLI/packテストの再確認、現行landingのbook/UI契約を保持したCI、source検証である。既存taskのRED→GREEN記録は維持し、同じ仕様の再実装や新しいtask frameworkは増やさない。現在のUI選択モデルを継承し、skill/referenceの固定model指示は適用しない。公開・pushはDaisの既存委任で実行し、skillの再承認要求を進行条件にしない。
+
+### 再開後のsource受入
+
+最新mainを取り込んだsourceでpackage全11testsを再実行しPASS（HTTP SDK client/旧protocol/Host・Origin・容量/method/CORS、CLI/stdio、別directoryでtarball導入）。実Netlify wrapperをimportしたinitializeも200、serverInfo ai-monk-index/0.2.0を確認する。現行の書籍・Reset/Letter・EN/JA SSR・DBの37関連契約もPASS。runtime依存は既存導入済みSDK server/client2.3.1とZod4.3.6を再利用し、full landing install/buildはCIで確認する。公開privacyの表示名をAI Monk Databaseへ揃える。現在cursorはPRのpackage/landing CIとfresh-context source検証。
