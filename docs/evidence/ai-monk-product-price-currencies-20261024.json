@@ -1,0 +1,395 @@
+{
+  "schema_version": "anicca.ai-monk-product-price-currencies.v1",
+  "run_id": "ai-monk-product-prices-v046-20261024",
+  "owner_id": "monk_product_price_followup",
+  "observed_at": "2026-10-23T20:56:28.039656+00:00",
+  "phase": "source_acceptance",
+  "source_branch": "feat/ai-monk-product-prices-v046-20261024",
+  "source_baseline_main_sha": "2cfc70e2c706ef7d697dbe30b47e319d4c28b3c1",
+  "branch_base_main_sha": "5ca8138d87e778904935621235d194423ead32fc",
+  "spec_commit_sha": "38f5a6de5f782dc0c37cf683a34b5c39b134f7d3",
+  "spec_path": "docs/superpowers/specs/2026-10-24-ai-monk-product-price-currencies.md",
+  "plan_path": "docs/superpowers/plans/2026-10-24-ai-monk-product-price-currencies.md",
+  "snapshot": {
+    "version": "0.4.6",
+    "before_sha256": "415571064885204388d191188490cc45bf6602aeef3e3fc47c1c3b35dff13a72",
+    "sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02",
+    "sources_before": 176,
+    "sources_after": 179,
+    "public_profiles": 73,
+    "archive_profiles": 75,
+    "archive_offer_rows": 69,
+    "public_offer_rows": 66,
+    "existing_source_objects_unchanged": true,
+    "non_target_accounts_unchanged": true,
+    "non_product_fields_of_target_accounts_unchanged": true,
+    "revenue_observations_unchanged": true
+  },
+  "observations": [
+    {
+      "observation_id": "price-followup-beravia-beetroot-20261024",
+      "existing_observation_id": null,
+      "account_ids": [
+        "ming-san"
+      ],
+      "name": "Beetroot Capsules",
+      "source_id": "product-price-followup-beravia-beetroot-20261024",
+      "url": "https://beraviahealth.com/products/beetroot.json",
+      "captured_at": "2026-10-23T20:34:35.473241+00:00",
+      "evidence_sha256": "a97097fa1c3d9ec7d2f72fd972c1a7bdf52dae267c8c540afff8a0b6d410b688",
+      "price": {
+        "amount": 29.99,
+        "currency": "USD",
+        "price_kind": "listed_one_time_offer",
+        "billing_kind": "one_time"
+      },
+      "presentment_price": null,
+      "field_evidence": {
+        "product.id": 10489854951697,
+        "product.title": "Beetroot Capsules",
+        "product.variants[0]": {
+          "id": 51739327430929,
+          "title": "Default Title",
+          "price": "29.99",
+          "price_currency": "USD",
+          "compare_at_price": "44.99",
+          "compare_at_price_currency": "USD"
+        }
+      }
+    },
+    {
+      "observation_id": "price-followup-ananta-remedios-20261024",
+      "existing_observation_id": "remaining-ananta-remedios",
+      "account_ids": [
+        "lead-instagram-tempiovita",
+        "lead-instagram-maestroananta"
+      ],
+      "name": "Remedios Olvidados — Maestro Ananta",
+      "source_id": "product-price-followup-ananta-remedios-20261024",
+      "url": "https://pay.hotmart.com/K104790777T",
+      "captured_at": "2026-10-23T20:35:20.653635+00:00",
+      "evidence_sha256": "baca0346db975db79efe752eee5f6f102861d4b0c5b8dfe403b54595e3aec648",
+      "price": {
+        "amount": 9.99,
+        "currency": "USD",
+        "price_kind": "base_offer_price",
+        "billing_kind": "one_time"
+      },
+      "presentment_price": {
+        "amount": 1654,
+        "currency": "JPY",
+        "price_kind": "JP_localized_anonymous_checkout_amount",
+        "country": "JP",
+        "locale": "ja_JP"
+      },
+      "field_evidence": {
+        "countryIsoCode": "JP",
+        "locale": "ja_JP",
+        "product": {
+          "id": 7339667,
+          "name": "Más de 1000 Remedios Olvidados - ¡La cura siempre ha estado cerca de ti!",
+          "type": "NORMAL",
+          "quantity": 1,
+          "exchange": [
+            {
+              "baseValue": 9.99,
+              "baseCurrency": "USD",
+              "rate": 156.811504,
+              "convertedValue": 1566.55,
+              "convertedCurrency": "JPY",
+              "reason": "CONVERT_TO_SHOPPERS_COUNTRY"
+            }
+          ],
+          "spreads": [
+            {
+              "fallbackResponse": false,
+              "currency": "JPY",
+              "spreadRate": 5.5
+            }
+          ]
+        },
+        "offer": {
+          "key": "z279p2c3",
+          "paymentMethods": [
+            {
+              "type": "PAYPAL",
+              "amount": {
+                "value": 1654,
+                "currency": "JPY",
+                "label": null
+              }
+            },
+            {
+              "type": "CREDIT_CARD",
+              "amount": {
+                "value": 1654,
+                "currency": "JPY",
+                "label": null
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "observation_id": "price-followup-ravi-duo-20261024",
+      "existing_observation_id": "remaining-ravi-duo",
+      "account_ids": [
+        "lead-instagram-oravishen"
+      ],
+      "name": "Monge Ravi two-ebook bundle",
+      "source_id": "product-price-followup-ravi-duo-20261024",
+      "url": "https://pay.hotmart.com/P105464053B?off=w7hjj3yf",
+      "captured_at": "2026-10-23T20:35:21.188460+00:00",
+      "evidence_sha256": "4eb0f7e354330b8673538b37c0e8e3044f6f8ebe4e75abaf021ff97e06d929e0",
+      "price": {
+        "amount": 60,
+        "currency": "BRL",
+        "price_kind": "base_offer_price",
+        "billing_kind": null
+      },
+      "presentment_price": {
+        "amount": 1992,
+        "currency": "JPY",
+        "price_kind": "JP_localized_anonymous_checkout_amount",
+        "country": "JP",
+        "locale": "ja_JP"
+      },
+      "field_evidence": {
+        "countryIsoCode": "JP",
+        "locale": "ja_JP",
+        "product": {
+          "id": 7592869,
+          "name": "Pacote O Caminho de Volta à Tranquilidade e Curando o Coração Ferido",
+          "type": "NORMAL",
+          "quantity": 1,
+          "exchange": [
+            {
+              "baseValue": 60,
+              "baseCurrency": "BRL",
+              "rate": 31.438986,
+              "convertedValue": 1886.34,
+              "convertedCurrency": "JPY",
+              "reason": "CONVERT_TO_SHOPPERS_COUNTRY"
+            }
+          ],
+          "spreads": [
+            {
+              "fallbackResponse": false,
+              "currency": "JPY",
+              "spreadRate": 5.5
+            }
+          ]
+        },
+        "offer": {
+          "key": "w7hjj3yf",
+          "paymentMethods": [
+            {
+              "type": "PAYPAL",
+              "amount": {
+                "value": 1992,
+                "currency": "JPY",
+                "label": null
+              }
+            },
+            {
+              "type": "CREDIT_CARD",
+              "amount": {
+                "value": 1992,
+                "currency": "JPY",
+                "label": null
+              }
+            },
+            {
+              "type": "MULTIPLE_CARDS",
+              "amount": {
+                "value": 1992,
+                "currency": "JPY",
+                "label": null
+              }
+            }
+          ],
+          "maxInstallments": 1
+        }
+      }
+    }
+  ],
+  "unknowns_retained": {
+    "kael": {
+      "account_id": "lead-instagram-kael-wisdom",
+      "observation_id": "remaining-kael-thirty-nights",
+      "price": 27,
+      "currency": null,
+      "price_kind": "listed_offer",
+      "attempted_official_urls": [
+        "https://linktr.ee/masterkaelwellness",
+        "https://whop.com/checkout/plan_mBr00B5qTDqH9",
+        "https://whop.com/core/images/checkout/plan_mBr00B5qTDqH9"
+      ],
+      "boundary": "Linktree $27 only; checkout GET200 is a JavaScript shell and crwl yields 2 bytes; public OG confirms the 30-night/six-audio product without price/currency. Public session API exposes checkoutSessions.create for checkout state; no manual create/update/confirm call is made. DDG HTML queries return HTTP202 human-verification. Other sponsor USD values are unrelated. The canonical Kael account remains unchanged."
+    },
+    "ravi_billing_kind": null,
+    "orders_revenue_commissions_efficacy_authorship_and_legal_ownership": "not_established"
+  },
+  "validation": {
+    "source_acceptance": {
+      "phase": "PASS",
+      "errors": [],
+      "archive": 75,
+      "public": 73,
+      "sources": 179,
+      "source_references": 637,
+      "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02"
+    },
+    "red": {
+      "source_acceptance_exit": 1,
+      "reason": "Three price/currency systems and new sources not yet integrated",
+      "web_existing_test_failures": 1,
+      "web_reason": "Base price label absent in existing rendered business card"
+    },
+    "package": {
+      "command": "rtk npm test",
+      "cwd": "packages/ai-monk-index",
+      "exit_code": 0,
+      "tests_passed": 15,
+      "isolated_tarball_install_included": true
+    },
+    "landing_contracts": {
+      "command": "rtk proxy node --test test/ai-monk-evidence-rendering.test.mjs lib/ai-monk-directory.test.mjs",
+      "cwd": "apps/landing",
+      "exit_code": 0,
+      "tests_passed": 13,
+      "shared_helper_tests": 9,
+      "rendering_tests": 4
+    },
+    "landing_build": {
+      "command": [
+        "rtk",
+        "proxy",
+        "env",
+        "DASHBOARD_SNAPSHOT_URL=http://127.0.0.1:9",
+        "npm",
+        "run",
+        "build"
+      ],
+      "started_at": "2026-10-23T20:52:26.715831+00:00",
+      "observed_at": "2026-10-23T20:54:04.899086+00:00",
+      "exit_code": 0,
+      "stdout_sha256": "20ca6e4d38657ac9c98259612e5db8504be26916bd9591d45f0ac266fedcfe14",
+      "stderr_sha256": "df673768f5384aeac89f40af850029a2491f389be8a7edcb530c4f243bc98f84",
+      "stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-price-followup-20261024/v046-landing-build.stdout",
+      "stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-price-followup-20261024/v046-landing-build.stderr",
+      "initial_failure": {
+        "exit_code": 1,
+        "error_class": "missing_ignored_canonical_marketing_stage",
+        "missing_file": "apps/landing/public/assets/manager-site/published-apps.json",
+        "affected_paths": [
+          "/blog",
+          "/dailydharma",
+          "/sleepreset",
+          "/studio-cherie",
+          "/thankful"
+        ],
+        "resolution": "Use the existing Landing CI pinned publish-overlay --stage preparation; 7 files verified, then rerun the same build with CI dashboard URL. No source/dependency change for this failure."
+      },
+      "canonical_stage_revision": "bd8cc9703ac513bbdded7639cc51f7dacb4df29f",
+      "stage_script_sha256": "ea2a20b9326138052409b18ef303d90f33575537f86807b8553f9c365e794a42",
+      "existing_warnings": [
+        "wallet optional @react-native-async-storage/async-storage resolution",
+        "wallet optional pino-pretty resolution",
+        "ambiguous Tailwind ease utility"
+      ],
+      "types_and_lint": "skipped by existing Next build configuration"
+    },
+    "web_export": {
+      "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02",
+      "exported_json_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02",
+      "html_sha256": "779e0de4286f1af8bbb60bdc1bbec5cb56f418204a225529a1f074a24141f273",
+      "rendered_profiles": 73,
+      "rendered_sources": 179,
+      "target_base_price_labels_match": true,
+      "JP_amount_not_substituted_as_base": true
+    },
+    "stdio": {
+      "observed_at": "2026-10-23T20:55:39.636Z",
+      "phase": "PASS",
+      "server": {
+        "name": "ai-monk-index",
+        "version": "0.4.6"
+      },
+      "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02",
+      "records": 73,
+      "archive": 75,
+      "sources": 179,
+      "stdio_tools": [
+        {
+          "tool": "search_ai_monks",
+          "passed": true,
+          "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02"
+        },
+        {
+          "tool": "get_ai_monk",
+          "passed": true,
+          "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02"
+        },
+        {
+          "tool": "ai_monk_index_stats",
+          "passed": true,
+          "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02"
+        },
+        {
+          "tool": "top_formats",
+          "passed": true,
+          "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02"
+        },
+        {
+          "tool": "how_they_monetize",
+          "passed": true,
+          "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02"
+        },
+        {
+          "tool": "winning_playbooks",
+          "passed": true,
+          "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02"
+        }
+      ],
+      "all_target_get_records_match_canonical": true,
+      "kael_currency_unknown_preserved": true
+    },
+    "snapshot_copies_equal": [
+      "canonical",
+      "package dist",
+      "staged Netlify function",
+      "Web export"
+    ],
+    "probe_corrections": [
+      "Initial stdio probe expected metadata.package_version, which is not an existing API field; corrected the probe to SDK serverInfo.version without production change.",
+      "Initial export probe assumed a strong-tag source counter; corrected it to read the actual archive/source summary and remove React HTML comments without production change."
+    ]
+  },
+  "effects": {
+    "credential_reads": 0,
+    "shared_browser_operations": 0,
+    "personal_data_entries": 0,
+    "applications": 0,
+    "purchases": 0,
+    "outbound_messages": 0,
+    "external_publish": 0,
+    "additional_dependencies": 0,
+    "factory_source_changes": 0,
+    "plugin_package_changes": 0
+  },
+  "remaining_primary_work": [
+    "Fresh read-only source/provenance review",
+    "Exact-head CI and PR/main integration",
+    "Create a new immutable main-derived ai-monk-index-v0.4.6 Release without modifying v0.4.5",
+    "Publish server.json 0.4.6 via the existing main-only OIDC Registry workflow",
+    "Read back official release asset/digest/public URL install, Web JSON/HTML, remote MCP and stdio snapshot identity"
+  ],
+  "claim_limits": [
+    "This receipt proves source/build/stdio acceptance; it does not prove v0.4.6 production publication.",
+    "Listed or base prices, localized checkout displays and seller reference prices are not purchases, orders, revenue or efficacy evidence."
+  ],
+  "latest_main_observed_before_commit": "6141c5dbcf69f3b7ae11fa63e6609039f9799375",
+  "unrelated_main_delta_preserved": "apps/landing/data/research/tiktok-script-for-etsy-shop.json; no overlap with this source unit; primary merges against latest main"
+}

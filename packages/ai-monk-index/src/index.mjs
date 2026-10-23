@@ -108,7 +108,7 @@ export function getMonetization(options = {}) {
     .map(a => ({ account_id: a.id, display_name: a.display_name, ai_status: a.ai_status, directory_scope: a.directory_scope, offers: a.offers ?? [], seller_counters: a.seller_counters ?? [], creator_claims: a.creator_claims ?? [], revenue_observations: a.revenue_observations ?? [] }));
   const offerTypes = {};
   for (const a of accounts) for (const o of a.offers) offerTypes[o.type] = (offerTypes[o.type] ?? 0) + 1;
-  return { metadata, note: 'Prices are displayed prices, not orders. Creator claims and seller counters are unaudited and are kept separate.', offer_type_counts: offerTypes, accounts, sources: sourcesFor(accounts.map(x => directoryAccounts.find(a => a.id === x.account_id))) };
+  return { metadata, note: 'Listed and base-offer prices are public observations, not orders. Localized checkout amounts are stored separately as presentment_price. Creator claims and seller counters are unaudited and are kept separate.', offer_type_counts: offerTypes, accounts, sources: sourcesFor(accounts.map(x => directoryAccounts.find(a => a.id === x.account_id))) };
 }
 
 /** Creator-published playbooks (script formula, hooks, cadence, funnel, monetization), source-linked and unaudited. */

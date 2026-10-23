@@ -61,7 +61,7 @@ test('business cards show views, products and reported revenue without an AI-sta
     accounts: [{ id: 'business', display_name: 'Business Monk', persona_type: 'Monk avatar', ai_status: 'reported', directory_scope: { status: 'included', source_ids: ['fixture-evidence'] },
       ai_evidence: [{ source_id: 'report', summary: 'AI production evidence' }], unknowns: ['AI origin unknown'],
       creative_samples: [{ url: 'https://www.youtube.com/shorts/a', title: 'Sample', structure_summary: 'Original', views: 1234567, views_captured_at: '2026-10-22' }],
-      offers: [{ type: 'unknown product', as_of: '2025-01-01' }, { type: 'old product', as_of: '2025-02-01' }, { type: 'eBook', name: 'Original guide', price: 49.99, currency: 'USD', as_of: '2026-10-23', url: 'https://example.test/product' }],
+      offers: [{ type: 'unknown product', as_of: '2025-01-01' }, { type: 'old product', as_of: '2025-02-01' }, { type: 'eBook', name: 'Original guide', price: 49.99, currency: 'USD', as_of: '2026-10-23', url: 'https://example.test/product' }, { type: 'digital_bundle', name: 'Base-priced bundle', price: 60, currency: 'BRL', price_kind: 'base_offer_price', presentment_price: { amount: 1992, currency: 'JPY', country: 'JP' }, as_of: '2026-10-24' }],
       revenue_observations: [{ metric: 'gross_revenue', amount: 213000, currency: 'USD', period_months: 3, as_of: '2026-01-28', comparison: 'greater_than', source_id: 'report', status: 'creator_reported' }],
     }, { id: 'unknown', display_name: 'Unknown Monk', persona_type: 'Monk avatar', ai_status: 'unverified', directory_scope: { status: 'included', source_ids: ['fixture-evidence'] } }],
     sourceCount: 1, updatedAt: '2026-10-22', sources: [{ id: 'report', title: 'Reported dashboard claim', url: 'https://example.test/revenue-report' }],
@@ -78,6 +78,9 @@ test('business cards show views, products and reported revenue without an AI-sta
   assert.match(html, /49.99/);
   assert.match(html, /Observed 2026-10-23/);
   assert.match(html.split('<details')[0], /Original guide/);
+  assert.match(html.split('<details')[0], /Base price · 60\.00 BRL/);
+  assert.match(html.split('<details')[1], /Base price · 60\.00 BRL/);
+  assert.doesNotMatch(html, /1992(?:\.00)? BRL/);
   assert.match(html, /Revenue not available/);
   assert.match(html, /value="views"/);
   assert.match(html, /value="revenue"/);

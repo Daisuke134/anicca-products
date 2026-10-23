@@ -18,7 +18,7 @@ source受入は新規3資料と既存source参照、価格の種類、base/prese
 
 ## 入力・所有
 
-private観測正本: `/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-price-followup-20261024/observations.json`。directory700/file600、元body hashを照合する。専用worktree `/Users/anicca/Projects/anicca-products-worktrees/ai-monk-product-prices-v046-20261024`、branch `feat/ai-monk-product-prices-v046-20261024`、base main `2cfc70e2c706ef7d697dbe30b47e319d4c28b3c1`。
+private観測正本: `/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-product-price-followup-20261024/observations.json`。directory700/file600、元body hashを照合する。専用worktree `/Users/anicca/Projects/anicca-products-worktrees/ai-monk-product-prices-v046-20261024`、branch `feat/ai-monk-product-prices-v046-20261024`、base main `5ca8138d87e778904935621235d194423ead32fc`。公開済みv0.4.5の比較baselineはmain `2cfc70e2c706ef7d697dbe30b47e319d4c28b3c1`の同一canonical JSONである。
 
 変更はcanonical JSON、ai-monk-index v0.4.6 metadata/README、base価格の既存Web表示と型/既存test、今回のspec/plan/evidence、全体planのDB-1状態に限る。Factory source、Plugin0.1.2、credential/browser、本番、外部publishは触らない。他者の変更をrevertしない。追加依存・新しい価格framework・恒久的データmirroring testを作らない。
 
