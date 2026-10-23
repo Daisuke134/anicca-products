@@ -31,7 +31,7 @@ Files: _lib/monk-factory-providers.js、_lib/monk-factory-jobs.js、monk-factory
 Interfaces: jobはuser_id/occurrence/stage/provider_id/next_run_at/lease/cost/evidenceを持つ。provider submitはIDを返し、pollで公式状態へ進める。
 - [ ] 独立billing sourceと必要設定の事前確認、clientへのsecret非露出、同じoccurrence/effect不明の再送0を最小REDで確認する。
 - [x] avatar画像→PhotoAvatar、Database由来の独自script→speech duration確認→縦動画、本人profile Connect→official GET、IG投稿→公式post URL/metricsを実装する。
-- [ ] tickの時間/件数とserver予算、stop/cancel、opaque account帰属/容量、provider failed/unknownを検証しcommit/pushする。
+- [x] tickの時間/件数とserver予算、stop/cancel、opaque account帰属/容量、provider failed/unknownを検証しcommit/pushする。
 
 ## Task 3: 同じURLの実Webと公開
 Files: apps/landing/app/ai-monk-factory/page.tsxとclient、scripts/stage-ai-monk-factory.mjs/関連test、Database/support links、functions config/関連CI、Factory privacy/terms。
@@ -43,6 +43,6 @@ Files: apps/landing/app/ai-monk-factory/page.tsxとclient、scripts/stage-ai-mon
 ## 現在cursor
 Task2のjob/APIとTask3画面を統合する。primaryのcore47件＋client5件がGREEN、独立Unix socket Postgres20件がGREEN。unknown保持/並列lease/POST前fence/保存応答消失/重複背景/OFF・取消競合/実adapterを使う制作→投稿→帰属metricsを隔離fixtureで確認する。Factory対象TypeScriptは診断0、既存CIと同じ固定版共通asset配置後の実buildは651ページでPASS。desktop1440/mobile390のローカル表示は横溢れ0、実media未生成の空状態を確認する。全体tscには既存dashboard/income/lmの6診断がある。
 
-fresh read-only reviewは6b9e0b55でhold。Stripe SDKだけが25秒signal外で34.8秒まで延びる反証と、解約portal欠落でもready=trueとなる反証を受け入れる。最小REDを先に確認し、既存Stripe SDKのfetch transportをtickの共通25秒signalへ結び、Price/portal/webhook/live-mode不足はAPIとscheduledの両方で新規実行0にする。状態取得障害時も停止ボタンを表示する。修正後のfocused検証52件はPASS、差分の独立再確認とCI/main統合が次のcursor。
+fresh read-only reviewは6b9e0b55でhold。Stripe SDKだけが25秒signal外で34.8秒まで延びる反証と、解約portal欠落でもready=trueとなる反証を受け入れる。最小REDを先に確認し、既存Stripe SDKのfetch transportをtickの共通25秒signalへ結び、Price/portal/webhook/live-mode不足はAPIとscheduledの両方で新規実行0にする。状態取得障害時も停止ボタンを表示する。修正後のprimary focused検証52件はPASS、独立再確認は既存商品隔離1件を含む53件PASSでsource ship（fdab2f2a）。実handler→実Stripe SDKの共通deadline中断を確認する。receipt → ../../evidence/ai-monk-factory-release-review-20261024.json。PR626の初回CIはDB19/20で失敗し、fresh checkoutでは未生成のDatabase moduleを台本がimportすることを確認する。テスト前に既存package build --netlifyを実行し、前提不足を明示する診断を追加する。CI/main統合が次のcursor。
 
 Factory専用provider/支払元の実確認を進める。既存Grok用wallet/key/Postiz・日次loopを使わない。本番DB migration・SaaS公開受入・Stripe価格公開・実生成・投稿・売上は未完。設定未完の間はcheckoutと新規生成を無効のまま保持する。独立課金元と本人IGが揃ってから実providerの結果を区別して確認する。

@@ -40,7 +40,9 @@ jobs:
 
       - name: AI monk factory atomic database contracts
         working-directory: .
-        run: node scripts/test-ai-monk-factory-db.mjs
+        run: |
+          node packages/ai-monk-index/scripts/build.mjs --netlify
+          node scripts/test-ai-monk-factory-db.mjs
 
       - name: Book checkout and delivery contracts
         run: node --test netlify/functions/__tests__/ai-monk-book.test.js netlify/functions/__tests__/ebook-download.test.js netlify/functions/_lib/__tests__/ebook-checkout.test.js test/ai-monk-book-page.test.mjs
