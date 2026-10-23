@@ -63,7 +63,8 @@ function ProfileAvatar({ account, src }: { account: AiMonkAccount; src?: string 
 }
 
 function ProfileCard({ account, sourceById, imageSrc, selectedPlatform }: { account: AiMonkAccount; sourceById: Record<string, EvidenceSource>; imageSrc?: string; selectedPlatform: string }) {
-  const languages = account.languages?.map(({ label }) => label) ?? [];
+  const languages = account.languages?.map(({ label, basis }) => /\bbio\b/i.test(basis ?? '')
+    ? `${label} (profile bio; spoken language not audited)` : label) ?? [];
   const snapshots = (account.platforms ?? []).flatMap((platform) =>
     (platform.snapshots ?? []).map((snapshot) => ({ ...snapshot, platform: platform.platform }))
   );

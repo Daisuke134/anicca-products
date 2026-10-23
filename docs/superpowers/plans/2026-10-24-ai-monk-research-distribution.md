@@ -49,3 +49,5 @@ Netlify AI Gatewayは現accountの公式GETで利用不可を確認する。team
 所有はprimaryがmaster/source/公開受入、read-only workerが2profileのprivate調査証拠とする。repo/worktreeの他者編集を上書きせず、保護storeを削除・移動しない。限定unitの完了を全世界の全件把握、正式カタログ承認、Factory稼働、売上達成へ換算しない。
 
 SifuChenの取得結果ではnative URL/canonical/@handleが一致し、本人bioのAI自己表示、丸め表示834K followers、プロフィール画像を確認する。ai_status=reported/directory_scope=pendingを維持し、動画形式・creator・商品現況・監査済み売上へ拡張しない。bioのSpanishと投稿音声言語を区別する。この1profileと画像出典を更新し、他74recordsと旧180sourcesは保持した181source snapshotをv0.4.8のWeb/CLI/MCP/Registryへ反映する。Kaizen oEmbedは汎用応答のためcanonical sourceを増やさない。画像は既存Maldita screenshotからnative avatarの元bytesへ切替え、公開画像件数は増加させない。root/master/README/manifestの現在版だけを揃え、旧Release/証拠は保持する。
+
+独立source reviewでbio限定言語の根拠がWeb表示から落ちることを確認する。bioを根拠とする言語はカード上に「profile bio; spoken language not audited」を表示し、言語filterのlabelは維持する。focused render回帰で実assertionのRED→GREENを確認し、修正headのCIを受入する。

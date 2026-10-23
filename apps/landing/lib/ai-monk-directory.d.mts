@@ -1,6 +1,7 @@
 export type AiMonkLanguage = {
   label: string;
   source_ids?: string[];
+  basis?: string;
 };
 
 export type AiMonkPlatform = {

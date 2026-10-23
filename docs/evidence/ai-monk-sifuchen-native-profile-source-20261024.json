@@ -193,7 +193,7 @@
     "Web_dependency_install_and_related_tests": {
       "status": "PASS",
       "dependency_install": "primary completed npm ci with existing lockfile before the actual assertion RED/GREEN",
-      "related_test_passed": 14,
+      "related_test_passed": 15,
       "whole_landing_build_or_all_page_suite_claimed": false
     },
     "primary_focused_source_acceptance": {
@@ -213,7 +213,32 @@
         "bytes": 541
       }
     },
-    "independent_review_CI_main_and_public_readback": "pending_primary"
+    "independent_review_CI_main_and_public_readback": "Independent source review found one bio language display issue; one focused fix pass passes 15 tests. Final-head CI/main/publication pending.",
+    "bio_language_display_regression": {
+      "status": "RED_TO_GREEN",
+      "reviewed_head": "38e5917bad66868c4db1f3a765fcc98a2b777bc7",
+      "review_initial_blocking": 1,
+      "review_evidence": {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-sifuchen-native-profile-20261024/independent-source-review.json",
+        "sha256": "78a37431efbcec6d008e0e3147518aff2dbbe21b5da8da289344f5835b45818e",
+        "bytes": 7283
+      },
+      "RED": {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-sifuchen-native-profile-20261024/language-bio-red.json",
+        "sha256": "26d2573ec5141ec83e7b1566fa644334621eef9d8012c781963e6a05083488f8",
+        "bytes": 531
+      },
+      "GREEN": {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-sifuchen-native-profile-20261024/landing-contract-tests-final-green.json",
+        "sha256": "82b4016219231ced119932195508af1a2fcd36a40b1bdf132fb6e92dc456951c",
+        "bytes": 621
+      },
+      "fix": "Card qualifies bio-sourced languages as profile bio; spoken language not audited. Filter labels unchanged.",
+      "passed": 15,
+      "failed": 0,
+      "fix_passes": 1,
+      "fresh_review_after_fix_claimed": false
+    }
   },
   "effect": {
     "primary_profile_rows_changed": 1,
@@ -262,9 +287,24 @@
       "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-sifuchen-native-profile-20261024/source-acceptance.json",
       "sha256": "d5b908267b000eb8bb36e256c17fc171e042c8179edcc1ac950ba7beff0f5b00",
       "bytes": 541
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-sifuchen-native-profile-20261024/independent-source-review.json",
+      "sha256": "78a37431efbcec6d008e0e3147518aff2dbbe21b5da8da289344f5835b45818e",
+      "bytes": 7283
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-sifuchen-native-profile-20261024/language-bio-red.json",
+      "sha256": "26d2573ec5141ec83e7b1566fa644334621eef9d8012c781963e6a05083488f8",
+      "bytes": 531
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-sifuchen-native-profile-20261024/landing-contract-tests-final-green.json",
+      "sha256": "82b4016219231ced119932195508af1a2fcd36a40b1bdf132fb6e92dc456951c",
+      "bytes": 621
     }
   ],
   "error_class": null,
   "retryable": false,
-  "next_action": "Primary owns whole-change commit/push, independent review/CI/main and immutable v0.4.8 publication/readback. Focused source acceptance, package15 and focused Web14 pass; public v0.4.8 release is not yet accepted."
+  "next_action": "Primary owns final-head CI, admin merge and fixed main v0.4.8 publication/readback; initial review issue has focused RED-to-GREEN coverage."
 }
