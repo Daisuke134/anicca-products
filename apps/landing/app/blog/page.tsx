@@ -5,6 +5,7 @@ import { BUSINESSES } from '../../lib/blog-business.mjs';
 import { businessOf, editorialOf } from '../../lib/blog-business.mjs';
 import {loadAllBlogPosts} from '../../lib/blog-posts';
 import {MediaNav,MediaFooter,ArticleList} from '../../components/blog/OwnedMedia';
+import {AppDiscovery} from '../../components/blog/OwnedMedia';
 export const metadata={title:'Articles | Anicca',description:'Explore research, product guides, publishing and the work behind Anicca by topic.',alternates:{canonical:'https://aniccaai.com/blog'}};
 // Preserve the canonical Manager overlay's category-link integration point.
 function TopicLink({topic,children}:{topic:string;children:ReactNode}){
@@ -27,5 +28,6 @@ export default function BlogIndex(){
  {groups.map(([label,keys])=>{const entries=topics.filter(topic=>keys.some(key=>key===topic.key));return entries.length>0&&<section key={label}><h2>{label}</h2><div className="topic-directory">{entries.map(topic=><article key={topic.key} data-topic={topic.key}><h3><TopicLink topic={topic.key}>{topic.label}</TopicLink></h3><p>{topic.intro}</p>{topic.key==='research'&&<p><Link href="/blog/manager">Manager research collection</Link></p>}<ul>{topic.articles.map(p=><li key={p.slug} data-article-preview={p.slug}><Link href={`/blog/${p.slug}`}>{p.title}</Link><time dateTime={p.date}>{p.date}</time></li>)}</ul><span className="topic-browse"><TopicLink topic={topic.key}>Browse {topic.label}</TopicLink></span></article>)}</div></section>})}
  <section aria-labelledby="latest-heading"><h2 id="latest-heading">Latest articles</h2><ArticleList posts={posts}/><Link href="/blog/archive/1">All articles</Link></section>
  <section aria-label="Elsewhere"><h2>Elsewhere</h2><p>Follow Anicca through our other channels.</p><div className="media-actions"><a href="https://x.com/selawmqt">X updates</a><a href="https://aniccaai.substack.com">Substack</a><Link href="/letter">Anicca Letter</Link></div></section>
+ <AppDiscovery/>
  <MediaFooter/></div></main>;
 }
