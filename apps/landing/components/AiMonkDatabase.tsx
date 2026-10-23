@@ -25,7 +25,7 @@ const ARTICLE_LINKS = [
 type MetricSort = 'audience' | 'views' | 'revenue' | 'directory';
 
 type FilterField = keyof AiMonkDirectoryFilters;
-type EvidenceSource = { id: string; title: string; url?: string | null };
+type EvidenceSource = { id: string; title: string; url?: string | null; checked_at?: string; published_at?: string | null };
 
 function unique(values: string[]) {
   return [...new Set(values.filter(Boolean))].sort((a, b) => a.localeCompare(b));
@@ -121,6 +121,7 @@ function ProfileCard({ account, sourceById, imageSrc, selectedPlatform }: { acco
         {products.length ? <ul className="mt-2 space-y-1.5 text-sm text-stone-800">{products.slice(0, 2).map((offer, index) => <li key={index}>
           {offer.url ? <a href={offer.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{offer.name ?? offer.type}</a> : offer.name ?? offer.type}
           {typeof offer.price === 'number' && <span className="text-stone-500"> · {offer.currency === 'USD' ? '$' : ''}{offer.price.toFixed(2)}{offer.currency && offer.currency !== 'USD' ? ` ${offer.currency}` : ''}</span>}
+          <span className="mt-1 block text-xs text-stone-500">{offer.as_of ? 'Observed' : 'Source'} {offer.as_of ?? sourceById[offer.source_id ?? '']?.published_at ?? sourceById[offer.source_id ?? '']?.checked_at ?? 'date unknown'}</span>
         </li>)}</ul> : <p className="mt-2 text-sm text-stone-500">No product recorded</p>}
       </div>
       <div className="mt-4 flex flex-wrap gap-x-3 gap-y-2">

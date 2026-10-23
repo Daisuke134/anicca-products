@@ -50,5 +50,7 @@ PR572の最終head `bb7c9913fea918432117fe19e01869dd1e2efe5f`はpackage CI398908
 
 対象は同じAI monk avatarのpublic followers/subscribers・sampled video views・商品/価格/導線・根拠のある売上申告。人気と商品導線のある対象から進め、source identity・観測日・期間・丸めを保持する。unknownを0にせず、異なる期間/通貨/利益を売上へ変換しない。取得不能なら未取得理由を記録して独立したsourceへ進む。既存のrepo source acceptance/CI/mainと公開readbackを使う。所有者とleaseが競合するeffectを重ねない。自然な初回の定期実行は未来のため、設定作成・今回の手動収集と区別する。
 
-- [ ] 毎朝9時のthread heartbeatを作成しprovider設定をreadback。
+- [x] 毎朝9時のthread heartbeat `ai-monk-database`をACTIVEで作成し、provider viewと永続設定のkind/status/schedule/current thread一致をreadback。初回定期実行は未到来。
 - [ ] 初回定期runで日付付き更新または具体的未取得理由と公開状態を確認。
+
+商品cardも観測日、またはsourceの公開/確認日を表示し、過去の価格を現在の在庫・価格と混同しない。表示のRED1件→関連12テストPASS。既存決済や売上計算のcontractは変更しない。
