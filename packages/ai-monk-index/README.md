@@ -2,7 +2,7 @@
 
 Search the source-linked [AI Monk Database](https://aniccaai.com/ai-monk-database) from a terminal or an MCP client. Free and read-only. The local CLI and stdio server work offline after installation; the hosted HTTP endpoint requires an internet connection. No account or API key is required.
 
-This release uses the 2026-10-23 research observations: **73 monk profiles, including 4 evidence-reviewed video personas and 69 pending research candidates, with 57 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. The four evidence-reviewed personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
+This release uses the current dated research snapshot: **73 monk profiles, including 4 evidence-reviewed video personas and 69 pending research candidates**, with **176 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. The four evidence-reviewed personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
 
 ## Business metrics
 
@@ -14,12 +14,14 @@ Search with `--sort audience`, `--sort views`, or `--sort revenue`. The same sor
 
 Yang Mun currently has the only structured revenue observation: an industry profile reports the creator's dashboard claim of more than $213,000 gross revenue over three months. Exact period dates and audited orders are unavailable; the reported date is not a claim about present revenue. Original conflicting financial statements stay in the research record.
 
+v0.4.5 adds 33 distinct product observations across 35 account-offer rows. The 28 discovery routes include two shared-product routes and two reuses of earlier storefront captures; a potentially shared 30-Day Healing Journey is excluded from the new-product count. Of 26 observations with a numeric displayed price, 22 have an explicit currency and 4 retain an unknown currency; 7 product prices remain unknown. Free/PWYW minima, reference prices, subscription/format variants and availability stay separate from orders and revenue. Reviews, Telegram subscribers and recipe counts are public counters, not paid-order evidence.
+
 ## Install
 
 Requires Node.js 20.19 or later. The package is distributed as a public GitHub Release tarball; it is not listed on npm.
 
 ```sh
-npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.4/anicca-ai-monk-index-0.4.4.tgz
+npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.5/anicca-ai-monk-index-0.4.5.tgz
 ```
 
 ## CLI

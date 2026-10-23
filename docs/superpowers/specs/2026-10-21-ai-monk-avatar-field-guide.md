@@ -8,7 +8,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 - Yang Mun単独記事とAI僧侶フィールドガイドは英語・日本語の計4本が公開済み。公開URLは維持する。
 - 4本の記事は証拠を整理している一方、導入と見出しが調査報告書寄りで、読者を引き込む物語・ユーモア・読み進める理由が弱い。
-- `apps/landing/public/data/ai-monk-avatar-database-2026.json` のarchiveは75レコードと139出典。公開Web/CLI/stdio/remote MCPはincluded4件とpending69件の計73件で、公開画像は71件。CLIはv0.4.4。excluded2件とscope欠落は掲載しない。
+- `apps/landing/public/data/ai-monk-avatar-database-2026.json` の正本archiveは75レコードと176出典。公開受入済みのv0.4.4 snapshotは139出典で、Web/CLI/stdio/remote MCPはincluded4件とpending69件の計73件、公開画像は71件。今回のv0.4.5 sourceは公開反映をprimaryへ引き渡す。excluded2件とscope欠落は掲載しない。
 - Yang MunのAI生成状態は、HeyGenとColumbiaの説明に対し、Columbiaがリンクする本人側ページが「本人は実在し、声だけAI翻訳」と主張している。現時点では食い違いを解消できない。
 - 追加提供されたInstagram画面には100〜102件のフォロー中表示と複数の僧侶風アカウント名が写っている。リスト全体でもAI生成状態でもなく、個別確認用の候補発見材料。
 - `/monk` は既存eBook販売ページなので使用しない。
@@ -240,3 +240,5 @@ Databaseの今回範囲は、保存済み公開一次資料の28 discovery入口
 重複する2入口は同一`observation_id`の商品へ帰属させ、accountごとの関連行とdistinct商品数を区別する。先行crawl再利用2入口は取得時刻と既存sourceを保持し、先行20商品へ追加していない商品だけを採用する。既存商品と同一の可能性があるYon Chenの30-Day Healing Journeyは新商品数へ算入しない。同名だけで同一SKUや所有者を断定しない。取得不可4入口と非商品1入口をreceiptへ残し、全件の内容確認や売上監査が完了したとは呼ばない。
 
 今回cursorはsource acceptanceのRED→最小データ統合→GREEN・既存package15/helper9検証→専用branchへのpushまでとする。CLI snapshotはv0.4.5へ更新する。PR/main統合・公開Release・公開readbackはprimaryが所有する。Registry metadata/workflow、plugin payload、Factory、認証、投稿、checkout、有料APIと既存日次loopは変更しない。実行計画 → `docs/superpowers/plans/2026-10-24-ai-monk-products-remaining.md`。
+
+source受入では49候補から39 sourceを引用し、既存2 sourceを変更せず再利用、新規37 sourceを追加して176出典とする。33 distinct商品を35 account関連行へ統合し、seller counterは7関連行を追加する。未取得・失敗・非商品などの残10 source候補はreceiptへ状態とhashを残す。元139 source・75archive・73public・scope/AI状態・既存収益観測1件は不変。source acceptanceは未統合33件のREDからGREEN、参照628件のmissing0、既存package15/helper9とbuild済みAPIの33商品検索・出典返却・unknown保持を確認する。公開反映は未実施。証拠 → `docs/evidence/ai-monk-products-remaining-integration-20261024.json`。

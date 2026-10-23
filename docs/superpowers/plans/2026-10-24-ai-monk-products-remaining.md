@@ -23,14 +23,14 @@ Registry metadata/workflow、plugin payload、Factory runtime、X/native browser
 
 ## TODOと現在cursor
 
-- [ ] SPEC: 契約と当planを先にcommit/pushし、remote SHAを確認する。
-- [ ] RED: 33商品の観測ID・価格・参照・保持条件を検査し、未統合を理由に失敗するsource acceptanceを記録する。
-- [ ] DATA: 必要sourceと帰属経路を選択し、最小のJSON統合とv0.4.5 metadata/README更新を行う。
-- [ ] GREEN: 同じacceptance、全source参照、既存保持、通貨unknown、重複除外、raw非混入を確認する。
-- [ ] TEST: 既存package全15testとshared helper9testを実行する。必要以上のsuiteを追加しない。
+- [x] SPEC: 契約と当planを先にcommit/pushし、remote SHA `371561c61543c99faec5c59a1a2a7cdb447cffd8`の一致を確認する。
+- [x] RED: 未統合33件を理由とするsource acceptanceのexit1を確認する。
+- [x] DATA: 39 sourceを引用し、既存2を再利用/37を追加して176出典へ更新する。33 distinct商品/35 account関連行/7 counter関連行を追加し、v0.4.5 metadata/READMEへ揃える。
+- [x] GREEN: 同じacceptanceで既存保持、628 source参照のmissing0、通貨未確認4、価格不明7、重複除外、raw非混入を確認する。
+- [x] TEST: 既存package全15testとshared helper9testがPASS。build済みAPIで33商品検索・35関連行と全出典の返却、価格variant/unknown/既存収益sortを確認する。
 - [ ] PUSH: receiptとplanへ正確な差分・検証・残unknownを記録し、commit/push/remote SHAを照合してprimaryへ引き渡す。
 
-現在cursor: SPEC。Database→Plugin→Factoryの既存順は変えず、進行中のRegistry公開や既存日次effectを中断・重複しない。
+現在cursor: PUSH。結果receipt → `docs/evidence/ai-monk-products-remaining-integration-20261024.json`。Database→Plugin→Factoryの既存順は変えず、進行中のRegistry公開や既存日次effectを中断・重複しない。
 
 ## 検証方法
 

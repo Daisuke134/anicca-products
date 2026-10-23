@@ -1,0 +1,2439 @@
+{
+  "schema_version": "anicca.ai-monk-products-remaining-integration.v1",
+  "base_main_sha": "d5ba46143e81e506caab40f66c5da774c9efffbd",
+  "contract_commit": "371561c61543c99faec5c59a1a2a7cdb447cffd8",
+  "input": {
+    "private_readback_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-remaining/readback.json",
+    "readback_sha256": "e7fcdfe96f098fa58e85490c40daafd19e9aa42a1c84391ba48389e1d15768d8",
+    "completed_at": "2026-10-23T16:31:39.060413+00:00",
+    "source_candidates": 49,
+    "discovery_entries": 28,
+    "raw_bodies_copied_to_repo": 0
+  },
+  "scope": "Saved public first-party product observations only; no new crawl, checkout, login, paid API, generation, posting or revenue verification.",
+  "delta": {
+    "sources_before": 139,
+    "sources_after": 176,
+    "sources_added": 37,
+    "selected_input_sources": 39,
+    "existing_sources_reused_unchanged": 2,
+    "input_sources_not_added": 10,
+    "distinct_product_observations_added": 33,
+    "account_offer_rows_before": 34,
+    "account_offer_rows_added": 35,
+    "account_offer_rows_after": 69,
+    "seller_counter_rows_before": 20,
+    "seller_counter_rows_added": 7,
+    "seller_counter_rows_after": 27,
+    "numeric_product_prices": 26,
+    "numeric_prices_explicit_currency": 22,
+    "numeric_prices_currency_unverified": 4,
+    "product_prices_unknown": 7,
+    "new_revenue_observations": 0
+  },
+  "preserved": {
+    "archive_records": 75,
+    "public_profiles": 73,
+    "included": 4,
+    "pending": 69,
+    "excluded": 2,
+    "revenue_observations": 1,
+    "existing_sources_unchanged": 139,
+    "existing_profile_non_product_fields_unchanged": true,
+    "prior_20_product_observations_retained": true
+  },
+  "source_selection": [
+    {
+      "input_source_id": "remaining-source-c062e53ed30c",
+      "source_id": "product-remaining-source-c062e53ed30c",
+      "url": "http://elmaestrolin.com/",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:24:22.712738+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "954d3b4f2dea5bfe3f6ddbe2cbce0edee58d5fe12d42cfe4b9553f4b0e888e1a",
+          "relative_private_path": "product-research-remaining/link-01.crwl.stdout",
+          "captured_at": "2026-10-23T16:13:50.952849+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "00e865e9dbd4bfc1a08305e545e4476816b76f68179da6c307f9367063d11c42",
+          "relative_private_path": "product-research-remaining/link-01.scrapy.stdout",
+          "captured_at": "2026-10-23T16:24:22.712738+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-3bfb5593d4bb",
+      "source_id": "product-remaining-source-3bfb5593d4bb",
+      "url": "https://monjekai.com/",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:24:22.915643+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "afcb5791360ae322e1fd398a86f8592f75ebd0e9eaebe7e2e7af12c451c55846",
+          "relative_private_path": "product-research-remaining/link-02-offer.crwl.stdout",
+          "captured_at": "2026-10-23T16:17:20.868097+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "78f6eb698b3eceb824d4d320606ed9bdeadc581927f7709c16eb9c5ae1f3b052",
+          "relative_private_path": "product-research-remaining/link-02-offer.scrapy.stdout",
+          "captured_at": "2026-10-23T16:24:22.915643+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-2fc9a9dd0242",
+      "source_id": "product-remaining-source-2fc9a9dd0242",
+      "url": "http://linktr.ee/masterkaelwellness",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:13:52.222007+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "046576e29a96b3a8ed6765406259bc948d4493f7851ae938e02c38792e7a8e8e",
+          "relative_private_path": "product-research-remaining/link-03.crwl.stdout",
+          "captured_at": "2026-10-23T16:13:52.222007+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-6a34a1d40618",
+      "source_id": "product-remaining-source-6a34a1d40618",
+      "url": "https://whop.com/joined/ken-lu-teachings/products/five-ancient-practices/",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:22:30.941014+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "2de684e74550899d3bc2acff7a3168d9a72cb8ffdd1365f69797c14b45c856fb",
+          "relative_private_path": "product-research-remaining/link-04.crwl.stdout",
+          "captured_at": "2026-10-23T16:13:52.772050+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "340205a28c6942624b283fd76d63e6fa1265eb397cec83f9cbc539b7f9e9a96a",
+          "relative_private_path": "product-research-remaining/link-04.scrapy.stdout",
+          "captured_at": "2026-10-23T16:22:30.941014+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-d3c6a856f315",
+      "source_id": "product-remaining-source-d3c6a856f315",
+      "url": "https://anantamst.github.io/remedios-olvidados/",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:24:22.679860+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "ac1767b0857152403c04f6fa7502db3d173900fdf27a793fa0f405ff47fd3a18",
+          "relative_private_path": "product-research-remaining/link-05-offer.crwl.stdout",
+          "captured_at": "2026-10-23T16:14:58.332851+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "17550ba4a8e6de433089e29f01c0b9c74ffb9dc7fe127d993ee9a5c386308635",
+          "relative_private_path": "product-research-remaining/link-05-offer.scrapy.stdout",
+          "captured_at": "2026-10-23T16:24:22.679860+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-914d51f386fb",
+      "source_id": "product-remaining-source-914d51f386fb",
+      "url": "https://www.amazon.it/dp/B0GSVTVNQ2",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:16:15.171728+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "4df824d50554aa4452831f18d5430bee93f7f2040d3c24a424c56ccadec5491c",
+          "relative_private_path": "product-research-remaining/link-06-offer.crwl.stdout",
+          "captured_at": "2026-10-23T16:14:58.206168+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "19f6cd89588a4c627d5d6a59b79420f4ffe79a9893ff8d60ac54cdbc41aa09df",
+          "relative_private_path": "product-research-remaining/link-06-offer.scrapy.stdout",
+          "captured_at": "2026-10-23T16:16:15.171728+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-58a5da71650a",
+      "source_id": "product-remaining-source-58a5da71650a",
+      "url": "https://itunes.apple.com/lookup?id=6764258660&country=fr",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:16:14.988000+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "6d7a10bad474acb13f056592ac46740bf2373e6916853b2ae676a55db3219da7",
+          "relative_private_path": "product-research-remaining/link-07-lookup-fr.scrapy.stdout",
+          "captured_at": "2026-10-23T16:16:14.988000+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-ee00e6fa7f70",
+      "source_id": "product-remaining-source-ee00e6fa7f70",
+      "url": "https://web.tribute.tg/p/x8K",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:22:29.566128+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "13cdfba5cdb39ecbe3eaf5201292665e8896ee4e5baaa800b2d45cd37cddb6ae",
+          "relative_private_path": "product-research-remaining/link-09-offer.crwl.stdout",
+          "captured_at": "2026-10-23T16:17:19.812399+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "b1b55c776d13e47b2e46d788af89d95e3e47f9bdaeec3f273ff9fe325c657a14",
+          "relative_private_path": "product-research-remaining/link-09-offer.scrapy.stdout",
+          "captured_at": "2026-10-23T16:22:29.566128+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-792c5842f550",
+      "source_id": "product-remaining-source-792c5842f550",
+      "url": "https://masterlian.gumroad.com/l/masterlian",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:16:15.537956+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "591e6b8ecc38b8057613b8dca027d6d0d780cdeb8e36394fa74caa089a4fb102",
+          "relative_private_path": "product-research-remaining/link-10.crwl.stdout",
+          "captured_at": "2026-10-23T16:14:06.850517+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "5ce317cad758f9cbf1206599241a4b2589cfe9fc969d95c2a6f505da5ccada32",
+          "relative_private_path": "product-research-remaining/link-10.scrapy.stdout",
+          "captured_at": "2026-10-23T16:16:15.537956+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-ba5d6a45809f",
+      "source_id": "product-remaining-source-ba5d6a45809f",
+      "url": "https://hotmart.com/en/marketplace/products/the-monks-secret-150-recipes-that-saved-generations/T106736999M",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:14:58.512829+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "166c39be60f1840d49dce963c749c2195ac3bf3bc02eff18a6cb08f0f350edc7",
+          "relative_private_path": "product-research-remaining/link-11-offer.crwl.stdout",
+          "captured_at": "2026-10-23T16:14:58.512829+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-22e5f2da7663",
+      "source_id": "product-remaining-source-22e5f2da7663",
+      "url": "https://disciplinasilenciosa.lovable.app/",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:14:08.432862+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "d10e58bc021ba0b24e6924d18fd7d9b68c0481b5fe84c8bc2ff4524f09011631",
+          "relative_private_path": "product-research-remaining/link-12.crwl.stdout",
+          "captured_at": "2026-10-23T16:14:08.432862+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-1037058dcc95",
+      "source_id": "product-remaining-source-1037058dcc95",
+      "url": "https://www.amazon.com/dp/B0F161HQ6C",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:16:15.140331+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "1fa55d26662d28b9d0814b53ec9d2380ab62659736136af29cb5be18c2a33718",
+          "relative_private_path": "product-research-remaining/link-13-offer.crwl.stdout",
+          "captured_at": "2026-10-23T16:14:58.201763+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "5a06ef1b66275c3927459c40488182ff8e9ff48fb33363712489f0e8c3bad4a7",
+          "relative_private_path": "product-research-remaining/link-13-offer.scrapy.stdout",
+          "captured_at": "2026-10-23T16:16:15.140331+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-ab40af49234f",
+      "source_id": "product-remaining-source-ab40af49234f",
+      "url": "https://manifestando.online/",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:24:22.839852+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "db3038932cc78a1cb6dd56bb952ab516338d8d4728bcd934994231a99e5862e0",
+          "relative_private_path": "product-research-remaining/link-15.crwl.stdout",
+          "captured_at": "2026-10-23T16:16:11.594425+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "9ecb4b857f7dc5f84eb77f4536fd5ea28eb249b068c0df0e1eda827e7751c0f4",
+          "relative_private_path": "product-research-remaining/link-15.scrapy.stdout",
+          "captured_at": "2026-10-23T16:24:22.839852+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-b6c5225ae3fa",
+      "source_id": "product-remaining-source-b6c5225ae3fa",
+      "url": "https://mongezhen.lovable.app/retorno-paz-interior",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:20:44.014647+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "09b05eb656c6ea2362388922b0231ee7b84e9ff92155bf4452367192bd546997",
+          "relative_private_path": "product-research-remaining/link-16-offer.crwl.stdout",
+          "captured_at": "2026-10-23T16:20:44.014647+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-a184de578141",
+      "source_id": "product-remaining-source-a184de578141",
+      "url": "https://mongezhen.lovable.app/jornada-30-dias",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:22:51.743798+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "ec47338dbdf859f50e6a1b5f4cbe5fd77d31f3a5c053854d83a0bf90b522ef4d",
+          "relative_private_path": "product-research-remaining/link-16-journey.crwl.stdout",
+          "captured_at": "2026-10-23T16:22:51.743798+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-0f02f052ab4b",
+      "source_id": "product-remaining-source-0f02f052ab4b",
+      "url": "https://mongezhen.lovable.app/tempo-de-curar",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:23:58.572961+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "1a9fe09d8c2013ec71581247b23b65a394ecf035cc8d4687b90bfa0c82b8a50d",
+          "relative_private_path": "product-research-remaining/link-16-tempo.crwl.stdout",
+          "captured_at": "2026-10-23T16:23:58.572961+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-1ae5bfc966b4",
+      "source_id": "product-remaining-source-1ae5bfc966b4",
+      "url": "https://monge.doti.gg/ebook-organize-sua-vida",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:24:23.156452+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "1fa67a618e8950537afd36482c266fea4294fbeff2707218ee7083324bfbc21c",
+          "relative_private_path": "product-research-remaining/link-17.crwl.stdout",
+          "captured_at": "2026-10-23T16:16:11.896369+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "760dd4bd19f9505270c57a2b1c0445f08babad28fe35757efc00dcbcca743935",
+          "relative_private_path": "product-research-remaining/link-17.scrapy.stdout",
+          "captured_at": "2026-10-23T16:24:23.156452+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-622007b854b0",
+      "source_id": "product-remaining-source-622007b854b0",
+      "url": "https://www.amazon.es/dp/B0FJDNSFS4",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:16:15.186711+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "beb2260c01385b628b525256d8ba59e316ae851f3dab2895ce1398ef66fed442",
+          "relative_private_path": "product-research-remaining/link-18-offer.crwl.stdout",
+          "captured_at": "2026-10-23T16:14:58.233285+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "2ba34525a10ae1a0428338de97f2a7a563b359cf56058d6bd2a148df91de0011",
+          "relative_private_path": "product-research-remaining/link-18-offer.scrapy.stdout",
+          "captured_at": "2026-10-23T16:16:15.186711+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-5cb4feeace16",
+      "source_id": "product-remaining-source-5cb4feeace16",
+      "url": "https://www.amazon.com/dp/B0HKQ1NCBM",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:25:13.590122+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "1fa55d26662d28b9d0814b53ec9d2380ab62659736136af29cb5be18c2a33718",
+          "relative_private_path": "product-research-remaining/link-22-offer-us.crwl.stdout",
+          "captured_at": "2026-10-23T16:23:42.029635+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "8069e7ef203ab9457e1ad0d703d4794f093068b04e4040af0cd38bd5a091843d",
+          "relative_private_path": "product-research-remaining/link-22-offer-us.scrapy.stdout",
+          "captured_at": "2026-10-23T16:25:13.590122+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-a341511c26da",
+      "source_id": "product-remaining-source-a341511c26da",
+      "url": "https://ancientwisdomguide.gumroad.com/l/anxiety-relief",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:23:39.707965+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "7ee98e7e0b5923ba7ccc73d13c52d7676145211fdc95fc267a33fb20a1160d70",
+          "relative_private_path": "product-research-remaining/link-25-anxiety.crwl.stdout",
+          "captured_at": "2026-10-23T16:22:50.201164+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "4264c26d353a0bf44a1eeab537a6c596eb4970f9a11e3c6102c128daca5644d3",
+          "relative_private_path": "product-research-remaining/link-25-anxiety.scrapy.stdout",
+          "captured_at": "2026-10-23T16:23:39.707965+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-3e3cefc347bf",
+      "source_id": "product-remaining-source-3e3cefc347bf",
+      "url": "https://ancientwisdomguide.gumroad.com/l/ctfdhz",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:23:39.739164+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "3928aebf672a4320d1c09a6a9483b649aafc21f89d06b28793d6f3771c6b8143",
+          "relative_private_path": "product-research-remaining/link-25-grief.crwl.stdout",
+          "captured_at": "2026-10-23T16:22:50.201178+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "08d5d7c2bb340f138427064cb9aa1529ecc40bbb8fd26817d33c4044cb8178e7",
+          "relative_private_path": "product-research-remaining/link-25-grief.scrapy.stdout",
+          "captured_at": "2026-10-23T16:23:39.739164+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-8abaafd9c8df",
+      "source_id": "product-remaining-source-8abaafd9c8df",
+      "url": "https://ancientwisdomguide.gumroad.com/l/slow-your-body-quiet-the-mind",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:23:39.779597+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "3b3abaa03a2ab2b7d145dd8ddd9ab922705fc180b8ee9a4046e318a3d9dcf080",
+          "relative_private_path": "product-research-remaining/link-25-slow.crwl.stdout",
+          "captured_at": "2026-10-23T16:22:50.109645+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "e58950bf9a82463df0c173709ae5b9bd9f7ed7472bc67707500d7ca2995786cb",
+          "relative_private_path": "product-research-remaining/link-25-slow.scrapy.stdout",
+          "captured_at": "2026-10-23T16:23:39.779597+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-2a50e6ae94f8",
+      "source_id": "product-remaining-source-2a50e6ae94f8",
+      "url": "https://ancientwisdomguide.gumroad.com/l/healingforlife",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:23:40.307313+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "87678ae02bc3f6ca4b844bd32378af7b8f2847f48aae9b6f79e47cfeb197df66",
+          "relative_private_path": "product-research-remaining/link-25-healing.crwl.stdout",
+          "captured_at": "2026-10-23T16:22:50.182415+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "2281437e96177ec4e675f836b1d37881fc47c5dd0472f2094c33b06782afc570",
+          "relative_private_path": "product-research-remaining/link-25-healing.scrapy.stdout",
+          "captured_at": "2026-10-23T16:23:40.307313+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-05e74b23a97f",
+      "source_id": "product-remaining-source-05e74b23a97f",
+      "url": "https://www.zenmuns.com/alimentos",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:23:53.761981+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "a15d82b8be465784f4ddbee8fea00fe7b96fd4944c694c8c679a98f44f8b4a37",
+          "relative_private_path": "product-research-remaining/link-26-offer-html.scrapy.stdout",
+          "captured_at": "2026-10-23T16:23:53.761981+00:00",
+          "method": "scrapy"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "8546a25196651e6ee6da329148b1c61f35ee66111b672d21150f4812e1c9c087",
+          "relative_private_path": "product-research-remaining/link-26-offer.crwl.stdout",
+          "captured_at": "2026-10-23T16:20:42.043615+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-411fd7474dee",
+      "source_id": "product-remaining-source-411fd7474dee",
+      "url": "https://www.zenmuns.com/tiempo-para-sanar",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:23:57.470509+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "414d3a1e6069924cd75504a23a971cdaac1b38391bd8b2a8f627d7425952ea6e",
+          "relative_private_path": "product-research-remaining/link-26-tiempo.crwl.stdout",
+          "captured_at": "2026-10-23T16:23:57.470509+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-7493fb062c08",
+      "source_id": "product-remaining-source-7493fb062c08",
+      "url": "https://www.zenmuns.com/camino",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:23:57.462629+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "407651843bf4dfb5cc357a731b1d829209ba1247e7f2bbdfb108e3c7c0c2e4ef",
+          "relative_private_path": "product-research-remaining/link-26-camino.crwl.stdout",
+          "captured_at": "2026-10-23T16:23:57.462629+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-f0da2cb4a0f2",
+      "source_id": "product-remaining-source-f0da2cb4a0f2",
+      "url": "https://www.zenmuns.com/comunidad",
+      "action": "add_referenced_source",
+      "role": "product_information",
+      "captured_at": "2026-10-23T16:23:57.474942+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "41aef47bd4f2ebe681ca6b20275155ce861b162d6846f434628788b9221ca488",
+          "relative_private_path": "product-research-remaining/link-26-community.crwl.stdout",
+          "captured_at": "2026-10-23T16:23:57.474942+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-a588bf7991ce",
+      "source_id": "product-site-chennatural-20261024",
+      "url": "https://www.chennatural.com/",
+      "action": "reuse_existing_source_unchanged",
+      "role": "product_information",
+      "captured_at": "2026-10-23T15:53:41.288168+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "17316d5050f551b1613679ccaad169161facf3e51f13af31bb7793276dab4987",
+          "relative_private_path": "product-research-worker/chennatural.scrapy.stdout",
+          "captured_at": "2026-10-23T15:53:41.288168+00:00",
+          "method": "scrapy"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "920e7c8873e91500d90d3c5e6dfc84a8c61756808e8d0800c4c574684da9c7d7",
+          "relative_private_path": "product-research-worker/chennatural.crwl.stdout",
+          "captured_at": "2026-10-23T15:51:24.705944+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-f7ee0a1e6904",
+      "source_id": "product-site-mongeravi-20261024",
+      "url": "https://mongeravi.com/",
+      "action": "reuse_existing_source_unchanged",
+      "role": "product_information",
+      "captured_at": "2026-10-23T15:52:04.279926+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "055fe1b4217b2d6cbc9a7d4b05195541b167026b1c78543ce75f26e1ea7138eb",
+          "relative_private_path": "product-research-worker/mongeravi.crwl.stdout",
+          "captured_at": "2026-10-23T15:52:04.279926+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-930101be4f32",
+      "source_id": "product-remaining-source-930101be4f32",
+      "url": "http://linktr.ee/monjekai",
+      "action": "add_referenced_source",
+      "role": "discovery_attribution",
+      "captured_at": "2026-10-23T16:13:52.263705+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "0770a648d1a20eacff7ca04f78b75836bcd46a04c93edf879d024f242511f438",
+          "relative_private_path": "product-research-remaining/link-02.crwl.stdout",
+          "captured_at": "2026-10-23T16:13:52.263705+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-fd964c190615",
+      "source_id": "product-remaining-source-fd964c190615",
+      "url": "https://go.hotmart.com/K104790777T",
+      "action": "add_referenced_source",
+      "role": "discovery_attribution",
+      "captured_at": "2026-10-23T16:14:33.914122+00:00",
+      "evidence": [
+        {
+          "kind": "private_redirect_or_fetch_metadata",
+          "sha256": "0dc629f8996715f419379312918ec96bb0a139b940ef4259edce7ae127038d67",
+          "relative_private_path": "product-research-remaining/link-05.resolve.meta.json",
+          "captured_at": "2026-10-23T16:14:33.914122+00:00",
+          "method": "HTTP GET with automatic redirects disabled; only redirect metadata inspected"
+        },
+        {
+          "kind": "private_redirect_or_fetch_metadata",
+          "sha256": "bfaea5be4fd9a24f6598690c396d3c2d2a1ef3ec902daa90e3931829f050c7db",
+          "relative_private_path": "product-research-remaining/link-05.redirect.json",
+          "captured_at": "2026-10-23T16:12:49.053044+00:00",
+          "method": "HTTP HEAD, redirects inspected before any follow"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-a1e2e7e29044",
+      "source_id": "product-remaining-source-a1e2e7e29044",
+      "url": "https://amzn.to/3NHKLhi",
+      "action": "add_referenced_source",
+      "role": "discovery_attribution",
+      "captured_at": "2026-10-23T16:12:48.926978+00:00",
+      "evidence": [
+        {
+          "kind": "private_redirect_or_fetch_metadata",
+          "sha256": "a44c29d19bcf8d188627e82402dea932b97d7ba810d8de163a5e89a86c29ae86",
+          "relative_private_path": "product-research-remaining/link-06.redirect.json",
+          "captured_at": "2026-10-23T16:12:48.926978+00:00",
+          "method": "HTTP HEAD, redirects inspected before any follow"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-0c6b0199f526",
+      "source_id": "product-remaining-source-0c6b0199f526",
+      "url": "https://t.me/+3RlXkcw4jY8wZGUy",
+      "action": "add_referenced_source",
+      "role": "discovery_attribution",
+      "captured_at": "2026-10-23T16:14:07.583804+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "6ec4fec6805d740b4f0b61c8f41fdc8b37cc37df634796d0b583d40d428fd456",
+          "relative_private_path": "product-research-remaining/link-09.crwl.stdout",
+          "captured_at": "2026-10-23T16:14:07.583804+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-57d4296638fd",
+      "source_id": "product-remaining-source-57d4296638fd",
+      "url": "https://go.hotmart.com/T106736999M?dp=1",
+      "action": "add_referenced_source",
+      "role": "discovery_attribution",
+      "captured_at": "2026-10-23T16:14:33.922477+00:00",
+      "evidence": [
+        {
+          "kind": "private_redirect_or_fetch_metadata",
+          "sha256": "69ac23fcb49c3113946d2878dbfd708cf51f6f82a6bf6401c34d4eaf3fdf0815",
+          "relative_private_path": "product-research-remaining/link-11.resolve.meta.json",
+          "captured_at": "2026-10-23T16:14:33.922477+00:00",
+          "method": "HTTP GET with automatic redirects disabled; only redirect metadata inspected"
+        },
+        {
+          "kind": "private_redirect_or_fetch_metadata",
+          "sha256": "ef0833ac1c7d1b91e36b3167a8bdca39056deff987916199e1fb511d149c01f3",
+          "relative_private_path": "product-research-remaining/link-11.redirect.json",
+          "captured_at": "2026-10-23T16:12:49.051850+00:00",
+          "method": "HTTP HEAD, redirects inspected before any follow"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-ea1f33c0c9d2",
+      "source_id": "product-remaining-source-ea1f33c0c9d2",
+      "url": "https://linktw.in/DwUwNN",
+      "action": "add_referenced_source",
+      "role": "discovery_attribution",
+      "captured_at": "2026-10-23T16:14:33.272107+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "1f448bf14acdba96d1e92be5dbf3a10a48484fd2cf077c5bf6aa308955bd23b1",
+          "relative_private_path": "product-research-remaining/link-13.resolve.stdout",
+          "captured_at": "2026-10-23T16:14:33.272107+00:00",
+          "method": "HTTP GET with automatic redirects disabled; only redirect metadata inspected"
+        },
+        {
+          "kind": "private_redirect_or_fetch_metadata",
+          "sha256": "8436faa99414bd18974d4e96a1b6bb84295f0ef844b9997dac02767db402016c",
+          "relative_private_path": "product-research-remaining/link-13.redirect.json",
+          "captured_at": "2026-10-23T16:12:48.677970+00:00",
+          "method": "HTTP HEAD, redirects inspected before any follow"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-c97e147082bc",
+      "source_id": "product-remaining-source-c97e147082bc",
+      "url": "https://amzn.to/40JvoaN",
+      "action": "add_referenced_source",
+      "role": "discovery_attribution",
+      "captured_at": "2026-10-23T16:12:49.285656+00:00",
+      "evidence": [
+        {
+          "kind": "private_redirect_or_fetch_metadata",
+          "sha256": "329f2382dfe53312d5e92241e80068aea120f89a0cc48f6d8e035b24493b705f",
+          "relative_private_path": "product-research-remaining/link-18.redirect.json",
+          "captured_at": "2026-10-23T16:12:49.285656+00:00",
+          "method": "HTTP HEAD, redirects inspected before any follow"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-c8232b00aaab",
+      "source_id": "product-remaining-source-c8232b00aaab",
+      "url": "https://linktr.ee/quieroquevuelvasati",
+      "action": "add_referenced_source",
+      "role": "discovery_attribution",
+      "captured_at": "2026-10-23T16:17:20.770578+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "4a05bd6114c552ea8961b2d326c6fbc41db0caaf568be1f8f9c495c51d3e7036",
+          "relative_private_path": "product-research-remaining/link-22.crwl.stdout",
+          "captured_at": "2026-10-23T16:17:20.770578+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-dea71c499aaf",
+      "source_id": "product-remaining-source-dea71c499aaf",
+      "url": "https://linktr.ee/yonchenhealing",
+      "action": "add_referenced_source",
+      "role": "discovery_attribution",
+      "captured_at": "2026-10-23T16:17:21.304877+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "1171cc941361ace9e0ffa9cb43210ec7e030203869261bc5d780acbc5f9d3d6b",
+          "relative_private_path": "product-research-remaining/link-25.crwl.stdout",
+          "captured_at": "2026-10-23T16:17:21.304877+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-b7a306adf360",
+      "source_id": "product-remaining-source-b7a306adf360",
+      "url": "https://www.zenmuns.com/",
+      "action": "add_referenced_source",
+      "role": "discovery_attribution",
+      "captured_at": "2026-10-23T16:17:20.014073+00:00",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "1f1eb754d03581f42e610e69f0d175fd8e185c62af80d0ba27ea3f679eb6a056",
+          "relative_private_path": "product-research-remaining/link-26.crwl.stdout",
+          "captured_at": "2026-10-23T16:17:20.014073+00:00",
+          "method": "crwl"
+        }
+      ]
+    }
+  ],
+  "input_sources_not_added": [
+    {
+      "input_source_id": "remaining-source-3713d5b605f2",
+      "url": "https://apps.apple.com/fr/app/la-parole-du-ma%C3%AEtre-qi-gong/id6764258660?l=en-GB",
+      "observed_at": "2026-10-23T16:13:52.584141+00:00",
+      "reason": "Web response did not establish product details; official iTunes lookup with the same app ID is cited instead",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "1a30a16d3fb3853a0fa4dd9d16bb1336b1fb375fc654d210c87e39c8f36da6ad",
+          "relative_private_path": "product-research-remaining/link-07.crwl.stdout",
+          "captured_at": "2026-10-23T16:13:52.584141+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-8a3aa375584c",
+      "url": "https://beacons.ai/maitreyun",
+      "observed_at": "2026-10-23T16:16:14.749656+00:00",
+      "reason": "Failed/opaque/non-product retrieval retained in bounded discovery receipt, not a product source",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "2348f828516ca739a92c0283664746635c41475887365c859a248c43d6126493",
+          "relative_private_path": "product-research-remaining/link-08.crwl.stdout",
+          "captured_at": "2026-10-23T16:14:06.775073+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "21335bf6a64d340a8c6d7d757d773000e7238e29d06f2602f15c6a2d5fba556d",
+          "relative_private_path": "product-research-remaining/link-08.scrapy.stdout",
+          "captured_at": "2026-10-23T16:16:14.749656+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-8548a58058fe",
+      "url": "https://masterlian.gumroad.com/l/masterlian?utm_id=97760_v0_s00_e0_tv3_a1dennh96s2mcy",
+      "observed_at": null,
+      "reason": "URL attribution only; no separate response retrieved",
+      "evidence": []
+    },
+    {
+      "input_source_id": "remaining-source-63e396d04666",
+      "url": "https://disciplinasilenciosa.lovable.app/?utm_id=97760_v0_s00_e0_tv3_a1dennh4ok9nms",
+      "observed_at": null,
+      "reason": "URL attribution only; no separate response retrieved",
+      "evidence": []
+    },
+    {
+      "input_source_id": "remaining-source-6b30f4e12419",
+      "url": "https://monacochen.com/products/il-cammino-di-ritorno",
+      "observed_at": "2026-10-23T16:14:06.565589+00:00",
+      "reason": "Failed/opaque/non-product retrieval retained in bounded discovery receipt, not a product source",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "994c0e9c8b2c5bfc65056c459d0e068ffc66ad1e28b303ac468d8c43c26a57ca",
+          "relative_private_path": "product-research-remaining/link-14.crwl.stdout",
+          "captured_at": "2026-10-23T16:14:06.565589+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-e1f348d0ba4b",
+      "url": "https://mongezhen.lovable.app/?utm_id=97760_v0_s00_e0_tv3_a1denngys993y7",
+      "observed_at": null,
+      "reason": "URL attribution only; no separate response retrieved",
+      "evidence": []
+    },
+    {
+      "input_source_id": "remaining-source-3d667ced1b47",
+      "url": "https://www.amazon.es/C%C3%B3mo-transformar-sufrimiento-felicidad-Ense%C3%B1anzas/dp/B0FJDNSFS4/",
+      "observed_at": null,
+      "reason": "URL attribution only; no separate response retrieved",
+      "evidence": []
+    },
+    {
+      "input_source_id": "remaining-source-44cc1854ab8e",
+      "url": "https://hooks.store/Shentao",
+      "observed_at": "2026-10-23T16:16:12.194720+00:00",
+      "reason": "Failed/opaque/non-product retrieval retained in bounded discovery receipt, not a product source",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "5a1600370ceb717f42579e2e9b0fa818534aafdbca25e5a0483cce84c6625728",
+          "relative_private_path": "product-research-remaining/link-20.crwl.stdout",
+          "captured_at": "2026-10-23T16:16:12.194720+00:00",
+          "method": "crwl"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-7f582378a19e",
+      "url": "http://daalink.com/test-retrait",
+      "observed_at": "2026-10-23T16:25:13.815810+00:00",
+      "reason": "Failed/opaque/non-product retrieval retained in bounded discovery receipt, not a product source",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "c4474b627f3e72f63dbb1b2f37d2e7f65b7b0bedabe325a2a00400ef216ac33a",
+          "relative_private_path": "product-research-remaining/link-21.crwl.stdout",
+          "captured_at": "2026-10-23T16:16:12.401986+00:00",
+          "method": "crwl"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "cd23991b4e02a17e5a224a1f8265c5a187ab366b40b8f8a14608371feb8f6e25",
+          "relative_private_path": "product-research-remaining/link-21.route-final.stdout",
+          "captured_at": "2026-10-23T16:25:13.815810+00:00",
+          "method": "HTTP GET with redirects disabled, route metadata only"
+        },
+        {
+          "kind": "private_public_response_body",
+          "sha256": "d4ecc6bac31fd193746b3ce6265f28dee3308b3bfbf572e96e31e4a3fd47dffd",
+          "relative_private_path": "product-research-remaining/link-21.scrapy.stdout",
+          "captured_at": "2026-10-23T16:22:30.905794+00:00",
+          "method": "scrapy"
+        }
+      ]
+    },
+    {
+      "input_source_id": "remaining-source-68786ce4c27f",
+      "url": "https://openyt.in/s/20a8ea",
+      "observed_at": "2026-10-23T16:14:33.458970+00:00",
+      "reason": "Failed/opaque/non-product retrieval retained in bounded discovery receipt, not a product source",
+      "evidence": [
+        {
+          "kind": "private_public_response_body",
+          "sha256": "54e05a7df8d10623686bf7b6f75a207f6998cc76c40cfa21eb3c93706943198b",
+          "relative_private_path": "product-research-remaining/link-23.resolve.stdout",
+          "captured_at": "2026-10-23T16:14:33.458970+00:00",
+          "method": "HTTP GET with automatic redirects disabled; only redirect metadata inspected"
+        },
+        {
+          "kind": "private_redirect_or_fetch_metadata",
+          "sha256": "0e2856c45c292381d6ed104124bf8bf0406a6f56a991b7e434363e7c161e6642",
+          "relative_private_path": "product-research-remaining/link-23.redirect.json",
+          "captured_at": "2026-10-23T16:12:49.219277+00:00",
+          "method": "HTTP HEAD, redirects inspected before any follow"
+        }
+      ]
+    }
+  ],
+  "discovery_links": [
+    {
+      "link_index": 1,
+      "instagram_handle": "elmaestrolin",
+      "source_url": "http://elmaestrolin.com/",
+      "state": "product_information_observed",
+      "product_observation_ids": [
+        "remaining-maestro-lin-codigo"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-elmaestrolin-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:50:07.476460+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 2,
+      "instagram_handle": "elmonjekai",
+      "source_url": "http://linktr.ee/monjekai",
+      "state": "product_information_observed",
+      "product_observation_ids": [
+        "remaining-monje-kai-mapa"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-elmonjekai-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:49:24.236571+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 3,
+      "instagram_handle": "kael.wisdom",
+      "source_url": "http://linktr.ee/masterkaelwellness",
+      "state": "public_offer_checkout_boundary",
+      "product_observation_ids": [
+        "remaining-kael-first-three",
+        "remaining-kael-thirty-nights"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-kael-wisdom-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:49:30.574317+00:00",
+      "remaining_unknowns": [
+        "ISO currency for the $27 label and precise file formats; both destination links are checkout and were not requested."
+      ],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 4,
+      "instagram_handle": "ken.lu.monk",
+      "source_url": "https://whop.com/joined/ken-lu-teachings/products/five-ancient-practices/",
+      "state": "product_information_observed",
+      "product_observation_ids": [
+        "remaining-ken-lu-sacred-remedies"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-ken-lu-monk-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:48:01.544112+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 5,
+      "instagram_handle": "maestroananta",
+      "source_url": "https://go.hotmart.com/K104790777T",
+      "state": "product_information_observed",
+      "product_observation_ids": [
+        "remaining-ananta-remedios"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-maestroananta-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:48:46.348803+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 6,
+      "instagram_handle": "maestroyunkai",
+      "source_url": "https://amzn.to/3NHKLhi",
+      "state": "product_information_observed",
+      "product_observation_ids": [
+        "remaining-yun-kai-permesso"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-maestroyunkai-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:47:18.703171+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 7,
+      "instagram_handle": "maitre.chen",
+      "source_url": "https://apps.apple.com/fr/app/la-parole-du-ma%C3%AEtre-qi-gong/id6764258660?l=en-GB",
+      "state": "product_information_observed",
+      "product_observation_ids": [
+        "remaining-maitre-chen-app"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-maitre-chen-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:48:21.370440+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 8,
+      "instagram_handle": "maitreyun_",
+      "source_url": "https://beacons.ai/maitreyun",
+      "state": "content_blocked_or_opaque",
+      "product_observation_ids": [],
+      "profile_source_ids": [
+        "lead-instagram-maitreyun-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:49:52.517568+00:00",
+      "remaining_unknowns": [
+        "crwl returned an opaque base64-like 37,938-byte payload, excluded from claims.",
+        "scrapy returned Attention Required / Cloudflare rather than product content.",
+        "Product names, prices and availability remain unverified."
+      ],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 9,
+      "instagram_handle": "master.li.shen",
+      "source_url": "https://t.me/+3RlXkcw4jY8wZGUy",
+      "state": "public_product_metadata_only",
+      "product_observation_ids": [
+        "remaining-li-shen-health-book"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-master-li-shen-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:47:55.602826+00:00",
+      "remaining_unknowns": [
+        "Current purchase price and exact delivery format; only public product metadata/listing was retrieved."
+      ],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 10,
+      "instagram_handle": "masterlianancient",
+      "source_url": "https://masterlian.gumroad.com/l/masterlian?utm_id=97760_v0_s00_e0_tv3_a1dennh96s2mcy",
+      "state": "product_information_observed",
+      "product_observation_ids": [
+        "remaining-master-lian-carrying"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-masterlianancient-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:49:58.733656+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 11,
+      "instagram_handle": "masterlinghao",
+      "source_url": "https://go.hotmart.com/T106736999M?dp=1",
+      "state": "public_product_metadata_only",
+      "product_observation_ids": [
+        "remaining-ling-hao-monks-secret"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-masterlinghao-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:47:40.600862+00:00",
+      "remaining_unknowns": [
+        "Current purchase price and exact delivery format; only public product metadata/listing was retrieved."
+      ],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 12,
+      "instagram_handle": "mestre.jin",
+      "source_url": "https://disciplinasilenciosa.lovable.app/?utm_id=97760_v0_s00_e0_tv3_a1dennh4ok9nms",
+      "state": "product_information_observed",
+      "product_observation_ids": [
+        "remaining-mestre-jin-disciplina"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-mestre-jin-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:47:43.567290+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 13,
+      "instagram_handle": "ming_tao32",
+      "source_url": "https://linktw.in/DwUwNN",
+      "state": "product_information_observed",
+      "product_observation_ids": [
+        "remaining-ming-tao-rosabella"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-ming-tao32-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:47:21.936838+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 14,
+      "instagram_handle": "monacochenn",
+      "source_url": "https://monacochen.com/products/il-cammino-di-ritorno",
+      "state": "store_unavailable",
+      "product_observation_ids": [],
+      "profile_source_ids": [
+        "lead-instagram-monacochenn-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:45:54.533893+00:00",
+      "remaining_unknowns": [
+        "Current product title, price and purchase availability."
+      ],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 15,
+      "instagram_handle": "monge.bento",
+      "source_url": "https://manifestando.online/",
+      "state": "product_information_observed",
+      "product_observation_ids": [
+        "remaining-bento-limpeza"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-monge-bento-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:48:55.590789+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 16,
+      "instagram_handle": "monge.zhen",
+      "source_url": "https://mongezhen.lovable.app/?utm_id=97760_v0_s00_e0_tv3_a1denngys993y7",
+      "state": "product_information_observed",
+      "product_observation_ids": [
+        "remaining-zhen-retorno",
+        "remaining-zhen-journey",
+        "remaining-zhen-tempo"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-monge-zhen-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:49:42.512476+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 17,
+      "instagram_handle": "mongedapaz",
+      "source_url": "https://monge.doti.gg/ebook-organize-sua-vida",
+      "state": "product_information_observed",
+      "product_observation_ids": [
+        "remaining-shanti-organize"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-mongedapaz-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:47:37.752007+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 18,
+      "instagram_handle": "monjeananda",
+      "source_url": "https://amzn.to/40JvoaN",
+      "state": "product_information_observed",
+      "product_observation_ids": [
+        "remaining-ananda-sufrimiento"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-monjeananda-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:50:01.698589+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 19,
+      "instagram_handle": "monjechang",
+      "source_url": "https://www.amazon.es/C%C3%B3mo-transformar-sufrimiento-felicidad-Ense%C3%B1anzas/dp/B0FJDNSFS4/",
+      "state": "duplicate_product_route",
+      "product_observation_ids": [
+        "remaining-ananda-sufrimiento"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-monjechang-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:49:33.682660+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null,
+      "duplicate_of_link_index": 18
+    },
+    {
+      "link_index": 20,
+      "instagram_handle": "monjeshentao",
+      "source_url": "https://hooks.store/Shentao",
+      "state": "profile_not_found",
+      "product_observation_ids": [],
+      "profile_source_ids": [
+        "lead-instagram-monjeshentao-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:45:51.524526+00:00",
+      "remaining_unknowns": [
+        "Current Shen Tao store or replacement URL."
+      ],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 21,
+      "instagram_handle": "noalingpo.conseils",
+      "source_url": "http://daalink.com/test-retrait",
+      "state": "content_not_retrieved",
+      "product_observation_ids": [],
+      "profile_source_ids": [
+        "lead-instagram-noalingpo-conseils-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:49:15.158017+00:00",
+      "remaining_unknowns": [
+        "crwl returned 28 bytes and scrapy 17 bytes with no usable product fields.",
+        "HTTP route returns 308 to HTTPS; underlying offer identity, price and availability remain unresolved."
+      ],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 22,
+      "instagram_handle": "shentaoes",
+      "source_url": "https://linktr.ee/quieroquevuelvasati",
+      "state": "product_information_observed",
+      "product_observation_ids": [
+        "remaining-shen-tao-vuelvas"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-shentaoes-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:49:11.807569+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 23,
+      "instagram_handle": "shin_hyun_official",
+      "source_url": "https://openyt.in/s/20a8ea",
+      "state": "non_product_video_channel_route",
+      "product_observation_ids": [],
+      "profile_source_ids": [
+        "lead-instagram-shin-hyun-official-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:47:28.583528+00:00",
+      "remaining_unknowns": [
+        "No product offer or purchase price established from the video-channel landing."
+      ],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 24,
+      "instagram_handle": "tempiovita",
+      "source_url": "https://go.hotmart.com/K104790777T",
+      "state": "duplicate_product_route",
+      "product_observation_ids": [
+        "remaining-ananta-remedios"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-tempiovita-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:45:48.050973+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null,
+      "duplicate_of_link_index": 5
+    },
+    {
+      "link_index": 25,
+      "instagram_handle": "yonchenhealing",
+      "source_url": "https://linktr.ee/yonchenhealing",
+      "state": "product_information_observed",
+      "product_observation_ids": [
+        "remaining-yon-anxiety",
+        "remaining-yon-grief",
+        "remaining-yon-slow",
+        "remaining-yon-healing"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-yonchenhealing-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:48:05.242407+00:00",
+      "remaining_unknowns": [
+        "Price and underlying product identity of the 30-Day Healing Journey; not counted as a new product to avoid a possible duplicate."
+      ],
+      "paid_orders": null,
+      "revenue": null,
+      "prior_product_references": [
+        {
+          "prior_observation_id": "linchen-eae54e96-dd8a-48e1-b2af-b4eab099b19e",
+          "observed_offer_name": "30-Day Healing Journey",
+          "observed_url": "https://yonchenhealing.com/",
+          "relationship": "potential_shared_product_not_counted_as_new",
+          "limit": "Same program label as prior affiliate offer; authorship and underlying SKU equivalence remain unverified."
+        }
+      ]
+    },
+    {
+      "link_index": 26,
+      "instagram_handle": "zenmuun",
+      "source_url": "https://www.zenmuns.com/",
+      "state": "product_information_observed",
+      "product_observation_ids": [
+        "remaining-zen-alimentos",
+        "remaining-zen-tiempo",
+        "remaining-zen-camino",
+        "remaining-zen-community"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-zenmuun-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:49:27.315484+00:00",
+      "remaining_unknowns": [
+        "Current standalone prices for the three ebooks.",
+        "Community subscription amount is a placeholder, not a number."
+      ],
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "link_index": 27,
+      "instagram_handle": "its.yang.chen",
+      "source_url": "https://www.chennatural.com/",
+      "state": "reused_prior_crawl_additional_offers",
+      "product_observation_ids": [
+        "remaining-chen-pack-complet",
+        "remaining-chen-rituels",
+        "remaining-chen-foie"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-its-yang-chen-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:48:14.942551+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null,
+      "prior_capture_reused": true
+    },
+    {
+      "link_index": 28,
+      "instagram_handle": "oravishen",
+      "source_url": "https://mongeravi.com/",
+      "state": "reused_prior_crawl_additional_offers",
+      "product_observation_ids": [
+        "remaining-ravi-duo",
+        "remaining-ravi-rituais"
+      ],
+      "profile_source_ids": [
+        "lead-instagram-oravishen-ig-header-20261024"
+      ],
+      "profile_observed_at": "2026-10-23T15:48:49.436459+00:00",
+      "remaining_unknowns": [],
+      "paid_orders": null,
+      "revenue": null,
+      "prior_capture_reused": true
+    }
+  ],
+  "product_bindings": [
+    {
+      "observation_id": "remaining-maestro-lin-codigo",
+      "account_ids": [
+        "lead-instagram-elmaestrolin"
+      ],
+      "source_ids": [
+        "product-remaining-source-c062e53ed30c"
+      ],
+      "price": {
+        "amount": 17,
+        "currency": null,
+        "symbol": "$",
+        "kind": "listed_offer"
+      },
+      "reference_price": {
+        "amount": 47,
+        "currency": null,
+        "kind": "seller_reference_price_not_verified_transaction"
+      },
+      "variant_prices": [],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-monje-kai-mapa",
+      "account_ids": [
+        "lead-instagram-elmonjekai"
+      ],
+      "source_ids": [
+        "product-remaining-source-3bfb5593d4bb"
+      ],
+      "price": {
+        "amount": 3766,
+        "currency": "JPY",
+        "symbol": "￥",
+        "kind": "listed_offer"
+      },
+      "reference_price": {
+        "amount": 7844,
+        "currency": "JPY",
+        "kind": "seller_reference_price_not_verified_transaction"
+      },
+      "variant_prices": [],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-kael-first-three",
+      "account_ids": [
+        "lead-instagram-kael-wisdom"
+      ],
+      "source_ids": [
+        "product-remaining-source-2fc9a9dd0242"
+      ],
+      "price": {
+        "amount": 0,
+        "currency": null,
+        "symbol": null,
+        "kind": "listed_free_offer"
+      },
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "free_offer_on_link_hub_checkout_boundary",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-kael-thirty-nights",
+      "account_ids": [
+        "lead-instagram-kael-wisdom"
+      ],
+      "source_ids": [
+        "product-remaining-source-2fc9a9dd0242"
+      ],
+      "price": {
+        "amount": 27,
+        "currency": null,
+        "symbol": "$",
+        "kind": "listed_offer"
+      },
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "offer_on_link_hub_checkout_boundary",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-ken-lu-sacred-remedies",
+      "account_ids": [
+        "lead-instagram-ken-lu-monk"
+      ],
+      "source_ids": [
+        "product-remaining-source-6a34a1d40618"
+      ],
+      "price": {
+        "amount": 37,
+        "currency": "USD",
+        "symbol": null,
+        "kind": "listed_offer"
+      },
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-ananta-remedios",
+      "account_ids": [
+        "lead-instagram-maestroananta",
+        "lead-instagram-tempiovita"
+      ],
+      "source_ids": [
+        "product-remaining-source-d3c6a856f315"
+      ],
+      "price": {
+        "amount": 9.99,
+        "currency": null,
+        "symbol": "$",
+        "kind": "listed_offer"
+      },
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-yun-kai-permesso",
+      "account_ids": [
+        "lead-instagram-maestroyunkai"
+      ],
+      "source_ids": [
+        "product-remaining-source-914d51f386fb"
+      ],
+      "price": {
+        "amount": 14.99,
+        "currency": "EUR",
+        "symbol": null,
+        "kind": "starting_price_for_format"
+      },
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "format_price_listed_purchase_and_delivery_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-maitre-chen-app",
+      "account_ids": [
+        "lead-instagram-maitre-chen"
+      ],
+      "source_ids": [
+        "product-remaining-source-58a5da71650a"
+      ],
+      "price": {
+        "amount": 0,
+        "currency": "EUR",
+        "symbol": null,
+        "kind": "listed_free_app_download"
+      },
+      "reference_price": null,
+      "variant_prices": [
+        {
+          "name": "Full access weekly subscription",
+          "amount": 3.99,
+          "currency": "EUR",
+          "period": "week",
+          "basis": "Developer description in official France lookup response"
+        },
+        {
+          "name": "Full access quarterly subscription",
+          "amount": 24.99,
+          "currency": "EUR",
+          "period": "3 months",
+          "basis": "Developer description in official France lookup response"
+        }
+      ],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-li-shen-health-book",
+      "account_ids": [
+        "lead-instagram-master-li-shen"
+      ],
+      "source_ids": [
+        "product-remaining-source-ee00e6fa7f70"
+      ],
+      "price": null,
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "public_product_metadata_observed_price_and_purchase_flow_unverified",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-master-lian-carrying",
+      "account_ids": [
+        "lead-instagram-masterlianancient"
+      ],
+      "source_ids": [
+        "product-remaining-source-792c5842f550"
+      ],
+      "price": {
+        "amount": 19,
+        "currency": "USD",
+        "symbol": null,
+        "kind": "listed_offer"
+      },
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "published_in_stock_metadata",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-ling-hao-monks-secret",
+      "account_ids": [
+        "lead-instagram-masterlinghao"
+      ],
+      "source_ids": [
+        "product-remaining-source-ba5d6a45809f"
+      ],
+      "price": null,
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "marketplace_listing_observed_purchase_availability_unverified",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-mestre-jin-disciplina",
+      "account_ids": [
+        "lead-instagram-mestre-jin"
+      ],
+      "source_ids": [
+        "product-remaining-source-22e5f2da7663"
+      ],
+      "price": {
+        "amount": 27,
+        "currency": "BRL",
+        "symbol": "R$",
+        "kind": "listed_offer"
+      },
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-ming-tao-rosabella",
+      "account_ids": [
+        "lead-instagram-ming-tao32"
+      ],
+      "source_ids": [
+        "product-remaining-source-1037058dcc95"
+      ],
+      "price": {
+        "amount": 34.99,
+        "currency": "USD",
+        "symbol": null,
+        "kind": "one_time_featured_offer"
+      },
+      "reference_price": null,
+      "variant_prices": [
+        {
+          "name": "Subscribe & Save offer",
+          "amount": 29.74,
+          "currency": "USD",
+          "discount_percent_displayed": 15,
+          "basis": "Displayed subscription offer, not the one-time price"
+        }
+      ],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-bento-limpeza",
+      "account_ids": [
+        "lead-instagram-monge-bento"
+      ],
+      "source_ids": [
+        "product-remaining-source-ab40af49234f"
+      ],
+      "price": {
+        "amount": 19.9,
+        "currency": "BRL",
+        "symbol": "R$",
+        "kind": "listed_offer"
+      },
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-zhen-retorno",
+      "account_ids": [
+        "lead-instagram-monge-zhen"
+      ],
+      "source_ids": [
+        "product-remaining-source-b6c5225ae3fa"
+      ],
+      "price": {
+        "amount": 37.9,
+        "currency": "BRL",
+        "symbol": null,
+        "kind": "listed_offer"
+      },
+      "reference_price": {
+        "amount": 97.9,
+        "currency": "BRL",
+        "kind": "seller_reference_price_not_verified_transaction"
+      },
+      "variant_prices": [
+        {
+          "kind": "installment_offer",
+          "installments": 4,
+          "amount_per_installment": 9.48,
+          "currency": "BRL"
+        }
+      ],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-zhen-journey",
+      "account_ids": [
+        "lead-instagram-monge-zhen"
+      ],
+      "source_ids": [
+        "product-remaining-source-a184de578141"
+      ],
+      "price": {
+        "amount": 27.9,
+        "currency": "BRL",
+        "symbol": null,
+        "kind": "listed_offer"
+      },
+      "reference_price": {
+        "amount": 97.9,
+        "currency": "BRL",
+        "kind": "seller_reference_price_not_verified_transaction"
+      },
+      "variant_prices": [
+        {
+          "kind": "installment_offer",
+          "installments": 3,
+          "amount_per_installment": 9.3,
+          "currency": "BRL"
+        }
+      ],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-zhen-tempo",
+      "account_ids": [
+        "lead-instagram-monge-zhen"
+      ],
+      "source_ids": [
+        "product-remaining-source-0f02f052ab4b"
+      ],
+      "price": {
+        "amount": 19.9,
+        "currency": "BRL",
+        "symbol": null,
+        "kind": "listed_offer"
+      },
+      "reference_price": {
+        "amount": 37.9,
+        "currency": "BRL",
+        "kind": "seller_reference_price_not_verified_transaction"
+      },
+      "variant_prices": [
+        {
+          "kind": "installment_offer",
+          "installments": 2,
+          "amount_per_installment": 9.95,
+          "currency": "BRL"
+        }
+      ],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-shanti-organize",
+      "account_ids": [
+        "lead-instagram-mongedapaz"
+      ],
+      "source_ids": [
+        "product-remaining-source-1ae5bfc966b4"
+      ],
+      "price": {
+        "amount": 37.9,
+        "currency": "BRL",
+        "symbol": null,
+        "kind": "listed_offer"
+      },
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "in_stock_metadata_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-ananda-sufrimiento",
+      "account_ids": [
+        "lead-instagram-monjeananda",
+        "lead-instagram-monjechang"
+      ],
+      "source_ids": [
+        "product-remaining-source-622007b854b0"
+      ],
+      "price": {
+        "amount": 8.65,
+        "currency": "EUR",
+        "symbol": null,
+        "kind": "starting_kindle_price"
+      },
+      "reference_price": null,
+      "variant_prices": [
+        {
+          "format": "Kindle",
+          "amount": 8.65,
+          "currency": "EUR",
+          "qualifier": "from"
+        },
+        {
+          "format": "paperback",
+          "amount": 12.99,
+          "currency": "EUR",
+          "qualifier": "from"
+        }
+      ],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-shen-tao-vuelvas",
+      "account_ids": [
+        "lead-instagram-shentaoes"
+      ],
+      "source_ids": [
+        "product-remaining-source-5cb4feeace16"
+      ],
+      "price": {
+        "amount": 8.99,
+        "currency": "USD",
+        "symbol": null,
+        "kind": "starting_kindle_price"
+      },
+      "reference_price": null,
+      "variant_prices": [
+        {
+          "format": "Kindle",
+          "amount": 8.99,
+          "currency": "USD",
+          "qualifier": "from"
+        },
+        {
+          "format": "paperback",
+          "amount": 14.99,
+          "currency": "USD",
+          "qualifier": "from"
+        }
+      ],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-yon-anxiety",
+      "account_ids": [
+        "lead-instagram-yonchenhealing"
+      ],
+      "source_ids": [
+        "product-remaining-source-a341511c26da"
+      ],
+      "price": {
+        "amount": 0.0,
+        "currency": "GBP",
+        "symbol": null,
+        "kind": "minimum_pay_what_you_want_price"
+      },
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "published_in_stock_metadata",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-yon-grief",
+      "account_ids": [
+        "lead-instagram-yonchenhealing"
+      ],
+      "source_ids": [
+        "product-remaining-source-3e3cefc347bf"
+      ],
+      "price": {
+        "amount": 7.99,
+        "currency": "USD",
+        "symbol": null,
+        "kind": "listed_offer"
+      },
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "published_in_stock_metadata",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-yon-slow",
+      "account_ids": [
+        "lead-instagram-yonchenhealing"
+      ],
+      "source_ids": [
+        "product-remaining-source-8abaafd9c8df"
+      ],
+      "price": {
+        "amount": 0.0,
+        "currency": "GBP",
+        "symbol": null,
+        "kind": "minimum_pay_what_you_want_price"
+      },
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "published_in_stock_metadata",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-yon-healing",
+      "account_ids": [
+        "lead-instagram-yonchenhealing"
+      ],
+      "source_ids": [
+        "product-remaining-source-2a50e6ae94f8"
+      ],
+      "price": {
+        "amount": 5.97,
+        "currency": "USD",
+        "symbol": null,
+        "kind": "listed_offer"
+      },
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "published_in_stock_metadata",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-zen-alimentos",
+      "account_ids": [
+        "lead-instagram-zenmuun"
+      ],
+      "source_ids": [
+        "product-remaining-source-05e74b23a97f"
+      ],
+      "price": null,
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-zen-tiempo",
+      "account_ids": [
+        "lead-instagram-zenmuun"
+      ],
+      "source_ids": [
+        "product-remaining-source-411fd7474dee"
+      ],
+      "price": null,
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-zen-camino",
+      "account_ids": [
+        "lead-instagram-zenmuun"
+      ],
+      "source_ids": [
+        "product-remaining-source-7493fb062c08"
+      ],
+      "price": null,
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-zen-community",
+      "account_ids": [
+        "lead-instagram-zenmuun"
+      ],
+      "source_ids": [
+        "product-remaining-source-f0da2cb4a0f2"
+      ],
+      "price": null,
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "incomplete_public_offer_pricing_placeholder",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-chen-pack-complet",
+      "account_ids": [
+        "lead-instagram-its-yang-chen"
+      ],
+      "source_ids": [
+        "product-site-chennatural-20261024"
+      ],
+      "price": {
+        "amount": 69.97,
+        "currency": "EUR",
+        "symbol": null,
+        "kind": "listed_offer"
+      },
+      "reference_price": {
+        "amount": 126.88,
+        "currency": "EUR",
+        "kind": "seller_reference_price_not_verified_transaction"
+      },
+      "variant_prices": [],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-chen-rituels",
+      "account_ids": [
+        "lead-instagram-its-yang-chen"
+      ],
+      "source_ids": [
+        "product-site-chennatural-20261024"
+      ],
+      "price": {
+        "amount": 22.97,
+        "currency": "EUR",
+        "symbol": null,
+        "kind": "listed_offer"
+      },
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-chen-foie",
+      "account_ids": [
+        "lead-instagram-its-yang-chen"
+      ],
+      "source_ids": [
+        "product-site-chennatural-20261024"
+      ],
+      "price": {
+        "amount": 37.97,
+        "currency": "EUR",
+        "symbol": null,
+        "kind": "listed_offer"
+      },
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-ravi-duo",
+      "account_ids": [
+        "lead-instagram-oravishen"
+      ],
+      "source_ids": [
+        "product-site-mongeravi-20261024"
+      ],
+      "price": null,
+      "reference_price": null,
+      "variant_prices": [],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    },
+    {
+      "observation_id": "remaining-ravi-rituais",
+      "account_ids": [
+        "lead-instagram-oravishen"
+      ],
+      "source_ids": [
+        "product-site-mongeravi-20261024"
+      ],
+      "price": {
+        "amount": 37,
+        "currency": "BRL",
+        "symbol": null,
+        "kind": "listed_offer"
+      },
+      "reference_price": {
+        "amount": 69,
+        "currency": "BRL",
+        "kind": "seller_reference_price_not_verified_transaction"
+      },
+      "variant_prices": [],
+      "availability": {
+        "state": "public_offer_observed_purchase_not_tested",
+        "purchase_completed": false
+      },
+      "paid_orders": null,
+      "revenue": null
+    }
+  ],
+  "deduplication": {
+    "duplicate_route_entries": 2,
+    "duplicate_route_pairs": [
+      [
+        18,
+        19
+      ],
+      [
+        5,
+        24
+      ]
+    ],
+    "prior_crawl_reuse_entries": 2,
+    "reused_storefronts": [
+      "https://www.chennatural.com/",
+      "https://mongeravi.com/"
+    ],
+    "potential_shared_prior_product_excluded": 1,
+    "potential_shared_product": {
+      "prior_observation_id": "linchen-eae54e96-dd8a-48e1-b2af-b4eab099b19e",
+      "observed_offer_name": "30-Day Healing Journey",
+      "observed_url": "https://yonchenhealing.com/",
+      "relationship": "potential_shared_product_not_counted_as_new",
+      "limit": "Same program label as prior affiliate offer; authorship and underlying SKU equivalence remain unverified."
+    },
+    "limit": "Same product ID across two profiles is one distinct product with two attribution rows. Similar names alone do not establish an identical SKU or ownership."
+  },
+  "claim_limits": [
+    "Each discovery link is a route, not a distinct product.",
+    "No checkout, purchase, login, paid credit, generation, post or outbound message is performed.",
+    "Prices, reviews, readers, followers and seller counters are not orders or revenue.",
+    "Existing first-batch products are referenced rather than counted again.",
+    "This is a bounded observation of the 28 retained discovery entries and the listed public offer routes, not an exhaustive census of each seller catalog.",
+    "Different market/format/one-time/subscription prices remain distinct. Bonus valuations and reference prices are not promoted to current sale prices.",
+    "The two Amazon routes for ASIN B0FJDNSFS4 and the repeated Ananta URL are counted once as products.",
+    "The prior 20 products are not counted again. A possibly shared Yon/Lin Chen program is retained only as an unresolved prior-product reference.",
+    "No new exploration continues after finalization."
+  ],
+  "verification": {
+    "source_acceptance_red": {
+      "exit_code": 1,
+      "reason": "33 saved product observations are not integrated: missing=33"
+    },
+    "source_acceptance_green": {
+      "status": "PASS",
+      "distinct_new_products": 33,
+      "account_offer_rows_added": 35,
+      "source_refs": 628,
+      "missing_source_refs": 0,
+      "existing_values_preserved": true,
+      "scope_and_ai_status_preserved": true,
+      "reference_and_variant_prices_preserved": true,
+      "numeric_prices": 26,
+      "numeric_prices_currency_unverified": 4,
+      "prices_unknown": 7,
+      "revenue_observations": 1
+    },
+    "package_tests": {
+      "status": "PASS",
+      "command": "rtk npm test",
+      "cwd": "packages/ai-monk-index",
+      "exit_code": 0,
+      "tests": 15,
+      "fail": 0,
+      "skipped": 0,
+      "includes": "CLI, stdio SDK, HTTP boundary and isolated tarball install"
+    },
+    "shared_helper_tests": {
+      "status": "PASS",
+      "command": "rtk proxy node --test apps/landing/lib/ai-monk-directory.test.mjs",
+      "exit_code": 0,
+      "tests": 9,
+      "fail": 0,
+      "skipped": 0
+    },
+    "built_index_source_projection": {
+      "status": "PASS",
+      "new_products_searchable": 33,
+      "attributed_rows": 35,
+      "referenced_sources_returned": true,
+      "currency_null_preserved": true,
+      "reference_and_subscription_variants_separate": true,
+      "revenue_sort_unchanged": true,
+      "public_profiles": 73,
+      "sources": 176,
+      "ai_status": {
+        "confirmed": 0,
+        "reported": 6,
+        "unverified": 67
+      }
+    },
+    "private_evidence_hashes": {
+      "status": "PASS",
+      "selected_sources": 39,
+      "raw_body_copy": false
+    }
+  },
+  "primary_followup": [
+    "PR and exact-head CI/main integration",
+    "Immutable v0.4.5 release and public JSON/Web/remote MCP readback"
+  ],
+  "effects": {
+    "shared_checkout_edits": 0,
+    "raw_body_repo_copies": 0,
+    "checkout": 0,
+    "purchase": 0,
+    "login": 0,
+    "paid_api": 0,
+    "generation": 0,
+    "posting": 0,
+    "registry_metadata_edits": 0,
+    "plugin_payload_edits": 0,
+    "factory_runtime_edits": 0
+  },
+  "snapshot_sha256": "415571064885204388d191188490cc45bf6602aeef3e3fc47c1c3b35dff13a72",
+  "push_readback": {
+    "status": "pending",
+    "branch": "feat/ai-monk-products-remaining-20261024"
+  }
+}
