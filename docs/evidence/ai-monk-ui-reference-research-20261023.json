@@ -958,5 +958,40 @@
       "result": "No stored avatar URL is found in the allowed task evidence scope.",
       "image_status": "unknown"
     }
-  ]
+  ],
+  "connected_mobbin_recheck": {
+    "checked_at": "2026-10-23T01:11:03.888439+00:00",
+    "method": "Mobbin connected search_screens; platform web; 3 inline preview images visually inspected",
+    "availability_change": "The connected tool is now available; earlier public-page retrieval remains an accurate record of that earlier check.",
+    "references": [
+      {
+        "app": "Quo",
+        "url": "https://mobbin.com/screens/67087be2-b72f-44b7-938e-e68190d849cb",
+        "observed": "Contacts list aligns small round avatars or colored initials with names. Creator/company filters and a search field sit above the list; an expanded contact occupies a separate right pane.",
+        "adopted_mechanism": "Stable icon/name position, compact secondary metadata, list controls above results."
+      },
+      {
+        "app": "Meetup",
+        "url": "https://mobbin.com/screens/4c1e6181-830e-4a1a-adc9-9d339c1d62e3",
+        "observed": "Members heading, count and leadership segment appear above repeated white member rows. Every visible member row begins with a portrait and bold name, followed by lighter role/date details. Sort controls and member search appear above the rows.",
+        "adopted_mechanism": "Name and portrait first; count, search and sort precede results."
+      },
+      {
+        "app": "Square",
+        "url": "https://mobbin.com/screens/42858659-a933-4138-8494-a62a18d078d3",
+        "observed": "Team members view uses search/job controls, a name/job table and square initials or an account glyph where a portrait is absent. The selected person has a separate detail panel.",
+        "adopted_mechanism": "Maintain an identifiable icon even when the source image is unavailable; disclose the fallback."
+      }
+    ],
+    "limits": [
+      "No usability, conversion, revenue or growth effect is established by these images.",
+      "The examples inform layout only; no competitor screenshot or identity asset is shipped in the product.",
+      "Signed/expiring preview image URLs are not persisted."
+    ],
+    "vidiq_balance": {
+      "total_credits": 0,
+      "cost_of_check": 0,
+      "additional_credit_purchase": false
+    }
+  }
 }

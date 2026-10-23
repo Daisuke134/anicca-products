@@ -48,3 +48,11 @@ Daisの公開画面への指摘に従い、見出しを `AI Monk Database` に�
 source受入結果: 全75ID、11画像のbytes/hash、追加4原bytes一致、既存71行とcanonical不変、公開JSONのsecret/署名付きURL/private pathなし、`git diff --check`、既存directory helper 5testsがPASS。
 
 このbatchのcursor: source受入検証を通過し、commit/pushとPRのhead CI確認からrootへの引き継ぎへ進む。merge、Netlify反映、本番readbackはrootが所有する。全75件の実画像取得は引き続き未完。
+
+## 11画像の本番readbackと次の画像調査
+
+PR562 source head `2885ba3db8ce0f8233a7d850349b1082feb0ef90` のLanding CI39881869107が成功し、main `c05ae73a6c65275456c45f7bd6fc9e8d1ed23879` とNetlify39882288310へ反映する。本番で75cards・11画像・64頭文字、11assetのHTTP200/SHA一致、追加4画像のdecode、390px横overflowなし、client error0を確認する。証拠は `docs/evidence/ai-monk-profile-images-production-20261023.json`。
+
+Mobbin接続toolが利用可能になったため、Quo/Meetup/Squareの3実画面を確認し、観察とcanonical URLを既存reference evidenceへ追記する。既存UIに同じicon/name/controlの配置を確認し、不要な再設計は増やさない。利用指標/収益効果は未計測。
+
+次のbatch3は未取得64件から `monkshen`, `linchenhealing`, `thezhenwu`, `oravishen`, `mestre.jin`, `maestroananta`, `tempiovita`, `yunlobsang`, `monjaalma`, `shin_hyun_official` を対象にする。既存20handle調査と重複させず、出所のexact canonical handleへのcrosslinkを確認して原bytesだけを取得する。Instagram直接収集・有料credit購入・生成顔への置換は行わない。別branch/worktreeで調査evidenceと確認済みassetだけを扱い、canonicalのAI分類やmetricsは変更しない。現在cursorはこの10件の出所確認。
