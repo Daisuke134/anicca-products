@@ -92,9 +92,9 @@ struct StringsTests {
         #expect(!L10n.historyTab(lang).isEmpty)
         #expect(!L10n.settingsTab(lang).isEmpty)
         #expect(!L10n.paywallHeadline(lang).isEmpty)
-        #expect(!L10n.startTrialDays(7, lang).isEmpty)
+        #expect(!L10n.startTrial(L10n.trialPeriod(value: 7, unit: .day, lang), lang).isEmpty)
         #expect(!L10n.restorePurchase(lang).isEmpty)
-        #expect(!L10n.finePrintTrial(days: 7, renewal: "$29.99/year", lang).isEmpty)
+        #expect(!L10n.finePrintTrial(period: L10n.trialPeriod(value: 7, unit: .day, lang), renewal: "$29.99/year", lang).isEmpty)
         #expect(!L10n.perYear("$29.99", lang).isEmpty)
         #expect(!L10n.perMonth("$4.99", lang).isEmpty)
     }
@@ -108,9 +108,9 @@ struct StringsTests {
         #expect(!L10n.historyTab(lang).isEmpty)
         #expect(!L10n.settingsTab(lang).isEmpty)
         #expect(!L10n.paywallHeadline(lang).isEmpty)
-        #expect(!L10n.startTrialDays(7, lang).isEmpty)
+        #expect(!L10n.startTrial(L10n.trialPeriod(value: 7, unit: .day, lang), lang).isEmpty)
         #expect(!L10n.restorePurchase(lang).isEmpty)
-        #expect(!L10n.finePrintTrial(days: 7, renewal: "$29.99/year", lang).isEmpty)
+        #expect(!L10n.finePrintTrial(period: L10n.trialPeriod(value: 7, unit: .day, lang), renewal: "$29.99/year", lang).isEmpty)
         #expect(!L10n.perYear("$29.99", lang).isEmpty)
         #expect(!L10n.perMonth("$4.99", lang).isEmpty)
     }
@@ -152,25 +152,29 @@ struct GratitudeEntryTests {
 
 @MainActor
 struct PaywallGateTests {
+    private func makeVM() -> AppViewModel {
+        AppViewModel(defaults: UserDefaults(suiteName: "test-\(UUID().uuidString)")!)
+    }
+
     private func entry(daysAgo: Int) -> GratitudeEntry {
         let date = Calendar.current.date(byAdding: .day, value: -daysAgo, to: Date())!
         return GratitudeEntry(date: date, gratitude1: "a", gratitude2: "", gratitude3: "", affirmation: "x")
     }
 
     @Test func free_canAddFirstEntryOfDay_butNotSecond() {
-        let vm = AppViewModel()
+        let vm = makeVM()
         #expect(vm.canAddEntry(entries: [entry(daysAgo: 1)]))
         #expect(!vm.canAddEntry(entries: [entry(daysAgo: 0)]))
     }
 
     @Test func pro_canAddUnlimitedEntries() {
-        let vm = AppViewModel()
+        let vm = makeVM()
         vm.isPro = true
         #expect(vm.canAddEntry(entries: [entry(daysAgo: 0)]))
     }
 
     @Test func free_historyLocksEntriesOlderThanSevenDays() {
-        let vm = AppViewModel()
+        let vm = makeVM()
         #expect(!vm.isLocked(entry(daysAgo: 6)))
         #expect(vm.isLocked(entry(daysAgo: 7)))
         vm.isPro = true
@@ -178,7 +182,7 @@ struct PaywallGateTests {
     }
 
     @Test func free_refreshAffirmation_opensPaywallInsteadOfChanging() {
-        let vm = AppViewModel()
+        let vm = makeVM()
         let before = vm.currentAffirmation.english
         vm.refreshAffirmation()
         #expect(vm.showPaywall)
@@ -186,10 +190,7 @@ struct PaywallGateTests {
     }
 
     @Test func free_threeDayStreak_opensPaywallOnce() {
-        let key = AppViewModel.streakPaywallShownKey
-        UserDefaults.standard.removeObject(forKey: key)
-        defer { UserDefaults.standard.removeObject(forKey: key) }
-        let vm = AppViewModel()
+        let vm = makeVM()
         let threeDays = [entry(daysAgo: 0), entry(daysAgo: 1), entry(daysAgo: 2)]
         vm.didSaveEntry(entries: [entry(daysAgo: 0), entry(daysAgo: 1)])
         #expect(!vm.showPaywall)
@@ -198,6 +199,23 @@ struct PaywallGateTests {
         vm.showPaywall = false
         vm.didSaveEntry(entries: threeDays)
         #expect(!vm.showPaywall)
+    }
+
+    @Test func trialPeriod_keepsStoreUnit() {
+        #expect(L10n.trialPeriod(value: 1, unit: .month, .japanese) == "1か月間")
+        #expect(L10n.trialPeriod(value: 7, unit: .day, .english) == "7-day")
+    }
+
+    @Test func isPro_isCachedAcrossLaunches() {
+        let defaults = UserDefaults(suiteName: "test-\(UUID().uuidString)")!
+        let vm = AppViewModel(defaults: defaults)
+        vm.isPro = true
+        #expect(AppViewModel(defaults: defaults).isPro)
+    }
+
+    @Test func free_alwaysShowsTodaysAffirmation() {
+        let vm = makeVM()
+        #expect(vm.displayedAffirmation.english == AffirmationData.forDay().english)
     }
 
     @Test func annualSavingsPercent_comparesToTwelveMonths() {

@@ -11,15 +11,27 @@ class AppViewModel {
     var hasCompletedOnboarding: Bool {
         didSet { UserDefaults.standard.set(hasCompletedOnboarding, forKey: "has_onboarded") }
     }
-    var isPro: Bool = false
+    private let defaults: UserDefaults
+
+    var isPro: Bool {
+        didSet { defaults.set(isPro, forKey: Self.isProKey) }
+    }
     var showPaywall: Bool = false
 
     var currentAffirmation: Affirmation = AffirmationData.forDay()
 
     static let freeHistoryDays = 7
     static let streakPaywallShownKey = "streak3_paywall_shown"
+    static let isProKey = "is_pro_cached"
 
-    init() {
+    // Free: always today's affirmation, even across midnight. Pro: the one they last picked.
+    var displayedAffirmation: Affirmation {
+        isPro ? currentAffirmation : AffirmationData.forDay()
+    }
+
+    init(defaults: UserDefaults = .standard) {
+        self.defaults = defaults
+        self.isPro = defaults.bool(forKey: Self.isProKey)
         self.language = .english
         self.hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "has_onboarded")
     }
@@ -50,8 +62,8 @@ class AppViewModel {
     func didSaveEntry(entries: [GratitudeEntry]) {
         guard !isPro,
               calculateStreak(entries: entries) >= 3,
-              !UserDefaults.standard.bool(forKey: Self.streakPaywallShownKey) else { return }
-        UserDefaults.standard.set(true, forKey: Self.streakPaywallShownKey)
+              !defaults.bool(forKey: Self.streakPaywallShownKey) else { return }
+        defaults.set(true, forKey: Self.streakPaywallShownKey)
         showPaywall = true
     }
 
