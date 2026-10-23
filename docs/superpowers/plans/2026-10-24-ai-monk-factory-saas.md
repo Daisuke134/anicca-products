@@ -50,7 +50,7 @@ Factory専用のStripe product/固定199USD Price/解約portalを作成し、そ
 
 /factoryの公式Web apps一覧はPR628/main75335e9d402e5faeb24fef180f4a0a4f3c9ff4dc由来Deploy40015273214のSUCCESSと公開readbackを確認し、登録完了とする。/daisは別canonical overlay経路なので未使用sourceを編集しない。
 
-専用HeyGen無料account/API keyの公式GET200・Factory本人一致・独立wallet USD0・wallet自動補充OFFを確認する。入金/生成0。最小入金USD5は公式UIの入力契約として確認し、購入受入とは区別する。専用OpenAIは本人所有メール別名で新規account・独立organization/project・API keyを1件作成し、公式models GET200を確認する。残高USD0、画像modelの一覧表示は実生成権限/課金受入を意味しない。公式支払UIはカード番号/期限/CVCを要求しLink選択はなく、SSOTに全カード情報が無いため購入0。verified developer identityの開始にも既定支払方法が必要で、Plugin ZIP upload/提出0。独立予算が揃ってからUpload-Post Professionalの購入を進める。現準備の証拠 → ../../evidence/ai-monk-factory-provider-preflight-20261024.json。
+専用HeyGen無料account/API keyの公式GET200・Factory本人一致・独立wallet USD0・wallet自動補充OFFを確認する。入金/生成0。最小入金USD5は公式UIの入力契約として確認し、購入受入とは区別する。専用OpenAIは初回準備時に本人所有メール別名でaccount・独立organization/project・API keyを1件作成し、公式models GET200・残高USD0を観測する。この初回のmodel一覧表示は実生成権限/課金受入を意味しない。当時の公式支払UIはカード番号/期限/CVCを要求しLink選択はなく、SSOTに全カード情報が無いため購入0。verified developer identityの開始にも既定支払方法が必要で、Plugin ZIP upload/提出0。現在の認証状態は後述の再確認を正本とし、初回残高を現在値へ流用しない。独立予算が揃ってからUpload-Post Professionalの購入を進める。現準備の証拠 → ../../evidence/ai-monk-factory-provider-preflight-20261024.json。
 
 HeyGen単独の代替案も公式仕様/料金で追加観測する。架空avatarのprompt生成APIは存在するが、単独台本生成の置換とprompt avatar固有料金は未確認とする。Full Video Agentの5.82USD/分でtrial3本を各20秒まで生成する場合は動画費だけ5.82USD、paid30本を各45秒まで生成する場合は130.95USD、36課金attemptでは157.14USDとなる。短い動画の必須最低額とは扱わない。現契約のtrial4.25USD/paid provider・台本70USDを賄えないため、既存price/quota/providerを変更して迂回しない。独立read-only review SHIP/Blocking0、未確認の実請求/失敗課金/生成権限は保持する。追加購入/生成/設定変更0。証拠 → ../../evidence/ai-monk-factory-heygen-alternative-20261024.json。
 
@@ -60,4 +60,14 @@ HeyGen単独の代替案も公式仕様/料金で追加観測する。架空avat
 
 SaaSの提供開始、独立provider課金元、Stripe3日trial、本人IG接続、実avatar/video、公式投稿とmetrics、FactoryのX告知・売上は未完。実利用可能な状態から次の配布へ進む。
 
-Netlify AI Gatewayの代替経路は公式docsと現account GETでread-only確認する。既存契約のtype_nameはFree、ai_gateway_available_on_plan=false、auto_topup_enabled=falseであり、Gatewayはこの契約で利用不可とする。通常のAI使用上限はAgent Runners用で、Enterprise以外のGatewayには適用されず、team共通creditを使用する。Factoryの独立hard budgetを満たすと推定しない。plan upgrade・設定・入金・生成0で不採用とし、専用OpenAIの支払方法/実生成受入という現在cursorを保持する。証拠 → ../../evidence/ai-monk-factory-netlify-gateway-preflight-20261024.json。
+Netlify AI Gatewayの代替経路は公式docsと現account GETでread-only確認する。既存契約のtype_nameはFree、ai_gateway_available_on_plan=false、auto_topup_enabled=falseであり、Gatewayはこの契約で利用不可とする。通常のAI使用上限はAgent Runners用で、Enterprise以外のGatewayには適用されず、team共通creditを使用する。Factoryの独立hard budgetを満たすと推定しない。plan upgrade・設定・入金・生成0で不採用とし、専用OpenAIの認証状態・支払方法/実生成受入という現在cursorを保持する。証拠 → ../../evidence/ai-monk-factory-netlify-gateway-preflight-20261024.json。
+
+## 専用OpenAIの再認証と現行の不足条件
+
+目的は専用providerの利用可否を現在の公式状態で確かめ、利用不能なまま請求や有料生成を始めないこと。既存専用identity・本人メール別名・通常メールコード認証を使い、SSOT全文確認と宛先/送信元/時刻一致を行う。共有Grok wallet/key・日次loop・別account新設・reset・支払・生成は対象外とする。完了条件は公式UI/APIの状態、秘匿したreceipt、正本の現在cursorの一致とする。
+
+- [x] 旧sessionの無効化を公式UIで確認し、本人の既存Gmail file-backend経路から確認メールをRAMで読む。確認メール要求1回/コード入力1回/再送0。
+- [x] コード入力後の公式UIはaccount削除または無効化の認証エラー、既存専用API keyのGET /v1/modelsは401・account_deactivatedを返す。API上の無効化を確認し、削除の有無・原因は未確認とする。SSOTの現行account状態を更新し使用済コードを除く。
+- [ ] この専用accountへの正規アクセス復旧、利用可能な専用課金元・実残高/自動補充・画像生成権限を確認する。現在のbilling画面は取得不可で、初期描画/過去残高0を現在値にしない。公式案内のappeal/support経路は確認するが、このunitで第三者への送信は行わない。
+
+この再確認後の現在cursorは、専用OpenAIの正規アクセス復旧と必要な支払方法、次いで実生成の受入。正式ChatGPT upload/submit、Factory enable、customer Checkout/請求、画像/動画生成、IG接続/投稿は0を保持する。Database/公開MCP/Codex Pluginの公開とは独立した未完条件とする。証拠 → ../../evidence/ai-monk-factory-openai-account-state-20261024.json。

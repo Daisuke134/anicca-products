@@ -1,0 +1,141 @@
+{
+  "schema_version": "anicca.ai-monk-factory-openai-account-state.v1",
+  "run_id": "factory-openai-normal-login-20261024",
+  "owner_id": "root",
+  "occurrence_id": "normal-login-and-official-models-readback",
+  "release_sha": "71ae730a93648edc76b041fd850bbfbb71e3ce53",
+  "recorded_at": "2026-10-23T22:36:02.135420+00:00",
+  "spec_first": {
+    "commit": "0e2cfd54fc9228e03c541cdf944c7f705644eb59",
+    "remote_object_matches": true,
+    "path": "docs/superpowers/plans/2026-10-24-ai-monk-factory-saas.md"
+  },
+  "phase": "provider_deactivation_confirmed",
+  "command": "Existing registered provider browser: normal email-code login once; existing dedicated API key: GET /v1/models only.",
+  "loaded_argv": {
+    "model_provider_override": false,
+    "new_account": false,
+    "password_reset": false,
+    "shared_grok_credentials": false
+  },
+  "loaded_env": {
+    "identity": "ai-monk-factory:provision",
+    "credential_source": "private local credential SSOT; exact service match",
+    "mailbox_read_route": "existing authorized gog file backend",
+    "secret_values_in_report": false
+  },
+  "exit_code": 0,
+  "status": "provider_account_unavailable",
+  "readback": {
+    "primary_ui": {
+      "observed_at": "2026-10-23T22:33:32.526715+00:00",
+      "host": "auth.openai.com",
+      "path": "/email-verification",
+      "message_summary": "Provider authentication error states the account is deleted or deactivated."
+    },
+    "primary_api": {
+      "observed_at": "2026-10-23T22:33:56.511390+00:00",
+      "method": "GET",
+      "path": "/v1/models",
+      "http_status": 401,
+      "error_type": "invalid_request_error",
+      "error_code": "account_deactivated",
+      "response_sha256": "ecaec9a5724d17485743c698f6fd9c054a41e2622c1fc93d40956a3fed5165a5"
+    },
+    "current_billing": {
+      "credit_balance": null,
+      "payment_method": null,
+      "auto_reload": null,
+      "status": "not_currently_observable_due_to_deactivation",
+      "initial_or_historical_zero_is_not_current_verified_balance": true
+    },
+    "prior_preflight": {
+      "receipt": "docs/evidence/ai-monk-factory-provider-preflight-20261024.json",
+      "historical_models_get_200_preserved": true,
+      "historical_billing_observations_preserved": true
+    },
+    "independent_api": {
+      "private_basename": "independent-account-review.json",
+      "sha256": "158bbc0c09ebcf8e453a74d605c6a92ebf845023c3464edc921e45e24ca6b811",
+      "method": "GET",
+      "path": "/v1/models",
+      "http_status": 401,
+      "error_type": "invalid_request_error",
+      "error_code": "account_deactivated",
+      "request_count": 1,
+      "matches_primary": true,
+      "verdict": "diagnosis_verified_provider_still_unavailable",
+      "reviewer_context": "existing non-author read-only reviewer reused; not a new fresh thread",
+      "additional_ui_or_otp_or_payment": 0
+    }
+  },
+  "effect": {
+    "normal_email_code_request": 1,
+    "email_code_submit": 1,
+    "email_resend": 0,
+    "credential_status_updated": true,
+    "used_code_removed_from_credential_ssot": true,
+    "password_reset": 0,
+    "new_account": 0,
+    "support_message": 0,
+    "payment": 0,
+    "paid_api_post": 0,
+    "generation": 0,
+    "factory_enable": 0,
+    "customer_checkout": 0,
+    "social_connection": 0,
+    "social_post": 0,
+    "daily_loop_changes": 0
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    {
+      "private_basename": "normal-login-after-code-ui-readback.json",
+      "sha256": "b38301bd67e2fcf88b0e9dc8d724fce1c8e9e674dcc19783935e9bfdd4841d9d"
+    },
+    {
+      "private_basename": "models-after-auth-error-readback.json",
+      "sha256": "a466b903ad7134b52fab45310bcd2259fcc3a7178ed70911a0aec3183196e7a0"
+    },
+    {
+      "private_basename": "normal-login-fence.json",
+      "sha256": "fd9c20817b97a24bdfd2ef23d76d653cf1dd5fc6e929c154644dbc39aef24444"
+    },
+    {
+      "private_basename": "normal-login-code-diagnostic.json",
+      "sha256": "e0e347463a2e1990747eec67d1d2e18c0d7a3cbaebfe7d5327aa357e4c58aeb4"
+    },
+    {
+      "private_basename": "billing-reload-api-readback.json",
+      "sha256": "74cdcd73e0b118452494aa98b91fcbfac0251fe27bd4434f349dde30136bc858"
+    },
+    {
+      "private_basename": "independent-account-review.json",
+      "sha256": "158bbc0c09ebcf8e453a74d605c6a92ebf845023c3464edc921e45e24ca6b811"
+    }
+  ],
+  "error_class": "provider_account_deactivated",
+  "retryable": false,
+  "unknowns": [
+    "reason_for_deactivation",
+    "whether_account_was_deleted",
+    "current_credit_balance",
+    "current_payment_method",
+    "current_auto_reload_state",
+    "generation_entitlement"
+  ],
+  "next_action": "Restore legitimate access to this dedicated account through the provider's supported process; then verify dedicated billing and actual generation before enabling customer billing.",
+  "official_guidance": {
+    "url": "https://help.openai.com/en/articles/10562188-why-was-my-openai-account-deactivated",
+    "retrieval": "crwl crawl primary help article",
+    "summary": "The provider lists appeal via a notification link or intake form and Help Center support when no notification is received. The article does not establish the cause of this account's deactivation.",
+    "support_or_appeal_sent": false
+  },
+  "scope": {
+    "public_database_or_mcp_availability_inferred_from_this_account": false,
+    "codex_plugin_release_inferred_as_marketplace_listing": false,
+    "formal_chatgpt_upload": 0,
+    "formal_chatgpt_submit": 0,
+    "factory_available": false
+  }
+}
