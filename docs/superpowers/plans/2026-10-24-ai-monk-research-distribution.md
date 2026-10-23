@@ -16,7 +16,7 @@
 - [ ] SaaS-1: 原価からprice/生成上限を決め、最小auth・Stripe3日trial・Generate avatar/video・IG接続・自動投稿・metricsを既存Web/APIから実装して公開する。TikTokは後続。実API生成/Stripe subscription/利用者所有接続/公式投稿とmetricsを成果条件として追跡する。
 - [ ] DIST-2: 実利用できるFactoryをXで告知し、Grokにも配布協力を依頼する。未実装や未達収益を宣伝しない。
 - [ ] PL-1: 既存無料Codex pluginと正式ChatGPT/Grok/Muse配布口を確認する。6toolを案内するportable v0.1.2のsource・新Release・正式提出/掲載を分けて追跡する。新しい専用OpenAI orgではupload前のdeveloper identityにvalid default payment methodが必要で、upload/submitは0。既存accountのpasskey MFAとは区別する。Museは3/3 requirements受付済み、BusinessだけApproved、Data/credentialsはIn reviewで、全体掲載は未確認。現在のpackage準備 → `2026-10-24-ai-monk-plugin-v012.md`。
-- [ ] DB-1: 既知73profileの商品/売上/creator/言語/画像の調査coverageを記録し、取得可能な公開一次資料から精査・拡充する。pending非掲載という旧reasonを修正し、unknownを保持する。
+- [ ] DB-1: 既知73profileの商品/売上/creator/言語/画像の調査coverageを記録し、取得可能な公開一次資料から精査・拡充する。pending非掲載という旧reasonを修正し、unknownを保持する。 確定3系統の商品価格/通貨をv0.4.6 sourceへ反映中。限定cursor/公開前の受入 → `2026-10-24-ai-monk-product-price-currencies.md`。
 
 ## 境界
 調査・配布段階の新規契約/top-upは0。Factoryのprovider設定と実生成は採用した原価/予算契約と支払元の実確認を満たす範囲で行い、Grok共有walletへfallbackしない。既存creditとspend-capを守る。free試用は3日というユーザー指定を優先し、無制限生成を約束しない。個人wallet/口座資金移動、既存loop restart、未完effect再送、shared credential複製は行わない。Factoryの実設計・価格はCOST-1の結果から具体化し、ここで架空の利益/注文を置かない。
