@@ -90,3 +90,21 @@ test('an older subscription event cannot replace the account current subscriptio
   const stripe = { subscriptions: { retrieve: async () => assert.fail('old subscription should be rejected before provider lookup') } };
   await assert.rejects(syncFactoryBilling({ userId: user.id, subscriptionId: 'sub_old', store, stripe, env: {} }), { code: 'billing_mismatch' });
 });
+test('the installed Stripe SDK uses the tick transport and aborts its GET at the shared deadline without retry', async () => {
+  const { factoryStripeClient } = require('../monk-factory-billing.js');
+  const controller = new AbortController(); let calls = 0;
+  const stripe = factoryStripeClient({ STRIPE_SECRET_KEY: 'sk_test_synthetic_fixture', MONK_FACTORY_STRIPE_LIVE: 'false' }, {
+    fetchImpl: async (url, options) => {
+      calls++; assert.equal(new URL(url).hostname, 'api.stripe.com'); assert.equal(options.method, 'GET');
+      const signal = AbortSignal.any([options.signal, controller.signal]);
+      return new Promise((_resolve, reject) => {
+        if (signal.aborted) reject(signal.reason);
+        else signal.addEventListener('abort', () => reject(signal.reason), { once: true });
+      });
+    },
+  });
+  assert.equal(stripe._api.httpClient.getClientName(), 'fetch');
+  const timer = setTimeout(() => controller.abort(new Error('synthetic tick deadline')), 10);
+  try { await assert.rejects(stripe.subscriptions.retrieve('sub_fixture')); assert.equal(calls, 1); }
+  finally { clearTimeout(timer); }
+});

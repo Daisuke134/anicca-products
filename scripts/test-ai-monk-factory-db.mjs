@@ -17,7 +17,7 @@ const env = { ...process.env, PATH: `${bin}:${process.env.PATH || ''}`, MONK_FAC
 for (const key of Object.keys(env)) if (key.startsWith('PG') && key !== 'PG_COLOR') delete env[key];
 function pg(name, args) {
   const result = spawnSync(join(bin, name), args, { env, encoding: 'utf8', timeout: 30000 });
-  if (result.status !== 0) throw new Error(`${name} failed (${result.status}): ${(result.stderr || '').slice(-2000)}`);
+  if (result.status !== 0) throw new Error(`${name} failed (${result.status}): ${(result.stderr || result.stdout || result.error?.message || '').slice(-2000)}`);
 }
 try {
   pg('initdb', ['-D', data, '-A', 'trust', '-U', userInfo().username, '--no-locale', '--encoding=UTF8']);

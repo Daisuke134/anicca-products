@@ -32,3 +32,19 @@ test('unavailable production providers cannot start a trial or reserve a billing
   assert.equal(response.statusCode, 503);
   assert.equal(JSON.parse(response.body).error, 'factory_unavailable');
 });
+
+test('missing cancellation or billing configuration keeps ready false and cannot reserve Checkout', async () => {
+  const configured = { ...env, MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long',
+    STRIPE_SECRET_KEY: 'sk_test_fixture', MONK_FACTORY_STRIPE_PRICE_ID: 'price_fixture', MONK_FACTORY_STRIPE_PORTAL_CONFIGURATION_ID: 'bpc_fixture',
+    MONK_FACTORY_STRIPE_WEBHOOK_SECRET: 'whsec_fixture', MONK_FACTORY_STRIPE_LIVE: 'false' };
+  for (const field of ['STRIPE_SECRET_KEY', 'MONK_FACTORY_STRIPE_PRICE_ID', 'MONK_FACTORY_STRIPE_PORTAL_CONFIGURATION_ID', 'MONK_FACTORY_STRIPE_WEBHOOK_SECRET', 'MONK_FACTORY_STRIPE_LIVE']) {
+    const missing = { ...configured }; delete missing[field]; let reservations = 0;
+    const dependencies = { env: missing, fetchImpl: auth, stripe: {}, providers: { readiness: () => ({ ready: true }) },
+      store: { account: async () => null, reserveProfile: async () => { reservations++; throw new Error('not configured'); } } };
+    const req = { httpMethod: 'GET', headers: { authorization: 'Bearer fixture' } };
+    const state = await factoryHandler(req, dependencies);
+    assert.equal(JSON.parse(state.body).ready, false, field);
+    const checkout = await factoryHandler({ ...req, httpMethod: 'POST', body: JSON.stringify({ action: 'checkout' }) }, dependencies);
+    assert.equal(checkout.statusCode, 503); assert.equal(reservations, 0, field);
+  }
+});
