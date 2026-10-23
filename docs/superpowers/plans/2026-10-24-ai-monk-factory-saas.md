@@ -41,8 +41,10 @@ Files: apps/landing/app/ai-monk-factory/page.tsxとclient、scripts/stage-ai-mon
 - [ ] Factory専用provider/Stripe3日trial/本人IG接続/実avatar-video/公式postとmetricsを区別して確認し、利用可能な事実だけをXへ告知する。
 
 ## 現在cursor
-Task2のjob/APIとTask3画面を統合する。primaryのcore47件＋client5件がGREEN、独立Unix socket Postgres20件がGREEN。unknown保持/並列lease/POST前fence/保存応答消失/重複背景/OFF・取消競合/実adapterを使う制作→投稿→帰属metricsを隔離fixtureで確認する。Factory対象TypeScriptは診断0、既存CIと同じ固定版共通asset配置後の実buildは651ページでPASS。desktop1440/mobile390のローカル表示は横溢れ0、実media未生成の空状態を確認する。全体tscには既存dashboard/income/lmの6診断がある。
+PR626をmain ad3ac0ccecf2762a922853133bcaf253b1448a96へ統合する。修正後CI40009398593は全工程SUCCESS。独立source reviewは53件、独立Postgres20件がPASS。Stripeを含む共通25秒deadline、設定不足でready false/予約0、状態取得障害時の停止導線を確認する。review → ../../evidence/ai-monk-factory-release-review-20261024.json。
 
-fresh read-only reviewは6b9e0b55でhold。Stripe SDKだけが25秒signal外で34.8秒まで延びる反証と、解約portal欠落でもready=trueとなる反証を受け入れる。最小REDを先に確認し、既存Stripe SDKのfetch transportをtickの共通25秒signalへ結び、Price/portal/webhook/live-mode不足はAPIとscheduledの両方で新規実行0にする。状態取得障害時も停止ボタンを表示する。修正後のprimary focused検証52件はPASS、独立再確認は既存商品隔離1件を含む53件PASSでsource ship（fdab2f2a）。実handler→実Stripe SDKの共通deadline中断を確認する。receipt → ../../evidence/ai-monk-factory-release-review-20261024.json。PR626の初回CIはDB19/20で失敗し、fresh checkoutでは未生成のDatabase moduleを台本がimportすることを確認する。テスト前に既存package build --netlifyを実行し、前提不足を明示する診断を追加する。CI/main統合が次のcursor。
+mainの2migrationを本番cycgdwndgfgdbnndithcへ適用し、3tablesのRLS=true、account/job/event各0を公式readbackする。Supabase Google認証は有効でFactory redirectは既存設定に含まれ、認証設定変更0。main由来Netlify Deploy40010066986の公開反映を確認中。source/DB受入 → ../../evidence/ai-monk-factory-cloud-foundation-20261024.json。
 
-Factory専用provider/支払元の実確認を進める。既存Grok用wallet/key/Postiz・日次loopを使わない。本番DB migration・SaaS公開受入・Stripe価格公開・実生成・投稿・売上は未完。設定未完の間はcheckoutと新規生成を無効のまま保持する。独立課金元と本人IGが揃ってから実providerの結果を区別して確認する。
+次はFactory専用のStripe product/固定199USD Price/解約portal/署名endpointとruntime設定を準備する。Providerの独立支払元・容量・white-label・実生成が未確認の間はMONK_FACTORY_ENABLED=falseを保持し、Checkout/新規生成/自動投稿を開始しない。Stripe resource作成をcustomer課金や売上と扱わない。専用Upload-Post無料accountとAPIの公式GETは200、有料Professional/white-labelは未加入。自動作成された空defaultは枠を消費するため、未接続・未投稿を確認して整理し、採用25枠と整合させる。既存Grok用wallet/key/Postiz・日次loopは使わない。
+
+SaaSの提供開始、独立provider課金元、Stripe3日trial、本人IG接続、実avatar/video、公式投稿とmetrics、FactoryのX告知・売上は未完。実利用可能な状態から次の配布へ進む。
