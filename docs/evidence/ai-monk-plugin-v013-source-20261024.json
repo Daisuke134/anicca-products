@@ -1,0 +1,320 @@
+{
+  "schema_version": "anicca.ai-monk-plugin-v013-source.v1",
+  "run_id": "ai-monk-plugin-v013-source-20261024",
+  "owner_id": "monk_product_price_followup",
+  "occurrence_id": "verified-demo-url-metadata-only",
+  "observed_at": "2026-10-23T22:18:35.650441+00:00",
+  "phase": "source_acceptance",
+  "source_branch": "feat/ai-monk-plugin-v013-20261024",
+  "source_base_main_sha": "1f42032764c59530f1f81b4019676ff12e06f773",
+  "origin_main_at_source_acceptance": "894dfd6ea29f8eb3086aa95d6e9a43d1b4ee19f5",
+  "spec_first_commit_sha": "67775971d4bbd883f1b211626ce5dfa5550cc5a9",
+  "spec_first_remote_object_matches": true,
+  "package_edited_before_spec_push": false,
+  "spec_path": "docs/superpowers/specs/2026-10-24-ai-monk-plugin-review-readiness.md",
+  "release_sha": null,
+  "package": {
+    "version": "0.1.3",
+    "previous_version": "0.1.2",
+    "metadata_only": true,
+    "manifest_changes": [
+      "version",
+      "extensions.com.openai.review.demo_recording_url",
+      "extensions.com.openai.publication.release_notes"
+    ],
+    "README_changes": [
+      "current version",
+      "verified execution-log replay URL and actual test limits",
+      "new v0.1.3 tag/ZIP instructions with old releases preserved"
+    ],
+    "test_cases_unchanged": {
+      "positive": 5,
+      "negative": 3
+    },
+    "interface_descriptions_unchanged": true,
+    "commerce": false,
+    "six_existing_tools_unchanged": [
+      "ai_monk_index_stats",
+      "get_ai_monk",
+      "how_they_monetize",
+      "search_ai_monks",
+      "top_formats",
+      "winning_playbooks"
+    ],
+    "MCP_endpoint_unchanged": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+    "icon_and_catalog_unchanged": true,
+    "source_file_sha256": {
+      ".agents/plugins/marketplace.json": "1d31a9642974e357b4008d1aa9743b286b7a0ea60477ef6d2ea0d2de4b1a697d",
+      "packages/ai-monk-plugin/README.md": "5263598b84da1b481c68e5085d26e7a6b4569aa60258ab4a94998a9aea76a2f3",
+      "packages/ai-monk-plugin/assets/icon.png": "8e0fd36eb74d4bb5749e8f049cace51db6823bf8923933f37421cde896ba5ca3",
+      "packages/ai-monk-plugin/mcp.json": "ebd167f7e98b8d604e5326b603f0c3f23eea7d699042e4afcfafc28ef73720b0",
+      "packages/ai-monk-plugin/plugin.json": "264a5e1f8e6a8190891e8a49629f50191095a880bf0fef97129f8b3c7cc16402"
+    }
+  },
+  "verified_demo": {
+    "url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-plugin-walkthrough-v1/ai-monk-plugin-walkthrough-v1.mp4",
+    "release_id": 422351662,
+    "asset_id": 670552046,
+    "bytes": 3681253,
+    "sha256": "91150e0e1f4c3af01ab8df4f5442bac03f3cd4868f2eb700daff792359354f56",
+    "target_main_sha": "1f42032764c59530f1f81b4019676ff12e06f773",
+    "GitHub_immutable": false,
+    "anonymous_GET200_hash_verified_by_primary": true,
+    "metadata_refreshed_by_worker_at": "2026-10-23T22:14:34.234436+00:00",
+    "official_metadata_exit_code": 0,
+    "official_metadata_matches_primary_anonymous_GET": true,
+    "anonymous_GET_was_primary_readback_not_new_worker_download": true,
+    "formal_review_approval_implied": false,
+    "public_receipt": {
+      "commit": "894dfd6ea29f8eb3086aa95d6e9a43d1b4ee19f5",
+      "path": "docs/evidence/ai-monk-plugin-walkthrough-public-20261024.json",
+      "sha256": "7817ee77309886f8d4454f2ccbca82383ddec93781e2a76f3a4ac9b744f33d17"
+    }
+  },
+  "native_evidence_retained": {
+    "executed_plugin_version": "0.1.2",
+    "existing_runs": 8,
+    "fully_met_expected_behavior_cases": 6,
+    "recovered_argument_error_cases": 1,
+    "partial_expected_explanation_cases": 1,
+    "partial_case": "negative2",
+    "recovered_case": "positive1",
+    "new_v013_native_runs": 0,
+    "mixed_research_snapshots": [
+      "0.4.6",
+      "0.4.7"
+    ],
+    "same_snapshot_suite_claimed": false,
+    "source_receipt": {
+      "path": "docs/evidence/ai-monk-plugin-review-readiness-20261024.json",
+      "sha256": "5b160d7e4dfbb9efbb60aa40334351251d67559bd53fbf1e91b6f709f2306793"
+    },
+    "negative2_or_actual_outputs_rewritten": false
+  },
+  "validation": {
+    "portable_schema": [
+      {
+        "schema_id": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+        "schema_sha256": "a695d533ac085702b37081e8f1ac9c43f2f0d101a02e916a59742b62308962b8",
+        "document": "packages/ai-monk-plugin/plugin.json",
+        "error_count": 0
+      },
+      {
+        "schema_id": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+        "schema_sha256": "11ff0e4ce89e7d03e9adeb9fad6d914f63bccec668f9c1a9a0a0bb9eae3a268f",
+        "document": "packages/ai-monk-plugin/mcp.json",
+        "error_count": 0
+      }
+    ],
+    "manifest_delta_exactly_three_fields": true,
+    "README_version_URL_archive_names_history_and_limits_consistent": true,
+    "official_asset_URL_size_digest_and_immutable_flag_match": true,
+    "isolated_config_load": {
+      "run_id": "ai-monk-plugin-v013-source-20261024",
+      "owner_id": "monk_product_price_followup",
+      "observed_at": "2026-10-23T22:16:42.143521+00:00",
+      "phase": "isolated_plugin_config_load",
+      "exit_code": 0,
+      "cli_version": "codex-cli 0.160.0",
+      "commands": [
+        {
+          "step": "marketplace_add",
+          "argv": [
+            "rtk",
+            "proxy",
+            "codex",
+            "plugin",
+            "marketplace",
+            "add",
+            "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v013-source-20261024/marketplace",
+            "--json"
+          ],
+          "exit_code": 0,
+          "stdout_sha256": "7cc33952ce747ca543575f544359933f71d1046039175763a6fb0cde69936471",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "step": "plugin_add",
+          "argv": [
+            "rtk",
+            "proxy",
+            "codex",
+            "plugin",
+            "add",
+            "ai-monk-index@anicca",
+            "--json"
+          ],
+          "exit_code": 0,
+          "stdout_sha256": "235eb93f9e8776118d29e4e9316ea30273cd9729dbaaf7e490ce1312e59eb27e",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "step": "plugin_list",
+          "argv": [
+            "rtk",
+            "proxy",
+            "codex",
+            "plugin",
+            "list",
+            "--marketplace",
+            "anicca",
+            "--json"
+          ],
+          "exit_code": 0,
+          "stdout_sha256": "f483332bab881929c8026d3f541844fdfad956541fb7a27bdecf8b80c9783b77",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "step": "mcp_list",
+          "argv": [
+            "rtk",
+            "proxy",
+            "codex",
+            "mcp",
+            "list",
+            "--json"
+          ],
+          "exit_code": 0,
+          "stdout_sha256": "6cbb46da58e9e3b211251cf99a1a76a80f95b0d5d0a952fba05f89c7bad9d6e3",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "loaded_plugin_id": "ai-monk-index@anicca",
+      "loaded_plugin_version": "0.1.3",
+      "loaded_manifest_sha256": "264a5e1f8e6a8190891e8a49629f50191095a880bf0fef97129f8b3c7cc16402",
+      "demo_recording_url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-plugin-walkthrough-v1/ai-monk-plugin-walkthrough-v1.mp4",
+      "MCP_servers": [
+        "ai-monk-index"
+      ],
+      "MCP_endpoint": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+      "auth_file_present": false,
+      "auth_reference_created": false,
+      "auth_material_copied": false,
+      "shared_config_sha256_before": "8f28f710bee1e3189c4282b01a81e666b03fa6cd7711c7d37b7d82537c6f2c55",
+      "shared_config_sha256_after": "8f28f710bee1e3189c4282b01a81e666b03fa6cd7711c7d37b7d82537c6f2c55",
+      "shared_config_changes": 0,
+      "model_runs": 0,
+      "actual_research_tool_calls": 0,
+      "model_provider_flags": 0,
+      "browser_operations": 0,
+      "new_dependencies": 0,
+      "external_publish": 0,
+      "next_action": "source docs and primary independent review/CI/main/new ZIP"
+    },
+    "private_evidence_modes_700_600": true,
+    "new_permanent_test_framework": false,
+    "full_suite_or_all_page_build": "not_run_metadata_only_change",
+    "new_dependencies": 0
+  },
+  "effect": {
+    "package_metadata_files_changed": 2,
+    "new_model_runs": 0,
+    "model_provider_flags": 0,
+    "actual_research_tool_calls": 0,
+    "auth_reference_created": false,
+    "auth_material_copies": 0,
+    "credential_value_copies": 0,
+    "shared_config_changes": 0,
+    "browser_operations": 0,
+    "Factory_changes": 0,
+    "new_paid_provider_APIs": 0,
+    "posts": 0,
+    "purchases": 0,
+    "release_creates": 0,
+    "asset_uploads": 0,
+    "old_plugin_ZIP_or_Release_changes": 0,
+    "demo_Release_changes": 0,
+    "external_publish": 0
+  },
+  "readback": "cached official portable schema2件がerror0、CLI0.160.0の隔離marketplace/plugin/list/MCP config load4段階がexit0。実loadされたv0.1.3/demo URL/既存endpointとcanonical bytesを照合する。",
+  "provider_receipt_id": null,
+  "evidence_refs": {
+    "private_root": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v013-source-20261024",
+    "source_files": [
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v013-source-20261024/bootstrap.json",
+        "sha256": "dc08abc13441542cb93b85ecb9d3750d0f4ae02562cc95400e4291f386e19add",
+        "bytes": 2210
+      },
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v013-source-20261024/spec-first.json",
+        "sha256": "5a4ebaecb28f38d80f304df3f6dc482ec07a31f892dc22f5381033580bffc2dc",
+        "bytes": 363
+      },
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v013-source-20261024/metadata-acceptance.json",
+        "sha256": "18306ac2dfb2e9ab64703e6d21212459b3c8d9256dc9f92eeb445a6b4c9ec3cb",
+        "bytes": 2272
+      },
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v013-source-20261024/config-load-acceptance.json",
+        "sha256": "fd59380cae0c95815d30d65b74a3a883d0fff1899a927dc06c062606de7c00c9",
+        "bytes": 2975
+      },
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v013-source-20261024/official-demo-release-readback.json",
+        "sha256": "12b97cb45dfb31cd4fd2de32e73bcae53d3849c7f40918e752e5bc87dd04f3ee",
+        "bytes": 1451
+      },
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v013-source-20261024/source-acceptance.py",
+        "sha256": "1b8265227b0cd9e4ba359111e7bf2a3de25ea28b3702901092af8869cadf30f9",
+        "bytes": 4934
+      }
+    ],
+    "primary_demo_public_readbacks": [
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024/walkthrough-official-release.json",
+        "sha256": "c4eb468d8f60e75ef4b3d5b5133673834db7325516a383fb01a06152876dda35"
+      },
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024/walkthrough-public-download-readback.json",
+        "sha256": "ab04b858a608ca7f11fa379dab77a637b4f6e715289485178b21635709066014"
+      },
+      {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-review-v013-20261024/walkthrough-publish-fence.json",
+        "sha256": "88bcd18535a1a7217ce0e157dbe7c78bd9e704f0dced5c619292102389fc9924"
+      }
+    ]
+  },
+  "future_fixed_main_ZIP": {
+    "owner": "root",
+    "status": "pending independent source review, CI/PR/main and new Release",
+    "input": "accepted merged main 40-character Git object SHA, not current worktree bytes",
+    "files_in_fixed_order": [
+      "README.md",
+      "assets/icon.png",
+      "mcp.json",
+      "plugin.json"
+    ],
+    "normalization": {
+      "timestamp": [
+        1980,
+        1,
+        1,
+        0,
+        0,
+        0
+      ],
+      "create_system": 3,
+      "unix_mode": "100644",
+      "compression": "ZIP_DEFLATED",
+      "compression_level": 9
+    },
+    "manifest_assertions": {
+      "version": "0.1.3",
+      "demo_recording_url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-plugin-walkthrough-v1/ai-monk-plugin-walkthrough-v1.mp4"
+    },
+    "new_tag": "ai-monk-plugin-v0.1.3",
+    "new_asset": "ai-monk-index-plugin-0.1.3.zip",
+    "required_readbacks": [
+      "four extracted files equal accepted main objects and source hashes",
+      "official GitHub asset digest equals anonymous public download hash",
+      "GitHub immutable flag read honestly rather than assumed",
+      "v0.1.1/v0.1.2 and separate demo Release remain unchanged"
+    ]
+  },
+  "error_class": null,
+  "retryable": false,
+  "next_action": "primaryの独立source review/CI/PR/main後、固定mainの4filesから新v0.1.3 ZIPを作成する。正式ChatGPT upload/submit/審査/掲載は未受入のままとする。"
+}
