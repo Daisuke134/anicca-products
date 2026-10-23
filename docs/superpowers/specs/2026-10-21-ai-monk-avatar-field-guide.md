@@ -167,3 +167,6 @@ Yang Mun型の写真に近いAI僧侶動画avatarへ集中する。水彩・絵�
 
 
 **日本語書籍X告知の実結果と残件:** Postiz id `cmvkoqikc2huxlh0yjbzwnayu` は公式PUBLISHED、https://x.com/selawmqt/status/2113542427495841883 。本文の正題/価格/無料原稿/creatorは公開されるが、末尾の販売URLはproviderの保存済み本文とlive X取得本文の両方に存在しない。送信1件、再送0件。`GET /public/v1/integration-settings/cmt4l2jld031tqp0y8qtyo983` はlinks will be strippedというhostルールを明示する。一次sourceのSTRIP_LINKS_FROM_X_POSTSと保存前/送信前strip処理に一致し、shortLink:falseでもリンクは残らない。bare domainもhelperの対象であり、同経路の再投稿/replyで回復できるとは扱わない。既存Postiz経由の過去EN/DB告知もリンク保持は未証明へ戻し、本文公開と送客完了を分ける。正しい既存X identity `x:anicca/@selawmqt` はregistry/guard statusでreachable=false/holder空を確認する。現在cursorは既存本人X接続の利用可能性とleaseを確認してリンク配信を補完すること。新しいaccountや他者profileで代替せず、閲覧/click/注文/利益は未確認を保持する。正本receipt → docs/evidence/ai-monk-book-x-launch-ja-20261023.json。今後のX外部link投稿ではintegration-settingsのhostルールを送信前に読み、strip時に同経路へ送信しない。
+
+
+**日本語書籍リンク補完契約:** 容量回復を既存producer gateの実許可で確認し、既存登録identity x:anicca/@selawmqtを正規launcherで復旧する。正確なsigned-in handleと親投稿2113542427495841883の本文をlive readbackした後、同じ親への返信1件だけで元の日本語販売URLを補完する。新しい告知本文を再投稿せず、Postizを再送しない。具体copy/hash/UTMは docs/evidence/ai-monk-book-ja-x-link-recovery-20261023.json。独立read-onlyでcopy/親/accountを照合し、native専用fenceを送信前に保存する。未知effectは再送せず同一親の本人返信/本文/実href/正確なpermalinkをGET/UIで照合し続ける。完了は本人返信のnative permalinkと実hrefの販売URL/UTM一致で判定し、composerの空欄やclick成功だけは証拠にしない。既存告知/receiptは削除・再帰属せず、閲覧/click/注文/利益は未確認を保持する。
