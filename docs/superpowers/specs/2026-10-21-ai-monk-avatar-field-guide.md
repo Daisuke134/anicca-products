@@ -192,7 +192,7 @@ Yang Mun型の写真に近いAI僧侶動画avatarへ集中する。水彩・絵�
 **本人収益申告とv0.4.1の公開受入:** PR591/head `47051952ce86aa2bee0ae610ed143f0d9fc6d876` はpackage CI39943660190、Landing CI39943660200、CodeRabbitがSUCCESSでmain `c66e4fa4fab2052328e26a454c2bb598d64ca7b4`へ統合する。Netlify39944184677は同mainでSUCCESS。公開HTMLのH1/4件/顔画像4件/AI status非表示/4sort/本人claim本文とsource link、公開JSONの完全一致、公式SDKによるremote MCPの4件/57出典/75archive/本人claim完全一致を確認する。公開CLI v0.4.1は同mainを指すofficial tag、asset digestとdownload SHA、公開URLからの実installを照合し、同じsnapshotを返す。旧v0.4.0は履歴として保持する。証拠 → `docs/evidence/ai-monk-creator-business-production-20261023.json`、`docs/evidence/ai-monk-cli-mcp-v041-release-20261023.json`。この受入はFactory運用や注文獲得の完了ではない。
 
 
-**順序更新と担当境界:** 旧順はFactory既存投稿/費用/資源復旧→Database根拠拡充→Web app。Daisが日次投稿をGrok Bot担当としDatabase/Webを優先するため、Database73件復元→Monk Factory Web→Muse/ChatGPT配布口へ変更する。Database復元とWeb公開/localhost plan受入を完了し、現在はplugin配布・認証診断へ進む。既存投稿effectやownerを中断・再送しない。Museの具体service URLは未特定で、推測した別サービスへ公開しない。
+**過去の順序更新と担当境界:** Factory既存投稿/費用/資源復旧→Database根拠拡充→Web appから、Database73件復元→Monk Factory Web→Muse/ChatGPT配布口へ変更し、Database復元とWeb公開/localhost plan受入を完了する。当時の順序であり、現在scopeと実行順は末尾を参照する。既存投稿effectやownerを中断・再送しない。Museの具体service URLは未特定で、推測した別サービスへ公開しない。
 
 
 **73件復元の公開受入:** PR595/main6ac3f6c、Netlify39953593583はSUCCESS。公開HTML73card/候補注記69、公開JSONとmainの完全一致、公式SDKのremote MCP全4sort/search/get73件、v0.4.2公式tag/assetdigest/公開URL導入/実stdio一致を確認する。制作根拠確認4件、調査中69件、対象外2件を区別し、公開画像71件を保持する。復元計画は完了済み。証拠 → `docs/evidence/ai-monk-directory-restoration-production-20261023.json`、`docs/evidence/ai-monk-cli-mcp-v042-release-20261023.json`。
@@ -201,8 +201,16 @@ Yang Mun型の写真に近いAI僧侶動画avatarへ集中する。水彩・絵�
 
 Life Manager PR8721/main `eb78a805c4f79cd807852c27f52f9e4207a1ba61` とproducts PR602/main `fcbe8ec027bcc78825f5e50e0d83d0926a036525` を受入する。関連37PASS、fresh最終blocking0、Security Scan39964362189・Landing CI39966601616・Netlify39967298318は全SUCCESS。公開 https://aniccaai.com/ai-monk-factory/ とslash無しの入口、固定4filesのhash、Database CTAと73/69維持、公開draftの保存/reload/実download/importを確認する。専用immutable localhostでは空scriptから実Codexが台本を生成し、MCP→実Python offline planがplanned/exit0、Factory provider_calls0/external_effects[]を返し、履歴再表示まで受入する。これは実HeyGen生成・投稿・native公開・売上の証明ではない。詳細 → `docs/superpowers/plans/2026-10-23-ai-monk-factory-web-publish.md`、合成証拠 → `docs/evidence/ai-monk-factory-web-production-20261023.json`。
 
+## 現在scopeと優先順
+
+Daisの明示するFactoryの完成形は、利用者が自分のTikTokを接続し、動画制作・投稿を自動で実行するサービスである。現在の公開draft保存とlocalhost plan受入は部分成果であり、この利用者向けSaaSの完成ではない。TikTok接続と自動制作・投稿の実装は後続TODOに残す。
+
+旧順序はDatabase復元→Factory Web→plugin配布・認証診断。新順序はDatabase→CLI→pluginの配布・販売を先行→Factory完成形の実装。Daisが配布・販売を先に進めると指定し、既存の研究データとCLI/pluginを先に利用可能な経路へ届けられるため、この順に変更する。販売はユーザー意図であり、無料配布・install・tool受入を販売済みや売上へ換算しない。確認したプラットフォーム内販売条件と未確認の販売経路 → `docs/superpowers/specs/2026-10-23-ai-monk-plugin-marketplace.md`「販売条件」。日次投稿と既存Factory運用はGrok Bot担当のままとし、進行中のeffectを中断・重複させない。
+
 ## 現在cursor
 
-公開/localhost plan受入完了→pluginのrepo marketplace source受入完了→PR609のmain統合/既存Landing PR CI。v0.1.1 ZIPの無料公開・digest・実SDK5scenarioに加え、既存payload3filesを変えず空`CODEX_HOME`で通常CLIの実install/enabled/MCP設定loadを確認する。旧portal診断→提出/掲載→host routingの順から、repo配布→公開main SHA固定+sparse受入→host routingとportal診断/提出/掲載へ進める理由・残TODO正本 → `docs/superpowers/plans/2026-10-23-ai-monk-plugin-marketplace.md`。最新のlive persistent contextのown targetでは通常Google SSOを通過し、OpenAI MFA passkeyへ進む。OpenAIの別方法1回でも同画面、password入力欄0・掲載作成0。先のisolated contextのGoogle `/v3/signin/challenge/pk`は履歴として保持する。必要な`cua-driver` skillが限定探索で見つからずnative UIは未実施であり、本人手続き必須は未確定。hostでのnatural-language routing、identity/権限/実walkthrough/審査提出・公式directory掲載、Museの具体service URL同定は未達を保持する。
+PR609はmain `0675d5e0a7c3d6a0e5a9caf19f7363256525e894`へ統合し、Landing CI39975581104はSUCCESS。既存portable v0.1.1のnative自然言語routingは、2 finite runsの実7MCP callsで5positive/3negativeを受入する。初回のrevenue検索は最終文章だけを根拠にせず、別のfresh runの`sort=revenue`実呼出で補完する。証拠 → `docs/evidence/ai-monk-plugin-native-routing-20261024.json`。公開Gitの初回sparse取得はcatalog欠落/exit1、2path指定へ直した同main固定の再導入は5段階すべてexit0/payload3hash一致でGREENとなる。runtime受入と区別し、案内sourceを直すPR611と最終SHA/Netlify反映はpending。現在cursorはPR611の公開案内反映→公開CLI v0.4.2とmain追加研究tool/新snapshotの配布整合確認→販売条件に合う経路の具体化。残TODO正本 → `docs/superpowers/plans/2026-10-23-ai-monk-plugin-marketplace.md`。
 
-日次投稿・生成/費用照合/既存loop復旧はGrok Bot担当。実HeyGen生成・投稿・native確認・paid本番納品・売上・USD10K MRR・他者無人収益は未確認のまま保持し、Web公開やSDK接続から完了を導かない。
+公式directoryのportalは、live persistent contextでGoogle SSO通過後のOpenAI MFA passkeyが最後の観測であり、native plugin受入と分ける。identity/権限/実walkthrough/審査提出・公式directory掲載、Museの具体service URL同定は未達を保持する。
+
+日次投稿・生成/費用照合/既存loop復旧はGrok Bot担当。利用者向けFactory SaaSの実HeyGen生成・自動投稿・TikTok上の確認、paid本番納品・売上・USD10K MRR・他者無人収益は未確認のまま保持し、Web公開やSDK接続から完了を導かない。

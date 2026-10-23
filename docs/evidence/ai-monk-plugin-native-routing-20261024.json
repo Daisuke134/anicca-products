@@ -1,0 +1,71 @@
+{
+  "schema_version": "anicca.ai-monk-plugin-native-routing.v1",
+  "run_id": "ai-monk-plugin-natural-routing-20261023",
+  "owner_id": "root",
+  "occurrence_id": "five-positive-three-negative-review-cases",
+  "release_sha": "996f33cfd0df29974c2d70226cc737bdec9586ef",
+  "observed_at": "2026-10-23T15:07:02Z",
+  "loaded_argv": "finite codex exec --sandbox read-only --json; approval_policy=never; no model/provider flags",
+  "loaded_env": {
+    "isolated_CODEX_HOME": true,
+    "user_saved_model_preferences_inherited_unchanged": true,
+    "auth_material_copied": false,
+    "auth_reference_only": true
+  },
+  "phase": "actual_native_codex_plugin_queries",
+  "exit_code": 0,
+  "effect": {
+    "social_publications": 0,
+    "video_generation": 0,
+    "shared_configuration_changes": 0,
+    "credential_store_access": false
+  },
+  "readback": {
+    "positive_cases": 5,
+    "negative_scope_cases": 3,
+    "actual_completed_mcp_calls": 7,
+    "servers": [
+      "ai-monk-index"
+    ],
+    "actual_tools": [
+      "ai_monk_index_stats",
+      "get_ai_monk",
+      "search_ai_monks"
+    ],
+    "coverage": {
+      "records": 73,
+      "sources": 57
+    },
+    "pagination_distinct_ids": [
+      "yang-mun",
+      "ming-san",
+      "sifuchen-california",
+      "leo-chen"
+    ],
+    "revenue_sort_actual_call": {
+      "sort": "revenue",
+      "limit": 3,
+      "offset": 0
+    },
+    "data_snapshot_sha256": [
+      "309334e08a1a48f560b38e2ccb5a6b9518a2440b819b0c6467fd07b0575a6286"
+    ]
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    "agent.stdout.jsonl",
+    "result.txt",
+    "revenue/agent.stdout.jsonl",
+    "revenue/result.txt",
+    "process-result.json",
+    "revenue/process-result.json"
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "publish repository catalog, install the public main SHA with sparse checkout, and retain official directory authentication as separate",
+  "limits": [
+    "Initial five-case final prose claimed an unobserved revenue search; that prose was not counted. Revenue acceptance uses the separate fresh run and its actual MCP receipt.",
+    "No official public directory listing, payment, sales or revenue acceptance."
+  ],
+  "review_method": "primary inspected actual MCP arguments, structured results and final scope responses; narrative alone is not a tool receipt"
+}
