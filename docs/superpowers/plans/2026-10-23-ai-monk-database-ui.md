@@ -56,3 +56,37 @@ PR562 source head `2885ba3db8ce0f8233a7d850349b1082feb0ef90` のLanding CI398818
 Mobbin接続toolが利用可能になったため、Quo/Meetup/Squareの3実画面を確認し、観察とcanonical URLを既存reference evidenceへ追記する。既存UIに同じicon/name/controlの配置を確認し、不要な再設計は増やさない。利用指標/収益効果は未計測。
 
 次のbatch3は未取得64件から `monkshen`, `linchenhealing`, `thezhenwu`, `oravishen`, `mestre.jin`, `maestroananta`, `tempiovita`, `yunlobsang`, `monjaalma`, `shin_hyun_official` を対象にする。既存20handle調査と重複させず、出所のexact canonical handleへのcrosslinkを確認して原bytesだけを取得する。Instagram直接収集・有料credit購入・生成顔への置換は行わない。別branch/worktreeで調査evidenceと確認済みassetだけを扱い、canonicalのAI分類やmetricsは変更しない。現在cursorはこの10件の出所確認。
+
+## 追加画像batch3: 未調査10handleの出所確認
+
+新規branch `feat/ai-monk-images-batch3-20261023` は最新 `origin/main` の `3c9be56aa426237119574c975b07b78785695846` から開始する。対象は前節の10handle、証拠の正本は `docs/evidence/ai-monk-profile-discovery-batch3-20261023.json`。調査開始前に同evidenceへscope/targets/完了条件を記録する。
+
+| account ID | 公開出所とexact Instagram対応 | source role |
+|---|---|---|
+| `lead-instagram-monkshen` | [Monk Shen Yu](https://monkshen.com/) のnamed header portraitと `instagram.com/monkshen` | `first_party_named_profile_image` |
+| `lead-instagram-linchenhealing` | [Lin Chen](https://linchenhealing.com/) のBeacons profile metadata: `social_links.instagram=linchenhealing` と `profile_picture_url` | `first_party_named_profile_image` |
+| `lead-instagram-tempiovita` | [Tempiovita Linktree](https://linktr.ee/Tempiovita) のnamed profile imageと `instagram.com/tempiovita` | `first_party_named_profile_image` |
+| `lead-instagram-shin-hyun-official` | [Shin Hyun](https://shin-hyun.com/) の `portrait.jpg`、alt `Shin Hyun` と `instagram.com/shin_hyun_official/` | `first_party_named_persona_image` |
+
+10件のbounded調査から4原画像を確認し、後述のreport起点2件を合わせた現scopeは6原画像追加、coverageは11→17画像、64→58未取得へ進む。画像はHTTP responseの原bytesをそのまま保存し、MIME・SHA256・bytes・出所・crosslink・実際のroleを保持する。4件ともInstagram avatarとの同一性・所有権・再利用license・AI状態は独立確認していない。canonical分類・language・metricsとUI codeは変更しない。
+
+残る6件: `thezhenwu` はYouTubeからexact IG crosslinkなし、`oravishen` は検索でIG外のattributable source未取得、`mestre.jin` はFacebook候補が空body、`maestroananta` のYouTubeは別handle `tempiovita`/`remediosolvidados` にリンク、`yunlobsang` はstore/YouTubeにexact IG crosslinkなし、`monjaalma` のYouTube候補はlive HTMLで404。別recordの画像や同名account画像は割り当てずunknownを維持する。Instagram直接取得・追加credit購入・新認証・生成顔への置換は行わない。
+
+現在cursorは75ID/全17assetのbytes/hash/原byte一致、対象外69行とcanonical不変、secret/署名付きURLなし、既存directory helper/UI tests、72px preview、diff checkのsource受入検証。source/visual検証・commit/push・PR作成/attachまでこのbatchで担当し、head CI監視・merge・Netlify・本番readbackはrootが所有する。
+
+### batch3の補助追加: report起点の2画像と表示crop
+
+既存Maldita原文をrootが確認し、公開本文で `leo-chen` に対応する3列video stillと、`sifuchen-california` に対応するprofile screenshotを発見する。この2件を即座に埋められるため、元の未調査10handleを維持したまま追加画像を4→6件、coverageを11→17画像・64→58未取得へ拡張する。出所は [Maldita原文](https://maldita.es/investigaciones/20260710/cuentas-ia-instagram-facebook-salud-libros/)。新規調査対象の追加ではなく、既存report起点の補助収集としてevidenceに分けて記録する。
+
+| account ID | 実際のsource role | 原画像 |
+|---|---|---|
+| `leo-chen` | `third_party_attributed_content_still`。本文のLeo Chen段落直後の3列video still | `6a5123b8485e9ia-applevinegar-webp.webp` |
+| `sifuchen-california` | `third_party_attributed_profile_screenshot`。本文のSifuChen California段落直後で、画像内display nameとhandleを確認 | `6a5124cad41c8sifu-webp.webp` |
+
+両画像は通常browser navigationのHTTP200応答を原bytesのまま保持し、署名付きURLやcontact情報をmanifestへ複製しない。第三者reportの画像であり、本人提供のavatar・独立したAI分類の証拠・再利用licenseとは扱わない。canonicalのhandle/metrics/分類は変更しない。
+
+Sifuの横長profile stripとLeoのcollageは標準center cropで顔が見えにくいため、UI変更は `apps/landing/components/AiMonkDatabase.tsx` のProfileAvatar周辺の2IDだけに限定する。既存72pxの丸枠内でCSS object-position/scaleを使い、原画像を編集せず顔を表示する。従来11画像とfallbackの表示は保持する。検証は既存helper/UI testsと、guardの空きleaseを使うown新規tabでの独立72px previewに限定する。現在cursorはこの2画像の追加と表示crop。
+
+source受入結果: 75ID一致、全17assetのbytes/hash、新規6原bytes一致、対象外69行とcanonical SHA不変、secret/private path/署名付きURLなし、既存helper5＋UI2 tests、diff checkがPASS。実componentのSSRと実Tailwind CSSを使う独立CDPの72px previewでSifu/Leoの顔可視、Yang Mun/fallback維持、client error0を確認する。browser ownタブを閉じ、leaseを解放する。PNGはrepo外に保持し、evidenceにはhashと観測結果を記録する。
+
+既存ShenMuのHTTP MIME記録image/jpegとraw magic WebPの差はevidenceのlimitsへ記録し、既存row/URL/bytesは変更しない。全17件のMIME一致とは扱わない。新規6件はMIME/signatureが一致する。現在cursorはsource/visual検証PASSから限定commit/push・remote一致・PR attach。17画像/58未取得は本番反映前のsource予定値で、CI監視・merge・本番readbackはrootへ引き継ぐ。
