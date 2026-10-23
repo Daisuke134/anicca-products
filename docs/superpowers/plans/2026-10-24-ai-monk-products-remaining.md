@@ -28,9 +28,9 @@ Registry metadata/workflow、plugin payload、Factory runtime、X/native browser
 - [x] DATA: 39 sourceを引用し、既存2を再利用/37を追加して176出典へ更新する。33 distinct商品/35 account関連行/7 counter関連行を追加し、v0.4.5 metadata/READMEへ揃える。
 - [x] GREEN: 同じacceptanceで既存保持、628 source参照のmissing0、通貨未確認4、価格不明7、重複除外、raw非混入を確認する。
 - [x] TEST: 既存package全15testとshared helper9testがPASS。build済みAPIで33商品検索・35関連行と全出典の返却、価格variant/unknown/既存収益sortを確認する。
-- [ ] PUSH: receiptとplanへ正確な差分・検証・残unknownを記録し、commit/push/remote SHAを照合してprimaryへ引き渡す。
+- [x] PUSH: データ実装commit `f4c430d256506a2b29514a76985057125198611a`をpushし、`ls-remote`の同一SHAを確認する。receiptと当planへ結果を記録し、primaryへ引き渡す。
 
-現在cursor: PUSH。結果receipt → `docs/evidence/ai-monk-products-remaining-integration-20261024.json`。Database→Plugin→Factoryの既存順は変えず、進行中のRegistry公開や既存日次effectを中断・重複しない。
+現在cursor: primaryによるPR/main統合とv0.4.5の公開反映。結果receipt → `docs/evidence/ai-monk-products-remaining-integration-20261024.json`。作業中にorigin/mainは `0d3aa13c077f845b3c4bfb8b3b77fe2b91624336`へ進むが、当branchのbaseは指定main `d5ba4614`のまま保持する。Database→Plugin→Factoryの既存順は変えず、進行中のRegistry公開や既存日次effectを中断・重複しない。
 
 ## 検証方法
 

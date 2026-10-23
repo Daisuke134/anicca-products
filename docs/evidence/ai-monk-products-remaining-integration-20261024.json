@@ -2433,7 +2433,14 @@
   },
   "snapshot_sha256": "415571064885204388d191188490cc45bf6602aeef3e3fc47c1c3b35dff13a72",
   "push_readback": {
-    "status": "pending",
-    "branch": "feat/ai-monk-products-remaining-20261024"
+    "status": "verified",
+    "branch": "feat/ai-monk-products-remaining-20261024",
+    "data_commit_sha": "f4c430d256506a2b29514a76985057125198611a",
+    "remote_ref": "refs/heads/feat/ai-monk-products-remaining-20261024",
+    "remote_sha": "f4c430d256506a2b29514a76985057125198611a",
+    "command": "rtk git ls-remote origin refs/heads/feat/ai-monk-products-remaining-20261024",
+    "exit_code": 0,
+    "origin_main_at_readback": "0d3aa13c077f845b3c4bfb8b3b77fe2b91624336",
+    "note": "The data commit is remotely verified. This receipt/plan readback is a later documentation-only commit; PR/main/release remain primary-owned."
   }
 }
