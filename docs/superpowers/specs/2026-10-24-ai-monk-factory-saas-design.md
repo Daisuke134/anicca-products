@@ -41,6 +41,7 @@ dashboardは実provider状態、投稿URL、取得日時付きのviews/likes等�
 - 非同期生成と投稿は永続jobを短いscheduled tickで進める。新schedulerやMac常駐processを作らず、利用者向けAPI request中に長時間待たない。同期Images APIだけは既存Netlifyのbackground functionを使う経路を検証し、DBの所有権と送信前fenceを取得した最初の1回だけproviderへ送る。自動retryは当該fenceを読んで再送せず、費用不明は予約を保持する。submit→provider ID保存→next_run_at付きpollへ分け、1tickの件数/時間を上限で止める。既存CLIの--waitやbackground functionの自動retryをそのまま移植しない。各効果はprovider ID/official readback/費用/次の操作を持つ。
 - Factory専用の独立billing sourceを使い、Grok key/walletへのfallbackは0とする。shared Grok walletやAPI残高を利用者quotaの代わりにしない。walletのauto-reload設定は変更せず、既存threshold guardと利用者/全体予算を守る。Factory用の支払元・使用可能予算が足りなければ生成前に具体的な不足を表示し、成功へ置換しない。
 - API key・OAuth JWT・webhook secretはprivate SSOTとdeployment secretsだけで扱い、client/repo/logへ出さない。
+- 生涯trial履歴とsocial容量を分離する。公式subscription GETがcanceled/incomplete_expiredで現subscription ID・Checkout nonceと一致し、実profileも送信fenceも無い場合だけ、同じrow lock/CASで予約と終了済みCheckout context・未送信social leaseを解放する。trial_used/生成費用/履歴は保持する。公式expiredの未成立Checkoutも現session/nonce一致で同じ未使用枠を解放し、再Checkoutはcontext作成前に再予約する。実profile・送信済み/unknown・新しい世代は解放しない。
 - 定期tickはStripe SDKを含む全通信へ共通25秒の打切りを適用し、Netlifyの30秒上限より先に終了する。Price/解約portal/webhook secret/live-modeの必須Stripe設定が欠ける間はreadyをfalseにし、新規課金・生成を開始しない。状態取得が失敗した場合も、本人認証後の停止操作は課金同期を通さず利用できる。
 
 ## 完了条件と実行順

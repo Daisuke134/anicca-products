@@ -37,7 +37,7 @@ Interfaces: jobはuser_id/occurrence/stage/provider_id/next_run_at/lease/cost/ev
 Files: apps/landing/app/ai-monk-factory/page.tsxとclient、scripts/stage-ai-monk-factory.mjs/関連test、Database/support links、apps/landing/app/factory/page.tsxの既存Web app一覧、functions config/関連CI、Factory privacy/terms。
 - [x] Supabase login/Generate/進捗/preview/IGConnect/自動投稿ON・停止/metrics/3日trial後199ドルの請求/解約を最小UIで結ぶ。
 - [x] 旧4fileはdownload pathへ移しpublic static/Next route衝突を解消する。利用者向けAPIkey/CLI設定を増やさない。
-- [ ] 公式Web app一覧/factoryへDatabase（無料公開中）とAI Monk Factory（準備中・199USD/月）を登録する。全appが9–19USDという旧一律価格表現を実際の個別価格案内へ置き換える。新しい一覧や抽象を増やさず既存APPSを使い、既存routing検証/CIと公開readbackで確認する。
+- [x] 公式Web app一覧/factoryへDatabase（無料公開中）とAI Monk Factory（準備中・199USD/月）を登録する。全appが9–19USDという旧一律価格表現を実際の個別価格案内へ置き換える。既存APPSを使い、CI40014673074とmain由来Deploy40015273214はSUCCESS。公開/factoryで両リンク・Free/Preparing価格表示を確認する。
 - [x] 関連source acceptance・fresh money/security review・CIを通してmainへ統合し、main由来の公開をreadbackする。
 - [ ] Factory専用provider/Stripe3日trial/本人IG接続/実avatar-video/公式postとmetricsを区別して確認し、利用可能な事実だけをXへ告知する。
 
@@ -48,6 +48,11 @@ mainの2migrationを本番cycgdwndgfgdbnndithcへ適用し、3tablesのRLS=true�
 
 Factory専用のStripe product/固定199USD Price/解約portalを作成し、それぞれ公式GETでlive/metadata/価格と解約専用・既存default非変更を確認する。customer Checkout/subscription作成/請求0。専用署名endpointとruntime設定はprovider準備が揃う直前にまとめて反映し、未設定endpointの長期放置や反復deployを避ける。receipt → ../../evidence/ai-monk-factory-stripe-activation-20261024.json。Providerの独立支払元・容量・white-label・実生成が未確認の間はMONK_FACTORY_ENABLED=falseを保持し、Checkout/新規生成/自動投稿を開始しない。Stripe resource作成をcustomer課金や売上と扱わない。専用Upload-Post無料accountとAPIの公式GETは200、有料Professional/white-labelは未加入。自動作成された空defaultは未接続・未投稿を確認してDELETE1回で整理し、公式GETでprofiles0を確認する。Professional月払い50USD/25枠/white-label/税0・本日合計50USDの実Checkoutを1回準備する。LinkはSSOT本人email一致を確認し、メール認証1回で保存支払元の表示へ進む。保存済支払元の表示を確認し、購入/カード入力0。固定費だけの先行発生を避けるため、Professional購入は専用OpenAI/HeyGenの利用可能予算・キー準備後に行う。申込確定前に請求条件をread-only検証する。HeyGen認証入口が既存Grok accountへ自動loginするため、既存sessionのlogout/切替を行わず、Factory専用の新規profileをidentity ai-monk-factory:provisionとして登録し、全launchd preflight PASS後に動的portで起動して通常signupを進める。cookie/vaultコピー、新context、既存browser restartは0。既存Grok用wallet/key/Postiz・日次loopは使わない。
 
-/factoryの公式Web apps一覧は実公開とsource双方にDatabase/Monk Factoryが無いため、上記登録を進める。canonical overlayのimmutable manifestには/factoryが含まれず、このrepoのpage.tsxが公開経路である。/daisは別canonical overlay経路なので未使用sourceを編集しない。
+/factoryの公式Web apps一覧はPR628/main75335e9d402e5faeb24fef180f4a0a4f3c9ff4dc由来Deploy40015273214のSUCCESSと公開readbackを確認し、登録完了とする。/daisは別canonical overlay経路なので未使用sourceを編集しない。
+
+専用HeyGen無料account/API keyの公式GET200・Factory本人一致・独立wallet USD0・wallet自動補充OFFを確認する。入金/生成0。最小入金USD5は公式UIの入力契約として確認し、購入受入とは区別する。専用OpenAIの通常認証・project/key/利用予算を次に準備し、独立予算が揃ってからUpload-Post Professionalの購入を進める。
+
+課金開始前の容量修正を現在cursorへ追加する。理由: 独立read-only検証で25人のtrial解約後、実profile0/送信0でも予約25が残り26人目が拒否される。旧順序はprovider準備→runtime有効化、新順序はprovider準備と並行で未使用枠解放を修正→runtime有効化。新cleanup loopは作らず、公式terminal同期とCheckout expiryの既存経路を使う。trial履歴・実profile・unknown送信を保持し、social lease/旧nonce/再Checkout競合を最小の実DB回帰で検証する。
+- [ ] 公式terminal/expiredに対する未使用profile予約解放を、現在世代CAS・未送信lease失効・再予約まで実装し、関連source/DB受入とreview/CI/main反映を行う。
 
 SaaSの提供開始、独立provider課金元、Stripe3日trial、本人IG接続、実avatar/video、公式投稿とmetrics、FactoryのX告知・売上は未完。実利用可能な状態から次の配布へ進む。
