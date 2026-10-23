@@ -93,7 +93,7 @@ struct HomeView: View {
                         .foregroundStyle(.tertiary)
                 }
 
-                Text(viewModel.currentAffirmation.text(for: language))
+                Text(viewModel.displayedAffirmation.text(for: language))
                     .font(.title3.weight(.medium))
                     .foregroundStyle(.primary)
                     .multilineTextAlignment(.leading)
@@ -202,12 +202,14 @@ struct HomeView: View {
     }
 
     private func saveEntry() {
+        let now = Date()
+        viewModel.refreshDay(now)
         let entry = GratitudeEntry(
-            date: Date(),
+            date: now,
             gratitude1: gratitude1.trimmingCharacters(in: .whitespaces),
             gratitude2: gratitude2.trimmingCharacters(in: .whitespaces),
             gratitude3: gratitude3.trimmingCharacters(in: .whitespaces),
-            affirmation: viewModel.currentAffirmation.text(for: language)
+            affirmation: viewModel.displayedAffirmation.text(for: language)
         )
         modelContext.insert(entry)
         viewModel.didSaveEntry(entries: entries + [entry])

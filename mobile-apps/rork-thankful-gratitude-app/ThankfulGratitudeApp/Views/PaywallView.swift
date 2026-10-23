@@ -83,7 +83,7 @@ struct PaywallView: View {
                                 badge: nil,
                                 title: language == .english ? "Monthly" : "月額",
                                 price: L10n.perMonth(monthly.storeProduct.localizedPriceString, language),
-                                detail: trialDays(monthly).map { L10n.freeTrialDays($0, language) }
+                                detail: trialPeriod(monthly).map { L10n.freeTrial($0, language) }
                             ) {
                                 selectedPlan = .monthly
                             }
@@ -114,7 +114,7 @@ struct PaywallView: View {
                                     ProgressView()
                                         .tint(.white)
                                 }
-                                Text(trialDays(selectedPackage).map { L10n.startTrialDays($0, language) } ?? L10n.subscribeNow(language))
+                                Text(trialPeriod(selectedPackage).map { L10n.startTrial($0, language) } ?? L10n.subscribeNow(language))
                                     .font(.headline)
                             }
                             .foregroundStyle(.white)
@@ -238,25 +238,27 @@ struct PaywallView: View {
     private var monthlyPackage: Package? { offerings?.current?.package(identifier: "$rc_monthly") }
     private var selectedPackage: Package? { selectedPlan == .annual ? annualPackage : monthlyPackage }
 
-    // Free-trial length in days, only when the store product has one and this user is eligible.
-    private func trialDays(_ package: Package?) -> Int? {
+    // Free-trial length in the store's own unit, only when the product has one and this user is eligible.
+    private func trialPeriod(_ package: Package?) -> String? {
         guard let product = package?.storeProduct,
               trialEligibleProducts.contains(product.productIdentifier),
               let intro = product.introductoryDiscount,
               intro.paymentMode == .freeTrial else { return nil }
         let period = intro.subscriptionPeriod
+        let unit: TrialUnit
         switch period.unit {
-        case .day: return period.value
-        case .week: return period.value * 7
-        case .month: return period.value * 30
-        case .year: return period.value * 365
+        case .day: unit = .day
+        case .week: unit = .week
+        case .month: unit = .month
+        case .year: unit = .year
         @unknown default: return nil
         }
+        return L10n.trialPeriod(value: period.value, unit: unit, language)
     }
 
     private func annualDetail(_ annual: Package) -> String? {
         let perMonth = annual.storeProduct.localizedPricePerMonth.map { L10n.perMonth($0, language) }
-        let trial = trialDays(annual).map { L10n.freeTrialDays($0, language) }
+        let trial = trialPeriod(annual).map { L10n.freeTrial($0, language) }
         let parts = [trial, perMonth].compactMap { $0 }
         return parts.isEmpty ? nil : parts.joined(separator: " · ")
     }
@@ -270,8 +272,8 @@ struct PaywallView: View {
         guard let package = selectedPackage else { return "" }
         let price = package.storeProduct.localizedPriceString
         let renewal = selectedPlan == .annual ? L10n.perYear(price, language) : L10n.perMonth(price, language)
-        if let days = trialDays(package) {
-            return L10n.finePrintTrial(days: days, renewal: renewal, language)
+        if let period = trialPeriod(package) {
+            return L10n.finePrintTrial(period: period, renewal: renewal, language)
         }
         return L10n.finePrintRenewal(renewal, language)
     }

@@ -4,6 +4,7 @@ import RevenueCat
 
 struct ContentView: View {
     @State private var viewModel = AppViewModel()
+    @Environment(\.scenePhase) private var scenePhase
 
     private var language: AppLanguage { viewModel.language }
 
@@ -30,6 +31,12 @@ struct ContentView: View {
         }
         .task {
             await checkSubscriptionStatus()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
+            viewModel.refreshDay()
+        }
+        .onChange(of: scenePhase) { _, phase in
+            if phase == .active { viewModel.refreshDay() }
         }
     }
 
