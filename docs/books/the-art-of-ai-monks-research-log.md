@@ -38,3 +38,43 @@ Discrepancies recorded (not reconciled): digital-products-only (Apr) vs suppleme
 - Post-sale Yang Mun accounts: who operates them, any change in disclosure or offers.
 - Other creators in the AI Monk Database (aniccaai.com/ai-monk-database) with their own public write-ups.
 - Japanese edition: needs a translation pass for the new sections before `--language ja` builds again (the build asserts the JA translation matches the EN manuscript hash).
+
+## Pass 3 — 2026-10-24 00:30 (JST)
+
+**Source.** Read via the X API: the @shalevhvs timeline from 2023-12 to 2026-10, about 255 original posts with replies and reposts excluded, plus the full text of 26 X articles. This pass closes the "older posts before 2026-06-04" lead from pass 2.
+
+**Added to the book**
+- Ch.3: new section "The creator's pre-history, 2023–2024".
+- Ch.4: new section "The earlier record, January–April 2026". It covers:
+  - the Jan 23 claims;
+  - the Feb 3 tool and voice article;
+  - the creator's own post on the rejected $325K offer (Feb 12), which matches Columbia's report;
+  - the Apr 14 script formulas;
+  - the "$500k PROFIT" and "$467K" wording.
+- Ch.5: new section "Three formulas the creator published", with a health-claim caveat.
+- Ch.9: new section "What the creator says about labels, care, and calls to action".
+- Appendix B: a note on this pass.
+- References: S47–S59 added.
+
+**Blog.** The update section in ebook-publishing-yang-mun-video-to-product covers his own record and the July 2026 sale.
+
+**Open leads for the next pass**
+- Articles still unread in full:
+  - 2066132946285891963
+  - 2065429953488081307
+  - 2069415756497027409
+  - 2060743508550705363 (the "AI millionaire" piece)
+  - 2057818720966492211
+  - 2055622000421273936
+  - 2053483793391226979
+  - 2052363936666911204
+  - 2052024190547710355 (title only is cited, as S59)
+  - 2020183607587807570
+  - 2017999896272306247
+  - 2017638994595422402
+  - 2027136441134764305 (AI Rabbis)
+  - 2024902761268347043
+- The pages at getaigrowthlab.com and joinaigrowthlab.com have not been read.
+- The Eurovision News piece has not been located.
+- Post-sale operation of the Yang Mun accounts is still unknown.
+- The JA translation pass is still needed.
