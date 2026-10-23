@@ -121,7 +121,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogEntries,
     ...Array.from({length:Math.max(1,Math.ceil(loadAllBlogPosts().length/BLOG_PAGE_SIZE))},(_,i)=>({url:`${BASE_URL}/blog/archive/${i+1}`})),
     ...businessHubEntries,
-    ...["/affirmation-app-faq","/thankful-faq","/honne-faq"].map((p)=>({url:`${BASE_URL}${p}`})),
+    ...["/affirmation-app-faq/","/thankful-faq/","/honne-faq/","/guides/","/guides/best-free-affirmation-app-iphone/","/guides/affirmation-reminder-app/","/guides/simple-gratitude-journal-app/","/guides/gratitude-journal-prompts/","/guides/what-does-this-text-mean-app/","/guides/ai-reply-suggestions-text/","/guides/compare/affirmation-apps/","/guides/compare/gratitude-journal-apps/","/guides/compare/text-message-interpreter-apps/"].map((p)=>({url:`${BASE_URL}${p}`})),
   ];
 
   // Deduplicate by URL (defensive).
