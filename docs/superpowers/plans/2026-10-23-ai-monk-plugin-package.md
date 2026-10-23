@@ -21,3 +21,6 @@ Googleの通常account選択後にOpenAI passkey MFAへ進み、他の方法を1
 
 ## source受入
 Agent Plugins 1.0.0の公開plugin/mcp JSON schemaを取得し、Python jsonschemaで両manifestを検証する。OpenAI docsのauth拡張例はbase MCP schemaがadditionalProperties=falseで受理しないため、認証不要の既存公開endpointは標準のtype/urlだけを宣言し、portalでnoneを照合する。公式提出の文字数制限・5positive/3negativeを確認。demo URLやverified identityは未確認のため捏造しない。
+
+## 実MCP受入で判明した訂正
+公開ZIP v0.1.0のhash/bytesと本番support/terms/privacy200は一致するが、5番の審査ケースはTikTokの結果が2件のため次ページを要求できない。検索の不具合ではなくケースの条件不足。filterなしの73件から2件ずつ取得する実在ページ分割へ訂正し、source v0.1.1をmain統合後に再配布する。natural language routing/portal掲載の未確認を保持する。

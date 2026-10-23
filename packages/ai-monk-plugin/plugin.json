@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ai-monk-index",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Source-linked research on monk profiles and AI monk video avatars.",
   "author": {
     "name": "Anicca",
@@ -69,10 +69,10 @@
               "expected_behavior": "Use sort revenue. Describe any values as attributed and dated creator claims; missing values remain unknown. Do not turn claims into verified sales, profit or MRR."
             },
             {
-              "description": "Continue a filtered result page.",
-              "prompt": "Show the first two TikTok profiles, then the next two using the returned next_offset.",
+              "description": "Continue a result page.",
+              "prompt": "Show the first two indexed monk profiles, then the next two using the returned next_offset.",
               "tools_triggered": "search_ai_monks",
-              "expected_behavior": "Use platform TikTok and limit 2, then the returned next_offset with the same filters and sort. Preserve record IDs and provenance."
+              "expected_behavior": "Use limit 2 without platform or language filters, then the returned next_offset with the same filters and sort. Return four distinct profile IDs with provenance."
             }
           ],
           "negative": [
@@ -95,7 +95,7 @@
         }
       },
       "publication": {
-        "release_notes": "Initial free, read-only plugin package for the existing AI Monk Index remote MCP. Three research tools; no media generation, posting or commerce."
+        "release_notes": "Correct the pagination review case to use the full directory with a real next page. The existing three read-only MCP tools and service behavior are unchanged."
       }
     }
   }
