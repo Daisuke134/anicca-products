@@ -1,6 +1,6 @@
 {
   "schema_version": "anicca.ai-monk-factory-pricing-model.v1",
-  "status": "planning_model_not_invoice_or_live_price",
+  "status": "planning_model_with_reserved_image_budget_not_invoice_or_live_price",
   "public_sources": [
     "https://help.heygen.com/en/articles/10060327-heygen-api-pricing-explained",
     "https://stripe.com/jp/pricing",
@@ -8,7 +8,9 @@
     "https://docs.upload-post.com/resources/pricing-and-limits",
     "https://docs.upload-post.com/guides/user-profile-integration",
     "https://docs.upload-post.com/api/connect-api",
-    "https://reel.farm/#pricing"
+    "https://reel.farm/#pricing",
+    "https://developers.heygen.com/docs/models/heygen-image.md",
+    "https://developers.openai.com/api/docs/models/gpt-image-1-mini.md"
   ],
   "private_evidence": [
     {
@@ -30,12 +32,14 @@
   "published_rates": {
     "avatar_iv_photo_usd_per_minute": "2.31",
     "separate_starfish_tts_usd_per_minute": "0.12",
-    "image_generation_usd_per_image": "0.28",
     "photo_avatar_creation_usd_per_call": "1.32",
     "upload_post_professional_monthly_usd": "50",
     "upload_post_profiles": 25,
     "stripe_jp_published_card_and_billing_percent": "4.3",
-    "conditional_fx_stress_additional_percent": "2.0"
+    "conditional_fx_stress_additional_percent": "2.0",
+    "heygen_identity_remix_usd_per_image": "0.28",
+    "openai_gpt_image_1_mini_1024x1536_high_output_estimate_usd": "0.052",
+    "openai_gpt_image_1_mini_text_input_usd_per_million_tokens": "2"
   },
   "primary_design_choice": {
     "monthly_price_usd": "199",
@@ -55,16 +59,15 @@
     "paid_billable_attempt_limit": 36,
     "trial_success_limit": 3,
     "trial_billable_attempt_limit": 3,
-    "trial_regeneration_attempts": 0
+    "trial_regeneration_attempts": 0,
+    "max_paid_provider_and_script_budget_usd": "70"
   },
   "model": {
     "fixed_price_net_at_6_3pct_fee_usd": "186.463",
     "monthly_video_with_20pct_billable_regenerations_usd": "62.37000",
     "monthly_separate_tts_reserve_with_20pct_regenerations_usd": "3.2400",
-    "initial_avatar_image_plus_creation_usd": "1.60",
     "trial_video_generation_usd": "2.3100",
     "trial_tts_reserve_usd": "0.120",
-    "trial_heygen_subtotal_usd": "4.0300",
     "trial_total_hard_budget_usd": "4.25",
     "other_monthly_cost_reserve_per_paid_user_usd": "10",
     "formula": "price*(1-fee)-video-tts-avatar-50/paying_users-other_cost_reserve-trial_budget/conversion",
@@ -142,12 +145,15 @@
         "contribution_margin": "0.4321758793969849246231155779"
       }
     ],
-    "paid_avatar_line_is_conservative_contingency_not_repeat_charge": true
+    "paid_avatar_line_is_conservative_contingency_not_repeat_charge": true,
+    "initial_avatar_budget_usd": "1.60",
+    "trial_video_tts_avatar_budget_usd": "4.0300",
+    "avatar_line_uses_retained_budget_not_exact_image_operation_price": true
   },
   "unknowns": [
     "Merchant-specific Stripe fee/taxes/settlement FX",
     "HeyGen account-specific tariff, rounding, minimum seconds and post-start failure/refund treatment",
-    "Actual prompt/avatar endpoint operation rate and measured duration; chosen image+photo path has two separate price lines",
+    "Actual OpenAI image input/output usage and account-specific bill; the public image-output estimate is not a guaranteed invoice ceiling",
     "Actual script inference/storage/hosting cost and conversion/churn, not established by a reserve",
     "Upload-Post signup/white-label entitlement, live Instagram account capability and account-owner reassignment behavior"
   ],
@@ -171,5 +177,20 @@
     "payments": 0,
     "generations": 0,
     "posts": 0
+  },
+  "image_contract": {
+    "heygen_image_zero_input_prompt_supported": false,
+    "provider": "OpenAI Images API",
+    "model": "gpt-image-1-mini",
+    "size": "1024x1536",
+    "quality": "high",
+    "n": 1,
+    "fixed_ascii_prompt_max_bytes": 1024,
+    "expected_image_cost_reserve_usd": "0.06",
+    "retained_image_budget_usd": "0.28",
+    "retained_avatar_budget_usd": "1.60",
+    "photo_avatar_published_rate_usd": "1.32",
+    "rates_are_public_estimates_not_account_invoice": true,
+    "live_billing_verified": false
   }
 }
