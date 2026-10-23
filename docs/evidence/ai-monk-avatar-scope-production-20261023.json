@@ -1,0 +1,50 @@
+{
+  "checked_at": "2026-10-23T03:03:22.651Z",
+  "url": "https://aniccaai.com/ai-monk-database",
+  "release_sha": "8ce5034fd94d0806497eb0eebc43cca102cb6284",
+  "checks": {
+    "archive_records": 75,
+    "directory_records": 73,
+    "excluded_search_and_cards_verified": [
+      "kai-tsukimi",
+      "buddha-would-say"
+    ],
+    "archive_image_coverage": {
+      "total": 75,
+      "acquired": 73,
+      "platform_profile_avatars": 57,
+      "first_party_named_images": 10,
+      "unknown": 2,
+      "third_party_attributed_profile_images": 2,
+      "third_party_attributed_content_images": 2,
+      "first_party_video_posters": 1,
+      "platform_default_profile_icons": 1
+    },
+    "asset_hashes_verified": 73,
+    "published_images_decoded": 71,
+    "images": 71,
+    "initials": 2,
+    "og_uses_yang_mun_original": true,
+    "ai_status_interface_removed": true,
+    "business_sorts_verified": [
+      "audience",
+      "views",
+      "revenue"
+    ],
+    "revenue_claim_period_months": 3,
+    "reported_revenue_lower_bound_usd": 213000,
+    "client_errors": [],
+    "mobile_widths_without_overflow": [
+      390,
+      320
+    ]
+  },
+  "status": "passed",
+  "scope": "Original profile asset hashes and native browser decoding at the first scoped public release",
+  "limitations": [
+    "73 directory entries include 66 discovery candidates; profile imagery does not confirm an AI video avatar.",
+    "71 displayed images include one platform default profile icon; two entries retain initials because exact profile images were unavailable.",
+    "The revenue value is a creator-reported historical three-month gross revenue lower bound, not audited or a current monthly estimate.",
+    "Later source and product-preview updates are verified separately in the final business UI evidence."
+  ]
+}

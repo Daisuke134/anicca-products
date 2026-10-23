@@ -1,0 +1,196 @@
+{
+  "schema_version": "anicca.ai-monk-business-mcp-production.v1",
+  "run_id": "ai-monk-business-mcp-production-20261023",
+  "owner_id": "root",
+  "purpose": "公開remote MCPのavatar対象範囲・事業指標・データ一致を、保存済みの本番readbackから記録する。",
+  "checked_at": "2026-10-23T03:12:33.159Z",
+  "release_sha": "8af42e44d395a4dd4ee7d3fc8941f52c812b6001",
+  "release_sha_basis": "検証時に指定されたmain由来ソース。公開応答のGit SHA取得ではなく、versionとcanonical snapshotの内容一致を検証。",
+  "url": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+  "sdk_client_version": "2.3.1",
+  "server_info": {
+    "name": "ai-monk-index",
+    "version": "0.3.0"
+  },
+  "status": "passed",
+  "scope": {
+    "research_archive_records": 75,
+    "directory_records": 73,
+    "sources": 55,
+    "excluded_records": [
+      "kai-tsukimi",
+      "buddha-would-say"
+    ],
+    "snapshot_sha256": "1bc7880a88f32e082744eaab4c6b8d27d6a14a7b2dce07cd0d30237825f34f45",
+    "canonical_path": "apps/landing/public/data/ai-monk-avatar-database-2026.json"
+  },
+  "checks": {
+    "tools": [
+      "search_ai_monks",
+      "get_ai_monk",
+      "ai_monk_index_stats"
+    ],
+    "all_tools_match_canonical_snapshot": true,
+    "business_sorts_match_canonical": [
+      "views",
+      "revenue"
+    ],
+    "records": 73,
+    "sources": 55,
+    "ai_status": {
+      "confirmed": 0,
+      "reported": 4,
+      "unverified": 69
+    },
+    "snapshot_sha256": "1bc7880a88f32e082744eaab4c6b8d27d6a14a7b2dce07cd0d30237825f34f45",
+    "unknown_profile_returns_tool_error": true,
+    "excluded_search_and_get_verified": [
+      "kai-tsukimi",
+      "buddha-would-say"
+    ],
+    "research_archive_records": 75,
+    "excluded_from_directory": 2,
+    "paginated_records": 73,
+    "get_status": 405,
+    "allowed_browser_preflight": 204,
+    "unrelated_origin_status": 403
+  },
+  "http": [
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 202,
+      "content_type": null,
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "GET",
+      "status": 405,
+      "content_type": null,
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    }
+  ],
+  "research_status_interpretation": "checks.ai_statusは出典に基づく内部調査状態。73件すべてのAI動画形式を確認したという意味ではなく、画面のAI status表示を要求するものでもない。",
+  "limits": [
+    "特定時点の公開MCP readbackであり、全アカウントの継続更新や網羅性の証明ではない。",
+    "viewsは収集した単一動画の最大観測値。チャンネル総再生数・直近30日間の再生数ではない。",
+    "revenueの並び順一致は出典付きの観測値に対する検証。現在売上・監査済み売上・利益・推定月商を確認したものではない。",
+    "Web画面の見た目、CLI公開配布、ChatGPT app directoryの登録・審査・公開は、このremote MCP検証には含めない。",
+    "この文書化では追加のprovider呼び出し・認証・ブラウザ操作を行わない。"
+  ]
+}

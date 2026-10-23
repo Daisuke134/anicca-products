@@ -1,0 +1,201 @@
+{
+  "schema_version": "anicca.ai-monk-book-title-production.v1",
+  "run_id": "ai-monk-book-title-production-20261023",
+  "owner_id": "root",
+  "purpose": "公開EN/JA書籍ページの題名・表紙・メタデータ・表示価格を、保存済みのread-only本番readbackから記録する。",
+  "checked_at": "2026-10-23T03:08:10.200661+00:00",
+  "read_only": true,
+  "deployment_context_as_provided": {
+    "run_id": "39891993461",
+    "head": "8ce5034fd94d0806497eb0eebc43cca102cb6284",
+    "status": "SUCCESS",
+    "source": "f10dc161aee05e66ee8fce16bd048ce8749a2437",
+    "pr": 573
+  },
+  "status": "passed_for_title_cover_and_metadata",
+  "source_result": "pass_with_additional_observation",
+  "all_requested_checks_passed": true,
+  "pages": {
+    "en": {
+      "url": "https://aniccaai.com/the-art-of-ai-monks",
+      "final_url": "https://aniccaai.com/the-art-of-ai-monks",
+      "http_status": 200,
+      "h1": [
+        "The Art of AI Monks"
+      ],
+      "title": "The Art of AI Monks — English First Edition | Anicca",
+      "canonical": "https://aniccaai.com/the-art-of-ai-monks",
+      "meta": {
+        "og:title": "The Art of AI Monks — English First Edition",
+        "og:url": "https://aniccaai.com/the-art-of-ai-monks",
+        "og:image": "https://aniccaai.com/assets/the-art-of-ai-monks-cover.png",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "The Art of AI Monks — English First Edition",
+        "twitter:image": "https://aniccaai.com/assets/the-art-of-ai-monks-cover.png"
+      },
+      "book_schema": {
+        "@type": "Book",
+        "name": "The Art of AI Monks",
+        "inLanguage": "en",
+        "bookEdition": "English First Edition",
+        "bookFormat": "https://schema.org/EBook",
+        "image": "https://aniccaai.com/assets/the-art-of-ai-monks-cover.png",
+        "url": "https://aniccaai.com/the-art-of-ai-monks",
+        "offers": {
+          "@type": "Offer",
+          "price": "9.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://aniccaai.com/the-art-of-ai-monks"
+        }
+      },
+      "cover_images": [
+        {
+          "src": "/assets/the-art-of-ai-monks-cover.png",
+          "alt": "The Art of AI Monks book cover",
+          "width": "1024",
+          "height": "1536"
+        }
+      ],
+      "cover": {
+        "url": "https://aniccaai.com/assets/the-art-of-ai-monks-cover.png",
+        "final_url": "https://aniccaai.com/assets/the-art-of-ai-monks-cover.png",
+        "http_status": 200,
+        "content_type": "image/png",
+        "bytes": 2684876,
+        "sha256": "86a1aef975689957375d634a88fe73f241e8a2cd24e41eec759b93a867d85e3d",
+        "expected_sha256": "86a1aef975689957375d634a88fe73f241e8a2cd24e41eec759b93a867d85e3d"
+      },
+      "html_capture": {
+        "exit_code": 0,
+        "html_bytes_sha256": "f2ae01db2dcd398ca647aa3ffaf15a76572ba6642254ff64e80b4c870bb69261",
+        "html_characters": 27129
+      },
+      "public_crawl": {
+        "exit_code": 0,
+        "observed_h1": "The Art of AI Monks",
+        "observed_page_label": "59-page PDF",
+        "observed_price": "$9.99"
+      },
+      "assertions": {
+        "http_200": true,
+        "h1_matches": true,
+        "title_contains_name": true,
+        "og_title_contains_name": true,
+        "twitter_title_contains_name": true,
+        "book_count_one": true,
+        "cover_http_200": true,
+        "cover_sha_matches": true,
+        "book_name_matches": true,
+        "book_language_matches": true,
+        "book_price_9_99": true,
+        "book_currency_usd": true,
+        "book_cover_matches": true,
+        "og_cover_matches": true,
+        "twitter_cover_matches": true
+      },
+      "language_observation": {
+        "shared_document_html_lang": "en",
+        "book_schema_inLanguage": "en",
+        "main_lang_live_readback": "outside_this_title_capture",
+        "interpretation": "英語ページのhtmlとBook schemaはen。"
+      }
+    },
+    "ja": {
+      "url": "https://aniccaai.com/the-art-of-ai-monks/ja",
+      "final_url": "https://aniccaai.com/the-art-of-ai-monks/ja",
+      "http_status": 200,
+      "h1": [
+        "ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線"
+      ],
+      "title": "ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線 — 日本語版・初版 | Anicca",
+      "canonical": "https://aniccaai.com/the-art-of-ai-monks/ja",
+      "meta": {
+        "og:title": "ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線 — 日本語版・初版",
+        "og:url": "https://aniccaai.com/the-art-of-ai-monks/ja",
+        "og:image": "https://aniccaai.com/assets/the-art-of-ai-monks-ja-cover.png",
+        "twitter:card": "summary_large_image",
+        "twitter:title": "ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線 — 日本語版・初版",
+        "twitter:image": "https://aniccaai.com/assets/the-art-of-ai-monks-ja-cover.png"
+      },
+      "book_schema": {
+        "@type": "Book",
+        "name": "ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線",
+        "inLanguage": "ja",
+        "bookEdition": "日本語版・初版",
+        "bookFormat": "https://schema.org/EBook",
+        "image": "https://aniccaai.com/assets/the-art-of-ai-monks-ja-cover.png",
+        "url": "https://aniccaai.com/the-art-of-ai-monks/ja",
+        "offers": {
+          "@type": "Offer",
+          "price": "9.99",
+          "priceCurrency": "USD",
+          "availability": "https://schema.org/InStock",
+          "url": "https://aniccaai.com/the-art-of-ai-monks/ja"
+        }
+      },
+      "cover_images": [
+        {
+          "src": "/assets/the-art-of-ai-monks-ja-cover.png",
+          "alt": "ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線の表紙",
+          "width": "1024",
+          "height": "1536"
+        }
+      ],
+      "cover": {
+        "url": "https://aniccaai.com/assets/the-art-of-ai-monks-ja-cover.png",
+        "final_url": "https://aniccaai.com/assets/the-art-of-ai-monks-ja-cover.png",
+        "http_status": 200,
+        "content_type": "image/png",
+        "bytes": 2601202,
+        "sha256": "74b3f68eacf95557bc12db452ec8e523a61aa00c240e730c9ae058c29ff2eff2",
+        "expected_sha256": "74b3f68eacf95557bc12db452ec8e523a61aa00c240e730c9ae058c29ff2eff2"
+      },
+      "html_capture": {
+        "exit_code": 0,
+        "html_bytes_sha256": "20a2e2553d074be44c8904c04ebfa43467ede39c869be978bf941ad9805b25ba",
+        "html_characters": 25793
+      },
+      "public_crawl": {
+        "exit_code": 0,
+        "observed_h1": "ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線",
+        "observed_page_label": "PDF全60ページ",
+        "observed_price": "$9.99"
+      },
+      "assertions": {
+        "http_200": true,
+        "h1_matches": true,
+        "title_contains_name": true,
+        "og_title_contains_name": true,
+        "twitter_title_contains_name": true,
+        "book_count_one": true,
+        "cover_http_200": true,
+        "cover_sha_matches": true,
+        "book_name_matches": true,
+        "book_language_matches": true,
+        "book_price_9_99": true,
+        "book_currency_usd": true,
+        "book_cover_matches": true,
+        "og_cover_matches": true,
+        "twitter_cover_matches": true
+      },
+      "language_observation": {
+        "shared_document_html_lang": "en",
+        "book_schema_inLanguage": "ja",
+        "main_lang_live_readback": "deferred_to_primary_final_ui_readback",
+        "interpretation": "共有htmlのlang=enだけでは不具合と断定しない。日本語本文のmain lang=jaはprimaryの最終UI readbackで確認する。"
+      }
+    }
+  },
+  "related_evidence": [
+    "docs/evidence/ai-monk-ja-product-title-20261023.json"
+  ],
+  "limits": [
+    "Checkout作成・購入・請求・有料配信・有料ダウンロードは確認しない。表示価格は両言語ともUSD9.99。実売上の証明ではない。",
+    "Stripe既存商品名の公式readbackは別の証拠文書を参照。ここではproviderを追加操作しない。",
+    "deployment_context_as_providedはprimaryから与えられた実行情報であり、この担当がデプロイ実行IDを独立に再検証したものではない。",
+    "匿名ダウンロード保護や非公開ファイルのHTTP statusは、この題名・表紙確認では再検証しない。",
+    "JAの共有htmlはlang=en。本文のmain lang=jaの本番確認はprimaryの最終UI readbackへ委ね、未解決bugとは断定しない。",
+    "この文書化では追加の外部取得・ブラウザ操作・認証・購入を行わない。"
+  ]
+}

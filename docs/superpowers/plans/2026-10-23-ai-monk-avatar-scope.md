@@ -15,10 +15,11 @@ H1は`AI Monk Database`を保ち、説明文はAI monk video avatarsを直接示
 - [x] 最新main専用branchでspec/planを更新しpush。
 - [x] 対象外2件の検索・集計・SSRの失敗テスト3件を確認。
 - [x] dataのscopeと共有selector、Web/CLI/MCP/copy/OGを最小変更。関連9＋12テストPASS。既存75record/48sourceの内容と依存package recordは不変。
-- [ ] 関連テスト・source確認・CI、main統合と本番Web/MCP確認。
-- [ ] 更新CLI配布とspec/evidenceへ反映。
+- [x] 関連テスト・fresh source確認・CI、main統合。初回本番Web/MCPの掲載scopeと画像を確認。
+- [x] 更新CLI v0.3.0をGitHub Releaseへ公開し、公開URLからの導入と73件・55出典を確認。
+- [ ] 最新商品previewの本番反映を確認し、最終Web readbackとspec/evidenceを保存。
 
-順序変更: 旧cursorは73画像の公開だった。Daisが水彩/イラストを除きAI monk video avatarsへ絞るよう指定したため、scope修正→画像sourceの統合→本番確認へ変更する。既存Postiz/HeyGen effectは中断・再送しない。scope sourceはPR572/mainへ統合済み。本番確認は継続中。source証拠 → `docs/evidence/ai-monk-avatar-scope-source-20261023.json`。
+順序変更: 旧cursorは73画像の公開だった。Daisが水彩/イラストを除きAI monk video avatarsへ絞るよう指定したため、scope修正→画像sourceの統合→本番確認へ変更する。既存Postiz/HeyGen effectは中断・再送しない。scope sourceはPR572/mainへ統合済み。source証拠 → `docs/evidence/ai-monk-avatar-scope-source-20261023.json`。
 
 ## 追加範囲: ビジネス指標を主役にする
 
@@ -30,9 +31,9 @@ Sensor Towerの指定app URLは取得がtitleのみ。公開公式siteのApp Per
 
 - [x] UIのAI status非表示、再生/売上の型・比較基準を失敗test3＋CLI 1件で確認。
 - [x] 既存sourceから売上観察を構造化し、共通sortとcard表示を最小実装。関連12＋13テストPASS。
-- [ ] 関連テスト/CI/main/公開readbackとv0.3.0配布物に新sortを反映。
+- [x] 関連テスト/CI/mainを通し、本番remote MCPとv0.3.0配布物で新sortを確認。
 
-現在cursorはビジネス指標の追加。PR572のscope修正にこの指示を反映し、source CIを更新してからmain統合する。画像PR571は続けて統合する。
+PR572はscope修正とビジネス指標を合わせてsource CI後に統合し、画像PR571を続けて統合する。
 
 ## Source統合
 
@@ -42,7 +43,7 @@ PR572の最終head `bb7c9913fea918432117fe19e01869dd1e2efe5f`はpackage CI398908
 
 書籍PR573はCI39891424243 PASS、main `3085d15b5ab7aaf661acc6cec4a322337040f2ec`へ統合。JAの指定題名・新表紙と日英の制作対象を揃え、価格/SKU/購入backendを維持。独自book planの本番確認を続ける。
 
-現在cursor: Netlify反映と公開readback。並行して、取得できた4つのpublic Instagram headerと3つのYouTube metadataを、旧観察を保持するdated snapshotとして追加する。現時点で毎日の自然更新や売上追跡の完全性を完了扱いにしない。
+初回Netlify反映後、73原画像の公開hashと掲載71画像のnative decode、検索・sort・320/390px表示を確認する。取得できた4つのpublic Instagram headerと3つのYouTube metadataは、旧観察を保持するdated snapshotとしてPR576に統合する。毎日の自然更新や売上追跡の完全性を完了扱いにしない。
 
 ## 定期更新
 
@@ -59,4 +60,8 @@ PR572の最終head `bb7c9913fea918432117fe19e01869dd1e2efe5f`はpackage CI398908
 
 PR576/main `8af42e44d395a4dd4ee7d3fc8941f52c812b6001`で研究source55へ更新する。旧48sourceは不変、IG4件の丸めfollowersとYouTube3本のviews、商品2件をsource/日付付きで追加し、旧観察を保持する。UIの商品previewは観測日の新しいものを先に出し、新たに分かった具体的商品が過去のplaceholderの後ろに隠れないようにする。全商品は既存detailsへ保持する。RED1→関連12tests PASSを確認する。
 
-現在cursorは最新snapshotのNetlify反映、商品previewの最小修正、公開CLI v0.3.0の配布とWeb/MCPの最終readback。定期taskの初回runや全creator売上は未完のまま。
+最新snapshotはNetlify run39893057802で反映し、canonical SHA256 `1bc7880a88f32e082744eaab4c6b8d27d6a14a7b2dce07cd0d30237825f34f45`、75archive/73directory/55sourcesが公開MCP・CLI/stdioと一致する。v0.3.0の公式tagはmain `8af42e44d395a4dd4ee7d3fc8941f52c812b6001`、tarballは27,970bytes/SHA256 `616b39cc8f69d39756bd4003d38a10afa741c7e676da5811e05e1d4328303eef`。GitHub公式assetと公開URL導入を確認する。書籍の題名・表紙も公開URLで一致し、JA既存Stripe商品名だけを指定題名へ更新、価格objectは不変。
+
+現在cursor: PR578/main `708b7adbd554d6bf8b216c8b7f4657a6497b03dc`の商品previewを本番確認し、最終Web readbackを保存する。定期task初回の自然run、全候補の動画形式精査・画像2件/標準icon1件の補完、全creator売上、factory復旧・売上・subscriptionは未完のまま。
+
+公開証拠 → `docs/evidence/ai-monk-avatar-scope-production-20261023.json`、`docs/evidence/ai-monk-business-mcp-production-20261023.json`、`docs/evidence/ai-monk-cli-mcp-v03-release-20261023.json`、`docs/evidence/ai-monk-book-title-production-20261023.json`。
