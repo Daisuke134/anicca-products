@@ -81,6 +81,14 @@ def main(language='en'):
     with tempfile.TemporaryDirectory(prefix='ai-monk-book-') as temporary:
         stylesheet = epub_css
         if language == 'ja':
+            text_path = Path(temporary) / 'characters.txt'
+            text_path.write_text(text)
+            subset_fonts = []
+            for font in fonts:
+                subset = Path(temporary) / font.name
+                command(['pyftsubset', str(font), '--text-file=' + str(text_path), '--unicodes=U+0020-007E', '--no-ignore-missing-unicodes', '--name-IDs=*', '--name-legacy', '--name-languages=*', '--output-file=' + str(subset)])
+                subset_fonts.append(subset)
+            fonts = subset_fonts
             stylesheet = Path(temporary) / 'book-ja.css'
             faces = ''.join('@font-face { font-family: "Noto Sans JP"; font-style: normal; font-weight: ' + weight + '; src: url("../fonts/' + font.name + '"); }' for font, weight in zip(fonts, ('400', '700')))
             stylesheet.write_text(epub_css.read_text() + faces + japanese_css)

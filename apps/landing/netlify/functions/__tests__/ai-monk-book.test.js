@@ -2,7 +2,9 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
 const path = require('node:path');
+const fs = require('node:fs');
 const book = require('../../../data/books/the-art-of-ai-monks-en.json');
+const japaneseBook = require('../../../data/books/the-art-of-ai-monks-ja.json');
 const { checkoutHandler } = require('../checkout.js');
 const { ebookDownloadHandler } = require('../ebook-download.js');
 const { webhookHandler } = require('../webhook.js');
@@ -11,6 +13,14 @@ const NOW = 1700000000;
 const paid = (overrides = {}) => ({
   id: 'cs_live_monkbook_paid', status: 'complete', payment_status: 'paid', livemode: true, mode: 'payment',
   metadata: { product: book.product, book_sku: book.sku, lang: 'en' }, ...overrides,
+});
+
+test('book downloads fit the non-streaming function response including base64 encoding', () => {
+  for (const edition of [book, japaneseBook]) for (const file of Object.values(edition.formats)) {
+    const bytes = fs.readFileSync(path.join(__dirname, '../../../private/ebooks', file));
+    const encodedSize = Buffer.byteLength(bytes.toString('base64'));
+    assert.ok(encodedSize + 4096 < 6_000_000, `${file} cannot fit the 6 MB response limit`);
+  }
 });
 
 test('new book checkout pins server SKU, one-time price, language, and return origin', async () => {

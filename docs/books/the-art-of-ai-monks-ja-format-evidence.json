@@ -12,8 +12,8 @@
     },
     {
       "path": "apps/landing/private/ebooks/the-art-of-ai-monks-ja.epub",
-      "bytes": 9351338,
-      "sha256": "7a25eb36a288e7931849428470f5bff0dab3b270c46f2cde091a7e7fefef4a87"
+      "bytes": 3048258,
+      "sha256": "98d40a3f327bf3bdfe6a2a51ce96baeac03c0fe3c34247d80ad9dd6482ef76a7"
     },
     {
       "path": "apps/landing/private/ebooks/the-art-of-ai-monks-ja.html",
@@ -21,7 +21,7 @@
       "sha256": "52c94934e09aa8e782f42256b8734debacd84e4cec63e71f6d8c8a6a656369cf"
     }
   ],
-  "validation": "pass: source hashes; 10 chapters/4 worksheets/32 references; HTML/EPUB/PDF link targets; EPUB metadata/container/manifest/spine/fonts; PDF fonts/text/visual samples; default English regression; existing 7 book tests; diff check",
+  "validation": "PDF unchanged from reviewed artifact; EPUB subset fonts, all source/ASCII glyphs, unchanged XHTML, citations and structure verified",
   "schema_version": "anicca.the-art-of-ai-monks.ja-format-evidence.v1",
   "language": "ja",
   "character_count": 37083,
@@ -36,7 +36,7 @@
   "plan": "docs/superpowers/plans/2026-10-23-ai-monk-book-ja-format.md",
   "builder": {
     "path": "apps/landing/scripts/build-ai-monk-book.py",
-    "sha256": "3a8d7a70b613afc5b8cba51ff25c8f4389dc3126a313a028a6c19a94a0fabc95",
+    "sha256": "d860543d88db2f65e7a8e65738ba11932aeeeb0e06e144ecfd0e781d3cf1a856",
     "japanese_command": "rtk proxy python3 apps/landing/scripts/build-ai-monk-book.py --language ja",
     "english_default_command": "rtk proxy python3 apps/landing/scripts/build-ai-monk-book.py",
     "new_dependencies_installed": false,
@@ -114,13 +114,13 @@
       "embedded_fonts": [
         {
           "archive_path": "EPUB/fonts/NotoSansJP-Bold.ttf",
-          "bytes": 5761680,
-          "sha256": "123c188141fbf7764eab545464d7c7915e315e7e3e643d457c54385852bd5666"
+          "bytes": 294988,
+          "sha256": "ceb984ab8b97962ca13660b2fea09a609e5a34a87f91cf935f4a43a56f15de4b"
         },
         {
           "archive_path": "EPUB/fonts/NotoSansJP-Regular.ttf",
-          "bytes": 5766884,
-          "sha256": "3b89071bb4b1c52d6cf5e07d4c1a5cc31e620a91727581d51c3b5ba03cffd4cc"
+          "bytes": 294460,
+          "sha256": "19c890bebffb5e1ad87e140d6dfcb800240f5fd46d458cc03e827c0fc607f966"
         }
       ],
       "font_css_paths_resolved": [
@@ -183,10 +183,9 @@
     },
     "existing_book_contract_tests": {
       "status": "pass",
-      "command": "rtk proxy node --test netlify/functions/__tests__/ai-monk-book.test.js",
-      "cwd": "apps/landing",
-      "passed": 7,
-      "failed": 0
+      "tests": 8,
+      "command": "node --test apps/landing/netlify/functions/__tests__/ai-monk-book.test.js",
+      "includes_binary_response_size": true
     },
     "python_syntax": {
       "status": "pass"
@@ -299,5 +298,42 @@
     "EPUBは構造・フォント・全linkを検証し、実機のEPUB reader表示は未実測。",
     "原著のURLを維持し、リンク先の現在のHTTP状態や新しい外部事実は再取得しない。",
     "PNGは専用worktreeの一時検証資料で、販売用成果物には含めない。"
-  ]
+  ],
+  "delivery_size_optimization": {
+    "checked_at": "2026-10-23T00:58:36.162465+00:00",
+    "old_epub_bytes": 9351338,
+    "epub_bytes": 3048258,
+    "base64_response_bytes": 4064344,
+    "response_limit_bytes": 6000000,
+    "response_overhead_budget_bytes": 4096,
+    "sources": [
+      "https://docs.netlify.com/build/async-workloads/limitations.md",
+      "https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html"
+    ],
+    "all_xhtml_unchanged": true,
+    "pdf_and_html_hash_unchanged": true,
+    "fonts": [
+      {
+        "path": "EPUB/fonts/NotoSansJP-Bold.ttf",
+        "bytes": 294988,
+        "codepoints": 1015,
+        "missing_required_codepoints": 0,
+        "license_name_ids_preserved": [
+          13,
+          14
+        ]
+      },
+      {
+        "path": "EPUB/fonts/NotoSansJP-Regular.ttf",
+        "bytes": 294460,
+        "codepoints": 1015,
+        "missing_required_codepoints": 0,
+        "license_name_ids_preserved": [
+          13,
+          14
+        ]
+      }
+    ],
+    "check": "all printable manuscript characters plus ASCII remain in both embedded fonts; license name records retained"
+  }
 }

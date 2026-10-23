@@ -21,10 +21,10 @@
 
 ## TODOと現在cursor
 
-- [ ] EPUBを必要glyphのフォントで生成し、納品可能なsize・全文字・引用・構造を確認する。
+- [x] EPUBを必要glyphのフォントで生成し、納品可能なsize・全文字・引用・構造を確認する。3,048,258 bytes、base64 4,064,344 bytes。両fontに全原稿文字とASCIIが残り、全XHTML・PDF・HTMLは変更前と一致する。
 - [ ] Stripe既存catalogを公式GETで照合し、日本語版のproduct/priceを重複なく登録する。
 - [ ] 言語固定Checkout/納品と日本語ページを実装し、最小の失敗テストから確認する。
 - [ ] 英語版/既存Reset・Letterを含む関連契約、CI、main、Netlifyを確認する。
 - [ ] 公開日本語ページと未払いCheckout/保護を公式readbackし、実注文/支払済み納品の未達を記録する。
 
-現在cursor: EPUBのfont sizeを縮小する。既存9.35MBのままで納品可能とは扱わない。
+現在cursor: 既存Stripe accountの公式GETで74商品の全pageを確認し、英語版のみ存在する。次に日本語版の商品・one-time価格を重複なく登録し、言語別Checkout/納品を実装する。原稿は無料、整形版は9.99 USD。
