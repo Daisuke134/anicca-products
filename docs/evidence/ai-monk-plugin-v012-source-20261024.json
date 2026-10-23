@@ -1,0 +1,269 @@
+{
+  "schema_version": "anicca.ai-monk-plugin-source.v1",
+  "run_id": "ai-monk-plugin-v012-source-20261024",
+  "owner_id": "root/monk_plugin_v012_metadata",
+  "occurrence_id": "six-tool-metadata-and-review-alignment",
+  "observed_at": "2026-10-23T20:24:50.220503+00:00",
+  "source_base_main_sha": "710f0347a2981e19b0aa11d73df953a9bd1e9588",
+  "phase": "source_acceptance",
+  "command": "cached official 1.0.0 schema validation; empty CODEX_HOME plugin install and MCP config load; direct public HTTPS six read-only tool calls",
+  "exit_code": 0,
+  "plugin_version": "0.1.2",
+  "mcp_service_version": "0.4.5",
+  "portable_schema_validation": {
+    "plugin": "pass",
+    "mcp": "pass",
+    "schema_base": "https://agent-plugins.org/schemas/1.0.0/",
+    "source": "previously downloaded versioned official schemas",
+    "plugin_schema_sha256": "a695d533ac085702b37081e8f1ac9c43f2f0d101a02e916a59742b62308962b8",
+    "mcp_schema_sha256": "11ff0e4ce89e7d03e9adeb9fad6d914f63bccec668f9c1a9a0a0bb9eae3a268f"
+  },
+  "submission_metadata": {
+    "short_description_characters": 28,
+    "long_description_characters": 686,
+    "positive_cases": 5,
+    "negative_cases": 3,
+    "positive_tool_names": [
+      "ai_monk_index_stats",
+      "get_ai_monk",
+      "how_they_monetize",
+      "search_ai_monks",
+      "top_formats",
+      "winning_playbooks"
+    ],
+    "all_six_tools_covered": true,
+    "commerce": false,
+    "demo_recording_url": null,
+    "factory_cross_link_bundled": false,
+    "new_tools": 0,
+    "new_dependencies": 0
+  },
+  "native_package_load": {
+    "codex_version": "codex-cli 0.160.0",
+    "empty_CODEX_HOME": true,
+    "commands": {
+      "marketplace_add": {
+        "exit_code": 0,
+        "argv": [
+          "codex",
+          "plugin",
+          "marketplace",
+          "add",
+          "/Users/anicca/Projects/anicca-products-worktrees/ai-monk-plugin-v012-20261024",
+          "--json"
+        ]
+      },
+      "plugin_add": {
+        "exit_code": 0,
+        "argv": [
+          "codex",
+          "plugin",
+          "add",
+          "ai-monk-index@anicca",
+          "--json"
+        ]
+      },
+      "plugin_list": {
+        "exit_code": 0,
+        "argv": [
+          "codex",
+          "plugin",
+          "list",
+          "--marketplace",
+          "anicca",
+          "--json"
+        ]
+      },
+      "mcp_list": {
+        "exit_code": 0,
+        "argv": [
+          "codex",
+          "mcp",
+          "list",
+          "--json"
+        ]
+      }
+    },
+    "installed": true,
+    "enabled": true,
+    "version": "0.1.2",
+    "mcp_enabled": true,
+    "endpoint": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+    "auth_status": "unsupported",
+    "auth_file_present": false,
+    "model_provider_overrides": 0,
+    "model_runs": 0,
+    "shared_configuration_changes": 0
+  },
+  "live_remote_readback": {
+    "observed_at": "2026-10-23T20:23:35.687770+00:00",
+    "transport": "direct_public_https_json_rpc",
+    "server": {
+      "name": "ai-monk-index",
+      "version": "0.4.5"
+    },
+    "protocol_version": "2025-03-26",
+    "endpoint": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+    "completed_tool_calls": 6,
+    "all_calls_http_200": true,
+    "snapshot_sha256": "415571064885204388d191188490cc45bf6602aeef3e3fc47c1c3b35dff13a72",
+    "records": 73,
+    "sources": 176,
+    "first_search_profile_retrieved": "yang-mun",
+    "format_samples": 3,
+    "monetization_accounts": 1,
+    "playbooks": 1,
+    "native_natural_language_routing_verified": false,
+    "tools": [
+      {
+        "name": "search_ai_monks",
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "get_ai_monk",
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "ai_monk_index_stats",
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "top_formats",
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "how_they_monetize",
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      },
+      {
+        "name": "winning_playbooks",
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      }
+    ]
+  },
+  "files": {
+    "packages/ai-monk-plugin/README.md": "50b6f0ec83bc74b7462ff5ebd1e69d2c6dcfb02f8efc101ebb0d16671611af6f",
+    "packages/ai-monk-plugin/assets/icon.png": "8e0fd36eb74d4bb5749e8f049cace51db6823bf8923933f37421cde896ba5ca3",
+    "packages/ai-monk-plugin/mcp.json": "ebd167f7e98b8d604e5326b603f0c3f23eea7d699042e4afcfafc28ef73720b0",
+    "packages/ai-monk-plugin/plugin.json": "62ca5502bac4e8fca32f3ec2bf51f03851508a60572ae9d95ede9c497c6a533a"
+  },
+  "unchanged_from_base": {
+    "mcp.json": true,
+    "assets/icon.png": true
+  },
+  "catalog": {
+    "path": ".agents/plugins/marketplace.json",
+    "changed": false,
+    "version_field": null,
+    "source_path": "./packages/ai-monk-plugin"
+  },
+  "openai_submission": {
+    "observed_at": "2026-10-23T20:22:43.967636+00:00",
+    "portal_url": "https://platform.openai.com/plugins",
+    "authenticated": true,
+    "new_plugin_upload_attempts": 0,
+    "plugin_draft_created": false,
+    "plugin_submitted": false,
+    "directory_listed": false,
+    "upload_gate": "You need a verified developer identity before you can create or upload a plugin.",
+    "individual_verification_start_gate": "To verify your organization, you will need to add a valid payment method and set it as your default payment method.",
+    "verification_complete": false,
+    "identity_document_submission_count": 0,
+    "payment_count": 0,
+    "official_doc_url": "https://developers.openai.com/plugins/deploy/submission"
+  },
+  "muse": {
+    "source_receipt": "docs/evidence/ai-monk-distribution-status-20261024.json",
+    "requirements_completed": 3,
+    "requirements_total": 3,
+    "business": "Approved",
+    "data_processing": "In review",
+    "integration_credentials": "In review",
+    "connector_approval_verified": false,
+    "listing_url": null
+  },
+  "effect": {
+    "source_files_changed": true,
+    "zip_created": false,
+    "release_published": false,
+    "portal_uploads": 0,
+    "portal_submissions": 0,
+    "payments": 0,
+    "video_generation": 0,
+    "social_publication": 0,
+    "credential_access_or_changes": 0,
+    "browser_operations": 0,
+    "daily_runtime_changes": 0
+  },
+  "evidence_refs": [
+    {
+      "file": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v012-20261024/source-7b0c1f03/summary.json",
+      "sha256": "83165eed50736ebeb0b54da4ebd57a2a5a6ebeae7e4d97e3734ae14efadc5153"
+    },
+    {
+      "file": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v012-20261024/source-7b0c1f03/plugin_list.stdout",
+      "sha256": "af79be6562b0d80a2e12f3f17e7e43fac386acd75e76f1a564eee7cb321c6e69"
+    },
+    {
+      "file": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v012-20261024/source-7b0c1f03/mcp_list.stdout",
+      "sha256": "6cbb46da58e9e3b211251cf99a1a76a80f95b0d5d0a952fba05f89c7bad9d6e3"
+    },
+    {
+      "file": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v012-20261024/live-remote-readback.json",
+      "sha256": "17456604ee9c66398440611460b07364463e0bcdce3b7bd011b94fae66fcbe8a"
+    },
+    {
+      "file": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v012-20261024/live-remote-responses.json",
+      "sha256": "2a9e004053874313167569ecb2475ffaa60ac0bdd506c72c8bdc9e51cc6d6939"
+    },
+    {
+      "file": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-dedicated-provider-20261024/openai-plugin-submission-official-doc.md",
+      "sha256": "f26cba3350d693fc10a7d13939393dd553681ccc89ca487f00a5de20689d40f2"
+    },
+    {
+      "file": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-dedicated-provider-20261024/openai-plugin-submission-preflight.json",
+      "sha256": "55fcda53e0fad5df36790ec035733c42198f6eec55d573a9275eef2dd1ffcdf6"
+    }
+  ],
+  "limits": [
+    "Direct JSON-RPC tool calls verify the public tool surface and results; they are not native natural-language routing of the revised review cases.",
+    "v0.1.2 main integration, immutable ZIP release and public download digest acceptance remain owned by primary.",
+    "A valid default payment method is required at the current OpenAI developer identity gate. ID document or selfie requirements have not been observed.",
+    "No real reviewer-accessible walkthrough video is available; no demo URL is fabricated.",
+    "Muse business approval is not connector approval or public directory listing."
+  ],
+  "provider_receipt_id": null,
+  "error_class": null,
+  "retryable": false,
+  "next_action": "primary PR/main integration, immutable v0.1.2 ZIP publication and separate formal submission acceptance"
+}
