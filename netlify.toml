@@ -10,6 +10,10 @@
 [functions]
   node_bundler = "esbuild"
 
+# Factory jobs advance in short steps; image generation uses the supported -background suffix.
+[functions.monk-factory-tick]
+  schedule = "* * * * *"
+
 # The old Telegram-first landing is no longer the Cloud entry point. Keep old links
 # and their query/UTM parameters, but send every visitor to the canonical Web flow.
 [[redirects]]

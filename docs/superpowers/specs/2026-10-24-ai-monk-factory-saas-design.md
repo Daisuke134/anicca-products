@@ -1,0 +1,53 @@
+# AI Monk Factoryのクラウド実装・原価契約
+
+## 目的と範囲
+Databaseの根拠を台本へ戻し、利用者がGenerate→独自monk avatar→縦動画→Instagram接続→自動投稿と実metricsまで進める最小Web appを作る。利用者にAPI key/CLI/configを要求しない。Stripeは3日trial、Instagram先行、TikTokは後続とする。日次Grok所有のHeyGen/Postiz/loop、既存書籍決済は変更しない。公開mockやlocalhost planをSaaS完成と扱わない。
+
+## 採る方式と理由
+既存Next/Netlify/Supabase/Stripeを使い、server-verified user IDへjob・billing・接続を結ぶ。制作はHeyGenの公開API、social接続はUpload-Postの利用者profileとOAuthを使う。providerキーはserverだけが持つ。既存依存で足りるものを再利用し、新frameworkや利用者向け設定画面を増やさない。
+
+旧local CLIをcloud経由で利用者へ公開する案はtenant認証と永続jobを持たず、Macの日次所有系を巻き込むため採らない。Postiz通常APIの接続先は自社organizationであり、tenant帰属の正式契約が不足する。Postiz Enterpriseは公開ページで新規申請停止のため採らない。Upload-Postは別provider account不要のprofile-scoped connectと公式GETを文書化する。実接続/契約受入はまだ行っていない。
+
+## 価格と原価
+primaryの価格案はUSD199/月、月30本、1本45秒以内。paidは成功最大30本・課金試行最大36回とし、追加6回を含む予算で管理する。provider/台本のperiod予算をUSD70へ制限し、trialはUSD4.25とする。未完/費用不明も成功候補枠と予算を保持する。trialは3日・成功最大3本・課金試行最大3回・1本20秒以内で、再生成枠はない。初期avatarは1体、trialは利用者ごとに生涯1回。これは実Stripe価格公開前の設計判断であり、ユーザーの売上・利益を保証しない。
+
+Avatar IV Photoは公表USD2.31/分。30本×45秒はUSD51.975、20%追加生成込みUSD62.37。別Starfish TTSを使う最悪予算はUSD3.24/月。HeyGen ImageのUSD0.28はidentity/reference画像を要求する再構成用で、文章から独自画像を作る経路ではない。画像はOpenAI Images APIのgpt-image-1-mini、1024x1536/high/n1と固定ASCII promptを使う。公表出力概算USD0.052＋text入力USD2/M tokenに対し画像期待費の保守枠をUSD0.06とするが、従来の画像USD0.28＋Photo Avatar作成USD1.32というavatar予約USD1.60を維持する。差額は保守枠であり毎月の再生成費や実請求額とは呼ばない。画像の実usage/個別料金と独立課金元を確認するまで生成/料金公開を有効化しない。prompt直接avatarの価格をPhoto Avatar料金だと推定しない。
+
+Upload-Post ProfessionalはUSD50/月・25profilesでwhite-labelを含む。25人満員なら平均USD2/人だが、1人でも固定費USD50が発生する。25枠はpaid人数ではなくtrial/停止後保持分も含む全profileの同時容量である。25paidの試算行には新trial用空きがない。無料planはwhite-labelを含まず、TikTok投稿も不可。年USD400を月払いUSD33と扱わず、初期は月契約を選ぶ。
+
+Stripe JPの標準公表card3.6%＋Billing0.7%、FXが必要な場合の追加2%を保守的な6.3%として試算する。既存merchant個別契約の請求率と断定しない。台本推論・保存・hosting等へ別途USD10/有料利用者/月を原価予算として置くが、実測請求額とは区別する。
+
+trialの動画・TTS・avatar予約の小計はUSD4.03、その他を含むprovider/台本のhard budgetはUSD4.25。画像を別APIへ変えた後もUSD0.28の保守枠を残す計算であり、HeyGen単独の実請求ではない。trial→paid10%という仮定では獲得trial費USD42.50/有料利用者となる。初月利益試算は有料1人でUSD16.753、5人でUSD56.753、25人でUSD64.753。paid側のUSD1.60はavatarを再利用する通常経路では実費0となる保守予備費で、毎月再生成する仕様ではない。転換率5%・有料1人ではUSD-25.747で赤字。売上・継続率・税・実手数料の未確定部分を隠さず、実請求と実転換率から更新する。
+
+ReelFarmのUSD49/95/195はslide生成の容量であり、avatar動画へ同じ価格を適用しない。USD149は低稼働時とtrial獲得費の余裕が薄いため初期案から外す。価格だけ高くして利益と呼ばず、回数・秒数・原価予約を実装で制御する。
+
+## 最小の利用導線
+DatabaseからFactoryへ進み、既存Supabase loginを使う。説明と料金・trial後の請求日・解約を明示してStripe Checkoutへ進む。Generateで実在人物を複製しない独自の架空monk画像を1体作り、次のGenerateでDatabaseの観測形式をもとに独自台本と縦動画を作る。UIは進行状況と完成previewを表示する。
+
+InstagramはBusiness/Creatorを接続する。認可から戻っただけではconnectedにせず、利用者専用profileの公式GETとopaque account IDを確認する。自動投稿ONの明示操作と接続確認後、1日1本を当社の既定時間に制作/投稿する。停止・解約・認可失効は次回の生成/投稿を止める。投稿先・scriptやaccountの自由設定を追加しない。
+
+dashboardは実provider状態、投稿URL、取得日時付きのviews/likes等を表示し、未取得を0にしない。trialとpaidの残回数、次回投稿、subscription状態、停止/解約を簡潔に表示する。動画とcaptionはAI生成であることを明示する。
+
+## 実装の境界
+- 現在の公開draft入口を同じURLの実Web appへ置き換える。localhost向け4file配布はdownload用pathへ移し、public staticとNext routeを衝突させない。既存利用者や永続draft移行の要件は確認されていないので互換レイヤーを増やさない。
+- trialのquota期間はStripeのtrial_start/end、初回paidと以後の更新期間は公式subscription/invoiceで確定する有料periodとする。trial3回とpaid36試行は別枠で繰越0、subscription IDとperiod startで重複resetを防ぐ。費用不明の試行は消費/予約を保持し、公式に非課金と確認できたものだけ解放する。
+- Netlify APIはSupabase server getUserでbearerを検証する。client入力user_id/customer_id/profileを信用しない。RLSは自分のrowの読取だけ、課金/生成/接続の更新はserver限定とする。
+- account/job/provider-eventを永続化する。unique occurrence/lease、atomic count/seconds/USD予約で連打・並列・scheduled再実行の二重効果を防ぐ。timeout後のeffect不明は予約を保持し、公式GETで照合する。
+- 先にspeechを生成し公式durationを読んでからAvatar IVへ渡す。単語数から秒数を保証しない。上限超過の短文化は残予算内だけで行い、音声が上限を満たさなければ動画生成しない。
+- Stripe Checkoutは固定server Price、mode subscription/trial3日/カード収集、server user IDをmetadataへ保存する。webhookはraw署名・event一意性・公式subscription再取得で利用権を更新し、success URLだけから有料化しない。portalは認証済み本人のcustomerだけを使う。
+- Checkoutのnonce/作成時刻/公式session IDを永続化し、通信失敗後も同じStripe idempotency keyとpayloadを使う。期限後に結果不明のsessionを別nonceで再作成しない。課金状態の同期は利用者ごとの期限付きnonceで排他し、公式GET前に取得したnonceが一致する場合だけ更新する。有料期間はsubscription itemの公式periodと同じ期間のpaid invoice lineで確定し、古いinvoiceだけで次月を有効化しない。解約予定も次の有料生成/自動投稿を止める。
+- 同一Stripe accountの既存webhookへFactory eventが届いても、別商品のdropletやwake-callを作らない。広いsubscription受付を持つ既存2handlerはFactoryのproduct IDだけを除外し、既存商品の契約を変えない。
+- Upload-Post profileはstable user IDからserver生成し、全profile slotをCheckout開始前に予約する。trial/停止後保持も数え、25枠満杯なら新trialを開始しない。Checkout未成立の枠は公式expiry/readbackで解放する。OAuth redirectのstatusだけを信用せず、公式GETのprofile/accountと自社userを照合する。Grok所有の既存accountを接続試験やSaaS投稿先に選ばない。Upload-Post内の既存他owner/profileへ結び付いたsocial accountはOAuth成功で移動し得るため、Connect操作前に接続先切替の可能性を明示し、専用未接続accountでlive受入する。これはPostizの既存接続を移すAPIとは区別し、no-transfer保証があると表示しない。署名webhookは補助とし、再配信なしのため公式GETで回復する。
+- 非同期生成と投稿は永続jobを短いscheduled tickで進める。新schedulerやMac常駐processを作らず、利用者向けAPI request中に長時間待たない。同期Images APIだけは既存Netlifyのbackground functionを使う経路を検証し、DBの所有権と送信前fenceを取得した最初の1回だけproviderへ送る。自動retryは当該fenceを読んで再送せず、費用不明は予約を保持する。submit→provider ID保存→next_run_at付きpollへ分け、1tickの件数/時間を上限で止める。既存CLIの--waitやbackground functionの自動retryをそのまま移植しない。各効果はprovider ID/official readback/費用/次の操作を持つ。
+- Factory専用の独立billing sourceを使い、Grok key/walletへのfallbackは0とする。shared Grok walletやAPI残高を利用者quotaの代わりにしない。walletのauto-reload設定は変更せず、既存threshold guardと利用者/全体予算を守る。Factory用の支払元・使用可能予算が足りなければ生成前に具体的な不足を表示し、成功へ置換しない。
+- API key・OAuth JWT・webhook secretはprivate SSOTとdeployment secretsだけで扱い、client/repo/logへ出さない。
+- 定期tickはStripe SDKを含む全通信へ共通25秒の打切りを適用し、Netlifyの30秒上限より先に終了する。Price/解約portal/webhook secret/live-modeの必須Stripe設定が欠ける間はreadyをfalseにし、新規課金・生成を開始しない。状態取得が失敗した場合も、本人認証後の停止操作は課金同期を通さず利用できる。
+
+## 完了条件と実行順
+1. 原価表、価格/回数/秒数、本人確認とjob/接続/課金契約を正本へ先にcommit/pushする。
+2. 関係する最小の失敗テストを先に確認し、auth/tenant隔離・quota同時予約・Stripe署名/重複・OAuth帰属・job再実行を実装する。関連検証とsource review/CIを通す。
+3. 最新mainへ統合し、必要なprovider/deployment設定を対象限定で反映する。実login/3日trial subscription/本人接続/独自avatar/video/公式投稿・metricsを実receiptと分けて確認する。
+4. 実利用できる状態をXで告知する。売上・MRR・他者利益・正式directory掲載は、対応する外部結果が無い限り未達とする。
+
+## 現在cursor
+Database/Plugin配布状態 → ../plans/2026-10-24-ai-monk-research-distribution.md。Factoryの実装・検証・未完事項 → ../plans/2026-10-24-ai-monk-factory-saas.md。料金公開・provider新規契約・API生成・売上は未実施。

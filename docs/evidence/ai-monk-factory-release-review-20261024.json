@@ -1,0 +1,26 @@
+{
+  "scope": "Factory job orchestration, API and studio source; no live SaaS acceptance",
+  "reviewer": "fresh-context read-only subagent monk_factory_release_review",
+  "initial_commit": "6b9e0b55a0fec559c85dd433350d243052aeb97d",
+  "initial_decision": "hold",
+  "accepted_findings": [
+    { "severity": "HIGH", "issue": "Stripe GET could run outside the shared scheduled deadline", "reproduction": { "stripe_start_ms": 24900, "stripe_finish_ms": 34800, "paid_posts": 0 } },
+    { "severity": "MEDIUM", "issue": "Missing cancellation portal configuration did not make ready false" }
+  ],
+  "reviewed_fix_commit": "fdab2f2a987073025c16dd73be135d7daab721a9",
+  "decision": "ship_within_source_scope",
+  "blocking_findings": [],
+  "fix_validation": {
+    "real_handler_and_installed_stripe_sdk": { "fixture_deadline_ms": 100, "observed_finish_ms": 106, "stripe_gets": 1, "retries": 0, "paid_posts": 0, "sdk_timeout_ms": 10000 },
+    "missing_or_invalid_configuration_cases": 10,
+    "all_cases_ready_false_checkout_reservations_zero_scheduled_queue_zero": true,
+    "stop_after_initial_get_503": { "status": 200, "auto_post": false },
+    "related_tests_passed": 53,
+    "independent_postgres_tests_passed": 20,
+    "postgres_note": "Fresh private Unix socket fixture passed on initial review; SQL unchanged by the reviewed fix. Skipped DB tests are not counted as passes."
+  },
+  "official_runtime_source": "https://docs.netlify.com/build/functions/scheduled-functions/#limitations",
+  "limitations": ["Production migration and configuration are not verified here", "Live browser login, subscription, provider billing, generation, Instagram publishing and metrics remain separate acceptance"],
+  "external_mutations": 0,
+  "saas_complete": false
+}

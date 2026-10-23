@@ -8,4 +8,4 @@ node_modules
 netlify/functions/_lib/ai-monk-index/
 
 # Hash-pinned UI staged from the canonical Life Manager release before build.
-public/ai-monk-factory/
+public/ai-monk-factory-download/

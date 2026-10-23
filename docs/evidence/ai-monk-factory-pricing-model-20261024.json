@@ -1,0 +1,196 @@
+{
+  "schema_version": "anicca.ai-monk-factory-pricing-model.v1",
+  "status": "planning_model_with_reserved_image_budget_not_invoice_or_live_price",
+  "public_sources": [
+    "https://help.heygen.com/en/articles/10060327-heygen-api-pricing-explained",
+    "https://stripe.com/jp/pricing",
+    "https://stripe.com/jp/billing/pricing",
+    "https://docs.upload-post.com/resources/pricing-and-limits",
+    "https://docs.upload-post.com/guides/user-profile-integration",
+    "https://docs.upload-post.com/api/connect-api",
+    "https://reel.farm/#pricing",
+    "https://developers.heygen.com/docs/models/heygen-image.md",
+    "https://developers.openai.com/api/docs/models/gpt-image-1-mini.md"
+  ],
+  "private_evidence": [
+    {
+      "topic": "heygen_stripe_account",
+      "filename": "ai-monk-factory-cost-account-20261024/readback.json",
+      "sha256": "7fec1e9bb6e76a0ba19fe20735104283aa64448004957753ab1c829f8fa04e51"
+    },
+    {
+      "topic": "postiz_contract",
+      "filename": "ai-monk-factory-social-connect-research-20261024/readback.json",
+      "sha256": "30c2100140ec22bb3a887c45f53d9c6ca85d6811611119f535414080944bd85b"
+    },
+    {
+      "topic": "upload_post_contract",
+      "filename": "ai-monk-factory-upload-post-research-20261024/readback.json",
+      "sha256": "86cd3a12642c87743672305d24b2cb8681c80e431a455b7063b2ac21f2a95b96"
+    }
+  ],
+  "published_rates": {
+    "avatar_iv_photo_usd_per_minute": "2.31",
+    "separate_starfish_tts_usd_per_minute": "0.12",
+    "photo_avatar_creation_usd_per_call": "1.32",
+    "upload_post_professional_monthly_usd": "50",
+    "upload_post_profiles": 25,
+    "stripe_jp_published_card_and_billing_percent": "4.3",
+    "conditional_fx_stress_additional_percent": "2.0",
+    "heygen_identity_remix_usd_per_image": "0.28",
+    "openai_gpt_image_1_mini_1024x1536_high_output_estimate_usd": "0.052",
+    "openai_gpt_image_1_mini_text_input_usd_per_million_tokens": "2"
+  },
+  "primary_design_choice": {
+    "monthly_price_usd": "199",
+    "paid_videos": 30,
+    "max_paid_video_seconds": 45,
+    "internal_billable_render_attempt_limit": 36,
+    "trial_days": 3,
+    "trial_videos": 3,
+    "max_trial_video_seconds": 20,
+    "max_trial_provider_and_script_budget_usd": "4.25",
+    "initial_avatar_count": 1,
+    "trial_per_user_lifetime": 1,
+    "currency": "usd",
+    "unlimited_generation": false,
+    "paid_plan_or_checkout_published": false,
+    "paid_success_limit": 30,
+    "paid_billable_attempt_limit": 36,
+    "trial_success_limit": 3,
+    "trial_billable_attempt_limit": 3,
+    "trial_regeneration_attempts": 0,
+    "max_paid_provider_and_script_budget_usd": "70"
+  },
+  "model": {
+    "fixed_price_net_at_6_3pct_fee_usd": "186.463",
+    "monthly_video_with_20pct_billable_regenerations_usd": "62.37000",
+    "monthly_separate_tts_reserve_with_20pct_regenerations_usd": "3.2400",
+    "trial_video_generation_usd": "2.3100",
+    "trial_tts_reserve_usd": "0.120",
+    "trial_total_hard_budget_usd": "4.25",
+    "other_monthly_cost_reserve_per_paid_user_usd": "10",
+    "formula": "price*(1-fee)-video-tts-avatar-50/paying_users-other_cost_reserve-trial_budget/conversion",
+    "rows": [
+      {
+        "paying_users": 1,
+        "trial_to_paid_conversion_assumption": "0.05",
+        "social_fixed_cost_allocated_usd": "50",
+        "trial_acquisition_budget_per_payer_usd": "85",
+        "first_month_contribution_model_usd": "-25.74700",
+        "contribution_margin": "-0.1293819095477386934673366834"
+      },
+      {
+        "paying_users": 1,
+        "trial_to_paid_conversion_assumption": "0.10",
+        "social_fixed_cost_allocated_usd": "50",
+        "trial_acquisition_budget_per_payer_usd": "42.5",
+        "first_month_contribution_model_usd": "16.75300",
+        "contribution_margin": "0.08418592964824120603015075377"
+      },
+      {
+        "paying_users": 1,
+        "trial_to_paid_conversion_assumption": "0.20",
+        "social_fixed_cost_allocated_usd": "50",
+        "trial_acquisition_budget_per_payer_usd": "21.25",
+        "first_month_contribution_model_usd": "38.00300",
+        "contribution_margin": "0.1909698492462311557788944724"
+      },
+      {
+        "paying_users": 5,
+        "trial_to_paid_conversion_assumption": "0.05",
+        "social_fixed_cost_allocated_usd": "10",
+        "trial_acquisition_budget_per_payer_usd": "85",
+        "first_month_contribution_model_usd": "14.25300",
+        "contribution_margin": "0.07162311557788944723618090452"
+      },
+      {
+        "paying_users": 5,
+        "trial_to_paid_conversion_assumption": "0.10",
+        "social_fixed_cost_allocated_usd": "10",
+        "trial_acquisition_budget_per_payer_usd": "42.5",
+        "first_month_contribution_model_usd": "56.75300",
+        "contribution_margin": "0.2851909547738693467336683417"
+      },
+      {
+        "paying_users": 5,
+        "trial_to_paid_conversion_assumption": "0.20",
+        "social_fixed_cost_allocated_usd": "10",
+        "trial_acquisition_budget_per_payer_usd": "21.25",
+        "first_month_contribution_model_usd": "78.00300",
+        "contribution_margin": "0.3919748743718592964824120603"
+      },
+      {
+        "paying_users": 25,
+        "trial_to_paid_conversion_assumption": "0.05",
+        "social_fixed_cost_allocated_usd": "2",
+        "trial_acquisition_budget_per_payer_usd": "85",
+        "first_month_contribution_model_usd": "22.25300",
+        "contribution_margin": "0.1118241206030150753768844221"
+      },
+      {
+        "paying_users": 25,
+        "trial_to_paid_conversion_assumption": "0.10",
+        "social_fixed_cost_allocated_usd": "2",
+        "trial_acquisition_budget_per_payer_usd": "42.5",
+        "first_month_contribution_model_usd": "64.75300",
+        "contribution_margin": "0.3253919597989949748743718593"
+      },
+      {
+        "paying_users": 25,
+        "trial_to_paid_conversion_assumption": "0.20",
+        "social_fixed_cost_allocated_usd": "2",
+        "trial_acquisition_budget_per_payer_usd": "21.25",
+        "first_month_contribution_model_usd": "86.00300",
+        "contribution_margin": "0.4321758793969849246231155779"
+      }
+    ],
+    "paid_avatar_line_is_conservative_contingency_not_repeat_charge": true,
+    "initial_avatar_budget_usd": "1.60",
+    "trial_video_tts_avatar_budget_usd": "4.0300",
+    "avatar_line_uses_retained_budget_not_exact_image_operation_price": true
+  },
+  "unknowns": [
+    "Merchant-specific Stripe fee/taxes/settlement FX",
+    "HeyGen account-specific tariff, rounding, minimum seconds and post-start failure/refund treatment",
+    "Actual OpenAI image input/output usage and account-specific bill; the public image-output estimate is not a guaranteed invoice ceiling",
+    "Actual script inference/storage/hosting cost and conversion/churn, not established by a reserve",
+    "Upload-Post signup/white-label entitlement, live Instagram account capability and account-owner reassignment behavior"
+  ],
+  "runtime_requirements": [
+    "Server-verified user ID binds project, jobs, social profile and billing.",
+    "Reserve per-user count/seconds/USD before paid API calls; concurrent/repeated requests cannot double spend.",
+    "Generate speech first, inspect returned duration before rendering; shorten overlong text within the same budget. Word count alone is not a duration limit.",
+    "Reuse initial avatar; no unlimited regeneration and no automatic retry when provider effect/cost is unknown.",
+    "Shared Grok HeyGen wallet and daily Postiz integrations are not a new SaaS funding or customer-connection pool.",
+    "Browser OAuth redirect query is advisory; verify profile/account ID through authenticated official GET before enabling posting.",
+    "Trial cost, provider fixed bill and actual Stripe fees are tracked separately; negative modeled scenarios are not profit.",
+    "Trial period and first/renewed paid subscription period use distinct official Stripe anchors; no carryover or duplicate reset.",
+    "All provider profiles including trial/stopped retained profiles reserve one of 25 slots before Checkout; full capacity prevents a new trial.",
+    "Independent Factory billing source only; fallback to Grok API key/wallet is forbidden.",
+    "Upload-Post may transfer an existing linked social account between its owners/profiles; disclose this before an explicit Connect action. Do not use Grok-owned accounts for acceptance. This is distinct from changing a Postiz integration.",
+    "Paid avatar USD1.60 is a conservative contingency; normal trial-avatar reuse has no duplicate initial creation charge."
+  ],
+  "effects": {
+    "provider_mutations": 0,
+    "new_contracts": 0,
+    "payments": 0,
+    "generations": 0,
+    "posts": 0
+  },
+  "image_contract": {
+    "heygen_image_zero_input_prompt_supported": false,
+    "provider": "OpenAI Images API",
+    "model": "gpt-image-1-mini",
+    "size": "1024x1536",
+    "quality": "high",
+    "n": 1,
+    "fixed_ascii_prompt_max_bytes": 1024,
+    "expected_image_cost_reserve_usd": "0.06",
+    "retained_image_budget_usd": "0.28",
+    "retained_avatar_budget_usd": "1.60",
+    "photo_avatar_published_rate_usd": "1.32",
+    "rates_are_public_estimates_not_account_invoice": true,
+    "live_billing_verified": false
+  }
+}

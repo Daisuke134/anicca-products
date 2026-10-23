@@ -5,6 +5,7 @@ on:
     paths:
       - 'apps/landing/**'
       - 'packages/ai-monk-index/**'
+      - 'scripts/test-ai-monk-factory-db.mjs'
       - '.github/workflows/landing-pr-build.yml'
 
 permissions:
@@ -35,7 +36,13 @@ jobs:
           node /tmp/manager-publish-overlay.mjs --stage
 
       - name: AI monk directory contracts
-        run: node --test lib/ai-monk-directory.test.mjs test/ai-monk-evidence-rendering.test.mjs scripts/stage-ai-monk-factory.test.mjs
+        run: node --test lib/ai-monk-directory.test.mjs lib/monk-factory-client.test.mjs test/ai-monk-evidence-rendering.test.mjs scripts/stage-ai-monk-factory.test.mjs
+
+      - name: AI monk factory atomic database contracts
+        working-directory: .
+        run: |
+          node packages/ai-monk-index/scripts/build.mjs --netlify
+          node scripts/test-ai-monk-factory-db.mjs
 
       - name: Book checkout and delivery contracts
         run: node --test netlify/functions/__tests__/ai-monk-book.test.js netlify/functions/__tests__/ebook-download.test.js netlify/functions/_lib/__tests__/ebook-checkout.test.js test/ai-monk-book-page.test.mjs
