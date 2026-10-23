@@ -76,6 +76,13 @@
   force = true
 
 # Cookieless first-party site counters (pageviews + funnel events)
+# Honne iOS app: Rork toolkit-compatible structured output (EXPO_PUBLIC_TOOLKIT_URL = https://aniccaai.com/api/honne)
+[[redirects]]
+  from = "/api/honne/llm/object"
+  to = "/.netlify/functions/honne-llm-object"
+  status = 200
+  force = true
+
 [[redirects]]
   from = "/api/hit"
   to = "/.netlify/functions/hit"
