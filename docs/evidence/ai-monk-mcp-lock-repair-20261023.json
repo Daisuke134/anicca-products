@@ -1,0 +1,36 @@
+{
+  "run_id": "dee521d8-2703-4602-a7a1-d29037b7d785",
+  "owner_id": "codex-ai-monk-remote-mcp",
+  "occurrence_id": "landing-pr-39884395696-npm-ci",
+  "release_sha": "37be42c4704b138c9b401e7db5449b5ba01070bf",
+  "checked_at": "2026-10-23T01:33:41.361820+00:00",
+  "phase": "package_install_lock_validation",
+  "command": "npm ci",
+  "loaded_argv": [
+    "npm",
+    "ci"
+  ],
+  "loaded_environment": {
+    "ci_node": "v20.20.2",
+    "ci_npm": "10.8.2",
+    "local_node": "v25.6.1",
+    "clean_probe_npm": "10.8.2",
+    "probe_has_node_modules": false
+  },
+  "exit_code_before": 1,
+  "exit_code_after_clean_dry_run": 0,
+  "effect": "no provider mutation; seven required lock entries added",
+  "readback": "CI failure reproduced in a clean directory with npm10.8.2; lock-only install adds seven nested zod3.25.76 entries; no removed/changed package entries; clean npm ci dry-run passes.",
+  "provider_receipt_id": "github-actions-39884395696",
+  "evidence_refs": [
+    "https://github.com/Daisuke134/anicca-products/actions/runs/39884395696",
+    "apps/landing/package-lock.json"
+  ],
+  "error_class": "dependency_lock_incomplete",
+  "retryable": true,
+  "next_action": "push repaired lock and run exact-head package/landing CI",
+  "root_cause": "Adding root Zod4 for the SDK leaves seven existing Zod3 consumers without nested lock entries.",
+  "changed_existing_package_versions": 0,
+  "added_nested_zod3_records": 7,
+  "package_json_changed_for_repair": false
+}

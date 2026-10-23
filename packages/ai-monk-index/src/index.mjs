@@ -1,10 +1,7 @@
-import { readFileSync } from 'node:fs';
-import { createHash } from 'node:crypto';
 import * as z from 'zod/v4';
 import { filterAiMonkAccounts, rankAiMonkAccounts } from './ai-monk-directory.mjs';
+import { database, snapshotSha256 } from './snapshot.mjs';
 
-const bytes = readFileSync(new URL('./database.json', import.meta.url));
-const database = JSON.parse(bytes);
 export const searchSchema = z.strictObject({
   query: z.string().max(500).optional(),
   status: z.enum(['all', 'confirmed', 'reported', 'unverified', 'unknown']).default('all'),
@@ -19,7 +16,7 @@ export const searchSchema = z.strictObject({
 const metadata = {
   schema_version: database.schema_version,
   updated_at: database.updated_at,
-  snapshot_sha256: createHash('sha256').update(bytes).digest('hex'),
+  snapshot_sha256: snapshotSha256,
   source_url: 'https://aniccaai.com/data/ai-monk-avatar-database-2026.json',
   scope: database.scope,
   license: database.license,

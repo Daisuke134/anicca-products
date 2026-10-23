@@ -147,6 +147,8 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 **AM-15データ利用口の公開:** `packages/ai-monk-index` は唯一の正本JSONとWeb検索helperをbuildで取り込み、`search/get/stats` CLIと3つのread-only stdio MCP toolsを提供する。PR [#558](https://github.com/Daisuke134/anicca-products/pull/558)、main `838e6bb7101a2ef647560eeb5a5ef0bbc19d950a`、Node20 package CIとlanding CI成功、fresh review指摘0。v0.1.0は[GitHub Release](https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.1.0)として公開する。23,806 bytesのtarballは公式asset digest・再取得hashが一致し、公開URLを使うnpm installから75 records/48 sourcesのCLI readbackを確認する。通常利用のネットワーク・API key・accountは不要。npm registry掲載、remote MCP/ChatGPT app、動画生成/投稿factoryのOSS化、subscriptionはこのreleaseの完了範囲に含めない。根拠 → `docs/evidence/ai-monk-cli-mcp-release-20261023.json`。
 
+**次の独立した配信段階:** rootは `docs/superpowers/plans/2026-10-23-ai-monk-remote-mcp.md` に従い、同じ3 toolsを既存Netlifyでpublic HTTPS MCPへ配信する。AM-14の旧effect/個別費用、AM-13日本語本文はそれぞれ継続する。remote接続、本番掲載、plugin directory審査/公開は個別readbackで扱う。
+
 
 **書籍の発売告知:** 公開済み英語版の告知を既存Postiz @selawmqtで1件行う。既存database告知は再送せず、別campaign `art_of_ai_monks_book_launch_en`、直接販売ページURL、無料全文と有料整形済み版の明示、creatorへの敬意を含める。copy・参照・検証済み成功事例がない穴・計測指標は `docs/evidence/ai-monk-book-launch-copy-20261023.json`。同じ対象/媒体/目的の実績が未取得のため、小さい1件の検証とし、retweet・売上・利益を約束しない。SKU全体のStripe公式全page読戻しでは16:17 UTC時点で支払済み注文0件。campaign帰属の注文やclickは未確認として分ける。
 

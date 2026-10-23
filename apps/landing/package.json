@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/check-no-google-font-imports.mjs && node scripts/gen-dashboard-snapshot.mjs",
+    "prebuild": "node ../../packages/ai-monk-index/scripts/build.mjs --netlify && node scripts/check-no-google-font-imports.mjs && node scripts/gen-dashboard-snapshot.mjs",
     "build": "next build",
     "start": "next start",
     "export": "next export",
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@crossmint/client-sdk-react-ui": "^4.2.11",
+    "@modelcontextprotocol/server": "2.3.1",
     "@netlify/blobs": "^8.2.0",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-slot": "^1.0.2",
@@ -40,7 +41,8 @@
     "stripe": "^22.2.0",
     "tailwind-merge": "^2.4.0",
     "tweetnacl": "^1.0.3",
-    "ws": "^8.21.0"
+    "ws": "^8.21.0",
+    "zod": "4.3.6"
   },
   "devDependencies": {
     "@types/node": "^24.4.0",
