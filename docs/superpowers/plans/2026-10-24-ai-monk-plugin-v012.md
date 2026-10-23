@@ -25,9 +25,9 @@ Museは既存提出の3/3 requirements受付済み、BusinessだけApproved、Da
 - [x] portable schema、隔離したCodex package/config load、公開remote6toolのsource受入を記録する。証拠 → `../../evidence/ai-monk-plugin-v012-source-20261024.json`。branchのcommit/pushとremote object一致は主担当へ報告する。
 - [x] PR630/main2cfc70e2c706ef7d697dbe30b47e319d4c28b3c1の固定4filesからZIPを作り、ai-monk-plugin-v0.1.2を公開する。asset670323615/733154bytesのofficial digestと公開download SHA256 78594ea8af058d06cc64cf65d1442e3bca9f3ba799d1761f8779f2dd6a45d1baが一致する。source review SHIP、旧Release変更0。証拠 → ../../evidence/ai-monk-plugin-v012-release-20261024.json。
 - [x] positive3/4/5のnative自然言語routingを隔離Codexで実受入する。top_formats、search_ai_monks→how_they_monetize、winning_playbooksの計4呼び出し、全caseの日本語final/exit0、公開v0.4.6 snapshot一致を確認する。証拠 → ../../evidence/ai-monk-plugin-native-v012-20261024.json。
-- [ ] primaryがdeveloper identity/支払元・実demoを満たして正式upload/submit/審査結果/掲載を個別に記録する。
+- [ ] primaryがdeveloper identity/支払元の最新gateと正式upload/submit/審査結果/掲載を個別に記録する。実demoと現行v0.1.3 ZIPの公開を正式提出/掲載へ換算しない。
 
-後続の残case・実ログデモ・現在cursorの正本 → [正式提出前の試験と実ログデモspec](../specs/2026-10-24-ai-monk-plugin-review-readiness.md)。以下の拡張3case受入は既存v0.1.2証拠の履歴として保持する。
+現行版は公開済みv0.1.3 → [公開受入receipt](../../evidence/ai-monk-plugin-v013-release-20261024.json)。正式提出の残TODO・現在cursorの正本 → [正式提出前の試験と実ログデモspec](../specs/2026-10-24-ai-monk-plugin-review-readiness.md)。以下の拡張3case受入とv0.1.2配布手順は既存証拠の履歴として保持する。
 
 ## native routing受入の範囲
 
