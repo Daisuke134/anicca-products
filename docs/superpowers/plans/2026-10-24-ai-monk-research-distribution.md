@@ -4,7 +4,7 @@
 既存のDatabase/6tool CLI・pluginを土台に、商品/収益の根拠拡充と配布を先に完了し、原価が成立するcloud Factoryへ進む。要件の正本はfield-guide末尾「Database・Plugin・Factoryの追加契約」。通常判断はprimaryが実行し、承認待ちや固定stageを追加しない。brainstormingの承認質問はDaisの明示No-human-loopと詳細指定へ置き換える。Stripe実装時は既存Checkout/Billingを再利用し、既存runtimeの日次effect/ownerは触らない。
 
 ## 順序と現在cursor
-旧順/新順/理由はfield-guideを参照する。先行配布はPR612/main74074d0、CLI v0.4.3/main6500499で受入済み。現在cursorは20商品/67profileの根拠統合・fresh review→PR/CI/main→公開Web/MCP/CLI v0.4.4。67の既知IG handleを公開UIで確認し、63public/1private header/2unavailable/1age-restricted、64followers、bio言語とMaître Yunの本人AI開示を記録する。sourceの価格/claim/unknownは保持する。原価とReelFarmのread-only調査だけを並行し、Factory実装を先行しない。
+旧順/新順/理由はfield-guideを参照する。先行配布はPR612/main74074d0、CLI v0.4.3/main6500499で受入済み。現在cursorはPR614/main fbc141f7とCLI v0.4.4公開導入/実stdioの受入→Netlify139source反映→Registry/Plugin配布。fresh最終blocking0、最終head package/Landing CIはSUCCESS。67の既知IG handleを公開UIで確認し、63public/1private header/2unavailable/1age-restricted、64followers、bio言語とMaître Yunの本人AI開示を記録する。sourceの価格/claim/unknownは保持する。原価とReelFarmのread-only調査だけを並行し、Factory実装を先行しない。
 
 ## TODO
 - [ ] DB-1: 既知73profileの商品/売上/creator/言語/画像の調査coverageを記録し、取得可能な公開一次資料から精査・拡充する。pending非掲載という旧reasonを修正し、unknownを保持する。
@@ -29,3 +29,5 @@ Databaseの正本更新はpackage metadata/READMEをv0.4.4へ揃え、既存v0.4
 正式Muse Connector Platform https://platform.muse.ai を公開ページで確認する。describe→review→directoryの3段階で、まだ認証/提出/掲載は行わない。xAIは https://docs.x.ai/developers/tools/remote-mcp の公開仕様がremote MCPの接続を説明する。API互換の案内とhost実受入/公式directory掲載を区別する。MCP Registryは公式remote-only/OIDC公開経路を調査済みで、Database公開後のPL-1で実施する。
 
 LM docs/team/README.md・RULES.md・WORKFLOW.mdの無料trial禁止は、Daisの最新のStripe3日trialという明示指示により本Factoryでは上書きする。旧ルールをSaaS実装の停止点にしない。既存の他商品/日次loopの課金設計は変更しない。
+
+MCP Registryの最小source準備は、Netlify反映待ちと独立したfilesで並行する。公開effectはDatabaseのreadback後とし、理由とsource受入は2026-10-24-ai-monk-mcp-registry.mdを正本とする。既知profile/productの拡充は続き、全世界の全件網羅や全収益監査を達成扱いしない。
