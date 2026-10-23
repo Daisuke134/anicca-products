@@ -12,6 +12,16 @@ CREATE TABLE public.monk_factory_accounts (
   period_paid boolean NOT NULL DEFAULT false,
   cancel_at_period_end boolean NOT NULL DEFAULT false,
   billing_paused boolean NOT NULL DEFAULT false,
+  billing_sync_nonce uuid,
+  billing_sync_until timestamptz,
+  billing_checked_at timestamptz,
+  checkout_nonce uuid,
+  checkout_created_at timestamptz,
+  checkout_price_id text,
+  checkout_customer_id text,
+  checkout_email text,
+  checkout_trial boolean,
+  checkout_session_id text,
   auto_post boolean NOT NULL DEFAULT false,
   social_profile text UNIQUE,
   instagram_account_id text,
@@ -64,6 +74,7 @@ CREATE TABLE public.monk_factory_stripe_events (
   user_id uuid REFERENCES public.monk_factory_accounts(user_id),
   event_type text NOT NULL,
   stripe_object_id text NOT NULL,
+  stripe_subscription_id text NOT NULL,
   created_at timestamptz NOT NULL DEFAULT now(),
   processed_at timestamptz
 );
@@ -164,3 +175,78 @@ REVOKE EXECUTE ON FUNCTION public.monk_factory_reserve_profile(uuid),
   public.monk_factory_reserve_job(uuid, text, text) FROM PUBLIC, anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.monk_factory_reserve_profile(uuid),
   public.monk_factory_reserve_job(uuid, text, text) TO service_role;
+
+CREATE FUNCTION public.monk_factory_checkout_context(p_user_id uuid, p_price_id text, p_email text)
+RETURNS jsonb LANGUAGE plpgsql SECURITY INVOKER SET search_path = public, pg_temp AS $$
+DECLARE account public.monk_factory_accounts;
+BEGIN
+  IF p_price_id IS NULL OR p_price_id !~ '^price_[A-Za-z0-9]+$'
+    OR p_email IS NULL OR length(p_email) NOT BETWEEN 1 AND 320 THEN
+    RAISE EXCEPTION 'invalid_checkout';
+  END IF;
+  SELECT * INTO account FROM public.monk_factory_accounts WHERE user_id = p_user_id FOR UPDATE;
+  IF NOT FOUND OR account.profile_reserved_at IS NULL THEN RAISE EXCEPTION 'profile_required'; END IF;
+  IF account.checkout_nonce IS NOT NULL THEN RETURN to_jsonb(account); END IF;
+  IF account.stripe_subscription_id IS NOT NULL
+    AND account.subscription_status NOT IN ('none', 'canceled', 'incomplete_expired') THEN
+    RAISE EXCEPTION 'subscription_exists';
+  END IF;
+  UPDATE public.monk_factory_accounts SET
+    checkout_nonce = gen_random_uuid(), checkout_created_at = date_trunc('second', now()),
+    checkout_price_id = p_price_id, checkout_customer_id = stripe_customer_id,
+    checkout_email = p_email, checkout_trial = NOT trial_used
+    WHERE user_id = p_user_id RETURNING * INTO account;
+  RETURN to_jsonb(account);
+END;
+$$;
+
+CREATE FUNCTION public.monk_factory_claim_billing(p_user_id uuid)
+RETURNS jsonb LANGUAGE plpgsql SECURITY INVOKER SET search_path = public, pg_temp AS $$
+DECLARE account public.monk_factory_accounts;
+BEGIN
+  UPDATE public.monk_factory_accounts SET
+    billing_sync_nonce = gen_random_uuid(), billing_sync_until = now() + interval '45 seconds'
+    WHERE user_id = p_user_id AND (billing_sync_until IS NULL OR billing_sync_until < now())
+    RETURNING * INTO account;
+  RETURN CASE WHEN FOUND THEN to_jsonb(account) ELSE NULL END;
+END;
+$$;
+
+CREATE FUNCTION public.monk_factory_apply_billing(p_user_id uuid, p_nonce uuid, p_state jsonb)
+RETURNS jsonb LANGUAGE plpgsql SECURITY INVOKER SET search_path = public, pg_temp AS $$
+DECLARE account public.monk_factory_accounts;
+BEGIN
+  SELECT * INTO account FROM public.monk_factory_accounts WHERE user_id = p_user_id FOR UPDATE;
+  IF NOT FOUND OR p_nonce IS NULL OR account.billing_sync_nonce IS DISTINCT FROM p_nonce
+    OR account.billing_sync_until IS NULL OR account.billing_sync_until <= now() THEN
+    RAISE EXCEPTION 'billing_sync_conflict';
+  END IF;
+  IF jsonb_typeof(p_state) IS DISTINCT FROM 'object' OR NOT p_state ?& ARRAY[
+    'stripe_customer_id', 'stripe_subscription_id', 'subscription_status', 'trial_used',
+    'trial_start', 'trial_end', 'period_start', 'period_end', 'period_paid',
+    'cancel_at_period_end', 'billing_paused'] THEN RAISE EXCEPTION 'invalid_billing'; END IF;
+  UPDATE public.monk_factory_accounts SET
+    stripe_customer_id = p_state->>'stripe_customer_id',
+    stripe_subscription_id = p_state->>'stripe_subscription_id',
+    subscription_status = p_state->>'subscription_status',
+    trial_used = account.trial_used OR (p_state->>'trial_used')::boolean,
+    trial_start = (p_state->>'trial_start')::timestamptz,
+    trial_end = (p_state->>'trial_end')::timestamptz,
+    period_start = (p_state->>'period_start')::timestamptz,
+    period_end = (p_state->>'period_end')::timestamptz,
+    period_paid = (p_state->>'period_paid')::boolean,
+    cancel_at_period_end = (p_state->>'cancel_at_period_end')::boolean,
+    billing_paused = (p_state->>'billing_paused')::boolean,
+    auto_post = account.auto_post AND coalesce((p_state->>'auto_post')::boolean, true),
+    billing_checked_at = now(), billing_sync_nonce = NULL, billing_sync_until = NULL
+    WHERE user_id = p_user_id RETURNING * INTO account;
+  RETURN to_jsonb(account);
+END;
+$$;
+
+REVOKE EXECUTE ON FUNCTION public.monk_factory_checkout_context(uuid, text, text),
+  public.monk_factory_claim_billing(uuid), public.monk_factory_apply_billing(uuid, uuid, jsonb)
+  FROM PUBLIC, anon, authenticated;
+GRANT EXECUTE ON FUNCTION public.monk_factory_checkout_context(uuid, text, text),
+  public.monk_factory_claim_billing(uuid), public.monk_factory_apply_billing(uuid, uuid, jsonb)
+  TO service_role;

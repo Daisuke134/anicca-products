@@ -24,6 +24,7 @@ Interfaces: authenticateFactoryRequest(event,{env,fetchImpl})→verified {id,ema
 - [x] 既存local Postgresの独立fixtureでRLSと同時予約を確かめ、commit/pushする。本番DBはmain統合まで変更しない。
 - [x] 現行Stripeのitem period/同期間paid invoice lineと、user/customer/price/live-mode帰属を照合するpure helperを4件で検証する。解約予定は次の生成予約を止める。
 - [x] 既存droplet/wake-call webhookのFactory除外をREDから修正し、既存契約を含む関連22件を確認する。wake-call側は実Stripe SDKの署名を使う隔離fixtureで検証する。
+- [x] Checkout contextの並列一意性と課金同期leaseを実DBで検証し、期限切れ旧応答の拒否・生涯trial状態の維持を確認する。
 
 ## Task 2: 制作・接続・自動投稿
 Files: _lib/monk-factory-providers.js、monk-factory-tick.js、Task1 API/store、必要最小の関連test。
@@ -40,4 +41,4 @@ Files: apps/landing/app/ai-monk-factory/page.tsxとclient、scripts/stage-ai-mon
 - [ ] Factory専用provider/Stripe3日trial/本人IG接続/実avatar-video/公式postとmetricsを区別して確認し、利用可能な事実だけをXへ告知する。
 
 ## 現在cursor
-Task1の認証/料金6件、公式subscription照合4件、既存商品のFactory除外を含む関連22件がGREEN。実DB6件は、trial/paid分離、36並列要求の30枠制限、失敗後の36試行上限、予算、RLS、25profile容量、課金境界欠落/失効/解約予定を確認する。専用runnerは毎回TCP無効の新local Postgresを作り、自分のfixtureだけ片付ける。次は永続Checkout nonce、課金同期lease、raw署名event queueとAPIへの配線。本番DB反映・SaaS公開・料金公開・実生成・売上は未完。
+Task1の認証/料金6件、公式subscription照合4件、既存商品のFactory除外を含む関連22件がGREEN。実DB7件は、trial/paid分離、36並列要求の30枠制限、失敗後の36試行上限、予算、RLS、25profile容量、課金境界欠落/失効/解約予定、並列Checkout context、期限切れ課金同期の拒否とtrial保持を確認する。専用runnerは毎回TCP無効の新local Postgresを作り、自分のfixtureだけ片付ける。次はservice store、raw署名event queue、Stripe公式GETとAPIへの配線。本番DB反映・SaaS公開・料金公開・実生成・売上は未完。

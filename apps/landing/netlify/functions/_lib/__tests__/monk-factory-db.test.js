@@ -111,7 +111,7 @@ test('parallel checkout requests retain one immutable context and stale billing 
   const contexts = requests.map(x => JSON.parse(x.stdout.trim()));
   assert.equal(new Set(contexts.map(x => x.checkout_nonce)).size, 1);
   assert.equal(contexts[0].checkout_trial, true);
-  const claim = () => JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_claim_billing(\'' + uid(5) + '\')'));
+  const claim = () => JSON.parse(sql('SET ROLE service_role; SELECT coalesce(monk_factory_claim_billing(\'' + uid(5) + '\'),\'null\'::jsonb)'));
   const first = claim();
   assert.equal(claim(), null);
   sql('UPDATE monk_factory_accounts SET billing_sync_until=now()-interval \'1 second\' WHERE user_id=\'' + uid(5) + '\'');
