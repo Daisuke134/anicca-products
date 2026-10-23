@@ -37,11 +37,12 @@
     "new_tool_implementation": 0,
     "canonical_revenue_observations": 1
   },
-  "pending": [
-    "fresh_read_only_review",
-    "source_commit_PR_CI_main",
-    "Netlify_public_JSON_Web_MCP",
-    "immutable_v0.4.4_Release_public_install"
-  ],
-  "fresh_review_correction": "Removed unsupported Spanish bio-language classification for Monje Chang; name/link alone are insufficient."
+  "pending": [],
+  "fresh_review_correction": "Removed unsupported Spanish bio-language classification for Monje Chang; name/link alone are insufficient.",
+  "fresh_review": {
+    "blocking": 0,
+    "read_only": true
+  },
+  "production_evidence": "docs/evidence/ai-monk-database-v044-production-20261024.json",
+  "cli_release_evidence": "docs/evidence/ai-monk-cli-mcp-v044-release-20261024.json"
 }

@@ -1,0 +1,33 @@
+name: Publish AI Monk MCP Registry
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ai-monk-mcp-registry
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download verified official publisher
+        shell: bash
+        run: |
+          curl --fail --location --retry 2 https://github.com/modelcontextprotocol/registry/releases/download/v1.8.2/mcp-publisher_linux_amd64.tar.gz --output "$RUNNER_TEMP/mcp-publisher.tar.gz"
+          echo "d0554112d8f7affad9a10041776d63129a60b163c05036ae26caf73ecbbd89c8  $RUNNER_TEMP/mcp-publisher.tar.gz" | sha256sum --check --strict
+          tar -xzf "$RUNNER_TEMP/mcp-publisher.tar.gz" -C "$RUNNER_TEMP" mcp-publisher
+      - name: Validate metadata
+        run: '"$RUNNER_TEMP/mcp-publisher" validate packages/ai-monk-index/server.json'
+      - name: Publish with GitHub identity
+        run: |
+          "$RUNNER_TEMP/mcp-publisher" login github-oidc
+          "$RUNNER_TEMP/mcp-publisher" publish packages/ai-monk-index/server.json

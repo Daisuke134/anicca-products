@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.Daisuke134/ai-monk-index",
+  "title": "AI Monk Index",
+  "description": "Research monk avatars, products and video playbooks with sources and labelled uncertainty.",
+  "repository": {
+    "url": "https://github.com/Daisuke134/anicca-products",
+    "source": "github"
+  },
+  "websiteUrl": "https://aniccaai.com/ai-monk-database/support",
+  "version": "0.4.4",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://aniccaai.com/.netlify/functions/ai-monk-mcp"
+    }
+  ]
+}

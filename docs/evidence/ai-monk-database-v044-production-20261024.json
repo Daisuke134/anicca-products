@@ -1,0 +1,38 @@
+{
+  "release_sha": "fbc141f759c01d0d14269f22e4f75525fcf252c0",
+  "netlify_run": 39985074291,
+  "netlify_conclusion": "success",
+  "at": "2026-10-23T16:23:56.760366+00:00",
+  "dataset": {
+    "url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+    "status": 200,
+    "snapshot_sha256": "de15964fe31fd2ea87d7e38adb2f53a5da914fc63e50db50da3657d6ab82897e",
+    "canonical_bytes_equal": true,
+    "source_count": 139,
+    "at": "2026-10-23T16:22:25.902057+00:00"
+  },
+  "web": {
+    "url": "https://aniccaai.com/ai-monk-database",
+    "status": 200,
+    "sha256": "7eadf928adbf86c03ceb0b19ae551ffe69acace09fdc975263648e7443474937",
+    "profile_count": 73,
+    "source_count": 139
+  },
+  "remote_mcp": {
+    "url": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+    "tools": 6,
+    "all_read_only": true,
+    "all_non_destructive": true,
+    "records": 73,
+    "sources": 139,
+    "ai_status": {
+      "confirmed": 0,
+      "reported": 6,
+      "unverified": 67
+    },
+    "snapshot_sha256": "de15964fe31fd2ea87d7e38adb2f53a5da914fc63e50db50da3657d6ab82897e"
+  },
+  "added_product_observations": 20,
+  "sales_audited": false,
+  "all_profiles_verified": false
+}

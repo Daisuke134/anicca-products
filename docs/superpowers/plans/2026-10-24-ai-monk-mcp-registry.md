@@ -10,10 +10,10 @@
 
 ## TODO
 - [x] source/specを先にcommit/pushし、remote SHAを確認する。
-- [ ] metadata無しを公式validateでRED確認し、最小のserver.jsonとmain限定workflowを追加する。
+- [x] metadata無しは公式validate exit1、追加後はexit0。最小のserver.jsonとmain限定workflowを追加する。
 - [ ] 公式validateとYAML/権限/既存6tool URLの照合を受入し、commit/push/PR/mainへ統合する。
 - [ ] Database139sourceの公開readback後、mainからworkflowを実行しOIDC登録する。
 - [ ] Registryの公式GETでexact name/version/URLを確認し、README/正本cursorへ記録する。
 
 ## 現在cursor
-Database PR614はmain fbc141f759c01d0d14269f22e4f75525fcf252c0へ統合済み。CLI v0.4.4の公式asset669669941/digest/公開URL導入/実stdio6toolは受入済み。Netlify39985074291の公開139source反映を待つ間に、独立filesだけのRegistry sourceを準備する。公開effectの順序はDatabase→Registry/Pluginとし、Factory実装を先行しない。残28の商品発見linkのread-only調査はworkerが私的証拠へ保存する。source/effect/公式掲載/売上は別に判定する。
+Database PR614はmain fbc141f759c01d0d14269f22e4f75525fcf252c0へ統合済み。CLI v0.4.4の公式asset669669941/digest/公開URL導入/実stdio6toolは受入済み。Netlify39985074291はSUCCESS、公開JSON/Web/MCPの73件/139出典/snapshot一致を受入する。Registry metadataは公式validate exit0、YAML/namespace/version/remote URL/main限定manual/OIDC最小権限とdownload digestのself-checkをPASSし、PR/main統合前にsourceをcommit/pushする。公開effectの順序はDatabase→Registry/Pluginとし、Factory実装を先行しない。残28の商品発見linkのread-only調査はworkerが私的証拠へ保存する。source/effect/公式掲載/売上は別に判定する。
