@@ -94,7 +94,7 @@ function ProfileCard({ account, sourceById, imageSrc, selectedPlatform }: { acco
       <p className="mt-4 text-xs text-stone-500">{languages.length ? languages.join(', ') : 'Language unknown'}</p>
       <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-4 border-t border-stone-100 pt-4">
         <div className="min-w-0">
-          <dt className="text-xs text-stone-500">Followers</dt>
+          <dt className="text-xs text-stone-500">{audience?.metric === 'subscribers' ? 'Subscribers' : 'Followers'}</dt>
           {audience ? <>
             <dd className="mt-1 text-2xl font-semibold tracking-tight text-stone-950">{audience.status?.includes('rounded') ? '≈' : ''}{metricValue(audience.value)}</dd>
             <dd className="mt-1 text-xs text-stone-500">{audience.platform} · {audience.as_of ?? 'Date unknown'}</dd>
@@ -136,7 +136,6 @@ function ProfileCard({ account, sourceById, imageSrc, selectedPlatform }: { acco
         </summary>
         <dl className="mt-4 space-y-3 text-sm">
           <div><dt className="text-xs text-stone-500">Creator</dt><dd className="mt-1">{account.creator?.public_profile_url ? <a href={account.creator.public_profile_url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{account.creator.name ?? 'Creator profile'} ↗</a> : account.creator?.name ?? 'Unknown'}</dd></div>
-          <div><dt className="text-xs text-stone-500">Profile type</dt><dd className="mt-1">{account.persona_type}</dd></div>
           <div><dt className="text-xs text-stone-500">Region information</dt><dd className="mt-1">{account.region_evidence?.label ?? 'Unknown'}{account.region_evidence && <p className="mt-1 text-xs text-stone-500">{account.region_evidence.basis}</p>}</dd></div>
         </dl>
         {snapshots.length > 0 && <section className="mt-4" aria-label={`${account.display_name} dated public metrics`}>
@@ -151,7 +150,7 @@ function ProfileCard({ account, sourceById, imageSrc, selectedPlatform }: { acco
           </ul>
         </section>}
         {(account.offers ?? []).length > 0 && <section className="mt-4 rounded-lg bg-amber-50 p-3" aria-label={`${account.display_name} visible offers`}>
-          <p className="text-xs font-semibold text-amber-900">Products · not sales data</p>
+          <p className="text-xs font-semibold text-amber-900">Products</p>
           <ul className="mt-2 space-y-2 text-sm">
             {(account.offers ?? []).map((offer, index) => <li key={index}>
               {offer.url ? <a href={offer.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{offer.name ?? offer.type} ↗</a> : offer.name ?? offer.type}
@@ -193,14 +192,6 @@ function ProfileCard({ account, sourceById, imageSrc, selectedPlatform }: { acco
                 {sample.views != null && <p className="mt-2 text-[0.68rem] text-[#827b6d]">{metricValue(sample.views)} views · captured {sample.views_captured_at ?? 'date not supplied'}</p>}
               </div>
             ))}
-            {(account.unknowns ?? []).length > 0 && (
-              <div>
-                <p className="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-[#827b6d]">Still unknown</p>
-                <ul className="list-disc space-y-1 pl-5 text-xs leading-relaxed text-[#625e53]">
-                  {account.unknowns?.map((item, index) => <li key={`${account.id}-unknown-${index}`}>{item}</li>)}
-                </ul>
-              </div>
-            )}
             {sources.length > 0 && (
               <div>
                 <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#827b6d]">Open the sources</p>
