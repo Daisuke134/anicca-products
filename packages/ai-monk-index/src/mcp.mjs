@@ -1,6 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/server';
 import * as z from 'zod/v4';
-import { searchAccounts, getAccount, getStats, searchSchema, getTopFormats, topFormatsSchema, getMonetization, monetizeSchema } from './index.mjs';
+import { searchAccounts, getAccount, getStats, searchSchema, getTopFormats, topFormatsSchema, getMonetization, monetizeSchema, getPlaybooks } from './index.mjs';
 import { packageVersion } from './snapshot.mjs';
 
 const annotations = { readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false };
@@ -51,5 +51,12 @@ export function createServer() {
     outputSchema,
     annotations,
   }, async args => result(getMonetization(args)));
+  server.registerTool('winning_playbooks', {
+    title: 'Winning AI monk playbooks',
+    description: 'Source-linked playbooks published by successful AI monk creators (e.g. Yang Mun by Shalev): script formula, winning hooks with reported views, voice, posting cadence, funnel to product and monetization. Creator claims are unaudited.',
+    inputSchema: z.strictObject({}),
+    outputSchema,
+    annotations,
+  }, async () => result(getPlaybooks()));
   return server;
 }

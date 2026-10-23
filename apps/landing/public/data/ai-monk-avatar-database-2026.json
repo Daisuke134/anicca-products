@@ -4944,5 +4944,48 @@
       }
     }
   ],
-  "license_url": "https://creativecommons.org/licenses/by/4.0/"
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "playbooks": [
+    {
+      "id": "shalev-yang-mun-playbook",
+      "creator": "Shalev (@shalevhvs)",
+      "account_id": "yang-mun",
+      "title": "I Built a Fake AI Monk, Made $500K in 6 Months (Full Guide)",
+      "published_at": "2026-04-09",
+      "source_url": "https://x.com/shalevhvs/status/2042242260784537736",
+      "status": "creator_statement_not_audited",
+      "character": "Look different from the feed and carry authority: monk in orange robes in a temple; photoreal ('unexpected + real'). Niche where trust matters (health, mindset).",
+      "script_formula": [
+        "0-2s: show you understand their pain, no judgment",
+        "2-5s: flip it positive or promise a specific fix",
+        "5-45s: teach ONE thing usable tonight",
+        "last 3s: tie it to who they want to become ('The calm ones aren't lucky. They just learned this first.')"
+      ],
+      "hooks": [
+        {
+          "text": "If you're going to overthink… then overthink the positive.",
+          "type": "empathy reframe",
+          "reported_views": "24M"
+        },
+        {
+          "text": "How to fall asleep fast in two minutes even when your mind doesn't want you to.",
+          "type": "solution hook",
+          "reported_views": "6.5M"
+        }
+      ],
+      "voice": "Exactly the same AI voice, speed and tone on every video.",
+      "cadence": "3 videos/day per character, same video native-uploaded to TikTok, Instagram Reels, YouTube Shorts and Facebook Reels at the same time, via a scheduler.",
+      "funnel": "Content builds trust -> link in bio -> digital product (guides, programs, toolkits). No affiliates, brand deals or ads.",
+      "monetization": "Creator claims $300K in 3 months and $500K in 6 months, 100% digital products; later sold one character for $170K; sells AI Growth Lab (getaigrowthlab.com).",
+      "scaling": "When one character works, spin up 5 more in the same lane the same day (thread 2026-09-08).",
+      "related_posts": [
+        "https://x.com/shalevhvs/status/2097341917398970431",
+        "https://x.com/shalevhvs/status/2097341914861482084",
+        "https://x.com/shalevhvs/status/2097341919584293187",
+        "https://x.com/shalevhvs/status/2100236616011067821",
+        "https://x.com/shalevhvs/status/2112267766963241122",
+        "https://x.com/shalevhvs/status/2102725476037063041"
+      ]
+    }
+  ]
 }

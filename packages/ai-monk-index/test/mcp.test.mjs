@@ -14,7 +14,7 @@ test('a real SDK client initializes over stdio, lists read-only tools, and retri
   t.after(() => client.close());
   await client.connect(transport);
   const { tools } = await client.listTools();
-  assert.deepEqual(tools.map(tool => tool.name).sort(), ['get_ai_monk', 'search_ai_monks', 'ai_monk_index_stats', 'top_formats', 'how_they_monetize'].sort());
+  assert.deepEqual(tools.map(tool => tool.name).sort(), ['get_ai_monk', 'search_ai_monks', 'ai_monk_index_stats', 'top_formats', 'how_they_monetize', 'winning_playbooks'].sort());
   for (const tool of tools) {
     assert.equal(tool.annotations.readOnlyHint, true);
     assert.equal(tool.annotations.destructiveHint, false);
