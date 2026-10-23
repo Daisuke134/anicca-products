@@ -1,0 +1,44 @@
+{
+  "run_id": "art-of-ai-monks-book-launch-20261023-ja-link-reply",
+  "purpose": "Recover submitted book destination removed by Postiz; one reply to the existing JA book post",
+  "expected_handle": "@selawmqt",
+  "parent_url": "https://x.com/selawmqt/status/2113542427495841883",
+  "content": "日本語版『ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線』はこちら。\n原稿全文は無料です。\n\nhttps://aniccaai.com/the-art-of-ai-monks/ja?utm_source=x&utm_medium=social&utm_campaign=art_of_ai_monks_book_launch_ja",
+  "content_sha256": "83c54713d00d986b7fbf39c63355ba2d91ca289a9b12a6645f804f40559b4718",
+  "destination": "https://aniccaai.com/the-art-of-ai-monks/ja?utm_source=x&utm_medium=social&utm_campaign=art_of_ai_monks_book_launch_ja",
+  "conservative_x_weighted_upper_bound": 119,
+  "transport": "registered x:anicca existing leased browser",
+  "state": "published",
+  "prepared_at": "2026-10-23T08:49:57.449279+00:00",
+  "provider_writes": 1,
+  "reply_url": "https://x.com/selawmqt/status/2113556550073921584",
+  "metrics": {
+    "views": null,
+    "clicks": null,
+    "paid_orders": null
+  },
+  "never_resend_unknown": true,
+  "independent_copy_review": {
+    "findings": 0,
+    "live_sales_page": true,
+    "hash_matches": true,
+    "scope": "Exact title/free manuscript/destination/hash/weighted length; live X account/parent are primary evidence"
+  },
+  "native_parent_readback": {
+    "signed_in_handle": "selawmqt",
+    "parent_id": "2113542427495841883",
+    "exact_book_title_present": true,
+    "destination_present": false,
+    "provider_writes": 0
+  },
+  "native_receipt": {
+    "reply_id": "2113556550073921584",
+    "parent_id": "2113542427495841883",
+    "full_text": "@shalevhvs 日本語版『ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線』はこちら。\n原稿全文は無料です。\n\nhttps://t.co/EpjQno0Ir6",
+    "expanded_urls": [
+      "https://aniccaai.com/the-art-of-ai-monks/ja?utm_source=x&utm_medium=social&utm_campaign=art_of_ai_monks_book_launch_ja"
+    ]
+  },
+  "observed_at": "2026-10-23T09:02:12.575865+00:00",
+  "verification": "own reply id/parent/full text/expanded destination and permalink"
+}

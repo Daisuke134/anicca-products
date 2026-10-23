@@ -14,7 +14,7 @@
   "observed_at": "2026-10-23T08:10:38.347492+00:00",
   "provider_writes": 1,
   "duplicate_send": false,
-  "verification": "Official Postiz exact id/integration/PUBLISHED/permalink plus live X crwl body. Provider content omits submitted destination. Launch destination delivery remains incomplete.",
+  "verification": "Original Postiz PUBLISHED/id/integration/body preserved. Native reply has exact parent id, expanded destination/UTM and separately opened permalink. Original body remains without URL; no Postiz resend.",
   "diagnosis": {
     "official_route": "GET /public/v1/integration-settings/cmt4l2jld031tqp0y8qtyo983",
     "official_rule": "X can have maximum 4 pictures, or maximum one video, it can also be without attachments, it can also be published as a long-form article (draft or published) when post_type is set to article, in an article pictures go inside the content as <img src=\"...\"> where they should appear (the src must be a picture from the media library, upload it with uploadFromUrlTool first) do not add links, they will be stripped from the post",
@@ -25,12 +25,23 @@
       "libraries/helpers/src/utils/strip.links.ts"
     ],
     "private_host_rule_sha256": "7a048d0836ef0cd15d60941799b3037df57d41bfba8c40e29b260dfc0c4e7b86",
-    "next_action": "Use existing correctly owned X browser session after availability and lease verification; do not resend through link-stripping Postiz"
+    "next_action": "Link delivered by native reply; preserve original Postiz receipt and separate native reply receipt. Views/clicks/orders remain unmeasured."
   },
   "analytics": {
     "views": null,
     "clicks": null,
     "orders": null,
     "revenue": null
+  },
+  "link_delivery": {
+    "state": "delivered_by_native_reply",
+    "original_post_destination_preserved": false,
+    "reply_url": "https://x.com/selawmqt/status/2113556550073921584",
+    "native_reply_id": "2113556550073921584",
+    "native_parent_id": "2113542427495841883",
+    "destination": "https://aniccaai.com/the-art-of-ai-monks/ja?utm_source=x&utm_medium=social&utm_campaign=art_of_ai_monks_book_launch_ja",
+    "expanded_destination_verified": true,
+    "observed_at": "2026-10-23T09:02:12.575865+00:00",
+    "evidence": "docs/evidence/ai-monk-book-ja-x-link-recovery-20261023.json"
   }
 }
