@@ -1,0 +1,35 @@
+{
+  "product": "ai_monk_book",
+  "sku": "art_of_ai_monks_ja_v1",
+  "title": "The Art of AI Monks",
+  "subtitle": "アバター、注目、そして法衣の裏のビジネス",
+  "author": "Anicca",
+  "language": "ja",
+  "edition": "日本語版・初版",
+  "slug": "the-art-of-ai-monks",
+  "publication_status": "artifacts_only",
+  "formats": {
+    "pdf": "the-art-of-ai-monks-ja.pdf",
+    "epub": "the-art-of-ai-monks-ja.epub"
+  },
+  "character_count": 37083,
+  "character_count_definition": "UTF-8を復号した全文のUnicodeコードポイント数。Markdown、空白、参考文献、URLを含む。",
+  "original_text_and_worksheets_license": "CC BY 4.0",
+  "third_party_rights_excluded": true,
+  "manuscript_sha256": "7c127015dc3e9ee2f8c4230010909b6beadc1940da5d46e0eade019e3ea3a5e7",
+  "source_manifest_sha256": "277276cd14db9bc36ab31a3809d18492ac80ad52a7f1157eabdd4f3656284725",
+  "research_snapshot": "2026-10-21/2026-10-22",
+  "chapters": [
+    "フィードの中の僧侶",
+    "何をAI僧侶と呼ぶのか",
+    "「最初」を決めない歴史",
+    "Yang MunとShalev Hani",
+    "僧侶ショート動画の創作の文法",
+    "スクロールからストアへ",
+    "コンテンツ工場",
+    "配信と計測",
+    "信仰、開示、健康に関する主張",
+    "別のキャラクターを作る"
+  ],
+  "pages": 60
+}
