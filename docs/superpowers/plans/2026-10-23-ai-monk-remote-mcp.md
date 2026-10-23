@@ -30,22 +30,23 @@ CLI/stdioと日本語書籍の販売公開は完了し、rootはこの独立し�
 - [x] planを専用branchへcommit/push。
 - [x] HTTP client/provenanceと境界の失敗テストを先に確認。
 - [x] 最小transport/wrapper/build/公開説明を実装。
-- [ ] CLI/stdio/pack継続テスト、HTTP protocol、landing CI、fresh review。
-- [ ] main統合、既存Netlify本番配信、実URLでMCP client readback。
-- [ ] v0.2.0配布とspec更新。plugin提出は実際の権限・identity・portal readbackを確認して別段階で進める。
+- [x] CLI/stdio/pack継続テスト、HTTP protocol、landing CI、fresh review。
+- [x] main統合、既存Netlify本番配信、実URLでMCP client readback。
+- [x] v0.2.0配布とspec更新。plugin提出は実際の権限・identity・portal readbackを確認して別段階で進める。
 
-## 途中状態
+## 検証・現在cursor
 
-HTTP未実装のREDを確認し、CLI/stdio/別directoryへのtarball導入とHTTP SDK client、旧protocol、Host/Origin/容量/method境界の11テストをローカルでPASSする。Netlify wrapper・静的JSON bundle・privacy説明・CI/deploy呼出し元を実装する。review/CI/main/本番readbackは未実施。Daisの明示されたUI改修（全profile icon、見出しAI Monk Database、直接的なcopy、Mobbin/競合参照）を優先し、このbranchをpushして保持する。既存外部effectは中断・再送しない。
+HTTP未実装のREDから最小transportを実装し、package11tests（HTTP SDK client・旧protocol・Host/Origin/容量/method/CORS、CLI/stdio、別directory tarball導入）がPASS。書籍・Reset/Letter・EN/JA SSR・DBの37関連契約もPASSする。実Netlify wrapperのinitializeも200、serverInfo ai-monk-index/0.2.0。
 
-## 再開cursor
+PR566のhead37be42c4ではpackage CI成功、landing CI39884395696がnpm ci EUSAGE（zod3.25.76が7件不足）となる。node_modules無し・npm10.8.2のclean probeで再現し、lock-only再解決で7つのnested Zod3 recordだけを追加する。既存package record/版本変更は0。clean npm ci dry-runは0となり、修正head08e13f4a3b38dff0f92f130b7a87762e73a291eaでpackage CI39884702345、landing CI39884702372ともsuccess。証拠 → `docs/evidence/ai-monk-mcp-lock-repair-20261023.json`。
 
-日本語版の本番readbackを終え、専用worktree `/Users/anicca/Projects/anicca-products-worktrees/ai-monk-remote-mcp-20261023` へ保存済みbranchを展開し、最新mainをmergeする。現在cursorは既存11 protocol/CLI/packテストの再確認、現行landingのbook/UI契約を保持したCI、source検証である。既存taskのRED→GREEN記録は維持し、同じ仕様の再実装や新しいtask frameworkは増やさない。現在のUI選択モデルを継承し、skill/referenceの固定model指示は適用しない。公開・pushはDaisの既存委任で実行し、skillの再承認要求を進行条件にしない。
+fresh-context read-only reviewerは既存11testsを独立再実行し、実wrapperに118追加assertを行う。全75records/48sources/SHA、unknown保持、分割/multibyte/偽Content-Lengthの64KiB制限、Host/Origin/CORS、schema、source/dist/stageのbytes一致に阻害指摘はない。実Netlify bundler出力・HTTPSは本番readbackで確認する。証拠 → `docs/evidence/ai-monk-remote-mcp-source-review-20261023.json`。
 
-### 再開後のsource受入
+PR566はmain f8dde2b78ac9fa81c388f0495ed779e7321379d2へ統合する。Netlify39885561755はsuccess。公式SDK clientから本番initialize/list/tools3種を実行し、75 records/48 sources/SHA・unknown tool error・GET405・ChatGPT Origin204・無関係Origin403を確認する。公開privacyも200。v0.2.0の24,833 bytes tarballは公式asset digestと公開GETのSHAが一致し、公開URLのnpm導入後CLIとstdioが同じ75/48を返す。現在cursorは残画像調査と、plugin portalの既存account・通常login・identity/permission確認。UI選択モデルを継承し、再承認・固定model・重複task frameworkは追加しない。画像17件の本番確認は完了し、残58件の出所確認を別branchで継続する。既存HeyGen/Postiz effectは再送しない。
 
-最新mainを取り込んだsourceでpackage全11testsを再実行しPASS（HTTP SDK client/旧protocol/Host・Origin・容量/method/CORS、CLI/stdio、別directoryでtarball導入）。実Netlify wrapperをimportしたinitializeも200、serverInfo ai-monk-index/0.2.0を確認する。現行の書籍・Reset/Letter・EN/JA SSR・DBの37関連契約もPASS。runtime依存は既存導入済みSDK server/client2.3.1とZod4.3.6を再利用し、full landing install/buildはCIで確認する。公開privacyの表示名をAI Monk Databaseへ揃える。現在cursorはPRのpackage/landing CIとfresh-context source検証。
+## 本番・配布証拠
 
-### CI lock不整合の診断と修正
-
-PR566 head37be42c4のpackage CIは成功、landing CI39884395696はnpm ciでEUSAGE（zod3.25.76が7件不足）となる。npm10.8.2を使うnode_modules無しのclean probeでも同じ失敗を再現する。lock-only再解決はZod3 consumer配下の7recordだけを追加し、既存package record/版本変更は0。clean npm ci dry-runは0となる。この追加SDKに起因するlock不足だけを修正し、Node/既存wallet依存やpeer検証を迂回しない。証拠 → `docs/evidence/ai-monk-mcp-lock-repair-20261023.json`。修正headのCIとfresh-context source検証を次に行う。
+- `docs/evidence/ai-monk-remote-mcp-production-20261023.json`
+- `docs/evidence/ai-monk-cli-mcp-v02-release-20261023.json`
+- [v0.2.0](https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.2.0) tagはmain f8dde2b78ac9fa81c388f0495ed779e7321379d2を指す。v0.1.0は再作成しない。
+- plugin portalのread-only新規tabは`/login`へ遷移する。未認証画面だけで権限不足や本人確認未完を断定せず、既存のGoogle通常loginを次に調べる。ログイン・draft・提出・審査・公開は未実行。根拠 → `docs/evidence/ai-monk-plugin-portal-preflight-20261023.json`。

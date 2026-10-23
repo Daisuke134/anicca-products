@@ -1,0 +1,40 @@
+{
+  "checked_at": "2026-10-23T01:48:58.983Z",
+  "requested_url": "https://platform.openai.com/plugins",
+  "action": "read_only_new_tab",
+  "provider_mutations": 0,
+  "http_status": 200,
+  "final_origin": "https://platform.openai.com",
+  "final_path": "/login",
+  "page_text_sha256": "93889f1675092cf174fe2b9793f2a1eca7a8008d33058dd76514633a4c7ac559",
+  "visible_states": {
+    "login": true,
+    "signup": true,
+    "plugin_creation": false,
+    "organization_verification": false,
+    "access_denied": false,
+    "human_check": false
+  },
+  "authenticated_identity_verified": false,
+  "status": "observed",
+  "next_action": "Resolve authorized normal login identity from credential SSOT before authentication.",
+  "official_guide": "https://developers.openai.com/plugins/deploy/app-review",
+  "required_before_submission": [
+    "Verified publisher identity",
+    "api.apps.read and api.apps.write permission",
+    "Public remote MCP endpoint",
+    "Portal tools scan, metadata, test prompts/responses, review, publish"
+  ],
+  "permission_state": "not verified in this unauthenticated browser state",
+  "credential_preflight": {
+    "full_ssot_parsed": true,
+    "normal_google_service_rows": 3,
+    "openai_named_service_points_to": "github.com",
+    "openai_platform_api_apps_permission_proven": false
+  },
+  "limits": [
+    "No login or account mutation attempted in this probe.",
+    "Login redirect is not evidence of missing organization permissions or unverified identity.",
+    "A public working MCP endpoint does not prove plugin directory publication."
+  ]
+}
