@@ -4,3 +4,5 @@ node_modules
 .DS_Store
 
 
+# Built from the canonical CLI/MCP package and public dataset.
+netlify/functions/_lib/ai-monk-index/

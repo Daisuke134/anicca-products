@@ -33,3 +33,7 @@
 - [ ] CLI/stdio/pack継続テスト、HTTP protocol、landing CI、fresh review。
 - [ ] main統合、既存Netlify本番配信、実URLでMCP client readback。
 - [ ] v0.2.0配布とspec更新。plugin提出は実際の権限・identity・portal readbackを確認して別段階で進める。
+
+## 途中状態
+
+HTTP未実装のREDを確認し、CLI/stdio/別directoryへのtarball導入とHTTP SDK client、旧protocol、Host/Origin/容量/method境界の11テストをローカルでPASSする。Netlify wrapper・静的JSON bundle・privacy説明・CI/deploy呼出し元を実装する。review/CI/main/本番readbackは未実施。Daisの明示されたUI改修（全profile icon、見出しAI Monk Database、直接的なcopy、Mobbin/競合参照）を優先し、このbranchをpushして保持する。既存外部effectは中断・再送しない。

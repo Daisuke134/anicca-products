@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - 'apps/landing/**'
+      - 'packages/ai-monk-index/**'
       - 'netlify.toml'
       - '.github/workflows/netlify-deploy.yml'
   workflow_dispatch:

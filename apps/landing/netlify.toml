@@ -22,6 +22,9 @@
 [functions.ebook-download]
   included_files = ["private/ebooks/**"]
 
+[functions.ai-monk-mcp]
+  node_bundler = "esbuild"
+
 # Former public paid-ebook paths — no longer serve file bytes
 [[redirects]]
   from = "/ebooks/anicca-reset-en.pdf"

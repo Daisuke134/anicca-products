@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'apps/landing/**'
+      - 'packages/ai-monk-index/**'
       - '.github/workflows/landing-pr-build.yml'
 
 permissions:
