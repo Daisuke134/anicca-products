@@ -11,10 +11,12 @@
 **検証と残件:** copyは公開済み商品/無料databaseへの案内だけを述べ、競合の収益・効能・販売成功を流用しない。新規商品や比較試験ではなく既存依頼のリンク欠落修復である。クリック/流入/campaign注文/利益は未測定を保持する。新刊paid Checkoutの直近公式値は英日各0件で、送客補完を売上と扱わない。Factory旧費用guard/生成/投稿owner/既存fenceは変更しない。
 
 - [x] 3件の具体copy/元UTM/hash/親を永続specへ保存しpush。
-- [ ] fresh copy/operator read-only照合、source/mainの公開scopeを確認。
+- [x] fresh copy/operator read-only照合、source/mainの公開scopeを確認。
 - [ ] native3返信をそれぞれ1回だけ実行し公式native receipt/expanded URL/permalinkを照合。
 - [ ] 自分のlease releaseを確認し、元receiptを保持して結果を記録/統合。
 
 **実行operator:** /private/tmp/ai_monk_existing_x_link_reply_20261023.py、SHA256 3c41ed77a5b05f2cc4055a6dced7bd9a50e0eab8285630ae7c9e72b5cf8db4b8。3targetの親ID/本文fragment/copy SHA/元URLを固定し、正規guard acquire完了時の自身lease PID34833/UUID/portを実行前に照合する。lease再取得でPIDが変わった場合は旧operatorをそのまま使わず再照合する。source copyとoperatorはfresh read-only受入前で未送信。
 
 **lease照合の補正:** guardのnative契約は短命shellのPID死亡後も1800秒のfresh timestampで排他を保持するため、初期検証者の「死亡だけで無効」という指摘は撤回する。自分が取得した旧leaseを正規releaseし、既存AI_BROWSER_HOLDER_PID引数で同UIDの生存Codex process34833へ正規acquireし直す。operatorは同PIDとstart時刻を追加照合し、1800秒をまたぐ作業でも他者へ混在させない。global guard/registry/profile設定は変更せず、送信0を維持する。
+
+**送信前の独立受入:** fresh context検証者の最終findings0/Blocking0。3copy SHA・元UTM・親fragment・本人・公開商品/無料原稿の事実、保守文字数73/59/57、最終operator SHA3c41ed77a5b05f2cc4055a6dced7bd9a50e0eab8285630ae7c9e72b5cf8db4b8が独立一致する。live lease PID34833/同UID/start/port/UUIDも実測する。本人UIと投稿結果は実行時に照合する。新しいnative fenceは3件ともまだ存在せず送信0。
