@@ -1,0 +1,29 @@
+{
+  "schema_version": "anicca.ai-monk-ja-payment-source-review.v1",
+  "source_head": "418298e8825e7a3c711a16649af09084af8a0afc",
+  "reviewer": "fresh-context read-only agent ja_book_payment_verify",
+  "file_mutations": false,
+  "findings": [],
+  "checks": {
+    "book_reset_letter_page_tests_passed": 30,
+    "writer_existing_tests_passed": 20,
+    "adversarial_invalid_sessions_denied": 68,
+    "query_edition_override_preserved_paid_edition": 4,
+    "client_price_quantity_sku_return_url_override_ignored": true,
+    "japanese_pdf_pages": 60,
+    "manuscript_main_body_nodes_missing": 0,
+    "epub_body_character_types": 990,
+    "epub_embedded_font_missing_body_characters": 0,
+    "html_epub_external_links_matched": 131,
+    "epub_actual_handler_json_response_bytes": 4064593,
+    "epub_response_with_extra4096_bytes": 4068689,
+    "en_ja_pdf_epub_all_response_sizes_below6000000": true,
+    "catalog_matches_saved_official_get": true
+  },
+  "primary_test_command": "rtk proxy node --test netlify/functions/__tests__/ai-monk-book.test.js netlify/functions/__tests__/ebook-download.test.js netlify/functions/_lib/__tests__/ebook-checkout.test.js test/ai-monk-book-page.test.mjs",
+  "limits": [
+    "Local source contract only; production is verified separately.",
+    "No live purchase or paid production fulfillment is executed."
+  ],
+  "attempted_falsification_result": "Query parameters cannot override the purchased edition; invalid metadata cannot obtain the book; no Reset/Letter/Writer regression was detected."
+}
