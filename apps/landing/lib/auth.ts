@@ -58,10 +58,14 @@ export async function signInWithGoogle(): Promise<void> {
     : '/me';
   const redirectTo =
     typeof window !== 'undefined' ? `${window.location.origin}${path}` : 'https://aniccaai.com/me';
-  await c.auth.signInWithOAuth({ provider: 'google', options: { redirectTo } });
+  const { error } = await c.auth.signInWithOAuth({ provider: 'google', options: { redirectTo } });
+  if (error) throw error;
 }
 
 export async function signOut(): Promise<void> {
   const c = supabase();
-  if (c) await c.auth.signOut();
+  if (c) {
+    const { error } = await c.auth.signOut();
+    if (error) throw error;
+  }
 }
