@@ -103,3 +103,28 @@ test('budget and incomplete or expired subscription boundaries stop another rese
   sql('UPDATE monk_factory_accounts SET cancel_at_period_end=true WHERE user_id=\'' + uid(4) + '\'');
   assert.throws(() => sql(reserve(uid(4), 'cancellation-scheduled')), /subscription_required/);
 });
+
+test('parallel checkout requests retain one immutable context and stale billing responses cannot overwrite a newer lease', options, async () => {
+  const run = promisify(execFile);
+  const checkout = 'SET ROLE service_role; SELECT monk_factory_checkout_context(\'' + uid(5) + '\',\'price_fixture\',\'fixture@example.com\')';
+  const requests = await Promise.all(Array.from({ length: 8 }, () => run('psql', [...args(), '-c', checkout], { encoding: 'utf8' })));
+  const contexts = requests.map(x => JSON.parse(x.stdout.trim()));
+  assert.equal(new Set(contexts.map(x => x.checkout_nonce)).size, 1);
+  assert.equal(contexts[0].checkout_trial, true);
+  const claim = () => JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_claim_billing(\'' + uid(5) + '\')'));
+  const first = claim();
+  assert.equal(claim(), null);
+  sql('UPDATE monk_factory_accounts SET billing_sync_until=now()-interval \'1 second\' WHERE user_id=\'' + uid(5) + '\'');
+  const next = claim();
+  assert.notEqual(next.billing_sync_nonce, first.billing_sync_nonce);
+  const state = { stripe_subscription_id: 'sub_fixture5', stripe_customer_id: 'cus_fixture5', subscription_status: 'trialing', trial_used: true,
+    trial_start: new Date(Date.now()-1000).toISOString(), trial_end: new Date(Date.now()+86400000).toISOString(),
+    period_start: new Date().toISOString(), period_end: new Date(Date.now()+86400000).toISOString(), period_paid: false,
+    cancel_at_period_end: false, billing_paused: false };
+  const apply = (lease, value) => 'SET ROLE service_role; SELECT monk_factory_apply_billing(\'' + uid(5) + '\',\'' + lease + '\',\'' + JSON.stringify(value) + '\'::jsonb)';
+  assert.throws(() => sql(apply(first.billing_sync_nonce, state)), /billing_sync_conflict/);
+  assert.equal(JSON.parse(sql(apply(next.billing_sync_nonce, state))).trial_used, true);
+  const later = claim();
+  assert.equal(JSON.parse(sql(apply(later.billing_sync_nonce, { ...state, trial_used: false }))).trial_used, true);
+  assert.throws(() => sql('SET ROLE authenticated; SELECT monk_factory_claim_billing(\'' + uid(5) + '\')'), /permission denied/);
+});
