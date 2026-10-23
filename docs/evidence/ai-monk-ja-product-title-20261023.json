@@ -1,0 +1,36 @@
+{
+  "run_id": "ai-monk-ja-product-title-20261023",
+  "owner_id": "root",
+  "occurrence_id": "existing-ja-product-name",
+  "release_sha": "2be6b7021",
+  "phase": "official_product_title_readback",
+  "command": "POST existing product name; GET product and original price",
+  "exit_code": 0,
+  "effect": true,
+  "readback": "expected_title_and_original_price_verified",
+  "provider_receipt_id": "req_MOwTZI58a06gBv",
+  "provider_readback_receipts": [
+    "req_bDVg3aFsn7wteN",
+    "req_PU1rzj3wRBezEU"
+  ],
+  "product_id": "prod_VUVvsa1587Elri",
+  "title": "ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線",
+  "changed_product_fields": [
+    "name",
+    "updated"
+  ],
+  "price": {
+    "id": "price_1UTWtpEeDsUAcaLSV3fRzwl9",
+    "product": "prod_VUVvsa1587Elri",
+    "unit_amount": 999,
+    "currency": "usd",
+    "active": true,
+    "livemode": true
+  },
+  "checked_at": "2026-10-23T02:59:59.338554+00:00",
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Verify the deployed book page and cover; no purchase or charge created.",
+  "api_reference": "https://docs.stripe.com/api/products/update",
+  "scope": "Existing product name only; no product/price/checkout/payment/customer created."
+}

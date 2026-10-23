@@ -9,7 +9,7 @@ Dais指定の日本語書名「ヤング・ムンの衝撃 - AI僧侶ビジネ�
 公式account/product/price GETのpreflight、idempotency付きname更新、公式product/price GETのreadbackで表示名と固定価格契約を確かめる。POSTの効果が不明なら再送より公式GETを先に行う。sourceの価格契約はPR573の17testsとCIを継承する。
 
 - [x] 公式GETでaccount/product/priceを照合し旧書名とUSD999を確認。
-- [ ] 同じproductのnameを指定書名へ更新。
-- [ ] 公式GETで新nameと既存price/ID/active/liveを確認し、receiptを記録。
+- [x] 同じproductのnameを指定書名へ更新。
+- [x] 公式GETで新nameと既存price/ID/active/liveを確認。productの変更fieldはname/updatedのみ、price objectは更新前と完全一致。
 
-現在cursorは既存productの表示名更新。
+Stripe表示名の更新と公式readbackは完了。POST receipt `req_MOwTZI58a06gBv`、GET receipt `req_bDVg3aFsn7wteN`。証拠 → `docs/evidence/ai-monk-ja-product-title-20261023.json`。公開page/coverの新題名と合わせた本番確認はrootのavatar business公開計画で続ける。
