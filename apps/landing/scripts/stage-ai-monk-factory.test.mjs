@@ -13,7 +13,7 @@ const fetchSource = async url => new Response(bodies[new URL(url).pathname.split
 
 test('stages exactly the hash-pinned canonical UI files', async t => {
   const root = await scratch(t);
-  const result = await stageFactoryAssets({ manifest: manifest(), target: path.join(root, 'factory'), fetchSource });
+  const result = await stageFactoryAssets({ manifest: manifest(), target: path.join(root, 'factory') + path.sep, fetchSource });
   assert.equal(result.files.length, 4);
   for (const [name, body] of Object.entries(bodies)) assert.equal(await readFile(path.join(root, 'factory', name), 'utf8'), body);
 });
@@ -27,5 +27,5 @@ test('rejects mutable revisions, extra paths and symlink targets', async t => {
   await assert.rejects(stageFactoryAssets({ manifest: { ...manifest(), revision: 'main' }, target, fetchSource }), /revision/i);
   await assert.rejects(stageFactoryAssets({ manifest: { ...manifest(), files: { ...manifest().files, '../other': 'b'.repeat(64) } }, target, fetchSource }), /files/i);
   await mkdir(path.join(root, 'outside'));await symlink(path.join(root, 'outside'), target);
-  await assert.rejects(stageFactoryAssets({ manifest: manifest(), target, fetchSource }), /symlink/i);
+  await assert.rejects(stageFactoryAssets({ manifest: manifest(), target: target + path.sep, fetchSource }), /symlink/i);
 });

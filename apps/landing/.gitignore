@@ -6,3 +6,6 @@ node_modules
 
 # Built from the canonical CLI/MCP package and public dataset.
 netlify/functions/_lib/ai-monk-index/
+
+# Hash-pinned UI staged from the canonical Life Manager release before build.
+public/ai-monk-factory/

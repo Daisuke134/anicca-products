@@ -7,6 +7,7 @@ const names = ['app.css', 'app.mjs', 'index.html', 'project.mjs'];
 async function statOrNull(file) { try { return await lstat(file); } catch (error) { if (error.code === 'ENOENT') return null;throw error; } }
 
 export async function stageFactoryAssets({ manifest, target, fetchSource = fetch }) {
+  target = path.resolve(target);
   if (!/^[a-f0-9]{40}$/.test(manifest?.revision ?? '')) throw new Error('Factory source revision must be an immutable commit.');
   if (!manifest.files || Object.keys(manifest.files).sort().join(',') !== names.join(',') || names.some(name => !/^[a-f0-9]{64}$/.test(manifest.files[name]))) throw new Error('Factory source files must contain the four expected SHA256 pins.');
   const current = await statOrNull(target);

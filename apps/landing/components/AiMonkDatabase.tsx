@@ -262,6 +262,7 @@ export default function AiMonkDatabase({
         <header className="pb-7 pt-4 sm:pt-8">
           <h1 id="directory-heading" className="text-3xl font-semibold tracking-tight text-stone-950 sm:text-4xl">AI Monk Database</h1>
           <p className="mt-3 max-w-2xl text-base leading-relaxed text-stone-600">Explore monk profiles and research candidates. Compare dated followers, sampled video views, products, and reported revenue.</p>
+          <a href="/ai-monk-factory/" className="mt-4 inline-flex items-center gap-2 rounded-lg border border-stone-300 px-4 py-2 text-sm font-medium text-stone-800 transition-colors hover:border-stone-500 hover:bg-stone-100">Open Monk Factory <span aria-hidden="true">↗</span></a>
           <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-stone-500">
             <span><strong className="font-semibold text-stone-900">{accounts.length}</strong> profiles</span>
             <span>{reviewedCount} evidence-reviewed · {accounts.length - reviewedCount} pending</span>
