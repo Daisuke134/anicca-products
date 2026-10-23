@@ -1,0 +1,1917 @@
+{
+  "schema_version": "anicca.ai-monk-product-research.v1",
+  "observed_at": "2026-10-23T15:59:14.628961+00:00",
+  "owner_id": "monk_v043_release_verify/product-research-worker",
+  "source_branch": "feat/ai-monk-research-distribution-20261024",
+  "source_plan_commit": "4dd13c0d6",
+  "scope": "Bounded first batch of public product research linked from existing Instagram profile UI evidence. Canonical data/spec/plan are owned by primary and unchanged by this worker.",
+  "summary": {
+    "canonical_directory_profiles": 73,
+    "profile_evidence_files_at_cutoff": 67,
+    "profiles_with_external_links_at_cutoff": 40,
+    "targeted_site_urls": 15,
+    "sites_with_product_information": 13,
+    "site_unavailable": 1,
+    "site_content_not_retrieved": 1,
+    "product_observations": 20,
+    "product_observations_with_price": 18,
+    "product_observations_price_unknown": 2,
+    "verified_paid_orders": null,
+    "verified_revenue": null,
+    "remaining_discovery_links": 28
+  },
+  "claim_limits": [
+    "Public offer price, list price, discount, reviews, readers, followers, engagement and checkout urgency counters are separate from paid orders and revenue.",
+    "No purchase, Checkout creation, authentication, paid plan, top-up, video generation or outbound message was performed.",
+    "No paid files were downloaded; filenames/content types were read only from public page metadata.",
+    "Profile links prove a route to an offer, not identity, product authorship, AI provenance, eligibility for directory inclusion or audited income.",
+    "No new sales, profit, treatment efficacy or income guarantee is claimed.",
+    "Missing price, orders and revenue remain unknown and are not set to zero."
+  ],
+  "profile_attributions": [
+    {
+      "id": "profile-to-linchenhealing-20261024",
+      "account_id": "lead-instagram-linchenhealing",
+      "instagram_handle": "linchenhealing",
+      "profile_url": "https://www.instagram.com/linchenhealing/",
+      "profile_observed_at": "2026-10-23T15:46:58.067377+00:00",
+      "profile_evidence_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/linchenhealing.json",
+      "basis": "visible_profile_text_domain",
+      "destination_url": "https://linchenhealing.com/",
+      "short_evidence": "Find my 30 Day Healing Journey here; linchenhealing.com",
+      "claim_limits": [
+        "Profile-to-site link attribution is observed; product authorship, legal ownership and revenue are not established."
+      ]
+    },
+    {
+      "id": "profile-to-monkjin-20261024",
+      "account_id": "lead-instagram-jin-miaoo",
+      "instagram_handle": "jin.miaoo",
+      "profile_url": "https://www.instagram.com/jin.miaoo/",
+      "profile_observed_at": "2026-10-23T15:47:01.047001+00:00",
+      "profile_evidence_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/jin.miaoo.json",
+      "basis": "external_link_observed_in_public_profile_UI",
+      "destination_url": "https://monkjin.com/products/cisza-po-burzy",
+      "short_evidence": "monkjin.com/products/cisza-po-burzy",
+      "claim_limits": [
+        "Profile-to-site link attribution is observed; product authorship, legal ownership and revenue are not established."
+      ]
+    },
+    {
+      "id": "profile-to-jinmiaoo-20261024",
+      "account_id": "lead-instagram-monchmiao",
+      "instagram_handle": "monchmiao",
+      "profile_url": "https://www.instagram.com/monchmiao/",
+      "profile_observed_at": "2026-10-23T15:47:06.930009+00:00",
+      "profile_evidence_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/monchmiao.json",
+      "basis": "external_link_observed_in_public_profile_UI",
+      "destination_url": "https://jinmiaoo.com/products/buch",
+      "short_evidence": "jinmiaoo.com/products/buch",
+      "claim_limits": [
+        "Profile-to-site link attribution is observed; product authorship, legal ownership and revenue are not established."
+      ]
+    },
+    {
+      "id": "profile-to-masterkaion-20261024",
+      "account_id": "lead-instagram-master-kaion",
+      "instagram_handle": "master_kaion",
+      "profile_url": "https://www.instagram.com/master_kaion/",
+      "profile_observed_at": "2026-10-23T15:47:15.549045+00:00",
+      "profile_evidence_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/master_kaion.json",
+      "basis": "external_link_observed_in_public_profile_UI",
+      "destination_url": "https://masterkaion.gumroad.com/l/quiet",
+      "short_evidence": "masterkaion.gumroad.com/l/quiet",
+      "claim_limits": [
+        "Profile-to-site link attribution is observed; product authorship, legal ownership and revenue are not established."
+      ]
+    },
+    {
+      "id": "profile-to-monjetenzin-20261024",
+      "account_id": "lead-instagram-tenzinremedios",
+      "instagram_handle": "tenzinremedios",
+      "profile_url": "https://www.instagram.com/tenzinremedios/",
+      "profile_observed_at": "2026-10-23T15:47:31.660555+00:00",
+      "profile_evidence_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/tenzinremedios.json",
+      "basis": "external_link_observed_in_public_profile_UI",
+      "destination_url": "https://monjetenzin.com/products/calma",
+      "short_evidence": "monjetenzin.com/products/calma",
+      "claim_limits": [
+        "Profile-to-site link attribution is observed; product authorship, legal ownership and revenue are not established."
+      ]
+    },
+    {
+      "id": "profile-to-gendunmonaco-20261024",
+      "account_id": "lead-instagram-monacogendun",
+      "instagram_handle": "monacogendun",
+      "profile_url": "https://www.instagram.com/monacogendun/",
+      "profile_observed_at": "2026-10-23T15:47:52.667450+00:00",
+      "profile_evidence_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/monacogendun.json",
+      "basis": "external_link_observed_in_public_profile_UI",
+      "destination_url": "https://gendunmonaco.com/products/libroo",
+      "short_evidence": "gendunmonaco.com/products/libroo",
+      "claim_limits": [
+        "Profile-to-site link attribution is observed; product authorship, legal ownership and revenue are not established."
+      ]
+    },
+    {
+      "id": "profile-to-monkchen-20261024",
+      "account_id": "lead-instagram-monkcheen",
+      "instagram_handle": "monkcheen",
+      "profile_url": "https://www.instagram.com/monkcheen/",
+      "profile_observed_at": "2026-10-23T15:48:24.385688+00:00",
+      "profile_evidence_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/monkcheen.json",
+      "basis": "external_link_observed_in_public_profile_UI",
+      "destination_url": "https://monkchen.com/products/the-way-back-to-stillness",
+      "short_evidence": "monkchen.com/products/the-way-back-to-stillness",
+      "claim_limits": [
+        "Profile-to-site link attribution is observed; product authorship, legal ownership and revenue are not established."
+      ]
+    },
+    {
+      "id": "profile-to-maestrowei-20261024",
+      "account_id": "lead-instagram-mongejinmiao",
+      "instagram_handle": "mongejinmiao",
+      "profile_url": "https://www.instagram.com/mongejinmiao/",
+      "profile_observed_at": "2026-10-23T15:48:11.542788+00:00",
+      "profile_evidence_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/mongejinmiao.json",
+      "basis": "external_link_observed_in_public_profile_UI",
+      "destination_url": "https://maestrowei.com/products/o-silencio",
+      "short_evidence": "maestrowei.com/products/o-silencio",
+      "claim_limits": [
+        "Profile-to-site link attribution is observed; product authorship, legal ownership and revenue are not established."
+      ]
+    },
+    {
+      "id": "profile-to-chennatural-20261024",
+      "account_id": "lead-instagram-its-yang-chen",
+      "instagram_handle": "its.yang.chen",
+      "profile_url": "https://www.instagram.com/its.yang.chen/",
+      "profile_observed_at": "2026-10-23T15:48:14.942551+00:00",
+      "profile_evidence_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/its.yang.chen.json",
+      "basis": "external_link_observed_in_public_profile_UI",
+      "destination_url": "https://www.chennatural.com/",
+      "short_evidence": "www.chennatural.com",
+      "claim_limits": [
+        "Profile-to-site link attribution is observed; product authorship, legal ownership and revenue are not established."
+      ]
+    },
+    {
+      "id": "profile-to-masteryunshen-20261024",
+      "account_id": "lead-instagram-masteryunshen",
+      "instagram_handle": "masteryunshen",
+      "profile_url": "https://www.instagram.com/masteryunshen/",
+      "profile_observed_at": "2026-10-23T15:48:18.348519+00:00",
+      "profile_evidence_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/masteryunshen.json",
+      "basis": "external_link_observed_in_public_profile_UI",
+      "destination_url": "https://stan.store/MasterYunShen/p/the-path-to-sacred-stillness",
+      "short_evidence": "stan.store/MasterYunShen/p/the-path-to-sacred-stillness",
+      "claim_limits": [
+        "Profile-to-site link attribution is observed; product authorship, legal ownership and revenue are not established."
+      ]
+    },
+    {
+      "id": "profile-to-monjaalma-20261024",
+      "account_id": "lead-instagram-monjaalma",
+      "instagram_handle": "monjaalma",
+      "profile_url": "https://www.instagram.com/monjaalma/",
+      "profile_observed_at": "2026-10-23T15:48:29.779403+00:00",
+      "profile_evidence_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/monjaalma.json",
+      "basis": "external_link_observed_in_public_profile_UI",
+      "destination_url": "https://monja-alma-legacy.lovable.app/",
+      "short_evidence": "monja-alma-legacy.lovable.app",
+      "claim_limits": [
+        "Profile-to-site link attribution is observed; product authorship, legal ownership and revenue are not established."
+      ]
+    },
+    {
+      "id": "profile-to-yunlobsang-20261024",
+      "account_id": "lead-instagram-yunlobsang",
+      "instagram_handle": "yunlobsang",
+      "profile_url": "https://www.instagram.com/yunlobsang/",
+      "profile_observed_at": "2026-10-23T15:48:32.701669+00:00",
+      "profile_evidence_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/yunlobsang.json",
+      "basis": "external_link_observed_in_public_profile_UI",
+      "destination_url": "https://www.yunlobsang.com/",
+      "short_evidence": "www.yunlobsang.com",
+      "claim_limits": [
+        "Profile-to-site link attribution is observed; product authorship, legal ownership and revenue are not established."
+      ]
+    },
+    {
+      "id": "profile-to-monjewu-20261024",
+      "account_id": "lead-instagram-monjewu",
+      "instagram_handle": "monjewu",
+      "profile_url": "https://www.instagram.com/monjewu/",
+      "profile_observed_at": "2026-10-23T15:48:52.668913+00:00",
+      "profile_evidence_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/monjewu.json",
+      "basis": "external_link_observed_in_public_profile_UI",
+      "destination_url": "https://www.monjewu.com/",
+      "short_evidence": "www.monjewu.com",
+      "claim_limits": [
+        "Profile-to-site link attribution is observed; product authorship, legal ownership and revenue are not established."
+      ]
+    },
+    {
+      "id": "profile-to-mongeravi-20261024",
+      "account_id": "lead-instagram-oravishen",
+      "instagram_handle": "oravishen",
+      "profile_url": "https://www.instagram.com/oravishen/",
+      "profile_observed_at": "2026-10-23T15:48:49.436459+00:00",
+      "profile_evidence_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/oravishen.json",
+      "basis": "external_link_observed_in_public_profile_UI",
+      "destination_url": "https://mongeravi.com/",
+      "short_evidence": "mongeravi.com",
+      "claim_limits": [
+        "Profile-to-site link attribution is observed; product authorship, legal ownership and revenue are not established."
+      ]
+    },
+    {
+      "id": "profile-to-aristhestill-20261024",
+      "account_id": "lead-instagram-aristhestill",
+      "instagram_handle": "aristhestill",
+      "profile_url": "https://www.instagram.com/aristheStill/",
+      "profile_observed_at": "2026-10-23T15:49:01.650975+00:00",
+      "profile_evidence_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/aristheStill.json",
+      "basis": "external_link_observed_in_public_profile_UI",
+      "destination_url": "https://www.aristhestill.com/",
+      "short_evidence": "www.aristhestill.com",
+      "claim_limits": [
+        "Profile-to-site link attribution is observed; product authorship, legal ownership and revenue are not established."
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "product-site-linchenhealing-20261024",
+      "url": "https://linchenhealing.com/",
+      "retrieval_state": "product_information_observed",
+      "attempts": [
+        {
+          "url": "https://linchenhealing.com/",
+          "started_at": "2026-10-23T15:50:02.529405+00:00",
+          "observed_at": "2026-10-23T15:50:09.393997+00:00",
+          "method": "crwl crawl -o markdown-fit",
+          "exit_code": 0,
+          "stdout_bytes": 20285,
+          "stdout_sha256": "b6a490d9d404c3d645d97007fc5833498d48cec9994287dd221e2ebb1b0d4184",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/linchenhealing.crwl.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/linchenhealing.crwl.stderr"
+        },
+        {
+          "url": "https://linchenhealing.com/",
+          "started_at": "2026-10-23T15:51:25.156901+00:00",
+          "observed_at": "2026-10-23T15:51:26.355053+00:00",
+          "method": "scrapy",
+          "exit_code": 0,
+          "stdout_bytes": 80837,
+          "stdout_sha256": "5c812fe9a21854445854337af621a4ba8abe64223edcc129e1906358ccfc689a",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/linchenhealing.scrapy.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/linchenhealing.scrapy.stderr"
+        }
+      ],
+      "claim_limits": [
+        "Public product text or metadata is a seller statement, not a paid-order or revenue receipt."
+      ]
+    },
+    {
+      "id": "product-site-monkjin-20261024",
+      "url": "https://monkjin.com/products/cisza-po-burzy",
+      "retrieval_state": "product_information_observed",
+      "attempts": [
+        {
+          "url": "https://monkjin.com/products/cisza-po-burzy.js",
+          "started_at": "2026-10-23T15:51:25.140887+00:00",
+          "observed_at": "2026-10-23T15:51:27.056448+00:00",
+          "method": "scrapy",
+          "exit_code": 0,
+          "stdout_bytes": 1653,
+          "stdout_sha256": "2467ca0c99e477d2b279fbe32187f5e00c656c806b0245d5511dce2a045483f3",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/monkjin-product.scrapy.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/monkjin-product.scrapy.stderr"
+        },
+        {
+          "url": "https://monkjin.com/products/cisza-po-burzy",
+          "started_at": "2026-10-23T15:50:02.536310+00:00",
+          "observed_at": "2026-10-23T15:50:09.934458+00:00",
+          "method": "crwl crawl -o markdown-fit",
+          "exit_code": 0,
+          "stdout_bytes": 17615,
+          "stdout_sha256": "7d62982399509a8227c52f502ffc8fd9f5004b5ce8bf0af7d6e71c03bd2935c8",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/monkjin.crwl.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/monkjin.crwl.stderr"
+        }
+      ],
+      "claim_limits": [
+        "Public product text or metadata is a seller statement, not a paid-order or revenue receipt."
+      ]
+    },
+    {
+      "id": "product-site-jinmiaoo-20261024",
+      "url": "https://jinmiaoo.com/products/buch",
+      "retrieval_state": "product_information_observed",
+      "attempts": [
+        {
+          "url": "https://jinmiaoo.com/products/buch.js",
+          "started_at": "2026-10-23T15:51:25.140909+00:00",
+          "observed_at": "2026-10-23T15:51:26.390081+00:00",
+          "method": "scrapy",
+          "exit_code": 0,
+          "stdout_bytes": 1675,
+          "stdout_sha256": "fa563f7da6540d03ae9459f5ba41eddaf140fd43169141ff6035b08c87910965",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/jinmiaoo-product.scrapy.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/jinmiaoo-product.scrapy.stderr"
+        },
+        {
+          "url": "https://jinmiaoo.com/products/buch",
+          "started_at": "2026-10-23T15:50:02.550475+00:00",
+          "observed_at": "2026-10-23T15:50:10.314130+00:00",
+          "method": "crwl crawl -o markdown-fit",
+          "exit_code": 0,
+          "stdout_bytes": 17226,
+          "stdout_sha256": "8c39dea0b09204913aa951c8b07e191417b91911448f92c3b9eddc8309cb8537",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/jinmiaoo.crwl.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/jinmiaoo.crwl.stderr"
+        }
+      ],
+      "claim_limits": [
+        "Public product text or metadata is a seller statement, not a paid-order or revenue receipt."
+      ]
+    },
+    {
+      "id": "product-site-masterkaion-20261024",
+      "url": "https://masterkaion.gumroad.com/l/quiet",
+      "retrieval_state": "product_information_observed",
+      "attempts": [
+        {
+          "url": "https://masterkaion.gumroad.com/l/quiet",
+          "started_at": "2026-10-23T15:50:02.537031+00:00",
+          "observed_at": "2026-10-23T15:50:09.397104+00:00",
+          "method": "crwl crawl -o markdown-fit",
+          "exit_code": 0,
+          "stdout_bytes": 58,
+          "stdout_sha256": "d93b1e7fbf6074f4a2440f4d734fa9dc04fc706d67c47f3b84100d66435e3cfe",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/masterkaion.crwl.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/masterkaion.crwl.stderr"
+        },
+        {
+          "url": "https://masterkaion.gumroad.com/l/quiet",
+          "started_at": "2026-10-23T15:51:25.145152+00:00",
+          "observed_at": "2026-10-23T15:51:26.326974+00:00",
+          "method": "scrapy",
+          "exit_code": 0,
+          "stdout_bytes": 28240,
+          "stdout_sha256": "78d9db7294a1604ac8047403598db9be75eeed5588f196476d7380dfb3a3494b",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/masterkaion.scrapy.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/masterkaion.scrapy.stderr"
+        }
+      ],
+      "claim_limits": [
+        "Public product text or metadata is a seller statement, not a paid-order or revenue receipt."
+      ]
+    },
+    {
+      "id": "product-site-monjetenzin-20261024",
+      "url": "https://monjetenzin.com/products/calma",
+      "retrieval_state": "content_not_retrieved",
+      "attempts": [
+        {
+          "url": "https://monjetenzin.com/products/calma.js",
+          "started_at": "2026-10-23T15:51:25.145149+00:00",
+          "observed_at": "2026-10-23T15:51:26.675807+00:00",
+          "method": "scrapy",
+          "exit_code": 0,
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/monjetenzin-product.scrapy.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/monjetenzin-product.scrapy.stderr"
+        },
+        {
+          "url": "https://monjetenzin.com/products/calma",
+          "started_at": "2026-10-23T15:50:02.509611+00:00",
+          "observed_at": "2026-10-23T15:50:10.049481+00:00",
+          "method": "crwl crawl -o markdown-fit",
+          "exit_code": 1,
+          "stdout_bytes": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/monjetenzin.crwl.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/monjetenzin.crwl.stderr"
+        },
+        {
+          "url": "https://monjetenzin.com/products/calma",
+          "started_at": "2026-10-23T15:57:02.148938+00:00",
+          "observed_at": "2026-10-23T15:57:03.777380+00:00",
+          "method": "scrapy fetch --headers with diagnostic status logging",
+          "exit_code": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/monjetenzin.headers.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/monjetenzin.headers.stderr",
+          "status_diagnostic": [
+            "OpenSSL.SSL.Error: tls alert handshake failure; no HTTP response obtained."
+          ],
+          "error_class": "tls_handshake_failure"
+        }
+      ],
+      "claim_limits": [
+        "Public product text or metadata is a seller statement, not a paid-order or revenue receipt."
+      ]
+    },
+    {
+      "id": "product-site-gendunmonaco-20261024",
+      "url": "https://gendunmonaco.com/products/libroo",
+      "retrieval_state": "product_information_observed",
+      "attempts": [
+        {
+          "url": "https://gendunmonaco.com/products/libroo.js",
+          "started_at": "2026-10-23T15:53:37.000059+00:00",
+          "observed_at": "2026-10-23T15:53:38.335401+00:00",
+          "method": "scrapy",
+          "exit_code": 0,
+          "stdout_bytes": 1876,
+          "stdout_sha256": "3e75513522e95993d47f8983d8ca5c97656c3d2e9022800c84cf6e865914ecaa",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/gendunmonaco-product.scrapy.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/gendunmonaco-product.scrapy.stderr"
+        },
+        {
+          "url": "https://gendunmonaco.com/products/libroo",
+          "started_at": "2026-10-23T15:51:14.658749+00:00",
+          "observed_at": "2026-10-23T15:51:19.676918+00:00",
+          "method": "crwl",
+          "exit_code": 0,
+          "stdout_bytes": 12304,
+          "stdout_sha256": "9537df119be847b261bb3a07e365f144aab9104f10a92331a547a311f5953991",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/gendunmonaco.crwl.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/gendunmonaco.crwl.stderr"
+        }
+      ],
+      "claim_limits": [
+        "Public product text or metadata is a seller statement, not a paid-order or revenue receipt."
+      ]
+    },
+    {
+      "id": "product-site-monkchen-20261024",
+      "url": "https://monkchen.com/products/the-way-back-to-stillness",
+      "retrieval_state": "store_unavailable",
+      "attempts": [
+        {
+          "url": "https://monkchen.com/products/the-way-back-to-stillness",
+          "started_at": "2026-10-23T15:51:14.652647+00:00",
+          "observed_at": "2026-10-23T15:51:18.915280+00:00",
+          "method": "crwl",
+          "exit_code": 0,
+          "stdout_bytes": 216,
+          "stdout_sha256": "d6f07acc99c892aec2b23ff20ef491fc4d6a9d081810d05bb89490ac7053af6b",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/monkchen.crwl.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/monkchen.crwl.stderr"
+        }
+      ],
+      "claim_limits": [
+        "Public product text or metadata is a seller statement, not a paid-order or revenue receipt."
+      ]
+    },
+    {
+      "id": "product-site-maestrowei-20261024",
+      "url": "https://maestrowei.com/products/o-silencio",
+      "retrieval_state": "product_information_observed",
+      "attempts": [
+        {
+          "url": "https://maestrowei.com/products/o-silencio.js",
+          "started_at": "2026-10-23T15:53:37.006655+00:00",
+          "observed_at": "2026-10-23T15:53:38.005896+00:00",
+          "method": "scrapy",
+          "exit_code": 0,
+          "stdout_bytes": 47502,
+          "stdout_sha256": "7e7f8000f6a5d15956c701426c7ca12acd4018f14098840ed7313cb6fbad5aca",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/maestrowei-product.scrapy.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/maestrowei-product.scrapy.stderr"
+        },
+        {
+          "url": "https://maestrowei.com/products/o-silencio",
+          "started_at": "2026-10-23T15:51:14.690362+00:00",
+          "observed_at": "2026-10-23T15:51:19.595957+00:00",
+          "method": "crwl",
+          "exit_code": 0,
+          "stdout_bytes": 5937,
+          "stdout_sha256": "7aa85b04f3cc195c17e35264c338ee4e987c39a5a60d550145ecae54b0161ccf",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/maestrowei.crwl.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/maestrowei.crwl.stderr"
+        }
+      ],
+      "claim_limits": [
+        "Public product text or metadata is a seller statement, not a paid-order or revenue receipt."
+      ]
+    },
+    {
+      "id": "product-site-chennatural-20261024",
+      "url": "https://www.chennatural.com/",
+      "retrieval_state": "product_information_observed",
+      "attempts": [
+        {
+          "url": "https://www.chennatural.com/",
+          "started_at": "2026-10-23T15:51:14.658968+00:00",
+          "observed_at": "2026-10-23T15:51:24.705944+00:00",
+          "method": "crwl",
+          "exit_code": 0,
+          "stdout_bytes": 3193,
+          "stdout_sha256": "920e7c8873e91500d90d3c5e6dfc84a8c61756808e8d0800c4c574684da9c7d7",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/chennatural.crwl.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/chennatural.crwl.stderr"
+        },
+        {
+          "url": "https://www.chennatural.com/",
+          "started_at": "2026-10-23T15:53:37.003007+00:00",
+          "observed_at": "2026-10-23T15:53:41.288168+00:00",
+          "method": "scrapy",
+          "exit_code": 0,
+          "stdout_bytes": 53618,
+          "stdout_sha256": "17316d5050f551b1613679ccaad169161facf3e51f13af31bb7793276dab4987",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/chennatural.scrapy.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/chennatural.scrapy.stderr"
+        }
+      ],
+      "claim_limits": [
+        "Public product text or metadata is a seller statement, not a paid-order or revenue receipt."
+      ]
+    },
+    {
+      "id": "product-site-masteryunshen-20261024",
+      "url": "https://stan.store/MasterYunShen/p/the-path-to-sacred-stillness",
+      "retrieval_state": "product_information_observed",
+      "attempts": [
+        {
+          "url": "https://stan.store/MasterYunShen/p/the-path-to-sacred-stillness",
+          "started_at": "2026-10-23T15:51:14.652692+00:00",
+          "observed_at": "2026-10-23T15:51:19.887725+00:00",
+          "method": "crwl",
+          "exit_code": 0,
+          "stdout_bytes": 1432,
+          "stdout_sha256": "ae771358ae9acbffb3c567a0682dbc58329c696ccc748e2f8d520621760adb6c",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/masteryunshen.crwl.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/masteryunshen.crwl.stderr"
+        },
+        {
+          "url": "https://stan.store/MasterYunShen/p/the-path-to-sacred-stillness",
+          "started_at": "2026-10-23T15:53:36.997325+00:00",
+          "observed_at": "2026-10-23T15:53:38.836924+00:00",
+          "method": "scrapy",
+          "exit_code": 0,
+          "stdout_bytes": 125211,
+          "stdout_sha256": "0ce99564359424f3d680d6efbad2a3dbb0571ad98e73f40aa07811a10936c2f7",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/masteryunshen.scrapy.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/masteryunshen.scrapy.stderr"
+        }
+      ],
+      "claim_limits": [
+        "Public product text or metadata is a seller statement, not a paid-order or revenue receipt."
+      ]
+    },
+    {
+      "id": "product-site-monjaalma-20261024",
+      "url": "https://monja-alma-legacy.lovable.app/",
+      "retrieval_state": "product_information_observed",
+      "attempts": [
+        {
+          "url": "https://monja-alma-legacy.lovable.app/",
+          "started_at": "2026-10-23T15:51:59.290010+00:00",
+          "observed_at": "2026-10-23T15:52:06.679352+00:00",
+          "method": "crwl",
+          "exit_code": 0,
+          "stdout_bytes": 9056,
+          "stdout_sha256": "838b4cdb569f6acce5632e86ade8cec87043cb6ed048364a2f9316b64f9d537d",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/monjaalma.crwl.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/monjaalma.crwl.stderr"
+        }
+      ],
+      "claim_limits": [
+        "Public product text or metadata is a seller statement, not a paid-order or revenue receipt."
+      ]
+    },
+    {
+      "id": "product-site-yunlobsang-20261024",
+      "url": "https://www.yunlobsang.com/",
+      "retrieval_state": "product_information_observed",
+      "attempts": [
+        {
+          "url": "https://www.yunlobsang.com/",
+          "started_at": "2026-10-23T15:51:59.288753+00:00",
+          "observed_at": "2026-10-23T15:52:04.678197+00:00",
+          "method": "crwl",
+          "exit_code": 0,
+          "stdout_bytes": 5369,
+          "stdout_sha256": "bd7ee7644e12d3bc1ed4aa03aa2be0587fc57a6b82de59517e5394632221962d",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/yunlobsang.crwl.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/yunlobsang.crwl.stderr"
+        },
+        {
+          "url": "https://www.yunlobsang.com/",
+          "started_at": "2026-10-23T15:53:36.999601+00:00",
+          "observed_at": "2026-10-23T15:53:39.182069+00:00",
+          "method": "scrapy",
+          "exit_code": 0,
+          "stdout_bytes": 166853,
+          "stdout_sha256": "e87504b76dc5946391f3708c87b12dbba266cb8e346bb6b7f2b1d922d11a700e",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/yunlobsang.scrapy.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/yunlobsang.scrapy.stderr"
+        }
+      ],
+      "claim_limits": [
+        "Public product text or metadata is a seller statement, not a paid-order or revenue receipt."
+      ]
+    },
+    {
+      "id": "product-site-monjewu-20261024",
+      "url": "https://www.monjewu.com/",
+      "retrieval_state": "product_information_observed",
+      "attempts": [
+        {
+          "url": "https://www.monjewu.com/",
+          "started_at": "2026-10-23T15:51:59.290446+00:00",
+          "observed_at": "2026-10-23T15:52:06.945680+00:00",
+          "method": "crwl",
+          "exit_code": 0,
+          "stdout_bytes": 3674,
+          "stdout_sha256": "7d4a4c410c1d23bdbb513d8806f5fadbbac5cf21b91f016abb7c833bbd199311",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/monjewu.crwl.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/monjewu.crwl.stderr"
+        }
+      ],
+      "claim_limits": [
+        "Public product text or metadata is a seller statement, not a paid-order or revenue receipt."
+      ]
+    },
+    {
+      "id": "product-site-mongeravi-20261024",
+      "url": "https://mongeravi.com/",
+      "retrieval_state": "product_information_observed",
+      "attempts": [
+        {
+          "url": "https://mongeravi.com/",
+          "started_at": "2026-10-23T15:51:59.288484+00:00",
+          "observed_at": "2026-10-23T15:52:04.279926+00:00",
+          "method": "crwl",
+          "exit_code": 0,
+          "stdout_bytes": 4033,
+          "stdout_sha256": "055fe1b4217b2d6cbc9a7d4b05195541b167026b1c78543ce75f26e1ea7138eb",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/mongeravi.crwl.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/mongeravi.crwl.stderr"
+        }
+      ],
+      "claim_limits": [
+        "Public product text or metadata is a seller statement, not a paid-order or revenue receipt."
+      ]
+    },
+    {
+      "id": "product-site-aristhestill-20261024",
+      "url": "https://www.aristhestill.com/",
+      "retrieval_state": "product_information_observed",
+      "attempts": [
+        {
+          "url": "https://www.aristhestill.com/",
+          "started_at": "2026-10-23T15:51:59.289714+00:00",
+          "observed_at": "2026-10-23T15:52:03.653536+00:00",
+          "method": "crwl",
+          "exit_code": 0,
+          "stdout_bytes": 4239,
+          "stdout_sha256": "256ec1a4decacfaf8e14b448f13de8565f9c8f5ff14a16d006cdb440a76797af",
+          "private_stdout_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/aristhestill.crwl.stdout",
+          "private_stderr_path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024/product-research-worker/aristhestill.crwl.stderr"
+        }
+      ],
+      "claim_limits": [
+        "Public product text or metadata is a seller statement, not a paid-order or revenue receipt."
+      ]
+    }
+  ],
+  "products": [
+    {
+      "observation_id": "linchen-9044abf5-15d8-4bad-9c85-b75e3320316c",
+      "account_ids": [
+        "lead-instagram-linchenhealing"
+      ],
+      "instagram_handles": [
+        "linchenhealing"
+      ],
+      "attribution_ref": "profile-to-linchenhealing-20261024",
+      "name": "Relieve Aches With Natural Remedies",
+      "type": "ebook",
+      "formats": [
+        "PDF"
+      ],
+      "product_url": "https://linchenhealing.com/",
+      "source_ids": [
+        "product-site-linchenhealing-20261024"
+      ],
+      "price": {
+        "amount": 14.99,
+        "currency": "USD",
+        "display_or_metadata_text": "1499 USD cents",
+        "kind": "seller_offer_price",
+        "basis": "Public Beacons hydration store_items: currency=usd, price=1499, availability=true"
+      },
+      "price_unknown_reason": null,
+      "reference_price": {
+        "amount": 99.0,
+        "currency": "USD",
+        "kind": "seller_reference_or_strikethrough_price_not_a_transaction"
+      },
+      "availability": {
+        "state": "available_in_public_store_metadata",
+        "basis": "Public Beacons hydration store_items: currency=usd, price=1499, availability=true",
+        "purchase_completed": false
+      },
+      "seller_counters": [],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Public hydration metadata is observed; no checkout or paid file was requested.",
+        "Affiliate product_type does not prove that Lin Chen authored or owns the product.",
+        "Prices and availability are seller metadata, not verified orders or revenue."
+      ],
+      "metadata_product_id": "9044abf5-15d8-4bad-9c85-b75e3320316c",
+      "metadata_path": "rsc[0].1c[3].profileInfoDocument.26cc7123-67a7-4832-9c74-475cff53565c.store_items[0]",
+      "file_types_observed": [
+        "application/pdf"
+      ]
+    },
+    {
+      "observation_id": "linchen-edb2e147-e8aa-475b-92ab-a2506fd99aea",
+      "account_ids": [
+        "lead-instagram-linchenhealing"
+      ],
+      "instagram_handles": [
+        "linchenhealing"
+      ],
+      "attribution_ref": "profile-to-linchenhealing-20261024",
+      "name": "The Monk’s Prayer Book",
+      "type": "ebook",
+      "formats": [
+        "PDF"
+      ],
+      "product_url": "https://linchenhealing.com/",
+      "source_ids": [
+        "product-site-linchenhealing-20261024"
+      ],
+      "price": {
+        "amount": 3.99,
+        "currency": "USD",
+        "display_or_metadata_text": "399 USD cents",
+        "kind": "seller_offer_price",
+        "basis": "Public Beacons hydration store_items: currency=usd, price=399, availability=true"
+      },
+      "price_unknown_reason": null,
+      "reference_price": {
+        "amount": 5.0,
+        "currency": "USD",
+        "kind": "seller_reference_or_strikethrough_price_not_a_transaction"
+      },
+      "availability": {
+        "state": "available_in_public_store_metadata",
+        "basis": "Public Beacons hydration store_items: currency=usd, price=399, availability=true",
+        "purchase_completed": false
+      },
+      "seller_counters": [],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Public hydration metadata is observed; no checkout or paid file was requested.",
+        "Affiliate product_type does not prove that Lin Chen authored or owns the product.",
+        "Prices and availability are seller metadata, not verified orders or revenue."
+      ],
+      "metadata_product_id": "edb2e147-e8aa-475b-92ab-a2506fd99aea",
+      "metadata_path": "rsc[0].1c[3].profileInfoDocument.26cc7123-67a7-4832-9c74-475cff53565c.store_items[1]",
+      "file_types_observed": [
+        "application/pdf"
+      ]
+    },
+    {
+      "observation_id": "linchen-24796272-3d40-46d4-8831-48564a62583a",
+      "account_ids": [
+        "lead-instagram-linchenhealing"
+      ],
+      "instagram_handles": [
+        "linchenhealing"
+      ],
+      "attribution_ref": "profile-to-linchenhealing-20261024",
+      "name": "The 21-Day Anxiety Reset Journey",
+      "type": "ebook",
+      "formats": [
+        "PDF"
+      ],
+      "product_url": "https://linchenhealing.com/",
+      "source_ids": [
+        "product-site-linchenhealing-20261024"
+      ],
+      "price": {
+        "amount": 9.89,
+        "currency": "USD",
+        "display_or_metadata_text": "989 USD cents",
+        "kind": "seller_offer_price",
+        "basis": "Public Beacons hydration store_items: currency=usd, price=989, availability=true"
+      },
+      "price_unknown_reason": null,
+      "reference_price": {
+        "amount": 13.99,
+        "currency": "USD",
+        "kind": "seller_reference_or_strikethrough_price_not_a_transaction"
+      },
+      "availability": {
+        "state": "available_in_public_store_metadata",
+        "basis": "Public Beacons hydration store_items: currency=usd, price=989, availability=true",
+        "purchase_completed": false
+      },
+      "seller_counters": [],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Public hydration metadata is observed; no checkout or paid file was requested.",
+        "Affiliate product_type does not prove that Lin Chen authored or owns the product.",
+        "Prices and availability are seller metadata, not verified orders or revenue."
+      ],
+      "metadata_product_id": "24796272-3d40-46d4-8831-48564a62583a",
+      "metadata_path": "rsc[0].1c[3].profileInfoDocument.26cc7123-67a7-4832-9c74-475cff53565c.store_items[2]",
+      "file_types_observed": [
+        "application/pdf"
+      ]
+    },
+    {
+      "observation_id": "linchen-eae54e96-dd8a-48e1-b2af-b4eab099b19e",
+      "account_ids": [
+        "lead-instagram-linchenhealing"
+      ],
+      "instagram_handles": [
+        "linchenhealing"
+      ],
+      "attribution_ref": "profile-to-linchenhealing-20261024",
+      "name": "30 Day Healing Journey",
+      "type": "affiliate_offer",
+      "formats": [],
+      "product_url": "https://linchenhealing.com/",
+      "source_ids": [
+        "product-site-linchenhealing-20261024"
+      ],
+      "price": {
+        "amount": 15.0,
+        "currency": "USD",
+        "display_or_metadata_text": "1500 USD cents",
+        "kind": "seller_offer_price",
+        "basis": "Public Beacons hydration store_items: currency=usd, price=1500, availability=true"
+      },
+      "price_unknown_reason": null,
+      "reference_price": null,
+      "availability": {
+        "state": "available_in_public_store_metadata",
+        "basis": "Public Beacons hydration store_items: currency=usd, price=1500, availability=true",
+        "purchase_completed": false
+      },
+      "seller_counters": [],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Public hydration metadata is observed; no checkout or paid file was requested.",
+        "Affiliate product_type does not prove that Lin Chen authored or owns the product.",
+        "Prices and availability are seller metadata, not verified orders or revenue."
+      ],
+      "metadata_product_id": "eae54e96-dd8a-48e1-b2af-b4eab099b19e",
+      "metadata_path": "rsc[0].1c[3].profileInfoDocument.26cc7123-67a7-4832-9c74-475cff53565c.store_items[3]",
+      "file_types_observed": []
+    },
+    {
+      "observation_id": "jin-miaoo-cisza-po-burzy",
+      "account_ids": [
+        "lead-instagram-jin-miaoo"
+      ],
+      "instagram_handles": [
+        "jin.miaoo"
+      ],
+      "attribution_ref": "profile-to-monkjin-20261024",
+      "name": "Cisza Po Burzy",
+      "type": "ebook",
+      "formats": [
+        "ebook; exact file type unverified"
+      ],
+      "product_url": "https://monkjin.com/products/cisza-po-burzy",
+      "source_ids": [
+        "product-site-monkjin-20261024"
+      ],
+      "price": {
+        "amount": 14.95,
+        "currency": "EUR",
+        "display_or_metadata_text": "€14,95",
+        "kind": "seller_offer_price",
+        "basis": "Product page price; public Shopify product.js title/price=1495 and requires_shipping=false"
+      },
+      "price_unknown_reason": null,
+      "reference_price": {
+        "amount": 29.9,
+        "currency": "EUR",
+        "kind": "seller_reference_or_strikethrough_price_not_a_transaction"
+      },
+      "availability": {
+        "state": "conflicting_public_signals",
+        "basis": "Product page price; public Shopify product.js title/price=1495 and requires_shipping=false",
+        "purchase_completed": false
+      },
+      "seller_counters": [
+        {
+          "kind": "seller_reader_claim",
+          "value": 1000,
+          "comparator": ">",
+          "unit": "readers",
+          "audited": false
+        },
+        {
+          "kind": "seller_review_count",
+          "value": 736,
+          "rating": 4.9,
+          "rating_scale": 5,
+          "unit": "reviews",
+          "audited": false
+        }
+      ],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue.",
+        "Product health or wellbeing benefits and seller identity claims are not independently verified."
+      ],
+      "availability_conflict": {
+        "page_text": "Wyprzedane",
+        "public_product_json_available": true
+      },
+      "metadata_vendor": "Jin Miao"
+    },
+    {
+      "observation_id": "monchmiao-die-stille",
+      "account_ids": [
+        "lead-instagram-monchmiao"
+      ],
+      "instagram_handles": [
+        "monchmiao"
+      ],
+      "attribution_ref": "profile-to-jinmiaoo-20261024",
+      "name": "Die Stille Nach Dem Sturm",
+      "type": "ebook",
+      "formats": [
+        "ebook; exact file type unverified"
+      ],
+      "product_url": "https://jinmiaoo.com/products/buch",
+      "source_ids": [
+        "product-site-jinmiaoo-20261024"
+      ],
+      "price": {
+        "amount": 14.95,
+        "currency": "EUR",
+        "display_or_metadata_text": "€14,95",
+        "kind": "seller_offer_price",
+        "basis": "crwl product page displayed EUR offer; public product.js establishes title/digital variant availability"
+      },
+      "price_unknown_reason": null,
+      "reference_price": {
+        "amount": 29.9,
+        "currency": "EUR",
+        "kind": "seller_reference_or_strikethrough_price_not_a_transaction"
+      },
+      "availability": {
+        "state": "conflicting_public_signals",
+        "basis": "crwl product page displayed EUR offer; public product.js establishes title/digital variant availability",
+        "purchase_completed": false
+      },
+      "seller_counters": [
+        {
+          "kind": "seller_reader_claim",
+          "value": 1000,
+          "comparator": ">",
+          "unit": "readers",
+          "audited": false
+        },
+        {
+          "kind": "seller_review_count",
+          "value": 724,
+          "rating": 4.9,
+          "rating_scale": 5,
+          "unit": "reviews",
+          "audited": false
+        }
+      ],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue.",
+        "Product health or wellbeing benefits and seller identity claims are not independently verified."
+      ],
+      "availability_conflict": {
+        "page_text": "Ausverkauft",
+        "public_product_json_available": true
+      },
+      "unresolved_price_context": {
+        "public_product_js_raw_price_minor_units": 270000,
+        "currency_in_product_js": null,
+        "explanation": "The product.js request returned a different numeric amount without currency. It is not treated as EUR and is not used to overwrite the EUR page observation."
+      },
+      "metadata_vendor": "GrinchyBeath"
+    },
+    {
+      "observation_id": "master-kaion-quiet",
+      "account_ids": [
+        "lead-instagram-master-kaion"
+      ],
+      "instagram_handles": [
+        "master_kaion"
+      ],
+      "attribution_ref": "profile-to-masterkaion-20261024",
+      "name": "The Quiet Between Thoughts: A 30-Day Return to Stillness",
+      "type": "ebook",
+      "formats": [
+        "PDF",
+        "optional audiobook (MP3)"
+      ],
+      "product_url": "https://masterkaion.gumroad.com/l/quiet",
+      "source_ids": [
+        "product-site-masterkaion-20261024"
+      ],
+      "price": {
+        "amount": 14.95,
+        "currency": "USD",
+        "display_or_metadata_text": "$14.95",
+        "kind": "seller_offer_price",
+        "basis": "Public Gumroad product JSON-LD priceCurrency=USD, price=14.95, availability=InStock; is_published=true"
+      },
+      "price_unknown_reason": null,
+      "reference_price": null,
+      "availability": {
+        "state": "published_in_stock_metadata",
+        "basis": "Public Gumroad product JSON-LD priceCurrency=USD, price=14.95, availability=InStock; is_published=true",
+        "purchase_completed": false
+      },
+      "seller_counters": [],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue.",
+        "Product health or wellbeing benefits and seller identity claims are not independently verified."
+      ],
+      "variant_observations": [
+        {
+          "name": "The Book (PDF)",
+          "additional_price_usd": 0
+        },
+        {
+          "name": "Book + Audiobook, read by Master Kaion",
+          "additional_price_usd": 10,
+          "audio_duration_minutes": 41
+        }
+      ],
+      "seller_sales_count_field": null,
+      "seller_sales_count_limit": "Public sales_count is null; it is not zero."
+    },
+    {
+      "observation_id": "monaco-gendun-manuale",
+      "account_ids": [
+        "lead-instagram-monacogendun"
+      ],
+      "instagram_handles": [
+        "monacogendun"
+      ],
+      "attribution_ref": "profile-to-gendunmonaco-20261024",
+      "name": "Il Manuale del Corpo Esausto: Guarire dalla Radice ciò che Nessun Medico Ti Spiega",
+      "type": "ebook",
+      "formats": [
+        "digital guide; exact file type unverified"
+      ],
+      "product_url": "https://gendunmonaco.com/products/libroo",
+      "source_ids": [
+        "product-site-gendunmonaco-20261024"
+      ],
+      "price": {
+        "amount": 12.95,
+        "currency": "EUR",
+        "display_or_metadata_text": "€12,95",
+        "kind": "seller_offer_price",
+        "basis": "Product page EUR price; public Shopify product.js price=1295, requires_shipping=false"
+      },
+      "price_unknown_reason": null,
+      "reference_price": {
+        "amount": 21.9,
+        "currency": "EUR",
+        "kind": "seller_reference_or_strikethrough_price_not_a_transaction"
+      },
+      "availability": {
+        "state": "conflicting_public_signals",
+        "basis": "Product page EUR price; public Shopify product.js price=1295, requires_shipping=false",
+        "purchase_completed": false
+      },
+      "seller_counters": [
+        {
+          "kind": "seller_reader_claim",
+          "value": 1000,
+          "comparator": ">",
+          "rating": 4.9,
+          "rating_scale": 5,
+          "unit": "satisfied readers",
+          "audited": false
+        },
+        {
+          "kind": "seller_urgency_counter",
+          "value": 12,
+          "unit": "people displayed as completing purchase",
+          "audited": false
+        }
+      ],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue.",
+        "Product health or wellbeing benefits and seller identity claims are not independently verified."
+      ],
+      "availability_conflict": {
+        "page_text": "Esaurito",
+        "public_product_json_available": true
+      },
+      "content_conflicts": [
+        "The product title differs from delivery copy naming Il Ritorno alla Calma.",
+        "Digital-guide copy and an estimated 1-3 business-day delivery statement coexist."
+      ],
+      "metadata_vendor": "FinanzaSolida"
+    },
+    {
+      "observation_id": "jin-miao-o-silencio",
+      "account_ids": [
+        "lead-instagram-mongejinmiao"
+      ],
+      "instagram_handles": [
+        "mongejinmiao"
+      ],
+      "attribution_ref": "profile-to-maestrowei-20261024",
+      "name": "O Silêncio Após a Tempestade",
+      "type": "ebook",
+      "formats": [
+        "ebook; exact file type unverified"
+      ],
+      "product_url": "https://maestrowei.com/products/o-silencio",
+      "source_ids": [
+        "product-site-maestrowei-20261024"
+      ],
+      "price": {
+        "amount": 14.95,
+        "currency": "EUR",
+        "display_or_metadata_text": "14,95 €",
+        "kind": "seller_offer_price",
+        "basis": "Visible product price; returned HTML Book JSON-LD price=14.95, priceCurrency=EUR, availability=InStock"
+      },
+      "price_unknown_reason": null,
+      "reference_price": {
+        "amount": 29.9,
+        "currency": "EUR",
+        "kind": "seller_reference_or_strikethrough_price_not_a_transaction"
+      },
+      "availability": {
+        "state": "offered_with_in_stock_metadata",
+        "basis": "Visible product price; returned HTML Book JSON-LD price=14.95, priceCurrency=EUR, availability=InStock",
+        "purchase_completed": false
+      },
+      "seller_counters": [
+        {
+          "kind": "seller_review_or_reader_count",
+          "value": 734,
+          "rating": 4.95,
+          "rating_scale": 5,
+          "unit": "leitores / reviews",
+          "audited": false
+        }
+      ],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue.",
+        "Product health or wellbeing benefits and seller identity claims are not independently verified."
+      ],
+      "canonical_product_url_in_metadata": "https://maestrowei.com/livro",
+      "fallback_limit": "Requested product.js returned HTML, not Shopify product JSON."
+    },
+    {
+      "observation_id": "chen-guide-medecine",
+      "account_ids": [
+        "lead-instagram-its-yang-chen"
+      ],
+      "instagram_handles": [
+        "its.yang.chen"
+      ],
+      "attribution_ref": "profile-to-chennatural-20261024",
+      "name": "Guide Médecine Chinoise",
+      "type": "ebook",
+      "formats": [
+        "PDF"
+      ],
+      "product_url": "https://www.chennatural.com/",
+      "source_ids": [
+        "product-site-chennatural-20261024"
+      ],
+      "price": {
+        "amount": 27.97,
+        "currency": "EUR",
+        "display_or_metadata_text": "27,97 €",
+        "kind": "seller_offer_price",
+        "basis": "Public storefront offer card; Guides PDF; guide PDF after payment"
+      },
+      "price_unknown_reason": null,
+      "reference_price": {
+        "amount": 49.9,
+        "currency": "EUR",
+        "kind": "seller_reference_or_strikethrough_price_not_a_transaction"
+      },
+      "availability": {
+        "state": "offered_not_transaction_tested",
+        "basis": "Public storefront offer card; Guides PDF; guide PDF after payment",
+        "purchase_completed": false
+      },
+      "seller_counters": [],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue.",
+        "Product health or wellbeing benefits and seller identity claims are not independently verified."
+      ],
+      "pages_displayed": 40
+    },
+    {
+      "observation_id": "chen-guide-articulations",
+      "account_ids": [
+        "lead-instagram-its-yang-chen"
+      ],
+      "instagram_handles": [
+        "its.yang.chen"
+      ],
+      "attribution_ref": "profile-to-chennatural-20261024",
+      "name": "Guide Articulations Sans Douleur",
+      "type": "ebook",
+      "formats": [
+        "PDF"
+      ],
+      "product_url": "https://www.chennatural.com/",
+      "source_ids": [
+        "product-site-chennatural-20261024"
+      ],
+      "price": {
+        "amount": 37.97,
+        "currency": "EUR",
+        "display_or_metadata_text": "37,97 €",
+        "kind": "seller_offer_price",
+        "basis": "Public storefront offer card; Guides PDF; guide PDF after payment"
+      },
+      "price_unknown_reason": null,
+      "reference_price": {
+        "amount": 64.9,
+        "currency": "EUR",
+        "kind": "seller_reference_or_strikethrough_price_not_a_transaction"
+      },
+      "availability": {
+        "state": "offered_not_transaction_tested",
+        "basis": "Public storefront offer card; Guides PDF; guide PDF after payment",
+        "purchase_completed": false
+      },
+      "seller_counters": [],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue.",
+        "Product health or wellbeing benefits and seller identity claims are not independently verified."
+      ],
+      "pages_displayed": 35
+    },
+    {
+      "observation_id": "chen-pack-duo",
+      "account_ids": [
+        "lead-instagram-its-yang-chen"
+      ],
+      "instagram_handles": [
+        "its.yang.chen"
+      ],
+      "attribution_ref": "profile-to-chennatural-20261024",
+      "name": "Pack Duo Essentiel",
+      "type": "digital_bundle",
+      "formats": [
+        "PDF"
+      ],
+      "product_url": "https://www.chennatural.com/",
+      "source_ids": [
+        "product-site-chennatural-20261024"
+      ],
+      "price": {
+        "amount": 49.97,
+        "currency": "EUR",
+        "display_or_metadata_text": "49,97 €",
+        "kind": "seller_offer_price",
+        "basis": "Public storefront bundle price and included two guide names"
+      },
+      "price_unknown_reason": null,
+      "reference_price": {
+        "amount": 65.94,
+        "currency": "EUR",
+        "kind": "seller_reference_or_strikethrough_price_not_a_transaction"
+      },
+      "availability": {
+        "state": "offered_not_transaction_tested",
+        "basis": "Public storefront bundle price and included two guide names",
+        "purchase_completed": false
+      },
+      "seller_counters": [],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue.",
+        "Product health or wellbeing benefits and seller identity claims are not independently verified."
+      ],
+      "included_product_observation_ids": [
+        "chen-guide-medecine",
+        "chen-guide-articulations"
+      ]
+    },
+    {
+      "observation_id": "yun-shen-sacred-stillness",
+      "account_ids": [
+        "lead-instagram-masteryunshen"
+      ],
+      "instagram_handles": [
+        "masteryunshen"
+      ],
+      "attribution_ref": "profile-to-masteryunshen-20261024",
+      "name": "The Path to Sacred Stillness",
+      "type": "ebook",
+      "formats": [
+        "PDF"
+      ],
+      "product_url": "https://stan.store/MasterYunShen/p/the-path-to-sacred-stillness",
+      "source_ids": [
+        "product-site-masteryunshen-20261024"
+      ],
+      "price": {
+        "amount": 19.9,
+        "currency": "USD",
+        "display_or_metadata_text": "$19.90",
+        "kind": "seller_offer_price",
+        "basis": "Visible Stan product price; public hydration price.sale_amount=19.9 and product currency=USD"
+      },
+      "price_unknown_reason": null,
+      "reference_price": {
+        "amount": 49,
+        "currency": "USD",
+        "kind": "seller_reference_or_strikethrough_price_not_a_transaction"
+      },
+      "availability": {
+        "state": "offered_not_transaction_tested",
+        "basis": "Visible Stan product price; public hydration price.sale_amount=19.9 and product currency=USD",
+        "purchase_completed": false
+      },
+      "seller_counters": [],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue.",
+        "Product health or wellbeing benefits and seller identity claims are not independently verified."
+      ],
+      "pages_displayed": 46,
+      "program_days_displayed": 7
+    },
+    {
+      "observation_id": "monja-alma-library",
+      "account_ids": [
+        "lead-instagram-monjaalma"
+      ],
+      "instagram_handles": [
+        "monjaalma"
+      ],
+      "attribution_ref": "profile-to-monjaalma-20261024",
+      "name": "Biblioteca Monja Alma",
+      "type": "digital_bundle",
+      "formats": [
+        "PDF"
+      ],
+      "product_url": "https://monja-alma-legacy.lovable.app/",
+      "source_ids": [
+        "product-site-monjaalma-20261024"
+      ],
+      "price": {
+        "amount": 47.9,
+        "currency": "BRL",
+        "display_or_metadata_text": "R$47,90",
+        "kind": "seller_offer_price",
+        "basis": "Public page: 5 digital guides, one-time payment; PDF-compatible devices"
+      },
+      "price_unknown_reason": null,
+      "reference_price": null,
+      "availability": {
+        "state": "offered_not_transaction_tested",
+        "basis": "Public page: 5 digital guides, one-time payment; PDF-compatible devices",
+        "purchase_completed": false
+      },
+      "seller_counters": [],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue.",
+        "Product health or wellbeing benefits and seller identity claims are not independently verified."
+      ],
+      "included_materials_count": 5,
+      "public_purchase_link_observed": "https://pay.kiwify.com.br/G3N8fRU",
+      "purchase_link_visited": false
+    },
+    {
+      "observation_id": "yun-el-pequeno",
+      "account_ids": [
+        "lead-instagram-yunlobsang"
+      ],
+      "instagram_handles": [
+        "yunlobsang"
+      ],
+      "attribution_ref": "profile-to-yunlobsang-20261024",
+      "name": "El Pequeño Yun",
+      "type": "physical_product_with_digital_bonus",
+      "formats": [
+        "breathing light device",
+        "ebook bonus",
+        "7 audio meditations bonus"
+      ],
+      "product_url": "https://yunlobsang.com/products/el-pequeno-yun",
+      "source_ids": [
+        "product-site-yunlobsang-20261024"
+      ],
+      "price": {
+        "amount": 39.99,
+        "currency": "EUR",
+        "display_or_metadata_text": "€39,99",
+        "kind": "seller_offer_price",
+        "basis": "crwl page offered El Pequeño Yun, In stock, free shipping; ebook/audio delivered by email"
+      },
+      "price_unknown_reason": null,
+      "reference_price": null,
+      "availability": {
+        "state": "in_stock_in_crawled_page",
+        "basis": "crwl page offered El Pequeño Yun, In stock, free shipping; ebook/audio delivered by email",
+        "purchase_completed": false
+      },
+      "seller_counters": [],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue.",
+        "Product health or wellbeing benefits and seller identity claims are not independently verified."
+      ],
+      "request_context_limit": "The homepage returned a different product and JPY pricing to the separate scrapy request. Product-specific price is not assumed stable across request contexts."
+    },
+    {
+      "observation_id": "yun-todavia-ebook",
+      "account_ids": [
+        "lead-instagram-yunlobsang"
+      ],
+      "instagram_handles": [
+        "yunlobsang"
+      ],
+      "attribution_ref": "profile-to-yunlobsang-20261024",
+      "name": "Todavía Estás a Tiempo (Ebook)",
+      "type": "ebook",
+      "formats": [
+        "ebook; exact file type unverified"
+      ],
+      "product_url": "https://yunlobsang.com/products/todavia-estas-a-tiempo",
+      "source_ids": [
+        "product-site-yunlobsang-20261024"
+      ],
+      "price": {
+        "amount": 1800,
+        "currency": "JPY",
+        "display_or_metadata_text": "price=1800; priceCurrency=JPY",
+        "kind": "seller_offer_price",
+        "basis": "Public product JSON-LD in scrapy homepage response; availability=InStock"
+      },
+      "price_unknown_reason": null,
+      "reference_price": null,
+      "availability": {
+        "state": "in_stock_metadata",
+        "basis": "Public product JSON-LD in scrapy homepage response; availability=InStock",
+        "purchase_completed": false
+      },
+      "seller_counters": [],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue.",
+        "Product health or wellbeing benefits and seller identity claims are not independently verified."
+      ],
+      "price_context": "Unauthenticated scrapy request returned JPY product metadata; different homepage product from the EUR crwl response."
+    },
+    {
+      "observation_id": "monje-wu-mente",
+      "account_ids": [
+        "lead-instagram-monjewu"
+      ],
+      "instagram_handles": [
+        "monjewu"
+      ],
+      "attribution_ref": "profile-to-monjewu-20261024",
+      "name": "La Mente del Monje",
+      "type": "ebook",
+      "formats": [
+        "PDF"
+      ],
+      "product_url": "https://www.monjewu.com/",
+      "source_ids": [
+        "product-site-monjewu-20261024"
+      ],
+      "price": null,
+      "price_unknown_reason": "No price was exposed in the fetched public product page; checkout was not visited.",
+      "reference_price": null,
+      "availability": {
+        "state": "offered_not_transaction_tested",
+        "basis": "Public page: downloadable PDF, ebook plus 4 bonuses; Hotmart link present",
+        "purchase_completed": false
+      },
+      "seller_counters": [
+        {
+          "kind": "seller_video_view_claim",
+          "value": 500000,
+          "comparator": "+",
+          "unit": "TikTok views",
+          "audited": false
+        },
+        {
+          "kind": "seller_reader_claim",
+          "value": 500,
+          "comparator": "+",
+          "unit": "readers",
+          "audited": false
+        },
+        {
+          "kind": "seller_satisfaction_claim",
+          "value": 98,
+          "unit": "percent",
+          "denominator": null,
+          "audited": false
+        }
+      ],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue.",
+        "Product health or wellbeing benefits and seller identity claims are not independently verified."
+      ],
+      "public_purchase_link_observed": "https://pay.hotmart.com/J106191740M?off=x81cmfou&checkoutMode=10",
+      "purchase_link_visited": false
+    },
+    {
+      "observation_id": "ravi-curando",
+      "account_ids": [
+        "lead-instagram-oravishen"
+      ],
+      "instagram_handles": [
+        "oravishen"
+      ],
+      "attribution_ref": "profile-to-mongeravi-20261024",
+      "name": "Curando o Coração Ferido",
+      "type": "ebook",
+      "formats": [
+        "PDF"
+      ],
+      "product_url": "https://mongeravi.com/",
+      "source_ids": [
+        "product-site-mongeravi-20261024"
+      ],
+      "price": {
+        "amount": 49.9,
+        "currency": "BRL",
+        "display_or_metadata_text": "R$49,90",
+        "kind": "seller_offer_price",
+        "basis": "Public storefront title/price; PDF immediate delivery description"
+      },
+      "price_unknown_reason": null,
+      "reference_price": {
+        "amount": 89.9,
+        "currency": "BRL",
+        "kind": "seller_reference_or_strikethrough_price_not_a_transaction"
+      },
+      "availability": {
+        "state": "offered_not_transaction_tested",
+        "basis": "Public storefront title/price; PDF immediate delivery description",
+        "purchase_completed": false
+      },
+      "seller_counters": [],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue.",
+        "Product health or wellbeing benefits and seller identity claims are not independently verified."
+      ],
+      "public_purchase_link_observed": "https://pay.hotmart.com/M105403138U?off=hcw84boh",
+      "purchase_link_visited": false
+    },
+    {
+      "observation_id": "ravi-caminho",
+      "account_ids": [
+        "lead-instagram-oravishen"
+      ],
+      "instagram_handles": [
+        "oravishen"
+      ],
+      "attribution_ref": "profile-to-mongeravi-20261024",
+      "name": "O Caminho de Volta à Tranquilidade",
+      "type": "ebook",
+      "formats": [
+        "PDF"
+      ],
+      "product_url": "https://mongeravi.com/",
+      "source_ids": [
+        "product-site-mongeravi-20261024"
+      ],
+      "price": {
+        "amount": 34.9,
+        "currency": "BRL",
+        "display_or_metadata_text": "R$34,90",
+        "kind": "seller_offer_price",
+        "basis": "Public storefront second ebook title/price; PDF delivery description"
+      },
+      "price_unknown_reason": null,
+      "reference_price": {
+        "amount": 89.9,
+        "currency": "BRL",
+        "kind": "seller_reference_or_strikethrough_price_not_a_transaction"
+      },
+      "availability": {
+        "state": "offered_not_transaction_tested",
+        "basis": "Public storefront second ebook title/price; PDF delivery description",
+        "purchase_completed": false
+      },
+      "seller_counters": [],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue.",
+        "Product health or wellbeing benefits and seller identity claims are not independently verified."
+      ]
+    },
+    {
+      "observation_id": "aris-21-rituals",
+      "account_ids": [
+        "lead-instagram-aristhestill"
+      ],
+      "instagram_handles": [
+        "aristhestill"
+      ],
+      "attribution_ref": "profile-to-aristhestill-20261024",
+      "name": "The 21 Sacred Rituals — The Complete Guide for Healing Your Home, Your Body, and Your Spirit",
+      "type": "digital_bundle",
+      "formats": [
+        "PDF",
+        "audiobook; audio file type unverified"
+      ],
+      "product_url": "https://www.aristhestill.com/",
+      "source_ids": [
+        "product-site-aristhestill-20261024"
+      ],
+      "price": null,
+      "price_unknown_reason": "No price was exposed in the fetched public product page; checkout was not visited.",
+      "reference_price": null,
+      "availability": {
+        "state": "offered_not_transaction_tested",
+        "basis": "Public product page states PDF Book + Audiobook, but exposes no price",
+        "purchase_completed": false
+      },
+      "seller_counters": [
+        {
+          "kind": "seller_audience_claim",
+          "value": 10200,
+          "comparator": "+",
+          "unit": "followers",
+          "audited": false
+        },
+        {
+          "kind": "seller_sample_video_view_claim",
+          "value": 200000,
+          "comparator": "+",
+          "unit": "views on a single ritual",
+          "audited": false
+        },
+        {
+          "kind": "seller_geography_claim",
+          "value": 60,
+          "comparator": "+",
+          "unit": "countries",
+          "audited": false
+        },
+        {
+          "kind": "seller_engagement_claim",
+          "value": 4200,
+          "comparator": "+",
+          "unit": "people saving one ritual",
+          "audited": false
+        }
+      ],
+      "paid_orders": null,
+      "revenue": null,
+      "revenue_status": "unverified",
+      "claim_limits": [
+        "Price, availability, audience, reviews, readers and seller counters do not prove purchases or revenue.",
+        "Product health or wellbeing benefits and seller identity claims are not independently verified."
+      ]
+    }
+  ],
+  "unretrieved_or_unavailable_routes": [
+    {
+      "account_id": "lead-instagram-tenzinremedios",
+      "url": "https://monjetenzin.com/products/calma",
+      "state": "content_not_retrieved",
+      "source_id": "product-site-monjetenzin-20261024",
+      "exact_observation": "crwl exit 1: NoneType has no fit_markdown. Diagnostic scrapy GET failed at TLS handshake (tls alert handshake failure); no HTTP response or product body was obtained.",
+      "price": null,
+      "revenue": null,
+      "next_action": "Retain the profile product route. A later client/provider TLS observation is required; current product price and availability remain unknown.",
+      "error_class": "tls_handshake_failure"
+    },
+    {
+      "account_id": "lead-instagram-monkcheen",
+      "url": "https://monkchen.com/products/the-way-back-to-stillness",
+      "state": "store_unavailable",
+      "source_id": "product-site-monkchen-20261024",
+      "short_evidence": "This store is unavailable",
+      "price": null,
+      "revenue": null,
+      "next_action": "Retain historical profile route; current product title, price and purchase availability remain unverified."
+    }
+  ],
+  "remaining_discovery_links": [
+    {
+      "instagram_handle": "elmaestrolin",
+      "url": "http://elmaestrolin.com/",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "elmonjekai",
+      "url": "http://linktr.ee/monjekai",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "kael.wisdom",
+      "url": "http://linktr.ee/masterkaelwellness",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "ken.lu.monk",
+      "url": "https://whop.com/joined/ken-lu-teachings/products/five-ancient-practices/",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "maestroananta",
+      "url": "https://go.hotmart.com/K104790777T",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "maestroyunkai",
+      "url": "https://amzn.to/3NHKLhi",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "maitre.chen",
+      "url": "https://apps.apple.com/fr/app/la-parole-du-ma%C3%AEtre-qi-gong/id6764258660?l=en-GB",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "maitreyun_",
+      "url": "https://beacons.ai/maitreyun",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "master.li.shen",
+      "url": "https://t.me/+3RlXkcw4jY8wZGUy",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "masterlianancient",
+      "url": "https://masterlian.gumroad.com/l/masterlian?utm_id=97760_v0_s00_e0_tv3_a1dennh96s2mcy",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "masterlinghao",
+      "url": "https://go.hotmart.com/T106736999M?dp=1",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "mestre.jin",
+      "url": "https://disciplinasilenciosa.lovable.app/?utm_id=97760_v0_s00_e0_tv3_a1dennh4ok9nms",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "ming_tao32",
+      "url": "https://linktw.in/DwUwNN",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "monacochenn",
+      "url": "https://monacochen.com/products/il-cammino-di-ritorno",
+      "reason": "Primary reports store unavailable; not refetched in this bounded product unit.",
+      "primary_reported_state": "store_unavailable"
+    },
+    {
+      "instagram_handle": "monge.bento",
+      "url": "https://manifestando.online/",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "monge.zhen",
+      "url": "https://mongezhen.lovable.app/?utm_id=97760_v0_s00_e0_tv3_a1denngys993y7",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "mongedapaz",
+      "url": "https://monge.doti.gg/ebook-organize-sua-vida",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "monjeananda",
+      "url": "https://amzn.to/40JvoaN",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "monjechang",
+      "url": "https://www.amazon.es/C%C3%B3mo-transformar-sufrimiento-felicidad-Ense%C3%B1anzas/dp/B0FJDNSFS4/",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "monjeshentao",
+      "url": "https://hooks.store/Shentao",
+      "reason": "Primary reports profile_not_found; not refetched in this bounded product unit.",
+      "primary_reported_state": "profile_not_found"
+    },
+    {
+      "instagram_handle": "noalingpo.conseils",
+      "url": "http://daalink.com/test-retrait",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "shentaoes",
+      "url": "https://linktr.ee/quieroquevuelvasati",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "shin_hyun_official",
+      "url": "https://openyt.in/s/20a8ea",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "tempiovita",
+      "url": "https://go.hotmart.com/K104790777T",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "yonchenhealing",
+      "url": "https://linktr.ee/yonchenhealing",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "zenmuun",
+      "url": "https://www.zenmuns.com/",
+      "reason": "Not fetched in this bounded 20-product unit; retains discovery link for follow-up."
+    },
+    {
+      "instagram_handle": "its.yang.chen",
+      "url": "https://www.chennatural.com/",
+      "reason": "Additional storefront offers (Pack Complet, Les Rituels du Tao, La Purification du Foie) retained for a later unit."
+    },
+    {
+      "instagram_handle": "oravishen",
+      "url": "https://mongeravi.com/",
+      "reason": "Additional bundle and ritual offer retained for a later unit."
+    }
+  ],
+  "validation": {
+    "json_parse": "pass",
+    "owned_repo_file_only": "/Users/anicca/Projects/anicca-products-worktrees/ai-monk-distribution-priority-20261024/docs/evidence/ai-monk-product-research-20261024.json",
+    "source_references_resolve": true,
+    "price_sales_separation": "All paid_orders and revenue fields are null; counters are explicitly seller claims.",
+    "public_effects": 0,
+    "focused_checks": [
+      "JSON parse",
+      "20 unique product observation IDs",
+      "All product source and attribution references resolve",
+      "All private evidence paths exist",
+      "All price currencies explicit",
+      "Orders and revenue unknown, never inferred from counters",
+      "Common secret marker scan: no hits"
+    ]
+  }
+}
