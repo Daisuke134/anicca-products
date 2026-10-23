@@ -1,14 +1,14 @@
 const { createClient } = require('@supabase/supabase-js');
 const { UUID, factoryError } = require('./monk-factory.js');
 
-const conflicts = new Set(['profile_capacity', 'profile_required', 'subscription_exists', 'occurrence_conflict', 'avatar_exists', 'billing_sync_conflict', 'instagram_required', 'social_mismatch']);
+const conflicts = new Set(['profile_capacity', 'profile_required', 'subscription_exists', 'occurrence_conflict', 'avatar_exists', 'billing_sync_conflict', 'instagram_required', 'social_mismatch', 'autopost_stopped']);
 async function checked(query) {
   const { data, error } = await query;
   if (error) {
     if (error.code === 'P0001') {
       if (conflicts.has(error.message)) throw factoryError(error.message, 409);
       if (['quota_exhausted', 'budget_exhausted'].includes(error.message)) throw factoryError(error.message, 429);
-      if (error.message === 'subscription_required') throw factoryError(error.message, 402);
+      if (['subscription_required', 'job_period_expired'].includes(error.message)) throw factoryError(error.message, 402);
     }
     throw factoryError('store_unavailable', 503);
   }
@@ -62,8 +62,9 @@ function createFactoryStore({ env = process.env, fetchImpl = fetch } = {}) {
     stop: id => checked(accounts().update({ auto_post: false }).eq('user_id', uid(id)).select('auto_post').maybeSingle()),
     jobs: id => checked(db.from('monk_factory_jobs').select('id,kind,status,stage,max_seconds,video_url,image_url,post_url,metrics,metrics_at,error_class,created_at').eq('user_id', uid(id)).order('created_at', { ascending: false }).limit(40)),
     enqueueEvent: row => checked(db.from('monk_factory_stripe_events').upsert(row, { onConflict: 'id', ignoreDuplicates: true })),
-    pendingEvents: () => checked(db.from('monk_factory_stripe_events').select('*').is('processed_at', null).order('created_at').limit(10)),
-    markEvent: id => checked(db.from('monk_factory_stripe_events').update({ processed_at: new Date().toISOString() }).eq('id', id)),
+    pendingEvents: () => checked(db.from('monk_factory_stripe_events').select('*').is('processed_at', null).lte('next_attempt_at', new Date().toISOString()).order('created_at').limit(10)),
+    markEvent: id => checked(db.from('monk_factory_stripe_events').update({ processed_at: new Date().toISOString(), error_class: null }).eq('id', id)),
+    deferEvent: (id, patch) => checked(db.from('monk_factory_stripe_events').update(patch).eq('id', id).is('processed_at', null)),
   };
 }
 

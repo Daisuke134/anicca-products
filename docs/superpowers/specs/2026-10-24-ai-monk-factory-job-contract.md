@@ -26,8 +26,8 @@ Stripe queueは既存pendingEvents/markEventとsyncFactoryBillingを使う。期
 
 POST action: `generate_avatar`/`generate_video`→202 `{jobId}`、`connect_instagram`→200 `{url}`、`autopost`→200 `{auto_post:true}`、既存`stop`→`{auto_post:false}`。GETは`{ready,account,jobs,usage}`。accountへavatar_ready/connected/social_checked_atを追加し、secret/customer/nonce/evidence/base64は出さない。usageはDBで公式periodからvideosRemaining/attemptsRemaining/maxSeconds/periodEnd/asOfを算出し、不明はnullにする。job公開列は既存最小列とmetrics_atのみ。
 
-tickは既存Netlify scheduleで1分、最大4job/40秒の短い処理とする。background関数は`monk-factory-image-background`。内部HMAC secret `MONK_FACTORY_JOB_SECRET`（最低32byte）と固定サイトoriginを使う。新scheduler/依存/Mac processは追加しない。readiness falseはprovider送信0。live配置・秘密設定・スケジュール配線・main統合・実受入はprimaryが所有する。
+tickは既存Netlify scheduleで1分、最大4work item/22秒の処理予算とする。公式scheduled上限30秒に対して全native fetch/DBを25秒の共通AbortSignalで打ち切り、Stripeの10秒timeoutは開始前12/15秒の余裕確認で囲む。POST fence前には11秒以上の残り時間を要求する。background関数は`monk-factory-image-background`（公式15分、画像timeout240秒、lease6分）。公式失敗retryがあってもfenceで再POSTしない。根拠: https://docs.netlify.com/build/functions/scheduled-functions/ 、https://docs.netlify.com/build/functions/background-functions/ 。内部HMAC secret `MONK_FACTORY_JOB_SECRET`（最低32byte）と固定origin `https://aniccaai.com`を使う。新scheduler/依存/Mac processは追加しない。readiness falseはprovider送信0。live配置・秘密設定・スケジュール配線・main統合・実受入はprimaryが所有する。
 
 ## 現在cursor
 
-契約specを先行pushする。次は既存DB fixtureへclaim/CAS/replay-zeroのRED、署名ticket/API本人帰属のREDを追加し、最小実装へ進む。
+source実装と関連RED→GREENを完了する。独立Postgres20件でquota/lease/CAS、OFF・取消との競合、unknown replay-zero、公式request ID回復、保存応答消失、profile帰属、期限切れCheckout/旧nonce、内部列非公開を確認する。実adapterと最小transport fixtureを通して実DB playbook→script→speech→render→publish→metrics、署名background画像→private blob→PhotoAvatarも確認する。Factory関連core42件がGREEN、DBは別runで20/20を確認する。provider raw body/JWT/base64の公開0。新migrationはCLI生成`20261023184014_monk_factory_jobs.sql`、元migration変更0。live条件はmain統合/DB反映/専用billing/keyとJOB_SECRET/Netlify schedule/private Blobs/実認証/本人IG接続/実画像・動画・投稿・metricsであり、今回のprovider通信・本番DB・課金・生成・投稿は0。

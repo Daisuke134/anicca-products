@@ -33,3 +33,10 @@ test('Generate binds occurrence to verified UID and readiness false reserves not
   const noKey = await factoryHandler({ ...event, headers: { authorization: 'Bearer fixture' } }, { env, store, fetchImpl: auth, providers: { readiness: () => ({ ready: true }) }, syncBilling: async () => account });
   assert.equal(noKey.statusCode, 400);
 });
+
+test('an exhausted scheduled tick cannot claim a job or begin a provider effect', async () => {
+  const { runFactoryTick } = require('../monk-factory-jobs.js');
+  const result = await runFactoryTick({ env, providers: { readiness: () => ({ ready: true }) }, budgetMs: 1,
+    store: { pendingEvents: async () => [], dueAccounts: async () => [], claimJob: () => assert.fail('deadline claimed another job') } });
+  assert.deepEqual(result, { processed: 0 });
+});

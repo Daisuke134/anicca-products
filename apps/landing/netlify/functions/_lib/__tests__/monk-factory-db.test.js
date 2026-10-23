@@ -330,3 +330,83 @@ test('signed duplicate background invocations create one private image and one v
   assert.equal((await store.job(reserved.id)).evidence.image_readback.provider_receipt_id, 'image12');
   assert.equal(JSON.stringify((await store.job(reserved.id)).evidence).includes('/9j/2Q=='), false);
 });
+
+test('a lost DB response after a successful script only reconciles the saved row', options, async () => {
+  const { advanceFactoryJob } = require('../monk-factory-jobs.js');
+  account(13);
+  sql('UPDATE monk_factory_accounts SET avatar_id=\'avatar13\' WHERE user_id=' + quoted(uid(13)));
+  const job = JSON.parse(sql(reserve(uid(13), 'lost-save-response')));
+  const store = jobStore(); const advance = store.advanceJob; let lost = false; let posts = 0;
+  store.advanceJob = async (row, patch, keep) => {
+    const saved = await advance(row, patch, keep);
+    if (patch.stage === 'script_ready' && !lost) { lost = true; throw Object.assign(new Error(), { code: 'store_unavailable' }); }
+    return saved;
+  };
+  await advanceFactoryJob({ job: claimJob(job.id), store, env: providerEnv, syncBilling: async () => store.account(uid(13)), loadPlaybooks: async () => [{ id: 'source13' }],
+    providers: { readiness: () => ({ ready: true }), createScript: async () => { posts++; return { id: 'script13', script: 'Pause.', caption: 'Pause.', sourceIds: ['source13'] }; } } });
+  assert.equal(posts, 1);
+  assert.equal((await store.job(job.id)).stage, 'script_ready');
+  assert.equal((await store.job(job.id)).script_receipt_id, 'script13');
+});
+
+test('a timed-out Instagram upload recovers by its official request ID without another upload', options, async () => {
+  const { advanceFactoryJob } = require('../monk-factory-jobs.js');
+  account(14);
+  sql('UPDATE monk_factory_accounts SET avatar_id=\'avatar14\',auto_post=true,social_profile=\'factory_' + uid(14) + '\',instagram_account_id=\'opaque14\',connected_at=now(),social_checked_at=now() WHERE user_id=' + quoted(uid(14)));
+  const job = JSON.parse(sql(reserve(uid(14), 'post-timeout')));
+  sql('UPDATE monk_factory_jobs SET stage=\'post_ready\',video_url=\'https://fixture.example/video.mp4\',caption=\'Fictional AI-generated monk. Pause.\' WHERE id=' + quoted(job.id));
+  let uploads = 0; let reads = 0;
+  const store = jobStore();
+  const providers = { readiness: () => ({ ready: true }), socialState: async () => ({ profile: 'factory_' + uid(14), connected: true, accountId: 'opaque14', handle: 'fixture14', reauthRequired: false }),
+    publishInstagram: async () => { uploads++; throw Object.assign(new Error(), { code: 'provider_effect_unknown', effect: 'unknown' }); },
+    postStatus: async id => { reads++; assert.equal(id, job.id + ':post_submitting'); return { id, status: 'completed', postId: 'native14', postUrl: 'https://www.instagram.com/reel/fixture14/', profile: 'factory_' + uid(14) }; },
+    metrics: async () => ({ profile: 'factory_' + uid(14), postId: 'native14', source: 'platform_api', metrics: { views: 19 } }) };
+  for (const expected of ['post_submitting','post_pending','published','published']) {
+    await advanceFactoryJob({ job: nextClaim(job.id), store, providers, env: providerEnv, syncBilling: async () => store.account(uid(14)) });
+    assert.equal((await store.job(job.id)).stage, expected);
+  }
+  assert.equal(uploads, 1); assert.equal(reads, 1);
+  assert.equal((await store.job(job.id)).status, 'completed');
+});
+
+test('expired Checkout receipts release only unused matching slots and persist failed readback diagnostics', options, async () => {
+  const { processFactoryEvents } = require('../monk-factory-jobs.js');
+  const store = jobStore();
+  for (const n of [15,16,17,18]) {
+    sql('UPDATE monk_factory_accounts SET checkout_nonce=' + quoted(uid(n)) + ',checkout_created_at=now()-interval \'1 day\',checkout_session_id=NULL,trial_used=' + (n===16) + ' WHERE user_id=' + quoted(uid(n)));
+    sql('INSERT INTO monk_factory_stripe_events(id,user_id,event_type,stripe_object_id) VALUES(' + ["evt_queue"+n,uid(n),'checkout.session.expired','cs_expired'+n].map(quoted).join(',') + ')');
+  }
+  store.pendingEvents = async () => JSON.parse(sql("SELECT coalesce(jsonb_agg(e),'[]') FROM monk_factory_stripe_events e WHERE id LIKE 'evt_queue%' AND processed_at IS NULL AND next_attempt_at<=now()"));
+  store.markEvent = async id => sql('UPDATE monk_factory_stripe_events SET processed_at=now() WHERE id=' + quoted(id));
+  store.deferEvent = async (id, patch) => sql('UPDATE monk_factory_stripe_events SET error_class=' + quoted(patch.error_class) + ',evidence=' + quoted(JSON.stringify(patch.evidence)) + '::jsonb,next_attempt_at=' + quoted(patch.next_attempt_at) + ' WHERE id=' + quoted(id));
+  store.saveCheckout = async (id, nonce, session) => sql('UPDATE monk_factory_accounts SET checkout_session_id=' + quoted(session) + ' WHERE user_id=' + quoted(id) + ' AND checkout_nonce=' + quoted(nonce));
+  store.releaseUnusedProfile = async (id, nonce) => sql('UPDATE monk_factory_accounts SET profile_reserved_at=NULL WHERE user_id=' + quoted(id) + ' AND checkout_nonce=' + quoted(nonce) + ' AND NOT trial_used AND social_profile IS NULL AND social_submit_started_at IS NULL AND stripe_subscription_id IS NULL');
+  const stripe = { checkout: { sessions: { retrieve: async id => {
+    const n = Number(id.slice('cs_expired'.length));
+    if (n===18) throw Object.assign(new Error(), { code: 'billing_unavailable' });
+    return { id, livemode: false, mode: 'subscription', status: 'expired', subscription: null, client_reference_id: uid(n), metadata: { product: 'ai_monk_factory', user_id: uid(n), checkout_nonce: uid(n===17 ? 1 : n) } };
+  } } } };
+  for (let n=0;n<4;n++) await processFactoryEvents({ store, stripe, env: { MONK_FACTORY_STRIPE_LIVE: 'false' } });
+  assert.equal((await store.account(uid(15))).profile_reserved_at, null);
+  assert.equal((await store.account(uid(15))).checkout_session_id, 'cs_expired15');
+  assert.ok((await store.account(uid(16))).profile_reserved_at);
+  assert.ok((await store.account(uid(17))).profile_reserved_at);
+  assert.equal(sql("SELECT count(*) FROM monk_factory_stripe_events WHERE id LIKE 'evt_queue%' AND processed_at IS NOT NULL"), '3');
+  assert.equal(sql("SELECT error_class FROM monk_factory_stripe_events WHERE id='evt_queue18'"), 'billing_unavailable');
+  assert.equal(JSON.parse(sql("SELECT evidence FROM monk_factory_stripe_events WHERE id='evt_queue18'")).stripe_reconcile.next_action, 'official_stripe_get');
+});
+
+test('the atomic POST fence rejects OFF or cancellation after a worker read its account', options, () => {
+  for (const n of [19,20]) account(n);
+  sql('UPDATE monk_factory_accounts SET auto_post=true WHERE user_id=' + quoted(uid(19)));
+  const auto = JSON.parse(sql(reserve(uid(19), 'off-race')));
+  sql('UPDATE monk_factory_jobs SET origin=\'auto\' WHERE id=' + quoted(auto.id));
+  const autoLease = claimJob(auto.id);
+  sql('UPDATE monk_factory_accounts SET auto_post=false WHERE user_id=' + quoted(uid(19)));
+  const fence = job => 'SET ROLE service_role; SELECT monk_factory_advance_job(' + [job.id,job.lease_id,'reserved',JSON.stringify({ stage: 'script_submitting', status: 'effect_unknown' })].map(quoted).join(',') + '::jsonb,true)';
+  assert.throws(() => sql(fence(autoLease)), /autopost_stopped/);
+  const manual = JSON.parse(sql(reserve(uid(20), 'cancel-race')));
+  const manualLease = claimJob(manual.id);
+  sql('UPDATE monk_factory_accounts SET cancel_at_period_end=true WHERE user_id=' + quoted(uid(20)));
+  assert.throws(() => sql(fence(manualLease)), /subscription_required/);
+});

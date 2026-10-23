@@ -22,6 +22,10 @@ ALTER TABLE public.monk_factory_jobs
   ADD COLUMN post_provider_id text,
   ADD COLUMN post_id text,
   ADD COLUMN metrics_at timestamptz;
+ALTER TABLE public.monk_factory_stripe_events
+  ADD COLUMN next_attempt_at timestamptz NOT NULL DEFAULT now(),
+  ADD COLUMN error_class text,
+  ADD COLUMN evidence jsonb NOT NULL DEFAULT '{}'::jsonb;
 
 -- RLS ownership alone does not make internal receipt/nonce columns public.
 REVOKE SELECT ON public.monk_factory_accounts, public.monk_factory_jobs FROM authenticated;
@@ -63,8 +67,12 @@ END; $$;
 
 CREATE FUNCTION public.monk_factory_advance_job(p_job_id uuid,p_lease_id uuid,p_stage text,p_patch jsonb,p_keep_lease boolean)
 RETURNS jsonb LANGUAGE plpgsql SECURITY INVOKER SET search_path=public,pg_temp AS $$
-DECLARE job public.monk_factory_jobs; next_stage text; allowed text[];
+DECLARE job public.monk_factory_jobs; account public.monk_factory_accounts; next_stage text; allowed text[]; quota_period text; trial boolean;
 BEGIN
+  -- Use the same account -> job lock order as quota and daily scheduling.
+  SELECT * INTO job FROM public.monk_factory_jobs WHERE id=p_job_id;
+  IF NOT FOUND THEN RETURN NULL; END IF;
+  SELECT * INTO account FROM public.monk_factory_accounts WHERE user_id=job.user_id FOR UPDATE;
   SELECT * INTO job FROM public.monk_factory_jobs WHERE id=p_job_id AND lease_id=p_lease_id
     AND lease_until>now() AND stage=p_stage FOR UPDATE;
   IF NOT FOUND THEN RETURN NULL; END IF;
@@ -93,6 +101,20 @@ BEGIN
   END IF;
   IF next_stage LIKE '%\_submitting' ESCAPE '\' AND p_patch->>'status' IS DISTINCT FROM 'effect_unknown' THEN
     RAISE EXCEPTION 'invalid_job_transition';
+  END IF;
+  IF next_stage<>job.stage AND next_stage LIKE '%\_submitting' ESCAPE '\' THEN
+    IF (job.origin='auto' OR next_stage='post_submitting') AND NOT account.auto_post THEN RAISE EXCEPTION 'autopost_stopped'; END IF;
+    trial:=account.subscription_status='trialing';
+    IF account.stripe_subscription_id IS NULL OR account.cancel_at_period_end OR account.billing_paused OR (
+      (trial AND now()>=account.trial_start AND now()<account.trial_end) OR
+      (account.subscription_status='active' AND account.period_paid AND now()>=account.period_start AND now()<account.period_end)
+      ) IS NOT TRUE THEN RAISE EXCEPTION 'subscription_required'; END IF;
+    quota_period:=CASE WHEN trial THEN 'trial:'||account.stripe_subscription_id ELSE 'paid:'||account.stripe_subscription_id||':'||extract(epoch FROM account.period_start)::text END;
+    IF next_stage<>'post_submitting' AND job.period_key<>quota_period THEN RAISE EXCEPTION 'job_period_expired'; END IF;
+    IF (job.origin='auto' OR next_stage='post_submitting') AND
+      (account.instagram_account_id IS NULL OR account.connected_at IS NULL OR account.social_checked_at IS NULL OR account.social_checked_at<now()-interval '1 minute') THEN
+      RAISE EXCEPTION 'instagram_required';
+    END IF;
   END IF;
   UPDATE public.monk_factory_jobs SET
     status=coalesce(p_patch->>'status',status),stage=next_stage,
@@ -133,6 +155,9 @@ BEGIN
     next_post_at=CASE WHEN auto_post THEN coalesce(next_post_at,now()) ELSE now() END
     WHERE user_id=p_user_id AND avatar_id IS NOT NULL AND instagram_account_id IS NOT NULL
       AND connected_at IS NOT NULL AND social_checked_at>now()-interval '1 minute'
+      AND stripe_subscription_id IS NOT NULL AND NOT cancel_at_period_end AND NOT billing_paused
+      AND ((subscription_status='trialing' AND now()>=trial_start AND now()<trial_end)
+        OR (subscription_status='active' AND period_paid AND now()>=period_start AND now()<period_end))
     RETURNING * INTO account;
   IF NOT FOUND THEN RAISE EXCEPTION 'instagram_required'; END IF;
   RETURN jsonb_build_object('auto_post',account.auto_post);

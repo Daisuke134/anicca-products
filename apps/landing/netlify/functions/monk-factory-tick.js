@@ -5,7 +5,7 @@ const { runFactoryTick, createPrivateImages } = require('./_lib/monk-factory-job
 
 async function factoryTickHandler(event, dependencies = {}) {
   const env = dependencies.env || process.env;
-  const deadline = AbortSignal.timeout(40000);
+  const deadline = AbortSignal.timeout(25000);
   const transport = dependencies.fetchImpl || fetch;
   const fetchImpl = (address, options = {}) => transport(address, { ...options, signal: options.signal ? AbortSignal.any([options.signal, deadline]) : deadline });
   try {

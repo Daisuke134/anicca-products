@@ -54,11 +54,14 @@ async function persist(store, job, patch, keep = false) {
     try {
       const saved = await store.advanceJob(job, patch, keep);
       if (saved) return saved;
-    } catch (error) { if (n && !store.job) throw error; }
+    } catch (error) {
+      if ([402,409,422].includes(error.status) || (n && !store.job)) throw error;
+    }
     if (store.job) {
       const saved = await store.job(job.id).catch(() => null);
       const keys = Object.keys(patch).filter(key => key !== 'evidence' && key !== 'error_class' && key !== 'next_run_at');
-      if (saved?.user_id === job.user_id && keys.every(key => JSON.stringify(saved[key]) === JSON.stringify(patch[key]))) return saved;
+      if (saved?.user_id === job.user_id && (!keep || (saved.lease_id === job.lease_id && Date.parse(saved.lease_until) > Date.now()))
+        && keys.every(key => JSON.stringify(saved[key]) === JSON.stringify(patch[key]))) return saved;
     }
   }
   throw factoryError('job_lease_lost', 409);
@@ -128,6 +131,7 @@ async function advanceFactoryJob(options) {
   }
   async function submit(stage, method, input, resultPatch, extra = {}) {
     await allowed(stage === 'post_submitting');
+    if (Date.now() + 11000 >= deadline) throw factoryError('tick_deadline', 503);
     await save({ ...extra, stage, status: 'effect_unknown', evidence: evidence(job, stage, env, { effect: 'unknown', nextAction: 'official_readback' }) }, true);
     if (Date.now() >= deadline) throw factoryError('tick_deadline', 503);
     const result = await providers[method]({ ...input, requestId: job.id + ':' + stage });
@@ -256,10 +260,14 @@ async function processFactoryEvents({ store, stripe, env, deadline = Infinity })
       if (!account) throw factoryError('billing_mismatch', 503);
       if (event.event_type === 'checkout.session.expired') {
         const session = await stripe.checkout.sessions.retrieve(event.stripe_object_id);
-        if (session.id !== event.stripe_object_id || session.livemode !== factoryLiveMode(env) || session.status !== 'expired' || session.subscription
+        if (session.id !== event.stripe_object_id || session.livemode !== factoryLiveMode(env) || session.mode !== 'subscription' || session.status !== 'expired' || session.subscription
           || session.client_reference_id !== event.user_id || session.metadata?.product !== FACTORY_PRODUCT || session.metadata.user_id !== event.user_id
-          || session.metadata.checkout_nonce !== account.checkout_nonce || session.id !== account.checkout_session_id) throw factoryError('billing_mismatch', 503);
-        await store.releaseUnusedProfile(event.user_id, account.checkout_nonce);
+          || !UUID.test(session.metadata.checkout_nonce || '')) throw factoryError('billing_mismatch', 503);
+        if (session.metadata.checkout_nonce === account.checkout_nonce) {
+          if (account.checkout_session_id && session.id !== account.checkout_session_id) throw factoryError('billing_mismatch', 503);
+          if (!account.checkout_session_id) await store.saveCheckout(event.user_id, account.checkout_nonce, session.id);
+          await store.releaseUnusedProfile(event.user_id, account.checkout_nonce);
+        }
       } else if (account.stripe_subscription_id && event.stripe_subscription_id !== account.stripe_subscription_id
         && !['none','canceled','incomplete_expired'].includes(account.subscription_status)) {
         const old = await stripe.subscriptions.retrieve(event.stripe_subscription_id);
@@ -268,14 +276,18 @@ async function processFactoryEvents({ store, stripe, env, deadline = Infinity })
           || (typeof old.customer === 'string' ? old.customer : old.customer?.id) !== account.stripe_customer_id) throw factoryError('billing_mismatch', 503);
       } else await syncFactoryBilling({ userId: event.user_id, subscriptionId: event.stripe_subscription_id, store, stripe, env });
       await store.markEvent(event.id);
-    } catch { /* The durable receipt stays pending for official reconciliation. */ }
+    } catch (error) {
+      await store.deferEvent(event.id, { error_class: codeOf(error), next_attempt_at: after(60000),
+        evidence: evidence({ lease_id: event.id, user_id: event.user_id, occurrence_id: event.id }, 'stripe_reconcile', env,
+          { receipt: event.stripe_object_id, error: codeOf(error), retryable: true, nextAction: 'official_stripe_get' }) }).catch(() => {});
+    }
     count++;
   }
   return count;
 }
 
-async function runFactoryTick({ store, providers, stripe, env, images, fetchImpl = fetch, syncBilling = syncFactoryBilling, maxItems = 4, budgetMs = 40000 }) {
-  const deadline = Date.now() + Math.min(budgetMs, 40000);
+async function runFactoryTick({ store, providers, stripe, env, images, fetchImpl = fetch, syncBilling = syncFactoryBilling, maxItems = 4, budgetMs = 22000 }) {
+  const deadline = Date.now() + Math.min(budgetMs, 22000);
   let count = await processFactoryEvents({ store, stripe, env, deadline });
   if (env.MONK_FACTORY_ENABLED !== 'true' || !jobRuntimeReady(env) || (await providers.readiness()).ready !== true) return { processed: count };
   for (const row of await store.dueAccounts()) {
