@@ -1,0 +1,90 @@
+{
+  "schema_version": "anicca.ai-monk-plugin-public-install.v1",
+  "run_id": "ai-monk-plugin-public-final-20261024",
+  "owner_id": "root",
+  "occurrence_id": "public-main-sha-sparse-install",
+  "release_sha": "0e1778d2d64b6f345526aa3b74476773e7aea2ee",
+  "observed_at": "2026-10-23T15:23:51Z",
+  "loaded_argv": [
+    "codex",
+    "plugin",
+    "marketplace",
+    "add",
+    "Daisuke134/anicca-products",
+    "--ref",
+    "0e1778d2d64b6f345526aa3b74476773e7aea2ee",
+    "--sparse",
+    ".agents/plugins",
+    "--sparse",
+    "packages/ai-monk-plugin"
+  ],
+  "loaded_env": {
+    "isolated_CODEX_HOME": true,
+    "git_credential_helper_disabled": true,
+    "auth_file_present": false,
+    "model_provider_flags": 0
+  },
+  "phase": "public_repository_marketplace_install",
+  "command": "marketplace add, available, plugin add, installed, mcp list",
+  "exit_code": 0,
+  "effect": {
+    "social_publications": 0,
+    "video_generation": 0,
+    "shared_configuration_changes": 0
+  },
+  "readback": {
+    "steps": {
+      "marketplace_add": 0,
+      "available": 0,
+      "plugin_install": 0,
+      "installed": 0,
+      "mcp_load": 0
+    },
+    "plugin_version": "0.1.1",
+    "mcp_enabled": true,
+    "mcp_count": 1,
+    "payload_sha256": {
+      "plugin.json": "2f0a3c60827db12599d85fe15c5b1bc37457012995385d549cc05eaf9a0f962b",
+      "mcp.json": "ebd167f7e98b8d604e5326b603f0c3f23eea7d699042e4afcfafc28ef73720b0",
+      "assets/icon.png": "8e0fd36eb74d4bb5749e8f049cace51db6823bf8923933f37421cde896ba5ca3"
+    },
+    "installed": true,
+    "enabled": true,
+    "source_git_sha": "0e1778d2d64b6f345526aa3b74476773e7aea2ee",
+    "sparse_paths": [
+      ".agents/plugins",
+      "packages/ai-monk-plugin"
+    ]
+  },
+  "provider_receipt_id": "GitHub PR611 merge and Netlify workflow39977780297",
+  "evidence_refs": [
+    "marketplace_add.json",
+    "available.json",
+    "plugin_install.json",
+    "installed.json",
+    "mcp_load.json"
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "official directory authentication and separate supported monetization route",
+  "public_support": {
+    "url": "https://aniccaai.com/ai-monk-database/support",
+    "readback_method": "crwl crawl markdown-fit",
+    "dual_sparse_command_present": true,
+    "remote_mcp_url_present": true
+  },
+  "public_database": {
+    "url": "https://aniccaai.com/ai-monk-database",
+    "readback_method": "crwl crawl markdown-fit",
+    "profiles": 73
+  },
+  "deployment": {
+    "pr": 611,
+    "main_sha": "0e1778d2d64b6f345526aa3b74476773e7aea2ee",
+    "landing_ci": 39976934630,
+    "landing_ci_conclusion": "success",
+    "netlify_run": 39977780297,
+    "netlify_conclusion": "success"
+  },
+  "initial_red_reference": "ai-monk-plugin-public-install-20261024.json"
+}

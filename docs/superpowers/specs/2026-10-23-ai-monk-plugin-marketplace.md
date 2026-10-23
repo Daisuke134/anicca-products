@@ -2,7 +2,7 @@
 
 ## 目的・範囲・完了条件
 
-既存portable plugin v0.1.1を、公開repoのcatalogからCodexへ直接installできるようにする。catalog・README・supportの実装はPR609でmain統合する。現在はfield-guide、本spec/plan、sanitized native受入証拠の4docs filesだけを更新する。catalog、payload、CLI/package/release、Factory runtime、認証、日次投稿、loopには触れない。
+既存portable plugin v0.1.1を、公開repoのcatalogからCodexへ直接installできるようにする。catalog・README・supportの実装はPR609でmain統合する。現在はfield-guide、本spec/plan、sanitized受入証拠を更新する。catalog、payload、CLI/package/release、Factory runtime、認証、日次投稿、loopには触れない。
 
 source受入はcatalog JSONの読込、隔離した空の`CODEX_HOME`でのmarketplace追加→plugin追加→installed/enabled→MCP設定読込、README/supportの同じ導入コマンドとFactoryリンク、対象pageの既存検証、payload不変の照合とする。source/config loadだけから公開再install・native routing・公式directory掲載の完了を導かず、それぞれの実receiptを分ける。現在のdocs受入は優先順・Factory完成形・販売条件と受入証拠の整合、docs限定diff、commit/push/remote SHA一致とPRで判定する。main統合はprimaryが所有する。
 
@@ -18,9 +18,9 @@ source受入はcatalog JSONの読込、隔離した空の`CODEX_HOME`でのmarke
 
 Database→CLI→pluginの配布・販売を先行し、Factory完成形の実装は後回しにする。全体scope、旧順序→新順序と理由の正本 → `2026-10-21-ai-monk-avatar-field-guide.md`「現在scopeと優先順」。repo配布はpublisher portalのOpenAI MFA境界と独立して進める。公開draft/local planを利用者のTikTok接続・自動制作投稿SaaSの完成と扱わず、進行中の認証や既存外部effectは操作・中断しない。
 
-現在cursorはPR611の公開案内反映→公開CLIとmain追加研究tool/新snapshotの配布整合確認→販売経路の具体化。PR609のmain統合/Landing CI、公開main `0675d5e0a7c3d6a0e5a9caf19f7363256525e894`固定の2path sparse再install、実native routingの5positive/3negative受入は完了する。旧payload/ZIPと当時の3tool受入は保持する。source証拠 → `../../evidence/ai-monk-plugin-marketplace-source-20261023.json`、native証拠 → `../../evidence/ai-monk-plugin-native-routing-20261024.json`。公開sparse証拠は[PR611のcompact receipt](https://github.com/Daisuke134/anicca-products/blob/7879d75abc457bb39217fe28ea72610e629743b5/docs/evidence/ai-monk-plugin-public-install-20261024.json)を参照する。残TODO正本 → `../plans/2026-10-23-ai-monk-plugin-marketplace.md`。
+現在cursorは公開CLIとmain追加研究tool/新snapshotの配布整合確認→販売経路の具体化。PR611はmain 0e1778d2d64b6f345526aa3b74476773e7aea2eeへ統合し、Landing CI39976934630/Netlify39977780297はSUCCESS。同SHAの空home公開install5段階・clone HEAD・payload3hash一致と公開supportの2pathコマンド、Database73件をreadbackする。最終証拠 → `../../evidence/ai-monk-plugin-public-final-20261024.json`。PR609のmain統合/Landing CI、公開main `0675d5e0a7c3d6a0e5a9caf19f7363256525e894`固定の2path sparse再install、実native routingの5positive/3negative受入は完了する。旧payload/ZIPと当時の3tool受入は保持する。source証拠 → `../../evidence/ai-monk-plugin-marketplace-source-20261023.json`、native証拠 → `../../evidence/ai-monk-plugin-native-routing-20261024.json`。公開sparse証拠は[PR611のcompact receipt](https://github.com/Daisuke134/anicca-products/blob/7879d75abc457bb39217fe28ea72610e629743b5/docs/evidence/ai-monk-plugin-public-install-20261024.json)を参照する。残TODO正本 → `../plans/2026-10-23-ai-monk-plugin-marketplace.md`。
 
-公開Git sourceではpayloadだけの`--sparse packages/ai-monk-plugin`がcatalogを取得せず、marketplace追加はmissing manifest/exit1になる。catalogのあるlocal rootを使ったsource probeではこの取得境界を検出できない。2path指定の公開SHA probeは5段階すべてexit0、payload3hash一致、auth file0/model flags0でGREENとなる。README/support修正のPR611と、その統合後の最終SHA再install/Netlifyはpendingとしてruntime受入と分ける。local成功を公開install成功へ換算しない。
+公開Git sourceではpayloadだけの`--sparse packages/ai-monk-plugin`がcatalogを取得せず、marketplace追加はmissing manifest/exit1になる。catalogのあるlocal rootを使ったsource probeではこの取得境界を検出できない。2path指定の公開SHA probeは5段階すべてexit0、payload3hash一致、auth file0/model flags0でGREENとなる。README/support修正のPR611はmain/Netlify反映と最終SHA再installを完了する。案内sourceの反映とruntime受入は別の証拠に記録する。local成功を公開install成功へ換算しない。
 
 ## 販売条件
 

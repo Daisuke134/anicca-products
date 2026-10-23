@@ -209,7 +209,7 @@ Daisの明示するFactoryの完成形は、利用者が自分のTikTokを接続
 
 ## 現在cursor
 
-PR609はmain `0675d5e0a7c3d6a0e5a9caf19f7363256525e894`へ統合し、Landing CI39975581104はSUCCESS。既存portable v0.1.1のnative自然言語routingは、2 finite runsの実7MCP callsで5positive/3negativeを受入する。初回のrevenue検索は最終文章だけを根拠にせず、別のfresh runの`sort=revenue`実呼出で補完する。証拠 → `docs/evidence/ai-monk-plugin-native-routing-20261024.json`。公開Gitの初回sparse取得はcatalog欠落/exit1、2path指定へ直した同main固定の再導入は5段階すべてexit0/payload3hash一致でGREENとなる。runtime受入と区別し、案内sourceを直すPR611と最終SHA/Netlify反映はpending。現在cursorはPR611の公開案内反映→公開CLI v0.4.2とmain追加研究tool/新snapshotの配布整合確認→販売条件に合う経路の具体化。残TODO正本 → `docs/superpowers/plans/2026-10-23-ai-monk-plugin-marketplace.md`。
+PR609はmain `0675d5e0a7c3d6a0e5a9caf19f7363256525e894`へ統合し、Landing CI39975581104はSUCCESS。既存portable v0.1.1のnative自然言語routingは、2 finite runsの実7MCP callsで5positive/3negativeを受入する。初回のrevenue検索は最終文章だけを根拠にせず、別のfresh runの`sort=revenue`実呼出で補完する。証拠 → `docs/evidence/ai-monk-plugin-native-routing-20261024.json`。公開Gitの初回sparse取得はcatalog欠落/exit1、2path指定へ直した同main固定の再導入は5段階すべてexit0/payload3hash一致でGREENとなる。PR611はmain 0e1778d2d64b6f345526aa3b74476773e7aea2eeへ統合し、Landing CI39976934630/Netlify39977780297はSUCCESS。同SHAの空home公開install5段階・clone HEAD・payload3hash一致と公開supportの2pathコマンド、Database73件をreadbackする。最終証拠 → `docs/evidence/ai-monk-plugin-public-final-20261024.json`。現在cursorは公開CLIとmain追加研究tool/新snapshotの配布整合確認→販売条件に合う経路の具体化。残TODO正本 → `docs/superpowers/plans/2026-10-23-ai-monk-plugin-marketplace.md`。
 
 公式directoryのportalは、live persistent contextでGoogle SSO通過後のOpenAI MFA passkeyが最後の観測であり、native plugin受入と分ける。identity/権限/実walkthrough/審査提出・公式directory掲載、Museの具体service URL同定は未達を保持する。
 
