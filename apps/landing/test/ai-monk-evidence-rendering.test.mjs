@@ -35,20 +35,24 @@ test('audience cards disclose rounding and link the exact observation source', (
   assert.match(html, /2026-10-22/);
 });
 
-test('the visible directory and its count exclude illustrations and unreviewed leads', () => {
+test('the visible research directory includes labelled candidates and excludes illustrations and missing scopes', () => {
   const html = renderToStaticMarkup(React.createElement(Directory, {
     accounts: [
       { id: 'yang-mun', display_name: 'Yang Mun', persona_type: 'AI monk avatar', ai_status: 'reported', directory_scope: { status: 'included', source_ids: ['fixture-evidence'] } },
       { id: 'kai-tsukimi', display_name: 'Kai Tsukimi', persona_type: 'Illustrated storyteller', ai_status: 'unverified', directory_scope: { status: 'excluded', reason: 'Illustration' } },
       { id: 'buddha-would-say', display_name: 'Buddha Would Say', persona_type: 'Illustrated monk', ai_status: 'unverified', directory_scope: { status: 'excluded', reason: 'Illustration' } },
-      { id: 'pending', display_name: 'Pending candidate', directory_scope: { status: 'pending' } },
+      { id: 'pending', display_name: 'Pending candidate', directory_scope: { status: 'pending', reason: 'An account-attributed video example has not been verified.' } },
       { id: 'missing-scope', display_name: 'Unreviewed candidate' },
     ], sourceCount: 0, updatedAt: '2026-10-23',
   }));
-  assert.match(html, /AI monk video avatars/);
-  assert.equal((html.match(/<article /g) ?? []).length, 1);
-  assert.doesNotMatch(html, /Kai Tsukimi|Buddha Would Say|Pending candidate|Unreviewed candidate/);
-  assert.match(html, /<strong[^>]*>1<\/strong> profiles/);
+  assert.equal((html.match(/<article /g) ?? []).length, 2);
+  assert.doesNotMatch(html, /Kai Tsukimi|Buddha Would Say|Unreviewed candidate/);
+  assert.match(html, /<strong[^>]*>2<\/strong> profiles/);
+  assert.match(html, /1 evidence-reviewed/);
+  assert.match(html, /1 pending/);
+  const pendingCard = html.match(/<article id="pending"[\s\S]*?<\/article>/)?.[0] ?? '';
+  assert.match(pendingCard, /Candidate · video and production evidence under review/);
+  assert.match(pendingCard, /<details[\s\S]*An account-attributed video example has not been verified\./);
 });
 
 

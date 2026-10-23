@@ -7,7 +7,7 @@ import type { AiMonkAccount } from '@/lib/ai-monk-directory.mjs';
 export const metadata = {
   title: 'AI Monk Database | Anicca',
   description:
-    'Find realistic AI monk video avatars like Yang Mun. Compare followers, video views, products, and reported revenue, with dates and sources.',
+    'Explore monk profiles and research candidates, including evidence-reviewed video avatars like Yang Mun. Compare followers, sampled video views, products, and reported revenue, with dates and sources.',
   openGraph: { title: 'AI Monk Database', images: ['https://aniccaai.com/assets/ai-monk-profiles/yang-mun-youtube.jpg'] },
   twitter: { card: 'summary_large_image', title: 'AI Monk Database', images: ['https://aniccaai.com/assets/ai-monk-profiles/yang-mun-youtube.jpg'] },
   alternates: { canonical: 'https://aniccaai.com/ai-monk-database' },

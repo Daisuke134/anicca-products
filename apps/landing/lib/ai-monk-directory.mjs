@@ -31,7 +31,7 @@ function matchesKnownOrUnknown(values, filter) {
 }
 
 export function getAiMonkAvatarAccounts(accounts) {
-  return accounts.filter(account => account.directory_scope?.status === 'included');
+  return accounts.filter(account => account.directory_scope?.status === 'included' || account.directory_scope?.status === 'pending');
 }
 
 export function filterAiMonkAccounts(accounts, filters = {}) {
