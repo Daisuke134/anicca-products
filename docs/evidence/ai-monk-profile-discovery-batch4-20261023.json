@@ -1335,5 +1335,9 @@
     },
     "outside_target_profiles_not_researched_in_this_batch": 48,
     "production_published_by_this_batch": false
+  },
+  "subsequent_visible_ui_evidence": {
+    "path": "docs/evidence/ai-monk-profile-visible-ui-20261023.json",
+    "note": "このfileは先行commit5ca626f時点の10handle公開検索/crosslink調査snapshot。後続の通常公開UI経路による画像inventoryは参照先とprofiles.jsonを正本とする。"
   }
 }
