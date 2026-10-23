@@ -6,7 +6,7 @@
   "destination": "https://aniccaai.com/the-art-of-ai-monks/ja?utm_source=x&utm_medium=social&utm_campaign=art_of_ai_monks_book_launch_ja",
   "content": "AI僧侶アバターは、どう商品を売っているのか。\n\nYang Munを入口に調べた日本語の本を公開しました。\n\n『ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線』\n原稿全文は無料。PDF・EPUBは$9.99。\n\n@shalevhvs に敬意を。\n\nhttps://aniccaai.com/the-art-of-ai-monks/ja?utm_source=x&utm_medium=social&utm_campaign=art_of_ai_monks_book_launch_ja",
   "content_sha256": "ebc7ef060083836b0c547ba3383dd1590e32fce0513e7746c0a220e6ec8e953b",
-  "state": "prepared_not_dispatched",
+  "state": "published_content_transformed_link_missing",
   "conservative_x_weighted_upper_bound": 273,
   "verification": "Live Japanese sales page title/free manuscript/PDF-EPUB/USD9.99; official Postiz active x/selawmqt integration; queried72 posts and matched0 Japanese book notices; local JA publication fence absent",
   "reference": "https://www.yang-mun.com/pages/journey",
@@ -25,7 +25,13 @@
     "profit": null
   },
   "prepared_at": "2026-10-23T07:59:14.446898+00:00",
-  "provider_writes": 0,
-  "post_id": null,
-  "release_url": null
+  "provider_writes": 1,
+  "post_id": "cmvkoqikc2huxlh0yjbzwnayu",
+  "release_url": "https://twitter.com/selawmqt/status/2113542427495841883",
+  "destination_preserved": false,
+  "independent_copy_review": {
+    "findings": 0,
+    "scope": "Live title/free manuscript/formats/price/hash/weighted length/creator identity",
+    "x_handle_current_readback": false
+  }
 }
