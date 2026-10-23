@@ -15,7 +15,7 @@
     "pdf": "the-art-of-ai-monks-en.pdf",
     "epub": "the-art-of-ai-monks-en.epub"
   },
-  "word_count": 10913,
+  "word_count": 12947,
   "chapters": [
     "The Monk in the Feed",
     "What Counts as an AI Monk?",
@@ -28,7 +28,7 @@
     "Faith, Disclosure, and Health Claims",
     "Build a Different Character"
   ],
-  "pages": 59,
-  "manuscript_sha256": "b221712764d62d2e4fd891962a4d66c9ed8efa5b1393227c82bb0e416261fda9",
+  "pages": 67,
+  "manuscript_sha256": "c9c4733213806e8602de1457e007f8ab0bed0d184de2706a8ca93c4d96ccf6bd",
   "research_snapshot": "2026-10-21/2026-10-22"
 }
