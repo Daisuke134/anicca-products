@@ -209,8 +209,20 @@ Daisの明示するFactoryの完成形は、利用者が自分のTikTokを接続
 
 ## 現在cursor
 
-PR609はmain `0675d5e0a7c3d6a0e5a9caf19f7363256525e894`へ統合し、Landing CI39975581104はSUCCESS。既存portable v0.1.1のnative自然言語routingは、2 finite runsの実7MCP callsで5positive/3negativeを受入する。初回のrevenue検索は最終文章だけを根拠にせず、別のfresh runの`sort=revenue`実呼出で補完する。証拠 → `docs/evidence/ai-monk-plugin-native-routing-20261024.json`。公開Gitの初回sparse取得はcatalog欠落/exit1、2path指定へ直した同main固定の再導入は5段階すべてexit0/payload3hash一致でGREENとなる。PR611はmain 0e1778d2d64b6f345526aa3b74476773e7aea2eeへ統合し、Landing CI39976934630/Netlify39977780297はSUCCESS。同SHAの空home公開install5段階・clone HEAD・payload3hash一致と公開supportの2pathコマンド、Database73件をreadbackする。最終証拠 → `docs/evidence/ai-monk-plugin-public-final-20261024.json`。現在cursorは公式掲載の未完境界とplugin本体の商品契約。無料配布とplugin外の既存有料書籍経路は確認済みとし、本体課金・実注文と区別する。販売条件の正本を参照する。v0.4.3はPR613/main 65004993114e32933f11f7194d3220ff7d97eef8から公開する。source15tests、package CI39978560061/Landing CI39978560073、fresh公開前review blocking0、official tag/asset669562735のdigestと公開GET、公開URLからのnpm install・CLI73件/57出典・実stdio6toolのsnapshot一致を受入する。公開証拠 → `docs/evidence/ai-monk-cli-mcp-v043-release-20261024.json`。残TODO正本 → `docs/superpowers/plans/2026-10-23-ai-monk-plugin-marketplace.md`。
+PR609はmain `0675d5e0a7c3d6a0e5a9caf19f7363256525e894`へ統合し、Landing CI39975581104はSUCCESS。既存portable v0.1.1のnative自然言語routingは、2 finite runsの実7MCP callsで5positive/3negativeを受入する。初回のrevenue検索は最終文章だけを根拠にせず、別のfresh runの`sort=revenue`実呼出で補完する。証拠 → `docs/evidence/ai-monk-plugin-native-routing-20261024.json`。公開Gitの初回sparse取得はcatalog欠落/exit1、2path指定へ直した同main固定の再導入は5段階すべてexit0/payload3hash一致でGREENとなる。PR611はmain 0e1778d2d64b6f345526aa3b74476773e7aea2eeへ統合し、Landing CI39976934630/Netlify39977780297はSUCCESS。同SHAの空home公開install5段階・clone HEAD・payload3hash一致と公開supportの2pathコマンド、Database73件をreadbackする。最終証拠 → `docs/evidence/ai-monk-plugin-public-final-20261024.json`。現在cursorは既知73件のDatabaseの商品/収益根拠を精査・拡充→Plugin掲載とX配布→原価を確定したFactory SaaS。無料配布とplugin外の既存有料書籍経路は確認済みとし、本体課金・実注文と区別する。現在の実行順と受入 → docs/superpowers/plans/2026-10-24-ai-monk-research-distribution.md。v0.4.3はPR613/main 65004993114e32933f11f7194d3220ff7d97eef8から公開する。source15tests、package CI39978560061/Landing CI39978560073、fresh公開前review blocking0、official tag/asset669562735のdigestと公開GET、公開URLからのnpm install・CLI73件/57出典・実stdio6toolのsnapshot一致を受入する。公開証拠 → `docs/evidence/ai-monk-cli-mcp-v043-release-20261024.json`。残TODO正本 → `docs/superpowers/plans/2026-10-23-ai-monk-plugin-marketplace.md`。
 
 公式directoryのportalは、live persistent contextでGoogle SSO通過後のOpenAI MFA passkeyが最後の観測であり、native plugin受入と分ける。identity/権限/実walkthrough/審査提出・公式directory掲載、Museの具体service URL同定は未達を保持する。
 
 日次投稿・生成/費用照合/既存loop復旧はGrok Bot担当。利用者向けFactory SaaSの実HeyGen生成・自動投稿・TikTok上の確認、paid本番納品・売上・USD10K MRR・他者無人収益は未確認のまま保持し、Web公開やSDK接続から完了を導かない。
+
+## Database・Plugin・Factoryの追加契約
+
+旧順は配布整合→plugin掲載/販売条件→Factory。Daisの最新指定により、Databaseの商品・収益根拠精査→Plugin公開/配布→Factory SaaSへ更新する。理由はDatabaseとPluginを先にtraction/distributionへ使い、その知見を生成へ戻すため。進行中の公開Release/PRやGrok Bot所有の日次投稿effectは中断・重複しない。
+
+Databaseは既知の73公開profile/75archiveを対象に、creator・媒体・言語・商品名/価格/URL・出所付き期間/通貨/売上claimを精査し、新しい実在候補も追加する。全世界の全件網羅を証明済みと呼ばず、調査範囲・取得日・未確認を表示する。価格を売上、本人申告を監査済み収益、未知を0へ変換しない。公開中pendingのreasonに残る非掲載という古い説明も正す。
+
+PluginはDatabase由来の制作手順/台本/format/商品導線を検索できるread-only研究配布とし、既存6toolsを使う。Codex直接配布とChatGPT公式掲載を区別し、ChatGPTとGrok/Museの正式plugin口を一次資料で特定する。未確認serviceへ推測で提出しない。
+
+FactoryはDatabaseと一体のcloud Web appとし、利用者の設定を最小にする。Generateで独自AI monk avatar画像、次のGenerateでDatabaseから学んだ台本/縦動画を制作する。Instagram接続を先行し、自動投稿とdashboardの実metricsへつなぐ。TikTokは後続接続とする。利用者にprovider API key/CLI/config調整を求めず、サービス側が既存APIを使う。Stripe subscriptionは3日間無料trialを採用する。ReelFarmの画面/activation/paywall構造を参照するが、HeyGen等の実原価/再生成/投稿頻度/trial費用/決済費を先に計算し、利益が残る価格・生成上限を決める。最新の原価重視指示を、価格をそのままコピーする以前の指示より優先する。将来SaaSの要件であり、現在のdraft/local plan完成から達成を導かない。
+
+各商品の公開後はXでDais所有accountから本人として告知し、Grokにも配布協力を依頼する。具体copy/対象/URLを根拠付きで作り、同目的/媒体の成功例を先に調べる。適切な実績指標が取れない部分は穴を記録し小さい1投稿で計測する。既存の告知を再送せず、新campaignの永続fenceと公式receipt/公開permalinkを確認する。日次IG/TikTok運用は引き続きGrok Bot所有。
