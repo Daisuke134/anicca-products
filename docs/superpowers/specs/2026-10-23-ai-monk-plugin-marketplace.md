@@ -18,7 +18,7 @@ source受入はcatalog JSONの読込、隔離した空の`CODEX_HOME`でのmarke
 
 旧順序はportal認証診断→identity/権限/walkthrough→審査提出/掲載→host routing。新順序は既存portableのrepo marketplace配布→公開main SHA固定+sparse再install→host routingとportal診断/提出/掲載。空の隔離`CODEX_HOME`で既存portableを変更せずinstall/loadできることを確認しており、publisher portalのOpenAI MFA境界と独立に利用可能な配布導線を作れるため、この順に進める。進行中の認証や既存外部effectは操作・中断しない。
 
-現在cursorはcatalogとREADME/support案内のsource受入完了→commit/push/PR。通常のfeature override無しのCLIで空`CODEX_HOME`からinstall/enabled/MCP設定loadを確認する。既存MCPの6読取機能に案内だけを整合し、旧payload/ZIPと当時の3tool受入は保持する。source証拠 → `../../evidence/ai-monk-plugin-marketplace-source-20261023.json`。残TODO正本 → `../plans/2026-10-23-ai-monk-plugin-marketplace.md`。
+現在cursorは[PR609](https://github.com/Daisuke134/anicca-products/pull/609)のmain統合と既存Landing PR CI→公開main SHA固定+sparse再install。通常のfeature override無しのCLIで空`CODEX_HOME`からinstall/enabled/MCP設定loadを確認する。既存MCPの6読取機能に案内だけを整合し、旧payload/ZIPと当時の3tool受入は保持する。source証拠 → `../../evidence/ai-monk-plugin-marketplace-source-20261023.json`。残TODO正本 → `../plans/2026-10-23-ai-monk-plugin-marketplace.md`。
 
 ## 一次資料と事前実測
 
