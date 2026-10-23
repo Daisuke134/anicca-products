@@ -22,7 +22,7 @@ export function createServer() {
   }, async args => result(searchAccounts(args)));
   server.registerTool('get_ai_monk', {
     title: 'Get AI monk research profile',
-    description: 'Retrieve one exact in-scope AI monk avatar account ID, its complete research record and referenced sources. Includes identity conflicts and unknowns; known illustrated channels are excluded.',
+    description: 'Retrieve one exact in-scope AI monk avatar account ID, its complete research record and referenced sources. Includes identity conflicts and unknowns; pending leads and illustrated channels are excluded.',
     inputSchema: z.strictObject({ id: z.string().min(1).max(200) }),
     outputSchema,
     annotations,
@@ -32,7 +32,7 @@ export function createServer() {
   });
   server.registerTool('ai_monk_index_stats', {
     title: 'AI Monk Index coverage',
-    description: 'Return in-scope record/source counts, AI status counts and snapshot methodology. Metadata separates the full research archive and excluded illustrated channels. Directory counts include unverified discovery leads, not only confirmed avatars.',
+    description: 'Return in-scope record/source counts, AI status counts and snapshot methodology. Metadata separates the full research archive from directory coverage. Directory counts include only explicitly reviewed video avatars; pending discovery leads and illustrated channels are excluded.',
     inputSchema: z.strictObject({}),
     outputSchema,
     annotations,

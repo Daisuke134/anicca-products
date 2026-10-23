@@ -89,3 +89,5 @@ best=対象の明確な小さい一覧を起点に同じ根拠基準で拡大す
 **根拠補正:** read-only調査はSifuの個別動画根拠不足を指摘する一方、Yan ChenはMalditaの公開embedでexact title/handle/imageをfresh HTTP照合し、既存画像のReel UI/写実的僧侶/寺院も確認する。AI statusだけの機械判定は採らず、Sifu pending/Yan includedとする。Web共有selectorの新規1 REDとCLI/statsの2 REDを観測し、既存scope fieldを使うincluded限定1行へ修復する。56sourcesへ増えるのはこの公開embed1件だけで、旧55source/75record/画像bytesは保持する。
 
 **source検証:** 共通helper9件、package CLI/stdio/HTTP/公開tarball契約13件がPASS。75recordのID/順序と元55source、Yanの追記以外の既存fieldを比較して不変を確認する。local SSRは前回の依存回収後react-dom/typescript/lucide-reactが無いため起動できない。既存Landing exact-head CIはnpm ci後に同じSSR契約を実行するため、その結果を受入に使い余分なlocal全依存再生成はしない。source evidence → docs/evidence/ai-monk-reviewed-avatar-scope-source-20261023.json。fresh factual/source review、CI/main、本番/配布物は次の受入である。
+
+**独立確認の補正:** fresh read-only検証者はMCP stats toolの説明だけに「未確認候補も件数へ含む」という旧文を見つける。実結果の候補漏れはなく、stats/getの説明をincluded限定の実契約へ揃える。分類・metric計算・UIは変更しない。
