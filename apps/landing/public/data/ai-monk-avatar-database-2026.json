@@ -550,6 +550,16 @@
       "published_at": null,
       "checked_at": "2026-10-23",
       "notes": "Public embed titled (English) Perfiles IA Instagram salud attributes a realistic monk Instagram Reel still to title Yan Chen and subtitle @monjechen. Linked investigation is Maldita 2026-07-27. This supports reported classification and account attribution, not a complete watch, a production-provider disclosure or audited financial data."
+    },
+    {
+      "id": "shalev-yangmun-x-article-20260409",
+      "title": "Shalev Hani on the Yang Mun digital-product business",
+      "url": "https://x.com/i/article/2042242260784537736",
+      "source_type": "first-party creator article; unaudited financial claims",
+      "published_at": "2026-04-09T14:04:32.000Z",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T11:01:27.030748+00:00",
+      "notes": "Public article HTML identifies Shalev Hani; article:published_time and time datetime agree. Retrieved with scrapy fetch after crwl returned no article body. Digital-product income is claimed, but the six-month headline and persona-level breakdown do not reconcile. Currency code, gross/net basis, exact accounting dates and audited statements are not supplied."
     }
   ],
   "accounts": [
@@ -622,7 +632,8 @@
         "https://www.youtube.com/shorts/Qdv6S7HonSM",
         "https://www.youtube.com/shorts/j8WRhcQvzRM",
         "https://www.heygen.com/customer-stories/yangmun",
-        "https://www.youtube.com/@Yangmunv2/shorts"
+        "https://www.youtube.com/@Yangmunv2/shorts",
+        "https://x.com/i/article/2042242260784537736"
       ],
       "platforms": [
         {
@@ -775,6 +786,11 @@
           "claim": "A user-provided screenshot shows a headline claiming $500,000 in six months",
           "source_id": "user-screenshot-shalev-x-500k",
           "status": "screenshot_attributed_creator_claim_not_audited"
+        },
+        {
+          "claim": "The creator's April 9 article claims $300K during Yang Mun's first three months and $500K across six months. A later section gives $450K through month six, followed by $50K from six additional characters. These figures do not reconcile to a Yang Mun-only total. Currency code, gross versus net, exact dates and audited accounts are unspecified; this is not current monthly revenue.",
+          "source_id": "shalev-yangmun-x-article-20260409",
+          "status": "first_party_creator_claim_internally_inconsistent_not_audited"
         }
       ],
       "creative_samples": [
@@ -872,7 +888,8 @@
         "Paid orders, product mix, refunds, fees, ad spend, creator net profit, and revenue by creative.",
         "The self-reported revenue/profit claims do not reconcile to an audited statement.",
         "Public Instagram follower observations are rounded; historical source snapshots are retained and are not growth-rate comparisons.",
-        "Current monthly revenue, order counts and ROI remain unverified."
+        "Current monthly revenue, order counts and ROI remain unverified.",
+        "The creator article's six-month headline is inconsistent with its persona-level breakdown; the Yang Mun-only total and gross/net/currency basis remain unresolved."
       ],
       "revenue_observations": [
         {
