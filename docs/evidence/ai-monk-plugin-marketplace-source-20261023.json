@@ -1,0 +1,88 @@
+{
+  "schema_version": "anicca.ai-monk-plugin-marketplace-source.v1",
+  "observed_at": "2026-10-23T15:00:23Z",
+  "base_main_sha": "9cdd0d613693d3f7c2257a4b6c46665b823dfd77",
+  "spec_commit": "ec1f7fffedd2f5a99002c222d229ab25b188311a",
+  "catalog": ".agents/plugins/marketplace.json",
+  "plugin_id": "ai-monk-index@anicca",
+  "version": "0.1.1",
+  "source_path": "./packages/ai-monk-plugin",
+  "path_base": "repository_root",
+  "codex_version": "0.160.0",
+  "private_probe": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-marketplace-probe-20261023/source-acceptance-2gf1_8o1",
+  "red": {
+    "missing_catalog_exit_code": 1,
+    "error_class": "marketplace_root_missing_supported_manifest"
+  },
+  "green": {
+    "marketplace_add_exit_code": 0,
+    "available_exit_code": 0,
+    "plugin_add_exit_code": 0,
+    "installed_exit_code": 0,
+    "mcp_config_load_exit_code": 0,
+    "installed": true,
+    "enabled": true,
+    "mcp_enabled": true,
+    "endpoint": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+    "mcp_auth_status": "unsupported",
+    "feature_overrides": 0,
+    "model_provider_overrides": 0,
+    "model_provider_config_written": false,
+    "auth_file_present": false,
+    "model_runs": 0,
+    "provider_mutations": 0
+  },
+  "payload": {
+    "base_source_installed_cache_match": true,
+    "sha256": {
+      "plugin.json": "2f0a3c60827db12599d85fe15c5b1bc37457012995385d549cc05eaf9a0f962b",
+      "mcp.json": "ebd167f7e98b8d604e5326b603f0c3f23eea7d699042e4afcfafc28ef73720b0",
+      "assets/icon.png": "8e0fd36eb74d4bb5749e8f049cace51db6823bf8923933f37421cde896ba5ca3"
+    },
+    "readme_updated": true,
+    "native_manifest_added": false,
+    "dependencies_added": 0,
+    "tools_added": 0,
+    "zip_republished": false,
+    "unchanged_zip_sha256": "ae8ef5922c5001d7b314d45c939dd2c529cd1295a0e53aed50c12f1f2a864127",
+    "zip_historical_acceptance": "docs/evidence/ai-monk-plugin-v011-release-20261023.json"
+  },
+  "support_source_checks": {
+    "typescript_version": "5.5.4",
+    "tsx_parse_diagnostics": 0,
+    "tsx_transpile_diagnostics": 0,
+    "readme_support_command_parity": 3,
+    "factory_links": true,
+    "directory_and_routing_distinction": true,
+    "full_next_build": "existing_landing_pr_ci_pending"
+  },
+  "remote_tool_surface": {
+    "observer": "primary_official_sdk_readback",
+    "observed_at": "2026-10-23T14:56:44.071Z",
+    "private_evidence": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-live-tools-20261023.json",
+    "tool_names": [
+      "search_ai_monks",
+      "get_ai_monk",
+      "ai_monk_index_stats",
+      "top_formats",
+      "how_they_monetize",
+      "winning_playbooks"
+    ],
+    "all_read_only_hint": true,
+    "all_destructive_hint_false": true,
+    "directory_records": 73,
+    "sources": 57,
+    "old_three_tool_receipts": "historical_snapshot_unchanged"
+  },
+  "unverified": [
+    "public_main_sha_pinned_sparse_reinstall",
+    "natural_language_plugin_routing",
+    "portal_submission_and_official_directory_listing"
+  ],
+  "out_of_scope_effects": {
+    "video_generation": 0,
+    "social_publication": 0,
+    "credential_changes": 0,
+    "daily_loop_operations": 0
+  }
+}

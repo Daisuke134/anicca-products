@@ -203,6 +203,6 @@ Life Manager PR8721/main `eb78a805c4f79cd807852c27f52f9e4207a1ba61` とproducts 
 
 ## 現在cursor
 
-公開/localhost plan受入完了→plugin配布・認証診断。v0.1.1 ZIPの無料公開・digest・実SDK5scenarioは完了し、残件はhostでのnatural-language routing、通常認証のnative経路と必要skillの診断、identity/権限/実walkthrough/審査提出・掲載。最新のlive persistent contextのown targetでは通常Google SSOを通過し、OpenAI MFA passkeyへ進む。OpenAIの別方法1回でも同画面、password入力欄0・掲載作成0。先のisolated contextのGoogle `/v3/signin/challenge/pk`は履歴として保持する。必要な`cua-driver` skillが限定探索で見つからずnative UIは未実施であり、本人手続き必須は未確定。Museの具体service URLは未特定。残TODO正本 → `docs/superpowers/plans/2026-10-23-ai-monk-plugin-package.md`。
+公開/localhost plan受入完了→pluginのrepo marketplace source受入完了→PR609のmain統合/既存Landing PR CI。v0.1.1 ZIPの無料公開・digest・実SDK5scenarioに加え、既存payload3filesを変えず空`CODEX_HOME`で通常CLIの実install/enabled/MCP設定loadを確認する。旧portal診断→提出/掲載→host routingの順から、repo配布→公開main SHA固定+sparse受入→host routingとportal診断/提出/掲載へ進める理由・残TODO正本 → `docs/superpowers/plans/2026-10-23-ai-monk-plugin-marketplace.md`。最新のlive persistent contextのown targetでは通常Google SSOを通過し、OpenAI MFA passkeyへ進む。OpenAIの別方法1回でも同画面、password入力欄0・掲載作成0。先のisolated contextのGoogle `/v3/signin/challenge/pk`は履歴として保持する。必要な`cua-driver` skillが限定探索で見つからずnative UIは未実施であり、本人手続き必須は未確定。hostでのnatural-language routing、identity/権限/実walkthrough/審査提出・公式directory掲載、Museの具体service URL同定は未達を保持する。
 
 日次投稿・生成/費用照合/既存loop復旧はGrok Bot担当。実HeyGen生成・投稿・native確認・paid本番納品・売上・USD10K MRR・他者無人収益は未確認のまま保持し、Web公開やSDK接続から完了を導かない。
