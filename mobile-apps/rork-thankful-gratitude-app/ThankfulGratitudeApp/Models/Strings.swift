@@ -141,39 +141,60 @@ nonisolated enum L10n: Sendable {
         }
     }
 
-    static func annualPrice(_ language: AppLanguage) -> String {
-        switch language {
-        case .english: return "$29.99/year"
-        case .japanese: return "¥4,500/年"
-        }
+    static func perYear(_ price: String, _ language: AppLanguage) -> String {
+        language == .english ? "\(price)/year" : "\(price)/年"
     }
 
-    static func annualTrial(_ language: AppLanguage) -> String {
-        switch language {
-        case .english: return "7-day free trial"
-        case .japanese: return "7日間無料トライアル"
-        }
+    static func perMonth(_ price: String, _ language: AppLanguage) -> String {
+        language == .english ? "\(price)/month" : "\(price)/月"
     }
 
-    static func monthlyPrice(_ language: AppLanguage) -> String {
-        switch language {
-        case .english: return "$4.99/month"
-        case .japanese: return "¥800/月"
-        }
+    static func freeTrialDays(_ days: Int, _ language: AppLanguage) -> String {
+        language == .english ? "\(days)-day free trial" : "\(days)日間無料トライアル"
     }
 
-    static func startTrial(_ language: AppLanguage) -> String {
-        switch language {
-        case .english: return "Start 7-Day Free Trial"
-        case .japanese: return "7日間無料で始める"
-        }
+    static func saveBadge(_ percent: Int, _ language: AppLanguage) -> String {
+        language == .english ? "SAVE \(percent)%" : "\(percent)%お得"
     }
 
-    static func finePrint(_ language: AppLanguage) -> String {
-        switch language {
-        case .english: return "Cancel anytime during trial. No charge until trial ends."
-        case .japanese: return "トライアル中いつでもキャンセル可能。終了まで請求なし。"
-        }
+    static func startTrialDays(_ days: Int, _ language: AppLanguage) -> String {
+        language == .english ? "Start \(days)-Day Free Trial" : "\(days)日間無料で始める"
+    }
+
+    static func subscribeNow(_ language: AppLanguage) -> String {
+        language == .english ? "Subscribe Now" : "今すぐ登録"
+    }
+
+    static func finePrintTrial(days: Int, renewal: String, _ language: AppLanguage) -> String {
+        language == .english
+            ? "Free for \(days) days, then \(renewal). Cancel anytime in Settings before the trial ends to avoid being charged."
+            : "\(days)日間無料、その後 \(renewal)。トライアル終了前に設定からキャンセルすれば請求されません。"
+    }
+
+    static func finePrintRenewal(_ renewal: String, _ language: AppLanguage) -> String {
+        language == .english
+            ? "Auto-renews at \(renewal). Cancel anytime in Settings."
+            : "\(renewal)で自動更新。設定からいつでもキャンセルできます。"
+    }
+
+    static func plansUnavailable(_ language: AppLanguage) -> String {
+        language == .english ? "Plans couldn't be loaded." : "プランを読み込めませんでした。"
+    }
+
+    static func retry(_ language: AppLanguage) -> String {
+        language == .english ? "Try Again" : "再読み込み"
+    }
+
+    static func unlockEntries(_ language: AppLanguage) -> String {
+        language == .english ? "Unlock unlimited entries" : "記録を無制限にする"
+    }
+
+    static func unlockAffirmations(_ language: AppLanguage) -> String {
+        language == .english ? "Unlock 200+ affirmations" : "200以上のアファメーションを解放"
+    }
+
+    static func unlockHistory(_ language: AppLanguage) -> String {
+        language == .english ? "Unlock your full history" : "すべての履歴を解放"
     }
 
     static func restorePurchase(_ language: AppLanguage) -> String {

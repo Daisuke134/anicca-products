@@ -12,16 +12,47 @@ class AppViewModel {
         didSet { UserDefaults.standard.set(hasCompletedOnboarding, forKey: "has_onboarded") }
     }
     var isPro: Bool = false
+    var showPaywall: Bool = false
 
-    var currentAffirmation: Affirmation = AffirmationData.random()
+    var currentAffirmation: Affirmation = AffirmationData.forDay()
+
+    static let freeHistoryDays = 7
+    static let streakPaywallShownKey = "streak3_paywall_shown"
 
     init() {
         self.language = .english
         self.hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "has_onboarded")
     }
 
+    // Free: today's affirmation only. Pro: the full library.
     func refreshAffirmation() {
+        guard isPro else {
+            showPaywall = true
+            return
+        }
         currentAffirmation = AffirmationData.random()
+    }
+
+    // Free: one entry per day. Pro: unlimited.
+    func canAddEntry(entries: [GratitudeEntry]) -> Bool {
+        isPro || !hasTodayEntry(entries: entries)
+    }
+
+    // Free: the last 7 days of history. Pro: everything.
+    func isLocked(_ entry: GratitudeEntry) -> Bool {
+        guard !isPro else { return false }
+        let calendar = Calendar.current
+        let cutoff = calendar.date(byAdding: .day, value: -(Self.freeHistoryDays - 1), to: calendar.startOfDay(for: Date()))!
+        return entry.date < cutoff
+    }
+
+    // Soft paywall once, when a free user first reaches a 3-day streak.
+    func didSaveEntry(entries: [GratitudeEntry]) {
+        guard !isPro,
+              calculateStreak(entries: entries) >= 3,
+              !UserDefaults.standard.bool(forKey: Self.streakPaywallShownKey) else { return }
+        UserDefaults.standard.set(true, forKey: Self.streakPaywallShownKey)
+        showPaywall = true
     }
 
     func calculateStreak(entries: [GratitudeEntry]) -> Int {
