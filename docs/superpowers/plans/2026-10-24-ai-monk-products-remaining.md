@@ -37,3 +37,6 @@ Registry metadata/workflow、plugin payload、Factory runtime、X/native browser
 source acceptanceはprivate入力とbase snapshotを照合し、33 distinct観測、accountへの関連行、価格/通貨/variant、必要sourceの実在、元139 sourceと全既存profileの非商品fieldの保持、収益観測不変を検査する。既存helperの検索・収益sortとpackageのCLI/stdio/HTTP/独立install検証を使う。追加商品だけを数える恒久的mirroring testは作らない。
 
 未確認の売上、価格不明7件、通貨不明4件、所有・著作・同一SKU、paid納品と購入可能性は未達のまま残す。公開後の本番readbackはこの実装unitの完了と混同しない。
+
+## Primaryの公開契約
+worker引渡し後、primaryは既存Registryのserver.jsonのversionだけをpackageと同じ0.4.5へ合わせる。namespace/remote URL/workflow/tool/payload/課金/日次loopは変更しない。版一致のassertは0.4.4対0.4.5でREDを確認し、修正後に公式publisher validateと一致assertを行う。package/Landingのexact-head CIとmain/Netlify176出典readbackの後、v0.4.5を新しいimmutable ReleaseとRegistry versionとして配布する。既存v0.4.4/旧Releaseは書換しない。fresh data検証のblockingは0、raw60file hashesと33商品の実API返却を独立照合済み。
