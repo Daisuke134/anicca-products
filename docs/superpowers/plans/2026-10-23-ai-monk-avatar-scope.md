@@ -18,7 +18,7 @@ H1は`AI Monk Database`を保ち、説明文はAI monk video avatarsを直接示
 - [ ] 関連テスト・source確認・CI、main統合と本番Web/MCP確認。
 - [ ] 更新CLI配布とspec/evidenceへ反映。
 
-順序変更: 旧cursorは73画像の公開だった。Daisが水彩/イラストを除きAI monk video avatarsへ絞るよう指定したため、scope修正→画像sourceの統合→本番確認へ変更する。既存Postiz/HeyGen effectは中断・再送しない。現在cursorはscope PRのCI確認とmain統合。source証拠 → `docs/evidence/ai-monk-avatar-scope-source-20261023.json`。
+順序変更: 旧cursorは73画像の公開だった。Daisが水彩/イラストを除きAI monk video avatarsへ絞るよう指定したため、scope修正→画像sourceの統合→本番確認へ変更する。既存Postiz/HeyGen effectは中断・再送しない。scope sourceはPR572/mainへ統合済み。本番確認は継続中。source証拠 → `docs/evidence/ai-monk-avatar-scope-source-20261023.json`。
 
 ## 追加範囲: ビジネス指標を主役にする
 
@@ -33,3 +33,13 @@ Sensor Towerの指定app URLは取得がtitleのみ。公開公式siteのApp Per
 - [ ] 関連テスト/CI/main/公開readbackとv0.3.0配布物に新sortを反映。
 
 現在cursorはビジネス指標の追加。PR572のscope修正にこの指示を反映し、source CIを更新してからmain統合する。画像PR571は続けて統合する。
+
+## Source統合
+
+PR572の最終head `bb7c9913fea918432117fe19e01869dd1e2efe5f`はpackage CI39890899008・landing CI39890899070 PASS。別fresh contextのread-only検証者が実SSR/CLI/共用MCP関数と売上原典・比較probeを確認し、確実な実害のある指摘なし。main merge `9e9f321ac7f054bf760b84f4cb5c20b3041f9c11`。
+
+画像PR571はmain `532e18464b28c78b4b13399b824029cec8e8cdcb`へ統合。研究archive原画像73件のうち、公開対象は71画像＋未取得2件。deor.ieの1件はplatform default iconで、AI動画avatarの認定画像として数えない。
+
+書籍PR573はCI39891424243 PASS、main `3085d15b5ab7aaf661acc6cec4a322337040f2ec`へ統合。JAの指定題名・新表紙と日英の制作対象を揃え、価格/SKU/購入backendを維持。独自book planの本番確認を続ける。
+
+現在cursor: Netlify反映と公開readback。並行して、取得できた4つのpublic Instagram headerと3つのYouTube metadataを、旧観察を保持するdated snapshotとして追加する。現時点で毎日の自然更新や売上追跡の完全性を完了扱いにしない。
