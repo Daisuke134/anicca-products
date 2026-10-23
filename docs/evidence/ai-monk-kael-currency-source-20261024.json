@@ -1,0 +1,178 @@
+{
+  "schema_version": "anicca.ai-monk-kael-currency-source.v1",
+  "run_id": "ai-monk-kael-price-v047-20261024",
+  "owner_id": "monk_product_price_followup",
+  "occurrence_id": "remaining-kael-thirty-nights-usd-20261024",
+  "observed_at": "2026-10-23T21:29:02.292770+00:00",
+  "phase": "source_acceptance",
+  "source_branch": "feat/ai-monk-kael-price-v047-20261024",
+  "source_baseline_main_sha": "f5ca0e1880a7c026f3323bfde6f86e495ad46c03",
+  "origin_main_at_source_acceptance": "f5ca0e1880a7c026f3323bfde6f86e495ad46c03",
+  "spec_commit_sha": "d22a5b77ba58d91979840bf72c0909c0c3d6af62",
+  "spec_path": "docs/superpowers/specs/2026-10-24-ai-monk-kael-currency.md",
+  "snapshot": {
+    "version": "0.4.7",
+    "before_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02",
+    "sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c",
+    "sources_before": 179,
+    "sources_after": 180,
+    "public_profiles": 73,
+    "archive_profiles": 75,
+    "source_references": 639,
+    "existing_179_source_objects_unchanged": true,
+    "non_target_accounts_unchanged": true,
+    "free_preview_unchanged": true,
+    "other_target_account_fields_unchanged": true,
+    "orders_revenue_creator_and_ai_fields_unchanged": true
+  },
+  "observation": {
+    "observation_id": "price-followup-kael-whop-usd-20261024",
+    "existing_observation_id": "remaining-kael-thirty-nights",
+    "account_id": "lead-instagram-kael-wisdom",
+    "source_id": "product-price-followup-kael-whop-usd-20261024",
+    "url": "https://whop.com/checkout/plan_mBr00B5qTDqH9/",
+    "captured_at": "2026-10-23T21:19:59.261048+00:00",
+    "price": {
+      "amount": 27,
+      "currency": "USD",
+      "price_kind": "listed_offer",
+      "billing_kind": "one_time"
+    },
+    "presentment_price": {
+      "amount": 4320,
+      "currency": "JPY",
+      "country": "JP",
+      "locale": "ja-JP",
+      "kind": "localized_public_checkout_amount",
+      "captured_at": "2026-10-23T21:18:26.781979+00:00",
+      "source_id": "product-price-followup-kael-whop-usd-20261024"
+    },
+    "price_header_evidence": [
+      {
+        "currency": "USD",
+        "captured_at": "2026-10-23T21:19:59.261048+00:00",
+        "evidence_sha256": "7f3f282012062d994897633fda128e337b2b6ba77efc3b9380e51753320678db",
+        "bytes": 256
+      },
+      {
+        "currency": "JPY",
+        "captured_at": "2026-10-23T21:18:26.781979+00:00",
+        "evidence_sha256": "b9afe5f34f2d5c0ba0ed3cd335a990301cbfa7f8e6ab196d8fbafe29382af863",
+        "bytes": 315
+      }
+    ],
+    "basis": "同じWhop planの初期表示は4320 JPYとUSDからの換算を明示する。USDへの表示切替1回の後、安定した画面は27.00とUSD選択状態および一回払いを示す。ドル記号だけの推定や為替逆算は使わない。",
+    "public_projection": "URL・取得時刻・限定price headerのSHA256と短い根拠だけを公開し、元UI全文・checkout state・個人情報を含めない。"
+  },
+  "validation": {
+    "red": {
+      "source_acceptance_exit_code": 1,
+      "sources": 179,
+      "reason": "反映前はKael ISO通貨・周期・JP別観測・新sourceが未反映"
+    },
+    "green": {
+      "phase": "PASS",
+      "errors": [],
+      "input_headers_and_same_plan_switch_verified": true,
+      "archive": 75,
+      "public": 73,
+      "sources": 180,
+      "references": 639,
+      "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c"
+    },
+    "package": {
+      "command": "rtk proxy npm test",
+      "cwd": "packages/ai-monk-index",
+      "exit_code": 0,
+      "tests_passed": 15,
+      "isolated_tarball_install_included": true
+    },
+    "landing_contracts": {
+      "command": "rtk proxy node --test lib/ai-monk-directory.test.mjs test/ai-monk-evidence-rendering.test.mjs",
+      "cwd": "apps/landing",
+      "exit_code": 0,
+      "helper_tests_passed": 9,
+      "web_tests_passed": 4
+    },
+    "stdio": {
+      "observed_at": "2026-10-23T21:28:07.533Z",
+      "phase": "PASS",
+      "server": {
+        "name": "ai-monk-index",
+        "version": "0.4.7"
+      },
+      "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c",
+      "records": 73,
+      "archive": 75,
+      "sources": 180,
+      "stdio_tools": [
+        {
+          "tool": "search_ai_monks",
+          "passed": true,
+          "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c"
+        },
+        {
+          "tool": "get_ai_monk",
+          "passed": true,
+          "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c"
+        },
+        {
+          "tool": "ai_monk_index_stats",
+          "passed": true,
+          "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c"
+        },
+        {
+          "tool": "top_formats",
+          "passed": true,
+          "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c"
+        },
+        {
+          "tool": "how_they_monetize",
+          "passed": true,
+          "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c"
+        },
+        {
+          "tool": "winning_playbooks",
+          "passed": true,
+          "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c"
+        }
+      ],
+      "kael_get_and_monetization_offers_match_canonical": true,
+      "cli_get_matches_canonical": true,
+      "free_currency_unknown_preserved": true,
+      "canonical_dist_netlify_bytes_identical": true,
+      "package_lock_server_version": "0.4.7"
+    },
+    "local_full_web_build": "not_run_data_only_change_uses_PR_CI",
+    "new_permanent_tests": 0,
+    "new_dependencies": 0
+  },
+  "effect": {
+    "source_data_prepared": true,
+    "browser_actions_this_source_run": 0,
+    "checkout_observation_display_switches_by_primary": 1,
+    "personal_entries": 0,
+    "purchases": 0,
+    "downloads": 0,
+    "posts": 0,
+    "external_publish": 0,
+    "credentials_or_shared_config_changes": 0,
+    "factory_or_plugin_source_changes": 0
+  },
+  "readback": "既存179source・無料preview・他accountの完全一致、参照整合、CLI/MCPのKael offer完全一致、canonical/dist/Netlify JSON同一SHAを確認する。",
+  "provider_receipt_id": null,
+  "unknowns_retained": [
+    "Kael無料previewのISO通貨",
+    "実ファイルと精細format",
+    "merchant会計通貨",
+    "注文・売上・commission・効能・creator権利・AI確定",
+    "Raviの継続周期"
+  ],
+  "evidence_refs": {
+    "private_source_acceptance_directory": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-kael-currency-source-20261024",
+    "public_header_hashes": "observation.price_header_evidence"
+  },
+  "error_class": null,
+  "retryable": false,
+  "next_action": "primaryによるfresh read-onlyレビュー、PR CI/main統合、新immutable v0.4.7 Release・Registry・本番同一snapshot readback"
+}

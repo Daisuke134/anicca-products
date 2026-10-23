@@ -2,7 +2,7 @@
 
 Search the source-linked [AI Monk Database](https://aniccaai.com/ai-monk-database) from a terminal or an MCP client. Free and read-only. The local CLI and stdio server work offline after installation; the hosted HTTP endpoint requires an internet connection. No account or API key is required.
 
-This release uses the current dated research snapshot: **73 monk profiles, including 4 evidence-reviewed video personas and 69 pending research candidates**, with **179 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. The four evidence-reviewed personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
+This release uses the current dated research snapshot: **73 monk profiles, including 4 evidence-reviewed video personas and 69 pending research candidates**, with **180 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. The four evidence-reviewed personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
 
 ## Business metrics
 
@@ -14,14 +14,14 @@ Search with `--sort audience`, `--sort views`, or `--sort revenue`. The same sor
 
 Yang Mun currently has the only structured revenue observation: an industry profile reports the creator's dashboard claim of more than $213,000 gross revenue over three months. Exact period dates and audited orders are unavailable; the reported date is not a claim about present revenue. Original conflicting financial statements stay in the research record.
 
-v0.4.5 introduced 33 distinct product observations across 35 account-offer rows. v0.4.6 adds three first-party price sources without adding profiles: Beetroot Capsules is a 29.99 USD one-time default-variant offer, with a separate 26.99 USD monthly plan and 44.99 USD reference price; Remedios Olvidados has a 9.99 USD base offer; the Monge Ravi two-ebook bundle has a 60 BRL base offer. The anonymous JP checkout amounts of 1654 JPY and 1992 JPY are retained separately as localized presentment observations. The Web labels these base offers, and CLI/MCP retain `price_kind`, notes and presentment metadata. The Kael $27 label still has no verified ISO currency, and Ravi billing recurrence remains unknown. Free/PWYW minima, reference prices, subscription/format variants and availability stay separate from orders and revenue. Reviews, Telegram subscribers and recipe counts are public counters, not paid-order evidence.
+v0.4.5 introduced 33 distinct product observations across 35 account-offer rows. v0.4.6 adds three first-party price sources without adding profiles: Beetroot Capsules is a 29.99 USD one-time default-variant offer, with a separate 26.99 USD monthly plan and 44.99 USD reference price; Remedios Olvidados has a 9.99 USD base offer; the Monge Ravi two-ebook bundle has a 60 BRL base offer. The anonymous JP checkout amounts of 1654 JPY and 1992 JPY are retained separately as localized presentment observations. The Web labels these base offers, and CLI/MCP retain `price_kind`, notes and presentment metadata. v0.4.7 records the same-plan Kael public checkout at 27 USD as a one-time listed offer; the initial JP amount of 4320 JPY is a separate presentment observation. USD is the selected checkout currency, not a verified merchant accounting currency. Ravi billing recurrence remains unknown. Free/PWYW minima, reference prices, subscription/format variants and availability stay separate from orders and revenue. Reviews, Telegram subscribers and recipe counts are public counters, not paid-order evidence.
 
 ## Install
 
 Requires Node.js 20.19 or later. The package is distributed as a public GitHub Release tarball; it is not listed on npm.
 
 ```sh
-npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.6/anicca-ai-monk-index-0.4.6.tgz
+npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.7/anicca-ai-monk-index-0.4.7.tgz
 ```
 
 ## CLI
