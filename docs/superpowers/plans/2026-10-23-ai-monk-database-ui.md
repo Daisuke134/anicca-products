@@ -112,4 +112,14 @@ source受入結果: 75ID一致、全17assetのbytes/hash、新規6原bytes一致
 
 exact canonical handleへの公式crosslinkまたは公表資料の明確なprofile対応がある原画像のみ採用する。IG直接scraping・vidIQ credit・有料API・新認証・新しいAI顔/他profile画像への代用は行わない。原bytes、HTTP MIMEと実形式、SHA、出所、source roleを保持する。canonical75/48・AI status/language/metrics・既存画像・UI codeは変更しない。未確認は選択10件の具体的な境界と次の出所として記録し、残り全件を調査済みにしない。
 
-検証は75ID/全asset bytes・SHA/新規原byte一致/対象外manifest行とcanonical SHA不変/secret・private path・署名URLなし/既存helper5tests/diff check。意味ある成果を限定stageでcommit/pushしremote一致、PR作成/attachまで進める。自動merge・production反映/readbackはrootへ残す。現在cursorはこのscopeのcommit/pushから10件の公開source確認。
+検証は75ID/全asset bytes・SHA/新規原byte一致/対象外manifest行とcanonical SHA不変/secret・private path・署名URLなし/既存helper5tests/diff check。意味ある成果を限定stageでcommit/pushしremote一致、PR作成/attachまで進める。自動merge・production反映/readbackはrootへ残す。先行scope commit `b6b29d4d1e5d5a98a0f4365633ef625d0973fc76` のremote一致を確認してから調査を開始する。現在cursorは以下の2原画像のsource/visual確認から受入検証へ進む。
+
+| 追加account ID | 出所と対応根拠 | 原形式 / bytes |
+|---|---|---|
+| `lead-instagram-maestroyunkai` | [Yun Kai Linktree](https://linktr.ee/maestroyunkai) のsocialLinksがexact `instagram.com/maestroyunkai` を示し、named profile imageを掲載 | JPEG / 33,236 |
+| `lead-instagram-masterjiao` | [Master Shi Jiao Whop](https://whop.com/@masterjiao/) がexact `instagram.com/masterjiao` を示し、Profile pictureを掲載 | AVIF / 4,525 |
+
+10件のbounded調査で2画像を追加し、source予定値は17→19画像・58→56未取得。8件はexact IG対応を確認できずunknownを維持する。候補名だけ、またはYouTube→storeのみのlinkをIG画像へ割り当てない。各検索/出所/失敗境界/理由はbatch4 evidenceに記録する。対象外48件をこのbatchで調査済みとは扱わない。
+
+両画像は原bytes・MIME・SHA・出所/roleを保持する。WhopのAVIFはview_image非対応のため変換せず、登録済みChromeのown新規tabで160pxと既存72px表示をdecodeし顔可視を確認する。Yun Kaiも同じ72pxで確認し、追加CSSは不要。private previewのPNGはrepoへ入れず、evidenceにhashと観測値だけを残す。本人提供IG avatar、再利用license、AI状態の新たな確認とはしない。現在cursorは75ID/全19asset/新2原byte一致/対象外73行/canonical不変/既存5tests/secret検査/diff checkから、限定commit/push・PR作成/attachへ進む。CI監視・merge・本番readbackはrootが所有する。
+受入検証はPASS。75ID一致、全19assetのbytes/SHA、新2assetのdownload原bytes一致、既存17assetと対象外73行の不変、canonical SHA `37a724d413233dacae215f68cd2e5021443a9aefb271fd3c129d8e338fce94b9` 不変、UI code不変、public JSONのprivate path/secret/署名URL不在、既存helper 5tests、diff checkを確認する。新2画像はHTTP MIMEとraw signatureが一致する。既存ShenMuのHTTP image/jpeg記録とWebP signature差は保持し、全19件のMIME一致とは報告しない。現在cursorは限定5pathのcommit/push・remote一致・PR作成/attach。rootがCI・merge・本番反映/readbackを所有する。
