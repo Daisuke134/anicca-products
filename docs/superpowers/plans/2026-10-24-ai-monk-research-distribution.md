@@ -70,6 +70,6 @@ HeyGenの追加料金調査 → ../../evidence/ai-monk-factory-heygen-prompt-rat
 
 並行するsource修正は、code探索で判明した完了済みCheckout再開の1件に限定する。APIのcheckout応答がcomplete=trueなら外部redirectをせず同じ認証sessionの状態を再取得し、未完Checkout・portal・IG接続のURLは既存のprovider別HTTPS検証を維持する。既存client helperと直接UI呼出元・型・最小回帰だけを更新し、新しい抽象やテスト基盤、後方互換層を作らない。実assertion RED→GREEN、必要な既存検証/CI、main由来Web反映まで受入し、実決済済みとは呼ばない。生成providerの採用・budget・enable flag・実effectを変更しない。
 
-限定preflightの一次資料と条件付き原価 → ../../evidence/ai-monk-factory-provider-preflight-20261024.json。Gemini 3.1 Flash-Liteの台本と同Imageの1K portraitを次の実装候補に選ぶ。画像modelに無料枠はなく、専用の有料Cloud project/key・支払状態・モデル権限は未確認である。利用条件上の18歳未満対象の禁止と有料データ取扱い、project capの処理遅延も実装/利用準備に反映する。既存price/quota/reservationを変更せず、正確なREST/MIME/token契約・専用課金準備・実生成を次に受入する。現時点のsource/runtime採用・入金・生成は0で、PL-1のOpenAI正規復旧条件を削除しない。
+限定preflightの一次資料と条件付き原価 → ../../evidence/ai-monk-factory-gemini-provider-preflight-20261024.json。Gemini 3.1 Flash-Liteの台本と同Imageの1K portraitを次の実装候補に選ぶ。画像modelに無料枠はなく、専用の有料Cloud project/key・支払状態・モデル権限は未確認である。利用条件上の18歳未満対象の禁止と有料データ取扱い、project capの処理遅延も実装/利用準備に反映する。既存price/quota/reservationを変更せず、正確なREST/MIME/token契約・専用課金準備・実生成を次に受入する。現時点のsource/runtime採用・入金・生成は0で、PL-1のOpenAI正規復旧条件を削除しない。
 
 Checkout sourceは4fileの最小修正で実RED→GREEN/client7件を確認する。任意の全体noEmitは別領域6診断でexit2、baseline比較は未確定のため合格扱いしない。最終headの既存CIと公開反映はprimaryが受入する。証拠 → ../../evidence/ai-monk-factory-checkout-resume-source-20261024.json。
