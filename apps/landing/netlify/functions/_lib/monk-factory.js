@@ -58,6 +58,7 @@ function buildFactoryCheckout({ user, price, customerId, trialUsed }) {
     metadata,
     subscription_data: subscription,
     payment_method_collection: 'always',
+    payment_method_types: ['card'],
     ...(customerId ? { customer: customerId } : { customer_email: user.email }),
     success_url: 'https://aniccaai.com/ai-monk-factory?checkout=success&session_id={CHECKOUT_SESSION_ID}',
     cancel_url: 'https://aniccaai.com/ai-monk-factory?checkout=cancelled',

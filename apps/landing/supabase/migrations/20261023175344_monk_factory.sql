@@ -74,7 +74,7 @@ CREATE TABLE public.monk_factory_stripe_events (
   user_id uuid REFERENCES public.monk_factory_accounts(user_id),
   event_type text NOT NULL,
   stripe_object_id text NOT NULL,
-  stripe_subscription_id text NOT NULL,
+  stripe_subscription_id text,
   created_at timestamptz NOT NULL DEFAULT now(),
   processed_at timestamptz
 );

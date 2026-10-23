@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const { subscriptionPatch, beginFactoryCheckout, syncFactoryBilling } = require('../monk-factory-billing.js');
 
 const user = { id: 'eaa06ae6-53ec-4a6b-baa4-e6731b129ca8', email: 'fixture@example.com' };
-const price = { id: 'price_factory', active: true, currency: 'usd', unit_amount: 19900, metadata: { product: 'ai_monk_factory' }, recurring: { interval: 'month', interval_count: 1 } };
+const price = { id: 'price_factory', livemode: false, active: true, currency: 'usd', unit_amount: 19900, metadata: { product: 'ai_monk_factory' }, recurring: { interval: 'month', interval_count: 1 } };
 function subscription(status = 'active') {
   return {
     id: 'sub_fixture', customer: 'cus_fixture', livemode: false, status,
@@ -75,7 +75,7 @@ test('retry after a lost Checkout save uses the same persisted payload and Strip
     calls.push(structuredClone({ params, options }));
     return { id: 'cs_fixture', mode: 'subscription', status: 'open', url: 'https://checkout.stripe.com/c/pay/fixture', client_reference_id: user.id, metadata: params.metadata };
   } } } };
-  const input = { user, store, stripe, env: { MONK_FACTORY_STRIPE_PRICE_ID: price.id }, now: () => now };
+  const input = { user, store, stripe, env: { MONK_FACTORY_STRIPE_PRICE_ID: price.id, MONK_FACTORY_STRIPE_LIVE: 'false' }, now: () => now };
   await assert.rejects(beginFactoryCheckout(input));
   const result = await beginFactoryCheckout({ ...input, user: { ...user, email: 'changed@example.com' } });
   assert.equal(result.url, 'https://checkout.stripe.com/c/pay/fixture');

@@ -19,15 +19,15 @@ Spec: ../specs/2026-10-24-ai-monk-factory-saas-design.md
 ## Task 1: 本人確認・永続quota・Stripe
 Files: apps/landing/netlify/functions/_lib/monk-factory.js、_lib/monk-factory-store.js、monk-factory.js、monk-factory-stripe.js、_lib/__tests__/monk-factory.test.js、CLIで作るapps/landing/supabase/migrations/*_monk_factory.sql、scripts/test-ai-monk-factory-db.mjs。
 Interfaces: authenticateFactoryRequest(event,{env,fetchImpl})→verified {id,email}。buildFactoryCheckout({user,price,customerId,trialUsed})→公式GETしたPriceのUSD199/月/Factory metadataを検証した固定Stripe payload。storeはaccounts/jobs/eventsとservice-only RPCによるslot/生成枠/period予約を提供する。
-- [ ] missing/invalid token・偽造user ID・固定price/3日trial・二重quota/別user/RLS・署名不正/重複webhookの必要最小REDを確認する。
-- [ ] server getUser、service-only DB更新、atomic quota/slot、固定Checkout/本人portal、raw署名と公式subscription照合を実装しGREENにする。
+- [x] missing/invalid token・偽造user ID・固定price/3日trial・二重quota/別user/RLS・署名不正/重複webhookの必要最小REDを確認する。
+- [x] server getUser、service-only DB更新、atomic quota/slot、固定Checkout/本人cancel portal、raw署名queueと公式subscription再取得を実装しGREENにする。queue消費はTask2 tickへ結ぶ。
 - [x] 既存local Postgresの独立fixtureでRLSと同時予約を確かめ、commit/pushする。本番DBはmain統合まで変更しない。
 - [x] 現行Stripeのitem period/同期間paid invoice lineと、user/customer/price/live-mode帰属を照合するpure helperを4件で検証する。解約予定は次の生成予約を止める。
 - [x] 既存droplet/wake-call webhookのFactory除外をREDから修正し、既存契約を含む関連22件を確認する。wake-call側は実Stripe SDKの署名を使う隔離fixtureで検証する。
 - [x] Checkout contextの並列一意性と課金同期leaseを実DBで検証し、期限切れ旧応答の拒否・生涯trial状態の維持を確認する。
 
 ## Task 2: 制作・接続・自動投稿
-Files: _lib/monk-factory-providers.js、monk-factory-tick.js、Task1 API/store、必要最小の関連test。
+Files: _lib/monk-factory-providers.js、_lib/monk-factory-jobs.js、monk-factory-tick.js、monk-factory-image-background.js、Task1 API/store/SQL、必要最小の関連test。
 Interfaces: jobはuser_id/occurrence/stage/provider_id/next_run_at/lease/cost/evidenceを持つ。provider submitはIDを返し、pollで公式状態へ進める。
 - [ ] 独立billing sourceと必要設定の事前確認、clientへのsecret非露出、同じoccurrence/effect不明の再送0を最小REDで確認する。
 - [ ] avatar画像→PhotoAvatar、Database由来の独自script→speech duration確認→縦動画、本人profile Connect→official GET、IG投稿→公式post URL/metricsを実装する。
@@ -41,4 +41,4 @@ Files: apps/landing/app/ai-monk-factory/page.tsxとclient、scripts/stage-ai-mon
 - [ ] Factory専用provider/Stripe3日trial/本人IG接続/実avatar-video/公式postとmetricsを区別して確認し、利用可能な事実だけをXへ告知する。
 
 ## 現在cursor
-Task1の認証/料金6件、公式subscription照合4件、既存商品のFactory除外を含む関連22件がGREEN。実DB7件は、trial/paid分離、36並列要求の30枠制限、失敗後の36試行上限、予算、RLS、25profile容量、課金境界欠落/失効/解約予定、並列Checkout context、期限切れ課金同期の拒否とtrial保持を確認する。専用runnerは毎回TCP無効の新local Postgresを作り、自分のfixtureだけ片付ける。次はservice store、raw署名event queue、Stripe公式GETとAPIへの配線。本番DB反映・SaaS公開・料金公開・実生成・売上は未完。
+Task1のAPI/署名/課金/認証18件、既存商品分離12件、実DB8件がGREEN。verified UIDで読取/停止/課金を結び、API応答から内部customer/nonceを除外する。Checkoutは保存済みpayloadとidempotency keyを再利用し、24時間後は公式全page検索の完了前に新nonceを発行しない。署名eventは識別子だけを一意queueへ保存し、権限を直接付与しない。Task2でqueue消費、provider adapter、job/effect fence、同期画像用backgroundの重複0とIG接続/投稿を結ぶ。HeyGen Imageの既存画像必須を確認しOpenAI text-to-imageへ改めるが、avatar予約USD1.60/trial4.25は保守枠として維持する。本番DB反映・SaaS公開・料金公開・実生成・売上は未完。
