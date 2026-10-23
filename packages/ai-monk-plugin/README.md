@@ -7,7 +7,7 @@ Portable, free, read-only plugin package for the [AI Monk Database](https://anic
 Use a Codex CLI with `codex plugin marketplace` support (checked with 0.160.0):
 
 ```sh
-codex plugin marketplace add Daisuke134/anicca-products --sparse packages/ai-monk-plugin
+codex plugin marketplace add Daisuke134/anicca-products --sparse .agents/plugins --sparse packages/ai-monk-plugin
 codex plugin add ai-monk-index@anicca
 codex plugin list --marketplace anicca
 ```
