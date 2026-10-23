@@ -1,0 +1,428 @@
+{
+  "schema_version": "anicca.ai-monk-plugin-native-v012.v1",
+  "run_id": "ai-monk-plugin-native-v012-20261024",
+  "owner_id": "monk_product_price_followup",
+  "occurrence_id": "manifest-positive-cases-3-4-5-only",
+  "release_sha": "2cfc70e2c706ef7d697dbe30b47e319d4c28b3c1",
+  "observed_at": "2026-10-23T21:22:35.761386+00:00",
+  "phase": "three_extended_positive_cases_complete",
+  "exit_code": 0,
+  "plugin": {
+    "version": "0.1.2",
+    "installed": true,
+    "enabled": true,
+    "source_main_sha": "2cfc70e2c706ef7d697dbe30b47e319d4c28b3c1",
+    "source_file_hashes": {
+      ".agents/plugins/marketplace.json": "1d31a9642974e357b4008d1aa9743b286b7a0ea60477ef6d2ea0d2de4b1a697d",
+      "packages/ai-monk-plugin/README.md": "50b6f0ec83bc74b7462ff5ebd1e69d2c6dcfb02f8efc101ebb0d16671611af6f",
+      "packages/ai-monk-plugin/assets/icon.png": "8e0fd36eb74d4bb5749e8f049cace51db6823bf8923933f37421cde896ba5ca3",
+      "packages/ai-monk-plugin/mcp.json": "ebd167f7e98b8d604e5326b603f0c3f23eea7d699042e4afcfafc28ef73720b0",
+      "packages/ai-monk-plugin/plugin.json": "62ca5502bac4e8fca32f3ec2bf51f03851508a60572ae9d95ede9c497c6a533a"
+    }
+  },
+  "model_selection": {
+    "source": "Current user-saved preferences inherited verbatim without a new model or provider choice",
+    "configured_model": "gpt-6.1-sol",
+    "model_or_provider_flags": 0,
+    "provider_config_override": false,
+    "response_side_model_identifier": "Not exposed by these --json events; ephemeral thread metadata is not retained. The recorded ID is the unchanged configured selection, not an independently observed provider response model."
+  },
+  "runtime": {
+    "codex_version": "0.160.0",
+    "read_only": true,
+    "ephemeral": true,
+    "shared_daemon_used": false,
+    "private_home": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-native-v012-20261024/codex-home",
+    "auth_material_copied": false,
+    "standard_auth_reference_only": true,
+    "shared_config_unchanged": true,
+    "credential_ssot_reads": 0,
+    "features_disabled": [
+      "remote_plugin",
+      "apps",
+      "enable_mcp_apps",
+      "codex_apps_mcp_2026_07_28",
+      "shell_tool",
+      "unified_exec",
+      "browser_use",
+      "browser_use_external",
+      "browser_use_full_cdp_access",
+      "computer_use",
+      "in_app_browser",
+      "image_generation",
+      "view_image",
+      "multi_agent",
+      "multi_agent_v2",
+      "memories",
+      "hooks",
+      "tool_suggest",
+      "daemon_auto_start"
+    ],
+    "auth_reference_at_end_of_each_run": "symlink, not copied",
+    "private_auth_reference_removed_after_runs": true,
+    "underlying_standard_auth_stat_unchanged_during_reference_cleanup": true
+  },
+  "agmsg": {
+    "skill_and_playbook_read": true,
+    "new_seat_registered": false,
+    "new_independent_deliverable_delegated": false,
+    "bounded_test_exception": "This owner directly executes one finite, ephemeral CLI verification subprocess in the same task. No separately owned CLI agent, pane, monitor, supervisor, or ongoing team role is created. User AGENTS exempts small temporary work from mandatory agmsg; skill registration is not treated as runtime proof."
+  },
+  "readback": {
+    "positive_cases_completed": [
+      3,
+      4,
+      5
+    ],
+    "actual_completed_mcp_calls": 4,
+    "actual_tools": [
+      "how_they_monetize",
+      "search_ai_monks",
+      "top_formats",
+      "winning_playbooks"
+    ],
+    "extended_new_tool_routes_verified": [
+      "top_formats",
+      "how_they_monetize",
+      "winning_playbooks"
+    ],
+    "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02",
+    "all_call_snapshots_identical": true,
+    "cases": [
+      {
+        "positive_case_index": 3,
+        "prompt": "Show three AI monk video samples with the highest observed views. Explain their hooks and script structures with sources.",
+        "tool_name_not_forced": true,
+        "expected_tool_posthoc": "top_formats",
+        "exit_code": 0,
+        "elapsed_seconds": 37.54,
+        "tool_receipts": [
+          {
+            "server": "ai-monk-index",
+            "tool": "top_formats",
+            "arguments": {
+              "limit": 3
+            },
+            "status": "completed",
+            "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02",
+            "structured_result_sha256": "4ef29be8b55e8ee1815006564d99bc81df2edbca2c19d6b522fc72ea5be7e392",
+            "samples": 3,
+            "accounts": 0,
+            "playbooks": 0
+          }
+        ],
+        "final_answer_sha256": "d1d9757626cb63c6a3973f3e6b2374151d9eec2cf1ac0f1788f97978ecad2037",
+        "final_answer_japanese": true,
+        "source_links_and_limitations_retained": true,
+        "manual_final_review": "Owner inspected the final Japanese answer against the returned snapshot; titles/source dates/unknown fields and unaudited revenue or performance claims remain distinguished.",
+        "unexpected_effect_event_types": [],
+        "evidence_directory": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-native-v012-20261024"
+      },
+      {
+        "positive_case_index": 4,
+        "prompt": "How does Yang Mun monetize? Show product names, displayed prices and source links, and distinguish creator revenue claims from verified sales.",
+        "tool_name_not_forced": true,
+        "expected_tool_posthoc": "how_they_monetize",
+        "exit_code": 0,
+        "elapsed_seconds": 40.69,
+        "tool_receipts": [
+          {
+            "server": "ai-monk-index",
+            "tool": "search_ai_monks",
+            "arguments": {
+              "query": "Yang Mun",
+              "limit": 5
+            },
+            "status": "completed",
+            "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02",
+            "structured_result_sha256": "630f31fd23e4514fc28f158f2e7769dcbee0eedbe8703add2ba5f91b92760a74",
+            "samples": 0,
+            "accounts": 2,
+            "playbooks": 0
+          },
+          {
+            "server": "ai-monk-index",
+            "tool": "how_they_monetize",
+            "arguments": {
+              "account_id": "yang-mun"
+            },
+            "status": "completed",
+            "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02",
+            "structured_result_sha256": "09652e7076e0138785d5372896ae4b80dd06644c6cc5abce9666228733a35dc4",
+            "samples": 0,
+            "accounts": 1,
+            "playbooks": 0
+          }
+        ],
+        "final_answer_sha256": "17f316f5ebf8dd36161368a1883884947f162301388791adefb201f771b465ff",
+        "final_answer_japanese": true,
+        "source_links_and_limitations_retained": true,
+        "manual_final_review": "Owner inspected the final Japanese answer against the returned snapshot; titles/source dates/unknown fields and unaudited revenue or performance claims remain distinguished.",
+        "unexpected_effect_event_types": [],
+        "evidence_directory": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-native-v012-20261024/positive4"
+      },
+      {
+        "positive_case_index": 5,
+        "prompt": "What creator-published playbook can I study for AI monk scripts, voice, posting cadence and product funnels? Include sources and the limits of the claims.",
+        "tool_name_not_forced": true,
+        "expected_tool_posthoc": "winning_playbooks",
+        "exit_code": 0,
+        "elapsed_seconds": 34.82,
+        "tool_receipts": [
+          {
+            "server": "ai-monk-index",
+            "tool": "winning_playbooks",
+            "arguments": {},
+            "status": "completed",
+            "snapshot_sha256": "b38ed6fabb78a357718cbddae7840c1922859b04e4858a578c2de2e76e768f02",
+            "structured_result_sha256": "26dbea8e8fbbb9e8715f426608a6b662476dc56c30c9fe468c905ddc9514660c",
+            "samples": 0,
+            "accounts": 0,
+            "playbooks": 1
+          }
+        ],
+        "final_answer_sha256": "d24b7052cb3021ba2dcfbd1600470135cf0a2f86476b5b2d811d606e8807ba11",
+        "final_answer_japanese": true,
+        "source_links_and_limitations_retained": true,
+        "manual_final_review": "Owner inspected the final Japanese answer against the returned snapshot; titles/source dates/unknown fields and unaudited revenue or performance claims remain distinguished.",
+        "unexpected_effect_event_types": [],
+        "evidence_directory": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-native-v012-20261024/positive5"
+      }
+    ]
+  },
+  "startup_boundaries": [
+    {
+      "positive_case_index": 3,
+      "hostname": "mcp.firecrawl.dev",
+      "error_class": "unused_transport_auth_required",
+      "invalid_token_label": true,
+      "actual_research_tool_calls_to_this_transport": 0,
+      "auth_refresh_login_or_repair_attempts": 0,
+      "private_cli_declared_mcp_servers": [],
+      "private_cli_plugin_servers": [
+        "ai-monk-index"
+      ],
+      "boundary": "The CLI stderr reports an unused remote transport auth failure despite private apps/remote_plugin being disabled and mcp list containing only AI Monk. No specific Firecrawl server entry is exposed by local config/help, so no guessed config override or credential procedure is applied. The provenance of this additional startup transport remains unconfirmed."
+    },
+    {
+      "positive_case_index": 4,
+      "hostname": "mcp.firecrawl.dev",
+      "error_class": "unused_transport_auth_required",
+      "invalid_token_label": true,
+      "actual_research_tool_calls_to_this_transport": 0,
+      "auth_refresh_login_or_repair_attempts": 0,
+      "private_cli_declared_mcp_servers": [],
+      "private_cli_plugin_servers": [
+        "ai-monk-index"
+      ],
+      "boundary": "The CLI stderr reports an unused remote transport auth failure despite private apps/remote_plugin being disabled and mcp list containing only AI Monk. No specific Firecrawl server entry is exposed by local config/help, so no guessed config override or credential procedure is applied. The provenance of this additional startup transport remains unconfirmed."
+    },
+    {
+      "positive_case_index": 5,
+      "hostname": "mcp.firecrawl.dev",
+      "error_class": "unused_transport_auth_required",
+      "invalid_token_label": true,
+      "actual_research_tool_calls_to_this_transport": 0,
+      "auth_refresh_login_or_repair_attempts": 0,
+      "private_cli_declared_mcp_servers": [],
+      "private_cli_plugin_servers": [
+        "ai-monk-index"
+      ],
+      "boundary": "The CLI stderr reports an unused remote transport auth failure despite private apps/remote_plugin being disabled and mcp list containing only AI Monk. No specific Firecrawl server entry is exposed by local config/help, so no guessed config override or credential procedure is applied. The provenance of this additional startup transport remains unconfirmed."
+    }
+  ],
+  "scope_not_tested": {
+    "positive_cases": [
+      1,
+      2
+    ],
+    "negative_cases": [
+      1,
+      2,
+      3
+    ],
+    "all_six_tool_native_suite_accepted": false,
+    "formal_ChatGPT_upload_or_directory_listing": false,
+    "demo_recording": false
+  },
+  "effects": {
+    "repo_source_changes": 0,
+    "plan_changes": 0,
+    "shared_config_changes": 0,
+    "browser_operations": 0,
+    "new_accounts_logins_resets": 0,
+    "provider_topups_or_new_api_key_usage": 0,
+    "media_generation": 0,
+    "posts": 0,
+    "purchases": 0,
+    "outbound_messages": 0,
+    "non_monk_actual_mcp_tool_calls": 0,
+    "new_agent_seats_supervisors_or_loops": 0
+  },
+  "next_action": "Root may record these three positive-case receipts in its documentation branch; retain untested cases, formal submission/demo and the unused transport startup boundary separately. No additional model run is needed for this bounded unit.",
+  "command": "isolated native Codex plugin load; three finite ephemeral read-only natural-language positive cases",
+  "evidence_refs": [
+    {
+      "file": "agent.stderr.log",
+      "bytes": 446,
+      "sha256": "dcbebeb42afe8f5a1806cfb977b40004cd2476a5bf29e228cbf11dbadb23441a",
+      "mode": "0o600"
+    },
+    {
+      "file": "agent.stdout.jsonl",
+      "bytes": 47182,
+      "sha256": "f460b07f031eab6e226c47e7b1831661779cba02531b9d0f33aa0f760cd42a22",
+      "mode": "0o600"
+    },
+    {
+      "file": "bootstrap.json",
+      "bytes": 2306,
+      "sha256": "2de4291ee82336f4250b577edb5b5bb9aa6cd465ebbde120045661d6bfb5c92c",
+      "mode": "0o600"
+    },
+    {
+      "file": "codex-home/config.toml",
+      "bytes": 880,
+      "sha256": "c5232cb94414cb15ff72dd28780fc65f6f25b648d51c3a4d19ba15d7b6d09c00",
+      "mode": "0o600"
+    },
+    {
+      "file": "load-process-results.json",
+      "bytes": 1788,
+      "sha256": "dbe22eee1539dab1f7a63e1fe1156f970c3c6233fa8b9ad8439b632814a42d32",
+      "mode": "0o600"
+    },
+    {
+      "file": "mcp_list.stdout",
+      "bytes": 444,
+      "sha256": "6cbb46da58e9e3b211251cf99a1a76a80f95b0d5d0a952fba05f89c7bad9d6e3",
+      "mode": "0o600"
+    },
+    {
+      "file": "owner.json",
+      "bytes": 591,
+      "sha256": "b5de54e99834298b013f1698d5b0270c0b67e0e5b3d3e6f03ec18cdb6c680fc7",
+      "mode": "0o600"
+    },
+    {
+      "file": "plugin_list.stdout",
+      "bytes": 694,
+      "sha256": "c8fe5e25f1c485c02fd47d29c20ea7c17558eaf44de23bead28b2c91753dd0ce",
+      "mode": "0o600"
+    },
+    {
+      "file": "positive4/agent.stderr.log",
+      "bytes": 446,
+      "sha256": "df353da2bba5ce9a81cbb1dc8b2ba1a7a1746343ddb69d46c31bb361abc2b6f0",
+      "mode": "0o600"
+    },
+    {
+      "file": "positive4/agent.stdout.jsonl",
+      "bytes": 93014,
+      "sha256": "a65763ad58ff8b79c88f66102ad50a4926657115789486c97cb947170dc8c389",
+      "mode": "0o600"
+    },
+    {
+      "file": "positive4/owner.json",
+      "bytes": 526,
+      "sha256": "0279386a6193fa02f3effcc1b808eb2c9b84d41e4f2e0c4fb4b0ab83b3dc943b",
+      "mode": "0o600"
+    },
+    {
+      "file": "positive4/process-result.json",
+      "bytes": 1478,
+      "sha256": "66a908ce765ee0cb9e1ea1008373cc4c7bce33c35f6a0ab003335158c6466ed3",
+      "mode": "0o600"
+    },
+    {
+      "file": "positive4/prompt.md",
+      "bytes": 143,
+      "sha256": "2571583852cbf7b08a420f16e9bbab7e478851d0365162fb41449e1ebdce7276",
+      "mode": "0o600"
+    },
+    {
+      "file": "positive4/result.txt",
+      "bytes": 3061,
+      "sha256": "17f316f5ebf8dd36161368a1883884947f162301388791adefb201f771b465ff",
+      "mode": "0o600"
+    },
+    {
+      "file": "positive5/agent.stderr.log",
+      "bytes": 446,
+      "sha256": "20339e22a9554dd2b052b231b7bc9eb0af5c889e51bb215fc14e59c696546f9a",
+      "mode": "0o600"
+    },
+    {
+      "file": "positive5/agent.stdout.jsonl",
+      "bytes": 16032,
+      "sha256": "3498f554d900166058545648148c3c2864c194f9812eaa249ef42e59eec9fc3e",
+      "mode": "0o600"
+    },
+    {
+      "file": "positive5/owner.json",
+      "bytes": 526,
+      "sha256": "fb94f92b3814fb6ebfb2f11358505d6bd50cccbbf8b7c36775d9387ff31184b4",
+      "mode": "0o600"
+    },
+    {
+      "file": "positive5/process-result.json",
+      "bytes": 1253,
+      "sha256": "e34f7fbb6ec5a838acb26e3bf27cb9cecaf86aff3f360ab8672e484ae840e0c9",
+      "mode": "0o600"
+    },
+    {
+      "file": "positive5/prompt.md",
+      "bytes": 155,
+      "sha256": "97d9ba4e5219df54ec008334e889c1c702f665cedae38a350128b0a9ce95fd1b",
+      "mode": "0o600"
+    },
+    {
+      "file": "positive5/result.txt",
+      "bytes": 2581,
+      "sha256": "d24b7052cb3021ba2dcfbd1600470135cf0a2f86476b5b2d811d606e8807ba11",
+      "mode": "0o600"
+    },
+    {
+      "file": "process-result.json",
+      "bytes": 965,
+      "sha256": "7fac8f53ab6fc1834739cfb153c39e350ea31058585f63db3224438abcbaf887",
+      "mode": "0o600"
+    },
+    {
+      "file": "prompt.md",
+      "bytes": 122,
+      "sha256": "d8b910b03b1878ecd7e248bff88fbf4afbc64adbfca13ce3a643421ce7273696",
+      "mode": "0o600"
+    },
+    {
+      "file": "result.txt",
+      "bytes": 2535,
+      "sha256": "d1d9757626cb63c6a3973f3e6b2374151d9eec2cf1ac0f1788f97978ecad2037",
+      "mode": "0o600"
+    },
+    {
+      "file": "summary.json",
+      "bytes": 11883,
+      "sha256": "b20992fad1b2eff42d4ac9cd2d1d0777f10d48a6877e8e1f1188756643db5a1a",
+      "mode": "0o600"
+    },
+    {
+      "file": "summary.json",
+      "bytes": 11883,
+      "sha256": "b20992fad1b2eff42d4ac9cd2d1d0777f10d48a6877e8e1f1188756643db5a1a"
+    },
+    {
+      "file": "evidence-manifest.json",
+      "bytes": 4424,
+      "sha256": "49a57adb0868a7b550d217e4c8198ebda0df5ca20f518a128e87d80ebeb0bd26"
+    }
+  ],
+  "primary_evidence_manifest_hashes_verified": true,
+  "claim_limits": [
+    "Only positive cases 3/4/5 are accepted; positive 1/2, all negative cases, all-six-native coverage, official ChatGPT submission/listing and demo remain unverified.",
+    "Native runtime automatic selection differs from direct JSON-RPC tool calls; no tool name was forced by these user prompts.",
+    "The reported model is the unchanged configured user selection, not an independently exposed provider-response model ID.",
+    "Unused Firecrawl startup auth failures are recorded separately; no actual research tool call or auth repair used that transport. Its startup provenance is unconfirmed.",
+    "Publication of this receipt does not establish installs by users, customers, orders or revenue."
+  ]
+}
