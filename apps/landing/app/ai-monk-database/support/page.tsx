@@ -22,7 +22,7 @@ export default function AiMonkSupportPage() {
         <p className="mt-4"><a className="underline" href="https://github.com/Daisuke134/anicca-products/tree/main/packages/ai-monk-index" target="_blank" rel="noopener noreferrer">Installation and tool reference</a></p>
         <h2 className="mb-2 mt-8 text-xl font-semibold">Install the Codex plugin</h2>
         <p>Use a Codex CLI with <code>codex plugin marketplace</code> support (checked with 0.160.0):</p>
-        <pre className="mt-4 overflow-x-auto rounded-lg bg-white/70 p-4 text-sm"><code>{`codex plugin marketplace add Daisuke134/anicca-products --sparse packages/ai-monk-plugin
+        <pre className="mt-4 overflow-x-auto rounded-lg bg-white/70 p-4 text-sm"><code>{`codex plugin marketplace add Daisuke134/anicca-products --sparse .agents/plugins --sparse packages/ai-monk-plugin
 codex plugin add ai-monk-index@anicca
 codex plugin list --marketplace anicca`}</code></pre>
         <p className="mt-4">This installs from Anicca&apos;s repository marketplace. <a className="underline" href="https://github.com/Daisuke134/anicca-products/tree/main/packages/ai-monk-plugin" target="_blank" rel="noopener noreferrer">Plugin package and portable ZIP guidance</a></p>

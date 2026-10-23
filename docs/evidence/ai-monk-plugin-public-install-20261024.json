@@ -1,0 +1,70 @@
+{
+  "schema_version": "anicca.ai-monk-plugin-public-install.v1",
+  "run_id": "ai-monk-plugin-public-install-dual-sparse-20261024",
+  "owner_id": "root",
+  "occurrence_id": "public-main-sha-sparse-install",
+  "release_sha": "0675d5e0a7c3d6a0e5a9caf19f7363256525e894",
+  "observed_at": "2026-10-23T15:16:11Z",
+  "loaded_argv": [
+    "codex",
+    "plugin",
+    "marketplace",
+    "add",
+    "Daisuke134/anicca-products",
+    "--ref",
+    "0675d5e0a7c3d6a0e5a9caf19f7363256525e894",
+    "--sparse",
+    ".agents/plugins",
+    "--sparse",
+    "packages/ai-monk-plugin"
+  ],
+  "loaded_env": {
+    "isolated_CODEX_HOME": true,
+    "git_credential_helper_disabled": true,
+    "auth_file_present": false,
+    "model_provider_flags": 0
+  },
+  "phase": "public_repository_marketplace_install",
+  "command": "marketplace add, available, plugin add, installed, mcp list",
+  "exit_code": 0,
+  "effect": {
+    "social_publications": 0,
+    "video_generation": 0,
+    "shared_configuration_changes": 0
+  },
+  "readback": {
+    "steps": {
+      "marketplace_add": 0,
+      "available": 0,
+      "plugin_install": 0,
+      "installed": 0,
+      "mcp_load": 0
+    },
+    "plugin_version": "0.1.1",
+    "mcp_enabled": true,
+    "mcp_count": 1,
+    "payload_sha256": {
+      "plugin.json": "2f0a3c60827db12599d85fe15c5b1bc37457012995385d549cc05eaf9a0f962b",
+      "mcp.json": "ebd167f7e98b8d604e5326b603f0c3f23eea7d699042e4afcfafc28ef73720b0",
+      "assets/icon.png": "8e0fd36eb74d4bb5749e8f049cace51db6823bf8923933f37421cde896ba5ca3"
+    }
+  },
+  "provider_receipt_id": null,
+  "evidence_refs": [
+    "marketplace_add.json",
+    "available.json",
+    "plugin_install.json",
+    "installed.json",
+    "mcp_load.json"
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "official directory authentication and separate supported monetization route",
+  "initial_red": {
+    "exit_code": 1,
+    "error_class": "marketplace_manifest_missing_from_sparse_checkout",
+    "only_sparse_path": "packages/ai-monk-plugin",
+    "private_evidence": "ai-monk-plugin-public-install-20261024/marketplace_add.json"
+  },
+  "repair": "include .agents/plugins and packages/ai-monk-plugin as repeated --sparse paths"
+}
