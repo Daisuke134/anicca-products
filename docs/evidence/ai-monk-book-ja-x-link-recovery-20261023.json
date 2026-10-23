@@ -8,10 +8,10 @@
   "destination": "https://aniccaai.com/the-art-of-ai-monks/ja?utm_source=x&utm_medium=social&utm_campaign=art_of_ai_monks_book_launch_ja",
   "conservative_x_weighted_upper_bound": 119,
   "transport": "registered x:anicca existing leased browser",
-  "state": "prepared_not_dispatched",
+  "state": "published",
   "prepared_at": "2026-10-23T08:49:57.449279+00:00",
-  "provider_writes": 0,
-  "reply_url": null,
+  "provider_writes": 1,
+  "reply_url": "https://x.com/selawmqt/status/2113556550073921584",
   "metrics": {
     "views": null,
     "clicks": null,
@@ -30,5 +30,15 @@
     "exact_book_title_present": true,
     "destination_present": false,
     "provider_writes": 0
-  }
+  },
+  "native_receipt": {
+    "reply_id": "2113556550073921584",
+    "parent_id": "2113542427495841883",
+    "full_text": "@shalevhvs 日本語版『ヤング・ムンの衝撃 - AI僧侶ビジネスの最前線』はこちら。\n原稿全文は無料です。\n\nhttps://t.co/EpjQno0Ir6",
+    "expanded_urls": [
+      "https://aniccaai.com/the-art-of-ai-monks/ja?utm_source=x&utm_medium=social&utm_campaign=art_of_ai_monks_book_launch_ja"
+    ]
+  },
+  "observed_at": "2026-10-23T09:02:12.575865+00:00",
+  "verification": "own reply id/parent/full text/expanded destination and permalink"
 }
