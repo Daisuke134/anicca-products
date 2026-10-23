@@ -18,9 +18,18 @@ source受入は同一planの表示操作前後の公開UI、一次資料header h
 
 base main f5ca0e1880a7c026f3323bfde6f86e495ad46c03、branch feat/ai-monk-kael-price-v047-20261024、worktree /Users/anicca/Projects/anicca-products-worktrees/ai-monk-product-prices-v046-20261024。primaryがsourceを所有し、他者の編集をrevertしない。private観測正本は /Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-kael-currency-live-20261024/observation.json。表示通貨切替1、入力/購入0で、USD settled readbackまで確認する。その他の保護storeやbrowser targetは触らない。
 
-- [ ] SPEC: 本specとmasterのDB-1 cursorを先にcommit/pushし、remote objectを確認する。
-- [ ] SOURCE: private source acceptanceの未反映を確認後、限定data更新・版整合・既存関連検証・commit/pushを行う。
+- [x] SPEC: 本specとmasterのDB-1 cursorを先にcommit/pushし、remote objectを確認する。spec-first commit d22a5b77ba58d91979840bf72c0909c0c3d6af62を使用する。
+- [x] SOURCE: private source acceptanceのRED→GREEN、限定data更新・v0.4.7版整合・既存関連検証を完了し、このbranchのcommit/pushでremote objectを確認する。
 - [ ] REVIEW: 実装と独立したread-only一次資料/sourceレビューを行い、必要CI/PR/mainへ統合する。
 - [ ] PUBLIC: 固定main入力の新v0.4.7配布物・Registryと公開Web/JSON/MCP/URL導入/実stdioを確認し、正本へ記録する。
 
-現在cursor: SPEC。全体順序は変更せず、DB-1の追加観測をPlugin native routingと独立して反映する。Factoryの支払方法不足を成功へ置換しない。
+現在cursor: REVIEW / PUBLIC（primary所有）。全体順序は変更せず、DB-1の追加観測をPlugin native routingと独立して反映する。Factoryの支払方法不足を成功へ置換しない。
+
+
+## source受入結果
+
+Kaelの既存有料observation remaining-kael-thirty-nightsは27 USD・one_time・listed_offerを保持し、初期4320 JPYを別のpresentment_priceに記録する。元179source、無料preview、他accountとAI/creator/収益等の観測は完全一致する。新source1件で75archive・73公開・180source・639参照、snapshot SHA256は `75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c`。
+
+private source受入は反映前exit1から反映後exit0へ進み、同plan・USD切替1・安定後readbackと限定header hashを照合する。既存package15件（実SDK/HTTP/隔離tarball導入を含む）、helper9件・Web表示4件、追加の実stdio6toolとCLIのKael offer完全一致は全てPASSする。canonical/dist/Netlify JSONのbytesは一致し、package/lock/serverは0.4.7。永久mirror test・依存追加・全650ページのlocal buildは0で、全体buildはPR CIで扱う。
+
+根拠と再現経路は `docs/evidence/ai-monk-kael-currency-source-20261024.json`、private受入は `/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-kael-currency-source-20261024/` に置く。公開するUI根拠はURL・取得時刻・限定header hash・短い要旨に限定する。merchant会計通貨、無料previewのISO通貨、実ファイル/精細format、注文/売上/効能/creator権利は未知を保持する。v0.4.6の配布物と既存receipt、master/Plugin plan、Factory/Plugin source、browser/credential/shared state、外部publishは変更しない。

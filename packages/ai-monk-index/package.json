@@ -1,6 +1,6 @@
 {
   "name": "@anicca/ai-monk-index",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "description": "Source-linked AI monk research index: offline JSON CLI and read-only MCP server",
   "type": "module",
   "license": "MIT AND CC-BY-4.0",

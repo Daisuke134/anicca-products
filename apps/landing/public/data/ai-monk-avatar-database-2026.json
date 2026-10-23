@@ -1792,6 +1792,32 @@
       "evidence_sha256": "4eb0f7e354330b8673538b37c0e8e3044f6f8ebe4e75abaf021ff97e06d929e0",
       "evidence_kind": "private_public_response_body",
       "notes": "The storefront two-ebook bundle points to product P105464053B / offer w7hjj3yf. Decoded __NUXT_DATA__ products[0].exchange[0] has baseValue 60 / baseCurrency BRL. The JP / ja_JP paymentMethods[].amount is 1992 JPY and is separate from the BRL base offer. Price is not calculated from individual ebook prices or the seller discount claim. Billing recurrence, completed purchases, revenue and efficacy remain unverified."
+    },
+    {
+      "id": "product-price-followup-kael-whop-usd-20261024",
+      "title": "Kael same-plan public Whop checkout USD and JP price headers",
+      "url": "https://whop.com/checkout/plan_mBr00B5qTDqH9/",
+      "source_type": "first-party public checkout UI price observation",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T21:19:59.261048+00:00",
+      "capture_method": "registered browser public UI readback; one display-currency switch; no personal or payment entries, purchase or download",
+      "evidence_sha256": "7f3f282012062d994897633fda128e337b2b6ba77efc3b9380e51753320678db",
+      "evidence_kind": "limited_public_price_header",
+      "notes": "The same public Whop plan initially displays 4320 JPY and explicitly says it is converted from USD. One pay-in-USD display switch settles at $27.00 with a one-time-payment label and an option to switch back to JPY. USD is the observed selected checkout currency, not an inferred ISO currency from a dollar symbol or an FX calculation. The initial JP amount is a separate presentment observation. Merchant accounting currency, completed orders, revenue, efficacy, creator rights and delivered files remain unverified.",
+      "price_header_evidence": [
+        {
+          "currency": "USD",
+          "captured_at": "2026-10-23T21:19:59.261048+00:00",
+          "evidence_sha256": "7f3f282012062d994897633fda128e337b2b6ba77efc3b9380e51753320678db",
+          "bytes": 256
+        },
+        {
+          "currency": "JPY",
+          "captured_at": "2026-10-23T21:18:26.781979+00:00",
+          "evidence_sha256": "b9afe5f34f2d5c0ba0ed3cd335a990301cbfa7f8e6ab196d8fbafe29382af863",
+          "bytes": 315
+        }
+      ]
     }
   ],
   "accounts": [
@@ -7825,7 +7851,8 @@
       "region_evidence": null,
       "source_urls": [
         "https://www.instagram.com/kael.wisdom/",
-        "http://linktr.ee/masterkaelwellness"
+        "http://linktr.ee/masterkaelwellness",
+        "https://whop.com/checkout/plan_mBr00B5qTDqH9/"
       ],
       "platforms": [
         {
@@ -7883,16 +7910,17 @@
           "type": "digital_bundle",
           "name": "The Full 30 Nights + All 6 Audios",
           "price": 27,
-          "currency": null,
-          "source_id": "product-remaining-source-2fc9a9dd0242",
+          "currency": "USD",
+          "source_id": "product-price-followup-kael-whop-usd-20261024",
           "source_ids": [
             "product-remaining-source-2fc9a9dd0242",
-            "lead-instagram-kael-wisdom-ig-header-20261024"
+            "lead-instagram-kael-wisdom-ig-header-20261024",
+            "product-price-followup-kael-whop-usd-20261024"
           ],
           "status": "displayed_price_not_order_data",
-          "url": "http://linktr.ee/masterkaelwellness",
+          "url": "https://whop.com/checkout/plan_mBr00B5qTDqH9/",
           "as_of": "2026-10-23",
-          "captured_at": "2026-10-23T16:13:52.222007+00:00",
+          "captured_at": "2026-10-23T21:19:59.261048+00:00",
           "formats": [
             "30-night content",
             "six audio recordings"
@@ -7906,12 +7934,22 @@
           "discovery_urls": [
             "http://linktr.ee/masterkaelwellness"
           ],
-          "notes": "The Full 30 Nights + All 6 Audios · $27. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue. Only a dollar symbol was exposed. ISO currency is unverified and is not assumed to be USD.",
+          "notes": "The Full 30 Nights + All 6 Audios: the same public Whop plan settles at 27 USD with a one-time-payment label after one display-currency switch. Its initial 4320 JPY quote explicitly says it is converted from USD and is retained separately as localized presentment. USD is the selected checkout currency; merchant accounting currency is unverified. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue. Delivered files and precise formats remain unverified.",
           "paid_orders": null,
           "revenue": null,
           "revenue_status": "unknown_no_payment_or_revenue_receipt",
           "price_kind": "listed_offer",
-          "price_symbol": "$"
+          "price_symbol": "$",
+          "billing_kind": "one_time",
+          "presentment_price": {
+            "amount": 4320,
+            "currency": "JPY",
+            "country": "JP",
+            "locale": "ja-JP",
+            "kind": "localized_public_checkout_amount",
+            "captured_at": "2026-10-23T21:18:26.781979+00:00",
+            "source_id": "product-price-followup-kael-whop-usd-20261024"
+          }
         }
       ],
       "seller_counters": [],
@@ -7921,8 +7959,7 @@
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
         "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
         "Your First 3 Nights with Kael: displayed price 0; ISO currency remains unverified. The offer is explicitly labelled free.",
-        "The Full 30 Nights + All 6 Audios: displayed price $27; ISO currency remains unverified.",
-        "Product research: ISO currency for the $27 label and precise file formats; both destination links are checkout and were not requested."
+        "Product research: exact formats, delivered paid files and merchant accounting currency remain unverified. Only the public checkout price and one-time-payment label were inspected; no purchase or file download was performed."
       ],
       "directory_scope": {
         "status": "pending",
