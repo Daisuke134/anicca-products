@@ -5,7 +5,7 @@
 const { buildWriterCheckout, loadWriterArticle } = require('./_lib/writer-checkout.js');
 const { isAttributionTokenForLang } = require('../../lib/checkout-attribution.cjs');
 
-const AI_MONK_BOOK = require('../../data/books/the-art-of-ai-monks-en.json');
+const { AI_MONK_BOOK_PRODUCT, getAiMonkBook } = require('./_lib/ai-monk-books.js');
 
 const STRIPE_API_VERSION = '2026-04-22.dahlia';
 
@@ -22,7 +22,7 @@ async function checkoutHandler(event, dependencies = {}) {
   const fetchImpl = dependencies.fetchImpl || fetch;
   const stripeKey = env.STRIPE_SECRET_KEY;
   const isWriter = body.product === 'writer_article' || body.product === 'writer_archive';
-  const isAiMonkBook = body.product === AI_MONK_BOOK.product;
+  const isAiMonkBook = body.product === AI_MONK_BOOK_PRODUCT;
   let params;
 
   if (isWriter) {
@@ -41,20 +41,21 @@ async function checkoutHandler(event, dependencies = {}) {
       return { statusCode: 400, body: 'invalid Writer checkout' };
     }
   } else if (isAiMonkBook) {
-    if (body.lang !== AI_MONK_BOOK.language || (body.mode && body.mode !== 'payment')) {
-      return { statusCode: 400, body: 'English one-time edition only' };
+    const book = getAiMonkBook(body.lang);
+    if (!book || (body.mode && body.mode !== 'payment')) {
+      return { statusCode: 400, body: 'invalid book edition or payment mode' };
     }
-    if (!stripeKey) return { statusCode: 500, body: 'missing config' };
-    const destination = `https://aniccaai.com/${AI_MONK_BOOK.slug}`;
+    if (!stripeKey || !book.stripe_price_id) return { statusCode: 500, body: 'missing config' };
+    const destination = `https://aniccaai.com/${book.slug}`;
     params = new URLSearchParams({
       mode: 'payment',
-      'line_items[0][price]': AI_MONK_BOOK.stripe_price_id,
+      'line_items[0][price]': book.stripe_price_id,
       'line_items[0][quantity]': '1',
       success_url: `${destination}?success=1&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${destination}?canceled=1`,
-      'metadata[product]': AI_MONK_BOOK.product,
-      'metadata[book_sku]': AI_MONK_BOOK.sku,
-      'metadata[lang]': AI_MONK_BOOK.language,
+      'metadata[product]': book.product,
+      'metadata[book_sku]': book.sku,
+      'metadata[lang]': book.language,
       customer_creation: 'always',
     });
   } else {

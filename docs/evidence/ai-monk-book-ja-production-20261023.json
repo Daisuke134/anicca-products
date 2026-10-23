@@ -1,0 +1,124 @@
+{
+  "schema_version": "anicca.ai-monk-book-ja-production.v1",
+  "source_pr": "https://github.com/Daisuke134/anicca-products/pull/563",
+  "source_head": "418298e8825e7a3c711a16649af09084af8a0afc",
+  "merge_commit": "f2ab81fd273509cbb82580c94e0cbfefa53baad3",
+  "source_ci": {
+    "run_id": 39882333826,
+    "conclusion": "success"
+  },
+  "production_deploy": {
+    "run_id": 39882793550,
+    "conclusion": "success"
+  },
+  "page_readback": {
+    "checked_at": "2026-10-23T01:24:06.799Z",
+    "url": "https://aniccaai.com/the-art-of-ai-monks/ja",
+    "checks": {
+      "japanese_language_and_purchase_copy": true,
+      "pdf_pages": 60,
+      "chapters": 10,
+      "free_source_link": true,
+      "canonical_and_language_alternates": true,
+      "offer": {
+        "price": "9.99",
+        "currency": "USD"
+      },
+      "responsive_widths": [
+        1440,
+        390,
+        320
+      ],
+      "english_route_and_return_switch": true,
+      "client_errors": []
+    },
+    "status": "passed"
+  },
+  "free_full_source_readback": {
+    "checked_at": "2026-10-23T01:17:49.507431+00:00",
+    "url": "https://raw.githubusercontent.com/Daisuke134/anicca-products/main/docs/books/the-art-of-ai-monks-ja.md",
+    "unauthenticated": true,
+    "http_status": 200,
+    "sha256": "7c127015dc3e9ee2f8c4230010909b6beadc1940da5d46e0eade019e3ea3a5e7",
+    "unicode_characters": 37083,
+    "expected_source_matches": true
+  },
+  "checkout_readback": {
+    "run_id": "415dd328-13b1-4289-82ba-cf7dbf1a2953",
+    "release_sha": "f2ab81fd273509cbb82580c94e0cbfefa53baad3",
+    "checked_at": "2026-10-23T01:22:46.462570+00:00",
+    "phase": "passed",
+    "public_checkout_http_status": 200,
+    "official_price_id": "price_1UTWtpEeDsUAcaLSV3fRzwl9",
+    "unpaid_downloads": {
+      "pdf": 403,
+      "epub": 403
+    },
+    "direct_private_file_paths": {
+      "the-art-of-ai-monks-ja.pdf": 404,
+      "the-art-of-ai-monks-ja.epub": 404
+    },
+    "canary_final_state": {
+      "status": "expired",
+      "payment_status": "unpaid",
+      "livemode": true
+    },
+    "self_purchase": false,
+    "live_payment_executed": false
+  },
+  "official_checkout": {
+    "status": "open",
+    "payment_status": "unpaid",
+    "livemode": true,
+    "mode": "payment",
+    "currency": "usd",
+    "amount_total": 999,
+    "metadata": {
+      "book_sku": "art_of_ai_monks_ja_v1",
+      "lang": "ja",
+      "product": "ai_monk_book"
+    }
+  },
+  "private_provider_receipt_sha256": "5d4604b31fa56f98d0a11c93381e80be9187231b3d957616124965ae9701fe1b",
+  "orders_snapshot": {
+    "checked_at": "2026-10-23T01:24:35.636411+00:00",
+    "source": "Stripe official full-paginated Checkout sessions list since English product creation",
+    "created_gte": 1792682932,
+    "pages_scanned": 1,
+    "sessions_scanned": 2,
+    "has_more": false,
+    "known_book_paid_checkout_count": 0,
+    "unmapped_book_paid_checkout_count": 0,
+    "editions": {
+      "en": {
+        "paid_checkout_count": 0,
+        "gross_by_currency_minor_units": {}
+      },
+      "ja": {
+        "paid_checkout_count": 0,
+        "gross_by_currency_minor_units": {}
+      }
+    },
+    "gross_is_not_net_profit": true,
+    "private_customer_fields_persisted": false,
+    "self_purchase": false
+  },
+  "browser_scope": "Registered interactive:dais lease; own new tab only; closed tab and released lease.",
+  "screenshots_private_evidence": [
+    {
+      "name": "book-ja-desktop.png",
+      "bytes": 516833,
+      "sha256": "f1b4151853c7bb6e5e16d0ceb13a88486d373a0c3c03a0cab88f577196644ae7"
+    },
+    {
+      "name": "book-ja-mobile-purchase.png",
+      "bytes": 80565,
+      "sha256": "4271b5f53d3f22f516b1fd3d7a4e5ca6941deb14ab60159e61cdaad8f3fd0ad1"
+    }
+  ],
+  "limits": [
+    "No real card purchase or live paid file delivery was executed.",
+    "Zero paid orders applies only to the timestamped full-paginated Stripe snapshot.",
+    "Gross sales and net profit are not inferred from Checkout creation, local tests, page views or publication."
+  ]
+}

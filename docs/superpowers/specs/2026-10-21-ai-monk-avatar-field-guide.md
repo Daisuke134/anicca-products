@@ -29,7 +29,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 - 想定読者は、短尺動画の文化、AIキャラクター、SNS上の商売に興味がある英語・日本語の一般読者。読み終えた後に、少なくとも一つのプロフィールを検索し、主張と根拠を自分で確かめられる状態を目指す。
 - 各記事の冒頭は具体的な場面・奇妙な事実・問いのいずれかで始め、記事の中心発見を早めに見せる。見出しには情報ラベルでなく、続きを読みたくなる主張を置く。
-- Malditaの調査記事の「場面から始め、具体例を重ね、調査範囲と限界を明かす」構成、および既存Anicca記事の一人称の場面描写・手触りのある数字・会話調の節運びから、構成上の仕組みを学ぶ。文章、台本、動画、画像、顔、声、デザインの複製はしない。
+- Malditaの調査記事の「場面から始め、具体例を重ね、調査範囲と限界を明かす」構成、および既存Anicca記事の一人称の場面描写・手触りのある数字・会話調の節運びから、構成上の仕組みを学ぶ。自社の原稿・台本・動画・新キャラクターを既存作品の丸写しにしない。プロフィールの識別用画像は「データとUI契約」に従う。
 - 読者が使える情報として、確認済みSNS、創作者、公開商品、価格、動画の構図と話の運び、未確認事項、更新日を具体的に示す。
 - 視聴者数、再生数、商品価格、seller counter、creator claim、売上、利益、注文を区別する。自己申告・販売ページ・広告主の顧客事例は、その情報源の主張として示す。Yang MunのAI生成状態に関する一次発信と報道の矛盾も併記する。
 - AI僧侶の台詞は全文転載せず、hook・感情の展開・映像・CTAの仕組みを要約する。健康上の主張は医療助言として紹介しない。
@@ -42,8 +42,8 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 - `region_evidence` は地域名と根拠の種類を持つ。創作者の居住地、プロフィールに表示された国旗、対象市場を同じ「所在地」として扱わない。
 - UIは既存のNext.js 14、React、Tailwind、静的JSONを使う。ユーザー登録、投稿フォーム、外部DB、決済、APIスクレイピング、追加npm依存は含めない。追加提案はGitHubへのリンクで受ける。
 - 検索は入力ごとに表示名・別名・creator名とプロフィールURL・地域・言語・プラットフォーム・handle・商品名・creative sampleタイトルを対象に大文字小文字を無視して絞る。各選択フィルターはANDで組み合わせ、該当件数と0件時の状態を表示する。
-- カードには実在人物の肖像画像を転載しない。表示名、個別色の記号、状態ラベル、提供元へのリンクで見分けられるようにする。
-- Mobbinの実画面から、Mailchimpのディレクトリ検索hero、Semrushの一覧＋絞り込み、Workableの検索＋状態chipを参考にする。画面のコピーはしない。
+- カードには全件アイコンを置く。Daisの公開画面への指示に合わせ、本人の公開プロフィールとの対応を確認できる画像を優先し、取得元・取得日・hashを記録する。画像未取得・読み込み失敗は名前のイニシャルで示し、実写真やAI生成状態を偽らない。第三者画像をデータのCC BY対象に含めない。
+- ページのH1とmetadataは `AI Monk Database`。コピーは直接的な名詞・短い説明・操作名に統一し、比喩と問いかけを除く。検索を上部に置き、顔・名前・handle・主要数値をコンパクトなカードで比較できるようにする。Mobbinと類似directoryの観測状況・採用する構造・未確認事項は今回のUI計画と参照記録を正本にする。→ `docs/superpowers/plans/2026-10-23-ai-monk-database-ui.md`
 
 ## 成功事例・設計参照
 
@@ -123,7 +123,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 **AM-13本文進捗:** 英語初版 `docs/books/the-art-of-ai-monks-en.md` と `docs/books/the-art-of-ai-monks-sources.json` の初版執筆・source acceptanceは完了。正題 The Art of AI Monks、副題 Avatars, Attention, and the Business Behind the Robes、著者Anicca、snapshot明記のfront matter、全10章、4種の再利用sheet、methodology/coverage limits、32参照と元48 sourceのmanifestを備える。URL・参照label・数値だけのtokenを除く英語語数は全体10,874語、付録前9,424語、10章本文8,787語。75 records / 48 sources、調査対象9件と未確認候補66件、AI status reported4 / unverified71 / confirmed0を保持し、first-party主張・独立取材・過去の観察・metadata-only・推論・架空演習を区別する。Yang Munの身份の不一致、seller counter/価格/creator収益申告の限界、自社factoryの未復旧・未販売を明記。JSON parse、10章/4 sheet/32参照の整合、48 source一致、長文段落重複ゼロ、機微文字列scan、語数、diff checkはPASS。原著本文・script・sheetはCC BY 4.0、第三者素材は対象外。外部公開・課金・credential操作は本文作業に含めない。共有indexを避けるrootの指示により、専用branchのcommit/push・remote SHA照合とformat/公開はrootへ一本化する。本文snapshotを完成として渡し、AM-13全体は未完。
 
-**AM-13英語初版の小段階:** 本文・出典完成→既存pandoc/WeasyPrintによる英語EPUB/PDF→既存landing・Stripe checkout/納品経路の本書SKU対応→公式公開/納品readbackの順で進める。日本語本文・日本語EPUB/PDFは後続とする。初版価格は既存調査で確認したcreator書籍のKindle表示価格 `$9.99` を単一の比較基準に採用し、実売・利益・bestseller・収益保証の根拠にはしない。販売ページ公開、購入、納品、注文、売上は個別の公式readbackが得られるまで未達とする。本文担当は上記3ファイルを所有し、format/SKU/販売経路はroot担当が進める。
+**AM-13の小段階:** 英語初版と日本語初版の本文・出典・PDF/EPUB・購入ページを公開する。日本語は60頁・10章・4worksheet、整形済み版は両言語とも `$9.99`。全文は無料GitHub。PR563/main `f2ab81fd273509cbb82580c94e0cbfefa53baad3`、CI39882333826とNetlify39882793550はsuccess。公開日本語ページ、固定SKU/言語/USD999の未払いCheckout、PDF/EPUBの403、確認sessionのexpired/unpaidを公式readbackする。実購入・paid本番納品・売上・利益・bestsellerは完了扱いにしない。仕様とreceipt → `docs/superpowers/plans/2026-10-23-ai-monk-book-ja-release.md`。
 
 **順序更新:** 旧順序はAM-10→AM-11。公開版が5件のまま、検索UIが404という実測と、英語・有力アカウント優先というDaisの指示に基づき、AM-12調査をAM-10公開準備と並行し、AM-10→AM-11→AM-14（既存配信の限定復旧）→AM-13→AM-15→AM-16へ進む。旧順序AM-13→AM-14を入れ替える理由は、公式Postizで10/21以降の新規eBook公開がなく、旧HeyGen生成要求と3件のeffect fenceが現在の収益導線を止めているため。新刊執筆より先に既存ownerの未完処理を閉じる。既存外部effectは中断・再送しない。
 
@@ -133,7 +133,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 **X公開済み:** AM-11はPostiz公式GETで英語 `cmvjodr4i18bbot0y14apjr6z` / [X](https://x.com/selawmqt/status/2113286528508285146)、日本語 `cmvjofwki18joot0ye8ugzfyl` / [X](https://x.com/selawmqt/status/2113286777054360059) をPUBLISHED確認。接続は両方 `@selawmqt`。独立したX timeline readback、閲覧数、click、注文、売上は今回未測定で0とはしない。本文とreceiptは `docs/evidence/ai-monk-x-launch-{en,ja}-20261022.json`。Dais用再投稿copyは同じ完成本文として提示する。
 
-**factoryの現状と残TODO:** 既存ownerの運用正本はLife Manager `docs/superpowers/specs/2026-09-25-life-manager-unified-ssot.md` のS11を参照。EN TikTokとarticlesへmain由来releaseを採用済み。旧HeyGenのvideo IDは回復するが個別費用は未照合、三provider fenceも保持し、日次公開の復旧は未達。English IGは既存plan30/30で未接続。日本語書籍の全文・EPUB/PDF、factory OSS package、subscription web app、MCP/ChatGPT appは未完。
+**factoryの現状と残TODO:** 既存ownerの運用正本はLife Manager `docs/superpowers/specs/2026-09-25-life-manager-unified-ssot.md` のS11を参照。EN TikTokとarticlesへmain由来releaseを採用済み。旧HeyGenのvideo IDは回復するが個別費用は未照合、三provider fenceも保持し、日次公開の復旧は未達。English IGは既存plan30/30で未接続。書籍の実購入/paid本番納品、factory OSS package、subscription web app、remote MCP/ChatGPT appは未完。
 
 **AM-13英語初版の実装・検証:** 原稿とsource manifestはcommit `930233f17`でpush済み。citationの隣接記法が参照先を取り違える問題を直し、原稿SHAは `4858b58ea835500ce3be38d55d91469d8207461cfe73e6d9042b1787afdb5d79`。`apps/landing/scripts/build-ai-monk-book.py` が既存pandoc/WeasyPrintで59頁PDFとEPUBを生成し、HTML95引用リンクとEPUBの引用先・mimetype/container/spineを照合する。表紙は全体を収め、サンプル紙面を目視確認。正式assetは `apps/landing/private/ebooks/the-art-of-ai-monks-en.{pdf,epub}`。
 
@@ -143,7 +143,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 **AM-13英語版の公開:** PR [#553](https://github.com/Daisuke134/anicca-products/pull/553)、main `6c21d91c08eb37ce3c47e2290606f58ccf361781`、exact-head landing CIとNetlify run `39809692295`がsuccess。販売ページ `https://aniccaai.com/the-art-of-ai-monks` はHTTP200、canonical・59ページ・10,874語・PDF/EPUB・$9.99・無料全文への案内を確認。fresh independent reviewは残存指摘0、関連35テストPASS。live Checkoutは公式Stripe GETでSKU/999 USD cents/one-time/本番mode/成功URLを確認し、未払いPDF/EPUBは共に403。検証sessionは未払いのまま失効を公式GET確認。原稿・出典・英語format・販売ページ・SKU・未払い保護までは公開済み。実購入・支払済み本番納品・注文・売上は未確認。根拠は `docs/evidence/ai-monk-book-{production,checkout-production,stripe-catalog}-20261023.json`。
 
-**現在cursor:** AM-14の過去の個別HeyGen費用、残るprovider effectのexact proof、次の自然slotの診断を継続する。EN TikTok/articlesの後続二fenceは既存resolverで個別にno-effect照合し、SQLiteで両方 `released/effect_unknown=0` を確認する。旧三fenceと空き容量不足による日次処理の保留は残る。旧順序はAM-14のみを先行する順だったが、旧effectの証明を待つ間に独立した公開JSONの利用口を完成できるため、AM-15のCLI/MCP小段階を並行して公開まで完了する。計画は `docs/superpowers/plans/2026-10-23-ai-monk-cli-mcp.md`。factory全体のOSS化とAM-16を前倒し完了扱いにはしない。AM-13英語版の公開は完了し、実購入/納品と収益を別に計測する。次は日本語全本文を専用sparse worktreeで制作し、原著と出典の対応を保持する。日本語format/販売公開、AM-15 OSS factory、AM-16 subscription、remote MCP/ChatGPT app、多言語coverageは未完。全文が無料公開されていることを隠さず、整形済み版の購入で研究を支援できる導線とする。
+**現在cursor:** 公開UIはH1/metadata `AI Monk Database`、直接的コピー、検索と3/2/1列、75識別アイコンを備える。11原画像はPR562/main `c05ae73a6c65275456c45f7bd6fc9e8d1ed23879`、CI39881869107・Netlify39882288310 success、本番HTTP200/hash/追加4decodeを確認。未取得64件は頭文字で、全顔画像の取得は未完。Mobbin接続のQuo/Meetup/Square実画面も確認する。画像調査の並行正本 → `docs/superpowers/plans/2026-10-23-ai-monk-database-ui.md`。日本語書籍の販売公開を確認したため、次にAM-15 remote MCP/ChatGPT pluginを進める。AM-14の旧HeyGen個別費用・残三fence・容量不足による日次配信保留も保持する。既存X告知・SKU・CLIを重複再作成せず、実購入/納品・factory復旧・OSS factory・subscription・多言語coverageを完了扱いにしない。
 
 **AM-15データ利用口の公開:** `packages/ai-monk-index` は唯一の正本JSONとWeb検索helperをbuildで取り込み、`search/get/stats` CLIと3つのread-only stdio MCP toolsを提供する。PR [#558](https://github.com/Daisuke134/anicca-products/pull/558)、main `838e6bb7101a2ef647560eeb5a5ef0bbc19d950a`、Node20 package CIとlanding CI成功、fresh review指摘0。v0.1.0は[GitHub Release](https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.1.0)として公開する。23,806 bytesのtarballは公式asset digest・再取得hashが一致し、公開URLを使うnpm installから75 records/48 sourcesのCLI readbackを確認する。通常利用のネットワーク・API key・accountは不要。npm registry掲載、remote MCP/ChatGPT app、動画生成/投稿factoryのOSS化、subscriptionはこのreleaseの完了範囲に含めない。根拠 → `docs/evidence/ai-monk-cli-mcp-release-20261023.json`。
 
@@ -153,3 +153,5 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 **書籍の発売告知:** 公開済み英語版の告知を既存Postiz @selawmqtで1件行う。既存database告知は再送せず、別campaign `art_of_ai_monks_book_launch_en`、直接販売ページURL、無料全文と有料整形済み版の明示、creatorへの敬意を含める。copy・参照・検証済み成功事例がない穴・計測指標は `docs/evidence/ai-monk-book-launch-copy-20261023.json`。同じ対象/媒体/目的の実績が未取得のため、小さい1件の検証とし、retweet・売上・利益を約束しない。SKU全体のStripe公式全page読戻しでは16:17 UTC時点で支払済み注文0件。campaign帰属の注文やclickは未確認として分ける。
 
 書籍のX告知はPostiz `cmvjqztrg1hrgot0ymefyzjqt` がPUBLISHED、[公開投稿](https://x.com/selawmqt/status/2113304729166213433)を公式readback。既存database告知と別campaign、重複送信0。independent X timeline・閲覧数・campaign click/注文/利益は未確認。本文・receiptは `docs/evidence/ai-monk-book-{launch-copy,x-launch-en}-20261023.json`。
+
+**AM-13両版の注文snapshot:** Stripe公式の全page照合（`docs/evidence/ai-monk-book-ja-production-20261023.json`）は英語0件・日本語0件の有料Checkoutを確認する。公開や未払いcanaryを売上へ換算せず、paid本番納品は未検証を保持する。

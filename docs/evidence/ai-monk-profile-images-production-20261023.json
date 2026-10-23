@@ -1,0 +1,58 @@
+{
+  "schema_version": "anicca.ai-monk-images-production.v1",
+  "source_pr": "https://github.com/Daisuke134/anicca-products/pull/562",
+  "source_head": "2885ba3db8ce0f8233a7d850349b1082feb0ef90",
+  "merge_commit": "c05ae73a6c65275456c45f7bd6fc9e8d1ed23879",
+  "source_ci": {
+    "run_id": 39881869107,
+    "conclusion": "success"
+  },
+  "production_deploy": {
+    "run_id": 39882288310,
+    "conclusion": "success"
+  },
+  "public_readback": {
+    "checked_at": "2026-10-23T01:13:10.638Z",
+    "url": "https://aniccaai.com/ai-monk-database",
+    "checks": {
+      "assets": {
+        "total": 75,
+        "acquired": 11,
+        "platform_profile_avatars": 4,
+        "first_party_named_images": 4,
+        "unknown": 64,
+        "third_party_attributed_profile_images": 1,
+        "third_party_attributed_content_images": 1,
+        "first_party_video_posters": 1
+      },
+      "asset_hashes_verified": 11,
+      "new_images_decoded": [
+        "lead-instagram-shenmuhealer",
+        "lead-instagram-aristhestill",
+        "lead-instagram-ken-lu-monk",
+        "lead-instagram-monktashirok"
+      ],
+      "images": 11,
+      "initials": 64,
+      "client_errors": []
+    },
+    "status": "passed"
+  },
+  "browser_scope": "Registered interactive:dais lease; own new tab only; closed own tab and released lease.",
+  "screenshots_private_evidence": [
+    {
+      "name": "database-11-desktop.png",
+      "bytes": 177017,
+      "sha256": "9646efc20de5096a92ddc87c8b57c8b69b375001f0fd7ad9fc17322f67a486cb"
+    },
+    {
+      "name": "database-11-mobile.png",
+      "bytes": 61265,
+      "sha256": "6d3af484e5e85d5e630ce43864b956c3bcd0d30d2f31e25debad6aef0a1379bb"
+    }
+  ],
+  "limits": [
+    "64 accounts retain disclosed initials because no attributable source image is established.",
+    "No account is reclassified as AI-generated and no audience or revenue claim is added."
+  ]
+}
