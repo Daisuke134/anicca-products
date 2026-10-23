@@ -1,0 +1,50 @@
+{
+  "checked_at": "2026-10-23T19:30:14.040792+00:00",
+  "account_verified": true,
+  "resources": {
+    "product": {
+      "id": "prod_VUnlfoZUsKlUpv",
+      "created": true,
+      "verified": true,
+      "request_id": "req_kYWTMCjnWfWYMG"
+    },
+    "price": {
+      "id": "price_1UToANEeDsUAcaLSIBfPO1Pn",
+      "created": true,
+      "verified": true,
+      "currency": "usd",
+      "unit_amount": 19900,
+      "interval": "month",
+      "trial_configured_in": "server_checkout_payload",
+      "request_id": "req_6pOCtx8wpjXitU"
+    },
+    "portal": {
+      "id": "bpc_1UToANEeDsUAcaLSUfMc3o5k",
+      "created": true,
+      "verified": true,
+      "is_default": false,
+      "cancel_mode": "at_period_end",
+      "other_features_enabled": false,
+      "request_id": "req_X8AbmffAJyjLh7"
+    }
+  },
+  "customer_checkouts": 0,
+  "customer_subscriptions_created": 0,
+  "customer_charges": 0,
+  "factory_enabled": false,
+  "webhook_prepared": false,
+  "runtime_reflected": false,
+  "saas_complete": false,
+  "independent_plan_review": {
+    "catalog_preparation": "ship",
+    "activation": "hold",
+    "source_changes_required": false,
+    "conditions": [
+      "No customer Checkout/subscription/invoice created by catalog preparation",
+      "Keep effective MONK_FACTORY_ENABLED=false",
+      "Verify dedicated provider billing and Upload-Post white-label before activation",
+      "Disabled flag does not stop renewal of an existing Stripe subscription"
+    ],
+    "reviewer_browser_or_mutation": 0
+  }
+}
