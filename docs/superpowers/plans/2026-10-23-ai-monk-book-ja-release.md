@@ -27,12 +27,16 @@
 - [ ] 英語版/既存Reset・Letterを含む関連契約、CI、main、Netlifyを確認する。
 - [ ] 公開日本語ページと未払いCheckout/保護を公式readbackし、実注文/支払済み納品の未達を記録する。
 
-現在cursor: 日本語版の商品・one-time価格を登録し公式GETで照合済み。次に言語別Checkout/納品を失敗テストから実装する。原稿は無料、整形版は9.99 USD。注文・売上はこの登録で証明しない。
+現在cursor: PR563のCIとmain統合を確認済み。本番Netlify39882793550の反映後、日本語ページ・未払いCheckout・保護を公式readbackする。実購入・売上・paid本番納品は別途未確認を保持する。
 
 ### Checkout/納品のsource検証
 
-日本語Checkoutと実PDF/EPUB bytesのテストが未対応を理由に3件失敗することを確認し、固定catalogを英語・日本語へ拡張した。13件のbook契約と既存Reset/Letterの関連契約を含む26件がPASSする。paid/live/payment・商品・言語・SKUを照合し、queryの版指定を無視する。現在cursorは日本語販売ページと購入copyの接続。
+日本語Checkoutと実PDF/EPUB bytesのテストが未対応を理由に3件失敗することを確認し、固定catalogを英語・日本語へ拡張した。13件のbook契約と既存Reset/Letterの関連契約を含む26件がPASSする。paid/live/payment・商品・言語・SKUを照合し、queryの版指定を無視する。
 
 ### ページと関連契約
 
-既存ENページを共通componentへ移し、JA route・言語切替・正確な版/頁数/価格・無料全文を追加した。英語ページの比喩見出しも直接的な内容へ置換した。DBから両版へリンクする。37 testsがPASSする（book Checkout/実bytes納品/保護、既存Reset・Letter、両版SSR/metadata、DB契約）。Landing CIの既存book stepへSSR4件を加える。full buildはCIで確認する。元のJA PDF/EPUB・引用先・原稿は変更しない。現在cursorはsource差分の独立read-only検証、CI、main/Netlify反映。
+既存ENページを共通componentへ移し、JA route・言語切替・正確な版/頁数/価格・無料全文を追加した。英語ページの比喩見出しも直接的な内容へ置換した。DBから両版へリンクする。37 testsがPASSする（book Checkout/実bytes納品/保護、既存Reset・Letter、両版SSR/metadata、DB契約）。Landing CIの既存book stepへSSR4件を加える。full buildはCIで確認する。元のJA PDF/EPUB・引用先・原稿は変更しない。
+
+### 統合と独立検証
+
+PR563のsource `418298e8825e7a3c711a16649af09084af8a0afc` はLanding CI39882333826が成功し、main `f2ab81fd273509cbb82580c94e0cbfefa53baad3` へ統合する。fresh-context read-only検証は指摘0、book/Reset/Letter/page30件とWriter20件PASS、不正session68件の拒否、query版上書き4件を反証する。報告は `docs/evidence/ai-monk-ja-payment-source-review-20261023.json`。GitHubの日本語全文は認証なしGET200・原稿SHA一致を確認する。本番Checkout/納品の証明はdeploy後の別receiptとし、localの結果で置き換えない。
