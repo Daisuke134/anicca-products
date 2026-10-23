@@ -36,4 +36,4 @@
 
 ## 現在cursor
 
-CLI/MCP未実装時の失敗を確認し、同じWeb helper/正本JSONをbuildで取り込むpackageを実装する。検索・個別取得・統計・不正入力・実際のstdio MCP client・別directoryへのtarballインストールと実行の7テストはPASS。Web helper既存5テストもPASS。ローカルのReact renderingテストはlanding依存未導入で起動不可のため、空き容量不足下で全依存を追加せず既存landing CIで確認する。packテストの初回はnpm metadata cache不足でoffline installが失敗したため、インストールには通常のregistryアクセスを使う。導入後のCLI/MCPはネットワークを使わない。次はfresh review、Node20 CI、main統合と公式Release公開。
+この小段階は公開まで完了する。CLI/MCP未実装時RED、検索・個別取得・統計・不正入力・実際のstdio MCP client・別directoryへのtarball導入の7テスト、Web helper既存5テスト、fresh review指摘0、Node20 package CIとlanding CIを確認。main `838e6bb7101a2ef647560eeb5a5ef0bbc19d950a`由来でbuildしたv0.1.0をGitHub Releaseへ公開し、公式asset digestと再ダウンロードのSHA-256一致、READMEにある公開URLからのnpm installとCLI statsの実行を確認する。根拠は `docs/evidence/ai-monk-cli-mcp-release-20261023.json`。ローカルReact依存は未導入のためrendering/buildは既存landing CIで確認する。packテスト初回のnpm metadata cache不足は、導入に通常registryアクセスを使うことで解消する。導入後のCLI/MCPはネットワークを使わない。remote MCP、ChatGPT app、動画factory OSS、subscriptionは後続の未完項目として残る。
