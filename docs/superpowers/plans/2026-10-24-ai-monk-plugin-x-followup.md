@@ -24,4 +24,4 @@ https://aniccaai.com/ai-monk-database/support?utm_source=x&utm_medium=social&utm
 投稿本文はURLを23文字として221文字。source/画像と最終copyをread-only担当が確認後、投稿前fenceを記録しCreateTweetを1回だけ実行する。native receiptのauthor/text/media/IDと公開permalinkを照合し、結果不明なら再送しない。計測はnative views/likes/replies/repostsとUTM付き導線を使い、クリック/導入/注文は観測が無ければnullのままにする。初回告知は26 views/1 like/0 reply/0 repostを再観測するが、これを新投稿の成果と混同しない。
 
 ## 現在cursor
-本文と公開画面の準備完了。review・実投稿・公開readbackは未完。
+read-only review SHIP後、本人UIから1回送信し、公式TweetResultByRestId/TweetDetail GET200と独立した公開ページで投稿2113731126355468705・author・本文・UTM・画像1枚を確認する。APIのHTML entityをdecodeして本文を照合する。再送0。native views4/likes1/replies2/reposts0と公開crawl views6は別時刻のprovider counterで、unique利用者や転換の証拠ではない。click/install/orderはnull。証拠 → ../../evidence/ai-monk-plugin-x-followup-20261024.json。
