@@ -1,0 +1,30 @@
+{
+  "head_sha": "bb7c9913fea918432117fe19e01869dd1e2efe5f",
+  "reviewer_context": "fresh, read-only, no parent history",
+  "material_findings": [],
+  "verified_boundaries": [
+    "Actual canonical SSR renders 73 cards and omits excluded two and AI-status classification UI.",
+    "Actual CLI/shared MCP functions: excluded searches zero/get rejected/stats 73.",
+    "All original 75 records and 48 source observations preserved at reviewed head.",
+    "Memory-only adversarial values keep profit/currency/period/price/buyout separate; unknown sorts after real zero.",
+    "Original Virtual Humans report supports a creator dashboard claim above USD213000 gross revenue over three months; not audited or a present monthly estimate.",
+    "SSR identifies report date, creator claim, lack of exact period endpoints and source."
+  ],
+  "not_verified": [
+    "Production UI",
+    "Production MCP transport"
+  ],
+  "production_readback": "pending",
+  "ci": [
+    {
+      "run_id": 39890899008,
+      "result": "success",
+      "scope": "package"
+    },
+    {
+      "run_id": 39890899070,
+      "result": "success",
+      "scope": "landing"
+    }
+  ]
+}

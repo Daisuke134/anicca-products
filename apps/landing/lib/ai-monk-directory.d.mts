@@ -58,6 +58,7 @@ export type AiMonkAccount = {
     url?: string | null;
     status?: string;
     source_id?: string;
+    as_of?: string;
   }>;
   seller_counters?: Array<{ value: string | number; metric: string; status: string }>;
   creator_claims?: Array<{ claim: string; status: string }>;

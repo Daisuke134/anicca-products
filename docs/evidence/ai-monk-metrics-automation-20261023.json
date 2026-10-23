@@ -1,0 +1,18 @@
+{
+  "automation_id": "ai-monk-database",
+  "name": "AI Monk Databaseの指標更新",
+  "kind": "heartbeat",
+  "status": "ACTIVE",
+  "schedule_local_time": "09:00 daily",
+  "timezone_context": "Asia/Tokyo task environment",
+  "current_thread_target_verified": true,
+  "provider_create": "success",
+  "provider_view": "rendered automation card",
+  "persisted_configuration_readback": "kind/status/schedule/target match",
+  "natural_first_scheduled_run": "not_yet_due",
+  "manual_initial_collection": "4 public Instagram profile headers and 3 public YouTube video metadata records acquired; ingestion in progress",
+  "limits": [
+    "Configuration and manual collection do not prove future scheduled executions.",
+    "No new paid provider, media generation or social repost is part of this data-refresh task."
+  ]
+}
