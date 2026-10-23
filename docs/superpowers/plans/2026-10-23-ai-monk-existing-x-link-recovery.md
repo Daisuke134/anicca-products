@@ -15,4 +15,6 @@
 - [ ] native3返信をそれぞれ1回だけ実行し公式native receipt/expanded URL/permalinkを照合。
 - [ ] 自分のlease releaseを確認し、元receiptを保持して結果を記録/統合。
 
-**実行operator:** /private/tmp/ai_monk_existing_x_link_reply_20261023.py、SHA256 3b0688c4b7b0f6d41f7929bee26fe1449568e37d3f722e3d0f570b14e16b9722。3targetの親ID/本文fragment/copy SHA/元URLを固定し、正規guard acquire完了時の自身lease PID58681/UUID/portを実行前に照合する。lease再取得でPIDが変わった場合は旧operatorをそのまま使わず再照合する。source copyとoperatorはfresh read-only受入前で未送信。
+**実行operator:** /private/tmp/ai_monk_existing_x_link_reply_20261023.py、SHA256 3c41ed77a5b05f2cc4055a6dced7bd9a50e0eab8285630ae7c9e72b5cf8db4b8。3targetの親ID/本文fragment/copy SHA/元URLを固定し、正規guard acquire完了時の自身lease PID34833/UUID/portを実行前に照合する。lease再取得でPIDが変わった場合は旧operatorをそのまま使わず再照合する。source copyとoperatorはfresh read-only受入前で未送信。
+
+**lease照合の補正:** guardのnative契約は短命shellのPID死亡後も1800秒のfresh timestampで排他を保持するため、初期検証者の「死亡だけで無効」という指摘は撤回する。自分が取得した旧leaseを正規releaseし、既存AI_BROWSER_HOLDER_PID引数で同UIDの生存Codex process34833へ正規acquireし直す。operatorは同PIDとstart時刻を追加照合し、1800秒をまたぐ作業でも他者へ混在させない。global guard/registry/profile設定は変更せず、送信0を維持する。

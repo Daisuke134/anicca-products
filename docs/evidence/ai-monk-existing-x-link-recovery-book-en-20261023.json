@@ -31,5 +31,5 @@
     "Unknown native effect requires readback only, never resend",
     "Clicks/orders/revenue/profit/retweet not measured"
   ],
-  "operator_sha256": "3b0688c4b7b0f6d41f7929bee26fe1449568e37d3f722e3d0f570b14e16b9722"
+  "operator_sha256": "3c41ed77a5b05f2cc4055a6dced7bd9a50e0eab8285630ae7c9e72b5cf8db4b8"
 }
