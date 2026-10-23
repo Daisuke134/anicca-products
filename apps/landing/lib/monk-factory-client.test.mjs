@@ -44,10 +44,27 @@ test('dashboard uses GET and cancellation does not inherit a generation occurren
 });
 
 test('each redirect is limited to its own HTTPS provider and rejects credentials, ports and lookalikes', () => {
-  assert.equal(factoryDestination('https://checkout.stripe.com/c/pay/fixture', 'checkout'), 'https://checkout.stripe.com/c/pay/fixture');
-  assert.equal(factoryDestination('https://billing.stripe.com/p/session/fixture', 'portal'), 'https://billing.stripe.com/p/session/fixture');
-  assert.equal(factoryDestination('https://app.upload-post.com/connect?token=fixture', 'connect_instagram'), 'https://app.upload-post.com/connect?token=fixture');
+  assert.equal(factoryDestination({ url: 'https://checkout.stripe.com/c/pay/fixture' }, 'checkout'), 'https://checkout.stripe.com/c/pay/fixture');
+  assert.equal(factoryDestination({ url: 'https://billing.stripe.com/p/session/fixture' }, 'portal'), 'https://billing.stripe.com/p/session/fixture');
+  assert.equal(factoryDestination({ url: 'https://app.upload-post.com/connect?token=fixture' }, 'connect_instagram'), 'https://app.upload-post.com/connect?token=fixture');
   for (const value of ['http://checkout.stripe.com/c/pay/fixture', 'https://checkout.stripe.com.evil.test/', 'https://user@checkout.stripe.com/', 'https://checkout.stripe.com:444/', 'https://checkout.stripe.com/#fixture', 'https://billing.stripe.com/']) {
-    assert.throws(() => factoryDestination(value, 'checkout'), { code: 'invalid_destination' });
+    assert.throws(() => factoryDestination({ url: value }, 'checkout'), { code: 'invalid_destination' });
+  }
+  assert.throws(() => factoryDestination({ url: 'https://checkout.stripe.com/' }, 'portal'), { code: 'invalid_destination' });
+  assert.throws(() => factoryDestination({ url: 'https://billing.stripe.com/' }, 'connect_instagram'), { code: 'invalid_destination' });
+});
+
+test('completed checkout resumes without a redirect URL', () => {
+  let destination;
+  assert.doesNotThrow(() => { destination = factoryDestination({ complete: true }, 'checkout'); });
+  assert.equal(destination, null);
+});
+
+test('only boolean completed checkout skips provider URL validation', () => {
+  for (const complete of [false, 'true', 1]) {
+    assert.throws(() => factoryDestination({ complete }, 'checkout'), { code: 'invalid_destination' });
+  }
+  for (const action of ['portal', 'connect_instagram']) {
+    assert.throws(() => factoryDestination({ complete: true }, action), { code: 'invalid_destination' });
   }
 });

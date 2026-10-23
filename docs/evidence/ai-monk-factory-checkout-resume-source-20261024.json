@@ -1,0 +1,108 @@
+{
+  "schema_version": "anicca.ai-monk-factory-checkout-resume-source.v1",
+  "run_id": "ai-monk-factory-provider-preflight-20261024",
+  "owner_id": "root",
+  "occurrence_id": "checkout-completed-response-no-redirect",
+  "observed_at": "2026-10-23T23:31:35.825988+00:00",
+  "phase": "source_focused_acceptance",
+  "source_base_main": "2228bfc0b5045319cd3eb1ffc1f60cbb08ccb90b",
+  "spec_first_commit": "d90e72115e17596e2c6fcae1696b040b59678bca",
+  "source_contract_commit": "899d77b77aa81ad94f00a4dcca0a72d1e5848393",
+  "release_sha": null,
+  "behavior": {
+    "completed_checkout": "complete===true returns null destination; UI refreshes existing authenticated state without navigation",
+    "open_checkout_portal_connect": "Existing per-provider HTTPS host validation retained",
+    "direct_UI_caller": "apps/landing/app/ai-monk-factory/factory.tsx:146",
+    "generation_idempotency_auth_budget_and_provider_changes": 0
+  },
+  "source_sha256": {
+    "apps/landing/app/ai-monk-factory/factory.tsx": "660dd0a447f59e9b44ca190e2fd6638b106127caee6ad519b3de369aba118e99",
+    "apps/landing/lib/monk-factory-client.mjs": "7ce85098d107b1ea0e38e001f854c386394f20bd2422faf5bec31ab3b4d9de60",
+    "apps/landing/lib/monk-factory-client.d.mts": "722a6c90c618c886f6b6da1dcb60d1db89e37c5b3dca6266068fec346b4b59bc",
+    "apps/landing/lib/monk-factory-client.test.mjs": "f8e04375071b1f4ac220524c5996db997fdac0b9d135519e016442c49135d2db"
+  },
+  "validation": {
+    "RED": {
+      "exit_code": 1,
+      "error_class": "ERR_ASSERTION",
+      "cause": "complete:true応答のURL欠落によりinvalid_destinationが発生"
+    },
+    "GREEN": {
+      "command": [
+        "node",
+        "--test",
+        "--test-reporter=tap",
+        "lib/monk-factory-client.test.mjs"
+      ],
+      "exit_code": 0,
+      "tests": 7,
+      "pass": 7,
+      "fail": 0
+    },
+    "diff_check_exit_code": 0,
+    "optional_whole_project_typecheck": {
+      "exit_code": 2,
+      "diagnostics": 6,
+      "owned_file_diagnostics": 0,
+      "baseline_comparison": "assertionで未完了、再実行0"
+    },
+    "typecheck_limit": "Six diagnostics occur outside the four owned files. Baseline comparison was inconclusive, so baseline equality/full typecheck success is not claimed.",
+    "required_final_head_CI_review_main_publication": "pending_primary"
+  },
+  "evidence_refs": [
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/checkout-source-receipt.json",
+      "bytes": 3480,
+      "sha256": "1a9351f9a8d7a89e96ab712fa313a90dbf1dbcc6993ca53f299e73ac14a40fbe"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/checkout-green.json",
+      "bytes": 1165,
+      "sha256": "b036ce5f64f9a98feb23b405757dc6bc9efb644e9da2fb43efabf65ed1f5e0b0"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/checkout-green.log",
+      "bytes": 1623,
+      "sha256": "73b94a26b241ee386b792587692dad60d3f942596e93a9aaa55b80512a43ab23"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/checkout-red.json",
+      "bytes": 1150,
+      "sha256": "ce07ea3f774536f42e6d5424fd6043283b50856651d275bffd74060bd722ddf7"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/checkout-red.log",
+      "bytes": 1871,
+      "sha256": "24f848ff47eb6a1ff6910b9f0f76c2b07ba4980978eb45184b420f82153f1364"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/checkout-typecheck-baseline.json",
+      "bytes": 693,
+      "sha256": "3bfad0a1739ff50acd111807c0e5ad044a1ce1513cbe9761887971a5092012b5"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/checkout-typecheck-baseline.log",
+      "bytes": 364,
+      "sha256": "52115767548ddd548dcff8d6a644d99979b8e7f50dfb817359fc2ed45b5965b3"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/checkout-typecheck.json",
+      "bytes": 525,
+      "sha256": "d10adea572a26179b76be02f3e13026789c5717b957ccd40c1655a8e18fcab23"
+    },
+    {
+      "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/checkout-typecheck.log",
+      "bytes": 1016,
+      "sha256": "d16c8415e54f12ba9f2801f139bbfb092122f9a06bb48844de6266d9095106d4"
+    }
+  ],
+  "effect": {
+    "browser_real_checkout_payment_generation_post_runtime_changes": 0,
+    "worker_git_index_commit_push": 0
+  },
+  "exit_code": 0,
+  "provider_receipt_id": null,
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Review final source and provider pricing claim, run final-head required CI, merge main and verify main-derived published bundle. No real payment or activation is established."
+}

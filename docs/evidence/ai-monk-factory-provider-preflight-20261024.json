@@ -1,84 +1,230 @@
 {
   "schema_version": "anicca.ai-monk-factory-provider-preflight.v1",
-  "recorded_at": "2026-10-23T20:27:00.821606+00:00",
+  "run_id": "ai-monk-factory-provider-preflight-20261024",
   "owner_id": "root",
-  "heygen": {
-    "dedicated_factory_account": true,
-    "api_key_saved_ssot": true,
-    "official_users_me_status": 200,
-    "identity_matches_factory_ssot": true,
-    "grok_email_differs": true,
-    "api_wallet_usd": 0,
-    "api_wallet_auto_reload": false,
-    "workspace_auto_refill_flag_is_not_wallet_reload": true,
-    "minimum_topup_usd_ui_contract": 5,
-    "topup_purchased": false,
-    "generations": 0
-  },
-  "openai": {
-    "dedicated_alias_account_created": true,
-    "dedicated_organization_and_project_created": true,
-    "organization_name": "AI Monk Factory",
-    "project_name": "AI Monk Factory Production",
-    "api_key_create_count": 1,
-    "key_saved_ssot": true,
-    "official_models_get_status": 200,
-    "image_model_listed": true,
-    "model_list_does_not_establish_paid_generation_permission": true,
-    "credit_balance_usd": 0,
-    "paid_generation_calls": 0,
-    "payment_details_ui": "card number, expiry and CVC required",
-    "link_selector_observed": false,
-    "full_card_credential_in_ssot": false,
-    "auto_reload_setting_verified": false,
-    "organization_verification_gate": "valid default payment method required",
-    "plugin_upload_gate": "verified developer identity required before create/upload",
-    "zip_uploads": 0,
-    "submissions": 0
-  },
-  "upload_post": {
-    "dedicated_account_prepared": true,
-    "paid_professional_purchased": false,
-    "planned_monthly_usd": 50,
-    "planned_profiles": 25,
-    "planned_white_label": true,
-    "checkout_prepared": true,
-    "link_authenticated": true,
-    "purchase_deferred_until_generation_budgets_available": true
-  },
-  "effects": {
-    "topups": 0,
-    "new_paid_subscriptions": 0,
-    "factory_customer_checkouts": 0,
-    "generations": 0,
-    "social_posts": 0,
-    "grok_daily_runtime_mutations": 0
-  },
-  "next_action": "Register a usable payment method in the dedicated OpenAI organization; verify funding/limits and identity, then complete provider/runtime acceptance. Continue independent database/plugin distribution.",
-  "official_sources": [
-    "https://developers.openai.com/api/docs/guides/spend-limits",
-    "https://developers.openai.com/plugins/deploy/submission"
-  ],
-  "evidence_refs": [
+  "occurrence_id": "dedicated-script-image-provider-official-contract-preflight",
+  "observed_at": "2026-10-23T23:30:55.707908+00:00",
+  "phase": "read_only_preflight",
+  "source_base_main": "2228bfc0b5045319cd3eb1ffc1f60cbb08ccb90b",
+  "spec_first_commit": "d90e72115e17596e2c6fcae1696b040b59678bca",
+  "sources": [
     {
-      "file": "ai-monk-factory-dedicated-provider-20261024/root-current-user-readback.json",
-      "sha256": "ccf1e4bb4f072c5be3b2998bba2cbfb0002699ac77e87570f9d49b204815774d"
+      "url": "https://ai.google.dev/gemini-api/docs/pricing",
+      "retrieval": "fresh crwl official page",
+      "observed_at": "2026-10-23T23:25:47.324863+00:00",
+      "body_sha256": "ae09421bd168e2ce54670aaa5f7861923ae6405f8d606a184e927ecc3d0cd9c0",
+      "private_artifact": "gemini-official-pricing.stdout.log",
+      "bytes": 75213
     },
     {
-      "file": "ai-monk-factory-dedicated-provider-20261024/heygen-provisioning-summary.json",
-      "sha256": "284bbbd3e45fe5b8cec46c5d2d02fd6aae9815855e0da2146721f0bf3a682c20"
+      "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite-image",
+      "retrieval": "fresh crwl official page",
+      "observed_at": "2026-10-23T23:28:09.217549+00:00",
+      "body_sha256": "6e0841bbc975f58d67320d1dfa70ef08559c9caa6f15ac30edfb9656559ea865",
+      "private_artifact": "gemini-official-model-image.stdout.log",
+      "bytes": 4455
     },
     {
-      "file": "ai-monk-factory-dedicated-provider-20261024/openai-api-key-readback.json",
-      "sha256": "7b02d5050155a9cdbf3fbb25b83760215567df21fb2bf296aa6657813460b5eb"
+      "url": "https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite",
+      "retrieval": "fresh crwl official page",
+      "observed_at": "2026-10-23T23:28:48.431332+00:00",
+      "body_sha256": "568c271e310d97b3dbaeb4d7903fec2b3fdade6e60103229b0ab5fb533241309",
+      "private_artifact": "gemini-official-text-model.stdout.log",
+      "bytes": 9302
     },
     {
-      "file": "ai-monk-factory-dedicated-provider-20261024/openai-free-organization-readback.json",
-      "sha256": "d509816cedc569a5f30b6e27f58cf380d1d787ed1175117ec580a0cb365f95f6"
+      "url": "https://ai.google.dev/gemini-api/docs/billing",
+      "retrieval": "fresh crwl official page",
+      "observed_at": "2026-10-23T23:28:09.494235+00:00",
+      "body_sha256": "750beacfd17d75fb3388959076373aed9c5722f12bec87f2cbae6823610de454",
+      "private_artifact": "gemini-official-billing.stdout.log",
+      "bytes": 38514
     },
     {
-      "file": "ai-monk-factory-dedicated-provider-20261024/openai-plugin-submission-preflight.json",
-      "sha256": "55fcda53e0fad5df36790ec035733c42198f6eec55d573a9275eef2dd1ffcdf6"
+      "url": "https://ai.google.dev/gemini-api/terms",
+      "retrieval": "fresh crwl official page",
+      "observed_at": "2026-10-23T23:28:09.214055+00:00",
+      "body_sha256": "3ba56d1a7f303ee297dcb52929570ab256ad0cb0a29264cdfb5bfa9b52fda097",
+      "private_artifact": "gemini-official-terms.stdout.log",
+      "bytes": 22721
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/image-generation",
+      "retrieval": "fresh crwl official page",
+      "observed_at": "2026-10-23T23:28:51.173845+00:00",
+      "body_sha256": "a8614047c8d620dd4ff2c90166fb9dd83e0c42f44ec1b5cac82d96cea584e703",
+      "private_artifact": "gemini-official-image-api.stdout.log",
+      "bytes": 187779
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/structured-output",
+      "retrieval": "fresh crwl official page",
+      "observed_at": "2026-10-23T23:28:49.092859+00:00",
+      "body_sha256": "dd76456d3a6ba5f161e79f15c9c770d62961ad15e4da8f127a151ec1dbf956da",
+      "private_artifact": "gemini-official-structured-api.stdout.log",
+      "bytes": 51104
+    },
+    {
+      "url": "https://developers.heygen.com/docs/models/heygen-image",
+      "retrieval": "Context7 official documentation excerpt; direct domain retrieval in prior unit returned 429",
+      "body_sha256": "778ff20940d38fc5d68f55f04945eb20aab5be498fb2a335c17cd7be9e274730",
+      "private_artifact": "heygen-image-docs.stdout.log"
+    },
+    {
+      "url": "https://help.heygen.com/en/articles/10060327-heygen-api-pricing-explained",
+      "retrieval": "saved primary official readback from preceding goal turn; hash reverified, not newly fetched in this unit",
+      "body_sha256": "de9017dc77c29383978fd4cd56c15ca293b87e7b0843ebdc9918c4068d866599",
+      "private_result": {
+        "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-heygen-prompt-avatar-rate-20261024/readback.json",
+        "bytes": 9571,
+        "sha256": "4d2ef79f1c1c9795d1405b33210b55551a680963b91b5d75d5ef1de3eacf27cf"
+      }
     }
-  ]
+  ],
+  "observed_current_source": {
+    "image": "OpenAI gpt-image-1-mini, capped 1024byte prompt and JPEG5MiB",
+    "script": "OpenAI gpt-4o-mini-2024-07-18, input12000byte/output1200token limits",
+    "following_stages": "HeyGen photo avatar, Starfish speech, duration gate, Avatar IV video; Upload-Post hosted connect/post/metrics",
+    "other_provider_adapter": false,
+    "budget_ledger_is_invoice_ceiling": false,
+    "video_duration_gate": "Speech exceeding20/45seconds never starts video render; output duration is also checked",
+    "runtime_credential_presence_does_not_prove_live_balance": true
+  },
+  "published_rates_USD": {
+    "script_model": "gemini-3.1-flash-lite",
+    "text_input_per_million_tokens": "0.25",
+    "text_output_including_thinking_per_million_tokens": "1.50",
+    "image_model": "gemini-3.1-flash-lite-image",
+    "image_input_per_million_tokens": "0.25",
+    "image_text_thinking_output_per_million_tokens": "1.50",
+    "image_output_per_million_tokens": "30.00",
+    "one_1K_image_tokens": 1120,
+    "one_1K_image_output_only": "0.0336",
+    "image_free_tier": false,
+    "photo_avatar_creation_per_call": "1.32",
+    "AvatarIV_photo_per_minute": "2.31",
+    "Starfish_TTS_per_minute": "0.12"
+  },
+  "API_contract": {
+    "text_only_original_image_supported": true,
+    "stable_models": [
+      "gemini-3.1-flash-lite",
+      "gemini-3.1-flash-lite-image"
+    ],
+    "image_model_input_limit_tokens": 65536,
+    "image_model_output_limit_tokens": 4096,
+    "image_resolution": "1K only; 2K/4K unsupported",
+    "aspect_ratio": "2:3 and9:16 supported",
+    "structured_text_output": true,
+    "raw_generateContent_and_new_Interactions_examples_differ": true,
+    "image_JPEG_in_Interactions_documented": true,
+    "JPEG_generateContent_contract_verified": false,
+    "required_before_source_adapter": "Use one explicitly verified REST contract; preserve MIME/size validation, single-request effect fence, output cap and JSON validation. Context7 GenerateImagesConfig.outputMimeType is not proof that generateContent accepts it."
+  },
+  "cost_scenarios": {
+    "currency": "USD",
+    "image_full_model_scenario": "Uses the image model entire published65536input/4096output limits and prices all output at the higher image rate30USD/million. This is scenario arithmetic, not observed billing or a proof that each request emits exactly one image.",
+    "image_generation_scenario_USD": "0.139264",
+    "image_plus_photo_avatar_scenario_USD": "1.459264",
+    "existing_avatar_reservation_USD": "1.60",
+    "script_per_request_scenario_USD": "0.0048",
+    "script_scenario_input_tokens": 12000,
+    "script_scenario_output_tokens": 1200,
+    "script_input_byte_limit_is_exact_provider_token_count": false,
+    "scenario_input_limit_requires_validation": true,
+    "cases": {
+      "trial": {
+        "attempts": 3,
+        "seconds_each": 20,
+        "video_USD": "2.31",
+        "separate_TTS_reserve_USD": "0.12",
+        "script_scenario_USD": "0.0144",
+        "one_avatar_scenario_USD": "1.459264",
+        "total_scenario_USD": "3.903664",
+        "existing_period_reservation_cap_USD": "4.25",
+        "remaining_scenario_USD": "0.346336"
+      },
+      "paid30": {
+        "attempts": 30,
+        "seconds_each": 45,
+        "video_USD": "51.975",
+        "separate_TTS_reserve_USD": "2.700",
+        "script_scenario_USD": "0.1440",
+        "one_avatar_scenario_USD": "1.459264",
+        "total_scenario_USD": "56.278264",
+        "existing_period_reservation_cap_USD": "70",
+        "remaining_scenario_USD": "13.721736"
+      },
+      "paid36": {
+        "attempts": 36,
+        "seconds_each": 45,
+        "video_USD": "62.37",
+        "separate_TTS_reserve_USD": "3.24",
+        "script_scenario_USD": "0.1728",
+        "one_avatar_scenario_USD": "1.459264",
+        "total_scenario_USD": "67.242064",
+        "existing_period_reservation_cap_USD": "70",
+        "remaining_scenario_USD": "2.757936"
+      }
+    },
+    "actual_usage_invoices_taxes_failure_billing": null,
+    "actual_profit_MRR": null,
+    "existing_price_quota_period_caps_changed": false
+  },
+  "billing_and_data_contract": {
+    "production_paid_project_required": true,
+    "reason": "Image model has no free tier; free Gemini use is not an unrestricted global commercial alternative. Paid services are required for clients offered in EEA/CH/UK.",
+    "new_user_prepay_minimum_USD": "5",
+    "prepay_auto_reload_optional": true,
+    "credits_expire_months": 12,
+    "prepay_generally_nonrefundable": true,
+    "project_spend_cap_available": true,
+    "project_cap_may_lag_minutes": 10,
+    "project_cap_is_instant_invoice_guarantee": false,
+    "new_project_key_is_independent_billing_account": false,
+    "all_linked_projects_share_account_credit_balance_and_tier": true,
+    "paid_data_used_for_product_improvement": false,
+    "unpaid_data_may_be_reviewed_and_used_for_improvement": true,
+    "API_clients_not_directed_to_or_likely_accessed_by_under18": true,
+    "Factory_age_eligibility_flow_verified": false,
+    "dedicated_Gemini_SSOT_exact_service_registered": false,
+    "dedicated_account_project_key_balance_region_entitlement_and_payment_method_live_verified": false
+  },
+  "decision": {
+    "recommendation": "Choose dedicated paid Gemini text+image as the next implementation candidate, retaining HeyGen speech/photo/avatar/video and Upload-Post. Existing image and script source replacement plus dedicated paid project preparation is required; do not enable current OpenAI adapter with a Gemini key.",
+    "selected_for_next_implementation": true,
+    "adopted_in_source": false,
+    "adopted_live": false,
+    "rejected_HeyGen_Image_for_initial_avatar": "identity_images1-5 plus exactly1reference_images is mandatory; it cannot create the zero-input initial portrait.",
+    "full_HeyGen_Video_Agent_reconsidered": false,
+    "OpenAI_plugin_account_recovery_requirement_removed": false,
+    "best": "Dedicated paid project/key and compatible REST/MIME/token contract work; trial and paid scenario fit current reservations without changing price or quota.",
+    "base": "Public pricing/models and API abilities are confirmed; dedicated project, paid entitlement, source adapter, age eligibility and live generation remain incomplete.",
+    "worst": "Paid-project/payment or actual model entitlement fails, or actual usage/duration/quality does not meet caps; leave service disabled and record the concrete provider cause.",
+    "strongest_argument_for_retained_OpenAI_adapter": "It is already implemented and tested; official account reactivation would avoid provider code changes, but current401/account_deactivated has no retryable code fix.",
+    "most_likely_reason_this_recommendation_changes": "Official/account-specific model access, terms, actual token/cost or generated content do not satisfy the existing Factory contract."
+  },
+  "effect": {
+    "new_projects_keys_accounts": 0,
+    "payments_topups": 0,
+    "generation_calls": 0,
+    "provider_source_runtime_changes": 0,
+    "shared_wallet_fallbacks": 0,
+    "daily_posting_loop_changes": 0
+  },
+  "exit_code": 0,
+  "provider_receipt_id": null,
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Complete the independent checkout-resume source fix, then implement the minimal Gemini adapter and prepare a dedicated paid project/key with actual ownership/payment/usage readbacks. Keep PL-1 supported OpenAI account recovery and Muse review separate.",
+  "private_result": {
+    "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/provider-preflight-result.json",
+    "bytes": 11403,
+    "sha256": "0ed68cd3ed6b691a7e50dca5671938507e63403381b0e91151c8d816caf1941d"
+  },
+  "credential_presence": {
+    "path": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-provider-preflight-20261024/dedicated-gemini-credential-presence.json",
+    "bytes": 258,
+    "sha256": "26bbd8c97203d98d96874444ae7765fd1b37267f1746338083074798408a7f99"
+  }
 }
