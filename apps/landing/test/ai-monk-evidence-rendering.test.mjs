@@ -5,6 +5,22 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { compiled } from './helpers/render-module.mjs';
 const { default: Directory } = await import(compiled(new URL('../components/AiMonkDatabase.tsx', import.meta.url)));
 
+test('directory has a direct title and an identifiable icon for every account', () => {
+  const html = renderToStaticMarkup(React.createElement(Directory, {
+    accounts: [
+      { id: 'yang-mun', display_name: 'Yang Mun', persona_type: 'Monk persona', ai_status: 'reported' },
+      { id: 'sample', display_name: 'Sample Monk', persona_type: 'Account lead', ai_status: 'unverified' },
+    ],
+    profileImages: { 'yang-mun': '/assets/ai-monk-profiles/yang-mun.png' },
+    sourceCount: 0, updatedAt: '2026-10-23',
+  }));
+  assert.match(html, /<h1[^>]*>AI Monk Database<\/h1>/);
+  assert.match(html, /src="\/assets\/ai-monk-profiles\/yang-mun.png"/);
+  assert.match(html, /alt="Yang Mun profile image"/);
+  assert.match(html, /aria-label="Sample Monk initials; profile image unavailable"/);
+  assert.doesNotMatch(html, /behind|the robe|field notes|with receipts|everyone knows/);
+});
+
 test('audience cards disclose rounding and link the exact observation source', () => {
   const html = renderToStaticMarkup(React.createElement(Directory, {
     accounts: [{ id: 'sample', display_name: 'Sample', persona_type: 'Monk persona', ai_status: 'unverified',

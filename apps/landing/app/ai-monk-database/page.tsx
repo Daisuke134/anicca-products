@@ -1,28 +1,30 @@
+import profileImages from '../../public/assets/ai-monk-profiles/profiles.json';
 import database from '../../public/data/ai-monk-avatar-database-2026.json';
 import AiMonkDatabase from '@/components/AiMonkDatabase';
 import { MediaFooter, MediaNav } from '@/components/blog/OwnedMedia';
 import type { AiMonkAccount } from '@/lib/ai-monk-directory.mjs';
 
 export const metadata = {
-  title: 'The Art of AI Monks — Open Avatar Database | Anicca',
+  title: 'AI Monk Database | Anicca',
   description:
-    'A source-linked directory of AI monk avatars: search by name, creator, language, platform, and what the public evidence actually says.',
-  openGraph: { title: 'The Art of AI Monks', images: ['https://aniccaai.com/assets/the-art-of-ai-monks-cover.png'] },
-  twitter: { card: 'summary_large_image', title: 'The Art of AI Monks', images: ['https://aniccaai.com/assets/the-art-of-ai-monks-cover.png'] },
+    'Find AI monk accounts. Compare followers, languages, creators, and products, with dated sources and AI status.',
+  openGraph: { title: 'AI Monk Database', images: ['https://aniccaai.com/assets/ai-monk-directory-illustration.webp'] },
+  twitter: { card: 'summary_large_image', title: 'AI Monk Database', images: ['https://aniccaai.com/assets/ai-monk-directory-illustration.webp'] },
   alternates: { canonical: 'https://aniccaai.com/ai-monk-database' },
 };
 
 export default function AiMonkDatabasePage() {
   return (
-    <main className="min-h-screen bg-[#f5f2eb] pb-10 font-sans text-[#24251f]">
+    <main className="min-h-screen bg-stone-50 pb-10 font-sans text-[#24251f]">
       <MediaNav />
       <AiMonkDatabase
         accounts={database.accounts as AiMonkAccount[]}
         sources={database.sources}
         sourceCount={database.sources.length}
         updatedAt={database.updated_at}
+        profileImages={Object.fromEntries(profileImages.profiles.filter((profile) => profile.local_asset).map((profile) => [profile.account_id, profile.local_asset!]))}
       />
-      <div className="mx-auto max-w-[1160px] px-5 sm:px-8"><MediaFooter /></div>
+      <div className="mx-auto max-w-[1280px] px-5 sm:px-8"><MediaFooter /></div>
     </main>
   );
 }
