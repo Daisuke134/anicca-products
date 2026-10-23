@@ -180,3 +180,5 @@ Yang Mun型の写真に近いAI僧侶動画avatarへ集中する。水彩・絵�
 
 
 **既存3告知のリンク補完結果:** 英語書籍返信2113582983580139758、Database英語返信2113583291374952934、Database日本語返信2113583436426625030で、各exact parent/元URL+UTM/native応答/別permalinkの本人本文を照合する。各送信1/再送0、元Postiz receiptを保持。自分のleaseはholder空へrelease、browserは停止しない。JA書籍の先行補完と合わせて既存4告知の目的URLを配信するが、閲覧/click/注文/利益/retweetの達成とはしない。次は69pendingの根拠拡充とS11の既存owner/費用制御/実配信/実購入へ進む。指定IG等の最新運用状態は他ownerと共有するS11の現在節を参照し、旧30/30 snapshotを現在状態と扱わない。
+
+**収益一次資料の追加範囲:** 制作者本人の公開記事を収益の一次申告として調査JSONへ追加し、既存の第三者記事とscreenshot由来の申告履歴を保持する。公開日・取得時刻・対象persona・期間を記録し、gross/net、通貨code、同記事内の合計が整合しない部分は未確認として明記する。6か月のheadlineを現在月商や比較可能な3か月USD grossへ換算しない。公開対象4件・pending69件・除外2件と既存sort契約は維持する。受入条件はsource参照の整合、未知値を維持した既存関連test、main/公開JSON/remote MCPへの反映とする。英日書籍のリンク補完後の公式注文snapshotも証拠へ追加する。Factoryの共有ownerと本番stateは変更しない。
