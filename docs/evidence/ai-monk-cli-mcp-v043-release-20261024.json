@@ -1,0 +1,140 @@
+{
+  "schema_version": "anicca.ai-monk-cli-release.v1",
+  "run_id": "ai-monk-cli-v043-release-20261024",
+  "owner_id": "root",
+  "occurrence_id": "public-release-download-install-stdio",
+  "release_sha": "65004993114e32933f11f7194d3220ff7d97eef8",
+  "observed_at": "2026-10-23T15:36:03.219578+00:00",
+  "phase": "public_release_acceptance",
+  "command": "GitHub official release readback, public GET, npm install URL, CLI stats and real SDK stdio",
+  "loaded_argv": [
+    "npm",
+    "install",
+    "--prefix",
+    "isolated-private-directory",
+    "--ignore-scripts",
+    "--no-audit",
+    "--no-fund",
+    "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.3/anicca-ai-monk-index-0.4.3.tgz"
+  ],
+  "loaded_env": {
+    "shared_config_changes": 0,
+    "model_provider_flags": 0
+  },
+  "exit_code": 0,
+  "effect": {
+    "release_published": true,
+    "social_posts": 0,
+    "video_generation": 0,
+    "payments": 0
+  },
+  "readback": {
+    "release_url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.4.3",
+    "tag": "ai-monk-index-v0.4.3",
+    "asset_api_id": 669562735,
+    "asset_bytes": 31828,
+    "asset_sha256": "9b49f662fd252642c2b8c6577971fc72d93a545ba4427a7101e114900dc68007",
+    "official_digest_matches": true,
+    "public_download_status": 200,
+    "npm_install_exit": 0,
+    "cli_stats_exit": 0,
+    "stdio": {
+      "observed_at": "2026-10-23T15:36:03.208Z",
+      "package_version": "0.4.3",
+      "transport": "real_sdk_stdio",
+      "server": {
+        "name": "ai-monk-index",
+        "version": "0.4.3"
+      },
+      "completed_calls": 6,
+      "tools": [
+        {
+          "name": "search_ai_monks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "get_ai_monk",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "ai_monk_index_stats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "top_formats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "how_they_monetize",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "winning_playbooks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      ],
+      "records": 73,
+      "sources": 57,
+      "research_archive_records": 75,
+      "ai_status": {
+        "confirmed": 0,
+        "reported": 5,
+        "unverified": 68
+      },
+      "directory_scope_counts": {
+        "included": 4,
+        "pending": 69,
+        "excluded": 2
+      },
+      "snapshot_sha256": "309334e08a1a48f560b38e2ccb5a6b9518a2440b819b0c6467fd07b0575a6286",
+      "canonical_installed_bytes_equal": true,
+      "all_structured_text_and_pure_outputs_equal": true,
+      "external_provider_calls": 0,
+      "stderr": ""
+    }
+  },
+  "provider_receipt_id": "GitHub Release ai-monk-index-v0.4.3 asset669562735",
+  "evidence_refs": [
+    "official-release.json",
+    "public-download.tgz",
+    "public-install/cli-stats.json",
+    "public-install/stdio-readback.json"
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "record canonical acceptance then continue supported distribution and monetization",
+  "source_acceptance": {
+    "pr": 613,
+    "head_sha": "9512fe51904692297f2e1441ac3af8801984c267",
+    "main_sha": "65004993114e32933f11f7194d3220ff7d97eef8",
+    "source_tests_passed": 15,
+    "package_ci": 39978560061,
+    "landing_ci": 39978560073,
+    "conclusion": "success",
+    "fresh_read_only_release_review_blocking": 0
+  },
+  "not_claimed": [
+    "npm_registry_publication",
+    "official_directory_listing",
+    "sales_or_revenue",
+    "Factory_SaaS_completion"
+  ]
+}
