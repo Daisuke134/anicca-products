@@ -188,7 +188,12 @@ const quoted = value => "'" + String(value).replaceAll("'", "''") + "'";
 function jobStore() {
   return {
     account: async id => JSON.parse(sql('SELECT to_jsonb(a) FROM monk_factory_accounts a WHERE user_id=' + quoted(id))),
+    job: async id => JSON.parse(sql('SELECT to_jsonb(j) FROM monk_factory_jobs j WHERE id=' + quoted(id)) || 'null'),
     advanceJob: async (job, patch, keep = false) => JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_advance_job(' + [job.id, job.lease_id, job.stage, JSON.stringify(patch)].map(quoted).join(',') + '::jsonb,' + keep + ')') || 'null'),
+    claimJob: async (id, image = false) => JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_claim_job(' + quoted(id) + ',' + image + ')') || 'null'),
+    claimSocial: async id => JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_claim_social(' + quoted(id) + ')') || 'null'),
+    saveSocial: async (id, lease, state) => JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_save_social(' + [id,lease,JSON.stringify(state)].map(quoted).join(',') + '::jsonb)') || 'null'),
+    releaseSocial: async (id, lease) => sql('UPDATE monk_factory_accounts SET social_lease_id=NULL,social_lease_until=NULL WHERE user_id=' + quoted(id) + ' AND social_lease_id=' + quoted(lease)),
   };
 }
 function claimJob(id) { return JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_claim_job(' + quoted(id) + ',false)') || 'null'); }
@@ -241,4 +246,87 @@ test('a social profile POST fence survives lease expiry and official readback ca
   const save = value => 'SET ROLE service_role; SELECT monk_factory_save_social(' + quoted(uid(10)) + ',' + quoted(later.social_lease_id) + ',' + quoted(JSON.stringify(value)) + '::jsonb)';
   assert.throws(() => sql(save(state)), /social_mismatch/);
   assert.equal(JSON.parse(sql(save({ ...state, profile: 'factory_' + uid(10), accountId: 'opaque10' }))).instagram_account_id, 'opaque10');
+});
+
+const providerEnv = { MONK_FACTORY_ENABLED: 'true', MONK_FACTORY_JOB_SECRET: 'synthetic-fixture-secret-32-bytes-long',
+  MONK_FACTORY_OPENAI_API_KEY: 'synthetic-openai', MONK_FACTORY_HEYGEN_API_KEY: 'synthetic-heygen', MONK_FACTORY_HEYGEN_VOICE_ID: 'synthetic-voice', MONK_FACTORY_UPLOAD_POST_API_KEY: 'synthetic-upload',
+  MONK_FACTORY_OPENAI_BILLING_VERIFIED: 'true', MONK_FACTORY_OPENAI_BILLING_EVIDENCE_REF: 'fixture', MONK_FACTORY_HEYGEN_BILLING_VERIFIED: 'true', MONK_FACTORY_HEYGEN_BILLING_EVIDENCE_REF: 'fixture',
+  MONK_FACTORY_UPLOAD_POST_BILLING_VERIFIED: 'true', MONK_FACTORY_UPLOAD_POST_BILLING_EVIDENCE_REF: 'fixture', MONK_FACTORY_UPLOAD_POST_WHITELABEL_VERIFIED: 'true' };
+function nextClaim(id) {
+  sql('UPDATE monk_factory_jobs SET next_run_at=now() WHERE id=' + quoted(id));
+  return claimJob(id);
+}
+
+test('real adapter plus database completes DB-script speech render publish and attributed nonzero metrics once', options, async () => {
+  const { advanceFactoryJob } = require('../monk-factory-jobs.js');
+  const { createFactoryProviders } = require('../monk-factory-providers.js');
+  account(11);
+  sql('UPDATE monk_factory_accounts SET avatar_id=\'avatar11\',auto_post=true,social_profile=\'factory_' + uid(11) + '\',instagram_account_id=\'opaque11\',connected_at=now(),social_checked_at=now() WHERE user_id=' + quoted(uid(11)));
+  const job = JSON.parse(sql(reserve(uid(11), 'end-to-end-fixture')));
+  sql('UPDATE monk_factory_jobs SET origin=\'auto\',autopost_requested=true WHERE id=' + quoted(job.id));
+  const paths = [];
+  const providers = createFactoryProviders({ env: providerEnv, fetchImpl: async (address, request = {}) => {
+    const url = new URL(address); const method = request.method || 'GET'; paths.push(method + ' ' + url.pathname);
+    let data;
+    if (url.pathname === '/v1/chat/completions') {
+      const payload = JSON.parse(request.body);
+      assert.ok(payload.messages[1].content.includes('shalev-yang-mun-playbook'));
+      data = { id: 'chat11', choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ script: 'Pause and take one easy breath.', caption: 'One small pause.', source_ids: ['shalev-yang-mun-playbook'] }) } }] };
+    } else if (url.pathname === '/v3/voices/speech') data = { data: { request_id: 'speech11', audio_url: 'https://fixture.example/audio.mp3', duration: 19, engine: 'starfish' } };
+    else if (url.pathname === '/v3/videos' && method === 'POST') data = { data: { video_id: 'video11', status: 'pending' } };
+    else if (url.pathname === '/v3/videos/video11') data = { data: { id: 'video11', status: 'completed', video_url: 'https://fixture.example/video.mp4', duration: 19 } };
+    else if (url.pathname === '/api/uploadposts/users/factory_' + uid(11)) data = { success: true, profile: { username: 'factory_' + uid(11), social_accounts: { instagram: { username: 'opaque11', handle: 'fixture11' } } } };
+    else if (url.pathname === '/api/upload') {
+      assert.equal(request.body.get('user'), 'factory_' + uid(11));
+      assert.ok(request.body.get('title').startsWith('Fictional AI-generated monk. '));
+      data = { success: true, request_id: job.id + ':post_submitting' };
+    } else if (url.pathname === '/api/uploadposts/status') data = { request_id: job.id + ':post_submitting', status: 'completed', results: [{ platform: 'instagram', success: true, post_id: 'native11', post_url: 'https://www.instagram.com/reel/fixture11/' }] };
+    else if (url.pathname === '/api/uploadposts/post-analytics') data = { success: true, post: { profile_username: 'factory_' + uid(11), platform_post_id: 'native11', platform: 'instagram' }, platforms: { instagram: { success: true, platform_post_id: 'native11', post_metrics_source: 'platform_api', post_metrics: { views: 17 } } } };
+    else assert.fail('unexpected synthetic transport: ' + method + ' ' + url.pathname);
+    return new Response(JSON.stringify(data), { headers: { 'x-request-id': 'receipt11' } });
+  } });
+  const store = jobStore();
+  for (const expected of ['script_ready','speech_ready','video_pending','post_ready','post_pending','published','published']) {
+    await advanceFactoryJob({ job: nextClaim(job.id), store, providers, env: providerEnv, syncBilling: async () => store.account(uid(11)) });
+    assert.equal((await store.job(job.id)).stage, expected);
+  }
+  const result = await store.job(job.id);
+  assert.equal(result.status, 'completed');
+  assert.deepEqual(result.metrics, { views: 17 });
+  assert.ok(result.metrics_at);
+  assert.equal(result.metrics.likes, undefined);
+  assert.deepEqual(paths.filter(x => x.startsWith('POST')), ['POST /v1/chat/completions','POST /v3/voices/speech','POST /v3/videos','POST /api/upload']);
+  assert.equal(nextClaim(job.id), null);
+});
+
+test('signed duplicate background invocations create one private image and one verified PhotoAvatar', options, async () => {
+  const { advanceFactoryJob, runFactoryImage, signImageTicket } = require('../monk-factory-jobs.js');
+  const { createFactoryProviders } = require('../monk-factory-providers.js');
+  account(12);
+  const reserved = JSON.parse(sql(reserve(uid(12), 'avatar:lifetime', 'avatar')));
+  const store = jobStore(); const data = new Map(); const posts = [];
+  const images = { put: async (key, value) => data.set(key, value), get: async key => data.get(key) || null };
+  const providers = createFactoryProviders({ env: providerEnv, fetchImpl: async (address, request = {}) => {
+    const path = new URL(address).pathname;
+    if (request.method === 'POST') posts.push(path);
+    let value;
+    if (path === '/v1/images/generations') value = { data: [{ b64_json: Buffer.from([0xff,0xd8,0xff,0xd9]).toString('base64') }] };
+    else if (path === '/v3/avatars') value = { data: { avatar_item: { id: 'avatar12', status: 'pending' } } };
+    else if (path === '/v3/avatars/looks/avatar12') value = { data: { id: 'avatar12', avatar_type: 'photo_avatar', status: 'completed', preview_image_url: 'https://fixture.example/avatar.jpg', supported_api_engines: ['avatar_iv'] } };
+    else assert.fail('unexpected synthetic image transport');
+    return new Response(JSON.stringify(value), { headers: { 'x-request-id': 'image12' } });
+  } });
+  let dispatched;
+  const options = { store, providers, images, env: providerEnv, syncBilling: async () => store.account(uid(12)) };
+  await advanceFactoryJob({ ...options, job: claimJob(reserved.id), dispatch: async job => { dispatched = job; } });
+  const ticket = signImageTicket({ jobId: reserved.id, nonce: dispatched.image_nonce, expiresAt: Date.parse(dispatched.image_ticket_until) }, providerEnv);
+  await Promise.all([runFactoryImage({ ...options, ticket }),runFactoryImage({ ...options, ticket })]);
+  assert.equal((await store.job(reserved.id)).stage, 'image_ready');
+  await advanceFactoryJob({ ...options, job: nextClaim(reserved.id) });
+  await advanceFactoryJob({ ...options, job: nextClaim(reserved.id) });
+  await runFactoryImage({ ...options, ticket });
+  assert.equal((await store.account(uid(12))).avatar_id, 'avatar12');
+  assert.deepEqual(posts, ['/v1/images/generations','/v3/avatars']);
+  assert.equal((await store.job(reserved.id)).evidence.image_readback.provider_receipt_id, 'image12');
+  assert.equal(JSON.stringify((await store.job(reserved.id)).evidence).includes('/9j/2Q=='), false);
 });

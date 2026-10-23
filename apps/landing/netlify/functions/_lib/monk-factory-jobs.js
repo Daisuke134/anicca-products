@@ -1,4 +1,4 @@
-const { createHmac, timingSafeEqual, randomUUID } = require('node:crypto');
+const { createHmac, timingSafeEqual } = require('node:crypto');
 const { UUID, FACTORY_PRODUCT, factoryError } = require('./monk-factory.js');
 const { syncFactoryBilling, factoryLiveMode } = require('./monk-factory-billing.js');
 
@@ -115,10 +115,14 @@ async function advanceFactoryJob(options) {
   async function allowed(post = false) {
     if (Date.now() >= deadline) throw factoryError('tick_deadline', 503);
     if (env.MONK_FACTORY_ENABLED !== 'true' || (await providers.readiness()).ready !== true) throw factoryError('factory_unavailable', 503);
-    const account = await syncBilling({ userId: job.user_id, store, stripe, env });
+    let account = await syncBilling({ userId: job.user_id, store, stripe, env });
     if (account?.user_id !== job.user_id || !entitled(account)) throw factoryError('subscription_required', 402);
     if (!post && !periodMatches(job, account)) throw factoryError('job_period_expired', 402);
     if ((job.origin === 'auto' || post) && !account.auto_post) throw factoryError('autopost_stopped', 409);
+    if (job.origin === 'auto' && !post) {
+      account = await ensureFactorySocial({ userId: job.user_id, store, providers });
+      if (!account.auto_post || !account.instagram_account_id || !account.connected_at) throw factoryError('instagram_required', 409);
+    }
     if (Date.now() >= deadline) throw factoryError('tick_deadline', 503);
     return account;
   }
@@ -183,7 +187,7 @@ async function advanceFactoryJob(options) {
       const done = result.status === 'completed';
       await save({ status: done ? 'completed' : 'processing', stage: done ? 'completed' : 'video_pending',
         ...(done ? { video_url: result.videoUrl, video_completed_at: new Date().toISOString() } : {}),
-        evidence: evidence(job, 'video_readback', env, { receipt: result.id, readback: result.status, nextAction: done ? 'preview' : 'official_get' }) });
+        evidence: evidence(job, 'video_readback', env, { receipt: result.id, readback: result.status, nextAction: done ? 'preview' : 'official_get' }) }, done && job.autopost_requested);
       if (done && job.autopost_requested) {
         await save({ stage: 'post_ready', status: 'processing', next_run_at: after(1000) });
       }
