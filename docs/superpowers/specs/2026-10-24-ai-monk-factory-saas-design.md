@@ -9,7 +9,7 @@ Databaseの根拠を台本へ戻し、利用者がGenerate→独自monk avatar�
 旧local CLIをcloud経由で利用者へ公開する案はtenant認証と永続jobを持たず、Macの日次所有系を巻き込むため採らない。Postiz通常APIの接続先は自社organizationであり、tenant帰属の正式契約が不足する。Postiz Enterpriseは公開ページで新規申請停止のため採らない。Upload-Postは別provider account不要のprofile-scoped connectと公式GETを文書化する。実接続/契約受入はまだ行っていない。
 
 ## 価格と原価
-primaryの価格案はUSD199/月、月30本、1本45秒以内。paidは成功最大30本・課金試行最大36回とし、追加6回を含む予算で管理する。trialは3日・成功最大3本・課金試行最大3回・1本20秒以内で、再生成枠はない。初期avatarは1体、trialは利用者ごとに生涯1回。これは実Stripe価格公開前の設計判断であり、ユーザーの売上・利益を保証しない。
+primaryの価格案はUSD199/月、月30本、1本45秒以内。paidは成功最大30本・課金試行最大36回とし、追加6回を含む予算で管理する。provider/台本のperiod予算をUSD70へ制限し、trialはUSD4.25とする。未完/費用不明も成功候補枠と予算を保持する。trialは3日・成功最大3本・課金試行最大3回・1本20秒以内で、再生成枠はない。初期avatarは1体、trialは利用者ごとに生涯1回。これは実Stripe価格公開前の設計判断であり、ユーザーの売上・利益を保証しない。
 
 Avatar IV Photoは公表USD2.31/分。30本×45秒はUSD51.975、20%追加生成込みUSD62.37。別Starfish TTSを使う最悪予算はUSD3.24/月。初期画像USD0.28＋Photo Avatar作成USD1.32を別に計上する。prompt直接作成の価格をPhoto Avatar料金だと推定しない。
 

@@ -1,0 +1,77 @@
+const { test, before } = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const os = require('node:os');
+const { execFileSync, execFile } = require('node:child_process');
+const { promisify } = require('node:util');
+
+// Only a newly initialized local fixture is accepted; never infer a production PGHOST.
+const socket = process.env.MONK_FACTORY_TEST_SOCKET;
+const options = { skip: !socket };
+const uid = n => '00000000-0000-4000-8000-' + String(n).padStart(12, '0');
+function args() {
+  assert.ok(socket?.startsWith('/tmp/monk-factory-pg-'));
+  assert.ok(fs.existsSync(path.join(socket, '.monk-factory-fixture')));
+  return ['-X', '-q', '-v', 'ON_ERROR_STOP=1', '-A', '-t', '-h', socket, '-p', '5432', '-U', os.userInfo().username, '-d', 'postgres'];
+}
+function sql(text) { return execFileSync('psql', [...args(), '-c', text], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim(); }
+function reserve(userId, occurrence, kind = 'video') {
+  return 'SET ROLE service_role; SELECT monk_factory_reserve_job(\'' + userId + '\',\'' + occurrence + '\',\'' + kind + '\')';
+}
+function account(n, status = 'trialing') {
+  sql('SET ROLE service_role; SELECT monk_factory_reserve_profile(\'' + uid(n) + '\')');
+  sql('UPDATE monk_factory_accounts SET stripe_subscription_id=\'sub_fixture' + n + '\', subscription_status=\'' + status + '\', trial_start=now()-interval \'1 hour\',trial_end=now()+interval \'3 days\',period_start=now()-interval \'1 hour\',period_end=now()+interval \'30 days\',period_paid=true WHERE user_id=\'' + uid(n) + '\'');
+}
+
+before(() => {
+  if (!socket) return;
+  sql('CREATE ROLE anon NOLOGIN; CREATE ROLE authenticated NOLOGIN; CREATE ROLE service_role NOLOGIN BYPASSRLS; CREATE SCHEMA auth; CREATE TABLE auth.users(id uuid PRIMARY KEY); CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS $$ SELECT nullif(current_setting(\'request.jwt.claim.sub\',true),\'\')::uuid $$; GRANT USAGE ON SCHEMA auth TO authenticated; GRANT EXECUTE ON FUNCTION auth.uid() TO authenticated; INSERT INTO auth.users SELECT (\'00000000-0000-4000-8000-\'||lpad(n::text,12,\'0\'))::uuid FROM generate_series(1,30) n;');
+  const dir = path.resolve(__dirname, '../../../../supabase/migrations');
+  const migrations = fs.readdirSync(dir).filter(x => x.endsWith('_monk_factory.sql'));
+  assert.equal(migrations.length, 1);
+  execFileSync('psql', [...args(), '-f', path.join(dir, migrations[0])], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+});
+
+test('trial reservation is idempotent, bounded by three attempts, and keeps unknown effects reserved', options, () => {
+  account(1);
+  const avatar = JSON.parse(sql(reserve(uid(1), 'avatar', 'avatar')));
+  assert.equal(avatar.kind, 'avatar');
+  const first = JSON.parse(sql(reserve(uid(1), 'video-1')));
+  assert.equal(first.id, JSON.parse(sql(reserve(uid(1), 'video-1'))).id);
+  sql('UPDATE monk_factory_jobs SET status=\'effect_unknown\' WHERE id=\'' + first.id + '\'');
+  sql(reserve(uid(1), 'video-2'));
+  sql(reserve(uid(1), 'video-3'));
+  assert.throws(() => sql(reserve(uid(1), 'video-4')), /quota_exhausted/);
+  assert.equal(sql('SELECT count(*) FROM monk_factory_jobs WHERE user_id=\'' + uid(1) + '\''), '4');
+  assert.equal(sql('SELECT sum(reserved_micro_usd) FROM monk_factory_jobs WHERE user_id=\'' + uid(1) + '\''), '4180000');
+});
+
+test('concurrent paid requests cannot reserve more than thirty successful-or-pending videos', options, async () => {
+  account(2, 'active');
+  const run = promisify(execFile);
+  const results = await Promise.allSettled(Array.from({ length: 36 }, (_, n) => run('psql', [...args(), '-c', reserve(uid(2), 'parallel-' + n)], { encoding: 'utf8' })));
+  const ok = results.filter(x => x.status === 'fulfilled');
+  const rejected = results.filter(x => x.status === 'rejected');
+  assert.equal(ok.length, 30);
+  assert.equal(rejected.length, 6);
+  assert.ok(rejected.every(x => /quota_exhausted/.test(x.reason.stderr)));
+  assert.equal(new Set(ok.map(x => JSON.parse(x.value.stdout.trim()).id)).size, 30);
+  assert.equal(sql('SELECT count(*) FROM monk_factory_jobs WHERE user_id=\'' + uid(2) + '\''), '30');
+});
+
+test('row security hides other users and prevents clients changing billing or invoking service RPCs', options, () => {
+  const own = sql('BEGIN; SET LOCAL ROLE authenticated; SET LOCAL "request.jwt.claim.sub"=\'' + uid(1) + '\'; SELECT count(*) FROM monk_factory_accounts; ROLLBACK;');
+  assert.equal(own, '1');
+  assert.equal(sql('BEGIN; SET LOCAL ROLE authenticated; SET LOCAL "request.jwt.claim.sub"=\'' + uid(3) + '\'; SELECT count(*) FROM monk_factory_jobs; ROLLBACK;'), '0');
+  assert.throws(() => sql('SET ROLE authenticated; UPDATE monk_factory_accounts SET subscription_status=\'active\''), /permission denied/);
+  assert.throws(() => sql('SET ROLE anon; SELECT monk_factory_reserve_profile(\'' + uid(3) + '\')'), /permission denied/);
+  assert.throws(() => sql('SET ROLE authenticated; SELECT monk_factory_reserve_job(\'' + uid(1) + '\',\'forged\',\'video\')'), /permission denied/);
+});
+
+test('profile capacity includes trial and retained profiles before another checkout can start', options, () => {
+  for (let n = 3; n <= 25; n++) sql('SET ROLE service_role; SELECT monk_factory_reserve_profile(\'' + uid(n) + '\')');
+  assert.equal(sql('SELECT count(*) FROM monk_factory_accounts WHERE profile_reserved_at IS NOT NULL'), '25');
+  assert.throws(() => sql('SET ROLE service_role; SELECT monk_factory_reserve_profile(\'' + uid(26) + '\')'), /profile_capacity/);
+  assert.equal(JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_reserve_profile(\'' + uid(1) + '\')')).user_id, uid(1));
+});

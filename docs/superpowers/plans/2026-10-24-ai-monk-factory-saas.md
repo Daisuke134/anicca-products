@@ -38,4 +38,4 @@ Files: apps/landing/app/ai-monk-factory/page.tsxとclient、scripts/stage-ai-mon
 - [ ] Factory専用provider/Stripe3日trial/本人IG接続/実avatar-video/公式postとmetricsを区別して確認し、利用可能な事実だけをXへ告知する。
 
 ## 現在cursor
-設計・原価モデルは専用branchへ先行pushし、fresh builder指摘を反映済み。接続済みSupabase Primaryの既存production projectとcredential SSOTの一致、monk_factory既存table0、利用可能なlocal Postgres/CLIを確認する。Task1のauth/Checkout境界はmissing moduleのREDから実装し、6件GREEN。verified Auth readback、client ID偽装、未確認/匿名session、固定Price/3日trial/再trial禁止を確認する。API handler/永続quota/Stripe webhookへの配線と本番反映はまだ行っていない。SaaS公開・料金公開・実生成・売上は未完。
+設計・原価モデルは専用branchへ先行pushし、fresh builder指摘を反映済み。接続済みSupabase Primaryの既存production projectとcredential SSOTの一致、monk_factory既存table0を確認する。Task1のauth/Checkout境界はREDから実装し6件GREEN。永続DBの4件は独立したUnix socket専用Postgres fixtureでRPC/table未実装のREDを確認する。trial上限、36並列要求の30枠制限、RLS、25profile容量を実装する。API handler/Stripe webhookへの配線と本番反映はまだ行っていない。SaaS公開・料金公開・実生成・売上は未完。
