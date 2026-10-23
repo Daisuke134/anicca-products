@@ -1,0 +1,89 @@
+{
+  "schema_version": "anicca.ai-monk-factory-provider-alternative.v1",
+  "run_id": "ai-monk-factory-heygen-alternative-20261024",
+  "owner_id": "root",
+  "occurrence_id": "read-only-full-heygen-cost-assessment",
+  "observed_at": "2026-10-23T21:13:14.405549+00:00",
+  "phase": "research_only",
+  "sources": [
+    {
+      "url": "https://developers.heygen.com/docs/avatar-from-prompt",
+      "artifact": "official-avatar-from-prompt.md",
+      "bytes": 5761,
+      "sha256": "4896bc4c4f2c0e8885b3e3500c2e0720a2735b618c67a5964a8d5259a24fcbb6"
+    },
+    {
+      "url": "https://help.heygen.com/en/articles/10060327-heygen-api-pricing-explained",
+      "artifact": "official-api-pricing.md",
+      "bytes": 10318,
+      "sha256": "efde300e37b280e9addd7cd72a2530b48035e1615eb07ee427c2ec30a1263b67"
+    },
+    {
+      "url": "https://developers.heygen.com/docs/video-agent",
+      "artifact": "official-video-agent.md",
+      "bytes": 13090,
+      "sha256": "f400525ce90a43e91772de1a2a9b1aedd1f134882adc8aebed4b644ce1cd93e4"
+    }
+  ],
+  "observed_provider_contract": {
+    "synthetic_avatar_endpoint": "POST /v3/avatars; type=prompt",
+    "prompt_max_characters": 1000,
+    "synthetic_real_person_consent_required": false,
+    "video_agent_endpoint": "POST /v3/video-agents",
+    "video_agent_usd_per_output_minute": 5.82,
+    "billing": "actual seconds generated",
+    "avatar_iv_photo_usd_per_output_minute": 2.31,
+    "free_api_credits_available": false,
+    "free_api_credits_note": "Official API pricing FAQ says free API credits are not offered starting February 2026.",
+    "video_agent_hard_requested_duration_cap_verified": false,
+    "standalone_text_script_generation_endpoint_verified": false,
+    "exact_prompt_avatar_operation_price_verified": false
+  },
+  "budget_comparison": {
+    "currency": "USD",
+    "existing_trial_videos": 3,
+    "existing_trial_seconds_each": 20,
+    "existing_trial_hard_cap": 4.25,
+    "paid_monthly_successful_videos": 30,
+    "paid_seconds_each": 45,
+    "video_agent_paid_video_only": 130.95,
+    "paid_charged_attempts": 36,
+    "video_agent_paid_attempt_stress_video_only": 157.14,
+    "included_costs": "Video Agent output seconds only, assuming all allotted videos use the configured per-video time maximum. Shorter videos can cost less; this is not an unavoidable minimum for every trial. Avatar creation, payment processing, connector, hosting, conversion and other provider costs are excluded.",
+    "video_agent_trial_video_cost_at_configured_max_seconds": 5.82,
+    "trial_video_cost_at_configured_max_exceeds_hard_cap": true,
+    "existing_paid_provider_and_script_budget_usd": 70,
+    "paid_video_cost_at_configured_max_exceeds_provider_budget": true
+  },
+  "decision": {
+    "adopted": false,
+    "reason": "At the existing configured per-video time maximum, full Video Agent output seconds alone exceed both the trial hard cap and paid provider/script budget. Synthetic avatar creation alone does not verify a replacement for text script generation under the accepted contract. Retain the accepted pipeline and dedicated OpenAI billing precondition; do not change the price, quota or provider merely to bypass missing funding.",
+    "price_or_quota_or_provider_source_changes": 0,
+    "billing_flags_changed": 0,
+    "generation_calls": 0,
+    "topups_or_purchases": 0,
+    "shared_wallet_fallbacks": 0
+  },
+  "retrieval_boundaries": [
+    "docs.heygen.com returned a Vercel Security Checkpoint through crwl/Scrapy; those bodies are not used as API evidence.",
+    "Context7 resolved official developers.heygen documentation; direct developers.heygen and official help pages subsequently fetched successfully through crwl."
+  ],
+  "provider_receipt_id": null,
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Retain current payment precondition; do not enable or fund a more expensive fallback to bypass it.",
+  "independent_review": {
+    "reviewer": "/root/monk_v046_price_release_review",
+    "authoring_context_shared": false,
+    "reviewer_prior_context": "Database release read-only verification; no Factory implementation or assessment authoring",
+    "new_fresh_thread_attempt": "thread limit rejected a new spawn; an existing non-authoring read-only verifier received only the assessment artifacts and contract",
+    "verdict": "SHIP",
+    "blocking": 0,
+    "nonblocking_notes_resolved": [
+      "Clarify the time-max assumption instead of claiming every trial has a USD5.82 unavoidable minimum.",
+      "Register the directly fetched official Video Agent endpoint documentation."
+    ],
+    "arithmetic_verification": "Decimal exact 5.82 / 130.95 / 157.14",
+    "limit": "No real billing, balances, failure billing or prompt-avatar operation price verified."
+  }
+}
