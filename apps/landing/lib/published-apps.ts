@@ -7,3 +7,14 @@ export function loadPublishedApps(): PublishedApp[] {
  if(apps.length!==6 || new Set(apps.map(a=>a.id)).size!==6)throw new Error('Expected six canonical published apps');
  return apps;
 }
+
+export function publishedAppStoreUrl(app: PublishedApp, surface: 'detail' | 'blog'): string {
+ if (!['6757726663','6762143790','6766485903','6759514159'].includes(app.id)) return app.store;
+ const url = new URL(app.store);
+ // Preserve Studio Cherie's existing Japanese detail-page destination.
+ if (app.id === '6766485903' && surface === 'detail') url.pathname = url.pathname.replace('/us/', '/jp/');
+ url.searchParams.set('pt', '93486075');
+ url.searchParams.set('ct', `web_${app.id}_${surface}`);
+ url.searchParams.set('mt', '8');
+ return url.toString();
+}

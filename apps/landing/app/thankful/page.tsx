@@ -1,4 +1,4 @@
-import { loadPublishedApps } from '../../lib/published-apps';
+import { loadPublishedApps, publishedAppStoreUrl } from '../../lib/published-apps';
 import JsonLd from '../../components/JsonLd';
 import './thankful.css';
 
@@ -36,7 +36,7 @@ const FAQS = [
 ];
 export default function ThankfulLanding() {
   const app = thankfulApp();
-  const download = (label = 'Download on the App Store') => <a className="thankful-download" href={app.store}>{label}</a>;
+  const download = (label = 'Download on the App Store') => <a className="thankful-download" href={publishedAppStoreUrl(app,'detail')}>{label}</a>;
   return <main className="thankful-page" lang="en">
     <JsonLd data={{ '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: 'Thankful', url: CANONICAL, description: DESCRIPTION, operatingSystem: 'iOS 17 or later; iPadOS 17 or later', applicationCategory: 'LifestyleApplication', downloadUrl: app.store }} />
     <nav className="thankful-wrap thankful-nav" aria-label="Thankful navigation">
