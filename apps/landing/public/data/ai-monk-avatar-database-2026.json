@@ -11,7 +11,8 @@
     "User-provided screenshots are identified as such; their calendar capture date is unknown unless the screenshot itself shows it.",
     "Screenshot-visible handles seed unverified leads. Public metadata is dated and source-linked when read through connected research providers. Direct automated HTTP probes stopped after the robots notice was reviewed. Subsequent headers are observed through normal public visible browser UI under an exclusive registered lease; private and age-restricted content is not opened. Unknown AI origin, creator, language and revenue are not inferred from appearance or audience size.",
     "Audience ordering uses each platform's latest numeric followers/subscribers, never views or historical peaks. All-platform comparisons use the largest single observed audience; cross-platform audiences are not added and may overlap. Provider-rounded figures are labelled in each snapshot status.",
-    "Candidate language labels added in the profile audit reflect the visible bio language, not a full spoken-video audit. Public bio links establish attribution to a destination, not store ownership, orders, medical efficacy or revenue."
+    "Candidate language labels added in the profile audit reflect the visible bio language, not a full spoken-video audit. Public bio links establish attribution to a destination, not store ownership, orders, medical efficacy or revenue.",
+    "Public offer observations retain displayed price kind, currency (null when unverified), reference/variant prices and availability separately from paid orders and revenue. Shared products reuse an observation_id across attributed accounts; account offer rows are not distinct product counts. Free/PWYW labels, reviews, subscribers, recipe counts and incomplete pricing placeholders do not establish sales. Discovery hubs or redirects establish routes, not ownership or authorship."
   ],
   "sources": [
     {
@@ -1299,6 +1300,450 @@
       "checked_at": "2026-10-23",
       "captured_at": "2026-10-23T15:52:03.653536+00:00",
       "notes": "Public storefront observation: product_information_observed. Public product text or metadata is a seller statement, not a paid-order or revenue receipt."
+    },
+    {
+      "id": "product-remaining-source-c062e53ed30c",
+      "title": "elmaestrolin.com public product observation",
+      "url": "http://elmaestrolin.com/",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:24:22.712738+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "00e865e9dbd4bfc1a08305e545e4476816b76f68179da6c307f9367063d11c42",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-3bfb5593d4bb",
+      "title": "monjekai.com public product observation",
+      "url": "https://monjekai.com/",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:24:22.915643+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "78f6eb698b3eceb824d4d320606ed9bdeadc581927f7709c16eb9c5ae1f3b052",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-2fc9a9dd0242",
+      "title": "linktr.ee public product observation",
+      "url": "http://linktr.ee/masterkaelwellness",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:13:52.222007+00:00",
+      "capture_method": "crwl",
+      "evidence_sha256": "046576e29a96b3a8ed6765406259bc948d4493f7851ae938e02c38792e7a8e8e",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-6a34a1d40618",
+      "title": "whop.com public product observation",
+      "url": "https://whop.com/joined/ken-lu-teachings/products/five-ancient-practices/",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:22:30.941014+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "340205a28c6942624b283fd76d63e6fa1265eb397cec83f9cbc539b7f9e9a96a",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-d3c6a856f315",
+      "title": "anantamst.github.io public product observation",
+      "url": "https://anantamst.github.io/remedios-olvidados/",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:24:22.679860+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "17550ba4a8e6de433089e29f01c0b9c74ffb9dc7fe127d993ee9a5c386308635",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-914d51f386fb",
+      "title": "www.amazon.it public product observation",
+      "url": "https://www.amazon.it/dp/B0GSVTVNQ2",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:16:15.171728+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "19f6cd89588a4c627d5d6a59b79420f4ffe79a9893ff8d60ac54cdbc41aa09df",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-58a5da71650a",
+      "title": "itunes.apple.com public product observation",
+      "url": "https://itunes.apple.com/lookup?id=6764258660&country=fr",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:16:14.988000+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "6d7a10bad474acb13f056592ac46740bf2373e6916853b2ae676a55db3219da7",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-ee00e6fa7f70",
+      "title": "web.tribute.tg public product observation",
+      "url": "https://web.tribute.tg/p/x8K",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:22:29.566128+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "b1b55c776d13e47b2e46d788af89d95e3e47f9bdaeec3f273ff9fe325c657a14",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-792c5842f550",
+      "title": "masterlian.gumroad.com public product observation",
+      "url": "https://masterlian.gumroad.com/l/masterlian",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:16:15.537956+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "5ce317cad758f9cbf1206599241a4b2589cfe9fc969d95c2a6f505da5ccada32",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-ba5d6a45809f",
+      "title": "hotmart.com public product observation",
+      "url": "https://hotmart.com/en/marketplace/products/the-monks-secret-150-recipes-that-saved-generations/T106736999M",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:14:58.512829+00:00",
+      "capture_method": "crwl",
+      "evidence_sha256": "166c39be60f1840d49dce963c749c2195ac3bf3bc02eff18a6cb08f0f350edc7",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-22e5f2da7663",
+      "title": "disciplinasilenciosa.lovable.app public product observation",
+      "url": "https://disciplinasilenciosa.lovable.app/",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:14:08.432862+00:00",
+      "capture_method": "crwl",
+      "evidence_sha256": "d10e58bc021ba0b24e6924d18fd7d9b68c0481b5fe84c8bc2ff4524f09011631",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-1037058dcc95",
+      "title": "www.amazon.com public product observation",
+      "url": "https://www.amazon.com/dp/B0F161HQ6C",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:16:15.140331+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "5a06ef1b66275c3927459c40488182ff8e9ff48fb33363712489f0e8c3bad4a7",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-ab40af49234f",
+      "title": "manifestando.online public product observation",
+      "url": "https://manifestando.online/",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:24:22.839852+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "9ecb4b857f7dc5f84eb77f4536fd5ea28eb249b068c0df0e1eda827e7751c0f4",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-b6c5225ae3fa",
+      "title": "mongezhen.lovable.app public product observation",
+      "url": "https://mongezhen.lovable.app/retorno-paz-interior",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:20:44.014647+00:00",
+      "capture_method": "crwl",
+      "evidence_sha256": "09b05eb656c6ea2362388922b0231ee7b84e9ff92155bf4452367192bd546997",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-a184de578141",
+      "title": "mongezhen.lovable.app public product observation",
+      "url": "https://mongezhen.lovable.app/jornada-30-dias",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:22:51.743798+00:00",
+      "capture_method": "crwl",
+      "evidence_sha256": "ec47338dbdf859f50e6a1b5f4cbe5fd77d31f3a5c053854d83a0bf90b522ef4d",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-0f02f052ab4b",
+      "title": "mongezhen.lovable.app public product observation",
+      "url": "https://mongezhen.lovable.app/tempo-de-curar",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:23:58.572961+00:00",
+      "capture_method": "crwl",
+      "evidence_sha256": "1a9fe09d8c2013ec71581247b23b65a394ecf035cc8d4687b90bfa0c82b8a50d",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-1ae5bfc966b4",
+      "title": "monge.doti.gg public product observation",
+      "url": "https://monge.doti.gg/ebook-organize-sua-vida",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:24:23.156452+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "760dd4bd19f9505270c57a2b1c0445f08babad28fe35757efc00dcbcca743935",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-622007b854b0",
+      "title": "www.amazon.es public product observation",
+      "url": "https://www.amazon.es/dp/B0FJDNSFS4",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:16:15.186711+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "2ba34525a10ae1a0428338de97f2a7a563b359cf56058d6bd2a148df91de0011",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-5cb4feeace16",
+      "title": "www.amazon.com public product observation",
+      "url": "https://www.amazon.com/dp/B0HKQ1NCBM",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:25:13.590122+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "8069e7ef203ab9457e1ad0d703d4794f093068b04e4040af0cd38bd5a091843d",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-a341511c26da",
+      "title": "ancientwisdomguide.gumroad.com public product observation",
+      "url": "https://ancientwisdomguide.gumroad.com/l/anxiety-relief",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:23:39.707965+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "4264c26d353a0bf44a1eeab537a6c596eb4970f9a11e3c6102c128daca5644d3",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-3e3cefc347bf",
+      "title": "ancientwisdomguide.gumroad.com public product observation",
+      "url": "https://ancientwisdomguide.gumroad.com/l/ctfdhz",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:23:39.739164+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "08d5d7c2bb340f138427064cb9aa1529ecc40bbb8fd26817d33c4044cb8178e7",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-8abaafd9c8df",
+      "title": "ancientwisdomguide.gumroad.com public product observation",
+      "url": "https://ancientwisdomguide.gumroad.com/l/slow-your-body-quiet-the-mind",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:23:39.779597+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "e58950bf9a82463df0c173709ae5b9bd9f7ed7472bc67707500d7ca2995786cb",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-2a50e6ae94f8",
+      "title": "ancientwisdomguide.gumroad.com public product observation",
+      "url": "https://ancientwisdomguide.gumroad.com/l/healingforlife",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:23:40.307313+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "2281437e96177ec4e675f836b1d37881fc47c5dd0472f2094c33b06782afc570",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-05e74b23a97f",
+      "title": "www.zenmuns.com public product observation",
+      "url": "https://www.zenmuns.com/alimentos",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:23:53.761981+00:00",
+      "capture_method": "scrapy",
+      "evidence_sha256": "a15d82b8be465784f4ddbee8fea00fe7b96fd4944c694c8c679a98f44f8b4a37",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-411fd7474dee",
+      "title": "www.zenmuns.com public product observation",
+      "url": "https://www.zenmuns.com/tiempo-para-sanar",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:23:57.470509+00:00",
+      "capture_method": "crwl",
+      "evidence_sha256": "414d3a1e6069924cd75504a23a971cdaac1b38391bd8b2a8f627d7425952ea6e",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-7493fb062c08",
+      "title": "www.zenmuns.com public product observation",
+      "url": "https://www.zenmuns.com/camino",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:23:57.462629+00:00",
+      "capture_method": "crwl",
+      "evidence_sha256": "407651843bf4dfb5cc357a731b1d829209ba1247e7f2bbdfb108e3c7c0c2e4ef",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-f0da2cb4a0f2",
+      "title": "www.zenmuns.com public product observation",
+      "url": "https://www.zenmuns.com/comunidad",
+      "source_type": "first-party public product page or platform metadata; unaudited seller display",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:23:57.474942+00:00",
+      "capture_method": "crwl",
+      "evidence_sha256": "41aef47bd4f2ebe681ca6b20275155ce861b162d6846f434628788b9221ca488",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-930101be4f32",
+      "title": "linktr.ee public offer route",
+      "url": "http://linktr.ee/monjekai",
+      "source_type": "public discovery hub or redirect metadata; offer attribution only",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:13:52.263705+00:00",
+      "capture_method": "crwl",
+      "evidence_sha256": "0770a648d1a20eacff7ca04f78b75836bcd46a04c93edf879d024f242511f438",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-fd964c190615",
+      "title": "go.hotmart.com public offer route",
+      "url": "https://go.hotmart.com/K104790777T",
+      "source_type": "public discovery hub or redirect metadata; offer attribution only",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:14:33.914122+00:00",
+      "capture_method": "HTTP GET with automatic redirects disabled; only redirect metadata inspected",
+      "evidence_sha256": "0dc629f8996715f419379312918ec96bb0a139b940ef4259edce7ae127038d67",
+      "evidence_kind": "private_redirect_or_fetch_metadata",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-a1e2e7e29044",
+      "title": "amzn.to public offer route",
+      "url": "https://amzn.to/3NHKLhi",
+      "source_type": "public discovery hub or redirect metadata; offer attribution only",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:12:48.926978+00:00",
+      "capture_method": "HTTP HEAD, redirects inspected before any follow",
+      "evidence_sha256": "a44c29d19bcf8d188627e82402dea932b97d7ba810d8de163a5e89a86c29ae86",
+      "evidence_kind": "private_redirect_or_fetch_metadata",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-0c6b0199f526",
+      "title": "t.me public offer route",
+      "url": "https://t.me/+3RlXkcw4jY8wZGUy",
+      "source_type": "public discovery hub or redirect metadata; offer attribution only",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:14:07.583804+00:00",
+      "capture_method": "crwl",
+      "evidence_sha256": "6ec4fec6805d740b4f0b61c8f41fdc8b37cc37df634796d0b583d40d428fd456",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-57d4296638fd",
+      "title": "go.hotmart.com public offer route",
+      "url": "https://go.hotmart.com/T106736999M?dp=1",
+      "source_type": "public discovery hub or redirect metadata; offer attribution only",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:14:33.922477+00:00",
+      "capture_method": "HTTP GET with automatic redirects disabled; only redirect metadata inspected",
+      "evidence_sha256": "69ac23fcb49c3113946d2878dbfd708cf51f6f82a6bf6401c34d4eaf3fdf0815",
+      "evidence_kind": "private_redirect_or_fetch_metadata",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-ea1f33c0c9d2",
+      "title": "linktw.in public offer route",
+      "url": "https://linktw.in/DwUwNN",
+      "source_type": "public discovery hub or redirect metadata; offer attribution only",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:14:33.272107+00:00",
+      "capture_method": "HTTP GET with automatic redirects disabled; only redirect metadata inspected",
+      "evidence_sha256": "1f448bf14acdba96d1e92be5dbf3a10a48484fd2cf077c5bf6aa308955bd23b1",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-c97e147082bc",
+      "title": "amzn.to public offer route",
+      "url": "https://amzn.to/40JvoaN",
+      "source_type": "public discovery hub or redirect metadata; offer attribution only",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:12:49.285656+00:00",
+      "capture_method": "HTTP HEAD, redirects inspected before any follow",
+      "evidence_sha256": "329f2382dfe53312d5e92241e80068aea120f89a0cc48f6d8e035b24493b705f",
+      "evidence_kind": "private_redirect_or_fetch_metadata",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-c8232b00aaab",
+      "title": "linktr.ee public offer route",
+      "url": "https://linktr.ee/quieroquevuelvasati",
+      "source_type": "public discovery hub or redirect metadata; offer attribution only",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:17:20.770578+00:00",
+      "capture_method": "crwl",
+      "evidence_sha256": "4a05bd6114c552ea8961b2d326c6fbc41db0caaf568be1f8f9c495c51d3e7036",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-dea71c499aaf",
+      "title": "linktr.ee public offer route",
+      "url": "https://linktr.ee/yonchenhealing",
+      "source_type": "public discovery hub or redirect metadata; offer attribution only",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:17:21.304877+00:00",
+      "capture_method": "crwl",
+      "evidence_sha256": "1171cc941361ace9e0ffa9cb43210ec7e030203869261bc5d780acbc5f9d3d6b",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
+    },
+    {
+      "id": "product-remaining-source-b7a306adf360",
+      "title": "www.zenmuns.com public offer route",
+      "url": "https://www.zenmuns.com/",
+      "source_type": "public discovery hub or redirect metadata; offer attribution only",
+      "checked_at": "2026-10-23",
+      "captured_at": "2026-10-23T16:17:20.014073+00:00",
+      "capture_method": "crwl",
+      "evidence_sha256": "1f1eb754d03581f42e610e69f0d175fd8e185c62af80d0ba27ea3f679eb6a056",
+      "evidence_kind": "private_public_response_body",
+      "notes": "Public page or redirect observation only. Link attribution does not establish ownership, authorship, efficacy, completed purchases or revenue."
     }
   ],
   "accounts": [
@@ -2074,7 +2519,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/tempiovita/"
+        "https://www.instagram.com/tempiovita/",
+        "https://anantamst.github.io/remedios-olvidados/"
       ],
       "platforms": [
         {
@@ -2094,13 +2540,60 @@
           ]
         }
       ],
-      "offers": [],
-      "seller_counters": [],
+      "offers": [
+        {
+          "type": "digital_book",
+          "name": "Remedios Olvidados — Maestro Ananta",
+          "price": 9.99,
+          "currency": null,
+          "source_id": "product-remaining-source-d3c6a856f315",
+          "source_ids": [
+            "product-remaining-source-d3c6a856f315",
+            "lead-instagram-tempiovita-ig-header-20261024",
+            "product-remaining-source-fd964c190615"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://anantamst.github.io/remedios-olvidados/",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:24:22.679860+00:00",
+          "formats": [
+            "digital recipe book; exact file type unverified"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-ananta-remedios",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://go.hotmart.com/K104790777T"
+          ],
+          "notes": "Immediate access; more than 1,000 recipes; $9.99. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue. Only a dollar symbol was exposed. ISO currency is unverified and is not assumed to be USD.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": "$"
+        }
+      ],
+      "seller_counters": [
+        {
+          "metric": "seller_content_count_claim",
+          "value": 1000,
+          "unit": "recipes",
+          "status": "public_display_not_verified_orders_or_revenue",
+          "source_id": "product-remaining-source-d3c6a856f315",
+          "as_of": "2026-10-23",
+          "observation_id": "remaining-ananta-remedios",
+          "comparator": ">"
+        }
+      ],
       "creator_claims": [],
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
+        "Remedios Olvidados — Maestro Ananta: displayed price $9.99; ISO currency remains unverified."
       ],
       "directory_scope": {
         "status": "pending",
@@ -2166,7 +2659,9 @@
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
+        "Product research: Current Shen Tao store or replacement URL.",
+        "Product route https://hooks.store/Shentao: profile_not_found; no new product or price is established by this retrieval."
       ],
       "directory_scope": {
         "status": "pending",
@@ -2232,7 +2727,9 @@
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
+        "Product research: Current product title, price and purchase availability.",
+        "Product route https://monacochen.com/products/il-cammino-di-ritorno: store_unavailable; no new product or price is established by this retrieval."
       ],
       "directory_scope": {
         "status": "pending",
@@ -2956,7 +3453,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/maestroyunkai/"
+        "https://www.instagram.com/maestroyunkai/",
+        "https://www.amazon.it/dp/B0GSVTVNQ2"
       ],
       "platforms": [
         {
@@ -2976,8 +3474,55 @@
           ]
         }
       ],
-      "offers": [],
-      "seller_counters": [],
+      "offers": [
+        {
+          "type": "book",
+          "name": "Il Permesso di Vivere Leggero: 101 Insegnamenti per Smettere di Dimostrare, Ritrovare Calma e Tornare a Te",
+          "price": 14.99,
+          "currency": "EUR",
+          "source_id": "product-remaining-source-914d51f386fb",
+          "source_ids": [
+            "product-remaining-source-914d51f386fb",
+            "lead-instagram-maestroyunkai-ig-header-20261024",
+            "product-remaining-source-a1e2e7e29044"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://www.amazon.it/dp/B0GSVTVNQ2",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:16:15.171728+00:00",
+          "formats": [
+            "paperback"
+          ],
+          "availability": {
+            "state": "format_price_listed_purchase_and_delivery_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-yun-kai-permesso",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://amzn.to/3NHKLhi"
+          ],
+          "notes": "Copertina flessibile da 14,99 €; productTitle and ASIN matched. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "starting_price_for_format",
+          "price_symbol": null
+        }
+      ],
+      "seller_counters": [
+        {
+          "metric": "platform_review_count",
+          "value": 71,
+          "unit": "reviews",
+          "status": "public_display_not_verified_orders_or_revenue",
+          "source_id": "product-remaining-source-914d51f386fb",
+          "as_of": "2026-10-23",
+          "observation_id": "remaining-yun-kai-permesso",
+          "rating": 4.6,
+          "rating_scale": 5
+        }
+      ],
       "creator_claims": [],
       "creative_samples": [],
       "unknowns": [
@@ -3022,7 +3567,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/ming_tao32/"
+        "https://www.instagram.com/ming_tao32/",
+        "https://www.amazon.com/dp/B0F161HQ6C"
       ],
       "platforms": [
         {
@@ -3042,13 +3588,70 @@
           ]
         }
       ],
-      "offers": [],
-      "seller_counters": [],
+      "offers": [
+        {
+          "type": "physical_supplement",
+          "name": "Rosabella Organic Beet Root Capsules - 1300mg Beet Root Powder, 60 Capsules, 30-Day Supply",
+          "price": 34.99,
+          "currency": "USD",
+          "source_id": "product-remaining-source-1037058dcc95",
+          "source_ids": [
+            "product-remaining-source-1037058dcc95",
+            "lead-instagram-ming-tao32-ig-header-20261024",
+            "product-remaining-source-ea1f33c0c9d2"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://www.amazon.com/dp/B0F161HQ6C",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:16:15.140331+00:00",
+          "formats": [
+            "60 capsules"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-ming-tao-rosabella",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://linktw.in/DwUwNN"
+          ],
+          "notes": "One-Time Price $34.99; Subscribe & Save $29.74. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue. The profile route contains an Amazon affiliate tag; operator ownership and paid commission remain unverified. One-time and subscription prices are separate.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "one_time_featured_offer",
+          "price_symbol": null,
+          "variant_prices": [
+            {
+              "name": "Subscribe & Save offer",
+              "amount": 29.74,
+              "currency": "USD",
+              "discount_percent_displayed": 15,
+              "basis": "Displayed subscription offer, not the one-time price"
+            }
+          ]
+        }
+      ],
+      "seller_counters": [
+        {
+          "metric": "platform_review_count",
+          "value": 18133,
+          "unit": "reviews",
+          "status": "public_display_not_verified_orders_or_revenue",
+          "source_id": "product-remaining-source-1037058dcc95",
+          "as_of": "2026-10-23",
+          "observation_id": "remaining-ming-tao-rosabella",
+          "rating": 4.4,
+          "rating_scale": 5
+        }
+      ],
       "creator_claims": [],
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
+        "The Amazon route includes an affiliate tag; authorship, ownership and received commission are unverified."
       ],
       "directory_scope": {
         "status": "pending",
@@ -3180,7 +3783,9 @@
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
+        "Product research: No product offer or purchase price established from the video-channel landing.",
+        "Product route https://openyt.in/s/20a8ea: non_product_video_channel_route; no new product or price is established by this retrieval."
       ],
       "directory_scope": {
         "status": "pending",
@@ -3355,7 +3960,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/mongedapaz/"
+        "https://www.instagram.com/mongedapaz/",
+        "https://monge.doti.gg/ebook-organize-sua-vida"
       ],
       "platforms": [
         {
@@ -3375,7 +3981,42 @@
           ]
         }
       ],
-      "offers": [],
+      "offers": [
+        {
+          "type": "ebook",
+          "name": "Organize Sua Vida Em Silêncio — Um guia para arrumar por dentro o que a casa mostra por fora",
+          "price": 37.9,
+          "currency": "BRL",
+          "source_id": "product-remaining-source-1ae5bfc966b4",
+          "source_ids": [
+            "product-remaining-source-1ae5bfc966b4",
+            "lead-instagram-mongedapaz-ig-header-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://monge.doti.gg/ebook-organize-sua-vida",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:24:23.156452+00:00",
+          "formats": [
+            "PDF",
+            "guided meditation described; exact audio deliverable unverified"
+          ],
+          "availability": {
+            "state": "in_stock_metadata_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-shanti-organize",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://monge.doti.gg/ebook-organize-sua-vida"
+          ],
+          "notes": "Product JSON-LD price=37.90, priceCurrency=BRL, availability=InStock. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": null
+        }
+      ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [],
@@ -3421,7 +4062,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/masterlinghao/"
+        "https://www.instagram.com/masterlinghao/",
+        "https://hotmart.com/en/marketplace/products/the-monks-secret-150-recipes-that-saved-generations/T106736999M"
       ],
       "platforms": [
         {
@@ -3455,7 +4097,40 @@
           ]
         }
       ],
-      "offers": [],
+      "offers": [
+        {
+          "type": "digital_product",
+          "name": "The Monks' Secret: 150 Recipes That Saved Generations",
+          "price": null,
+          "currency": null,
+          "source_id": "product-remaining-source-ba5d6a45809f",
+          "source_ids": [
+            "product-remaining-source-ba5d6a45809f",
+            "lead-instagram-masterlinghao-ig-header-20261024",
+            "product-remaining-source-57d4296638fd"
+          ],
+          "status": "public_offer_price_unknown",
+          "url": "https://hotmart.com/en/marketplace/products/the-monks-secret-150-recipes-that-saved-generations/T106736999M",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:14:58.512829+00:00",
+          "formats": [
+            "specific ebook/course format not established by generic marketplace FAQ"
+          ],
+          "availability": {
+            "state": "marketplace_listing_observed_purchase_availability_unverified",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-ling-hao-monks-secret",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://go.hotmart.com/T106736999M?dp=1"
+          ],
+          "notes": "Official Hotmart marketplace exposes product title and a Go to cart link, but no current price. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt"
+        }
+      ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [],
@@ -3463,7 +4138,9 @@
         "AI generation status, creator/operator, content language, location and offers are unverified.",
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
         "Public counts were observed; AI origin, creator, language and products remain unverified.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
+        "The Monks' Secret: 150 Recipes That Saved Generations: current price remains unverified; public availability is not a completed purchase.",
+        "Product research: Current purchase price and exact delivery format; only public product metadata/listing was retrieved."
       ],
       "directory_scope": {
         "status": "pending",
@@ -3503,7 +4180,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/mestre.jin/"
+        "https://www.instagram.com/mestre.jin/",
+        "https://disciplinasilenciosa.lovable.app/"
       ],
       "platforms": [
         {
@@ -3523,7 +4201,41 @@
           ]
         }
       ],
-      "offers": [],
+      "offers": [
+        {
+          "type": "ebook",
+          "name": "A Disciplina Silenciosa",
+          "price": 27,
+          "currency": "BRL",
+          "source_id": "product-remaining-source-22e5f2da7663",
+          "source_ids": [
+            "product-remaining-source-22e5f2da7663",
+            "lead-instagram-mestre-jin-ig-header-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://disciplinasilenciosa.lovable.app/",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:14:08.432862+00:00",
+          "formats": [
+            "ebook; exact file type unverified"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-mestre-jin-disciplina",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://disciplinasilenciosa.lovable.app/?utm_id=97760_v0_s00_e0_tv3_a1dennh4ok9nms"
+          ],
+          "notes": "R$27,00; page describes a 40-page ebook. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": "R$"
+        }
+      ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [],
@@ -3819,7 +4531,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/master.li.shen/"
+        "https://www.instagram.com/master.li.shen/",
+        "https://web.tribute.tg/p/x8K"
       ],
       "platforms": [
         {
@@ -3839,13 +4552,58 @@
           ]
         }
       ],
-      "offers": [],
-      "seller_counters": [],
+      "offers": [
+        {
+          "type": "book_or_digital_content",
+          "name": "ВЕЛИКИЙ ПУТЬ К ЗДОРОВЬЮ",
+          "price": null,
+          "currency": null,
+          "source_id": "product-remaining-source-ee00e6fa7f70",
+          "source_ids": [
+            "product-remaining-source-ee00e6fa7f70",
+            "lead-instagram-master-li-shen-ig-header-20261024",
+            "product-remaining-source-0c6b0199f526"
+          ],
+          "status": "public_offer_price_unknown",
+          "url": "https://web.tribute.tg/p/x8K",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:22:29.566128+00:00",
+          "formats": [
+            "book mentioned by the Telegram channel; file type unverified"
+          ],
+          "availability": {
+            "state": "public_product_metadata_observed_price_and_purchase_flow_unverified",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-li-shen-health-book",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://t.me/+3RlXkcw4jY8wZGUy"
+          ],
+          "notes": "Tribute public og:title provides the title; price is not exposed. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt"
+        }
+      ],
+      "seller_counters": [
+        {
+          "metric": "public_channel_subscribers",
+          "value": 1429,
+          "unit": "Telegram subscribers",
+          "status": "public_display_not_verified_orders_or_revenue",
+          "source_id": "product-remaining-source-0c6b0199f526",
+          "as_of": "2026-10-23",
+          "observation_id": "remaining-li-shen-health-book"
+        }
+      ],
       "creator_claims": [],
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
+        "ВЕЛИКИЙ ПУТЬ К ЗДОРОВЬЮ: current price remains unverified; public availability is not a completed purchase.",
+        "Product research: Current purchase price and exact delivery format; only public product metadata/listing was retrieved."
       ],
       "directory_scope": {
         "status": "pending",
@@ -3951,7 +4709,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/ken.lu.monk/"
+        "https://www.instagram.com/ken.lu.monk/",
+        "https://whop.com/joined/ken-lu-teachings/products/five-ancient-practices/"
       ],
       "platforms": [
         {
@@ -3971,7 +4730,41 @@
           ]
         }
       ],
-      "offers": [],
+      "offers": [
+        {
+          "type": "digital_content",
+          "name": "The 99 Sacred Remedies",
+          "price": 37,
+          "currency": "USD",
+          "source_id": "product-remaining-source-6a34a1d40618",
+          "source_ids": [
+            "product-remaining-source-6a34a1d40618",
+            "lead-instagram-ken-lu-monk-ig-header-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://whop.com/joined/ken-lu-teachings/products/five-ancient-practices/",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:22:30.941014+00:00",
+          "formats": [
+            "precise file or course format unverified"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-ken-lu-sacred-remedies",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://whop.com/joined/ken-lu-teachings/products/five-ancient-practices/"
+          ],
+          "notes": "Public HTML: initialPrice=$37.00, rawInitialPrice=37, baseCurrency=usd, planType=one_time. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue. The fetched five-ancient-practices URL displays The 99 Sacred Remedies; the observed title is retained.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": null
+        }
+      ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [],
@@ -4017,7 +4810,11 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/yonchenhealing/"
+        "https://www.instagram.com/yonchenhealing/",
+        "https://ancientwisdomguide.gumroad.com/l/anxiety-relief",
+        "https://ancientwisdomguide.gumroad.com/l/ctfdhz",
+        "https://ancientwisdomguide.gumroad.com/l/slow-your-body-quiet-the-mind",
+        "https://ancientwisdomguide.gumroad.com/l/healingforlife"
       ],
       "platforms": [
         {
@@ -4037,13 +4834,151 @@
           ]
         }
       ],
-      "offers": [],
+      "offers": [
+        {
+          "type": "ebook",
+          "name": "Ancient Wisdom for a Calmer Mind & Body",
+          "price": 0.0,
+          "currency": "GBP",
+          "source_id": "product-remaining-source-a341511c26da",
+          "source_ids": [
+            "product-remaining-source-a341511c26da",
+            "lead-instagram-yonchenhealing-ig-header-20261024",
+            "product-remaining-source-dea71c499aaf"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://ancientwisdomguide.gumroad.com/l/anxiety-relief",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:23:39.707965+00:00",
+          "formats": [
+            "ebook; file type unverified"
+          ],
+          "availability": {
+            "state": "published_in_stock_metadata",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-yon-anxiety",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://linktr.ee/yonchenhealing"
+          ],
+          "notes": "Public Gumroad metadata: price_cents=0, currency_code=gbp, is_published=true. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "minimum_pay_what_you_want_price",
+          "price_symbol": null
+        },
+        {
+          "type": "ebook",
+          "name": "When Grief Becomes a Teacher",
+          "price": 7.99,
+          "currency": "USD",
+          "source_id": "product-remaining-source-3e3cefc347bf",
+          "source_ids": [
+            "product-remaining-source-3e3cefc347bf",
+            "lead-instagram-yonchenhealing-ig-header-20261024",
+            "product-remaining-source-dea71c499aaf"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://ancientwisdomguide.gumroad.com/l/ctfdhz",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:23:39.739164+00:00",
+          "formats": [
+            "ebook; file type unverified"
+          ],
+          "availability": {
+            "state": "published_in_stock_metadata",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-yon-grief",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://linktr.ee/yonchenhealing"
+          ],
+          "notes": "Public Gumroad metadata: price_cents=799, currency_code=usd, is_published=true. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": null
+        },
+        {
+          "type": "digital_content",
+          "name": "Slow your Body, Quiet the mind.",
+          "price": 0.0,
+          "currency": "GBP",
+          "source_id": "product-remaining-source-8abaafd9c8df",
+          "source_ids": [
+            "product-remaining-source-8abaafd9c8df",
+            "lead-instagram-yonchenhealing-ig-header-20261024",
+            "product-remaining-source-dea71c499aaf"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://ancientwisdomguide.gumroad.com/l/slow-your-body-quiet-the-mind",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:23:39.779597+00:00",
+          "formats": [
+            "ebook; file type unverified"
+          ],
+          "availability": {
+            "state": "published_in_stock_metadata",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-yon-slow",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://linktr.ee/yonchenhealing"
+          ],
+          "notes": "Public Gumroad metadata: price_cents=0, currency_code=gbp, is_published=true. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "minimum_pay_what_you_want_price",
+          "price_symbol": null
+        },
+        {
+          "type": "ebook",
+          "name": "Healing for Life - eBook",
+          "price": 5.97,
+          "currency": "USD",
+          "source_id": "product-remaining-source-2a50e6ae94f8",
+          "source_ids": [
+            "product-remaining-source-2a50e6ae94f8",
+            "lead-instagram-yonchenhealing-ig-header-20261024",
+            "product-remaining-source-dea71c499aaf"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://ancientwisdomguide.gumroad.com/l/healingforlife",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:23:40.307313+00:00",
+          "formats": [
+            "ebook; file type unverified"
+          ],
+          "availability": {
+            "state": "published_in_stock_metadata",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-yon-healing",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://linktr.ee/yonchenhealing"
+          ],
+          "notes": "Public Gumroad metadata: price_cents=597, currency_code=usd, is_published=true. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": null
+        }
+      ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
+        "Product research: Price and underlying product identity of the 30-Day Healing Journey; not counted as a new product to avoid a possible duplicate."
       ],
       "directory_scope": {
         "status": "pending",
@@ -4365,6 +5300,110 @@
             "currency": "EUR",
             "kind": "seller_reference_or_strikethrough_price_not_a_transaction"
           }
+        },
+        {
+          "type": "digital_bundle",
+          "name": "Pack Complet",
+          "price": 69.97,
+          "currency": "EUR",
+          "source_id": "product-site-chennatural-20261024",
+          "source_ids": [
+            "product-site-chennatural-20261024",
+            "lead-instagram-its-yang-chen-ig-header-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://www.chennatural.com/",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T15:53:41.288168+00:00",
+          "formats": [
+            "PDF"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-chen-pack-complet",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://www.chennatural.com/"
+          ],
+          "notes": "Pack Complet; four ebooks; 69,97 €; reference 126,88 €. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": null,
+          "reference_price": {
+            "amount": 126.88,
+            "currency": "EUR",
+            "kind": "seller_reference_price_not_verified_transaction"
+          }
+        },
+        {
+          "type": "ebook",
+          "name": "Les Rituels du Tao",
+          "price": 22.97,
+          "currency": "EUR",
+          "source_id": "product-site-chennatural-20261024",
+          "source_ids": [
+            "product-site-chennatural-20261024",
+            "lead-instagram-its-yang-chen-ig-header-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://www.chennatural.com/",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T15:53:41.288168+00:00",
+          "formats": [
+            "PDF"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-chen-rituels",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://www.chennatural.com/"
+          ],
+          "notes": "Les Rituels du Tao; 30 pages; 22,97 €. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": null
+        },
+        {
+          "type": "ebook",
+          "name": "La Purification du Foie",
+          "price": 37.97,
+          "currency": "EUR",
+          "source_id": "product-site-chennatural-20261024",
+          "source_ids": [
+            "product-site-chennatural-20261024",
+            "lead-instagram-its-yang-chen-ig-header-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://www.chennatural.com/",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T15:53:41.288168+00:00",
+          "formats": [
+            "PDF"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-chen-foie",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://www.chennatural.com/"
+          ],
+          "notes": "La Purification du Foie; 35 pages; 37,97 €. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": null
         }
       ],
       "seller_counters": [],
@@ -4509,7 +5548,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/maitre.chen/"
+        "https://www.instagram.com/maitre.chen/",
+        "https://apps.apple.com/fr/app/la-parole-du-ma%C3%AEtre-qi-gong/id6764258660?l=en-GB"
       ],
       "platforms": [
         {
@@ -4529,7 +5569,57 @@
           ]
         }
       ],
-      "offers": [],
+      "offers": [
+        {
+          "type": "mobile_app",
+          "name": "La Parole du Maître – Qi Gong",
+          "price": 0,
+          "currency": "EUR",
+          "source_id": "product-remaining-source-58a5da71650a",
+          "source_ids": [
+            "product-remaining-source-58a5da71650a",
+            "lead-instagram-maitre-chen-ig-header-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://apps.apple.com/fr/app/la-parole-du-ma%C3%AEtre-qi-gong/id6764258660?l=en-GB",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:16:14.988000+00:00",
+          "formats": [
+            "iOS app"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-maitre-chen-app",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://apps.apple.com/fr/app/la-parole-du-ma%C3%AEtre-qi-gong/id6764258660?l=en-GB"
+          ],
+          "notes": "Official lookup: resultCount=1, price=0, currency=EUR; description lists weekly/quarterly subscriptions. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_free_app_download",
+          "price_symbol": null,
+          "variant_prices": [
+            {
+              "name": "Full access weekly subscription",
+              "amount": 3.99,
+              "currency": "EUR",
+              "period": "week",
+              "basis": "Developer description in official France lookup response"
+            },
+            {
+              "name": "Full access quarterly subscription",
+              "amount": 24.99,
+              "currency": "EUR",
+              "period": "3 months",
+              "basis": "Developer description in official France lookup response"
+            }
+          ]
+        }
+      ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [],
@@ -5109,7 +6199,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/maestroananta/"
+        "https://www.instagram.com/maestroananta/",
+        "https://anantamst.github.io/remedios-olvidados/"
       ],
       "platforms": [
         {
@@ -5129,13 +6220,60 @@
           ]
         }
       ],
-      "offers": [],
-      "seller_counters": [],
+      "offers": [
+        {
+          "type": "digital_book",
+          "name": "Remedios Olvidados — Maestro Ananta",
+          "price": 9.99,
+          "currency": null,
+          "source_id": "product-remaining-source-d3c6a856f315",
+          "source_ids": [
+            "product-remaining-source-d3c6a856f315",
+            "lead-instagram-maestroananta-ig-header-20261024",
+            "product-remaining-source-fd964c190615"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://anantamst.github.io/remedios-olvidados/",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:24:22.679860+00:00",
+          "formats": [
+            "digital recipe book; exact file type unverified"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-ananta-remedios",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://go.hotmart.com/K104790777T"
+          ],
+          "notes": "Immediate access; more than 1,000 recipes; $9.99. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue. Only a dollar symbol was exposed. ISO currency is unverified and is not assumed to be USD.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": "$"
+        }
+      ],
+      "seller_counters": [
+        {
+          "metric": "seller_content_count_claim",
+          "value": 1000,
+          "unit": "recipes",
+          "status": "public_display_not_verified_orders_or_revenue",
+          "source_id": "product-remaining-source-d3c6a856f315",
+          "as_of": "2026-10-23",
+          "observation_id": "remaining-ananta-remedios",
+          "comparator": ">"
+        }
+      ],
       "creator_claims": [],
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
+        "Remedios Olvidados — Maestro Ananta: displayed price $9.99; ISO currency remains unverified."
       ],
       "directory_scope": {
         "status": "pending",
@@ -5254,6 +6392,75 @@
             "currency": "BRL",
             "kind": "seller_reference_or_strikethrough_price_not_a_transaction"
           }
+        },
+        {
+          "type": "digital_bundle",
+          "name": "Monge Ravi two-ebook bundle",
+          "price": null,
+          "currency": null,
+          "source_id": "product-site-mongeravi-20261024",
+          "source_ids": [
+            "product-site-mongeravi-20261024",
+            "lead-instagram-oravishen-ig-header-20261024"
+          ],
+          "status": "public_offer_price_unknown",
+          "url": "https://mongeravi.com/",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T15:52:04.279926+00:00",
+          "formats": [
+            "ebook; exact bundle files unverified"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-ravi-duo",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://mongeravi.com/"
+          ],
+          "notes": "Both ebooks together; seller claims save 30%. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt"
+        },
+        {
+          "type": "digital_guide",
+          "name": "Os 15 Rituais do Caminho Invisível",
+          "price": 37,
+          "currency": "BRL",
+          "source_id": "product-site-mongeravi-20261024",
+          "source_ids": [
+            "product-site-mongeravi-20261024",
+            "lead-instagram-oravishen-ig-header-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://mongeravi.com/",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T15:52:04.279926+00:00",
+          "formats": [
+            "digital guide; exact file type unverified"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-ravi-rituais",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://mongeravi.com/"
+          ],
+          "notes": "Os 15 Rituais do Caminho Invisível; R$37; reference R$69. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": null,
+          "reference_price": {
+            "amount": 69,
+            "currency": "BRL",
+            "kind": "seller_reference_price_not_verified_transaction"
+          }
         }
       ],
       "seller_counters": [],
@@ -5261,7 +6468,8 @@
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
+        "Monge Ravi two-ebook bundle: current price remains unverified; public availability is not a completed purchase."
       ],
       "directory_scope": {
         "status": "pending",
@@ -5422,7 +6630,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/monge.bento/"
+        "https://www.instagram.com/monge.bento/",
+        "https://manifestando.online/"
       ],
       "platforms": [
         {
@@ -5442,7 +6651,41 @@
           ]
         }
       ],
-      "offers": [],
+      "offers": [
+        {
+          "type": "digital_guide",
+          "name": "Guia de Limpeza Energética e Rituais",
+          "price": 19.9,
+          "currency": "BRL",
+          "source_id": "product-remaining-source-ab40af49234f",
+          "source_ids": [
+            "product-remaining-source-ab40af49234f",
+            "lead-instagram-monge-bento-ig-header-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://manifestando.online/",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:24:22.839852+00:00",
+          "formats": [
+            "digital guide; precise file type unverified"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-bento-limpeza",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://manifestando.online/"
+          ],
+          "notes": "Você paga apenas R$19,90 por tudo. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": "R$"
+        }
+      ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [],
@@ -5849,7 +7092,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/shentaoes/"
+        "https://www.instagram.com/shentaoes/",
+        "https://www.amazon.com/dp/B0HKQ1NCBM"
       ],
       "platforms": [
         {
@@ -5869,7 +7113,57 @@
           ]
         }
       ],
-      "offers": [],
+      "offers": [
+        {
+          "type": "book",
+          "name": "Quiero que vuelvas a ti: 108 enseñanzas del Maestro Shen Tao para soltar lo que pesa, sanar en silencio y encontrar la calma (Spanish Edition)",
+          "price": 8.99,
+          "currency": "USD",
+          "source_id": "product-remaining-source-5cb4feeace16",
+          "source_ids": [
+            "product-remaining-source-5cb4feeace16",
+            "lead-instagram-shentaoes-ig-header-20261024",
+            "product-remaining-source-c8232b00aaab"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://www.amazon.com/dp/B0HKQ1NCBM",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:25:13.590122+00:00",
+          "formats": [
+            "Kindle",
+            "paperback"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-shen-tao-vuelvas",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://linktr.ee/quieroquevuelvasati"
+          ],
+          "notes": "Amazon.com: Kindle from $8.99; paperback from $14.99; productTitle matched. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue. Price was retrieved from Amazon.com in USD; the Amazon.es response did not establish a current price.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "starting_kindle_price",
+          "price_symbol": null,
+          "variant_prices": [
+            {
+              "format": "Kindle",
+              "amount": 8.99,
+              "currency": "USD",
+              "qualifier": "from"
+            },
+            {
+              "format": "paperback",
+              "amount": 14.99,
+              "currency": "USD",
+              "qualifier": "from"
+            }
+          ]
+        }
+      ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [],
@@ -5941,7 +7235,10 @@
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
+        "Product research: crwl returned 28 bytes and scrapy 17 bytes with no usable product fields.",
+        "Product research: HTTP route returns 308 to HTTPS; underlying offer identity, price and availability remain unresolved.",
+        "Product route http://daalink.com/test-retrait: content_not_retrieved; no new product or price is established by this retrieval."
       ],
       "directory_scope": {
         "status": "pending",
@@ -6097,7 +7394,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/elmonjekai/"
+        "https://www.instagram.com/elmonjekai/",
+        "https://monjekai.com/"
       ],
       "platforms": [
         {
@@ -6117,7 +7415,48 @@
           ]
         }
       ],
-      "offers": [],
+      "offers": [
+        {
+          "type": "digital_guide",
+          "name": "Mapa Emocional del Cuerpo | Guía A a la Z",
+          "price": 3766,
+          "currency": "JPY",
+          "source_id": "product-remaining-source-3bfb5593d4bb",
+          "source_ids": [
+            "product-remaining-source-3bfb5593d4bb",
+            "lead-instagram-elmonjekai-ig-header-20261024",
+            "product-remaining-source-930101be4f32"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://monjekai.com/",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:24:22.915643+00:00",
+          "formats": [
+            "digital guide",
+            "bonus guided audio"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-monje-kai-mapa",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "http://linktr.ee/monjekai"
+          ],
+          "notes": "Guía principal hoy ￥3,766. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue. JPY is the anonymous locale display observed on this page. Bonus USD values are not the main offer price.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": "￥",
+          "reference_price": {
+            "amount": 7844,
+            "currency": "JPY",
+            "kind": "seller_reference_price_not_verified_transaction"
+          }
+        }
+      ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [],
@@ -6163,7 +7502,11 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/zenmuun/"
+        "https://www.instagram.com/zenmuun/",
+        "https://www.zenmuns.com/alimentos",
+        "https://www.zenmuns.com/tiempo-para-sanar",
+        "https://www.zenmuns.com/camino",
+        "https://www.zenmuns.com/comunidad"
       ],
       "platforms": [
         {
@@ -6183,13 +7526,151 @@
           ]
         }
       ],
-      "offers": [],
+      "offers": [
+        {
+          "type": "ebook",
+          "name": "Alimentos para Sanar — 77+ Remedios Naturales",
+          "price": null,
+          "currency": null,
+          "source_id": "product-remaining-source-05e74b23a97f",
+          "source_ids": [
+            "product-remaining-source-05e74b23a97f",
+            "lead-instagram-zenmuun-ig-header-20261024",
+            "product-remaining-source-b7a306adf360"
+          ],
+          "status": "public_offer_price_unknown",
+          "url": "https://www.zenmuns.com/alimentos",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:23:53.761981+00:00",
+          "formats": [
+            "PDF"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-zen-alimentos",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://www.zenmuns.com/"
+          ],
+          "notes": "Public hub labels Alimentos para Sanar and immediate PDF download; detail page fetched. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt"
+        },
+        {
+          "type": "ebook",
+          "name": "Tiempo de Sanar — La Sabiduría de Zen Mun",
+          "price": null,
+          "currency": null,
+          "source_id": "product-remaining-source-411fd7474dee",
+          "source_ids": [
+            "product-remaining-source-411fd7474dee",
+            "lead-instagram-zenmuun-ig-header-20261024",
+            "product-remaining-source-b7a306adf360"
+          ],
+          "status": "public_offer_price_unknown",
+          "url": "https://www.zenmuns.com/tiempo-para-sanar",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:23:57.470509+00:00",
+          "formats": [
+            "PDF"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-zen-tiempo",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://www.zenmuns.com/"
+          ],
+          "notes": "Public product page title; digital book description. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt"
+        },
+        {
+          "type": "ebook",
+          "name": "El Camino de Regreso a la Quietud",
+          "price": null,
+          "currency": null,
+          "source_id": "product-remaining-source-7493fb062c08",
+          "source_ids": [
+            "product-remaining-source-7493fb062c08",
+            "lead-instagram-zenmuun-ig-header-20261024",
+            "product-remaining-source-b7a306adf360"
+          ],
+          "status": "public_offer_price_unknown",
+          "url": "https://www.zenmuns.com/camino",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:23:57.462629+00:00",
+          "formats": [
+            "PDF"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-zen-camino",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://www.zenmuns.com/"
+          ],
+          "notes": "Public product page title; ebook PDF copy; current price absent. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt"
+        },
+        {
+          "type": "subscription_community",
+          "name": "Comunidad Sanadora de Zen Mun",
+          "price": null,
+          "currency": null,
+          "source_id": "product-remaining-source-f0da2cb4a0f2",
+          "source_ids": [
+            "product-remaining-source-f0da2cb4a0f2",
+            "lead-instagram-zenmuun-ig-header-20261024",
+            "product-remaining-source-b7a306adf360"
+          ],
+          "status": "public_offer_price_unknown",
+          "url": "https://www.zenmuns.com/comunidad",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:23:57.474942+00:00",
+          "formats": [
+            "community",
+            "weekly live sessions",
+            "meditation and digital bonuses"
+          ],
+          "availability": {
+            "state": "incomplete_public_offer_pricing_placeholder",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-zen-community",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://www.zenmuns.com/"
+          ],
+          "notes": "Public page renders Solo ... USD/mes. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue. The monthly price is the placeholder ... USD/mes. USD 9.99/19.99 and USD 50 describe bonus/reference values, not a verified subscription or standalone selling price.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt"
+        }
+      ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
+        "Alimentos para Sanar — 77+ Remedios Naturales: current price remains unverified; public availability is not a completed purchase.",
+        "Tiempo de Sanar — La Sabiduría de Zen Mun: current price remains unverified; public availability is not a completed purchase.",
+        "El Camino de Regreso a la Quietud: current price remains unverified; public availability is not a completed purchase.",
+        "Comunidad Sanadora de Zen Mun: current price remains unverified; public availability is not a completed purchase.",
+        "Community monthly price is a placeholder; ebook/bonus reference values are not current subscription or standalone prices.",
+        "Product research: Current standalone prices for the three ebooks.",
+        "Product research: Community subscription amount is a placeholder, not a number."
       ],
       "directory_scope": {
         "status": "pending",
@@ -6229,7 +7710,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/kael.wisdom/"
+        "https://www.instagram.com/kael.wisdom/",
+        "http://linktr.ee/masterkaelwellness"
       ],
       "platforms": [
         {
@@ -6249,13 +7731,84 @@
           ]
         }
       ],
-      "offers": [],
+      "offers": [
+        {
+          "type": "digital_content",
+          "name": "Your First 3 Nights with Kael",
+          "price": 0,
+          "currency": null,
+          "source_id": "product-remaining-source-2fc9a9dd0242",
+          "source_ids": [
+            "product-remaining-source-2fc9a9dd0242",
+            "lead-instagram-kael-wisdom-ig-header-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "http://linktr.ee/masterkaelwellness",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:13:52.222007+00:00",
+          "formats": [
+            "three-night preview; precise files unverified"
+          ],
+          "availability": {
+            "state": "free_offer_on_link_hub_checkout_boundary",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-kael-first-three",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "http://linktr.ee/masterkaelwellness"
+          ],
+          "notes": "FREE: Your First 3 Nights with Kael. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue. The page explicitly labels this preview free; no ISO currency is established.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_free_offer",
+          "price_symbol": null
+        },
+        {
+          "type": "digital_bundle",
+          "name": "The Full 30 Nights + All 6 Audios",
+          "price": 27,
+          "currency": null,
+          "source_id": "product-remaining-source-2fc9a9dd0242",
+          "source_ids": [
+            "product-remaining-source-2fc9a9dd0242",
+            "lead-instagram-kael-wisdom-ig-header-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "http://linktr.ee/masterkaelwellness",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:13:52.222007+00:00",
+          "formats": [
+            "30-night content",
+            "six audio recordings"
+          ],
+          "availability": {
+            "state": "offer_on_link_hub_checkout_boundary",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-kael-thirty-nights",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "http://linktr.ee/masterkaelwellness"
+          ],
+          "notes": "The Full 30 Nights + All 6 Audios · $27. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue. Only a dollar symbol was exposed. ISO currency is unverified and is not assumed to be USD.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": "$"
+        }
+      ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
+        "Your First 3 Nights with Kael: displayed price 0; ISO currency remains unverified. The offer is explicitly labelled free.",
+        "The Full 30 Nights + All 6 Audios: displayed price $27; ISO currency remains unverified.",
+        "Product research: ISO currency for the $27 label and precise file formats; both destination links are checkout and were not requested."
       ],
       "directory_scope": {
         "status": "pending",
@@ -6287,7 +7840,8 @@
       "languages": [],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/monjechang/"
+        "https://www.instagram.com/monjechang/",
+        "https://www.amazon.es/dp/B0FJDNSFS4"
       ],
       "platforms": [
         {
@@ -6307,8 +7861,69 @@
           ]
         }
       ],
-      "offers": [],
-      "seller_counters": [],
+      "offers": [
+        {
+          "type": "book",
+          "name": "Cómo transformar el sufrimiento en felicidad: Enseñanzas budistas para la vida moderna (Cómo Ser Feliz y Vivir Mejor)",
+          "price": 8.65,
+          "currency": "EUR",
+          "source_id": "product-remaining-source-622007b854b0",
+          "source_ids": [
+            "product-remaining-source-622007b854b0",
+            "lead-instagram-monjechang-ig-header-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://www.amazon.es/dp/B0FJDNSFS4",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:16:15.186711+00:00",
+          "formats": [
+            "Kindle",
+            "paperback"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-ananda-sufrimiento",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://www.amazon.es/C%C3%B3mo-transformar-sufrimiento-felicidad-Ense%C3%B1anzas/dp/B0FJDNSFS4/"
+          ],
+          "notes": "Kindle from 8,65 €; paperback from 12,99 €; ASIN matched. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "starting_kindle_price",
+          "price_symbol": null,
+          "variant_prices": [
+            {
+              "format": "Kindle",
+              "amount": 8.65,
+              "currency": "EUR",
+              "qualifier": "from"
+            },
+            {
+              "format": "paperback",
+              "amount": 12.99,
+              "currency": "EUR",
+              "qualifier": "from"
+            }
+          ]
+        }
+      ],
+      "seller_counters": [
+        {
+          "metric": "platform_review_count",
+          "value": 91,
+          "unit": "reviews",
+          "status": "public_display_not_verified_orders_or_revenue",
+          "source_id": "product-remaining-source-622007b854b0",
+          "as_of": "2026-10-23",
+          "observation_id": "remaining-ananda-sufrimiento",
+          "rating": 4.7,
+          "rating_scale": 5
+        }
+      ],
       "creator_claims": [],
       "creative_samples": [],
       "unknowns": [
@@ -6470,7 +8085,10 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/monge.zhen/"
+        "https://www.instagram.com/monge.zhen/",
+        "https://mongezhen.lovable.app/retorno-paz-interior",
+        "https://mongezhen.lovable.app/jornada-30-dias",
+        "https://mongezhen.lovable.app/tempo-de-curar"
       ],
       "platforms": [
         {
@@ -6490,7 +8108,147 @@
           ]
         }
       ],
-      "offers": [],
+      "offers": [
+        {
+          "type": "ebook",
+          "name": "O Retorno à Paz Interior",
+          "price": 37.9,
+          "currency": "BRL",
+          "source_id": "product-remaining-source-b6c5225ae3fa",
+          "source_ids": [
+            "product-remaining-source-b6c5225ae3fa",
+            "lead-instagram-monge-zhen-ig-header-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://mongezhen.lovable.app/retorno-paz-interior",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:20:44.014647+00:00",
+          "formats": [
+            "PDF"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-zhen-retorno",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://mongezhen.lovable.app/?utm_id=97760_v0_s00_e0_tv3_a1denngys993y7"
+          ],
+          "notes": "R$37,90 or 4x R$9,48; ebook PDF. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": null,
+          "reference_price": {
+            "amount": 97.9,
+            "currency": "BRL",
+            "kind": "seller_reference_price_not_verified_transaction"
+          },
+          "variant_prices": [
+            {
+              "kind": "installment_offer",
+              "installments": 4,
+              "amount_per_installment": 9.48,
+              "currency": "BRL"
+            }
+          ]
+        },
+        {
+          "type": "digital_program",
+          "name": "Jornada de 30 Dias de Cura",
+          "price": 27.9,
+          "currency": "BRL",
+          "source_id": "product-remaining-source-a184de578141",
+          "source_ids": [
+            "product-remaining-source-a184de578141",
+            "lead-instagram-monge-zhen-ig-header-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://mongezhen.lovable.app/jornada-30-dias",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:22:51.743798+00:00",
+          "formats": [
+            "daily practices",
+            "PDF journal"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-zhen-journey",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://mongezhen.lovable.app/?utm_id=97760_v0_s00_e0_tv3_a1denngys993y7"
+          ],
+          "notes": "R$27,90 or 3x R$9,30; PDF healing diary. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": null,
+          "reference_price": {
+            "amount": 97.9,
+            "currency": "BRL",
+            "kind": "seller_reference_price_not_verified_transaction"
+          },
+          "variant_prices": [
+            {
+              "kind": "installment_offer",
+              "installments": 3,
+              "amount_per_installment": 9.3,
+              "currency": "BRL"
+            }
+          ]
+        },
+        {
+          "type": "ebook",
+          "name": "Tempo de Curar",
+          "price": 19.9,
+          "currency": "BRL",
+          "source_id": "product-remaining-source-0f02f052ab4b",
+          "source_ids": [
+            "product-remaining-source-0f02f052ab4b",
+            "lead-instagram-monge-zhen-ig-header-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://mongezhen.lovable.app/tempo-de-curar",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:23:58.572961+00:00",
+          "formats": [
+            "PDF"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-zhen-tempo",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://mongezhen.lovable.app/?utm_id=97760_v0_s00_e0_tv3_a1denngys993y7"
+          ],
+          "notes": "R$19,90 or 2x R$9,95; ebook PDF. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": null,
+          "reference_price": {
+            "amount": 37.9,
+            "currency": "BRL",
+            "kind": "seller_reference_price_not_verified_transaction"
+          },
+          "variant_prices": [
+            {
+              "kind": "installment_offer",
+              "installments": 2,
+              "amount_per_installment": 9.95,
+              "currency": "BRL"
+            }
+          ]
+        }
+      ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [],
@@ -6698,7 +8456,11 @@
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "Independent AI-production audit, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "Independent AI-production audit, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
+        "Product research: crwl returned an opaque base64-like 37,938-byte payload, excluded from claims.",
+        "Product research: scrapy returned Attention Required / Cloudflare rather than product content.",
+        "Product research: Product names, prices and availability remain unverified.",
+        "Product route https://beacons.ai/maitreyun: content_blocked_or_opaque; no new product or price is established by this retrieval."
       ],
       "directory_scope": {
         "status": "pending",
@@ -6804,7 +8566,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/masterlianancient/"
+        "https://www.instagram.com/masterlianancient/",
+        "https://masterlian.gumroad.com/l/masterlian"
       ],
       "platforms": [
         {
@@ -6824,13 +8587,48 @@
           ]
         }
       ],
-      "offers": [],
+      "offers": [
+        {
+          "type": "ebook",
+          "name": "Stop Carrying What's Breaking You",
+          "price": 19,
+          "currency": "USD",
+          "source_id": "product-remaining-source-792c5842f550",
+          "source_ids": [
+            "product-remaining-source-792c5842f550",
+            "lead-instagram-masterlianancient-ig-header-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://masterlian.gumroad.com/l/masterlian",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:16:15.537956+00:00",
+          "formats": [
+            "PDF"
+          ],
+          "availability": {
+            "state": "published_in_stock_metadata",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-master-lian-carrying",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://masterlian.gumroad.com/l/masterlian?utm_id=97760_v0_s00_e0_tv3_a1dennh96s2mcy"
+          ],
+          "notes": "Public Gumroad metadata: price_cents=1900, currency_code=usd, is_published=true. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue. Page-count metadata conflicts (70/73 pages); no single page count is established.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": null
+        }
+      ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
+        "The Gumroad page has conflicting 70/73-page metadata; page count is unverified."
       ],
       "directory_scope": {
         "status": "pending",
@@ -6870,7 +8668,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/monjeananda/"
+        "https://www.instagram.com/monjeananda/",
+        "https://www.amazon.es/dp/B0FJDNSFS4"
       ],
       "platforms": [
         {
@@ -6890,8 +8689,70 @@
           ]
         }
       ],
-      "offers": [],
-      "seller_counters": [],
+      "offers": [
+        {
+          "type": "book",
+          "name": "Cómo transformar el sufrimiento en felicidad: Enseñanzas budistas para la vida moderna (Cómo Ser Feliz y Vivir Mejor)",
+          "price": 8.65,
+          "currency": "EUR",
+          "source_id": "product-remaining-source-622007b854b0",
+          "source_ids": [
+            "product-remaining-source-622007b854b0",
+            "lead-instagram-monjeananda-ig-header-20261024",
+            "product-remaining-source-c97e147082bc"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "https://www.amazon.es/dp/B0FJDNSFS4",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:16:15.186711+00:00",
+          "formats": [
+            "Kindle",
+            "paperback"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-ananda-sufrimiento",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "https://amzn.to/40JvoaN"
+          ],
+          "notes": "Kindle from 8,65 €; paperback from 12,99 €; ASIN matched. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "starting_kindle_price",
+          "price_symbol": null,
+          "variant_prices": [
+            {
+              "format": "Kindle",
+              "amount": 8.65,
+              "currency": "EUR",
+              "qualifier": "from"
+            },
+            {
+              "format": "paperback",
+              "amount": 12.99,
+              "currency": "EUR",
+              "qualifier": "from"
+            }
+          ]
+        }
+      ],
+      "seller_counters": [
+        {
+          "metric": "platform_review_count",
+          "value": 91,
+          "unit": "reviews",
+          "status": "public_display_not_verified_orders_or_revenue",
+          "source_id": "product-remaining-source-622007b854b0",
+          "as_of": "2026-10-23",
+          "observation_id": "remaining-ananda-sufrimiento",
+          "rating": 4.7,
+          "rating_scale": 5
+        }
+      ],
       "creator_claims": [],
       "creative_samples": [],
       "unknowns": [
@@ -7002,7 +8863,8 @@
       ],
       "region_evidence": null,
       "source_urls": [
-        "https://www.instagram.com/elmaestrolin/"
+        "https://www.instagram.com/elmaestrolin/",
+        "http://elmaestrolin.com/"
       ],
       "platforms": [
         {
@@ -7022,13 +8884,53 @@
           ]
         }
       ],
-      "offers": [],
+      "offers": [
+        {
+          "type": "digital_guide",
+          "name": "El Código Prohibido",
+          "price": 17,
+          "currency": null,
+          "source_id": "product-remaining-source-c062e53ed30c",
+          "source_ids": [
+            "product-remaining-source-c062e53ed30c",
+            "lead-instagram-elmaestrolin-ig-header-20261024"
+          ],
+          "status": "displayed_price_not_order_data",
+          "url": "http://elmaestrolin.com/",
+          "as_of": "2026-10-23",
+          "captured_at": "2026-10-23T16:24:22.712738+00:00",
+          "formats": [
+            "digital guide; file type unverified"
+          ],
+          "availability": {
+            "state": "public_offer_observed_purchase_not_tested",
+            "purchase_completed": false
+          },
+          "observation_id": "remaining-maestro-lin-codigo",
+          "attribution": "Observed public Instagram bio link and, where needed, public discovery hub or redirect metadata establish an offer route. Authorship, legal ownership, paid commission and revenue remain unverified.",
+          "discovery_urls": [
+            "http://elmaestrolin.com/"
+          ],
+          "notes": "Launch offer: $47 to $17. Profile links and public pages establish an offer route; authorship, legal ownership and paid orders are not established. Health/wellbeing benefits and seller identity statements are not independently verified. Reviews, readers, audience, list prices and discounts are not sales or revenue. Only a dollar symbol was exposed. ISO currency is unverified and is not assumed to be USD.",
+          "paid_orders": null,
+          "revenue": null,
+          "revenue_status": "unknown_no_payment_or_revenue_receipt",
+          "price_kind": "listed_offer",
+          "price_symbol": "$",
+          "reference_price": {
+            "amount": 47,
+            "currency": null,
+            "kind": "seller_reference_price_not_verified_transaction"
+          }
+        }
+      ],
       "seller_counters": [],
       "creator_claims": [],
       "creative_samples": [],
       "unknowns": [
         "The handle was transcribed from a screenshot; the screenshot capture date is unknown.",
-        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data."
+        "AI production, operator identity, physical location and revenue are unverified. Language added in this profile audit reflects the visible bio; spoken-video language has not been audited. Displayed product prices are not order or revenue data.",
+        "El Código Prohibido: displayed price $17; ISO currency remains unverified."
       ],
       "directory_scope": {
         "status": "pending",
