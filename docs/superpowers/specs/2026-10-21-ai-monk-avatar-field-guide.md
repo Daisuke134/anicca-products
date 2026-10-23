@@ -180,3 +180,9 @@ Yang Mun型の写真に近いAI僧侶動画avatarへ集中する。水彩・絵�
 
 
 **既存3告知のリンク補完結果:** 英語書籍返信2113582983580139758、Database英語返信2113583291374952934、Database日本語返信2113583436426625030で、各exact parent/元URL+UTM/native応答/別permalinkの本人本文を照合する。各送信1/再送0、元Postiz receiptを保持。自分のleaseはholder空へrelease、browserは停止しない。JA書籍の先行補完と合わせて既存4告知の目的URLを配信するが、閲覧/click/注文/利益/retweetの達成とはしない。次は69pendingの根拠拡充とS11の既存owner/費用制御/実配信/実購入へ進む。指定IG等の最新運用状態は他ownerと共有するS11の現在節を参照し、旧30/30 snapshotを現在状態と扱わない。
+
+**収益一次資料の追加範囲:** 制作者本人の公開記事を収益の一次申告として調査JSONへ追加し、既存の第三者記事とscreenshot由来の申告履歴を保持する。公開日・取得時刻・対象persona・期間を記録し、gross/net、通貨code、同記事内の合計が整合しない部分は未確認として明記する。6か月のheadlineを現在月商や比較可能な3か月USD grossへ換算しない。公開対象4件・pending69件・除外2件と既存sort契約は維持する。受入条件はsource参照の整合、未知値を維持した既存関連test、main/公開JSON/remote MCPへの反映とする。英日書籍のリンク補完後の公式注文snapshotも証拠へ追加する。Factoryの共有ownerと本番stateは変更しない。
+
+**収益一次資料のsource受入:** 本人記事 `https://x.com/i/article/2042242260784537736` の公開日はHTMLの2属性が一致する2026-04-09T14:04:32.000Z、取得は2026-10-23T11:01:27.030748+00:00。最初の3か月$300K、冒頭の6か月$500Kに対し、後半のYang Mun累計$450Kと別6キャラクター$50Kの範囲が整合しない。既存claimを消さず、未監査の本人申告と不整合を追記する。3か月USD grossの既存sort数値は変更しない。archive75件/出典57件、公開4件/pending69件/除外2件、canonical SHA256 `8711cf04c6c310a3ea07bf4a72e4387be18207e45b20a001457ed0f59edd0ff4`。関連helper9件とCLI/stdio/HTTP/独立install13件、全source参照とscope不変の照合はPASS。新しいread-only reviewerの指摘は0件。CLI patch版はv0.4.1とし、統合/公開readbackはこのsource受入だけで完了にしない。証拠 → `docs/evidence/ai-monk-creator-business-source-20261023.json`。
+
+**リンク補完後の有料注文snapshot:** 2026-10-23T10:54:49.877550+00:00のStripe公式GETは対象期間の全pageを走査し、新刊のpaid Checkoutは英語0件/日本語0件。provider書込0/self-purchaseなし。fees/refunds/settlement/profitとcampaign帰属は未検証であり、利益0やX返信の効果へ換算しない。証拠 → `docs/evidence/ai-monk-book-paid-orders-after-x-link-recovery-20261023.json`。

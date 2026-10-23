@@ -1,0 +1,51 @@
+{
+  "schema_version": "anicca.ai-monk-creator-business-source-acceptance.v1",
+  "observed_at": "2026-10-23T11:03:40.738075+00:00",
+  "source_id": "shalev-yangmun-x-article-20260409",
+  "source_url": "https://x.com/i/article/2042242260784537736",
+  "published_at": "2026-04-09T14:04:32.000Z",
+  "captured_at": "2026-10-23T11:01:27.030748+00:00",
+  "publication_date_basis": "article:published_time and time datetime agree in public first-party article HTML",
+  "retrieval": "crwl returned no article body; scrapy fetch retrieved the same public URL",
+  "claim_basis": "First-party creator self-report. Opening six-month total and later persona-level breakdown are internally inconsistent.",
+  "not_established": [
+    "Yang Mun-only six-month total",
+    "gross or net basis",
+    "currency code",
+    "current monthly revenue",
+    "audited orders or profit"
+  ],
+  "validation": {
+    "source_ids_unique": true,
+    "all_source_references_resolve": true,
+    "historical_claims_preserved": true,
+    "comparable_revenue_observations_unchanged": true,
+    "other_accounts_unchanged": true,
+    "scope_unchanged": true,
+    "shared_directory_tests": {
+      "passed": 9,
+      "failed": 0
+    },
+    "package_cli_stdio_http_install_tests": {
+      "passed": 13,
+      "failed": 0
+    }
+  },
+  "counts": {
+    "archive_records": 75,
+    "sources": 57,
+    "included": 4,
+    "pending": 69,
+    "excluded": 2
+  },
+  "canonical_sha256": "8711cf04c6c310a3ea07bf4a72e4387be18207e45b20a001457ed0f59edd0ff4",
+  "package_version": "0.4.1",
+  "source_status": "local acceptance; merge and production readback pending",
+  "provider_writes": 0,
+  "independent_read_only_review": {
+    "reviewer": "creator_business_observation_acceptance",
+    "findings": 0,
+    "blocking_findings": 0,
+    "scope": "New creator claim, preserved comparable revenue, source references/count/SHA, paid-order limits, spec and version consistency. Reviewer did not rerun source retrieval or tests."
+  }
+}

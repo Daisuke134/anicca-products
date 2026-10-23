@@ -1,0 +1,26 @@
+{
+  "observed_at": "2026-10-23T10:54:49.877550+00:00",
+  "scope_complete": true,
+  "stripe_account_verified": true,
+  "start_at_product_creation": 1792682932,
+  "completed_sessions_scanned": 0,
+  "pages": 1,
+  "paid_orders": {
+    "art_of_ai_monks_en_v1": 0,
+    "art_of_ai_monks_ja_v1": 0
+  },
+  "paid_sessions": [],
+  "provider_writes": 0,
+  "self_purchase": false,
+  "fees_refunds_settlement_profit": "not_verified",
+  "campaign_attribution": "not_verified",
+  "after_native_link_recovery_replies": [
+    "2113556550073921584",
+    "2113582983580139758",
+    "2113583291374952934",
+    "2113583436426625030"
+  ],
+  "schema_version": "anicca.ai-monk-book-paid-order-observation.v1",
+  "evidence_type": "official Stripe GET readback; no publication or payment mutations",
+  "private_receipt_sha256": "6b2473f09549a862753a99dde18b52446c335e90403a4576466d9055669205c1"
+}

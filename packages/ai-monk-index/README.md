@@ -2,7 +2,7 @@
 
 Search the source-linked [AI Monk Database](https://aniccaai.com/ai-monk-database) from a terminal or an MCP client. Free and read-only. The local CLI and stdio server work offline after installation; the hosted HTTP endpoint requires an internet connection. No account or API key is required.
 
-This release focuses on realistic AI monk video avatars such as Yang Mun and uses the 2026-10-23 research observations: **4 evidence-reviewed video personas, 56 sources**. Search, get and counts include only records explicitly reviewed for directory inclusion. The source JSON retains the **75-record research archive**, including 69 pending records and 2 excluded illustrated/watercolor channels. A profile image or discovery lead alone does not establish AI production or video format. The four included personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
+This release focuses on realistic AI monk video avatars such as Yang Mun and uses the 2026-10-23 research observations: **4 evidence-reviewed video personas, 57 sources**. Search, get and counts include only records explicitly reviewed for directory inclusion. The source JSON retains the **75-record research archive**, including 69 pending records and 2 excluded illustrated/watercolor channels. A profile image or discovery lead alone does not establish AI production or video format. The four included personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
 
 ## Business metrics
 
@@ -10,7 +10,7 @@ Search with `--sort audience`, `--sort views`, or `--sort revenue`. The same sor
 
 - Audience: latest dated followers/subscribers on the selected platform, or the largest single-platform audience for `all`; never a sum.
 - Views: highest observed count among sampled videos, with source and observation date. This is not current 30-day reach or a channel total.
-- Revenue: latest source-linked **three-month USD gross-revenue claim**. Different currencies/periods, profit claims, buyout offers, prices and seller counters are excluded. Missing values sort last and are not zero.
+- Revenue: latest source-linked **three-month USD gross-revenue claim**. Different currencies/periods, profit claims, buyout offers, prices and seller counters are excluded. Missing values sort last and are not zero. The creator’s later six-month article has an inconsistent persona-level total and unspecified gross/net/currency basis; it is retained as an attributed claim, outside this comparable ranking.
 
 Yang Mun currently has the only structured revenue observation: an industry profile reports the creator's dashboard claim of more than $213,000 gross revenue over three months. Exact period dates and audited orders are unavailable; the reported date is not a claim about present revenue. Original conflicting financial statements stay in the research record.
 
@@ -19,7 +19,7 @@ Yang Mun currently has the only structured revenue observation: an industry prof
 Requires Node.js 20.19 or later. The package is distributed as a public GitHub Release tarball; it is not listed on npm.
 
 ```sh
-npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.0/anicca-ai-monk-index-0.4.0.tgz
+npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.1/anicca-ai-monk-index-0.4.1.tgz
 ```
 
 ## CLI
