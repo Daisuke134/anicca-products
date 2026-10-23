@@ -70,4 +70,6 @@ Netlify AI Gatewayの代替経路は公式docsと現account GETでread-only確�
 - [x] コード入力後の公式UIはaccount削除または無効化の認証エラー、既存専用API keyのGET /v1/modelsは401・account_deactivatedを返す。API上の無効化を確認し、削除の有無・原因は未確認とする。SSOTの現行account状態を更新し使用済コードを除く。
 - [ ] この専用accountへの正規アクセス復旧、利用可能な専用課金元・実残高/自動補充・画像生成権限を確認する。現在のbilling画面は取得不可で、初期描画/過去残高0を現在値にしない。公式案内のappeal/support経路は確認するが、このunitで第三者への送信は行わない。
 
-この再確認後の現在cursorは、専用OpenAIの正規アクセス復旧と必要な支払方法、次いで実生成の受入。正式ChatGPT upload/submit、Factory enable、customer Checkout/請求、画像/動画生成、IG接続/投稿は0を保持する。Database/公開MCP/Codex Pluginの公開とは独立した未完条件とする。証拠 → ../../evidence/ai-monk-factory-openai-account-state-20261024.json。
+この再確認で専用OpenAIの正規復旧条件を保持する。現在のSaaS-1内cursorは配布正本の「Checkout本番反映と次のprovider実装」を参照する。正式ChatGPT upload/submit、Factory enable、customer Checkout/請求、画像/動画生成、IG接続/投稿は0を保持する。Database/公開MCP/Codex Pluginの公開とは独立した未完条件とする。証拠 → ../../evidence/ai-monk-factory-openai-account-state-20261024.json。
+
+Checkoutの公開受入とGemini画像・台本候補への実装順変更、GCP read-onlyの実行前guard拒否の正本 → 2026-10-24-ai-monk-research-distribution.md「Checkout本番反映と次のprovider実装」。旧OpenAI adapterを現runtimeとして保持し、Geminiの専用有料project/key・課金・実生成・Factory enable/実提供は未完とする。
