@@ -1,0 +1,31 @@
+{
+  "reviewed_at": "2026-10-23T01:44:38.891148+00:00",
+  "reviewer": "remote_mcp_source_verify",
+  "mode": "fresh_context_read_only",
+  "head_sha": "08e13f4a3b38dff0f92f130b7a87762e73a291ea",
+  "pr": 566,
+  "material_findings": [],
+  "tests": {
+    "http_tests_passed": 4,
+    "cli_stdio_tests_passed": 6,
+    "outside_checkout_tarball_tests_passed": 1,
+    "additional_wrapper_assertions_passed": 118
+  },
+  "verified": [
+    "all 75 canonical records and 48 sources; snapshot SHA and unknown statuses preserved",
+    "Host/Origin/CORS and method 405",
+    "split body, multibyte body and false Content-Length enforce 64 KiB",
+    "tool input validation",
+    "source, dist, staged canonical database bytes match"
+  ],
+  "observations": [
+    "Empty JSON-RPC batch [] receives SDK HTTP 202; no impact on valid client/data contract was demonstrated."
+  ],
+  "limits": [
+    "Actual Netlify bundler output and production HTTPS require deployment readback.",
+    "Local reviewer runtime Node 25.6.1; Node 20.19 direct execution was not tested. Node20 package and landing CI pass separately."
+  ],
+  "counterexample_attempt_result": "3 tools match canonical results and preserve unknown/source data; body bounds, known-Origin CORS, and no-Origin native usage resisted probes.",
+  "provider_mutations": 0,
+  "files_changed_by_reviewer": 0
+}

@@ -1,0 +1,63 @@
+{
+  "checked_at": "2026-10-23T01:50:15.413Z",
+  "release_sha": "f8dde2b78ac9fa81c388f0495ed779e7321379d2",
+  "url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.2.0/anicca-ai-monk-index-0.2.0.tgz",
+  "checks": {
+    "public_http_status": 200,
+    "bytes": 24833,
+    "sha256": "b263a526aa5921306cd1c12c595d4520c758fecee535b9eacdf6d6c330f69936",
+    "npm_public_url_install": true,
+    "version": "0.2.0",
+    "cli_records": 75,
+    "cli_sources": 48,
+    "snapshot_sha256": "37a724d413233dacae215f68cd2e5021443a9aefb271fd3c129d8e338fce94b9",
+    "stdio_matches_cli": true
+  },
+  "status": "passed",
+  "official_release": {
+    "assets": [
+      {
+        "apiUrl": "https://api.github.com/repos/Daisuke134/anicca-products/releases/assets/667663071",
+        "contentType": "application/x-gtar",
+        "createdAt": "2026-10-23T01:50:10Z",
+        "digest": "sha256:b263a526aa5921306cd1c12c595d4520c758fecee535b9eacdf6d6c330f69936",
+        "downloadCount": 0,
+        "id": "RA_kwDOSj1Blc4ny7rf",
+        "label": "",
+        "name": "anicca-ai-monk-index-0.2.0.tgz",
+        "size": 24833,
+        "state": "uploaded",
+        "updatedAt": "2026-10-23T01:50:10Z",
+        "url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.2.0/anicca-ai-monk-index-0.2.0.tgz"
+      },
+      {
+        "apiUrl": "https://api.github.com/repos/Daisuke134/anicca-products/releases/assets/667663069",
+        "contentType": "text/plain; charset=utf-8",
+        "createdAt": "2026-10-23T01:50:10Z",
+        "digest": "sha256:f5dc9a182f31f7f0860777e8afd3e9a71f6c80a8d72c800596728cace3c31912",
+        "downloadCount": 0,
+        "id": "RA_kwDOSj1Blc4ny7rd",
+        "label": "",
+        "name": "SHA256SUMS.txt",
+        "size": 97,
+        "state": "uploaded",
+        "updatedAt": "2026-10-23T01:50:10Z",
+        "url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.2.0/SHA256SUMS.txt"
+      }
+    ],
+    "isDraft": false,
+    "name": "AI Monk Index CLI / MCP v0.2.0",
+    "publishedAt": "2026-10-23T01:50:11Z",
+    "tagName": "ai-monk-index-v0.2.0",
+    "targetCommitish": "f8dde2b78ac9fa81c388f0495ed779e7321379d2",
+    "url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.2.0"
+  },
+  "official_asset_digest_matches_download": true,
+  "tag_ref_commit": "f8dde2b78ac9fa81c388f0495ed779e7321379d2",
+  "build_source": "main merge for PR566",
+  "previous_release_v010_unchanged": true,
+  "limits": [
+    "Not an npm registry listing.",
+    "Directory publication and factory/subscription remain separate work."
+  ]
+}

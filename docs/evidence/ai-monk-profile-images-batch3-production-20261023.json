@@ -1,0 +1,53 @@
+{
+  "checked_at": "2026-10-23T01:44:45.083Z",
+  "url": "https://aniccaai.com/ai-monk-database",
+  "checks": {
+    "assets": {
+      "total": 75,
+      "acquired": 17,
+      "platform_profile_avatars": 4,
+      "first_party_named_images": 8,
+      "unknown": 58,
+      "third_party_attributed_profile_images": 2,
+      "third_party_attributed_content_images": 2,
+      "first_party_video_posters": 1
+    },
+    "asset_hashes_verified": 17,
+    "new_images_decoded": [
+      "lead-instagram-monkshen",
+      "lead-instagram-linchenhealing",
+      "lead-instagram-tempiovita",
+      "lead-instagram-shin-hyun-official",
+      "leo-chen",
+      "sifuchen-california"
+    ],
+    "images": 17,
+    "initials": 58,
+    "client_errors": []
+  },
+  "status": "passed",
+  "source_pr": 567,
+  "source_head_sha": "f52727c80fb5d205aa865b9e0690c06af03caf52",
+  "main_merge_sha": "043580c39809c5538dfc8226841aa5d8d1a57f8d",
+  "netlify_run": 39885322268,
+  "netlify_conclusion": "success",
+  "canonical_sha256": "37a724d413233dacae215f68cd2e5021443a9aefb271fd3c129d8e338fce94b9",
+  "visual_review": "Public desktop screenshot reviewed; recognizable images, plain H1, search/filter/cards. Mobile 390px no horizontal overflow. Original image bytes preserved; Leo/Sifu CSS crop only.",
+  "screenshots": [
+    {
+      "name": "database-17-desktop.png",
+      "sha256": "9646efc20de5096a92ddc87c8b57c8b69b375001f0fd7ad9fc17322f67a486cb",
+      "bytes": 177017
+    },
+    {
+      "name": "database-17-mobile.png",
+      "sha256": "6d3af484e5e85d5e630ce43864b956c3bcd0d30d2f31e25debad6aef0a1379bb",
+      "bytes": 61265
+    }
+  ],
+  "limits": [
+    "58 portraits remain unverified and use initials.",
+    "Images do not establish AI status or third-party reuse license.",
+    "Existing ShenMu HTTP MIME is image/jpeg while raw signature is WebP; browser decode passes."
+  ]
+}

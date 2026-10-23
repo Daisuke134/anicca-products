@@ -1,0 +1,112 @@
+{
+  "checked_at": "2026-10-23T01:49:50.839Z",
+  "url": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+  "release_sha": "f8dde2b78ac9fa81c388f0495ed779e7321379d2",
+  "sdk_client_version": "2.3.1",
+  "http": [
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 202,
+      "content_type": null,
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "GET",
+      "status": 405,
+      "content_type": null,
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    },
+    {
+      "method": "POST",
+      "status": 200,
+      "content_type": "application/json",
+      "session_id_present": false,
+      "set_cookie_present": false,
+      "cache_control": "no-store"
+    }
+  ],
+  "checks": {
+    "tools": [
+      "search_ai_monks",
+      "get_ai_monk",
+      "ai_monk_index_stats"
+    ],
+    "all_tools_match_canonical_snapshot": true,
+    "records": 75,
+    "sources": 48,
+    "ai_status": {
+      "confirmed": 0,
+      "reported": 4,
+      "unverified": 71
+    },
+    "snapshot_sha256": "37a724d413233dacae215f68cd2e5021443a9aefb271fd3c129d8e338fce94b9",
+    "unknown_profile_returns_tool_error": true,
+    "get_status": 405,
+    "allowed_browser_preflight": 204,
+    "unrelated_origin_status": 403
+  },
+  "server_info": {
+    "name": "ai-monk-index",
+    "version": "0.2.0"
+  },
+  "status": "passed",
+  "source_pr": 566,
+  "source_head_sha": "08e13f4a3b38dff0f92f130b7a87762e73a291ea",
+  "netlify_run": 39885561755,
+  "netlify_conclusion": "success",
+  "privacy": {
+    "url": "https://aniccaai.com/ai-monk-database/privacy",
+    "http_status": 200,
+    "expected_title": "AI Monk Database MCP",
+    "expected_title_found": true
+  },
+  "source_review": "docs/evidence/ai-monk-remote-mcp-source-review-20261023.json",
+  "limits": [
+    "Successful SDK connection is not a ChatGPT/Codex plugin directory listing.",
+    "No actual paid book order, video generation, social posting or subscription service is proved by this release."
+  ]
+}
