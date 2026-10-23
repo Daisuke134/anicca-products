@@ -1,0 +1,37 @@
+{
+  "schema_version": "anicca.ai-monk-plugin-auth-diagnosis.v1",
+  "observed_at": "2026-10-23T14:39:04Z",
+  "stages": [
+    {
+      "phase": "foreground_normal_sso_and_one_alternative",
+      "origin": "https://accounts.google.com",
+      "path_kind": "/v3/signin/challenge/pk"
+    }
+  ],
+  "normal_alternative_once": true,
+  "credential_values_logged": false,
+  "apple_store_accessed": false,
+  "recovery_or_security_changes": false,
+  "plugin_submission_created": false,
+  "authenticated_portal_identity_verified": false,
+  "human_step_mandatory": null,
+  "next_action": "primary diagnoses the supported native authentication entry point and required skill availability; no mandatory human procedure is established",
+  "natural_language_plugin_routing_verified": false,
+  "portal_submission_or_listing_verified": false,
+  "private_evidence_ref": "ai-monk-plugin-foreground-alternative-20261023.json",
+  "historical_evidence_ref": "docs/evidence/ai-monk-plugin-auth-boundary-20261023.json",
+  "limits": [
+    "Google challenge observation does not establish portal role or submission capability",
+    "Muse service URL is not identified"
+  ],
+  "previous_observation": {
+    "observed_at": "2026-10-23T14:29:06Z",
+    "private_evidence_ref": "ai-monk-plugin-normal-alternative-20261023.json"
+  },
+  "password_inputs": 0,
+  "owned_foreground": true,
+  "plugin_dashboard": false,
+  "post_alternative_wait_seconds": 5,
+  "native_ui_operated": false,
+  "native_ui_dependency": "cua-driver skill not found in scoped skill directories; native UI operation is not attempted"
+}

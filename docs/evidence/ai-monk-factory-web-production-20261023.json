@@ -1,0 +1,140 @@
+{
+  "schema_version": "anicca.ai-monk-factory-web-acceptance.v1",
+  "production_observed_at": "2026-10-23T14:18:03.493Z",
+  "products_main_sha": "fcbe8ec027bcc78825f5e50e0d83d0926a036525",
+  "source_main_sha": "eb78a805c4f79cd807852c27f52f9e4207a1ba61",
+  "pull_requests": {
+    "life_manager": "https://github.com/Daisuke134/life-manager/pull/8721",
+    "products": "https://github.com/Daisuke134/anicca-products/pull/602"
+  },
+  "source_acceptance": {
+    "focused_tests_passed": 37,
+    "fresh_readonly_review_blocking": 0
+  },
+  "workflows": {
+    "life_manager_security_scan": {
+      "url": "https://github.com/Daisuke134/life-manager/actions/runs/39964362189",
+      "conclusion": "success",
+      "mac_runner_wait_resolved": true
+    },
+    "products_landing": {
+      "url": "https://github.com/Daisuke134/anicca-products/actions/runs/39966601616",
+      "conclusion": "success"
+    },
+    "products_netlify": {
+      "url": "https://github.com/Daisuke134/anicca-products/actions/runs/39967298318",
+      "conclusion": "success"
+    }
+  },
+  "public": {
+    "canonical_url": "https://aniccaai.com/ai-monk-factory/",
+    "canonical_status": 200,
+    "slashless_status": 200,
+    "files": {
+      "app.css": {
+        "status": 200,
+        "bytes": 13567,
+        "sha256": "2aa9e429aa9ce360a57b851c74684f78e598d7d860ce3bc65d980f7db69cc71e",
+        "content_type": "text/css; charset=UTF-8"
+      },
+      "app.mjs": {
+        "status": 200,
+        "bytes": 10885,
+        "sha256": "a70dbafdb704a926fb0056e4a6fd7470338ddf3b161ae09fc456aca8ab48e33a",
+        "content_type": "application/javascript; charset=UTF-8"
+      },
+      "index.html": {
+        "status": 200,
+        "bytes": 9586,
+        "sha256": "b83310a0689ff3ffff09ddf75f2fbfb6761f83350cfe63ca9039bc9fe94bb098",
+        "content_type": "text/html; charset=UTF-8"
+      },
+      "project.mjs": {
+        "status": 200,
+        "bytes": 2056,
+        "sha256": "71baea8f3021841c0914d96f9229bef16aba3250391cc49bee8cde5207538e84",
+        "content_type": "application/javascript; charset=UTF-8"
+      }
+    },
+    "source_hashes_match": true,
+    "database_factory_cta": true
+  },
+  "database": {
+    "cards": 73,
+    "pending_notes": 69,
+    "profile_images": 71,
+    "included": 4,
+    "pending": 69,
+    "excluded": 2,
+    "archive_records": 75,
+    "sources": 57,
+    "cli_version": "0.4.2",
+    "ai_status_badge_or_filter": false
+  },
+  "public_browser_draft": {
+    "status": "pass",
+    "public_mode": true,
+    "save": true,
+    "reload_restored": true,
+    "actual_export_download": true,
+    "export_bytes": 35473,
+    "import_actual_export": true,
+    "desktop_width": 1360,
+    "mobile_width": 390,
+    "horizontal_overflow": false,
+    "page_errors": [],
+    "localhost_requests": [],
+    "owned_isolated_context": true
+  },
+  "pending_resolution": {
+    "old_snapshot": "factory-web-production-readback.json",
+    "old_public_browser_draft": "pending",
+    "resolved_by": "factory-web-public-ui-readback.json",
+    "original_private_snapshots_preserved": true
+  },
+  "localhost": {
+    "release_sha": "eb78a805c4f79cd807852c27f52f9e4207a1ba61",
+    "run_id": "run-706c877b-ce31-45ea-bc19-631b7035c1f3",
+    "phase": "main_immutable_local_ui_to_real_codex_and_offline_factory_cli",
+    "real_codex_execution": true,
+    "script_initially_empty": true,
+    "exit_code": 0,
+    "effect": {
+      "factory_provider_calls": 0,
+      "factory_external_effects": [],
+      "generated_script_sha256": "19a0bce1bfc0563a1e35fc8b89f4e3eef035851e13535989d0c54710dd2d86b9",
+      "generated_script_chars": 165
+    },
+    "readback": {
+      "state": "planned",
+      "tool_calls": [
+        "factory_plan"
+      ],
+      "ui": {
+        "reopened_history": true,
+        "state": "planned",
+        "exit_code": 0,
+        "actual_run_id": "run-706c877b-ce31-45ea-bc19-631b7035c1f3",
+        "mobile_width": 390,
+        "desktop_width": 1360,
+        "horizontal_overflow": false,
+        "page_errors": []
+      }
+    }
+  },
+  "not_verified": [
+    "actual HeyGen video generation",
+    "social publication",
+    "native publication proof",
+    "paid production delivery",
+    "sales or profit",
+    "USD10K MRR",
+    "unattended revenue for another user"
+  ],
+  "daily_social_operations_owner": "Grok Bot",
+  "private_evidence_refs": [
+    "factory-web-production-readback.json",
+    "factory-web-public-ui-readback.json",
+    "factory-web-immutable/local-acceptance.json"
+  ]
+}
