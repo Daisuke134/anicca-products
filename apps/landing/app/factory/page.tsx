@@ -5,14 +5,12 @@ import { Section } from '@/components/site/taste/Section';
 import { Reveal } from '@/components/site/taste/Reveal';
 import { CTA } from '@/components/site/taste/CTA';
 
-// §11.F: metadata em-dash -> hyphen in title; description verbatim
 export const metadata = {
   title: 'Anicca Web Apps - small useful tools, weekly',
   description:
-    'Anicca Web Apps: a weekly micro-SaaS, autonomously built and deployed by Anicca. Each app is one tool that solves one suffering. Each subscribes for $9-$19/mo.',
+    'Small useful web apps and free research tools from Anicca. See each product for current availability and pricing.',
 };
 
-// §11.F: JsonLd verbatim
 const factoryLd = {
   '@context': 'https://schema.org',
   '@type': 'Service',
@@ -20,18 +18,31 @@ const factoryLd = {
   url: 'https://aniccaai.com/factory',
   serviceType: 'Micro-SaaS subscription tools',
   provider: { '@type': 'Organization', name: 'Anicca', url: 'https://aniccaai.com' },
-  description:
-    'A weekly micro-SaaS, autonomously built and deployed by Anicca. Each app is one tool that solves one suffering. Subscription pricing $9-$19/month.',
+  description: metadata.description,
 };
 
-// §11.F: app entries - external URLs verbatim
 const APPS = [
+  {
+    name: 'AI Monk Database',
+    href: '/ai-monk-database',
+    tagline: 'Source-linked AI monk profiles, products, and revenue evidence',
+    price: 'Free',
+    bgClass: 'bg-[hsl(var(--surface-elevated))]',
+    accentClass: 'bg-[hsl(var(--gold)/0.15)]',
+  },
+  {
+    name: 'AI Monk Factory',
+    href: '/ai-monk-factory',
+    tagline: 'Original AI monk videos for Instagram. Preparing to open.',
+    price: 'Preparing · $199/mo',
+    bgClass: 'bg-[hsl(var(--surface))]',
+    accentClass: 'bg-[hsl(var(--gold)/0.08)]',
+  },
   {
     name: 'PDF Insight',
     href: 'https://clear-pdf-converter.com',
     tagline: 'Turn any PDF into instant answers',
     price: '$19/mo',
-    // BG diversity: token gradient (cell 0)
     bgClass: 'bg-[hsl(var(--surface-elevated))]',
     accentClass: 'bg-[hsl(var(--gold)/0.15)]',
   },
@@ -40,7 +51,6 @@ const APPS = [
     href: 'https://iglowup-ai.lovable.app',
     tagline: 'AI face score + glow-up roadmap',
     price: 'Free',
-    // BG diversity: image seed (cell 1)
     bgClass: 'bg-[hsl(var(--surface))]',
     accentClass: 'bg-[hsl(var(--gold)/0.08)]',
   },
@@ -49,7 +59,6 @@ const APPS = [
     href: null,
     tagline: 'Small tool that funds the mission',
     price: 'Coming',
-    // BG diversity: muted surface (cell 2)
     bgClass: 'bg-[hsl(var(--surface-muted,var(--surface)))]',
     accentClass: 'bg-[hsl(var(--border)/0.4)]',
   },
@@ -65,7 +74,7 @@ const APPS = [
 
 // §9.F pipeline labels: verb-noun direct (Pick / Build / Ship - no Stage/Step/Phase)
 const PIPELINE = [
-  { verb: 'Pick', noun: 'Niche', body: 'Every Monday the factory cron reads trends and selects one specific problem worth $9-$19/mo.' },
+  { verb: 'Pick', noun: 'Niche', body: 'Every Monday the factory cron reads trends and selects one specific problem worth solving.' },
   { verb: 'Build', noun: 'App', body: 'Anicca writes the code with the open-source ralph loop, deploys to Vercel, wires Stripe.' },
   { verb: 'Ship', noun: 'Revenue', body: 'Revenue from every app flows into aniccaai.com. The ones that scale, scale.' },
 ];
@@ -79,7 +88,7 @@ export default function Page() {
       <SplitHero
         eyebrow="Anicca Web Apps"
         headline={<>One useful tool,<br />every week.</>}
-        subtext="Anicca picks the niche, builds the app, ships it, charges for it. Each solves one specific suffering. $9-$19/mo."
+        subtext="Anicca picks the niche, builds the app, ships it, charges for it. Each solves one specific suffering. See each app for pricing and availability."
         primary={<CTA href="/en">Back to Anicca</CTA>}
         secondary={<CTA href="/fellows" variant="link">SAO Fellows</CTA>}
         asset={
@@ -95,11 +104,11 @@ export default function Page() {
         }
       />
 
-      {/* Bento grid - shipped apps (4 cells, BG diversity across cells 0-2) */}
+      {/* Existing app cards include current availability. */}
       <Section id="apps">
         <Reveal>
           <p className="mb-8 text-[11px] uppercase tracking-[0.18em] text-[hsl(var(--text-secondary))]">
-            Already shipped
+            Explore our apps
           </p>
         </Reveal>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -192,7 +201,7 @@ export default function Page() {
             </p>
             <p>
               Each app solves one specific suffering: too many PDFs, too long emails, too
-              many unread Slack threads. $9-$19/mo. They do not all hit. The ones that do, scale.
+              many unread Slack threads. Prices vary by app. They do not all hit. The ones that do, scale.
             </p>
             <p>
               The web-app-factory cron picks a niche from trends every Monday and ships an
