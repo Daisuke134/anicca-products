@@ -12,6 +12,8 @@ jobは期限付きleaseで1workerだけがclaimする。各POST直前に同じle
 
 avatar: reserved→image_pending→image_submitting→image_ready→avatar_submitting→avatar_pending→completed。同期画像POSTはNetlify backgroundだけで実行し、240秒のprovider timeoutを許容する。短命HMAC ticketはjob ID/nonce/expiryだけを含み、公開URLでも改竄・別job・期限切れを拒否する。background retryはDB fenceで画像POST0。生成JPEGはprivate Netlify Blobsへserverだけが保存し、公開APIへbase64を返さない。PhotoAvatar公式GETのcompleted/avatar_ivを確認してaccountへavatar ID/previewを保存する。
 
+既存Blobs v8のclassic contextはstrong GETに必要なuncachedEdgeURLを持たないため、immutable keyの通常GETを使い、反映待ちnullは一時失敗として再読取する。SDK内蔵の5秒×5回retryは単発transportで止め、10秒timeoutとtick共通25秒signalを通す。5xx/timeoutは内部408へ正規化してSDK retryを止めるだけで、成功や0件へ置換しない。診断は`image_storage_unavailable`とし、private画像/provider fenceを保持する。
+
 video: reserved→script_submitting→script_ready→speech_submitting→speech_ready→video_submitting→video_pending→completed。公式speech durationが正・有限・当該job上限以内でなければrender POST0。各有料POST前にStripe公式同期を行い、period一致・未取消・利用権・auto originなら明示ONを再確認する。OFFや取消後は後続の制作/投稿POSTを止め、既存pendingのGETは継続できる。
 
 ## 本人接続・投稿・metrics
@@ -30,4 +32,4 @@ tickは既存Netlify scheduleで1分、最大4work item/22秒の処理予算と�
 
 ## 現在cursor
 
-source実装と関連RED→GREENを完了する。独立Postgres20件でquota/lease/CAS、OFF・取消との競合、unknown replay-zero、公式request ID回復、保存応答消失、profile帰属、期限切れCheckout/旧nonce、内部列非公開を確認する。実adapterと最小transport fixtureを通して実DB playbook→script→speech→render→publish→metrics、署名background画像→private blob→PhotoAvatarも確認する。Factory関連core42件がGREEN、DBは別runで20/20を確認する。provider raw body/JWT/base64の公開0。新migrationはCLI生成`20261023184014_monk_factory_jobs.sql`、元migration変更0。live条件はmain統合/DB反映/専用billing/keyとJOB_SECRET/Netlify schedule/private Blobs/実認証/本人IG接続/実画像・動画・投稿・metricsであり、今回のprovider通信・本番DB・課金・生成・投稿は0。
+source実装と関連RED→GREENを完了する。独立Postgres20件でquota/lease/CAS、OFF・取消との競合、unknown replay-zero、公式request ID回復、保存応答消失、profile帰属、期限切れCheckout/旧nonce、内部列非公開を確認する。実adapterと最小transport fixtureを通して実DB playbook→script→speech→render→publish→metrics、署名background画像→private blob→PhotoAvatarも確認する。Factory関連core44件がGREEN、DBは別runで20/20を確認する。provider raw body/JWT/base64の公開0。新migrationはCLI生成`20261023184014_monk_factory_jobs.sql`、元migration変更0。live条件はmain統合/DB反映/専用billing/keyとJOB_SECRET/Netlify schedule/private Blobs/実認証/本人IG接続/実画像・動画・投稿・metricsであり、今回のprovider通信・本番DB・課金・生成・投稿は0。

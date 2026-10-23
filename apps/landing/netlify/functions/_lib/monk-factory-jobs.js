@@ -73,11 +73,22 @@ async function loadFactoryPlaybooks() {
   if (!Array.isArray(result.playbooks) || !result.playbooks.length) throw factoryError('research_unavailable', 503);
   return result.playbooks;
 }
-function createPrivateImages(event) {
+function createPrivateImages(event, fetchImpl = fetch) {
   const { connectLambda, getStore } = require('@netlify/blobs');
   connectLambda(event);
-  const blobs = getStore({ name: 'monk-factory-private', consistency: 'strong' });
-  return { get: key => blobs.get(key, { type: 'json' }), put: (key, value) => blobs.setJSON(key, value) };
+  // v8 retries errors/5xx five times; normalize failures to a non-retryable SDK response.
+  const once = async (address, options) => {
+    try {
+      const timeout = AbortSignal.timeout(10000);
+      const response = await fetchImpl(address, { ...options, signal: options?.signal ? AbortSignal.any([options.signal, timeout]) : timeout });
+      return response.status === 429 || response.status >= 500 ? new Response(null, { status: 408 }) : response;
+    } catch { return new Response(null, { status: 408 }); }
+  };
+  const blobs = getStore({ name: 'monk-factory-private', fetch: once });
+  const checked = async operation => {
+    try { return await operation(); } catch { throw factoryError('image_storage_unavailable', 503); }
+  };
+  return { get: key => checked(() => blobs.get(key, { type: 'json' })), put: (key, value) => checked(() => blobs.setJSON(key, value)) };
 }
 async function dispatchImage(job, env, fetchImpl = fetch) {
   const ticket = signImageTicket({ jobId: job.id, nonce: job.image_nonce, expiresAt: Date.parse(job.image_ticket_until) }, env);
@@ -162,6 +173,7 @@ async function advanceFactoryJob(options) {
     } else if (job.stage === 'image_ready') {
       if (!images || !job.image_blob_key) throw factoryError('image_storage_unavailable', 503);
       const image = await images.get(job.image_blob_key);
+      if (!image) throw factoryError('image_storage_unavailable', 503);
       if (image?.jobId !== job.id || image.userId !== job.user_id || image.receiptId !== job.image_receipt_id) throw factoryError('image_storage_mismatch', 503);
       await submit('avatar_submitting', 'createPhotoAvatar', { imageBase64: image.imageBase64, mediaType: image.mediaType }, result => ({ stage: 'avatar_pending', status: 'processing', avatar_provider_id: result.id, provider_id: result.id }));
     } else if (job.stage === 'avatar_pending') {

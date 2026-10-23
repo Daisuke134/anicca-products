@@ -40,3 +40,33 @@ test('an exhausted scheduled tick cannot claim a job or begin a provider effect'
     store: { pendingEvents: async () => [], dueAccounts: async () => [], claimJob: () => assert.fail('deadline claimed another job') } });
   assert.deepEqual(result, { processed: 0 });
 });
+
+test('the installed private Blobs SDK uses the bounded transport once and tolerates classic eventual reads', async () => {
+  const { createPrivateImages } = require('../monk-factory-jobs.js');
+  const prior = process.env.NETLIFY_BLOBS_CONTEXT; const originalFetch = global.fetch;
+  try {
+    global.fetch = async () => new Response(null, { status: 404 });
+    const event = { blobs: Buffer.from(JSON.stringify({ url: 'https://synthetic.example', token: 'synthetic' })).toString('base64'), headers: { 'x-nf-site-id': 'synthetic-site' } };
+    const image = { jobId: user.id, receiptId: 'synthetic-receipt' }; let requests = 0;
+    const images = createPrivateImages(event, async (_url, options) => {
+      requests++; assert.ok(options.signal);
+      return new Response(JSON.stringify(image));
+    });
+    assert.deepEqual(await images.get('images/' + user.id), image);
+    assert.equal(requests, 1);
+    let failures = 0;
+    const unavailable = createPrivateImages(event, async () => { failures++; return new Response(null, { status: 503 }); });
+    await assert.rejects(unavailable.get('images/' + user.id), { code: 'image_storage_unavailable' });
+    assert.equal(failures, 1);
+  } finally {
+    global.fetch = originalFetch;
+    if (prior == null) delete process.env.NETLIFY_BLOBS_CONTEXT; else process.env.NETLIFY_BLOBS_CONTEXT = prior;
+  }
+});
+
+test('a disabled scheduled function returns before constructing Stripe, persistence or Blobs', async () => {
+  const { factoryTickHandler } = require('../../monk-factory-tick.js');
+  const result = await factoryTickHandler({}, { env: {} });
+  assert.equal(result.statusCode, 200);
+  assert.deepEqual(JSON.parse(result.body), { processed: 0, disabled: true });
+});
