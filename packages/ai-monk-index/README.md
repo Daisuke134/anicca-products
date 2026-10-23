@@ -19,7 +19,7 @@ Yang Mun currently has the only structured revenue observation: an industry prof
 Requires Node.js 20.19 or later. The package is distributed as a public GitHub Release tarball; it is not listed on npm.
 
 ```sh
-npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.3/anicca-ai-monk-index-0.4.3.tgz
+npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.4/anicca-ai-monk-index-0.4.4.tgz
 ```
 
 ## CLI

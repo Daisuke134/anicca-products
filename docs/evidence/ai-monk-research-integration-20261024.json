@@ -1,0 +1,46 @@
+{
+  "product_observations_added": 20,
+  "seller_claim_counters_added": 14,
+  "priced_offers_added": 18,
+  "price_unknown_added": 2,
+  "sources": 139,
+  "records": 73,
+  "archive": 75,
+  "scope": {
+    "included": 4,
+    "pending": 69,
+    "excluded": 2
+  },
+  "revenue_observations_unchanged": true,
+  "snapshot_sha256": "a4e9b7848a4568b3984a3841b2f1118a832df5e619dd3c40b37438f2615bdce2",
+  "source_acceptance": {
+    "observer": "primary live tool results",
+    "package_tests": {
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "exit_code": 0
+    },
+    "directory_helper_tests": {
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "exit_code": 0
+    },
+    "json_source_reference_integrity": {
+      "source_count": 139,
+      "missing_refs": 0,
+      "duplicate_ids": 0
+    },
+    "package_version": "0.4.4",
+    "new_dependencies": 0,
+    "new_tool_implementation": 0,
+    "canonical_revenue_observations": 1
+  },
+  "pending": [
+    "fresh_read_only_review",
+    "source_commit_PR_CI_main",
+    "Netlify_public_JSON_Web_MCP",
+    "immutable_v0.4.4_Release_public_install"
+  ]
+}

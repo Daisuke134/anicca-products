@@ -1,0 +1,102 @@
+{
+  "schema_version": "anicca.ai-monk-factory-unit-economics.v1",
+  "observed_at": "2026-10-23T15:51:01.289004+00:00",
+  "scope": "read-only planning; no generation, subscription or payment mutations",
+  "sources": [
+    {
+      "url": "https://help.heygen.com/en/articles/10060327-heygen-api-pricing-explained",
+      "updated_at": "2026-10-19",
+      "observed_via": "official public help article",
+      "facts": [
+        "New API offering is pay-as-you-go, separate from normal HeyGen app subscriptions",
+        "Actual generated seconds are billed",
+        "Legacy API Pro and Scale plans are deprecated for new subscribers",
+        "Free API credits ended in February 2026"
+      ]
+    },
+    {
+      "url": "https://help.heygen.com/en/articles/15126059-how-to-use-credits-on-heygen",
+      "facts": [
+        "App credits and API billing are separate"
+      ]
+    },
+    {
+      "url": "https://developers.heygen.com/avatar-iv.md",
+      "facts": [
+        "An arbitrary-image Avatar IV path exists; its exact price category remains unverified"
+      ]
+    },
+    {
+      "url": "https://reel.farm/#pricing",
+      "facts": [
+        "Growth USD49/month for100 slideshows and10 formats",
+        "Scale USD95/month for250 slideshows and20 formats",
+        "Enterprise USD195/month for750 slideshows and200 formats",
+        "Free CTA is3 TikToks, not a three-day trial"
+      ]
+    },
+    {
+      "url": "https://reel.farm/api-docs",
+      "facts": [
+        "TikTok OAuth, automation and post metrics are documented",
+        "Instagram direct connection/posting was not established by public documentation"
+      ]
+    }
+  ],
+  "heygen_api_rates": {
+    "avatar_iv_photo_usd_per_minute": 2.31,
+    "avatar_iv_digital_twin_studio_usd_per_minute": 4.83,
+    "avatar_iii_photo_usd_per_minute": 0.99,
+    "photo_avatar_creation_usd_per_call": 1.32,
+    "separate_starfish_tts_usd_per_minute": 0.12
+  },
+  "calculation": {
+    "formula": "USD2.31 * seconds/60 * videos_per_day * days",
+    "rows": [
+      {
+        "seconds": 45,
+        "videos_per_day": 1,
+        "monthly_30_day_generation_usd": 51.975,
+        "three_day_trial_generation_usd": 5.1975,
+        "twenty_percent_regeneration_monthly_usd": 62.37
+      },
+      {
+        "seconds": 45,
+        "videos_per_day": 2,
+        "monthly_30_day_generation_usd": 103.95,
+        "three_day_trial_generation_usd": 10.395,
+        "twenty_percent_regeneration_monthly_usd": 124.74
+      },
+      {
+        "seconds": 60,
+        "videos_per_day": 1,
+        "monthly_30_day_generation_usd": 69.3,
+        "three_day_trial_generation_usd": 6.93,
+        "twenty_percent_regeneration_monthly_usd": 83.16
+      },
+      {
+        "seconds": 60,
+        "videos_per_day": 2,
+        "monthly_30_day_generation_usd": 138.6,
+        "three_day_trial_generation_usd": 13.86,
+        "twenty_percent_regeneration_monthly_usd": 166.32
+      }
+    ],
+    "avatar_creation_assumption": "one initial Photo Avatar creation, if that endpoint is used; not charged per video in this model",
+    "free_trial_requirement": "Stripe three-day trial is Dais's requirement, independent from ReelFarm's three-free-videos offer",
+    "profitable_price_not_yet_published": true,
+    "profit_formula": "net_contribution = subscription_price*(1-stripe_fee_rate)-stripe_fixed_fee-generation_cost-regeneration_cost-storage_and_posting_cost-trial_cost_attributed_per_paying_customer",
+    "illustrative_45s_one_per_day_twenty_percent_regeneration_plus_one_avatar_usd": 63.69
+  },
+  "unknowns": [
+    "Subsecond and billing-currency rounding; minimum billed duration",
+    "Failed or repeated generations' billing",
+    "Whether TTS is included for the selected Avatar IV path",
+    "Actual current API account tariff and available prepaid balance",
+    "Merchant-specific Stripe fee, storage/posting cost, conversion/churn and trials per paying customer"
+  ],
+  "decision": "Do not copy ReelFarm's slideshow price onto AI avatar video subscriptions. Keep generation count/duration and trial quota bounded, then set subscription price from actual tariff and conservative contribution margin before Factory launch.",
+  "provider_calls": 0,
+  "new_contracts": 0,
+  "payments": 0
+}
