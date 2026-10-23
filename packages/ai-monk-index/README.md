@@ -2,7 +2,7 @@
 
 Search the source-linked [AI Monk Database](https://aniccaai.com/ai-monk-database) from a terminal or an MCP client. Free and read-only. The local CLI and stdio server work offline after installation; the hosted HTTP endpoint requires an internet connection. No account or API key is required.
 
-This release focuses on realistic AI monk video avatars such as Yang Mun and uses the 2026-10-23 research observations: **4 evidence-reviewed video personas, 57 sources**. Search, get and counts include only records explicitly reviewed for directory inclusion. The source JSON retains the **75-record research archive**, including 69 pending records and 2 excluded illustrated/watercolor channels. A profile image or discovery lead alone does not establish AI production or video format. The four included personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
+This release uses the 2026-10-23 research observations: **73 monk profiles, including 4 evidence-reviewed video personas and 69 pending research candidates, with 57 sources**. Search, get and counts include records explicitly marked `included` or `pending`; each record retains its `directory_scope` and unknowns. The source JSON retains the **75-record research archive**, including 2 excluded illustrated/watercolor channels. A pending candidate or profile image alone does not establish AI production or video format. The four evidence-reviewed personas have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
 
 ## Business metrics
 
@@ -19,7 +19,7 @@ Yang Mun currently has the only structured revenue observation: an industry prof
 Requires Node.js 20.19 or later. The package is distributed as a public GitHub Release tarball; it is not listed on npm.
 
 ```sh
-npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.1/anicca-ai-monk-index-0.4.1.tgz
+npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.2/anicca-ai-monk-index-0.4.2.tgz
 ```
 
 ## CLI
@@ -34,7 +34,7 @@ ai-monk-index --help
 
 Every result is JSON. Search supports `--query`, `--status`, `--language`, `--platform`, `--region`, `--sort`, `--offset`, and `--limit`. Filters combine with AND. Use `all` to omit a filter, or `unknown` for missing classifications. Platforms are `Instagram`, `TikTok`, and `YouTube`; statuses are `confirmed`, `reported`, and `unverified`. Limit is 1–50, default 10. Use the returned `next_offset` for the next page. Unknown options, unsupported status/platform/sort and invalid ranges fail with a nonzero exit code.
 
-Default `audience` order uses the latest numeric followers/subscribers for the selected platform. With all platforms it uses the largest single audience, never a sum. `--sort directory` preserves the Web directory's source order. Views and revenue claims are not used for ranking. Each count retains its date, source and rounding status.
+Default `audience` order uses the latest numeric followers/subscribers for the selected platform. With all platforms it uses the largest single audience, never a sum. `--sort directory` preserves the Web directory's source order. Views and revenue claims are not used for audience ranking. Each count retains its date, source and rounding status.
 
 Search and get include the full matching records and referenced source entries. Metadata carries the snapshot SHA-256, update date, methodology, coverage limits and license. Unknown language, operator, AI origin or revenue remains unknown. The snapshot does not auto-refresh or contact the original platforms.
 

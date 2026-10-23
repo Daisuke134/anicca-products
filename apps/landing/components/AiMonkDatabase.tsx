@@ -92,6 +92,7 @@ function ProfileCard({ account, sourceById, imageSrc, selectedPlatform }: { acco
         </div>
       </div>
       <p className="mt-4 text-xs text-stone-500">{languages.length ? languages.join(', ') : 'Language unknown'}</p>
+      {account.directory_scope?.status === 'pending' && <p className="mt-2 text-xs text-stone-500">Candidate · video and production evidence under review.</p>}
       <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-4 border-t border-stone-100 pt-4">
         <div className="min-w-0">
           <dt className="text-xs text-stone-500">{audience?.metric === 'subscribers' ? 'Subscribers' : 'Followers'}</dt>
@@ -136,6 +137,7 @@ function ProfileCard({ account, sourceById, imageSrc, selectedPlatform }: { acco
           View details <span className="text-lg transition-transform group-open:rotate-45" aria-hidden="true">+</span>
         </summary>
         <dl className="mt-4 space-y-3 text-sm">
+          {account.directory_scope?.status === 'pending' && account.directory_scope.reason && <div><dt className="text-xs text-stone-500">Research status</dt><dd className="mt-1">{account.directory_scope.reason}</dd></div>}
           <div><dt className="text-xs text-stone-500">Creator</dt><dd className="mt-1">{account.creator?.public_profile_url ? <a href={account.creator.public_profile_url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">{account.creator.name ?? 'Creator profile'} ↗</a> : account.creator?.name ?? 'Unknown'}</dd></div>
           <div><dt className="text-xs text-stone-500">Region information</dt><dd className="mt-1">{account.region_evidence?.label ?? 'Unknown'}{account.region_evidence && <p className="mt-1 text-xs text-stone-500">{account.region_evidence.basis}</p>}</dd></div>
         </dl>
@@ -243,6 +245,7 @@ export default function AiMonkDatabase({
   }, [accounts, filters, sortBy]);
   const productCount = accounts.filter(account => (account.offers ?? []).length > 0).length;
   const revenueCount = accounts.filter(account => getAiMonkRevenue(account)).length;
+  const reviewedCount = accounts.filter(account => account.directory_scope?.status === 'included').length;
 
   function changeFilter(field: FilterField, value: string) {
     setFilters((current) => ({ ...current, [field]: value }));
@@ -258,9 +261,10 @@ export default function AiMonkDatabase({
     <div className="mx-auto max-w-[1280px] px-5 pb-16 sm:px-8">
         <header className="pb-7 pt-4 sm:pt-8">
           <h1 id="directory-heading" className="text-3xl font-semibold tracking-tight text-stone-950 sm:text-4xl">AI Monk Database</h1>
-          <p className="mt-3 max-w-2xl text-base leading-relaxed text-stone-600">Find AI monk video avatars. Compare followers, video views, products, and reported revenue.</p>
+          <p className="mt-3 max-w-2xl text-base leading-relaxed text-stone-600">Explore monk profiles and research candidates. Compare dated followers, sampled video views, products, and reported revenue.</p>
           <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-stone-500">
             <span><strong className="font-semibold text-stone-900">{accounts.length}</strong> profiles</span>
+            <span>{reviewedCount} evidence-reviewed · {accounts.length - reviewedCount} pending</span>
             <span><strong className="font-semibold text-stone-900">{productCount}</strong> with products</span>
             <span><strong className="font-semibold text-stone-900">{revenueCount}</strong> revenue reports</span>
             <span>Research snapshot {updatedAt}</span>
@@ -344,7 +348,7 @@ export default function AiMonkDatabase({
           </div>
           <div className="rounded-[1.5rem] bg-[#eae5d9] p-6 sm:p-7">
             <p className="text-lg font-semibold text-[#303129]">About the data</p>
-            <p className="mt-2 max-w-[62ch] text-sm leading-relaxed text-[#5e5a50]">The research archive contains {researchAccounts.length} records and {sourceCount} sources. Only reviewed AI monk video avatars appear in the directory. Followers and views are dated snapshots. Revenue includes its reporting period and source; creator claims are not audited. Missing metrics are unknown, not zero. Initials appear when a profile image is unavailable.</p>
+            <p className="mt-2 max-w-[62ch] text-sm leading-relaxed text-[#5e5a50]">The directory includes evidence-reviewed video personas and pending research candidates. Candidates have not yet been verified as AI monk video avatars. The research archive contains {researchAccounts.length} records and {sourceCount} sources, including excluded illustrated/watercolor channels. Followers and views are dated snapshots. Revenue includes its reporting period and source; creator claims are not audited. Missing metrics are unknown, not zero. Initials appear when a profile image is unavailable.</p>
             <div className="mt-5 flex flex-wrap gap-3">
               <a href="/data/ai-monk-avatar-database-2026.json" className="inline-flex items-center gap-2 rounded-full bg-[#282a24] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#42443b]">Research JSON <ArrowUpRight size={15} aria-hidden="true" /></a>
               <a href="https://github.com/Daisuke134/anicca-products/blob/main/apps/landing/public/data/ai-monk-avatar-database-2026.json" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-[#bcb5a7] px-4 py-2.5 text-sm font-semibold text-[#38382f] hover:bg-white">GitHub <ArrowUpRight size={15} aria-hidden="true" /></a>

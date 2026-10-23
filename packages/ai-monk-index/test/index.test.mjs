@@ -45,7 +45,7 @@ test('get keeps the complete canonical record, unknown language, and provenance'
 
 test('stats counts records and statuses without converting leads into confirmed avatars', () => {
   const stats = getStats();
-  assert.equal(stats.records, canonical.accounts.filter(a => a.directory_scope?.status === 'included').length);
+  assert.equal(stats.records, 73);
   assert.equal(stats.sources, canonical.sources.length);
   assert.equal(stats.ai_status.confirmed ?? 0, 0);
   assert.equal(Object.values(stats.ai_status).reduce((sum, n) => sum + n, 0), stats.records);
@@ -64,23 +64,35 @@ test('invalid CLI input fails without returning plausible research results', () 
   }
 });
 
-test('CLI and MCP data omit pending leads and illustrations while retaining the research archive', () => {
+test('CLI and MCP include pending research candidates and omit illustrations while retaining the archive', () => {
   const first = searchAccounts({ limit: 50 });
   const second = searchAccounts({ offset: 50, limit: 50 });
   assert.equal(canonical.accounts.length, 75);
-  assert.equal(first.total, 4);
-  assert.equal(first.accounts.length + second.accounts.length, 4);
-  for (const id of ['kai-tsukimi', 'buddha-would-say', 'master-kaizen-tiktok', 'sifuchen-california', 'lead-instagram-lotusfamily1']) {
-    assert.ok(canonical.accounts.some(a => a.id === id));
-    assert.equal(searchAccounts({ query: id }).total, 0);
+  assert.equal(first.total, 73);
+  assert.equal(first.accounts.length, 50);
+  assert.equal(second.accounts.length, 23);
+  for (const id of ['master-kaizen-tiktok', 'sifuchen-california', 'lead-instagram-lotusfamily1']) {
+    const record = canonical.accounts.find(a => a.id === id);
+    assert.equal(record.directory_scope.status, 'pending');
+    assert.deepEqual(getAccount(id).account, record);
+    const query = record.platforms?.find(platform => platform.handle)?.handle ?? record.display_name;
+    assert.ok(searchAccounts({ query, limit: 50 }).accounts.some(a => a.id === id));
+    const cliResult = run('search', '--query', query, '--limit', '50');
+    assert.equal(cliResult.status, 0, cliResult.stderr);
+    assert.ok(JSON.parse(cliResult.stdout).accounts.some(a => a.id === id));
+  }
+  for (const id of ['kai-tsukimi', 'buddha-would-say']) {
+    const record = canonical.accounts.find(a => a.id === id);
+    assert.ok(record);
+    assert.equal(searchAccounts({ query: record.display_name }).total, 0);
     assert.throws(() => getAccount(id), /Unknown account/);
-    const cliResult = run('search', '--query', id);
+    const cliResult = run('search', '--query', record.display_name);
     assert.equal(cliResult.status, 0, cliResult.stderr);
     assert.equal(JSON.parse(cliResult.stdout).total, 0);
   }
-  assert.equal(getStats().records, 4);
+  assert.equal(getStats().records, 73);
   assert.equal(getStats().metadata.research_archive_records, 75);
-  assert.equal(getStats().metadata.excluded_from_directory, 71);
+  assert.equal(getStats().metadata.excluded_from_directory, 2);
 });
 
 

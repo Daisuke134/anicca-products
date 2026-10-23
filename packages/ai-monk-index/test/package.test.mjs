@@ -21,7 +21,7 @@ test('released tarball installs and runs both CLI and MCP outside the source che
   const installed = join(scratch, 'node_modules/@anicca/ai-monk-index');
   const stats = JSON.parse(execFileSync(process.execPath, [join(installed, 'dist/cli.mjs'), 'stats'], { cwd: scratch, encoding: 'utf8' }));
   const canonical = await readFile(new URL('../../../apps/landing/public/data/ai-monk-avatar-database-2026.json', import.meta.url));
-  assert.equal(stats.records, JSON.parse(canonical).accounts.filter(a => a.directory_scope?.status === 'included').length);
+  assert.equal(stats.records, 73);
   assert.deepEqual(await readFile(join(installed, 'dist/database.json')), canonical);
   const client = new Client({ name: 'packed-package-acceptance', version: '1.0.0' });
   t.after(() => client.close());

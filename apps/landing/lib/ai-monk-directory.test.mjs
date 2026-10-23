@@ -125,14 +125,14 @@ test('revenue order uses only source-linked three-month USD gross revenue and ke
 });
 
 
-test('unreviewed leads require explicit inclusion before entering the avatar directory', () => {
+test('pending research candidates remain searchable while missing and excluded scopes stay out', () => {
   const records = [
     { ...accounts[0], directory_scope: { status: 'included', source_ids: ['creator-disclosure'] } },
     { id: 'pending', display_name: 'Pending monk', directory_scope: { status: 'pending' } },
     { id: 'missing-scope', display_name: 'Unknown monk', ai_status: 'reported' },
     { id: 'illustration', display_name: 'Illustrated monk', directory_scope: { status: 'excluded' } },
   ];
-  assert.deepEqual(filterAiMonkAccounts(records).map(account => account.id), ['yang-mun']);
-  assert.deepEqual(filterAiMonkAccounts(records, { query: 'Pending monk' }), []);
+  assert.deepEqual(filterAiMonkAccounts(records).map(account => account.id), ['yang-mun', 'pending']);
+  assert.deepEqual(filterAiMonkAccounts(records, { query: 'Pending monk' }).map(account => account.id), ['pending']);
   assert.equal(records.length, 4);
 });
