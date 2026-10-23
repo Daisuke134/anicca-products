@@ -62,6 +62,17 @@ test('no-match search returns an empty list without mutating the source data', (
   assert.deepEqual(accounts.map((a) => a.id), ['yang-mun', 'monjechen', 'leo-chen']);
 });
 
+test('illustrated accounts stay outside the avatar directory for every search', () => {
+  const records = [accounts[0], ...['kai-tsukimi', 'buddha-would-say'].map(id => ({
+    id, display_name: id, ai_status: 'unverified',
+    directory_scope: { status: 'excluded', reason: 'Illustrated storytelling' },
+  }))];
+  assert.deepEqual(filterAiMonkAccounts(records).map(a => a.id), ['yang-mun']);
+  assert.deepEqual(filterAiMonkAccounts(records, { query: 'kai-tsukimi', status: 'unverified' }), []);
+  assert.deepEqual(filterAiMonkAccounts(records, { query: 'buddha-would-say' }), []);
+  assert.equal(records.length, 3);
+});
+
 
 test('audience ranking uses the latest follower snapshot on the selected platform, never views or sums', async () => {
   const { rankAiMonkAccounts } = await import('./ai-monk-directory.mjs');

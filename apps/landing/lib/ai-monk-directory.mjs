@@ -30,6 +30,10 @@ function matchesKnownOrUnknown(values, filter) {
   return values.some((value) => normalize(value) === normalize(filter));
 }
 
+export function getAiMonkAvatarAccounts(accounts) {
+  return accounts.filter(account => account.directory_scope?.status !== 'excluded');
+}
+
 export function filterAiMonkAccounts(accounts, filters = {}) {
   const query = normalize(filters.query);
   const status = filters.status ?? 'all';
@@ -37,7 +41,7 @@ export function filterAiMonkAccounts(accounts, filters = {}) {
   const platform = filters.platform ?? 'all';
   const region = filters.region ?? 'all';
 
-  return accounts.filter((account) => {
+  return getAiMonkAvatarAccounts(accounts).filter((account) => {
     const languages = languageLabels(account);
     const platforms = (account.platforms ?? []).map(({ platform: name }) => name).filter(Boolean);
     const regions = regionLabel(account) ? [regionLabel(account)] : [];

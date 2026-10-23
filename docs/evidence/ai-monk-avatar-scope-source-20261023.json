@@ -1,0 +1,60 @@
+{
+  "purpose": "Apply the requested realistic AI monk video avatar scope across Web, CLI and MCP.",
+  "source_base_commit": "8df0a1b26e68bbb0196802a3be08384ae84058fb",
+  "research_archive_records": 75,
+  "directory_records": 73,
+  "researched_profiles": 7,
+  "unverified_discovery_candidates": 66,
+  "sources": 48,
+  "excluded_ids": [
+    "kai-tsukimi",
+    "buddha-would-say"
+  ],
+  "snapshot_sha256": "b16ab1f29ab9701327dc329744f801fe11b63e89825ac250270a107bfd62eeb8",
+  "preservation_check": {
+    "all_existing_records_sources_metrics_offers_ai_status_unchanged": true,
+    "only_scope_description_and_two_exclusion_annotations_changed": true,
+    "dependency_package_records_changed": 0
+  },
+  "classification_evidence": [
+    {
+      "id": "kai-tsukimi",
+      "primary_url": "https://thezenstoryteller.com/",
+      "observation": "Official author image alt identifies Japanese woodblock-print style.",
+      "evidence_ref": "docs/evidence/ai-monk-ui-reference-research-20261023.json"
+    },
+    {
+      "id": "buddha-would-say",
+      "primary_url": "https://www.instagram.com/buddhawouldsay/",
+      "observation": "Public visible profile image depicts an illustrated child monk with flowers. A reel itself was not watched.",
+      "evidence_ref": "docs/evidence/ai-monk-profile-visible-ui-20261023.json"
+    }
+  ],
+  "validation": {
+    "red": {
+      "intentional_failures": 3,
+      "boundaries": [
+        "shared search exclusion",
+        "SSR count and visible cards",
+        "CLI/MCP canonical scope"
+      ]
+    },
+    "green": [
+      {
+        "command": "node --test apps/landing/lib/ai-monk-directory.test.mjs apps/landing/test/ai-monk-evidence-rendering.test.mjs",
+        "passed": 9
+      },
+      {
+        "cwd": "packages/ai-monk-index",
+        "command": "npm test",
+        "passed": 12
+      }
+    ],
+    "production_readback": "pending"
+  },
+  "limits": [
+    "Discovery candidates and still images do not confirm AI production or moving-video format.",
+    "Excluded records remain in the public research archive with their original AI status and sources.",
+    "The directory is not a complete census."
+  ]
+}

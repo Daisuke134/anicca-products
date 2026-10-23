@@ -34,3 +34,17 @@ test('audience cards disclose rounding and link the exact observation source', (
   assert.match(html, /href="https:\/\/example.test\/provider-capture"/);
   assert.match(html, /2026-10-22/);
 });
+
+test('the visible directory and its count exclude illustrated storytelling', () => {
+  const html = renderToStaticMarkup(React.createElement(Directory, {
+    accounts: [
+      { id: 'yang-mun', display_name: 'Yang Mun', persona_type: 'AI monk avatar', ai_status: 'reported' },
+      { id: 'kai-tsukimi', display_name: 'Kai Tsukimi', persona_type: 'Illustrated storyteller', ai_status: 'unverified', directory_scope: { status: 'excluded', reason: 'Illustration' } },
+      { id: 'buddha-would-say', display_name: 'Buddha Would Say', persona_type: 'Illustrated monk', ai_status: 'unverified', directory_scope: { status: 'excluded', reason: 'Illustration' } },
+    ], sourceCount: 0, updatedAt: '2026-10-23',
+  }));
+  assert.match(html, /AI monk video avatars/);
+  assert.equal((html.match(/<article /g) ?? []).length, 1);
+  assert.doesNotMatch(html, /Kai Tsukimi|Buddha Would Say/);
+  assert.match(html, /<strong[^>]*>1<\/strong> profiles/);
+});

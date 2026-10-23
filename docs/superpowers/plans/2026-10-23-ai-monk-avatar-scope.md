@@ -13,9 +13,9 @@ H1は`AI Monk Database`を保ち、説明文はAI monk video avatarsを直接示
 ## TODO・現在cursor
 
 - [x] 最新main専用branchでspec/planを更新しpush。
-- [ ] 対象外2件の検索・集計・SSRの失敗テストを確認。
-- [ ] dataのscopeと共有selector、Web/CLI/MCP/copy/OGを最小変更。
+- [x] 対象外2件の検索・集計・SSRの失敗テスト3件を確認。
+- [x] dataのscopeと共有selector、Web/CLI/MCP/copy/OGを最小変更。関連9＋12テストPASS。既存75record/48sourceの内容と依存package recordは不変。
 - [ ] 関連テスト・source確認・CI、main統合と本番Web/MCP確認。
 - [ ] 更新CLI配布とspec/evidenceへ反映。
 
-順序変更: 旧cursorは73画像の公開だった。Daisが水彩/イラストを除きAI monk video avatarsへ絞るよう指定したため、scope修正→画像sourceの統合→本番確認へ変更する。既存Postiz/HeyGen effectは中断・再送しない。現在cursorはscopeのRED確認。
+順序変更: 旧cursorは73画像の公開だった。Daisが水彩/イラストを除きAI monk video avatarsへ絞るよう指定したため、scope修正→画像sourceの統合→本番確認へ変更する。既存Postiz/HeyGen effectは中断・再送しない。現在cursorはscope PRのCI確認とmain統合。source証拠 → `docs/evidence/ai-monk-avatar-scope-source-20261023.json`。

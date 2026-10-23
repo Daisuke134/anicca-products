@@ -2,14 +2,14 @@
 
 Search the source-linked [AI Monk Database](https://aniccaai.com/ai-monk-database) from a terminal or an MCP client. Free and read-only. The local CLI and stdio server work offline after installation; the hosted HTTP endpoint requires an internet connection. No account or API key is required.
 
-This release contains the 2026-10-22 snapshot: **75 records, 48 sources, 9 researched profiles and 66 unverified discovery leads**. Four records have reported AI provenance; none are labelled confirmed. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
+This release focuses on realistic AI monk video avatars such as Yang Mun and uses the 2026-10-22 research observations: **73 in-scope records, 48 sources, 7 researched profiles and 66 unverified discovery leads**. Four records have reported AI provenance; none are labelled confirmed. Known illustrated/watercolor storytelling channels are excluded from search, get and counts. The source JSON retains the 75-record research archive with explicit exclusion reasons. A profile image or discovery lead does not prove AI production or video format. This is not a complete census. Public audience counts, seller counters, creator revenue statements and verified orders are different measures.
 
 ## Install
 
 Requires Node.js 20.19 or later. The package is distributed as a public GitHub Release tarball; it is not listed on npm.
 
 ```sh
-npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.2.0/anicca-ai-monk-index-0.2.0.tgz
+npm install --global https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.3.0/anicca-ai-monk-index-0.3.0.tgz
 ```
 
 ## CLI

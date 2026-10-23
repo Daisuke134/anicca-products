@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowUpRight, BookOpen, Search } from 'lucide-react';
 import {
   filterAiMonkAccounts,
+  getAiMonkAvatarAccounts,
   rankAiMonkAccounts,
   type AiMonkAccount,
   type AiMonkDirectoryFilters,
@@ -212,7 +213,7 @@ function ProfileCard({ account, sourceById, imageSrc, selectedPlatform }: { acco
 }
 
 export default function AiMonkDatabase({
-  accounts,
+  accounts: researchAccounts,
   sources = [],
   sourceCount,
   updatedAt,
@@ -224,6 +225,7 @@ export default function AiMonkDatabase({
   updatedAt: string;
   profileImages?: Record<string, string>;
 }) {
+  const accounts = useMemo(() => getAiMonkAvatarAccounts(researchAccounts), [researchAccounts]);
   const [filters, setFilters] = useState<AiMonkDirectoryFilters>({
     query: '', status: 'all', language: 'all', platform: 'all', region: 'all',
   });
@@ -255,7 +257,7 @@ export default function AiMonkDatabase({
     <div className="mx-auto max-w-[1280px] px-5 pb-16 sm:px-8">
         <header className="pb-7 pt-4 sm:pt-8">
           <h1 id="directory-heading" className="text-3xl font-semibold tracking-tight text-stone-950 sm:text-4xl">AI Monk Database</h1>
-          <p className="mt-3 max-w-2xl text-base leading-relaxed text-stone-600">Find AI monk accounts. Compare followers, languages, creators, and products.</p>
+          <p className="mt-3 max-w-2xl text-base leading-relaxed text-stone-600">Find AI monk video avatars. Compare followers, languages, creators, and products.</p>
           <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-stone-500">
             <span><strong className="font-semibold text-stone-900">{accounts.length}</strong> profiles</span>
             <span><strong className="font-semibold text-stone-900">{researchedCount}</strong> researched</span>
@@ -338,7 +340,7 @@ export default function AiMonkDatabase({
         <section className="mt-14 grid gap-6 border-t border-[#ded8ca] pt-8 md:grid-cols-[1fr_1.2fr]" aria-labelledby="about-index">
           <div>
             <p className="mb-2 text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#8a733b]">Articles and book</p>
-            <h2 id="about-index" className="text-2xl font-semibold tracking-[-0.035em]">Learn about AI monks.</h2>
+            <h2 id="about-index" className="text-2xl font-semibold tracking-[-0.035em]">Learn about AI monk avatars.</h2>
             <div className="mt-4 flex flex-col items-start gap-2">
               {ARTICLE_LINKS.map((article) => <Link key={article.href} href={article.href} className="inline-flex items-center gap-1 text-sm font-medium text-[#6f5111] underline underline-offset-4 hover:text-[#372b0f]">{article.label} <BookOpen size={14} aria-hidden="true" /></Link>)}
             </div>

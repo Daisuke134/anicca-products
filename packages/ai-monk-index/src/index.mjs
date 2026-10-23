@@ -1,6 +1,8 @@
 import * as z from 'zod/v4';
-import { filterAiMonkAccounts, rankAiMonkAccounts } from './ai-monk-directory.mjs';
+import { filterAiMonkAccounts, rankAiMonkAccounts, getAiMonkAvatarAccounts } from './ai-monk-directory.mjs';
 import { database, snapshotSha256 } from './snapshot.mjs';
+
+const directoryAccounts = getAiMonkAvatarAccounts(database.accounts);
 
 export const searchSchema = z.strictObject({
   query: z.string().max(500).optional(),
@@ -19,6 +21,8 @@ const metadata = {
   snapshot_sha256: snapshotSha256,
   source_url: 'https://aniccaai.com/data/ai-monk-avatar-database-2026.json',
   scope: database.scope,
+  research_archive_records: database.accounts.length,
+  excluded_from_directory: database.accounts.length - directoryAccounts.length,
   license: database.license,
   license_url: database.license_url,
   methodology: database.methodology,
@@ -41,7 +45,7 @@ function sourcesFor(records) {
 
 export function searchAccounts(options = {}) {
   const filters = searchSchema.parse(options);
-  const filtered = filterAiMonkAccounts(database.accounts, filters);
+  const filtered = filterAiMonkAccounts(directoryAccounts, filters);
   const ordered = filters.sort === 'audience' ? rankAiMonkAccounts(filtered, filters.platform) : filtered;
   const accounts = ordered.slice(filters.offset, filters.offset + filters.limit);
   return {
@@ -55,16 +59,16 @@ export function searchAccounts(options = {}) {
 }
 
 export function getAccount(id) {
-  const account = database.accounts.find(record => record.id === id);
+  const account = directoryAccounts.find(record => record.id === id);
   if (!account) throw new Error(`Unknown account: ${id}`);
   return { metadata, account, sources: sourcesFor([account]) };
 }
 
 export function getStats() {
   const ai_status = { confirmed: 0, reported: 0, unverified: 0 };
-  for (const account of database.accounts) {
+  for (const account of directoryAccounts) {
     const status = account.ai_status ?? 'unknown';
     ai_status[status] = (ai_status[status] ?? 0) + 1;
   }
-  return { metadata, records: database.accounts.length, sources: database.sources.length, ai_status };
+  return { metadata, records: directoryAccounts.length, sources: database.sources.length, ai_status };
 }

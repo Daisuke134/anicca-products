@@ -2,7 +2,7 @@
   "schema_version": "anicca.ai-monk-avatar-database.v1",
   "updated_at": "2026-10-22",
   "license": "CC BY 4.0 for Anicca-authored summaries, annotations, and the database compilation. Third-party content, names, marks, profile data, and linked media remain with their owners.",
-  "scope": "An English-first open index with 9 researched profiles and 66 discovery leads. Includes adjacent monk-themed accounts with unverified AI provenance; this is not a complete census.",
+  "scope": "English-first research on realistic AI monk video avatars such as Yang Mun. The directory has 7 researched profiles and 66 unverified discovery candidates; known illustrated/watercolor storytelling channels are excluded. The full 75-record research archive is retained, not a complete census.",
   "methodology": [
     "Include a synthetic monk persona only when a platform/creator disclosure or credible reporting supports that classification. Keep screenshot-only cases marked unverified.",
     "Do not merge accounts on similar names alone. Unknown handles, creators, launch dates, and product URLs remain null with a reason.",
@@ -3887,7 +3887,14 @@
         "Distinct public account; independence from other researched operators is not established.",
         "Book sales, royalties, refunds, ad spend and profit were not verified. The site's claimed sales and rank are not audited.",
         "No actual moving-image watch completed; the account may be adjacent to the AI monk category rather than a confirmed AI monk."
-      ]
+      ],
+      "directory_scope": {
+        "status": "excluded",
+        "reason": "Illustrated Zen storytelling presentation, outside the focus on realistic talking AI monk video avatars. AI origin remains unverified.",
+        "source_ids": [
+          "kai-tsukimi-home-20261022"
+        ]
+      }
     },
     {
       "id": "yangjun",
@@ -4079,7 +4086,14 @@
         "Operator, AI provenance, full profile and any paid offer are unverified.",
         "The 1.1M view count and 9.4K followers are rounded indexed snapshots, not current exact platform counters.",
         "Illustrated monk content is a different format from photorealistic talking avatars; do not conflate them."
-      ]
+      ],
+      "directory_scope": {
+        "status": "excluded",
+        "reason": "Illustrated/animated monk inspiration content, outside the focus on realistic talking AI monk video avatars. AI origin remains unverified.",
+        "source_ids": [
+          "buddhawouldsay-reel-20261022"
+        ]
+      }
     },
     {
       "id": "master-kaizen-tiktok",
