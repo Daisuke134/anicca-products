@@ -70,3 +70,9 @@ test('a disabled scheduled function returns before constructing Stripe, persiste
   assert.equal(result.statusCode, 200);
   assert.deepEqual(JSON.parse(result.body), { processed: 0, disabled: true });
 });
+
+test('stop is idempotent before the first Factory account exists', async () => {
+  const result = await factoryHandler({ httpMethod: 'POST', headers: { authorization: 'Bearer fixture' }, body: JSON.stringify({ action: 'stop' }) },
+    { env, fetchImpl: auth, store: { stop: async () => null } });
+  assert.deepEqual(JSON.parse(result.body), { auto_post: false });
+});

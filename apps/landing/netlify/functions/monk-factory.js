@@ -45,7 +45,7 @@ async function factoryHandler(event, dependencies = {}) {
       return reply(200, { account: publicAccount(account), jobs: account ? await store.jobs(user.id) : [], ready: await ready(env, dependencies.providers),
         usage: account && store.usage ? await store.usage(user.id) : null });
     }
-    if (body.action === 'stop') return reply(200, await store.stop(user.id));
+    if (body.action === 'stop') { await store.stop(user.id); return reply(200, { auto_post: false }); }
     if (['generate_avatar','generate_video'].includes(body.action)) {
       let occurrence = 'avatar:lifetime';
       if (body.action === 'generate_video') {
