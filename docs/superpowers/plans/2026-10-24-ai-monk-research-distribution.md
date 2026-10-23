@@ -4,7 +4,7 @@
 既存のDatabase/6tool CLI・pluginを土台に、商品/収益の根拠拡充と配布を先に完了し、原価が成立するcloud Factoryへ進む。要件の正本はfield-guide末尾「Database・Plugin・Factoryの追加契約」。通常判断はprimaryが実行し、承認待ちや固定stageを追加しない。brainstormingの承認質問はDaisの明示No-human-loopと詳細指定へ置き換える。Stripe実装時は既存Checkout/Billingを再利用し、既存runtimeの日次effect/ownerは触らない。
 
 ## 順序と現在cursor
-旧順/新順/理由はfield-guideを参照する。先行配布はPR612/main74074d0、CLI v0.4.3/main6500499で受入済み。現在cursorはPR614/main fbc141f7とCLI v0.4.4公開導入/実stdioの受入→Netlify139source反映→Registry/Plugin配布。fresh最終blocking0、最終head package/Landing CIはSUCCESS。67の既知IG handleを公開UIで確認し、63public/1private header/2unavailable/1age-restricted、64followers、bio言語とMaître Yunの本人AI開示を記録する。sourceの価格/claim/unknownは保持する。原価とReelFarmのread-only調査だけを並行し、Factory実装を先行しない。
+旧順/新順/理由はfield-guideを参照する。Database PR614/main fbc141f7は公開JSON/Web/MCP73件/139出典とCLI v0.4.4の公開導入/実stdioを受入済み。Registry PR615/main d5ba4614はmanual39988330815/公式GET v0.4.4 activeで公開する。新X告知2113673062554247580は本人/本文/expanded目的URL+UTM/独立公開GETを受入し送信1/再送0。Grok協力はLM PR8749のBOARDへ依頼記録中、受領/実投稿は未確認。現在cursorは追加33商品のsource/176出典候補の独立確認→PR/main/公開反映とCLI v0.4.5、その後正式plugin掲載の残認証境界と原価ベースのFactory SaaS。67IG公開UI観測と64followers/bio言語/本人AI開示を保持し、価格/claim/unknownを混同しない。原価/ReelFarmのread-only調査は並行し、既存日次運用は変更しない。
 
 ## TODO
 - [ ] DB-1: 既知73profileの商品/売上/creator/言語/画像の調査coverageを記録し、取得可能な公開一次資料から精査・拡充する。pending非掲載という旧reasonを修正し、unknownを保持する。
