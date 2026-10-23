@@ -30,5 +30,6 @@
     "No Postiz repost/reply or duplicate standalone promotion",
     "Unknown native effect requires readback only, never resend",
     "Clicks/orders/revenue/profit/retweet not measured"
-  ]
+  ],
+  "operator_sha256": "3b0688c4b7b0f6d41f7929bee26fe1449568e37d3f722e3d0f570b14e16b9722"
 }

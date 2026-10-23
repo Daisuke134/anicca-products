@@ -14,3 +14,5 @@
 - [ ] fresh copy/operator read-only照合、source/mainの公開scopeを確認。
 - [ ] native3返信をそれぞれ1回だけ実行し公式native receipt/expanded URL/permalinkを照合。
 - [ ] 自分のlease releaseを確認し、元receiptを保持して結果を記録/統合。
+
+**実行operator:** /private/tmp/ai_monk_existing_x_link_reply_20261023.py、SHA256 3b0688c4b7b0f6d41f7929bee26fe1449568e37d3f722e3d0f570b14e16b9722。3targetの親ID/本文fragment/copy SHA/元URLを固定し、正規guard acquire完了時の自身lease PID58681/UUID/portを実行前に照合する。lease再取得でPIDが変わった場合は旧operatorをそのまま使わず再照合する。source copyとoperatorはfresh read-only受入前で未送信。
