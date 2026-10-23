@@ -72,19 +72,19 @@ const content={
   ],
   "assets": {
     "closet": {
-      "src": "/images/studio-cherie/closet.jpg",
+      "src": "/images/studio-cherie/closet-1284.jpg",
       "alt": "STUDIO CHERIEのクローゼット管理画面。"
     },
     "suggest": {
-      "src": "/images/studio-cherie/suggest.jpg",
+      "src": "/images/studio-cherie/suggest-1284.jpg",
       "alt": "手持ちの服をもとにしたコーディネート提案画面。"
     },
     "inspiration": {
-      "src": "/images/studio-cherie/inspiration.jpg",
+      "src": "/images/studio-cherie/inspiration-1284.jpg",
       "alt": "理想のコーデを保存する画面。"
     },
     "maybebuy": {
-      "src": "/images/studio-cherie/maybebuy.jpg",
+      "src": "/images/studio-cherie/maybebuy-1284.jpg",
       "alt": "購入候補の服を追加して検討する画面。"
     }
   }
