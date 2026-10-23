@@ -85,3 +85,32 @@ test('business cards show views, products and reported revenue without an AI-sta
   assert.match(html, /value="views"/);
   assert.match(html, /value="revenue"/);
 });
+
+
+test('native Sifu profile avatar retains its original framing', () => {
+  const html = renderToStaticMarkup(React.createElement(Directory, {
+    accounts: [{
+      id: 'sifuchen-california', display_name: 'SifuChen California', ai_status: 'reported',
+      directory_scope: { status: 'pending' },
+    }],
+    profileImages: { 'sifuchen-california': '/assets/ai-monk-profiles/sifuchen-california-instagram.jpg' },
+    sourceCount: 0, updatedAt: '2026-10-23',
+  }));
+  const image = html.match(/<img[^>]*alt="SifuChen California profile image"[^>]*>/)?.[0];
+  assert.ok(image);
+  assert.match(image, /src="\/assets\/ai-monk-profiles\/sifuchen-california-instagram\.jpg"/);
+  assert.doesNotMatch(image, /transform:/);
+});
+
+test('bio language is visibly qualified without changing its filter label', () => {
+  const html = renderToStaticMarkup(React.createElement(Directory, {
+    accounts: [{
+      id: 'sifuchen-california', display_name: 'SifuChen California',
+      directory_scope: { status: 'pending' },
+      languages: [{ label: 'Spanish', basis: 'native public profile bio text; spoken-video language not audited' }],
+    }], sourceCount: 0, updatedAt: '2026-10-23',
+  }));
+  const card = html.match(/<article id="sifuchen-california"[\s\S]*?<\/article>/)?.[0] ?? '';
+  assert.match(card, /Spanish \(profile bio; spoken language not audited\)/);
+  assert.match(html, /<option value="Spanish">Spanish<\/option>/);
+});

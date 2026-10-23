@@ -50,12 +50,10 @@ function sourceLabel(url: string) {
 function ProfileAvatar({ account, src }: { account: AiMonkAccount; src?: string }) {
   const [failed, setFailed] = useState(false);
   const initials = account.display_name.split(/[\s|]+/).filter(Boolean).slice(0, 2).map((word) => Array.from(word)[0]).join('').toUpperCase();
-  // 第三者記事の横長画像だけ、原bytesを保ったまま顔を丸枠内へ合わせる。
-  const cropStyle = account.id === 'sifuchen-california'
-    ? { objectPosition: 'left center', transform: 'scale(1.35)' }
-    : account.id === 'leo-chen'
-      ? { objectPosition: '43% center', transform: 'scale(2.4) translateY(20%)' }
-      : undefined;
+  // Leo Chenの第三者記事画像だけ、原bytesを保ったまま顔を丸枠内へ合わせる。
+  const cropStyle = account.id === 'leo-chen'
+    ? { objectPosition: '43% center', transform: 'scale(2.4) translateY(20%)' }
+    : undefined;
   const image = <img src={src} alt={`${account.display_name} profile image`} width={72} height={72} loading="lazy" onError={() => setFailed(true)} style={cropStyle} className="h-[72px] w-[72px] shrink-0 rounded-full bg-stone-100 object-cover object-[center_25%]" />;
   return src && !failed ? (
     cropStyle ? <span className="block h-[72px] w-[72px] shrink-0 overflow-hidden rounded-full bg-stone-100">{image}</span> : image
@@ -65,7 +63,8 @@ function ProfileAvatar({ account, src }: { account: AiMonkAccount; src?: string 
 }
 
 function ProfileCard({ account, sourceById, imageSrc, selectedPlatform }: { account: AiMonkAccount; sourceById: Record<string, EvidenceSource>; imageSrc?: string; selectedPlatform: string }) {
-  const languages = account.languages?.map(({ label }) => label) ?? [];
+  const languages = account.languages?.map(({ label, basis }) => /\bbio\b/i.test(basis ?? '')
+    ? `${label} (profile bio; spoken language not audited)` : label) ?? [];
   const snapshots = (account.platforms ?? []).flatMap((platform) =>
     (platform.snapshots ?? []).map((snapshot) => ({ ...snapshot, platform: platform.platform }))
   );
