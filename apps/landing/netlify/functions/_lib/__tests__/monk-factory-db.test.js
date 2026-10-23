@@ -28,9 +28,8 @@ before(() => {
   if (!socket) return;
   sql('CREATE ROLE anon NOLOGIN; CREATE ROLE authenticated NOLOGIN; CREATE ROLE service_role NOLOGIN BYPASSRLS; CREATE SCHEMA auth; CREATE TABLE auth.users(id uuid PRIMARY KEY); CREATE FUNCTION auth.uid() RETURNS uuid LANGUAGE sql STABLE AS $$ SELECT nullif(current_setting(\'request.jwt.claim.sub\',true),\'\')::uuid $$; GRANT USAGE ON SCHEMA auth TO authenticated; GRANT EXECUTE ON FUNCTION auth.uid() TO authenticated; INSERT INTO auth.users SELECT (\'00000000-0000-4000-8000-\'||lpad(n::text,12,\'0\'))::uuid FROM generate_series(1,30) n;');
   const dir = path.resolve(__dirname, '../../../../supabase/migrations');
-  const migrations = fs.readdirSync(dir).filter(x => x.endsWith('_monk_factory.sql'));
-  assert.equal(migrations.length, 1);
-  execFileSync('psql', [...args(), '-f', path.join(dir, migrations[0])], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+  const migrations = fs.readdirSync(dir).filter(x => /_monk_factory(?:_jobs)?\.sql$/.test(x)).sort();
+  for (const migration of migrations) execFileSync('psql', [...args(), '-f', path.join(dir, migration)], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
 });
 
 test('trial reservation is idempotent, bounded by three attempts, and keeps unknown effects reserved', options, () => {
@@ -135,4 +134,52 @@ test('duplicate Stripe receipts are persisted once and clients cannot inspect th
   assert.equal(sql('SELECT count(*) FROM monk_factory_stripe_events'), '1');
   sql("SET ROLE service_role; INSERT INTO monk_factory_stripe_events(id,event_type,stripe_object_id,stripe_subscription_id) VALUES ('evt_expired','checkout.session.expired','cs_expired',NULL)");
   assert.throws(() => sql('SET ROLE authenticated; SELECT * FROM monk_factory_stripe_events'), /permission denied/);
+});
+
+test('parallel workers claim one lease and a stale worker cannot cross the submit fence', options, async () => {
+  account(6);
+  const job = JSON.parse(sql(reserve(uid(6), 'lease-fixture')));
+  const run = promisify(execFile);
+  const claim = 'SET ROLE service_role; SELECT monk_factory_claim_job(\'' + job.id + '\',false)';
+  const replies = await Promise.all(Array.from({ length: 8 }, () => run('psql', [...args(), '-c', claim], { encoding: 'utf8' })));
+  const rows = replies.map(x => JSON.parse(x.stdout.trim() || 'null')).filter(Boolean);
+  assert.equal(rows.length, 1);
+  const first = rows[0];
+  const advance = (lease, stage, patch) => 'SET ROLE service_role; SELECT monk_factory_advance_job(\'' + job.id + '\',\'' + lease + '\',\'' + stage + '\',\'' + JSON.stringify(patch) + '\'::jsonb,true)';
+  const fenced = JSON.parse(sql(advance(first.lease_id, 'reserved', { stage: 'script_submitting', status: 'effect_unknown' })));
+  assert.equal(fenced.status, 'effect_unknown');
+  sql('UPDATE monk_factory_jobs SET lease_until=now()-interval \'1 second\',next_run_at=now() WHERE id=\'' + job.id + '\'');
+  const next = JSON.parse(sql(claim));
+  assert.notEqual(next.lease_id, first.lease_id);
+  assert.equal(next.stage, 'script_submitting');
+  assert.equal(sql(advance(first.lease_id, 'script_submitting', { stage: 'script_ready', status: 'processing', script_receipt_id: 'old' })), '');
+  assert.throws(() => sql(advance(next.lease_id, 'script_submitting', { stage: 'reserved', status: 'reserved' })), /invalid_job_transition/);
+  assert.throws(() => sql('SET ROLE authenticated; SELECT monk_factory_claim_job(\'' + job.id + '\',false)'), /permission denied/);
+});
+
+test('daily ON consumes an existing preview once and OFF cannot schedule another effect', options, async () => {
+  account(7);
+  sql('UPDATE monk_factory_accounts SET avatar_id=\'avatar7\',social_profile=\'factory_' + uid(7) + '\',instagram_account_id=\'opaque7\',connected_at=now(),social_checked_at=now() WHERE user_id=\'' + uid(7) + '\'');
+  const job = JSON.parse(sql(reserve(uid(7), 'existing-preview')));
+  sql('UPDATE monk_factory_jobs SET status=\'completed\',stage=\'completed\',video_url=\'https://fixture.example/video.mp4\',video_completed_at=now() WHERE id=\'' + job.id + '\'');
+  sql('SET ROLE service_role; SELECT monk_factory_set_autopost(\'' + uid(7) + '\')');
+  const schedule = 'SET ROLE service_role; SELECT monk_factory_schedule_auto(\'' + uid(7) + '\')';
+  const run = promisify(execFile);
+  const results = await Promise.all(Array.from({ length: 4 }, () => run('psql', [...args(), '-c', schedule], { encoding: 'utf8' })));
+  const scheduled = results.map(x => JSON.parse(x.stdout.trim() || 'null')).filter(Boolean);
+  assert.equal(scheduled.length, 1);
+  assert.equal(scheduled[0].id, job.id);
+  assert.equal(scheduled[0].stage, 'post_ready');
+  assert.equal(sql('SELECT count(*) FROM monk_factory_jobs WHERE user_id=\'' + uid(7) + '\''), '1');
+  sql('UPDATE monk_factory_accounts SET auto_post=false,next_post_at=now()-interval \'1 day\' WHERE user_id=\'' + uid(7) + '\'');
+  assert.equal(sql(schedule), '');
+});
+
+test('server usage counts unknown reservations and hides internal account and job columns from clients', options, () => {
+  const usage = JSON.parse(sql('SET ROLE service_role; SELECT monk_factory_usage(\'' + uid(6) + '\')'));
+  assert.equal(usage.videosRemaining, 2);
+  assert.equal(usage.attemptsRemaining, 2);
+  assert.equal(usage.maxSeconds, 20);
+  assert.throws(() => sql('SET ROLE authenticated; SELECT stripe_customer_id,checkout_nonce FROM monk_factory_accounts'), /permission denied/);
+  assert.throws(() => sql('SET ROLE authenticated; SELECT evidence,image_blob_key FROM monk_factory_jobs'), /permission denied/);
 });
