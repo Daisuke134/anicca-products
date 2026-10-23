@@ -29,6 +29,9 @@ with-browser.shのx:anicca leaseを使い、identity内のpersistent default con
 
 ## TODO
 - [x] exact copy/目的/既存source/文字数/fresh read-only確認を完了する。
-- [ ] このplanとRegistry公開証拠をcommit/push/mainへ反映する。
-- [ ] live本人/重複/UI/fence後にnative投稿1回、公式receiptとpermalinkを照合する。
+- [x] このplanとRegistry公開証拠をcommit/push/mainへ反映する。
+- [x] live本人/重複/UI/fence後にnative投稿1回、公式receiptとpermalinkを照合する。
 - [ ] Grokへ既存BOARDから具体協力を依頼し、受領・投稿を区別して記録する。
+
+## 実投稿
+PR617/main0d3aa13c077f845b3c4bfb8b3b77fe2b91624336で先行契約を反映し、native CreateTweetの本人ID2113673062554247580/body/expanded目的URL+UTMを照合する。直後のtarget切断でpermalink確認は別の公式公開GETへ移し本文一致、送信1/再送0/Postiz0。公開 https://x.com/selawmqt/status/2113673062554247580 。Grokの依頼はLM PR8749のBOARDへ記録し、main/受領/実投稿は別の状態で追跡する。click/導入/注文/利益は未測定のまま。証拠 → docs/evidence/ai-monk-plugin-x-launch-20261024.json。

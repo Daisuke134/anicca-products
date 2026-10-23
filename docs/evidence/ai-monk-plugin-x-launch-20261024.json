@@ -1,0 +1,56 @@
+{
+  "run_id": "ai-monk-plugin-x-launch-20261024",
+  "state": "published",
+  "tweet_id": "2113673062554247580",
+  "author": "selawmqt",
+  "permalink": "https://x.com/selawmqt/status/2113673062554247580",
+  "full_text": "AI monks pitch ebooks. What are they actually selling?\n\nI built a free database + Codex plugin:\n73 profiles. 139 sources.\nProducts, prices, video hooks and script playbooks.\n\nRevenue claims and unverified candidates are labeled.\n\nhttps://t.co/iJ2V6e1IlS",
+  "expanded_urls": [
+    "https://aniccaai.com/ai-monk-database?utm_source=x&utm_medium=social&utm_campaign=ai_monk_plugin_launch_v011"
+  ],
+  "expected_text_sha256": "2b8390d3e34adce9aa2a06f40f93817c8fbb468731375871b485b5f91e392d81",
+  "provider_writes": 1,
+  "resends": 0,
+  "postiz_writes": 0,
+  "response_status": 200,
+  "at": "2026-10-23T16:45:03.274844+00:00",
+  "metrics": {
+    "views": null,
+    "clicks": null,
+    "orders": null
+  },
+  "permalink_body_matches": true,
+  "permalink_readback_at": "2026-10-23T16:46:44.904654+00:00",
+  "permalink_readback_method": "crwl independent GET of official X permalink",
+  "permalink_body_sha256": "9f902bba5de6b892cbe9d8172a5d9837afe4313ec2f07ece83b69718ed3d208b",
+  "separate_target_readback": false,
+  "separate_public_GET_readback": true,
+  "target": "@selawmqt",
+  "registered_identity": "x:anicca",
+  "submitted_text": "AI monks pitch ebooks. What are they actually selling?\n\nI built a free database + Codex plugin:\n73 profiles. 139 sources.\nProducts, prices, video hooks and script playbooks.\n\nRevenue claims and unverified candidates are labeled.\n\nhttps://aniccaai.com/ai-monk-database?utm_source=x&utm_medium=social&utm_campaign=ai_monk_plugin_launch_v011",
+  "submitted_text_sha256": "2b8390d3e34adce9aa2a06f40f93817c8fbb468731375871b485b5f91e392d81",
+  "destination": "https://aniccaai.com/ai-monk-database?utm_source=x&utm_medium=social&utm_campaign=ai_monk_plugin_launch_v011",
+  "x_weighted_upper_bound": 253,
+  "pre_submit_fence": {
+    "exclusive_create": true,
+    "fsync_before_click": true,
+    "release_sha": "0d3aa13c077f845b3c4bfb8b3b77fe2b91624336",
+    "prepared_at": "2026-10-23T16:45:02.671825+00:00"
+  },
+  "fresh_read_only_copy_check": {
+    "blocking": 0,
+    "live_product_facts": true,
+    "hash_and_weighted_length": true
+  },
+  "verification_corrections": {
+    "composer_selector_ambiguity": "pre-effect only; scoped to the unique dialog textarea/button before submit",
+    "post_response_target_closed": "official receipt saved before navigation; independent public GET verified the permalink; no repeated click"
+  },
+  "grok_cooperation": {
+    "channel": "life-manager docs/team/BOARD.md",
+    "pull_request": "https://github.com/Daisuke134/life-manager/pull/8749",
+    "state": "request_branch_pushed_main_pending",
+    "received": null,
+    "grok_post_permalink": null
+  }
+}
