@@ -17,15 +17,15 @@
 
 ## 所有と順序
 
-primaryが受入、review、Release/asset公開とmain統合を所有する。bounded workerはpackages/ai-monk-plugin/{plugin.json,README.md}、本spec、対応docs/evidenceの新receiptとPlugin v0.1.2計画の後続pointerを所有する。master planはprimaryのみ編集する。他者の編集を上書きしない。worktreeは既存 ai-monk-plugin-v012-20261024 を保護store削除0で再利用する。CASES/DEMOはbranch feat/ai-monk-plugin-review-v013-20261024の履歴として保持し、PACKAGE sourceは最新origin/main 1f42032764c59530f1f81b4019676ff12e06f773から新branch feat/ai-monk-plugin-v013-20261024を作る。
+primaryが受入、review、Release/asset公開とmain統合を所有する。bounded workerはpackages/ai-monk-plugin/{plugin.json,README.md}、本spec、対応docs/evidenceの新receiptとPlugin v0.1.2計画の後続pointerを所有する。master planはprimaryが所有し、公開結果の最終docs unitだけPL-1のv0.1.3公開状態をworkerが更新する。他者の編集を上書きしない。worktreeは既存 ai-monk-plugin-v012-20261024 を保護store削除0で再利用する。CASES/DEMOはbranch feat/ai-monk-plugin-review-v013-20261024の履歴として保持し、PACKAGE sourceは最新origin/main 1f42032764c59530f1f81b4019676ff12e06f773から新branch feat/ai-monk-plugin-v013-20261024を作る。
 
 - [x] SPEC: 本specを先にcommit/pushし、remote objectを確認する。spec-first commit c246a82f6を使用する。
 - [x] CASES: 追加positive1/2・negative1/2/3を各1回、全exit0で実行し、結果/制約・元hashを保存する。negative2は説明不足の部分充足として残す。
 - [x] DEMO: private動画と対応manifestをprimaryが目視/元データ照合し、非authorの独立read-only review SHIP/Blocking0を受入する。
 - [x] PUBLIC: primaryが独立review後にdemo Release 422351662 / asset 670552046を公開し、匿名GET200・3,681,253 bytes・レビュー済み動画SHA256一致を確認する。GitHub immutable=falseを保持する。
-- [ ] PACKAGE: v0.1.3 metadata source acceptanceは完了し、branchのcommit/pushでremote objectを確認する。primaryの独立review/CI/main統合・固定mainの新ZIP作成/公開は未完。
+- [x] PACKAGE: metadata sourceの独立review SHIP/Blocking0とPR639/main71ae730a93648edc76b041fd850bbfbb71e3ce53への統合を受入する。固定mainの4regular filesからv0.1.3 ZIPを作成し、Release422362726/asset670585099の公開downloadと公式digest、独立公開review PASS/Blocking0を確認する。GitHub immutable=false、正式ChatGPT掲載0、v0.1.3 native再modelrun0を保持する。
 
-現在cursor: PACKAGEのprimary source review / CI / main / ZIP。DEMOの独立照合とPUBLICは完了、正式提出と全体成果は未完。既存3positiveの証拠は docs/evidence/ai-monk-plugin-native-v012-20261024.json。正式ChatGPT提出/掲載、Muse審査、Factory実利用/収益は未完のままとする。
+現在cursor: primaryによる正式ChatGPT提出の外部gate確認とupload/submit/審査/掲載の個別受入。DEMOの独立照合・PUBLIC・PACKAGEは完了、正式提出と全体成果は未完。既存3positiveの証拠は docs/evidence/ai-monk-plugin-native-v012-20261024.json。正式ChatGPT提出/掲載、Muse審査、Factory実利用/収益は未完のままとする。
 
 
 ## CASES / private DEMOのsource結果
@@ -49,7 +49,7 @@ private最終デモは `/Users/anicca/.local/state/life-manager/ebook/evidence/a
 
 対応manifestは同private directoryの `demo-manifest.json`。表示105件の元JSONL行/JSON path/原文span/hash、元5files不変、文字範囲とprivate情報除外、動画形式/faststart/full decodeをfocused受入で確認する。P2/P4原文promptと追加詳細cardは単frame実寸で目視し、折返しによる非空白文字の欠落0。ローカル動画renderは初稿と最終の2回、text card描画23枚・contact sheet2枚。Factory生成・新有料provider API・AI avatar/画像・合成voiceは0として別に記録する。
 
-sanitized receiptは `docs/evidence/ai-monk-plugin-review-readiness-20261024.json`。rawJSONL・動画・元private shopper情報はrepoへ置かない。CASES/DEMO source unitのpackage編集・外部publishは0として履歴を保持する。primaryは独立照合後にdocsをPR637/main1f42032764c59530f1f81b4019676ff12e06f773へ統合し、その固定mainから専用demo Releaseを公開してURL GET/hashを確認する。PACKAGE sourceはこの確認済みURLをmetadataへ加える別unitとし、既存v0.1.2 ZIP/Release・master plan・Factory・browser/sharedstateは変更しない。新v0.1.3 ZIPと正式upload/submit/掲載は未完のままとする。
+sanitized receiptは `docs/evidence/ai-monk-plugin-review-readiness-20261024.json`。rawJSONL・動画・元private shopper情報はrepoへ置かない。CASES/DEMO source unitのpackage編集・外部publishは0として履歴を保持する。primaryは独立照合後にdocsをPR637/main1f42032764c59530f1f81b4019676ff12e06f773へ統合し、その固定mainから専用demo Releaseを公開してURL GET/hashを確認する。PACKAGE sourceはこの確認済みURLをmetadataへ加える別unitとし、そのunitでは既存v0.1.2 ZIP/Release・master plan・Factory・browser/sharedstateを変更しない。後続v0.1.3 ZIPの公開結果は本specのPACKAGE公開結果を参照する。正式upload/submit/掲載は未完のままとする。
 
 ## 独立review受入
 
@@ -75,4 +75,12 @@ spec先行commit `67775971d4bbd883f1b211626ce5dfa5550cc5a9` はpackageがv0.1.2�
 
 source receiptは `docs/evidence/ai-monk-plugin-v013-source-20261024.json`、private受入は `/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v013-source-20261024/`。rootの公開receipt/masterだけが追加された最新origin/main `894dfd6ea29f8eb3086aa95d6e9a43d1b4ee19f5` をfetchで確認し、その2文書は編集しない。既存v0.1.2 ZIP/Release・専用demo Release・Factory/browser/credential/sharedstate・外部publishは変更しない。v0.1.3 native再runと正式審査合格は主張せず、negative2 partialは保持する。
 
-primaryは独立source review/CI/PR/mainの受入後、その40桁main Git objectからREADME.md・assets/icon.png・mcp.json・plugin.jsonを固定順に取り出す。manifest.version 0.1.3とverified demo URL、4filesのsource hashを確認し、標準zipfileの固定timestamp 1980-01-01・Unix mode100644・DEFLATE level9で `ai-monk-index-plugin-0.1.3.zip` を作る。作業WT bytesやv0.1.2 ZIPを入力にしない。新tag `ai-monk-plugin-v0.1.3` とassetを公開し、公式digestと匿名download hash、GitHub immutable属性を実readbackする。既存v0.1.1/v0.1.2と別demo Releaseは保持する。PACKAGEの公開と正式upload/submit/審査/掲載はprimaryの未完作業である。
+primaryは独立source review/CI/PR/mainの受入後、その40桁main Git objectからREADME.md・assets/icon.png・mcp.json・plugin.jsonを固定順に取り出す。manifest.version 0.1.3とverified demo URL、4filesのsource hashを確認し、標準zipfileの固定timestamp 1980-01-01・Unix mode100644・DEFLATE level9で `ai-monk-index-plugin-0.1.3.zip` を作る。作業WT bytesやv0.1.2 ZIPを入力にしない。新tag `ai-monk-plugin-v0.1.3` とassetを公開し、公式digestと匿名download hash、GitHub immutable属性を実readbackする。既存v0.1.1/v0.1.2と別demo Releaseは保持する。この手順の公開受入は次節の結果で確定し、正式upload/submit/審査/掲載はprimaryの未完作業として分ける。
+
+## PACKAGE公開結果と最終docs受入契約
+
+v0.1.3のsource head5cf5d4f59d0bd0ce3ef2604a79eebfa7d8b2eb71はPR639で固定main71ae730a93648edc76b041fd850bbfbb71e3ce53へ統合する。独立source reviewはSHIP/Blocking0、CodeRabbitはSUCCESS。既存Landing/Index workflowのpath対象外であり、全suiteや追加workflowの実行成功へ読み替えない。primaryがmainの4regular filesからZIPを作成し、tag ai-monk-plugin-v0.1.3、Release422362726、asset670585099として公開する。733,641 bytes、SHA256 `b64a4682f0fdd4e6408f720ced9d5540abcaeb560c2ecb52cfc883ffce056ac5` が公式digestと匿名GET200で一致する。GitHub immutable=falseであり、Release lockを主張しない。
+
+非authorの既存read-only検証者は公式Release/tag、公開ZIP、固定main/sourceの4regular filesを実照合し、PASS/SHIP/Blocking0を返す。新fresh threadとは主張しない。private根拠は `/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v013-release-20261024/verification-independent-release-review.json`、SHA256 `65bd70cd8927149fc183c78cc9e37db54ea4cb1cf5fb278093b160cc2d53413a`。v0.1.3はmetadata-onlyで、native再modelrun0。実8試験はv0.1.2の6full/1recovery/1partial・研究v0.4.6/v0.4.7混在のまま保持する。公開ZIP/デモの受入から正式ChatGPT掲載や審査合格を推定しない。
+
+最終docs unitは最新main71ae730a93648edc76b041fd850bbfbb71e3ce53から、既存clean WT `/Users/anicca/Projects/anicca-products-worktrees/ai-monk-product-prices-v046-20261024` にbranch `docs/ai-monk-plugin-v013-release-20261024` を作る。本specを先に更新し、sanitized release receipt `docs/evidence/ai-monk-plugin-v013-release-20261024.json`、v0.1.2 planの現行pointer、master PL-1の公開状態だけを揃える。既存証拠のhash/JSON/参照・diffを最小確認し、commit/pushとremote object一致・cleanまでworkerが完了する。source/browser/credential/Release/投稿・Factory記述は変更せず、PR/mergeとOpenAIの最新外部gate観測はprimaryへ残す。
