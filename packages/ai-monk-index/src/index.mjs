@@ -110,3 +110,8 @@ export function getMonetization(options = {}) {
   for (const a of accounts) for (const o of a.offers) offerTypes[o.type] = (offerTypes[o.type] ?? 0) + 1;
   return { metadata, note: 'Prices are displayed prices, not orders. Creator claims and seller counters are unaudited and are kept separate.', offer_type_counts: offerTypes, accounts, sources: sourcesFor(accounts.map(x => directoryAccounts.find(a => a.id === x.account_id))) };
 }
+
+/** Creator-published playbooks (script formula, hooks, cadence, funnel, monetization), source-linked and unaudited. */
+export function getPlaybooks() {
+  return { metadata, note: 'Creator statements, not audited. Use the formula and hooks as patterns; do not copy scripts verbatim.', playbooks: database.playbooks ?? [] };
+}

@@ -26,7 +26,7 @@ test('SDK HTTP client uses the same source-linked tools across stateless request
   const client = new Client({ name: 'http-acceptance', version: '1' });
   t.after(() => client.close());
   await client.connect(transport);
-  assert.equal((await client.listTools()).tools.length, 5);
+  assert.equal((await client.listTools()).tools.length, 6);
   for (const [name, args, expected] of [
     ['search_ai_monks', { language: 'English', limit: 1 }, searchAccounts({ language: 'English', limit: 1 })],
     ['get_ai_monk', { id: 'yang-mun' }, getAccount('yang-mun')],
