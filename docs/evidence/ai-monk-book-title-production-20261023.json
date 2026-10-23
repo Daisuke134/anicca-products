@@ -182,8 +182,9 @@
       "language_observation": {
         "shared_document_html_lang": "en",
         "book_schema_inLanguage": "ja",
-        "main_lang_live_readback": "deferred_to_primary_final_ui_readback",
-        "interpretation": "共有htmlのlang=enだけでは不具合と断定しない。日本語本文のmain lang=jaはprimaryの最終UI readbackで確認する。"
+        "main_lang_live_readback": "ja",
+        "interpretation": "最終の公開ブラウザreadbackで日本語本文main lang=jaと390pxの横overflowなしを確認する。",
+        "main_lang_evidence": "docs/evidence/ai-monk-business-ui-production-20261023.json"
       }
     }
   },
@@ -195,7 +196,6 @@
     "Stripe既存商品名の公式readbackは別の証拠文書を参照。ここではproviderを追加操作しない。",
     "deployment_context_as_providedはprimaryから与えられた実行情報であり、この担当がデプロイ実行IDを独立に再検証したものではない。",
     "匿名ダウンロード保護や非公開ファイルのHTTP statusは、この題名・表紙確認では再検証しない。",
-    "JAの共有htmlはlang=en。本文のmain lang=jaの本番確認はprimaryの最終UI readbackへ委ね、未解決bugとは断定しない。",
     "この文書化では追加の外部取得・ブラウザ操作・認証・購入を行わない。"
   ]
 }

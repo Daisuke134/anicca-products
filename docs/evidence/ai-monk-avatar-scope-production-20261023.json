@@ -40,11 +40,11 @@
     ]
   },
   "status": "passed",
-  "scope": "Original profile asset hashes and native browser decoding at the first scoped public release",
+  "scope": "初回の対象範囲反映後に、原プロフィール画像のhashと通常ブラウザでの画像decodeを確認する。",
   "limitations": [
-    "73 directory entries include 66 discovery candidates; profile imagery does not confirm an AI video avatar.",
-    "71 displayed images include one platform default profile icon; two entries retain initials because exact profile images were unavailable.",
-    "The revenue value is a creator-reported historical three-month gross revenue lower bound, not audited or a current monthly estimate.",
-    "Later source and product-preview updates are verified separately in the final business UI evidence."
+    "73掲載対象は未確認候補66件を含む。プロフィール画像だけでAI動画avatarとは認定しない。",
+    "表示画像71件はplatform標準icon1件を含み、正確な画像が取得できない2件は頭文字を表示する。",
+    "売上は過去の3か月gross revenueの本人申告下限であり、監査済み売上や現在月商ではない。",
+    "後続のsource・商品preview更新は最終ビジネスUI証拠で確認する。"
   ]
 }

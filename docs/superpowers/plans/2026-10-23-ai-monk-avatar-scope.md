@@ -17,7 +17,7 @@ H1は`AI Monk Database`を保ち、説明文はAI monk video avatarsを直接示
 - [x] dataのscopeと共有selector、Web/CLI/MCP/copy/OGを最小変更。関連9＋12テストPASS。既存75record/48sourceの内容と依存package recordは不変。
 - [x] 関連テスト・fresh source確認・CI、main統合。初回本番Web/MCPの掲載scopeと画像を確認。
 - [x] 更新CLI v0.3.0をGitHub Releaseへ公開し、公開URLからの導入と73件・55出典を確認。
-- [ ] 最新商品previewの本番反映を確認し、最終Web readbackとspec/evidenceを保存。
+- [x] 最新商品previewの本番反映を確認し、最終Web readbackとspec/evidenceを保存。
 
 順序変更: 旧cursorは73画像の公開だった。Daisが水彩/イラストを除きAI monk video avatarsへ絞るよう指定したため、scope修正→画像sourceの統合→本番確認へ変更する。既存Postiz/HeyGen effectは中断・再送しない。scope sourceはPR572/mainへ統合済み。source証拠 → `docs/evidence/ai-monk-avatar-scope-source-20261023.json`。
 
@@ -62,6 +62,8 @@ PR576/main `8af42e44d395a4dd4ee7d3fc8941f52c812b6001`で研究source55へ更新�
 
 最新snapshotはNetlify run39893057802で反映し、canonical SHA256 `1bc7880a88f32e082744eaab4c6b8d27d6a14a7b2dce07cd0d30237825f34f45`、75archive/73directory/55sourcesが公開MCP・CLI/stdioと一致する。v0.3.0の公式tagはmain `8af42e44d395a4dd4ee7d3fc8941f52c812b6001`、tarballは27,970bytes/SHA256 `616b39cc8f69d39756bd4003d38a10afa741c7e676da5811e05e1d4328303eef`。GitHub公式assetと公開URL導入を確認する。書籍の題名・表紙も公開URLで一致し、JA既存Stripe商品名だけを指定題名へ更新、価格objectは不変。
 
-現在cursor: PR578/main `708b7adbd554d6bf8b216c8b7f4657a6497b03dc`の商品previewを本番確認し、最終Web readbackを保存する。定期task初回の自然run、全候補の動画形式精査・画像2件/標準icon1件の補完、全creator売上、factory復旧・売上・subscriptionは未完のまま。
+PR578/main `708b7adbd554d6bf8b216c8b7f4657a6497b03dc`はLanding CI39893316472とNetlify39893766896がsuccess。最終の通常ブラウザreadbackは最新2商品、IG/YouTubeのdated snapshot、73card、71画像＋2頭文字、AI status非表示、followers/views/revenue sort、対象外2件の検索除外、320/390pxの横overflowなし、client error0を確認する。JA本文の`main lang=ja`と指定題名も確認する。画像hash/native decodeは初回public proofを参照し、画像bytesを変えないpreview修正で再検証を増やさない。
 
-公開証拠 → `docs/evidence/ai-monk-avatar-scope-production-20261023.json`、`docs/evidence/ai-monk-business-mcp-production-20261023.json`、`docs/evidence/ai-monk-cli-mcp-v03-release-20261023.json`、`docs/evidence/ai-monk-book-title-production-20261023.json`。
+現在cursor: AM-14 / AI Monk Factoryの既存ownerの復旧。運用TODO正本はLife ManagerのS11を参照する。定期task初回の自然run、全候補の動画形式精査・画像2件/標準icon1件の補完、全creator売上、factory復旧・実売上・subscriptionは未完のまま。
+
+公開証拠 → `docs/evidence/ai-monk-avatar-scope-production-20261023.json`、`docs/evidence/ai-monk-business-ui-production-20261023.json`、`docs/evidence/ai-monk-business-mcp-production-20261023.json`、`docs/evidence/ai-monk-cli-mcp-v03-release-20261023.json`、`docs/evidence/ai-monk-book-title-production-20261023.json`。
