@@ -25,17 +25,25 @@
 3. IG4profileとYouTube subscriberへdated snapshotを追記。旧followers/posts/screenshot観測を削除しない。IGはvalue/display_value/rounded statusとcapture日時を保持する。
 4. Yang Munの既存3sampleの旧views/日付/sourceをmetricsへ保存し、新views観測を追加。current views/views_captured_atを更新し、`views_source_id`を新出典へ分離。旧`source_id`・structure_summary・media_status・uploaded_at・durationは保持する。
 5. Ming SanとYan Chenへ出所付きの現在offerを追記する。Yanの元cropped screenshot観測は履歴として保持し、公開bioのfull URL確認を別観測にする。健康効果・urgencyは転載しない。既存unknownsのうち今回解決したURL/現在観測だけを限定補足し、未解決creator/売上等は維持する。
-6. READMEの現更新日・source実数・73対象（研究7+候補66）を合わせる。75archive、対象外2、AI status、USD213000超/3か月の報道値は不変。
-7. 最小関連既存テスト、全source参照、旧source/過去観測の保存、canonical ID/AI flag/対象外/revenueの不変、限定差分・secret/署名URL scan・diff checkを確認する。
-8. 許可pathのみcommit/pushしremote object一致、PR作成/attach、head/CIと限界を報告して停止する。merge/productionを実行しない。
+6. Yang Munの既存2offerは元source `yangmun-journey-store` のURLだけを補完する。現在価格の再取得ではなく既存観測への導線補完とする。
+7. READMEの現更新日・source実数・73対象（研究7+候補66）を合わせる。75archive、対象外2、AI status、USD213000超/3か月の報道値は不変。
+8. 最小関連既存テスト、全source参照、旧source/過去観測の保存、canonical ID/AI flag/対象外/revenueの不変、限定差分・secret/署名URL scan・diff checkを確認する。
+9. 許可pathのみcommit/pushしremote object一致、PR作成/attach、head/CIと限界を報告して停止する。merge/productionを実行しない。
 
 ## TODO・cursor
 
 - [x] 最新main/remote・所有境界・新worktree cleanを確認。
 - [x] canonical schema、README、取得済みpublic header/metadataの許可fieldを読む。
-- [ ] 計画の先行commit/pushとremote確認。
-- [ ] source追記・過去観測保存・現在指標/商品事実・README更新。
-- [ ] 既存関連テストと最小source受入。
+- [x] 計画の先行commit/pushとremote確認（`9c710a52d2e86e4bb9344c21e1979002676c102d`）。
+- [x] source追記・過去観測保存・現在指標/商品事実・README更新。
+- [x] 既存関連テストと最小source受入。
 - [ ] 限定commit/push・PR/attach・head/CIをrootへ引継ぎ。
 
-現在cursor: 計画の先行commit/push。実観測以上の数値・AI認定・売上は作らない。
+現在cursor: source受入完了。限定commit/push→PR作成/attachとhead/CIを報告し停止する。PR/CI状態はGitHubと完了報告を正本とし、rootへ統合・release・本番確認を引き継ぐ。実観測以上の数値・AI認定・売上は作らない。
+
+## 実施結果
+
+- 新capture sourceは7件、重複IDなしで総55。旧48source、75ID/対象外2/AI状態・売上報道、他71accountと全旧platform snapshot/offer fieldを保持。
+- IG4snapshotを元の丸め表示付きで追加。YT3sampleの旧viewsはmetricsに保存し、新views出典はviews_source_idとmetrics.source_idへ分離。metadata-onlyの観測範囲を保持。
+- 新2productにas_of=2026-10-23。Mingは本体price不明、Yanはseller表示EUR9.95/103頁・availability不明。Yang Mun既存2offerのurlだけ元sourceから補完。
+- 既存12helper/SSR+13package=25tests PASS。新出典のMCP応答、全41source参照、history不変、canonical hashとsecret/署名URL scanを確認。独自evidenceは `docs/evidence/ai-monk-metrics-refresh-20261023.json`。

@@ -1,0 +1,258 @@
+{
+  "schema_version": "anicca.ai-monk-metrics-refresh.v1",
+  "run_id": "ai-monk-metrics-refresh-20261023",
+  "owner_id": "ai_monk_ui_references",
+  "base_sha": "3085d15b5ab7aaf661acc6cec4a322337040f2ec",
+  "plan_commit": "9c710a52d2e86e4bb9344c21e1979002676c102d",
+  "branch": "data/ai-monk-metrics-refresh-20261023",
+  "plan": "docs/superpowers/plans/2026-10-23-ai-monk-metrics-refresh.md",
+  "status": "source_acceptance_passed_pending_root_merge_release_and_production",
+  "updated_at": "2026-10-23",
+  "scope": {
+    "changed_account_ids": [
+      "yang-mun",
+      "ming-san",
+      "yan-chen-monjechen",
+      "yangjun"
+    ],
+    "archive_records": 75,
+    "directory_records": 73,
+    "researched_directory_profiles": 7,
+    "unverified_discovery_leads": 66,
+    "excluded_records": [
+      "kai-tsukimi",
+      "buddha-would-say"
+    ],
+    "old_sources": 48,
+    "new_sources": 7,
+    "total_sources": 55,
+    "new_source_ids": [
+      "yangmun-ig-20261023",
+      "mingsan-ig-20261023",
+      "monjechen-ig-20261023",
+      "yangjun-ig-20261023",
+      "yangmun-yt-metrics-20261023",
+      "beravia-beetroot-product-20261023",
+      "monjechen-calm-guide-20261023"
+    ],
+    "source_deduplication": "追加ID7件は既存IDと重複なし。IG等の同じ公開URLでも日付・取得経路が違う観測は新capture sourceとして保持。旧48sourceを変更しない。",
+    "package_version": "0.3.0"
+  },
+  "observations": {
+    "instagram": [
+      {
+        "account_id": "yang-mun",
+        "handle": "yangmunus",
+        "source_id": "yangmun-ig-20261023",
+        "url": "https://www.instagram.com/yangmunus/",
+        "canonical": "https://www.instagram.com/yangmunus/",
+        "captured_at": "2026-10-23T02:48:32.265Z",
+        "method": "ordinary_visible_public_profile_header",
+        "http_status": 200,
+        "identity_matches": true,
+        "original_display": "フォロワー252.3万人",
+        "normalized_value": 2523000,
+        "rounded": true
+      },
+      {
+        "account_id": "ming-san",
+        "handle": "mingsanhealing",
+        "source_id": "mingsan-ig-20261023",
+        "url": "https://www.instagram.com/mingsanhealing/",
+        "canonical": "https://www.instagram.com/mingsanhealing/",
+        "captured_at": "2026-10-23T02:48:33.220Z",
+        "method": "ordinary_visible_public_profile_header",
+        "http_status": 200,
+        "identity_matches": true,
+        "original_display": "フォロワー137.8万人",
+        "normalized_value": 1378000,
+        "rounded": true
+      },
+      {
+        "account_id": "yan-chen-monjechen",
+        "handle": "monjechen",
+        "source_id": "monjechen-ig-20261023",
+        "url": "https://www.instagram.com/monjechen/",
+        "canonical": "https://www.instagram.com/monjechen/",
+        "captured_at": "2026-10-23T02:48:33.904Z",
+        "method": "ordinary_visible_public_profile_header",
+        "http_status": 200,
+        "identity_matches": true,
+        "original_display": "フォロワー134.2万人",
+        "normalized_value": 1342000,
+        "rounded": true
+      },
+      {
+        "account_id": "yangjun",
+        "handle": "monkyangjun",
+        "source_id": "yangjun-ig-20261023",
+        "url": "https://www.instagram.com/monkyangjun/",
+        "canonical": "https://www.instagram.com/monkyangjun/",
+        "captured_at": "2026-10-23T02:48:34.713Z",
+        "method": "ordinary_visible_public_profile_header",
+        "http_status": 200,
+        "identity_matches": true,
+        "original_display": "フォロワー9.5万人",
+        "normalized_value": 95000,
+        "rounded": true
+      }
+    ],
+    "instagram_limits": "root取得の通常公開header readbackから許可fieldのみを転記。元displayの丸めを記録し、精度が異なる旧countから増減率を計算しない。投稿閲覧や追加のInstagram収集は行わない。",
+    "youtube": {
+      "acquisition_owner": "root",
+      "method": "yt-dlp public metadata only",
+      "cookies_used": false,
+      "media_downloaded": false,
+      "channel_id": "UCoMa3p67nJWkk2kk-8hD1jA",
+      "channel_handle": "@Yangmunv2",
+      "channel_identity_matches_all_three": true,
+      "channel_subscriber_observations_added": 1,
+      "samples": [
+        {
+          "video_id": "Er2Ig4GM7z0",
+          "url": "https://www.youtube.com/shorts/Er2Ig4GM7z0",
+          "captured_at": "2026-10-23T02:47:03.550355+00:00",
+          "previous_views": 521549,
+          "previous_as_of": "2026-10-21",
+          "previous_source_id": "yangmun-youtube-short-motivation",
+          "views": 521580,
+          "channel_follower_count": 159000,
+          "duration_seconds": 65,
+          "source_id": "yangmun-yt-metrics-20261023",
+          "original_analysis_source_id_preserved": true,
+          "structure_and_media_status_preserved": true
+        },
+        {
+          "video_id": "Qdv6S7HonSM",
+          "url": "https://www.youtube.com/shorts/Qdv6S7HonSM",
+          "captured_at": "2026-10-23T02:47:03.597544+00:00",
+          "previous_views": 1102388,
+          "previous_as_of": "2026-10-21",
+          "previous_source_id": "yangmun-youtube-short-health",
+          "views": 1102391,
+          "channel_follower_count": 159000,
+          "duration_seconds": 78,
+          "source_id": "yangmun-yt-metrics-20261023",
+          "original_analysis_source_id_preserved": true,
+          "structure_and_media_status_preserved": true
+        },
+        {
+          "video_id": "j8WRhcQvzRM",
+          "url": "https://www.youtube.com/shorts/j8WRhcQvzRM",
+          "captured_at": "2026-10-23T02:47:03.844065+00:00",
+          "previous_views": 12561496,
+          "previous_as_of": "2026-10-21",
+          "previous_source_id": "yangmun-youtube-short-health-metadata",
+          "views": 12561569,
+          "channel_follower_count": 159000,
+          "duration_seconds": 96,
+          "source_id": "yangmun-yt-metrics-20261023",
+          "original_analysis_source_id_preserved": true,
+          "structure_and_media_status_preserved": true
+        }
+      ],
+      "limits": "metadataによる現在viewsの観測。新しい動画視聴・構成分析・health fact-checkを意味しない。旧source_id/structure_summary/media_statusを保持し、旧viewsと新viewsをmetricsへ保存。raw signed metadataは公開しない。"
+    },
+    "products": [
+      {
+        "account_id": "ming-san",
+        "profile_source_id": "mingsan-ig-20261023",
+        "source_id": "beravia-beetroot-product-20261023",
+        "url": "https://beraviahealth.com/products/beetroot",
+        "name": "Beetroot Capsules",
+        "as_of": "2026-10-23",
+        "price": null,
+        "currency": null,
+        "identity_basis": "exact mingsanhealingの公開bioに同product URL。公式product pageで商品名を確認。",
+        "price_boundary": "$24.99は別のMoringa Capsules upsell。本体価格へ割り当てない。"
+      },
+      {
+        "account_id": "yan-chen-monjechen",
+        "profile_source_id": "monjechen-ig-20261023",
+        "source_id": "monjechen-calm-guide-20261023",
+        "url": "https://elmonjeechen.com/products/el-camino-de-vuelta-a-la-calma",
+        "name": "El Camino de Vuelta a la Calma",
+        "as_of": "2026-10-23",
+        "price": 9.95,
+        "currency": "EUR",
+        "price_original_display": "€9,95",
+        "pages": 103,
+        "availability": "unknown",
+        "identity_basis": "exact monjechenの公開bioに同product URL。公式product pageで商品名・103頁・表示価格を確認。",
+        "availability_boundary": "Agotadoとadd-to-cart文言が共存。stock/checkoutを確認せず、買える状態や在庫0と断定しない。",
+        "history": "元screenshot由来のcropped URL/null name/null URL/statusを旧offerとして保持。"
+      }
+    ],
+    "product_acquisition": {
+      "method": "crwl crawl URL -o markdown-fit",
+      "exit_codes": [
+        0,
+        0
+      ],
+      "new_browser_auth_or_paid_calls": false,
+      "facts_only": "商品名、URL、頁数、seller表示価格のみ。効果・urgency・review数を売上や検証済み効能として転用しない。"
+    },
+    "yang_mun_existing_offer_links": {
+      "url": "https://www.yang-mun.com/pages/journey",
+      "source_id": "yangmun-journey-store",
+      "original_source_checked_at": "2026-10-21",
+      "offer_count": 2,
+      "meaning": "既存観測の公式導線をurl fieldへ補完。現在価格・在庫の再観測ではない。"
+    }
+  },
+  "verification": {
+    "status": "PASS",
+    "baseline": {
+      "helper_tests": 8,
+      "package_tests": 13,
+      "failed": 0
+    },
+    "existing_tests": [
+      {
+        "command": "node --test lib/ai-monk-directory.test.mjs test/ai-monk-evidence-rendering.test.mjs",
+        "cwd": "apps/landing",
+        "passed": 12,
+        "failed": 0
+      },
+      {
+        "command": "npm test",
+        "cwd": "packages/ai-monk-index",
+        "passed": 13,
+        "failed": 0,
+        "coverage": "SDK stdio/HTTP/CLI・tarball隔離実行を含む既存suite。既存無視対象依存を再利用し、新規依存なし。"
+      }
+    ],
+    "local_data_readback": "getStats=73records/55sources/updated_at2026-10-23。getAccountの各sample.metrics[].source_idと新offer.source_idがreturned sourcesへ含まれる。views sortの最大標本12561569、revenue213000/3monthsは不変。",
+    "preservation": {
+      "archive_ids_and_order_75": true,
+      "old_48_source_objects": true,
+      "other_71_account_objects": true,
+      "AI_status_evidence_and_identity": true,
+      "directory_exclusions_2": true,
+      "all_old_platform_snapshots": true,
+      "all_old_offer_fields": true,
+      "original_sample_analysis_source_and_watch_status": true,
+      "old_sample_view_values_dates_sources_in_metrics": true,
+      "revenue_observations_and_creator_claims": true,
+      "non_observation_root_fields": true,
+      "package_version_0_3_0": true,
+      "books_articles_images_backend_UI_and_root_specs_untouched": true
+    },
+    "source_references_checked": 41,
+    "dangling_source_references": 0,
+    "canonical": {
+      "path": "apps/landing/public/data/ai-monk-avatar-database-2026.json",
+      "base_sha256": "fa1bda71fa4073bbc8a2f75cb7fe1be0d815c4b1a680fcb1d94449dcb86e1c2d",
+      "sha256": "1bc7880a88f32e082744eaab4c6b8d27d6a14a7b2dce07cd0d30237825f34f45",
+      "bytes": 174008
+    },
+    "secret_signed_metadata_scan": "PASS。canonicalとこのevidenceにはprivate credential/path、署名CDN/media URL、token、cookie、raw metadataを含めない。",
+    "diff_check": "PASS"
+  },
+  "limits": [
+    "観測値の更新であり全75件の最新調査・AI認定・動画形式確認ではない。historical books/articles/receiptsは更新しない。",
+    "フォロワーは丸め表示、subscriberはpublic metadata値。精度差による成長/減少率、audience合算、注文/手数料/利益を作らない。",
+    "USD213000超・3か月の既存creator-reported gross revenueを保持。現在売上や監査済み受注ではない。",
+    "本担当はsource・関連検証・PRまで。version0.3.0のpublish、main統合、UI/MCP反映、本番readbackはrootが所有する。"
+  ]
+}
