@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, Switch, ScrollView, Linking, Alert } from 'react-native';
 import { useRouter, Stack } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { ChevronLeft, Bell, Sun, Moon, Clock, ExternalLink, Crown, Info, Shield, FileText, FlaskConical, Sunrise, RotateCcw } from 'lucide-react-native';
+import { ChevronLeft, Bell, Sun, Moon, Clock, ExternalLink, Crown, Info, Shield, FileText, FlaskConical, Sunrise, RotateCcw, Lock } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import * as Notifications from 'expo-notifications';
 import * as Localization from 'expo-localization';
@@ -9,6 +9,7 @@ import Colors from '@/constants/colors';
 import { useApp } from '@/providers/AppProvider';
 import { getDailyVerse, getLocalizedVerse, stayPresentMessages, stayPresentMessagesJa } from '@/data/verses';
 import { t } from '@/utils/i18n';
+import { isFrequencyLocked } from '@/utils/paywallUtils';
 
 export default function SettingsScreen() {
   const router = useRouter();
@@ -18,6 +19,11 @@ export default function SettingsScreen() {
 
   const handleFrequencyChange = (frequency: 3 | 5 | 7 | 10) => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    // 無料は1日3回まで。4回以上を選ぼうとしたら paywall
+    if (isFrequencyLocked(frequency, isPremium)) {
+      router.push({ pathname: '/paywall', params: { source: 'notifications' } });
+      return;
+    }
     updateSettings({ notificationFrequency: frequency });
   };
 
@@ -46,6 +52,7 @@ export default function SettingsScreen() {
 
   const FrequencyButton = ({ value, label }: { value: 3 | 5 | 7 | 10; label: string }) => {
     const isSelected = settings.notificationFrequency === value;
+    const locked = isFrequencyLocked(value, isPremium);
     return (
       <TouchableOpacity
         style={[
@@ -58,6 +65,7 @@ export default function SettingsScreen() {
         onPress={() => handleFrequencyChange(value)}
         activeOpacity={0.7}
       >
+        {locked && <Lock size={12} color={colors.textMuted} />}
         <Text
           style={[
             styles.frequencyButtonText,
@@ -95,7 +103,7 @@ export default function SettingsScreen() {
         {!isPremium && (
           <TouchableOpacity
             style={[styles.premiumBanner, { backgroundColor: colors.gold }]}
-            onPress={() => router.push('/paywall')}
+            onPress={() => router.push({ pathname: '/paywall', params: { source: 'settings' } })}
             activeOpacity={0.8}
           >
             <Crown size={24} color={Colors.light.background} />
@@ -157,25 +165,12 @@ export default function SettingsScreen() {
             <Text style={[styles.settingDescription, { color: colors.textMuted }]}>
               {t('settings.frequencyHint')}
             </Text>
-            {isPremium ? (
-              <View style={styles.frequencyButtons}>
-                <FrequencyButton value={3} label={t('settings.freq.x3')} />
-                <FrequencyButton value={5} label={t('settings.freq.x5')} />
-                <FrequencyButton value={7} label={t('settings.freq.x7')} />
-                <FrequencyButton value={10} label={t('settings.freq.x10')} />
-              </View>
-            ) : (
-              <View style={styles.frequencyFixed}>
-                <Text style={[styles.frequencyFixedText, { color: colors.text }]}>
-                  {t('settings.frequencyFixed')}
-                </Text>
-                <TouchableOpacity onPress={() => router.push('/paywall')}>
-                  <Text style={[styles.upgradeLink, { color: colors.gold }]}>
-                    {t('settings.upgradeForMore')}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            )}
+            <View style={styles.frequencyButtons}>
+              <FrequencyButton value={3} label={t('settings.freq.x3')} />
+              <FrequencyButton value={5} label={t('settings.freq.x5')} />
+              <FrequencyButton value={7} label={t('settings.freq.x7')} />
+              <FrequencyButton value={10} label={t('settings.freq.x10')} />
+            </View>
           </View>
         </View>
         )}
@@ -467,28 +462,17 @@ const styles = StyleSheet.create({
   },
   frequencyButton: {
     flex: 1,
+    flexDirection: 'row',
+    gap: 4,
     paddingVertical: 12,
     borderRadius: 10,
     alignItems: 'center',
+    justifyContent: 'center',
     borderWidth: 1,
   },
   frequencyButtonText: {
     fontSize: 16,
     fontWeight: '600',
-  },
-  frequencyFixed: {
-    marginLeft: 32,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
-  frequencyFixedText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  upgradeLink: {
-    fontSize: 14,
-    textDecorationLine: 'underline',
   },
   versionText: {
     textAlign: 'center',
