@@ -23,9 +23,9 @@ primaryが受入、review、Release/asset公開とmain統合を所有する。bo
 - [x] CASES: 追加positive1/2・negative1/2/3を各1回、全exit0で実行し、結果/制約・元hashを保存する。negative2は説明不足の部分充足として残す。
 - [x] DEMO: private動画と対応manifestをprimaryが目視/元データ照合し、非authorの独立read-only review SHIP/Blocking0を受入する。
 - [x] PUBLIC: primaryが独立review後にdemo Release 422351662 / asset 670552046を公開し、匿名GET200・3,681,253 bytes・レビュー済み動画SHA256一致を確認する。GitHub immutable=falseを保持する。
-- [ ] PACKAGE: 新branchで確認済みdemo URLを含むv0.1.3 metadataのsource acceptanceを準備する。primaryが独立review/CI/main統合後、固定mainの新ZIPを作成・公開する。
+- [ ] PACKAGE: v0.1.3 metadata source acceptanceは完了し、branchのcommit/pushでremote objectを確認する。primaryの独立review/CI/main統合・固定mainの新ZIP作成/公開は未完。
 
-現在cursor: PACKAGE source。DEMOの独立照合とPUBLICは完了、正式提出と全体成果は未完。既存3positiveの証拠は docs/evidence/ai-monk-plugin-native-v012-20261024.json。正式ChatGPT提出/掲載、Muse審査、Factory実利用/収益は未完のままとする。
+現在cursor: PACKAGEのprimary source review / CI / main / ZIP。DEMOの独立照合とPUBLICは完了、正式提出と全体成果は未完。既存3positiveの証拠は docs/evidence/ai-monk-plugin-native-v012-20261024.json。正式ChatGPT提出/掲載、Muse審査、Factory実利用/収益は未完のままとする。
 
 
 ## CASES / private DEMOのsource結果
@@ -65,3 +65,14 @@ verified demo URLは https://github.com/Daisuke134/anicca-products/releases/down
 変更はmanifest version 0.1.3、extensions.com.openai.review.demo_recording_url、release_notes、READMEだけとする。既存6tools・endpoint・icon・catalog・commercefalse・interface説明・5positive/3negative promptを保持する。デモの実試験はv0.1.2の既存8runで、6件の期待動作充足・1件の入力エラー回復・1件の部分充足、研究v0.4.6/v0.4.7の混在を保持する。v0.1.3 native再run、正式審査合格、掲載を主張しない。
 
 source acceptanceは既存公式portable schema 1.0.0と隔離したCodex package/config load、manifest/README/URL/versionの整合、確認済み公開URLの公式asset metadataを最小で照合する。軽微なmetadata変更として永久test framework・全suite・新依存を追加せず、model run・browser・公開・課金・投稿・Factory変更0。root所有のmasterとpublic walkthrough receiptは編集しない。primaryが独立review/CI/PR/mainを受入した後、固定mainの4filesから新v0.1.3 ZIPを作る。
+
+
+## PACKAGE source受入結果
+
+spec先行commit `67775971d4bbd883f1b211626ce5dfa5550cc5a9` はpackageがv0.1.2のままでpush・remote一致・cleanを確認し、その後にmetadataを編集する。manifestの差分はversion 0.1.3、確認済みdemo_recording_url、release_notesの3fieldだけである。READMEは現行版、実ログ再生デモと実際の8case/混在snapshot/限界、新v0.1.3 tag/ZIP手順を揃える。既存interface説明、6tools、5positive/3negative、commercefalse、MCP endpoint、icon、catalogは元mainのbytesまたは構造と一致する。
+
+既存公式Agent Plugins 1.0.0のplugin/mcp schemaは各error0。Codex CLI0.160.0の隔離marketplace add・plugin add・plugin list・MCP listは4段階ともexit0で、実loadされたversion0.1.3/demo URL/既存endpointを確認する。auth file/参照は作らず、model run・実research tool・モデル/provider指定・共有設定変更0。GitHub公式Release metadataの再GETでもasset670552046のURL/3,681,253 bytes/digest/immutable=falseがprimaryの匿名GET200と一致する。追加依存・永久test framework・全suite・全ページbuildは0で、この軽微metadata変更に必要な受入へ絞る。
+
+source receiptは `docs/evidence/ai-monk-plugin-v013-source-20261024.json`、private受入は `/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-plugin-v013-source-20261024/`。rootの公開receipt/masterだけが追加された最新origin/main `894dfd6ea29f8eb3086aa95d6e9a43d1b4ee19f5` をfetchで確認し、その2文書は編集しない。既存v0.1.2 ZIP/Release・専用demo Release・Factory/browser/credential/sharedstate・外部publishは変更しない。v0.1.3 native再runと正式審査合格は主張せず、negative2 partialは保持する。
+
+primaryは独立source review/CI/PR/mainの受入後、その40桁main Git objectからREADME.md・assets/icon.png・mcp.json・plugin.jsonを固定順に取り出す。manifest.version 0.1.3とverified demo URL、4filesのsource hashを確認し、標準zipfileの固定timestamp 1980-01-01・Unix mode100644・DEFLATE level9で `ai-monk-index-plugin-0.1.3.zip` を作る。作業WT bytesやv0.1.2 ZIPを入力にしない。新tag `ai-monk-plugin-v0.1.3` とassetを公開し、公式digestと匿名download hash、GitHub immutable属性を実readbackする。既存v0.1.1/v0.1.2と別demo Releaseは保持する。PACKAGEの公開と正式upload/submit/審査/掲載はprimaryの未完作業である。
