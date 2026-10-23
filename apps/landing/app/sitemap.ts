@@ -121,6 +121,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogEntries,
     ...Array.from({length:Math.max(1,Math.ceil(loadAllBlogPosts().length/BLOG_PAGE_SIZE))},(_,i)=>({url:`${BASE_URL}/blog/archive/${i+1}`})),
     ...businessHubEntries,
+    ...["/affirmation-app-faq","/thankful-faq","/honne-faq"].map((p)=>({url:`${BASE_URL}${p}`})),
   ];
 
   // Deduplicate by URL (defensive).
