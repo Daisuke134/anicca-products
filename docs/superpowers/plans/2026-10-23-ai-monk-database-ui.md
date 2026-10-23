@@ -7,7 +7,7 @@ Daisの公開画面への指摘に従い、見出しを `AI Monk Database` に�
 ## 設計
 
 - 参考: [AvatarFactory](https://avatarfactory.io/ai-influencers) の顔・名前・handle・audienceをまとめるカード、[Virtual Humans](https://virtualhumans.org/#influencers) の人物中心の一覧、[Futurepedia](https://www.futurepedia.io/ai-tools) の分類と件数。コピーや収益主張は流用しない。公開される成果指標は未取得で、UI構成の参考として扱う。
-- Mobbinは接続toolとplugin検索を確認するが利用可能な連携は見つからない。公開homeは取得できる。個別画面の取得状況と既存参照の再確認は `docs/evidence/ai-monk-ui-reference-research-20261023.json` に記録する。未観測の画面を見たとは報告しない。
+- Mobbinは接続toolとplugin検索を確認するが利用可能な連携は見つからない。公開検索カテゴリとSemrushの個別画面を既存ブラウザで確認し、ロゴ・名前・主要情報を揃えたカード、件数とsort、一覧の横のfilterを観測する。取得状況と参照点は `docs/evidence/ai-monk-ui-reference-research-20261023.json` に記録する。
 - 小さい見出し・一文の説明の直下に検索とフィルターを置く。白地、明確な境界、デスクトップ3列・中間2列・モバイル1列で表示する。大きな装飾heroは除く。
 - 全カードに64px以上のプロフィールアイコンを置く。アカウントとの対応を確認できる公開プロフィール原画像を優先し、ローカルに原bytesを保存する。画像の取得元、対応ID、取得日、hashを記録する。第三者画像をCC BY対象にしない。
 - 未取得の画像には名前から作るイニシャルを表示し、実写真と偽らない。読み込み失敗時もイニシャルへ戻る。人物画像を生成して補完しない。
@@ -21,9 +21,9 @@ Daisの公開画面への指摘に従い、見出しを `AI Monk Database` に�
 理由: Daisが公開ページの理解しにくさと全プロフィールのアイコン不足を具体的に指摘しており、現在の公開入口を先に直す。remote MCPのsourceは専用branchにpush済みで保持し、進行中のprovider effectへ触れない。
 
 - [x] 現行実装・データ契約・参照サイトを確認し、仕様を更新する。
-- [ ] 参照記録と原画像を収集する。
-- [ ] 直接的なコピーとコンパクトな一覧、全件アイコンを実装する。
+- [x] 参照記録と原画像を収集する。75件のID対応と7画像のhash/sizeを確認し、未取得68件を明記する。
+- [x] 直接的なコピーとコンパクトな一覧、全件アイコンを実装する。
 - [ ] 画像有無・既存根拠表示の最小テスト、既存検索契約、landing CIを確認する。
 - [ ] mainへ統合し、Netlifyと公開画面・画像を確認する。
 
-現在cursor: 画像収集と並行して一覧UIを実装する。実写真取得の網羅数は収集結果で報告する。
+現在cursor: PR #560の最終headでlanding CIを確認し、main統合と本番readbackを進める。H1/metadata、3列・2列・1列の一覧、全件アイコン、読み込み失敗fallbackを実装し、既存検索・順位・出典を含む7テストはPASS。SSRプレビューを既存ブラウザの1440px/390pxで開き、75カードと横はみ出しゼロを確認する。画像の網羅数と取得限界は最終manifestで報告する。

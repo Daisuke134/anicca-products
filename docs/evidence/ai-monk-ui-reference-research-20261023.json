@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "checked_at": "2026-10-23T00:27:22.018928+00:00",
+  "checked_at": "2026-10-23T00:35:56.311570+00:00",
   "scope": "UI references and attributable profile image collection only. UI, canonical account data and AI-origin status are not modified.",
   "reference_sources": [
     {
@@ -11,7 +11,7 @@
       "status": "public_listing_read",
       "observed_ui": {
         "portrait": "Avatar is a separately browsable UI element in the profile listing.",
-        "grid": "Search listing labels Card and Grid List.",
+        "grid": "The public browser screenshot visibly presents a two-column screenshot gallery beneath a large heading and compact category pills.",
         "search": "Search Results Page, Filtered Search Results and No Results examples are listed.",
         "filter": "Filtering & Sorting is a linked flow category.",
         "density": "Repeated concise screen labels with app names and category links; precise pixel spacing is not observed.",
@@ -22,11 +22,12 @@
         "Give the account name and icon a consistent location; group secondary metadata and detail links."
       ],
       "limits": [
-        "The public listing and semantic labels are read; individual screen pixels are not visually verified.",
         "Direct scrapy on browse/web/apps and the search URL returned 403 while crwl read the public explore listing.",
         "No paid plan, login, signup or MCP connection is established.",
-        "No conversion or usability outcome is measured."
-      ]
+        "No conversion or usability outcome is measured.",
+        "Search listing screenshot and Semrush detail screenshot are visually observed in the registered browser. Other profile-detail pixels remain unverified."
+      ],
+      "visual_verified": true
     },
     {
       "id": "mobbin-public-profile",
@@ -140,7 +141,7 @@
       ],
       "limits": [
         "The vendor advertises directory size and revenue/production claims; these are not independently measured success evidence.",
-        "Its illustrative portrait or unconfirmed original images are not substituted for first-party account images."
+        "Illustrative portraits are excluded. Exact-handle third-party attributions remain explicitly classified and are not described as first-party images."
       ]
     }
   ],
@@ -153,9 +154,16 @@
     },
     {
       "url": "https://mobbin.com/screens/9d9d1461-4626-4863-9248-0ceedf542a13",
-      "status": "title_only",
+      "status": "public_screen_visually_verified",
       "observed_title": "Semrush Web Screen",
-      "visual_verified": false
+      "visual_verified": true,
+      "sha256": "bd1da9c6812adcd6ef06b976a3a04abc7b2c24f4d53d8ee839f66e66023ec812",
+      "observed_ui": [
+        "Logo, account/business name and main metadata align in repeated cards.",
+        "Result count and sort control sit above the list.",
+        "Filters form a right-hand column.",
+        "White rounded cards sit on a light-gray page background."
+      ]
     },
     {
       "url": "https://mobbin.com/screens/74f4187c-e8cc-45d2-be00-f1060f3989c8",
@@ -167,15 +175,18 @@
   "research_limits": [
     "No independently measured conversion/usability results are obtained for these reference directories. Use these as observed UI patterns, not proof of business success.",
     "Mobbin public category listings are available even though tool/plugin discovery returned no installed Mobbin connector.",
-    "No new billing, topup, signup, auth change, message or publication is performed."
+    "No new billing, topup, signup, auth change, message or publication is performed.",
+    "DuckDuckGo HTML began returning a human-verification challenge after the first exact-handle searches. Empty later results are not treated as evidence of no external account/profile. Search was not continued through that challenge."
   ],
   "profile_image_manifest": "apps/landing/public/assets/ai-monk-profiles/profiles.json",
   "profile_image_coverage": {
     "total": 75,
-    "acquired": 3,
-    "platform_profile_avatars": 1,
+    "acquired": 7,
+    "platform_profile_avatars": 3,
     "first_party_named_images": 2,
-    "unknown": 72
+    "unknown": 68,
+    "third_party_attributed_profile_images": 1,
+    "third_party_attributed_content_images": 1
   },
   "acquired_profiles": [
     {
@@ -196,6 +207,69 @@
       "bytes": 183684,
       "content_type": "image/jpeg",
       "unknown_reason": null
+    },
+    {
+      "account_id": "ming-san",
+      "status": "acquired",
+      "handle": "mingsanhealing",
+      "platform": "Instagram",
+      "profile_url": "https://www.instagram.com/mingsanhealing/",
+      "platform_account_id": null,
+      "metadata_source_url": "https://avatarfactory.io/ai-influencers/ming-san",
+      "directory_source_url": "https://avatarfactory.io/ai-influencers",
+      "image_source_url": "https://avatarfactory.io/assets/avatars/ming-san-v3.jpg",
+      "image_role": "third_party_attributed_profile_image",
+      "image_locator": "directory card with exact @mingsanhealing and img alt Ming San profile portrait",
+      "local_asset": "/assets/ai-monk-profiles/ming-san-avatarfactory.jpg",
+      "content_type": "image/jpeg",
+      "bytes": 193992,
+      "sha256": "ca16e04e875a94068189d1a8cae03c56189a9ea59b0fd25ac6c94f74df99e9c2",
+      "checked_at": "2026-10-23T00:29:07.768659+00:00",
+      "transformations": "none; original HTTP response bytes",
+      "limits": "AvatarFactory attributes this portrait to the exact Instagram handle. The original Instagram image, ownership, AI origin and reuse license are not independently verified.",
+      "unknown_reason": null
+    },
+    {
+      "account_id": "yan-chen-monjechen",
+      "status": "acquired",
+      "handle": "monjechen",
+      "platform": "Instagram",
+      "platform_account_id": null,
+      "profile_url": "https://www.instagram.com/monjechen/",
+      "metadata_source_url": "https://flo.uri.sh/visualisation/29805445/embed",
+      "article_source_url": "https://maldita.es/investigaciones/20260727/250-ai-health-instagram-accounts/",
+      "image_source_url": "https://files.maldita.es/uploads/2026/07/6a635b579cfdd.png",
+      "image_role": "third_party_attributed_video_still",
+      "image_locator": "Public Flourish cards row title=Yan Chen, subtitle=@monjechen, image field; card metadata describes a video.",
+      "local_asset": "/assets/ai-monk-profiles/yan-chen-monjechen-maldita.webp",
+      "content_type": "image/webp",
+      "bytes": 154706,
+      "sha256": "2fe19d8f3d56d824fe21f2b68a21f8826cc973e4c8036dc518d1f8d739932340",
+      "checked_at": "2026-10-23T00:34:10.291319+00:00",
+      "transformations": "none; original HTTP response bytes. The source URL ends .png but browser content negotiation returned image/webp.",
+      "limits": "Maldita attributes this card image to exact handle @monjechen. This is account-content imagery from a public investigation, not a verified Instagram avatar. Original ownership and reuse license remain unverified.",
+      "unknown_reason": null
+    },
+    {
+      "account_id": "lead-instagram-masteryunshen",
+      "status": "acquired",
+      "handle": "masteryunshen",
+      "platform": "YouTube",
+      "profile_url": "https://www.youtube.com/@MasterYunShen",
+      "platform_account_id": "UCO97aEYUqorr4hErWQLp2VA",
+      "metadata_source_url": "https://www.youtube.com/@MasterYunShen/shorts",
+      "image_source_url": "https://yt3.googleusercontent.com/xW05NDLF9q4S-nNhIPbOnHGpLp_SAS17gkPk5fg0G8PpXVbPpQj5CpuIyqWtcerODWlvBgmEtQ=s900-c-k-c0x00ffffff-no-rj",
+      "image_role": "platform_profile_avatar",
+      "image_locator": "YouTube channel metadata thumbnails[id=0], 900x900; Stan page links both Instagram @masteryunshen and YouTube @MasterYunShen",
+      "local_asset": "/assets/ai-monk-profiles/lead-instagram-masteryunshen-youtube.jpg",
+      "content_type": "image/jpeg",
+      "bytes": 188365,
+      "sha256": "dae4fddfa0aef1cfa15cdc9f128187974b8766332978c2e50cf04379de345f40",
+      "checked_at": "2026-10-23T00:32:54.818683+00:00",
+      "transformations": "none; original HTTP response bytes",
+      "limits": "The Stan page links the exact canonical Instagram handle and this YouTube channel. The image is the YouTube avatar; equivalence to the Instagram avatar, account ownership and reuse license remain unverified.",
+      "unknown_reason": null,
+      "crosslink_source_url": "https://stan.store/MasterYunShen/p/the-path-to-sacred-stillness"
     },
     {
       "account_id": "kai-tsukimi",
@@ -234,6 +308,27 @@
       "bytes": 251141,
       "content_type": "image/jpeg",
       "unknown_reason": null
+    },
+    {
+      "account_id": "master-kaizen-tiktok",
+      "status": "acquired",
+      "handle": "omaster.kaizen",
+      "platform": "TikTok",
+      "platform_account_id": "7410716049350231073",
+      "profile_url": "https://www.tiktok.com/@omaster.kaizen",
+      "metadata_source_url": "https://www.tiktok.com/@omaster.kaizen",
+      "image_source_url": "https://www.tiktok.com/@omaster.kaizen",
+      "image_source_host": "p16-common-sign.tiktokcdn.com",
+      "image_role": "platform_profile_avatar",
+      "image_locator": "Public profile JSON user.uniqueId=omaster.kaizen, nickname=Master Kaizen, user.avatarMedium. The short-lived signed CDN request URL is deliberately omitted.",
+      "local_asset": "/assets/ai-monk-profiles/master-kaizen-tiktok.jpg",
+      "content_type": "image/jpeg",
+      "bytes": 87951,
+      "sha256": "9ad2dee9f7b66ed261dc93bcb9731202e3fd4a99f3b6a11643eecc8baf9fff19",
+      "checked_at": "2026-10-23T00:35:56.311570+00:00",
+      "transformations": "none; original HTTP response bytes",
+      "limits": "Avatar from the public TikTok profile metadata for exact handle @omaster.kaizen. AI origin, account ownership and reuse license are not independently verified.",
+      "unknown_reason": null
     }
   ],
   "tool_inventory": {
@@ -253,18 +348,11 @@
       "account_id": "yang-mun",
       "source_url": "https://avatarfactory.io/ai-influencers/yang-mun",
       "reason": "The portrait alt explicitly says illustrative; official YouTube avatar is used instead."
-    },
-    {
-      "account_id": "ming-san",
-      "source_url": "https://avatarfactory.io/ai-influencers/ming-san",
-      "reason": "Third-party portrait is named, but first-party image provenance is not established; no portrait is substituted."
     }
   ],
   "unknown_profile_ids": [
-    "ming-san",
     "sifuchen-california",
     "leo-chen",
-    "yan-chen-monjechen",
     "lead-instagram-tempiovita",
     "lead-instagram-monjeshentao",
     "lead-instagram-monacochenn",
@@ -294,7 +382,6 @@
     "lead-instagram-babatenzin",
     "lead-instagram-mongejinmiao",
     "lead-instagram-its-yang-chen",
-    "lead-instagram-masteryunshen",
     "lead-instagram-maitre-chen",
     "lead-instagram-monkcheen",
     "lead-instagram-deor-ie",
@@ -331,13 +418,545 @@
     "lead-instagram-monkshen",
     "lead-instagram-elmaestrolin",
     "lead-instagram-samuelreedcards",
-    "buddha-would-say",
-    "master-kaizen-tiktok"
+    "buddha-would-say"
   ],
   "validation": {
     "all_canonical_accounts_have_manifest_entry": true,
     "canonical_account_ids_unchanged": true,
     "images_modified": false,
-    "image_hashes_verified": true
-  }
+    "image_hashes_verified": true,
+    "acquired_image_count": 7,
+    "unknown_image_count": 68,
+    "paid_tools_used": false,
+    "final_collection_complete": true
+  },
+  "additional_collection": {
+    "method": "Exact Instagram handles from canonical records matched to AvatarFactory directory cards; named portrait image bytes retained without editing.",
+    "new_account_ids": [
+      "ming-san",
+      "lead-instagram-masteryunshen"
+    ],
+    "paid_tools_used": false,
+    "instagram_direct_collection_used": false
+  },
+  "mobbin_browser_visual_verification": {
+    "checked_at": "2026-10-23T00:32:31.351183+00:00",
+    "method": "Registered interactive:dais browser acquired through browser-guard; owned new tab only; lease released. Screenshots viewed.",
+    "screens": [
+      {
+        "url": "https://mobbin.com/explore/web/screens/search",
+        "visual_verified": true,
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "sha256": "446178dbef7f4a23c18a0963c56cdc5984e4c8dfe947f5db1445411834c7b917",
+        "observed_ui": [
+          "Large direct heading and short supporting text.",
+          "Compact category pills above a two-column screenshot gallery.",
+          "Simple white background, strong dark type and restrained gray controls."
+        ],
+        "limits": "Public screenshots are viewed. Interactions beyond navigation are not exercised; no conversion outcome is measured."
+      },
+      {
+        "url": "https://mobbin.com/explore/screens/9d9d1461-4626-4863-9248-0ceedf542a13",
+        "visual_verified": true,
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "sha256": "bd1da9c6812adcd6ef06b976a3a04abc7b2c24f4d53d8ee839f66e66023ec812",
+        "observed_ui": [
+          "Logo, account/business name and main metadata align in repeated cards.",
+          "Result count and sort control sit above the list.",
+          "Filters form a right-hand column.",
+          "White rounded cards sit on a light-gray page background."
+        ],
+        "limits": "Public screenshots are viewed. Interactions beyond navigation are not exercised; no conversion outcome is measured."
+      }
+    ],
+    "screenshots_in_product_repository": false
+  },
+  "unknown_profile_collection_limits": [
+    {
+      "account_id": "lead-instagram-tempiovita",
+      "profile_url": "https://www.instagram.com/tempiovita/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-monjeshentao",
+      "profile_url": "https://www.instagram.com/monjeshentao/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-monacochenn",
+      "profile_url": "https://www.instagram.com/monacochenn/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-linchenhealing",
+      "profile_url": "https://www.instagram.com/linchenhealing/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-jin-miaoo",
+      "profile_url": "https://www.instagram.com/jin.miaoo/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-masteryunsage",
+      "profile_url": "https://www.instagram.com/masteryunsage/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-monchmiao",
+      "profile_url": "https://www.instagram.com/monchmiao/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-maitre-ping-lin",
+      "profile_url": "https://www.instagram.com/maitre_ping.lin/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-lotusfamily1",
+      "profile_url": "https://www.instagram.com/lotusfamily1/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-master-kaion",
+      "profile_url": "https://www.instagram.com/master_kaion/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-maestroyunkai",
+      "profile_url": "https://www.instagram.com/maestroyunkai/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-ming-tao32",
+      "profile_url": "https://www.instagram.com/ming_tao32/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-shen-dao1",
+      "profile_url": "https://www.instagram.com/shen.dao1/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-shin-hyun-official",
+      "profile_url": "https://www.instagram.com/shin_hyun_official/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-tenzinremedios",
+      "profile_url": "https://www.instagram.com/tenzinremedios/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-mestreshentao",
+      "profile_url": "https://www.instagram.com/mestreshentao/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-mongedapaz",
+      "profile_url": "https://www.instagram.com/mongedapaz/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-masterlinghao",
+      "profile_url": "https://www.instagram.com/masterlinghao/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-mestre-jin",
+      "profile_url": "https://www.instagram.com/mestre.jin/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-haku-shinn",
+      "profile_url": "https://www.instagram.com/haku.shinn/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-monktashirok",
+      "profile_url": "https://www.instagram.com/monktashirok/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-monacogendun",
+      "profile_url": "https://www.instagram.com/monacogendun/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-master-li-shen",
+      "profile_url": "https://www.instagram.com/master.li.shen/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-innerequelle",
+      "profile_url": "https://www.instagram.com/innerequelle/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-ken-lu-monk",
+      "profile_url": "https://www.instagram.com/ken.lu.monk/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-yonchenhealing",
+      "profile_url": "https://www.instagram.com/yonchenhealing/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-babatenzin",
+      "profile_url": "https://www.instagram.com/babatenzin_/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-mongejinmiao",
+      "profile_url": "https://www.instagram.com/mongejinmiao/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-its-yang-chen",
+      "profile_url": "https://www.instagram.com/its.yang.chen/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-maitre-chen",
+      "profile_url": "https://www.instagram.com/maitre.chen/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-monkcheen",
+      "profile_url": "https://www.instagram.com/monkcheen/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-deor-ie",
+      "profile_url": "https://www.instagram.com/deor.ie/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-monjaalma",
+      "profile_url": "https://www.instagram.com/monjaalma/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-yunlobsang",
+      "profile_url": "https://www.instagram.com/yunlobsang/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-mestremushen",
+      "profile_url": "https://www.instagram.com/mestremushen/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-thezhenwu",
+      "profile_url": "https://www.instagram.com/thezhenwu/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-maitrelidao",
+      "profile_url": "https://www.instagram.com/maitrelidao/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-maestroananta",
+      "profile_url": "https://www.instagram.com/maestroananta/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-oravishen",
+      "profile_url": "https://www.instagram.com/oravishen/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-monjewu",
+      "profile_url": "https://www.instagram.com/monjewu/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-monge-bento",
+      "profile_url": "https://www.instagram.com/monge.bento/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-liangmaster4u",
+      "profile_url": "https://www.instagram.com/liangmaster4u/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-aristhestill",
+      "profile_url": "https://www.instagram.com/aristheStill/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-oldmonktenzin",
+      "profile_url": "https://www.instagram.com/oldmonktenzin/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-thekaizenhealing",
+      "profile_url": "https://www.instagram.com/thekaizenhealing/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-shentaoes",
+      "profile_url": "https://www.instagram.com/shentaoes/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-noalingpo-conseils",
+      "profile_url": "https://www.instagram.com/noalingpo.conseils/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-itsyangmuns",
+      "profile_url": "https://www.instagram.com/itsyangmuns/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-masterjiao",
+      "profile_url": "https://www.instagram.com/masterjiao/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-elmonjekai",
+      "profile_url": "https://www.instagram.com/elmonjekai/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-zenmuun",
+      "profile_url": "https://www.instagram.com/zenmuun/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-kael-wisdom",
+      "profile_url": "https://www.instagram.com/kael.wisdom/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-monjechang",
+      "profile_url": "https://www.instagram.com/monjechang/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-maitrenoalingpo",
+      "profile_url": "https://www.instagram.com/maitrenoalingpo/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-shenmuhealer",
+      "profile_url": "https://www.instagram.com/shenmuhealer/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-monge-zhen",
+      "profile_url": "https://www.instagram.com/monge.zhen/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-alte-weisheit",
+      "profile_url": "https://www.instagram.com/alte.weisheit/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-masteryunming",
+      "profile_url": "https://www.instagram.com/masteryunming/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-maitreyun",
+      "profile_url": "https://www.instagram.com/maitreyun_/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-chenweihealing",
+      "profile_url": "https://www.instagram.com/chenweihealing/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-masterlianancient",
+      "profile_url": "https://www.instagram.com/masterlianancient/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-monjeananda",
+      "profile_url": "https://www.instagram.com/monjeananda/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-monkshen",
+      "profile_url": "https://www.instagram.com/monkshen/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-elmaestrolin",
+      "profile_url": "https://www.instagram.com/elmaestrolin/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "lead-instagram-samuelreedcards",
+      "profile_url": "https://www.instagram.com/samuelreedcards/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    },
+    {
+      "account_id": "buddha-would-say",
+      "profile_url": "https://www.instagram.com/buddhawouldsay/",
+      "reason_code": "instagram_access_route_unavailable",
+      "collection_limit": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+    }
+  ],
+  "superseded_profile_image_metadata": [
+    {
+      "account_id": "lead-instagram-masteryunshen",
+      "status": "acquired",
+      "handle": "masteryunshen",
+      "platform": "Instagram",
+      "profile_url": "https://www.instagram.com/masteryunshen/",
+      "platform_account_id": null,
+      "metadata_source_url": "https://avatarfactory.io/ai-influencers/yun-shen",
+      "directory_source_url": "https://avatarfactory.io/ai-influencers",
+      "image_source_url": "https://avatarfactory.io/assets/avatars/yun-shen-v2.jpg",
+      "image_role": "third_party_attributed_profile_image",
+      "image_locator": "directory card with exact @masteryunshen and img alt Master Yun Shen profile portrait",
+      "content_type": "image/jpeg",
+      "bytes": 764821,
+      "sha256": "d008e255ca95635795e1e895671d8c576a5efee1d18946efc02877829586f008",
+      "checked_at": "2026-10-23T00:29:08.916683+00:00",
+      "transformations": "none; original HTTP response bytes",
+      "limits": "AvatarFactory attributes this portrait to the exact Instagram handle. The original Instagram image, ownership, AI origin and reuse license are not independently verified.",
+      "unknown_reason": null,
+      "asset_retained": false,
+      "previous_asset_filename": "lead-instagram-masteryunshen-avatarfactory.jpg"
+    }
+  ],
+  "flourish_image_collection": {
+    "article_url": "https://maldita.es/investigaciones/20260727/250-ai-health-instagram-accounts/",
+    "embed_urls_checked": [
+      "https://flo.uri.sh/visualisation/29805445/embed",
+      "https://flo.uri.sh/visualisation/29805658/embed",
+      "https://flo.uri.sh/visualisation/29805530/embed",
+      "https://flo.uri.sh/visualisation/29804921/embed",
+      "https://flo.uri.sh/visualisation/29805004/embed"
+    ],
+    "matching_card_handles": [
+      "yangmunus",
+      "monjechen"
+    ],
+    "new_account_ids": [
+      "yan-chen-monjechen"
+    ],
+    "retrieval_diagnosis": [
+      "Ordinary urllib image request returned HTTP403.",
+      "Registered-browser Flourish navigation returned HTTP200 and content-type image/webp.",
+      "Image bytes were saved with their actual MIME extension; no conversion or editing was performed."
+    ],
+    "account_classification_and_metrics_changed": false
+  },
+  "cached_profile_image_search": {
+    "scope": "Repository English research JSON plus 29 task-related JSON files in the allowed local evidence folder.",
+    "checked_files": 30,
+    "targets": [
+      "buddhawouldsay",
+      "omaster.kaizen"
+    ],
+    "result": "Only the repository research JSON contains these targets. No stored profile_pic/profilePic/avatarThumb/avatarLarger/thumbnail fields are found.",
+    "private_values_copied": false
+  },
+  "final_public_source_probes": [
+    {
+      "account_id": "sifuchen-california",
+      "source_url": "https://archive.li/CZww4",
+      "methods": [
+        "crwl public crawl",
+        "scrapy public HTML"
+      ],
+      "result": "Both routes showed a security/CAPTCHA challenge; no account image or exact live handle was obtained.",
+      "image_status": "unknown"
+    },
+    {
+      "account_id": "master-kaizen-tiktok",
+      "source_url": "https://www.tiktok.com/@omaster.kaizen",
+      "method": "Registered TikTok browser identity with read capability; browser-guard acquired; owned new tab only; public profile JSON inspected; metadata-provided avatarMedium fetched; lease released.",
+      "result": "Exact uniqueId and platform user ID matched. Avatar request returned HTTP200 image/jpeg.",
+      "image_status": "acquired",
+      "signed_cdn_url_persisted": false
+    },
+    {
+      "account_id": "buddha-would-say",
+      "source_url": "https://www.instagram.com/buddhawouldsay/",
+      "method": "Cached task research/evidence JSON search. Direct Instagram collection is not repeated.",
+      "result": "No stored avatar URL is found in the allowed task evidence scope.",
+      "image_status": "unknown"
+    }
+  ]
 }

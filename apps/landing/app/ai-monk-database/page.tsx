@@ -8,8 +8,8 @@ export const metadata = {
   title: 'AI Monk Database | Anicca',
   description:
     'Find AI monk accounts. Compare followers, languages, creators, and products, with dated sources and AI status.',
-  openGraph: { title: 'AI Monk Database', images: ['https://aniccaai.com/assets/the-art-of-ai-monks-cover.png'] },
-  twitter: { card: 'summary_large_image', title: 'AI Monk Database', images: ['https://aniccaai.com/assets/the-art-of-ai-monks-cover.png'] },
+  openGraph: { title: 'AI Monk Database', images: ['https://aniccaai.com/assets/ai-monk-directory-illustration.webp'] },
+  twitter: { card: 'summary_large_image', title: 'AI Monk Database', images: ['https://aniccaai.com/assets/ai-monk-directory-illustration.webp'] },
   alternates: { canonical: 'https://aniccaai.com/ai-monk-database' },
 };
 

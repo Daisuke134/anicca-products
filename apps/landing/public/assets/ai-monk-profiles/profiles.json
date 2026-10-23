@@ -1,15 +1,17 @@
 {
   "schema_version": "1.0",
-  "checked_at": "2026-10-23T00:27:22.018928+00:00",
+  "checked_at": "2026-10-23T00:35:56.311570+00:00",
   "scope": "Original public profile/avatar or first-party named-persona images; canonical AI classification remains unchanged.",
   "transformations": "No crop, resize, conversion or generated substitute. CSS may position original bytes.",
   "license_note": "Images remain attributable to their respective owners. Public availability does not establish a reuse license; dataset license does not relicense these assets.",
   "coverage": {
     "total": 75,
-    "acquired": 3,
-    "platform_profile_avatars": 1,
+    "acquired": 7,
+    "platform_profile_avatars": 3,
     "first_party_named_images": 2,
-    "unknown": 72
+    "unknown": 68,
+    "third_party_attributed_profile_images": 1,
+    "third_party_attributed_content_images": 1
   },
   "profiles": [
     {
@@ -33,18 +35,24 @@
     },
     {
       "account_id": "ming-san",
-      "status": "unknown",
-      "local_asset": null,
-      "checked_at": "2026-10-23T00:27:22.018928+00:00",
-      "platform": "Instagram",
+      "status": "acquired",
       "handle": "mingsanhealing",
+      "platform": "Instagram",
       "profile_url": "https://www.instagram.com/mingsanhealing/",
-      "metadata_source_url": null,
-      "image_source_url": null,
-      "image_role": null,
-      "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "platform_account_id": null,
+      "metadata_source_url": "https://avatarfactory.io/ai-influencers/ming-san",
+      "directory_source_url": "https://avatarfactory.io/ai-influencers",
+      "image_source_url": "https://avatarfactory.io/assets/avatars/ming-san-v3.jpg",
+      "image_role": "third_party_attributed_profile_image",
+      "image_locator": "directory card with exact @mingsanhealing and img alt Ming San profile portrait",
+      "local_asset": "/assets/ai-monk-profiles/ming-san-avatarfactory.jpg",
+      "content_type": "image/jpeg",
+      "bytes": 193992,
+      "sha256": "ca16e04e875a94068189d1a8cae03c56189a9ea59b0fd25ac6c94f74df99e9c2",
+      "checked_at": "2026-10-23T00:29:07.768659+00:00",
+      "transformations": "none; original HTTP response bytes",
+      "limits": "AvatarFactory attributes this portrait to the exact Instagram handle. The original Instagram image, ownership, AI origin and reuse license are not independently verified.",
+      "unknown_reason": null
     },
     {
       "account_id": "sifuchen-california",
@@ -78,18 +86,24 @@
     },
     {
       "account_id": "yan-chen-monjechen",
-      "status": "unknown",
-      "local_asset": null,
-      "checked_at": "2026-10-23T00:27:22.018928+00:00",
-      "platform": "Instagram",
+      "status": "acquired",
       "handle": "monjechen",
+      "platform": "Instagram",
+      "platform_account_id": null,
       "profile_url": "https://www.instagram.com/monjechen/",
-      "metadata_source_url": null,
-      "image_source_url": null,
-      "image_role": null,
-      "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "metadata_source_url": "https://flo.uri.sh/visualisation/29805445/embed",
+      "article_source_url": "https://maldita.es/investigaciones/20260727/250-ai-health-instagram-accounts/",
+      "image_source_url": "https://files.maldita.es/uploads/2026/07/6a635b579cfdd.png",
+      "image_role": "third_party_attributed_video_still",
+      "image_locator": "Public Flourish cards row title=Yan Chen, subtitle=@monjechen, image field; card metadata describes a video.",
+      "local_asset": "/assets/ai-monk-profiles/yan-chen-monjechen-maldita.webp",
+      "content_type": "image/webp",
+      "bytes": 154706,
+      "sha256": "2fe19d8f3d56d824fe21f2b68a21f8826cc973e4c8036dc518d1f8d739932340",
+      "checked_at": "2026-10-23T00:34:10.291319+00:00",
+      "transformations": "none; original HTTP response bytes. The source URL ends .png but browser content negotiation returned image/webp.",
+      "limits": "Maldita attributes this card image to exact handle @monjechen. This is account-content imagery from a public investigation, not a verified Instagram avatar. Original ownership and reuse license remain unverified.",
+      "unknown_reason": null
     },
     {
       "account_id": "lead-instagram-tempiovita",
@@ -103,8 +117,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-monjeshentao",
@@ -118,8 +132,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-monacochenn",
@@ -133,8 +147,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-linchenhealing",
@@ -148,8 +162,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-jin-miaoo",
@@ -163,8 +177,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-masteryunsage",
@@ -178,8 +192,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-monchmiao",
@@ -193,8 +207,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-maitre-ping-lin",
@@ -208,8 +222,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-lotusfamily1",
@@ -223,8 +237,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-master-kaion",
@@ -238,8 +252,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-maestroyunkai",
@@ -253,8 +267,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-ming-tao32",
@@ -268,8 +282,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-shen-dao1",
@@ -283,8 +297,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-shin-hyun-official",
@@ -298,8 +312,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-tenzinremedios",
@@ -313,8 +327,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-mestreshentao",
@@ -328,8 +342,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-mongedapaz",
@@ -343,8 +357,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-masterlinghao",
@@ -358,8 +372,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-mestre-jin",
@@ -373,8 +387,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-haku-shinn",
@@ -388,8 +402,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-monktashirok",
@@ -403,8 +417,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-monacogendun",
@@ -418,8 +432,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-master-li-shen",
@@ -433,8 +447,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-innerequelle",
@@ -448,8 +462,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-ken-lu-monk",
@@ -463,8 +477,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-yonchenhealing",
@@ -478,8 +492,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-babatenzin",
@@ -493,8 +507,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-mongejinmiao",
@@ -508,8 +522,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-its-yang-chen",
@@ -523,23 +537,29 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-masteryunshen",
-      "status": "unknown",
-      "local_asset": null,
-      "checked_at": "2026-10-23T00:27:22.018928+00:00",
-      "platform": "Instagram",
+      "status": "acquired",
       "handle": "masteryunshen",
-      "profile_url": "https://www.instagram.com/masteryunshen/",
-      "metadata_source_url": null,
-      "image_source_url": null,
-      "image_role": null,
-      "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "platform": "YouTube",
+      "profile_url": "https://www.youtube.com/@MasterYunShen",
+      "platform_account_id": "UCO97aEYUqorr4hErWQLp2VA",
+      "metadata_source_url": "https://www.youtube.com/@MasterYunShen/shorts",
+      "image_source_url": "https://yt3.googleusercontent.com/xW05NDLF9q4S-nNhIPbOnHGpLp_SAS17gkPk5fg0G8PpXVbPpQj5CpuIyqWtcerODWlvBgmEtQ=s900-c-k-c0x00ffffff-no-rj",
+      "image_role": "platform_profile_avatar",
+      "image_locator": "YouTube channel metadata thumbnails[id=0], 900x900; Stan page links both Instagram @masteryunshen and YouTube @MasterYunShen",
+      "local_asset": "/assets/ai-monk-profiles/lead-instagram-masteryunshen-youtube.jpg",
+      "content_type": "image/jpeg",
+      "bytes": 188365,
+      "sha256": "dae4fddfa0aef1cfa15cdc9f128187974b8766332978c2e50cf04379de345f40",
+      "checked_at": "2026-10-23T00:32:54.818683+00:00",
+      "transformations": "none; original HTTP response bytes",
+      "limits": "The Stan page links the exact canonical Instagram handle and this YouTube channel. The image is the YouTube avatar; equivalence to the Instagram avatar, account ownership and reuse license remain unverified.",
+      "unknown_reason": null,
+      "crosslink_source_url": "https://stan.store/MasterYunShen/p/the-path-to-sacred-stillness"
     },
     {
       "account_id": "lead-instagram-maitre-chen",
@@ -553,8 +573,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-monkcheen",
@@ -568,8 +588,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-deor-ie",
@@ -583,8 +603,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-monjaalma",
@@ -598,8 +618,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-yunlobsang",
@@ -613,8 +633,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-mestremushen",
@@ -628,8 +648,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-thezhenwu",
@@ -643,8 +663,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-maitrelidao",
@@ -658,8 +678,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-maestroananta",
@@ -673,8 +693,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-oravishen",
@@ -688,8 +708,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-monjewu",
@@ -703,8 +723,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-monge-bento",
@@ -718,8 +738,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-liangmaster4u",
@@ -733,8 +753,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-aristhestill",
@@ -748,8 +768,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-oldmonktenzin",
@@ -763,8 +783,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-thekaizenhealing",
@@ -778,8 +798,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-shentaoes",
@@ -793,8 +813,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-noalingpo-conseils",
@@ -808,8 +828,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-itsyangmuns",
@@ -823,8 +843,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-masterjiao",
@@ -838,8 +858,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-elmonjekai",
@@ -853,8 +873,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-zenmuun",
@@ -868,8 +888,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-kael-wisdom",
@@ -883,8 +903,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-monjechang",
@@ -898,8 +918,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-maitrenoalingpo",
@@ -913,8 +933,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-shenmuhealer",
@@ -928,8 +948,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-monge-zhen",
@@ -943,8 +963,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-alte-weisheit",
@@ -958,8 +978,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-masteryunming",
@@ -973,8 +993,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-maitreyun",
@@ -988,8 +1008,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-chenweihealing",
@@ -1003,8 +1023,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-masterlianancient",
@@ -1018,8 +1038,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-monjeananda",
@@ -1033,8 +1053,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-monkshen",
@@ -1048,8 +1068,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-elmaestrolin",
@@ -1063,8 +1083,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "lead-instagram-samuelreedcards",
@@ -1078,8 +1098,8 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "kai-tsukimi",
@@ -1131,23 +1151,29 @@
       "image_source_url": null,
       "image_role": null,
       "sha256": null,
-      "reason_code": "instagram_access_route_unavailable",
-      "unknown_reason": "Direct automated Instagram collection is not repeated after the recorded robots/access notice. The connected profile-picture lookup costs 5 vidIQ credits; available research credits are reported as zero. No verified free image source was obtained for this account. This is a collection limit, not evidence that the account has no image."
+      "reason_code": "profile_image_not_verified",
+      "unknown_reason": "Profile image not yet verified from an attributable source."
     },
     {
       "account_id": "master-kaizen-tiktok",
-      "status": "unknown",
-      "local_asset": null,
-      "checked_at": "2026-10-23T00:27:22.018928+00:00",
-      "platform": "TikTok",
+      "status": "acquired",
       "handle": "omaster.kaizen",
+      "platform": "TikTok",
+      "platform_account_id": "7410716049350231073",
       "profile_url": "https://www.tiktok.com/@omaster.kaizen",
-      "metadata_source_url": null,
-      "image_source_url": null,
-      "image_role": null,
-      "sha256": null,
-      "reason_code": "public_profile_no_avatar_metadata",
-      "unknown_reason": "The public TikTok profile response contained no user/avatar metadata in this check. No free connected TikTok profile-image tool is available; no challenge bypass was attempted."
+      "metadata_source_url": "https://www.tiktok.com/@omaster.kaizen",
+      "image_source_url": "https://www.tiktok.com/@omaster.kaizen",
+      "image_source_host": "p16-common-sign.tiktokcdn.com",
+      "image_role": "platform_profile_avatar",
+      "image_locator": "Public profile JSON user.uniqueId=omaster.kaizen, nickname=Master Kaizen, user.avatarMedium. The short-lived signed CDN request URL is deliberately omitted.",
+      "local_asset": "/assets/ai-monk-profiles/master-kaizen-tiktok.jpg",
+      "content_type": "image/jpeg",
+      "bytes": 87951,
+      "sha256": "9ad2dee9f7b66ed261dc93bcb9731202e3fd4a99f3b6a11643eecc8baf9fff19",
+      "checked_at": "2026-10-23T00:35:56.311570+00:00",
+      "transformations": "none; original HTTP response bytes",
+      "limits": "Avatar from the public TikTok profile metadata for exact handle @omaster.kaizen. AI origin, account ownership and reuse license are not independently verified.",
+      "unknown_reason": null
     }
   ]
 }

@@ -57,18 +57,18 @@ function ProfileAvatar({ account, src }: { account: AiMonkAccount; src?: string 
   const [failed, setFailed] = useState(false);
   const initials = account.display_name.split(/[\s|]+/).filter(Boolean).slice(0, 2).map((word) => Array.from(word)[0]).join('').toUpperCase();
   return src && !failed ? (
-    <img src={src} alt={`${account.display_name} profile image`} width={72} height={72} loading="lazy" onError={() => setFailed(true)} className="h-[72px] w-[72px] shrink-0 rounded-full bg-stone-100 object-cover" />
+    <img src={src} alt={`${account.display_name} profile image`} width={72} height={72} loading="lazy" onError={() => setFailed(true)} className="h-[72px] w-[72px] shrink-0 rounded-full bg-stone-100 object-cover object-[center_25%]" />
   ) : (
     <span role="img" aria-label={`${account.display_name} initials; profile image unavailable`} className="flex h-[72px] w-[72px] shrink-0 items-center justify-center rounded-full border border-amber-200 bg-amber-50 text-2xl font-semibold text-amber-800">{initials}</span>
   );
 }
 
-function ProfileCard({ account, sourceById, imageSrc }: { account: AiMonkAccount; sourceById: Record<string, EvidenceSource>; imageSrc?: string }) {
+function ProfileCard({ account, sourceById, imageSrc, selectedPlatform }: { account: AiMonkAccount; sourceById: Record<string, EvidenceSource>; imageSrc?: string; selectedPlatform: string }) {
   const languages = account.languages?.map(({ label }) => label) ?? [];
   const snapshots = (account.platforms ?? []).flatMap((platform) =>
     (platform.snapshots ?? []).map((snapshot) => ({ ...snapshot, platform: platform.platform }))
   );
-  const audiences = (account.platforms ?? []).flatMap((platform) => {
+  const audiences = (account.platforms ?? []).filter((platform) => selectedPlatform === 'all' || platform.platform === selectedPlatform).flatMap((platform) => {
     const latest = (platform.snapshots ?? [])
       .filter(({ metric, value }) => ['followers', 'subscribers'].includes(metric) && typeof value === 'number' && Number.isFinite(value) && value >= 0)
       .sort((a, b) => (Date.parse(b.as_of ?? '') || 0) - (Date.parse(a.as_of ?? '') || 0))[0];
@@ -76,7 +76,7 @@ function ProfileCard({ account, sourceById, imageSrc }: { account: AiMonkAccount
   }).sort((a, b) => Number(b.value) - Number(a.value));
   const audience = audiences[0];
   const sources = [...new Set(account.source_urls ?? [])];
-  const primaryPlatform = (account.platforms ?? []).find((platform) => platform.handle);
+  const primaryPlatform = (account.platforms ?? []).find((platform) => platform.handle && (selectedPlatform === 'all' || platform.platform === selectedPlatform));
 
   return (
     <article id={account.id} className="flex min-w-0 flex-col rounded-2xl border border-stone-200 bg-white p-5 transition-colors hover:border-stone-400">
@@ -265,14 +265,14 @@ export default function AiMonkDatabase({
               type="search"
               value={filters.query ?? ''}
               onChange={(event) => changeFilter('query', event.target.value)}
-              placeholder="Search by name, account, or creator"
+              placeholder="Search names or accounts"
               className="h-14 min-w-0 flex-1 border-0 bg-transparent text-base text-[#24251f] outline-none placeholder:text-[#918b7f] focus:ring-0 sm:text-lg"
             />
             <span className="hidden rounded-lg bg-[#f5f2eb] px-3 py-2 text-xs text-[#716a5d] sm:inline">{results.length} found</span>
           </div>
           <div className="mt-2 grid gap-2 border-t border-[#eeeae2] px-2 pt-3 grid-cols-2 lg:grid-cols-4 sm:px-3">
             <label className="block">
-              <span className="mb-1 block text-[0.65rem] font-semibold uppercase tracking-[0.13em] text-[#817a6e]">Evidence</span>
+              <span className="mb-1 block text-[0.65rem] font-semibold uppercase tracking-[0.13em] text-[#817a6e]">AI status</span>
               <select aria-label="Filter by evidence status" value={filters.status} onChange={(event) => changeFilter('status', event.target.value)} className="w-full rounded-lg border border-[#e7e2d8] bg-white px-3 py-2.5 text-sm text-[#34342d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ae8a32]">
                 <option value="all">All statuses</option><option value="confirmed">Confirmed</option><option value="reported">Reported</option><option value="unverified">Unverified</option>
               </select>
@@ -316,7 +316,7 @@ export default function AiMonkDatabase({
           <p className="sr-only" aria-live="polite">{results.length} profiles match the current search.</p>
           {results.length ? (
             <div className="grid items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {results.map((account) => <ProfileCard key={account.id} account={account} sourceById={sourceById} imageSrc={profileImages[account.id]} />)}
+              {results.map((account) => <ProfileCard key={account.id} account={account} sourceById={sourceById} imageSrc={profileImages[account.id]} selectedPlatform={filters.platform ?? 'all'} />)}
             </div>
           ) : (
             <div className="rounded-[1.5rem] border border-dashed border-[#cfc8b8] bg-white/70 px-6 py-14 text-center">
