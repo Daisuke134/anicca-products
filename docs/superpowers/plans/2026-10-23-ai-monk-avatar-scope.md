@@ -4,7 +4,7 @@
 
 Daisの明示指示に従い、Yang Munのような写真に近いAI僧侶の動画avatarへ集中する。水彩・絵画・イラストの僧侶コンテンツを対象avatarとして掲載しない。既存のAI status・未確認・出典は捏造せず、未確認候補を認定済み扱いにしない。
 
-75recordの研究archiveは保持し、掲載scopeをcanonical dataで一元管理する。既存sourceでイラスト系と分かる`kai-tsukimi`と`buddha-would-say`を対象外へ分類し、Web・CLI・stdio/HTTP MCPで検索/個別取得/集計のscopeを揃える。旧公開一覧73件（調査7＋未確認候補66）は履歴snapshotとし、現在の公開条件は下記「未調査候補の掲載修復」で上書きする。画像だけでAI生成や動画形式を断定しない。新しい分類用frameworkや外部serviceは追加しない。
+75recordの研究archiveは保持し、掲載scopeをcanonical dataで一元管理する。既存sourceでイラスト系と分かる`kai-tsukimi`と`buddha-would-say`を対象外へ分類し、Web・CLI・stdio/HTTP MCPで検索/個別取得/集計のscopeを揃える。公開一覧はincluded4件とpending69件の計73件とし、対象外2件を除く。未調査という理由だけでプロフィールを非表示にしない。掲載の現在契約は2026-10-23-ai-monk-directory-restoration.mdを正本とする。画像だけでAI生成や動画形式を断定しない。新しい分類用frameworkや外部serviceは追加しない。
 
 H1は`AI Monk Database`を保ち、説明文はAI monk video avatarsを直接示す。OGの水彩illustrationも対象avatarの実画像へ替える。画像PR571は候補75件の原画像coverageであり、AI avatar認定とは分離する。book/記事の過去snapshotを現在の対象件数に書き換えず、今後の改稿・制作はこのfocusを採用する。
 
@@ -68,7 +68,7 @@ PR578/main `708b7adbd554d6bf8b216c8b7f4657a6497b03dc`はLanding CI39893316472と
 
 公開証拠 → `docs/evidence/ai-monk-avatar-scope-production-20261023.json`、`docs/evidence/ai-monk-business-ui-production-20261023.json`、`docs/evidence/ai-monk-business-mcp-production-20261023.json`、`docs/evidence/ai-monk-cli-mcp-v03-release-20261023.json`、`docs/evidence/ai-monk-book-title-production-20261023.json`。
 
-## 未調査候補の掲載修復
+## 履歴: included限定への変更（現在契約はdirectory-restorationを参照）
 
 **目的・範囲・完了条件:** AI statusをUIから外した後も、未調査候補をAI僧侶動画avatarとして掲載しない。公開73件中66件は未調査候補、3研究profileもAI動画形式の根拠が不足し、既存selectorがscope欠落を掲載扱いにするためDaisの指定focusを満たさない。canonicalの既存directory_scopeをincluded/pending/excludedへ揃え、source-linkedな掲載判断だけをWeb/CLI/stdio/remote MCPへ共通適用する。75archive/既存55sources/画像原本・各種未知・既存bookの過去snapshotを保持する。
 
