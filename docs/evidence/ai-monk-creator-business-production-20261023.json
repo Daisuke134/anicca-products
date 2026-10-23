@@ -1,0 +1,39 @@
+{
+  "recorded_at": "2026-10-23T11:15:27.239Z",
+  "source_main": "c66e4fa4fab2052328e26a454c2bb598d64ca7b4",
+  "netlify_workflow": "39944184677",
+  "deploy_conclusion": "success",
+  "public_json_url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+  "public_json_status": 200,
+  "public_json_matches_main": true,
+  "canonical_sha256": "8711cf04c6c310a3ea07bf4a72e4387be18207e45b20a001457ed0f59edd0ff4",
+  "endpoint": "https://aniccaai.com/.netlify/functions/ai-monk-mcp",
+  "official_sdk": true,
+  "directory_records": 4,
+  "sources": 57,
+  "research_archive_records": 75,
+  "new_creator_claim_source_id": "shalev-yangmun-x-article-20260409",
+  "comparable_three_month_usd_gross_unchanged": true,
+  "source_caveats_match_canonical": true,
+  "html_readback": {
+    "method": "scrapy fetch public SSR HTML",
+    "h1": "AI Monk Database",
+    "public_profile_ids": [
+      "yang-mun",
+      "ming-san",
+      "yan-chen-monjechen",
+      "leo-chen"
+    ],
+    "profile_images": 4,
+    "ai_status_interface": false,
+    "new_claim_text_present": true,
+    "new_primary_source_link_present": true,
+    "sort_options": [
+      "audience",
+      "views",
+      "revenue",
+      "directory"
+    ]
+  },
+  "scope_changed": false
+}
