@@ -1,0 +1,21 @@
+{
+  "scope": "Factory authentication, billing, atomic quota, Stripe event isolation, and provider adapters; source and isolated fixtures only",
+  "reviewed_commit": "3f0078b585baa11d0db409af77a053d8d5624015",
+  "reviewer": "fresh-context read-only subagent monk_factory_money_security_review",
+  "decision": "ship_within_source_scope",
+  "blocking_findings": [],
+  "primary_validation": {
+    "auth_billing_hmac_tests_passed": 18,
+    "provider_tests_passed": 20,
+    "existing_product_isolation_tests_passed": 12,
+    "private_postgres_tests_passed": 8
+  },
+  "independent_validation": {
+    "core_and_provider_tests_including_additional_probe_passed": 39,
+    "fresh_private_postgres_tests_passed": 8,
+    "checks": ["forged identity rejected", "tampered Stripe signature rejected", "old subscription cannot replace an active subscription", "same checkout payload and idempotency key after a save failure", "changed Instagram account rejects publishing", "concurrent quota and profile capacity", "RLS isolation", "unknown effects retain reservations", "stale billing lease rejected"]
+  },
+  "limitations": ["No live provider generation, posting, or invoice was verified", "No production migration was applied", "Job orchestration, UI, scheduled runtime, and the complete SaaS require subsequent validation"],
+  "external_mutations": 0,
+  "saas_complete": false
+}
