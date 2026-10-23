@@ -6,6 +6,8 @@
 
 旧順は公開catalog→CLI整合→公式掲載。新順は導入コマンド修正・公開install受入→CLI整合→公式掲載。理由は公開導線が実際に失敗するため。現在cursorはCLI helpに基づきcatalogとpayloadの両sparse pathを指定してpublic SHAでprobeする。
 
-- [ ] 空CODEX_HOMEの公開SHAでREDを保存し、修正flagsでmarketplace/add/list/MCPの5段階GREENを得る。
+- [x] 空CODEXHOMEの公開SHAでREDを保存し、修正flagsでmarketplace/add/list/MCPの5段階GREENを得る。
 - [ ] README/supportへ同一commandsを反映し、必要な既存CI・main/公開案内を確認する。
 - [ ] package payload不変と最終public SHAの導入結果を記録する。
+
+修正flagsは実0.160.0 helpのrepeatable --sparseに従う。公開SHA0675d5e0aでcatalog追加→available→plugin追加→installed→MCP loadが全exit0、空認証・model/provider flags0・旧payload3hash一致。README/supportのcommands一致、JSONparse、source payload3hash、diffを検証し、次はCI/mainと公開案内。証拠 → docs/evidence/ai-monk-plugin-public-install-20261024.json。
