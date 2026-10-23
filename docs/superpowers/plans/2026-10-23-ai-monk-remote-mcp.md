@@ -45,3 +45,7 @@ HTTP未実装のREDを確認し、CLI/stdio/別directoryへのtarball導入とHT
 ### 再開後のsource受入
 
 最新mainを取り込んだsourceでpackage全11testsを再実行しPASS（HTTP SDK client/旧protocol/Host・Origin・容量/method/CORS、CLI/stdio、別directoryでtarball導入）。実Netlify wrapperをimportしたinitializeも200、serverInfo ai-monk-index/0.2.0を確認する。現行の書籍・Reset/Letter・EN/JA SSR・DBの37関連契約もPASS。runtime依存は既存導入済みSDK server/client2.3.1とZod4.3.6を再利用し、full landing install/buildはCIで確認する。公開privacyの表示名をAI Monk Databaseへ揃える。現在cursorはPRのpackage/landing CIとfresh-context source検証。
+
+### CI lock不整合の診断と修正
+
+PR566 head37be42c4のpackage CIは成功、landing CI39884395696はnpm ciでEUSAGE（zod3.25.76が7件不足）となる。npm10.8.2を使うnode_modules無しのclean probeでも同じ失敗を再現する。lock-only再解決はZod3 consumer配下の7recordだけを追加し、既存package record/版本変更は0。clean npm ci dry-runは0となる。この追加SDKに起因するlock不足だけを修正し、Node/既存wallet依存やpeer検証を迂回しない。証拠 → `docs/evidence/ai-monk-mcp-lock-repair-20261023.json`。修正headのCIとfresh-context source検証を次に行う。
