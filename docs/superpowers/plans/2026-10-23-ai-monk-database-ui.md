@@ -90,3 +90,82 @@ Sifuの横長profile stripとLeoのcollageは標準center cropで顔が見えに
 source受入結果: 75ID一致、全17assetのbytes/hash、新規6原bytes一致、対象外69行とcanonical SHA不変、secret/private path/署名付きURLなし、既存helper5＋UI2 tests、diff checkがPASS。実componentのSSRと実Tailwind CSSを使う独立CDPの72px previewでSifu/Leoの顔可視、Yang Mun/fallback維持、client error0を確認する。browser ownタブを閉じ、leaseを解放する。PNGはrepo外に保持し、evidenceにはhashと観測結果を記録する。
 
 既存ShenMuのHTTP MIME記録image/jpegとraw magic WebPの差はevidenceのlimitsへ記録し、既存row/URL/bytesは変更しない。全17件のMIME一致とは扱わない。新規6件はMIME/signatureが一致する。現在cursorはsource/visual検証PASSから限定commit/push・remote一致・PR attach。17画像/58未取得は本番反映前のsource予定値で、CI監視・merge・本番readbackはrootへ引き継ぐ。
+
+## 追加画像batch4: 未調査・未取得10件の出所確認
+
+最新main `f8dde2b78ac9fa81c388f0495ed779e7321379d2` から `feat/ai-monk-images-batch4-20261023` を作り、clean/remote/baseを確認する。既存batch3 worktreeを再利用し、rootのMCP/本番証拠/他specは編集しない。baselineはsource 17画像・58未取得、75ID。既存20handle調査とbatch3の10handleを除外し、まだ個別sourceを調べていない以下の10件を対象にする。
+
+| handle | account ID | 表示名 |
+|---|---|---|
+| `yonchenhealing` | `lead-instagram-yonchenhealing` | Yon Chen |
+| `innerequelle` | `lead-instagram-innerequelle` | Li Ming |
+| `maestroyunkai` | `lead-instagram-maestroyunkai` | Yun Kai |
+| `monjeshentao` | `lead-instagram-monjeshentao` | Shen Tao |
+| `monacochenn` | `lead-instagram-monacochenn` | Monaco Chen |
+| `jin.miaoo` | `lead-instagram-jin-miaoo` | jin.miaoo |
+| `maitre_ping.lin` | `lead-instagram-maitre-ping-lin` | Maitre Lin |
+| `tenzinremedios` | `lead-instagram-tenzinremedios` | Tenzin Remedios |
+| `monacogendun` | `lead-instagram-monacogendun` | Monaco Gendun |
+| `masterjiao` | `lead-instagram-masterjiao` | Master Jiao |
+
+調査evidenceの正本は `docs/evidence/ai-monk-profile-discovery-batch4-20261023.json`。このscope/targets/完了条件を先にcommit/pushし、remote object一致を確認してから公開検索を始める。DDG HTML＋scrapy、公式site/公開YouTube/crosslink、必要時の登録済みbrowser own新規tabを使う。browserはSSOT全体を値なしで確認し、registry/owner/既存leaseを尊重し、使用後は自分のtabだけを閉じleaseを解放する。
+
+exact canonical handleへの公式crosslinkまたは公表資料の明確なprofile対応がある原画像のみ採用する。IG直接scraping・vidIQ credit・有料API・新認証・新しいAI顔/他profile画像への代用は行わない。原bytes、HTTP MIMEと実形式、SHA、出所、source roleを保持する。canonical75/48・AI status/language/metrics・既存画像・UI codeは変更しない。未確認は選択10件の具体的な境界と次の出所として記録し、残り全件を調査済みにしない。
+
+検証は75ID/全asset bytes・SHA/新規原byte一致/対象外manifest行とcanonical SHA不変/secret・private path・署名URLなし/既存helper5tests/diff check。意味ある成果を限定stageでcommit/pushしremote一致、PR作成/attachまで進める。自動merge・production反映/readbackはrootへ残す。先行scope commit `b6b29d4d1e5d5a98a0f4365633ef625d0973fc76` のremote一致を確認してから調査を開始する。現在cursorは以下の2原画像のsource/visual確認から受入検証へ進む。
+
+| 追加account ID | 出所と対応根拠 | 原形式 / bytes |
+|---|---|---|
+| `lead-instagram-maestroyunkai` | [Yun Kai Linktree](https://linktr.ee/maestroyunkai) のsocialLinksがexact `instagram.com/maestroyunkai` を示し、named profile imageを掲載 | JPEG / 33,236 |
+| `lead-instagram-masterjiao` | [Master Shi Jiao Whop](https://whop.com/@masterjiao/) がexact `instagram.com/masterjiao` を示し、Profile pictureを掲載 | AVIF / 4,525 |
+
+10件のbounded調査で2画像を追加し、source予定値は17→19画像・58→56未取得。8件はexact IG対応を確認できずunknownを維持する。候補名だけ、またはYouTube→storeのみのlinkをIG画像へ割り当てない。各検索/出所/失敗境界/理由はbatch4 evidenceに記録する。対象外48件をこのbatchで調査済みとは扱わない。
+
+両画像は原bytes・MIME・SHA・出所/roleを保持する。WhopのAVIFはview_image非対応のため変換せず、登録済みChromeのown新規tabで160pxと既存72px表示をdecodeし顔可視を確認する。Yun Kaiも同じ72pxで確認し、追加CSSは不要。private previewのPNGはrepoへ入れず、evidenceにhashと観測値だけを残す。本人提供IG avatar、再利用license、AI状態の新たな確認とはしない。現在cursorは75ID/全19asset/新2原byte一致/対象外73行/canonical不変/既存5tests/secret検査/diff checkから、限定commit/push・PR作成/attachへ進む。CI監視・merge・本番readbackはrootが所有する。
+受入検証はPASS。75ID一致、全19assetのbytes/SHA、新2assetのdownload原bytes一致、既存17assetと対象外73行の不変、canonical SHA `37a724d413233dacae215f68cd2e5021443a9aefb271fd3c129d8e338fce94b9` 不変、UI code不変、public JSONのprivate path/secret/署名URL不在、既存helper 5tests、diff checkを確認する。新2画像はHTTP MIMEとraw signatureが一致する。既存ShenMuのHTTP image/jpeg記録とWebP signature差は保持し、全19件のMIME一致とは報告しない。現在cursorは限定5pathのcommit/push・remote一致・PR作成/attach。rootがCI・merge・本番反映/readbackを所有する。
+
+### batch4 scope拡張: rootが通常公開UIで確認したプロフィール写真
+
+rootが通常公開UIでexact handleのプロフィール写真を確認し、page/avatarのHTTP200、ログイン要求・robots・403/429なしをreadbackで示す。従来のraw Instagram scraping/API停止境界を維持し、通常公開画面で識別できる画像の確認を追加経路とする。rootが取得とUI readback、画像担当が原bytes検証・assets/manifest/evidence統合を所有する。新認証・API・cookie抽出・CAPTCHA回避・別identity/proxyへ逃げる操作は行わず、制限画面では停止する。
+
+初回追加対象は `monchmiao` → `lead-instagram-monchmiao`、`babatenzin_` → `lead-instagram-babatenzin`、`monkcheen` → `lead-instagram-monkcheen`。canonical exact handleから一意にIDを解決し、platform profile avatarとして原bytesのみをコピーする。既存19asset・canonical・AI status・UI codeは変更しない。公開sourceはcanonical Instagram profile URLと表示altで示し、期限付きCDN URLは公開JSON/evidenceへ残さない。
+
+新経路の正本は `docs/evidence/ai-monk-profile-visible-ui-20261023.json`。原JPEG magic/HTTP MIME/bytes/SHA照合とnative表示、75ID/全asset/既存19asset・対象外行/canonical不変/secret・署名URLなし/既存5tests/diff checkを受入条件とする。rootから追加batchが届く間は統合を続け、最終commit/pushとPR571のCIをまとめる。3件を受け入れた時点のsource予定値は22画像・53未取得で、本番公開済みとは扱わない。
+
+#### 通常公開UI batch1の受入scope
+
+root取得の次10handleを追加する: `buddhawouldsay` → `buddha-would-say`, `alte.weisheit` → `lead-instagram-alte-weisheit`, `chenweihealing` → `lead-instagram-chenweihealing`, `deor.ie` → `lead-instagram-deor-ie`, `elmaestrolin` → `lead-instagram-elmaestrolin`, `elmonjekai` → `lead-instagram-elmonjekai`, `haku.shinn` → `lead-instagram-haku-shinn`, `innerequelle` → `lead-instagram-innerequelle`, `its.yang.chen` → `lead-instagram-its-yang-chen`, `itsyangmuns` → `lead-instagram-itsyangmuns`。受入はexact alt/page・avatar200/JPEG MIME/magic/bytes/SHA/native表示の照合後とする。`deor.ie`はreadbackの `access_state.login_required=true` が他9件と異なるため、必須wallか通常login CTAかの追加readbackまで採用を保留し、別identity等の迂回はしない。他9件を先行統合する。
+
+#### 通常公開UI batch2の受入scope
+
+`jin.miaoo` → `lead-instagram-jin-miaoo`, `kael.wisdom` → `lead-instagram-kael-wisdom`, `liangmaster4u` → `lead-instagram-liangmaster4u`, `lotusfamily1` → `lead-instagram-lotusfamily1`, `maestroananta` → `lead-instagram-maestroananta`, `maitre.chen` → `lead-instagram-maitre-chen`, `maitre_ping.lin` → `lead-instagram-maitre-ping-lin`, `maitrelidao` → `lead-instagram-maitrelidao`, `maitrenoalingpo` → `lead-instagram-maitrenoalingpo`, `maitreyun_` → `lead-instagram-maitreyun`。
+
+#### 通常公開UI batch3の受入scope
+
+`master_kaion` → `lead-instagram-master-kaion`, `master.li.shen` → `lead-instagram-master-li-shen`, `masterlianancient` → `lead-instagram-masterlianancient`, `masterlinghao` → `lead-instagram-masterlinghao`, `masteryunming` → `lead-instagram-masteryunming`, `masteryunsage` → `lead-instagram-masteryunsage`, `mestre.jin` → `lead-instagram-mestre-jin`, `mestremushen` → `lead-instagram-mestremushen`, `mestreshentao` → `lead-instagram-mestreshentao`, `ming_tao32` → `lead-instagram-ming-tao32`。
+
+batch2は8原画像、batch3は10原画像を同じ原bytes/native表示条件で受け入れる。`lotusfamily1` / `maitrenoalingpo` はHTTP200・path一致でもvisible img0のため画像を割り当てず、本文/headingの追加観測へ残す。制限画面やAI状態の根拠とは扱わない。
+
+#### 通常公開UI batch4の受入scope
+
+`monacochenn` → `lead-instagram-monacochenn`, `monacogendun` → `lead-instagram-monacogendun`, `monge.bento` → `lead-instagram-monge-bento`, `monge.zhen` → `lead-instagram-monge-zhen`, `mongedapaz` → `lead-instagram-mongedapaz`, `mongejinmiao` → `lead-instagram-mongejinmiao`, `monjaalma` → `lead-instagram-monjaalma`, `monjeananda` → `lead-instagram-monjeananda`, `monjechang` → `lead-instagram-monjechang`, `monjeshentao` → `lead-instagram-monjeshentao`。exact alt/path/page・avatar200/JPEG MIME/magic/bytes/SHA/native表示の照合を維持する。
+
+#### 通常公開UI batch5の受入scope
+
+`monjewu` → `lead-instagram-monjewu`, `noalingpo.conseils` → `lead-instagram-noalingpo-conseils`, `oldmonktenzin` → `lead-instagram-oldmonktenzin`, `oravishen` → `lead-instagram-oravishen`, `samuelreedcards` → `lead-instagram-samuelreedcards`, `shen.dao1` → `lead-instagram-shen-dao1`, `shentaoes` → `lead-instagram-shentaoes`, `tenzinremedios` → `lead-instagram-tenzinremedios`, `thekaizenhealing` → `lead-instagram-thekaizenhealing`, `thezhenwu` → `lead-instagram-thezhenwu`。exact alt/path/page・avatar200/JPEG MIME/magic/bytes/SHA/native表示の照合を維持する。
+
+#### 通常公開UI batch6の受入scope
+
+`yonchenhealing` → `lead-instagram-yonchenhealing`, `yunlobsang` → `lead-instagram-yunlobsang`, `zenmuun` → `lead-instagram-zenmuun`。同じ原JPEG/HTTP MIME/bytes/SHA/native表示条件で受け入れ、保留3件の限定追加診断を待って最終inventoryを確定する。
+
+#### 保留3件の限定診断と最終source予定値
+
+rootの追加readbackで `deor.ie` はexact final/canonical・profile handle可視・login form/dialog 0・exact alt/HTTP200を確認する。ログイン文言は投稿閲覧CTAでavatar表示の必須wallではない。投稿閲覧は行わず、公開iconだけを採用する。native原JPEGは灰色の既定シルエットで、`platform_default_profile_icon` として分類し、顔写真と扱わない。旧 `login_required` heuristicは公開evidenceでは `login_text_present_heuristic` として記録し、必須wallと区別する。
+
+`lotusfamily1` / `maitrenoalingpo` はHTTP200・path一致でも本文「Profileは利用できません」、canonical/og:titleなし、img0で画像対応を確認できないためunknownを維持する。削除・非公開・AI状態の根拠にはしない。exact canonical handleを維持してこの2件はunknownとし、rootの追加crosslink調査で画像公開を待たせない。sourceは候補75件の73画像（既定icon1を含む）・2unknownで、本番未反映。全75ID・全asset bytes/SHA・新54原byte一致・既存19asset/21manifest行/canonical/UI不変・署名URL不在・既存5tests/diff checkを確認後、同PR571へまとめる。
+
+#### 画像取り込み受入と掲載条件の境界
+
+画像coverageはsource候補75record中73画像・2unknownで、灰色のprovider既定icon1件を含む。75ID、全73asset bytes/SHA、新54原JPEGの原byte/MIME/native表示、既存19asset/21manifest行/canonical/UI不変、既存helper5tests、公開JSONのsecret/private path/署名URLなし、diff checkはPASS。既存19画像のnative証拠は従来の検証とrootの17画像本番readbackを使い、同一原bytesの不変を今回確認する。既存ShenMuのHTTP MIME/raw signature差は保持する。rootの直近本番画像coverageは17/75であり、source73/75と区別する。
+
+最新の掲載条件はYang MunのようにAIで作る話す僧侶avatar。水彩画/イラスト/絵画系は対象外。今回の画像coverageを全員のAI分類・対象認定へ転用しない。Buddha Would Sayのプロフィールillustrationとdeor.ieの既定iconをraw asset/evidenceへ残し、候補のcanonical/AI statusや掲載条件は画像担当が変更しない。原画像取り込みをcommit/pushしてPR571を更新し、rootが掲載基準と既存非core対象を確認するまでmergeしない。現在cursorは限定stage/commit/push・remote一致・PR571更新/CIリンク報告。

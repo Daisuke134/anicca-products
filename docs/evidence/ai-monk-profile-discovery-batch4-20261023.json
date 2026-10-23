@@ -1,0 +1,1343 @@
+{
+  "schema_version": "1.0",
+  "created_at": "2026-10-23T01:46:21.225701+00:00",
+  "checked_at": "2026-10-23T02:03:58.547343+00:00",
+  "run_id": "ai-monk-images-batch4-20261023",
+  "owner_id": "/root/ai_monk_ui_references",
+  "base_sha": "f8dde2b78ac9fa81c388f0495ed779e7321379d2",
+  "source_branch": "feat/ai-monk-images-batch4-20261023",
+  "source_plan": "docs/superpowers/plans/2026-10-23-ai-monk-database-ui.md",
+  "purpose": "未調査かつ画像未取得の10件で公開sourceと本人対応を確認し、確認済み原画像のみ追加する。",
+  "scope": {
+    "targets": [
+      "yonchenhealing",
+      "innerequelle",
+      "maestroyunkai",
+      "monjeshentao",
+      "monacochenn",
+      "jin.miaoo",
+      "maitre_ping.lin",
+      "tenzinremedios",
+      "monacogendun",
+      "masterjiao"
+    ],
+    "baseline": {
+      "total": 75,
+      "acquired": 17,
+      "unknown": 58
+    },
+    "selection": "既存20handle調査とbatch3の10handleを除外し、現在unknownの固有handleを持つ10recordを選択。",
+    "prior_individual_research_account_ids": [
+      "buddha-would-say",
+      "lead-instagram-aristhestill",
+      "lead-instagram-chenweihealing",
+      "lead-instagram-haku-shinn",
+      "lead-instagram-kael-wisdom",
+      "lead-instagram-ken-lu-monk",
+      "lead-instagram-liangmaster4u",
+      "lead-instagram-linchenhealing",
+      "lead-instagram-lotusfamily1",
+      "lead-instagram-maestroananta",
+      "lead-instagram-master-kaion",
+      "lead-instagram-master-li-shen",
+      "lead-instagram-masterlianancient",
+      "lead-instagram-masterlinghao",
+      "lead-instagram-masteryunming",
+      "lead-instagram-masteryunsage",
+      "lead-instagram-mestre-jin",
+      "lead-instagram-monjaalma",
+      "lead-instagram-monkshen",
+      "lead-instagram-monktashirok",
+      "lead-instagram-oldmonktenzin",
+      "lead-instagram-oravishen",
+      "lead-instagram-samuelreedcards",
+      "lead-instagram-shenmuhealer",
+      "lead-instagram-shin-hyun-official",
+      "lead-instagram-tempiovita",
+      "lead-instagram-thekaizenhealing",
+      "lead-instagram-thezhenwu",
+      "lead-instagram-yunlobsang",
+      "lead-instagram-zenmuun"
+    ],
+    "allowed_changes": [
+      "この新規evidence",
+      "対象recordの確認済み原画像とprofiles.jsonの対応行/coverage",
+      "既存UI planのbatch4部分のみ"
+    ],
+    "excluded": [
+      "canonical75件/48件",
+      "AI status/language/metrics",
+      "既存画像/既存manifestの対象外行",
+      "UI code",
+      "rootのMCP作業",
+      "他spec/既存evidence"
+    ]
+  },
+  "acceptance": [
+    "調査前にplan/evidenceをcommit/pushしremote一致を確認",
+    "10件の公開検索・source・失敗境界を個別記録",
+    "公式crosslinkまたは明確な公開profile対応がある画像のみ採用",
+    "原bytes/MIME/SHA256/attribution/source roleを保持",
+    "75ID・全asset hashes/bytes・新規原byte一致・対象外行/canonical SHA不変",
+    "secret/private path/署名付きURLなし・既存helper5tests・diff check",
+    "限定commit/push・remote object一致・PR作成/attachまで。自動mergeせずrootへ引き継ぐ。"
+  ],
+  "research_limits": [
+    "Instagram直接自動取得を行わない。vidIQ残高0、有料API/新認証/購入/外部投稿を使わない。",
+    "同名・同handleだけでは別platform画像を割り当てない。新しいAI顔を生成せず、別profile画像を代用しない。",
+    "公開sourceのnamed imageはAI分類や再利用licenseの確認ではない。",
+    "既存ShenMuのHTTP MIME記録とraw signatureの差は既存観測として保持し、本batchで変更しない。",
+    "このbounded10件の未取得を、残り58件全ての調査完了とは扱わない。",
+    "IG mirror/Pictameの検索結果は、IG直接取得の境界を迂回する画像収集には使わない。",
+    "Master Jiaoの原画像はAVIF。view_imageは非対応のため変換せず、登録済みChromeの原byte decodeと72px表示で顔可視を確認する。"
+  ],
+  "canonical_sha256_before": "37a724d413233dacae215f68cd2e5021443a9aefb271fd3c129d8e338fce94b9",
+  "cursor": "source受入検証PASS。限定5pathのcommit/push・remote object一致・PR作成/attachへ進み、CI監視/merge/本番readbackをrootへ引き継ぐ。",
+  "profiles": [
+    {
+      "account_id": "lead-instagram-yonchenhealing",
+      "display_name": "Yon Chen",
+      "canonical_handle": "yonchenhealing",
+      "canonical_profile_url": "https://www.instagram.com/yonchenhealing/",
+      "status": "unknown",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"yonchenhealing\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22yonchenhealing%22",
+          "checked_at": "2026-10-23T01:46:53.413270+00:00",
+          "exit_code": 0,
+          "outcome": "results",
+          "response_sha256": "8cf2e5727be896161bad6c8eac749ce0af71bd372ec1abcd1fd14a332c8f7d73",
+          "results": [
+            {
+              "title": "Yon Chen | Based in the US (@yonchenhealing) - Instagram",
+              "url": "https://www.instagram.com/yonchenhealing/"
+            },
+            {
+              "title": "yonchenhealing (@yonchenhealing) | TikTok",
+              "url": "https://www.tiktok.com/@yonchenhealing"
+            },
+            {
+              "title": "yonchenhealing on TikTok",
+              "url": "https://www.tiktok.com/@yonchenhealing/video/7590767134980984086"
+            },
+            {
+              "title": "Yon Chen | Based in the US | 50 seconds of wisdom. More in my ...",
+              "url": "https://www.instagram.com/reel/DTm5VqUCTpE/"
+            },
+            {
+              "title": "Privacy Policy - Yon Chen Healing",
+              "url": "https://yonchenhealing.com/privacy-policy/"
+            }
+          ]
+        },
+        {
+          "kind": "public_source",
+          "url": "https://yonchenhealing.com/",
+          "checked_at": "2026-10-23T01:48:18.370951+00:00",
+          "tools": [
+            {
+              "tool": "crwl",
+              "exit_code": 0,
+              "bytes": 4968,
+              "response_sha256": "f64ac0fe3fd8eccece068fd9fbd7c72358c94e2ae5910413b359fb41406f1fc4"
+            },
+            {
+              "tool": "scrapy",
+              "exit_code": 0,
+              "bytes": 128984,
+              "response_sha256": "b84dc9fa1532152e139c818a86876fce4483d35d7b8ff853a99c9142ae7b4666"
+            }
+          ],
+          "title": "Yon Chen Healing – Principles of Healing from Classical Chinese Medicine",
+          "source_key": "yonchenhealing",
+          "outcome": "source_checked_no_exact_instagram_crosslink"
+        }
+      ],
+      "verified_image": null,
+      "unverified_reason": "Yon Chen名義のsiteは確認できるが、HTML内にexact canonical Instagram crosslinkはない。名前とdomain一致だけでは画像を割り当てない。",
+      "diagnostic_boundary": {
+        "occurrence_id": "batch4-yonchenhealing",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; no image assigned",
+        "readback": "unknown",
+        "provider_receipt_id": null,
+        "error_class": "exact_profile_image_attribution_unverified",
+        "retryable": true,
+        "next_action": "新たな公式crosslinkや明確な公開profile attributionが得られた時に確認する。現在の欠落を同名画像や生成顔で埋めない。"
+      }
+    },
+    {
+      "account_id": "lead-instagram-innerequelle",
+      "display_name": "Li Ming",
+      "canonical_handle": "innerequelle",
+      "canonical_profile_url": "https://www.instagram.com/innerequelle/",
+      "status": "unknown",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"innerequelle\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22innerequelle%22",
+          "checked_at": "2026-10-23T01:46:53.413434+00:00",
+          "exit_code": 0,
+          "outcome": "results",
+          "response_sha256": "b1c7cb536c87d727d4e98ddfb91fca57d83ecaa6adbcecafe1c4184a16dee8fe",
+          "results": [
+            {
+              "title": "Li Ming (@innerequelle) • Instagram photos and videos",
+              "url": "https://www.instagram.com/innerequelle/"
+            },
+            {
+              "title": "Innerequelle.de",
+              "url": "https://innerequelle.de/"
+            },
+            {
+              "title": "Li Ming (@innerequelle) • Instagram photos and videos",
+              "url": "https://www.instagram.com/innerequelle/reels/"
+            },
+            {
+              "title": "Reiki Dojo Deutschland - Innerequelle.de",
+              "url": "https://innerequelle.de/andreas-jordi-academy/"
+            },
+            {
+              "title": "#fyp #foryou #innerequelle | TikTok",
+              "url": "https://www.tiktok.com/@innerequelle1/video/7635369285979852064"
+            }
+          ]
+        },
+        {
+          "kind": "public_search",
+          "tool": "registered CloakBrowser; owned new tab; normal navigation",
+          "query": "innerequelle official",
+          "url": "https://html.duckduckgo.com/html/?q=innerequelle%20official",
+          "checked_at": "2026-10-23T01:48:20.126644+00:00",
+          "http_status": 200,
+          "outcome": "results",
+          "response_sha256": "1efc1c963b584b359d5774286b71b298b0b6a4bfba33cb7b80138cb4c983bcc4",
+          "results": [
+            {
+              "title": "Li Ming (@innerequelle) • Instagram photos and videos",
+              "url": "https://www.instagram.com/innerequelle/"
+            },
+            {
+              "title": "Innerequelle.de",
+              "url": "https://innerequelle.de/"
+            },
+            {
+              "title": "Li Ming (@innerequelle) • Instagram photos and videos",
+              "url": "https://www.instagram.com/innerequelle/reels/"
+            },
+            {
+              "title": "Aktuelles - Innerequelle.de",
+              "url": "https://innerequelle.de/aktuelles/"
+            },
+            {
+              "title": "Home [www.innere-quelle.de]",
+              "url": "http://www.innere-quelle.de/"
+            },
+            {
+              "title": "innerëcho_official (@innerecho_official) • Instagram photos and videos",
+              "url": "https://www.instagram.com/innerecho_official/"
+            },
+            {
+              "title": "Reiki Dojo Deutschland - Innerequelle.de",
+              "url": "https://innerequelle.de/andreas-jordi-academy/"
+            }
+          ]
+        },
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"innerequelle\" \"Li Ming\" -site:instagram.com",
+          "url": "https://duckduckgo.com/html/?q=%22innerequelle%22%20%22Li%20Ming%22%20-site%3Ainstagram.com",
+          "checked_at": "2026-10-23T01:53:16.944789+00:00",
+          "outcome": "no_results_or_unparsed_body",
+          "exit_code": 0,
+          "response_sha256": "bcf6f520fb14fb22d848d14b4aa6def70b1becf91ef6cf20a3113ea2197f48f8",
+          "results": []
+        },
+        {
+          "kind": "public_source",
+          "url": "https://innerequelle.de/",
+          "checked_at": "2026-10-23T01:48:18.371250+00:00",
+          "tools": [
+            {
+              "tool": "crwl",
+              "exit_code": 0,
+              "bytes": 4145,
+              "response_sha256": "539caa806ec314ee1372a6437048f420c14a6f0481b48b07fc003cd571560461"
+            },
+            {
+              "tool": "scrapy",
+              "exit_code": 0,
+              "bytes": 325479,
+              "response_sha256": "7a41a606dacba81b17810a0547594dc0058b775c7c8dc8e8f4a589f70fd86967"
+            }
+          ],
+          "title": "Innerequelle.de",
+          "source_key": "innerequelle",
+          "outcome": "source_checked_no_exact_instagram_crosslink"
+        }
+      ],
+      "verified_image": null,
+      "unverified_reason": "同名.de siteはReiki関連の内容で、Li Mingまたはexact Instagram handleへのcrosslinkを確認できない。絞込検索でも採用可能なsourceは未確認。",
+      "diagnostic_boundary": {
+        "occurrence_id": "batch4-innerequelle",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; no image assigned",
+        "readback": "unknown",
+        "provider_receipt_id": null,
+        "error_class": "exact_profile_image_attribution_unverified",
+        "retryable": true,
+        "next_action": "新たな公式crosslinkや明確な公開profile attributionが得られた時に確認する。現在の欠落を同名画像や生成顔で埋めない。"
+      }
+    },
+    {
+      "account_id": "lead-instagram-maestroyunkai",
+      "display_name": "Yun Kai",
+      "canonical_handle": "maestroyunkai",
+      "canonical_profile_url": "https://www.instagram.com/maestroyunkai/",
+      "status": "acquired",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"maestroyunkai\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22maestroyunkai%22",
+          "checked_at": "2026-10-23T01:46:55.223411+00:00",
+          "exit_code": 0,
+          "outcome": "results",
+          "response_sha256": "5e6fec92e8e64326c95dd526e05cf180d5e2b8bf6ed254b49095815b62bb3fc6",
+          "results": [
+            {
+              "title": "Yun Kai (@maestroyunkai) • Instagram photos and videos",
+              "url": "https://www.instagram.com/maestroyunkai/"
+            },
+            {
+              "title": "Yun Kai (@maestroyunkai) • Instagram 47K Followers | Pictame",
+              "url": "https://pictame.com/en/instagram/maestroyunkai/39644144244"
+            },
+            {
+              "title": "maestroyunkai | Original audio on Instagram",
+              "url": "https://www.instagram.com/reels/audio/28168165219533089/"
+            },
+            {
+              "title": "Instagram",
+              "url": "https://www.instagram.com/reel/Daf9NJ6lK16/"
+            },
+            {
+              "title": "Instagram",
+              "url": "https://www.instagram.com/reel/DXypPnVi9m7/"
+            }
+          ]
+        },
+        {
+          "kind": "public_search",
+          "tool": "registered CloakBrowser; owned new tab; normal navigation",
+          "query": "maestroyunkai official",
+          "url": "https://html.duckduckgo.com/html/?q=maestroyunkai%20official",
+          "checked_at": "2026-10-23T01:48:21.712112+00:00",
+          "http_status": 200,
+          "outcome": "results",
+          "response_sha256": "368b973102e084ad1bafabca01a15cab0f892775b28fa3be99369c0043aa7196",
+          "results": [
+            {
+              "title": "Yun Kai (@maestroyunkai) • Instagram photos and videos",
+              "url": "https://www.instagram.com/maestroyunkai/"
+            },
+            {
+              "title": "Maestro Yun Kai Official: TikTok, Instagram | Linktree",
+              "url": "https://linktr.ee/maestroyunkai"
+            },
+            {
+              "title": "Yun Kai (@maestroyunkai) • Instagram 47K Followers | Pictame",
+              "url": "https://pictame.com/en/instagram/maestroyunkai/39644144244"
+            },
+            {
+              "title": "maestroyunkai | Original audio on Instagram",
+              "url": "https://www.instagram.com/reels/audio/28168165219533089/"
+            },
+            {
+              "title": "maestroyun (@maestro.yun) | TikTok",
+              "url": "https://www.tiktok.com/@maestro.yun"
+            },
+            {
+              "title": "橋本真希 - Wikipedia",
+              "url": "https://ja.wikipedia.org/wiki/%E6%A9%8B%E6%9C%AC%E7%9C%9F%E5%B8%8C"
+            },
+            {
+              "title": "日本空手道松濤會公式サイト - Nihon Karate Do Shoto-kai",
+              "url": "http://shotokai.jp/"
+            }
+          ]
+        },
+        {
+          "kind": "public_source",
+          "url": "https://linktr.ee/maestroyunkai",
+          "checked_at": "2026-10-23T01:50:09.432461+00:00",
+          "tools": [
+            {
+              "tool": "crwl",
+              "exit_code": 0,
+              "bytes": 11859,
+              "response_sha256": "bc29d364791dd5057a76476c179a6b83503f2923e7976569b981cfd5be60ff65"
+            },
+            {
+              "tool": "scrapy",
+              "exit_code": 0,
+              "bytes": 219698,
+              "response_sha256": "aba4f889d98181c011603901e9abea41867f37ea543728a75b33ee691d690620"
+            }
+          ],
+          "title": "Maestro Yun Kai Official: TikTok, Instagram | Linktree",
+          "source_key": "maestroyunkai",
+          "outcome": "exact_crosslink_and_named_profile_image_verified",
+          "exact_crosslink_url": "https://instagram.com/maestroyunkai",
+          "crosslink_locator": "__NEXT_DATA__.props.pageProps.socialLinks[type=INSTAGRAM].url"
+        }
+      ],
+      "verified_image": {
+        "account_id": "lead-instagram-maestroyunkai",
+        "image_source_url": "https://ugc.production.linktr.ee/db223a5c-80a6-4087-b379-33af17536063_image-1774395594031.png?io=true&size=avatar-v3_0",
+        "checked_at": "2026-10-23T01:52:23.273752+00:00",
+        "filename": "lead-instagram-maestroyunkai-source.jpg",
+        "response_url": "https://ugc.production.linktr.ee/db223a5c-80a6-4087-b379-33af17536063_image-1774395594031.png?io=true&size=avatar-v3_0",
+        "http_status": 200,
+        "response_content_type": "image/jpeg",
+        "content_type": "image/jpeg",
+        "bytes": 33236,
+        "sha256": "961863cfdee8cb65d468c5f59f042cd2528f55a9c78ca7e602878e554afeb3ad",
+        "outcome": "downloaded_original_response_bytes",
+        "metadata_source_url": "https://linktr.ee/maestroyunkai",
+        "metadata_response_sha256": "aba4f889d98181c011603901e9abea41867f37ea543728a75b33ee691d690620",
+        "exact_crosslink_url": "https://instagram.com/maestroyunkai",
+        "crosslink_locator": "__NEXT_DATA__.props.pageProps.socialLinks[type=INSTAGRAM].url",
+        "image_locator": "Named profile img alt=Maestro Yun Kai Official: TikTok, Instagram; observed src io=true&size=avatar-v3_0 and account.profilePictureUrl.",
+        "image_role": "first_party_named_profile_image",
+        "attribution": "Maestro Yun Kai Official: TikTok, Instagram | Linktree",
+        "transformations": "none; original HTTP response bytes",
+        "visual_checked": true,
+        "limits": "公開sourceが名前付きprofile imageとexact canonical IG linkを示す。IG avatarとの同一性・所有権・reuse license・AI分類は独立確認していない。",
+        "source_account_id": "129403462"
+      },
+      "unverified_reason": null,
+      "diagnostic_boundary": {
+        "occurrence_id": "batch4-maestroyunkai",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; verified original copied into branch only",
+        "readback": "acquired",
+        "provider_receipt_id": null,
+        "error_class": null,
+        "retryable": false,
+        "next_action": "source inventory/PRからrootへ引き継ぐ。"
+      }
+    },
+    {
+      "account_id": "lead-instagram-monjeshentao",
+      "display_name": "Shen Tao",
+      "canonical_handle": "monjeshentao",
+      "canonical_profile_url": "https://www.instagram.com/monjeshentao/",
+      "status": "unknown",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"monjeshentao\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22monjeshentao%22",
+          "checked_at": "2026-10-23T01:46:55.322853+00:00",
+          "exit_code": 0,
+          "outcome": "search_challenge",
+          "response_sha256": "206acfd230a92b47b97ec651ba9ecede063e30f89ebd320d066db86b87f460d9",
+          "results": []
+        },
+        {
+          "kind": "public_search",
+          "tool": "registered CloakBrowser; owned new tab; normal navigation",
+          "query": "monjeshentao official",
+          "url": "https://html.duckduckgo.com/html/?q=monjeshentao%20official",
+          "checked_at": "2026-10-23T01:48:23.302441+00:00",
+          "http_status": 200,
+          "outcome": "results",
+          "response_sha256": "9a916790eef079c09369bf1fe50f3037790ed368335002f69576d64093c5f67e",
+          "results": [
+            {
+              "title": "Shen Tao (@monjeshentao) • Instagram photos and videos",
+              "url": "https://www.instagram.com/monjeshentao/"
+            },
+            {
+              "title": "Instagram",
+              "url": "https://www.instagram.com/monjeshentao/reel/DUwD6-lDpzw/"
+            },
+            {
+              "title": "Shen Tao (@monjeshentao) — Live Instagram Follower Count",
+              "url": "https://instastatistics.com/monjeshentao"
+            },
+            {
+              "title": "Evita estos alimentos matutinos para un mejor día | TikTok",
+              "url": "https://www.tiktok.com/@monjeshentao/video/7615584267556506912"
+            },
+            {
+              "title": "墨将 Mojhon | 支持中心",
+              "url": "https://www.mojhon.cn/support/"
+            },
+            {
+              "title": "www.ehentai.org",
+              "url": "http://www.ehentai.org/"
+            },
+            {
+              "title": "Talents（NIJISANJI） | NIJISANJI",
+              "url": "https://www.nijisanji.jp/en/talents"
+            }
+          ]
+        },
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"monjeshentao\" -site:instagram.com -site:instastatistics.com",
+          "url": "https://duckduckgo.com/html/?q=%22monjeshentao%22%20-site%3Ainstagram.com%20-site%3Ainstastatistics.com",
+          "checked_at": "2026-10-23T01:53:18.781812+00:00",
+          "outcome": "results",
+          "exit_code": 0,
+          "response_sha256": "4a143c9928a9d5f889d6ecb2c3581de4be7670b89496f0cf35e34631dd6c8fc9",
+          "results": [
+            {
+              "title": "Evita estos alimentos matutinos para un mejor día | TikTok",
+              "url": "https://www.tiktok.com/@monjeshentao/video/7615584267556506912"
+            }
+          ]
+        },
+        {
+          "kind": "public_source",
+          "url": "https://www.tiktok.com/@monjeshentao",
+          "checked_at": "2026-10-23T01:56:42.160554+00:00",
+          "tools": [
+            {
+              "tool": "crwl",
+              "exit_code": 0,
+              "bytes": 2,
+              "response_sha256": "75a11da44c802486bc6f65640aa48a730f0f684c5c07a42ba3cd1735eb3fb070"
+            },
+            {
+              "tool": "scrapy",
+              "exit_code": 0,
+              "bytes": 1463,
+              "response_sha256": "0dc4b21acee71ed07c639ef53c31459d800c6a8fb87c72c966cb5589500a160e"
+            }
+          ],
+          "title": "",
+          "source_key": "monjeshentao_tiktok",
+          "outcome": "public_body_without_profile_metadata",
+          "public_user_metadata_count": 0
+        }
+      ],
+      "verified_image": null,
+      "unverified_reason": "公開検索にIG/TikTok結果はあるが、TikTokのcrwl本文は2bytes、HTMLはprofile metadataを含まず、exact IG crosslinkを確認できない。",
+      "diagnostic_boundary": {
+        "occurrence_id": "batch4-monjeshentao",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; no image assigned",
+        "readback": "unknown",
+        "provider_receipt_id": null,
+        "error_class": "exact_profile_image_attribution_unverified",
+        "retryable": true,
+        "next_action": "新たな公式crosslinkや明確な公開profile attributionが得られた時に確認する。現在の欠落を同名画像や生成顔で埋めない。"
+      }
+    },
+    {
+      "account_id": "lead-instagram-monacochenn",
+      "display_name": "Monaco Chen",
+      "canonical_handle": "monacochenn",
+      "canonical_profile_url": "https://www.instagram.com/monacochenn/",
+      "status": "unknown",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"monacochenn\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22monacochenn%22",
+          "checked_at": "2026-10-23T01:46:56.176316+00:00",
+          "exit_code": 0,
+          "outcome": "search_challenge",
+          "response_sha256": "bb3df053bf3657940a28140e9c2d93f71b3094c3d07373ed6f9ccf7ec4055cbd",
+          "results": []
+        },
+        {
+          "kind": "public_search",
+          "tool": "registered CloakBrowser; owned new tab; normal navigation",
+          "query": "monacochenn official",
+          "url": "https://html.duckduckgo.com/html/?q=monacochenn%20official",
+          "checked_at": "2026-10-23T01:48:24.647624+00:00",
+          "http_status": 200,
+          "outcome": "results",
+          "response_sha256": "7ab5c7cbe8293f9cf152a215998a7d849dd8f0b865600ca5920075dfd4a7144a",
+          "results": [
+            {
+              "title": "Monaco Chen (@monacochenn) • Instagram photos and videos",
+              "url": "https://www.instagram.com/monacochenn/"
+            },
+            {
+              "title": "monacochanel.com",
+              "url": "https://monacochanel.com/"
+            },
+            {
+              "title": "Monchhichi - Facebook",
+              "url": "https://www.facebook.com/monchhichi.official/about/"
+            },
+            {
+              "title": "Monaco Chen on Instagram: \"#spiritualita #pace #salute\"",
+              "url": "https://www.instagram.com/reel/DZvC_HQNAJl/"
+            },
+            {
+              "title": "Monaco Chan (@monaco.9413) • Instagram photos and videos",
+              "url": "https://www.instagram.com/monaco.9413/"
+            },
+            {
+              "title": "Monaco Chen on Instagram: \"#spiritualita #pace #salute\"",
+              "url": "https://www.instagram.com/reel/DZ9nE0Yt-am/"
+            },
+            {
+              "title": "Instagram",
+              "url": "https://www.instagram.com/monacochenn/reel/DXRwM-rsmRJ/"
+            }
+          ]
+        },
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"monacochenn\" libro -site:instagram.com",
+          "url": "https://duckduckgo.com/html/?q=%22monacochenn%22%20libro%20-site%3Ainstagram.com",
+          "checked_at": "2026-10-23T01:53:20.383276+00:00",
+          "outcome": "search_challenge",
+          "exit_code": 0,
+          "response_sha256": "3d0bebe3cefe883ca661def90f7d4fcdbc9e0c3d8d3f8d7fa024622ecd4afc2d",
+          "results": []
+        },
+        {
+          "kind": "public_source",
+          "url": "https://monacochanel.com/",
+          "checked_at": "2026-10-23T01:50:19.186295+00:00",
+          "tools": [
+            {
+              "tool": "crwl",
+              "exit_code": 1,
+              "bytes": 0,
+              "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "tool": "scrapy",
+              "exit_code": 0,
+              "bytes": 0,
+              "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          ],
+          "source_key": "monacochenn",
+          "outcome": "source_body_unavailable"
+        }
+      ],
+      "verified_image": null,
+      "unverified_reason": "公開検索の近似綴りmonacochanel.com候補は有効な本文を取得できず、追加検索はchallenge。近似名の画像は代用しない。",
+      "diagnostic_boundary": {
+        "occurrence_id": "batch4-monacochenn",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; no image assigned",
+        "readback": "unknown",
+        "provider_receipt_id": null,
+        "error_class": "exact_profile_image_attribution_unverified",
+        "retryable": true,
+        "next_action": "新たな公式crosslinkや明確な公開profile attributionが得られた時に確認する。現在の欠落を同名画像や生成顔で埋めない。"
+      }
+    },
+    {
+      "account_id": "lead-instagram-jin-miaoo",
+      "display_name": "jin.miaoo",
+      "canonical_handle": "jin.miaoo",
+      "canonical_profile_url": "https://www.instagram.com/jin.miaoo/",
+      "status": "unknown",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"jin.miaoo\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22jin.miaoo%22",
+          "checked_at": "2026-10-23T01:46:56.633489+00:00",
+          "exit_code": 0,
+          "outcome": "search_challenge",
+          "response_sha256": "1a197b853ed1e657cc5bb9d3178f88f857c47cb242a9264953d31694ff02aa75",
+          "results": []
+        },
+        {
+          "kind": "public_search",
+          "tool": "registered CloakBrowser; owned new tab; normal navigation",
+          "query": "jin.miaoo official",
+          "url": "https://html.duckduckgo.com/html/?q=jin.miaoo%20official",
+          "checked_at": "2026-10-23T01:48:26.116212+00:00",
+          "http_status": 200,
+          "outcome": "results",
+          "response_sha256": "d7e6b4102d8f5526f6e803acd6c1b1d06182b7368573218d3f7b323f820a5335",
+          "results": [
+            {
+              "title": "(@jin.miaoo) • Instagram photos and videos",
+              "url": "https://www.instagram.com/jin.miaoo/"
+            },
+            {
+              "title": "Jin Miao - YouTube",
+              "url": "https://www.youtube.com/@JinMiaoo/shorts"
+            },
+            {
+              "title": "(@jin.miaoo) • Instagram photos and videos",
+              "url": "https://www.instagram.com/jin.miaoo/reels/"
+            },
+            {
+              "title": "Jin Miao (@jin.miaoo) | TikTok",
+              "url": "https://www.tiktok.com/@jin.miaoo"
+            },
+            {
+              "title": "Produkte - JinMiao",
+              "url": "https://jinmiaoo.com/collections/all"
+            },
+            {
+              "title": "Jin Miao - YouTube",
+              "url": "https://www.youtube.com/@JinMiiaoo"
+            },
+            {
+              "title": "喵御宅官网，兴趣至上的ACGN内容平台",
+              "url": "https://www.mfuns.net/"
+            }
+          ]
+        },
+        {
+          "kind": "public_source",
+          "url": "https://www.youtube.com/@JinMiaoo/about",
+          "checked_at": "2026-10-23T01:50:09.432624+00:00",
+          "tools": [
+            {
+              "tool": "crwl",
+              "exit_code": 0,
+              "bytes": 6112,
+              "response_sha256": "493e61c88e05084aae82db8ae73f4dc8c1d2b216624cffa310881a5955a24758"
+            },
+            {
+              "tool": "scrapy",
+              "exit_code": 0,
+              "bytes": 1288753,
+              "response_sha256": "cfcd6fb186393c653eed9b8ac139c5d069119b45f5f28947c5b7e626f11eb3fa"
+            }
+          ],
+          "title": "Jin Miao - YouTube",
+          "source_key": "jin_miaoo",
+          "platform_account_id": "UCei-VBNGsFqz73OwONF3djA",
+          "published_sameAs": [
+            "https://jinmiaoo.com/products/buch"
+          ],
+          "crosslink_locator": "microformat.microformatDataRenderer.channelProfileMicroformatDetails.profilePage.mainEntity.sameAs",
+          "outcome": "canonical_instagram_crosslink_missing"
+        },
+        {
+          "kind": "public_source",
+          "url": "https://jinmiaoo.com/products/buch",
+          "checked_at": "2026-10-23T01:52:23.253128+00:00",
+          "tools": [
+            {
+              "tool": "crwl",
+              "exit_code": 0,
+              "bytes": 17226,
+              "response_sha256": "8c39dea0b09204913aa951c8b07e191417b91911448f92c3b9eddc8309cb8537"
+            },
+            {
+              "tool": "scrapy",
+              "exit_code": 0,
+              "bytes": 628807,
+              "response_sha256": "172d142c5ba9c6b7a98a216d18e8be8565c663853c1de2b4f6c731665c61d348"
+            }
+          ],
+          "title": "\n      Die Stille Nach Dem Sturm\n – JinMiao",
+          "instagram_raw_count": 0,
+          "source_key": "jin_miaoo_store",
+          "outcome": "source_checked_no_exact_instagram_crosslink"
+        }
+      ],
+      "verified_image": null,
+      "unverified_reason": "YouTubeはjinmiaoo.comのstoreにリンクするが、両sourceにexact canonical Instagram crosslinkを確認できない。YouTube avatar候補は未割当て。",
+      "diagnostic_boundary": {
+        "occurrence_id": "batch4-jin.miaoo",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; no image assigned",
+        "readback": "unknown",
+        "provider_receipt_id": null,
+        "error_class": "exact_profile_image_attribution_unverified",
+        "retryable": true,
+        "next_action": "新たな公式crosslinkや明確な公開profile attributionが得られた時に確認する。現在の欠落を同名画像や生成顔で埋めない。"
+      }
+    },
+    {
+      "account_id": "lead-instagram-maitre-ping-lin",
+      "display_name": "Maitre Lin",
+      "canonical_handle": "maitre_ping.lin",
+      "canonical_profile_url": "https://www.instagram.com/maitre_ping.lin/",
+      "status": "unknown",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"maitre_ping.lin\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22maitre_ping.lin%22",
+          "checked_at": "2026-10-23T01:46:57.036942+00:00",
+          "exit_code": 0,
+          "outcome": "search_challenge",
+          "response_sha256": "94a1f8f50bb0638d35e2e51130bbbbf6abc08566b00c748df7371aa0635fb69f",
+          "results": []
+        },
+        {
+          "kind": "public_search",
+          "tool": "registered CloakBrowser; owned new tab; normal navigation",
+          "query": "maitre_ping.lin official",
+          "url": "https://html.duckduckgo.com/html/?q=maitre_ping.lin%20official",
+          "checked_at": "2026-10-23T01:48:27.444493+00:00",
+          "http_status": 200,
+          "outcome": "results",
+          "response_sha256": "b3793aae5ef95a68a325bc92514fbf751cc4bff443df32f31f347853373a3b98",
+          "results": [
+            {
+              "title": "Maitre Lin (@maitre_ping.lin) • Instagram photos and videos",
+              "url": "https://www.instagram.com/maitre_ping.lin/"
+            },
+            {
+              "title": "Maitre Lin (@maitre_ping.lin) • Instagram photos and videos",
+              "url": "https://www.instagram.com/maitre_ping.lin/reels/"
+            },
+            {
+              "title": "Maitre Lin | #bienêtre #reflexion #pourtoi #chien #dormir - Instagram",
+              "url": "https://www.instagram.com/reel/DbbZNb7MlN5/"
+            },
+            {
+              "title": "Maitre Lin | #bienêtre #reflexion #meditation #pourtoi # ... - Instagram",
+              "url": "https://www.instagram.com/reel/DbU2veSMxmD/"
+            },
+            {
+              "title": "Maitre Lin | #bienêtre #santénaturelle #equilibre #pourtoi #foie ...",
+              "url": "https://www.instagram.com/reel/Db_cOn_x5Zu/"
+            },
+            {
+              "title": "Maitre Lin | #bienêtre #reflexion #equilibre #meditation #santé | Instagram",
+              "url": "https://www.instagram.com/reel/DcCDEINRPZ5/"
+            },
+            {
+              "title": "maitre.lin (@maitre.lin) | TikTok",
+              "url": "https://www.tiktok.com/@maitre.lin"
+            }
+          ]
+        },
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"maitre_ping.lin\" -site:instagram.com",
+          "url": "https://duckduckgo.com/html/?q=%22maitre_ping.lin%22%20-site%3Ainstagram.com",
+          "checked_at": "2026-10-23T01:53:21.388092+00:00",
+          "outcome": "search_challenge",
+          "exit_code": 0,
+          "response_sha256": "93125ae26ee6609d928e462873b098991f03133c380d2e460fd0b8192f4015fc",
+          "results": []
+        }
+      ],
+      "verified_image": null,
+      "unverified_reason": "公開検索は主にInstagram結果で、IG外のattributable sourceを確認できない。絞込検索はchallengeで、IG直接取得は行わない。",
+      "diagnostic_boundary": {
+        "occurrence_id": "batch4-maitre_ping.lin",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; no image assigned",
+        "readback": "unknown",
+        "provider_receipt_id": null,
+        "error_class": "exact_profile_image_attribution_unverified",
+        "retryable": true,
+        "next_action": "新たな公式crosslinkや明確な公開profile attributionが得られた時に確認する。現在の欠落を同名画像や生成顔で埋めない。"
+      }
+    },
+    {
+      "account_id": "lead-instagram-tenzinremedios",
+      "display_name": "Tenzin Remedios",
+      "canonical_handle": "tenzinremedios",
+      "canonical_profile_url": "https://www.instagram.com/tenzinremedios/",
+      "status": "unknown",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"tenzinremedios\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22tenzinremedios%22",
+          "checked_at": "2026-10-23T01:46:57.409903+00:00",
+          "exit_code": 0,
+          "outcome": "search_challenge",
+          "response_sha256": "98726535a29e593e59a37b3c2ad459cade959bc6ba5a966f371fd903e3ff688d",
+          "results": []
+        },
+        {
+          "kind": "public_search",
+          "tool": "registered CloakBrowser; owned new tab; normal navigation",
+          "query": "tenzinremedios official",
+          "url": "https://html.duckduckgo.com/html/?q=tenzinremedios%20official",
+          "checked_at": "2026-10-23T01:48:28.856239+00:00",
+          "http_status": 200,
+          "outcome": "results",
+          "response_sha256": "8fe8cd74123c584f38b9aa460930fdd0ab9a6f8c049ba7d9c798473ee096273f",
+          "results": [
+            {
+              "title": "Tenzin Remedios / Medicina China (@tenzinremedios) - Instagram",
+              "url": "https://www.instagram.com/tenzinremedios/"
+            },
+            {
+              "title": "Tenzin Remedios /Medicina China - Facebook",
+              "url": "https://www.facebook.com/profile.php/?id=61564741355095"
+            },
+            {
+              "title": "Tenzin Remedios / Medicina China (@tenzinremedios) • Instagram 23K ...",
+              "url": "https://pictame.com/en/instagram/tenzinremedios/30645666016"
+            },
+            {
+              "title": "Tenzin Remedios / Medicina China | ¿Quieres ... - Instagram",
+              "url": "https://www.instagram.com/reel/DYIQpAgO9sU/"
+            },
+            {
+              "title": "Tenzin Official - YouTube",
+              "url": "https://www.youtube.com/channel/UCCdvxUHrKep47sglSJl4T4w"
+            },
+            {
+              "title": "Creé \"El camino de vuelta a la calma\" para las personas que ya están ...",
+              "url": "https://www.facebook.com/61564741355095/videos/1384020653597478/"
+            },
+            {
+              "title": "‎Tenzin - Apple Music",
+              "url": "https://music.apple.com/us/artist/tenzin/253007547"
+            }
+          ]
+        },
+        {
+          "kind": "public_source",
+          "url": "https://www.facebook.com/profile.php?id=61564741355095&sk=about",
+          "checked_at": "2026-10-23T01:52:30.492253+00:00",
+          "tools": [
+            {
+              "tool": "crwl",
+              "exit_code": 0,
+              "bytes": 733,
+              "response_sha256": "79e139cbfd9c684e667f58d3c23666d9da5b1f1a7557b5283e3a841502851c66"
+            },
+            {
+              "tool": "scrapy",
+              "exit_code": 0,
+              "bytes": 3300299,
+              "response_sha256": "29efd90d05a1dd5bc8577d1717259a98d1e7d604e156bd4c21718deaf5cf5502"
+            }
+          ],
+          "title": "Tenzin Remedios /Medicina China",
+          "instagram_raw_count": 20,
+          "source_key": "tenzinremedios_fb",
+          "outcome": "source_checked_no_exact_instagram_crosslink"
+        }
+      ],
+      "verified_image": null,
+      "unverified_reason": "公開Facebook profileは確認できるが、exact canonical Instagram crosslinkは確認できない。名前一致のprofile imageは未割当て。",
+      "diagnostic_boundary": {
+        "occurrence_id": "batch4-tenzinremedios",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; no image assigned",
+        "readback": "unknown",
+        "provider_receipt_id": null,
+        "error_class": "exact_profile_image_attribution_unverified",
+        "retryable": true,
+        "next_action": "新たな公式crosslinkや明確な公開profile attributionが得られた時に確認する。現在の欠落を同名画像や生成顔で埋めない。"
+      }
+    },
+    {
+      "account_id": "lead-instagram-monacogendun",
+      "display_name": "Monaco Gendun",
+      "canonical_handle": "monacogendun",
+      "canonical_profile_url": "https://www.instagram.com/monacogendun/",
+      "status": "unknown",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"monacogendun\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22monacogendun%22",
+          "checked_at": "2026-10-23T01:46:57.823341+00:00",
+          "exit_code": 0,
+          "outcome": "search_challenge",
+          "response_sha256": "82a6f0b7cd5e1960b6cff59aca8b8b0a9960c7f32f5764398ba21aefcfa30cab",
+          "results": []
+        },
+        {
+          "kind": "public_search",
+          "tool": "registered CloakBrowser; owned new tab; normal navigation",
+          "query": "monacogendun official",
+          "url": "https://html.duckduckgo.com/html/?q=monacogendun%20official",
+          "checked_at": "2026-10-23T01:48:30.356799+00:00",
+          "http_status": 200,
+          "outcome": "results",
+          "response_sha256": "88622ea12d421b871972dc4fcd3fd044efa677aa2708d151aebcd6e142ed37e2",
+          "results": [
+            {
+              "title": "Monaco Gendun (@monacogendun) • Instagram photos and videos",
+              "url": "https://www.instagram.com/monacogendun/"
+            },
+            {
+              "title": "Monacogendun - YouTube",
+              "url": "https://www.youtube.com/@Monacogendun"
+            },
+            {
+              "title": "Monaco Gendun (@monacogendun) • Instagram photos and videos",
+              "url": "https://www.instagram.com/monacogendun/reels/"
+            },
+            {
+              "title": "Gendun Monnaco - Facebook",
+              "url": "https://www.facebook.com/profile.php/?id=61578427662922"
+            },
+            {
+              "title": "Monaco Gendun (@monacogendunn) | TikTok",
+              "url": "https://www.tiktok.com/@monacogendunn"
+            },
+            {
+              "title": "Monaco Gendun (@gendunmonaco) | TikTok",
+              "url": "https://www.tiktok.com/@gendunmonaco"
+            },
+            {
+              "title": "gendunmonaco.com",
+              "url": "https://gendunmonaco.com/"
+            }
+          ]
+        },
+        {
+          "kind": "public_source",
+          "url": "https://www.youtube.com/@Monacogendun/about",
+          "checked_at": "2026-10-23T01:50:14.559670+00:00",
+          "tools": [
+            {
+              "tool": "crwl",
+              "exit_code": 0,
+              "bytes": 4392,
+              "response_sha256": "06f266d8e12d23b15771bf93a77cbb632c4295c4f42ff2d587225ceb4a07a563"
+            },
+            {
+              "tool": "scrapy",
+              "exit_code": 0,
+              "bytes": 1238972,
+              "response_sha256": "238c4cd875254d7063e2f472b2ca4a5967133539d801154b552c4c99b2f0d6b8"
+            }
+          ],
+          "title": "Monacogendun - YouTube",
+          "source_key": "monacogendun",
+          "platform_account_id": "UCSUOUdGKX4Hd5WFuCKLgVmA",
+          "published_sameAs": [
+            "https://gendunmonaco.com/products/libro"
+          ],
+          "crosslink_locator": "microformat.microformatDataRenderer.channelProfileMicroformatDetails.profilePage.mainEntity.sameAs",
+          "outcome": "canonical_instagram_crosslink_missing"
+        },
+        {
+          "kind": "public_source",
+          "url": "https://gendunmonaco.com/products/libro",
+          "checked_at": "2026-10-23T01:52:23.253372+00:00",
+          "tools": [
+            {
+              "tool": "crwl",
+              "exit_code": 0,
+              "bytes": 11448,
+              "response_sha256": "456123c2ea57faf94537f0ffdd651afacb5140f1e1a95ee458d341471913e586"
+            },
+            {
+              "tool": "scrapy",
+              "exit_code": 0,
+              "bytes": 401191,
+              "response_sha256": "3c08b7375dd507d027dd012e83075eb87db2d7782f18c0db300d4fdf12d7db12"
+            }
+          ],
+          "title": "\n      Il Codice Ebraico degli Investimenti: Come Costruire Vera Ricchezza\n – .",
+          "instagram_raw_count": 8,
+          "source_key": "monacogendun_store",
+          "outcome": "source_checked_no_exact_instagram_crosslink"
+        }
+      ],
+      "verified_image": null,
+      "unverified_reason": "YouTubeはgendunmonaco.comのstoreにリンクするが、両sourceにexact canonical Instagram crosslinkを確認できない。store題名の変化からidentityやAI状態を推測しない。",
+      "diagnostic_boundary": {
+        "occurrence_id": "batch4-monacogendun",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; no image assigned",
+        "readback": "unknown",
+        "provider_receipt_id": null,
+        "error_class": "exact_profile_image_attribution_unverified",
+        "retryable": true,
+        "next_action": "新たな公式crosslinkや明確な公開profile attributionが得られた時に確認する。現在の欠落を同名画像や生成顔で埋めない。"
+      }
+    },
+    {
+      "account_id": "lead-instagram-masterjiao",
+      "display_name": "Master Jiao",
+      "canonical_handle": "masterjiao",
+      "canonical_profile_url": "https://www.instagram.com/masterjiao/",
+      "status": "acquired",
+      "attempts": [
+        {
+          "kind": "public_search",
+          "tool": "scrapy fetch + lxml",
+          "query": "\"masterjiao\"",
+          "url": "https://html.duckduckgo.com/html/?q=%22masterjiao%22",
+          "checked_at": "2026-10-23T01:46:58.234528+00:00",
+          "exit_code": 0,
+          "outcome": "search_challenge",
+          "response_sha256": "d9b61e3767f98f440e433831622bfb045159b6e78194a4b357dd6efff5483741",
+          "results": []
+        },
+        {
+          "kind": "public_search",
+          "tool": "registered CloakBrowser; owned new tab; normal navigation",
+          "query": "masterjiao official",
+          "url": "https://html.duckduckgo.com/html/?q=masterjiao%20official",
+          "checked_at": "2026-10-23T01:48:31.916834+00:00",
+          "http_status": 200,
+          "outcome": "results",
+          "response_sha256": "41d3080a96ab0a1be31b31b17252c434859f18f951f81aef05d96bc02839f00a",
+          "results": [
+            {
+              "title": "Master Jiao (@masterjiao) • Instagram photos and videos",
+              "url": "https://www.instagram.com/masterjiao/"
+            },
+            {
+              "title": "Master Shi Jiao - Facebook",
+              "url": "https://www.facebook.com/p/Master-Shi-Jiao-61591537648973/"
+            },
+            {
+              "title": "Master Shi Jiao - YouTube",
+              "url": "https://www.youtube.com/@MasterShiJiao"
+            },
+            {
+              "title": "Master Shi Jiao | Whop",
+              "url": "https://whop.com/@masterjiao/"
+            },
+            {
+              "title": "最新地址导航 - 入口发布实时更新通道 | 妖精网站",
+              "url": "https://yaojing.wiki/video/goHome/"
+            },
+            {
+              "title": "masterjiao | Original audio on Instagram",
+              "url": "https://www.instagram.com/reels/audio/28283589651327002/"
+            },
+            {
+              "title": "Master Jiao on TikTok",
+              "url": "https://www.tiktok.com/@masterjiao/video/7666457030021926161"
+            }
+          ]
+        },
+        {
+          "kind": "public_source",
+          "url": "https://www.youtube.com/@MasterShiJiao/about",
+          "checked_at": "2026-10-23T01:50:14.599858+00:00",
+          "tools": [
+            {
+              "tool": "crwl",
+              "exit_code": 0,
+              "bytes": 13026,
+              "response_sha256": "b3f05e8a49b402c6be8cd6cc5602f0192ec3c95c240fecb89e5f30b86bc9a660"
+            },
+            {
+              "tool": "scrapy",
+              "exit_code": 0,
+              "bytes": 1193802,
+              "response_sha256": "8352cccd249aff3e7186ae36d2e4531ff1e9b7836b81379c14ca45918d7a4f46"
+            }
+          ],
+          "title": "Master Shi Jiao - YouTube",
+          "source_key": "masterjiao_youtube",
+          "platform_account_id": "UCCSgPP200dOVhzcy7haUG5Q",
+          "published_sameAs": [
+            "https://masterjiao.gumroad.com/"
+          ],
+          "crosslink_locator": "microformat.microformatDataRenderer.channelProfileMicroformatDetails.profilePage.mainEntity.sameAs",
+          "outcome": "canonical_instagram_crosslink_missing"
+        },
+        {
+          "kind": "public_source",
+          "url": "https://whop.com/@masterjiao/",
+          "checked_at": "2026-10-23T01:50:19.183932+00:00",
+          "tools": [
+            {
+              "tool": "crwl",
+              "exit_code": 0,
+              "bytes": 383,
+              "response_sha256": "f8a1f7f4fc50480f8456121ca587d7ad0aa51afd677599a30f19e998de33121a"
+            },
+            {
+              "tool": "scrapy",
+              "exit_code": 0,
+              "bytes": 67211,
+              "response_sha256": "53fb3b308a939269b9dfa83ef43cb3893234c4cc4fd43a0ebe0b9bcda88e7e8d"
+            }
+          ],
+          "title": "Master Shi Jiao | Whop",
+          "source_key": "masterjiao_whop",
+          "outcome": "exact_crosslink_and_named_profile_image_verified",
+          "exact_crosslink_url": "https://www.instagram.com/masterjiao",
+          "crosslink_locator": "a[href=\"https://www.instagram.com/masterjiao\"] label=@masterjiao"
+        }
+      ],
+      "verified_image": {
+        "account_id": "lead-instagram-masterjiao",
+        "image_source_url": "https://img-v2-prod.whop.com/unsafe/rs:fit:160:0/plain/https%3A%2F%2Fassets-2-prod.whop.com%2Fpublic%2Fuploads%2F2026-08-30%2F220222ee-0605-44a5-b299-0d4497909b3f%2Fimage.png@avif?w=160&q=75",
+        "checked_at": "2026-10-23T01:52:23.657251+00:00",
+        "filename": "lead-instagram-masterjiao-source.avif",
+        "response_url": "https://img-v2-prod.whop.com/unsafe/rs:fit:160:0/plain/https%3A%2F%2Fassets-2-prod.whop.com%2Fpublic%2Fuploads%2F2026-08-30%2F220222ee-0605-44a5-b299-0d4497909b3f%2Fimage.png@avif?w=160&q=75",
+        "http_status": 200,
+        "response_content_type": "image/avif",
+        "content_type": "image/avif",
+        "bytes": 4525,
+        "sha256": "e286bb029aa08319aab3766e0b47b109f23fca9efc5feb262db1953d2053669c",
+        "outcome": "downloaded_original_response_bytes",
+        "metadata_source_url": "https://whop.com/@masterjiao/",
+        "metadata_response_sha256": "53fb3b308a939269b9dfa83ef43cb3893234c4cc4fd43a0ebe0b9bcda88e7e8d",
+        "exact_crosslink_url": "https://www.instagram.com/masterjiao",
+        "crosslink_locator": "a[href=\"https://www.instagram.com/masterjiao\"] label=@masterjiao",
+        "image_locator": "img[alt=\"Profile picture\"] observed src; metadata-provided 160px AVIF, not the profile banner or OG card.",
+        "image_role": "first_party_named_profile_image",
+        "attribution": "Master Shi Jiao | Whop",
+        "transformations": "none; original HTTP response bytes",
+        "visual_checked": true,
+        "limits": "公開sourceが名前付きprofile imageとexact canonical IG linkを示す。IG avatarとの同一性・所有権・reuse license・AI分類は独立確認していない。"
+      },
+      "unverified_reason": null,
+      "diagnostic_boundary": {
+        "occurrence_id": "batch4-masterjiao",
+        "phase": "public_profile_image_attribution",
+        "effect": "read_only_sources; verified original copied into branch only",
+        "readback": "acquired",
+        "provider_receipt_id": null,
+        "error_class": null,
+        "retryable": false,
+        "next_action": "source inventory/PRからrootへ引き継ぐ。"
+      }
+    }
+  ],
+  "validation": {
+    "status": "PASS",
+    "checked_at": "2026-10-23T02:03:40.048442+00:00",
+    "canonical_ids": 75,
+    "acquired": 19,
+    "unknown": 56,
+    "all_asset_bytes_sha256_verified": 19,
+    "existing_asset_original_bytes_unchanged": 17,
+    "new_asset_original_bytes_equal_private_download": 2,
+    "new_mime_signature_and_header_match": 2,
+    "existing_manifest_rows_unchanged": 73,
+    "canonical_sha256": "37a724d413233dacae215f68cd2e5021443a9aefb271fd3c129d8e338fce94b9",
+    "ui_code_unchanged": true,
+    "prior_plan_prefix_unchanged": true,
+    "public_json_private_path_secret_signed_url_scan": "PASS",
+    "allowed_changed_paths": [
+      "apps/landing/public/assets/ai-monk-profiles/lead-instagram-maestroyunkai-source.jpg",
+      "apps/landing/public/assets/ai-monk-profiles/lead-instagram-masterjiao-source.avif",
+      "apps/landing/public/assets/ai-monk-profiles/profiles.json",
+      "docs/evidence/ai-monk-profile-discovery-batch4-20261023.json",
+      "docs/superpowers/plans/2026-10-23-ai-monk-database-ui.md"
+    ],
+    "preexisting_mime_exception": [
+      {
+        "account_id": "lead-instagram-shenmuhealer",
+        "recorded_http_mime": "image/jpeg",
+        "raw_signature": "image/webp",
+        "existing_row_unchanged": true
+      }
+    ],
+    "directory_helper_tests": {
+      "command": "node --test apps/landing/lib/ai-monk-directory.test.mjs",
+      "passed": 5,
+      "failed": 0
+    },
+    "diff_check": "PASS",
+    "native_original_image_decode_and_72px_face_visibility": "PASS: JPEG/AVIFとも登録済みbrowserで確認。visual_verification参照。",
+    "scope_limit": "19件はsource inventoryの値。本batchで本番反映しない。既存ShenMuのHTTP MIME/raw signature差は未変更。"
+  },
+  "production_state_changed": false,
+  "browser_boundary": {
+    "credentials_full_json_parsed": true,
+    "credential_values_logged": false,
+    "registry_and_owner_checked": true,
+    "identity": "interactive:dais",
+    "owned_new_tab_only": true,
+    "lease_released": true,
+    "challenge_solver_used": false,
+    "new_auth_or_paid_tools": false
+  },
+  "visual_verification": {
+    "checked_at": "2026-10-23T01:56:43.603908+00:00",
+    "registered_cdp": true,
+    "own_new_tab": true,
+    "observations": [
+      {
+        "account_id": "lead-instagram-maestroyunkai",
+        "images": [
+          {
+            "natural_width": 400,
+            "natural_height": 400,
+            "width": 160,
+            "height": 160,
+            "object_position": "50% 50%",
+            "loaded": true
+          },
+          {
+            "natural_width": 400,
+            "natural_height": 400,
+            "width": 72,
+            "height": 72,
+            "object_position": "50% 25%",
+            "loaded": true
+          }
+        ]
+      },
+      {
+        "account_id": "lead-instagram-masterjiao",
+        "images": [
+          {
+            "natural_width": 160,
+            "natural_height": 160,
+            "width": 160,
+            "height": 160,
+            "object_position": "50% 50%",
+            "loaded": true
+          },
+          {
+            "natural_width": 160,
+            "natural_height": 160,
+            "width": 72,
+            "height": 72,
+            "object_position": "50% 25%",
+            "loaded": true
+          }
+        ]
+      }
+    ],
+    "screenshot_sha256": "3ad294c92746c9c67a45f8f612a79975979e585a8e5f39696dde75c3adc3da41",
+    "visual_review": "PASS: 登録済みChromeでJPEG/AVIFの原bytesをdecodeし、160pxと既存72px object-position:center 25%で両名の顔を視認。画像変換や新しいCSS cropは行わない。"
+  },
+  "result": {
+    "targets_checked": 10,
+    "new_images": 2,
+    "unknown_in_batch": 8,
+    "intended_source_coverage": {
+      "total": 75,
+      "acquired": 19,
+      "platform_profile_avatars": 4,
+      "first_party_named_images": 10,
+      "unknown": 56,
+      "third_party_attributed_profile_images": 2,
+      "third_party_attributed_content_images": 2,
+      "first_party_video_posters": 1
+    },
+    "outside_target_profiles_not_researched_in_this_batch": 48,
+    "production_published_by_this_batch": false
+  },
+  "subsequent_visible_ui_evidence": {
+    "path": "docs/evidence/ai-monk-profile-visible-ui-20261023.json",
+    "note": "このfileは先行commit5ca626f時点の10handle公開検索/crosslink調査snapshot。後続の通常公開UI経路による画像inventoryは参照先とprofiles.jsonを正本とする。"
+  }
+}
