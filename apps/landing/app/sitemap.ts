@@ -18,6 +18,8 @@ const BASE_URL = "https://aniccaai.com";
 const STATIC_PATHS = [
   "/blog",
   "/affirmation-app",
+  "/best-affirmation-apps",
+  "/ja/best-affirmation-apps",
   "/affirmation-app/ja",
   "/affirmation-app/ja/a",
   "/affirmation-app/ja/wallpaper",
