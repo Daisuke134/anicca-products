@@ -22,8 +22,8 @@
   "missing_link_source": "Read-only public X body crawl; original host integration-settings strips links",
   "native_fence_name": "ai-monk-existing-x-link-recovery-20261023-book-en.json",
   "independent_copy_review": {
-    "state": "accepted",
-    "findings": 0,
+    "state": "navigation_change_pending",
+    "findings": null,
     "blocking": 0,
     "reviewer": "three_x_native_link_copy_verify",
     "reviewed_operator_sha256": "3c41ed77a5b05f2cc4055a6dced7bd9a50e0eab8285630ae7c9e72b5cf8db4b8",
@@ -36,5 +36,5 @@
     "Unknown native effect requires readback only, never resend",
     "Clicks/orders/revenue/profit/retweet not measured"
   ],
-  "operator_sha256": "3c41ed77a5b05f2cc4055a6dced7bd9a50e0eab8285630ae7c9e72b5cf8db4b8"
+  "operator_sha256": "5625ddcc860e574e34825a49ea95d5bdbf5abc0c38cdf31db7b1da25288219e0"
 }
