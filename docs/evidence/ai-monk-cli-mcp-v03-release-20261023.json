@@ -1,0 +1,83 @@
+{
+  "schema_version": "anicca.ai-monk-cli-mcp-public-release.v1",
+  "run_id": "ai-monk-cli-mcp-v03-release-20261023",
+  "owner_id": "root",
+  "purpose": "GitHub公開配布URLからのnpmインストールとCLI/stdio MCPの実行結果を、保存済みreadbackとpack receiptから記録する。",
+  "checked_at": "2026-10-23T03:09:40.602Z",
+  "release_sha": "8af42e44d395a4dd4ee7d3fc8941f52c812b6001",
+  "release_url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.3.0",
+  "release_tag": "ai-monk-index-v0.3.0",
+  "asset_url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.3.0/anicca-ai-monk-index-0.3.0.tgz",
+  "status": "passed",
+  "scope": {
+    "package_version": "0.3.0",
+    "research_archive_records": 75,
+    "directory_records": 73,
+    "sources": 55,
+    "excluded_records": [
+      "kai-tsukimi",
+      "buddha-would-say"
+    ],
+    "snapshot_sha256": "1bc7880a88f32e082744eaab4c6b8d27d6a14a7b2dce07cd0d30237825f34f45"
+  },
+  "checks": {
+    "public_http_status": 200,
+    "bytes": 27970,
+    "sha256": "616b39cc8f69d39756bd4003d38a10afa741c7e676da5811e05e1d4328303eef",
+    "npm_public_url_install": true,
+    "version": "0.3.0",
+    "cli_records": 73,
+    "cli_sources": 55,
+    "snapshot_sha256": "1bc7880a88f32e082744eaab4c6b8d27d6a14a7b2dce07cd0d30237825f34f45",
+    "stdio_matches_cli": true,
+    "business_sorts": {
+      "views": "yang-mun",
+      "revenue": "yang-mun"
+    },
+    "excluded_records_absent": true,
+    "research_archive_records": 75,
+    "excluded_from_directory": 2
+  },
+  "pack_receipt": {
+    "version": "0.3.0",
+    "source_main_commit": "8af42e44d395a4dd4ee7d3fc8941f52c812b6001",
+    "bytes": 27970,
+    "sha256": "616b39cc8f69d39756bd4003d38a10afa741c7e676da5811e05e1d4328303eef",
+    "snapshot_sha256": "1bc7880a88f32e082744eaab4c6b8d27d6a14a7b2dce07cd0d30237825f34f45",
+    "archive_records": 75,
+    "directory_records": 73,
+    "sources": 55,
+    "tar_members": [
+      "package/LICENSE",
+      "package/dist/database.json",
+      "package/package.json",
+      "package/DATA-LICENSE.md",
+      "package/README.md",
+      "package/dist/ai-monk-directory.mjs",
+      "package/dist/cli.mjs",
+      "package/dist/http.mjs",
+      "package/dist/index.mjs",
+      "package/dist/mcp.mjs",
+      "package/dist/snapshot.mjs",
+      "package/dist/stdio.mjs"
+    ]
+  },
+  "limits": [
+    "確認した配布先はGitHub releaseのtgz。npm registryへの掲載やChatGPT app directoryの承認・公開を意味しない。",
+    "再生数順・売上順の先頭がYang Munであることと、CLI/stdioのsnapshot一致を確認。フォロワー・再生数・売上そのものの再収集ではない。",
+    "売上は出典付きの観測値。現在月商・監査済み受注・利益や当プロジェクトの収益を証明するものではない。",
+    "書籍購入、課金、配信、AI Monk Factoryによる動画制作・投稿の完了は、この配布検証の対象外。",
+    "この文書化では追加の公開・インストール・provider呼び出しを行わない。"
+  ],
+  "official_github_readback": {
+    "tag_ref": "refs/tags/ai-monk-index-v0.3.0",
+    "tag_object_type": "commit",
+    "tag_commit": "8af42e44d395a4dd4ee7d3fc8941f52c812b6001",
+    "draft": false,
+    "published_at": "2026-10-23T03:09:39Z",
+    "asset_id": 667806684,
+    "asset_bytes": 27970,
+    "asset_digest": "sha256:616b39cc8f69d39756bd4003d38a10afa741c7e676da5811e05e1d4328303eef",
+    "digest_matches_public_download_and_pack": true
+  }
+}
