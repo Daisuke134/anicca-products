@@ -4,10 +4,10 @@
 既存のDatabase/6tool CLI・pluginを土台に、商品/収益の根拠拡充と配布を先に完了し、原価が成立するcloud Factoryへ進む。要件の正本はfield-guide末尾「Database・Plugin・Factoryの追加契約」。通常判断はprimaryが実行し、承認待ちや固定stageを追加しない。brainstormingの承認質問はDaisの明示No-human-loopと詳細指定へ置き換える。Stripe実装時は既存Checkout/Billingを再利用し、既存runtimeの日次effect/ownerは触らない。
 
 ## 順序と現在cursor
-旧順/新順/理由はfield-guideを参照する。Database v0.4.5は73公開/75archive/176出典へ反映し、公開JSON/Web/MCP・新CLI Release/URL導入/実stdio6toolの同一snapshotを受入する。商品関連はarchive69行/公開66行。公式Registry v0.4.5は39994967749 SUCCESS/exact GET activeで完了する。Codex直接配布・本人X告知・Grokへの正式BOARD依頼は完了し、Grok受領/追加投稿は未確認。Museは正式受付と3/3 requirements完了を確認する。BusinessはApproved、Data processingとIntegration credentialsはIn reviewであり、コネクタ全体の承認・掲載は未確認とする。審査結果待ちと独立して原価/方式を定めたFactory実装へ進む。最新証拠 → docs/evidence/ai-monk-distribution-status-20261024.json。
+旧順/新順/理由はfield-guideを参照する。Database v0.4.5は73公開/75archive/176出典へ反映し、公開JSON/Web/MCP・新CLI Release/URL導入/実stdio6toolの同一snapshotを受入する。商品関連はarchive69行/公開66行。公式Registry v0.4.5は39994967749 SUCCESS/exact GET activeで完了する。Codex直接配布・本人X告知・Grokへの正式BOARD依頼は完了し、Grok受領/追加投稿は未確認。Museは正式受付と3/3 requirements完了を確認する。BusinessはApproved、Data processingとIntegration credentialsはIn reviewであり、コネクタ全体の承認・掲載は未確認とする。審査結果待ちと独立して原価/方式を定めたFactory実装へ進む。最新配布証拠 → docs/evidence/ai-monk-distribution-status-20261024.json。Factory公開基盤 → docs/evidence/ai-monk-factory-cloud-foundation-20261024.json、Stripe資源 → docs/evidence/ai-monk-factory-stripe-activation-20261024.json。
 
 ## 実行順の更新
-旧順は既知profileの調査完了→plugin正式掲載→Factory。新順は取得済みsnapshotの公開受入→plugin配布/Registry公開/Muse提出→Factory実装とし、新規一次資料・審査結果は到着時に反映する。理由は73公開件/176出典のWeb・CLI・MCP、配布と申告の受入が揃い、残る取得不可入口や外部審査の待機だけでは次の成果が進まないため。収益へ必要なFactory制作/課金契約を独立して実装する。既存の日次effectを中断・重複しない。現在cursorはSaaS-1の本人確認・quota・Stripe配線。DB-1/PL-1は未確認を保持し、外部待ちを成功へ置換しない。
+旧順は既知profileの調査完了→plugin正式掲載→Factory。新順は取得済みsnapshotの公開受入→plugin配布/Registry公開/Muse提出→Factory実装とし、新規一次資料・審査結果は到着時に反映する。理由は73公開件/176出典のWeb・CLI・MCP、配布と申告の受入が揃い、残る取得不可入口や外部審査の待機だけでは次の成果が進まないため。収益へ必要なFactory制作/課金契約を独立して実装する。既存の日次effectを中断・重複しない。現在cursorはSaaS-1の専用provider課金元・実生成・接続受入。本人確認・quota・Stripe配線はsource review/CIを通してmainへ統合し、main由来Web/API/DBを公開する。専用199USD Product/Priceと解約portalは作成・公式GET確認済みで、利用者Checkout/請求は0。課金CTAは無効のまま専用生成予算を準備する。DB-1/PL-1は未確認を保持し、外部待ちを成功へ置換しない。
 
 ## TODO
 - [x] DB-2（176source snapshotの公開JSON/Web/MCP/CLI受入済み）: 既存関連検証でsource参照/scope/価格と売上区別を確認し、main/公開JSON/Web/MCPと必要なCLI版へ反映する。
