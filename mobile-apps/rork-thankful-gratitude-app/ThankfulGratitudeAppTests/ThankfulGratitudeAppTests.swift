@@ -92,11 +92,11 @@ struct StringsTests {
         #expect(!L10n.historyTab(lang).isEmpty)
         #expect(!L10n.settingsTab(lang).isEmpty)
         #expect(!L10n.paywallHeadline(lang).isEmpty)
-        #expect(!L10n.startTrial(lang).isEmpty)
+        #expect(!L10n.startTrialDays(7, lang).isEmpty)
         #expect(!L10n.restorePurchase(lang).isEmpty)
-        #expect(!L10n.finePrint(lang).isEmpty)
-        #expect(!L10n.annualPrice(lang).isEmpty)
-        #expect(!L10n.monthlyPrice(lang).isEmpty)
+        #expect(!L10n.finePrintTrial(days: 7, renewal: "$29.99/year", lang).isEmpty)
+        #expect(!L10n.perYear("$29.99", lang).isEmpty)
+        #expect(!L10n.perMonth("$4.99", lang).isEmpty)
     }
 
     @Test func allStrings_returnNonEmptyForJapanese() {
@@ -108,11 +108,11 @@ struct StringsTests {
         #expect(!L10n.historyTab(lang).isEmpty)
         #expect(!L10n.settingsTab(lang).isEmpty)
         #expect(!L10n.paywallHeadline(lang).isEmpty)
-        #expect(!L10n.startTrial(lang).isEmpty)
+        #expect(!L10n.startTrialDays(7, lang).isEmpty)
         #expect(!L10n.restorePurchase(lang).isEmpty)
-        #expect(!L10n.finePrint(lang).isEmpty)
-        #expect(!L10n.annualPrice(lang).isEmpty)
-        #expect(!L10n.monthlyPrice(lang).isEmpty)
+        #expect(!L10n.finePrintTrial(days: 7, renewal: "$29.99/year", lang).isEmpty)
+        #expect(!L10n.perYear("$29.99", lang).isEmpty)
+        #expect(!L10n.perMonth("$4.99", lang).isEmpty)
     }
 
     // Fix T7: Privacy Policy strings (will fail until Fix 5 is implemented)
@@ -145,5 +145,63 @@ struct GratitudeEntryTests {
         let date = Date()
         let entry = GratitudeEntry(date: date, gratitude1: "a", gratitude2: "b", gratitude3: "c", affirmation: "x")
         #expect(Calendar.current.isDate(entry.date, inSameDayAs: date))
+    }
+}
+
+// MARK: - Paywall gate (docs/team/specs/thankful-paywall.md)
+
+@MainActor
+struct PaywallGateTests {
+    private func entry(daysAgo: Int) -> GratitudeEntry {
+        let date = Calendar.current.date(byAdding: .day, value: -daysAgo, to: Date())!
+        return GratitudeEntry(date: date, gratitude1: "a", gratitude2: "", gratitude3: "", affirmation: "x")
+    }
+
+    @Test func free_canAddFirstEntryOfDay_butNotSecond() {
+        let vm = AppViewModel()
+        #expect(vm.canAddEntry(entries: [entry(daysAgo: 1)]))
+        #expect(!vm.canAddEntry(entries: [entry(daysAgo: 0)]))
+    }
+
+    @Test func pro_canAddUnlimitedEntries() {
+        let vm = AppViewModel()
+        vm.isPro = true
+        #expect(vm.canAddEntry(entries: [entry(daysAgo: 0)]))
+    }
+
+    @Test func free_historyLocksEntriesOlderThanSevenDays() {
+        let vm = AppViewModel()
+        #expect(!vm.isLocked(entry(daysAgo: 6)))
+        #expect(vm.isLocked(entry(daysAgo: 7)))
+        vm.isPro = true
+        #expect(!vm.isLocked(entry(daysAgo: 30)))
+    }
+
+    @Test func free_refreshAffirmation_opensPaywallInsteadOfChanging() {
+        let vm = AppViewModel()
+        let before = vm.currentAffirmation.english
+        vm.refreshAffirmation()
+        #expect(vm.showPaywall)
+        #expect(vm.currentAffirmation.english == before)
+    }
+
+    @Test func free_threeDayStreak_opensPaywallOnce() {
+        let key = AppViewModel.streakPaywallShownKey
+        UserDefaults.standard.removeObject(forKey: key)
+        defer { UserDefaults.standard.removeObject(forKey: key) }
+        let vm = AppViewModel()
+        let threeDays = [entry(daysAgo: 0), entry(daysAgo: 1), entry(daysAgo: 2)]
+        vm.didSaveEntry(entries: [entry(daysAgo: 0), entry(daysAgo: 1)])
+        #expect(!vm.showPaywall)
+        vm.didSaveEntry(entries: threeDays)
+        #expect(vm.showPaywall)
+        vm.showPaywall = false
+        vm.didSaveEntry(entries: threeDays)
+        #expect(!vm.showPaywall)
+    }
+
+    @Test func annualSavingsPercent_comparesToTwelveMonths() {
+        #expect(PaywallPricing.annualSavingsPercent(annual: 29.99, monthly: 4.99) == 50)
+        #expect(PaywallPricing.annualSavingsPercent(annual: 60, monthly: 4.99) == nil)
     }
 }
