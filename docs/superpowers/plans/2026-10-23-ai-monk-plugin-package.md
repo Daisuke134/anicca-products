@@ -14,7 +14,7 @@ Daisの無料公開でもよいという配布依頼に従い、既存のDatabas
 - [ ] natural-language plugin routingを実hostで確認する。SDKによる直接tool呼出を自然言語routingの受入へ換算しない。
 
 ## 既知の外部境界
-最新のown tabをforegroundにした通常Google SSOは`/v3/signin/challenge/pk`を示し、別方法1回と5秒待機後も同画面、password入力欄0・plugin掲載作成0。以前のOpenAI passkey画面は旧snapshotとして保持する。本人確認/role/draft/submissionは未確認であり、本人手続きが必須とはまだ断定しない。`cua-driver` skillは指定されたskill roots・Life Manager skills・plugin cacheの限定探索で見つからず、native UI操作は未実施。primaryはnative認証経路と必要skillの利用可能性を診断する。Apple credential store・認証設定・credential値ログは使わず、観測した画面だけを根拠に次の境界を狭める。実demo recording URLは未作成で、placeholderをmanifestへ入れない。最新のsanitized evidence → `docs/evidence/ai-monk-plugin-auth-diagnosis-20261023.json`。
+最新観測は、正規guardとtarget owner登録を持つ`interactive:dais`のlive persistent context内のown targetで、cookieを複製せず通常Google SSOを通過し、OpenAI MFAのpasskey画面へ進む。OpenAIの「他の方法を試す」1回後も同画面、password入力欄0・plugin掲載作成0。先のGoogle `/v3/signin/challenge/pk`はvault-seeded isolated contextの履歴として保持し、現在の停止点と混同しない。本人確認/role/draft/submissionは未確認であり、本人手続きが必須とはまだ断定しない。`cua-driver` skillは指定されたskill roots・Life Manager skills・plugin cacheの限定探索で見つからず、native UI操作は未実施。primaryはOpenAI MFAと対応するnative認証経路を診断する。Apple credential store・認証設定・credential値ログは使わず、観測した画面だけを根拠に次の境界を狭める。実demo recording URLは未作成で、placeholderをmanifestへ入れない。最新のsanitized evidence → `docs/evidence/ai-monk-plugin-auth-diagnosis-20261023.json`。
 
 ## 一次資料
 - https://developers.openai.com/plugins/build/plugins
@@ -27,4 +27,4 @@ Agent Plugins 1.0.0の公開plugin/mcp JSON schemaを取得し、Python jsonsche
 旧ZIP v0.1.0の5番の審査ケースは、TikTokの結果が2件のため次ページを要求できない。検索の不具合ではなくケースの条件不足として、filterなしの73件から2件ずつ取得する実在ページ分割へ訂正する。修正版v0.1.1はmain `996f33cfd0df29974c2d70226cc737bdec9586ef`由来のZIPとして無料公開済み。731,811 bytes、SHA256 `ae8ef5922c5001d7b314d45c939dd2c529cd1295a0e53aed50c12f1f2a864127`は公開downloadと公式digestが一致する。実SDKの5scenario、3tool、unknown publish tool拒否と本番support/terms/privacy200を受入する。証拠 → `docs/evidence/ai-monk-plugin-v011-release-20261023.json`。natural-language routingとportal提出/掲載は未達を保持する。
 
 ## 現在cursor
-Database73件/CLI v0.4.2復元とFactory Web公開・localhost plan受入は完了。foregroundでの通常認証境界は再確認済み。次はnative経路と必要skillの境界を診断し、配布済みv0.1.1のhostでのnatural-language routing、実walkthrough、審査提出/掲載へ進む。MuseのURL同定は独立して継続する。日次投稿はGrok Bot担当であり、この配布作業は既存loop・生成effect・投稿を操作しない。実HeyGen生成・native公開・売上・USD10K MRR・他者無人収益は未確認のまま保持する。
+Database73件/CLI v0.4.2復元とFactory Web公開・localhost plan受入は完了。live persistent contextでGoogle SSO通過を確認し、現在の境界はOpenAI MFA passkey。次は対応するnative経路と必要skillの境界を診断し、配布済みv0.1.1のhostでのnatural-language routing、実walkthrough、審査提出/掲載へ進む。MuseのURL同定は独立して継続する。日次投稿はGrok Bot担当であり、この配布作業は既存loop・生成effect・投稿を操作しない。実HeyGen生成・native公開・売上・USD10K MRR・他者無人収益は未確認のまま保持する。

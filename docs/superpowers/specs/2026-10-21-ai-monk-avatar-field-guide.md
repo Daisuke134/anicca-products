@@ -157,7 +157,7 @@ Yang Mun型の写真に近いAI僧侶動画avatarへ集中する。水彩・絵�
 
 **AM-15 remote MCP/v0.2.0公開:** PR566/main `f8dde2b78ac9fa81c388f0495ed779e7321379d2`、package CI39884702345・landing CI39884702372・Netlify39885561755はsuccess。同じ3 read-only toolsを既存Netlifyのpublic HTTPS MCPから呼び出し、公式SDK clientでWeb版と同じ75 records/48 sources/SHAを返すことを確認する。11testsとfresh reviewerの追加118assertはPASS。v0.2.0 tarball24,833 bytesは公式GitHub digestと公開GETのhashが一致し、公開URLのnpm導入・CLI/stdioが同じ75/48を返す。公開privacyも200。証拠 → `docs/evidence/ai-monk-{remote-mcp-production,cli-mcp-v02-release}-20261023.json`。
 
-**plugin認証の旧snapshot:** [plugin portal](https://platform.openai.com/plugins)の旧browser readbackは`/login`からGoogle既存account選択を経てOpenAI側のpasskey画面へ進み、代替リンク1回でも同画面を示す。証拠 → `docs/evidence/ai-monk-plugin-auth-boundary-20261023.json`。これは最新認証状態ではない。現在のGoogle passkey境界は `docs/evidence/ai-monk-plugin-auth-diagnosis-20261023.json` を参照する。MCP稼働やZIP公開を掲載済みと扱わず、未認証画面だけで権限不足や本人手続き必須を断定しない。日次投稿・費用照合はGrok Bot担当。実購入/paid納品と画像未取得2件は未確認を保持する。
+**plugin認証の旧snapshot:** [plugin portal](https://platform.openai.com/plugins)の旧browser readbackは`/login`からGoogle既存account選択を経てOpenAI側のpasskey画面へ進み、代替リンク1回でも同画面を示す。証拠 → `docs/evidence/ai-monk-plugin-auth-boundary-20261023.json`。これは最新認証状態ではない。現在のlive persistent contextでのOpenAI MFA境界は `docs/evidence/ai-monk-plugin-auth-diagnosis-20261023.json` を参照する。MCP稼働やZIP公開を掲載済みと扱わず、未認証画面だけで権限不足や本人手続き必須を断定しない。日次投稿・費用照合はGrok Bot担当。実購入/paid納品と画像未取得2件は未確認を保持する。
 
 
 **書籍の発売告知:** 公開済み英語版の告知を既存Postiz @selawmqtで1件行う。既存database告知は再送せず、別campaign `art_of_ai_monks_book_launch_en`、直接販売ページURL、無料全文と有料整形済み版の明示、creatorへの敬意を含める。copy・参照・検証済み成功事例がない穴・計測指標は `docs/evidence/ai-monk-book-launch-copy-20261023.json`。同じ対象/媒体/目的の実績が未取得のため、小さい1件の検証とし、retweet・売上・利益を約束しない。SKU全体のStripe公式全page読戻しでは16:17 UTC時点で支払済み注文0件。campaign帰属の注文やclickは未確認として分ける。
@@ -203,6 +203,6 @@ Life Manager PR8721/main `eb78a805c4f79cd807852c27f52f9e4207a1ba61` とproducts 
 
 ## 現在cursor
 
-公開/localhost plan受入完了→plugin配布・認証診断。v0.1.1 ZIPの無料公開・digest・実SDK5scenarioは完了し、残件はhostでのnatural-language routing、通常認証のnative経路と必要skillの診断、identity/権限/実walkthrough/審査提出・掲載。最新のown tab foreground観測はGoogle `/v3/signin/challenge/pk` で、別方法1回・5秒待機後も同画面、password入力欄0・掲載作成0。必要な`cua-driver` skillが限定探索で見つからずnative UIは未実施であり、本人手続き必須は未確定。Museの具体service URLは未特定。残TODO正本 → `docs/superpowers/plans/2026-10-23-ai-monk-plugin-package.md`。
+公開/localhost plan受入完了→plugin配布・認証診断。v0.1.1 ZIPの無料公開・digest・実SDK5scenarioは完了し、残件はhostでのnatural-language routing、通常認証のnative経路と必要skillの診断、identity/権限/実walkthrough/審査提出・掲載。最新のlive persistent contextのown targetでは通常Google SSOを通過し、OpenAI MFA passkeyへ進む。OpenAIの別方法1回でも同画面、password入力欄0・掲載作成0。先のisolated contextのGoogle `/v3/signin/challenge/pk`は履歴として保持する。必要な`cua-driver` skillが限定探索で見つからずnative UIは未実施であり、本人手続き必須は未確定。Museの具体service URLは未特定。残TODO正本 → `docs/superpowers/plans/2026-10-23-ai-monk-plugin-package.md`。
 
 日次投稿・生成/費用照合/既存loop復旧はGrok Bot担当。実HeyGen生成・投稿・native確認・paid本番納品・売上・USD10K MRR・他者無人収益は未確認のまま保持し、Web公開やSDK接続から完了を導かない。

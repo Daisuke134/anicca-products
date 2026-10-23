@@ -1,37 +1,53 @@
 {
   "schema_version": "anicca.ai-monk-plugin-auth-diagnosis.v1",
-  "observed_at": "2026-10-23T14:39:04Z",
+  "observed_at": "2026-10-23T14:42:01Z",
   "stages": [
     {
-      "phase": "foreground_normal_sso_and_one_alternative",
-      "origin": "https://accounts.google.com",
-      "path_kind": "/v3/signin/challenge/pk"
+      "phase": "persistent_live_google_sso_then_one_openai_alternative",
+      "origin": "https://auth.openai.com",
+      "path_kind": "/mfa-challenge/<redacted>"
     }
   ],
-  "normal_alternative_once": true,
   "credential_values_logged": false,
   "apple_store_accessed": false,
   "recovery_or_security_changes": false,
   "plugin_submission_created": false,
   "authenticated_portal_identity_verified": false,
   "human_step_mandatory": null,
-  "next_action": "primary diagnoses the supported native authentication entry point and required skill availability; no mandatory human procedure is established",
+  "next_action": "primary diagnoses the OpenAI MFA passkey boundary and supported native authentication entry point; Google SSO passes in the live persistent context",
   "natural_language_plugin_routing_verified": false,
   "portal_submission_or_listing_verified": false,
-  "private_evidence_ref": "ai-monk-plugin-foreground-alternative-20261023.json",
+  "private_evidence_ref": "ai-monk-plugin-persistent-auth-20261023.json",
   "historical_evidence_ref": "docs/evidence/ai-monk-plugin-auth-boundary-20261023.json",
   "limits": [
-    "Google challenge observation does not establish portal role or submission capability",
+    "Earlier isolated-context Google passkey observations do not describe the current persistent-login boundary",
+    "OpenAI MFA observation does not establish portal role or submission capability",
+    "Native UI is not operated because the required cua-driver skill is not found",
     "Muse service URL is not identified"
   ],
-  "previous_observation": {
-    "observed_at": "2026-10-23T14:29:06Z",
-    "private_evidence_ref": "ai-monk-plugin-normal-alternative-20261023.json"
-  },
   "password_inputs": 0,
   "owned_foreground": true,
   "plugin_dashboard": false,
-  "post_alternative_wait_seconds": 5,
   "native_ui_operated": false,
-  "native_ui_dependency": "cua-driver skill not found in scoped skill directories; native UI operation is not attempted"
+  "native_ui_dependency": "cua-driver skill not found in scoped skill directories; native UI operation is not attempted",
+  "observation_history": [
+    {
+      "observed_at": "2026-10-23T14:29:06Z",
+      "private_evidence_ref": "ai-monk-plugin-normal-alternative-20261023.json",
+      "context": "earlier isolated context",
+      "origin": "https://accounts.google.com",
+      "path_kind": "/v3/signin/challenge/pk"
+    },
+    {
+      "observed_at": "2026-10-23T14:39:04Z",
+      "private_evidence_ref": "ai-monk-plugin-foreground-alternative-20261023.json",
+      "context": "earlier isolated context with own tab foreground",
+      "origin": "https://accounts.google.com",
+      "path_kind": "/v3/signin/challenge/pk",
+      "post_alternative_wait_seconds": 5
+    }
+  ],
+  "authentication_context": "registered interactive:dais live persistent context with an owned target; no cookie copying",
+  "persistent_live_google_sso_passed": true,
+  "one_openai_alternative": true
 }
