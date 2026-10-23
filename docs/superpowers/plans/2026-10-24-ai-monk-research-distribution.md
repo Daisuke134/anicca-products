@@ -4,7 +4,7 @@
 既存のDatabase/6tool CLI・pluginを土台に、商品/収益の根拠拡充と配布を先に完了し、原価が成立するcloud Factoryへ進む。要件の正本はfield-guide末尾「Database・Plugin・Factoryの追加契約」。通常判断はprimaryが実行し、承認待ちや固定stageを追加しない。brainstormingの承認質問はDaisの明示No-human-loopと詳細指定へ置き換える。Stripe実装時は既存Checkout/Billingを再利用し、既存runtimeの日次effect/ownerは触らない。
 
 ## 順序と現在cursor
-旧順/新順/理由はfield-guideを参照する。Database PR614/main fbc141f7は公開JSON/Web/MCP73件/139出典とCLI v0.4.4の公開導入/実stdioを受入済み。Registry PR615/main d5ba4614はmanual39988330815/公式GET v0.4.4 activeで公開する。新X告知2113673062554247580は本人/本文/expanded目的URL+UTM/独立公開GETを受入し送信1/再送0。Grok協力はLM PR8749のBOARDへ依頼記録中、受領/実投稿は未確認。現在cursorは追加33商品のsource/176出典候補の独立確認→PR/main/公開反映とCLI v0.4.5、その後正式plugin掲載の残認証境界と原価ベースのFactory SaaS。67IG公開UI観測と64followers/bio言語/本人AI開示を保持し、価格/claim/unknownを混同しない。原価/ReelFarmのread-only調査は並行し、既存日次運用は変更しない。
+旧順/新順/理由はfield-guideを参照する。DatabaseはPR619/main bbd81158d27d0c8b84fe5fc656062f54df7f50d5、73公開件/75archive/176出典へ更新し、Netlify39991460553はSUCCESS。価格・商品33種/35関連行を追加し、69offer rows、収益観測1件を保持する。現在cursorは176出典の公開JSON/Web/MCP受入、CLI v0.4.5の新Release/公開導入、Registry v0.4.5更新。139出典版CLI/Registry v0.4.4とX告知1本は受入済み。Museは既存Meta accountの認証を通過し、正式提出フォームへ進む。詳細は2026-10-24-ai-monk-muse-submission.md。Grok協力依頼はLM PR8749のCI待ちで、受領/投稿は未確認。FactoryはHeyGen・Stripe実accountと利用者接続の原価/契約を先に確定し、実装を先行しない。
 
 ## TODO
 - [ ] DB-1: 既知73profileの商品/売上/creator/言語/画像の調査coverageを記録し、取得可能な公開一次資料から精査・拡充する。pending非掲載という旧reasonを修正し、unknownを保持する。
@@ -26,7 +26,7 @@
 Databaseの正本更新はpackage metadata/READMEをv0.4.4へ揃え、既存v0.4.3を変更せず新しいmain固定Releaseとして配布する。新たなCLI command/dependencyやFactory source変更は加えない。
 
 ## 配布口と下位ルールの更新
-正式Muse Connector Platform https://platform.muse.ai を公開ページで確認する。describe→review→directoryの3段階で、まだ認証/提出/掲載は行わない。xAIは https://docs.x.ai/developers/tools/remote-mcp の公開仕様がremote MCPの接続を説明する。API互換の案内とhost実受入/公式directory掲載を区別する。MCP Registryは公式remote-only/OIDC公開経路を調査済みで、Database公開後のPL-1で実施する。
+正式Muse Connector Platform https://platform.muse.ai を公開ページで確認する。describe→review→directoryの3段階で、現在は認証後の正式提出フォームまで確認し、提出/掲載は未完とする。xAIは https://docs.x.ai/developers/tools/remote-mcp の公開仕様がremote MCPの接続を説明する。API互換の案内とhost実受入/公式directory掲載を区別する。MCP Registryは公式remote-only/OIDC公開経路を調査済みで、Database公開後のPL-1で実施する。
 
 LM docs/team/README.md・RULES.md・WORKFLOW.mdの無料trial禁止は、Daisの最新のStripe3日trialという明示指示により本Factoryでは上書きする。旧ルールをSaaS実装の停止点にしない。既存の他商品/日次loopの課金設計は変更しない。
 
