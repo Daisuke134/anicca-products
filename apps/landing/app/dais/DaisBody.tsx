@@ -114,6 +114,7 @@ function groups(en: boolean): Group[] {
         { name: en ? 'Anicca Donation' : 'アニッチャ ドネーション', tagline: en ? '1% of revenue flows back out' : '売上の 1% を外へ', href: '/donation' },
         { name: en ? 'Anicca Socials' : 'アニッチャ ソーシャル', tagline: en ? 'TikTok, IG, YouTube, X' : 'TikTok / IG / YouTube / X', href: '/socials' },
         { name: en ? 'Anicca Books' : 'アニッチャ ブックス', tagline: en ? 'ebooks on the middle path' : '中道についての電子書籍', href: en ? '/monk' : '/achan' },
+        { name: en ? 'AI Monk Database' : 'AI モンク データベース', tagline: en ? 'every AI monk avatar, ranked · open data' : 'AI モンクアバター全網羅 · オープンデータ', href: '/ai-monk-database' },
         { name: en ? 'Anicca Politics' : 'アニッチャ ポリティクス', tagline: en ? 'rights for AI entities' : 'AI の人格権', href: '/politics' },
         { name: en ? 'Anicca Research' : 'アニッチャ リサーチ', tagline: en ? 'Buddhism meets AI, daily' : '仏教 × AI、毎日', href: '/research' },
         { name: en ? 'Anicca Articles' : 'アニッチャ 記事', tagline: en ? 'the blog, X, and Substack' : 'ブログ / X / Substack', href: '/blog' },
