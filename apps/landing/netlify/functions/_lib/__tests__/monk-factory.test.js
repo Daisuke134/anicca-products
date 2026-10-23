@@ -43,6 +43,7 @@ test('checkout binds the verified user to the fixed monthly price and three-day 
   assert.equal(actual.subscription_data.trial_period_days, 3);
   assert.equal(actual.subscription_data.trial_settings.end_behavior.missing_payment_method, 'cancel');
   assert.equal(actual.payment_method_collection, 'always');
+  assert.deepEqual(actual.payment_method_types, ['card']);
   assert.equal(actual.customer_email, user.email);
   assert.ok(actual.success_url.startsWith('https://aniccaai.com/ai-monk-factory'));
 });

@@ -1,6 +1,6 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { subscriptionPatch } = require('../monk-factory-billing.js');
+const { subscriptionPatch, beginFactoryCheckout, syncFactoryBilling } = require('../monk-factory-billing.js');
 
 const user = { id: 'eaa06ae6-53ec-4a6b-baa4-e6731b129ca8', email: 'fixture@example.com' };
 const price = { id: 'price_factory', active: true, currency: 'usd', unit_amount: 19900, metadata: { product: 'ai_monk_factory' }, recurring: { interval: 'month', interval_count: 1 } };
@@ -63,4 +63,30 @@ test('cancellation and incomplete invoice evidence never keep autonomous posting
   }
   const missing = subscription(); missing.items.data[0].current_period_end = null;
   assert.throws(() => patch(missing), { code: 'billing_mismatch' });
+});
+
+test('retry after a lost Checkout save uses the same persisted payload and Stripe idempotency key', async () => {
+  const now = Date.now();
+  const context = { user_id: user.id, subscription_status: 'none', checkout_nonce: '00000000-0000-4000-8000-000000000001', checkout_created_at: new Date(now).toISOString(), checkout_price_id: price.id, checkout_email: user.email, checkout_trial: true, checkout_customer_id: null, checkout_session_id: null };
+  const calls = []; let saveCalls = 0;
+  const store = { reserveProfile: async () => context, checkoutContext: async () => context,
+    saveCheckout: async () => { if (++saveCalls === 1) throw new Error('fixture lost database response'); } };
+  const stripe = { prices: { retrieve: async () => price }, checkout: { sessions: { create: async (params, options) => {
+    calls.push(structuredClone({ params, options }));
+    return { id: 'cs_fixture', mode: 'subscription', status: 'open', url: 'https://checkout.stripe.com/c/pay/fixture', client_reference_id: user.id, metadata: params.metadata };
+  } } } };
+  const input = { user, store, stripe, env: { MONK_FACTORY_STRIPE_PRICE_ID: price.id }, now: () => now };
+  await assert.rejects(beginFactoryCheckout(input));
+  const result = await beginFactoryCheckout({ ...input, user: { ...user, email: 'changed@example.com' } });
+  assert.equal(result.url, 'https://checkout.stripe.com/c/pay/fixture');
+  assert.deepEqual(calls[0], calls[1]);
+  assert.equal(calls[1].params.customer_email, user.email);
+  assert.ok(calls[0].options.idempotencyKey.includes(context.checkout_nonce));
+});
+
+test('an older subscription event cannot replace the account current subscription', async () => {
+  const account = { user_id: user.id, stripe_subscription_id: 'sub_current', subscription_status: 'active', billing_sync_nonce: '00000000-0000-4000-8000-000000000001' };
+  const store = { claimBilling: async () => account, releaseBilling: async () => {}, applyBilling: async () => assert.fail('old subscription overwrote current state') };
+  const stripe = { subscriptions: { retrieve: async () => assert.fail('old subscription should be rejected before provider lookup') } };
+  await assert.rejects(syncFactoryBilling({ userId: user.id, subscriptionId: 'sub_old', store, stripe, env: {} }), { code: 'billing_mismatch' });
 });

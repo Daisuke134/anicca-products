@@ -128,3 +128,11 @@ test('parallel checkout requests retain one immutable context and stale billing 
   assert.equal(JSON.parse(sql(apply(later.billing_sync_nonce, { ...state, trial_used: false }))).trial_used, true);
   assert.throws(() => sql('SET ROLE authenticated; SELECT monk_factory_claim_billing(\'' + uid(5) + '\')'), /permission denied/);
 });
+
+test('duplicate Stripe receipts are persisted once and clients cannot inspect their queue', options, () => {
+  const insert = "SET ROLE service_role; INSERT INTO monk_factory_stripe_events(id,event_type,stripe_object_id,stripe_subscription_id) VALUES ('evt_fixture','invoice.paid','in_fixture','sub_fixture') ON CONFLICT (id) DO NOTHING;";
+  sql(insert); sql(insert);
+  assert.equal(sql('SELECT count(*) FROM monk_factory_stripe_events'), '1');
+  sql("SET ROLE service_role; INSERT INTO monk_factory_stripe_events(id,event_type,stripe_object_id,stripe_subscription_id) VALUES ('evt_expired','checkout.session.expired','cs_expired',NULL)");
+  assert.throws(() => sql('SET ROLE authenticated; SELECT * FROM monk_factory_stripe_events'), /permission denied/);
+});
