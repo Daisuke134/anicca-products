@@ -2,9 +2,9 @@ import AffirmationLanding from '@/components/affirmation/AffirmationLanding';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = {
-  title: 'アニッチャ - あなたを見つける アファメーション アプリ',
+  title: "自分にやさしい言葉を。毎日のアファメーション | Anicca",
   description:
-    'アニッチャ は、心が崩れ始めた瞬間に、一行のやさしさを届ける iOS アプリ。AI でパーソナライズ、無常 (アニッチャ) を核にした、能動的に届くタイプ。ダウンロード無料。',
+    "Aniccaは、自己否定や考えすぎ、難しい日に読む短いカードを届けるiPhoneのアファメーションアプリです。悩みを選び、通知を有効にして受け取ります。無料ダウンロード、任意のアプリ内サブスクリプション。",
 };
 
 const APP_STORE_URL_JP = 'https://apps.apple.com/jp/app/id6755129214';
@@ -14,11 +14,10 @@ const jsonLd = {
   '@type': 'SoftwareApplication',
   name: 'Daily Affirmations - Anicca',
   applicationCategory: 'HealthApplication',
-  operatingSystem: 'iOS',
+  operatingSystem: 'iOS 16.6+',
   inLanguage: 'ja',
   url: 'https://aniccaai.com/affirmation-app/ja',
-  description:
-    'アニッチャは、心が崩れ始めた瞬間に一行のやさしさを届ける iOS アファメーションアプリ。ダウンロード無料（任意のアプリ内課金あり）。',
+  description: metadata.description,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   downloadUrl: APP_STORE_URL_JP,
   sameAs: [APP_STORE_URL_JP],
@@ -29,11 +28,12 @@ const faqLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: [
-    { '@type': 'Question', name: 'アニッチャとは？', acceptedAnswer: { '@type': 'Answer', text: '心が崩れやすい瞬間に、あなた向けに一行のアファメーションを届ける iOS アプリ。フィードでも連続記録でもなく、一行だけ。' } },
-    { '@type': 'Question', name: 'Calm や Headspace と何が違う？', acceptedAnswer: { '@type': 'Answer', text: 'Calm/Headspace は探して使うライブラリ。アニッチャは能動的に「向こうから」一行で届く。' } },
-    { '@type': 'Question', name: '連続記録（ストリーク）はある？', acceptedAnswer: { '@type': 'Answer', text: 'ない。ストリークは休んだ日を罰する。アニッチャは維持するものが何もない。' } },
-    { '@type': 'Question', name: '「アニッチャ」の意味は？', acceptedAnswer: { '@type': 'Answer', text: '仏教語で「無常」。すべての状態は過ぎ去るという観察そのものを核にしている。' } },
-    { '@type': 'Question', name: '料金は？', acceptedAnswer: { '@type': 'Answer', text: 'ダウンロード無料。フル機能は月 $9.99 / 年 $49.99。iOS 15+。' } },
+    { '@type': 'Question', name: "Aniccaとは？", acceptedAnswer: { '@type': 'Answer', text: "Aniccaは、難しい日に読む短いカードを届けるiPhoneのアファメーションアプリです。気になる悩みを選ぶところから始めます。" } },
+    { '@type': 'Question', name: "カードはどう受け取りますか？", acceptedAnswer: { '@type': 'Answer', text: "気になる悩みを選び、iPhoneで通知を許可するとカードを受け取れます。通知の許可はiPhoneの「設定」で管理できます。" } },
+    { '@type': 'Question', name: "Aniccaの意味は？", acceptedAnswer: { '@type': 'Answer', text: "パーリ語で「無常」、物事は移り変わるという意味です。アプリのやさしい言葉の背景にある考え方です。" } },
+    { '@type': 'Question', name: "料金は？", acceptedAnswer: { '@type': 'Answer', text: "ダウンロードは無料で、任意のアプリ内サブスクリプションがあります。利用できるプラン、地域ごとの料金、更新条件は購入画面で確認できます。" } },
+    { '@type': 'Question', name: "対応するiPhoneは？", acceptedAnswer: { '@type': 'Answer', text: "iOS 16.6以降に対応しています。最新の対応条件はApp Storeの商品ページで確認できます。" } },
+    { '@type': 'Question', name: "プライバシーについてはどこで確認できますか？", acceptedAnswer: { '@type': 'Answer', text: "App Storeの商品ページからプライバシーポリシーを開けます。データの取り扱いについて、そちらで確認できます。" } },
   ],
 };
 

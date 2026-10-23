@@ -2,9 +2,9 @@ import AffirmationLanding from '@/components/affirmation/AffirmationLanding';
 import JsonLd from '@/components/JsonLd';
 
 export const metadata = {
-  title: 'Anicca - the affirmation app that finds you',
+  title: "Daily affirmations for a kinder inner voice | Anicca",
   description:
-    "Anicca is an iOS app that delivers a single line of kindness at the exact moment your mind starts to spiral. AI-personalised, Buddhist-rooted (Anicca = impermanence), proactive, free to download.",
+    "Anicca is an iPhone affirmation app with short cards for self-criticism, overthinking, and difficult days. Choose your topics and enable notifications. Free to download with optional in-app subscriptions.",
 };
 
 const APP_STORE_URL = 'https://apps.apple.com/app/id6755129214';
@@ -14,10 +14,9 @@ const jsonLd = {
   '@type': 'SoftwareApplication',
   name: 'Daily Affirmations - Anicca',
   applicationCategory: 'HealthApplication',
-  operatingSystem: 'iOS',
+  operatingSystem: 'iOS 16.6+',
   url: 'https://aniccaai.com/affirmation-app',
-  description:
-    'Anicca is an iOS affirmation app that delivers one personalised line of kindness at the moment your mind starts to spiral. Free to download with optional in-app subscription.',
+  description: metadata.description,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   downloadUrl: APP_STORE_URL,
   sameAs: [APP_STORE_URL],
@@ -28,11 +27,12 @@ const faqLd = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: [
-    { '@type': 'Question', name: 'What is Anicca?', acceptedAnswer: { '@type': 'Answer', text: 'An iOS app that sends one short, personalised affirmation at the moment you are most likely to spiral. Not a feed, not a streak — one line, then it gets out of the way.' } },
-    { '@type': 'Question', name: 'How is it different from Calm or Headspace?', acceptedAnswer: { '@type': 'Answer', text: 'Calm and Headspace are libraries you browse. Anicca is proactive and tiny: it finds you with one line instead of asking you to find a session.' } },
-    { '@type': 'Question', name: 'Does it have streaks?', acceptedAnswer: { '@type': 'Answer', text: 'No. Streaks punish the day you miss, which is usually the day you needed it. Anicca has nothing to maintain.' } },
-    { '@type': 'Question', name: 'What does Anicca mean?', acceptedAnswer: { '@type': 'Answer', text: 'Anicca is the Buddhist term for impermanence — the idea that every state passes. The app is built around that single observation.' } },
-    { '@type': 'Question', name: 'How much does it cost?', acceptedAnswer: { '@type': 'Answer', text: 'Free to download; $9.99/month or $49.99/year for the full proactive experience. iOS 15+.' } },
+    { '@type': 'Question', name: "What is Anicca?", acceptedAnswer: { '@type': 'Answer', text: "Anicca is an iPhone affirmation app with short cards for difficult days. Choose the areas you want support with to get started." } },
+    { '@type': 'Question', name: "How do I receive cards?", acceptedAnswer: { '@type': 'Answer', text: "Choose the topics you want support with, then allow notifications on your iPhone to receive cards. You can manage notification permission in iPhone Settings." } },
+    { '@type': 'Question', name: "What does Anicca mean?", acceptedAnswer: { '@type': 'Answer', text: "Anicca is a Pāli word for impermanence: things change. It is the idea behind the app's gentle tone." } },
+    { '@type': 'Question', name: "How much does it cost?", acceptedAnswer: { '@type': 'Answer', text: "Anicca is free to download with optional in-app subscriptions. Available plans, local prices, and renewal terms are shown on the purchase screen." } },
+    { '@type': 'Question', name: "Which iPhones are supported?", acceptedAnswer: { '@type': 'Answer', text: "Anicca requires iOS 16.6 or later. Check the App Store listing for current compatibility." } },
+    { '@type': 'Question', name: "Where can I read about privacy?", acceptedAnswer: { '@type': 'Answer', text: "The Privacy Policy is linked from the App Store listing. Read it for details about how your data is handled." } },
   ],
 };
 
