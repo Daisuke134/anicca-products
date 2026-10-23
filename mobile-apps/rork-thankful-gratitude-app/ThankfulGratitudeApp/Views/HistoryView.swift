@@ -27,7 +27,11 @@ struct HistoryView: View {
                 VStack(spacing: 24) {
                     calendarSection
                     if let entry = selectedEntry {
-                        selectedEntryCard(entry)
+                        if viewModel.isLocked(entry) {
+                            lockedCard
+                        } else {
+                            selectedEntryCard(entry)
+                        }
                     }
                     recentEntriesList
                 }
@@ -169,6 +173,25 @@ struct HistoryView: View {
         .clipShape(.rect(cornerRadius: 16))
     }
 
+    private var lockedCard: some View {
+        Button {
+            viewModel.showPaywall = true
+        } label: {
+            HStack(spacing: 12) {
+                Image(systemName: "lock.fill")
+                    .foregroundStyle(Color(red: 0.83, green: 0.65, blue: 0.46))
+                Text(L10n.unlockHistory(language))
+                    .font(.subheadline.weight(.medium))
+                Spacer()
+            }
+            .padding(16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color(.secondarySystemGroupedBackground))
+            .clipShape(.rect(cornerRadius: 16))
+        }
+        .buttonStyle(.plain)
+    }
+
     private func gratitudeRow(number: Int, text: String) -> some View {
         HStack(alignment: .top, spacing: 10) {
             Text("\(number)")
@@ -192,19 +215,23 @@ struct HistoryView: View {
 
                 ForEach(entries.prefix(10)) { entry in
                     Button {
-                        selectedDate = entry.date
+                        if viewModel.isLocked(entry) {
+                            viewModel.showPaywall = true
+                        } else {
+                            selectedDate = entry.date
+                        }
                     } label: {
                         HStack {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(entry.date, format: .dateTime.month(.abbreviated).day().weekday(.abbreviated))
                                     .font(.subheadline.weight(.medium))
-                                Text(entry.gratitude1.isEmpty ? entry.gratitude2 : entry.gratitude1)
+                                Text(viewModel.isLocked(entry) ? L10n.unlockHistory(language) : (entry.gratitude1.isEmpty ? entry.gratitude2 : entry.gratitude1))
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
                                     .lineLimit(1)
                             }
                             Spacer()
-                            Image(systemName: "chevron.right")
+                            Image(systemName: viewModel.isLocked(entry) ? "lock.fill" : "chevron.right")
                                 .font(.caption)
                                 .foregroundStyle(.tertiary)
                         }

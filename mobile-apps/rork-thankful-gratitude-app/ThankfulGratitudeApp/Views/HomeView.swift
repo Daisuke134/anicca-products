@@ -88,7 +88,7 @@ struct HomeView: View {
                         .textCase(.uppercase)
                         .tracking(1)
                     Spacer()
-                    Image(systemName: "arrow.triangle.2.circlepath")
+                    Image(systemName: viewModel.isPro ? "arrow.triangle.2.circlepath" : "lock.fill")
                         .font(.caption)
                         .foregroundStyle(.tertiary)
                 }
@@ -100,7 +100,7 @@ struct HomeView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .contentTransition(.numericText())
 
-                Text(L10n.tapForNew(language))
+                Text(viewModel.isPro ? L10n.tapForNew(language) : L10n.unlockAffirmations(language))
                     .font(.caption)
                     .foregroundStyle(.tertiary)
             }
@@ -138,14 +138,22 @@ struct HomeView: View {
             }
 
             Button {
-                saveEntry()
+                if canAddEntry {
+                    saveEntry()
+                } else {
+                    viewModel.showPaywall = true
+                }
             } label: {
                 HStack(spacing: 8) {
+                    if !canAddEntry && !showSavedFeedback {
+                        Image(systemName: "lock.fill")
+                            .font(.headline)
+                    }
                     if showSavedFeedback {
                         Image(systemName: "checkmark")
                             .font(.headline)
                     }
-                    Text(showSavedFeedback ? (language == .english ? "Saved!" : "保存しました！") : L10n.save(language))
+                    Text(showSavedFeedback ? (language == .english ? "Saved!" : "保存しました！") : (canAddEntry ? L10n.save(language) : L10n.unlockEntries(language)))
                         .font(.headline)
                 }
                 .foregroundStyle(.white)
@@ -153,7 +161,7 @@ struct HomeView: View {
                 .frame(height: 56)
                 .background(
                     LinearGradient(
-                        colors: canSave
+                        colors: canSave || !canAddEntry
                             ? [Color(red: 0.83, green: 0.65, blue: 0.46), Color(red: 0.76, green: 0.55, blue: 0.36)]
                             : [Color.gray.opacity(0.4), Color.gray.opacity(0.3)],
                         startPoint: .leading,
@@ -162,10 +170,12 @@ struct HomeView: View {
                 )
                 .clipShape(.rect(cornerRadius: 16))
             }
-            .disabled(!canSave)
+            .disabled(canAddEntry && !canSave)
             .sensoryFeedback(.success, trigger: showSavedFeedback)
         }
     }
+
+    private var canAddEntry: Bool { viewModel.canAddEntry(entries: entries) }
 
     private var canSave: Bool {
         !gratitude1.trimmingCharacters(in: .whitespaces).isEmpty ||
@@ -200,6 +210,7 @@ struct HomeView: View {
             affirmation: viewModel.currentAffirmation.text(for: language)
         )
         modelContext.insert(entry)
+        viewModel.didSaveEntry(entries: entries + [entry])
 
         withAnimation(.spring(duration: 0.3)) {
             showSavedFeedback = true

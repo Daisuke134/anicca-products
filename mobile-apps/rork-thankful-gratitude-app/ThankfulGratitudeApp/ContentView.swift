@@ -4,7 +4,6 @@ import RevenueCat
 
 struct ContentView: View {
     @State private var viewModel = AppViewModel()
-    @State private var showPaywall: Bool = false
 
     private var language: AppLanguage { viewModel.language }
 
@@ -13,19 +12,19 @@ struct ContentView: View {
             if !viewModel.hasCompletedOnboarding {
                 OnboardingView(language: language) {
                     viewModel.hasCompletedOnboarding = true
-                    showPaywall = true
+                    viewModel.showPaywall = true
                 }
             } else {
                 mainTabView
             }
         }
-        .fullScreenCover(isPresented: $showPaywall) {
+        .fullScreenCover(isPresented: $viewModel.showPaywall) {
             PaywallView(
                 language: language,
-                onDismiss: { showPaywall = false },
+                onDismiss: { viewModel.showPaywall = false },
                 onPurchaseSuccess: {
                     viewModel.isPro = true
-                    showPaywall = false
+                    viewModel.showPaywall = false
                 }
             )
         }

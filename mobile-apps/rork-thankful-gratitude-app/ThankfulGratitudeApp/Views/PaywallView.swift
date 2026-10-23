@@ -11,6 +11,9 @@ struct PaywallView: View {
     @State private var offerings: Offerings?
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
+    @State private var showClose: Bool = false
+    @State private var loadFailed: Bool = false
+    @State private var trialEligibleProducts: Set<String> = []
 
     private enum PlanType {
         case monthly, annual
@@ -29,6 +32,8 @@ struct PaywallView: View {
                         .foregroundStyle(.secondary)
                 }
                 .accessibilityIdentifier("paywall_skip")
+                .opacity(showClose ? 1 : 0)
+                .disabled(!showClose)
             }
             .padding(.horizontal, 20)
             .padding(.top, 12)
@@ -60,27 +65,43 @@ struct PaywallView: View {
                     .padding(.horizontal, 8)
 
                     VStack(spacing: 12) {
-                        planCard(
-                            isSelected: selectedPlan == .annual,
-                            badge: L10n.bestValue(language),
-                            title: language == .english ? "Annual" : "年額",
-                            price: L10n.annualPrice(language),
-                            detail: L10n.annualTrial(language)
-                        ) {
-                            selectedPlan = .annual
-                        }
-                        .accessibilityIdentifier("paywall_plan_yearly")
+                        if let annual = annualPackage, let monthly = monthlyPackage {
+                            planCard(
+                                isSelected: selectedPlan == .annual,
+                                badge: savingsBadge(annual: annual, monthly: monthly),
+                                title: language == .english ? "Annual" : "年額",
+                                price: L10n.perYear(annual.storeProduct.localizedPriceString, language),
+                                detail: annualDetail(annual)
+                            ) {
+                                selectedPlan = .annual
+                            }
+                            .accessibilityIdentifier("paywall_plan_yearly")
 
-                        planCard(
-                            isSelected: selectedPlan == .monthly,
-                            badge: nil,
-                            title: language == .english ? "Monthly" : "月額",
-                            price: L10n.monthlyPrice(language),
-                            detail: nil
-                        ) {
-                            selectedPlan = .monthly
+                            planCard(
+                                isSelected: selectedPlan == .monthly,
+                                badge: nil,
+                                title: language == .english ? "Monthly" : "月額",
+                                price: L10n.perMonth(monthly.storeProduct.localizedPriceString, language),
+                                detail: trialDays(monthly).map { L10n.freeTrialDays($0, language) }
+                            ) {
+                                selectedPlan = .monthly
+                            }
+                            .accessibilityIdentifier("paywall_plan_monthly")
+                        } else if loadFailed {
+                            VStack(spacing: 10) {
+                                Text(L10n.plansUnavailable(language))
+                                    .font(.subheadline)
+                                    .foregroundStyle(.secondary)
+                                Button(L10n.retry(language)) {
+                                    Task { await fetchOfferings() }
+                                }
+                                .accessibilityIdentifier("paywall_retry")
+                            }
+                            .padding(.vertical, 12)
+                        } else {
+                            ProgressView()
+                                .padding(.vertical, 24)
                         }
-                        .accessibilityIdentifier("paywall_plan_monthly")
                     }
 
                     VStack(spacing: 16) {
@@ -92,7 +113,7 @@ struct PaywallView: View {
                                     ProgressView()
                                         .tint(.white)
                                 }
-                                Text(selectedPlan == .annual ? L10n.startTrial(language) : (language == .english ? "Subscribe Now" : "今すぐ登録"))
+                                Text(trialDays(selectedPackage).map { L10n.startTrialDays($0, language) } ?? L10n.subscribeNow(language))
                                     .font(.headline)
                             }
                             .foregroundStyle(.white)
@@ -107,10 +128,10 @@ struct PaywallView: View {
                             )
                             .clipShape(.rect(cornerRadius: 16))
                         }
-                        .disabled(isPurchasing)
+                        .disabled(isPurchasing || selectedPackage == nil)
                         .accessibilityIdentifier("paywall_cta")
 
-                        Text(L10n.finePrint(language))
+                        Text(finePrint)
                             .font(.caption)
                             .foregroundStyle(.tertiary)
                             .multilineTextAlignment(.center)
@@ -141,6 +162,11 @@ struct PaywallView: View {
         )
         .task {
             await fetchOfferings()
+        }
+        .task {
+            // Industry pattern: the close button appears after a short delay.
+            try? await Task.sleep(for: .seconds(3))
+            withAnimation { showClose = true }
         }
         .alert("Error", isPresented: $showError) {
             Button("OK") { }
@@ -207,13 +233,69 @@ struct PaywallView: View {
         .sensoryFeedback(.selection, trigger: isSelected)
     }
 
+    private var annualPackage: Package? { offerings?.current?.package(identifier: "$rc_annual") }
+    private var monthlyPackage: Package? { offerings?.current?.package(identifier: "$rc_monthly") }
+    private var selectedPackage: Package? { selectedPlan == .annual ? annualPackage : monthlyPackage }
+
+    // Free-trial length in days, only when the store product has one and this user is eligible.
+    private func trialDays(_ package: Package?) -> Int? {
+        guard let product = package?.storeProduct,
+              trialEligibleProducts.contains(product.productIdentifier),
+              let intro = product.introductoryDiscount,
+              intro.paymentMode == .freeTrial else { return nil }
+        let period = intro.subscriptionPeriod
+        switch period.unit {
+        case .day: return period.value
+        case .week: return period.value * 7
+        case .month: return period.value * 30
+        case .year: return period.value * 365
+        @unknown default: return nil
+        }
+    }
+
+    private func annualDetail(_ annual: Package) -> String? {
+        let perMonth = annual.storeProduct.localizedPricePerMonth.map { L10n.perMonth($0, language) }
+        let trial = trialDays(annual).map { L10n.freeTrialDays($0, language) }
+        let parts = [trial, perMonth].compactMap { $0 }
+        return parts.isEmpty ? nil : parts.joined(separator: " · ")
+    }
+
+    private func savingsBadge(annual: Package, monthly: Package) -> String {
+        PaywallPricing.annualSavingsPercent(annual: annual.storeProduct.price, monthly: monthly.storeProduct.price)
+            .map { L10n.saveBadge($0, language) } ?? L10n.bestValue(language)
+    }
+
+    private var finePrint: String {
+        guard let package = selectedPackage else { return "" }
+        let price = package.storeProduct.localizedPriceString
+        let renewal = selectedPlan == .annual ? L10n.perYear(price, language) : L10n.perMonth(price, language)
+        if let days = trialDays(package) {
+            return L10n.finePrintTrial(days: days, renewal: renewal, language)
+        }
+        return L10n.finePrintRenewal(renewal, language)
+    }
+
     private func fetchOfferings() async {
-        guard Purchases.isConfigured else { return }
+        guard Purchases.isConfigured else {
+            loadFailed = true
+            return
+        }
+        loadFailed = false
         do {
             offerings = try await Purchases.shared.offerings()
         } catch {
-            // Silently fail — show static prices
+            loadFailed = true
+            return
         }
+        let packages = [annualPackage, monthlyPackage].compactMap { $0 }
+        if packages.isEmpty {
+            loadFailed = true
+            return
+        }
+        let eligibility = await Purchases.shared.checkTrialOrIntroDiscountEligibility(packages: packages)
+        trialEligibleProducts = Set(eligibility.compactMap { package, status in
+            status.status == .eligible ? package.storeProduct.productIdentifier : nil
+        })
     }
 
     private func purchase() async {
@@ -255,5 +337,16 @@ struct PaywallView: View {
             errorMessage = error.localizedDescription
             showError = true
         }
+    }
+}
+
+enum PaywallPricing {
+    // Annual vs 12 months of monthly, as a whole percent; nil when annual is not cheaper.
+    static func annualSavingsPercent(annual: Decimal, monthly: Decimal) -> Int? {
+        let yearOfMonthly = monthly * 12
+        guard yearOfMonthly > 0, annual < yearOfMonthly else { return nil }
+        let percent = NSDecimalNumber(decimal: (1 - annual / yearOfMonthly) * 100).doubleValue
+        let rounded = Int(percent.rounded())
+        return rounded > 0 ? rounded : nil
     }
 }
