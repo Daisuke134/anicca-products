@@ -33,7 +33,7 @@ const faqLd = {
     { '@type': 'Question', name: 'Calm や Headspace と何が違う？', acceptedAnswer: { '@type': 'Answer', text: 'Calm/Headspace は探して使うライブラリ。アニッチャは能動的に「向こうから」一行で届く。' } },
     { '@type': 'Question', name: '連続記録（ストリーク）はある？', acceptedAnswer: { '@type': 'Answer', text: 'ない。ストリークは休んだ日を罰する。アニッチャは維持するものが何もない。' } },
     { '@type': 'Question', name: '「アニッチャ」の意味は？', acceptedAnswer: { '@type': 'Answer', text: '仏教語で「無常」。すべての状態は過ぎ去るという観察そのものを核にしている。' } },
-    { '@type': 'Question', name: '料金は？', acceptedAnswer: { '@type': 'Answer', text: 'ダウンロード無料。フル機能は月 $9.99 / 年 $49.99。iOS 15+。' } },
+    { '@type': 'Question', name: '料金は？', acceptedAnswer: { '@type': 'Answer', text: 'ダウンロード無料。フル機能は月 $9.99 / 年 $49.99。iOS 16.6+。' } },
   ],
 };
 
