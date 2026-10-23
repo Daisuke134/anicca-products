@@ -713,6 +713,19 @@
         "The self-reported revenue/profit claims do not reconcile to an audited statement.",
         "Current Instagram count is connector rounded readback; historical snapshots are retained.",
         "Current monthly revenue, order counts and ROI remain unverified."
+      ],
+      "revenue_observations": [
+        {
+          "metric": "gross_revenue",
+          "amount": 213000,
+          "currency": "USD",
+          "period_months": 3,
+          "period_note": "Three months reported by the profile; exact start/end dates are not supplied.",
+          "as_of": "2026-01-28",
+          "comparison": "greater_than",
+          "source_id": "virtual-humans-yangmun-profile",
+          "status": "creator_reported_dashboard_claim_not_audited"
+        }
       ]
     },
     {

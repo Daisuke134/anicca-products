@@ -56,5 +56,7 @@
     "Discovery candidates and still images do not confirm AI production or moving-video format.",
     "Excluded records remain in the public research archive with their original AI status and sources.",
     "The directory is not a complete census."
-  ]
+  ],
+  "source_change_commit": "29ddff82c41f12d148799eec91627787315d647d",
+  "subsequent_business_metrics_evidence": "docs/evidence/ai-monk-business-metrics-source-20261023.json"
 }

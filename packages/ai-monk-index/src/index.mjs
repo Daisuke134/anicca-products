@@ -10,7 +10,7 @@ export const searchSchema = z.strictObject({
   language: z.string().min(1).max(200).default('all'),
   platform: z.enum(['all', 'Instagram', 'TikTok', 'YouTube', 'unknown']).default('all'),
   region: z.string().min(1).max(200).default('all'),
-  sort: z.enum(['audience', 'directory']).default('audience'),
+  sort: z.enum(['audience', 'views', 'revenue', 'directory']).default('audience'),
   offset: z.number().int().min(0).default(0),
   limit: z.number().int().min(1).max(50).default(10),
 });
@@ -26,6 +26,8 @@ const metadata = {
   license: database.license,
   license_url: database.license_url,
   methodology: database.methodology,
+  views_order: 'Largest observed view count among sampled videos on the selected platform, not channel totals or recent-period reach. See each sample date and source.',
+  revenue_order: 'Latest reported three-month USD gross-revenue observation, descending. Other currencies, periods, profit, buyout offers, seller counters and prices are excluded. Missing values sort last; claims are not audited sales.',
   audience_order: 'Latest numeric followers/subscribers per platform; largest single audience when platform=all. Audiences are not added. Views and revenue claims are not audience counts. See each snapshot for date, source and rounding.',
 };
 
@@ -46,7 +48,7 @@ function sourcesFor(records) {
 export function searchAccounts(options = {}) {
   const filters = searchSchema.parse(options);
   const filtered = filterAiMonkAccounts(directoryAccounts, filters);
-  const ordered = filters.sort === 'audience' ? rankAiMonkAccounts(filtered, filters.platform) : filtered;
+  const ordered = filters.sort === 'directory' ? filtered : rankAiMonkAccounts(filtered, filters.platform, filters.sort);
   const accounts = ordered.slice(filters.offset, filters.offset + filters.limit);
   return {
     metadata,

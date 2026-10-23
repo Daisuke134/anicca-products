@@ -28,8 +28,8 @@ Web/CLI/MCPのsortへviews/revenueを追加する。followersは現在の最新s
 
 Sensor Towerの指定app URLは取得がtitleのみ。公開公式siteのApp Performance Insightsと、MobbinのSquareの期間/金額/ソート列を参考に、期間と根拠を見える位置へ置く。推定売上の独自modelや新規有料providerを導入しない。追跡はsource/date付きのsnapshotを蓄積する既存research経路を継続し、定期更新の自然実行は未完として残す。
 
-- [ ] UIのAI status非表示、再生/売上の型・比較基準を失敗testで確認。
-- [ ] 既存sourceから売上観察を構造化し、共通sortとcard表示を最小実装。
+- [x] UIのAI status非表示、再生/売上の型・比較基準を失敗test3＋CLI 1件で確認。
+- [x] 既存sourceから売上観察を構造化し、共通sortとcard表示を最小実装。関連12＋13テストPASS。
 - [ ] 関連テスト/CI/main/公開readbackとv0.3.0配布物に新sortを反映。
 
 現在cursorはビジネス指標の追加。PR572のscope修正にこの指示を反映し、source CIを更新してからmain統合する。画像PR571は続けて統合する。

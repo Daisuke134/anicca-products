@@ -48,3 +48,29 @@ test('the visible directory and its count exclude illustrated storytelling', () 
   assert.doesNotMatch(html, /Kai Tsukimi|Buddha Would Say/);
   assert.match(html, /<strong[^>]*>1<\/strong> profiles/);
 });
+
+
+test('business cards show views, products and reported revenue without an AI-status interface', () => {
+  const html = renderToStaticMarkup(React.createElement(Directory, {
+    accounts: [{ id: 'business', display_name: 'Business Monk', persona_type: 'Monk avatar', ai_status: 'reported',
+      ai_evidence: [{ source_id: 'report', summary: 'AI production evidence' }],
+      creative_samples: [{ url: 'https://www.youtube.com/shorts/a', title: 'Sample', structure_summary: 'Original', views: 1234567, views_captured_at: '2026-10-22' }],
+      offers: [{ type: 'eBook', name: 'Original guide', price: 49.99, currency: 'USD', url: 'https://example.test/product' }],
+      revenue_observations: [{ metric: 'gross_revenue', amount: 213000, currency: 'USD', period_months: 3, as_of: '2026-01-28', comparison: 'greater_than', source_id: 'report', status: 'creator_reported' }],
+    }, { id: 'unknown', display_name: 'Unknown Monk', persona_type: 'Monk avatar', ai_status: 'unverified' }],
+    sourceCount: 1, updatedAt: '2026-10-22', sources: [{ id: 'report', title: 'Reported dashboard claim', url: 'https://example.test/revenue-report' }],
+  }));
+  assert.doesNotMatch(html, /AI: |AI status|Filter by evidence status|Why this status/);
+  assert.match(html, /Top sampled video/);
+  assert.match(html, /1.2M/);
+  assert.match(html, /213K/);
+  assert.match(html, /3 months/);
+  assert.match(html, /Creator-reported/);
+  assert.match(html, /2026-01-28/);
+  assert.match(html, /href="https:\/\/example.test\/revenue-report"/);
+  assert.match(html, /Original guide/);
+  assert.match(html, /49.99/);
+  assert.match(html, /Revenue not available/);
+  assert.match(html, /value="views"/);
+  assert.match(html, /value="revenue"/);
+});

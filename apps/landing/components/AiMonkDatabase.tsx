@@ -6,6 +6,8 @@ import { ArrowUpRight, BookOpen, Search } from 'lucide-react';
 import {
   filterAiMonkAccounts,
   getAiMonkAvatarAccounts,
+  getAiMonkTopVideo,
+  getAiMonkRevenue,
   rankAiMonkAccounts,
   type AiMonkAccount,
   type AiMonkDirectoryFilters,
@@ -20,17 +22,7 @@ const ARTICLE_LINKS = [
   { href: '/blog/ai-monk-avatar-field-guide-ja-2026', label: 'AI僧侶列伝 · JA' },
 ];
 
-const STATUS_LABELS = {
-  confirmed: 'Confirmed',
-  reported: 'Reported',
-  unverified: 'Unverified',
-} as const;
-
-const STATUS_STYLES = {
-  confirmed: 'border-emerald-300 bg-emerald-50 text-emerald-900',
-  reported: 'border-amber-300 bg-amber-50 text-amber-950',
-  unverified: 'border-stone-300 bg-stone-100 text-stone-700',
-} as const;
+type MetricSort = 'audience' | 'views' | 'revenue' | 'directory';
 
 type FilterField = keyof AiMonkDirectoryFilters;
 type EvidenceSource = { id: string; title: string; url?: string | null };
@@ -84,6 +76,9 @@ function ProfileCard({ account, sourceById, imageSrc, selectedPlatform }: { acco
     return latest ? [{ ...latest, platform: platform.platform }] : [];
   }).sort((a, b) => Number(b.value) - Number(a.value));
   const audience = audiences[0];
+  const topVideo = getAiMonkTopVideo(account, selectedPlatform);
+  const revenue = getAiMonkRevenue(account);
+  const products = account.offers ?? [];
   const sources = [...new Set(account.source_urls ?? [])];
   const primaryPlatform = (account.platforms ?? []).find((platform) => platform.handle && (selectedPlatform === 'all' || platform.platform === selectedPlatform));
 
@@ -96,15 +91,37 @@ function ProfileCard({ account, sourceById, imageSrc, selectedPlatform }: { acco
           <p className="mt-1 break-all text-sm text-stone-500">{primaryPlatform?.handle ? `@${primaryPlatform.handle}` : 'Account not identified'}</p>
         </div>
       </div>
-      <div className="mt-5 flex flex-wrap items-center gap-2 text-xs">
-        <span className={`rounded-md border px-2 py-1 font-medium ${STATUS_STYLES[account.ai_status]}`}>AI: {STATUS_LABELS[account.ai_status]}</span>
-        <span className="text-stone-500">{languages.length ? languages.join(', ') : 'Language unknown'}</span>
-      </div>
-      <div className="mt-5 border-t border-stone-100 pt-4">
-        {audience ? <>
-          <p className="text-2xl font-semibold tracking-tight text-stone-950">{audience.status?.includes('rounded') ? '≈' : ''}{metricValue(audience.value)} <span className="text-sm font-normal tracking-normal text-stone-500">{audience.metric}</span></p>
-          <p className="mt-1 text-xs text-stone-500">{audience.platform} · {audience.as_of ?? 'Date unknown'}</p>
-        </> : <p className="py-2 text-sm text-stone-500">Audience not checked</p>}
+      <p className="mt-4 text-xs text-stone-500">{languages.length ? languages.join(', ') : 'Language unknown'}</p>
+      <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-4 border-t border-stone-100 pt-4">
+        <div className="min-w-0">
+          <dt className="text-xs text-stone-500">Followers</dt>
+          {audience ? <>
+            <dd className="mt-1 text-2xl font-semibold tracking-tight text-stone-950">{audience.status?.includes('rounded') ? '≈' : ''}{metricValue(audience.value)}</dd>
+            <dd className="mt-1 text-xs text-stone-500">{audience.platform} · {audience.as_of ?? 'Date unknown'}</dd>
+          </> : <dd className="mt-2 text-sm text-stone-500">Not available</dd>}
+        </div>
+        <div className="min-w-0">
+          <dt className="text-xs text-stone-500">Top sampled video</dt>
+          {topVideo ? <>
+            <dd className="mt-1 text-2xl font-semibold tracking-tight text-stone-950"><a href={topVideo.url} target="_blank" rel="noopener noreferrer" className="underline decoration-stone-200 underline-offset-4">{metricValue(topVideo.views!)} <span className="text-xs font-normal">views</span></a></dd>
+            <dd className="mt-1 text-xs text-stone-500">{topVideo.platform ?? 'Platform unknown'} · {topVideo.views_captured_at ?? 'Date unknown'}</dd>
+          </> : <dd className="mt-2 text-sm text-stone-500">Not available</dd>}
+        </div>
+        <div className="col-span-2 border-t border-stone-100 pt-3">
+          <dt className="text-xs text-stone-500">Revenue · 3 months</dt>
+          {revenue ? <>
+            <dd className="mt-1 text-2xl font-semibold tracking-tight text-stone-950">{revenue.comparison === 'greater_than' ? '>' : revenue.comparison === 'at_least' ? '≥' : ''}${metricValue(revenue.amount)} <span className="text-xs font-normal text-stone-500">USD gross</span></dd>
+            <dd className="mt-1 text-xs leading-relaxed text-stone-500">Creator-reported · {revenue.as_of} · not audited{sourceById[revenue.source_id]?.url && <> · <a href={sourceById[revenue.source_id].url!} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Source</a></>}</dd>
+            <dd className="mt-1 text-xs text-stone-500">{revenue.period_note ?? 'Reported three-month period'}</dd>
+          </> : <dd className="mt-2 text-sm text-stone-500">Revenue not available</dd>}
+        </div>
+      </dl>
+      <div className="mt-4 border-t border-stone-100 pt-3">
+        <p className="text-xs text-stone-500">Products</p>
+        {products.length ? <ul className="mt-2 space-y-1.5 text-sm text-stone-800">{products.slice(0, 2).map((offer, index) => <li key={index}>
+          {offer.url ? <a href={offer.url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">{offer.name ?? offer.type}</a> : offer.name ?? offer.type}
+          {typeof offer.price === 'number' && <span className="text-stone-500"> · {offer.currency === 'USD' ? '$' : ''}{offer.price.toFixed(2)}{offer.currency && offer.currency !== 'USD' ? ` ${offer.currency}` : ''}</span>}
+        </li>)}</ul> : <p className="mt-2 text-sm text-stone-500">No product recorded</p>}
       </div>
       <div className="mt-4 flex flex-wrap gap-x-3 gap-y-2">
         {(account.platforms ?? []).map((platform, index) => platform.profile_url ? (
@@ -143,14 +160,6 @@ function ProfileCard({ account, sourceById, imageSrc, selectedPlatform }: { acco
           </ul>
         </section>}
           <div className="space-y-4 pt-4">
-            {account.ai_evidence && (
-              <div>
-                <p className="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-[#827b6d]">Why this status</p>
-                <ul className="space-y-2 text-sm leading-relaxed text-[#504e45]">
-                  {account.ai_evidence.map((item, index) => <li key={`${item.source_id}-${index}`}>{item.summary}</li>)}
-                </ul>
-              </div>
-            )}
             {(account.identity_conflicts ?? []).length > 0 && (
               <div className="rounded-xl border border-rose-200 bg-rose-50 p-3">
                 <p className="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-rose-900">Conflicting public claim</p>
@@ -230,7 +239,7 @@ export default function AiMonkDatabase({
     query: '', status: 'all', language: 'all', platform: 'all', region: 'all',
   });
 
-  const [sortBy, setSortBy] = useState('audience');
+  const [sortBy, setSortBy] = useState<MetricSort>('audience');
   const sourceById = useMemo(() => Object.fromEntries(sources.map((source) => [source.id, source])), [sources]);
 
   const languages = useMemo(() => unique(accounts.flatMap((account) => account.languages?.map(({ label }) => label) ?? [])), [accounts]);
@@ -238,10 +247,10 @@ export default function AiMonkDatabase({
   const regions = useMemo(() => unique(accounts.flatMap((account) => account.region_evidence ? [account.region_evidence.label] : [])), [accounts]);
   const results = useMemo(() => {
     const matching = filterAiMonkAccounts(accounts, filters);
-    return sortBy === 'audience' ? rankAiMonkAccounts(matching, filters.platform) : matching;
+    return sortBy === 'directory' ? matching : rankAiMonkAccounts(matching, filters.platform, sortBy);
   }, [accounts, filters, sortBy]);
-  const leadCount = accounts.filter((account) => account.persona_type.includes('account lead')).length;
-  const researchedCount = accounts.length - leadCount;
+  const productCount = accounts.filter(account => (account.offers ?? []).length > 0).length;
+  const revenueCount = accounts.filter(account => getAiMonkRevenue(account)).length;
 
   function changeFilter(field: FilterField, value: string) {
     setFilters((current) => ({ ...current, [field]: value }));
@@ -257,12 +266,12 @@ export default function AiMonkDatabase({
     <div className="mx-auto max-w-[1280px] px-5 pb-16 sm:px-8">
         <header className="pb-7 pt-4 sm:pt-8">
           <h1 id="directory-heading" className="text-3xl font-semibold tracking-tight text-stone-950 sm:text-4xl">AI Monk Database</h1>
-          <p className="mt-3 max-w-2xl text-base leading-relaxed text-stone-600">Find AI monk video avatars. Compare followers, languages, creators, and products.</p>
+          <p className="mt-3 max-w-2xl text-base leading-relaxed text-stone-600">Find AI monk video avatars. Compare followers, video views, products, and reported revenue.</p>
           <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-stone-500">
             <span><strong className="font-semibold text-stone-900">{accounts.length}</strong> profiles</span>
-            <span><strong className="font-semibold text-stone-900">{researchedCount}</strong> researched</span>
-            <span><strong className="font-semibold text-stone-900">{leadCount}</strong> unchecked</span>
-            <span>Updated {updatedAt}</span>
+            <span><strong className="font-semibold text-stone-900">{productCount}</strong> with products</span>
+            <span><strong className="font-semibold text-stone-900">{revenueCount}</strong> revenue reports</span>
+            <span>Research snapshot {updatedAt}</span>
           </div>
         </header>
 
@@ -280,13 +289,7 @@ export default function AiMonkDatabase({
             />
             <span className="hidden rounded-lg bg-[#f5f2eb] px-3 py-2 text-xs text-[#716a5d] sm:inline">{results.length} found</span>
           </div>
-          <div className="mt-2 grid gap-2 border-t border-[#eeeae2] px-2 pt-3 grid-cols-2 lg:grid-cols-4 sm:px-3">
-            <label className="block">
-              <span className="mb-1 block text-[0.65rem] font-semibold uppercase tracking-[0.13em] text-[#817a6e]">AI status</span>
-              <select aria-label="Filter by evidence status" value={filters.status} onChange={(event) => changeFilter('status', event.target.value)} className="w-full rounded-lg border border-[#e7e2d8] bg-white px-3 py-2.5 text-sm text-[#34342d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ae8a32]">
-                <option value="all">All statuses</option><option value="confirmed">Confirmed</option><option value="reported">Reported</option><option value="unverified">Unverified</option>
-              </select>
-            </label>
+          <div className="mt-2 grid grid-cols-1 gap-2 border-t border-[#eeeae2] px-2 pt-3 sm:grid-cols-3 sm:px-3">
             <label className="block">
               <span className="mb-1 block text-[0.65rem] font-semibold uppercase tracking-[0.13em] text-[#817a6e]">Language</span>
               <select aria-label="Filter by language" value={filters.language} onChange={(event) => changeFilter('language', event.target.value)} className="w-full rounded-lg border border-[#e7e2d8] bg-white px-3 py-2.5 text-sm text-[#34342d] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#ae8a32]">
@@ -315,14 +318,16 @@ export default function AiMonkDatabase({
               {hasFilters && <button type="button" onClick={clearFilters} className="text-sm text-stone-600 underline underline-offset-4">Clear filters</button>}
               <label className="flex items-center gap-2 text-sm text-stone-500">
                 Sort
-                <select aria-label="Sort profiles" value={sortBy} onChange={(event) => setSortBy(event.target.value)} className="max-w-[210px] rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800">
+                <select aria-label="Sort profiles" value={sortBy} onChange={(event) => setSortBy(event.target.value as MetricSort)} className="max-w-[210px] rounded-lg border border-stone-200 bg-white px-3 py-2 text-sm text-stone-800">
                   <option value="audience">Most followers</option>
-                  <option value="evidence">Research order</option>
+                  <option value="views">Most video views</option>
+                  <option value="revenue">Revenue · 3-month USD</option>
+                  <option value="directory">Directory order</option>
                 </select>
               </label>
             </div>
           </div>
-          <p className="mb-5 text-xs leading-relaxed text-stone-500">Sorted by the largest single-platform follower or subscriber count. Counts are dated snapshots. AI status may be unverified.</p>
+          <p className="mb-5 text-xs leading-relaxed text-stone-500">{sortBy === 'views' ? 'Views rank the top video in our sample, not total or recent-period reach.' : sortBy === 'revenue' ? 'Revenue ranks reported three-month USD gross revenue. Unknowns appear last; no monthly estimates are inferred.' : 'Metrics are dated source snapshots. Revenue is creator-reported, not audited sales.'}</p>
           <p className="sr-only" aria-live="polite">{results.length} profiles match the current search.</p>
           {results.length ? (
             <div className="grid items-start gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -347,7 +352,7 @@ export default function AiMonkDatabase({
           </div>
           <div className="rounded-[1.5rem] bg-[#eae5d9] p-6 sm:p-7">
             <p className="text-lg font-semibold text-[#303129]">About the data</p>
-            <p className="mt-2 max-w-[62ch] text-sm leading-relaxed text-[#5e5a50]">Based on {sourceCount} sources. AI status follows public disclosures and research. Reported profiles have supporting reports but unresolved identity questions. Unverified profiles need further checks. Profile images identify accounts; they do not confirm AI use. Initials appear when an image is unavailable.</p>
+            <p className="mt-2 max-w-[62ch] text-sm leading-relaxed text-[#5e5a50]">Based on {sourceCount} sources. Followers and views are dated snapshots. Revenue includes its reporting period and source; creator claims are not audited. Missing metrics are unknown, not zero. Initials appear when a profile image is unavailable.</p>
             <div className="mt-5 flex flex-wrap gap-3">
               <a href="/data/ai-monk-avatar-database-2026.json" className="inline-flex items-center gap-2 rounded-full bg-[#282a24] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#42443b]">Download JSON <ArrowUpRight size={15} aria-hidden="true" /></a>
               <a href="https://github.com/Daisuke134/anicca-products/blob/main/apps/landing/public/data/ai-monk-avatar-database-2026.json" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border border-[#bcb5a7] px-4 py-2.5 text-sm font-semibold text-[#38382f] hover:bg-white">GitHub <ArrowUpRight size={15} aria-hidden="true" /></a>

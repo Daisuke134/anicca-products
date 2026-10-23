@@ -15,7 +15,7 @@ export function createServer() {
   });
   server.registerTool('search_ai_monks', {
     title: 'Search AI Monk Index',
-    description: 'Search AI monk video avatars and unverified discovery candidates by name/handle, AI status, language, platform and region. Excludes known illustrated/watercolor storytelling channels. Paginated; latest single-platform audience order by default. Returns provenance and unknowns. Unverified leads are not confirmed AI avatars.',
+    description: 'Search AI monk video avatars and unverified discovery candidates by name/handle, AI status, language, platform and region. Excludes known illustrated/watercolor storytelling channels. Paginated; latest single-platform audience order by default; optional sampled-video views or reported three-month USD gross-revenue order. Missing metrics are not zero. Returns provenance and unknowns. Unverified leads are not confirmed AI avatars.',
     inputSchema: searchSchema,
     outputSchema,
     annotations,

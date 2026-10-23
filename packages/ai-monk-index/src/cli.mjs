@@ -6,7 +6,7 @@ const help = `AI Monk Index — offline, source-linked research snapshot
 
 ai-monk-index search [--query TEXT] [--status all|confirmed|reported|unverified|unknown]
   [--language English|unknown|all] [--platform Instagram|TikTok|YouTube|unknown|all]
-  [--region TEXT] [--sort audience|directory] [--offset N] [--limit 1..50]
+  [--region TEXT] [--sort audience|views|revenue|directory] [--offset N] [--limit 1..50]
 ai-monk-index get ACCOUNT_ID
 ai-monk-index stats
 
