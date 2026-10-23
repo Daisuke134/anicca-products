@@ -11,7 +11,7 @@
 - CLI/stdio v0.1.0はmain由来GitHub Releaseとして公開し、公開URLのnpm導入と75 records/48 sourcesの読出しまで確認する。データは9調査対象+66未確認候補、AI reported4/unverified71/confirmed0を保持する。
 - [OpenAI MCP server guide](https://developers.openai.com/plugins/build/mcp-server)はcustom UIなしのtoolsだけのpluginを認める。サーバーinstructions、入力/出力schema、annotationsが利用契約になる。
 - [OpenAI remote MCP review requirements](https://developers.openai.com/plugins/deploy/app-review)はpublic domainのMCP URLと実接続を要求し、公開前にidentity verification、api.apps.write/read、plugin metadata・privacy URL・test cases・審査と公開を要する。掲載可否や審査日数は未確認のまま断定しない。
-- OpenAI guideのSDK例はv1 package名を示すが、実際に使う公式MCP SDKの現行stable v2.3.1をregistry/repoで照合する。v2のWebStandardStreamableHTTPServerTransportはsessionIdGenerator省略でstateless、enableJsonResponseで単発JSON response、maxRequestBodySizeでrequest boundを持つ。
+- OpenAI guideのSDK例はv1 package名を示すが、実際に使う公式MCP SDKの採用版v2.3.1をregistry/repoで照合する。v2のWebStandardStreamableHTTPServerTransportはsessionIdGenerator省略でstateless、enableJsonResponseで単発JSON response、maxRequestBodySizeでrequest boundを持つ。
 
 ## 実装契約
 
@@ -25,11 +25,11 @@
 
 ## 実行順・現在cursor
 
-旧cursorはCLI/stdio公開であり完了する。既存AM-14の旧effect/費用診断とAM-13日本語本文を並行維持し、rootはこの独立したremote配信を進める。外部effectの中断・再送はしない。
+CLI/stdioと日本語書籍の販売公開は完了し、rootはこの独立したremote配信を再開する。残り画像の出所確認は別worktreeで並行する。AM-14の旧effect/費用診断を保持し、外部effectの中断・再送はしない。
 
-- [ ] planを専用branchへcommit/push。
-- [ ] HTTP client/provenanceと境界の失敗テストを先に確認。
-- [ ] 最小transport/wrapper/build/公開説明を実装。
+- [x] planを専用branchへcommit/push。
+- [x] HTTP client/provenanceと境界の失敗テストを先に確認。
+- [x] 最小transport/wrapper/build/公開説明を実装。
 - [ ] CLI/stdio/pack継続テスト、HTTP protocol、landing CI、fresh review。
 - [ ] main統合、既存Netlify本番配信、実URLでMCP client readback。
 - [ ] v0.2.0配布とspec更新。plugin提出は実際の権限・identity・portal readbackを確認して別段階で進める。
@@ -37,3 +37,7 @@
 ## 途中状態
 
 HTTP未実装のREDを確認し、CLI/stdio/別directoryへのtarball導入とHTTP SDK client、旧protocol、Host/Origin/容量/method境界の11テストをローカルでPASSする。Netlify wrapper・静的JSON bundle・privacy説明・CI/deploy呼出し元を実装する。review/CI/main/本番readbackは未実施。Daisの明示されたUI改修（全profile icon、見出しAI Monk Database、直接的なcopy、Mobbin/競合参照）を優先し、このbranchをpushして保持する。既存外部effectは中断・再送しない。
+
+## 再開cursor
+
+日本語版の本番readbackを終え、専用worktree `/Users/anicca/Projects/anicca-products-worktrees/ai-monk-remote-mcp-20261023` へ保存済みbranchを展開し、最新mainをmergeする。現在cursorは既存11 protocol/CLI/packテストの再確認、現行landingのbook/UI契約を保持したCI、source検証である。既存taskのRED→GREEN記録は維持し、同じ仕様の再実装や新しいtask frameworkは増やさない。現在のUI選択モデルを継承し、skill/referenceの固定model指示は適用しない。公開・pushはDaisの既存委任で実行し、skillの再承認要求を進行条件にしない。
