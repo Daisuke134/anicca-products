@@ -81,3 +81,7 @@ Checkout sourceは4fileの最小修正で実RED→GREEN/client7件を確認す�
 PR645/head `119b718cc3ad6aa13bc62e10308d94f70b6eb801`はfresh source review SHIP/Blocking0、client7件PASS、Landing CI40040305050 SUCCESSを通し、上記mainへ統合する。main由来Deploy40040724468 SUCCESS、Netlify公式published ready `6adbf0b3dd3542817d78d614`、公開HTML/route JavaScriptのHTTP200と厳密boolean分岐・URL存在時だけredirect・既存host検証の保持を確認する。任意noEmitの別領域6診断/exit2とbaseline比較未確定を保持し、認証付き実Checkout・実請求・生成成功とは扱わない。公開受入 → ../../evidence/ai-monk-factory-checkout-resume-production-20261024.json。
 
 旧SaaS-1 cursorは専用OpenAI復旧をFactory全体の唯一の前提とする。新cursorはGeminiの画像・台本adapter実装→専用有料project/key/支払状態→実費と実生成→本人IG接続/投稿/metricsの受入とする。理由は、公式資料で入力画像なしの1K avatar生成・構造化台本・既存予約内の条件付き原価を確認し、後続のHeyGen/Upload-Post工程を維持できるため。現runtimeの採用状態とは区別し、PL-1のOpenAI復旧・Muse審査は残す。GCPの既存billingを読むCDP操作は、正規lease取得後も共有browser lease要求のtool guardで実行前拒否となる。GCP側のlogin/作成/支払/生成は0であり、provider側失敗とは扱わない。自分のlease解放を確認し、同経路の再試行や保護policy変更をせず、独立して進められるadapter sourceを次に実装する。
+
+## Gemini画像・台本adapterのsource実装
+
+目的はFactoryの画像/台本2箇所を予算内候補のGeminiへ置換し、既存HeyGen/Upload-Post/認証/period予約と再送0を維持すること。所有と受入の正本 → ../specs/2026-10-24-ai-monk-factory-provider-contract.md。新SDK・provider二重実装・quota/価格/SQL変更は0。usageは数値だけを既存evidenceへ残して実費検証の入力にし、出力tokenとthoughtを混同しない。privacyの生成providerと18歳以上向け案内を揃える。専用有料project/key・本番設定・課金/実生成・Factory enableはこのsource unitに含めず未完とする。最小RED→実装→GREEN、fresh money source review、既存CI/main由来公開まで進める。
