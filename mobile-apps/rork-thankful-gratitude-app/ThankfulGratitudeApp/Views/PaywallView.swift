@@ -222,14 +222,10 @@ struct PaywallView: View {
         defer { isPurchasing = false }
 
         do {
-            guard let current = offerings?.current else {
-                onPurchaseSuccess()
-                return
-            }
-
             let packageId = selectedPlan == .annual ? "$rc_annual" : "$rc_monthly"
-            guard let package = current.package(identifier: packageId) ?? current.availablePackages.first else {
-                onPurchaseSuccess()
+            guard let package = offerings?.current?.package(identifier: packageId) else {
+                errorMessage = language == .english ? "The selected plan is unavailable. Please try again later." : "選択したプランは現在利用できません。時間をおいて再度お試しください。"
+                showError = true
                 return
             }
 
