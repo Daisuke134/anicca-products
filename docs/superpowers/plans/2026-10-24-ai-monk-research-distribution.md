@@ -15,7 +15,7 @@
 - [x] COST-1（API/Stripe/接続費の一次資料と仮定別原価表を取得、実請求/転換率はSaaSで追跡）: ReelFarm公開価格/無料枠/導線、HeyGen実API単価、45/60秒・1日1本/2本・3日trial・再生成・Stripe手数料から原価と利益を計算する。取得不足はunknownとし課金top-upしない。
 - [ ] SaaS-1: 原価からprice/生成上限を決め、最小auth・Stripe3日trial・Generate avatar/video・IG接続・自動投稿・metricsを既存Web/APIから実装して公開する。TikTokは後続。実API生成/Stripe subscription/利用者所有接続/公式投稿とmetricsを成果条件として追跡する。
 - [ ] DIST-2: 実利用できるFactoryをXで告知し、Grokにも配布協力を依頼する。未実装や未達収益を宣伝しない。
-- [ ] PL-1: 既存無料Codex pluginと正式ChatGPT/Grok/Muse配布口を確認する。6toolを案内するportable v0.1.2はmain2cfc70e由来の固定ZIP/asset670323615公開と公式digest/download一致を確認する。source・新Release・正式提出/掲載を分けて追跡し、正式ChatGPT掲載は未完とする。新しい専用OpenAI orgではupload前のdeveloper identityにvalid default payment methodが必要で、upload/submitは0。既存accountのpasskey MFAとは区別する。Museは3/3 requirements受付済み、BusinessだけApproved、Data/credentialsはIn reviewで、全体掲載は未確認。公開証拠 → `../../evidence/ai-monk-plugin-v012-release-20261024.json`。詳細 → `2026-10-24-ai-monk-plugin-v012.md`。
+- [ ] PL-1: 既存無料Codex pluginと正式ChatGPT/Grok/Muse配布口を確認する。6toolを案内するportable v0.1.2はmain2cfc70e由来の固定ZIP/asset670323615公開と公式digest/download一致を確認する。source・新Release・正式提出/掲載を分けて追跡し、正式ChatGPT掲載は未完とする。新しい専用OpenAI orgではupload前のdeveloper identityにvalid default payment methodが必要で、upload/submitは0。既存accountのpasskey MFAとは区別する。Museは3/3 requirements受付済み、BusinessだけApproved、Data/credentialsはIn reviewで、全体掲載は未確認。公開証拠 → `../../evidence/ai-monk-plugin-v012-release-20261024.json`。拡張3機能のnative自然言語routingはPR634/main0d41902d79630541d8024ce0b0472fafc7719997で受入する。positive3/4/5の計4呼び出しだけを実証し、残case・正式提出/demoへ拡張しない。証拠 → `../../evidence/ai-monk-plugin-native-v012-20261024.json`。詳細 → `2026-10-24-ai-monk-plugin-v012.md`。
 - [ ] DB-1: 既知73profileの商品/売上/creator/言語/画像の調査coverageを記録し、取得可能な公開一次資料から精査・拡充する。pending非掲載という旧reasonを修正し、unknownを保持する。 確定3系統の商品価格/通貨はv0.4.6へ反映し、main95f50a9dd由来のReleaseと公開Web/CLI/MCP/Registryの同一snapshotを受入する。限定cursor/公開受入 → `2026-10-24-ai-monk-product-price-currencies.md`。 追加X告知2113731126355468705は投稿時のv0.4.5/176source snapshotとして履歴保持し、v0.4.6の公開証拠へ流用しない。 Kaelの公開checkoutで27USD/一回払いとJP4320JPYを追加観測し、v0.4.7の限定cursorを ../specs/2026-10-24-ai-monk-kael-currency.md で追跡する。公開済み179sourceを180source公開済みへ読み替えない。
 
 ## 境界
@@ -35,3 +35,5 @@ Databaseのpackage metadata/READMEはv0.4.6へ揃え、新しいmain固定入力
 LM docs/team/README.md・RULES.md・WORKFLOW.mdの無料trial禁止は、Daisの最新のStripe3日trialという明示指示により本Factoryでは上書きする。旧ルールをSaaS実装の停止点にしない。既存の他商品/日次loopの課金設計は変更しない。
 
 MCP Registryの公開契約とsource受入 → 2026-10-24-ai-monk-mcp-registry.md。公開effectとreadbackの証拠 → docs/evidence/ai-monk-distribution-status-20261024.json。既知profile/productの拡充は続き、全世界の全件網羅や全収益監査を達成扱いしない。
+
+Netlify AI Gatewayは現accountの公式GETで利用不可を確認する。team共通creditと通常AI上限の適用範囲も独立Factory予算の代替にならないため、plan/課金/設定/生成を変更しない。代替調査 → docs/evidence/ai-monk-factory-netlify-gateway-preflight-20261024.json。

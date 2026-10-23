@@ -59,3 +59,5 @@ HeyGen単独の代替案も公式仕様/料金で追加観測する。架空avat
 - [x] 容量修正はfresh read-only review SHIP・CI40018027230 SUCCESSを通してPR629/main710f0347a2981e19b0aa11d73df953a9bd1e9588へ統合する。追加migrationの公式適用1回/remote20261023202156と関数・権限・RLS、main由来Deploy40018476870 SUCCESS/published ready、認証付き実API200/ready=false/accountなし/jobs0を確認する。実顧客や投稿を作らず検証境界を保持する。証拠 → ../../evidence/ai-monk-factory-capacity-release-20261024.json。
 
 SaaSの提供開始、独立provider課金元、Stripe3日trial、本人IG接続、実avatar/video、公式投稿とmetrics、FactoryのX告知・売上は未完。実利用可能な状態から次の配布へ進む。
+
+Netlify AI Gatewayの代替経路は公式docsと現account GETでread-only確認する。既存契約のtype_nameはFree、ai_gateway_available_on_plan=false、auto_topup_enabled=falseであり、Gatewayはこの契約で利用不可とする。通常のAI使用上限はAgent Runners用で、Enterprise以外のGatewayには適用されず、team共通creditを使用する。Factoryの独立hard budgetを満たすと推定しない。plan upgrade・設定・入金・生成0で不採用とし、専用OpenAIの支払方法/実生成受入という現在cursorを保持する。証拠 → ../../evidence/ai-monk-factory-netlify-gateway-preflight-20261024.json。

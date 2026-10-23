@@ -1,0 +1,87 @@
+{
+  "schema_version": "anicca.factory-provider-alternative.v1",
+  "run_id": "ai-monk-factory-netlify-gateway-preflight-20261024",
+  "owner_id": "root",
+  "occurrence_id": "official-docs-and-account-plan-readback",
+  "release_sha": "2e174887b0c53901c9bcf72df4f88a292f0dc95f",
+  "observed_at": "2026-10-23T21:38:47.138777+00:00",
+  "phase": "read_only_provider_preflight",
+  "command": "Context7 library resolve/docs; crwl official Netlify docs; official account HTTP GET with dedicated deployment credential in RAM",
+  "loaded_argv": {
+    "models_or_provider_override": 0,
+    "generation_requests": 0
+  },
+  "loaded_env": {
+    "credential_source": "local SSOT, exact service netlify-anicca-existing-deployment, full JSON parsed in RAM; secret values not copied"
+  },
+  "exit_code": 0,
+  "effect": {
+    "account_setting_changes": 0,
+    "plan_upgrades": 0,
+    "payments": 0,
+    "generation_calls": 0,
+    "factory_enabled": false,
+    "shared_daily_runtime_changes": 0
+  },
+  "readback": {
+    "official_account_get": {
+      "observed_at": "2026-10-23T21:34:09.136351+00:00",
+      "url": "https://api.netlify.com/api/v1/accounts/6809b01ffb8af8df29da6443",
+      "http_status": 200,
+      "raw_response_sha256": "ac1306b27af43ee6c949c7df69bf0c0c251c8e73088564a5ccbf86c3f48f566d",
+      "account": {
+        "id": "6809b01ffb8af8df29da6443",
+        "slug": "daisuke134",
+        "role": "Owner",
+        "type_id": "6663100fe4bdd50e81fbaefd",
+        "type_name": "Free",
+        "type_slug": "free-is-free",
+        "ai_gateway_available_on_plan": false,
+        "ai_usage_enabled_setting": "enabled",
+        "ai_usage_limit_credits": null,
+        "ai_usage_limit_enforced": false,
+        "auto_topup_enabled": false,
+        "on_enterprise_trial": false,
+        "on_pro_trial": false,
+        "exclude_from_site_suspension": false
+      },
+      "settings_mutations": 0,
+      "generation_or_usage_calls": 0
+    },
+    "documentation": {
+      "credit_based_plans": "AI Gateway charges existing team credits and can provide provider credentials through Netlify runtime.",
+      "openai_dollar_equivalent_credits": 180,
+      "limit_scope": "AI Credit Usage Limit and member limits apply to Agent Runners. Non-Enterprise AI Gateway usage is not counted by those limits and can continue after the limit.",
+      "runtime_model_support_limit": "Listed image models do not prove support for the existing gpt-image-1-mini model or exact script model pin; no generation attempted."
+    },
+    "decision": "Do not adopt or upgrade. Existing account explicitly reports ai_gateway_available_on_plan=false; shared team credit use also does not establish an isolated Factory hard budget.",
+    "existing_contract": "Retain dedicated OpenAI account/payment prerequisite, provider quotas, enabled=false and no customer Checkout until provider acceptance."
+  },
+  "provider_receipt_id": "https://api.netlify.com/api/v1/accounts/6809b01ffb8af8df29da6443",
+  "evidence_refs": [
+    {
+      "url": "https://docs.netlify.com/build/ai-gateway/overview/",
+      "private_file": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-netlify-gateway-preflight-20261024/ai-gateway-overview.md",
+      "bytes": 30976,
+      "sha256": "2e6d2b1bb9520184c1282d58c59bffddf09ae9344c36e61bd4f32b5f9b95bbdc"
+    },
+    {
+      "url": "https://docs.netlify.com/build/build-with-ai/manage-ai-for-your-team/manage-ai-features/",
+      "private_file": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-netlify-gateway-preflight-20261024/ai-feature-controls.md",
+      "bytes": 12620,
+      "sha256": "1712bb53e8b18bc5e8310c826210ea23abdeadbacb1cf3c4fd4cf109b087845e"
+    },
+    {
+      "private_file": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-factory-netlify-gateway-preflight-20261024/account-budget-readback.json",
+      "sha256": "d3011bd2e8e04e395f62e213604dc9241f5de6bad1ea7a2a4a15d879c0903cb4"
+    }
+  ],
+  "claim_limits": [
+    "Free is the literal provider account type_name; no assumption is made about migration, alternative plan entitlements, exact generation rights or future support.",
+    "auto_topup_enabled=false is the actual account observation; it does not create a per-project hard budget.",
+    "An unavailable alternative does not complete Factory or payment/identity acceptance."
+  ],
+  "error_class": "existing_plan_ai_gateway_unavailable",
+  "retryable": false,
+  "next_action": "Continue independent Database/Plugin distribution work. Factory still requires a valid dedicated OpenAI payment method and actual provider acceptance; do not use shared Grok funding."
+}
