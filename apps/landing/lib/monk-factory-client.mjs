@@ -26,10 +26,11 @@ export async function factoryRequest(token, action, { idempotencyKey, signal, fe
   return body;
 }
 
-export function factoryDestination(value, action) {
+export function factoryDestination(result, action) {
+  if (action === 'checkout' && result.complete === true) return null;
   const hosts = { checkout: 'checkout.stripe.com', portal: 'billing.stripe.com', connect_instagram: 'app.upload-post.com' };
   let url;
-  try { url = new URL(value); } catch { throw new FactoryClientError('invalid_destination'); }
+  try { url = new URL(result.url); } catch { throw new FactoryClientError('invalid_destination'); }
   if (!hosts[action] || url.protocol !== 'https:' || url.hostname !== hosts[action] || url.username || url.password || url.port || url.hash) throw new FactoryClientError('invalid_destination');
   return url.href;
 }

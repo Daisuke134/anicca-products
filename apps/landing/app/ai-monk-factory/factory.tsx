@@ -143,7 +143,8 @@ export default function Factory() {
       const result = await factoryRequest(s.access_token, action, { idempotencyKey: pending?.occurrence });
       if (token.current !== s.access_token) return;
       if (action === 'checkout' || action === 'portal' || action === 'connect_instagram') {
-        window.location.assign(factoryDestination(String(result.url || ''), action)); return;
+        const destination = factoryDestination(result, action);
+        if (destination) { window.location.assign(destination); return; }
       }
       if (action === 'generate_video' && typeof result.jobId === 'string' && pending) {
         pending = { ...pending, jobId: result.jobId };

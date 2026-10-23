@@ -59,3 +59,17 @@ SifuChenの取得結果ではnative URL/canonical/@handleが一致し、本人bi
 HeyGenの追加料金調査 → ../../evidence/ai-monk-factory-heygen-prompt-rate-followup-20261024.json。Photo Avatar作成1.32USD/call、Avatar IV Photo2.31USD/min、TTS0.12USD/minを公式料金表で再確認する。type=promptの総料金対応と独立台本生成・hard durationは未確認で、仮にavatar1.32USDならtrialの動画/TTS/avatarは3.75USD、36attempt月は66.93USDとなるが台本費前の条件付き算術である。既存4.25USD/70USD上限は変えず、このendpointをFactory全体の代替として採用しない。
 
 この限定followupは完了し、現在cursorはPL-1の専用OpenAIの正規アクセス復旧/正式提出・Muse審査と、SaaS-1の独立provider予算・実生成・本人接続の受入とする。外部状態の未完を無料配布や公開データ更新で閉じず、同じ非retryable認証失敗・提出・投稿を再送しない。日次IG/TikTok/Postiz/Grok所有effectは変更0。
+
+## Factory専用providerの限定preflight
+
+目的は専用OpenAIの非retryable無効化と独立に、元のFactory生成要件と既存予算を満たせる経路を確かめること。Database→Plugin→Factoryの順と未完成果は維持し、現在のSaaS-1内cursorを画像・台本providerの限定read-only preflightへ進める。Full Video Agentは既存cap超過のため再採用しない。単なる支払元不足を理由に高額な別方式へ切り替える判断は維持して棄却する。
+
+既存の画像→台本→TTS→Avatar IV→本人IGの呼出経路・予算/尺/attempt制御をコードで確認する。最初の候補はGemini台本＋HeyGen画像であるが、公式HeyGen Image契約はidentity/reference画像を必須とし、入力ゼロの最初のavatarを作れない。この根拠により候補をGemini Developer APIの台本＋画像へ絞る。公式料金・無料枠/課金条件・構造化出力・入力データ条件・専用project/keyの可否を調べ、旧GPT原価を無料へ置換しない。共有Grok/既存顧客のkeyやwalletへのfallback、OpenAIの別account作成、日次loopの変更はしない。
+
+このunitは新規project/key作成・支払い・生成・本番設定変更を含めず、完了条件は実コードと公式一次資料から、採用可能な最小経路または不足条件を具体化して正本へ反映すること。成立した経路の実装・専用認証・実費/生成受入は同じSaaS-1の次の作業として続ける。無料枠の存在だけで本番生成・採算・正式Plugin掲載の達成としない。専用OpenAIの正式復旧条件はPL-1に残す。
+
+並行するsource修正は、code探索で判明した完了済みCheckout再開の1件に限定する。APIのcheckout応答がcomplete=trueなら外部redirectをせず同じ認証sessionの状態を再取得し、未完Checkout・portal・IG接続のURLは既存のprovider別HTTPS検証を維持する。既存client helperと直接UI呼出元・型・最小回帰だけを更新し、新しい抽象やテスト基盤、後方互換層を作らない。実assertion RED→GREEN、必要な既存検証/CI、main由来Web反映まで受入し、実決済済みとは呼ばない。生成providerの採用・budget・enable flag・実effectを変更しない。
+
+限定preflightの一次資料と条件付き原価 → ../../evidence/ai-monk-factory-gemini-provider-preflight-20261024.json。Gemini 3.1 Flash-Liteの台本と同Imageの1K portraitを次の実装候補に選ぶ。画像modelに無料枠はなく、専用の有料Cloud project/key・支払状態・モデル権限は未確認である。利用条件上の18歳未満対象の禁止と有料データ取扱い、project capの処理遅延も実装/利用準備に反映する。既存price/quota/reservationを変更せず、正確なREST/MIME/token契約・専用課金準備・実生成を次に受入する。現時点のsource/runtime採用・入金・生成は0で、PL-1のOpenAI正規復旧条件を削除しない。
+
+Checkout sourceは4fileの最小修正で実RED→GREEN/client7件を確認する。任意の全体noEmitは別領域6診断でexit2、baseline比較は未確定のため合格扱いしない。最終headの既存CIと公開反映はprimaryが受入する。証拠 → ../../evidence/ai-monk-factory-checkout-resume-source-20261024.json。
