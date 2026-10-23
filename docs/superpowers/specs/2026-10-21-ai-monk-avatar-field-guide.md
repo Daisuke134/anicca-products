@@ -8,7 +8,7 @@ Aniccaのブログを、AI僧侶アバターを読者が楽しみながら理解
 
 - Yang Mun単独記事とAI僧侶フィールドガイドは英語・日本語の計4本が公開済み。公開URLは維持する。
 - 4本の記事は証拠を整理している一方、導入と見出しが調査報告書寄りで、読者を引き込む物語・ユーモア・読み進める理由が弱い。
-- `apps/landing/public/data/ai-monk-avatar-database-2026.json` のarchiveは75レコードと57出典。公開Web/CLI/stdio/remote MCPはincluded4件とpending69件の計73件へ復元済みで、公開画像は71件。CLIはv0.4.2。excluded2件とscope欠落は掲載しない。
+- `apps/landing/public/data/ai-monk-avatar-database-2026.json` のarchiveは75レコードと139出典。公開Web/CLI/stdio/remote MCPはincluded4件とpending69件の計73件で、公開画像は71件。CLIはv0.4.4。excluded2件とscope欠落は掲載しない。
 - Yang MunのAI生成状態は、HeyGenとColumbiaの説明に対し、Columbiaがリンクする本人側ページが「本人は実在し、声だけAI翻訳」と主張している。現時点では食い違いを解消できない。
 - 追加提供されたInstagram画面には100〜102件のフォロー中表示と複数の僧侶風アカウント名が写っている。リスト全体でもAI生成状態でもなく、個別確認用の候補発見材料。
 - `/monk` は既存eBook販売ページなので使用しない。
@@ -230,3 +230,13 @@ FactoryはDatabaseと一体のcloud Web appとし、利用者の設定を最小�
 Database根拠拡充は67IG候補の公開UIから64followersとbio言語を追加し、公式15site中13siteから20商品（18価格/2unknown）を記録する。source139、73public/75archiveと既存収益観測1件を保持し、本人AI開示でreported6/unverified67となる。package15tests/shared helper9testsはPASS。PR614/main fbc141f759c01d0d14269f22e4f75525fcf252c0、最終head package/Landing CI成功、fresh最終blocking0を受入する。CLI v0.4.4の公式asset669669941/digest/公開GET200/公開URL導入/実stdio6toolは完了し、Netlify39985074291はSUCCESS、公開JSONはmain bytesと完全一致し、Web73件/139出典とremote MCP6tools/73件/139出典/reported6/unverified67/snapshot SHA一致を受入する。公開証拠 → docs/evidence/ai-monk-database-v044-production-20261024.json。証拠 → docs/evidence/ai-monk-research-integration-20261024.json。
 
 MCP Registryは既存remote-only metadataをGitHub OIDCで登録する。公開契約と現在cursor → docs/superpowers/plans/2026-10-24-ai-monk-mcp-registry.md。ChatGPT/Muse公式審査掲載、販売/注文、Factory SaaSの達成とは区別する。
+
+## 残28入口の商品観測統合
+
+Databaseの今回範囲は、保存済み公開一次資料の28 discovery入口・33商品の追加観測である。private readbackには49 source候補があるが、商品内容またはprofileから商品の帰属経路を実際に支えるsourceだけをcanonicalへ引用し、未取得URL・失敗本文・非商品経路を無条件に出典数へ加えない。source URL、取得日・時刻、private証拠のSHA-256を保持し、raw本文は公開repoへ複製しない。
+
+既存139 source、75archive、73public、included4/pending69/excluded2、既存収益観測1件と各profileのAI状態・画像・指標を保持する。商品は既存`offers`の数値`price`、`currency`、`source_id`と補足metadataへ合わせる。数値価格26件のうち通貨未確認4件は`currency: null`のままとし、記号・free/PWYW・参考価格・分割払い・定期購入variantを区別する。価格不明7件、注文・売上不明はnullを保持する。review・購読者・収録点数を注文や収益へ換算しない。Zen Munの月額placeholderとbonus価値から現在価格を作らない。
+
+重複する2入口は同一`observation_id`の商品へ帰属させ、accountごとの関連行とdistinct商品数を区別する。先行crawl再利用2入口は取得時刻と既存sourceを保持し、先行20商品へ追加していない商品だけを採用する。既存商品と同一の可能性があるYon Chenの30-Day Healing Journeyは新商品数へ算入しない。同名だけで同一SKUや所有者を断定しない。取得不可4入口と非商品1入口をreceiptへ残し、全件の内容確認や売上監査が完了したとは呼ばない。
+
+今回cursorはsource acceptanceのRED→最小データ統合→GREEN・既存package15/helper9検証→専用branchへのpushまでとする。CLI snapshotはv0.4.5へ更新する。PR/main統合・公開Release・公開readbackはprimaryが所有する。Registry metadata/workflow、plugin payload、Factory、認証、投稿、checkout、有料APIと既存日次loopは変更しない。実行計画 → `docs/superpowers/plans/2026-10-24-ai-monk-products-remaining.md`。
