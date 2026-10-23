@@ -1,0 +1,112 @@
+{
+  "schema_version": "anicca.ai-monk-database-ui-production.v1",
+  "checked_at": "2026-10-23T00:46:21.001Z",
+  "url": "https://aniccaai.com/ai-monk-database",
+  "source_pr": "https://github.com/Daisuke134/anicca-products/pull/560",
+  "source_head_sha": "285275e68c3640b17f5648c872a8c03859d4bca7",
+  "main_merge_sha": "08975c043e6fff1d2435cbc927ca2c4ca872c7cb",
+  "ci": {
+    "url": "https://github.com/Daisuke134/anicca-products/actions/runs/39879133610",
+    "conclusion": "success",
+    "head_sha": "285275e68c3640b17f5648c872a8c03859d4bca7"
+  },
+  "deployment": {
+    "url": "https://github.com/Daisuke134/anicca-products/actions/runs/39879488202",
+    "conclusion": "success",
+    "head_sha": "08975c043e6fff1d2435cbc927ca2c4ca872c7cb"
+  },
+  "product_changes": [
+    "H1 and metadata title: AI Monk Database",
+    "Direct copy with search above compact identity cards",
+    "3/2/1-column responsive grid",
+    "Every record has an account image or labelled initials",
+    "Selected platform supplies the visible handle and audience",
+    "Detailed sources, claims, products and unknowns remain available"
+  ],
+  "canonical_dataset": {
+    "records": 75,
+    "sources": 48,
+    "changed": false,
+    "ai_status": {
+      "confirmed": 0,
+      "reported": 4,
+      "unverified": 71
+    }
+  },
+  "browser_readback": {
+    "checked_at": "2026-10-23T00:46:21.001Z",
+    "url": "https://aniccaai.com/ai-monk-database",
+    "checks": {
+      "assets": {
+        "total": 75,
+        "acquired": 7,
+        "platform_profile_avatars": 3,
+        "first_party_named_images": 2,
+        "unknown": 68,
+        "third_party_attributed_profile_images": 1,
+        "third_party_attributed_content_images": 1,
+        "hashes_verified": 7
+      },
+      "responsive_widths": [
+        1440,
+        390,
+        320
+      ],
+      "interactions": [
+        "name search preserves separate same-name handles",
+        "platform-specific audience",
+        "AI status filter",
+        "clear filters",
+        "empty results",
+        "clear search",
+        "source details"
+      ],
+      "image_failure_fallback": true,
+      "profile_icons": {
+        "images": 7,
+        "initials": 68
+      },
+      "client_errors": []
+    },
+    "status": "passed"
+  },
+  "screenshots": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 1050
+      },
+      "sha256": "ecc4eb228d6cc827eff3b65abb93932bad1c9825532aa6eea19e94cc359b83c7",
+      "bytes": 177032,
+      "visually_checked": true,
+      "stored_privately": true
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "sha256": "6d3af484e5e85d5e630ce43864b956c3bcd0d30d2f31e25debad6aef0a1379bb",
+      "bytes": 61265,
+      "visually_checked": true,
+      "stored_privately": true
+    }
+  ],
+  "verification_correction": {
+    "initial_check": "Incorrectly expected exactly one result for Yang Mun",
+    "observed": "Two separate handles match: yang-mun and lead-instagram-itsyangmuns",
+    "resolution": "Corrected the assertion to preserve the existing identity separation; no product-code change was needed"
+  },
+  "limits": [
+    "68 account images remain unverified and display initials. Further collection continues separately.",
+    "Seven images include three platform avatars, two first-party named-persona images, one third-party portrait and one attributed video still. These roles are retained in the public source manifest.",
+    "No conversion, audience growth, orders or revenue outcome is inferred from this UI release."
+  ],
+  "additional_research": {
+    "account_id": "buddha-would-say",
+    "candidate_url": "https://www.youtube.com/@buddhawouldsay",
+    "candidate_channel_id": "UC90kPnzg3WSdUZD_LwWMIFg",
+    "status": "identity_link_unverified",
+    "reason": "Public YouTube metadata has the same name and handle, but no Instagram crosslink was obtained. Its avatar is not assigned to the existing Instagram record."
+  }
+}
