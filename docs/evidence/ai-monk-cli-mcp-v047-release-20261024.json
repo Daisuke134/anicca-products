@@ -1,0 +1,639 @@
+{
+  "schema_version": "anicca.ai-monk-cli-release.v1",
+  "run_id": "ai-monk-cli-v047-release-20261024",
+  "owner_id": "root",
+  "occurrence_id": "main-release-url-install-stdio-web-remote-registry",
+  "release_sha": "2e174887b0c53901c9bcf72df4f88a292f0dc95f",
+  "observed_at": "2026-10-23T21:44:51.586244+00:00",
+  "phase": "public_release_acceptance",
+  "status": "PASS",
+  "blocking_findings": 0,
+  "command": "fixed main build and official Release/asset/tag readback; independent anonymous public download/URL install/CLI/stdio6; primary exact public JSON/HTML/HTTPS MCP6 and official deployment/Registry readback",
+  "loaded_env": {
+    "new_model_or_provider_flags": 0,
+    "npm_user_config": "private empty userconfig",
+    "npm_global_config": "/dev/null",
+    "new_secrets": 0
+  },
+  "exit_code": 0,
+  "effect": {
+    "release_creates": 1,
+    "release_resends": 0,
+    "registry_dispatches": 1,
+    "registry_resends": 0,
+    "existing_release_changes": 0,
+    "posts": 0,
+    "purchases": 0,
+    "video_generation": 0,
+    "factory_runtime_changes": 0,
+    "shared_daily_runtime_changes": 0
+  },
+  "readback": {
+    "release": {
+      "observed_at": "2026-10-23T21:38:02.981367+00:00",
+      "id": 422331779,
+      "html_url": "https://github.com/Daisuke134/anicca-products/releases/tag/ai-monk-index-v0.4.7",
+      "tag_name": "ai-monk-index-v0.4.7",
+      "target_commitish": "2e174887b0c53901c9bcf72df4f88a292f0dc95f",
+      "immutable": false,
+      "draft": false,
+      "published_at": "2026-10-23T21:37:54Z",
+      "assets": [
+        {
+          "id": 670482172,
+          "name": "anicca-ai-monk-index-0.4.7.tgz",
+          "size": 58370,
+          "digest": "sha256:73ad71396384929adde9c346941ac55580a3b0855e8f1320360f03bc3a15bb8d",
+          "url": "https://api.github.com/repos/Daisuke134/anicca-products/releases/assets/670482172",
+          "browser_download_url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.7/anicca-ai-monk-index-0.4.7.tgz"
+        }
+      ]
+    },
+    "download": {
+      "observed_at": "2026-10-23T21:38:43.791790+00:00",
+      "started_at": "2026-10-23T21:38:42.345699+00:00",
+      "command": [
+        "rtk",
+        "proxy",
+        "scrapy",
+        "fetch",
+        "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.7/anicca-ai-monk-index-0.4.7.tgz"
+      ],
+      "exit_code": 0,
+      "method": "anonymous public GET via scrapy fetch",
+      "public_url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.7/anicca-ai-monk-index-0.4.7.tgz",
+      "http_status": 200,
+      "bytes": 58370,
+      "sha256": "73ad71396384929adde9c346941ac55580a3b0855e8f1320360f03bc3a15bb8d",
+      "official_digest_matches": true,
+      "fixed_main_source_file_bytes_equal": {
+        "dist/index.mjs": true,
+        "dist/mcp.mjs": true,
+        "dist/http.mjs": true,
+        "dist/cli.mjs": true,
+        "dist/stdio.mjs": true,
+        "dist/ai-monk-directory.mjs": true,
+        "dist/database.json": true,
+        "package.json": true,
+        "README.md": true
+      },
+      "tar_file_count": 12,
+      "tar_allowed_files_only": true,
+      "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c",
+      "tool_framing": "Remove exactly the newline appended by Scrapy Command._print_bytes; retain original stdout as separate evidence.",
+      "framed_stdout_sha256": "95c3748ab9f8bbe1e1a7a9b6c8ba60dfdd778e4d2613bcf12a335423015a440c",
+      "release_id": 422331779,
+      "asset_id": 670482172,
+      "tag_sha": "2e174887b0c53901c9bcf72df4f88a292f0dc95f"
+    },
+    "install": {
+      "observed_at": "2026-10-23T21:38:56.544367+00:00",
+      "started_at": "2026-10-23T21:38:54.611615+00:00",
+      "command": [
+        "rtk",
+        "proxy",
+        "npm",
+        "install",
+        "--prefix",
+        "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v047-release-20261024/verification-public-install",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "--userconfig",
+        "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v047-release-20261024/verification-public-install/empty.npmrc",
+        "--globalconfig",
+        "/dev/null",
+        "--cache",
+        "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v047-release-20261024/verification-public-install/npm-cache",
+        "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.7/anicca-ai-monk-index-0.4.7.tgz"
+      ],
+      "npm_install_exit": 0,
+      "installed_version": "0.4.7",
+      "download_url": "https://github.com/Daisuke134/anicca-products/releases/download/ai-monk-index-v0.4.7/anicca-ai-monk-index-0.4.7.tgz",
+      "canonical_installed_bytes_equal": true,
+      "cli_exit": 0,
+      "cli_records": 73,
+      "cli_sources": 180,
+      "cli_archive": 75,
+      "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c",
+      "cli_kael_complete_equal_canonical": true,
+      "free_currency_unknown_preserved": true,
+      "paid_price": {
+        "amount": 27,
+        "currency": "USD",
+        "billing_kind": "one_time"
+      },
+      "scripts_disabled": true,
+      "shared_npm_config_read": "disabled with private empty userconfig and /dev/null globalconfig"
+    },
+    "stdio": {
+      "observed_at": "2026-10-23T21:39:05.977Z",
+      "package_version": "0.4.7",
+      "transport": "real_sdk_stdio",
+      "server": {
+        "name": "ai-monk-index",
+        "version": "0.4.7"
+      },
+      "completed_calls": 6,
+      "tools": [
+        {
+          "name": "search_ai_monks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "get_ai_monk",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "ai_monk_index_stats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "top_formats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "how_they_monetize",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "winning_playbooks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      ],
+      "records": 73,
+      "sources": 180,
+      "research_archive_records": 75,
+      "ai_status": {
+        "confirmed": 0,
+        "reported": 6,
+        "unverified": 67
+      },
+      "directory_scope_counts": {
+        "included": 4,
+        "pending": 69,
+        "excluded": 2
+      },
+      "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c",
+      "canonical_installed_bytes_equal": true,
+      "all_structured_text_and_pure_outputs_equal": true,
+      "external_provider_calls": 0,
+      "stderr": "",
+      "research_archive_offer_rows": 69,
+      "public_monetization_offer_rows": 66
+    },
+    "remote_mcp": {
+      "observed_at": "2026-10-23T21:43:16.546Z",
+      "package_version": "0.4.7",
+      "transport": "real_sdk_public_https",
+      "server": {
+        "name": "ai-monk-index",
+        "version": "0.4.7"
+      },
+      "completed_calls": 6,
+      "tools": [
+        {
+          "name": "search_ai_monks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "get_ai_monk",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "ai_monk_index_stats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "top_formats",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "how_they_monetize",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        {
+          "name": "winning_playbooks",
+          "readOnlyHint": true,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": false
+        }
+      ],
+      "records": 73,
+      "sources": 180,
+      "research_archive_records": 75,
+      "ai_status": {
+        "confirmed": 0,
+        "reported": 6,
+        "unverified": 67
+      },
+      "directory_scope_counts": {
+        "included": 4,
+        "pending": 69,
+        "excluded": 2
+      },
+      "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c",
+      "canonical_installed_bytes_equal": true,
+      "all_structured_text_and_pure_outputs_equal": true,
+      "external_provider_calls": 0,
+      "stderr": "",
+      "research_archive_offer_rows": 69,
+      "public_monetization_offer_rows": 66
+    },
+    "stdio_and_remote_response_bytes_equal": true,
+    "public_json": {
+      "observed_at": "2026-10-23T21:43:12.780108+00:00",
+      "url": "https://aniccaai.com/data/ai-monk-avatar-database-2026.json",
+      "command": [
+        "rtk",
+        "proxy",
+        "scrapy",
+        "fetch",
+        "https://aniccaai.com/data/ai-monk-avatar-database-2026.json"
+      ],
+      "exit_code": 0,
+      "http_status": 200,
+      "framing": "Remove exactly one newline appended by Scrapy fetch _print_bytes; original stdout is preserved",
+      "body_bytes": 445713,
+      "body_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c",
+      "accounts": 75,
+      "public": 73,
+      "sources": 180,
+      "canonical_bytes_equal": true
+    },
+    "public_web": {
+      "observed_at": "2026-10-23T21:43:13.451309+00:00",
+      "url": "https://aniccaai.com/ai-monk-database",
+      "command": [
+        "rtk",
+        "proxy",
+        "scrapy",
+        "fetch",
+        "https://aniccaai.com/ai-monk-database"
+      ],
+      "exit_code": 0,
+      "http_status": 200,
+      "framing": "Remove exactly one newline appended by Scrapy fetch _print_bytes; original stdout is preserved",
+      "body_bytes": 829455,
+      "body_sha256": "c54fc6080f0d71717a5346da680d067476923929307616244d2ed0983cb4bae2",
+      "profile_cards": 73,
+      "profile_images": 71,
+      "h1": "AI Monk Database",
+      "source_count_displayed": 180,
+      "kael_card_text": "Master Kael@kael.wisdomEnglishCandidate · video and production evidence under review.Followers2.6KInstagram · 2026-10-23Top sampled videoNot availableRevenue · 3 monthsRevenue not availableProductsYour First 3 Nights with Kael · 0.00Observed 2026-10-23The Full 30 Nights + All 6 Audios · $27.00Observed 2026-10-23InstagramView details +Research statusDiscovery/profile evidence does not yet establish a realistic synthetic monk video persona. Displayed as a research candidate; AI production and video format remain unverified.CreatorUnknownRegion informationUnknownPublic metrics2.6K followers2026-10-23 · InstagramSource snapshotSource: Master Kael Instagram public profile headerProductsYour First 3 Nights with Kael ↗0.00The Full 30 Nights + All 6 Audios ↗$27.00Open the sourcesinstagram.com linktr.ee whop.com"
+    },
+    "registry": {
+      "observed_at": "2026-10-23T21:44:14.411986+00:00",
+      "url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.Daisuke134%2Fai-monk-index/versions/0.4.7",
+      "http_status": 200,
+      "response_sha256": "f45e0d322f320ceda25e256226288efea3a539e5626075176ae317f0d973076b",
+      "entry": {
+        "server": {
+          "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+          "name": "io.github.Daisuke134/ai-monk-index",
+          "description": "Research monk avatars, products and video playbooks with sources and labelled uncertainty.",
+          "title": "AI Monk Index",
+          "repository": {
+            "url": "https://github.com/Daisuke134/anicca-products",
+            "source": "github"
+          },
+          "version": "0.4.7",
+          "websiteUrl": "https://aniccaai.com/ai-monk-database/support",
+          "remotes": [
+            {
+              "type": "streamable-http",
+              "url": "https://aniccaai.com/.netlify/functions/ai-monk-mcp"
+            }
+          ]
+        },
+        "_meta": {
+          "io.modelcontextprotocol.registry/official": {
+            "status": "active",
+            "statusChangedAt": "2026-10-23T21:43:52.828231Z",
+            "publishedAt": "2026-10-23T21:43:52.828231Z",
+            "updatedAt": "2026-10-23T21:43:52.828231Z",
+            "isLatest": true
+          }
+        }
+      },
+      "dispatches": 1,
+      "resends": 0,
+      "new_secrets": 0,
+      "workflow_run_id": 40028849993
+    },
+    "registry_workflow": {
+      "conclusion": "success",
+      "createdAt": "2026-10-23T21:43:37Z",
+      "databaseId": 40028849993,
+      "headSha": "2e174887b0c53901c9bcf72df4f88a292f0dc95f",
+      "status": "completed",
+      "updatedAt": "2026-10-23T21:43:55Z",
+      "url": "https://github.com/Daisuke134/anicca-products/actions/runs/40028849993"
+    },
+    "netlify": {
+      "observed_at": "2026-10-23T21:42:49.756582+00:00",
+      "provider": "netlify",
+      "site_id": "d67537f0-21bd-477e-ac1a-323f7ec6d5cd",
+      "site_http_status": 200,
+      "site_response_sha256": "7f2e253e32f573974df459172549870c6078ee5829339939c53f4239a5d5df69",
+      "published_deploy": {
+        "id": "6adbd48a92823c474ebf7c31",
+        "state": "ready",
+        "title": "Deploy from GHA prod - 2e174887b0c53901c9bcf72df4f88a292f0dc95f",
+        "branch": "main",
+        "commit_ref": null,
+        "created_at": "2026-10-23T21:41:30.448Z",
+        "published_at": "2026-10-23T21:42:33.141Z",
+        "deploy_ssl_url": "https://6adbd48a92823c474ebf7c31--anicca2.netlify.app"
+      },
+      "functions_http_status": 200,
+      "mcp_function_present": true,
+      "function_names": [
+        "_jp-bank",
+        "account",
+        "admin-bank",
+        "ai-monk-mcp",
+        "alarm-checkout",
+        "alarm-demo",
+        "alarm-profile",
+        "alarm-webhook",
+        "cafe-waitlist",
+        "calendar-connect",
+        "checkout",
+        "dashboard-sync",
+        "deploy-succeeded",
+        "ebook-download",
+        "feedback",
+        "gmail-connect",
+        "hit",
+        "honne-llm-object",
+        "income-apply",
+        "income-list",
+        "income-signup",
+        "income-webhook",
+        "kokoro-checkout",
+        "kokoro-report",
+        "lead-magnet",
+        "life-ask",
+        "life-notify",
+        "life-travel",
+        "lm-onboard",
+        "loco-ingest",
+        "marketing-entry",
+        "marketing-go",
+        "monk-factory",
+        "monk-factory-image-background",
+        "monk-factory-stripe",
+        "monk-factory-tick",
+        "monk-teachings-mcp",
+        "retreat-application",
+        "retreat-build-checkout",
+        "retreat-build-webhook",
+        "rp-signature",
+        "self-cancel",
+        "stats",
+        "stripe-fashion-webhook",
+        "stripe-spawn-webhook",
+        "telemetry",
+        "unipile-connect",
+        "unipile-notify",
+        "webhook",
+        "writer-content",
+        "writer-cta",
+        "x402-echo"
+      ],
+      "source_release_sha": "2e174887b0c53901c9bcf72df4f88a292f0dc95f",
+      "source_sha_in_deploy_title": true,
+      "commit_ref_null": true,
+      "correlation_limit": "A title plus the corresponding successful GHA main run establishes build correlation when commit_ref is null; public JSON/MCP snapshot readback establishes served research data."
+    },
+    "netlify_workflow": {
+      "conclusion": "success",
+      "databaseId": 40028075861,
+      "headSha": "2e174887b0c53901c9bcf72df4f88a292f0dc95f",
+      "status": "completed",
+      "updatedAt": "2026-10-23T21:42:59Z",
+      "url": "https://github.com/Daisuke134/anicca-products/actions/runs/40028075861"
+    }
+  },
+  "artifact_acceptance": {
+    "observed_at": "2026-10-23T21:37:38.453578+00:00",
+    "main_sha": "2e174887b0c53901c9bcf72df4f88a292f0dc95f",
+    "version": "0.4.7",
+    "npm_ci_exit": 0,
+    "npm_pack_exit": 0,
+    "artifact_file": "anicca-ai-monk-index-0.4.7.tgz",
+    "artifact_bytes": 58370,
+    "artifact_sha256": "73ad71396384929adde9c346941ac55580a3b0855e8f1320360f03bc3a15bb8d",
+    "tar_file_count": 12,
+    "tar_allowed_files_only": true,
+    "private_credential_node_modules_files": 0,
+    "snapshot_sha256": "75c83b7a6203b06df2c5472df9e41cdd02aec0d7e1b1710bd049ca3c99f7026c",
+    "packaged_database_canonical_bytes_equal": true,
+    "public_artifact_source_bytes_equal": true
+  },
+  "main_archive": {
+    "source_main_sha": "2e174887b0c53901c9bcf72df4f88a292f0dc95f",
+    "archive_sha256": "83620ae851555119f07dae69d1f65ee797e1bbd92cc3240509c39c0e23aaa822",
+    "archive_bytes": 532480,
+    "extracted_member_count": 30,
+    "allowed_paths": [
+      "packages/ai-monk-index",
+      "apps/landing/lib/ai-monk-directory.mjs",
+      "apps/landing/public/data/ai-monk-avatar-database-2026.json"
+    ],
+    "source": "local git immutable main objects, verified origin/main ancestry",
+    "symlinks": 0
+  },
+  "source_acceptance_reference": {
+    "pr": 635,
+    "head_sha": "b891321a4d635e6854e899bc805af29f1dd0330a",
+    "merge_main_sha": "2e174887b0c53901c9bcf72df4f88a292f0dc95f",
+    "reviewer": "/root/monk_v046_price_release_review",
+    "verdict": "SHIP",
+    "blocking": 0,
+    "source_evidence": "docs/evidence/ai-monk-kael-currency-source-20261024.json",
+    "package_ci": 40027302853,
+    "landing_ci": 40027303065,
+    "ci_conclusion": "success",
+    "main_package_ci": 40028075782,
+    "scope": "Only same-plan Kael paid offer USD27 one_time and separate JPY4320 presentment; original179sources/freepreview/otheraccounts/revenue preserved."
+  },
+  "verification_ownership": {
+    "source_and_release_url_install_cli_stdio": "Independent read-only reviewer",
+    "web_json_https_mcp_registry_netlify": "Primary actual official/public readback",
+    "limit": "The independent reviewer has not yet repeated production Web/Registry reads; primary readbacks are not labelled independently performed."
+  },
+  "count_boundaries": {
+    "public_records": 73,
+    "research_archive_records": 75,
+    "sources": 180,
+    "research_archive_offer_rows": 69,
+    "public_monetization_offer_rows": 66,
+    "included": 4,
+    "pending": 69,
+    "excluded": 2
+  },
+  "claim_limits": [
+    "Fixed main/tag and published artifact digest match; GitHub immutable=false, so Release locking is not claimed.",
+    "Kael USD is observed selected checkout currency, not verified merchant accounting currency. Listed offers and presentment prices establish no orders, revenue, efficacy or rights.",
+    "Free-preview ISO currency, Ravi recurrence and unverified profile/creator/revenue information remain unknown.",
+    "Publication and routing establish availability, not outside installs, marketplace approval, paid customers, MRR or Factory completion."
+  ],
+  "provider_receipt_id": "https://api.github.com/repos/Daisuke134/anicca-products/releases/assets/670482172",
+  "evidence_directory": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-cli-v047-release-20261024",
+  "evidence_refs": [
+    {
+      "file": "source-review.json",
+      "bytes": 4529,
+      "sha256": "54c1a4bebe5720b6ec77c999bbc3f6ab13725b5e04d4a8c2b84cc2e1efd69bdb"
+    },
+    {
+      "file": "verification-source-review-path-correction.json",
+      "bytes": 710,
+      "sha256": "2dfa7525a22ff9b240dd9615c3e528f25aa499a786425ba5a9ea5c48f308cb7b"
+    },
+    {
+      "file": "source-archive-readback.json",
+      "bytes": 478,
+      "sha256": "22754006dedc2b227190b4a02d2f298fadf692eda209e4a626ccbb4465a6ae44"
+    },
+    {
+      "file": "main-source.tar",
+      "bytes": 532480,
+      "sha256": "83620ae851555119f07dae69d1f65ee797e1bbd92cc3240509c39c0e23aaa822"
+    },
+    {
+      "file": "build-readback.json",
+      "bytes": 637,
+      "sha256": "48b6917ba76bab4dfffece3141f7aa0913836ec695de6482d69e3f8c5a34715f"
+    },
+    {
+      "file": "tarball-files.json",
+      "bytes": 340,
+      "sha256": "b61e9c376f0e156c99c8a74bb832cdab26c82bfcfea160dc1058cee34703f55e"
+    },
+    {
+      "file": "official-release.json",
+      "bytes": 818,
+      "sha256": "2ec498ec6986389562d848052d930bf300674b9a31b3f12b8ff2d47b48ba8d66"
+    },
+    {
+      "file": "verification-download-readback.json",
+      "bytes": 1448,
+      "sha256": "06c31756571d978a9ce2d1dc3cb09fc712579a589787bb302afa1240e4f1edc1"
+    },
+    {
+      "file": "verification-install-readback.json",
+      "bytes": 1558,
+      "sha256": "77396165d0ed9e70e3f1c2f3fb3e23e68cd68f00203ae07dbb13256b8a1d9a7f"
+    },
+    {
+      "file": "verification-public-install/stdio-readback.json",
+      "bytes": 1766,
+      "sha256": "f3cb559547cc74a8400dc3eb15ed9e9aa072bc87c00fb264db4ff1faa3f23271"
+    },
+    {
+      "file": "verification-public-install/stdio-responses.json",
+      "bytes": 633327,
+      "sha256": "f7b7f420f4aef1cfbbb50a708ad3f87c3ef1c741539009d7c495f6e26f69d0c8"
+    },
+    {
+      "file": "remote-mcp-readback.json",
+      "bytes": 1773,
+      "sha256": "66545748a87bb9d315caef0a6d47fa876669816cf3c92b9f4f617f94c905de02"
+    },
+    {
+      "file": "remote-mcp-responses.json",
+      "bytes": 633327,
+      "sha256": "f7b7f420f4aef1cfbbb50a708ad3f87c3ef1c741539009d7c495f6e26f69d0c8"
+    },
+    {
+      "file": "public-database-readback.json",
+      "bytes": 610,
+      "sha256": "6b7a94b8ce7aa31d896907695e27114a6954a8e54edfc1afa96256a0ab55bf52"
+    },
+    {
+      "file": "public-web-readback.json",
+      "bytes": 1467,
+      "sha256": "a9dcc19a1c06778842978e00ded64b44752da22c108c2f4f949e001e0b4c4aea"
+    },
+    {
+      "file": "public-web-crwl-readback.json",
+      "bytes": 440,
+      "sha256": "92ab71133ecf2919de3a8d5e09116a1169329b611e8d9049b22ebf3592e2f635"
+    },
+    {
+      "file": "publish-fence.json",
+      "bytes": 1547,
+      "sha256": "6311307caa7ffeb8fea492c94872a5368c8e8beb18b4abcd55e660ff64a9a0aa"
+    },
+    {
+      "file": "registry-readback.json",
+      "bytes": 1382,
+      "sha256": "e862de5b95984ad0bbb587fa073800e150fe9518fe2c0916305c86384d3efecf"
+    },
+    {
+      "file": "registry-publish-fence.json",
+      "bytes": 1837,
+      "sha256": "d69d6b642838b05a7b2d2e22f488362ede7ee494af526cc53595955caa827d90"
+    },
+    {
+      "file": "registry-workflow-readback.json",
+      "bytes": 302,
+      "sha256": "c6c3405c5ea32c5ffa1ec501a6e6d4ba57e9e0c02bd3e25dc6931413df3b39e3"
+    },
+    {
+      "file": "netlify-deploy-readback.json",
+      "bytes": 2164,
+      "sha256": "942cd19f4ae9c27e519ed1833e346567421bd86f359e8d1a76277b93da48562c"
+    },
+    {
+      "file": "netlify-workflow-readback.json",
+      "bytes": 263,
+      "sha256": "da3049040166aff9f64ae9cc9fa5d0dc318d437e36b5ad304490954af043f98e"
+    },
+    {
+      "file": "artifact-probe-correction.json",
+      "bytes": 331,
+      "sha256": "97db29237622db207dcef3db89f339d0c872b7f7f5d83a518858362658ca1955"
+    }
+  ],
+  "error_class": null,
+  "retryable": false,
+  "next_action": "Continue Plugin review materials and external identity/payment acceptance. Keep DB-1/PL-1/SaaS-1 incomplete; do not recreate this Release or redispatch Registry."
+}
