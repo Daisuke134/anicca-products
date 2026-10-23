@@ -37,14 +37,14 @@ Interfaces: jobはuser_id/occurrence/stage/provider_id/next_run_at/lease/cost/ev
 Files: apps/landing/app/ai-monk-factory/page.tsxとclient、scripts/stage-ai-monk-factory.mjs/関連test、Database/support links、functions config/関連CI、Factory privacy/terms。
 - [x] Supabase login/Generate/進捗/preview/IGConnect/自動投稿ON・停止/metrics/3日trial後199ドルの請求/解約を最小UIで結ぶ。
 - [x] 旧4fileはdownload pathへ移しpublic static/Next route衝突を解消する。利用者向けAPIkey/CLI設定を増やさない。
-- [ ] 関連source acceptance・fresh money/security review・CIを通してmainへ統合し、main由来の公開をreadbackする。
+- [x] 関連source acceptance・fresh money/security review・CIを通してmainへ統合し、main由来の公開をreadbackする。
 - [ ] Factory専用provider/Stripe3日trial/本人IG接続/実avatar-video/公式postとmetricsを区別して確認し、利用可能な事実だけをXへ告知する。
 
 ## 現在cursor
-PR626をmain ad3ac0ccecf2762a922853133bcaf253b1448a96へ統合する。修正後CI40009398593は全工程SUCCESS。独立source reviewは53件、独立Postgres20件がPASS。Stripeを含む共通25秒deadline、設定不足でready false/予約0、状態取得障害時の停止導線を確認する。review → ../../evidence/ai-monk-factory-release-review-20261024.json。
+PR626はmain ad3ac0ccecf2762a922853133bcaf253b1448a96へ統合済み。修正後CI40009398593は全工程SUCCESS。独立source reviewは53件、独立Postgres20件がPASS。Stripeを含む共通25秒deadline、設定不足でready false/予約0、状態取得障害時の停止導線を確認する。review → ../../evidence/ai-monk-factory-release-review-20261024.json。
 
-mainの2migrationを本番cycgdwndgfgdbnndithcへ適用し、3tablesのRLS=true、account/job/event各0を公式readbackする。Supabase Google認証は有効でFactory redirectは既存設定に含まれ、認証設定変更0。main由来Netlify Deploy40010066986の公開反映を確認中。source/DB受入 → ../../evidence/ai-monk-factory-cloud-foundation-20261024.json。
+mainの2migrationを本番cycgdwndgfgdbnndithcへ適用し、3tablesのRLS=true、account/job/event各0を公式readbackする。Supabase Google認証は有効でFactory redirectは既存設定に含まれ、認証設定変更0。main由来Netlify Deploy40010066986は公開後money-path検証を含めSUCCESS。公式published deployはreadyでmain SHAをtitleに持ち、Factory4functionsとtick毎分schedule、公開API401、Webの199USD/3日trialを確認する。source/DB受入 → ../../evidence/ai-monk-factory-cloud-foundation-20261024.json。
 
-次はFactory専用のStripe product/固定199USD Price/解約portal/署名endpointとruntime設定を準備する。Providerの独立支払元・容量・white-label・実生成が未確認の間はMONK_FACTORY_ENABLED=falseを保持し、Checkout/新規生成/自動投稿を開始しない。Stripe resource作成をcustomer課金や売上と扱わない。専用Upload-Post無料accountとAPIの公式GETは200、有料Professional/white-labelは未加入。自動作成された空defaultは枠を消費するため、未接続・未投稿を確認して整理し、採用25枠と整合させる。既存Grok用wallet/key/Postiz・日次loopは使わない。
+次はFactory専用のStripe product/固定199USD Price/解約portal/署名endpointとruntime設定を準備する。Providerの独立支払元・容量・white-label・実生成が未確認の間はMONK_FACTORY_ENABLED=falseを保持し、Checkout/新規生成/自動投稿を開始しない。Stripe resource作成をcustomer課金や売上と扱わない。専用Upload-Post無料accountとAPIの公式GETは200、有料Professional/white-labelは未加入。自動作成された空defaultは未接続・未投稿を確認してDELETE1回で整理し、公式GETでprofiles0を確認する。Professional月払い50USD/25枠/white-label/税0・本日合計50USDの実Checkoutを1回準備する。Link認証・保存支払元は未確認で、購入/カード入力/OTP送信0。支払元を公式UIで照合してから月契約を進める。既存Grok用wallet/key/Postiz・日次loopは使わない。
 
 SaaSの提供開始、独立provider課金元、Stripe3日trial、本人IG接続、実avatar/video、公式投稿とmetrics、FactoryのX告知・売上は未完。実利用可能な状態から次の配布へ進む。

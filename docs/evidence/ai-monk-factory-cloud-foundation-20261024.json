@@ -5,21 +5,130 @@
   "source_ci": {
     "url": "https://github.com/Daisuke134/anicca-products/actions/runs/40009398593",
     "conclusion": "success",
-    "includes": ["Factory and directory contracts", "Private PostgreSQL atomic contracts", "Existing book checkout and delivery", "Telemetry", "App routing", "Full Next build"]
+    "includes": [
+      "Factory and directory contracts",
+      "Private PostgreSQL atomic contracts",
+      "Existing book checkout and delivery",
+      "Telemetry",
+      "App routing",
+      "Full Next build"
+    ]
   },
   "production_database": {
     "project_ref": "cycgdwndgfgdbnndithc",
     "applied_migrations": [
-      { "source": "apps/landing/supabase/migrations/20261023175344_monk_factory.sql", "source_sha256": "8e77bf1340964719bb9d2549001acd17cd2366609266a866819d645fd1ac454b", "provider_version": "20261023191724", "name": "monk_factory", "success": true },
-      { "source": "apps/landing/supabase/migrations/20261023184014_monk_factory_jobs.sql", "source_sha256": "8ef6269a40b1f6178c649922bb75a4e816c221177d1a3d32d99bfa92571416ee", "provider_version": "20261023191728", "name": "monk_factory_jobs", "success": true }
+      {
+        "source": "apps/landing/supabase/migrations/20261023175344_monk_factory.sql",
+        "source_sha256": "8e77bf1340964719bb9d2549001acd17cd2366609266a866819d645fd1ac454b",
+        "provider_version": "20261023191724",
+        "name": "monk_factory",
+        "success": true
+      },
+      {
+        "source": "apps/landing/supabase/migrations/20261023184014_monk_factory_jobs.sql",
+        "source_sha256": "8ef6269a40b1f6178c649922bb75a4e816c221177d1a3d32d99bfa92571416ee",
+        "provider_version": "20261023191728",
+        "name": "monk_factory_jobs",
+        "success": true
+      }
     ],
     "version_note": "Management API assigns application timestamps; source filenames and immutable SQL hashes are recorded separately.",
-    "rls": { "monk_factory_accounts": true, "monk_factory_jobs": true, "monk_factory_stripe_events": true },
-    "rows": { "accounts": 0, "jobs": 0, "stripe_events": 0 }
+    "rls": {
+      "monk_factory_accounts": true,
+      "monk_factory_jobs": true,
+      "monk_factory_stripe_events": true
+    },
+    "rows": {
+      "accounts": 0,
+      "jobs": 0,
+      "stripe_events": 0
+    }
   },
-  "authentication_preflight": { "official_management_get_status": 200, "google_enabled": true, "factory_redirect_already_allowed": true, "configuration_mutations": 0 },
-  "netlify_deployment": { "run_url": "https://github.com/Daisuke134/anicca-products/actions/runs/40010066986", "main_commit": "ad3ac0ccecf2762a922853133bcaf253b1448a96", "conclusion": "pending_at_recording", "live_site_readback": false },
-  "stripe_preflight": { "official_account_get_status": 200, "account_matches_private_ssot": true, "country": "JP", "default_currency": "jpy", "charges_enabled": true, "factory_products": 0, "factory_prices": 0 },
-  "effects": { "production_migrations": 2, "customer_checkouts": 0, "customer_charges": 0, "provider_generation": 0, "instagram_connections": 0, "instagram_posts": 0 },
-  "saas_complete": false
+  "authentication_preflight": {
+    "official_management_get_status": 200,
+    "google_enabled": true,
+    "factory_redirect_already_allowed": true,
+    "configuration_mutations": 0
+  },
+  "netlify_deployment": {
+    "run_url": "https://github.com/Daisuke134/anicca-products/actions/runs/40010066986",
+    "main_commit": "ad3ac0ccecf2762a922853133bcaf253b1448a96",
+    "conclusion": "success",
+    "live_site_readback": true,
+    "published_deploy_id": "6adbb36ab0745d725464e17c",
+    "published_state": "ready",
+    "published_title": "Deploy from GHA prod - ad3ac0ccecf2762a922853133bcaf253b1448a96",
+    "provider_commit_ref": null,
+    "functions": [
+      {
+        "name": "monk-factory-image-background",
+        "endpoint": "https://aniccaai.com/.netlify/functions/monk-factory-image-background",
+        "schedule": null
+      },
+      {
+        "name": "monk-factory-stripe",
+        "endpoint": "https://aniccaai.com/.netlify/functions/monk-factory-stripe",
+        "schedule": null
+      },
+      {
+        "name": "monk-factory-tick",
+        "endpoint": "https://aniccaai.com/.netlify/functions/monk-factory-tick",
+        "schedule": "* * * * *"
+      },
+      {
+        "name": "monk-factory",
+        "endpoint": "https://aniccaai.com/.netlify/functions/monk-factory",
+        "schedule": null
+      }
+    ],
+    "public_api_unauthenticated_status": 401,
+    "public_api_error": "sign_in_required",
+    "public_page": {
+      "url": "https://aniccaai.com/ai-monk-factory",
+      "headline": "Less setup. More creating.",
+      "monthly_usd": 199,
+      "trial_days": 3,
+      "markdown_sha256": "cac329d2e4a36ed0e4277c39902acf231c3cd58b94116023a454415dca355094"
+    }
+  },
+  "stripe_preflight": {
+    "official_account_get_status": 200,
+    "account_matches_private_ssot": true,
+    "country": "JP",
+    "default_currency": "jpy",
+    "charges_enabled": true,
+    "factory_products": 0,
+    "factory_prices": 0,
+    "production_runtime_key_matches_private_account": true
+  },
+  "effects": {
+    "production_migrations": 2,
+    "customer_checkouts": 0,
+    "customer_charges": 0,
+    "provider_generation": 0,
+    "instagram_connections": 0,
+    "instagram_posts": 0
+  },
+  "saas_complete": false,
+  "provider_preflight": {
+    "upload_post": {
+      "account_registered": true,
+      "api_key_official_get_status": 200,
+      "current_plan": "default",
+      "profile_limit": 2,
+      "profile_count": 0,
+      "empty_default_deleted_once": true,
+      "professional_checkout": {
+        "billing_interval": "month",
+        "monthly_usd": 50,
+        "profiles": 25,
+        "white_label": true,
+        "tax_usd": 0,
+        "due_today_usd": 50,
+        "paid": false
+      },
+      "saved_payment_method_verified": false
+    },
+    "generation_billing_sources_verified": false
+  }
 }
