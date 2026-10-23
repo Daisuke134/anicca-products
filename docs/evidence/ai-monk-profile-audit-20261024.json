@@ -1,0 +1,644 @@
+{
+  "schema_version": "anicca.ai-monk-profile-audit.v1",
+  "run_id": "ai-monk-profile-audit-20261024",
+  "owner_id": "root",
+  "scope": "67 known Instagram handles among69 pending directory candidates; existing included4 and excluded2 unchanged",
+  "coverage": {
+    "profile_visible": 63,
+    "unavailable": 2,
+    "profile_private_header_visible": 1,
+    "age_restricted": 1
+  },
+  "new_profile_sources": 67,
+  "new_follower_snapshots": 64,
+  "source_count_after_headers": 124,
+  "ai_disclosure_added": {
+    "account_id": "lead-instagram-maitreyun",
+    "status": "reported",
+    "independent_audit": false
+  },
+  "unresolved": [
+    {
+      "account_id": "sifuchen-california",
+      "reason": "Native handle unknown"
+    },
+    {
+      "account_id": "master-kaizen-tiktok",
+      "reason": "TikTok candidate outside the Instagram-header batch"
+    }
+  ],
+  "provider_credit_boundary": {
+    "provider": "vidIQ",
+    "credits_charged": 0,
+    "totalCredits": 0,
+    "retry": false
+  },
+  "private_evidence_directory": "/Users/anicca/.local/state/life-manager/ebook/evidence/ai-monk-database-profile-audit-20261024",
+  "external_mutations": 0,
+  "rows": [
+    {
+      "account_id": "lead-instagram-tempiovita",
+      "handle": "tempiovita",
+      "source_id": "lead-instagram-tempiovita-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Spanish",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-monjeshentao",
+      "handle": "monjeshentao",
+      "source_id": "lead-instagram-monjeshentao-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Spanish",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-monacochenn",
+      "handle": "monacochenn",
+      "source_id": "lead-instagram-monacochenn-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Italian",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-linchenhealing",
+      "handle": "linchenhealing",
+      "source_id": "lead-instagram-linchenhealing-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-jin-miaoo",
+      "handle": "jin.miaoo",
+      "source_id": "lead-instagram-jin-miaoo-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Polish",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-masteryunsage",
+      "handle": "masteryunsage",
+      "source_id": "lead-instagram-masteryunsage-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-monchmiao",
+      "handle": "monchmiao",
+      "source_id": "lead-instagram-monchmiao-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "German",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-maitre-ping-lin",
+      "handle": "maitre_ping.lin",
+      "source_id": "lead-instagram-maitre-ping-lin-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "French",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-lotusfamily1",
+      "handle": "lotusfamily1",
+      "source_id": "lead-instagram-lotusfamily1-ig-header-20261024",
+      "state": "unavailable",
+      "follower_snapshot_added": false,
+      "bio_language": null,
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-master-kaion",
+      "handle": "master_kaion",
+      "source_id": "lead-instagram-master-kaion-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-maestroyunkai",
+      "handle": "maestroyunkai",
+      "source_id": "lead-instagram-maestroyunkai-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Italian",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-ming-tao32",
+      "handle": "ming_tao32",
+      "source_id": "lead-instagram-ming-tao32-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-shen-dao1",
+      "handle": "shen.dao1",
+      "source_id": "lead-instagram-shen-dao1-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Russian",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-shin-hyun-official",
+      "handle": "shin_hyun_official",
+      "source_id": "lead-instagram-shin-hyun-official-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-tenzinremedios",
+      "handle": "tenzinremedios",
+      "source_id": "lead-instagram-tenzinremedios-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Spanish",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-mestreshentao",
+      "handle": "mestreshentao",
+      "source_id": "lead-instagram-mestreshentao-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Portuguese",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-mongedapaz",
+      "handle": "mongedapaz",
+      "source_id": "lead-instagram-mongedapaz-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Portuguese",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-masterlinghao",
+      "handle": "masterlinghao",
+      "source_id": "lead-instagram-masterlinghao-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-mestre-jin",
+      "handle": "mestre.jin",
+      "source_id": "lead-instagram-mestre-jin-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Portuguese",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-haku-shinn",
+      "handle": "haku.shinn",
+      "source_id": "lead-instagram-haku-shinn-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-monktashirok",
+      "handle": "monktashirok",
+      "source_id": "lead-instagram-monktashirok-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-monacogendun",
+      "handle": "monacogendun",
+      "source_id": "lead-instagram-monacogendun-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Italian",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-master-li-shen",
+      "handle": "master.li.shen",
+      "source_id": "lead-instagram-master-li-shen-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Russian",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-innerequelle",
+      "handle": "innerequelle",
+      "source_id": "lead-instagram-innerequelle-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "German",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-ken-lu-monk",
+      "handle": "ken.lu.monk",
+      "source_id": "lead-instagram-ken-lu-monk-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-yonchenhealing",
+      "handle": "yonchenhealing",
+      "source_id": "lead-instagram-yonchenhealing-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-babatenzin",
+      "handle": "babatenzin_",
+      "source_id": "lead-instagram-babatenzin-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-mongejinmiao",
+      "handle": "mongejinmiao",
+      "source_id": "lead-instagram-mongejinmiao-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Portuguese",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-its-yang-chen",
+      "handle": "its.yang.chen",
+      "source_id": "lead-instagram-its-yang-chen-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "French",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-masteryunshen",
+      "handle": "masteryunshen",
+      "source_id": "lead-instagram-masteryunshen-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-maitre-chen",
+      "handle": "maitre.chen",
+      "source_id": "lead-instagram-maitre-chen-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "French",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-monkcheen",
+      "handle": "monkcheen",
+      "source_id": "lead-instagram-monkcheen-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-deor-ie",
+      "handle": "deor.ie",
+      "source_id": "lead-instagram-deor-ie-ig-header-20261024",
+      "state": "profile_private_header_visible",
+      "follower_snapshot_added": true,
+      "bio_language": null,
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-monjaalma",
+      "handle": "monjaalma",
+      "source_id": "lead-instagram-monjaalma-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Portuguese",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-yunlobsang",
+      "handle": "yunlobsang",
+      "source_id": "lead-instagram-yunlobsang-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Spanish",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-mestremushen",
+      "handle": "mestremushen",
+      "source_id": "lead-instagram-mestremushen-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Portuguese",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-thezhenwu",
+      "handle": "thezhenwu",
+      "source_id": "lead-instagram-thezhenwu-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-maitrelidao",
+      "handle": "maitrelidao",
+      "source_id": "lead-instagram-maitrelidao-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "French",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-maestroananta",
+      "handle": "maestroananta",
+      "source_id": "lead-instagram-maestroananta-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Spanish",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-oravishen",
+      "handle": "oravishen",
+      "source_id": "lead-instagram-oravishen-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Portuguese",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-monjewu",
+      "handle": "monjewu",
+      "source_id": "lead-instagram-monjewu-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Spanish",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-monge-bento",
+      "handle": "monge.bento",
+      "source_id": "lead-instagram-monge-bento-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Portuguese",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-liangmaster4u",
+      "handle": "liangmaster4u",
+      "source_id": "lead-instagram-liangmaster4u-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-aristhestill",
+      "handle": "aristheStill",
+      "source_id": "lead-instagram-aristhestill-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-oldmonktenzin",
+      "handle": "oldmonktenzin",
+      "source_id": "lead-instagram-oldmonktenzin-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-thekaizenhealing",
+      "handle": "thekaizenhealing",
+      "source_id": "lead-instagram-thekaizenhealing-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-shentaoes",
+      "handle": "shentaoes",
+      "source_id": "lead-instagram-shentaoes-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Spanish",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-noalingpo-conseils",
+      "handle": "noalingpo.conseils",
+      "source_id": "lead-instagram-noalingpo-conseils-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "French",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-itsyangmuns",
+      "handle": "itsyangmuns",
+      "source_id": "lead-instagram-itsyangmuns-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-masterjiao",
+      "handle": "masterjiao",
+      "source_id": "lead-instagram-masterjiao-ig-header-20261024",
+      "state": "age_restricted",
+      "follower_snapshot_added": false,
+      "bio_language": null,
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-elmonjekai",
+      "handle": "elmonjekai",
+      "source_id": "lead-instagram-elmonjekai-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Spanish",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-zenmuun",
+      "handle": "zenmuun",
+      "source_id": "lead-instagram-zenmuun-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Spanish",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-kael-wisdom",
+      "handle": "kael.wisdom",
+      "source_id": "lead-instagram-kael-wisdom-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-monjechang",
+      "handle": "monjechang",
+      "source_id": "lead-instagram-monjechang-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": null,
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-maitrenoalingpo",
+      "handle": "maitrenoalingpo",
+      "source_id": "lead-instagram-maitrenoalingpo-ig-header-20261024",
+      "state": "unavailable",
+      "follower_snapshot_added": false,
+      "bio_language": null,
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-shenmuhealer",
+      "handle": "shenmuhealer",
+      "source_id": "lead-instagram-shenmuhealer-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-monge-zhen",
+      "handle": "monge.zhen",
+      "source_id": "lead-instagram-monge-zhen-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Portuguese",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-alte-weisheit",
+      "handle": "alte.weisheit",
+      "source_id": "lead-instagram-alte-weisheit-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "German",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-masteryunming",
+      "handle": "masteryunming",
+      "source_id": "lead-instagram-masteryunming-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-maitreyun",
+      "handle": "maitreyun_",
+      "source_id": "lead-instagram-maitreyun-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "French",
+      "ai_status": "reported"
+    },
+    {
+      "account_id": "lead-instagram-chenweihealing",
+      "handle": "chenweihealing",
+      "source_id": "lead-instagram-chenweihealing-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Portuguese",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-masterlianancient",
+      "handle": "masterlianancient",
+      "source_id": "lead-instagram-masterlianancient-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-monjeananda",
+      "handle": "monjeananda",
+      "source_id": "lead-instagram-monjeananda-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Spanish",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-monkshen",
+      "handle": "monkshen",
+      "source_id": "lead-instagram-monkshen-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-elmaestrolin",
+      "handle": "elmaestrolin",
+      "source_id": "lead-instagram-elmaestrolin-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "Spanish",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "lead-instagram-samuelreedcards",
+      "handle": "samuelreedcards",
+      "source_id": "lead-instagram-samuelreedcards-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    },
+    {
+      "account_id": "yangjun",
+      "handle": "monkyangjun",
+      "source_id": "yangjun-ig-header-20261024",
+      "state": "profile_visible",
+      "follower_snapshot_added": true,
+      "bio_language": "English",
+      "ai_status": "unverified"
+    }
+  ],
+  "review_correction": "Monje Chang language remains unknown: a display name and Spanish Amazon URL alone do not establish bio or spoken-video language."
+}
